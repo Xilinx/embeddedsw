@@ -43,7 +43,14 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
-
+* 1.10  MG     17/12/16 Fixed issue in function SetAudioChannels
+*                       Updated function XV_HdmiTxSs_SendAuxInfoframe
+* 1.2   yh     12/01/16 Check vtc existance before configuring it
+* 1.3   yh     15/01/16 Add 3D Support
+* 1.4   yh     20/01/16 Added remapper support
+* 1.5   yh     01/02/16 Added set_ppc api
+* 1.6   yh     01/02/16 Removed xil_print "Cable (dis)connected"
+* 1.7   yh     15/02/16 Added default value to XV_HdmiTxSs_ConfigRemapper
 * </pre>
 *
 ******************************************************************************/
@@ -67,33 +74,37 @@
  */
 typedef struct
 {
+  XGpio RemapperReset;
   XTmrCtr HdcpTimer;
   XHdcp1x Hdcp;
+  XV_axi4s_remap Remapper;
   XV_HdmiTx HdmiTx;
   XVtc Vtc;
 }XV_HdmiTxSs_SubCores;
 
 /**************************** Local Global ***********************************/
 XV_HdmiTxSs_SubCores XV_HdmiTxSs_SubCoreRepo[XPAR_XV_HDMITXSS_NUM_INSTANCES];
-				/**< Define Driver instance of all sub-core
+                /**< Define Driver instance of all sub-core
                                     included in the design */
 
+XV_HdmiTx_VSIF VSIF;
 
 /************************** Function Prototypes ******************************/
 static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr,
-	u16 DevId);
+    u16 DevId);
 static XV_HdmiTxSs_SubCores *XV_HdmiTxSs_GetSubSysStruct(void *SubCorePtr);
 static void XV_HdmiTxSs_WaitUs(XV_HdmiTxSs *InstancePtr, u32 MicroSeconds);
 static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr);
 static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr);
 static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTxPtr);
 static void XV_HdmiTxSs_SendGeneralControlPacket(XV_HdmiTx *HdmiTxPtr);
+static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTxPtr);
 static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef);
 static void XV_HdmiTxSs_VsCallback(void *CallbackRef);
 static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef);
 static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef);
 static u32 XV_HdmiTxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
-	u32 ClockFrequency);
+    u32 ClockFrequency);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Definition ******************************/
@@ -137,27 +148,27 @@ void XV_HdmiTxSs_ReportCoreInfo(XV_HdmiTxSs *InstancePtr)
  * This function installs a custom delay/sleep function to be used by the XV_HdmiTxSs
  * driver.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item (microseconds to delay) that
- *		will be passed to the custom sleep/delay function when it is
- *		invoked.
+ * @param   InstancePtr is a pointer to the XDptx instance.
+ * @param   CallbackFunc is the address to the callback function.
+ * @param   CallbackRef is the user data item (microseconds to delay) that
+ *      will be passed to the custom sleep/delay function when it is
+ *      invoked.
  *
- * @return	None.
+ * @return  None.
  *
- * @note	None.
+ * @note    None.
  *
 *******************************************************************************/
 void XV_HdmiTxSs_SetUserTimerHandler(XV_HdmiTxSs *InstancePtr,
-			XVidC_DelayHandler CallbackFunc, void *CallbackRef)
+            XVidC_DelayHandler CallbackFunc, void *CallbackRef)
 {
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
+    /* Verify arguments. */
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(CallbackFunc != NULL);
+    Xil_AssertVoid(CallbackRef != NULL);
 
-	InstancePtr->UserTimerWaitUs = CallbackFunc;
-	InstancePtr->UserTimerPtr = CallbackRef;
+    InstancePtr->UserTimerWaitUs = CallbackFunc;
+    InstancePtr->UserTimerPtr = CallbackRef;
 }
 
 /******************************************************************************/
@@ -171,38 +182,38 @@ void XV_HdmiTxSs_SetUserTimerHandler(XV_HdmiTxSs *InstancePtr,
  * to by InstancePtr->UserTimerWaitUs, which may have better accuracy if a
  * hardware timer is used.
  *
- * @param	InstancePtr is a pointer to the XDptx instance.
- * @param	MicroSeconds is the number of microseconds to delay/sleep for.
+ * @param   InstancePtr is a pointer to the XDptx instance.
+ * @param   MicroSeconds is the number of microseconds to delay/sleep for.
  *
- * @return	None.
+ * @return  None.
  *
- * @note	None.
+ * @note    None.
  *
 *******************************************************************************/
 void XV_HdmiTxSs_WaitUs(XV_HdmiTxSs *InstancePtr, u32 MicroSeconds)
 {
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+    /* Verify arguments. */
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	if (MicroSeconds == 0) {
-		return;
-	}
+    if (MicroSeconds == 0) {
+        return;
+    }
 
 #if defined(__MICROBLAZE__)
-	if (InstancePtr->UserTimerWaitUs != NULL) {
-		/* Use the timer handler specified by the user for better
-		 * accuracy. */
-		InstancePtr->UserTimerWaitUs(InstancePtr, MicroSeconds);
-	}
-	else {
-		/* MicroBlaze sleep only has millisecond accuracy. Round up. */
-		u32 MilliSeconds = (MicroSeconds + 999) / 1000;
-		MB_Sleep(MilliSeconds);
-	}
+    if (InstancePtr->UserTimerWaitUs != NULL) {
+        /* Use the timer handler specified by the user for better
+         * accuracy. */
+        InstancePtr->UserTimerWaitUs(InstancePtr, MicroSeconds);
+    }
+    else {
+        /* MicroBlaze sleep only has millisecond accuracy. Round up. */
+        u32 MilliSeconds = (MicroSeconds + 999) / 1000;
+        MB_Sleep(MilliSeconds);
+    }
 #elif defined(__arm__)
-	/* Wait the requested amount of time. */
-	usleep(MicroSeconds);
+    /* Wait the requested amount of time. */
+    usleep(MicroSeconds);
 #endif
 }
 
@@ -236,7 +247,7 @@ void XV_HdmiTxSs_WaitUs(XV_HdmiTxSs *InstancePtr, u32 MicroSeconds)
  *****************************************************************************/
 void XV_HdmiTxSS_HdmiTxIntrHandler(XV_HdmiTxSs *InstancePtr)
 {
-	XV_HdmiTx_IntrHandler(InstancePtr->HdmiTxPtr);
+    XV_HdmiTx_IntrHandler(InstancePtr->HdmiTxPtr);
 }
 
 /*****************************************************************************/
@@ -248,7 +259,7 @@ void XV_HdmiTxSS_HdmiTxIntrHandler(XV_HdmiTxSs *InstancePtr)
  *****************************************************************************/
 void XV_HdmiTxSS_HdcpIntrHandler(XV_HdmiTxSs *InstancePtr)
 {
-	XHdcp1x_CipherIntrHandler(InstancePtr->HdcpPtr);
+    XHdcp1x_CipherIntrHandler(InstancePtr->HdcpPtr);
 }
 
 /*****************************************************************************/
@@ -260,7 +271,7 @@ void XV_HdmiTxSS_HdcpIntrHandler(XV_HdmiTxSs *InstancePtr)
  *****************************************************************************/
 void XV_HdmiTxSS_HdcpTimerIntrHandler(XV_HdmiTxSs *InstancePtr)
 {
-	XTmrCtr_InterruptHandler(InstancePtr->HdcpTimerPtr);
+    XTmrCtr_InterruptHandler(InstancePtr->HdcpTimerPtr);
 }
 
 /*****************************************************************************/
@@ -275,32 +286,31 @@ void XV_HdmiTxSS_HdcpTimerIntrHandler(XV_HdmiTxSs *InstancePtr)
 static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = InstancePtr;
-  int Status;
 
   /** Register HDMI Tx ISR */
   if (HdmiTxSsPtr->HdmiTxPtr) {
-	/*
-	 * Register call back for Tx Core Interrupts.
-	 */
-	XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
-	                      XV_HDMITX_HANDLER_CONNECT,
-	                      XV_HdmiTxSs_ConnectCallback,
-			              InstancePtr);
+    /*
+     * Register call back for Tx Core Interrupts.
+     */
+    XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
+                          XV_HDMITX_HANDLER_CONNECT,
+                          XV_HdmiTxSs_ConnectCallback,
+                          InstancePtr);
 
-	XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
-			              XV_HDMITX_HANDLER_VS,
-			              XV_HdmiTxSs_VsCallback,
-			              InstancePtr);
+    XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
+                          XV_HDMITX_HANDLER_VS,
+                          XV_HdmiTxSs_VsCallback,
+                          InstancePtr);
 
-	XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
-			              XV_HDMITX_HANDLER_STREAM_UP,
-			              XV_HdmiTxSs_StreamUpCallback,
-			              InstancePtr);
+    XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
+                          XV_HDMITX_HANDLER_STREAM_UP,
+                          XV_HdmiTxSs_StreamUpCallback,
+                          InstancePtr);
 
-	XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
-			              XV_HDMITX_HANDLER_STREAM_DOWN,
-			              XV_HdmiTxSs_StreamDownCallback,
-			              InstancePtr);
+    XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
+                          XV_HDMITX_HANDLER_STREAM_DOWN,
+                          XV_HdmiTxSs_StreamDownCallback,
+                          InstancePtr);
   }
 
   /** Register HDCP TX Timer ISR */
@@ -336,6 +346,10 @@ static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr, u16 DevId)
                         ? (&XV_HdmiTxSs_SubCoreRepo[DevId].Hdcp) : NULL);
   HdmiTxSsPtr->HdcpTimerPtr  = ((HdmiTxSsPtr->Config.HdcpTimer.IsPresent) \
                         ? (&XV_HdmiTxSs_SubCoreRepo[DevId].HdcpTimer) : NULL);
+  HdmiTxSsPtr->RemapperResetPtr  = ((HdmiTxSsPtr->Config.RemapperReset.IsPresent) \
+                        ? (&XV_HdmiTxSs_SubCoreRepo[DevId].RemapperReset) : NULL);
+  HdmiTxSsPtr->RemapperPtr  = ((HdmiTxSsPtr->Config.Remapper.IsPresent) \
+                        ? (&XV_HdmiTxSs_SubCoreRepo[DevId].Remapper) : NULL);
 }
 
 /*****************************************************************************/
@@ -349,26 +363,34 @@ static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr, u16 DevId)
 ******************************************************************************/
 static XV_HdmiTxSs_SubCores *XV_HdmiTxSs_GetSubSysStruct(void *SubCorePtr)
 {
-	int i;
+    int i;
 
-	for (i=0; i<XPAR_XV_HDMITXSS_NUM_INSTANCES;i++){
-		if (&XV_HdmiTxSs_SubCoreRepo[i].HdmiTx == SubCorePtr){
-			return &XV_HdmiTxSs_SubCoreRepo[i];
-		}
+    for (i=0; i<XPAR_XV_HDMITXSS_NUM_INSTANCES;i++){
+        if (&XV_HdmiTxSs_SubCoreRepo[i].HdmiTx == SubCorePtr){
+            return &XV_HdmiTxSs_SubCoreRepo[i];
+        }
 
-		if (&XV_HdmiTxSs_SubCoreRepo[i].Vtc == SubCorePtr){
-			return &XV_HdmiTxSs_SubCoreRepo[i];
-		}
+        if (&XV_HdmiTxSs_SubCoreRepo[i].Vtc == SubCorePtr){
+            return &XV_HdmiTxSs_SubCoreRepo[i];
+        }
 
-		if (&XV_HdmiTxSs_SubCoreRepo[i].Hdcp == SubCorePtr){
-			return &XV_HdmiTxSs_SubCoreRepo[i];
-		}
+        if (&XV_HdmiTxSs_SubCoreRepo[i].Hdcp == SubCorePtr){
+            return &XV_HdmiTxSs_SubCoreRepo[i];
+        }
 
-		if (&XV_HdmiTxSs_SubCoreRepo[i].HdcpTimer == SubCorePtr){
-			return &XV_HdmiTxSs_SubCoreRepo[i];
-		}
-	}
-	return (NULL);
+        if (&XV_HdmiTxSs_SubCoreRepo[i].HdcpTimer == SubCorePtr){
+            return &XV_HdmiTxSs_SubCoreRepo[i];
+        }
+
+        if (&XV_HdmiTxSs_SubCoreRepo[i].RemapperReset == SubCorePtr){
+            return &XV_HdmiTxSs_SubCoreRepo[i];
+        }
+
+        if (&XV_HdmiTxSs_SubCoreRepo[i].Remapper == SubCorePtr){
+            return &XV_HdmiTxSs_SubCoreRepo[i];
+        }
+    }
+    return (NULL);
 }
 
 /*****************************************************************************/
@@ -390,7 +412,7 @@ static XV_HdmiTxSs_SubCores *XV_HdmiTxSs_GetSubSysStruct(void *SubCorePtr)
 *
 ******************************************************************************/
 int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
-	XV_HdmiTxSs_Config *CfgPtr,
+    XV_HdmiTxSs_Config *CfgPtr,
     u32 EffectiveAddr)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = InstancePtr;
@@ -402,7 +424,7 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
 
   /* Setup the instance */
   memcpy((void *)&(HdmiTxSsPtr->Config), (const void *)CfgPtr,
-	sizeof(XV_HdmiTxSs_Config));
+    sizeof(XV_HdmiTxSs_Config));
   HdmiTxSsPtr->Config.BaseAddress = EffectiveAddr;
 
   /* Determine sub-cores included in the provided instance of subsystem */
@@ -410,25 +432,37 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
 
   /* Initialize all included sub_cores */
   if (HdmiTxSsPtr->HdcpTimerPtr) {
-	if (XV_HdmiTxSs_SubcoreInitHdcpTimer(HdmiTxSsPtr) != XST_SUCCESS){
+    if (XV_HdmiTxSs_SubcoreInitHdcpTimer(HdmiTxSsPtr) != XST_SUCCESS){
       return(XST_FAILURE);
     }
   }
 
   if (HdmiTxSsPtr->HdcpPtr) {
-	if (XV_HdmiTxSs_SubcoreInitHdcp(HdmiTxSsPtr) != XST_SUCCESS){
-	  return(XST_FAILURE);
-	}
+    if (XV_HdmiTxSs_SubcoreInitHdcp(HdmiTxSsPtr) != XST_SUCCESS){
+      return(XST_FAILURE);
+    }
   }
 
   if (HdmiTxSsPtr->HdmiTxPtr) {
-	if (XV_HdmiTxSs_SubcoreInitHdmiTx(HdmiTxSsPtr) != XST_SUCCESS) {
+    if (XV_HdmiTxSs_SubcoreInitHdmiTx(HdmiTxSsPtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
   if (HdmiTxSsPtr->VtcPtr) {
-	if (XV_HdmiTxSs_SubcoreInitVtc(HdmiTxSsPtr) != XST_SUCCESS) {
+    if (XV_HdmiTxSs_SubcoreInitVtc(HdmiTxSsPtr) != XST_SUCCESS) {
+      return(XST_FAILURE);
+    }
+  }
+
+  if (HdmiTxSsPtr->RemapperResetPtr) {
+    if (XV_HdmiTxSs_SubcoreInitRemapperReset(HdmiTxSsPtr) != XST_SUCCESS) {
+      return(XST_FAILURE);
+    }
+  }
+
+  if (HdmiTxSsPtr->RemapperPtr) {
+    if (XV_HdmiTxSs_SubcoreInitRemapper(HdmiTxSsPtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
@@ -485,8 +519,10 @@ void XV_HdmiTxSs_Stop(XV_HdmiTxSs *InstancePtr)
 
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Stop HDMI TX Subsystem.... \r\n");
 
-  /* Disable VTC */
-  XVtc_DisableGenerator(InstancePtr->VtcPtr);
+  if (InstancePtr->VtcPtr) {
+    /* Disable VTC */
+    XVtc_DisableGenerator(InstancePtr->VtcPtr);
+  }
 }
 
 /*****************************************************************************/
@@ -507,7 +543,9 @@ void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr)
 
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Reset HDMI TX Subsystem.... \r\n");
 
-  XVtc_Reset(InstancePtr->VtcPtr);
+  if (InstancePtr->VtcPtr) {
+    XVtc_Reset(InstancePtr->VtcPtr);
+  }
 }
 
 /*****************************************************************************/
@@ -575,36 +613,36 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
 
   VideoTiming.Interlaced = HdmiTxPtr->Stream.Video.IsInterlaced;
 
-	/* 4 pixels per clock */
-	if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
-	  VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
-	  VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/4;
-	  VideoTiming.HBackPorch = VideoTiming.HBackPorch/4;
-	  VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/4;
-	}
+    /* 4 pixels per clock */
+    if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
+      VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/4;
+      VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/4;
+      VideoTiming.HBackPorch = VideoTiming.HBackPorch/4;
+      VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/4;
+    }
 
-	/* 2 pixels per clock */
-	else if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
-	  VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
-	  VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
-	  VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
-	  VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
-	}
+    /* 2 pixels per clock */
+    else if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_2) {
+      VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
+      VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
+      VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
+      VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
+    }
 
-	/* 1 pixels per clock */
-	else {
-	  VideoTiming.HActiveVideo = VideoTiming.HActiveVideo;
-	  VideoTiming.HFrontPorch = VideoTiming.HFrontPorch;
-	  VideoTiming.HBackPorch = VideoTiming.HBackPorch;
-	  VideoTiming.HSyncWidth = VideoTiming.HSyncWidth;
-	}
+    /* 1 pixels per clock */
+    else {
+      VideoTiming.HActiveVideo = VideoTiming.HActiveVideo;
+      VideoTiming.HFrontPorch = VideoTiming.HFrontPorch;
+      VideoTiming.HBackPorch = VideoTiming.HBackPorch;
+      VideoTiming.HSyncWidth = VideoTiming.HSyncWidth;
+    }
 
     /* For YUV420 the line width is double there for double the blanking */
     if (HdmiTxPtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
-	  VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
-	  VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
-	  VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
-	  VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
+      VideoTiming.HActiveVideo = VideoTiming.HActiveVideo/2;
+      VideoTiming.HFrontPorch = VideoTiming.HFrontPorch/2;
+      VideoTiming.HBackPorch = VideoTiming.HBackPorch/2;
+      VideoTiming.HSyncWidth = VideoTiming.HSyncWidth/2;
     }
 
 /** When compensating the vtc horizontal timing parameters for the pixel mode
@@ -618,14 +656,14 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
 * Calculate hdmi tx horizontal blanking */
 
   HdmiTx_Hblank = HdmiTxPtr->Stream.Video.Timing.HFrontPorch +
-	HdmiTxPtr->Stream.Video.Timing.HSyncWidth +
-	HdmiTxPtr->Stream.Video.Timing.HBackPorch;
+    HdmiTxPtr->Stream.Video.Timing.HSyncWidth +
+    HdmiTxPtr->Stream.Video.Timing.HBackPorch;
 
   do {
     // Calculate vtc horizontal blanking
     Vtc_Hblank = VideoTiming.HFrontPorch +
-		VideoTiming.HBackPorch +
-		VideoTiming.HSyncWidth;
+        VideoTiming.HBackPorch +
+        VideoTiming.HSyncWidth;
 
     // Quad pixel mode
     if (HdmiTxPtr->Stream.Video.PixPerClk == XVIDC_PPC_4) {
@@ -637,14 +675,14 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
       Vtc_Hblank *= 2;
     }
 
-	// Single pixel mode
+    // Single pixel mode
     else {
       //Vtc_Hblank *= 1;
     }
 
     /* For YUV420 the line width is double there for double the blanking */
     if (HdmiTxPtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
-	    Vtc_Hblank *= 2;
+        Vtc_Hblank *= 2;
     }
 
     // If the horizontal total blanking differs,
@@ -656,11 +694,11 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
   } while (Vtc_Hblank < HdmiTx_Hblank);
 
   if (Vtc_Hblank != HdmiTx_Hblank) {
-	  xil_printf("Error! Current format with total Hblank (%d) cannot \r\n",
-				HdmiTx_Hblank);
-	  xil_printf("       be transmitted with pixels per clock = %d\r\n",
-				HdmiTxPtr->Stream.Video.PixPerClk);
-	  return (XST_FAILURE);
+      xil_printf("Error! Current format with total Hblank (%d) cannot \r\n",
+                HdmiTx_Hblank);
+      xil_printf("       be transmitted with pixels per clock = %d\r\n",
+                HdmiTxPtr->Stream.Video.PixPerClk);
+      return (XST_FAILURE);
   }
 
   XVtc_SetGeneratorTiming(XVtcPtr, &VideoTiming);
@@ -724,18 +762,18 @@ void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
   // Is the cable connected?
   if (XV_HdmiTx_IsStreamConnected(HdmiTxSsPtr->HdmiTxPtr)) {
     HdmiTxSsPtr->IsStreamConnected = (TRUE);
-	xil_printf("TX cable is connected\n\r");
+    //xil_printf("TX cable is connected\n\r");
   }
 
   // TX cable is disconnected
   else {
     HdmiTxSsPtr->IsStreamConnected = (FALSE);
-    xil_printf("TX cable is disconnected\n\r");
+    //xil_printf("TX cable is disconnected\n\r");
   }
 
   // Check if user callback has been registered
   if (HdmiTxSsPtr->ConnectCallback) {
-	  HdmiTxSsPtr->ConnectCallback(HdmiTxSsPtr->ConnectRef);
+      HdmiTxSsPtr->ConnectCallback(HdmiTxSsPtr->ConnectRef);
   }
 
 }
@@ -762,9 +800,12 @@ void XV_HdmiTxSs_VsCallback(void *CallbackRef)
   // General control packet
   XV_HdmiTxSs_SendGeneralControlPacket(HdmiTxSsPtr->HdmiTxPtr);
 
+  // Vendor-Specific InfoFrame
+  XV_HdmiTxSs_SendVSInfoframe(HdmiTxSsPtr->HdmiTxPtr);
+
   // Check if user callback has been registered
   if (HdmiTxSsPtr->VsCallback) {
-	  HdmiTxSsPtr->VsCallback(HdmiTxSsPtr->VsRef);
+      HdmiTxSsPtr->VsCallback(HdmiTxSsPtr->VsRef);
   }
 }
 
@@ -821,7 +862,17 @@ static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTx)
 
   HdmiTx->Aux.Data.Byte[2] = 0;
   HdmiTx->Aux.Data.Byte[3] = 0;
-  HdmiTx->Aux.Data.Byte[4] = HdmiTx->Stream.Vic;
+
+  if (!XVidC_IsStream3D(&HdmiTx->Stream.Video) &&
+      (HdmiTx->Stream.Video.VmId == XVIDC_VM_3840x2160_24_P ||
+       HdmiTx->Stream.Video.VmId == XVIDC_VM_3840x2160_25_P ||
+       HdmiTx->Stream.Video.VmId == XVIDC_VM_3840x2160_30_P ||
+       HdmiTx->Stream.Video.VmId == XVIDC_VM_4096x2160_24_P)) {
+    HdmiTx->Aux.Data.Byte[4] = 0;
+  }
+  else {
+      HdmiTx->Aux.Data.Byte[4] = HdmiTx->Stream.Vic;
+  }
 
   for (Index = 5; Index < 32; Index++) {
     HdmiTx->Aux.Data.Byte[Index] = 0;
@@ -972,6 +1023,61 @@ static void XV_HdmiTxSs_SendGeneralControlPacket(XV_HdmiTx *HdmiTx)
 /*****************************************************************************/
 /**
 *
+* This function sends the Vendor Specific Info Frame.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTx)
+{
+    VSIF.Version = 0x1;
+    VSIF.IEEE_ID = 0xC03;
+
+    if (XVidC_IsStream3D(&HdmiTx->Stream.Video)) {
+        VSIF.Format = XV_HDMITX_VSIF_VF_3D;
+        VSIF.Info_3D.Stream = HdmiTx->Stream.Video.Info_3D;
+        VSIF.Info_3D.MetaData.IsPresent = FALSE;
+    }
+    else if (HdmiTx->Stream.Video.VmId == XVIDC_VM_3840x2160_24_P ||
+             HdmiTx->Stream.Video.VmId == XVIDC_VM_3840x2160_25_P ||
+             HdmiTx->Stream.Video.VmId == XVIDC_VM_3840x2160_30_P ||
+             HdmiTx->Stream.Video.VmId == XVIDC_VM_4096x2160_24_P) {
+        VSIF.Format = XV_HDMITX_VSIF_VF_EXTRES;
+
+        /* Set HDMI VIC */
+        switch(HdmiTx->Stream.Video.VmId) {
+            case XVIDC_VM_4096x2160_24_P :
+                VSIF.HDMI_VIC = 4;
+                break;
+            case XVIDC_VM_3840x2160_24_P :
+                VSIF.HDMI_VIC = 3;
+                break;
+            case XVIDC_VM_3840x2160_25_P :
+                VSIF.HDMI_VIC = 2;
+                break;
+            case XVIDC_VM_3840x2160_30_P :
+                VSIF.HDMI_VIC = 1;
+                break;
+            default :
+                break;
+        }
+    }
+    else {
+        VSIF.Format = XV_HDMITX_VSIF_VF_NOINFO;
+    }
+
+    XV_HdmiTx_VSIF_GeneratePacket(&VSIF,(XV_HdmiTx_Aux *)&HdmiTx->Aux);
+
+    XV_HdmiTx_AuxSend(HdmiTx);
+}
+
+/*****************************************************************************/
+/**
+*
 * This function is called when the TX stream is up.
 *
 * @param  None.
@@ -987,7 +1093,7 @@ void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
 
   // Check if user callback has been registered
   if (HdmiTxSsPtr->StreamUpCallback) {
-	  HdmiTxSsPtr->StreamUpCallback(HdmiTxSsPtr->StreamUpRef);
+      HdmiTxSsPtr->StreamUpCallback(HdmiTxSsPtr->StreamUpRef);
   }
 
   /* Set TX sample rate */
@@ -996,21 +1102,31 @@ void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
   /* Release HDMI TX reset */
   XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, FALSE);
 
-  /* Setup VTC */
-  XV_HdmiTxSs_VtcSetup(HdmiTxSsPtr->VtcPtr, HdmiTxSsPtr->HdmiTxPtr);
+  if (HdmiTxSsPtr->VtcPtr) {
+    /* Setup VTC */
+    XV_HdmiTxSs_VtcSetup(HdmiTxSsPtr->VtcPtr, HdmiTxSsPtr->HdmiTxPtr);
+  }
 
   if (HdmiTxSsPtr->AudioEnabled) {
-	  /* HDMI TX unmute audio */
-	  HdmiTxSsPtr->AudioMute = (FALSE);
-	  XV_HdmiTx_AudioUnmute(HdmiTxSsPtr->HdmiTxPtr);
+      /* HDMI TX unmute audio */
+      HdmiTxSsPtr->AudioMute = (FALSE);
+      XV_HdmiTx_AudioUnmute(HdmiTxSsPtr->HdmiTxPtr);
   }
-
 
   if (HdmiTxSsPtr->HdcpPtr) {
-	  /* Set the TX HDCP state to up */
-	  XHdcp1x_SetPhysicalState(HdmiTxSsPtr->HdcpPtr, TRUE);
+      /* Set the TX HDCP state to up */
+      XHdcp1x_SetPhysicalState(HdmiTxSsPtr->HdcpPtr, TRUE);
   }
 
+  if (HdmiTxSsPtr->RemapperResetPtr) {
+      /* Toggle AXI_GPIO to Reset Remapper */
+      XV_HdmiTxSs_ResetRemapper(HdmiTxSsPtr);
+  }
+
+  if (HdmiTxSsPtr->RemapperPtr) {
+      /* Configure Remapper according to HW setting and video format */
+      XV_HdmiTxSs_ConfigRemapper(HdmiTxSsPtr);
+  }
 }
 
 /*****************************************************************************/
@@ -1033,13 +1149,13 @@ void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
   XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, TRUE);
 
   if (HdmiTxSsPtr->HdcpPtr) {
-	  /* Set the TX HDCP state to down */
-	  XHdcp1x_SetPhysicalState(HdmiTxSsPtr->HdcpPtr, FALSE);
+      /* Set the TX HDCP state to down */
+      XHdcp1x_SetPhysicalState(HdmiTxSsPtr->HdcpPtr, FALSE);
   }
 
   // Check if user callback has been registered
   if (HdmiTxSsPtr->StreamDownCallback) {
-	  HdmiTxSsPtr->StreamDownCallback(HdmiTxSsPtr->StreamDownRef);
+      HdmiTxSsPtr->StreamDownCallback(HdmiTxSsPtr->StreamDownRef);
   }
 
 }
@@ -1059,68 +1175,68 @@ void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 * (XV_HDMITXSS_HANDLER_STREAM_UP)     SreamUpCallback
 * </pre>
 *
-* @param	InstancePtr is a pointer to the HDMI TX Subsystem instance.
-* @param	HandlerType specifies the type of handler.
-* @param	CallbackFunc is the address of the callback function.
-* @param	CallbackRef is a user data item that will be passed to the
-*		callback function when it is invoked.
+* @param    InstancePtr is a pointer to the HDMI TX Subsystem instance.
+* @param    HandlerType specifies the type of handler.
+* @param    CallbackFunc is the address of the callback function.
+* @param    CallbackRef is a user data item that will be passed to the
+*       callback function when it is invoked.
 *
 * @return
-*		- XST_SUCCESS if callback function installed successfully.
-*		- XST_INVALID_PARAM when HandlerType is invalid.
+*       - XST_SUCCESS if callback function installed successfully.
+*       - XST_INVALID_PARAM when HandlerType is invalid.
 *
-* @note		Invoking this function for a handler that already has been
-*		installed replaces it with the new handler.
+* @note     Invoking this function for a handler that already has been
+*       installed replaces it with the new handler.
 *
 ******************************************************************************/
 int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
-	u32 HandlerType,
-	void *CallbackFunc,
-	void *CallbackRef)
+    u32 HandlerType,
+    void *CallbackFunc,
+    void *CallbackRef)
 {
-	u32 Status;
+    u32 Status;
 
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(HandlerType >= (XV_HDMITXSS_HANDLER_CONNECT));
-	Xil_AssertNonvoid(CallbackFunc != NULL);
-	Xil_AssertNonvoid(CallbackRef != NULL);
+    /* Verify arguments. */
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(HandlerType >= (XV_HDMITXSS_HANDLER_CONNECT));
+    Xil_AssertNonvoid(CallbackFunc != NULL);
+    Xil_AssertNonvoid(CallbackRef != NULL);
 
-	/* Check for handler type */
-	switch (HandlerType) {
-		case (XV_HDMITXSS_HANDLER_CONNECT):
-			InstancePtr->ConnectCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
-			InstancePtr->ConnectRef = CallbackRef;
-			Status = (XST_SUCCESS);
-			break;
+    /* Check for handler type */
+    switch (HandlerType) {
+        case (XV_HDMITXSS_HANDLER_CONNECT):
+            InstancePtr->ConnectCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
+            InstancePtr->ConnectRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
 
-		case (XV_HDMITXSS_HANDLER_VS):
-			InstancePtr->VsCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
-			InstancePtr->VsRef = CallbackRef;
-			Status = (XST_SUCCESS);
-			break;
+        case (XV_HDMITXSS_HANDLER_VS):
+            InstancePtr->VsCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
+            InstancePtr->VsRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
 
-		// Stream down
-		case (XV_HDMITXSS_HANDLER_STREAM_DOWN):
-			InstancePtr->StreamDownCallback =
-				(XV_HdmiTxSs_Callback)CallbackFunc;
-			InstancePtr->StreamDownRef = CallbackRef;
-			Status = (XST_SUCCESS);
-			break;
+        // Stream down
+        case (XV_HDMITXSS_HANDLER_STREAM_DOWN):
+            InstancePtr->StreamDownCallback =
+                (XV_HdmiTxSs_Callback)CallbackFunc;
+            InstancePtr->StreamDownRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
 
-		// Stream up
-		case (XV_HDMITXSS_HANDLER_STREAM_UP):
-			InstancePtr->StreamUpCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
-			InstancePtr->StreamUpRef = CallbackRef;
-			Status = (XST_SUCCESS);
-			break;
+        // Stream up
+        case (XV_HDMITXSS_HANDLER_STREAM_UP):
+            InstancePtr->StreamUpCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
+            InstancePtr->StreamUpRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
 
-		default:
-			Status = (XST_INVALID_PARAM);
-			break;
-	}
+        default:
+            Status = (XST_INVALID_PARAM);
+            break;
+    }
 
-	return Status;
+    return Status;
 }
 
 /*****************************************************************************/
@@ -1145,13 +1261,13 @@ int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *Buffer)
 
       *Buffer = 0x00;   // Offset zero
       Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x50, 1, Buffer,
-		(FALSE));
+        (FALSE));
 
       // Check if write was successful
       if (Status == (XST_SUCCESS)) {
         // Read edid
         Status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr, 0x50, 256, Buffer,
-			(TRUE));
+            (TRUE));
       }
     }
 
@@ -1270,56 +1386,56 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 
   if (Aux == (NULL)) {
       /* Header, Packet type */
-	  InstancePtr->HdmiTxPtr->Aux.Header.Byte[0] = 0x84;
+      InstancePtr->HdmiTxPtr->Aux.Header.Byte[0] = 0x84;
 
-	  /* Version */
-	  InstancePtr->HdmiTxPtr->Aux.Header.Byte[1] = 0x01;
+      /* Version */
+      InstancePtr->HdmiTxPtr->Aux.Header.Byte[1] = 0x01;
 
-	  /* Length */
-	  InstancePtr->HdmiTxPtr->Aux.Header.Byte[2] = 10;
+      /* Length */
+      InstancePtr->HdmiTxPtr->Aux.Header.Byte[2] = 10;
 
-	  /* Checksum (this will be calculated by the HDMI TX IP) */
-	  InstancePtr->HdmiTxPtr->Aux.Header.Byte[3] = 0;
+      /* Checksum (this will be calculated by the HDMI TX IP) */
+      InstancePtr->HdmiTxPtr->Aux.Header.Byte[3] = 0;
 
-	  /* 2 Channel count. Audio coding type refer to stream */
-	  InstancePtr->HdmiTxPtr->Aux.Data.Byte[1] = 0x1;
+      /* 2 Channel count. Audio coding type refer to stream */
+      InstancePtr->HdmiTxPtr->Aux.Data.Byte[1] = 0x1;
 
-	  for (Index = 2; Index < 32; Index++) {
-		InstancePtr->HdmiTxPtr->Aux.Data.Byte[Index] = 0;
-	  }
+      for (Index = 2; Index < 32; Index++) {
+        InstancePtr->HdmiTxPtr->Aux.Data.Byte[Index] = 0;
+      }
 
-	  /* Calculate AVI infoframe checksum */
-	  Crc = 0;
+      /* Calculate AVI infoframe checksum */
+      Crc = 0;
 
-	  /* Header */
-	  for (Index = 0; Index < 3; Index++) {
-		Crc += InstancePtr->HdmiTxPtr->Aux.Header.Byte[Index];
-	  }
+      /* Header */
+      for (Index = 0; Index < 3; Index++) {
+        Crc += InstancePtr->HdmiTxPtr->Aux.Header.Byte[Index];
+      }
 
-	  /* Data */
-	  for (Index = 1; Index < 5; Index++) {
-		Crc += InstancePtr->HdmiTxPtr->Aux.Data.Byte[Index];
-	  }
+      /* Data */
+      for (Index = 1; Index < 5; Index++) {
+        Crc += InstancePtr->HdmiTxPtr->Aux.Data.Byte[Index];
+      }
 
-	  Crc = 256 - Crc;
-	  InstancePtr->HdmiTxPtr->Aux.Data.Byte[0] = Crc;
+      Crc = 256 - Crc;
+      InstancePtr->HdmiTxPtr->Aux.Data.Byte[0] = Crc;
 
-	  XV_HdmiTx_AuxSend(InstancePtr->HdmiTxPtr);
+      XV_HdmiTx_AuxSend(InstancePtr->HdmiTxPtr);
 
   }
 
   else {
-	  // Copy Audio Infoframe
-	  if (InstancePtr->HdmiTxPtr->Aux.Header.Byte[0] == 0x84) {
-		// Header
-		InstancePtr->HdmiTxPtr->Aux.Header.Data = tx_aux->Header.Data;
+      // Copy Audio Infoframe
+      if (tx_aux->Header.Byte[0] == 0x84) {
+        // Header
+        InstancePtr->HdmiTxPtr->Aux.Header.Data = tx_aux->Header.Data;
 
-		// Data
-		for (Index = 0; Index < 8; Index++) {
-		  InstancePtr->HdmiTxPtr->Aux.Data.Data[Index] =
-			tx_aux->Data.Data[Index];
-		}
-	  }
+        // Data
+        for (Index = 0; Index < 8; Index++) {
+          InstancePtr->HdmiTxPtr->Aux.Data.Data[Index] =
+            tx_aux->Data.Data[Index];
+        }
+      }
   }
 
   /* Send packet */
@@ -1341,7 +1457,8 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 ******************************************************************************/
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels)
 {
-	InstancePtr->AudioChannels = AudioChannels;
+    InstancePtr->AudioChannels = AudioChannels;
+    XV_HdmiTx_SetAudioChannels(InstancePtr->HdmiTxPtr, AudioChannels);
 }
 
 /*****************************************************************************/
@@ -1380,27 +1497,27 @@ void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable)
 *
 ******************************************************************************/
 u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
-		XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat,
-		XVidC_ColorDepth Bpc)
+        XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat,
+        XVidC_ColorDepth Bpc, XVidC_3DInfo *Info3D)
 {
   u32 TmdsClock = 0;
   u32 Loop;
   u8 ReachedEnd = 0;
 
   if (VideoMode < XVIDC_VM_NUM_SUPPORTED) {
-	Loop = 0;
+    Loop = 0;
     do
     {
       switch (Loop) {
         case 0 :
           TmdsClock = XV_HdmiTx_SetStream(InstancePtr->HdmiTxPtr, VideoMode,
-			ColorFormat, Bpc, InstancePtr->Config.Ppc);
+            ColorFormat, Bpc, InstancePtr->Config.Ppc, Info3D);
           break;
 
         // Try YCrCb 4:2:0 Colorspace at 4 pixels per clock
         case 1 :
           TmdsClock = XV_HdmiTx_SetStream(InstancePtr->HdmiTxPtr, VideoMode,
-			XVIDC_CSF_YCRCB_420,  XVIDC_BPC_8, XVIDC_PPC_2);
+            XVIDC_CSF_YCRCB_420,  XVIDC_BPC_8, XVIDC_PPC_2, Info3D);
           break;
 
         default :
@@ -1418,7 +1535,8 @@ u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
   // Default 1080p colorbar
   else {
     TmdsClock = XV_HdmiTx_SetStream(InstancePtr->HdmiTxPtr,
-		XVIDC_VM_1920x1080_60_P, XVIDC_CSF_RGB, XVIDC_BPC_8, XVIDC_PPC_2);
+        XVIDC_VM_1920x1080_60_P, XVIDC_CSF_RGB, XVIDC_BPC_8, XVIDC_PPC_2,
+        Info3D);
   }
 
   return TmdsClock;
@@ -1459,7 +1577,7 @@ u32 XV_HdmiTxSs_SetStreamReducedBlanking(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 XVidC_VideoStream *XV_HdmiTxSs_GetVideoStream(XV_HdmiTxSs *InstancePtr)
 {
-	return (&InstancePtr->HdmiTxPtr->Stream.Video);
+    return (&InstancePtr->HdmiTxPtr->Stream.Video);
 }
 
 /*****************************************************************************/
@@ -1476,9 +1594,9 @@ XVidC_VideoStream *XV_HdmiTxSs_GetVideoStream(XV_HdmiTxSs *InstancePtr)
 *
 ******************************************************************************/
 void XV_HdmiTxSs_SetVideoStream(XV_HdmiTxSs *InstancePtr,
-									XVidC_VideoStream VidStream)
+                                    XVidC_VideoStream VidStream)
 {
-	InstancePtr->HdmiTxPtr->Stream.Video = VidStream;
+    InstancePtr->HdmiTxPtr->Stream.Video = VidStream;
 }
 
 /*****************************************************************************/
@@ -1496,7 +1614,7 @@ void XV_HdmiTxSs_SetVideoStream(XV_HdmiTxSs *InstancePtr,
 ******************************************************************************/
 void XV_HdmiTxSs_SetSamplingRate(XV_HdmiTxSs *InstancePtr, u8 SamplingRate)
 {
-	InstancePtr->SamplingRate = SamplingRate;
+    InstancePtr->SamplingRate = SamplingRate;
 }
 
 /*****************************************************************************/
@@ -1514,7 +1632,7 @@ void XV_HdmiTxSs_SetSamplingRate(XV_HdmiTxSs *InstancePtr, u8 SamplingRate)
 ******************************************************************************/
 void XV_HdmiTxSs_SetVideoIDCode(XV_HdmiTxSs *InstancePtr, u8 Vic)
 {
-	InstancePtr->HdmiTxPtr->Stream.Vic = Vic;
+    InstancePtr->HdmiTxPtr->Stream.Vic = Vic;
 }
 
 /*****************************************************************************/
@@ -1532,7 +1650,7 @@ void XV_HdmiTxSs_SetVideoIDCode(XV_HdmiTxSs *InstancePtr, u8 Vic)
 ******************************************************************************/
 void XV_HdmiTxSs_SetVideoStreamType(XV_HdmiTxSs *InstancePtr, u8 StreamType)
 {
-	InstancePtr->HdmiTxPtr->Stream.IsHdmi = StreamType;
+    InstancePtr->HdmiTxPtr->Stream.IsHdmi = StreamType;
 }
 
 /*****************************************************************************/
@@ -1549,9 +1667,9 @@ void XV_HdmiTxSs_SetVideoStreamType(XV_HdmiTxSs *InstancePtr, u8 StreamType)
 *
 ******************************************************************************/
 void XV_HdmiTxSs_SetVideoStreamScramblingFlag(XV_HdmiTxSs *InstancePtr,
-															u8 IsScrambled)
+                                                            u8 IsScrambled)
 {
-	InstancePtr->HdmiTxPtr->Stream.IsScrambled = IsScrambled;
+    InstancePtr->HdmiTxPtr->Stream.IsScrambled = IsScrambled;
 }
 
 /*****************************************************************************/
@@ -1569,7 +1687,7 @@ void XV_HdmiTxSs_SetVideoStreamScramblingFlag(XV_HdmiTxSs *InstancePtr,
 ******************************************************************************/
 void XV_HdmiTxSs_SetTmdsClockRatio(XV_HdmiTxSs *InstancePtr, u8 Ratio)
 {
-	InstancePtr->HdmiTxPtr->Stream.TMDSClockRatio = Ratio;
+    InstancePtr->HdmiTxPtr->Stream.TMDSClockRatio = Ratio;
 }
 
 /*****************************************************************************/
@@ -1587,7 +1705,7 @@ void XV_HdmiTxSs_SetTmdsClockRatio(XV_HdmiTxSs *InstancePtr, u8 Ratio)
 ******************************************************************************/
 u32 XV_HdmiTxSs_GetTmdsClockFreqHz(XV_HdmiTxSs *InstancePtr)
 {
-	return (InstancePtr->HdmiTxPtr->Stream.TMDSClock);
+    return (InstancePtr->HdmiTxPtr->Stream.TMDSClock);
 }
 
 /*****************************************************************************/
@@ -1595,18 +1713,18 @@ u32 XV_HdmiTxSs_GetTmdsClockFreqHz(XV_HdmiTxSs *InstancePtr)
 *
 * This function detects connected sink is a HDMI 2.0/HDMI 1.4 sink device
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
 *
 * @return
-*		- XST_SUCCESS if HDMI 2.0
-*		- XST_FAILURE if HDMI 1.4
+*       - XST_SUCCESS if HDMI 2.0
+*       - XST_FAILURE if HDMI 1.4
 *
 * @note   None.
 *
 ******************************************************************************/
 int XV_HdmiTxSs_DetectHdmi20(XV_HdmiTxSs *InstancePtr)
 {
-	  return (XV_HdmiTx_DetectHdmi20(InstancePtr->HdmiTxPtr));
+      return (XV_HdmiTx_DetectHdmi20(InstancePtr->HdmiTxPtr));
 }
 
 /*****************************************************************************/
@@ -1623,11 +1741,11 @@ int XV_HdmiTxSs_DetectHdmi20(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_RefClockChangeInit(XV_HdmiTxSs *InstancePtr)
 {
-	  /* Assert HDMI TX reset */
-	  XV_HdmiTx_Reset(InstancePtr->HdmiTxPtr, TRUE);
+      /* Assert HDMI TX reset */
+      XV_HdmiTx_Reset(InstancePtr->HdmiTxPtr, TRUE);
 
-	  /* Clear variables */
-	  XV_HdmiTx_Clear(InstancePtr->HdmiTxPtr);
+      /* Clear variables */
+      XV_HdmiTx_Clear(InstancePtr->HdmiTxPtr);
 }
 
 /*****************************************************************************/
@@ -1644,14 +1762,14 @@ void XV_HdmiTxSs_RefClockChangeInit(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr)
 {
-	  XV_HdmiTx_DebugInfo(InstancePtr->HdmiTxPtr);
-	  xil_printf("Scrambled: %0d\n\r",
-		(XV_HdmiTx_IsStreamScrambled(InstancePtr->HdmiTxPtr)));
-	  xil_printf("Sample rate: %0d\n\r",
-		(XV_HdmiTx_GetSampleRate(InstancePtr->HdmiTxPtr)));
-	  xil_printf("Audio channels: %0d\n\r",
-		(XV_HdmiTx_GetAudioChannels(InstancePtr->HdmiTxPtr)));
-	  print("\r\n");
+      XV_HdmiTx_DebugInfo(InstancePtr->HdmiTxPtr);
+      xil_printf("Scrambled: %0d\n\r",
+        (XV_HdmiTx_IsStreamScrambled(InstancePtr->HdmiTxPtr)));
+      xil_printf("Sample rate: %0d\n\r",
+        (XV_HdmiTx_GetSampleRate(InstancePtr->HdmiTxPtr)));
+      xil_printf("Audio channels: %0d\n\r",
+        (XV_HdmiTx_GetAudioChannels(InstancePtr->HdmiTxPtr)));
+      print("\r\n");
 
 }
 
@@ -1672,21 +1790,21 @@ void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr)
   u32 Data;
 
   if (InstancePtr->HdmiTxPtr) {
-	 Data = XV_HdmiTx_GetVersion(InstancePtr->HdmiTxPtr);
-	 xil_printf("  HDMI TX version : %02d.%02d (%04x)\n\r",
-		((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
+     Data = XV_HdmiTx_GetVersion(InstancePtr->HdmiTxPtr);
+     xil_printf("  HDMI TX version : %02d.%02d (%04x)\n\r",
+        ((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
   }
 
   if (InstancePtr->VtcPtr){
-	 Data = XVtc_GetVersion(InstancePtr->VtcPtr);
-	 xil_printf("  VTC version     : %02d.%02d (%04x)\n\r",
-		((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
+     Data = XVtc_GetVersion(InstancePtr->VtcPtr);
+     xil_printf("  VTC version     : %02d.%02d (%04x)\n\r",
+        ((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
   }
 
   if (InstancePtr->HdcpPtr){
-	 Data = XHdcp1x_GetVersion(InstancePtr->HdcpPtr);
-	 xil_printf("  HDCP TX version : %02d.%02d (%04x)\n\r",
-		((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
+     Data = XHdcp1x_GetVersion(InstancePtr->HdcpPtr);
+     xil_printf("  HDCP TX version : %02d.%02d (%04x)\n\r",
+        ((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
   }
 }
 
@@ -1704,22 +1822,22 @@ void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_HdcpEnable(XV_HdmiTxSs *InstancePtr, u8 Enable)
 {
-	XV_HdmiTxSs *HdmiTxSsPtr = InstancePtr;
+    XV_HdmiTxSs *HdmiTxSsPtr = InstancePtr;
 
-	if (Enable)	{
-		/* Enable hdcp interface */
-		XHdcp1x_Enable(HdmiTxSsPtr->HdcpPtr);
+    if (Enable) {
+        /* Enable hdcp interface */
+        XHdcp1x_Enable(HdmiTxSsPtr->HdcpPtr);
 
-		/* Set the TX HDCP state to up */
-		XHdcp1x_SetPhysicalState(HdmiTxSsPtr->HdcpPtr, TRUE);
-	}
-	else {
-	    /* Set the TX HDCP state to down */
-	    XHdcp1x_SetPhysicalState(HdmiTxSsPtr->HdcpPtr, FALSE);
+        /* Set the TX HDCP state to up */
+        XHdcp1x_SetPhysicalState(HdmiTxSsPtr->HdcpPtr, TRUE);
+    }
+    else {
+        /* Set the TX HDCP state to down */
+        XHdcp1x_SetPhysicalState(HdmiTxSsPtr->HdcpPtr, FALSE);
 
-		/* Disable hdcp interface */
-		XHdcp1x_Disable(HdmiTxSsPtr->HdcpPtr);
-	}
+        /* Disable hdcp interface */
+        XHdcp1x_Disable(HdmiTxSsPtr->HdcpPtr);
+    }
 }
 
 /*****************************************************************************/
@@ -1729,7 +1847,7 @@ void XV_HdmiTxSs_HdcpEnable(XV_HdmiTxSs *InstancePtr, u8 Enable)
 * stream is encrypted. The traffic is encrypted if the encryption bit map
 * is non-zero and the interface is authenticated.
 *
-* @return	Truth value indicating encrypted (TRUE) or not (FALSE).
+* @return   Truth value indicating encrypted (TRUE) or not (FALSE).
 *
 * @note
 *   This function is intended to be called from within the main loop of the
@@ -1738,14 +1856,14 @@ void XV_HdmiTxSs_HdcpEnable(XV_HdmiTxSs *InstancePtr, u8 Enable)
 ******************************************************************************/
 u8 XV_HdmiTxSs_HdcpPoll(XV_HdmiTxSs *InstancePtr)
 {
-	/* Locals */
-	XV_HdmiTxSs *HdmiTxSsPtr = InstancePtr;
+    /* Locals */
+    XV_HdmiTxSs *HdmiTxSsPtr = InstancePtr;
 
-	/* Poll hdcp interface */
-	XHdcp1x_Poll(HdmiTxSsPtr->HdcpPtr);
+    /* Poll hdcp interface */
+    XHdcp1x_Poll(HdmiTxSsPtr->HdcpPtr);
 
-	/* Return */
-	return (XHdcp1x_IsEncrypted(HdmiTxSsPtr->HdcpPtr));
+    /* Return */
+    return (XHdcp1x_IsEncrypted(HdmiTxSsPtr->HdcpPtr));
 }
 
 
@@ -1763,22 +1881,22 @@ u8 XV_HdmiTxSs_HdcpPoll(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 u8 XV_HdmiTxSs_HdcpStart(XV_HdmiTxSs *InstancePtr)
 {
-	/* Locals */
-	XV_HdmiTxSs *HdmiTxSsPtr = InstancePtr;
-	u8 retval = FALSE;
+    /* Locals */
+    XV_HdmiTxSs *HdmiTxSsPtr = InstancePtr;
+    u8 retval = FALSE;
 
-	if (XHdcp1x_TxIsAuthenticated(HdmiTxSsPtr->HdcpPtr)==0)
-	{
-		XHdcp1x_Authenticate(HdmiTxSsPtr->HdcpPtr);
-		retval = FALSE;
-	}
-	else
-	{
-		XHdcp1x_EnableEncryption(HdmiTxSsPtr->HdcpPtr,0x1);
-		retval = TRUE;
-	}
+    if (XHdcp1x_IsAuthenticated(HdmiTxSsPtr->HdcpPtr)==0)
+    {
+        XHdcp1x_Authenticate(HdmiTxSsPtr->HdcpPtr);
+        retval = FALSE;
+    }
+    else
+    {
+        XHdcp1x_EnableEncryption(HdmiTxSsPtr->HdcpPtr,0x1);
+        retval = TRUE;
+    }
 
-	return retval;
+    return retval;
 }
 
 /******************************************************************************/
@@ -1797,34 +1915,34 @@ u8 XV_HdmiTxSs_HdcpStart(XV_HdmiTxSs *InstancePtr)
 *
 ******************************************************************************/
 static u32 XV_HdmiTxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
-													u32 ClockFrequency)
+                                                    u32 ClockFrequency)
 {
-	u32 TimeoutFreq = 0;
-	u32 NumTicks = 0;
+    u32 TimeoutFreq = 0;
+    u32 NumTicks = 0;
 
-	/* Check for greater than one second */
-	if (TimeoutInUs > 1000000ul) {
-		u32 NumSeconds = 0;
+    /* Check for greater than one second */
+    if (TimeoutInUs > 1000000ul) {
+        u32 NumSeconds = 0;
 
-		/* Determine theNumSeconds */
-		NumSeconds = (TimeoutInUs/1000000ul);
+        /* Determine theNumSeconds */
+        NumSeconds = (TimeoutInUs/1000000ul);
 
-		/* Update theNumTicks */
-		NumTicks = (NumSeconds*ClockFrequency);
+        /* Update theNumTicks */
+        NumTicks = (NumSeconds*ClockFrequency);
 
-		/* Adjust theTimeoutInUs */
-		TimeoutInUs -= (NumSeconds*1000000ul);
-	}
+        /* Adjust theTimeoutInUs */
+        TimeoutInUs -= (NumSeconds*1000000ul);
+    }
 
-	/* Convert TimeoutFreq to a frequency */
-	TimeoutFreq  = 1000;
-	TimeoutFreq *= 1000;
-	TimeoutFreq /= TimeoutInUs;
+    /* Convert TimeoutFreq to a frequency */
+    TimeoutFreq  = 1000;
+    TimeoutFreq *= 1000;
+    TimeoutFreq /= TimeoutInUs;
 
-	/* Update NumTicks */
-	NumTicks += ((ClockFrequency / TimeoutFreq) + 1);
+    /* Update NumTicks */
+    NumTicks += ((ClockFrequency / TimeoutFreq) + 1);
 
-	return (NumTicks);
+    return (NumTicks);
 }
 
 /*****************************************************************************/
@@ -1844,10 +1962,10 @@ static u32 XV_HdmiTxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
 ******************************************************************************/
 void XV_HdmiTxSs_HdcpTimerCallback(void* CallBackRef, u8 TimerChannel)
 {
-	XHdcp1x* HdcpPtr = CallBackRef;
+    XHdcp1x* HdcpPtr = CallBackRef;
 
-	XHdcp1x_HandleTimeout(HdcpPtr);
-	return;
+    XHdcp1x_HandleTimeout(HdcpPtr);
+    return;
 }
 
 /******************************************************************************/
@@ -1867,38 +1985,38 @@ void XV_HdmiTxSs_HdcpTimerCallback(void* CallBackRef, u8 TimerChannel)
 ******************************************************************************/
 int XV_HdmiTxSs_HdcpTimerStart(const XHdcp1x* InstancePtr, u16 TimeoutInMs)
 {
-	XV_HdmiTxSs_SubCores *SubCorePtr;
-	XTmrCtr *TimerPtr;
-	u8 TimerChannel = 0;
-	u32 TimerOptions = 0;
-	u32 NumTicks = 0;
+    XV_HdmiTxSs_SubCores *SubCorePtr;
+    XTmrCtr *TimerPtr;
+    u8 TimerChannel = 0;
+    u32 TimerOptions = 0;
+    u32 NumTicks = 0;
 
-	SubCorePtr = XV_HdmiTxSs_GetSubSysStruct((void*)InstancePtr);
-	TimerPtr = &SubCorePtr->HdcpTimer;
+    SubCorePtr = XV_HdmiTxSs_GetSubSysStruct((void*)InstancePtr);
+    TimerPtr = &SubCorePtr->HdcpTimer;
 
-	/* Determine NumTicks */
-	NumTicks = XV_HdmiTxSs_HdcpTimerConvUsToTicks((TimeoutInMs*1000ul),
-												XPAR_CPU_CORE_CLOCK_FREQ_HZ);
+    /* Determine NumTicks */
+    NumTicks = XV_HdmiTxSs_HdcpTimerConvUsToTicks((TimeoutInMs*1000ul),
+                                                XPAR_CPU_CORE_CLOCK_FREQ_HZ);
 
-	/* Stop it */
-	XTmrCtr_Stop(TimerPtr, TimerChannel);
+    /* Stop it */
+    XTmrCtr_Stop(TimerPtr, TimerChannel);
 
-	/* Configure the callback */
-	XTmrCtr_SetHandler(TimerPtr, &XV_HdmiTxSs_HdcpTimerCallback,
-												(void*) InstancePtr);
+    /* Configure the callback */
+    XTmrCtr_SetHandler(TimerPtr, &XV_HdmiTxSs_HdcpTimerCallback,
+                                                (void*) InstancePtr);
 
-	/* Configure the timer options */
-	TimerOptions  = XTmrCtr_GetOptions(TimerPtr, TimerChannel);
-	TimerOptions |=  XTC_DOWN_COUNT_OPTION;
-	TimerOptions |=  XTC_INT_MODE_OPTION;
-	TimerOptions &= ~XTC_AUTO_RELOAD_OPTION;
-	XTmrCtr_SetOptions(TimerPtr, TimerChannel, TimerOptions);
+    /* Configure the timer options */
+    TimerOptions  = XTmrCtr_GetOptions(TimerPtr, TimerChannel);
+    TimerOptions |=  XTC_DOWN_COUNT_OPTION;
+    TimerOptions |=  XTC_INT_MODE_OPTION;
+    TimerOptions &= ~XTC_AUTO_RELOAD_OPTION;
+    XTmrCtr_SetOptions(TimerPtr, TimerChannel, TimerOptions);
 
-	/* Set the timeout and start */
-	XTmrCtr_SetResetValue(TimerPtr, TimerChannel, NumTicks);
-	XTmrCtr_Start(TimerPtr, TimerChannel);
+    /* Set the timeout and start */
+    XTmrCtr_SetResetValue(TimerPtr, TimerChannel, NumTicks);
+    XTmrCtr_Start(TimerPtr, TimerChannel);
 
-	return (XST_SUCCESS);
+    return (XST_SUCCESS);
 }
 
 
@@ -1918,17 +2036,17 @@ int XV_HdmiTxSs_HdcpTimerStart(const XHdcp1x* InstancePtr, u16 TimeoutInMs)
 ******************************************************************************/
 int XV_HdmiTxSs_HdcpTimerStop(const XHdcp1x* InstancePtr)
 {
-	XV_HdmiTxSs_SubCores *SubCorePtr;
-	XTmrCtr *TimerPtr;
-	u8 TimerChannel = 0;
+    XV_HdmiTxSs_SubCores *SubCorePtr;
+    XTmrCtr *TimerPtr;
+    u8 TimerChannel = 0;
 
-	SubCorePtr = XV_HdmiTxSs_GetSubSysStruct((void*)InstancePtr);
-	TimerPtr = &SubCorePtr->HdcpTimer;
+    SubCorePtr = XV_HdmiTxSs_GetSubSysStruct((void*)InstancePtr);
+    TimerPtr = &SubCorePtr->HdcpTimer;
 
-	/* Stop it */
-	XTmrCtr_Stop(TimerPtr, TimerChannel);
+    /* Stop it */
+    XTmrCtr_Stop(TimerPtr, TimerChannel);
 
-	return (XST_SUCCESS);
+    return (XST_SUCCESS);
 }
 
 
@@ -1949,35 +2067,147 @@ int XV_HdmiTxSs_HdcpTimerStop(const XHdcp1x* InstancePtr)
 ******************************************************************************/
 int XV_HdmiTxSs_HdcpTimerBusyDelay(const XHdcp1x* InstancePtr, u16 DelayInMs)
 {
-	XV_HdmiTxSs_SubCores *SubCorePtr;
-	XTmrCtr *TimerPtr;
-	u8 TimerChannel = 0;
-	u32 TimerOptions = 0;
-	u32 NumTicks = 0;
+    XV_HdmiTxSs_SubCores *SubCorePtr;
+    XTmrCtr *TimerPtr;
+    u8 TimerChannel = 0;
+    u32 TimerOptions = 0;
+    u32 NumTicks = 0;
 
-	SubCorePtr = XV_HdmiTxSs_GetSubSysStruct((void*)InstancePtr);
-	TimerPtr = &SubCorePtr->HdcpTimer;
+    SubCorePtr = XV_HdmiTxSs_GetSubSysStruct((void*)InstancePtr);
+    TimerPtr = &SubCorePtr->HdcpTimer;
 
-	/* Determine NumTicks */
-	NumTicks = XV_HdmiTxSs_HdcpTimerConvUsToTicks((DelayInMs*1000ul),
-											XPAR_CPU_CORE_CLOCK_FREQ_HZ);
+    /* Determine NumTicks */
+    NumTicks = XV_HdmiTxSs_HdcpTimerConvUsToTicks((DelayInMs*1000ul),
+                                            XPAR_CPU_CORE_CLOCK_FREQ_HZ);
 
-	/* Stop it */
-	XTmrCtr_Stop(TimerPtr, TimerChannel);
+    /* Stop it */
+    XTmrCtr_Stop(TimerPtr, TimerChannel);
 
-	/* Configure the timer options */
-	TimerOptions  = XTmrCtr_GetOptions(TimerPtr, TimerChannel);
-	TimerOptions |=  XTC_DOWN_COUNT_OPTION;
-	TimerOptions &= ~XTC_INT_MODE_OPTION;
-	TimerOptions &= ~XTC_AUTO_RELOAD_OPTION;
-	XTmrCtr_SetOptions(TimerPtr, TimerChannel, TimerOptions);
+    /* Configure the timer options */
+    TimerOptions  = XTmrCtr_GetOptions(TimerPtr, TimerChannel);
+    TimerOptions |=  XTC_DOWN_COUNT_OPTION;
+    TimerOptions &= ~XTC_INT_MODE_OPTION;
+    TimerOptions &= ~XTC_AUTO_RELOAD_OPTION;
+    XTmrCtr_SetOptions(TimerPtr, TimerChannel, TimerOptions);
 
-	/* Set the timeout and start */
-	XTmrCtr_SetResetValue(TimerPtr, TimerChannel, NumTicks);
-	XTmrCtr_Start(TimerPtr, TimerChannel);
+    /* Set the timeout and start */
+    XTmrCtr_SetResetValue(TimerPtr, TimerChannel, NumTicks);
+    XTmrCtr_Start(TimerPtr, TimerChannel);
 
-	/* Wait until done */
-	while (!XTmrCtr_IsExpired(TimerPtr, TimerChannel));
+    /* Wait until done */
+    while (!XTmrCtr_IsExpired(TimerPtr, TimerChannel));
 
-	return (XST_SUCCESS);
+    return (XST_SUCCESS);
+}
+
+
+void XV_HdmiTxSs_ResetRemapper(XV_HdmiTxSs *InstancePtr) {
+
+    XGpio *RemapperResetPtr = InstancePtr->RemapperResetPtr;
+
+    XGpio_SetDataDirection(RemapperResetPtr, 1, 0);
+    XGpio_DiscreteWrite(RemapperResetPtr, 1, 0);
+    MB_Sleep(1);
+    XGpio_DiscreteWrite(RemapperResetPtr, 1, 1);
+    MB_Sleep(1);
+}
+
+void XV_HdmiTxSs_ConfigRemapper(XV_HdmiTxSs *InstancePtr) {
+    XV_axi4s_remap *RemapperPtr = InstancePtr->RemapperPtr;
+
+    XVidC_ColorFormat ColorFormat;
+    XVidC_VideoMode VideoMode;
+
+    XVidC_VideoStream *HdmiTxSsVidStreamPtr;
+    HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(InstancePtr);
+
+    ColorFormat = HdmiTxSsVidStreamPtr->ColorFormatId;
+    VideoMode = HdmiTxSsVidStreamPtr->VmId;
+
+    if (ColorFormat == XVIDC_CSF_YCRCB_420) {
+        /*********************************************************
+         * 420 Support
+         *********************************************************/
+        XV_axi4s_remap_Set_width(RemapperPtr, HdmiTxSsVidStreamPtr->Timing.HActive);
+        XV_axi4s_remap_Set_height(RemapperPtr, HdmiTxSsVidStreamPtr->Timing.VActive);
+        XV_axi4s_remap_Set_ColorFormat(RemapperPtr, XVIDC_CSF_YCRCB_420);
+        XV_axi4s_remap_Set_inPixClk(RemapperPtr, HdmiTxSsVidStreamPtr->PixPerClk);
+        XV_axi4s_remap_Set_outPixClk(RemapperPtr, HdmiTxSsVidStreamPtr->PixPerClk);
+        XV_axi4s_remap_Set_inHDMI420(RemapperPtr, 0);
+        XV_axi4s_remap_Set_outHDMI420(RemapperPtr, 1);
+        XV_axi4s_remap_Set_inPixDrop(RemapperPtr, 0);
+        XV_axi4s_remap_Set_outPixRepeat(RemapperPtr, 0);
+        XV_axi4s_remap_EnableAutoRestart(RemapperPtr);
+        XV_axi4s_remap_Start(RemapperPtr);
+    }
+    else {
+        if ((VideoMode == XVIDC_VM_720x576_50_P) ||
+            (VideoMode == XVIDC_VM_720x576_50_I) ||
+            (VideoMode == XVIDC_VM_720x480_60_I) ||
+            (VideoMode == XVIDC_VM_640x480_60_P) ||
+            (VideoMode == XVIDC_VM_720x480_60_P) )
+        {
+            /*********************************************************
+             * NTSC/PAL Support
+             *********************************************************/
+            XV_axi4s_remap_Set_width(RemapperPtr, HdmiTxSsVidStreamPtr->Timing.HActive/2);
+            XV_axi4s_remap_Set_height(RemapperPtr, HdmiTxSsVidStreamPtr->Timing.VActive);
+            XV_axi4s_remap_Set_ColorFormat(RemapperPtr, 0);
+            XV_axi4s_remap_Set_inPixClk(RemapperPtr, HdmiTxSsVidStreamPtr->PixPerClk);
+            XV_axi4s_remap_Set_outPixClk(RemapperPtr, HdmiTxSsVidStreamPtr->PixPerClk);
+            XV_axi4s_remap_Set_inHDMI420(RemapperPtr, 0);
+            XV_axi4s_remap_Set_outHDMI420(RemapperPtr, 0);
+            XV_axi4s_remap_Set_inPixDrop(RemapperPtr, 0);
+            XV_axi4s_remap_Set_outPixRepeat(RemapperPtr, 1);
+            XV_axi4s_remap_EnableAutoRestart(RemapperPtr);
+            XV_axi4s_remap_Start(RemapperPtr);
+        }
+        else {
+            XV_axi4s_remap_Set_width(RemapperPtr, HdmiTxSsVidStreamPtr->Timing.HActive);
+            XV_axi4s_remap_Set_height(RemapperPtr, HdmiTxSsVidStreamPtr->Timing.VActive);
+            XV_axi4s_remap_Set_ColorFormat(RemapperPtr, ColorFormat);
+            XV_axi4s_remap_Set_inPixClk(RemapperPtr, HdmiTxSsVidStreamPtr->PixPerClk);
+            XV_axi4s_remap_Set_outPixClk(RemapperPtr, HdmiTxSsVidStreamPtr->PixPerClk);
+            XV_axi4s_remap_Set_inHDMI420(RemapperPtr, 0);
+            XV_axi4s_remap_Set_outHDMI420(RemapperPtr, 0);
+            XV_axi4s_remap_Set_inPixDrop(RemapperPtr, 0);
+            XV_axi4s_remap_Set_outPixRepeat(RemapperPtr, 0);
+            XV_axi4s_remap_EnableAutoRestart(RemapperPtr);
+            XV_axi4s_remap_Start(RemapperPtr);
+        }
+    }
+}
+
+/*****************************************************************************/
+/**
+* This function will set the default in HDF.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param    Id is the XV_HdmiTxSs ID to operate on.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSs_SetDefaultPpc(XV_HdmiTxSs *InstancePtr, u8 Id) {
+    extern XV_HdmiTxSs_Config XV_HdmiTxSs_ConfigTable[XPAR_XV_HDMITXSS_NUM_INSTANCES];
+    InstancePtr->Config.Ppc = XV_HdmiTxSs_ConfigTable[Id].Ppc;
+}
+
+/*****************************************************************************/
+/**
+* This function will set PPC specified by user.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param    Id is the XV_HdmiTxSs ID to operate on.
+* @param    Ppc is the PPC to be set.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSs_SetPpc(XV_HdmiTxSs *InstancePtr, u8 Id, u8 Ppc) {
+    InstancePtr->Config.Ppc = Ppc;
 }

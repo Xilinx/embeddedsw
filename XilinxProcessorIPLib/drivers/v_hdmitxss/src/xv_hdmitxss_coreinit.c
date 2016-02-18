@@ -51,7 +51,7 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
-
+* 1.1   yh     20/01/16 Added remapper support
 * </pre>
 *
 ******************************************************************************/
@@ -63,9 +63,9 @@
 
 /************************** Function Prototypes ******************************/
 static int XV_HdmiTxSs_ComputeSubcoreAbsAddr(u32 SubSys_BaseAddr,
-	u32 SubSys_HighAddr,
-	u32 SubCore_Offset,
-	u32 *SubCore_BaseAddr);
+    u32 SubSys_HighAddr,
+    u32 SubCore_Offset,
+    u32 *SubCore_BaseAddr);
 
 /*****************************************************************************/
 /**
@@ -85,9 +85,9 @@ static int XV_HdmiTxSs_ComputeSubcoreAbsAddr(u32 SubSys_BaseAddr,
 *
 ******************************************************************************/
 static int XV_HdmiTxSs_ComputeSubcoreAbsAddr(u32 SubSys_BaseAddr,
-	u32 SubSys_HighAddr,
-	u32 SubCore_Offset,
-	u32 *SubCore_BaseAddr)
+    u32 SubSys_HighAddr,
+    u32 SubCore_Offset,
+    u32 *SubCore_BaseAddr)
 {
   int Status;
   u32 AbsAddr;
@@ -98,8 +98,8 @@ static int XV_HdmiTxSs_ComputeSubcoreAbsAddr(u32 SubSys_BaseAddr,
     Status = XST_SUCCESS;
   }
   else {
-	*SubCore_BaseAddr = 0;
-	Status = XST_FAILURE;
+    *SubCore_BaseAddr = 0;
+    Status = XST_FAILURE;
   }
 
   return(Status);
@@ -121,7 +121,7 @@ int XV_HdmiTxSs_SubcoreInitHdmiTx(XV_HdmiTxSs *HdmiTxSsPtr)
   XV_HdmiTx_Config *ConfigPtr;
 
   if (HdmiTxSsPtr->HdmiTxPtr) {
-	/* Get core configuration */
+    /* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDMI TX core.... \r\n");
     ConfigPtr  = XV_HdmiTx_LookupConfig(HdmiTxSsPtr->Config.HdmiTx.DeviceId);
     if (ConfigPtr == NULL) {
@@ -129,20 +129,20 @@ int XV_HdmiTxSs_SubcoreInitHdmiTx(XV_HdmiTxSs *HdmiTxSsPtr)
       return(XST_FAILURE);
     }
 
-	/* Compute absolute base address */
+    /* Compute absolute base address */
     AbsAddr = 0;
     Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
-		                       HdmiTxSsPtr->Config.HighAddress,
-		                       HdmiTxSsPtr->Config.HdmiTx.AddrOffset,
-		                       &AbsAddr);
+                               HdmiTxSsPtr->Config.HighAddress,
+                               HdmiTxSsPtr->Config.HdmiTx.AddrOffset,
+                               &AbsAddr);
 
     if (Status != XST_SUCCESS) {
       xil_printf("HDMITXSS ERR:: HDMI TX core base address (0x%x) \
-		invalid %d\r\n", AbsAddr);
+        invalid %d\r\n", AbsAddr);
       return(XST_FAILURE);
     }
 
-	/* Initialize core */
+    /* Initialize core */
     Status = XV_HdmiTx_CfgInitialize(HdmiTxSsPtr->HdmiTxPtr,
                                     ConfigPtr,
                                     AbsAddr);
@@ -171,7 +171,7 @@ int XV_HdmiTxSs_SubcoreInitVtc(XV_HdmiTxSs *HdmiTxSsPtr)
   XVtc_Config *ConfigPtr;
 
   if (HdmiTxSsPtr->VtcPtr) {
-	/* Get core configuration */
+    /* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing VTC core.... \r\n");
     ConfigPtr  = XVtc_LookupConfig(HdmiTxSsPtr->Config.Vtc.DeviceId);
     if (ConfigPtr == NULL) {
@@ -179,20 +179,20 @@ int XV_HdmiTxSs_SubcoreInitVtc(XV_HdmiTxSs *HdmiTxSsPtr)
       return(XST_FAILURE);
     }
 
-	/* Compute absolute base address */
+    /* Compute absolute base address */
     AbsAddr = 0;
     Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
-		                       HdmiTxSsPtr->Config.HighAddress,
-		                       HdmiTxSsPtr->Config.Vtc.AddrOffset,
-		                       &AbsAddr);
+                               HdmiTxSsPtr->Config.HighAddress,
+                               HdmiTxSsPtr->Config.Vtc.AddrOffset,
+                               &AbsAddr);
 
     if (Status != XST_SUCCESS) {
       xil_printf("HDMITXSS ERR:: CSC core base address (0x%x) \
-							invalid %d\r\n", AbsAddr);
+                            invalid %d\r\n", AbsAddr);
       return(XST_FAILURE);
     }
 
-	/* Initialize core */
+    /* Initialize core */
     Status = XVtc_CfgInitialize(HdmiTxSsPtr->VtcPtr,
                                 ConfigPtr,
                                 AbsAddr);
@@ -222,7 +222,7 @@ int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr)
   XTmrCtr_Config *ConfigPtr;
 
   if (HdmiTxSsPtr->HdcpTimerPtr) {
-	/* Get core configuration */
+    /* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"   ->Initializing AXI Timer core.... \r\n");
     ConfigPtr  = XTmrCtr_LookupConfig(HdmiTxSsPtr->Config.HdcpTimer.DeviceId);
     if (ConfigPtr == NULL) {
@@ -230,30 +230,30 @@ int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr)
       return(XST_FAILURE);
     }
 
-	/* Compute absolute base address */
+    /* Compute absolute base address */
     AbsAddr = 0;
     Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
-		                       HdmiTxSsPtr->Config.HighAddress,
-		                       HdmiTxSsPtr->Config.HdcpTimer.AddrOffset,
-		                       &AbsAddr);
+                               HdmiTxSsPtr->Config.HighAddress,
+                               HdmiTxSsPtr->Config.HdcpTimer.AddrOffset,
+                               &AbsAddr);
 
     if (Status != XST_SUCCESS) {
       xil_printf("HDMITXSS ERR:: AXI Timer core base address (0x%x) \
-					invalid %d\r\n", AbsAddr);
+                    invalid %d\r\n", AbsAddr);
       return(XST_FAILURE);
     }
 
-	/* Setup the instance */
-	memset(HdmiTxSsPtr->HdcpTimerPtr, 0, sizeof(XTmrCtr));
+    /* Setup the instance */
+    memset(HdmiTxSsPtr->HdcpTimerPtr, 0, sizeof(XTmrCtr));
 
-	/* Initialize core */
-	XTmrCtr_CfgInitialize(HdmiTxSsPtr->HdcpTimerPtr, ConfigPtr, AbsAddr);
-	Status = XTmrCtr_InitHw(HdmiTxSsPtr->HdcpTimerPtr);
+    /* Initialize core */
+    XTmrCtr_CfgInitialize(HdmiTxSsPtr->HdcpTimerPtr, ConfigPtr, AbsAddr);
+    Status = XTmrCtr_InitHw(HdmiTxSsPtr->HdcpTimerPtr);
 
-	/* Initialize the hdcp timer functions */
-	XHdcp1x_SetTimerStart(&XV_HdmiTxSs_HdcpTimerStart);
-	XHdcp1x_SetTimerStop(&XV_HdmiTxSs_HdcpTimerStop);
-	XHdcp1x_SetTimerDelay(&XV_HdmiTxSs_HdcpTimerBusyDelay);
+    /* Initialize the hdcp timer functions */
+    XHdcp1x_SetTimerStart(&XV_HdmiTxSs_HdcpTimerStart);
+    XHdcp1x_SetTimerStop(&XV_HdmiTxSs_HdcpTimerStop);
+    XHdcp1x_SetTimerDelay(&XV_HdmiTxSs_HdcpTimerBusyDelay);
 
     if (Status != XST_SUCCESS) {
       xil_printf("HDMITXSS ERR:: AXI Timer Initialization failed\r\n");
@@ -279,7 +279,7 @@ int XV_HdmiTxSs_SubcoreInitHdcp(XV_HdmiTxSs *HdmiTxSsPtr)
   XHdcp1x_Config *ConfigPtr;
 
   if (HdmiTxSsPtr->HdcpPtr){
-	/* Get core configuration */
+    /* Get core configuration */
     xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP core.... \r\n");
     ConfigPtr  = XHdcp1x_LookupConfig(HdmiTxSsPtr->Config.Hdcp.DeviceId);
     if (ConfigPtr == NULL){
@@ -287,40 +287,143 @@ int XV_HdmiTxSs_SubcoreInitHdcp(XV_HdmiTxSs *HdmiTxSsPtr)
       return(XST_FAILURE);
     }
 
-	/* Compute absolute base address */
+    /* Compute absolute base address */
     AbsAddr = 0;
     Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
-		                       HdmiTxSsPtr->Config.HighAddress,
-		                       HdmiTxSsPtr->Config.Hdcp.AddrOffset,
-		                       &AbsAddr);
+                               HdmiTxSsPtr->Config.HighAddress,
+                               HdmiTxSsPtr->Config.Hdcp.AddrOffset,
+                               &AbsAddr);
 
     if (Status != XST_SUCCESS){
       xil_printf("HDMITXSS ERR:: HDCP core base address (0x%x) invalid %d\r\n",
-		AbsAddr);
+        AbsAddr);
       return(XST_FAILURE);
     }
 
-	/* Initialize core */
+    /* Initialize core */
     void *PhyIfPtr = HdmiTxSsPtr->HdmiTxPtr;
 
     Status = XHdcp1x_CfgInitialize(HdmiTxSsPtr->HdcpPtr,
                                       ConfigPtr,
                                       PhyIfPtr,
-									  AbsAddr);
+                                      AbsAddr);
 
-	/* Self-test the hdcp interface */
-	if (XHdcp1x_SelfTest(HdmiTxSsPtr->HdcpPtr) != XST_SUCCESS) {
-		Status = XST_FAILURE;
-	}
+    /* Self-test the hdcp interface */
+    if (XHdcp1x_SelfTest(HdmiTxSsPtr->HdcpPtr) != XST_SUCCESS) {
+        Status = XST_FAILURE;
+    }
 
-	if (Status != XST_SUCCESS) {
+    if (Status != XST_SUCCESS) {
       xil_printf("HDMITXSS ERR:: HDCP Initialization failed\r\n");
       return(XST_FAILURE);
     }
 
-	XHdcp1x_SetKeySelect(HdmiTxSsPtr->HdcpPtr, XV_HDMITXSS_HDCP_KEYSEL);
+    XHdcp1x_SetKeySelect(HdmiTxSsPtr->HdcpPtr, XV_HDMITXSS_HDCP_KEYSEL);
   }
   return(XST_SUCCESS);
 }
 
+
+/*****************************************************************************/
+/**
+* This function initializes the included sub-core to it's static configuration
+*
+* @param  HdmiTxSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS/XST_FAILURE
+*
+******************************************************************************/
+int XV_HdmiTxSs_SubcoreInitRemapperReset(XV_HdmiTxSs *HdmiTxSsPtr)
+{
+  int Status;
+  u32 AbsAddr;
+  XGpio_Config *ConfigPtr;
+
+  if (HdmiTxSsPtr->RemapperResetPtr) {
+    /* Get core configuration */
+    ConfigPtr  = XGpio_LookupConfig(HdmiTxSsPtr->Config.RemapperReset.DeviceId);
+    if (ConfigPtr == NULL) {
+      xil_printf("HDMITXSS ERR:: Reset module for Remapper not found\r\n");
+      return(XST_FAILURE);
+    }
+
+    /* Compute absolute base address */
+    AbsAddr = 0;
+    Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
+                               HdmiTxSsPtr->Config.HighAddress,
+                               HdmiTxSsPtr->Config.RemapperReset.AddrOffset,
+                               &AbsAddr);
+
+    if (Status != XST_SUCCESS) {
+      xil_printf("HDMITXSS ERR:: Remapper Reset GPIO core base address (0x%x) \
+                            invalid %d\r\n", AbsAddr);
+      return(XST_FAILURE);
+    }
+
+    //AbsAddr = HdmiTxSsPtr->Config.RemapperReset.AddrOffset;
+
+    /* Initialize core */
+    Status = XGpio_CfgInitialize(HdmiTxSsPtr->RemapperResetPtr,
+                                 ConfigPtr,
+                                 AbsAddr);
+
+    if (Status != XST_SUCCESS) {
+      xil_printf("HDMITXSS ERR:: Remapper Reset Initialization failed\r\n");
+      return(XST_FAILURE);
+    }
+  }
+  return(XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+* This function initializes the included sub-core to it's static configuration
+*
+* @param  HdmiTxSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS/XST_FAILURE
+*
+******************************************************************************/
+int XV_HdmiTxSs_SubcoreInitRemapper(XV_HdmiTxSs *HdmiTxSsPtr)
+{
+  int Status;
+  u32 AbsAddr;
+  XV_axi4s_remap_Config *ConfigPtr;
+
+  if (HdmiTxSsPtr->RemapperPtr) {
+    /* Get core configuration */
+    ConfigPtr  = XV_axi4s_remap_LookupConfig(HdmiTxSsPtr->Config.Remapper.DeviceId);
+    if (ConfigPtr == NULL) {
+      xil_printf("HDMITXSS ERR:: Remapper not found\r\n");
+      return(XST_FAILURE);
+    }
+
+    /* Compute absolute base address */
+    AbsAddr = 0;
+    Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
+                               HdmiTxSsPtr->Config.HighAddress,
+                               HdmiTxSsPtr->Config.Remapper.AddrOffset,
+                               &AbsAddr);
+
+    if (Status != XST_SUCCESS) {
+      xil_printf("HDMITXSS ERR:: Remapper core base address (0x%x) \
+                            invalid %d\r\n", AbsAddr);
+      return(XST_FAILURE);
+    }
+
+    //AbsAddr = HdmiTxSsPtr->Config.Remapper.AddrOffset;
+
+    /* Initialize core */
+    Status = XV_axi4s_remap_CfgInitialize(HdmiTxSsPtr->RemapperPtr,
+                                 ConfigPtr,
+                                 AbsAddr);
+
+    if (Status != XST_SUCCESS) {
+      xil_printf("HDMITXSS ERR:: Remapper Initialization failed\r\n");
+      return(XST_FAILURE);
+    }
+  }
+  return(XST_SUCCESS);
+
+}
 /** @} */

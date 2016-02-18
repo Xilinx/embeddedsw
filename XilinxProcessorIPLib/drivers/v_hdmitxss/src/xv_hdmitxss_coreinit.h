@@ -46,7 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
-
+* 1.1   yh     20/01/16 Added remapper support
 * </pre>
 *
 ******************************************************************************/
@@ -63,6 +63,8 @@ extern "C" {
 #include "xvtc.h"
 #include "xtmrctr.h"
 #include "xhdcp1x.h"
+#include "xgpio.h"
+#include "xv_axi4s_remap.h"
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
@@ -70,6 +72,8 @@ int XV_HdmiTxSs_SubcoreInitHdmiTx(XV_HdmiTxSs *HdmiTxSsPtr);
 int XV_HdmiTxSs_SubcoreInitVtc(XV_HdmiTxSs *HdmiTxSsPtr);
 int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr);
 int XV_HdmiTxSs_SubcoreInitHdcp(XV_HdmiTxSs *HdmiTxSsPtr);
+int XV_HdmiTxSs_SubcoreInitRemapperReset(XV_HdmiTxSs *HdmiTxSsPtr);
+int XV_HdmiTxSs_SubcoreInitRemapper(XV_HdmiTxSs *HdmiTxSsPtr);
 
 #ifdef __cplusplus
 }
