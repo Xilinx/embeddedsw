@@ -121,13 +121,13 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         10/07/15 Initial release.
-
+* 1.1   yh     15/01/16 Add 3D Support
 * </pre>
 *
 ******************************************************************************/
 #ifndef XV_HDMITX_H_
-#define XV_HDMITX_H_		/**< Prevent circular inclusions
-				  *  by using protection macros */
+#define XV_HDMITX_H_        /**< Prevent circular inclusions
+                  *  by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -140,6 +140,8 @@ extern "C" {
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xvidc.h"
+
+#include "xv_hdmitx_vsif.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -154,10 +156,10 @@ extern "C" {
 * interrupt requests from peripheral.
 */
 typedef enum {
-	XV_HDMITX_HANDLER_CONNECT = 1,	// Handler for connect
-	XV_HDMITX_HANDLER_VS,			// Handler for vsync
-	XV_HDMITX_HANDLER_STREAM_DOWN,			// Handler for stream down
-	XV_HDMITX_HANDLER_STREAM_UP				// Handler for stream up
+    XV_HDMITX_HANDLER_CONNECT = 1,  // Handler for connect
+    XV_HDMITX_HANDLER_VS,           // Handler for vsync
+    XV_HDMITX_HANDLER_STREAM_DOWN,          // Handler for stream down
+    XV_HDMITX_HANDLER_STREAM_UP             // Handler for stream up
 } XV_HdmiTx_HandlerType;
 /*@}*/
 
@@ -165,8 +167,8 @@ typedef enum {
 * @{
 */
 typedef enum {
-	XV_HDMITX_STATE_STREAM_DOWN,	// Stream down
-	XV_HDMITX_STATE_STREAM_UP		// Stream up
+    XV_HDMITX_STATE_STREAM_DOWN,    // Stream down
+    XV_HDMITX_STATE_STREAM_UP       // Stream up
 } XV_HdmiTx_State;
 
 /**
@@ -174,91 +176,91 @@ typedef enum {
 * Each HDMI TX device should have a configuration structure associated.
 */
 typedef struct {
-	u16 DeviceId;		/**< DeviceId is the unique ID of the HDMI TX core */
-	u32 BaseAddress;	/**< BaseAddress is the physical
-						* base address of the core's registers */
+    u16 DeviceId;       /**< DeviceId is the unique ID of the HDMI TX core */
+    u32 BaseAddress;    /**< BaseAddress is the physical
+                        * base address of the core's registers */
 } XV_HdmiTx_Config;
 
 /**
 * This typedef contains Video identification information in tabular form.
 */
 typedef struct {
-	XVidC_VideoMode VmId;	/**< Video mode/Resolution ID */
-	u8 Vic;			/**< Video Identification code */
+    XVidC_VideoMode VmId;   /**< Video mode/Resolution ID */
+    u8 Vic;         /**< Video Identification code */
 } XV_HdmiTx_VicTable;
 
 /**
 * This typedef contains Video identification information in tabular form.
 */
 typedef struct {
-	XVidC_VideoMode VmId;			/**< Video mode/Resolution ID */
-	XVidC_VideoTiming Timing;		/**< Video Timing*/
+    XVidC_VideoMode VmId;           /**< Video mode/Resolution ID */
+    XVidC_VideoTiming Timing;       /**< Video Timing*/
 } XV_HdmiTx_ReducedBlankingTable;
 
 /**
 * This typedef contains audio stream specific data structure
 */
 typedef struct {
-	u8 Channels;			//< Video Identification code */
+    u8 Channels;            //< Video Identification code */
 } XV_HdmiTx_AudioStream;
 
 /**
 * This typedef contains HDMI TX stream specific data structure.
 */
 typedef struct {
-	XVidC_VideoStream 		Video;				/**< Video stream for HDMI TX */
-	XV_HdmiTx_AudioStream	Audio;				/**< Audio stream for HDMI TX */
-	u8 						Vic;				/**< Video Identification code
-												flag  */
-	u8 						IsHdmi;				/**< HDMI flag. 1 - HDMI Stream,
-												0 - DVI Stream  */
-	u8 						IsHdmi20;			/**< HDMI 2.0 flag  */
-	u8 						IsScrambled; 		/**< Scrambler flag
-								1 - scrambled data , 0 - non scrambled data */
-	u32						TMDSClock;			/**< TMDS clock */
-	u8 						TMDSClockRatio;		/**< TMDS clock ration
-								0 - 1/10, 1 - 1/40 */
-	u32 					PixelClk;			/**< Pixel Clock  */
-	XV_HdmiTx_State 		State;				/**< State */
-	u8 						IsConnected;		/**< Connected flag.
-							This flag is set when the cable is connected  */
-	u8						SampleRate;			/**< Sample rate */
+    XVidC_VideoStream       Video;              /**< Video stream for HDMI TX */
+    XV_HdmiTx_AudioStream   Audio;              /**< Audio stream for HDMI TX */
+    u8                      Vic;                /**< Video Identification code
+                                                flag  */
+    u8                      IsHdmi;             /**< HDMI flag. 1 - HDMI Stream,
+                                                0 - DVI Stream  */
+    u8                      IsHdmi20;           /**< HDMI 2.0 flag  */
+    u8                      IsScrambled;        /**< Scrambler flag
+                                1 - scrambled data , 0 - non scrambled data */
+    u32                     TMDSClock;          /**< TMDS clock */
+    u8                      TMDSClockRatio;     /**< TMDS clock ration
+                                0 - 1/10, 1 - 1/40 */
+    u32                     PixelClk;           /**< Pixel Clock  */
+    XV_HdmiTx_State         State;              /**< State */
+    u8                      IsConnected;        /**< Connected flag.
+                            This flag is set when the cable is connected  */
+    u8                      SampleRate;         /**< Sample rate */
 } XV_HdmiTx_Stream;
 
 /**
 * This typedef contains Auxiliary header information for infoframe.
 */
 typedef union {
-	u32 Data;	/**< AUX header data field */
-	u8 Byte[4];	/**< AUX header byte field */
+    u32 Data;   /**< AUX header data field */
+    u8 Byte[4]; /**< AUX header byte field */
 } XV_HdmiTx_AuxHeader;
 
 /**
 * This typedef contains Auxiliary data information for infoframe.
 */
 typedef union {
-	u32 Data[8];	/**< AUX data field */
-	u8 Byte[32];	/**< AUX data byte field */
+    u32 Data[8];    /**< AUX data field */
+    u8 Byte[32];    /**< AUX data byte field */
 } XV_HdmiTx_AuxData;
 
 /**
 * This typedef holds HDMI TX's Auxiliary peripheral specific data structure.
 */
 typedef struct {
-	XV_HdmiTx_AuxHeader Header;	/**< AUX header field */
-	XV_HdmiTx_AuxData Data;		/**< AUX data field */
+    XV_HdmiTx_AuxHeader Header; /**< AUX header field */
+    XV_HdmiTx_AuxData Data;     /**< AUX data field */
 } XV_HdmiTx_Aux;
 
 /**
 * Callback type for Vsync event interrupt.
 *
-* @param	CallbackRef is a callback reference passed in by the upper
-*		layer when setting the callback functions, and passed back to
-*		the upper layer when the callback is invoked.
+* @param    CallbackRef is a callback reference passed in by the upper
+*       layer when setting the callback functions, and passed back to
+*       the upper layer when the callback is invoked.
 *
-* @return	None.
+* @return   None.
 *
-* @note		None.
+* @note     None.
 *
 */
 typedef void (*XV_HdmiTx_Callback)(void *CallbackRef);
@@ -268,44 +270,44 @@ typedef void (*XV_HdmiTx_Callback)(void *CallbackRef);
 * HDMI TX core in use.
 */
 typedef struct {
-	XV_HdmiTx_Config Config;	/**< Hardware Configuration */
-	u32 IsReady;		/**< Core and the driver instance are initialized */
+    XV_HdmiTx_Config Config;    /**< Hardware Configuration */
+    u32 IsReady;        /**< Core and the driver instance are initialized */
 
-	/* Callbacks */
-	XV_HdmiTx_Callback ConnectCallback;		/**< Callback for connect event
-											interrupt */
-	void *ConnectRef;						/**< To be passed to the connect
-											interrupt callback */
-	u32 IsConnectCallbackSet;				/**< Set flag. This flag is set
-								to true when the callback has been registered */
+    /* Callbacks */
+    XV_HdmiTx_Callback ConnectCallback;     /**< Callback for connect event
+                                            interrupt */
+    void *ConnectRef;                       /**< To be passed to the connect
+                                            interrupt callback */
+    u32 IsConnectCallbackSet;               /**< Set flag. This flag is set
+                                to true when the callback has been registered */
 
-	XV_HdmiTx_Callback VsCallback;			/**< Callback for Vsync event
-											interrupt */
-	void *VsRef;							/**< To be passed to the Vsync
-										interrupt callback */
-	u32 IsVsCallbackSet;					/**< Set flag. This flag is set to
-								true when the callback has been registered */
+    XV_HdmiTx_Callback VsCallback;          /**< Callback for Vsync event
+                                            interrupt */
+    void *VsRef;                            /**< To be passed to the Vsync
+                                        interrupt callback */
+    u32 IsVsCallbackSet;                    /**< Set flag. This flag is set to
+                                true when the callback has been registered */
 
-	XV_HdmiTx_Callback StreamDownCallback;	/**< Callback for stream down
-											callback */
-	void *StreamDownRef;					/**< To be passed to the stream
-											down callback */
-	u32	IsStreamDownCallbackSet;			/**< Set flag. This flag is set to
-								true when the callback has been registered */
+    XV_HdmiTx_Callback StreamDownCallback;  /**< Callback for stream down
+                                            callback */
+    void *StreamDownRef;                    /**< To be passed to the stream
+                                            down callback */
+    u32 IsStreamDownCallbackSet;            /**< Set flag. This flag is set to
+                                true when the callback has been registered */
 
-	XV_HdmiTx_Callback StreamUpCallback;	/**< Callback for stream up
-	callback */
-	void *StreamUpRef;						/**< To be passed to the stream up
-	callback */
-	u32 IsStreamUpCallbackSet;				/**< Set flag. This flag is set to
-	true when the callback has been registered */
+    XV_HdmiTx_Callback StreamUpCallback;    /**< Callback for stream up
+    callback */
+    void *StreamUpRef;                      /**< To be passed to the stream up
+    callback */
+    u32 IsStreamUpCallbackSet;              /**< Set flag. This flag is set to
+    true when the callback has been registered */
 
-	/* Aux peripheral specific */
-	volatile XV_HdmiTx_Aux Aux;		/**< AUX peripheral information */
+    /* Aux peripheral specific */
+    volatile XV_HdmiTx_Aux Aux;     /**< AUX peripheral information */
 
-	/* HDMI TX stream */
-	XV_HdmiTx_Stream Stream;		/**< HDMI TX stream information */
-	u32 CpuClkFreq;	                /* CPU Clock frequency */
+    /* HDMI TX stream */
+    XV_HdmiTx_Stream Stream;        /**< HDMI TX stream information */
+    u32 CpuClkFreq;                 /* CPU Clock frequency */
 
 } XV_HdmiTx;
 
@@ -331,30 +333,30 @@ typedef struct {
 *
 * This macro asserts or releases the HDMI TX reset.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
-* @param	Reset specifies TRUE/FALSE value to either assert or
-*		release HDMI TX reset.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    Reset specifies TRUE/FALSE value to either assert or
+*       release HDMI TX reset.
 *
-* @return	None.
+* @return   None.
 *
-* @note		The reset output of the PIO is inverted. When the system is
-*		in reset, the PIO output is cleared and this will reset the
-*		HDMI RX. Therefore, clearing the PIO reset output will assert
-*		the HDMI link and video reset.
-*		C-style signature:
-*		void XV_HdmiTx_Reset(XV_HdmiTx *InstancePtr, u8 Reset)
+* @note     The reset output of the PIO is inverted. When the system is
+*       in reset, the PIO output is cleared and this will reset the
+*       HDMI RX. Therefore, clearing the PIO reset output will assert
+*       the HDMI link and video reset.
+*       C-style signature:
+*       void XV_HdmiTx_Reset(XV_HdmiTx *InstancePtr, u8 Reset)
 *
 ******************************************************************************/
 #define XV_HdmiTx_Reset(InstancePtr, Reset) \
 { \
-	if (Reset) { \
-		XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-		(XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_RST_MASK)); \
-	} \
-	else { \
-		XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-		(XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_RST_MASK)); \
-	} \
+    if (Reset) { \
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+        (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_RST_MASK)); \
+    } \
+    else { \
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_RST_MASK)); \
+    } \
 }
 
 /*****************************************************************************/
@@ -362,28 +364,28 @@ typedef struct {
 *
 * This macro controls the HDMI TX Scrambler.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
-* @param	SetClr specifies TRUE/FALSE value to either set ON or clear
-*		Scrambler.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    SetClr specifies TRUE/FALSE value to either set ON or clear
+*       Scrambler.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_SetScrambler(XV_HdmiTx *InstancePtr, u8 SetClr)
+* @note     C-style signature:
+*       void XV_HdmiTx_SetScrambler(XV_HdmiTx *InstancePtr, u8 SetClr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_SetScrambler(InstancePtr, SetClr) \
 { \
-	if (SetClr) { \
-		XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-		(XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_SCRM_MASK)); \
-		(InstancePtr)->Stream.IsScrambled = (TRUE); \
-	} \
-	else { \
-		XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-		(XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_SCRM_MASK)); \
-		(InstancePtr)->Stream.IsScrambled = (FALSE); \
-	} \
+    if (SetClr) { \
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+        (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_SCRM_MASK)); \
+        (InstancePtr)->Stream.IsScrambled = (TRUE); \
+    } \
+    else { \
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+        (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_SCRM_MASK)); \
+        (InstancePtr)->Stream.IsScrambled = (FALSE); \
+    } \
 }
 
 /*****************************************************************************/
@@ -391,388 +393,388 @@ typedef struct {
 *
 * This macro enables the HDMI TX PIO peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_PioEnable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_PioEnable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_PioEnable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_PIO_CTRL_SET_OFFSET), (XV_HDMITX_PIO_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_CTRL_SET_OFFSET), (XV_HDMITX_PIO_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro disables the HDMI TX PIO peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_PioDisable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_PioDisable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_PioDisable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_PIO_CTRL_CLR_OFFSET), (XV_HDMITX_PIO_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_CTRL_CLR_OFFSET), (XV_HDMITX_PIO_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro enables interrupt in the HDMI TX PIO peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_PioIntrEnable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_PioIntrEnable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_PioIntrEnable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_PIO_CTRL_SET_OFFSET), (XV_HDMITX_PIO_CTRL_IE_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_CTRL_SET_OFFSET), (XV_HDMITX_PIO_CTRL_IE_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro disables interrupt in the HDMI TX PIO peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_PioIntrDisable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_PioIntrDisable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_PioIntrDisable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_PIO_CTRL_CLR_OFFSET), (XV_HDMITX_PIO_CTRL_IE_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_CTRL_CLR_OFFSET), (XV_HDMITX_PIO_CTRL_IE_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro clears HDMI TX PIO interrupt.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_PioIntrClear(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_PioIntrClear(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_PioIntrClear(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_PIO_STA_OFFSET), (XV_HDMITX_PIO_STA_IRQ_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_STA_OFFSET), (XV_HDMITX_PIO_STA_IRQ_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro enables the HDMI TX Display Data Channel (DDC) peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_DdcEnable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_DdcEnable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_DdcEnable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_DDC_CTRL_SET_OFFSET), (XV_HDMITX_DDC_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_DDC_CTRL_SET_OFFSET), (XV_HDMITX_DDC_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro disables the HDMI TX Display Data Channel (DDC) peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_DdcDisable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_DdcDisable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_DdcDisable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_DDC_CTRL_CLR_OFFSET), (XV_HDMITX_DDC_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_DDC_CTRL_CLR_OFFSET), (XV_HDMITX_DDC_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro enables interrupt in the HDMI TX DDC peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_DdcIntrEnable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_DdcIntrEnable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_DdcIntrEnable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_DDC_CTRL_SET_OFFSET), (XV_HDMITX_DDC_CTRL_IE_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_DDC_CTRL_SET_OFFSET), (XV_HDMITX_DDC_CTRL_IE_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro disables interrupt in the HDMI TX DDC peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_DdcIntrDisable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_DdcIntrDisable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_DdcIntrDisable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_DDC_CTRL_CLR_OFFSET), (XV_HDMITX_DDC_CTRL_IE_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_DDC_CTRL_CLR_OFFSET), (XV_HDMITX_DDC_CTRL_IE_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro clears HDMI TX DDC interrupt.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_DdcIntrClear(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_DdcIntrClear(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_DdcIntrClear(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_DDC_STA_OFFSET), (XV_HDMITX_DDC_STA_IRQ_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_DDC_STA_OFFSET), (XV_HDMITX_DDC_STA_IRQ_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro enables the HDMI TX Auxiliary (AUX) peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_AuxEnable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_AuxEnable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_AuxEnable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_AUX_CTRL_SET_OFFSET), (XV_HDMITX_AUX_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUX_CTRL_SET_OFFSET), (XV_HDMITX_AUX_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro disables the HDMI TX Auxiliary (AUX) peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_AuxDisable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_AuxDisable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_AuxDisable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_AUX_CTRL_CLR_OFFSET), (XV_HDMITX_AUX_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUX_CTRL_CLR_OFFSET), (XV_HDMITX_AUX_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro enables interrupt in the HDMI TX AUX peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_AuxIntrEnable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_AuxIntrEnable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_AuxIntrEnable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_AUX_CTRL_SET_OFFSET), (XV_HDMITX_AUX_CTRL_IE_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUX_CTRL_SET_OFFSET), (XV_HDMITX_AUX_CTRL_IE_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro disables interrupt in the HDMI TX AUX peripheral.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_AuxIntrDisable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_AuxIntrDisable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_AuxIntrDisable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_AUX_CTRL_CLR_OFFSET), (XV_HDMITX_AUX_CTRL_IE_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUX_CTRL_CLR_OFFSET), (XV_HDMITX_AUX_CTRL_IE_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro enables audio in HDMI TX core.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_AudioEnable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_AudioEnable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_AudioEnable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro disables audio in HDMI TX core.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_AudioDisable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_AudioDisable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_AudioDisable(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro unmutes audio in HDMI TX core.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_AudioEnable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_AudioEnable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_AudioUnmute(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro mutes audio in HDMI TX core.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_AudioDisable(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_AudioDisable(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_AudioMute(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro sets the mode to operate in.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	None.
+* @return   None.
 *
-* @note		C-style signature:
-*		void XV_HdmiTx_SetMode(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       void XV_HdmiTx_SetMode(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_SetMode(InstancePtr) \
-	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_MODE_MASK))
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_MODE_MASK))
 
 /*****************************************************************************/
 /**
 *
 * This macro provides the current mode.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	Current mode.
-*		0 = DVI
-*		1 = HDMI
+* @return   Current mode.
+*       0 = DVI
+*       1 = HDMI
 *
-* @note		C-style signature:
-*		u8 XV_HdmiTx_GetMode(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       u8 XV_HdmiTx_GetMode(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_GetMode(InstancePtr) \
-	XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_PIO_OUT_OFFSET)) & (XV_HDMITX_PIO_OUT_MODE_MASK)
+    XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_OUT_OFFSET)) & (XV_HDMITX_PIO_OUT_MODE_MASK)
 
 /*****************************************************************************/
 /**
 *
 * This macro provides the current sample rate.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	Sample rate
+* @return   Sample rate
 *
-* @note		C-style signature:
-*		u8 XV_HdmiTx_GetMode(XV_HdmiTx *InstancePtr)
+* @note     C-style signature:
+*       u8 XV_HdmiTx_GetMode(XV_HdmiTx *InstancePtr)
 *
 ******************************************************************************/
 #define XV_HdmiTx_GetSampleRate(InstancePtr) \
-	(InstancePtr)->Stream.SampleRate
+    (InstancePtr)->Stream.SampleRate
 
 /*****************************************************************************/
 /**
 *
 * This macro provides the active audio channels.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	Audio channels
+* @return   Audio channels
 *
 *
 ******************************************************************************/
 #define XV_HdmiTx_GetAudioChannels(InstancePtr) \
-	(InstancePtr)->Stream.Audio.Channels
+    (InstancePtr)->Stream.Audio.Channels
 
 /*****************************************************************************/
 /**
 *
 * This macro provides the current pixel packing phase.
 *
-* @param	InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
-* @return	Pixel packing phase.
+* @return   Pixel packing phase.
 *
 *
 ******************************************************************************/
 #define XV_HdmiTx_GetPixelPackingPhase(InstancePtr) \
-	( ( (XV_HdmiTx_ReadReg( (InstancePtr)->Config.BaseAddress, \
-	(XV_HDMITX_PIO_IN_OFFSET) ) ) >> (XV_HDMITX_PIO_IN_PPP_SHIFT)) \
-	& (XV_HDMITX_PIO_IN_PPP_MASK))
+    ( ( (XV_HdmiTx_ReadReg( (InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_IN_OFFSET) ) ) >> (XV_HDMITX_PIO_IN_PPP_SHIFT)) \
+    & (XV_HDMITX_PIO_IN_PPP_MASK))
 
 /************************** Function Prototypes ******************************/
 
@@ -781,16 +783,17 @@ XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(u16 DeviceId);
 
 /* Initialization and control functions in xv_hdmitx.c */
 int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr,
-	XV_HdmiTx_Config *CfgPtr,
-	u32 EffectiveAddr);
+    XV_HdmiTx_Config *CfgPtr,
+    u32 EffectiveAddr);
 void XV_HdmiTx_Clear(XV_HdmiTx *InstancePtr);
 u8 XV_HdmiTx_GetVic(XVidC_VideoMode VideoMode);
 XVidC_VideoMode XV_HdmiTx_GetVideoModeFromVic(u8 Vic);
 u32 XV_HdmiTx_SetStream(XV_HdmiTx *InstancePtr,
-	XVidC_VideoMode VideoMode,
-	XVidC_ColorFormat ColorFormat,
-	XVidC_ColorDepth Bpc,
-	XVidC_PixelsPerClock Ppc);
+    XVidC_VideoMode VideoMode,
+    XVidC_ColorFormat ColorFormat,
+    XVidC_ColorDepth Bpc,
+    XVidC_PixelsPerClock Ppc,
+    XVidC_3DInfo *Info3D);
 u32 XV_HdmiTx_SetStreamReducedBlanking(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_SetPixelRate(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_SetSampleRate(XV_HdmiTx *InstancePtr, u8 SampleRate);
@@ -800,9 +803,9 @@ int XV_HdmiTx_IsStreamScrambled(XV_HdmiTx *InstancePtr);
 int XV_HdmiTx_IsStreamConnected(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_DdcInit(XV_HdmiTx *InstancePtr, u32 Frequency);
 int XV_HdmiTx_DdcWrite(XV_HdmiTx *InstancePtr, u8 Slave, u16 Length,
-	u8 *Buffer, u8 Stop);
+    u8 *Buffer, u8 Stop);
 int XV_HdmiTx_DdcRead(XV_HdmiTx *InstancePtr, u8 Slave, u16 Length,
-	u8 *Buffer, u8 Stop);
+    u8 *Buffer, u8 Stop);
 int XV_HdmiTx_AuxSend(XV_HdmiTx *InstancePtr);
 int XV_HdmiTx_Scrambler(XV_HdmiTx *InstancePtr);
 int XV_HdmiTx_ClockRatio(XV_HdmiTx *InstancePtr);
@@ -817,10 +820,19 @@ int XV_HdmiTx_SelfTest(XV_HdmiTx *InstancePtr);
 /* Interrupt related functions in xv_hdmitx_intr.c */
 void XV_HdmiTx_IntrHandler(void *InstancePtr);
 int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr, u32 HandlerType,
-	void *CallbackFunc, void *CallbackRef);
+    void *CallbackFunc, void *CallbackRef);
+
+
+/* Vendor Specific Infomation related functions in xv_hdmitx_vsif.c */
+int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr, XV_HdmiTx_Aux *AuxPtr);
+void XV_HdmiTx_VSIF_DisplayInfo(XV_HdmiTx_VSIF  *VSIFPtr);
+char* XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_3D_Struct_Field Item);
+char* XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_3D_Sampling_Method Item);
+char* XV_HdmiTx_VSIF_3DSampPosToString(XV_HdmiTx_3D_Sampling_Position Item);
 
 /************************** Variable Declarations ****************************/
 
+/************************** Variable Declarations ****************************/
 
 #ifdef __cplusplus
 }
