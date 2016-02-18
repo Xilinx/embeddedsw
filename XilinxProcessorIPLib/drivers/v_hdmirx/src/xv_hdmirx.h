@@ -117,7 +117,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.0   gm, mg 10/07/15 Initial release.
-
+* 1.1   yh     14/01/16 Added Marco for AxisEnable PIO
+* 1.2   yh     15/01/16 Added 3D Video support
 * </pre>
 *
 ******************************************************************************/
@@ -137,6 +138,7 @@ extern "C" {
 #include "xdebug.h"
 #include "xvidc.h"
 
+#include "xv_hdmirx_vsif.h"
 /************************** Constant Definitions *****************************/
 
 /** @name Handler Types
@@ -439,6 +441,36 @@ typedef struct {
 	} \
 }
 
+
+/*****************************************************************************/
+/**
+*
+* This macro asserts or clears the AXIS enable output port.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
+* @param	Reset specifies TRUE/FALSE value to either assert or
+*		release HDMI RX reset.
+*
+* @return	None.
+*
+* @note		The reset output of the PIO is inverted. When the system is
+*		in reset, the PIO output is cleared and this will reset the
+*		HDMI RX. Therefore, clearing the PIO reset output will assert
+*		the HDMI link and video reset.
+*		C-style signature:
+*		void XV_HdmiRx_AxisEnable(InstancePtr, Enable)
+*
+******************************************************************************/
+#define XV_HdmiRx_AxisEnable(InstancePtr, Enable) \
+{ \
+	if (Enable) { \
+		XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_AXIS_EN_MASK)); \
+	} \
+	else { \
+		XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_AXIS_EN_MASK)); \
+	} \
+}
+
 /*****************************************************************************/
 /**
 *
@@ -715,55 +747,6 @@ typedef struct {
 #define XV_HdmiRx_DdcHdcpDisable(InstancePtr) \
 	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_CLR_OFFSET), (XV_HDMIRX_DDC_CTRL_HDCP_EN_MASK));
 
-/*****************************************************************************/
-/**
-*
-* This macro Sets the HDCP address in the DDC peripheral.
-*
-* @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
-* @param    Address is the HDCP address.
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XV_HdmiRx_DdcHdcpSetAddress(XV_HdmiRx *InstancePtr, u8 Address)
-*
-******************************************************************************/
-#define XV_HdmiRx_DdcHdcpSetAddress(InstancePtr, Address) \
-	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_ADDRESS_OFFSET), (u32)(Address))
-
-/*****************************************************************************/
-/**
-*
-* This macro writes HDCP data in the DDC peripheral.
-*
-* @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
-* @param    Data is the HDCP data to be written.
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XV_HdmiRx_DdcHdcpWriteData(XV_HdmiRx *InstancePtr, u8 Data)
-*
-******************************************************************************/
-#define XV_HdmiRx_DdcHdcpWriteData(InstancePtr, Data) \
-	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_DATA_OFFSET), (u32)(Data))
-
-/*****************************************************************************/
-/**
-*
-* This macro reads HDCP data from the DDC peripheral.
-*
-* @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
-*
-* @return	Returns the HDCP data read from the DDC peripheral.
-*
-* @note		C-style signature:
-*		u32 XV_HdmiRx_DdcHdcpReadData(XV_HdmiRx *InstancePtr)
-*
-******************************************************************************/
-#define XV_HdmiRx_DdcHdcpReadData(InstancePtr) \
-	XV_HdmiRx_ReadReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_DATA_OFFSET))
 
 /*****************************************************************************/
 /**
@@ -1058,6 +1041,38 @@ typedef struct {
 #define XV_HdmiRx_GetAudioChannels(InstancePtr) \
 	(InstancePtr)->Stream.Audio.Channels
 
+/*****************************************************************************/
+/**
+*
+* This macro clears the HDCP write message buffer in the DDC peripheral.
+*
+* @param	InstancePtr is a pointer to the XHdmi_Rx core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XHdmiRx_DdcHdcpClearWriteMessageBuffer(XHdmi_Rx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx_DdcHdcpClearWriteMessageBuffer(InstancePtr) \
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_LNKSTA_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_WMSG_CLR_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro clears the HDCP read message buffer in the DDC peripheral.
+*
+* @param	InstancePtr is a pointer to the XHdmi_Rx core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XHdmiRx_DdcHdcpClearReadMessageBuffer(XHdmi_Rx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx_DdcHdcpClearReadMessageBuffer(InstancePtr) \
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_LNKSTA_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_RMSG_CLR_MASK))
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xv_hdmirx_sinit.c */
@@ -1079,10 +1094,18 @@ u32 XV_HdmiRx_GetLinkStatus(XV_HdmiRx *InstancePtr, u8 Type);
 u32 XV_HdmiRx_GetAcrCts(XV_HdmiRx *InstancePtr);
 u32 XV_HdmiRx_GetAcrN(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_DdcLoadEdid(XV_HdmiRx *InstancePtr, u8 *Data, u16 Length);
+void XV_HdmiRx_DdcHdcpSetAddress(XV_HdmiRx *InstancePtr, u32 Addr);
+void XV_HdmiRx_DdcHdcpWriteData(XV_HdmiRx *InstancePtr, u32 Data);
+u32 XV_HdmiRx_DdcHdcpReadData(XV_HdmiRx *InstancePtr);
+u16 XV_HdmiRx_DdcGetHdcpWriteMessageBufferWords(XV_HdmiRx *InstancePtr);
+int XV_HdmiRx_DdcIsHdcpWriteMessageBufferEmpty(XV_HdmiRx *InstancePtr);
+u16 XV_HdmiRx_DdcGetHdcpReadMessageBufferWords(XV_HdmiRx *InstancePtr);
+int XV_HdmiRx_DdcIsHdcpReadMessageBufferEmpty(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_GetTmdsClockRatio(XV_HdmiRx *InstancePtr);
 u8 XV_HdmiRx_GetAviVic(XV_HdmiRx *InstancePtr);
 XVidC_ColorFormat XV_HdmiRx_GetAviColorSpace(XV_HdmiRx *InstancePtr);
 XVidC_ColorDepth XV_HdmiRx_GetGcpColorDepth(XV_HdmiRx *InstancePtr);
+void XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr);
 u32 XV_HdmiRx_Divide(u32 Dividend, u32 Divisor);
 
@@ -1096,6 +1119,13 @@ int XV_HdmiRx_SelfTest(XV_HdmiRx *InstancePtr);
 void XV_HdmiRx_IntrHandler(void *InstancePtr);
 int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef);
 
+/* Vendor Specific Infomation related functions in xv_hdmirx_vsif.c */
+int XV_HdmiRx_VSIF_ParsePacket(XV_HdmiRx_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr);
+void XV_HdmiRx_VSIF_DisplayInfo(XV_HdmiRx_VSIF  *VSIFPtr);
+char* XV_HdmiRx_VSIF_3DStructToString(XV_HdmiRx_3D_Struct_Field Item);
+char* XV_HdmiRx_VSIF_3DSampMethodToString(XV_HdmiRx_3D_Sampling_Method Item);
+char* XV_HdmiRx_VSIF_3DSampPosToString(XV_HdmiRx_3D_Sampling_Position Item);
+/************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/
 
 

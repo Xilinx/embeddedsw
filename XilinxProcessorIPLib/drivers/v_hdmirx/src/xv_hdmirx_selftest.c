@@ -73,32 +73,32 @@
 *
 * This function reads ID of PIO peripheral.
 *
-* @param	InstancePtr is a pointer to the HDMI RX core instance.
+* @param    InstancePtr is a pointer to the HDMI RX core instance.
 *
 * @return
-*		- XST_SUCCESS if PIO ID was matched.
-*		- XST_FAILURE if PIO ID was mismatched.
+*       - XST_SUCCESS if PIO ID was matched.
+*       - XST_FAILURE if PIO ID was mismatched.
 *
-* @note		None.
+* @note     None.
 *
 ******************************************************************************/
 int XV_HdmiRx_SelfTest(XV_HdmiRx *InstancePtr)
 {
-	int Status = (XST_SUCCESS);
-	u32 RegValue;
+    int Status = (XST_SUCCESS);
+    u32 RegValue;
 
-	/* Verify argument. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+    /* Verify argument. */
+    Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Read PIO ID */
-	RegValue = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress,
-					(XV_HDMIRX_PIO_ID_OFFSET));
+    /* Read PIO ID */
+    RegValue = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress,
+                    (XV_HDMIRX_PIO_ID_OFFSET));
 
-	RegValue = ((RegValue) >> (XV_HDMIRX_SHIFT_16)) & (XV_HDMIRX_MASK_16);
+    RegValue = ((RegValue) >> (XV_HDMIRX_SHIFT_16)) & (XV_HDMIRX_MASK_16);
 
-	if (RegValue != (XV_HDMIRX_PIO_ID)) {
-		Status = (XST_FAILURE);
-	}
+    if (RegValue != (XV_HDMIRX_PIO_ID)) {
+        Status = (XST_FAILURE);
+    }
 
-	return Status;
+    return Status;
 }
