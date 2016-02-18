@@ -149,6 +149,17 @@ Updated to use cannonical xparameters in examples and clean up of the comments,
 removed support for DCR bridge and removed xgpio_intr_example for CR 900381.
 Used UINTPTR type for BaseAddress.
 
+hdcp1x_v3_0:
+Updated the drivers to support HDCP Repeater functionality.
+Added following functions:
+  XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
+  XHdcp1x_SetCallBack, XHdcp1x_ReadDownstream.
+  XHdcp1x_TxReadDownstream, XHdcp1x_TxSetCallBack,
+  XHdcp1x_TxTriggerDownstreamAuth.
+  XHdcp1x_RxDownstreamReady, XHdcp1x_RxGetRepeaterInfo,
+  XHdcp1x_RxDownstreamReadyCallback,
+  XHdcp1x_RxSetCallBack.
+
 hdcp22_cipher_v1_0:
 Added the initial version of Xilinx HDCP Cipher core driver.
 Updated the driver for nested HIP support.
