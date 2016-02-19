@@ -327,6 +327,9 @@ Made changes to integrate layer-1 with layer-2.
 v_hdmirx_v1_1:
 Updated version from 1.0 to 1.1
 
+v_hdmitx_v1_1:
+Updated version from 1.0 to 1.1
+
 v_hdmirx_v1_0:
 Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
 
