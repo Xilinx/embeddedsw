@@ -324,6 +324,13 @@ Made changes to integrate layer-1 with layer-2.
 v_hcresampler_v2_0:
 Made changes to integrate layer-1 with layer-2.
 
+v_hdmirxss_v2_0:
+Updated version from 1.0 to 2.0
+
+1. Added 3D support
+2. Added Native Video Support
+3. Added NTSC/PAL/420 Support
+
 v_hdmirx_v1_1:
 Updated version from 1.0 to 1.1
 
