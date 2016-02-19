@@ -97,6 +97,10 @@
 * 1.00 sha 05/18/15 Initial release.
 * 2.00 sha 10/05/15 Removed HDCP interrupt handler types.
 *                   Added HDCP and Timer Counter support.
+* 3.0  sha 02/19/16 Removed indexing from enum XDpRxSs_HandlerType.
+*                   Added handler type as enum for HDCP:
+*                   XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT.
+*                   Added function: XDpRxSs_DownstreamReady.
 * </pre>
 *
 ******************************************************************************/
@@ -132,60 +136,66 @@ typedef enum {
 	XDPRXSS_HANDLER_DP_VM_CHG_EVENT = 1,	/**< Video mode change event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_PWR_CHG_EVENT = 2,	/**< Power state change
+	XDPRXSS_HANDLER_DP_PWR_CHG_EVENT,	/**< Power state change
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_NO_VID_EVENT = 3,	/**< No video event
+	XDPRXSS_HANDLER_DP_NO_VID_EVENT,	/**< No video event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_VBLANK_EVENT = 4,	/**< Vertical blanking event
+	XDPRXSS_HANDLER_DP_VBLANK_EVENT,	/**< Vertical blanking event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_TLOST_EVENT = 5,	/**< Training lost event
+	XDPRXSS_HANDLER_DP_TLOST_EVENT,		/**< Training lost event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_VID_EVENT = 6,	/**< Valid video event
+	XDPRXSS_HANDLER_DP_VID_EVENT,		/**< Valid video event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_INFO_PKT_EVENT = 7,	/**< Info packet event
+	XDPRXSS_HANDLER_DP_INFO_PKT_EVENT,		/**< Info packet event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_EXT_PKT_EVENT = 8,	/**< Extension packet event
+	XDPRXSS_HANDLER_DP_EXT_PKT_EVENT,	/**< Extension packet event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_TDONE_EVENT = 9,	/**< Training done event
+	XDPRXSS_HANDLER_DP_TDONE_EVENT,		/**< Training done event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_BW_CHG_EVENT = 10,	/**< Bandwidth change event
+	XDPRXSS_HANDLER_DP_BW_CHG_EVENT,	/**< Bandwidth change event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_DWN_REQ_EVENT = 11,	/**< Down request event
+	XDPRXSS_HANDLER_DP_DWN_REQ_EVENT,	/**< Down request event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_DWN_REP_EVENT = 12,	/**< Down reply event
+	XDPRXSS_HANDLER_DP_DWN_REP_EVENT,	/**< Down reply event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_AUD_OVRFLW_EVENT = 13, /**< Audio packet overflow
+	XDPRXSS_HANDLER_DP_AUD_OVRFLW_EVENT,	 /**< Audio packet overflow
 						    *  event interrupt type for
 						    *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT = 14,	/**< Payload allocation
+	XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT,		/**< Payload allocation
 							  *  event interrupt
 							  *  type for
 							  *  DisplayPort
 							  *  core */
-	XDPRXSS_HANDLER_DP_ACT_RX_EVENT = 15,	/**< ACT sequence received
+	XDPRXSS_HANDLER_DP_ACT_RX_EVENT,	/**< ACT sequence received
 						  *  event interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_DP_CRC_TEST_EVENT = 16,	/**< CRC test start event
+	XDPRXSS_HANDLER_DP_CRC_TEST_EVENT,	/**< CRC test start event
 						  *  interrupt type for
 						  *  DisplayPort core */
-	XDPRXSS_HANDLER_UNPLUG_EVENT = 17,	/**< Unplug event type for
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT,	/**< Repeater Trigger
+						  *  Downstream AUTH event
+						  *  interrupt type for
+						  *  HDCP core */
+#endif
+	XDPRXSS_HANDLER_UNPLUG_EVENT,		/**< Unplug event type for
 						  *  DisplayPort RX
 						  *  Subsystem */
-	XDPRXSS_HANDLER_LINKBW_EVENT = 18,	/**< Link BW event type for
+	XDPRXSS_HANDLER_LINKBW_EVENT,		/**< Link BW event type for
 						  *  DisplayPort RX Subsystem
 						  */
-	XDPRXSS_HANDLER_PLL_RESET_EVENT = 19	/**< PLL reset event type for
+	XDPRXSS_HANDLER_PLL_RESET_EVENT		/**< PLL reset event type for
 						  *  DisplayPort RX Subsystem
 						  */
 } XDpRxSs_HandlerType;
@@ -477,6 +487,7 @@ void XDpRxSs_SetDebugPrintf(XDpRxSs *InstancePtr, XDpRxSs_Printf PrintfFunc);
 void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc);
 void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
 void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
+u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr);
 #endif
 
 void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr);

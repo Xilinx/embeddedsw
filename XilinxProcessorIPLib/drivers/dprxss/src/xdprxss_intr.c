@@ -47,6 +47,8 @@
 * 1.00 sha 05/18/15 Initial release.
 * 2.00 sha 10/05/15 Removed setting HDCP callbacks.
 *                   Added HDCP and Timer Counter interrupt handler.
+* 3.0  sha 02/19/16 Added switch case for XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT
+*                   to register callback with HDCP.
 * </pre>
 *
 ******************************************************************************/
@@ -186,6 +188,7 @@ void XDpRxSs_TmrCtrIntrHandler(void *InstancePtr)
 * XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT   XDp_RxSetIntrPayloadAllocHandler
 * XDPRXSS_HANDLER_DP_ACT_RX_EVENT          XDp_RxSetIntrActRxHandler
 * XDPRXSS_HANDLER_DP_CRC_TEST_EVENT        XDp_RxSetIntrCrcTestHandler
+* XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT     XHdcp1x_SetCallBack
 * XDPRXSS_HANDLER_UNPLUG_EVENT             UnplugCallback
 * XDPRXSS_HANDLER_LINKBW_EVENT             LinkBwCallback
 * XDPRXSS_HANDLER_PLL_RESET_EVENT          PllResetCallback
@@ -314,6 +317,15 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+		case XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT:
+			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
+				XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+#endif
 
 		case XDPRXSS_HANDLER_UNPLUG_EVENT:
 			InstancePtr->UnplugCallback =

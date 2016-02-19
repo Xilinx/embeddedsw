@@ -54,6 +54,7 @@
 * 2.00 sha 11/06/15 Modified the order of execution in TP1 callback as DP159
 *                   config for TP1 and then link bandwidth callback.
 * 3.0  sha 02/05/16 Added support for multiple subsystems in a design.
+* 3.0  sha 02/19/16 Added function: XDpRxSs_DownstreamReady.
 * </pre>
 *
 ******************************************************************************/
@@ -1022,6 +1023,35 @@ void XDpRxSs_StopTimer(XDpRxSs *InstancePtr)
 
 	/* Reset Timer Counter reset done */
 	InstancePtr->TmrCtrResetDone = 0;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function informs the HDCP state machine that the downstream interfaces
+* of the Repeater are ready (enabled or authenticated).
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if downstream is ready.
+*		- XST_FAILURE, if downstream is not ready.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Poll the HDCP interface */
+	Status = XHdcp1x_DownstreamReady(InstancePtr->Hdcp1xPtr);
+
+	return Status;
 }
 
 /*****************************************************************************/
