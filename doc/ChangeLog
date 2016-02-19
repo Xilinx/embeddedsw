@@ -357,10 +357,13 @@ Made changes to integrate layer-1 with layer-2.
 v_voip_decap_v1_0:
 Initial Commit for 2016.1
 
-v_voip_framer_v1_0
+v_voip_framer_v1_0:
 Initial Commit for 2016.1
 
 v_voip_packetizer56_v1_0:
+Initial Commit for 2016.1
+
+v_voip_depacketizer_v1_0:
 Initial Commit for 2016.1
 
 video_common_v2_1:
