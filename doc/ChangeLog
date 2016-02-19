@@ -126,9 +126,13 @@ Added the initial version of MIPI DPHY Controller driver.
 
 dprxss_v3_0:
 Added support for multiple subsystems in a design.
+Added handlers as enum for HDCP callback registration.
+Added function: XDpRxSs_DownstreamReady
 
 dptxss_v3_0:
 Added support for multiple subsystems in a design.
+Added handlers as enum for HDCP callback registration.
+Added function: XDpTxSs_ReadDownstream, XDpTxSs_HandleTimeout
 
 emaclite_v4_2:
 Used UINTPTR instead of u32 for Baseaddress to fix CR#867425.
