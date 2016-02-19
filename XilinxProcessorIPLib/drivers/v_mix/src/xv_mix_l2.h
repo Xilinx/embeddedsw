@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -18,8 +18,8 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
  * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
@@ -42,11 +42,14 @@
 * <b>Mixer IP Features </b>
 *
 * The Mixer IP supports following features
-* 	- AXI4-S Input and Output
-* 	- Upto 7 Memory layers
+* 	- AXI4-S Master Layer
+* 	- Up to 7 optional layers (user configurable)
+* 	- Each layer can be configured as Streaming or Memory (build time)
+* 	   - Color format for each layer is set at build time
 * 	- 1 Logo Layer (optional)
+* 	- Logo Layer Color Key feature (optional)
 *   - Alpha Level (8 bit) per layer (optional)
-*   - Upsample (1x, 2x, 4x) capability  per layer (optional)
+*   - Scale (1x, 2x, 4x) capability per layer (optional)
 *
 * <b>Dependency</b>
 *
@@ -57,7 +60,12 @@
 * <b>Initialization & Configuration</b>
 *
 * The device driver enables higher layer software (e.g., an application) to
-* communicate to the mixer core.
+* communicate with the mixer core.
+*
+* Driver is built with layere architecture
+* 	- Layer 1 provides API's to peek/poke registers at HW level.
+* 	- Layer 2 provides API's that abstract sub-core functionality, providing an
+*     easy to use feature interface
 *
 * Before using the layer-2 API's user must initialize the core by calling
 * API XVMix_Initialize(). This function will look for a configuration structure
@@ -66,13 +74,33 @@
 * Advanced users always have the capability to directly interact with the IP
 * core using Layer-1 API's that perform low level register peek/poke.
 *
+* <b>Pre-Requisite's</b>
+*
+* If optional layers are included in the IP then
+* 	- Application must set the memory address for each layer using provided API
+* 	  Address must be aligned to memory width. This can be computed with
+* 	  following equation
+* 	    Align = 2 * PPC * 4 Bytes
+* 	    (where PPC is the Pixels/Clock selected in IP configuration)
+*
+* 	- When setting up layer window the Stride must be provided in Bytes and
+* 	  must be aligned to respective color space of the layer. This can be
+* 	  computed with following equation
+* 	    StrideInBytes = (Window_Width * (YUV422 ? 2 : 4))
+*
 * <b> Interrupts </b>
 *
-* For the driver to process interrupts, the application must set up the
-* system's interrupt controller and connect the XVMix_InterruptHandler function
-* to service interrupts. When an interrupt occurs, XVMix_InterruptHandler will
-* check if ISR source is the Frame Done signal and will trigger next frame
-* processing
+* Driver is configured to operate both in polling as well as interrupt mode.
+* 	- To use interrupt based processing application must set up the system's
+* 	  interrupt controller and connect the XVMix_InterruptHandler function to
+* 	  service interrupts. Next interrupts must be enabled using the provided
+* 	  API. When an interrupt occurs, ISR will confirm if frame processing is
+* 	  is done. If call back is registered such function will be called.
+* 	  Application can apply new setting updates here. Subsequently next frame
+* 	  processing will be triggered with new settings.
+* 	- To use poling method disable interrupts using the provided API. Doing so
+* 	  will configure the IP to keep processing frames without sw intervention.
+*   (Polling mode is the default configuration set during driver initialization)
 *
 * <b> Virtual Memory </b>
 *
@@ -91,6 +119,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   10/29/15   Initial Release
 *             12/14/15   Added interrupt handler
+*             02/12/16   Added Stride and memory Alignement requirements
 * </pre>
 *
 ******************************************************************************/
@@ -107,7 +136,7 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 #define XVMIX_MAX_SUPPORTED_LAYERS       (9)
 #define XVMIX_ALPHA_MIN                  (0)
-#define XVMIX_ALPHA_MAX                  (255)
+#define XVMIX_ALPHA_MAX                  (256)
 
 #define XVMIX_IRQ_DONE_MASK              (0x01)
 #define XVMIX_IRQ_READY_MASK             (0x02)
@@ -133,13 +162,14 @@ typedef enum
     XVMIX_SCALE_FACTOR_1X = 0,
     XVMIX_SCALE_FACTOR_2X,
     XVMIX_SCALE_FACTOR_4X,
+	XVMIX_SCALE_FACTOR_NOT_SUPPORTED
 }XVMix_Scalefactor;
 
 /**
  * This typedef enumerates layer index
  */
 typedef enum {
-    XVMIX_LAYER_STREAM = 0,
+    XVMIX_LAYER_MASTER = 0,
     XVMIX_LAYER_1,
     XVMIX_LAYER_2,
     XVMIX_LAYER_3,
@@ -153,12 +183,35 @@ typedef enum {
 }XVMix_LayerId;
 
 /**
+ * This typedef enumerates layer interface type
+ */
+typedef enum {
+  XVMIX_LAYER_TYPE_MEMORY = 0,
+  XVMIX_LAYER_TYPE_STREAM
+}XVMix_LayerType;
+
+typedef enum {
+  XVMIX_ERR_LAYER_WINDOW_INVALID  = 0x10L,
+  XVMIX_ERR_WIN_STRIDE_MISALIGNED = 0x11L,
+  XVMIX_ERR_MEM_ADDR_MISALIGNED   = 0x12L,
+  XVMIX_ERR_LAYER_INTF_TYPE       = 0x13L,
+  XVMIX_ERR_LAST
+}XVMix_ErrorCodes;
+
+/**
+ * This typedef contains configuration information for Logo Color Key
+ */
+typedef struct {
+  u8 RGB_Min[3];
+  u8 RGB_Max[3];
+}XVMix_LogoColorKey;
+
+/**
  * This typedef contains configuration information for a given layer
  */
 typedef struct {
     XVidC_VideoWindow Win;
-    u8 IsEnabled;
-    int ColorFormat;
+    XVidC_ColorFormat ColorFormat;
     union {
         struct {
             u8 *RBuffer;
@@ -200,13 +253,24 @@ typedef struct {
                                                          structure */
     XVMix_BackgroundId BkgndColor;
 
-    //I/O Streams
-    XVidC_VideoStream StrmIn;      /**< Input  AXIS */
-    XVidC_VideoStream StrmOut;     /**< Output AXIS */
-
+    XVidC_VideoStream Stream;    /**< Input AXIS */
 }XV_Mix_l2;
 
 /************************** Macros Definitions *******************************/
+/*****************************************************************************/
+/**
+*
+* This macro returns the available layers in IP
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Number of layers enabled in HW
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVMix_GetNumLayers(InstancePtr)  ((InstancePtr)->Mix.Config.NumLayers)
+
 /*****************************************************************************/
 /**
 *
@@ -219,7 +283,38 @@ typedef struct {
 * @note     None.
 *
 ******************************************************************************/
-#define XVMix_GetBackgroundId(InstancePtr)         ((InstancePtr)->BkgndColor)
+#define XVMix_GetBackgndColor(InstancePtr)        ((InstancePtr)->BkgndColor)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Logo layer is enabled
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVMix_IsLogoEnabled(InstancePtr)   ((InstancePtr)->Mix.Config.LogoEn)
+
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Logo layer color key feature is enabled
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVMix_IsLogoColorKeyEnabled(InstancePtr) \
+	                          ((InstancePtr)->Mix.Config.LogoColorKeyEn)
+
 
 /*****************************************************************************/
 /**
@@ -251,55 +346,50 @@ typedef struct {
 *
 ******************************************************************************/
 #define XVMix_IsScalingEnabled(InstancePtr, LayerId) \
-                ((InstancePtr)->Mix.Config.UpSampleEn[LayerId-1])
+                ((InstancePtr)->Mix.Config.ScalingEn[LayerId-1])
 
 
 /*****************************************************************************/
 /**
 *
-* This macro returns state of the specified layer [enabled or disabled]
+* This macro check if specified layer interface type is STREAM
 *
 * @param    InstancePtr is a pointer to the core instance.
 * @param    LayerId is the layer index for which information is requested
 *
-* @return   Enabled(1)/Disabled(0)
+* @return   TRUE(1)/FALSE(0)
 *
 ******************************************************************************/
-#define XVMix_IsLayerEnabled(InstancePtr, LayerId) \
-                ((InstancePtr)->Layer[LayerId].IsEnabled)
-
+#define XVMix_IsLayerInterfaceStream(InstancePtr, LayerId) \
+ ((InstancePtr)->Mix.Config.LayerIntrfType[LayerId-1] == XVMIX_LAYER_TYPE_STREAM)
 
 /**************************** Function Prototypes *****************************/
 int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId);
 void XVMix_Start(XV_Mix_l2 *InstancePtr);
 void XVMix_Stop(XV_Mix_l2 *InstancePtr);
-void XVMix_SetVidStreamIn(XV_Mix_l2 *InstancePtr,
-                          const XVidC_VideoStream *StrmIn);
-void XVMix_SetVidStreamOut(XV_Mix_l2 *InstancePtr,
-                           const XVidC_VideoStream *StrmOut);
+void XVMix_SetVidStream(XV_Mix_l2 *InstancePtr,
+                        const XVidC_VideoStream *StrmIn);
 int XVMix_LayerEnable(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 int XVMix_LayerDisable(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
-void XVMix_SetResolution(XV_Mix_l2 *InstancePtr, u32 Width, u32 Height);
+int XVMix_IsLayerEnabled(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 void XVMix_SetBackgndColor(XV_Mix_l2 *InstancePtr,
                            XVMix_BackgroundId ColorId,
                            XVidC_ColorDepth  bpc);
-int XVMix_SetLayerColorFormat(XV_Mix_l2 *InstancePtr,
-                              XVMix_LayerId LayerId,
-                              XVidC_ColorFormat Cfmt);
 int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
                               XVMix_LayerId LayerId,
                               XVidC_ColorFormat *Cfmt);
 int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
                          XVMix_LayerId LayerId,
-                         XVidC_VideoWindow *Win);
+                         XVidC_VideoWindow *Win,
+						 u32 StrideInBytes);
 int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
                          XVMix_LayerId LayerId,
                          XVidC_VideoWindow *Win);
 
-int XVMix_SetLayerPosition(XV_Mix_l2 *InstancePtr,
-                           XVMix_LayerId LayerId,
-                           u16 StartX,
-                           u16 StartY);
+int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
+                          XVMix_LayerId LayerId,
+                          u16 StartX,
+                          u16 StartY);
 int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
                               XVMix_LayerId LayerId,
                               XVMix_Scalefactor Scale);
@@ -307,13 +397,18 @@ int XVMix_GetLayerScaleFactor(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
                         XVMix_LayerId LayerId,
-                        u8 Alpha);
+                        u16 Alpha);
 int XVMix_GetLayerAlpha(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
                              XVMix_LayerId LayerId,
                              u32 Addr);
 u32 XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
+
+int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
+		                  XVMix_LogoColorKey ColorKeyData);
+int XVMix_GetLogoColorKey(XV_Mix_l2 *InstancePtr,
+		                  XVMix_LogoColorKey *ColorKeyData);
 
 int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
                    XVidC_VideoWindow *Win,
@@ -328,6 +423,8 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 /* Interrupt related function */
 void XVMix_InterruptHandler(void *InstancePtr);
 int XVMix_SetCallback(XV_Mix_l2 *InstancePtr, void *CallbackFunc, void *CallbackRef);
+void XVMix_InterruptEnable(XV_Mix_l2 *InstancePtr);
+void XVMix_InterruptDisable(XV_Mix_l2 *InstancePtr);
 
 #ifdef __cplusplus
 }

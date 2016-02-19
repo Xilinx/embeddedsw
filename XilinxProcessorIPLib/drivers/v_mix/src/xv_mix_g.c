@@ -5,7 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2015 Xilinx, Inc. All Rights Reserved.*
+* Copyright (C) 2010-2016 Xilinx, Inc. All Rights Reserved.*
 *Permission is hereby granted, free of charge, to any person obtaining a copy
 *of this software and associated documentation files (the Software), to deal
 *in the Software without restriction, including without limitation the rights
@@ -57,6 +57,7 @@ XV_mix_Config XV_mix_ConfigTable[] =
 		XPAR_V_MIX_0_LOGO_LAYER,
 		XPAR_V_MIX_0_MAX_LOGO_COLS,
 		XPAR_V_MIX_0_MAX_LOGO_ROWS,
+		XPAR_V_MIX_0_LOGO_TRANSPARENCY_COLOR,
 		XPAR_V_MIX_0_LAYER1_ALPHA,
 		XPAR_V_MIX_0_LAYER2_ALPHA,
 		XPAR_V_MIX_0_LAYER3_ALPHA,
@@ -77,6 +78,13 @@ XV_mix_Config XV_mix_ConfigTable[] =
 		XPAR_V_MIX_0_LAYER4_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER5_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER6_MAX_WIDTH,
-		XPAR_V_MIX_0_LAYER7_MAX_WIDTH
+		XPAR_V_MIX_0_LAYER7_MAX_WIDTH,
+		XPAR_V_MIX_0_LAYER1_INTF_TYPE,
+		XPAR_V_MIX_0_LAYER2_INTF_TYPE,
+		XPAR_V_MIX_0_LAYER3_INTF_TYPE,
+		XPAR_V_MIX_0_LAYER4_INTF_TYPE,
+		XPAR_V_MIX_0_LAYER5_INTF_TYPE,
+		XPAR_V_MIX_0_LAYER6_INTF_TYPE,
+		XPAR_V_MIX_0_LAYER7_INTF_TYPE
 	}
 };

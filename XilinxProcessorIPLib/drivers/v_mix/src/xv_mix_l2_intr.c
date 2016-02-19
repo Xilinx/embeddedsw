@@ -43,6 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   12/14/15   Initial Release
+*             02/12/16   Move user call back before frame start trigger
 *
 * </pre>
 *
@@ -121,11 +122,10 @@ void XVMix_InterruptHandler(void *InstancePtr)
 
   /* Check for Done Signal */
   if(Status & XVMIX_IRQ_DONE_MASK) {
-    XV_mix_Start(&MixPtr->Mix);
-
     //Call user registered callback function, if any
     if(MixPtr->FrameDoneCallback) {
-      MixPtr->FrameDoneCallback(MixPtr->CallbackRef);
+	      MixPtr->FrameDoneCallback(MixPtr->CallbackRef);
     }
+    XV_mix_Start(&MixPtr->Mix);
   }
 }

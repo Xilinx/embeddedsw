@@ -57,14 +57,27 @@ typedef struct {
 * This typedef contains Up Sample feature enable flag per memory layer
 */
 typedef struct {
-  u8  Layer1UpSampleEn;  /**< Layer upsampling support indicator flag  */
-  u8  Layer2UpSampleEn;  /**< Layer upsampling support indicator flag  */
-  u8  Layer3UpSampleEn;  /**< Layer upsampling support indicator flag  */
-  u8  Layer4UpSampleEn;  /**< Layer upsampling support indicator flag  */
-  u8  Layer5UpSampleEn;  /**< Layer upsampling support indicator flag  */
-  u8  Layer6UpSampleEn;  /**< Layer upsampling support indicator flag  */
-  u8  Layer7UpSampleEn;  /**< Layer upsampling support indicator flag  */
-}XVMix_UpsampleFlag;
+  u8  Layer1ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer2ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer3ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer4ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer5ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer6ScalingEn;  /**< Layer scaling support indicator flag  */
+  u8  Layer7ScalingEn;  /**< Layer scaling support indicator flag  */
+}XVMix_ScaleFlag;
+
+/**
+* This typedef contains Layer Interface Type per layer
+*/
+typedef struct {
+  u8  Layer1IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer2IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer3IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer4IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer5IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer6IntfType;  /**< Layer Interface type (Memory/Stream)  */
+  u8  Layer7IntfType;  /**< Layer Interface type (Memory/Stream)  */
+}XVMix_LayerIntfType;
 
 /**
 * This typedef contains maximum width per memory layer
@@ -78,7 +91,6 @@ typedef struct {
   u16 Layer6MaxWidth;    /**< Layer maximum column width  */
   u16 Layer7MaxWidth;    /**< Layer maximum column width  */
 }XVMix_LayerMaxWidth;
-
 
 /**
 * This typedef contains configuration information for the mixer core
@@ -95,17 +107,22 @@ typedef struct {
   u8  LogoEn;            /**< Logo layer support indicator flag  */
   u16 MaxLogoWidth;      /**< Maximum columns supported by log layer */
   u16 MaxLogoHeight;     /**< Maximum rows supported by log layer */
+  u16 LogoColorKeyEn;    /**< Logo layer color key feature indicatior flag */
   union {                /**< Alpha feature enable flag per memory layer */
 	  XVMix_AlphaFlag AlphaFlag;
 	  u8 AlphaEn[XV_MIX_MAX_MEMORY_LAYERS];
   };
-  union {                /**< Up Sample feature enable flag per memory layer */
-	  XVMix_UpsampleFlag UpsampleFlag;
-	  u8 UpSampleEn[XV_MIX_MAX_MEMORY_LAYERS];
+  union {                /**< Scaling feature enable flag per memory layer */
+	  XVMix_ScaleFlag ScaleFlag;
+	  u8 ScalingEn[XV_MIX_MAX_MEMORY_LAYERS];
   };
   union {                /**< Maximum width per memory layer */
 	  XVMix_LayerMaxWidth LyrMaxWidth;
 	  u16 LayerMaxWidth[XV_MIX_MAX_MEMORY_LAYERS];
+  };
+  union {                /**< Layer Interface Type */
+	  XVMix_LayerIntfType LyrIntfType;
+	  u8 LayerIntrfType[XV_MIX_MAX_MEMORY_LAYERS];
   };
 } XV_mix_Config;
 #endif
@@ -310,6 +327,34 @@ void XV_mix_Set_HwReg_logoScaleFactor(XV_mix *InstancePtr, u32 Data);
 u32 XV_mix_Get_HwReg_logoScaleFactor(XV_mix *InstancePtr);
 void XV_mix_Set_HwReg_logoAlpha(XV_mix *InstancePtr, u32 Data);
 u32 XV_mix_Get_HwReg_logoAlpha(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_0(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_0(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_1(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_1(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_2(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_2(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_3(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_3(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_4(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_4(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_5(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_5(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_6(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_6(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_layerStride_7(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_layerStride_7(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_logoClrKeyMin_R(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_logoClrKeyMin_R(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_logoClrKeyMin_G(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_logoClrKeyMin_G(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_logoClrKeyMin_B(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_logoClrKeyMin_B(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_logoClrKeyMax_R(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_logoClrKeyMax_R(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_logoClrKeyMax_G(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_logoClrKeyMax_G(XV_mix *InstancePtr);
+void XV_mix_Set_HwReg_logoClrKeyMax_B(XV_mix *InstancePtr, u32 Data);
+u32 XV_mix_Get_HwReg_logoClrKeyMax_B(XV_mix *InstancePtr);
 u32 XV_mix_Get_HwReg_logoR_V_BaseAddress(XV_mix *InstancePtr);
 u32 XV_mix_Get_HwReg_logoR_V_HighAddress(XV_mix *InstancePtr);
 u32 XV_mix_Get_HwReg_logoR_V_TotalBytes(XV_mix *InstancePtr);
