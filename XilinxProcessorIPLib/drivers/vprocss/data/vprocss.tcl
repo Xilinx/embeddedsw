@@ -150,11 +150,11 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 							#This check is needed only for IP's with multiple optional instances
 							set strbaseaddr "S_AXI_CTRL_BASEADDR"
 							set ip_inst_name [lindex $ip_instances 0]
-							set srcstr "${periph_g}_v_vcresampler_in"
+							set srcstr "${periph_g}_vcr_i"
 							if {[string compare -nocase $srcstr $ip_inst_name] == 0} {
-								set strval "V_VCRESAMPLER_OUT"
+								set strval "VCR_O"
 							} else {
-								set strval "V_VCRESAMPLER_IN"
+								set strval "VCR_I"
 							}
 						}
 						#puts "String Selected: $strval"
@@ -257,7 +257,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 							if {[string compare -nocase "axi_gpio" $sub_core] == 0} {
 								set str_name [expr {$count == 0 ? "RESET_SEL_AXI_MM" : "RESET_SEL_AXIS"}]
 							} elseif {[string compare -nocase "v_vcresampler" $sub_core] == 0} {
-								set str_name [expr {$count == 0 ? "V_VCRESAMPLER_IN" : "V_VCRESAMPLER_OUT"}]
+								set str_name [expr {$count == 0 ? "VCR_I" : "VCR_O"}]
 							}
 							#write the ip instance entry to the table
 							set final_child_cell_instance_name_present "XPAR_${periph}_${str_name}_PRESENT"

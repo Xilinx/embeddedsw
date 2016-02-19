@@ -50,6 +50,7 @@
 *                        Modify Scaler-only validate and setup routines
 *                        Mods to conform to coding style
 *             01/11/16   Write to new Event Log: log status and error events
+*             02/17/16   Pause between axis reset low and aximm reset low
 * </pre>
 *
 ******************************************************************************/
@@ -70,20 +71,20 @@
 /************************** Constant Definitions *****************************/
 
 /* HW Reset Network GPIO Channel */
-#define GPIO_CH_RESET_SEL                 (1u)
+#define GPIO_CH_RESET_SEL            (1u)
 
 /** @name Reset Network
  *
  * @{
  * The following constants define various reset lines in the subsystem
  */
-#define RESET_MASK_VIDEO_IN               (0x01) /**< Reset line going out of subsystem */
-#define RESET_MASK_IP_AXIS                (0x02) /**< Reset line for all video IP blocks */
-#define RESET_MASK_IP_AXIMM               (0x01) /**< Reset line for AXI-MM blocks */
+#define XVPROCSS_RSTMASK_VIDEO_IN   (0x01) /**< Reset line going out of vpss */
+#define XVPROCSS_RSTMASK_IP_AXIS    (0x02) /**< Reset line for vpss internal video IP blocks */
+#define XVPROCSS_RSTMASK_IP_AXIMM   (0x01) /**< Reset line for vpss internal AXI-MM blocks */
 /*@}*/
 
-#define RESET_MASK_ALL_BLOCKS             (RESET_MASK_VIDEO_IN  | \
-                                           RESET_MASK_IP_AXIS)
+#define XVPROCSS_RSTMASK_ALL_BLOCKS (XVPROCSS_RSTMASK_VIDEO_IN  | \
+                                     XVPROCSS_RSTMASK_IP_AXIS)
 
 /**************************** Type Definitions *******************************/
 /**
@@ -186,7 +187,7 @@ static __inline u32 XVprocSs_GetResetState(XGpio *pReset, u32 channel)
 *
 * @param  pReset is a pointer to the Reset IP Block
 * @param  channel is number of reset channel to work upon
-* @param  ipBlock is the reset line to be activated
+* @param  ipBlock is the reset line(s) to be activated
 *
 * @return None
 *
@@ -211,7 +212,7 @@ static __inline void XVprocSs_EnableBlock(XGpio *pReset, u32 channel, u32 ipBloc
 *
 * @param  pReset is a pointer to the Reset IP Block
 * @param  channel is number of reset channel to work upon
-* @param  ipBlock is the reset line to be asserted
+* @param  ipBlock is the reset line(s) to be asserted
 *
 * @return None
 *
@@ -375,12 +376,11 @@ void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, u32 addr)
 int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
                           u32 EffectiveAddr)
 {
-  XVprocSs *XVprocSsPtr = InstancePtr;
   XAxiVdma_Config *VdmaCfgPtr;
   u32 AbsAddr;
 
   /* Verify arguments */
-  Xil_AssertNonvoid(XVprocSsPtr != NULL);
+  Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(CfgPtr != NULL);
   Xil_AssertNonvoid(EffectiveAddr != (u32)NULL);
 
@@ -388,8 +388,8 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
   XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_INIT, XVPROCSS_EDAT_BEGIN);
 
   /* Setup the instance */
-  XVprocSsPtr->Config = *CfgPtr;
-  XVprocSsPtr->Config.BaseAddress = EffectiveAddr;
+  InstancePtr->Config = *CfgPtr;
+  InstancePtr->Config.BaseAddress = EffectiveAddr;
 
   if(XVprocSs_GetSubsystemTopology(InstancePtr) >= XVPROCSS_TOPOLOGY_NUM_SUPPORTED) {
       XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CHK_TOPO, XVPROCSS_EDAT_FAILURE);
@@ -398,109 +398,104 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
   XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CHK_TOPO, XVprocSs_GetSubsystemTopology(InstancePtr));
 
   /* Determine sub-cores included in the provided instance of subsystem */
-  GetIncludedSubcores(XVprocSsPtr);
+  GetIncludedSubcores(InstancePtr);
 
   /* Initialize all included sub_cores */
-  if(XVprocSsPtr->RstAxisPtr) {
-	if(XVprocSs_SubcoreInitResetAxis(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->RstAxisPtr) {
+	if(XVprocSs_SubcoreInitResetAxis(InstancePtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
-  if(XVprocSsPtr->RstAximmPtr) {
-	if(XVprocSs_SubcoreInitResetAximm(XVprocSsPtr) != XST_SUCCESS) {
-      return(XST_FAILURE);
-    }
-    /*
-     * Make sure AXI-MM interface is not in reset. If in reset it will prevent
-     * Deinterlacer from being initialized
-     */
-    XVprocSs_EnableBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
-  }
-
-  if(XVprocSsPtr->RouterPtr) {
-	if(XVprocSs_SubcoreInitRouter(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->RstAximmPtr) {
+	if(XVprocSs_SubcoreInitResetAximm(InstancePtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
-  if(XVprocSsPtr->CscPtr) {
-	if(XVprocSs_SubcoreInitCsc(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->RouterPtr) {
+	if(XVprocSs_SubcoreInitRouter(InstancePtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
-  if(XVprocSsPtr->HscalerPtr) {
-	if(XVprocSs_SubcoreInitHScaler(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->CscPtr) {
+	if(XVprocSs_SubcoreInitCsc(InstancePtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
   }
 
-  if(XVprocSsPtr->VscalerPtr) {
-	if(XVprocSs_SubcoreInitVScaler(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->HscalerPtr) {
+	if(XVprocSs_SubcoreInitHScaler(InstancePtr) != XST_SUCCESS) {
+      return(XST_FAILURE);
+    }
+  }
+
+  if(InstancePtr->VscalerPtr) {
+	if(XVprocSs_SubcoreInitVScaler(InstancePtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->HcrsmplrPtr) {
-	if(XVprocSs_SubcoreInitHCrsmplr(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->HcrsmplrPtr) {
+	if(XVprocSs_SubcoreInitHCrsmplr(InstancePtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->VcrsmplrInPtr) {
-	if(XVprocSs_SubcoreInitVCrsmpleIn(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->VcrsmplrInPtr) {
+	if(XVprocSs_SubcoreInitVCrsmpleIn(InstancePtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->VcrsmplrOutPtr) {
-	if(XVprocSs_SubcoreInitVCrsmpleOut(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->VcrsmplrOutPtr) {
+	if(XVprocSs_SubcoreInitVCrsmpleOut(InstancePtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->LboxPtr) {
-	if(XVprocSs_SubcoreInitLetterbox(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->LboxPtr) {
+	if(XVprocSs_SubcoreInitLetterbox(InstancePtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if((XVprocSsPtr->VdmaPtr) || (XVprocSsPtr->DeintPtr)) {
-	  if(XVprocSsPtr->FrameBufBaseaddr == 0) {
+  if((InstancePtr->VdmaPtr) || (InstancePtr->DeintPtr)) {
+	  if(InstancePtr->FrameBufBaseaddr == 0) {
         XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CHK_BASEADDR, XVPROCSS_EDAT_FAILURE);
 		return(XST_FAILURE);
 	  }
   }
 
-  if(XVprocSsPtr->VdmaPtr) {
-	if(XVprocSs_SubcoreInitVdma(XVprocSsPtr) != XST_SUCCESS) {
+  if(InstancePtr->VdmaPtr) {
+	if(XVprocSs_SubcoreInitVdma(InstancePtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
   }
 
-  if(XVprocSsPtr->DeintPtr) {
+  if(InstancePtr->DeintPtr) {
       u32 vdmaBufReq, bufsize;
 
-	if(XVprocSs_SubcoreInitDeinterlacer(XVprocSsPtr) != XST_SUCCESS) {
+	if(XVprocSs_SubcoreInitDeinterlacer(InstancePtr) != XST_SUCCESS) {
 	  return(XST_FAILURE);
 	}
 
     /* Set Deinterlacer buffer offset in allocated DDR Frame Buffer memory */
-    if(XVprocSsPtr->VdmaPtr) {
+    if(InstancePtr->VdmaPtr) {
       u32 Bpp; //bytes per pixel
 
-      Bpp = (XVprocSsPtr->Config.ColorDepth + 7)/8;
+      Bpp = (InstancePtr->Config.ColorDepth + 7)/8;
 
       //compute buffer size based on subsystem configuration
       //For 1 4K2K buffer (YUV444 16-bit) size is ~48MB
-      bufsize = XVprocSsPtr->Config.MaxWidth *
-		        XVprocSsPtr->Config.MaxHeight *
-		        XVprocSsPtr->Config.NumVidComponents *
+      bufsize = InstancePtr->Config.MaxWidth *
+		        InstancePtr->Config.MaxHeight *
+		        InstancePtr->Config.NumVidComponents *
 		        Bpp;
 
       //VDMA requires 4 buffers for total size of ~190MB
-      vdmaBufReq = XVprocSsPtr->VdmaPtr->MaxNumFrames * bufsize;
+      vdmaBufReq = InstancePtr->VdmaPtr->MaxNumFrames * bufsize;
     } else {
       vdmaBufReq = 0;
       bufsize    = 0;
@@ -509,16 +504,17 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
      *   - Located after vdma buffers, if included
      *   - 1 4k2k buffer added as a pad between vdma and deint
      */
-    XVprocSsPtr->CtxtData.DeintBufAddr = XVprocSsPtr->FrameBufBaseaddr + vdmaBufReq + bufsize;
+    InstancePtr->CtxtData.DeintBufAddr = InstancePtr->FrameBufBaseaddr + vdmaBufReq + bufsize;
   }
+
+  /* Reset the hardware and set the flag to indicate the
+     subsystem is ready for configuration setup
+   */
+  XVprocSs_Reset(InstancePtr);
 
   /* Set subsystem to power on default state */
   SetPowerOnDefaultState(InstancePtr);
 
-  /* Reset the hardware and set the flag to indicate the
-     subsystem is ready
-   */
-  XVprocSs_Reset(InstancePtr);
   InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
   /* Log the end of initialization */
@@ -626,17 +622,7 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
   }
 
   /* Release reset before programming any IP Block */
-  XVprocSs_EnableBlock(XVprocSsPtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_ALL_BLOCKS);
-
-  /* User parameter configuration */
-  /* Set default background color for Letter Box (PIP) */
-  if(XVprocSsPtr->LboxPtr)
-  {
-    XV_LboxSetBackgroundColor(XVprocSsPtr->LboxPtr,
-                              XLBOX_BKGND_BLACK,
-                              XVprocSsPtr->VidOut.ColorFormatId,
-                              XVprocSsPtr->VidOut.ColorDepth);
-  }
+  XVprocSs_EnableBlock(XVprocSsPtr->RstAxisPtr,  GPIO_CH_RESET_SEL, XVPROCSS_RSTMASK_ALL_BLOCKS);
 }
 
 /****************************************************************************/
@@ -689,7 +675,7 @@ void XVprocSs_Start(XVprocSs *InstancePtr)
     XV_VCrsmplStart(InstancePtr->VcrsmplrInPtr);
 
   /* Subsystem ready to accept axis - Enable Video Input */
-  XVprocSs_EnableBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_VIDEO_IN);
+  XVprocSs_EnableBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, XVPROCSS_RSTMASK_VIDEO_IN);
 
   XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_START_VPSS, XVPROCSS_EDAT_SUCCESS);
 }
@@ -750,6 +736,15 @@ void XVprocSs_Stop(XVprocSs *InstancePtr)
 *
 * @return None
 *
+*   XVprocSs_Reset,_Start controls vpss resets as shown
+*    axis_int ----_______________________--------------------------------
+*    axis_ext ----________________________________________________-------
+*    aximm    -----------_______-----------------------------------------
+*                 | 100us| 100us| 1000us | 1000us |               |
+*            _Reset...............................|               |
+*                                                  Program VSPP IP|
+*                                                            _Start
+*
 ******************************************************************************/
 void XVprocSs_Reset(XVprocSs *InstancePtr)
 {
@@ -759,14 +754,12 @@ void XVprocSs_Reset(XVprocSs *InstancePtr)
   /* Soft Reset */
   XVprocSs_VdmaReset(InstancePtr->VdmaPtr);
 
-  /* Reset All IP Blocks on AXIS interface*/
-  XVprocSs_ResetBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_ALL_BLOCKS);
+  /* Reset All IP Blocks on AXIS interface and wait before doing the aximm reset*/
+  XVprocSs_ResetBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, XVPROCSS_RSTMASK_ALL_BLOCKS);
+  WaitUs(InstancePtr, 100); /* hold reset line for 100us before resetting Aximm */
+
   /* Reset All IP Blocks on AXI-MM interface*/
-  //  XVprocSs_ResetBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
-  /* If enabled, Stop AXI-MM traffic */
-   if((InstancePtr->DeintPtr) && (InstancePtr->CtxtData.StartCore[XVPROCSS_SUBCORE_DEINT])) {
-     XV_DeintStop(InstancePtr->DeintPtr);
-   }
+  XVprocSs_ResetBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, XVPROCSS_RSTMASK_IP_AXIMM);
 
    WaitUs(InstancePtr, 100); /* hold reset line for 100us */
   /*
@@ -774,9 +767,9 @@ void XVprocSs_Reset(XVprocSs *InstancePtr)
    * in reset. Will cause Axi-Lite bus to lock.
    * Release IP reset - but hold vid_in in reset
    */
-  //  XVprocSs_EnableBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIMM);
-  //  Waitms(InstancePtr, 10); /* wait for AXI-MM IP's to stabilize */
-  XVprocSs_EnableBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_IP_AXIS);
+  XVprocSs_EnableBlock(InstancePtr->RstAximmPtr, GPIO_CH_RESET_SEL, XVPROCSS_RSTMASK_IP_AXIMM);
+  WaitUs(InstancePtr, 1000); /* wait 1ms for AXI-MM to stabilize */
+  XVprocSs_EnableBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, XVPROCSS_RSTMASK_IP_AXIS);
   WaitUs(InstancePtr, 1000); /* wait 1ms for AXIS to stabilize */
 
   /* Reset start core flags */
@@ -1397,7 +1390,7 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
     XV_VScalerStart(XVprocSsPtr->VscalerPtr);
 
     /* Subsystem Ready to accept input stream - Enable Video Input */
-    XVprocSs_EnableBlock(XVprocSsPtr->RstAxisPtr,  GPIO_CH_RESET_SEL, RESET_MASK_VIDEO_IN);
+    XVprocSs_EnableBlock(XVprocSsPtr->RstAxisPtr,  GPIO_CH_RESET_SEL, XVPROCSS_RSTMASK_VIDEO_IN);
     XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_SETUPOK);
   }
   else

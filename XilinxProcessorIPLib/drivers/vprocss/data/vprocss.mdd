@@ -33,7 +33,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver vprocss
 
-  OPTION supported_peripherals = (v_proc_ss);
+  OPTION supported_peripherals = (v_proc_ss_v2_0);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 2.0;

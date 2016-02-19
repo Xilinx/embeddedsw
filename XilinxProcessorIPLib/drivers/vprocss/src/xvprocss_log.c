@@ -185,13 +185,13 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		"Full Fledged",
 		"Deinterlacer-only",
 		"Csc-only",
-		"VerticalChromaResample-only",
-		"HorizontalChromaResample-only"};
+		"VCResample-only",
+		"HCResample-only"};
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	xil_printf("\r\n\n\nVPROCSS log\r\n");
+	xil_printf("\r\n\n\nVPSS log\r\n");
 	xil_printf("-----------\r\n");
 
 	do {
@@ -211,89 +211,89 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_INIT):
 			switch (Data) {
 			case (XVPROCSS_EDAT_BEGIN):
-				xil_printf("Info: Video Proc Subsystem start initialization\r\n");
+				xil_printf("Info: Subsystem start init\r\n");
 				break;
 			case (XVPROCSS_EDAT_END):
-				xil_printf("Info: Video Proc Subsystem initialized and ready\r\n");
+				xil_printf("Info: Subsystem ready\r\n");
 				break;
 			}
 			break;
 		case (XVPROCSS_EVT_RESET_VPSS):
-			xil_printf("Info: Video Proc Subsystem reset\r\n");
+			xil_printf("Info: Subsystem reset\r\n");
 			break;
 		case (XVPROCSS_EVT_START_VPSS):
-			xil_printf("Info: Video Proc Subsystem ready to accept AXIS video\r\n");
+			xil_printf("Info: Subsystem start\r\n");
 			break;
 		case (XVPROCSS_EVT_STOP_VPSS):
-			xil_printf("Info: Video Proc Subsystem stopped\r\n");
+			xil_printf("Info: Subsystem stopped\r\n");
 			break;
 		case (XVPROCSS_EVT_CHK_TOPO):
 			if (Data == XVPROCSS_EDAT_INITFAIL) {
-				xil_printf("Error: Subsystem Topology Not Supported\r\n");
+				xil_printf("Error: Topology Not Supported\r\n");
 			}
 			else if ((Data>=0)&&(Data<XVPROCSS_TOPOLOGY_NUM_SUPPORTED)) {
-				xil_printf("Info: Subsystem Topology is %s\r\n",topo_name[Data]);
+				xil_printf("Info: Topology is %s\r\n",topo_name[Data]);
 			}
 			break;
 		case (XVPROCSS_EVT_INIT_RESAXIS):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: Reset_AxiS subcore Config structure not found\r\n");
+				xil_printf("Error: Reset_AxiS Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: Reset_AxiS subcore base address invalid\r\n");
+				xil_printf("Error: Reset_AxiS base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: Reset_AxiS initialization failed\r\n");
+				xil_printf("Error: Reset_AxiS init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: Reset_AxiS subcore initialized\r\n");
+				xil_printf("Info: Reset_AxiS init\r\n");
 				break;
 			}
 			break;
 		case (XVPROCSS_EVT_INIT_RESAXIM):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: Reset_AxiMM subcore Config structure not found\r\n");
+				xil_printf("Error: Reset_AxiMM Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: Reset_AxiMM subcore base address invalid\r\n");
+				xil_printf("Error: Reset_AxiMM base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: Reset_AxiMM initialization failed\r\n");
+				xil_printf("Error: Reset_AxiMM init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: Reset_AxiMM subcore initialized\r\n");
+				xil_printf("Info: Reset_AxiMM init\r\n");
 				break;
 			}
 			break;
 		case (XVPROCSS_EVT_INIT_ROUTER):
 			if (Data == XVPROCSS_EDAT_CFABSENT) {
-				xil_printf("Error: Router subcore Config structure not found\r\n");
+				xil_printf("Error: Router Config struct not found\r\n");
 			}
 			else if (Data == XVPROCSS_EDAT_BADADDR) {
-				xil_printf("Error: Router subcore base address invalid\r\n");
+				xil_printf("Error: Router base address invalid\r\n");
 			}
 			else if (Data == XVPROCSS_EDAT_INITFAIL) {
-				xil_printf("Error: Router initialization failed\r\n");
+				xil_printf("Error: Router init failed\r\n");
 			}
 			else if (Data == XVPROCSS_EDAT_INITOK) {
-				xil_printf("Info: Router subcore initialized\r\n");
+				xil_printf("Info: Router init\r\n");
 			}
 			break;
 		case (XVPROCSS_EVT_CFG_CSC):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: Csc subcore Config structure not found\r\n");
+				xil_printf("Error: Csc Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: Csc subcore base address invalid\r\n");
+				xil_printf("Error: Csc base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: Csc initialization failed\r\n");
+				xil_printf("Error: Csc init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: Csc subcore initialized\r\n");
+				xil_printf("Info: Csc init\r\n");
 				break;
 			case (XVPROCSS_EDAT_NO422):
 				xil_printf("Csc error: 422 color format not allowed\r\n");
@@ -311,10 +311,10 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: Csc-only configuration is valid\r\n");
 				break;
 			case (XVPROCSS_EDAT_IPABSENT):
-				xil_printf("Csc error: IP subcore not found\r\n");
+				xil_printf("Csc error: IP not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_SETUPOK):
-				xil_printf("Info: Csc set up and ready to accept AXIS video\r\n");
+				xil_printf("Info: Csc start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
 				xil_printf("Info: Csc setup ignored\r\n");
@@ -330,19 +330,19 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_CFG_DEINT):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: Deinterlacer subcore Config structure not found\r\n");
+				xil_printf("Error: Deinterlacer Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: Deinterlacer subcore base address invalid\r\n");
+				xil_printf("Error: Deinterlacer base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: Deinterlacer initialization failed\r\n");
+				xil_printf("Error: Deinterlacer init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: Deinterlacer subcore initialized\r\n");
+				xil_printf("Info: Deinterlacer init\r\n");
 				break;
 			case (XVPROCSS_EDAT_INTPRG):
-				xil_printf("Deinterlacer error: Input must be interlaced and Output must be progressive\r\n");
+				xil_printf("Deinterlacer error: Input must be interlaced, Output must be progressive\r\n");
 				break;
 			case (XVPROCSS_EDAT_CDIFF):
 				xil_printf("Deinterlacer error: Input & Output Color Format different\r\n");
@@ -354,10 +354,10 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: Deinterlacer-only configuration is valid\r\n");
 				break;
 			case (XVPROCSS_EDAT_IPABSENT):
-				xil_printf("Deinterlacer error: IP subcore not found\r\n");
+				xil_printf("Deinterlacer error: IP not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_SETUPOK):
-				xil_printf("Info: Deinterlacer set up and ready to accept AXIS video\r\n");
+				xil_printf("Info: Deinterlacer start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
 				xil_printf("Info: Deinterlacer setup ignored\r\n");
@@ -367,16 +367,16 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_CFG_HSCALER):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: HScaler subcore Config structure not found\r\n");
+				xil_printf("Error: HScaler Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: HScaler subcore base address invalid\r\n");
+				xil_printf("Error: HScaler base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: HScaler initialization failed\r\n");
+				xil_printf("Error: HScaler init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: HScaler subcore initialized\r\n");
+				xil_printf("Info: HScaler init\r\n");
 				break;
 			case (XVPROCSS_EDAT_IODIFF):
 				xil_printf("Scaler error: Input & Output Color Format different\r\n");
@@ -388,10 +388,10 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: Scaler-only configuration is valid\r\n");
 				break;
 			case (XVPROCSS_EDAT_IPABSENT):
-				xil_printf("HScaler error: IP subcore not found\r\n");
+				xil_printf("HScaler error: IP not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_SETUPOK):
-				xil_printf("Info: Scalers set up and ready to accept AXIS video\r\n");
+				xil_printf("Info: Scalers start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
 				xil_printf("Info: HScaler setup ignored\r\n");
@@ -404,19 +404,19 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_CFG_VSCALER):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: VScaler subcore Config structure not found\r\n");
+				xil_printf("Error: VScaler Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: VScaler subcore base address invalid\r\n");
+				xil_printf("Error: VScaler base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: VScaler initialization failed\r\n");
+				xil_printf("Error: VScaler init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: VScaler subcore initialized\r\n");
+				xil_printf("Info: VScaler init\r\n");
 				break;
 			case (XVPROCSS_EDAT_IPABSENT):
-				xil_printf("VScaler error: IP subcore not found\r\n");
+				xil_printf("VScaler error: IP not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
 				xil_printf("Info: VScaler setup ignored\r\n");
@@ -429,16 +429,16 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_CFG_HCR):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: HCResampler subcore Config structure not found\r\n");
+				xil_printf("Error: HCResampler Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: HCResampler subcore base address invalid\r\n");
+				xil_printf("Error: HCResampler base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: HCResampler initialization failed\r\n");
+				xil_printf("Error: HCResampler init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: HCResampler subcore initialized\r\n");
+				xil_printf("Info: HCResampler init\r\n");
 				break;
 			case (XVPROCSS_EDAT_CFIN):
 				xil_printf("HCResampler error: Video Input must be YUV422 or YUV444\r\n");
@@ -459,10 +459,10 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: HCResampler-only configuration is valid\r\n");
 				break;
 			case (XVPROCSS_EDAT_IPABSENT):
-				xil_printf("HCResampler error: IP subcore not found\r\n");
+				xil_printf("HCResampler error: IP not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_SETUPOK):
-				xil_printf("Info: HCResampler set up and ready to accept AXIS video\r\n");
+				xil_printf("Info: HCResampler start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
 				xil_printf("Info: HCResampler setup ignored\r\n");
@@ -475,16 +475,16 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_CFG_VCRI):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: VCResamplerIn subcore Config structure not found\r\n");
+				xil_printf("Error: VCResamplerIn Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: VCResamplerIn subcore base address invalid\r\n");
+				xil_printf("Error: VCResamplerIn base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: VCResamplerIn initialization failed\r\n");
+				xil_printf("Error: VCResamplerIn init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: VCResamplerIn subcore initialized\r\n");
+				xil_printf("Info: VCResamplerIn init\r\n");
 				break;
 			case (XVPROCSS_EDAT_CFIN):
 				xil_printf("VCResamplerIn error: Video Input must be YUV420 or YUV422\r\n");
@@ -505,10 +505,10 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: VCResampler-only configuration is valid\r\n");
 				break;
 			case (XVPROCSS_EDAT_IPABSENT):
-				xil_printf("VCResamplerIn error: IP subcore not found\r\n");
+				xil_printf("VCResamplerIn error: IP not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_SETUPOK):
-				xil_printf("Info: VCResampler set up and ready to accept AXIS video\r\n");
+				xil_printf("Info: VCResampler start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
 				xil_printf("Info: VCResamplerIn setup ignored\r\n");
@@ -521,19 +521,19 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_CFG_VCRO):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: VCResamplerOut subcore Config structure not found\r\n");
+				xil_printf("Error: VCResamplerOut Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: VCResamplerOut subcore base address invalid\r\n");
+				xil_printf("Error: VCResamplerOut base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: VCResamplerOut initialization failed\r\n");
+				xil_printf("Error: VCResamplerOut init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: VCResamplerOut subcore initialized\r\n");
+				xil_printf("Info: VCResamplerOut init\r\n");
 				break;
 			case (XVPROCSS_EDAT_IPABSENT):
-				xil_printf("VCResamplerOut error: IP subcore not found\r\n");
+				xil_printf("VCResamplerOut error: IP not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_LDCOEF):
 				xil_printf("Info: VCResamplerOut coefficients loaded\r\n");
@@ -543,32 +543,32 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_INIT_LBOX):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: LetterBox subcore Config structure not found\r\n");
+				xil_printf("Error: LetterBox Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: LetterBox subcore base address invalid\r\n");
+				xil_printf("Error: LetterBox base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: LetterBox initialization failed\r\n");
+				xil_printf("Error: LetterBox init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: LetterBox subcore initialized\r\n");
+				xil_printf("Info: LetterBox init\r\n");
 				break;
 			}
 			break;
 		case (XVPROCSS_EVT_INIT_VDMA):
 			switch (Data) {
 			case (XVPROCSS_EDAT_CFABSENT):
-				xil_printf("Error: Video DMA subcore Config structure not found\r\n");
+				xil_printf("Error: Video DMA Config struct not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_BADADDR):
-				xil_printf("Error: Video DMA subcore base address invalid\r\n");
+				xil_printf("Error: Video DMA base address invalid\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: Video DMA initialization failed\r\n");
+				xil_printf("Error: Video DMA init failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_INITOK):
-				xil_printf("Info: Video DMA subcore initialized\r\n");
+				xil_printf("Info: Video DMA init\r\n");
 				break;
 			}
 			break;
@@ -612,10 +612,10 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 		case (XVPROCSS_EVT_CFG_VPSS):
 			switch (Data) {
 			case (XVPROCSS_EDAT_INITFAIL):
-				xil_printf("Error: Video Proc Subsystem configuration failed\r\n");
+				xil_printf("Error: Subsystem configuration failed\r\n");
 				break;
 			case (XVPROCSS_EDAT_VALID):
-				xil_printf("Info: Video Proc Subsystem configuration is valid\r\n");
+				xil_printf("Info: Subsystem configuration is valid\r\n");
 				break;
 			case (XVPROCSS_EDAT_VPSS_FRDIFF):
 				xil_printf("Error: Not Full mode, and Input & Output Frame Rate different\r\n");
@@ -639,19 +639,19 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Error: YUV420 input width and height must be even\r\n");
 				break;
 			case (XVPROCSS_EDAT_VPSS_NOHCR):
-				xil_printf("Error: HCResampler is required but not found\r\n");
+				xil_printf("Error: HCResampler required but not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_VPSS_NOVCRI):
-				xil_printf("Error: VCResampler is required at input but not found\r\n");
+				xil_printf("Error: VCResampler required at input but not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_VPSS_NOVCRO):
-				xil_printf("Error: VCResampler is required at output but not found\r\n");
+				xil_printf("Error: VCResampler required at output but not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_NO420):
 				xil_printf("Error: Interlaced YUV420 stream not supported\r\n");
 				break;
 			case (XVPROCSS_EDAT_VPSS_NODEIN):
-				xil_printf("Error: Input is interlaced but no Deinterlacer found\r\n");
+				xil_printf("Error: Input interlaced but no Deinterlacer found\r\n");
 				break;
 			}
 			break;
