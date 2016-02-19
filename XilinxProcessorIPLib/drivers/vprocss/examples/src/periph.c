@@ -72,6 +72,18 @@
 
 /************************** Constant Definitions *****************************/
 
+/** @name Reset Network
+ *
+ * @{
+ * The following constants define various reset lines in the subsystem
+ */
+#define XPER_RSTMASK_VIDEO_IN (0x01) /**< Reset line going to Video block feeding vpss */
+//#define XPER_RSTMASK_IP       (0x02) /**< Reset line for vpss internal video IP block */
+/*@}*/
+
+//#define XPER_RSTMASK_ALL_BLOCKS (XPER_RSTMASK_VIDEO_IN  | \ //
+//                                 XPER_RSTMASK_IP)           //
+
 /**************************** Type Definitions *******************************/
 
 /**************************** Local Global *******************************/
@@ -82,7 +94,72 @@ XGpio VidLocMonitor;
 XGpio HlsIpReset;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+/*****************************************************************************/
+/**
+* This macro reads the HLS IP reset network state
+*
+* @param  pReset is a pointer to the Reset IP Block
+* @param  channel is number of reset channel to work upon
+*
+* @return Reset state
+*           1: Normal
+*           0: Reset
+*
+******************************************************************************/
+static __inline u32 XPeriph_GetResetState(XGpio *pReset, u32 channel)
+{
+  return(XGpio_DiscreteRead(pReset, channel));
+}
 
+/*****************************************************************************/
+/**
+* This macro enables the IP's connected to subsystem reset network
+*
+* @param  pReset is a pointer to the Reset IP Block
+* @param  channel is number of reset channel to work upon
+* @param  ipBlock is the reset line(s) to be activated
+*
+* @return None
+*
+* @note If reset block is not included in the subsystem instance function does
+*       not do anything
+******************************************************************************/
+static __inline void XPeriph_EnableBlock(XGpio *pReset, u32 channel, u32 ipBlock)
+{
+  u32 val;
+
+  if(pReset)
+  {
+    val = XPeriph_GetResetState(pReset, channel);
+    val |= ipBlock;
+    XGpio_DiscreteWrite(pReset, channel, val);
+  }
+}
+
+/*****************************************************************************/
+/**
+* This macro resets the IP connected to subsystem reset network
+*
+* @param  pReset is a pointer to the Reset IP Block
+* @param  channel is number of reset channel to work upon
+* @param  ipBlock is the reset line(s) to be asserted
+*
+* @return None
+*
+* @note If reset block is not included in the subsystem instance function does
+*       not do anything
+******************************************************************************/
+static __inline void XPeriph_ResetBlock(XGpio *pReset, u32 channel, u32 ipBlock)
+{
+  u32 val;
+
+  if(pReset)
+  {
+    val = XPeriph_GetResetState(pReset, channel);
+    val &= ~ipBlock;
+    XGpio_DiscreteWrite(pReset, channel, val);
+  }
+}
 
 /************************** Function Prototypes ******************************/
 
@@ -209,6 +286,11 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
 	  xil_printf("ERR:: HLS IP Reset GPIO Initialization failed %d\r\n", status);
 	  return(XST_FAILURE);
   }
+
+  /* Pulse resets and then leave them enabled */
+  XPeriph_DisableVidIn(InstancePtr);
+  //XPeriph_ResetHlsIp(InstancePtr);  // wip - reset problem
+  XPeriph_EnableVidIn(InstancePtr);
 #endif
 
   return(status);
@@ -216,18 +298,33 @@ int XPeriph_PowerOnInit(XPeriph *InstancePtr)
 
 /*****************************************************************************/
 /**
- * This function resets the Hls IP block(s)
+ * This function pulses the HLS IP block reset line low and sets it high again
  *
  * @param  InstancePtr is a pointer to the peripheral instance
  *
  *****************************************************************************/
-void XPeriph_ResetHlsIp(XPeriph *InstancePtr)
+// wip - reset problem...................................................................
+//void XPeriph_ResetHlsIp(XPeriph *InstancePtr)
+//{
+//#ifdef XPAR_HLS_IP_RESET_DEVICE_ID
+//  XPeriph_ResetBlock(InstancePtr->HlsIpResetPtr, XPER_GPIO_CHANNEL_1, XPER_RSTMASK_IP);
+//  MB_Sleep(10);                                       //hold reset line
+//  XPeriph_EnableBlock(InstancePtr->HlsIpResetPtr, XPER_GPIO_CHANNEL_1, XPER_RSTMASK_IP);
+//  MB_Sleep(10);                                       //allow time for start
+//#endif
+//}
+void XPeriph_DisableVidIn(XPeriph *InstancePtr)
 {
 #ifdef XPAR_HLS_IP_RESET_DEVICE_ID
-  XPeriph_WriteGpioIpReset(InstancePtr, HLS_IP_RESET); //reset IPs
-  MB_Sleep(100);                                       //hold reset line
-  XPeriph_WriteGpioIpReset(InstancePtr, HLS_IP_RUN);   //release reset
-  MB_Sleep(200);                                       //allow time for start
+  XPeriph_ResetBlock(InstancePtr->HlsIpResetPtr, XPER_GPIO_CHANNEL_1, XPER_RSTMASK_VIDEO_IN);
+  MB_Sleep(10);                                       //hold reset line
+#endif
+}
+void XPeriph_EnableVidIn(XPeriph *InstancePtr)
+{
+#ifdef XPAR_HLS_IP_RESET_DEVICE_ID
+  XPeriph_EnableBlock(InstancePtr->HlsIpResetPtr, XPER_GPIO_CHANNEL_1, XPER_RSTMASK_VIDEO_IN);
+  MB_Sleep(10);                                       //allow time for start
 #endif
 }
 

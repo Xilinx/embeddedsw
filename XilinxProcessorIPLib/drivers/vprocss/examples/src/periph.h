@@ -108,11 +108,9 @@ typedef struct
 }XPeriph;
 
 /************************** Constant Definitions *******************************/
-#define GPIO_CHANNEL_1 1
-#define GPIO_CHANNEL_2 2
+#define XPER_GPIO_CHANNEL_1 1
+#define XPER_GPIO_CHANNEL_2 2
 
-#define HLS_IP_RESET 0
-#define HLS_IP_RUN   1
 
 /************************** Macros Definitions *******************************/
 
@@ -186,25 +184,13 @@ typedef struct
  *****************************************************************************/
 #define XPeriph_IsVideoLocked(pPeriph) \
 	                     (XGpio_DiscreteRead((pPeriph)->VidLockMonitorPtr, \
-                          GPIO_CHANNEL_1))
-
-/*****************************************************************************/
-/**
- * This macro writes to the HLS_IP_RESET GPIO bit to reset to IP block in VPSS
- *
- * @param  pPeriph is pointer to the peripheral Instance
- * @param  data is HLS_IP_RESET to reset, or HLS_IP_RUN for normal operation
- *
- * @return none
- *
- *****************************************************************************/
-#define XPeriph_WriteGpioIpReset(pPeriph, data) \
-                        (XGpio_DiscreteWrite((pPeriph)->HlsIpResetPtr,  \
-                         GPIO_CHANNEL_1, data))
+                          XPER_GPIO_CHANNEL_1))
 
 /************************** Exported APIs ************************************/
 int XPeriph_PowerOnInit(XPeriph *InstancePtr);
-void XPeriph_ResetHlsIp(XPeriph *InstancePtr);
+//void XPeriph_ResetHlsIp(XPeriph *InstancePtr); // wip - reset problem
+void XPeriph_DisableVidIn(XPeriph *InstancePtr);
+void XPeriph_EnableVidIn(XPeriph *InstancePtr);
 void XPeriph_ReportDeviceInfo(XPeriph *InstancePtr);
 void XPeriph_ConfigTpg(XPeriph *InstancePtr);
 void XPeriph_ConfigVtc(XPeriph *InstancePtr,

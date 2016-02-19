@@ -10,26 +10,26 @@ proc vpss_example args {
 
 		#set workspace
 		puts "Create Workspace"
-		sdk set_workspace vpss_example.sdk
+		sdk setws vpss_example.sdk
 
 		#create hw project
 		puts "Create HW Project"
-		sdk create_hw_project -name vpss_example_hw_platform -hwspec ./$hdf
+		sdk createhw -name vpss_example_hw_platform -hwspec ./$hdf
 
 		#create bsp
 		puts "Create BSP"
-		sdk create_bsp_project -name vpss_example_bsp -hwproject vpss_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone
+		sdk createbsp -name vpss_example_bsp -hwproject vpss_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone
 
 		#create application project
 		puts "Create Application Project"
-		sdk create_app_project -name vpss_example_design -hwproject vpss_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone -lang C -app {Empty Application} -bsp vpss_example_bsp
+		sdk createapp -name vpss_example_design -hwproject vpss_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone -lang C -app {Empty Application} -bsp vpss_example_bsp
 
 		#copy example source files tp app project
 		puts "Get Example Design Source Files"
-		sdk import_sources -name vpss_example_design -path ./src -linker-script
+		sdk importsources -name vpss_example_design -path ./src -linker-script
 
 		#build project
 		puts "Build Project"
-		sdk build_project -type all
+		sdk project -build -type all
 	}
 }
