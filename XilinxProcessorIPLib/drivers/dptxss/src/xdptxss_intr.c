@@ -48,6 +48,10 @@
 * 2.00 sha 08/07/15 Added new handler types: lane count, link rate,
 *                   Pre-emphasis voltage swing adjust and Set MSA.
 * 2.00 sha 09/28/15 Added HDCP and Timer Counter interrupt handlers.
+* 3.0  sha 02/19/16 Added switch cases for
+*                   XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY and
+*                   XDPTXSS_HANDLER_HDCP_RPTR_EXCHG to register callback
+*                   with HDCP.
 * </pre>
 *
 ******************************************************************************/
@@ -169,14 +173,16 @@ void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr)
 * HandlerType:
 *
 * <pre>
-* HandlerType                         Callback Function Type
-* ----------------------------------- -------------------------------------
-* (XDPTXSS_HANDLER_DP_HPD_EVENT)      XDp_TxSetHpdEventHandler
-* (XDPTXSS_HANDLER_DP_HPD_PULSE)      XDp_TxSetHpdPulseHandler
-* (XDPTXSS_HANDLER_DP_LANE_COUNT_CHG) XDp_TxSetLaneCountChangeCallback
-* (XDPTXSS_HANDLER_DP_LINK_RATE_CHG)  XDp_TxSetLinkRateChangeCallback
-* (XDPTXSS_HANDLER_DP_PE_VS_ADJUST)   XDp_TxSetPeVsAdjustCallback
-* (XDPTXSS_HANDLER_DP_SET_MSA)        XDp_TxSetMsaHandler
+* HandlerType                              Callback Function Type
+* ---------------------------------------- ------------------------------------
+* (XDPTXSS_HANDLER_DP_HPD_EVENT)           XDp_TxSetHpdEventHandler
+* (XDPTXSS_HANDLER_DP_HPD_PULSE)           XDp_TxSetHpdPulseHandler
+* (XDPTXSS_HANDLER_DP_LANE_COUNT_CHG)      XDp_TxSetLaneCountChangeCallback
+* (XDPTXSS_HANDLER_DP_LINK_RATE_CHG)       XDp_TxSetLinkRateChangeCallback
+* (XDPTXSS_HANDLER_DP_PE_VS_ADJUST)        XDp_TxSetPeVsAdjustCallback
+* (XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY) XHdcp1x_SetCallBack
+* (XDPTXSS_HANDLER_HDCP_RPTR_EXCHG)        XHdcp1x_SetCallBack
+* (XDPTXSS_HANDLER_DP_SET_MSA)             XDp_TxSetMsaHandler
 * </pre>
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
@@ -236,6 +242,22 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
+
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+		case XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY:
+			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
+				XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_HANDLER_HDCP_RPTR_EXCHG:
+			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
+				XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+#endif
 
 		case XDPTXSS_HANDLER_DP_SET_MSA:
 			XDp_TxSetMsaHandler(InstancePtr->DpPtr, CallbackFunc,

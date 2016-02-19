@@ -102,6 +102,11 @@
 *                   Added function: XDpTxSs_SetHasRedriverInPath.
 *                   Added HDCP support data structure.
 * 2.00 sha 09/28/15 Added HDCP and Timer Counter functions.
+* 3.0  sha 02/19/16 Added handler type as enums for HDCP:
+*                   XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY,
+*                   XDPTXSS_HANDLER_HDCP_RPTR_EXCHG.
+*                   Added function: XDpTxSs_ReadDownstream,
+*                   XDpTxSs_HandleTimeout.
 * </pre>
 *
 ******************************************************************************/
@@ -153,6 +158,14 @@ typedef enum {
 						  *  swing change interrupt
 						  *  type for DisplayPort
 						  *  core */
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
+	XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY,	/**< Repeater Downstream Ready
+						  *  interrupt type for
+						  *  HDCP core */
+	XDPTXSS_HANDLER_HDCP_RPTR_EXCHG,	/**< Repeater Exchange
+						  *  interrupt type for
+						  *  HDCP core */
+#endif
 	XDPTXSS_HANDLER_DP_SET_MSA		/**< Set MSA immediate change
 						  *  change interrupt type for
 						  *  DisplayPort core */
@@ -338,6 +351,8 @@ u32 XDpTxSs_SetPhysicalState(XDpTxSs *InstancePtr, u32 PhyState);
 u32 XDpTxSs_SetLane(XDpTxSs *InstancePtr, u32 Lane);
 void XDpTxSs_SetDebugPrintf(XDpTxSs *InstancePtr, XDpTxSs_Printf PrintfFunc);
 void XDpTxSs_SetDebugLogMsg(XDpTxSs *InstancePtr, XDpTxSs_LogMsg LogFunc);
+u32 XDpTxSs_ReadDownstream(XDpTxSs *InstancePtr);
+void XDpTxSs_HandleTimeout(XDpTxSs *InstancePtr);
 #endif
 
 void XDpTxSs_ReportCoreInfo(XDpTxSs *InstancePtr);

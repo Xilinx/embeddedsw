@@ -52,6 +52,9 @@
 *                   Added HDCP instance into global sub-cores structure.
 * 2.00 sha 09/28/15 Added HDCP and Timer Counter support.
 * 3.0  sha 02/05/16 Added support for multiple subsystems in a design.
+* 3.0  sha 02/19/16 Added function: XDpTxSs_ReadDownstream,
+*                   XDpTxSs_HandleTimeout.
+*                   Enabled HDCP in XDpTxSs_Start function.
 * </pre>
 *
 ******************************************************************************/
@@ -434,11 +437,27 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		return Status;
 	}
 
+	/* Enable HDCP interface */
+	Status = XHdcp1x_Enable(InstancePtr->Hdcp1xPtr);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Enabling HDCP failed."
+			"\n\r");
+		return Status;
+	}
+
 	/* Set physical interface (DisplayPort) up */
 	Status = XHdcp1x_SetPhysicalState(InstancePtr->Hdcp1xPtr, 1);
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: Setting PHY up failed."
 			"\n\r");
+		return Status;
+	}
+
+	/* Poll the HDCP state machine */
+	Status = XHdcp1x_Poll(InstancePtr->Hdcp1xPtr);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: failed to poll HDCP "
+			"state machine.\n\r");
 		return Status;
 	}
 #endif
@@ -1434,6 +1453,58 @@ void XDpTxSs_SetDebugLogMsg(XDpTxSs *InstancePtr, XDpTxSs_LogMsg LogFunc)
 
 	/* Set debug log message function */
 	XHdcp1x_SetDebugLogMsg(LogFunc);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function initiates downstream read of READY bit and consequently the
+* second part of repeater authentication.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*		- XST_SUCCESS, if authentication initiated successfully.
+*		- XST_FAILURE, if authentication initiated failed.
+*
+* @note		The transmitter initiates authentication by first sending its
+*		An and Aksv value to the HDCP Receiver.
+*
+******************************************************************************/
+u32 XDpTxSs_ReadDownstream(XDpTxSs *InstancePtr)
+{
+	u32 Status;
+
+	/* Verify arguments.*/
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Initiate downstream read and authentication process */
+	Status = XHdcp1x_ReadDownstream(InstancePtr->Hdcp1xPtr);
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function handles a timeout for HDCP.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpTxSs_HandleTimeout(XDpTxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Handle timeout */
+	XHdcp1x_HandleTimeout(InstancePtr->Hdcp1xPtr);
 }
 
 /*****************************************************************************/
