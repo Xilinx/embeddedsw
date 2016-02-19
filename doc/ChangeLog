@@ -145,23 +145,29 @@ Used UINTPTR type for BaseAddress.
 
 hdcp22_cipher_v1_0:
 Added the initial version of Xilinx HDCP Cipher core driver.
+Updated the driver for nested HIP support.
 
 hdcp22_common_v1_0:
 Added the initial version of Xilinx HDCP Cipher common driver.
+Updated the driver for nested HIP support.
 
 hdcp22_mmult_v1_0:
 Added the initial version of the driver that can be used to access the Xilinx HDCP22
 Montogmery Multiplier(Mmult) core.
+Updated the driver for nested HIP support.
 
 hdcp22_rng_v1_0:
 Added the initial version of the driver that can be used to access the Xilinx HDCP22
 Random Number Generator(RNG) core.
+Updated the driver for nested HIP support.
 
 hdcp22_rx_v1_0:
 Added the initial version of the Xilinx HDCP 2.2 Receiver driver.
+Updated the driver for nested HIP support.
 
 hdcp22_tx_v1_0:
 Added the initial version of the Xilinx HDCP 2.2 Tx core driver.
+Updated the driver for nested HIP support.
 
 hwicap_v10_1:
 Updated driver, to read 7 Series FPGA frame data correctly.
