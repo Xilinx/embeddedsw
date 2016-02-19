@@ -10,26 +10,26 @@ proc vmix_example args {
 
 		#set workspace
 		puts "Create Workspace"
-		sdk set_workspace vmix_example.sdk
+		sdk setws vmix_example.sdk
 
 		#create hw project
 		puts "Create HW Project"
-		sdk create_hw_project -name vmix_example_hw_platform -hwspec ./$hdf
+		sdk createhw -name vmix_example_hw_platform -hwspec ./$hdf
 
 		#create bsp
 		puts "Create BSP"
-		sdk create_bsp_project -name vmix_example_bsp -hwproject vmix_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone
+		sdk createbsp -name vmix_example_bsp -hwproject vmix_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone
 
 		#create application project
 		puts "Create Application Project"
-		sdk create_app_project -name vmix_example_design -hwproject vmix_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone -lang C -app {Empty Application} -bsp vmix_example_bsp
+		sdk createapp -name vmix_example_design -hwproject vmix_example_hw_platform -proc microblaze_ss_microblaze_0 -os standalone -lang C -app {Empty Application} -bsp vmix_example_bsp
 
 		#copy example source files to app project
 		puts "Get Example Design Source Files"
-		sdk import_sources -name vmix_example_design -path ./src
+		sdk importsources -name vmix_example_design -path ./src
 
 		#build project
 		puts "Build Project"
-		sdk build_project -type all
+		sdk project -build -type all
 	}
 }
