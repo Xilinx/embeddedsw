@@ -379,6 +379,7 @@ Made changes to write to new Event Log: log sub-core init errors.
 Modifed CSC-only validate and setup routines
 Modified Scaler-only validate and setup routines
 Made changes to conform to coding style.
+Update example software and reset logic in vpss
 
 wdttb_v4_0:
 Updated Window watchdog support.
