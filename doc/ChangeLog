@@ -901,6 +901,11 @@ Minor driver version upgrade that uses correct Device Config base address in xad
 zdma_v1_0:
 New version of the LPD/FPD DMA driver for Ultrascale+ ZynqMPSoC
 
+usbps_v2_3:
+Created new version
+Fixed CR#873972 - corrected logic for moving of dTD Head/Tail Pointers
+Fixed CR#873974 - invalidated Caches After Buffer Receive in Endpoint Buffer Handler
+
 usbpsu_v1_0:
 New version of the USB driver (device mode only) for Ultrascale+ Zynq MPSoC
 
