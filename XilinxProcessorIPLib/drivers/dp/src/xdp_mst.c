@@ -48,6 +48,8 @@
  *                     stream rather than invoking XDp_TxGetFirstAvailableTs.
  *                     XDp_TxAllocatePayloadVcIdTable now takes an additional
  *                     argument (StartTs, the starting timeslot).
+ *                     Exposed RX MST API to application:
+ *                         XDp_RxAllocatePayloadStream
  * </pre>
  *
 *******************************************************************************/
@@ -164,7 +166,6 @@ static void XDp_RxSetGenericNackReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteDpcdReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static u32 XDp_RxSetRemoteIicReadReply(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg);
-static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_RxSetAvailPbn(XDp *InstancePtr, XDp_SidebandMsg *Msg);
 static void XDp_TxIssueGuid(XDp *InstancePtr, u8 LinkCountTotal,
 		u8 *RelativeAddress, XDp_TxTopology *Topology, u8 *Guid);
@@ -2343,7 +2344,6 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr)
 
 	switch (Msg.Body.MsgData[0]) {
 	case XDP_SBMSG_CLEAR_PAYLOAD_ID_TABLE:
-		XDp_RxAllocatePayload(InstancePtr, &Msg);
 		XDp_RxSetClearPayloadIdReply(&Msg);
 		XDp_RxSetAvailPbn(InstancePtr, &Msg);
 		break;
@@ -2365,7 +2365,6 @@ u32 XDp_RxHandleDownReq(XDp *InstancePtr)
 		break;
 
 	case XDP_SBMSG_ALLOCATE_PAYLOAD:
-		XDp_RxAllocatePayload(InstancePtr, &Msg);
 		XDp_RxSetAllocPayloadReply(&Msg);
 		XDp_RxSetAvailPbn(InstancePtr, &Msg);
 		break;
@@ -3087,15 +3086,13 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
  * values from ALLOCATE_PAYLOAD and CLEAR_PAYLOAD sideband message requests.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
- * @param	Msg is a pointer to the structure holding the ALLOCATE_PAYLOAD
- *		sideband message. This is not required for CLEAR_PAYLOAD.
  *
  * @return	None.
  *
  * @note	None.
  *
 *******************************************************************************/
-static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg)
+void XDp_RxAllocatePayloadStream(XDp *InstancePtr)
 {
 	u8 Index;
 	u8 *PayloadTable;
@@ -3103,7 +3100,6 @@ static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	u8 StreamId;
 	u8 StartTs;
 	u8 NumTs;
-	u8 PbnReq = 0;
 
 	PayloadTable = &InstancePtr->RxInstance.Topology.PayloadTable[0];
 
@@ -3116,18 +3112,14 @@ static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 	/* Set the virtual channel payload table in software using the MST
 	 * allocation values. */
 	memset(&PayloadTable[StartTs], StreamId, NumTs);
-
-	if (Msg->Body.MsgData[0] == XDP_SBMSG_ALLOCATE_PAYLOAD) {
-		/* For ALLOCATE_PAYLOAD sideband messages, check the requested
-		 * PBN value for possible deletion requests. */
-		PbnReq = (Msg->Body.MsgData[3] << 8) | Msg->Body.MsgData[4];
+	if ((StreamId == 0) && (NumTs == 63)) {
+		/* CLEAR_PAYLOAD request. */
+		PayloadTable[63] = 0;
 	}
 
 	for (Index = 0; Index < 64; Index++) {
-		if ((Msg->Body.MsgData[0] == XDP_SBMSG_ALLOCATE_PAYLOAD) &&
-				!PbnReq && (PayloadTable[Index] == StreamId)) {
-			/* If the PBN value of the ALLOCATE_PAYLOAD sideband
-			 * message equals 0, delete the virtual channel. */
+		if ((NumTs == 0) && (PayloadTable[Index] == StreamId)) {
+			/* ALLOCATE_PAYLOAD, stream deletion. */
 			PayloadTable[Index] = 0;
 		}
 
@@ -3139,8 +3131,8 @@ static void XDp_RxAllocatePayload(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 
 	/* Indicate that the virtual channel payload table has been updated. */
 	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP);
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP, RegVal |
-						XDP_RX_MST_CAP_VCP_UPDATE_MASK);
+	RegVal |= XDP_RX_MST_CAP_VCP_UPDATE_MASK;
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP, RegVal);
 }
 
 /******************************************************************************/

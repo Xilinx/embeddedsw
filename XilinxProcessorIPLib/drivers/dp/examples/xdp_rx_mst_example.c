@@ -53,6 +53,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 2.0   als  06/07/15 Initial creation.
  * 4.0   als  02/07/16 Added end of line reset for reduced blanking.
+ *                     Allocate payload ISR to call XDp_RxAllocatePayloadStream.
  * </pre>
  *
 *******************************************************************************/
@@ -948,6 +949,8 @@ static void Dprx_InterruptHandlerAudioOver(void *InstancePtr)
 static void Dprx_InterruptHandlerPayloadAlloc(void *InstancePtr)
 {
 	xil_printf("> Interrupt: payload allocation.\n");
+
+	XDp_RxAllocatePayloadStream(InstancePtr);
 }
 
 /******************************************************************************/

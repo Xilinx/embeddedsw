@@ -359,6 +359,8 @@
  *                         XDp_RxGetColorComponent
  *                     Added RX API to set end of line reset as appropriate.
  *                         XDp_RxSetLineReset
+ *                     Added RX MST API to allocate payload from ISR:
+ *                         XDp_RxAllocatePayloadStream
  * </pre>
  *
 *******************************************************************************/
@@ -1314,6 +1316,7 @@ void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
+void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

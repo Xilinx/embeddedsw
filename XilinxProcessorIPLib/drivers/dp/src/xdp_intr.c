@@ -50,6 +50,8 @@
  *                     Guard against uninitialized callbacks.
  *                     Added HDCP interrupts.
  *                     Added unplug interrupt.
+ * 4.0   als  02/18/16 Removed update of payload table in the driver's interrupt
+ *                     handler.
  * </pre>
  *
 *******************************************************************************/
@@ -1183,12 +1185,6 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	 * allocation, de-allocation, or partial deletion. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_PAYLOAD_ALLOC_MASK) &&
 			InstancePtr->RxInstance.IntrPayloadAllocHandler) {
-		RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr,
-								XDP_RX_MST_CAP);
-		RegVal |= XDP_RX_MST_CAP_VCP_UPDATE_MASK;
-		XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP,
-									RegVal);
-
 		InstancePtr->RxInstance.IntrPayloadAllocHandler(
 			InstancePtr->RxInstance.IntrPayloadAllocCallbackRef);
 	}
