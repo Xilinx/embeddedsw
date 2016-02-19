@@ -51,7 +51,7 @@
  * 2.00a kpc 04/03/14 Fixed CR#777763. Updated the macro names 
  * 2.1   kpc 04/28/14 Added XUsbPs_EpBufferSendWithZLT api and merged common
  *		      code to XUsbPs_EpQueueRequest.
- * 2.2   bss 01/19/16 Modified XUsbPs_EpQueueRequest function to fix CR#873972
+ * 2.3   bss 01/19/16 Modified XUsbPs_EpQueueRequest function to fix CR#873972
  *            (moving of dTD Head/Tail Pointers)and CR#873974(invalidate
  *            Caches After Buffer Receive in Endpoint Buffer Handler...)
  * </pre>

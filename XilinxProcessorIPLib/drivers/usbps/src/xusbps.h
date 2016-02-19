@@ -179,6 +179,9 @@
  * 2.1   kpc 04/28/14 Removed unused function prototypes
  * 2.2   kpc 08/23/14 Exported XUsbPs_DeviceReset API as global for calling in
  *                    code coverage tests.
+ * 2.3   kpc 02/19/14 Fixed CR#873972, CR#873974. Corrected the logic for proper
+ *                    moving of dTD Head/Tail Pointers. Invalidate the cache
+ *                    after buffer receive in Endpoint Buffer Handler.
  * </pre>
  *
  ******************************************************************************/
