@@ -506,6 +506,10 @@ Xil_Out16, Xil_Out32 into static inline functions. Made changes in xil_io.c and 
 to UINTPTR.
 Made changes in MicroBlaze BSP to add implementation for xil_printf (added the file xil_printf.c). Earlier
 xil_printf was part of toolchain which is now removed from toolchain and made part of BSP.
+Modified cortexr5/xtime_l.c to add an API XTime_StartTimer and updated cortexr5/xil-crt0.S to configure
+the TTC3 timer when present. Modified cortexr5/sleep.c, cortexr5/usleep.c to use TTC3 when present otherwise
+use set of assembly instructions to provide required delay to fix CR#913249.
+
 
 xilskey_v5_0:
 Modified JtagWrite_Ultrascale.
