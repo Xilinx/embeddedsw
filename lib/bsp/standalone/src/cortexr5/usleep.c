@@ -42,7 +42,10 @@
 *
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
-* 5.00 	pkp  02/20/14 First release
+* 5.00 	pkp  	 02/20/14 First release
+* 5.04  pkp		 02/19/16 usleep routine is modified to use TTC3 if present
+*						  else it will use set of assembly instructions to
+*						  provide the required delay
 * </pre>
 *
 ******************************************************************************/
@@ -55,9 +58,6 @@
 #include "xpseudo_asm.h"
 #include "xreg_cortexr5.h"
 
-/* Global Timer is always clocked at half of the CPU frequency */
-#define COUNTS_PER_USECOND  25U
-
 /*****************************************************************************/
 /**
 *
@@ -65,37 +65,50 @@
 *
 * @param	useconds requested
 *
-* @return	0 if the delay can be achieved, -1 if the requested delay
-*		is out of range
+* @return	0 always
 *
-* @note		None.
+* @note		The usleep API is implemented using TTC3 counter 0 timer if present
+*			When TTC3 is absent, usleep is implemented using assembly
+*			instructions which is tested with instruction and data caches
+*			enabled and it gives proper delay. It may give more delay than
+*			exepcted when caches are disabled.
 *
 ****************************************************************************/
 
 s32 usleep(u32 useconds)
 {
+
+#ifdef SLEEP_TIMER_BASEADDR
 	XTime tEnd, tCur;
-	/*disable ttc timer*/
-	Xil_Out32(TTC3_BASEADDR + 0x0000000CU,0x1U);
-	/*set prescale value*/
-	Xil_Out32(TTC3_BASEADDR + 0x00000000U, 0x000001U);
-	/*write interval value to register*/
-	Xil_Out32(TTC3_BASEADDR + 0x00000024U,0xFFFFFFFFU);
-	/*write match value to register*/
-	Xil_Out32(TTC3_BASEADDR + 0x00000030U,0xFFFFFFFFU);
-	/* Enable ttc Timer */
-	Xil_Out32(TTC3_BASEADDR + 0x0000000CU,0x1AU);
 
 	XTime_GetTime(&tCur);
-
 	tEnd  = tCur + (((XTime) useconds) * (COUNTS_PER_USECOND));
 	do
 	{
 	    XTime_GetTime(&tCur);
 	} while (tCur < tEnd);
 
-	/* Disable ttc Timer */
-	Xil_Out32(TTC3_BASEADDR + 0x0000000CU, Xil_In32(TTC3_BASEADDR + 0x0000000CU) | 0x00000001U);
-
 	return 0;
+#else
+
+    u32 currmask;
+	currmask = mfcpsr();
+	/*disable the interrupts*/
+	mtcpsr(currmask | IRQ_FIQ_MASK);
+
+	__asm__ __volatile__ (
+			" push {r0,r1}		\n\t"
+			" mov r0, %[usec]	\n\t"
+			" 1: \n\t"
+			" mov r1, %[iter] 	\n\t"
+			" 2:				\n\t"
+			" subs r1, r1, #0x1 \n\t"
+			" bne   2b    		\n\t"
+			" subs r0,r0,#0x1 	\n\t"
+			"  bne 1b 			\n\t"
+			" pop {r0,r1} 		\n\t"
+			:: [iter] "r" (ITERS_PER_USEC), [usec] "r" (useconds)
+	);
+	mtcpsr(currmask);
+#endif
 }

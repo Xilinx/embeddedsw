@@ -177,6 +177,25 @@ proc generate {os_handle} {
                     puts $file_handle ""
                 }
             }
+            set periphs [hsi::get_cells]
+            foreach periph $periphs {
+		if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
+			set timer_baseaddr [::hsi::utils::get_param_value $periph "C_S_AXI_BASEADDR"]
+			if {[string compare -nocase "0xff140000" $timer_baseaddr] == 0} {
+				set timer_base "#define SLEEP_TIMER_BASEADDR $timer_baseaddr"
+				puts $file_handle "/******************************************************************/\n"
+				puts $file_handle "/*"
+				puts $file_handle " * Definitions of PSU_TTC_3 counter 0 base address and frequency used"
+				puts $file_handle " * by sleep and usleep APIs"
+				puts $file_handle " */\n"
+				puts $file_handle $timer_base
+				set timer_frequency [::hsi::utils::get_param_value $periph "C_TTC_CLK0_FREQ_HZ"]
+				set timer_freq "#define SLEEP_TIMER_FREQUENCY $timer_frequency"
+				puts $file_handle $timer_freq
+				puts $file_handle "\n/******************************************************************/\n"
+			}
+		}
+            }
 	    close $file_handle
         }
        "ps7_cortexa9"  {

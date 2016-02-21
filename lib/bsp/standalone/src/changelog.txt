@@ -263,4 +263,9 @@
  *		       as per the toolchain update
  * 5.4 kvn   30/01/16  Modified xparameters_ps.h file to add interrupt ID number for
  *		       system monitor.
+ * 5.4 pkp   19/02/16  Modified cortexr5/xtime_l.c to add an API XTime_StartTimer and updated
+ *		       cortexr5/xil-crt0.S to configure the TTC3 timer when present. Modified
+ *		       cortexr5/sleep.c, cortexr5/usleep.c to use TTC3 when present otherwise
+ *		       use set of assembly instructions to provide required delay to fix
+ *		       CR#913249.
  *****************************************************************************************/

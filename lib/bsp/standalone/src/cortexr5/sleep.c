@@ -42,6 +42,9 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 5.00 	pkp  	 02/20/14 First release
+* 5.04  pkp		 02/19/16 sleep routine is modified to use TTC3 if present
+*						  else it will use set of assembly instructions to
+*						  provide the required delay
 * </pre>
 *
 ******************************************************************************/
@@ -54,35 +57,26 @@
 /*****************************************************************************/
 /*
 *
-* This API is used to provide delays in seconds. Maximum value of seconds
-* attained with sleep routine is 10995
+* This API is used to provide delays in seconds.
 *
 * @param	seconds requested
 *
 * @return	0 always
 *
-* @note		None.
+* @note		The sleep API is implemented using TTC3 counter 0 timer if present.
+*			When TTC3 is absent, sleep is implemented using assembly
+*			instructions which is tested with instruction and data caches
+*			enabled and it gives proper delay. It may give more delay than
+*			exepcted when caches are disabled.
 *
 ****************************************************************************/
 
 s32 sleep(u32 seconds)
 {
-
+#ifdef SLEEP_TIMER_BASEADDR
 	XTime tEnd, tCur;
 
-	/* Disable ttc Timer */
-	Xil_Out32(TTC3_BASEADDR + 0x0000000CU,0x00000001U);
-	/*set prescale value*/
-	Xil_Out32(TTC3_BASEADDR + 0x00000000U,0x0000000DU);
-	/*write interval value to register*/
-	Xil_Out32(TTC3_BASEADDR + 0x00000024U,0xFFFFFFFFU);
-	/*write match value to register*/
-	Xil_Out32(TTC3_BASEADDR + 0x00000030U,0xFFFFFFFFU);
-	/* Enable ttc Timer */
-	Xil_Out32(TTC3_BASEADDR + 0x0000000CU,0x0000001AU);
-
 	XTime_GetTime(&tCur);
-
 	tEnd  = tCur + (((XTime) seconds) * COUNTS_PER_SECOND);
 	do
 	{
@@ -90,8 +84,27 @@ s32 sleep(u32 seconds)
 
 	} while (tCur < tEnd);
 
-	/* Disable ttc Timer */
-	Xil_Out32(TTC3_BASEADDR + 0x0000000CU, Xil_In32(TTC3_BASEADDR + 0x0000000CU) | 0x00000001U);
-
 	return 0;
+#else
+
+    u32 currmask;
+	currmask = mfcpsr();
+	/*disable the interrupts*/
+	mtcpsr(currmask | IRQ_FIQ_MASK);
+
+	__asm__ __volatile__ (
+			" push {r0,r1}		\n\t"
+			" mov r0, %[sec]	\n\t"
+			" 1: \n\t"
+			" mov r1, %[iter] 	\n\t"
+			" 2:				\n\t"
+			" subs r1, r1, #0x1 \n\t"
+			" bne   2b    		\n\t"
+			" subs r0,r0,#0x1 	\n\t"
+			"  bne 1b 			\n\t"
+			" pop {r0,r1} 		\n\t"
+			:: [iter] "r" (ITERS_PER_SEC), [sec] "r" (seconds)
+	);
+	mtcpsr(currmask);
+#endif
 }

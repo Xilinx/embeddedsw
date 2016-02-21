@@ -39,6 +39,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  02/10/14 First release
+* 5.04  pkp  02/19/16 Added timer configuration using XTime_StartTimer API when
+*		      TTC3 is present
 * </pre>
 *
 * @note
@@ -46,7 +48,7 @@
 * None.
 *
 ******************************************************************************/
-
+#include "xparameters.h"
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
@@ -100,6 +102,11 @@ _startup:
 
 	/* set stack pointer */
 	ldr	r13,.Lstack		/* stack address */
+
+	/* configure the timer if TTC3 is present */
+#ifdef SLEEP_TIMER_BASEADDR
+	bl XTime_StartTimer
+#endif
 
 	/* run global constructors */
 	bl __libc_init_array

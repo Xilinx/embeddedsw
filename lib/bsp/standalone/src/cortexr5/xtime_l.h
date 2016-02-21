@@ -39,6 +39,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------------
 * 5.00 	pkp	   05/29/14 First release
+* 5.04  pkp	   02/19/16 Added timer configuration register offset definitions
 * </pre>
 *
 * @note		None.
@@ -59,15 +60,38 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-#define COUNTS_PER_SECOND          0x0005F5E1U
+#ifdef SLEEP_TIMER_BASEADDR
 
-#define TTC3_BASEADDR 0xFF140000U
+#define COUNTS_PER_SECOND				SLEEP_TIMER_FREQUENCY
+#define COUNTS_PER_USECOND 				COUNTS_PER_SECOND/1000000
+
+/* Timer Register Offset*/
+#define SLEEP_TIMER_CLK_CNTRL_OFFSET 		0x00000000U
+#define SLEEP_TIMER_CNTR_CNTRL_OFFSET		0x0000000CU
+#define SLEEP_TIMER_CNTR_VAL_OFFSET		0x00000018U
+#define SLEEP_TIMER_ISR_OFFSET			0x00000054U
+#define SLEEP_TIMER_IER_OFFSET			0x00000060U
+
+/*Timer register values*/
+#define SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK    0x00000001U
+#define SLEEP_TIMER_CLOCK_CONTROL_PS_EN_MASK    0x00000001U
+#define SLEEP_TIMER_INTERRUPT_REGISTER_OV_MASK    0x00000010U
+#define SLEEP_TIMER_COUNTER_CONTROL_RST_MASK    0x00000010U
+#else
+#define ITERS_PER_SEC  (XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 4)
+#define ITERS_PER_USEC  (XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 4000000)
+#define IRQ_FIQ_MASK 	0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
+#endif
+
 /**************************** Type Definitions *******************************/
 
-typedef u32 XTime;
+/* The following definitions are applicable only when TTC3 is present*/
+#ifdef SLEEP_TIMER_BASEADDR
+typedef u64 XTime;
 
 void XTime_SetTime(XTime Xtime_Global);
 void XTime_GetTime(XTime *Xtime_Global);
+#endif
 
 #ifdef __cplusplus
 }
