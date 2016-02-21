@@ -46,6 +46,9 @@
 * Ver  Who    Date     Changes
 * ---- ------ -------- ---------------------------------------------
 * 3.00 pkp    01/12/15 First release
+* 3.01 pkp	  01/30/16 Modified SetupTimer to remove XTtcps_Stop before TTC
+*					   configuration as it is added in xttcps.c in
+*					   XTtcPs_CfgInitialize
 *</pre>
 ******************************************************************************/
 

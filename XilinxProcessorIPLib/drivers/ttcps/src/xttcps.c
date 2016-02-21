@@ -48,6 +48,8 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.00a drg/jz 01/21/10 First release
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.01	pkp	   01/30/16 Modified XTtcPs_CfgInitialize to add XTtcps_Stop
+*						to stop the timer before configuring
 *
 * </pre>
 *
