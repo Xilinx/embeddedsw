@@ -42,7 +42,10 @@
 *
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
-* 5.2	pkp  	28/05/15 First release
+* 5.2	pkp  	 28/05/15 First release
+* 5.4	pkp		 28/01/16 Modified the usleep API to configure Time Stamp
+*						  generator only when disable using frequency from
+*						  xparamters.h instead of hardcoding
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/

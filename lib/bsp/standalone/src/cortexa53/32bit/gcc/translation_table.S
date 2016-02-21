@@ -42,6 +42,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.2	pkp  28/05/15 First release
+* 5.4	pkp  18/12/15 Updated the address map according to proper address map
 * </pre>
 *
 * @note

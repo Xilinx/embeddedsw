@@ -39,6 +39,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00	pkp  05/21/14 Initial version
+* 5.04  pkp  12/18/15 Initialized global constructor for C++ applications
+* 5.04	pkp  01/05/16 Set the reset vector register RVBAR equivalent to
+*		      vector table base address
 * </pre>
 *
 * @note

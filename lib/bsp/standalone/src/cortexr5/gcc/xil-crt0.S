@@ -39,6 +39,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  02/10/14 First release
+* 5.04  pkp  12/18/15 Initialized global constructor for C++ applications
 * 5.04  pkp  02/19/16 Added timer configuration using XTime_StartTimer API when
 *		      TTC3 is present
 * </pre>

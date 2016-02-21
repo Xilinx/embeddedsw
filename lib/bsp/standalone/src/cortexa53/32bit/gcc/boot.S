@@ -42,6 +42,7 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 5.2	pkp  	28/05/15 First release
+* 5.4	pkp	09/11/15 Enable I-Cache and D-Cache in the initialization
 * </pre>
 *
 * @note

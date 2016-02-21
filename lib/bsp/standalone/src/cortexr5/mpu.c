@@ -41,6 +41,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  02/20/14 First release
+* 5.04	pkp  12/18/15 Updated MPU initialization as per the proper address map
 * </pre>
 *
 * @note

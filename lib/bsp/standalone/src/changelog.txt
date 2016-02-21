@@ -249,6 +249,10 @@
  * 5.3 pkp   10/09/15  Modified cortexa9/iccarm/xpseudo_asm_iccarm.h file to change function
  *		       definition for dsb, isb and dmb to fix the compilation error when used
  *     kvn   16/10/15  Encapsulated assembly code into macros for R5 xil_cache file.
+ * 5.4 pkp   09/11/15  Modified cortexr5/gcc/boot.S to disable ACTLR.DBWR bit to avoid potential
+ *		       R5 deadlock for errata 780125
+ * 5.4 pkp   09/11/15  Modified cortexa53/32bit/gcc/boot.S to enable I-Cache and D-Cache for a53
+ *		       32 bit BSP in the initialization
  * 5.4 pkp   09/11/15  Modified cortexa9/xil_misc_psreset_api.c file to change the description
  *		       for XOcm_Remap function
  * 5.4 pkp   16/11/15  Modified microblaze/xil_misc_psreset_api.c file to change the description
@@ -259,10 +263,32 @@
  * 5.4 pkp   23/11/15  Added attribute definitions for Xil_SetTlbAttributes API of Cortex-A9
  *		       in cortexa9/xil_mmu.h
  * 5.4 pkp   23/11/15  Added default undefined exception handler for Cortex-A9
+ * 5.4 pkp   11/12/15  Modified common/xplatform_info.h to add #defines for silicon for
+ *		       checking the current executing platform
+ * 5.4 pkp   18/12/15  Modified cortexa53/32bit/gcc/xil-crt0.S and 64bit/gcc/xil-crt0.S
+ *		       to initialize global constructor for C++ applications
+ * 5.4 pkp   18/12/15  Modified cortexr5/gcc/xil-crt0.S to initialize global constructor for
+ *		       C++ applications
+ * 5.4 pkp   18/12/15  Modified cortexa53/32bit/gcc/translation_table.S and 64bit/gcc/
+ *		       translation_table.S to update the translation table according to proper
+ *		       address map
+ * 5.4 pkp   18/12/15  Modified cortexar5/mpu.c to initialize the MPU according to proper
+ *		       address map
+ * 5.4	pkp  05/01/16  Modified cortexa53/64bit/boot.S to set the reset vector register RVBAR
+ *		       equivalent to vector table base address
  * 5.4 pkp   08/01/16  Modified cortexa9/gcc/Makefile to update the extra compiler flag
  *		       as per the toolchain update
+ * 5.4 pkp   12/01/16  Changed common/xplatform_info.* to add platform information support
+ *		       for Cortex-A53 32bit mode
+ * 5.4 pkp   28/01/16  Modified cortexa53/32bit/sleep.c and usleep.c & cortexa53/64bit/sleep.c
+ *		       and usleep.c to correct routines to avoid hardcoding the timer frequency,
+ *		       instead take it from xparameters.h to properly configure the timestamp
+ *		       clock frequency
+ * 5.4 asa   29/01/16  Modified microblaze/mb_interface.h to add macros that support the
+ *		       new instructions for MB address extension feature
  * 5.4 kvn   30/01/16  Modified xparameters_ps.h file to add interrupt ID number for
  *		       system monitor.
+ * 5.4 pkp   04/02/16  Modified cortexr5/gcc/boot.S to enable fault log for lock-step mode
  * 5.4 pkp   19/02/16  Modified cortexr5/xtime_l.c to add an API XTime_StartTimer and updated
  *		       cortexr5/xil-crt0.S to configure the TTC3 timer when present. Modified
  *		       cortexr5/sleep.c, cortexr5/usleep.c to use TTC3 when present otherwise

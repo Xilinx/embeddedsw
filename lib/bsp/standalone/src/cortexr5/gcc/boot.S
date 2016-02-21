@@ -41,6 +41,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
+* 5.04	pkp  09/11/15 Disabled ACTLR.DBWR bit to avoid potential R5 deadlock
+*		      for errata 780125
+* 5.04 pkp   02/04/16 Enabled the fault log for lock-step mode
 * </pre>
 *
 * @note
