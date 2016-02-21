@@ -42,6 +42,7 @@
 # 2.1   adk  25/04/14 Added support for corenIRQ/FIQ interrupts.Fix for the
 #		      CR#789373
 # 3.0	pkp  12/09/14 Added support for Zynq Ultrascale Mp
+# 3.2	pkp  27/01/16 Added the support for PL IP interrupts for ZynqMP Soc
 ##############################################################################
 
 #uses "xillib.tcl"
