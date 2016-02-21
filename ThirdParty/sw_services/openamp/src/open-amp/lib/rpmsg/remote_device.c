@@ -2,6 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2016 NXP, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -219,6 +220,10 @@ void rpmsg_rdev_deinit(struct remote_device *rdev)
 	if (rdev->lock) {
 		env_delete_mutex(rdev->lock);
 	}
+	if (rdev->proc) {
+		hil_delete_proc(rdev->proc);
+		rdev->proc = 0;
+	}
 
 	env_free_memory(rdev);
 }
@@ -422,6 +427,9 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 	struct llist node;
 	int idx, num_vrings, status;
 
+	(void)flags;
+	(void)vqs_;
+
 	rdev = (struct remote_device *)dev;
 
 	/* Get the vring HW info for the given virtio device */
@@ -493,12 +501,14 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 
 unsigned char rpmsg_rdev_get_status(struct virtio_device *dev)
 {
+	(void)dev;
 	return 0;
 }
 
 void rpmsg_rdev_set_status(struct virtio_device *dev, unsigned char status)
 {
-
+	(void)dev;
+	(void)status;
 }
 
 uint32_t rpmsg_rdev_get_feature(struct virtio_device *dev)
@@ -514,6 +524,9 @@ void rpmsg_rdev_set_feature(struct virtio_device *dev, uint32_t feature)
 uint32_t rpmsg_rdev_negotiate_feature(struct virtio_device *dev,
 				      uint32_t features)
 {
+	(void)dev;
+	(void)features;
+
 	return 0;
 }
 
@@ -525,16 +538,28 @@ uint32_t rpmsg_rdev_negotiate_feature(struct virtio_device *dev,
 void rpmsg_rdev_read_config(struct virtio_device *dev, uint32_t offset,
 			    void *dst, int length)
 {
+	(void)dev;
+	(void)offset;
+	(void)dst;
+	(void)length;
+
 	return;
 }
 
 void rpmsg_rdev_write_config(struct virtio_device *dev, uint32_t offset,
 			     void *src, int length)
 {
+	(void)dev;
+	(void)offset;
+	(void)src;
+	(void)length;
+
 	return;
 }
 
 void rpmsg_rdev_reset(struct virtio_device *dev)
 {
+	(void)dev;
+
 	return;
 }

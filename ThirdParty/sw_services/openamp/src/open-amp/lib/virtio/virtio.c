@@ -91,6 +91,10 @@ static const char *virtio_feature_name(unsigned long val,
 void virtio_describe(struct virtio_device *dev, const char *msg,
 		     uint32_t features, struct virtio_feature_desc *desc)
 {
+	(void)dev;
+	(void)msg;
+	(void)features;
+
 	// TODO: Not used currently - keeping it for future use
 	virtio_feature_name(0, desc);
 }

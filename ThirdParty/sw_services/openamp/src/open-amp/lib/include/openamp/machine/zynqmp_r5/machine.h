@@ -31,8 +31,6 @@
 #ifndef _MACHINE_H
 #define _MACHINE_H
 
-#include "xil_types.h"
-
 /* IPI REGs OFFSET */
 #define IPI_TRIG_OFFSET          0x00000000	/* IPI trigger register offset */
 #define IPI_OBS_OFFSET           0x00000004	/* IPI observation register offset */
@@ -42,25 +40,5 @@
 #define IPI_IDR_OFFSET           0x0000001C	/* IPI interrupt disable register offset */
 
 #include "openamp/machine/machine_common.h"
-
-#define IPI_TOTAL 11
-
-typedef void (*ipi_handler_t)(unsigned long ipi_base_addr, unsigned int intr_mask, void *data);
-
-struct ipi_handler_info {
-	unsigned long ipi_base_addr;
-	unsigned int intr_mask;
-	void *data;
-	ipi_handler_t ipi_handler;
-};
-
-struct ipi_info {
-	uint32_t ipi_base_addr;
-	uint32_t ipi_chn_mask;
-};
-
-void ipi_register_handler(unsigned long ipi_base_addr, unsigned int intr_mask,
-			  void *data, void *ipi_handler);
-void ipi_unregister_handler(unsigned long ipi_base_addr, unsigned int intr_mask);
 
 #endif				/* _MACHINE_H */

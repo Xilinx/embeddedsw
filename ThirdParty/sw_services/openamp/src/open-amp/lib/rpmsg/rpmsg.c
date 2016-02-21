@@ -187,7 +187,7 @@ int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, unsigned long src,
 
 		if (status == RPMSG_SUCCESS) {
 			//FIXME : may be just copy the data size equal to buffer length and Tx it.
-			if (size > (buff_len - sizeof(struct rpmsg_hdr)))
+			if ((unsigned int)size > (buff_len - sizeof(struct rpmsg_hdr)))
 				status = RPMSG_ERR_BUFF_SIZE;
 
 			if (status == RPMSG_SUCCESS) {

@@ -28,12 +28,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include <stdio.h>
-#include <string.h>
-
 #include "machine.h"
 #include "machine_system.h"
 #include "openamp/env.h"
+#include "xil_cache_l.h"
+
+
 
 static inline unsigned int get_cpu_id_arm(void)
 {
@@ -190,14 +190,12 @@ void platform_map_mem_region(unsigned int vrt_addr, unsigned int phy_addr,
 			      cache_type);
 }
 
-void platform_cache_all_flush_invalidate()
-{
-	ARM_AR_MEM_DCACHE_ALL_OP(1);
+void platform_cache_all_flush_invalidate() {
+	Xil_L1DCacheFlush();
 }
 
-void platform_cache_disable()
-{
-	ARM_AR_MEM_CACHE_DISABLE();
+void platform_cache_disable() {
+	Xil_L1DCacheDisable();
 }
 
 unsigned long platform_vatopa(void *addr)

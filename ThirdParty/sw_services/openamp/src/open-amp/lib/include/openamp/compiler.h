@@ -1,8 +1,10 @@
+#ifndef _COMPILER_H_
+#define _COMPILER_H_
+
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- *
- * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2016 NXP, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -12,9 +14,9 @@
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- * 3. Neither the name of the <ORGANIZATION> nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
+ * 3. Neither the name of Mentor Graphics Corporation nor the names of its
+ *    contributors may be used to endorse or promote products derived from this
+ *    software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -29,9 +31,52 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef _MACHINE_H
-#define _MACHINE_H
+/**************************************************************************
+ * FILE NAME
+ *
+ *       compiler.h
+ *
+ * DESCRIPTION
+ *
+ *       This file defines compiler-specific macros.
+ *
+ ***************************************************************************/
 
-#include "openamp/machine/machine_common.h"
+/* IAR ARM build tools */
+#if defined(__ICCARM__)
 
-#endif				/* _MACHINE_H */
+#ifndef OPENAMP_PACKED_BEGIN
+#define OPENAMP_PACKED_BEGIN __packed
+#endif
+
+#ifndef OPENAMP_PACKED_END
+#define OPENAMP_PACKED_END
+#endif
+
+/* GNUC */
+#elif defined(__GNUC__)
+
+#ifndef OPENAMP_PACKED_BEGIN
+#define OPENAMP_PACKED_BEGIN
+#endif
+
+#ifndef OPENAMP_PACKED_END
+#define OPENAMP_PACKED_END __attribute__((__packed__))
+#endif
+
+/* ARM GCC */
+#elif defined(__CC_ARM)
+
+#ifndef OPENAMP_PACKED_BEGIN
+#define OPENAMP_PACKED_BEGIN _Pragma("pack(1U)")
+#endif
+
+#ifndef OPENAMP_PACKED_END
+#define OPENAMP_PACKED_END _Pragma("pack()")
+#endif
+
+/* There is no default definition here to avoid wrong structures packing in case of not supported compiler */
+#error Please implement the structure packing macros for your compiler here!
+#endif
+
+#endif /* _COMPILER_H_ */

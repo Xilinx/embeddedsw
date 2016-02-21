@@ -64,12 +64,13 @@
  * Immediately following this header are the resource entries themselves,
  * each of which begins with a resource entry header (as described below).
  */
+OPENAMP_PACKED_BEGIN
 struct resource_table {
 	unsigned int ver;
 	unsigned int num;
 	unsigned int reserved[2];
 	unsigned int offset[0];
-} __attribute__ ((__packed__));
+} OPENAMP_PACKED_END;
 
 /**
  * struct fw_rsc_hdr - firmware resource entry header
@@ -80,10 +81,11 @@ struct resource_table {
  * its @type. The content of the entry itself will immediately follow
  * this header, and it should be parsed according to the resource type.
  */
+OPENAMP_PACKED_BEGIN
 struct fw_rsc_hdr {
 	unsigned int type;
 	unsigned char data[0];
-} __attribute__ ((__packed__));
+} OPENAMP_PACKED_END;
 
 /**
  * enum fw_resource_type - types of resource entries
@@ -158,6 +160,7 @@ enum fw_resource_type {
  * (optionally) contain a human readable name of this carveout region
  * (mainly for debugging purposes).
  */
+OPENAMP_PACKED_BEGIN
 struct fw_rsc_carveout {
 	unsigned int type;
 	unsigned int da;
@@ -166,7 +169,7 @@ struct fw_rsc_carveout {
 	unsigned int flags;
 	unsigned int reserved;
 	unsigned char name[32];
-} __attribute__ ((__packed__));
+} OPENAMP_PACKED_END;
 
 /**
  * struct fw_rsc_devmem - iommu mapping request
@@ -197,6 +200,7 @@ struct fw_rsc_carveout {
  * the firmware is allowed to request, and not allow firmwares to request
  * access to physical addresses that are outside those ranges.
  */
+OPENAMP_PACKED_BEGIN
 struct fw_rsc_devmem {
 	unsigned int type;
 	unsigned int da;
@@ -205,7 +209,7 @@ struct fw_rsc_devmem {
 	unsigned int flags;
 	unsigned int reserved;
 	unsigned char name[32];
-} __attribute__ ((__packed__));
+} OPENAMP_PACKED_END;
 
 /**
  * struct fw_rsc_trace - trace buffer declaration
@@ -223,13 +227,14 @@ struct fw_rsc_devmem {
  * After booting the remote remote_proc, the trace buffers are exposed to the
  * user via debugfs entries (called trace0, trace1, etc..).
  */
+OPENAMP_PACKED_BEGIN
 struct fw_rsc_trace {
 	unsigned int type;
 	unsigned int da;
 	unsigned int len;
 	unsigned int reserved;
 	unsigned char name[32];
-} __attribute__ ((__packed__));
+} OPENAMP_PACKED_END;
 
 /**
  * struct fw_rsc_vdev_vring - vring descriptor entry
@@ -248,13 +253,14 @@ struct fw_rsc_trace {
  * the remote remote_proc is expecting the vring, or indicate that
  * dynamically allocation of the vring's device address is supported.
  */
+OPENAMP_PACKED_BEGIN
 struct fw_rsc_vdev_vring {
 	unsigned int da;
 	unsigned int align;
 	unsigned int num;
 	unsigned int notifyid;
 	unsigned int reserved;
-} __attribute__ ((__packed__));
+} OPENAMP_PACKED_END;
 
 /**
  * struct fw_rsc_vdev - virtio device header
@@ -291,6 +297,7 @@ struct fw_rsc_vdev_vring {
  * this vdev (which is specific to the vdev; for more info, read the virtio
  * spec). the size of the config space is specified by @config_len.
  */
+OPENAMP_PACKED_BEGIN
 struct fw_rsc_vdev {
 	unsigned int type;
 	unsigned int id;
@@ -302,7 +309,7 @@ struct fw_rsc_vdev {
 	unsigned char num_of_vrings;
 	unsigned char reserved[2];
 	struct fw_rsc_vdev_vring vring[0];
-} __attribute__ ((__packed__));
+} OPENAMP_PACKED_END;
 
 /**
  * struct remote_proc

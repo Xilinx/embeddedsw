@@ -43,6 +43,11 @@
 #include "openamp/hil.h"
 #include "machine.h"
 
+/* -- FIX ME: ipi info is to be defined -- */
+struct ipi_info {
+	uint32_t ipi_base_addr;
+	uint32_t ipi_chn_mask;
+};
 
 /*--------------------------- Declare Functions ------------------------ */
 static int _enable_interrupt(struct proc_vring *vring_hw);
@@ -51,9 +56,8 @@ static void _notify(int cpu_id, struct proc_intr *intr_info);
 static int _boot_cpu(int cpu_id, unsigned int load_addr);
 static void _shutdown_cpu(int cpu_id);
 
-
-void _ipi_handler(unsigned long ipi_base_addr, unsigned int intr_mask, void *data);
-void _ipi_handler_deinit(unsigned long ipi_base_addr, unsigned int intr_mask, void *data);
+static void _ipi_handler(int vect_id, void *data);
+static void _ipi_handler_deinit(int vect_id, void *data);
 
 /*--------------------------- Globals ---------------------------------- */
 struct hil_platform_ops proc_ops = {
@@ -68,65 +72,81 @@ struct hil_platform_ops proc_ops = {
 extern void ipi_enable_interrupt(unsigned int vector);
 extern void ipi_isr(int vect_id, void *data);
 
+/* static variables */
+static struct ipi_info saved_ipi_info;
+
 /*------------------- Extern variable -----------------------------------*/
 extern struct hil_proc proc_table[];
 extern const int proc_table_size;
 
-extern void ipi_register_interrupt(unsigned long ipi_base_addr,
-				   unsigned int intr_mask, void *data,
-				   void *ipi_handler);
-
-void _ipi_handler(unsigned long ipi_base_addr, unsigned int intr_mask,
-		  void *data)
+void _ipi_handler(int vect_id, void *data)
 {
-	(void)ipi_base_addr;
-	(void)intr_mask;
-	struct proc_vring *vring_hw = (struct proc_vring *)data;
-	platform_dcache_all_flush();
-	hil_isr(vring_hw);
+	(void) vect_id;
+	struct proc_vring *vring_hw = (struct proc_vring *)(data);
+	struct ipi_info *chn_ipi_info =
+		(struct ipi_info *)(vring_hw->intr_info.data);
+	unsigned int ipi_base_addr = chn_ipi_info->ipi_base_addr;
+	unsigned int ipi_intr_status =
+	    (unsigned int)HIL_MEM_READ32(ipi_base_addr + IPI_ISR_OFFSET);
+	if (ipi_intr_status & chn_ipi_info->ipi_chn_mask) {
+		platform_dcache_all_flush();
+		hil_isr(vring_hw);
+		HIL_MEM_WRITE32((ipi_base_addr + IPI_ISR_OFFSET),
+				chn_ipi_info->ipi_chn_mask);
+	}
 }
 
-void _ipi_handler_deinit(unsigned long ipi_base_addr, unsigned int intr_mask,
-			 void *data)
+void _ipi_handler_deinit(int vect_id, void *data)
 {
-	(void)ipi_base_addr;
-	(void)intr_mask;
-	(void)data;
+	(void) vect_id;
+	struct ipi_info *chn_ipi_info =
+		(struct ipi_info *)(data);
+	unsigned int ipi_base_addr = chn_ipi_info->ipi_base_addr;
+	unsigned int ipi_intr_status =
+	    (unsigned int)HIL_MEM_READ32(ipi_base_addr + IPI_ISR_OFFSET);
+	if (ipi_intr_status & chn_ipi_info->ipi_chn_mask) {
+		HIL_MEM_WRITE32((ipi_base_addr + IPI_ISR_OFFSET),
+				chn_ipi_info->ipi_chn_mask);
+	}
 	return;
 }
 
 static int _enable_interrupt(struct proc_vring *vring_hw)
 {
-
 	struct ipi_info *chn_ipi_info =
 	    (struct ipi_info *)(vring_hw->intr_info.data);
+	unsigned int ipi_base_addr = chn_ipi_info->ipi_base_addr;
 
-	if (vring_hw->intr_info.vect_id == 0xFFFFFFFF)
+	if (vring_hw->intr_info.vect_id == 0xFFFFFFFF) {
 		return 0;
+	}
 
-	/* Register IPI handler */
-	ipi_register_handler(chn_ipi_info->ipi_base_addr,
-			     chn_ipi_info->ipi_chn_mask, vring_hw,
-			     _ipi_handler);
 	/* Register ISR */
-	env_register_isr(vring_hw->intr_info.vect_id,
-			 &(chn_ipi_info->ipi_base_addr), ipi_isr);
+	env_register_isr_shared(vring_hw->intr_info.vect_id,
+			 vring_hw, _ipi_handler, "remoteproc_a53", 1);
 	/* Enable IPI interrupt */
 	env_enable_interrupt(vring_hw->intr_info.vect_id,
 			     vring_hw->intr_info.priority,
 			     vring_hw->intr_info.trigger_type);
+	HIL_MEM_WRITE32((ipi_base_addr + IPI_IER_OFFSET),
+		chn_ipi_info->ipi_chn_mask);
 	return 0;
 }
 
+/* In case there is an interrupt received after deinit. */
 static void _reg_ipi_after_deinit(struct proc_vring *vring_hw)
 {
 	struct ipi_info *chn_ipi_info =
 	    (struct ipi_info *)(vring_hw->intr_info.data);
-	env_disable_interrupts();
-	ipi_register_handler(chn_ipi_info->ipi_base_addr,
-			     chn_ipi_info->ipi_chn_mask, 0,
-			     _ipi_handler_deinit);
-	env_restore_interrupts();
+
+	if (vring_hw->intr_info.vect_id == 0xFFFFFFFF)
+		return;
+	saved_ipi_info.ipi_base_addr = chn_ipi_info->ipi_base_addr;
+	saved_ipi_info.ipi_chn_mask = chn_ipi_info->ipi_chn_mask;
+
+	env_update_isr(vring_hw->intr_info.vect_id, &saved_ipi_info,
+                    _ipi_handler_deinit,
+                    "remoteproc_a53", 1);
 }
 
 static void _notify(int cpu_id, struct proc_intr *intr_info)
@@ -139,7 +159,8 @@ static void _notify(int cpu_id, struct proc_intr *intr_info)
 	platform_dcache_all_flush();
 	env_wmb();
 	/* Trigger IPI */
-	ipi_trigger(chn_ipi_info->ipi_base_addr, chn_ipi_info->ipi_chn_mask);
+	HIL_MEM_WRITE32((chn_ipi_info->ipi_base_addr + IPI_TRIG_OFFSET),
+			chn_ipi_info->ipi_chn_mask);
 }
 
 static int _boot_cpu(int cpu_id, unsigned int load_addr)

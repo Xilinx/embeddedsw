@@ -86,7 +86,7 @@ proc generate {libhandle} {
 	}
 	puts $fd "set (CROSS_PREFIX \"${crosscompile}\" CACHE STRING \"\")"
 	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
-	if { [string match "freetos*" "${os}"] > 0 } {
+	if { [string match "freertos*" "${os}"] > 0 } {
 		puts $fd "set (CMAKE_SYSTEM_NAME \"FreeRTOS\" CACHE STRING \"\")"
 	} else {
 		puts $fd "set (CMAKE_SYSTEM_NAME \"Generic\" CACHE STRING \"\")"
@@ -110,6 +110,7 @@ proc generate {libhandle} {
 	set cmake_cmd "../src/run_cmake"
 	#set cmake_cmd "$::env(XILINX_SDK)/tps/lnx64/cmake-3.3.2/bin/cmake"
 	set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on"
+	file attributes ${cmake_cmd} -permissions ugo+rx
 	if { [catch {exec ${cmake_cmd} ../src/open-amp ${cmake_opt}} msg] } {
 		puts "${msg}"
 		error "Failed to generate cmake files."
@@ -122,6 +123,7 @@ proc generate {libhandle} {
 # post_generate: called after generate called on all libraries
 #-------
 proc post_generate {libhandle} {
+
 }
 
 #-------
