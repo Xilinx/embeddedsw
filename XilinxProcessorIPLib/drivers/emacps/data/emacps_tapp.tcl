@@ -39,6 +39,7 @@
 # 3.0   adk  08/1/15  Don't include gem in peripheral test when gem is
 #		      configured with PCS/PMA Core.
 # 3.0   kpc  01/20/15 Don't include examples when interrupt is not connected
+# 3.2   mus  02/20/16 Added support for microblaze
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -186,6 +187,11 @@ proc gen_testfunc_call {swproj mhsinst} {
 
     set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
+    if {$isintr == 1} {
+        set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname] INTERRUPT]
+        set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+        set proc [get_property IP_NAME [hsi::get_cells -hier [hsi::get_sw_processor]]]
+    }
 
     set testfunc_call ""
 
@@ -194,7 +200,17 @@ proc gen_testfunc_call {swproj mhsinst} {
 	if {$ispcs_pma == 0} {
 
 	if {$isintr == 1} {
+            if {
+                $proc == "microblaze"
+            } then {
+                if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0} {
+                    set intr_id "XPAR_${intcname}_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR"
+                } else {
+                    set intr_id "XPAR_${intcname}_PROCESSING_SYSTEM7_1_IRQ_P2F_ENET1_INTR"
+		}
+            } else {
         set intr_id "XPAR_${ipname}_INTR"
+            }
 	set intr_id [string toupper $intr_id]
 
       append testfunc_call "
@@ -213,7 +229,17 @@ proc gen_testfunc_call {swproj mhsinst} {
 
 	if {$ispcs_pma == 0} {
 	if {$isintr == 1} {
+           if {
+                $proc == "microblaze"
+            } then {
+                if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0} {
+                    set intr_id "XPAR_${intcname}_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR"
+                } else {
+                    set intr_id "XPAR_${intcname}_PROCESSING_SYSTEM7_1_IRQ_P2F_ENET1_INTR"
+		}
+            } else {
         set intr_id "XPAR_${ipname}_INTR"
+            }
 	set intr_id [string toupper $intr_id]
 
       append testfunc_call "

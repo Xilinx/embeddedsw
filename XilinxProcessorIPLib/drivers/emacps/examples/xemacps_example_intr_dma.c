@@ -110,6 +110,9 @@
 *                    Enabled 1G speed for ZynqMP GEM.
 *                    Select GEM interrupt based on instance present.
 *                    Manage differences between emulation platform and silicon.
+* 3.2  mus  20/02/16.Added support for INTC interrupt controlller.
+*                    Added support to access zynq emacps interrupt from
+*                    microblaze.
 *
 * </pre>
 *
@@ -118,8 +121,10 @@
 /***************************** Include Files ********************************/
 #include "xemacps_example.h"
 #include "xil_exception.h"
-#include "xil_mmu.h"
 
+#ifndef __MICROBLAZE__
+#include "xil_mmu.h"
+#endif
 /*************************** Constant Definitions ***************************/
 
 /*
@@ -127,9 +132,21 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef __MICROBLAZE__
+#define XPS_SYS_CTRL_BASEADDR	XPAR_PS7_SLCR_0_S_AXI_BASEADDR
+#endif
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define EMACPS_DEVICE_ID	XPAR_XEMACPS_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+#define EMACPS_IRPT_INTR	XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR
+#else
+#define INTC		XScuGic
 #define EMACPS_DEVICE_ID	XPAR_XEMACPS_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define EMACPS_IRPT_INTR	XPS_GEM0_INT_ID
+#endif
 
 #ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
 #define EMACPS_IRPT_INTR	XPS_GEM3_INT_ID
@@ -208,7 +225,7 @@ volatile s32 DeviceErrors;	/* Number of errors detected in the device */
 u32 TxFrameLength;
 
 #ifndef TESTAPP_GEN
-static XScuGic IntcInstance;
+static INTC IntcInstance;
 #endif
 
 #ifdef __ICCARM__
@@ -230,7 +247,7 @@ u32 Platform;
 /*
  * Example
  */
-LONG EmacPsDmaIntrExample(XScuGic *IntcInstancePtr,
+LONG EmacPsDmaIntrExample(INTC *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
 			  u16 EmacPsDeviceId, u16 EmacPsIntrId);
 
@@ -240,11 +257,11 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs * EmacPsInstancePtr);
  * Interrupt setup and Callbacks for examples
  */
 
-static LONG EmacPsSetupIntrSystem(XScuGic * IntcInstancePtr,
+static LONG EmacPsSetupIntrSystem(INTC * IntcInstancePtr,
 				  XEmacPs * EmacPsInstancePtr,
 				  u16 EmacPsIntrId);
 
-static void EmacPsDisableIntrSystem(XScuGic * IntcInstancePtr,
+static void EmacPsDisableIntrSystem(INTC * IntcInstancePtr,
 				     u16 EmacPsIntrId);
 
 static void XEmacPsSendHandler(void *Callback);
@@ -316,7 +333,7 @@ int main(void)
 * @note		None.
 *
 *****************************************************************************/
-LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
+LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 			  XEmacPs * EmacPsInstancePtr,
 			  u16 EmacPsDeviceId,
 			  u16 EmacPsIntrId)
@@ -430,7 +447,11 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 		 * The BDs need to be allocated in uncached memory. Hence the 1 MB
 		 * address range that starts at address 0xFF00000 is made uncached.
 		 */
+#ifndef __MICROBLAZE__
 		Xil_SetTlbAttributes(0x0FF00000, 0xc02);
+#else
+		Xil_DCacheDisable();
+#endif
 
 	}
 
@@ -498,7 +519,15 @@ LONG EmacPsDmaIntrExample(XScuGic * IntcInstancePtr,
 	if (GemVersion == 2)
 	{
 		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
+		#ifndef __MICROBLAZE__
 		sleep(1);
+		#else
+		unsigned long count=0;
+		while(count < 0xffff)
+		{
+			count++;
+		}
+		#endif
 		EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 		XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 	}
@@ -952,12 +981,68 @@ static LONG EmacPsResetDevice(XEmacPs * EmacPsInstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-static LONG EmacPsSetupIntrSystem(XScuGic *IntcInstancePtr,
+static LONG EmacPsSetupIntrSystem(INTC *IntcInstancePtr,
 				  XEmacPs *EmacPsInstancePtr,
 				  u16 EmacPsIntrId)
 {
 	LONG Status;
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+
+	#ifndef TESTAPP_GEN
+	/*
+	 * Initialize the interrupt controller driver so that it's ready to
+	 * use.
+	 */
+	Status = XIntc_Initialize(IntcInstancePtr, INTC_DEVICE_ID);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	#endif
+
+	/*
+	 * Connect the handler that will be called when an interrupt
+	 * for the device occurs, the handler defined above performs the
+	 * specific interrupt processing for the device.
+	 */
+	Status = XIntc_Connect(IntcInstancePtr, EmacPsIntrId,
+		(XInterruptHandler) XEmacPs_IntrHandler, EmacPsInstancePtr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	#ifndef TESTAPP_GEN
+/*
+ * Start the interrupt controller such that interrupts are enabled for
+ * all devices that cause interrupts.
+ */
+
+	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	#endif
+
+	/*
+	 * Enable the interrupt from the hardware
+	 */
+	XIntc_Enable(IntcInstancePtr, EmacPsIntrId);
+
+	#ifndef TESTAPP_GEN
+	/*
+	 * Initialize the exception table.
+	 */
+	Xil_ExceptionInit();
+
+	/*
+	 * Register the interrupt controller handler with the exception table.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				(Xil_ExceptionHandler) XIntc_InterruptHandler,
+					IntcInstancePtr);
+	#endif
+
+#else
 #ifndef TESTAPP_GEN
 	XScuGic_Config *GicConfig;
 	Xil_ExceptionInit();
@@ -1005,7 +1090,7 @@ static LONG EmacPsSetupIntrSystem(XScuGic *IntcInstancePtr,
 	 * Enable interrupts from the hardware
 	 */
 	XScuGic_Enable(IntcInstancePtr, EmacPsIntrId);
-
+#endif
 #ifndef TESTAPP_GEN
 	/*
 	 * Enable interrupts in the processor
@@ -1031,13 +1116,17 @@ static LONG EmacPsSetupIntrSystem(XScuGic *IntcInstancePtr,
 * @note		None.
 *
 *****************************************************************************/
-static void EmacPsDisableIntrSystem(XScuGic * IntcInstancePtr,
+static void EmacPsDisableIntrSystem(INTC * IntcInstancePtr,
 				     u16 EmacPsIntrId)
 {
 	/*
 	 * Disconnect and disable the interrupt for the EmacPs device
 	 */
+#ifdef XPAR_INTC_0_DEVICE_ID
+	XIntc_Disconnect(IntcInstancePtr, EmacPsIntrId);
+#else
 	XScuGic_Disconnect(IntcInstancePtr, EmacPsIntrId);
+#endif
 
 }
 
@@ -1205,6 +1294,7 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 
 	/* SLCR unlock */
 	*(volatile unsigned int *)(SLCR_UNLOCK_ADDR) = SLCR_UNLOCK_KEY_VALUE;
+#ifndef __MICROBLAZE__
 	if (EmacPsIntrId == XPS_GEM0_INT_ID) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
 		/* GEM0 1G clock configuration*/
@@ -1228,9 +1318,47 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 								SlcrTxClkCntrl;
 #endif
 	}
+#else
+#ifdef XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR
+	if (EmacPsIntrId == XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_0_IRQ_P2F_ENET0_INTR) {
+#ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
+		/* GEM0 1G clock configuration*/
+		SlcrTxClkCntrl =
+		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR);
+		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
+		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1 << 20);
+		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << 8);
+		*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR) =
+								SlcrTxClkCntrl;
+#endif
+	}
+#endif
+#ifdef XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_1_IRQ_P2F_ENET1_INTR
+	if (EmacPsIntrId == XPAR_AXI_INTC_0_PROCESSING_SYSTEM7_1_IRQ_P2F_ENET1_INTR) {
+#ifdef XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1
+		/* GEM1 1G clock configuration*/
+		SlcrTxClkCntrl =
+		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR);
+		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
+		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1 << 20);
+		SlcrTxClkCntrl |= (XPAR_PS7_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << 8);
+		*(volatile unsigned int *)(SLCR_GEM1_CLK_CTRL_ADDR) =
+								SlcrTxClkCntrl;
+#endif
+	}
+#endif
+#endif
 	/* SLCR lock */
 	*(unsigned int *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
+	#ifndef __MICROBLAZE__
 	sleep(1);
+	#else
+	unsigned long count=0;
+	while(count < 0xffff)
+	{
+		count++;
+	}
+	#endif
 	}
 
 	if ((GemVersion > 2) && ((Platform & PLATFORM_MASK) == PLATFORM_SILICON)) {

@@ -52,6 +52,7 @@
 * 1.05a asa  09/22/13 The EthernetFrame is made cache line aligned (32 bytes).
 *					  Fix for CR #663885.
 * 3.0   hk   02/20/15 Increase array sizes to add support for jumbo frames.
+* 3.2   mus  02//16 Added support support to INTC controller
 * </pre>
 *
 *****************************************************************************/
@@ -63,18 +64,25 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "sleep.h"
 #include "xparameters.h"
-#include "xparameters_ps.h"	/* defines XPAR values */
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_io.h"
 #include "xil_exception.h"
-#include "xpseudo_asm.h"
 #include "xil_cache.h"
 #include "xil_printf.h"
-#include "xscugic.h"
 #include "xemacps.h"		/* defines XEmacPs API */
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
+
+#ifndef __MICROBLAZE__
+#include "sleep.h"
+#include "xparameters_ps.h"	/* defines XPAR values */
+#include "xpseudo_asm.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 

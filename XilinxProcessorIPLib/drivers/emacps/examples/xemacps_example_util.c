@@ -51,6 +51,7 @@
 *		      for Zynq.
 * 3.0   kpc  01/23/15 Removed PEEP board related code
 * 3.2	hk   09/30/15 Added support for TI PHY DP83867
+* 3.2   mus  02/20/16 Added support for microblaze.
 * </pre>
 *
 *****************************************************************************/
@@ -58,7 +59,9 @@
 /***************************** Include Files ********************************/
 
 #include "xemacps_example.h"
+#ifndef __MICROBLAZE__
 #include "sleep.h"
+#endif
 
 /************************** Variable Definitions ****************************/
 

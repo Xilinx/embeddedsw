@@ -36,8 +36,14 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+int EmacPsDmaIntrExample(XIntc *IntcInstancePtr,
+			  XEmacPs *EmacPsInstancePtr,
+			  u16 EmacPsDeviceId, u16 EmacPsIntrId);
+#else
 int EmacPsDmaIntrExample(XScuGic *IntcInstancePtr,
 			  XEmacPs *EmacPsInstancePtr,
 			  u16 EmacPsDeviceId, u16 EmacPsIntrId);
+#endif
 
 #endif
