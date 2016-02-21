@@ -68,43 +68,20 @@
 		*get_bits_ptr = tmp_val; \
 	}
 
-struct ipi_handler_info ipi_handler_table[IPI_TOTAL];
-
-void ipi_register_handler(unsigned long ipi_base_addr, unsigned int intr_mask,
-			  void *data, void *ipi_handler)
-{
-	int ipi_hd_i = ipi_index_map(intr_mask);
-	if (ipi_hd_i < 0)
-		return;
-	ipi_handler_table[ipi_hd_i].ipi_base_addr = ipi_base_addr;
-	ipi_handler_table[ipi_hd_i].intr_mask = intr_mask;
-	ipi_handler_table[ipi_hd_i].ipi_handler = (ipi_handler_t) ipi_handler;
-	ipi_handler_table[ipi_hd_i].data = data;
-	Xil_Out32((ipi_base_addr + IPI_IER_OFFSET), intr_mask);
-}
-
-void ipi_unregister_handler(unsigned long ipi_base_addr, unsigned int intr_mask)
-{
-	(void)ipi_base_addr;
-
-	int ipi_hd_i = ipi_index_map(intr_mask);
-	if (ipi_hd_i < 0)
-		return;
-	memset(&(ipi_handler_table[ipi_hd_i]), 0,
-	       sizeof(struct ipi_handler_info));
-}
-
 int platform_interrupt_enable(unsigned int vector, unsigned int polarity,
 			      unsigned int priority)
 {
+	(void)polarity;
+	(void)priority;
+
 	XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
-	return (vector);
+	return (int)vector;
 }
 
 int platform_interrupt_disable(unsigned int vector)
 {
 	XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
-	return (vector);
+	return (int)vector;
 }
 
 void platform_dcache_all_flush()
@@ -130,7 +107,7 @@ void platform_map_mem_region(unsigned int va, unsigned int pa,
 {
 	unsigned int r5_flags;
 
-	(void)va; /* TODO: check va */
+	(void)va;
 
 	/* Assume DEVICE_SHARED if nothing indicates this is memory.  */
 	r5_flags = DEVICE_SHARED;

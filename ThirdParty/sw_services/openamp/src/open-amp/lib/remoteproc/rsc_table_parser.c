@@ -57,12 +57,13 @@ int handle_rsc_table(struct remote_proc *rproc,
 	unsigned char *rsc_start;
 	unsigned int *rsc_offset;
 	unsigned int rsc_type;
-	int idx, status = 0;
+	unsigned int idx;
+	int status = 0;
 
 	/* Validate rsc table header fields */
 
 	/* Minimum rsc table size */
-	if (sizeof(struct resource_table) > size) {
+	if (sizeof(struct resource_table) > (unsigned int)size) {
 		return (RPROC_ERR_RSC_TAB_TRUNC);
 	}
 
@@ -73,7 +74,7 @@ int handle_rsc_table(struct remote_proc *rproc,
 
 	/* Offset array */
 	if (sizeof(struct resource_table)
-	    + rsc_table->num * sizeof(rsc_table->offset[0]) > size) {
+	    + rsc_table->num * sizeof(rsc_table->offset[0]) > (unsigned int)size) {
 		return (RPROC_ERR_RSC_TAB_TRUNC);
 	}
 
@@ -145,6 +146,9 @@ int handle_carve_out_rsc(struct remote_proc *rproc, void *rsc)
  */
 int handle_trace_rsc(struct remote_proc *rproc, void *rsc)
 {
+	(void)rproc;
+	(void)rsc;
+
 	return RPROC_ERR_RSC_TAB_NS;
 }
 
@@ -161,6 +165,9 @@ int handle_trace_rsc(struct remote_proc *rproc, void *rsc)
  */
 int handle_dev_mem_rsc(struct remote_proc *rproc, void *rsc)
 {
+	(void)rproc;
+	(void)rsc;
+
 	return RPROC_ERR_RSC_TAB_NS;
 }
 
@@ -237,5 +244,8 @@ int handle_vdev_rsc(struct remote_proc *rproc, void *rsc)
  */
 int handle_mmu_rsc(struct remote_proc *rproc, void *rsc)
 {
+	(void)rproc;
+	(void)rsc;
+
 	return RPROC_ERR_RSC_TAB_NS;
 }

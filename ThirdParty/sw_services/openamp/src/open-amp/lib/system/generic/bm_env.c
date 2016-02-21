@@ -51,6 +51,20 @@
 static void acquire_spin_lock(void *plock);
 static void release_spin_lock(void *plock);
 
+/* Max supprted ISR counts */
+#define ISR_COUNT                       4
+/**
+ * Structure to keep track of registered ISR's.
+ */
+struct isr_info {
+	int vector;
+	int priority;
+	int type;
+	char *name;
+	int shared;
+	void *data;
+	void (*isr)(int vector, void *data);
+};
 struct isr_info isr_table[ISR_COUNT];
 int Intr_Count = 0;
 /* Flag to show status of global interrupts. 0 for disabled and 1 for enabled. This
@@ -414,7 +428,7 @@ void env_update_isr(int vector, void *data,
 
 	env_disable_interrupts();
 
-	for (idx = 0; idx < ISR_COUNT; idx++) {
+	for (idx = 0; idx < Intr_Count; idx++) {
 		info = &isr_table[idx];
 		if (info->vector == vector) {
 			if (name && strcmp(info->name, name)) {
@@ -447,7 +461,7 @@ void env_enable_interrupt(unsigned int vector, unsigned int priority,
 
 	env_disable_interrupts();
 
-	for (idx = 0; idx < ISR_COUNT; idx++) {
+	for (idx = 0; idx < Intr_Count; idx++) {
 		if (isr_table[idx].vector == (int)vector) {
 			isr_table[idx].priority = priority;
 			isr_table[idx].type = polarity;
@@ -496,11 +510,24 @@ void env_map_memory(unsigned int pa, unsigned int va, unsigned int size,
  *
  */
 
-void env_disable_cache()
+void env_disable_cache(void)
 {
 	platform_cache_all_flush_invalidate();
 	platform_cache_disable();
 }
+
+/**
+ * env_flush_invalidate_all_caches
+ *
+ * Flush and Invalidate all caches.
+ *
+ */
+
+void env_flush_invalidate_all_caches(void)
+{
+	platform_cache_all_flush_invalidate();
+}
+
 
 /**
  *
@@ -526,7 +553,7 @@ void bm_env_isr(int vector)
 	struct isr_info *info;
 
 	env_disable_interrupt(vector);
-	for (idx = 0; idx < ISR_COUNT; idx++) {
+	for (idx = 0; idx < Intr_Count; idx++) {
 		info = &isr_table[idx];
 		if (info->vector == vector) {
 			info->isr(info->vector, info->data);

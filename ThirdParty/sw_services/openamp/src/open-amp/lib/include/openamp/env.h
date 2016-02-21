@@ -74,22 +74,6 @@
 #define _ENV_H_
 
 #include <stdio.h>
-#include <string.h>
-
-/* Max supprted ISR counts */
-#define ISR_COUNT                       4
-/**
- * Structure to keep track of registered ISR's.
- */
-struct isr_info {
-	int vector;
-	int priority;
-	int type;
-	char *name;
-	int shared;
-	void *data;
-	void (*isr)(int vector, void *data);
-};
 
 /**
  * env_init
@@ -454,8 +438,15 @@ unsigned long long env_get_timestamp(void);
  * Disables system caches.
  *
  */
+void env_disable_cache(void);
 
-void env_disable_cache();
+/**
+ * env_flush_invalidate_all_caches
+ *
+ * Flush and Invalidate all caches.
+ *
+ */
+void env_flush_invalidate_all_caches(void);
 
 typedef void LOCK;
 

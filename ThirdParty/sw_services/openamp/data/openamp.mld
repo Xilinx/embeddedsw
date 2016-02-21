@@ -43,9 +43,11 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY openamp
   OPTION DRC = openamp_drc;
   OPTION COPYFILES = all;
-  OPTION REQUIRES_OS = (standalone);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lopen-amp,-lopen-amp-proxy,-lgcc,-lc,--end-group";
+  OPTION REQUIRES_OS = (standalone, freertos823_xilinx);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lopen_amp,-lgcc,-lc,--end-group";
   OPTION DESC = "OpenAmp Library ";
   OPTION VERSION = 1.0;
   OPTION NAME = openamp;
+
+  PARAM NAME = WITH_PROXY, type = bool, default = true, desc = "Add support for proxy", permit = all_users;
 END LIBRARY

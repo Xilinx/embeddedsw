@@ -30,6 +30,7 @@
 #ifndef _RPMSG_CORE_H_
 #define _RPMSG_CORE_H_
 
+#include "openamp/compiler.h"
 #include "openamp/env.h"
 #include "openamp/virtio.h"
 #include "openamp/hil.h"

@@ -65,16 +65,5 @@ static inline unsigned int xchg(void* plock, unsigned int lockVal)
 	return tmpVal;
 }
 
-void restore_global_interrupts();
-void disable_global_interrupts();
-int platform_interrupt_enable(unsigned int vector, unsigned int polarity,
-			      unsigned int priority);
-int platform_interrupt_disable(unsigned int vector);
-void platform_cache_all_flush_invalidate();
-void platform_cache_disable();
-void platform_map_mem_region(unsigned int va, unsigned int pa,
-			     unsigned int size, unsigned int flags);
-unsigned long platform_vatopa(void *addr);
-void *platform_patova(unsigned long addr);
 
-#endif				/* _BAREMETAL_H */
+#endif				/* _MACHINE_SYSTEM_H */

@@ -80,7 +80,7 @@ struct hil_proc *hil_create_proc(int cpu_id)
 	/* If proc already exists then return it */
 	while (proc_hd != NULL) {
 		proc = (struct hil_proc *)proc_hd->data;
-		if (proc->cpu_id == cpu_id) {
+		if (proc->cpu_id == (unsigned int)cpu_id) {
 			return proc;
 		}
 		proc_hd = proc_hd->next;
@@ -198,7 +198,7 @@ struct hil_proc *hil_get_proc(int cpu_id)
 
 	while (proc_hd != NULL) {
 		struct hil_proc *proc = (struct hil_proc *)proc_hd->data;
-		if (proc->cpu_id == cpu_id) {
+		if (proc->cpu_id == (unsigned int)cpu_id) {
 			return proc;
 		}
 		proc_hd = proc_hd->next;
@@ -340,6 +340,8 @@ void hil_vring_notify(struct virtqueue *vq)
  */
 int hil_get_status(struct hil_proc *proc)
 {
+	(void)proc;
+
 	/* For future use only. */
 	return 0;
 }
@@ -356,6 +358,8 @@ int hil_get_status(struct hil_proc *proc)
  */
 int hil_set_status(struct hil_proc *proc)
 {
+	(void)proc;
+
 	/* For future use only. */
 	return 0;
 }

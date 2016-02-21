@@ -30,9 +30,15 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include "baremetal.h"
+#include "xparameters.h"
+#include "xil_exception.h"
+#include "xscugic.h"
+#include "xil_cache_l.h"
+#include "xil_mmu.h"
+#include "machine.h"
 #include "machine_system.h"
 #include "openamp/env.h"
+#include "FreeRTOS.h"
 #include "task.h"
 
 static inline unsigned int get_cpu_id_arm(void)
@@ -56,6 +62,8 @@ int platform_interrupt_enable(unsigned int vector_id, unsigned int polarity,
 	unsigned long bit_shift;
 	unsigned long temp32 = 0;
 	unsigned long targ_cpu;
+
+	(void)polarity;
 
 	temp32 = get_cpu_id_arm();
 
@@ -181,14 +189,12 @@ void platform_map_mem_region(unsigned int vrt_addr, unsigned int phy_addr,
 			      cache_type);
 }
 
-void platform_cache_all_flush_invalidate()
-{
-	ARM_AR_MEM_DCACHE_ALL_OP(1);
+void platform_cache_all_flush_invalidate() {
+	Xil_L1DCacheFlush();
 }
 
-void platform_cache_disable()
-{
-	ARM_AR_MEM_CACHE_DISABLE();
+void platform_cache_disable() {
+	Xil_L1DCacheDisable();
 }
 
 unsigned long platform_vatopa(void *addr)

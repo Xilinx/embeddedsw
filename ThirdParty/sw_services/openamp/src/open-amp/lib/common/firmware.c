@@ -85,7 +85,7 @@ const struct firmware_info fw_table[] = { {"firmware1",
 int config_get_firmware(char *fw_name, unsigned int *start_addr,
 			unsigned int *size)
 {
-	int idx;
+	unsigned int idx;
 	for (idx = 0; idx < sizeof(fw_table) / (sizeof(struct firmware_info));
 	     idx++) {
 		if (!env_strncmp((char *)fw_table[idx].name, fw_name,

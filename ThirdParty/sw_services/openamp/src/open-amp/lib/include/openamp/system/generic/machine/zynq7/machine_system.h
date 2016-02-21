@@ -77,4 +77,4 @@ void platform_map_mem_region(unsigned int va, unsigned int pa,
 unsigned long platform_vatopa(void *addr);
 void *platform_patova(unsigned long addr);
 
-#endif				/* _BAREMETAL_H */
+#endif				/* _MACHINE_SYSTEM_H */

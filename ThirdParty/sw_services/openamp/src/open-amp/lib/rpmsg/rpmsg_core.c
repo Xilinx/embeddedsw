@@ -2,6 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2016 NXP, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -251,14 +252,15 @@ struct rpmsg_endpoint *_create_endpoint(struct remote_device *rdev,
 			status = RPMSG_ERR_DEV_ADDR;
 		}
 	} else {
-		addr = rpmsg_get_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE);
-		if (addr < 0) {
+		int i_addr = rpmsg_get_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE);
+		if (i_addr < 0) {
 			status = RPMSG_ERR_DEV_ADDR;
 		}
+		addr = i_addr;
 	}
 
 	/* Do cleanup in case of error and return */
-	if (status) {
+	if (RPMSG_SUCCESS != status) {
 		env_free_memory(node);
 		env_free_memory(rp_ept);
 		env_unlock_mutex(rdev->lock);
@@ -477,7 +479,7 @@ void *rpmsg_get_rx_buffer(struct remote_device *rdev, unsigned long *len,
 void rpmsg_free_buffer(struct remote_device *rdev, void *buffer)
 {
 	if (rdev->role == RPMSG_REMOTE) {
-		sh_mem_free_buffer(rdev->mem_pool, buffer);
+		sh_mem_free_buffer(buffer, rdev->mem_pool);
 	}
 }
 
@@ -640,6 +642,9 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl, void *data, int len,
 	struct rpmsg_channel *rp_chnl;
 	struct rpmsg_ns_msg *ns_msg;
 	struct llist *node;
+
+	(void)server_chnl;
+	(void)src;
 
 	rdev = (struct remote_device *)priv;
 
