@@ -1,0 +1,311 @@
+##############################################################################
+#
+# Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"),to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# Use of the Software is limited solely to applications:
+# (a) running on a Xilinx device, or
+# (b) that interact with a Xilinx device through a bus or interconnect.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# Except as contained in this notice, the name of the Xilinx shall not be used
+# in advertising or otherwise to promote the sale, use or other dealings in
+# this Software without prior written authorization from Xilinx.
+###############################################################################
+#
+# MODIFICATION HISTORY:
+# Ver Who Date     Changes
+# -------- ------ -------- --------------------------------------------------
+# 1.0 ram 02/15/16 Initial version for MIPI DSI TX subsystem
+##############################################################################
+
+proc generate {drv_handle} {
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDsiTxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "DSI_LANES" "DSI_DATATYPE" "DSI_BYTE_FIFO" "DSI_CRC_GEN" "DSI_PIXELS" "DPHY_LINERATE" "DPHY_EN_REG_IF"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DsiTxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "DSI_LANES" "DSI_DATATYPE" "DSI_BYTE_FIFO" "DSI_CRC_GEN" "DSI_PIXELS" "DPHY_LINERATE" "DPHY_EN_REG_IF"
+	hier_ip_define_config_file $drv_handle "xdsitxss_g.c" "XDsiTxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "DSI_LANES" "DSI_DATATYPE" "DSI_BYTE_FIFO" "DSI_CRC_GEN" "DSI_PIXELS" "DPHY_LINERATE" "DPHY_EN_REG_IF"
+
+	set orig_dir [pwd]
+	cd ../../include/
+
+	set timestamp [clock format [clock seconds] -format {%Y%m%d%H%M%S}]
+
+	set filename "xparameters.h"
+	set temp $filename.new.$timestamp
+	set backup $filename.bak.$timestamp
+
+	set in [open $filename r]
+	set out [open $temp w]
+
+	# line-by-line, read the original file
+	while {[gets $in line] != -1} {
+		# if XPAR_MIPI_DSI_TX_SUBSYSTEM is present in the string
+		if { [regexp -nocase {XPAR_MIPI_DSI_TX_SUBSYSTEM} $line] ||
+			[regexp -nocase {XPAR_DSI} $line] } {
+			# if substring DSI_CRC_GEN is present in the string
+			if { [regexp -nocase {DSI_CRC_GEN} $line] } {
+				# using string map to replace true with 1 and false with 0
+				set line [string map {true 1 false 0} $line]
+			}
+			# if substring DSI_DATATYPE is present in the string
+			if { [regexp -nocase {DSI_DATATYPE } $line] } {
+				# using string map to replace true with 1 and false with 0
+				set line [string map {RGB888 0x3E RGB565 0x0E RGB666_L 0x2E RGB666_P 0x1E} $line]
+			}
+			# if substring DPHY_EN_REG_IF is present in the string
+			if { [regexp -nocase {DPHY_EN_REG_IF} $line] } {
+				# using string map to replace true with 1 and false with 0
+				set line [string map {true 1 false 0} $line]
+			}
+		}
+		# then write the transformed line
+		puts $out $line
+	}
+	close $in
+	close $out
+
+	# move the new data to the proper filename
+	file delete $filename
+	file rename -force $temp $filename
+	cd $orig_dir
+}
+
+# The below procedure will enumerate hierachical properities and
+# add DPHY presence, Device Id values, Base address to the
+# *_g.c file. It also populate the strcuture in *_g.c file
+
+proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
+	set args [::hsi::utils::get_exact_arg_list $args]
+	set hw_instance_name [::common::get_property HW_INSTANCE $drv_handle];
+	set filename [file join "src" $file_name]
+	set config_file [open $filename w]
+
+	::hsi::utils::write_c_header $config_file "Driver configuration"
+
+	puts $config_file "#include \"xparameters.h\""
+	puts $config_file "#include \"[string tolower $drv_string].h\""
+	puts $config_file "\n/*"
+	puts $config_file "* List of Sub-cores included in the subsystem"
+	puts $config_file "* Sub-core device id will be set by its driver in xparameters.h"
+	puts $config_file "*/\n"
+
+	set periphs_g [::hsi::utils::get_common_driver_ips $drv_handle]
+
+	array set sub_core_inst {
+		mipi_dsi_tx_ctrl 1
+		mipi_dphy 1
+	}
+
+	foreach periph_g $periphs_g {
+		set mem_ranges [::hsi::get_mem_ranges $periph_g]
+		::hsi::current_hw_instance $periph_g;
+		set child_cells_g [::hsi::get_cells]
+
+		foreach child_cell_g $child_cells_g {
+			set child_cell_vlnv [::common::get_property VLNV $child_cell_g]
+			set child_cell_name_g [common::get_property NAME $child_cell_g]
+			set vlnv_arr [split $child_cell_vlnv :]
+
+			lassign $vlnv_arr ip_vendor ip_library ip_name ip_version
+
+			set ip_type_g [common::get_property IP_TYPE $child_cell_g]
+
+			if { [string compare -nocase "BUS" $ip_type_g] != 0 } {
+				set interfaces [hsi::get_intf_pins -of_objects $child_cell_g]
+				set is_slave 0
+				foreach interface $interfaces {
+					set intf_type [common::get_property TYPE $interface]
+					if { [string compare -nocase "SLAVE" $intf_type] == 0 } {
+						set is_slave 1
+					}
+				}
+				if { $is_slave != 0 } {
+					set final_child_cell_instance_name_present_g XPAR_${child_cell_name_g}_PRESENT
+					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_present_g]\t 1\n"
+
+					# create dictionary for ip name and it's instance names "ip_name {inst1_name inst2_name}"
+					dict lappend ss_ip_list $ip_name $child_cell_name_g
+				}
+			}
+		}
+
+		puts $config_file "\n\n/*"
+		puts $config_file "* List of Sub-cores excluded from the subsystem"
+		puts $config_file "*   - Excluded sub-core device id is set to 255"
+		puts $config_file "*   - Excluded sub-core baseaddr is set to 0"
+		puts $config_file "*/\n"
+
+		foreach sub_core [lsort [array names sub_core_inst]] {
+			if {[dict exists $ss_ip_list $sub_core]} {
+				set max_instances $sub_core_inst($sub_core)
+				#check if core can have multiple instances
+				#It is possible that not all instances are used in the design
+				if {$max_instances > 1} {
+					set ip_instances [dict get $ss_ip_list $sub_core]
+					set avail_instances [llength $ip_instances]
+					#check if available instances are less than MAX
+					#if yes, mark the missing instance
+					#if all instances are present then skip the core
+					if {$avail_instances < $max_instances} {
+						set final_child_cell_instance_name_g "XPAR_${periph_g}_${strval}_PRESENT"
+						set final_child_cell_instance_devid_g "XPAR_${periph_g}_${strval}_DEVICE_ID"
+						set final_child_cell_instance_baseaddr_g "XPAR_${periph_g}_${strval}_BASEADDR"
+						puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_g] 0\n"
+						puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_devid_g] 255\n"
+						puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_baseaddr_g] 0\n\n"
+					}
+				}
+			} else {
+				set count 0
+				while {$count<$sub_core_inst($sub_core)} {
+					set final_child_cell_instance_name_g "XPAR_${periph_g}_${sub_core}_${count}_PRESENT"
+					set final_child_cell_instance_devid_g "XPAR_${periph_g}_${sub_core}_${count}_DEVICE_ID"
+					set final_child_cell_instance_baseaddr_g "XPAR_${periph_g}_${sub_core}_${count}_BASEADDR"
+					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_g] 0\n"
+					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_devid_g] 255\n"
+					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_baseaddr_g] 0\n\n"
+					incr count
+				}
+			}
+		}
+		::hsi::current_hw_instance
+	}
+
+	puts $config_file "\n\n"
+	puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+	puts $config_file "\{"
+	set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+	set start_comma ""
+	foreach periph $periphs {
+		puts $config_file [format "%s\t\{" $start_comma]
+		set comma ""
+		foreach arg $args {
+			if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+				puts -nonewline $config_file [format "%s\t\t%s,\n" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+				continue
+			}
+			# Check if this is a driver parameter or a peripheral parameter
+			set value [common::get_property CONFIG.$arg $drv_handle]
+			if {[llength $value] == 0} {
+				set local_value [common::get_property CONFIG.$arg $periph ]
+				# If a parameter isn't found locally (in the current
+				# peripheral), we will (for some obscure and ancient reason)
+				# look in peripherals connected via point to point links
+				if { [string compare -nocase $local_value ""] == 0} {
+					set p2p_name [::hsi::utils::get_p2p_name $periph $arg]
+					if { [string compare -nocase $p2p_name ""] == 0} {
+						puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+					} else {
+						puts -nonewline $config_file [format "%s\t\t%s" $comma $p2p_name]
+					}
+				} else {
+					puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+				}
+			} else {
+				puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_driver_param_name $drv_string $arg]]
+			}
+			set comma ",\n"
+		}
+
+		::hsi::current_hw_instance  $periph
+		set child_cells [::hsi::get_cells]
+		puts $config_file ",\n"
+
+		set base_addr_name "BASEADDR"
+		foreach sub_core [lsort [array names sub_core_inst]] {
+			set max_instances $sub_core_inst($sub_core)
+			if {[dict exists $ss_ip_list $sub_core]} {
+				set ip_instances [dict get $ss_ip_list $sub_core]
+				set avail_instances [llength $ip_instances]
+				if {$max_instances > 1} {
+					if {$avail_instances < $max_instances} {
+						set ip_inst_name [lindex $ip_instances 0]
+						set count 0
+						set str_name "unknown"
+						while {$count < $max_instances} {
+							#write the ip instance entry to the table
+							set final_child_cell_instance_name_present "XPAR_${periph}_${str_name}_PRESENT"
+							set final_child_cell_instance_devid "XPAR_${periph}_${str_name}_DEVICE_ID"
+							set final_child_cell_instance_name_baseaddr "XPAR_${periph}_${str_name}_${base_addr_name}"
+
+							puts $config_file "\t\t\{"
+							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+							puts $config_file ","
+							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_devid]]
+							puts $config_file ","
+							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_baseaddr]]
+							puts $config_file "\n\t\t\},"
+							incr count
+						}
+					} else {
+						foreach ip_inst $ip_instances {
+							set final_child_cell_instance_name_present "XPAR_${ip_inst}_PRESENT"
+							set final_child_cell_instance_devid "XPAR_${ip_inst}_DEVICE_ID"
+							set final_child_cell_instance_name_baseaddr "XPAR_${ip_inst}_${base_addr_name}"
+							puts $config_file "\t\t\{"
+							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+							puts $config_file ","
+							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_devid]]
+							puts $config_file ","
+							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_baseaddr]]
+							puts $config_file "\n\t\t\},"
+						}
+					}
+				} else {
+					set ip_inst_name [lindex $ip_instances 0]
+					set final_child_cell_instance_name_present "XPAR_${ip_inst_name}_PRESENT"
+					set final_child_cell_instance_devid "XPAR_${ip_inst_name}_DEVICE_ID"
+					set final_child_cell_instance_name_baseaddr "XPAR_${ip_inst_name}_${base_addr_name}"
+
+					puts $config_file "\t\t\{"
+					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+					puts $config_file ","
+					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_devid]]
+					puts $config_file ","
+					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_baseaddr]]
+					puts $config_file "\n\t\t\},"
+				}
+			} else {
+				set count 0
+				while {$count< $max_instances} {
+					set final_child_cell_instance_name_present "XPAR_${periph}_${sub_core}_${count}_PRESENT"
+					set final_child_cell_instance_devid "XPAR_${periph}_${sub_core}_${count}_DEVICE_ID"
+					set final_child_cell_instance_name_baseaddr "XPAR_${periph}_${sub_core}_${count}_BASEADDR"
+
+					puts $config_file "\t\t\{"
+					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+					puts $config_file ","
+					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_devid]]
+					puts $config_file ","
+					puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_baseaddr]]
+					puts $config_file "\n\t\t\},"
+					incr count
+				}
+			}
+		}
+
+		::hsi::current_hw_instance
+
+		puts -nonewline $config_file "\t\}"
+		set start_comma ",\n"
+	}
+
+	puts $config_file "\n\};"
+	puts $config_file "\n";
+	close $config_file
+}
