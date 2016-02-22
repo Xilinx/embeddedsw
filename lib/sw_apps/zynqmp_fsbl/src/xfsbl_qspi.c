@@ -535,12 +535,14 @@ END:
 u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 {
 	u32 Status = XFSBL_SUCCESS;
-	u32 QspiAddr=0;
+	u32 QspiAddr=0, OrigAddr=0;
 	u32 BankSel=0;
 	u32 RemainingBytes=0;
 	u32 TransferBytes=0;
 	u32 DiscardByteCnt;
 	u8 BankSwitchFlag=0;
+	u32 BankSize=SINGLEBANKSIZE;
+	u32 BankMask=SINGLEBANKMASK;
 
 	XFsbl_Printf(DEBUG_INFO,"QSPI Reading Src 0x%0lx, Dest %0lx, Length %0lx\r\n",
 			SrcAddress, DestAddress, Length);
@@ -555,6 +557,12 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		goto END;
 	}
 
+	/* Multiply bank size & mask in case of Dual Parallel */
+	if (QspiPsuInstancePtr->Config.ConnectionMode ==
+	    XQSPIPSU_CONNECTION_MODE_PARALLEL){
+		BankSize =  SINGLEBANKSIZE * 2;
+		BankMask =  SINGLEBANKMASK * 2;
+	}
 
 	/**
 	 * Update no of bytes to be copied
@@ -577,10 +585,22 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		QspiAddr = XFsbl_GetQspiAddr((u32 )SrcAddress);
 
 		/**
+		 * Multiply address by 2 in case of Dual Parallel
+		 * This address is used to calculate the bank crossing
+		 * condition
+		 */
+		if (QspiPsuInstancePtr->Config.ConnectionMode ==
+		    XQSPIPSU_CONNECTION_MODE_PARALLEL){
+			OrigAddr = QspiAddr * 2;
+		} else {
+			OrigAddr = QspiAddr;
+		}
+
+		/**
 		 * Select bank
 		 * check logic for DualQspi
 		 */
-		if(QspiFlashSize > BANKSIZE) {
+		if(QspiFlashSize > BankSize) {
 			BankSel = QspiAddr/BANKSIZE;
 			Status = SendBankSelect(BankSel);
 			if (Status != XFSBL_SUCCESS) {
@@ -596,10 +616,9 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * If data to be read spans beyond the current bank, then
 		 * calculate Transfer Bytes in current bank. Else
 		 * transfer bytes are same
-		 * check logic for DualQspi
 		 */
-		if((QspiAddr & BANKMASK) != ((QspiAddr+TransferBytes) & BANKMASK)) {
-			TransferBytes = (QspiAddr & BANKMASK) + BANKSIZE - QspiAddr;
+		if ((OrigAddr & BankMask) != ((OrigAddr + TransferBytes) & BankMask)) {
+			TransferBytes = (OrigAddr & BankMask) + BankSize - OrigAddr;
 		}
 
 		XFsbl_Printf(DEBUG_INFO,".");

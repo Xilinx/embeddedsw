@@ -139,12 +139,14 @@ extern "C" {
  * Flash connection type as defined in PCW
  */
 #define FLASH_SIZE_16MB			(0x1000000U)
-#define BANKSIZE				(FLASH_SIZE_16MB)
+#define BANKSIZE			(FLASH_SIZE_16MB)
+#define SINGLEBANKSIZE			BANKSIZE
 
 /*
  * Bank mask
  */
-#define BANKMASK 				(0xF000000U)
+#define BANKMASK			(0xFFFFFFFFU & ~(BANKSIZE - 1))
+#define SINGLEBANKMASK			BANKMASK
 
 /*
  * Identification of Flash
