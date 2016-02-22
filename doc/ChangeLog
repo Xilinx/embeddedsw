@@ -139,6 +139,9 @@ Added function: XDpTxSs_ReadDownstream, XDpTxSs_HandleTimeout
 dsitxss_v1_0:
 Initial version of MIPI DSI TX Subsystem Driver
 
+dsi_v1_0:
+Initial version for DSI Controller Driver
+
 emaclite_v4_2:
 Used UINTPTR instead of u32 for Baseaddress to fix CR#867425.
 Changed the prototype of XEmacLite_CfgInitialize API.
