@@ -712,6 +712,9 @@ Power state not to be checked before sending powering up request
 
 zynqmp_pmufw:
 Skip UART configuration during PMUFW init
+Updated PM API
+Added PS-Only Reset Support
+Added DAP wake handling
 
 xilisf_v5_4
 updated the IntelStmDevices list to support Micron N25Q256A flash device.
