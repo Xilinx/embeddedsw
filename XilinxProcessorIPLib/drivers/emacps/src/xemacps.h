@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -315,6 +315,7 @@
  * 3.1   hk   07/27/15 Do not call error handler with '0' error code when
  *                     there is no error. CR# 869403
  *            08/10/15 Update upper 32 bit tx and rx queue ptr registers.
+ * 3.2   hk   02/22/16 Added SGMII support for Zynq Ultrascale+ MPSoC.
  * </pre>
  *
  ****************************************************************************/
@@ -416,6 +417,7 @@ extern "C" {
  *   This option defaults to enabled (set) */
 
 #define XEMACPS_JUMBO_ENABLE_OPTION	0x00004000U
+#define XEMACPS_SGMII_ENABLE_OPTION	0x00008000U
 
 #define XEMACPS_DEFAULT_OPTIONS                     \
     ((u32)XEMACPS_FLOW_CONTROL_OPTION |                  \

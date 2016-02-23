@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,7 @@
 * 3.0  hk   03/18/15 Added support for jumbo frames.
 *                    Remove "used bit set" from TX error interrupt masks.
 * 3.1  hk   08/10/15 Update upper 32 bit tx and rx queue ptr register offsets.
+* 3.2   hk   02/22/16 Added SGMII support for Zynq Ultrascale+ MPSoC.
 * </pre>
 *
 ******************************************************************************/
@@ -344,6 +345,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_NWCFG_BADPREAMBEN_MASK 0x20000000U /**< disable rejection of
                                                         non-standard preamble */
 #define XEMACPS_NWCFG_IPDSTRETCH_MASK  0x10000000U /**< enable transmit IPG */
+#define XEMACPS_NWCFG_SGMIIEN_MASK     0x08000000U /**< SGMII Enable */
 #define XEMACPS_NWCFG_FCSIGNORE_MASK   0x04000000U /**< disable rejection of
                                                         FCS error */
 #define XEMACPS_NWCFG_HDRXEN_MASK      0x02000000U /**< RX half duplex */
@@ -363,6 +365,7 @@ typedef enum { MDC_DIV_8 = 0U, MDC_DIV_16, MDC_DIV_32, MDC_DIV_48,
 #define XEMACPS_NWCFG_RETRYTESTEN_MASK 0x00001000U /**< Retry test */
 #define XEMACPS_NWCFG_XTADDMACHEN_MASK 0x00000200U
 /**< External address match enable */
+#define XEMACPS_NWCFG_PCSSEL_MASK      0x00000800U /**< PCS Select */
 #define XEMACPS_NWCFG_1000_MASK        0x00000400U /**< 1000 Mbps */
 #define XEMACPS_NWCFG_1536RXEN_MASK    0x00000100U /**< Enable 1536 byte
                                                         frames reception */

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,7 @@
  * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp architecture.
  * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
  * 3.0   hk   02/20/15 Added support for jumbo frames.
+ * 3.2   hk   02/22/16 Added SGMII support for Zynq Ultrascale+ MPSoC.
  * </pre>
  *****************************************************************************/
 
@@ -547,6 +548,12 @@ LONG XEmacPs_SetOptions(XEmacPs *InstancePtr, u32 Options)
 		InstancePtr->RxBufMask = XEMACPS_RXBUF_LEN_JUMBO_MASK;
 	}
 
+	if (((Options & XEMACPS_SGMII_ENABLE_OPTION) != 0x00000000U) &&
+		(InstancePtr->Version > 2)) {
+		RegNewNetCfg |= (XEMACPS_NWCFG_SGMIIEN_MASK |
+						XEMACPS_NWCFG_PCSSEL_MASK);
+	}
+
 	/* Officially change the NET_CONFIG registers if it needs to be
 	 * modified.
 	 */
@@ -704,6 +711,12 @@ LONG XEmacPs_ClearOptions(XEmacPs *InstancePtr, u32 Options)
 		InstancePtr->MaxVlanFrameSize = InstancePtr->MaxFrameSize +
 					XEMACPS_HDR_VLAN_SIZE;
 		InstancePtr->RxBufMask = XEMACPS_RXBUF_LEN_MASK;
+	}
+
+	if (((Options & XEMACPS_SGMII_ENABLE_OPTION) != 0x00000000U) &&
+		(InstancePtr->Version > 2)) {
+		RegNewNetCfg &= (u32)(~(XEMACPS_NWCFG_SGMIIEN_MASK |
+						XEMACPS_NWCFG_PCSSEL_MASK));
 	}
 
 	/* Officially change the NET_CONFIG registers if it needs to be
