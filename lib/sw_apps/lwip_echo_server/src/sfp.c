@@ -48,7 +48,7 @@
 
 /***************************** Include Files *********************************/
 #include "xparameters.h"
-#if defined (__arm__)
+#if defined (__arm__) && !defined (ARMR5)
 #if XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT == 1 || \
 	XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT == 1
 #include "xil_printf.h"
