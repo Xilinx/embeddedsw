@@ -24,19 +24,19 @@ OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))
 libs: banner xframer_libs clean
 
 %.o: %.c
-       ${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
 
 banner:
-       echo "Compiling VoIP FEC Transmitter"
+	echo "Compiling VoIP FEC Transmitter"
 
 xframer_libs: ${OBJECTS}
-       $(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
 
 .PHONY: include
 include: xframer_includes
 
 xframer_includes:
-       ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-       rm -rf ${OBJECTS}
+	rm -rf ${OBJECTS}

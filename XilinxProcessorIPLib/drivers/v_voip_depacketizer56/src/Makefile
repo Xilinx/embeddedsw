@@ -24,19 +24,19 @@ OBJECTS = $(addsuffix .o, $(basename $(wildcard *.c)))
 libs: banner xdepacketizer56_libs clean
 
 %.o: %.c
-       ${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
+	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
 
 banner:
-       echo "Compiling VoIP ST2022-6 DePacketizer"
+	echo "Compiling VoIP ST2022-6 DePacketizer"
 
 xdepacketizer56_libs: ${OBJECTS}
-       $(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
+	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OBJECTS}
 
 .PHONY: include
 include: xdepacketizer56_includes
 
 xdepacketizer56_includes:
-       ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-       rm -rf ${OBJECTS}
+	rm -rf ${OBJECTS}
