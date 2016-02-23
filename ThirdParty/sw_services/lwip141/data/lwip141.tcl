@@ -896,6 +896,8 @@ proc update_emaclite_topology {emac processor topologyvar} {
 
 proc update_axi_ethernet_topology {emac processor topologyvar} {
 	upvar $topologyvar topology
+	set sw_processor [hsi::get_sw_processor]
+	set proc_type [common::get_property IP_NAME [get_cells $sw_processor]]
 	set topology(emac_baseaddr) [common::get_property CONFIG.C_BASEADDR $emac]
 	set topology(emac_type) "xemac_type_axi_ethernet"
 
@@ -939,9 +941,13 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 		set topology(intc_baseaddr) "0x0"
 		set topology(scugic_baseaddr) "0xF8F00100"
 		set topology(scugic_emac_intr) "0x0"
-	} else {
+	} elseif { $intc_periph_type == [format "psu_acpu_gic"] && $proc_type == "psu_cortexa53"} {
 		set topology(intc_baseaddr) "0x0"
 		set topology(scugic_baseaddr) "0xF9020000"
+		set topology(scugic_emac_intr) "0x0"
+	} else {
+		set topology(intc_baseaddr) "0x0"
+		set topology(scugic_baseaddr) "0xF9001000"
 		set topology(scugic_emac_intr) "0x0"
 	}
 }
