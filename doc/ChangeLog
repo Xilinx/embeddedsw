@@ -604,6 +604,7 @@ Made changes in tcl to ensure that the parameter LWIP_COMPAT_MUTEX is defines as
 MicroBlaze FreeRTOS use case.
 Made changes to remove an incorrect assert in sys_arch.c (sys_arch_mbox_fetch) for FreeRTOS use case.
 Made other miscellaneous changes in adapter files for removing warnings.
+Made changes in lwip.tcl to Fix issues with the Axi Ethernet on ZynqMP R5.
 
 freertos_hello_world:
 Updated the freertos hello world application to add a timer. The timer
