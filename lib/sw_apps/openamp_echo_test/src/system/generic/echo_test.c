@@ -92,24 +92,26 @@ static struct rsc_table_info rsc_info;
  *  RPMSG callback used by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
-                void * priv, unsigned long src) {
-
-		if ((*(int *)data) == SHUTDOWN_MSG) {
-			/* disable interrupts and free resources */
-		    remoteproc_resource_deinit(proc);
-		} else {
-			/* send back the data */
+                void * priv, unsigned long src)
+{
+	if ((*(int *)data) == SHUTDOWN_MSG) {
+		/* disable interrupts and free resources */
+		remoteproc_resource_deinit(proc);
+	} else {
+		/* send back the data */
 		rpmsg_send(app_rp_chnl, data, len);
-		}
+	}
 }
 
-static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl) {
+static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
+{
     app_rp_chnl = rp_chnl;
     rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
                     RPMSG_ADDR_ANY);
 }
 
-static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
+static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
+{
 	/* rpmsg_destroy_ept() ... */
 }
 

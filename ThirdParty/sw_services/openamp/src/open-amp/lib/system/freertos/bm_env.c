@@ -41,12 +41,11 @@
  *
  **************************************************************************/
 
+#include <string.h>
+
 #include "openamp/env.h"
 #include "machine.h"
 #include "machine_system.h"
-
-#include <stdlib.h>
-#include <string.h>
 
 #include "FreeRTOS.h"
 #include "semphr.h"

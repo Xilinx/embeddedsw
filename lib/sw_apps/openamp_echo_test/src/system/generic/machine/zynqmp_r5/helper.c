@@ -28,8 +28,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include <stdio.h>
-#include <string.h>
+
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xscugic.h"
@@ -40,12 +39,6 @@
 
 extern void bm_env_isr(int vector);
 static XScuGic xInterruptController;
-
-/* wrapper around generic ISR from library */
-static void app_irq_isr(void *intr_id_ptr)
-{
-    bm_env_isr(*(unsigned int *)intr_id_ptr);
-}
 
 /* Interrupt Controller setup */
 static int app_gic_initialize(void)
@@ -80,7 +73,7 @@ static int app_gic_initialize(void)
 
 	/* Connect Interrupt ID with ISR */
 	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
-			   (Xil_ExceptionHandler)app_irq_isr,
+			   (Xil_ExceptionHandler)bm_env_isr,
 			   (void *)VRING1_IPI_INTR_VECT);
 
 	return 0;

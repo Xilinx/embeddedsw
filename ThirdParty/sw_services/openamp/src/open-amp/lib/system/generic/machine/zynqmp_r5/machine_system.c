@@ -36,6 +36,7 @@
 #include "machine.h"
 #include "machine_system.h"
 #include "openamp/env.h"
+#include "openamp/hil.h"
 
 #define CORTEXR5_CPSR_INTERRUPTS_BITS (XREG_CPSR_IRQ_ENABLE | XREG_CPSR_FIQ_ENABLE)
 
@@ -165,6 +166,12 @@ void disable_global_interrupts()
 
 	}
 
+}
+
+void platform_isr(int vect_id, void * data)
+{
+    (void)vect_id;
+    hil_isr(((struct proc_vring *)data));
 }
 
 /*==================================================================*/

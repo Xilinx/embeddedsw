@@ -84,50 +84,21 @@
 
 /* Global variables */
 extern const struct remote_resource_table resources;
+
+/* from helper.c */
 extern int init_system(void);
+
+/* from system_helper.c */
+extern void buffer_create(void);
+extern int buffer_push(void *data, int len);
+extern void buffer_pull(void **data, int *len);
 
 /* Local variables */
 static struct rpmsg_channel *app_rp_chnl;
 static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
-static void *sync_lock;
 static TaskHandle_t comm_task;
-
-/*-----------------------------------------------------------------------------*
- *  Data container used to transfer data between ISR handler and Processing Task
- *-----------------------------------------------------------------------------*/
-static struct rb_str {
-	#define RB_SZ 4
-	#define RB_DATA_SZ (sizeof(int) + 512) /* TODO: Adjust with RPMSG max size */
-	unsigned char buffer[RB_DATA_SZ][RB_SZ];
-	int head;
-	int tail;
-} rb;
-
-/* copy data to buffer */
-static int buffer_push(void *data, int len)
-{
-	/* full ? */
-	if (((rb.head + 1) % RB_SZ) == rb.tail) return -1;
-
-	env_memcpy(&rb.buffer[sizeof(int)][rb.head], data, len);
-	*(int *)&rb.buffer[0][rb.head] = len;
-	rb.head = (rb.head +1) % RB_SZ;
-	return 0;
-}
-
-/* return pointer to buffer data */
-static int buffer_pull(void **data, int *len)
-{
-	/* empty ? */
-	if (rb.head == rb.tail) return -1;
-
-	*data = (void *)&rb.buffer[sizeof(int)][rb.tail];
-	*len  = *(int *)&rb.buffer[0][rb.tail];
-	rb.tail = (rb.tail +1) % RB_SZ;
-	return 0;
-}
 
 /*-----------------------------------------------------------------------------*
  *  RPMSG callback used by remoteproc_resource_init()
@@ -135,11 +106,9 @@ static int buffer_pull(void **data, int *len)
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
 {
-	if (buffer_push(data, len)) {
+	if (!buffer_push(data, len)) {
 		xil_printf("warning: cannot save data\n");
-		return;
 	}
-	env_release_sync_lock(sync_lock);
 }
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
@@ -184,28 +153,22 @@ static void processing(void *unused_arg)
 		void *data;
 		int len;
 
-		/* wait for data... signaled by rpmsg_read_cb() */
-		env_acquire_sync_lock(sync_lock);
-		if (buffer_pull(&data, &len)) {
-			xil_printf("warning: cannot get data\n");
-			continue;
-		}
+		/* wait for data... */
+		buffer_pull(&data, &len);
 
 		/* Process incoming message/data */
 		if (*(int *)data == SHUTDOWN_MSG) {
-			xil_printf("received shutdown msg\n");
-
 			/* disable interrupts and free resources */
-		    remoteproc_resource_deinit(proc);
+			remoteproc_resource_deinit(proc);
 
-		    /* Stop RTOS scheduler if desired */
-		    /* vTaskEndScheduler() */
-		    break;
+			/* Stop RTOS scheduler if desired */
+			/* vTaskEndScheduler(); */
+			break;
 		} else {
-		    /* Send data back to master*/
-		    if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, data, len)) {
+			/* Send data back to master*/
+			if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, data, len)) {
 				xil_printf("Error: rpmsg_send failed\n");
-		    }
+			}
 		}
 	}
 }
@@ -219,7 +182,8 @@ int main(void)
 
 	Xil_ExceptionDisable();
 
-	env_create_sync_lock(&sync_lock, LOCKED);
+	/* Create buffer to send data between RPMSG callback and processing task */
+	buffer_create();
 
 	/* Create the tasks */
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
@@ -232,10 +196,6 @@ int main(void)
 	vTaskStartScheduler();
 
 	/* Will not get here, unless a call is made to vTaskEndScheduler() */
-
-	/* Print directly to serial port */
-	xil_printf("Program ended\n");
-
 	while (1) {
 		__asm__("wfi\n\t");
 	}

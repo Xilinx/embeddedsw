@@ -31,7 +31,10 @@
 #include "machine.h"
 #include "machine_system.h"
 #include "openamp/env.h"
+#include "openamp/hil.h"
+#include "xscugic.h"
 #include "xil_cache_l.h"
+#include "xil_mmu.h"
 
 
 
@@ -52,102 +55,33 @@ static inline unsigned int get_cpu_id_arm(void)
 int platform_interrupt_enable(unsigned int vector_id, unsigned int polarity,
 			      unsigned int priority)
 {
-	unsigned long reg_offset;
 	unsigned long bit_shift;
 	unsigned long temp32 = 0;
-	unsigned long targ_cpu;
 
 	(void)polarity;
 
-	temp32 = get_cpu_id_arm();
-
 	/* Determine the necessary bit shift in this target / priority register
-	   for this interrupt vector ID */
+	  for this interrupt vector ID */
 	bit_shift = ((vector_id) % 4) * 8;
 
-	/* Build a target value based on the bit shift calculated above and the CPU core
-	   that this code is executing on */
-	targ_cpu = (1 << temp32) << bit_shift;
-
-	/* Determine the Global interrupt controller target / priority register
-	   offset for this interrupt vector ID
-	   NOTE:  Each target / priority register supports 4 interrupts */
-	reg_offset = ((vector_id) / 4) * 4;
-
 	/* Read-modify-write the priority register for this interrupt */
-	temp32 = MEM_READ32(INT_GIC_DIST_BASE + INT_GIC_DIST_PRI + reg_offset);
+	temp32 = XScuGic_ReadReg(XPAR_SCUGIC_0_DIST_BASEADDR, XSCUGIC_PRIORITY_OFFSET_CALC(vector_id));
 
 	/* Set new priority. */
 	temp32 |= (priority << (bit_shift + 4));
-	MEM_WRITE32(INT_GIC_DIST_BASE + INT_GIC_DIST_PRI + reg_offset, temp32);
-
-	/* Read-modify-write the target register for this interrupt to allow this
-	   cpu to accept this interrupt */
-	temp32 =
-	    MEM_READ32(INT_GIC_DIST_BASE + INT_GIC_DIST_TARGET + reg_offset);
-	temp32 |= targ_cpu;
-	MEM_WRITE32(INT_GIC_DIST_BASE + INT_GIC_DIST_TARGET + reg_offset,
-		    temp32);
-
-	/* Determine the Global interrupt controller enable set register offset
-	   for this vector ID
-	   NOTE:  There are 32 interrupts in each enable set register */
-	reg_offset = (vector_id / 32) * 4;
+	XScuGic_WriteReg(XPAR_SCUGIC_0_DIST_BASEADDR, XSCUGIC_PRIORITY_OFFSET_CALC(vector_id), temp32);
 
 	/* Write to the appropriate bit in the enable set register for this
-	   vector ID to enable the interrupt */
+	 vector ID to enable the interrupt */
 
-	temp32 = (1UL << (vector_id - (reg_offset * 0x08)));
-	MEM_WRITE32(INT_GIC_DIST_BASE + INT_GIC_DIST_ENABLE_SET + reg_offset,
-		    temp32);
-
+	XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector_id);
 	/* Return the vector ID */
 	return (vector_id);
 }
 
 int platform_interrupt_disable(unsigned int vector_id)
 {
-	unsigned long reg_offset;
-	unsigned long bit_shift;
-	unsigned long temp32 = 0;
-	unsigned long targ_cpu;
-
-	temp32 = get_cpu_id_arm();
-
-	/* Determine the Global interrupt controller enable set register offset
-	   for this vector ID
-	   NOTE:  There are 32 interrupts in each enable set register */
-	reg_offset = (vector_id / 32) * 4;
-
-	/* Write to the appropriate bit in the enable clear register for this
-	   vector ID to disable the interrupt */
-
-	MEM_WRITE32(INT_GIC_DIST_BASE + INT_GIC_DIST_ENABLE_CLEAR + reg_offset,
-		    (1UL << (vector_id - (reg_offset * 0x08))));
-
-	/* Determine the Global interrupt controller target register offset for
-	   this interrupt vector ID
-	   NOTE:  Each target register supports 4 interrupts */
-	reg_offset = (vector_id / 4) * 4;
-
-	/* Determine the necessary bit shift in this target register for this
-	   vector ID */
-	bit_shift = (vector_id % 4) * 8;
-
-	/* Build a value based on the bit shift calculated above and the CPU core
-	   that this code is executing on */
-	targ_cpu = (1 << temp32) << bit_shift;
-
-	/* Read-modify-write the target register for this interrupt and remove this cpu from
-	   accepting this interrupt */
-	temp32 =
-	    MEM_READ32(INT_GIC_DIST_BASE + INT_GIC_DIST_TARGET + reg_offset);
-	temp32 &= ~targ_cpu;
-
-	MEM_WRITE32(INT_GIC_DIST_BASE + INT_GIC_DIST_TARGET + reg_offset,
-		    temp32);
-
-	/* Return the vector ID */
+	XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector_id);
 	return (vector_id);
 }
 
@@ -166,6 +100,60 @@ void disable_global_interrupts()
 		ARM_AR_INT_BITS_SET(ARM_AR_INTERRUPTS_DISABLE_BITS);
 		old_value = value;
 	}
+}
+
+/***********************************************************************
+ *
+ *
+ * arm_ar_map_mem_region
+ *
+ *
+ * This function sets-up the region of memory based on the given
+ * attributes
+ *
+ * @param vrt_addr       - virtual address of region
+ * @param phy_addr       - physical address of region
+ * @parma size           - size of region
+ * @param is_mem_mapped  - memory mapped or not
+ * @param cache_type     - cache type of region
+ *
+ *
+ *   OUTPUTS
+ *
+ *       None
+ *
+ ***********************************************************************/
+void arm_ar_map_mem_region(unsigned int vrt_addr, unsigned int phy_addr,
+			   unsigned int size, int is_mem_mapped,
+			   CACHE_TYPE cache_type)
+{
+	unsigned int ttb_value;
+	phy_addr &= ARM_AR_MEM_TTB_SECT_SIZE_MASK;
+	vrt_addr &= ARM_AR_MEM_TTB_SECT_SIZE_MASK;
+	ttb_value = ARM_AR_MEM_TTB_DESC_ALL_ACCESS;
+
+	(void)size;
+
+	if (!is_mem_mapped) {
+
+		/* Set cache related bits in translation table entry.
+		 NOTE: Default is uncached instruction and data. */
+		if (cache_type == WRITEBACK) {
+			/* Update translation table entry value */
+			ttb_value |= (ARM_AR_MEM_TTB_DESC_B | ARM_AR_MEM_TTB_DESC_C);
+		} else if (cache_type == WRITETHROUGH) {
+			/* Update translation table entry value */
+			ttb_value |= ARM_AR_MEM_TTB_DESC_C;
+		}
+		/* In case of un-cached memory, set TEX 0 bit to set memory
+		 attribute to normal. */
+		else if (cache_type == NOCACHE) {
+			ttb_value |= ARM_AR_MEM_TTB_DESC_TEX;
+		}
+	}
+
+	Xil_SetTlbAttributes(phy_addr,ttb_value);
+
 }
 
 void platform_map_mem_region(unsigned int vrt_addr, unsigned int phy_addr,
@@ -190,11 +178,13 @@ void platform_map_mem_region(unsigned int vrt_addr, unsigned int phy_addr,
 			      cache_type);
 }
 
-void platform_cache_all_flush_invalidate() {
+void platform_cache_all_flush_invalidate(void)
+{
 	Xil_L1DCacheFlush();
 }
 
-void platform_cache_disable() {
+void platform_cache_disable(void)
+{
 	Xil_L1DCacheDisable();
 }
 
@@ -207,4 +197,10 @@ void *platform_patova(unsigned long addr)
 {
 	return ((void *)addr);
 
+}
+
+void platform_isr(int vect_id, void * data)
+{
+    (void)vect_id;
+    hil_isr(((struct proc_vring *)data));
 }
