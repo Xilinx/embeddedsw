@@ -32,10 +32,10 @@
 
 OPTION psf_version = 2.1;
 
-BEGIN driver st2022_56_packetizer
+BEGIN driver v_voip_packetizer56
   OPTION supported_peripherals = (v_voip_packetizer56);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.0;
-  OPTION NAME = st2022_56_packetizer;
+  OPTION NAME = v_voip_packetizer56;
 END driver
