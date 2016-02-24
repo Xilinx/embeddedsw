@@ -43,5 +43,6 @@ void platform_map_mem_region(unsigned int va, unsigned int pa,
 			     unsigned int size, unsigned int flags);
 unsigned long platform_vatopa(void *addr);
 void *platform_patova(unsigned long addr);
+void platform_isr(int vect_id, void * data);
 
 #endif				/* _MACHINE_COMMON_H */

@@ -28,10 +28,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include <stdio.h>
-#include <string.h>
-#include "xparameters.h"
-#include "xil_exception.h"
 #include "xscugic.h"
 #include "platform_info.h"
 
@@ -41,21 +37,13 @@
 extern void bm_env_isr(int vector);
 static XScuGic xInterruptController;
 
-/* wrapper around generic ISR from library */
-static void app_irq_isr(void *intr_id_ptr)
-{
-    bm_env_isr(*(unsigned int *)intr_id_ptr);
-}
-
 /* Interrupt Controller setup */
 static int app_gic_initialize(void)
 {
-	void *intr_id;
 	u32 Status;
+	XScuGic_Config *IntcConfig;	/* The configuration parameters of the interrupt controller */
 
 	Xil_ExceptionDisable();
-
-	XScuGic_Config *IntcConfig;	/* The configuration parameters of the interrupt controller */
 
 	/*
 	 * Initialize the interrupt controller driver
@@ -76,19 +64,19 @@ static int app_gic_initialize(void)
 	 * logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,&xInterruptController);
+			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+			&xInterruptController);
+
 	Xil_ExceptionEnable();
 
 	/* Connect Interrupt ID with ISR */
-	intr_id = (void *)VRING1_IPI_INTR_VECT;
 	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
-			   (Xil_ExceptionHandler)app_irq_isr,
-			   intr_id);
+			   (Xil_ExceptionHandler)bm_env_isr,
+			   (void *)VRING1_IPI_INTR_VECT);
 
-	intr_id = (void *)VRING0_IPI_INTR_VECT;
 	XScuGic_Connect(&xInterruptController, VRING0_IPI_INTR_VECT,
-				   (Xil_ExceptionHandler)app_irq_isr,
-				   intr_id);
+				   (Xil_ExceptionHandler)bm_env_isr,
+				   (void *)VRING0_IPI_INTR_VECT);
 
 	return 0;
 }

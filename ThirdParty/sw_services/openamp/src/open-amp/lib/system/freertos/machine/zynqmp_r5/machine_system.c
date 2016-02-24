@@ -25,8 +25,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include <stdio.h>
-#include <string.h>
+
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xscugic.h"
@@ -36,8 +35,11 @@
 #include "machine.h"
 #include "machine_system.h"
 #include "openamp/env.h"
+#include "openamp/hil.h"
+
 #include "FreeRTOS.h"
 #include "task.h"
+#include "timers.h"
 
 #define CORTEXR5_CPSR_INTERRUPTS_BITS (XREG_CPSR_IRQ_ENABLE | XREG_CPSR_FIQ_ENABLE)
 
@@ -152,6 +154,31 @@ void disable_global_interrupts()
 {
 	taskDISABLE_INTERRUPTS();
 }
+
+/* callback function that will execute in the context of the FreeRTOS daemon task */
+static void deferred_platform_isr( void *param1, uint32_t param2 )
+{
+	(void)param2;
+
+    hil_isr(((struct proc_vring *)param1));
+}
+
+void platform_isr(int vect_id, void * data)
+{
+	BaseType_t xHigherPriorityTaskWoken;
+
+    (void)vect_id;
+
+	/* Request defered function call */
+	xHigherPriorityTaskWoken = pdFALSE;
+	xTimerPendFunctionCallFromISR( deferred_platform_isr,
+								   (void *)data,
+	                               0,
+	                               &xHigherPriorityTaskWoken );
+    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+
+}
+
 
 /*==================================================================*/
 /* The function definitions below are provided to prevent the build */
