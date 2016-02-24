@@ -294,4 +294,7 @@
  *		       cortexr5/sleep.c, cortexr5/usleep.c to use TTC3 when present otherwise
  *		       use set of assembly instructions to provide required delay to fix
  *		       CR#913249.
+ * 5.4 asa   25/02/16  Made changes in xil-crt0.S for R5, A53 64 and 32 bit BSPs, to replace
+ *		       _exit with exit. We should not be directly calling _exit and should
+ *		       always use the library exit. This fixes the CR#937036.
  *****************************************************************************************/

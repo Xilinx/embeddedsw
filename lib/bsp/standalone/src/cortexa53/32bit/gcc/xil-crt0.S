@@ -111,7 +111,7 @@ _startup:
 	/* Cleanup global constructors */
 	bl __libc_fini_array
 
-	bl	_exit
+	bl	exit
 
 .Lexit:	/* should never get here */
 	b .Lexit
