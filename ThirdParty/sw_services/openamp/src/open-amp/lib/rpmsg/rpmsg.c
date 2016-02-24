@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
+ * Copyright (c) 2016 NXP, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -199,7 +200,7 @@ int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, unsigned long src,
 				rp_hdr->len = size;
 
 				/* Copy data to rpmsg buffer. */
-				env_memcpy(rp_hdr->data, data, size);
+				env_memcpy((void*)RPMSG_LOCATE_DATA(rp_hdr), data, size);
 
 				env_lock_mutex(rdev->lock);
 				/* Enqueue buffer on virtqueue. */
