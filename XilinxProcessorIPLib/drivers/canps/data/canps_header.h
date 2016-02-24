@@ -42,7 +42,9 @@ int CanPsPolledExample(u16 DeviceId);
 int CanPsIntrExample(XScuGic *IntcInstPtr, XCanPs *CanInstPtr,
 			u16 CanDeviceId, u16 CanIntrId);
 #else
+#ifdef XPAR_INTC_0_DEVICE_ID
 int CanPsIntrExample(XIntc *IntcInstPtr, XCanPs *CanInstPtr,
 			u16 CanDeviceId, u16 CanIntrId);
+#endif
 #endif
 #endif
