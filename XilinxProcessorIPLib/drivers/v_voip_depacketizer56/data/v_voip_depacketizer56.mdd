@@ -32,10 +32,10 @@
 
 OPTION psf_version = 2.1;
 
-BEGIN driver st2022_56_depacketizer
+BEGIN driver v_voip_depacketizer56
   OPTION supported_peripherals = (v_voip_depacketizer56);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.0;
-  OPTION NAME = st2022_56_depacketizer;
+  OPTION NAME = v_voip_depacketizer56;
 END driver
