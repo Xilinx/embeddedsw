@@ -128,6 +128,9 @@ int rpmsg_rdev_init(struct remote_device **rdev, int dev_id, int role,
 	rdev_loc->channel_destroyed = channel_destroyed;
 	rdev_loc->default_cb = default_cb;
 
+	/* Restrict the ept address - zero address can't be assigned */
+	rdev_loc->bitmap[0] = 1;
+
 	/* Initialize the virtio device */
 	virt_dev = &rdev_loc->virt_dev;
 	virt_dev->device = proc;

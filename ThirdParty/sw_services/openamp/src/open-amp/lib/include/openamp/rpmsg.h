@@ -4,6 +4,7 @@
  * Copyright (C) 2011 Texas Instruments, Inc.
  * Copyright (C) 2011 Google, Inc.
  * All rights reserved.
+ * Copyright (c) 2016 NXP, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -41,6 +42,8 @@
 #define VIRTIO_RPMSG_F_NS	0	/* RP supports name service notifications */
 #define RPMSG_NAME_SIZE     32
 
+#define RPMSG_LOCATE_DATA(p)  ((unsigned char *) p + sizeof (struct rpmsg_hdr))
+
 /**
  * struct rpmsg_hdr - common header for all rpmsg messages
  * @src: source address
@@ -48,7 +51,6 @@
  * @reserved: reserved for future use
  * @len: length of payload (in bytes)
  * @flags: message flags
- * @data: @len bytes of message payload data
  *
  * Every message sent(/received) on the rpmsg bus begins with this header.
  */
@@ -59,7 +61,6 @@ struct rpmsg_hdr {
 	unsigned long reserved;
 	unsigned short len;
 	unsigned short flags;
-	unsigned char data[0];
 } OPENAMP_PACKED_END;
 
 /**
