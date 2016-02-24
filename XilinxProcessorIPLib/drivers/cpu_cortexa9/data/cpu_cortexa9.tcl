@@ -37,7 +37,7 @@
 # 1.00a sdm  05/16/10 Updated to support AXI common::version of the core
 # 2.0   adk  10/12/13 Updated as per the New Tcl API's
 # 2.1	pkp  06/27/14 Updated the tcl to create empty libxil for IAR support in BSP
-#
+# 2.2	pkp  02/24/16 Updated tcl for extra compiler flags different toochain
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -59,7 +59,7 @@ proc xdefine_cortexa9_params {drvhandle} {
     set procdrv [hsi::get_sw_processor]
     set compiler [common::get_property CONFIG.compiler $procdrv]
     set archiver [common::get_property CONFIG.archiver $procdrv]
-    set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+    set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
     if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 	set temp_flag $extra_flags
 	regsub -- {-mcpu=cortex-a9} $temp_flag {} temp_flag
@@ -68,32 +68,34 @@ proc xdefine_cortexa9_params {drvhandle} {
 	regsub -- {-nostartfiles} $temp_flag {} temp_flag
 	regsub -all {  } $temp_flag {} temp_flag
 	set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles $temp_flag"
-	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
-    } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
+	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+   } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
 	set temp_flag $extra_flags
 	regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
 	regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
 	regsub -- {-mfloat-abi=hard } $temp_flag "" temp_flag
 	regsub -- {-nostartfiles} $temp_flag "" temp_flag
+	regsub -- "-g" $temp_flag "" temp_flag
 	regsub -- "--debug" $temp_flag "" temp_flag
 	regsub -all {  } $temp_flag {} temp_flag
 	set extra_flags "--debug $temp_flag"
-	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 
-	set compiler_flags [common::get_property CONFIG.compiler_flags [hsi::get_sw_processor]]
+	set compiler_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == compiler_flags } ] ]
 	regsub -- "-O2 -c" $compiler_flags "" compiler_flags
+	regsub -- "-Om" $compiler_flags "" compiler_flags
 	set compiler_flags "-Om $compiler_flags"
-	common::set_property -name {COMPILER_FLAGS} -value $compiler_flags -objects [hsi::get_sw_processor]
-    } else {
+	common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
+   } else {
 	set temp_flag $extra_flags
-        regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
-        regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
-        regsub -- {-mfloat-abi=hard } $temp_flag "" temp_flag
-        regsub -- {-nostartfiles} $temp_flag "" temp_flag
-        regsub -- "-g" $temp_flag "" temp_flag
-        regsub -all {  } $temp_flag {} temp_flag
-        set extra_flags "-g $temp_flag"
-	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+	regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
+	regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
+	regsub -- {-mfloat-abi=hard } $temp_flag "" temp_flag
+	regsub -- {-nostartfiles} $temp_flag "" temp_flag
+	regsub -- "-g" $temp_flag "" temp_flag
+	regsub -all {  } $temp_flag {} temp_flag
+	set extra_flags "-g $temp_flag"
+	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
     }
     if {[string first "iarchive" $archiver] < 0 } {
     } else {
