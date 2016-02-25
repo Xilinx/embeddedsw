@@ -546,7 +546,7 @@ Modified cortexr5/xtime_l.c to add an API XTime_StartTimer and updated cortexr5/
 the TTC3 timer when present. Modified cortexr5/sleep.c, cortexr5/usleep.c to use TTC3 when present otherwise
 use set of assembly instructions to provide required delay to fix CR#913249.
 Made changes in A53 and R5 BSPs to replace the _exit with exit (xil-crt0.S). This fixes the CR#937036.
-
+Modified cortexr5/gcc/boot.S to enable the fault log in lock step mode when LOCK_FAULT_LOG_EN is defined.
 
 xilskey_v5_0:
 Modified JtagWrite_Ultrascale.
