@@ -547,6 +547,10 @@ the TTC3 timer when present. Modified cortexr5/sleep.c, cortexr5/usleep.c to use
 use set of assembly instructions to provide required delay to fix CR#913249.
 Made changes in A53 and R5 BSPs to replace the _exit with exit (xil-crt0.S). This fixes the CR#937036.
 Modified cortexr5/gcc/boot.S to enable the fault log in lock step mode when LOCK_FAULT_LOG_EN is defined.
+Modified the boot code for cortex-r5 in cortexr5/gcc/boot.S to initialize the floating point registers,
+banked registers for various modes and enabled the cache ECC check before enabling the fault log for
+lock step mode and updates the cortex-r5 bsp makefile at cortexr5/gcc/Makefile to support the floating
+point registers initialization boot code to fix the CR#937490
 
 xilskey_v5_0:
 Modified JtagWrite_Ultrascale.
