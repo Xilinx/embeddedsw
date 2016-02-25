@@ -44,6 +44,7 @@
 * 5.04	pkp  09/11/15 Disabled ACTLR.DBWR bit to avoid potential R5 deadlock
 *		      for errata 780125
 * 5.04 pkp   02/04/16 Enabled the fault log for lock-step mode
+* 5.04 pkp   02/25/16 Enable the fault log when LOCK_FAULT_LOG_EN is defined
 * </pre>
 *
 * @note
@@ -108,6 +109,7 @@ OKToRun:
 	mov	r11,#0
 	mov	r12,#0
 
+#ifdef LOCK_FAULT_LOG_EN
 /* enable fault log for lock step */
 	ldr	r0,=RPU_GLBL_CNTL
 	ldr	r1, [r0]
@@ -128,6 +130,7 @@ OKToRun:
 	str	r2, [r0]
 	nop
 	nop
+#endif
 
 init:
 /* Disable MPU and caches */
