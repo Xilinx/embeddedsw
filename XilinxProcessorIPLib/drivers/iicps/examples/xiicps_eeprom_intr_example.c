@@ -699,12 +699,12 @@ static int FindEepromDevice(u16 Address)
 {
 	int Index;
 	XIicPs *IicPtr = &IicInstance;
+	SlaveResponse = FALSE;
 
 	XIicPs_DisableAllInterrupts(IicPtr->Config.BaseAddress);
 	XIicPs_EnableSlaveMonitor(&IicInstance, Address);
 
 		TotalErrorCount = 0;
-		SlaveResponse = FALSE;
 
 		Index = 0;
 
