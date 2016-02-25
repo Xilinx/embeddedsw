@@ -299,4 +299,9 @@
  *		       always use the library exit. This fixes the CR#937036.
  * 5.4 pkp   25/02/16  Modified cortexr5/gcc/boot.S to enable the fault log for lock step
  *		       mode only when LOCK_FAULT_LOG_EN is defined
+ * 5.4 pkp   25/02/16  Made change to cortexr5/gcc/boot.S to initialize the floating point
+ *		       registers, banked registers for various modes and enabled
+ *		       the cache ECC check before enabling the fault log for lock step mode
+ *		       Also modified the cortexr5/gcc/Makefile to support floating point
+ *		       registers initialization in boot code.
  *****************************************************************************************/
