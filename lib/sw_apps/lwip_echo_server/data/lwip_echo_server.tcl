@@ -132,9 +132,9 @@ proc swapp_is_supported_hw {} {
         }
     }
 
-	# PSU_Microblaze is not supported
-	if { $proc_type == "psu_microblaze"} {
-		error "ERROR: lwip is not supported on PSU Microblaze";
+	# psu_pmu is not supported
+	if { $proc_type == "psu_pmu"} {
+		error "ERROR: lwip is not supported on psu_pmu";
 		return;
 	}
 

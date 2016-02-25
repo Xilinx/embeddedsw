@@ -86,7 +86,7 @@ proc generate {os_handle} {
             set need_config_file "true"
             set mb_exceptions [mb_has_exceptions $hw_proc_handle]
         }
-        "psu_microblaze" {
+        "psu_pmu" {
             foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
                 # Copy over only files that are not related to exception handling. All such files have exception in their names
                 file copy -force $entry "./src/"
@@ -236,7 +236,7 @@ proc generate {os_handle} {
     # Write the Config.make file
     set makeconfig [open "./src/config.make" w]
 #    print_generated_header_tcl $makeconfig "Configuration parameters for Standalone Makefile"
-    if { $proctype == "microblaze" || $proctype == "psu_microblaze" } {
+    if { $proctype == "microblaze" || $proctype == "psu_pmu" } {
         puts $makeconfig "LIBSOURCES = *.c *.S"
         puts $makeconfig "PROFILE_ARCH_OBJS = profile_mcount_mb.o"
     } elseif { $proctype == "psu_cortexr5" } {

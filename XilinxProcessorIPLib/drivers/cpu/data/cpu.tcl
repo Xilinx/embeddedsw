@@ -284,7 +284,7 @@ proc generate {drv_handle} {
 	# If the processor is PMU Microblaze, then generate required params and return
 	# We dont need the Parameters being generated after this code block
 	#------------------------------------------------------------------------------
-	if {[string compare "psu_microblaze" $proctype] == 0} {
+	if {[string compare "psu_pmu" $proctype] == 0} {
 
 		# Setup the compiler flags as per HW Params
 		set endian [common::get_property CONFIG.C_ENDIANNESS $periph]
@@ -321,7 +321,7 @@ proc generate {drv_handle} {
 		puts $file_handle ""
 		set params [list]
 		lappend reserved_param_list "C_DEVICE" "C_PACKAGE" "C_SPEEDGRADE" "C_FAMILY" "C_INSTANCE" "C_KIND_OF_EDGE" "C_KIND_OF_LVL" "C_KIND_OF_INTR" "C_NUM_INTR_INPUTS" "C_MASK" "C_NUM_MASTERS" "C_NUM_SLAVES" "C_LMB_AWIDTH" "C_LMB_DWIDTH" "C_LMB_MASK" "C_LMB_NUM_SLAVES" "INSTANCE" "HW_VER"
-		# Print all parameters for psu_microblaze with XPAR_MICROBLAZE prefix
+		# Print all parameters for psu_pmu with XPAR_MICROBLAZE prefix
 		puts $file_handle ""
 		puts $file_handle "/* Definitions for PMU Microblaze */"
 		set params ""

@@ -45,7 +45,7 @@ BEGIN driver cpu
 
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
-OPTION supported_peripherals = (microblaze psu_microblaze);
+OPTION supported_peripherals = (microblaze psu_pmu);
 OPTION default_os = "standalone_v5_0";
 OPTION VERSION = 2.4;
 OPTION NAME = cpu;

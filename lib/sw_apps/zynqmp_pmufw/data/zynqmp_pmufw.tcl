@@ -61,8 +61,8 @@ proc swapp_is_supported_hw {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-	if {($proc_type != "psu_microblaze")} {
-		error "This application is supported only for PMU Microblaze processor (psu_microblaze).";
+	if {($proc_type != "psu_pmu")} {
+		error "This application is supported only for PMU Microblaze processor (psu_pmu).";
 	}
 
 	return 1;
@@ -87,7 +87,7 @@ proc swapp_get_linker_constraints {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "psu_microblaze";
+	return "psu_pmu";
 }
 
 proc swapp_get_supported_os {} {
