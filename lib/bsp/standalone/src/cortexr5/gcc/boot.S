@@ -45,6 +45,10 @@
 *		      for errata 780125
 * 5.04 pkp   02/04/16 Enabled the fault log for lock-step mode
 * 5.04 pkp   02/25/16 Enable the fault log when LOCK_FAULT_LOG_EN is defined
+* 5.04 pkp   02/25/16 Initialized the banked registers for various modes,
+*		      initialized floating point registers and enabled the
+*		      cache ECC check before enabling the fault log for
+*		      lock step mode
 * </pre>
 *
 * @note
@@ -90,8 +94,6 @@
 _prestart:
 _boot:
 
-
-
 OKToRun:
 
 /* Initialize processor registers to 0 */
@@ -108,6 +110,125 @@ OKToRun:
 	mov	r10,#0
 	mov	r11,#0
 	mov	r12,#0
+
+/* Initialize stack pointer and banked registers for various mode */
+	mrs	r0, cpsr			/* get the current PSR */
+	mvn	r1, #0x1f			/* set up the irq stack pointer */
+	and	r2, r1, r0
+	orr	r2, r2, #0x12			/* IRQ mode */
+	msr	cpsr, r2
+	ldr	r13,=IRQ_stack			/* IRQ stack pointer */
+	mov 	r14,#0
+
+	mrs	r0, cpsr			/* get the current PSR */
+	mvn	r1, #0x1f			/* set up the supervisor stack pointer */
+	and	r2, r1, r0
+	orr	r2, r2, #0x13			/* supervisor mode */
+	msr	cpsr, r2
+	ldr	r13,=SPV_stack			/* Supervisor stack pointer */
+	mov 	r14,#0
+
+	mrs	r0, cpsr			/* get the current PSR */
+	mvn	r1, #0x1f			/* set up the Abort  stack pointer */
+	and	r2, r1, r0
+	orr	r2, r2, #0x17			/* Abort mode */
+	msr	cpsr, r2
+	ldr	r13,=Abort_stack		/* Abort stack pointer */
+	mov 	r14,#0
+
+	mrs	r0, cpsr			/* get the current PSR */
+	mvn	r1, #0x1f			/* set up the FIQ stack pointer */
+	and	r2, r1, r0
+	orr	r2, r2, #0x11			/* FIQ mode */
+	msr	cpsr, r2
+	mov 	r8, #0
+	mov 	r9, #0
+	mov 	r10, #0
+	mov 	r11, #0
+	mov 	r12, #0
+	ldr	r13,=FIQ_stack			/* FIQ stack pointer */
+	mov 	r14,#0
+
+	mrs	r0, cpsr			/* get the current PSR */
+	mvn	r1, #0x1f			/* set up the Undefine stack pointer */
+	and	r2, r1, r0
+	orr	r2, r2, #0x1b			/* Undefine mode */
+	msr	cpsr, r2
+	ldr	r13,=Undef_stack		/* Undefine stack pointer */
+	mov 	r14,#0
+
+	mrs	r0, cpsr			/* get the current PSR */
+	mvn	r1, #0x1f			/* set up the system stack pointer */
+	and	r2, r1, r0
+	orr	r2, r2, #0x1F			/* SYS mode */
+	msr	cpsr, r2
+	ldr	r13,=SYS_stack			/* SYS stack pointer */
+	mov 	r14,#0
+
+/*
+ * Enable access to VFP by enabling access to Coprocessors 10 and 11.
+ * Enables Full Access i.e. in both privileged and non privileged modes
+ */
+	mrc     p15, 0, r0, c1, c0, 2      	/* Read Coprocessor Access Control Register (CPACR) */
+        orr     r0, r0, #(0xF << 20)       	/* Enable access to CP 10 & 11 */
+        mcr     p15, 0, r0, c1, c0, 2      	/* Write Coprocessor Access Control Register (CPACR) */
+        isb
+
+/* enable fpu access  */
+	vmrs	r3, FPEXC
+	orr	r1, r3, #(1<<30)
+	vmsr	FPEXC, r1
+
+/* clear the floating point register*/
+	mov	r1,#0
+	vmov	d0,r1,r1
+	vmov	d1,r1,r1
+	vmov	d2,r1,r1
+	vmov	d3,r1,r1
+	vmov	d4,r1,r1
+	vmov	d5,r1,r1
+	vmov	d6,r1,r1
+	vmov	d7,r1,r1
+	vmov	d8,r1,r1
+	vmov	d9,r1,r1
+	vmov	d10,r1,r1
+	vmov	d11,r1,r1
+	vmov	d12,r1,r1
+	vmov	d13,r1,r1
+	vmov	d14,r1,r1
+	vmov	d15,r1,r1
+
+/* restore previous value for fpu access */
+	vmsr	FPEXC,r3
+
+/* Disable MPU and caches */
+        mrc     p15, 0, r0, c1, c0, 0       	/* Read CP15 Control Register*/
+        bic     r0, r0, #0x05               	/* Disable MPU (M bit) and data cache (C bit) */
+        bic     r0, r0, #0x1000             	/* Disable instruction cache (I bit) */
+        dsb                                 	/* Ensure all previous loads/stores have completed */
+        mcr     p15, 0, r0, c1, c0, 0       	/* Write CP15 Control Register */
+        isb                                 	/* Ensure subsequent insts execute wrt new MPU settings */
+
+/* Disable Branch prediction, TCM ECC checks */
+        mrc     p15, 0, r0, c1, c0, 1       	/* Read ACTLR */
+        orr     r0, r0, #(0x1 << 17)        	/* Enable RSDIS bit 17 to disable the return stack */
+        orr     r0, r0, #(0x1 << 16)        	/* Clear BP bit 15 and set BP bit 16:*/
+        bic     r0, r0, #(0x1 << 15)        	/* Branch always not taken and history table updates disabled*/
+        bic     r0, r0, #(0x1 << 27)		/* Disable B1TCM ECC check */
+        bic     r0, r0, #(0x1 << 26)		/* Disable B0TCM ECC check */
+        bic     r0, r0, #(0x1 << 25)		/* Disable ATCM ECC check */
+	orr	r0, r0, #(0x1 << 5)		/* Enable ECC with no forced write through with [5:3]=b'101*/
+	bic 	r0, r0, #(0x1 << 4)
+	orr	r0, r0, #(0x1 << 3)
+        mcr     p15, 0, r0, c1, c0, 1       	/* Write ACTLR*/
+	dsb				    	/* Complete all outstanding explicit memory operations*/
+
+/* Invalidate caches */
+	mov	r0,#0				/* r0 = 0  */
+	dsb
+	mcr	p15, 0, r0, c7, c5, 0		/* invalidate icache */
+	mcr 	p15, 0, r0, c15, c5, 0      	/* Invalidate entire data cache*/
+	isb
 
 #ifdef LOCK_FAULT_LOG_EN
 /* enable fault log for lock step */
@@ -133,75 +254,6 @@ OKToRun:
 #endif
 
 init:
-/* Disable MPU and caches */
-        mrc     p15, 0, r0, c1, c0, 0       	/* Read CP15 Control Register*/
-        bic     r0, r0, #0x05               	/* Disable MPU (M bit) and data cache (C bit) */
-        bic     r0, r0, #0x1000             	/* Disable instruction cache (I bit) */
-        dsb                                 	/* Ensure all previous loads/stores have completed */
-        mcr     p15, 0, r0, c1, c0, 0       	/* Write CP15 Control Register */
-        isb                                 	/* Ensure subsequent insts execute wrt new MPU settings */
-
-/* Disable Branch prediction, TCM ECC checks */
-        mrc     p15, 0, r0, c1, c0, 1       	/* Read ACTLR */
-        orr     r0, r0, #(0x1 << 17)        	/* Enable RSDIS bit 17 to disable the return stack */
-        orr     r0, r0, #(0x1 << 16)        	/* Clear BP bit 15 and set BP bit 16:*/
-        bic     r0, r0, #(0x1 << 15)        	/* Branch always not taken and history table updates disabled*/
-        bic     r0, r0, #(0x1 << 27)			/* Disable B1TCM ECC check */
-        bic     r0, r0, #(0x1 << 26)			/* Disable B0TCM ECC check */
-        bic     r0, r0, #(0x1 << 25)			/* Disable ATCM ECC check */
-        mcr     p15, 0, r0, c1, c0, 1       	/* Write ACTLR*/
-	dsb				    	/* Complete all outstanding explicit memory operations*/
-
-/* Invalidate caches */
-	mov	r0,#0				/* r0 = 0  */
-	dsb
-	mcr	p15, 0, r0, c7, c5, 0		/* invalidate icache */
-	mcr 	p15, 0, r0, c15, c5, 0      	/* Invalidate entire data cache*/
-	isb
-
-/* Initialize stack pointer for various mode */
-	mrs	r0, cpsr			/* get the current PSR */
-	mvn	r1, #0x1f			/* set up the irq stack pointer */
-	and	r2, r1, r0
-	orr	r2, r2, #0x12			/* IRQ mode */
-	msr	cpsr, r2
-	ldr	r13,=IRQ_stack			/* IRQ stack pointer */
-
-	mrs	r0, cpsr			/* get the current PSR */
-	mvn	r1, #0x1f			/* set up the supervisor stack pointer */
-	and	r2, r1, r0
-	orr	r2, r2, #0x13			/* supervisor mode */
-	msr	cpsr, r2
-	ldr	r13,=SPV_stack			/* Supervisor stack pointer */
-
-	mrs	r0, cpsr			/* get the current PSR */
-	mvn	r1, #0x1f			/* set up the Abort  stack pointer */
-	and	r2, r1, r0
-	orr	r2, r2, #0x17			/* Abort mode */
-	msr	cpsr, r2
-	ldr	r13,=Abort_stack		/* Abort stack pointer */
-
-	mrs	r0, cpsr			/* get the current PSR */
-	mvn	r1, #0x1f			/* set up the FIQ stack pointer */
-	and	r2, r1, r0
-	orr	r2, r2, #0x11			/* FIQ mode */
-	msr	cpsr, r2
-	ldr	r13,=FIQ_stack			/* FIQ stack pointer */
-
-	mrs	r0, cpsr			/* get the current PSR */
-	mvn	r1, #0x1f			/* set up the Undefine stack pointer */
-	and	r2, r1, r0
-	orr	r2, r2, #0x1b			/* Undefine mode */
-	msr	cpsr, r2
-	ldr	r13,=Undef_stack		/* Undefine stack pointer */
-
-	mrs	r0, cpsr			/* get the current PSR */
-	mvn	r1, #0x1f			/* set up the system stack pointer */
-	and	r2, r1, r0
-	orr	r2, r2, #0x1F			/* SYS mode */
-	msr	cpsr, r2
-	ldr	r13,=SYS_stack			/* SYS stack pointer */
-
 	bl 	Init_MPU		/* Initialize MPU */
 
 /* Enable Branch prediction */
