@@ -86,8 +86,9 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   07/21/15   Initial Release
-* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+* 5.00  rco   07/21/15   Initial Release
+* 6.00  rco   11/05/15   Integrate layer-1 with layer-2
+*       dmc   02/25/16   add public routine XV_DeintWaitForIdle()
 *
 * </pre>
 *
@@ -121,6 +122,7 @@ typedef struct
 int XV_DeintInitialize(XV_Deint_l2 *InstancePtr, u16 DeviceId);
 void XV_DeintStart(XV_Deint_l2 *InstancePtr);
 void XV_DeintStop(XV_Deint_l2 *InstancePtr);
+int XV_DeintWaitForIdle(XV_Deint_l2 *InstancePtr);
 void XV_DeintSetFieldBuffers(XV_Deint_l2   *InstancePtr,
 							 u32 memAddr,
 							 XVidC_ColorFormat cformat);

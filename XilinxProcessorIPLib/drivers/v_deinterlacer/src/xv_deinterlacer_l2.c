@@ -47,8 +47,9 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   07/21/15   Initial Release
-* 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+* 5.00  rco   07/21/15   Initial Release
+* 6.00  rco   11/05/15   Integrate layer-1 with layer-2
+*       dmc   02/25/16   add public routine XV_DeintWaitForIdle()
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
 #include "xv_deinterlacer_l2.h"
 
 /************************** Constant Definitions *****************************/
+#define XVDEINT_IDLE_TIMEOUT 1000000
 
 /**************************** Type Definitions *******************************/
 
@@ -120,6 +122,34 @@ void XV_DeintStop(XV_Deint_l2 *InstancePtr)
   Xil_AssertVoid(InstancePtr != NULL);
 
   XV_deinterlacer_DisableAutoRestart(&InstancePtr->Deint);
+}
+
+/*****************************************************************************/
+/**
+* This function waits for the deinterlacer core to report "idle" status
+*
+* @param  InstancePtr is a pointer to the core instance to be worked on
+*
+* @return XST_SUCCESS if device becomes idle
+*         XST_FAILURE if this routine times out before reading "idle" status
+*
+* @note This is intended to be called after XV_DeintStop is called, to wait
+*       for all axis and aximm traffic to stop
+*
+******************************************************************************/
+int XV_DeintWaitForIdle(XV_Deint_l2 *InstancePtr)
+{
+  u32 isIdle;
+  u32 cnt = 0;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+    do {
+      isIdle = XV_deinterlacer_IsIdle(&InstancePtr->Deint);
+      cnt++;
+    } while((isIdle!=1) && (cnt < XVDEINT_IDLE_TIMEOUT));
+
+    return(isIdle? XST_SUCCESS : XST_FAILURE);
 }
 
 /*****************************************************************************/
