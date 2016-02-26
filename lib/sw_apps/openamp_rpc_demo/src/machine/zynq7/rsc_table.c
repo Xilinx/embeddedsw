@@ -1,8 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -32,72 +31,64 @@
 /* This file populates resource table for BM remote
  * for use by the Linux Master */
 
-#include "open_amp.h"
+//#include "openamp/open_amp.h"
 #include "rsc_table.h"
 
 /* Place resource table in special ELF section */
-#define __section(S)            __attribute__((__section__(#S)))
-#define __resource              __section(.resource_table)
+#define __rsc_section(S)    __attribute__((__section__(#S)))
+#define __resource          __rsc_section(.resource_table)
 
 #define RPMSG_IPU_C0_FEATURES        1
-
 
 /* VirtIO rpmsg device id */
 #define VIRTIO_ID_RPMSG_             7
 
 /* Remote supports Name Service announcement */
 #define VIRTIO_RPMSG_F_NS           0
-#define OCM_1_START                 0xFFFF0000
-#define OCM_1_LEN                   0x10000
-#define TCM_0_START_DA              0x00000000
-#define TCM_0_LEN                   0x20000
-#define TCM_0_START_PA              0xFFE00000
-#define TCM_1_START_DA              0x00020000
-#define TCM_1_LEN                   0x20000
-#define TCM_1_START_PA              0xFFE40000
-#define DDR_ELF_START               0x3ED00000
-#define DDR_ELF_LEN                	0x40000
+
+
+/* Resource table entries */
+#define ELF_START                   0x00000000
+#define ELF_END                     0x08000000
 #define NUM_VRINGS                  0x02
 #define VRING_ALIGN                 0x1000
-#define RING_TX                     0x3ED40000
-#define RING_RX                     0x3ED44000
+#define RING_TX                     0x08000000
+#define RING_RX                     0x08004000
 #define VRING_SIZE                  256
-#define NUM_TABLE_ENTRIES           3
-#define CARVEOUT_SRC_OFFSETS        offsetof(struct remote_resource_table, ocm_1_cout), \
-							        offsetof(struct remote_resource_table, ddr_cout),
 
-#define CARVEOUT_SRC                {RSC_CARVEOUT, OCM_1_START, OCM_1_START, OCM_1_LEN, 0, 0, "OCM1_COUT",}, \
-					                {RSC_CARVEOUT, DDR_ELF_START, DDR_ELF_START, DDR_ELF_LEN, 0, 0, "ELF_DATA_COUT",},
+#define NUM_TABLE_ENTRIES           2
+#define CARVEOUT_SRC_OFFSETS        offsetof(struct remote_resource_table, elf_cout),
+#define CARVEOUT_SRC                { RSC_CARVEOUT, ELF_START, ELF_START, ELF_END, 0, 0, "ELF_COUT", },
 
 
 const struct remote_resource_table __resource resources =
 {
-    /* Version */
-    1,
+	/* Version */
+	1,
 
-    /* NUmber of table entries */
-    NUM_TABLE_ENTRIES,
-    /* reserved fields */
-    { 0, 0,},
+	/* NUmber of table entries */
+	NUM_TABLE_ENTRIES,
+	/* reserved fields */
+	{ 0, 0,},
 
-    /* Offsets of rsc entries */
-    {
-        CARVEOUT_SRC_OFFSETS
-        offsetof(struct remote_resource_table, rpmsg_vdev),
-    },
+	/* Offsets of rsc entries */
+	{
+		CARVEOUT_SRC_OFFSETS
+		offsetof(struct remote_resource_table, rpmsg_vdev),
+	},
 
-    /* End of ELF file */
-    CARVEOUT_SRC
+	/* End of ELF file */
+	CARVEOUT_SRC
 
-    /* Virtio device entry */
-    {   RSC_VDEV, VIRTIO_ID_RPMSG_, 0, RPMSG_IPU_C0_FEATURES, 0, 0, 0, NUM_VRINGS, {0, 0},
-    },
+	/* Virtio device entry */
+	{ RSC_VDEV, VIRTIO_ID_RPMSG_, 0, RPMSG_IPU_C0_FEATURES, 0, 0, 0, NUM_VRINGS, {0, 0},
+	},
 
-    /* Vring rsc entry - part of vdev rsc entry */
-    {
-        RING_TX, VRING_ALIGN, VRING_SIZE, 1, 0
-    },
-    {
-        RING_RX, VRING_ALIGN, VRING_SIZE, 2, 0
-    },
+	/* Vring rsc entry - part of vdev rsc entry */
+	{
+	RING_TX, VRING_ALIGN, VRING_SIZE, 1, 0
+	},
+	{
+		RING_RX, VRING_ALIGN, VRING_SIZE, 2, 0
+	},
 };

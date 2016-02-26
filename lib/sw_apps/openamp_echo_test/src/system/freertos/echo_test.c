@@ -189,11 +189,11 @@ int main(void)
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
 				1024, NULL, 2, &comm_task);
 	if (stat != pdPASS) {
-		return -1;
+		xil_printf("Error: cannot create task\n");
+	} else {
+		/* Start running FreeRTOS tasks */
+		vTaskStartScheduler();
 	}
-
-	/* Start running FreeRTOS tasks */
-	vTaskStartScheduler();
 
 	/* Will not get here, unless a call is made to vTaskEndScheduler() */
 	while (1) {

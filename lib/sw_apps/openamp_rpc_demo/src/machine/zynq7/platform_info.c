@@ -1,5 +1,7 @@
 /*
  * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
+ * Copyright (c) 2014, Mentor Graphics Corporation
+ * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -38,14 +40,20 @@
  *
  **************************************************************************/
 
-#include "platform.h"
+#include "openamp/hil.h"
+#include "platform_info.h"
 
 /* Reference implementation that show cases platform_get_cpu_info and
  platform_get_for_firmware API implementation for Bare metal environment */
 
 extern struct hil_platform_ops proc_ops;
 
-static struct ipi_info chn_ipi_info = {IPI_BASEADDR, IPI_CHN_BITMASK};
+/* IPC Device parameters */
+#define SHM_ADDR                          (void *)0x08008000
+#define SHM_SIZE                          0x00200000
+#define MASTER_CPU_ID                     0
+#define REMOTE_CPU_ID                     1
+
 /**
  * This array provides definition of CPU nodes for master and remote
  * context. It contains two nodes because the same file is intended
@@ -117,13 +125,13 @@ struct hil_proc proc_table []=
                       */
                      NULL, NULL, 0, 0,
                      {
-                         VRING0_IPI_INTR_VECT,0x1006,1,(void *)(&chn_ipi_info),
+                         VRING0_IPI_INTR_VECT,0x1006,1,NULL
                      }
                 },
                 {
                     NULL, NULL, 0, 0,
                     {
-                        VRING1_IPI_INTR_VECT,0x1006,1,(void *)(&chn_ipi_info),
+                        VRING1_IPI_INTR_VECT,0x1006,1,NULL
                     }
                 }
             }
@@ -166,13 +174,13 @@ struct hil_proc proc_table []=
                      */
                     NULL, NULL, 0, 0,
                     {
-                        VRING0_IPI_INTR_VECT,0x1006,1,(void *)(&chn_ipi_info)
+                        VRING0_IPI_INTR_VECT,0x1006,1
                     }
                 },
                 {
                     NULL, NULL, 0, 0,
                     {
-                        VRING1_IPI_INTR_VECT,0x1006,1,(void *)(&chn_ipi_info)
+                        VRING1_IPI_INTR_VECT,0x1006,1
                     }
                 }
             }
@@ -196,6 +204,9 @@ struct hil_proc proc_table []=
     }
 };
 
+const int proc_table_size = sizeof (proc_table)/sizeof(struct hil_proc);
+
+
 /**
  * platform_get_processor_info
  *
@@ -209,18 +220,22 @@ struct hil_proc proc_table []=
  *
  * return  - status of execution
  */
-int platform_get_processor_info(struct hil_proc *proc , int cpu_id) {
-    int idx;
-    for(idx = 0; idx < sizeof(proc_table)/sizeof(struct hil_proc); idx++) {
-        if((cpu_id == HIL_RSVD_CPU_ID) || (proc_table[idx].cpu_id == cpu_id) ) {
-            env_memcpy(proc,&proc_table[idx], sizeof(struct hil_proc));
-            return 0;
-        }
-    }
-    return -1;
+int platform_get_processor_info(struct hil_proc *proc, int cpu_id)
+{
+	int idx;
+	for (idx = 0; idx < sizeof(proc_table) / sizeof(struct hil_proc); idx++) {
+		if ((cpu_id == HIL_RSVD_CPU_ID)
+		    || (proc_table[idx].cpu_id == cpu_id)) {
+			env_memcpy(proc, &proc_table[idx],
+				   sizeof(struct hil_proc));
+			return 0;
+		}
+	}
+	return -1;
 }
 
-int platform_get_processor_for_fw(char *fw_name) {
+int platform_get_processor_for_fw(char *fw_name)
+{
 
-    return 1;
+	return 1;
 }

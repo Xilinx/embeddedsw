@@ -74,41 +74,18 @@
 
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "open_amp.h"
+#include "openamp/open_amp.h"
+#include "openamp/rpmsg_retarget.h"
+#include "xil_printf.h"
+#include "xil_exception.h"
 #include "rsc_table.h"
-#include "baremetal.h"
-#include "rpmsg_retarget.h"
-#include "xil_cache.h"
-#include "xil_mmu.h"
 
-#define SHUTDOWN_MSG	0xEF56A55A
+#include "FreeRTOS.h"
+#include "task.h"
 
-/* Internal functions */
-static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl);
-static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl);
-static void rpmsg_read_cb(struct rpmsg_channel *, void *, int, void *, unsigned long);
-static void shutdown_cb(struct rpmsg_channel *rp_chnl);
-static void communication_task();
-static void rpc_demo();
-
-/* Static variables */
-static struct rpmsg_channel *app_rp_chnl;
-static struct remote_proc *proc = NULL;
-static struct rsc_table_info rsc_info;
-
-#ifdef USE_FREERTOS
-static TaskHandle_t comm_task;
-static TaskHandle_t rpc_dmo;
-#endif
-void *chnl_cb_flag;
-/* Globals */
-
-extern const struct remote_resource_table resources;
-struct XOpenAMPInstPtr OpenAMPInstPtr;
 #define REDEF_O_CREAT 100
 #define REDEF_O_EXCL 200
 #define REDEF_O_RDONLY 0
@@ -119,66 +96,42 @@ struct XOpenAMPInstPtr OpenAMPInstPtr;
 
 #define RPC_CHANNEL_READY_TO_CLOSE "rpc_channel_ready_to_close"
 
-/* Application entry point */
-int main() {
+/* Global variables */
+extern const struct remote_resource_table resources;
+extern int init_system(void);
 
-#ifdef USE_FREERTOS
-	BaseType_t stat;
+/* Local variables */
+static struct rpmsg_channel *app_rp_chnl;
+static struct remote_proc *proc = NULL;
+static struct rsc_table_info rsc_info;
+static TaskHandle_t comm_task;
+static void *chnl_cb_flag;
 
-	/* Create the tasks */
-	stat = xTaskCreate(communication_task, ( const char * ) "HW2",
-				1024, NULL,2,&comm_task);
-	if(stat != pdPASS)
-		return -1;
-
-	stat = xTaskCreate(rpc_demo, ( const char * ) "HW2",
-			2048, NULL, 1, &rpc_dmo );
-	if(stat != pdPASS)
-		return -1;
-
-	/*Create Queues*/
-	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
-	env_create_sync_lock(&chnl_cb_flag,LOCKED);
-
-	/* Start the tasks and timer running. */
-	vTaskStartScheduler();
-#else
-	env_create_sync_lock(&chnl_cb_flag,LOCKED);
-	communication_task();
-#endif
-
-	while(1);
-
+/*-----------------------------------------------------------------------------*
+ *  RPMSG callback used by remoteproc_resource_init()
+ *-----------------------------------------------------------------------------*/
+static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
+                void * priv, unsigned long src)
+{
 }
 
-void communication_task(){
-	int status;
-
-	rsc_info.rsc_tab = (struct resource_table *)&resources;
-	rsc_info.size = sizeof(resources);
-
-	zynqMP_r5_gic_initialize();
-
-	/* Initialize RPMSG framework */
-	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created, rpmsg_channel_deleted,
-			rpmsg_read_cb ,&proc);
-	if (status < 0) {
-		return;
-	}
-	env_enable_interrupt(VRING1_IPI_INTR_VECT,0,0);
-
-#ifdef USE_FREERTOS
-	while (1) {
-		env_acquire_sync_lock(OpenAMPInstPtr.lock);
-		process_communication(OpenAMPInstPtr);
-	}
-#else
-	rpc_demo();
-#endif
-
+static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
+{
+	app_rp_chnl = rp_chnl;
+	env_release_sync_lock(chnl_cb_flag);
 }
 
-void rpc_demo(){
+static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
+{
+}
+
+static void shutdown_cb(struct rpmsg_channel *rp_chnl) {
+	rpmsg_retarget_deinit(rp_chnl);
+	remoteproc_resource_deinit(proc);
+}
+
+static void rpc_demo(void *unused_arg)
+{
 	int fd, bytes_written, bytes_read;
 	char fname[] = "remote.file";
 	char wbuff[50];
@@ -187,15 +140,36 @@ void rpc_demo(){
 	float fdata;
 	int idata;
 	int ret;
+	int status = 0;
 
+	(void)unused_arg;
+
+	/* Initialize HW and SW components/objects */
+	init_system();
+
+	env_create_sync_lock(&chnl_cb_flag, LOCKED);
+
+	/* Resource table needs to be provided to remoteproc_resource_init() */
+	rsc_info.rsc_tab = (struct resource_table *)&resources;
+	rsc_info.size = sizeof(resources);
+
+	/* Initialize OpenAMP framework */
+	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
+								 rpmsg_channel_deleted, rpmsg_read_cb,
+								 &proc);
+	if (RPROC_SUCCESS != status) {
+		/* print error directly on serial port */
+		xil_printf("Error: initializing OpenAMP framework\n");
+		return;
+	}
+
+    /* wait for notification that will happen on channel creation (interrupt) */
 	env_acquire_sync_lock(chnl_cb_flag);
 
+    /* redirect I/Os */
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
-#ifdef USE_FREERTOS
-	printf("\r\nRemote>FreeRTOS Remote Procedure Call (RPC) Demonstration\r\n");
-#else
+
 	printf("\r\nRemote>Baremetal Remote Procedure Call (RPC) Demonstration\r\n");
-#endif
 	printf("\r\nRemote>***************************************************\r\n");
 
 	printf("\r\nRemote>Rpmsg based retargetting to proxy initialized..\r\n");
@@ -262,27 +236,33 @@ void rpc_demo(){
 		}
 	}
 	printf("\r\nRemote> Firmware's rpmsg-openamp-demo-channel going down! \r\n");
+}
 
+/*-----------------------------------------------------------------------------*
+ *  Application entry point
+ *-----------------------------------------------------------------------------*/
+int main(void)
+{
+	BaseType_t stat;
+
+	Xil_ExceptionDisable();
+
+	/* Create the tasks */
+	stat = xTaskCreate(rpc_demo, ( const char * ) "HW2",
+				1024, NULL, 2, &comm_task);
+	if (stat != pdPASS) {
+		xil_printf("Error: cannot create task\n");
+	} else {
+		/* Start running FreeRTOS tasks */
+		vTaskStartScheduler();
+    }
+
+	/* Will not get here, unless a call is made to vTaskEndScheduler() */
 	while (1) {
-		__asm__ ( "\
-			wfi\n\t" \
-		);
+		__asm__("wfi\n\t");
 	}
+
+	/* suppress compilation warnings*/
+	return 0;
 }
 
-static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl) {
-	app_rp_chnl = rp_chnl;
-	env_release_sync_lock(chnl_cb_flag);
-}
-
-static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
-}
-
-static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
-						void * priv, unsigned long src) {
-}
-
-static void shutdown_cb(struct rpmsg_channel *rp_chnl) {
-	rpmsg_retarget_deinit(rp_chnl);
-	remoteproc_resource_deinit(proc);
-}

@@ -2,6 +2,8 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  *
+ * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
@@ -27,40 +29,25 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef PLATFORM_H_
-#define PLATFORM_H_
+/* This file populates resource table for BM remote
+ * for use by the Linux Master */
 
-#include <stdio.h>
-#include "hil.h"
+#include <stddef.h>
+#include "openamp/open_amp.h"
 
-/* IPC Device parameters */
-#define SHM_ADDR                          (void *)0x08008000
-#define SHM_SIZE                          0x00200000
-#define VRING0_IPI_VECT                   15
-#define VRING1_IPI_VECT                   14
-#define MASTER_CPU_ID                     0
-#define REMOTE_CPU_ID                     1
-/* ------------------------- Macros --------------------------*/
-#define ESAL_DP_SLCR_BASE                  0xF8000000
-#define PERIPH_BASE1                        0xF8F00000
-#define GIC_DIST_BASE                      (PERIPH_BASE1 + 0x00001000)
-#define GIC_DIST_SOFTINT                   0xF00
-#define GIC_SFI_TRIG_CPU_MASK              0x00FF0000
-#define GIC_SFI_TRIG_SATT_MASK             0x00008000
-#define GIC_SFI_TRIG_INTID_MASK            0x0000000F
-#define GIC_CPU_ID_BASE                    (1 << 4)
-#define A9_CPU_SLCR_RESET_CTRL             0x244
-#define A9_CPU_SLCR_CLK_STOP               (1 << 4)
-#define A9_CPU_SLCR_RST                    (1 << 0)
+#define NO_RESOURCE_ENTRIES         8
 
-#define unlock_slcr()                       Xil_Out32(ESAL_DP_SLCR_BASE + 0x08, 0xDF0DDF0D)
-#define lock_slcr()                         Xil_Out32(ESAL_DP_SLCR_BASE + 0x04, 0x767B767B)
-
-
-int _enable_interrupt(struct proc_vring *vring_hw);
-void _notify(int cpu_id, struct proc_intr *intr_info);
-int _boot_cpu(int cpu_id, unsigned int load_addr);
-void _shutdown_cpu(int cpu_id);
-void platform_isr(int vect_id, void *data,unsigned int intr_status);
-
-#endif /* PLATFORM_H_ */
+/* Resource table for the given remote */
+struct remote_resource_table {
+    unsigned int version;
+    unsigned int num;
+    unsigned int reserved[2];
+    unsigned int offset[NO_RESOURCE_ENTRIES];
+    /* text carve out entry */
+    struct fw_rsc_carveout ocm_1_cout;
+    struct fw_rsc_carveout ddr_cout;
+   /* rpmsg vdev entry */
+    struct fw_rsc_vdev rpmsg_vdev;
+    struct fw_rsc_vdev_vring rpmsg_vring0;
+    struct fw_rsc_vdev_vring rpmsg_vring1;
+};
