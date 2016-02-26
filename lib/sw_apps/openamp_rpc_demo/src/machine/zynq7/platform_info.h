@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -28,26 +27,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* This file populates resource table for BM remote
- * for use by the Linux Master */
+#ifndef PLATFORM_INFO_H_
+#define PLATFORM_INFO_H_
 
-#include <stddef.h>
-#include "open_amp.h"
+/* Interrupt vectors */
+#define VRING0_IPI_INTR_VECT              15
+#define VRING1_IPI_INTR_VECT              14
 
-#define NO_RESOURCE_ENTRIES         8
-
-/* Resource table for the given remote */
-struct remote_resource_table {
-	unsigned int version;
-	unsigned int num;
-	unsigned int reserved[2];
-	unsigned int offset[NO_RESOURCE_ENTRIES];
-	/* text carveout entry */
-
-	struct fw_rsc_carveout elf_cout;
-
-	/* rpmsg vdev entry */
-	struct fw_rsc_vdev rpmsg_vdev;
-	struct fw_rsc_vdev_vring rpmsg_vring0;
-	struct fw_rsc_vdev_vring rpmsg_vring1;
-};
+#endif /* PLATFORM_INFO_H_ */

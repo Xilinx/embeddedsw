@@ -2,7 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -12,9 +12,9 @@
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- * 3. Neither the name of Mentor Graphics Corporation nor the names of its
- *    contributors may be used to endorse or promote products derived from this
- *    software without specific prior written permission.
+ * 3. Neither the name of the <ORGANIZATION> nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -29,25 +29,34 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* This file populates resource table for BM remote
- * for use by the Linux Master */
+#include "xparameters.h"
+#include "xil_exception.h"
+#include "xscugic.h"
+#include "platform_info.h"
 
-#include <stddef.h>
-#include "open_amp.h"
 
-#define NO_RESOURCE_ENTRIES         8
+#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
-/* Resource table for the given remote */
-struct remote_resource_table {
-    unsigned int version;
-    unsigned int num;
-    unsigned int reserved[2];
-    unsigned int offset[NO_RESOURCE_ENTRIES];
-    /* text carve out entry */
-    struct fw_rsc_carveout ocm_1_cout;
-    struct fw_rsc_carveout ddr_cout;
-   /* rpmsg vdev entry */
-    struct fw_rsc_vdev rpmsg_vdev;
-    struct fw_rsc_vdev_vring rpmsg_vring0;
-    struct fw_rsc_vdev_vring rpmsg_vring1;
-};
+extern void bm_env_isr(int vector);
+extern XScuGic xInterruptController;
+
+/* Complete Interrupt Controller setup, FreeRTOS is doing the pre-init */
+static int app_gic_initialize(void)
+{
+	/* Connect Interrupt ID with ISR */
+	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
+			   (Xil_ExceptionHandler)bm_env_isr,
+			   (void *)VRING1_IPI_INTR_VECT);
+
+	return 0;
+}
+
+/* Main hw machinery initialization entry point, called from main()*/
+/* return 0 on success */
+int init_system(void)
+{
+	/* configure the global interrupt controller */
+	app_gic_initialize();
+
+    return 0;
+}
