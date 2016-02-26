@@ -50,7 +50,8 @@
 *                        Modify Scaler-only validate and setup routines
 *                        Mods to conform to coding style
 *             01/11/16   Write to new Event Log: log status and error events
-*             02/17/16   Pause between axis reset low and aximm reset low
+*             02/17/16   Modify timing and placement of axis and aximm resets
+*             02/24/16   Rename some constants and variables
 * </pre>
 *
 ******************************************************************************/
@@ -507,14 +508,13 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
     InstancePtr->CtxtData.DeintBufAddr = InstancePtr->FrameBufBaseaddr + vdmaBufReq + bufsize;
   }
 
-  /* Reset the hardware and set the flag to indicate the
-     subsystem is ready for configuration setup
-   */
+  /* Reset the hardware */
   XVprocSs_Reset(InstancePtr);
 
   /* Set subsystem to power on default state */
   SetPowerOnDefaultState(InstancePtr);
 
+  /* Set the flag to indicate the subsystem is ready */
   InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
   /* Log the end of initialization */
@@ -2723,5 +2723,5 @@ void XVprocSs_ReportSubsystemConfig(XVprocSs *InstancePtr)
       xil_printf(" -> %s",XVprocSsIpStr[InstancePtr->CtxtData.RtngTable[count++]]);
     }
   }
-  xil_printf("\r\n**************************************************\r\n\r\n");
+  xil_printf("\r\n");
 }

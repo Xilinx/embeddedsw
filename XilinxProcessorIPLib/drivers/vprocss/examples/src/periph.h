@@ -60,8 +60,8 @@
 *
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
-* 0.01  rc   07/07/14 First release
-* 1.00  dmc  12/02/15 Removed UART driver instance
+* 1.00  rc   07/07/14 First release
+* 2.00  dmc  12/02/15 Removed UART driver instance
 *            01/25/16 Support new GPIO instance to reset HLS IP inside the VPSS
 *
 * </pre>
@@ -188,9 +188,7 @@ typedef struct
 
 /************************** Exported APIs ************************************/
 int XPeriph_PowerOnInit(XPeriph *InstancePtr);
-//void XPeriph_ResetHlsIp(XPeriph *InstancePtr); // wip - reset problem
-void XPeriph_DisableVidIn(XPeriph *InstancePtr);
-void XPeriph_EnableVidIn(XPeriph *InstancePtr);
+void XPeriph_ResetHlsIp(XPeriph *InstancePtr);
 void XPeriph_ReportDeviceInfo(XPeriph *InstancePtr);
 void XPeriph_ConfigTpg(XPeriph *InstancePtr);
 void XPeriph_ConfigVtc(XPeriph *InstancePtr,
