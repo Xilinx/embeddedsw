@@ -353,6 +353,7 @@ the XV_csc_Config structure.
 
 v_deinterlacer_v6_0:
 Made changes to integrate layer-1 with layer-2.
+Added WaitForIdle function.
 
 v_hcresampler_v2_0:
 Made changes to integrate layer-1 with layer-2.
@@ -459,6 +460,7 @@ Modifed CSC-only validate and setup routines
 Modified Scaler-only validate and setup routines
 Made changes to conform to coding style.
 Update example software and reset logic in vpss
+Update example software to stop the deint block correctly, when re-configuring a new use case.
 
 wdttb_v4_0:
 Updated Window watchdog support.
