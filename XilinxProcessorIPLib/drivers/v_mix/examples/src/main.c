@@ -76,6 +76,7 @@ XVidC_VideoStream VidStream;
 u32 volatile *gpio_hlsIpReset;
 u32 volatile *gpio_videoLockMonitor;
 
+static int DriverInit(void);
 static int SetupInterrupts(void);
 static void ConfigTpg(XVidC_VideoStream *StreamPtr);
 static void ConfigMixer(XVidC_VideoStream *StreamPtr);
@@ -134,7 +135,7 @@ static int SetupInterrupts(void)
  * @return XST_SUCCESS if init is OK else XST_FAILURE
  *
  *****************************************************************************/
-int driverInit(void)
+static int DriverInit(void)
 {
   int Status;
   XVtc_Config *vtc_Config;
@@ -303,6 +304,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   int layerIndex, Status;
   int ErrorCount = 0;
   XVidC_VideoWindow Win;
+  XVidC_ColorFormat Cfmt;
   u32 baseaddr, Stride;
   XV_Mix_l2 *MixerPtr = &mix;
 
@@ -355,7 +357,12 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
 
 	Win.StartX += layerIndex*50; //offset each layer by 50 pixels in horiz. dir
 	Win.StartY += layerIndex*50; //offset each layer by 50 pixels in vert. dir
-	Stride = Win.Width * 4; //4 Bytes/Pixel for RGB mode
+
+	Cfmt = XVMix_GetLayerColorFormat(MixerPtr, layerIndex);
+    xil_printf("   Layer Color Format: %s\r\n", XVidC_GetColorFormatStr(Cfmt));
+	Stride = ((Cfmt == XVIDC_CSF_YCRCB_422) ? 2: 4); //BytesPerPixel
+	Stride *= Win.Width;
+
     xil_printf("   Set Layer Window (%3d, %3d, %3d, %3d): ",
 		    Win.StartX, Win.StartY, Win.Width, Win.Height);
 	Status = XVMix_SetLayerWindow(MixerPtr, layerIndex, &Win, Stride);
@@ -538,7 +545,6 @@ int main(void)
   XVidC_VideoMode TestModes[NUM_TEST_MODES] =
   { XVIDC_VM_1080_60_P,
     XVIDC_VM_720_60_P
-    //XVIDC_VM_UHD_30_P
   };
 
   init_platform();
@@ -555,12 +561,16 @@ int main(void)
   /* Initialize IRQ */
   Status = SetupInterrupts();
   if (Status == XST_FAILURE) {
-    return XST_FAILURE;
+	xil_printf("ERR:: Interrupt Setup Failed\r\n");
+	xil_printf("ERR:: Test could not be completed\r\n");
+	while(1);
   }
 
-  Status = driverInit();
+  Status = DriverInit();
   if(Status != XST_SUCCESS) {
-	return(XST_FAILURE);
+	xil_printf("ERR:: Driver Init. Failed\r\n");
+	xil_printf("ERR:: Test could not be completed\r\n");
+	while(1);
   }
 
   /* Enable exceptions. */
@@ -576,8 +586,9 @@ int main(void)
 
   /* sanity check */
   if(*gpio_videoLockMonitor) {
-		print("ERR:: Video should not be locked\r\n");
-		return(XST_FAILURE);
+	xil_printf("ERR:: Video should not be locked\r\n");
+	xil_printf("ERR:: Test could not be completed\r\n");
+	while(1);
   }
 
   for(index=0; index<NUM_TEST_MODES; ++index)
