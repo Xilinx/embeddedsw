@@ -114,7 +114,7 @@ proc swapp_generate {} {
     }
 
     # development support option: set this to 1 in order to link files to your development local repo
-    set linkfiles 1
+    set linkfiles 0
     set local_repo_app_src "/ws/embeddedsw_ghe/lib/sw_apps/openamp_rpc_demo/src"
 
     foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
