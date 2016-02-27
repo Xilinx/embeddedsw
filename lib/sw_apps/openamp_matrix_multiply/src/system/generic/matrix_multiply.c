@@ -73,192 +73,65 @@
 *
 **************************************************************************************/
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "open_amp.h"
+#include "xil_printf.h"
 #include "rsc_table.h"
-#include "baremetal.h"
-#include "xil_cache.h"
-#include "xil_mmu.h"
-#include "xreg_cortexr5.h"
-#include "xil_exception.h"
+
+#define SHUTDOWN_MSG	0xEF56A55A
 
 #define	MAX_SIZE		6
 #define NUM_MATRIX      2
-#define SHUTDOWN_MSG    0xEF56A55A
 
 typedef struct _matrix {
 	unsigned int size;
 	unsigned int elements[MAX_SIZE][MAX_SIZE];
 } matrix;
 
-/* Internal functions */
-static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl);
-static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl);
-static void rpmsg_read_cb(struct rpmsg_channel *, void *, int, void *, unsigned long);
-static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r);
-static void communication_task();
-static void matrix_mul();
 
-/* Static variables */
+/* Global variables */
+extern const struct remote_resource_table resources;
+
+/* from helper.c */
+extern int init_system(void);
+
+/* from system_helper.c */
+extern void buffer_create(void);
+extern int buffer_push(void *data, int len);
+extern void buffer_pull(void **data, int *len);
+
+/* Local variables */
 static struct rpmsg_channel *app_rp_chnl;
 static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
-#ifdef USE_FREERTOS
-static queue_data send_data,mat_array;
-#else
-static queue_data *send_data,*mat_array;
-#endif
-static queue_data recv_mat_data, mat_result_array;
-#ifdef USE_FREERTOS
-static TaskHandle_t comm_task;
-static TaskHandle_t mat_mul;
-static QueueSetHandle_t comm_queueset;
-static QueueHandle_t mat_mul_queue;
-#else
-static	pq_queue_t *mat_mul_queue;
-#endif
 static matrix matrix_array[NUM_MATRIX];
 static matrix matrix_result;
 
-/* Globals */
-extern const struct remote_resource_table resources;
-struct XOpenAMPInstPtr OpenAMPInstPtr;
-
-/* Application entry point */
-int main() {
-	Xil_ExceptionDisable();
-
-#ifdef USE_FREERTOS
-	BaseType_t stat;
-	/* Create the tasks */
-	stat = xTaskCreate(communication_task, ( const char * ) "HW2",
-				1024, NULL,2,&comm_task);
-	if(stat != pdPASS)
-		return -1;
-
-	stat = xTaskCreate(matrix_mul, ( const char * ) "HW2",
-			1024, NULL, 1, &mat_mul );
-	if(stat != pdPASS)
-		return -1;
-
-	/*Create Queues*/
-	mat_mul_queue = xQueueCreate( 1, sizeof( queue_data ) );
-	OpenAMPInstPtr.send_queue = xQueueCreate( 1, sizeof( queue_data  ) );
-	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
-	/* Start the tasks and timer running. */
-	vTaskStartScheduler();
-	while(1);
-#else
-	/*Create Queues*/
-	mat_mul_queue = pq_create_queue();
-	OpenAMPInstPtr.send_queue = pq_create_queue();
-	communication_task();
-#endif
-	return 0;
-}
-
-void communication_task(){
-	int status;
-
-	rsc_info.rsc_tab = (struct resource_table *)&resources;
-	rsc_info.size = sizeof(resources);
-
-	zynqMP_r5_gic_initialize();
-
-	/* Initialize RPMSG framework */
-	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created, rpmsg_channel_deleted,
-			rpmsg_read_cb ,&proc);
-	if (status < 0) {
-		return;
-	}
-
-#ifdef USE_FREERTOS
-	comm_queueset = xQueueCreateSet( 2 );
-	xQueueAddToSet( OpenAMPInstPtr.send_queue, comm_queueset);
-	xQueueAddToSet( OpenAMPInstPtr.lock, comm_queueset);
-#else
-	env_create_sync_lock(&OpenAMPInstPtr.lock,LOCKED);
-#endif
-	env_enable_interrupt(VRING1_IPI_INTR_VECT, 0, 0);
-	while (1) {
-#ifdef USE_FREERTOS
-		QueueSetMemberHandle_t xActivatedMember;
-		xActivatedMember = xQueueSelectFromSet( comm_queueset, portMAX_DELAY);
-		if( xActivatedMember == OpenAMPInstPtr.lock ) {
-			env_acquire_sync_lock(OpenAMPInstPtr.lock);
-			process_communication(OpenAMPInstPtr);
-		}
-		if (xActivatedMember == OpenAMPInstPtr.send_queue) {
-			xQueueReceive( OpenAMPInstPtr.send_queue, &send_data, 0 );
-			rpmsg_send(app_rp_chnl, send_data.data, send_data.length);
-		}
-#else
-		env_acquire_sync_lock(OpenAMPInstPtr.lock);
-		process_communication(OpenAMPInstPtr);
-		matrix_mul();
-		if(pq_qlength(OpenAMPInstPtr.send_queue) > 0) {
-				send_data = pq_dequeue(OpenAMPInstPtr.send_queue);
-				/* Send the result of matrix multiplication back to master. */
-				rpmsg_send(app_rp_chnl, send_data->data, send_data->length);
-		}
-#endif
+/*-----------------------------------------------------------------------------*
+ *  RPMSG callback used by remoteproc_resource_init()
+ *-----------------------------------------------------------------------------*/
+static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
+                void * priv, unsigned long src)
+{
+	if (!buffer_push(data, len)) {
+		xil_printf("warning: cannot save data\n");
 	}
 }
 
-void matrix_mul(){
-#ifdef USE_FREERTOS
-	for( ;; ){
-		if( xQueueReceive(mat_mul_queue, &mat_array, portMAX_DELAY )){
-			env_memcpy(matrix_array, mat_array.data, mat_array.length);
-			Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
-			mat_result_array.length = sizeof(matrix);
-			mat_result_array.data = &matrix_result;
-			xQueueSend( OpenAMPInstPtr.send_queue, &mat_result_array, portMAX_DELAY  );
-		}
-	}
-#else
-	if(pq_qlength(mat_mul_queue) > 0){
-			mat_array = pq_dequeue(mat_mul_queue);
-			env_memcpy(matrix_array, mat_array->data, mat_array->length);
-			/* Process received data and multiple matrices. */
-			Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
-			mat_result_array.length = sizeof(matrix);
-			mat_result_array.data = &matrix_result;
-			pq_enqueue(OpenAMPInstPtr.send_queue, &mat_result_array);
-		}
-
-#endif
+static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
+{
+    app_rp_chnl = rp_chnl;
+    rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
+                    RPMSG_ADDR_ANY);
 }
 
-static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl) {
-	app_rp_chnl = rp_chnl;
-	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
-				RPMSG_ADDR_ANY);
-}
-
-static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl) {
+static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
+{
 	rpmsg_destroy_ept(rp_ept);
 }
 
-static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
-					void * priv, unsigned long src) {
-	if ((*(int *) data) == SHUTDOWN_MSG) {
-		remoteproc_resource_deinit(proc);
-	}else{
-		recv_mat_data.data = data;
-		recv_mat_data.length = len;
-#ifdef USE_FREERTOS
-		xQueueSend(mat_mul_queue , &recv_mat_data, portMAX_DELAY  );
-#else
-		pq_enqueue(mat_mul_queue, &recv_mat_data);
-#endif
-	}
-}
-
+/*-----------------------------------------------------------------------------*
+ *  Application specific
+ *-----------------------------------------------------------------------------*/
 static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r) {
 	int i, j, k;
 
@@ -272,4 +145,69 @@ static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r) {
 			}
 		}
 	}
+}
+
+static void mat_mul_demo(void)
+{
+	while (1) {
+		void *data;
+		int len;
+
+		/* wait for data... */
+		buffer_pull(&data, &len);
+
+		/* Process incoming message/data */
+		if (*(int *)data == SHUTDOWN_MSG) {
+			/* disable interrupts and free resources */
+			remoteproc_resource_deinit(proc);
+
+			break;
+		} else {
+			env_memcpy(matrix_array, data, len);
+
+			/* Process received data and multiple matrices. */
+			Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
+
+			/* Send result back */
+			if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, &matrix_result, sizeof(matrix))) {
+				xil_printf("Error: rpmsg_send failed\n");
+			}
+		}
+	}
+}
+
+/*-----------------------------------------------------------------------------*
+ *  Application entry point
+ *-----------------------------------------------------------------------------*/
+int main(void)
+{
+	int status = 0;
+
+	/* Create buffer to send data between RPMSG callback and processing task */
+	buffer_create();
+
+	/* Initialize HW and SW components/objects */
+	init_system();
+
+	/* Resource table needs to be provided to remoteproc_resource_init() */
+	rsc_info.rsc_tab = (struct resource_table *)&resources;
+	rsc_info.size = sizeof(resources);
+
+	/* Initialize OpenAMP framework */
+	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
+                            rpmsg_channel_deleted, rpmsg_read_cb,
+							&proc);
+	if (RPROC_SUCCESS != status) {
+		/* print directly on serial port */
+		xil_printf("Error: initializing OpenAMP framework\n");
+	} else {
+		mat_mul_demo();
+    }
+
+	while (1) {
+		__asm__("wfi\n\t");
+	}
+
+	/* suppress compilation warnings*/
+	return 0;
 }
