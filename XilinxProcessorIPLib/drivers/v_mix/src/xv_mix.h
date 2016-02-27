@@ -54,7 +54,7 @@ typedef struct {
 }XVMix_AlphaFlag;
 
 /**
-* This typedef contains Up Sample feature enable flag per memory layer
+* This typedef contains Scaling feature enable flag per memory layer
 */
 typedef struct {
   u8  Layer1ScalingEn;  /**< Layer scaling support indicator flag  */
@@ -67,7 +67,7 @@ typedef struct {
 }XVMix_ScaleFlag;
 
 /**
-* This typedef contains Layer Interface Type per layer
+* This typedef contains Interface Type per layer
 */
 typedef struct {
   u8  Layer1IntfType;  /**< Layer Interface type (Memory/Stream)  */
@@ -78,6 +78,19 @@ typedef struct {
   u8  Layer6IntfType;  /**< Layer Interface type (Memory/Stream)  */
   u8  Layer7IntfType;  /**< Layer Interface type (Memory/Stream)  */
 }XVMix_LayerIntfType;
+
+/**
+* This typedef contains color format per memory layer
+*/
+typedef struct {
+  u8  Layer1ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer2ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer3ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer4ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer5ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer6ColorFmt;  /**< Layer Video Color Format  */
+  u8  Layer7ColorFmt;  /**< Layer Video Color Format  */
+}XVMix_LayerColorFormat;
 
 /**
 * This typedef contains maximum width per memory layer
@@ -123,6 +136,10 @@ typedef struct {
   union {                /**< Layer Interface Type */
 	  XVMix_LayerIntfType LyrIntfType;
 	  u8 LayerIntrfType[XV_MIX_MAX_MEMORY_LAYERS];
+  };
+  union {                /**< Layer Interface Type */
+	  XVMix_LayerColorFormat LyrColorFmt;
+	  u8 LayerColorFmt[XV_MIX_MAX_MEMORY_LAYERS];
   };
 } XV_mix_Config;
 #endif

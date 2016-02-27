@@ -62,7 +62,7 @@
 * The device driver enables higher layer software (e.g., an application) to
 * communicate with the mixer core.
 *
-* Driver is built with layere architecture
+* Driver is built with layered architecture
 * 	- Layer 1 provides API's to peek/poke registers at HW level.
 * 	- Layer 2 provides API's that abstract sub-core functionality, providing an
 *     easy to use feature interface
@@ -120,6 +120,7 @@
 * 1.00  rco   10/29/15   Initial Release
 *             12/14/15   Added interrupt handler
 *             02/12/16   Added Stride and memory Alignement requirements
+*             02/25/16   Replace GetColorFromat function with a macro
 * </pre>
 *
 ******************************************************************************/
@@ -195,6 +196,7 @@ typedef enum {
   XVMIX_ERR_WIN_STRIDE_MISALIGNED = 0x11L,
   XVMIX_ERR_MEM_ADDR_MISALIGNED   = 0x12L,
   XVMIX_ERR_LAYER_INTF_TYPE       = 0x13L,
+  XVMIX_ERR_DISABLED_IN_HW        = 0x20L,
   XVMIX_ERR_LAST
 }XVMix_ErrorCodes;
 
@@ -284,6 +286,24 @@ typedef struct {
 *
 ******************************************************************************/
 #define XVMix_GetBackgndColor(InstancePtr)        ((InstancePtr)->BkgndColor)
+
+
+/*****************************************************************************/
+/**
+*
+* This macro returns the video format for the specified memory layer
+*
+* @param    InstancePtr is a pointer to the core instance.
+* @param    LayerId is the layer index for which information is requested
+*
+* @return   Video Format
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVMix_GetLayerColorFormat(InstancePtr, LayerId)  \
+		              ((InstancePtr)->Mix.Config.LayerColorFmt[LayerId-1])
+
 
 /*****************************************************************************/
 /**
@@ -375,9 +395,6 @@ int XVMix_IsLayerEnabled(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 void XVMix_SetBackgndColor(XV_Mix_l2 *InstancePtr,
                            XVMix_BackgroundId ColorId,
                            XVidC_ColorDepth  bpc);
-int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
-                              XVMix_LayerId LayerId,
-                              XVidC_ColorFormat *Cfmt);
 int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
                          XVMix_LayerId LayerId,
                          XVidC_VideoWindow *Win,

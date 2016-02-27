@@ -46,6 +46,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   10/29/15   Initial Release
 *             02/10/16   Updated to support IP changes
+*             02/25/16   Replace GetColorFromat function with a macro
 * </pre>
 *
 ******************************************************************************/
@@ -486,7 +487,7 @@ void XVMix_SetBackgndColor(XV_Mix_l2 *InstancePtr,
 *           Equation to compute stride is as follows
 *              Stride = (Window_Width * (YUV422 ? 2 : 4))
 *
-* @return XST_SUCCESS or XST_FAILURE
+* @return XST_SUCCESS if command is successful else error code with reason
 *
 * @note   Applicable only for Layer1-7 and Logo Layer
 *
@@ -527,56 +528,62 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
             InstancePtr->Layer[LayerId].Win = *Win;
             Status = XST_SUCCESS;
         }
+    } else {
+       Status = XVMIX_ERR_DISABLED_IN_HW;
     }
     break;
 
     default: //Layer1-Layer7
-    if((LayerId < XVMix_GetNumLayers(InstancePtr)) &&
-       (Win->Width < MixPtr->Config.LayerMaxWidth[LayerId-1])) {
+    if(LayerId < XVMix_GetNumLayers(InstancePtr)) {
 
-	/* Check layer interface is Stream or Memory */
-	if(XVMix_IsLayerInterfaceStream(InstancePtr, LayerId)) {
-	  WinValid = FALSE;
-	  Status = XVMIX_ERR_LAYER_INTF_TYPE;
-	} else {
+      if(Win->Width < MixPtr->Config.LayerMaxWidth[LayerId-1]) {
+
+	    /* Check layer interface is Stream or Memory */
+	    if(XVMix_IsLayerInterfaceStream(InstancePtr, LayerId)) {
+	      WinValid = FALSE;
+	      Status = XVMIX_ERR_LAYER_INTF_TYPE;
+	    } else {
 	      /* Check if stride is aligned to aximm width (2*PPC*32-bits) */
 	      Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
 	      if((StrideInBytes % Align) != 0) {
-		     WinValid = FALSE;
-		     Status   = XVMIX_ERR_WIN_STRIDE_MISALIGNED;
+	        WinValid = FALSE;
+	        Status   = XVMIX_ERR_WIN_STRIDE_MISALIGNED;
 	      } else {
-		 WinValid = TRUE;
+	        WinValid = TRUE;
 	      }
-	}
+	    }
 
-	if(WinValid) {
+	    if(WinValid) {
 
-            u32 BaseStartXReg, BaseStartYReg;
-            u32 BaseWidthReg, BaseHeightReg;
-            u32 BaseStrideReg;
-            u32 Offset;
+          u32 BaseStartXReg, BaseStartYReg;
+          u32 BaseWidthReg, BaseHeightReg;
+          u32 BaseStrideReg;
+          u32 Offset;
 
-            BaseStartXReg = XV_MIX_CTRL_ADDR_HWREG_LAYERSTARTX_0_DATA;
-            BaseStartYReg = XV_MIX_CTRL_ADDR_HWREG_LAYERSTARTY_0_DATA;
-            BaseWidthReg  = XV_MIX_CTRL_ADDR_HWREG_LAYERWIDTH_0_DATA;
-            BaseHeightReg = XV_MIX_CTRL_ADDR_HWREG_LAYERHEIGHT_0_DATA;
-            BaseStrideReg = XV_MIX_CTRL_ADDR_HWREG_LAYERSTRIDE_0_DATA;
-            Offset = LayerId*XVMIX_REG_OFFSET;
+          BaseStartXReg = XV_MIX_CTRL_ADDR_HWREG_LAYERSTARTX_0_DATA;
+          BaseStartYReg = XV_MIX_CTRL_ADDR_HWREG_LAYERSTARTY_0_DATA;
+          BaseWidthReg  = XV_MIX_CTRL_ADDR_HWREG_LAYERWIDTH_0_DATA;
+          BaseHeightReg = XV_MIX_CTRL_ADDR_HWREG_LAYERHEIGHT_0_DATA;
+          BaseStrideReg = XV_MIX_CTRL_ADDR_HWREG_LAYERSTRIDE_0_DATA;
+          Offset = LayerId*XVMIX_REG_OFFSET;
 
-            XV_mix_WriteReg(MixPtr->Config.BaseAddress,
-                            (BaseStartXReg+Offset), Win->StartX);
-            XV_mix_WriteReg(MixPtr->Config.BaseAddress,
-                            (BaseStartYReg+Offset), Win->StartY);
-            XV_mix_WriteReg(MixPtr->Config.BaseAddress,
-                            (BaseWidthReg+Offset),  Win->Width);
-            XV_mix_WriteReg(MixPtr->Config.BaseAddress,
-                            (BaseHeightReg+Offset), Win->Height);
-            XV_mix_WriteReg(MixPtr->Config.BaseAddress,
-                            (BaseStrideReg+Offset), StrideInBytes);
+          XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+                          (BaseStartXReg+Offset), Win->StartX);
+          XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+                          (BaseStartYReg+Offset), Win->StartY);
+          XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+                          (BaseWidthReg+Offset),  Win->Width);
+          XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+                          (BaseHeightReg+Offset), Win->Height);
+          XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+                          (BaseStrideReg+Offset), StrideInBytes);
 
-            InstancePtr->Layer[LayerId].Win = *Win;
-            Status = XST_SUCCESS;
+          InstancePtr->Layer[LayerId].Win = *Win;
+          Status = XST_SUCCESS;
         }
+      }
+    } else {
+      Status = XVMIX_ERR_DISABLED_IN_HW;
     }
     break;
   }
@@ -592,7 +599,7 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
 * @param  LayerId is the layer for which window coordinates are to be set
 * @param  Win is the pointer to return window coordinates
 *
-* @return XST_SUCCESS or XST_FAILURE
+* @return XST_SUCCESS if command is successful else error code with reason
 *
 * @note   Applicable only for Layer1-7 and Logo Layer
 *
@@ -621,6 +628,8 @@ int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
         Win->Height = XV_mix_Get_HwReg_logoHeight(MixPtr);
 
         Status = XST_SUCCESS;
+    } else {
+	Status = XVMIX_ERR_DISABLED_IN_HW;
     }
     break;
 
@@ -647,6 +656,8 @@ int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
                                      (BaseHeightReg+Offset));
 
         Status = XST_SUCCESS;
+    } else {
+	Status = XVMIX_ERR_DISABLED_IN_HW;
     }
     break;
   }
@@ -664,7 +675,7 @@ int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
 * @param  StartX is the new X position
 * @param  StartY is the new Y position
 *
-* @return XST_SUCCESS or XST_FAILURE
+* @return XST_SUCCESS if command is successful else error code with reason
 *
 * @note   Applicable only for Layer1-7 and Logo Layer
 *
@@ -678,6 +689,7 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
   XVidC_VideoWindow CurrWin;
   XVMix_Scalefactor Scale;
   int Status = XST_FAILURE;
+  int WinStatus;
 
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid((LayerId > XVMIX_LAYER_MASTER) &&
@@ -685,7 +697,11 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid((StartX % InstancePtr->Mix.Config.PixPerClk) == 0);
 
   /* Get current window */
-  XVMix_GetLayerWindow(InstancePtr, LayerId, &CurrWin);
+  WinStatus = XVMix_GetLayerWindow(InstancePtr, LayerId, &CurrWin);
+  if(WinStatus != XST_SUCCESS) {
+	 return(WinStatus);
+  }
+
   /* Update Start Position */
   CurrWin.StartX = StartX;
   CurrWin.StartY = StartY;
@@ -744,7 +760,7 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
 * @param  LayerId is the layer to be updated
 * @param  Scale is the scale factor
 *
-* @return XST_SUCCESS or XST_FAILURE
+* @return XST_SUCCESS if command is successful else error code with reason
 *
 * @note   Applicable only for Layer1-7 and Logo Layer
 *
@@ -756,6 +772,7 @@ int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
   XV_mix *MixPtr;
   XVidC_VideoWindow CurrWin;
   int Status = XST_FAILURE;
+  int WinStatus;
 
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid((LayerId > XVMIX_LAYER_MASTER) &&
@@ -764,7 +781,11 @@ int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
                     (Scale <= XVMIX_SCALE_FACTOR_4X));
 
   /* Validate if scaling will cause the layer window to go out of scope */
-  XVMix_GetLayerWindow(InstancePtr, LayerId, &CurrWin);
+  WinStatus = XVMix_GetLayerWindow(InstancePtr, LayerId, &CurrWin);
+  if(WinStatus != XST_SUCCESS) {
+	 return(WinStatus);
+  }
+
   if(!IsWindowValid(&InstancePtr->Stream, &CurrWin, Scale)) {
 	  return(XVMIX_ERR_LAYER_WINDOW_INVALID);
   }
@@ -791,7 +812,7 @@ int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
 
         Status = XST_SUCCESS;
     }
-        break;
+    break;
   }
   return(Status);
 }
@@ -803,7 +824,7 @@ int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
 * @param  InstancePtr is a pointer to core instance to be worked upon
 * @param  LayerId is the layer for which information is requested
 *
-* @return If layer enabled, current set value, else 0
+* @return If layer enabled, current set value, else ~0
 *
 * @note   Applicable only for Layer1-7 and Logo Layer
 *
@@ -811,7 +832,7 @@ int XVMix_SetLayerScaleFactor(XV_Mix_l2 *InstancePtr,
 int XVMix_GetLayerScaleFactor(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 {
   XV_mix *MixPtr;
-  u32 ReadVal = XVMIX_SCALE_FACTOR_1X;
+  u32 ReadVal = ~0;
 
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid((LayerId > XVMIX_LAYER_MASTER) &&
@@ -848,7 +869,7 @@ int XVMix_GetLayerScaleFactor(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 * @param  LayerId is the layer to be updated
 * @param  Alpha is the new value
 *
-* @return XST_SUCCESS or XST_FAILURE
+* @return XST_SUCCESS if command is successful else error code with reason
 *
 * @note   Applicable only for Layer1-7 and Logo Layer
 *
@@ -873,6 +894,8 @@ int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
     if(XVMix_IsLogoEnabled(InstancePtr)) {
         XV_mix_Set_HwReg_logoAlpha(MixPtr, Alpha);
         Status = XST_SUCCESS;
+    } else {
+	Status = XVMIX_ERR_DISABLED_IN_HW;
     }
     break;
 
@@ -885,8 +908,10 @@ int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
         XV_mix_WriteReg(MixPtr->Config.BaseAddress,
                         (BaseReg+(LayerId*XVMIX_REG_OFFSET)), Alpha);
         Status = XST_SUCCESS;
+    } else {
+	Status = XVMIX_ERR_DISABLED_IN_HW;
     }
-        break;
+    break;
   }
   return(Status);
 }
@@ -898,7 +923,7 @@ int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
 * @param  InstancePtr is a pointer to core instance to be worked upon
 * @param  LayerId is the layer for which information is requested
 *
-* @return If layer enabled, current set value, else 0
+* @return If layer enabled, current set value, else ~0
 *
 * @note   Applicable only for Layer1-7 and Logo Layer
 *
@@ -935,7 +960,7 @@ int XVMix_GetLayerAlpha(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
   return(ReadVal);
 }
 
-#if 0 //Reserved for future use
+#if 0 //Reserved for future use - In IP v1.0 this is build time option
 /*****************************************************************************/
 /**
 * This function configures the color format of the specified layer
@@ -980,7 +1005,7 @@ int XVMix_SetLayerColorFormat(XV_Mix_l2 *InstancePtr,
   }
   return(Status);
 }
-#endif
+
 
 /*****************************************************************************/
 /**
@@ -1025,6 +1050,7 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 
   return(Status);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1349,94 +1375,94 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
         xil_printf("\r\n\r\n----->Master Layer Status<----\r\n");
         xil_printf("State: %s\r\n", Status[IsEnabled]);
         if(IsEnabled) {
-		u32 width, height;
+		  u32 width, height;
 
-            XVMix_GetLayerColorFormat(InstancePtr, LayerId, &ColFormat);
-            width  = XV_mix_Get_HwReg_width(&InstancePtr->Mix);
-            height = XV_mix_Get_HwReg_height(&InstancePtr->Mix);
-            xil_printf("Color Format: %s\r\n\r\n",
-                       XVidC_GetColorFormatStr(ColFormat));
-            xil_printf("Resolution: %d x %d", width, height);
-            xil_printf("Stream Info->\r\n");
-            XVidC_ReportStreamInfo(&InstancePtr->Stream);
+		  ColFormat = XVMix_GetLayerColorFormat(InstancePtr, LayerId);
+          width  = XV_mix_Get_HwReg_width(&InstancePtr->Mix);
+          height = XV_mix_Get_HwReg_height(&InstancePtr->Mix);
+          xil_printf("Color Format: %s\r\n\r\n",
+                     XVidC_GetColorFormatStr(ColFormat));
+          xil_printf("Resolution: %d x %d", width, height);
+          xil_printf("Stream Info->\r\n");
+          XVidC_ReportStreamInfo(&InstancePtr->Stream);
         }
-	break;
+	    break;
 
     case XVMIX_LAYER_LOGO:
 	    xil_printf("\r\n\r\n----->Layer LOGO Status<----\r\n");
         xil_printf("State: %s\r\n", Status[IsEnabled]);
         if(IsEnabled) {
 
-            ReadVal = XVMix_GetLayerAlpha(InstancePtr, LayerId);
-            xil_printf("Alpha: %d\r\n", ReadVal);
-            ReadVal = XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
-            xil_printf("Scale: %s\r\n\r\n", ScaleFactor[ReadVal]);
-            xil_printf("Window Data: \r\n");
-            XVMix_GetLayerWindow(InstancePtr, LayerId, &Win);
-            xil_printf("   Start X    = %d\r\n", Win.StartX);
-            xil_printf("   Start Y    = %d\r\n", Win.StartY);
-            xil_printf("   Win Width  = %d\r\n", Win.Width);
-            xil_printf("   Win Height = %d\r\n", Win.Height);
+          ReadVal = XVMix_GetLayerAlpha(InstancePtr, LayerId);
+          xil_printf("Alpha: %d\r\n", ReadVal);
+          ReadVal = XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
+          xil_printf("Scale: %s\r\n\r\n", ScaleFactor[ReadVal]);
+          xil_printf("Window Data: \r\n");
+          XVMix_GetLayerWindow(InstancePtr, LayerId, &Win);
+          xil_printf("   Start X    = %d\r\n", Win.StartX);
+          xil_printf("   Start Y    = %d\r\n", Win.StartY);
+          xil_printf("   Win Width  = %d\r\n", Win.Width);
+          xil_printf("   Win Height = %d\r\n", Win.Height);
 
-		IsEnabled = XVMix_IsLogoColorKeyEnabled(InstancePtr);
-		if(IsEnabled) {
-		  XVMix_LogoColorKey Data;
+		  IsEnabled = XVMix_IsLogoColorKeyEnabled(InstancePtr);
+		  if(IsEnabled) {
+		    XVMix_LogoColorKey Data;
 
-		  XVMix_GetLogoColorKey(InstancePtr, &Data);
-              xil_printf("\r\nColor Key Data: \r\n");
-              xil_printf("     Min    Max\r\n");
-              xil_printf("    -----  -----\r\n");
-              xil_printf("  R: %3d    %3d\r\n", Data.RGB_Min[0],Data.RGB_Max[0]);
-              xil_printf("  G: %3d    %3d\r\n", Data.RGB_Min[1],Data.RGB_Max[1]);
-              xil_printf("  B: %3d    %3d\r\n", Data.RGB_Min[2],Data.RGB_Max[2]);
-		} else {
-                xil_printf("Color Key: %s\r\n", Status[IsEnabled]);
-		}
+		    XVMix_GetLogoColorKey(InstancePtr, &Data);
+            xil_printf("\r\nColor Key Data: \r\n");
+            xil_printf("     Min    Max\r\n");
+            xil_printf("    -----  -----\r\n");
+            xil_printf("  R: %3d    %3d\r\n", Data.RGB_Min[0],Data.RGB_Max[0]);
+            xil_printf("  G: %3d    %3d\r\n", Data.RGB_Min[1],Data.RGB_Max[1]);
+            xil_printf("  B: %3d    %3d\r\n", Data.RGB_Min[2],Data.RGB_Max[2]);
+		  } else {
+            xil_printf("Color Key: %s\r\n", Status[IsEnabled]);
+		  }
         }
-	break;
+	    break;
 
     default: //Layer1-7
-	xil_printf("\r\n\r\n----->Layer %d Status<----\r\n", LayerId);
+	    xil_printf("\r\n\r\n----->Layer %d Status<----\r\n", LayerId);
         xil_printf("State: %s\r\n", Status[IsEnabled]);
         if(IsEnabled) {
-		u32 Stride, Reg, Offset;
+		  u32 Stride, Reg, Offset;
 
-            xil_printf("Addr : 0x%x\r\n",
-                           XVMix_GetLayerBufferAddr(InstancePtr, LayerId));
+          xil_printf("Addr : 0x%x\r\n",
+                       XVMix_GetLayerBufferAddr(InstancePtr, LayerId));
 
-            IsEnabled = XVMix_IsAlphaEnabled(InstancePtr, LayerId);
-            if (IsEnabled) {
-                ReadVal = XVMix_GetLayerAlpha(InstancePtr, LayerId);
-                xil_printf("Alpha: %d\r\n", ReadVal);
-            } else {
-                xil_printf("Alpha: %s\r\n", Status[IsEnabled]);
-            }
+          IsEnabled = XVMix_IsAlphaEnabled(InstancePtr, LayerId);
+          if (IsEnabled) {
+              ReadVal = XVMix_GetLayerAlpha(InstancePtr, LayerId);
+              xil_printf("Alpha: %d\r\n", ReadVal);
+          } else {
+              xil_printf("Alpha: %s\r\n", Status[IsEnabled]);
+          }
 
-            IsEnabled = XVMix_IsScalingEnabled(InstancePtr, LayerId);
-            if (IsEnabled) {
-                ReadVal = XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
-                xil_printf("Scale: %s\r\n", ScaleFactor[ReadVal]);
-            } else {
-                xil_printf("Scale: %s\r\n", Status[IsEnabled]);
-            }
+          IsEnabled = XVMix_IsScalingEnabled(InstancePtr, LayerId);
+          if (IsEnabled) {
+              ReadVal = XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
+              xil_printf("Scale: %s\r\n", ScaleFactor[ReadVal]);
+          } else {
+              xil_printf("Scale: %s\r\n", Status[IsEnabled]);
+          }
 
-            XVMix_GetLayerColorFormat(InstancePtr, LayerId, &ColFormat);
-            xil_printf("Color Format: %s\r\n\r\n",
-                            XVidC_GetColorFormatStr(ColFormat));
+		  ColFormat = XVMix_GetLayerColorFormat(InstancePtr, LayerId);
+          xil_printf("Color Format: %s\r\n\r\n",
+                          XVidC_GetColorFormatStr(ColFormat));
 
-            xil_printf("Window Data: \r\n");
-            Reg = XV_MIX_CTRL_ADDR_HWREG_LAYERSTRIDE_0_DATA;
-            Offset = LayerId*XVMIX_REG_OFFSET;
-            Stride = XV_mix_ReadReg(MixPtr->Config.BaseAddress,
-                                    (Reg+Offset));
+          xil_printf("Window Data: \r\n");
+          Reg = XV_MIX_CTRL_ADDR_HWREG_LAYERSTRIDE_0_DATA;
+          Offset = LayerId*XVMIX_REG_OFFSET;
+          Stride = XV_mix_ReadReg(MixPtr->Config.BaseAddress,
+                                  (Reg+Offset));
 
-            XVMix_GetLayerWindow(InstancePtr, LayerId, &Win);
-            xil_printf("   Start X    = %d\r\n", Win.StartX);
-            xil_printf("   Start Y    = %d\r\n", Win.StartY);
-            xil_printf("   Win Width  = %d\r\n", Win.Width);
-            xil_printf("   Win Height = %d\r\n", Win.Height);
-            xil_printf("   Win Stride = %d\r\n", Stride);
+          XVMix_GetLayerWindow(InstancePtr, LayerId, &Win);
+          xil_printf("   Start X    = %d\r\n", Win.StartX);
+          xil_printf("   Start Y    = %d\r\n", Win.StartY);
+          xil_printf("   Win Width  = %d\r\n", Win.Width);
+          xil_printf("   Win Height = %d\r\n", Win.Height);
+          xil_printf("   Win Stride = %d\r\n", Stride);
         } //Layer State
-	break;
+	    break;
   }
 }
