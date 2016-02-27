@@ -644,18 +644,27 @@ for A53 32 bit.
 lwip_echo_server:
 Made changes not to disable D-cache for A53.
 
+xilopenamp_v1.0:
+Deprecate xilopenamp_v1.0 now replaced by openamp_v1.0
+
+openamp_v1.0:
+New openamp library in sync with open-source project
+
 openamp_echo_test:
 Made changes not to call vTaskEndScheduler (FreeRTOS R5 based application). Removed the timer being
 created for this purpose.
 Removed the assert print which was caused because of calling endscheduler API for cortex-r5 freertos bsp
+Reworked code to use new openamp library
 
 openamp_matrix_multiply:
 Made changes not to call vTaskEndScheduler (FreeRTOS R5 based application). Removed the timer being
 created for this purpose.
+Reworked code to use new openamp library
 
 openamp_rpc_demo:
 Made changes not to call vTaskEndScheduler (FreeRTOS R5 based application). Removed the timer being
 created for this purpose.
+Reworked code to use new openamp library
 
 xilkernel_thread_demo:
 Updated xilkernel thread demo tcl (to check for IP_NAME not for instance name).
