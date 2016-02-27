@@ -33,9 +33,10 @@
  *  Synchronization is included to block-wait for data
  *-----------------------------------------------------------------------------*/
 static struct rb_str {
-	#define RB_SZ 1
-	#define RB_DATA_SZ (sizeof(int) + 512) /* TODO: Adjust with RPMSG max size */
-	unsigned char buffer[RB_DATA_SZ][RB_SZ];
+	#define RB_SZ 2
+	#define RB_DATA_SZ 512  /* TODO: Adjust to payload size */
+	#define RB_BUF_DATA_SZ (sizeof(int) + RB_DATA_SZ)
+	unsigned char buffer[RB_BUF_DATA_SZ][RB_SZ];
 	int head;
 	int tail;
 	void *sync_lock;
@@ -55,7 +56,9 @@ int buffer_push(void *data, int len)
 	/* full ? */
 	if (((rb.head + 1) % RB_SZ) == rb.tail) return 0;
 
+	if (len > RB_DATA_SZ) len = RB_DATA_SZ;
 	env_memcpy(&rb.buffer[sizeof(int)][rb.head], data, len);
+
 	*(int *)&rb.buffer[0][rb.head] = len;
 	rb.head = (rb.head + 1) % RB_SZ;
 

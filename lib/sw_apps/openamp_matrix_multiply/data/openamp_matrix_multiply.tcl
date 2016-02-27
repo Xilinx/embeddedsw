@@ -31,112 +31,115 @@
 #******************************************************************************/
 
 proc swapp_get_name {} {
-    return "OpenAMP matrix multiplication Demo";
+    return "OpenAMP matrix multiplication Demo"
 }
 
 proc swapp_get_description {} {
-    return " OpenAMP matrix multiplication application";
+    return " OpenAMP matrix multiplication application "
 }
 
-proc check_standalone_os {} {
-    set oslist [hsi::get_os];
+proc check_oamp_supported_os {} {
+    set oslist [hsi::get_os]
 
     if { [llength $oslist] != 1 } {
-        return 0;
+        return 0
     }
-    set os [lindex $oslist 0];
+    set os [lindex $oslist 0]
 
-    if { ( $os != "standalone" ) && ( $os != "freertos823_xilinx" ) } {
-        error "This application is supported only on the Standalone Board Support Package and freertos823_xilinx.";
+    if { ( $os != "standalone" ) && ( [string match -nocase "freertos*" "$os"] == 0 ) } {
+        error "This application is supported only on the Standalone and FreeRTOS Board Support Packages"
     }
 }
 
 proc swapp_is_supported_sw {} {
-    # make sure we are using standalone OS
-    check_standalone_os;
+    # make sure we are using a supported OS
+    check_oamp_supported_os
 
-	# make sure xilffs is available
-    set librarylist [hsi::get_libs -filter "NAME==xilopenamp"];
+    # make sure xilffs is available
+    set librarylist [hsi::get_libs -filter "NAME==openamp"]
 
-	if { [llength $librarylist] == 0 } {
-        error "This application requires xilopenamp library in the Board Support Package.";
+    if { [llength $librarylist] == 0 } {
+        error "This application requires openamp library in the Board Support Package."
     } elseif { [llength $librarylist] > 1} {
-        error "Multiple xilopenamp libraries present in the Board Support Package."
+        error "Multiple openamp libraries present in the Board Support Package."
     }
 }
 
 proc swapp_is_supported_hw {} {
-
     # check processor type
-    set proc_instance [hsi::get_sw_processor];
+    set proc_instance [hsi::get_sw_processor]
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
-
-    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
 
     if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) } {
-                error "This application is supported only for CortexR5 and Cortex-A9 processors.";
+        error "This application is supported only for Cortex-R5 and Cortex-A9 processors."
     }
-    return 1;
+
+    return 1
 }
 
-
 proc get_stdout {} {
-    return;
+    return
 }
 
 proc check_stdout_hw {} {
-    return;
+    return
 }
 
 proc swapp_generate {} {
-	set oslist [get_os];
-	if { [llength $oslist] != 1 } {
-		return 0;
-	}
-	set proc_instance [hsi::get_sw_processor];
-	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+    set oslist [get_os]
+    if { [llength $oslist] != 1 } {
+        return 0
+    }
+    set os [lindex $oslist 0]
 
-	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+    set proc_instance [hsi::get_sw_processor]
+    set hw_processor [common::get_property HW_INSTANCE $proc_instance]
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
 
-	if { $proc_type == "psu_cortexr5" } {
-		set srcdir "ARM_R5/"
-		foreach entry [glob -nocomplain [file join $srcdir *]] {
-			file copy -force $entry "."
-		}
-		file delete -force "ARM_R5"
-		file delete -force "ARM_A9"
-	} elseif { $proc_type == "ps7_cortexa9" } {
-		set srcdir "ARM_A9/"
-		foreach entry [glob -nocomplain [file join $srcdir *]] {
-			file copy -force $entry "."
-		}
-		file delete -force "ARM_R5"
-		file delete -force "ARM_A9"
-	}
+    if { $os == "standalone" } {
+        set osdir "generic"
+    } elseif { [string match -nocase "freertos*" "$os"] > 0 } {
+        set osdir "freertos"
+    } else {
+        error "Invalid OS: $os"
+    }
 
-	set os [lindex $oslist 0];
-	if { $os != "standalone" } {
-		set ld_file "lscript.ld"
-		set ld_file_new "lscript_freertos.ld"
-		file rename -force $ld_file_new $ld_file
-		file delete -force $ld_file_new
-	} else {
-		set ld_file "lscript_freertos.ld"
-		file delete -force $ld_file
-	}
-	return;
+    if { $proc_type == "psu_cortexr5" } {
+        set procdir "zynqmp_r5"
+    } elseif { $proc_type == "ps7_cortexa9" } {
+        set procdir "zynq7"
+    } else {
+        error "Invalid processor type: $proc_type"
+    }
+
+    # development support option: set this to 1 in order to link files to your development local repo
+    set linkfiles 1
+    set local_repo_app_src "/ws/embeddedsw_ghe/lib/sw_apps/openamp_matrix_multiply/src"
+
+    foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
+        if { $linkfiles } {
+            file link -symbolic [file tail $entry] [file join $local_repo_app_src $entry]
+        } else {
+            file copy -force $entry "."
+        }
+    }
+
+    file delete -force "machine"
+    file delete -force "system"
+
+    return
 }
 
 proc swapp_get_linker_constraints {} {
-
-    # don't generate a linker script. fsbl has its own linker script
-    return "lscript no";
+    # don't generate a linker script, we provide one
+    return "lscript no"
 }
 
 proc swapp_get_supported_processors {} {
-    return "psu_cortexr5 ps7_cortexa9";
+    return "psu_cortexr5 ps7_cortexa9"
 }
 
 proc swapp_get_supported_os {} {
-    return "freertos823_xilinx standalone";
+    return "freertos823_xilinx standalone"
 }

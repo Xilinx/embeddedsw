@@ -77,7 +77,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "openamp/open_amp.h"
+//#include "openamp/open_amp.h"
 #include "openamp/rpmsg_retarget.h"
 #include "xil_printf.h"
 #include "rsc_table.h"

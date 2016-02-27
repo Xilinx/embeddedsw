@@ -1,4 +1,7 @@
 /*
+ * Copyright (c) 2014, Mentor Graphics Corporation
+ * All rights reserved.
+ *
  * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,53 +28,65 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#include "openamp/env.h"
+#include "xscugic.h"
+#include "platform_info.h"
 
-/*-----------------------------------------------------------------------------*
- *  Circular buffer to send data between RPMSG callback and receiving task
- *  The memory is pre-allocated
- *  Synchronization is included to block-wait for data
- *-----------------------------------------------------------------------------*/
-static struct rb_str {
-	#define RB_SZ 1
-	#define RB_DATA_SZ (sizeof(int) + 512) /* TODO: Adjust with RPMSG max size */
-	unsigned char buffer[RB_DATA_SZ][RB_SZ];
-	int head;
-	int tail;
-	void *sync_lock;
-} rb;
 
-/* create buffer */
-void buffer_create(void)
+#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
+
+extern void bm_env_isr(int vector);
+static XScuGic xInterruptController;
+
+/* Interrupt Controller setup */
+static int app_gic_initialize(void)
 {
-	rb.tail=rb.head=0;
-	env_create_sync_lock(&rb.sync_lock, LOCKED);
+	u32 Status;
+	XScuGic_Config *IntcConfig;	/* The configuration parameters of the interrupt controller */
+
+	Xil_ExceptionDisable();
+
+	/*
+	 * Initialize the interrupt controller driver
+	 */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(&xInterruptController, IntcConfig,
+				       IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Register the interrupt handler to the hardware interrupt handling
+	 * logic in the ARM processor.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
+			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+			&xInterruptController);
+
+	Xil_ExceptionEnable();
+
+	/* Connect Interrupt ID with ISR */
+	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
+			   (Xil_ExceptionHandler)bm_env_isr,
+			   (void *)VRING1_IPI_INTR_VECT);
+
+	XScuGic_Connect(&xInterruptController, VRING0_IPI_INTR_VECT,
+				   (Xil_ExceptionHandler)bm_env_isr,
+				   (void *)VRING0_IPI_INTR_VECT);
+
+	return 0;
 }
 
-/* copy data to buffer */
-/* return 0 if buffer is full and data were not saved */
-int buffer_push(void *data, int len)
+/* Main hw machinery initialization entry point, called from main()*/
+/* return 0 on success */
+int init_system(void)
 {
-	/* full ? */
-	if (((rb.head + 1) % RB_SZ) == rb.tail) return 0;
+	/* configure the global interrupt controller */
+	app_gic_initialize();
 
-	env_memcpy(&rb.buffer[sizeof(int)][rb.head], data, len);
-	*(int *)&rb.buffer[0][rb.head] = len;
-	rb.head = (rb.head + 1) % RB_SZ;
-
-	/* notify possibly waiting receiver */
-	env_release_sync_lock(rb.sync_lock);
-
-	return 1;
-}
-
-/* wait for data and return data pointer when available */
-void buffer_pull(void **data, int *len)
-{
-	/* empty ? then block-wait for notification of new data*/
-	while (rb.head == rb.tail) env_acquire_sync_lock(rb.sync_lock);
-
-	*data = (void *)&rb.buffer[sizeof(int)][rb.tail];
-	*len  = *(int *)&rb.buffer[0][rb.tail];
-	rb.tail = (rb.tail + 1) % RB_SZ;
+	return 0;
 }

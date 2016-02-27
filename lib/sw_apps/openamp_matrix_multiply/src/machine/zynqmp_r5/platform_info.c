@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
+ * Copyright (c) 2015 Xilinx, Inc.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,20 +40,34 @@
  *
  **************************************************************************/
 
-#include "platform.h"
+#include "openamp/hil.h"
+#include "platform_info.h"
 
+/* IPC Device parameters */
+#define SHM_ADDR                          (void *)0x3ED08000
+#define SHM_SIZE                          0x00200000
+#define IPI_BASEADDR                      0xff310000
+#define IPI_CHN_BITMASK                   0x01000000 /* IPI channel bit mask APU<->RPU0 */
+#define MASTER_CPU_ID                     0
+#define REMOTE_CPU_ID                     1
+
+/* -- FIX ME: ipi info is to be defined -- */
+struct ipi_info {
+	uint32_t ipi_base_addr;
+	uint32_t ipi_chn_mask;
+};
 /* Reference implementation that show cases platform_get_cpu_info and
  platform_get_for_firmware API implementation for Bare metal environment */
 
 extern struct hil_platform_ops proc_ops;
 
-
+static struct ipi_info chn_ipi_info = { IPI_BASEADDR, IPI_CHN_BITMASK };
 
 /**
- * This array provdes defnition of CPU nodes for master and remote
- * context. It contains two nodes beacuse the same file is intended
+ * This array provides definition of CPU nodes for master and remote
+ * context. It contains two nodes because the same file is intended
  * to use with both master and remote configurations. On zynq platform
- * only one node defintion is required for master/remote as there
+ * only one node definition is required for master/remote as there
  * are only two cores present in the platform.
  *
  * Only platform specific info is populated here. Rest of information
@@ -65,7 +80,7 @@ extern struct hil_platform_ops proc_ops;
  * -Channel info.
  *
  * Although the channel info is not platform specific information
- * but it is conveneient to keep it in HIL so that user can easily
+ * but it is convenient to keep it in HIL so that user can easily
  * provide it without modifying the generic part.
  *
  * It is good idea to define hil_proc structure with platform
@@ -83,12 +98,13 @@ extern struct hil_platform_ops proc_ops;
  *
  * 2)Second node is required by the master and it defines remote CPU ID,
  *   shared memory and interrupts info. In general no channel info is required by the
- *   Master node, however in baremetal master and linux remote case the linux
+ *   Master node, however in bare-metal master and linux remote case the linux
  *   rpmsg bus driver behaves as master so the rpmsg driver on linux side still needs
- *   channel info. This information is not required by the masters for baremetal
+ *   channel info. This information is not required by the masters for bare-metal
  *   remotes.
  *
  */
+
 struct hil_proc proc_table []=
 {
 
@@ -118,13 +134,13 @@ struct hil_proc proc_table []=
                       */
                      NULL, NULL, 0, 0,
                      {
-                         VRING0_IPI_VECT,0x1006,1,NULL
+                         VRING0_IPI_INTR_VECT,0x1006,1,(void *)(&chn_ipi_info),
                      }
                 },
                 {
                     NULL, NULL, 0, 0,
                     {
-                        VRING1_IPI_VECT,0x1006,1,NULL
+                        VRING1_IPI_INTR_VECT,0x1006,1,(void *)(&chn_ipi_info),
                     }
                 }
             }
@@ -167,13 +183,13 @@ struct hil_proc proc_table []=
                      */
                     NULL, NULL, 0, 0,
                     {
-                        VRING0_IPI_VECT,0x1006,1
+                        VRING0_IPI_INTR_VECT,0x1006,1,(void *)(&chn_ipi_info)
                     }
                 },
                 {
                     NULL, NULL, 0, 0,
                     {
-                        VRING1_IPI_VECT,0x1006,1
+                        VRING1_IPI_INTR_VECT,0x1006,1,(void *)(&chn_ipi_info)
                     }
                 }
             }
@@ -197,31 +213,4 @@ struct hil_proc proc_table []=
     }
 };
 
-/**
- * platform_get_processor_info
- *
- * Copies the target info from the user defined data structures to
- * HIL proc  data structure.In case of remote contexts this function
- * is called with the reserved CPU ID HIL_RSVD_CPU_ID, because for
- * remotes there is only one master.
- *
- * @param proc   - HIL proc to populate
- * @param cpu_id - CPU ID
- *
- * return  - status of execution
- */
-int platform_get_processor_info(struct hil_proc *proc , int cpu_id) {
-    int idx;
-    for(idx = 0; idx < sizeof(proc_table)/sizeof(struct hil_proc); idx++) {
-        if((cpu_id == HIL_RSVD_CPU_ID) || (proc_table[idx].cpu_id == cpu_id) ) {
-            env_memcpy(proc,&proc_table[idx], sizeof(struct hil_proc));
-            return 0;
-        }
-    }
-    return -1;
-}
-
-int platform_get_processor_for_fw(char *fw_name) {
-
-    return 1;
-}
+const int proc_table_size = sizeof (proc_table)/sizeof(struct hil_proc);
