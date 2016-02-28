@@ -275,6 +275,9 @@ Modified xscugic_hw.h file to correct the interrupt target processor mask value 
 cpu interface 2 i.e. XSCUGIC_SPI_CPU2_MASK
 Modified DistributorInit function for CPU while executing in AMP
 Modified tcl to support PL interrupts for ZynqMP Soc
+Modified the DistributorInit in xscigic.c. The change ensures that for Zynq AMP case
+the GIC distributor is left unchanged under the assumption that Linux master will
+initialize it. The change fixes the CR#937243.
 
 sdps_v2_7:
 Made changes to considered the slot type befoe checking CD/WP pins.
