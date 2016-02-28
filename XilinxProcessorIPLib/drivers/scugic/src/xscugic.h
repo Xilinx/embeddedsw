@@ -136,6 +136,14 @@
 * 2.0   adk  12/10/13 Updated as per the New Tcl API's
 * 2.1   adk  25/04/14 Fixed the CR:789373 changes are made in the driver tcl file.
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.2   asa  02/29/16 Modified DistributorInit function for Zynq AMP case. The
+*			  distributor is left uninitialized for Zynq AMP. It is assumed
+*             that the distributor will be initialized by Linux master. However
+*             for CortexR5 case, the earlier code is left unchanged where the
+*             the interrupt processor target registers in the distributor is
+*             initialized with the corresponding CPU ID on which the application
+*             built over the scugic driver runs.
+*             These changes fix CR#937243.
 *
 * </pre>
 *
