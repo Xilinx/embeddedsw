@@ -76,6 +76,15 @@
 *			  target CPU mapping
 * 3.02	pkp	 11/09/15 Modified DistributorInit function for AMP case to add
 *					  the current cpu to interrupt processor targets registers
+* 3.2   asa  02/29/16 Modified DistributorInit function for Zynq AMP case. The
+*			  distributor is left uninitialized for Zynq AMP. It is assumed
+*             that the distributor will be initialized by Linux master. However
+*             for CortexR5 case, the earlier code is left unchanged where the
+*             the interrupt processor target registers in the distributor is
+*             initialized with the corresponding CPU ID on which the application
+*             built over the scugic driver runs.
+*             These changes fix CR#937243.
+*
 *
 * </pre>
 *
@@ -124,8 +133,9 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	u32 Int_Id;
 	u32 LocalCpuID = CpuID;
 
- #if USE_AMP==1
+#if USE_AMP==1
 	#warning "Building GIC for AMP"
+#ifdef ARMR5
     u32 RegValue;
 
 	/*
@@ -142,8 +152,9 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 				     XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 				     RegValue);
 	}
+#endif
 	return;
- #endif
+#endif
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
