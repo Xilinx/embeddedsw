@@ -97,14 +97,6 @@
 *		6)	<project name>.elf  will be generated. This will be executed
 *			out of OCM.
 *
-*		SVF File Generation using <output>.elf :
-*
-*		1)	Use the below xmd to create the svf file from the above generated
-*			elf file. Please note that path to the elf file should be given in opt file.
-*
-*						“xmd –tcl efuse.tcl –opt efuse.opt”
-*
-*		2)	Output of the above command will be <O/p file name>.svf.
 *
 *		For Ultrascale
 *		-----------------------------------------------------------------------
