@@ -62,6 +62,7 @@
 *		      Updated example to use the macros that have been changed
 *		      in the driver to remove _m from the name of the macro.
 * 3.01a ktn  07/08/10 Updated example to support Little Endian MicroBlaze.
+* 4.2  adk   29/02/16 Updated example to support Zynq and ZynqMP.
 *
 * </pre>
 *
@@ -70,9 +71,14 @@
 /***************************** Include Files *********************************/
 
 #include "xemaclite_example.h"
-#include "xintc.h"
 #include "xil_exception.h"
 #include "xil_io.h"
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -82,8 +88,13 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define INTC_EMACLITE_ID	XPAR_INTC_0_EMACLITE_0_VEC_ID
+#else
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define INTC_EMACLITE_ID	XPAR_FABRIC_AXI_ETHERNETLITE_0_IP2INTC_IRPT_INTR
+#endif
 #endif
 
 /*
@@ -91,30 +102,36 @@
  */
 #define EMACLITE_TEST_FRAME_SIZE	1000
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define INTC_HANDLER	XIntc_InterruptHandler
+#else
+#define INTC		XScuGic
+#define INTC_HANDLER	XScuGic_InterruptHandler
+#endif /* XPAR_INTC_0_DEVICE_ID */
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
 
-int EmacLiteIntrExample(XIntc *IntcInstancePtr,
+int EmacLiteIntrExample(INTC *IntcInstancePtr,
 			XEmacLite *EmacLiteInstPtr,
 			u16 EmacLiteDeviceId,
 			u16 EmacLiteIntrId);
-
 static int EmacLiteSendFrame(XEmacLite *EmacLiteInstPtr,
 					 u32 PayloadSize);
 static int EmacLiteRecvFrame(u32 PayloadSize);
 static void EmacLiteRecvHandler(void *CallBackRef);
 static void EmacLiteSendHandler(void *CallBackRef);
-static void EmacLiteDisableIntrSystem(XIntc *IntcInstancePtr,
+static void EmacLiteDisableIntrSystem(INTC *IntcInstancePtr,
 						 u16 EmacLiteIntrId);
-static int EmacLiteSetupIntrSystem(XIntc *IntcInstancePtr,
+static int EmacLiteSetupIntrSystem(INTC *IntcInstancePtr,
 			 XEmacLite *EmacLiteInstPtr, u16 EmacLiteIntrId);
 
 /************************** Variable Definitions *****************************/
 
-XIntc IntcInstance;		/* Instance of the Interrupt Controller */
+INTC IntcInstance;		/* Instance of the Interrupt Controller */
 
 /*
  * Set up valid local and remote MAC addresses. This loop back test uses the
@@ -188,7 +205,7 @@ int main()
 * @note		None.
 *
 ******************************************************************************/
-int EmacLiteIntrExample(XIntc *IntcInstancePtr,
+int EmacLiteIntrExample(INTC *IntcInstancePtr,
 			XEmacLite *EmacLiteInstPtr,
 			u16 EmacLiteDeviceId,
 			u16 EmacLiteIntrId)
@@ -568,11 +585,12 @@ static void EmacLiteSendHandler(void *CallBackRef)
 * @note		None.
 *
 ******************************************************************************/
-static int EmacLiteSetupIntrSystem(XIntc *IntcInstancePtr,
+static int EmacLiteSetupIntrSystem(INTC *IntcInstancePtr,
 			 XEmacLite *EmacLiteInstPtr, u16 EmacLiteIntrId)
 {
 	int Status;
 
+#ifdef XPAR_INTC_0_DEVICE_ID
 #ifndef TESTAPP_GEN
 	/*
 	 * Initialize the interrupt controller driver so that it is ready to
@@ -612,6 +630,46 @@ static int EmacLiteSetupIntrSystem(XIntc *IntcInstancePtr,
 	 * Enable the interrupt for the EmacLite in the Interrupt controller.
 	 */
 	XIntc_Enable(IntcInstancePtr, EmacLiteIntrId);
+#else /* SCUGIC */
+
+#ifndef TESTAPP_GEN
+	XScuGic_Config *IntcConfig;
+
+	/*
+	 * Initialize the interrupt controller driver so that it is ready to
+	 * use.
+	 */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
+					IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
+
+	XScuGic_SetPriorityTriggerType(IntcInstancePtr, EmacLiteIntrId,
+					0xA0, 0x3);
+
+	/*
+	 * Connect the interrupt handler that will be called when an
+	 * interrupt occurs for the device.
+	 */
+	Status = XScuGic_Connect(IntcInstancePtr, EmacLiteIntrId,
+				 (Xil_ExceptionHandler)XEmacLite_InterruptHandler,
+				 EmacLiteInstPtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/*
+	 * Enable the interrupt for the Can device.
+	 */
+	XScuGic_Enable(IntcInstancePtr, EmacLiteIntrId);
+#endif
 
 #ifndef TESTAPP_GEN
 
@@ -624,7 +682,7 @@ static int EmacLiteSetupIntrSystem(XIntc *IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XIntc_InterruptHandler,
+				(Xil_ExceptionHandler) INTC_HANDLER,
 				IntcInstancePtr);
 
 	/*
@@ -654,12 +712,17 @@ static int EmacLiteSetupIntrSystem(XIntc *IntcInstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static void EmacLiteDisableIntrSystem(XIntc *IntcInstancePtr,
+static void EmacLiteDisableIntrSystem(INTC *IntcInstancePtr,
 							 u16 EmacLiteIntrId)
 {
 	/*
 	 * Disconnect and disable the interrupts for the EmacLite device.
 	 */
+#ifdef XPAR_INTC_0_DEVICE_ID
 	XIntc_Disconnect(IntcInstancePtr, EmacLiteIntrId);
+#else
+	XScuGic_Disable(IntcInstancePtr, EmacLiteIntrId);
+	XScuGic_Disconnect(IntcInstancePtr, EmacLiteIntrId);
+#endif
 
 }

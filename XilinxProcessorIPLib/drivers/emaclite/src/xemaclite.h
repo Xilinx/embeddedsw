@@ -200,6 +200,8 @@
 *                     Changed the prototype of XEmacLite_CfgInitialize API.
 * 4.2   adk  11/18/15 Fix compilation errors due to conflicting data types
 *		      CR#917930
+* 4.2	adk  29/02/16 Updated interrupt example to support Zynq and ZynqMP
+*		      CR#938244.
 *
 * </pre>
 *
