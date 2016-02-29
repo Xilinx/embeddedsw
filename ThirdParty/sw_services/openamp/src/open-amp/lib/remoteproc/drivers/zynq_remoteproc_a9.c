@@ -40,8 +40,7 @@
  **************************************************************************/
 
 #include "openamp/hil.h"
-#include "machine.h"
-#include "xscugic.h"
+#include "openamp/machine/machine_common.h"
 
 /* ------------------------- Macros --------------------------*/
 #define ESAL_DP_SLCR_BASE                  0xF8000000
@@ -91,7 +90,6 @@ struct hil_platform_ops proc_ops = {
 	.shutdown_cpu     = _shutdown_cpu,
 };
 
-
 static int _enable_interrupt(struct proc_vring *vring_hw)
 {
 
@@ -113,7 +111,7 @@ static void _notify(int cpu_id, struct proc_intr *intr_info)
 	mask = ((1 << (GIC_CPU_ID_BASE + cpu_id)) | (intr_info->vect_id))
 	    & (GIC_SFI_TRIG_CPU_MASK | GIC_SFI_TRIG_INTID_MASK);
 
-	Xil_Out32((GIC_DIST_BASE + GIC_DIST_SOFTINT), mask);
+	HIL_MEM_WRITE32((GIC_DIST_BASE + GIC_DIST_SOFTINT), mask);
 }
 
 extern char zynq_trampoline;
@@ -166,10 +164,10 @@ static void _shutdown_cpu(int cpu_id)
 
 	unlock_slcr();
 
-	reg = Xil_In32(ESAL_DP_SLCR_BASE + A9_CPU_SLCR_RESET_CTRL);
+	reg = HIL_MEM_READ32(ESAL_DP_SLCR_BASE + A9_CPU_SLCR_RESET_CTRL);
 	/* Assert reset signal and stop clock to halt the core */
 	reg |= (A9_CPU_SLCR_CLK_STOP | A9_CPU_SLCR_RST) << cpu_id;
-	Xil_Out32(ESAL_DP_SLCR_BASE + A9_CPU_SLCR_RESET_CTRL, reg);
+	HIL_MEM_WRITE32(ESAL_DP_SLCR_BASE + A9_CPU_SLCR_RESET_CTRL, reg);
 
 	lock_slcr();
 }

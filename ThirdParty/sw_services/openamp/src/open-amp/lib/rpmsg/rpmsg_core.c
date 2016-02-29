@@ -252,11 +252,10 @@ struct rpmsg_endpoint *_create_endpoint(struct remote_device *rdev,
 			status = RPMSG_ERR_DEV_ADDR;
 		}
 	} else {
-		int i_addr = rpmsg_get_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE);
-		if (i_addr < 0) {
+		addr = rpmsg_get_address(rdev->bitmap, RPMSG_ADDR_BMP_SIZE);
+		if ((int)addr < 0) {
 			status = RPMSG_ERR_DEV_ADDR;
 		}
-		addr = i_addr;
 	}
 
 	/* Do cleanup in case of error and return */

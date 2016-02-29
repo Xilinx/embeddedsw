@@ -173,6 +173,7 @@ int virtqueue_add_buffer(struct virtqueue *vq, struct llist *buffer,
 		} else {
 			VQ_RING_ASSERT_VALID_IDX(vq, idx);
 		}
+
 		/*
 		 * Update vring_avail control block fields so that other
 		 * side can get buffer using it.
@@ -669,9 +670,8 @@ static int vq_ring_enable_interrupt(struct virtqueue *vq, uint16_t ndesc)
 void virtqueue_notification(struct virtqueue *vq)
 {
 
-	if (vq->callback != VQ_NULL) {
+	if (vq->callback != VQ_NULL)
 		vq->callback(vq);
-	}
 }
 
 /**
