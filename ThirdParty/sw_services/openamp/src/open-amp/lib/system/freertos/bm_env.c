@@ -36,7 +36,7 @@
  *
  * DESCRIPTION
  *
- *       This file is Bare Metal Implementation of env layer for OpenAMP.
+ *       This file is the FreeRTOS Implementation of env layer for OpenAMP.
  *
  *
  **************************************************************************/
@@ -68,13 +68,13 @@ struct isr_info {
 	void (*isr)(int vector, void *data);
 };
 struct isr_info isr_table[ISR_COUNT];
-int Intr_Count = 0;
-unsigned int xInsideISR;
+static int intr_count = 0;
+static unsigned int inside_isr;
 
 /* Flag to show status of global interrupts. 0 for disabled and 1 for enabled. This
  * is added to prevent recursive global interrupts enablement/disablement.
  */
-int Intr_Enable_Flag = 1;
+static int intr_enable_flag = 1;
 
 /**
  * env_init
@@ -271,7 +271,7 @@ void env_delete_mutex(void *lock)
 void env_lock_mutex(void *lock)
 {
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-	if( xInsideISR != pdFALSE ) { /* define it as a global var and mark in ISR */
+	if( inside_isr != pdFALSE ) { /* define it as a global var and mark in ISR */
 		xSemaphoreTakeFromISR(lock, &xHigherPriorityTaskWoken );
 		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 	}
@@ -287,7 +287,7 @@ void env_lock_mutex(void *lock)
 void env_unlock_mutex(void *lock)
 {
     portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-	if( xInsideISR != pdFALSE ) {
+	if( inside_isr != pdFALSE ) {
 		xSemaphoreGiveFromISR( lock, &xHigherPriorityTaskWoken );
 
 			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
@@ -342,7 +342,7 @@ void env_delete_sync_lock(void *lock)
 void env_acquire_sync_lock(void *lock)
 {
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-	if( xInsideISR != pdFALSE ) {
+	if( inside_isr != pdFALSE ) {
 		if( xSemaphoreTakeFromISR( lock, &xHigherPriorityTaskWoken ) == pdTRUE )
 				portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 	} else {
@@ -359,7 +359,7 @@ void env_acquire_sync_lock(void *lock)
 void env_release_sync_lock(void *lock)
 {
 	portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
-		if( xInsideISR != pdFALSE ) {
+		if( inside_isr != pdFALSE ) {
 			xSemaphoreGiveFromISR(lock, &xHigherPriorityTaskWoken );
 
 				portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
@@ -393,9 +393,9 @@ void env_sleep_msec(int num_msec)
  */
 void env_disable_interrupts()
 {
-	if (Intr_Enable_Flag == 1) {
+	if (intr_enable_flag == 1) {
 		disable_global_interrupts();
-		Intr_Enable_Flag = 0;
+		intr_enable_flag = 0;
 	}
 }
 
@@ -407,9 +407,9 @@ void env_disable_interrupts()
  */
 void env_restore_interrupts()
 {
-	if (Intr_Enable_Flag == 0) {
+	if (intr_enable_flag == 0) {
 		restore_global_interrupts();
-		Intr_Enable_Flag = 1;
+		intr_enable_flag = 1;
 	}
 }
 
@@ -430,13 +430,13 @@ void env_register_isr_shared(int vector, void *data,
 {
 	env_disable_interrupts();
 
-	if (Intr_Count < ISR_COUNT) {
+	if (intr_count < ISR_COUNT) {
 		/* Save interrupt data */
-		isr_table[Intr_Count].vector = vector;
-		isr_table[Intr_Count].data = data;
-		isr_table[Intr_Count].name = name;
-		isr_table[Intr_Count].shared = shared;
-		isr_table[Intr_Count++].isr = isr;
+		isr_table[intr_count].vector = vector;
+		isr_table[intr_count].data = data;
+		isr_table[intr_count].name = name;
+		isr_table[intr_count].shared = shared;
+		isr_table[intr_count++].isr = isr;
 	}
 
 	env_restore_interrupts();
@@ -465,7 +465,7 @@ void env_update_isr(int vector, void *data,
 
 	env_disable_interrupts();
 
-	for (idx = 0; idx < Intr_Count; idx++) {
+	for (idx = 0; idx < ISR_COUNT; idx++) {
 		info = &isr_table[idx];
 		if (info->vector == vector) {
 			if (name && strcmp(info->name, name)) {
@@ -498,7 +498,7 @@ void env_enable_interrupt(unsigned int vector, unsigned int priority,
 
 	env_disable_interrupts();
 
-	for (idx = 0; idx < Intr_Count; idx++) {
+	for (idx = 0; idx < ISR_COUNT; idx++) {
 		if (isr_table[idx].vector == (int)vector) {
 			isr_table[idx].priority = priority;
 			isr_table[idx].type = polarity;
@@ -588,10 +588,10 @@ void bm_env_isr(int vector)
 	int idx;
 	struct isr_info *info;
 
-	xInsideISR=pdTRUE;
+	inside_isr=pdTRUE;
 
 	env_disable_interrupt(vector);
-	for (idx = 0; idx < Intr_Count; idx++) {
+	for (idx = 0; idx < ISR_COUNT; idx++) {
 		info = &isr_table[idx];
 		if (info->vector == vector) {
 			info->isr(info->vector, info->data);
@@ -602,5 +602,7 @@ void bm_env_isr(int vector)
 		}
 	}
 
-	xInsideISR=pdFALSE ;
+	inside_isr=pdFALSE ;
 }
+
+
