@@ -66,6 +66,7 @@
 *			Sequencer Mode as Safe mode instead of Single
 *			channel mode before configuring Sequencer registers.
 *			CR #703729
+* 7.2   adk    29/02/16 Updated example to support Zynq and ZynqMP.
 * </pre>
 *
 *****************************************************************************/
@@ -75,9 +76,13 @@
 #include "xsysmon.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#include "xintc.h"
 #include "xil_exception.h"
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 
 /************************** Constant Definitions ****************************/
 
@@ -87,18 +92,31 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
+#ifdef XPAR_INTC_0_DEVICE_ID
 #define SYSMON_DEVICE_ID	XPAR_SYSMON_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
 #define INTR_ID			XPAR_INTC_0_SYSMON_0_VEC_ID
+#else
+#define SYSMON_DEVICE_ID	XPAR_SYSMON_0_DEVICE_ID
+#define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+#define INTR_ID			XPAR_FABRIC_SYSTEM_MANAGEMENT_WIZ_0_IP2INTC_IRPT_INTR
+#endif
 #endif
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define INTC_HANDLER	XIntc_InterruptHandler
+#else
+#define INTC		XScuGic
+#define INTC_HANDLER	XScuGic_InterruptHandler
+#endif
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Function Prototypes *****************************/
 
-int SysMonIntrExample(XIntc* IntcInstancePtr,
+int SysMonIntrExample(INTC* IntcInstancePtr,
 			XSysMon* SysMonInstPtr,
 			u16 SysMonDeviceId,
 			u16 SysMonIntrId,
@@ -106,7 +124,7 @@ int SysMonIntrExample(XIntc* IntcInstancePtr,
 
 static void SysMonInterruptHandler(void *CallBackRef);
 
-static int SysMonSetupInterruptSystem(XIntc* IntcInstancePtr,
+static int SysMonSetupInterruptSystem(INTC* IntcInstancePtr,
 				      XSysMon *SysMonPtr,
 				      u16 IntrId );
 
@@ -114,7 +132,7 @@ static int SysMonSetupInterruptSystem(XIntc* IntcInstancePtr,
 
 #ifndef TESTAPP_GEN
 static XSysMon SysMonInst; 	  /* System Monitor driver instance */
-static XIntc InterruptController; /* Instance of the XIntc driver. */
+static INTC InterruptController; /* Instance of the XIntc driver. */
 #endif
 
 /*
@@ -199,7 +217,7 @@ int main(void)
 * @note		This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
-int SysMonIntrExample(XIntc* IntcInstancePtr, XSysMon* SysMonInstPtr,
+int SysMonIntrExample(INTC* IntcInstancePtr, XSysMon* SysMonInstPtr,
 			u16 SysMonDeviceId, u16 SysMonIntrId, int *Temp)
 {
 	int Status;
@@ -508,12 +526,13 @@ static void SysMonInterruptHandler(void *CallBackRef)
 *
 *
 ****************************************************************************/
-static int SysMonSetupInterruptSystem(XIntc* IntcInstancePtr,
+static int SysMonSetupInterruptSystem(INTC* IntcInstancePtr,
 				      XSysMon *SysMonPtr,
 				      u16 IntrId )
 {
 	int Status;
 
+#ifdef XPAR_INTC_0_DEVICE_ID
 #ifndef TESTAPP_GEN
 	/*
 	 * Initialize the interrupt controller driver so that it's ready to use.
@@ -552,6 +571,46 @@ static int SysMonSetupInterruptSystem(XIntc* IntcInstancePtr,
 	 * Enable the interrupt for the System Monitor/ADC device.
 	 */
 	XIntc_Enable(IntcInstancePtr, IntrId);
+#else /* SCUGIC */
+
+#ifndef TESTAPP_GEN
+	XScuGic_Config *IntcConfig;
+
+	/*
+	 * Initialize the interrupt controller driver so that it is ready to
+	 * use.
+	 */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
+					IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+#endif
+
+	XScuGic_SetPriorityTriggerType(IntcInstancePtr, IntrId,
+					0xA0, 0x3);
+
+	/*
+	 * Connect the interrupt handler that will be called when an
+	 * interrupt occurs for the device.
+	 */
+	Status = XScuGic_Connect(IntcInstancePtr, IntrId,
+				 (Xil_ExceptionHandler)SysMonInterruptHandler,
+				 SysMonPtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/*
+	 * Enable the interrupt for the Sysmon device.
+	 */
+	XScuGic_Enable(IntcInstancePtr, IntrId);
+#endif
 
 #ifndef TESTAPP_GEN
 
@@ -564,7 +623,7 @@ static int SysMonSetupInterruptSystem(XIntc* IntcInstancePtr,
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler) XIntc_InterruptHandler,
+				(Xil_ExceptionHandler) INTC_HANDLER,
 				IntcInstancePtr);
 	/*
 	 * Enable exceptions.

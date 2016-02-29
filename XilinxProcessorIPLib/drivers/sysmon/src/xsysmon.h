@@ -206,6 +206,8 @@
 * 					  for Ultrascale CR#859369
 * 7.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XSysMon_CfgInitialize API.
+* 7.2  adk  29/02/16 Updated interrupt example to support Zynq and ZynqMP
+*                    CR#938326.
 * </pre>
 *
 *****************************************************************************/
