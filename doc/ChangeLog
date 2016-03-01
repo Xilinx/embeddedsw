@@ -559,6 +559,8 @@ Modified the boot code for cortex-r5 in cortexr5/gcc/boot.S to initialize the fl
 banked registers for various modes and enabled the cache ECC check before enabling the fault log for
 lock step mode and updates the cortex-r5 bsp makefile at cortexr5/gcc/Makefile to support the floating
 point registers initialization boot code to fix the CR#937490
+Updated the exit function in cortexr5/gcc/_exit.c to enable the debug logic in case of lock-step mode
+when fault log is enabled to fix the CR#938281
 
 xilskey_v5_0:
 Modified JtagWrite_Ultrascale.
