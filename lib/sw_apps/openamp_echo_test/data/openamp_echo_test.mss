@@ -34,7 +34,7 @@ PARAMETER VERSION = 2.2.0
 
 
 BEGIN OS
- PARAMETER OS_NAME = standalone
+ PARAMETER OS_NAME = (standalone, freertos823_xilinx)
  PARAMETER STDIN =  *
  PARAMETER STDOUT = *
 END
