@@ -63,6 +63,7 @@
 * 2.7   sk     11/24/15 Considered the slot type befoe checking CD/WP pins.
 *       sk     12/10/15 Added support for MMC cards.
 *       sk     02/16/16 Corrected the Tuning logic.
+*       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
 * </pre>
 *
 ******************************************************************************/
@@ -652,11 +653,6 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			goto RETURN_PATH;
 		}
 
-		if (ExtCsd[EXT_CSD_BUS_WIDTH_BYTE] != EXT_CSD_BUS_WIDTH_4_BIT) {
-			Status = XST_FAILURE;
-			goto RETURN_PATH;
-		}
-
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
 			Status = XSdPs_Change_BusSpeed(InstancePtr);
@@ -687,12 +683,6 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		/* Get Extended CSD */
 		Status = XSdPs_Get_Mmc_ExtCsd(InstancePtr, ExtCsd);
 		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto RETURN_PATH;
-		}
-
-		/* Check for 8-bit support */
-		if (ExtCsd[EXT_CSD_BUS_WIDTH_BYTE] != EXT_CSD_BUS_WIDTH_8_BIT) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
