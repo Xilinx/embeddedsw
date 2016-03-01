@@ -686,6 +686,9 @@ static int vq_ring_must_notify_host(struct virtqueue *vq)
 	if (vq->vq_flags & VIRTQUEUE_FLAG_EVENT_IDX) {
 		new_idx = vq->vq_ring.avail->idx;
 		prev_idx = new_idx - vq->vq_queued_cnt;
+
+/* TODO: remove this pragma after this is clarified/fixed */
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
 		event_idx = vring_avail_event(&vq->vq_ring);
 
 		return (vring_need_event(event_idx, new_idx, prev_idx) != 0);
