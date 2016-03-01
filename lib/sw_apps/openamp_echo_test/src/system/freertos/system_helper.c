@@ -33,7 +33,7 @@
  *  Synchronization is included to block-wait for data
  *-----------------------------------------------------------------------------*/
 static struct rb_str {
-	#define RB_SZ 1
+	#define RB_SZ 4
 	#define RB_DATA_SZ (sizeof(int) + 512) /* TODO: Adjust with RPMSG max size */
 	unsigned char buffer[RB_DATA_SZ][RB_SZ];
 	int head;

@@ -169,7 +169,7 @@ static void rpc_demo(void *unused_arg)
     /* redirect I/Os */
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
 
-	printf("\r\nRemote>Baremetal Remote Procedure Call (RPC) Demonstration\r\n");
+	printf("\r\nRemote>FreeRTOS Remote Procedure Call (RPC) Demonstration\r\n");
 	printf("\r\nRemote>***************************************************\r\n");
 
 	printf("\r\nRemote>Rpmsg based retargetting to proxy initialized..\r\n");
