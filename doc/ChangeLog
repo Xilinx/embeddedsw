@@ -955,12 +955,6 @@ Created new version
 Fixed CR#873972 - corrected logic for moving of dTD Head/Tail Pointers
 Fixed CR#873974 - invalidated Caches After Buffer Receive in Endpoint Buffer Handler
 
-usbpsu_v1_0:
-New version of the USB driver (device mode only) for Ultrascale+ Zynq MPSoC
-
-usbpsu_v1_1:
-Updated version of the USB driver (device mode only) for Ultrascale+ Zynq MPSoC for changes to comply to MISRA-C guidelines.
-
 uartps_v3_1:
 Added support for Zynq Ultrascale+ MP related changes
 
