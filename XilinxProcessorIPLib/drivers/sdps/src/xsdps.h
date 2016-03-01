@@ -124,6 +124,7 @@
 *              01/08/16 Added workaround for issue in auto tuning mode
 *                       of SDR50, SDR104 and HS200.
 *       sk     02/16/16 Corrected the Tuning logic.
+*       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
 *
 * </pre>
 *
