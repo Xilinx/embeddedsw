@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
+ * Copyright (c) 2016 NXP Semiconductor, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -131,10 +132,10 @@ void *sh_mem_get_buffer(struct sh_mem_pool *pool)
 		 * Find the first 0 bit in the buffers bitmap. The 0th bit
 		 * represents a free buffer.
 		 */
-		bit_idx = get_first_zero_bit(pool->bitmap[idx]);
+		bit_idx = get_first_zero_bit(*(unsigned long*)SH_MEM_POOL_LOCATE_BITMAP(pool,idx));
 		if (bit_idx < 32) {
 			/* Set bit to mark it as consumed. */
-			pool->bitmap[idx] |= (1 << bit_idx);
+			*(unsigned long*)(SH_MEM_POOL_LOCATE_BITMAP(pool,idx)) |= (1 << bit_idx);
 			buff = (char *)pool->start_addr +
 			    pool->buff_size * (idx * BITMAP_WORD_SIZE +
 					       bit_idx);
@@ -175,7 +176,7 @@ void sh_mem_free_buffer(void *buff, struct sh_mem_pool *pool)
 	/* Translate the buffer index to bitmap index. */
 	bmp_idx = buff_idx / BITMAP_WORD_SIZE;
 	bit_idx = buff_idx % BITMAP_WORD_SIZE;
-	bitmask = &pool->bitmap[bmp_idx];
+	bitmask = (unsigned long*)(SH_MEM_POOL_LOCATE_BITMAP(pool, bmp_idx));
 
 	/* Mark the buffer as free */
 	*bitmask ^= (1 << bit_idx);

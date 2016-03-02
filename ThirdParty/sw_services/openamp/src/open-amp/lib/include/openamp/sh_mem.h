@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
+ * Copyright (c) 2016 NXP Semiconductor, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -52,6 +53,10 @@
 #define WORD_SIZE                sizeof(unsigned long)
 #define WORD_ALIGN(a)            (((a) & (WORD_SIZE-1)) != 0)? \
                                  (((a) & (~(WORD_SIZE-1))) + 4):(a)
+#define SH_MEM_POOL_LOCATE_BITMAP(pool,idx) ((unsigned char *) pool \
+                                             + sizeof(struct sh_mem_pool) \
+                                             + (BITMAP_WORD_SIZE * idx))
+
 /*
  * This structure represents a  shared memory pool.
  *
@@ -62,7 +67,6 @@
  * @total_buffs     - total number of buffers in shared memory region
  * @used_buffs      - number of used buffers
  * @bmp_size        - size of bitmap array
- * @bitmap          - array to keep record of free and used blocks
  *
  */
 
@@ -74,7 +78,6 @@ struct sh_mem_pool {
 	int total_buffs;
 	int used_buffs;
 	int bmp_size;
-	unsigned long bitmap[0];
 };
 
 /* APIs */
