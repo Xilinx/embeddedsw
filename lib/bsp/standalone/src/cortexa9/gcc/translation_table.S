@@ -54,6 +54,8 @@
 * 5.2	pkp  06/08/2015 put a check for XPAR_PS7_DDR_0_S_AXI_BASEADDR to confirm
 *			if DDR is present or not and accordingly generate the
 *			translation table
+* 5.4	pkp  03/01/2016 modified DDR memory attribute to be non-shareable as
+*			proccesor does not run in SMP mode for standalone.
 * </pre>
 *
 * @note
@@ -85,11 +87,11 @@ MMUTable:
 .set UNDEF_REG, 0x3FF - DDR_REG
 
 				/*0x00000000 - 0x00100000 (cacheable )*/
-.word	SECT + 0x15de6		/* S=b1 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
+.word	SECT + 0x5de6		/* S=b0 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 
 .rept	DDR_REG			/*  (DDR Cacheable) */
-.word	SECT + 0x15de6		/* S=b1 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
+.word	SECT + 0x5de6		/* S=b0 TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1 */
 .set	SECT, SECT+0x100000
 .endr
 

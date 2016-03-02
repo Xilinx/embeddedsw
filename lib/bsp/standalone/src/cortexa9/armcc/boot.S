@@ -59,6 +59,8 @@
 ;			 bit in ACTLR. L2Cache invalidation and enabling of L2Cache
 ;			 is done later.
 ; 5.4  asa      12/06/15 Added code to initialize SPSR for all relevant modes.
+; 5.4  pkp	03/01/16 Removed setting of SMP bit in ACTLR register since
+;			 standalone does not run as SMP
 ; </pre>
 ;
 ; @note
@@ -256,12 +258,6 @@ shareable_loop:
 	mcr	p15,0,r0,c1,c0,0		; Enable cache and MMU
 	dsb					; dsb allow the MMU to start up
 	isb					; isb flush prefetch buffer
-
-	; Write to ACTLR
-	mrc	p15, 0,r0, c1, c0, 1		; Read ACTLR
-	orr	r0, r0, #(0x01 << 6)		; SMP bit
-	orr	r0, r0, #(0x01 )		; Cache/TLB maintenance broadcast
-	mcr	p15, 0,r0, c1, c0, 1		; Write ACTLR
 
 ; Invalidate L2 Cache and initialize L2 Cache
 ; For AMP, assume running on CPU1. Don't initialize L2 Cache (up to Linux)
