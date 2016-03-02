@@ -44,7 +44,7 @@ LIB=libxil.a
 CC_FLAGS = $(COMPILER_FLAGS)
 ECC_FLAGS = $(EXTRA_COMPILER_FLAGS)
 
-ECC_FLAGS	+= --cpu=Cortex-A9 --fpu=VFPv3
+ECC_FLAGS	+= --fpu=VFPv3
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
