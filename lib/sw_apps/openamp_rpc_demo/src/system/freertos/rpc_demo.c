@@ -32,7 +32,7 @@
 /**************************************************************************************
 * This is a sample demonstration application that showcases usage of proxy
 * from the remote core. This application is meant to run on the remote CPU running
-* bare-metal. It can print to master console and perform file I/O
+* FreeRTOS. It can print to master console and perform file I/O
 * using proxy mechanism.
 *
 * The init_system is called from main function which defines a shared memory region in
@@ -43,13 +43,13 @@
 *
 * The remoteproc_resource_init API is being called to create the virtio/RPMsg devices
 * required for IPC with the master context. Invocation of this API causes remoteproc
-* on the bare-metal to use the rpmsg name service announcement feature to advertise
+* on the FreeRTOS to use the rpmsg name service announcement feature to advertise
 * the rpmsg channels served by the application.
 *
 * The master receives the advertisement messages and performs the following tasks:
 * 	1. Invokes the channel created callback registered by the master application
 * 	2. Responds to remote context with a name service acknowledgement message
-* After the acknowledgement is received from master, remoteproc on the bare-metal
+* After the acknowledgement is received from master, remoteproc on the FreeRTOS
 * invokes the RPMsg channel-created callback registered by the remote application.
 * The RPMsg channel is established at this point. All RPMsg APIs can be used subsequently
 * on both sides for run time communications between the master and remote software contexts.
@@ -57,15 +57,15 @@
 * Upon running the master application, this application will use the console to display
 * print statements and execute file I/O on master by communicating with a proxy application
 * running on the Linux master. Once the application is ran and task by the
-* bare-metal application is done, master needs to properly shut down the remote
+* FreeRTOS application is done, master needs to properly shut down the remote
 * processor
 *
 * To shut down the remote processor, the following steps are performed:
 * 	1. The master application sends an application-specific shutdown message
 * 	   to the remote context
-* 	2. This bare-metal application cleans up application resources,
+* 	2. This FreeRTOS application cleans up application resources,
 * 	   sends a shutdown acknowledge to master, and invokes remoteproc_resource_deinit
-* 	   API to de-initialize remoteproc on the bare-metal side.
+* 	   API to de-initialize remoteproc on the FreeRTOS side.
 * 	3. On receiving the shutdown acknowledge message, the master application invokes
 * 	   the remoteproc_shutdown API to shut down the remote processor and de-initialize
 * 	   remoteproc using remoteproc_deinit on its side.
@@ -108,7 +108,7 @@ static TaskHandle_t comm_task;
 static void *chnl_cb_flag;
 
 /*-----------------------------------------------------------------------------*
- *  RPMSG callback used by remoteproc_resource_init()
+ *  RPMSG callbacks setup  by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
@@ -118,6 +118,7 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
 	app_rp_chnl = rp_chnl;
+	/* notify task that channel was created */
 	env_release_sync_lock(chnl_cb_flag);
 }
 
@@ -130,6 +131,9 @@ static void shutdown_cb(struct rpmsg_channel *rp_chnl) {
 	remoteproc_resource_deinit(proc);
 }
 
+/*-----------------------------------------------------------------------------*
+ * Application specific
+ *-----------------------------------------------------------------------------*/
 static void rpc_demo(void *unused_arg)
 {
 	int fd, bytes_written, bytes_read;
@@ -163,10 +167,10 @@ static void rpc_demo(void *unused_arg)
 		return;
 	}
 
-    /* wait for notification that will happen on channel creation (interrupt) */
+	/* wait for notification that will happen on channel creation (interrupt) */
 	env_acquire_sync_lock(chnl_cb_flag);
 
-    /* redirect I/Os */
+	/* redirect I/Os */
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
 
 	printf("\r\nRemote>FreeRTOS Remote Procedure Call (RPC) Demonstration\r\n");
@@ -236,6 +240,9 @@ static void rpc_demo(void *unused_arg)
 		}
 	}
 	printf("\r\nRemote> Firmware's rpmsg-openamp-demo-channel going down! \r\n");
+
+	/* Terminate this task */
+	vTaskDelete(NULL);
 }
 
 /*-----------------------------------------------------------------------------*
@@ -255,7 +262,7 @@ int main(void)
 	} else {
 		/* Start running FreeRTOS tasks */
 		vTaskStartScheduler();
-    }
+	}
 
 	/* Will not get here, unless a call is made to vTaskEndScheduler() */
 	while (1) {
