@@ -1028,3 +1028,16 @@ OpenAMP demo applications to run on R5 slave and are based on xilopenamp_v1_0.
 
 xilkenrel_v6_3:
 CR:938727 configuring the config_bufmalloc exporting invalid number of statifc bufs.
+
+xilpm_v2_0:
+Replace ACK_CB_STANDARD with ACK_NON_BLOCKING
+Removed latency argument for XPm_ReleaseNode
+Migrate to IPI driver
+Added XPm_ResetAssert and XPm_ResetGetStatus PM API calls
+PM return value changes to be compliant with PMU-FW
+Added resume_address to self suspend and request wake-up APIs
+Add callback APIs
+Add MMIO API calls
+Added PM node IDs for all remaining devices
+Added capability CAP_WAKEUP
+Updated example to as per API changes
