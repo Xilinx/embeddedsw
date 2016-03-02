@@ -54,6 +54,7 @@
 * 2.7   sk     01/08/16 Added workaround for issue in auto tuning mode
 *                       of SDR50, SDR104 and HS200.
 *       sk     02/16/16 Corrected the Tuning logic.
+*       sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
 *
 * </pre>
 *
@@ -89,6 +90,9 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
+#if defined (__arm__) || defined (__aarch64__)
+void XSdPs_SetTapDelay(XSdPs *InstancePtr);
+#endif
 
 /*****************************************************************************/
 /**
@@ -606,6 +610,10 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
+#if defined (__arm__) || defined (__aarch64__)
+		/* Program the Tap delays */
+		XSdPs_SetTapDelay(InstancePtr);
+#endif
 	}
 
 #if defined (__arm__) || defined (__aarch64__)
@@ -1098,4 +1106,47 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	RETURN_PATH: return Status;
 
 }
+
+#if defined (__arm__) || defined (__aarch64__)
+/*****************************************************************************/
+/**
+*
+* API to set Tap Delay w.r.t speed modes
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+void XSdPs_SetTapDelay(XSdPs *InstancePtr)
+{
+	u32 DllCtrl, TapDelay;
+	if (InstancePtr->Config.DeviceId == XPAR_XSDPS_0_DEVICE_ID) {
+		DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
+		DllCtrl |= SD0_DLL_RST;
+		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+		if(InstancePtr->BusSpeed == XSDPS_MMC_HS200_MAX_CLK) {
+			/* Program the ITAPDLY */
+			TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY);
+			TapDelay |= SD0_ITAPCHGWIN;
+			XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
+			TapDelay |= SD0_ITAPDLYENA;
+			XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
+			TapDelay &= ~SD0_ITAPCHGWIN;
+			XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_ITAPDLY, TapDelay);
+			/* Program the OTAPDLY */
+			TapDelay = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLYSEL);
+			TapDelay |= SD0_OTAPDLYENA;
+			XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLYSEL, TapDelay);
+			TapDelay |= SD0_OTAPDLYSEL_HS200;
+			XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_OTAPDLYSEL, TapDelay);
+		}
+		DllCtrl &= ~SD0_DLL_RST;
+		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+	}
+}
+#endif
 /** @} */
