@@ -487,7 +487,7 @@ proc generate {os_handle} {
     set config_shm [common::get_property CONFIG.config_shm $os_handle]
     if { $config_shm == "true" } {
 	xadd_define $config_file $os_handle "config_shm"
-	set shm_handle [hsi::get_arrays -of_objects $os_handle "shm_table"]
+	set shm_handle [hsi::get_arrays shm_table -of_objects $os_handle]
 	if { $shm_handle == "" } {
 	    error "ERROR: SHM configuration needs shm_table specification." "" "mdt_error"
 	}
@@ -502,16 +502,18 @@ proc generate {os_handle} {
     if { $config_bufmalloc == "true" } {
 	xadd_define $config_file $os_handle "config_bufmalloc"
         #set memtable_handle [xget_handle $os_handle "ARRAY" "mem_table"]
-        set memtable_elements [hsi::get_arrays -of_objects $os_handle "mem_table"]
-	set n_static_bufs [llength $memtable_elements]
-        set max_bufs [common::get_property CONFIG.max_bufs $os_handle]
-
-
-        set bufmalloc_msize [get_field_product_sum $os_handle "mem_table"  "mem_bsize" "mem_nblks"]
-        xput_define $config_file "bufmalloc_msize" $bufmalloc_msize
-	xput_define $config_file "n_mbufs" [expr $max_bufs + $n_static_bufs]
-	xput_define $config_file "n_static_bufs" $n_static_bufs
-	xadd_struct $init_file $os_handle "bufmalloc_init_s" "bufmalloc_cfg" "mem_table" "mem_bsize" "mem_nblks"
+        #set memtable_elements [hsi::get_arrays -of_objects $os_handle "mem_table"]
+	set mem_table_handle [hsi::get_arrays mem_table -of_objects $os_handle]
+	if { $mem_table_handle != ""} {
+		set memtable_elements [common::get_property PARAM.mem_nblks [hsi::get_arrays $mem_table_handle -of_objects $os_handle]]
+		set n_static_bufs [llength $memtable_elements]
+		set max_bufs [common::get_property CONFIG.max_bufs $os_handle]
+		set bufmalloc_msize [get_field_product_sum $os_handle "mem_table"  "mem_bsize" "mem_nblks"]
+	        xput_define $config_file "bufmalloc_msize" $bufmalloc_msize
+		xput_define $config_file "n_mbufs" [expr $max_bufs + $n_static_bufs]
+		xput_define $config_file "n_static_bufs" $n_static_bufs
+		xadd_struct $init_file $os_handle "bufmalloc_init_s" "bufmalloc_cfg" "mem_table" "mem_bsize" "mem_nblks"
+      }
     }
 
     set config_time [common::get_property CONFIG.config_time $os_handle]

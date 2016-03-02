@@ -43,7 +43,7 @@ BEGIN OS xilkernel
   OPTION APP_COMPILER_FLAGS = "-D __XMK__";
   OPTION APP_LINKER_FLAGS = "-lxilkernel";
   OPTION OS_STATE = ACTIVE;
-  OPTION VERSION = 6.2;
+  OPTION VERSION = 6.3;
   OPTION NAME = xilkernel;
 
   OPTION DESC = "Xilkernel is a simple and lightweight kernel that provides POSIX style services such as scheduling, threads, synchronization, message passing and timers. The kernel requires a programmable timer that is either built-in or attached to the processor as a peripheral.";
