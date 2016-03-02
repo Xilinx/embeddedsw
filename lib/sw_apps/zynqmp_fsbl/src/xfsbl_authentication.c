@@ -314,7 +314,8 @@ u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
 	}
 	else
 	{
-		xil_printf("partver: sha calc. for non bs DDR less part/r/n");
+		XFsbl_Printf(DEBUG_INFO, "partver: sha calc. "
+					"for non bs DDR less part \r\n");
 		/* SHA calculation for non-bitstream, DDR less partitions */
 		XFsbl_ShaDigest((const u8 *)(PTRSIZE)PartitionOffset,
 					HashDataLen, PartitionHash, HashLen);
