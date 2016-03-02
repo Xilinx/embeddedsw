@@ -58,6 +58,7 @@
 * 5.2   asa  05/12/15 Added macros for 4 byte commands.
 * 5.5   sk   01/14/16 Updated IntelStmDevices list to add support for S25FL512S
 *                     and S25FL256S.
+*       sk   03/02/16 Added support for MT25QU01G.
 * </pre>
 *
 ******************************************************************************/
@@ -121,6 +122,7 @@ extern "C" {
 #define XISF_MIC_DEV_N25Q128		0xBB18	/**< Device ID for N25Q128 */
 #define XISF_MIC_DEV_N25Q256_3V0	0xBA19
 #define XISF_MIC_DEV_N25Q256_1V8	0xBB19
+#define XISF_MIC_DEV_MT25Q01_1V8	0xBB21
 
 /**
  * The following definitions specify the Device Id for the different
