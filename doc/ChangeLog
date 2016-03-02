@@ -605,6 +605,8 @@ Updated xilisf_stm_read_write_example.c to remove compilation error.
 Fix compilation errors and warnings.
 Added support for spansion in extended address mode.
 Added support for S25FL512S and S25FL256S.
+Added support for MT25QU01G
+Used 3byte command with 4 byte addressing for Micron.
 
 xilrsa_v1_2:
 Added support for Linaro tool chain in tcl.
