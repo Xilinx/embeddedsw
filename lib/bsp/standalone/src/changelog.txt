@@ -315,4 +315,6 @@
  * 5.4 pkp   03/02/16  Modified cortexa9/iccarm/xpseudo_asm_iccarm.h file to include
  *		       header file instrinsics.h which contains assembly instructions
  *		       definitions which can be used by C
+ * 5.4 asa   03/02/16  Added print.c in MB BSP. Made other cosmetic changes to have uniform
+ *                     proto for all print.c across the BSPs. This patch fixes CR#938738.
  *****************************************************************************************/
