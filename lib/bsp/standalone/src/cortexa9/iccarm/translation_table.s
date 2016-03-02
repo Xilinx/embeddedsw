@@ -47,6 +47,8 @@
 ; 4.2	pkp  09/02/14 modified translation table entries according to address map
 ; 4.2	pkp  09/11/14 modified translation table entries to resolve compilation
 ;		      error for solving CR#822897
+; 5.4	pkp  03/01/16 modified DDR memory attribute to be non-shareable as
+;		      proccesor does not run in SMP mode for standalone.
 ; </pre>
 ;
 ; @note
@@ -70,7 +72,7 @@ MMUTable
 count   SETA  0
 sect    SETA  0
   REPT  0x400
-  DCD	sect + 0x15de6		; S=1, TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1
+  DCD	sect + 0x5de6		; S=0, TEX=b101 AP=b11, Domain=b1111, C=b0, B=b1
 sect    SETA  sect+0x100000
 count   SETA  count+1
   ENDR
