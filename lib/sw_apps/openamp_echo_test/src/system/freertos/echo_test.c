@@ -31,7 +31,7 @@
 
 /**************************************************************************************
 * This is a sample demonstration application that showcases usage of rpmsg
-* This application is meant to run on the remote CPU running bare-metal code.
+* This application is meant to run on the remote CPU running FreeRTOS code.
 * It echoes back data that was sent to it by the master core.
 *
 * The application calls init_system which defines a shared memory region in
@@ -42,31 +42,31 @@
 *
 * Echo test calls the remoteproc_resource_init API to create the
 * virtio/RPMsg devices required for IPC with the master context.
-* Invocation of this API causes remoteproc on the bare-metal to use the
+* Invocation of this API causes remoteproc on the FreeRTOS to use the
 * rpmsg name service announcement feature to advertise the rpmsg channels
 * served by the application.
 *
 * The master receives the advertisement messages and performs the following tasks:
 * 	1. Invokes the channel created callback registered by the master application
 * 	2. Responds to remote context with a name service acknowledgement message
-* After the acknowledgement is received from master, remoteproc on the bare-metal
+* After the acknowledgement is received from master, remoteproc on the FreeRTOS
 * invokes the RPMsg channel-created callback registered by the remote application.
 * The RPMsg channel is established at this point. All RPMsg APIs can be used subsequently
 * on both sides for run time communications between the master and remote software contexts.
 *
 * Upon running the master application to send data to remote core, master will
-* generate the payload and send to remote (bare-metal) by informing the bare-metal with
+* generate the payload and send to remote (FreeRTOS) by informing the FreeRTOS with
 * an IPI, the remote will send the data back by master and master will perform a check
 * whether the same data is received. Once the application is ran and task by the
-* bare-metal application is done, master needs to properly shut down the remote
+* FreeRTOS application is done, master needs to properly shut down the remote
 * processor
 *
 * To shut down the remote processor, the following steps are performed:
 * 	1. The master application sends an application-specific shut-down message
 * 	   to the remote context
-* 	2. This bare-metal application cleans up application resources,
+* 	2. This FreeRTOS application cleans up application resources,
 * 	   sends a shut-down acknowledge to master, and invokes remoteproc_resource_deinit
-* 	   API to de-initialize remoteproc on the bare-metal side.
+* 	   API to de-initialize remoteproc on the FreeRTOS side.
 * 	3. On receiving the shut-down acknowledge message, the master application invokes
 * 	   the remoteproc_shutdown API to shut down the remote processor and de-initialize
 * 	   remoteproc using remoteproc_deinit on its side.
@@ -101,7 +101,7 @@ static struct rsc_table_info rsc_info;
 static TaskHandle_t comm_task;
 
 /*-----------------------------------------------------------------------------*
- *  RPMSG callback used by remoteproc_resource_init()
+ *  RPMSG callbacks setup by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
@@ -113,9 +113,9 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
-    app_rp_chnl = rp_chnl;
-    rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
-                    RPMSG_ADDR_ANY);
+	app_rp_chnl = rp_chnl;
+	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
+				RPMSG_ADDR_ANY);
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
@@ -131,6 +131,9 @@ static void processing(void *unused_arg)
 	int status = 0;
 
 	(void)unused_arg;
+
+	/* Create buffer to send data between RPMSG callback and processing task */
+	buffer_create();
 
 	/* Initialize HW and SW components/objects */
 	init_system();
@@ -161,8 +164,8 @@ static void processing(void *unused_arg)
 			/* disable interrupts and free resources */
 			remoteproc_resource_deinit(proc);
 
-			/* Stop RTOS scheduler if desired */
-			/* vTaskEndScheduler(); */
+			/* Terminate this task */
+			vTaskDelete(NULL);
 			break;
 		} else {
 			/* Send data back to master*/
@@ -181,9 +184,6 @@ int main(void)
 	BaseType_t stat;
 
 	Xil_ExceptionDisable();
-
-	/* Create buffer to send data between RPMSG callback and processing task */
-	buffer_create();
 
 	/* Create the tasks */
 	stat = xTaskCreate(processing, ( const char * ) "HW2",

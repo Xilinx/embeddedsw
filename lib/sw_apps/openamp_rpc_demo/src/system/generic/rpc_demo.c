@@ -103,7 +103,7 @@ static struct rsc_table_info rsc_info;
 static void *chnl_cb_flag;
 
 /*-----------------------------------------------------------------------------*
- *  RPMSG callback used by remoteproc_resource_init()
+ *  RPMSG callbacks setup by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
@@ -125,6 +125,9 @@ static void shutdown_cb(struct rpmsg_channel *rp_chnl) {
 	remoteproc_resource_deinit(proc);
 }
 
+/*-----------------------------------------------------------------------------*
+ *  Application specific
+ *-----------------------------------------------------------------------------*/
 static void rpc_demo(void)
 {
 	int fd, bytes_written, bytes_read;
@@ -156,10 +159,10 @@ static void rpc_demo(void)
         return;
 	}
 
-    /* wait for notification that will happen on channel creation (interrupt) */
+	/* wait for notification that will happen on channel creation (interrupt) */
 	env_acquire_sync_lock(chnl_cb_flag);
 
-    /* redirect I/Os */
+	/* redirect I/Os */
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
 
 	printf("\r\nRemote>Baremetal Remote Procedure Call (RPC) Demonstration\r\n");
@@ -236,7 +239,7 @@ static void rpc_demo(void)
  *-----------------------------------------------------------------------------*/
 int main(void)
 {
-    rpc_demo();
+	rpc_demo();
 
 	while (1) {
 		__asm__("wfi\n\t");

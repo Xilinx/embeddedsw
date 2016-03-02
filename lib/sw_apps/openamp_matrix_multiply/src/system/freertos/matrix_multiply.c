@@ -32,7 +32,7 @@
 /**************************************************************************************
 * This is a sample demonstration application that showcases usage of remoteproc
 * and rpmsg APIs on the remote core. This application is meant to run on the remote CPU
-* running bare-metal code. It receives two matrices from the master,
+* running FreeRTOS code. It receives two matrices from the master,
 * multiplies them and returns the result to the master core.
 *
 * The init_system is called in the main function which defines a shared memory region in
@@ -43,30 +43,30 @@
 *
 * The remoteproc_resource_init API is being called to create the virtio/RPMsg devices
 * required for IPC with the master context. Invocation of this API causes remoteproc on
-* the bare-metal to use the rpmsg name service announcement feature to advertise the
+* the FreeRTOS to use the rpmsg name service announcement feature to advertise the
 * rpmsg channels served by the application.
 *
 * The master receives the advertisement messages and performs the following tasks:
 * 	1. Invokes the channel created callback registered by the master application
 * 	2. Responds to remote context with a name service acknowledgement message
-* After the acknowledgement is received from master, remoteproc on the bare-metal
+* After the acknowledgement is received from master, remoteproc on the FreeRTOS
 * invokes the RPMsg channel-created callback registered by the remote application.
 * The RPMsg channel is established at this point. All RPMsg APIs can be used subsequently
 * on both sides for run time communications between the master and remote software contexts.
 *
 * Upon running the master application to send data to remote core, master will
-* generate the matrices and send to remote (bare-metal) by informing the bare-metal with
+* generate the matrices and send to remote (FreeRTOS) by informing the FreeRTOS with
 * an IPI, the remote will compute the resulting matrix and send the data back to
 * master. Once the application is ran and task by the
-* bare-metal application is done, master needs to properly shut down the remote
+* FreeRTOS application is done, master needs to properly shut down the remote
 * processor
 *
 * To shut down the remote processor, the following steps are performed:
 * 	1. The master application sends an application-specific shutdown message
 * 	   to the remote context
-* 	2. This bare-metal application cleans up application resources,
+* 	2. This FreeRTOS application cleans up application resources,
 * 	   sends a shutdown acknowledge to master, and invokes remoteproc_resource_deinit
-* 	   API to de-initialize remoteproc on the bare-metal side.
+* 	   API to de-initialize remoteproc on the FreeRTOS side.
 * 	3. On receiving the shutdown acknowledge message, the master application invokes
 * 	   the remoteproc_shutdown API to shut down the remote processor and de-initialize
 * 	   remoteproc using remoteproc_deinit on its side.
@@ -112,11 +112,12 @@ static matrix matrix_array[NUM_MATRIX];
 static matrix matrix_result;
 
 /*-----------------------------------------------------------------------------*
- *  RPMSG callback used by remoteproc_resource_init()
+ *  RPMSG callbacks setup by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
 {
+	/* callback data are lost on return and need to be saved */
 	if (!buffer_push(data, len)) {
 		xil_printf("warning: cannot save data\n");
 	}
@@ -124,9 +125,9 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
-    app_rp_chnl = rp_chnl;
-    rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
-                    RPMSG_ADDR_ANY);
+	app_rp_chnl = rp_chnl;
+	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
+				RPMSG_ADDR_ANY);
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
@@ -158,6 +159,9 @@ static void mat_mul_demo(void *unused_arg)
 
 	(void)unused_arg;
 
+	/* Create buffer to send data between RPMSG callback and processing task */
+	buffer_create();
+
 	/* Initialize HW and SW components/objects */
 	init_system();
 
@@ -187,6 +191,8 @@ static void mat_mul_demo(void *unused_arg)
 			/* disable interrupts and free resources */
 			remoteproc_resource_deinit(proc);
 
+			/* Terminate this task */
+			vTaskDelete(NULL);
 			break;
 		} else {
 			env_memcpy(matrix_array, data, len);
@@ -210,9 +216,6 @@ int main(void)
 	BaseType_t stat;
 
 	Xil_ExceptionDisable();
-
-	/* Create buffer to send data between RPMSG callback and processing task */
-	buffer_create();
 
 	/* Create the tasks */
 	stat = xTaskCreate(mat_mul_demo, ( const char * ) "HW2",

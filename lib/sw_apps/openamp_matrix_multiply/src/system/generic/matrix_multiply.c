@@ -107,11 +107,12 @@ static matrix matrix_array[NUM_MATRIX];
 static matrix matrix_result;
 
 /*-----------------------------------------------------------------------------*
- *  RPMSG callback used by remoteproc_resource_init()
+ *  RPMSG callbacks setup by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
 {
+	/* Callback data are lost on return and need to be saved */
 	if (!buffer_push(data, len)) {
 		xil_printf("warning: cannot save data\n");
 	}
@@ -119,9 +120,9 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
-    app_rp_chnl = rp_chnl;
-    rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
-                    RPMSG_ADDR_ANY);
+	app_rp_chnl = rp_chnl;
+	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
+				RPMSG_ADDR_ANY);
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
