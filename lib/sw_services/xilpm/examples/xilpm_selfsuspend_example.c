@@ -61,6 +61,32 @@
 #include "timer.h"
 #include "pm_client.h"
 
+#define IPI_INT_ID	XPAR_XIPIPSU_0_INT_ID
+#define TEST_CHANNEL_ID	XPAR_XIPIPSU_0_DEVICE_ID
+
+static XIpiPsu IpiInst;
+
+static XStatus IpiConfigure(XIpiPsu *const IpiInstPtr)
+{
+	XStatus Status;
+	XIpiPsu_Config *IpiCfgPtr;
+
+	/* Look Up the config data */
+	IpiCfgPtr = XIpiPsu_LookupConfig(TEST_CHANNEL_ID);
+	if (NULL == IpiCfgPtr) {
+		Status = XST_FAILURE;
+		pm_dbg("%s ERROR in getting CfgPtr\n", __func__);
+		return Status;
+	}
+
+	/* Init with the Cfg Data */
+	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr, IpiCfgPtr->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		pm_dbg("%s ERROR #%d in configuring IPI\n", __func__, Status);
+		return Status;
+	}
+	return Status;
+}
 extern void *_vector_table;
 
 #ifdef __aarch64__
@@ -142,11 +168,10 @@ static void PrepareSuspend(void)
 	SaveContext();
 /* usleep is used to prevents UART prints from overlapping */
 #ifdef __aarch64__
-	u64 rvbar;
 	u64 vector_base = (u64)&_vector_table;
 
 	/* APU */
-	XPm_SelfSuspend(NODE_APU_0, MAX_LATENCY, 0);
+	XPm_SelfSuspend(NODE_APU_0, MAX_LATENCY, 0, vector_base);
 	usleep(100000);
 	XPm_SetRequirement(NODE_OCM_BANK_0, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
@@ -157,21 +182,11 @@ static void PrepareSuspend(void)
 	XPm_SetRequirement(NODE_OCM_BANK_3, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
 
-	/*
-	 * Set RVBAR to ensure we resume at the expected address
-	 * FIXME: This should be communicated to FW which has to set this.
-	 */
-	rvbar = APU_RVBARADDR0L;
-	rvbar += 8 * GetCpuId();
-	Xil_Out32(rvbar, vector_base & 0xffffffff);
-	rvbar += 4;
-	Xil_Out32(rvbar, vector_base >> 32);
 #else
-	u32 reg, rpuctrl;
 	u32 vector_base = (u32)&_vector_table;
 
 	/* RPU */
-	XPm_SelfSuspend(NODE_RPU_0, MAX_LATENCY, 0);
+	XPm_SelfSuspend(NODE_RPU_0, MAX_LATENCY, 0, vector_base);
 	usleep(100000);
 	XPm_SetRequirement(NODE_TCM_0_A, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
@@ -182,23 +197,6 @@ static void PrepareSuspend(void)
 	XPm_SetRequirement(NODE_TCM_1_B, PM_CAP_CONTEXT, 0, REQUEST_ACK_NO);
 	usleep(100000);
 
-	/*
-	 * Set VINITH to ensure we resume at the expected address
-	 * FIXME: This should be communicated to FW which has to set this.
-	 */
-	if (GetCpuId() == 0U) {
-		rpuctrl = RPU_RPU_0_CFG;
-	} else {
-		rpuctrl = RPU_RPU_1_CFG;
-	}
-
-	reg = Xil_In32(rpuctrl);
-	if (vector_base == 0) {
-		reg &= ~RPU_RPU_0_CFG_VINITHI_MASK;
-	} else {
-		reg |= RPU_RPU_0_CFG_VINITHI_MASK;
-	}
-	Xil_Out32(rpuctrl, reg);
 #endif /* __aarch64__ */
 }
 
@@ -214,6 +212,14 @@ static u32 InitApp(void)
 		pm_dbg("INITIAL BOOT\n");
 		/* Configure timer, if configuration fails return from main */
 		if (XST_FAILURE == TimerConfigure(TIMER_PERIOD)) {
+			pm_dbg("Exiting main...\n");
+			return XST_FAILURE;
+		}
+		if (XST_SUCCESS != IpiConfigure(&IpiInst)) {
+			pm_dbg("Exiting main...\n");
+			return XST_FAILURE;
+		}
+		if (XST_SUCCESS != XPm_InitXilpm(&IpiInst)) {
 			pm_dbg("Exiting main...\n");
 			return XST_FAILURE;
 		}
