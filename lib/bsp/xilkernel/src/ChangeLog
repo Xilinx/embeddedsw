@@ -177,4 +177,7 @@ Change Log for Xilkernel
 
 2014-11-13
 	* Fixed CR:828759 Changes are made in the tcl file
+2016-02-03
+	* Fixed CR:938727 configuring the config_bufmalloc exporting invalid
+	  number of static bufs(N_STATIC_BUFS) to the os_config.h file.
 
