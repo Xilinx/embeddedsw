@@ -1132,18 +1132,16 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 */
 		Xil_DCacheDisable();
 
-		if (DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL)
-		{
-			/**
-			 * Do the authentication validation
-			 */
-			Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
-					Length, (LoadAddress + Length)
-						- XFSBL_AUTH_CERT_MIN_SIZE,
-					HashLen, PartitionNum);
-		}
+#ifdef	XFSBL_PS_DDR
+		/**
+		 * Do the authentication validation
+		 */
+		Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
+				Length, (LoadAddress + Length)
+					- XFSBL_AUTH_CERT_MIN_SIZE,
+				HashLen, PartitionNum);
 
-#ifndef XFSBL_PS_DDR
+#else
 		if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 		{
 #ifdef XFSBL_BS
