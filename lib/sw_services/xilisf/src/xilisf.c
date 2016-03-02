@@ -97,6 +97,7 @@
 *                     (CR 881478).
 * 5.5   sk   01/14/16 Updated IntelStmDevices list to add support for S25FL512S
 *                     and S25FL256S.
+*       sk   03/02/16 Added support for MT25QU01G.
 *
 * </pre>
 *
@@ -423,6 +424,10 @@ static const IntelStmDeviceGeometry IntelStmDevices[] = {
 	{XISF_MANUFACTURER_ID_MICRON,XISF_MIC_DEV_N25Q256_1V8,
 	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
 	 XISF_NUM_OF_SECTORS512},
+
+	 {XISF_MANUFACTURER_ID_MICRON,XISF_MIC_DEV_MT25Q01_1V8,
+	 XISF_BYTES256_PER_PAGE, XISF_PAGES256_PER_SECTOR,
+	 XISF_NUM_OF_SECTORS2048},
 
 };
 #endif /* (((XPAR_XISF_FLASH_FAMILY==INTEL) || (XPAR_XISF_FLASH_FAMILY==STM) \
