@@ -52,7 +52,7 @@
 
 #define PM_IPI_TIMEOUT		(~0)
 
-#define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_MICROBLAZE_0_CH0_MASK
+#define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
 
 struct XPm_Master {
 	const enum XPmNodeId node_id;
