@@ -49,6 +49,7 @@
 * 2.5 	sg	   07/09/15 Added SD 3.0 features
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
 * 2.7   sk     12/10/15 Added support for MMC cards.
+*       sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
 * </pre>
 *
 ******************************************************************************/
@@ -985,6 +986,17 @@ extern "C" {
 
 #define XSDPS_SLOT_REM			0U
 #define XSDPS_SLOT_EMB			1U
+
+#if defined (__arm__) || defined (__aarch64__)
+#define SD_DLL_CTRL 			0x00000358U
+#define SD_ITAPDLY				0x00000314U
+#define SD_OTAPDLYSEL			0x00000318U
+#define SD0_DLL_RST				0x00000004U
+#define SD0_ITAPCHGWIN			0x00000200U
+#define SD0_ITAPDLYENA			0x00000100U
+#define SD0_OTAPDLYENA			0x00000040U
+#define SD0_OTAPDLYSEL_HS200	0x00000003U
+#endif
 
 /**************************** Type Definitions *******************************/
 
