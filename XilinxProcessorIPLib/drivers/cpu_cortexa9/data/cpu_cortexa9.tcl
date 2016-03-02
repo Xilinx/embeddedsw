@@ -38,6 +38,8 @@
 # 2.0   adk  10/12/13 Updated as per the New Tcl API's
 # 2.1	pkp  06/27/14 Updated the tcl to create empty libxil for IAR support in BSP
 # 2.2	pkp  02/24/16 Updated tcl for extra compiler flags different toochain
+# 2.2	pkp  03/02/16 Append the extra compiler flag only when it contains any
+#		      extra flags apart from default ones for linaro toolchain
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -67,7 +69,11 @@ proc xdefine_cortexa9_params {drvhandle} {
 	regsub -- {-mfloat-abi=hard} $temp_flag {} temp_flag
 	regsub -- {-nostartfiles} $temp_flag {} temp_flag
 	regsub -all {  } $temp_flag {} temp_flag
-	set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles $temp_flag"
+	if {[string compare -nocase $temp_flag " "] == 0} {
+		set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles"
+	} else {
+		set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles $temp_flag"
+	}
 	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
    } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
 	set temp_flag $extra_flags
