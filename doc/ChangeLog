@@ -569,6 +569,7 @@ translation_table.s as SMP bit is not set in boot code to fix CR#938466
 Included instrinsics.h header file to cortexa9/iccarm/xpseudo_asm_iccarm.h for inline assembly instructions
 definitions used in C. It also modifies cortexa9/iccarm/Makefile to remove --cpu=Cortex-A9 flag to add it in
 compiler flags of BSP to fix CR#938718
+Fix for CR#938738. Added print.c in MB BSP.
 
 xilskey_v5_0:
 Modified JtagWrite_Ultrascale.
