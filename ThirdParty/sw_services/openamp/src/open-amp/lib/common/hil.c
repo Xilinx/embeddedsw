@@ -155,12 +155,12 @@ void hil_delete_proc(struct hil_proc *proc)
 		if (proc_hd->data == proc) {
 			remove_from_list(&procs.proc_list, proc_hd);
 			env_free_memory(proc_hd);
+			env_free_memory(proc);
 			break;
 		}
 		proc_hd = proc_hd->next;
 	}
 
-	env_free_memory(proc);
 }
 
 /**
