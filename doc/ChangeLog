@@ -108,6 +108,7 @@ and archiver to arm-none-eabi-ar (Linaro). Modified the extra_compiler_flags to
 "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles". Linaro toolchain supports hard-float.
 Modified cpu_cortexa9 driver tcl to properly update for the extra compiler flag for different
 compilers (Linaro GCC, armcc, IARCC).
+Added --cpu=Cortex-A9 flag to compiler flag for iccarm to fix CR#938718
 
 cpu_cortexa53_v1_1:
 Modified the cpu_cortexa53 tcl to add the extra compiler flag ARMA53_32 for A53 32bit BSP
@@ -565,7 +566,9 @@ Modified boot code for cortexa9 in cortexa9/gcc/boot.S, cortexa9/armcc/boot.s an
 to remove setting of SMP bit as standalone application does not run as SMP. Also mark the DDR to be
 non-shareable in cortexa9/gcc/translation_table.S, cortexa9/armcc/translation_table.S and cortexa9/iccarm/
 translation_table.s as SMP bit is not set in boot code to fix CR#938466
-
+Included instrinsics.h header file to cortexa9/iccarm/xpseudo_asm_iccarm.h for inline assembly instructions
+definitions used in C. It also modifies cortexa9/iccarm/Makefile to remove --cpu=Cortex-A9 flag to add it in
+compiler flags of BSP to fix CR#938718
 
 xilskey_v5_0:
 Modified JtagWrite_Ultrascale.
