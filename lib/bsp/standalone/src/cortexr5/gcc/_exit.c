@@ -35,8 +35,37 @@
 
 /* _exit - Simple implementation. Does not return.
 */
+
+#define RPU_GLBL_CNTL_REG	0xFF9A0000U
+#define RPU_ERR_INJ_REG		0xFF9A0020U
+#define RST_LPD_DBG_REG		0xFF5E0240U
+#define BOOT_MODE_USER_REG	0xFF5E0200U
+
+#define lock_step 			0x00000008U
+#define fault_log_enable	0x00000101U
+#define debug_reset 		0x00000030U
+#define jtag_boot			0x0000000FU
 __attribute__((weak)) void _exit (sint32 status)
 {
+
+	/* Enables the debug logic if in lock-step mode if fault log is enabled */
+	u32 debug_reg, err_inj_reg;
+	if((Xil_In32(BOOT_MODE_USER_REG) & jtag_boot) == 0){
+		if((Xil_In32(RPU_GLBL_CNTL_REG) & lock_step) == 0){
+			if((Xil_In32(RPU_ERR_INJ_REG) & fault_log_enable) != 0) {
+				if((Xil_In32(RST_LPD_DBG_REG) & debug_reset) != 0) {
+					debug_reg = Xil_In32(RST_LPD_DBG_REG);
+					debug_reg = debug_reg & (~debug_reset);
+					Xil_Out32(RST_LPD_DBG_REG, debug_reg);
+
+					err_inj_reg = Xil_In32(RPU_ERR_INJ_REG);
+					err_inj_reg = err_inj_reg & (~fault_log_enable);
+					Xil_Out32(RPU_ERR_INJ_REG, err_inj_reg);
+				}
+			}
+		}
+	}
+
   (void)status;
   while (1)
   {

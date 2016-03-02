@@ -304,4 +304,7 @@
  *		       the cache ECC check before enabling the fault log for lock step mode
  *		       Also modified the cortexr5/gcc/Makefile to support floating point
  *		       registers initialization in boot code.
+ * 5.4 pkp   03/01/16  Updated the exit function in cortexr5/gcc/_exit.c to enable the debug
+ *		       logic in case of lock-step mode when fault log is enabled to fix
+ *		       CR#938281
  *****************************************************************************************/
