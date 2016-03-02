@@ -40,6 +40,7 @@
 # 2.2	pkp  02/24/16 Updated tcl for extra compiler flags different toochain
 # 2.2	pkp  03/02/16 Append the extra compiler flag only when it contains any
 #		      extra flags apart from default ones for linaro toolchain
+# 2.2	pkp  03/02/16 Added --cpu=Cortex-A9 compiler flag for iccarm
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -89,8 +90,10 @@ proc xdefine_cortexa9_params {drvhandle} {
 
 	set compiler_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == compiler_flags } ] ]
 	regsub -- "-O2 -c" $compiler_flags "" compiler_flags
+	regsub -- "--cpu=Cortex-A9" $compiler_flags "" compiler_flags
 	regsub -- "-Om" $compiler_flags "" compiler_flags
-	set compiler_flags "-Om $compiler_flags"
+	regsub -all {  } $temp_flag {} temp_flag
+	set compiler_flags "-Om --cpu=Cortex-A9 $compiler_flags"
 	common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
    } else {
 	set temp_flag $extra_flags
