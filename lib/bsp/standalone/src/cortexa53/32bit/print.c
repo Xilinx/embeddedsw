@@ -19,7 +19,7 @@
  */
 #include "xil_printf.h"
 
-void print(const char *ptr)
+void print(const char8 *ptr)
 {
 #ifdef STDOUT_BASEADDRESS
   while (*ptr) {
