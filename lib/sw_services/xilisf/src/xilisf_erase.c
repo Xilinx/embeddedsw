@@ -60,6 +60,7 @@
 * 						  which supports 4 byte addressing.
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * 5.5  sk   01/14/16 Used 4byte erase command in 4 byte addressing mode.
+*      sk   03/02/16 Used 3byte command with 4 byte addressing for Micron.
 * </pre>
 *
 ******************************************************************************/
@@ -362,7 +363,10 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	if (InstancePtr->FourByteAddrMode == TRUE) {
-		InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_4BYTE_SECTOR_ERASE;
+		if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)
+			InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_4BYTE_SECTOR_ERASE;
+		else
+			InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;
 		InstancePtr->WriteBufPtr[BYTE2] = (u8) (RealAddr >> XISF_ADDR_SHIFT24);
 		InstancePtr->WriteBufPtr[BYTE3] = (u8) (RealAddr >> XISF_ADDR_SHIFT16);
 		InstancePtr->WriteBufPtr[BYTE4] = (u8) (RealAddr >> XISF_ADDR_SHIFT8);
