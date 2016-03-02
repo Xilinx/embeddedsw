@@ -1025,3 +1025,6 @@ openamp_matrix_multiply
 openamp_rpc_demo
 openamp_echo_test:
 OpenAMP demo applications to run on R5 slave and are based on xilopenamp_v1_0.
+
+xilkenrel_v6_3:
+CR:938727 configuring the config_bufmalloc exporting invalid number of statifc bufs.
