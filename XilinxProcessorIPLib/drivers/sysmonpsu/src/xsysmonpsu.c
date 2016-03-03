@@ -48,6 +48,9 @@
 * 1.0   kvn    12/15/15 First release.
 *              02/15/16 Corrected Assert function call in
 *                       XSysMonPsu_GetMonitorStatus API.
+*              03/03/16 Added Temperature remote channel for Setsingle
+*                       channel API. Also corrected external mux channel
+*                       numbers.
 *
 * </pre>
 *
@@ -518,7 +521,7 @@ u8 XSysMonPsu_GetAvg(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *
 * @param	InstancePtr is a pointer to the XSysMonPsu instance.
 * @param	Channel is the channel number for conversion. The valid
-*		channels are 0 - 6, 8 - 10, 13 - 36.
+*		channels are 0 - 6, 8 - 10, 13 - 37.
 * @param	IncreaseAcqCycles is a boolean parameter which specifies whether
 *		the Acquisition time for the external channels has to be
 *		increased to 10 ADCCLK cycles (specify TRUE) or remain at the
@@ -564,7 +567,7 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 			  ((Channel >= XSM_CH_SUPPLY_CALIB) &&
 			  (Channel <= XSM_CH_GAINERR_CALIB)) ||
 			  ((Channel >= XSM_CH_SUPPLY4) &&
-			  (Channel <= XSM_CH_VCCAMS)));
+			  (Channel <= XSM_CH_TEMP_REMTE)));
 	Xil_AssertNonvoid((IncreaseAcqCycles == TRUE) ||
 			  (IncreaseAcqCycles == FALSE));
 	Xil_AssertNonvoid((IsEventMode == TRUE) || (IsEventMode == FALSE));
@@ -944,7 +947,7 @@ s32 XSysMonPsu_GetSequencerEvent(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *
 * @param	InstancePtr is a pointer to the XSysMonPsu instance.
 * @param	Channel is the channel number used to connect to the external
-*		Mux. The valid channels are 0 to 6, 8 to 16, and 31 to 36.
+*		Mux. The valid channels are 0 to 5 and 16 to 31.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
 *
@@ -965,11 +968,9 @@ void XSysMonPsu_SetExtenalMux(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((Channel <= XSM_CH_SUPPLY3) ||
-			  ((Channel >= XSM_CH_SUPPLY_CALIB) &&
-			  (Channel <= XSM_CH_GAINERR_CALIB)) ||
-			  ((Channel >= XSM_CH_SUPPLY4) &&
-			  (Channel <= XSM_CH_VCCAMS)));
+	Xil_AssertVoid((Channel <= XSM_CH_VREFN) ||
+			  ((Channel >= XSM_CH_AUX_MIN) &&
+			  (Channel <= XSM_CH_AUX_MAX)));
 	Xil_AssertVoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
 
 	/* Calculate the effective baseaddress based on the Sysmon instance. */
