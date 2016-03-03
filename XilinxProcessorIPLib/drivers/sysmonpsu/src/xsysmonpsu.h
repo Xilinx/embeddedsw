@@ -146,6 +146,11 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00  kvn    12/15/15 First release
+*              02/15/16 Corrected Assert function call in
+*                       XSysMonPsu_GetMonitorStatus API.
+*              03/03/16 Added Temperature remote channel for Setsingle
+*                       channel API. Also corrected external mux channel
+*                       numbers.
 *
 * </pre>
 *
