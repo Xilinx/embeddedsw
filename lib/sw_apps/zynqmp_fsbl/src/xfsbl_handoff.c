@@ -543,6 +543,9 @@ END:
 void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 {
 
+#if defined (ARMR5)
+	u32 DebugReg, ErrInjReg;
+#endif
 
 	/**
 	 * Flush the L1 data cache and L2 cache, Disable Data Cache
@@ -550,6 +553,42 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 	Xil_DCacheDisable();
 
 	XFsbl_Printf(DEBUG_GENERAL,"Exit from FSBL \n\r");
+
+#if defined (ARMR5)
+
+	/*
+	 * R5 BSP disables debug logic and enables comparators.
+	 * For R5 Lockstep, in JTAG bootmode, Turn-off comparators
+	 * and enable debug logic so that further applications can be ran on JTAG.
+	 */
+
+	if ((XFsbl_In32(CRL_APB_BOOT_MODE_USER) &
+			CRL_APB_BOOT_MODE_USER_BOOT_MODE_MASK) == XFSBL_JTAG_BOOT_MODE) {
+		if ((XFsbl_In32(RPU_RPU_GLBL_CNTL) &
+				RPU_RPU_GLBL_CNTL_SLSPLIT_MASK) == 0U) {
+			if((XFsbl_In32(RPU_RPU_ERR_INJ) &
+					RPU_RPU_ERR_INJ_FAULT_LOG_EN_MASK) != 0) {
+				if((XFsbl_In32(CRL_APB_RST_LPD_DBG) &
+						(CRL_APB_RST_LPD_DBG_RPU_DBG1_RESET_MASK |
+							CRL_APB_RST_LPD_DBG_RPU_DBG0_RESET_MASK)) != 0) {
+
+					/* Disable fault log */
+					ErrInjReg = XFsbl_In32(RPU_RPU_ERR_INJ);
+					ErrInjReg = ErrInjReg & (~RPU_RPU_ERR_INJ_FAULT_LOG_EN_MASK);
+					XFsbl_Out32(RPU_RPU_ERR_INJ, ErrInjReg);
+
+					/* Enable debug logic, by taking it out of reset */
+					DebugReg = XFsbl_In32(CRL_APB_RST_LPD_DBG);
+					DebugReg = DebugReg &
+							(~(CRL_APB_RST_LPD_DBG_RPU_DBG1_RESET_MASK |
+							CRL_APB_RST_LPD_DBG_RPU_DBG0_RESET_MASK));
+					XFsbl_Out32(CRL_APB_RST_LPD_DBG, DebugReg);
+				}
+			}
+		}
+	}
+#endif
+
 
 	/**
 	 * Exit to handoff address
