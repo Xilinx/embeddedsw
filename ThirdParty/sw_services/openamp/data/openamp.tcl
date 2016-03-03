@@ -108,15 +108,29 @@ proc generate {libhandle} {
 	set workdir [pwd]
 	cd "${bdir}"
 	set cmake_cmd "../src/run_cmake"
-	#set cmake_cmd "$::env(XILINX_SDK)/tps/lnx64/cmake-3.3.2/bin/cmake"
-	set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on"
-	file attributes ${cmake_cmd} -permissions ugo+rx
-	if { [catch {exec ${cmake_cmd} ../src/open-amp ${cmake_opt}} msg] } {
-		puts "${msg}"
-		error "Failed to generate cmake files."
+	set os_platform_type "$::tcl_platform(platform)"
+	if { [string match -nocase "windows*" "${os_platform_type}"] == 0 } {
+		# Linux
+		file attributes ${cmake_cmd} -permissions ugo+rx
+
+		set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on"
+		if { [catch {exec ${cmake_cmd} "../src/open-amp" ${cmake_opt}} msg] } {
+			puts "${msg}"
+			error "Failed to generate cmake files."
+		} else {
+			puts "${msg}"
+		}
+
 	} else {
-		puts "${msg}"
+		# Windows
+		if { [catch {exec ${cmake_cmd} -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on "../src/open-amp" } msg] } {
+			puts "${msg}"
+			error "Failed to generate cmake files."
+		} else {
+			puts "${msg}"
+		}
 	}
+
 }
 
 #-------
