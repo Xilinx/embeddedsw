@@ -157,7 +157,15 @@ static void XPfw_InterruptPwrDnHandler(void)
 	}
 }
 
+static void XPfw_InterruptIsolationHandler(void)
+{
+	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_REQ_ISOLATION);
 
+	if (XST_SUCCESS != Status) {
+		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
+		XPFW_EV_REQ_ISOLATION);
+	}
+}
 
 static void XPfw_InterruptGpi0Handler(void)
 {
@@ -304,7 +312,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PMU_IOMODULE_IRQ_PENDING_IPI0_MASK, XPfw_Ipi0Handler},
 	{PMU_IOMODULE_IRQ_PENDING_PWR_UP_REQ_MASK, XPfw_InterruptPwrUpHandler},
 	{PMU_IOMODULE_IRQ_PENDING_PWR_DN_REQ_MASK, XPfw_InterruptPwrDnHandler},
-	{PMU_IOMODULE_IRQ_PENDING_ISO_REQ_MASK, XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_ISO_REQ_MASK, XPfw_InterruptIsolationHandler},
 	{PMU_IOMODULE_IRQ_PENDING_SW_RST_REQ_MASK, XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_HW_RST_REQ_MASK, XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_GPI3_MASK, XPfw_InterruptGpi3Handler},
