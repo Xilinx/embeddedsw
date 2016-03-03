@@ -45,8 +45,9 @@ static void LegacyCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	/* Used for Power Up/Dn request handling */
 	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_PWRUP);
 	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_PWRDN);
+	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_ISOLATION);
 
-	fw_printf("LEGACY PWR UP/DN (MOD-%d): Initialized.\r\n", ModPtr->ModId);
+	fw_printf("LEGACY PWR UP/DN/ISO (MOD-%d): Initialized.\r\n", ModPtr->ModId);
 }
 
 /* Event Handler */
@@ -63,6 +64,13 @@ static void LegacyEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		/* Call ROM Handler for PwrDn */
 		fw_printf("XPFW: Calling ROM PWRDN Handler..");
 		XpbrServHndlrTbl[XPBR_SERV_EXT_PWRDN_REQS]();
+		fw_printf("Done\r\n");
+	}
+
+	if (XPFW_EV_REQ_ISOLATION == EventId) {
+		/* Call ROM Handler for Isolation */
+		fw_printf("XPFW: Calling ROM Isolation Handler..");
+		XpbrServHndlrTbl[XPBR_SERV_EXT_ISO_REQS]();
 		fw_printf("Done\r\n");
 	}
 
