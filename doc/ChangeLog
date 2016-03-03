@@ -124,6 +124,19 @@ Added the initial version of MIPI CSI2 RX Controller driver.
 devcfg_v3_4:
 Fix for CR#784758. Changes in driver tcl to delete filename statement.
 
+dp_v4_0
+Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
+Added APIs:
+- XDp_IsLinkRateValid
+- XDp_IsLaneCountValid
+- XDp_RxGetBpc
+- XDp_RxGetColorComponent
+- XDp_RxSetLineReset
+- XDp_RxAllocatePayloadStream
+XDp_RxAllocatePayloadStream is to be called from within RX allocate payload ISR.
+API changed: XDp_TxAllocatePayloadVcIdTable now takes an additional arg StartTs.
+Removed soft reset when enabling RX DTG.
+
 dphy_v1_0:
 Added the initial version of MIPI DPHY Controller driver.
 
@@ -443,7 +456,7 @@ v_voip_fec_rx_v2_0:
 Initial Commit for 2016.1
 Change space to tab in the Makefile
 
-video_common_v2_1:
+video_common_v2_2:
 Changes made so that functions with pointer arguments that don't modify contents are now const.
 Added ability to insert a custom video timing table: XVidC_RegisterCustomTimingModes and
 XVidC_UnregisterCustomTimingMode.
@@ -856,17 +869,29 @@ Minor updates in the tcl file
 csu_dma_v1_0
 First version of the driver for CSU DMA in Ultrascale+ ZynqMP SoC
 
-dp_v4_0
-Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
-Added APIs:
-- XDp_IsLinkRateValid
-- XDp_IsLaneCountValid
-- XDp_RxGetBpc
-- XDp_RxGetColorComponent
-- XDp_RxSetLineReset
-- XDp_RxAllocatePayloadStream
-XDp_RxAllocatePayloadStream is to be called from within RX allocate payload ISR.
-API changed: XDp_TxAllocatePayloadVcIdTable now takes an additional arg StartTs.
+dp_v2_0:
+Added MST functionality to RX. New APIs added are:
+- XDp_RxHandleDownReq, XDp_RxGetIicMapEntry,
+- XDp_RxSetIicMapEntry, XDp_RxSetDpcdMap,
+- XDp_RxMstExposePort, XDp_RxMstSetPort,
+- XDp_RxMstSetInputPort, XDp_RxMstSetPbn,
+- XDp_RxSetIntrDownReqHandler, XDp_RxSetIntrDownReplyHandler,
+- XDp_RxSetIntrAudioOverHandler, XDp_RxSetIntrPayloadAllocHandler,
+- XDp_RxSetIntrActRxHandler, XDp_RxSetIntrCrcTestHandler
+Added Intr*Handler and Intr*CallbackRef interrupt-related members to XDp_Rx
+structure for:
+- DownReq, DownReply, AudioOver, PayloadAlloc, ActRx,CrcTest
+Added new data structures related to RX MST topology:
+- XDp_RxIicMapEntry, XDp_RxDpcdMap, XDp_RxPort, XDp_RxTopology
+Renamed XDp_Tx* to XDp_* to reflect commonality with RX for:
+- XDp_TxSbMsgLinkAddressReplyPortDetail
+- XDp_TxSbMsgLinkAddressReplyDeviceInfo
+GUID type change for ease of use:
+- 'u32 Guid[4]' changed to 'u8 Guid[16]'
+Added handlers and setter functions for HDCP and unplug
+events.
+Added callbacks for lane count changes, link rate changes
+and pre-emphasis + voltage swing adjust requests.
 
 dptxss_v1_0:
 Initial version of the driver for the Display Port Tx Sub System Driver
