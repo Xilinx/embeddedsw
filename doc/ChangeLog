@@ -310,6 +310,7 @@ sysmonpsu_v1_0 :
 Added new system monitor driver.
 Correct the assert function call.
 Modified interrupt examples.
+Corrected valid list of Single and External Mux channels.
 
 tmrctr_v4_1:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
