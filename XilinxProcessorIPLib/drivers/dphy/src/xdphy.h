@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,13 +34,17 @@
 *
 * @file xdphy.h
 *
-* @mainpage dphy_v1_0
+* @addtogroup dphy_v1_0
+* @{
+* @details
 *
 * This file contains the implementation of the MIPI DPHY Controller driver.
 * User documentation for the driver functions is contained in this file in the
 * form of comment blocks at the front of each function.
 *
-* The DPHY currently supports the MIPI�Alliance Specification
+* <b>MIPI DPHY Overview</b>
+*
+* The DPHY currently supports the MIPI?Alliance Specification
 * for DPHY Version 1.1.
 *
 * It is capable of synchronous transfer at high speed mode at 80-1500 Mbps
@@ -53,29 +57,73 @@
 * present and various status like Stop state, Error detected, ULPS state,etc
 * are available through the status register
 *
-* <b> Examples </b>
+* <b>Core Features</b>
 *
-* There is currently no example code provided.
+* The GUI in IPI allows for the following configurations
+*	- Lanes ( 1 to 4 )
+*	- Line Rate (80 - 1500 Mbps)
+*	- Data Flow direction (Tx or Rx)
+*	- Escape Clock (10 - 20 Mhz)
+*	- LPX period (50 - 100 ns)
+*	- Enable register interface
+*	- HS Timeout in Bytes (1000 - 65541)
+*	- Escape Timeout in ns (800 - 25600)
 *
-* <b>RTOS Independence</b>
+* <b>Software Initialization & Configuration</b>
 *
-* This driver is intended to be RTOS and processor independent.  It works with
-* physical addresses only.  Any needs for dynamic memory management, threads or
-* thread mutual exclusion, virtual memory, or cache control must be satisfied
-* by the layer above this driver.
+* By default, the DPHY core is initialized and ready.
+*
+* The application needs to do following steps in order for preparing the
+* MIPI DPHY core to be ready.
+*
+* - Call XDphy_LookupConfig using a device ID to find the core
+*   configuration.
+* - Call XDphy_CfgInitialize to initialize the device and the driver
+*   instance associated with it.
+* - Individual parameters can be configured by sending values with
+*   appropriate handles.
+*
+* <b>Interrupts</b>
+*
+* There are no interrupts from the DPHY.
+*
+* <b> Virtual Memory </b>
+*
+* This driver supports Virtual Memory. The RTOS is responsible for calculating
+* the correct device base address in Virtual Memory space.
+*
+* <b> Threads </b>
+*
+* This driver is not thread safe. Any needs for threads or thread mutual
+* exclusion must be satisfied by the layer above this driver.
+*
+
+* <b>Asserts</b>
+*
+* Asserts are used within all Xilinx drivers to enforce constraints on argument
+* values. Asserts can be turned off on a system-wide basis by defining, at
+* compile time, the NDEBUG identifier.  By default, asserts are turned on and
+* it is recommended that application developers leave asserts on during
+* development.
+*
+* <b>Building the driver</b>
+*
+* The DPHY driver is composed of source files and doesn't depend on any other
+* drivers.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00a vs   07/08/15 First release
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/08/15 Initial release
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XDPHY_H_   /* prevent circular inclusions */
-#define XDPHY_H_
+#ifndef XDPHY_H_
+#define XDPHY_H_		/**< Prevent circular inclusions
+				  *  by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -83,13 +131,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
-#ifdef __MICROBLAZE__
-#include "xenv.h"
-#else
 #include "xil_types.h"
-#include "xil_cache.h"
-#endif
-
 #include "xdphy_hw.h"
 
 /************************** Constant Definitions *****************************/
@@ -120,6 +162,7 @@ extern "C" {
 #define XDPHY_HANDLE_DLANE3	9 /**< Handle for Data Lane 3 */
 #define XDPHY_HANDLE_MAX 	9 /**< Upper Bound for XDPHY_HANDLE */
 /*@}*/
+
 /**************************** Macros Definitions *****************************/
 /** @name DPHY HSTIMEOUT range
  * @{
@@ -136,114 +179,95 @@ extern "C" {
 /*@}*/
 
 /************************* Bit field operations ****************************/
-/* Setting and resetting bits */
+
 /****************************************************************************/
 /**
 *
-* XDPHY_BIT_SET is used to set bit in a register.
+* This inline function is used to set bit in a DPHY register space
 *
 * @param 	BaseAddress is a base address of IP
-*
 * @param 	RegisterOffset is offset where the register is present
-*
-* @param 	BitName is the part of the bitname before _MASK
+* @param 	BitMask of bit field to be set
 *
 * @return 	None
 *
 * @note 	None
 *
 ****************************************************************************/
-#define XDPHY_BIT_SET(BaseAddress, RegisterOffset, BitName) \
-	do \
-	{ \
-		XDphy_WriteReg((BaseAddress), (RegisterOffset), \
-			(XDphy_ReadReg((BaseAddress), (RegisterOffset)) | \
-				(BitName##_MASK))); \
-	} \
-	while (0);
+static inline void XDphy_BitSet(u32 BaseAddress, u32 RegisterOffset,
+					u32 BitMask)
+{
+	XDphy_WriteReg(BaseAddress, RegisterOffset,
+	(XDphy_ReadReg(BaseAddress, RegisterOffset) | BitMask));
+}
 
 /****************************************************************************/
 /**
 *
-* XDPHY_BIT_RESET is used to reset bit in a register.
+* This inline function is used to reset bit in a DPHY register space
 *
 * @param 	BaseAddress is a base address of IP
-*
 * @param 	RegisterOffset is offset where the register is present
-*
-* @param 	BitName is the part of the bitname before _MASK
+* @param 	BitMask of bit field to be reset
 *
 * @return 	None
 *
 * @note 	None
 *
 ****************************************************************************/
-#define XDPHY_BIT_RESET(BaseAddress, RegisterOffset, BitName) \
-	do \
-	{ \
-		XDphy_WriteReg((BaseAddress),(RegisterOffset), \
-			(XDphy_ReadReg((BaseAddress),(RegisterOffset)) &\
-				~(BitName##_MASK))); \
-	} \
-	while (0);
 
-/* Get a bitfield/s value. To be used for reading */
+static inline void XDphy_BitReset(u32 BaseAddress, u32 RegisterOffset,
+					u32 BitMask)
+{
+	XDphy_WriteReg(BaseAddress, RegisterOffset,
+	(XDphy_ReadReg(BaseAddress, RegisterOffset) & ~ BitMask));
+}
+
+
 /****************************************************************************/
 /**
 *
-* XDPHY_GET_BITFIELD_VALUE is used to get the value of bitfield from register.
+* This function is used to get the value of bitfield from DPHY register space
 *
 * @param 	BaseAddress is a base address of IP
-*
 * @param 	RegisterOffset is offset where the register is present
-*
-* @param 	BitName is the part of the bitname before _MASK or _OFFSET
+* @param 	BitMask of bit field whose value needs to be obtained
+* @param 	BitShift is offset of bit field
 *
 * @return 	Bit Field Value in u32 format
 *
-* @note 	C-style signature:
-*		u32 XDPHY_GET_BITFIELD_VALUE(u32 BaseAddress,
-*					     u32 RegisterOffset,
-*					     u32 BitMask,
-*					     u32 BitOffset)
-*		The bit mask and bit offset are generated from the common part
-*		of the bit name by appending _MASK and _OFFSET
+* @note 	None
 *
 ****************************************************************************/
-#define XDPHY_GET_BITFIELD_VALUE(BaseAddress, RegisterOffset, BitName) \
-		((XDphy_ReadReg((BaseAddress), (RegisterOffset)) & \
-			(BitName##_MASK)) >> (BitName##_OFFSET))
+static inline u32 XDphy_GetBitField(u32 BaseAddress, u32 RegisterOffset,
+						u32 BitMask, u32 BitShift)
+{
+	return((XDphy_ReadReg(BaseAddress, RegisterOffset)
+		 & BitMask) >> BitShift);
+}
 
 /****************************************************************************/
 /**
 *
-* XDPHY_SET_BITFIELD_VALUE is used to set the value of bitfield from register.
+* This function is used to set the value of bitfield from DPHY register space
 *
 * @param 	BaseAddress is a base address of IP
-*
 * @param 	RegisterOffset is offset where the register is present
-*
-* @param 	BitName is the part of the bitname before _MASK or _OFFSET
-*
-* @param 	Value is to be set. Passed in u32 format.
+* @param 	BitMask of bit field whose value needs to be updated
+* @param 	BitShift is offset of bit field
+* @param 	Value to be set. Passed in u32 format.
 *
 * @return 	None
 *
-* @note 	C-style signature:
-*		u32 XDPHY_SET_BITFIELD_VALUE(u32 BaseAddress,
-*					     u32 RegisterOffset,
-*					     u32 BitMask,
-*					     u32 BitOffset,
-*					     u32 Value)
-*
-*		The bit mask and bit offset are generated from the common part
-*		of the bit name by appending _MASK and _OFFSET
-*
+* @note 	None
 ****************************************************************************/
-#define XDPHY_SET_BITFIELD_VALUE(BaseAddress, RegisterOffset, BitName, Value) \
-		XDphy_WriteReg((BaseAddress), (RegisterOffset), \
-			((XDphy_ReadReg((BaseAddress), (RegisterOffset)) & \
-			  ~(BitName##_MASK)) | ((Value) << (BitName##_OFFSET))))
+static inline void XDphy_SetBitField(u32 BaseAddress, u32 RegisterOffset,
+				u32 BitMask, u32 BitShift, u32 Value)
+{
+	XDphy_WriteReg(BaseAddress, RegisterOffset,
+		((XDphy_ReadReg(BaseAddress, RegisterOffset) &
+		 ~ BitMask) | (Value << BitShift)));
+}
 
 /**************************** Type Definitions *******************************/
 
@@ -274,45 +298,41 @@ typedef struct {
 
 /**
 * The XDphy Controller driver instance data.
-* An instance must be allocated for each Dphy in use.
+* The user is required to allocate a variable of this type for every XDphy
+* device in the system. A pointer to a variable of this type is then passed
+* to the driver API functions.
 */
 typedef struct {
 	XDphy_Config Config; /**< Hardware Configuration */
-
 	u32 IsReady; /**< Driver is ready */
 } XDphy;
 
 /************************** Function Prototypes ******************************/
 
+/* Initialization function in xdphy_sinit.c */
 XDphy_Config *XDphy_LookupConfig(u32 DeviceId);
 
+/* Initialization and control functions xdphy.c */
 u32 XDphy_CfgInitialize(XDphy *InstancePtr, XDphy_Config *Config,
 			u32 EffectiveAddr);
-
 u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value);
-
 u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle);
-
 void XDphy_Reset(XDphy *InstancePtr);
-
 void XDphy_ClearDataLane(XDphy *InstancePtr, u8 DataLane, u32 Mask);
-
 u32 XDphy_GetClkLaneStatus(XDphy *InstancePtr);
-
 u32 XDphy_GetClkLaneMode(XDphy *InstancePtr);
-
 u32 XDphy_GetDataLaneStatus(XDphy *InstancePtr, u8 DataLane);
-
+u16 XDphy_GetPacketCount(XDphy *InstancePtr, u8 DataLane);
 u32 XDphy_GetDataLaneMode(XDphy *InstancePtr, u8 DataLane);
-
 void XDphy_Activate(XDphy *InstancePtr, u8 Flag);
-
-u32 XDphy_SelfTest(XDphy *InstancePtr);
-
 u8 XDphy_GetRegIntfcPresent(XDphy *InstancePtr);
+
+/* Self test function in xcsiss_selftest.c */
+u32 XDphy_SelfTest(XDphy *InstancePtr);
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* end of protection macro */
+/** @} */

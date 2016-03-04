@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,16 +33,16 @@
 /**
 *
 * @file xdphy.c
+* @addtogroup dphy_v1_0
+* @{
 *
 * This file implements the functions to control and get info from the DPHY.
 *
 * <pre>
 * MODIFICATION HISTORY:
-*
-* Ver   Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00a vs   07/08/15 First release
-*
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/08/15 Initial release
 * </pre>
 ******************************************************************************/
 
@@ -54,14 +54,18 @@
 
 /************************** Constant Definitions *****************************/
 
+
 /**************************** Type Definitions *******************************/
+
 
 /************************** Macros Definitions *****************************/
 #define XDPHY_SOFTRESET_TIMEOUT 	5000UL
 
 /************************** Function Prototypes ******************************/
 
+
 /************************** Variable Definitions *****************************/
+
 
 /****************************************************************************/
 /**
@@ -76,9 +80,9 @@
 *		virtual base address. Otherwise, the physical address should be
 *		used.
 * @return
-*         	- XST_SUCCESS Initialization was successful.
+* 		- XST_SUCCESS Initialization was successful.
 *
-* @note     None.
+* @note		None.
 *****************************************************************************/
 u32 XDphy_CfgInitialize(XDphy *InstancePtr, XDphy_Config *CfgPtr,
 						u32 EffectiveAddr)
@@ -105,13 +109,20 @@ u32 XDphy_CfgInitialize(XDphy *InstancePtr, XDphy_Config *CfgPtr,
 * @param 	InstancePtr is the XDphy instance to operate on.
 * @param 	Handle to one of the registers to be configured
 * @param	Value to be set for the particular Handle of the DPHY instance
-* @return
-*         	- XST_SUCCESS Initialization was successful.
 *
-* @note     None.
+* @return
+* 		- XST_SUCCESS on successful register update.
+* 		- XST_FAILURE If incorrect handle was passed
+*
+* @note		There is a limit on the minimum and maximum values of
+*		the HS Timeout register.
+*
 *****************************************************************************/
 u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 {
+	u32 Status = XST_SUCCESS;
+
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Handle <= XDPHY_HANDLE_MAX);
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
@@ -124,6 +135,7 @@ u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
 					XDPHY_HSEXIT_IDELAY_REG_OFFSET, Value);
 			break;
+
 		case XDPHY_HANDLE_INIT_TIMER:
 			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
 					XDPHY_INIT_REG_OFFSET, Value);
@@ -132,33 +144,33 @@ u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
 					XDPHY_WAKEUP_REG_OFFSET, Value);
 			break;
+
 		case XDPHY_HANDLE_HSTIMEOUT:
 			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
 					XDPHY_HSTIMEOUT_REG_OFFSET, Value);
 			break;
+
 		case XDPHY_HANDLE_ESCTIMEOUT:
-			/* There is a limit on the minimum and maximum values of
-			 * the HS Timeout register */
 			Xil_AssertNonvoid(Value >= XDPHY_HS_TIMEOUT_MIN_VALUE);
 			Xil_AssertNonvoid(Value <= XDPHY_HS_TIMEOUT_MAX_VALUE);
 
 			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
 					XDPHY_ESCTIMEOUT_REG_OFFSET, Value);
 			break;
+
 		case XDPHY_HANDLE_CLKLANE:
 		case XDPHY_HANDLE_DLANE0:
 		case XDPHY_HANDLE_DLANE1:
 		case XDPHY_HANDLE_DLANE2:
 		case XDPHY_HANDLE_DLANE3:
-			/* These are read only registers for most part.
-			 * Passing them to this function is incorrect  */
-			Xil_AssertVoidAlways();
+			Status = XST_FAILURE;
 			break;
+
 		default:
 			break;
 	}
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /****************************************************************************/
@@ -167,14 +179,16 @@ u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 * DPHY instance.
 *
 * @param 	InstancePtr is the XDphy instance to operate on.
+*
 * @return
 * 		- 1 if register interface is present
 * 		- 0 if register interface is absent
 *
-* @note     None.
+* @note		None.
 *****************************************************************************/
 u8 XDphy_GetRegIntfcPresent(XDphy *InstancePtr)
 {
+	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return (InstancePtr->Config.IsRegisterPresent);
@@ -186,14 +200,16 @@ u8 XDphy_GetRegIntfcPresent(XDphy *InstancePtr)
 *
 * @param 	InstancePtr is the XDphy instance to operate on.
 * @param 	Handle to one of the registers to be configured
+*
 * @return 	The value stored in the corresponding register
 *
-* @note     None.
+* @note		None.
 *****************************************************************************/
 u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle)
 {
 	u32 RegVal = 0;
 
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Handle <= XDPHY_HANDLE_MAX)
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
@@ -263,6 +279,7 @@ void XDphy_Reset(XDphy *InstancePtr)
 	u32 Value = XDPHY_SOFTRESET_TIMEOUT;
 	u32 RegVal;
 
+	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->Config.IsRegisterPresent != 0);
 
@@ -309,6 +326,7 @@ void XDphy_ClearDataLane(XDphy *InstancePtr, u8 DataLane, u32 Mask)
 {
 	u32 Value;
 
+	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->Config.IsRegisterPresent != 0);
 	Xil_AssertVoid(DataLane < InstancePtr->Config.MaxLanesPresent);
@@ -336,11 +354,13 @@ void XDphy_ClearDataLane(XDphy *InstancePtr, u8 DataLane, u32 Mask)
 *****************************************************************************/
 u32 XDphy_GetClkLaneStatus(XDphy *InstancePtr)
 {
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
 
 	return (XDphy_ReadReg(InstancePtr->Config.BaseAddr,
 				XDPHY_CLSTATUS_REG_OFFSET));
+
 }
 
 /****************************************************************************/
@@ -357,6 +377,7 @@ u32 XDphy_GetClkLaneMode(XDphy *InstancePtr)
 {
 	u32 Value;
 
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
 
@@ -369,20 +390,20 @@ u32 XDphy_GetClkLaneMode(XDphy *InstancePtr)
 /**
 * This is used to get information about a Data Lane status
 *
-* @param 	InstancePtr is the XDphy instance to operate on.
+* @param	InstancePtr is the XDphy instance to operate on.
+* @param	DataLane for which the status is sought for.
 *
-* @param  	DataLane for which the status is sought for.
-*
-* @return 	Bitmask containing which of the events have occured along with
+* @return	Bitmask containing which of the events have occured along with
 * 		the mode of the Data Lane in DPhy
 *
-* @note     None.
+* @note		None.
 *****************************************************************************/
 u32 XDphy_GetDataLaneStatus(XDphy *InstancePtr, u8 DataLane)
 {
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
-	Xil_AssertVoid(DataLane < InstancePtr->Config.MaxLanesPresent);
+	Xil_AssertNonvoid(DataLane < InstancePtr->Config.MaxLanesPresent);
 
 	return (XDphy_ReadReg(InstancePtr->Config.BaseAddr,
 				(XDPHY_DL0STATUS_REG_OFFSET + (4 * DataLane))));
@@ -392,21 +413,21 @@ u32 XDphy_GetDataLaneStatus(XDphy *InstancePtr, u8 DataLane)
 /**
 * This is used to get specfic Lane mode information about a Data Lane.
 *
-* @param 	InstancePtr is the XDphy instance to operate on.
+* @param	InstancePtr is the XDphy instance to operate on.
+* @param	DataLane for which the mode info is requested.
 *
-* @param  	DataLane for which the mode info is requested.
+* @return	Bitmask containing mode in which the Data Lane in DPhy is in.
 *
-* @return 	Bitmask containing mode in which the Data Lane in DPhy is in.
-*
-* @note     	None.
+* @note		None.
 *****************************************************************************/
 u32 XDphy_GetDataLaneMode(XDphy *InstancePtr, u8 DataLane)
 {
 	u32 Value;
 
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
-	Xil_AssertVoid(DataLane < InstancePtr->Config.MaxLanesPresent);
+	Xil_AssertNonvoid(DataLane < InstancePtr->Config.MaxLanesPresent);
 
 	Value = XDphy_GetDataLaneStatus(InstancePtr, DataLane);
 
@@ -415,13 +436,41 @@ u32 XDphy_GetDataLaneMode(XDphy *InstancePtr, u8 DataLane)
 
 /****************************************************************************/
 /**
+* This is used to get count of packets received on each lane
+*
+* @param	InstancePtr is the XDphy instance to operate on.
+* @param	DataLane for which the mode info is requested.
+*
+* @return	Bitmask containing mode in which the Data Lane in DPhy is in.
+*
+* @note		None.
+*
+*****************************************************************************/
+u16 XDphy_GetPacketCount(XDphy *InstancePtr, u8 DataLane)
+{
+	u32 Value;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->Config.IsRegisterPresent != 0);
+	Xil_AssertNonvoid(DataLane < InstancePtr->Config.MaxLanesPresent);
+
+	Value = (XDphy_ReadReg(InstancePtr->Config.BaseAddr,
+				(XDPHY_DL0STATUS_REG_OFFSET + (4 * DataLane))));
+	Value = Value & XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK;
+	Value >>= XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET;
+
+	return (u16)Value;
+}
+
+/****************************************************************************/
+/**
 * This function is used to enable or disable the DPhy core.
 *
-* @param 	InstancePtr is the XDphy instance to operate on.
+* @param	InstancePtr is the XDphy instance to operate on.
+* @param	Flag denoting whether to enable or disable the DPhy core
 *
-* @param  	Flag denoting whether to enable or disable the DPhy core
-*
-* @return 	None.
+* @return	None.
 *
 * @note 	None.
 *****************************************************************************/
@@ -448,3 +497,4 @@ void XDphy_Activate(XDphy *InstancePtr, u8 Flag)
 	XDphy_WriteReg(InstancePtr->Config.BaseAddr,
 			XDPHY_CTRL_REG_OFFSET, Value);
 }
+/** @} */

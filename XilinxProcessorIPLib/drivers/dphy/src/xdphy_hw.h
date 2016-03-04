@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -31,23 +31,26 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
- *  @file xdphy_hw.h
- *
- * Hardware definition file. It defines the register interface.
- *
- * <pre>
- * MODIFICATION HISTORY:
- *
- * Ver   Who  Date     Changes
- * ----- ---- -------- -------------------------------------------------------
- * 1.00a vs   07/07/15 First release
- *
- * </pre>
- *
- *****************************************************************************/
+* @file xdphy_hw.h
+* @addtogroup xdphy_v1_0
+* @{
+* @details
+*
+* Hardware definition file. It defines the register interface.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/07/15 Initial release
+* </pre>
+*
+*****************************************************************************/
 
-#ifndef XDPHY_HW_H_    /* prevent circular inclusions */
-#define XDPHY_HW_H_
+#ifndef XDPHY_HW_H_
+#define XDPHY_HW_H_		/**< Prevent circular inclusions
+				  *  by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -64,36 +67,29 @@ extern "C" {
  *  Register sets of MIPI DPHY
  *  @{
  */
-
 #define XDPHY_CTRL_REG_OFFSET 		0x00000000  /**< Control Register */
 #define XDPHY_HSEXIT_IDELAY_REG_OFFSET 	0x00000004  /**< HS_EXIT for Tx and
-								Delay for
-								Rx Register*/
+						      *  Delay for
+						      *  Rx Register*/
 #define XDPHY_INIT_REG_OFFSET 		0x00000008  /**< Initialization Timer
-								Register */
+						      *  Register */
 #define XDPHY_WAKEUP_REG_OFFSET 	0x0000000C  /**< Wakeup Timer for ULPS
-								exit Register */
+						      *  exit Register */
 #define XDPHY_HSTIMEOUT_REG_OFFSET 	0x00000010  /**< Watchdog timeout in HS
-								mode Register */
+						      *  mode Register */
 #define XDPHY_ESCTIMEOUT_REG_OFFSET 	0x00000014  /**< Goto Stop state on
-								timeout timer
-								Register */
+						      *  timeout timer
+						      *  Register */
 #define XDPHY_CLSTATUS_REG_OFFSET   	0x00000018  /**< Clk lane PHY error
-								Status
-								Register */
+						      *  Status Register */
 #define XDPHY_DL0STATUS_REG_OFFSET 	0x0000001C  /**< Data lane 0 PHY error
-								Status
-								Register */
+						      *  Status Register */
 #define XDPHY_DL1STATUS_REG_OFFSET 	0x00000020  /**< Data lane 1 PHY error
-								Status
-								Register */
+						      *  Status Register */
 #define XDPHY_DL2STATUS_REG_OFFSET 	0x00000024  /**< Data lane 2 PHY error
-								Status
-								Register */
+						      *  Status Register */
 #define XDPHY_DL3STATUS_REG_OFFSET 	0x00000028  /**< Data lane 3 PHY error
-								Status
-								Register */
-
+						      *  Status Register */
 /*@}*/
 
 /** @name Bitmasks and offsets of XDPHY_CTRL_REG_OFFSET register
@@ -101,10 +97,9 @@ extern "C" {
  * This register is used for the enabling/disabling and resetting the DPHY
  * @{
  */
-
 #define XDPHY_CTRL_REG_SOFTRESET_MASK 	0x00000001 /**< Soft Reset */
 #define XDPHY_CTRL_REG_DPHYEN_MASK 	0x00000002 /**< Enable/Disable
-								controller */
+						     *  controller */
 
 #define XDPHY_CTRL_REG_SOFTRESET_OFFSET 0 /**< Bit offset for Soft Reset */
 #define XDPHY_CTRL_REG_DPHYEN_OFFSET 1 /**< Bit offset for DPHY Enable */
@@ -117,16 +112,12 @@ extern "C" {
  * @{
  */
 #define XDPHY_HSEXIT_IDELAY_REG_READY_MASK 0x00000200 /**< DLY_RDY of
-								BITSLICE_CONTROL
-								*/
+						        *   BITSLICE_CONTROL */
 #define XDPHY_HSEXIT_IDELAY_REG_TAP_MASK 0x000001FF /**< used in RX data lanes
-								to compensate
-								clock routing
-								delay */
-
+						      *  to compensate clock routing
+						      *  delay */
 #define XDPHY_HSEXIT_IDELAY_REG_READY_OFFSET 8 /**< Bit offset for READY bit */
 #define XDPHY_HSEXIT_IDELAY_REG_TAP_OFFSET 0 /**< Bit offset for TAP */
-
 /*@}*/
 
 /** @name Bitmasks and offsets of XDPHY_INIT_REG_OFFSET register
@@ -138,7 +129,6 @@ extern "C" {
 #define XDPHY_INIT_REG_VAL_MASK 0xFFFFFFFF /**< Init Timer value in ns */
 
 #define XDPHY_INIT_REG_VAL_OFFSET 0 /**< Bit offset for Init Timer */
-
 /*@}*/
 
 /** @name Bitmask and offset of XDPHY_WAKEUP_REG_OFFSET register
@@ -148,7 +138,6 @@ extern "C" {
  */
 #define XDPHY_WAKEUP_REG_VAL_MASK 	0xFFFFFFFF /**< Wakeup timer value */
 #define XDPHY_WAKEUP_REG_VAL_OFFSET 	0 /**< Bit offset for Wakeup value */
-
 /*@}*/
 
 /** @name Bitmask and offset of XDPHY_HSTIMEOUT_REG_OFFSET register
@@ -162,7 +151,6 @@ extern "C" {
 								Received */
 
 #define XDPHY_HSTIMEOUT_REG_TIMEOUT_OFFSET 0 /**< Bit offset for Timeout */
-
 /*@}*/
 
 /** @name Bitmask and offset of XDPHY_ESCTIMEOUT_REG_OFFSET register
@@ -173,7 +161,6 @@ extern "C" {
  */
 #define XDPHY_ESCTIMEOUT_REG_VAL_MASK 0xFFFFFFFF /**< Escape Timout Value */
 #define XDPHY_ESCTIMEOUT_REG_VAL_OFFSET 0 /**< Bit offset for Escape Timeout */
-
 /*@}*/
 
 /** @name Bitmask and offset of XDPHY_CLSTATUS_REG_OFFSET register
@@ -182,12 +169,11 @@ extern "C" {
  * @{
  */
 #define XDPHY_CLSTATUS_REG_ERRCTRL_MASK 0x00000020 /**< Clock lane control
-								error. Only for
-								RX */
+						     *  error. Only for RX */
 #define XDPHY_CLSTATUS_REG_STOPSTATE_MASK 0x00000010 /**< Clock lane stop
-								state */
+						       *  state */
 #define XDPHY_CLSTATUS_REG_INITDONE_MASK 0x00000008 /**< Initialization done
-								bit */
+						      *  bit */
 #define XDPHY_CLSTATUS_REG_ULPS_MASK 0x00000004 /**< Set in ULPS mode */
 #define XDPHY_CLSTATUS_REG_MODE_MASK 0x00000003 /**< Low, High, Esc mode */
 
@@ -198,14 +184,13 @@ extern "C" {
 					XDPHY_CLSTATUS_REG_MODE_MASK)
 
 #define XDPHY_CLSTATUS_REG_ERRCTRL_OFFSET 5 /**< Bit offset for Control Error
-							on Clock*/
+					      *  on Clock*/
 #define XDPHY_CLSTATUS_REG_STOPSTATE_OFFSET 4 /**< Bit offset for Stop State on
-							Clock */
+						*  Clock */
 #define XDPHY_CLSTATUS_REG_INITDONE_OFFSET 3 /**< Bit offset for Initialization
-							Done */
+					       *  Done */
 #define XDPHY_CLSTATUS_REG_ULPS_OFFSET 2 /**< Bit offset for ULPS */
 #define XDPHY_CLSTATUS_REG_MODE_OFFSET 0 /**< Bit offset for Mode bits */
-
 /*@}*/
 
 /** @name Bitmasks and offsets of XDPHY_DLxSTATUS_REG_OFFSET register
@@ -213,20 +198,18 @@ extern "C" {
  * This register contains the data lanes status
  * @{
  */
-
+#define XDPHY_DLXSTATUS_REG_PACKETCOUNT_MASK 0xFFFF0000 /**< Packet Count */
 #define XDPHY_DLXSTATUS_REG_STOP_MASK 0x00000040 /**< Stop State on data lane */
 #define XDPHY_DLXSTATUS_REG_ESCABRT_MASK 0x00000020 /**< Set on Data Lane Esc
-								timeout
-								occurs */
+						      *  timeout occurs */
 #define XDPHY_DLXSTATUS_REG_HSABRT_MASK 0x00000010 /**< Set on Data Lane
-								HS timeout */
+						     *  HS timeout */
 #define XDPHY_DLXSTATUS_REG_INITDONE_MASK 0x00000008 /**< Set after
-								initialization
-								*/
+						       * initialization */
 #define XDPHY_DLXSTATUS_REG_ULPS_MASK 0x00000004 /**< Set when DPHY in ULPS
-							mode */
+						   *  mode */
 #define XDPHY_DLXSTATUS_REG_MODE_MASK 0x00000003 /**< Control Mode (Esc, Low,
-							High) of Data Lane */
+						   *  High) of Data Lane */
 
 #define XDPHY_DLXSTATUS_ALLMASK	(XDPHY_DLXSTATUS_REG_MODE_MASK |\
 					XDPHY_DLXSTATUS_REG_ULPS_MASK |\
@@ -235,58 +218,68 @@ extern "C" {
 					XDPHY_DLXSTATUS_REG_ESCABRT_MASK |\
 					XDPHY_DLXSTATUS_REG_STOP_MASK)
 
-#define XDPHY_DL0STATUS_REG_STOP_OFFSET 6 /**< Bit offset for Stop State */
-#define XDPHY_DL0STATUS_REG_ESCABRT_OFFSET 5 /**< Bit offset for Escape Abort */
-#define XDPHY_DL0STATUS_REG_HSABRT_OFFSET 4 /**< Bit offset for High Speed
+#define XDPHY_DLXSTATUS_REG_PACKCOUNT_OFFSET 16 /**<Bit offset packet count*/
+#define XDPHY_DLXSTATUS_REG_STOP_OFFSET 6 /**< Bit offset for Stop State */
+#define XDPHY_DLXSTATUS_REG_ESCABRT_OFFSET 5 /**< Bit offset for Escape Abort */
+#define XDPHY_DLXSTATUS_REG_HSABRT_OFFSET 4 /**< Bit offset for High Speed
 							Abort */
-#define XDPHY_DL0STATUS_REG_INITDONE_OFFSET 3 /**< Bit offset for
+#define XDPHY_DLXSTATUS_REG_INITDONE_OFFSET 3 /**< Bit offset for
 							Initialization done */
-#define XDPHY_DL0STATUS_REG_ULPS_OFFSET 2 /**< Bit offset for ULPS */
-#define XDPHY_DL0STATUS_REG_MODE_OFFSET 0 /**< Bit offset for Modes */
-
+#define XDPHY_DLXSTATUS_REG_ULPS_OFFSET 2 /**< Bit offset for ULPS */
+#define XDPHY_DLXSTATUS_REG_MODE_OFFSET 0 /**< Bit offset for Modes */
 /*@}*/
 
 /**************************** Type Definitions *******************************/
 
+
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XDphy_In32	Xil_In32
-#define XDphy_Out32	Xil_Out32
+
+/**
+*
+* This function reads a value from a DPHY register space.
+* A 32 bit read is performed. If the component is implemented in a smaller
+* width, only the least significant data is read from the register. The most
+* significant data will be read as 0.
+*
+* @param	BaseAddress is the base address of the XCsiSs core instance.
+* @param	RegOffset is the register offset of the register (defined at
+*		the top of this file).
+*
+* @return	The 32-bit value of the register.
+*
+* @note		None.
+*
+******************************************************************************/
+static inline u32 XDphy_ReadReg(u32 BaseAddress, u32 RegOffset)
+{
+	return (Xil_In32(BaseAddress + (u32)RegOffset));
+}
 
 /*****************************************************************************/
 /**
-* Macro to read register.
 *
-* @param        BaseAddress is the base address of DPHY
-* @param        RegOffset is the register offset.
+* This function writes a value to a DPHY register space
+* A 32 bit write is performed. If the component is implemented in a smaller
+* width, only the least significant data is written.
 *
-* @return       Value of the register.
+* @param	BaseAddress is the base address of the XCsiSs core instance.
+* @param	RegOffset is the register offset of the register (defined at
+*		the top of this file) to be written.
+* @param	Data is the 32-bit value to write into the register.
 *
-* @note         C-style signature:
-*               u32 XDphy_ReadReg(u32 BaseAddress, u32 RegOffset)
+* @return	None.
 *
-******************************************************************************/
-#define XDphy_ReadReg(BaseAddress, RegOffset)  \
-	XDphy_In32((u32)(BaseAddress) + (u32)(RegOffset))
-
-/*****************************************************************************/
-/**
-* Macro to write to register.
-*
-* @param        BaseAddress is the base address of DPHY
-* @param        RegOffset is the register offset.
-* @param	Data is the value to be written to the register.
-*
-* @return       None.
-*
-* @note         C-style signature:
-* 		void XDphy_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+* @note		None.
 *
 ******************************************************************************/
-#define XDphy_WriteReg(BaseAddress, RegOffset, Data)   \
-	XDphy_Out32((u32)(BaseAddress) + (u32)(RegOffset), (Data))
+static inline void XDphy_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+{
+	Xil_Out32(BaseAddress + (u32)RegOffset, (u32)Data);
+}
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif /* end of protection macro */
+/** @} */

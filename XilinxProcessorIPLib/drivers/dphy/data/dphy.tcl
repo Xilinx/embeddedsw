@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,9 +29,9 @@
 # this Software without prior written authorization from Xilinx.
 #
 # MODIFICATION HISTORY:
-# Ver      Who    Date     Changes
-# -------- ------ -------- ----------------------------------------------------
-#  1.0     vs    07/03/15  Initial version
+# Ver Who Date     Changes
+# --- --- -------- ----------------------------------------------------
+# 1.0 vsa 07/03/15 Initial version
 ##############################################################################
 
 
@@ -52,7 +52,7 @@ proc generate {drv_handle} {
 	set backup   $filename.bak.$timestamp
 
 	set in  [open $filename r]
-	set out [open $temp     w]
+	set out [open $temp w]
 
 	while {[gets $in line] != -1} {
 
