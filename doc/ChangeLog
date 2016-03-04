@@ -336,6 +336,10 @@ ttcps_v3_1:
 Made changes in tcl to remove delete filename statement to fix CR# 784758.
 Modified XTtcPs_CfgInitialize to add XTtcps_stop before configuring the TTC.
 Removed invokation of XTtcps_stop from examples (before TTC configuration).
+Modified ttcps_tapp.tcl to generate proper device and interrupt IDs for
+peripheral test and exclude ttc3 for cortexr5 in peripheral test. Also
+made changes to xttcps_tapp_example.c to add status check after SetupTicker
+is called by TmrInterruptExample to fix CR#938908.
 
 uartlite_v3_2:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
