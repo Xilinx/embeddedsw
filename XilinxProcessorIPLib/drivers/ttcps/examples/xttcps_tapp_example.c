@@ -49,6 +49,8 @@
 * 3.01 pkp	  01/30/16 Modified SetupTimer to remove XTtcps_Stop before TTC
 *					   configuration as it is added in xttcps.c in
 *					   XTtcPs_CfgInitialize
+* 3.01 pkp	  03/04/16 Added status check after SetupTicker is called by
+*					   TmrInterruptExample
 *</pre>
 ******************************************************************************/
 
@@ -191,6 +193,9 @@ int TmrInterruptExample(XTtcPs *TtcPsInst,u16 DeviceID,u16 TtcTickIntrID,
 
 		Status = SetupTicker(TtcPsInst,DeviceID,TtcTickIntrID,
 						InterruptController);
+		if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+		}
 		/*
 		 * The Ticker interrupt sets a flag for update.
 		 * Wait until the flag is updated by interrupt routine
