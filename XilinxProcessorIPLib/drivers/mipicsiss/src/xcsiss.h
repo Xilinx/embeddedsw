@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -33,8 +33,9 @@
 /**
 *
 * @file xcsiss.h
-*
-* @mainpage mipicsiss_v1_0
+* @addtogroup csiss_v1_0
+* @{
+* @details
 *
 * This is main header file of the Xilinx MIPI CSI Rx Subsystem driver
 *
@@ -46,32 +47,30 @@
 * sensors and rest of the video pipeline. It hides all the complexities of
 * programming the underlying cores from end user.
 *
-* <b>Subsystem Features</b>
+* <b>Core Features</b>
 *
 * MIPI CSI Rx Subsystem supports following features
-* 	- Support for 1 to 4 PPI Lanes.
-* 	- Line rates ranging from 80 to 1500 Mbps.
-* 	- Different data type support(RAW,RGB,YUV).
-* 	- AXI IIC support for CCI Interface.
-* 	- Using existing AXI IIC for CCI interface support for better
-* 	  understanding & compatibility with other IIC’s (if any) used
-* 	  in the system
+*	- Support for 1 to 4 PPI Lanes.
+*	- Line rates ranging from 80 to 1500 Mbps.
+*	- Different data type support(RAW,RGB,YUV).
+*	- AXI IIC support for CCI Interface.
+*	- Using existing AXI IIC for CCI interface support for better
+*	  understanding & compatibility with other IIC’s (if any) used
+*	  in the system
 *	- Filtering of packets based on Virtual channel ID.
 *	- Single,Dual,Quad pixel support at output interface compliant
 *	  to UG934 format.
 *
-* <b>Subsystem Configurations</b>
-*
 * The GUI in IPI allows for the following configurations
-* 	- Lanes ( 1 to 4 )
-* 	- Pixel Format (All RAW and RGB, only YUV422 8bit)
-* 	- Virtual Channel (to filter or allow all from interlaced streams)
-* 	- Number of Pixels per clock (1, 2, 4)
-* 	- DPHY with/without Register interface
-* 	- Line Rate
-* 	- Buffer Depth
-* 	- Embedded Non Image data (if needed)
-* 	- Add IIC to subsystem (if required)
+*	- Lanes ( 1 to 4 )
+*	- Pixel Format (All RAW and RGB, only YUV422 8bit)
+*	- Virtual Channel (to filter or allow all from interlaced streams)
+*	- Number of Pixels per clock (1, 2, 4)
+*	- DPHY with/without Register interface
+*	- Line Rate
+*	- Buffer Depth
+*	- Embedded Non Image data (if needed)
+*	- Add IIC to subsystem (if required)
 *
 * The IIC can be added if the system doesn't contain an IIC or if a dedicated
 * IIC is to be used for MIPI CSI Rx Subsystem. In order to reduce resource
@@ -90,23 +89,26 @@
 * At run-time the subsystem will query the static configuration and configures
 * itself for supported use cases
 *
-* <b>Subsystem Driver Description</b>
-*  The subsystem driver provides an abstraction on top of the CSI and DPHY
-*  drivers.
+* The subsystem driver provides an abstraction on top of the CSI and DPHY
+* drivers.
 *
-*  The IIC instance (if present) is shared with application
-*  and can be controlled using the AXI IIC driver.
+* The IIC instance (if present) is shared with application
+* and can be controlled using the AXI IIC driver.
 *
-* <b>Pre-Requisite's</b>
+* <b>Software Initialization & Configuration</b>
 *
-* <b>Subsystem Driver Usage</b>
+* The application needs to do following steps in order for preparing the
+* MIPI CSI2 Rx Subsystem core to be ready.
 *
+* - Call XCsiSs_LookupConfig using a device ID to find the core
+*   configuration.
+* - Call XCsiSs_CfgInitialize to initialize the device and the driver
+*   instance associated with it.
 *
-* <b>Memory Requirement</b>
+* <b>Interrupts</b>
 *
-*
-* <b>Interrupt Service</b>
-*
+* The XCsiSs_SetCallBack() is used to register the call back functions
+* for MIPI CSI2 Rx Subsystem driver with the corresponding handles
 *
 * <b> Virtual Memory </b>
 *
@@ -127,21 +129,26 @@
 * it is recommended that application developers leave asserts on during
 * development.
 *
+* <b>Building the driver</b>
+*
+* The MIPI CSI2 Rx Subsystem driver is composed of source files and depends on
+* the CSI and DPHY drivers. The IIC driver is pulled in if the the IIC instance
+* is enabled. The DPHY driver is pulled in only if the register interface has
+* been enabled for it.Otherwise the CSI driver and subsystem files are built.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who    Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00  vs    07/25/15   Initial Release
-
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/25/15 Initial release
 * </pre>
 *
 ******************************************************************************/
 
-
-#ifndef XCSISS_H_   /* prevent circular inclusions */
-#define XCSISS_H_
+#ifndef XCSISS_H_
+#define XCSISS_H_		/**< Prevent circular inclusions
+				  *  by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -149,13 +156,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
-#ifdef __MICROBLAZE__
-#include "xenv.h"
-#else
 #include "xil_types.h"
-#include "xil_cache.h"
-#endif
-
 #include "xcsi.h"
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
@@ -163,33 +164,53 @@ extern "C" {
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
 #include "xiic.h"
 #endif
+#include "xdebug.h"
+#include "xcsiss_hw.h"
+
+/************************** Constant Definitions *****************************/
+
+/** @name Interrupt Types for setting Callbacks
+ *
+ * These handlers are used to determine the type of the interrupt handler being
+ * registered with the MIPI CSI Rx Subsystem. Since the subsystem is tightly
+ * coupled with the CSI Rx Controller driver, the handlers from the sub core
+ * are promoted to the subsystem level so that the application can use them.
+ * @{
+ */
+#define XCSISS_HANDLER_DPHY		XCSI_HANDLER_DPHY
+#define XCSISS_HANDLER_PKTLVL		XCSI_HANDLER_PKTLVL
+#define XCSISS_HANDLER_PROTLVL		XCSI_HANDLER_PROTLVL
+#define XCSISS_HANDLER_SHORTPACKET	XCSI_HANDLER_SHORTPACKET
+#define XCSISS_HANDLER_FRAMERECVD	XCSI_HANDLER_FRAMERECVD
+#define XCSISS_HANDLER_OTHERERROR	XCSI_HANDLER_OTHERERROR
+/*@}*/
 
 /**
 *
 * Callback type which acts as a wrapper on top of CSI Callback.
 *
-* @param	CallBackRef is a callback reference passed in by the upper
+* @param	CallbackRef is a callback reference passed in by the upper
 *		layer when setting the callback functions, and passed back to
 *		the upper layer when the callback is invoked.
 * @param	Mask is a bit mask indicating the cause of the event. For
 *		current core version, this parameter is "OR" of 0 or more
-*		XCSI_ISR_*_MASK constants defined in xcsi_hw.h.
+*		XCSISS_ISR_*_MASK constants defined in xcsiss_hw.h.
 *
 * @return	None.
 *
 * @note		None.
 *
  *****************************************************************************/
-typedef void (*XCsiSs_CallBack)(void *CallBackRef, u32 Mask);
+typedef void (*XCsiSs_Callback)(void *CallbackRef, u32 Mask);
 
 /**
  * Sub-Core Configuration Table
  */
-
 typedef struct {
-	u32 IsPresent; /**< Flag to indicate if sub-core is present in the design*/
-	u32 DeviceId;  /**< Device ID of the sub-core */
-	u32 AddrOffset;/**< sub-core offset from subsystem base address */
+	u32 IsPresent;	/**< Flag to indicate if sub-core is present in
+			  *  design */
+	u32 DeviceId;	/**< Device ID of the sub-core */
+	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
 } SubCore;
 
 /**
@@ -197,36 +218,30 @@ typedef struct {
  * Each subsystem device should have a configuration structure associated
  * that defines the MAX supported sub-cores within subsystem
  */
-
 typedef struct {
-	u32 DeviceId;		/**< DeviceId is the unique ID  of the device */
-	u32 BaseAddr;		/**< BaseAddress is the physical base address of the
-				     subsystem address range */
-	u32 HighAddr;		/**< HighAddress is the physical MAX address of the
-				     subsystem address range */
-	u32 IsIICPresent;	/**< Flag for IIC presence in subsystem */
+	u32 DeviceId;	/**< DeviceId is the unique ID  of the device */
+	u32 BaseAddr;	/**< BaseAddress is the physical base address of the
+			  *  subsystem address range */
+	u32 HighAddr;	/**< HighAddress is the physical MAX address of the
+			  *  subsystem address range */
+	u32 IsIicPresent;	/**< Flag for IIC presence in subsystem */
 	u32 LanesPresent;	/**< Number of PPI Lanes in the design */
-	u32 PixelCount;		/**< Number of Pixels per clock 1,2,4 */
-	u32 PixelFormat;	/**< The pixel format selected from all RGB, RAW
-				     and YUV422 8bit options */
-	u32 VCNo;		/**< Number of Virtual Channels supported by system.
-				     This can range from 1 - 4 to ALL */
+	u32 PixelCount;	/**< Number of Pixels per clock 1,2,4 */
+	u32 PixelFormat;	/**< The pixel format selected from all RGB,
+				  *  RAW and YUV422 8bit options */
+	u32 VcNo;	/**< Number of Virtual Channels supported by system.
+			  *  This can range from 1 - 4 to ALL */
 	u32 CsiBuffDepth;	/**< Line buffer Depth set */
-	u32 IsEmbNonImgPresent; /**< Flag for presence of Embedded Non Image data */
-	u32 IsDPHYRegIntfcPresent; /**< Flag for DPHY register interface presence */
-	u32 DphyLineRate;	/**< DPHY Line Rate ranging from 80-1500 Mbps */
-	SubCore IicInfo;	/**< Sub-core instance configuration */
-	SubCore CsiInfo;	/**< Sub-core instance configuration */
-	SubCore DphyInfo;	/**< Sub-core instance configuration */
+	u32 IsEmbNonImgPresent;	/**< Flag for presence of Embedded Non Image
+				  *  data */
+	u32 IsDphyRegIntfcPresent;	/**< Flag for DPHY register interface
+					  *  presence */
+	u32 DphyLineRate;	/**< DPHY Line Rate ranging from
+				  *  80-1500 Mbps */
+	SubCore IicInfo;	/**< IIC sub-core configuration */
+	SubCore CsiInfo;	/**< CSI sub-core configuration */
+	SubCore DphyInfo;	/**< DPHY sub-core configuration */
 } XCsiSs_Config;
-
-/**
-* User input structure
-*/
-typedef struct {
-	u32 IntrRequest;	/**< Interrupts subscribed for in CSI */
-	u8 Lanes;		/**< Active Lanes to be used in CSI */
-} XCsiSs_UsrOpt;
 
 /**
  * The XCsiSs driver instance data. The user is required to allocate a variable
@@ -236,63 +251,48 @@ typedef struct {
 typedef struct {
 	XCsiSs_Config Config;	/**< Hardware configuration */
 	u32 IsReady;		/**< Device and the driver instance are
-                                     initialized */
+				  *  initialized */
 	XCsi  *CsiPtr;		/**< handle to sub-core driver instance */
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
 #endif
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
-	XIic  *IicPtr;		/**< handle to sub-core driver instance */
+	XIic *IicPtr;		/**< handle to sub-core driver instance */
 #endif
-	XCsiSs_UsrOpt UsrOpt; 	/**< User options registered here */
-	XCsi_ClkLaneInfo ClkInfo;
-	XCsi_DataLaneInfo DLInfo[XCSI_MAX_LANES];
-	XCsi_SPktData SpktData;
+	XCsi_ClkLaneInfo ClkInfo;	/**< Clock Lane information */
+	XCsi_DataLaneInfo DLInfo[XCSI_MAX_LANES];	/**< Data Lane
+							  *  information */
+	XCsi_SPktData SpktData;		/**< Short packet */
+	XCsi_VCInfo VCInfo[XCSI_MAX_VC];	/**< Virtual Channel information */
 } XCsiSs;
 
-typedef enum {
-	XCSISS_RESET_SUBCORE_IIC,
-	XCSISS_RESET_SUBCORE_CSI,
-	XCSISS_RESET_SUBCORE_DPHY,
-	XCSISS_RESET_SUBCORE_ALL
-} XCsiSs_ResetType;
-
 /************************** Function Prototypes ******************************/
+
+/* Initialization function in xcsiss_sinit.c */
 XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId);
 
-int XCsiSs_CfgInitialize(XCsiSs *InstancePtr,
-                           XCsiSs_Config *CfgPtr,
-                           u32 EffectiveAddr);
-
+/* Initialization and control functions xcsiss.c */
+u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
+				u32 EffectiveAddr);
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
-/* return NULL if not preset else ptr to IIC instance inside Subsystem*/
 XIic* XCsiSs_GetIicInstance(XCsiSs *InstancePtr);
 #endif
-
-/* Configure lanes  and interrupts in one go*/
-u32 XCsiSs_Configure(XCsiSs *InstancePtr, XCsiSs_UsrOpt *UsrOpt);
-
-XCsiSs_UsrOpt * XCsiSs_GetUsrOpt(XCsiSs *InstancePtr);
-
-void XCsiSs_Activate(XCsiSs *InstancePtr, u8 Flag);
-
-/* reset CSI and DPHY only as IIC is in application's domain */
-u32 XCsiSs_Reset(XCsiSs *InstancePtr, XCsiSs_ResetType Type);
-
-/* Reports which cores are present in subsys */
+u32 XCsiSs_Configure(XCsiSs *InstancePtr, u8 ActiveLanes, u32 IntrMask);
+u32 XCsiSs_Activate(XCsiSs *InstancePtr, u8 Flag);
+u32 XCsiSs_Reset(XCsiSs *InstancePtr);
 void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr);
+void XCsiSs_GetLaneInfo(XCsiSs *InstancePtr);
+void XCsiSs_GetShortPacket(XCsiSs *InstancePtr);
+void XCsiSs_GetVCInfo(XCsiSs *InstancePtr);
 
+/* Self test function in xcsiss_selftest.c */
 u32 XCsiSs_SelfTest(XCsiSs *InstancePtr);
 
-void XCsiSs_GetLaneInfo(XCsiSs *InstancePtr);
-
-void XCsiSs_GetShortPacket(XCsiSs *InstancePtr);
-
-/* Interrupt functions in xdptxss_intr.c */
+/* Interrupt functions in xcsiss_intr.c */
 void XCsiSs_IntrHandler(void *InstancePtr);
-
+void XCsiSs_IntrDisable(XCsiSs *InstancePtr, u32 IntrMask);
 u32 XCsiSs_SetCallBack(XCsiSs *InstancePtr, u32 HandlerType,
-			void *CallBackFunc, void *CallBackRef);
+			void *CallbackFunc, void *CallbackRef);
 
 /************************** Variable Declarations ****************************/
 
@@ -301,3 +301,4 @@ u32 XCsiSs_SetCallBack(XCsiSs *InstancePtr, u32 HandlerType,
 #endif
 
 #endif /* end of protection macro */
+/** @} */

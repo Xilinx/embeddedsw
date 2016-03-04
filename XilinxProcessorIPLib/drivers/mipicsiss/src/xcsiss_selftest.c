@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,28 +33,44 @@
 /**
 *
 * @file xcsiss_selftest.c
-*
+* @addtogroup csiss_v1_0
+* @{
+* @details
 * This file contains self test function for the MIPI CSI Rx Subsystem
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
-* 1.00 vs 07/21/15 Initial release.
+* Ver Who Date     Changes
+* --- --- -------- ----------------------------------------------------
+* 1.0 vsa 07/21/15 Initial release
 * </pre>
 *
 ******************************************************************************/
+
 /***************************** Include Files *********************************/
+
 #include "xstatus.h"
 #include "xcsiss.h"
+
 /************************** Constant Definitions *****************************/
+
+
 /***************** Macros (Inline Functions) Definitions *********************/
+
+
 /**************************** Type Definitions *******************************/
+
+
 /************************** Function Prototypes ******************************/
+
 u32 XCsiSs_SelfTest(XCsiSs *InstancePtr);
+
 /************************** Variable Definitions *****************************/
+
+
 /************************** Function Definitions *****************************/
+
 /*****************************************************************************/
 /**
 *
@@ -80,14 +96,16 @@ u32 XCsiSs_SelfTest(XCsiSs *InstancePtr)
 	if (InstancePtr->CsiPtr) {
 		Status = XCsi_SelfTest(InstancePtr->CsiPtr);
 		if (Status != XST_SUCCESS) {
-			xil_printf("ERR::CSI Self test failed\r\n");
+			xdbg_printf(XDBG_DEBUG_ERROR, "ERR::CSI Self test "
+			"failed\n\r");
 		}
 	}
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr) {
 		Status = XDphy_SelfTest(InstancePtr->DphyPtr);
 		if (Status != XST_SUCCESS) {
-			xil_printf("ERR::Dphy Self test failed\r\n");
+			xdbg_printf(XDBG_DEBUG_ERROR,"ERR::Dphy Self test "
+			"failed\n\r");
 		}
 	}
 #endif
@@ -95,10 +113,12 @@ u32 XCsiSs_SelfTest(XCsiSs *InstancePtr)
 	if (InstancePtr->IicPtr) {
 		Status = XIic_SelfTest(InstancePtr->IicPtr);
 		if (Status != XST_SUCCESS) {
-			xil_printf("ERR::Iic Self test failed\r\n");
+			xdbg_printf(XDBG_DEBUG_ERROR, "ERR::Iic Self test "
+			"failed\n\r");
 		}
 	}
 #endif
 
 	return XST_SUCCESS;
 }
+/** @} */

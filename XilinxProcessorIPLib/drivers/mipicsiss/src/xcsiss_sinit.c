@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"),
@@ -33,7 +33,7 @@
 /**
 *
 * @file xcsiss_sinit.c
-* @addtogroup csiss
+* @addtogroup csiss_v1_0
 * @{
 * @details
 *
@@ -43,15 +43,15 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who    Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00  vs    07/21/15   Initial Release
-
+* Ver Who Date     Changes
+* --- --- -------- ----------------------------------------------------
+* 1.0 vsa 07/21/15 Initial release
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include "xparameters.h"
 #include "xcsiss.h"
 
@@ -66,19 +66,25 @@
 
 /************************** Function Prototypes ******************************/
 
+
 /************************** Variable Definitions *****************************/
+
 extern XCsiSs_Config XCsiSs_ConfigTable[];
+
+/************************** Function Definitions ******************************/
 
 /*****************************************************************************/
 /**
 * This function looks for the device configuration based on the unique device
-* ID. The table XVprocss_ConfigTable[] contains the configuration information
+* ID. The table XCsiSs_ConfigTable[] contains the configuration information
 * for each instance of the device in the system.
 *
-* @param  DeviceId is the unique device ID of the device being looked up
+* @param	DeviceId is the unique device ID of the device being looked up
 *
-* @return A pointer to the configuration table entry corresponding to the
-*         given device ID, or NULL if no match is found
+* @return	A pointer to the configuration table entry corresponding to the
+*		given device ID, or NULL if no match is found
+*
+* @note		None.
 *
 ******************************************************************************/
 XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId)
@@ -86,13 +92,13 @@ XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId)
 	XCsiSs_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0U; Index < (u32)XPAR_XCSISS_NUM_INSTANCES; Index++) {
+	for (Index = 0; Index < (u32)XPAR_XCSISS_NUM_INSTANCES; Index++) {
 		if (XCsiSs_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XCsiSs_ConfigTable[Index];
 			break;
 		}
 	}
 
-	return (CfgPtr);
+	return CfgPtr;
 }
 /** @} */
