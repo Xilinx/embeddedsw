@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C)2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,15 +33,18 @@
 /**
 *
 * @file xcsi_selftest.c
+* @addtogroup csi_v1_0
+* @{
+* @details
 *
-* Contains diagnostic/self-test functions for the XCsi Controller component.
+* Contains diagnostic/self-test functions for the CSI Rx Controller core.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------
-* 1.00 	vs  06/18/15  First release
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 06/18/15 Initial release
 * </pre>
 *
 ******************************************************************************/
@@ -54,13 +57,20 @@
 
 /************************** Constant Definitions *****************************/
 
+
 /**************************** Type Definitions *******************************/
+
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+
 /************************** Function Prototypes ******************************/
 
+
 /************************** Variable Definitions *****************************/
+
+
+/************************** Function Definitions ******************************/
 
 /*****************************************************************************/
 /**
@@ -74,19 +84,19 @@
 * 		- XST_SUCCESS if self-test was successful
 *		- XST_FAILURE if the read value was not equal to _g.c file
 *
-* @note
-*     		None.
+* @note		None
 *
 ******************************************************************************/
 u32 XCsi_SelfTest(XCsi *InstancePtr)
 {
 	u32 Result, Status;
 
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	Result = XCSI_GET_BITFIELD_VALUE(InstancePtr->Config.BaseAddr,
-					XCSI_PCR_OFFSET, XCSI_PCR_MAXLANES);
+	Result = XCsi_GetBitField(InstancePtr->Config.BaseAddr, XCSI_PCR_OFFSET,
+			XCSI_PCR_MAXLANES_MASK,XCSI_PCR_MAXLANES_SHIFT);
 	if ((InstancePtr->Config.MaxLanesPresent - 1) == Result) {
 		Status = XST_SUCCESS;
 	}
@@ -96,3 +106,4 @@ u32 XCsi_SelfTest(XCsi *InstancePtr)
 
 	return Status;
 }
+/** @} */

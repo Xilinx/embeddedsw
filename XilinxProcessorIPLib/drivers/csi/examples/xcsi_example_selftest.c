@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* (c) Copyright 2015 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * This file contains confidential and proprietary information of Xilinx, Inc.
 * and is protected under U.S. and international copyright and other
@@ -52,7 +52,7 @@
  */
 
 #ifndef TESTAPP_GEN
-#define CSI2RX_DEV_ID		XPAR_CSI_0_DEVICE_ID
+#define CSI2RX_DEV_ID	XPAR_CSI_0_DEVICE_ID
 #endif
 
 /**************************** Type Definitions *******************************/
@@ -70,7 +70,6 @@ u32 CsiSelfTestExample(u32 DeviceId);
  * Device instance definitions
  */
 XCsi Csi;
-
 
 /*****************************************************************************/
 /*
@@ -91,20 +90,19 @@ int main()
 {
 	int Status;
 
-	xil_printf("\r\n--- Entering main() --- \r\n");
+	xil_printf("\n\r--- Entering main() --- \n\r");
 
 	/* Run the poll example for simple transfer */
 	Status = CsiSelfTestExample(CSI2RX_DEV_ID);
-
 	if (Status != XST_SUCCESS) {
 
-		xil_printf("CsiSelfTestExample: Failed\r\n");
+		xil_printf("CsiSelfTestExample: Failed\n\r");
 		return XST_FAILURE;
 	}
 
-	xil_printf("CsiSelfTestExample: Passed\r\n");
+	xil_printf("CsiSelfTestExample: Passed\n\r");
 
-	xil_printf("--- Exiting main() --- \r\n");
+	xil_printf("--- Exiting main() --- \n\r");
 
 	return XST_SUCCESS;
 
