@@ -55,9 +55,22 @@ proc gen_include_files {swproj mhsinst} {
             return ""
     }
     if {$swproj == 1} {
-            set inc_file_lines {xttcps.h ttcps_header.h}
+    # exclude ttc3 if present for cortexR5 since R5 uses ttc3 for sleep when present
+
+	set periph_include 1
+	set procdrv [hsi::get_sw_processor]
+	if {[string match "*psu_cortexr5_*" $procdrv]} {
+		if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0} {
+			set periph_include 0
+		}
+	}
+	if {$periph_include} {
+		set inc_file_lines {xttcps.h ttcps_header.h}
+		return $inc_file_lines
+	} else {
+		return ""
+        }
     }
-        return $inc_file_lines
 }
 
 proc gen_src_files {swproj mhsinst} {
@@ -65,10 +78,20 @@ proc gen_src_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-
-      set inc_file_lines {examples/xttcps_tapp_example.c data/ttcps_header.h}
-
-      return $inc_file_lines
+  # exclude ttc3 if present for cortexR5 since R5 uses ttc3 for sleep when present
+	set periph_include 1
+	set procdrv [hsi::get_sw_processor]
+	if {[string match "*psu_cortexr5_*" $procdrv]} {
+		if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0} {
+			set periph_include 0
+		}
+	}
+	if {$periph_include} {
+		set inc_file_lines {examples/xttcps_tapp_example.c data/ttcps_header.h}
+		return $inc_file_lines
+	} else {
+		return ""
+	}
   }
 }
 
@@ -82,12 +105,22 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-
-      set ipname [get_property NAME $mhsinst]
-      set decl "   static XTtcPs ${ipname};"
-      set inc_file_lines $decl
-      return $inc_file_lines
-
+    # exclude ttc3 if present for cortexR5 since R5 uses ttc3 for sleep when present
+	set periph_include 1
+	set procdrv [hsi::get_sw_processor]
+	if {[string match "*psu_cortexr5_*" $procdrv]} {
+		if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0} {
+			set periph_include 0
+		}
+	}
+	if {$periph_include} {
+		set ipname [get_property NAME $mhsinst]
+		set decl "   static XTtcPs ${ipname};"
+		set inc_file_lines $decl
+		return $inc_file_lines
+	} else {
+		return ""
+        }
     }
 
 }
@@ -106,16 +139,32 @@ proc gen_testfunc_call {swproj mhsinst} {
     } else {
        set hasStdout 1
     }
-    set intsnum [string range $deviceid 13 13]
-    set intsnum [format $intsnum %d]
+    set periphs [hsi::get_cells]
+
+    foreach periph $periphs {
+	if {[string match "*_ttc_*" $periph]} {
+		lappend ttc_periph $periph
+	}
+    }
+    set ttc_periph [lsort -dictionary $ttc_periph]
+    set intsnum [lsearch -all $ttc_periph $mhsinst]
     set device_id [expr {$intsnum * 3}]
     set deviceidname $deviceid
     set deviceid [format %s%d%s [string range $deviceidname 0 12] $device_id [string range $deviceidname 14 end]]
     set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
     set intcvar intc
     set testfunc_call ""
+    # exclude ttc3 if present for cortexR5 since R5 uses ttc3 for sleep when present
+    set periph_include 1
+    set procdrv [hsi::get_sw_processor]
+    if {[string match "*psu_cortexr5_*" $procdrv]} {
+	if {[string compare -nocase "psu_ttc_3" $mhsinst] == 0} {
+		set periph_include 0
+	}
+    }
+    if {$periph_include} {
 
-  if {${hasStdout} == 0} {
+    if {${hasStdout} == 0} {
 
 	if {$isintr == 1} {
         set intr_id [format %s_INTR [string range $deviceid 0 13]]
@@ -161,6 +210,6 @@ proc gen_testfunc_call {swproj mhsinst} {
    }
 
  }
-
+}
   return $testfunc_call
 }
