@@ -41,6 +41,11 @@
 # 2.2	pkp  03/02/16 Append the extra compiler flag only when it contains any
 #		      extra flags apart from default ones for linaro toolchain
 # 2.2	pkp  03/02/16 Added --cpu=Cortex-A9 compiler flag for iccarm
+# 2.2   asa  03/05/16 Updated for accepting only the toolchain name when a
+#                     complete path is passed. Also made changes to have
+#                     separate case for code sourcery (arm-xilinx-eabi-gcc)
+#                     and armcc while generating extra_compiler_flags.
+#                     These changes fix CR#939108.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -61,9 +66,10 @@ proc xdefine_cortexa9_params {drvhandle} {
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle ]]
     set procdrv [hsi::get_sw_processor]
     set compiler [common::get_property CONFIG.compiler $procdrv]
+    set compiler_name [file tail $compiler]
     set archiver [common::get_property CONFIG.archiver $procdrv]
     set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
-    if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+    if {[string compare -nocase $compiler_name "arm-none-eabi-gcc"] == 0} {
 	set temp_flag $extra_flags
 	regsub -- {-mcpu=cortex-a9} $temp_flag {} temp_flag
 	regsub -- {-mfpu=vfpv3} $temp_flag {} temp_flag
@@ -76,7 +82,7 @@ proc xdefine_cortexa9_params {drvhandle} {
 		set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles $temp_flag"
 	}
 	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
-   } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
+   } elseif {[string compare -nocase $compiler_name "iccarm"] == 0} {
 	set temp_flag $extra_flags
 	regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
 	regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
@@ -95,7 +101,8 @@ proc xdefine_cortexa9_params {drvhandle} {
 	regsub -all {  } $temp_flag {} temp_flag
 	set compiler_flags "-Om --cpu=Cortex-A9 $compiler_flags"
 	common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
-   } else {
+   } elseif {[string compare -nocase $compiler_name "arm-xilinx-eabi-gcc"] == 0
+	    || [string compare -nocase $compiler_name "armcc"] == 0} {
 	set temp_flag $extra_flags
 	regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
 	regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
@@ -104,6 +111,8 @@ proc xdefine_cortexa9_params {drvhandle} {
 	regsub -- "-g" $temp_flag "" temp_flag
 	regsub -all {  } $temp_flag {} temp_flag
 	set extra_flags "-g $temp_flag"
+	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+    } else {
 	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
     }
     if {[string first "iarchive" $archiver] < 0 } {
