@@ -119,6 +119,26 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 	InstancePtr->Quads[QuadId].Plls[0].RxState = (XVPHY_GT_STATE_IDLE);
 
 	switch (InstancePtr->Config.XcvrType) {
+	case XVPHY_GT_TYPE_GTPE2:
+		XVphy_CfgQuadRefClkFreq(InstancePtr, QuadId,
+			XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0,
+			XVPHY_DP_REF_CLK_FREQ_HZ_135);
+		XVphy_CfgQuadRefClkFreq(InstancePtr, QuadId,
+			XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK1,
+			XVPHY_DP_REF_CLK_FREQ_HZ_135);
+		XVphy_SetTxVoltageSwing(InstancePtr, QuadId,
+			XVPHY_CHANNEL_ID_CH1,
+			XVPHY_GTXE2_DIFF_SWING_DP_L1);
+		XVphy_SetTxVoltageSwing(InstancePtr, QuadId,
+			XVPHY_CHANNEL_ID_CH2,
+			XVPHY_GTXE2_DIFF_SWING_DP_L1);
+		XVphy_SetTxVoltageSwing(InstancePtr, QuadId,
+			XVPHY_CHANNEL_ID_CH3,
+			XVPHY_GTXE2_DIFF_SWING_DP_L1);
+		XVphy_SetTxVoltageSwing(InstancePtr, QuadId,
+			XVPHY_CHANNEL_ID_CH4,
+			XVPHY_GTXE2_DIFF_SWING_DP_L1);
+	 break;
 	case XVPHY_GT_TYPE_GTXE2:
 	case XVPHY_GT_TYPE_GTHE2:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, QuadId,

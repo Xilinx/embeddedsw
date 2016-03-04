@@ -149,6 +149,7 @@ const XVphy_GtConfig Gtpe2Config = {
 u32 XVphy_Gtpe2CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
 	XVphy_Channel *ChPtr;
+	u32 PllClkInFreqHz;
 
 	/* Set CDR values only for CPLLs. */
 	if ((ChId < XVPHY_CHANNEL_ID_CH1) || (ChId > XVPHY_CHANNEL_ID_CH4)) {
@@ -160,25 +161,47 @@ u32 XVphy_Gtpe2CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	ChPtr->PllParams.Cdr[0] = 0x1010;
 	ChPtr->PllParams.Cdr[1] = 0x2104;
 	ChPtr->PllParams.Cdr[3] = 0x07FE;
-	ChPtr->PllParams.Cdr[4] = 0x0001;
 
-	/* Update the RXCDR_CFG2 settings. */
-	switch (ChPtr->RxOutDiv) {
-	case 1:
-		ChPtr->PllParams.Cdr[2] = 0x4060;
-		break;
-	case 2:
-		ChPtr->PllParams.Cdr[2] = 0x2060;
-		break;
-	case 4:
-		ChPtr->PllParams.Cdr[2] = 0x1060;
-		break;
-	case 8:
-		ChPtr->PllParams.Cdr[2] = 0x0860;
-		break;
-	default:
-		ChPtr->PllParams.Cdr[2] = 0x1060;
-		break;
+	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
+		PllClkInFreqHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
+		                    ChPtr->CpllRefClkSel);
+		if (PllClkInFreqHz == 270000000) {
+		    ChPtr->PllParams.Cdr[2] = 0x4060;
+			ChPtr->PllParams.Cdr[4] = 0x0001;
+		}
+		else if (PllClkInFreqHz == 135000000) {
+		    ChPtr->PllParams.Cdr[2] = 0x2060;
+			ChPtr->PllParams.Cdr[4] = 0x0011;
+		}
+		/* RBR does not use DP159 forwarded clock and expects 162MHz. */
+		else {
+		    ChPtr->PllParams.Cdr[2] = 0x2060;
+			ChPtr->PllParams.Cdr[4] = 0x0001;
+		}
+	}
+
+	else if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+
+		ChPtr->PllParams.Cdr[4] = 0x0001;
+
+		/* Update the RXCDR_CFG2 settings. */
+		switch (ChPtr->RxOutDiv) {
+			case 1:
+				ChPtr->PllParams.Cdr[2] = 0x4060;
+				break;
+			case 2:
+				ChPtr->PllParams.Cdr[2] = 0x2060;
+				break;
+			case 4:
+				ChPtr->PllParams.Cdr[2] = 0x1060;
+				break;
+			case 8:
+				ChPtr->PllParams.Cdr[2] = 0x0860;
+				break;
+			default:
+				ChPtr->PllParams.Cdr[2] = 0x1060;
+				break;
+		}
 	}
 
 	return XST_SUCCESS;
@@ -362,15 +385,15 @@ u32 XVphy_Gtpe2RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	    (InstancePtr->HdmiRxDruIsEnabled)) {
 		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x2A,0x0);
 		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x2B,0x0);
-	}
 
-	/* Set RX_DATA_WIDTH to 20 bits */
-	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId,
-			XVPHY_DRP_RXDATAWIDTH);
-	DrpVal &= ~0x3800;
-	DrpVal |= (3 << 11);
-	XVphy_DrpWrite(InstancePtr, QuadId, ChId, XVPHY_DRP_RXDATAWIDTH,
-			DrpVal);
+		/* Set RX_DATA_WIDTH to 20 bits */
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId,
+				XVPHY_DRP_RXDATAWIDTH);
+		DrpVal &= ~0x3800;
+		DrpVal |= (3 << 11);
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, XVPHY_DRP_RXDATAWIDTH,
+				DrpVal);
+	}
 
 	return XST_SUCCESS;
 }

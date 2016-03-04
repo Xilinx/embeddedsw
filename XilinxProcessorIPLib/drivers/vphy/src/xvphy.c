@@ -2022,6 +2022,12 @@ u32 XVphy_DirReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		return XST_SUCCESS;
 	}
 
+    if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) &&
+		((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP) ||
+		 (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP))) {
+               ChId = XVPHY_CHANNEL_ID_CHA;
+    }
+
 	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		if (Dir == XVPHY_DIR_TX) {
@@ -2116,11 +2122,26 @@ void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 {
 	if (ChId == XVPHY_CHANNEL_ID_CHA) {
 		*Id0 = XVPHY_CHANNEL_ID_CH1;
-		if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+		if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
+			(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
 			*Id1 = XVPHY_CHANNEL_ID_CH3;
 		}
 		else {
-			*Id1 = XVPHY_CHANNEL_ID_CH4;
+			if ((InstancePtr->Config.TxChannels == 1) ||
+					(InstancePtr->Config.RxChannels == 1)) {
+				*Id1 = XVPHY_CHANNEL_ID_CH1;
+			}
+			else if ((InstancePtr->Config.TxChannels == 2) ||
+						(InstancePtr->Config.RxChannels == 2)) {
+				*Id1 = XVPHY_CHANNEL_ID_CH2;
+			}
+			else if ((InstancePtr->Config.TxChannels == 3) ||
+						(InstancePtr->Config.RxChannels == 3)) {
+				*Id1 = XVPHY_CHANNEL_ID_CH3;
+			}
+			else {
+				*Id1 = XVPHY_CHANNEL_ID_CH4;
+			}
 		}
 	}
 	else if (ChId == XVPHY_CHANNEL_ID_CMNA) {
@@ -2346,6 +2367,13 @@ static u32 XVphy_DrpAccess(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			(4 * XVPHY_CH2IDX(ChId));
 		RegOffsetSts = XVPHY_DRP_STATUS_CH1_REG +
 			(4 * (XVPHY_CH2IDX(ChId)));
+	}
+
+    if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) &&
+		((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP) ||
+		 (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP))) {
+               ChId = XVPHY_CHANNEL_ID_CHA;
+		XVphy_WaitUs(InstancePtr, 3000);
 	}
 
 	/* Wait until the DRP status indicates that it is not busy.*/
