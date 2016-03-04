@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,14 +34,18 @@
 *
 * @file xdphy_selftest.c
 *
+* @addtogroup dphy_v1_0
+* @{
+* @details
+*
 * Contains diagnostic/self-test functions for the XDphy component.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- -----------------------------------------------
-* 1.00 	vs  07/09/15  First release
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/09/15 Initial release
 * </pre>
 *
 ******************************************************************************/
@@ -51,7 +55,6 @@
 #include "xil_io.h"
 #include "xstatus.h"
 #include "xdphy.h"
-
 
 /************************** Constant Definitions *****************************/
 
@@ -95,3 +98,4 @@ u32 XDphy_SelfTest(XDphy *InstancePtr)
 		return XST_FAILURE;
 	}
 }
+/** @} */

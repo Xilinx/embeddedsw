@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* (c) Copyright 2015 Xilinx, Inc. All rights reserved.
+* (c) Copyright 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * This file contains confidential and proprietary information of Xilinx, Inc.
 * and is protected under U.S. and international copyright and other
@@ -40,6 +40,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+
 #include "xdphy.h"
 #include "xparameters.h"
 #include "xdebug.h"
@@ -57,13 +58,16 @@
 
 /**************************** Type Definitions *******************************/
 
+
 /***************** Macros (Inline Functions) Definitions *********************/
+
 
 /************************** Function Prototypes ******************************/
 
 u32 DphySelfTestExample(u32 DeviceId);
 
 /************************** Variable Definitions *****************************/
+
 /*
  * Device instance definitions
  */
