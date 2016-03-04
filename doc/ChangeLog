@@ -109,6 +109,8 @@ and archiver to arm-none-eabi-ar (Linaro). Modified the extra_compiler_flags to
 Modified cpu_cortexa9 driver tcl to properly update for the extra compiler flag for different
 compilers (Linaro GCC, armcc, IARCC).
 Added --cpu=Cortex-A9 flag to compiler flag for iccarm to fix CR#938718
+Modified the tcl to take only the toolchain name when a complete path is passed. This fixes CR#939108.
+Made changes in the tcl to have separate cases for code sourcery and armcc toolchains.
 
 cpu_cortexa53_v1_1:
 Modified the cpu_cortexa53 tcl to add the extra compiler flag ARMA53_32 for A53 32bit BSP
