@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,9 @@
 /**
 *
 * @file xcsiss_hw.h
+* @addtogroup csiss_v1_0
+* @{
+* @details
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx MIPI CSI Rx Subsystem core.
@@ -44,9 +47,9 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
-* 1.00 vs  07/25/15 Initial release.
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/25/15 Initial release
 * </pre>
 *
 ******************************************************************************/
@@ -63,16 +66,65 @@ extern "C" {
 #include "xil_io.h"
 
 /************************** Constant Definitions *****************************/
+
+/** @name Bitmasks for interrupt callbacks
+ *
+ * Please refer to CSI driver for details of the bitmasks.
+ * The application should use the XCSISS_ISR* masks in the call back functions
+ * to decode the exact cause of interrupt and handle it accordingly.
+ * @{
+ */
+#define XCSISS_ISR_FR_MASK		XCSI_ISR_FR_MASK
+#define XCSISS_ISR_ILC_MASK		XCSI_ISR_ILC_MASK
+#define XCSISS_ISR_SPFIFOF_MASK		XCSI_ISR_SPFIFOF_MASK
+#define XCSISS_ISR_SPFIFONE_MASK	XCSI_ISR_SPFIFONE_MASK
+#define XCSISS_ISR_SLBF_MASK		XCSI_ISR_SLBF_MASK
+#define XCSISS_ISR_STOP_MASK		XCSI_ISR_STOP_MASK
+#define XCSISS_ISR_ULPM_MASK		XCSI_ISR_ULPM_MASK
+#define XCSISS_ISR_ESCERR_MASK		XCSI_ISR_ESCERR_MASK
+#define XCSISS_ISR_CTRLERR_MASK		XCSI_ISR_CTRLERR_MASK
+#define XCSISS_ISR_SOTERR_MASK		XCSI_ISR_SOTERR_MASK
+#define XCSISS_ISR_SOTSYNCERR_MASK	XCSI_ISR_SOTSYNCERR_MASK
+#define XCSISS_ISR_ECC2BERR_MASK	XCSI_ISR_ECC2BERR_MASK
+#define XCSISS_ISR_ECC1BERR_MASK	XCSI_ISR_ECC1BERR_MASK
+#define XCSISS_ISR_CRCERR_MASK		XCSI_ISR_CRCERR_MASK
+#define XCSISS_ISR_DATAIDERR_MASK	XCSI_ISR_DATAIDERR_MASK
+#define XCSISS_ISR_VC3FSYNCERR_MASK	XCSI_ISR_VC3FSYNCERR_MASK
+#define XCSISS_ISR_VC3FLVLERR_MASK	XCSI_ISR_VC3FLVLERR_MASK
+#define XCSISS_ISR_VC2FSYNCERR_MASK	XCSI_ISR_VC2FSYNCERR_MASK
+#define XCSISS_ISR_VC2FLVLERR_MASK	XCSI_ISR_VC2FLVLERR_MASK
+#define XCSISS_ISR_VC1FSYNCERR_MASK	XCSI_ISR_VC1FSYNCERR_MASK
+#define XCSISS_ISR_VC1FLVLERR_MASK	XCSI_ISR_VC1FLVLERR_MASK
+#define XCSISS_ISR_VC0FSYNCERR_MASK	XCSI_ISR_VC0FSYNCERR_MASK
+#define XCSISS_ISR_VC0FLVLERR_MASK	XCSI_ISR_VC0FLVLERR_MASK
+#define XCSISS_ISR_ALLINTR_MASK		XCSI_ISR_ALLINTR_MASK
+/*@}*/
+
+/** @name BitMasks for grouped interrupts
+ *
+ * All interrupts are grouped into DPHY Level Errors, Protocol Decoding
+ * Errors, Packet Level Errors, Normal Errors, Frame Received interrupt and
+ * Short Packet related. These are used by application to determine the exact
+ * event causing the interrupt
+ * @{
+ */
+#define XCSISS_INTR_PROT_MASK 		XCSI_INTR_PROT_MASK
+#define XCSISS_INTR_PKTLVL_MASK		XCSI_INTR_PKTLVL_MASK
+#define XCSISS_INTR_DPHY_MASK		XCSI_INTR_DPHY_MASK
+#define XCSISS_INTR_SPKT_MASK 		XCSI_INTR_SPKT_MASK
+#define XCSISS_INTR_FRAMERCVD_MASK 	XCSI_INTR_FRAMERCVD_MASK
+#define XCSISS_INTR_ERR_MASK		XCSI_INTR_ERR_MASK
+/*@}*/
+
 /**************************** Type Definitions *******************************/
 
+
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XCsiSs_In32	Xil_In32
-#define XCsiSs_Out32	Xil_Out32
 
 /*****************************************************************************/
 /**
 *
-* This macro reads a value from a MIPI CSI Rx Subsystem register.
+* This function reads a value from a MIPI CSI Rx Subsystem register.
 * A 32 bit read is performed. If the component is implemented in a smaller
 * width, only the least significant data is read from the register. The most
 * significant data will be read as 0.
@@ -83,17 +135,18 @@ extern "C" {
 *
 * @return	The 32-bit value of the register.
 *
-* @note		C-style signature:
-*		u32 XCsiSs_ReadReg(u32 BaseAddress, u32 RegOffset)
+* @note		None.
 *
 ******************************************************************************/
-#define XCsiSs_ReadReg(BaseAddress, RegOffset)  \
-	XCsiSs_In32((BaseAddress) + (u32)(RegOffset))
+static inline u32 XCsiSs_ReadReg(u32 BaseAddress, u32 RegOffset)
+{
+	return (Xil_In32(BaseAddress + (u32)RegOffset));
+}
 
 /*****************************************************************************/
 /**
 *
-* This macro writes a value to a MIPI CSI Rx Subsystem register.
+* This function writes a value to a MIPI CSI Rx Subsystem register.
 * A 32 bit write is performed. If the component is implemented in a smaller
 * width, only the least significant data is written.
 *
@@ -104,22 +157,22 @@ extern "C" {
 *
 * @return	None.
 *
-* @note		C-style signature:
-*		void XCsiSs_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+* @note		None.
 *
 ******************************************************************************/
-#define XCsiSs_WriteReg(BaseAddress, RegOffset, Data)   \
-	XCsiSs_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))
-
+static inline void XCsiSs_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+{
+	Xil_Out32(BaseAddress + (u32)RegOffset, (u32)Data);
+}
 /************************** Function Prototypes ******************************/
 
 
 /************************** Variable Declarations ****************************/
 
 
-
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif /* end of protection macro */
+/** @} */

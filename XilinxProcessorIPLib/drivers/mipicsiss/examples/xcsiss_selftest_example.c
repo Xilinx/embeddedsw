@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,9 +43,9 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
-* 1.00 vs 07/29/15 Initial release.
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/29/15 Initial release
 * </pre>
 *
 ******************************************************************************/
@@ -60,10 +60,10 @@
 
 /************************** Constant Definitions *****************************/
 
-/* The unique device ID of the MIPI CSI Rx Subsystem instance
- * to be used
- */
-#define XCSISS_DEVICE_ID		XPAR_CSISS_0_DEVICE_ID
+/* The unique device ID of the MIPI CSI Rx Subsystem instance to be used */
+#ifndef TESTAPP_GEN
+#define XCSISS_DEVICE_ID	XPAR_CSISS_0_DEVICE_ID
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -77,14 +77,12 @@ u32 CsiSs_SelfTestExample(u32 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
-XCsiSs CsiSsInst;	/* The DPTX Subsystem instance.*/
+XCsiSs CsiSsInst;	/* The MIPI CSI Rx Subsystem instance.*/
 
 /************************** Function Definitions *****************************/
 
-
 /*****************************************************************************/
 /**
-*
 * This is the main function for XCsiSs self test example.
 *
 * @param	None.
@@ -96,13 +94,13 @@ XCsiSs CsiSsInst;	/* The DPTX Subsystem instance.*/
 * @note		None.
 *
 ******************************************************************************/
+#ifndef TESTAPP_GEN
 int main()
 {
 	u32 Status;
 
 	xil_printf("---------------------------------\n\r");
 	xil_printf("MIPI CSI RX Subsystem self test example\n\r");
-	xil_printf("(c) 2015 by Xilinx\n\r");
 	xil_printf("---------------------------------\n\r\n\r");
 
 	Status = CsiSs_SelfTestExample(XCSISS_DEVICE_ID);
@@ -116,10 +114,10 @@ int main()
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
-*
 * This function is the main entry point for the self test example using the
 * XCsiSs driver. This function check whether or not its sub-core drivers
 * self test functions are in working state.

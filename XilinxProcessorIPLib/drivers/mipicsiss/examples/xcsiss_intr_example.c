@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,9 +57,9 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver  Who Date     Changes
-* ---- --- -------- --------------------------------------------------
-* 1.00 sha 07/01/15 Initial release.
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/21/15 Initial release
 * </pre>
 *
 ******************************************************************************/
@@ -68,7 +68,6 @@
 
 #include "xcsiss.h"
 #include "xil_printf.h"
-#include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xintc.h"
@@ -80,7 +79,7 @@
 * They are only defined here such that a user can easily change all the
 * needed device IDs in one place.
 */
-#define XINTC_CSISS_CSI_INTERRUPT_ID	XPAR_INTC_0_CSISS_0_VEC_ID
+#define XINTC_CSISS_CSI_INTERRUPT_ID	XPAR_INTC_0_MIPICSISS_0_VEC_ID
 #define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
 #define XINTC				XIntc
 #define XINTC_HANDLER			XIntc_InterruptHandler
@@ -88,6 +87,7 @@
 /* The unique device ID of the MIPI CSI Rx Subsystem instance to be used
  */
 #define XCSISS_DEVICE_ID		XPAR_CSISS_0_DEVICE_ID
+#define MAX_INTERRUPT_COUNT 	1
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -115,13 +115,59 @@ void CsiSs_FrameRcvdEventHandler(void *InstancePtr, u32 Mask);
 
 XCsiSs CsiSsInst;	/* The MIPI CSI Rx Subsystem instance.*/
 XINTC IntcInst;		/* The interrupt controller instance. */
+
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
-XIic 	*IicInstPtr;
+XIic *IicInstPtr;
 #endif
+volatile u32 interrupt_counts;
 
 /************************** Function Definitions *****************************/
 
+/******************************************************************************/
+/**
+*
+* For Microblaze we use an assembly loop that is roughly the same regardless of
+* optimization level, although caches and memory access time can make the delay
+* vary.  Just keep in mind that after resetting or updating the PHY modes,
+* the PHY typically needs time to recover.
+*
+* @param	Number of seconds to sleep
+*
+* @return	None
+*
+* @note		None
+*
+******************************************************************************/
+void Delay(u32 Seconds)
+{
+#if defined (__MICROBLAZE__) || defined(__PPC__)
+	static s32 WarningFlag = 0;
 
+	/* If MB caches are disabled or do not exist, this delay loop could
+	 * take minutes instead of seconds (e.g., 30x longer).  Print a warning
+	 * message for the user (once).  If only MB had a built-in timer!
+	 */
+	if (((mfmsr() & 0x20) == 0) && (!WarningFlag)) {
+		WarningFlag = 1;
+	}
+
+#define ITERS_PER_SEC   (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
+    asm volatile ("\n"
+			"1:               \n\t"
+			"addik r7, r0, %0 \n\t"
+			"2:               \n\t"
+			"addik r7, r7, -1 \n\t"
+			"bneid  r7, 2b    \n\t"
+			"or  r0, r0, r0   \n\t"
+			"bneid %1, 1b     \n\t"
+			"addik %1, %1, -1 \n\t"
+			:: "i"(ITERS_PER_SEC), "d" (Seconds));
+#else
+    sleep(Seconds);
+#endif
+}
+
+#ifndef TESTAPP_GEN
 /*****************************************************************************/
 /**
 *
@@ -142,12 +188,11 @@ XIic 	*IicInstPtr;
 ******************************************************************************/
 int main()
 {
-	u32 Status;
+	int Status;
 
 	xil_printf("------------------------------------------\n\r");
 	xil_printf("MIPI CSI Rx Subsystem interrupt example\n\r");
-	xil_printf("(c) 2015 by Xilinx\n\r");
-	xil_printf("-------------------------------------------\n\r\n\r");
+	xil_printf("-------------------------------------------\n\r");
 
 	Status = CsiSs_IntrExample(XCSISS_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
@@ -160,6 +205,7 @@ int main()
 
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -176,14 +222,16 @@ int main()
 *		  was successful, is blocking.
 *
 * @note		If system setup was successful, this function is blocking in
-*		order to illustrate interrupt handling taking place for HPD
-*		events.
+*		order to illustrate interrupt handling.
 *
 ******************************************************************************/
 u32 CsiSs_IntrExample(u32 DeviceId)
 {
 	u32 Status;
 	XCsiSs_Config *ConfigPtr;
+	u8 ActiveLanes = 3;
+	u32 IntrRequest = XCSISS_ISR_ALLINTR_MASK;
+	u8 Exit_Count = 0;
 
 	/* Do platform initialization in this function. This is hardware
 	 * system specific. It is up to the user to implement this function.
@@ -205,7 +253,8 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 	Status = XCsiSs_CfgInitialize(&CsiSsInst, ConfigPtr,
 					ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("CSISS config initialization failed.\n\r");
+		xil_printf("CSISS config initialization "
+		"failed.\n\r");
 		return XST_FAILURE;
 	}
 
@@ -215,22 +264,31 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 	/* Reset the subsystem */
 	XCsiSs_Reset(&CsiSsInst);
 
-	/* Disable the subsystem till the camera and interrupts are configured */
+	/* Disable the subsystem till the camera
+	 * and interrupts are configured
+	 */
 	XCsiSs_Activate(&CsiSsInst, 0);
 
-	/* Configure the subsystem */
-	CsiSsInst.UsrOpt.Lanes = CsiSsInst.Config.LanesPresent;
-	CsiSsInst.UsrOpt.IntrRequest = XCSI_ISR_ALLINTR_MASK;
+	/* Configure the subsystem for ActiveLanes and Interrupts
+	 * The minimum value of ActiveLanes is 0 and max value is
+	 * maximum lanes set in the design (max 3).
+	 * The interrupt mask can be selected from the bitmasks in
+	 * xcsiss_hw.h
+	 */
+	ActiveLanes = 0;
+	IntrRequest = XCSISS_ISR_ALLINTR_MASK;
 
-	XCsiSs_Configure(&CsiSsInst, &CsiSsInst.UsrOpt);
+	XCsiSs_Configure(&CsiSsInst, ActiveLanes, IntrRequest);
 
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
 	/* Initialise the IIC (inside subsys or external) separately */
 	IicInstPtr = XCsiSs_GetIicInstance(&CsiSsInst);
 
 	if (!IicInstPtr) {
-		xil_printf("IIC not present in subsystem \r\n");
-		xil_printf("Need to have external IIC in design \r\n");
+		xil_printf("IIC not present in "
+		" the subsystem \n\r");
+		xil_printf("Need to have external "
+		"IIC in design \n\r");
 	}
 	else {
 		/* Initialise the IIC in the system design */
@@ -243,25 +301,32 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 	if (Status != XST_SUCCESS) {
 		xil_printf("CCI init failed!\n\r");
 	}
-	xil_printf("Camera Control Interface initialization done.\n\r");
-
+	xil_printf("Camera Control Interface "
+	"initialization done.\n\r");
 
 	/* Setup the interrupts and call back handlers */
 	Status = CsiSs_SetupIntrSystem();
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Interrupt system setup failed.\n\r");
+		xil_printf("ERR: Interrupt system "
+		"setup failed.\n\r");
 		return XST_FAILURE;
 	}
 
 	/* Enable the cores */
 	XCsiSs_Activate(&CsiSsInst, 1);
 
-	/* Do not return in order to allow interrupt handling to run. HPD events
-	 * (connect, disconnect, and pulse) will be detected and handled.
-	 */
-	while (1) {
+	/* Wait up to MAX_INTERRUPT_COUNT */
+	do {
+		Delay(1);
+		Exit_Count++;
+		if(Exit_Count > 3) {
+			xil_printf("CSISS Interrupt "
+			" test failed, Please check design\n\r");
+			return XST_FAILURE;
+		}
 
 	}
+	while (interrupt_counts < MAX_INTERRUPT_COUNT);
 
 	return XST_SUCCESS;
 }
@@ -321,7 +386,7 @@ u32 CsiSs_CciInit(void)
 *
 * @return
 *		- XST_SUCCESS if IIC interrupt is configured successfully.
-*		- XST_FAILURE, otherwise.
+*		- XST_FAILURE,if IIC interrupt is failed to configure
 *
 * @note		None.
 *
@@ -359,17 +424,17 @@ u32 CsiSs_SetupIntrSystem(void)
 	XINTC *IntcInstPtr = &IntcInst;
 
 	/* Set the HPD interrupt handlers. */
-	XCsiSs_SetCallBack(&CsiSsInst, XCSI_HANDLER_DPHY,
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_DPHY,
 				CsiSs_DphyEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSI_HANDLER_PKTLVL,
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_PKTLVL,
 				CsiSs_PktLvlEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSI_HANDLER_PROTLVL,
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_PROTLVL,
 				CsiSs_ProtLvlEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSI_HANDLER_SHORTPACKET,
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_SHORTPACKET,
 				CsiSs_SPktEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSI_HANDLER_FRAMERECVD,
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_FRAMERECVD,
 				CsiSs_FrameRcvdEventHandler, &CsiSsInst);
-	XCsiSs_SetCallBack(&CsiSsInst, XCSI_HANDLER_OTHERERROR,
+	XCsiSs_SetCallBack(&CsiSsInst, XCSISS_HANDLER_OTHERERROR,
 				CsiSs_ErrEventHandler, &CsiSsInst);
 
 	/* Initialize the interrupt controller driver so that it's ready to
@@ -377,7 +442,7 @@ u32 CsiSs_SetupIntrSystem(void)
 	 */
 	Status = XIntc_Initialize(IntcInstPtr, XINTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Intc initialization failed!\n\r");
+		xil_printf("Intc initialization failed\n\r");
 		return XST_FAILURE;
 	}
 
@@ -386,7 +451,8 @@ u32 CsiSs_SetupIntrSystem(void)
 			(XInterruptHandler)XCsiSs_IntrHandler,
 				&CsiSsInst);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: MIPI CSI RX SS CSI interrupt connect failed!\n\r");
+		xil_printf("ERR: MIPI CSI RX SS CSI "
+		"interrupt connect  failed!\n\r");
 		return XST_FAILURE;
 	}
 
@@ -418,7 +484,7 @@ u32 CsiSs_SetupIntrSystem(void)
 	/* Enable exceptions. */
 	Xil_ExceptionEnable();
 
-	return (XST_SUCCESS);
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -428,7 +494,6 @@ u32 CsiSs_SetupIntrSystem(void)
 * the MIPI CSI Rx Subsystem core.
 *
 * @param	InstancePtr is a pointer to the XCsiSs instance.
-*
 * @param	Mask of interrupt which caused this event
 *
 * @return	None.
@@ -439,22 +504,20 @@ u32 CsiSs_SetupIntrSystem(void)
 ******************************************************************************/
 void CsiSs_DphyEventHandler(void *InstancePtr, u32 Mask)
 {
-	XCsiSs *CsiSsInstance = (XCsiSs *)InstancePtr;
-	u32 IntrMask;
-	u32 Status;
+	xil_printf("+===> DPHY Level Error detected.\n\r");
+	interrupt_counts++;
 
-	xil_printf("+===> DPHY Level Error detected.\r\n");
-
-	if (Mask & XCSI_ISR_SOTERR_MASK) {
-		xil_printf("Start of Transmission Error \r\n");
+	if (Mask & XCSISS_ISR_SOTERR_MASK) {
+		xil_printf("Start of Transmission Error\n\r");
 	}
 
-	if (Mask & XCSI_ISR_SOTSYNCERR_MASK) {
-		xil_printf("Start of Transmission Sync Error \r\n");
+	if (Mask & XCSISS_ISR_SOTSYNCERR_MASK) {
+		xil_printf("Start of Transmission "
+		"Sync Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_CTRLERR_MASK) {
-		xil_printf("Control Error \r\n");
+	if (Mask & XCSISS_ISR_CTRLERR_MASK) {
+		xil_printf("Control Error \n\r");
 	}
 }
 
@@ -465,7 +528,6 @@ void CsiSs_DphyEventHandler(void *InstancePtr, u32 Mask)
 * the MIPI CSI Rx Subsystem core.
 *
 * @param	InstancePtr is a pointer to the XCsiSs instance.
-*
 * @param	Mask of interrupt which caused this event
 *
 * @return	None.
@@ -476,26 +538,23 @@ void CsiSs_DphyEventHandler(void *InstancePtr, u32 Mask)
 ******************************************************************************/
 void CsiSs_PktLvlEventHandler(void *InstancePtr, u32 Mask)
 {
-	XCsiSs *CsiSsInstance = (XCsiSs *)InstancePtr;
-	u32 IntrMask;
-	u32 Status;
+	xil_printf("+===> Packet Level Error detected.\n\r");
+	interrupt_counts++;
 
-	xil_printf("+===> Packet Level Error detected.\r\n");
-
-	if (Mask & XCSI_ISR_ECC2BERR_MASK) {
-		xil_printf("2 bit ECC Error \r\n");
+	if (Mask & XCSISS_ISR_ECC2BERR_MASK) {
+		xil_printf("2 bit ECC Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_ECC1BERR_MASK) {
-		xil_printf("1 bit ECC Error \r\n");
+	if (Mask & XCSISS_ISR_ECC1BERR_MASK) {
+		xil_printf("1 bit ECC Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_CRCERR_MASK) {
-		xil_printf("Frame CRC Error \r\n");
+	if (Mask & XCSISS_ISR_CRCERR_MASK) {
+		xil_printf("Frame CRC Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_DATAIDERR_MASK) {
-		xil_printf("Data Id Error \r\n");
+	if (Mask & XCSISS_ISR_DATAIDERR_MASK) {
+		xil_printf("Data Id Error \n\r");
 	}
 }
 
@@ -506,51 +565,49 @@ void CsiSs_PktLvlEventHandler(void *InstancePtr, u32 Mask)
 * received by the MIPI CSI Rx Subsystem core.
 *
 * @param	InstancePtr is a pointer to the XCsiSs instance.
-*
 * @param	Mask of interrupt which caused this event
 *
 * @return	None.
 *
 * @note		Use the XCsiSs_SetCallback driver function to set this
-*		function as the handler for Protocol Decoding level error event.
+*		function as the handler for Protocol Decoding level error
 *
 ******************************************************************************/
 void CsiSs_ProtLvlEventHandler(void *InstancePtr, u32 Mask)
 {
-	XCsiSs *CsiSsInstance = (XCsiSs *)InstancePtr;
+	xil_printf("+===> Packet Level Error detected.\n\r");
+	interrupt_counts++;
 
-	xil_printf("+===> Packet Level Error detected.\r\n");
-
-	if (Mask & XCSI_ISR_VC3FSYNCERR_MASK) {
-		xil_printf("VC3 Frame Sync Error \r\n");
+	if (Mask & XCSISS_ISR_VC3FSYNCERR_MASK) {
+		xil_printf("VC3 Frame Sync Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_VC2FSYNCERR_MASK) {
-		xil_printf("VC2 Frame Sync Error \r\n");
+	if (Mask & XCSISS_ISR_VC2FSYNCERR_MASK) {
+		xil_printf("VC2 Frame Sync Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_VC1FSYNCERR_MASK) {
-		xil_printf("VC1 Frame Sync Error \r\n");
+	if (Mask & XCSISS_ISR_VC1FSYNCERR_MASK) {
+		xil_printf("VC1 Frame Sync Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_VC0FSYNCERR_MASK) {
-		xil_printf("VC0 Frame Sync Error \r\n");
+	if (Mask & XCSISS_ISR_VC0FSYNCERR_MASK) {
+		xil_printf("VC0 Frame Sync Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_VC3FLVLERR_MASK) {
-		xil_printf("VC3 Frame Level Error \r\n");
+	if (Mask & XCSISS_ISR_VC3FLVLERR_MASK) {
+		xil_printf("VC3 Frame Level Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_VC2FLVLERR_MASK) {
-		xil_printf("VC2 Frame Level Error \r\n");
+	if (Mask & XCSISS_ISR_VC2FLVLERR_MASK) {
+		xil_printf("VC2 Frame Level Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_VC1FLVLERR_MASK) {
-		xil_printf("VC1 Frame Level Error \r\n");
+	if (Mask & XCSISS_ISR_VC1FLVLERR_MASK) {
+		xil_printf("VC1 Frame Level Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_VC0FLVLERR_MASK) {
-		xil_printf("VC0 Frame Level Error \r\n");
+	if (Mask & XCSISS_ISR_VC0FLVLERR_MASK) {
+		xil_printf("VC0 Frame Level Error \n\r");
 	}
 }
 
@@ -561,7 +618,6 @@ void CsiSs_ProtLvlEventHandler(void *InstancePtr, u32 Mask)
 * MIPI CSI Rx Subsystem core.
 *
 * @param	InstancePtr is a pointer to the XCsiSs instance.
-*
 * @param	Mask of interrupt which caused this event
 *
 * @return	None.
@@ -574,26 +630,28 @@ void CsiSs_ErrEventHandler(void *InstancePtr, u32 Mask)
 {
 	XCsiSs *CsiSsInstance = (XCsiSs *)InstancePtr;
 
-	xil_printf("+===> Other Errors detected.\r\n");
+	xil_printf("+===> Other Errors detected.\n\r");
+	interrupt_counts++;
 
-	if (Mask & XCSI_ISR_ILC_MASK) {
-		xil_printf("Incorrect Lane Count Error \r\n");
+	if (Mask & XCSISS_ISR_ILC_MASK) {
+		xil_printf("Incorrect Lane Count Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_SLBF_MASK) {
-		xil_printf("Stream line buffer full Error \r\n");
+	if (Mask & XCSISS_ISR_SLBF_MASK) {
+		xil_printf("Stream line buffer full Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_STOP_MASK) {
-		xil_printf("Stop Error \r\n");
+	if (Mask & XCSISS_ISR_STOP_MASK) {
+		xil_printf("Stop Error \n\r");
+		XCsiSs_IntrDisable(CsiSsInstance, XCSISS_ISR_STOP_MASK);
 	}
 
-	if (Mask & XCSI_ISR_ULPM_MASK) {
-		xil_printf("ULPM Error \r\n");
+	if (Mask & XCSISS_ISR_ULPM_MASK) {
+		xil_printf("ULPM Error \n\r");
 	}
 
-	if (Mask & XCSI_ISR_ESCERR_MASK) {
-		xil_printf("Escape Error \r\n");
+	if (Mask & XCSISS_ISR_ESCERR_MASK) {
+		xil_printf("Escape Error \n\r");
 	}
 }
 
@@ -617,22 +675,22 @@ void CsiSs_SPktEventHandler(void *InstancePtr, u32 Mask)
 {
 	XCsiSs *CsiSsInstance = (XCsiSs *)InstancePtr;
 	u32 IntrMask;
-	u32 Status;
 
-	xil_printf("+===> Short Packet Event detected.\r\n");
+	xil_printf("+===> Short Packet Event detected.\n\r");
+	interrupt_counts++;
 
-	if (Mask & XCSI_ISR_SPFIFONE_MASK) {
-		xil_printf("Fifo not empty \r\n");
+	if (Mask & XCSISS_ISR_SPFIFONE_MASK) {
+		xil_printf("Fifo not empty \n\r");
 		XCsiSs_GetShortPacket(InstancePtr);
-		xil_printf("Data Type = 0x%x, Virtual Channel = 0x%x,\
-				Data = 0x%x",
-				InstancePtr->SpktData.DataType,
-				InstancePtr->SpktData.VirtualChannel,
-				InstancePtr->SpktData.Data);
+		xil_printf("Data Type = 0x%x,"
+		"Virtual Channel = 0x%x, Data = 0x%x",
+			CsiSsInstance->SpktData.DataType,
+			CsiSsInstance->SpktData.VirtualChannel,
+			CsiSsInstance->SpktData.Data);
 	}
 
-	if (Mask & XCSI_ISR_SPFIFOF_MASK) {
-		xil_printf("Fifo Full \r\n");
+	if (Mask & XCSISS_ISR_SPFIFOF_MASK) {
+		xil_printf("Fifo Full \n\r");
 	}
 }
 
@@ -654,7 +712,6 @@ void CsiSs_SPktEventHandler(void *InstancePtr, u32 Mask)
 ******************************************************************************/
 void CsiSs_FrameRcvdEventHandler(void *InstancePtr, u32 Mask)
 {
-	XCsiSs *CsiSsInstance = (XCsiSs *)InstancePtr;
-
-	xil_printf("+===> Frame Receieved Event detected.\r\n");
+	xil_printf("+=> Frame Receieved Event detected.\n\r");
+	interrupt_counts++;
 }
