@@ -82,6 +82,7 @@ static u32 QspiFlashSize=0;
 static u32 QspiFlashMake=0;
 static u32 ReadCommand=0;
 static XQspiPsu_Msg FlashMsg[5];
+static u8 IssiIdFlag=0;
 
 static u8 TxBfrPtr __attribute__ ((aligned(32)));
 static u8 ReadBuffer[10] __attribute__ ((aligned(32)));
@@ -146,6 +147,9 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	} else if(ReadBuffer[0] == MACRONIX_ID) {
 		QspiFlashMake = MACRONIX_ID;
 		XFsbl_Printf(DEBUG_INFO, "MACRONIX ");
+	} else if(ReadBuffer[0] == ISSI_ID) {
+		QspiFlashMake = ISSI_ID;
+		XFsbl_Printf(DEBUG_INFO, "ISSI ");
 	} else {
 		Status = XFSBL_ERROR_UNSUPPORTED_QSPI;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_UNSUPPORTED_QSPI\r\n");
@@ -155,7 +159,10 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	/*
 	 * Deduce flash Size
 	 */
-	if (ReadBuffer[2] == FLASH_SIZE_ID_128M) {
+	if (ReadBuffer[2] == FLASH_SIZE_ID_64M) {
+		QspiFlashSize = FLASH_SIZE_64M;
+		XFsbl_Printf(DEBUG_INFO, "64M Bits\r\n");
+	} else if (ReadBuffer[2] == FLASH_SIZE_ID_128M) {
 		QspiFlashSize = FLASH_SIZE_128M;
 		XFsbl_Printf(DEBUG_INFO, "128M Bits\r\n");
 	} else if (ReadBuffer[2] == FLASH_SIZE_ID_256M) {
@@ -173,6 +180,13 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 		Status = XFSBL_ERROR_UNSUPPORTED_QSPI;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_UNSUPPORTED_QSPI\r\n");
 		goto END;
+	}
+	/* Enable ID flag for ISSI 128M Qspi to enable
+	 * DUAL_READ_CMD_24BIT ReadCommand
+	 */
+	if((QspiFlashMake==ISSI_ID) && (QspiFlashSize==FLASH_SIZE_128M))
+	{
+		IssiIdFlag=1;
 	}
 
 END:
@@ -258,13 +272,6 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 		}break;
 
 	}
-
-	/**
-	 *  add code for 1x, 2x and 4x
-	 *
-	 */
-	ReadCommand = QUAD_READ_CMD_24BIT;
-
 	/**
 	 * Read Flash ID and extract Manufacture and Size information
 	 */
@@ -272,7 +279,15 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 	if (Status != XFSBL_SUCCESS) {
 		goto END;
 	}
-
+	/**
+	 *  add code for 1x, 2x and 4x
+	 *
+	 */
+	if(IssiIdFlag==1) {
+		ReadCommand = DUAL_READ_CMD_24BIT;
+	} else {
+		ReadCommand = QUAD_READ_CMD_24BIT;
+	}
 	/**
 	 * add code: For a Stacked connection, read second Flash ID
 	 */
