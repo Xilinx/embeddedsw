@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,9 @@
 /**
 *
 * @file xcsi_sinit.c
+* @addtogroup csi_v1_0
+* @{
+* @details
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xcsi_g.c, generated automatically by XPS or
@@ -41,10 +44,9 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00  vs   06/18/15 First release
-*
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 06/18/15 Initial release
 * </pre>
 *
 ******************************************************************************/
@@ -53,7 +55,6 @@
 
 #include "xparameters.h"
 #include "xcsi.h"
-
 
 /*****************************************************************************/
 /**
@@ -83,3 +84,4 @@ XCsi_Config *XCsi_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

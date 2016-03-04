@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -29,9 +29,9 @@
 # this Software without prior written authorization from Xilinx.
 #
 # MODIFICATION HISTORY:
-# Ver      Who    Date     Changes
-# -------- ------ -------- ----------------------------------------------------
-#  8.0     adk    12/10/13 Updated as per the New Tcl API's
+# Ver Who Date     Changes
+# --- --- -------- ----------------------------------------------------
+# 1.0 vsa 07/21/15 Initial version
 ##############################################################################
 
 #uses "xillib.tcl"

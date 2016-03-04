@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,155 +33,170 @@
 /**
 *
 * @file xcsi_intr.c
+* @addtogroup csi_v1_0
+* @{
+* @details
 *
-* This file implements the functions which handle the interrupts in the CSI
-* Controller.
+* This file implements the functions which handle the interrupts and callbacks
+* in the CSI2 Rx Controller.
+* The callbacks are registered for events which are interrupts clubbed together
+* on the basis of the CSI specification.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- -------------------------------------------------------
-* 1.00a vs   07/28/15 First release
-*
+* Ver Who Date     Changes
+* --- --- -------- ------------------------------------------------------------
+* 1.0 vsa 07/28/15 Initial release
 * </pre>
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
-#include "xstatus.h"
-#include "xcsi_hw.h"
 #include "xcsi.h"
 
 /************************** Constant Definitions *****************************/
 
+
 /**************************** Type Definitions *******************************/
+
 
 /************************** Macros Definitions *******************************/
 
+
 /************************** Function Prototypes ******************************/
+
 
 /************************** Variable Definitions *****************************/
 
+
+/************************** Function Definitions ******************************/
+
 /*****************************************************************************/
 /**
-* XCsi_InterruptEnable will enable the interrupts present in the interrupt mask
+* This function will enable the interrupts present in the interrupt mask
 * passed onto the function
 *
 * @param	InstancePtr is the XCsi instance to operate on
-*
 * @param	Mask is the interrupt mask which need to be enabled in core
 *
 * @return	None
 *
+* @note		None
 *
 ****************************************************************************/
-void XCsi_InterruptEnable(XCsi *InstancePtr, u32 Mask)
+void XCsi_IntrEnable(XCsi *InstancePtr, u32 Mask)
 {
-	u32 Temp;
-
+	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	/* Checking for invalid mask bits being set */
 	Xil_AssertVoid((Mask & (~(XCSI_IER_ALLINTR_MASK))) == 0);
 
-	Mask |= XCsi_GetIntrEnable(InstancePtr);
+	Mask |= XCsi_ReadReg(InstancePtr->Config.BaseAddr, XCSI_IER_OFFSET);
 
-	XCsi_IntrEnable(InstancePtr, Mask);
+	XCsi_WriteReg(InstancePtr->Config.BaseAddr,XCSI_IER_OFFSET,
+			Mask & XCSI_IER_ALLINTR_MASK);
 }
 
 /*****************************************************************************/
 /**
-* XCsi_InterruptDisable will disable the interrupts present in the
+* This function will disable the interrupts present in the
 * interrupt mask passed onto the function
 *
 * @param	InstancePtr is the XCsi instance to operate on
-*
 * @param	Mask is the interrupt mask which need to be enabled in core
 *
 * @return	None
 *
+* @note		None
 *
 ****************************************************************************/
-void XCsi_InterruptDisable(XCsi *InstancePtr, u32 Mask)
+void XCsi_IntrDisable(XCsi *InstancePtr, u32 Mask)
 {
+	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	/* Checking for invalid mask bits being set */
 	Xil_AssertVoid((Mask & (~(XCSI_IER_ALLINTR_MASK))) == 0);
 
-	XCsi_IntrDisable(InstancePtr,
-		((~(Mask)) & (XCsi_GetIntrEnable(InstancePtr))));
+	XCsi_WriteReg(InstancePtr->Config.BaseAddr, XCSI_IER_OFFSET,
+			~ Mask & XCSI_IER_ALLINTR_MASK);
 }
 
 /*****************************************************************************/
 /**
-* XCsi_InterruptGetEnabled will get the interrupt mask set (enabled) in the
-* CSI core
+* This function will get the interrupt mask set (enabled) in the CSI2 Rx core
 *
 * @param	InstancePtr is the XCsi instance to operate on
 *
 * @return	Interrupt Mask with bits set for corresponding interrupt in
 * 		Interrupt enable register
 *
+* @note		None
 *
 ****************************************************************************/
-u32 XCsi_InterruptGetEnabled(XCsi *InstancePtr)
+u32 XCsi_GetIntrEnable(XCsi *InstancePtr)
 {
 	u32 Mask;
 
+	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	Mask = XCsi_GetIntrEnable(InstancePtr);
+	Mask = XCsi_ReadReg(InstancePtr->Config.BaseAddr, XCSI_IER_OFFSET);
 
 	return Mask;
 }
 
 /*****************************************************************************/
 /**
-* XCsi_InterruptGetStatus will get the list of interrupts pending in the
-* Interrupt Status Register of the CSI core
+* This function will get the list of interrupts pending in the
+* Interrupt Status Register of the CSI2 Rx core
 *
 * @param	InstancePtr is the XCsi instance to operate on
 *
 * @return	Interrupt Mask with bits set for corresponding interrupt in
 * 		Interrupt Status register
 *
+* @note		None
 *
 ****************************************************************************/
-u32 XCsi_InterruptGetStatus(XCsi *InstancePtr)
+u32 XCsi_GetIntrStatus(XCsi *InstancePtr)
 {
 	u32 Mask;
 
+	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	Mask = XCsi_IntrGetIrq(InstancePtr);
+	Mask = XCsi_ReadReg(InstancePtr->Config.BaseAddr, XCSI_ISR_OFFSET);
 
 	return Mask;
 }
 
-
 /*****************************************************************************/
 /**
-* XCsi_InterruptClear will clear the interrupts set in the Interrupt Status
-* Register of the CSI core
+* This function will clear the interrupts set in the Interrupt Status
+* Register of the CSI2 Rx core
 *
 * @param	InstancePtr is the XCsi instance to operate on
-*
 * @param	Mask is Interrupt Mask with bits set for corresponding interrupt
 * 		to be cleared in the Interrupt Status register
 *
 * @return 	None
 *
+* @note		None
+*
 ****************************************************************************/
 void XCsi_InterruptClear(XCsi *InstancePtr, u32 Mask)
 {
+	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	/* Checking for invalid mask bits being set */
 	Xil_AssertVoid((Mask & (~(XCSI_IER_ALLINTR_MASK))) == 0);
 
-	Mask &= XCsi_IntrGetIrq(InstancePtr);
+	Mask &= XCsi_ReadReg(InstancePtr->Config.BaseAddr, XCSI_ISR_OFFSET);
 
-	XCsi_IntrAckIrq(InstancePtr, Mask);
+	XCsi_WriteReg(InstancePtr->Config.BaseAddr, XCSI_ISR_OFFSET,
+				Mask & XCSI_ISR_ALLINTR_MASK);
 }
 
 /*****************************************************************************/
@@ -191,34 +206,22 @@ void XCsi_InterruptClear(XCsi *InstancePtr, u32 Mask)
 * HandlerType:
 *
 * <pre>
-*
-* HandlerType              Invoked by this driver when:
-* -----------------------  --------------------------------------------------
-* XCSI_HANDLER_DPHY        A DPHY Level Error has been detected.
-*
-* XCSI_HANDLER_PROTLVL     A Protocol Level Error has been detected.
-*
-* XCSI_HANDLER_PKTLVL      A Packet Level Error has been detected.
-*
-* XCSI_HANDLER_SHORTPACKET A Short packet has been received or the
-* 			   Short Packet FIFO is full.
-*
-* XCSI_HANDLER_FRAMERECVD  A Frame has been received
-*
-* XCSI_HANDLER_OTHERERROR  Any other type of interrupt has occured like
-* 			   Stream Line Buffer Full, Incorrect Lanes, etc
-*
+* HandlerType			Callback Function Type
+* ----------------------------  --------------------------------------------
+* (XCSI_HANDLER_DPHY)		DPhyLvlErrCallBack
+* (XCSI_HANDLER_PROTLVL)	ProtDecodeErrCallBack
+* (XCSI_HANDLER_PKTLVL)		PktLvlErrCallBack
+* (XCSI_HANDLER_SHORTPACKET)	ShortPacketCallBack
+* (XCSI_HANDLER_FRAMERECVD)	FrameRecvdCallBack
+* (XCSI_HANDLER_OTHERERROR)	ErrorCallBack
 * </pre>
 *
 * @param	InstancePtr is the XCsi instance to operate on
-*
 * @param 	HandleType is the type of call back to be registered.
-*
-* @param	CallBackFunc is the pointer to a call back funtion which
+* @param	Callbackfunc is the pointer to a call back funtion which
 * 		is called when a particular event occurs.
-*
-* @param 	CallBackRef is a void pointer to data to be referenced to
-* 		by the CallBackFunc
+* @param 	Callbackref is a void pointer to data to be referenced to
+* 		by the Callbackfunc
 *
 * @return
 * 		- XST_SUCCESS when handler is installed.
@@ -229,49 +232,56 @@ void XCsi_InterruptClear(XCsi *InstancePtr, u32 Mask)
 *
 ****************************************************************************/
 int XCsi_SetCallBack(XCsi *InstancePtr, u32 HandleType,
-		void *CallBackFunc, void *CallBackRef)
+		void *Callbackfunc, void *Callbackref)
 {
+	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(CallBackRef != NULL);
+	Xil_AssertNonvoid(Callbackref != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	switch (HandleType) {
 		case XCSI_HANDLER_DPHY:
-			InstancePtr->DPhyLvlErrCallBack = CallBackFunc;
-			InstancePtr->DPhyLvlErrRef = CallBackRef;
+			InstancePtr->DPhyLvlErrCallBack = Callbackfunc;
+			InstancePtr->DPhyLvlErrRef = Callbackref;
 			break;
+
 		case XCSI_HANDLER_PROTLVL:
-			InstancePtr->ProtDecodeErrCallBack = CallBackFunc;
-			InstancePtr->ProtDecErrRef = CallBackRef;
+			InstancePtr->ProtDecodeErrCallBack = Callbackfunc;
+			InstancePtr->ProtDecErrRef = Callbackref;
 			break;
+
 		case XCSI_HANDLER_PKTLVL:
-			InstancePtr->PktLvlErrCallBack = CallBackFunc;
-			InstancePtr->PktLvlErrRef = CallBackRef;
+			InstancePtr->PktLvlErrCallBack = Callbackfunc;
+			InstancePtr->PktLvlErrRef = Callbackref;
 			break;
+
 		case XCSI_HANDLER_SHORTPACKET:
-			InstancePtr->ShortPacketCallBack = CallBackFunc;
-			InstancePtr->ShortPacketRef = CallBackRef;
+			InstancePtr->ShortPacketCallBack = Callbackfunc;
+			InstancePtr->ShortPacketRef = Callbackref;
 			break;
+
 		case XCSI_HANDLER_FRAMERECVD:
-			InstancePtr->FrameRecvdCallBack = CallBackFunc;
-			InstancePtr->FrameRecvdRef = CallBackRef;
+			InstancePtr->FrameRecvdCallBack = Callbackfunc;
+			InstancePtr->FrameRecvdRef = Callbackref;
 			break;
+
 		case XCSI_HANDLER_OTHERERROR:
-			InstancePtr->ErrorCallBack = CallBackFunc;
-			InstancePtr->ErrRef = CallBackRef;
+			InstancePtr->ErrorCallBack = Callbackfunc;
+			InstancePtr->ErrRef = Callbackref;
 			break;
+
 		default:
 			/* Invalid value of HandleType */
-			Xil_AssertVoidAlways();
 			return XST_INVALID_PARAM;
 	}
 
 	return XST_SUCCESS;
 }
+
 /*****************************************************************************/
 /**
 *
-* This function is the interrupt handler for the CSI core.
+* This function is the interrupt handler for the CSI2 Rx core.
 *
 * This handler reads the pending interrupt from the Interrupt Status register,
 * determines the source of the interrupts and calls the respective
@@ -292,7 +302,7 @@ int XCsi_SetCallBack(XCsi *InstancePtr, u32 HandleType,
 ******************************************************************************/
 void XCsi_IntrHandler(void *InstancePtr)
 {
-	u32 PendingIntr;
+	u32 ActiveIntr;
 	u32 ErrorStatus;
 	u32 Mask;
 
@@ -302,49 +312,51 @@ void XCsi_IntrHandler(void *InstancePtr)
 	Xil_AssertVoid(XCsiPtr != NULL);
 	Xil_AssertVoid(XCsiPtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Get pending interrupts */
-	PendingIntr = XCsi_InterruptGetStatus(XCsiPtr);
+	/* Get Active interrupts */
+	ActiveIntr = XCsi_GetIntrStatus(XCsiPtr);
 
-	Mask = PendingIntr & XCSI_INTR_FRAMERCVD_MASK;
+	Mask = ActiveIntr & XCSI_INTR_FRAMERCVD_MASK;
 	if (Mask) {
 		/* If Frame received then call corresponding callback function */
 		XCsiPtr->FrameRecvdCallBack(XCsiPtr->FrameRecvdRef, Mask);
 	}
 
-	Mask = PendingIntr & XCSI_INTR_ERR_MASK;
+	Mask = ActiveIntr & XCSI_INTR_ERR_MASK;
 	if (Mask) {
 		/* If ShortPacket Interrupts then call corresponding
 		 * callback function */
 		XCsiPtr->ErrorCallBack(XCsiPtr->ErrRef,	Mask);
 	}
 
-	Mask = PendingIntr & XCSI_INTR_SPKT_MASK;
+	Mask = ActiveIntr & XCSI_INTR_SPKT_MASK;
 	if (Mask) {
 		/* If ShortPacket Interrupts then call corresponding
 		 * callback function */
 		XCsiPtr->ShortPacketCallBack(XCsiPtr->ShortPacketRef, Mask);
 	}
 
-	Mask = PendingIntr & XCSI_INTR_DPHY_MASK;
+	Mask = ActiveIntr & XCSI_INTR_DPHY_MASK;
 	if (Mask) {
 		/* Handle DPHY Level Errors */
 		XCsiPtr->DPhyLvlErrCallBack(XCsiPtr->DPhyLvlErrRef, Mask);
 	}
 
-	Mask = PendingIntr & XCSI_INTR_PROT_MASK;
+
+	Mask = ActiveIntr & XCSI_INTR_PROT_MASK;
 	if (Mask) {
 		/* Handle Protocol Decoding Level Errors */
 		XCsiPtr->ProtDecodeErrCallBack(XCsiPtr->ProtDecErrRef, Mask);
 	}
 
-	Mask = PendingIntr & XCSI_INTR_PKTLVL_MASK;
+	Mask = ActiveIntr & XCSI_INTR_PKTLVL_MASK;
 	if (Mask) {
 		/* Handle Packet Level Errors */
 		XCsiPtr->PktLvlErrCallBack(XCsiPtr->PktLvlErrRef, Mask);
 	}
 
-	/* Clear pending interrupt(s) */
-	XCsi_InterruptClear(XCsiPtr, PendingIntr);
+	/* Clear handled interrupt(s) */
+	XCsi_InterruptClear(XCsiPtr, ActiveIntr);
 
 	return;
 }
+/** @} */
