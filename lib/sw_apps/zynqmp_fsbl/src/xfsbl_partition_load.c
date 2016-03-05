@@ -879,7 +879,10 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 
 	/**
 	 *
-	 * Do not copy the IVT if FSBL is running in R5-0/R5-L at 0x0 TCM
+	 * Skip copy to IVT area if FSBL is running in R5-0/R5-L at 0x0 TCM
+	 * and the partition is neither authenticated nor encrypted.
+	 * This ensures authenticating/decrypting is done on actual partition,
+	 * but leads to overwriting of the R5 vectors of FSBL with partition data.
 	 * Update the SrcAddress, LoadAddress and Len based on the
 	 * above condition
 	 */
@@ -887,6 +890,10 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 			XIH_PH_ATTRB_DEST_CPU_R5_0) ||
 		(FsblInstancePtr->ProcessorID ==
 				XIH_PH_ATTRB_DEST_CPU_R5_L)) &&
+		(XFsbl_IsRsaSignaturePresent(PartitionHeader) !=
+			XIH_PH_ATTRB_RSA_SIGNATURE ) &&
+		(XFsbl_IsEncrypted(PartitionHeader) !=
+			XIH_PH_ATTRB_ENCRYPTION ) &&
 		((LoadAddress >= XFSBL_R50_HIGH_TCM_START_ADDRESS) &&
 		(LoadAddress <
 			XFSBL_R50_HIGH_TCM_START_ADDRESS + XFSBL_IVT_LENGTH)))
