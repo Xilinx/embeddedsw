@@ -70,8 +70,8 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco  07/21/15   Initial Release
-
+* 1.00  rco  07/21/15  Initial Release
+* 2.00  dmc  03/03/16  Pass VPSS pointer to routines for event log reporting
 * </pre>
 *
 ******************************************************************************/
@@ -98,23 +98,23 @@ typedef enum
 
 
 /************************** Function Prototypes ******************************/
-void XVprocSs_VdmaStart(XAxiVdma *XVdmaPtr);
-void XVprocSs_VdmaStop(XAxiVdma *XVdmaPtr);
-void XVprocSs_VdmaReset(XAxiVdma *XVdmaPtr);
-int XVprocSs_VdmaWriteSetup(XAxiVdma *XVdmaPtr,
+void XVprocSs_VdmaStart(XVprocSs *XVprocSsPtr);
+void XVprocSs_VdmaStop(XVprocSs *XVprocSsPtr);
+void XVprocSs_VdmaReset(XVprocSs *XVprocSsPtr);
+int XVprocSs_VdmaWriteSetup(XVprocSs *XVprocSsPtr,
                             u32 WrBaseAddress,
                             XVidC_VideoWindow *window,
                             u32 FrameWidth,
                             u32 FrameHeight,
                             u32 PixelWidthInBits);
-int XVprocSs_VdmaReadSetup(XAxiVdma *XVdmaPtr,
+int XVprocSs_VdmaReadSetup(XVprocSs *XVprocSsPtr,
                            u32 RdBaseAddress,
                            XVidC_VideoWindow *window,
                            u32 FrameWidth,
                            u32 FrameHeight,
                            u32 PixelWidthInBits);
-int XVprocSs_VdmaStartTransfer(XAxiVdma *XVdmaPtr);
-void XVprocSs_VdmaDbgReportStatus(XAxiVdma *XVdmaPtr, u32 PixelWidthInBits);
+int XVprocSs_VdmaStartTransfer(XVprocSs *XVprocSsPtr);
+void XVprocSs_VdmaDbgReportStatus(XVprocSs *XVprocSsPtr, u32 PixelWidthInBits);
 void XVprocSs_VdmaSetWinToUpScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh);
 void XVprocSs_VdmaSetWinToDnScaleMode(XVprocSs *XVprocSsPtr, u32 updateCh);
 
