@@ -42,16 +42,17 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   08/28/15   Initial Release
-* 2.00  rco   11/05/15   Update to adapt to sub-core layer 2 changes
-*       dmc   12/02/15   Added support for additional topologies
-*       dmc   12/17/15   Rename and modify H,VCresample constants and routines
-*                        Modify CSC-only validate and setup routines
-*                        Modify Scaler-only validate and setup routines
-*                        Mods to conform to coding style
-*             01/11/16   Write to new Event Log: log status and error events
-*             02/17/16   Modify timing and placement of axis and aximm resets
-*             02/24/16   Rename some constants and variables
+* 1.00  rco  08/28/15   Initial Release
+* 2.00  rco  11/05/15   Update to adapt to sub-core layer 2 changes
+*       dmc  12/02/15   Added support for additional topologies
+*       dmc  12/17/15   Rename and modify H,VCresample constants and routines
+*                       Modify CSC-only validate and setup routines
+*                       Modify Scaler-only validate and setup routines
+*                       Modifications to conform to coding style
+*       dmc  01/11/16   Write to new Event Log: log status and error events
+*       dmc  02/17/16   Modify timing and placement of axis and aximm resets
+*       dmc  02/24/16   Rename some constants and variables
+*       dmc  03/03/16   Init VideoStream structs to 0 in SetPowerOnDefaultState
 * </pre>
 *
 ******************************************************************************/
@@ -535,8 +536,8 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
 ******************************************************************************/
 static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
 {
-  XVidC_VideoStream vidStrmIn;
-  XVidC_VideoStream vidStrmOut;
+  XVidC_VideoStream vidStrmIn = {0};
+  XVidC_VideoStream vidStrmOut = {0};
   XVidC_VideoWindow win;
   u16 PixPrecisionIndex;
   XVidC_VideoTiming const *TimingPtr;
@@ -666,7 +667,7 @@ void XVprocSs_Start(XVprocSs *InstancePtr)
     XV_VScalerStart(InstancePtr->VscalerPtr);
 
   if(StartCorePtr[XVPROCSS_SUBCORE_VDMA])
-    XVprocSs_VdmaStartTransfer(InstancePtr->VdmaPtr);
+    XVprocSs_VdmaStartTransfer(InstancePtr);
 
   if(StartCorePtr[XVPROCSS_SUBCORE_DEINT])
     XV_DeintStart(InstancePtr->DeintPtr);
@@ -702,7 +703,7 @@ void XVprocSs_Stop(XVprocSs *InstancePtr)
     XV_DeintStop(InstancePtr->DeintPtr);
 
   if(InstancePtr->VdmaPtr)
-    XVprocSs_VdmaStop(InstancePtr->VdmaPtr);
+    XVprocSs_VdmaStop(InstancePtr);
 
   if(InstancePtr->VscalerPtr)
     XV_VScalerStop(InstancePtr->VscalerPtr);
@@ -752,7 +753,7 @@ void XVprocSs_Reset(XVprocSs *InstancePtr)
   Xil_AssertVoid(InstancePtr != NULL);
 
   /* Soft Reset */
-  XVprocSs_VdmaReset(InstancePtr->VdmaPtr);
+  XVprocSs_VdmaReset(InstancePtr);
 
   /* Reset All IP Blocks on AXIS interface and wait before doing the aximm reset*/
   XVprocSs_ResetBlock(InstancePtr->RstAxisPtr,  GPIO_CH_RESET_SEL, XVPROCSS_RSTMASK_ALL_BLOCKS);
@@ -890,7 +891,7 @@ void XVprocSs_UpdateZoomPipWindow(XVprocSs *InstancePtr)
       XVprocSs_VdmaSetWinToUpScaleMode(InstancePtr, XVPROCSS_VDMA_UPDATE_RD_CH);
     }
 
-    XVprocSs_VdmaStartTransfer(InstancePtr->VdmaPtr);
+    XVprocSs_VdmaStartTransfer(InstancePtr);
 
     /*
      * Final output of Video Processing subsystem goes via LBox IP
@@ -2543,7 +2544,7 @@ void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
 	  break;
 
     case XVPROCSS_SUBCORE_VDMA:
-      XVprocSs_VdmaDbgReportStatus(InstancePtr->VdmaPtr,
+      XVprocSs_VdmaDbgReportStatus(InstancePtr,
 			                       InstancePtr->CtxtData.PixelWidthInBits);
 	  break;
 

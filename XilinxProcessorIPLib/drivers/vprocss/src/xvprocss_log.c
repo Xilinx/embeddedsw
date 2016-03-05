@@ -43,7 +43,8 @@
  *
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.0   dmc  01/11/16 Initial release.
+ * 2.00  dmc  01/11/16 Initial release.
+ *       dmc  03/03/16 Add events for VDMA configuration and operational errors
  * </pre>
  *
 *******************************************************************************/
@@ -723,6 +724,38 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				break;
 			case (XVPROCSS_EDAT_LBOX_ABSENT):
 				xil_printf("Error: No PIP window, cannot set background color\r\n");
+				break;
+			}
+			break;
+		case (XVPROCSS_EVT_CFGERR_VDMA):
+			switch (Data) {
+			case (XVPROCSS_EDAT_VDMA_WRCFG):
+				xil_printf("Error: VDMA Write channel configuration failed\r\n");
+				break;
+			case (XVPROCSS_EDAT_VDMA_RDCFG):
+				xil_printf("Error: VDMA Read channel configuration failed\r\n");
+				break;
+			case (XVPROCSS_EDAT_VDMA_WRADR):
+				xil_printf("Error: VDMA Write channel set buffer address failed\r\n");
+				break;
+			case (XVPROCSS_EDAT_VDMA_RDADR):
+				xil_printf("Error: VDMA Read channel set buffer address failed\r\n");
+				break;
+			}
+			break;
+		case (XVPROCSS_EVT_OPERR_VDMA):
+			switch (Data) {
+			case (XVPROCSS_EDAT_VDMA_WRXFR):
+				xil_printf("Error: VDMA Start write transfer failed\r\n");
+				break;
+			case (XVPROCSS_EDAT_VDMA_RDXFR):
+				xil_printf("Error: VDMA Start read transfer failed\r\n");
+				break;
+			case (XVPROCSS_EDAT_VDMA_WRRES):
+				xil_printf("Error: VDMA Write channel reset stuck high\r\n");
+				break;
+			case (XVPROCSS_EDAT_VDMA_RDRES):
+				xil_printf("Error: VDMA Read channel reset stuck high\r\n");
 				break;
 			}
 			break;

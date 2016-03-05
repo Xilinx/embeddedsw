@@ -45,8 +45,8 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  dmc  01/27/16   Initial Release
-
+* 1.00  dmc  01/27/16 Initial Release
+*       dmc  03/03/16 Add events for VDMA configuration and operational errors
 * </pre>
 *
 ******************************************************************************/
@@ -72,6 +72,8 @@ typedef enum {
 	XVPROCSS_EVT_INIT_ROUTER,  /**< Log event init status of Router subcore */
 	XVPROCSS_EVT_INIT_LBOX,    /**< Log event init status of Letterbox subcore */
 	XVPROCSS_EVT_INIT_VDMA,    /**< Log event init status of VDMA subcore */
+	XVPROCSS_EVT_CFGERR_VDMA,  /**< Log event VDMA configuration error */
+	XVPROCSS_EVT_OPERR_VDMA,   /**< Log event VDMA operation error */
 	XVPROCSS_EVT_CFG_HSCALER,  /**< Log event Scaler config status */
 	XVPROCSS_EVT_CFG_VSCALER,  /**< Log event Scaler config status */
 	XVPROCSS_EVT_CFG_CSC,      /**< Log event Csc config status */
@@ -176,6 +178,16 @@ typedef struct {
 #define XVPROCSS_EDAT_VPSS_NOVCRI  0xED
 #define XVPROCSS_EDAT_VPSS_NOVCRO  0xEE
 #define XVPROCSS_EDAT_VPSS_NODEIN  0xEF
+
+// These codes are specific to VDMA
+#define XVPROCSS_EDAT_VDMA_WRCFG   0xE8
+#define XVPROCSS_EDAT_VDMA_RDCFG   0xE9
+#define XVPROCSS_EDAT_VDMA_WRADR   0xEA
+#define XVPROCSS_EDAT_VDMA_RDADR   0xEB
+#define XVPROCSS_EDAT_VDMA_WRXFR   0xEC
+#define XVPROCSS_EDAT_VDMA_RDXFR   0xED
+#define XVPROCSS_EDAT_VDMA_WRRES   0xEE
+#define XVPROCSS_EDAT_VDMA_RDRES   0xEF
 
 // These codes are specific to PIP setup
 #define XVPROCSS_EDAT_BGND_SET     0x10
