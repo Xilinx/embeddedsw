@@ -189,10 +189,12 @@ Added following functions:
 hdcp22_cipher_v1_0:
 Added the initial version of Xilinx HDCP Cipher core driver.
 Updated the driver for nested HIP support.
+Added the GetVersion function.
 
 hdcp22_common_v1_0:
 Added the initial version of Xilinx HDCP Cipher common driver.
 Updated the driver for nested HIP support.
+Updated to BigDigits v2.5
 
 hdcp22_mmult_v1_0:
 Added the initial version of the driver that can be used to access the Xilinx HDCP22
@@ -207,10 +209,12 @@ Updated the driver for nested HIP support.
 hdcp22_rx_v1_0:
 Added the initial version of the Xilinx HDCP 2.2 Receiver driver.
 Updated the driver for nested HIP support.
+Updated LoadPrivateKey function to calculate Montgomery constants.
 
 hdcp22_tx_v1_0:
 Added the initial version of the Xilinx HDCP 2.2 Tx core driver.
 Updated the driver for nested HIP support.
+Added authenticated callback function.
 
 hwicap_v10_1:
 Updated driver, to read 7 Series FPGA frame data correctly.
