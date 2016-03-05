@@ -81,6 +81,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JO     06/24/15 Initial release.
+* 1.01  MG     02/25/16 Added authenticated callback and GetVersion.
 * </pre>
 *
 ******************************************************************************/
@@ -129,6 +130,7 @@ typedef enum
 	XHDCP22_TX_HANDLER_UNDEFINED,
 	XHDCP22_TX_HANDLER_DDC_WRITE,
 	XHDCP22_TX_HANDLER_DDC_READ,
+	XHDCP22_TX_HANDLER_AUTHENTICATED,
 	XHDCP22_TX_HANDLER_INVALID
 } XHdcp22_Tx_HandlerType;
 
@@ -345,6 +347,10 @@ typedef struct {
 typedef int (*XHdcp22_Tx_DdcHandler)(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
              u8 Stop, void *RefPtr);
 
+/** Callback type used for pointer to single input function */
+typedef void (*XHdcp22_Tx_Callback)(void *HandlerRef);
+
+
 /**
 * The XHdcpTx driver instance data. An instance must be allocated for each
 * HDCP TX core in use.
@@ -361,18 +367,24 @@ typedef struct
 
 	/** Function pointer for reading DDC (Rx HDCP DeviceAddress: 0x74)
 	    using the XHdcp22_Tx_Ddc stucture as parameter. */
-	XHdcp22_Tx_DdcHandler  DdcRead;
+	XHdcp22_Tx_DdcHandler DdcRead;
 	/** Set if DdcRead handler is defined. */
 	u8 IsDdcReadSet;
 
 	/** Function pointer for writing DDC (Rx HDCP DeviceAddress: 0x74)
 	    using the XHdcp22_Tx_Ddc stucture as parameter. */
-	XHdcp22_Tx_DdcHandler  DdcWrite;
+	XHdcp22_Tx_DdcHandler DdcWrite;
 	/** Set if DdcWrite handler is defined. */
 	u8 IsDdcWriteSet;
 
 	/** Reference pointer set with #XHdcp22Tx_SetCallback function. */
 	void *DdcHandlerRef;
+
+	/** Function pointer called after successful authentication */
+	XHdcp22_Tx_Callback AuthenticatedCallback;
+	/** Set if AuthenticatedCallback handler is defined. */
+	u8 IsAuthenticatedCallbackSet;
+	void *AuthenticatedCallbackRef;
 
 	/** Internal used timer. */
 	XHdcp22_Tx_Timer Timer;
@@ -417,10 +429,11 @@ int XHdcp22Tx_Enable (XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_Disable (XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_EnableEncryption (XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_DisableEncryption (XHdcp22_Tx *InstancePtr);
-u8 XHdcp22Tx_IsEnabled (XHdcp22_Tx *InstancePtr);
-u8 XHdcp22Tx_IsEncryptionEnabled (XHdcp22_Tx *InstancePtr);
-u8 XHdcp22Tx_IsInProgress (XHdcp22_Tx *InstancePtr);
-u8 XHdcp22Tx_IsAuthenticated (XHdcp22_Tx *InstancePtr);
+u8  XHdcp22Tx_IsEnabled (XHdcp22_Tx *InstancePtr);
+u8  XHdcp22Tx_IsEncryptionEnabled (XHdcp22_Tx *InstancePtr);
+u8  XHdcp22Tx_IsInProgress (XHdcp22_Tx *InstancePtr);
+u8  XHdcp22Tx_IsAuthenticated (XHdcp22_Tx *InstancePtr);
+u32 XHdcp22Tx_GetVersion(XHdcp22_Tx *InstancePtr);
 
 /* Set DDC handler function pointers. */
 int XHdcp22Tx_SetCallback(XHdcp22_Tx *InstancePtr,
