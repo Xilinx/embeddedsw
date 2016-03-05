@@ -49,6 +49,9 @@
 *                     static. Replaced function XHdcp22Rx_SetDdcHandles
 *                     with XHdcp22Rx_SetCallback. Added callback for
 *                     authenticated event.
+* 1.02  MH   03/02/16 Updated to perform Montgomery NPrime calcuation
+*                     when XHdcp22Rx_LoadPrivateKey is called.
+*                     Added function XHDCP22Rx_GetVersion.
 *</pre>
 *
 *****************************************************************************/
@@ -198,6 +201,9 @@ int XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPt
 	InstancePtr->Handles.DdcClearWriteBufferCallback = XHdcp22_Rx_StubRunHandler;
 	InstancePtr->Handles.IsDdcClearWriteBufferCallbackSet = (FALSE);
 
+	InstancePtr->Handles.AuthenticatedCallback = XHdcp22_Rx_StubRunHandler;
+	InstancePtr->Handles.IsAuthenticatedCallbackSet = (FALSE);
+
 	InstancePtr->Handles.IsDdcAllCallbacksSet == (FALSE);
 
 	/* Set RXCAPS repeater mode */
@@ -313,8 +319,6 @@ int XHdcp22Rx_Enable(XHdcp22_Rx *InstancePtr)
 	/* Verify keys loaded */
 	Xil_AssertNonvoid(InstancePtr->PublicCertPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->PrivateKeyPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->NPrimePPtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->NPrimeQPtr != NULL);
 	/* Verify devices ready */
 	Xil_AssertNonvoid(InstancePtr->MmultInst.IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(InstancePtr->TimerInst.IsReady == XIL_COMPONENT_IS_READY);
@@ -410,68 +414,88 @@ int XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_HandlerType Handle
 	u32 Status;
 
 	/* Check for handler type */
-	switch (HandlerType)
+	switch(HandlerType)
 	{
+		// DDC Set Register Address
 		case (XHDCP22_RX_HANDLER_DDC_SETREGADDR):
 			InstancePtr->Handles.DdcSetAddressCallback = (XHdcp22_Rx_SetHandler)CallbackFunc;
 			InstancePtr->Handles.DdcSetAddressCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcSetAddressCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC Set Register Data
 		case (XHDCP22_RX_HANDLER_DDC_SETREGDATA):
 			InstancePtr->Handles.DdcSetDataCallback = (XHdcp22_Rx_SetHandler)CallbackFunc;
 			InstancePtr->Handles.DdcSetDataCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcSetDataCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC Get Register Data
 		case (XHDCP22_RX_HANDLER_DDC_GETREGDATA):
 			InstancePtr->Handles.DdcGetDataCallback = (XHdcp22_Rx_GetHandler)CallbackFunc;
 			InstancePtr->Handles.DdcGetDataCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcGetDataCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC Get Write Buffer Size
 		case (XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE):
 			InstancePtr->Handles.DdcGetWriteBufferSizeCallback = (XHdcp22_Rx_GetHandler)CallbackFunc;
 			InstancePtr->Handles.DdcGetWriteBufferSizeCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcGetWriteBufferSizeCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC Get Read Buffer Size
 		case (XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE):
 			InstancePtr->Handles.DdcGetReadBufferSizeCallback = (XHdcp22_Rx_GetHandler)CallbackFunc;
 			InstancePtr->Handles.DdcGetReadBufferSizeCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcGetReadBufferSizeCallbackRefSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC Is Write Buffer Emtpy
 		case (XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY):
 			InstancePtr->Handles.DdcIsWriteBufferEmptyCallback = (XHdcp22_Rx_GetHandler)CallbackFunc;
 			InstancePtr->Handles.DdcIsWriteBufferEmptyCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcIsWriteBufferEmptyCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC Is Read Buffer Empty
 		case (XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY):
 			InstancePtr->Handles.DdcIsReadBufferEmptyCallback = (XHdcp22_Rx_GetHandler)CallbackFunc;
 			InstancePtr->Handles.DdcIsReadBufferEmptyCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcIsReadBufferEmptyCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC Clear Read Buffer
 		case (XHDCP22_RX_HANDLER_DDC_CLEARRBUF):
 			InstancePtr->Handles.DdcClearReadBufferCallback = (XHdcp22_Rx_RunHandler)CallbackFunc;
 			InstancePtr->Handles.DdcClearReadBufferCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcClearReadBufferCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC Clear Write Buffer
 		case (XHDCP22_RX_HANDLER_DDC_CLEARWBUF):
 			InstancePtr->Handles.DdcClearWriteBufferCallback = (XHdcp22_Rx_RunHandler)CallbackFunc;
 			InstancePtr->Handles.DdcClearWriteBufferCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsDdcClearWriteBufferCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// Authenticated
 		case (XHDCP22_RX_HANDLER_AUTHENTICATED):
 			InstancePtr->Handles.AuthenticatedCallback = (XHdcp22_Rx_RunHandler)CallbackFunc;
 			InstancePtr->Handles.AuthenticatedCallbackRef = CallbackRef;
 			InstancePtr->Handles.IsAuthenticatedCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
 		default:
 			Status = (XST_INVALID_PARAM);
 			break;
@@ -798,57 +822,62 @@ void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr)
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 * @param	PrivateKeyPtr is a pointer to an array.
 *
-* @return	None.
+* @return	- XST_SUCCESS if MMULT keys are calcualted correctly.
+* 			- XST_FAILURE if MMULT keys are not calculated correctly.
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr)
+int XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr)
 {
 	/* Verify arguments */
-	Xil_AssertVoid(PrivateKeyPtr != NULL);
+	Xil_AssertNonvoid(PrivateKeyPtr != NULL);
 
+	int Status = XST_SUCCESS;
+	XHdcp22_Rx_KprivRx *PrivateKey = (XHdcp22_Rx_KprivRx *)PrivateKeyPtr;
+
+	/* Load the Private Key */
 	InstancePtr->PrivateKeyPtr = PrivateKeyPtr;
+
+	/* Calculate Montgomery Multiplier NPrimeP */
+	Status = XHdcp22Rx_CalcMontNPrime(InstancePtr->NPrimeP, (u8 *)PrivateKey->p, XHDCP22_RX_P_SIZE/4);
+    if(Status != XST_SUCCESS)
+	{
+	    xil_printf("ERROR: HDCP22-RX MMult NPrimeP Generation Failed\n\r");
+		return Status;
+	}
+
+	/* Calculate Montgomery Multiplier NPrimeQ */
+	Status = XHdcp22Rx_CalcMontNPrime(InstancePtr->NPrimeQ, (u8 *)PrivateKey->q, XHDCP22_RX_P_SIZE/4);
+	if(Status != XST_SUCCESS)
+	{
+	    xil_printf("ERROR: HDCP22-RX MMult NPrimeQ Generation Failed\n\r");
+	    return Status;
+	}
+
+	return Status;
 }
 
 /*****************************************************************************/
 /**
-* This function is used to load the Montgomery NprimeP.
+* This function reads the version.
 *
-* @param	NPrimePPtr is a pointer to an array.
+* @param    InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
-* @return	None.
+* @return   Returns the version register of the cipher.
 *
-* @note		None.
+* @note     None.
 ******************************************************************************/
-void XHdcp22Rx_LoadMontNPrimeP(XHdcp22_Rx *InstancePtr, const u8 *NPrimePPtr)
+u32 XHdcp22Rx_GetVersion(XHdcp22_Rx *InstancePtr)
 {
 	/* Verify arguments */
-	Xil_AssertVoid(NPrimePPtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	InstancePtr->NPrimePPtr = NPrimePPtr;
+	return XHdcp22Cipher_GetVersion(&InstancePtr->CipherInst);
 }
 
 /*****************************************************************************/
 /**
-* This function is used to load the Montgomery NprimeQ.
-*
-* @param	NPrimeQPtr is a pointer to an array.
-*
-* @return	None.
-*
-* @note		None.
-******************************************************************************/
-void XHdcp22Rx_LoadMontNPrimeQ(XHdcp22_Rx *InstancePtr, const u8 *NPrimeQPtr)
-{
-	/* Verify arguments */
-	Xil_AssertVoid(NPrimeQPtr != NULL);
-
-	InstancePtr->NPrimeQPtr = NPrimeQPtr;
-}
-
-/*****************************************************************************/
-/**
-* This function is a called to initialize the cipher.
+* This function is called to initialize the cipher.
 *
 * @param	InstancePtr is a pointer to the XHdcp22Rx core instance.
 *
@@ -881,7 +910,7 @@ static int XHdcp22Rx_InitializeCipher(XHdcp22_Rx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function is a called to initialize the modular multiplier.
+* This function is called to initialize the modular multiplier.
 *
 * @param	InstancePtr is a pointer to the XHdcp22Rx core instance.
 *
@@ -912,7 +941,7 @@ static int XHdcp22Rx_InitializeMmult(XHdcp22_Rx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function is a called to initialize the random number generator.
+* This function is called to initialize the random number generator.
 *
 * @param	InstancePtr is a pointer to the XHdcp22Rx core instance.
 *
@@ -943,7 +972,7 @@ static int XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function is a called to initialize the timer.
+* This function is called to initialize the timer.
 *
 * @param	InstancePtr is a pointer to the XHdcp22Rx core instance.
 *
@@ -2164,6 +2193,11 @@ static int XHdcp22Rx_ProcessMessageSKESendEks(XHdcp22_Rx *InstancePtr)
 
 	/* Load cipher session key */
 	XHdcp22Rx_LoadSessionKey(InstancePtr);
+
+#ifndef _XHDCP22_RX_TEST_
+	/* Clear params */
+	XHdcp22Rx_ResetParams(InstancePtr);
+#endif
 
 	return XST_SUCCESS;
 }

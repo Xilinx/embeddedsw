@@ -311,11 +311,6 @@ static XHdcp22_Rx_TestState TestVector_StoredKm[] =
 		XHDCP22_RX_TEST_STATE_WAIT_AUTHENTICATED
 };
 
-/** This variable is used for storing test Montgomery multiplier constants */
-static u8 XHdcp22_Rx_Test_NPrimeP[XHDCP22_RX_P_SIZE];
-/** This variable is used for storing test Montgomery multiplier constants */
-static u8 XHdcp22_Rx_Test_NPrimeQ[XHDCP22_RX_P_SIZE];
-
 /************************** Function Prototypes *****************************/
 
 /* Function to execute discrete test event */
@@ -507,31 +502,13 @@ int XHdcp22Rx_TestLoadKeys(XHdcp22_Rx *InstancePtr)
 
 	int Status;
 
-	/* Generate MMult constants */
-	Status = XHdcp22Rx_CalcMontNPrime(XHdcp22_Rx_Test_NPrimeP,
-		XHdcp22_Rx_Test_PrivateKey+0, XHDCP22_RX_P_SIZE/4);
-	if(Status != XST_SUCCESS)
-	{
-	    xil_printf("ERROR: HDCP22-RX MMult NPrimeP Generation Failed\n\r");
-	    return Status;
-	}
-	Status |= XHdcp22Rx_CalcMontNPrime(XHdcp22_Rx_Test_NPrimeQ,
-		XHdcp22_Rx_Test_PrivateKey+64, XHDCP22_RX_P_SIZE/4);
-	if(Status != XST_SUCCESS)
-	{
-	    xil_printf("ERROR: HDCP22-RX MMult NPrimeQ Generation Failed\n\r");
-	    return Status;
-	}
-
 	/* Load Keys */
-	XHdcp22Rx_LoadMontNPrimeP(InstancePtr, XHdcp22_Rx_Test_NPrimeP);
-	XHdcp22Rx_LoadMontNPrimeQ(InstancePtr, XHdcp22_Rx_Test_NPrimeQ);
 	XHdcp22Rx_LoadPublicCert(InstancePtr, XHdcp22_Rx_Test_PublicCert);
-	XHdcp22Rx_LoadPrivateKey(InstancePtr, XHdcp22_Rx_Test_PrivateKey);
+	Status = XHdcp22Rx_LoadPrivateKey(InstancePtr, XHdcp22_Rx_Test_PrivateKey);
 	XHdcp22Rx_LoadLc128(InstancePtr, XHdcp22_Rx_Test_Lc128);
 	XHdcp22Rx_TestLoadRrx(InstancePtr, XHdcp22_Rx_Test_Rrx);
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /****************************************************************************/

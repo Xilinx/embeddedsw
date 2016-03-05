@@ -45,6 +45,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   10/30/15 First Release
+* 1.01  MH   03/02/16 Moved prototype of XHdcp22Rx_CalcMontNPrime to
+*                     to internal functions.
 *</pre>
 *
 *****************************************************************************/
@@ -326,6 +328,7 @@ typedef union
 /************************** Function Prototypes *****************************/
 
 /* Crypto Functions */
+int  XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits);
 void XHdcp22Rx_GenerateRandom(XHdcp22_Rx *InstancePtr, int NumOctets, u8* RandomNumberPtr);
 int  XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Message, const u32 MessageLen, const u8 *MaskingSeed, u8 *EncryptedMessage);
 void XHdcp22Rx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps, const u8* Rtx, const u8 *TxCaps, const u8 *Km, u8 *Kd, u8 *HPrime);
