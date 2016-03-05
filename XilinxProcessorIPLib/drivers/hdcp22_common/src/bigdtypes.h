@@ -1,21 +1,21 @@
 /* $Id: bigdtypes.h $ */
 
-/******************** SHORT COPYRIGHT NOTICE**************************
-This source code is part of the BigDigits multiple-precision
-arithmetic library Version 2.4 originally written by David Ireland,
-copyright (c) 2001-13 D.I. Management Services Pty Limited, all rights
-reserved. It is provided "as is" with no warranties. You may use
-this software under the terms of the full copyright notice
-"bigdigitsCopyright.txt" that should have been included with this
-library or can be obtained from <www.di-mgt.com.au/bigdigits.html>.
-This notice must always be retained in any copy.
-******************* END OF COPYRIGHT NOTICE***************************/
+/***** BEGIN LICENSE BLOCK *****
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) 2001-15 David Ireland, D.I. Management Services Pty Limited
+ * <http://www.di-mgt.com.au/bigdigits.html>. All rights reserved.
+ *
+ ***** END LICENSE BLOCK *****/
 /*
-	Last updated:
-	$Date: 2013-04-27 17:19:00 $
-	$Revision: 2.4.0 $
-	$Author: dai $
-*/
+ * Last updated:
+ * $Date: 2015-10-22 10:23:00 $
+ * $Revision: 2.5.0 $
+ * $Author: dai $
+ */
 
 #ifndef BIGDTYPES_H_
 #define BIGDTYPES_H_ 1

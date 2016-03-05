@@ -1,21 +1,21 @@
 /* $Id: bigdigits.c $ */
 
-/******************** SHORT COPYRIGHT NOTICE**************************
-This source code is part of the BigDigits multiple-precision
-arithmetic library Version 2.4 originally written by David Ireland,
-copyright (c) 2001-13 D.I. Management Services Pty Limited, all rights
-reserved. It is provided "as is" with no warranties. You may use
-this software under the terms of the full copyright notice
-"bigdigitsCopyright.txt" that should have been included with this
-library or can be obtained from <www.di-mgt.com.au/bigdigits.html>.
-This notice must always be retained in any copy.
-******************* END OF COPYRIGHT NOTICE***************************/
+/***** BEGIN LICENSE BLOCK *****
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) 2001-15 David Ireland, D.I. Management Services Pty Limited
+ * <http://www.di-mgt.com.au/bigdigits.html>. All rights reserved.
+ *
+ ***** END LICENSE BLOCK *****/
 /*
-	Last updated:
-	$Date: 2013-04-27 17:19:00 $
-	$Revision: 2.4.0 $
-	$Author: dai $
-*/
+ * Last updated:
+ * $Date: 2015-10-22 10:23:00 $
+ * $Revision: 2.5.0 $
+ * $Author: dai $
+ */
 
 /* Core code for BigDigits library "mp" functions */
 
@@ -33,7 +33,7 @@ This notice must always be retained in any copy.
 /***************************************/
 /* VERSION NUMBERS - USED IN MPVERSION */
 /***************************************/
-static const int kMajor = 2, kMinor = 4, kRelease = 0;
+static const int kMajor = 2, kMinor = 5, kRelease = 0;
 
 /* Flags for preprocessor definitions used (=last digit of mpVersion) */
 #ifdef USE_SPASM
@@ -144,9 +144,9 @@ volatile char *copyright_notice(void)
 {
 	return
 "Contains multiple-precision arithmetic code originally written by David Ireland,"
-" copyright (c) 2001-13 by D.I. Management Services Pty Limited <www.di-mgt.com.au>,"
-" and is used with permission.";
+" copyright (c) 2001-15 by D.I. Management Services Pty Limited <www.di-mgt.com.au>.";
 }
+
 
 /* To use, include this statement somewhere in the final code:
 
@@ -955,12 +955,11 @@ int mpSquare(DIGIT_T w[], const DIGIT_T x[], size_t ndigits)
 	return 0;
 }
 
-int mpEqual(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+/** Returns true if a == b, else false. Not constant-time. */
+int mpEqual_q(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 {
-	/*	Returns true if a == b, else false
-	*/
 
-	if (ndigits == 0) return -1;
+	/* if (ndigits == 0) return -1; // deleted [v2.5] */
 
 	while (ndigits--)
 	{
@@ -971,12 +970,10 @@ int mpEqual(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 	return (!0);	/* True */
 }
 
-int mpCompare(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+/** Returns sign of (a - b) as 0, +1 or -1. Not constant-time. */
+int mpCompare_q(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 {
-	/*	Returns sign of (a - b)
-	*/
-
-	if (ndigits == 0) return 0;
+	/* if (ndigits == 0) return 0; // deleted [v2.5] */
 
 	while (ndigits--)
 	{
@@ -989,13 +986,12 @@ int mpCompare(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 	return 0;	/* EQ */
 }
 
-int mpIsZero(const DIGIT_T a[], size_t ndigits)
+/** Returns true if a == 0, else false. Not constant-time. */
+int mpIsZero_q(const DIGIT_T a[], size_t ndigits)
 {
-	/*	Returns true if a == 0, else false
-	*/
-
 	size_t i;
-	if (ndigits == 0) return -1;
+
+	/* if (ndigits == 0) return -1; // deleted [v2.5] */
 
 	for (i = 0; i < ndigits; i++)	/* Start at lsb */
 	{
@@ -1006,9 +1002,60 @@ int mpIsZero(const DIGIT_T a[], size_t ndigits)
 	return (!0);	/* True */
 }
 
-size_t mpSizeof(const DIGIT_T a[], size_t ndigits)
-{	/* Returns size of significant digits in a */
+/* CONSTANT-TIME COMPARISONS */
+/* New and renamed in [v2.5] */
 
+/* Constant-time comparisons of unsigned DIGIT_T's */
+#define IS_NONZERO_DIGIT(x) (((x)|(~(x)+1)) >> (BITS_PER_DIGIT-1))
+#define IS_ZER0_DIGIT(x) (1 ^ IS_NONZERO_DIGIT((x)))
+
+/** Returns 1 if a == b, else 0 (constant-time) */
+int mpEqual(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+{
+	DIGIT_T dif = 0;
+
+	while (ndigits--) {
+		dif |= a[ndigits] ^ b[ndigits];
+	}
+
+	return (IS_ZER0_DIGIT(dif));
+}
+
+/** Returns 1 if a == 0, else 0 (constant-time) */
+int mpIsZero(const DIGIT_T a[], size_t ndigits)
+{
+	DIGIT_T dif = 0;
+	const DIGIT_T ZERO = 0;
+
+	while (ndigits--) {
+		dif |= a[ndigits] ^ ZERO;
+	}
+
+	return (IS_ZER0_DIGIT(dif));
+}
+
+/** Returns sign of (a - b) as 0, +1 or -1 (constant-time) */
+int mpCompare(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+{
+	/* All these vars are either 0 or 1 */
+	unsigned int gt = 0;
+	unsigned int lt = 0;
+	unsigned int mask = 1;	/* Set to zero once first inequality found */
+	unsigned int c;
+
+	while (ndigits--) {
+		gt |= (a[ndigits] > b[ndigits]) & mask;
+		lt |= (a[ndigits] < b[ndigits]) & mask;
+		c = (gt | lt);
+		mask &= (c-1);	/* Unchanged if c==0 or mask==0, else mask=0 */
+	}
+
+	return (int)gt - (int)lt;	/* EQ=0 GT=+1 LT=-1 */
+}
+
+/** Returns number of significant digits in a */
+size_t mpSizeof(const DIGIT_T a[], size_t ndigits)
+{
 	while(ndigits--)
 	{
 		if (a[ndigits] != 0)
@@ -1453,27 +1500,26 @@ DIGIT_T mpShortMod(const DIGIT_T a[], DIGIT_T d, size_t ndigits)
 	return r;
 }
 
+/** Returns sign of (a - d) where d is a single digit */
 int mpShortCmp(const DIGIT_T a[], DIGIT_T d, size_t ndigits)
 {
-	/* Returns sign of (a - d) where d is a single digit */
-
 	size_t i;
+	int gt = 0;
+	int lt = 0;
 
-	/* Changed in [v2.0] to cope with zero-length a */
+	/* Zero-length a => a is zero */
 	if (ndigits == 0) return (d ? -1 : 0);
 
-	for (i = 1; i < ndigits; i++)
-	{
+	/* If |a| > 1 then a > d */
+	for (i = 1; i < ndigits; i++) {
 		if (a[i] != 0)
 			return 1;	/* GT */
 	}
 
-	if (a[0] < d)
-		return -1;		/* LT */
-	else if (a[0] > d)
-		return 1;		/* GT */
+	lt = (a[0] < d);
+	gt = (a[0] > d);
 
-	return 0;	/* EQ */
+	return gt - lt;	/* EQ=0 GT=+1 LT=-1 */
 }
 
 /*********************************/
@@ -1481,14 +1527,14 @@ int mpShortCmp(const DIGIT_T a[], DIGIT_T d, size_t ndigits)
 /*********************************/
 /* Added [v2.2] */
 
+/** Returns TRUE (1) if x < 0, else FALSE (0) */
 int mpIsNegative(const DIGIT_T x[], size_t ndigits)
-	/* Returns TRUE (1) if x < 0, else FALSE (0) */
 {
 	return ((x[ndigits-1] & HIBITMASK) != 0);
 }
 
+/** Sets x = -y */
 int mpChs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits)
-	/* Sets x = -y */
 {
 	int isneg = mpIsNegative(y, ndigits);
 
@@ -1507,8 +1553,8 @@ int mpChs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits)
 	return isneg;
 }
 
+/** Sets x = |y| */
 int mpAbs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits)
-	/* Sets x = |y| */
 {
 	int isneg = mpIsNegative(y, ndigits);
 
@@ -1539,11 +1585,11 @@ void mpPrintNL(const DIGIT_T *p, size_t len)
 	while (len--)
 	{
 		if ((i % 8) == 0 && i)
-			xil_printf("\n\r");
+			xil_printf("\n");
 		xil_printf("%08" PRIxBIGD " ", p[len]);
 		i++;
 	}
-	xil_printf("\n\r");
+	xil_printf("\n");
 }
 
 void mpPrintTrim(const DIGIT_T *p, size_t len)
@@ -1614,6 +1660,34 @@ void mpPrintDecimal(const char *prefix, const DIGIT_T *p, size_t len, const char
 	FREE_BYTES(s, nc + 1);
 }
 
+/* ADDED [v2.5] */
+void mpPrintDecimalSigned(const char *prefix, DIGIT_T *p, size_t len, const char *suffix)
+{
+#ifdef NO_ALLOCS
+	char s[MAX_ALLOC_SIZE];
+#else
+	char *s;
+#endif
+	size_t nc;
+	int isneg = 0;
+	if (prefix) xil_printf("%s", prefix);
+	if (mpIsNegative(p, len)) {
+		/* NB changes p in situ temporarily */
+		mpChs(p, p, len);
+		xil_printf("-");
+		isneg = 1;
+	}
+	/* Put big digit into a string of decimal chars */
+	nc = mpConvToDecimal(p, len, NULL, 0);
+	ALLOC_BYTES(s, nc + 1);
+	nc = mpConvToDecimal(p, len, s, nc + 1);
+	xil_printf("%s", s);
+	if (suffix) xil_printf("%s", suffix);
+	if (isneg) {
+		mpChs(p, p, len);
+	}
+	FREE_BYTES(s, nc + 1);
+}
 
 /************************/
 /* CONVERSION FUNCTIONS */
@@ -2682,10 +2756,12 @@ int mpModExp(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T n[], DIGIT_T d[], siz
 #define mpMODSQUARETEMP(y,m,n,t1,t2) do{mpSquare(t1,y,n);mpDivide(t2,y,t1,n*2,m,n);}while(0)
 /* Mult:   y = (y * x) mod m */
 #define mpMODMULTTEMP(y,x,m,n,t1,t2) do{mpMultiply(t1,x,y,n);mpDivide(t2,y,t1,n*2,m,n);}while(0)
+/* Mult:   w = (y * x) mod m */
+#define mpMODMULTXYTEMP(w,y,x,m,n,t1,t2) do{mpMultiply(t1,x,y,(n));mpDivide(t2,w,t1,(n)*2,m,(n));}while(0)
 
 static int mpModExp_1(DIGIT_T yout[], const DIGIT_T x[], const DIGIT_T e[], DIGIT_T m[], size_t ndigits)
 {	/*	Computes y = x^e mod m */
-	/*	Binary left-to-right method */
+	/*	"Classic" binary left-to-right method */
 	/*  [v2.2] removed const restriction on m[] to avoid using an extra alloc'd var
 		(m is changed in-situ during the divide operation then restored) */
 	DIGIT_T mask;
@@ -2749,6 +2825,95 @@ done:
 
 	return 0;
 }
+
+/**	Computes y = x^e mod m in constant time using Coron's algorithm */
+int mpModExp_ct(DIGIT_T yout[], const DIGIT_T x[], const DIGIT_T e[], DIGIT_T m[], size_t ndigits)
+{
+	/* Algorithm: Corons exponentiation (left-to-right)
+	 * Square-and-multiply resistant against simple power attacks (SPA)
+	 * Ref: Jean-Sebastian Coron, "Resistance Against Differential Power Analysis for
+	 * Elliptic Curve Cryptosystems", August 1999.
+	 * -- This version adapted from Coron's elliptic curve point scalar multiplication
+	 *    to RSA-style modular exponentiation.
+	 * Input: base x, modulus m, and
+	 * exponent e = (e_k, e_{k-1},...,e_0) with e_k = 1
+	 * Output: c = x^e mod m
+	 * 1. c[0] = x
+	 * 2. For i = k-2 downto 0 do:
+	 * 3.    c[0] = c[0]^2 mod m
+	 * 4.    c[1] = c[0] * x mod m
+	 * 5.    c[0] = c[d_i]
+	 * 6. Return c[0]
+	 */
+	DIGIT_T mask;
+	size_t n;
+	size_t nn = ndigits * 2;
+	unsigned int ej;
+
+	/* Create some double-length temps */
+#ifdef NO_ALLOCS
+	DIGIT_T t1[MAX_FIXED_DIGITS * 2];
+	DIGIT_T t2[MAX_FIXED_DIGITS * 2];
+	DIGIT_T c[2][MAX_FIXED_DIGITS * 2];
+	assert(ndigits <= MAX_FIXED_DIGITS);
+#else
+	DIGIT_T *t1, *t2;
+	DIGIT_T *c[2];
+	t1 = mpAlloc(nn);
+	t2 = mpAlloc(nn);
+	c[0] = mpAlloc(nn);
+	c[1] = mpAlloc(nn);
+#endif
+
+	assert(ndigits != 0);
+
+	n = mpSizeof(e, ndigits);
+	/* Catch e==0 => x^0=1 */
+	if (0 == n)
+	{
+		mpSetDigit(yout, 1, ndigits);
+		goto done;
+	}
+	/* Find second-most significant bit in e */
+	for (mask = HIBITMASK; mask > 0; mask >>= 1)
+	{
+		if (e[n-1] & mask)
+			break;
+	}
+	mpNEXTBITMASK(mask, n);
+
+	/* Set c[0] = x */
+	mpSetEqual(c[0], x, ndigits);
+
+	/* For bit j = k-2 downto 0 */
+	while (n)
+	{
+		/* Square c[0] = c[0]^2 mod n */
+		mpMODSQUARETEMP(c[0], m, ndigits, t1, t2);
+		/* Multiply c[1] = c[0] * x mod n */
+		mpMODMULTXYTEMP(c[1], c[0], x, m, ndigits, t1, t2);
+		/* c[0] = c[e(j)] */
+		ej = (e[n-1] & mask) != 0;
+		assert(ej <= 1);
+		mpSetEqual(c[0], c[ej], ndigits);
+
+		/* Move to next bit */
+		mpNEXTBITMASK(mask, n);
+	}
+
+	/* Return c[0] */
+	mpSetEqual(yout, c[0], ndigits);
+
+done:
+	mpDESTROY(t1, nn);
+	mpDESTROY(t2, nn);
+	mpDESTROY(c[0], ndigits);
+	mpDESTROY(c[1], ndigits);
+
+	return 0;
+}
+
+
 
 /* Use sliding window alternative only if NO_ALLOCS not defined */
 #ifndef NO_ALLOCS
