@@ -48,6 +48,8 @@
 * 1.00  JO     06/24/15 Initial release.
 * 1.01  MH     01/15/16 Replaced function XHdcp22Tx_SetDdcHandles with
 *                       XHdcp22Tx_SetCallback. Removed test directives.
+* 1.02  MG     02/25/16 Added authenticated callback and GetVersion.
+* 1.03  MG     02/29/16 Added XHdcp22Cipher_Disable in function XHdcp22Tx_Reset.
 *
 * </pre>
 *
@@ -101,6 +103,7 @@ static int XHdcp22Tx_ComputeBaseAddress(u32 BaseAddress, u32 SubcoreOffset, u32 
 /* Stubs for callbacks */
 static int XHdcp22Tx_StubDdc(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
                              u8 Stop, void *RefPtr);
+static void XHdcp22Tx_StubAuthenticated(void* RefPtr);
 
 /* state handling  functions */
 static XHdcp22_Tx_StateType XHdcp22Tx_StateH0(XHdcp22_Tx *InstancePtr);
@@ -297,6 +300,8 @@ int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
 	InstancePtr->IsDdcReadSet = (FALSE);
 	InstancePtr->DdcWrite = XHdcp22Tx_StubDdc;
 	InstancePtr->IsDdcWriteSet = (FALSE);
+    InstancePtr->AuthenticatedCallback = XHdcp22Tx_StubAuthenticated;
+	InstancePtr->IsAuthenticatedCallbackSet = (FALSE);
 
 	InstancePtr->Info.Protocol = XHDCP22_TX_HDMI;
 
@@ -492,6 +497,7 @@ static int XHdcp22Tx_InitializeRng(XHdcp22_Tx *InstancePtr)
 
 /*****************************************************************************/
 /**
+*
 * This function is used to load the Lc128 value by copying the contents
 * of the array referenced by Lc128Ptr into the cipher.
 *
@@ -501,6 +507,7 @@ static int XHdcp22Tx_InitializeRng(XHdcp22_Tx *InstancePtr)
 * @return	None.
 *
 * @note		None.
+*
 ******************************************************************************/
 void XHdcp22Tx_LoadLc128(XHdcp22_Tx *InstancePtr, const u8 *Lc128Ptr)
 {
@@ -509,6 +516,26 @@ void XHdcp22Tx_LoadLc128(XHdcp22_Tx *InstancePtr, const u8 *Lc128Ptr)
 	Xil_AssertVoid(Lc128Ptr != NULL);
 	XHdcp22Cipher_SetLc128(&InstancePtr->Cipher, Lc128Ptr,
 	                       XHDCP22_TX_LC128_SIZE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function reads the version.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   Returns the version register of the cipher.
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XHdcp22Tx_GetVersion(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr);
+
+	return XHdcp22Cipher_GetVersion(&InstancePtr->Cipher);
 }
 
 /*****************************************************************************/
@@ -626,6 +653,13 @@ XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 	   InstancePtr->Info.AuthenticationStatus != XHDCP22_TX_AUTHENTICATION_BUSY) {
 		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_POLL_RESULT,
 		                (u8)InstancePtr->Info.AuthenticationStatus);
+
+		// Authenticated callback
+		if ( (PrvAuthenticationStatus != XHDCP22_TX_AUTHENTICATED)
+			&& (InstancePtr->Info.AuthenticationStatus == XHDCP22_TX_AUTHENTICATED)
+			&& InstancePtr->IsAuthenticatedCallbackSet) {
+			InstancePtr->AuthenticatedCallback(InstancePtr->AuthenticatedCallbackRef);
+		}
 	}
 
 	/* Enable only if the attached receiver is authenticated. */
@@ -661,6 +695,9 @@ int XHdcp22Tx_Reset(XHdcp22_Tx *InstancePtr)
 
 	/* Stop the timer if it's still running */
 	XTmrCtr_Stop(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_0);
+
+	/* Disable the Cipher */
+	XHdcp22Cipher_Disable(InstancePtr);
 
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_RESET, 0);
 
@@ -839,10 +876,11 @@ u8 XHdcp22Tx_IsAuthenticated (XHdcp22_Tx *InstancePtr)
 * HandlerType:
 *
 * <pre>
-* HandlerType                       Callback Function Type
-* -------------------------         ---------------------------
-* (XHDCP22_TX_HANDLER_DDC_WRITE)    DdcWrite
-* (XHDCP22_TX_HANDLER_DDC_READ)     DdcRead
+* HandlerType                            Callback Function Type
+* -------------------------              ---------------------------
+* (XHDCP22_TX_HANDLER_DDC_WRITE)         DdcWrite
+* (XHDCP22_TX_HANDLER_DDC_READ)          DdcRead
+* (XHDCP22_TX_HANDLER_AUTHENTICATED)     AuthenticatedCallback
 * </pre>
 *
 * @param	InstancePtr is a pointer to the HDMI RX core instance.
@@ -873,18 +911,30 @@ int XHdcp22Tx_SetCallback(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_HandlerType Handle
 	/* Check for handler type */
 	switch (HandlerType)
 	{
+		// DDC write
 		case (XHDCP22_TX_HANDLER_DDC_WRITE):
 			InstancePtr->DdcWrite = (XHdcp22_Tx_DdcHandler)CallbackFunc;
 			InstancePtr->DdcHandlerRef = CallbackRef;
 			InstancePtr->IsDdcWriteSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// DDC read
 		case (XHDCP22_TX_HANDLER_DDC_READ):
 			InstancePtr->DdcRead = (XHdcp22_Tx_DdcHandler)CallbackFunc;
 			InstancePtr->DdcHandlerRef = CallbackRef;
 			InstancePtr->IsDdcReadSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+		// Authenticated
+		case (XHDCP22_TX_HANDLER_AUTHENTICATED):
+			InstancePtr->AuthenticatedCallback = (XHdcp22_Tx_Callback)CallbackFunc;
+			InstancePtr->AuthenticatedCallbackRef = CallbackRef;
+			InstancePtr->IsAuthenticatedCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
+
 		default:
 			Status = (XST_INVALID_PARAM);
 			break;
@@ -1807,7 +1857,9 @@ static void XHdcp22Tx_A4A5(XHdcp22_Tx *InstancePtr)
 *
 * @param  DeviceAddress is the DDC (i2c) device address.
 * @param  ByteCount is the number of bytes in the buffer.
-* @param  DeviceAddress is the DDC (i2c) device address.
+* @param  BufferPtr is the buffer that stores the data to be written or read.
+* @param  Stop is a flag to signal i2c stop condition.
+* @param  RefPtr is the reference pointer for the handler.
 *
 * @return XST_FAILURE
 *
@@ -1818,6 +1870,24 @@ static int XHdcp22Tx_StubDdc(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
                              u8 Stop, void* RefPtr)
 {
 	Xil_AssertNonvoidAlways();
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is a dummy called as long as there is no valid
+* authenticated handler set. It always returns an error.
+*
+* @param  RefPtr is the reference pointer for the handler.
+*
+* @return XST_FAILURE
+*
+* @note   None.
+*
+******************************************************************************/
+static void XHdcp22Tx_StubAuthenticated(void* RefPtr)
+{
+	Xil_AssertVoidAlways();
 }
 
 /*****************************************************************************/
