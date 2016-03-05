@@ -376,14 +376,14 @@ static int XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivR
 	mpConvFromOctets(A, XHdcp22Rx_MpSizeof(A), KprivRx->p, XHDCP22_RX_P_SIZE);
 	mpConvFromOctets(B, XHdcp22Rx_MpSizeof(B), KprivRx->dp, XHDCP22_RX_P_SIZE);
 	mpConvFromOctets(C, XHdcp22Rx_MpSizeof(C), EncryptedMessage, XHDCP22_RX_N_SIZE);
-	mpConvFromOctets(D, XHdcp22Rx_MpSizeof(D), InstancePtr->NPrimePPtr, XHDCP22_RX_P_SIZE);
+	mpConvFromOctets(D, XHdcp22Rx_MpSizeof(D), InstancePtr->NPrimeP, XHDCP22_RX_P_SIZE);
 	//Status = mpModExp(M1, C, B, A, XHDCP22_RX_N_SIZE/4);
 	Status = XHdcp22Rx_Pkcs1MontExp(InstancePtr, M1, C, B, A, D, 16);
 
 	/* Step 2b part I: Generate m2 = c^dQ * mod(q) */
 	mpConvFromOctets(A, XHdcp22Rx_MpSizeof(A), KprivRx->q, XHDCP22_RX_P_SIZE);
 	mpConvFromOctets(B, XHdcp22Rx_MpSizeof(B), KprivRx->dq, XHDCP22_RX_P_SIZE);
-	mpConvFromOctets(D, XHdcp22Rx_MpSizeof(D), InstancePtr->NPrimeQPtr, XHDCP22_RX_P_SIZE);
+	mpConvFromOctets(D, XHdcp22Rx_MpSizeof(D), InstancePtr->NPrimeQ, XHDCP22_RX_P_SIZE);
 	//Status = mpModExp(M2, C, D, B, XHDCP22_RX_N_SIZE/4);
 	Status = XHdcp22Rx_Pkcs1MontExp(InstancePtr, M2, C, B, A, D, 16);
 
@@ -966,7 +966,9 @@ static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T 
 	memset(Abar, 0, sizeof(Abar));
 	memset(Xbar, 0, sizeof(Xbar));
 
+#ifndef _XHDCP22_RX_SW_MMULT_
 	XHdcp22Rx_Pkcs1MontMultFiosInit(InstancePtr, N, NPrime, NDigits);
+#endif
 
 	/* Step 0: R = 2^(NDigits*32) */
 	mpConvFromDecimal(R, XHDCP22_RX_N_SIZE/4, "1");
@@ -981,20 +983,30 @@ static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T 
 	/* Step 3: Binary square and multiply */
 	for(Offset=32*NDigits-1; Offset>=0; Offset--)
 	{
+#ifndef _XHDCP22_RX_SW_MMULT_
 		XHdcp22Rx_Pkcs1MontMultFios(InstancePtr, Xbar, Xbar, Xbar, NDigits);
-		//XHdcp22Rx_Pkcs1MontMultFiosStub(Xbar, Xbar, Xbar, N, NPrime, NDigits);
+#else
+		XHdcp22Rx_Pkcs1MontMultFiosStub(Xbar, Xbar, Xbar, N, NPrime, NDigits);
+#endif
 
 		if(mpGetBit(E, NDigits, Offset) == TRUE)
 		{
+#ifndef _XHDCP22_RX_SW_MMULT_
 			XHdcp22Rx_Pkcs1MontMultFios(InstancePtr, Xbar, Xbar, Abar, NDigits);
-			//XHdcp22Rx_Pkcs1MontMultFiosStub(Xbar, Xbar, Abar, N, NPrime, NDigits);
+#else
+			XHdcp22Rx_Pkcs1MontMultFiosStub(Xbar, Xbar, Abar, N, NPrime, NDigits);
+#endif
 		}
 	}
 
 	/* Step 4: C=MonPro(Xbar,1) */
 	mpConvFromDecimal(R, XHDCP22_RX_N_SIZE/4, "1");
+
+#ifndef _XHDCP22_RX_SW_MMULT_
 	XHdcp22Rx_Pkcs1MontMultFios(InstancePtr, C, Xbar, R, NDigits);
-	//XHdcp22Rx_Pkcs1MontMultFiosStub(C, Xbar, R, N, NPrime, NDigits);
+#else
+	XHdcp22Rx_Pkcs1MontMultFiosStub(C, Xbar, R, N, NPrime, NDigits);
+#endif
 
 	return XST_SUCCESS;
 }

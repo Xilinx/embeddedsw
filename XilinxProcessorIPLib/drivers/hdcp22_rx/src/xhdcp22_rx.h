@@ -99,9 +99,11 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   10/30/15 First Release
-* 1.01  MH   01/15/15 Added XHdcp22Rx_SetDdcReauthReq to function prototypes.
+* 1.01  MH   01/15/16 Added XHdcp22Rx_SetDdcReauthReq to function prototypes.
 *                     Replaced function XHdcp22Rx_SetDdcHandles with
 *                     XHdcp22Rx_SetCallback.
+* 1.02  MH   03/02/16 Updated to change NPrimeP and NPrimeQ from pointer
+*                     to array. Added function XHDCP22Rx_GetVersion.
 *</pre>
 *
 *****************************************************************************/
@@ -592,10 +594,10 @@ typedef struct
 	const u8 *PublicCertPtr;
 	/** RSA private key pointer */
 	const u8 *PrivateKeyPtr;
-	/** Montgomery NPrimeP pointer */
-	const u8 *NPrimePPtr;
-	/** Montgomery NPrimeQ pointer */
-	const u8 *NPrimeQPtr;
+	/** Montgomery NPrimeP array */
+	u8 NPrimeP[64];
+	/** Montgomery NPrimeQ array */
+	u8 NPrimeQ[64];
 	/** HDCP-RX authentication and key exchange info */
 	XHdcp22_Rx_Info Info;
 	/** HDCP-RX authentication and key exchange parameters */
@@ -635,6 +637,7 @@ int  XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr);
 int  XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr);
 void XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr);
 int  XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef);
+u32  XHdcp22Rx_GetVersion(XHdcp22_Rx *InstancePtr);
 
 /* Functions for checking status */
 u8   XHdcp22Rx_IsEnabled(XHdcp22_Rx *InstancePtr);
@@ -651,12 +654,9 @@ void XHdcp22Rx_SetReadMessageComplete(XHdcp22_Rx *InstancePtr);
 void XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr);
 
 /* Functions for loading authentication constants */
-int  XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits);
 void XHdcp22Rx_LoadLc128(XHdcp22_Rx *InstancePtr, const u8 *Lc128Ptr);
 void XHdcp22Rx_LoadPublicCert(XHdcp22_Rx *InstancePtr, const u8 *PublicCertPtr);
-void XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr);
-void XHdcp22Rx_LoadMontNPrimeP(XHdcp22_Rx *InstancePtr, const u8 *NPrimePPtr);
-void XHdcp22Rx_LoadMontNPrimeQ(XHdcp22_Rx *InstancePtr, const u8 *NPrimeQPtr);
+int  XHdcp22Rx_LoadPrivateKey(XHdcp22_Rx *InstancePtr, const u8 *PrivateKeyPtr);
 
 /* Functions for logging */
 void XHdcp22Rx_LogReset(XHdcp22_Rx *InstancePtr, u8 Verbose);
