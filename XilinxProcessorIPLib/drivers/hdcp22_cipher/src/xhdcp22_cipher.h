@@ -73,6 +73,8 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JO     10/01/15 Initial release.
 * 1.01  MG     10/28/15 Added Noise and blank macros
+* 1.02  MG     02/25/15 Added GetVersion macro
+*
 * </pre>
 *
 ******************************************************************************/
@@ -319,6 +321,23 @@ typedef struct {
                 XHdcp22Cipher_WriteReg((InstancePtr)->Config.BaseAddress, (XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET), (XHDCP22_CIPHER_REG_CTRL_BLANK_MASK)); \
         } \
 }
+
+/*****************************************************************************/
+/**
+*
+* This macro reads the version for the HDCP22 Cipher
+* peripheral.
+*
+* @param  InstancePtr is a pointer to the HDCP22 Cipher core instance.
+*
+* @return version.
+*
+* @note   C-style signature:
+*         void XHdcp22Cipher_GetVersion(u32 BaseAddress)
+*
+******************************************************************************/
+#define XHdcp22Cipher_GetVersion(InstancePtr) \
+        XHdcp22Cipher_ReadReg((InstancePtr)->Config.BaseAddress, XHDCP22_CIPHER_VER_VERSION_OFFSET)
 
 /************************** Function Prototypes ******************************/
 /* Initialization function in xhdcp22_cipher_sinit.c */
