@@ -211,7 +211,6 @@ static int XHdcp1x_PortDpTxIsCapable(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function confirms if the remote HDCP device is a repeater.
 *
 * @param	InstancePtr is the device to query.

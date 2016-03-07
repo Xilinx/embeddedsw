@@ -45,6 +45,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 1.10  MG     01/18/16 Added function XHdcp1x_RxIsEnabled and
+*                       XHdcp1x_RxIsInProgress.
 * 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
 *                       Added a new enum XHdcp1x_EventType value:
 *                       XHDCP1X_EVENT_DOWNSTREAMREADY.
@@ -164,6 +166,80 @@ static const char *XHdcp1x_RxStateToString(XHdcp1x_StateType State);
 static const char *XHdcp1x_RxEventToString(XHdcp1x_EventType Event);
 
 /************************** Function Definitions *****************************/
+/*****************************************************************************/
+/**
+* This function installs callback functions for the given
+* HandlerType:
+*
+* @param	InstancePtr is a pointer to the HDCP core instance.
+* @param	HandlerType specifies the type of handler.
+* @param	CallbackFunc is the address of the callback function.
+* @param	CallbackRef is a user data item that will be passed to the
+*			callback function when it is invoked.
+*
+* @return
+*		- XST_SUCCESS if callback function installed successfully.
+*		- XST_INVALID_PARAM when HandlerType is invalid.
+*
+* @note		Invoking this function for a handler that already has been
+*			installed replaces it with the new handler.
+*
+******************************************************************************/
+int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
+	XHdcp1x_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(HandlerType > (XHDCP1X_HANDLER_UNDEFINED));
+	Xil_AssertNonvoid(HandlerType < (XHDCP1X_HANDLER_INVALID));
+	Xil_AssertNonvoid(CallbackFunc != NULL);
+	Xil_AssertNonvoid(CallbackRef != NULL);
+
+	u32 Status;
+
+	/* Check for handler type */
+	switch (HandlerType)
+	{
+		case (XHDCP1X_HANDLER_DDC_SETREGADDR):
+			InstancePtr->Rx.DdcSetAddressCallback
+				= (XHdcp1x_SetDdcHandler)CallbackFunc;
+			InstancePtr->Rx.DdcSetAddressCallbackRef = CallbackRef;
+			InstancePtr->Rx.IsDdcSetAddressCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
+		case (XHDCP1X_HANDLER_DDC_SETREGDATA):
+			InstancePtr->Rx.DdcSetDataCallback
+				= (XHdcp1x_SetDdcHandler)CallbackFunc;
+			InstancePtr->Rx.DdcSetDataCallbackRef = CallbackRef;
+			InstancePtr->Rx.IsDdcSetDataCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
+		case (XHDCP1X_HANDLER_DDC_GETREGDATA):
+			InstancePtr->Rx.DdcGetDataCallback
+				= (XHdcp1x_GetDdcHandler)CallbackFunc;
+			InstancePtr->Rx.DdcGetDataCallbackRef = CallbackRef;
+			InstancePtr->Rx.IsDdcGetDataCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
+		// Repeater - trigger Downstream Authentication
+		/* Eqilvalent of case
+		 *(XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH):
+		 */
+		case (XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH):
+			InstancePtr->Rx.RepeaterDownstreamAuthCallback
+				= (XHdcp1x_Callback)CallbackFunc;
+			InstancePtr->Rx.RepeaterDownstreamAuthRef
+				= CallbackRef;
+			InstancePtr->Rx.IsRepeaterDownStreamAuthCallbackSet
+				= (TRUE);
+			break;
+		default:
+			Status = (XST_INVALID_PARAM);
+			break;
+	}
+
+	return (Status);
+}
 
 /*****************************************************************************/
 /**
@@ -293,6 +369,39 @@ int XHdcp1x_RxDisable(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function queries an interface to check if is enabled.
+*
+* @param	InstancePtr is the receiver instance.
+*
+* @return	Truth value indicating is enabled (true) or not (false).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_RxIsEnabled(const XHdcp1x *InstancePtr)
+{
+	int IsEnabled = FALSE;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Which state? */
+	switch (InstancePtr->Rx.CurrentState) {
+		case XHDCP1X_STATE_DISABLED:
+			IsEnabled = FALSE;
+			break;
+
+		/* Otherwise */
+		default:
+			IsEnabled = TRUE;
+			break;
+	}
+
+	return (IsEnabled);
+}
+
+/*****************************************************************************/
+/**
 * This function updates the physical state of an HDCP interface.
 *
 * @param	InstancePtr is the receiver instance.
@@ -394,6 +503,40 @@ int XHdcp1x_RxAuthenticate(XHdcp1x *InstancePtr)
 	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_AUTHENTICATE);
 
 	return (Status);
+}
+
+/*****************************************************************************/
+/**
+* This function queries an interface to check if authentication is in
+* progress.
+*
+* @param	InstancePtr is the receiver instance.
+*
+* @return	Truth value indicating in progress (true) or not (false).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_RxIsInProgress(const XHdcp1x *InstancePtr)
+{
+	int IsInProgress = FALSE;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Which state? */
+	switch (InstancePtr->Rx.CurrentState) {
+		case XHDCP1X_STATE_COMPUTATIONS:
+			IsInProgress = TRUE;
+			break;
+
+		/* Otherwise */
+		default:
+			IsInProgress = FALSE;
+			break;
+	}
+
+	return (IsInProgress);
 }
 
 /*****************************************************************************/
@@ -579,7 +722,7 @@ int XHdcp1x_RxGetRepeaterInfo(XHdcp1x *InstancePtr,
 * This function logs a debug message on behalf of a handler state machine.
 *
 * @param	InstancePtr is the receiver instance.
-* @param	LogMsg  is the message to log.
+* @param	LogMsg is the message to log.
 *
 * @return	None.
 *
@@ -700,62 +843,6 @@ void XHdcp1x_RxDownstreamReadyCallback(void *Parameter)
 
 	/* Post the update Ri request */
 	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_DOWNSTREAMREADY);
-}
-
-/*****************************************************************************/
-/**
-* This function installs an asynchronous callback function for the given
-* HandlerType:
-*
-* <pre>
-* HandlerType                                Callback Function Type
-* --------------------------------           --------------------------------
-* (XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH)   DownstreamAuthCallback
-* </pre>
-*
-* @param	InstancePtr is a pointer to the HDCP port instance.
-* @param	HandlerType specifies the type of handler.
-* @param	CallbackFunc is the address of the callback function.
-* @param	CallbackRef is a user data item that will be passed to the
-*		callback function when it is invoked.
-*
-* @return	- XST_SUCCESS if callback function installed successfully.
-*		- XST_INVALID_PARAM when HandlerType is invalid.
-*
-* @note		Invoking this function for a handler that already has been
-*		installed replaces it with the new handler.
-*
-******************************************************************************/
-u32 XHdcp1x_RxSetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
-        XHdcp1x_Callback CallbackFunc, void *CallbackRef)
-{
-	u32 Status = XST_SUCCESS;
-
-	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(HandlerType >=
-	XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH);
-	Xil_AssertNonvoid(CallbackFunc != NULL);
-	Xil_AssertNonvoid(CallbackRef != NULL);
-
-	/* Check for handler type */
-	switch (HandlerType) {
-		/* Link Failure Callback */
-	case (XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH):
-			InstancePtr->Rx.RepeaterDownstreamAuthCallback
-					= CallbackFunc;
-			InstancePtr->Rx.RepeaterDownstreamAuthRef
-					= CallbackRef;
-			InstancePtr->Rx.IsRepeaterDownStreamAuthCallbackSet
-					= (TRUE);
-			break;
-
-		default:
-			Status = (XST_INVALID_PARAM);
-			break;
-	}
-
-	return (Status);
 }
 
 /*****************************************************************************/
@@ -972,9 +1059,9 @@ static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
 				}
 				else {
 					XHdcp1x_RxDebugLog(InstancePtr,
-						"Warning: Repeater Downstream"
-						"interface not triggered,"
-						"CallBack not Initialized !!!");
+					"Warning: Repeater Downstream"
+					"interface not triggered,"
+					"CallBack not Initialized !!!");
 				}
 			}
 		}
@@ -1114,8 +1201,8 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr)
 {
 	/* Verify arguments. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(NextStatePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(NextStatePtr != NULL);
 
 	/* Check if the max cascade and max depth is not exceeded */
 	if (InstancePtr->RepeaterValues.Depth > XHDCP1X_RPTR_MAX_CASCADE) {
@@ -1140,6 +1227,9 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		u32 ksvCountThisTime;
 		u16 RepeaterInfo;
 
+#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+		/* HDMI Repeater support currently not supported */
+#else
 		/* Update the value of Depth in BInfo */
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO,
 			&BInfo, XHDCP1X_PORT_SIZE_BINFO);
@@ -1156,7 +1246,7 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO,
 			&BInfo, XHDCP1X_PORT_SIZE_BINFO);
-
+#endif
 		/* Update the KSV List in the KSV Fifo */
 		ksvsToWrite = InstancePtr->RepeaterValues.DeviceCount;
 		ksvCount = 0;
@@ -1206,7 +1296,9 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		sha1value = InstancePtr->RepeaterValues.V[4];
 		XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_VH4,
 				&sha1value, XHDCP1X_PORT_SIZE_VH4);
-
+#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+		/* HDMI Repeater currently not supported */
+#else
 		/* Reset the KSV FIFO read pointer to ox6802C */
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_HDCP_RESET_KSV,
 				&KSVPtrReset, XHDCP1X_PORT_SIZE_HDCP_RESET_KSV);
@@ -1224,7 +1316,7 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		BStatus |= XHDCP1X_PORT_BIT_BSTATUS_READY;
 		XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS ,
 				&BStatus, XHDCP1X_PORT_SIZE_BSTATUS);
-
+#endif
 		*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
 	}
 }
@@ -1238,9 +1330,9 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 *
 * @return	None.
 *
-* @note		This function has to save the value of Ri (in RememberRi) as the
-*		macro that converts from a uint16 to a HDCP buffer destroys the
-*		original value.
+* @note		This function has to save the value of Ri (in RememberRi) as
+*		the macro that converts from a uint16 to a HDCP buffer
+*		destroys the original value.
 *
 ******************************************************************************/
 static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr,

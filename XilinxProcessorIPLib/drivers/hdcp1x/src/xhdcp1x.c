@@ -45,10 +45,13 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
 * 2.00  als    09/30/15 Added EffectiveAddr argument to XHdcp1x_CfgInitialize.
+* 2.10  MG     01/18/16 Added function XHdcp1x_IsEnabled.
+* 2.20  MG     01/20/16 Added function XHdcp1x_GetHdcpCallback.
+* 2.30  MG     02/25/16 Added function XHdcp1x_SetCallback and authenticated callback.
 * 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
 *                       Added functions:
 *                       XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
-*                       XHdcp1x_SetCallBack", XHdcp1x_ReadDownstream
+*                       XHdcp1x_SetCallBack, XHdcp1x_ReadDownstream
 * </pre>
 *
 ******************************************************************************/
@@ -91,12 +94,31 @@
 
 /************************** Global Declarations ******************************/
 
-XHdcp1x_Printf XHdcp1xDebugPrintf = NULL;
-XHdcp1x_LogMsg XHdcp1xDebugLogMsg = NULL;
-XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck = NULL;
-XHdcp1x_TimerStart XHdcp1xTimerStart = NULL;
-XHdcp1x_TimerStop XHdcp1xTimerStop = NULL;
-XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;
+XHdcp1x_Printf XHdcp1xDebugPrintf = NULL;	/**< Instance of function
+						  *  interface used for debug
+						  *  print statement */
+XHdcp1x_LogMsg XHdcp1xDebugLogMsg = NULL;	/**< Instance of function
+						  *  interface used for debug
+						  *  log message statement */
+XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck = NULL;/**< Instance of function
+						      *  interface used for
+						      *  checking a specific
+						      *  KSV against the
+						      *  platforms revocation
+						      *  list */
+XHdcp1x_TimerStart XHdcp1xTimerStart = NULL;	/**< Instance of function
+						  *  interface used for
+						  *  starting a timer on behalf
+						  *  of an HDCP interface*/
+XHdcp1x_TimerStop XHdcp1xTimerStop = NULL;	/**< Instance of fucntion
+						  *  interface usde for
+						  *  stopping a timer on behalf
+						  *  of an HDCP interface*/
+XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;	/**< Instance of fucntion
+						  *  interface usde for
+						  *  performing a busy delay on
+						  *  behalf of an HDCP
+						  *  interface*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -136,6 +158,7 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Port.PhyIfPtr = PhyIfPtr;
 
+
 	/* Update IsRx. */
 	RegVal = XHdcp1x_ReadReg(EffectiveAddr, XHDCP1X_CIPHER_REG_TYPE);
 	RegVal &= XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION;
@@ -164,6 +187,11 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	XHdcp1x_CipherInit(InstancePtr);
 	/* Initialize the transmitter/receiver state machine. */
 	if (!InstancePtr->Config.IsRx) {
+		/* Set all handlers to stub values, let user configure this data later */
+		InstancePtr->Tx.AuthenticatedCallback = NULL;
+		InstancePtr->Tx.IsAuthenticatedCallbackSet = (FALSE);
+
+		/* Initialize TX */
 		XHdcp1x_TxInit(InstancePtr);
 	}
 	else {
@@ -302,7 +330,7 @@ int XHdcp1x_GetRepeaterInfo(XHdcp1x *InstancePtr,
 /**
 * This function resets an HDCP interface.
 *
-* @param InstancePtr is the interface to reset.
+* @param 	InstancePtr is the interface to reset.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -660,6 +688,45 @@ int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function queries an interface to determine if it is enabled.
+*
+* @param	InstancePtr is the interface to query.
+*
+* @return	Truth value indicating enabled (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_IsEnabled(const XHdcp1x *InstancePtr)
+{
+	int IsEn = FALSE;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		IsEn = XHdcp1x_TxIsEnabled(InstancePtr);
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		IsEn = XHdcp1x_RxIsEnabled(InstancePtr);
+	}
+	else
+#endif
+	{
+		IsEn = FALSE;
+	}
+
+	return (IsEn);
+}
+
+/*****************************************************************************/
+/**
 * This function retrieves the current encryption map of the video streams
 * traversing an hdcp interface.
 *
@@ -714,7 +781,7 @@ u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr)
 int XHdcp1x_IsEncrypted(const XHdcp1x *InstancePtr)
 {
 	return (XHdcp1x_GetEncryption(InstancePtr) &&
-			XHdcp1x_IsAuthenticated(InstancePtr));
+		XHdcp1x_IsAuthenticated(InstancePtr));
 }
 
 /*****************************************************************************/
@@ -969,7 +1036,6 @@ u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function performs a debug display of an HDCP instance.
 *
 * @param	InstancePtr is the interface to display.
@@ -1001,5 +1067,26 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 	{
 		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");
 	}
+}
+
+/*****************************************************************************/
+/**
+* This function processes the AKsv.
+*
+* @param	InstancePtr is the interface to display.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdcp1x_ProcessAKsv(XHdcp1x *InstancePtr)
+{
+	#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		InstancePtr->Port.Adaptor->CallbackHandler(InstancePtr);
+	}
+	#endif
 }
 /** @} */

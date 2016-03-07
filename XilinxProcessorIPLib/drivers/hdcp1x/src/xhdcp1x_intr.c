@@ -56,6 +56,8 @@
 #include "xhdcp1x_cipher.h"
 #include "xhdcp1x_port.h"
 #include "xil_types.h"
+#include "xhdcp1x_tx.h"
+#include "xhdcp1x_rx.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -63,59 +65,53 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#if defined(XPAR_XDP_NUM_INSTANCES) && (XPAR_XDP_NUM_INSTANCES > 0)
-#define INCLUDE_RX
-#define INCLUDE_TX
-#endif
-
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
 /**
-*
-* This function sets the callback for High-Bandwidth Content Protection
-* (HDCP) Tx interface to write the Repeater values read from downstream
-* to upstream.
+* This function installs callback functions for the given HandlerType.
 *
 * @param	InstancePtr is a pointer to the HDCP core instance.
-* @param	HandlerType is the handler which describes the call back type.
-* @param	CallBackFunc is a pointer to the call back function.
-* @param	CallBackRef is a vod pointer to the call back reference.
+* @param	HandlerType specifies the type of handler.
+* @param	CallbackFunc is the address of the callback function.
+* @param	CallbackRef is a user data item that will be passed to the
+*		callback function when it is invoked.
 *
 * @return
-*		- XST_SUCCESS, if HDCP i/f enabled successfully.
-*		- XST_FAILURE, otherwise.
+*		- XST_SUCCESS if callback function installed successfully.
+*		- XST_INVALID_PARAM when HandlerType is invalid.
 *
-* @note		None.
+* @note		Invoking this function for a handler that already has been
+*		installed replaces it with the new handler.
 *
 ******************************************************************************/
-u32 XHdcp1x_SetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
-		XHdcp1x_Callback CallBackFunc, void *CallBackRef)
+int XHdcp1x_SetCallback(XHdcp1x *InstancePtr, XHdcp1x_HandlerType HandlerType,
+		void *CallbackFunc, void *CallbackRef)
 {
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(HandlerType > (XHDCP1X_HANDLER_UNDEFINED));
+	Xil_AssertNonvoid(HandlerType < (XHDCP1X_HANDLER_INVALID));
+	Xil_AssertNonvoid(CallbackFunc != NULL);
+	Xil_AssertNonvoid(CallbackRef != NULL);
+
 	u32 Status;
 
-	/* Verify arguments.*/
-	Xil_AssertNonvoid(InstancePtr != NULL);
-
-#if defined(INCLUDE_TX)
+	/* Check for TX */
 	if (!InstancePtr->Config.IsRx) {
-		Status = XHdcp1x_TxSetCallBack(InstancePtr, HandlerType,
-					CallBackFunc, CallBackRef);
+		Status = XHdcp1x_TxSetCallback(InstancePtr, HandlerType,
+			CallbackFunc, CallbackRef);
 	}
-	else
-#endif
-#if defined(INCLUDE_RX)
-	if (InstancePtr->Config.IsRx) {
-		Status = XHdcp1x_RxSetCallBack(InstancePtr, HandlerType,
-					CallBackFunc, CallBackRef);
+	/* Check for RX */
+	else if (InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_RxSetCallback(InstancePtr, HandlerType,
+			CallbackFunc, CallbackRef);
 	}
-	else
-#endif
-	{
+	else {
 		Status = XST_FAILURE;
 	}
 
-	return Status;
+	return (Status);
 }
 
 /*****************************************************************************/

@@ -45,6 +45,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 2.00  MG     01/20/16 Assigned callback function in
+*              XHdcp1x_PortHdmiTxAdaptor to NULL
+* 2.10  MG     02/29/16 Added DDC write and read handlers
 * </pre>
 *
 ******************************************************************************/
@@ -322,13 +325,13 @@ static int XHdcp1x_PortHdmiTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 	}
 
 	/* Write the address and check for failure */
-	if (XV_HdmiTx_DdcWrite(HdmiTx, Slave, 1, &Offset, FALSE)
-			!= XST_SUCCESS) {
+	if (InstancePtr->Tx.DdcWrite(Slave, 1, &Offset, FALSE,
+		InstancePtr->Tx.DdcWriteRef) != XST_SUCCESS) {
 		NumRead = -1;
 	}
 	/* Read the data back and check for failure */
-	else if (XV_HdmiTx_DdcRead(HdmiTx, Slave, BufSize, ReadBuf, TRUE)
-			!= XST_SUCCESS) {
+	else if (InstancePtr->Tx.DdcRead(Slave, BufSize, ReadBuf, TRUE,
+		InstancePtr->Tx.DdcReadRef) != XST_SUCCESS) {
 		NumRead = -2;
 	}
 	/* Success - just update NumRead */
@@ -385,7 +388,8 @@ static int XHdcp1x_PortHdmiTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		memcpy(&(TxBuf[1]), WriteBuf, ThisTime);
 
 		/* Write the TxBuf */
-		if (XV_HdmiTx_DdcWrite(HdmiTx, Slave, (ThisTime + 1), TxBuf, TRUE)
+		if (InstancePtr->Tx.DdcWrite(Slave, (ThisTime + 1), TxBuf,
+			TRUE, InstancePtr->Tx.DdcWriteRef)
 				!= XST_SUCCESS) {
 			/* Update NumWritten and break */
 			NumWritten = -1;
@@ -418,6 +422,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiTxAdaptor =
 	&XHdcp1x_PortHdmiTxIsRepeater,
 	&XHdcp1x_PortHdmiTxGetRepeaterInfo,
 	NULL,
+	NULL
 };
 
 #endif

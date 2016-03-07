@@ -109,16 +109,24 @@ extern "C" {
  * These constants specify the bit definitions within the various fields
  * and/or attributes within the hdcp port
  */
-#define XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE		(1u << 12)
-
-#define XHDCP1X_PORT_BIT_BCAPS_FAST_REAUTH		(1u <<  0)
-#define XHDCP1X_PORT_BIT_BCAPS_1d1_FEATURES		(1u <<  1)
-#define XHDCP1X_PORT_BIT_BCAPS_FAST			(1u <<  4)
-#define XHDCP1X_PORT_BIT_BCAPS_READY			(1u <<  5)
-#define XHDCP1X_PORT_BIT_BCAPS_REPEATER			(1u <<  6)
-#define XHDCP1X_PORT_BIT_BCAPS_HDMI			(1u <<  7)
-
-#define XHDCP1X_PORT_BIT_AINFO_ENABLE_1d1_FEATURES	(1u <<  1)
+#define XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE  (1u << 12) /**< BStatus HDMI Mode
+							 *  Mask */
+#define XHDCP1X_PORT_BIT_BCAPS_FAST_REAUTH  (1u <<  0) /**< BCaps Fast Reauth
+							 *  Mask */
+#define XHDCP1X_PORT_BIT_BCAPS_1d1_FEATURES (1u <<  1) /**< BCaps HDCP 1.1
+							 *  Features Support
+							 *  Mask */
+#define XHDCP1X_PORT_BIT_BCAPS_FAST	    (1u <<  4) /**< BCaps Fast
+							 *  Transfers Mask */
+#define XHDCP1X_PORT_BIT_BCAPS_READY	    (1u <<  5) /**< BCaps KSV FIFO
+							 *  Ready bit Mask */
+#define XHDCP1X_PORT_BIT_BCAPS_REPEATER	    (1u <<  6) /**< BCaps Repeater
+							 *  Capable Mask */
+#define XHDCP1X_PORT_BIT_BCAPS_HDMI	    (1u <<  7) /**< BCaps HDMI
+							 *  Supported Mask */
+#define XHDCP1X_PORT_BIT_AINFO_ENABLE_1d1_FEATURES (1u <<  1) /**< AInfo Enable
+								*  1.1
+								*  Features */
 
 /**
  * This constant defines the i2c address of the hdcp port

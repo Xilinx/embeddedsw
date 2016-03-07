@@ -100,7 +100,10 @@ typedef enum {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define HDCP1X_CIPHER_BIT_REPEATER_ENABLE		(1 << 8)
+#define HDCP1X_CIPHER_BIT_REPEATER_ENABLE	(1 << 8)/**< Bit in the cipher
+							  *  Bz register to
+							  *  indicate
+							  *  Repeater */
 
 /************************** Function Prototypes ******************************/
 
