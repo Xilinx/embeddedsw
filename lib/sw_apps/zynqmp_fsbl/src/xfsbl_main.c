@@ -43,6 +43,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
+* 1.00  ba   02/22/16 Added performance measurement feature.
 *
 * </pre>
 *
@@ -82,6 +83,9 @@ int main(void )
 	u32 FsblStage = XFSBL_STAGE1;
 	u32 PartitionNum=0U;
 	u32 EarlyHandoff = FALSE;
+#ifdef FSBL_PERF
+	XTime tCur = 0;
+#endif
 
 	/**
 	 * Initialize globals.
@@ -119,6 +123,11 @@ int main(void )
 
 		case XFSBL_STAGE2:
 			{
+				/* Reading Timer value for Performance measurement.*/
+#ifdef FSBL_PERF
+				/* Get Start time for Boot Device init. */
+				XTime_GetTime(&tCur);
+#endif
 
 				XFsbl_Printf(DEBUG_INFO,
 						"================= In Stage 2 ============ \n\r");
@@ -130,6 +139,7 @@ int main(void )
 				 *  image header
 				 *  partition header
 				 */
+
 				FsblStatus = XFsbl_BootDeviceInitAndValidate(&FsblInstancePtr);
 				if ( (XFSBL_SUCCESS != FsblStatus) &&
 						(XFSBL_STATUS_JTAG != FsblStatus) )
@@ -154,6 +164,10 @@ int main(void )
 
 					FsblStage = XFSBL_STAGE3;
 				}
+#ifdef FSBL_PERF
+				XFsbl_MeasurePerfTime(tCur);
+				XFsbl_Printf(DEBUG_PRINT_ALWAYS, " : Boot Dev. Init. Time\n\r");
+#endif
 			} break;
 
 		case XFSBL_STAGE3:
@@ -208,6 +222,12 @@ int main(void )
 						 * No more partitions present, go to handoff stage
 						 */
 						XFsbl_Printf(DEBUG_INFO,"All Partitions Loaded \n\r");
+
+#ifdef FSBL_PERF
+						XFsbl_MeasurePerfTime(FsblInstancePtr.PerfTime.tFsblStart);
+						XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": Total Time \n\r");
+						XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Note: Total execution time includes print times \n\r");
+#endif
 						FsblStage = XFSBL_STAGE4;
 						EarlyHandoff = FsblStatus;
 
@@ -307,11 +327,15 @@ void XFsbl_PrintFsblBanner(void )
 	/**
 	 * Print the FSBL Banner
 	 */
+#if !defined(FSBL_PERF) || defined(FSBL_DEBUG) || defined(FSBL_DEBUG_INFO) \
+			|| defined(FSBL_DEBUG_DETAILED)
 	XFsbl_Printf(DEBUG_PRINT_ALWAYS,
                  "Xilinx Zynq MP First Stage Boot Loader \n\r");
 	XFsbl_Printf(DEBUG_PRINT_ALWAYS,
                  "Release %d.%d   %s  -  %s\r\n",
                  SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER,__DATE__,__TIME__);
+#endif
+
 	/**
 	 * Print the platform
 	 */
@@ -484,3 +508,40 @@ void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
 	return;
 
 }
+
+/*****************************************************************************/
+/**
+ * This function measures the total time taken between two points for FSBL
+ * performance measurement.
+ *
+ * @param Current/start time
+ *
+ * @return none
+ *
+ * @note none
+ *****************************************************************************/
+#ifdef FSBL_PERF
+
+void XFsbl_MeasurePerfTime(XTime tCur)
+{
+	XTime tEnd = 0;
+	XTime tDiff = 0;
+	u64 tPerfNs;
+	u64 tPerfMs = 0;
+	u64 tPerfMsFrac = 0;
+
+	XTime_GetTime(&tEnd);
+	tDiff = tEnd - tCur;
+
+	/* Convert tPerf into nanoseconds */
+	tPerfNs = ((double)tDiff / (double)COUNTS_PER_SECOND) * 1e9;
+
+	tPerfMs = tPerfNs / 1e6;
+	tPerfMsFrac = tPerfNs % (u64)1e6;
+
+	/* Print the whole (in ms.) and fractional part */
+	XFsbl_Printf(DEBUG_PRINT_ALWAYS, "%d.%d ms.",
+			(u32)tPerfMs, (u32)tPerfMsFrac);
+}
+
+#endif

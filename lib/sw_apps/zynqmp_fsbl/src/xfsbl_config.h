@@ -108,6 +108,15 @@ extern "C" {
 #define FSBL_DEBUG_DETAILED
 #endif
 
+/**
+ * @name FSBL timing options
+ */
+#define FSBL_PERF_VAL 		(0U)
+
+#if FSBL_PERF_VAL
+#define FSBL_PERF
+#endif
+
 /* Size of OCM buffer to store data chunks in case of DDR less system */
 #define READ_BUFFER_SIZE			(4*1024U)
 
