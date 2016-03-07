@@ -185,6 +185,15 @@ Added following functions:
   XHdcp1x_RxDownstreamReady, XHdcp1x_RxGetRepeaterInfo,
   XHdcp1x_RxDownstreamReadyCallback,
   XHdcp1x_RxSetCallBack.
+Updated the hdcp drivers for HDMI support for HDCP 2.2.
+Added the following functions:
+  XHdcp1x_IsEnabled, XHdcp1x_ProcessAKsv,
+  XHdcp1x_RxIsEnabled, XHdcp1x_RxIsInProgress
+Assigned callback function in XHdcp1x_PortHdmiTxAdaptor to NULL.
+Disabled hdcp call back in function XHdcp1x_PortHdmiRxEnable.
+Added DDC write and read handlers.
+Added callback type used for calling DDC read and write functions
+Added enumeration XHdcp1x_HandlerType to identify callback functions.
 
 hdcp22_cipher_v1_0:
 Added the initial version of Xilinx HDCP Cipher core driver.
