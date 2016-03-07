@@ -45,6 +45,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 2.00  MG     01/20/16 Disabled hdcp call back in function
+*                       XHdcp1x_PortHdmiRxEnable.
+* 2.10  MG     02/29/16 Added DDC write and read handlers
 * 3.0   yas    02/13/16 Upgraded function XHdcp1x_PortHdmiRxEnable to
 *                       support HDCP Repeater functionality.
 * </pre>
@@ -134,8 +137,8 @@ static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 			Buf, 4);
 
 	/* Bind for interrupt callback */
-	XV_HdmiRx_SetCallback(HdmiRx, XV_HDMIRX_HANDLER_HDCP,
-			XHdcp1x_ProcessAKsvWrite, InstancePtr);
+	//XV_HdmiRx_SetCallback(HdmiRx, XV_HDMIRX_HANDLER_HDCP,
+	//		XHdcp1x_ProcessAKsvWrite, InstancePtr);
 
 	return (Status);
 }
@@ -216,7 +219,6 @@ static int XHdcp1x_PortHdmiRxInit(XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function reads a register from a HDCP port device.
 *
 * @param	InstancePtr is the device to read from.
@@ -246,11 +248,17 @@ static int XHdcp1x_PortHdmiRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 	}
 
 	/* Write the offset */
-	XV_HdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
+	if (InstancePtr->Rx.IsDdcSetAddressCallbackSet) {
+		InstancePtr->Rx.DdcSetAddressCallback(
+		    InstancePtr->Rx.DdcSetAddressCallbackRef, Offset);
+	}
 
 	/* Read the buffer */
 	while (NumLeft-- > 0) {
-		*ReadBuf++ = XV_HdmiRx_DdcHdcpReadData(HdmiRx);
+		if (InstancePtr->Rx.IsDdcGetDataCallbackSet) {
+			*ReadBuf++ = InstancePtr->Rx.DdcGetDataCallback(
+			    InstancePtr->Rx.DdcGetDataCallbackRef);
+		}
 	}
 
 	return ((int)BufSize);
@@ -287,11 +295,17 @@ static int XHdcp1x_PortHdmiRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 	}
 
 	/* Write the offset */
-	XV_HdmiRx_DdcHdcpSetAddress(HdmiRx, Offset);
+	if (InstancePtr->Rx.IsDdcSetAddressCallbackSet) {
+		InstancePtr->Rx.DdcSetAddressCallback(
+		    InstancePtr->Rx.DdcSetAddressCallbackRef, Offset);
+	}
 
 	/* Write the buffer */
 	while (NumLeft-- > 0) {
-		XV_HdmiRx_DdcHdcpWriteData(HdmiRx, *WriteBuf++);
+		if (InstancePtr->Rx.IsDdcSetDataCallbackSet) {
+			InstancePtr->Rx.DdcSetDataCallback(
+			    InstancePtr->Rx.DdcSetDataCallbackRef, *WriteBuf++);
+		}
 	}
 
 	return ((int)BufSize);
@@ -320,10 +334,10 @@ static void XHdcp1x_ProcessAKsvWrite(void *CallbackRef)
 
 	/* Clear bit 1 of the Ainfo register */
 	XHdcp1x_PortHdmiRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
-								&Value, 1);
+			&Value, 1);
 	Value &= 0xFDu;
 	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
-								&Value, 1);
+			&Value, 1);
 
 	/* Invoke authentication callback if set */
 	if (InstancePtr->Port.IsAuthCallbackSet) {
@@ -347,6 +361,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiRxAdaptor =
 	NULL,
 	NULL,
 	NULL,
+	&XHdcp1x_ProcessAKsvWrite
 };
 
 #endif

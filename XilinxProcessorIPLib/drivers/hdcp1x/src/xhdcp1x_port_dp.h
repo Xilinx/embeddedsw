@@ -118,23 +118,30 @@ extern "C" {
  * These constants specify the bit definitions within the various fields
  * and/or attributes within the hdcp port
  */
-#define XHDCP1X_PORT_BIT_BSTATUS_READY			(1u << 0)
-#define XHDCP1X_PORT_BIT_BSTATUS_RO_AVAILABLE		(1u << 1)
-#define XHDCP1X_PORT_BIT_BSTATUS_LINK_FAILURE		(1u << 2)
-#define XHDCP1X_PORT_BIT_BSTATUS_REAUTH_REQUEST		(1u << 3)
-
-#define XHDCP1X_PORT_BIT_BCAPS_HDCP_CAPABLE		(1u << 0)
-#define XHDCP1X_PORT_BIT_BCAPS_REPEATER			(1u << 1)
-
-#define XHDCP1X_PORT_BIT_AINFO_REAUTH_ENABLE_IRQ	(1u << 0)
-
-#define XHDCP1X_PORT_HDCP_RESET_KSV_RST (1u << 0)
+#define XHDCP1X_PORT_BIT_BSTATUS_READY		(1u << 0) /**< BStatus Ready
+							    *  Mask          */
+#define XHDCP1X_PORT_BIT_BSTATUS_RO_AVAILABLE	(1u << 1)/**< BStatus Ro
+							    *  available Mask */
+#define XHDCP1X_PORT_BIT_BSTATUS_LINK_FAILURE	(1u << 2) /**< BStatus Link
+							    *  Failure Mask  */
+#define XHDCP1X_PORT_BIT_BSTATUS_REAUTH_REQUEST	(1u << 3) /**< BStatus Reauth
+							    *  Request Mask  */
+#define XHDCP1X_PORT_BIT_BCAPS_HDCP_CAPABLE	(1u << 0) /**< BCaps HDCP
+							    *  Capable Mask  */
+#define XHDCP1X_PORT_BIT_BCAPS_REPEATER		(1u << 1) /**< BCaps HDCP
+							    *  Repeater Mask */
+#define XHDCP1X_PORT_BIT_AINFO_REAUTH_ENABLE_IRQ	(1u << 0) /**< Ainfo
+								    *  Reauth
+								    *  Enable
+								    *  Mask  */
+#define XHDCP1X_PORT_HDCP_RESET_KSV_RST		(1u << 0) /**< KSV FIFO pointer
+							    *  Reset Mask    */
 
 /**
  * This constant defines the base address of the hdcp port within the DPCD
  * address space
  */
-#define XHDCP1X_PORT_DPCD_BASE	(0x68000u)   /**< Base Addr in DPCD */
+#define XHDCP1X_PORT_DPCD_BASE		(0x68000u)   /**< Base Addr in DPCD */
 
 /**************************** Type Definitions *******************************/
 

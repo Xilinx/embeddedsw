@@ -44,6 +44,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 1.10  MG     01/18/16 Added function XHdcp1x_RxIsEnabled and
+*                       XHdcp1x_RxIsInProgress.
+* 1.20  MG     02/25/16 Added function XHdcp1x_RxSetCallback.
 * 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
 *                       Added functions:
 *                       XHdcp1x_RxDownstreamReady, XHdcp1x_RxGetRepeaterInfo,
@@ -77,22 +80,30 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 void XHdcp1x_RxInit(XHdcp1x *InstancePtr);
+int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
+		XHdcp1x_HandlerType HandlerType, void *CallbackFunc,
+		void *CallbackRef);
+
 int XHdcp1x_RxPoll(XHdcp1x *InstancePtr);
+
 int XHdcp1x_RxReset(XHdcp1x *InstancePtr);
 int XHdcp1x_RxEnable(XHdcp1x *InstancePtr);
 int XHdcp1x_RxDisable(XHdcp1x *InstancePtr);
+
 int XHdcp1x_RxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
 int XHdcp1x_RxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
 int XHdcp1x_RxDownstreamReady(XHdcp1x *InstancePtr);
 int XHdcp1x_RxAuthenticate(XHdcp1x *InstancePtr);
 int XHdcp1x_RxIsAuthenticated(const XHdcp1x *InstancePtr);
+int XHdcp1x_RxIsEnabled(const XHdcp1x *InstancePtr);
+int XHdcp1x_RxIsInProgress(const XHdcp1x *InstancePtr);
+
 u64 XHdcp1x_RxGetEncryption(const XHdcp1x *InstancePtr);
+
 int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr);
 int XHdcp1x_RxGetRepeaterInfo(XHdcp1x *InstancePtr,
 		XHdcp1x_RepeaterExchange *RepeaterInfoPtr);
 void XHdcp1x_RxDownstreamReadyCallback(void *Parameter);
-u32 XHdcp1x_RxSetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
-        XHdcp1x_Callback CallbackFunc, void *CallbackRef);
 
 #ifdef __cplusplus
 }

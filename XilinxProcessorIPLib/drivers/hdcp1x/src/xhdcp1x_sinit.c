@@ -57,7 +57,7 @@
 /************************** Constant Definitions *****************************/
 
 #ifndef XPAR_XHDCP_NUM_INSTANCES
-#define XPAR_XHDCP_NUM_INSTANCES 0
+#define XPAR_XHDCP_NUM_INSTANCES 0	/**< Number of HDCP Instances */
 #endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -68,7 +68,9 @@
 
 /************************** Variable Definitions *****************************/
 
-extern XHdcp1x_Config XHdcp1x_ConfigTable[];
+extern XHdcp1x_Config XHdcp1x_ConfigTable[];	/**< Instance of Lookup table
+						  *  of HDCP instance(s) in the
+						  *  design */
 
 /************************** Function Definitions *****************************/
 

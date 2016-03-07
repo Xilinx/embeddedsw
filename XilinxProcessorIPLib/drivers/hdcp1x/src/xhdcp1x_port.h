@@ -44,6 +44,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 2.00  MG     01/20/16 Added callback handler to XHdcp1x_PortPhyIfAdaptor
 * </pre>
 *
 ******************************************************************************/
@@ -89,8 +90,9 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 	int (*IsCapable)(const XHdcp1x *);	/**< Tests for HDCP capable */
 	int (*IsRepeater)(const XHdcp1x *);	/**< Tests for repeater */
 	int (*GetRepeaterInfo)(const XHdcp1x *, u16 *); /**< Gets repeater
-							info */
+							  *  info */
 	void (*IntrHandler)(XHdcp1x *, u32); /**< Interrupt handler */
+	void (*CallbackHandler)(void *CallbackRef); /**< Callback handler */
 } XHdcp1x_PortPhyIfAdaptor;
 
 /***************** Macros (Inline Functions) Definitions *********************/

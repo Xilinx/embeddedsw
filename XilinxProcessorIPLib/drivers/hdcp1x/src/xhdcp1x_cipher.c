@@ -609,7 +609,6 @@ int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 
 /*****************************************************************************/
 /**
-*
 * This function disables encryption on a set of streams.
 *
 * @param	InstancePtr is the device to configure.
@@ -1161,7 +1160,6 @@ u16 XHdcp1x_CipherGetRi(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function reads the contents of the Mo register of the device.
 *
 * @param	InstancePtr is the device to query.
@@ -1195,7 +1193,6 @@ u64 XHdcp1x_CipherGetMo(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
-*
 * This function reads the contents of the Ro register of the device.
 *
 * @param	InstancePtr is the device to query.

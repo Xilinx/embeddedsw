@@ -388,4 +388,5 @@ int XHdcp1x_PortWrite(XHdcp1x *InstancePtr, u8 Offset, const void *Buf,
 
 	return (NumWritten);
 }
+
 /** @} */

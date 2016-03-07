@@ -47,6 +47,12 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
 * 2.00  als    09/30/15 Added EffectiveAddr argument to XHdcp1x_CfgInitialize.
+* 2.10  MG     01/18/16 Added function XHdcp1x_IsEnabled.
+* 2.20  MG     01/20/16 Added function XHdcp1x_GetHdcpCallback.
+* 2.30  MG     02/25/16 Added function XHdcp1x_SetCallback and
+*                       AuthenticatedCallback.
+* 2.40  MG     01/29/16 Removed function XHdcp1x_GetHdcpCallback and added
+*                       function XHdcp1x_ProcessAKsv
 * 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
 *                       Added constants:
 *                       XHDCP1X_RPTR_MAX_CASCADE and
@@ -89,7 +95,31 @@ extern "C" {
 						  *  be cascaded to the
 						  *  Repeater */
 
+#define XHdcp1x_SetCallBack  XHdcp1x_SetCallback	/**< Alternative name
+							  *  for the function
+							  *  to set callback
+							  *  for HDCP
+							  *  functions */
+
 /**************************** Type Definitions *******************************/
+
+/**
+ * These constants are used to identify callback functions.
+ */
+typedef enum
+{
+	XHDCP1X_HANDLER_UNDEFINED,
+	XHDCP1X_HANDLER_DDC_SETREGADDR,
+	XHDCP1X_HANDLER_DDC_SETREGDATA,
+	XHDCP1X_HANDLER_DDC_GETREGDATA,
+	XHDCP1X_HANDLER_DDC_WRITE,
+	XHDCP1X_HANDLER_DDC_READ,
+	XHDCP1X_HANDLER_AUTHENTICATED,
+	XHDCP1X_HANDLER_RPTR_DWNSTRMREADY,
+	XHDCP1X_HANDLER_RPTR_RPTREXCHANGE,
+	XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH,
+	XHDCP1X_HANDLER_INVALID
+} XHdcp1x_HandlerType;
 
 /**
  * This typedef defines the callback interface that is to be used for
@@ -113,10 +143,50 @@ typedef void (*XHdcp1x_LogMsg)(const char *fmt, ...);
  * This enumerates the call back for the HDCP Repeater Tx state machine
  */
 typedef enum {
-	XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY = 1,
-	XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
-	XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
+	XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY =
+			XHDCP1X_HANDLER_RPTR_DWNSTRMREADY,
+	XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE =
+			XHDCP1X_HANDLER_RPTR_RPTREXCHANGE,
+	XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH =
+			XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH,
 } XHdcp1x_RepeaterStateMachineHandlerType;
+
+
+/**
+* Callback type used for calling DDC read and write functions.
+*
+* @param  DeviceAddress is the (i2c) device address of the HDCP port.
+* @param  ByteCount is the amount of data bytes in the buffer to read or write.
+* @param  BufferPtr is a pointer to a buffer that is used
+*         for reading or writing.
+* @param  Stop is a flag to control if a stop token is set or not.
+* @param  RefPtr is a callback reference passed in by the
+*         upper layer when setting the DDC reading and writing functions,
+*         and passed back to the upper layer when the callback is invoked.
+*
+* @return
+*         - XST_SUCCESS The read action was successful.
+*         - XST_FAILURE The read action failed.
+*
+* @note   None.
+*
+*/
+typedef int (*XHdcp1x_RunDdcHandler)(u8 DeviceAddress, u16 ByteCount,
+		u8* BufferPtr, u8 Stop, void *RefPtr);
+
+/**
+ * This typedef defines the function interface that is to be used for setting
+ * the DDC handler for HDMI implementation of HDCP functionality over HDMI
+ * within this driver
+ */
+typedef void (*XHdcp1x_SetDdcHandler)(void *HandlerRef, u32 Data);
+
+/**
+ * This typedef defines the function interface that is to be used to get
+ * the DDC handler for implementation of HDCP functionality over HDMI
+ * within this driver
+ */
+typedef u32 (*XHdcp1x_GetDdcHandler)(void *HandlerRef);
 
 /**
 * This typedef contains configuration information for the HDCP core.
@@ -226,6 +296,17 @@ typedef struct {
 	u16 PendingEvents;	/**< The bit map of pending events */
 	u64 EncryptionMap;	/**< The configured encryption map */
 	XHdcp1x_TxStats Stats;	/**< The interface's statistics */
+	XHdcp1x_Callback AuthenticatedCallback;	/**< Authentication callback */
+	void *AuthenticatedCallbackRef;	/**< Authentication reference */
+	u32 IsAuthenticatedCallbackSet;	/**< Authentication config flag */
+	XHdcp1x_RunDdcHandler DdcRead;	/**< Function pointer for reading DDC */
+	void *DdcReadRef;	/**< Reference pointer set with
+				  *  XHdcp1x_SetCallback function. */
+	u8 IsDdcReadSet;	/**< Set if DdcRead handler is defined. */
+	XHdcp1x_RunDdcHandler DdcWrite;	/**< Function pointer for writing DDC */
+	void *DdcWriteRef;	/**< Reference pointer set with
+				  *  XHdcp1x_SetCallback function. */
+	u8 IsDdcWriteSet;	/**< Set if DdcWrite handler is defined. */
 	XHdcp1x_Callback DownstreamReadyCallback;/**< (Repeater)Downstream
 						   *  Ready callback */
 	void *DownstreamReadyRef;	/**< (Repeater)Downstream Ready
@@ -250,11 +331,32 @@ typedef struct {
  * This typedef contains the receive HDCP interface
  */
 typedef struct {
-	u32 CurrentState;	/**< The interface's current state */
-	u32 PreviousState;	/**< The interface's previous state */
-	u16 Flags;		/**< The interface flags */
-	u16 PendingEvents;	/**< The bit map of pending events */
-	XHdcp1x_RxStats Stats;	/**< The interface's statistics */
+	u32 CurrentState;		/**< The interface's current state */
+	u32 PreviousState;		/**< The interface's previous state */
+	u16 Flags;			/**< The interface flags */
+	u16 PendingEvents;		/**< The bit map of pending events */
+	XHdcp1x_RxStats Stats;		/**< The interface's statistics */
+	XHdcp1x_SetDdcHandler DdcSetAddressCallback;/**< Function pointer for
+						      *  setting DDC register
+						      *  address */
+	void *DdcSetAddressCallbackRef;	/**< To be passed to callback
+					  *  function */
+	u8 IsDdcSetAddressCallbackSet;	/**< This flag is set true when the
+					  *  callback has been registered */
+	XHdcp1x_SetDdcHandler DdcSetDataCallback;/**< Function pointer for
+						   *  setting DDC register
+						   *  data */
+	void *DdcSetDataCallbackRef;	/**< To be passed to callback
+					  *  function */
+	u8 IsDdcSetDataCallbackSet;	/**< This flag is set true when the
+					  *  callback has been registered */
+	XHdcp1x_GetDdcHandler DdcGetDataCallback;/**< Function pointer for
+						   *  getting DDC register
+						   *  data */
+	void *DdcGetDataCallbackRef;	/**< To be passed to callback
+					  *  function */
+	u8 IsDdcGetDataCallbackSet;	/**< This flag is set true when the
+					  *  callback has been registered */
 	XHdcp1x_Callback RepeaterDownstreamAuthCallback;/**< (Repeater)Post
 							  *  authenticate to
 							  *  downstream,
@@ -290,10 +392,10 @@ typedef struct {
 	XHdcp1x_RepeaterExchange RepeaterValues;/**< The Repeater value to
 						  *  be exchanged between
 						  *  Tx and Rx */
-	void *Hdcp1xRef;		/**< A void reference pointer for
-					  *  association of a external core
-					  *  in our case a timer with the
-					  *  hdcp instance */
+	void *Hdcp1xRef;	/**< A void reference pointer for
+				  *  association of a external core
+				  *  in our case a timer with the
+				  *  hdcp instance */
 } XHdcp1x;
 
 /**
@@ -337,8 +439,6 @@ int XHdcp1x_Poll(XHdcp1x *InstancePtr);
 int XHdcp1x_DownstreamReady(XHdcp1x *InstancePtr);
 int XHdcp1x_GetRepeaterInfo(XHdcp1x *InstancePtr,
 		XHdcp1x_RepeaterExchange *RepeaterInfoPtr);
-u32 XHdcp1x_SetCallBack(XHdcp1x *InstancePtr, u32 HandlerType,
-		XHdcp1x_Callback CallBackFunc, void *CallBackRef);
 
 int XHdcp1x_Reset(XHdcp1x *InstancePtr);
 int XHdcp1x_Enable(XHdcp1x *InstancePtr);
@@ -351,6 +451,7 @@ int XHdcp1x_Authenticate(XHdcp1x *InstancePtr);
 int XHdcp1x_ReadDownstream(XHdcp1x *InstancePtr);
 int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr);
 int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr);
+int XHdcp1x_IsEnabled(const XHdcp1x *InstancePtr);
 
 u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr);
 int XHdcp1x_IsEncrypted(const XHdcp1x *InstancePtr);
@@ -360,6 +461,9 @@ int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 int XHdcp1x_SetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect);
 
 void XHdcp1x_HandleTimeout(void *InstancePtr);
+
+int XHdcp1x_SetCallback(XHdcp1x *InstancePtr, XHdcp1x_HandlerType HandlerType,
+		void *CallbackFunc, void *CallbackRef);
 void XHdcp1x_CipherIntrHandler(void *InstancePtr);
 void XHdcp1x_PortIntrHandler(void *InstancePtr, u32 IntCause);
 
@@ -374,6 +478,7 @@ void XHdcp1x_SetTimerDelay(XHdcp1x_TimerDelay TimerDelayFunc);
 u32 XHdcp1x_GetDriverVersion(void);
 u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr);
 void XHdcp1x_Info(const XHdcp1x *InstancePtr);
+void XHdcp1x_ProcessAKsv(XHdcp1x *InstancePtr);
 
 #ifdef __cplusplus
 }

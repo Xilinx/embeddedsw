@@ -63,10 +63,25 @@
 
 /************************** Extern Declarations ******************************/
 
-extern XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck;
-extern XHdcp1x_TimerStart XHdcp1xTimerStart;
-extern XHdcp1x_TimerStop XHdcp1xTimerStop;
-extern XHdcp1x_TimerDelay XHdcp1xTimerDelay;
+extern XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck;/**< Instance of function
+						      *  interface used for
+						      *  checking a specific
+						      *  KSV against the
+						      *  platforms revocation
+						      *  list */
+extern XHdcp1x_TimerStart XHdcp1xTimerStart;/**< Instance of function
+					     *  interface used for starting
+					     *  a timer on behalf of an
+					     *  HDCP interface*/
+extern XHdcp1x_TimerStop XHdcp1xTimerStop;	/**< Instance of fucntion
+						  *  interface usde for
+						  *  stopping a timer on behalf
+						  *  of an HDCP interface*/
+extern XHdcp1x_TimerDelay XHdcp1xTimerDelay;	/**< Instance of fucntion
+						  *  interface usde for
+						  *  performing a busy delay on
+						  *  behalf of an HDCP
+						  *  interface*/
 
 /************************** Function Prototypes ******************************/
 
@@ -77,7 +92,7 @@ extern XHdcp1x_TimerDelay XHdcp1xTimerDelay;
 * @param	InstancePtr is the HDCP interface.
 * @param	Ksv is the KSV to check.
 *
-* @return	Truth value indicating the KSV is revoked (TRUE) or not (FALSE).
+* @return	Truth value indicating the KSV is revoked (TRUE) or not (FALSE)
 *
 * @note		None.
 *

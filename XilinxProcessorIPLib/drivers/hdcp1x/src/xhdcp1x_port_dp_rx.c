@@ -133,10 +133,13 @@ static int XHdcp1x_PortDpRxEnable(XHdcp1x *InstancePtr)
 
 	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS, Buf, 1);
 
-	/* Update the Bz register to set the REPATER bit in the cipher*/
-	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+	/* Checking for Repeater flag */
+	if (InstancePtr->IsRepeater) {
+		/* Update the Bz register to set the REPATER bit in the cipher*/
+		XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
 			XHDCP1X_CIPHER_REG_CIPHER_Bz,
 			HDCP1X_CIPHER_BIT_REPEATER_ENABLE);
+	}
 
 	/* Initialize some debug registers */
 	Buf[0] = 0xDE;
@@ -199,7 +202,7 @@ static int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
 	NumLeft = 256;
 	while (NumLeft-- > 0) {
 		XHdcp1x_PortDpRxWrite(InstancePtr, Offset++, &Value,
-								sizeof(Value));
+			sizeof(Value));
 	}
 
 	return (Status);
@@ -423,8 +426,9 @@ static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 * @return	None.
 *
 * @note		This function initiates the side effects of the tx device
-*		writing the Aksv register. This is currently updates some status
-*		bits as well as kick starts a re-authentication process.
+*		writing the Aksv register. This is currently updates some
+*		status bits as well as kick starts a re-authentication
+*		process.
 *
 ******************************************************************************/
 static void XHdcp1x_PortDpRxProcessAKsvWrite(void *CallbackRef)
@@ -499,8 +503,8 @@ static void XHdcp1x_PortDpRxProcessRoRead(void *CallbackRef)
 * @return	None.
 *
 * @note		This function initiates the side effects of the tx device read
-*		the Binfo register. This is currently limited to the clearing of
-*		bits within device's Bstatus register.
+*		the Binfo register. This is currently limited to the clearing
+*		of bits within device's Bstatus register.
 *
 ******************************************************************************/
 static void XHdcp1x_PortDpRxProcessBinfoRead(void *CallbackRef)

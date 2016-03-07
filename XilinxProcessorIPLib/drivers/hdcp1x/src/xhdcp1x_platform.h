@@ -70,7 +70,6 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 
 int XHdcp1x_PlatformIsKsvRevoked(const XHdcp1x *InstancePtr, u64 Ksv);
-
 int XHdcp1x_PlatformTimerStart(XHdcp1x *InstancePtr, u16 TimeoutInMs);
 int XHdcp1x_PlatformTimerStop(XHdcp1x *InstancePtr);
 int XHdcp1x_PlatformTimerBusy(XHdcp1x *InstancePtr, u16 DelayInMs);
