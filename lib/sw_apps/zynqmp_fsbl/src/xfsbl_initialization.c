@@ -355,6 +355,35 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	 */
 	XFsbl_RegisterHandlers();
 
+	/* Prints for the perf measurement */
+#ifdef FSBL_PERF
+
+#if !defined(ARMR5)
+	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Proc: A53-0 Freq: %d Hz",
+				XPAR_CPU_CORTEXA53_0_CPU_CLK_FREQ_HZ);
+
+		if (FsblInstancePtr->A53ExecState == XIH_PH_ATTRB_A53_EXEC_ST_AA32) {
+			XFsbl_Printf(DEBUG_PRINT_ALWAYS, " Arch: 32 \r\n");
+		}
+		else if (FsblInstancePtr->A53ExecState ==
+				XIH_PH_ATTRB_A53_EXEC_ST_AA64) {
+			XFsbl_Printf(DEBUG_PRINT_ALWAYS, " Arch: 64 \r\n");
+		}
+	}
+#else
+	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_R5_0) {
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Proc: R5-0 Freq: %d Hz \r\n",
+				XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ)
+	}
+	else if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_R5_L) {
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Proc: R5-Lockstep "
+			"Freq: %d Hz \r\n", XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ);
+	}
+#endif
+
+#endif
+
 END:
 	return Status;
 }
@@ -463,7 +492,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	/**
 	 * psu initialization
 	 */
-    Status = (u32)psu_init();
+	Status = (u32)psu_init();
 	if (XFSBL_SUCCESS != Status) {
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_PSU_INIT_FAILED\n\r");
 		/**
@@ -473,6 +502,10 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 		Status = XFSBL_PSU_INIT_FAILED + Status;
 		goto END;
 	}
+
+#ifdef FSBL_PERF
+	XTime_GetTime(&(FsblInstancePtr->PerfTime.tFsblStart));
+#endif
 
 #if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 	/* For A53, mark DDR region as "Memory" as DDR initialization is done */
@@ -712,6 +745,37 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
+
+#ifdef FSBL_PERF
+	if (BootMode == XFSBL_QSPI24_BOOT_MODE || BootMode == XFSBL_QSPI32_BOOT_MODE)
+	{
+#if defined (XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ)
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Qspi, Freq: %0d Hz\r\n"
+				, XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ);
+#endif
+	}
+	else if (BootMode == XFSBL_NAND_BOOT_MODE)
+	{
+#if defined (XPAR_XNANDPSU_0_NAND_CLK_FREQ_HZ)
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Nand, Freq: %0d Hz\r\n"
+						, XPAR_XNANDPSU_0_NAND_CLK_FREQ_HZ);
+#endif
+	}
+	else if (BootMode == XFSBL_SD0_BOOT_MODE || BootMode == XFSBL_SD1_BOOT_MODE
+		|| BootMode == XFSBL_SD1_LS_BOOT_MODE || BootMode == XFSBL_EMMC_BOOT_MODE)
+	{
+#if defined (XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ) && defined (XPAR_XSDPS_1_SDIO_CLK_FREQ_HZ)
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "SD0/eMMC, Freq: %0d Hz \r\n"
+						, XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ);
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "SD1, Freq: %0d Hz \r\n"
+						, XPAR_XSDPS_1_SDIO_CLK_FREQ_HZ);
+#elif defined (XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ) && !defined (XPAR_XSDPS_1_SDIO_CLK_FREQ_HZ)
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, "SD/eMMC, Freq: %0d Hz \r\n"
+						, XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ);
+
+#endif
+	}
+#endif
 
 END:
 	return Status;

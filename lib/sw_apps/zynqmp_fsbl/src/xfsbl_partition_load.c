@@ -946,11 +946,22 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 						PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK ) {;}
 	}
 
+#ifdef FSBL_PERF
+	XTime tCur = 0;
+	XTime_GetTime(&tCur);
+#endif
 	/**
 	 * Copy the partition to PS_DDR/PL_DDR/TCM
 	 */
 	Status = FsblInstancePtr->DeviceOps.DeviceCopy(SrcAddress,
 					LoadAddress, Length);
+
+#ifdef FSBL_PERF
+	XFsbl_MeasurePerfTime(tCur);
+	XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%u Copy time, Size: %0u \r\n",
+				PartitionNum, Length);
+#endif
+
 	if (XFSBL_SUCCESS != Status)
 	{
 		goto END;
@@ -1002,6 +1013,10 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 #ifndef XFSBL_PS_DDR
 	u32 SrcAddress = 0U;
+#endif
+
+#ifdef FSBL_PERF
+	XTime tCur = 0;
 #endif
 
 	/**
@@ -1140,6 +1155,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 */
 		Xil_DCacheDisable();
 
+#ifdef FSBL_PERF
+		/* Start time for partition authentication */
+		XTime_GetTime(&tCur);
+#endif
+
 #ifdef	XFSBL_PS_DDR
 		/**
 		 * Do the authentication validation
@@ -1180,6 +1200,12 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 #endif
 
+#ifdef FSBL_PERF
+		XFsbl_MeasurePerfTime(tCur);
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d Auth. Time \r\n",
+					PartitionNum);
+#endif
+
 		if (Status != XFSBL_SUCCESS)
 		{
 			goto END;
@@ -1215,6 +1241,10 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 
 		if (DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL) {
+#ifdef FSBL_PERF
+			/* Start time for non bitstream partition decryption */
+			XTime_GetTime(&tCur);
+#endif
 			Status = XSecure_AesDecrypt(&SecureAes,
 					(u8 *) LoadAddress, (u8 *) LoadAddress,
 					UnencryptedLength);
@@ -1228,6 +1258,12 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				XFsbl_Printf(DEBUG_GENERAL,
 					"Decryption Successful\r\n");
 			}
+
+#ifdef FSBL_PERF
+			XFsbl_MeasurePerfTime(tCur);
+			XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d Dec. Time \r\n",
+							PartitionNum);
+#endif
 		}
 #else
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_AES_NOT_ENABLED \r\n");
@@ -1263,6 +1299,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 		if (IsEncryptionEnabled == TRUE) {
 #ifdef XFSBL_AES
+
+#ifdef FSBL_PERF
+			/* Start time for bitstream decryption */
+			XTime_GetTime(&tCur);
+#endif
 			/*
 			 * The secure bitstream would be sent through CSU DMA to AES
 			 * and the decrypted bitstream is sent directly to PCAP
@@ -1294,6 +1335,12 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 					UnencryptedLength);
 #endif
 
+#ifdef FSBL_PERF
+			XFsbl_MeasurePerfTime(tCur);
+			XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d (sec. bitstream)"
+						" Dec. + Pcap Load Time \r\n", PartitionNum);
+#endif
+
 			if (Status != XFSBL_SUCCESS) {
 				Status = XFSBL_ERROR_BITSTREAM_DECRYPTION_FAIL;
 				XFsbl_Printf(DEBUG_GENERAL,
@@ -1308,6 +1355,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 		}
 		else {
+#ifdef FSBL_PERF
+			/* Start time for non sec. bitstream download */
+			XTime_GetTime(&tCur);
+#endif
+
 #ifdef XFSBL_PS_DDR
 			/* Use CSU DMA to load Bit stream to PL */
 			BitstreamWordSize =
@@ -1325,6 +1377,12 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				goto END;
 			}
 
+#endif
+
+#ifdef FSBL_PERF
+			XFsbl_MeasurePerfTime(tCur);
+			XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d "
+					"(nsec. bitstream) dwnld Time \r\n", PartitionNum);
 #endif
 		}
 
