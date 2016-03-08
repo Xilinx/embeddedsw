@@ -521,6 +521,12 @@ extern "C" {
 #define GPIO_DIRM_1    ( ( GPIO_BASEADDR ) + 0X00000244U )
 #define GPIO_OEN_1     ( ( GPIO_BASEADDR ) + 0X00000248U )
 
+/* IOU_SLCR Base Address */
+#define IOU_SLCR_BASEADDR      0XFF180000U
+
+/* Register: IOU_SLCR_SD_CDN_CTRL */
+#define IOU_SLCR_SD_CDN_CTRL    ( ( IOU_SLCR_BASEADDR ) + 0X0000035CU )
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/

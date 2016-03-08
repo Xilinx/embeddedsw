@@ -490,6 +490,14 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	}
 
 	/**
+	 * For 1.0 and 2.0 Silicon, a workaround is needed to clear card detect
+	 * control bits, to enable SD card insert/remove detection.
+	 */
+	if (XGetPSVersion_Info() <= XPS_VERSION_2) {
+		XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, 0X0U);
+	}
+
+	/**
 	 * psu initialization
 	 */
 	Status = (u32)psu_init();
