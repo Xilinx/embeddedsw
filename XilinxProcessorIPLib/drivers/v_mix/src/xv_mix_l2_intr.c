@@ -33,6 +33,8 @@
 /**
 *
 * @file xv_mix_l2_intr.c
+* @addtogroup v_mix
+* @{
 *
 * The functions in this file provides interrupt handler and associated
 * functions that are consumed by layer-2
@@ -129,3 +131,4 @@ void XVMix_InterruptHandler(void *InstancePtr)
     XV_mix_Start(&MixPtr->Mix);
   }
 }
+/** @} */

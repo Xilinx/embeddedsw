@@ -116,6 +116,7 @@ typedef struct {
   u16 MaxWidth;          /**< Maximum columns supported by core instance */
   u16 MaxHeight;         /**< Maximum rows supported by core instance */
   u16 MaxDataWidth;      /**< Maximum Data width of each channel */
+  u16 ColorFormat;       /**< Master layer color format */
   u8  NumLayers;         /**< Number of layers supported */
   u8  LogoEn;            /**< Logo layer support indicator flag  */
   u16 MaxLogoWidth;      /**< Maximum columns supported by log layer */
