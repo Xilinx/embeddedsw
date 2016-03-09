@@ -43,6 +43,9 @@
 #		      CR#789373
 # 3.0	pkp  12/09/14 Added support for Zynq Ultrascale Mp
 # 3.2	pkp  27/01/16 Added the support for PL IP interrupts for ZynqMP Soc
+# 3.2	pkp  09/03/16 Compute the interrupt ID instead of reading from
+#		      interrupt pin property for PL ips in get_psu_interrupt_id
+#		      for zynqmpsoc to fix CR#940127
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -660,14 +663,6 @@ proc get_psu_interrupt_id { ip_name port_name } {
         }
 
     }
-
-    set irqid [common::get_property IRQID $intr_pin]
-
-    if { [llength $irqid] != 0 && [is_interrupt $intc_type] } {
-        set irqid [split $irqid ":"]
-        return $irqid
-    }
-
     set intc_src_ports [::hsi::utils::get_interrupt_sources $intc_periph]
 
     #Special Handling for cascading case of axi_intc Interrupt controller
