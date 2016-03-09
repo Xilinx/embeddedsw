@@ -33,6 +33,9 @@
 /**
 *
 * @file xv_mix_l2.h
+* @addtogroup v_mix
+* @{
+* @details
 *
 * This header file contains layer 2 API's of the mixer core driver.
 * The functions contained herein provides a high level implementation of
@@ -48,8 +51,8 @@
 * 	   - Color format for each layer is set at build time
 * 	- 1 Logo Layer (optional)
 * 	- Logo Layer Color Key feature (optional)
-*   - Alpha Level (8 bit) per layer (optional)
-*   - Scale (1x, 2x, 4x) capability per layer (optional)
+* 	- Alpha Level (8 bit) per layer (optional)
+* 	- Scale (1x, 2x, 4x) capability per layer (optional)
 *
 * <b>Dependency</b>
 *
@@ -91,16 +94,16 @@
 * <b> Interrupts </b>
 *
 * Driver is configured to operate both in polling as well as interrupt mode.
-* 	- To use interrupt based processing application must set up the system's
+* 	- To use interrupt based processing, application must set up the system's
 * 	  interrupt controller and connect the XVMix_InterruptHandler function to
 * 	  service interrupts. Next interrupts must be enabled using the provided
 * 	  API. When an interrupt occurs, ISR will confirm if frame processing is
-* 	  is done. If call back is registered such function will be called.
-* 	  Application can apply new setting updates here. Subsequently next frame
+* 	  is done. If call back is registered such function will be called and
+* 	  application can apply new setting updates here. Subsequently next frame
 * 	  processing will be triggered with new settings.
-* 	- To use poling method disable interrupts using the provided API. Doing so
+* 	- To use polling method disable interrupts using the provided API. Doing so
 * 	  will configure the IP to keep processing frames without sw intervention.
-*   (Polling mode is the default configuration set during driver initialization)
+* 	- Polling mode is the default configuration set during driver initialization
 *
 * <b> Virtual Memory </b>
 *
@@ -121,6 +124,8 @@
 *             12/14/15   Added interrupt handler
 *             02/12/16   Added Stride and memory Alignement requirements
 *             02/25/16   Replace GetColorFromat function with a macro
+*             03/08/16   Replace GetColorFromat macro with function and added
+*                        master layer video format
 * </pre>
 *
 ******************************************************************************/
@@ -287,23 +292,21 @@ typedef struct {
 ******************************************************************************/
 #define XVMix_GetBackgndColor(InstancePtr)        ((InstancePtr)->BkgndColor)
 
-
 /*****************************************************************************/
 /**
 *
-* This macro returns the video format for the specified memory layer
+* This macro returns the interface type for the specified layer
 *
 * @param    InstancePtr is a pointer to the core instance.
 * @param    LayerId is the layer index for which information is requested
 *
-* @return   Video Format
+* @return   Layer Interface Type
 *
 * @note     None.
 *
 ******************************************************************************/
-#define XVMix_GetLayerColorFormat(InstancePtr, LayerId)  \
-		              ((InstancePtr)->Mix.Config.LayerColorFmt[LayerId-1])
-
+#define XVMix_GetLayerInterfaceType(InstancePtr, LayerId)  \
+		              ((InstancePtr)->Mix.Config.LayerIntrfType[LayerId-1])
 
 /*****************************************************************************/
 /**
@@ -398,7 +401,7 @@ void XVMix_SetBackgndColor(XV_Mix_l2 *InstancePtr,
 int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
                          XVMix_LayerId LayerId,
                          XVidC_VideoWindow *Win,
-						 u32 StrideInBytes);
+                         u32 StrideInBytes);
 int XVMix_GetLayerWindow(XV_Mix_l2 *InstancePtr,
                          XVMix_LayerId LayerId,
                          XVidC_VideoWindow *Win);
@@ -423,9 +426,12 @@ int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
 u32 XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
-		                  XVMix_LogoColorKey ColorKeyData);
+                          XVMix_LogoColorKey ColorKeyData);
 int XVMix_GetLogoColorKey(XV_Mix_l2 *InstancePtr,
-		                  XVMix_LogoColorKey *ColorKeyData);
+                          XVMix_LogoColorKey *ColorKeyData);
+int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
+                              XVMix_LayerId LayerId,
+                              XVidC_ColorFormat *Cfmt);
 
 int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
                    XVidC_VideoWindow *Win,
