@@ -308,6 +308,8 @@ Modified tcl to support PL interrupts for ZynqMP Soc
 Modified the DistributorInit in xscigic.c. The change ensures that for Zynq AMP case
 the GIC distributor is left unchanged under the assumption that Linux master will
 initialize it. The change fixes the CR#937243.
+Modified scugic tcl to compute the interrupt ID instead of reading from interrupt pin
+property for PL ips in get_psu_interrupt_id for zynqmpsoc to fix CR#940127
 
 sdps_v2_7:
 Made changes to considered the slot type befoe checking CD/WP pins.
