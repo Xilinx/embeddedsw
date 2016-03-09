@@ -45,6 +45,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/19/15 Initial release.
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support.
+ * 1.2   MG   03/08/16 Fixed issue in function XVphy_HdmiCfgCalcMmcmParam
+ *                       for single pixel calculation.
  * </pre>
  *
 *******************************************************************************/
@@ -1067,6 +1069,8 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 				(InstancePtr->HdmiTxSampleRate) : 1);
 
 		/* Video clock. */
+		MmcmPtr->ClkOut2Div = 0;
+
 		switch (Bpc) {
 		case XVIDC_BPC_10:
 			/* Quad pixel. */
@@ -1077,15 +1081,27 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 			}
 			/* Dual pixel. */
 			else if (Ppc == (XVIDC_PPC_2)) {
-				MmcmPtr->ClkOut2Div = (Mult * 5 / 2 *
-					((Dir == XVPHY_DIR_TX)?
-					(InstancePtr->HdmiTxSampleRate) : 1));
+				/* The clock ratio is 2.5 */
+				/* The PLL only supports integer values */
+				/* The mult must be dividable by two (2 * 2.5 = 5)
+					to get an integer number */
+				if ((Mult % 2) == 0) {
+					MmcmPtr->ClkOut2Div = (Mult * 5 / 2 *
+						((Dir == XVPHY_DIR_TX)?
+						(InstancePtr->HdmiTxSampleRate) : 1));
+				}
 			}
 			/* Single pixel. */
 			else {
-				MmcmPtr->ClkOut2Div = (Mult * 5 / 4 *
-					((Dir == XVPHY_DIR_TX) ?
-					(InstancePtr->HdmiTxSampleRate) : 1));
+				/* The clock ratio is 1.25 */
+				/* The PLL only supports integer values */
+				/* The mult must be dividable by four (4 * 1.25 = 5)
+					to get an integer number */
+				if ((Mult % 4) == 0) {
+					MmcmPtr->ClkOut2Div = (Mult * 5 / 4 *
+						((Dir == XVPHY_DIR_TX) ?
+						(InstancePtr->HdmiTxSampleRate) : 1));
+				}
 			}
 			break;
 		case XVIDC_BPC_12:
@@ -1103,9 +1119,15 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 			}
 			/* Single pixel. */
 			else {
-				MmcmPtr->ClkOut2Div = (Mult * 3 / 2 *
-					((Dir == XVPHY_DIR_TX) ?
-					(InstancePtr->HdmiTxSampleRate) : 1));
+				/* The clock ratio is 1.5 */
+				/* The PLL only supports integer values */
+				/* The mult must be dividable by two (2 * 1.5 = 3)
+					to get an integer number */
+				if ((Mult % 2) == 0) {
+					MmcmPtr->ClkOut2Div = (Mult * 3 / 2 *
+						((Dir == XVPHY_DIR_TX) ?
+						(InstancePtr->HdmiTxSampleRate) : 1));
+				}
 			}
 			break;
 		case XVIDC_BPC_16 :
@@ -1151,9 +1173,24 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 			break;
 		}
 
-		if (Dir == XVPHY_DIR_RX) {
-			/* Correct divider value if TMDS clock ratio is 1/40. */
-			if (InstancePtr->HdmiRxTmdsClockRatio) {
+		/* Only do this when the ClkOut2Div has been set */
+		if (MmcmPtr->ClkOut2Div) {
+			if (Dir == XVPHY_DIR_RX) {
+				/* Correct divider value if TMDS clock ratio is 1/40. */
+				if (InstancePtr->HdmiRxTmdsClockRatio) {
+					if ((MmcmPtr->ClkOut2Div % 4) == 0) {
+						MmcmPtr->ClkOut2Div =
+							MmcmPtr->ClkOut2Div / 4;
+					}
+					/* Not divisible by 4: repeat loop with a lower
+					 * multiply value. */
+					else {
+						MmcmPtr->ClkOut2Div = 255;
+					}
+				}
+			}
+			/* TX. */
+			else if ((LineRate / 1000000) >= 3400) {
 				if ((MmcmPtr->ClkOut2Div % 4) == 0) {
 					MmcmPtr->ClkOut2Div =
 						MmcmPtr->ClkOut2Div / 4;
@@ -1165,23 +1202,12 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 				}
 			}
 		}
-		/* TX. */
-		else if ((LineRate / 1000000) >= 3400) {
-			if ((MmcmPtr->ClkOut2Div % 4) == 0) {
-				MmcmPtr->ClkOut2Div =
-					MmcmPtr->ClkOut2Div / 4;
-			}
-			/* Not divisible by 4: repeat loop with a lower
-			 * multiply value. */
-			else {
-				MmcmPtr->ClkOut2Div = 255;
-			}
-		}
 
 		/* Check values. */
 		if ((MmcmPtr->ClkOut0Div <= 128) &&
 				(MmcmPtr->ClkOut1Div <= 128) &&
-				(MmcmPtr->ClkOut2Div <= 128)) {
+				(MmcmPtr->ClkOut2Div <= 128) &&
+				(MmcmPtr->ClkOut2Div > 0)) {
 			Valid = (TRUE);
 		}
 		else {
