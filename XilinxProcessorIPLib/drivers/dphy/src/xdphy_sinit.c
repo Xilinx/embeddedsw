@@ -36,8 +36,7 @@
 *
 * @addtogroup dphy_v1_0
 * @{
-* @details
-
+*
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xdphy_g.c, generated automatically by XPS or
 * manually by the user.
