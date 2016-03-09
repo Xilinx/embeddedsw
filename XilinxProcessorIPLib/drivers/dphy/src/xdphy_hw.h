@@ -34,7 +34,6 @@
 * @file xdphy_hw.h
 * @addtogroup xdphy_v1_0
 * @{
-* @details
 *
 * Hardware definition file. It defines the register interface.
 *

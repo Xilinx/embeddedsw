@@ -36,7 +36,6 @@
 *
 * @addtogroup dphy_v1_0
 * @{
-* @details
 *
 * Contains diagnostic/self-test functions for the XDphy component.
 *
