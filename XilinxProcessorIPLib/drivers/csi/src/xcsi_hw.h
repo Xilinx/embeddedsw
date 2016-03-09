@@ -34,7 +34,6 @@
 * @file xcsi_hw.h
 * @addtogroup csi_v1_0
 * @{
-* @details
 *
 * Hardware register & masks definition file. It defines the register interface.
 *

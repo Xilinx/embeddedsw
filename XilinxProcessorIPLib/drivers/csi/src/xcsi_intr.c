@@ -35,7 +35,6 @@
 * @file xcsi_intr.c
 * @addtogroup csi_v1_0
 * @{
-* @details
 *
 * This file implements the functions which handle the interrupts and callbacks
 * in the CSI2 Rx Controller.
