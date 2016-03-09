@@ -45,6 +45,8 @@
 * 5.04  pkp		 02/19/16 sleep routine is modified to use TTC3 if present
 *						  else it will use set of assembly instructions to
 *						  provide the required delay
+* 5.04	pkp		 03/09/16 Assembly routine for sleep is modified to avoid
+*						  disabling the interrupt
 * </pre>
 *
 ******************************************************************************/
@@ -67,7 +69,11 @@
 *			When TTC3 is absent, sleep is implemented using assembly
 *			instructions which is tested with instruction and data caches
 *			enabled and it gives proper delay. It may give more delay than
-*			exepcted when caches are disabled.
+*			exepcted when caches are disabled. If interrupt comes when sleep
+*			using assembly instruction is being executed, the delay may be
+*			greater than what is expected since once the interrupt is served
+*			count resumes from where it was interrupted unlike the case of TTC3
+*			where counter keeps running while interrupt is being served.
 *
 ****************************************************************************/
 
@@ -86,12 +92,6 @@ s32 sleep(u32 seconds)
 
 	return 0;
 #else
-
-    u32 currmask;
-	currmask = mfcpsr();
-	/*disable the interrupts*/
-	mtcpsr(currmask | IRQ_FIQ_MASK);
-
 	__asm__ __volatile__ (
 			" push {r0,r1}		\n\t"
 			" mov r0, %[sec]	\n\t"
@@ -105,6 +105,5 @@ s32 sleep(u32 seconds)
 			" pop {r0,r1} 		\n\t"
 			:: [iter] "r" (ITERS_PER_SEC), [sec] "r" (seconds)
 	);
-	mtcpsr(currmask);
 #endif
 }

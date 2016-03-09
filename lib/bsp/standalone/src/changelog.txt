@@ -315,4 +315,7 @@
  *		       definitions which can be used by C
  * 5.4 asa   03/02/16  Added print.c in MB BSP. Made other cosmetic changes to have uniform
  *                     proto for all print.c across the BSPs. This patch fixes CR#938738.
+ * 5.4 pkp   03/09/16  Modified cortexr5/sleep.c and usleep.c to avoid disabling the
+ *		       interrupts when sleep/usleep is being executed using assembly
+ *		       instructions to fix CR#913249.
  *****************************************************************************************/
