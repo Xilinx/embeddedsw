@@ -4,6 +4,7 @@ Change Log for lwip
 	* Add Support for Axi Etherent on ZyqnMP.
 	* Update lwip.tcl to export proper gic baseadress for r5
 	  to fix issues with AxiEthernet on ZynqMP R5.
+	* Fix compilation errors for Axi Ethernet on ZynqMP.
 2016-01-14
 	* Created a new version lwip141_v1_4
 	* Made changes for lwip to work with A53 with caches enabled.
