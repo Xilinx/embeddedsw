@@ -28,6 +28,6 @@ When executed on the board the example application will perform following operat
 	4. Program TPG to generate required video stream
 	5. Check for Video Lock
 	6. If Locked, run defined tests on video mixer IP
-	7. Repeat Steps 1-6 for defined video streams
+	7. Repeat Steps 1-6 for defined video streams (1080p/60 and 4k2k/30)
 
 Note: Serial terminal baud rate should be set to 9600

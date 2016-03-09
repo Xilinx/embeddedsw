@@ -34,8 +34,8 @@
 *
 * @file main.c
 *
-* This file demonstrates the example usage of TPG IP available in catalogue
-* Please refer v_tpg example design guide for details on HW setup
+* This file demonstrates the example usage of Mixer IP available in catalogue
+* Please refer v_mix example design guide for details on HW setup
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -44,6 +44,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   11/24/15   Initial Release
 *             02/05/16   Add Logo test
+*             03/08/16   Add configuration table for all layers, replace
+*                        delay with polling with time out
 * </pre>
 *
 ******************************************************************************/
@@ -55,6 +57,7 @@
 #include "xv_mix_l2.h"
 #include "xvtc.h"
 #include "xintc.h"
+#include "xgpio.h"
 
 #define NUM_TEST_MODES    (2)
 
@@ -62,19 +65,43 @@
 #define XVMIX_LAYER1_BASEADDR      (XPAR_MIG7SERIES_0_BASEADDR + (0x20000000))
 #define XVMIX_LAYER_ADDR_OFFSET    (0x01000000U)
 
+#define VIDEO_MONITOR_LOCK_TIMEOUT (2000000)
+
 extern unsigned char Logo_R[];
 extern unsigned char Logo_G[];
 extern unsigned char Logo_B[];
 
-XV_tpg	   tpg;
+XV_tpg     tpg;
 XV_Mix_l2  mix;
 XVtc       vtc;
 XIntc      intc;
+XGpio      vmon;
 
 XVidC_VideoStream VidStream;
 
 u32 volatile *gpio_hlsIpReset;
-u32 volatile *gpio_videoLockMonitor;
+
+static const XVidC_VideoWindow MixLayerConfig[7] =
+{// X   Y     W    H
+  {12,  10,  128, 128}, //Layer 1
+  {200, 10,  128, 128}, //Layer 2
+  {400, 10,  128, 128}, //Layer 3
+  {600, 10,  128, 128}, //Layer 4
+  {800, 100, 128, 128}, //Layer 5
+  {12,  100, 128, 128}, //Layer 6
+  {200, 100, 128, 128}, //Layer 7
+};
+
+/*****************************************************************************/
+/**
+ * This macro reads GPIO to check video lock status
+ *
+ * @param  GpioPtr is pointer to the gpio Instance
+ * @return T/F
+ *
+ *****************************************************************************/
+#define XVMonitor_IsVideoLocked(GpioPtr)   (XGpio_DiscreteRead(GpioPtr, 1))
+
 
 static int DriverInit(void);
 static int SetupInterrupts(void);
@@ -105,8 +132,8 @@ static int SetupInterrupts(void)
 
   /* Hook up interrupt service routine */
   Status = XIntc_Connect(IntcPtr,
-		                 XPAR_MICROBLAZE_SS_AXI_INTC_0_V_MIX_0_INTERRUPT_INTR,
-						 (XInterruptHandler)XVMix_InterruptHandler, &mix);
+                         XPAR_MICROBLAZE_SS_AXI_INTC_0_V_MIX_0_INTERRUPT_INTR,
+                         (XInterruptHandler)XVMix_InterruptHandler, &mix);
   if (Status != XST_SUCCESS) {
     xil_printf("ERR:: Mixer interrupt connect failed!\r\n");
     return XST_FAILURE;
@@ -139,17 +166,18 @@ static int DriverInit(void)
 {
   int Status;
   XVtc_Config *vtc_Config;
+  XGpio_Config *GpioCfgPtr;
 
   vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
   if(vtc_Config == NULL) {
-	xil_printf("ERR:: VTC device not found\r\n");
-	return(XST_FAILURE);
+    xil_printf("ERR:: VTC device not found\r\n");
+    return(XST_FAILURE);
   }
 
   Status = XVtc_CfgInitialize(&vtc, vtc_Config, vtc_Config->BaseAddress);
   if(Status != XST_SUCCESS) {
-	xil_printf("ERR:: VTC Initialization failed %d\r\n", Status);
-	return(XST_FAILURE);
+    xil_printf("ERR:: VTC Initialization failed %d\r\n", Status);
+    return(XST_FAILURE);
   }
 
   Status = XV_tpg_Initialize(&tpg, XPAR_V_TPG_0_DEVICE_ID);
@@ -161,6 +189,21 @@ static int DriverInit(void)
   Status  = XVMix_Initialize(&mix, XPAR_V_MIX_0_DEVICE_ID);
   if(Status != XST_SUCCESS) {
     xil_printf("ERR:: Mixer device not found\r\n");
+    return(XST_FAILURE);
+  }
+
+  //Video Lock Monitor
+  GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
+  if(GpioCfgPtr == NULL) {
+    xil_printf("ERR:: Video Lock Monitor GPIO device not found\r\n");
+    return(XST_FAILURE);
+  }
+
+  Status = XGpio_CfgInitialize(&vmon,
+                               GpioCfgPtr,
+                               GpioCfgPtr->BaseAddress);
+  if(Status != XST_SUCCESS)  {
+    xil_printf("ERR:: Video Lock Monitor GPIO Initialization failed %d\r\n", Status);
     return(XST_FAILURE);
   }
 
@@ -234,18 +277,20 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
   u32 MemAddr;
 
   /* Setup default config after reset */
+  XVMix_LayerDisable(MixerPtr, XVMIX_LAYER_MASTER);
+  XVMix_SetVidStream(MixerPtr, StreamPtr);
 
   /* Set Memory Layer Addresses */
   NumLayers = XVMix_GetNumLayers(MixerPtr);
   MemAddr = XVMIX_LAYER1_BASEADDR;
   for(index = XVMIX_LAYER_1; index < NumLayers; ++index) {
-	  Status = XVMix_SetLayerBufferAddr(MixerPtr, index, MemAddr);
-	  if(Status != XST_SUCCESS) {
-		  xil_printf("MIXER ERR:: Unable to set layer %d buffer addr to 0x%X\r\n",
-				      index, MemAddr);
-	  } else {
-	      MemAddr += XVMIX_LAYER_ADDR_OFFSET;
-	  }
+      Status = XVMix_SetLayerBufferAddr(MixerPtr, index, MemAddr);
+      if(Status != XST_SUCCESS) {
+          xil_printf("MIXER ERR:: Unable to set layer %d buffer addr to 0x%X\r\n",
+                      index, MemAddr);
+      } else {
+          MemAddr += XVMIX_LAYER_ADDR_OFFSET;
+      }
   }
 
   if(XVMix_IsLogoEnabled(MixerPtr)) {
@@ -256,16 +301,17 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
     Win.Width  = 64;
     Win.Height = 64;
 
-    XVMix_LoadLogo(MixerPtr,
-		           &Win,
-	               Logo_R,
-	               Logo_G,
-	               Logo_B);
+    Status = XVMix_LoadLogo(MixerPtr,
+                            &Win,
+                            Logo_R,
+                            Logo_G,
+                            Logo_B);
+    if(Status != XST_SUCCESS) {
+      xil_printf("MIXER ERR:: Unable to load Logo \r\n");
+    }
   }
   XVMix_SetBackgndColor(MixerPtr, XVMIX_BKGND_BLUE, StreamPtr->ColorDepth);
 
-  XVMix_LayerDisable(MixerPtr, XVMIX_LAYER_MASTER);
-  XVMix_SetVidStream(MixerPtr, StreamPtr);
   XVMix_LayerEnable(MixerPtr, XVMIX_LAYER_MASTER);
   XVMix_InterruptDisable(MixerPtr);
   XVMix_Start(MixerPtr);
@@ -282,11 +328,21 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
 static int CheckVidoutLock(void)
 {
   int Status = FALSE;
+  int Lock = FALSE;
+  u32 Timeout;
 
-  if(*gpio_videoLockMonitor) {
-      xil_printf("Locked\r\n");
-      Status = TRUE;
-  } else {
+  Timeout = VIDEO_MONITOR_LOCK_TIMEOUT;
+
+  while(!Lock && Timeout) {
+    if(XVMonitor_IsVideoLocked(&vmon)) {
+        xil_printf("Locked\r\n");
+        Lock = TRUE;
+        Status = TRUE;
+    }
+    --Timeout;
+  }
+
+  if(!Timeout) {
       xil_printf("<ERR:: Not Locked>\r\n\r\n");
   }
   return(Status);
@@ -318,7 +374,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   xil_printf("Disable Master Layer: ");
   Status = XVMix_LayerDisable(MixerPtr, XVMIX_LAYER_MASTER);
   if(Status == XST_SUCCESS) {
-	  ErrorCount += (!CheckVidoutLock() ? 1 : 0);
+      ErrorCount += (!CheckVidoutLock() ? 1 : 0);
   } else {
       xil_printf("<ERR:: Command Failed>\r\n");
       ++ErrorCount;
@@ -327,7 +383,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   xil_printf("Enable  Master Layer: ");
   Status = XVMix_LayerEnable(MixerPtr, XVMIX_LAYER_MASTER);
   if(Status == XST_SUCCESS) {
-	  ErrorCount += (!CheckVidoutLock() ? 1 : 0);
+      ErrorCount += (!CheckVidoutLock() ? 1 : 0);
   } else {
       xil_printf("<ERR:: Command Failed>\r\n");
       ++ErrorCount;
@@ -336,9 +392,8 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
    /* Test 2: Memory layer En
       - Set layer window
       - Set layer Alpha, if available
-      - Enable layer
-      - Check video lock
       - Set layer scaling, if available
+      - Enable layer
       - Check video lock
       - Move layer window
       - Check video lock
@@ -346,26 +401,22 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
       - Check video lock
   */
   for(layerIndex=XVMIX_LAYER_1; layerIndex<XVMix_GetNumLayers(MixerPtr); ++layerIndex) {
+
     xil_printf("\r\n--> Test Memory Layer %d <--\r\n", layerIndex);
     baseaddr = XVMix_GetLayerBufferAddr(MixerPtr, layerIndex);
     xil_printf("   Layer Buffer Addr: 0x%X\r\n", baseaddr);
 
-	Win.StartX = 10;
-	Win.StartY = 10;
-	Win.Width  = 256;
-	Win.Height = 256;
+    Win = MixLayerConfig[layerIndex-1];
 
-	Win.StartX += layerIndex*50; //offset each layer by 50 pixels in horiz. dir
-	Win.StartY += layerIndex*50; //offset each layer by 50 pixels in vert. dir
+    XVMix_GetLayerColorFormat(MixerPtr, layerIndex, &Cfmt);
 
-	Cfmt = XVMix_GetLayerColorFormat(MixerPtr, layerIndex);
     xil_printf("   Layer Color Format: %s\r\n", XVidC_GetColorFormatStr(Cfmt));
-	Stride = ((Cfmt == XVIDC_CSF_YCRCB_422) ? 2: 4); //BytesPerPixel
-	Stride *= Win.Width;
+    Stride = ((Cfmt == XVIDC_CSF_YCRCB_422) ? 2: 4); //BytesPerPixel
+    Stride *= Win.Width;
 
     xil_printf("   Set Layer Window (%3d, %3d, %3d, %3d): ",
-		    Win.StartX, Win.StartY, Win.Width, Win.Height);
-	Status = XVMix_SetLayerWindow(MixerPtr, layerIndex, &Win, Stride);
+            Win.StartX, Win.StartY, Win.Width, Win.Height);
+    Status = XVMix_SetLayerWindow(MixerPtr, layerIndex, &Win, Stride);
     if(Status != XST_SUCCESS) {
         xil_printf("<ERR:: Command Failed>\r\n");
         ++ErrorCount;
@@ -375,7 +426,22 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
 
     xil_printf("   Set Layer Alpha to %d: ", XVMIX_ALPHA_MAX);
     if(XVMix_IsAlphaEnabled(MixerPtr, layerIndex)) {
-	  Status = XVMix_SetLayerAlpha(MixerPtr, layerIndex, XVMIX_ALPHA_MAX);
+      Status = XVMix_SetLayerAlpha(MixerPtr, layerIndex, XVMIX_ALPHA_MAX);
+      if(Status != XST_SUCCESS) {
+        xil_printf("<ERR:: Command Failed>\r\n");
+        ++ErrorCount;
+      } else {
+        xil_printf("Done\r\n");
+      }
+    } else {
+        xil_printf("(Disabled in HW)\r\n");
+    }
+
+    xil_printf("   Set Layer Scale Factor to 2x: ");
+    if(XVMix_IsScalingEnabled(MixerPtr, layerIndex)) {
+      Status = XVMix_SetLayerScaleFactor(MixerPtr,
+                                         layerIndex,
+                                         XVMIX_SCALE_FACTOR_2X);
       if(Status != XST_SUCCESS) {
         xil_printf("<ERR:: Command Failed>\r\n");
         ++ErrorCount;
@@ -397,13 +463,13 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
 
     //Check for vidout lock
     xil_printf("   Check Vidout State: ");
-	ErrorCount += (!CheckVidoutLock() ? 1 : 0);
+    ErrorCount += (!CheckVidoutLock() ? 1 : 0);
 
     xil_printf("   Move window (x+10), (y+10): ");
     Status = XVMix_MoveLayerWindow(MixerPtr,
-		                       layerIndex,
-								   (Win.StartX+10),
-								   (Win.StartY+10));
+                                   layerIndex,
+                                   (Win.StartX+10),
+                                   (Win.StartY+10));
     if(Status != XST_SUCCESS) {
       xil_printf("<ERR:: Command Failed>\r\n");
       ++ErrorCount;
@@ -413,25 +479,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
 
     //Check for vidout lock
     xil_printf("   Check Vidout State: ");
-	ErrorCount += (!CheckVidoutLock() ? 1 : 0);
-
-    xil_printf("   Set Layer Scale Factor to 4x: ");
-    if(XVMix_IsScalingEnabled(MixerPtr, layerIndex)) {
-	  Status = XVMix_SetLayerScaleFactor(MixerPtr,
-			                             layerIndex,
-										 XVMIX_SCALE_FACTOR_4X);
-      if(Status != XST_SUCCESS) {
-        xil_printf("<ERR:: Command Failed>\r\n");
-        ++ErrorCount;
-      } else {
-        xil_printf("Done\r\n");
-        //Check for vidout lock
-        xil_printf("   Check Vidout State: ");
-	ErrorCount += (!CheckVidoutLock() ? 1 : 0);
-      }
-    } else {
-        xil_printf("(Disabled in HW)\r\n");
-    }
+    ErrorCount += (!CheckVidoutLock() ? 1 : 0);
   }
 
   /* Test 3: Memory layer Disable
@@ -444,7 +492,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
     XVMix_LayerDisable(MixerPtr, layerIndex);
 
     //Check for vidout lock
-	ErrorCount += (!CheckVidoutLock() ? 1 : 0);
+    ErrorCount += (!CheckVidoutLock() ? 1 : 0);
   }
 
   /* Test 4: Logo Layer
@@ -461,48 +509,49 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
     xil_printf("   Enable Logo Layer: ");
     Status = XVMix_LayerEnable(MixerPtr, XVMIX_LAYER_LOGO);
     if(Status == XST_SUCCESS) {
-	  ErrorCount += (!CheckVidoutLock() ? 1 : 0);
+      ErrorCount += (!CheckVidoutLock() ? 1 : 0);
     } else {
       xil_printf("<ERR:: Command Failed>\r\n");
       ++ErrorCount;
     }
   } else {
-	 xil_printf("  (Disabled in HW)\r\n");
-	 return(ErrorCount);
+     xil_printf("  (Disabled in HW)\r\n");
+     return(ErrorCount);
   }
 
   {
-	  XVMix_LogoColorKey Data ={{10,10,10},{40,40,40}};
+      XVMix_LogoColorKey Data ={{10,10,10},{40,40,40}};
 
-	  xil_printf("   Set Logo Layer Color Key \r\n  "
-			     "   Min(10,10,10)  Max(40,40,40): ");
-	  if(XVMix_IsLogoColorKeyEnabled(MixerPtr)) {
+      xil_printf("   Set Logo Layer Color Key \r\n  "
+                 "   Min(10,10,10)  Max(40,40,40): ");
+      if(XVMix_IsLogoColorKeyEnabled(MixerPtr)) {
+
         Status = XVMix_SetLogoColorKey(MixerPtr, Data);
-        if(Status == XST_SUCCESS) {
+        if(Status != XST_SUCCESS) {
             xil_printf("<ERR:: Command Failed>\r\n");
             ++ErrorCount;
         } else {
             xil_printf("Done\r\n");
         }
-	  } else {
+      } else {
           xil_printf("(Disabled in HW)\r\n");
       }
 
-	    xil_printf("   Move Logo window (100, 100): ");
-	    Status = XVMix_MoveLayerWindow(MixerPtr,
-			                       XVMIX_LAYER_LOGO,
-									   100,
-									   100);
-	    if(Status != XST_SUCCESS) {
-	      xil_printf("ERR:: Command Failed \r\n");
-	      ++ErrorCount;
-	    } else {
-	      xil_printf("Done\r\n");
-	    }
+      xil_printf("   Move Logo window (100, 100): ");
+      Status = XVMix_MoveLayerWindow(MixerPtr,
+                                     XVMIX_LAYER_LOGO,
+                                     100,
+                                     100);
+      if(Status != XST_SUCCESS) {
+          xil_printf("ERR:: Command Failed \r\n");
+          ++ErrorCount;
+      } else {
+          xil_printf("Done\r\n");
+      }
 
-	    //Check for vidout lock
-	    xil_printf("   Check Vidout State: ");
-		ErrorCount += (!CheckVidoutLock() ? 1 : 0);
+      //Check for vidout lock
+      xil_printf("   Check Vidout State: ");
+      ErrorCount += (!CheckVidoutLock() ? 1 : 0);
   }
 
   xil_printf("   Disable Logo Layer: ");
@@ -529,9 +578,9 @@ void resetIp(void)
 {
   xil_printf("\r\nReset HLS IP \r\n");
   *gpio_hlsIpReset = 0; //reset IPs
-  MB_Sleep(100);        //hold reset line
+  MB_Sleep(1);          //hold reset line
   *gpio_hlsIpReset = 1; //release reset
-  MB_Sleep(200);        //wait
+  MB_Sleep(1);          //wait
 }
 
 /***************************************************************************
@@ -541,10 +590,12 @@ int main(void)
 {
   int Status, index;
   int FailCount = 0;
+  int Lock = FALSE;
+  XVidC_ColorFormat Cfmt;
   XVidC_VideoTiming const *TimingPtr;
   XVidC_VideoMode TestModes[NUM_TEST_MODES] =
   { XVIDC_VM_1080_60_P,
-    XVIDC_VM_720_60_P
+    XVIDC_VM_UHD_30_P
   };
 
   init_platform();
@@ -553,7 +604,6 @@ int main(void)
 
   /* Setup Reset line and video lock monitor */
   gpio_hlsIpReset = (u32*)XPAR_HLS_IP_RESET_BASEADDR;
-  gpio_videoLockMonitor = (u32*)XPAR_VIDEO_LOCK_MONITOR_BASEADDR;
 
   //Release reset line
   *gpio_hlsIpReset = 1;
@@ -561,34 +611,39 @@ int main(void)
   /* Initialize IRQ */
   Status = SetupInterrupts();
   if (Status == XST_FAILURE) {
-	xil_printf("ERR:: Interrupt Setup Failed\r\n");
-	xil_printf("ERR:: Test could not be completed\r\n");
-	while(1);
+    xil_printf("ERR:: Interrupt Setup Failed\r\n");
+    xil_printf("ERR:: Test could not be completed\r\n");
+    while(1);
   }
 
   Status = DriverInit();
   if(Status != XST_SUCCESS) {
-	xil_printf("ERR:: Driver Init. Failed\r\n");
-	xil_printf("ERR:: Test could not be completed\r\n");
-	while(1);
+    xil_printf("ERR:: Driver Init. Failed\r\n");
+    xil_printf("ERR:: Test could not be completed\r\n");
+    while(1);
   }
 
   /* Enable exceptions. */
   Xil_ExceptionEnable();
 
   /* Setup a default stream */
+  /* Color Format for the default stream is set to the mixer master stream
+   * color format
+   */
+  XVMix_GetLayerColorFormat(&mix, XVMIX_LAYER_MASTER, &Cfmt);
+
   VidStream.PixPerClk     = tpg.Config.PixPerClk;
-  VidStream.ColorFormatId = XVIDC_CSF_RGB;
+  VidStream.ColorFormatId = Cfmt;
   VidStream.ColorDepth    = XVIDC_BPC_8;
   VidStream.FrameRate     = XVIDC_FR_60HZ;
 
   resetIp();
 
   /* sanity check */
-  if(*gpio_videoLockMonitor) {
-	xil_printf("ERR:: Video should not be locked\r\n");
-	xil_printf("ERR:: Test could not be completed\r\n");
-	while(1);
+  if(XVMonitor_IsVideoLocked(&vmon)) {
+    xil_printf("ERR:: Video should not be locked\r\n");
+    xil_printf("ERR:: Test could not be completed\r\n");
+    while(1);
   }
 
   for(index=0; index<NUM_TEST_MODES; ++index)
@@ -601,24 +656,24 @@ int main(void)
     VidStream.Timing = *TimingPtr;
     VidStream.FrameRate = XVidC_GetFrameRate(VidStream.VmId);
 
-    xil_printf("\r\n*************************************\r\n");
-    xil_printf("Test Input Stream: %s\r\n", XVidC_GetVideoModeStr(VidStream.VmId));
-    xil_printf("*************************************\r\n");
+    xil_printf("\r\n********************************************\r\n");
+    xil_printf("Test Input Stream: %s (%s)\r\n",
+            XVidC_GetVideoModeStr(VidStream.VmId),
+            XVidC_GetColorFormatStr(VidStream.ColorFormatId));
+    xil_printf("********************************************\r\n");
     ConfigVtc(&VidStream);
     ConfigMixer(&VidStream);
     ConfigTpg(&VidStream);
     xil_printf("Wait for vid out lock: ");
-    MB_Sleep(2000);
 
-    if(!(*gpio_videoLockMonitor)) {
-		xil_printf("Failed\r\n");
-		++FailCount;
+    Lock = CheckVidoutLock();
+    if(Lock) {
+      Status = RunMixerFeatureTests(&VidStream);
+      if(Status != 0) { //problems encountered in feature test
+        ++FailCount;
+      }
     } else {
-	xil_printf("Locked\r\n");
-        Status = RunMixerFeatureTests(&VidStream);
-        if(Status != 0) { //problems encountered in feature test
-		++FailCount;
-        }
+      ++FailCount;
     }
 
     resetIp();
