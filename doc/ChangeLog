@@ -608,6 +608,8 @@ Included instrinsics.h header file to cortexa9/iccarm/xpseudo_asm_iccarm.h for i
 definitions used in C. It also modifies cortexa9/iccarm/Makefile to remove --cpu=Cortex-A9 flag to add it in
 compiler flags of BSP to fix CR#938718
 Fix for CR#938738. Added print.c in MB BSP.
+Updated cortexr5/sleep.c and usleep.c to avoid disabling the interrupts when sleep/usleep is being executed
+using assembly instructions to fix CR#913249.
 
 xilskey_v5_0:
 Modified JtagWrite_Ultrascale.
