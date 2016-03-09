@@ -490,6 +490,7 @@ Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
 Corrected PllParams.Cdr[1] values for DP and HDMI.
 Added GTPE2 and GTHE4 Support and Enhanced Event Log
 Updates for DP GTPE2 Support
+Fixed 1PPC MMCM parameter calculation in HDMI
 
 vprocss_v2_0:
 Made changes in mdd file to update OPTION DEPENDS.
