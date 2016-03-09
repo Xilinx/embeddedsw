@@ -35,7 +35,6 @@
 * @file xcsiss.c
 * @addtogroup csiss_v1_0
 * @{
-* @details
 *
 * This is main code of Xilinx MIPI CSI Rx Subsystem device driver.
 * Please see xcsiss.h for more details of the driver.

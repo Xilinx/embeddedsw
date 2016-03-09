@@ -35,7 +35,6 @@
 * @file xcsiss_sinit.c
 * @addtogroup csiss_v1_0
 * @{
-* @details
 *
 * This file contains the implementation of the MIPI CSI Rx Subsystem
 * driver's static initialization functionality.

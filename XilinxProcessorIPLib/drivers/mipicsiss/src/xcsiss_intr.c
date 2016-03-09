@@ -35,7 +35,6 @@
 * @file xcsiss_intr.c
 * @addtogroup csiss_v1_0
 * @{
-* @details
 *
 * This is the interrupt handling part of the Xilinx MIPI CSI Rx Subsystem
 * device driver. The interrupt registration and handler are defined here.

@@ -35,7 +35,6 @@
 * @file xcsiss_hw.h
 * @addtogroup csiss_v1_0
 * @{
-* @details
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx MIPI CSI Rx Subsystem core.

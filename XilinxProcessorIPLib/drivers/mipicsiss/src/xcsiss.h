@@ -37,7 +37,7 @@
 * @{
 * @details
 *
-* This is main header file of the Xilinx MIPI CSI Rx Subsystem driver
+* This is main header file of the Xilinx MIPI CSI Rx Subsystem driver.
 *
 * <b>MIPI CSI Rx Subsystem Overview</b>
 *
