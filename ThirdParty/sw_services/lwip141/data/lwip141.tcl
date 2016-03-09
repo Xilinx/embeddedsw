@@ -925,7 +925,7 @@ proc update_axi_ethernet_topology {emac processor topologyvar} {
 	set intc_periph_type [lindex $intc_periph_type 1]
     }
 
-	if { [llength $intc_handle] != 1 } {
+	if { [llength $intc_handle] != 1 && $intc_periph_type != [format "psu_acpu_gic"]} {
 		set emac_name [common::get_property NAME $emac]
 		error "ERROR: axi_ethernet ($emac_name) interrupt port connected to more than one IP.\
 			lwIP requires that the interrupt line be connected only to the interrupt controller"
