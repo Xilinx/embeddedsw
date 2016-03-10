@@ -40,6 +40,7 @@
 #		      configured with PCS/PMA Core.
 # 3.0   kpc  01/20/15 Don't include examples when interrupt is not connected
 # 3.2   mus  02/20/16 Added support for microblaze
+# 3.2   hk   03/10/16 Removed support for Zynq Ultrascale+ MPSoC
 ##############################################################################
 
 # Uses $XILINX_EDK/bin/lib/xillib_sw.tcl
@@ -53,10 +54,12 @@
 # TCL Procedures:
 # -----------------------------------------------------------------
 set ispcs_pma 0
+set processor_type 0
 
 proc gen_include_files {swproj mhsinst} {
 
 	global ispcs_pma
+	global processor_type
 
     if {$swproj == 0} {
             return ""
@@ -103,10 +106,16 @@ proc gen_include_files {swproj mhsinst} {
 		}
 	}
 
+	set sw_processor [hsi::get_sw_processor]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
+
 	if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
-            set inc_file_lines {xemacps.h xemacps_example.h emacps_header.h}
-			 return $inc_file_lines
+			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
+				set inc_file_lines {xemacps.h xemacps_example.h emacps_header.h}
+				return $inc_file_lines
+			}
 		}
 	}
     return ""
@@ -114,6 +123,8 @@ proc gen_include_files {swproj mhsinst} {
 
 proc gen_src_files {swproj mhsinst} {
   global ispcs_pma
+  global processor_type
+
   if {$swproj == 0} {
     return ""
   }
@@ -127,9 +138,11 @@ proc gen_src_files {swproj mhsinst} {
   if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
 
-			set inc_file_lines {examples/xemacps_example_intr_dma.c examples/xemacps_example_util.c examples/xemacps_example.h data/emacps_header.h}
+			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
+				set inc_file_lines {examples/xemacps_example_intr_dma.c examples/xemacps_example_util.c examples/xemacps_example.h data/emacps_header.h}
 
-			return $inc_file_lines
+				return $inc_file_lines
+			}
 		}
 	}
 	 return ""
@@ -141,6 +154,8 @@ proc gen_testfunc_def {swproj mhsinst} {
 
 proc gen_init_code {swproj mhsinst} {
 	global ispcs_pma
+	global processor_type
+
     if {$swproj == 0} {
         return ""
     }
@@ -154,11 +169,13 @@ proc gen_init_code {swproj mhsinst} {
 	if {$ispcs_pma == 0} {
 		if {$swproj == 1} {
 
-		set ipname [common::get_property NAME $mhsinst]
-		set decl "   static XEmacPs ${ipname};"
-		set inc_file_lines $decl
-		return $inc_file_lines
+			if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
+				set ipname [common::get_property NAME $mhsinst]
+				set decl "   static XEmacPs ${ipname};"
+				set inc_file_lines $decl
+				return $inc_file_lines
 
+			}
 		}
 	}
 	 return ""
@@ -167,6 +184,8 @@ proc gen_init_code {swproj mhsinst} {
 
 proc gen_testfunc_call {swproj mhsinst} {
 	global ispcs_pma
+	global processor_type
+
     if {$swproj == 0} {
         return ""
     }
@@ -198,6 +217,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   if {${hasStdout} == 0} {
 
 	if {$ispcs_pma == 0} {
+	if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
 
 	if {$isintr == 1} {
             if {
@@ -225,9 +245,11 @@ proc gen_testfunc_call {swproj mhsinst} {
    }
 
 	}
+	}
   } else {
 
 	if {$ispcs_pma == 0} {
+	if { $processor_type != "psu_cortexr5" && $processor_type != "psu_cortexa53"} {
 	if {$isintr == 1} {
            if {
                 $proc == "microblaze"
@@ -262,6 +284,7 @@ proc gen_testfunc_call {swproj mhsinst} {
    }"
 
    }
+	}
 	}
  }
 
