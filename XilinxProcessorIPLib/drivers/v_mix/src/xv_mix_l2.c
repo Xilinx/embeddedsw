@@ -51,6 +51,7 @@
 *             02/25/16   Replace GetColorFromat function with a macro
 *             03/08/16   Replace GetColorFromat macro with function and added
 *                        master layer video format
+*             03/09/16   Removed stream layer error check from SetWindow API
 * </pre>
 *
 ******************************************************************************/
@@ -491,6 +492,7 @@ void XVMix_SetBackgndColor(XV_Mix_l2 *InstancePtr,
 *           yuv444 Color space requires 4 Bytes/Pixel
 *           Equation to compute stride is as follows
 *              Stride = (Window_Width * (YUV422 ? 2 : 4))
+*           (Applicable only when layer type is Memory)
 *
 * @return XST_SUCCESS if command is successful else error code with reason
 *
@@ -545,8 +547,8 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
 
 	    /* Check layer interface is Stream or Memory */
 	    if(XVMix_IsLayerInterfaceStream(InstancePtr, LayerId)) {
-	      WinValid = FALSE;
-	      Status = XVMIX_ERR_LAYER_INTF_TYPE;
+          /* Stride is not required for stream layer */
+	      WinValid = TRUE;
 	    } else {
 	      /* Check if stride is aligned to aximm width (2*PPC*32-bits) */
 	      Align = 2 * InstancePtr->Mix.Config.PixPerClk * 4;
@@ -580,9 +582,11 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
                           (BaseWidthReg+Offset),  Win->Width);
           XV_mix_WriteReg(MixPtr->Config.BaseAddress,
                           (BaseHeightReg+Offset), Win->Height);
-          XV_mix_WriteReg(MixPtr->Config.BaseAddress,
-                          (BaseStrideReg+Offset), StrideInBytes);
 
+	      if(!XVMix_IsLayerInterfaceStream(InstancePtr, LayerId)) {
+             XV_mix_WriteReg(MixPtr->Config.BaseAddress,
+                             (BaseStrideReg+Offset), StrideInBytes);
+	      }
           InstancePtr->Layer[LayerId].Win = *Win;
           Status = XST_SUCCESS;
         }
