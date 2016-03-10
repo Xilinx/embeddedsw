@@ -205,25 +205,25 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 				= (XHdcp1x_SetDdcHandler)CallbackFunc;
 			InstancePtr->Rx.DdcSetAddressCallbackRef = CallbackRef;
 			InstancePtr->Rx.IsDdcSetAddressCallbackSet = (TRUE);
-			Status = (XST_SUCCESS);
+			Status = XST_SUCCESS;
 			break;
 		case (XHDCP1X_HANDLER_DDC_SETREGDATA):
 			InstancePtr->Rx.DdcSetDataCallback
 				= (XHdcp1x_SetDdcHandler)CallbackFunc;
 			InstancePtr->Rx.DdcSetDataCallbackRef = CallbackRef;
 			InstancePtr->Rx.IsDdcSetDataCallbackSet = (TRUE);
-			Status = (XST_SUCCESS);
+			Status = XST_SUCCESS;
 			break;
 		case (XHDCP1X_HANDLER_DDC_GETREGDATA):
 			InstancePtr->Rx.DdcGetDataCallback
 				= (XHdcp1x_GetDdcHandler)CallbackFunc;
 			InstancePtr->Rx.DdcGetDataCallbackRef = CallbackRef;
 			InstancePtr->Rx.IsDdcGetDataCallbackSet = (TRUE);
-			Status = (XST_SUCCESS);
+			Status = XST_SUCCESS;
 			break;
-		// Repeater - trigger Downstream Authentication
+		/* Repeater - trigger Downstream Authentication */
 		/* Eqilvalent of case
-		 *(XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH):
+		 * (XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH):
 		 */
 		case (XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH):
 			InstancePtr->Rx.RepeaterDownstreamAuthCallback
@@ -234,7 +234,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 				= (TRUE);
 			break;
 		default:
-			Status = (XST_INVALID_PARAM);
+			Status = XST_INVALID_PARAM;
 			break;
 	}
 
@@ -385,7 +385,7 @@ int XHdcp1x_RxIsEnabled(const XHdcp1x *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Which state? */
+	/* Case-wise process the current state of Rx state machine */
 	switch (InstancePtr->Rx.CurrentState) {
 		case XHDCP1X_STATE_DISABLED:
 			IsEnabled = FALSE;
@@ -524,7 +524,7 @@ int XHdcp1x_RxIsInProgress(const XHdcp1x *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Which state? */
+	/* Case-wise process the current state of Rx state machine  */
 	switch (InstancePtr->Rx.CurrentState) {
 		case XHDCP1X_STATE_COMPUTATIONS:
 			IsInProgress = TRUE;

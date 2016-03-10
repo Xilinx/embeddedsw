@@ -63,16 +63,16 @@
 
 /************************** Extern Declarations ******************************/
 
-extern XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck;/**< Instance of function
-						      *  interface used for
-						      *  checking a specific
-						      *  KSV against the
-						      *  platforms revocation
-						      *  list */
-extern XHdcp1x_TimerStart XHdcp1xTimerStart;/**< Instance of function
-					     *  interface used for starting
-					     *  a timer on behalf of an
-					     *  HDCP interface*/
+extern XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck; /**< Instance of function
+						       *  interface used for
+						       *  checking a specific
+						       *  KSV against the
+						       *  platforms revocation
+						       *  list */
+extern XHdcp1x_TimerStart XHdcp1xTimerStart; /**< Instance of function
+					      *  interface used for starting
+					      *  a timer on behalf of an
+					      *  HDCP interface*/
 extern XHdcp1x_TimerStop XHdcp1xTimerStop;	/**< Instance of fucntion
 						  *  interface usde for
 						  *  stopping a timer on behalf
