@@ -194,6 +194,7 @@ Disabled hdcp call back in function XHdcp1x_PortHdmiRxEnable.
 Added DDC write and read handlers.
 Added callback type used for calling DDC read and write functions
 Added enumeration XHdcp1x_HandlerType to identify callback functions.
+Added a check in xhdcp1x_g.c file to check if HDCP is present.
 
 hdcp22_cipher_v1_0:
 Added the initial version of Xilinx HDCP Cipher core driver.
