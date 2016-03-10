@@ -136,10 +136,6 @@ static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_DBG,
 			Buf, 4);
 
-	/* Bind for interrupt callback */
-	//XV_HdmiRx_SetCallback(HdmiRx, XV_HDMIRX_HANDLER_HDCP,
-	//		XHdcp1x_ProcessAKsvWrite, InstancePtr);
-
 	return (Status);
 }
 

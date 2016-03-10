@@ -151,7 +151,6 @@ typedef enum {
 			XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH,
 } XHdcp1x_RepeaterStateMachineHandlerType;
 
-
 /**
 * Callback type used for calling DDC read and write functions.
 *
@@ -256,7 +255,7 @@ typedef struct {
  * This typedef contains an instance of the HDCP port
  */
 typedef struct XHdcp1x_PortStruct {
-	const struct XHdcp1x_PortPhyIfAdaptorS *Adaptor;/**< Port adaptor */
+	const struct XHdcp1x_PortPhyIfAdaptorS *Adaptor; /**< Port adaptor */
 	void *PhyIfPtr;		/**< The port's physical interface */
 	XHdcp1x_Callback AuthCallback;	/**< (Re)Authentication callback */
 	void *AuthRef;		/**< (Re)Authentication reference */
@@ -307,17 +306,17 @@ typedef struct {
 	void *DdcWriteRef;	/**< Reference pointer set with
 				  *  XHdcp1x_SetCallback function. */
 	u8 IsDdcWriteSet;	/**< Set if DdcWrite handler is defined. */
-	XHdcp1x_Callback DownstreamReadyCallback;/**< (Repeater)Downstream
-						   *  Ready callback */
+	XHdcp1x_Callback DownstreamReadyCallback; /**< (Repeater)Downstream
+						    *  Ready callback */
 	void *DownstreamReadyRef;	/**< (Repeater)Downstream Ready
 					  *  reference */
 	u32 IsDownStreamReadyCallbackSet;	/**< (Repeater)Check to
 						  *  determine if Downstream
 						  *  Ready callback is set
 						  *  flag*/
-	XHdcp1x_Callback RepeaterExchangeCallback;/**< (Repeater)Exchange
-						    *  Repeater Values
-						    *  callback */
+	XHdcp1x_Callback RepeaterExchangeCallback; /**< (Repeater)Exchange
+						     *  Repeater Values
+						     *  callback */
 	void *RepeaterExchangeRef;	/**< (Repeater)Exchange Repeater
 					  *  Values reference */
 	u32 IsRepeaterExchangeCallbackSet;	/**< (Repeater)Check to
@@ -336,42 +335,42 @@ typedef struct {
 	u16 Flags;			/**< The interface flags */
 	u16 PendingEvents;		/**< The bit map of pending events */
 	XHdcp1x_RxStats Stats;		/**< The interface's statistics */
-	XHdcp1x_SetDdcHandler DdcSetAddressCallback;/**< Function pointer for
-						      *  setting DDC register
-						      *  address */
+	XHdcp1x_SetDdcHandler DdcSetAddressCallback; /**< Function pointer for
+						       *  setting DDC register
+						       *  address */
 	void *DdcSetAddressCallbackRef;	/**< To be passed to callback
 					  *  function */
 	u8 IsDdcSetAddressCallbackSet;	/**< This flag is set true when the
 					  *  callback has been registered */
-	XHdcp1x_SetDdcHandler DdcSetDataCallback;/**< Function pointer for
-						   *  setting DDC register
-						   *  data */
+	XHdcp1x_SetDdcHandler DdcSetDataCallback; /**< Function pointer for
+						    *  setting DDC register
+						    *  data */
 	void *DdcSetDataCallbackRef;	/**< To be passed to callback
 					  *  function */
 	u8 IsDdcSetDataCallbackSet;	/**< This flag is set true when the
 					  *  callback has been registered */
-	XHdcp1x_GetDdcHandler DdcGetDataCallback;/**< Function pointer for
-						   *  getting DDC register
-						   *  data */
+	XHdcp1x_GetDdcHandler DdcGetDataCallback; /**< Function pointer for
+						    *  getting DDC register
+						    *  data */
 	void *DdcGetDataCallbackRef;	/**< To be passed to callback
 					  *  function */
 	u8 IsDdcGetDataCallbackSet;	/**< This flag is set true when the
 					  *  callback has been registered */
-	XHdcp1x_Callback RepeaterDownstreamAuthCallback;/**< (Repeater)Post
-							  *  authenticate to
-							  *  downstream,
-							  *  second part of
-							  *  authentication
-							  *  start callback */
-	void *RepeaterDownstreamAuthRef;/**< (Repeater)Post authenticate to
-					  *  downstream, second part of
-					  *  authentication start reference */
-	u32 IsRepeaterDownStreamAuthCallbackSet;/**< (Repeater)Is "Post
-						  *  authenticate to
-						  *  downstream to trigger
-						  *  second part of
-						  *  authentication" callback
-						  *  set flag*/
+	XHdcp1x_Callback RepeaterDownstreamAuthCallback; /**< (Repeater)Post
+							   *  authenticate to
+							   *  downstream,
+							   *  second part of
+							   *  authentication
+							   *  start callback */
+	void *RepeaterDownstreamAuthRef; /**< (Repeater)Post authenticate to
+					   *  downstream, second part of
+					   *  authentication start reference */
+	u32 IsRepeaterDownStreamAuthCallbackSet; /**< (Repeater)Is "Post
+						   *  authenticate to
+						   *  downstream to trigger
+						   *  second part of
+						   *  authentication" callback
+						   *  set flag*/
 } XHdcp1x_Rx;
 
 /**
@@ -389,9 +388,9 @@ typedef struct {
 	u32 IsRepeater;		/**< The IsRepeater flag determines if the
 				  *  HDCP is part of a Repeater system
 				  *  or a standalone interface */
-	XHdcp1x_RepeaterExchange RepeaterValues;/**< The Repeater value to
-						  *  be exchanged between
-						  *  Tx and Rx */
+	XHdcp1x_RepeaterExchange RepeaterValues; /**< The Repeater value to
+						   *  be exchanged between
+						   *  Tx and Rx */
 	void *Hdcp1xRef;	/**< A void reference pointer for
 				  *  association of a external core
 				  *  in our case a timer with the

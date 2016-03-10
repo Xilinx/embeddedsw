@@ -100,12 +100,12 @@ XHdcp1x_Printf XHdcp1xDebugPrintf = NULL;	/**< Instance of function
 XHdcp1x_LogMsg XHdcp1xDebugLogMsg = NULL;	/**< Instance of function
 						  *  interface used for debug
 						  *  log message statement */
-XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck = NULL;/**< Instance of function
-						      *  interface used for
-						      *  checking a specific
-						      *  KSV against the
-						      *  platforms revocation
-						      *  list */
+XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck = NULL; /**< Instance of function
+						       *  interface used for
+						       *  checking a specific
+						       *  KSV against the
+						       *  platforms revocation
+						       *  list */
 XHdcp1x_TimerStart XHdcp1xTimerStart = NULL;	/**< Instance of function
 						  *  interface used for
 						  *  starting a timer on behalf
@@ -699,7 +699,7 @@ int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
 ******************************************************************************/
 int XHdcp1x_IsEnabled(const XHdcp1x *InstancePtr)
 {
-	int IsEn = FALSE;
+	int IsEnabled = FALSE;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -707,22 +707,22 @@ int XHdcp1x_IsEnabled(const XHdcp1x *InstancePtr)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (!InstancePtr->Config.IsRx) {
-		IsEn = XHdcp1x_TxIsEnabled(InstancePtr);
+		IsEnabled = XHdcp1x_TxIsEnabled(InstancePtr);
 	}
 	else
 #endif
 #if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (InstancePtr->Config.IsRx) {
-		IsEn = XHdcp1x_RxIsEnabled(InstancePtr);
+		IsEnabled = XHdcp1x_RxIsEnabled(InstancePtr);
 	}
 	else
 #endif
 	{
-		IsEn = FALSE;
+		IsEnabled = FALSE;
 	}
 
-	return (IsEn);
+	return (IsEnabled);
 }
 
 /*****************************************************************************/

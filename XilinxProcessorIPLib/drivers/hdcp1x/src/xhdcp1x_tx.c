@@ -231,7 +231,7 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 	/* Check for handler type */
 	switch (HandlerType)
 	{
-		// DDC write
+		/* DDC write */
 		case (XHDCP1X_HANDLER_DDC_WRITE):
 			InstancePtr->Tx.DdcWrite = (XHdcp1x_RunDdcHandler)CallbackFunc;
 			InstancePtr->Tx.DdcWriteRef = CallbackRef;
@@ -239,7 +239,7 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 			Status = (XST_SUCCESS);
 			break;
 
-		// DDC read
+		/* DDC read */
 		case (XHDCP1X_HANDLER_DDC_READ):
 			InstancePtr->Tx.DdcRead = (XHdcp1x_RunDdcHandler)CallbackFunc;
 			InstancePtr->Tx.DdcReadRef = CallbackRef;
@@ -247,7 +247,7 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 			Status = (XST_SUCCESS);
 			break;
 
-		// Authenticated
+		/* Authenticated */
 		case (XHDCP1X_HANDLER_AUTHENTICATED):
 			InstancePtr->Tx.AuthenticatedCallback
 				= (XHdcp1x_Callback)CallbackFunc;
@@ -256,7 +256,7 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 			Status = (XST_SUCCESS);
 			break;
 
-		// Repeater - downstream Ready
+		/* Repeater - downstream Ready */
 		/* Equivalent of case (XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY): */
 		case (XHDCP1X_HANDLER_RPTR_DWNSTRMREADY):
 			InstancePtr->Tx.DownstreamReadyCallback
@@ -265,7 +265,7 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Tx.IsDownStreamReadyCallbackSet = (TRUE);
 			break;
 
-		// Repeater - Repeater exchange (values)
+		/* Repeater - Repeater exchange (values) */
 		/* Equivalent of case (XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE): */
 		case (XHDCP1X_HANDLER_RPTR_RPTREXCHANGE):
 			InstancePtr->Tx.RepeaterExchangeCallback
@@ -273,6 +273,7 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Tx.RepeaterExchangeRef = CallbackRef;
 			InstancePtr->Tx.IsRepeaterExchangeCallbackSet = (TRUE);
 			break;
+
 		default:
 			Status = (XST_INVALID_PARAM);
 			break;
@@ -2634,7 +2635,7 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 				XHdcp1x_TxDebugLog(InstancePtr,
 					"authenticated");
 
-				// Authenticated callback
+				/* Authenticated callback */
 				if (InstancePtr->Tx.IsAuthenticatedCallbackSet)
 				{
 				InstancePtr->Tx.AuthenticatedCallback
