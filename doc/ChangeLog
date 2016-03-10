@@ -169,6 +169,7 @@ Change BD typedef and number of words
 Modified xemacps_example_intr_dma and tapp tcl to support test
 app interrupt example for microblaze.
 Added option to enable SGMII.
+Removed emacps from peripheral tests for Zynq Ultracale MPSoC
 
 gpio_v4_1:
 Updated to use cannonical xparameters in examples and clean up of the comments,
