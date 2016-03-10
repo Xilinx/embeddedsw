@@ -255,11 +255,13 @@ SECTIONS
 
 .bss (NOLOAD) : {
    __bss_start = .;
+   __bss_start__ = .;
    *(.bss)
    *(.bss.*)
    *(.gnu.linkonce.b.*)
    *(COMMON)
    __bss_end = .;
+   __bss_end__ = .;
 } > ps7_ram_0_S_AXI_BASEADDR
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
