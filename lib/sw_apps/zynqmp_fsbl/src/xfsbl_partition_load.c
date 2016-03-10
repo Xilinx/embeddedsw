@@ -1130,6 +1130,10 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	}
 #endif
 
+	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE)) {
+		Xil_DCacheDisable();
+	}
+
 	/**
 	 * Authentication Check
 	 */
@@ -1149,11 +1153,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		} else {
 			HashLen = XFSBL_HASH_TYPE_SHA3;
 		}
-
-		/**
-		 * cache disable can be removed
-		 */
-		Xil_DCacheDisable();
 
 #ifdef FSBL_PERF
 		/* Start time for partition authentication */
