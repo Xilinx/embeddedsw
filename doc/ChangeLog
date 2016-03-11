@@ -359,6 +359,9 @@ Modified ttcps_tapp.tcl to generate proper device and interrupt IDs for
 peripheral test and exclude ttc3 for cortexr5 in peripheral test. Also
 made changes to xttcps_tapp_example.c to add status check after SetupTicker
 is called by TmrInterruptExample to fix CR#938908.
+Modified cortexr5/xtime_l.c to avoid enabling overflow interrupt, instead
+modified cortexr5/sleep.c and usleep.c to poll the counter value and compare
+it with previous value to detect the overflow to fix CR#940209.
 
 uartlite_v3_2:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
