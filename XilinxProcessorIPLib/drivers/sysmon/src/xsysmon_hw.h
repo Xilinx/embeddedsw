@@ -65,6 +65,8 @@
 *			Added Offsets and Masks for VUSER0 to VUSER3 channels.
 *			Added Configuration Register 3 and Sequence Registers
 *			8 and 9.
+* 7.2   asa     03/11/16 Made changes so that XSM_CFR3_OFFSET is
+*             visible only for Ultrasacle. Fix for CR#910905.
 *
 * </pre>
 *
@@ -255,9 +257,11 @@ extern "C" {
 					/**< Configuration Register 1 */
 #define XSM_CFR2_OFFSET		(XSM_IP_OFFSET + 0x308)
 					/**< Configuration Register 2 */
-#define XSM_CFR3_OFFSET		(XSM_IP_OFFSET + 0x30C)
-					/**< Configuration Register 2 */
 
+#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+#define XSM_CFR3_OFFSET		(XSM_IP_OFFSET + 0x30C)
+					/**< Configuration Register 3 */
+#endif
 /*
  * System Monitor/ADC Sequence Registers
  */
