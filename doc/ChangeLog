@@ -519,6 +519,7 @@ Made changes to conform to coding style.
 Update example software and reset logic in vpss
 Update example software to stop the deint block correctly, when re-configuring a new use case.
 Zero out Video Stream structures on initialization, to zero out the new 3D format field.
+Modify example design to avoid testing a color format not supported by the VPSS HW configuration.
 
 wdttb_v4_0:
 Updated Window watchdog support.
