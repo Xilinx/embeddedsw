@@ -167,9 +167,9 @@ int main(void)
         // Full Fledged mode may deinterlace, change picture size and/or color format.
         // In the Full Fledged configuration, the presence of a sub-core
         //   is indicated by a non-NULL pointer to the sub-core driver instance.
-        // If there is no Deinterlacer OR if 420 input is supported,
+        // If there is no Deinterlacer AND 420 input is supported (Vcr present),
         //   choose progressive 420 input format
-        if ((VpssPtr->DeintPtr      == NULL) ||
+        if ((VpssPtr->DeintPtr      == NULL) &&
             (VpssPtr->VcrsmplrInPtr != NULL)) {
         // Video In: 720P 420  Video Out: 1080P RGB
           thisCase->width_in = 1280;
@@ -177,15 +177,17 @@ int main(void)
           thisCase->Cformat_in = XVIDC_CSF_YCRCB_420;
           thisCase->IsInterlaced = FALSE;
 
-        // If the Deinterlacer is present AND 420 input is absent,
-        //   choose 480i interlaced input 422 (hcr present) or 444 (hcr absent)
+        // If the Deinterlacer is present,
+        //   choose 480i interlaced input 422 (Hcr present) or 444 (Hcr absent)
         } else {
-        // Video In: 480i YUV  Video Out: 1080P RGB
-          thisCase->width_in = 720;
-          thisCase->height_in = 240;
-          thisCase->Cformat_in = (VpssPtr->HcrsmplrPtr != NULL)?
-			XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444;
-          thisCase->IsInterlaced = TRUE;
+          if (VpssPtr->DeintPtr != NULL) {
+          // Video In: 480i YUV  Video Out: 1080P RGB
+            thisCase->width_in = 720;
+            thisCase->height_in = 240;
+            thisCase->Cformat_in = (VpssPtr->HcrsmplrPtr != NULL)?
+			  XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444;
+            thisCase->IsInterlaced = TRUE;
+          }
 	    }
 
         break;
