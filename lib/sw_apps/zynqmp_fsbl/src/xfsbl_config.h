@@ -108,15 +108,6 @@ extern "C" {
 #define FSBL_DEBUG_DETAILED
 #endif
 
-/**
- * @name FSBL timing options
- */
-#define FSBL_PERF_VAL 		(0U)
-
-#if FSBL_PERF_VAL
-#define FSBL_PERF
-#endif
-
 /* Size of OCM buffer to store data chunks in case of DDR less system */
 #define READ_BUFFER_SIZE			(4*1024U)
 
@@ -145,6 +136,7 @@ extern "C" {
 #define FSBL_SHA2_EXCLUDE_VAL			(1U)
 #define FSBL_EARLY_HANDOFF_EXCLUDE_VAL	(1U)
 #define FSBL_WDT_EXCLUDE_VAL			(0U)
+#define FSBL_PERF_EXCLUDE_VAL			(1U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -180,6 +172,10 @@ extern "C" {
 
 #if FSBL_WDT_EXCLUDE_VAL
 #define FSBL_WDT_EXCLUDE
+#endif
+
+#if FSBL_PERF_EXCLUDE_VAL
+#define FSBL_PERF_EXCLUDE
 #endif
 
 
