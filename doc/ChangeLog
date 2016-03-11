@@ -478,13 +478,15 @@ v_voip_depacketizer_v1_0:
 Initial Commit for 2016.1
 Change space to tab in the Makefile
 
-v_voip_fec_tx_v2_0:
+v_voip_fec_tx_v1_0:
 Initial Commit for 2016.1
 Change space to tab in the Makefile
+Revert back option version in mdd file to 1.0 as this is initial version
 
-v_voip_fec_rx_v2_0:
+v_voip_fec_rx_v1_0:
 Initial Commit for 2016.1
 Change space to tab in the Makefile
+Add debug status and statistic function for the core
 
 video_common_v2_2:
 Changes made so that functions with pointer arguments that don't modify contents are now const.
