@@ -226,6 +226,19 @@ typedef struct {
 } XVoipFEC_RX_ChannelCfg;
 
 /**
+* This typedef contains VoIP FEC Receiver Error Status of Bufer
+* Full Information
+*/
+typedef struct {
+    u8 Request_Que_Ov;
+    u8 Event_Que_Ov;
+    u8 Buffer_Level_Update_Que_Ov;
+    u8 Primary_Input_Buffer_Que_Ov;
+    u8 Secondary_Input_Buffer_Que_Ov;
+    u8 Output_Buffer_Que_Ov;
+}XVoipFEC_RX_GenErrStatus;
+
+/**
 * This typedef contains configuration information for the Generic Decap core.
 * Each Generic Decap device should have a configuration structure associated.
 */
@@ -259,6 +272,11 @@ typedef struct {
 
     /* General Space Register */
     u32 FECProcessingDelay;
+
+    /* General Space Statistic */
+    u32 FECPcktDropCnt;
+    u32 FECBuffPeakDataCount;
+    XVoipFEC_RX_GenErrStatus FECGenErrStatus;
 
     /* General Space Memory Cfg */
     u32 FECBaseAddress;
@@ -345,7 +363,10 @@ void XVoipFEC_RX_SoftReset(XVoipFEC_RX *InstancePtr);
 void XVoipFEC_RX_ChannelUpdate(XVoipFEC_RX *InstancePtr);
 void XVoipFEC_RX_ChannelClear(XVoipFEC_RX *InstancePtr);
 void XVoipFEC_RX_ChannelAccess(XVoipFEC_RX *InstancePtr, u16 Channels);
-void XVoipFEC_RX_FECProcessingDelay(XVoipFEC_RX *InstancePtr);
+void XVoipFEC_RX_SetFECProcessingDelay(XVoipFEC_RX *InstancePtr);
+u32 XVoipFEC_RX_GetFECProcessingDelay(XVoipFEC_RX *InstancePtr);
+u32 XVoipFEC_RX_GetFECPacketDropCnt(XVoipFEC_RX *InstancePtr);
+u32 XVoipFEC_RX_GetFECBufferPeakDataCnt(XVoipFEC_RX *InstancePtr);
 void XVoipFEC_RX_ChannelEnable(XVoipFEC_RX *InstancePtr, u16 Channels);
 void XVoipFEC_RX_MediaPacketBypass(XVoipFEC_RX *InstancePtr, u16 Channels);
 void XVoipFEC_RX_FECRecoveryDisable(XVoipFEC_RX *InstancePtr, u16 Channels);

@@ -393,7 +393,7 @@ void XVoipFEC_RX_CoreChannelConfig(XVoipFEC_RX *InstancePtr)
     u16 Index;
 
     /* Set FEC Processing Delay */
-    XVoipFEC_RX_FECProcessingDelay(InstancePtr);
+    XVoipFEC_RX_SetFECProcessingDelay(InstancePtr);
 
     /* Setting Parameters based on Drivers */
     for (Index = (u16)0x00; Index < (u16)(InstancePtr)->OpChannel; Index++) {
@@ -625,12 +625,81 @@ void XVoipFEC_RX_ChannelAccess(XVoipFEC_RX *InstancePtr, u16 Channels)
 * @note     None.
 *
 ******************************************************************************/
-void XVoipFEC_RX_FECProcessingDelay(XVoipFEC_RX *InstancePtr)
+void XVoipFEC_RX_SetFECProcessingDelay(XVoipFEC_RX *InstancePtr)
 {
     /* Set the Channel Update */
     XVoipFEC_RX_WriteReg((InstancePtr)->Config.BaseAddress,
          (XVOIPFEC_RX_FEC_PROCESSING_DELAY_REG_OFFSET),
                (InstancePtr->FECProcessingDelay));
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Gets the configured FEC Processing Delay
+*
+* @param    InstancePtr is a pointer to the XVoipFEC_RX core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XVoipFEC_RX_GetFECProcessingDelay(XVoipFEC_RX *InstancePtr)
+{
+    u32 RegValue;
+
+    /* Set the Channel Update */
+    RegValue = XVoipFEC_RX_ReadReg((InstancePtr)->Config.BaseAddress,
+         (XVOIPFEC_RX_FEC_PROCESSING_DELAY_REG_OFFSET));
+
+    return RegValue;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Gets the configured FEC Packet Drop
+*
+* @param    InstancePtr is a pointer to the XVoipFEC_RX core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XVoipFEC_RX_GetFECPacketDropCnt(XVoipFEC_RX *InstancePtr)
+{
+    u32 RegValue;
+
+    /* Set the Channel Update */
+    RegValue = XVoipFEC_RX_ReadReg((InstancePtr)->Config.BaseAddress,
+         (XVOIPFEC_RX_FEC_PACKET_DROP_REG_OFFSET));
+
+    return RegValue;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Gets the configured FEC Peak Buffer Data Count
+*
+* @param    InstancePtr is a pointer to the XVoipFEC_RX core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XVoipFEC_RX_GetFECBufferPeakDataCnt(XVoipFEC_RX *InstancePtr)
+{
+    u32 RegValue;
+
+    /* Set the Channel Update */
+    RegValue = XVoipFEC_RX_ReadReg((InstancePtr)->Config.BaseAddress,
+         (XVOIPFEC_RX_FEC_PEAK_DATA_CNT_REG_OFFSET));
+
+    return RegValue;
 }
 
 /*****************************************************************************/
