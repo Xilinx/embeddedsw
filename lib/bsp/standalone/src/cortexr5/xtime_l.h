@@ -40,6 +40,8 @@
 * ----- ------ -------- ---------------------------------------------------
 * 5.00 	pkp	   05/29/14 First release
 * 5.04  pkp	   02/19/16 Added timer configuration register offset definitions
+* 5.04	pkp	   03/11/16 Removed definitions for overflow interrupt register
+*						and mask
 * </pre>
 *
 * @note		None.
@@ -68,14 +70,11 @@ extern "C" {
 /* Timer Register Offset*/
 #define SLEEP_TIMER_CLK_CNTRL_OFFSET 		0x00000000U
 #define SLEEP_TIMER_CNTR_CNTRL_OFFSET		0x0000000CU
-#define SLEEP_TIMER_CNTR_VAL_OFFSET		0x00000018U
-#define SLEEP_TIMER_ISR_OFFSET			0x00000054U
-#define SLEEP_TIMER_IER_OFFSET			0x00000060U
+#define SLEEP_TIMER_CNTR_VAL_OFFSET			0x00000018U
 
 /*Timer register values*/
 #define SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK    0x00000001U
 #define SLEEP_TIMER_CLOCK_CONTROL_PS_EN_MASK    0x00000001U
-#define SLEEP_TIMER_INTERRUPT_REGISTER_OV_MASK    0x00000010U
 #define SLEEP_TIMER_COUNTER_CONTROL_RST_MASK    0x00000010U
 #else
 #define ITERS_PER_SEC  (XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ / 4)
@@ -87,7 +86,7 @@ extern "C" {
 
 /* The following definitions are applicable only when TTC3 is present*/
 #ifdef SLEEP_TIMER_BASEADDR
-typedef u64 XTime;
+typedef u32 XTime;
 
 void XTime_SetTime(XTime Xtime_Global);
 void XTime_GetTime(XTime *Xtime_Global);

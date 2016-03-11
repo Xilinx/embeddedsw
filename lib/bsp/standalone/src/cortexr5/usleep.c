@@ -48,6 +48,8 @@
 *						  provide the required delay
 * 5.04	pkp		 03/09/16 Assembly routine for usleep is modified to avoid
 *						  disabling the interrupt
+* 5.04	pkp		 03/11/16 Compare the counter value to previously read value
+*						  to detect the overflow for TTC3
 * </pre>
 *
 ******************************************************************************/
@@ -85,13 +87,25 @@ s32 usleep(u32 useconds)
 {
 
 #ifdef SLEEP_TIMER_BASEADDR
-	XTime tEnd, tCur;
+	u64 tEnd;
+	u64 tCur;
+	u32 TimeHighVal;
+	XTime TimeLowVal1;
+	XTime TimeLowVal2;
 
-	XTime_GetTime(&tCur);
-	tEnd  = tCur + (((XTime) useconds) * (COUNTS_PER_USECOND));
+	TimeHighVal = 0;
+
+	XTime_GetTime(&TimeLowVal1);
+	tEnd  = (u64)TimeLowVal1 + (((u64) useconds) * COUNTS_PER_USECOND);
+
 	do
 	{
-	    XTime_GetTime(&tCur);
+		XTime_GetTime(&TimeLowVal2);
+	    if (TimeLowVal2 < TimeLowVal1) {
+				TimeHighVal++;
+		}
+		TimeLowVal1 = TimeLowVal2;
+		tCur = (((u64) TimeHighVal) << 32U) | (u64)TimeLowVal2;
 	} while (tCur < tEnd);
 
 	return 0;
