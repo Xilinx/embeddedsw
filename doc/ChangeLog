@@ -337,6 +337,8 @@ sysmon_v7_2:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
 Changed the prototype of XSysMon_CfgInitialize API.
 Updated interrupt example to support Zynq and ZynqMP (CR#938326).
+Fix for CR#910905. Remove incorrect use of configuration register 3
+for 7 series.
 
 sysmonpsu_v1_0 :
 Added new system monitor driver.
