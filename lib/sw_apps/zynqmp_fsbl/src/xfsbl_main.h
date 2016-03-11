@@ -75,14 +75,14 @@ typedef struct {
 	u64 HandoffAddress;
 } XFsblPs_HandoffValues;
 
-#if defined FSBL_PERF
+#if defined XFSBL_PERF
 /**
  * This stores the timer values for measuring FSBL execution time.
  */
 typedef struct {
 	XTime  tFsblStart;
 } XFsblPs_Perf;
-#endif /* FSBL_PERF */
+#endif /* XFSBL_PERF */
 
 /**
  * This is FSBL instance pointer. This stores all the information
@@ -104,7 +104,7 @@ typedef struct {
 	u32 ResetReason; /**< Reset reason */
 	XFsblPs_HandoffValues HandoffValues[10];
 		/**< Handoff address for different CPU's  */
-#if defined FSBL_PERF
+#if defined XFSBL_PERF
 	XFsblPs_Perf PerfTime;
 #endif
 } XFsblPs;
@@ -173,7 +173,10 @@ void XFsbl_PrintFsblBanner(void );
 void XFsbl_ErrorLockDown(u32 ErrorStatus);
 void XFsbl_FallBack(void );
 void XFsbl_UpdateMultiBoot(u32 MultiBootValue);
+
+#if defined(XFSBL_PERF)
 void XFsbl_MeasurePerfTime(XTime tCur);
+#endif
 
 /**
  * Functions defined in xfsbl_initialization.c

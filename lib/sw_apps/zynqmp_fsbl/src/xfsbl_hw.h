@@ -651,6 +651,10 @@ extern "C" {
 #define XFSBL_SHA2
 #endif
 
+#if !defined(FSBL_PERF_EXCLUDE) && (!defined(ARMR5) || (defined(ARMR5) && defined(SLEEP_TIMER_BASEADDR)))
+#define XFSBL_PERF
+#endif
+
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_START		(0xC0000000U)
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_END		(0xDFFFFFFFU)
 

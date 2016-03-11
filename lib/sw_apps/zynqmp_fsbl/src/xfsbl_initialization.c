@@ -356,7 +356,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	XFsbl_RegisterHandlers();
 
 	/* Prints for the perf measurement */
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 
 #if !defined(ARMR5)
 	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
@@ -511,7 +511,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 	XTime_GetTime(&(FsblInstancePtr->PerfTime.tFsblStart));
 #endif
 
@@ -754,7 +754,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 	if (BootMode == XFSBL_QSPI24_BOOT_MODE || BootMode == XFSBL_QSPI32_BOOT_MODE)
 	{
 #if defined (XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ)

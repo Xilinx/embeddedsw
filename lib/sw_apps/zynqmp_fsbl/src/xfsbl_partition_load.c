@@ -946,7 +946,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 						PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK ) {;}
 	}
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 	XTime tCur = 0;
 	XTime_GetTime(&tCur);
 #endif
@@ -956,7 +956,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	Status = FsblInstancePtr->DeviceOps.DeviceCopy(SrcAddress,
 					LoadAddress, Length);
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 	XFsbl_MeasurePerfTime(tCur);
 	XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%u Copy time, Size: %0u \r\n",
 				PartitionNum, Length);
@@ -1015,7 +1015,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 SrcAddress = 0U;
 #endif
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 	XTime tCur = 0;
 #endif
 
@@ -1154,7 +1154,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			HashLen = XFSBL_HASH_TYPE_SHA3;
 		}
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 		/* Start time for partition authentication */
 		XTime_GetTime(&tCur);
 #endif
@@ -1199,7 +1199,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 #endif
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 		XFsbl_MeasurePerfTime(tCur);
 		XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d Auth. Time \r\n",
 					PartitionNum);
@@ -1240,7 +1240,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 
 		if (DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL) {
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 			/* Start time for non bitstream partition decryption */
 			XTime_GetTime(&tCur);
 #endif
@@ -1258,7 +1258,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 					"Decryption Successful\r\n");
 			}
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 			XFsbl_MeasurePerfTime(tCur);
 			XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d Dec. Time \r\n",
 							PartitionNum);
@@ -1299,7 +1299,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		if (IsEncryptionEnabled == TRUE) {
 #ifdef XFSBL_AES
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 			/* Start time for bitstream decryption */
 			XTime_GetTime(&tCur);
 #endif
@@ -1334,7 +1334,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 					UnencryptedLength);
 #endif
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 			XFsbl_MeasurePerfTime(tCur);
 			XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d (sec. bitstream)"
 						" Dec. + Pcap Load Time \r\n", PartitionNum);
@@ -1354,7 +1354,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 		}
 		else {
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 			/* Start time for non sec. bitstream download */
 			XTime_GetTime(&tCur);
 #endif
@@ -1378,7 +1378,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 #endif
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 			XFsbl_MeasurePerfTime(tCur);
 			XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d "
 					"(nsec. bitstream) dwnld Time \r\n", PartitionNum);

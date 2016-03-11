@@ -83,7 +83,7 @@ int main(void )
 	u32 FsblStage = XFSBL_STAGE1;
 	u32 PartitionNum=0U;
 	u32 EarlyHandoff = FALSE;
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 	XTime tCur = 0;
 #endif
 
@@ -124,7 +124,7 @@ int main(void )
 		case XFSBL_STAGE2:
 			{
 				/* Reading Timer value for Performance measurement.*/
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 				/* Get Start time for Boot Device init. */
 				XTime_GetTime(&tCur);
 #endif
@@ -164,7 +164,7 @@ int main(void )
 
 					FsblStage = XFSBL_STAGE3;
 				}
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 				XFsbl_MeasurePerfTime(tCur);
 				XFsbl_Printf(DEBUG_PRINT_ALWAYS, " : Boot Dev. Init. Time\n\r");
 #endif
@@ -223,7 +223,7 @@ int main(void )
 						 */
 						XFsbl_Printf(DEBUG_INFO,"All Partitions Loaded \n\r");
 
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 						XFsbl_MeasurePerfTime(FsblInstancePtr.PerfTime.tFsblStart);
 						XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": Total Time \n\r");
 						XFsbl_Printf(DEBUG_PRINT_ALWAYS, "Note: Total execution time includes print times \n\r");
@@ -327,7 +327,7 @@ void XFsbl_PrintFsblBanner(void )
 	/**
 	 * Print the FSBL Banner
 	 */
-#if !defined(FSBL_PERF) || defined(FSBL_DEBUG) || defined(FSBL_DEBUG_INFO) \
+#if !defined(XFSBL_PERF) || defined(FSBL_DEBUG) || defined(FSBL_DEBUG_INFO) \
 			|| defined(FSBL_DEBUG_DETAILED)
 	XFsbl_Printf(DEBUG_PRINT_ALWAYS,
                  "Xilinx Zynq MP First Stage Boot Loader \n\r");
@@ -520,7 +520,7 @@ void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
  *
  * @note none
  *****************************************************************************/
-#ifdef FSBL_PERF
+#ifdef XFSBL_PERF
 
 void XFsbl_MeasurePerfTime(XTime tCur)
 {
