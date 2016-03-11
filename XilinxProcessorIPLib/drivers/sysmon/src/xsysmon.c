@@ -74,6 +74,9 @@
 *			and XSysMon_GetAlarmThreshold to support Ultrascale
 * 7.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XSysMon_CfgInitialize API.
+* 7.2   asa Made changes to use XSM_CFR3_OFFSET (configuration register 3)
+*           only for Ultrascale. Changes were made in APIs XSysMon_SetAlarmEnables
+*           and XSysMon_GetAlarmEnables. This is to fix CR#910905.
 * </pre>
 *
 *****************************************************************************/
@@ -740,6 +743,11 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask)
 	XSysMon_WriteReg(InstancePtr->Config.BaseAddress, XSM_CFR1_OFFSET,
 			 RegValue);
 
+#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+	/*
+	 * Enable/disables the alarm enables for the specified alarm bits in the
+	 * Configuration Register 3.
+	 */
 	RegValue = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
 					   XSM_CFR3_OFFSET);
 	RegValue &= (u32)~XSM_CFR3_ALM_ALL_MASK;
@@ -747,6 +755,7 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask)
 
 	XSysMon_WriteReg(InstancePtr->Config.BaseAddress, XSM_CFR3_OFFSET,
 			 RegValue);
+#endif
 }
 
 /****************************************************************************/
@@ -777,8 +786,9 @@ void XSysMon_SetAlarmEnables(XSysMon *InstancePtr, u32 AlmEnableMask)
 u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 {
 	u32 RegValue1;
+#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
 	u32 RegValue2;
-
+#endif
 	/*
 	 * Assert the arguments.
 	 */
@@ -793,11 +803,18 @@ u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 			XSM_CFR1_OFFSET) & XSM_CFR1_ALM_ALL_MASK;
 	RegValue1 = (~RegValue1 & XSM_CFR1_ALM_ALL_MASK);
 
+#if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
+	/*
+	* Read the status of alarm output enables from the Configuration
+	* Register 3.
+	*/
 	RegValue2 = XSysMon_ReadReg(InstancePtr->Config.BaseAddress,
 				XSM_CFR3_OFFSET) & XSM_CFR3_ALM_ALL_MASK;
 	RegValue2 = (~RegValue2 & XSM_CFR3_ALM_ALL_MASK);
 
 	return ((RegValue2 << 16) | RegValue1);
+#else
+	return RegValue1;
 }
 
 /****************************************************************************/

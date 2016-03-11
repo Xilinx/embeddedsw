@@ -208,6 +208,8 @@
 *                     Changed the prototype of XSysMon_CfgInitialize API.
 * 7.2  adk  29/02/16 Updated interrupt example to support Zynq and ZynqMP
 *                    CR#938326.
+* 7.2  asa  11/03/16  Made changes to use configuration register 3 only for
+*					  Ultrascale. This fixes the CR#910905.
 * </pre>
 *
 *****************************************************************************/
