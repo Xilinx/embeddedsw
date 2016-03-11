@@ -318,4 +318,8 @@
  * 5.4 pkp   03/09/16  Modified cortexr5/sleep.c and usleep.c to avoid disabling the
  *		       interrupts when sleep/usleep is being executed using assembly
  *		       instructions to fix CR#913249.
+ * 5.4 pkp   03/11/16  Modified cortexr5/xtime_l.c to avoid enabling overflow interrupt,
+ *		       instead modified cortexr5/sleep.c and usleep.c to poll the counter
+ *		       value and compare it with previous value to detect the overflow
+ *		       to fix CR#940209.
  *****************************************************************************************/

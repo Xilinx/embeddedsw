@@ -47,6 +47,11 @@
 *						output using timer overflow when TTC3 present.
 *						XTime_SetTime is modified to configure TTC3 counter
 *						value when present.
+* 5.04	pkp	   03/11/16 XTime_StartTimer is modified to avoid enabling the
+*						overflow interrupt and XTime_GetTime & XTime_SetTime
+*						are modified to read and write TTC counter value
+*						respectively
+* 5.04	pkp
 * </pre>
 *
 * @note		None.
@@ -64,10 +69,10 @@
 /**************************** Type Definitions *******************************/
 
 /************************** Constant Definitions *****************************/
-#define RST_LPD_IOU2 0xFF5E0238U
-#define RST_LPD_IOU2_TTC3_RESET_MASK	0X00004000U
+#define RST_LPD_IOU2 					0xFF5E0238U
+#define RST_LPD_IOU2_TTC3_RESET_MASK	0x00004000U
 /************************** Variable Definitions *****************************/
-u32 time_high = 0;
+
 /************************** Function Prototypes ******************************/
 
 /* Function definitions are applicable only when TTC3 is present*/
@@ -86,53 +91,47 @@ u32 time_high = 0;
 ****************************************************************************/
 void XTime_StartTimer(void)
 {
-	u32 reg_lpd_rst, reg_timer_prescalar, reg_timer_cntrl, reg_timer_isr;
+	u32 LpdRst;
+	u32 TimerPrescalar;
+	u32 TimerCntrl;
 
-	reg_lpd_rst = Xil_In32(RST_LPD_IOU2);
-	/* Bring Timer out of reset when under reset*/
-	if ((reg_lpd_rst & RST_LPD_IOU2_TTC3_RESET_MASK) != 0 ) {
-		reg_lpd_rst = reg_lpd_rst & (~RST_LPD_IOU2_TTC3_RESET_MASK);
-		Xil_Out32(RST_LPD_IOU2, reg_lpd_rst);
-		goto Config_Timer;
+	LpdRst = Xil_In32(RST_LPD_IOU2);
+	if ((LpdRst & RST_LPD_IOU2_TTC3_RESET_MASK) != 0 ) {
+			LpdRst = LpdRst & (~RST_LPD_IOU2_TTC3_RESET_MASK);
+			Xil_Out32(RST_LPD_IOU2, LpdRst);
+
+	} else {
+		TimerCntrl = Xil_In32(SLEEP_TIMER_BASEADDR +
+								SLEEP_TIMER_CNTR_CNTRL_OFFSET);
+		/* check if Timer is disabled */
+		if ((TimerCntrl & SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK) == 0) {
+			TimerPrescalar = Xil_In32(SLEEP_TIMER_BASEADDR +
+									SLEEP_TIMER_CLK_CNTRL_OFFSET);
+
+		/* check if Timer is configured with proper functionalty for sleep */
+			if ((TimerPrescalar & SLEEP_TIMER_CLOCK_CONTROL_PS_EN_MASK) == 0)
+						return;
+		}
 	}
-
-	reg_timer_cntrl = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET);
-	/* check if Timer is disabled */
-	if ((reg_timer_cntrl & SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK)!=0)
-		goto Config_Timer;
-	else
-		return;
-
-	reg_timer_prescalar = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CLK_CNTRL_OFFSET);
-	reg_timer_isr = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_IER_OFFSET);
-
-	/* check if the timer is configured with proper functionalty for sleep */
-	if ((((reg_timer_cntrl & SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK) == 0) &
-			(((reg_timer_prescalar & SLEEP_TIMER_CLOCK_CONTROL_PS_EN_MASK) != 0) |
-				((reg_timer_isr & SLEEP_TIMER_INTERRUPT_REGISTER_OV_MASK) == 0))) != 0)
-					goto Config_Timer;
-	else
-		return;
-
-Config_Timer:
 	/* Disable the timer to configure */
-	reg_timer_cntrl = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET);
-	reg_timer_cntrl = reg_timer_cntrl | SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK;
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET, reg_timer_cntrl);
+	TimerCntrl = Xil_In32(SLEEP_TIMER_BASEADDR +
+							SLEEP_TIMER_CNTR_CNTRL_OFFSET);
+	TimerCntrl = TimerCntrl | SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK;
+	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET,
+				TimerCntrl);
 
 	/* Disable the prescalar */
-	reg_timer_prescalar = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CLK_CNTRL_OFFSET);
-	reg_timer_prescalar = reg_timer_prescalar & (~SLEEP_TIMER_CLOCK_CONTROL_PS_EN_MASK);
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CLK_CNTRL_OFFSET , reg_timer_prescalar);
-
-	/* Enable the Overflow interrupt */
-	reg_timer_isr = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_IER_OFFSET);
-	reg_timer_isr = reg_timer_isr | SLEEP_TIMER_INTERRUPT_REGISTER_OV_MASK;
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_IER_OFFSET, reg_timer_isr);
+	TimerPrescalar = Xil_In32(SLEEP_TIMER_BASEADDR +
+								SLEEP_TIMER_CLK_CNTRL_OFFSET);
+	TimerPrescalar = TimerPrescalar & (~SLEEP_TIMER_CLOCK_CONTROL_PS_EN_MASK);
+	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CLK_CNTRL_OFFSET,
+				TimerPrescalar);
 
 	/* Enable the Timer */
-	reg_timer_cntrl = SLEEP_TIMER_COUNTER_CONTROL_RST_MASK & (~SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK);
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET, reg_timer_cntrl);
+	TimerCntrl = SLEEP_TIMER_COUNTER_CONTROL_RST_MASK &
+					(~SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK);
+	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET,
+				TimerCntrl);
 
 }
 /****************************************************************************
@@ -149,21 +148,24 @@ Config_Timer:
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
 {
-	u32 reg;
+	u32 TimerCntrl;
 	/* Disable the timer to configure */
-	reg = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET);
-	reg = reg | SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK;
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET, reg);
+	TimerCntrl = Xil_In32(SLEEP_TIMER_BASEADDR +
+							SLEEP_TIMER_CNTR_CNTRL_OFFSET);
+	TimerCntrl = TimerCntrl | SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK;
+	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET,
+				TimerCntrl);
 
 	/* Write the lower 32bit value to timer counter register */
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_VAL_OFFSET, (u32)Xtime_Global);
-	/* store upper 32bit value to variable high*/
-	time_high = (u32)((u32)(Xtime_Global>>32U));
+	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_VAL_OFFSET,
+				Xtime_Global);
 
 	/* Enable the Timer */
-	reg = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET);;
-	reg = reg & (~SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK);
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET, reg);
+	TimerCntrl = Xil_In32(SLEEP_TIMER_BASEADDR +
+							SLEEP_TIMER_CNTR_CNTRL_OFFSET);
+	TimerCntrl = TimerCntrl & (~SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK);
+	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET,
+				TimerCntrl);
 }
 
 /****************************************************************************
@@ -179,13 +181,7 @@ void XTime_SetTime(XTime Xtime_Global)
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
-	u32 time_low;
-	time_low = Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_VAL_OFFSET);
-	/* If timer overflows increment the high counter */
-	if(((Xil_In32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_ISR_OFFSET)) & SLEEP_TIMER_INTERRUPT_REGISTER_OV_MASK)!= 0){
-		time_high++;
-	}
-
-	*Xtime_Global = (((XTime) time_high) << 32U) | (XTime) time_low;
+	*Xtime_Global = Xil_In32(SLEEP_TIMER_BASEADDR +
+								SLEEP_TIMER_CNTR_VAL_OFFSET);
 }
 #endif
