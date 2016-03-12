@@ -33,6 +33,8 @@
 /**
 *
 * @file xdsi.c
+* @addtogroup dsi_v1_0
+* @{
 *
 * This file implements the functions to control and get info from the DSI TX
 * Controller.
@@ -128,30 +130,19 @@ u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *CfgPtr,
 *
 * @param	InstancePtr is the XDsi instance to operate on.
 *
-* @return
-* 		- XST_SUCCESS On proper reset.
+* @return	None.
 *
 * @note		None.
 *
 ****************************************************************************/
-u32 XDsi_Reset(XDsi *InstancePtr)
+void XDsi_Reset(XDsi *InstancePtr)
 {
-	u32 Status;
-
 	/* Verify argument */
-	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
 	XDsi_SetSoftReset(InstancePtr);
 
-	/* wait until IP core reset done */
-	do {
-		Status = XDsi_IsControllerReady(InstancePtr);
-	}
-	while (Status);
-
 	XDsi_ClearSoftReset(InstancePtr);
-
-	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -521,3 +512,4 @@ static void StubErrCallback(void *CallbackRef, u32 ErrorMask)
 {
 	Xil_AssertVoidAlways();
 }
+/** @} */

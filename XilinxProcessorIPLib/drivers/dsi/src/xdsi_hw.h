@@ -31,7 +31,9 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
- *  @file xdsi_hw.h
+ * @file xdsi_hw.h
+ * @addtogroup dsi_v1_0
+ * @{
  *
  * Hardware definition file. It defines the register interface.
  *
@@ -326,3 +328,4 @@ static inline void XDsi_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 #endif
 
 #endif
+/** @} */

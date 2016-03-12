@@ -33,6 +33,8 @@
 /**
 *
 * @file xdsi_intr.c
+* @addtogroup dsi_v1_0
+* @{
 *
 * This file implements the functions which handle the interrupts in the DSI
 * TX Controller.
@@ -118,7 +120,7 @@ void XDsi_InterruptDisable(XDsi *InstancePtr, u32 Mask)
 	Xil_AssertVoid((Mask & (~(XDSI_IER_ALLINTR_MASK))) == 0);
 
 	XDsi_IntrDisable(InstancePtr,
-		(~Mask & (XDsi_GetIntrEnableStatus(InstancePtr))));
+		(Mask & (XDsi_GetIntrEnableStatus(InstancePtr))));
 }
 
 /*****************************************************************************/
@@ -315,3 +317,4 @@ void XDsi_IntrHandler(void *InstancePtr)
 	/* Clear Invoked interrupt(s) */
 	XDsi_InterruptClear(XDsiPtr, InvokedIntr);
 }
+/** @} */

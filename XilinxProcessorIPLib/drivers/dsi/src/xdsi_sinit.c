@@ -33,6 +33,8 @@
 /**
 *
 * @file xdsi_sinit.c
+* @addtogroup dsi_v1_0
+* @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xdsi_g.c, generated automatically by XPS or
@@ -83,3 +85,4 @@ XDsi_Config *XDsi_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */

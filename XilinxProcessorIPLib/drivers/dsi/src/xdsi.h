@@ -33,6 +33,9 @@
 /**
 *
 * @file xdsi.h
+* @addtogroup dsi_v1_0
+* @{
+* @details
 *
 * This file contains the implementation of the MIPI DSI TX Controller driver.
 * User documentation for the driver functions is contained in this file in the
@@ -565,7 +568,7 @@ XDsi_Config *XDsi_LookupConfig(u32 DeviceId);
 u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *Config,
 			u32 EffectiveAddr);
 u32 XDsi_Activate(XDsi *InstancePtr, XDsi_Selection Flag);
-u32 XDsi_Reset(XDsi *InstancePtr);
+void XDsi_Reset(XDsi *InstancePtr);
 u32 XDsi_DefaultConfigure(XDsi *InstancePtr);
 u32 XDsi_SelfTest(XDsi *InstancePtr);
 void XDsi_SendShortPacket(XDsi *InstancePtr, XDsi_ShortPacket *ShortPacket);
@@ -583,3 +586,4 @@ s32 XDsi_SetCallback(XDsi *InstancePtr, u32 HandleType,
 #endif
 
 #endif /* end of protection macro */
+/** @} */
