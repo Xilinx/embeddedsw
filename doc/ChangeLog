@@ -726,6 +726,37 @@ Added a new lwip echo server app to be used only with FreeRTOS BSP. The function
 is exactly same as lwip_echo_server except the fact that it does not support 1000BaseX, sgmii modes and
 is exclusively for FreeRTOS.
 
+zynqmp_fsbl:
+Fix for decryption only secure test failure in R5, by disabling data cache.
+Workaround provided in FSBL for SD card insert/remove detection.
+Added performance measurement feature, with which time taken by various stages of FSBL can be monitored.
+When FSBL runs on R5, FSBL's vectors are overwritten with those of user applications. This is now avoided for non-secure boot.
+Added support for Winbond 64M and ISSI 128M QSPI parts.
+Fix the issue in FSBL when only WDT1 is present in design.
+R5 BSP now disables debug logic and enables comparators. For R5 Lockstep, in JTAG bootmode, Turn-off comparators and enable debug logic so that further applications can be ran on JTAG.
+Added the PL reset capability using EMIO[95-92] in FSBL after successful PL configuration.
+Fix the logic to determine the bank crossing condition in case of a dual parallel qspi connection. Also corresponding change fix done to calculate the number of bytes to be programmed in a given bank.
+A workaround is provided in FSBL to power-up PL before MIO configuration (for Silicon versions 1 and 2). Also, removal of isolation for PL is now deferred until its configuration is done.
+Added support for PS-Only reset, i.e. only the PS component is reset without re-configuring the PL component.
+Added support for Macronix QSPI flash parts.
+Changed linker script. With this, FSBL now fails to build (linker error) if FSBL's loadable sections exceed the OCM region allotted to it. This avoids possible overlap of FSBL with other applications built for OCM.
+Added support for ZCU102 board specific configuration, including GT configuration.
+Updated extra compiler flags for A53-64 (ARMA53_64), A53-32 (ARMA53_32).
+Added support for PL bitstream loading in DDRless system.
+To minimize the possibility of speculative access of DDR before it is initialized, in A53 FSBL's translation table (duplicated from BSP), DDR region is marked as "reserved". DDR region is again marked as "Memory" after DDR initialization.
+Due to a bug in 1.0 Silicon, PS hangs after System Reset if RPLL is used. Hence, just for 1.0 Silicon, RPLL clock is bypassed before giving System Reset (this is workaround in FSBL).
+When multiboot register value is non zero and when second SD instance is used, the bin filename was incorrectly determined in FSBL. This is fixed now.
+Fix for failure in authenticating PL bitsream.
+Restrict cores for which FSBL can be created (throw error if not running on A53-0, R5-0, R5-L).
+Renamed stack names in A53 FSBL linker script.
+
+zynq_fsbl:
+PS UART code is now referred only when PS UART is present in design. This is since STDOUT_BASEADDRESS is defined even for coresight UART.
+Added support for Macronix flash.
+Removed the hard coded value of qspi read command and configured to pick from LQSPI_CFG register.
+As xilrsa is not mandatory for zynq, remove xilrsa check while creating application in SDK.
+
+
 Change Log for 2015.4
 =================================
 can_v3_1:
