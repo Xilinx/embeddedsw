@@ -33,6 +33,8 @@
 /**
 *
 * @file xclk_wiz.c
+* @addtogroup clk_wiz_v1_0
+* @{
 *
 * This file implements the functions to get the CLK_WIZ GUI information and
 * Clock Monitor Interrupt status
@@ -165,3 +167,4 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 {
 	Xil_AssertVoidAlways();
 }
+/** @} */

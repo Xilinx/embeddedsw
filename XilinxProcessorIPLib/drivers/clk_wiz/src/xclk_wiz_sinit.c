@@ -33,6 +33,8 @@
 /**
 *
 * @file xclk_wiz_sinit.c
+* @addtogroup clk_wiz_v1_0
+* @{
 *
 * Look up the hardware settings using device ID. The hardware setting is inside
 * the configuration table in xclk_wiz_g.c, generated automatically by XPS or
@@ -81,3 +83,4 @@ XClk_Wiz_Config *XClk_Wiz_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+/** @} */
