@@ -34,7 +34,9 @@
 *
 * @file xclk_wiz.h
 *
-* @mainpage clk_wiz_v1_0
+* @addtogroup clk_wiz_v1_0
+* @{
+* @details
 *
 * This is main header file of the Xilinx Clock Wizard driver
 *
@@ -421,3 +423,4 @@ int XClk_Wiz_SetCallBack(XClk_Wiz *InstancePtr, u32 HandleType,
 #endif
 
 #endif /* end of protection macro */
+/** @} */

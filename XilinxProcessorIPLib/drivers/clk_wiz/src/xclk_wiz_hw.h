@@ -32,6 +32,8 @@
 /*****************************************************************************/
 /**
  *  @file xclk_wiz_hw.h
+ * @addtogroup clk_wiz_v1_0
+ * @{
  *
  * Hardware definition file. It defines the register interface.
  *
@@ -277,3 +279,4 @@ static inline void XClk_Wiz_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) {
 #endif
 
 #endif
+/** @} */

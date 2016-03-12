@@ -33,6 +33,8 @@
 /**
 *
 * @file xclk_wiz_intr.c
+* @addtogroup clk_wiz_v1_0
+* @{
 *
 * This file implements the functions which handle the interrupts in the CLK_WIZ
 * Controller.
@@ -113,7 +115,7 @@ void XClk_Wiz_InterruptDisable(XClk_Wiz *InstancePtr, u32 Mask)
 	Xil_AssertVoid((Mask & (~(XCLK_WIZ_IER_ALLINTR_MASK))) == 0);
 
 	XClk_Wiz_IntrDisable(InstancePtr, \
-		((~(Mask)) & (XClk_Wiz_GetIntrEnable(InstancePtr))));
+		(Mask & (XClk_Wiz_GetIntrEnable(InstancePtr))));
 }
 
 /*****************************************************************************/
@@ -124,9 +126,9 @@ void XClk_Wiz_InterruptDisable(XClk_Wiz *InstancePtr, u32 Mask)
 * @param	InstancePtr is the XClk_Wiz instance to operate on
 *
 * @return	Interrupt Mask with bits set for corresponding interrupt in
-* 		Interrupt enable register
+*		Interrupt enable register
 *
-* @Note		None
+* @note		None
 *
 ****************************************************************************/
 u32 XClk_Wiz_InterruptGetEnabled(XClk_Wiz *InstancePtr)
@@ -148,8 +150,9 @@ u32 XClk_Wiz_InterruptGetEnabled(XClk_Wiz *InstancePtr)
 * @param	InstancePtr is the XClk_Wiz instance to operate on
 *
 * @return	Interrupt Mask with bits set for corresponding interrupt in
-* 		Interrupt Status register
-* @Note		None
+*		Interrupt Status register
+*
+* @note		None
 *
 ****************************************************************************/
 u32 XClk_Wiz_InterruptGetStatus(XClk_Wiz *InstancePtr)
@@ -170,11 +173,11 @@ u32 XClk_Wiz_InterruptGetStatus(XClk_Wiz *InstancePtr)
 *
 * @param	InstancePtr is the XClk_Wiz instance to operate on
 * @param	Mask is Interrupt Mask with bits set for corresponding interrupt
-* 		to be cleared in the Interrupt Status register
+*		to be cleared in the Interrupt Status register
 *
 * @return 	None
 *
-* @Note		None
+* @note		None
 *
 ****************************************************************************/
 void XClk_Wiz_InterruptClear(XClk_Wiz *InstancePtr, u32 Mask)
@@ -324,3 +327,4 @@ void XClk_Wiz_IntrHandler(void *InstancePtr)
 	/* Clear pending interrupt(s) */
 	XClk_Wiz_InterruptClear(XClk_WizPtr, PendingIntr);
 }
+/** @} */
