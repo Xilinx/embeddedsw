@@ -33,6 +33,8 @@
 /**
 *
 * @file xdsi_selftest.c
+* @addtogroup dsi_v1_0
+* @{
 *
 * Contains diagnostic/self-test functions for the XDsi Controller component.
 *
@@ -77,7 +79,7 @@
 * @param	InstancePtr is a pointer to the XDsi instance.
 *
 * @return
-* 		- XST_SUCCESS if self-test was successful
+*		- XST_SUCCESS if self-test was successful
 *		- XST_FAILURE if the read value was not equal to GUI parameter
 *
 * @note		None
@@ -103,3 +105,4 @@ u32 XDsi_SelfTest(XDsi *InstancePtr)
 	}
 	return Status;
 }
+/** @} */
