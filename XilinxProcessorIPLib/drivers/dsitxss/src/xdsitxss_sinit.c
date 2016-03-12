@@ -35,7 +35,6 @@
 * @file xdsitxss_sinit.c
 * @addtogroup dsitxss_v1_0
 * @{
-* @details
 *
 * This file contains the implementation of the MIPI DSI Tx Subsystem
 * driver's static initialization functionality.

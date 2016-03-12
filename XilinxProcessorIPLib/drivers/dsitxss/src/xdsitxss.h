@@ -33,7 +33,7 @@
 /**
 *
 * @file xdsitxss.h
-** @addtogroup dsitxss_v1_0
+* @addtogroup dsitxss_v1_0
 * @{
 * @details
 *
@@ -51,9 +51,9 @@
 * <b>Subsystem Features</b>
 *
 * MIPI DSI Tx Subsystem supports following features
-* 	- Support for 1 to 4 Data  Lanes.
-* 	- Line rates ranging from 80 to 1500 Mbps.
-* 	- Different data type support(RGB888,RGB566,RGB666L,RGB666P).
+*	- Support for 1 to 4 Data Lanes.
+*	- Line rates ranging from 80 to 1500 Mbps.
+*	- Different data type support(RGB888,RGB566,RGB666L,RGB666P).
 *	- Filtering of packets based on Virtual channel ID.
 *	- Single,Dual,Quad input pixel per beat
 *
@@ -245,7 +245,7 @@ s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 							u32 EffectiveAddr);
 u32 XDsiTxSs_DefaultConfigure(XDsiTxSs *InstancePtr);
 void XDsiTxSs_Activate(XDsiTxSs *InstancePtr, u8 Flag);
-u32 XDsiTxSs_Reset(XDsiTxSs *InstancePtr);
+void XDsiTxSs_Reset(XDsiTxSs *InstancePtr);
 void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr);
 void XDsiTxSs_SendShortPacket(XDsiTxSs *InstancePtr);
@@ -268,3 +268,4 @@ void XDsiTxSs_IntrHandler(void *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

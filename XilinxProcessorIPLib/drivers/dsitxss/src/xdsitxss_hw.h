@@ -33,6 +33,8 @@
 /**
 *
 * @file xdsitxss_hw.h
+* @addtogroup dsitxss_v1_0
+* @{
 *
 * This header file contains identifiers and register-level core functions (or
 * macros) that can be used to access the Xilinx MIPI DSI Tx Subsystem core.
@@ -143,3 +145,4 @@ static inline void XDsiTxSs_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
 #endif
 
 #endif
+/** @} */

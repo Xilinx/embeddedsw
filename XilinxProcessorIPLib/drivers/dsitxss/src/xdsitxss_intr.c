@@ -35,7 +35,6 @@
 * @file xdsitxss_intr.c
 * @addtogroup dsitxss_v1_0
 * @{
-* @details
 *
 * This is the interrupt handling part of the Xilinx MIPI DSI Tx Subsystem
 * device driver. The interrupt registration and handler are defined here.
