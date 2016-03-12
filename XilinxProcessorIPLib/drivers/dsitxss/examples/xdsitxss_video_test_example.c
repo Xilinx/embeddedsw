@@ -72,7 +72,7 @@
 /* The unique device ID of the MIPI DSI Rx Subsystem instance
  * to be used
  */
-#define XDSITXSS_DEVICE_ID	XPAR_DSISSTX_0_DEVICE_ID
+#define XDSITXSS_DEVICE_ID	XPAR_DSITXSS_0_DEVICE_ID
 
 /* DMA Related constants */
 #define DMA_DEVICE_ID		XPAR_AXI_VDMA_0_DEVICE_ID

@@ -222,32 +222,24 @@ void XDsiTxSs_Activate(XDsiTxSs *InstancePtr, u8 Flag)
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return	- XST_SUCCESS if all the sub core IP resets occur correctly
-*		- XST_FAILURE if reset fails for any sub core IP fails
+* @return	None
 *
 * @note		None.
 *
 ******************************************************************************/
-u32 XDsiTxSs_Reset(XDsiTxSs *InstancePtr)
+void XDsiTxSs_Reset(XDsiTxSs *InstancePtr)
 {
-	u32 Status;
-
 	/* Verify arguments */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(InstancePtr->DsiPtr);
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->DsiPtr);
 
-	Status = XDsi_Reset(InstancePtr->DsiPtr);
+	XDsi_Reset(InstancePtr->DsiPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if ((InstancePtr->DphyPtr != NULL) &&
 		(InstancePtr->DphyPtr->Config.IsRegisterPresent)) {
 			XDphy_Reset(InstancePtr->DphyPtr);
 		}
 #endif
-	if (Status == XST_FAILURE) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "DSI SubSys Reset failed\r\n");
-	}
-
-	return Status;
 }
 
 /*****************************************************************************/

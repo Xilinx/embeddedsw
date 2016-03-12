@@ -33,6 +33,8 @@
 /**
 *
 * @file xdsitxss_selftest.c
+* @addtogroup dsitxss_v1_0
+* @{
 *
 * This file contains self test function for the MIPI DSI Tx Subsystem
 *
@@ -108,3 +110,4 @@ u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr)
 
 	return XST_SUCCESS;
 }
+/** @} */
