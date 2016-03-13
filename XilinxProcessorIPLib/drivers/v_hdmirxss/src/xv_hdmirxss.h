@@ -60,6 +60,7 @@
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     20/01/16 Added remapper support
 * 1.2   yh     01/02/16 Added set_ppc api
+* 1.3   MG     03/02/16 Added HDCP support
 * </pre>
 *
 ******************************************************************************/
@@ -77,10 +78,11 @@ extern "C" {
 #include "xv_hdmirx.h"
 #include "xtmrctr.h"
 #include "xhdcp1x.h"
+#include "xhdcp22_rx.h"
 #include "xgpio.h"
 #include "xv_axi4s_remap.h"
 
-#define XV_HDMIRXSS_HDCP_KEYSEL 0x01u
+#define XV_HDMIRXSS_HDCP_KEYSEL 0x00u
 
 /****************************** Type Definitions ******************************/
 /** @name Handler Types
@@ -102,6 +104,40 @@ typedef enum {
   XV_HDMIRXSS_HANDLER_HDCP          /**< Interrupt type for hdcp */
 } XV_HdmiRxSs_HandlerType;
 /*@}*/
+
+/**
+* These constants specify the different protection schemes that can be set
+*/
+typedef enum
+{
+  XV_HDMIRXSS_HDCP_NONE,       /**< No content protection */
+  XV_HDMIRXSS_HDCP_14,     /**< HDCP 1.4 */
+  XV_HDMIRXSS_HDCP_22      /**< HDCP 2.2 */
+} XV_HdmiRxSs_HdcpProtocol;
+
+typedef enum
+{
+  XV_HDMIRXSS_HDCP_NO_EVT,
+  XV_HDMIRXSS_HDCP_STREAMUP_EVT,
+  XV_HDMIRXSS_HDCP_STREAMDOWN_EVT
+} XV_HdmiRxSs_HdcpEvent;
+
+typedef struct
+{
+  XV_HdmiRxSs_HdcpEvent Queue[16]; /**< Data */
+  u8                    Tail;      /**< Tail pointer */
+  u8                    Head;      /**< Head pointer */
+} XV_HdmiRxSs_HdcpEventQueue;
+
+/**
+* These constants specify the HDCP key types
+*/
+typedef enum
+{
+  XV_HDMIRXSS_KEY_HDCP22_LC128,     /**< HDCP 2.2 LC128 */
+  XV_HDMIRXSS_KEY_HDCP22_PRIVATE,   /**< HDCP 2.2 Private */
+  XV_HDMIRXSS_KEY_HDCP14,           /**< HDCP 1.4 Key */
+} XV_HdmiRxSs_HdcpKeyType;
 
 /**
  * Sub-Core Configuration Table
@@ -130,7 +166,8 @@ typedef struct
   u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
   XV_HdmiRxSs_SubCore RemapperReset;/**< Sub-core instance configuration */
   XV_HdmiRxSs_SubCore HdcpTimer;    /**< Sub-core instance configuration */
-  XV_HdmiRxSs_SubCore Hdcp;         /**< Sub-core instance configuration */
+  XV_HdmiRxSs_SubCore Hdcp14;       /**< Sub-core instance configuration */
+  XV_HdmiRxSs_SubCore Hdcp22;       /**< Sub-core instance configuration */
   XV_HdmiRxSs_SubCore Remapper;     /**< Sub-core instance configuration */
   XV_HdmiRxSs_SubCore HdmiRx;       /**< Sub-core instance configuration */
 } XV_HdmiRxSs_Config;
@@ -159,10 +196,11 @@ typedef struct
   XV_HdmiRxSs_Config Config;    /**< Hardware configuration */
   u32 IsReady;                  /**< Device and the driver instance are
                                      initialized */
-  XGpio *RemapperResetPtr;    /**< handle to sub-core driver instance */
+  XGpio *RemapperResetPtr;        /**< handle to sub-core driver instance */
   XTmrCtr *HdcpTimerPtr;           /**< handle to sub-core driver instance */
-  XHdcp1x *HdcpPtr;                /**< handle to sub-core driver instance */
-  XV_axi4s_remap *RemapperPtr;/**< handle to sub-core driver instance */
+  XHdcp1x *Hdcp14Ptr;                /**< handle to sub-core driver instance */
+  XHdcp22_Rx  *Hdcp22Ptr;           /**< handle to sub-core driver instance */
+  XV_axi4s_remap *RemapperPtr;    /**< handle to sub-core driver instance */
   XV_HdmiRx *HdmiRxPtr;             /**< handle to sub-core driver instance */
 
   /*Callbacks */
@@ -210,9 +248,19 @@ typedef struct
     void *UserTimerPtr;           /**< Pointer to a timer instance
                             used by the custom user
                             delay/sleep function. */
+  /**< HDCP specific */
+  u32                           HdcpIsReady;    /**< HDCP ready flag */
+  XV_HdmiRxSs_HdcpEventQueue    HdcpEventQueue;         /**< HDCP event queue */
+  XV_HdmiRxSs_HdcpProtocol      HdcpProtocol;           /**< HDCP protect scheme */
+  u8                            *Hdcp22Lc128Ptr;        /**< Pointer to HDCP 2.2 LC128 */
+  u8                            *Hdcp22PrivateKeyPtr;   /**< Pointer to HDCP 2.2 Private key */
+  u8                            *Hdcp14KeyPtr;          /**< Pointer to HDCP 1.4 key */
+
 } XV_HdmiRxSs;
 
 /************************** Macros Definitions *******************************/
+#define XV_HdmiRxSs_HdcpIsReady(InstancePtr) \
+  (InstancePtr)->HdcpIsReady
 
 /************************** Function Prototypes ******************************/
 XV_HdmiRxSs_Config* XV_HdmiRxSs_LookupConfig(u32 DeviceId);
@@ -253,15 +301,24 @@ void XV_HdmiRxSs_ReportLinkQuality(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_ReportAudio(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_ReportInfoFrame(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_ReportSubcoreVersion(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr, u8 Enable);
-u8 XV_HdmiRxSs_HdcpPoll(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_HdcpTimerStart(const XHdcp1x *InstancePtr, u16 TimeoutInMs);
 int XV_HdmiRxSs_HdcpTimerStop(const XHdcp1x *InstancePtr);
 int XV_HdmiRxSs_HdcpTimerBusyDelay(const XHdcp1x *InstancePtr, u16 DelayInMs);
-void XV_HdmiRxSs_ResetRemapper(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSs_ConfigRemapper(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id);
-void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc);
+
+// HDCP
+void XV_HdmiRxSs_HdcpSetKey(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpKeyType KeyType, u8 *KeyPtr);
+int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpDisable(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpClearEvents(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpPushEvent(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpEvent Event);
+int XV_HdmiRxSs_HdcpPoll(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtocol Protocol);
+XV_HdmiRxSs_HdcpProtocol XV_HdmiRxSs_HdcpGetProtocol(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpIsEnabled(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpIsAuthenticated(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpIsEncrypted(XV_HdmiRxSs *InstancePtr);
+void XV_HdmiRxSs_HdcpInfo(XV_HdmiRxSs *InstancePtr);
+void XV_HdmiRxSs_HdcpSetInfoDetail(XV_HdmiRxSs *InstancePtr, u8 Verbose);
 
 #ifdef __cplusplus
 }

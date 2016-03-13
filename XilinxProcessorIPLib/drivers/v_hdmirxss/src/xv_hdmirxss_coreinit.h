@@ -47,6 +47,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     20/01/16 Added remapper support
+* 1.2   MG     03/02/16 Added HDCP support
 * </pre>
 *
 ******************************************************************************/
@@ -61,7 +62,6 @@ extern "C" {
 #include "xv_hdmirxss.h"
 #include "xv_hdmirx.h"
 #include "xtmrctr.h"
-#include "xhdcp1x.h"
 #include "xgpio.h"
 #include "xv_axi4s_remap.h"
 /************************** Constant Definitions *****************************/
@@ -69,7 +69,8 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XV_HdmiRxSs_SubcoreInitHdmiRx(XV_HdmiRxSs *HdmiRxSsPtr);
 int XV_HdmiRxSs_SubcoreInitHdcpTimer(XV_HdmiRxSs *HdmiRxSsPtr);
-int XV_HdmiRxSs_SubcoreInitHdcp(XV_HdmiRxSs *HdmiRxSsPtr);
+int XV_HdmiRxSs_SubcoreInitHdcp14(XV_HdmiRxSs *HdmiRxSsPtr);
+int XV_HdmiRxSs_SubcoreInitHdcp22(XV_HdmiRxSs *HdmiRxSsPtr);
 int XV_HdmiRxSs_SubcoreInitRemapperReset(XV_HdmiRxSs *HdmiRxSsPtr);
 int XV_HdmiRxSs_SubcoreInitRemapper(XV_HdmiRxSs *HdmiRxSsPtr);
 
