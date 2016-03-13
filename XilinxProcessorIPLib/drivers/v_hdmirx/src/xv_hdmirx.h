@@ -119,6 +119,8 @@
 * 1.0   gm, mg 10/07/15 Initial release.
 * 1.1   yh     14/01/16 Added Marco for AxisEnable PIO
 * 1.2   yh     15/01/16 Added 3D Video support
+* 1.3   MG     18/02/16 Added link error callback.
+* 1.4   MG     08/03/16 Added RefClk to structure XV_HdmiRx_Stream
 * </pre>
 *
 ******************************************************************************/
@@ -157,7 +159,8 @@ typedef enum {
 	XV_HDMIRX_HANDLER_STREAM_DOWN,	/**< Interrupt type for stream down */
 	XV_HDMIRX_HANDLER_STREAM_INIT,	/**< Interrupt type for stream init */
 	XV_HDMIRX_HANDLER_STREAM_UP,	/**< Interrupt type for stream up */
-	XV_HDMIRX_HANDLER_HDCP			/**< Interrupt type for hdcp */
+	XV_HDMIRX_HANDLER_HDCP,			/**< Interrupt type for hdcp */
+	XV_HDMIRX_HANDLER_LINK_ERROR	/**< Interrupt type for link error */
 } XV_HdmiRx_HandlerType;
 /*@}*/
 
@@ -207,16 +210,17 @@ typedef struct {
 * This typedef contains HDMI RX stream specific data structure.
 */
 typedef struct {
-	XVidC_VideoStream 	Video;	/**< Video stream for HDMI RX */
-	XV_HdmiRx_AudioStream	Audio;	/**< Audio stream */
-	u8 	Vic;			/**< Video Identification code flag */
-	u8 	IsHdmi;			/**< HDMI flag. 1 - HDMI Stream, 0 - DVI Stream */
-	u32 PixelClk;		/**< Pixel Clock */
-	u8 	IsScrambled; 	/**< Scrambler flag 1 - scrambled data ,
+	XVidC_VideoStream 	Video;			/**< Video stream for HDMI RX */
+	XV_HdmiRx_AudioStream	Audio;		/**< Audio stream */
+	u8 	Vic;							/**< Video Identification code flag */
+	u8 	IsHdmi;							/**< HDMI flag. 1 - HDMI Stream, 0 - DVI Stream */
+	u32 PixelClk;						/**< Pixel Clock */
+	u32 RefClk;							/**< Reference Clock */
+	u8 	IsScrambled; 					/**< Scrambler flag 1 - scrambled data ,
 										*	0 - non scrambled data */
-	XV_HdmiRx_State	State;			/**< State */
-	u8 	IsConnected;	/**< Connected flag. This flag is set when
-						* the cable is connected */
+	XV_HdmiRx_State	State;				/**< State */
+	u8 	IsConnected;					/**< Connected flag. This flag is set when
+										* the cable is connected */
 } XV_HdmiRx_Stream;
 
 
@@ -257,6 +261,7 @@ typedef struct {
 *
 */
 typedef void (*XV_HdmiRx_Callback)(void *CallbackRef);
+typedef void (*XV_HdmiRx_HdcpCallback)(void *CallbackRef, int Data);
 
 /**
 * The XHdmiRx driver instance data. An instance must be allocated for each
@@ -299,9 +304,12 @@ typedef struct {
 	void *StreamUpRef;						/**< To be passed to the stream up callback */
 	u32 IsStreamUpCallbackSet;				/**< Set flag. This flag is set to true when the callback has been registered */
 
-	XV_HdmiRx_Callback HdcpCallback;			/**< Callback for hdcp callback */
+	XV_HdmiRx_HdcpCallback HdcpCallback;	/**< Callback for hdcp callback */
 	void *HdcpRef;							/**< To be passed to the hdcp callback */
 	u32	IsHdcpCallbackSet;					/**< Set flag. This flag is set to true when the callback has been registered */
+	XV_HdmiRx_Callback LinkErrorCallback;	/**< Callback for link error callback */
+	void *LinkErrorRef;						/**< To be passed to the link error callback */
+	u32 IsLinkErrorCallbackSet;				/**< Set flag. This flag is set to true when the callback has been registered */
 
 	/* HDMI RX stream */
 	XV_HdmiRx_Stream Stream;				/**< HDMI RX stream information */
@@ -1055,7 +1063,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XV_HdmiRx_DdcHdcpClearWriteMessageBuffer(InstancePtr) \
-	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_LNKSTA_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_WMSG_CLR_MASK))
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_WMSG_CLR_MASK))
 
 /*****************************************************************************/
 /**
@@ -1071,7 +1079,7 @@ typedef struct {
 *
 ******************************************************************************/
 #define XV_HdmiRx_DdcHdcpClearReadMessageBuffer(InstancePtr) \
-	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_LNKSTA_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_RMSG_CLR_MASK))
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_RMSG_CLR_MASK))
 
 /************************** Function Prototypes ******************************/
 

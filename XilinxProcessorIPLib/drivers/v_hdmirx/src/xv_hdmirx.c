@@ -45,6 +45,8 @@
 * 1.0   gm, mg 11/03/15 Initial release.
 * 1.1   MG     30/12/15 Added DDC HDCP 2.2 calls
 * 1.2   yh     15/01/16 Added 3D Video support
+* 1.3   MG     19/02/16 Added link error callback
+* 1.4   MG     08/03/16 Updated XV_HdmiRx_SetStream to use RefClk
 * </pre>
 *
 ******************************************************************************/
@@ -206,6 +208,8 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, u3
     InstancePtr->HdcpCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
     InstancePtr->IsHdcpCallbackSet = (FALSE);
 
+	InstancePtr->LinkErrorCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
+	InstancePtr->IsLinkErrorCallbackSet = (FALSE);
     /* Clear HDMI variables */
     XV_HdmiRx_Clear(InstancePtr);
 
@@ -408,7 +412,9 @@ int XV_HdmiRx_SetStream(XV_HdmiRx *InstancePtr, XVidC_PixelsPerClock Ppc, u32 Cl
 
     /* Pixels per clock */
     InstancePtr->Stream.Video.PixPerClk = Ppc;
-    InstancePtr->Stream.PixelClk = Clock;
+
+    /* Reference clock */
+    InstancePtr->Stream.RefClk = Clock;
 
     /* Set RX pixel rate */
     XV_HdmiRx_SetPixelRate(InstancePtr);
@@ -1311,7 +1317,6 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
 
     // Lookup the videomode based on the vic
     InstancePtr->Stream.Video.VmId = XV_HdmiRx_LookupVmId(InstancePtr->Stream.Vic);
-    //InstancePtr->Stream.Video.VmId = XVIDC_VM_NOT_SUPPORTED;
 
     // Was the vic found?
     // Yes, then get the timing parameters from the video library
@@ -1335,16 +1340,6 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
                                  VidStreamCopy.ColorDepth,
                                  VidStreamCopy.PixPerClk);
         }
-
-        //      // Timing
-        //      InstancePtr->Stream.Video.Timing = *XVidC_GetTimingInfo(InstancePtr->Stream.Video.VmId);
-        //
-        //      // Framerate
-        //      InstancePtr->Stream.Video.FrameRate = XVidC_GetFrameRate(InstancePtr->Stream.Video.VmId);
-        //
-        //      // Interlaced
-        //      InstancePtr->Stream.Video.IsInterlaced = XVidC_IsInterlaced(InstancePtr->Stream.Video.VmId);
-        //      //xil_printf("vic %0d - vmid %0d\n\r",InstancePtr->Stream.Vic, InstancePtr->Stream.Video.VmId);
 
         return (XST_SUCCESS);
     }
