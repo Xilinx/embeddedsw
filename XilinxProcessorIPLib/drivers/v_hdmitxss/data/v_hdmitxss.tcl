@@ -34,6 +34,7 @@
 ##  Ver      Who    Date       Changes
 ## -------- ------ -------- ----------------------------------------------------
 ##  1.0     gmagnay 08/14/15 Initial version of subsystem tcl
+##  1.1     MG      03/03/16 Added HDCP 2.2
 #
 ################################################################################
 
@@ -84,6 +85,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
     array set sub_core_inst {
         axi_timer 1
         hdcp 1
+        hdcp22_tx 1
         v_hdmi_tx 1
         v_tc 1
         axi_gpio 1
