@@ -408,6 +408,19 @@ Added WaitForIdle function.
 v_hcresampler_v2_0:
 Made changes to integrate layer-1 with layer-2.
 
+v_hdmirx_v1_1:
+Added Link Check callback
+Added pixel clock calculation to HdmiRx_TmrIntrHandler
+
+v_hdmitx_v1_1 :
+Reorganization of code
+
+v_hdmirxss_v2_0 :
+Add HDCP Support
+
+v_hdmitxss_v2_0 :
+Add HDCP Support
+
 v_hdmirxss_v2_0:
 Updated version from 1.0 to 2.0
 
