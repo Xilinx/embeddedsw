@@ -36,6 +36,7 @@
 ##  1.0     gmagnay 08/14/15 Initial version of subsystem tcl
 ##  1.1     yh      20/01/15 Added remapper subcore,
 ##                           axi_gpio is to reset remapper (hls core)
+##  1.2     MG      03/03/16 Added HDCP 2.2
 #
 ################################################################################
 
@@ -86,6 +87,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
     array set sub_core_inst {
         axi_timer 1
         hdcp 1
+        hdcp22_rx 1
         v_hdmi_rx 1
         axi_gpio 1
         v_axi4s_remap 1

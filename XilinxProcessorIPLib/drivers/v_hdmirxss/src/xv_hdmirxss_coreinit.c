@@ -52,6 +52,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     20/01/16 Added remapper support
+* 1.2   MG     20/01/16 Added HDCP support
 * </pre>
 *
 ******************************************************************************/
@@ -66,7 +67,17 @@ static int XV_HdmiRxSs_ComputeSubcoreAbsAddr(u32 SubSys_BaseAddr,
                                  u32 SubSys_HighAddr,
                                  u32 subcore_offset,
                                  u32 *SubCore_BaseAddr);
-
+static void XV_HdmiRxSs_DdcSetRegAddrHandler(void *RefPtr, u32 Data);
+static void XV_HdmiRxSs_DdcSetRegDataHandler(void *RefPtr, u32 Data);
+static u32 XV_HdmiRxSs_DdcGetRegDataHandler(void *RefPtr);
+static u32 XV_HdmiRxSs_DdcGetWriteMessageBufferWordsHandler(void *RefPtr);
+static u32 XV_HdmiRxSs_DdcGetReadMessageBufferWordsHandler(void *RefPtr);
+static u32 XV_HdmiRxSs_DdcIsReadMessageBufferEmptyHandler(void *RefPtr);
+static u32 XV_HdmiRxSs_DdcIsWriteMessageBufferEmptyHandler(void *RefPtr);
+static void XV_HdmiRxSs_DdcClearReadMessageBufferHandler(void *RefPtr);
+static void XV_HdmiRxSs_DdcClearWriteMessageBufferHandler(void *RefPtr);
+static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type);
+static void XV_HdmiRxSs_LinkErrorCallback(void *RefPtr);
 
 /*****************************************************************************/
 /**
@@ -153,6 +164,12 @@ int XV_HdmiRxSs_SubcoreInitHdmiRx(XV_HdmiRxSs *HdmiRxSsPtr)
                                     ConfigPtr,
                                     AbsAddr);
 
+    if (Status != XST_SUCCESS)
+    {
+      xil_printf("HDMIRXSS ERR:: HDMI RX Initialization failed\r\n");
+      return(XST_FAILURE);
+    }
+
     // Load EDID
     XV_HdmiRx_DdcLoadEdid(HdmiRxSsPtr->HdmiRxPtr, HdmiRxSsPtr->EdidPtr,
         HdmiRxSsPtr->EdidLength);
@@ -164,11 +181,6 @@ int XV_HdmiRxSs_SubcoreInitHdmiRx(XV_HdmiRxSs *HdmiRxSsPtr)
     HdmiRxSsPtr->IsReady = XIL_COMPONENT_IS_READY;
 
 
-    if(Status != XST_SUCCESS)
-    {
-      xil_printf("HDMIRXSS ERR:: HDMI RX Initialization failed\r\n");
-      return(XST_FAILURE);
-    }
   }
   return(XST_SUCCESS);
 }
@@ -239,60 +251,190 @@ int XV_HdmiRxSs_SubcoreInitHdcpTimer(XV_HdmiRxSs *HdmiRxSsPtr)
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XV_HdmiRxSs_SubcoreInitHdcp(XV_HdmiRxSs *HdmiRxSsPtr)
+int XV_HdmiRxSs_SubcoreInitHdcp14(XV_HdmiRxSs *HdmiRxSsPtr)
 {
   int Status;
   u32 AbsAddr;
   XHdcp1x_Config *ConfigPtr;
 
-  if(HdmiRxSsPtr->HdcpPtr)
-  {
-    /* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP core.... \r\n");
-    ConfigPtr  = XHdcp1x_LookupConfig(HdmiRxSsPtr->Config.Hdcp.DeviceId);
-    if(ConfigPtr == NULL)
-    {
-      xil_printf("HDMIRXSS ERR:: HDCP device not found\r\n");
-      return(XST_FAILURE);
+  /* Is the HDCP 1.4 RX present? */
+  if (HdmiRxSsPtr->Hdcp14Ptr) {
+
+    /* Is the key loaded? */
+    if (HdmiRxSsPtr->Hdcp14KeyPtr) {
+
+      /* Get core configuration */
+      xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP 1.4 core.... \r\n");
+      ConfigPtr  = XHdcp1x_LookupConfig(HdmiRxSsPtr->Config.Hdcp14.DeviceId);
+      if(ConfigPtr == NULL)
+      {
+        xil_printf("HDMIRXSS ERR:: HDCP 1.4 device not found\r\n");
+        return(XST_FAILURE);
+      }
+
+      /* Compute absolute base address */
+      AbsAddr = 0;
+      Status = XV_HdmiRxSs_ComputeSubcoreAbsAddr(HdmiRxSsPtr->Config.BaseAddress,
+                                 HdmiRxSsPtr->Config.HighAddress,
+                                 HdmiRxSsPtr->Config.Hdcp14.AddrOffset,
+                                 &AbsAddr);
+
+      if(Status != XST_SUCCESS)
+      {
+        xil_printf("HDMIRXSS ERR:: HDCP 1.4 core base address (0x%x) invalid %d\r\n",
+          AbsAddr);
+        return(XST_FAILURE);
+      }
+
+      /* Initialize core */
+      void *PhyIfPtr = HdmiRxSsPtr->HdmiRxPtr;
+      Status = XHdcp1x_CfgInitialize(HdmiRxSsPtr->Hdcp14Ptr,
+                                        ConfigPtr,
+                                        PhyIfPtr,
+                                        AbsAddr);
+
+      /* Self-test the hdcp interface */
+      if (XHdcp1x_SelfTest(HdmiRxSsPtr->Hdcp14Ptr) != XST_SUCCESS) {
+          Status = XST_FAILURE;
+      }
+
+      if(Status != XST_SUCCESS)
+      {
+        xil_printf("HDMIRXSS ERR:: HDCP 1.4 Initialization failed\r\n");
+        return(XST_FAILURE);
+      }
+
+      /* Clear the event queue */
+      XV_HdmiRxSs_HdcpClearEvents(HdmiRxSsPtr);
+
+      /* Set-up the DDC Handlers */
+      XHdcp1x_SetCallback(HdmiRxSsPtr->Hdcp14Ptr,  XHDCP1X_HANDLER_DDC_SETREGADDR,  (XHdcp1x_SetDdcHandler)XV_HdmiRxSs_DdcSetRegAddrHandler, HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp1x_SetCallback(HdmiRxSsPtr->Hdcp14Ptr,  XHDCP1X_HANDLER_DDC_SETREGDATA,  (XHdcp1x_SetDdcHandler)XV_HdmiRxSs_DdcSetRegDataHandler, HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp1x_SetCallback(HdmiRxSsPtr->Hdcp14Ptr,  XHDCP1X_HANDLER_DDC_GETREGDATA,  (XHdcp1x_GetDdcHandler)XV_HdmiRxSs_DdcGetRegDataHandler, HdmiRxSsPtr->HdmiRxPtr);
+
+      /* Select key */
+      XHdcp1x_SetKeySelect(HdmiRxSsPtr->Hdcp14Ptr, XV_HDMIRXSS_HDCP_KEYSEL);
+
+      /* Disable HDCP 1.4 repeater */
+      HdmiRxSsPtr->Hdcp14Ptr->IsRepeater = 0;
     }
-
-    /* Compute absolute base address */
-    AbsAddr = 0;
-    Status = XV_HdmiRxSs_ComputeSubcoreAbsAddr(HdmiRxSsPtr->Config.BaseAddress,
-                               HdmiRxSsPtr->Config.HighAddress,
-                               HdmiRxSsPtr->Config.Hdcp.AddrOffset,
-                               &AbsAddr);
-
-    if(Status != XST_SUCCESS)
-    {
-      xil_printf("HDMIRXSS ERR:: HDCP core base address (0x%x) invalid %d\r\n",
-        AbsAddr);
-      return(XST_FAILURE);
-    }
-
-    /* Initialize core */
-    void *PhyIfPtr = HdmiRxSsPtr->HdmiRxPtr;
-    Status = XHdcp1x_CfgInitialize(HdmiRxSsPtr->HdcpPtr,
-                                      ConfigPtr,
-                                      PhyIfPtr,
-                                      AbsAddr);
-
-    /* Self-test the hdcp interface */
-    if (XHdcp1x_SelfTest(HdmiRxSsPtr->HdcpPtr) != XST_SUCCESS) {
-        Status = XST_FAILURE;
-    }
-
-    if(Status != XST_SUCCESS)
-    {
-      xil_printf("HDMIRXSS ERR:: HDCP Initialization failed\r\n");
-      return(XST_FAILURE);
-    }
-
-    XHdcp1x_SetKeySelect(HdmiRxSsPtr->HdcpPtr, XV_HDMIRXSS_HDCP_KEYSEL);
   }
   return(XST_SUCCESS);
 }
 
+/*****************************************************************************/
+/**
+* This function initializes the included sub-core to it's static configuration
+*
+* @param  HdmiRxSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS/XST_FAILURE
+*
+******************************************************************************/
+int XV_HdmiRxSs_SubcoreInitHdcp22(XV_HdmiRxSs *HdmiRxSsPtr)
+{
+  int Status;
+  u32 AbsAddr;
+  XHdcp22_Rx_Config *ConfigPtr;
+
+  /* Is the HDCP 2.2 RX present? */
+  if (HdmiRxSsPtr->Hdcp22Ptr) {
+
+    /* Are the keys loaded? */
+    if (HdmiRxSsPtr->Hdcp22Lc128Ptr && HdmiRxSsPtr->Hdcp22PrivateKeyPtr) {
+
+      /* Get core configuration */
+      xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP 2.2 core.... \r\n");
+
+      ConfigPtr  = XHdcp22Rx_LookupConfig(HdmiRxSsPtr->Config.Hdcp22.DeviceId);
+      if(ConfigPtr == NULL)
+      {
+        xil_printf("HDMIRXSS ERR:: HDCP 2.2 device not found\r\n");
+        return (XST_FAILURE);
+      }
+
+      /* Compute absolute base address */
+      AbsAddr = 0;
+      Status = XV_HdmiRxSs_ComputeSubcoreAbsAddr(HdmiRxSsPtr->Config.BaseAddress,
+                                 HdmiRxSsPtr->Config.HighAddress,
+                                 HdmiRxSsPtr->Config.Hdcp22.AddrOffset,
+                                 &AbsAddr);
+
+      if(Status != XST_SUCCESS)
+      {
+        xil_printf("HDMIRXSS ERR:: HDCP 2.2 core base address (0x%x) invalid %d\r\n",
+          AbsAddr);
+        return(XST_FAILURE);
+      }
+
+      /* Initialize core */
+      Status = XHdcp22Rx_CfgInitialize(HdmiRxSsPtr->Hdcp22Ptr, ConfigPtr, AbsAddr);
+      if (Status != XST_SUCCESS)
+      {
+        xil_printf("HDMIRXSS ERR:: HDCP 2.2 Initialization failed\r\n");
+        return(XST_FAILURE);
+      }
+
+      /* Set-up the DDC Handlers */
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_SETREGADDR,  (XHdcp22_Rx_SetHandler)XV_HdmiRxSs_DdcSetRegAddrHandler,                  HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_SETREGDATA,  (XHdcp22_Rx_SetHandler)XV_HdmiRxSs_DdcSetRegDataHandler,                    HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_GETREGDATA,  (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetRegDataHandler,                    HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE, (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetWriteMessageBufferWordsHandler,    HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE, (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetReadMessageBufferWordsHandler,     HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY, (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcIsWriteMessageBufferEmptyHandler,     HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY, (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcIsReadMessageBufferEmptyHandler,      HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_CLEARRBUF,   (XHdcp22_Rx_RunHandler)XV_HdmiRxSs_DdcClearReadMessageBufferHandler,        HdmiRxSsPtr->HdmiRxPtr);
+      XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_CLEARWBUF,   (XHdcp22_Rx_RunHandler)XV_HdmiRxSs_DdcClearWriteMessageBufferHandler,       HdmiRxSsPtr->HdmiRxPtr);
+       // XHdcp22Rx_SetCallback(&HdcpRx22,  XHDCP22_RX_HANDLER_AUTHENTICATED,   (XHdcp22_Rx_RunHandler)XHdcp22Rx_TestAuthenticatedCallback, &HdcpRx22);
+
+      /* Set-up the HDMI RX HDCP Callback Handler */
+      XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+                XV_HDMIRX_HANDLER_HDCP,
+                XV_HdmiRxSs_DdcHdcpCallback,
+                (void *)HdmiRxSsPtr);
+
+      /* Set-up the HDMI RX Link error Callback Handler */
+      XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+                XV_HDMIRX_HANDLER_LINK_ERROR,
+                XV_HdmiRxSs_LinkErrorCallback,
+                (void *)HdmiRxSsPtr);
+/*
+      /* Generate the Montgomery Multiplication Constants */
+//      Status = XHdcp22Rx_CalcMontNPrime(HdmiRxSsPtr->Hdcp22Ptr->Params.NPrimeP, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+562, XHDCP22_RX_P_SIZE/4);
+ //     if (Status != XST_SUCCESS) {
+ //       xil_printf("MMult: Failed to generate NPrimeP \n\r");
+ //       return Status;
+ //     }
+
+    //  Status = XHdcp22Rx_CalcMontNPrime(NPrimeQ, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+626, XHDCP22_RX_P_SIZE/4);
+ //     Status = XHdcp22Rx_CalcMontNPrime(HdmiRxSsPtr->Hdcp22Ptr->Params.NPrimeQ, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+626, XHDCP22_RX_P_SIZE/4);
+ //     if (Status != XST_SUCCESS) {
+  //      xil_printf("MMult: Failed to generate NPrimeQ \n\r");
+  //      return Status;
+  //    }
+
+      /* Load Production Keys */
+      //XHdcp22Rx_LoadMontNPrimeP(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22Ptr->Params.NPrimeP);
+      //XHdcp22Rx_LoadMontNPrimeQ(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22Ptr->Params.NPrimeQ);
+      XHdcp22Rx_LoadLc128(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22Lc128Ptr);
+      XHdcp22Rx_LoadPublicCert(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+40);
+      XHdcp22Rx_LoadPrivateKey(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+562);
+
+      XHdcp22Rx_LogReset(HdmiRxSsPtr->Hdcp22Ptr, FALSE);
+
+      /* Enable HDMI-RX DDC interrupts */
+      XV_HdmiRx_DdcIntrEnable(HdmiRxSsPtr->HdmiRxPtr);
+
+      /* Enable HDMI-RX HDCP */
+      XV_HdmiRx_DdcHdcpEnable(HdmiRxSsPtr->HdmiRxPtr);
+
+      /* Clear the event queue */
+      XV_HdmiRxSs_HdcpClearEvents(HdmiRxSsPtr);
+    }
+  }
+
+  return (XST_SUCCESS);
+}
 
 /*****************************************************************************/
 /**
@@ -395,6 +537,217 @@ int XV_HdmiRxSs_SubcoreInitRemapper(XV_HdmiRxSs *HdmiRxSsPtr)
   }
   return(XST_SUCCESS);
 
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC set register address handler for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @param Data is the address to be written.
+ *
+ * @return None.
+ *
+ ******************************************************************************/
+static void XV_HdmiRxSs_DdcSetRegAddrHandler(void *RefPtr, u32 Data)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  XV_HdmiRx_DdcHdcpSetAddress(InstancePtr, Data);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC set register data handler for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @param Data is the data to be written.
+ *
+ * @return None.
+ *
+ ******************************************************************************/
+static void XV_HdmiRxSs_DdcSetRegDataHandler(void *RefPtr, u32 Data)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  XV_HdmiRx_DdcHdcpWriteData(InstancePtr, Data);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC get register data handler for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @return The read data.
+ *
+ ******************************************************************************/
+static u32 XV_HdmiRxSs_DdcGetRegDataHandler(void *RefPtr)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  return XV_HdmiRx_DdcHdcpReadData(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC get write message buffer words handler for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @return The number of words in the Write Message Buffer.
+ *
+ ******************************************************************************/
+static u32 XV_HdmiRxSs_DdcGetWriteMessageBufferWordsHandler(void *RefPtr)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  return XV_HdmiRx_DdcGetHdcpWriteMessageBufferWords(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC get read message buffer words handler for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @return The number of words in the Read Message Buffer.
+ *
+ ******************************************************************************/
+static u32 XV_HdmiRxSs_DdcGetReadMessageBufferWordsHandler(void *RefPtr)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  return XV_HdmiRx_DdcGetHdcpReadMessageBufferWords(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC get read message buffer is empty handler for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @return
+ *  - TRUE if read message buffer is empty.
+ *  - FALSE if read message buffer is not empty.
+ *
+ ******************************************************************************/
+static u32 XV_HdmiRxSs_DdcIsReadMessageBufferEmptyHandler(void *RefPtr)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  return XV_HdmiRx_DdcIsHdcpReadMessageBufferEmpty(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC get write message buffer is empty handler for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @return
+ *  - TRUE if write message buffer is empty.
+ *  - FALSE if write message buffer is not empty.
+ *
+ ******************************************************************************/
+static u32 XV_HdmiRxSs_DdcIsWriteMessageBufferEmptyHandler(void *RefPtr)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  return XV_HdmiRx_DdcIsHdcpWriteMessageBufferEmpty(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC clear read message buffer handler for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @return None
+ *
+ ******************************************************************************/
+static void XV_HdmiRxSs_DdcClearReadMessageBufferHandler(void *RefPtr)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  XV_HdmiRx_DdcHdcpClearReadMessageBuffer(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC clear write message buffer for the RX.
+ *
+ * @param RefPtr is a callback reference to the HDMI RX instance.
+ *
+ * @return None
+ *
+ ******************************************************************************/
+static void XV_HdmiRxSs_DdcClearWriteMessageBufferHandler(void *RefPtr)
+{
+  XV_HdmiRx *InstancePtr = (XV_HdmiRx *)RefPtr;
+  XV_HdmiRx_DdcHdcpClearWriteMessageBuffer(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+* This function is called when the HDMI-RX DDC HDCP interrupt has occurred.
+*
+* @param RefPtr is a callback reference to the HDCP22 RX instance.
+* @param Type indicates the cause of the interrupt.
+*
+* @return None.
+*
+* @note   None.
+******************************************************************************/
+static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr;
+  HdmiRxSsPtr = RefPtr;
+
+  switch (Type)
+  {
+    // HDCP 2.2. write message
+    case XV_HDMIRX_DDC_STA_HDCP_WMSG_NEW_EVT_MASK:
+      XHdcp22Rx_SetWriteMessageAvailable(HdmiRxSsPtr->Hdcp22Ptr);
+      break;
+
+    // HDCP 2.2 read message
+    case XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK:
+      XHdcp22Rx_SetReadMessageComplete(HdmiRxSsPtr->Hdcp22Ptr);
+      break;
+
+    // HDCP 1.4 Aksv
+    case XV_HDMIRX_DDC_STA_HDCP_AKSV_EVT_MASK:
+      XHdcp1x_ProcessAKsv(HdmiRxSsPtr->Hdcp14Ptr);
+      break;
+
+    default:
+      break;
+  }
+}
+
+/*****************************************************************************/
+/**
+* This function is called when the HDMI-RX link error has occurred.
+*
+* @param RefPtr is a callback reference to the HDCP22 RX instance.
+*
+* @return None.
+*
+* @note   None.
+******************************************************************************/
+static void XV_HdmiRxSs_LinkErrorCallback(void *RefPtr)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr;
+  HdmiRxSsPtr = RefPtr;
+
+  // HDCP 2.2
+  if (HdmiRxSsPtr->HdcpProtocol == XV_HDMIRXSS_HDCP_22) {
+    XHdcp22Rx_SetDdcReauthReq(HdmiRxSsPtr->Hdcp22Ptr);
+  }
 }
 
 /** @} */
