@@ -179,7 +179,7 @@ typedef struct {
 	u8 IsChunkingEnabled; /**< Data Chunking enabled/disabled */
 	u8* ReadBuffer; /**< Data Buffer to be used in case of chunking */
 	u32 ChunkSize; /**< Size of one chunk in bytes */
-	u32 (*DeviceCopy) (u32 SrcAddress, u64 DestAddress, u32 Length);
+	u32 (*DeviceCopy) (u32 SrcAddress, UINTPTR DestAddress, u32 Length);
 		/**< Function pointer for copying data chunk from device to buffer.
 		 * Arguments are:
 		 * SrcAddress: Address of data in device.
@@ -201,7 +201,7 @@ void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking);
 
 /* Configuring Data chunking settings */
 void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
-				u32 ChunkSize, u32(*DeviceCopy)(u32, u64, u32));
+				u32 ChunkSize, u32(*DeviceCopy)(u32, UINTPTR, u32));
 
 /* Decryption */
 s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,

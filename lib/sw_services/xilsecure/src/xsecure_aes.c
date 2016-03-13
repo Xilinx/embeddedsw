@@ -152,7 +152,7 @@ void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking)
  *
  ******************************************************************************/
 void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
-				u32 ChunkSize, u32(*DeviceCopy)(u32, u64, u32))
+				u32 ChunkSize, u32(*DeviceCopy)(u32, UINTPTR, u32))
 {
 	/* Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -491,7 +491,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	for(Index = 0; Index < NumChunks; Index++)
 	{
 		Status = InstancePtr->DeviceCopy(StartAddrByte,
-					(u64)(InstancePtr->ReadBuffer),
+					(UINTPTR)(InstancePtr->ReadBuffer),
 					InstancePtr->ChunkSize);
 
 		if (XST_SUCCESS != Status)
@@ -501,7 +501,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 		}
 
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					(u64)(InstancePtr->ReadBuffer),
+					(UINTPTR)(InstancePtr->ReadBuffer),
 					(InstancePtr->ChunkSize)/4U, 0);
 
 		/*
@@ -521,7 +521,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	if((RemainingBytes != 0))
 	{
 		Status = InstancePtr->DeviceCopy(StartAddrByte,
-				(u64)(InstancePtr->ReadBuffer), RemainingBytes);
+				(UINTPTR)(InstancePtr->ReadBuffer), RemainingBytes);
 
 		if (XST_SUCCESS != Status)
 		{
@@ -530,7 +530,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 		}
 
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-			(u64)(InstancePtr->ReadBuffer), RemainingBytes/4U, 0);
+			(UINTPTR)(InstancePtr->ReadBuffer), RemainingBytes/4U, 0);
 
 		/* wait for the SRC_DMA to complete and the pcap to be IDLE */
 		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
@@ -704,7 +704,7 @@ static s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	{
 		/* Copy the secure header and GCM tag from flash to OCM */
 		Status = InstancePtr->DeviceCopy(StartAddrByte,
-				(u64)(UINTPTR)(InstancePtr->ReadBuffer),
+				(UINTPTR)(InstancePtr->ReadBuffer),
 				(XSECURE_SECURE_HDR_SIZE
 				+ XSECURE_SECURE_GCM_TAG_SIZE));
 
@@ -715,7 +715,7 @@ static s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 		}
 
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					(u64)(UINTPTR)(InstancePtr->ReadBuffer),
+					(UINTPTR)(InstancePtr->ReadBuffer),
 					XSECURE_SECURE_HDR_SIZE/4U, 1);
 	}
 	else
@@ -740,7 +740,7 @@ static s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	if (InstancePtr->IsChunkingEnabled == XSECURE_CSU_AES_CHUNKING_ENABLED)
 	{
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-			(u64)(UINTPTR)(InstancePtr->ReadBuffer
+			(UINTPTR)(InstancePtr->ReadBuffer
 					+ XSECURE_SECURE_HDR_SIZE),
 			XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 	}
