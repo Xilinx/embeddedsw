@@ -48,7 +48,6 @@ XV_HdmiTx_Config XV_HdmiTx_ConfigTable[] =
 {
     {
         XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_DEVICE_ID,
-        XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_BASEADDR,
-        XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_S_AXI_FREQUENCY
+        XPAR_V_HDMI_TX_SS_0_V_HDMI_TX_BASEADDR
     }
 };

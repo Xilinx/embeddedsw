@@ -229,6 +229,7 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
     /* Read PIO peripheral Identification register */
     RegValue = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
     (XV_HDMITX_PIO_ID_OFFSET));
+
     RegValue = ((RegValue) >> (XV_HDMITX_SHIFT_16)) &
     (XV_HDMITX_MASK_16);
     if (RegValue != (XV_HDMITX_PIO_ID)) {

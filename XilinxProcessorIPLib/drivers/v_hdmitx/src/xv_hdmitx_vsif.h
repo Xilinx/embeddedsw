@@ -55,7 +55,6 @@ extern "C" {
 #endif
 
 /******************************* Include Files ********************************/
-#include <string.h>
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
