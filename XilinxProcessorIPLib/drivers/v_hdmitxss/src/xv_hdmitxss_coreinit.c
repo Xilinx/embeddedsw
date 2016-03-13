@@ -52,6 +52,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     20/01/16 Added remapper support
+* 1.2   MG     03/02/16 Added HDCP support
 * </pre>
 *
 ******************************************************************************/
@@ -66,6 +67,8 @@ static int XV_HdmiTxSs_ComputeSubcoreAbsAddr(u32 SubSys_BaseAddr,
     u32 SubSys_HighAddr,
     u32 SubCore_Offset,
     u32 *SubCore_BaseAddr);
+static int XV_HdmiTxSs_DdcReadHandler(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr, u8 Stop, void *RefPtr);
+static int XV_HdmiTxSs_DdcWriteHandler(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr, u8 Stop, void *RefPtr);
 
 /*****************************************************************************/
 /**
@@ -272,57 +275,140 @@ int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr)
 * @return XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
-int XV_HdmiTxSs_SubcoreInitHdcp(XV_HdmiTxSs *HdmiTxSsPtr)
+int XV_HdmiTxSs_SubcoreInitHdcp14(XV_HdmiTxSs *HdmiTxSsPtr)
 {
   int Status;
   u32 AbsAddr;
   XHdcp1x_Config *ConfigPtr;
 
-  if (HdmiTxSsPtr->HdcpPtr){
-    /* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP core.... \r\n");
-    ConfigPtr  = XHdcp1x_LookupConfig(HdmiTxSsPtr->Config.Hdcp.DeviceId);
-    if (ConfigPtr == NULL){
-      xil_printf("HDMITXSS ERR:: HDCP device not found\r\n");
-      return(XST_FAILURE);
+  /* Is the HDCP 1.4 TX present? */
+  if (HdmiTxSsPtr->Hdcp14Ptr) {
+
+    /* Is the key loaded? */
+    if (HdmiTxSsPtr->Hdcp14KeyPtr) {
+
+      /* Get core configuration */
+      xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP 1.4 core.... \r\n");
+      ConfigPtr  = XHdcp1x_LookupConfig(HdmiTxSsPtr->Config.Hdcp14.DeviceId);
+      if (ConfigPtr == NULL){
+        xil_printf("HDMITXSS ERR:: HDCP 1.4 device not found\r\n");
+        return(XST_FAILURE);
+      }
+
+      /* Compute absolute base address */
+      AbsAddr = 0;
+      Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
+                                 HdmiTxSsPtr->Config.HighAddress,
+                                 HdmiTxSsPtr->Config.Hdcp14.AddrOffset,
+                                 &AbsAddr);
+
+      if (Status != XST_SUCCESS){
+        xil_printf("HDMITXSS ERR:: HDCP 1.4 core base address (0x%x) invalid %d\r\n",
+          AbsAddr);
+        return(XST_FAILURE);
+      }
+
+      /* Initialize core */
+      void *PhyIfPtr = HdmiTxSsPtr->HdmiTxPtr;
+
+      Status = XHdcp1x_CfgInitialize(HdmiTxSsPtr->Hdcp14Ptr,
+                                        ConfigPtr,
+                                        PhyIfPtr,
+                                        AbsAddr);
+
+      /* Self-test the hdcp interface */
+      if (XHdcp1x_SelfTest(HdmiTxSsPtr->Hdcp14Ptr) != XST_SUCCESS) {
+          Status = XST_FAILURE;
+      }
+
+      /* Set-up the DDC Handlers */
+      XHdcp1x_SetCallback(HdmiTxSsPtr->Hdcp14Ptr, XHDCP1X_HANDLER_DDC_WRITE, XV_HdmiTxSs_DdcWriteHandler, HdmiTxSsPtr->HdmiTxPtr);
+      XHdcp1x_SetCallback(HdmiTxSsPtr->Hdcp14Ptr, XHDCP1X_HANDLER_DDC_READ, XV_HdmiTxSs_DdcReadHandler, HdmiTxSsPtr->HdmiTxPtr);
+
+      if (Status != XST_SUCCESS) {
+        xil_printf("HDMITXSS ERR:: HDCP 1.4 Initialization failed\r\n");
+        return(XST_FAILURE);
+      }
+
+      /* Key select */
+      XHdcp1x_SetKeySelect(HdmiTxSsPtr->Hdcp14Ptr, XV_HDMITXSS_HDCP_KEYSEL);
+
+      /* Disable HDCP 1.4 repeater */
+      HdmiTxSsPtr->Hdcp14Ptr->IsRepeater = 0;
     }
-
-    /* Compute absolute base address */
-    AbsAddr = 0;
-    Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
-                               HdmiTxSsPtr->Config.HighAddress,
-                               HdmiTxSsPtr->Config.Hdcp.AddrOffset,
-                               &AbsAddr);
-
-    if (Status != XST_SUCCESS){
-      xil_printf("HDMITXSS ERR:: HDCP core base address (0x%x) invalid %d\r\n",
-        AbsAddr);
-      return(XST_FAILURE);
-    }
-
-    /* Initialize core */
-    void *PhyIfPtr = HdmiTxSsPtr->HdmiTxPtr;
-
-    Status = XHdcp1x_CfgInitialize(HdmiTxSsPtr->HdcpPtr,
-                                      ConfigPtr,
-                                      PhyIfPtr,
-                                      AbsAddr);
-
-    /* Self-test the hdcp interface */
-    if (XHdcp1x_SelfTest(HdmiTxSsPtr->HdcpPtr) != XST_SUCCESS) {
-        Status = XST_FAILURE;
-    }
-
-    if (Status != XST_SUCCESS) {
-      xil_printf("HDMITXSS ERR:: HDCP Initialization failed\r\n");
-      return(XST_FAILURE);
-    }
-
-    XHdcp1x_SetKeySelect(HdmiTxSsPtr->HdcpPtr, XV_HDMITXSS_HDCP_KEYSEL);
   }
   return(XST_SUCCESS);
 }
 
+/*****************************************************************************/
+/**
+* This function initializes the included sub-core to it's static configuration
+*
+* @param  HdmiTxSsPtr is a pointer to the Subsystem instance to be worked on.
+*
+* @return XST_SUCCESS/XST_FAILURE
+*
+******************************************************************************/
+int XV_HdmiTxSs_SubcoreInitHdcp22(XV_HdmiTxSs *HdmiTxSsPtr)
+{
+  int Status;
+  u32 AbsAddr;
+  XHdcp22_Tx_Config *Hdcp22TxConfig;
+
+  /* Is the HDCP 2.2 RX present? */
+  if (HdmiTxSsPtr->Hdcp22Ptr) {
+
+    /* Is the key loaded? */
+    if (HdmiTxSsPtr->Hdcp22Lc128Ptr) {
+
+      /* Get core configuration */
+      xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP 2.2 core.... \r\n");
+
+      /* Initialize HDCP 2.2 TX */
+      Hdcp22TxConfig = XHdcp22Tx_LookupConfig(HdmiTxSsPtr->Config.Hdcp22.DeviceId);
+      if (Hdcp22TxConfig == NULL) {
+        xil_printf("HDMITXSS ERR:: HDCP 2.2 device not found\r\n");
+        return XST_FAILURE;
+      }
+
+      /* Compute absolute base address */
+      AbsAddr = 0;
+      Status = XV_HdmiTxSs_ComputeSubcoreAbsAddr(HdmiTxSsPtr->Config.BaseAddress,
+                                 HdmiTxSsPtr->Config.HighAddress,
+                                 HdmiTxSsPtr->Config.Hdcp22.AddrOffset,
+                                 &AbsAddr);
+
+      if (Status != XST_SUCCESS) {
+        xil_printf("HDMITXSS ERR:: HDCP 2.2 core base address (0x%x) invalid %d\r\n",
+          AbsAddr);
+        return(XST_FAILURE);
+      }
+
+      Status = XHdcp22Tx_CfgInitialize(HdmiTxSsPtr->Hdcp22Ptr, Hdcp22TxConfig, AbsAddr);
+      if (Status != XST_SUCCESS) {
+        xil_printf("HDMITXSS ERR:: HDCP 2.2 Initialization failed\r\n");
+        return Status;
+      }
+
+      /* Set-up the DDC Handlers */
+      XHdcp22Tx_SetCallback(HdmiTxSsPtr->Hdcp22Ptr, XHDCP22_TX_HANDLER_DDC_WRITE, XV_HdmiTxSs_DdcWriteHandler, HdmiTxSsPtr->HdmiTxPtr);
+      XHdcp22Tx_SetCallback(HdmiTxSsPtr->Hdcp22Ptr, XHDCP22_TX_HANDLER_DDC_READ, XV_HdmiTxSs_DdcReadHandler, HdmiTxSsPtr->HdmiTxPtr);
+
+      /* Set polling value */
+      XHdcp22Tx_SetMessagePollingValue(HdmiTxSsPtr->Hdcp22Ptr, 2);
+
+      XHdcp22Tx_LogReset(HdmiTxSsPtr->Hdcp22Ptr, FALSE);
+
+      /* Load key */
+      XHdcp22Tx_LoadLc128(HdmiTxSsPtr->Hdcp22Ptr, HdmiTxSsPtr->Hdcp22Lc128Ptr);
+
+      /* Clear the event queue */
+      XV_HdmiTxSs_HdcpClearEvents(HdmiTxSsPtr);
+    }
+  }
+
+  return (XST_SUCCESS);
+}
 
 /*****************************************************************************/
 /**
@@ -426,4 +512,61 @@ int XV_HdmiTxSs_SubcoreInitRemapper(XV_HdmiTxSs *HdmiTxSsPtr)
   return(XST_SUCCESS);
 
 }
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC read handler for the TX.
+ *
+ * @param DeviceAddress is the 7-bit I2C slave address
+ *
+ * @param ByteCount is the number of bytes to read
+ *
+ * @param BufferPtr is a pointer to the buffer where
+ *        the read data is written to.
+ *
+ * @param Stop indicates if a I2C stop condition is generated
+ *        at the end of the burst.
+ *
+ * @param RefPtr is a callback reference to the HDMI TX instance
+ *
+ * @return
+ *  - XST_SUCCESS if action was successful
+ *  - XST_FAILURE if action was not successful
+ *
+ ******************************************************************************/
+static int XV_HdmiTxSs_DdcReadHandler(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr, u8 Stop, void *RefPtr)
+{
+  XV_HdmiTx *InstancePtr = (XV_HdmiTx *)RefPtr;
+  return XV_HdmiTx_DdcRead(InstancePtr, DeviceAddress, ByteCount, BufferPtr, Stop);
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This is the DDC write handler for the TX.
+ *
+ * @param DeviceAddress is the 7-bit I2C slave address
+ *
+ * @param ByteCount is the number of bytes to write
+ *
+ * @param BufferPtr is a pointer to the buffer containing
+ *        the data to be written.
+ *
+ * @param Stop indicates if a I2C stop condition is generated
+ *        at the end of the burst.
+ *
+ * @param RefPtr is a callback reference to the HDMI TX instance
+ *
+ * @return
+ *  - XST_SUCCESS if action was successful
+ *  - XST_FAILURE if action was not successful
+ *
+ ******************************************************************************/
+static int XV_HdmiTxSs_DdcWriteHandler(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr, u8 Stop, void *RefPtr)
+{
+  XV_HdmiTx *InstancePtr = (XV_HdmiTx *)RefPtr;
+  return XV_HdmiTx_DdcWrite(InstancePtr, DeviceAddress, ByteCount, BufferPtr, Stop);
+}
+
 /** @} */
