@@ -48,6 +48,7 @@
 * 1.0   gm, mg 11/03/15 Initial release.
 * 1.1   MG     30/12/15 Added DDC peripheral HDCP 2.2 masks
 * 1.2   yh     14/01/16 Added Bit Masking for AxisEnable PIO
+* 1.3   MG     18/02/16 Added AUX peripheral error event mask
 * </pre>
 *
 ******************************************************************************/
@@ -232,8 +233,9 @@ extern "C" {
 // AUX peripheral Status register masks and shifts
 #define XV_HDMIRX_AUX_STA_IRQ_MASK                  (1<<0)  /**< AUX Status Interrupt mask */
 #define XV_HDMIRX_AUX_STA_NEW_MASK                  (1<<1)  /**< AUX Status New Packet mask */
-#define XV_HDMIRX_AUX_STA_AVI_MASK                  (1<<2)  /**< AUX Status AVI infoframe mask */
-#define XV_HDMIRX_AUX_STA_GCP_MASK                  (1<<3)  /**< AUX Status General control packet mask */
+#define XV_HDMIRX_AUX_STA_ERR_MASK					(1<<2)	/**< AUX Status New Packet mask */
+#define XV_HDMIRX_AUX_STA_AVI_MASK					(1<<3)	/**< AUX Status AVI infoframe mask */
+#define XV_HDMIRX_AUX_STA_GCP_MASK					(1<<4)	/**< AUX Status General control packet mask */
 #define XV_HDMIRX_AUX_STA_FIFO_EP_MASK              (1<<5)  /**< AUX Status FIFO Empty mask */
 #define XV_HDMIRX_AUX_STA_FIFO_FL_MASK              (1<<6)  /**< AUX Status FIFO Full mask */
 #define XV_HDMIRX_AUX_STA_GCP_AVMUTE_MASK           (1<<31) /**< AUX Status GCP avmute mask */

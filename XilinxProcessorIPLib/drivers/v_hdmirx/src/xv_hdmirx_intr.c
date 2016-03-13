@@ -44,6 +44,8 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.0   gm, mg 11/03/15 Initial release.
 * 1.1   yh     14/01/16 Set AxisEnable PIO to high when RX stream locked
+* 1.3   MG     18/02/16 Added Link Check callback
+* 1.4   MG     08/03/16 Added pixel clock calculation to HdmiRx_TmrIntrHandler
 * </pre>
 *
 ******************************************************************************/
@@ -283,6 +285,12 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
             Status = (XST_SUCCESS);
             break;
 
+		case (XV_HDMIRX_HANDLER_LINK_ERROR):
+			InstancePtr->LinkErrorCallback = (XV_HdmiRx_Callback)CallbackFunc;
+			InstancePtr->LinkErrorRef = CallbackRef;
+			InstancePtr->IsLinkErrorCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
         default:
             Status = (XST_INVALID_PARAM);
             break;
@@ -328,8 +336,6 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
 
                 // Enable AXI Stream output
                 XV_HdmiRx_AxisEnable(InstancePtr, (TRUE));
-                // TODO - To check where the AxisEnable is disabled
-                // TODO - Check the peripheral register,
 
                 // Set stream status to up
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_UP;          // The stream is up
@@ -384,7 +390,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
 
         /* Callback */
         if (InstancePtr->IsHdcpCallbackSet) {
-            InstancePtr->HdcpCallback(InstancePtr->HdcpRef);
+			InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_WMSG_NEW_EVT_MASK);
         }
     }
 
@@ -396,7 +402,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
 
         /* Callback */
         if (InstancePtr->IsHdcpCallbackSet) {
-            InstancePtr->HdcpCallback(InstancePtr->HdcpRef);
+			InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK);
         }
     }
 
@@ -408,7 +414,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
 
         /* Callback */
         if (InstancePtr->IsHdcpCallbackSet) {
-            InstancePtr->HdcpCallback(InstancePtr->HdcpRef);
+			InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_AKSV_EVT_MASK);
         }
     }
 
@@ -519,8 +525,11 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             // Disable video
             XV_HdmiRx_VideoEnable(InstancePtr, (FALSE));
 
-        // Set stream status to down
+            XV_HdmiRx_AxisEnable(InstancePtr, (FALSE));
+
+            // Set stream status to down
             InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_DOWN;            // The stream is down
+
 
             // Call stream down callback
             if (InstancePtr->IsStreamDownCallbackSet) {
@@ -596,6 +605,26 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
             // Read video properties
             XV_HdmiRx_GetVideoProperties(InstancePtr);
 
+            // Now we know the reference clock and color depth,
+            // the pixel clock can be calculated
+            switch (InstancePtr->Stream.Video.ColorDepth) {
+                case XVIDC_BPC_10:
+                    InstancePtr->Stream.PixelClk = (InstancePtr->Stream.RefClk * 4)/5;
+                    break;
+
+                case XVIDC_BPC_12:
+                    InstancePtr->Stream.PixelClk = (InstancePtr->Stream.RefClk * 2)/3;
+                    break;
+
+                case XVIDC_BPC_16:
+                    InstancePtr->Stream.PixelClk = InstancePtr->Stream.RefClk / 2;
+                    break;
+
+                default:
+                    InstancePtr->Stream.PixelClk = InstancePtr->Stream.RefClk;
+                    break;
+            }
+
             // Call stream init callback
             if (InstancePtr->IsStreamInitCallbackSet) {
                 InstancePtr->StreamInitCallback(InstancePtr->StreamInitRef);
@@ -661,6 +690,16 @@ static void HdmiRx_AuxIntrHandler(XV_HdmiRx *InstancePtr)
             InstancePtr->AuxCallback(InstancePtr->AuxRef);
         }
     }
+
+    /* Link integrity check */
+    if ((Status) & (XV_HDMIRX_AUX_STA_ERR_MASK)) {
+		XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET), (XV_HDMIRX_AUX_STA_ERR_MASK));
+
+        /* Callback */
+        if (InstancePtr->IsLinkErrorCallbackSet) {
+			InstancePtr->LinkErrorCallback(InstancePtr->LinkErrorRef);
+		}
+	}
 }
 
 /*****************************************************************************/

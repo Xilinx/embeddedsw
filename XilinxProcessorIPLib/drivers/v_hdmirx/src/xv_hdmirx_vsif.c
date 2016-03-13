@@ -49,6 +49,7 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#include <string.h>
 #include "xv_hdmirx_vsif.h"
 #include "xv_hdmirx.h"
 
@@ -458,7 +459,7 @@ void XV_HdmiRx_VSIF_DisplayInfo(XV_HdmiRx_VSIF  *VSIFPtr)
         case XV_HDMIRX_VSIF_VF_3D :
             /* 3D_Structure */
             xil_printf("3D Format : %s\n\r", XV_HdmiRx_VSIF_3DStructToString(XV_HdmiRx_VSIF_Conv3DInfoTo3DStruct(&VSIFPtr->Info_3D.Stream)));
-            // TODO - For normal operation, try to avoid the printf. keep them in displayinfo function
+
 
             /* 3D_Ext_Data */
             if (XV_HdmiRx_VSIF_Conv3DInfoTo3DStruct(&VSIFPtr->Info_3D.Stream) >= XV_HDMIRX_3D_STRUCT_SIDE_BY_SIDE_HALF) {
