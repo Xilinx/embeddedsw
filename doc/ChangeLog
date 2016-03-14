@@ -495,6 +495,7 @@ v_voip_fec_tx_v1_0:
 Initial Commit for 2016.1
 Change space to tab in the Makefile
 Revert back option version in mdd file to 1.0 as this is initial version
+Update debug statistic offset
 
 v_voip_fec_rx_v1_0:
 Initial Commit for 2016.1
