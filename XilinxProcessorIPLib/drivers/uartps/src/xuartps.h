@@ -159,6 +159,8 @@
 *			Support for Zynq Ultrascale Mp added.
 * 3.1	kvn    04/10/15 Modified code for latest RTL changes. Also added
 *						platform variable in driver instance structure.
+* 3.1   adk   14/03/16  Include interrupt examples in the peripheral test when
+*			uart is connected to a valid interrupt controller CR#946803.
 *
 * </pre>
 *

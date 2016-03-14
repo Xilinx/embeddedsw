@@ -29,14 +29,20 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-#ifndef UARTPS_HEADER_H		/* prevent circular inclusions */
-#define UARTPS_HEADER_H		/* by using protection macros */
+#ifndef UARTPS_INTR_HEADER_H		/* prevent circular inclusions */
+#define UARTPS_INTR_HEADER_H		/* by using protection macros */
 
 
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xstatus.h"
 
-int UartPsPolledExample(u16 DeviceId);
+#ifdef XPAR_INTC_0_DEVICE_ID
+int UartPsIntrExample(XIntc *IntcInstPtr, XUartPs *UartInstPtr,
+			u16 DeviceId, u16 UartIntrId);
+#else
+int UartPsIntrExample(XScuGic *IntcInstPtr, XUartPs *UartInstPtr,
+			u16 DeviceId, u16 UartIntrId);
+#endif
 
 #endif
