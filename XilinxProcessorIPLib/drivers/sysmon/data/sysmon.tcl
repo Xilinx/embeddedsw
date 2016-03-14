@@ -32,13 +32,15 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- --------------------------------------------------
 # 7.0      bss    7/25/14  Added support for Ultrascale.
+# 7.2      adk    14/03/16 Fix compilation issues when sysmon is configured
+#			   with streaming interface CR#940976
 ##############################################################################
 
 #uses "xillib.tcl"
 
 proc generate {drv_handle} {
   xdefine_include_file $drv_handle "xparameters.h" "XSysMon" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_INTR"
-  ::hsi::utils::define_config_file  $drv_handle "xsysmon_g.c" "XSysMon" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_INTR" "IP_TYPE"
+  xdefine_config_file  $drv_handle "xsysmon_g.c" "XSysMon" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_INTR" "IP_TYPE"
 
   xdefine_canonical_xpars $drv_handle "xparameters.h" "SysMon" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_INTR"
 }
@@ -107,6 +109,40 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     }
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
+}
+
+proc xdefine_config_file {drv_handle file_name drv_string args} {
+    set filename [file join "src" $file_name]
+    set config_file [open $filename w]
+    ::hsi::utils::write_c_header $config_file "Driver configuration"
+    puts $config_file "#include \"xparameters.h\""
+    puts $config_file "#include \"[string tolower $drv_string].h\""
+    puts $config_file "\n/*"
+    puts $config_file " * The configuration table for devices"
+    puts $config_file " */\n"
+    puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+    puts $config_file "\{"
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+    set start_comma ""
+    set device_id 0
+    foreach periph $periphs {
+        puts $config_file [format "%s\t\{" $start_comma]
+        set comma ""
+       set canonical_name [string toupper [format "%s_%s" "SysMon" $device_id]]
+
+        foreach arg $args {
+            puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_driver_param_name $canonical_name $arg]]
+            set comma ",\n"
+        }
+        puts -nonewline $config_file "\n\t\}"
+        set start_comma ",\n"
+        incr device_id
+    }
+    puts $config_file "\n\};"
+
+    puts $config_file "\n";
+
+    close $config_file
 }
 
 proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {

@@ -210,6 +210,8 @@
 *                    CR#938326.
 * 7.2  asa  11/03/16  Made changes to use configuration register 3 only for
 *					  Ultrascale. This fixes the CR#910905.
+* 7.2  adk  14/03/16 Fix compilation issues when sysmon is configured
+*                    with streaming interface CR#940976.
 * </pre>
 *
 *****************************************************************************/
