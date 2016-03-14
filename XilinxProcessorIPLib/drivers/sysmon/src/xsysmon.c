@@ -815,6 +815,7 @@ u32 XSysMon_GetAlarmEnables(XSysMon *InstancePtr)
 	return ((RegValue2 << 16) | RegValue1);
 #else
 	return RegValue1;
+#endif
 }
 
 /****************************************************************************/
