@@ -72,8 +72,8 @@ extern "C" {
 #define XVOIPFEC_TX_HWVERSION_REG_OFFSET                     ((0*128)+(4*4))
 #define XVOIPFEC_TX_FEC_BASEADDRESS_REG_OFFSET               ((0*128)+(5*4))
 #define XVOIPFEC_TX_DEBUG_CONTROL_REG_OFFSET                 ((0*128)+(6*4))
-#define XVOIPFEC_TX_IN_PACKET_COUNT_REG_OFFSET               ((0*128)+(7*4))
-#define XVOIPFEC_TX_OUT_PACKET_COUNT_REG_OFFSET              ((0*128)+(8*4))
+#define XVOIPFEC_TX_IN_PACKET_COUNT_REG_OFFSET               ((0*128)+(9*4))
+#define XVOIPFEC_TX_OUT_PACKET_COUNT_REG_OFFSET              ((0*128)+(10*4))
 
 /* VOIPFEC_TX CONTROL MASK */
 #define XVOIPFEC_TX_CONTROL_CHANNEL_UPDATE_MASK              0x2
