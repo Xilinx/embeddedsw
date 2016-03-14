@@ -58,6 +58,10 @@ proc gen_include_files {swproj mhsinst} {
     set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
         set inc_file_lines { xuartps.h uartps_header.h }
+	set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+	if {$isintr == 1} {
+		set inc_file_lines {xuartps.h uartps_header.h uartps_intr_header.h }
+	}
         return $inc_file_lines
     }
 
@@ -73,7 +77,11 @@ proc gen_src_files {swproj mhsinst} {
 	set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
 	set isStdout [string match $stdout $mhsinst]
     if {${isStdout} == 0} {
-            set inc_file_lines {examples/xuartps_intr_example.c examples/xuartps_polled_example.c data/uartps_header.h }
+            set inc_file_lines {examples/xuartps_polled_example.c data/uartps_header.h }
+	    set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+	    if {$isintr == 1} {
+		set inc_file_lines {examples/xuartps_intr_example.c examples/xuartps_polled_example.c data/uartps_header.h data/uartps_intr_header.h }
+	    }
         return $inc_file_lines
     }
   }
