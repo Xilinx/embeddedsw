@@ -46,6 +46,8 @@
 *             02/05/16   Add Logo test
 *             03/08/16   Add configuration table for all layers, replace
 *                        delay with polling with time out
+*             03/14/16   Fix bug startx not multiple of pixels/clk for window
+*                        move
 * </pre>
 *
 ******************************************************************************/
@@ -465,11 +467,11 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
     xil_printf("   Check Vidout State: ");
     ErrorCount += (!CheckVidoutLock() ? 1 : 0);
 
-    xil_printf("   Move window (x+10), (y+10): ");
+    xil_printf("   Move window (x+12), (y+12): ");
     Status = XVMix_MoveLayerWindow(MixerPtr,
                                    layerIndex,
-                                   (Win.StartX+10),
-                                   (Win.StartY+10));
+                                   (Win.StartX+12),
+                                   (Win.StartY+12));
     if(Status != XST_SUCCESS) {
       xil_printf("<ERR:: Command Failed>\r\n");
       ++ErrorCount;
@@ -634,8 +636,7 @@ int main(void)
 
   VidStream.PixPerClk     = tpg.Config.PixPerClk;
   VidStream.ColorFormatId = Cfmt;
-  VidStream.ColorDepth    = XVIDC_BPC_8;
-  VidStream.FrameRate     = XVIDC_FR_60HZ;
+  VidStream.ColorDepth    = tpg.Config.MaxDataWidth;
 
   resetIp();
 
