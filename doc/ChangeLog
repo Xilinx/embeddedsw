@@ -467,6 +467,7 @@ Export per layer video format (color format) user parameter to driver
 Updated example design to align with hw changes
 Added fix for stream layer not working
 Added fix for offset alignment to example design
+Added fix for window coordinate 0,0
 
 v_tpg_v7_0:
 Made changes in mdd file to change OPTION DEPENDS to video_common_v2_2.
