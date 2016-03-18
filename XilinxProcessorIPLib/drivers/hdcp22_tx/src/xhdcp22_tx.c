@@ -50,6 +50,8 @@
 *                       XHdcp22Tx_SetCallback. Removed test directives.
 * 1.02  MG     02/25/16 Added authenticated callback and GetVersion.
 * 1.03  MG     02/29/16 Added XHdcp22Cipher_Disable in function XHdcp22Tx_Reset.
+* 1.04  MH     03/14/16 Updated StateA5 to check re-authentication request
+*                       before enabling the cipher.
 *
 * </pre>
 *
@@ -533,7 +535,7 @@ void XHdcp22Tx_LoadLc128(XHdcp22_Tx *InstancePtr, const u8 *Lc128Ptr)
 u32 XHdcp22Tx_GetVersion(XHdcp22_Tx *InstancePtr)
 {
 	/* Verify arguments */
-	Xil_AssertNonvoid(InstancePtr);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return XHdcp22Cipher_GetVersion(&InstancePtr->Cipher);
 }
@@ -1153,6 +1155,26 @@ XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx *InstancePtr)
 		return XHDCP22_TX_STATE_A0;
 	}
 
+	/* Verify the signature */
+	KPubDpcPtr = XHdcp22Tx_GetKPubDpc(InstancePtr);
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
+	                XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE);
+	Result = XHdcp22Tx_VerifyCertificate(&MsgPtr->Message.AKESendCert.CertRx,
+	                   KPubDpcPtr, /* N */
+	                   XHDCP22_TX_KPUB_DCP_LLC_N_SIZE,
+	                   &KPubDpcPtr[XHDCP22_TX_KPUB_DCP_LLC_N_SIZE], /* e */
+	                   XHDCP22_TX_KPUB_DCP_LLC_E_SIZE);
+
+	if (Result != XST_SUCCESS) {
+		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
+	                XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_FAIL);
+		return XHDCP22_TX_STATE_A0;
+	}
+	else {
+		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
+	                XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_PASS);
+	}
+
 	/* Store received Rrx for calculations in other states */
 	memcpy(InstancePtr->Info.Rrx,  MsgPtr->Message.AKESendCert.Rrx,
 			 sizeof(InstancePtr->Info.Rrx));
@@ -1175,32 +1197,15 @@ XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx *InstancePtr)
 	}
 
 	/********************* Handle No Stored Km *******************************/
-	/* PairingInfoPtr == NULL, Non Stored Km Sequence: Verify the certificate */
-	KPubDpcPtr = XHdcp22Tx_GetKPubDpc(InstancePtr);
-
-	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
-	                XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE);
-	Result = XHdcp22Tx_VerifyCertificate(&MsgPtr->Message.AKESendCert.CertRx,
-	                   KPubDpcPtr, /* N */
-	                   XHDCP22_TX_KPUB_DCP_LLC_N_SIZE,
-	                   &KPubDpcPtr[XHDCP22_TX_KPUB_DCP_LLC_N_SIZE], /* e */
-	                   XHDCP22_TX_KPUB_DCP_LLC_E_SIZE);
-	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
-	                XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_DONE);
-
-	if (Result != XST_SUCCESS) {
-		return XHDCP22_TX_STATE_A0;
-	}
-
 	/* Update pairing info */
-	memcpy(NewPairingInfo.ReceiverId, MsgPtr->Message.AKESendCert.CertRx.ReceiverId,
-	       sizeof(NewPairingInfo.ReceiverId));
 	memcpy(NewPairingInfo.Rrx, InstancePtr->Info.Rrx,
 	       sizeof(NewPairingInfo.Rrx));
 	memcpy(NewPairingInfo.Rtx, InstancePtr->Info.Rtx,
 	       sizeof(NewPairingInfo.Rtx));
 	memcpy(NewPairingInfo.RxCaps, MsgPtr->Message.AKESendCert.RxCaps,
 	       sizeof(NewPairingInfo.RxCaps));
+	memcpy(NewPairingInfo.ReceiverId, MsgPtr->Message.AKESendCert.CertRx.ReceiverId,
+	       sizeof(NewPairingInfo.ReceiverId));
 
 	/* Generate the hashed Km */
 	XHdcp22Tx_GenerateKm(InstancePtr, NewPairingInfo.Km);
@@ -1648,13 +1653,26 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr)
 
 	/* Handle mandatory 200 ms cipher timeout */
 	if (InstancePtr->Timer.ReasonId == XHDCP22_TX_TS_WAIT_FOR_CIPHER) {
-		/* Authenticated ! */
-		InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_AUTHENTICATED;
-		InstancePtr->Info.ReAuthenticationRequested = (FALSE);
+		XHdcp22Tx_ReadRxStatus(InstancePtr);
 
-		/* Start the re-authentication check timer */
-		XHdcp22Tx_StartTimer(InstancePtr, 1000, XHDCP22_TX_TS_RX_REAUTH_CHECK);
-		return XHDCP22_TX_STATE_A5;
+		/* Check re-authentication before enabling cipher */
+		if ((InstancePtr->Info.RxStatus&XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK) ==
+		    XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK)
+		{
+			InstancePtr->Info.ReAuthenticationRequested = (TRUE);
+			InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_REAUTHENTICATE_REQUESTED;
+			return XHDCP22_TX_STATE_A0;
+		}
+		else
+		{
+			/* Authenticated ! */
+			InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_AUTHENTICATED;
+			InstancePtr->Info.ReAuthenticationRequested = (FALSE);
+
+			/* Start the re-authentication check timer */
+			XHdcp22Tx_StartTimer(InstancePtr, 1000, XHDCP22_TX_TS_RX_REAUTH_CHECK);
+			return XHDCP22_TX_STATE_A5;
+		}
 	}
 
 	/* Handle the re-authentication check timer */
@@ -1662,14 +1680,9 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr)
 		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
 		                XHDCP22_TX_LOG_DBG_CHECK_REAUTH);
 
-		DdcBuf[0] = XHDCP22_TX_HDCPPORT_RXSTATUS_OFFSET;
-		InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS, 1, DdcBuf, (FALSE),
-		                      InstancePtr->DdcHandlerRef);
-		InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS, sizeof(DdcBuf), DdcBuf,
-		                     (TRUE), InstancePtr->DdcHandlerRef);
+		XHdcp22Tx_ReadRxStatus(InstancePtr);
 
-		HdcpRxStatus = *(u16 *)DdcBuf;
-		if ((HdcpRxStatus&XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK) ==
+		if ((InstancePtr->Info.RxStatus&XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK) ==
 		    XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK)
 		{
 			InstancePtr->Info.ReAuthenticationRequested = (TRUE);
@@ -2979,7 +2992,8 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_AKEINIT)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RX_CERT)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE)
-				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE_PASS)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE_FAIL)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, ENCRYPT_KM)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, ENCRYPT_KM_DONE)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_NOSTOREDKM)

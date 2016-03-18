@@ -46,6 +46,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JO     06/24/15 Initial release.
+* 1.01  MH     03/14/15 Changed maximum locality check count
+*                       from 1024 to 128.
 * </pre>
 *
 ******************************************************************************/
@@ -66,7 +68,7 @@ extern "C" {
 */
 #define XHDCP22_TX_MAX_STORED_PAIRINGINFO       32
 /** Maximum allowed re-checking locality, prescribed by LLC. */
-#define XHDCP22_TX_MAX_ALLOWED_LOCALITY_CHECKS  1024
+#define XHDCP22_TX_MAX_ALLOWED_LOCALITY_CHECKS  128
 
 /* Message Ids. */
 #define XHDCP22_TX_MSG_UNDEFINED                0   /**< Undefined. */
@@ -207,7 +209,8 @@ typedef enum
 	XHDCP22_TX_LOG_DBG_TX_AKEINIT,
 	XHDCP22_TX_LOG_DBG_RX_CERT,
 	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE,
-	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_DONE,
+	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_PASS,
+	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_FAIL,
 	XHDCP22_TX_LOG_DBG_ENCRYPT_KM,
 	XHDCP22_TX_LOG_DBG_ENCRYPT_KM_DONE,
 	XHDCP22_TX_LOG_DBG_TX_NOSTOREDKM,
