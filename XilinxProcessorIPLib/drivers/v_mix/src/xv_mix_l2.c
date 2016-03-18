@@ -52,6 +52,7 @@
 *             03/08/16   Replace GetColorFromat macro with function and added
 *                        master layer video format
 *             03/09/16   Removed stream layer error check from SetWindow API
+*             03/18/16   Window coordinates can start from 0,0
 * </pre>
 *
 ******************************************************************************/
@@ -282,8 +283,8 @@ static int IsWindowValid(XVidC_VideoStream *Strm,
 	  NewWin.Height *= ScaleFactor[Scale];
   }
 
-  if((NewWin.StartX > 0) &&
-	 (NewWin.StartY > 0) &&
+  if((NewWin.StartX >= 0) &&
+	 (NewWin.StartY >= 0) &&
 	 ((NewWin.StartX + NewWin.Width)  <= Strm->Timing.HActive) &&
 	 ((NewWin.StartY + NewWin.Height) <= Strm->Timing.VActive)) {
 
