@@ -1684,6 +1684,7 @@ void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 	XVphy_PllRefClkSelType *TypePtr, *DruTypePtr;
 	u32 RegVal;
 	u32 MaskVal = 0;
+	DruTypePtr = NULL;
 
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 						XVPHY_IBUFDS_GTXX_CTRL_REG);
