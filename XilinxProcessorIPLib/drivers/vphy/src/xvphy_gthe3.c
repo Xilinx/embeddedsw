@@ -46,6 +46,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
+ * 1.1   gm   03/18/16 Added XVphy_Gthe3RxPllRefClkDiv1Reconfig function
  * </pre>
  *
 *******************************************************************************/
@@ -84,6 +85,8 @@ u32 XVphy_Gthe3RxChReconfig(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId);
 u32 XVphy_Gthe3TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId);
+u32 XVphy_Gthe3RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId);
 
 /************************** Constant Definitions ******************************/
 
@@ -93,6 +96,7 @@ u32 XVphy_Gthe3TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 #define XVPHY_DRP_CPLL_FBDIV       		0x28
 #define XVPHY_DRP_CPLL_REFCLK_DIV  		0x2A
 #define XVPHY_DRP_RXOUT_DIV       		0x63
+#define XVPHY_DRP_RXCLK25       		0x6D
 #define XVPHY_DRP_TXCLK25       		0x7A
 #define XVPHY_DRP_TXOUT_DIV        		0x7C
 #define XVPHY_DRP_QPLL1_FBDIV      		0x94
@@ -392,7 +396,8 @@ u32 XVphy_Gthe3ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	XVphy_DrpWrite(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
 		(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x18 : 0x98, DrpVal);
 
-	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
+		(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
 		/* QPLLx_LPF */
 		switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
 				PllParams.NFbDiv) {
@@ -492,6 +497,8 @@ u32 XVphy_Gthe3RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x03, DrpVal);
 	}
 
+	XVphy_Gthe3RxPllRefClkDiv1Reconfig(InstancePtr, QuadId, ChId);
+
 	return (XST_SUCCESS);
 }
 
@@ -514,12 +521,62 @@ u32 XVphy_Gthe3TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId)
 {
 	u16 DrpVal;
+	u32 TxRefClkHz;
+	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
+                    Plls[XVPHY_CH2IDX(ChId)];
+
+	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+		TxRefClkHz = InstancePtr->HdmiTxRefClkHz;
+	}
+	else {
+		TxRefClkHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
+								PllPtr->PllRefClkSel);
+	}
 
 	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, XVPHY_DRP_TXCLK25);
 	DrpVal &= ~(0xF800);
-	DrpVal |= XVphy_DrpEncodeClk25(InstancePtr->HdmiTxRefClkHz) << 11;
+	DrpVal |= XVphy_DrpEncodeClk25(TxRefClkHz) << 11;
 
 	return XVphy_DrpWrite(InstancePtr, QuadId, ChId, XVPHY_DRP_TXCLK25,
+			DrpVal);
+}
+
+/*****************************************************************************/
+/**
+* This function will configure the channel's RX CLKDIV1 settings.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_Gthe3RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId)
+{
+	u16 DrpVal;
+	u32 RxRefClkHz;
+	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
+                    Plls[XVPHY_CH2IDX(ChId)];
+
+	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+		RxRefClkHz = InstancePtr->HdmiRxRefClkHz;
+	}
+	else {
+		RxRefClkHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
+								PllPtr->PllRefClkSel);
+	}
+
+	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, XVPHY_DRP_RXCLK25);
+	DrpVal &= ~(0x00F8);
+	DrpVal |= XVphy_DrpEncodeClk25(RxRefClkHz) << 3;
+
+	return XVphy_DrpWrite(InstancePtr, QuadId, ChId, XVPHY_DRP_RXCLK25,
 			DrpVal);
 }
 

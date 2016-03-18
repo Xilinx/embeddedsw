@@ -45,7 +45,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/19/15 Initial release.
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support.
- * 1.2   MG   03/08/16 Fixed issue in function XVphy_HdmiCfgCalcMmcmParam
+ *       MG   03/08/16 Fixed issue in function XVphy_HdmiCfgCalcMmcmParam
  *                       for single pixel calculation.
  * </pre>
  *
@@ -1003,6 +1003,7 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 	u8 Valid;
 	u64 LineRate = 0;
 	XVphy_Mmcm *MmcmPtr;
+	XVphy_PllType PllType;
 
 	if (Dir == XVPHY_DIR_RX) {
 		RefClk = InstancePtr->HdmiRxRefClkHz;
@@ -1019,11 +1020,22 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 		Mult = (GetGtHdmiPtr(InstancePtr))->TxMmcmFvcoMax / RefClk;
 
 		/* Get line rate. */
-		if (XVphy_IsTxUsingQpll(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
-			LineRate = InstancePtr->Quads[QuadId].Cmn0.LineRateHz;
-		}
-		else {
-			LineRate = InstancePtr->Quads[QuadId].Ch1.LineRateHz;
+		PllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_TX,
+				XVPHY_CHANNEL_ID_CH1);
+
+		switch (PllType) {
+			case XVPHY_PLL_TYPE_QPLL:
+			case XVPHY_PLL_TYPE_QPLL0:
+			case XVPHY_PLL_TYPE_PLL0:
+				LineRate = InstancePtr->Quads[QuadId].Cmn0.LineRateHz;
+				break;
+			case XVPHY_PLL_TYPE_QPLL1:
+			case XVPHY_PLL_TYPE_PLL1:
+				LineRate = InstancePtr->Quads[QuadId].Cmn1.LineRateHz;
+				break;
+			default:
+				LineRate = InstancePtr->Quads[QuadId].Ch1.LineRateHz;
+				break;
 		}
 	}
 
