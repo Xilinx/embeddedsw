@@ -52,6 +52,8 @@
 * 1.02  MH   03/02/16 Updated to perform Montgomery NPrime calcuation
 *                     when XHdcp22Rx_LoadPrivateKey is called.
 *                     Added function XHDCP22Rx_GetVersion.
+* 1.03  MH   03/15/16 Fixed XHdcp22Rx_SetLinkError and XHdcp22Rx_SetDdcError
+*                     functions to update error flag.
 *</pre>
 *
 *****************************************************************************/
@@ -295,12 +297,16 @@ int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
 	/* Reset DDC registers */
 	XHdcp22Rx_ResetDdc(InstancePtr);
 
+	/* Disable cipher */
+	XHdcp22Cipher_Disable(InstancePtr);
+
 	return (XST_SUCCESS);
 }
 
 /*****************************************************************************/
 /**
-* This function enables the HDCP22-RX state machine.
+* This function enables the HDCP22-RX state machine. The HDCP2Version
+* register is set to active.
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
@@ -333,6 +339,10 @@ int XHdcp22Rx_Enable(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rng_Enable(&InstancePtr->RngInst);
 	XHdcp22Cipher_Enable(&InstancePtr->CipherInst);
 
+	/* Set HDCP2Version register */
+	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_VERSION_REG);
+	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, 0x04);
+
 	/* Assert enabled flag */
 	InstancePtr->Info.IsEnabled = TRUE;
 
@@ -341,7 +351,8 @@ int XHdcp22Rx_Enable(XHdcp22_Rx *InstancePtr)
 
 /*****************************************************************************/
 /**
-* This function disables the HDCP22-RX state machine.
+* This function disables the HDCP22-RX state machine. The HDCP2Version
+* register is set to inactive.
 *
 * @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
 *
@@ -356,6 +367,10 @@ int XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr)
 
 	/* Log info event */
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_DISABLE);
+
+	/* Clear HDCP2Version register */
+	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_VERSION_REG);
+	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, 0x00);
 
 	/* Disable RNG and Cipher */
 	XHdcp22Rng_Disable(&InstancePtr->RngInst);
@@ -663,6 +678,9 @@ void XHdcp22Rx_SetLinkError(XHdcp22_Rx *InstancePtr)
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	/* Set Error Flag */
+	InstancePtr->Info.ErrorFlag |= XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY;
+
 	/* Log error event set flag */
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY);
 }
@@ -683,6 +701,9 @@ void XHdcp22Rx_SetDdcError(XHdcp22_Rx *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Set Error Flag */
+	InstancePtr->Info.ErrorFlag |= XHDCP22_RX_ERROR_FLAG_DDC_BURST;
 
 	/* Log error event and set flag */
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_DDC_BURST);
@@ -1272,10 +1293,6 @@ static void XHdcp22Rx_ResetDdc(XHdcp22_Rx *InstancePtr)
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->Handles.IsDdcAllCallbacksSet == TRUE);
-
-	/* Set HDCP2Version register */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_VERSION_REG);
-	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, 0x04);
 
 	/* Set RXSTATUS registers */
 	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS0_REG);
