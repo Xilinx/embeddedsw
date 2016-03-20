@@ -52,6 +52,11 @@
 * 1.6   yh     01/02/16 Removed xil_print "Cable (dis)connected"
 * 1.7   yh     15/02/16 Added default value to XV_HdmiTxSs_ConfigRemapper
 * 1.8   MG     03/02/16 Added HDCP support
+* 1.9   MG     09/03/16 Added XV_HdmiTxSs_SetHdmiMode and XV_HdmiTxSs_SetDviMode
+*                       Removed reduced blanking support
+* 1.10  MH     03/15/16 Moved HDCP 2.2 reset from stream up/down callback to connect callback
+* 1.11  YH     18/03/16 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
+*
 * </pre>
 *
 ******************************************************************************/
@@ -123,6 +128,29 @@ static void XV_HdmiTxSs_SetPpc(XV_HdmiTxSs *InstancePtr, u8 Id, u8 Ppc);
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Definition ******************************/
 
+/*****************************************************************************/
+/**
+ * This function sets the core into HDMI mode
+ *
+ * @param  InstancePtr is a pointer to the HDMI TX Subsystem
+ *
+ *****************************************************************************/
+void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr)
+{
+    XV_HdmiTx_SetHdmiMode(InstancePtr->HdmiTxPtr);
+}
+
+/*****************************************************************************/
+/**
+ * This function sets the core into DVI mode
+ *
+ * @param  InstancePtr is a pointer to the HDMI TX Subsystem
+ *
+ *****************************************************************************/
+void XV_HdmiTxSS_SetDviMode(XV_HdmiTxSs *InstancePtr)
+{
+    XV_HdmiTx_SetDviMode(InstancePtr->HdmiTxPtr);
+}
 
 /*****************************************************************************/
 /**
@@ -828,18 +856,20 @@ void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
   // Is the cable connected?
   if (XV_HdmiTx_IsStreamConnected(HdmiTxSsPtr->HdmiTxPtr)) {
     HdmiTxSsPtr->IsStreamConnected = (TRUE);
-    //xil_printf("TX cable is connected\n\r");
+    xil_printf("TX cable is connected\n\r");
+    XV_HdmiTxSs_HdcpPushEvent(HdmiTxSsPtr, XV_HDMITXSS_HDCP_CONNECT_EVT);
   }
 
   // TX cable is disconnected
   else {
     HdmiTxSsPtr->IsStreamConnected = (FALSE);
-    //xil_printf("TX cable is disconnected\n\r");
+    xil_printf("TX cable is disconnected\n\r");
+    XV_HdmiTxSs_HdcpPushEvent(HdmiTxSsPtr, XV_HDMITXSS_HDCP_DISCONNECT_EVT);
   }
 
   // Check if user callback has been registered
   if (HdmiTxSsPtr->ConnectCallback) {
-      HdmiTxSsPtr->ConnectCallback(HdmiTxSsPtr->ConnectRef);
+    HdmiTxSsPtr->ConnectCallback(HdmiTxSsPtr->ConnectRef);
   }
 
 }
@@ -1542,6 +1572,36 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
 /*****************************************************************************/
 /**
 *
+* This function sends generic info frames.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *Aux)
+{
+  u8 Index;
+  XV_HdmiTx_Aux *tx_aux = Aux;
+
+  // Header
+  InstancePtr->HdmiTxPtr->Aux.Header.Data = tx_aux->Header.Data;
+
+  // Data
+  for (Index = 0; Index < 8; Index++) {
+    InstancePtr->HdmiTxPtr->Aux.Data.Data[Index] =
+	tx_aux->Data.Data[Index];
+  }
+
+  /* Send packet */
+  XV_HdmiTx_AuxSend(InstancePtr->HdmiTxPtr);
+}
+
+/*****************************************************************************/
+/**
+*
 * This function Sets the HDMI TX SS number of active audio channels
 *
 * @param  InstancePtr pointer to XV_HdmiTxSs instance
@@ -1600,38 +1660,23 @@ u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
   u32 TmdsClock = 0;
 
   if (VideoMode < XVIDC_VM_NUM_SUPPORTED) {
-      TmdsClock = XV_HdmiTx_SetStream(InstancePtr->HdmiTxPtr, VideoMode,
-          ColorFormat, Bpc, InstancePtr->Config.Ppc, Info3D);
+          TmdsClock = XV_HdmiTx_SetStream(InstancePtr->HdmiTxPtr, VideoMode,
+            ColorFormat, Bpc, InstancePtr->Config.Ppc, Info3D);
 
   }
 
   // Default 1080p colorbar
   else {
     TmdsClock = XV_HdmiTx_SetStream(InstancePtr->HdmiTxPtr,
-        XVIDC_VM_1920x1080_60_P, XVIDC_CSF_RGB, XVIDC_BPC_8, XVIDC_PPC_2,
+        XVIDC_VM_1920x1080_60_P, XVIDC_CSF_RGB, XVIDC_BPC_8, InstancePtr->Config.Ppc,
         Info3D);
   }
 
-  return TmdsClock;
+  if(TmdsClock == 0) {
+    xil_printf("\nWarning: Sink does not support HDMI 2.0\r\n");
+    xil_printf("         Connect to HDMI 2.0 Sink or \r\n");
+    xil_printf("         Change to HDMI 1.4 video format\r\n\n");
 }
-
-/*****************************************************************************/
-/**
-*
-* This function set HDMI TX susbsystem stream reduced blanking parameters
-*
-* @param  None.
-*
-* @return Calculated TMDS Clock
-*
-* @note   None.
-*
-******************************************************************************/
-u32 XV_HdmiTxSs_SetStreamReducedBlanking(XV_HdmiTxSs *InstancePtr)
-{
-  u32 TmdsClock = 0;
-
-  TmdsClock = XV_HdmiTx_SetStreamReducedBlanking(InstancePtr->HdmiTxPtr);
 
   return TmdsClock;
 }
@@ -2132,11 +2177,8 @@ void XV_HdmiTxSs_ConfigRemapper(XV_HdmiTxSs *InstancePtr) {
         XV_axi4s_remap_Start(RemapperPtr);
     }
     else {
-        if ((VideoMode == XVIDC_VM_720x576_50_P) ||
-            (VideoMode == XVIDC_VM_720x576_50_I) ||
-            (VideoMode == XVIDC_VM_720x480_60_I) ||
-            (VideoMode == XVIDC_VM_640x480_60_P) ||
-            (VideoMode == XVIDC_VM_720x480_60_P) )
+        if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
+            (VideoMode == XVIDC_VM_1440x576_50_I) )
         {
             /*********************************************************
              * NTSC/PAL Support
@@ -2222,7 +2264,7 @@ int XV_HdmiTxSs_HdcpPushEvent(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpEvent Ev
 
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
-  Xil_AssertNonvoid(Event <= XV_HDMITXSS_HDCP_STREAMDOWN_EVT);
+  Xil_AssertNonvoid(Event < XV_HDMITXSS_HDCP_INVALID_EVT);
 
   /* Write event into the queue */
   InstancePtr->HdcpEventQueue.Queue[InstancePtr->HdcpEventQueue.Head] = Event;
@@ -2336,27 +2378,42 @@ static int XV_HdmiTxSs_HdcpProcessEvents(XV_HdmiTxSs *InstancePtr)
   Event = XV_HdmiTxSs_HdcpGetEvent(InstancePtr);
   switch (Event) {
 
+    // Only HDCP 1.4 is reset in case of a stream up event.
     case XV_HDMITXSS_HDCP_STREAMUP_EVT :
-      // HDCP 1.4
       if (InstancePtr->Hdcp14Ptr) {
         XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, TRUE);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-      }
 
-      Status = XV_HdmiTxSs_HdcpReset(InstancePtr);
-      if (Status != XST_SUCCESS) {
-        return Status;
+        // Reset
+        Status = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
+        XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
       }
       break;
 
+    // Only HDCP 1.4 is reset in case of a stream down event.
     case XV_HDMITXSS_HDCP_STREAMDOWN_EVT :
-      // HDCP 1.4
       if (InstancePtr->Hdcp14Ptr) {
         XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, FALSE);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-      }
 
-      Status = XV_HdmiTxSs_HdcpReset(InstancePtr);
+        // Reset
+        Status = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
+        XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+      }
+      break;
+
+    // Only HDCP 2.2 is reset in case of a connect event.
+    case XV_HDMITXSS_HDCP_CONNECT_EVT :
+      if (InstancePtr->Hdcp22Ptr) {
+	Status = XHdcp22Tx_Reset(InstancePtr->Hdcp22Ptr);
+      }
+      break;
+
+    // Only HDCP 2.2 is reset in case of a disconnect event.
+    case XV_HDMITXSS_HDCP_DISCONNECT_EVT :
+      if (InstancePtr->Hdcp22Ptr) {
+	Status = XHdcp22Tx_Reset(InstancePtr->Hdcp22Ptr);
+      }
       break;
 
     default :
@@ -2446,12 +2503,12 @@ int XV_HdmiTxSs_HdcpSetProtocol(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpProtoc
   // Set protocol
   InstancePtr->HdcpProtocol = Protocol;
 
-// Reset the cores
+  // Reset the cores
   Status = XV_HdmiTxSs_HdcpReset(InstancePtr);
   if (Status != XST_SUCCESS)
     return Status;
 
-// Enable
+  // Enable
   Status = XV_HdmiTxSs_HdcpEnable(InstancePtr);
   if (Status != XST_SUCCESS)
     return Status;
@@ -2607,7 +2664,7 @@ static int XV_HdmiTxSs_HdcpReset(XV_HdmiTxSs *InstancePtr)
         The disable function acts like a pauze function.
         For HDCP 2.2 the reset function is used.
     */
-   Status = XHdcp22Tx_Reset(InstancePtr->Hdcp22Ptr);
+    Status = XHdcp22Tx_Reset(InstancePtr->Hdcp22Ptr);
   }
 
   return Status;
