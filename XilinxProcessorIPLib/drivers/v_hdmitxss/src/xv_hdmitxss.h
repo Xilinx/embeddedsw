@@ -62,6 +62,11 @@
 * 1.2   yh     20/01/16 Added remapper support
 * 1.3   yh     01/02/16 Added set_ppc api
 * 1.4   MG     03/02/16 Added HDCP support
+* 1.5   MG     09/03/16 Removed reduced blanking support and
+*                       added XV_HdmiTxSS_SetHdmiMode and XV_HdmiTxSS_SetDviMode
+* 1.6   MH     03/15/16 Added HDCP connect event
+* 1.7   YH     17/03/16 Remove xintc.h as it is processor dependent
+* 1.8   YH     18/03/16 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
 * </pre>
 *
 ******************************************************************************/
@@ -75,7 +80,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xstatus.h"
-#include "xintc.h"
 #include "xvidc.h"
 #include "xvidc_edid.h"
 #include "xv_hdmitx.h"
@@ -129,7 +133,10 @@ typedef enum
 {
     XV_HDMITXSS_HDCP_NO_EVT,
     XV_HDMITXSS_HDCP_STREAMUP_EVT,
-    XV_HDMITXSS_HDCP_STREAMDOWN_EVT
+    XV_HDMITXSS_HDCP_STREAMDOWN_EVT,
+	XV_HDMITXSS_HDCP_CONNECT_EVT,
+	XV_HDMITXSS_HDCP_DISCONNECT_EVT,
+	XV_HDMITXSS_HDCP_INVALID_EVT
 } XV_HdmiTxSs_HdcpEvent;
 
 typedef struct
@@ -253,6 +260,8 @@ typedef struct
 
 /************************** Function Prototypes ******************************/
 XV_HdmiTxSs_Config *XV_HdmiTxSs_LookupConfig(u32 DeviceId);
+void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSS_SetDviMode(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_ReportCoreInfo(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_SetUserTimerHandler(XV_HdmiTxSs *InstancePtr,
         XVidC_DelayHandler CallbackFunc, void *CallbackRef);
@@ -273,6 +282,7 @@ int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *BufferPtr);
 void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
+void XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels);
 void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable);
 u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
@@ -280,7 +290,6 @@ u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
     XVidC_ColorFormat ColorFormat,
     XVidC_ColorDepth Bpc,
     XVidC_3DInfo *Info3D);
-u32 XV_HdmiTxSs_SetStreamReducedBlanking(XV_HdmiTxSs *InstancePtr);
 XVidC_VideoStream *XV_HdmiTxSs_GetVideoStream(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_SetVideoStream(XV_HdmiTxSs *InstancePtr,
                                     XVidC_VideoStream VidStream);
