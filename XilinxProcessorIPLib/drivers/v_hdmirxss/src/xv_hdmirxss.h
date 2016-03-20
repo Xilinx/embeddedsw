@@ -61,6 +61,9 @@
 * 1.1   yh     20/01/16 Added remapper support
 * 1.2   yh     01/02/16 Added set_ppc api
 * 1.3   MG     03/02/16 Added HDCP support
+* 1.4   MH     03/15/16 Added HDCP connect event.
+*                       Added HDCP authenticated callback support.
+* 1.5   YH     17/03/16 Remove xintc.h as it is processor dependent
 * </pre>
 *
 ******************************************************************************/
@@ -74,7 +77,6 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xstatus.h"
-#include "xintc.h"
 #include "xv_hdmirx.h"
 #include "xtmrctr.h"
 #include "xhdcp1x.h"
@@ -93,15 +95,16 @@ extern "C" {
 * interrupt requests from peripheral.
 */
 typedef enum {
-  XV_HDMIRXSS_HANDLER_CONNECT = 1,  /**< A connect event interrupt type */
-  XV_HDMIRXSS_HANDLER_AUX,          /**< Interrupt type for AUX peripheral */
-  XV_HDMIRXSS_HANDLER_AUD,          /**< Interrupt type for AUD peripheral */
-  XV_HDMIRXSS_HANDLER_LNKSTA,       /**< Interrupt type for LNKSTA peripheral */
-  XV_HDMIRXSS_HANDLER_DDC,          /**< Interrupt type for DDC peripheral */
-  XV_HDMIRXSS_HANDLER_STREAM_DOWN,  /**< Interrupt type for stream down */
-  XV_HDMIRXSS_HANDLER_STREAM_INIT,  /**< Interrupt type for stream init */
-  XV_HDMIRXSS_HANDLER_STREAM_UP,    /**< Interrupt type for stream up */
-  XV_HDMIRXSS_HANDLER_HDCP          /**< Interrupt type for hdcp */
+  XV_HDMIRXSS_HANDLER_CONNECT = 1,       /**< A connect event interrupt type */
+  XV_HDMIRXSS_HANDLER_AUX,               /**< Interrupt type for AUX peripheral */
+  XV_HDMIRXSS_HANDLER_AUD,               /**< Interrupt type for AUD peripheral */
+  XV_HDMIRXSS_HANDLER_LNKSTA,            /**< Interrupt type for LNKSTA peripheral */
+  XV_HDMIRXSS_HANDLER_DDC,               /**< Interrupt type for DDC peripheral */
+  XV_HDMIRXSS_HANDLER_STREAM_DOWN,       /**< Interrupt type for stream down */
+  XV_HDMIRXSS_HANDLER_STREAM_INIT,       /**< Interrupt type for stream init */
+  XV_HDMIRXSS_HANDLER_STREAM_UP,         /**< Interrupt type for stream up */
+  XV_HDMIRXSS_HANDLER_HDCP,              /**< Interrupt type for hdcp */
+  XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATE  /**< Interrupt type for hdcp */
 } XV_HdmiRxSs_HandlerType;
 /*@}*/
 
@@ -111,15 +114,18 @@ typedef enum {
 typedef enum
 {
   XV_HDMIRXSS_HDCP_NONE,       /**< No content protection */
-  XV_HDMIRXSS_HDCP_14,     /**< HDCP 1.4 */
-  XV_HDMIRXSS_HDCP_22      /**< HDCP 2.2 */
+  XV_HDMIRXSS_HDCP_14,         /**< HDCP 1.4 */
+  XV_HDMIRXSS_HDCP_22          /**< HDCP 2.2 */
 } XV_HdmiRxSs_HdcpProtocol;
 
 typedef enum
 {
   XV_HDMIRXSS_HDCP_NO_EVT,
   XV_HDMIRXSS_HDCP_STREAMUP_EVT,
-  XV_HDMIRXSS_HDCP_STREAMDOWN_EVT
+  XV_HDMIRXSS_HDCP_STREAMDOWN_EVT,
+  XV_HDMIRXSS_HDCP_CONNECT_EVT,
+  XV_HDMIRXSS_HDCP_DISCONNECT_EVT,
+  XV_HDMIRXSS_HDCP_INVALID_EVT
 } XV_HdmiRxSs_HdcpEvent;
 
 typedef struct
@@ -234,6 +240,9 @@ typedef struct
 
   XV_HdmiRxSs_Callback HdcpCallback;    /**< Callback for hdcp callback */
   void *HdcpRef;        /**< To be passed to the hdcp callback */
+
+  XV_HdmiRxSs_Callback HdcpAuthenticateCallback; /**< Callback for HDCP authenticated */
+  void *HdcpAuthenticateRef;  /**< To be passed to authenticated callback */
 
   // Scratch pad
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
