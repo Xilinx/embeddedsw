@@ -410,6 +410,25 @@ Added WaitForIdle function.
 v_hcresampler_v2_0:
 Made changes to integrate layer-1 with layer-2.
 
+
+v_hdmirx_v1_1:
+Added support for read not complete DDC event
+
+v_hdmitx_v1_1 :
+1. Added XV_HdmiTx_SetHdmiMode and XV_HdmiTx_SetDviMode
+2. Removed support for reduced blanking
+
+v_hdmirxss_v2_0 :
+1. Moved HDCP 2.2 reset from stream up/down callback to connect callback
+2. Added HDCP authenticated callback support
+3. Remove xintc.h from xv_hdmirxss.h as it is processor dependent
+
+v_hdmitxss_v2_0 :
+1. Added XV_HdmiTxSs_SetHdmiMode and XV_HdmiTxSs_SetDviMode
+2. Removed reduced blanking support
+3. Moved HDCP 2.2 reset from stream up/down callback to connect callback
+4. Add XV_HdmiTxSs_SendGenericAuxInfoframe function
+
 v_hdmirx_v1_1:
 Added Link Check callback
 Added pixel clock calculation to HdmiRx_TmrIntrHandler
