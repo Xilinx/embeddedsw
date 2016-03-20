@@ -46,6 +46,7 @@
 * 1.1   yh     14/01/16 Set AxisEnable PIO to high when RX stream locked
 * 1.3   MG     18/02/16 Added Link Check callback
 * 1.4   MG     08/03/16 Added pixel clock calculation to HdmiRx_TmrIntrHandler
+* 1.5   MH     08/03/16 Added support for read not complete DDC event
 * </pre>
 *
 ******************************************************************************/
@@ -403,6 +404,18 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
         /* Callback */
         if (InstancePtr->IsHdcpCallbackSet) {
 			InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK);
+        }
+    }
+
+    /* Check for HDCP read not complete event */
+    if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_RMSG_NC_EVT_MASK)) {
+
+        // Clear event flag
+        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_RMSG_NC_EVT_MASK));
+
+        /* Callback */
+        if (InstancePtr->IsHdcpCallbackSet) {
+            InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_RMSG_NC_EVT_MASK);
         }
     }
 
