@@ -117,11 +117,13 @@
 *
 * <pre>
 * MODIFICATION HISTORY:
-*
+*s
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     15/01/16 Add 3D Support
+* 1.2   MG     09/03/16 Added XV_HdmiTx_SetHdmiMode and XV_HdmiTx_SetDviMode.
+*                       Removed support for reduced blanking
 * </pre>
 *
 ******************************************************************************/
@@ -188,14 +190,6 @@ typedef struct {
     XVidC_VideoMode VmId;   /**< Video mode/Resolution ID */
     u8 Vic;         /**< Video Identification code */
 } XV_HdmiTx_VicTable;
-
-/**
-* This typedef contains Video identification information in tabular form.
-*/
-typedef struct {
-    XVidC_VideoMode VmId;           /**< Video mode/Resolution ID */
-    XVidC_VideoTiming Timing;       /**< Video Timing*/
-} XV_HdmiTx_ReducedBlankingTable;
 
 /**
 * This typedef contains audio stream specific data structure
@@ -572,8 +566,12 @@ typedef struct {
 *
 ******************************************************************************/
 #define XV_HdmiTx_AuxEnable(InstancePtr) \
-    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-    (XV_HDMITX_AUX_CTRL_SET_OFFSET), (XV_HDMITX_AUX_CTRL_RUN_MASK))
+{ \
+    if ((InstancePtr)->Stream.IsHdmi) { \
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+        (XV_HDMITX_AUX_CTRL_SET_OFFSET), (XV_HDMITX_AUX_CTRL_RUN_MASK)); \
+    } \
+}
 
 /*****************************************************************************/
 /**
@@ -640,8 +638,12 @@ typedef struct {
 *
 ******************************************************************************/
 #define XV_HdmiTx_AudioEnable(InstancePtr) \
-    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
-    (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
+{ \
+    if ((InstancePtr)->Stream.IsHdmi) { \
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+        (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK)); \
+    } \
+}
 
 /*****************************************************************************/
 /**
@@ -697,7 +699,7 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This macro sets the mode to operate in.
+* This macro sets the mode bit.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
@@ -710,6 +712,23 @@ typedef struct {
 #define XV_HdmiTx_SetMode(InstancePtr) \
     XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
     (XV_HDMITX_PIO_OUT_SET_OFFSET), (XV_HDMITX_PIO_OUT_MODE_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro clears the mode bit.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     C-style signature:
+*       void XV_HdmiTx_ClearMode(XV_HdmiTx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx_ClearMode(InstancePtr) \
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_MODE_MASK))
 
 /*****************************************************************************/
 /**
@@ -785,6 +804,8 @@ XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(u16 DeviceId);
 int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr,
     XV_HdmiTx_Config *CfgPtr,
     u32 EffectiveAddr);
+void XV_HdmiTx_SetHdmiMode(XV_HdmiTx *InstancePtr);
+void XV_HdmiTx_SetDviMode(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_Clear(XV_HdmiTx *InstancePtr);
 u8 XV_HdmiTx_GetVic(XVidC_VideoMode VideoMode);
 XVidC_VideoMode XV_HdmiTx_GetVideoModeFromVic(u8 Vic);
@@ -794,7 +815,7 @@ u32 XV_HdmiTx_SetStream(XV_HdmiTx *InstancePtr,
     XVidC_ColorDepth Bpc,
     XVidC_PixelsPerClock Ppc,
     XVidC_3DInfo *Info3D);
-u32 XV_HdmiTx_SetStreamReducedBlanking(XV_HdmiTx *InstancePtr);
+
 void XV_HdmiTx_SetPixelRate(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_SetSampleRate(XV_HdmiTx *InstancePtr, u8 SampleRate);
 void XV_HdmiTx_SetColorFormat(XV_HdmiTx *InstancePtr);

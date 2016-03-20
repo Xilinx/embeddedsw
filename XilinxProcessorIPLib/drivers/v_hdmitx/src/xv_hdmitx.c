@@ -44,6 +44,8 @@
 * ----- ------ -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     15/01/16 Add 3D Support
+* 1.2   MG     09/03/16 Added XV_HdmiTx_SetHdmiMode and XV_HdmiTx_SetDviMode
+
 * </pre>
 *
 ******************************************************************************/
@@ -113,30 +115,6 @@ static const XV_HdmiTx_VicTable VicTable[34] = {
     {XVIDC_VM_4096x2160_30_P, 100}, /**< Vic 100 */
     {XVIDC_VM_4096x2160_50_P, 101}, /**< Vic 101 */
     {XVIDC_VM_4096x2160_60_P, 102}  /**< Vic 102 */
-};
-
-
-const XV_HdmiTx_ReducedBlankingTable ReducedBlankingTable[4] =
-{
-    // 720p50 @ 12 bpc
-    { XVIDC_VM_1280x720_50_P,
-        {1280, 90, 30, 100, 1500, 1,
-        720, 5, 5, 5, 725, 0, 0, 0, 0, 1} },
-
-    // 720p60 @ 12 bpc
-    { XVIDC_VM_1280x720_60_P,
-        {1280, 90, 30, 100, 1500, 1,
-        720, 5, 5, 5, 725, 0, 0, 0, 0, 1} },
-
-    // 1080p50 @ 12 bpc
-    { XVIDC_VM_1920x1080_50_P,
-        {1920, 56, 44, 100, 2000, 1,
-        1080, 4, 5, 9, 1100, 0, 0, 0, 0, 1} },
-
-    // 1080p60 @ 12 bpc
-    { XVIDC_VM_1920x1080_60_P,
-        {1920, 56, 44, 100, 2000, 1,
-        1080, 4, 5, 9, 1100, 0, 0, 0, 0, 1} }
 };
 
 /************************** Function Prototypes ******************************/
@@ -258,7 +236,7 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
     XV_HdmiTx_PioEnable(InstancePtr);
 
     /* Set HDMI mode */
-    XV_HdmiTx_SetMode(InstancePtr);
+    XV_HdmiTx_SetHdmiMode(InstancePtr);
 
     /* Enable the AUX peripheral */
     /* The aux peripheral is enabled at stream up */
@@ -275,6 +253,64 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
     InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
     return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the core into HDMI mode.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return
+*
+*
+* @note     This is required after a reset or init.
+*
+******************************************************************************/
+void XV_HdmiTx_SetHdmiMode(XV_HdmiTx *InstancePtr)
+{
+
+    /* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    /* Set mode bit in core */
+    XV_HdmiTx_SetMode(InstancePtr);
+
+    /* Set flag in structure */
+    InstancePtr->Stream.IsHdmi = TRUE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the core into HDMI mode.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return
+*
+*
+* @note     This is required after a reset or init.
+*
+******************************************************************************/
+void XV_HdmiTx_SetDviMode(XV_HdmiTx *InstancePtr)
+{
+
+    /* Verify argument. */
+    Xil_AssertVoid(InstancePtr != NULL);
+
+    /* Disable audio peripheral */
+    XV_HdmiTx_AudioDisable(InstancePtr);
+
+    /* Disable aux peripheral */
+    XV_HdmiTx_AuxDisable(InstancePtr);
+
+    /* Clear mode bit in core */
+    XV_HdmiTx_ClearMode(InstancePtr);
+
+    /* Clear flag in structure */
+    InstancePtr->Stream.IsHdmi = FALSE;
 }
 
 /*****************************************************************************/
@@ -325,33 +361,6 @@ u8 XV_HdmiTx_LookupVic(XVidC_VideoMode VideoMode)
     }
     return 0;
 }
-
-/*****************************************************************************/
-/**
-*
-* This function provides video identification code of video mode.
-*
-* @param    VideoMode specifies resolution identifier.
-*
-* @return   Video identification code defined in the VIC table.
-*
-* @note     None.
-*
-******************************************************************************/
-const XVidC_VideoTiming *XV_HdmiTx_GetReducedBlankingTimingInfo(XVidC_VideoMode VideoMode)
-{
-    XV_HdmiTx_ReducedBlankingTable const *Entry;
-    u8 Index;
-
-    for (Index = 0; Index < sizeof(ReducedBlankingTable)/sizeof(
-        XV_HdmiTx_ReducedBlankingTable); Index++) {
-      Entry = &ReducedBlankingTable[Index];
-      if (Entry->VmId == VideoMode)
-        return (&ReducedBlankingTable[Index].Timing);
-    }
-    return (NULL);
-}
-
 
 /*****************************************************************************/
 /**
@@ -760,82 +769,6 @@ XVidC_3DInfo *Info3D)
         TmdsClock = 0;
     }
 
-    return TmdsClock;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function sets the HDMI TX stream parameters with reduced blanking.
-* Reduced blanking is applied when the original video line rate can't be
-* selected due to QPLL line rate holes
-* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
-* @param    VideoMode specifies resolution identifier.
-*
-* @return   TmdsClock, reference clock calculated based on the input
-*       parameters.
-*
-* @note     None.
-*
-******************************************************************************/
-u32 XV_HdmiTx_SetStreamReducedBlanking(XV_HdmiTx *InstancePtr)
-{
-    XVidC_VideoTiming *Timing;
-    u32 TmdsClock = 0;
-
-    /* Verify arguments. */
-    Xil_AssertNonvoid(InstancePtr != NULL);
-
-    Timing = (XVidC_VideoTiming *)XV_HdmiTx_GetReducedBlankingTimingInfo(
-        InstancePtr->Stream.Video.VmId);
-
-    // Check if the reduced timing was found
-    if (Timing) {
-    InstancePtr->Stream.Video.Timing = *Timing;
-
-        /* Calculate reference clock. First calculate the pixel clock */
-        TmdsClock = XVidC_GetPixelClockHzByHVFr(
-            InstancePtr->Stream.Video.Timing.HTotal,
-            InstancePtr->Stream.Video.Timing.F0PVTotal,
-            InstancePtr->Stream.Video.FrameRate);
-
-        /* Store the pixel clock in the structure */
-        InstancePtr->Stream.PixelClk = TmdsClock;
-
-        /* YUV420 */
-        if (InstancePtr->Stream.Video.ColorFormatId == (XVIDC_CSF_YCRCB_420)) {
-            /* In YUV420 the*/
-            TmdsClock = TmdsClock / 2;
-        }
-
-        /* RGB and YUV444 */
-        else if ((InstancePtr->Stream.Video.ColorFormatId == (XVIDC_CSF_RGB)) ||
-        (InstancePtr->Stream.Video.ColorFormatId == (XVIDC_CSF_YCRCB_444))) {
-
-            switch (InstancePtr->Stream.Video.ColorDepth) {
-
-            // 10-bits
-            case XVIDC_BPC_10 :
-                TmdsClock = TmdsClock * 5 / 4;
-                break;
-
-            // 12-bits
-            case XVIDC_BPC_12 :
-                TmdsClock = TmdsClock * 3 / 2;
-                break;
-
-            // 16-bits
-            case XVIDC_BPC_16 :
-                TmdsClock = TmdsClock * 2;
-                break;
-            }
-        }
-
-        if ((InstancePtr->Stream.IsHdmi20 == (FALSE)) &&
-                (TmdsClock > 340000000)) {
-            TmdsClock = 0;
-        }
-    }
     return TmdsClock;
 }
 
