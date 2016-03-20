@@ -53,6 +53,10 @@
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     20/01/16 Added remapper support
 * 1.2   MG     20/01/16 Added HDCP support
+* 1.3   MH     08/03/16 Added DDC read message not complete event to
+*                       the function XV_HdmiRxSs_DdcHdcpCallback.
+*                       Updated XV_HdmiRxSs_LinkErrorCallback
+*                       function to set link error flag.
 * </pre>
 *
 ******************************************************************************/
@@ -304,9 +308,6 @@ int XV_HdmiRxSs_SubcoreInitHdcp14(XV_HdmiRxSs *HdmiRxSsPtr)
         return(XST_FAILURE);
       }
 
-      /* Clear the event queue */
-      XV_HdmiRxSs_HdcpClearEvents(HdmiRxSsPtr);
-
       /* Set-up the DDC Handlers */
       XHdcp1x_SetCallback(HdmiRxSsPtr->Hdcp14Ptr,  XHDCP1X_HANDLER_DDC_SETREGADDR,  (XHdcp1x_SetDdcHandler)XV_HdmiRxSs_DdcSetRegAddrHandler, HdmiRxSsPtr->HdmiRxPtr);
       XHdcp1x_SetCallback(HdmiRxSsPtr->Hdcp14Ptr,  XHDCP1X_HANDLER_DDC_SETREGDATA,  (XHdcp1x_SetDdcHandler)XV_HdmiRxSs_DdcSetRegDataHandler, HdmiRxSsPtr->HdmiRxPtr);
@@ -317,6 +318,21 @@ int XV_HdmiRxSs_SubcoreInitHdcp14(XV_HdmiRxSs *HdmiRxSsPtr)
 
       /* Disable HDCP 1.4 repeater */
       HdmiRxSsPtr->Hdcp14Ptr->IsRepeater = 0;
+
+      /* Set-up the HDMI RX HDCP Callback Handler */
+      XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+                XV_HDMIRX_HANDLER_HDCP,
+                XV_HdmiRxSs_DdcHdcpCallback,
+                (void *)HdmiRxSsPtr);
+
+      /* Enable HDMI-RX DDC interrupts */
+      XV_HdmiRx_DdcIntrEnable(HdmiRxSsPtr->HdmiRxPtr);
+
+      /* Enable HDMI-RX HDCP */
+      XV_HdmiRx_DdcHdcpEnable(HdmiRxSsPtr->HdmiRxPtr);
+
+      /* Clear the event queue */
+      XV_HdmiRxSs_HdcpClearEvents(HdmiRxSsPtr);
     }
   }
   return(XST_SUCCESS);
@@ -385,7 +401,6 @@ int XV_HdmiRxSs_SubcoreInitHdcp22(XV_HdmiRxSs *HdmiRxSsPtr)
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY, (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcIsReadMessageBufferEmptyHandler,      HdmiRxSsPtr->HdmiRxPtr);
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_CLEARRBUF,   (XHdcp22_Rx_RunHandler)XV_HdmiRxSs_DdcClearReadMessageBufferHandler,        HdmiRxSsPtr->HdmiRxPtr);
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,  XHDCP22_RX_HANDLER_DDC_CLEARWBUF,   (XHdcp22_Rx_RunHandler)XV_HdmiRxSs_DdcClearWriteMessageBufferHandler,       HdmiRxSsPtr->HdmiRxPtr);
-       // XHdcp22Rx_SetCallback(&HdcpRx22,  XHDCP22_RX_HANDLER_AUTHENTICATED,   (XHdcp22_Rx_RunHandler)XHdcp22Rx_TestAuthenticatedCallback, &HdcpRx22);
 
       /* Set-up the HDMI RX HDCP Callback Handler */
       XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
@@ -398,24 +413,8 @@ int XV_HdmiRxSs_SubcoreInitHdcp22(XV_HdmiRxSs *HdmiRxSsPtr)
                 XV_HDMIRX_HANDLER_LINK_ERROR,
                 XV_HdmiRxSs_LinkErrorCallback,
                 (void *)HdmiRxSsPtr);
-/*
-      /* Generate the Montgomery Multiplication Constants */
-//      Status = XHdcp22Rx_CalcMontNPrime(HdmiRxSsPtr->Hdcp22Ptr->Params.NPrimeP, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+562, XHDCP22_RX_P_SIZE/4);
- //     if (Status != XST_SUCCESS) {
- //       xil_printf("MMult: Failed to generate NPrimeP \n\r");
- //       return Status;
- //     }
-
-    //  Status = XHdcp22Rx_CalcMontNPrime(NPrimeQ, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+626, XHDCP22_RX_P_SIZE/4);
- //     Status = XHdcp22Rx_CalcMontNPrime(HdmiRxSsPtr->Hdcp22Ptr->Params.NPrimeQ, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+626, XHDCP22_RX_P_SIZE/4);
- //     if (Status != XST_SUCCESS) {
-  //      xil_printf("MMult: Failed to generate NPrimeQ \n\r");
-  //      return Status;
-  //    }
 
       /* Load Production Keys */
-      //XHdcp22Rx_LoadMontNPrimeP(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22Ptr->Params.NPrimeP);
-      //XHdcp22Rx_LoadMontNPrimeQ(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22Ptr->Params.NPrimeQ);
       XHdcp22Rx_LoadLc128(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22Lc128Ptr);
       XHdcp22Rx_LoadPublicCert(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+40);
       XHdcp22Rx_LoadPrivateKey(HdmiRxSsPtr->Hdcp22Ptr, HdmiRxSsPtr->Hdcp22PrivateKeyPtr+562);
@@ -719,6 +718,11 @@ static void XV_HdmiRxSs_DdcHdcpCallback(void *RefPtr, int Type)
       XHdcp22Rx_SetReadMessageComplete(HdmiRxSsPtr->Hdcp22Ptr);
       break;
 
+    // HDCP 2.2 read not complete
+    case XV_HDMIRX_DDC_STA_HDCP_RMSG_NC_EVT_MASK:
+      XHdcp22Rx_SetDdcError(HdmiRxSsPtr->Hdcp22Ptr);
+      break;
+
     // HDCP 1.4 Aksv
     case XV_HDMIRX_DDC_STA_HDCP_AKSV_EVT_MASK:
       XHdcp1x_ProcessAKsv(HdmiRxSsPtr->Hdcp14Ptr);
@@ -746,7 +750,7 @@ static void XV_HdmiRxSs_LinkErrorCallback(void *RefPtr)
 
   // HDCP 2.2
   if (HdmiRxSsPtr->HdcpProtocol == XV_HDMIRXSS_HDCP_22) {
-    XHdcp22Rx_SetDdcReauthReq(HdmiRxSsPtr->Hdcp22Ptr);
+    XHdcp22Rx_SetLinkError(HdmiRxSsPtr->Hdcp22Ptr);
   }
 }
 

@@ -50,6 +50,8 @@
 * 1.5   yh     01/02/16 Removed xil_printf("Active audio channels...)
 * 1.6   yh     15/02/16 Added default value to XV_HdmiRxSs_ConfigRemapper
 * 1.7   MG     03/02/16 Added HDCP support
+* 1.8   MG     10/02/16 Moved HDCP 2.2 reset from stream up/down callback to connect callback
+* 1.9   MH     15/03/16 Added HDCP authenticated callback support
 * </pre>
 *
 ******************************************************************************/
@@ -622,6 +624,12 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
     // Set RX hot plug detect
     XV_HdmiRx_SetHpd(HdmiRxSsPtr->HdmiRxPtr, TRUE);
 
+    // Reset HDCP 2.2
+    // When the cable is connected and disconnected
+    if (HdmiRxSsPtr->Hdcp22Ptr) {
+      XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_CONNECT_EVT);
+    }
+
     HdmiRxSsPtr->IsStreamConnected = (TRUE);
   }
 
@@ -632,9 +640,16 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
     // Clear RX hot plug detect
     XV_HdmiRx_SetHpd(HdmiRxSsPtr->HdmiRxPtr, FALSE);
 
+    // Reset HDCP 2.2
+    // When the cable is connected and disconnected
+    if (HdmiRxSsPtr->Hdcp22Ptr) {
+      XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_DISCONNECT_EVT);
+    }
+
     XV_HdmiRx_SetScrambler(HdmiRxSsPtr->HdmiRxPtr, (FALSE)); // Disable scrambler
     HdmiRxSsPtr->IsStreamConnected = (FALSE);
   }
+
 
   // Check if user callback has been registered
   if (HdmiRxSsPtr->ConnectCallback) {
@@ -996,6 +1011,29 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             InstancePtr->HdcpCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
             InstancePtr->HdcpRef = CallbackRef;
             Status = (XST_SUCCESS);
+            break;
+
+        // HDCP authenticated
+        case (XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATE):
+            InstancePtr->HdcpAuthenticateCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
+            InstancePtr->HdcpAuthenticateRef = CallbackRef;
+            Status = (XST_INVALID_PARAM);
+
+            // Register HDCP 1.4 callback
+            if (InstancePtr->Hdcp14Ptr) {
+              Status = XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
+                  XHDCP1X_HANDLER_AUTHENTICATED,
+                  (XHdcp1x_Callback)CallbackFunc,
+                  CallbackRef);
+            }
+
+            // Register HDCP 2.2 callback
+            if (InstancePtr->Hdcp22Ptr) {
+              Status = XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
+                  XHDCP22_RX_HANDLER_AUTHENTICATED,
+                  (XHdcp22_Rx_RunHandler)CallbackFunc,
+                  CallbackRef);
+            }
             break;
 
         default:
@@ -1630,11 +1668,8 @@ void XV_HdmiRxSs_ConfigRemapper(XV_HdmiRxSs *InstancePtr) {
         XV_axi4s_remap_Start(RemapperPtr);
     }
     else {
-        if ((VideoMode == XVIDC_VM_720x576_50_P) ||
-            (VideoMode == XVIDC_VM_720x576_50_I) ||
-            (VideoMode == XVIDC_VM_720x480_60_I) ||
-            (VideoMode == XVIDC_VM_640x480_60_P) ||
-            (VideoMode == XVIDC_VM_720x480_60_P) )
+        if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
+            (VideoMode == XVIDC_VM_1440x576_50_I) )
         {
             /*********************************************************
              * NTSC/PAL Support
@@ -1720,7 +1755,7 @@ int XV_HdmiRxSs_HdcpPushEvent(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpEvent Ev
 
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
-  Xil_AssertNonvoid(Event <= XV_HDMIRXSS_HDCP_STREAMDOWN_EVT);
+  Xil_AssertNonvoid(Event < XV_HDMIRXSS_HDCP_INVALID_EVT);
 
   /* Write event into the queue */
   InstancePtr->HdcpEventQueue.Queue[InstancePtr->HdcpEventQueue.Head] = Event;
@@ -1834,24 +1869,54 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
   Event = XV_HdmiRxSs_HdcpGetEvent(InstancePtr);
   switch (Event) {
 
+    // Stream up
+    // Only HDCP 1.4 is reset in case of a stream up event.
     case XV_HDMIRXSS_HDCP_STREAMUP_EVT :
-        // HDCP 1.4
-          if (InstancePtr->Hdcp14Ptr) {
-            XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, TRUE);
+      // HDCP 1.4
+      if (InstancePtr->Hdcp14Ptr) {
+        // Set physical state
+        XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, TRUE);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-      }
 
-      Status = XV_HdmiRxSs_HdcpReset(InstancePtr);
+        // Reset
+        if (InstancePtr->HdcpProtocol == XV_HDMIRXSS_HDCP_14) {
+            Status = XHdcp1x_Reset(InstancePtr->Hdcp14Ptr);
+            XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+        }
+      }
       break;
 
+    // Stream down
+    // Only HDCP 1.4 is reset in case of a stream down event.
     case XV_HDMIRXSS_HDCP_STREAMDOWN_EVT :
-        // HDCP 1.4
-          if (InstancePtr->Hdcp14Ptr) {
-            XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, FALSE);
+      // HDCP 1.4
+      if (InstancePtr->Hdcp14Ptr) {
+        // Set physical state
+        XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, FALSE);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-      }
 
-      Status = XV_HdmiRxSs_HdcpReset(InstancePtr);
+        // Reset
+        if (InstancePtr->HdcpProtocol == XV_HDMIRXSS_HDCP_14) {
+            Status = XHdcp1x_Reset(InstancePtr->Hdcp14Ptr);
+            XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+        }
+      }
+      break;
+
+    // Connect
+    // Only HDCP 2.2 is reset in case of a connect event.
+    case XV_HDMIRXSS_HDCP_CONNECT_EVT :
+      if (InstancePtr->Hdcp22Ptr  && (InstancePtr->HdcpProtocol == XV_HDMIRXSS_HDCP_22)) {
+        Status = XHdcp22Rx_Reset(InstancePtr->Hdcp22Ptr);
+      }
+      break;
+
+    // Disconnect
+    // Only HDCP 2.2 is reset in case of a disconnect event.
+    case XV_HDMIRXSS_HDCP_DISCONNECT_EVT :
+      if (InstancePtr->Hdcp22Ptr  && (InstancePtr->HdcpProtocol == XV_HDMIRXSS_HDCP_22)) {
+        Status = XHdcp22Rx_Reset(InstancePtr->Hdcp22Ptr);
+      }
       break;
 
     default :
@@ -1931,10 +1996,12 @@ int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtoc
   // Set protocol
   InstancePtr->HdcpProtocol = Protocol;
 
+  /* Reset both protocols */
   Status = XV_HdmiRxSs_HdcpReset(InstancePtr);
   if (Status != XST_SUCCESS)
     return Status;
 
+  /* Enable protocol */
   Status = XV_HdmiRxSs_HdcpEnable(InstancePtr);
   if (Status != XST_SUCCESS)
     return Status;
