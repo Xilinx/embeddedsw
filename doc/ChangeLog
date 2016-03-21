@@ -221,11 +221,13 @@ hdcp22_rx_v1_0:
 Added the initial version of the Xilinx HDCP 2.2 Receiver driver.
 Updated the driver for nested HIP support.
 Updated LoadPrivateKey function to calculate Montgomery constants.
+Fixes for HDCP 2.2 complaince testing
 
 hdcp22_tx_v1_0:
 Added the initial version of the Xilinx HDCP 2.2 Tx core driver.
 Updated the driver for nested HIP support.
 Added authenticated callback function.
+Fixes for HDCP 2.2 complaince testing
 
 hwicap_v10_1:
 Updated driver, to read 7 Series FPGA frame data correctly.
