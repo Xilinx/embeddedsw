@@ -224,12 +224,21 @@ u32 XCsi_Configure(XCsi *InstancePtr)
 	u32 Status = XST_SUCCESS;
 	u32 Timeout = XCSI_RESET_TIMEOUT;
 	u32 IntEnReg, GlbIntEnReg;
+	u32 ActiveLanesSet;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(InstancePtr->ActiveLanes <=
-				InstancePtr->Config.MaxLanesPresent);
+
+	Xil_AssertNonvoid(XCsi_IsActiveLaneCountValid(InstancePtr,
+				InstancePtr->ActiveLanes));
+
+	/* If fixed lanes is set and the assert condition passes then
+	 * no need of programming the ActiveLanes bits.
+	 */
+	if (InstancePtr->Config.FixedLanes) {
+		return XST_SUCCESS;
+	}
 
 	/* Save the status of interrupt enable registers and
 	 * global interrupt enable registers
@@ -254,8 +263,9 @@ u32 XCsi_Configure(XCsi *InstancePtr)
 		return XST_FAILURE;
 	}
 
-	/* set the active lanes */
-	XCsi_SetActiveLaneCount(InstancePtr, InstancePtr->ActiveLanes);
+	/* set the active lanes if FixedLanes is disabled.
+	 * ActiveLanes bits range from 0 - 3. Hence subtract 1 */
+	XCsi_SetActiveLaneCount(InstancePtr, (InstancePtr->ActiveLanes - 1));
 
 	/* Reset the Soft reset bit */
 	XCsi_ClearSoftReset(InstancePtr);
@@ -269,12 +279,16 @@ u32 XCsi_Configure(XCsi *InstancePtr)
 	/* Check if the active lanes read back and set from the
 	 * InstancePtr->ActiveLanes) are equal.
 	 * If yes then send success else fail
+	 *
+	 * This is checked only if FixedLanes parameter is false
 	 */
-	if(XCsi_GetActiveLaneCount(InstancePtr) == InstancePtr->ActiveLanes) {
+	ActiveLanesSet = XCsi_GetActiveLaneCount(InstancePtr) + 1;
+	if(ActiveLanesSet == InstancePtr->ActiveLanes) {
 		Status = XST_SUCCESS;
 	}
 	else {
 		Status = XST_FAILURE;
+		InstancePtr->ActiveLanes = ActiveLanesSet;
 	}
 
 	return Status;
@@ -337,9 +351,6 @@ void XCsi_GetClkLaneInfo(XCsi *InstancePtr, XCsi_ClkLaneInfo *ClkLane)
 
 	ClkLane->StopState = (Value & XCSI_CLKINFR_STOP_MASK) >>
 				XCSI_CLKINFR_STOP_SHIFT;
-
-	ClkLane->ULPS = (Value & XCSI_CLKINFR_ULPS_MASK) >>
-				XCSI_CLKINFR_ULPS_SHIFT;
 }
 
 /*****************************************************************************/
@@ -389,15 +400,6 @@ void XCsi_GetDataLaneInfo(XCsi *InstancePtr, u8 Lane,
 
 	DataLane->StopState = (Value & XCSI_LXINFR_STOP_MASK) >>
 				XCSI_LXINFR_STOP_SHIFT;
-
-	DataLane->ULPS = (Value & XCSI_LXINFR_ULPS_MASK) >>
-				XCSI_LXINFR_ULPS_SHIFT;
-
-	DataLane->EscErr = (Value & XCSI_LXINFR_ESCERR_MASK) >>
-				XCSI_LXINFR_ESCERR_SHIFT;
-
-	DataLane->CtrlErr = (Value & XCSI_LXINFR_CTRLERR_MASK) >>
-				XCSI_LXINFR_CTRLERR_SHIFT;
 
 	DataLane->SoTErr = (Value & XCSI_LXINFR_SOTERR_MASK) >>
 				XCSI_LXINFR_SOTERR_SHIFT;
@@ -464,6 +466,52 @@ void XCsi_GetVCInfo(XCsi *InstancePtr, u8 Vc, XCsi_VCInfo *VCInfo)
 
 	VCInfo->DataType = (Value2 & XCSI_VCXINF2R_DATATYPE_MASK) >>
 				XCSI_VCXINF2R_DATATYPE_SHIFT;
+}
+
+/******************************************************************************/
+/**
+ * This function checks the validity of the active lanes parameter.
+ *
+ * @param	InstancePtr is a pointer to the Subsystem instance to be
+ *		worked on.
+ * @param	ActiveLanesCount is the lane count to check if valid.
+ *
+ * @return
+ *		- 1 if specified Active Lanes is valid.
+ *		- 0 otherwise, if the Active Lanes specified isn't valid as per
+ *		  spec and design.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+u8 XCsi_IsActiveLaneCountValid(XCsi *InstancePtr, u8 ActiveLanesCount)
+{
+	u8 Valid;
+
+	/* Active lanes can't be more than maximum lanes configured ever and
+	 * as per spec, it can range between 1 and 4 only.
+	 */
+	if ((ActiveLanesCount == 0) ||
+		(ActiveLanesCount > 4) ||
+		(ActiveLanesCount > InstancePtr->Config.MaxLanesPresent)) {
+		Valid = 0;
+	}
+	else if ((InstancePtr->Config.FixedLanes == 1) &&
+			(ActiveLanesCount !=
+				InstancePtr->Config.MaxLanesPresent)) {
+		/* if the FixedLanes parameter is set then ActiveLanes can't be
+		 * modified. So accepted value is only Max Lanes.
+		 */
+		Valid = 0;
+	} else {
+		/* If dynamic active lane config is allowed or if active lane
+		 * count equals max lanes present in case of dynamic active lane
+		 * config is disabled.
+		 */
+		Valid = 1;
+	}
+
+	return Valid;
 }
 
 /*****************************************************************************/
