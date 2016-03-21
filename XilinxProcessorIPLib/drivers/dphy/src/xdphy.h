@@ -288,12 +288,11 @@ typedef struct {
 	u32 EscTimeout; /**< Escape Timeout */
 	u32 HSLineRate; /**< High Speed Line Rate */
 	u32 HSTimeOut; /**< Max Frame Length  */
-	u32 InitTime; /**< Lane initialization time */
 	u32 LPXPeriod;
 	u32 StableClkPeriod;
 	u32 TxPllClkinPeriod;
 	u32 Wakeup; /**< Time to exit ULPS mode */
-
+	u32 EnableTimeOutRegs;	/**< Enable HS and Esc Timeout Regs */
 } XDphy_Config;
 
 /**

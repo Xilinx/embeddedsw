@@ -146,16 +146,28 @@ u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 			break;
 
 		case XDPHY_HANDLE_HSTIMEOUT:
-			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
-					XDPHY_HSTIMEOUT_REG_OFFSET, Value);
+			if (InstancePtr->Config.EnableTimeOutRegs != 0) {
+				XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+						XDPHY_HSTIMEOUT_REG_OFFSET,
+						Value);
+			}
+			else {
+				Status = XST_FAILURE;
+			}
 			break;
 
 		case XDPHY_HANDLE_ESCTIMEOUT:
 			Xil_AssertNonvoid(Value >= XDPHY_HS_TIMEOUT_MIN_VALUE);
 			Xil_AssertNonvoid(Value <= XDPHY_HS_TIMEOUT_MAX_VALUE);
 
-			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
-					XDPHY_ESCTIMEOUT_REG_OFFSET, Value);
+			if (InstancePtr->Config.EnableTimeOutRegs != 0) {
+				XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+						XDPHY_ESCTIMEOUT_REG_OFFSET,
+						Value);
+			}
+			else {
+				Status = XST_FAILURE;
+			}
 			break;
 
 		case XDPHY_HANDLE_CLKLANE:
@@ -229,12 +241,26 @@ u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle)
 						 XDPHY_WAKEUP_REG_OFFSET);
 			break;
 		case XDPHY_HANDLE_HSTIMEOUT:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
+			/* If the Timeout Registers are disable */
+			if (InstancePtr->Config.EnableTimeOutRegs == 0) {
+				RegVal = InstancePtr->Config.HSTimeOut;
+			}
+			else {
+				RegVal = XDphy_ReadReg((InstancePtr)->Config.\
+						BaseAddr,
 						XDPHY_HSTIMEOUT_REG_OFFSET);
+			}
 			break;
 		case XDPHY_HANDLE_ESCTIMEOUT:
-			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
-						 XDPHY_ESCTIMEOUT_REG_OFFSET);
+			/* If the Timeout Registers are disable */
+			if (InstancePtr->Config.EnableTimeOutRegs == 0) {
+				RegVal = InstancePtr->Config.EscTimeout;
+			}
+			else {
+				RegVal = XDphy_ReadReg((InstancePtr)->Config.\
+						BaseAddr,
+						XDPHY_ESCTIMEOUT_REG_OFFSET);
+			}
 			break;
 		case XDPHY_HANDLE_CLKLANE:
 			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
