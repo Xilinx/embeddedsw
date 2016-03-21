@@ -619,7 +619,7 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
 
   // Is the cable connected?
   if (XV_HdmiRx_IsStreamConnected(HdmiRxSsPtr->HdmiRxPtr)) {
-    //xil_printf("RX cable is connected\n\r");
+    xil_printf("RX cable is connected\n\r");
 
     // Set RX hot plug detect
     XV_HdmiRx_SetHpd(HdmiRxSsPtr->HdmiRxPtr, TRUE);
@@ -635,7 +635,7 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
 
   // RX cable is disconnected
   else {
-    //xil_printf("RX cable is disconnected\n\r");
+    xil_printf("RX cable is disconnected\n\r");
 
     // Clear RX hot plug detect
     XV_HdmiRx_SetHpd(HdmiRxSsPtr->HdmiRxPtr, FALSE);
