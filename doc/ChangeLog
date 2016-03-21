@@ -410,6 +410,8 @@ Added WaitForIdle function.
 v_hcresampler_v2_0:
 Made changes to integrate layer-1 with layer-2.
 
+v_hdmirxss_v2_0 :
+Added Cable (dis)connect printf
 
 v_hdmirx_v1_1:
 Added support for read not complete DDC event
