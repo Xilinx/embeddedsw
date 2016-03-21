@@ -215,14 +215,19 @@ XIic* XCsiSs_GetIicInstance(XCsiSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the Subsystem instance to be
 *		worked on.
-* @param	ActiveLanes Indicates No of active lanes to be configure.
+* @param	ActiveLanes is no of active lanes to be configure. This value
+*		ranges between 1 and 4. In case Dynamic Active Lane config is
+*		enabled, this value can't exceed maximum lanes present. When
+*		Dynamic Active Lane config is disabled, it should be equal to
+*		maximum lanes.
 * @param	IntrMask Indicates Mask for enable interrupts.
 *
 * @return
 *		- XST_SUCCESS on successful configuration of parameters
 * 		- XST_FAILURE otherwise
 *
-* @note		None
+* @note		When EnableActiveLanes is 0, then the ActiveLanes parameter
+*		passed should be equal to Max Lanes of design.
 *
 ******************************************************************************/
 u32 XCsiSs_Configure(XCsiSs *InstancePtr, u8 ActiveLanes, u32 IntrMask)
@@ -233,19 +238,15 @@ u32 XCsiSs_Configure(XCsiSs *InstancePtr, u8 ActiveLanes, u32 IntrMask)
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->CsiPtr != NULL);
+	Xil_AssertNonvoid(XCsi_IsActiveLaneCountValid(InstancePtr->CsiPtr,
+						ActiveLanes));
 
 	CsiPtr = InstancePtr->CsiPtr;
 
-	if (ActiveLanes > CsiPtr->Config.MaxLanesPresent) {
-		return XST_FAILURE;
-	}
-
 	IntrMask &= XCSI_ISR_ALLINTR_MASK;
-
-	CsiPtr->ActiveLanes = ActiveLanes;
-
 	XCsi_IntrEnable(CsiPtr, IntrMask);
 
+	CsiPtr->ActiveLanes = ActiveLanes;
 	Status = XCsi_Configure(CsiPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;

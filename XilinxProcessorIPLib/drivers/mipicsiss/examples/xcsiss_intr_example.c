@@ -278,7 +278,12 @@ u32 CsiSs_IntrExample(u32 DeviceId)
 	ActiveLanes = 0;
 	IntrRequest = XCSISS_ISR_ALLINTR_MASK;
 
-	XCsiSs_Configure(&CsiSsInst, ActiveLanes, IntrRequest);
+	Status = XCsiSs_Configure(&CsiSsInst, ActiveLanes, IntrRequest);
+	if (Status == XST_FAILURE) {
+		xil_printf("CSISS Configure failed. \n\r");
+		return XST_FAILURE;
+	}
+
 
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
 	/* Initialise the IIC (inside subsys or external) separately */
@@ -515,10 +520,6 @@ void CsiSs_DphyEventHandler(void *InstancePtr, u32 Mask)
 		xil_printf("Start of Transmission "
 		"Sync Error \n\r");
 	}
-
-	if (Mask & XCSISS_ISR_CTRLERR_MASK) {
-		xil_printf("Control Error \n\r");
-	}
 }
 
 /*****************************************************************************/
@@ -644,14 +645,6 @@ void CsiSs_ErrEventHandler(void *InstancePtr, u32 Mask)
 	if (Mask & XCSISS_ISR_STOP_MASK) {
 		xil_printf("Stop Error \n\r");
 		XCsiSs_IntrDisable(CsiSsInstance, XCSISS_ISR_STOP_MASK);
-	}
-
-	if (Mask & XCSISS_ISR_ULPM_MASK) {
-		xil_printf("ULPM Error \n\r");
-	}
-
-	if (Mask & XCSISS_ISR_ESCERR_MASK) {
-		xil_printf("Escape Error \n\r");
 	}
 }
 
