@@ -81,7 +81,6 @@
 *	- Short Packet FIFO Full or Not Empty
 *	- Stream Line Buffer Full
 *	- Stop State
-*	- Escape from ULPS
 *	- Start of Transmission (Sync) Errors
 *	- CRC and ECC errors
 *	- Invalid Data ID
@@ -180,7 +179,6 @@ typedef struct {
 */
 typedef struct {
 	u8 StopState;	/**< Clock Lane is in Stop State */
-	u8 ULPS;	/**< Clock Lane in Ultra Low power state */
 } XCsi_ClkLaneInfo;
 
 /**
@@ -189,9 +187,6 @@ typedef struct {
 */
 typedef struct {
 	u8 StopState;	/**< Data Lane is in Stop State */
-	u8 ULPS;	/**< Data Lane in Ultra Low power state */
-	u8 EscErr;	/**< Detected Escape Error */
-	u8 CtrlErr;	/**< Detected Control Error */
 	u8 SoTErr;	/**< Detected Start Of Transmission High Speed Error */
 	u8 SoTSyncErr;	/**< Detected SoT Synchronization Error */
 } XCsi_DataLaneInfo;
@@ -210,6 +205,7 @@ typedef struct {
 					  *  via separate stream */
 	u32 HasVCSupport;	/**< Supports Virtual Channels */
 	u32 FixedVC;		/**< Fixed Virtual Channel number filter */
+	u32 FixedLanes;		/**< Fixed Active Lanes */
 } XCsi_Config;
 
 /**
@@ -261,8 +257,7 @@ typedef struct {
 				  *  Error call back function */
 	XCsi_CallBack ErrorCallBack;	/**< Call back function for rest all errors
 					  *  like Stream Line Buffer Full,
-					  *  Stop State, Esc Error and
-					  *  ULPM errors */
+					  *  Stop State errors */
 	void *ErrRef; /**< To be passed to the Error Call back */
 	u32 IsReady; /**< Driver is ready */
 } XCsi;
@@ -687,6 +682,7 @@ void XCsi_GetClkLaneInfo(XCsi *InstancePtr, XCsi_ClkLaneInfo *ClkLane);
 void XCsi_GetDataLaneInfo(XCsi *InstancePtr, u8 Lane,
 				XCsi_DataLaneInfo *DataLane);
 void XCsi_GetVCInfo(XCsi *InstancePtr, u8 Vc, XCsi_VCInfo *VCInfo);
+u8 XCsi_IsActiveLaneCountValid(XCsi *InstancePtr, u8 ActiveLanesCount);
 
 /* Self test function in xcsi_selftest.c */
 u32 XCsi_SelfTest(XCsi *InstancePtr);

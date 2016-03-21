@@ -39,7 +39,7 @@
 set periph_ninstances    0
 
 proc generate {drv_handle} {
-  ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsi" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CSI_LANES" "CSI_OFFLOAD_NONIMAGE" "CSI_EN_VC_SUPPORT" "CSI_FIXED_VC"
-  ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Csi" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CSI_LANES" "CSI_OFFLOAD_NONIMAGE" "CSI_EN_VC_SUPPORT" "CSI_FIXED_VC"
-  ::hsi::utils::define_config_file  $drv_handle "xcsi_g.c" "XCsi" "DEVICE_ID" "C_BASEADDR" "CSI_LANES" "CSI_OFFLOAD_NONIMAGE" "CSI_EN_VC_SUPPORT" "CSI_FIXED_VC"
+  ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsi" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CSI_LANES" "CSI_OFFLOAD_NONIMAGE" "CSI_EN_VC_SUPPORT" "CSI_FIXED_VC" "C_CSI_OPT3_FIXEDLANES"
+  ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Csi" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CSI_LANES" "CSI_OFFLOAD_NONIMAGE" "CSI_EN_VC_SUPPORT" "CSI_FIXED_VC" "C_CSI_OPT3_FIXEDLANES"
+  ::hsi::utils::define_config_file  $drv_handle "xcsi_g.c" "XCsi" "DEVICE_ID" "C_BASEADDR" "CSI_LANES" "CSI_OFFLOAD_NONIMAGE" "CSI_EN_VC_SUPPORT" "CSI_FIXED_VC" "C_CSI_OPT3_FIXEDLANES"
 }

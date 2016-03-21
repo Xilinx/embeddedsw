@@ -197,10 +197,6 @@ extern "C" {
 #define XCSI_ISR_SLBF_MASK	0x00040000	/**< Stream Line Buffer
 						  *  Full */
 #define XCSI_ISR_STOP_MASK	0x00020000	/**< Detect Stop State */
-#define XCSI_ISR_ULPM_MASK	0x00010000	/**< Escape Ultra Low
-						  *  Power Mode*/
-#define XCSI_ISR_ESCERR_MASK	0x00008000	/**< Escape Entry Error */
-#define XCSI_ISR_CTRLERR_MASK	0x00004000	/**< Control Error */
 #define XCSI_ISR_SOTERR_MASK	0x00002000	/**< SoT Error */
 #define XCSI_ISR_SOTSYNCERR_MASK	0x00001000	/**< SoT Sync Error */
 #define XCSI_ISR_ECC2BERR_MASK		0x00000800	/**< ECC 2 bit Error */
@@ -247,10 +243,6 @@ extern "C" {
 #define XCSI_ISR_SLBF_SHIFT	18	/**< Shift bits for Stream Line Buffer
 					  *  Full */
 #define XCSI_ISR_STOP_SHIFT	17	/**< Shift bits for Stop State */
-#define XCSI_ISR_ULPM_SHIFT	16	/**< Shift bits for Escape from Ultra
-					  *  Low Power Mode */
-#define XCSI_ISR_ESCERR_SHIFT	15	/**< Shift bits for Escape Error */
-#define XCSI_ISR_CTRLERR_SHIFT	14	/**< Shift bits for Control Error */
 #define XCSI_ISR_SOTERR_SHIFT	13	/**< Shift bits for Start of
 					  *  Transmission Error */
 #define XCSI_ISR_SOTSYNCERR_SHIFT	12	/**< Shift bits for Start of
@@ -309,8 +301,7 @@ extern "C" {
 				 XCSI_ISR_DATAIDERR_MASK)
 
 #define XCSI_INTR_DPHY_MASK 	(XCSI_ISR_SOTERR_MASK 	|	\
-				 XCSI_ISR_SOTSYNCERR_MASK |	\
-				 XCSI_ISR_CTRLERR_MASK)
+				 XCSI_ISR_SOTSYNCERR_MASK)
 
 #define XCSI_INTR_SPKT_MASK 	(XCSI_ISR_SPFIFOF_MASK |	\
 				 XCSI_ISR_SPFIFONE_MASK)
@@ -319,9 +310,7 @@ extern "C" {
 
 #define XCSI_INTR_ERR_MASK 	(XCSI_ISR_ILC_MASK |	\
 				 XCSI_ISR_SLBF_MASK |	\
-				 XCSI_ISR_STOP_MASK |	\
-				 XCSI_ISR_ULPM_MASK |	\
-				 XCSI_ISR_ESCERR_MASK)
+				 XCSI_ISR_STOP_MASK)
 
 /*@}*/
 
@@ -338,10 +327,6 @@ extern "C" {
 						   *  Not Empty */
 #define XCSI_IER_SLBF_MASK	0x00040000	/**< Stream Line Buffer Full */
 #define XCSI_IER_STOP_MASK	0x00020000	/**< Detect Stop State */
-#define XCSI_IER_ULPM_MASK	0x00010000	/**< Escape Ultra Low
-						   *  Power Mode*/
-#define XCSI_IER_ESCERR_MASK	0x00008000	/**< Escape Entry Error */
-#define XCSI_IER_CTRLERR_MASK	0x00004000	/**< Control Error */
 #define XCSI_IER_SOTERR_MASK	0x00002000	/**< SoT Error */
 #define XCSI_IER_SOTSYNCERR_MASK	0x00001000	/**< SoT Sync Error */
 #define XCSI_IER_ECC2BERR_MASK	0x00000800	/**< ECC 2 bit Error */
@@ -387,10 +372,6 @@ extern "C" {
 #define XCSI_IER_SLBF_SHIFT	18	/**< Shift bits for Stream Line Buffer
 					  *  Full */
 #define XCSI_IER_STOP_SHIFT	17	/**< Shift bits for Stop State */
-#define XCSI_IER_ULPM_SHIFT	16	/**< Shift bits for Escape from Ultra
-					  *  Low Power Mode */
-#define XCSI_IER_ESCERR_SHIFT	15	/**< Shift bits for Escape Error */
-#define XCSI_IER_CTRLERR_SHIFT	14	/**< Shift bits for Control Error */
 #define XCSI_IER_SOTERR_SHIFT	13	/**< Shift bits for Start of
 					  *  Transmission Error */
 #define XCSI_IER_SOTSYNCERR_SHIFT	12	/**< Shift bits for Start of
@@ -455,13 +436,9 @@ extern "C" {
  * @{
  */
 #define XCSI_CLKINFR_STOP_MASK	0x00000002	/**< Stop State on clock lane */
-#define XCSI_CLKINFR_ULPS_MASK	0x00000001	/**< Ultra Low Power State
-						  *  on clock lane */
 
 #define XCSI_CLKINFR_STOP_SHIFT		1	/**< Shift bits for Clock Lane
 						  *  Stop bit */
-#define XCSI_CLKINFR_ULPS_SHIFT		0	/**< Shift bits for Clock Lane
-						  *  ULPS bit */
 /*@}*/
 
 /** @name Bitmasks and offsets of XCSI_L(0..3)INFR register
@@ -471,12 +448,6 @@ extern "C" {
  */
 
 #define XCSI_LXINFR_STOP_MASK	0x00000020	/**< Stop State on clock lane */
-#define XCSI_LXINFR_ULPS_MASK	0x00000010	/**< Ultra Low Power State
-						  *  on clock lane */
-#define XCSI_LXINFR_ESCERR_MASK		0x00000008	/**< Detection of
-							  *  ErrEscape */
-#define XCSI_LXINFR_CTRLERR_MASK	0x00000004	/**< Detection of
-							  *  ErrControl */
 #define XCSI_LXINFR_SOTERR_MASK		0x00000002	/**< Detection of
 							  *  ErrSoTHS */
 #define XCSI_LXINFR_SOTSYNCERR_MASK	0x00000001	/**< Detection of
@@ -484,12 +455,6 @@ extern "C" {
 
 #define XCSI_LXINFR_STOP_SHIFT	5	/**< Bit Shift for Data Lane
 					  *  Stop State */
-#define XCSI_LXINFR_ULPS_SHIFT	4	/**< Bit Shift for Data Lane
-					  *  Escape from ULPS */
-#define XCSI_LXINFR_ESCERR_SHIFT	3	/**< Bit Shift for Escape
-						  *  Error */
-#define XCSI_LXINFR_CTRLERR_SHIFT	2	/**< Bit Shift for Control
-						  *  Error */
 #define XCSI_LXINFR_SOTERR_SHIFT	1	/**< Bit Shift for Start of
 						  *  Transmission Error */
 #define XCSI_LXINFR_SOTSYNCERR_SHIFT	0	/**< Bit Shift for Start of
