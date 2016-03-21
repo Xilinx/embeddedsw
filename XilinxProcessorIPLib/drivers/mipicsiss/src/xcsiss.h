@@ -238,6 +238,9 @@ typedef struct {
 					  *  presence */
 	u32 DphyLineRate;	/**< DPHY Line Rate ranging from
 				  *  80-1500 Mbps */
+	u32 EnableCrc;		/**< CRC Calculation optimization enabled */
+	u32 EnableActiveLanes;	/**< Active Lanes programming optimization
+				  *  enabled */
 	SubCore IicInfo;	/**< IIC sub-core configuration */
 	SubCore CsiInfo;	/**< CSI sub-core configuration */
 	SubCore DphyInfo;	/**< DPHY sub-core configuration */
