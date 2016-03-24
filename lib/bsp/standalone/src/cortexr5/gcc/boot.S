@@ -48,6 +48,8 @@
 *		      initialized floating point registers and enabled the
 *		      cache ECC check before enabling the fault log for
 *		      lock step mode
+* 5.04 pkp   03/24/16 Reset the dbg_lpd_reset before enabling the fault log
+*		      to avoid intervention for lock-step mode
 * </pre>
 *
 * @note
@@ -238,6 +240,7 @@ OKToRun:
 /* reset the debug logic */
 	ldr	r0,=RST_LPD_DBG
 	ldr	r1, [r0]
+	orr	r1, r1, #(0x1 << 1)
 	orr	r1, r1, #(0x1 << 4)
 	orr	r1, r1, #(0x1 << 5)
 	str	r1, [r0]
