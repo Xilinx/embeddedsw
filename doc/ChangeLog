@@ -665,6 +665,9 @@ compiler flags of BSP to fix CR#938718
 Fix for CR#938738. Added print.c in MB BSP.
 Updated cortexr5/sleep.c and usleep.c to avoid disabling the interrupts when sleep/usleep is being executed
 using assembly instructions to fix CR#913249.
+Modified cortexr5/boot.S to reset the dbg_lpd_reset before enabling the fault log to avoid intervention for
+lock-step mode and cortexr5/_exit.c to enable the dbg_lpd_reset once the fault log is disabled to fix
+CR#947335
 
 xilskey_v5_0:
 Modified JtagWrite_Ultrascale.
