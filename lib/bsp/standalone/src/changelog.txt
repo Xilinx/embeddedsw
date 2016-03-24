@@ -322,4 +322,8 @@
  *		       instead modified cortexr5/sleep.c and usleep.c to poll the counter
  *		       value and compare it with previous value to detect the overflow
  *		       to fix CR#940209.
+ * 5.4 pkp   03/24/16  Modified cortexr5/boot.S to reset the dbg_lpd_reset before enabling
+ *		       the fault log to avoid intervention for lock-step mode and cortexr5/
+ *		       _exit.c to enable the dbg_lpd_reset once the fault log is disabled
+ *		       to fix CR#947335
  *****************************************************************************************/

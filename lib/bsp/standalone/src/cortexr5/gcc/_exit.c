@@ -52,7 +52,7 @@
 
 #define lock_step 			0x00000008U
 #define fault_log_enable	0x00000101U
-#define debug_reset 		0x00000030U
+#define debug_reset 		0x00000032U
 #define jtag_boot			0x0000000FU
 __attribute__((weak)) void _exit (sint32 status)
 {
