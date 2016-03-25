@@ -570,7 +570,8 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 					RPU_RPU_ERR_INJ_FAULT_LOG_EN_MASK) != 0) {
 				if((XFsbl_In32(CRL_APB_RST_LPD_DBG) &
 						(CRL_APB_RST_LPD_DBG_RPU_DBG1_RESET_MASK |
-							CRL_APB_RST_LPD_DBG_RPU_DBG0_RESET_MASK)) != 0) {
+							CRL_APB_RST_LPD_DBG_RPU_DBG0_RESET_MASK |
+								CRL_APB_RST_LPD_DBG_DBG_LPD_RESET_MASK)) != 0) {
 
 					/* Disable fault log */
 					ErrInjReg = XFsbl_In32(RPU_RPU_ERR_INJ);
@@ -581,7 +582,8 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 					DebugReg = XFsbl_In32(CRL_APB_RST_LPD_DBG);
 					DebugReg = DebugReg &
 							(~(CRL_APB_RST_LPD_DBG_RPU_DBG1_RESET_MASK |
-							CRL_APB_RST_LPD_DBG_RPU_DBG0_RESET_MASK));
+							CRL_APB_RST_LPD_DBG_RPU_DBG0_RESET_MASK |
+							CRL_APB_RST_LPD_DBG_DBG_LPD_RESET_MASK));
 					XFsbl_Out32(CRL_APB_RST_LPD_DBG, DebugReg);
 				}
 			}
