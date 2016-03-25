@@ -305,11 +305,6 @@
  * 5.4 pkp   03/01/16  Updated the exit function in cortexr5/gcc/_exit.c to enable the debug
  *		       logic in case of lock-step mode when fault log is enabled to fix
  *		       CR#938281
- * 5.4 pkp   03/02/16  Modified boot code for cortexa9 in gcc/boot.S, armcc/boot.s and
- *		       iccarm/boot.s to remove setting of SMP bit as standalone application
- *		       does not run in SMP mode. Also the attribute for DDR is modified to be
- *		       non-shareable in gcc/translation_table.S, armcc/translation_table.S
- *		       and iccarm/translation_table.s as SMP bit is not set in boot code.
  * 5.4 pkp   03/02/16  Modified cortexa9/iccarm/xpseudo_asm_iccarm.h file to include
  *		       header file instrinsics.h which contains assembly instructions
  *		       definitions which can be used by C
