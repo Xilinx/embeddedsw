@@ -196,6 +196,7 @@ Added DDC write and read handlers.
 Added callback type used for calling DDC read and write functions
 Added enumeration XHdcp1x_HandlerType to identify callback functions.
 Added a check in xhdcp1x_g.c file to check if HDCP is present.
+Updated the hdcp1x.h file to add documentation and driver description.
 
 hdcp22_cipher_v1_0:
 Added the initial version of Xilinx HDCP Cipher core driver.
