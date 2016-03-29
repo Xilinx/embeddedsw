@@ -110,7 +110,11 @@ extern "C" {
 #define XUSB_DMA_RESET_OFFSET		0x0200  /**< DMA Soft Reset Register */
 #define XUSB_DMA_CONTROL_OFFSET		0x0204	/**< DMA Control Register */
 #define XUSB_DMA_DSAR_ADDR_OFFSET	0x0208	/**< DMA source Address Reg */
+#define XUSB_DMA_DSAR_ADDR_OFFSET_LSB   0x0308  /**< DMA source Address Reg for LSB*/
+#define XUSB_DMA_DSAR_ADDR_OFFSET_MSB   0x030C  /**< DMA source Address Reg for MSB*/
 #define XUSB_DMA_DDAR_ADDR_OFFSET	0x020C	/**< DMA destination Addr Reg */
+#define XUSB_DMA_DDAR_ADDR_OFFSET_LSB   0x0310  /**< DMA destination Addr Reg LSB*/
+#define XUSB_DMA_DDAR_ADDR_OFFSET_MSB   0x0314  /**< DMA destination Addr Reg MSB*/
 #define XUSB_DMA_LENGTH_OFFSET		0x0210	/**< DMA Length Register */
 #define XUSB_DMA_STATUS_OFFSET		0x0214	/**< DMA Status Register */
 

@@ -70,6 +70,7 @@
  * 			state machine (CR 660602)
  * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
  *                     Changed the prototype of XUsb_CfgInitialize API.
+ * 5.2	MNK   29/03/15 Added 64bit changes for ZYNQMP.
  * </pre>
  *****************************************************************************/
 
@@ -132,6 +133,7 @@ int XUsb_CfgInitialize(XUsb *InstancePtr, XUsb_Config *ConfigPtr,
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.DmaEnabled = ConfigPtr->DmaEnabled;
+	InstancePtr->Config.AddrWidth = ConfigPtr->AddrWidth;
 	InstancePtr->DeviceConfig.NumEndpoints = XUSB_MAX_ENDPOINTS;
 	for (Index = 0; Index < XUSB_MAX_ENDPOINTS; Index++) {
 
@@ -438,7 +440,7 @@ void XUsb_DmaReset(XUsb *InstancePtr)
 *		successfully. This function only initiates the DMA transfer.
 *
 ******************************************************************************/
-void XUsb_DmaTransfer(XUsb *InstancePtr, u32 *SrcAddr, u32 *DstAddr,
+void XUsb_DmaTransfer(XUsb *InstancePtr, UINTPTR *SrcAddr, UINTPTR *DstAddr,
 				u16 Length)
 {
 
@@ -451,15 +453,34 @@ void XUsb_DmaTransfer(XUsb *InstancePtr, u32 *SrcAddr, u32 *DstAddr,
 	 * Set the addresses in the DMA source and destination
 	 * registers and then set the length into the DMA length register.
 	 */
-	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSB_DMA_DSAR_ADDR_OFFSET,
-					(u32)SrcAddr);
 
-	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
-				XUSB_DMA_DDAR_ADDR_OFFSET,
-					(u32)DstAddr);
+	if (InstancePtr->Config.AddrWidth > 32) {
 
-	XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+					XUSB_DMA_DSAR_ADDR_OFFSET_LSB,
+					LOWER_32_BITS((UINTPTR)SrcAddr));
+		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+                                        XUSB_DMA_DSAR_ADDR_OFFSET_MSB,
+                                        UPPER_32_BITS((UINTPTR)SrcAddr));
+
+
+		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+					XUSB_DMA_DDAR_ADDR_OFFSET_LSB,
+					LOWER_32_BITS((UINTPTR)DstAddr));
+		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+                                        XUSB_DMA_DDAR_ADDR_OFFSET_MSB,
+                                         UPPER_32_BITS((UINTPTR)DstAddr));
+	} else {
+
+		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+					XUSB_DMA_DSAR_ADDR_OFFSET,
+						(UINTPTR)SrcAddr);
+
+		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
+					XUSB_DMA_DDAR_ADDR_OFFSET,
+						(UINTPTR)DstAddr);
+	}
+		XUsb_WriteReg(InstancePtr->Config.BaseAddress,
 					XUSB_DMA_LENGTH_OFFSET,
 						Length);
 }

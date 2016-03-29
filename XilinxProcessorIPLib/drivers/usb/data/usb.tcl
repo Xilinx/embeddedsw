@@ -41,7 +41,7 @@
 ## @END_CHANGELOG
 
 proc generate {drv_handle} {
-    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XUsb" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_DMA"
-    ::hsi::utils::define_config_file $drv_handle "xusb_g.c" "XUsb"  "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_DMA"
-    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Usb" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_DMA"
+    ::hsi::utils::define_include_file $drv_handle "xparameters.h" "XUsb" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_DMA" "C_M_AXI_ADDR_WIDTH"
+    ::hsi::utils::define_config_file $drv_handle "xusb_g.c" "XUsb"  "DEVICE_ID" "C_BASEADDR" "C_INCLUDE_DMA" "C_M_AXI_ADDR_WIDTH"
+    ::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Usb" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_INCLUDE_DMA" "C_M_AXI_ADDR_WIDTH"
 }
