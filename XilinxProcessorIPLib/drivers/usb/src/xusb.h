@@ -194,6 +194,7 @@
 * 5.0   adk  19/12/13 Updated as per the New Tcl API's
 * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XUsb_CfgInitialize API.
+* 5.2  MNK   29/03/15 Added 64bit changes for ZYNQMP.
 *
 * </pre>
 *
@@ -347,7 +348,7 @@ typedef struct {
 	u16 DeviceId;		/**< Unique ID of device. */
 	UINTPTR BaseAddress;	/**< Core register base address. */
 	u8 DmaEnabled;		/**< DMA support Enabled */
-
+	u8 AddrWidth;		/**< DMA Address Width */
 } XUsb_Config;
 
 
@@ -416,7 +417,7 @@ void XUsb_SetTestMode(XUsb *InstancePtr, u8 TestMode, u8 *BufPtr);
 
 void XUsb_DmaReset(XUsb *InstancePtr);
 
-void XUsb_DmaTransfer(XUsb *InstancePtr, u32 *SrcAddr, u32 *DstAddr,
+void XUsb_DmaTransfer(XUsb *InstancePtr, UINTPTR *SrcAddr, UINTPTR *DstAddr,
 				u16 Length);
 
 void XUsb_ReadErrorCounters(XUsb *InstancePtr, u8 *BitStuffErrors,

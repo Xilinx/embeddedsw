@@ -298,7 +298,7 @@ void XUsb_EpConfigure(XUsb *InstancePtr, u8 EpNum, XUsb_EpConfig *EpCfgPtr)
 *****************************************************************************/
 int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 {
-	u32 *RamBase;
+	UINTPTR *RamBase;
 	u32 BytesToSend;
 	u8 *TempRamBase;
 
@@ -317,7 +317,7 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 		/*
 		 * Get the Buffer address and copy the transmit data.
 		 */
-		RamBase = (u32 *) (InstancePtr->Config.BaseAddress +
+		RamBase = (UINTPTR *) (InstancePtr->Config.BaseAddress +
 					(InstancePtr->DeviceConfig.Ep[EpNum].
 					RamBase));
 		/*
@@ -340,8 +340,8 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 				XUSB_DMA_CONTROL_OFFSET,
 				(XUSB_DMA_BRR_CTRL |(1 << EpNum)));
 
-			XUsb_DmaTransfer(InstancePtr, (u32 *)BufferPtr, RamBase,
-				BytesToSend);
+			XUsb_DmaTransfer(InstancePtr, (UINTPTR *)BufferPtr,
+						RamBase, BytesToSend);
 
 		} else {
 
@@ -350,7 +350,7 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 			 */
 			while (BytesToSend > 3) {
 
-				*RamBase++ = *(u32 *) BufferPtr;
+				*RamBase++ = *(UINTPTR *) BufferPtr;
 				BufferPtr += 4;
 				BytesToSend -= 4;
 			}
@@ -374,7 +374,7 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 			/*
 			 * Get the Buffer address and copy the transmit data.
 			 */
-			RamBase = (u32 *) (InstancePtr->Config.BaseAddress +
+			RamBase = (UINTPTR *) (InstancePtr->Config.BaseAddress +
 						((InstancePtr->DeviceConfig.
 					Ep[EpNum].RamBase)) +
 					(InstancePtr->DeviceConfig.Ep[EpNum].
@@ -403,7 +403,7 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 						XUSB_STATUS_EP_BUFF2_SHIFT))));
 
 				XUsb_DmaTransfer(InstancePtr,
-					(u32 *)BufferPtr, RamBase,
+					(UINTPTR *)BufferPtr, RamBase,
 					BytesToSend );
 
 			} else {
@@ -413,7 +413,7 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 				 */
 				while (BytesToSend > 3) {
 
-					*RamBase++ = *(u32 *) BufferPtr;
+					*RamBase++ = *(UINTPTR *) BufferPtr;
 					BufferPtr += 4;
 					BytesToSend -= 4;
 				}
@@ -467,7 +467,7 @@ int XUsb_EpDataSend(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 *****************************************************************************/
 int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 {
-	u32 *RamBase;
+	UINTPTR *RamBase;
 	u32 RxBytesToRead;
 	u8 *TempRamBase;
 
@@ -483,7 +483,7 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 		/*
 		 * Get the EP buffer address and copy the Received data.
 		 */
-		RamBase = (u32 *) (InstancePtr->Config.BaseAddress +
+		RamBase = (UINTPTR *) (InstancePtr->Config.BaseAddress +
 					(InstancePtr->DeviceConfig.Ep[EpNum].
 					RamBase));
 		InstancePtr->DeviceConfig.Ep[EpNum].Buffer0Ready = 1;
@@ -501,8 +501,9 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 					XUSB_DMA_READ_FROM_DPRAM |
 					(1 << EpNum)));
 
-			XUsb_DmaTransfer(InstancePtr, RamBase, (u32 *)BufferPtr,
-					RxBytesToRead);
+			XUsb_DmaTransfer(InstancePtr, RamBase,
+						(UINTPTR *)BufferPtr,
+							RxBytesToRead);
 
 		} else {
 			/*
@@ -511,7 +512,7 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 			 */
 			while (RxBytesToRead > 3) {
 
-				*(u32 *) BufferPtr = *RamBase++;
+				*(UINTPTR *) BufferPtr = *RamBase++;
 				BufferPtr += 4;
 				RxBytesToRead -= 4;
 			}
@@ -532,7 +533,7 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 			/*
 			 * Get the EP buffer address and copy the Received data.
 			 */
-			RamBase = (u32 *) (InstancePtr->Config.BaseAddress +
+			RamBase = (UINTPTR *) (InstancePtr->Config.BaseAddress +
 						((InstancePtr->DeviceConfig.
 					Ep[EpNum].RamBase)) +
 					(InstancePtr->DeviceConfig.Ep[EpNum].
@@ -553,8 +554,9 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 						(1 << (EpNum +
 						XUSB_STATUS_EP_BUFF2_SHIFT)))));
 
-				XUsb_DmaTransfer(InstancePtr, RamBase, (u32 *)
-						BufferPtr, RxBytesToRead);
+				XUsb_DmaTransfer(InstancePtr, RamBase,
+							(UINTPTR *)BufferPtr,
+								RxBytesToRead);
 
 			} else {
 				/*
@@ -563,7 +565,7 @@ int XUsb_EpDataRecv(XUsb *InstancePtr, u8 EpNum, u8 *BufferPtr, u32 BufferLen)
 				 */
 				while (RxBytesToRead > 3) {
 
-					*(u32 *) BufferPtr = *RamBase++;
+					*(UINTPTR *) BufferPtr = *RamBase++;
 					BufferPtr += 4;
 					RxBytesToRead -= 4;
 				}
