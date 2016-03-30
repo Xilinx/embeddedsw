@@ -75,25 +75,39 @@
  *			moved inside the HIGHSPEED condition. CR614791
  * 4.02a bss  11/01/11 Modified UsbIfIntrHandler function to unconditionally
  *			reset when USB reset is asserted (CR 627574).
- *
+ * 5.2	MNK    03/30/2016 Modified the example to support ZYNQMP.
  * </pre>
  *****************************************************************************/
 /***************************** Include Files *********************************/
 
 #include "xusb.h"
-#include "xintc.h"
 #include "xusb_storage.h"
 #include "stdio.h"
 #include "xenv_standalone.h"
 #include "xil_exception.h"
 #include "xil_cache.h"
 
-/************************** Constant Definitions *****************************/
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #include "xintc.h"
+#else
+ #include "xscugic.h"
+#endif
 
+/************************** Constant Definitions *****************************/
 #define USB_DEVICE_ID		XPAR_USB_0_DEVICE_ID
-#define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
-#define USB_INTR		XPAR_INTC_0_USB_0_VEC_ID
 #define READ_COMMAND		1
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
+ #define USB_INTR			XPAR_INTC_0_USB_0_VEC_ID
+ #define INTC				XIntc
+ #define INTC_HANDLER		XIntc_InterruptHandler
+#else
+ #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #define USB_INTR		    XPAR_FABRIC_AXI_USB2_DEVICE_1_USB_IRPT_INTR
+ #define INTC			 	XScuGic
+ #define INTC_HANDLER		XScuGic_InterruptHandler
+#endif
 
 #undef XUSB_MS_DEBUG
 
@@ -101,15 +115,15 @@
 
 XUsb UsbInstance;		/* The instance of the USB device */
 XUsb_Config *UsbConfigPtr;	/* Instance of the USB config structure */
-
-XIntc InterruptController;	/* Instance of the Interrupt Controller */
+INTC InterruptController;	/* Instance of the Interrupt Controller */
 
 volatile u8 CmdFlag = 0;
-
 volatile u8 FirstPkt = 0;
 u8  *WrRamDiskPtr;
 u8 *RdRamDiskPtr;
 volatile u8 RdIndex = 0;
+
+
 
 /*****************************************************************************/
 /**
@@ -147,6 +161,10 @@ int main()
 
 	Xil_DCacheInvalidate();
 	Xil_DCacheEnable();
+#endif
+#ifdef __aarch64__
+	Xil_DCacheInvalidate();
+	Xil_DCacheDisable();
 #endif
 
 	/*
@@ -219,7 +237,6 @@ int main()
 	 * Set the device configuration to unenumerated state.
 	 */
 	UsbInstance.DeviceConfig.CurrentConfiguration = 0;
-
 
 	while (1) {
 
@@ -385,7 +402,6 @@ void UsbIfIntrHandler(void *CallBackRef, u32 IntrStatus)
 		XUsb_IntrEnable(InstancePtr, (XUSB_STATUS_RESET_MASK |
 					      XUSB_STATUS_DISCONNECT_MASK));
 	}
-
 }
 
 /*****************************************************************************/
@@ -1192,9 +1208,13 @@ void GetMaxLUN(XUsb * InstancePtr)
 * @note		None
 *
 *******************************************************************************/
+
+
 static int SetupInterruptSystem(XUsb * InstancePtr)
 {
 	int Status;
+
+#ifdef XPAR_INTC_0_DEVICE_ID
 
 	/*
 	 * Initialize the interrupt controller driver.
@@ -1230,7 +1250,45 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 	 * Enable the interrupt for the USB.
 	 */
 	XIntc_Enable(&InterruptController, USB_INTR);
+#else
 
+	XScuGic_Config *IntcConfig;
+
+	/*
+		 * Initialize the interrupt controller driver so that it is ready to
+		 * use.
+		 */
+		IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+		if (NULL == IntcConfig) {
+			return XST_FAILURE;
+		}
+
+		Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
+						IntcConfig->CpuBaseAddress);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		XScuGic_SetPriorityTriggerType(&InterruptController, USB_INTR,
+						0xA0, 0x3);
+
+		/*
+		 * Connect the interrupt handler that will be called when an
+		 * interrupt occurs for the device.
+		 */
+		Status = XScuGic_Connect(&InterruptController, USB_INTR,
+					 (Xil_ExceptionHandler)XUsb_IntrHandler,
+					 InstancePtr);
+		if (Status != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		/*
+		 * Enable the interrupt for the Timer device.
+		 */
+		XScuGic_Enable(&InterruptController, USB_INTR);
+
+#endif
 	/*
 	 * Initialize the exception table
 	 */
@@ -1240,7 +1298,7 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 	 * Register the interrupt controller handler with the exception table
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
-				(Xil_ExceptionHandler)XIntc_InterruptHandler,
+				(Xil_ExceptionHandler)INTC_HANDLER,
 				&InterruptController);
 
 	/*
@@ -1250,5 +1308,3 @@ static int SetupInterruptSystem(XUsb * InstancePtr)
 
 	return XST_SUCCESS;
 }
-
-
