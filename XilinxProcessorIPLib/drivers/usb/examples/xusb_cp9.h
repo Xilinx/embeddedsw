@@ -73,7 +73,7 @@ extern "C" {
 #include "xusb.h"
 #include "xusb_types.h"
 
-#ifdef __ARMEL__
+#if defined(__ARMEL__) || defined(__aarch64__)
 #ifndef __LITTLE_ENDIAN__
 #define __LITTLE_ENDIAN__
 #endif

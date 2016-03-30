@@ -92,7 +92,7 @@
 #define USB_INTR		XPAR_INTC_0_USB_0_VEC_ID
 #else
 #define INTC_DEVICE_ID		XPAR_SCUGIC_SINGLE_DEVICE_ID
-#define USB_INTR		XPAR_FABRIC_USB_0_VEC_ID
+#define USB_INTR			XPAR_FABRIC_AXI_USB2_DEVICE_1_USB_IRPT_INTR
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 #define READ_COMMAND		1
@@ -174,6 +174,10 @@ int main()
 
 	Xil_DCacheInvalidate();
 	Xil_DCacheEnable();
+#endif
+#ifdef __aarch64__
+	Xil_DCacheInvalidate();
+	Xil_DCacheDisable();
 #endif
 
 	/*
