@@ -71,7 +71,9 @@
 #include "xv_hdmitxss.h"
 #include "xv_hdmitxss_coreinit.h"
 
-
+#if defined (__arm__)
+#define XPAR_CPU_CORE_CLOCK_FREQ_HZ 1000000000 //TODO: To be removed
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -318,6 +320,22 @@ void XV_HdmiTxSS_HdcpIntrHandler(XV_HdmiTxSs *InstancePtr)
 void XV_HdmiTxSS_HdcpTimerIntrHandler(XV_HdmiTxSs *InstancePtr)
 {
     XTmrCtr_InterruptHandler(InstancePtr->HdcpTimerPtr);
+}
+
+/*****************************************************************************/
+/**
+ * This function calls the interrupt handler for HDCP 2.2 Timer
+ *
+ * @param  InstancePtr is a pointer to the HDMI TX Subsystem
+ *
+ *****************************************************************************/
+void XV_HdmiTxSS_Hdcp22TimerIntrHandler(XV_HdmiTxSs *InstancePtr)
+{
+	XTmrCtr *XTmrCtrPtr;
+
+	XTmrCtrPtr = XHdcp22Tx_GetTimer(InstancePtr->Hdcp22Ptr);
+
+    XTmrCtr_InterruptHandler(XTmrCtrPtr);
 }
 
 /*****************************************************************************/
@@ -638,7 +656,9 @@ void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr)
   xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Reset HDMI TX Subsystem.... \r\n");
 
   if (InstancePtr->VtcPtr) {
+#if defined(__MICROBLAZE__) // TODO: To be removed
     XVtc_Reset(InstancePtr->VtcPtr);
+#endif
   }
 }
 
@@ -2143,9 +2163,9 @@ void XV_HdmiTxSs_ResetRemapper(XV_HdmiTxSs *InstancePtr) {
 
     XGpio_SetDataDirection(RemapperResetPtr, 1, 0);
     XGpio_DiscreteWrite(RemapperResetPtr, 1, 0);
-    MB_Sleep(1);
+    XV_HdmiTxSs_WaitUs(InstancePtr, 1000);
     XGpio_DiscreteWrite(RemapperResetPtr, 1, 1);
-    MB_Sleep(1);
+    XV_HdmiTxSs_WaitUs(InstancePtr, 1000);
 }
 
 void XV_HdmiTxSs_ConfigRemapper(XV_HdmiTxSs *InstancePtr) {
