@@ -66,7 +66,9 @@
 #include "xv_hdmirxss.h"
 #include "xv_hdmirxss_coreinit.h"
 
-
+#if defined (__arm__)
+#define XPAR_CPU_CORE_CLOCK_FREQ_HZ 1000000000 // TODO: To be removed
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -1633,9 +1635,9 @@ void XV_HdmiRxSs_ResetRemapper(XV_HdmiRxSs *InstancePtr) {
 
     XGpio_SetDataDirection(RemapperResetPtr, 1, 0);
     XGpio_DiscreteWrite(RemapperResetPtr, 1, 0);
-    MB_Sleep(1);
+    XV_HdmiRxSs_WaitUs(InstancePtr, 1000);
     XGpio_DiscreteWrite(RemapperResetPtr, 1, 1);
-    MB_Sleep(1);
+    XV_HdmiRxSs_WaitUs(InstancePtr, 1000);
 }
 
 void XV_HdmiRxSs_ConfigRemapper(XV_HdmiRxSs *InstancePtr) {
