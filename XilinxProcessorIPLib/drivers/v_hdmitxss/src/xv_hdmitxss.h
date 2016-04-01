@@ -268,6 +268,7 @@ void XV_HdmiTxSs_SetUserTimerHandler(XV_HdmiTxSs *InstancePtr,
 void XV_HdmiTxSS_HdmiTxIntrHandler(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_HdcpIntrHandler(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_HdcpTimerIntrHandler(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSS_Hdcp22TimerIntrHandler(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
     XV_HdmiTxSs_Config *CfgPtr,
     u32 EffectiveAddr);
