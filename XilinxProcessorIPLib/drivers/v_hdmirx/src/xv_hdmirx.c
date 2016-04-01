@@ -205,7 +205,7 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, u3
     InstancePtr->StreamUpCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
     InstancePtr->IsStreamUpCallbackSet = (FALSE);
 
-    InstancePtr->HdcpCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
+    InstancePtr->HdcpCallback = (XV_HdmiRx_HdcpCallback)((void *)StubCallback);
     InstancePtr->IsHdcpCallbackSet = (FALSE);
 
 	InstancePtr->LinkErrorCallback = (XV_HdmiRx_Callback)((void *)StubCallback);

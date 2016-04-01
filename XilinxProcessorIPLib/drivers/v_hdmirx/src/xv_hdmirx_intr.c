@@ -280,7 +280,7 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
 
         // HDCP
         case (XV_HDMIRX_HANDLER_HDCP):
-            InstancePtr->HdcpCallback = (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->HdcpCallback = (XV_HdmiRx_HdcpCallback)CallbackFunc;
             InstancePtr->HdcpRef = CallbackRef;
             InstancePtr->IsHdcpCallbackSet = (TRUE);
             Status = (XST_SUCCESS);
