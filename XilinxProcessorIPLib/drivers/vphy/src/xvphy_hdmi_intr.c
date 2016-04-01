@@ -54,7 +54,6 @@
 /******************************* Include Files ********************************/
 
 #include "xparameters.h"
-#include "xintc.h"
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_hdmi.h"
