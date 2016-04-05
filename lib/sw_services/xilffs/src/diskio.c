@@ -77,6 +77,7 @@
 *		     04/28/15 Card detection only in case of card detection signal
 * 3.1   sk   06/04/15 Added support for SD1.
 * 3.2   sk   11/24/15 Considered the slot type before checking the CD/WP pins.
+* 3.3   sk   04/01/15 Added one second delay for checking CD pin.
 *
 * </pre>
 *
@@ -103,6 +104,7 @@
 #define EXT_CSD_4_BIT_WIDTH_BYTE	183
 #define EXT_CSD_HIGH_SPEED_BYTE		185
 #define EXT_CSD_DEVICE_TYPE_HIGH_SPEED	0x3
+#define SD_CD_DELAY		10000U
 
 /*--------------------------------------------------------------------------
 
@@ -160,6 +162,7 @@ DSTATUS disk_status (
 {
 	DSTATUS s = Stat;
 	u32 StatusReg;
+	u32 DelayCount = 0;
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 		if (SdInstance[pdrv].Config.BaseAddress == (u32)0) {
@@ -188,10 +191,21 @@ DSTATUS disk_status (
 		StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress);
 		if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
 			if (CardDetect) {
-					if ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
+				while ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
+					if (DelayCount = 500U) {
 						s = STA_NODISK | STA_NOINIT;
 						goto Label;
+					} else {
+	/* Wait for 10 msec */
+#if defined (__arm__) || defined (__aarch64__)
+	usleep(SD_CD_DELAY);
+#elif defined (__MICROBLAZE__)
+	MB_Sleep(10);
+#endif
+						DelayCount++;
+						StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress);
 					}
+				}
 			}
 			s &= ~STA_NODISK;
 			if (WriteProtect) {
