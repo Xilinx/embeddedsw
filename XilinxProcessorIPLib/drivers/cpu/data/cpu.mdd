@@ -47,7 +47,7 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (microblaze psu_pmu);
 OPTION default_os = "standalone_v5_0";
-OPTION VERSION = 2.4;
+OPTION VERSION = *
 OPTION NAME = cpu;
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = mb-gcc;

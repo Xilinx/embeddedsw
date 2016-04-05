@@ -37,7 +37,7 @@ BEGIN driver gamma
   OPTION supported_peripherals = (v_gamma);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-    OPTION VERSION = 6.0;
+    OPTION VERSION = *
   OPTION NAME = gamma;
 
 END driver

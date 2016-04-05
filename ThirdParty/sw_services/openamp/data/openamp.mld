@@ -46,7 +46,7 @@ BEGIN LIBRARY openamp
   OPTION REQUIRES_OS = (standalone, freertos823_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lopen_amp,-lgcc,-lc,--end-group";
   OPTION DESC = "OpenAmp Library ";
-  OPTION VERSION = 1.0;
+  OPTION VERSION = *
   OPTION NAME = openamp;
 
   PARAM NAME = WITH_PROXY, type = bool, default = true, desc = "Add support for proxy", permit = all_users;

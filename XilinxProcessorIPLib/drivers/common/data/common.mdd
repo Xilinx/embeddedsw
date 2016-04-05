@@ -34,7 +34,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver common 
 
-  OPTION VERSION = 1.00.a;
+  OPTION VERSION = *
   OPTION NAME = common;
   OPTION supported_peripherals = ();
 

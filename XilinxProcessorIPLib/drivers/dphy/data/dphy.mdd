@@ -36,6 +36,6 @@ BEGIN driver dphy
 	OPTION supported_peripherals = (mipi_dphy_[0-9] mipi_dphy_v[1-9]_[0-9][0-9]_[a-z] mipi_dphy_v[1-9]_[0-9]);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = 1.0;
+	OPTION VERSION = *
 	OPTION NAME = dphy;
 END driver
