@@ -106,6 +106,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		 u16 SlaveAddr)
 {
 	u32 BaseAddr;
+	u32 Platform = XGetPlatform_Info();
 
 	/*
 	 * Assert validates the input arguments.
@@ -146,6 +147,16 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	 * Do the address transfer to notify the slave.
 	 */
 	XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, (u32)SlaveAddr);
+
+	/* Clear the Hold bit in ZYNQ if receive byte count is less than
+	 * the FIFO depth to get the completion interrupt properly.
+	 */
+	if ((ByteCount < XIICPS_FIFO_DEPTH) && (Platform == XPLAT_ZYNQ))
+	{
+		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
+				XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) &
+				(u32)(~XIICPS_CR_HOLD_MASK));
+	}
 
 }
 
