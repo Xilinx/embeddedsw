@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2016-04-07
+	* Correct return handling in xemacps phy negotiation.
 2016-02-11
 	* Add Support for Axi Etherent on ZyqnMP.
 	* Update lwip.tcl to export proper gic baseadress for r5

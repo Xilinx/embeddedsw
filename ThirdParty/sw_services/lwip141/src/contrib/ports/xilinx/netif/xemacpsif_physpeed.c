@@ -339,9 +339,12 @@ u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr)
 	} else if (link_speed == 100) {
 		SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,100);
 		convspeeddupsetting = XEMACPS_GMII2RGMII_SPEED100_FD;
-	} else {
+	} else if (link_speed != XST_FAILURE){
 		SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,10);
 		convspeeddupsetting = XEMACPS_GMII2RGMII_SPEED10_FD;
+	} else {
+		xil_printf("Phy setup error \r\n");
+		return XST_FAILURE;
 	}
 #elif	defined(CONFIG_LINKSPEED1000)
 	SetUpSLCRDivisors(xemacpsp->Config.BaseAddress,1000);
@@ -488,7 +491,7 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 
 		if (timeout_counter == 30) {
 			xil_printf("Auto negotiation error \r\n");
-			return;
+			return XST_FAILURE;
 		}
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
 	}
@@ -574,7 +577,7 @@ static u32_t get_Marvell_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 
 		if (timeout_counter == 30) {
 			xil_printf("Auto negotiation error \r\n");
-			return;
+			return XST_FAILURE;
 		}
 		XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_STATUS_REG_OFFSET, &status);
 	}
@@ -608,11 +611,8 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	} else {
 		RetStatus = get_Marvell_phy_speed(xemacpsp, phy_addr);
 	}
-	if (RetStatus != XST_SUCCESS) {
-		return RetStatus;
-	}
 
-	return XST_SUCCESS;
+	return RetStatus;
 }
 
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed)
