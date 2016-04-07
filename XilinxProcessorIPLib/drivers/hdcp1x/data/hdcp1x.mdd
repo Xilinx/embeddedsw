@@ -37,6 +37,6 @@ BEGIN driver hdcp1x
         OPTION driver_state = ACTIVE;
         OPTION copyfiles = all;
         OPTION VERSION = 3.0;
-	OPTION DEPENDS = (tmrctr_v4_0);
+	OPTION DEPENDS = (tmrctr_v4_1);
         OPTION NAME = hdcp1x;
 END driver

@@ -168,11 +168,6 @@ static int XHdcp1x_PortHdmiRxDisable(XHdcp1x *InstancePtr)
 	HdmiRxBase =
 		((XV_HdmiRx *)InstancePtr->Port.PhyIfPtr)->Config.BaseAddress;
 
-	/* Disable the hdcp ddc slave */
-	RegValue = XV_HdmiRx_ReadReg(HdmiRxBase, XV_HDMIRX_DDC_CTRL_SET_OFFSET);
-	RegValue &= ~XV_HDMIRX_DDC_CTRL_HDCP_EN_MASK;
-	XV_HdmiRx_WriteReg(HdmiRxBase, XV_HDMIRX_DDC_CTRL_SET_OFFSET, RegValue);
-
 	/* Clear the hdcp registers */
 	Value = 0;
 	Offset = 0;

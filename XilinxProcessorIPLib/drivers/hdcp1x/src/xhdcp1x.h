@@ -513,6 +513,160 @@
 *
 * -- -- -- -- -- -- -- -- -- -- -- -- --
 *
+* <b> HDCP REPEATER </b>
+*
+* The HDCP Repeater functionality is implemented in the drivers. Here however,
+* the user has to ensure that the right setup is available for the HDCP
+* repeater drivers.
+* - The use must also ensure that the variable IsRepeater in the instance
+*   of the structure XHdcp1x defined in the user application is set to 1. For
+*   example, DpRxSsInst.Hdcp1x->IsRepeater = 1.
+*
+* <b> Requirements </b>
+*
+* - The system has both the receiver and the transmitter interface.
+* - The IsRepeater variable of the hdcp core structure, XHdcp1x is set.
+* - The callbacks for Repeater are set in the user application.
+*
+* <b> Repeater State Machine for Transmitter </b>
+*
+* For the transmitter system, the repeater state machine has the following
+* states:
+*  - STATE_DISABLED
+*  - STATE_UNAUTHENTICATED
+*  - STATE_COMPUTATIONS
+*  - STATE_WAITFORDOWNSTREAM (in repeater only)
+*  - STATE_ASSEMBLEKSVLIST (in repeater only)
+*  - STATE_AUTHENTICATED
+*  - STATE_LINKINTEGRITYFAILED
+*  - STATE_PHYDOWN
+*
+*  For the receiver system, the repeater state machine has the following
+*  states:
+*  - STATE_DISABLED
+*  - STATE_DETERMINERXCAPABLE
+*  - STATE_EXCHANGEKSVS
+*  - STATE_COMPUTATIONS
+*  - STATE_VALIDATERX
+*  - STATE_AUTHENTICATED
+*  - STATE_LINKINTEGRITYCHECK
+*  - STATE_TESTFORREPEATER
+*  - STATE_WAITFORREADY (in repeater only)
+*  - STATE_READKSVLIST (in repeater only)
+*  - STATE_UNAUTHENTICATED
+*  - STATE_PHYDOWN
+*
+* <b> Repeater Flow </b>
+*
+* <pre>
+*   |> Receiver <|   |> User App <|        |> Transmitter <|
+*
+* -> AKSV Written
+*    to Receiver
+*       |
+*    Ro' written
+*    to upstream
+*       |
+*       ---->   Trigger Downstream
+*               (Hdcp1x.Rx.Repeater
+*               DownstreamAuthCallBack) ----> Transmitter writes
+*                                             AKSV and An downstream
+*                                                       |
+*                                             Transmitter reads back
+*                                             Ro' and completes
+*                                             first part of
+*                                             authentication
+*                                                       |
+*                               -----(No)---- Is Downstream Repeater?
+*                               |                       | (Yes)
+*                               |             Read the downstream KSV
+*                               |             FIFO, calculate the SHA-1
+*                               |             value and complete 2nd part
+*                               |             of authentication.
+*                               |
+*                               ------------> Setup the KSV FIFO for
+*                                             upstream.
+*                                                       |
+*               Exchange Repeater <----------------------
+*               Values (Hdcp1x.Tx.
+*               ExchangeRepeaterCallBack)
+*               Here Get the KSV
+*               FIFO and update it
+*               for the Receiver.
+*                       |
+*    Assemble the  <-----
+*    KSV List and
+*    calculate the SHA-1
+*    value and write
+*    it to upstream.
+*          |
+*    Goto Authenticated
+*    state.
+*
+* </pre>
+*
+* The Repeater authentication requires the presence of both RX and TX
+* interfaces. The authentication begins when the upstream transmitter writes
+* the An and AKSV to the RX interface. After completing the first part of
+* authentication the Receiver calls the DownstremaAuthCallBack callback
+* handler. This handler should be set in the user application and should post
+* the authenticate event to the TX state machine. This will trigger the TX
+* authentication process. The TX completes the first part of authentication,
+* by writing the AKSV and An downstreama and then reading an comparing the
+* downstream Ro' value. If the downstream device is also Repeater, then the
+* TX waits for the READY bit to get set in the downstream and reads the KSV
+* FIFO. The TX then commences the second part of the authentication, where it
+* calculates the SHA-1 value V and compares it with the V' read from the
+* downstream. If the SHA-1 value V matches with the V' value read from
+* downstream, authentication is successful. Here the TX sets up a
+* RepeaterExchange value which it populates with the KSV FIFO of the
+* downstream and the depth and device count values read from downstream. At
+* this point the KSV FIFO calls the ExchangeRepeaterCallBack, which needs to
+* be set in the user application. Here the user application receives the
+* KSV FIFO value, depth and device count from the TX of the downstream
+* topology. The user applicaition needs to update these value and set them
+* for the receiver. At this point the RX is expected to be in the
+* WAIT-FOR-READY state. Here the user should post EVENT_DOWNSTREAMREADY to the
+* RX state machine. The user can configure the DownstreamReadyCallback to do
+* this or use a different way. Consequently, the RX state machine will
+* calculate the SHA-1 value, update the device count and depth value and set
+* the READY bit for the upstream transmitter device to read and complete the
+* authentication.
+*
+* If the authentication fails and the upstream device triggers the
+* authentication again, then the entire authenitcation process is re-started.
+*
+* <b> Repeater Callback functions </b>
+* - Transmitter
+*   - XHdcp1xInst.Tx.RepeaterExchangeCallback
+*   - XHdcp1xInst.Tx.DownstreamReadyCallback
+* - Receiver
+*   - XHdcp1xInst.Rx.RepeaterDownstreamAuthCallback
+*
+* Handler associated with each callback:
+* - XHdcp1xInst.Tx.RepeaterExchangeCallback
+*   - XHDCP1X_HANDLER_RPTR_RPTREXCHANGE
+*   - RepeaterExchangeCallback has to be defined by the user, in order to
+*     set get the KSV values from the downstream transmitter and set the
+*     values in the Receiver's Ksv List. This function is called by the
+*     drivers.
+* - XHdcp1xInst.Tx.DownstreamReadyCallback
+*   - XHDCP1X_HANDLER_RPTR_DWNSTRMREADY
+*   - DownstreamReadyCallback has to be defined by the user and called
+*     by the user once the application has assembled the KsvList for
+*     the Receiver to validate and authenticate with upstream.
+* - XHdcp1xInst.Rx.RepeaterDownstreamAuthCallback
+*   - XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH
+*   - RepeaterDownstreamAuthCallback has to be defined by the user in order
+*     to ensure that the downstream is ready to begin afer 1st part of
+*     authentication is completed on the RX side. The user must ensure that
+*     TX is not in physical-layer-down state and consequently post the
+*     EVENT_AUTHENTICATE to the TX interface in order to begin the
+*     authentication process for the downstream TX interface. Called by the
+*     drivers.
+*
+* -- -- -- -- -- -- -- -- -- -- -- -- --
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
