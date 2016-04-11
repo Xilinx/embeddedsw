@@ -212,6 +212,7 @@ hdcp22_mmult_v1_0:
 Added the initial version of the driver that can be used to access the Xilinx HDCP22
 Montogmery Multiplier(Mmult) core.
 Updated the driver for nested HIP support.
+Added default configuration file xhdcp22_cipher_g.c
 
 hdcp22_rng_v1_0:
 Added the initial version of the driver that can be used to access the Xilinx HDCP22
