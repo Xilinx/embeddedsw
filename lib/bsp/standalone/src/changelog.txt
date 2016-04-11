@@ -321,4 +321,8 @@
  *		       the fault log to avoid intervention for lock-step mode and cortexr5/
  *		       _exit.c to enable the dbg_lpd_reset once the fault log is disabled
  *		       to fix CR#947335
+ * 5.5 pkp   04/11/16  Modified cortexr5/boot.S to enable comparators for non-JTAG bootmode
+ *		       in lock-step to avoid resetting the debug logic which restricts the
+ *		       access for debugger and removed enabling back of debug modules in
+ *		       cortexr5/_exit.c
  *****************************************************************************************/
