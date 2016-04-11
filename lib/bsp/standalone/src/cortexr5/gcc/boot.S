@@ -50,6 +50,8 @@
 *		      lock step mode
 * 5.04 pkp   03/24/16 Reset the dbg_lpd_reset before enabling the fault log
 *		      to avoid intervention for lock-step mode
+* 5.05 pkp   04/11/16 Enable the comparators for non-JTAG boot mode for
+*		      lock-step to avoid putting debug logic to reset
 * </pre>
 *
 * @note
@@ -85,6 +87,7 @@
 .set RPU_GLBL_CNTL,	0xFF9A0000
 .set RPU_ERR_INJ,	0xFF9A0020
 .set RST_LPD_DBG,	0xFF5E0240
+.set BOOT_MODE_USER,	0xFF5E0200
 .set fault_log_enable,	0x101
 
 .section .boot,"axS"
@@ -237,6 +240,11 @@ OKToRun:
 	ands	r1, r1, #0x8
 /* branch to initialization if split mode*/
 	bne 	init
+/* check for boot mode if in lock step, branch to init if JTAG boot mode*/
+	ldr	r0,=BOOT_MODE_USER
+	ldr 	r1, [r0]
+	ands	r1, r1, #0xF
+	beq 	init
 /* reset the debug logic */
 	ldr	r0,=RST_LPD_DBG
 	ldr	r1, [r0]
