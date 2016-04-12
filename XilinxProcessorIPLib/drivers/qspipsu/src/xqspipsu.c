@@ -52,6 +52,7 @@
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
 *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
 *                    writing/reading from 0x0 location is permitted.
+* 1.1   sk  04/12/16 Added debug message prints.
 *
 * </pre>
 *
@@ -391,6 +392,9 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		XQspiPsu_GenFifoEntryData(InstancePtr, Msg, Index);
 
 		if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+	xil_printf("\nManual Start\r\n");
+#endif
 			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 				XQspiPsu_ReadReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET) |
@@ -484,6 +488,9 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
 
 	if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+	xil_printf("\nManual Start\r\n");
+#endif
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 			XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) |
 				XQSPIPSU_CFG_START_GEN_FIFO_MASK);
@@ -574,6 +581,9 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	XQspiPsu_GenFifoEntryData(InstancePtr, Msg, 0);
 
 	if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+	xil_printf("\nManual Start\r\n");
+#endif
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_CFG_OFFSET,
 			XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_CFG_OFFSET) |
 				XQSPIPSU_CFG_START_GEN_FIFO_MASK);
@@ -681,6 +691,9 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 				XQspiPsu_GenFifoEntryData(InstancePtr, Msg,
 						MsgCnt);
 				if(InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+	xil_printf("\nManual Start\r\n");
+#endif
 					XQspiPsu_WriteReg(BaseAddress,
 						XQSPIPSU_CFG_OFFSET,
 						XQspiPsu_ReadReg(BaseAddress,
@@ -754,6 +767,9 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			XQspiPsu_GenFifoEntryData(InstancePtr, Msg, MsgCnt);
 
 			if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+	xil_printf("\nManual Start\r\n");
+#endif
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET,
 					XQspiPsu_ReadReg(BaseAddress,
@@ -769,6 +785,9 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 			XQspiPsu_GenFifoEntryCSDeAssert(InstancePtr);
 
 			if (InstancePtr->IsManualstart == TRUE) {
+#ifdef DEBUG
+	xil_printf("\nManual Start\r\n");
+#endif
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_CFG_OFFSET,
 					XQspiPsu_ReadReg(BaseAddress,
@@ -892,6 +911,11 @@ static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 static inline u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
 {
 	u32 Mask;
+
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_SelectSpiMode\r\n");
+#endif
+
 	switch (SpiMode) {
 		case XQSPIPSU_SELECT_MODE_DUALSPI:
 			Mask = XQSPIPSU_GENFIFO_MODE_DUALSPI;
@@ -906,6 +930,9 @@ static inline u32 XQspiPsu_SelectSpiMode(u8 SpiMode)
 			Mask = XQSPIPSU_GENFIFO_MODE_SPI;
 			break;
 	}
+#ifdef DEBUG
+	xil_printf("\nSPIMode is %08x\r\n", SpiMode);
+#endif
 
 	return Mask;
 }
@@ -1014,6 +1041,10 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_FillTxFifo\r\n");
+#endif
+
 	while ((InstancePtr->TxBytes > 0) && (Count < Size)) {
 		if (InstancePtr->TxBytes >= 4) {
 			(void)memcpy(&Data, Msg->TxBfrPtr, 4);
@@ -1028,6 +1059,9 @@ static inline void XQspiPsu_FillTxFifo(XQspiPsu *InstancePtr,
 		}
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_TXD_OFFSET, Data);
+#ifdef DEBUG
+	xil_printf("\nData is %08x\r\n", Data);
+#endif
 
 	}
 	if (InstancePtr->TxBytes < 0) {
@@ -1104,6 +1138,10 @@ static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr)
 {
 	u32 GenFifoEntry;
 
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_GenFifoEntryCSAssert\r\n");
+#endif
+
 	GenFifoEntry = 0x0U;
 	GenFifoEntry &= ~((u32)XQSPIPSU_GENFIFO_DATA_XFER | (u32)XQSPIPSU_GENFIFO_EXP);
 	GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_MODE_MASK);
@@ -1114,7 +1152,9 @@ static inline void XQspiPsu_GenFifoEntryCSAssert(XQspiPsu *InstancePtr)
 	GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX |
 			XQSPIPSU_GENFIFO_STRIPE | XQSPIPSU_GENFIFO_POLL);
 	GenFifoEntry |= XQSPIPSU_GENFIFO_CS_SETUP;
-
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+#endif
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 }
@@ -1143,6 +1183,10 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 	u32 BaseAddress;
 	u32 TempCount;
 	u32 ImmData;
+
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_GenFifoEntryData\r\n");
+#endif
 
 	BaseAddress = InstancePtr->Config.BaseAddress;
 
@@ -1177,6 +1221,9 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 	if (Msg[Index].ByteCount < XQSPIPSU_GENFIFO_IMM_DATA_MASK) {
 		GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 		GenFifoEntry |= Msg[Index].ByteCount;
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+#endif
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_GEN_FIFO_OFFSET,
 				GenFifoEntry);
 	} else {
@@ -1190,6 +1237,9 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 			if ((TempCount & XQSPIPSU_GENFIFO_EXP_START) != FALSE) {
 				GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 				GenFifoEntry |= Exponent;
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+#endif
 				XQspiPsu_WriteReg(BaseAddress,
 					XQSPIPSU_GEN_FIFO_OFFSET,
 					GenFifoEntry);
@@ -1203,6 +1253,9 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 		if ((ImmData & 0xFFU) != FALSE) {
 			GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_IMM_DATA_MASK);
 			GenFifoEntry |= ImmData & 0xFFU;
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+#endif
 			XQspiPsu_WriteReg(BaseAddress,
 				XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 		}
@@ -1212,6 +1265,9 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 	if ((InstancePtr->ReadMode == XQSPIPSU_READMODE_IO) &&
 			((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
 		GenFifoEntry = 0x0U;
+#ifdef DEBUG
+	xil_printf("\nDummy FifoEntry=%08x\r\n",GenFifoEntry);
+#endif
 		XQspiPsu_WriteReg(BaseAddress,
 				XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 	}
@@ -1233,6 +1289,10 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
 {
 	u32 GenFifoEntry;
 
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_GenFifoEntryCSDeAssert\r\n");
+#endif
+
 	GenFifoEntry = 0x0U;
 	GenFifoEntry &= ~((u32)XQSPIPSU_GENFIFO_DATA_XFER | (u32)XQSPIPSU_GENFIFO_EXP);
 	GenFifoEntry &= (u32)(~XQSPIPSU_GENFIFO_MODE_MASK);
@@ -1242,7 +1302,9 @@ static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr)
 	GenFifoEntry &= ~(XQSPIPSU_GENFIFO_TX | XQSPIPSU_GENFIFO_RX |
 			XQSPIPSU_GENFIFO_STRIPE | XQSPIPSU_GENFIFO_POLL);
 	GenFifoEntry |= XQSPIPSU_GENFIFO_CS_HOLD;
-
+#ifdef DEBUG
+	xil_printf("\nFifoEntry=%08x\r\n",GenFifoEntry);
+#endif
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 }
@@ -1267,12 +1329,19 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 	s32 Count = 0;
 	u32 Data;
 
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_ReadRxFifo\r\n");
+#endif
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Msg != NULL);
 
 	while ((InstancePtr->RxBytes != 0) && (Count < Size)) {
 		Data = XQspiPsu_ReadReg(InstancePtr->
 				Config.BaseAddress, XQSPIPSU_RXD_OFFSET);
+#ifdef DEBUG
+	xil_printf("\nData is %08x\r\n", Data);
+#endif
 		if (InstancePtr->RxBytes >= 4) {
 			(void)memcpy(Msg->RxBfrPtr, &Data, 4);
 			InstancePtr->RxBytes -= 4;

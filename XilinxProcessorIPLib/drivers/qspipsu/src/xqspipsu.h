@@ -95,6 +95,7 @@
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
 *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
 *                    writing/reading from 0x0 location is permitted.
+* 1.1   sk  04/12/16 Added debug message prints.
 *
 * </pre>
 *

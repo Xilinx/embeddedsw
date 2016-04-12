@@ -47,6 +47,7 @@
 * 1.0   hk  08/21/14 First release
 *       sk  03/13/15 Added IO mode support.
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
+* 1.1   sk  04/12/16 Added debug message prints.
 *
 * </pre>
 *
@@ -351,6 +352,10 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_SelectFlash\r\n");
+#endif
+
 	/*
 	 * Bus and CS lines selected here will be updated in the instance and
 	 * used for subsequent GENFIFO entries during transfer.
@@ -389,6 +394,11 @@ void XQspiPsu_SelectFlash(XQspiPsu *InstancePtr, u8 FlashCS, u8 FlashBus)
 			InstancePtr->GenFifoBus = XQSPIPSU_GENFIFO_BUS_LOWER;
 			break;
 	}
+#ifdef DEBUG
+	xil_printf("\nGenFifoCS is %08x and GenFifoBus is %08x\r\n",
+				InstancePtr->GenFifoCS, InstancePtr->GenFifoBus);
+#endif
+
 }
 
 /*****************************************************************************/
@@ -415,6 +425,10 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 {
 	u32 ConfigReg;
 	s32 Status;
+
+#ifdef DEBUG
+	xil_printf("\nXQspiPsu_SetReadMode\r\n");
+#endif
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -444,6 +458,9 @@ s32 XQspiPsu_SetReadMode(XQspiPsu *InstancePtr, u32 Mode)
 
 		Status = XST_SUCCESS;
 	}
+#ifdef DEBUG
+	xil_printf("\nRead Mode is %08x\r\n", InstancePtr->ReadMode);
+#endif
 	return Status;
 }
 /** @} */
