@@ -325,4 +325,7 @@
  *		       in lock-step to avoid resetting the debug logic which restricts the
  *		       access for debugger and removed enabling back of debug modules in
  *		       cortexr5/_exit.c
+ * 5.5 pkp   04/13/16  Modified cortexa9/gcc/read.c to return correct number of bytes when
+ *		       read buffer is filled and removed the redundant NULL checking for
+ *		       buffer to simplify the code
  *****************************************************************************************/
