@@ -54,25 +54,21 @@ read (s32 fd, char8* buf, s32 nbytes)
 {
 #ifdef STDIN_BASEADDRESS
   s32 i;
+  s32 numbytes = 0;
   char8* LocalBuf = buf;
 
   (void)fd;
-  for (i = 0; i < nbytes; i++) {
-	if(LocalBuf != NULL) {
-		LocalBuf += i;
-	}
-	if(LocalBuf != NULL) {
-	    *LocalBuf = inbyte();
-	    if ((*LocalBuf == '\n' )|| (*LocalBuf == '\r')) {
-	        break;
+  if(LocalBuf != NULL) {
+	for (i = 0; i < nbytes; i++) {
+		numbytes++;
+		*(LocalBuf + i) = inbyte();
+		if ((*(LocalBuf + i) == '\n' )|| (*(LocalBuf + i) == '\r')) {
+			break;
 		}
-	}
-	if(LocalBuf != NULL) {
-	LocalBuf -= i;
 	}
   }
 
-  return (i + 1);
+  return numbytes;
 #else
   (void)fd;
   (void)buf;
@@ -86,25 +82,21 @@ _read (s32 fd, char8* buf, s32 nbytes)
 {
 #ifdef STDIN_BASEADDRESS
   s32 i;
+  s32 numbytes = 0;
   char8* LocalBuf = buf;
 
   (void)fd;
-  for (i = 0; i < nbytes; i++) {
-	if(LocalBuf != NULL) {
-		LocalBuf += i;
-	}
-	if(LocalBuf != NULL) {
-	    *LocalBuf = inbyte();
-	    if ((*LocalBuf == '\n' )|| (*LocalBuf == '\r')) {
-	        break;
+  if(LocalBuf != NULL) {
+	for (i = 0; i < nbytes; i++) {
+		numbytes++;
+		*(LocalBuf + i) = inbyte();
+		if ((*(LocalBuf + i) == '\n' )|| (*(LocalBuf + i) == '\r')) {
+			break;
 		}
-	}
-	if(LocalBuf != NULL) {
-	LocalBuf -= i;
 	}
   }
 
-  return (i + 1);
+  return numbytes;
 #else
   (void)fd;
   (void)buf;
