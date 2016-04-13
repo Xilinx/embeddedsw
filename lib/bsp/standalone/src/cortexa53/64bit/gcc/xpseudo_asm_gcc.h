@@ -74,7 +74,7 @@ extern "C" {
 			  rval;\
 			 })
 
-#define mtcpsr(v) asm ("msr DAIF, %0" : : "r" (v))
+#define mtcpsr(v) __asm__ __volatile__ ("msr DAIF, %0" : : "r" (v))
 
 #define cpsiei()	//__asm__ __volatile__("cpsie	i\n")
 #define cpsidi()	//__asm__ __volatile__("cpsid	i\n")
@@ -100,13 +100,13 @@ extern "C" {
 /* memory synchronization operations */
 
 /* Instruction Synchronization Barrier */
-#define isb() asm ("isb sy")
+#define isb() __asm__ __volatile__ ("isb sy")
 
 /* Data Synchronization Barrier */
-#define dsb() asm("dsb sy")
+#define dsb() __asm__ __volatile__("dsb sy")
 
 /* Data Memory Barrier */
-#define dmb() asm("dmb sy")
+#define dmb() __asm__ __volatile__("dmb sy")
 
 
 /* Memory Operations */
@@ -144,19 +144,19 @@ extern "C" {
 			  );\
 			  rval;\
 			 })
-#define mtcpdc(reg,val)	asm("dc " #reg ",%0"  : : "r" (val))
-#define mtcpic(reg,val)	asm("ic " #reg ",%0"  : : "r" (val))
+#define mtcpdc(reg,val)	__asm__ __volatile__("dc " #reg ",%0"  : : "r" (val))
+#define mtcpic(reg,val)	__asm__ __volatile__("ic " #reg ",%0"  : : "r" (val))
 
-#define mtcpicall(reg)	asm("ic " #reg)
-#define mtcptlbi(reg)	asm("tlbi " #reg)
-#define mtcpat(reg,val)	asm("at " #reg ",%0"  : : "r" (val))
+#define mtcpicall(reg)	__asm__ __volatile__("ic " #reg)
+#define mtcptlbi(reg)	__asm__ __volatile__("tlbi " #reg)
+#define mtcpat(reg,val)	__asm__ __volatile__("at " #reg ",%0"  : : "r" (val))
 /* CP15 operations */
 #define mfcp(reg)	({u64 rval;\
-			asm("mrs	%0, " #reg : "=r" (rval));\
+			__asm__ __volatile__("mrs	%0, " #reg : "=r" (rval));\
 			rval;\
 			})
 
-#define mtcp(reg,val)	asm("msr " #reg ",%0"  : : "r" (val))
+#define mtcp(reg,val)	__asm__ __volatile__("msr " #reg ",%0"  : : "r" (val))
 
 /************************** Variable Definitions ****************************/
 
