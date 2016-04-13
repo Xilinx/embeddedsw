@@ -328,4 +328,7 @@
  * 5.5 pkp   04/13/16  Modified cortexa9/gcc/read.c to return correct number of bytes when
  *		       read buffer is filled and removed the redundant NULL checking for
  *		       buffer to simplify the code
+ * 5.5 pkp   04/13/16  Modified cortexa53/64bit/gcc/read.c and cortexa53/32bit/gcc/read.c
+ *		       to return correct number of bytes when read buffer is filled and
+ *		       removed the redundant NULL checking for buffer to simplify the code
  *****************************************************************************************/
