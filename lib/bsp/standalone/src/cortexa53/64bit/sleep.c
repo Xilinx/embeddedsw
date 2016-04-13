@@ -45,6 +45,10 @@
 * 5.04	pkp		 28/01/16 Modified the sleep API to configure Time Stamp
 *						  generator only when disable using frequency from
 *						  xparamters.h instead of hardcoding
+* 5.05	pkp		 13/04/16 Modified sleep routine to call XTime_StartTimer
+*						  which enables timer only when it is disabled and
+*						  read counter value directly from register instead
+*						  of calling XTime_GetTime for optimization
 * </pre>
 *
 ******************************************************************************/
@@ -69,20 +73,14 @@
 s32 sleep(u32 seconds)
 {
 	XTime tEnd, tCur;
-	/* Enable the counter only if it is disable */
-	if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET)) & XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) != XIOU_SCNTRS_CNT_CNTRL_REG_EN){
+	/* Start global timer counter, it will only be enabled if it is disabled */
+	XTime_StartTimer();
 
-		/*write frequency to System Time Stamp Generator Register*/
-		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),XIOU_SCNTRS_FREQ);
-
-		/*Enable the counter*/
-		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),XIOU_SCNTRS_CNT_CNTRL_REG_EN);
-	}
-	XTime_GetTime(&tCur);
+	tCur = mfcp(CNTPCT_EL0);
 	tEnd  = tCur + (((XTime) seconds) * COUNTS_PER_SECOND);
 	do
 	{
-		XTime_GetTime(&tCur);
+		tCur = mfcp(CNTPCT_EL0);
 	} while (tCur < tEnd);
 
 	return 0;
