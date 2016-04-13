@@ -77,6 +77,7 @@ typedef u64 XTime;
 
 /************************** Function Prototypes ******************************/
 
+void XTime_StartTimer(void);
 void XTime_SetTime(XTime Xtime_Global);
 void XTime_GetTime(XTime *Xtime_Global);
 

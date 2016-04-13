@@ -41,7 +41,10 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- ---------------------------------------------------
-* 5.00 	pkp  05/29/14 First release
+* 5.00 	pkp	   05/29/14 First release
+* 5.05	pkp	   04/13/16 Added XTime_StartTimer API to start the global timer
+*						counter if it is disabled. Also XTime_GetTime calls
+*						this API to ensure the global timer counter is enabled
 * </pre>
 *
 * @note		None.
@@ -65,6 +68,33 @@
 
 /************************** Function Prototypes ******************************/
 
+/****************************************************************************
+*
+* Start the Global Timer Counter.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void XTime_StartTimer(void)
+{
+	/* Enable the global timer counter only if it is disabled */
+	if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET)) &
+		 XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) != XIOU_SCNTRS_CNT_CNTRL_REG_EN){
+
+		/*write frequency to System Time Stamp Generator Register*/
+		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),
+					XIOU_SCNTRS_FREQ);
+
+		/*Enable the timer/counter*/
+		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),
+					XIOU_SCNTRS_CNT_CNTRL_REG_EN);
+	}
+
+}
 /****************************************************************************
 *
 * Set the time in the Global Timer Counter Register.
@@ -96,5 +126,8 @@ so the API is left unimplemented*/
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
+	/* Start global timer counter, it will only be enabled if it is disabled */
+	XTime_StartTimer();
+
 	*Xtime_Global = mfcp(CNTPCT_EL0);
 }

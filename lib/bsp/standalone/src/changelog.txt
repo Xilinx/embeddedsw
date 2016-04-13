@@ -339,4 +339,10 @@
  *		       code out of loops if optimizers believe that the code will always
  *		       return the same result or discard asm statements if optimizers
  *		       determine there is no need for the output variables
+ * 5.5 pkp   04/13/16  Modified cortexa53/64bit/xtime_l.c to add XTime_StartTimer which
+ *		       starts the timer if it is disabled and modified XTime_GetTime to
+ *		       enable the timer if it is not enabled. Also modified cortexa53/64bit/
+ *		       sleep.c and cortexa53/64bit/usleep.c to enable the timer if it is
+ *		       disabled and read the counter value directly from register instead
+ *		       of using XTime_GetTime for optimization
  *****************************************************************************************/
