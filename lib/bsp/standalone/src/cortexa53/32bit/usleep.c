@@ -46,6 +46,10 @@
 * 5.4	pkp		 28/01/16 Modified the usleep API to configure Time Stamp
 *						  generator only when disable using frequency from
 *						  xparamters.h instead of hardcoding
+* 5.05	pkp		 13/04/16 Modified usleep routine to call XTime_StartTimer
+*						  which enables timer only when it is disabled and
+*						  read counter value directly from register instead
+*						  of calling XTime_GetTime for optimization
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
@@ -76,19 +80,14 @@ s32 usleep(u32 useconds)
 {
 
 	XTime tEnd, tCur;
-	/* Enable the counter only if it is disable */
-	if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET)) & XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) != XIOU_SCNTRS_CNT_CNTRL_REG_EN){
-		/*write frequency to System Time Stamp Generator Register*/
-		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),XIOU_SCNTRS_FREQ);
+	/* Start global timer counter, it will only be enabled if it is disabled */
+	XTime_StartTimer();
 
-		/*Enable the counter*/
-		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),XIOU_SCNTRS_CNT_CNTRL_REG_EN);
-	}
-	XTime_GetTime(&tCur);
+	tCur = arch_counter_get_cntvct();
 	tEnd = tCur + (((XTime) useconds) * COUNTS_PER_USECOND);
 	do
 	{
-		XTime_GetTime(&tCur);
+		tCur = arch_counter_get_cntvct();
 	} while (tCur < tEnd);
 
 	return 0;

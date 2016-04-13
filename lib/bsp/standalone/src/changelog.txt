@@ -345,4 +345,10 @@
  *		       sleep.c and cortexa53/64bit/usleep.c to enable the timer if it is
  *		       disabled and read the counter value directly from register instead
  *		       of using XTime_GetTime for optimization
+ * 5.5 pkp   04/13/16  Modified cortexa53/32bit/xtime_l.c to add XTime_StartTimer which
+ *		       starts the timer if it is disabled and modified XTime_GetTime to
+ *		       enable the timer if it is not enabled. Also modified cortexa53/32bit/
+ *		       sleep.c and cortexa53/32bit/usleep.c to enable the timer if it is
+ *		       disabled and read the counter value directly from register instead
+ *		       of using XTime_GetTime for optimization
  *****************************************************************************************/
