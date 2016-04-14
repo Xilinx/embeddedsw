@@ -490,14 +490,6 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	}
 
 	/**
-	 * For 1.0 and 2.0 Silicon, a workaround is needed to clear card detect
-	 * control bits, to enable SD card insert/remove detection.
-	 */
-	if (XGetPSVersion_Info() <= XPS_VERSION_2) {
-		XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, 0X0U);
-	}
-
-	/**
 	 * psu initialization
 	 */
 	Status = (u32)psu_init();
@@ -534,6 +526,15 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	Xil_DCacheFlush();
 #endif
 #endif
+
+	/**
+	 * Forcing the SD card detection signal to bypass the debouncing logic.
+	 * This will ensure that SD controller doesn't end up waiting for long,
+	 * fixed durations for card to be stable.
+	 */
+	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL,
+			(IOU_SLCR_SD_CDN_CTRL_SD1_CDN_CTRL_MASK |
+					IOU_SLCR_SD_CDN_CTRL_SD0_CDN_CTRL_MASK));
 
 	/**
 	 * DDR Check if present
