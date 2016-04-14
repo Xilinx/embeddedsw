@@ -192,7 +192,7 @@ DSTATUS disk_status (
 		if (SlotType[pdrv] != XSDPS_CAPS_EMB_SLOT) {
 			if (CardDetect) {
 				while ((StatusReg & XSDPS_PSR_CARD_INSRT_MASK) == 0U) {
-					if (DelayCount = 500U) {
+					if (DelayCount == 500U) {
 						s = STA_NODISK | STA_NOINIT;
 						goto Label;
 					} else {
