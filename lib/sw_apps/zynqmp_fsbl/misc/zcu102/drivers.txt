@@ -1,0 +1,14 @@
+canps
+coresightps_dcc
+csudma
+emacps
+gpiops
+iicps
+qspipsu
+rtcpsu
+scugic
+sdps
+sysmonpsu
+ttcps
+uartps
+wdtps
