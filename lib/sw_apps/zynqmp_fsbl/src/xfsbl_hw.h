@@ -515,6 +515,9 @@ extern "C" {
 /* Register: IOU_SLCR_SD_CDN_CTRL */
 #define IOU_SLCR_SD_CDN_CTRL    ( ( IOU_SLCR_BASEADDR ) + 0X0000035CU )
 
+#define IOU_SLCR_SD_CDN_CTRL_SD1_CDN_CTRL_MASK    0X00010000U
+#define IOU_SLCR_SD_CDN_CTRL_SD0_CDN_CTRL_MASK    0X00000001U
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
