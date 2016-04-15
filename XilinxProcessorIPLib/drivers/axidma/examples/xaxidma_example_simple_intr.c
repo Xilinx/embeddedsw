@@ -70,6 +70,7 @@
  * 7.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656).
  * 9.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
  *		       removed the defines for S6/V6.
+ * 9.2   vak  15/04/16 Fixed compilation warnings in the example
  * </pre>
  *
  * ***************************************************************************
@@ -317,7 +318,7 @@ int main(void)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)TxBufferPtr, MAX_PKT_LEN);
+	Xil_DCacheFlushRange((UINTPTR)TxBufferPtr, MAX_PKT_LEN);
 #ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)RxBufferPtr, MAX_PKT_LEN);
 #endif
@@ -325,14 +326,14 @@ int main(void)
 	/* Send a packet */
 	for(Index = 0; Index < Tries; Index ++) {
 
-		Status = XAxiDma_SimpleTransfer(&AxiDma,(u32) RxBufferPtr,
+		Status = XAxiDma_SimpleTransfer(&AxiDma,(UINTPTR) RxBufferPtr,
 					MAX_PKT_LEN, XAXIDMA_DEVICE_TO_DMA);
 
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 
-		Status = XAxiDma_SimpleTransfer(&AxiDma,(u32) TxBufferPtr,
+		Status = XAxiDma_SimpleTransfer(&AxiDma,(UINTPTR) TxBufferPtr,
 					MAX_PKT_LEN, XAXIDMA_DMA_TO_DEVICE);
 
 		if (Status != XST_SUCCESS) {
