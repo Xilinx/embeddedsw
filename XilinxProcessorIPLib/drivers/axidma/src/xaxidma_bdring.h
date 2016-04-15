@@ -67,7 +67,7 @@
 *						 int RingIndex)
 * 7.00a srt  06/18/12  All the APIs changed in v6_00_a are reverted back for
 *		       backward compatibility.
-*
+* 9.2   vak  15/04/16  Fixed the compilation warnings in axidma driver
 *
 * </pre>
 *
@@ -236,18 +236,18 @@ typedef struct {
 	{								  \
 		if (!RingPtr->IsRxChannel) {				  \
 			(RingPtr)->BdaRestart = 			  \
-				(XAxiDma_Bd *)XAxiDma_ReadReg(		  \
+				(XAxiDma_Bd *)(UINTPTR)XAxiDma_ReadReg(		  \
 					(RingPtr)->ChanBase,  		  \
 					XAXIDMA_CDESC_OFFSET);		  \
 		} else {						  \
 			if (!RingPtr->RingIndex) {				  \
 				(RingPtr)->BdaRestart = 		  \
-				(XAxiDma_Bd *)XAxiDma_ReadReg(            \
+				(XAxiDma_Bd *)(UINTPTR)XAxiDma_ReadReg(            \
 					(RingPtr)->ChanBase, 		  \
 					XAXIDMA_CDESC_OFFSET);		  \
 			} else {					  \
 				(RingPtr)->BdaRestart = 		  \
-				(XAxiDma_Bd *)XAxiDma_ReadReg( 		  \
+				(XAxiDma_Bd *)(UINTPTR)XAxiDma_ReadReg( 		  \
 				(RingPtr)->ChanBase,                      \
 				(XAXIDMA_RX_CDESC0_OFFSET +		  \
                                 (RingPtr->RingIndex - 1) * 		  \
