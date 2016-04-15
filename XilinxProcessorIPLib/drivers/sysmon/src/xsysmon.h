@@ -212,6 +212,7 @@
 *					  Ultrascale. This fixes the CR#910905.
 * 7.2  adk  14/03/16 Fix compilation issues when sysmon is configured
 *                    with streaming interface CR#940976.
+* 7.3  vns  15/04/16 Corrected Ultrascale conversion formulae CR#949949
 * </pre>
 *
 *****************************************************************************/
@@ -475,7 +476,7 @@ typedef struct {
 #if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
 
 #define XSysMon_RawToTemperature(AdcData)				\
-	((((float)(AdcData)/1024.0f)/0.00199451786f ) - 273.67f)
+	((((float)(AdcData)/65536.0f)/0.00199451786f ) - 273.67f)
 
 #else
 
@@ -516,7 +517,7 @@ typedef struct {
 #if XPAR_SYSMON_0_IP_TYPE == SYSTEM_MANAGEMENT
 
 #define XSysMon_TemperatureToRaw(Temperature)				\
-	((int)(((Temperature) + 273.67f)*1024.0f*0.00199451786f))
+	((int)(((Temperature) + 273.67f)*65536.0f*0.00199451786f))
 
 #else
 
