@@ -351,4 +351,8 @@
  *		       sleep.c and cortexa53/32bit/usleep.c to enable the timer if it is
  *		       disabled and read the counter value directly from register instead
  *		       of using XTime_GetTime for optimization
+ * 5.5 pkp   04/13/16  Modified cortexa53/32bit/xil_cache.c and cortexa53/64bit/xil_cache.c
+ *		       to update the Xil_DCacheInvalidate, Xil_DCacheInvalidateLine and
+ * 		       Xil_DCacheInvalidateRange functions description for proper
+ *		       explaination to fix CR#949801
  *****************************************************************************************/
