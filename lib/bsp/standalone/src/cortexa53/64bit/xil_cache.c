@@ -43,6 +43,9 @@
 * Ver    Who Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 5.00 	pkp  05/29/14 First release
+* 5.05	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
+*					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
+*					  functions description for proper explaination
 *
 * </pre>
 *
@@ -116,13 +119,19 @@ void Xil_DCacheDisable(void)
 
 /****************************************************************************
 *
-* invalidate the Data cache.
+* Invalidate the Data cache. The contents present in the cache are cleaned and
+* invalidated.
 *
 * @param	None.
 *
 * @return	None.
 *
-* @note		None.
+* @note		In Cortex-A53, functionality to simply invalide the cachelines
+*  			is not present. Such operations are a problem for an environment
+* 			that supports virtualisation. It would allow one OS to invalidate
+* 			a line belonging to another OS which could lead to that OS crashing
+* 			because of the loss of essential data. Hence, such operations are
+* 			promoted to clean and invalidate which avoids such corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidate(void)
@@ -217,16 +226,18 @@ void Xil_DCacheInvalidate(void)
 
 /****************************************************************************
 *
-* Invalidate a Data cache line. If the byte specified by the address (adr)
-* is cached by the Data cache, the cacheline containing that byte is
-* invalidated.	If the cacheline is modified (dirty), the modified contents
-* are written to system memory before the line is invalidated.
+* Invalidate a Data cache line. The cacheline is cleaned and invalidated
 *
 * @param	Address to be flushed.
 *
 * @return	None.
 *
-* @note		The bottom 6 bits are set to 0, forced by architecture.
+* @note		In Cortex-A53, functionality to simply invalide the cachelines
+*  			is not present. Such operations are a problem for an environment
+* 			that supports virtualisation. It would allow one OS to invalidate
+* 			a line belonging to another OS which could lead to that OS crashing
+* 			because of the loss of essential data. Hence, such operations are
+* 			promoted to clean and invalidate which avoids such corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidateLine(INTPTR adr)
@@ -252,17 +263,19 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 /****************************************************************************
 *
 * Invalidate the Data cache for the given address range.
-* If the bytes specified by the address (adr) are cached by the Data cache,
-* the cacheline containing that byte is invalidated. If the cacheline
-* is modified (dirty), the modified contents are written to system memory
-* before the line is invalidated.
+* The cachelines present in the adderss range are cleaned and invalidated
 *
 * @param	Start address of range to be invalidated.
 * @param	Length of range to be invalidated in bytes.
 *
 * @return	None.
 *
-* @note		None.
+* @note		In Cortex-A53, functionality to simply invalide the cachelines
+*  			is not present. Such operations are a problem for an environment
+* 			that supports virtualisation. It would allow one OS to invalidate
+* 			a line belonging to another OS which could lead to that OS crashing
+* 			because of the loss of essential data. Hence, such operations are
+* 			promoted to clean and invalidate which avoids such corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)

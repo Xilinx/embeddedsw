@@ -41,7 +41,10 @@
 *
 * Ver    Who Date     Changes
 * ----- ---- -------- -----------------------------------------------
-* 5.2	pkp  	28/05/15 First release
+* 5.2	pkp  28/05/15 First release
+* 5.5	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
+*					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
+*					  functions description for proper explaination
 *
 ******************************************************************************/
 
@@ -117,13 +120,19 @@ void Xil_DCacheDisable(void)
 
 /****************************************************************************
 *
-* Invalidate the entire Data cache.
+* Invalidate the Data cache. The contents present in the cache are cleaned and
+* invalidated.
 *
 * @param	None.
 *
 * @return	None.
 *
-* @note		None.
+* @note		In Cortex-A53, functionality to simply invalide the cachelines
+*  			is not present. Such operations are a problem for an environment
+* 			that supports virtualisation. It would allow one OS to invalidate
+* 			a line belonging to another OS which could lead to that OS crashing
+* 			because of the loss of essential data. Hence, such operations are
+* 			promoted to clean and invalidate which avoids such corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidate(void)
@@ -228,17 +237,18 @@ void Xil_DCacheInvalidate(void)
 
 /****************************************************************************
 *
-* Invalidate a Data cache line. If the byte specified by the address (adr)
-* is cached by the Data cache, the cacheline containing that byte is
-* invalidated.	If the cacheline is modified (dirty), the modified contents
-* are lost and are NOT written to system memory before the line is
-* invalidated.
+* Invalidate a Data cache line. The cacheline is cleaned and invalidated
 *
 * @param	Address to be flushed.
 *
 * @return	None.
 *
-* @note		The bottom 4 bits are set to 0, forced by architecture.
+* @note		In Cortex-A53, functionality to simply invalide the cachelines
+*  			is not present. Such operations are a problem for an environment
+* 			that supports virtualisation. It would allow one OS to invalidate
+* 			a line belonging to another OS which could lead to that OS crashing
+* 			because of the loss of essential data. Hence, such operations are
+* 			promoted to clean and invalidate which avoids such corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidateLine(u32 adr)
@@ -266,54 +276,7 @@ void Xil_DCacheInvalidateLine(u32 adr)
 /****************************************************************************
 *
 * Invalidate the Data cache for the given address range.
-* If the bytes specified by the address (adr) are cached by the Data cache,
-* the cacheline containing that byte is invalidated.	If the cacheline
-* is modified (dirty), the modified contents are lost and are NOT
-* written to system memory before the line is invalidated.
-*
-* In this function, if start address or end address is not aligned to cache-line,
-* particular cache-line containing unaligned start or end address is flush first
-* and then invalidated the others as invalidating the same unaligned cache line
-* may result into loss of data. This issue raises few possibilities.
-*
-*
-* If the address to be invalidated is not cache-line aligned, the
-* following choices are available:
-* 1) Invalidate the cache line when required and do not bother much for the
-* side effects. Though it sounds good, it can result in hard-to-debug issues.
-* The problem is, if some other variable are allocated in the
-* same cache line and had been recently updated (in cache), the invalidation
-* would result in loss of data.
-*
-* 2) Flush the cache line first. This will ensure that if any other variable
-* present in the same cache line and updated recently are flushed out to memory.
-* Then it can safely be invalidated. Again it sounds good, but this can result
-* in issues. For example, when the invalidation happens
-* in a typical ISR (after a DMA transfer has updated the memory), then flushing
-* the cache line means, loosing data that were updated recently before the ISR
-* got invoked.
-*
-* Linux prefers the second one. To have uniform implementation (across standalone
-* and Linux), the second option is implemented.
-* This being the case, follwoing needs to be taken care of:
-* 1) Whenever possible, the addresses must be cache line aligned. Please nore that,
-* not just start address, even the end address must be cache line aligned. If that
-* is taken care of, this will always work.
-* 2) Avoid situations where invalidation has to be done after the data is updated by
-* peripheral/DMA directly into the memory. It is not tough to achieve (may be a bit
-* risky). The common use case to do invalidation is when a DMA happens. Generally
-* for such use cases, buffers can be allocated first and then start the DMA. The
-* practice that needs to be followed here is, immediately after buffer allocation
-* and before starting the DMA, do the invalidation. With this approach, invalidation
-* need not to be done after the DMA transfer is over.
-*
-* This is going to always work if done carefully.
-* However, the concern is, there is no guarantee that invalidate has not needed to be
-* done after DMA is complete. For example, because of some reasons if the first cache
-* line or last cache line (assuming the buffer in question comprises of multiple cache
-* lines) are brought into cache (between the time it is invalidated and DMA completes)
-* because of some speculative prefetching or reading data for a variable present
-* in the same cache line, then we will have to invalidate the cache after DMA is complete.
+* The cachelines present in the adderss range are cleaned and invalidated
 *
 *
 * @param	Start address of range to be invalidated.
@@ -321,7 +284,12 @@ void Xil_DCacheInvalidateLine(u32 adr)
 *
 * @return	None.
 *
-* @note		None.
+* @note		In Cortex-A53, functionality to simply invalide the cachelines
+*  			is not present. Such operations are a problem for an environment
+* 			that supports virtualisation. It would allow one OS to invalidate
+* 			a line belonging to another OS which could lead to that OS crashing
+* 			because of the loss of essential data. Hence, such operations are
+* 			promoted to clean and invalidate which avoids such corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidateRange(INTPTR adr, u32 len)
