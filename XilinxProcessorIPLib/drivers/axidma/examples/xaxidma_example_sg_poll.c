@@ -72,7 +72,7 @@
  * 7.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656).
  * 9.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
  *		       removed the defines for S6/V6.
- *
+ * 9.2   vak  15/04/16 Fixed compilation warnings in th example
  * </pre>
  *
  * ***************************************************************************
@@ -81,6 +81,10 @@
 #include "xaxidma.h"
 #include "xparameters.h"
 #include "xdebug.h"
+
+#ifdef __aarch64__
+#include "xil_mmu.h"
+#endif
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -354,7 +358,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 		if (Status != XST_SUCCESS) {
 			xil_printf("Set buffer addr %x on BD %x failed %d\r\n",
 			    (unsigned int)RxBufferPtr,
-			    (unsigned int)BdCurPtr, Status);
+			    (UINTPTR)BdCurPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -363,7 +367,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 				RxRingPtr->MaxTransferLen);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set length %d on BD %x failed %d\r\n",
-			    MAX_PKT_LEN, (unsigned int)BdCurPtr, Status);
+			    MAX_PKT_LEN, (UINTPTR)BdCurPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -522,7 +526,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	Status = XAxiDma_BdSetBufAddr(BdPtr, (UINTPTR) Packet);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tx set buffer addr %x on BD %x failed %d\r\n",
-		    (unsigned int)Packet, (unsigned int)BdPtr, Status);
+		    (UINTPTR)Packet, (UINTPTR)BdPtr, Status);
 
 		return XST_FAILURE;
 	}
@@ -531,7 +535,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 				TxRingPtr->MaxTransferLen);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Tx set length %d on BD %x failed %d\r\n",
-		    MAX_PKT_LEN, (unsigned int)BdPtr, Status);
+		    MAX_PKT_LEN, (UINTPTR)BdPtr, Status);
 
 		return XST_FAILURE;
 	}
@@ -552,7 +556,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	XAxiDma_BdSetCtrl(BdPtr, XAXIDMA_BD_CTRL_TXEOF_MASK |
 						XAXIDMA_BD_CTRL_TXSOF_MASK);
 
-	XAxiDma_BdSetId(BdPtr, (u32) Packet);
+	XAxiDma_BdSetId(BdPtr, (UINTPTR)Packet);
 
 	/* Give the BD to DMA to kick off the transmission. */
 	Status = XAxiDma_BdRingToHw(TxRingPtr, 1, BdPtr);
