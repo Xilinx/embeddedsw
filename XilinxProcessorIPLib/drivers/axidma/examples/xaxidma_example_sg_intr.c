@@ -85,6 +85,10 @@
 #include "xil_exception.h"
 #include "xdebug.h"
 
+#ifdef __aarch64__
+#include "xil_mmu.h"
+#endif
+
 #ifdef XPAR_UARTNS550_0_BASEADDR
 #include "xuartns550_l.h"       /* to use uartns550 */
 #endif
@@ -919,7 +923,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set buffer addr %x on BD %x failed %d\r\n",
 			(unsigned int)RxBufferPtr,
-			(unsigned int)BdCurPtr, Status);
+			(UINTPTR)BdCurPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -928,7 +932,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 					RxRingPtr->MaxTransferLen);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set length %d on BD %x failed %d\r\n",
-			    MAX_PKT_LEN, (unsigned int)BdCurPtr, Status);
+			    MAX_PKT_LEN, (UINTPTR)BdCurPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -1110,7 +1114,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)TxPacket, MAX_PKT_LEN *
+	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
 							NUMBER_OF_BDS_TO_TRANSFER);
 #ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
@@ -1125,7 +1129,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 		return XST_FAILURE;
 	}
 
-	BufferAddr = (u32) Packet;
+	BufferAddr = (UINTPTR)Packet;
 	BdCurPtr = BdPtr;
 
 	/*
@@ -1141,7 +1145,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 			if (Status != XST_SUCCESS) {
 				xil_printf("Tx set buffer addr %x on BD %x failed %d\r\n",
 				(unsigned int)BufferAddr,
-				(unsigned int)BdCurPtr, Status);
+				(UINTPTR)BdCurPtr, Status);
 
 				return XST_FAILURE;
 			}
@@ -1150,7 +1154,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr)
 						TxRingPtr->MaxTransferLen);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Tx set length %d on BD %x failed %d\r\n",
-				MAX_PKT_LEN, (unsigned int)BdCurPtr, Status);
+				MAX_PKT_LEN, (UINTPTR)BdCurPtr, Status);
 
 				return XST_FAILURE;
 			}
