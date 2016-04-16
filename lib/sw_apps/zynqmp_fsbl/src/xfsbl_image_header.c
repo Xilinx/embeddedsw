@@ -515,7 +515,7 @@ static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId, u32 DevId)
 	 */
 	Status = XFSBL_ERROR_ADDRESS;
 	XFsbl_Printf(DEBUG_GENERAL,
-		"XFSBL_ERROR_ADDRESS\n\r");
+		"XFSBL_ERROR_ADDRESS: %llx\n\r", Address);
 END:
 	return Status;
 }
