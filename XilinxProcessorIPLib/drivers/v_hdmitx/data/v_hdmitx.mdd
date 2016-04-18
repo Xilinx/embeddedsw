@@ -37,6 +37,5 @@ BEGIN driver v_hdmitx
   OPTION driver_state = ACTIVE;
   OPTION DEPENDS = (video_common_v2_2);
   OPTION copyfiles = all;
-  OPTION VERSION = *
   OPTION NAME = v_hdmitx;
 END driver

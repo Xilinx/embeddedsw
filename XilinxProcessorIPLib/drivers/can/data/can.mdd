@@ -51,7 +51,6 @@ BEGIN driver can
   OPTION supported_peripherals = (axi_can can);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = *
   OPTION NAME = can;
 
 END driver

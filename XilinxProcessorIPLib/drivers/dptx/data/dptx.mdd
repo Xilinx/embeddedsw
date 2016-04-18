@@ -37,6 +37,5 @@ BEGIN driver dptx
         OPTION driver_state = DEPRECATED;
 	OPTION depends = (video_common_v1_0);
         OPTION copyfiles = all;
-        OPTION VERSION = *
         OPTION NAME = dptx;
 END driver

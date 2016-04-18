@@ -36,7 +36,6 @@ BEGIN driver deinterlacer
   OPTION supported_peripherals = (v_deinterlacer_v[1-4]_[0-9]);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-   OPTION VERSION = *
   OPTION NAME = deinterlacer;  
 
 END driver

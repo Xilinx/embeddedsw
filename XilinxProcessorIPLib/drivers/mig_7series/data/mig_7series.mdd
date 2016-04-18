@@ -37,7 +37,6 @@ BEGIN driver mig_7series
   OPTION supported_peripherals = (mig_7series);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = *
   OPTION NAME = mig_7series;
 
 END driver

@@ -36,6 +36,5 @@ BEGIN driver hdcp22_cipher
   OPTION supported_peripherals = (hdcp22_cipher_v1_0);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = *
   OPTION NAME = hdcp22_cipher;
 END driver

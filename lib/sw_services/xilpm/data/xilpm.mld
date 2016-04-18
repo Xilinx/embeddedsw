@@ -37,6 +37,5 @@ BEGIN LIBRARY xilpm
   OPTION REQUIRES_OS = (standalone);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilpm,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Power Management API Library for ZynqMP";
-  OPTION VERSION = *
   OPTION NAME = xilpm;
 END LIBRARY

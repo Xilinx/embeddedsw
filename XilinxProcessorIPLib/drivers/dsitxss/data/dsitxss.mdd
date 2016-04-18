@@ -41,6 +41,5 @@ BEGIN driver dsitxss
 	OPTION supported_peripherals = (mipi_dsi_tx_subsystem);
 	OPTION driver_state = ACTIVE;
 	OPTION copyfiles = all;
-	OPTION VERSION = *
 	OPTION NAME = dsitxss;
 END driver

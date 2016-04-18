@@ -36,6 +36,5 @@ BEGIN driver v_voip_fec_rx
   OPTION supported_peripherals = (v_voip_fec_rx);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = *
   OPTION NAME = v_voip_fec_rx;
 END driver

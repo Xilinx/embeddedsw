@@ -37,7 +37,6 @@ BEGIN driver mig
   OPTION supported_peripherals = (mig_v[1-9]_[0-9] ddr4 ddr3);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = *
   OPTION NAME = mig;
 
 END driver

@@ -36,6 +36,5 @@ BEGIN driver v_voip_packetizer56
   OPTION supported_peripherals = (v_voip_packetizer56);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = *
   OPTION NAME = v_voip_packetizer56;
 END driver
