@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2004 - 2016 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,9 @@
 ## 2.4     nsk 11/05/15 Updated generate and post_generate procs, not to generate
 ##                      cpu macros, when microblaze is connected as one of
 ##                      the streaming slaves to itself. CR#876604
+## 2.5     asa 04/20/16 Fix for CR#947179. While populating the CPU_CORE_FREQ first
+##                      look for "Clk" pin and if not found use the CONFIG param
+##                      C_FREQ for microblaze to populate the CPU_CORE_FREQ_HZ.
 # uses xillib.tcl
 
 ########################################
@@ -393,6 +396,9 @@ proc generate {drv_handle} {
     # define CORE_CLOCK_FREQ_HZ
     #--------------------------
     set clk_freq [::hsi::utils::get_clk_pin_freq $periph "Clk"]
+    if {[llength $clk_freq] == 0} {
+	set clk_freq [common::get_property CONFIG.C_FREQ $periph]
+    }
     puts $file_handle "#define [::hsi::utils::get_driver_param_name "cpu" CORE_CLOCK_FREQ_HZ] $clk_freq"
     puts $file_handle "#define [format "XPAR_%s_CORE_CLOCK_FREQ_HZ" [string toupper $proctype]] $clk_freq"
 
