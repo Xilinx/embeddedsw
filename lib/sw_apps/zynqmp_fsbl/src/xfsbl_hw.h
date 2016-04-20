@@ -304,6 +304,7 @@ extern "C" {
 #define APU_RVBARADDR3H    ( ( APU_BASEADDR ) + 0X0000005CU )
 
 /* pmu_global */
+#define PMU_GLOBAL_GLOB_GEN_STORAGE6    ( ( PMU_GLOBAL_BASEADDR ) + 0X48U )
 
 /**
  * Register: PMU_GLOBAL_PERS_GLOB_GEN_STORAGE1

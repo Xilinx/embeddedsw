@@ -429,9 +429,9 @@ u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 
 	/**
 	 * After setting handoff parameters of all partitions to ATF,
-	 * Store address of the structure at Persistent register 4
+	 * store address of the structure in PMU_GLOBAL.GLOBAL_GEN_STORAGE6.
 	 */
-	XFsbl_Out32(LPD_SLCR_PERSISTENT4, (u32)((PTRSIZE) &ATFHandoffParams));
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE6, (u32)((PTRSIZE) &ATFHandoffParams));
 
 END:
 	return Status;
@@ -794,8 +794,8 @@ END:
 /**
 * This function sets the handoff parameters to the ARM Trusted Firmware (ATF)
 * Some of the inputs for this are taken from FSBL partition header
-* A pointer to the structure containing these parameters is stored in
-* persistent register 5, which ATF reads
+* A pointer to the structure containing these parameters is stored in the
+* PMU_GLOBAL.GLOBAL_GEN_STORAGE6 register, which ATF reads.
 *
 * @param PartitionHeader is pointer to the XFsblPs_PartitionHeader structure
 *
