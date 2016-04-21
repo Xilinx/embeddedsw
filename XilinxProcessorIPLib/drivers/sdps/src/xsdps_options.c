@@ -55,6 +55,7 @@
 *                       of SDR50, SDR104 and HS200.
 *       sk     02/16/16 Corrected the Tuning logic.
 *       sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
+* 2.8   sk     04/20/16 Added new workaround for auto tuning.
 *
 * </pre>
 *
@@ -92,6 +93,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 #if defined (__arm__) || defined (__aarch64__)
 void XSdPs_SetTapDelay(XSdPs *InstancePtr);
+static void XSdPs_DllReset(XSdPs *InstancePtr);
 #endif
 
 /*****************************************************************************/
@@ -1056,6 +1058,22 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 				XSDPS_HOST_CTRL2_OFFSET, CtrlReg);
 
+	/*
+	 * workaround which can work for 1.0/2.0 silicon for auto tuning.
+	 * This can be revisited for 3.0 silicon if necessary.
+	 */
+	/* Wait for ~60 clock cycles to reset the tap values */
+#if defined (__arm__) || defined (__aarch64__)
+	(void)usleep(1U);
+#elif defined (__MICROBLAZE__)
+	MB_Sleep(0.001U);
+#endif
+
+#if defined (__arm__) || defined (__aarch64__)
+	/* Issue DLL Reset to load new SDHC tuned tap values */
+	XSdPs_DllReset(InstancePtr);
+#endif
+
 	for (TuningCount = 0U; TuningCount < MAX_TUNING_COUNT; TuningCount++) {
 
 		if (InstancePtr->CardType == XSDPS_CARD_SD) {
@@ -1081,25 +1099,10 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 		goto RETURN_PATH;
 	}
 
-	/*
-	 * As per controller erratum, program the "SDCLK Frequency
-	 * Select" of clock control register with a value, say
-	 * clock/2. Wait for the Internal clock stable and program
-	 * the desired frequency.
-	 */
-	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_HOST_CTRL2_OFFSET);
-	if ((CtrlReg & XSDPS_HC2_SAMP_CLK_SEL_MASK) != 0U) {
-		Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed/2);
-		if (Status != XST_SUCCESS) {
-			goto RETURN_PATH ;
-		}
-		Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
-		if (Status != XST_SUCCESS) {
-			goto RETURN_PATH ;
-		}
-
-	}
+#if defined (__arm__) || defined (__aarch64__)
+	/* Issue DLL Reset to load new SDHC tuned tap values */
+	XSdPs_DllReset(InstancePtr);
+#endif
 
 	Status = XST_SUCCESS;
 
@@ -1147,6 +1150,71 @@ void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 		DllCtrl &= ~SD0_DLL_RST;
 		XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* API to reset the DLL
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+static void XSdPs_DllReset(XSdPs *InstancePtr)
+{
+	u32 ClockReg, DllCtrl;
+
+	/* Disable clock */
+	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_CLK_CTRL_OFFSET);
+	ClockReg &= ~XSDPS_CC_SD_CLK_EN_MASK;
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_CLK_CTRL_OFFSET, ClockReg);
+
+	/* Issue DLL Reset to load zero tap values */
+	DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
+	if (InstancePtr->Config.DeviceId == 0U) {
+		DllCtrl |= SD0_DLL_RST;
+	} else {
+		DllCtrl |= SD1_DLL_RST;
+	}
+	XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+
+	/* Wait for 2 micro seconds */
+#if defined (__arm__) || defined (__aarch64__)
+		(void)usleep(2U);
+#elif defined (__MICROBLAZE__)
+		MB_Sleep(0.002U);
+#endif
+
+	/* Release the DLL out of reset */
+	DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
+	if (InstancePtr->Config.DeviceId == 0U) {
+		DllCtrl &= ~SD0_DLL_RST;
+	} else {
+		DllCtrl &= ~SD1_DLL_RST;
+	}
+	XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
+
+	/* Wait for internal clock to stabilize */
+	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_CLK_CTRL_OFFSET);
+	while((ClockReg & XSDPS_CC_INT_CLK_STABLE_MASK) == 0U) {
+		ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_CLK_CTRL_OFFSET);
+	}
+
+	/* Enable SD clock */
+	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_CLK_CTRL_OFFSET);
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_CLK_CTRL_OFFSET,
+			ClockReg | XSDPS_CC_SD_CLK_EN_MASK);
 }
 #endif
 /** @} */
