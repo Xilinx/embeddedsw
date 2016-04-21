@@ -50,6 +50,7 @@
 *       kvn    07/15/15 Modified the code according to MISRAC-2012.
 * 2.7   sk     12/10/15 Added support for MMC cards.
 *       sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
+* 2.8   sk     04/20/16 Added new workaround for auto tuning.
 * </pre>
 *
 ******************************************************************************/
@@ -992,6 +993,7 @@ extern "C" {
 #define SD_ITAPDLY				0x00000314U
 #define SD_OTAPDLYSEL			0x00000318U
 #define SD0_DLL_RST				0x00000004U
+#define SD1_DLL_RST				0x00040000U
 #define SD0_ITAPCHGWIN			0x00000200U
 #define SD0_ITAPDLYENA			0x00000100U
 #define SD0_OTAPDLYENA			0x00000040U

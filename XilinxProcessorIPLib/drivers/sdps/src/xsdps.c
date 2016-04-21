@@ -163,6 +163,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 
 	/* Set some default values. */
+	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
