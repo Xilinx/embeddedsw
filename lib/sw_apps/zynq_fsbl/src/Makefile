@@ -60,7 +60,6 @@ DEPS	:= depends
 all: $(EXEC)
 
 $(EXEC): $(DEPS) $(LIBS) $(OBJS) $(INCLUDES)
-	cp $(BSP_DIR)/$(BOARD)/ps7_init.* .
 	$(LINKER) -o $@ $(OBJS) $(CC_FLAGS) $(LDFLAGS) $(LSCRIPT)
 	rm -rf $(OBJS) 
 
@@ -81,6 +80,8 @@ endif
 	
 	
 $(LIBS): 
+	echo "Copying ps7_init* files"
+	cp $(BSP_DIR)/$(BOARD)/ps7_init.* .
 	echo "Copying BSP files"
 	$(BSP_DIR)/copy_bsp.sh "$(BOARD)" "$(CC)"
 	echo "Compiling bsp"
@@ -89,6 +90,8 @@ $(LIBS):
 	elif [ $(CC) == "armcc" ]; then \
         make -C $(BSP_DIR) -k all "CC=armcc" "AR=armar" "C_FLAGS= -O2 -c" "EC_FLAGS=--debug --wchar32"; \
 	fi;
+
+$(OBJS): $(LIBS)
 
 %.o:%.c
 	$(CC) $(CC_FLAGS) $(CFLAGS) $(ECFLAGS) -c $< -o $@ $(INCLUDEPATH)
