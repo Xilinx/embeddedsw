@@ -1066,7 +1066,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 #if defined (__arm__) || defined (__aarch64__)
 	(void)usleep(1U);
 #elif defined (__MICROBLAZE__)
-	MB_Sleep(0.001U);
+	MB_Sleep(1U);
 #endif
 
 #if defined (__arm__) || defined (__aarch64__)
@@ -1189,7 +1189,7 @@ static void XSdPs_DllReset(XSdPs *InstancePtr)
 #if defined (__arm__) || defined (__aarch64__)
 		(void)usleep(2U);
 #elif defined (__MICROBLAZE__)
-		MB_Sleep(0.002U);
+		MB_Sleep(1U);
 #endif
 
 	/* Release the DLL out of reset */
