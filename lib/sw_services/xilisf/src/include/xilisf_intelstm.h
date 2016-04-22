@@ -123,6 +123,7 @@ extern "C" {
 #define XISF_MIC_DEV_N25Q256_3V0	0xBA19
 #define XISF_MIC_DEV_N25Q256_1V8	0xBB19
 #define XISF_MIC_DEV_MT25Q01_1V8	0xBB21
+#define XISF_MIC_DEV_MT25Q02_1V8	0xBB22
 
 /**
  * The following definitions specify the Device Id for the different
