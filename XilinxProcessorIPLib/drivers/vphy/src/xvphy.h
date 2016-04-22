@@ -702,6 +702,8 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 /* xvphy.c: Channel configuration functions - getters. */
 XVphy_PllType XVphy_GetPllType(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, XVphy_ChannelId ChId);
+XVphy_ChannelId XVphy_GetRcfgChId(XVphy *InstancePtr, u8 QuadId,
+		XVphy_DirectionType Dir, XVphy_PllType PllType);
 u32 XVphy_GetQuadRefClkFreq(XVphy *InstancePtr, u8 QuadId,
 		XVphy_PllRefClkSelType RefClkType);
 XVphy_PllRefClkSelType XVphy_GetPllRefClkSel(XVphy *InstancePtr, u8 QuadId,
@@ -804,6 +806,8 @@ void XVphy_SetHdmiCallback(XVphy *InstancePtr,
 		void *CallbackFunc, void *CallbackRef);
 void XVphy_SetDefaultPpc(XVphy *InstancePtr, u8 QuadId);
 void XVphy_SetPpc(XVphy *InstancePtr, u8 QuadId, u8 Ppc);
+u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

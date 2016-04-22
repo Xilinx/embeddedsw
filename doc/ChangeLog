@@ -551,6 +551,7 @@ Added GTPE2 and GTHE4 Support and Enhanced Event Log
 Updates for DP GTPE2 Support
 Fixed 1PPC MMCM parameter calculation in HDMI
 Corrected TX_CLK25_DIV1 and added RX_CLK25_DIV1 initialization
+Updated the RXCDRCFG2 values for GTHE4
 
 vprocss_v2_0:
 Made changes in mdd file to update OPTION DEPENDS.

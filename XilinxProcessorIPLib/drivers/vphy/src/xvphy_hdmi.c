@@ -139,8 +139,7 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 	/* Configure clock detector. */
 	XVphy_ClkDetEnable(InstancePtr, FALSE);
 	XVphy_ClkDetSetFreqTimeout(InstancePtr, SystemFrequency);
-	XVphy_ClkDetSetFreqLockThreshold(InstancePtr,
-			(255 << (XVPHY_CLKDET_CTRL_FREQ_LOCK_THRESH_SHIFT)));
+	XVphy_ClkDetSetFreqLockThreshold(InstancePtr, 255);
 
 	/* Start capturing logs. */
 	XVphy_LogReset(InstancePtr);
