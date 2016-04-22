@@ -47,6 +47,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
  * 1.1   gm   03/18/16 Added XVphy_Gthe4RxPllRefClkDiv1Reconfig function
+ *                     Added XVphy_Gthe4TxChReconfig function
+ *                     Corrected RXCDRCFG2 values
  * </pre>
  *
 *******************************************************************************/
@@ -83,6 +85,8 @@ u32 XVphy_Gthe4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
         XVphy_ChannelId CmnId);
 u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId,
         XVphy_ChannelId ChId);
+u32 XVphy_Gthe4TxChReconfig(XVphy *InstancePtr, u8 QuadId,
+        XVphy_ChannelId ChId);
 u32 XVphy_Gthe4TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
         XVphy_ChannelId ChId);
 u32 XVphy_Gthe4RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
@@ -92,6 +96,8 @@ u32 XVphy_Gthe4RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 
 /* DRP register space. */
 #define XVPHY_DRP_RXCDR_CFG(n)		(0x0E + n)
+#define XVPHY_DRP_RXCDR_CFG_GEN3(n)	(0xA2 + n)
+#define XVPHY_DRP_RXCDR_CFG_GEN4(n)	(0x119 + n)
 
 #define XVPHY_DRP_CPLL_FBDIV		0x28
 #define XVPHY_DRP_CPLL_REFCLK_DIV	0x2A
@@ -189,28 +195,28 @@ u32 XVphy_Gthe4CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		PllClkInFreqHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
 				ChPtr->CpllRefClkSel);
 		if (PllClkInFreqHz == 270000000) {
-			ChPtr->PllParams.Cdr[2] = 0x0766;
+			ChPtr->PllParams.Cdr[2] = 0x01B4;
 		}
 		else if (PllClkInFreqHz == 135000000) {
-			ChPtr->PllParams.Cdr[2] = 0x0756;
+			ChPtr->PllParams.Cdr[2] = 0x01C4;
 		}
 		/* RBR does not use DP159 forwarded clock and expects 162MHz. */
 		else {
-			ChPtr->PllParams.Cdr[2] = 0x0721;
+			ChPtr->PllParams.Cdr[2] = 0x01A3;
 		}
 	}
 	else if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
-		/* RxOutDiv = 1  => Cdr[2] = 0x07E4
-		 * RxOutDiv = 2  => Cdr[2] = 0x07D4
-		 * RxOutDiv = 4  => Cdr[2] = 0x07C4
-		 * RxOutDiv = 8  => Cdr[2] = 0x07B4
-		 * RxOutDiv = 16 => Cdr[2] = 0x07A4 */
-		ChPtr->PllParams.Cdr[2] = 0x07E4;
+		/* RxOutDiv = 1  => Cdr[2] = 0x0269
+		 * RxOutDiv = 2  => Cdr[2] = 0x0259
+		 * RxOutDiv = 4  => Cdr[2] = 0x0249
+		 * RxOutDiv = 8  => Cdr[2] = 0x0239
+		 * RxOutDiv = 16 => Cdr[2] = 0x0229 */
+		ChPtr->PllParams.Cdr[2] = 0x0269;
 		while (ChPtr->RxOutDiv >>= 1) {
 			ChPtr->PllParams.Cdr[2] -= 0x10;
 		}
 		/* Restore RxOutDiv. */
-		ChPtr->RxOutDiv = 1 << ((0x7E4 - ChPtr->PllParams.Cdr[2]) >> 4);
+		ChPtr->RxOutDiv = 1 << ((0x0269 - ChPtr->PllParams.Cdr[2]) >> 4);
 	}
 	else {
 		Status = XST_FAILURE;
@@ -278,7 +284,8 @@ u32 XVphy_Gthe4OutDivChReconfig(XVphy *InstancePtr, u8 QuadId,
 {
 	u16 DrpVal;
 	u16 WriteVal;
-		if (Dir == XVPHY_DIR_RX) {
+
+	if (Dir == XVPHY_DIR_RX) {
 		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0x63);
 		/* Mask out RX_OUT_DIV. */
 		DrpVal &= ~0x07;
@@ -324,6 +331,7 @@ u32 XVphy_Gthe4ClkChReconfig(XVphy *InstancePtr, u8 QuadId,
 {
 	u16 DrpVal;
 	u16 WriteVal;
+	u32 CpllxVcoRateMHz;
 
 	/* Obtain current DRP register value for PLL dividers. */
 	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0x28);
@@ -348,6 +356,50 @@ u32 XVphy_Gthe4ClkChReconfig(XVphy *InstancePtr, u8 QuadId,
 	/* Write new DRP register value for PLL dividers. */
 	XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x2A, DrpVal);
 
+	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
+		(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
+
+		CpllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, ChId,
+				XVphy_IsTxUsingQpll(InstancePtr, QuadId, ChId) ?
+						XVPHY_DIR_TX : XVPHY_DIR_RX) / 1000000;
+
+		/* CPLL_CFG0 */
+		if (CpllxVcoRateMHz <= 3000) {
+			DrpVal = 0x01FA;
+		}
+		else if (CpllxVcoRateMHz <= 4250) {
+			DrpVal = 0x0FFA;
+		}
+		else {
+			DrpVal = 0x03FE;
+		}
+		/* Write new DRP register value for CPLL_CFG0. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0xCB, DrpVal);
+
+		/* CPLL_CFG1 */
+		if (CpllxVcoRateMHz <= 3000) {
+			DrpVal = 0x0023;
+		}
+		else {
+			DrpVal = 0x0021;
+		}
+		/* Write new DRP register value for CPLL_CFG1. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0xCC, DrpVal);
+
+		/* CPLL_CFG2 */
+		if (CpllxVcoRateMHz <= 3000) {
+			DrpVal = 0x0002;
+		}
+		else if (CpllxVcoRateMHz <= 4250) {
+			DrpVal = 0x0202;
+		}
+		else {
+			DrpVal = 0x0203;
+		}
+		/* Write new DRP register value for CPLL_CFG2. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0xBC, DrpVal);
+	}
+
 	return XST_SUCCESS;
 }
 
@@ -371,6 +423,8 @@ u32 XVphy_Gthe4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 {
 	u16 DrpVal;
 	u16 WriteVal;
+	u32 QpllxVcoRateMHz;
+	u32 QpllxClkOutMHz;
 
 	/* Obtain current DRP register value for QPLLx_FBDIV. */
 	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
@@ -398,49 +452,94 @@ u32 XVphy_Gthe4ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 
 	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
 		(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
-		/* QPLLx_LPF */
-		switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.NFbDiv) {
-		case 40:
-			DrpVal = 0x3FF;
-			break;
-		case 80:
-			DrpVal = 0x3F4;
-			break;
-		case 160:
-			DrpVal = 0x3FC;
-			break;
-		default:
-			DrpVal = 0x3FE;
-			break;
+
+		QpllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, CmnId,
+				XVphy_IsTxUsingQpll(InstancePtr, QuadId, CmnId) ?
+						XVPHY_DIR_TX : XVPHY_DIR_RX) / 1000000;
+		QpllxClkOutMHz = QpllxVcoRateMHz / 2;
+
+		/* PPFx_CFG */
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+					(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x0D : 0x8D);
+		DrpVal &= ~(0x0FC0);
+		/* PPF_MUX_CRNT_CTRL0 */
+		if (QpllxVcoRateMHz >= 15000) {
+			DrpVal |= 0x0E00;
 		}
+		else if (QpllxVcoRateMHz >= 11000) {
+			DrpVal |= 0x0800;
+		}
+		else if (QpllxVcoRateMHz >= 7000) {
+			DrpVal |= 0x0600;
+		}
+		else {
+			DrpVal |= 0x0400;
+		}
+		/* PPF_MUX_TERM_CTRL0 */
+		if (QpllxVcoRateMHz >= 13000) {
+			DrpVal |= 0x0100;
+		}
+		else {
+			DrpVal |= 0x0000;
+		}
+		/* Write new DRP register value for PPFx_CFG. */
 		XVphy_DrpWrite(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
-			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x19 : 0x99, DrpVal);
+			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x0D : 0x8D, DrpVal);
 
 		/* QPLLx_CP */
-		switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.NFbDiv) {
-		case 160:
-			DrpVal = 0x1FF;
-			break;
-		default:
-			DrpVal = (CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x1F : 0x7F;
-			break;
+		if (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+				PllParams.NFbDiv <= 40) {
+			DrpVal = 0x007F;
 		}
+		else {
+			DrpVal = 0x03FF;
+		}
+		/* Write new DRP register value for QPLLx_CP. */
 		XVphy_DrpWrite(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
 			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x16 : 0x96, DrpVal);
 
+		/* QPLLx_LPF */
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+					(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x19 : 0x99);
+		DrpVal &= ~(0x0003);
+		if (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+				PllParams.NFbDiv <= 40) {
+			DrpVal |= 0x3;
+		}
+		else {
+			DrpVal |= 0x1;
+		}
+		/* Write new DRP register value for QPLLx_LPF. */
+		XVphy_DrpWrite(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x19 : 0x99, DrpVal);
+
 		/* QPLLx_CFG4 */
-		DrpVal = 0x1B;
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+					(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x30 : 0xB0);
+		DrpVal &= ~(0x00E7);
+		/* Q_TERM_CLK */
+		if (QpllxClkOutMHz >= 7500) {
+			DrpVal |= 0x2 << 5;
+		}
+		else if (QpllxClkOutMHz >= 3500) {
+			DrpVal |= 0x0 << 5;
+		}
+		else {
+			DrpVal |= 0x6 << 5;
+		}
+		/* Q_DCRNT_CLK */
+		if (QpllxClkOutMHz >= 7500) {
+			DrpVal |= 0x5;
+		}
+		else if (QpllxClkOutMHz >= 5500) {
+			DrpVal |= 0x4;
+		}
+		else {
+			DrpVal |= 0x3;
+		}
+		/* Write new DRP register value for QPLLx_CFG4. */
 		XVphy_DrpWrite(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
 			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x30 : 0xB0, DrpVal);
-		/* QPLLx_LOCK_CFG */
-		DrpVal = 0x25E8;
-		XVphy_DrpWrite(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
-			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x12 : 0x92, DrpVal);
-		/* QPLLx_LOCK_CFG_G3 */
-		XVphy_DrpWrite(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
-			(CmnId == XVPHY_CHANNEL_ID_CMN0) ? 0x1D : 0x9D, DrpVal);
 	}
 
 	return XST_SUCCESS;
@@ -467,6 +566,11 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	u16 DrpVal;
 	u16 WriteVal;
 	u8 CfgIndex;
+	XVphy_ChannelId ChIdPll;
+	XVphy_PllType PllType;
+	u32 PllxVcoRateMHz;
+	u32 PllxClkOutMHz;
+	u32 PllxClkOutDiv;
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
 
@@ -479,9 +583,17 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 		XVphy_DrpWrite(InstancePtr, QuadId, ChId,
 				XVPHY_DRP_RXCDR_CFG(CfgIndex), DrpVal);
+		if (CfgIndex == 2) {
+			XVphy_DrpWrite(InstancePtr, QuadId, ChId,
+					XVPHY_DRP_RXCDR_CFG_GEN3(CfgIndex), DrpVal);
+			XVphy_DrpWrite(InstancePtr, QuadId, ChId,
+					XVPHY_DRP_RXCDR_CFG_GEN4(CfgIndex), DrpVal);
+
+		}
 	}
 
 	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+		/* RX_INT_DATAWIDTH */
 		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0x66);
 		DrpVal &= ~(0x3);
 		WriteVal = Xvphy_DrpEncodeRxIntDataWidth(ChPtr->RxIntDataWidth);
@@ -495,10 +607,230 @@ u32 XVphy_Gthe4RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		WriteVal <<= 5;
 		DrpVal |= WriteVal;
 		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x03, DrpVal);
+
+		/* Determine PLL type. */
+		PllType = XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId);
+		/* Determine which channel(s) to operate on. */
+		switch (PllType) {
+			case XVPHY_PLL_TYPE_QPLL:
+			case XVPHY_PLL_TYPE_QPLL0:
+			case XVPHY_PLL_TYPE_PLL0:
+				ChIdPll = XVPHY_CHANNEL_ID_CMN0;
+				PllxClkOutDiv = 2;
+				break;
+			case XVPHY_PLL_TYPE_QPLL1:
+			case XVPHY_PLL_TYPE_PLL1:
+				ChIdPll = XVPHY_CHANNEL_ID_CMN1;
+				PllxClkOutDiv = 2;
+				break;
+			default:
+				ChIdPll = ChId;
+				PllxClkOutDiv = 1;
+				break;
+		}
+
+		PllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
+				XVPHY_DIR_RX) / 1000000;
+		PllxClkOutMHz = PllxVcoRateMHz / PllxClkOutDiv;
+
+		/* CH_HSPMUX_RX */
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0x116);
+		DrpVal &= ~(0x00FF);
+		if (PllxClkOutMHz >= 7500) {
+			DrpVal |= 0x68;
+		}
+		else if (PllxClkOutMHz >= 5500) {
+			DrpVal |= 0x44;
+		}
+		else if (PllxClkOutMHz >= 3500) {
+			DrpVal |= 0x24;
+		}
+		else {
+			DrpVal |= 0x3C;
+		}
+		/* Write new DRP register value for CH_HSPMUX_RX. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x116, DrpVal);
+
+		/* PREIQ_FREQ_BST */
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0xFB);
+		DrpVal &= ~(0x0030);
+		if (PllxClkOutMHz > 14110) {
+			DrpVal |= 3 << 4;
+		}
+		else if (PllxClkOutMHz >= 14000) {
+			DrpVal |= 2 << 4; /* LPM Mode */
+		}
+		else if (PllxClkOutMHz >= 10000) {
+			DrpVal |= 2 << 4;
+		}
+		else if (PllxClkOutMHz >= 6000) {
+			DrpVal |= 1 << 4;
+		}
+		/* Write new DRP register value for PREIQ_FREQ_BST. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0xFB, DrpVal);
+
+		/* RXPI_CFG0 */
+		if (PllxClkOutMHz >= 8500) {
+			DrpVal = 0x0004;
+		}
+		else if (PllxClkOutMHz >= 7500) {
+			DrpVal = 0x0104;
+		}
+		else if (PllxClkOutMHz >= 6500) {
+			DrpVal = 0x0204;
+		}
+		else if (PllxClkOutMHz >= 5500) {
+			DrpVal = 0x2304;
+		}
+		else if (PllxClkOutMHz >= 4500) {
+			DrpVal = 0x0002;
+		}
+		else if (PllxClkOutMHz >= 3500) {
+			DrpVal = 0x2202;
+		}
+		else if (PllxClkOutMHz >= 3000) {
+			DrpVal = 0x0000;
+		}
+		else if (PllxClkOutMHz >= 2500) {
+			DrpVal = 0x1200;
+		}
+		else {
+			DrpVal = 0x3300;
+		}
+		/* Write new DRP register value for RXPI_CFG0. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x9D, DrpVal);
+
+		/* RXPI_CFG1 */
+		if (PllxClkOutMHz >= 5500) {
+			DrpVal = 0x0000;
+		}
+		else if (PllxClkOutMHz >= 4500) {
+			DrpVal = 0x0015;
+		}
+		else if (PllxClkOutMHz >= 3500) {
+			DrpVal = 0x0045;
+		}
+		else if (PllxClkOutMHz >= 2000) {
+			DrpVal = 0x00FD;
+		}
+		else {
+			DrpVal = 0x00FF;
+		}
+		/* Write new DRP register value for RXPI_CFG1. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x100, DrpVal);
 	}
 
 	XVphy_Gthe4RxPllRefClkDiv1Reconfig(InstancePtr, QuadId, ChId);
 
+	return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+* This function will configure the channel's TX settings.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_Gthe4TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
+{
+	u16 DrpVal;
+	XVphy_ChannelId ChIdPll;
+	XVphy_PllType PllType;
+	u32 PllxVcoRateMHz;
+	u32 PllxClkOutMHz;
+	u32 PllxClkOutDiv;
+
+	/* Determine PLL type. */
+	PllType = XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_TX, ChId);
+	/* Determine which channel(s) to operate on. */
+	switch (PllType) {
+		case XVPHY_PLL_TYPE_QPLL:
+		case XVPHY_PLL_TYPE_QPLL0:
+		case XVPHY_PLL_TYPE_PLL0:
+			ChIdPll = XVPHY_CHANNEL_ID_CMN0;
+			PllxClkOutDiv = 2;
+			break;
+		case XVPHY_PLL_TYPE_QPLL1:
+		case XVPHY_PLL_TYPE_PLL1:
+			ChIdPll = XVPHY_CHANNEL_ID_CMN1;
+			PllxClkOutDiv = 2;
+			break;
+		default:
+			ChIdPll = ChId;
+			PllxClkOutDiv = 1;
+			break;
+	}
+
+	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+
+		PllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
+				XVPHY_DIR_TX) / 1000000;
+		PllxClkOutMHz = PllxVcoRateMHz / PllxClkOutDiv;
+
+		/* TXPI_CFG */
+		if (PllxClkOutMHz >= 5500) {
+			DrpVal = 0x0000;
+		}
+		else if (PllxClkOutMHz >= 3500) {
+			DrpVal = 0x0054;
+		}
+		else {
+			DrpVal = 0x03DF;
+		}
+		/* Write new DRP register value for TXPI_CFG. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0xFF, DrpVal);
+
+		/* TXPI_CFG3 */
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0x9C);
+		DrpVal &= ~(0x0040);
+		if (PllxClkOutMHz < 7500 && PllxClkOutMHz >= 5500) {
+			DrpVal |= 1 << 6;
+		}
+		/* Write new DRP register value for TXPI_CFG3. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x9C, DrpVal);
+
+		/* TX_PI_BIASSET */
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0xFB);
+		DrpVal &= ~(0x0006);
+		if (PllxClkOutMHz >= 7500) {
+			DrpVal |= 3 << 1;
+		}
+		else if (PllxClkOutMHz >= 5500) {
+			DrpVal |= 2 << 1;
+		}
+		else if (PllxClkOutMHz >= 3500) {
+			DrpVal |= 1 << 1;
+		}
+		/* Write new DRP register value for TX_PI_BIASSET. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0xFB, DrpVal);
+
+		/* CH_HSPMUX_TX */
+		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0x116);
+		DrpVal &= ~(0xFF00);
+		if (PllxClkOutMHz >= 7500) {
+			DrpVal |= 0x68 << 8;
+		}
+		else if (PllxClkOutMHz >= 5500) {
+			DrpVal |= 0x44 << 8;
+		}
+		else if (PllxClkOutMHz >= 3500) {
+			DrpVal |= 0x24 << 8;
+		}
+		else {
+			DrpVal |= 0x3C << 8;
+		}
+		/* Write new DRP register value for CH_HSPMUX_TX. */
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x116, DrpVal);
+	}
 	return (XST_SUCCESS);
 }
 
@@ -537,8 +869,16 @@ u32 XVphy_Gthe4TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 	DrpVal &= ~(0xF800);
 	DrpVal |= XVphy_DrpEncodeClk25(TxRefClkHz) << 11;
 
-	return XVphy_DrpWrite(InstancePtr, QuadId, ChId, XVPHY_DRP_TXCLK25,
-			DrpVal);
+	if (InstancePtr->Config.TxProtocol != XVPHY_PROTOCOL_HDMI) {
+		return XVphy_DrpWrite(InstancePtr, QuadId, ChId, XVPHY_DRP_TXCLK25,
+				DrpVal);
+	}
+	else {
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, XVPHY_DRP_TXCLK25,
+				DrpVal);
+
+		return XVphy_Gthe4TxChReconfig(InstancePtr, QuadId, ChId);
+	}
 }
 
 /*****************************************************************************/

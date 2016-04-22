@@ -161,6 +161,7 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 			XVPHY_GTXE2_DIFF_SWING_DP_L1);
 		break;
 	case XVPHY_GT_TYPE_GTHE3:
+	case XVPHY_GT_TYPE_GTHE4:
 		XVphy_CfgQuadRefClkFreq(InstancePtr, QuadId,
 			XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0,
 			XVPHY_DP_REF_CLK_FREQ_HZ_162);

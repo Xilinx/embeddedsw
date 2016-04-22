@@ -213,20 +213,7 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 			(RxPllType == XVPHY_PLL_TYPE_PLL1)) {
 
 		/* Determine which channel(s) to operate on. */
-		switch (RxPllType) {
-		case XVPHY_PLL_TYPE_QPLL:
-		case XVPHY_PLL_TYPE_QPLL0:
-		case XVPHY_PLL_TYPE_PLL0:
-			ChId = XVPHY_CHANNEL_ID_CMN0;
-			break;
-		case XVPHY_PLL_TYPE_QPLL1:
-		case XVPHY_PLL_TYPE_PLL1:
-			ChId = XVPHY_CHANNEL_ID_CMN1;
-			break;
-		default:
-			ChId = XVPHY_CHANNEL_ID_CHA;
-			break;
-		}
+		ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_RX, RxPllType);
 
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
@@ -269,20 +256,7 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 	/* TX is using QPLL. */
 	else {
 		/* Determine which channel(s) to operate on. */
-		switch (TxPllType) {
-		case XVPHY_PLL_TYPE_QPLL:
-		case XVPHY_PLL_TYPE_QPLL0:
-		case XVPHY_PLL_TYPE_PLL0:
-			ChId = XVPHY_CHANNEL_ID_CMN0;
-			break;
-		case XVPHY_PLL_TYPE_QPLL1:
-		case XVPHY_PLL_TYPE_PLL1:
-			ChId = XVPHY_CHANNEL_ID_CMN1;
-			break;
-		default:
-			ChId = XVPHY_CHANNEL_ID_CHA;
-			break;
-		}
+		ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_TX, TxPllType);
 
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
@@ -335,20 +309,7 @@ void XVphy_HdmiGtpPllLockHandler(XVphy *InstancePtr, u8 Pll)
 	    ((RxPllType == XVPHY_PLL_TYPE_PLL1) && (Pll == 1))) {
 
 		/* Determine which channel(s) to operate on. */
-		switch (RxPllType) {
-		case XVPHY_PLL_TYPE_QPLL:
-		case XVPHY_PLL_TYPE_QPLL0:
-		case XVPHY_PLL_TYPE_PLL0:
-			ChId = XVPHY_CHANNEL_ID_CMN0;
-			break;
-		case XVPHY_PLL_TYPE_QPLL1:
-		case XVPHY_PLL_TYPE_PLL1:
-			ChId = XVPHY_CHANNEL_ID_CMN1;
-			break;
-		default:
-			ChId = XVPHY_CHANNEL_ID_CHA;
-			break;
-		}
+		ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_RX, RxPllType);
 
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
@@ -395,20 +356,7 @@ void XVphy_HdmiGtpPllLockHandler(XVphy *InstancePtr, u8 Pll)
 	/* TX is using QPLL. */
 	else {
 		/* Determine which channel(s) to operate on. */
-		switch (TxPllType) {
-		case XVPHY_PLL_TYPE_QPLL:
-		case XVPHY_PLL_TYPE_QPLL0:
-		case XVPHY_PLL_TYPE_PLL0:
-			ChId = XVPHY_CHANNEL_ID_CMN0;
-			break;
-		case XVPHY_PLL_TYPE_QPLL1:
-		case XVPHY_PLL_TYPE_PLL1:
-			ChId = XVPHY_CHANNEL_ID_CMN1;
-			break;
-		default:
-			ChId = XVPHY_CHANNEL_ID_CHA;
-			break;
-		}
+		ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_TX, TxPllType);
 
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
@@ -465,20 +413,7 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 	/* RX is using CPLL. */
 	if (RxPllType == XVPHY_PLL_TYPE_CPLL) {
 		/* Determine which channel(s) to operate on. */
-		switch (RxPllType) {
-		case XVPHY_PLL_TYPE_QPLL:
-		case XVPHY_PLL_TYPE_QPLL0:
-		case XVPHY_PLL_TYPE_PLL0:
-			ChId = XVPHY_CHANNEL_ID_CMN0;
-			break;
-		case XVPHY_PLL_TYPE_QPLL1:
-		case XVPHY_PLL_TYPE_PLL1:
-			ChId = XVPHY_CHANNEL_ID_CMN1;
-			break;
-		default:
-			ChId = XVPHY_CHANNEL_ID_CHA;
-			break;
-		}
+		ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_RX, RxPllType);
 
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
@@ -517,20 +452,7 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 	/* TX is using CPLL. */
 	else {
 		/* Determine which channel(s) to operate on. */
-		switch (TxPllType) {
-		case XVPHY_PLL_TYPE_QPLL:
-		case XVPHY_PLL_TYPE_QPLL0:
-		case XVPHY_PLL_TYPE_PLL0:
-			ChId = XVPHY_CHANNEL_ID_CMN0;
-			break;
-		case XVPHY_PLL_TYPE_QPLL1:
-		case XVPHY_PLL_TYPE_PLL1:
-			ChId = XVPHY_CHANNEL_ID_CMN1;
-			break;
-		default:
-			ChId = XVPHY_CHANNEL_ID_CHA;
-			break;
-		}
+		ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_TX, TxPllType);
 
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
@@ -865,20 +787,7 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	PllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_TX,
 			XVPHY_CHANNEL_ID_CH1);
 	/* Determine which channel(s) to operate on. */
-	switch (PllType) {
-		case XVPHY_PLL_TYPE_QPLL:
-		case XVPHY_PLL_TYPE_QPLL0:
-		case XVPHY_PLL_TYPE_PLL0:
-			ChId = XVPHY_CHANNEL_ID_CMN0;
-			break;
-		case XVPHY_PLL_TYPE_QPLL1:
-		case XVPHY_PLL_TYPE_PLL1:
-			ChId = XVPHY_CHANNEL_ID_CMN1;
-			break;
-		default:
-			ChId = XVPHY_CHANNEL_ID_CHA;
-			break;
-	}
+	ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_TX, PllType);
 
 	/* Start TX MMCM. */
 	XVphy_MmcmStart(InstancePtr, 0, XVPHY_DIR_TX);
@@ -959,20 +868,7 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	PllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_RX,
 			XVPHY_CHANNEL_ID_CH1);
 	/* Determine which channel(s) to operate on. */
-	switch (PllType) {
-	case XVPHY_PLL_TYPE_QPLL:
-	case XVPHY_PLL_TYPE_QPLL0:
-	case XVPHY_PLL_TYPE_PLL0:
-		ChId = XVPHY_CHANNEL_ID_CMN0;
-		break;
-	case XVPHY_PLL_TYPE_QPLL1:
-	case XVPHY_PLL_TYPE_PLL1:
-		ChId = XVPHY_CHANNEL_ID_CMN1;
-		break;
-	default:
-		ChId = XVPHY_CHANNEL_ID_CHA;
-		break;
-	}
+	ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_RX, PllType);
 
 	XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0, &Id1);
 
@@ -1040,6 +936,12 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 		/* Wait for reset sequence to release DRP port. */
 		XVphy_WaitUs(InstancePtr, 5000);
 	}
+
+	/* Determine PLL type. */
+	PllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_RX,
+			XVPHY_CHANNEL_ID_CH1);
+	/* Determine which channel(s) to operate on. */
+	ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_RX, PllType);
 
 	XVphy_ClkReconfig(InstancePtr, 0, ChId);
 	XVphy_OutDivReconfig(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,

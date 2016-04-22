@@ -52,6 +52,7 @@
  *                     Added TxBufferBypass in XVphy_Config structure.
  *                     Added XVphy_SetDefaultPpc and XVphy_SetPpc functions.
  *       als           Added XVphy_GetLineRateHz function.
+ *       gm   20/04/16 Added XVphy_GetRcfgChId function
  * </pre>
  *
 *******************************************************************************/
@@ -762,6 +763,44 @@ XVphy_PllType XVphy_GetPllType(XVphy *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
+* Obtain the reconfiguration channel ID for given PLL type
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+* @param	PllType is the PLL type being used by the channel.
+*
+* @return	The Channel ID to be used for reconfiguration
+*
+* @note		None.
+*
+******************************************************************************/
+XVphy_ChannelId XVphy_GetRcfgChId(XVphy *InstancePtr, u8 QuadId,
+		XVphy_DirectionType Dir, XVphy_PllType PllType)
+{
+	XVphy_ChannelId ChId;
+
+	/* Determine which channel(s) to operate on. */
+	switch (PllType) {
+	case XVPHY_PLL_TYPE_QPLL:
+	case XVPHY_PLL_TYPE_QPLL0:
+	case XVPHY_PLL_TYPE_PLL0:
+		ChId = XVPHY_CHANNEL_ID_CMN0;
+		break;
+	case XVPHY_PLL_TYPE_QPLL1:
+	case XVPHY_PLL_TYPE_PLL1:
+		ChId = XVPHY_CHANNEL_ID_CMN1;
+		break;
+	default:
+		ChId = XVPHY_CHANNEL_ID_CHA;
+		break;
+	}
+
+	return ChId;
+}
+
+/*****************************************************************************/
+/**
 * Obtain the current reference clock frequency for the quad based on the
 * reference clock type.
 *
@@ -804,7 +843,7 @@ u32 XVphy_GetQuadRefClkFreq(XVphy *InstancePtr, u8 QuadId,
 XVphy_PllRefClkSelType XVphy_GetPllRefClkSel(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId)
 {
-	XVphy_PllRefClkSelType Sel;
+	u32 Sel;
 	u32 RegVal;
 
 	Xil_AssertNonvoid((XVPHY_CHANNEL_ID_CH1 <= ChId) &&
@@ -813,8 +852,6 @@ XVphy_PllRefClkSelType XVphy_GetPllRefClkSel(XVphy *InstancePtr, u8 QuadId,
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 							XVPHY_REF_CLK_SEL_REG);
 
-	/* Synchronize software configuration to hardware. */
-	Sel = InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].PllRefClkSel;
 	/* Synchronize software configuration to hardware. */
 	if (ChId == XVPHY_CHANNEL_ID_CMN0) {
 		Sel = RegVal & XVPHY_REF_CLK_SEL_QPLL0_MASK;
@@ -848,14 +885,12 @@ XVphy_PllRefClkSelType XVphy_GetPllRefClkSel(XVphy *InstancePtr, u8 QuadId,
 XVphy_SysClkDataSelType XVphy_GetSysClkDataSel(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, XVphy_ChannelId ChId)
 {
-	XVphy_SysClkDataSelType Sel;
+	u32 Sel;
 	u32 RegVal;
 
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 							XVPHY_REF_CLK_SEL_REG);
 
-	Sel = InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].
-		DataRefClkSel[Dir];
 	if (Dir == XVPHY_DIR_TX) {
 		/* Synchronize software configuration to hardware. */
 		Sel = RegVal & XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK(
@@ -891,14 +926,12 @@ XVphy_SysClkDataSelType XVphy_GetSysClkDataSel(XVphy *InstancePtr, u8 QuadId,
 XVphy_SysClkOutSelType XVphy_GetSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, XVphy_ChannelId ChId)
 {
-	XVphy_SysClkOutSelType Sel;
+	u32 Sel;
 	u32 RegVal;
 
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 			XVPHY_REF_CLK_SEL_REG);
 
-	Sel = InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].
-		OutRefClkSel[Dir];
 	if (Dir == XVPHY_DIR_TX) {
 		/* Synchronize software configuration to hardware. */
 		Sel = RegVal & XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK(
@@ -2558,4 +2591,60 @@ void XVphy_SetDefaultPpc(XVphy *InstancePtr, u8 QuadId)
 void XVphy_SetPpc(XVphy *InstancePtr, u8 QuadId, u8 Ppc)
 {
 	InstancePtr->Config.Ppc = Ppc;
+}
+
+/*****************************************************************************/
+/**
+* This function calculates the PLL VCO operating frequency.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return	PLL VCO frequency in Hz
+*
+* @note		None.
+*
+******************************************************************************/
+u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, XVphy_DirectionType Dir)
+{
+	u64 PllxVcoRateHz;
+	u64 PllRefClkHz;
+	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
+                    Plls[XVPHY_CH2IDX(ChId)];
+
+	if (Dir == XVPHY_DIR_TX) {
+		if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+			PllRefClkHz = InstancePtr->HdmiTxRefClkHz;
+		}
+		else {
+			PllRefClkHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
+									PllPtr->PllRefClkSel);
+		}
+	}
+	else {
+		if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+			if (InstancePtr->HdmiRxDruIsEnabled) {
+				PllRefClkHz = XVphy_DruGetRefClkFreqHz(InstancePtr);
+			}
+			else {
+				PllRefClkHz = InstancePtr->HdmiRxRefClkHz;
+			}
+		}
+		else {
+			PllRefClkHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
+									PllPtr->PllRefClkSel);
+		}
+	}
+
+	PllxVcoRateHz = (PllRefClkHz *
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].
+								PllParams.N1FbDiv *
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].
+								PllParams.N2FbDiv) /
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].
+								PllParams.MRefClkDiv;
+
+	return PllxVcoRateHz;
 }
