@@ -167,6 +167,7 @@
 *                       API to read interlaced mode status.
 *                       Corrected XVtc_ConvSignal2Timing API to get interlaced
 *                       mode from SignalCfgPtr structure.
+* 7.2   mh     04/20/16 Removed call to XVtc_Reset from XVtc_CfgInitialize.
 * </pre>
 *
 ******************************************************************************/
@@ -238,18 +239,14 @@ int XVtc_CfgInitialize(XVtc *InstancePtr, XVtc_Config *CfgPtr,
 			   sizeof(XVtc_Config));
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
-	/* Set all handlers to stub values, let user configure this data later
-	 */
+	/* Set all handlers to stub values, let user configure this data later */
 	InstancePtr->FrameSyncCallBack = (XVtc_CallBack) StubCallBack;
 	InstancePtr->LockCallBack = (XVtc_CallBack) StubCallBack;
 	InstancePtr->DetectorCallBack = (XVtc_CallBack) StubCallBack;
 	InstancePtr->GeneratorCallBack = (XVtc_CallBack) StubCallBack;
 	InstancePtr->ErrCallBack = (XVtc_ErrorCallBack) StubErrCallBack;
 
-	/* Reset the hardware and set the flag to indicate the driver is
-	 * ready
-	 */
-	XVtc_Reset(InstancePtr);
+	/* Set the flag to indicate the driver is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
 	return XST_SUCCESS;
