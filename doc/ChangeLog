@@ -1114,6 +1114,7 @@ Modifies XVtc_SetGenerator, XVtc_GetGenerator, XVtc_GetDetector, XVtc_ConvTiming
 Removes XVTC_ERR_FIL_MASK macro because it is  not present in latest product guide.
 Modifies register offsets from XVTC_* to XVTC_*_OFFSET for consistency.
 Adds new file xvtc_selftest.c.
+Removed call to Reset from initialization function to avoid processor exception. See CR#949946
 
 xadcps_v2_2:
 Minor driver version upgrade that uses correct Device Config base address in xadcps.c.
