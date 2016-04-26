@@ -182,6 +182,7 @@
  * 2.3   kpc 02/19/14 Fixed CR#873972, CR#873974. Corrected the logic for proper
  *                    moving of dTD Head/Tail Pointers. Invalidate the cache
  *                    after buffer receive in Endpoint Buffer Handler.
+ * 2.4   sg  04/26/16 Fixed CR#949693, Corrected the logic for EP flush
  * </pre>
  *
  ******************************************************************************/
@@ -801,8 +802,8 @@ typedef struct {
 ******************************************************************************/
 #define XUsbPs_EpFlush(InstancePtr, EpNum, Dir) \
 	XUsbPs_SetBits(InstancePtr, XUSBPS_EPFLUSH_OFFSET,	\
-		EpNum << ((Dir) & XUSBPS_EP_DIRECTION_OUT ?		\
-			XUSBPS_EPFLUSH_RX_SHIFT:XUSBPS_EPFLUSH_TX_SHIFT)) \
+		1 << (EpNum + ((Dir) & XUSBPS_EP_DIRECTION_OUT ?		\
+			XUSBPS_EPFLUSH_RX_SHIFT:XUSBPS_EPFLUSH_TX_SHIFT))) \
 
 /*****************************************************************************/
 /**
