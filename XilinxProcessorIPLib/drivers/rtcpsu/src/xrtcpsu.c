@@ -52,6 +52,7 @@
 *                       switching when vcc_psaux is not available.
 * 1.2          02/15/16 Corrected Calibration mask and Fractional
 *                       mask in CalculateCalibration API.
+* 1.3   vak    04/25/16 Corrected the RTC read and write time logic(cr#948833).
 * </pre>
 *
 ******************************************************************************/
@@ -59,6 +60,7 @@
 /***************************** Include Files *********************************/
 
 #include "xrtcpsu.h"
+#include "xrtcpsu_hw.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -139,6 +141,10 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 	/* Indicate the component is now ready to use. */
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
+	/* Clear TimeUpdated and CurrTimeUpdated */
+	InstancePtr->TimeUpdated = 0;
+	InstancePtr->CurrTimeUpdated = 0;
+
 	Status = XST_SUCCESS;
 	return Status;
 }
@@ -164,6 +170,90 @@ static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
 	(void) Event;
 	/* Assert occurs always since this is a stub and should never be called */
 	Xil_AssertVoidAlways();
+}
+
+/****************************************************************************/
+/**
+*
+* This function sets the RTC time by writing into rtc write register.
+*
+* @param	InstancePtr is a pointer to the XRtcPsu instance.
+* @param	Time that should be updated into RTC write register.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XRtcPsu_SetTime(XRtcPsu *InstancePtr,u32 Time)
+{
+	/* Set the calibration value in calibration register, so that
+	 * next Second is triggered exactly at 1 sec period
+	 */
+	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_CALIB_WR_OFFSET,
+							InstancePtr->CalibrationValue);
+	/* clear the RTC secs interrupt from status register */
+	XRtcPsu_WriteReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_STS_OFFSET,
+								XRTC_INT_STS_SECS_MASK);
+	InstancePtr->CurrTimeUpdated = 0;
+	/* Update the flag before setting the time */
+	InstancePtr->TimeUpdated = 1;
+	/* Since RTC takes 1 sec to update the time into current time register, write
+	 * load time + 1sec into the set time register.
+	 */
+	XRtcPsu_WriteSetTime(InstancePtr, Time + 1);
+}
+
+/****************************************************************************/
+/**
+*
+* This function gets the current RTC time.
+*
+* @param	InstancePtr is a pointer to the XRtcPsu instance.
+*
+* @return	RTC Current time.
+*
+* @note		None.
+*
+*****************************************************************************/
+u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
+{
+	u32 Status, IntMask, CurrTime;
+
+	IntMask = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_MSK_OFFSET);
+
+	if((IntMask & XRTC_INT_STS_SECS_MASK) != (u32)0) {
+		/* We come here if interrupts are disabled */
+		Status = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_STS_OFFSET);
+		if((InstancePtr->TimeUpdated == (u32)1) &&
+			(Status & XRTC_INT_STS_SECS_MASK) == (u32)0) {
+			/* Give the previous written time */
+			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - 1;
+		} else {
+			/* Clear TimeUpdated */
+			if((InstancePtr->TimeUpdated == (u32)1) &&
+				((Status & XRTC_INT_STS_SECS_MASK) == (u32)1)) {
+				InstancePtr->TimeUpdated = (u32)0;
+			}
+
+			/* RTC time got updated */
+			CurrTime = XRtcPsu_ReadCurrentTime(InstancePtr);
+		}
+	} else {
+		/* We come here if interrupts are enabled */
+		if((InstancePtr->TimeUpdated == (u32)1) &&
+			(InstancePtr->CurrTimeUpdated == (u32)0)) {
+			/* Give the previous written time -1 sec */
+			CurrTime = XRtcPsu_GetLastSetTime(InstancePtr) - 1;
+		} else {
+			/* Clear TimeUpdated */
+			if(InstancePtr->TimeUpdated == (u32)1)
+				InstancePtr->TimeUpdated = (u32)0;
+			/* RTC time got updated */
+			CurrTime = XRtcPsu_ReadCurrentTime(InstancePtr);
+		}
+	}
+	return CurrTime;
 }
 
 /****************************************************************************/
