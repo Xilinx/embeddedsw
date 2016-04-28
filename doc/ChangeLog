@@ -312,8 +312,10 @@ flash parts.
 qspipsu_v1_0:
 Added Support for Macronix 1Gb part.
 
-rtcpsu_v1_2:
+rtcpsu_v1_3:
 Corrected calibration and fractional masks.
+Once we write the RTC time it gets reflected in the current time register after 1sec delay,
+so corrected the RTC read and write logic in the code for giving correct time.
 
 scugic_v3_2:
 Modified xscugic_hw.h file to correct the interrupt target processor mask value for
