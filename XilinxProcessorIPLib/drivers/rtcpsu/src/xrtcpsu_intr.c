@@ -44,6 +44,8 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.00  kvn    04/21/15 First release
+* 1.3   vak    04/25/16 Changed the XRtcPsu_InterruptHandler() for updating RTC
+*                       read and write time logic(cr#948833).
 * </pre>
 *
 ******************************************************************************/
@@ -219,6 +221,14 @@ void XRtcPsu_InterruptHandler(XRtcPsu *InstancePtr)
 
 	/* Seconds interrupt */
 	if((IsrStatus & XRTC_INT_STS_SECS_MASK) != (u32)0) {
+		/* Set the CurrTimeUpdated flag to 1 */
+		InstancePtr->CurrTimeUpdated = 1;
+
+		if(InstancePtr->TimeUpdated == (u32)1) {
+			/* Clear the TimeUpdated */
+			InstancePtr->TimeUpdated = (u32)0;
+		}
+
 		/*
 		 * Call the application handler to indicate that there is an
 		 * seconds interrupt. If the application cares about this seconds

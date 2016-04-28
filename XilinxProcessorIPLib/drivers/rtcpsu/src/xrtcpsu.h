@@ -100,6 +100,7 @@
 * 1.00  kvn    04/21/15 First release
 * 1.1   kvn    09/25/15 Modify control register to enable battery
 *                       switching when vcc_psaux is not available.
+* 1.3   vak    04/25/16 Corrected the RTC read and write time logic(cr#948833).
 * </pre>
 *
 ******************************************************************************/
@@ -179,6 +180,8 @@ typedef struct {
 	u32 CalibrationValue;
 	XRtcPsu_Handler Handler;
 	void *CallBackRef;			/**< Callback reference for event handler */
+	u32 TimeUpdated;
+	u32 CurrTimeUpdated;
 } XRtcPsu;
 
 /**
@@ -217,7 +220,7 @@ typedef struct {
 * 		void XRtcPsu_SetTime(XRtcPsu *InstancePtr, u32 Time)
 *
 *****************************************************************************/
-#define XRtcPsu_SetTime(InstancePtr,Time) \
+#define XRtcPsu_WriteSetTime(InstancePtr,Time) \
 	XRtcPsu_WriteReg(((InstancePtr)->RtcConfig.BaseAddr + \
 				XRTC_SET_TIME_WR_OFFSET),(Time))
 
@@ -264,10 +267,10 @@ typedef struct {
 * @return	Current Time. This current time will be in seconds.
 *
 * @note		C-Style signature:
-* 		u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
+* 		u32 XRtcPsu_ReadCurrentTime(XRtcPsu *InstancePtr)
 *
 *****************************************************************************/
-#define XRtcPsu_GetCurrentTime(InstancePtr) \
+#define XRtcPsu_ReadCurrentTime(InstancePtr) \
 	XRtcPsu_ReadReg((InstancePtr)->RtcConfig.BaseAddr+XRTC_CUR_TIME_OFFSET)
 
 /****************************************************************************/
@@ -368,6 +371,8 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr,u32 TimeReal,
 		u32 CrystalOscFreq);
 u32 XRtcPsu_IsSecondsEventGenerated(XRtcPsu *InstancePtr);
 u32 XRtcPsu_IsAlarmEventGenerated(XRtcPsu *InstancePtr);
+u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr);
+void XRtcPsu_SetTime(XRtcPsu *InstancePtr,u32 Time);
 
 /* interrupt functions in xrtcpsu_intr.c */
 void XRtcPsu_SetInterruptMask(XRtcPsu *InstancePtr, u32 Mask);
