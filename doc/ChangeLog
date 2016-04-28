@@ -1,3 +1,9 @@
+Change Log for 2016.2
+=================================
+ddrcpsu:
+Added initial version of DDRC driver
+
+
 Change Log for 2016.1
 =================================
 Removed the following versions from the 2016.1 build:
