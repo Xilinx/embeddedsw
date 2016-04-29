@@ -57,6 +57,8 @@
 *                       the function XV_HdmiRxSs_DdcHdcpCallback.
 *                       Updated XV_HdmiRxSs_LinkErrorCallback
 *                       function to set link error flag.
+* 1.4   MH     23/04/16 Remove XV_HdmiRxSs_Reset from
+*                       function XV_HdmiRxSs_SubcoreInitHdmiRx
 * </pre>
 *
 ******************************************************************************/
@@ -177,13 +179,6 @@ int XV_HdmiRxSs_SubcoreInitHdmiRx(XV_HdmiRxSs *HdmiRxSsPtr)
     // Load EDID
     XV_HdmiRx_DdcLoadEdid(HdmiRxSsPtr->HdmiRxPtr, HdmiRxSsPtr->EdidPtr,
         HdmiRxSsPtr->EdidLength);
-
-    /* Reset the hardware and set the flag to indicate the
-       subsystem is ready
-     */
-    XV_HdmiRxSs_Reset(HdmiRxSsPtr);
-    HdmiRxSsPtr->IsReady = XIL_COMPONENT_IS_READY;
-
 
   }
   return(XST_SUCCESS);
