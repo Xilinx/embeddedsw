@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2006 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2006 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -69,6 +69,7 @@
 	.ent	microblaze_update_dcache
 	.align	2
 microblaze_update_dcache:
+#if (XPAR_MICROBLAZE_USE_DCACHE==1) && (XPAR_MICROBLAZE_ALLOW_DCACHE_WR==1)
 
 #if XPAR_MICROBLAZE_DCACHE_LINE_LEN == 1
 
@@ -103,4 +104,8 @@ microblaze_update_dcache:
 
 #endif /* XPAR_MICROBLAZE_DCACHE_LINE_LEN == 1 */
 
+#else
+	rtsd	r15, 8
+	nop
+#endif
 	.end	microblaze_update_dcache

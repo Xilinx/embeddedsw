@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2006 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2006 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,7 +57,7 @@
 	.align	2
 
 microblaze_init_dcache_range:
-
+#if (XPAR_MICROBLAZE_USE_DCACHE==1) && (XPAR_MICROBLAZE_ALLOW_DCACHE_WR==1)
 	mfs	r9, rmsr                                        /* Disable Dcache and interrupts before invalidating */
 	andi	r10, r9, ~(MICROBLAZE_MSR_DCACHE_ENABLE | MICROBLAZE_MSR_INTR_ENABLE)
 	mts	rmsr, r10
@@ -79,4 +79,8 @@ L_start:
 L_done:
 	rtsd	r15, 8                                          /* Return */
 	mts	rmsr, r9
+#else
+	rtsd	r15, 8                                          /* Return */
+	nop
+#endif
 	.end	microblaze_init_dcache_range
