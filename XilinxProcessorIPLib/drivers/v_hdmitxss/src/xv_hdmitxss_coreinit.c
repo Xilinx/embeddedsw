@@ -53,6 +53,8 @@
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     20/01/16 Added remapper support
 * 1.2   MG     03/02/16 Added HDCP support
+* 1.3   MH     23/04/16 VTC driver has been updated to avoid processor
+*                       exceptions. Workarounds have been removed.
 * </pre>
 *
 ******************************************************************************/
@@ -196,35 +198,9 @@ int XV_HdmiTxSs_SubcoreInitVtc(XV_HdmiTxSs *HdmiTxSsPtr)
     }
 
     /* Initialize core */
-#if defined(__MICROBLAZE__) // TODO: Remove once video clock is live before accessing VTC registers
     Status = XVtc_CfgInitialize(HdmiTxSsPtr->VtcPtr,
                                 ConfigPtr,
                                 AbsAddr);
-#else
-    //////////////////////////////////////////////////////////////////////
-    //  Temp VTC CfgInitialize
-    //  The VTC currently causes a data_abort exception because it's video clock is not running when
-    //  CfgInitialize call is made.  The XVtc_Reset() causes the exception.  This temporary code is a copy
-    //  of the driver code with the reset commented out. Once the application has been modified so that the
-    //  VTC has the video clock that it needs this code can be removed.  By default microblaze doesn't have an
-    //  exception handler registered and the processor doesn't get stuck at the reset.  ARM is different.  That
-    //  is why this code only gets used for the ARM case.
-    Xil_AssertNonvoid(HdmiTxSsPtr->VtcPtr != NULL);
-    Xil_AssertNonvoid(ConfigPtr != NULL);
-    Xil_AssertNonvoid((u32 *)AbsAddr != NULL);
-
-    /* Setup the instance */
-    memset((void *)HdmiTxSsPtr->VtcPtr, 0, sizeof(XVtc));
-
-    memcpy((void *)&(HdmiTxSsPtr->VtcPtr->Config), (const void *)ConfigPtr,
-		sizeof(XVtc_Config));
-    HdmiTxSsPtr->VtcPtr->Config.BaseAddress = AbsAddr;
-
-    HdmiTxSsPtr->VtcPtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
-
-    Status = XST_SUCCESS;
-    ////////////////////////////////////////////////////////////////////////
-#endif
 
     if (Status != XST_SUCCESS) {
       xil_printf("HDMITXSS ERR:: VTC Initialization failed\r\n");
