@@ -355,4 +355,8 @@
  *		       to update the Xil_DCacheInvalidate, Xil_DCacheInvalidateLine and
  * 		       Xil_DCacheInvalidateRange functions description for proper
  *		       explaination to fix CR#949801
+ * 5.5 asa   04/20/16  Added missing macros for hibernate and suspend in Microblaze BSP
+ *                     file mb_interface.h. This fixes the CR#949503.
+ * 5.5 asa   04/29/16  Fix for CR#951080. Updated cache APIs for HW designs where cache
+ *                     memory is not included for MicroBlaze.
  *****************************************************************************************/

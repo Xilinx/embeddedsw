@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2008 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -58,6 +58,7 @@
 	.align	2
 
 microblaze_invalidate_icache:
+#if (XPAR_MICROBLAZE_USE_ICACHE==1) && (XPAR_MICROBLAZE_ALLOW_ICACHE_WR==1)
 
 #ifdef MB_VERSION_LT_v720                                       /* Disable Icache and interrupts before invalidating */
 	mfs	r9, rmsr
@@ -82,5 +83,10 @@ L_done:
 	mts	rmsr, r9
 #else
         nop
+#endif
+
+#else
+	rtsd	r15, 8                                          /* Return */
+	nop
 #endif
 	.end	microblaze_invalidate_icache
