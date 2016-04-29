@@ -50,8 +50,22 @@
 * 1.5   yh     01/02/16 Removed xil_printf("Active audio channels...)
 * 1.6   yh     15/02/16 Added default value to XV_HdmiRxSs_ConfigRemapper
 * 1.7   MG     03/02/16 Added HDCP support
-* 1.8   MG     10/02/16 Moved HDCP 2.2 reset from stream up/down callback to connect callback
+* 1.8   MG     10/02/16 Moved HDCP 2.2 reset from stream up/down callback
+*                       to connect callback
 * 1.9   MH     15/03/16 Added HDCP authenticated callback support
+* 1.10  MH     23/04/16 1. HDCP 1.x driver now uses AXI timer 4.1, so updated
+*                       to use AXI Timer config structure to determine timer
+*                       clock frequency
+*                       2. HDCP 1.x driver has fixed the problem where the
+*                       reset for the receiver causes the entire DDC peripheral
+*                       to get reset. Based on this change the driver has been
+*                       updated to use XV_HdmiTxSs_HdcpReset and
+*                       XV_HdmiRxSs_HdcpReset functions directly.
+*                       3. Updated XV_HdmiTxSs_HdcpEnable and
+*                       XV_HdmiRxSs_HdcpEnable functions to ensure that
+*                       HDCP 1.4 and 2.2 are mutually exclusive.
+*                       This fixes the problem where HDCP 1.4 and 2.2
+*                       state machines are running simultaneously.
 * </pre>
 *
 ******************************************************************************/
@@ -66,9 +80,6 @@
 #include "xv_hdmirxss.h"
 #include "xv_hdmirxss_coreinit.h"
 
-#if defined (__arm__)
-#define XPAR_CPU_CORE_CLOCK_FREQ_HZ 1000000000 // TODO: To be removed
-#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -527,6 +538,12 @@ int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
   else if (HdmiRxSsPtr->Hdcp22Ptr && HdmiRxSsPtr->Hdcp22Lc128Ptr && HdmiRxSsPtr->Hdcp22PrivateKeyPtr) {
         HdmiRxSsPtr->HdcpIsReady = (TRUE);
   }
+
+  /* Reset the hardware and set the flag to indicate the
+     subsystem is ready
+   */
+  XV_HdmiRxSs_Reset(HdmiRxSsPtr);
+  HdmiRxSsPtr->IsReady = XIL_COMPONENT_IS_READY;
 
   return(XST_SUCCESS);
 }
@@ -1524,7 +1541,7 @@ int XV_HdmiRxSs_HdcpTimerStart(const XHdcp1x* InstancePtr, u16 TimeoutInMs)
 
     /* Determine NumTicks */
     NumTicks = XV_HdmiRxSs_HdcpTimerConvUsToTicks((TimeoutInMs*1000ul),
-                                            XPAR_CPU_CORE_CLOCK_FREQ_HZ);
+					TimerPtr->Config.SysClockFreqHz);
 
     /* Stop it */
     XTmrCtr_Stop(TimerPtr, TimerChannel);
@@ -1606,7 +1623,7 @@ int XV_HdmiRxSs_HdcpTimerBusyDelay(const XHdcp1x* InstancePtr, u16 DelayInMs)
 
     /* Determine NumTicks */
     NumTicks = XV_HdmiRxSs_HdcpTimerConvUsToTicks((DelayInMs*1000ul),
-                                            XPAR_CPU_CORE_CLOCK_FREQ_HZ);
+									TimerPtr->Config.SysClockFreqHz);
 
     /* Stop it */
     XTmrCtr_Stop(TimerPtr, TimerChannel);
@@ -1740,17 +1757,19 @@ void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc) {
 
 /*****************************************************************************/
 /**
- *
- * This function pushes an event into the HDCP event queue.
- *
- * @param InstancePtr is a pointer to the XHdmi_Hdcp_EventQueue instance.
- * @param Event is the event to be pushed in the queue.
- *
- * @return
- *  - XST_SUCCESS if action was successful
- *  - XST_FAILURE if action was not successful
- *
- ******************************************************************************/
+*
+* This function pushes an event into the HDCP event queue.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+* @param Event is the event to be pushed in the queue.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
 int XV_HdmiRxSs_HdcpPushEvent(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpEvent Event)
 {
   u16 EventQueueSize;
@@ -1789,15 +1808,17 @@ int XV_HdmiRxSs_HdcpPushEvent(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpEvent Ev
 
 /*****************************************************************************/
 /**
- *
- * This function gets an event from the HDCP event queue.
- *
- * @param InstancePtr is a pointer to the XHdmi_Hdcp_EventQueue instance.
- *
- * @return When the queue is filled, the next event is returned.
- *         When the queue is empty, XHDMI_HDCP_NO_EVT is returned.
- *
- ******************************************************************************/
+*
+* This function gets an event from the HDCP event queue.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return When the queue is filled, the next event is returned.
+*         When the queue is empty, XV_HDMIRXSS_HDCP_NO_EVT is returned.
+*
+* @note   None.
+*
+******************************************************************************/
 static XV_HdmiRxSs_HdcpEvent XV_HdmiRxSs_HdcpGetEvent(XV_HdmiRxSs *InstancePtr)
 {
   u16 EventQueueSize;
@@ -1827,16 +1848,18 @@ static XV_HdmiRxSs_HdcpEvent XV_HdmiRxSs_HdcpGetEvent(XV_HdmiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
- *
- * This function clears all pending events from the HDCP event queue.
- *
- * @param InstancePtr is a pointer to the XHdmi_Hdcp_EventQueue instance.
- *
- * @return
- *  - XST_SUCCESS if action was successful
- *  - XST_FAILURE if action was not successful
- *
- ******************************************************************************/
+*
+* This function clears all pending events from the HDCP event queue.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
 int XV_HdmiRxSs_HdcpClearEvents(XV_HdmiRxSs *InstancePtr)
 {
   /* Verify argument. */
@@ -1850,75 +1873,61 @@ int XV_HdmiRxSs_HdcpClearEvents(XV_HdmiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
- *
- * This function processes pending events from the TX HDCP event queue.
- *
- * @param UserConfigPtr is a pointer to the XHdmi_UserConfig instance.
- *
- * @return
- *  - XST_SUCCESS if action was successful
- *  - XST_FAILURE if action was not successful
- *
- ******************************************************************************/
+*
+* This function processes pending events from the HDCP event queue.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
 static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
 {
   XV_HdmiRxSs_HdcpEvent Event;
   int Status = XST_SUCCESS;
 
-  /* Verify argument. */
+  /* Verify argument */
   Xil_AssertNonvoid(InstancePtr != NULL);
 
   Event = XV_HdmiRxSs_HdcpGetEvent(InstancePtr);
+
   switch (Event) {
 
     // Stream up
-    // Only HDCP 1.4 is reset in case of a stream up event.
     case XV_HDMIRXSS_HDCP_STREAMUP_EVT :
-      // HDCP 1.4
       if (InstancePtr->Hdcp14Ptr) {
         // Set physical state
         XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, TRUE);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-
-        // Reset
-        if (InstancePtr->HdcpProtocol == XV_HDMIRXSS_HDCP_14) {
-            Status = XHdcp1x_Reset(InstancePtr->Hdcp14Ptr);
-            XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-        }
       }
       break;
 
     // Stream down
-    // Only HDCP 1.4 is reset in case of a stream down event.
+    // Reset both HDCP protocols, then enable only the active HDCP protocol
     case XV_HDMIRXSS_HDCP_STREAMDOWN_EVT :
-      // HDCP 1.4
       if (InstancePtr->Hdcp14Ptr) {
         // Set physical state
         XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, FALSE);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-
-        // Reset
-        if (InstancePtr->HdcpProtocol == XV_HDMIRXSS_HDCP_14) {
-            Status = XHdcp1x_Reset(InstancePtr->Hdcp14Ptr);
-            XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-        }
       }
+      XV_HdmiRxSs_HdcpReset(InstancePtr);
+      XV_HdmiRxSs_HdcpEnable(InstancePtr);
       break;
 
     // Connect
-    // Only HDCP 2.2 is reset in case of a connect event.
+    // Enable only the active HDCP protocol
     case XV_HDMIRXSS_HDCP_CONNECT_EVT :
-      if (InstancePtr->Hdcp22Ptr  && (InstancePtr->HdcpProtocol == XV_HDMIRXSS_HDCP_22)) {
-        Status = XHdcp22Rx_Reset(InstancePtr->Hdcp22Ptr);
-      }
+      XV_HdmiRxSs_HdcpEnable(InstancePtr);
       break;
 
     // Disconnect
-    // Only HDCP 2.2 is reset in case of a disconnect event.
+    // Reset both HDCP protocols
     case XV_HDMIRXSS_HDCP_DISCONNECT_EVT :
-      if (InstancePtr->Hdcp22Ptr  && (InstancePtr->HdcpProtocol == XV_HDMIRXSS_HDCP_22)) {
-        Status = XHdcp22Rx_Reset(InstancePtr->Hdcp22Ptr);
-      }
+      XV_HdmiRxSs_HdcpReset(InstancePtr);
       break;
 
     default :
@@ -1930,67 +1939,72 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
- *
- * This function schedules the available HDCP cores.
- *
- * @param UserConfigPtr is a pointer to the XHdmi_UserConfig instance.
- *
- * @return
- *  - XST_SUCCESS if action was successful
- *  - XST_FAILURE if action was not successful
- *
- ******************************************************************************/
+*
+* This function schedules the available HDCP cores. Only the active
+* HDCP protocol poll function is executed. HDCP 1.4 and 2.2 poll
+* functions should not execute in parallel.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
 int XV_HdmiRxSs_HdcpPoll(XV_HdmiRxSs *InstancePtr)
 {
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
 
-    /* Only poll when the HDCP is ready */
-    if (InstancePtr->HdcpIsReady) {
+  /* Only poll when the HDCP is ready */
+  if (InstancePtr->HdcpIsReady) {
 
     /* Process any pending events from the RX event queue */
     XV_HdmiRxSs_HdcpProcessEvents(InstancePtr);
 
-    if (XV_HdmiRx_IsStreamConnected(InstancePtr->HdmiRxPtr)) {
-
-      // HDCP 2.2
-      if (InstancePtr->Hdcp22Ptr) {
-        if (XHdcp22Rx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
-          XHdcp22Rx_Poll(InstancePtr->Hdcp22Ptr);
-        }
+    // HDCP 2.2
+    if (InstancePtr->Hdcp22Ptr) {
+      if (XHdcp22Rx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
+        XHdcp22Rx_Poll(InstancePtr->Hdcp22Ptr);
       }
+    }
 
-      // HDCP 1.4
-      if (InstancePtr->Hdcp14Ptr) {
-        if (XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr)) {
-          XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
-        }
+    // HDCP 1.4
+    if (InstancePtr->Hdcp14Ptr) {
+      if (XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr)) {
+        XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
       }
     }
   }
+
   return XST_SUCCESS;
 }
 
 /*****************************************************************************/
 /**
- *
- * This function sets the content protection scheme for the RX
- *
- * @param UserConfigPtr is a pointer to the XHdmi_UserConfig instance.
- *
- * @param RequestedScheme is the requested content protection scheme.
- *
- * @return
- *  - XST_SUCCESS if action was successful
- *  - XST_FAILURE if action was not successful
- *
- ******************************************************************************/
+*
+* This function sets the active HDCP protocol and enables it.
+* The protocol can be set to either HDCP 1.4, 2.2, or None.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+* @param Protocol is the requested content protection scheme of type
+*        XV_HdmiRxSs_HdcpProtocol.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
 int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtocol Protocol)
 {
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
-  Xil_AssertNonvoid((Protocol == XV_HDMIRXSS_HDCP_NONE)   ||
-                    (Protocol == XV_HDMIRXSS_HDCP_14) ||
+  Xil_AssertNonvoid((Protocol == XV_HDMIRXSS_HDCP_NONE) ||
+                    (Protocol == XV_HDMIRXSS_HDCP_14)   ||
                     (Protocol == XV_HDMIRXSS_HDCP_22));
 
   int Status;
@@ -2003,7 +2017,7 @@ int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtoc
   if (Status != XST_SUCCESS)
     return Status;
 
-  /* Enable protocol */
+  /* Enable the requested protocol */
   Status = XV_HdmiRxSs_HdcpEnable(InstancePtr);
   if (Status != XST_SUCCESS)
     return Status;
@@ -2013,16 +2027,17 @@ int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtoc
 
 /*****************************************************************************/
 /**
- *
- * This function gets the content protection scheme for the RX
- *
- * @param INstancePtr is a pointer to the HDMI RX SS instance.
- *
- *
- * @return
- * @RequestedScheme is the requested content protection scheme.
- *
- ******************************************************************************/
+*
+* This function gets the active HDCP content protection scheme.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  @RequestedScheme is the requested content protection scheme.
+*
+* @note   None.
+*
+******************************************************************************/
 XV_HdmiRxSs_HdcpProtocol XV_HdmiRxSs_HdcpGetProtocol(XV_HdmiRxSs *InstancePtr)
 {
   /* Verify argument. */
@@ -2033,48 +2048,163 @@ XV_HdmiRxSs_HdcpProtocol XV_HdmiRxSs_HdcpGetProtocol(XV_HdmiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
- *
- * This function enables the RX HDCP instance
- * from the XHdmi_UserConfig instance according to the
- * requested content protection scheme.
- *
- * @param UserConfigPtr is a pointer to the XHdmi_UserConfig instance.
- *
- * @param RequestedScheme is the requested content protection scheme.
- *
- * @return
- *  - XST_SUCCESS if action was successful
- *  - XST_FAILURE if action was not successful
- *
- ******************************************************************************/
+*
+* This function enables the requested HDCP protocol. This function
+* ensures that the HDCP protocols are mutually exclusive such that
+* either HDCP 1.4 or HDCP 2.2 is enabled and active at any given time.
+* When the protocol is set to None, both HDCP protocols are disabled.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
 int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr)
 {
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
 
-  int Status = XST_SUCCESS;
+  int Status1 = XST_SUCCESS;
+  int Status2 = XST_SUCCESS;
 
   switch (InstancePtr->HdcpProtocol) {
-    case XV_HDMIRXSS_HDCP_NONE :
-      return XST_SUCCESS;
 
-    case XV_HDMIRXSS_HDCP_14 :
+    /* Disable HDCP 1.4 and HDCP 2.2 */
+    case XV_HDMIRXSS_HDCP_NONE :
       if (InstancePtr->Hdcp14Ptr) {
-        Status = XHdcp1x_Enable(InstancePtr->Hdcp14Ptr);
+        Status1 = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
       }
-      return Status;
+      if (InstancePtr->Hdcp22Ptr) {
+        Status2 = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
+      }
       break;
 
-    case XV_HDMIRXSS_HDCP_22 :
-      if (InstancePtr->Hdcp22Ptr) {
-        Status = XHdcp22Rx_Enable(InstancePtr->Hdcp22Ptr);
+    /* Enable HDCP 1.4 and disable HDCP 2.2 */
+    case XV_HDMIRXSS_HDCP_14 :
+      if (InstancePtr->Hdcp14Ptr) {
+        Status1 = XHdcp1x_Enable(InstancePtr->Hdcp14Ptr);
+        XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
       }
-      return Status;
+      else {
+        Status1 = XST_FAILURE;
+      }
+      if (InstancePtr->Hdcp22Ptr) {
+        Status2 = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
+      }
+      break;
+
+    /* Enable HDCP 2.2 and disable HDCP 1.4 */
+    case XV_HDMIRXSS_HDCP_22 :
+      if (InstancePtr->Hdcp14Ptr) {
+        Status1 = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
+        XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+      }
+      if (InstancePtr->Hdcp22Ptr) {
+        Status2 = XHdcp22Rx_Enable(InstancePtr->Hdcp22Ptr);
+      }
+      else {
+        Status2 = XST_FAILURE;
+      }
       break;
 
     default :
-      break;
+      return XST_FAILURE;
+  }
+
+  return (Status1 == XST_SUCCESS && Status2 == XST_SUCCESS) ? XST_SUCCESS : XST_FAILURE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables both HDCP 1.4 and 2.2 protocols.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
+int XV_HdmiRxSs_HdcpDisable(XV_HdmiRxSs *InstancePtr)
+{
+  /* Verify argument. */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  int Status = XST_FAILURE;
+
+  // HDCP 1.4
+  if (InstancePtr->Hdcp14Ptr) {
+    Status = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
+    XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+    if (Status != XST_SUCCESS)
+      return XST_FAILURE;
+  }
+
+  // HDCP 2.2
+  if (InstancePtr->Hdcp22Ptr) {
+    Status = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
+    if (Status != XST_SUCCESS)
+      return XST_FAILURE;
+  }
+
+  return Status;
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function resets both HDCP 1.4 and 2.2 protocols. This function also
+* disables both HDCP 1.4 and 2.2 protocols.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
+static int XV_HdmiRxSs_HdcpReset(XV_HdmiRxSs *InstancePtr)
+{
+  /* Verify argument. */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  int Status = XST_FAILURE;
+
+  // HDCP 1.4
+  // Resetting HDCP 1.4 causes the state machine to be enabled, therefore
+  // disable must be called immediately after reset is called.
+  if (InstancePtr->Hdcp14Ptr) {
+    Status = XHdcp1x_Reset(InstancePtr->Hdcp14Ptr);
+    XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+    if (Status != XST_SUCCESS)
+      return XST_FAILURE;
+
+    Status = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
+    XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+    if (Status != XST_SUCCESS)
+      return XST_FAILURE;
+  }
+
+  // HDCP 2.2
+  if (InstancePtr->Hdcp22Ptr) {
+    Status = XHdcp22Rx_Reset(InstancePtr->Hdcp22Ptr);
+    if (Status != XST_SUCCESS)
+      return XST_FAILURE;
+
+    Status = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
+    if (Status != XST_SUCCESS)
+      return XST_FAILURE;
   }
 
   return Status;
@@ -2082,97 +2212,18 @@ int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr)
 
 /*****************************************************************************/
 /**
- *
- * This function disables all the RX HDCP instances
- * from the XHdmi_UserConfig instance.
- *
- * @param UserConfigPtr is a pointer to the XHdmi_UserConfig instance.
- *
- * @return
- *  - XST_SUCCESS if action was successful
- *  - XST_FAILURE if action was not successful
- *
- ******************************************************************************/
-int XV_HdmiRxSs_HdcpDisable(XV_HdmiRxSs *InstancePtr)
-{
-  /* Verify argument. */
-  Xil_AssertNonvoid(InstancePtr != NULL);
-
-  int Status = XST_SUCCESS;
-
-  // HDCP 1.4
-  if (InstancePtr->Hdcp14Ptr) {
-    Status = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
-    XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-    if (Status != XST_SUCCESS) {
-      return Status;
-    }
-  }
-
-  // HDCP 2.2
-  if (InstancePtr->Hdcp22Ptr) {
-    Status = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
-    if (Status != XST_SUCCESS) {
-      return Status;
-    }
-  }
-
-  return XST_SUCCESS;
-}
-
-
-/*****************************************************************************/
-/**
- *
- * This function resets the RX HDCP instances
- * from the XHdmi_UserConfig instance.
- *
- * @param UserConfigPtr is a pointer to the XHdmi_UserConfig instance.
- *
- * @return
- *  - XST_SUCCESS if action was successful
- *  - XST_FAILURE if action was not successful
- *
- ******************************************************************************/
-static int XV_HdmiRxSs_HdcpReset(XV_HdmiRxSs *InstancePtr)
-{
-  /* Verify argument. */
-  Xil_AssertNonvoid(InstancePtr != NULL);
-
-  int Status = XST_SUCCESS;
-
-    // HDCP 1.4
-    if (InstancePtr->Hdcp14Ptr) {
-    Status = XHdcp1x_Reset(InstancePtr->Hdcp14Ptr);
-    XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-    if (Status != XST_SUCCESS) {
-      return Status;
-    }
-  }
-
-    // HDCP 2.2
-    if (InstancePtr->Hdcp22Ptr) {
-    Status = XHdcp22Rx_Reset(InstancePtr->Hdcp22Ptr);
-    if (Status != XST_SUCCESS) {
-      return Status;
-    }
-  }
-
-  return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
- *
- * This function returns if the RX HDCP instance is enabled
- *
- * @param InstancePtr is a pointer to the HDMI RX SS instance.
- *
- *
- * @return
-
- *
- ******************************************************************************/
+*
+* This function checks if the active HDCP protocol is enabled.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - TRUE if active protocol is enabled
+*  - FALSE if active protocol is disabled
+*
+* @note   None.
+*
+******************************************************************************/
 int XV_HdmiRxSs_HdcpIsEnabled(XV_HdmiRxSs *InstancePtr)
 {
   /* Verify argument. */
@@ -2184,30 +2235,29 @@ int XV_HdmiRxSs_HdcpIsEnabled(XV_HdmiRxSs *InstancePtr)
 
     case XV_HDMIRXSS_HDCP_14 :
       return XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr);
-      break;
 
     case XV_HDMIRXSS_HDCP_22 :
       return XHdcp22Rx_IsEnabled(InstancePtr->Hdcp22Ptr);
-      break;
 
     default :
       return FALSE;
-      break;
   }
 }
 
 /*****************************************************************************/
 /**
- *
- * This function returns if the RX HDCP instance is authenticated
- *
- * @param InstancePtr is a pointer to the HDMI RX SS instance.
- *
- *
- * @return
-
- *
- ******************************************************************************/
+*
+* This function checks if the active HDCP protocol is authenticated.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - TRUE if active protocol is authenticated
+*  - FALSE if active protocol is not authenticated
+*
+* @note   None.
+*
+******************************************************************************/
 int XV_HdmiRxSs_HdcpIsAuthenticated(XV_HdmiRxSs *InstancePtr)
 {
   /* Verify argument. */
@@ -2219,30 +2269,29 @@ int XV_HdmiRxSs_HdcpIsAuthenticated(XV_HdmiRxSs *InstancePtr)
 
     case XV_HDMIRXSS_HDCP_14 :
       return XHdcp1x_IsAuthenticated(InstancePtr->Hdcp14Ptr);
-      break;
 
     case XV_HDMIRXSS_HDCP_22 :
       return XHdcp22Rx_IsAuthenticated(InstancePtr->Hdcp22Ptr);
-      break;
 
     default :
       return FALSE;
-      break;
   }
 }
 
 /*****************************************************************************/
 /**
- *
- * This function returns if the RX HDCP instance is encrypted
- *
- * @param InstancePtr is a pointer to the HDMI RX SS instance.
- *
- *
- * @return
-
- *
- ******************************************************************************/
+*
+* This function checks if the active HDCP protocol has encryption enabled.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+*
+* @return
+*  - TRUE if active protocol has encryption enabled
+*  - FALSE if active protocol has encryption disabled
+*
+* @note   None.
+*
+******************************************************************************/
 int XV_HdmiRxSs_HdcpIsEncrypted(XV_HdmiRxSs *InstancePtr)
 {
   /* Verify argument. */
@@ -2254,26 +2303,23 @@ int XV_HdmiRxSs_HdcpIsEncrypted(XV_HdmiRxSs *InstancePtr)
 
     case XV_HDMIRXSS_HDCP_14 :
       return XHdcp1x_IsEncrypted(InstancePtr->Hdcp14Ptr);
-      break;
 
     case XV_HDMIRXSS_HDCP_22 :
       return XHdcp22Rx_IsEncryptionEnabled(InstancePtr->Hdcp22Ptr);
-      break;
 
     default :
       return FALSE;
-      break;
   }
 }
 
 /*****************************************************************************/
 /**
 *
-* This function sets the HDCP keys
+* This function sets pointers to the HDCP 1.4 and HDCP 2.2 keys.
 *
-* @param  InstancePtr pointer to XV_HdmiTxSs instance
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
 *
-* @return none
+* @return None.
 *
 * @note   None.
 *
@@ -2311,11 +2357,11 @@ void XV_HdmiRxSs_HdcpSetKey(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpKeyType Ke
 /*****************************************************************************/
 /**
 *
-* This function reports the HDCP info
+* This function reports the HDCP information.
 *
-* @param  InstancePtr pointer to XV_HdmiRxSs instance
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
 *
-* @return none
+* @return None.
 *
 * @note   None.
 *
@@ -2406,11 +2452,12 @@ void XV_HdmiRxSs_HdcpInfo(XV_HdmiRxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the logging level
+* This function sets the HDCP logging level.
 *
-* @param  InstancePtr pointer to XV_HdmiRxSs instance
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+* @param Verbose is set to TRUE to enable detailed logging.
 *
-* @return none
+* @return None.
 *
 * @note   None.
 *
