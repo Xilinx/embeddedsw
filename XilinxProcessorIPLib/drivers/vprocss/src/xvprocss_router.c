@@ -52,6 +52,8 @@
 *                       Mods to conform to coding sytle
 *            01/11/16   Write to new Event Log: log status and error events
 *                       The Event Logging replaces all the printf statements
+* 2.1   mpe  04/28/16   Added optional color format conversion handling in
+*                       scaler only topology
 * </pre>
 *
 ******************************************************************************/
@@ -533,7 +535,8 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
             XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
                             vsc_WidthIn,
                             vsc_HeightIn,
-                            vsc_HeightOut);
+                            vsc_HeightOut,
+							XVprocSsPtr->CtxtData.StrmCformat);
             StartCorePtr[XVPROCSS_SUBCORE_SCALER_V] = TRUE;
           }
           break;
@@ -558,6 +561,7 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                             hsc_HeightIn,
                             hsc_WidthIn,
                             hsc_WidthOut,
+                            XVprocSsPtr->CtxtData.StrmCformat,
                             XVprocSsPtr->CtxtData.StrmCformat);
             StartCorePtr[XVPROCSS_SUBCORE_SCALER_H] = TRUE;
           }

@@ -57,13 +57,13 @@ typedef struct {
   u16 width_out;
   u16 height_out;
   XVidC_ColorFormat Cformat_out;
-} vpssVidio;
+} vpssVideo;
 
 /************************** Local Routines **********************************/
-static void check_usecase(XVprocSs *VpssPtr, vpssVidio *useCase);
+static void check_usecase(XVprocSs *VpssPtr, vpssVideo *useCase);
 
 static void setup_video_io(
-                 XPeriph *PeriphPtr, XVprocSs *VpssPtr, vpssVidio *useCase);
+                 XPeriph *PeriphPtr, XVprocSs *VpssPtr, vpssVideo *useCase);
 
 static int start_system(XPeriph *PeriphPtr, XVprocSs *VpssPtr);
 
@@ -71,19 +71,19 @@ static int start_system(XPeriph *PeriphPtr, XVprocSs *VpssPtr);
 XPeriph  PeriphInst;
 XVprocSs VprocInst;
 const char topo_name[XVPROCSS_TOPOLOGY_NUM_SUPPORTED][32]={
-		"Scaler-only",
-		"Full",
-		"Deint-only",
-		"Csc-only",
-		"Vcr-only",
-		"Hcr-only"};
+        "Scaler-only",
+        "Full",
+        "Deint-only",
+        "Csc-only",
+        "Vcr-only",
+        "Hcr-only"};
 
-vpssVidio useCase[TOPOLOGY_COUNT][USECASE_COUNT] =
+vpssVideo useCase[TOPOLOGY_COUNT][USECASE_COUNT] =
   //scaler only
-  {{{1280,  720, XVIDC_CSF_YCRCB_444, XTPG_BKGND_COLOR_BARS, FALSE,
+  {{{1280,  720, XVIDC_CSF_YCRCB_420, XTPG_BKGND_COLOR_BARS, FALSE,
      1920, 1080, XVIDC_CSF_YCRCB_444                             },
     {1280,  720, XVIDC_CSF_YCRCB_422, XTPG_BKGND_COLOR_BARS, FALSE,
-      720,  480, XVIDC_CSF_YCRCB_422                             }},
+      720,  480, XVIDC_CSF_YCRCB_420                             }},
   //full fledged
    {{1280,  720, XVIDC_CSF_YCRCB_444, XTPG_BKGND_COLOR_BARS, FALSE,
      1920, 1080, XVIDC_CSF_RGB                                   },
@@ -115,7 +115,7 @@ int main(void)
   XPeriph *PeriphPtr;
   XVprocSs *VpssPtr;
 
-  vpssVidio *thisCase;
+  vpssVideo *thisCase;
   int status, cnt;
   u32 Timeout;
   static int Lock = FALSE;
@@ -139,7 +139,7 @@ int main(void)
   status = XSys_Init(PeriphPtr, VpssPtr);
   if(status != XST_SUCCESS)
   {
-	 xil_printf("CRITICAL ERR:: System Init Failed. Cannot recover from this error. Check HW\n\r");
+     xil_printf("CRITICAL ERR:: System Init Failed. Cannot recover from this error. Check HW\n\r");
   }
 
   /* Based on the customized Video Processing Subsystem functionality
@@ -150,17 +150,16 @@ int main(void)
     xil_printf("--------------------------------------------------------\r\n");
     printf("Topology is %s, case %d\r\n",topo_name[VpssPtr->Config.Topology],cnt+1);
 
-	thisCase = &useCase[VpssPtr->Config.Topology][cnt];
+    thisCase = &useCase[VpssPtr->Config.Topology][cnt];
 
     switch (VpssPtr->Config.Topology) {
       case XVPROCSS_TOPOLOGY_SCALER_ONLY:
-        // In Scaler-only mode only the picture size may change
-        // Choose video format based on the "422 Enabled" option
+        // Choose video format based on the "422, 420, and CSC Enabled" option
         // Video In: 720P Video Out: 1080P
-        thisCase->Cformat_in = XV_HscalerIs422Enabled(VpssPtr->HscalerPtr)?
-                     XVIDC_CSF_YCRCB_422:
-                     XVIDC_CSF_YCRCB_444;
-        thisCase->Cformat_out = thisCase->Cformat_in;
+        thisCase->Cformat_in = XV_HscalerIs420Enabled(VpssPtr->HscalerPtr)?
+                     XVIDC_CSF_YCRCB_420 :
+                     (XV_HscalerIs422Enabled(VpssPtr->HscalerPtr) ? XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444);
+        thisCase->Cformat_out = XV_HscalerIsCscEnabled(VpssPtr->HscalerPtr)? XVIDC_CSF_RGB : XVIDC_CSF_YCRCB_444;
         break;
 
       case XVPROCSS_TOPOLOGY_FULL_FLEDGED:
@@ -185,10 +184,10 @@ int main(void)
             thisCase->width_in = 720;
             thisCase->height_in = 240;
             thisCase->Cformat_in = (VpssPtr->HcrsmplrPtr != NULL)?
-			  XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444;
+              XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444;
             thisCase->IsInterlaced = TRUE;
           }
-	    }
+        }
 
         break;
 
@@ -208,13 +207,13 @@ int main(void)
     if(status == XST_SUCCESS)
     {
       //Configure and start VTC with output timing
-	  printf ("Start VTC.\r\n");
-	  XPeriph_ConfigVtc(PeriphPtr,
-			          &VpssPtr->VidOut,
-			          VprocInst.Config.PixPerClock);
+      printf ("Start VTC.\r\n");
+      XPeriph_ConfigVtc(PeriphPtr,
+                      &VpssPtr->VidOut,
+                      VprocInst.Config.PixPerClock);
 
       //Configure and start the TPG
-	  printf ("Start TPG.\r\n");
+      printf ("Start TPG.\r\n");
       XPeriph_ConfigTpg(PeriphPtr);
 
       /* check for output lock */
@@ -241,13 +240,13 @@ int main(void)
       if (XVprocSs_IsConfigModeDeinterlaceOnly(VpssPtr)) {
         if (XV_DeintWaitForIdle(VpssPtr->DeintPtr) == XST_SUCCESS)
           xil_printf ("Deint subcore IDLE.\r\n");
-	  else
+      else
           xil_printf ("Error: Deint subcore NOT IDLE.\r\n");
       }
 
     } else {
       xil_printf("\r\nERR:: VProcss Configuration Failed. \r\n");
-	  xil_printf("\r\nTEST FAILED\r\n");
+      xil_printf("\r\nTEST FAILED\r\n");
     }
 
 #if VERBOSE_MODE
@@ -256,7 +255,7 @@ int main(void)
 
     xil_printf ("End testing this use case.\r\n");
     Lock = FALSE;
-	cnt++;
+    cnt++;
   }
 
   while(1) {
@@ -279,7 +278,7 @@ int main(void)
 ******************************************************************************/
 
 static void setup_video_io(
-  XPeriph *PeriphPtr, XVprocSs *VpssPtr, vpssVidio *useCase){
+  XPeriph *PeriphPtr, XVprocSs *VpssPtr, vpssVideo *useCase){
 
   // depending on HW config, optionally modify the in/out formats
   check_usecase(VpssPtr, useCase);
@@ -296,11 +295,11 @@ static void setup_video_io(
   // Set VPSS Video Input AXI Stream to match the TPG
   // Note that framerate is hardwired to 60Hz in the example design
   XSys_SetStreamParam(VpssPtr,
-		              XSYS_VPSS_STREAM_IN,
-		              PeriphInst.TpgConfig.Width,
-		              PeriphInst.TpgConfig.Height,
-		              PeriphInst.TpgConfig.ColorFmt,
-		              PeriphInst.TpgConfig.IsInterlaced);
+                      XSYS_VPSS_STREAM_IN,
+                      PeriphInst.TpgConfig.Width,
+                      PeriphInst.TpgConfig.Height,
+                      PeriphInst.TpgConfig.ColorFmt,
+                      PeriphInst.TpgConfig.IsInterlaced);
 
   // Set VPSS Video Output AXI Stream
   // Note that output video is always progressive
@@ -324,21 +323,21 @@ static void setup_video_io(
 ******************************************************************************/
 static int start_system(XPeriph *PeriphPtr, XVprocSs *VpssPtr)
 {
-	int status;
-	  // For single-IP VPSS cases only, reset is handled outside vpss
-	  if (XVprocSs_IsConfigModeCscOnly(VpssPtr)          ||
-	      XVprocSs_IsConfigModeDeinterlaceOnly (VpssPtr) ||
-	      XVprocSs_IsConfigModeHCResampleOnly(VpssPtr)   ||
-	      XVprocSs_IsConfigModeVCResampleOnly(VpssPtr)
-	     ) {
-	    XPeriph_ResetHlsIp(PeriphPtr);
-	  }
+    int status;
+      // For single-IP VPSS cases only, reset is handled outside vpss
+      if (XVprocSs_IsConfigModeCscOnly(VpssPtr)          ||
+          XVprocSs_IsConfigModeDeinterlaceOnly (VpssPtr) ||
+          XVprocSs_IsConfigModeHCResampleOnly(VpssPtr)   ||
+          XVprocSs_IsConfigModeVCResampleOnly(VpssPtr)
+         ) {
+        XPeriph_ResetHlsIp(PeriphPtr);
+      }
 
-	  // Configure and Start the VPSS IP
-	  // (reset logic for multi-IP VPSS cases is done here)
-	  status = XVprocSs_SetSubsystemConfig(VpssPtr);
+      // Configure and Start the VPSS IP
+      // (reset logic for multi-IP VPSS cases is done here)
+      status = XVprocSs_SetSubsystemConfig(VpssPtr);
 
-	  return status;
+      return status;
 }
 
 /*****************************************************************************/
@@ -352,7 +351,7 @@ static int start_system(XPeriph *PeriphPtr, XVprocSs *VpssPtr)
 *  @return Returns void.
 *
 ******************************************************************************/
-static void check_usecase(XVprocSs *VpssPtr, vpssVidio *useCase)
+static void check_usecase(XVprocSs *VpssPtr, vpssVideo *useCase)
 {
   u16 *width_in   = &useCase->width_in;
   u16 *width_out  = &useCase->width_out;

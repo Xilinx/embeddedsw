@@ -53,6 +53,8 @@
 *       dmc  02/17/16   Modify timing and placement of axis and aximm resets
 *       dmc  02/24/16   Rename some constants and variables
 *       dmc  03/03/16   Init VideoStream structs to 0 in SetPowerOnDefaultState
+* 2.1   mpe   04/28/16  Added optional color format conversion handling in
+*                       scaler only topology
 * </pre>
 *
 ******************************************************************************/
@@ -151,8 +153,7 @@ const u16 XVprocSs_PixelHStep[XVIDC_PPC_NUM_SUPPORTED][4] =
 static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr);
 static void GetIncludedSubcores(XVprocSs *XVprocSsPtr);
 static int ValidateSubsystemConfig(XVprocSs *InstancePtr);
-static int ValidateScalerOnlyConfig(XVprocSs *XVprocSsPtr,
-									u16 Allow422);
+static int ValidateScalerOnlyConfig(XVprocSs *XVprocSsPtr);
 static int ValidateCscOnlyConfig(XVprocSs *XVprocSsPtr,
 								 u16 Allow422);
 static int ValidateDeintOnlyConfig(XVprocSs *XVprocSsPtr);
@@ -1108,27 +1109,31 @@ void XVprocSs_SetPipMode(XVprocSs *InstancePtr, u8 OnOff)
 * This function validates the input and output stream configuration for scaler
 * only configuration
 *
-* @param  pStrmIn is a pointer to the input stream
-* @param  pStrmOut is a pointer to the output stream
+* @param  XVprocSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return XST_SUCCESS if successful else XST_FAILURE
 *
 * @note This function is applicable only for Stream mode configuration of the
 *       subsystem. In this mode only picture resizing is available
 ******************************************************************************/
-static int ValidateScalerOnlyConfig(XVprocSs *XVprocSsPtr,
-									u16 Allow422)
+static int ValidateScalerOnlyConfig(XVprocSs *XVprocSsPtr)
 {
   XVidC_VideoStream *pStrmIn  = &XVprocSsPtr->VidIn;
   XVidC_VideoStream *pStrmOut = &XVprocSsPtr->VidOut;
 
-  if(pStrmIn->ColorFormatId != pStrmOut->ColorFormatId) {
-    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_IODIFF);
+  if ((pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) && !XV_VscalerIs420Enabled(XVprocSsPtr->VscalerPtr)) {
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VSCALER, XVPROCSS_EDAT_NO420);
     return(XST_FAILURE);
   }
 
-  if ((pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_422) && !Allow422) {
+  if ((pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_422) && !XV_HscalerIs422Enabled(XVprocSsPtr->HscalerPtr)) {
     XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_NO422);
+    return(XST_FAILURE);
+  }
+
+  if (!XV_HScalerValidateConfig(XVprocSsPtr->HscalerPtr, pStrmIn->ColorFormatId, pStrmOut->ColorFormatId))
+  {
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_FAILURE);
     return(XST_FAILURE);
   }
 
@@ -1340,7 +1345,6 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
 {
   u32 vsc_WidthIn, vsc_HeightIn, vsc_HeightOut;
   u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut;
-  u16 Allow422;
   int status = XST_SUCCESS;
 
   vsc_WidthIn = vsc_HeightIn = vsc_HeightOut = 0;
@@ -1357,8 +1361,7 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
   }
 
   /* check if input/output stream configuration is supported */
-  Allow422 = XV_HscalerIs422Enabled(XVprocSsPtr->HscalerPtr);
-  status = ValidateScalerOnlyConfig(XVprocSsPtr, Allow422);
+  status = ValidateScalerOnlyConfig(XVprocSsPtr);
 
   if(status ==  XST_SUCCESS)
   {
@@ -1378,13 +1381,15 @@ static int SetupModeScalerOnly(XVprocSs *XVprocSsPtr)
 	XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
                     vsc_WidthIn,
                     vsc_HeightIn,
-                    vsc_HeightOut);
+                    vsc_HeightOut,
+                    XVprocSsPtr->VidIn.ColorFormatId);
 
     XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
                     hsc_HeightIn,
                     hsc_WidthIn,
                     hsc_WidthOut,
-                    XVprocSsPtr->VidIn.ColorFormatId);
+                    XVprocSsPtr->VidIn.ColorFormatId,
+                    XVprocSsPtr->VidOut.ColorFormatId);
 
     /* Start Scaler sub-cores */
     XV_HScalerStart(XVprocSsPtr->HscalerPtr);
@@ -1739,11 +1744,11 @@ static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
   }
 
   /* Check for HCResamp required, but not present */
-  if(
-    ((StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) || (StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_422)) &&
-    ((StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_444) || (StrmOut->ColorFormatId == XVIDC_CSF_RGB)) &&
-    (InstancePtr->HcrsmplrPtr==NULL)) {
-    XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_NOHCR);
+  if(XVprocSs_IsConfigModeMax(InstancePtr) &&
+     ((StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) || (StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_422)) &&
+     ((StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_444) || (StrmOut->ColorFormatId == XVIDC_CSF_RGB)) &&
+     (InstancePtr->HcrsmplrPtr==NULL)) {
+     XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_NOHCR);
 	return(XST_FAILURE);
   }
 
@@ -1757,36 +1762,27 @@ static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
   }
 
   /* Check for YUV420 In stream width and height is even */
-  if(StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) {
-	if(InstancePtr->VcrsmplrInPtr){
-      if(((StrmIn->Timing.HActive % 2) != 0) &&
-		 ((StrmIn->Timing.VActive % 2) != 0)) {
-        XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_SIZODD);
-	    return(XST_FAILURE);
-	  }
-	} else {
-      XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_NOVCRI);
-	  return(XST_FAILURE);
-	}
+  if((StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) &&
+      (((StrmIn->Timing.HActive % 2) != 0) &&
+      ((StrmIn->Timing.VActive % 2) != 0))) {
+    XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_SIZODD);
+    return(XST_FAILURE);
   }
 
-  /* Check for YUV420 out stream width and height is even */
+  /* Check for VCResamp required, but not present */
   /* In the Full-fledged case, the Output V C Resampler is "VcrsmplrOut" */
   /* In the VCResample-only case, the Output V C Resampler is "VcrsmplrIn" */
-  if(StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_420) {
-	if((XVprocSs_IsConfigModeMax(InstancePtr) &&
-       (InstancePtr->VcrsmplrOutPtr)) ||
-       (XVprocSs_IsConfigModeVCResampleOnly(InstancePtr) &&
-       (InstancePtr->VcrsmplrInPtr))) {
-      if(((StrmOut->Timing.HActive % 2) != 0) &&
-		 ((StrmOut->Timing.VActive % 2) != 0)) {
-        XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_SIZODD);
-	    return(XST_FAILURE);
-	  }
-	} else {
-      XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_NOVCRO);
-	  return(XST_FAILURE);
-	}
+  if(((StrmOut->ColorFormatId == XVIDC_CSF_YCRCB_420) &&
+      XVprocSs_IsConfigModeMax(InstancePtr) &&
+      !InstancePtr->VcrsmplrOutPtr)) {
+    XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_NOVCRO);
+	return(XST_FAILURE);
+  }
+  if(((StrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) &&
+      XVprocSs_IsConfigModeMax(InstancePtr) &&
+      !InstancePtr->VcrsmplrInPtr)) {
+    XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_NOVCRI);
+	return(XST_FAILURE);
   }
 
   /* Check for Interlaced input limitation */
