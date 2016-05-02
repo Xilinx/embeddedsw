@@ -54,6 +54,7 @@ typedef struct {
     u16 PhaseShift;        /**< Max num of phases (2^PhaseShift) */
     u16 ScalerType;        /**< Scaling Algorithm Selected */
     u16 NumTaps;           /**< Number of taps */
+    u16 Is420Enabled;      /**< Color format YUV420 supported by instance */
 } XV_vscaler_Config;
 #endif
 
@@ -113,6 +114,8 @@ void XV_vscaler_Set_HwReg_HeightOut(XV_vscaler *InstancePtr, u32 Data);
 u32 XV_vscaler_Get_HwReg_HeightOut(XV_vscaler *InstancePtr);
 void XV_vscaler_Set_HwReg_LineRate(XV_vscaler *InstancePtr, u32 Data);
 u32 XV_vscaler_Get_HwReg_LineRate(XV_vscaler *InstancePtr);
+void XV_vscaler_Set_HwReg_ColorMode(XV_vscaler *InstancePtr, u32 Data);
+u32 XV_vscaler_Get_HwReg_ColorMode(XV_vscaler *InstancePtr);
 u32 XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress(XV_vscaler *InstancePtr);
 u32 XV_vscaler_Get_HwReg_vfltCoeff_HighAddress(XV_vscaler *InstancePtr);
 u32 XV_vscaler_Get_HwReg_vfltCoeff_TotalBytes(XV_vscaler *InstancePtr);

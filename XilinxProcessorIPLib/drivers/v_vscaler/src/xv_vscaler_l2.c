@@ -49,6 +49,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+* 3.0   mpe   04/28/16   Added optional color format conversion handling
 *
 * </pre>
 *
@@ -374,26 +375,32 @@ static void XV_VScalerSetCoeff(XV_Vscaler_l2 *VscPtr)
 * @param  WidthIn is the input stream width
 * @param  HeightIn is the input stream height
 * @param  HeightOut is the output stream height
+* @param  ColorFormat is the color format of the stream
 *
 * @return None
 *
 ******************************************************************************/
-void XV_VScalerSetup(XV_Vscaler_l2  *InstancePtr,
-                     u32         WidthIn,
-                     u32         HeightIn,
-                     u32         HeightOut)
+int XV_VScalerSetup(XV_Vscaler_l2  *InstancePtr,
+                    u32            WidthIn,
+                    u32            HeightIn,
+                    u32            HeightOut,
+                    u32            ColorFormat)
 {
   u32 LineRate;
 
   /*
    * Assert validates the input arguments
    */
-  Xil_AssertVoid(InstancePtr != NULL);
-  Xil_AssertVoid((WidthIn>0) && (WidthIn<=InstancePtr->Vsc.Config.MaxWidth));
-  Xil_AssertVoid((HeightIn>0) && (HeightIn<=InstancePtr->Vsc.Config.MaxHeight));
-  Xil_AssertVoid((HeightOut>0) && (HeightOut<=InstancePtr->Vsc.Config.MaxHeight));
-  Xil_AssertVoid((InstancePtr->Vsc.Config.PixPerClk >= XVIDC_PPC_1) &&
-                 (InstancePtr->Vsc.Config.PixPerClk <= XVIDC_PPC_4));
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid((WidthIn>0) && (WidthIn<=InstancePtr->Vsc.Config.MaxWidth));
+  Xil_AssertNonvoid((HeightIn>0) && (HeightIn<=InstancePtr->Vsc.Config.MaxHeight));
+  Xil_AssertNonvoid((HeightOut>0) && (HeightOut<=InstancePtr->Vsc.Config.MaxHeight));
+  Xil_AssertNonvoid((InstancePtr->Vsc.Config.PixPerClk >= XVIDC_PPC_1) &&
+                    (InstancePtr->Vsc.Config.PixPerClk <= XVIDC_PPC_4));
+
+  if(ColorFormat==XVIDC_CSF_YCRCB_420 && !XV_VscalerIs420Enabled(InstancePtr)) {
+    return(XST_FAILURE);
+  }
 
   if(InstancePtr->Vsc.Config.ScalerType == XV_VSCALER_POLYPHASE)
   {
@@ -413,6 +420,9 @@ void XV_VScalerSetup(XV_Vscaler_l2  *InstancePtr,
   XV_vscaler_Set_HwReg_Width(&InstancePtr->Vsc,      WidthIn);
   XV_vscaler_Set_HwReg_HeightOut(&InstancePtr->Vsc,  HeightOut);
   XV_vscaler_Set_HwReg_LineRate(&InstancePtr->Vsc,   LineRate);
+  XV_vscaler_Set_HwReg_ColorMode(&InstancePtr->Vsc,  ColorFormat);
+
+  return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -429,8 +439,9 @@ void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr)
 {
   XV_vscaler *VscPtr = &InstancePtr->Vsc;
   u32 done, idle, ready, ctrl;
-  u32 widthin, heightin, heightout, linerate;
+  u32 widthin, heightin, heightout, linerate, cformat;
   u32 baseAddr, taps, phases;
+  u16 allow420;
   int val,i,j;
   const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};
 
@@ -445,11 +456,12 @@ void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr)
   ready = XV_vscaler_IsReady(VscPtr);
   ctrl =  XV_vscaler_ReadReg(VscPtr->Config.BaseAddress, XV_VSCALER_CTRL_ADDR_AP_CTRL);
 
-
   heightin  = XV_vscaler_Get_HwReg_HeightIn(VscPtr);
   widthin   = XV_vscaler_Get_HwReg_Width(VscPtr);
   heightout = XV_vscaler_Get_HwReg_HeightOut(VscPtr);
   linerate  = XV_vscaler_Get_HwReg_LineRate(VscPtr);
+  cformat   = XV_vscaler_Get_HwReg_ColorMode(VscPtr);
+  allow420  = XV_VscalerIs420Enabled(InstancePtr);
 
   taps   = VscPtr->Config.NumTaps/2;
   phases = (1<<VscPtr->Config.PhaseShift);
@@ -467,11 +479,13 @@ void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr)
   {
     xil_printf("Scaler Type:     Unknown\r\n");
   }
-  xil_printf("Input Width:     %d\r\n",widthin);
-  xil_printf("Input Height:    %d\r\n",heightin);
-  xil_printf("Output Height:   %d\r\n",heightout);
-  xil_printf("Line Rate:       %d\r\n",linerate);
-  xil_printf("Num Phases:      %d\r\n",phases);
+  xil_printf("Input Width:      %d\r\n",widthin);
+  xil_printf("Input Height:     %d\r\n",heightin);
+  xil_printf("Output Height:    %d\r\n",heightout);
+  xil_printf("4:2:0 processing: %s\r\n", allow420?"Enabled":"Disabled");
+  xil_printf("Color Format:     %s\r\n", XVidC_GetColorFormatStr(cformat));
+  xil_printf("Line Rate:        %d\r\n",linerate);
+  xil_printf("Num Phases:       %d\r\n",phases);
 
   if(VscPtr->Config.ScalerType == XV_VSCALER_POLYPHASE)
   {

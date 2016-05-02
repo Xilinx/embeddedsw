@@ -39,6 +39,10 @@
 // 0x028 : Data signal of HwReg_LineRate
 //         bit 31~0 - HwReg_LineRate[31:0] (Read/Write)
 // 0x02c : reserved
+// 0x030 : Data signal of HwReg_ColorMode
+//         bit 7~0 - HwReg_ColorMode[7:0] (Read/Write)
+//         others  - reserved
+// 0x034 : reserved
 // 0x400 ~
 // 0x7ff : Memory 'HwReg_vfltCoeff' (384 * 16b)
 //         Word n : bit [15: 0] - HwReg_vfltCoeff[2n]
@@ -57,6 +61,8 @@
 #define XV_VSCALER_CTRL_BITS_HWREG_HEIGHTOUT_DATA 16
 #define XV_VSCALER_CTRL_ADDR_HWREG_LINERATE_DATA  0x028
 #define XV_VSCALER_CTRL_BITS_HWREG_LINERATE_DATA  32
+#define XV_VSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA 0x030
+#define XV_VSCALER_CTRL_BITS_HWREG_COLORMODE_DATA 8
 #define XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_BASE 0x800
 #define XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_HIGH 0xbff
 #define XV_VSCALER_CTRL_WIDTH_HWREG_VFLTCOEFF     16

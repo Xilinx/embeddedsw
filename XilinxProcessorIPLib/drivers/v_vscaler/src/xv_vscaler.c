@@ -151,6 +151,23 @@ u32 XV_vscaler_Get_HwReg_LineRate(XV_vscaler *InstancePtr) {
     return Data;
 }
 
+void XV_vscaler_Set_HwReg_ColorMode(XV_vscaler *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_vscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_VSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA, Data);
+}
+
+u32 XV_vscaler_Get_HwReg_ColorMode(XV_vscaler *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_vscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_VSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA);
+    return Data;
+}
+
 u32 XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress(XV_vscaler *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

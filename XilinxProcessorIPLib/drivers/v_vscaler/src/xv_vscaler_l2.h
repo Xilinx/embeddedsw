@@ -93,6 +93,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
+* 3.0   mpe   04/28/16   Added optional color format conversion handling
 *
 * </pre>
 *
@@ -152,6 +153,19 @@ typedef struct
 
 /************************** Macros Definitions *******************************/
 
+/*****************************************************************************/
+/**
+ * This macro checks if Vscaler instance is enabled for 4:2:0 processing
+ *
+ * @param  InstancePtr is pointer to Vscaler core layer 2
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XV_VscalerIs420Enabled(InstancePtr) \
+   ((InstancePtr)->Vsc.Config.Is420Enabled)
+
+
 /************************** Function Prototypes ******************************/
 int XV_VScalerInitialize(XV_Vscaler_l2 *InstancePtr, u16 DeviceId);
 void XV_VScalerStart(XV_Vscaler_l2 *InstancePtr);
@@ -160,11 +174,11 @@ void XV_VScalerLoadExtCoeff(XV_Vscaler_l2 *InstancePtr,
                             u16 num_phases,
                             u16 num_taps,
                             const short *Coeff);
-void XV_VScalerSetup(XV_Vscaler_l2 *InstancePtr,
-                     u32 WidthIn,
-                     u32 HeightIn,
-                     u32 HeightOut);
-
+int XV_VScalerSetup(XV_Vscaler_l2  *InstancePtr,
+                    u32 WidthIn,
+                    u32 HeightIn,
+                    u32 HeightOut,
+                    u32 ColorFormat);
 void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr);
 
 #ifdef __cplusplus

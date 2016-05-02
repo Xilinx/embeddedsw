@@ -42,7 +42,8 @@ proc generate {drv_handle} {
         "MAX_DATA_WIDTH" \
         "PHASE_SHIFT" \
         "SCALE_MODE" \
-        "TAPS"
+        "TAPS" \
+        "ENABLE_420"
 
     xdefine_config_file $drv_handle "xv_vscaler_g.c" "XV_vscaler" \
         "DEVICE_ID" \
@@ -54,7 +55,8 @@ proc generate {drv_handle} {
         "MAX_DATA_WIDTH" \
         "PHASE_SHIFT" \
         "SCALE_MODE" \
-        "TAPS"
+        "TAPS" \
+        "ENABLE_420"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_vscaler" \
         "DEVICE_ID" \
@@ -67,6 +69,7 @@ proc generate {drv_handle} {
         "MAX_DATA_WIDTH" \
         "PHASE_SHIFT" \
         "SCALE_MODE" \
-        "TAPS"
+        "TAPS" \
+        "ENABLE_420"
 }
 
