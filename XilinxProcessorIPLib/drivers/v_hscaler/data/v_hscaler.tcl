@@ -33,6 +33,7 @@
 # -------- ------ -------- ----------------------------------------------------
 #  1.0      rco    07/21/15 Initial version of vprocss hscaler subcore tcl
 #  2.0      dmc    12/17/15 Include new arg ENABLE_422
+#  3.0      mpe    04/28/16 Include new arg ENABLE_420, and ENABLE_CSC
 #
 ###############################################################################
 
@@ -50,7 +51,9 @@ proc generate {drv_handle} {
         "PHASE_SHIFT" \
         "SCALE_MODE" \
         "TAPS" \
-        "ENABLE_422"
+        "ENABLE_422" \
+        "ENABLE_420" \
+        "ENABLE_CSC"
 
     xdefine_config_file $drv_handle "xv_hscaler_g.c" "XV_hscaler" \
         "DEVICE_ID" \
@@ -63,7 +66,9 @@ proc generate {drv_handle} {
         "PHASE_SHIFT" \
         "SCALE_MODE" \
         "TAPS" \
-        "ENABLE_422"
+        "ENABLE_422" \
+        "ENABLE_420" \
+        "ENABLE_CSC"
 
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_hscaler" \
@@ -78,6 +83,8 @@ proc generate {drv_handle} {
         "PHASE_SHIFT" \
         "SCALE_MODE" \
         "TAPS" \
-        "ENABLE_422"
+        "ENABLE_422" \
+        "ENABLE_420" \
+        "ENABLE_CSC"
 }
 

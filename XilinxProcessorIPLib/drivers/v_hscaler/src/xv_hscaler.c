@@ -151,6 +151,23 @@ u32 XV_hscaler_Get_HwReg_ColorMode(XV_hscaler *InstancePtr) {
     return Data;
 }
 
+void XV_hscaler_Set_HwReg_ColorModeOut(XV_hscaler *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_hscaler_WriteReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_COLORMODEOUT_DATA, Data);
+}
+
+u32 XV_hscaler_Get_HwReg_ColorModeOut(XV_hscaler *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_hscaler_ReadReg(InstancePtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_HWREG_COLORMODEOUT_DATA);
+    return Data;
+}
+
 void XV_hscaler_Set_HwReg_PixelRate(XV_hscaler *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

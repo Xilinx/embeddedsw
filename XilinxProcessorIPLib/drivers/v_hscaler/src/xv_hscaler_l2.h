@@ -45,7 +45,7 @@
 * <b>H Scaler IP Features </b>
 *
 * This H-Scaler IP supports following features
-* 	- 3 Channel Scaler with RGB, YUV444 and optional YUV422 support
+* 	- 3 Channel Scaler with RGB, YUV444 and optional YUV422, and YUV420 support
 * 	- Scale horizontally to 4K line at 60Hz
 * 	- up to 16bits color depth
 *	- 1, 2 or 4 pixel per clock processing
@@ -95,6 +95,7 @@
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
 *       dmc   12/17/15   Add macro to query the Is422Enabled flag that was
 *                        added to the XV_hscaler_Config structure
+* 3.0   mpe   04/28/16   Added optional color format conversion handling
 * </pre>
 *
 ******************************************************************************/
@@ -166,6 +167,30 @@ typedef struct
 #define XV_HscalerIs422Enabled(InstancePtr) \
    ((InstancePtr)->Hsc.Config.Is422Enabled)
 
+/*****************************************************************************/
+/**
+ * This macro checks if Hscaler instance is enabled for 4:2:0 processing
+ *
+ * @param  InstancePtr is pointer to Hscaler core layer 2
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XV_HscalerIs420Enabled(InstancePtr) \
+   ((InstancePtr)->Hsc.Config.Is420Enabled)
+
+/*****************************************************************************/
+/**
+ * This macro checks if Hscaler instance is enabled for color space conversion
+ *
+ * @param  InstancePtr is pointer to Hscaler core layer 2
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XV_HscalerIsCscEnabled(InstancePtr) \
+   ((InstancePtr)->Hsc.Config.IsCscEnabled)
+
 /************************** Function Prototypes ******************************/
 int XV_HScalerInitialize(XV_Hscaler_l2 *InstancePtr, u16 DeviceId);
 void XV_HScalerStart(XV_Hscaler_l2 *InstancePtr);
@@ -178,8 +203,11 @@ int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,
-                     u32 cformat);
-
+                     u32 cformat,
+                     u32 cformatOut);
+int XV_HScalerValidateConfig(XV_Hscaler_l2 *InstancePtr,
+                             u32 ColorFormatIn,
+                             u32 ColorFormatOut);
 void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr);
 
 #ifdef __cplusplus

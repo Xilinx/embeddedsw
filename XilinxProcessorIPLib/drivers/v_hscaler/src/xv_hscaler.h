@@ -55,6 +55,8 @@ typedef struct {
     u16 ScalerType;       /**< Scaling Algorithm Selected */
     u16 NumTaps;          /**< Number of taps */
     u16 Is422Enabled;     /**< Color format YUV422 supported by instance */
+    u16 Is420Enabled;     /**< Color format YUV420 supported by instance */
+    u16 IsCscEnabled;     /**< Color space conversion supported by instance */
 } XV_hscaler_Config;
 #endif
 
@@ -114,6 +116,8 @@ void XV_hscaler_Set_HwReg_WidthOut(XV_hscaler *InstancePtr, u32 Data);
 u32 XV_hscaler_Get_HwReg_WidthOut(XV_hscaler *InstancePtr);
 void XV_hscaler_Set_HwReg_ColorMode(XV_hscaler *InstancePtr, u32 Data);
 u32 XV_hscaler_Get_HwReg_ColorMode(XV_hscaler *InstancePtr);
+void XV_hscaler_Set_HwReg_ColorModeOut(XV_hscaler *InstancePtr, u32 Data);
+u32 XV_hscaler_Get_HwReg_ColorModeOut(XV_hscaler *InstancePtr);
 void XV_hscaler_Set_HwReg_PixelRate(XV_hscaler *InstancePtr, u32 Data);
 u32 XV_hscaler_Get_HwReg_PixelRate(XV_hscaler *InstancePtr);
 u32 XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress(XV_hscaler *InstancePtr);

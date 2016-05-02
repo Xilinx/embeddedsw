@@ -50,6 +50,7 @@
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
 *       dmc   12/17/15   Updated the XV_HScalerDbgReportStatus routine
+* 3.0   mpe   04/28/16   Added optional color format conversion handling
 *
 * </pre>
 *
@@ -555,17 +556,19 @@ static void XV_HScalerSetCoeff(XV_Hscaler_l2 *HscPtr)
 * @param  HeightIn is the input stream height
 * @param  WidthIn is the input stream width
 * @param  WidthOut is the output stream width
-* @param  cformat is the input stream color format
+* @param  ColorFormatIn is the input stream color format
+* @param  ColorFormatOut is the output stream color format
 *
 * @return XST_SUCCESS if the requested setup parameters are valid
-*         XST_FAILURE if YUV422 color format is requested but not allowed
+*         XST_FAILURE otherwise
 *
 ******************************************************************************/
 int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
                      u32 HeightIn,
                      u32 WidthIn,
                      u32 WidthOut,
-                     u32 cformat)
+                     u32 ColorFormatIn,
+                     u32 ColorFormatOut)
 {
   u32 PixelRate;
 
@@ -579,7 +582,8 @@ int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
   Xil_AssertNonvoid((InstancePtr->Hsc.Config.PixPerClk >= XVIDC_PPC_1) &&
                     (InstancePtr->Hsc.Config.PixPerClk <= XVIDC_PPC_4));
 
-  if ((cformat==XVIDC_CSF_YCRCB_422) && !XV_HscalerIs422Enabled(InstancePtr)) {
+  if(!XV_HScalerValidateConfig(InstancePtr, ColorFormatIn, ColorFormatOut))
+  {
     return XST_FAILURE;
   }
 
@@ -602,11 +606,12 @@ int XV_HScalerSetup(XV_Hscaler_l2  *InstancePtr,
   /* Program computed Phase into the IP register bank */
   XV_HScalerSetPhase(InstancePtr);
 
-  XV_hscaler_Set_HwReg_Height(&InstancePtr->Hsc,     HeightIn);
-  XV_hscaler_Set_HwReg_WidthIn(&InstancePtr->Hsc,    WidthIn);
-  XV_hscaler_Set_HwReg_WidthOut(&InstancePtr->Hsc,   WidthOut);
-  XV_hscaler_Set_HwReg_ColorMode(&InstancePtr->Hsc,  cformat);
-  XV_hscaler_Set_HwReg_PixelRate(&InstancePtr->Hsc,  PixelRate);
+  XV_hscaler_Set_HwReg_Height(&InstancePtr->Hsc,        HeightIn);
+  XV_hscaler_Set_HwReg_WidthIn(&InstancePtr->Hsc,       WidthIn);
+  XV_hscaler_Set_HwReg_WidthOut(&InstancePtr->Hsc,      WidthOut);
+  XV_hscaler_Set_HwReg_ColorMode(&InstancePtr->Hsc,     ColorFormatIn);
+  XV_hscaler_Set_HwReg_ColorModeOut(&InstancePtr->Hsc,  ColorFormatOut);
+  XV_hscaler_Set_HwReg_PixelRate(&InstancePtr->Hsc,     PixelRate);
 
   return XST_SUCCESS;
 }
@@ -626,8 +631,8 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
 {
   XV_hscaler *HscPtr = &InstancePtr->Hsc;
   u32 done, idle, ready, ctrl;
-  u32 widthin, widthout, height, pixrate, cformat;
-  u16 allow422;
+  u32 widthin, widthout, height, pixrate, cformatin, cformatOut;
+  u16 allow422, allow420, allowCsc;
   u32 baseAddr, taps, phases;
   int val,i,j;
   const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};
@@ -642,12 +647,15 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
   ready = XV_hscaler_IsReady(HscPtr);
   ctrl =  XV_hscaler_ReadReg(HscPtr->Config.BaseAddress, XV_HSCALER_CTRL_ADDR_AP_CTRL);
 
-  height   = XV_hscaler_Get_HwReg_Height(HscPtr);
-  widthin  = XV_hscaler_Get_HwReg_WidthIn(HscPtr);
-  widthout = XV_hscaler_Get_HwReg_WidthOut(HscPtr);
-  cformat  = XV_hscaler_Get_HwReg_ColorMode(HscPtr);
-  pixrate  = XV_hscaler_Get_HwReg_PixelRate(HscPtr);
-  allow422 = XV_HscalerIs422Enabled(InstancePtr);
+  height     = XV_hscaler_Get_HwReg_Height(HscPtr);
+  widthin    = XV_hscaler_Get_HwReg_WidthIn(HscPtr);
+  widthout   = XV_hscaler_Get_HwReg_WidthOut(HscPtr);
+  cformatin  = XV_hscaler_Get_HwReg_ColorMode(HscPtr);
+  cformatOut = XV_hscaler_Get_HwReg_ColorModeOut(HscPtr);
+  pixrate    = XV_hscaler_Get_HwReg_PixelRate(HscPtr);
+  allow422   = XV_HscalerIs422Enabled(InstancePtr);
+  allow420   = XV_HscalerIs420Enabled(InstancePtr);
+  allowCsc   = XV_HscalerIsCscEnabled(InstancePtr);
 
   taps   = HscPtr->Config.NumTaps/2;
   phases = (1<<HscPtr->Config.PhaseShift);
@@ -659,18 +667,21 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
   xil_printf("Ctrl:    0x%x\r\n\r\n", ctrl);
 
   if(HscPtr->Config.ScalerType <= XV_HSCALER_POLYPHASE) {
-    xil_printf("Scaler Type:     %s\r\n",
-	  ScalerTypeStr[HscPtr->Config.ScalerType]);
+    xil_printf("Scaler Type:        %s\r\n",
+      ScalerTypeStr[HscPtr->Config.ScalerType]);
   } else {
-    xil_printf("Scaler Type:     Unknown\r\n");
+    xil_printf("Scaler Type:        Unknown\r\n");
   }
-  xil_printf("Input&Output Height: %d\r\n",height);
-  xil_printf("Input Width:         %d\r\n",widthin);
-  xil_printf("Output Width:        %d\r\n\r\n",widthout);
+  xil_printf("Input&Output Height:    %d\r\n",height);
+  xil_printf("Input Width:            %d\r\n",widthin);
+  xil_printf("Output Width:           %d\r\n\r\n",widthout);
 
-  xil_printf("4:2:2 processing:    %s\r\n", allow422?"Enabled":"Disabled");
-  xil_printf("Color Format:        %s\r\n", XVidC_GetColorFormatStr(cformat));
-  xil_printf("Pixel Rate:          %d\r\n\r\n",pixrate);
+  xil_printf("4:2:2 processing:       %s\r\n", allow422?"Enabled":"Disabled");
+  xil_printf("4:2:0 processing:       %s\r\n", allow420?"Enabled":"Disabled");
+  xil_printf("Color space conversion: %s\r\n", allowCsc?"Enabled":"Disabled");
+  xil_printf("Input Color Format:     %s\r\n", XVidC_GetColorFormatStr(cformatin));
+  xil_printf("Output Color Format:    %s\r\n", XVidC_GetColorFormatStr(cformatOut));
+  xil_printf("Pixel Rate:             %d\r\n\r\n",pixrate);
 
   xil_printf("Num Phases:          %d\r\n",phases);
   if(HscPtr->Config.ScalerType == XV_HSCALER_POLYPHASE)
@@ -697,4 +708,42 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
     }
   }
 }
+
+/*****************************************************************************/
+/**
+* This function checks if the given input and output color formats
+* are valid configuration parameters for this instance
+*
+* @param  InstancePtr is a pointer to the core instance to be worked on.
+* @param  cformat is the input stream color format
+* @param  cformatOut is the output stream color format
+*
+* @return TRUE if the requested setup parameters are valid
+*         FALSE otherwise
+*
+******************************************************************************/
+int XV_HScalerValidateConfig(XV_Hscaler_l2 *InstancePtr,
+                             u32 cformatIn,
+                             u32 cformatOut)
+{
+  u32 lo, hi;
+
+  if(cformatIn==XVIDC_CSF_YCRCB_422 && !XV_HscalerIs422Enabled(InstancePtr)) {
+    return(FALSE);
+  }
+
+  if(cformatIn==XVIDC_CSF_RGB && !XV_HscalerIsCscEnabled(InstancePtr) && cformatOut!=XVIDC_CSF_RGB) {
+    return(FALSE);
+  }
+
+  lo = (XV_HscalerIsCscEnabled(InstancePtr)) ? XVIDC_CSF_RGB : XVIDC_CSF_YCRCB_444;
+  hi = (XV_HscalerIs420Enabled(InstancePtr)) ? XVIDC_CSF_YCRCB_420 : ((XV_HscalerIs422Enabled(InstancePtr)) ? XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444);
+  if (cformatOut<lo || cformatOut>hi )
+  {
+    return(FALSE);
+  }
+
+  return(TRUE);
+}
+
 /** @} */

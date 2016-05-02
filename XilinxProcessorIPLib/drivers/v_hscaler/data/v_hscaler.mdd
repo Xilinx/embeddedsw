@@ -38,6 +38,6 @@ BEGIN driver v_hscaler
  OPTION copyfiles = all;
  OPTION DEPENDS = (video_common_v2_2);
  OPTION name = v_hscaler;
- OPTION version = 2.0;
+ OPTION version = 3.0;
 
 END driver
