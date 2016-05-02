@@ -249,8 +249,7 @@ int main(void)
 	while ((TickCount + 1) % 4);
 
 	PrepareSuspend();
-	pm_dbg("Going to WFI...\n");
-	__asm__("wfi");
+	XPm_SuspendFinalize();
 
 	/*
 	 * Can execute code below only if interrupt is generated between calling
