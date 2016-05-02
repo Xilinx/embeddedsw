@@ -40,6 +40,9 @@
 #include "pm_client.h"
 #include "xparameters.h"
 
+#define PM_CLIENT_RPU_ERR_INJ            0xFF9A0020U
+#define PM_CLIENT_RPU_FAULT_LOG_EN_MASK  0x00000101U
+
 static struct XPm_Master pm_rpu_0_master = {
 	.node_id = NODE_RPU_0,
 	.pwrdn_mask = RPU_RPU_0_PWRDWN_EN_MASK,
@@ -144,6 +147,14 @@ void XPm_ClientWakeup(const struct XPm_Master *const master)
  */
 void XPm_ClientSuspendFinalize(void)
 {
+	/*
+	 * Unconditionally disable fault log.
+	 * BSP enables it once the processor resumes.
+	 */
+	pm_dbg("Disabling RPU Lock-Step Fault Log...\n");
+	pm_write(PM_CLIENT_RPU_ERR_INJ,
+			pm_read(PM_CLIENT_RPU_ERR_INJ) & ~PM_CLIENT_RPU_FAULT_LOG_EN_MASK);
+
 	pm_dbg("Going to WFI...\n");
 	__asm__("wfi");
 	pm_dbg("WFI exit...\n");
