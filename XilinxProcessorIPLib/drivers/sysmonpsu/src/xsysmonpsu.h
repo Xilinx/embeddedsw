@@ -151,6 +151,7 @@
 *              03/03/16 Added Temperature remote channel for Setsingle
 *                       channel API. Also corrected external mux channel
 *                       numbers.
+* 1.1   kvn    05/05/16 Modified code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -458,7 +459,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XSysMonPsu_TemperatureToRaw_OnChip(Temperature)				\
-	((int)(((Temperature) + 273.6777f)*65536.0f*0.00199451786f))
+	((s32)(((Temperature) + 273.6777f)*65536.0f*0.00199451786f))
 
 /****************************************************************************/
 /**
@@ -476,7 +477,7 @@ typedef struct {
 *
 *****************************************************************************/
 #define XSysMonPsu_TemperatureToRaw_ExternalRef(Temperature)		\
-	((int)(((Temperature) + 273.8195f)*65536.0f*0.00198842814f))
+	((s32)(((Temperature) + 273.8195f)*65536.0f*0.00198842814f))
 
 /****************************************************************************/
 /**
@@ -534,7 +535,7 @@ void XSysMonPsu_Reset(XSysMonPsu *InstancePtr);
 void XSysMonPsu_Reset_FromLPD(XSysMonPsu *InstancePtr);
 u32 XSysMonPsu_GetStatus(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 void XSysMonPsu_StartAdcConversion(XSysMonPsu *InstancePtr);
-u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 SysmonBlk);
+u16 XSysMonPsu_GetAdcData(XSysMonPsu *InstancePtr, u8 Channel, u32 Block);
 u16 XSysMonPsu_GetCalibCoefficient(XSysMonPsu *InstancePtr, u8 CoeffType, u32 SysmonBlk);
 u16 XSysMonPsu_GetMinMaxMeasurement(XSysMonPsu *InstancePtr, u8 MeasurementType,
 		u32 SysmonBlk);

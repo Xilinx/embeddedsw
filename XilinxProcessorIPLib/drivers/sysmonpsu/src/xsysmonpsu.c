@@ -51,6 +51,7 @@
 *              03/03/16 Added Temperature remote channel for Setsingle
 *                       channel API. Also corrected external mux channel
 *                       numbers.
+* 1.1   kvn    05/05/16 Modified code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -148,7 +149,6 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 * function will be called.
 *
 * @param	CallBackRef is unused by this function.
-* @param	Event is unused by this function.
 *
 * @return	None.
 *
@@ -575,17 +575,17 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 			  (IsDifferentialMode == FALSE));
 	Xil_AssertNonvoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
 
-	/* Calculate the effective baseaddress based on the Sysmon instance. */
-	EffectiveBaseAddress =
-			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
-					SysmonBlk);
-
 	/* Check if the device is in single channel mode else return failure */
 	if ((XSysMonPsu_GetSequencerMode(InstancePtr, SysmonBlk)
 				!= XSM_SEQ_MODE_SINGCHAN)) {
 		Status = (s32)XST_FAILURE;
 		goto End;
 	}
+
+	/* Calculate the effective baseaddress based on the Sysmon instance. */
+	EffectiveBaseAddress =
+			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
+					SysmonBlk);
 
 	/* Read the Configuration Register 0 and extract out Averaging value. */
 	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
@@ -1283,11 +1283,6 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 AvgEnableChMask,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
 
-	/* Calculate the effective baseaddress based on the Sysmon instance. */
-	EffectiveBaseAddress =
-			XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
-					SysmonBlk);
-
 	/*
 	 * The sequencer must be disabled for writing any of these registers.
 	 * Return XST_FAILURE if the channel sequencer is enabled.
@@ -1295,24 +1290,27 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 AvgEnableChMask,
 	if ((XSysMonPsu_GetSequencerMode(InstancePtr,SysmonBlk)
 	                                     != XSM_SEQ_MODE_SAFE)) {
 		Status = (s32)XST_FAILURE;
-		goto End;
+	} else {
+		/* Calculate the effective baseaddress based on the Sysmon instance. */
+		EffectiveBaseAddress =
+				XSysMonPsu_GetEffBaseAddress(InstancePtr->Config.BaseAddress,
+						SysmonBlk);
+		/*
+		 * Enable/disable the averaging for the specified channels in the
+		 * ADC Channel Averaging Enables Sequencer Registers.
+		 */
+		XSysmonPsu_WriteReg(EffectiveBaseAddress +
+				XSYSMONPSU_SEQ_AVERAGE0_OFFSET,
+				(AvgEnableChMask & XSYSMONPSU_SEQ_AVERAGE0_MASK));
+
+		XSysmonPsu_WriteReg(EffectiveBaseAddress +
+				XSYSMONPSU_SEQ_AVERAGE1_OFFSET,
+				 (AvgEnableChMask >> XSM_SEQ_CH_SHIFT) &
+				 XSYSMONPSU_SEQ_AVERAGE1_MASK);
+
+		Status = (s32)XST_SUCCESS;
 	}
 
-	/*
-	 * Enable/disable the averaging for the specified channels in the
-	 * ADC Channel Averaging Enables Sequencer Registers.
-	 */
-	XSysmonPsu_WriteReg(EffectiveBaseAddress +
-			XSYSMONPSU_SEQ_AVERAGE0_OFFSET,
-			(AvgEnableChMask & XSYSMONPSU_SEQ_AVERAGE0_MASK));
-
-	XSysmonPsu_WriteReg(EffectiveBaseAddress +
-			XSYSMONPSU_SEQ_AVERAGE1_OFFSET,
-			 (AvgEnableChMask >> XSM_SEQ_CH_SHIFT) &
-			 XSYSMONPSU_SEQ_AVERAGE1_MASK);
-
-	Status = (s32)XST_SUCCESS;
-End:
 	return Status;
 }
 
