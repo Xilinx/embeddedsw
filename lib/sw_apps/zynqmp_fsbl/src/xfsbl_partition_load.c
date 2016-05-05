@@ -1463,7 +1463,7 @@ static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum]);
 
 	if (DestinationDev == XIH_PH_ATTRB_DEST_DEVICE_PMU) {
-		if ((PartitionNum + 1) <
+		if ((PartitionNum + 1) <=
 				(FsblInstancePtr->
 						ImageHeader.ImageHeaderTable.NoOfPartitions-1U)) {
 			DestinationDevNxt = XFsbl_GetDestinationDevice(
