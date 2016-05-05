@@ -126,6 +126,7 @@
 *       sk     02/16/16 Corrected the Tuning logic.
 *       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
+*              05/03/16 Standard Speed for SD to 19MHz in ZynqMPSoC. CR#951024
 *
 * </pre>
 *
