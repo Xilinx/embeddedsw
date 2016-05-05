@@ -64,6 +64,7 @@
 *       sk     12/10/15 Added support for MMC cards.
 *       sk     02/16/16 Corrected the Tuning logic.
 *       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
+* 2.8   sk     05/03/16 Standard Speed for SD to 19MHz in ZynqMPSoC. CR#951024
 * </pre>
 *
 ******************************************************************************/
@@ -96,6 +97,7 @@
 #define HIGH_SPEED_SUPPORT	0x2U
 #define WIDTH_4_BIT_SUPPORT	0x4U
 #define SD_CLK_25_MHZ		25000000U
+#define SD_CLK_19_MHZ		19000000U
 #define SD_CLK_26_MHZ		26000000U
 #define EXT_CSD_DEVICE_TYPE_BYTE	196U
 #define EXT_CSD_DEVICE_TYPE_HIGH_SPEED			0x2U
@@ -548,7 +550,15 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		}
 
 		/* Change clock to default clock 25MHz */
-		InstancePtr->BusSpeed = SD_CLK_25_MHZ;
+		/*
+		 * SD default speed mode timing should be closed at 19 MHz.
+		 * The reason for this is SD requires a voltage level shifter.
+		 * This limitation applies to ZynqMPSoC.
+		 */
+		if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3)
+			InstancePtr->BusSpeed = SD_CLK_19_MHZ;
+		else
+			InstancePtr->BusSpeed = SD_CLK_25_MHZ;
 		Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
