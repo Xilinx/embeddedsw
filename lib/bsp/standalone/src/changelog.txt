@@ -359,4 +359,7 @@
  *                     file mb_interface.h. This fixes the CR#949503.
  * 5.5 asa   04/29/16  Fix for CR#951080. Updated cache APIs for HW designs where cache
  *                     memory is not included for MicroBlaze.
+ * 5.5 pkp   05/06/16  Modified the cortexa9/xil_exception.h to update the macros
+ *		       Xil_EnableNestedInterrupts and Xil_DisableNestedInterrupts for fixing
+ *		       the issue of lr being corrupted to resolve CR#950468
  *****************************************************************************************/
