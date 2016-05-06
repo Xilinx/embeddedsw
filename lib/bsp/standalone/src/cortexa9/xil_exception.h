@@ -44,6 +44,10 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 1.00a ecm/sdm  11/04/09 First release
+* 5.05  pkp      06/05/16 Modified Xil_EnableNestedInterrupts to store the lr
+*                         on stack before using and Xil_DisableNestedInterrupts
+*                         to retrieve it back from stack to avoid corruption of
+*						  lr
 * </pre>
 *
 ******************************************************************************/
@@ -187,6 +191,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 *			eventual crash (all the stack space getting consumed).
 ******************************************************************************/
 #define Xil_EnableNestedInterrupts() \
+		__asm__ __volatile__ ("stmfd   sp!, {lr}"); \
 		__asm__ __volatile__ ("mrs     lr, spsr");  \
 		__asm__ __volatile__ ("stmfd   sp!, {lr}"); \
 		__asm__ __volatile__ ("msr     cpsr_c, #0x1F"); \
@@ -211,7 +216,8 @@ typedef void (*Xil_InterruptHandler)(void *data);
 		__asm__ __volatile__ ("ldmfd   sp!, {lr}");   \
 		__asm__ __volatile__ ("msr     cpsr_c, #0x92"); \
 		__asm__ __volatile__ ("ldmfd   sp!, {lr}"); \
-		__asm__ __volatile__ ("msr     spsr_cxsf, lr");
+		__asm__ __volatile__ ("msr     spsr_cxsf, lr"); \
+		__asm__ __volatile__ ("ldmfd   sp!, {lr}"); \
 
 /************************** Variable Definitions ****************************/
 
