@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014-2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -68,12 +68,10 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
-/***************** Macros (Inline Functions) Definitions *********************/
-
-#define ITERS_PER_MSEC   ((XPAR_CPU_CORE_CLOCK_FREQ_HZ / 1000) / 6)
-
 /************************** Function Prototypes ******************************/
 
+s32 usleep(u32 useconds);
+s32 sleep(u32 seconds);
 void MB_Sleep(u32 MilliSeconds);
 
 #ifdef __cplusplus
