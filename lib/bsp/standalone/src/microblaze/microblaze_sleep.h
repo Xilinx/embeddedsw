@@ -72,7 +72,7 @@ extern "C" {
 
 s32 usleep(u32 useconds);
 s32 sleep(u32 seconds);
-void MB_Sleep(u32 MilliSeconds);
+void MB_Sleep(u32 MilliSeconds) __attribute__((__deprecated__));
 
 #ifdef __cplusplus
 }
