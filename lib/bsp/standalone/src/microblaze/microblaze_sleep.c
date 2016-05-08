@@ -98,6 +98,8 @@ void MB_Sleep(u32 MilliSeconds)
 			"or  r0, r0, r0   \n\t"
 			"bneid %1, 1b     \n\t"
 			"addik %1, %1, -1 \n\t"
-			:: "i"(ITERS_PER_MSEC), "d" (MilliSeconds));
-
+			:
+			: "i"(ITERS_PER_MSEC), "d" (MilliSeconds)
+			: "r0", "r7"
+	);
 }
