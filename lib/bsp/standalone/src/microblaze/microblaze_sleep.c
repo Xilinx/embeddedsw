@@ -55,18 +55,6 @@
 
 #include "microblaze_sleep.h"
 
-/************************** Constant Definitions *****************************/
-
-
-/**************************** Type Definitions *******************************/
-
-
-/***************** Macros (Inline Functions) Definitions *********************/
-
-
-/************************** Function Prototypes ******************************/
-
-
 
 /*****************************************************************************/
 /**
@@ -82,13 +70,6 @@
 ******************************************************************************/
 void MB_Sleep(u32 MilliSeconds)
 {
-	if (((mfmsr() & 0x20U) == 0U)) {
-		/*
-		 * Instruction cache not enabled.
-		 * Delay will be much higher than expected.
-		 */
-	}
-
 	asm volatile ("\n"
 			"1:               \n\t"
 			"addik r7, r0, %0 \n\t"
