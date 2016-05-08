@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -58,6 +58,42 @@
 #include "xtime_l.h"
 #include "xparameters.h"
 
+/* Global Timer is always clocked at half of the CPU frequency */
+#define COUNTS_PER_USECOND  (COUNTS_PER_SECOND / 1000000 )
+
+static void sleep_common(u32 n, u32 count)
+{
+	XTime tEnd, tCur;
+	/* Start global timer counter, it will only be enabled if it is disabled */
+	XTime_StartTimer();
+
+	tCur = mfcp(CNTPCT_EL0);
+	tEnd = tCur + (((XTime) n) * count);
+	do {
+		tCur = mfcp(CNTPCT_EL0);
+	} while (tCur < tEnd);
+}
+
+/*****************************************************************************/
+/**
+*
+* This API gives a delay in microseconds
+*
+* @param	useconds requested
+*
+* @return	0 if the delay can be achieved, -1 if the requested delay
+*		is out of range
+*
+* @note		None.
+*
+****************************************************************************/
+s32 usleep(u32 useconds)
+{
+	sleep_common(useconds, COUNTS_PER_USECOND);
+
+	return 0;
+}
+
 /*****************************************************************************/
 /*
 *
@@ -72,16 +108,7 @@
 ****************************************************************************/
 s32 sleep(u32 seconds)
 {
-	XTime tEnd, tCur;
-	/* Start global timer counter, it will only be enabled if it is disabled */
-	XTime_StartTimer();
-
-	tCur = mfcp(CNTPCT_EL0);
-	tEnd  = tCur + (((XTime) seconds) * COUNTS_PER_SECOND);
-	do
-	{
-		tCur = mfcp(CNTPCT_EL0);
-	} while (tCur < tEnd);
+	sleep_common(seconds, COUNTS_PER_SECOND);
 
 	return 0;
 }
