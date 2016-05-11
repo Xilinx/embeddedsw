@@ -46,6 +46,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------
 * 1.0   vnsld   22/10/14 First release
+* 1.1   adk     10/05/16 Fixed CR#951040 race condition in the recv path when
+*                        source and destination points to the same buffer.
 * </pre>
 *
 ******************************************************************************/
@@ -152,8 +154,12 @@ void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
 	}
 	/* Invalidating cache memory */
 	else {
+#if defined(__aarch64__)
 		Xil_DCacheInvalidateRange(Addr, Size <<
 					(u32)(XCSUDMA_SIZE_SHIFT));
+#else
+		Xil_DCacheFlushRange(Addr, Size << (u32)(XCSUDMA_SIZE_SHIFT));
+#endif
 	}
 
 	XCsuDma_WriteReg(InstancePtr->Config.BaseAddress,
