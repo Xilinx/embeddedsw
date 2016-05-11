@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,7 @@
  *                         XVidC_RegisterCustomTimingModes
  *                         XVidC_UnregisterCustomTimingMode
  *       yh            Added 3D support.
+ * 3.0   aad  05/13/16 Added API to search for RB video modes.
  * </pre>
  *
 *******************************************************************************/
@@ -481,6 +482,8 @@ u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 u32 XVidC_Set3DVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 			   XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
 			   XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3DPtr);
+XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height, u32 FrameRate,
+		u8 IsInterlaced, u8 RbN);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

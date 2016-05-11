@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,7 @@
  *                     contents now const.
  *                     Added ability to insert a custom video timing table.
  *       yh            Added 3D support.
+ * 3.0   aad  05/13/16 Added API to search for RB video modes.
  * </pre>
  *
 *******************************************************************************/
@@ -72,6 +73,7 @@ int XVidC_NumCustomModes = 0;
 
 static const XVidC_VideoTimingMode *XVidC_GetCustomVideoModeData(
 		XVidC_VideoMode VmId);
+static u8 XVidC_IsVtmRb(const char *VideoModeStr, u8 RbN);
 
 /*************************** Function Definitions *****************************/
 
@@ -370,6 +372,62 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 	}
 
 	return (Mode);
+}
+
+/******************************************************************************/
+/**
+ * This function returns the video mode ID that matches the detected input
+ * width, height, frame rate, interlaced or progressive, and reduced blanking.
+ *
+ * @param	Width specifies the number pixels per scanline.
+ * @param	Height specifies the number of scanline's.
+ * @param	FrameRate specifies refresh rate in HZ
+ * @param	IsInterlaced specifies interlaced or progressive mode:
+ *		- 0 = Progressive
+ *		- 1 = Interlaced.
+ * @param	RbN specifies the type of reduced blanking:
+ *		- 0 = No reduced blanking
+ *		- 1 = RB
+ *		- 2 = RB2
+ *
+ * @return	ID of a supported video mode.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height,
+		u32 FrameRate, u8 IsInterlaced, u8 RbN)
+{
+	const char *Name;
+	XVidC_VideoMode VmId;
+	const XVidC_VideoTimingMode *VtmPtr;
+	u8 Found = 0;
+
+	VmId = XVidC_GetVideoModeId(Width, Height, FrameRate,
+				IsInterlaced);
+
+	VtmPtr = XVidC_GetVideoModeData(VmId);
+	if (!VtmPtr) {
+		return XVIDC_VM_NOT_SUPPORTED;
+	}
+
+	while (!Found) {
+		VtmPtr = XVidC_GetVideoModeData(VmId);
+		if ((Height != VtmPtr->Timing.VActive) ||
+		    (Width != VtmPtr->Timing.HActive) ||
+		    (FrameRate != VtmPtr->FrameRate) ||
+		    (IsInterlaced && !XVidC_IsInterlaced(VmId))) {
+			VmId = XVIDC_VM_NOT_SUPPORTED;
+			break;
+		}
+		Found = XVidC_IsVtmRb(XVidC_GetVideoModeStr(VmId), RbN);
+		if (Found) {
+			break;
+		}
+		VmId++;
+	}
+
+	return VmId;
 }
 
 /******************************************************************************/
@@ -892,5 +950,38 @@ static const XVidC_VideoTimingMode *XVidC_GetCustomVideoModeData(
 
 	/* ID not found within the custom video mode table. */
 	return NULL;
+}
+
+/******************************************************************************/
+/**
+ * This function returns whether or not the video timing mode is a reduced
+ * blanking mode or not.
+ *
+ * @param	VideoModeStr specifies the resolution name string.
+ * @param	RbN specifies the type of reduced blanking:
+ *		- 0 = No Reduced Blanking
+ *		- 1 = RB
+ *		- 2 = RB2
+ *
+ * @return	If the reduced blanking type is compatible with the video mode:
+ *		- 0 = Not supported
+ *		- 1 = Video mode supports the RB type
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+static u8 XVidC_IsVtmRb(const char *VideoModeStr, u8 RbN)
+{
+	while ((*VideoModeStr !='\0') && (*VideoModeStr != 'R')) {
+		VideoModeStr++;
+	}
+
+	if (*(VideoModeStr + 2) == ')') {
+		return RbN == 1;
+	}
+	if (*(VideoModeStr + 2) == '2') {
+		return RbN == 2;
+	}
+	return 0;
 }
 /** @} */
