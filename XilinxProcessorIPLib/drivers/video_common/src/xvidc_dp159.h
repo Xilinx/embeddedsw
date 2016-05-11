@@ -33,7 +33,7 @@
 /**
 *
 * @file xvidc_dp159.h
-* @addtogroup video_common_v2_2
+* @addtogroup video_common_v3_0
 * @{
 *
 * This is the header file contains macros, enum, structure and function

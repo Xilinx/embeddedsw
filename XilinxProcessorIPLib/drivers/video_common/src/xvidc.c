@@ -33,7 +33,7 @@
 /**
  *
  * @file xvidc.c
- * @addtogroup video_common_v2_2
+ * @addtogroup video_common_v3_0
  * @{
  *
  * Contains common utility functions that are typically used by video-related
