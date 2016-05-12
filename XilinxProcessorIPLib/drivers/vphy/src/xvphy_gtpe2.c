@@ -151,7 +151,9 @@ const XVphy_GtConfig Gtpe2Config = {
 ******************************************************************************/
 u32 XVphy_Gtpe2CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
-	XVphy_Channel *ChPtr;
+	XVphy_Channel *ChPtr, *CmnPtr;
+	XVphy_ChannelId CmnId;
+	XVphy_PllType PllType;
 	u32 PllClkInFreqHz;
 
 	/* Set CDR values only for CPLLs. */
@@ -166,8 +168,12 @@ u32 XVphy_Gtpe2CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	ChPtr->PllParams.Cdr[3] = 0x07FE;
 
 	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) {
+		PllType = XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId);
+		CmnId = XVphy_GetRcfgChId(InstancePtr, QuadId, XVPHY_DIR_RX, PllType);
+		CmnPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)];
 		PllClkInFreqHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
-		                    ChPtr->CpllRefClkSel);
+					CmnPtr->CpllRefClkSel);
+
 		if (PllClkInFreqHz == 270000000) {
 		    ChPtr->PllParams.Cdr[2] = 0x4060;
 			ChPtr->PllParams.Cdr[4] = 0x0001;
@@ -423,15 +429,19 @@ u32 XVphy_Gtpe2TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 {
 	u16 DrpVal;
 	u32 TxRefClkHz;
-	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
-                    Plls[XVPHY_CH2IDX(ChId)];
+	XVphy_Channel *CmnPtr;
+	XVphy_ChannelId CmnId;
+	XVphy_PllType PllType;
 
 	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
 		TxRefClkHz = InstancePtr->HdmiTxRefClkHz;
 	}
 	else {
+		PllType = XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_TX, ChId);
+		CmnId = XVphy_GetRcfgChId(InstancePtr, QuadId, XVPHY_DIR_TX, PllType);
+		CmnPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)];
 		TxRefClkHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
-								PllPtr->PllRefClkSel);
+								CmnPtr->PllRefClkSel);
 	}
 
 	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, XVPHY_DRP_TXCLK25);
@@ -462,15 +472,19 @@ u32 XVphy_Gtpe2RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 {
 	u16 DrpVal;
 	u32 RxRefClkHz;
-	XVphy_Channel *PllPtr = &InstancePtr->Quads[QuadId].
-                    Plls[XVPHY_CH2IDX(ChId)];
+	XVphy_Channel *CmnPtr;
+	XVphy_ChannelId CmnId;
+	XVphy_PllType PllType;
 
 	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
 		RxRefClkHz = InstancePtr->HdmiRxRefClkHz;
 	}
 	else {
+		PllType = XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId);
+		CmnId = XVphy_GetRcfgChId(InstancePtr, QuadId, XVPHY_DIR_RX, PllType);
+		CmnPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)];
 		RxRefClkHz = XVphy_GetQuadRefClkFreq(InstancePtr, QuadId,
-								PllPtr->PllRefClkSel);
+								CmnPtr->PllRefClkSel);
 	}
 
 	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, XVPHY_DRP_RXDATAWIDTH);
