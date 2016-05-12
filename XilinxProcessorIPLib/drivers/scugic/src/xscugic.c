@@ -46,44 +46,46 @@
 * ----- ---- -------- --------------------------------------------------------
 * 1.00a drg  01/19/10 First release
 * 1.01a sdm  11/09/11 Changes are made in function XScuGic_CfgInitialize. Since
-*		      "Config" entry is now made as pointer in the XScuGic
-*		      structure, necessary changes are made.
-*		      The HandlerTable can now be populated through the low
-*		      level routine XScuGic_RegisterHandler added in this
-*		      release. Hence necessary checks are added not to
-*		      overwrite the HandlerTable entriesin function
-*		      XScuGic_CfgInitialize.
+*		      		  "Config" entry is now made as pointer in the XScuGic
+*		      		  structure, necessary changes are made.
+*		      		  The HandlerTable can now be populated through the low
+*		      		  level routine XScuGic_RegisterHandler added in this
+*		      		  release. Hence necessary checks are added not to
+*		      		  overwrite the HandlerTable entriesin function
+*		      		  XScuGic_CfgInitialize.
 * 1.03a srt  02/27/13 Added APIs
-*			- XScuGic_SetPriTrigTypeByDistAddr()
-*			- XScuGic_GetPriTrigTypeByDistAddr()
-* 		      Removed Offset calculation macros, defined in _hw.h
-*		      (CR 702687)
-*			  Added support to direct interrupts to the appropriate CPU. Earlier
-*			  interrupts were directed to CPU1 (hard coded). Now depending
-*			  upon the CPU selected by the user (xparameters.h), interrupts
-*			  will be directed to the relevant CPU. This fixes CR 699688.
+*					  - XScuGic_SetPriTrigTypeByDistAddr()
+*					  - XScuGic_GetPriTrigTypeByDistAddr()
+* 		    		  Removed Offset calculation macros, defined in _hw.h
+*		      		  (CR 702687)
+*			  		  Added support to direct interrupts to the appropriate CPU. Earlier
+*			  		  interrupts were directed to CPU1 (hard coded). Now depending
+*			  		  upon the CPU selected by the user (xparameters.h), interrupts
+*			  		  will be directed to the relevant CPU. This fixes CR 699688.
 *
 * 1.04a hk   05/04/13 Assigned EffectiveAddr to CpuBaseAddress in
-*			  XScuGic_CfgInitialize. Fix for CR#704400 to remove warnings.
-*			  Moved functions XScuGic_SetPriTrigTypeByDistAddr and
-*             XScuGic_GetPriTrigTypeByDistAddr to xscugic_hw.c.
-*			  This is fix for CR#705621.
+*			  		  XScuGic_CfgInitialize. Fix for CR#704400 to remove warnings.
+*			  		  Moved functions XScuGic_SetPriTrigTypeByDistAddr and
+*             		  XScuGic_GetPriTrigTypeByDistAddr to xscugic_hw.c.
+*			  		  This is fix for CR#705621.
 * 1.06a asa  16/11/13 Fix for CR#749178. Assignment for EffectiveAddr
-*			  in function XScuGic_CfgInitialize is removed as it was
-*		      a bug.
+*			  		  in function XScuGic_CfgInitialize is removed as it was
+*		      		  a bug.
 * 3.00  kvn  02/13/14 Modified code for MISRA-C:2012 compliance.
 * 3.01	pkp	 06/19/15 Added XScuGic_InterruptMaptoCpu API for an interrupt
-*			  target CPU mapping
+*			  		  target CPU mapping
 * 3.02	pkp	 11/09/15 Modified DistributorInit function for AMP case to add
 *					  the current cpu to interrupt processor targets registers
 * 3.2   asa  02/29/16 Modified DistributorInit function for Zynq AMP case. The
-*			  distributor is left uninitialized for Zynq AMP. It is assumed
-*             that the distributor will be initialized by Linux master. However
-*             for CortexR5 case, the earlier code is left unchanged where the
-*             the interrupt processor target registers in the distributor is
-*             initialized with the corresponding CPU ID on which the application
-*             built over the scugic driver runs.
-*             These changes fix CR#937243.
+*			  		  distributor is left uninitialized for Zynq AMP. It is assumed
+*             		  that the distributor will be initialized by Linux master. However
+*             		  for CortexR5 case, the earlier code is left unchanged where the
+*             		  the interrupt processor target registers in the distributor is
+*             		  initialized with the corresponding CPU ID on which the application
+*             		  built over the scugic driver runs.
+*             		  These changes fix CR#937243.
+* 3.3	pkp  05/12/16 Modified XScuGic_InterruptMaptoCpu to write proper value
+*					  to interrupt target register to fix CR#951848
 *
 *
 * </pre>
@@ -759,7 +761,7 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 
 	Offset =  (Int_Id & 0x3);
 
-	RegValue = (RegValue | (~(0xFF << (Offset*8))) );
+	RegValue = (RegValue & (~(0xFF << (Offset*8))) );
 	RegValue |= ((Cpu_Id) << (Offset*8));
 
 	XScuGic_DistWriteReg(InstancePtr,
