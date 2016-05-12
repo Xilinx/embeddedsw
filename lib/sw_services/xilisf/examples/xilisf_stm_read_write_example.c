@@ -62,6 +62,7 @@
 * 5.2   asa  05/12/15 Added support for Micron N25Q256A flash.
 * 5.5   sk  01/14/16 Added support for Spansion flash in extended address
 *                    mode.
+* 5.6   sk   05/12/16 Corrected the missing WE before erase. CR# 951694.
 *
 * </pre>
 *
@@ -228,22 +229,6 @@ int main()
 	 */
 	Address = ISF_TEST_ADDRESS;
 
-	TransferInProgress = TRUE;
-	Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
-	if(Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	while(TransferInProgress);
-	if(ErrorCount != 0) {
-		return XST_FAILURE;
-	}
-
-	Status = IsfWaitForFlashNotBusy();
-	if(Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
 	/*
 	 * Check if the flash part is micron or spansion in which case,
 	 * switch to 4 byte addressing mode if FlashSize is >128Mb.
@@ -279,6 +264,22 @@ int main()
 		if(Status != XST_SUCCESS) {
 			return XST_FAILURE;
 		}
+	}
+
+	TransferInProgress = TRUE;
+	Status = XIsf_WriteEnable(&Isf, XISF_WRITE_ENABLE);
+	if(Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	while(TransferInProgress);
+	if(ErrorCount != 0) {
+		return XST_FAILURE;
+	}
+
+	Status = IsfWaitForFlashNotBusy();
+	if(Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
 
 	TransferInProgress = TRUE;
