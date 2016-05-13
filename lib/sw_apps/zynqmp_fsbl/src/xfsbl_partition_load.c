@@ -1130,10 +1130,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	}
 #endif
 
-	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE)) {
-		Xil_DCacheDisable();
-	}
-
 	/**
 	 * Authentication Check
 	 */
