@@ -575,6 +575,13 @@ static void PmSetWakeupSource(const PmMaster *const master,
 	int status = XST_SUCCESS;
 	PmRequirement* req = PmGetRequirementForSlave(master, sourceNode);
 
+	/* Check if given target node is valid */
+	if ((targetNode != master->nid) &&
+	    (NULL == PmGetProcOfThisMaster(master, targetNode))) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	/* Is master allowed to use resource (slave)? */
 	if (NULL == req) {
 		status = XST_PM_NO_ACCESS;
@@ -677,7 +684,7 @@ done:
  */
 static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 {
-	PmDbg("(0x%lx) not implemented\n", address);
+	PmDbg("(0x%lx) %s: not implemented\n", address, PmStrNode(master->nid));
 }
 
 /**
