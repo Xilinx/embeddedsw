@@ -470,6 +470,8 @@
 *                   Changed the prototype of XAxiEthernet_CfgInitialize API.
 * 5.1  adk 30/01/15  Fix compilation errors in case of zynqmp. CR#933825.
 * 5.1  adk 02/11/16  Updated example to Support ZynqMp.
+* 5.2  adk 13/05/16  Fixed CR#951669 Fix compilation errors when axi dma
+* 		     interrupts are not connected.
 * </pre>
 *
 ******************************************************************************/
