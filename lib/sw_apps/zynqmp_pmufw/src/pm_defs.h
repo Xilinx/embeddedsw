@@ -157,9 +157,10 @@
 #define NODE_DPLL       52U
 #define NODE_RPLL       53U
 #define NODE_IOPLL      54U
+#define NODE_DDR        55U
 
 #define NODE_MIN        NODE_APU
-#define NODE_MAX        NODE_IOPLL
+#define NODE_MAX        NODE_DDR
 
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U

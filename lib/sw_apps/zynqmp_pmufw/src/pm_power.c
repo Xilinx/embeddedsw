@@ -43,6 +43,7 @@
 #include "xpfw_rom_interface.h"
 #include "crf_apb.h"
 #include "pm_system.h"
+#include "pm_ddr.h"
 
 /*
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
@@ -237,6 +238,7 @@ static PmNode* pmFpdChildren[] = {
 	&pmSlaveGdma_g.node,
 	&pmSlaveDP_g.node,
 	&pmSlaveAFI_g.node,
+	&pmSlaveDdr_g.node,
 };
 
 /* Operations for the Rpu power island */
