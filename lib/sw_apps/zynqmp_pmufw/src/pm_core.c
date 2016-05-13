@@ -899,12 +899,9 @@ void PmProcessRequest(const PmMaster *const master, const u32 *pload)
 		/* Acknowledge if possible */
 		if (PM_PAYLOAD_ERR_API_ID != status) {
 			u32 ack = PmRequestAcknowledge(pload);
-			/* If api does receive acknowledge */
-			if (REQUEST_ACK_NO != ack) {
-				/* Acknowledge that parameters are invalid */
-				PmAcknowledgeCb(master, NODE_UNKNOWN,
-						XST_INVALID_PARAM, 0);
-			}
+
+			PmProcessAckRequest(ack, master, NODE_UNKNOWN,
+					    XST_INVALID_PARAM, 0);
 		}
 	}
 }
