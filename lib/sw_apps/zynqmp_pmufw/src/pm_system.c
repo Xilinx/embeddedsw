@@ -143,7 +143,7 @@ static void PmSystemInitShutdownMaster(const PmMaster* const mst)
  */
 int PmSystemProcessShutdown(const PmMaster* const master, const u32 restart)
 {
-	int status;
+	int status = XST_SUCCESS;
 	u32 i;
 
 	if (PM_SHUTDOWN == restart) {

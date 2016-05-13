@@ -716,7 +716,7 @@ done:
 static int PmRequirementUpdateScheduled(const PmMaster* const master,
 					    const bool swap)
 {
-	int status;
+	int status = XST_SUCCESS;
 	unsigned int i;
 
 	PmDbg("%s\n", PmStrNode(master->procs[0].node.nodeId));
@@ -809,7 +809,7 @@ static void PmRequirementRequestDefault(const PmMaster* const master)
  */
 static int PmRequirementReleaseAll(const PmMaster* const master)
 {
-	int status;
+	int status = XST_SUCCESS;
 	unsigned int i;
 
 	for (i = 0; i < master->reqsCnt; i++) {
