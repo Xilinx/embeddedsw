@@ -531,7 +531,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
             set found_intc ""
             foreach intr_sink $intc_port {
 		set pname_type [::hsi::utils::get_connected_intr_cntrl $target_periph $intr_sink]
-                if {$pname_type != "chipscope_ila"} {
+                if {$pname_type != "chipscope_ila" && $pname_type != ""} {
 			set special [get_property IP_TYPE $pname_type]
 			#Handling for zynqmp
                         if { [llength $special] > 1 } {
