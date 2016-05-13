@@ -1,2 +1,2 @@
-collect (PROJECT_LIB_SOURCES bm_env.c)
+collect (PROJECT_LIB_SOURCES env.c)
 add_subdirectory (machine)

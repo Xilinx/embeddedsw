@@ -31,7 +31,7 @@
 /**************************************************************************
  * FILE NAME
  *
- *       bm_env.c
+ *       env.c
  *
  *
  * DESCRIPTION
@@ -604,5 +604,3 @@ void bm_env_isr(int vector)
 
 	inside_isr=pdFALSE ;
 }
-
-
