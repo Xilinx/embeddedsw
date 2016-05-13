@@ -506,12 +506,18 @@ static void PmGetApiVersion(const PmMaster *const master)
  *          that may not be directly accessible by a particular PU.
  */
 static void PmMmioWrite(const PmMaster *const master, const u32 address,
-			const u32 mask, const u32 value)
+			const u32 mask, u32 value)
 {
-	int status;
+	u32 data;
+	int status = XST_SUCCESS;
 
 	PmDbg("(%s) addr=0x%lx, mask=0x%lx, value=0x%lx\n",
 	      PmStrNode(master->nid), address, mask, value);
+
+	/* no bits to be updated */
+	if (mask == 0) {
+		goto done;
+	}
 
 	/* Check access permissions */
 	if (false == PmGetMmioAccess(master, address)) {
@@ -521,8 +527,20 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 		goto done;
 	}
 
-	XPfw_Write32(address, mask & value);
-	status = XST_SUCCESS;
+	/* replace whole word */
+	if (mask == 0xffffffff) {
+		goto do_write;
+	}
+
+	/* read-modify-write */
+	data = XPfw_Read32(address);
+	data &= ~mask;
+	value &= mask;
+	value |= data;
+
+do_write:
+	XPfw_Write32(address, value);
+
 done:
 	IPI_RESPONSE1(master->buffer, status);
 }
