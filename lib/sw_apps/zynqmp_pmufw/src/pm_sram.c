@@ -51,8 +51,8 @@
 /* Sram states */
 static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 	[PM_SRAM_STATE_OFF] = 0U,
-	[PM_SRAM_STATE_RET] = PM_CAP_CONTEXT,
-	[PM_SRAM_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	[PM_SRAM_STATE_RET] = PM_CAP_CONTEXT | PM_CAP_POWER,
+	[PM_SRAM_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
 };
 
 /* Sram transition table (from which to which state sram can transit) */
