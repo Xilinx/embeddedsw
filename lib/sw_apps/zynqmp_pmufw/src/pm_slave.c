@@ -675,7 +675,7 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
  */
 u32 PmSlaveGetUsageStatus(const u32 slavenode, const PmMaster *const master)
 {
-	int i;
+	u32 i;
 	u32 usageStatus = 0;
 	PmMaster* currMaster;
 	PmRequirement* masterReq;

@@ -1298,7 +1298,7 @@ void PmSetupInitialMasterRequirements(void)
 		NODE_USB_0,
 		NODE_USB_1,
 	};
-	int i;
+	u32 i;
 
 	for (i = 0; i < ARRAY_SIZE(apuDefaultSlaves); i++) {
 		masterReq = PmGetRequirementForSlave(&pmMasterApu_g,
