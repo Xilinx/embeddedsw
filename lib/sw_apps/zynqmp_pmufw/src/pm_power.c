@@ -104,19 +104,18 @@ static void PmCrfRestoreContext(void)
  */
 static int PmPowerDownFpd(void)
 {
-	int status = XpbrRstFpdHandler();
+	int status;
 
-	if (XST_SUCCESS == status) {
-		PmPllSuspendAll(&pmPowerDomainFpd_g);
-		PmCrfSaveContext();
-		status = XpbrPwrDnFpdHandler();
-		/*
-		 * When FPD is powered off, the APU-GIC will be affected too.
-		 * GIC Proxy has to take over for all wake-up sources for
-		 * the APU.
-		 */
-		PmEnableProxyWake(&pmMasterApu_g);
-	}
+	PmPllSuspendAll(&pmPowerDomainFpd_g);
+	PmCrfSaveContext();
+
+	status = XpbrPwrDnFpdHandler();
+	/*
+	 * When FPD is powered off, the APU-GIC will be affected too.
+	 * GIC Proxy has to take over for all wake-up sources for
+	 * the APU.
+	 */
+	PmEnableProxyWake(&pmMasterApu_g);
 
 	return status;
 }
