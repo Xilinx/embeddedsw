@@ -39,6 +39,7 @@
 #include "xpfw_util.h"
 #include "xpfw_default.h"
 #include "xpfw_rom_interface.h"
+#include "xpfw_resets.h"
 #include "pm_api.h"
 #include "pm_reset.h"
 #include "pm_defs.h"
@@ -277,6 +278,46 @@ static u32 PmResetPulseRom(const PmReset *const rstPtr)
 	return rstRomPtr->pulseRom();
 }
 
+/**
+ * PmResetAssertPl() - Assert reset handler for PL
+ * @rstPtr	Pointer to the PL reset structure
+ * @action	States whether to assert or release reset
+ */
+static void PmResetAssertPl(const PmReset *const rstPtr, const u32 action)
+{
+	/* Place code to reset PL here */
+}
+
+/**
+ * PmResetGetStatusPl() - Get PL reset status handler
+ * @rstPtr	Pointer to PL reset structure
+ *
+ * @return	Current reset status (0 - released, 1 - asserted)
+ */
+static u32 PmResetGetStatusPl(const PmReset *const rstPtr)
+{
+	u32 resetStatus = 0U;
+
+	/* Place code to get information if PL is under reset */
+
+	return resetStatus;
+}
+
+/**
+ * PmResetPulsePl() - PL reset pulse handler
+ * @rstPtr	Pointer to PL reset structure
+ *
+ * @return	Operation status
+ */
+static u32 PmResetPulsePl(const PmReset* const rst)
+{
+	u32 status = XST_SUCCESS;
+
+	/* Place code to cycle PL reset here */
+
+	return status;
+}
+
 static const PmResetOps pmResetOpsGeneric = {
 	.assert = PmResetAssertGen,
 	.getStatus = PmResetGetStatusGen,
@@ -293,6 +334,18 @@ static const PmResetOps pmResetOpsRom = {
 	.assert = PmResetAssertRom,
 	.getStatus = PmResetGetStatusRom,
 	.pulse = PmResetPulseRom,
+};
+
+static const PmResetOps pmResetOpsNoAssert = {
+	.assert = NULL,
+	.getStatus = PmResetGetStatusRom,
+	.pulse = PmResetPulseRom,
+};
+
+static const PmResetOps pmResetOpsPl = {
+	.assert = PmResetAssertPl,
+	.getStatus = PmResetGetStatusPl,
+	.pulse = PmResetPulsePl,
 };
 
 static PmResetGeneric pmResetPcieCfg = {
@@ -1163,6 +1216,16 @@ static PmResetGeneric pmResetLpdSwdt = {
 	.mask = CRL_APB_RST_LPD_TOP_LPD_SWDT_RESET_MASK,
 };
 
+/**
+ * PmResetPulseFpd() - Gracefully cycle FPD reset
+ *
+ * @return	Operation status
+ */
+static u32 PmResetPulseFpd(void)
+{
+	return XPfw_ResetFpd();
+}
+
 static PmResetRom pmResetFpd = {
 	.rst = {
 		.ops = &pmResetOpsRom,
@@ -1172,7 +1235,7 @@ static PmResetRom pmResetFpd = {
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_TOP,
 	.mask = CRL_APB_RST_LPD_TOP_FPD_RESET_MASK,
-	.pulseRom = XpbrRstFpdHandler,
+	.pulseRom = PmResetPulseFpd,
 };
 
 static PmResetGeneric pmResetRpuDbg1 = {
@@ -1699,6 +1762,61 @@ static PmResetGpo pmResetGpo3Pl31 = {
 	.statusAddr = PMU_LOCAL_GPO3_READ,
 };
 
+/**
+ * PmResetPulsePsOnly() - Gracefully reset PS while PL remains active
+ *
+ * @return	Operation status
+ */
+static u32 PmResetPulsePsOnly(void)
+{
+	XPfw_ResetPsOnly();
+	return XST_SUCCESS;
+}
+
+static PmResetRom pmResetPsOnly = {
+	.rst = {
+		.ops = &pmResetOpsNoAssert,
+		.access = IPI_PMU_0_IER_APU_MASK|
+			  IPI_PMU_0_IER_RPU_0_MASK |
+			  IPI_PMU_0_IER_RPU_1_MASK,
+		.derived = &pmResetPsOnly,
+	},
+	.ctrlAddr = PMU_GLOBAL_GLOBAL_RESET,
+	.mask = PMU_GLOBAL_GLOBAL_RESET_PS_ONLY_RST_MASK,
+	.pulseRom = &PmResetPulsePsOnly,
+};
+
+/**
+ * PmResetPulseRpuLs() - Gracefully cycle the lock-step RPU reset
+ *
+ * @return	Operation status
+ */
+static u32 PmResetPulseRpuLs(void)
+{
+	return XPfw_ResetRpu();
+}
+
+static PmResetRom pmResetRpuLs = {
+	.rst = {
+		.ops = &pmResetOpsNoAssert,
+		.access = IPI_PMU_0_IER_APU_MASK |
+			  IPI_PMU_0_IER_RPU_0_MASK |
+			  IPI_PMU_0_IER_RPU_1_MASK,
+		.derived = &pmResetRpuLs,
+	},
+	.ctrlAddr = PMU_GLOBAL_GLOBAL_RESET,
+	.mask = PMU_GLOBAL_GLOBAL_RESET_RPU_LS_RST_MASK,
+	.pulseRom = PmResetPulseRpuLs,
+};
+
+static PmReset pmResetPl = {
+	.ops = &pmResetOpsPl,
+	.access = IPI_PMU_0_IER_APU_MASK |
+		  IPI_PMU_0_IER_RPU_0_MASK |
+		  IPI_PMU_0_IER_RPU_1_MASK,
+	.derived = &pmResetPl,
+};
+
 static PmReset* const pmAllResets[] = {
 	[PM_RESET_PCIE_CFG - PM_RESET_BASE] = &pmResetPcieCfg.rst,
 	[PM_RESET_PCIE_BRIDGE - PM_RESET_BASE] = &pmResetPcieBridge.rst,
@@ -1813,6 +1931,9 @@ static PmReset* const pmAllResets[] = {
 	[PM_RESET_GPO3_PL_29 - PM_RESET_BASE] = &pmResetGpo3Pl29.rst,
 	[PM_RESET_GPO3_PL_30 - PM_RESET_BASE] = &pmResetGpo3Pl30.rst,
 	[PM_RESET_GPO3_PL_31 - PM_RESET_BASE] = &pmResetGpo3Pl31.rst,
+	[PM_RESET_RPU_LS - PM_RESET_BASE] = &pmResetRpuLs.rst,
+	[PM_RESET_PS_ONLY - PM_RESET_BASE] = &pmResetPsOnly.rst,
+	[PM_RESET_PL - PM_RESET_BASE] = &pmResetPl,
 };
 
 /**
@@ -1871,7 +1992,11 @@ void PmResetAssert(const PmMaster *const master, const u32 reset,
 	switch (action) {
 	case PM_RESET_ACTION_RELEASE:
 	case PM_RESET_ACTION_ASSERT:
-		resetPtr->ops->assert(resetPtr, action);
+		if (NULL != resetPtr->ops->assert) {
+			resetPtr->ops->assert(resetPtr, action);
+		} else {
+			status = XST_INVALID_PARAM;
+		}
 		break;
 	case PM_RESET_ACTION_PULSE:
 		resetPtr->ops->pulse(resetPtr);
