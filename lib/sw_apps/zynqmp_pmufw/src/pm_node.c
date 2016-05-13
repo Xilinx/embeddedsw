@@ -41,6 +41,7 @@
 #include "pm_periph.h"
 #include "pm_pll.h"
 #include "pm_notifier.h"
+#include "pm_ddr.h"
 
 static PmNode* const pmNodes[NODE_MAX] = {
 	&pmApuProcs_g[PM_PROC_APU_0].node,
@@ -96,6 +97,7 @@ static PmNode* const pmNodes[NODE_MAX] = {
 	&pmSlaveQSpi_g.node,
 	&pmSlaveGpio_g.node,
 	&pmSlaveAFI_g.node,
+	&pmSlaveDdr_g.node,
 };
 
 /**

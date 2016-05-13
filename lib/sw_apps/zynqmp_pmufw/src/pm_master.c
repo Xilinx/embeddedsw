@@ -46,6 +46,7 @@
 #include "pm_notifier.h"
 #include "ipi_buffer.h"
 #include "pm_system.h"
+#include "pm_ddr.h"
 
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
@@ -412,6 +413,15 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	},
+	[PM_MASTER_APU_SLAVE_DDR] = {
+		.slave = &pmSlaveDdr_g,
+		.requestor = &pmMasterApu_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
+		.latencyReq = MAX_LATENCY,
+	},
 };
 
 /* Requirement of RPU_0 master */
@@ -562,6 +572,15 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 	},
 	[PM_MASTER_RPU_0_SLAVE_IOPLL] = {
 		.slave = &pmSlaveIOpll_g.slv,
+		.requestor = &pmMasterRpu0_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
+	},
+	[PM_MASTER_RPU_0_SLAVE_DDR] = {
+		.slave = &pmSlaveDdr_g,
 		.requestor = &pmMasterRpu0_g,
 		.info = 0U,
 		.defaultReq = 0U,
