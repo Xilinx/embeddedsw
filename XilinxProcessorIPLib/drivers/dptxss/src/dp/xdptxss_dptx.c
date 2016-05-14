@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 * 2.00 sha 08/07/15 Added support for customized main stream attributes for
 *                   Single Steam Transport and Multi-Stream Transport.
 * 2.00 sha 09/28/15 Removed cross checking user set resolution with RX EDID.
+* 4.0  aad 05/13/16 Use asynchronous clock mode by default.
 * </pre>
 *
 ******************************************************************************/
@@ -381,12 +382,12 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 					}
 				}
 				else {
-					/* Enable sync clock mode for each
+					/* Enable async clock mode for each
 					 * stream
 					 */
 					XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
 						XDP_TX_STREAM_ID1 +
-							StreamIndex, 1);
+							StreamIndex, 0);
 
 					/* Use standard video mode to calculate
 					 * MSA
@@ -566,7 +567,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 		XDp_TxClearMsaValues(InstancePtr, XDP_TX_STREAM_ID3);
 		XDp_TxClearMsaValues(InstancePtr, XDP_TX_STREAM_ID4);
 
-		/* Enable sync clock mode */
 		if (VidMode == XVIDC_VM_CUSTOM) {
 			XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
 				XDP_TX_STREAM_ID1,
@@ -578,8 +578,9 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				0].DynamicRange = 0;
 			InstancePtr->TxInstance.MsaConfig[
 				0].YCbCrColorimetry = 0;
+			/* Enable async clock mode */
 			XDp_TxCfgMsaEnSynchClkMode(InstancePtr,
-						XDP_TX_STREAM_ID1, 1);
+						XDP_TX_STREAM_ID1, 0);
 		}
 
 		/* Set user provided BPC to stream 1 */
