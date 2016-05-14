@@ -57,6 +57,7 @@
  *                         XVidC_UnregisterCustomTimingMode
  *       yh            Added 3D support.
  * 3.0   aad  05/13/16 Added API to search for RB video modes.
+ *       als  05/16/16 Added Y-only to color format enum.
  * </pre>
  *
 *******************************************************************************/
@@ -308,6 +309,7 @@ typedef enum {
 	XVIDC_CSF_YCRCB_444,
 	XVIDC_CSF_YCRCB_422,
 	XVIDC_CSF_YCRCB_420,
+	XVIDC_CSF_YONLY,
 	XVIDC_CSF_NUM_SUPPORTED,
 	XVIDC_CSF_UNKNOWN
 } XVidC_ColorFormat;
