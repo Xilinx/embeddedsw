@@ -107,6 +107,7 @@
 *                   XDPTXSS_HANDLER_HDCP_RPTR_EXCHG.
 *                   Added function: XDpTxSs_ReadDownstream,
 *                   XDpTxSs_HandleTimeout.
+* 4.0  aad 05/13/16 Expose API to set (a)synchronous clock mode from DP driver.
 * </pre>
 *
 ******************************************************************************/
@@ -377,8 +378,27 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 void XDpTxSs_SetUserTimerHandler(XDpTxSs *InstancePtr,
 		XDpTxSs_TimerHandler CallbackFunc, void *CallbackRef);
 
-/************************** Variable Declarations ****************************/
+/******************* Macros (Inline Functions) Definitions *******************/
 
+/******************************************************************************/
+/**
+ * This function enables or disables synchronous clock mode for a video stream.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number for which to enable or disable
+ *		synchronous clock mode.
+ * @param	Enable if set to 1, will enable synchronous clock mode.
+ *		Otherwise, if set to 0, synchronous clock mode will be disabled.
+ *
+ * @return	None.
+ *
+ * @note	C-style signature:
+ *		void XDp_TxCfgMsaEnSynchClkMode(XDpTxSs *InstancePtr,
+ *							u8 Stream, u8 Enable)
+ *
+*******************************************************************************/
+#define XDpTxSs_CfgMsaEnSynchClkMode(InstancePtr, Stream, Enable) \
+	XDp_TxCfgMsaEnSynchClkMode((InstancePtr)->DpPtr, (Sream), (Enable))
 
 #ifdef __cplusplus
 }
