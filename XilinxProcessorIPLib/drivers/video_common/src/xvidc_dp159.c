@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 *                   programming guide. Added bit error count function.
 * 2.2  als 02/01/16 Functions with pointer arguments that don't modify
 *                   contents now const.
+* 3.0  aad 05/13/16 Added bus busy check before I2C reads and writes.
 * </pre>
 *
 ******************************************************************************/
@@ -170,10 +171,19 @@ u32 XVidC_Dp159Write(const XIic *InstancePtr, u8 IicSlaveAddr,
        u8 WriteBuf[2];
        u8 NumBytes;
        u8 Index = 0;
+       u32 TimeoutCount = 0;
+       u32 StatusRegister;
 
        /* Verify arguments. */
        Xil_AssertNonvoid(InstancePtr != NULL);
        Xil_AssertNonvoid(IicSlaveAddr != 0x0);
+
+       do {
+	      StatusRegister = XIic_ReadReg(InstancePtr->BaseAddress,
+					XIIC_SR_REG_OFFSET);
+	      TimeoutCount++;
+       } while ((StatusRegister & XIIC_SR_BUS_BUSY_MASK) &&
+		     (TimeoutCount < 1000));
 
        WriteBuf[0] = Dp159RegOffset;
        WriteBuf[1] = WriteVal;
@@ -211,11 +221,20 @@ u32 XVidC_Dp159Read(const XIic *InstancePtr, u8 IicSlaveAddr, u8 Dp159RegOffset,
                        u8 *ReadVal)
 {
        u8 NumBytes;
+       u32 StatusRegister;
+       u32 TimeoutCount = 0;
 
        /* Verify arguments. */
        Xil_AssertNonvoid(InstancePtr != NULL);
        Xil_AssertNonvoid(IicSlaveAddr != 0x0);
        Xil_AssertNonvoid(ReadVal != NULL);
+
+       do {
+	      StatusRegister = XIic_ReadReg(InstancePtr->BaseAddress,
+					XIIC_SR_REG_OFFSET);
+	      TimeoutCount++;
+       } while ((StatusRegister & XIIC_SR_BUS_BUSY_MASK) &&
+		     (TimeoutCount < 1000));
 
        NumBytes = XIic_DynSend(InstancePtr->BaseAddress, IicSlaveAddr,
                                &Dp159RegOffset, 0x1, XIIC_REPEATED_START);
