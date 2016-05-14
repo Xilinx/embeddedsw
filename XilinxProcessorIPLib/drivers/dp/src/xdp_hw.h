@@ -50,6 +50,7 @@
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 2.0   als  06/08/15 Added MST registers, masks, and values for RX.
  *                     Added HDCP registers and masks.
+ * 5.0   als  05/16/16 Added MISC0 and MISC1 definitions.
  * </pre>
  *
 *******************************************************************************/
@@ -604,11 +605,19 @@
 #define XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT \
 				3		/**< Shift bits for dynamic
 							range. */
+#define XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA \
+				0		/**< VESA range. */
+#define XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_CEA \
+				1		/**< CEA range. */
 #define XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_MASK \
 				0x00000010	/**< YCbCr colorimetry. */
 #define XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT \
 				4		/**< Shift bits for YCbCr
 							colorimetry. */
+#define XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601 \
+				0	   /**< ITU BT601 YCbCr coefficients. */
+#define XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709 \
+				1	   /**< ITU BT709 YCbCr coefficients. */
 #define XDP_TX_MAIN_STREAMX_MISC0_BDC_MASK \
 				0x000000E0	/**< Bit depth per color
 							component (BDC). */
@@ -633,6 +642,8 @@
 #define XDP_TX_MAIN_STREAMX_MISC1_STEREO_VID_ATTR_SHIFT \
 				1		/**< Shift bits for stereo video
 							attribute. */
+#define XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK \
+				0x00000080	/* Y-only enable. */
 /* 0x200: PHY_CONFIG */
 #define XDP_TX_PHY_CONFIG_PHY_RESET_ENABLE_MASK \
 				0x0000000	/**< Release reset. */

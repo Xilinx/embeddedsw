@@ -361,6 +361,7 @@
  *                         XDp_RxSetLineReset
  *                     Added RX MST API to allocate payload from ISR:
  *                         XDp_RxAllocatePayloadStream
+ * 5.0   als  05/16/16 Added APIs to set color encoding scheme.
  * </pre>
  *
 *******************************************************************************/
@@ -387,6 +388,14 @@ typedef enum {
 	XDP_TX = 0,
 	XDP_RX
 } XDp_CoreType;
+
+/**
+ * This typedef enumerates the dynamic ranges available to the DisplayPort core.
+ */
+typedef enum {
+	XDP_DR_VESA = 0,
+	XDP_DR_CEA,
+} XDp_DynamicRange;
 
 /**
  * This typedef contains configuration information for the DisplayPort core.
@@ -1307,6 +1316,9 @@ void XDp_TxCfgMsaUseEdidPreferredTiming(XDp *InstancePtr, u8 Stream,
 								u8 *Edid);
 void XDp_TxCfgMsaUseCustom(XDp *InstancePtr, u8 Stream,
 		XDp_TxMainStreamAttributes *MsaConfigCustom, u8 Recalculate);
+u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
+		XVidC_ColorFormat Format, XVidC_ColorStd ColorCoeffs,
+		XDp_DynamicRange Range);
 void XDp_TxCfgMsaSetBpc(XDp *InstancePtr, u8 Stream, u8 BitsPerColor);
 void XDp_TxCfgMsaEnSynchClkMode(XDp *InstancePtr, u8 Stream, u8 Enable);
 void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream);
@@ -1336,6 +1348,68 @@ void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
 *******************************************************************************/
 #define XDp_GetCoreType(InstancePtr)	((InstancePtr)->Config.IsRx \
 							? XDP_RX : XDP_TX)
+
+/******************************************************************************/
+/**
+ * The following functions set the color encoding scheme for a given stream.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number for which to configure the color
+ *		encoding scheme for.
+ *
+ * @return	XST_SUCCESS.
+ *
+ * @note	C-style signatures:
+ *		u32 XDp_TxCfgSetRGB(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetSRGB(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetYonly(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetYCbCr422Bt601(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetYCbCr422Bt709(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetYCbCr444Bt601(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetYCbCr444Bt709(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetXvYcc422Bt601(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetXvYcc422Bt709(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetXvYcc444Bt601(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetXvYcc444Bt709(XDp *InstancePtr, u8 Stream)
+ *		u32 XDp_TxCfgSetAdbRGB(XDp *InstancePtr, u8 Stream)
+ *
+*******************************************************************************/
+#define XDp_TxCfgSetRGB(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_RGB, XVIDC_BT_601, XDP_DR_VESA)
+#define XDp_TxCfgSetSRGB(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_RGB, XVIDC_BT_601, XDP_DR_CEA)
+#define XDp_TxCfgSetYonly(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YONLY, XVIDC_BT_601, XDP_DR_VESA)
+#define XDp_TxCfgSetYCbCr422Bt601(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YCRCB_422, XVIDC_BT_601, XDP_DR_CEA)
+#define XDp_TxCfgSetYCbCr422Bt709(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YCRCB_422, XVIDC_BT_709, XDP_DR_CEA)
+#define XDp_TxCfgSetYCbCr444Bt601(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YCRCB_444, XVIDC_BT_601, XDP_DR_CEA)
+#define XDp_TxCfgSetYCbCr444Bt709(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YCRCB_444, XVIDC_BT_709, XDP_DR_CEA)
+#define XDp_TxCfgSetXvYcc422Bt601(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YCRCB_422, XVIDC_BT_601, XDP_DR_VESA)
+#define XDp_TxCfgSetXvYcc422Bt709(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YCRCB_422, XVIDC_BT_709, XDP_DR_VESA)
+#define XDp_TxCfgSetXvYcc444Bt601(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YCRCB_444, XVIDC_BT_601, XDP_DR_VESA)
+#define XDp_TxCfgSetXvYcc444Bt709(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_YCRCB_444, XVIDC_BT_709, XDP_DR_VESA)
+#define XDp_TxCfgSetAdbRGB(InstancePtr, Stream) \
+		XDp_TxCfgSetColorEncode((InstancePtr), (Stream), \
+			XVIDC_CSF_RGB, XVIDC_BT_709, XDP_DR_CEA)
 
 /******************************* Compatibility ********************************/
 

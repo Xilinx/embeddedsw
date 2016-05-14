@@ -52,6 +52,7 @@
  * 2.0   als  07/27/15 Scale TX fractional register by 1024 instead of 1000.
  * 3.0   als  10/07/15 Added MSA callback.
  * 4.0   als  02/07/16 Enable/disable end of line reset for reduced blanking.
+ * 5.0   als  05/16/16 Added API to set color encoding scheme.
  * </pre>
  *
 *******************************************************************************/
@@ -109,6 +110,7 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 *******************************************************************************/
 void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 {
+	u32 MinBytesPerTu;
 	u32 VideoBw;
 	u32 LinkBw;
 	u32 WordsPerLine;
@@ -131,16 +133,20 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	Xil_AssertVoid(XDp_IsLaneCountValid(InstancePtr,
 				LinkConfig->LaneCount));
 	Xil_AssertVoid((MsaConfig->SynchronousClockMode == 0) ||
-				(MsaConfig->SynchronousClockMode == 1));
-	Xil_AssertVoid((MsaConfig->DynamicRange == 0) ||
-					(MsaConfig->DynamicRange == 1));
-	Xil_AssertVoid((MsaConfig->YCbCrColorimetry == 0) ||
-					(MsaConfig->YCbCrColorimetry == 1));
+		       (MsaConfig->SynchronousClockMode == 1));
+	Xil_AssertVoid((MsaConfig->DynamicRange ==
+				XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA) ||
+		       (MsaConfig->DynamicRange ==
+				XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_CEA));
+	Xil_AssertVoid((MsaConfig->YCbCrColorimetry ==
+			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601) ||
+		       (MsaConfig->YCbCrColorimetry ==
+			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709));
 	Xil_AssertVoid((MsaConfig->BitsPerColor == 6) ||
-					(MsaConfig->BitsPerColor == 8) ||
-					(MsaConfig->BitsPerColor == 10) ||
-					(MsaConfig->BitsPerColor == 12) ||
-					(MsaConfig->BitsPerColor == 16));
+		       (MsaConfig->BitsPerColor == 8) ||
+		       (MsaConfig->BitsPerColor == 10) ||
+		       (MsaConfig->BitsPerColor == 12) ||
+		       (MsaConfig->BitsPerColor == 16));
 
 	/* Set the user pixel width to handle clocks that exceed the
 	 * capabilities of the DisplayPort TX core. */
@@ -181,22 +187,24 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 	else if (MsaConfig->BitsPerColor == 16) {
 		MsaConfig->Misc0 = XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC;
 	}
-	MsaConfig->Misc0 = (MsaConfig->Misc0 <<
-			XDP_TX_MAIN_STREAMX_MISC0_BDC_SHIFT) |
-			(MsaConfig->YCbCrColorimetry <<
-			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT) |
-			(MsaConfig->DynamicRange <<
-			XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT) |
-			(MsaConfig->ComponentFormat <<
-			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT) |
-			(MsaConfig->SynchronousClockMode);
-	MsaConfig->Misc1 = 0;
+	MsaConfig->Misc0 <<= XDP_TX_MAIN_STREAMX_MISC0_BDC_SHIFT;
+	MsaConfig->Misc0 |= MsaConfig->ComponentFormat <<
+		XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
+	MsaConfig->Misc0 |= MsaConfig->DynamicRange <<
+		XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_SHIFT;
+	MsaConfig->Misc0 |= MsaConfig->YCbCrColorimetry <<
+		XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_SHIFT;
+	MsaConfig->Misc0 |= MsaConfig->SynchronousClockMode;
 
 	/* Determine the number of bits per pixel for the specified color
 	 * component format. */
-	if (MsaConfig->ComponentFormat ==
+	if (MsaConfig->Misc1 & XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK) {
+		/* Y-only color component format. */
+		BitsPerPixel = MsaConfig->BitsPerColor;
+	}
+	else if (MsaConfig->ComponentFormat ==
 			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422) {
-		/* YCbCr422 color component format. */
+		/* YCbCr 4:2:2 color component format. */
 		BitsPerPixel = MsaConfig->BitsPerColor * 2;
 	}
 	else {
@@ -240,12 +248,25 @@ void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream)
 		/* The number of initial wait cycles at the start of a new line
 		 * by the framing logic. This allows enough data to be buffered
 		 * in the input FIFO before video is sent. */
-		if ((MsaConfig->AvgBytesPerTU / 1000) <= 4) {
+		MinBytesPerTu = MsaConfig->AvgBytesPerTU / 1000;
+		MsaConfig->InitWait = MsaConfig->TransferUnitSize -
+				      MinBytesPerTu;
+		if (MinBytesPerTu <= 4) {
 			MsaConfig->InitWait = 64;
 		}
+		/* Y-only color component format. */
+		else if (XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK &
+				MsaConfig->Misc1) {
+			MsaConfig->InitWait /= 3;
+		}
+		/* YCbCr 4:2:2 color component format. */
+		else if (XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 ==
+				MsaConfig->ComponentFormat) {
+			MsaConfig->InitWait /= 2;
+		}
+		/* RGB or YCbCr 4:4:4 color component format. */
 		else {
-			MsaConfig->InitWait = MsaConfig->TransferUnitSize -
-					(MsaConfig->AvgBytesPerTU / 1000);
+			;
 		}
 	}
 }
@@ -554,6 +575,94 @@ void XDp_TxCfgMsaUseCustom(XDp *InstancePtr, u8 Stream,
 		MsaConfig->AvgBytesPerTU = MsaConfigCustom->AvgBytesPerTU;
 		MsaConfig->InitWait = MsaConfigCustom->InitWait;
 	}
+}
+
+/******************************************************************************/
+/**
+ * This function will set the color encoding scheme for a given stream.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Stream is the stream number for which to configure the color
+ *		encoding scheme for.
+ * @param	Format is the color space format.
+ * @param	ColorCoeffs is the color space conversion standard to use which
+ *		will determine which color coefficients to use.
+ * @param	Range is the dynamic range to use (CEA or VESA).
+ *
+ * @return	None.
+ *
+ * @note	The InstancePtr->TxInstance.MsaConfig structure is modified to
+ *		reflect the new color encoding scheme. This values are used
+ *		for MISC0 and MISC1.
+ *
+*******************************************************************************/
+u32 XDp_TxCfgSetColorEncode(XDp *InstancePtr, u8 Stream,
+		XVidC_ColorFormat Format, XVidC_ColorStd ColorCoeffs,
+		XDp_DynamicRange Range)
+{
+	XDp_TxMainStreamAttributes *MsaConfig;
+	u32 Status = XST_SUCCESS;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid((Stream == XDP_TX_STREAM_ID1) ||
+			  (Stream == XDP_TX_STREAM_ID2) ||
+			  (Stream == XDP_TX_STREAM_ID3) ||
+			  (Stream == XDP_TX_STREAM_ID4));
+
+	MsaConfig = &InstancePtr->TxInstance.MsaConfig[Stream - 1];
+
+	MsaConfig->YCbCrColorimetry = 0;
+	MsaConfig->DynamicRange     = 0;
+	MsaConfig->ComponentFormat  = 0;
+	MsaConfig->Misc0	    = 0;
+	MsaConfig->Misc1	    = 0;
+
+	switch (Format) {
+	case XVIDC_CSF_RGB:
+		MsaConfig->ComponentFormat =
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB;
+		break;
+	case XVIDC_CSF_YCRCB_444:
+		MsaConfig->ComponentFormat =
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444;
+		break;
+	case XVIDC_CSF_YCRCB_422:
+		MsaConfig->ComponentFormat =
+			XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422;
+		break;
+	case XVIDC_CSF_YONLY:
+		MsaConfig->Misc1 = XDP_TX_MAIN_STREAMX_MISC1_Y_ONLY_EN_MASK;
+		break;
+	default:
+		Status = XST_FAILURE;
+	}
+
+	if (ColorCoeffs == XVIDC_BT_601) {
+		MsaConfig->YCbCrColorimetry =
+			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT601;
+	}
+	else if (ColorCoeffs == XVIDC_BT_709) {
+		MsaConfig->YCbCrColorimetry =
+			XDP_TX_MAIN_STREAMX_MISC0_YCBCR_COLORIMETRY_BT709;
+	}
+	else {
+		Status = XST_FAILURE;
+	}
+
+	if (Range == XDP_DR_VESA) {
+		MsaConfig->DynamicRange |=
+			XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_VESA;
+	}
+	else if (Range == XDP_DR_CEA) {
+		MsaConfig->DynamicRange =
+			XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_CEA;
+	}
+	else {
+		Status = XST_FAILURE;
+	}
+
+	return Status;
 }
 
 /******************************************************************************/
