@@ -3,6 +3,12 @@ Change Log for 2016.2
 ddrcpsu:
 Added initial version of DDRC driver
 
+v_hdmirxss_v2_0:
+Added DDC peripheral HDCP mode selection to XV_HdmiRxSs_HdcpEnable
+
+v_hdmirx_v1_1:
+Add DDC mode selection for HDCP 1.4 and HDCP 2.2
+
 v_hdmitxss_v2_0:
 
 1. Files changed: xv_hdmirxss.c, xv_hdmirxss_coreinit.c, xv_hdmitxss.c, xv_hdmitxss_coreinit.c
