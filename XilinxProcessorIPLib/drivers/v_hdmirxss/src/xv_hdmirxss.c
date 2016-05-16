@@ -66,6 +66,7 @@
 *                       HDCP 1.4 and 2.2 are mutually exclusive.
 *                       This fixes the problem where HDCP 1.4 and 2.2
 *                       state machines are running simultaneously.
+* 1.11  MG     13/05/16 Added DDC peripheral HDCP mode selection to XV_HdmiRxSs_HdcpEnable
 * </pre>
 *
 ******************************************************************************/
@@ -2096,6 +2097,10 @@ int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr)
       if (InstancePtr->Hdcp22Ptr) {
         Status2 = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
       }
+
+      /* Set DDC peripheral to HDCP 1.4 mode */
+      XV_HdmiRx_DdcHdcp14Mode(InstancePtr->HdmiRxPtr);
+
       break;
 
     /* Enable HDCP 2.2 and disable HDCP 1.4 */
@@ -2110,6 +2115,10 @@ int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr)
       else {
         Status2 = XST_FAILURE;
       }
+
+      /* Set DDC peripheral to HDCP 2.2 mode */
+      XV_HdmiRx_DdcHdcp22Mode(InstancePtr->HdmiRxPtr);
+
       break;
 
     default :
