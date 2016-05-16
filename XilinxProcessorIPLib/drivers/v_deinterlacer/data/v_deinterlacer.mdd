@@ -35,7 +35,7 @@ BEGIN driver v_deinterlacer
 
  OPTION supported_peripherals = (v_deinterlacer_v5_0 );
  OPTION driver_state = ACTIVE;
- OPTION DEPENDS = (video_common_v2_2);
+ OPTION DEPENDS = (video_common_v3_0);
  OPTION copyfiles = all;
  OPTION name = v_deinterlacer;
  OPTION version = 6.0;

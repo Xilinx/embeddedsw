@@ -37,6 +37,6 @@ BEGIN driver dsi
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 1.0;
-  OPTION DEPENDS = (video_common_v2_2);
+  OPTION DEPENDS = (video_common_v3_0);
   OPTION NAME = dsi;
 END driver
