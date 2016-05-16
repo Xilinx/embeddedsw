@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_selftest.c
- * @addtogroup dp_v4_0
+ * @addtogroup dp_v5_0
  * @{
  *
  * This file contains a diagnostic self-test function for the XDp driver. It
