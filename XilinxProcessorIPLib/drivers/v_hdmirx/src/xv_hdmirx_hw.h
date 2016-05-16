@@ -49,6 +49,7 @@
 * 1.1   MG     30/12/15 Added DDC peripheral HDCP 2.2 masks
 * 1.2   yh     14/01/16 Added Bit Masking for AxisEnable PIO
 * 1.3   MG     18/02/16 Added AUX peripheral error event mask
+* 1.4   MG     13/05/16 Added DDC HDCP mode mask
 * </pre>
 *
 ******************************************************************************/
@@ -197,6 +198,7 @@ extern "C" {
 #define XV_HDMIRX_DDC_CTRL_SCDC_CLR_MASK            (1<<5)  /**< DDC Control SCDC clear mask */
 #define XV_HDMIRX_DDC_CTRL_WMSG_CLR_MASK            (1<<6)  /**< DDC Control write message clear mask */
 #define XV_HDMIRX_DDC_CTRL_RMSG_CLR_MASK            (1<<7)  /**< DDC Control read message clear mask */
+#define XV_HDMIRX_DDC_CTRL_HDCP_MODE_MASK           (1<<8)  /**< DDC Control HDCP mode mask */
 
 // DDC peripheral Status register masks
 #define XV_HDMIRX_DDC_STA_IRQ_MASK                  (1<<0)  /**< DDC Status Interrupt mask */
