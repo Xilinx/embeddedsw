@@ -3,6 +3,14 @@ Change Log for 2016.2
 ddrcpsu:
 Added initial version of DDRC driver
 
+dp_v5_0:
+Updated version from 4.0 to 5.0.
+Added additional color encoding support.
+
+dptxss_v4_0:
+Updated version from 3.0 to 4.0.
+Expose API to set (a)synchronous clock mode.
+
 v_hdmirxss_v2_0:
 Added DDC peripheral HDCP mode selection to XV_HdmiRxSs_HdcpEnable
 
@@ -16,6 +24,12 @@ v_hdmitxss_v2_0:
 3. HDCP 1.x driver now uses AXI timer 4.1, so updated to use AXI Timer config structure to determine timer clock frequency
 4. HDCP 1.x driver has fixed the problem where the reset for the receiver causes the entire DDC peripheral to get reset. Based on this change the driver has been updated to use XV_HdmiTxSs_HdcpReset and XV_HdmiRxSs_HdcpReset functions directly.
 5. Updated XV_HdmiTxSs_HdcpEnable and XV_HdmiRxSs_HdcpEnable functions to ensure that HDCP 1.4 and 2.2 are mutually exclusive. This fixes the problem where HDCP 1.4 and 2.2 state machines are running simultaneously.
+
+video_common_v3_0:
+Updated version from 2.2 to 3.0. All video drivers have been updated to use 3.0.
+Added API to search on reduced blanking video modes.
+Updated DP159 to poll I2C bus busy prior to initiation of reads and writes.
+Added Y-only color format.
 
 
 
