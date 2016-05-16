@@ -121,6 +121,7 @@
 * 1.2   yh     15/01/16 Added 3D Video support
 * 1.3   MG     18/02/16 Added link error callback.
 * 1.4   MG     08/03/16 Added RefClk to structure XV_HdmiRx_Stream
+* 1.5   MG     13/05/16 Added XV_HdmiRx_DdcHdcp22Mode and XV_HdmiRx_DdcHdcp14Mode macros
 * </pre>
 *
 ******************************************************************************/
@@ -755,6 +756,38 @@ typedef struct {
 #define XV_HdmiRx_DdcHdcpDisable(InstancePtr) \
 	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_CLR_OFFSET), (XV_HDMIRX_DDC_CTRL_HDCP_EN_MASK));
 
+
+/*****************************************************************************/
+/**
+*
+* This macro sets the DDC peripheral into HDCP 1.4 mode.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx_DdcHdcp14Mode(XV_HdmiRx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx_DdcHdcp14Mode(InstancePtr) \
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_CLR_OFFSET), (XV_HDMIRX_DDC_CTRL_HDCP_MODE_MASK));
+
+/*****************************************************************************/
+/**
+*
+* This macro sets the DDC peripheral into HDCP 2.2 mode.
+*
+* @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx_DdcHdcp22Mode(XV_HdmiRx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiRx_DdcHdcp22Mode(InstancePtr) \
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_DDC_CTRL_SET_OFFSET), (XV_HDMIRX_DDC_CTRL_HDCP_MODE_MASK));
 
 /*****************************************************************************/
 /**
