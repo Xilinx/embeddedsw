@@ -39,5 +39,5 @@ the user will need to implement following functions:
    timings and video attributes that correspond to the main stream attributes
    (MSA) configuration, is received by the DisplayPort TX Subsystem.
 
-Note: All example functions start with DpRxSs_*, while all DisplayPort TX Subsystem
+Note: All example functions start with DpTxSs_*, while all DisplayPort TX Subsystem
 driver functions start with XDpTxSs_*.
