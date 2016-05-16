@@ -171,6 +171,7 @@ extern "C" {
 #define XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID			(0x49U)
 #define XFSBL_ERROR_I2C_INIT						(0x4AU)
 #define XFSBL_ERROR_I2C_WRITE						(0x4BU)
+#define XFSBL_ERROR_DDR_ECC_INIT					(0x4CU)
 
 #define XFSBL_FAILURE					(0x3FFU)
 

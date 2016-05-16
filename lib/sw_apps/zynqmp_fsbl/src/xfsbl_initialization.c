@@ -76,6 +76,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
+static u32 XFsbl_DdrEccInit(void);
 
 /* Functions from xfsbl_misc.c */
 int psu_init();
@@ -175,6 +176,12 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	 * Print the FSBL banner
 	 */
 	XFsbl_PrintFsblBanner();
+
+	/* Do ECC Initialization of DDR if required */
+	Status = XFsbl_DdrEccInit();
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
 
 	/* Do board specific initialization if any */
 	Status = XFsbl_BoardInit();
@@ -526,6 +533,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	Xil_DCacheFlush();
 #endif
 #endif
+
 
 	/**
 	 * Forcing the SD card detection signal to bypass the debouncing logic.
@@ -902,5 +910,100 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 	 * Initialize the Secondary Boot Device Driver
 	 */
 
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function does ECC Initialization of DDR memory
+ *
+ * @param none
+ *
+ * @return
+ * 		- XFSBL_SUCCESS for successful ECC Initialization
+ * 		-               or ECC is not enabled for DDR
+ * 		- errors as mentioned in xfsbl_error.h
+ *
+ *****************************************************************************/
+u32 XFsbl_DdrEccInit(void)
+{
+	u32 Status =  XFSBL_SUCCESS;
+#if XPAR_PSU_DDRC_0_HAS_ECC
+	u32 LengthBytes = XFSBL_PS_DDR_END_ADDRESS - XFSBL_PS_DDR_INIT_START_ADDRESS;
+	u32 Length = 0;
+	u32 DestAddr = XFSBL_PS_DDR_INIT_START_ADDRESS;
+	u32 RegVal;
+
+	XFsbl_Printf(DEBUG_GENERAL,"\n\rInitializing DDR ECC\n\r");
+
+	Xil_DCacheDisable();
+
+	while (LengthBytes > 0) {
+		if (LengthBytes > GDMA_TRANSFER_MAX_LEN) {
+			Length = GDMA_TRANSFER_MAX_LEN;
+		} else {
+			Length = LengthBytes;
+		}
+
+		/* Wait until the DMA is in idle state */
+		do {
+			RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_STATUS);
+			RegVal &= GDMA_CH0_ZDMA_CH_STATUS_STATE_MASK;
+		} while ((RegVal != GDMA_CH0_ZDMA_CH_STATUS_STATE_DONE) &&
+				(RegVal != GDMA_CH0_ZDMA_CH_STATUS_STATE_ERR));
+
+		/* Enable Simple (Write Only) Mode */
+		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_CTRL0);
+		RegVal &= (GDMA_CH0_ZDMA_CH_CTRL0_POINT_TYPE_MASK |
+				GDMA_CH0_ZDMA_CH_CTRL0_MODE_MASK);
+		RegVal |= (GDMA_CH0_ZDMA_CH_CTRL0_POINT_TYPE_NORMAL |
+				GDMA_CH0_ZDMA_CH_CTRL0_MODE_WR_ONLY);
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_CTRL0, RegVal);
+
+		/* Fill in the data to be written */
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD0, XFSBL_ECC_INIT_VAL_WORD);
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD1, XFSBL_ECC_INIT_VAL_WORD);
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD2, XFSBL_ECC_INIT_VAL_WORD);
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD3, XFSBL_ECC_INIT_VAL_WORD);
+
+		/* Write Destination Address */
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_DST_DSCR_WORD0, DestAddr);
+
+		/* Size to be Transferred (for write-only mode, only dest is needed)*/
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_DST_DSCR_WORD2, Length);
+
+		/* DMA Enable */
+		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_CTRL2);
+		RegVal |= GDMA_CH0_ZDMA_CH_CTRL2_EN_MASK;
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_CTRL2, RegVal);
+
+		/* Check the status of the transfer by polling on DMA Done */
+		do {
+			RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_ISR);
+			RegVal &= GDMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK;
+		} while (RegVal != GDMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK);
+
+		/* Clear DMA status */
+		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_ISR);
+		RegVal |= GDMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK;
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_ISR, GDMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK);
+
+		/* Read the channel status for errors */
+		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_STATUS);
+		if (RegVal == GDMA_CH0_ZDMA_CH_STATUS_STATE_ERR) {
+			Status = XFSBL_ERROR_DDR_ECC_INIT;
+			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_DDR_ECC_INIT\n\r");
+			Xil_DCacheEnable();
+			goto END;
+		}
+
+		LengthBytes -= Length;
+		DestAddr += Length;
+	}
+
+	Xil_DCacheEnable();
+
+END:
+#endif
 	return Status;
 }

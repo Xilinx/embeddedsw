@@ -165,6 +165,9 @@ typedef struct {
 
 #define PS_ONLY_RESET		0x1U
 
+/* Pattern to be filled for DDR ECC Initialization */
+#define XFSBL_ECC_INIT_VAL_WORD 0xA5A5A5A5U
+
 /************************** Function Prototypes ******************************/
 /**
  * Functions defined in xfsbl_main.c
