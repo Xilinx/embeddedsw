@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------.
 * 1.0   mjr  03/15/15 First release
+* 2.1   kvn  05/05/16 Modified code for MISRA-C:2012 Compliance
 *
 * </pre>
 *
@@ -54,7 +55,7 @@
 /* Message RAM related params */
 #define XIPIPSU_MSG_RAM_BASE 0xFF990000U
 #define XIPIPSU_MSG_BUF_SIZE 8U	/* Size in Words */
-#define XIPIPSU_MAX_BUFF_INDEX	7
+#define XIPIPSU_MAX_BUFF_INDEX	7U
 
 /* EIGHT pairs of TWO buffers(msg+resp) of THIRTY TWO bytes each */
 #define XIPIPSU_BUFFER_OFFSET_GROUP	(8U * 2U * 32U)

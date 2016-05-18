@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.0   mjr  03/15/15 First release
+* 2.1   kvn  05/05/16 Modified code for MISRA-C:2012 Compliance
 * </pre>
 *
 ******************************************************************************/
@@ -76,9 +77,9 @@ extern XIpiPsu_Config XIpiPsu_ConfigTable[];
 XIpiPsu_Config *XIpiPsu_LookupConfig(u32 DeviceId)
 {
 	XIpiPsu_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XIPIPSU_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_XIPIPSU_NUM_INSTANCES; Index++) {
 		if (XIpiPsu_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XIpiPsu_ConfigTable[Index];
 			break;

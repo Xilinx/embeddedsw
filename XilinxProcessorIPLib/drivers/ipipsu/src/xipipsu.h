@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -272,10 +272,10 @@ XStatus XIpiPsu_PollForAck(XIpiPsu *InstancePtr, u32 DestCpuMask,
 		u32 TimeOutCount);
 
 XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
-		u32 MsgLength, u8 BufType);
+		u32 MsgLength, u8 BufferType);
 
 XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
-		u32 MsgLength, u8 BufType);
+		u32 MsgLength, u8 BufferType);
 
 #endif /* XIPIPSU_H_ */
 /** @} */

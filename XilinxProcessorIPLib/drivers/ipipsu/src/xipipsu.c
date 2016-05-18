@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,7 @@
 * 1.00	mjr	03/15/15	First Release
 * 2.0	mjr	01/22/16	Fixed response buffer address
 *                               calculation. CR# 932582.
+* 2.1	kvn	05/05/16	Modified code for MISRA-C:2012 Compliance
 * </pre>
 *
 *****************************************************************************/
@@ -85,7 +86,7 @@ XStatus XIpiPsu_CfgInitialize(XIpiPsu *InstancePtr, XIpiPsu_Config * CfgPtr,
 
 	InstancePtr->Config.TargetCount = CfgPtr->TargetCount;
 
-	for (Index = 0; Index < CfgPtr->TargetCount; Index++) {
+	for (Index = 0U; Index < CfgPtr->TargetCount; Index++) {
 		InstancePtr->Config.TargetList[Index].Mask =
 				CfgPtr->TargetList[Index].Mask;
 		InstancePtr->Config.TargetList[Index].BufferIndex =
@@ -167,7 +168,7 @@ XStatus XIpiPsu_PollForAck(XIpiPsu *InstancePtr, u32 DestCpuMask,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	PollCount = 0;
+	PollCount = 0U;
 	/* Poll the OBS register until the corresponding DestCpu bit is cleared */
 	do {
 		Flag = (XIpiPsu_ReadReg(InstancePtr->Config.BaseAddress,
@@ -202,10 +203,10 @@ static u32 XIpiPsu_GetBufferIndex(XIpiPsu *InstancePtr, u32 CpuMask)
 	u32 BufferIndex;
 	u32 Index;
 	/* Init Index with an invalid value */
-	BufferIndex = XIPIPSU_MAX_BUFF_INDEX + 1;
+	BufferIndex = XIPIPSU_MAX_BUFF_INDEX + 1U;
 
 	/*Search for CPU in the List */
-	for (Index = 0; Index < InstancePtr->Config.TargetCount; Index++) {
+	for (Index = 0U; Index < InstancePtr->Config.TargetCount; Index++) {
 		/*If we find the CPU , then set the Index and break the loop*/
 		if (InstancePtr->Config.TargetList[Index].Mask == CpuMask) {
 			BufferIndex = InstancePtr->Config.TargetList[Index].BufferIndex;
@@ -276,29 +277,29 @@ static u32* XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
  * @param 	SrcCpuMask is the Device Mask for the CPU which has sent the message
  * @param 	MsgPtr is the pointer to Buffer to which the read message needs to be stored
  * @param 	MsgLength is the length of the buffer/message
- * @param 	BufType is the type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
+ * @param 	BufferType is the type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
  *
  * @return	XST_SUCCESS if successful
  * 			XST_FAILURE if an error occurred
  */
 
-XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 TargetMask, u32 *MsgPtr,
+XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType)
 {
 	u32 *BufferPtr;
 	u32 Index;
-	u32 Status;
+	XStatus Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(MsgPtr != NULL);
 	Xil_AssertNonvoid(MsgLength <= XIPIPSU_MAX_MSG_LEN);
 
-	BufferPtr = XIpiPsu_GetBufferAddress(InstancePtr, TargetMask,
+	BufferPtr = XIpiPsu_GetBufferAddress(InstancePtr, SrcCpuMask,
 			InstancePtr->Config.BitMask, BufferType);
 	if (BufferPtr != NULL) {
 		/* Copy the IPI Buffer contents into Users's Buffer*/
-		for (Index = 0; Index < MsgLength; Index++) {
+		for (Index = 0U; Index < MsgLength; Index++) {
 			MsgPtr[Index] = BufferPtr[Index];
 		}
 		Status = XST_SUCCESS;
@@ -317,18 +318,18 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 TargetMask, u32 *MsgPtr,
  * @param	DestCpuMask is the Device Mask for the destination CPU
  * @param	MsgPtr is the pointer to Buffer which contains the message to be sent
  * @param	MsgLength is the length of the buffer/message
- * @param	BufType is the type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
+ * @param	BufferType is the type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)
  *
  * @return	XST_SUCCESS if successful
  * 			XST_FAILURE if an error occurred
  */
 
-XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 TargetMask, u32 *MsgPtr,
+XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType)
 {
 	u32 *BufferPtr;
 	u32 Index;
-	u32 Status;
+	XStatus Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -336,10 +337,10 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 TargetMask, u32 *MsgPtr,
 	Xil_AssertNonvoid(MsgLength <= XIPIPSU_MAX_MSG_LEN);
 
 	BufferPtr = XIpiPsu_GetBufferAddress(InstancePtr,
-			InstancePtr->Config.BitMask, TargetMask, BufferType);
+			InstancePtr->Config.BitMask, DestCpuMask, BufferType);
 	if (BufferPtr != NULL) {
 		/* Copy the Message to IPI Buffer */
-		for (Index = 0; Index < MsgLength; Index++) {
+		for (Index = 0U; Index < MsgLength; Index++) {
 			BufferPtr[Index] = MsgPtr[Index];
 		}
 		Status = XST_SUCCESS;
