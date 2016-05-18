@@ -1,5 +1,15 @@
 Change Log for 2016.2
 =================================
+axidma_v9_2:
+Fixed compilation warnings in the driver and examples
+
+axiethernet_v5_2:
+Fixed compilation errors for a specific axi ethernet design
+
+csudma_v1_1:
+Fixed race condition in the recv path when source and destination
+points to the same buffer
+
 ddrcpsu:
 Added initial version of DDRC driver
 
@@ -10,6 +20,20 @@ Added additional color encoding support.
 dptxss_v4_0:
 Updated version from 3.0 to 4.0.
 Expose API to set (a)synchronous clock mode.
+
+iicps_v3_2:
+Added workaround for repeated start issue on zynq.
+
+scugic_v3_3:
+Modified XScuGic_InterruptMaptoCpu to write proper value to interrupt target register to fix CR#951848.
+
+sysmon_v7_3:
+Updated interrupt example to support ZynqMP
+sysmon: Corrected conversion formulae
+sysmon: Corrected interrupt ID of ZynqMP
+
+usb_v5_2:
+Updated the driver to support 64-bit DMA addressing
 
 v_hdmirxss_v2_0:
 Added DDC peripheral HDCP mode selection to XV_HdmiRxSs_HdcpEnable
@@ -31,6 +55,28 @@ Added API to search on reduced blanking video modes.
 Updated DP159 to poll I2C bus busy prior to initiation of reads and writes.
 Added Y-only color format.
 
+xilpm_v2:
+XPm_ClientSuspendFinalize API for RPU now disables lock-step fault log before going to wfi. This ensures that false lock-step errors are not triggered during a power-cycle.
+Example now uses XPm_ClientSuspendFinalize API instead of a direct wfi
+call
+
+zynqmp_fsbl:
+Added support for DDR ECC Initialization Fixed the bug causing PMUMB
+wakeup right after loading of first PMUFW partition in boot images with only FSBL and PMUFW present. Now it is being done after all partitions of PMUFW are loaded.
+ATF handoff parameter addresses are now being stored in PMU_GLOBAL.
+Printing address in case of address error.
+Bypassed debouncing logic for SD card so that SD controller doesn't wait for long durations for card to be stable.
+Removed enabling of debug logic for R5 lock-step mode.
+
+zynq_fsbl:
+Added symbols to linker script to prevent linking failures in absence of spec file.
+
+zynqmp_pmufw
+Fixed context saving/reset issue when powering down FPD IPI calls are
+always acknowledged in case of invalid payload RPU, PS-Only and PL
+resets have been added to pm_reset API Fixes related to compiler
+warnings and uninitialized variables mmio_write API has been fixed to
+use the mask argument correctly
 
 
 Change Log for 2016.1
