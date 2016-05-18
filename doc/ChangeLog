@@ -27,10 +27,18 @@ Added workaround for repeated start issue on zynq.
 scugic_v3_3:
 Modified XScuGic_InterruptMaptoCpu to write proper value to interrupt target register to fix CR#951848.
 
+sdps_v2_8:
+Added new workaround for auto tuning.
+Changed the Sleep time in Microblaze.
+Modified the standard speed of SD to 19MHz.
+
 sysmon_v7_3:
 Updated interrupt example to support ZynqMP
 sysmon: Corrected conversion formulae
 sysmon: Corrected interrupt ID of ZynqMP
+
+qspipsu_v1_1:
+qspipsu: Added debug message prints.
 
 usb_v5_2:
 Updated the driver to support 64-bit DMA addressing
@@ -59,6 +67,14 @@ xilpm_v2:
 XPm_ClientSuspendFinalize API for RPU now disables lock-step fault log before going to wfi. This ensures that false lock-step errors are not triggered during a power-cycle.
 Example now uses XPm_ClientSuspendFinalize API instead of a direct wfi
 call
+
+xilffs_v3_3:
+Added one second delay before CD pin check.
+Corrected the if condition logic.
+
+xilisf_v5_6:
+Added support for MT25QU02G part.
+Corrected the missing WE before erase.
 
 zynqmp_fsbl:
 Added support for DDR ECC Initialization Fixed the bug causing PMUMB
