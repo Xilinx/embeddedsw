@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,7 @@
 * 						 in XIicPs_Reset.
 *				12/06/14 Implemented Repeated start feature.
 *				01/31/15 Modified the code according to MISRAC 2012 Compliant.
+* 3.3   kvn		05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -228,7 +229,7 @@ void XIicPs_Abort(XIicPs *InstancePtr)
 	 * Reset the settings in config register and clear the FIFOs.
 	 */
 	XIicPs_WriteReg(InstancePtr->Config.BaseAddress, XIICPS_CR_OFFSET,
-			  XIICPS_CR_RESET_VALUE | XIICPS_CR_CLR_FIFO_MASK);
+			  (u32)XIICPS_CR_RESET_VALUE | (u32)XIICPS_CR_CLR_FIFO_MASK);
 
 	/*
 	 * Read, then write the interrupt status to make sure there are no
@@ -242,7 +243,7 @@ void XIicPs_Abort(XIicPs *InstancePtr)
 	/*
 	 * Restore the interrupt state.
 	 */
-	IntrMaskReg = XIICPS_IXR_ALL_INTR_MASK & (~IntrMaskReg);
+	IntrMaskReg = (u32)XIICPS_IXR_ALL_INTR_MASK & (~IntrMaskReg);
 	XIicPs_WriteReg(InstancePtr->Config.BaseAddress,
 			  XIICPS_IER_OFFSET, IntrMaskReg);
 

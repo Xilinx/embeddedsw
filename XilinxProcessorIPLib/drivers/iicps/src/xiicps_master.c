@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,7 @@
 *			 01/31/15 Modified the code according to MISRAC 2012 Compliant.
 *			 02/18/15 Implemented larger data transfer using repeated start
 *					  in Zynq UltraScale MP.
+* 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -151,7 +152,7 @@ void XIicPs_MasterSend(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	/* Clear the Hold bit in ZYNQ if receive byte count is less than
 	 * the FIFO depth to get the completion interrupt properly.
 	 */
-	if ((ByteCount < XIICPS_FIFO_DEPTH) && (Platform == XPLAT_ZYNQ))
+	if ((ByteCount < XIICPS_FIFO_DEPTH) && (Platform == (u32)XPLAT_ZYNQ))
 	{
 		XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET,
 				XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) &
@@ -193,10 +194,8 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->RecvBufferPtr = MsgPtr;
 	InstancePtr->RecvByteCount = ByteCount;
-	InstancePtr->CurrByteCount = ByteCount;
 	InstancePtr->SendBufferPtr = NULL;
 	InstancePtr->IsSend = 0;
-	InstancePtr->UpdateTxSize = 0;
 
 	if ((ByteCount > XIICPS_FIFO_DEPTH) ||
 		((InstancePtr->IsRepeatedStart) !=0))
@@ -220,8 +219,10 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 		InstancePtr->CurrByteCount = (s32)XIICPS_MAX_TRANSFER_SIZE;
 		InstancePtr->UpdateTxSize = 1;
 	}else {
+		InstancePtr->CurrByteCount = ByteCount;
 		XIicPs_WriteReg(BaseAddr, (u32)(XIICPS_TRANS_SIZE_OFFSET),
 			 (u32)ByteCount);
+		InstancePtr->UpdateTxSize = 0;
 	}
 
 	XIicPs_EnableInterrupts(BaseAddr,
@@ -262,7 +263,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	u32 StatusReg;
 	u32 BaseAddr;
 	u32 Intrs;
-	u32 Value;
+	_Bool Value;
 	s32 Status;
 
 	/*
@@ -271,7 +272,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(MsgPtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(XIICPS_ADDR_MASK >= SlaveAddr);
+	Xil_AssertNonvoid((u16)XIICPS_ADDR_MASK >= SlaveAddr);
 
 	BaseAddr = InstancePtr->Config.BaseAddress;
 	InstancePtr->SendBufferPtr = MsgPtr;
@@ -313,7 +314,7 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	 */
 	Value = ((InstancePtr->SendByteCount > (s32)0) &&
 		((IntrStatusReg & Intrs) == (u32)0U));
-	while (Value != (u32)0x00U) {
+	while (Value != FALSE) {
 		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 
 		/*
@@ -388,11 +389,10 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	s32 BytesToRecv;
 	s32 BytesToRead;
 	s32 TransSize;
-	s32 Tmp = 0;
 	u32 Status_Rcv;
 	u32 Status;
 	s32 Result;
-	s32 IsHold = 0;
+	s32 IsHold;
 	s32 UpdateTxSize = 0;
 	s32 ByteCountVar = ByteCount;
 	u32 Platform;
@@ -418,6 +418,8 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 				XIicPs_ReadReg(BaseAddr, (u32)XIICPS_CR_OFFSET) |
 						(u32)XIICPS_CR_HOLD_MASK);
 		IsHold = 1;
+	} else {
+		IsHold = 0;
 	}
 
 	(void)XIicPs_SetupMaster(InstancePtr, RECVING_ROLE);
@@ -471,18 +473,18 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 			XIicPs_RecvByte(InstancePtr);
 		    ByteCountVar --;
 
-			if (Platform == XPLAT_ZYNQ) {
+			if (Platform == (u32)XPLAT_ZYNQ) {
 			    if ((UpdateTxSize != 0) &&
-				    ((ByteCountVar == (XIICPS_FIFO_DEPTH + 1)) != 0U)) {
+				    (ByteCountVar == (XIICPS_FIFO_DEPTH + 1))) {
 				    break;
 				}
 			}
 
 			StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
 		}
-		if (Platform == XPLAT_ZYNQ) {
+		if (Platform == (u32)XPLAT_ZYNQ) {
 			if ((UpdateTxSize != 0) &&
-				((ByteCountVar == (XIICPS_FIFO_DEPTH + 1)) != 0U)) {
+				(ByteCountVar == (XIICPS_FIFO_DEPTH + 1))) {
 			    /*  wait while fifo is full */
 			    while (XIicPs_ReadReg(BaseAddr,
 				    XIICPS_TRANS_SIZE_OFFSET) !=
@@ -766,17 +768,17 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 			XIicPs_RecvByte(InstancePtr);
 			ByteCnt--;
 
-			if (Platform == XPLAT_ZYNQ) {
+			if (Platform == (u32)XPLAT_ZYNQ) {
 			    if ((InstancePtr->UpdateTxSize != 0) &&
-				    ((ByteCnt == (XIICPS_FIFO_DEPTH + 1)) != 0U)) {
+				    (ByteCnt == (XIICPS_FIFO_DEPTH + 1))) {
 				    break;
 				}
 			}
 		}
 
-		if (Platform == XPLAT_ZYNQ) {
+		if (Platform == (u32)XPLAT_ZYNQ) {
 			if ((InstancePtr->UpdateTxSize != 0) &&
-				((ByteCnt == (XIICPS_FIFO_DEPTH + 1))!= 0U)) {
+				(ByteCnt == (XIICPS_FIFO_DEPTH + 1))) {
 				/* wait while fifo is full */
 				while (XIicPs_ReadReg(BaseAddr,
 					XIICPS_TRANS_SIZE_OFFSET) !=
@@ -809,7 +811,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 				IntrStatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_ISR_OFFSET);
 				XIicPs_WriteReg(BaseAddr, XIICPS_ISR_OFFSET, IntrStatusReg);
 
-				SlaveAddr = XIicPs_ReadReg(BaseAddr, (u32)XIICPS_ADDR_OFFSET);
+				SlaveAddr = (u16)XIicPs_ReadReg(BaseAddr, (u32)XIICPS_ADDR_OFFSET);
 				XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
 
 				if ((InstancePtr->RecvByteCount) >
@@ -921,7 +923,6 @@ static s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 {
 	u32 ControlReg;
 	u32 BaseAddr;
-	u32 EnabledIntr = 0x0U;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -946,11 +947,9 @@ static s32 XIicPs_SetupMaster(XIicPs *InstancePtr, s32 Role)
 
 	if (Role == RECVING_ROLE) {
 		ControlReg |= (u32)XIICPS_CR_RD_WR_MASK;
-		EnabledIntr = (u32)XIICPS_IXR_DATA_MASK |(u32)XIICPS_IXR_RX_OVR_MASK;
 	}else {
 		ControlReg &= (u32)(~XIICPS_CR_RD_WR_MASK);
 	}
-	EnabledIntr |= (u32)XIICPS_IXR_COMP_MASK | (u32)XIICPS_IXR_ARB_LOST_MASK;
 
 	XIicPs_WriteReg(BaseAddr, XIICPS_CR_OFFSET, ControlReg);
 

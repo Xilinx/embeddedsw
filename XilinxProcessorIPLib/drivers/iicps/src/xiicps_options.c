@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,7 @@
 * 2.3	sk	10/07/14 Repeated start feature removed.
 * 3.0	sk	12/06/14 Implemented Repeated start feature.
 *			01/31/15 Modified the code according to MISRAC 2012 Compliant.
+* 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -135,7 +136,7 @@ s32 XIicPs_SetOptions(XIicPs *InstancePtr, u32 Options)
 	 * The hold bit in CR will be written by driver when the next transfer
 	 * is initiated.
 	 */
-	if ((OptionsVar & XIICPS_REP_START_OPTION) != 0U ) {
+	if ((OptionsVar & (u32)XIICPS_REP_START_OPTION) != (u32)0 ) {
 		InstancePtr->IsRepeatedStart = 1;
 		OptionsVar = OptionsVar & (~XIICPS_REP_START_OPTION);
 	}
@@ -349,8 +350,8 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	u32 ControlReg;
 	u32 CalcDivA;
 	u32 CalcDivB;
-	u32 BestDivA = 0;
-	u32 BestDivB = 0;
+	u32 BestDivA;
+	u32 BestDivB;
 	u32 FsclHzVar = FsclHz;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -379,12 +380,12 @@ s32 XIicPs_SetSClk(XIicPs *InstancePtr, u32 FsclHz)
 	 * If frequency 100KHz is selected, 90KHz should be set.
 	 * This is due to a hardware limitation.
 	 */
-	if(FsclHzVar > 384600U) {
-		FsclHzVar = 384600U;
+	if(FsclHzVar > (u32)384600U) {
+		FsclHzVar = (u32)384600U;
 	}
 
-	if((FsclHzVar <= 100000U) && (FsclHzVar > 90000U)) {
-		FsclHzVar = 90000U;
+	if((FsclHzVar <= (u32)100000U) && (FsclHzVar > (u32)90000U)) {
+		FsclHzVar = (u32)90000U;
 	}
 
 	/*

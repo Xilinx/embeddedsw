@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 * 1.00a jz  01/30/10 First release
 * 1.04a kpc 08/30/13 Avoid buffer overwrite in SlaveRecvData function
 * 3.00	sk	01/31/15 Modified the code according to MISRAC 2012 Compliant.
+* 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
 *
 * </pre>
 *
@@ -210,7 +211,8 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	s32 BytesToSend;
 	s32 Error = 0;
 	s32 Status = (s32)XST_SUCCESS;
-	u32 Value;
+	_Bool Value;
+	_Bool Result;
 
 	/*
 	 * Assert validates the input arguments.
@@ -227,8 +229,9 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 	 * Use RXRW bit in status register to wait master to start a read.
 	 */
 	StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
-	while (((StatusReg & XIICPS_SR_RXRW_MASK) == 0U) &&
-				((!Error) != 0)) {
+	Result = (((u32)(StatusReg & XIICPS_SR_RXRW_MASK) == (u32)0x0U) &&
+			(Error == 0));
+	while (Result != FALSE) {
 
 		/*
 		 * If master tries to send us data, it is an error.
@@ -238,6 +241,8 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 		}
 
 		StatusReg = XIicPs_ReadReg(BaseAddr, XIICPS_SR_OFFSET);
+		Result = (((u32)(StatusReg & XIICPS_SR_RXRW_MASK) == (u32)0x0U) &&
+				(Error == 0));
 	}
 
 	if (Error != 0) {
@@ -255,8 +260,8 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 		 * there are no errors.
 		 */
 		Value = (InstancePtr->SendByteCount > (s32)0) &&
-						((!Error) != 0);
-		while (Value != (u32)0x00U) {
+						((Error == 0));
+		while (Value != FALSE) {
 
 			/*
 			 * Find out how many can be sent.
@@ -276,7 +281,7 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 			 * Wait for master to read the data out of fifo.
 			 */
 			while (((StatusReg & XIICPS_SR_TXDV_MASK) != (u32)0x00U) &&
-							((!Error) != 0)) {
+							(Error == 0)) {
 
 				/*
 				 * If master terminates the transfer before all data is
@@ -296,12 +301,12 @@ s32 XIicPs_SlaveSendPolled(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 				StatusReg = XIicPs_ReadReg(BaseAddr,
 						XIICPS_SR_OFFSET);
 			}
-			Value = (InstancePtr->SendByteCount > (s32)0U) &&
-							((!Error) != 0);
+			Value = ((InstancePtr->SendByteCount > (s32)0) &&
+							(Error == 0));
 		}
 	}
 	if (Error != 0) {
-	Status = (s32)XST_FAILURE;
+		Status = (s32)XST_FAILURE;
 	}
 
 	return Status;
@@ -551,7 +556,7 @@ void XIicPs_SlaveInterruptHandler(XIicPs *InstancePtr)
 	/*
 	 * Signal application if there are any events.
 	 */
-	if (0U != StatusEvent) {
+	if ((u32)0U != StatusEvent) {
 		InstancePtr->StatusHandler(InstancePtr->CallBackRef,
 					   StatusEvent);
 	}
