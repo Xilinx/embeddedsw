@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a asa  09/16/11 First release based on the AVB driver.
 * 1.01a asa  03/03/12 Support for Zynq is added.
+* 3.3   asa  05/19/16 Removed code specific to PEEP.
 * </pre>
 *
 ******************************************************************************/
@@ -1426,15 +1427,6 @@ void XEmacPs_BecomeRtcMaster(XEmacPs_Ieee1588 *InstancePtr,
 		XEmacPs_UpdateBmcRecords(&deviceData,&InstancePtr->CurrentBmc);
 	}
 
-#ifdef PEEP
-	/*
-	 * Set the 1588 Timer register for 50 MHz timer, i.e. 20 ns increment
-	 * for every clock cycle.
-	 */
-	XEmacPs_WriteReg(InstancePtr->EmacPsInstance->Config.BaseAddress,
-			XEMACPS_1588_INC_OFFSET,
-			XEMACPS_1588_INC_VAL);
-#else
 	NSIncrementVal = XEmacPs_TsuCalcClk(XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 6);
 	/*
 	 * Set the 1588 Timer register for 50 MHz timer, i.e. 20 ns increment
@@ -1443,7 +1435,6 @@ void XEmacPs_BecomeRtcMaster(XEmacPs_Ieee1588 *InstancePtr,
 	XEmacPs_WriteReg(InstancePtr->EmacPsInstance->Config.BaseAddress,
 				XEMACPS_1588_INC_OFFSET,
 				NSIncrementVal);
-#endif
 	/*
 	 * Set timestamp uncertainty if new status
 	 */

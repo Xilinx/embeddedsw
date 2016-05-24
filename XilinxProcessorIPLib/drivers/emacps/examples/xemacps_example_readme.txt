@@ -58,12 +58,10 @@ HOW THE IEEE1588 EXAMPLE WORKS
 
 - The example should be run between two boards, both having capability to
   time stamp the PTP packets. For example, it can be run between two Zynq
-  boards, two PEEP boards, one Zynq and one PEEP board etc. Additionally
-  this example is also tested between a Zynq/PEEP board and a ML605 board.
+  boards, e.g. zc706 0r zc702. Additionally this example is also tested
+  between a Zynq board and a ML605 board.
   However, on ML605 board we need to run a slightly modified AVB example
   (for AxiEthernet) available in Perforce for AxiEthernet driver.
-- To run the example on a PEEP board, please define the flag PEEP in
-  xemacps_ieee1588.h (or with -DPEEP compile time option).
 - The example can be run in PTP MASTER mode or PTP SLAVE mode. To run it in
   PTP MASTER mode please define the flag IEEE1588_MASTER
   (with -DIEEE1588_MASTER) in the compiler options or just define it in
@@ -77,11 +75,11 @@ HOW THE IEEE1588 EXAMPLE WORKS
   interrupt is used to send various protocol packets. For example, Sync/
   FollowUp packets are sent every 1 seconds. Announce frames are sent every
   5 seconds and PDelay packets are sent every 4 seconds.
-- In a typical test setup, 2 Zynq boards are connected back to back. Please
-  build the SDK projects (with the above 3 files) in MASTER mode and download
-  the elf to one Zynq board. Then build the SDK project in SLAVE mode and
-  download and run it in the other board. You can start seeing the console
-  messages.
+- In a typical test setup, 2 Zynq boards are connected back to back using a
+  crossed cable. Please build the SDK projects (with the above 3 files)
+  in MASTER mode and download the elf to one Zynq board. Then build the
+  SDK project in SLAVE mode and download and run it in the other board.
+  You can start seeing the console messages.
 - There are two debug levels. By default debug level 1 is defined to see
   some of the important PTP messages. For example, the link delay and the
   time correction values. The other debug level can be defined to see the

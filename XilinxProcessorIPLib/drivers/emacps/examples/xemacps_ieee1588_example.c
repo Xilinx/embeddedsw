@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -58,6 +58,27 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a asa  09/16/11 First release based on the AVB driver.
 * 1.01a asa  03/03/12 Support for Zynq is added. BD handling is changed.
+* 3.3   asa  05/19/16 Fix for CR#951152. Made following changes.
+*                     - Removed code specific for PEEP.
+*                     - Ensured that each buffer in RxBuf array is cache
+*                       line aligned. The Rxbuf array itself is made cache
+*                       line aligned.
+*                     - The XEMACPS_PACKET_LEN is changed from 1538 to 1598.
+*                       Though the packet length can never be 1598 for
+*                       non-jumbo ethernet packets, it is changes to ensure
+*                       that each Rx buffer becomes cache line aligned.
+*                       If a Rx buffer is not cache line aligned, the
+*                       A9 based invalidation logic flushes the first cache
+*                       line to ensure that other data faling in this cache
+*                       line are not lost when the buffer in invalidated
+*                       upon reception of a packet. But that will also mean
+*                       the data received in this cache line is lost.
+*                       By making this change we always ensure that when an
+*                       invalidation happens no flushing takes place and no
+*                       incoming data is lost.
+*                     - Changes made not to disable and enable back the MMU
+*                       when we change the attribute of BD space to make it
+*                       strongly ordered.
 * </pre>
 *
 ******************************************************************************/
@@ -97,18 +118,11 @@
 #define EMACPS_IRPT_INTR	XPS_GEM0_INT_ID
 #define TIMER_IRPT_INTR		XPAR_SCUTIMER_INTR
 
-#ifndef PEEP
 #define RX_BD_START_ADDRESS	0x0FF00000
 #define TX_BD_START_ADDRESS	0x0FF10000
-#endif
 
-#ifdef PEEP
-/* Timer load value for timer expiry in every 500 mseconds. */
-#define TIMER_LOAD_VALUE	0x2625A0
-#else
 /* Timer load value for timer expiry in every 500 milli seconds. */
 #define TIMER_LOAD_VALUE	XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 4
-#endif
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -144,25 +158,12 @@ u8 UnicastMAC[]  = {0x00, 0x0A, 0x35, 0x01, 0x02, 0x09};
 #ifdef __ICCARM__
 #pragma data_alignment = XEMACPS_RX_BUF_ALIGNMENT
 u8 RxBuf[XEMACPS_IEEE1588_NO_OF_RX_DESCS][XEMACPS_PACKET_LEN + 2];
-#pragma data_alignment = 4
+#pragma data_alignment = 32
 #else
 u8 RxBuf[XEMACPS_IEEE1588_NO_OF_RX_DESCS][XEMACPS_PACKET_LEN + 2]
-		__attribute__ ((aligned(XEMACPS_RX_BUF_ALIGNMENT)));
+							__attribute__ ((aligned(32)));
 #endif
 
-#ifdef PEEP
-#ifdef __ICCARM__
-#pragma data_alignment = XEMACPS_BD_ALIGNMENT
-u8 TxRingPntrBase[TXBD_SPACE_BYTES];
-u8 RxRingPntrBase[RXBD_SPACE_BYTES];
-#pragma data_alignment = 4
-#else
-u8 TxRingPntrBase[TXBD_SPACE_BYTES]
-		__attribute__ ((aligned(XEMACPS_BD_ALIGNMENT)));
-u8 RxRingPntrBase[RXBD_SPACE_BYTES]
-		__attribute__ ((aligned(XEMACPS_BD_ALIGNMENT)));
-#endif
-#endif
 #ifdef IEEE1588_MASTER
 u8 SrcAddr[6] = {0x00,0x0A,0x35,0x01,0x02,0x03};
 u8 DestnAddr[6] = {0x01,0x80,0xC2,0x00,0x00,0x0E};
@@ -219,20 +220,10 @@ int main(void)
 	XEmacPs *EmacPsInstancePtr = &Mac;
 	unsigned int NSIncrementVal;
 
-#ifdef PEEP
-	/*
-	 * Caches are disabled for this example as of now.
-	 */
-	Xil_ICacheDisable();
-	Xil_DCacheDisable();
-#endif
 	xil_printf("Entering into main() \r\n");
 
-#ifndef PEEP
-	Xil_DisableMMU();
 	Xil_SetTlbAttributes(0x0FF00000, 0xc02); // addr, attr
-	Xil_EnableMMU();
-#endif
+
 	/* Initialize SCUTIMER */
 
 	if (XEmacPs_InitScuTimer()  != XST_SUCCESS) while(1);
@@ -259,9 +250,8 @@ int main(void)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-#ifndef PEEP
+
 	XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
-#endif
 	/*
 	 * Detect and initialize the PHY
 	 */
@@ -282,22 +272,12 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-#ifdef PEEP
-	/*
-	 * Set the 1588 Timer register for 50 MHz timer, i.e. 20 ns increment
-	 * for every clock cycle.
-	 */
-	XEmacPs_WriteReg(EmacPsInstancePtr->Config.BaseAddress,
-				XEMACPS_1588_INC_OFFSET,
-				XEMACPS_1588_INC_VAL);
-#else
 
 	NSIncrementVal = XEmacPs_TsuCalcClk
 				(XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 6);
 	XEmacPs_WriteReg(EmacPsInstancePtr->Config.BaseAddress,
 				XEMACPS_1588_INC_OFFSET,
 				NSIncrementVal);
-#endif
 
 	/*
 	 * Register Ethernet Rx, Tx and Error handlers with the EmacPs driver.
@@ -384,7 +364,6 @@ int XEmacPs_InitScuTimer(void)
 	return XST_SUCCESS;
 }
 
-#ifndef PEEP
 /*****************************************************************************/
 /**
 *
@@ -407,7 +386,7 @@ unsigned int XEmacPs_TsuCalcClk(u32 Freq)
 	Retval = Period_ns / FP_MULT;
 	return Retval;
 }
-#endif
+
 /*****************************************************************************/
 /**
 *
@@ -546,49 +525,13 @@ unsigned long XEmacPs_DetectPHY(XEmacPs *EmacPsInstancePtr)
 ******************************************************************************/
 void XEmacPs_PHYSetup (XEmacPs *EmacPsInstancePtr)
 {
-#ifdef PEEP
-	int Status;
-	int Index=0;
-	u16 PhyReg0;
-	u16 PhyReg20;
-
-	/*
-	 * Detect the connected PHY and get the PHY address.
-	 */
-	PhyAddress = XEmacPs_DetectPHY(EmacPsInstancePtr);
-	Status = XEmacPs_PhyRead(&Mac, PhyAddress, 20, &PhyReg20);
-	PhyReg20 |= 0x0080;
-	Status  |= XEmacPs_PhyWrite(&Mac, PhyAddress, 20, PhyReg20);
-
-	/*
-	 * Set the PHY speed as 100 Mbps and reset the PHY.
-	 */
-	Status  |= XEmacPs_PhyRead(&Mac, PhyAddress, 0, &PhyReg0);
-	PhyReg0 = PHY_R0_100;
-	Status  |= XEmacPs_PhyWrite(&Mac, PhyAddress, 0, PhyReg0);
-	Status  |= XEmacPs_PhyWrite(&Mac, PhyAddress, 0, (PhyReg0 |
-						PHY_R0_RESET));
-
-	if (Status != XST_SUCCESS) {
-		return;
-	}
-
-	/*
-	 * Delay for the PHY reset to get over.
-	 */
-	while (Index < 0x10000) Index++;
-#else
-#ifdef PHY_AUTONEGOTIATION
-	u16 Temp;
-	u16 Partner_capabilities;
-#else
-	u16 PhyReg0  = 0;
-#endif
 	u16 Control = 0;
 	u16 Status;
 	u32 SlcrTxClkCntrl;
 
 #ifdef PHY_AUTONEGOTIATION
+	u16 Temp;
+	u16 Partner_capabilities;
 #ifdef DEBUG_XEMACPS_LEVEL1
 	xil_printf("In %s: Start PHY autonegotiation \r\n",__func__);
 #endif
@@ -729,6 +672,8 @@ void XEmacPs_PHYSetup (XEmacPs *EmacPsInstancePtr)
 							__func__, Link_Speed);
 	return;
 #else
+	u16 PhyReg0  = 0;
+
 	/*
 	 * Detect the connected PHY and get the PHY address.
 	 */
@@ -765,7 +710,6 @@ void XEmacPs_PHYSetup (XEmacPs *EmacPsInstancePtr)
 	*(volatile unsigned int *)(SLCR_GEM0_CLK_CTRL_ADDR) = SlcrTxClkCntrl;
 	*(volatile unsigned int *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
 	sleep(1);
-#endif
 #endif
 }
 
@@ -940,22 +884,12 @@ void XEmacPs_InitializeEmacPsDma (XEmacPs_Ieee1588 *InstancePntr)
 	 * all 16 BDs can be cleared.
 	 */
 	XEmacPs_BdClear(&BdTemplate);
-#ifdef PEEP
-	/*
-	 * Create 16 BDs for Rx path.
-	 */
-	Status = XEmacPs_BdRingCreate (RxRingPtr,
-					(u32)&RxRingPntrBase,
-					(u32)&RxRingPntrBase,
-					XEMACPS_IEEE1588_BD_ALIGNMENT,
-					XEMACPS_IEEE1588_NO_OF_RX_DESCS);
-#else
 	Status = XEmacPs_BdRingCreate (RxRingPtr,
 					(u32)RX_BD_START_ADDRESS,
 					(u32)RX_BD_START_ADDRESS,
 					XEMACPS_IEEE1588_BD_ALIGNMENT,
 					XEMACPS_IEEE1588_NO_OF_RX_DESCS);
-#endif
+
 	if (Status != XST_SUCCESS) {
 #ifdef DEBUG_XEMACPS_LEVEL1
 		xil_printf("In %s: BD Ring Creation failed for Rx path \r\n",
@@ -985,19 +919,12 @@ void XEmacPs_InitializeEmacPsDma (XEmacPs_Ieee1588 *InstancePntr)
 	/*
 	 * Create 16 BDs for Tx path.
 	 */
-#ifdef PEEP
-	Status = XEmacPs_BdRingCreate (TxRingPtr,
-					(u32)&TxRingPntrBase,
-					(u32)&TxRingPntrBase,
-					XEMACPS_IEEE1588_BD_ALIGNMENT,
-					XEMACPS_IEEE1588_NO_OF_TX_DESCS);
-#else
 	Status = XEmacPs_BdRingCreate (TxRingPtr,
 					(u32)TX_BD_START_ADDRESS,
 					(u32)TX_BD_START_ADDRESS,
 					XEMACPS_IEEE1588_BD_ALIGNMENT,
 					XEMACPS_IEEE1588_NO_OF_TX_DESCS);
-#endif
+
 	if (Status != XST_SUCCESS) {
 #ifdef DEBUG_XEMACPS_LEVEL1
 		xil_printf("In %s: BD Ring Creation failed for Tx path \r\n",
@@ -1504,9 +1431,8 @@ void XEmacPs_HandleRecdPTPPacket(XEmacPs_Ieee1588 *InstancePtr)
 			BufAddr = (void*)(INTPTR)(XEmacPs_BdGetBufAddr(CurBdPtr) &
 			~(XEMACPS_RXBUF_WRAP_MASK | XEMACPS_RXBUF_NEW_MASK));
 			BufLen = XEmacPs_BdGetLength(CurBdPtr);
-#ifndef PEEP
+
 			Xil_DCacheInvalidateRange((u32)BufAddr, 132);
-#endif
 			/*
 			 * If the received packet is not PTP, then there is
 			 * some error. The example is used to demonstrate the
@@ -1805,9 +1731,9 @@ void XEmacPs_PtpErrorInterruptHandler (XEmacPs_Ieee1588 *InstancePtr,
 		xil_printf("In function %s: XEmacPs_SetMacAddress failure \r\n",__func__);
 #endif
 	}
-#ifndef PEEP
+
 	XEmacPs_SetMdioDivisor(InstancePtr->EmacPsInstance, MDC_DIV_224);
-#endif
+
 	/*
 	 * Detect and initialize the PHY
 	 */
@@ -1831,21 +1757,11 @@ void XEmacPs_PtpErrorInterruptHandler (XEmacPs_Ieee1588 *InstancePtr,
 		return;
 	}
 
-#ifdef PEEP
-	/*
-	 * Set the 1588 Timer register for 50 MHz timer, i.e. 20 ns increment
-	 * for every clock cycle.
-	 */
-	XEmacPs_WriteReg(EmacPsInstancePtr->Config.BaseAddress,
-				XEMACPS_1588_INC_OFFSET,
-				XEMACPS_1588_INC_VAL);
-#else
 
 	NSIncrementVal = XEmacPs_TsuCalcClk(XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 6);
 	XEmacPs_WriteReg(InstancePtr->EmacPsInstance->Config.BaseAddress,
 				XEMACPS_1588_INC_OFFSET,
 				NSIncrementVal);
-#endif
 
 	/*
 	 * Register Ethernet Rx, Tx and Error handlers with the EmacPs driver.
@@ -1928,9 +1844,7 @@ int XEmacPs_PtpTxPacket(XEmacPs_Ieee1588 *InstancePtr, u8 *PacketBuf,
 	/*
 	 * Fill the BD entries for the Tx1!!1`
 	 */
-#ifndef PEEP
 	Xil_DCacheFlushRange((u32)PacketBuf, 128);
-#endif
 
 	XEmacPs_BdSetAddressTx (BdPtr, PacketBuf);
 	XEmacPs_BdSetLength(BdPtr, PacketLen);

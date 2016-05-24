@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,30 @@
 * 1.00a asa  09/16/11 First release based on AVB driver
 * 1.01a asa  03/03/12 New hashdefines are added and new function prototypes
 * 					  are added.
+* 3.3   asa  05/19/16 Fix for CR#951152. Made following changes.
+*                     - Removed code specific for PEEP.
+*                     - Ensured that each buffer in RxBuf array is cache
+*                       line aligned. The Rxbuf array itself is made cache
+*                       line aligned.
+*                     - The XEMACPS_PACKET_LEN is changed from 1538 to 1598.
+*                       Though the packet length can never be 1598 for
+*                       non-jumbo ethernet packets, it is changes to ensure
+*                       that each Rx buffer becomes cache line aligned.
+*                       If a Rx buffer is not cache line aligned, the
+*                       A9 based invalidation logic flushes the first cache
+*                       line to ensure that other data faling in this cache
+*                       line are not lost when the buffer in invalidated
+*                       upon reception of a packet. But that will also mean
+*                       the data received in this cache line is lost.
+*                       By making this change we always ensure that when an
+*                       invalidation happens no flushing takes place and no
+*                       incoming data is lost.
+*                     - Changes made not to disable and enable back the MMU
+*                       when we change the attribute of BD space to make it
+*                       strongly ordered.
+*                     - The number of Rx and Tx bufs are changed from 32 to 16
+*                       as for this simple example so many BDs will never
+*                       be needed.
 *
 * </pre>
 *
@@ -128,14 +152,6 @@ extern "C" {
  */
 #define XEMACPS_ALLOWED_LOST_RESPONSES			3
 
-#ifdef PEEP
-/*
- * Currently the PEEP/GEM is drivern by 50 MHz clock. Which means each
- * clock cycle corresponds to 20 nano seconds. Hence the increment
- * register should contain a value of 20 (0x14).
- */
-#define XEMACPS_1588_INC_VAL				0x00000014
-#endif
 
 /* Standard PTP Frame Field Definitions (from IEEE1588 specification) */
 #define XEMACPS_PTP_ETHERTYPE				0x88F7
@@ -166,15 +182,19 @@ extern "C" {
 #define PHY_R0_1000					0x0140
 #define PHY_R16_FIFO_DEPTH				0xF078
 
-/* Maximum buffer length used to store the PTP pakcets */
-#define XEMACPS_PACKET_LEN				1538
+/*
+ * Maximum buffer length used to store the PTP pakcets. Max buffer length
+ * for ethernet packet can never be so high as 1598. But this is done
+ * to ensure that start address of each Rx buffer is cache line aligned.
+ */
+#define XEMACPS_PACKET_LEN				1598
 
 /* BD alignment used to allocate the BDs */
 #define XEMACPS_IEEE1588_BD_ALIGNMENT			4
 
 /* Number of BDs used in the Tx and Rx paths */
-#define XEMACPS_IEEE1588_NO_OF_RX_DESCS			32
-#define XEMACPS_IEEE1588_NO_OF_TX_DESCS			32
+#define XEMACPS_IEEE1588_NO_OF_RX_DESCS			16
+#define XEMACPS_IEEE1588_NO_OF_TX_DESCS			16
 
 /* Various offsets in the PTP Ethernet packet and masks to extract contents */
 #define XEMACPS_MSGTYP_OFFSET				14
@@ -299,11 +319,6 @@ extern "C" {
 #define SLCR_UNLOCK_ADDR                (XPS_SYS_CTRL_BASEADDR + 0x8)
 #define SLCR_GEM0_CLK_CTRL_ADDR         (XPS_SYS_CTRL_BASEADDR + 0x140)
 #define SLCR_GEM1_CLK_CTRL_ADDR         (XPS_SYS_CTRL_BASEADDR + 0x144)
-#ifdef PEEP
-#define SLCR_GEM_10M_CLK_CTRL_VALUE     0x00103031
-#define SLCR_GEM_100M_CLK_CTRL_VALUE    0x00103001
-#define SLCR_GEM_1G_CLK_CTRL_VALUE      0x00103011
-#endif
 #define SLCR_LOCK_KEY_VALUE             0x767B
 #define SLCR_UNLOCK_KEY_VALUE           0xDF0D
 #define SLCR_ADDR_GEM_RST_CTRL          (XPS_SYS_CTRL_BASEADDR + 0x214)
