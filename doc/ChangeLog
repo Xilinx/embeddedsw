@@ -3,6 +3,15 @@ Change Log for 2016.3
 iicps_v3_3:
 Modified code for MISRA-C:2012 Compliance
 
+ipipsu_v2_1:
+Modified code for MISRA-C:2012 Compliance
+
+sysmonpsu_v1_1:
+Modified driver code for MISRA-C:2012 Compliance
+
+emacps_v3_3:
+Fixed IEEE1588 example issue for Zynq (CR#951152
+
 Change Log for 2016.2
 =================================
 axidma_v9_2:
