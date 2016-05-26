@@ -48,6 +48,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
+* 1.3   kvn 05/26/16 Added volatile keyword for PeriodicAlarms
+*                    variable.
 *
 * </pre>
 ****************************************************************************/
@@ -95,7 +97,7 @@ void Handler(void *CallBackRef, u32 Event);
 
 XRtcPsu RtcPsu;		/* Instance of the RTC Device */
 XScuGic InterruptController;	/* Instance of the Interrupt Controller */
-u32 PeriodicAlarms;
+volatile u32 PeriodicAlarms;
 
 
 /**************************************************************************/
