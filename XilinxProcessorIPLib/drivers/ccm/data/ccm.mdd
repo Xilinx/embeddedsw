@@ -36,7 +36,6 @@ BEGIN driver ccm
   OPTION supported_peripherals = (v_ccm);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 6.0;
   OPTION NAME = ccm;
 
 END driver
