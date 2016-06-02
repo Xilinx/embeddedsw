@@ -50,6 +50,7 @@
 * 1.2   yh     14/01/16 Added Bit Masking for AxisEnable PIO
 * 1.3   MG     18/02/16 Added AUX peripheral error event mask
 * 1.4   MG     13/05/16 Added DDC HDCP mode mask
+* 1.5   MG     27/05/16 Added VTD timebase
 * </pre>
 *
 ******************************************************************************/
@@ -159,15 +160,15 @@ extern "C" {
 #define XV_HDMIRX_VTD_HBP_OFFSET                        ((XV_HDMIRX_VTD_BASE)+(14*4))   /**< VTD Horizontal Back Porch Register offset */
 
 // Video timing detector peripheral Control register masks and shift
-#define XV_HDMIRX_VTD_CTRL_RUN_MASK                 (1<<0)  /**< VTD Control Run mask */
-#define XV_HDMIRX_VTD_CTRL_IE_MASK                  (1<<1)  /**< VTD Control Interrupt Enable mask */
-#define XV_HDMIRX_VTD_CTRL_FIELD_POL_MASK           (1<<2)  /**< VTD Control field polarity mask */
-#define XV_HDMIRX_VTD_CTRL_THRESHOLD_SHIFT          24      /**< VTD Control threshold shift */
-#define XV_HDMIRX_VTD_CTRL_THRESHOLD_MASK           0xff    /**< VTD Control threshold mask */
+#define XV_HDMIRX_VTD_CTRL_RUN_MASK                 (1<<0)  	/**< VTD Control Run mask */
+#define XV_HDMIRX_VTD_CTRL_IE_MASK                  (1<<1)  	/**< VTD Control Interrupt Enable mask */
+#define XV_HDMIRX_VTD_CTRL_FIELD_POL_MASK           (1<<2)  	/**< VTD Control field polarity mask */
+#define XV_HDMIRX_VTD_CTRL_TIMEBASE_SHIFT          	8      		/**< VTD Control timebase shift */
+#define XV_HDMIRX_VTD_CTRL_TIMERBASE_MASK          	0xffffff    /**< VTD Control timebase mask */
 
 // Video timing detector peripheral Status register masks
 #define XV_HDMIRX_VTD_STA_IRQ_MASK                  (1<<0)  /**< VTD Status Interrupt mask */
-#define XV_HDMIRX_VTD_STA_TPR_EVT_MASK              (1<<1)  /**< VTD Status timing parameter ready event mask */
+#define XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK        	(1<<1)  /**< VTD Status timebase event mask */
 #define XV_HDMIRX_VTD_STA_VS_POL_MASK               (1<<3)  /**< VTD Status Vsync Polarity mask */
 #define XV_HDMIRX_VTD_STA_HS_POL_MASK               (1<<4)  /**< VTD Status Hsync Polarity mask */
 #define XV_HDMIRX_VTD_STA_FMT_MASK                  (1<<5)  /**< VTD Status Format mask */
