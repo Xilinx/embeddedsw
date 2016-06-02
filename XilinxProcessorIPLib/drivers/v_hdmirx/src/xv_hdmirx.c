@@ -47,6 +47,7 @@
 * 1.2   yh     15/01/16 Added 3D Video support
 * 1.3   MG     19/02/16 Added link error callback
 * 1.4   MG     08/03/16 Updated XV_HdmiRx_SetStream to use RefClk
+* 1.5   MG     27/05/16 Updated XV_HdmiRx_CfgInitialize
 * </pre>
 *
 ******************************************************************************/
@@ -270,6 +271,9 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, u3
     /*
         Video Timing detector peripheral
     */
+
+    // Set timebase
+    XV_HdmiRx_VtdSetTimebase(InstancePtr, 1600000);  // 16 ms @ 100 Mhz
 
     // The VTD run flag is set in the armed state
 
