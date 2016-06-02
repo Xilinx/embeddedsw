@@ -47,6 +47,8 @@
 * 1.3   MG     18/02/16 Added Link Check callback
 * 1.4   MG     08/03/16 Added pixel clock calculation to HdmiRx_TmrIntrHandler
 * 1.5   MH     08/03/16 Added support for read not complete DDC event
+* 1.6   MG     27/05/16 Updated HdmiRx_VtdIntrHandler
+* 1.7   MG     27/05/16 Updated HdmiRx_TmrIntrHandler
 * </pre>
 *
 ******************************************************************************/
@@ -321,11 +323,11 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
     /* Read Video timing detector Status register */
     Status = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET));
 
-    /* Check for timing parameters ready event */
-    if ((Status) & (XV_HDMIRX_VTD_STA_TPR_EVT_MASK)) {
+    /* Check for time base event */
+    if ((Status) & (XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK)) {
 
         // Clear event flag
-        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET), (XV_HDMIRX_VTD_STA_TPR_EVT_MASK));
+        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET), (XV_HDMIRX_VTD_STA_TIMEBASE_EVT_MASK));
 
         // Check if we are in lock state
         if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_LOCK) {
@@ -620,22 +622,31 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 
             // Now we know the reference clock and color depth,
             // the pixel clock can be calculated
-            switch (InstancePtr->Stream.Video.ColorDepth) {
-                case XVIDC_BPC_10:
-                    InstancePtr->Stream.PixelClk = (InstancePtr->Stream.RefClk * 4)/5;
-                    break;
+            // In case of YUV 422 the reference clock is the pixel clock
+            if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
+                InstancePtr->Stream.PixelClk = InstancePtr->Stream.RefClk;
+            }
 
-                case XVIDC_BPC_12:
-                    InstancePtr->Stream.PixelClk = (InstancePtr->Stream.RefClk * 2)/3;
-                    break;
+            // For the other color spaces the pixel clock needs to be adjusted
+            else {
+                switch (InstancePtr->Stream.Video.ColorDepth) {
+                    case XVIDC_BPC_10:
+                        InstancePtr->Stream.PixelClk = (InstancePtr->Stream.RefClk * 4)/5;
+                        break;
 
-                case XVIDC_BPC_16:
-                    InstancePtr->Stream.PixelClk = InstancePtr->Stream.RefClk / 2;
-                    break;
+                    case XVIDC_BPC_12:
+                        InstancePtr->Stream.PixelClk = (InstancePtr->Stream.RefClk * 2)/3;
 
-                default:
-                    InstancePtr->Stream.PixelClk = InstancePtr->Stream.RefClk;
-                    break;
+                        break;
+
+                    case XVIDC_BPC_16:
+                        InstancePtr->Stream.PixelClk = InstancePtr->Stream.RefClk / 2;
+                        break;
+
+                    default:
+                        InstancePtr->Stream.PixelClk = InstancePtr->Stream.RefClk;
+                        break;
+                }
             }
 
             // Call stream init callback
@@ -646,9 +657,6 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 
         // Armed state
         else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_ARM) {
-
-            // Set VTD threshold
-            XV_HdmiRx_VtdSetThreshold(InstancePtr, 8);  // 8 frames
 
             /* Enable VTD */
             XV_HdmiRx_VtdEnable(InstancePtr);
