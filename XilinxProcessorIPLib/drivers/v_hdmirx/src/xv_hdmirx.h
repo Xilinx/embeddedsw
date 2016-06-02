@@ -122,6 +122,7 @@
 * 1.3   MG     18/02/16 Added link error callback.
 * 1.4   MG     08/03/16 Added RefClk to structure XV_HdmiRx_Stream
 * 1.5   MG     13/05/16 Added XV_HdmiRx_DdcHdcp22Mode and XV_HdmiRx_DdcHdcp14Mode macros
+* 1.6   MG     27/05/16 Added VTD timebase macro
 * </pre>
 *
 ******************************************************************************/
@@ -691,18 +692,18 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This macro sets the threshold in the HDMI RX Timing Detector peripheral.
+* This macro sets the timebase in the HDMI RX Timing Detector peripheral.
 *
 * @param	InstancePtr is a pointer to the XV_HdmiRx core instance.
 *
 * @return	None.
 *
 * @note		C-style signature:
-*		void XV_HdmiRx_VtdIntrDisable(XV_HdmiRx *InstancePtr)
+*		void XV_HdmiRx_VtdSetTimebase(XV_HdmiRx *InstancePtr, Value)
 *
 ******************************************************************************/
-#define XV_HdmiRx_VtdSetThreshold(InstancePtr, Value) \
-	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_VTD_CTRL_OFFSET), (u32)(Value << XV_HDMIRX_VTD_CTRL_THRESHOLD_SHIFT))
+#define XV_HdmiRx_VtdSetTimebase(InstancePtr, Value) \
+	XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_VTD_CTRL_OFFSET), (u32)(Value << XV_HDMIRX_VTD_CTRL_TIMEBASE_SHIFT))
 
 
 /*****************************************************************************/
