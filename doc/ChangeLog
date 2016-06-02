@@ -57,6 +57,9 @@ qspipsu: Added debug message prints.
 usb_v5_2:
 Updated the driver to support 64-bit DMA addressing
 
+v_hdmirx_v1_1:
+Updated VTD control in HDMI RX core driver
+
 v_hdmirxss_v2_0:
 Added DDC peripheral HDCP mode selection to XV_HdmiRxSs_HdcpEnable
 
