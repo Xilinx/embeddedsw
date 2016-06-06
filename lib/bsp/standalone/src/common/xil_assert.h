@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2009 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hbm  07/14/09 First release
+* 5.6   kvn  05/31/16 Make Xil_AsserWait a global variable
 * </pre>
 *
 ******************************************************************************/
@@ -66,6 +67,7 @@ extern "C" {
 #define XNULL NULL
 
 extern u32 Xil_AssertStatus;
+extern s32 Xil_AssertWait;
 extern void Xil_Assert(const char8 *File, s32 Line);
 void XNullHandler(void *NullParameter);
 

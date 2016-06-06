@@ -12,6 +12,9 @@ Modified driver code for MISRA-C:2012 Compliance
 emacps_v3_3:
 Fixed IEEE1588 example issue for Zynq (CR#951152
 
+standalone_v5_6:
+Make Xil_AsserWait a global variable
+
 Change Log for 2016.2
 =================================
 axidma_v9_2:

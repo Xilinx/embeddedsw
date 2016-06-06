@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2009 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hbm  07/14/09 Initial release
+* 5.6   kvn  05/31/16 Make Xil_AsserWait a global variable
 * </pre>
 *
 ******************************************************************************/
@@ -71,7 +72,7 @@ u32 Xil_AssertStatus;
  * such that it does not wait infinitely. Use the debugger to disable the
  * waiting during testing of asserts.
  */
-/*s32 Xil_AssertWait = 1*/
+s32 Xil_AssertWait = 1;
 
 /* The callback function to be invoked when an assert is taken */
 static Xil_AssertCallback Xil_AssertCallbackRoutine = NULL;
@@ -95,7 +96,6 @@ static Xil_AssertCallback Xil_AssertCallbackRoutine = NULL;
 ******************************************************************************/
 void Xil_Assert(const char8 *File, s32 Line)
 {
-	s32 Xil_AssertWait = 1;
 	/* if the callback has been set then invoke it */
 	if (Xil_AssertCallbackRoutine != 0) {
 		(*Xil_AssertCallbackRoutine)(File, Line);
