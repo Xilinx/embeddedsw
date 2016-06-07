@@ -38,6 +38,7 @@
 #include "pm_common.h"
 #include "pm_proc.h"
 #include "pm_master.h"
+#include "pm_reset.h"
 #include "pm_sram.h"
 #include "pm_periph.h"
 #include "pm_pll.h"
@@ -112,7 +113,9 @@ static int PmPowerDownFpd(void)
 	PmPllSuspendAll(&pmPowerDomainFpd_g);
 	PmFpdSaveContext();
 
+	PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
 	status = XpbrPwrDnFpdHandler();
+
 	/*
 	 * When FPD is powered off, the APU-GIC will be affected too.
 	 * GIC Proxy has to take over for all wake-up sources for
@@ -164,6 +167,32 @@ done:
 }
 
 /**
+ * PmPowerUpFpd() - Power up FPD domain
+ *
+ * @return      Status of the pmu-rom operations
+ */
+static int PmPowerUpFpd(void)
+{
+	int status = XpbrPwrUpFpdHandler();
+
+	if (XST_SUCCESS != status) {
+		goto err;
+	}
+	sleep(1);
+
+	status = PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_RELEASE);
+	if (XST_SUCCESS != status) {
+		goto err;
+	}
+
+	PmFpdRestoreContext();
+	PmPllResumeAll(&pmPowerDomainFpd_g);
+
+err:
+	return status;
+}
+
+/**
  * PmPwrUpHandler() - Power up island/domain
  * @nodePtr Pointer to node-structure of power island/dom to be powered on
  *
@@ -182,12 +211,7 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 	/* Call proper PMU-ROM handler as needed */
 	switch (nodePtr->nodeId) {
 	case NODE_FPD:
-		status = XpbrPwrUpFpdHandler();
-		sleep(1);
-		if (XST_SUCCESS == status) {
-			PmFpdRestoreContext();
-			PmPllResumeAll(&pmPowerDomainFpd_g);
-		}
+		status = PmPowerUpFpd();
 		break;
 	case NODE_APU:
 		status = XST_SUCCESS;
