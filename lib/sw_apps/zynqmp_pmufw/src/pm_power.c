@@ -33,6 +33,7 @@
  * transition actions, and FSM definition.
  *********************************************************************/
 
+#include <sleep.h>
 #include "pm_power.h"
 #include "pm_common.h"
 #include "pm_proc.h"
@@ -182,6 +183,7 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 	switch (nodePtr->nodeId) {
 	case NODE_FPD:
 		status = XpbrPwrUpFpdHandler();
+		sleep(1);
 		if (XST_SUCCESS == status) {
 			PmFpdRestoreContext();
 			PmPllResumeAll(&pmPowerDomainFpd_g);
