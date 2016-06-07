@@ -196,7 +196,7 @@ extern PmGicProxyProperties gicProxyGroups_g[FPD_GICP_GROUP_MAX];
 int PmUpdateSlave(PmSlave* const slave);
 int PmCheckCapabilities(PmSlave* const slave, const u32 capabilities);
 
-bool PmSlaveHasCapRequests(const PmSlave* const slave);
+bool PmSlaveRequiresPower(const PmSlave* const slave);
 
 int PmSlaveProcessWake(const u32 wakeMask);
 void PmSlaveWakeEnable(PmSlave* const slave);

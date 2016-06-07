@@ -117,29 +117,38 @@ static PmSlave* const pmSlaves[] = {
 };
 
 /**
- * PmSlaveHasCapRequests() - Check whether slave has any request for any
- *                           capability
+ * PmSlaveRequiresPower() - Check whether slave has any request for any
+ *                          capability and if current state requires power
  * @slave   Pointer to a slave whose requests are to be checked
  *
  * @return  Based on checking all masters' requests function returns :
- *          - true if there is at least one master requesting a capability
+ *          - true if there is at least one master requesting a capability and
+ *            current state requires power
  *          - false if no master is requesting anything from this slave
  */
-bool PmSlaveHasCapRequests(const PmSlave* const slave)
+bool PmSlaveRequiresPower(const PmSlave* const slave)
 {
 	u32 i;
-	bool hasReq = false;
+	bool hasRequests = false;
+	bool requiresPower = false;
 
 	for (i = 0U; i < slave->reqsCnt; i++) {
 		if ((0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) &&
 		    (0U != slave->reqs[i]->currReq)) {
 			/* Slave is used by this master and has current request for caps */
-			hasReq = true;
+			hasRequests = true;
 			break;
 		}
 	}
 
-	return hasReq;
+	if (true == hasRequests) {
+		if (0U != (PM_CAP_POWER &
+			   slave->slvFsm->states[slave->node.currState])) {
+			requiresPower = true;
+		}
+	}
+
+	return requiresPower;
 }
 
 /**

@@ -349,7 +349,7 @@ static bool PmChildIsInLowestPowerState(const PmNode* const nodePtr)
 		}
 	} else {
 		/* Node is a slave */
-		if (false == PmSlaveHasCapRequests((PmSlave*)nodePtr->derived)) {
+		if (false == PmSlaveRequiresPower((PmSlave*)nodePtr->derived)) {
 			status = true;
 		}
 	}
