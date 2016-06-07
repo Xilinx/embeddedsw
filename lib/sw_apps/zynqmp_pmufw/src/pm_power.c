@@ -44,6 +44,7 @@
 #include "crf_apb.h"
 #include "pm_system.h"
 #include "pm_ddr.h"
+#include "apu.h"
 
 /*
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
@@ -71,6 +72,7 @@ static PmRegisterContext pmCrfContext[] = {
 	{ .addr = CRF_APB_RST_FPD_TOP },
 	{ .addr = CRF_APB_RST_FPD_APU },
 	{ .addr = CRF_APB_RST_DDR_SS },
+	{ .addr = APU_PWRCTL },
 };
 
 /**
