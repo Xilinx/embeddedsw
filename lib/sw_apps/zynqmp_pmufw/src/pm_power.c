@@ -50,7 +50,7 @@
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
  * context. PLLs have separate logic, which is part of PmSlavePll (pm_pll.h/c)
  */
-static PmRegisterContext pmCrfContext[] = {
+static PmRegisterContext pmFpdContext[] = {
 	{ .addr = CRF_APB_ERR_CTRL },
 	{ .addr = CRF_APB_CRF_WPROT },
 	{ .addr = CRF_APB_ACPU_CTRL, },
@@ -76,27 +76,27 @@ static PmRegisterContext pmCrfContext[] = {
 };
 
 /**
- * PmCrfSaveContext() - Save context of CRF_APB module due to powering down FPD
+ * PmFpdSaveContext() - Save context of CRF_APB module due to powering down FPD
  */
-static void PmCrfSaveContext(void)
+static void PmFpdSaveContext(void)
 {
 	u32 i;
 
-	for (i = 0U; i < ARRAY_SIZE(pmCrfContext); i++) {
-		pmCrfContext[i].value = XPfw_Read32(pmCrfContext[i].addr);
+	for (i = 0U; i < ARRAY_SIZE(pmFpdContext); i++) {
+		pmFpdContext[i].value = XPfw_Read32(pmFpdContext[i].addr);
 	}
 }
 
 /**
- * PmCrfRestoreContext() - Restore context of CRF_APB module (FPD has been
+ * PmFpdRestoreContext() - Restore context of CRF_APB module (FPD has been
  *                         powered up)
  */
-static void PmCrfRestoreContext(void)
+static void PmFpdRestoreContext(void)
 {
 	u32 i;
 
-	for (i = 0U; i < ARRAY_SIZE(pmCrfContext); i++) {
-		XPfw_Write32(pmCrfContext[i].addr, pmCrfContext[i].value);
+	for (i = 0U; i < ARRAY_SIZE(pmFpdContext); i++) {
+		XPfw_Write32(pmFpdContext[i].addr, pmFpdContext[i].value);
 	}
 }
 
@@ -110,7 +110,7 @@ static int PmPowerDownFpd(void)
 	int status;
 
 	PmPllSuspendAll(&pmPowerDomainFpd_g);
-	PmCrfSaveContext();
+	PmFpdSaveContext();
 
 	status = XpbrPwrDnFpdHandler();
 	/*
@@ -184,7 +184,7 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 	case NODE_FPD:
 		status = XpbrPwrUpFpdHandler();
 		if (XST_SUCCESS == status) {
-			PmCrfRestoreContext();
+			PmFpdRestoreContext();
 			PmPllResumeAll(&pmPowerDomainFpd_g);
 		}
 		break;
