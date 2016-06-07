@@ -183,6 +183,7 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 		status = XpbrPwrUpFpdHandler();
 		if (XST_SUCCESS == status) {
 			PmCrfRestoreContext();
+			PmPllResumeAll(&pmPowerDomainFpd_g);
 		}
 		break;
 	case NODE_APU:

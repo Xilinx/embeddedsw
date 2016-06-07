@@ -416,3 +416,18 @@ void PmPllSuspendAll(const PmPower* const powerParent)
 		}
 	}
 }
+
+/**
+ * PmPllResumeAll() - Resume all PLLs whose power parent is given as argument
+ * @powerParent Power parent of PLLs to be resumed
+ */
+void PmPllResumeAll(const PmPower* const powerParent)
+{
+	u8 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmPlls); i++) {
+		if (powerParent == pmPlls[i]->slv.node.parent) {
+			PmPllResume(pmPlls[i]);
+		}
+	}
+}
