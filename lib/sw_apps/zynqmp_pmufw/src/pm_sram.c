@@ -36,6 +36,7 @@
 #include "pm_common.h"
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
+#include "crf_apb.h"
 
 /* Power states of SRAM */
 #define PM_SRAM_STATE_OFF	0U
@@ -157,6 +158,29 @@ static u32 PmSramPowers[] = {
 	DEFAULT_SRAM_POWER_ON,
 };
 
+/**
+ * PmL2PwrDn() - Handler for powering down L2$
+ *
+ * @return	Status returned by PMU-ROM handler for powering down L2$
+ */
+static u32 PmL2PwrDn(void)
+{
+	int status;
+
+	/* Now call PMU-ROM function to power down L2 RAM */
+	status = XpbrPwrDnL2Bank0Handler();
+
+	/*
+	 * Assert L2 reset before the power down. Reset will be released by the
+	 * PMU-ROM when the first APU core is woken-up.
+	 */
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK,
+		   CRF_APB_RST_FPD_APU_APU_L2_RESET_MASK);
+
+	return status;
+}
+
 PmSlaveSram pmSlaveL2_g = {
 	.slv = {
 		.node = {
@@ -175,7 +199,7 @@ PmSlaveSram pmSlaveL2_g = {
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 	},
-	.PwrDn = XpbrPwrDnL2Bank0Handler,
+	.PwrDn = PmL2PwrDn,
 	.PwrUp = XpbrPwrUpL2Bank0Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_L2_BANK0_MASK,
