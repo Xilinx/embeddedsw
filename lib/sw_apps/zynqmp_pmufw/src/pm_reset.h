@@ -52,5 +52,6 @@ typedef struct PmMaster PmMaster;
 const PmReset* PmGetResetById(const u32 reset);
 void PmResetAssert(const PmMaster *const master, const u32 reset, const u32 action);
 void PmResetGetStatus(const PmMaster *const master, const u32 reset);
+int PmResetAssertInt(u32 reset, u32 action);
 
 #endif

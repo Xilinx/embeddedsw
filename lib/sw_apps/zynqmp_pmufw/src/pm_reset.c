@@ -1962,16 +1962,63 @@ done:
 	return resetPtr;
 }
 
+static int ResetDoAssert(const PmReset *reset, u32 action)
+{
+	int status = XST_SUCCESS;
+
+	switch (action) {
+	case PM_RESET_ACTION_RELEASE:
+	case PM_RESET_ACTION_ASSERT:
+		if (NULL != reset->ops->assert) {
+			reset->ops->assert(reset, action);
+		} else {
+			status = XST_INVALID_PARAM;
+		}
+		break;
+	case PM_RESET_ACTION_PULSE:
+		reset->ops->pulse(reset);
+		break;
+	default:
+		PmDbg("ERROR invalid assert flag %lu\n", action);
+		status = XST_INVALID_PARAM;
+		break;
+	};
+
+	return status;
+}
+
+/**
+ * PmResetAssertInt() - Configure reset line
+ * @reset       ID of reset to be configured
+ * @action      Specifies the action (assert, release, pulse)
+ */
+int PmResetAssertInt(u32 reset, u32 action)
+{
+	int status;
+	const PmReset *resetPtr = PmGetResetById(reset);
+
+	if (NULL == resetPtr) {
+		PmDbg("ERROR invalid reset %lu\n", reset);
+		status = XST_INVALID_PARAM;
+		goto err;
+	}
+
+	status = ResetDoAssert(resetPtr, action);
+
+err:
+	return status;
+}
+
 /**
  * PmResetAssert() - Configure reset line
  * @master      Initiator of the request
- * @reset       Reset to be configured
+ * @reset       ID of reset to be configured
  * @action      Specifies the action (assert, release, pulse)
  */
 void PmResetAssert(const PmMaster *const master, const u32 reset,
 			  const u32 action)
 {
-	int status = XST_SUCCESS;
+	int status;
 	const PmReset *resetPtr = PmGetResetById(reset);
 
 	PmDbg("(%lu, %lu)\n", reset, action);
@@ -1989,23 +2036,7 @@ void PmResetAssert(const PmMaster *const master, const u32 reset,
 		goto done;
 	}
 
-	switch (action) {
-	case PM_RESET_ACTION_RELEASE:
-	case PM_RESET_ACTION_ASSERT:
-		if (NULL != resetPtr->ops->assert) {
-			resetPtr->ops->assert(resetPtr, action);
-		} else {
-			status = XST_INVALID_PARAM;
-		}
-		break;
-	case PM_RESET_ACTION_PULSE:
-		resetPtr->ops->pulse(resetPtr);
-		break;
-	default:
-		PmDbg("ERROR invalid assert flag %lu\n", action);
-		status = XST_INVALID_PARAM;
-		break;
-	};
+	status = ResetDoAssert(resetPtr, action);
 
 done:
 	IPI_RESPONSE1(master->buffer, status);
