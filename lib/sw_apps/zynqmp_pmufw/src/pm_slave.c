@@ -43,6 +43,7 @@
 #include "pm_pll.h"
 #include "pm_power.h"
 #include "lpd_slcr.h"
+#include "pm_ddr.h"
 
 /* Used for tracking number of enabled interrupts in each GIC Proxy group */
 PmGicProxyProperties gicProxyGroups_g[FPD_GICP_GROUP_MAX] = {
@@ -114,6 +115,7 @@ static PmSlave* const pmSlaves[] = {
 	&pmSlaveQSpi_g,
 	&pmSlaveGpio_g,
 	&pmSlaveAFI_g,
+	&pmSlaveDdr_g,
 };
 
 /**
