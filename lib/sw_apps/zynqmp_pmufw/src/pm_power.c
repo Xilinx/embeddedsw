@@ -71,7 +71,6 @@ static PmRegisterContext pmFpdContext[] = {
 	{ .addr = CRF_APB_DBG_TSTMP_CTRL },
 	{ .addr = CRF_APB_RST_FPD_TOP },
 	{ .addr = CRF_APB_RST_FPD_APU },
-	{ .addr = CRF_APB_RST_DDR_SS },
 	{ .addr = APU_PWRCTL },
 };
 
