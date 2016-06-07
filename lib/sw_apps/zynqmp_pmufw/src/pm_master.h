@@ -92,8 +92,9 @@ typedef struct PmMaster PmMaster;
 #define PM_MASTER_APU_SLAVE_GPIO    38U
 #define PM_MASTER_APU_SLAVE_AFI     39U
 #define PM_MASTER_APU_SLAVE_DDR     40U
+#define PM_MASTER_APU_SLAVE_IPI_APU 41U
 
-#define PM_MASTER_APU_SLAVE_MAX     41U
+#define PM_MASTER_APU_SLAVE_MAX     42U
 
 /* Rpu0 slaves */
 #define PM_MASTER_RPU_0_SLAVE_TCM0A 0U

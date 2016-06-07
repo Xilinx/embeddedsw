@@ -94,5 +94,6 @@ extern PmSlave pmSlaveNand_g;
 extern PmSlave pmSlaveQSpi_g;
 extern PmSlave pmSlaveGpio_g;
 extern PmSlave pmSlaveAFI_g;
+extern PmSlave pmSlaveIpiApu_g;
 
 #endif

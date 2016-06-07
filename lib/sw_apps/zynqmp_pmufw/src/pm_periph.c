@@ -925,3 +925,30 @@ PmSlave pmSlaveAFI_g = {
 	.wake = NULL,
 	.slvFsm = &slaveStdFsm,
 };
+
+static PmRequirement* const pmIpiApuReqs[] = {
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_IPI_APU],
+};
+
+static PmWakeProperties pmIpiApuWake = {
+	.proxyIrqMask = FPD_GICP_IPI_APU_WAKE_IRQ_MASK,
+	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+};
+
+PmSlave pmSlaveIpiApu_g = {
+	.node = {
+		.derived = &pmSlaveIpiApu_g,
+		.nodeId = NODE_IPI_APU,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveAonPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers)
+	},
+	.reqs = pmIpiApuReqs,
+	.reqsCnt = ARRAY_SIZE(pmIpiApuReqs),
+	.wake = &pmIpiApuWake,
+	.slvFsm = &slaveAonFsm,
+};

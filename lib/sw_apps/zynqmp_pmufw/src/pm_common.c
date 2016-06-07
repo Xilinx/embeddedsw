@@ -159,6 +159,8 @@ const char* PmStrNode(const u32 node)
 		return "NODE_AFI";
 	case NODE_DDR:
 		return "NODE_DDR";
+	case NODE_IPI_APU:
+		return "NODE_IPI_APU";
 	default:
 		return "ERROR_NODE";
 	}

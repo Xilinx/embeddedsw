@@ -422,6 +422,15 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
 	},
+	[PM_MASTER_APU_SLAVE_IPI_APU] = {
+		.slave = &pmSlaveIpiApu_g,
+		.requestor = &pmMasterApu_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = PM_CAP_ACCESS,
+		.currReq = PM_CAP_ACCESS,
+		.nextReq = PM_CAP_ACCESS,
+		.latencyReq = MAX_LATENCY,
+	},
 };
 
 /* Requirement of RPU_0 master */

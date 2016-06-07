@@ -107,6 +107,7 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 #define FPD_GICP_TTC2_WAKE_IRQ_MASK	(1 << 10)
 #define FPD_GICP_TTC1_WAKE_IRQ_MASK	(1 << 7)
 #define FPD_GICP_TTC0_WAKE_IRQ_MASK	(1 << 4)
+#define FPD_GICP_IPI_APU_WAKE_IRQ_MASK	(1 << 3)
 
 /* GIC Proxy group 2 */
 #define FPD_GICP_USB1_WAKE_IRQ_MASK (1 << 12)
