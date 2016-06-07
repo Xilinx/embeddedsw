@@ -208,4 +208,15 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave);
 u32 PmSlaveGetUsageStatus(const u32 slavenode, const PmMaster *const master);
 u32 PmSlaveGetRequirements(const u32 slavenode, const PmMaster *const master);
 
+/**
+ * PmSlaveWakeClear() - Clear GIC Proxy wake interrupt of the slave
+ * @slave       Slave whose interrupt should be cleared
+ */
+static inline void PmSlaveWakeClear(const PmSlave* const slave)
+{
+	/* Clear GIC Proxy IRQ by writing slave's mask to status register */
+	XPfw_Write32(slave->wake->proxyGroup->baseAddr +
+		     FPD_GICP_STATUS_OFFSET, slave->wake->proxyIrqMask);
+}
+
 #endif

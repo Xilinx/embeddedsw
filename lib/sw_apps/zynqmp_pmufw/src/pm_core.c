@@ -617,6 +617,7 @@ static void PmSetWakeupSource(const PmMaster *const master,
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 	} else {
 		req->info |= PM_MASTER_WAKEUP_REQ_MASK;
+		PmSlaveWakeClear(req->slave);
 	}
 
 done:
