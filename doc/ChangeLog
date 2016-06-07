@@ -673,24 +673,10 @@ Corrected TX_CLK25_DIV1 and added RX_CLK25_DIV1 initialization
 Updated the RXCDRCFG2 values for GTHE4
 Updated xvphy_gtpe2.c to take the correct refclk frequency for DP
 
-vprocss_v2_0:
-Made changes in mdd file to update OPTION DEPENDS.
-Updated tcl to fix bug for designs with single instance of vcresampler core.
-Updateed to adapt to sub-core layer 2 changes.
-Added four new topologies. There are now six topologies.
-Added support for additional topologies.
-Accommodated Full topology with no VDMA
-Renamed and modified H,VCresample constants and routines
-Added macros to query for the new topologies
-Added new data struct, enums, constants and prototypes to support a new Event Logging system for xvprocss.
-Made changes to write to new Event Log: log sub-core init errors.
-Modifed CSC-only validate and setup routines
-Modified Scaler-only validate and setup routines
-Made changes to conform to coding style.
-Update example software and reset logic in vpss
-Update example software to stop the deint block correctly, when re-configuring a new use case.
-Zero out Video Stream structures on initialization, to zero out the new 3D format field.
-Modify example design to avoid testing a color format not supported by the VPSS HW configuration.
+vprocss_v2_1:
+Added new version 2.1
+Added optional color format conversion handling in scaler only topology
+Updated tcl to support multiple instances
 
 wdttb_v4_0:
 Updated Window watchdog support.
