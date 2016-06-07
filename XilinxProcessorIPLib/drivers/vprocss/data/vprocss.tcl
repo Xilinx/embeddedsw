@@ -34,6 +34,7 @@
 #  1.0      rco    07/21/15 Initial version of subsystem tcl
 #  1.1      rco    11/20/15 Bug fix for designs with single instance of
 #                           vcresampler core
+#  1.2      rco    06/06/16 Extended to support multiple instances
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -56,10 +57,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
     puts $config_file "#include \"xparameters.h\""
     puts $config_file "#include \"[string tolower $drv_string].h\""
-    puts $config_file "\n/*"
-    puts $config_file "* List of Sub-cores included in the subsystem"
-    puts $config_file "* Sub-core device id will be set by its driver in xparameters.h"
-    puts $config_file "*/\n"
 
     set periphs_g [::hsi::utils::get_common_driver_ips $drv_handle]
 
@@ -81,6 +78,11 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
 		::hsi::current_hw_instance $periph_g;
 
+		puts $config_file "\n/*"
+		puts $config_file "* Subsystem Instance: <$periph_g>"
+		puts $config_file "*   - List of sub-cores included in the subsystem"
+		puts $config_file "*/\n"
+
 		set child_cells_g [::hsi::get_cells -hier]
 
 		foreach child_cell_g $child_cells_g {
@@ -97,13 +99,11 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
 				foreach interface $interfaces {
 					set intf_type [common::get_property TYPE $interface]
-					#puts "Interface type $intf_type\n"
 					if { [string compare -nocase "SLAVE" $intf_type] == 0 } {
 						set is_slave 1
 					}
 				}
 				if { $is_slave != 0 } {
-					#puts "Processing Periph: $ip_name  $child_cell_name_g"
 					set final_child_cell_instance_name_present_g XPAR_${child_cell_name_g}_PRESENT
 					puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_present_g]\t 1\n"
 
@@ -114,22 +114,19 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 		}
 
 		puts $config_file "\n\n/*"
-		puts $config_file "* List of Sub-cores excluded from the subsystem"
+		puts $config_file "* List of sub-cores excluded from the subsystem <$periph_g>"
 		puts $config_file "*   - Excluded sub-core device id is set to 255"
-		puts $config_file "*   - Excluded sub-core baseaddr is set to 0"
+		puts $config_file "*   - Excluded sub-core base address is set to 0"
 		puts $config_file "*/\n"
 
 		foreach sub_core [lsort [array names sub_core_inst]] {
-			if {[dict exists $ss_ip_list $sub_core]} {
+			if {[IsSubcoreInSubsystem $sub_core $periph_g $ss_ip_list]} {
 				set max_instances $sub_core_inst($sub_core)
 				#check if core can have multiple instances
 				#It is possible that not all instances are used in the design
 			    if {$max_instances > 1} {
 					set ip_instances [dict get $ss_ip_list $sub_core]
-					set avail_instances [llength $ip_instances]
-
-					#puts "Sub-Core: $sub_core"
-					#puts "instances: $ip_instances"
+					set avail_instances [GetNumSubcoreInstances $periph_g $ip_instances]
 
 					#check if available instances are less than MAX
 					#if yes, mark the missing instance
@@ -138,7 +135,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					set strbaseaddr "BASEADDR"
 					if {$avail_instances < $max_instances} {
 						if {[string compare -nocase "axi_gpio" $sub_core] == 0} {
-							set ip_inst_name [lindex $ip_instances 0]
+							set ip_inst_name [GetSubcoreInstanceName $periph_g $ip_instances]
 							set srcstr "${periph_g}_reset_sel_axi_mm"
 							if {[string compare -nocase $srcstr $ip_inst_name] == 0} {
 								set strval "RESET_SEL_AXIS"
@@ -149,7 +146,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 							#All hls ip base address string is S_AXI_CTRL_BASEADDR"
 							#This check is needed only for IP's with multiple optional instances
 							set strbaseaddr "S_AXI_CTRL_BASEADDR"
-							set ip_inst_name [lindex $ip_instances 0]
+							set ip_inst_name [GetSubcoreInstanceName $periph_g $ip_instances]
 							set srcstr "${periph_g}_vcr_i"
 							if {[string compare -nocase $srcstr $ip_inst_name] == 0} {
 								set strval "VCR_O"
@@ -157,7 +154,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 								set strval "VCR_I"
 							}
 						}
-						#puts "String Selected: $strval"
+
 						set final_child_cell_instance_name_g "XPAR_${periph_g}_${strval}_PRESENT"
 						set final_child_cell_instance_devid_g "XPAR_${periph_g}_${strval}_DEVICE_ID"
 						set final_child_cell_instance_baseaddr_g "XPAR_${periph_g}_${strval}_${strbaseaddr}"
@@ -167,7 +164,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					}
 
 				}
-				#puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_g] 1\n"
 			} else {
 			    set count 0
 				while {$count<$sub_core_inst($sub_core)} {
@@ -183,7 +179,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 		}
 		::hsi::current_hw_instance
     }
-
 
 	puts $config_file "\n\n"
     puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
@@ -228,11 +223,8 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
 		foreach sub_core [lsort [array names sub_core_inst]] {
 			set max_instances $sub_core_inst($sub_core)
-			#puts "\nProcessing sub-core: $sub_core"
-			#puts "Max Instances: $max_instances"
 
-			if {[dict exists $ss_ip_list $sub_core]} {
-				#puts "****Sub-core found in dictionary****"
+			if {[IsSubcoreInSubsystem $sub_core $periph $ss_ip_list]} {
 				if {[string match -nocase v_* $sub_core]} {
 						set base_addr_name "S_AXI_CTRL_BASEADDR"
 					} else {
@@ -240,7 +232,7 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 				}
 
 				set ip_instances [dict get $ss_ip_list $sub_core]
-				set avail_instances [llength $ip_instances]
+				set avail_instances [GetNumSubcoreInstances $periph $ip_instances]
 
 				#check if core can have multiple instances
 				#It is possible that not all instances are used in the design
@@ -249,10 +241,11 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					#check if available instances are less than MAX
 					#if yes, include the missing instance
 					if {$avail_instances < $max_instances} {
-						set ip_inst_name [lindex $ip_instances 0]
+						#retrieve ip instance name from subsystem instance being processed
+						set ip_inst_name [GetSubcoreInstanceName $periph $ip_instances]
 						set count 0
 						set str_name "unknown"
-						#puts "IP Inst. Name: $ip_inst_name"
+
 						while {$count < $max_instances} {
 							if {[string compare -nocase "axi_gpio" $sub_core] == 0} {
 								set str_name [expr {$count == 0 ? "RESET_SEL_AXI_MM" : "RESET_SEL_AXIS"}]
@@ -275,23 +268,25 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 						}
 					} else {
 						foreach ip_inst $ip_instances {
-							#puts "instance = $ip_inst"
-							set final_child_cell_instance_name_present "XPAR_${ip_inst}_PRESENT"
-							set final_child_cell_instance_devid "XPAR_${ip_inst}_DEVICE_ID"
-							set final_child_cell_instance_name_baseaddr "XPAR_${ip_inst}_${base_addr_name}"
+							#write, only if, it belongs to current subsystem instance
+							if {[string first $periph $ip_inst] == 0} {
+								set final_child_cell_instance_name_present "XPAR_${ip_inst}_PRESENT"
+								set final_child_cell_instance_devid "XPAR_${ip_inst}_DEVICE_ID"
+								set final_child_cell_instance_name_baseaddr "XPAR_${ip_inst}_${base_addr_name}"
 
-							puts $config_file "\t\t\{"
-							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
-							puts $config_file ","
-							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_devid]]
-							puts $config_file ","
-							puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_baseaddr]]
-							puts $config_file "\n\t\t\},"
+								puts $config_file "\t\t\{"
+								puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_present]]
+								puts $config_file ","
+								puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_devid]]
+								puts $config_file ","
+								puts -nonewline $config_file [format "\t\t\t%s" [string toupper $final_child_cell_instance_name_baseaddr]]
+								puts $config_file "\n\t\t\},"
+							}
 						}
 					}
 				} else {
-					set ip_inst_name [lindex $ip_instances 0]
-					#puts "instance = $ip_inst"
+					#retrieve ip instance name from subsystem instance being processed
+					set ip_inst_name [GetSubcoreInstanceName $periph $ip_instances]
 					set final_child_cell_instance_name_present "XPAR_${ip_inst_name}_PRESENT"
 					set final_child_cell_instance_devid "XPAR_${ip_inst_name}_DEVICE_ID"
 					set final_child_cell_instance_name_baseaddr "XPAR_${ip_inst_name}_${base_addr_name}"
@@ -305,7 +300,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 					puts $config_file "\n\t\t\},"
 				}
 			} else {
-				#puts "****sub-core not in dictionary****"
 				set count 0
 
 				while {$count< $max_instances} {
@@ -334,4 +328,53 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
     puts $config_file "\n\};"
     puts $config_file "\n";
     close $config_file
+}
+
+# Function to retrieve sub-core instance name for subsystem instance being processed
+# Param: subsys_inst is Subsystem Instance Name
+# Param: instance_list is the list of sub-core instance names in all subsystem instances
+# 		 ex for sub-core vcr:   (v_proc_ss_0_vcr_i  v_proc_ss_0_vcr_0  v_proc_ss_1_vcr_i  v_proc_ss_1_vcr_o)
+proc GetSubcoreInstanceName {subsys_inst instance_list} {
+
+	set ip_inst_name "Unknown"
+	foreach ip_inst $instance_list {
+		if {[string first $subsys_inst $ip_inst] == 0} {
+			set ip_inst_name $ip_inst
+			break
+		}
+	}
+	return $ip_inst_name
+}
+
+# Function to check if sub-core instance is present in subsystem instance being processed
+# Param: subcore is the core being processed
+# Param: subsys_inst is Subsystem Instance Name
+# Param: ss_ip_list is the dictionary
+proc IsSubcoreInSubsystem {subcore subsys_inst ss_ip_list} {
+
+	set subcore_instances [dict get $ss_ip_list $subcore]
+		# ex for axi_vdma {v_proc_ss_0_axi_vdma v_proc_ss_1_axi_vdma}
+	set subcore_inst_name [GetSubcoreInstanceName $subsys_inst $subcore_instances]
+
+	if {[string match "Unknown" $subcore_inst_name]} {
+		set is_present 0
+	} else {
+		set is_present 1
+	}
+	return $is_present
+}
+
+# Function to determine number of sub-core instances available in specified subsystem instance
+# Param: subsys_inst is Subsystem Instance Name
+# Param: instance_list is the list of sub-core instance names in all subsystem instances in the design
+#         ex for axi_vdma {v_proc_ss_0_axi_vdma v_proc_ss_1_axi_vdma}
+proc GetNumSubcoreInstances {subsys_inst instance_list} {
+
+	set num_instances 0
+	foreach ip_inst $instance_list {
+		if {[string first $subsys_inst $ip_inst] == 0} {
+			incr num_instances
+		}
+	}
+	return $num_instances
 }
