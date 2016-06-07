@@ -601,20 +601,27 @@ static bool PmWaitingForGicProxyWake(void)
  */
 void PmSlaveWakeEnable(PmSlave* const slave)
 {
+	u32 grMask = slave->wake->proxyGroup->pmuIrqBit;
+
 	PmDbg("%s\n", PmStrNode(slave->node.nodeId));
 
 	if (NULL == slave->wake) {
 		goto done;
 	}
 
+	/* Check whether a group interrupt is already enabled */
+	if (grMask == (XPfw_Read32(LPD_SLCR_GICP_PMU_IRQ_MASK) & grMask)) {
+		/* Clear GIC Proxy group */
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_STATUS, grMask);
+		/* Enable GIC Proxy group */
+		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_ENABLE, grMask);
+		/* Enable GPI1 FPD GIC Proxy wake event */
+		ENABLE_WAKE(PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK);
+	}
+
 	/* Enable GIC Proxy IRQ */
 	XPfw_Write32(slave->wake->proxyGroup->baseAddr +
 		     FPD_GICP_IRQ_ENABLE_OFFSET, slave->wake->proxyIrqMask);
-	/* Enable GIC Proxy group */
-	XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_ENABLE,
-		     slave->wake->proxyGroup->pmuIrqBit);
-	/* Enable GPI1 FPD GIC Proxy wake event */
-	ENABLE_WAKE(PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK);
 
 done:
 	return;
