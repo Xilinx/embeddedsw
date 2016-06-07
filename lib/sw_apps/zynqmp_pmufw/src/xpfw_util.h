@@ -37,6 +37,8 @@
 #include "xil_types.h"
 #include "xstatus.h"
 
+#define BIT(n)		(1 << (n))
+
 
 /**
  * Read Modify Write a register
