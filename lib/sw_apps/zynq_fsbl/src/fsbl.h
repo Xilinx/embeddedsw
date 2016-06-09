@@ -317,7 +317,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2016
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_QUARTER	3
 
 #define WORD_LENGTH_SHIFT	2
 
