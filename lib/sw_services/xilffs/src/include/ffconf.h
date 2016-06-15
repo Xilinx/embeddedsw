@@ -44,8 +44,11 @@ extern "C" {
 #define	_USE_STRFUNC	0	/* 0:Disable or 1-2:Enable */
 /* To enable string functions, set _USE_STRFUNC to 1 or 2. */
 
-
-#define	_USE_MKFS		0	/* 0:Disable or 1:Enable */
+#ifdef FILE_SYSTEM_USE_MKFS
+#define	_USE_MKFS		1	/* 1:Enable */
+#else
+#define	_USE_MKFS		0	/* 0:Disable */
+#endif
 /* To enable f_mkfs() function, set _USE_MKFS to 1 and set _FS_READONLY to 0 */
 
 

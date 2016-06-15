@@ -78,6 +78,7 @@
 * 3.1   sk   06/04/15 Added support for SD1.
 * 3.2   sk   11/24/15 Considered the slot type before checking the CD/WP pins.
 * 3.3   sk   04/01/15 Added one second delay for checking CD pin.
+* 3.4   sk   06/09/16 Added support for mkfs.
 *
 * </pre>
 *
@@ -115,7 +116,7 @@
 /*
  * Global variables
  */
-static DSTATUS Stat;	/* Disk status */
+static DSTATUS Stat[2] = {STA_NOINIT, STA_NOINIT};	/* Disk status */
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
 static XSdPs SdInstance[2];
@@ -160,7 +161,7 @@ DSTATUS disk_status (
 		BYTE pdrv	/* Drive number (0) */
 )
 {
-	DSTATUS s = Stat;
+	DSTATUS s = Stat[pdrv];
 	u32 StatusReg;
 	u32 DelayCount = 0;
 
@@ -221,7 +222,7 @@ DSTATUS disk_status (
 
 
 Label:
-		Stat = s;
+		Stat[pdrv] = s;
 #endif
 		return s;
 }
@@ -267,6 +268,11 @@ DSTATUS disk_initialize (
 		return s;
 	}
 
+	/* If disk is already initialized */
+	if ((s & STA_NOINIT) == 0U) {
+		return s;
+	}
+
 	if (CardDetect) {
 			/*
 			 * Card detection check
@@ -290,7 +296,6 @@ DSTATUS disk_initialize (
 		return s;
 	}
 
-	Stat = STA_NOINIT;
 	Status = XSdPs_CfgInitialize(&SdInstance[pdrv], SdConfig,
 					SdConfig->BaseAddress);
 	if (Status != XST_SUCCESS) {
@@ -311,7 +316,7 @@ DSTATUS disk_initialize (
 	 */
 	s &= (~STA_NOINIT);
 
-	Stat = s;
+	Stat[pdrv] = s;
 
 #endif
 
@@ -400,7 +405,8 @@ DRESULT disk_ioctl (
 			break;
 
 		case (BYTE)GET_SECTOR_COUNT : /* Get number of sectors on the disk (DWORD) */
-			res = RES_ERROR;
+			(*((DWORD *)(void *)LocBuff)) = (DWORD)SdInstance[pdrv].SectorCount;
+			res = RES_OK;
 			break;
 
 		case (BYTE)GET_BLOCK_SIZE :	/* Get erase block size in unit of sector (DWORD) */
