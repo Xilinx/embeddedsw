@@ -38,6 +38,7 @@
 * @note This example uses file system with SD to write to and read from
 * an SD card using ADMA2 in polled mode.
 * To test this example File System should not be in Read Only mode.
+* To test this example USE_MKFS option should be true.
 *
 * This example was tested using SD2.0 card and eMMC (using eMMC to SD adaptor).
 *
@@ -51,6 +52,7 @@
 * 1.00a hk  10/17/13 First release
 * 2.2   hk  07/28/14 Make changes to enable use of data cache.
 * 2.5   sk  07/15/15 Used File size as 8KB to test on emulation platform.
+* 2.9   sk  06/09/16 Added support for mkfs.
 *
 *</pre>
 *
@@ -166,6 +168,15 @@ int FfsSdPolledExample(void)
 	 */
 	Res = f_mount(&fatfs, Path, 0);
 
+	if (Res != FR_OK) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Path - Path to logical driver, 0 - FDISK format.
+	 * 0 - Cluster size is automatically determined based on Vol size.
+	 */
+	Res = f_mkfs(Path, 0, 0);
 	if (Res != FR_OK) {
 		return XST_FAILURE;
 	}
