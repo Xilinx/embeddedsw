@@ -65,6 +65,7 @@
 *       sk     02/16/16 Corrected the Tuning logic.
 *       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
 * 2.8   sk     05/03/16 Standard Speed for SD to 19MHz in ZynqMPSoC. CR#951024
+* 2.9   sk     06/09/16 Added support for mkfs to calculate sector count.
 * </pre>
 *
 ******************************************************************************/
@@ -100,6 +101,7 @@
 #define SD_CLK_19_MHZ		19000000U
 #define SD_CLK_26_MHZ		26000000U
 #define EXT_CSD_DEVICE_TYPE_BYTE	196U
+#define EXT_CSD_SEC_COUNT	212U
 #define EXT_CSD_DEVICE_TYPE_HIGH_SPEED			0x2U
 #define EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED	0x4U
 #define EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED	0x8U
@@ -171,6 +173,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->Config.CardDetect =  ConfigPtr->CardDetect;
 	InstancePtr->Config.WriteProtect =  ConfigPtr->WriteProtect;
+	InstancePtr->SectorCount = 0;
 
 	/* Disable bus power */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
@@ -311,6 +314,7 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 	u32 CSD[4];
 	u32 Arg;
 	u8 ReadReg;
+	u32 BlkLen, DeviceSize, Mult;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -472,6 +476,19 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 			XSDPS_RESP2_OFFSET);
 	CSD[3] = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP3_OFFSET);
+
+	if (((CSD[3] & CSD_STRUCT_MASK) >> 22U) == 0U) {
+		BlkLen = 1 << ((CSD[2] & READ_BLK_LEN_MASK) >> 8U);
+		Mult = 1 << (((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
+		DeviceSize = (CSD[1] & C_SIZE_LOWER_MASK) >> 22U;
+		DeviceSize |= (CSD[2] & C_SIZE_UPPER_MASK) << 10U;
+		DeviceSize = (DeviceSize + 1U) * Mult;
+		DeviceSize =  DeviceSize * BlkLen;
+		InstancePtr->SectorCount = (DeviceSize/XSDPS_BLK_SIZE_512_MASK);
+	} else if (((CSD[3] & CSD_STRUCT_MASK) >> 22U) == 1U) {
+		InstancePtr->SectorCount = (((CSD[1] & CSD_V2_C_SIZE_MASK) >> 8U) +
+										1U) * 1024U;
+	}
 
 	Status = XST_SUCCESS;
 
@@ -664,6 +681,8 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			goto RETURN_PATH;
 		}
 
+		InstancePtr->SectorCount = *(u32 *)&ExtCsd[EXT_CSD_SEC_COUNT];
+
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
 			Status = XSdPs_Change_BusSpeed(InstancePtr);
@@ -697,6 +716,8 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
+
+		InstancePtr->SectorCount = *(u32 *)&ExtCsd[EXT_CSD_SEC_COUNT];
 
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				(EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
@@ -1409,6 +1430,7 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 	s32 Status;
 	u32 RespOCR;
 	u32 CSD[4];
+	u32 BlkLen, DeviceSize, Mult;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1508,6 +1530,16 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr)
 			XSDPS_RESP3_OFFSET);
 
 	InstancePtr->Card_Version =  (CSD[3] & CSD_SPEC_VER_MASK) >>18U;
+
+	/* Calculating the memory capacity */
+	BlkLen = 1 << ((CSD[2] & READ_BLK_LEN_MASK) >> 8U);
+	Mult = 1 << (((CSD[1] & C_SIZE_MULT_MASK) >> 7U) + 2U);
+	DeviceSize = (CSD[1] & C_SIZE_LOWER_MASK) >> 22U;
+	DeviceSize |= (CSD[2] & C_SIZE_UPPER_MASK) << 10U;
+	DeviceSize = (DeviceSize + 1U) * Mult;
+	DeviceSize =  DeviceSize * BlkLen;
+
+	InstancePtr->SectorCount = (DeviceSize/XSDPS_BLK_SIZE_512_MASK);
 
 	Status = XST_SUCCESS;
 

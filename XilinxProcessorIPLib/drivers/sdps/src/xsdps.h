@@ -127,6 +127,7 @@
 *       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
 *              05/03/16 Standard Speed for SD to 19MHz in ZynqMPSoC. CR#951024
+* 2.9   sk     06/09/16 Added support for mkfs to calculate sector count.
 *
 * </pre>
 *
@@ -190,6 +191,7 @@ typedef struct {
 	u32 CardID[4];		/**< Card ID Register */
 	u32 RelCardAddr;	/**< Relative Card Address */
 	u32 CardSpecData[4];	/**< Card Specific Data Register */
+	u32 SectorCount;		/**< Sector Count */
 	u32 SdCardConfig;	/**< Sd Card Configuration Register */
 	/**< ADMA Descriptors */
 #ifdef __ICCARM__

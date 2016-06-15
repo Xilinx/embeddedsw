@@ -51,6 +51,7 @@
 * 2.7   sk     12/10/15 Added support for MMC cards.
 *       sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
+* 2.9   sk     06/09/16 Added support for mkfs to calculate sector count.
 * </pre>
 *
 ******************************************************************************/
@@ -797,6 +798,12 @@ extern "C" {
 #define XSDPS_CUR_LIM_800		3U
 
 #define CSD_SPEC_VER_MASK		0x3C0000U
+#define READ_BLK_LEN_MASK		0x00000F00U
+#define C_SIZE_MULT_MASK		0x00000380U
+#define C_SIZE_LOWER_MASK		0xFFC00000U
+#define C_SIZE_UPPER_MASK		0x00000003U
+#define CSD_STRUCT_MASK			0x00C00000U
+#define CSD_V2_C_SIZE_MASK		0x3FFFFF00U
 
 /* EXT_CSD field definitions */
 #define XSDPS_EXT_CSD_SIZE		512U
