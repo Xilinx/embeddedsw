@@ -111,6 +111,7 @@ proc xgen_opts_file {libhandle} {
 	set read_only [common::get_property CONFIG.read_only $libhandle]
 	set use_lfn [common::get_property CONFIG.use_lfn $libhandle]
 	set use_mkfs [common::get_property CONFIG.use_mkfs $libhandle]
+	set enable_multi_partition [common::get_property CONFIG.enable_multi_partition $libhandle]
 
 	# Checking if SD with FATFS is enabled.
 	# This can be expanded to add more interfaces.
@@ -129,6 +130,9 @@ proc xgen_opts_file {libhandle} {
 				}
 				if {$use_mkfs == true} {
 					puts $file_handle "\#define FILE_SYSTEM_USE_MKFS"
+				}
+				if {$enable_multi_partition == true} {
+					puts $file_handle "\#define FILE_SYSTEM_MULTI_PARTITION"
 				}
 			} else {
 				error  "ERROR: Invalid interface selected \n"

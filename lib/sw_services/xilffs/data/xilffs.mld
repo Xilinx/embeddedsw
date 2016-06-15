@@ -53,5 +53,6 @@ BEGIN LIBRARY xilffs
   PARAM name = read_only, desc = "Enables the file system in Read_Only mode if true. ZynqMP fsbl will set this to true", type = bool, default = false;
   PARAM name = use_lfn, desc = "Enables the Long File Name(LFN) support if true.", type = bool, default = false;
   PARAM name = use_mkfs, desc = "Disable(0) or Enable(1) f_mkfs function. ZynqMP fsbl will set this to false", type = bool, default = true;
+  PARAM name = enable_multi_partition, desc = "0:Single partition, 1:Enable multiple partition", type = bool, default = false;
 
 END LIBRARY

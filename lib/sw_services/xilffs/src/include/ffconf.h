@@ -158,8 +158,11 @@ extern "C" {
 /  drives. Number of items must be equal to _VOLUMES. Valid characters for the drive ID
 /  strings are: 0-9 and A-Z. */
 
-
-#define	_MULTI_PARTITION	0	/* 0:Single partition, 1:Enable multiple partition */
+#ifdef FILE_SYSTEM_MULTI_PARTITION
+#define	_MULTI_PARTITION	1	/* 1:Enable multiple partition */
+#else
+#define	_MULTI_PARTITION	0	/* 0:Single partition */
+#endif
 /* By default(0), each logical drive number is bound to the same physical drive number
 /  and only a FAT volume found on the physical drive is mounted. When it is set to 1,
 /  each logical drive number is bound to arbitrary drive/partition listed in VolToPart[].
