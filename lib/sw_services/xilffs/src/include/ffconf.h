@@ -147,7 +147,27 @@ extern "C" {
 / Drive/Volume Configurations
 /---------------------------------------------------------------------------*/
 
-#define _VOLUMES	2U
+#if FILE_SYSTEM_NUM_LOGIC_VOL == 1
+#define _VOLUMES 1U
+#elif FILE_SYSTEM_NUM_LOGIC_VOL == 2
+#define _VOLUMES 2U
+#elif FILE_SYSTEM_NUM_LOGIC_VOL == 3
+#define _VOLUMES 3U
+#elif FILE_SYSTEM_NUM_LOGIC_VOL == 4
+#define _VOLUMES 4U
+#elif FILE_SYSTEM_NUM_LOGIC_VOL == 5
+#define _VOLUMES 5U
+#elif FILE_SYSTEM_NUM_LOGIC_VOL == 6
+#define _VOLUMES 6U
+#elif FILE_SYSTEM_NUM_LOGIC_VOL == 7
+#define _VOLUMES 7U
+#elif FILE_SYSTEM_NUM_LOGIC_VOL == 8
+#define _VOLUMES 8U
+#elif FILE_SYSTEM_NUM_LOGIC_VOL == 9
+#define _VOLUMES 9U
+#else
+#define _VOLUMES 10U
+#endif
 /* Number of volumes (logical drives) to be used. */
 
 

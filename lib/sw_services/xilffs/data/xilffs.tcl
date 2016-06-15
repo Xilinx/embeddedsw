@@ -112,6 +112,7 @@ proc xgen_opts_file {libhandle} {
 	set use_lfn [common::get_property CONFIG.use_lfn $libhandle]
 	set use_mkfs [common::get_property CONFIG.use_mkfs $libhandle]
 	set enable_multi_partition [common::get_property CONFIG.enable_multi_partition $libhandle]
+	set num_logical_vol [common::get_property CONFIG.num_logical_vol $libhandle]
 
 	# Checking if SD with FATFS is enabled.
 	# This can be expanded to add more interfaces.
@@ -134,6 +135,12 @@ proc xgen_opts_file {libhandle} {
 				if {$enable_multi_partition == true} {
 					puts $file_handle "\#define FILE_SYSTEM_MULTI_PARTITION"
 				}
+				if {$num_logical_vol > 10} {
+					puts "WARNING : File System supports only upto 10 logical drives\
+							Setting back the num of vol to 10\n"
+					set num_logical_vol 10
+				}
+				puts $file_handle "\#define FILE_SYSTEM_NUM_LOGIC_VOL $num_logical_vol"
 			} else {
 				error  "ERROR: Invalid interface selected \n"
 			}
