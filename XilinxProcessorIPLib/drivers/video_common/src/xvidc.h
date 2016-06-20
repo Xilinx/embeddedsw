@@ -33,7 +33,7 @@
 /**
  *
  * @file xvidc.h
- * @addtogroup video_common_v3_0
+ * @addtogroup video_common_v3_1
  * @{
  * @details
  *
