@@ -35,7 +35,7 @@ BEGIN driver v_vcresampler
 
  OPTION supported_peripherals = (v_vcresampler_v1_0);
  OPTION driver_state = ACTIVE;
- OPTION DEPENDS = (video_common_v3_0);
+ OPTION DEPENDS = (video_common_v3_1);
  OPTION copyfiles = all;
  OPTION name = v_vcresampler;
  OPTION version = 2.0;
