@@ -49,6 +49,7 @@
 *                   Added bit error count function.
 * 2.2  als 02/01/16 Functions with pointer arguments that don't modify
 *                   contents now const.
+* 3.1  aad 06/16/16 Updated CPI pull down HBR2 value
 * </pre>
 *
 ******************************************************************************/
@@ -84,7 +85,7 @@ extern "C" {
 
 #define XVIDC_DP159_CPI_PD_RBR         0x1F    /**< CPI pull down RBR */
 #define XVIDC_DP159_CPI_PD_HBR         0x27    /**< CPI pull down HBR */
-#define XVIDC_DP159_CPI_PD_HBR2                0x2B    /**< CPI pull down HBR2 */
+#define XVIDC_DP159_CPI_PD_HBR2                0x5F    /**< CPI pull down HBR2 */
 
 #define XVIDC_DP159_PLL_CTRL_PD_RBR    0x30    /**< PLL control pull down
                                                  *  RBR */
