@@ -134,6 +134,7 @@ u32 XFsbl_NandCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	u32 FlashImageOffsetAddress=0U;
 	u32 CurrentBlock;
 	u32 RealSrcAddress;
+	u32 NoofBlocks;
 
 	/**
 	 * Read the Multiboot Register
@@ -141,17 +142,22 @@ u32 XFsbl_NandCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	MultiBootOffset = XFsbl_In32(CSU_CSU_MULTI_BOOT);
 	FlashImageOffsetAddress = MultiBootOffset * XFSBL_IMAGE_SEARCH_OFFSET;
 	CurrentBlock = (u32)(FlashImageOffsetAddress/NandInstPtr->Geometry.BlockSize);
+	NoofBlocks= ((SrcAddress - FlashImageOffsetAddress) / NandInstPtr->Geometry.BlockSize) + 1;
 	RealSrcAddress=SrcAddress;
 
-	while((XNandPsu_IsBlockBad(NandInstPtr, CurrentBlock) == XST_SUCCESS))
+	while(NoofBlocks > 0)
 	{
-		XFsbl_Printf(DEBUG_DETAILED, "Identified block (%d) as bad\r\n",
-										CurrentBlock);
-		RealSrcAddress= RealSrcAddress + NandInstPtr->Geometry.BlockSize ;
-		XFsbl_Printf(DEBUG_DETAILED,
-					"Src Address: %x, Calculated real Address:%x\r\n",
-					SrcAddress, RealSrcAddress);
+		if (XNandPsu_IsBlockBad(NandInstPtr, CurrentBlock) == XST_SUCCESS)
+		{
+			XFsbl_Printf(DEBUG_DETAILED, "Identified block (%d) as bad\r\n",
+											CurrentBlock);
+			RealSrcAddress= RealSrcAddress + NandInstPtr->Geometry.BlockSize ;
+			XFsbl_Printf(DEBUG_DETAILED,
+						"Src Address: %x, Calculated real Address:%x\r\n",
+						SrcAddress, RealSrcAddress);
+		}
 		CurrentBlock+=1;
+		NoofBlocks-=1;
 	}
 
 	Status = (u32)XNandPsu_Read(NandInstPtr, (u64)(RealSrcAddress),(u64)Length,
