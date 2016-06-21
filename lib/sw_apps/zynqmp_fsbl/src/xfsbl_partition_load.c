@@ -100,7 +100,7 @@ PTRSIZE TcmSkipAddress=0U;
 static XSecure_Aes SecureAes;
 #endif
 
-#ifndef XFSBL_PS_DDR
+#if !defined(XFSBL_PS_DDR) && defined(XFSBL_BS)
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
 /*****************************************************************************/
@@ -1011,7 +1011,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #if defined(XFSBL_BS) && defined(XFSBL_PS_DDR)
 	u32 BitstreamWordSize = 0;
 #endif
-#ifndef XFSBL_PS_DDR
+#if !defined(XFSBL_PS_DDR) &&  defined(XFSBL_BS)
 	u32 SrcAddress = 0U;
 #endif
 

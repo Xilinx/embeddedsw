@@ -65,7 +65,8 @@
 
 /************************** Variable Definitions *****************************/
 #ifndef XFSBL_PS_DDR
-extern u8 ReadBuffer[READ_BUFFER_SIZE];
+/* global OCM buffer to store data chunks in case of DDR less system */
+u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
 
 /*****************************************************************************/

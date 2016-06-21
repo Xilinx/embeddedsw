@@ -59,9 +59,8 @@ const u8 XFsbl_TPadSha2[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60,
 
 static XSecure_Rsa SecureRsa;
 
-#ifndef XFSBL_PS_DDR
-/* global OCM buffer to store data chunks in case of DDR less system */
-u8 ReadBuffer[READ_BUFFER_SIZE];
+#if !defined(XFSBL_PS_DDR) && defined(XFSBL_BS)
+extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
 
 /*****************************************************************************/
@@ -103,6 +102,7 @@ u32 XFsbl_SpkVer(XFsblPs *FsblInstancePtr , u64 AcOffset, u32 HashLen,
 
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 	{
+#ifdef XFSBL_BS
 		/*
 		 * If it is DDR less system, bitstream chunk containing
 		 * Authentication Certificate has to be read from boot device
@@ -118,6 +118,7 @@ u32 XFsbl_SpkVer(XFsblPs *FsblInstancePtr , u64 AcOffset, u32 HashLen,
 
 		/* Repoint Auth. cert. pointer to OCM buffer beginning*/
 		AcPtr = ReadBuffer;
+#endif
 	}
 #endif
 
@@ -236,6 +237,7 @@ u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
 
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 	{
+#ifdef XFSBL_BS
 		/**
 		 * bitstream partion in DDR less system, Chunk by chunk copy
 		 * into OCM and update SHA module
@@ -311,6 +313,7 @@ u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
 
 		/* Repoint Auth. Certificate pointer to start of OCM buffer */
 		AcPtr = ReadBuffer;
+#endif
 	}
 	else
 	{
