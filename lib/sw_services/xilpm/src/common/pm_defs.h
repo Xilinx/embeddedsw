@@ -154,6 +154,7 @@ enum XPmNodeId {
 	NODE_IOPLL,
 	NODE_DDR,
 	NODE_IPI_APU,
+	NODE_IPI_RPU_0,
 	NODE_ID_MAX
 };
 
