@@ -91,6 +91,8 @@
 *		      like M24C04/M24C08 that use LSB bits of the IIC device
 *		      select code (IIC slave address) to specify the higher
 *		      address bits of the EEPROM internal address.
+* 3.3   sk    06/18/16 checked bytes written with the input byte count and
+*                      returns error if the value is not matched.
 * </pre>
 *
 ******************************************************************************/
@@ -243,6 +245,9 @@ int IicLowLevelDynEeprom()
 	 * Write to the EEPROM.
 	 */
 	BytesWritten = EepromWriteByte(WriteBuffer, PAGE_SIZE);
+	if (BytesWritten != PAGE_SIZE) {
+		return XST_FAILURE;
+	}
 
 	/*
 	 * Read from the EEPROM.
