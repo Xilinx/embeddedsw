@@ -86,6 +86,8 @@
 * 3.2	sd   18/02/16 In Low level driver in repeated start condition
 *                     NACK for last byte is added. Changes are done in
 *                     XIic_Recv for CR# 862303
+* 3.3   sk   06/17/16 Added bus busy checks for slave send/recv and master
+*                     send/recv.
 * </pre>
 *
 ****************************************************************************/
@@ -119,8 +121,8 @@ static unsigned DynSendData(UINTPTR BaseAddress, u8 *BufferPtr,
 /**
 * Receive data as a master on the IIC bus.  This function receives the data
 * using polled I/O and blocks until the data has been received. It only
-* supports 7 bit addressing mode of operation. The user is responsible for
-* ensuring the bus is not busy if multiple masters are present on the bus.
+* supports 7 bit addressing mode of operation. This function returns zero
+* if bus is busy.
 *
 * @param	BaseAddress contains the base address of the IIC device.
 * @param	Address contains the 7 bit IIC address of the device to send the
@@ -140,8 +142,13 @@ unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
 			u8 *BufferPtr, unsigned ByteCount, u8 Option)
 {
 	u32 CntlReg;
-	unsigned RemainingByteCount;
+	unsigned RemainingByteCount = ByteCount;
 	volatile u32 StatusReg;
+
+	/* Check for bus busy, exit if bus is busy */
+	StatusReg = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
+	if (StatusReg & XIIC_SR_BUS_BUSY_MASK)
+		return ByteCount - RemainingByteCount;
 
 	/* Tx error is enabled incase the address (7 or 10) has no device to
 	 * answer with Ack. When only one byte of data, must set NO ACK before
@@ -384,8 +391,8 @@ static unsigned RecvData(UINTPTR BaseAddress, u8 *BufferPtr,
 /**
 * Send data as a master on the IIC bus.  This function sends the data
 * using polled I/O and blocks until the data has been sent. It only supports
-* 7 bit addressing mode of operation.  The user is responsible for ensuring
-* the bus is not busy if multiple masters are present on the bus.
+* 7 bit addressing mode of operation.  This function returns zero
+* if bus is busy.
 *
 * @param	BaseAddress contains the base address of the IIC device.
 * @param	Address contains the 7 bit IIC address of the device to send the
@@ -403,9 +410,14 @@ static unsigned RecvData(UINTPTR BaseAddress, u8 *BufferPtr,
 unsigned XIic_Send(UINTPTR BaseAddress, u8 Address,
 		   u8 *BufferPtr, unsigned ByteCount, u8 Option)
 {
-	unsigned RemainingByteCount;
+	unsigned RemainingByteCount = ByteCount;
 	u32 ControlReg;
 	volatile u32 StatusReg;
+
+	/* Check for bus busy, exit if bus is busy */
+	StatusReg = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
+	if (StatusReg & XIIC_SR_BUS_BUSY_MASK)
+		return ByteCount - RemainingByteCount;
 
 	/* Check to see if already Master on the Bus.
 	 * If Repeated Start bit is not set send Start bit by setting
@@ -640,8 +652,7 @@ static unsigned SendData(UINTPTR BaseAddress, u8 *BufferPtr,
 /**
 * Receive data as a master on the IIC bus. This function receives the data
 * using polled I/O and blocks until the data has been received. It only
-* supports 7 bit addressing. The user is responsible for ensuring the bus is
-* not busy if multiple masters are present on the bus.
+* supports 7 bit addressing. This function returns zero if bus is busy.
 *
 * @param	BaseAddress contains the base address of the IIC Device.
 * @param	Address contains the 7 bit IIC Device address of the device to
@@ -658,8 +669,13 @@ static unsigned SendData(UINTPTR BaseAddress, u8 *BufferPtr,
 ******************************************************************************/
 unsigned XIic_DynRecv(UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount)
 {
-	unsigned RemainingByteCount;
+	unsigned RemainingByteCount = ByteCount;
 	u32 StatusRegister;
+
+	/* Check for bus busy, exit if bus is busy */
+	StatusRegister = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
+	if (StatusRegister & XIIC_SR_BUS_BUSY_MASK)
+		return ByteCount - RemainingByteCount;
 
 	/*
 	 * Clear the latched interrupt status so that it will be updated with
@@ -798,8 +814,7 @@ static unsigned DynRecvData(UINTPTR BaseAddress, u8 *BufferPtr, u8 ByteCount)
 /**
 * Send data as a master on the IIC bus. This function sends the data using
 * polled I/O and blocks until the data has been sent. It only supports 7 bit
-* addressing. The user is responsible for ensuring the bus is not busy if
-* multiple masters are present on the bus.
+* addressing. This function returns zero if bus is busy.
 *
 * @param	BaseAddress contains the base address of the IIC Device.
 * @param	Address contains the 7 bit IIC address of the device to send the
@@ -817,8 +832,13 @@ static unsigned DynRecvData(UINTPTR BaseAddress, u8 *BufferPtr, u8 ByteCount)
 unsigned XIic_DynSend(UINTPTR BaseAddress, u16 Address, u8 *BufferPtr,
 			u8 ByteCount, u8 Option)
 {
-	unsigned RemainingByteCount;
+	unsigned RemainingByteCount = ByteCount;
 	u32 StatusRegister;
+
+	/* Check for bus busy, exit if bus is busy */
+	StatusRegister = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
+	if (StatusRegister & XIIC_SR_BUS_BUSY_MASK)
+		return ByteCount - RemainingByteCount;
 
 	/*
 	 * Clear the latched interrupt status so that it will be updated with

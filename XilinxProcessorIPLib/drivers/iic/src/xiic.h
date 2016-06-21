@@ -298,6 +298,8 @@
 * 3.2	sd   18/02/16 In Low level driver in repeated start condition
 *                     NACK for last byte is added. Changes are done in
 *                     XIic_Recv for CR# 862303
+* 3.3   sk   06/17/16 Added bus busy checks for slave send/recv and master
+*                     send/recv.
 * </pre>
 *
 ******************************************************************************/
