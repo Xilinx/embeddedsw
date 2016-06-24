@@ -46,6 +46,10 @@
 #                     separate case for code sourcery (arm-xilinx-eabi-gcc)
 #                     and armcc while generating extra_compiler_flags.
 #                     These changes fix CR#939108.
+# 2.3	pkp  06/24/16 Updated tcl to remove logic for removing extra space and
+#		      update the extra compiler flag for particular compiler only
+#		      when some flag apart from default while generating BSP.
+#		      These modifications fix CR#951335
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -71,50 +75,40 @@ proc xdefine_cortexa9_params {drvhandle} {
     set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
     if {[string compare -nocase $compiler_name "arm-none-eabi-gcc"] == 0} {
 	set temp_flag $extra_flags
-	regsub -- {-mcpu=cortex-a9} $temp_flag {} temp_flag
-	regsub -- {-mfpu=vfpv3} $temp_flag {} temp_flag
-	regsub -- {-mfloat-abi=hard} $temp_flag {} temp_flag
-	regsub -- {-nostartfiles} $temp_flag {} temp_flag
-	regsub -all {  } $temp_flag {} temp_flag
-	if {[string compare -nocase $temp_flag " "] == 0} {
-		set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles"
-	} else {
+	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles"] != 0} {
+		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles } $temp_flag {} temp_flag
 		set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles $temp_flag"
+		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
-	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
    } elseif {[string compare -nocase $compiler_name "iccarm"] == 0} {
 	set temp_flag $extra_flags
-	regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
-	regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
-	regsub -- {-mfloat-abi=hard } $temp_flag "" temp_flag
-	regsub -- {-nostartfiles} $temp_flag "" temp_flag
-	regsub -- "-g" $temp_flag "" temp_flag
-	regsub -- "--debug" $temp_flag "" temp_flag
-	regsub -all {  } $temp_flag {} temp_flag
-	set extra_flags "--debug $temp_flag"
-	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+	if {[string compare -nocase $temp_flag "--debug"] != 0} {
+		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles} $temp_flag "" temp_flag
+		regsub -- {--debug } $temp_flag "" temp_flag
+		set extra_flags "--debug $temp_flag"
+		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+	}
 
 	set compiler_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == compiler_flags } ] ]
-	regsub -- "-O2 -c" $compiler_flags "" compiler_flags
-	regsub -- "--cpu=Cortex-A9" $compiler_flags "" compiler_flags
-	regsub -- "-Om" $compiler_flags "" compiler_flags
-	regsub -all {  } $temp_flag {} temp_flag
-	set compiler_flags "-Om --cpu=Cortex-A9 $compiler_flags"
-	common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
+	if {[string compare -nocase $compiler_flags "-Om --cpu=Cortex-A9"] != 0} {
+		regsub -- "-O2 -c" $compiler_flags "" compiler_flags
+		regsub -- {-Om --cpu=Cortex-A9 } $compiler_flags "" compiler_flags
+		set compiler_flags "-Om --cpu=Cortex-A9 $compiler_flags"
+		common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
+	}
    } elseif {[string compare -nocase $compiler_name "arm-xilinx-eabi-gcc"] == 0
 	    || [string compare -nocase $compiler_name "armcc"] == 0} {
 	set temp_flag $extra_flags
-	regsub -- {-mcpu=cortex-a9 } $temp_flag "" temp_flag
-	regsub -- {-mfpu=vfpv3 } $temp_flag "" temp_flag
-	regsub -- {-mfloat-abi=hard } $temp_flag "" temp_flag
-	regsub -- {-nostartfiles} $temp_flag "" temp_flag
-	regsub -- "-g" $temp_flag "" temp_flag
-	regsub -all {  } $temp_flag {} temp_flag
-	set extra_flags "-g $temp_flag"
-	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+	if {[string compare -nocase $temp_flag "-g"] != 0} {
+		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles} $temp_flag {} temp_flag
+		regsub -- {-g } $temp_flag "" temp_flag
+		set extra_flags "-g $temp_flag"
+		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags }]
+	}
     } else {
 	common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
     }
+
     if {[string first "iarchive" $archiver] < 0 } {
     } else {
     	 set libxil_a [file join .. .. lib libxil.a]
