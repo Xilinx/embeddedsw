@@ -908,8 +908,8 @@ DWORD get_fat (	/* 0xFFFFFFFF:Disk error, 1:Internal error, Else:Cluster status 
 	DWORD clst	/* Cluster# to get the link information */
 )
 {
-	UINT wc, bc;
-	BYTE *p,temp;
+	UINT wc, bc, temp;
+	BYTE *p;
 	DWORD Status = 0xFFFFFFFFU;
 
 
