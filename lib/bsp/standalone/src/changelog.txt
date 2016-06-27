@@ -366,4 +366,6 @@
  *		       Xil_EnableNestedInterrupts and Xil_DisableNestedInterrupts for fixing
  *		       the issue of lr being corrupted to resolve CR#950468
  * 5.6 kvn   05/31/16  Make Xil_AsserWait a global variable
+ * 5.6 pkp   06/27/16  Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot
+ *		       section since it is part of boot process to fix CR#949555
  *****************************************************************************************/

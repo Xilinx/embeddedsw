@@ -42,6 +42,8 @@
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  02/20/14 First release
 * 5.04	pkp  12/18/15 Updated MPU initialization as per the proper address map
+* 5.06  pkp  06/27/15 moving the Init_MPU code to .boot section since it is a
+*                     part of processor boot process
 * </pre>
 *
 * @note
@@ -100,9 +102,9 @@ static const struct {
 };
 
 /************************** Function Prototypes ******************************/
-void Init_MPU(void);
-static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
-static void Xil_DisableMPURegions(void);
+void Init_MPU(void) __attribute__((__section__(".boot")));
+static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
+static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
 
 /*****************************************************************************
 *
