@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,13 +36,19 @@
 
 static XPm_Notifier* notifierList = NULL;
 
+/****************************************************************************/
 /**
- * XPm_NotifierAdd() - Add notifier into the list
- * @notifier	Pointer to notifier object which needs to be added in the list
+ * @brief  Add notifier into the list
  *
- * @return	XST_SUCCESS if notifier is added
- *		XST_INVALID_PARAM if given notifier argument is NULL
- */
+ * @param  notifier Pointer to notifier object which needs to be added
+ *  in the list
+ *
+ * @return Returns XST_SUCCESS if notifier is added /
+ *  XST_INVALID_PARAM if given notifier argument is NULL
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_NotifierAdd(XPm_Notifier* const notifier)
 {
 	XStatus status;
@@ -64,14 +70,19 @@ done:
 	return status;
 }
 
+/****************************************************************************/
 /**
- * XPm_NotifierRemove() - Remove notifier from the list
- * @notifier	Pointer to notifier object to be removed from list
+ * @brief  Remove notifier from the list
  *
- * @return	XST_SUCCESS if notifier is removed
- *		XST_INVALID_PARAM if given notifier pointer is NULL
- *		XST_FAILURE if notifier is not found
- */
+ * @param  notifier Pointer to notifier object to be removed from list
+ *
+ * @return Returns XST_SUCCESS if notifier is removed /
+ *  XST_INVALID_PARAM if given notifier pointer is NULL /
+ *  XST_FAILURE if notifier is not found
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_NotifierRemove(XPm_Notifier* const notifier)
 {
 	XStatus status = XST_FAILURE;
@@ -102,12 +113,19 @@ done:
 	return status;
 }
 
+/****************************************************************************/
 /**
- * XPm_NotifierProcessEvent() - Call to process notification event
- * @node	Node which is the subject of notification
- * @event	Event which is the subject of notification
- * @oppoint	Operating point of the node in question
- */
+ * @brief  Call to process notification event
+ *
+ * @param  node    Node which is the subject of notification
+ * @param  event   Event which is the subject of notification
+ * @param  oppoint Operating point of the node in question
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 void XPm_NotifierProcessEvent(const enum XPmNodeId node,
 			      const enum XPmNotifyEvent event,
 			      const u32 oppoint)

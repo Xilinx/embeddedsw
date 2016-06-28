@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -30,44 +30,81 @@
 *
 ******************************************************************************/
 
+/*****************************************************************************/
+/**
+ * @file pm_defs.h
+ *
+ * PM Definitions implementation
+ *****************************************************************************/
+
 #ifndef PM_DEFS_H_
 #define PM_DEFS_H_
 
+/** @name PM Version Number macros
+ *
+ * @{
+ */
 #define PM_VERSION_MAJOR	0
 #define PM_VERSION_MINOR	2
 
 #define PM_VERSION	((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
+/*@}*/
 
-/* Capabilities for RAM */
+/** @name Capabilities for RAM
+ *
+ * @{
+ */
 #define PM_CAP_ACCESS	0x1U
 #define PM_CAP_CONTEXT	0x2U
 #define PM_CAP_WAKEUP	0x4U
+/*@}*/
 
-/* Node default states */
+/** @name Node default states macros
+ *
+ * @{
+ */
 #define NODE_STATE_OFF		0
 #define NODE_STATE_ON		1
+/*@}*/
 
-/* Processor's states */
+/** @name Processor's states macros
+ *
+ * @{
+ */
 #define PROC_STATE_FORCEDOFF	0
 #define PROC_STATE_ACTIVE	1
 #define PROC_STATE_SLEEP	2
 #define PROC_STATE_SUSPENDING	3
+/*@}*/
 
+/** @name Maximum Latency/QOS macros
+ *
+ * @{
+ */
 #define MAX_LATENCY	(~0U)
 #define MAX_QOS		100U
+/*@}*/
 
-/* System shutdown macros */
+/** @name System shutdown/Restart macros
+ *
+ * @{
+ */
 #define PM_SHUTDOWN	0U
 #define PM_RESTART	1U
+/*@}*/
 
+/** @name
+ *  APIs for Miscellaneous functions, suspending of PUs
+ *  managing PM slaves and Direct control.
+ */
 enum XPmApiId {
-	/* Miscellaneous API functions: */
-	PM_GET_API_VERSION = 1, /* Do not change or move */
+	/** Miscellaneous API functions: */
+	PM_GET_API_VERSION = 1, /**< Do not change or move */
 	PM_SET_CONFIGURATION,
 	PM_GET_NODE_STATUS,
 	PM_GET_OP_CHARACTERISTIC,
 	PM_REGISTER_NOTIFIER,
-	/* API for suspending of PUs: */
+	/** API for suspending of PUs: */
 	PM_REQUEST_SUSPEND,
 	PM_SELF_SUSPEND,
 	PM_FORCE_POWERDOWN,
@@ -75,27 +112,38 @@ enum XPmApiId {
 	PM_REQUEST_WAKEUP,
 	PM_SET_WAKEUP_SOURCE,
 	PM_SYSTEM_SHUTDOWN,
-	/* API for managing PM slaves: */
+	/** API for managing PM slaves: */
 	PM_REQUEST_NODE,
 	PM_RELEASE_NODE,
 	PM_SET_REQUIREMENT,
 	PM_SET_MAX_LATENCY,
-	/* Direct control API functions: */
+	/** Direct control API functions: */
 	PM_RESET_ASSERT,
 	PM_RESET_GET_STATUS,
 	PM_MMIO_WRITE,
 	PM_MMIO_READ,
 };
 
+/** @name PM API Min and Max macros
+ *
+ * @{
+ */
 #define PM_API_MIN	PM_GET_API_VERSION
 #define PM_API_MAX	PM_MMIO_READ
+/*@}*/
 
+/**
+ *  @name PM API Callback Id Enum
+ */
 enum XPmApiCbId {
 	PM_INIT_SUSPEND_CB = 30,
 	PM_ACKNOWLEDGE_CB,
 	PM_NOTIFY_CB,
 };
 
+/**
+ *  @name PM Node ID Enum
+ */
 enum XPmNodeId {
 	NODE_UNKNOWN,
 	NODE_APU,
@@ -158,6 +206,9 @@ enum XPmNodeId {
 	NODE_ID_MAX
 };
 
+/**
+ *  @name PM Acknowledge Request Types
+ */
 enum XPmRequestAck {
 	REQUEST_ACK_NO = 1,
 	REQUEST_ACK_BLOCKING,
@@ -165,6 +216,9 @@ enum XPmRequestAck {
 	REQUEST_ACK_CB_CERROR,
 };
 
+/**
+ *  @name PM Abort Reasons Enum
+ */
 enum XPmAbortReason {
 	ABORT_REASON_WKUP_EVENT = 100,
 	ABORT_REASON_PU_BUSY,
@@ -172,25 +226,38 @@ enum XPmAbortReason {
 	ABORT_REASON_UNKNOWN,
 };
 
+/**
+ *  @name PM Suspend Reasons Enum
+ */
 enum XPmSuspendReason {
 	SUSPEND_REASON_PU_REQ = 201,
 	SUSPEND_REASON_ALERT,
 	SUSPEND_REASON_SYS_SHUTDOWN,
 };
 
+/**
+ *  @name PM RAM States Enum
+ */
 enum XPmRamState {
 	PM_RAM_STATE_OFF = 1,
 	PM_RAM_STATE_RETENTION,
 	PM_RAM_STATE_ON,
 };
 
+/**
+ *  @name PM Operating Characteristic types Enum
+ */
 enum XPmOpCharType {
 	PM_OPCHAR_TYPE_POWER = 1,
 	PM_OPCHAR_TYPE_TEMP,
 	PM_OPCHAR_TYPE_LATENCY,
 };
 
-/* Power management specific return error statuses - to be moved in xstatus.h */
+/** @name PM Specific Status macros
+ *
+ * Power management specific return error statuses - to be moved in xstatus.h
+ * @{
+ */
 #define XST_PM_INTERNAL		2000L
 #define XST_PM_CONFLICT		2001L
 #define XST_PM_NO_ACCESS	2002L
@@ -198,24 +265,29 @@ enum XPmOpCharType {
 #define XST_PM_DOUBLE_REQ	2004L
 #define XST_PM_ABORT_SUSPEND	2005L
 #define XST_PM_TIMEOUT		2006L
+/*@}*/
 
 /**
- * @PM_INITIAL_BOOT:	boot is a fresh system startup
- * @PM_RESUME:		boot is a resume
- * @PM_BOOT_ERROR:	error, boot cause cannot be identified
+ *  @name Boot Status Enum
  */
 enum XPmBootStatus {
-	PM_INITIAL_BOOT,
-	PM_RESUME,
-	PM_BOOT_ERROR,
+	PM_INITIAL_BOOT,	/**< boot is a fresh system startup */
+	PM_RESUME,			/**< boot is a resume */
+	PM_BOOT_ERROR,		/**< error, boot cause cannot be identified */
 };
 
+/**
+ *  @name PM Reset Action types
+ */
 enum XPmResetAction {
 	XILPM_RESET_ACTION_RELEASE,
 	XILPM_RESET_ACTION_ASSERT,
 	XILPM_RESET_ACTION_PULSE,
 };
 
+/**
+ *  @name PM Reset Line IDs
+ */
 enum XPmReset {
 	XILPM_RESET_PCIE_CFG = 1000,
 	XILPM_RESET_PCIE_BRIDGE,
@@ -335,6 +407,9 @@ enum XPmReset {
 	XILPM_RESET_PL,
 };
 
+/**
+ *  @name PM Notify Events Enum
+ */
 enum XPmNotifyEvent {
 	EVENT_STATE_CHANGE = 1,
 	EVENT_ZERO_USERS = 2,

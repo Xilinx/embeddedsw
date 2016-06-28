@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,13 @@
 *
 ******************************************************************************/
 
+/*****************************************************************************/
+/**
+ * @file pm_api_sys.h
+ *
+ * PM API System implementation
+ *****************************************************************************/
+
 #ifndef _PM_API_SYS_H_
 #define _PM_API_SYS_H_
 
@@ -45,7 +52,7 @@ void XPm_SuspendFinalize();
 
 enum XPmBootStatus XPm_GetBootStatus();
 
-/* System-level API function declarations */
+/** System-level API function declarations */
 XStatus XPm_RequestSuspend(const enum XPmNodeId node,
 			   const enum XPmRequestAck ack,
 			   const u32 latency,
@@ -72,65 +79,62 @@ XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 
 XStatus XPm_SystemShutdown(const u8 restart);
 
-/* Callback API function */
+/** Callback API function */
 /**
  * pm_init_suspend - Init suspend callback arguments (save for custom handling)
- * @received	Has init suspend callback been received/handled
- * @reason	Reason of initializing suspend
- * @latency	Maximum allowed latency
- * @timeout	Period of time the client has to response
  */
 struct pm_init_suspend {
-	volatile bool received;
-	enum XPmSuspendReason reason;
-	u32 latency;
-	u32 state;
-	u32 timeout;
+	volatile bool received;			/**< Has init suspend callback been received/handled */
+	enum XPmSuspendReason reason;	/**< Reason of initializing suspend */
+	u32 latency;					/**< Maximum allowed latency */
+	u32 state;						/**< Targeted sleep/suspend state */
+	u32 timeout;					/**< Period of time the client has to response */
 };
 
 /**
  * pm_acknowledge - Acknowledge callback arguments (save for custom handling)
- * @received	Has acknowledge argument been received
- * @node	Node argument about which the acknowledge is
- * @status	Acknowledged status
- * @opp		Operating point of node in question
  */
 struct pm_acknowledge {
-	volatile bool received;
-	enum XPmNodeId node;
-	XStatus status;
-	u32 opp;
+	volatile bool received;		/**< Has acknowledge argument been received? */
+	enum XPmNodeId node;		/**< Node argument about which the acknowledge is */
+	XStatus status;				/**< Acknowledged status */
+	u32 opp;					/**< Operating point of node in question */
 };
 
-/* Forward declaration to enable self reference in struct definition */
+/** Forward declaration to enable self reference in struct definition */
 typedef struct XPm_Notifier XPm_Notifier;
 
 /**
  * XPm_Notifier - Notifier structure registered with a callback by app
- * @callback	Custom callback handler to be called when the notification is
- *		received. The custom handler would execute from interrupt
- *		context, it shall return quickly and must not block! (enables
- *		event-driven notifications)
- * @node	Node argument (the node to receive notifications about)
- * @event	Event argument (the event type to receive notifications about)
- * @flag	Flags
- * @oppoint	Operating point of node in question. Contains the value updated
- *		when the last event notification is received. User shall not
- *		modify this value while the notifier is registered.
- * @received	How many times the notification has been received - to be used
- *		by application (enables polling). User shall not modify this
- *		value while the notifier is registered.
- * @next	Pointer to next notifier in linked list. Must not be modified
- *		while the notifier is registered. User shall not ever modify
- *		this value.
  */
 typedef struct XPm_Notifier {
+	/**
+	 *  Custom callback handler to be called when the notification is
+	 *  received. The custom handler would execute from interrupt
+	 *  context, it shall return quickly and must not block! (enables
+	 *  event-driven notifications)
+	 */
 	void (*const callback)(XPm_Notifier* const notifier);
-	enum XPmNodeId node;
-	enum XPmNotifyEvent event;
-	u32 flags;
+	enum XPmNodeId node; /**< Node argument (the node to receive notifications about) */
+	enum XPmNotifyEvent event;	/**< Event argument (the event type to receive notifications about) */
+	u32 flags;	/**< Flags */
+	/**
+	 *  Operating point of node in question. Contains the value updated
+	 *  when the last event notification is received. User shall not
+	 *  modify this value while the notifier is registered.
+	 */
 	volatile u32 oppoint;
+	/**
+	 *  How many times the notification has been received - to be used
+	 *  by application (enables polling). User shall not modify this
+	 *  value while the notifier is registered.
+	 */
 	volatile u32 received;
+	/**
+	 *  Pointer to next notifier in linked list. Must not be modified
+	 *  while the notifier is registered. User shall not ever modify
+	 *  this value.
+	 */
 	XPm_Notifier* next;
 } XPm_Notifier;
 
@@ -139,17 +143,15 @@ typedef struct XPm_Notifier {
 
 /**
  * XPm_NodeStatus - struct containing node status information
- * @status	 Node power state
- * @requirements Current requirements asserted on the node (slaves only)
- * @usage	 Usage information (which master is currently using the slave)
  */
 typedef struct XPm_NodeStatus {
-	u32 status;
-	u32 requirements;
-	u32 usage;
+	u32 status;			/**< Node power state */
+	u32 requirements;	/**< Current requirements asserted on the node (slaves only) */
+	u32 usage;			/**< Usage information (which master is currently using the slave) */
 } XPm_NodeStatus;
 
-/*********************************************************************
+/********************************************************************/
+/**
  * Global data declarations
  ********************************************************************/
 extern struct pm_init_suspend pm_susp;
@@ -168,7 +170,7 @@ void XPm_NotifyCb(const enum XPmNodeId node,
 		  const u32 event,
 		  const u32 oppoint);
 
-/* API functions for managing PM Slaves */
+/** API functions for managing PM Slaves */
 XStatus XPm_RequestNode(const enum XPmNodeId node,
 			const u32 capabilities,
 			const u32 qos,
@@ -181,7 +183,7 @@ XStatus XPm_SetRequirement(const enum XPmNodeId node,
 XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 			  const u32 latency);
 
-/* Miscellaneous API functions */
+/** Miscellaneous API functions */
 XStatus XPm_GetApiVersion(u32 *version);
 
 XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
@@ -194,7 +196,7 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 				const enum XPmOpCharType type,
 				u32* const result);
 
-/* Direct-Control API functions */
+/** Direct-Control API functions */
 XStatus XPm_ResetAssert(const enum XPmReset reset,
 			const enum XPmResetAction assert);
 

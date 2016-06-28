@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,10 +34,12 @@
 #include "pm_common.h"
 #include "pm_api_sys.h"
 
-/**
+/** @name Payload Packets
+ *
  * Assigning of argument values into array elements.
  * pause and pm_dbg are used for debugging and should be removed in
  * final version.
+ * @{
  */
 #define PACK_PAYLOAD(pl, arg0, arg1, arg2, arg3, arg4, arg5)		\
 	pl[0] = (u32)arg0;						\
@@ -60,13 +62,19 @@
 	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, 0)
 #define PACK_PAYLOAD5(pl, api_id, arg1, arg2, arg3, arg4, arg5) \
 	PACK_PAYLOAD(pl, api_id, arg1, arg2, arg3, arg4, arg5)
+/*@}*/
 
+/****************************************************************************/
 /**
- * XPm_InitXilpm() - Initialize xilpm library
- * @ipi_inst	Pointer to IPI driver instance
+ * @brief  Initialize xilpm library
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  IpiInst Pointer to IPI driver instance
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 {
 	XStatus status = XST_SUCCESS;
@@ -82,15 +90,19 @@ done:
 	return status;
 }
 
+/****************************************************************************/
 /**
- * XPm_GetBootStatus() - checks for reason of boot
- *
+ * @brief  Checks for reason of boot
+ * <br>
  * Function returns information about the boot reason.
  * If the boot is not a system startup but a resume,
  * power down request bitfield for this processor will be cleared.
  *
- * @return	Returns processor boot status
- */
+ * @return Returns processor boot status
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 enum XPmBootStatus XPm_GetBootStatus()
 {
 	u32 pwrdn_req = pm_read(MASTER_PWRCTL);
@@ -102,14 +114,18 @@ enum XPmBootStatus XPm_GetBootStatus()
 	}
 }
 
+/****************************************************************************/
 /**
- * XPm_SuspendFinalize() - finilize suspend procedure
- *
- * Function waits for PMU to finish all previous API requests sent by the PU and
- * performs client specific actions to finish suspend procedure
+ * @brief  Finalize suspend procedure
+ * <br>
+ * Function waits for PMU to finish all previous API requests sent by the PU
+ * and performs client specific actions to finish suspend procedure
  * (e.g. execution of wfi instruction on A53 and R5 processors).
  * This function should not return if the suspend procedure is successful.
- */
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 void XPm_SuspendFinalize(void)
 {
 	XStatus status;
@@ -131,13 +147,18 @@ void XPm_SuspendFinalize(void)
 	XPm_ClientSuspendFinalize();
 }
 
+/****************************************************************************/
 /**
- * pm_ipi_send() - Sends IPI request to the PMU
- * @master	Pointer to the master who is initiating request
- * @payload	API id and call arguments to be written in IPI buffer
+ * @brief  Sends IPI request to the PMU
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  master  Pointer to the master who is initiating request
+ * @param  payload API id and call arguments to be written in IPI buffer
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 static XStatus pm_ipi_send(struct XPm_Master *const master,
 			   u32 payload[PAYLOAD_ARG_CNT])
 {
@@ -163,15 +184,20 @@ done:
 	return status;
 }
 
+/****************************************************************************/
 /**
- * pm_ipi_buff_read32() - Reads IPI response after PMU has handled interrupt
- * @master	Pointer to the master who is waiting and reading response
- * @value1 	Used to return value from 2nd IPI buffer element (optional)
- * @value2 	Used to return value from 3rd IPI buffer element (optional)
- * @value3 	Used to return value from 4th IPI buffer element (optional)
+ * @brief  Reads IPI response after PMU has handled interrupt
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  master Pointer to the master who is waiting and reading response
+ * @param  value1 Used to return value from 2nd IPI buffer element (optional)
+ * @param  value2 Used to return value from 3rd IPI buffer element (optional)
+ * @param  value3 Used to return value from 4th IPI buffer element (optional)
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 static XStatus pm_ipi_buff_read32(struct XPm_Master *const master,
 				  u32 *value1, u32 *value2, u32 *value3)
 {
@@ -215,17 +241,20 @@ done:
 	return status;
 }
 
+/****************************************************************************/
 /**
- * XPm_SelfSuspend() - PM call for master to suspend itself
- * @node	Node id of the master or subsystem
- * @latency	Requested maximum wakeup latency (not supported)
- * @state	Requested state (not supported)
- * @address	Address from which processor should resume
+ * @brief  PM call for master to suspend itself
  *
- * This is a blocking call, it will return only once PMU has responded
+ * @param  nid     Node id of the master or subsystem
+ * @param  latency Requested maximum wakeup latency (not supported)
+ * @param  state   Requested state (not supported)
+ * @param  address Address from which processor should resume
  *
- * @return	Returns status, either success or error+reason
- */
+ * @return Returns status, either success or error+reason
+ *
+ * @note   This is a blocking call, it will return only once PMU has responded
+ *
+ ****************************************************************************/
 XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 			const u32 latency,
 			const u8 state,
@@ -263,16 +292,21 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 	return pm_ipi_buff_read32(master, NULL, NULL, NULL);
 }
 
+/****************************************************************************/
 /**
- * XPm_RequestSuspend() - PM call to request for another PU or subsystem to
- *		      be suspended gracefully.
- * @target	Node id of the targeted PU or subsystem
- * @ack		Flag to specify whether acknowledge is requested
- * @latency	Requested wakeup latency (not supported)
- * @state	Requested state (not supported)
+ * @brief  PM call to request for another PU or subsystem to be
+ * suspended gracefully.
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  target  Node id of the targeted PU or subsystem
+ * @param  ack     Flag to specify whether acknowledge is requested
+ * @param  latency Requested wakeup latency (not supported)
+ * @param  state   Requested state (not supported)
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 			   const enum XPmRequestAck ack,
 			   const u32 latency, const u8 state)
@@ -290,13 +324,21 @@ XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 		return ret;
 }
 
+/****************************************************************************/
 /**
- * XPm_RequestWakeUp() - PM call for master to wake up selected master or subsystem
- * @node	Node id of the master or subsystem
- * @ack		Flag to specify whether acknowledge requested
+ * @brief  PM call for master to wake up selected master or subsystem
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  target     Node id of the targeted PU or subsystem
+ * @param  setAddress Specifies whether the start address argument is being
+ *   passed.
+ * @param  address    Parameter_Description
+ * @param  ack        Flag to specify whether acknowledge requested
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 			  const bool setAddress,
 			  const u64 address,
@@ -323,14 +365,19 @@ XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 		return ret;
 }
 
+/****************************************************************************/
 /**
- * XPm_ForcePowerDown() - PM call to request for another PU or subsystem to
- *			  be powered down forcefully
- * @target	Node id of the targeted PU or subsystem
- * @ack		Flag to specify whether acknowledge is requested
+ * @brief  PM call to request for another PU or subsystem to be
+ * powered down forcefully
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  target Node id of the targeted PU or subsystem
+ * @param  ack    Flag to specify whether acknowledge is requested
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 			   const enum XPmRequestAck ack)
 {
@@ -347,16 +394,18 @@ XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 		return ret;
 }
 
+/****************************************************************************/
 /**
- * XPm_AbortSuspend() - PM call to announce that a prior suspend request
- *			is to be aborted.
- * @reason	Reason for the abort
+ * @brief  PM call to announce that a prior suspend request is to be aborted.
  *
- * Calling PU expects the PMU to abort the initiated suspend procedure.
+ * @param  reason Reason for the abort
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   Calling PU expects the PMU to abort the initiated suspend procedure.
  * This is a non-blocking call without any acknowledge.
  *
- * @return	Returns status, either success or error+reason
- */
+ ****************************************************************************/
 XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 {
 	XStatus status;
@@ -383,14 +432,19 @@ XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 	return status;
 }
 
+/****************************************************************************/
 /**
- * XPm_SetWakeUpSource() - PM call to specify the wakeup source while suspended
- * @target	Node id of the targeted PU or subsystem
- * @wkup_node	Node id of the wakeup peripheral
- * @enable	Enable or disable the specified peripheral as wake source
+ * @brief  PM call to specify the wakeup source while suspended
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  target    Node id of the targeted PU or subsystem
+ * @param  wkup_node Node id of the wakeup peripheral
+ * @param  enable    Enable or disable the specified peripheral as wake source
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 			    const enum XPmNodeId wkup_node,
 			    const u8 enable)
@@ -400,12 +454,17 @@ XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 	return pm_ipi_send(primary_master, payload);
 }
 
+/****************************************************************************/
 /**
- * XPm_SystemShutdown() - PM call to request a system shutdown or restart
- * @restart	Shutdown or restart? 0 for shutdown, 1 for restart
+ * @brief  PM call to request a system Shutdown or Restart
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  restart Shutdown or Restart ? 0 for Shutdown, 1 for Restart
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_SystemShutdown(const u8 restart)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -413,17 +472,24 @@ XStatus XPm_SystemShutdown(const u8 restart)
 	return pm_ipi_send(primary_master, payload);
 }
 
-/* APIs for managing PM slaves: */
-
 /**
- * XPm_RequestNode() - PM call to request a node with specifc capabilities
- * @node	Node id of the slave
- * @capabilities Requested capabilities of the slave
- * @qos		Quality of service (not supported)
- * @ack		Flag to specify whether acknowledge is requested
- *
- * @return	Returns status, either success or error+reason
+ * APIs for managing PM slaves:
  */
+
+/****************************************************************************/
+/**
+ * @brief  PM call to request a node with specifc capabilities
+ *
+ * @param  node         Node id of the slave
+ * @param  capabilities Requested capabilities of the slave
+ * @param  qos          Quality of service (not supported)
+ * @param  ack          Flag to specify whether acknowledge is requested
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_RequestNode(const enum XPmNodeId node,
 			const u32 capabilities,
 			const u32 qos,
@@ -441,17 +507,21 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 		return ret;
 }
 
+/****************************************************************************/
 /**
- * XPm_SetRequirement() - PM call to set requirement for PM slaves
- * @node	Node id of the slave
- * @capabilities Requested capabilities of the slave
- * @qos		Quality of service (not supported)
- * @ack		Flag to specify whether acknowledge is requested
+ * @brief  PM call to set requirement for PM slaves
  *
- * This API function is to be used for slaves a PU already has requested
+ * @param  nid          Node id of the slave
+ * @param  capabilities Requested capabilities of the slave
+ * @param  qos          Quality of service (not supported)
+ * @param  ack          Flag to specify whether acknowledge is requested
  *
- * @return	Returns status, either success or error+reason
- */
+ * @return Returns status, either success or error+reason
+ *
+ * @note   This API function is to be used for slaves a PU already
+ * has requested
+ *
+ ****************************************************************************/
 XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 			   const u32 capabilities,
 			   const u32 qos,
@@ -468,12 +538,17 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 		return ret;
 }
 
+/****************************************************************************/
 /**
- * XPm_ReleaseNode() - PM call to release a node
- * @node	Node id of the slave
+ * @brief  PM call to release a node
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  node Node id of the slave
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_ReleaseNode(const enum XPmNodeId node)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
@@ -481,13 +556,18 @@ XStatus XPm_ReleaseNode(const enum XPmNodeId node)
 	return pm_ipi_send(primary_master, payload);
 }
 
+/****************************************************************************/
 /**
- * XPm_SetMaxLatency() - PM call to set wakeup latency requirements
- * @node	Node id of the slave
- * @latency	Requested maximum wakeup latency
+ * @brief  PM call to set wakeup latency requirements
  *
- * @return	Returns status, either success or error+reason
- */
+ * @param  node    Node id of the slave
+ * @param  latency Requested maximum wakeup latency
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 			  const u32 latency)
 {
@@ -498,7 +578,9 @@ XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 	return pm_ipi_send(primary_master, payload);
 }
 
-/* Callback API functions */
+/**
+ * Callback API functions
+ */
 struct pm_init_suspend pm_susp = {
 	.received = false,
 /* initialization of other fields is irrelevant while 'received' is false */
@@ -509,22 +591,28 @@ struct pm_acknowledge pm_ack = {
 /* initialization of other fields is irrelevant while 'received' is false */
 };
 
+/****************************************************************************/
 /**
- * XPm_InitSuspendCb() - callback to handle request made by PMU for initiating
- *			  suspend of this PU. If PU does not suspend itself
- *			  within given timeout, PMU might force it to power down.
- * @reason	Suspend reason
- * @latency	Maximum allowed latency for waking up (determines lowest state)
- * @state	State to which the PU should suspend
- * @timeout	How much time this PU have to suspend itself
+ * @brief  callback to handle request made by PMU for initiating suspend of
+ * this PU. If PU does not suspend itself within given timeout,
+ * PMU might force it to power down.
  *
- * This function executes in interrupt context. The function itself should never
- * invoke PM API calls that could block (because of performance reasons) or
- * execution of wfi (impossible). Therefore, this function should schedule
- * suspend procedure to be done out of the interrupt context. In this case,
- * it is simply done by filling the structure with arguments of the call and
- * marking that the init suspend request is received.
- */
+ * @param  reason  Suspend reason
+ * @param  latency Maximum allowed latency for waking up
+ *  (determines lowest state)
+ * @param  state   State to which the PU should suspend
+ * @param  timeout How much time this PU have to suspend itself
+ *
+ * @return None
+ *
+ * @note   This function executes in interrupt context. The function itself
+ * should never invoke PM API calls that could block (because of performance
+ * reasons) or execution of wfi (impossible). Therefore, this function should
+ * schedule suspend procedure to be done out of the interrupt context.
+ * In this case, it is simply done by filling the structure with arguments
+ * of the call and marking that the init suspend request is received.
+ *
+ ****************************************************************************/
 void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
 		       const u32 latency,
 		       const u32 state,
@@ -544,12 +632,19 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
 	pm_susp.received = true;
 }
 
+/****************************************************************************/
 /**
- * XPm_AcknowledgeCb() - callback to handle acknowledge from PMU
- * @node	Node about which the acknowledge is about
- * @status	Acknowledged status
- * @oppoint	Operating point of the node in question
- */
+ * @brief  Callback to handle acknowledge from PMU
+ *
+ * @param  node    Node about which the acknowledge is about
+ * @param  status  Acknowledged status
+ * @param  oppoint Operating point of the node in question
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 void XPm_AcknowledgeCb(const enum XPmNodeId node,
 		       const XStatus status,
 		       const u32 oppoint)
@@ -567,6 +662,20 @@ void XPm_AcknowledgeCb(const enum XPmNodeId node,
 	pm_ack.received = true;
 }
 
+/****************************************************************************/
+/**
+ * @brief  Nofity Callback. This function is called by the power management
+ *  controller if an event for which the PU was registered has occurred.
+ *
+ * @param  node    ID of the node the event notification is related to.
+ * @param  event   ID of the event
+ * @param  oppoint Current operating state of the node.
+ *
+ * @return None
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 void XPm_NotifyCb(const enum XPmNodeId node,
 		  const u32 event,
 		  const u32 oppoint)
@@ -575,14 +684,21 @@ void XPm_NotifyCb(const enum XPmNodeId node,
 	XPm_NotifierProcessEvent(node, event, oppoint);
 }
 
-/* Miscellaneous API functions */
-
 /**
- * XPm_GetApiVersion() - Get version number of PMU PM firmware
- * @version	Returns 32-bit version number of PMU Power Management Firmware
- *
- * @return	Returns status, either success or error+reason
+ * Miscellaneous API functions
  */
+
+/****************************************************************************/
+/**
+ * @brief  Get version number of PMU PM firmware
+ *
+ * @param  version 32-bit version number of PMU Power Management Firmware
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_GetApiVersion(u32 *version)
 {
 	XStatus ret;
@@ -599,14 +715,19 @@ XStatus XPm_GetApiVersion(u32 *version)
 	return pm_ipi_buff_read32(primary_master, version, NULL, NULL);
 }
 
-
+/****************************************************************************/
 /**
- * XPm_GetNodeStatus() - PM call to request a node's current power state
- * @node	 Node id of the node to be queried
- * @nodestatus	 Struct to be passed by caller to be populated with node status
-  *
- * @return	 Returns status, either success or error+reason
- */
+ * @brief  PM call to request a node's current power state
+ *
+ * @param  node       Node id of the node to be queried
+ * @param  nodestatus Struct to be passed by caller to be populated
+ *  with node status
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
 			  XPm_NodeStatus *const nodestatus)
 {
@@ -626,16 +747,20 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
 				  &nodestatus->usage);
 }
 
+/****************************************************************************/
 /**
- * XPm_GetOpCharacteristic() - PM call to request operating characteristics
- *			       of a node
- * @node	Node id of the slave
- * @type	Type of the operating characteristics
- * @result	Returns the operating characteristic for the requested node,
- *		specified by the type
+ * @brief  PM call to request operating characteristics of a node
  *
- * @return	Returns status, either success or error/reason
- */
+ * @param  node   Node id of the slave
+ * @param  type   Type of the operating characteristics
+ * @param  result Returns the operating characteristic for the requested node,
+ *  specified by the type
+ *
+ * @return Returns status, either success or error/reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 				const enum XPmOpCharType type,
 				u32* const result)
@@ -654,13 +779,18 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 	return pm_ipi_buff_read32(primary_master, result, NULL, NULL);
 }
 
+/****************************************************************************/
 /**
- * XPm_ResetAssert() - Assert/release reset line
- * @reset       Reset line
- * @assert      Identifies action: (release, assert, pulese)
+ * @brief  Assert/release reset line
  *
- * @return      Returns status, either success or error+reason
- */
+ * @param  reset  Reset line
+ * @param  assert Identifies action: (release, assert, Pulse)
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_ResetAssert(const enum XPmReset reset,
 			const enum XPmResetAction assert)
 {
@@ -678,13 +808,18 @@ XStatus XPm_ResetAssert(const enum XPmReset reset,
        return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 }
 
+/****************************************************************************/
 /**
- * XPm_ResetGetStatus() - Get current status of a given reset line
- * @reset	 Reset line
- * @status 	 Status of specified reset (true - asserted, false - released)
+ * @brief  Get current status of a given reset line
  *
- * @return	 Returns status, either success or error+reason
- */
+ * @param  reset  Reset line
+ * @param  status Status of specified reset (true - asserted, false - released)
+ *
+ * @return Returns status, either success or error+reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
 {
 	XStatus ret;
@@ -701,14 +836,18 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
 	return pm_ipi_buff_read32(primary_master, status, NULL, NULL);
 }
 
-/*
- * XPm_RegisterNotifier() - Register notifier for PM events
- * @notifier	Pointer to data block to be linked in the notifier list
- *		(includes node ID, event ID and wake flag to be passed to the
- *		PMU)
+/****************************************************************************/
+/**
+ * @brief  Register notifier for PM events
  *
- * @return	Returns status, either success or error/reason
- */
+ * @param  notifier Pointer to data block to be linked in the notifier list
+ *  (includes node ID, event ID and wake flag to be passed to the PMU)
+ *
+ * @return Returns status, either success or error/reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 {
 	XStatus ret;
@@ -736,14 +875,18 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 	return XPm_NotifierAdd(notifier);
 }
 
-/*
- * XPm_UnregisterNotifier() - Unregister notifier for PM events
- * @notifier	Pointer to data block to be removed from the notifier list
- *		(includes node ID, event ID and wake flag to be passed to the
- *		PMU)
+/****************************************************************************/
+/**
+ * @brief  Unregister notifier for PM events
  *
- * @return	Returns status, either success or error/reason
- */
+ * @param  notifier Pointer to data block to be removed from the notifier list
+ *  (includes node ID, event ID and wake flag to be passed to the PMU)
+ *
+ * @return Returns status, either success or error/reason
+ *
+ * @note   None
+ *
+ ****************************************************************************/
 XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 {
 	XStatus ret;
@@ -771,17 +914,20 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 }
 
+/****************************************************************************/
 /**
- * XPm_MmioWrite() - Perform write to protected mmio
- * @address	Address to write to
- * @mask	Mask to apply
- * @value	Value to write
+ * @brief  Perform write to protected mmio
  *
- * This function provides access to PM-related control registers
- * that may not be directly accessible by a particular PU.
+ * @param  address Address to write to
+ * @param  mask    Mask to apply
+ * @param  value   Value to write
  *
- * @return	Returns status, either success or error+reason
- */
+ * @return Returns status, either success or error+reason
+ *
+ * @note   This function provides access to PM-related control registers
+ *  that may not be directly accessible by a particular PU.
+ *
+ ****************************************************************************/
 XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
 {
 	XStatus status;
@@ -798,16 +944,19 @@ XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
 	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 }
 
+/****************************************************************************/
 /**
- * XPm_MmioRead() - Read value from protected mmio
- * @address	Address to write to
- * @value	Value to write
+ * @brief  Read value from protected mmio
  *
- * This function provides access to PM-related control registers
- * that may not be directly accessible by a particular PU.
+ * @param  address Address to write to
+ * @param  value   Value to write
  *
- * @return	Returns status, either success or error+reason
- */
+ * @return Returns status, either success or error+reason
+ *
+ * @note   This function provides access to PM-related control registers
+ *  that may not be directly accessible by a particular PU.
+ *
+ ****************************************************************************/
 XStatus XPm_MmioRead(const u32 address, u32 *const value)
 {
 	XStatus status;
