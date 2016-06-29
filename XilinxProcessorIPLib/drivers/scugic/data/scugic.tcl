@@ -46,6 +46,8 @@
 # 3.2	pkp  09/03/16 Compute the interrupt ID instead of reading from
 #		      interrupt pin property for PL ips in get_psu_interrupt_id
 #		      for zynqmpsoc to fix CR#940127
+# 3.4	pkp  29/06/16 Updated get_psu_interrupt_id to return correct PL ips'
+#		      interruptIDs when no interrupt is connected to pl_ps_irq0
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -54,6 +56,10 @@
 # "generate" procedure
 ############################################################
 proc generate {drv_handle} {
+    global pl_ps_irq1 pl_ps_irq0
+    set pl_ps_irq1 0
+    set pl_ps_irq0 0
+
     xdefine_gic_params $drv_handle
 
     xdefine_zynq_include_file $drv_handle "xparameters.h" "XScuGic" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_DIST_BASEADDR"
@@ -614,6 +620,8 @@ proc get_psu_interrupt_id { ip_name port_name } {
     set ret -1
     set periph ""
     set intr_pin ""
+    global pl_ps_irq1
+    global pl_ps_irq0
     if { [llength $port_name] == 0 } {
         return $ret
     }
@@ -644,24 +652,56 @@ proc get_psu_interrupt_id { ip_name port_name } {
         }
     }
 
-    set intc_periph [::hsi::utils::get_connected_intr_cntrl $ip_name $port_name]
+    set intc_periph [::hsi::utils::get_interrupt_parent $ip_name $port_name]
+    if {[llength $intc_periph] > 1} {
+        foreach intr_cntr $intc_periph {
+            if { [::hsi::utils::is_ip_interrupting_current_proc $intr_cntr] } {
+                set intc_periph $intr_cntr
+            }
+        }
+    }
     if { [llength $intc_periph]  ==  0 } {
         return $ret
     }
 
     set intc_type [common::get_property IP_NAME $intc_periph]
-	#set proctype [get_property IP_NAME [get_cells -hier [get_sw_processor]]]
-	if {[llength $intc_type] > 1} {
-
+    if {[llength $intc_type] > 1} {
         foreach intr_cntr $intc_type {
-
             if { [::hsi::utils::is_ip_interrupting_current_proc $intr_cntr] } {
-
                 set intc_type $intr_cntr
             }
-
         }
+    }
+    set ip_intr_pin [::hsi::get_pins -of_objects $intc_periph "IRQ0_F2P"]
+    set intc_src_ports [::hsi::utils::get_intr_src_pins $ip_intr_pin]
+    set total_intr_irq0_count 0
+    # Count number of pins connected to IRQ0_F2P
+    foreach intc_src_port $intc_src_ports {
+        set intr_periph [::hsi::get_cells -of_objects $intc_src_port]
+        set intr_width [::hsi::utils::get_port_width $intc_src_port]
+        if { [llength $intr_periph] } {
+            #case where an a pin of IP is interrupt
+            if {[common::get_property IS_PL $intr_periph] == 0} {
+                continue
+            }
+        }
+        set total_intr_irq0_count [expr $total_intr_irq0_count + $intr_width]
+    }
+    set ip_intr_pin [::hsi::get_pins -of_objects $intc_periph "IRQ1_F2P"]
+    set intc_src_ports [::hsi::utils::get_intr_src_pins $ip_intr_pin]
 
+    # Count number of pins connected to IRQ1_F2P
+    set total_intr_irq1_count 0
+    foreach intc_src_port $intc_src_ports {
+        set intr_periph [::hsi::get_cells -of_objects $intc_src_port]
+        set intr_width [::hsi::utils::get_port_width $intc_src_port]
+        if { [llength $intr_periph] } {
+            #case where an a pin of IP is interrupt
+            if {[common::get_property IS_PL $intr_periph] == 0} {
+                continue
+            }
+        }
+        set total_intr_irq1_count [expr $total_intr_irq1_count + $intr_width]
     }
     set intc_src_ports [::hsi::utils::get_interrupt_sources $intc_periph]
 
@@ -695,11 +735,58 @@ proc get_psu_interrupt_id { ip_name port_name } {
         set i [expr $i + $intr_width]
     }
 
-    if { $found == 1 && [is_interrupt $intc_type] } {
-	set intr_list [list 89 90 91 92 93 94 95 96 104 105 106 107 108 109 110 111]
-	return [lindex $intr_list $ret]
-    }
+    set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
+    set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
+    set pins [::hsi::get_pins -of_objects $periph -filter "NAME==$port_name"]
+    set sink_pins [::hsi::utils::get_sink_pins $pins]
+    if { [llength $sink_pins] == 0 } {
+        return
+     }
 
+    if { $i > 9} {
+        set ret [expr $ret - 8]
+    }
+    set concat_block 0
+    foreach sink_pin $sink_pins {
+        set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+        set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
+	# check for direct connection or concat block connected
+        if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
+            set number [regexp -all -inline -- {[0-9]+} $sink_pin]
+            set dout "dout"
+	    set concat_block 1
+	    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+            set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+            foreach pin $sink_pins {
+                set sink_pin $pin
+            }
+        }
+	# generate irq id for IRQ1_F2P
+        if { [string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
+            if {$found == 1} {
+                set irqval $pl_ps_irq1
+                set pl_ps_irq1 [expr $pl_ps_irq1 + 1]
+                if {$concat_block == "0"} {
+                    return [lindex $intr_list_irq1 $irqval]
+                } else {
+                    set ret [expr 104 + $number]
+                    return $ret
+                }
+	    }
+        } else {
+	    # generate irq id for IRQ0_F2P
+            if {$found == 1} {
+                set irqval $pl_ps_irq0
+                set pl_ps_irq0 [expr $pl_ps_irq0 + 1]
+		if {$concat_block == "0"} {
+                    return [lindex $intr_list_irq0 $irqval]
+                } else {
+                    set ret [expr 89 + $number]
+                    return $ret
+                }
+             }
+        }
+    }
     set port_width [get_port_width $intr_pin]
     set id $ret
     for {set i 1 } { $i < $port_width } { incr i } {

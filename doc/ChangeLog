@@ -12,6 +12,9 @@ Modified driver code for MISRA-C:2012 Compliance
 emacps_v3_3:
 Fixed IEEE1588 example issue for Zynq (CR#951152
 
+scugic_v3_4:
+Updated tcl to return correct PL ips' interruptIDs when no interrupt is connected to pl_ps_irq0 to fix CR#953335
+
 standalone_v5_6:
 Make Xil_AsserWait a global variable
 Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot section since it is part of boot process to fix CR#949555
