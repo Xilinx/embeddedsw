@@ -55,6 +55,8 @@
 *                        performing all Margin reads.
 *                        Added conditions for programming control and
 *                        secure bits.
+* 6.00  vns     29/06/16 Added Margin 2 read verification after programming
+*                        every Zynq's eFUSE PL bit CR #953052.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -295,7 +297,7 @@ static u8 XilSKey_EfusePl_ReadRow(u32 Row, u8 MarginOption, u8 *RowData);
 
 static u8 XilSKey_EfusePl_ReadControlRegister(u8 *CtrlData);
 
-static u8 XilSKey_EfusePl_VerifyBit(u8 Row, u8 Bit, u8 MarginOption);
+static u8 XilSKey_EfusePl_VerifyBit(u8 Row, u8 Bit);
 
 static u8 XilSKey_EfusePl_IsVectorAllZeros(u8 *RowDataPtr);
 
@@ -643,13 +645,7 @@ u8 XilSKey_EfusePl_ProgramRow(u8 Row, u8 *RowData)
 				return XST_FAILURE;
 			}
 
-			if(XilSKey_EfusePl_VerifyBit(Row, Bit, XSK_EFUSEPL_READ_NORMAL)
-											!= XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-
-			if(XilSKey_EfusePl_VerifyBit(Row,Bit,XSK_EFUSEPL_READ_MARGIN_1)
-											!= XST_SUCCESS) {
+			if(XilSKey_EfusePl_VerifyBit(Row,Bit) != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
 		}
@@ -664,13 +660,7 @@ u8 XilSKey_EfusePl_ProgramRow(u8 Row, u8 *RowData)
 				return XST_FAILURE;
 			}
 
-			if(XilSKey_EfusePl_VerifyBit(Row, Bit, XSK_EFUSEPL_READ_NORMAL)
-											!= XST_SUCCESS) {
-				return XST_FAILURE;
-			}
-
-			if(XilSKey_EfusePl_VerifyBit(Row,Bit,XSK_EFUSEPL_READ_MARGIN_1)
-											!= XST_SUCCESS) {
+			if(XilSKey_EfusePl_VerifyBit(Row,Bit) != XST_SUCCESS) {
 				return XST_FAILURE;
 			}
 
@@ -743,39 +733,25 @@ u8 XilSKey_EfusePl_ProgramControlRegister(u8 *CtrlData)
 					return XST_FAILURE;
 				}
 
-				if(XilSKey_EfusePl_VerifyBit(
-					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-					Index, XSK_EFUSEPL_READ_NORMAL) !=
-								XST_SUCCESS) {
-					return XST_FAILURE;
-				}
 
 				if(XilSKey_EfusePl_VerifyBit(
 					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-					Index, XSK_EFUSEPL_READ_MARGIN_1) !=
-								XST_SUCCESS) {
+					Index) != XST_SUCCESS) {
 					return XST_FAILURE;
 				}
 				if(XilSKey_EfusePl_ProgramBit(
 					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
 					Index +
-					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT)
-									!= XST_SUCCESS) {
+				XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT)
+						!= XST_SUCCESS) {
 					return XST_FAILURE;
 				}
 
 				if(XilSKey_EfusePl_VerifyBit(
 					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
 					(Index +
-				XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT),
-					XSK_EFUSEPL_READ_NORMAL) != XST_SUCCESS) {
-					return XST_FAILURE;
-				}
-
-				if(XilSKey_EfusePl_VerifyBit(XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW,
-					(Index +
-					XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT),
-					XSK_EFUSEPL_READ_MARGIN_1) != XST_SUCCESS) {
+				XSK_EFUSEPL_ARRAY_FUSE_CNTRL_REDUNDENT_START_BIT))
+							!= XST_SUCCESS) {
 					return XST_FAILURE;
 				}
 
@@ -1035,12 +1011,11 @@ u8 XilSKey_EfusePl_ReadControlRegister(u8 *CtrlData)
 /**
 *
 *
-*	Verify the PL eFUSE bit blown by reading it back
-*
+*	Verify the PL eFUSE bit blown by reading it back in all possible margin
+* reads (Normal, Margin 1 and Margin 2).
 *
 * @param	Row			 - row number
 * @param	Bit			 - bit position of the specified row
-* @param	MarginOption - Margin Option(One of the reading method of PLeFUSE)
 *
 * @return
 *
@@ -1051,18 +1026,26 @@ u8 XilSKey_EfusePl_ReadControlRegister(u8 *CtrlData)
 * @note		Updates the global variable ErrorCode with error code(if any).
 *
 *****************************************************************************/
-u8 XilSKey_EfusePl_VerifyBit(u8 Row, u8 Bit, u8 MarginOption)
+u8 XilSKey_EfusePl_VerifyBit(u8 Row, u8 Bit)
 {
 	u8 BitData = 0;
-	if(XilSKey_EfusePl_ReadBit(Row, Bit, MarginOption, &BitData)
-									!= XST_SUCCESS)	{
-		return XST_FAILURE;
+	u8 MarginOption;
+
+	for (MarginOption = XSK_EFUSEPL_READ_NORMAL;
+			MarginOption <= XSK_EFUSEPL_READ_MARGIN_2;
+					MarginOption = MarginOption*2) {
+
+		if(XilSKey_EfusePl_ReadBit(Row, Bit, MarginOption, &BitData)
+							!= XST_SUCCESS)	{
+			return XST_FAILURE;
+		}
+
+		if(BitData == FALSE) {
+			ErrorCode = XSK_EFUSEPL_ERROR_READ_BIT_VALUE_NOT_SET;
+			return XST_FAILURE;
+		}
 	}
 
-	if(BitData == FALSE) {
-		ErrorCode = XSK_EFUSEPL_ERROR_READ_BIT_VALUE_NOT_SET;
-		return XST_FAILURE;
-	}
 	return XST_SUCCESS;
 }
 /****************************************************************************/

@@ -51,6 +51,8 @@
 *                        Added Conditional compilation to support Zynq Mp
 *                        also.
 * 5.00  vns     27/01/16 Fixed array out of bounds error CR #931207
+* 6.00  vns     29/06/16 Added Margin 2 read verification after programming
+*                        every Zynq's eFUSE PS bit CR #953052.
 *
 *****************************************************************************/
 
@@ -877,10 +879,10 @@ static u32 XilSKey_EfusePs_VerifyWithXadcCheck(u32 EfuseAddress, u32 RefClk)
 #endif
 
 	/**
-	 * Read the eFUSE bit in Margin_1 mode
+	 * Read the eFUSE bit in Normal mode
 	 */
 	Status = XilSKey_EfusePs_ControllerConfig(XSK_EFUSEPS_SINGLE_MODE,
-							RefClk, XSK_EFUSEPS_READ_MODE_MARGIN_1);
+				RefClk, XSK_EFUSEPS_READ_MODE_NORMAL);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -895,14 +897,29 @@ static u32 XilSKey_EfusePs_VerifyWithXadcCheck(u32 EfuseAddress, u32 RefClk)
 
 
 	/**
-	 * Read the eFUSE bit in Normal Mode
+	 * Read the eFUSE bit in Margin 1 Mode
 	 */
 	Status = XilSKey_EfusePs_ControllerConfig(XSK_EFUSEPS_SINGLE_MODE,
-							RefClk, XSK_EFUSEPS_READ_MODE_NORMAL);
+				RefClk, XSK_EFUSEPS_READ_MODE_MARGIN_1);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
 
+	Status = XilSKey_EfusePs_ReadEfuseBit(EfuseAddress, &Data);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	if (0 == ((Data) & 0x1)) {
+		return XSK_EFUSEPS_ERROR_VERIFICATION;
+	}
+
+	/* Read the eFUSE bit in Margin 2 Mode */
+	Status = XilSKey_EfusePs_ControllerConfig(XSK_EFUSEPS_SINGLE_MODE,
+				RefClk, XSK_EFUSEPS_READ_MODE_MARGIN_2);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
 	Status = XilSKey_EfusePs_ReadEfuseBit(EfuseAddress, &Data);
 	if (Status != XST_SUCCESS) {
 		return Status;
