@@ -48,6 +48,8 @@
 *       sk  03/13/15 Added IO mode support.
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
 * 1.1   sk  04/12/16 Added debug message prints.
+* 1.2	nsk 07/01/16 Modified XQspiPsu_SetOptions() to support
+*		     LQSPI options and updated OptionsTable
 *
 * </pre>
 *
@@ -81,6 +83,7 @@ static OptionsMap OptionsTable[] = {
 	{XQSPIPSU_CLK_ACTIVE_LOW_OPTION, XQSPIPSU_CFG_CLK_POL_MASK},
 	{XQSPIPSU_CLK_PHASE_1_OPTION, XQSPIPSU_CFG_CLK_PHA_MASK},
 	{XQSPIPSU_MANUAL_START_OPTION, XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK},
+	{XQSPIPSU_LQSPI_MODE_OPTION, XQSPIPSU_CFG_WP_HOLD_MASK},
 };
 
 #define XQSPIPSU_NUM_OPTIONS	(sizeof(OptionsTable) / sizeof(OptionsMap))
@@ -128,7 +131,8 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 
 		ConfigReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
 					      XQSPIPSU_CFG_OFFSET);
-
+		QspiPsuOptions = Options & XQSPIPSU_LQSPI_MODE_OPTION;
+		Options &= ~XQSPIPSU_LQSPI_MODE_OPTION;
 		/*
 		 * Loop through the options table, turning the option on
 		 * depending on whether the bit is set in the incoming options flag.
@@ -137,9 +141,12 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 			if ((Options & OptionsTable[Index].Option) != FALSE) {
 				/* Turn it on */
 				ConfigReg |= OptionsTable[Index].Mask;
-			}
-		}
+			} else {
+                /* Turn it off */
+                ConfigReg &= ~(OptionsTable[Index].Mask);
+        }
 
+		}
 		/*
 		 * Now write the control register. Leave it to the upper layers
 		 * to restart the device.
@@ -149,6 +156,21 @@ s32 XQspiPsu_SetOptions(XQspiPsu *InstancePtr, u32 Options)
 
 		if ((Options & XQSPIPSU_MANUAL_START_OPTION) != FALSE) {
 			InstancePtr->IsManualstart = TRUE;
+		}
+		/*
+		 * Check for the LQSPI configuration options.
+		 */
+		ConfigReg = XQspiPsu_ReadReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET);
+
+			if (QspiPsuOptions & XQSPIPSU_LQSPI_MODE_OPTION) {
+			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET,XQSPIPS_LQSPI_CR_RST_STATE);
+			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_CFG_OFFSET,XQSPIPS_LQSPI_CFG_RST_STATE);
+			/* Enable the QSPI controller */
+			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_EN_OFFSET,XQSPIPSU_EN_MASK);
+		}
+		 else {
+			ConfigReg &= ~(XQSPIPSU_LQSPI_CR_LINEAR_MASK);
+			XQspiPsu_WriteReg(XQSPIPS_BASEADDR,XQSPIPSU_LQSPI_CR_OFFSET, ConfigReg);
 		}
 
 		Status = XST_SUCCESS;

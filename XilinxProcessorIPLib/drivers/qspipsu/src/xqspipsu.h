@@ -96,6 +96,13 @@
 *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
 *                    writing/reading from 0x0 location is permitted.
 * 1.1   sk  04/12/16 Added debug message prints.
+* 1.2	nsk 07/01/16 Added LQSPI support
+*		     Modified XQspiPsu_Select() macro in xqspipsu.h
+*		     Added XQspiPsu_GetLqspiConfigReg() in xqspipsu.h
+*		     Added required macros in xqspipsu_hw.h
+*		     Modified XQspiPsu_SetOptions() to support
+*		     LQSPI options and updated OptionsTable in
+*		     xqspipsu_options.c
 *
 * </pre>
 *
@@ -208,6 +215,7 @@ typedef struct {
 #define XQSPIPSU_CLK_ACTIVE_LOW_OPTION	0x2U
 #define XQSPIPSU_CLK_PHASE_1_OPTION	0x4U
 #define XQSPIPSU_MANUAL_START_OPTION	0x8U
+#define XQSPIPSU_LQSPI_MODE_OPTION	0x20U
 
 #define XQSPIPSU_GENFIFO_EXP_START	0x100U
 
@@ -232,11 +240,13 @@ typedef struct {
 #define XQSPIPSU_MSG_FLAG_RX		0x2U
 #define XQSPIPSU_MSG_FLAG_TX		0x4U
 
-#define XQspiPsu_Select(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_SEL_OFFSET, XQSPIPSU_SEL_MASK)
+#define XQspiPsu_Select(InstancePtr, Mask)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_SEL_OFFSET, Mask)
 
 #define XQspiPsu_Enable(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_EN_OFFSET, XQSPIPSU_EN_MASK)
 
 #define XQspiPsu_Disable(InstancePtr)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_EN_OFFSET, 0x0U)
+
+#define XQspiPsu_GetLqspiConfigReg(InstancePtr)   XQspiPsu_In32((XQSPIPS_BASEADDR) + XQSPIPSU_LQSPI_CR_OFFSET)
 
 /************************** Function Prototypes ******************************/
 

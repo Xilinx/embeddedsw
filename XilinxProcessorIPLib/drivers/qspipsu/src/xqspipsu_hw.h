@@ -47,6 +47,7 @@
 * 1.0   hk  08/21/14 First release
 *       hk  03/18/15 Add DMA status register masks required.
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
+* 1.2	nsk 07/01/16 Added LQSPI supported Masks
 *
 * </pre>
 *
@@ -91,6 +92,7 @@ extern "C" {
  * Register: XQSPIPSU_CFG
  */
 #define XQSPIPSU_CFG_OFFSET    0X00000000U
+#define XQSPIPSU_LQSPI_CR_OFFSET    0X000000A0U
 
 #define XQSPIPSU_CFG_MODE_EN_SHIFT   30
 #define XQSPIPSU_CFG_MODE_EN_WIDTH   2
@@ -129,6 +131,22 @@ extern "C" {
 #define XQSPIPSU_CFG_CLK_POL_WIDTH   1
 #define XQSPIPSU_CFG_CLK_POL_MASK    0X00000002U
 
+/**
+ * Register: XQSPIPSU_CFG
+ */
+#define XQSPIPSU_LQSPI_CR_OFFSET	0X000000A0U
+#define XQSPIPSU_LQSPI_CR_LINEAR_MASK     0x80000000 /**< LQSPI mode enable */
+#define XQSPIPSU_LQSPI_CR_TWO_MEM_MASK    0x40000000 /**< Both memories or one */
+#define XQSPIPSU_LQSPI_CR_SEP_BUS_MASK    0x20000000 /**< Seperate memory bus */
+#define XQSPIPSU_LQSPI_CR_U_PAGE_MASK     0x10000000 /**< Upper memory page */
+#define XQSPIPSU_LQSPI_CR_ADDR_32BIT_MASK     0x01000000 /**< Upper memory page */
+#define XQSPIPSU_LQSPI_CR_MODE_EN_MASK    0x02000000 /**< Enable mode bits */
+#define XQSPIPSU_LQSPI_CR_MODE_ON_MASK    0x01000000 /**< Mode on */
+#define XQSPIPSU_LQSPI_CR_MODE_BITS_MASK  0x00FF0000 /**< Mode value for dual I/O
+                                                         or quad I/O */
+#define XQSPIPS_LQSPI_CR_INST_MASK       0x000000FF /**< Read instr code */
+#define XQSPIPS_LQSPI_CR_RST_STATE       0x80000003 /**< Default LQSPI CR value */
+#define XQSPIPS_LQSPI_CFG_RST_STATE       0x800238C1 /**< Default LQSPI CFG value */
 /**
  * Register: XQSPIPSU_ISR
  */
@@ -406,7 +424,8 @@ extern "C" {
 
 #define XQSPIPSU_SEL_SHIFT   0
 #define XQSPIPSU_SEL_WIDTH   1
-#define XQSPIPSU_SEL_MASK    0X00000001U
+#define XQSPIPSU_SEL_LQSPI_MASK    0X0U
+#define XQSPIPSU_SEL_GQSPI_MASK    0X00000001U
 
 /**
  * Register: XQSPIPSU_FIFO_CTRL

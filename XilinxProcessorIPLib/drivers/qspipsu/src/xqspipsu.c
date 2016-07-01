@@ -53,6 +53,8 @@
 *       sk  06/17/15 Removed NULL checks for Rx/Tx buffers. As
 *                    writing/reading from 0x0 location is permitted.
 * 1.1   sk  04/12/16 Added debug message prints.
+* 1.2	nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
+*		     selection.
 *
 * </pre>
 *
@@ -153,7 +155,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		InstancePtr->IsManualstart = TRUE;
 
 		/* Select QSPIPSU */
-		XQspiPsu_Select(InstancePtr);
+		XQspiPsu_Select(InstancePtr, XQSPIPSU_SEL_GQSPI_MASK);
 
 		/*
 		 * Reset the QSPIPSU device to get it into its initial state. It is
