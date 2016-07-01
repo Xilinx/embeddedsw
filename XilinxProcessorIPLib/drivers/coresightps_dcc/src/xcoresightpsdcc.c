@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,12 +51,18 @@
 * 1.1   kvn    06/12/15 Add support for Zynq Ultrascale+ MP.
 *       kvn    08/18/15 Modified Makefile according to compiler changes.
 * 1.2   kvn    10/09/15 Add support for IAR Compiler.
+* 1.3   asa    07/01/16 Made changes to ensure that the file does not compile
+*                       for MB BSPs. Instead it throws up a warning. This
+*                       fixes the CR#953056.
 *
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
+#ifdef __MICROBLAZE__
+#warning "The driver is supported only for ARM architecture"
+#elif
 
 #include <xil_types.h>
 #include <xpseudo_asm.h>
@@ -178,4 +184,5 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 #endif
 	return Status;
 }
+#endif
 /** @} */

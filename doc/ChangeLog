@@ -1,5 +1,9 @@
 Change Log for 2016.3
 =================================
+coresightps_dcc_v1_1:
+Created a new version of the driver to ensure that for MB based systems the driver
+is not included. This fixes the CR#953056.
+
 iicps_v3_3:
 Modified code for MISRA-C:2012 Compliance
 
