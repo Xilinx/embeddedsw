@@ -61,52 +61,45 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-__inline u32 XFsbl_GetPartitionOwner(
-                XFsblPs_PartitionHeader * PartitionHeader)
+u32 XFsbl_GetPartitionOwner(XFsblPs_PartitionHeader * PartitionHeader)
 {
         return PartitionHeader->PartitionAttributes &
                                 XIH_PH_ATTRB_PART_OWNER_MASK;
 
 }
 
-__inline u32 XFsbl_IsRsaSignaturePresent(
-                XFsblPs_PartitionHeader * PartitionHeader)
+u32 XFsbl_IsRsaSignaturePresent(XFsblPs_PartitionHeader * PartitionHeader)
 {
         return  PartitionHeader->PartitionAttributes &
                                 XIH_PH_ATTRB_RSA_SIGNATURE_MASK;
 }
 
-__inline u32 XFsbl_GetChecksumType(
-                XFsblPs_PartitionHeader * PartitionHeader)
+u32 XFsbl_GetChecksumType(XFsblPs_PartitionHeader * PartitionHeader)
 {
         return PartitionHeader->PartitionAttributes &
                                 XIH_PH_ATTRB_CHECKSUM_MASK;
 }
 
-__inline u32 XFsbl_GetDestinationCpu(
-                XFsblPs_PartitionHeader * PartitionHeader)
+u32 XFsbl_GetDestinationCpu(XFsblPs_PartitionHeader * PartitionHeader)
 {
         return PartitionHeader->PartitionAttributes &
                                 XIH_PH_ATTRB_DEST_CPU_MASK;
 }
 
 
-__inline u32 XFsbl_IsEncrypted(
-                XFsblPs_PartitionHeader * PartitionHeader)
+u32 XFsbl_IsEncrypted(XFsblPs_PartitionHeader * PartitionHeader)
 {
         return PartitionHeader->PartitionAttributes &
                                 XIH_PH_ATTRB_ENCRYPTION_MASK;
 }
 
-__inline u32 XFsbl_GetDestinationDevice(
-                XFsblPs_PartitionHeader * PartitionHeader)
+u32 XFsbl_GetDestinationDevice(XFsblPs_PartitionHeader * PartitionHeader)
 {
         return PartitionHeader->PartitionAttributes &
                                 XIH_PH_ATTRB_DEST_DEVICE_MASK;
 }
 
-__inline u32 XFsbl_GetA53ExecState(
-                XFsblPs_PartitionHeader * PartitionHeader)
+u32 XFsbl_GetA53ExecState(XFsblPs_PartitionHeader * PartitionHeader)
 {
         return PartitionHeader->PartitionAttributes &
                                 XIH_PH_ATTRB_A53_EXEC_ST_MASK;

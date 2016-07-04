@@ -273,22 +273,16 @@ typedef struct {
 } XFsblPs_ATFHandoffParams;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-__inline u32 XFsbl_GetPartitionOwner(
-		XFsblPs_PartitionHeader * PartitionHeader);
-__inline u32 XFsbl_IsRsaSignaturePresent(
-		XFsblPs_PartitionHeader * PartitionHeader);
-__inline u32 XFsbl_GetChecksumType(
-		XFsblPs_PartitionHeader * PartitionHeader);
-__inline u32 XFsbl_GetDestinationCpu(
-		XFsblPs_PartitionHeader * PartitionHeader);
-__inline u32 XFsbl_IsEncrypted(
-		XFsblPs_PartitionHeader * PartitionHeader);
-__inline u32 XFsbl_GetDestinationDevice(
-		XFsblPs_PartitionHeader * PartitionHeader);
-__inline u32 XFsbl_GetA53ExecState(
-                XFsblPs_PartitionHeader * PartitionHeader);
 
 /************************** Function Prototypes ******************************/
+u32 XFsbl_GetPartitionOwner(XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_IsRsaSignaturePresent(XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetChecksumType(XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetDestinationCpu(XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_IsEncrypted(XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetDestinationDevice(XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetA53ExecState(XFsblPs_PartitionHeader * PartitionHeader);
+
 u32 XFsbl_ValidateChecksum(u32 Buffer[], u32 Length);
 u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
                   XFsblPs_DeviceOps * DeviceOps, u32 FlashImageOffsetAddress,
