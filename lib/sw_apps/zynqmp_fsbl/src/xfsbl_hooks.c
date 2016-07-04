@@ -52,6 +52,7 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_hooks.h"
+#include "psu_init.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -116,6 +117,39 @@ u32 XFsbl_HookBeforeFallback(void)
 	/**
 	 * Add the code here
 	 */
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function facilitates users to define different variants of psu_init()
+ * functions based on different configurations in Vivado. The default call to
+ * psu_init() can then be swapped with the alternate variant based on the
+ * requirement.
+ *
+ * @param none
+ *
+ * @return error status based on implemented functionality (SUCCESS by default)
+ *
+  *****************************************************************************/
+
+u32 XFsbl_HookPsuInit(void)
+{
+	u32 Status = XFSBL_SUCCESS;
+
+	/* Add the code here */
+
+	Status = (u32)psu_init();
+
+	if (XFSBL_SUCCESS != Status) {
+			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_PSU_INIT_FAILED\n\r");
+			/**
+			 * Need to check a way to communicate both FSBL code
+			 * and PSU init error code
+			 */
+			Status = XFSBL_PSU_INIT_FAILED + Status;
+	}
 
 	return Status;
 }

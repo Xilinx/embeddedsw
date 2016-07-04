@@ -78,6 +78,7 @@ u32 XFsbl_HookBeforeHandoff(u32 EarlyHandoff);
 
 u32 XFsbl_HookBeforeFallback(void);
 
+u32 XFsbl_HookPsuInit(void);
 
 #ifdef __cplusplus
 }

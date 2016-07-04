@@ -55,12 +55,12 @@
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
 #include "xfsbl_misc_drivers.h"
-#include "psu_init.h"
 #include "xfsbl_qspi.h"
 #include "xfsbl_csu_dma.h"
 #include "xfsbl_board.h"
 #include "xil_mmu.h"
 #include "xil_cache.h"
+#include "xfsbl_hooks.h"
 
 /************************** Constant Definitions *****************************/
 #define XFSBL_R5_VECTOR_VALUE 	0xEAFEFFFEU
@@ -79,7 +79,6 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_DdrEccInit(void);
 
 /* Functions from xfsbl_misc.c */
-int psu_init();
 
 /**
  * Functions from xfsbl_misc.c
@@ -499,14 +498,9 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	/**
 	 * psu initialization
 	 */
-	Status = (u32)psu_init();
+	Status = XFsbl_HookPsuInit();
+
 	if (XFSBL_SUCCESS != Status) {
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_PSU_INIT_FAILED\n\r");
-		/**
-		 * Need to check a way to communicate both FSBL code
-		 * and PSU init error code
-		 */
-		Status = XFSBL_PSU_INIT_FAILED + Status;
 		goto END;
 	}
 
