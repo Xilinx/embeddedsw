@@ -22,6 +22,12 @@ Added Tap delay support.
 
 scugic_v3_4:
 Updated tcl to return correct PL ips' interruptIDs when no interrupt is connected to pl_ps_irq0 to fix CR#953335
+Made changes in xscugic.c. Created a new static function DoDistributorInit to simplify the flow and avoid code duplication.
+Changes are made for USE_AMP use case for R5. In a scenario (in R5 split mode) when one R5 is operating with A53 in open amp config
+and other R5 is running baremetal application, the existing code had the potential to stop AMP to work (if for some reason
+the R5 running the baremetal app tasked to initialize the Distributor hangs or crashes before initializing the Distributor).
+Changes are made so that the R5 under AMP first checks if the distributor is enabled or not and if not, it does the standard Distributor initialization.
+This fixes the CR#952962.
 
 standalone_v5_6:
 Make Xil_AsserWait a global variable

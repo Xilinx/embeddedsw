@@ -145,6 +145,19 @@
 *             built over the scugic driver runs.
 *             These changes fix CR#937243.
 *
+* 3.4   asa  04/07/16 Created a new static function DoDistributorInit to simplify
+*            the flow and avoid code duplication. Changes are made for
+*            USE_AMP use case for R5. In a scenario (in R5 split mode) when
+*            one R5 is operating with A53 in open amp config and other
+*            R5 running baremetal app, the existing code
+*            had the potential to stop the whole AMP solution to work (if
+*            for some reason the R5 running the baremetal app tasked to
+*            initialize the Distributor hangs or crashes before initializing).
+*            Changes are made so that the R5 under AMP first checks if
+*            the distributor is enabled or not and if not, it does the
+*            standard Distributor initialization.
+*            This fixes the CR#952962.
+*
 * </pre>
 *
 ******************************************************************************/

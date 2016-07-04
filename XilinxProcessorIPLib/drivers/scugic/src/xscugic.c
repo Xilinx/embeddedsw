@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -87,6 +87,19 @@
 * 3.3	pkp  05/12/16 Modified XScuGic_InterruptMaptoCpu to write proper value
 *					  to interrupt target register to fix CR#951848
 *
+* 3.4   asa  04/07/16 Created a new static function DoDistributorInit to simplify
+*                     the flow and avoid code duplication. Changes are made for
+*                     USE_AMP use case for R5. In a scenario (in R5 split mode) when
+*                     one R5 is operating with A53 in open amp config and other
+*                     R5 running baremetal app, the existing code
+*                     had the potential to stop the whole AMP solution to work (if
+*                     for some reason the R5 running the baremetal app tasked to
+*                     initialize the Distributor hangs or crashes before initializing).
+*                     Changes are made so that the R5 under AMP first checks if
+*                     the distributor is enabled or not and if not, it does the
+*                     standard Distributor initialization.
+*                     This fixes the CR#952962.
+*
 *
 * </pre>
 *
@@ -96,7 +109,6 @@
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xscugic.h"
-#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -115,7 +127,7 @@ static void StubHandler(void *CallBackRef);
 /*****************************************************************************/
 /**
 *
-* DistributorInit initializes the distributor of the GIC. The
+* DoDistributorInit initializes the distributor of the GIC. The
 * initialization entails:
 *
 * - Write the trigger mode, priority and target CPU
@@ -130,35 +142,11 @@ static void StubHandler(void *CallBackRef);
 * @note		None.
 *
 ******************************************************************************/
-static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
+static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 {
 	u32 Int_Id;
 	u32 LocalCpuID = CpuID;
 
-#if USE_AMP==1
-	#warning "Building GIC for AMP"
-#ifdef ARMR5
-    u32 RegValue;
-
-	/*
-	 * The overall distributor should not be initialized in AMP case where
-	 * another CPU is taking care of it.
-	 */
-	LocalCpuID |= LocalCpuID << 8U;
-	LocalCpuID |= LocalCpuID << 16U;
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
-		RegValue = XScuGic_DistReadReg(InstancePtr,
-						XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
-		RegValue |= LocalCpuID;
-		XScuGic_DistWriteReg(InstancePtr,
-				     XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
-				     RegValue);
-	}
-#endif
-	return;
-#endif
-
-	Xil_AssertVoid(InstancePtr != NULL);
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
 
 	/*
@@ -209,8 +197,8 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 		LocalCpuID |= LocalCpuID << 16U;
 
 		XScuGic_DistWriteReg(InstancePtr,
-				     XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
-				     LocalCpuID);
+					 XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
+					 LocalCpuID);
 	}
 
 	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
@@ -225,8 +213,59 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	}
 
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET,
-						XSCUGIC_EN_INT_MASK);
+					XSCUGIC_EN_INT_MASK);
+}
 
+/*****************************************************************************/
+/**
+*
+* DistributorInit initializes the distributor of the GIC. It calls
+* DoDistributorInit to finish the initialization.
+*
+* @param	InstancePtr is a pointer to the XScuGic instance.
+* @param	CpuID is the Cpu ID to be initialized.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
+{
+	u32 Int_Id;
+	u32 LocalCpuID = CpuID;
+
+#if USE_AMP==1
+	#warning "Building GIC for AMP"
+#ifdef ARMR5
+    u32 RegValue;
+
+	RegValue = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
+	if (!(RegValue & XSCUGIC_EN_INT_MASK)) {
+		DoDistributorInit(InstancePtr, CpuID);
+		return;
+	}
+
+	/*
+	 * The overall distributor should not be initialized in AMP case where
+	 * another CPU is taking care of it.
+	 */
+	LocalCpuID |= LocalCpuID << 8U;
+	LocalCpuID |= LocalCpuID << 16U;
+	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
+		RegValue = XScuGic_DistReadReg(InstancePtr,
+						XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+		RegValue |= LocalCpuID;
+		XScuGic_DistWriteReg(InstancePtr,
+				     XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
+				     RegValue);
+	}
+#endif
+	return;
+#endif
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	DoDistributorInit(InstancePtr, CpuID);
 }
 
 /*****************************************************************************/
