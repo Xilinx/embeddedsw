@@ -60,10 +60,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#ifdef __MICROBLAZE__
-#warning "The driver is supported only for ARM architecture"
-#elif
-
 #include <xil_types.h>
 #include <xpseudo_asm.h>
 
@@ -184,5 +180,4 @@ static INLINE u32 XCoresightPs_DccGetStatus(void)
 #endif
 	return Status;
 }
-#endif
 /** @} */
