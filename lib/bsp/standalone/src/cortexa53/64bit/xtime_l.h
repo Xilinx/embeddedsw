@@ -66,7 +66,6 @@ typedef u64 XTime;
 /************************** Constant Definitions *****************************/
 
 #define COUNTS_PER_SECOND          			XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
-
 #define XIOU_SCNTRS_BASEADDR      			0xFF260000U
 #define XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET    0x00000000U
 #define XIOU_SCNTRS_FREQ_REG_OFFSET    		0x00000020U

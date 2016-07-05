@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * 5.05	pkp	   04/13/16 Added XTime_StartTimer API to start the global timer
 *						counter if it is disabled. Also XTime_GetTime calls
 *						this API to ensure the global timer counter is enabled
+* 5.06	pkp	   07/01/16	Added support for el1
 * </pre>
 *
 * @note		None.
@@ -57,6 +58,7 @@
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xil_io.h"
+#include "bspconfig.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -81,10 +83,11 @@
 ****************************************************************************/
 void XTime_StartTimer(void)
 {
-	/* Enable the global timer counter only if it is disabled */
-	if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET)) &
-		 XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) != XIOU_SCNTRS_CNT_CNTRL_REG_EN){
-
+	if (EL3 == 1) {
+		/* Enable the global timer counter only if it is disabled */
+		if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET))
+					& XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) !=
+					XIOU_SCNTRS_CNT_CNTRL_REG_EN){
 		/*write frequency to System Time Stamp Generator Register*/
 		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),
 					XIOU_SCNTRS_FREQ);
@@ -92,8 +95,8 @@ void XTime_StartTimer(void)
 		/*Enable the timer/counter*/
 		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),
 					XIOU_SCNTRS_CNT_CNTRL_REG_EN);
+		}
 	}
-
 }
 /****************************************************************************
 *
@@ -126,8 +129,9 @@ so the API is left unimplemented*/
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
-	/* Start global timer counter, it will only be enabled if it is disabled */
-	XTime_StartTimer();
-
+	if (EL3 == 1) {
+		/* Start global timer counter, it will only be enabled if it is disabled */
+		XTime_StartTimer();
+	}
 	*Xtime_Global = mfcp(CNTPCT_EL0);
 }

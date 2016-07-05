@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
 * 5.05	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
 *					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
 *					  functions description for proper explaination
+* 5.06	pkp	 07/01/16 Added support for el1
 *
 * </pre>
 *
@@ -59,6 +60,7 @@
 #include "xparameters.h"
 #include "xreg_cortexa53.h"
 #include "xil_exception.h"
+#include "bspconfig.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -80,7 +82,13 @@
 void Xil_DCacheEnable(void)
 {
 	u32 CtrlReg;
-	CtrlReg = mfcp(SCTLR_EL3);
+
+	if (EL3 == 1) {
+		CtrlReg = mfcp(SCTLR_EL3);
+	} else if (EL1_NONSECURE == 1) {
+		CtrlReg = mfcp(SCTLR_EL1);
+	}
+
 	/* enable caches only if they are disabled */
 	if((CtrlReg & XREG_CONTROL_DCACHE_BIT) == 0X00000000U){
 
@@ -88,9 +96,13 @@ void Xil_DCacheEnable(void)
 		Xil_DCacheInvalidate();
 
 		CtrlReg |= XREG_CONTROL_DCACHE_BIT;
-
-		/* enable the Data cache */
-		mtcp(SCTLR_EL3,CtrlReg);
+		if (EL3 == 1) {
+			/* enable the Data cache for el3*/
+			mtcp(SCTLR_EL3,CtrlReg);
+		} else if (EL1_NONSECURE == 1) {
+			/* enable the Data cache for el1*/
+			mtcp(SCTLR_EL1,CtrlReg);
+		}
 	}
 }
 
@@ -110,11 +122,20 @@ void Xil_DCacheDisable(void)
 	u32 CtrlReg;
 	/* clean and invalidate the Data cache */
 	Xil_DCacheFlush();
-	CtrlReg = mfcp(SCTLR_EL3);
 
+	if (EL3 == 1) {
+		CtrlReg = mfcp(SCTLR_EL3);
+	} else if (EL1_NONSECURE == 1) {
+		CtrlReg = mfcp(SCTLR_EL1);
+	}
 	CtrlReg &= ~(XREG_CONTROL_DCACHE_BIT);
-	/* disable the Data cache */
-	mtcp(SCTLR_EL3,CtrlReg);
+	if (EL3 == 1) {
+		/* disable the Data cache for el3*/
+		mtcp(SCTLR_EL3,CtrlReg);
+	} else if (EL1_NONSECURE == 1) {
+		/* disable the Data cache for el1*/
+		mtcp(SCTLR_EL1,CtrlReg);
+	}
 }
 
 /****************************************************************************
@@ -527,17 +548,27 @@ void Xil_DCacheFlushRange(INTPTR  adr, INTPTR len)
 
 void Xil_ICacheEnable(void)
 {
-
 	u32 CtrlReg;
-	CtrlReg = mfcp(SCTLR_EL3);
+	if (EL3 == 1) {
+		CtrlReg = mfcp(SCTLR_EL3);
+	} else if (EL1_NONSECURE == 1) {
+		CtrlReg = mfcp(SCTLR_EL1);
+	}
+
 	/* enable caches only if they are disabled */
 	if((CtrlReg & XREG_CONTROL_ICACHE_BIT)==0x00000000U){
-	/* invalidate the instruction cache */
-	Xil_ICacheInvalidate();
+		/* invalidate the instruction cache */
+		Xil_ICacheInvalidate();
 
-	CtrlReg |= XREG_CONTROL_ICACHE_BIT;
-	/* enable the instruction cache */
-	mtcp(SCTLR_EL3,CtrlReg);
+		CtrlReg |= XREG_CONTROL_ICACHE_BIT;
+
+		if (EL3 == 1) {
+			/* enable the instruction cache for el3*/
+			mtcp(SCTLR_EL3,CtrlReg);
+		} else if (EL1_NONSECURE == 1) {
+			/* enable the instruction cache for el1*/
+			mtcp(SCTLR_EL1,CtrlReg);
+		}
 	}
 }
 
@@ -555,12 +586,23 @@ void Xil_ICacheEnable(void)
 void Xil_ICacheDisable(void)
 {
 	u32 CtrlReg;
-	CtrlReg = mfcp(SCTLR_EL3);
+	if (EL3 == 1) {
+		CtrlReg = mfcp(SCTLR_EL3);
+	} else if (EL1_NONSECURE == 1) {
+		CtrlReg = mfcp(SCTLR_EL1);
+	}
+
 	/* invalidate the instruction cache */
 	Xil_ICacheInvalidate();
 	CtrlReg &= ~(XREG_CONTROL_ICACHE_BIT);
-	/* disable the instruction cache */
-	mtcp(SCTLR_EL3,CtrlReg);
+	if (EL3 == 1) {
+		/* disable the instruction cache */
+		mtcp(SCTLR_EL3,CtrlReg);
+	} else if (EL1_NONSECURE == 1) {
+		/* disable the instruction cache */
+		mtcp(SCTLR_EL1,CtrlReg);
+	}
+
 }
 
 /****************************************************************************

@@ -22,6 +22,7 @@ Updated tcl to return correct PL ips' interruptIDs when no interrupt is connecte
 standalone_v5_6:
 Make Xil_AsserWait a global variable
 Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot section since it is part of boot process to fix CR#949555
+Added support for non-secure EL1 with exception level selection feature for Cortex-A53 64bit mode
 
 Change Log for 2016.2
 =================================

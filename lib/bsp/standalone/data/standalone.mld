@@ -43,6 +43,7 @@ OPTION NAME = standalone;
 
 PARAM name = stdin, desc = "stdin peripheral", type = peripheral_instance, requires_interface = stdin, default=none, range = (ps7_uart, psu_uart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
 PARAM name = stdout, desc = "stdout peripheral", type = peripheral_instance, requires_interface = stdout, default=none, range = (ps7_uart, psu_uart, ps7_coresight_comp, psu_coresight_0, iomodule, axi_uartlite, axi_uart16550, mdm);
+
 BEGIN CATEGORY sw_intrusive_profiling
     PARAM name = enable_sw_intrusive_profiling, type = bool, default = false, desc = "Enable S/W Intrusive Profiling on Hardware Targets", permit = user;
     PARAM name = profile_timer, type = peripheral_instance, range = (opb_timer, xps_timer, axi_timer), default = none, desc = "Specify the Timer to use for Profiling. For PowerPC system, specify none to use PIT timer. For ARM system, specify none to use SCU timer";
@@ -52,4 +53,11 @@ BEGIN CATEGORY microblaze_exceptions
     PARAM name = microblaze_exceptions, type = bool, default = false, desc = "Enable MicroBlaze Exceptions", permit = user;
     PARAM name = predecode_fpu_exceptions, desc = "(MicroBlaze) Predecode FPU exceptions and save operand info before invoking user registered exception handler.", type = bool, default = false, permit = user;
 END CATEGORY
+
+BEGIN CATEGORY el_selection
+    PARAM name = ARMv8_EL_selection, type = bool, default = false, desc = "Enable Cortex-A53 64bit Exception Level Selection", permit = user;
+    PARAM name = exception_level, type = enum,  values = (exception_level = EL3, exception_level = EL1), default = EL3, desc = "Specify the exception level for Cortex-A53 64bit mode for code execution", permit = user;
+    PARAM name = security_state, type = enum,  dep = (exception_level = EL1), values = (security_state = secure, security_state = non-secure), default = secure, desc = "Specify the security state of selected exception level for Cortex-A53 64bit mode for code execution", permit = user;
+END CATEGORY
+
 END OS
