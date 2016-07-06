@@ -89,12 +89,14 @@
 * 3.3   sk   06/17/16 Added bus busy checks for slave send/recv and master
 *                     send/recv.
 * 3.3   als  06/27/16 Added Low-level XIic_CheckIsBusBusy API.
+* 3.3   als  06/27/16 Added low-level XIic_WaitBusFree API.
 * </pre>
 *
 ****************************************************************************/
 
 /***************************** Include Files *******************************/
 
+#include <sleep.h>
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xiic_l.h"
@@ -1064,5 +1066,32 @@ u32 XIic_CheckIsBusBusy(UINTPTR BaseAddress)
 	} else {
 		return FALSE;
 	}
+}
+
+/******************************************************************************/
+/**
+* This function will wait until the I2C bus is free or timeout.
+*
+* @param	BaseAddress contains the base address of the I2C device.
+*
+* @return
+*		- XST_SUCCESS if the I2C bus was freed before the timeout.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+*******************************************************************************/
+u32 XIic_WaitBusFree(UINTPTR BaseAddress)
+{
+	u8 BusyCount = 0;
+
+	while (XIic_CheckIsBusBusy(BaseAddress)) {
+		if (BusyCount++ > 100) {
+			return XST_FAILURE;
+		}
+		usleep(10000);
+	}
+
+	return XST_SUCCESS;
 }
 /** @} */
