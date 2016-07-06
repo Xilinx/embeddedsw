@@ -145,13 +145,8 @@ unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
 			u8 *BufferPtr, unsigned ByteCount, u8 Option)
 {
 	u32 CntlReg;
-	unsigned RemainingByteCount = ByteCount;
+	unsigned RemainingByteCount;
 	volatile u32 StatusReg;
-
-	/* Check for bus busy, exit if bus is busy */
-	StatusReg = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
-	if (StatusReg & XIIC_SR_BUS_BUSY_MASK)
-		return ByteCount - RemainingByteCount;
 
 	/* Tx error is enabled incase the address (7 or 10) has no device to
 	 * answer with Ack. When only one byte of data, must set NO ACK before
@@ -236,6 +231,11 @@ unsigned XIic_Recv(UINTPTR BaseAddress, u8 Address,
 		 * number of bytes that was received
 		 */
 		XIic_WriteReg(BaseAddress,  XIIC_CR_REG_OFFSET, 0);
+	}
+
+	/* Wait until I2C bus is freed, exit if timed out. */
+	if (XIic_WaitBusFree(BaseAddress) != XST_SUCCESS) {
+		return 0;
 	}
 
 	/* Return the number of bytes that was received */
@@ -413,14 +413,14 @@ static unsigned RecvData(UINTPTR BaseAddress, u8 *BufferPtr,
 unsigned XIic_Send(UINTPTR BaseAddress, u8 Address,
 		   u8 *BufferPtr, unsigned ByteCount, u8 Option)
 {
-	unsigned RemainingByteCount = ByteCount;
+	unsigned RemainingByteCount;
 	u32 ControlReg;
 	volatile u32 StatusReg;
 
-	/* Check for bus busy, exit if bus is busy */
-	StatusReg = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
-	if (StatusReg & XIIC_SR_BUS_BUSY_MASK)
-		return ByteCount - RemainingByteCount;
+	/* Wait until I2C bus is freed, exit if timed out. */
+	if (XIic_WaitBusFree(BaseAddress) != XST_SUCCESS) {
+		return 0;
+	}
 
 	/* Check to see if already Master on the Bus.
 	 * If Repeated Start bit is not set send Start bit by setting
@@ -672,13 +672,8 @@ static unsigned SendData(UINTPTR BaseAddress, u8 *BufferPtr,
 ******************************************************************************/
 unsigned XIic_DynRecv(UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCount)
 {
-	unsigned RemainingByteCount = ByteCount;
+	unsigned RemainingByteCount;
 	u32 StatusRegister;
-
-	/* Check for bus busy, exit if bus is busy */
-	StatusRegister = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
-	if (StatusRegister & XIIC_SR_BUS_BUSY_MASK)
-		return ByteCount - RemainingByteCount;
 
 	/*
 	 * Clear the latched interrupt status so that it will be updated with
@@ -724,6 +719,11 @@ unsigned XIic_DynRecv(UINTPTR BaseAddress, u8 Address, u8 *BufferPtr, u8 ByteCou
 	 * Receive the data from the IIC bus.
 	 */
 	RemainingByteCount = DynRecvData(BaseAddress, BufferPtr, ByteCount);
+
+	/* Wait until I2C bus is freed, exit if timed out. */
+	if (XIic_WaitBusFree(BaseAddress) != XST_SUCCESS) {
+		return 0;
+	}
 
 	/*
 	 * The receive is complete. Return the number of bytes that were
@@ -835,13 +835,13 @@ static unsigned DynRecvData(UINTPTR BaseAddress, u8 *BufferPtr, u8 ByteCount)
 unsigned XIic_DynSend(UINTPTR BaseAddress, u16 Address, u8 *BufferPtr,
 			u8 ByteCount, u8 Option)
 {
-	unsigned RemainingByteCount = ByteCount;
+	unsigned RemainingByteCount;
 	u32 StatusRegister;
 
-	/* Check for bus busy, exit if bus is busy */
-	StatusRegister = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
-	if (StatusRegister & XIIC_SR_BUS_BUSY_MASK)
-		return ByteCount - RemainingByteCount;
+	/* Wait until I2C bus is freed, exit if timed out. */
+	if (XIic_WaitBusFree(BaseAddress) != XST_SUCCESS) {
+		return 0;
+	}
 
 	/*
 	 * Clear the latched interrupt status so that it will be updated with
