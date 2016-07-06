@@ -68,11 +68,22 @@
 	.long	__bss_end__
 
 
+.set APU_PWRCTL,	0xFD5C0090
 
 	.globl	_startup
 _startup:
 
 	mov	x0, #0
+
+	/* Check whether the clearing of bss sections shall be skipped */
+	ldr	x10, =APU_PWRCTL	/* Load PWRCTRL address */
+	ldr	w11, [x10]		/* Read PWRCTRL register */
+	mrs	x2, MPIDR_EL1		/* Read MPIDR_EL1 */
+	ubfx	x2, x2, #0, #8		/* Extract CPU ID (affinity level 0) */
+	mov	w1, #1
+	lsl	w2, w1, w2		/* Shift CPU ID to get one-hot ID */
+	ands	w11, w11, w2		/* Get PWRCTRL bit for this core */
+	bne	.Lenclbss		/* Skip BSS and SBSS clearing */
 
 	/* clear sbss */
 	ldr 	w1,.Lsbss_start		/* calculate beginning of the SBSS */
