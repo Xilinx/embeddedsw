@@ -70,11 +70,30 @@
 .Lstack:
 	.long	__stack
 
+.set RPU_0_PWRCTL,	0xFF9A0108
+.set RPU_1_PWRCTL,	0xFF9A0208
+.set MPIDR_AFF0,	0xFF
+.set PWRCTL_MASK,	0x1
 
 	.globl	_startup
 
 _startup:
 	bl      __cpu_init		/* Initialize the CPU first (BSP provides this) */
+	mrc	p15, 0, r0,  c0,  c0, 5	/* Read MPIDR register */
+	ands	r0, r0, #MPIDR_AFF0	/* Get affinity level 0 */
+	bne	core1
+	ldr	r10, =RPU_0_PWRCTL	/* Load PWRCTRL address for core 0 */
+	b	test_boot_status
+
+core1:
+	ldr	r10, =RPU_1_PWRCTL	/* Load PWRCTRL address for core 1 */
+
+test_boot_status:
+	ldr	r11, [r10]		/* Read PWRCTRL register */
+	ands	r11, r11, #PWRCTL_MASK	/* Extract and test core's PWRCTRL */
+
+	/* if warm reset, skip the clearing of BSS and SBSS */
+	bne	.Lenclbss
 
 	mov	r0, #0
 
