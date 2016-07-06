@@ -39,6 +39,9 @@
 
 #include "pm_client.h"
 #include "xparameters.h"
+#include <xil_cache.h>
+#include <xreg_cortexa53.h>
+#include <xpseudo_asm.h>
 
 static struct XPm_Master pm_apu_0_master = {
 	.node_id = NODE_APU_0,
@@ -155,6 +158,13 @@ void XPm_ClientWakeup(const struct XPm_Master *const master)
  */
 void XPm_ClientSuspendFinalize(void)
 {
+	u32 ctrlReg;
+
+	/* Flush the data cache only if it is enabled */
+	ctrlReg = mfcp(SCTLR_EL3);
+	if (XREG_CONTROL_DCACHE_BIT & ctrlReg)
+		Xil_DCacheFlush();
+
 	pm_dbg("Going to WFI...\n");
 	__asm__("wfi");
 	pm_dbg("WFI exit...\n");

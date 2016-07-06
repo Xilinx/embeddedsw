@@ -39,6 +39,9 @@
 
 #include "pm_client.h"
 #include "xparameters.h"
+#include <xil_cache.h>
+#include <xreg_cortexr5.h>
+#include <xpseudo_asm.h>
 
 #define PM_CLIENT_RPU_ERR_INJ            0xFF9A0020U
 #define PM_CLIENT_RPU_FAULT_LOG_EN_MASK  0x00000101U
@@ -147,6 +150,8 @@ void XPm_ClientWakeup(const struct XPm_Master *const master)
  */
 void XPm_ClientSuspendFinalize(void)
 {
+	u32 ctrlReg;
+
 	/*
 	 * Unconditionally disable fault log.
 	 * BSP enables it once the processor resumes.
@@ -154,6 +159,11 @@ void XPm_ClientSuspendFinalize(void)
 	pm_dbg("Disabling RPU Lock-Step Fault Log...\n");
 	pm_write(PM_CLIENT_RPU_ERR_INJ,
 			pm_read(PM_CLIENT_RPU_ERR_INJ) & ~PM_CLIENT_RPU_FAULT_LOG_EN_MASK);
+
+	/* Flush data cache if the cache is enabled */
+	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+	if (XREG_CP15_CONTROL_C_BIT & ctrlReg)
+		Xil_DCacheFlush();
 
 	pm_dbg("Going to WFI...\n");
 	__asm__("wfi");
