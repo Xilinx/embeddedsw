@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -300,6 +300,7 @@
 *                     XIic_Recv for CR# 862303
 * 3.3   sk   06/17/16 Added bus busy checks for slave send/recv and master
 *                     send/recv.
+* 3.3   als  06/27/16 XIic_IsIicBusy now a wrapper for XIic_CheckIsBusBusy.
 * </pre>
 *
 ******************************************************************************/
@@ -488,6 +489,24 @@ typedef struct {
 } XIic;
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/*****************************************************************************
+*
+* This is a function which tells whether the I2C bus is busy or free.
+*
+* @param	InstancePtr points to the XIic instance to be worked on.
+*
+* @return
+*		- TRUE if the bus is busy.
+*		- FALSE if the bus is NOT busy.
+*
+* @note		None.
+*
+******************************************************************************/
+static inline u32 XIic_IsIicBusy(XIic *InstancePtr)
+{
+	return XIic_CheckIsBusBusy(InstancePtr->BaseAddress);
+}
 
 /************************** Function Prototypes ******************************/
 

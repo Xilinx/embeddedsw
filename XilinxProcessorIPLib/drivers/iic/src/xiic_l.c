@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -88,6 +88,7 @@
 *                     XIic_Recv for CR# 862303
 * 3.3   sk   06/17/16 Added bus busy checks for slave send/recv and master
 *                     send/recv.
+* 3.3   als  06/27/16 Added Low-level XIic_CheckIsBusBusy API.
 * </pre>
 *
 ****************************************************************************/
@@ -1038,5 +1039,30 @@ int XIic_DynInit(UINTPTR BaseAddress)
 	}
 
 	return XST_FAILURE;
+}
+
+/*****************************************************************************
+*
+* This is a function which tells whether the I2C bus is busy or free.
+*
+* @param	BaseAddr is the base address of the I2C core to work on.
+*
+* @return
+*		- TRUE if the bus is busy.
+*		- FALSE if the bus is NOT busy.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XIic_CheckIsBusBusy(UINTPTR BaseAddress)
+{
+	u32 StatusReg;
+
+	StatusReg = XIic_ReadReg(BaseAddress, XIIC_SR_REG_OFFSET);
+	if (StatusReg & XIIC_SR_BUS_BUSY_MASK) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
 }
 /** @} */

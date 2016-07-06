@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2002 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2002 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -81,7 +81,7 @@
 *			  Changes done if files xiic.c and xiic_i.h. CR:705001.
 * 3.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XIic_CfgInitialize API.
-*
+* 3.3   als  06/27/16 XIic_IsIicBusy now static inline in xiic.h.
 * </pre>
 *
 ****************************************************************************/
@@ -743,30 +743,5 @@ static void XIic_StubStatusHandler(void *CallBackRef, int ErrorCode)
 	(void) ErrorCode;
 	(void) CallBackRef;
 	Xil_AssertVoidAlways();
-}
-
-/*****************************************************************************
-*
-* This is a function which tells whether Bus is Busy or free.
-*
-* @param	InstancePtr points to the XIic instance to be worked on.
-*
-* @return
-*		- TRUE if the Bus is Busy.
-*		- FALSE if the Bus is NOT Busy.
-*
-* @note		None.
-*
-******************************************************************************/
-u32 XIic_IsIicBusy(XIic *InstancePtr)
-{
-	u32 StatusReg;
-
-	StatusReg = XIic_ReadReg(InstancePtr->BaseAddress, XIIC_SR_REG_OFFSET);
-	if (StatusReg & XIIC_SR_BUS_BUSY_MASK) {
-		return TRUE;
-	} else {
-		return FALSE;
-	}
 }
 /** @} */
