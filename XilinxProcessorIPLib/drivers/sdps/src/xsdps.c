@@ -66,27 +66,13 @@
 *       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
 * 2.8   sk     05/03/16 Standard Speed for SD to 19MHz in ZynqMPSoC. CR#951024
 * 2.9   sk     06/09/16 Added support for mkfs to calculate sector count.
+*       sk     07/07/16 Used usleep API for both arm and microblaze.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xsdps.h"
-/*
- * The header sleep.h and API usleep() can only be used with an arm design.
- * MB_Sleep() is used for microblaze design.
- */
-#if defined (__arm__) || defined (__aarch64__)
-
-#include "sleep.h"
-
-#endif
-
-#ifdef __MICROBLAZE__
-
-#include "microblaze_sleep.h"
-
-#endif
 
 /************************** Constant Definitions *****************************/
 #define XSDPS_CMD8_VOL_PATTERN	0x1AAU
@@ -180,17 +166,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 			XSDPS_POWER_CTRL_OFFSET, 0U);
 
 	/* Delay to poweroff card */
-#if defined (__arm__) || defined (__aarch64__)
-
     (void)sleep(1U);
-
-#endif
-
-#ifdef __MICROBLAZE__
-
-    MB_Sleep(1000U);
-
-#endif
 
 	/* "Software reset for all" is initiated */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress, XSDPS_SW_RST_OFFSET,
@@ -770,18 +746,7 @@ static s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* 74 CLK delay after card is powered up, before the first command. */
-#if defined (__arm__) || defined (__aarch64__)
-
 	usleep(XSDPS_INIT_DELAY);
-
-#endif
-
-#ifdef __MICROBLAZE__
-
-	/* 2 msec delay */
-	MB_Sleep(2);
-
-#endif
 
 	/* CMD0 no response expected */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD0, 0U, 0U);
@@ -860,17 +825,7 @@ static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
 			CtrlReg);
 
 	/* Wait minimum 5mSec */
-#if defined (__arm__) || defined (__aarch64__)
-
 	(void)usleep(5000U);
-
-#endif
-
-#ifdef __MICROBLAZE__
-
-	MB_Sleep(5U);
-
-#endif
 
 	/* Enabling 1.8V in controller */
 	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,

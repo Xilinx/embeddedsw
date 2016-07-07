@@ -128,6 +128,7 @@
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
 *              05/03/16 Standard Speed for SD to 19MHz in ZynqMPSoC. CR#951024
 * 2.9   sk     06/09/16 Added support for mkfs to calculate sector count.
+*       sk     07/07/16 Used usleep API for both arm and microblaze.
 *
 * </pre>
 *
@@ -145,6 +146,7 @@ extern "C" {
 #include "xil_cache.h"
 #include "xstatus.h"
 #include "xsdps_hw.h"
+#include "sleep.h"
 #include <string.h>
 
 /************************** Constant Definitions *****************************/

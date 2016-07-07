@@ -56,6 +56,7 @@
 *       sk     02/16/16 Corrected the Tuning logic.
 *       sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
+* 2.9   sk     07/07/16 Used usleep API for both arm and microblaze.
 *
 * </pre>
 *
@@ -63,21 +64,6 @@
 
 /***************************** Include Files *********************************/
 #include "xsdps.h"
-/*
- * The header sleep.h and API usleep() can only be used with an arm design.
- * MB_Sleep() is used for microblaze design.
- */
-#if defined (__arm__) || defined (__aarch64__)
-
-#include "sleep.h"
-
-#endif
-
-#ifdef __MICROBLAZE__
-
-#include "microblaze_sleep.h"
-
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -322,18 +308,7 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 				XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 	}
 
-#if defined (__arm__) || defined (__aarch64__)
-
 	usleep(XSDPS_MMC_DELAY_FOR_SWITCH);
-
-#endif
-
-#ifdef __MICROBLAZE__
-
-	/* 2 msec delay */
-	MB_Sleep(2);
-
-#endif
 
 	StatusReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL1_OFFSET);
@@ -618,18 +593,7 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 #endif
 	}
 
-#if defined (__arm__) || defined (__aarch64__)
-
 	usleep(XSDPS_MMC_DELAY_FOR_SWITCH);
-
-#endif
-
-#ifdef __MICROBLAZE__
-
-	/* 2 msec delay */
-	MB_Sleep(2);
-
-#endif
 
 	StatusReg = (s32)XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
 					XSDPS_HOST_CTRL1_OFFSET);
@@ -1063,11 +1027,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	 * This can be revisited for 3.0 silicon if necessary.
 	 */
 	/* Wait for ~60 clock cycles to reset the tap values */
-#if defined (__arm__) || defined (__aarch64__)
 	(void)usleep(1U);
-#elif defined (__MICROBLAZE__)
-	MB_Sleep(1U);
-#endif
 
 #if defined (__arm__) || defined (__aarch64__)
 	/* Issue DLL Reset to load new SDHC tuned tap values */
@@ -1186,11 +1146,7 @@ static void XSdPs_DllReset(XSdPs *InstancePtr)
 	XSdPs_WriteReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL, DllCtrl);
 
 	/* Wait for 2 micro seconds */
-#if defined (__arm__) || defined (__aarch64__)
-		(void)usleep(2U);
-#elif defined (__MICROBLAZE__)
-		MB_Sleep(1U);
-#endif
+	(void)usleep(2U);
 
 	/* Release the DLL out of reset */
 	DllCtrl = XSdPs_ReadReg(XPS_SYS_CTRL_BASEADDR, SD_DLL_CTRL);
