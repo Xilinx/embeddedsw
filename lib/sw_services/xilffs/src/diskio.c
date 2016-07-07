@@ -197,12 +197,8 @@ DSTATUS disk_status (
 						s = STA_NODISK | STA_NOINIT;
 						goto Label;
 					} else {
-	/* Wait for 10 msec */
-#if defined (__arm__) || defined (__aarch64__)
-	usleep(SD_CD_DELAY);
-#elif defined (__MICROBLAZE__)
-	MB_Sleep(10);
-#endif
+						/* Wait for 10 msec */
+						usleep(SD_CD_DELAY);
 						DelayCount++;
 						StatusReg = XSdPs_GetPresentStatusReg((u32)BaseAddress);
 					}
