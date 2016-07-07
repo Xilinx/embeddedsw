@@ -24,6 +24,20 @@ Make Xil_AsserWait a global variable
 Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot section since it is part of boot process to fix CR#949555
 Added support for non-secure EL1 with exception level selection feature for Cortex-A53 64bit mode
 
+sdps_v2_9:
+Added support for mkfs.
+Updated the copyright year to 2016.
+Used usleep API instead of MB_Sleep API.
+
+xilffs_v3_4:
+Added support for mkfs.
+Added support for multi partitions.
+Added support for multiple logical drives.
+Updated the copyright year to 2016.
+Corrected the data type of temp variable.
+Enable the _WORD_ACCESS option.
+Used usleep API instead of MB_Sleep API.
+
 Change Log for 2016.2
 =================================
 axidma_v9_2:
