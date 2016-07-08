@@ -445,15 +445,26 @@ static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId, u32 DevId)
 		}
 	}
 
-	/**
-	 * Check if Address is in the range of TCM for R5
-	 */
+	/* Check if Address is in the range of TCM for R5_0/R5_1 */
 	if ((CpuId == XIH_PH_ATTRB_DEST_CPU_R5_0) ||
-		(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) ||
-		(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L) )
+		(CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) )
+	{
+		if (((Address >= XFSBL_R5_TCM_START_ADDRESS) &&
+			(Address < (XFSBL_R5_TCM_START_ADDRESS + XFSBL_R5_TCM_BANK_LENGTH)))
+				|| ((Address >= XFSBL_R5_BTCM_START_ADDRESS) &&
+						(Address < (XFSBL_R5_BTCM_START_ADDRESS +
+								XFSBL_R5_TCM_BANK_LENGTH))))
+		{
+			goto END;
+		}
+	}
+
+	/* Check if Address is in the range of TCM for R5_L */
+	if (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L)
 	{
 		if ((Address >= XFSBL_R5_TCM_START_ADDRESS) &&
-			(Address < XFSBL_R5_TCM_END_ADDRESS) )
+				(Address < (XFSBL_R5_TCM_START_ADDRESS +
+						XFSBL_R5_TCM_BANK_LENGTH*4U)))
 		{
 			goto END;
 		}

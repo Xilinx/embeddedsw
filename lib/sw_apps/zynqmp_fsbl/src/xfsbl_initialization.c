@@ -77,6 +77,8 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_DdrEccInit(void);
+static u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes);
+static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr);
 
 /* Functions from xfsbl_misc.c */
 
@@ -112,6 +114,7 @@ void XFsbl_CfgInitialize (XFsblPs * FsblInstancePtr)
 	FsblInstancePtr->ErrorCode = XFSBL_SUCCESS;
 	FsblInstancePtr->HandoffCpuNo = 0U;
 	FsblInstancePtr->ResetReason = 0U;
+	FsblInstancePtr->TcmEccInitStatus = 0U;
 }
 
 /****************************************************************************/
@@ -176,6 +179,18 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	 */
 	XFsbl_PrintFsblBanner();
 
+	/* Initialize the processor */
+	Status = XFsbl_ProcessorInit(FsblInstancePtr);
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
+
+	/* Do ECC Initialization of TCM if required */
+	Status = XFsbl_TcmInit(FsblInstancePtr);
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
+
 	/* Do ECC Initialization of DDR if required */
 	Status = XFsbl_DdrEccInit();
 	if (XFSBL_SUCCESS != Status) {
@@ -184,13 +199,6 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 
 	/* Do board specific initialization if any */
 	Status = XFsbl_BoardInit();
-	if (XFSBL_SUCCESS != Status) {
-		goto END;
-	}
-	/**
-	 * Initialize the processor
-	 */
-	Status = XFsbl_ProcessorInit(FsblInstancePtr);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
@@ -909,26 +917,21 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 
 /*****************************************************************************/
 /**
- * This function does ECC Initialization of DDR memory
+ * This function does ECC Initialization of memory
  *
- * @param none
+ * @param	DestAddr is start address from where to calculate ECC
+ * @param	LengthBytes is length in bytes from start address to calculate ECC
  *
  * @return
  * 		- XFSBL_SUCCESS for successful ECC Initialization
- * 		-               or ECC is not enabled for DDR
  * 		- errors as mentioned in xfsbl_error.h
  *
  *****************************************************************************/
-u32 XFsbl_DdrEccInit(void)
+u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 {
-	u32 Status =  XFSBL_SUCCESS;
-#if XPAR_PSU_DDRC_0_HAS_ECC
-	u32 LengthBytes = XFSBL_PS_DDR_END_ADDRESS - XFSBL_PS_DDR_INIT_START_ADDRESS;
-	u32 Length = 0;
-	u32 DestAddr = XFSBL_PS_DDR_INIT_START_ADDRESS;
 	u32 RegVal;
-
-	XFsbl_Printf(DEBUG_GENERAL,"\n\rInitializing DDR ECC\n\r");
+	u32 Status =  XFSBL_SUCCESS;
+	u32 Length = 0;
 
 	Xil_DCacheDisable();
 
@@ -985,8 +988,7 @@ u32 XFsbl_DdrEccInit(void)
 		/* Read the channel status for errors */
 		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_STATUS);
 		if (RegVal == GDMA_CH0_ZDMA_CH_STATUS_STATE_ERR) {
-			Status = XFSBL_ERROR_DDR_ECC_INIT;
-			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_DDR_ECC_INIT\n\r");
+			Status = XFSBL_FAILURE;
 			Xil_DCacheEnable();
 			goto END;
 		}
@@ -997,7 +999,168 @@ u32 XFsbl_DdrEccInit(void)
 
 	Xil_DCacheEnable();
 
+	XFsbl_Printf(DEBUG_INFO,
+			"Address 0x%0lx, Length %0lx, ECC initialized \r\n",
+			DestAddr, LengthBytes);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function does ECC Initialization of DDR memory
+ *
+ * @param none
+ *
+ * @return
+ * 		- XFSBL_SUCCESS for successful ECC Initialization
+ * 		-               or ECC is not enabled for DDR
+ * 		- errors as mentioned in xfsbl_error.h
+ *
+ *****************************************************************************/
+u32 XFsbl_DdrEccInit(void)
+{
+	u32 Status =  XFSBL_SUCCESS;
+#if XPAR_PSU_DDRC_0_HAS_ECC
+	u32 LengthBytes = XFSBL_PS_DDR_END_ADDRESS - XFSBL_PS_DDR_INIT_START_ADDRESS;
+	u32 DestAddr = XFSBL_PS_DDR_INIT_START_ADDRESS;
+
+	XFsbl_Printf(DEBUG_GENERAL,"\n\rInitializing DDR ECC\n\r");
+
+	Status = XFsbl_EccInit(DestAddr, LengthBytes);
+	if (XFSBL_SUCCESS != Status) {
+		Status = XFSBL_ERROR_DDR_ECC_INIT;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_DDR_ECC_INIT\n\r");
+		goto END;
+	}
+
 END:
 #endif
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function does ECC Initialization of TCM memory
+ *
+ * @param FsblInstancePtr is pointer to the XFsbl Instance
+ *
+ * @return
+ * 		- XFSBL_SUCCESS for successful ECC Initialization
+ * 		-               or if ECC Initialization is not enabled
+ * 		- errors as mentioned in xfsbl_error.h
+ *
+ *****************************************************************************/
+u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr)
+{
+	u32 Status =  XFSBL_SUCCESS;
+	u32 LengthBytes;
+	u32 ATcmAddr;
+	u32 BTcmAddr;
+	u32 CpuId;
+	u32 EccInitStatus;
+
+	CpuId = FsblInstancePtr->ProcessorID;
+	XFsbl_Printf(DEBUG_GENERAL,"\n\rInitializing TCM ECC\n\r");
+
+	/**
+	 * If for A53, TCM ECC need to be initialized, do it for all banks
+	 * of TCM as with R5-L
+	 */
+	if ((CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L) ||
+			(CpuId == XIH_PH_ATTRB_DEST_CPU_A53_0)) {
+		ATcmAddr = XFSBL_R50_HIGH_ATCM_START_ADDRESS;
+		LengthBytes = XFSBL_R5_TCM_BANK_LENGTH * 4U;
+		Status = XFsbl_EccInit(ATcmAddr, LengthBytes);
+		EccInitStatus = XFSBL_R50_TCM_ECC_INIT_STATUS |
+				XFSBL_R51_TCM_ECC_INIT_STATUS;
+	}
+	else
+	{
+		if (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_0) {
+			ATcmAddr = XFSBL_R50_HIGH_ATCM_START_ADDRESS;
+			BTcmAddr = XFSBL_R50_HIGH_BTCM_START_ADDRESS;
+			EccInitStatus = XFSBL_R50_TCM_ECC_INIT_STATUS;
+		}
+		else if (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) {
+			ATcmAddr = XFSBL_R51_HIGH_ATCM_START_ADDRESS;
+			BTcmAddr = XFSBL_R51_HIGH_BTCM_START_ADDRESS;
+			EccInitStatus = XFSBL_R51_TCM_ECC_INIT_STATUS;
+		}
+		else {
+			/* for MISRA-C */
+		}
+
+		LengthBytes = XFSBL_R5_TCM_BANK_LENGTH;
+
+		Status = XFsbl_EccInit(ATcmAddr, LengthBytes);
+		if (XFSBL_SUCCESS == Status) {
+			Status = XFsbl_EccInit(BTcmAddr, LengthBytes);
+		}
+	}
+
+	if (XFSBL_SUCCESS == Status) {
+		/* Indicate in flag that TCM ECC is initialized */
+		FsblInstancePtr->TcmEccInitStatus = EccInitStatus;
+	}
+	else {
+		Status = XFSBL_ERROR_TCM_ECC_INIT;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_TCM_ECC_INIT\n\r");
+		goto END;
+	}
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function adds additional steps for TCM ECC Initialization for A53.
+ * These are to power-up TCM before actual ECC calculation and after it is done,
+ * to keep RPU in reset
+ *
+ * @param CpuId One of R5-0, R5-1, R5-LS, A53-0
+ *
+ * @return
+ * 		- XFSBL_SUCCESS for success
+ * 		- errors as mentioned in xfsbl_error.h
+ *
+ *****************************************************************************/
+u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr)
+{
+	u32 Status =  XFSBL_SUCCESS;
+	u32 RegValue;
+
+	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
+#ifndef XFSBL_A53_TCM_ECC
+		goto END;
+#endif
+	}
+
+	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
+		/* If TCM ECC has to be initialized for A53, power it up first */
+		Status = XFsbl_PowerUpMemory(XFSBL_R5_L_TCM);
+		if (Status != XFSBL_SUCCESS) {
+			goto END;
+		}
+	}
+
+	/* Do ECC Initialization of TCM if required */
+	Status = XFsbl_TcmEccInit(FsblInstancePtr);
+	if (XFSBL_SUCCESS != Status) {
+		goto END;
+	}
+
+	/* Place the RPU back in reset, to let user power it up when required */
+	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
+		RegValue = XFsbl_In32(CRL_APB_RST_LPD_TOP);
+		RegValue |= (CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK |
+				CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK |
+				CRL_APB_RST_LPD_TOP_RPU_AMBA_RESET_MASK);
+		XFsbl_Out32(CRL_APB_RST_LPD_TOP, RegValue);
+	}
+
+END:
 	return Status;
 }

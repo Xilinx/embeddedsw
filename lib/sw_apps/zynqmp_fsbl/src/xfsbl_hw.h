@@ -605,13 +605,14 @@ extern "C" {
  * TCM address for R5
  */
 #define XFSBL_R5_TCM_START_ADDRESS		(0x0U)
-#define XFSBL_R5_TCM_END_ADDRESS		(0x20000U)
-#define XFSBL_R5L_TCM_END_ADDRESS		(0x40000U)
+#define XFSBL_R5_BTCM_START_ADDRESS		(0x20000U)
 
-#define XFSBL_R50_HIGH_TCM_START_ADDRESS	(0xFFE00000U)
-#define XFSBL_R51_HIGH_TCM_START_ADDRESS	(0xFFE90000U)
+#define XFSBL_R50_HIGH_ATCM_START_ADDRESS	(0xFFE00000U)
+#define XFSBL_R50_HIGH_BTCM_START_ADDRESS	(0xFFE20000U)
+#define XFSBL_R51_HIGH_ATCM_START_ADDRESS	(0xFFE90000U)
+#define XFSBL_R51_HIGH_BTCM_START_ADDRESS	(0xFFEB0000U)
 
-#define XFSBL_R5_TCM_LENGTH			(0x10000U)
+#define XFSBL_R5_TCM_BANK_LENGTH			(0x10000U)
 
 /**
  * defines for the FSBL peripherals present
@@ -691,6 +692,11 @@ extern "C" {
 #define XFSBL_PERF
 #endif
 
+/* Definition for TCM ECC Enable for A53 to be included */
+#if !defined(FSBL_A53_TCM_ECC_EXCLUDE)
+#define XFSBL_A53_TCM_ECC
+#endif
+
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_START		(0xC0000000U)
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_END		(0xDFFFFFFFU)
 
@@ -716,6 +722,11 @@ extern "C" {
 #define XFSBL_OCM
 #define XFSBL_OCM_START_ADDRESS			(0xFFFE2000U)
 #define XFSBL_OCM_END_ADDRESS			(0xFFFF0000U)
+
+/* Different Memory types */
+#define XFSBL_R5_0_TCM		(0x1U)
+#define XFSBL_R5_1_TCM		(0x2U)
+#define XFSBL_R5_L_TCM		(0x3U)
 
 #ifdef ARMA53_64
 #define PTRSIZE		u64

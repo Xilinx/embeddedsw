@@ -102,6 +102,7 @@ typedef struct {
 	XFsblPs_DeviceOps DeviceOps; /**< Device operations for bootmodes */
 	u32 HandoffCpuNo; /**< Number of CPU's FSBL will handoff to */
 	u32 ResetReason; /**< Reset reason */
+	u32 TcmEccInitStatus; /**< Bits 0, 1 indicate TCM ECC Init status */
 	XFsblPs_HandoffValues HandoffValues[10];
 		/**< Handoff address for different CPU's  */
 #if defined XFSBL_PERF
@@ -166,7 +167,10 @@ typedef struct {
 #define PS_ONLY_RESET		0x1U
 
 /* Pattern to be filled for DDR ECC Initialization */
-#define XFSBL_ECC_INIT_VAL_WORD 0xA5A5A5A5U
+#define XFSBL_ECC_INIT_VAL_WORD 0xDEADBEEFU
+
+#define XFSBL_R50_TCM_ECC_INIT_STATUS 0x00000001U
+#define XFSBL_R51_TCM_ECC_INIT_STATUS 0x00000002U
 
 /************************** Function Prototypes ******************************/
 /**
@@ -187,11 +191,13 @@ void XFsbl_MeasurePerfTime(XTime tCur);
 void XFsbl_CfgInitialize (XFsblPs * FsblInstancePtr);
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr);
 u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr);
+u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr);
 
 /**
  * Functions defined in xfsbl_partition_load.c
  */
 u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum);
+u32 XFsbl_PowerUpMemory(u32 MemoryType);
 
 /**
  * Functions defined in xfsbl_handoff.c

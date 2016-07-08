@@ -137,6 +137,7 @@ extern "C" {
 #define FSBL_EARLY_HANDOFF_EXCLUDE_VAL	(1U)
 #define FSBL_WDT_EXCLUDE_VAL			(0U)
 #define FSBL_PERF_EXCLUDE_VAL			(1U)
+#define FSBL_A53_TCM_ECC_EXCLUDE_VAL	(1U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -178,6 +179,9 @@ extern "C" {
 #define FSBL_PERF_EXCLUDE
 #endif
 
+#if FSBL_A53_TCM_ECC_EXCLUDE_VAL
+#define FSBL_A53_TCM_ECC_EXCLUDE
+#endif
 
 /************************** Function Prototypes ******************************/
 

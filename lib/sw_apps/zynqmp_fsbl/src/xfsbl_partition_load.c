@@ -66,13 +66,6 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XFSBL_IVT_LENGTH	(0x8U)
 
-/**
- * Different Memory types
- */
-#define XFSBL_R5_0_TCM		(0x1U)
-#define XFSBL_R5_1_TCM		(0x2U)
-#define XFSBL_R5_L_TCM		(0x3U)
-
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_PartitionHeaderValidation(XFsblPs * FsblInstancePtr,
 		u32 PartitionNum);
@@ -81,18 +74,14 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		u32 PartitionNum);
 static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
 		u32 DestinationCpu);
-static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
-		u64 Address, u32 Length);
+static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
+		u32 DestinationCpu, u64 Address, u32 Length);
 void XFsbl_EccInitialize(u32 Address, u32 Length);
 u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr,
 		u32 Length);
 static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 
 /************************** Variable Definitions *****************************/
-static int IsR50TcmEccInitialized = FALSE;
-static int IsR51TcmEccInitialized = FALSE;
-static int IsR5LTcmEccInitialized = FALSE;
-
 u8 TcmVectorArray[32];
 u32 TcmSkipLength=0U;
 PTRSIZE TcmSkipAddress=0U;
@@ -295,7 +284,7 @@ static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
  *
  * @return	none
  *****************************************************************************/
-static u32 XFsbl_PowerUpMemory(u32 MemoryType)
+u32 XFsbl_PowerUpMemory(u32 MemoryType)
 {
 	u32 RegValue;
 	u32 Status = XFSBL_SUCCESS;
@@ -526,16 +515,15 @@ u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Lengt
 
 	Address = *LoadAddressPtr;
 
-	/**
-	 * Update for R50 TCM address
-	 */
+	/* Update for R50 TCM address if the partition fits with in a TCM bank */
 	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_0) &&
-			(Address <= XFSBL_R5_TCM_END_ADDRESS))
+			((Address < XFSBL_R5_TCM_START_ADDRESS + XFSBL_R5_TCM_BANK_LENGTH)||
+					((Address >= XFSBL_R5_BTCM_START_ADDRESS) &&
+							(Address < XFSBL_R5_BTCM_START_ADDRESS +
+									XFSBL_R5_TCM_BANK_LENGTH))))
 	{
-		/**
-		 * Check if fits to TCM or not
-		 */
-		if ((Address + Length) > XFSBL_R5_TCM_END_ADDRESS)
+		/* Check if fits in to a single TCM bank or not */
+		if (Length > XFSBL_R5_TCM_BANK_LENGTH)
 		{
 			Status = XFSBL_ERROR_LOAD_ADDRESS;
 			XFsbl_Printf(DEBUG_GENERAL,
@@ -546,19 +534,18 @@ u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Lengt
 		/**
 		 * Update Address to the higher TCM address
 		 */
-		Address = XFSBL_R50_HIGH_TCM_START_ADDRESS + Address;
+		Address = XFSBL_R50_HIGH_ATCM_START_ADDRESS + Address;
 
 	} else
-	/**
-	 * Update for R5-1 TCM address
-	 */
-	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_1) &&
-			(Address <= XFSBL_R5_TCM_END_ADDRESS))
+		/* Update for R51 TCM address if the partition fits with in a TCM bank */
+		if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_1) &&
+				((Address < XFSBL_R5_TCM_START_ADDRESS + XFSBL_R5_TCM_BANK_LENGTH)||
+						((Address >= XFSBL_R5_BTCM_START_ADDRESS) &&
+								(Address < XFSBL_R5_BTCM_START_ADDRESS +
+										XFSBL_R5_TCM_BANK_LENGTH))))
 	{
-		/**
-		 * Check if fits to TCM or not
-		 */
-		if ((Address + Length) > XFSBL_R5_TCM_END_ADDRESS)
+		/* Check if fits in to a single TCM bank or not */
+		if (Length > XFSBL_R5_TCM_BANK_LENGTH)
 		{
 			Status = XFSBL_ERROR_LOAD_ADDRESS;
 			XFsbl_Printf(DEBUG_GENERAL,
@@ -568,18 +555,19 @@ u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Lengt
 		/**
 		 * Update Address to the higher TCM address
 		 */
-		Address = XFSBL_R51_HIGH_TCM_START_ADDRESS + Address;
+		Address = XFSBL_R51_HIGH_ATCM_START_ADDRESS + Address;
 	} else
 	/**
 	 * Update for the R5-L TCM address
 	 */
 	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_L) &&
-			(Address <= XFSBL_R5L_TCM_END_ADDRESS))
+			(Address < XFSBL_R5_TCM_START_ADDRESS +
+					(XFSBL_R5_TCM_BANK_LENGTH * 4U)))
 	{
 		/**
 		 * Check if fits to TCM or not
 		 */
-		if ((Address + Length) > XFSBL_R5L_TCM_END_ADDRESS)
+		if (Length > (XFSBL_R5_TCM_BANK_LENGTH * 4U))
 		{
 			Status = XFSBL_ERROR_LOAD_ADDRESS;
 			XFsbl_Printf(DEBUG_GENERAL,
@@ -589,7 +577,7 @@ u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Lengt
 		/**
 		 * Update Address to the higher TCM address
 		 */
-		Address = XFSBL_R50_HIGH_TCM_START_ADDRESS + Address;
+		Address = XFSBL_R50_HIGH_ATCM_START_ADDRESS + Address;
 	} else
 	{
 		/**
@@ -624,8 +612,8 @@ END:
  * @return	returns the error codes described in xfsbl_error.h on any error
  * 			returns XFSBL_SUCCESS on success
  *****************************************************************************/
-static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
-		u64 Address, u32 Length)
+static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
+		u32 DestinationCpu, u64 Address, u32 Length)
 {
 
 	u32 Status = XFSBL_SUCCESS;
@@ -633,9 +621,12 @@ static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 	 * Configure R50 TCM Memory
 	 */
 	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_0) &&
-		(Address >= XFSBL_R50_HIGH_TCM_START_ADDRESS) &&
-		(Address < (XFSBL_R50_HIGH_TCM_START_ADDRESS +
-				XFSBL_R5_TCM_LENGTH)))
+		(((Address >= XFSBL_R50_HIGH_ATCM_START_ADDRESS) &&
+		(Address < (XFSBL_R50_HIGH_ATCM_START_ADDRESS +
+				XFSBL_R5_TCM_BANK_LENGTH))) ||
+				((Address >= XFSBL_R50_HIGH_BTCM_START_ADDRESS) &&
+				(Address < (XFSBL_R50_HIGH_BTCM_START_ADDRESS +
+						XFSBL_R5_TCM_BANK_LENGTH)))))
 	{
 
 		/**
@@ -652,21 +643,27 @@ static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		/**
 		 * ECC initialize TCM
 		 */
-		if (IsR50TcmEccInitialized == FALSE)
+		if ((FsblInstancePtr->TcmEccInitStatus &
+				XFSBL_R50_TCM_ECC_INIT_STATUS) == FALSE)
 		{
-			XFsbl_EccInitialize(XFSBL_R50_HIGH_TCM_START_ADDRESS,
-				XFSBL_R5_TCM_LENGTH);
+			Status = XFsbl_TcmEccInit(FsblInstancePtr);
+			if (XFSBL_SUCCESS != Status) {
+				goto END;
+			}
 		}
-		IsR50TcmEccInitialized = TRUE;
 
 	} else
 	/**
 	 * Update for R5-1 TCM address
 	 */
 	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_1) &&
-		(Address >= XFSBL_R51_HIGH_TCM_START_ADDRESS) &&
-		(Address < (XFSBL_R51_HIGH_TCM_START_ADDRESS +
-				XFSBL_R5_TCM_LENGTH)))
+		(((Address >= XFSBL_R51_HIGH_ATCM_START_ADDRESS) &&
+		(Address < (XFSBL_R51_HIGH_ATCM_START_ADDRESS +
+				XFSBL_R5_TCM_BANK_LENGTH))) ||
+				((Address >= XFSBL_R51_HIGH_BTCM_START_ADDRESS) &&
+				(Address < (XFSBL_R51_HIGH_BTCM_START_ADDRESS +
+						XFSBL_R5_TCM_BANK_LENGTH)))))
+
 	{
 		/**
 		 * Power up and release reset to the memory
@@ -682,20 +679,22 @@ static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		/**
 		 * ECC initialize TCM
 		 */
-		if (IsR51TcmEccInitialized == FALSE)
+		if ((FsblInstancePtr->TcmEccInitStatus &
+				XFSBL_R51_TCM_ECC_INIT_STATUS) == FALSE)
 		{
-			XFsbl_EccInitialize(XFSBL_R51_HIGH_TCM_START_ADDRESS,
-					XFSBL_R5_TCM_LENGTH);
+			Status = XFsbl_TcmEccInit(FsblInstancePtr);
+			if (XFSBL_SUCCESS != Status) {
+				goto END;
+			}
 		}
-		IsR51TcmEccInitialized = TRUE;
 	} else
 	/**
 	 * Update for the R5-L TCM address
 	 */
 	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_L) &&
-		(Address >= XFSBL_R50_HIGH_TCM_START_ADDRESS) &&
-		(Address < (XFSBL_R50_HIGH_TCM_START_ADDRESS +
-				(XFSBL_R5_TCM_LENGTH*2U))))
+		(Address >= XFSBL_R50_HIGH_ATCM_START_ADDRESS) &&
+		(Address < (XFSBL_R50_HIGH_ATCM_START_ADDRESS +
+				(XFSBL_R5_TCM_BANK_LENGTH*4U))))
 	{
 		/**
 		 * Power up and release reset to the memory
@@ -712,12 +711,15 @@ static u32 XFsbl_ConfigureMemory(u32 RunningCpu, u32 DestinationCpu,
 		/**
 		 * ECC initialize TCM
 		 */
-		if (IsR5LTcmEccInitialized == FALSE)
+		if ((FsblInstancePtr->TcmEccInitStatus &
+			(XFSBL_R50_TCM_ECC_INIT_STATUS | XFSBL_R51_TCM_ECC_INIT_STATUS)) !=
+				(XFSBL_R50_TCM_ECC_INIT_STATUS | XFSBL_R51_TCM_ECC_INIT_STATUS))
 		{
-			XFsbl_EccInitialize(XFSBL_R50_HIGH_TCM_START_ADDRESS,
-					XFSBL_R5_TCM_LENGTH*2U);
+			Status = XFsbl_TcmEccInit(FsblInstancePtr);
+			if (XFSBL_SUCCESS != Status) {
+				goto END;
+			}
 		}
-		IsR5LTcmEccInitialized = TRUE;
 	} else
 	{
 		/**
@@ -874,7 +876,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	/**
 	 * Configure the memory
 	 */
-	XFsbl_ConfigureMemory(RunningCpu, DestinationCpu,
+	XFsbl_ConfigureMemory(FsblInstancePtr, RunningCpu, DestinationCpu,
 						LoadAddress, Length);
 
 	/**
@@ -894,9 +896,9 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 			XIH_PH_ATTRB_RSA_SIGNATURE ) &&
 		(XFsbl_IsEncrypted(PartitionHeader) !=
 			XIH_PH_ATTRB_ENCRYPTION ) &&
-		((LoadAddress >= XFSBL_R50_HIGH_TCM_START_ADDRESS) &&
+		((LoadAddress >= XFSBL_R50_HIGH_ATCM_START_ADDRESS) &&
 		(LoadAddress <
-			XFSBL_R50_HIGH_TCM_START_ADDRESS + XFSBL_IVT_LENGTH)))
+			XFSBL_R50_HIGH_ATCM_START_ADDRESS + XFSBL_IVT_LENGTH)))
 	{
 
 		/**
