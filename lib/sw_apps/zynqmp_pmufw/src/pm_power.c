@@ -290,7 +290,10 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 
 		/* release RPU island reset */
 		reg = Xil_In32(CRL_APB_RST_LPD_TOP);
-		reg &= ~CRL_APB_RST_LPD_TOP_RPU_PGE_RESET_MASK;
+		reg &= ~(CRL_APB_RST_LPD_TOP_RPU_PGE_RESET_MASK |
+			 CRL_APB_RST_LPD_TOP_RPU_AMBA_RESET_MASK |
+			 CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK |
+			 CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
 		Xil_Out32(CRL_APB_RST_LPD_TOP, reg);
 		break;
 	}
