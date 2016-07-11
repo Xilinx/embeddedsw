@@ -283,26 +283,32 @@
 *	TRUE will disables decoder completely.
 *	FALSE will not modify this secure bit of eFuse.
 *
-*	In Ultrascale GPIO pins used for connecting MASTER_JTAG pins to access
-*	eFUSE
+*	In Ultrascale GPIO pins used for connecting MASTER_JTAG pins and
+*	hardware module to access eFUSE.
 *	Following are the GPIO pins and user can change these pins
 *	#define XSK_EFUSEPL_AXI_GPIO_JTAG_TDO	(0)
+*	#define XSK_EFUSEPL_AXI_GPIO_HWM_READY	(1)
+*	#define XSK_EFUSEPL_AXI_GPIO_HWM_END	(2)
+*
 *	#define XSK_EFUSEPL_AXI_GPIO_JTAG_TDI	(0)
 *	#define XSK_EFUSEPL_AXI_GPIO_JTAG_TMS	(1)
 *	#define XSK_EFUSEPL_AXI_GPIO_JTAG_TCK	(2)
+*	#define XSK_EFUSEPL_AXI_GPIO_HWM_START	(3)
 *
 *	#define XSK_EFUSEPL_GPIO_INPUT_CH			(2)
-*	This macro is for providing channel number of ALL INPUTS connected (TDO)
+*	This macro is for providing channel number of ALL INPUTS connected
+*	(Master JTAG's - TDO, Hardware module's - READY and END)
 *	#define XSK_EFUSEPL_GPIO_OUTPUT_CH			(1)
 *	This macro is for providing channel number of ALL OUTPUTS connected
-*	(TDI, TCK, TMS)
+*	(Master JTAG's - TDI, TCK, TMS,and Hardware module's - START)
 *
 *	NOTE: All inputs and outputs of GPIO can be configured in single
 *	channel also
 *	i.e XSK_EFUSEPL_GPIO_INPUT_CH = XSK_EFUSEPL_GPIO_OUTPUT_CH = 1 or 2.
-*	Among (TDI, TCK, TMS) Outputs of GPIO cannot be connected to different
-*	GPIO channels all the 3 signals should be in same channel.
-*	TDO can be a other channel of (TDI, TCK, TMS) or the same.
+*	Among (TDI, TCK, TMS, START) Outputs of GPIO cannot be connected to
+*	different GPIO channels all the 4 signals should be in same channel.
+*	(TDO, READY and END) can be a other channel of (TDI, TCK, TMS, START)
+*	or the same.
 *
 *	#define XSK_EFUSEPL_PROGRAM_AES_KEY_ULTRA	FALSE
 *	TRUE will burn the AES key given in XSK_EFUSEPL_AES_KEY.
@@ -373,6 +379,7 @@
 *
 *	NOTE:Please make sure you have sufficient heap and stack to run this
 *	application.
+*	For more information on creating vivado design please refer to xapp.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -388,6 +395,7 @@
 *                        eFuse.
 * 4.00  vns     09/10/15 Added DFT JTAG disable and DFT MODE disable programming
 *                        options for Zynq eFuse PS.
+* 6.0   vns     07/07/16 Added Gpio pin numbers connected to hardware module.
 *
 * </pre>
 *
@@ -582,18 +590,30 @@ extern "C" {
  * AXI GPIO pin numbers connected to MASTER JTAG primitive and corresponding
  * channel numbers for GPIO pins
  */
+/* Signals connect as Input to GPIO */
 #define	XSK_EFUSEPL_AXI_GPIO_JTAG_TDO	(0)	/**< MASTER JTAG GPIO
 						  *  pin for TDO */
+#define XSK_EFUSEPL_AXI_GPIO_HWM_READY	(1)	/**< Tells whether
+						* hardware module is ready or not */
+#define XSK_EFUSEPL_AXI_GPIO_HWM_END	(2)	/**< Notifies
+						* hardware module programming
+						* completion */
+
+/* Signals connect as Output from GPIO */
 #define	XSK_EFUSEPL_AXI_GPIO_JTAG_TDI	(0)	/**< MASTER JTAG GPIO
 						  *  pin for TDI */
 #define	XSK_EFUSEPL_AXI_GPIO_JTAG_TMS	(1)	/**< MASTER JTAG GPIO
 						  *  pin for TMS */
 #define	XSK_EFUSEPL_AXI_GPIO_JTAG_TCK	(2)	/**< MASTER JTAG GPIO
 						  *  pin for TCK */
+#define XSK_EFUSEPL_AXI_GPIO_HWM_START	(3)	/**< Triggers
+						* Hardware module, for programming
+						* start */
 
-#define	XSK_EFUSEPL_GPIO_INPUT_CH	(2)	/**< GPIO Channel of TDO
-						  *  pin connected */
-#define	XSK_EFUSEPL_GPIO_OUTPUT_CH	(1)	/**< GPIO Channel of TDI,
+#define	XSK_EFUSEPL_GPIO_INPUT_CH	(2)	/**< GPIO Channel for which TDO,
+						  *  Hardware module ready and end pins connected */
+#define	XSK_EFUSEPL_GPIO_OUTPUT_CH	(1)	/**< GPIO Channel for which
+						 * Hardware module Starte, TDI,
 *						  * TMS and TCK pin connected */
 
 /**

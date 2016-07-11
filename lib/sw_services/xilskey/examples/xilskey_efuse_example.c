@@ -102,11 +102,27 @@
 *		-----------------------------------------------------------------------
 *		Accessing Ultrascale microblaze 's eFuse is done by using block RAM
 *		initialization.
+*		Ultrascale eFUSE programming is done through MASTER JTAG. Crucial
+*		Programming sequence will be taken care by Hardware module. So Hardware
+*		module should be added compulsory in the design. Please use hardware
+*		module's vhd code and instructions provided to add Hardware module
+*		in the design.
+*
+*		Software will handover jtag navigation to Hardware module before
+*		entering JTAG IDLE state, by setting START pin of Hardware module to
+*		high and once programming of specified bit is done Hardware module
+*		will set END pin to high.
+*
 *		Master Jtag primitive has to added to design i.e MASTER_JTAG_inst
 *		instantiation have to performed and AXI GPIO pins has to be connected
 *		to TDO, TDI, TMS and TCK signals of MASTER_JTAG	primitive.
-*		All Inputs(TDO) and All Outputs(TDI, TMS, TCK) of MASTER_JTAG can be
-*		connected as
+*
+*		Hardware module has to be added to our design and respective pins of
+*		the hardware module needs to be connected to AXI GPIO pins.
+*		Hardware module has three signals READY, START and END.
+*
+*		All Inputs(TDO, READY and END) and All Outputs(TDI, TMS, TCK, START) of
+*		Hardware module, MASTER_JTAG can be connected as follows.
 *		1) All Inputs to one channel
 *			All Outputs to other channel
 *		Valid example: All Outputs connected to Channel 1
@@ -126,9 +142,11 @@
 *		Procedure to access efuse of Ultrascale:
 *		1) After providing the required inputs in xilskey_input.h, compile the
 *		project.
-*		2) Generate a memory mapped interface file using TCL command
+*		2) Generate a memory mapped interface(mmi) file using TCL command
 *		write_mem_info $Outfilename
-*		3) Update memory has to be done using the tcl command updatemem.
+*		3) Create an associate elf file.
+*				(OR)
+*		Update memory has to be done using the tcl command updatemem.
 *		updatemem -meminfo $file.mmi -data $Outfilename.elf -bit $design.bit
 *					-proc design_1_i/microblaze_0 -out $Final.bit
 *		4) Program the board using $Final.bit bitstream
@@ -151,6 +169,7 @@
 *                        eFuse.
 * 4.00  vns     09/10/15 Added DFT JTAG disable and DFT MODE disable
 *                        programming and reading options for Zynq eFuse PS.
+* 6.0   vns     07/07/16 Added Gpio pin numbers connected to hardware module.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -461,9 +480,10 @@ int main()
 	}
 	else {  /* for Ultrascale */
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_KEY_READ_ULTRA)) {
-			xil_printf("EfusePL status bits : AES key read and programming disabled \n\r");
+			xil_printf("EfusePL status bits : AES key programming"
+					"and CRC read  disabled \n\r");
 		}else {
-			xil_printf("EfusePL status bits : AES key read enabled\n\r");
+			xil_printf("EfusePL status bits : AES key CRC read enabled\n\r");
 		}
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_READ_ULTRA)) {
 			xil_printf("EfusePL status bits : User key read and programming disabled \n\r");
@@ -856,6 +876,11 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 	PlInstancePtr->JtagGpioTMS = XSK_EFUSEPL_AXI_GPIO_JTAG_TMS;
 	PlInstancePtr->JtagGpioTCK = XSK_EFUSEPL_AXI_GPIO_JTAG_TCK;
 	PlInstancePtr->JtagGpioTDO = XSK_EFUSEPL_AXI_GPIO_JTAG_TDO;
+
+	PlInstancePtr->HwmGpioReady = XSK_EFUSEPL_AXI_GPIO_HWM_READY;
+	PlInstancePtr->HwmGpioStart = XSK_EFUSEPL_AXI_GPIO_HWM_START;
+	PlInstancePtr->HwmGpioEnd = XSK_EFUSEPL_AXI_GPIO_HWM_END;
+
 	PlInstancePtr->GpioInputCh = XSK_EFUSEPL_GPIO_INPUT_CH;
 	PlInstancePtr->GpioOutPutCh = XSK_EFUSEPL_GPIO_OUTPUT_CH;
 
