@@ -63,7 +63,17 @@
 *                        BBRAM programming, added Bbram_Init_Ultra,
 *                        Bbram_ProgramKey_Ultra, Bbram_VerifyKey_Ultra
 *                        and Bbram_DeInit_Ultra APIs
-*
+* 6.0   vns     07/07/16 Intialized hardware module connections
+*                        Modifed JtagWrite_Ultrascale API, to handover
+*                        programming sequence to hardware module to take care
+*                        of eFUSE programming.
+*                        Once Hardware module is triggered, JTAG state will be
+*                        entering to IDLE state and will wait for 5us and
+*                        toggles TCK pin at 1Mhz frequency. Finally it exists
+*                        when jtag state is navigated to DR SELECT by making
+*                        END pin to High state.
+*                        Modified retur type of JtagWrite_Ultrascale API to int
+*                        for returning FAILURE on timeout.
 * </pre>
 *
 *
@@ -119,7 +129,7 @@ static js_port_t *g_port = NULL;
 static js_server_t *g_js = NULL;
 static js_port_descr_t *g_useport = NULL;
 extern u32 TimerTicksfor100ns;
-extern u32 TimerTicksfor500ns;
+extern u32 TimerTicksfor1000ns;
 u32 GpoOutValue = 0;
 
 static inline int JtagValidateMioPins_Efuse_Ultra();
@@ -2044,11 +2054,12 @@ void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data)
 * @note		None.
 *
 *****************************************************************************/
-void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
+int JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
 {
 
 	u8 wrBuffer [8];
 	u32 Bits = 0;
+	int Status = XST_SUCCESS;
 
 	jtag_navigate (g_port, JS_RESET);
 
@@ -2075,31 +2086,35 @@ void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
 	jtag_navigate (g_port, JS_DREXIT1);
 	jtag_navigate (g_port, JS_DRUPDATE);
 
-	jtag_navigate (g_port, JS_IDLE);
-	/* Toggle Clk after RTI */
-	setPin (MIO_TCK, 0);
-	setPin (MIO_TCK, 1);
-	setPin (MIO_TCK, 0);
+	/* Handing over to hardware module */
 	XilSKey_Efuse_StartTimer();
-	/* Here we will be providing 5micro seconds delay */
-	if (XilSKey_Efuse_GetTime() < TimerTicksfor500ns) {
-		while(1) {
-			if(XilSKey_Efuse_IsTimerExpired(TimerTicksfor500ns) == 1) {
-				break;
-			}
+
+	while (!readPin(GPIO_HWM_READY)) {
+		/* Wait for hardware module ready signal to go high */
+		if (XilSKey_Efuse_IsTimerExpired(TimerTicksfor1000ns) == 1) {
+			Status = XST_FAILURE;
+			goto SKIP_HARDWARE;
 		}
 	}
-	jtag_navigate (g_port, JS_DRSELECT);
-	/*
-	 * After exit from RTI toggle Clk after entering DRSELECT state
-	 * so programming will be disabled
-	 */
-	setPin (MIO_TCK, 0);
-	setPin (MIO_TCK, 1);
-	setPin (MIO_TCK, 0);
+	/* Enable hardware module program start signal (allow hardware to take over from here) */
+	setPin(GPIO_HWM_START, 1);
 
-	jtag_navigate (g_port, JS_IRSELECT);
+	XilSKey_Efuse_StartTimer();
+	while (!readPin(GPIO_HWM_END)) {
+	/* Wait for hardware module program end signal to go high */
+		if (XilSKey_Efuse_IsTimerExpired(TimerTicksfor1000ns) == 1) {
+			Status = XST_FAILURE;
+			goto SKIP_HARDWARE;
+		}
+	}
+
+SKIP_HARDWARE:
+	/* Disable hardware module program start signal */
+	setPin(GPIO_HWM_START, 0);
+
 	jtag_navigate (g_port, JS_RESET);
+
+	return Status;
 
 }
 

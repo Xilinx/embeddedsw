@@ -58,6 +58,7 @@
 *                        XilSKey_CrcCalculation. and Xilskey_Timer_Intialise API
 *                        to XilSKey_Timer_Intialise
 *       vns     10/20/15 Added cplusplus boundary blocks.
+* 6.0   vns     07/07/16 Added hardware module time out error code
 *
  *****************************************************************************/
 
@@ -435,6 +436,10 @@ typedef enum {
 	XSK_EFUSEPL_ERROR_FUSE_ROW_RANGE,
 	XSK_EFUSEPL_ERROR_IN_PROGRAMMING_ROW,
 	XSK_EFUSEPL_ERROR_PRGRMG_ROWS_NOT_EMPTY,
+
+	/* Error in Hw module */
+	XSK_EFUSEPL_ERROR_HWM_TIMEOUT = 0x80,
+
 	/**
 	 * XSKEfusepl_Program_Efuse() error codes
 	 */

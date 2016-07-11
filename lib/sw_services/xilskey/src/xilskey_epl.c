@@ -57,6 +57,10 @@
 *                        secure bits.
 * 6.00  vns     29/06/16 Added Margin 2 read verification after programming
 *                        every Zynq's eFUSE PL bit CR #953052.
+*               07/07/16 Modified XilSKey_EfusePl_ProgramBit_Ultra such that
+*                        it returns error code when JtagWrite_Ultrascale fails
+*                        programming eFUSE bit. Error occurs only when Hardware
+*                        Module has encountered timeout.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -358,7 +362,7 @@ extern void JtagWrite(unsigned char row, unsigned char bit);
  * 	JTAG Server Read routine
  */
 extern void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOption);
-extern void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant);
+extern int JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant);
 extern void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
 			u8 Page, u8 Redundant);
 extern void JtagRead_Status_Ultrascale(u32 *Rowdata);
@@ -1790,6 +1794,8 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, u8 Page)
 {
 
+	u8 Status;
+
 	/**
 	 *Check if the row position is valid.
 	 */
@@ -1862,7 +1868,12 @@ static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, 
 		return XST_FAILURE;
 	}
 #endif
-	JtagWrite_Ultrascale(Row, Bit, Page, Redundant);
+	Status = JtagWrite_Ultrascale(Row, Bit, Page, Redundant);
+
+	if (Status != XST_SUCCESS) {
+		ErrorCode = XSK_EFUSEPL_ERROR_HWM_TIMEOUT;
+		return XST_FAILURE;
+	}
 
 	return XST_SUCCESS;
 }

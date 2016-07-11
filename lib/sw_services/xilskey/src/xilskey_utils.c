@@ -51,6 +51,10 @@
 *                        Added new API Xsk_Ceil
 *                        Modified Xilskey_CrcCalculation() API for providing
 *                        support for efuse ZynqMp also.
+* 6.0   vns     07/07/16 Modifed XilSKey_Timer_Intialise API to intialize
+*                        TimerTicks to 10us. As Hardware module only takes
+*                        care of programming time(5us), through software we
+*                        only need to control hardware module.
 *
  *****************************************************************************/
 
@@ -73,7 +77,7 @@ u16 XAdcDeviceId;	/**< XADC Device ID */
 XTmrCtr XTmrCtrInst;
 #endif
 u32 TimerTicksfor100ns; /**< Global Variable to store ticks/100ns*/
-u32 TimerTicksfor500ns; /**< Global Variable for 5 micro secs for microblaze */
+u32 TimerTicksfor1000ns; /**< Global Variable for 10 micro secs for microblaze */
 /************************** Function Prototypes *****************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
 extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
@@ -849,7 +853,7 @@ u32 XilSKey_Timer_Intialise()
 #ifdef XSK_MICROBLAZE_PLATFORM
 
 	u32 Status;
-	TimerTicksfor500ns = 0;
+	TimerTicksfor1000ns = 0;
 
 	RefClk = XSK_EFUSEPL_CLCK_FREQ_ULTRA;
 
@@ -866,7 +870,7 @@ u32 XilSKey_Timer_Intialise()
 		return XST_FAILURE;
 	}
 
-	TimerTicksfor500ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/200000;
+	TimerTicksfor1000ns =  XSK_EFUSEPL_CLCK_FREQ_ULTRA/100000;
 
 #endif
 
