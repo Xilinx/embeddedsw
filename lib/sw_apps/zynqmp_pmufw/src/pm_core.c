@@ -600,6 +600,15 @@ static void PmSetWakeupSource(const PmMaster *const master,
 		goto done;
 	}
 
+	/*
+	 * If target is not APU there is nothing to do in order to enable wake
+	 * interrupt. Return success to the caller since the call is considered
+	 * valid.
+	 */
+	if (NODE_APU != master->nid) {
+		goto done;
+	}
+
 	/* Is master allowed to use resource (slave)? */
 	if (NULL == req) {
 		status = XST_PM_NO_ACCESS;
