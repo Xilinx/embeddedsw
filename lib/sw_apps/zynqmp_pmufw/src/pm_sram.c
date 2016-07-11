@@ -323,6 +323,7 @@ PmSlaveSram pmSlaveOcm3_g = {
 
 static PmRequirement* const pmTcm0AReqs[] = {
 	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TCM0A],
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_TCM0A],
 };
 
 PmSlaveSram pmSlaveTcm0A_g = {
@@ -351,6 +352,7 @@ PmSlaveSram pmSlaveTcm0A_g = {
 
 static PmRequirement* const pmTcm0BReqs[] = {
 	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TCM0B],
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_TCM0B],
 };
 
 PmSlaveSram pmSlaveTcm0B_g = {
@@ -379,6 +381,7 @@ PmSlaveSram pmSlaveTcm0B_g = {
 
 static PmRequirement* const pmTcm1AReqs[] = {
 	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TCM1A],
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_TCM1A],
 };
 
 PmSlaveSram pmSlaveTcm1A_g = {
@@ -407,6 +410,7 @@ PmSlaveSram pmSlaveTcm1A_g = {
 
 static PmRequirement* const pmTcm1BReqs[] = {
 	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TCM1B],
+	&pmApuReq_g[PM_MASTER_APU_SLAVE_TCM1B],
 };
 
 PmSlaveSram pmSlaveTcm1B_g = {

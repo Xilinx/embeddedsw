@@ -431,6 +431,42 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.nextReq = PM_CAP_ACCESS,
 		.latencyReq = MAX_LATENCY,
 	},
+	[PM_MASTER_APU_SLAVE_TCM0A] = {
+		.slave = &pmSlaveTcm0A_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
+	},
+	[PM_MASTER_APU_SLAVE_TCM0B] = {
+		.slave = &pmSlaveTcm0B_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
+	},
+	[PM_MASTER_APU_SLAVE_TCM1A] = {
+		.slave = &pmSlaveTcm1A_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
+	},
+	[PM_MASTER_APU_SLAVE_TCM1B] = {
+		.slave = &pmSlaveTcm1B_g.slv,
+		.requestor = &pmMasterApu_g,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
+	},
 };
 
 /* Requirement of RPU_0 master */
