@@ -234,6 +234,9 @@ int PmProcSleep(PmNode* const nodePtr)
 		XPfw_RMW32(RPU_RPU_0_CFG,
 			   RPU_RPU_0_CFG_NCPUHALT_MASK,
 			  ~RPU_RPU_0_CFG_NCPUHALT_MASK);
+		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
+			   ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
 		status = XST_SUCCESS;
 		break;
 	case NODE_RPU_1:
@@ -243,6 +246,9 @@ int PmProcSleep(PmNode* const nodePtr)
 		XPfw_RMW32(RPU_RPU_1_CFG,
 			   RPU_RPU_1_CFG_NCPUHALT_MASK,
 			  ~RPU_RPU_1_CFG_NCPUHALT_MASK);
+		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
+			   ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
 		status = XST_SUCCESS;
 		break;
 	default:
