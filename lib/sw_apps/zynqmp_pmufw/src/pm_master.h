@@ -120,8 +120,9 @@ typedef struct PmMaster PmMaster;
 #define PM_MASTER_RPU_0_SLAVE_RPLL  15U
 #define PM_MASTER_RPU_0_SLAVE_IOPLL 16U
 #define PM_MASTER_RPU_0_SLAVE_DDR   17U
+#define PM_MASTER_RPU_0_SLAVE_IPI_RPU_0 18U
 
-#define PM_MASTER_RPU_0_SLAVE_MAX   18U
+#define PM_MASTER_RPU_0_SLAVE_MAX   19U
 
 /* Pm Master request info masks */
 #define PM_MASTER_WAKEUP_REQ_MASK   0x1U

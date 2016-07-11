@@ -952,3 +952,25 @@ PmSlave pmSlaveIpiApu_g = {
 	.wake = &pmIpiApuWake,
 	.slvFsm = &slaveAonFsm,
 };
+
+static PmRequirement* const pmIpiRpu0Reqs[] = {
+	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_IPI_RPU_0],
+};
+
+PmSlave pmSlaveIpiRpu0_g = {
+	.node = {
+		.derived = &pmSlaveIpiRpu0_g,
+		.nodeId = NODE_IPI_RPU_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveAonPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers)
+	},
+	.reqs = pmIpiRpu0Reqs,
+	.reqsCnt = ARRAY_SIZE(pmIpiRpu0Reqs),
+	.wake = NULL,
+	.slvFsm = &slaveAonFsm,
+};

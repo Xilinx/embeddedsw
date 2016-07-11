@@ -99,6 +99,7 @@ static PmNode* const pmNodes[NODE_MAX] = {
 	&pmSlaveAFI_g.node,
 	&pmSlaveDdr_g.node,
 	&pmSlaveIpiApu_g.node,
+	&pmSlaveIpiRpu0_g.node,
 };
 
 /**

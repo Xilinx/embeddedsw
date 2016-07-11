@@ -633,6 +633,15 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	},
+	[PM_MASTER_RPU_0_SLAVE_IPI_RPU_0] = {
+		.slave = &pmSlaveIpiRpu0_g,
+		.requestor = &pmMasterRpu0_g,
+		.info = PM_MASTER_USING_SLAVE_MASK,
+		.defaultReq = PM_CAP_ACCESS,
+		.currReq = PM_CAP_ACCESS,
+		.nextReq = PM_CAP_ACCESS,
+		.latencyReq = MAX_LATENCY,
+	},
 };
 
 PmMaster pmMasterApu_g = {
