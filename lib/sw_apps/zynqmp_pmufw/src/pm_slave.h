@@ -116,6 +116,9 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 /* GIC Proxy group 4 */
 #define FPD_GICP_SATA_WAKE_IRQ_MASK (1 << 5)
 
+/* Mask definitions for slave's flags */
+#define PM_SLAVE_FLAG_IS_SHAREABLE	0x1U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -177,6 +180,8 @@ typedef struct {
  * @wake        Wake event this slave can generate
  * @slvFsm      Slave finite state machine
  * @reqsCnt     Size of masterReq array
+ * @flags       Slave's flags (bit 0: whether the slave is shareable (1) or
+ *              exclusive (0) resource)
  */
 typedef struct PmSlave {
 	PmNode node;
@@ -184,6 +189,7 @@ typedef struct PmSlave {
 	const PmWakeProperties* wake;
 	const PmSlaveFsm* slvFsm;
 	u8 reqsCnt;
+	u8 flags;
 } PmSlave;
 
 /*********************************************************************
@@ -199,6 +205,7 @@ int PmCheckCapabilities(PmSlave* const slave, const u32 capabilities);
 
 bool PmSlaveRequiresPower(const PmSlave* const slave);
 
+int PmSlaveVerifyRequest(const PmSlave* const slave);
 int PmSlaveProcessWake(const u32 wakeMask);
 void PmSlaveWakeEnable(PmSlave* const slave);
 void PmSlaveWakeDisable(PmSlave* const slave);

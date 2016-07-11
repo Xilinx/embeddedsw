@@ -439,6 +439,11 @@ static void PmRequestNode(const PmMaster *master,
 		goto done;
 	}
 
+	status = PmSlaveVerifyRequest(masterReq->slave);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
 	/* Set requested capabilities if they are valid */
 	masterReq->info |= PM_MASTER_USING_SLAVE_MASK;
 	status = PmRequirementUpdate(masterReq, capabilities);

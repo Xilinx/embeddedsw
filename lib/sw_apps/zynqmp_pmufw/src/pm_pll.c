@@ -256,6 +256,7 @@ PmSlavePll pmSlaveApll_g = {
 		.reqsCnt = ARRAY_SIZE(pmApllReqs),
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
+		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
 	},
 	.context = {
 		.saved = false,
@@ -288,6 +289,7 @@ PmSlavePll pmSlaveVpll_g = {
 		.reqsCnt = ARRAY_SIZE(pmVpllReqs),
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
+		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
 	},
 	.context = {
 		.saved = false,
@@ -320,6 +322,7 @@ PmSlavePll pmSlaveDpll_g = {
 		.reqsCnt = ARRAY_SIZE(pmDpllReqs),
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
+		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
 	},
 	.context = {
 		.saved = false,
@@ -352,6 +355,7 @@ PmSlavePll pmSlaveRpll_g = {
 		.reqsCnt = ARRAY_SIZE(pmRpllReqs),
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
+		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
 	},
 	.context = {
 		.saved = false,
@@ -384,6 +388,7 @@ PmSlavePll pmSlaveIOpll_g = {
 		.reqsCnt = ARRAY_SIZE(pmIOpllReqs),
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
+		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
 	},
 	.context = {
 		.saved = false,

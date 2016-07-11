@@ -106,6 +106,7 @@ PmSlaveTtc pmSlaveTtc0_g = {
 		.reqsCnt = ARRAY_SIZE(pmTtc0Reqs),
 		.wake = &pmTtc0Wake,
 		.slvFsm = &slaveAonFsm,
+		.flags = 0U,
 	},
 };
 
@@ -135,6 +136,7 @@ PmSlaveTtc pmSlaveTtc1_g = {
 		.reqsCnt = ARRAY_SIZE(pmTtc1Reqs),
 		.wake = &pmTtc1Wake,
 		.slvFsm = &slaveAonFsm,
+		.flags = 0U,
 	},
 };
 
@@ -164,6 +166,7 @@ PmSlaveTtc pmSlaveTtc2_g = {
 		.reqsCnt = ARRAY_SIZE(pmTtc2Reqs),
 		.wake = &pmTtc2Wake,
 		.slvFsm = &slaveAonFsm,
+		.flags = 0U,
 	},
 };
 
@@ -193,6 +196,7 @@ PmSlaveTtc pmSlaveTtc3_g = {
 		.reqsCnt = ARRAY_SIZE(pmTtc3Reqs),
 		.wake = &pmTtc3Wake,
 		.slvFsm = &slaveAonFsm,
+		.flags = 0U,
 	},
 };
 
@@ -221,6 +225,7 @@ PmSlave pmSlaveUart0_g = {
 	.reqsCnt = ARRAY_SIZE(pmUart0Reqs),
 	.wake = &pmUart0Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmUart1Wake = {
@@ -248,6 +253,7 @@ PmSlave pmSlaveUart1_g = {
 	.reqsCnt = ARRAY_SIZE(pmUart1Reqs),
 	.wake = &pmUart1Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmSpi0Wake = {
@@ -275,6 +281,7 @@ PmSlave pmSlaveSpi0_g = {
 	.reqsCnt = ARRAY_SIZE(pmSpi0Reqs),
 	.wake = &pmSpi0Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmSpi1Wake = {
@@ -302,6 +309,7 @@ PmSlave pmSlaveSpi1_g = {
 	.reqsCnt = ARRAY_SIZE(pmSpi1Reqs),
 	.wake = &pmSpi1Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmI2C0Wake = {
@@ -329,6 +337,7 @@ PmSlave pmSlaveI2C0_g = {
 	.reqsCnt = ARRAY_SIZE(pmI2C0Reqs),
 	.wake = &pmI2C0Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmI2C1Wake = {
@@ -356,6 +365,7 @@ PmSlave pmSlaveI2C1_g = {
 	.reqsCnt = ARRAY_SIZE(pmI2C1Reqs),
 	.wake = &pmI2C1Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmSD0Wake = {
@@ -383,6 +393,7 @@ PmSlave pmSlaveSD0_g = {
 	.reqsCnt = ARRAY_SIZE(pmSD0Reqs),
 	.wake = &pmSD0Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmSD1Wake = {
@@ -410,6 +421,7 @@ PmSlave pmSlaveSD1_g = {
 	.reqsCnt = ARRAY_SIZE(pmSD1Reqs),
 	.wake = &pmSD1Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmCan0Wake = {
@@ -437,6 +449,7 @@ PmSlave pmSlaveCan0_g = {
 	.reqsCnt = ARRAY_SIZE(pmCan0Reqs),
 	.wake = &pmCan0Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmCan1Wake = {
@@ -464,6 +477,7 @@ PmSlave pmSlaveCan1_g = {
 	.reqsCnt = ARRAY_SIZE(pmCan1Reqs),
 	.wake = &pmCan1Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmEth0Wake = {
@@ -491,6 +505,7 @@ PmSlave pmSlaveEth0_g = {
 	.reqsCnt = ARRAY_SIZE(pmEth0Reqs),
 	.wake = &pmEth0Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmEth1Wake = {
@@ -518,6 +533,7 @@ PmSlave pmSlaveEth1_g = {
 	.reqsCnt = ARRAY_SIZE(pmEth1Reqs),
 	.wake = &pmEth1Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmEth2Wake = {
@@ -545,6 +561,7 @@ PmSlave pmSlaveEth2_g = {
 	.reqsCnt = ARRAY_SIZE(pmEth2Reqs),
 	.wake = &pmEth2Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmEth3Wake = {
@@ -572,6 +589,7 @@ PmSlave pmSlaveEth3_g = {
 	.reqsCnt = ARRAY_SIZE(pmEth3Reqs),
 	.wake = &pmEth3Wake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmRequirement* const pmAdmaReqs[] = {
@@ -594,6 +612,7 @@ PmSlave pmSlaveAdma_g = {
 	.reqsCnt = ARRAY_SIZE(pmAdmaReqs),
 	.wake = NULL,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmNandWake = {
@@ -621,6 +640,7 @@ PmSlave pmSlaveNand_g = {
 	.reqsCnt = ARRAY_SIZE(pmNandReqs),
 	.wake = &pmNandWake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmQSpiWake = {
@@ -648,6 +668,7 @@ PmSlave pmSlaveQSpi_g = {
 	.reqsCnt = ARRAY_SIZE(pmQSpiReqs),
 	.wake = &pmQSpiWake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmWakeProperties pmGpioWake = {
@@ -675,6 +696,7 @@ PmSlave pmSlaveGpio_g = {
 	.reqsCnt = ARRAY_SIZE(pmGpioReqs),
 	.wake = &pmGpioWake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 /*
@@ -735,6 +757,7 @@ PmSlaveSata pmSlaveSata_g = {
 		.reqsCnt = ARRAY_SIZE(pmSataReqs),
 		.wake = &pmSataWake,
 		.slvFsm = &slaveStdFsm,
+		.flags = 0U,
 	},
 };
 
@@ -829,6 +852,7 @@ PmSlaveGpp pmSlaveGpuPP0_g = {
 		.reqsCnt = ARRAY_SIZE(pmGpuPP0Reqs),
 		.wake = NULL,
 		.slvFsm = &slaveGPPFsm,
+		.flags = 0U,
 	},
 	.PwrDn = XpbrPwrDnPp0Handler,
 	.PwrUp = XpbrPwrUpPp0Handler,
@@ -855,6 +879,7 @@ PmSlaveGpp pmSlaveGpuPP1_g = {
 		.reqsCnt = ARRAY_SIZE(pmGpuPP1Reqs),
 		.wake = NULL,
 		.slvFsm = &slaveGPPFsm,
+		.flags = 0U,
 	},
 	.PwrDn = XpbrPwrDnPp1Handler,
 	.PwrUp = XpbrPwrUpPp1Handler,
@@ -880,6 +905,7 @@ PmSlave pmSlaveGdma_g = {
 	.reqsCnt = ARRAY_SIZE(pmGdmaReqs),
 	.wake = NULL,
 	.slvFsm = &slaveStdFsm,
+	.flags = 0U,
 };
 
 static PmRequirement* const pmDPReqs[] = {
@@ -902,6 +928,7 @@ PmSlave pmSlaveDP_g = {
 	.reqsCnt = ARRAY_SIZE(pmDPReqs),
 	.wake = NULL,
 	.slvFsm = &slaveStdFsm,
+	.flags = 0U,
 };
 
 static PmRequirement* const pmAFIReqs[] = {
@@ -924,6 +951,7 @@ PmSlave pmSlaveAFI_g = {
 	.reqsCnt = ARRAY_SIZE(pmAFIReqs),
 	.wake = NULL,
 	.slvFsm = &slaveStdFsm,
+	.flags = 0U,
 };
 
 static PmRequirement* const pmIpiApuReqs[] = {
@@ -951,6 +979,7 @@ PmSlave pmSlaveIpiApu_g = {
 	.reqsCnt = ARRAY_SIZE(pmIpiApuReqs),
 	.wake = &pmIpiApuWake,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmRequirement* const pmIpiRpu0Reqs[] = {
@@ -973,4 +1002,5 @@ PmSlave pmSlaveIpiRpu0_g = {
 	.reqsCnt = ARRAY_SIZE(pmIpiRpu0Reqs),
 	.wake = NULL,
 	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };

@@ -753,3 +753,35 @@ u32 PmSlaveGetRequirements(const u32 slavenode, const PmMaster *const master)
 done:
 	return currReq;
 }
+
+/**
+ * PmSlaveVerifyRequest() - Check whether PM framework can grant the request
+ * @slave       Slave node that is requested
+ *
+ * @return      XST_SUCCESS if the following condition is satisfied : (slave
+ *              is shareable) OR (it is exclusively used AND no other master
+ *              currently uses the slave)
+ *              XST_PM_NODE_USED otherwise
+ */
+int PmSlaveVerifyRequest(const PmSlave* const slave)
+{
+	int status = XST_SUCCESS;
+	u32 usage;
+
+	/* If slave is shareable the request is ok */
+	if (0U != (PM_SLAVE_FLAG_IS_SHAREABLE & slave->flags)) {
+		goto done;
+	}
+
+	usage = PmSlaveGetUsersMask(slave);
+	/* Slave is not shareable, if it is unused the request is ok */
+	if (0U == usage) {
+		goto done;
+	}
+
+	/* Slave request cannot be granted, node is non-shareable and used */
+	status = XST_PM_NODE_USED;
+
+done:
+	return status;
+}

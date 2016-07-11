@@ -910,4 +910,5 @@ PmSlave pmSlaveDdr_g = {
 	.reqsCnt = ARRAY_SIZE(pmDdrReqs),
 	.wake = NULL,
 	.slvFsm = &pmSlaveDdrFsm,
+	.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
 };
