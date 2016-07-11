@@ -56,6 +56,10 @@ u32 GpioPinMasterJtagTDO;
 u32 GpioPinMasterJtagTMS;
 u32 GpioPinMasterJtagTCK;
 
+u32 GpioPinHwmStart;
+u32 GpioPinHwmEnd;
+u32 GpioPinHwmReady;
+
 u32 GpioInPutCh;
 u32 GpioOutPutCh;
 
@@ -77,6 +81,10 @@ u32 GpioOutPutCh;
 #define GPIO_TMS			GpioPinMasterJtagTMS
 #define GPIO_TCK			GpioPinMasterJtagTCK
 
+#define GPIO_HWM_START		GpioPinHwmStart
+#define GPIO_HWM_READY		GpioPinHwmReady
+#define GPIO_HWM_END		GpioPinHwmEnd
+
 #define TAP_IR_LENGTH		(6)
 #define ZYNQ_DAP_IR_LENGTH		(4)
 
@@ -96,6 +104,7 @@ u32 GpioOutPutCh;
  */
 #define XSK_EFUSEPL_GPIO_CH1	(1)	/**< GPIO channel 1 */
 #define XSK_EFUSEPL_GPIO_CH2	(2)	/**< GPIO channel 2 */
+
 /**
  * XEfusePl is the PL eFUSE driver instance. Using this
  * structure, user can define the eFUSE bits to be
@@ -258,6 +267,21 @@ typedef struct {
 	 * Value on the MUX Selection line for ZYNQ
 	 */
 	u32 JtagMuxSelLineDefVal;/* Only for ZYNQ */
+	/*
+	 * Hardware module Start signal's GPIO pin
+	 * number
+	 */
+	u32 HwmGpioStart; /* Only for Ultrascale*/
+	/*
+	 * Hardware module Ready signal's GPIO pin
+	 * number
+	 */
+	u32 HwmGpioReady; /* Only for Ultrascale*/
+	/*
+	 * Hardware module End signal's GPIO pin
+	 * number
+	 */
+	u32 HwmGpioEnd; /* Only for Ultrascale*/
 	/* TDI AXI GPIO pin number for Ultrascale */
 	u32 JtagGpioTDI;	/* Only for Ultrascale */
 	/* TDO AXI GPIO pin number for Ultrascale */

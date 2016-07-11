@@ -50,6 +50,7 @@
 * 2.00  hk      22/01/14 Corrected PL voltage checks to VCCINT and VCCAUX.
 *                        CR#768077
 * 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+* 6.0   vns     07/07/16 Added Hardware module pins in eFUSE PL instance.
 *
 ****************************************************************************/
 #ifndef XILSKEY_EPL_H
@@ -266,6 +267,21 @@ typedef struct {
 	 * Value on the MUX Selection line for ZYNQ
 	 */
 	u32 JtagMuxSelLineDefVal;/* Only for ZYNQ */
+	/*
+	 * Hardware module Start signal's GPIO pin
+	 * number
+	 */
+	u32 HwmGpioStart; /* Only for Ultrascale*/
+	/*
+	 * Hardware module Ready signal's GPIO pin
+	 * number
+	 */
+	u32 HwmGpioReady; /* Only for Ultrascale*/
+	/*
+	 * Hardware module End signal's GPIO pin
+	 * number
+	 */
+	u32 HwmGpioEnd; /* Only for Ultrascale*/
 	/* TDI AXI GPIO pin number for Ultrascale */
 	u32 JtagGpioTDI;	/* Only for Ultrascale */
 	/* TDO AXI GPIO pin number for Ultrascale */
