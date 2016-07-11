@@ -54,6 +54,9 @@ typedef struct PmSlaveSram {
 	PmTranHandler PwrUp;
 	const u32 retCtrlAddr;
 	const u32 retCtrlMask;
+	uintptr_t base;
+	size_t size;
+	void (*eccInit)(struct PmSlaveSram *);
 } PmSlaveSram;
 
 /*********************************************************************

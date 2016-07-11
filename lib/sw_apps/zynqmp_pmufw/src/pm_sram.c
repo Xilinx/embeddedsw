@@ -37,6 +37,7 @@
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
 #include "crf_apb.h"
+#include "rpu.h"
 
 /* Power states of SRAM */
 #define PM_SRAM_STATE_OFF	0U
@@ -129,6 +130,9 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_SRAM_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = sram->PwrUp();
+			if (sram->eccInit) {
+				sram->eccInit(sram);
+			}
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -144,6 +148,30 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	}
 
 	return status;
+}
+
+static void eccInit(uintptr_t base, size_t sz)
+{
+	size_t i;
+
+	for (i = 0; i < sz; i += 4) {
+		Xil_Out32(base + i, 0);
+	}
+}
+
+static void tcm0EccInit(PmSlaveSram *sram)
+{
+	eccInit(sram->base, sram->size);
+}
+
+static void tcm1EccInit(PmSlaveSram *sram)
+{
+	uintptr_t base = sram->base;
+
+	if (Xil_In32(RPU_RPU_GLBL_CNTL) & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK) {
+		base -= 0x80000;
+	}
+	eccInit(base, sram->size);
 }
 
 /* Sram FSM */
@@ -373,6 +401,9 @@ PmSlaveSram pmSlaveTcm0A_g = {
 	.PwrUp = XpbrPwrUpTcm0AHandler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0A_MASK,
+	.size = 0x10000,
+	.base = 0xffe00000,
+	.eccInit = tcm0EccInit,
 };
 
 static PmRequirement* const pmTcm0BReqs[] = {
@@ -403,6 +434,9 @@ PmSlaveSram pmSlaveTcm0B_g = {
 	.PwrUp = XpbrPwrUpTcm0BHandler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0B_MASK,
+	.size = 0x10000,
+	.base = 0xffe20000,
+	.eccInit = tcm0EccInit,
 };
 
 static PmRequirement* const pmTcm1AReqs[] = {
@@ -433,6 +467,9 @@ PmSlaveSram pmSlaveTcm1A_g = {
 	.PwrUp = XpbrPwrUpTcm1AHandler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1A_MASK,
+	.size = 0x10000,
+	.base = 0xffe90000,
+	.eccInit = tcm1EccInit,
 };
 
 static PmRequirement* const pmTcm1BReqs[] = {
@@ -463,4 +500,7 @@ PmSlaveSram pmSlaveTcm1B_g = {
 	.PwrUp = XpbrPwrUpTcm1BHandler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1B_MASK,
+	.size = 0x10000,
+	.base = 0xffeb0000,
+	.eccInit = tcm1EccInit,
 };
