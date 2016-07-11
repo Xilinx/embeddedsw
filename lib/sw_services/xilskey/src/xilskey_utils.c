@@ -55,6 +55,9 @@
 *                        TimerTicks to 10us. As Hardware module only takes
 *                        care of programming time(5us), through software we
 *                        only need to control hardware module.
+*                        Modified sysmon read to 16 bit resolution as
+*                        sysmon driver has modified conversion formulae
+*                        to 16 bit resolution.
 *
  *****************************************************************************/
 
@@ -169,7 +172,7 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 #ifdef XSK_MICROBLAZE_PLATFORM
 	/* Temperature */
 	Jtag_Read_Sysmon(XSK_SYSMON_TEMP_ROW, &(XAdcInstancePtr->Temp));
-	XAdcInstancePtr->Temp = (XAdcInstancePtr->Temp) >> 6;
+	XAdcInstancePtr->Temp = (XAdcInstancePtr->Temp);
 	/* Voltage */
 	Jtag_Read_Sysmon(XSK_SYSMON_VOL_ROW, &(XAdcInstancePtr->V));
 #endif
