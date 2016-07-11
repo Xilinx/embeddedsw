@@ -33,6 +33,7 @@
 #include "pm_client.h"
 #include "pm_common.h"
 #include "pm_api_sys.h"
+#include "pm_callbacks.h"
 
 /** @name Payload Packets
  *
