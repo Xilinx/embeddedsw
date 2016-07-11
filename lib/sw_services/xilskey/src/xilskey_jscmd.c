@@ -122,6 +122,9 @@ extern u32 TimerTicksfor100ns;
 extern u32 TimerTicksfor500ns;
 u32 GpoOutValue = 0;
 
+static inline int JtagValidateMioPins_Efuse_Ultra();
+static inline int JtagValidateMioPins_Bbram_Ultra();
+
 void dummy_printf(const char *ctrl1, ...)
 {
 	return;
@@ -192,7 +195,7 @@ void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
 	*(volatile unsigned long *) addr = ( val & mask ) | ( current_val  & ~mask);
 }
 
-void JtagInitGpio ()
+void JtagInitGpio (XilSKey_ModuleSelection Module)
 {
 #ifdef XSK_ARM_PLATFORM
 	js_printf("===== Initializing PS GPIO pins...\n\r");
@@ -236,8 +239,13 @@ void JtagInitGpio ()
 		DataDirection = XGpio_GetDataDirection(&structXGpio,
 							GpioInPutCh);
 		DataDirection = DataDirection & (~((1 << GPIO_TDI) |
-					(1 << GPIO_TCK) | (GPIO_TMS)));
+					(1 << GPIO_TCK) | (1 << GPIO_TMS)));
 		DataDirection = DataDirection | (1 << GPIO_TDO);
+		if (Module == XSK_EFUSE) {
+			DataDirection = DataDirection | ~(1 << GPIO_HWM_START);
+			DataDirection = DataDirection |
+				(1 << GPIO_HWM_READY) | (1 << GPIO_HWM_END);
+		}
 		XGpio_SetDataDirection(&structXGpio, GpioInPutCh,
 							DataDirection);
 	}
@@ -245,13 +253,22 @@ void JtagInitGpio ()
 		DataDirection = XGpio_GetDataDirection(&structXGpio,
 							GpioOutPutCh);
 		DataDirection = DataDirection & (~((1 << GPIO_TDI) |
-					(1 << GPIO_TCK) | (GPIO_TMS)));
+					(1 << GPIO_TCK) | (1 << GPIO_TMS)));
+		if (Module == XSK_EFUSE) {
+			DataDirection = DataDirection |
+						~(1 << GPIO_HWM_START);
+		}
 		XGpio_SetDataDirection(&structXGpio, GpioOutPutCh,
 							DataDirection);
 
 		DataDirection = XGpio_GetDataDirection(&structXGpio,
 							GpioInPutCh);
 		DataDirection = DataDirection | (1 << GPIO_TDO);
+
+		if (Module == XSK_EFUSE) {
+			DataDirection = DataDirection |
+					(1 << GPIO_HWM_READY) | (1 << GPIO_HWM_END);
+		}
 		XGpio_SetDataDirection(&structXGpio, GpioInPutCh,
 							DataDirection);
 	}
@@ -624,6 +641,7 @@ int readPin (int pin)
 	int retVal = XGpioPs_ReadPin(&structXGpioPs, pin);
 #else
 	int retVal = XGpio_DiscreteRead(&structXGpio, GpioInPutCh);
+	retVal = retVal & (1 << pin);
 	retVal = retVal ? 1: 0;
 #endif
 
@@ -1180,7 +1198,7 @@ void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOp
 		row_data_ptr[2] = rdBuffer [6];
 		row_data_ptr[3] = rdBuffer [7];
 }
-int JtagValidateMioPins(void)
+int JtagValidateMioPins(XilSKey_ModuleSelection Module)
 {
 #ifdef XSK_ARM_PLATFORM
 	/*
@@ -1223,58 +1241,14 @@ int JtagValidateMioPins(void)
 	if(g_mio_jtag_tms == g_mio_jtag_mux_sel)
 		return 1;
 #else
-	/*
-	 * Make sure that each every AXI GPIO pin defined is valid
-	 */
-	if (GpioPinMasterJtagTDI > 31) {
-		return 1;
-	}
-	if (GpioPinMasterJtagTDO > 31) {
-		return 1;
-	}
-	if (GpioPinMasterJtagTMS > 31) {
-		return 1;
-	}
-	if (GpioPinMasterJtagTCK > 31) {
-		return 1;
+	if (Module == XSK_EFUSE) {
+		if (JtagValidateMioPins_Efuse_Ultra() != 0x00) {
+			return 1;
+		}
 	}
 
-	/*
-	 * Make sure that provided channel numbers of GPIO is valid
-	 */
-	if ((GpioInPutCh < XSK_EFUSEPL_GPIO_CH1) ||
-			(GpioInPutCh > XSK_EFUSEPL_GPIO_CH2)) {
-		return 1;
-	}
-	if ((GpioOutPutCh < XSK_EFUSEPL_GPIO_CH1) ||
-			(GpioOutPutCh > XSK_EFUSEPL_GPIO_CH2)) {
-		return 1;
-	}
-	/*
-	 * Make sure that GPIO pins defined for JTAG operation are
-	 * unique among themselves
-	 */
-	/* If both input and output channels is same */
-	if (GpioInPutCh == GpioOutPutCh) {
-		if((GpioPinMasterJtagTDI == GpioPinMasterJtagTDO)||
-			(GpioPinMasterJtagTDI == GpioPinMasterJtagTMS)||
-			(GpioPinMasterJtagTDI == GpioPinMasterJtagTCK)) {
-			return 1;
-		}
-		if((GpioPinMasterJtagTDO == GpioPinMasterJtagTMS)||
-			(GpioPinMasterJtagTDO == GpioPinMasterJtagTCK)) {
-			return 1;
-		}
-		if((GpioPinMasterJtagTMS == GpioPinMasterJtagTCK)) {
-			return 1;
-		}
-	}
-	else {
-		if((GpioPinMasterJtagTDI == GpioPinMasterJtagTMS)||
-			(GpioPinMasterJtagTDI == GpioPinMasterJtagTCK)) {
-			return 1;
-		}
-		if((GpioPinMasterJtagTMS == GpioPinMasterJtagTCK)) {
+	if (Module == XSK_BBRAM) {
+		if (JtagValidateMioPins_Bbram_Ultra() != 0x00) {
 			return 1;
 		}
 	}
@@ -1297,7 +1271,7 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
     g_mio_jtag_mux_sel	=	InstancePtr->JtagMioMuxSel;
     g_mux_sel_def_val   =   InstancePtr->JtagMuxSelLineDefVal;
 
-    status = JtagValidateMioPins();
+    status = JtagValidateMioPins(XSK_EFUSE);
     if(status != 0)
     {
 	return 1;
@@ -1313,17 +1287,22 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 	GpioPinMasterJtagTMS = InstancePtr->JtagGpioTMS;
 	GpioPinMasterJtagTCK = InstancePtr->JtagGpioTCK;
 
+	GpioPinHwmReady = InstancePtr->HwmGpioReady;
+	GpioPinHwmStart = InstancePtr->HwmGpioStart;
+	GpioPinHwmEnd = InstancePtr->HwmGpioEnd;
+
+
 	GpioInPutCh = InstancePtr->GpioInputCh;
 	GpioOutPutCh = InstancePtr->GpioOutPutCh;
 
-	status = JtagValidateMioPins();
+	status = JtagValidateMioPins(XSK_EFUSE);
 	if(status != 0)
 	{
 	   return 1;
 	}
 
 #endif
-    JtagInitGpio();
+    JtagInitGpio(XSK_EFUSE);
 
     g_js = js_init_zynq();
     if (g_js == NULL) {
@@ -1415,7 +1394,7 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
     g_mio_jtag_mux_sel	=	InstancePtr->JtagMioMuxSel;
     g_mux_sel_def_val   =   InstancePtr->JtagMuxSelLineDefVal;
 
-    status = JtagValidateMioPins();
+    status = JtagValidateMioPins(XSK_BBRAM);
     if(status != 0)
     {
 	return 1;
@@ -1435,13 +1414,13 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 	GpioInPutCh = InstancePtr->GpioInputCh;
 	GpioOutPutCh = InstancePtr->GpioOutPutCh;
 
-	status = JtagValidateMioPins();
+	status = JtagValidateMioPins(XSK_BBRAM);
 	if (status != 0) {
 	  return 1;
 	}
 
 #endif
-    JtagInitGpio();
+    JtagInitGpio(XSK_BBRAM);
 
     g_js = js_init_zynq();
     if (g_js == NULL) {
@@ -2711,5 +2690,202 @@ int Bbram_VerifyKey_Ultra(u32 *Crc32)
 	}
 
 	return Status;
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function validates GPIO pin connections of Master JTAG and hardware
+* module for eFUSE programming.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+static inline int JtagValidateMioPins_Efuse_Ultra(void)
+{
+
+	/*
+	 * Make sure that each every AXI GPIO pin defined is valid
+	 */
+	if (GpioPinMasterJtagTDI > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinMasterJtagTDO > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinMasterJtagTMS > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinMasterJtagTCK > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinHwmStart > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinHwmEnd > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinHwmReady > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Make sure that provided channel numbers of GPIO is valid
+	 */
+	if ((GpioInPutCh < XSK_EFUSEPL_GPIO_CH1) ||
+			(GpioInPutCh > XSK_EFUSEPL_GPIO_CH2)) {
+		return XST_FAILURE;
+	}
+	if ((GpioOutPutCh < XSK_EFUSEPL_GPIO_CH1) ||
+			(GpioOutPutCh > XSK_EFUSEPL_GPIO_CH2)) {
+		return XST_FAILURE;
+	}
+	/*
+	 * Make sure that GPIO pins defined for JTAG operation are
+	 * unique among themselves
+	 */
+
+	/* If both input and output channels is same */
+	if (GpioInPutCh == GpioOutPutCh) {
+		if((GpioPinMasterJtagTDI == GpioPinMasterJtagTDO)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTCK)||
+			(GpioPinMasterJtagTDI == GpioPinHwmStart) ||
+			(GpioPinMasterJtagTDI == GpioPinHwmEnd) ||
+			(GpioPinMasterJtagTDI == GpioPinHwmReady)) {
+			return XST_FAILURE;
+		}
+		if((GpioPinMasterJtagTDO == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDO == GpioPinMasterJtagTCK) ||
+			(GpioPinMasterJtagTDO == GpioPinHwmStart) ||
+			(GpioPinMasterJtagTDO == GpioPinHwmEnd) ||
+			(GpioPinMasterJtagTDO == GpioPinHwmReady)) {
+			return XST_FAILURE;
+		}
+		if((GpioPinMasterJtagTMS == GpioPinMasterJtagTCK) ||
+			(GpioPinMasterJtagTMS == GpioPinHwmStart) ||
+			(GpioPinMasterJtagTMS == GpioPinHwmEnd) ||
+			(GpioPinMasterJtagTMS == GpioPinHwmReady)) {
+			return XST_FAILURE;
+		}
+		if ((GpioPinMasterJtagTCK == GpioPinHwmStart) ||
+			(GpioPinMasterJtagTCK == GpioPinHwmEnd) ||
+			(GpioPinMasterJtagTCK == GpioPinHwmReady)) {
+			return XST_FAILURE;
+		}
+		if ((GpioPinHwmStart == GpioPinHwmEnd) ||
+			(GpioPinHwmStart == GpioPinHwmReady)) {
+			return XST_FAILURE;
+		}
+		if (GpioPinHwmEnd == GpioPinHwmReady) {
+			return XST_FAILURE;
+		}
+	}
+	else {
+		/* Signals as output to GPIO */
+		if((GpioPinMasterJtagTDI == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTCK) ||
+			(GpioPinMasterJtagTDI == GpioPinHwmStart)) {
+			return XST_FAILURE;
+		}
+		if((GpioPinMasterJtagTMS == GpioPinMasterJtagTCK) ||
+			(GpioPinMasterJtagTMS == GpioPinHwmStart)) {
+			return XST_FAILURE;
+		}
+		if (GpioPinMasterJtagTCK == GpioPinHwmStart) {
+			return XST_FAILURE;
+		}
+
+		/* Signals as input to GPIO */
+		if ((GpioPinMasterJtagTDO == GpioPinHwmEnd) ||
+			(GpioPinMasterJtagTDO == GpioPinHwmReady)) {
+			return XST_FAILURE;
+		}
+		if (GpioPinHwmEnd == GpioPinHwmReady) {
+			return XST_FAILURE;
+		}
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
+* This function validates GPIO pin connections of Master JTAG and hardware
+* module for BBRAM programming.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		Hardware module is not required over here.
+*
+*****************************************************************************/
+static inline int JtagValidateMioPins_Bbram_Ultra()
+{
+	/*
+	 * Make sure that each every AXI GPIO pin defined is valid
+	 */
+	if (GpioPinMasterJtagTDI > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinMasterJtagTDO > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinMasterJtagTMS > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+	if (GpioPinMasterJtagTCK > XSK_GPIO_PIN_MAX) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Make sure that provided channel numbers of GPIO is valid
+	 */
+	if ((GpioInPutCh < XSK_EFUSEPL_GPIO_CH1) ||
+			(GpioInPutCh > XSK_EFUSEPL_GPIO_CH2)) {
+		return XST_FAILURE;
+	}
+	if ((GpioOutPutCh < XSK_EFUSEPL_GPIO_CH1) ||
+			(GpioOutPutCh > XSK_EFUSEPL_GPIO_CH2)) {
+		return XST_FAILURE;
+	}
+	/*
+	 * Make sure that GPIO pins defined for JTAG operation are
+	 * unique among themselves
+	 */
+	/* If both input and output channels is same */
+	if (GpioInPutCh == GpioOutPutCh) {
+		if((GpioPinMasterJtagTDI == GpioPinMasterJtagTDO)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTCK)) {
+			return XST_FAILURE;
+		}
+		if((GpioPinMasterJtagTDO == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDO == GpioPinMasterJtagTCK)) {
+			return XST_FAILURE;
+		}
+		if((GpioPinMasterJtagTMS == GpioPinMasterJtagTCK)) {
+			return XST_FAILURE;
+		}
+	}
+	else {
+		if((GpioPinMasterJtagTDI == GpioPinMasterJtagTMS)||
+			(GpioPinMasterJtagTDI == GpioPinMasterJtagTCK)) {
+			return XST_FAILURE;
+		}
+		if((GpioPinMasterJtagTMS == GpioPinMasterJtagTCK)) {
+			return XST_FAILURE;
+		}
+	}
+
+	return XST_SUCCESS;
 
 }

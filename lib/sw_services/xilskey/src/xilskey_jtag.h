@@ -38,11 +38,12 @@ extern "C" {
 #endif
 
 #include "xil_types.h"
+#include "xilskey_jscmd.h"
 
-void JtagInitGpio();
+void JtagInitGpio(XilSKey_Register Register);
 void GpioConfig(volatile unsigned long *addr, unsigned long mask, unsigned long val);
 int JtagServerInit(XilSKey_EPl *PlInstancePtr);
-int JtagValidateMioPins(void);
+int JtagValidateMioPins(XilSKey_Register Register);
 void JtagWrite(unsigned char row, unsigned char bit);
 void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOption);
 void JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant);

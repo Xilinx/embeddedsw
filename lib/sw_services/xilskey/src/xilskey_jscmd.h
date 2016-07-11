@@ -105,6 +105,18 @@ u32 GpioOutPutCh;
 #define XSK_EFUSEPL_GPIO_CH1	(1)	/**< GPIO channel 1 */
 #define XSK_EFUSEPL_GPIO_CH2	(2)	/**< GPIO channel 2 */
 
+/* Maximum valid GPIO number */
+#define XSK_GPIO_PIN_MAX	(31)	/**< Maximum valid
+					  * gpio pin number */
+
+/**
+ * Option selection among efuse and bbram
+ */
+typedef enum {
+	XSK_EFUSE,		/* For eFUSE */
+	XSK_BBRAM		/* For BBRAM */
+} XilSKey_ModuleSelection;
+
 /**
  * XEfusePl is the PL eFUSE driver instance. Using this
  * structure, user can define the eFUSE bits to be
