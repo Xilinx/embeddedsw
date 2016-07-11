@@ -653,7 +653,7 @@ static void PmForcePowerDownChildren(const PmPower* const parent)
  */
 int PmForceDownTree(PmPower* const root)
 {
-	int status = XST_PM_INTERNAL;
+	int status = XST_SUCCESS;
 	PmPower* lowestParent;
 
 	if (NULL == root) {
@@ -663,7 +663,8 @@ int PmForceDownTree(PmPower* const root)
 	do {
 		lowestParent = PmGetLowestParent(root);
 		PmForcePowerDownChildren(lowestParent);
-		if (true == NODE_HAS_SLEEP(lowestParent->node.ops)) {
+		if ((true == NODE_HAS_SLEEP(lowestParent->node.ops)) &&
+		    (false == NODE_IS_OFF(&lowestParent->node))) {
 			status = lowestParent->node.ops->sleep(&lowestParent->node);
 		}
 	} while ((lowestParent != root) && (XST_SUCCESS == status));
