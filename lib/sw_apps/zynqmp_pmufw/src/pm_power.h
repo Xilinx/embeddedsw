@@ -38,6 +38,7 @@
 
 #include "pm_common.h"
 #include "pm_node.h"
+#include "pm_master.h"
 
 /*********************************************************************
  * Macros
@@ -61,12 +62,17 @@
  * @pwrDnLatency Latency (in us) for transition to OFF state
  * @pwrUpLatency Latency (in us) for transition to ON state
  * @childCnt Number of childs in children array
+ * @permissions ORed flags of masters which are allowed to directly control the
+ *              state of the power node
+ * @requests ORed flags of masters which have requested the power node
  */
 typedef struct PmPower {
 	PmNode node;
 	PmNode** const children;
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
+	u32 permissions;
+	u32 requests;
 	const u8 childCnt;
 } PmPower;
 
@@ -83,5 +89,8 @@ extern PmPower pmPowerDomainFpd_g;
 void PmOpportunisticSuspend(PmPower* const power);
 int PmTriggerPowerUp(PmPower* const power);
 int PmForceDownTree(PmPower* const root);
+
+int PmPowerRequest(const PmMaster* const master, PmPower* const power);
+int PmPowerRelease(const PmMaster* const master, PmPower* const power);
 
 #endif

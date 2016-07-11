@@ -317,6 +317,8 @@ PmPower pmPowerIslandRpu_g = {
 	.childCnt = ARRAY_SIZE(pmRpuChildren),
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.permissions = IPI_PMU_0_IER_APU_MASK,
+	.requests = 0U,
 };
 
 /*
@@ -341,6 +343,8 @@ PmPower pmPowerIslandApu_g = {
 	.childCnt = ARRAY_SIZE(pmApuChildren),
 	.pwrDnLatency = 0,
 	.pwrUpLatency = 0,
+	.permissions = 0U,
+	.requests = 0U,
 };
 
 PmPower pmPowerDomainFpd_g = {
@@ -359,6 +363,8 @@ PmPower pmPowerDomainFpd_g = {
 	.childCnt = ARRAY_SIZE(pmFpdChildren),
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+	.permissions = 0U,
+	.requests = 0U,
 };
 
 /**
@@ -458,7 +464,8 @@ void PmOpportunisticSuspend(PmPower* const powerParent)
 		worstCaseLatency = power->pwrUpLatency + power->pwrDnLatency;
 
 		if ((false == PmHasAwakeChild(power)) &&
-		    (true == NODE_HAS_SLEEP(power->node.ops))) {
+		    (true == NODE_HAS_SLEEP(power->node.ops)) &&
+		    (0U == power->requests)) {
 			/* Note: latencyMarg field updated by PmHasAwakeChild */
 			if (worstCaseLatency < power->node.latencyMarg) {
 				/* Call sleep function of this power node */
@@ -656,6 +663,75 @@ int PmForceDownTree(PmPower* const root)
 			status = lowestParent->node.ops->sleep(&lowestParent->node);
 		}
 	} while ((lowestParent != root) && (XST_SUCCESS == status));
+
+done:
+	return status;
+}
+
+/**
+ * PmPowerRequest() - Explicit request for power node (power up)
+ * @master	Master which has requested power node
+ * @power	The requested node
+ * @return	Status of processing request
+ * @note	If the request is processed successfully the power node ON
+ *		state is granted to the caller
+ */
+int PmPowerRequest(const PmMaster* const master, PmPower* const power)
+{
+	int status = XST_SUCCESS;
+
+	/* Check whether the master is allowed to request the power node */
+	if (0U == (master->ipiMask & power->permissions)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Power up the whole power parent hierarchy if needed */
+	if (true == NODE_IS_OFF(&power->node)) {
+		status = PmTriggerPowerUp(power);
+	}
+
+	/* Remember master's mask if request is processed successfully */
+	if (XST_SUCCESS == status) {
+		power->requests |= master->ipiMask;
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmPowerRelease() - Explicit release for power node
+ * @master	Master which has requested power node
+ * @power	The requested node
+ * @return	Status of processing request
+ * @note	If the master has previously had the grant for the power node
+ *		state, after this call is performed the power node may be
+ *		turned off. Whether it will be turned off depends on other
+ *		requests (related to slaves, latencies, etc.)
+ */
+int PmPowerRelease(const PmMaster* const master, PmPower* const power)
+{
+	int status = XST_SUCCESS;
+
+	/* Check whether the master has permissions for the power node ops */
+	if (0U == (master->ipiMask & power->permissions)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Clear the request flag */
+	power->requests &= ~master->ipiMask;
+
+	/*
+	 * If no other master has explicitely requested power node we call
+	 * opportunistic suspend. It will take care of all dependencies that
+	 * might exist with respect to the slaves or latencies. If there are
+	 * no dependencies the power node will be powered down.
+	 */
+	if (0U == power->requests) {
+		PmOpportunisticSuspend(power);
+	}
 
 done:
 	return status;

@@ -336,9 +336,22 @@ static void PmReleaseNode(const PmMaster *master,
 {
 	int status;
 	u32 usage;
+	PmRequirement* masterReq;
+	PmNode* nodePtr;
+
+	nodePtr = PmGetNodeById(node);
+	if (NULL == nodePtr) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (true == NODE_IS_POWER(nodePtr->typeId)) {
+		status = PmPowerRelease(master, (PmPower*)nodePtr->derived);
+		goto done;
+	}
 
 	/* Get static requirements structure for this master/slave pair */
-	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
+	masterReq = PmGetRequirementForSlave(master, node);
 
 	if (NULL == masterReq) {
 		status = XST_PM_NO_ACCESS;
@@ -390,15 +403,29 @@ static void PmRequestNode(const PmMaster *master,
 {
 	int status;
 	u32 oppoint = 0U;
+	PmRequirement* masterReq;
+	PmNode* nodePtr;
+
+	PmDbg("(%s, %lu, %lu, %s)\n", PmStrNode(node), capabilities,
+	      qos, PmStrAck(ack));
+
+	nodePtr = PmGetNodeById(node);
+	if (NULL == nodePtr) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (true == NODE_IS_POWER(nodePtr->typeId)) {
+		status = PmPowerRequest(master, (PmPower*)nodePtr->derived);
+		goto done;
+	}
+
 	/*
 	 * Each legal master/slave pair will have one static PmRequirement data
 	 * structure. Retrieve the pointer to the structure in order to set the
 	 * requested capabilities and mark slave as used by this master.
 	 */
-	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
-
-	PmDbg("(%s, %lu, %lu, %s)\n", PmStrNode(node), capabilities,
-	      qos, PmStrAck(ack));
+	masterReq = PmGetRequirementForSlave(master, node);
 
 	if (NULL == masterReq) {
 		/* Master is not allowed to use the slave with given node */
