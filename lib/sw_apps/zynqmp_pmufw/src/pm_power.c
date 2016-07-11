@@ -102,6 +102,47 @@ static void PmFpdRestoreContext(void)
 }
 
 /**
+ * PmUserHookPowerGood - Check power supply
+ * @node	Node associated with supply rail
+ * @power	Indicating transition to on (!=0) or off (==0)
+ *
+ * This function can check/wait for @supply to be stable at @power.
+ *
+ * @return	XST_SUCCESS or an error code.
+ */
+#pragma weak PmUserHookPowerGood
+int PmUserHookPowerGood(unsigned int node, bool power)
+{
+	/* give time for supplies to settle on power up */
+	if (power) {
+		sleep(1);
+	}
+
+	return XST_SUCCESS;
+}
+
+/**
+ * PmUserHookPowerDownFpd - Power down FPD
+ *
+ * This function powers down the FP supply.
+ *
+ * @return	XST_SUCCESS or an error code.
+ */
+#pragma weak PmUserHookPowerDownFpd
+int PmUserHookPowerDownFpd(void)
+{
+	int status = XpbrPwrDnFpdHandler();
+	if (XST_SUCCESS != status) {
+		goto err;
+	}
+
+	status = PmUserHookPowerGood(NODE_FPD, 0);
+
+err:
+	return status;
+}
+
+/**
  * PmPowerDownFpd() - Power down FPD domain
  *
  * @return      Status of the pmu-rom operations
@@ -114,7 +155,11 @@ static int PmPowerDownFpd(void)
 	PmFpdSaveContext();
 
 	PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
-	status = XpbrPwrDnFpdHandler();
+
+	status = PmUserHookPowerDownFpd();
+	if (XST_SUCCESS != status) {
+		goto err;
+	}
 
 	/*
 	 * When FPD is powered off, the APU-GIC will be affected too.
@@ -123,6 +168,7 @@ static int PmPowerDownFpd(void)
 	 */
 	PmEnableProxyWake(&pmMasterApu_g);
 
+err:
 	return status;
 }
 
@@ -167,18 +213,38 @@ done:
 }
 
 /**
- * PmPowerUpFpd() - Power up FPD domain
+ * PmUserHookPowerUpFpd - Power up FPD
  *
- * @return      Status of the pmu-rom operations
+ * This function powers up the FP supply.
+ *
+ * @return	XST_SUCCESS or an error code.
  */
-static int PmPowerUpFpd(void)
+#pragma weak PmUserHookPowerUpFpd
+int PmUserHookPowerUpFpd(void)
 {
 	int status = XpbrPwrUpFpdHandler();
 
 	if (XST_SUCCESS != status) {
 		goto err;
 	}
-	sleep(1);
+
+	status = PmUserHookPowerGood(NODE_FPD, 1);
+
+err:
+	return status;
+}
+
+/**
+ * PmPowerUpFpd() - Power up FPD domain
+ *
+ * @return      Status of the pmu-rom operations
+ */
+static int PmPowerUpFpd(void)
+{
+	int status = PmUserHookPowerUpFpd();
+	if (XST_SUCCESS != status) {
+		goto err;
+	}
 
 	status = PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_RELEASE);
 	if (XST_SUCCESS != status) {
