@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2016-07-11
+	* Change Zynq BD space attributes to device memory.
 2016-04-07
 	* Correct return handling in xemacps phy negotiation.
 2016-02-11

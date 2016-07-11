@@ -549,7 +549,7 @@ XStatus init_dma(struct xemac_s *xemac)
 #if defined __aarch64__
 	Xil_SetTlbAttributes((u64)bd_space, NORM_NONCACHE | INNER_SHAREABLE);
 #else
-	Xil_SetTlbAttributes((s32_t)bd_space, NORM_NONCACHE); // addr, attr
+	Xil_SetTlbAttributes((s32_t)bd_space, DEVICE_MEMORY); // addr, attr
 #endif
 #endif
 		bd_space_attr_set = 1;
