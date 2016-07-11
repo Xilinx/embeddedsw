@@ -252,6 +252,10 @@ static PmNode* pmApuChildren[] = {
 static PmNode* pmRpuChildren[] = {
 	&pmRpuProcs_g[PM_PROC_RPU_0].node,
 	&pmRpuProcs_g[PM_PROC_RPU_1].node,
+	&pmSlaveTcm0A_g.slv.node,
+	&pmSlaveTcm0B_g.slv.node,
+	&pmSlaveTcm1A_g.slv.node,
+	&pmSlaveTcm1B_g.slv.node,
 };
 
 static PmNode* pmFpdChildren[] = {

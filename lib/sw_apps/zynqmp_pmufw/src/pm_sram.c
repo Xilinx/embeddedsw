@@ -56,6 +56,13 @@ static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 	[PM_SRAM_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
 };
 
+/* TCMs in retention do not require power parent to be ON */
+static const u32 pmTcmStates[PM_SRAM_STATE_MAX] = {
+	[PM_SRAM_STATE_OFF] = 0U,
+	[PM_SRAM_STATE_RET] = PM_CAP_CONTEXT,
+	[PM_SRAM_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
+};
+
 /* Sram transition table (from which to which state sram can transit) */
 static const PmStateTran pmSramTransitions[] = {
 	{
@@ -142,6 +149,18 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 /* Sram FSM */
 static const PmSlaveFsm slaveSramFsm = {
 	.states = pmSramStates,
+	.statesCnt = PM_SRAM_STATE_MAX,
+	.trans = pmSramTransitions,
+	.transCnt = ARRAY_SIZE(pmSramTransitions),
+	.enterState = PmSramFsmHandler,
+};
+
+/*
+ * TCM FSM (states are the same as for SRAM, but the encoding in the retention
+ * state is not)
+ */
+static const PmSlaveFsm slaveTcmFsm = {
+	.states = pmTcmStates,
 	.statesCnt = PM_SRAM_STATE_MAX,
 	.trans = pmSramTransitions,
 	.transCnt = ARRAY_SIZE(pmSramTransitions),
@@ -332,7 +351,7 @@ PmSlaveSram pmSlaveTcm0A_g = {
 			.derived = &pmSlaveTcm0A_g,
 			.nodeId = NODE_TCM_0_A,
 			.typeId = PM_TYPE_SRAM,
-			.parent = NULL,
+			.parent = &pmPowerIslandRpu_g,
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
@@ -342,7 +361,7 @@ PmSlaveSram pmSlaveTcm0A_g = {
 		.reqs = pmTcm0AReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm0AReqs),
 		.wake = NULL,
-		.slvFsm = &slaveSramFsm,
+		.slvFsm = &slaveTcmFsm,
 	},
 	.PwrDn = XpbrPwrDnTcm0AHandler,
 	.PwrUp = XpbrPwrUpTcm0AHandler,
@@ -361,7 +380,7 @@ PmSlaveSram pmSlaveTcm0B_g = {
 			.derived = &pmSlaveTcm0B_g,
 			.nodeId = NODE_TCM_0_B,
 			.typeId = PM_TYPE_SRAM,
-			.parent = NULL,
+			.parent = &pmPowerIslandRpu_g,
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
@@ -371,7 +390,7 @@ PmSlaveSram pmSlaveTcm0B_g = {
 		.reqs = pmTcm0BReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm0BReqs),
 		.wake = NULL,
-		.slvFsm = &slaveSramFsm,
+		.slvFsm = &slaveTcmFsm,
 	},
 	.PwrDn = XpbrPwrDnTcm0BHandler,
 	.PwrUp = XpbrPwrUpTcm0BHandler,
@@ -390,7 +409,7 @@ PmSlaveSram pmSlaveTcm1A_g = {
 			.derived = &pmSlaveTcm1A_g,
 			.nodeId = NODE_TCM_1_A,
 			.typeId = PM_TYPE_SRAM,
-			.parent = NULL,
+			.parent = &pmPowerIslandRpu_g,
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
@@ -400,7 +419,7 @@ PmSlaveSram pmSlaveTcm1A_g = {
 		.reqs = pmTcm1AReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm1AReqs),
 		.wake = NULL,
-		.slvFsm = &slaveSramFsm,
+		.slvFsm = &slaveTcmFsm,
 	},
 	.PwrDn = XpbrPwrDnTcm1AHandler,
 	.PwrUp = XpbrPwrUpTcm1AHandler,
@@ -419,7 +438,7 @@ PmSlaveSram pmSlaveTcm1B_g = {
 			.derived = &pmSlaveTcm1B_g,
 			.nodeId = NODE_TCM_1_B,
 			.typeId = PM_TYPE_SRAM,
-			.parent = NULL,
+			.parent = &pmPowerIslandRpu_g,
 			.currState = PM_SRAM_STATE_ON,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
@@ -429,7 +448,7 @@ PmSlaveSram pmSlaveTcm1B_g = {
 		.reqs = pmTcm1BReqs,
 		.reqsCnt = ARRAY_SIZE(pmTcm1BReqs),
 		.wake = NULL,
-		.slvFsm = &slaveSramFsm,
+		.slvFsm = &slaveTcmFsm,
 	},
 	.PwrDn = XpbrPwrDnTcm1BHandler,
 	.PwrUp = XpbrPwrUpTcm1BHandler,
