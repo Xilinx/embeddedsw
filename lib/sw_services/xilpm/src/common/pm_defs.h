@@ -35,6 +35,8 @@
  * @file pm_defs.h
  *
  * PM Definitions implementation
+ * @addtogroup xpm_apis XilPM APIs
+ * @{
  *****************************************************************************/
 
 #ifndef PM_DEFS_H_
@@ -93,9 +95,8 @@
 #define PM_RESTART	1U
 /*@}*/
 
-/** @name
- *  APIs for Miscellaneous functions, suspending of PUs
- *  managing PM slaves and Direct control.
+/**
+ *  @name APIs for Miscellaneous functions, suspending of PUs, managing PM slaves and Direct control.
  */
 enum XPmApiId {
 	/** Miscellaneous API functions: */
@@ -415,5 +416,5 @@ enum XPmNotifyEvent {
 	EVENT_ZERO_USERS = 2,
 	EVENT_ERROR_CONDITION = 4,
 };
-
+ /** @} */
 #endif /* PM_DEFS_H_ */

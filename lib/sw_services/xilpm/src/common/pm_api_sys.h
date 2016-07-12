@@ -33,8 +33,13 @@
 /*****************************************************************************/
 /**
  * @file pm_api_sys.h
- *
  * PM API System implementation
+ * @addtogroup xpm_apis XilPM APIs
+ *
+ * XilPM provides Extensible Energy Management Interface (EEMI) APIs for
+ * power management on Zynq MPSoC. For more details about power management
+ * on Zynq MPSoC, please refer to UG1199. EEMI is documented in UG1200.
+ * @{
  *****************************************************************************/
 
 #ifndef _PM_API_SYS_H_
@@ -52,7 +57,7 @@ void XPm_SuspendFinalize();
 
 enum XPmBootStatus XPm_GetBootStatus();
 
-/** System-level API function declarations */
+/**  System-level API function declarations */
 XStatus XPm_RequestSuspend(const enum XPmNodeId node,
 			   const enum XPmRequestAck ack,
 			   const u32 latency,
@@ -79,8 +84,8 @@ XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 
 XStatus XPm_SystemShutdown(const u8 restart);
 
-/** Callback API function */
-/**
+/* Callback API function */
+/*
  * pm_init_suspend - Init suspend callback arguments (save for custom handling)
  */
 struct pm_init_suspend {
@@ -91,7 +96,7 @@ struct pm_init_suspend {
 	u32 timeout;					/**< Period of time the client has to response */
 };
 
-/**
+/*
  * pm_acknowledge - Acknowledge callback arguments (save for custom handling)
  */
 struct pm_acknowledge {
@@ -183,7 +188,7 @@ XStatus XPm_SetRequirement(const enum XPmNodeId node,
 XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 			  const u32 latency);
 
-/** Miscellaneous API functions */
+/**  Miscellaneous API functions */
 XStatus XPm_GetApiVersion(u32 *version);
 
 XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
@@ -196,7 +201,7 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 				const enum XPmOpCharType type,
 				u32* const result);
 
-/** Direct-Control API functions */
+/**  Direct-Control API functions */
 XStatus XPm_ResetAssert(const enum XPmReset reset,
 			const enum XPmResetAction assert);
 
@@ -205,5 +210,5 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status);
 XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value);
 
 XStatus XPm_MmioRead(const u32 address, u32 *const value);
-
+/** @} */
 #endif /* _PM_API_SYS_H_ */

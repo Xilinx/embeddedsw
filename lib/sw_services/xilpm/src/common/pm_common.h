@@ -56,10 +56,13 @@
 
 #define IPI_PMU_PM_INT_MASK	XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
 
+/**
+ * XPm_Master - Master structure
+ */
 struct XPm_Master {
-	const enum XPmNodeId node_id;
-	const u32 pwrdn_mask;
-	XIpiPsu *ipi;
+	const enum XPmNodeId node_id; /**< Node ID */
+	const u32 pwrdn_mask;         /**< Power Down Mask */
+	XIpiPsu *ipi;                 /**< IPI Instance */
 };
 
 const enum XPmNodeId pm_get_subsystem_node(void);

@@ -71,7 +71,7 @@
  *
  * @param  IpiInst Pointer to IPI driver instance
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -93,18 +93,18 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  Checks for reason of boot
- * <br>
- * Function returns information about the boot reason.
+ * @brief This Function returns information about the boot reason.
  * If the boot is not a system startup but a resume,
  * power down request bitfield for this processor will be cleared.
  *
  * @return Returns processor boot status
+ * - PM_RESUME : If the boot reason is because of system resume.
+ * - PM_INITIAL_BOOT : If this boot is the initial system startup.
  *
  * @note   None
  *
  ****************************************************************************/
-enum XPmBootStatus XPm_GetBootStatus()
+enum XPmBootStatus XPm_GetBootStatus(void)
 {
 	u32 pwrdn_req = pm_read(MASTER_PWRCTL);
 	if (0 != (pwrdn_req & primary_master->pwrdn_mask)) {
@@ -117,22 +117,20 @@ enum XPmBootStatus XPm_GetBootStatus()
 
 /****************************************************************************/
 /**
- * @brief  Finalize suspend procedure
- * <br>
- * Function waits for PMU to finish all previous API requests sent by the PU
- * and performs client specific actions to finish suspend procedure
- * (e.g. execution of wfi instruction on A53 and R5 processors).
- * This function should not return if the suspend procedure is successful.
+ * @brief  This Function waits for PMU to finish all previous API requests
+ * sent by the PU and performs client specific actions to finish suspend
+ * procedure (e.g. execution of wfi instruction on A53 and R5 processors).
  *
- * @note   None
+ * @note   This function should not return if the suspend procedure is
+ * successful.
  *
  ****************************************************************************/
 void XPm_SuspendFinalize(void)
 {
 	XStatus status;
 
-	/**
-	 * Wait until previous IPI request is handled by the PMU
+	/*
+	 * Wait until previous IPI request is handled by the PMU.
 	 * If PMU is busy, keep trying until PMU becomes responsive
 	 */
 	do {
@@ -155,7 +153,7 @@ void XPm_SuspendFinalize(void)
  * @param  master  Pointer to the master who is initiating request
  * @param  payload API id and call arguments to be written in IPI buffer
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -194,7 +192,7 @@ done:
  * @param  value2 Used to return value from 3rd IPI buffer element (optional)
  * @param  value3 Used to return value from 4th IPI buffer element (optional)
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -244,14 +242,18 @@ done:
 
 /****************************************************************************/
 /**
- * @brief  PM call for master to suspend itself
+ * @brief  This function is used by a CPU to declare that it is about to
+ * suspend itself. After the PMU processes this call it will wait for the
+ * requesting CPU to complete the suspend procedure and become ready to be
+ * put into a sleep state.
  *
- * @param  nid     Node id of the master or subsystem
- * @param  latency Requested maximum wakeup latency (not supported)
- * @param  state   Requested state (not supported)
- * @param  address Address from which processor should resume
+ * @param  nid     Node ID of the CPU node to be suspended.
+ * @param  latency Maximum wake-up latency requirement in us(microsecs)
+ * @param  state   Instead of specifying a maximum latency, a CPU can also
+ * explicitly request a certain power state.
+ * @param  address Address from which to resume when woken up.
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   This is a blocking call, it will return only once PMU has responded
  *
@@ -295,17 +297,24 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 
 /****************************************************************************/
 /**
- * @brief  PM call to request for another PU or subsystem to be
- * suspended gracefully.
+ * @brief  This function is used by a PU to request suspend of another PU.
+ * This call triggers the power management controller to notify the PU
+ * identified by 'nodeID' that a suspend has been requested. This will
+ * allow said PU to gracefully suspend itself by calling XPm_SelfSuspend
+ * for each of its CPU nodes, or else call XPm_AbortSuspend with its PU
+ * node as argument and specify the reason.
  *
- * @param  target  Node id of the targeted PU or subsystem
- * @param  ack     Flag to specify whether acknowledge is requested
- * @param  latency Requested wakeup latency (not supported)
- * @param  state   Requested state (not supported)
+ * @param  target  Node ID of the PU node to be suspended
+ * @param  ack     Requested acknowledge type
+ * @param  latency Maximum wake-up latency requirement in us(micro sec)
+ * @param  state   Instead of specifying a maximum latency, a PU can
+ * also explicitly request a certain power state.
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   None
+ * @note   If 'ack' is set to PM_ACK_CB_STANDARD, the requesting PU will
+ * be notified upon completion of suspend or if an error occurred,
+ * such as an abort or a timeout.
  *
  ****************************************************************************/
 XStatus XPm_RequestSuspend(const enum XPmNodeId target,
@@ -327,17 +336,21 @@ XStatus XPm_RequestSuspend(const enum XPmNodeId target,
 
 /****************************************************************************/
 /**
- * @brief  PM call for master to wake up selected master or subsystem
+ * @brief  This function can be used to request power up of a CPU node
+ * within the same PU, or to power up another PU.
  *
- * @param  target     Node id of the targeted PU or subsystem
- * @param  setAddress Specifies whether the start address argument is being
- *   passed.
- * @param  address    Parameter_Description
- * @param  ack        Flag to specify whether acknowledge requested
+ * @param  target     Node ID of the CPU or PU to be powered/woken up.
+ * @param  setAddress Specifies whether the start address argument is being passed.
+ * - 0 : do not set start address
+ * - 1 : set start address
+ * @param  address    Address from which to resume when woken up.
+ * Will only be used if set_address is 1.
+ * @param  ack        Requested acknowledge type
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   None
+ * @note   If acknowledge is requested, the calling PU will be notified
+ * by the power management controller once the wake-up is completed.
  *
  ****************************************************************************/
 XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
@@ -368,15 +381,17 @@ XStatus XPm_RequestWakeUp(const enum XPmNodeId target,
 
 /****************************************************************************/
 /**
- * @brief  PM call to request for another PU or subsystem to be
- * powered down forcefully
+ * @brief  One PU can request a forced poweroff of another PU or its power
+ * island or power domain. This can be used for killing an unresponsive PU,
+ * in which case all resources of that PU will be automatically released.
  *
- * @param  target Node id of the targeted PU or subsystem
- * @param  ack    Flag to specify whether acknowledge is requested
+ * @param  target Node ID of the PU node or power island/domain to be
+ * powered down.
+ * @param  ack    Requested acknowledge type
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   None
+ * @note   Force power down may not be requested by a PU for itself.
  *
  ****************************************************************************/
 XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
@@ -397,11 +412,17 @@ XStatus XPm_ForcePowerDown(const enum XPmNodeId target,
 
 /****************************************************************************/
 /**
- * @brief  PM call to announce that a prior suspend request is to be aborted.
+ * @brief  This function is called by a CPU after a XPm_SelfSuspend call to
+ * notify the power management controller that CPU has aborted suspend
+ * or in response to an init suspend request when the PU refuses to suspend.
  *
- * @param  reason Reason for the abort
+ * @param  reason Reason code why the suspend can not be performed or completed
+ * - ABORT_REASON_WKUP_EVENT : local wakeup-event received
+ * - ABORT_REASON_PU_BUSY : PU is busy
+ * - ABORT_REASON_NO_PWRDN : no external powerdown supported
+ * - ABORT_REASON_UNKNOWN : unknown error during suspend procedure
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   Calling PU expects the PMU to abort the initiated suspend procedure.
  * This is a non-blocking call without any acknowledge.
@@ -435,15 +456,22 @@ XStatus XPm_AbortSuspend(const enum XPmAbortReason reason)
 
 /****************************************************************************/
 /**
- * @brief  PM call to specify the wakeup source while suspended
+ * @brief  This function is called by a PU to add or remove a wake-up source
+ * prior to going to suspend. The list of wake sources for a PU is
+ * automatically cleared whenever the PU is woken up or when one of its
+ * CPUs aborts the suspend procedure.
  *
- * @param  target    Node id of the targeted PU or subsystem
- * @param  wkup_node Node id of the wakeup peripheral
- * @param  enable    Enable or disable the specified peripheral as wake source
+ * @param  target    Node ID of the target to be woken up.
+ * @param  wkup_node Node ID of the wakeup device.
+ * @param  enable    Enable flag:
+ * - 1 : the wakeup source is added to the list
+ * - 0 : the wakeup source is removed from the list
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   None
+ * @note   Declaring a node as a wakeup source will ensure that the node
+ * will not be powered off. It also will cause the PMU to configure the
+ * GIC Proxy accordingly if the FPD is powered off.
  *
  ****************************************************************************/
 XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
@@ -457,13 +485,20 @@ XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 
 /****************************************************************************/
 /**
- * @brief  PM call to request a system Shutdown or Restart
+ * @brief  This function can be used by a privileged PU to shut down
+ * or restart the complete device.
  *
- * @param  restart Shutdown or Restart ? 0 for Shutdown, 1 for Restart
+ * @param  restart Should the system be restarted automatically?
+ * - PM_SHUTDOWN : no restart requested, system will be powered off permanently
+ * - PM_RESTART : restart is requested, system will go through a full reset
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   None
+ * @note   In either case the PMU will call XPm_InitSuspendCb for each of
+ * the other PUs, allowing them to gracefully shut down. If a PU is asleep
+ * it will be woken up by the PMU. The PU making the XPm_SystemShutdown
+ * should perform its own suspend procedure after calling this API. It will
+ * not receive an init suspend callback.
  *
  ****************************************************************************/
 XStatus XPm_SystemShutdown(const u8 restart)
@@ -473,20 +508,27 @@ XStatus XPm_SystemShutdown(const u8 restart)
 	return pm_ipi_send(primary_master, payload);
 }
 
-/**
- * APIs for managing PM slaves:
- */
+/* APIs for managing PM slaves */
 
 /****************************************************************************/
 /**
- * @brief  PM call to request a node with specifc capabilities
+ * @brief  Used to request the usage of a PM-slave. Using this API call a PU
+ * requests access to a slave device and asserts its requirements on that
+ * device. Provided the PU is sufficiently privileged, the PMU will enable
+ * access to the memory mapped region containing the control registers of
+ * that device. For devices that can only be serving a single PU, any other
+ * privileged PU will now be blocked from accessing this device until the
+ * node is released.
  *
- * @param  node         Node id of the slave
- * @param  capabilities Requested capabilities of the slave
- * @param  qos          Quality of service (not supported)
- * @param  ack          Flag to specify whether acknowledge is requested
+ * @param  node         Node ID of the PM slave requested
+ * @param  capabilities Slave-specific capabilities required, can be combined
+ * - PM_CAP_ACCESS : full access / functionality
+ * - PM_CAP_CONTEXT : preserve context
+ * - PM_CAP_WAKEUP : emit wake interrupts
+ * @param  qos          Quality of Service (0-100) required
+ * @param  ack          Requested acknowledge type
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -510,17 +552,20 @@ XStatus XPm_RequestNode(const enum XPmNodeId node,
 
 /****************************************************************************/
 /**
- * @brief  PM call to set requirement for PM slaves
+ * @brief  This function is used by a PU to announce a change in requirements
+ * for a specific slave node which is currently in use.
  *
- * @param  nid          Node id of the slave
- * @param  capabilities Requested capabilities of the slave
- * @param  qos          Quality of service (not supported)
- * @param  ack          Flag to specify whether acknowledge is requested
+ * @param  nid          Node ID of the PM slave.
+ * @param  capabilities Slave-specific capabilities required.
+ * @param  qos          Quality of Service (0-100) required.
+ * @param  ack          Requested acknowledge type
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   This API function is to be used for slaves a PU already
- * has requested
+ * @note   If this function is called after the last awake CPU within the PU
+ * calls SelfSuspend, the requirement change shall be performed after the CPU
+ * signals the end of suspend to the power management controller,
+ * (e.g. WFI interrupt).
  *
  ****************************************************************************/
 XStatus XPm_SetRequirement(const enum XPmNodeId nid,
@@ -541,11 +586,14 @@ XStatus XPm_SetRequirement(const enum XPmNodeId nid,
 
 /****************************************************************************/
 /**
- * @brief  PM call to release a node
+ * @brief  This function is used by a PU to release the usage of a PM slave.
+ * This will tell the power management controller that the node is no longer
+ * needed by that PU, potentially allowing the node to be placed into an
+ * inactive state.
  *
- * @param  node Node id of the slave
+ * @param  node Node ID of the PM slave.
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -559,14 +607,17 @@ XStatus XPm_ReleaseNode(const enum XPmNodeId node)
 
 /****************************************************************************/
 /**
- * @brief  PM call to set wakeup latency requirements
+ * @brief  This function is used by a PU to announce a change in the maximum
+ * wake-up latency requirements for a specific slave node currently used by
+ * that PU.
  *
- * @param  node    Node id of the slave
- * @param  latency Requested maximum wakeup latency
+ * @param  node    Node ID of the PM slave.
+ * @param  latency Maximum wake-up latency required.
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   None
+ * @note   Setting maximum wake-up latency can constrain the set of possible
+ * power states a resource can be put into.
  *
  ****************************************************************************/
 XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
@@ -579,9 +630,7 @@ XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 	return pm_ipi_send(primary_master, payload);
 }
 
-/**
- * Callback API functions
- */
+/* Callback API functions */
 struct pm_init_suspend pm_susp = {
 	.received = false,
 /* initialization of other fields is irrelevant while 'received' is false */
@@ -594,24 +643,26 @@ struct pm_acknowledge pm_ack = {
 
 /****************************************************************************/
 /**
- * @brief  callback to handle request made by PMU for initiating suspend of
- * this PU. If PU does not suspend itself within given timeout,
- * PMU might force it to power down.
+ * @brief  Callback function to be implemented in each PU, allowing the power
+ * management controller to request that the PU suspend itself.
  *
- * @param  reason  Suspend reason
- * @param  latency Maximum allowed latency for waking up
- *  (determines lowest state)
- * @param  state   State to which the PU should suspend
- * @param  timeout How much time this PU have to suspend itself
+ * @param  reason  Suspend reason:
+ * - SUSPEND_REASON_PU_REQ : Request by another PU
+ * - SUSPEND_REASON_ALERT : Unrecoverable SysMon alert
+ * - SUSPEND_REASON_SHUTDOWN : System shutdown
+ * - SUSPEND_REASON_RESTART : System restart
+ * @param  latency Maximum wake-up latency in us(micro secs). This information
+ * can be used by the PU to decide what level of context saving may be
+ * required.
+ * @param  state   Targeted sleep/suspend state.
+ * @param  timeout Timeout in ms, specifying how much time a PU has to initiate
+ * its suspend procedure before it's being considered unresponsive.
  *
  * @return None
  *
- * @note   This function executes in interrupt context. The function itself
- * should never invoke PM API calls that could block (because of performance
- * reasons) or execution of wfi (impossible). Therefore, this function should
- * schedule suspend procedure to be done out of the interrupt context.
- * In this case, it is simply done by filling the structure with arguments
- * of the call and marking that the init suspend request is received.
+ * @note   If the PU fails to act on this request the power management
+ * controller or the requesting PU may choose to employ the forceful
+ * power down option.
  *
  ****************************************************************************/
 void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
@@ -635,10 +686,14 @@ void XPm_InitSuspendCb(const enum XPmSuspendReason reason,
 
 /****************************************************************************/
 /**
- * @brief  Callback to handle acknowledge from PMU
+ * @brief  This function is called by the power management controller in
+ * response to any request where an acknowledge callback was requested,
+ * i.e. where the 'ack' argument passed by the PU was REQUEST_ACK_CB_STANDARD.
  *
- * @param  node    Node about which the acknowledge is about
- * @param  status  Acknowledged status
+ * @param  node    ID of the component or sub-system in question.
+ * @param  status  Status of the operation:
+ * - OK: the operation completed successfully
+ * - ERR: the requested operation failed
  * @param  oppoint Operating point of the node in question
  *
  * @return None
@@ -665,8 +720,9 @@ void XPm_AcknowledgeCb(const enum XPmNodeId node,
 
 /****************************************************************************/
 /**
- * @brief  Nofity Callback. This function is called by the power management
- *  controller if an event for which the PU was registered has occurred.
+ * @brief  This function is called by the power management controller if an
+ * event the PU was registered for has occurred. It will populate the notifier
+ * data structure passed when calling XPm_RegisterNotifier.
  *
  * @param  node    ID of the node the event notification is related to.
  * @param  event   ID of the event
@@ -685,17 +741,17 @@ void XPm_NotifyCb(const enum XPmNodeId node,
 	XPm_NotifierProcessEvent(node, event, oppoint);
 }
 
-/**
- * Miscellaneous API functions
- */
+/* Miscellaneous API functions */
 
 /****************************************************************************/
 /**
- * @brief  Get version number of PMU PM firmware
+ * @brief  This function is used to request the version number of the API
+ * running on the power management controller.
  *
- * @param  version 32-bit version number of PMU Power Management Firmware
+ * @param  version Returns the API 32-bit version number.
+ * Returns 0 if no PM firmware present.
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -718,13 +774,38 @@ XStatus XPm_GetApiVersion(u32 *version)
 
 /****************************************************************************/
 /**
- * @brief  PM call to request a node's current power state
+ * @brief  This function is used to obtain information about the current state
+ * of a component. The caller must pass a pointer to an XPm_NodeStatus
+ * structure, which must be pre-allocated by the caller.
  *
- * @param  node       Node id of the node to be queried
- * @param  nodestatus Struct to be passed by caller to be populated
- *  with node status
+ * @param  node       ID of the component or sub-system in question.
+ * @param  nodestatus Used to return the complete status of the node.
  *
- * @return Returns status, either success or error+reason
+ * status - The current power state of the requested node.
+ * For CPU nodes:
+ * - 0 : if CPU is powered down,
+ * - 1 : if CPU is active (powered up),
+ * - 2 : if CPU is suspending (powered up)
+ *
+ * For power islands and power domains:
+ * - 0 : if island is powered down,
+ * - 1 : if island is powered up
+ *
+ * For PM slaves:
+ * - 0 : if slave is powered down,
+ * - 1 : if slave is powered up,
+ * - 2 : if slave is in retention
+ *
+ * requirement - Slave nodes only: Returns current requirements the
+ * requesting PU has requested of the node.
+ *
+ * usage - Slave nodes only: Returns current usage status of the node:
+ * - 0 : node is not used by any PU,
+ * - 1 : node is used by caller exclusively,
+ * - 2 : node is used by other PU(s) only,
+ * - 3 : node is used by caller and by other PU(s)
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -750,14 +831,17 @@ XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
 
 /****************************************************************************/
 /**
- * @brief  PM call to request operating characteristics of a node
+ * @brief  Call this function to request the power management controller to
+ * return information about an operating characteristic of a component.
  *
- * @param  node   Node id of the slave
- * @param  type   Type of the operating characteristics
- * @param  result Returns the operating characteristic for the requested node,
- *  specified by the type
+ * @param  node   ID of the component or sub-system in question.
+ * @param  type   Type of operating characteristic requested:
+ * - power (current power consumption),
+ * - latency (current latency in us to return to active state),
+ * - temperature (current temperature),
+ * @param  result Used to return the requested operating characteristic.
  *
- * @return Returns status, either success or error/reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -782,12 +866,16 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 
 /****************************************************************************/
 /**
- * @brief  Assert/release reset line
+ * @brief  This function is used to assert or release reset for a particular
+ * reset line. Alternatively a reset pulse can be requested as well.
  *
- * @param  reset  Reset line
- * @param  assert Identifies action: (release, assert, Pulse)
+ * @param  reset  ID of the reset line
+ * @param  assert Identifies action:
+ * - PM_RESET_ACTION_RELEASE : release reset,
+ * - PM_RESET_ACTION_ASSERT : assert reset,
+ * - PM_RESET_ACTION_PULSE : pulse reset,
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -811,12 +899,14 @@ XStatus XPm_ResetAssert(const enum XPmReset reset,
 
 /****************************************************************************/
 /**
- * @brief  Get current status of a given reset line
+ * @brief  Call this function to get the current status of the selected
+ * reset line.
  *
  * @param  reset  Reset line
  * @param  status Status of specified reset (true - asserted, false - released)
  *
- * @return Returns status, either success or error+reason
+ * @return Returns 1/XST_FAILURE for 'asserted' or
+ * 0/XST_SUCCESS for 'released'.
  *
  * @note   None
  *
@@ -839,14 +929,36 @@ XStatus XPm_ResetGetStatus(const enum XPmReset reset, u32 *status)
 
 /****************************************************************************/
 /**
- * @brief  Register notifier for PM events
+ * @brief  A PU can call this function to request that the power management
+ * controller call its notify callback whenever a qualifying event occurs.
+ * One can request to be notified for a specific or any event related to
+ * a specific node.
  *
- * @param  notifier Pointer to data block to be linked in the notifier list
- *  (includes node ID, event ID and wake flag to be passed to the PMU)
+ * @param  notifier Pointer to the notifier object to be associated with
+ * the requested notification. The notifier object contains the following
+ * data related to the notification:
  *
- * @return Returns status, either success or error/reason
+ * - nodeID : ID of the node to be notified about,
  *
- * @note   None
+ * - eventID : ID of the event in question, '-1' denotes all events
+ * ( - EVENT_STATE_CHANGE, EVENT_ZERO_USERS, EVENT_ERROR_CONDITION),
+ *
+ * - wake : true: wake up on event, false: do not wake up
+ * (only notify if awake), no buffering/queueing
+ *
+ * - callback : Pointer to the custom callback function to be called when the
+ * notification is available. The callback executes from interrupt context,
+ * so the user must take special care when implementing the callback.
+ * Callback is optional, may be set to NULL.
+ *
+ * - received : Variable indicating how many times the notification has been
+ * received since the notifier is registered.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
+ *
+ * @note   The caller shall initialize the notifier object before invoking
+ * the XPm_RegisteredNotifier function. While notifier is registered,
+ * the notifier object shall not be modified by the caller.
  *
  ****************************************************************************/
 XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
@@ -878,12 +990,13 @@ XStatus XPm_RegisterNotifier(XPm_Notifier* const notifier)
 
 /****************************************************************************/
 /**
- * @brief  Unregister notifier for PM events
+ * @brief  A PU calls this function to unregister for the previously
+ * requested notifications.
  *
- * @param  notifier Pointer to data block to be removed from the notifier list
- *  (includes node ID, event ID and wake flag to be passed to the PMU)
+ * @param  notifier Pointer to the notifier object associated with the
+ * previously requested notification
  *
- * @return Returns status, either success or error/reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
  * @note   None
  *
@@ -915,18 +1028,23 @@ XStatus XPm_UnregisterNotifier(XPm_Notifier* const notifier)
 	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
 }
 
+/* Direct Control API Functions */
 /****************************************************************************/
 /**
- * @brief  Perform write to protected mmio
+ * @brief  Call this function to write a value directly into a register that
+ * isn't accessible directly, such as registers in the clock control unit.
+ * This call is bypassing the power management logic. The permitted addresses
+ * are subject to restrictions as defined in the PCW configuration.
  *
- * @param  address Address to write to
- * @param  mask    Mask to apply
- * @param  value   Value to write
+ * @param  address Physical 32-bit address of memory mapped register to write
+ * to.
+ * @param  mask    32-bit value used to limit write to specific bits in the
+ * register.
+ * @param  value   Value to write to the register bits specified by the mask.
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   This function provides access to PM-related control registers
- *  that may not be directly accessible by a particular PU.
+ * @note   If the access isn't permitted this function returns an error code.
  *
  ****************************************************************************/
 XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
@@ -947,15 +1065,17 @@ XStatus XPm_MmioWrite(const u32 address, const u32 mask, const u32 value)
 
 /****************************************************************************/
 /**
- * @brief  Read value from protected mmio
+ * @brief  Call this function to read a value from a register that isn't
+ * accessible directly. The permitted addresses are subject to restrictions
+ * as defined in the PCW configuration.
  *
- * @param  address Address to write to
- * @param  value   Value to write
+ * @param  address Physical 32-bit address of memory mapped register to
+ * read from.
+ * @param  value   Returns the 32-bit value read from the register
  *
- * @return Returns status, either success or error+reason
+ * @return XST_SUCCESS if successful else XST_FAILURE or error+reason
  *
- * @note   This function provides access to PM-related control registers
- *  that may not be directly accessible by a particular PU.
+ * @note   If the access isn't permitted this function returns an error code.
  *
  ****************************************************************************/
 XStatus XPm_MmioRead(const u32 address, u32 *const value)
