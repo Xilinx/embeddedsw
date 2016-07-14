@@ -646,7 +646,7 @@ static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
 		if ((FsblInstancePtr->TcmEccInitStatus &
 				XFSBL_R50_TCM_ECC_INIT_STATUS) == FALSE)
 		{
-			Status = XFsbl_TcmEccInit(FsblInstancePtr);
+			Status = XFsbl_TcmEccInit(FsblInstancePtr, DestinationCpu);
 			if (XFSBL_SUCCESS != Status) {
 				goto END;
 			}
@@ -682,7 +682,7 @@ static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
 		if ((FsblInstancePtr->TcmEccInitStatus &
 				XFSBL_R51_TCM_ECC_INIT_STATUS) == FALSE)
 		{
-			Status = XFsbl_TcmEccInit(FsblInstancePtr);
+			Status = XFsbl_TcmEccInit(FsblInstancePtr, DestinationCpu);
 			if (XFSBL_SUCCESS != Status) {
 				goto END;
 			}
@@ -715,7 +715,7 @@ static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
 			(XFSBL_R50_TCM_ECC_INIT_STATUS | XFSBL_R51_TCM_ECC_INIT_STATUS)) !=
 				(XFSBL_R50_TCM_ECC_INIT_STATUS | XFSBL_R51_TCM_ECC_INIT_STATUS))
 		{
-			Status = XFsbl_TcmEccInit(FsblInstancePtr);
+			Status = XFsbl_TcmEccInit(FsblInstancePtr, DestinationCpu);
 			if (XFSBL_SUCCESS != Status) {
 				goto END;
 			}
@@ -876,8 +876,12 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	/**
 	 * Configure the memory
 	 */
-	XFsbl_ConfigureMemory(FsblInstancePtr, RunningCpu, DestinationCpu,
+	Status = XFsbl_ConfigureMemory(FsblInstancePtr, RunningCpu, DestinationCpu,
 						LoadAddress, Length);
+	if (XFSBL_SUCCESS != Status)
+	{
+		goto END;
+	}
 
 	/**
 	 *

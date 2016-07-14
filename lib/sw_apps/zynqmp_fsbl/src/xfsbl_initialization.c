@@ -932,14 +932,16 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 	u32 RegVal;
 	u32 Status =  XFSBL_SUCCESS;
 	u32 Length = 0;
+	u32 StartAddr = DestAddr;
+	u32 NumBytes = LengthBytes;
 
 	Xil_DCacheDisable();
 
-	while (LengthBytes > 0) {
-		if (LengthBytes > GDMA_TRANSFER_MAX_LEN) {
+	while (NumBytes > 0) {
+		if (NumBytes > GDMA_TRANSFER_MAX_LEN) {
 			Length = GDMA_TRANSFER_MAX_LEN;
 		} else {
-			Length = LengthBytes;
+			Length = NumBytes;
 		}
 
 		/* Wait until the DMA is in idle state */
@@ -964,7 +966,7 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD3, XFSBL_ECC_INIT_VAL_WORD);
 
 		/* Write Destination Address */
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_DST_DSCR_WORD0, DestAddr);
+		XFsbl_Out32(GDMA_CH0_ZDMA_CH_DST_DSCR_WORD0, StartAddr);
 
 		/* Size to be Transferred (for write-only mode, only dest is needed)*/
 		XFsbl_Out32(GDMA_CH0_ZDMA_CH_DST_DSCR_WORD2, Length);
@@ -993,8 +995,8 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 			goto END;
 		}
 
-		LengthBytes -= Length;
-		DestAddr += Length;
+		NumBytes -= Length;
+		StartAddr += Length;
 	}
 
 	Xil_DCacheEnable();
@@ -1026,7 +1028,7 @@ u32 XFsbl_DdrEccInit(void)
 	u32 LengthBytes = XFSBL_PS_DDR_END_ADDRESS - XFSBL_PS_DDR_INIT_START_ADDRESS;
 	u32 DestAddr = XFSBL_PS_DDR_INIT_START_ADDRESS;
 
-	XFsbl_Printf(DEBUG_GENERAL,"\n\rInitializing DDR ECC\n\r");
+	XFsbl_Printf(DEBUG_GENERAL,"Initializing DDR ECC\n\r");
 
 	Status = XFsbl_EccInit(DestAddr, LengthBytes);
 	if (XFSBL_SUCCESS != Status) {
@@ -1045,6 +1047,7 @@ END:
  * This function does ECC Initialization of TCM memory
  *
  * @param FsblInstancePtr is pointer to the XFsbl Instance
+ * @param CpuId One of R5-0, R5-1, R5-LS, A53-0
  *
  * @return
  * 		- XFSBL_SUCCESS for successful ECC Initialization
@@ -1052,17 +1055,15 @@ END:
  * 		- errors as mentioned in xfsbl_error.h
  *
  *****************************************************************************/
-u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr)
+u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 {
 	u32 Status =  XFSBL_SUCCESS;
 	u32 LengthBytes;
 	u32 ATcmAddr;
 	u32 BTcmAddr;
-	u32 CpuId;
 	u32 EccInitStatus;
 
-	CpuId = FsblInstancePtr->ProcessorID;
-	XFsbl_Printf(DEBUG_GENERAL,"\n\rInitializing TCM ECC\n\r");
+	XFsbl_Printf(DEBUG_GENERAL,"Initializing TCM ECC\n\r");
 
 	/**
 	 * If for A53, TCM ECC need to be initialized, do it for all banks
@@ -1120,7 +1121,7 @@ END:
  * These are to power-up TCM before actual ECC calculation and after it is done,
  * to keep RPU in reset
  *
- * @param CpuId One of R5-0, R5-1, R5-LS, A53-0
+ * @param FsblInstancePtr is pointer to the XFsbl Instance
  *
  * @return
  * 		- XFSBL_SUCCESS for success
@@ -1147,7 +1148,7 @@ u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr)
 	}
 
 	/* Do ECC Initialization of TCM if required */
-	Status = XFsbl_TcmEccInit(FsblInstancePtr);
+	Status = XFsbl_TcmEccInit(FsblInstancePtr, FsblInstancePtr->ProcessorID);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
