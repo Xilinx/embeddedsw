@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-	__attribute__((weak)) s32 _kill(s32 pid, s32 sig);
+	__attribute__((weak)) int _kill(pid_t pid, int sig);
 }
 #endif
 
@@ -43,7 +43,7 @@ extern "C" {
  * kill -- go out via exit...
  */
 
-__attribute__((weak)) s32 kill(s32 pid, s32 sig)
+__attribute__((weak)) int kill(pid_t pid, int sig)
 {
   if(pid == 1) {
     _exit(sig);
@@ -51,7 +51,7 @@ __attribute__((weak)) s32 kill(s32 pid, s32 sig)
   return 0;
 }
 
-__attribute__((weak)) s32 _kill(s32 pid, s32 sig)
+__attribute__((weak)) int _kill(pid_t pid, int sig)
 {
   if(pid == 1) {
     _exit(sig);
