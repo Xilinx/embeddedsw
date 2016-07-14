@@ -25,7 +25,7 @@ OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psu_cortex
 OPTION COPYFILES = all;
 OPTION NAME = freertos823_xilinx;
 OPTION VERSION = 1.1;
-OPTION DEPENDS = (standalone_v5_4);
+OPTION DEPENDS = (standalone_v5_6);
 OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group";
 OPTION DESC = "FreeRTOS is a market leading open source RTOS";
 
@@ -88,6 +88,12 @@ BEGIN CATEGORY tick_setup
 	PARAM name = PSU_TTC2_Select_Cntr, type = int, default = 0, desc = "psu_cortexr5 only: Selects the TTC2 counter to be used for tick generation. Allowed range is 0-2";
 	PARAM name = PSU_TTC3_Select, type = bool, default = false, desc = "psu_cortexr5 only: Set it to true to use TTC3 for tick interrupt generation";
 	PARAM name = PSU_TTC3_Select_Cntr, type = int, default = 0, desc = "psu_cortexr5 only: Selects the TTC3 counter to be used for tick generation. Allowed range is 0-2";
+END CATEGORY
+
+BEGIN CATEGORY el_selection
+	PARAM name = ARMv8_EL_selection, type = bool, default = false, desc = "Enable Cortex-A53 64bit Exception Level Selection", permit = user;
+	PARAM name = exception_level, type = enum,  values = (exception_level = EL3, exception_level = EL1), default = EL3, desc = "Specify the exception level for Cortex-A53 64bit mode for code execution", permit = user;
+	PARAM name = security_state, type = enum,  dep = (exception_level = EL1), values = (security_state = secure, security_state = non-secure), default = secure, desc = "Specify the security state of selected exception level for Cortex-A53 64bit mode for code execution", permit = user;
 END CATEGORY
 
 END OS

@@ -103,7 +103,7 @@ KERNEL_AR_OBJS = *.c *.S
 OUTS = *.o
 
 libs:	$(KERNEL_AR_OBJS)
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v5_4/src libs
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v5_6/src libs
 	@echo "Compiling FreeRTOS"
 	@$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $^
 	@$(ARCHIVER) -r ${LIBFREERTOS} ${OUTS}
@@ -117,14 +117,14 @@ libs:	$(KERNEL_AR_OBJS)
 
 include_standalone:
 	@echo "includes"
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v5_4/src include
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v5_6/src include
 	$(CP) -rf $(INCLUDEFILES) $(INCLUDEDIR)
 
 
 .PHONY: include
 include:
 	@echo "include"
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v5_4/src include
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v5_6/src include
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
