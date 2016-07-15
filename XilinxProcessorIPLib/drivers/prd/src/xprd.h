@@ -1,0 +1,154 @@
+/******************************************************************************
+*
+* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* Use of the Software is limited solely to applications:
+* (a) running on a Xilinx device, or
+* (b) that interact with a Xilinx device through a bus or interconnect.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
+* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*
+* Except as contained in this notice, the name of the Xilinx shall not be used
+* in advertising or otherwise to promote the sale, use or other dealings in
+* this Software without prior written authorization from Xilinx.
+*
+******************************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xprd.h
+* @addtogroup prd_v1_0
+* @{
+* @details
+*
+* The Xilinx Partial Reconfiguration Decoupler driver can be used to provide a
+* boundary between the static logic and a Reconfigurable Partition during
+* Partial Reconfiguration.
+*
+* The PR Decoupler supports the following features:
+* - All Interface types registered in the Vivado Design Suite are supported,
+*   including custom interfaces.
+* - Non-Vivado Design Suite interfaces are supported.
+* - The decoupling behaviour can be configured for each interface.
+* - Each interface can have Clock Domain Crossing support.
+* - Optional AXI4-Stream based control.
+* - Optional AXI4-Stream based Status.
+* - Optional AXI4-Lite based status and control.
+*
+* <b> Initialization and Configuration </b>
+*
+*    - XPrd_LookupConfig(DeviceId) - Use the device identifier to find the
+*      static configuration structure defined in xprd_g.c. This is setup by
+*      the tools. For some operating systems the config structure will be
+*      initialized by the software and this call is not needed.
+*
+*    - XPrd_CfgInitialize() is used for initialisation. The user needs to first
+*      call the XPrd_LookupConfig() which returns the Configuration structure
+*      pointer which is passed as a parameter to the XPrd_CfgInitialize().
+*
+* <b> Threads </b>
+*
+* This driver is not thread safe. Any needs for threads or thread mutual
+* exclusion must be satisfied by the layer above this driver.
+*
+* <b> Asserts </b>
+*
+* Asserts are used within all Xilinx drivers to enforce constraints on argument
+* values. Asserts can be turned off on a system-wide basis by defining, at
+* compile time, the NDEBUG identifier. By default, asserts are turned on and it
+* is recommended that users leave asserts on during development.
+*
+* <b> Building the driver </b>
+*
+* The XPrd driver is composed of several source files. This allows the user
+* to build and link only those parts of the driver that are necessary.
+*
+* <pre>
+*
+* MODIFICATION HISTORY:
+*
+* Ver   Who     Date          Changes
+* ----- -----  -----------   ---------------------------------------------
+* 1.0   ms     07/14/2016     First release
+*
+* </pre>
+*
+******************************************************************************/
+
+#ifndef XPRD_H_	/* prevent circular inclusions */
+#define XPRD_H_	/* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/***************************** Include Files *********************************/
+
+#include "xil_types.h"
+#include "xil_assert.h"
+#include "xstatus.h"
+#include "xprd_hw.h"
+
+/************************** Constant Definitions *****************************/
+
+/**************************** Type Definitions *******************************/
+
+/* This typedef contains information about Decoupler Values */
+typedef enum {
+	XPRD_DECOUPLER_OFF,	/**< Decoupler Off */
+	XPRD_DECOUPLER_ON,	/**< Decoupler On */
+} XPrd_State;
+
+/* This typedef contains configuration information for a device */
+typedef struct {
+	u16 DeviceId;		/**< Unique ID of the device */
+	u32 BaseAddress;	/**< Register Base Address */
+} XPrd_Config;
+
+/**
+ * The XPrd instance data structure. A pointer to an instance data structure
+ * is passed around by functions to refer to a specific instance.
+ */
+typedef struct {
+	XPrd_Config Config;	/**< Device configuration */
+	u32 IsReady;		/**< Device is initialized and ready */
+} XPrd;
+
+/***************** Macros (Inline Functions) Definitions *********************/
+
+/************************** Function Prototypes ******************************/
+
+/* Functions in xprd_sinit.c */
+XPrd_Config *XPrd_LookupConfig(u16 DeviceId);
+
+/* Functions in xprd.c */
+s32 XPrd_CfgInitialize(XPrd *InstancePtr, XPrd_Config *ConfigPtr,
+				u32 EffectiveAddress);
+void XPrd_SetDecouplerState(XPrd *InstancePtr, XPrd_State DecouplerValue);
+XPrd_State XPrd_GetDecouplerState(XPrd *InstancePtr);
+
+/* Functions in xprd_selftest.c */
+s32 XPrd_SelfTest(XPrd *InstancePtr);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* End of protection macro */
+/** @} */
