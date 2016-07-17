@@ -473,8 +473,8 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 					u32 Len)
 {
 	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Len != 0U);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Len != 0U);
 
 	s32 Status = XST_SUCCESS;
 
