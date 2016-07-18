@@ -51,8 +51,11 @@
 *                        Added Conditional compilation to support Zynq Mp
 *                        also.
 * 5.00  vns     27/01/16 Fixed array out of bounds error CR #931207
-* 6.00  vns     29/06/16 Added Margin 2 read verification after programming
+* 6.0   vns     29/06/16 Added Margin 2 read verification after programming
 *                        every Zynq's eFUSE PS bit CR #953052.
+*       vns     07/17/16 Fixed CR# 954260, Modified XilSKey_EfusePs_Write
+*                        API to program eFUSE protect bit after programming
+*                        DFT bits
 *
 *****************************************************************************/
 
@@ -249,6 +252,26 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 		}
 	}
 
+	/* Programs 0xC eFuse bit to disable DFT JTAG */
+	if (InstancePtr->DisableDftJtag) {
+		Status = XilSKey_EfusePs_WriteWithXadcCheckAndVerify(
+				XSK_EFUSEPS_APB_DFT_JTAG_DISABLE, RefClk);
+		if (Status != XST_SUCCESS) {
+			RetValue = XSK_EFUSEPS_ERROR_WRTIE_DFT_JTAG_DIS_BIT + Status;
+			goto ExitCtrlResetStatus;
+		}
+	}
+
+	/* Programs 0xD eFuse bit to disable DFT Mode */
+	if (InstancePtr->DisableDftMode) {
+		Status = XilSKey_EfusePs_WriteWithXadcCheckAndVerify(
+				XSK_EFUSEPS_APB_DFT_MODE_DISABLE, RefClk);
+		if (Status != XST_SUCCESS) {
+			RetValue = XSK_EFUSEPS_ERROR_WRTIE_DFT_MODE_DIS_BIT + Status;
+			goto ExitCtrlResetStatus;
+		}
+	}
+
 	/**
 	 *  Program the eFUSE bit 0x8,0x9 to enable
 	 * eFUSE Array Write Protection
@@ -272,26 +295,6 @@ u32 XilSKey_EfusePs_Write(XilSKey_EPs *InstancePtr)
 		/* NEW: Error only if burning of the both the bits are not success */
 		if ((Status != XST_SUCCESS) && (StatusRedundantBit != XST_SUCCESS)) {
 			RetValue = XSK_EFUSEPS_ERROR_WRITE_WRITE_PROTECT_BIT + Status;
-			goto ExitCtrlResetStatus;
-		}
-	}
-
-	/* Programs 0xC eFuse bit to disable DFT JTAG */
-	if (InstancePtr->DisableDftJtag) {
-		Status = XilSKey_EfusePs_WriteWithXadcCheckAndVerify(
-				XSK_EFUSEPS_APB_DFT_JTAG_DISABLE, RefClk);
-		if (Status != XST_SUCCESS) {
-			RetValue = XSK_EFUSEPS_ERROR_WRTIE_DFT_JTAG_DIS_BIT + Status;
-			goto ExitCtrlResetStatus;
-		}
-	}
-
-	/* Programs 0xD eFuse bit to disable DFT Mode */
-	if (InstancePtr->DisableDftMode) {
-		Status = XilSKey_EfusePs_WriteWithXadcCheckAndVerify(
-				XSK_EFUSEPS_APB_DFT_MODE_DISABLE, RefClk);
-		if (Status != XST_SUCCESS) {
-			RetValue = XSK_EFUSEPS_ERROR_WRTIE_DFT_MODE_DIS_BIT + Status;
 			goto ExitCtrlResetStatus;
 		}
 	}
