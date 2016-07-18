@@ -1019,7 +1019,7 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 	}
 
 	if((Mode == XSDPS_UHS_SPEED_MODE_SDR104) ||
-			(Mode == XSDPS_UHS_SPEED_MODE_DDR50)) {
+			(Mode == XSDPS_UHS_SPEED_MODE_SDR50)) {
 		/* Send tuning pattern */
 		Status = XSdPs_Execute_Tuning(InstancePtr);
 		if (Status != XST_SUCCESS) {
