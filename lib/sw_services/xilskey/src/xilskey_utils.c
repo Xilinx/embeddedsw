@@ -172,7 +172,7 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 #ifdef XSK_MICROBLAZE_PLATFORM
 	/* Temperature */
 	Jtag_Read_Sysmon(XSK_SYSMON_TEMP_ROW, &(XAdcInstancePtr->Temp));
-	XAdcInstancePtr->Temp = (XAdcInstancePtr->Temp);
+
 	/* Voltage */
 	Jtag_Read_Sysmon(XSK_SYSMON_VOL_ROW, &(XAdcInstancePtr->V));
 #endif
