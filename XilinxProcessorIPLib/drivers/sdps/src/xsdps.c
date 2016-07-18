@@ -65,7 +65,8 @@
 *       sk     02/16/16 Corrected the Tuning logic.
 *       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
 * 2.8   sk     05/03/16 Standard Speed for SD to 19MHz in ZynqMPSoC. CR#951024
-* 2.9   sk     06/09/16 Added support for mkfs to calculate sector count.
+* 3.0   sk     06/09/16 Added support for mkfs to calculate sector count.
+*       sk     07/16/16 Added support for UHS modes.
 *       sk     07/07/16 Used usleep API for both arm and microblaze.
 * </pre>
 *
@@ -163,6 +164,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Config.BankNumber = ConfigPtr->BankNumber;
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
 	InstancePtr->SectorCount = 0;
+	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
 
 	/* Disable bus power */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
@@ -608,33 +610,36 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			}
 		}
 
+		/* Get speed supported by device */
+		Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
+		if (Status != XST_SUCCESS) {
+			goto RETURN_PATH;
+		}
+
+#if defined (ARMR5) || defined (__aarch64__)
 		if ((InstancePtr->Switch1v8 != 0U) &&
 				(InstancePtr->BusWidth == XSDPS_4_BIT_WIDTH)) {
+
+			/* Identify the UHS mode supported by card */
+			XSdPs_Identify_UhsMode(InstancePtr, ReadBuff);
+
 			/* Set UHS-I SDR104 mode */
-			Status = XSdPs_Uhs_ModeInit(InstancePtr,
-					XSDPS_UHS_SPEED_MODE_SDR104);
+			Status = XSdPs_Uhs_ModeInit(InstancePtr, InstancePtr->Mode);
 			if (Status != XST_SUCCESS) {
-				Status = XST_FAILURE;
 				goto RETURN_PATH;
 			}
 
 		} else {
-
+#endif
 			/*
 			 * card supports CMD6 when SD_SPEC field in SCR register
 			 * indicates that the Physical Layer Specification Version
 			 * is 1.10 or later. So for SD v1.0 cmd6 is not supported.
 			 */
 			if (SCR[0] != 0U) {
-				/* Get speed supported by device */
-				Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
-				if (Status != XST_SUCCESS) {
-					Status = XST_FAILURE;
-					goto RETURN_PATH;
-				}
-
 				/* Check for high speed support */
 				if ((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) {
+					InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 					Status = XSdPs_Change_BusSpeed(InstancePtr);
 					if (Status != XST_SUCCESS) {
 						Status = XST_FAILURE;
@@ -642,7 +647,9 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 					}
 				}
 			}
+#if defined (ARMR5) || defined (__aarch64__)
 		}
+#endif
 
 	} else if (((InstancePtr->CardType == XSDPS_CARD_MMC) &&
 				(InstancePtr->Card_Version > CSD_SPEC_VER_3)) &&
@@ -664,6 +671,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
+			InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 			Status = XSdPs_Change_BusSpeed(InstancePtr);
 			if (Status != XST_SUCCESS) {
 				Status = XST_FAILURE;
@@ -701,6 +709,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				(EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
 				EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) {
+			InstancePtr->Mode = XSDPS_HS200_MODE;
 			Status = XSdPs_Change_BusSpeed(InstancePtr);
 			if (Status != XST_SUCCESS) {
 				Status = XST_FAILURE;

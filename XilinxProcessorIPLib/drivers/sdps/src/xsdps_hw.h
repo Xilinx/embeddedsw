@@ -51,7 +51,8 @@
 * 2.7   sk     12/10/15 Added support for MMC cards.
 *       sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
-* 2.9   sk     06/09/16 Added support for mkfs to calculate sector count.
+* 3.0   sk     06/09/16 Added support for mkfs to calculate sector count.
+*       sk     07/16/16 Added support for UHS modes.
 * </pre>
 *
 ******************************************************************************/
@@ -938,6 +939,9 @@ extern "C" {
 #define XSDPS_UHS_SPEED_MODE_SDR50	0x2U
 #define XSDPS_UHS_SPEED_MODE_SDR104	0x3U
 #define XSDPS_UHS_SPEED_MODE_DDR50	0x4U
+#define XSDPS_HIGH_SPEED_MODE		0x5U
+#define XSDPS_DEFAULT_SPEED_MODE	0x6U
+#define XSDPS_HS200_MODE			0x7U
 #define XSDPS_SWITCH_CMD_BLKCNT		1U
 #define XSDPS_SWITCH_CMD_BLKSIZE	64U
 #define XSDPS_SWITCH_CMD_HS_GET		0x00FFFFF0U

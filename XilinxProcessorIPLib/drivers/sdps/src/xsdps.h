@@ -127,7 +127,8 @@
 *       sk     03/01/16 Removed Bus Width check for eMMC. CR# 938311.
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
 *              05/03/16 Standard Speed for SD to 19MHz in ZynqMPSoC. CR#951024
-* 2.9   sk     06/09/16 Added support for mkfs to calculate sector count.
+* 3.0   sk     06/09/16 Added support for mkfs to calculate sector count.
+*       sk     07/16/16 Added support for UHS modes.
 *       sk     07/07/16 Used usleep API for both arm and microblaze.
 *
 * </pre>
@@ -198,6 +199,7 @@ typedef struct {
 	u32 CardSpecData[4];	/**< Card Specific Data Register */
 	u32 SectorCount;		/**< Sector Count */
 	u32 SdCardConfig;	/**< Sd Card Configuration Register */
+	u32 Mode;			/**< Bus Speed Mode */
 	/**< ADMA Descriptors */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
@@ -228,6 +230,9 @@ s32 XSdPs_Pullup(XSdPs *InstancePtr);
 s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
+#if defined (ARMR5) || defined (__aarch64__)
+void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
+#endif
 
 #ifdef __cplusplus
 }

@@ -56,7 +56,8 @@
 *       sk     02/16/16 Corrected the Tuning logic.
 *       sk     03/02/16 Configured the Tap Delay values for eMMC HS200 mode.
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
-* 2.9   sk     07/07/16 Used usleep API for both arm and microblaze.
+* 3.0   sk     07/07/16 Used usleep API for both arm and microblaze.
+*       sk     07/16/16 Added support for UHS modes.
 *
 * </pre>
 *
@@ -66,7 +67,11 @@
 #include "xsdps.h"
 
 /************************** Constant Definitions *****************************/
-
+#define UHS_SDR12_SUPPORT	0x1U
+#define UHS_SDR25_SUPPORT	0x2U
+#define UHS_SDR50_SUPPORT	0x4U
+#define UHS_SDR104_SUPPORT	0x8U
+#define UHS_DDR50_SUPPORT	0x10U
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -74,10 +79,9 @@
 /************************** Function Prototypes ******************************/
 s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
-s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
+#if defined (ARMR5) || defined (__aarch64__)
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
-#if defined (__arm__) || defined (__aarch64__)
 void XSdPs_SetTapDelay(XSdPs *InstancePtr);
 static void XSdPs_DllReset(XSdPs *InstancePtr);
 #endif
@@ -856,6 +860,47 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 
 }
 
+#if defined (ARMR5) || defined (__aarch64__)
+/*****************************************************************************/
+/**
+*
+* API to Identify the supported UHS mode. This API will assign the
+* corresponding tap delay API to the Config_TapDelay pointer based on the
+* supported bus speed.
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	ReadBuff contains the response for CMD6
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff)
+{
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	if (((ReadBuff[13] & UHS_SDR104_SUPPORT) != 0U) &&
+		(InstancePtr->Config.InputClockHz >= XSDPS_MMC_HS200_MAX_CLK)) {
+		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR104;
+	}
+	else if (((ReadBuff[13] & UHS_SDR50_SUPPORT) != 0U) &&
+		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR50_MAX_CLK)) {
+		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR50;
+	}
+	else if (((ReadBuff[13] & UHS_DDR50_SUPPORT) != 0U) &&
+		(InstancePtr->Config.InputClockHz >= XSDPS_SD_DDR50_MAX_CLK)) {
+		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_DDR50;
+	}
+	else if (((ReadBuff[13] & UHS_SDR25_SUPPORT) != 0U) &&
+		(InstancePtr->Config.InputClockHz >= XSDPS_SD_SDR25_MAX_CLK)) {
+		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR25;
+	}
+	else
+		InstancePtr->Mode = XSDPS_UHS_SPEED_MODE_SDR12;
+}
 
 /*****************************************************************************/
 /**
@@ -988,6 +1033,7 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 	RETURN_PATH:
 		return Status;
 }
+#endif
 
 static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 {
