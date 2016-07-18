@@ -164,6 +164,9 @@ typedef struct {
 	u32 InputClockHz;		/**< Input clock frequency */
 	u32 CardDetect;			/**< Card Detect */
 	u32 WriteProtect;			/**< Write Protect */
+	u32 BusWidth;			/**< Bus Width */
+	u32 BankNumber;			/**< MIO Bank selection for SD */
+	u32 HasEMIO;			/**< If SD is connected to EMIO */
 } XSdPs_Config;
 
 /* ADMA2 descriptor table */

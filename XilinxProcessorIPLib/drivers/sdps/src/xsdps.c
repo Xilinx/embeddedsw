@@ -159,6 +159,9 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->Config.CardDetect =  ConfigPtr->CardDetect;
 	InstancePtr->Config.WriteProtect =  ConfigPtr->WriteProtect;
+	InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
+	InstancePtr->Config.BankNumber = ConfigPtr->BankNumber;
+	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
 	InstancePtr->SectorCount = 0;
 
 	/* Disable bus power */
