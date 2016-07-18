@@ -262,6 +262,7 @@ extern "C" {
  * Register: APU_CONFIG_0
  */
 #define APU_CONFIG_0    ( ( APU_BASEADDR ) + 0X00000020U )
+#define APU_CONFIG_0_VINITHI_MASK  0x000000F0
 
 /**
  * Register: APU_RVBARADDR0L
@@ -402,12 +403,14 @@ extern "C" {
  * Register: RPU_RPU_0_CFG
  */
 #define RPU_RPU_0_CFG    ( ( RPU_BASEADDR ) + 0X00000100U )
+#define RPU_RPU_0_CFG_VINITHI_MASK     0x00000004U
 #define RPU_RPU_0_CFG_NCPUHALT_MASK    0X00000001U
 
 /**
  * Register: RPU_RPU_1_CFG
  */
 #define RPU_RPU_1_CFG    ( ( RPU_BASEADDR ) + 0X00000200U )
+#define RPU_RPU_1_CFG_VINITHI_MASK     0x00000004U
 #define RPU_RPU_1_CFG_NCPUHALT_MASK    0X00000001U
 
 /* rsa */
@@ -720,8 +723,8 @@ extern "C" {
 
 
 #define XFSBL_OCM
-#define XFSBL_OCM_START_ADDRESS			(0xFFFE2000U)
-#define XFSBL_OCM_END_ADDRESS			(0xFFFF0000U)
+#define XFSBL_OCM_START_ADDRESS			(0xFFFEA000U)
+#define XFSBL_OCM_END_ADDRESS			(0xFFFFFFFFU)
 
 /* Different Memory types */
 #define XFSBL_R5_0_TCM		(0x1U)

@@ -36,7 +36,7 @@
 /*                                                                 */
 /*******************************************************************/
 
-_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x4000;
+_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x2000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 1024;
 
 _ABORT_STACK_SIZE = DEFINED(_ABORT_STACK_SIZE) ? _ABORT_STACK_SIZE : 1024;
@@ -49,9 +49,8 @@ _UNDEF_STACK_SIZE = DEFINED(_UNDEF_STACK_SIZE) ? _UNDEF_STACK_SIZE : 1024;
 
 MEMORY
 {
-   psu_ram_0_S_AXI_BASEADDR : ORIGIN = 0xFFFC0000, LENGTH = 0x00022000
-   psu_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFF0040, LENGTH = 0x0000FDC0
-   psu_ram_2_S_AXI_BASEADDR : ORIGIN = 0xFFFFFE00, LENGTH = 0x00000200
+   psu_ram_0_S_AXI_BASEADDR : ORIGIN = 0xFFFC0000, LENGTH = 0x00029D00
+   psu_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFE9E00, LENGTH = 0x00000200
 }
 
 /* Specify the default entry point to the program */
@@ -236,7 +235,7 @@ SECTIONS
    *(.sbss.*)
    *(.gnu.linkonce.sb.*)
    __sbss_end = .;
-} > psu_ram_1_S_AXI_BASEADDR
+} > psu_ram_0_S_AXI_BASEADDR
 
 .tdata : {
    __tdata_start = .;
@@ -252,7 +251,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > psu_ram_1_S_AXI_BASEADDR
+} > psu_ram_0_S_AXI_BASEADDR
 
 .bss (NOLOAD) : {
    __bss_start = .;
@@ -263,7 +262,7 @@ SECTIONS
    *(COMMON)
    __bss_end = .;
    __bss_end__ = .;
-} > psu_ram_1_S_AXI_BASEADDR
+} > psu_ram_0_S_AXI_BASEADDR
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -279,7 +278,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _HEAP_SIZE;
    _heap_end = .;
    HeapLimit = .;
-} > psu_ram_1_S_AXI_BASEADDR
+} > psu_ram_0_S_AXI_BASEADDR
 
 .stack (NOLOAD) : {
    . = ALIGN(16);
@@ -307,12 +306,12 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _UNDEF_STACK_SIZE;
    . = ALIGN(16);
    __undef_stack = .;
-} > psu_ram_1_S_AXI_BASEADDR
+} > psu_ram_0_S_AXI_BASEADDR
 
 .handoff_params (NOLOAD) : {
    . = ALIGN(512);
    *(.handoff_params)
-} > psu_ram_2_S_AXI_BASEADDR
+} > psu_ram_1_S_AXI_BASEADDR
 
 _end = .;
 }

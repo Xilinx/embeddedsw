@@ -35,7 +35,7 @@
 /* Description : FSBL A53 Linker Script                            */
 /*                                                                 */
 /*******************************************************************/
-_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x4000;
+_STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x2000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 1024;
 
 _EL0_STACK_SIZE = DEFINED(_EL0_STACK_SIZE) ? _EL0_STACK_SIZE : 1024;
@@ -46,9 +46,8 @@ _EL2_STACK_SIZE = DEFINED(_EL2_STACK_SIZE) ? _EL2_STACK_SIZE : 1024;
 
 MEMORY
 {
-   psu_ocm_ram_0_S_AXI_BASEADDR : ORIGIN = 0xFFFC0000, LENGTH = 0x00022000
-   psu_ocm_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFF0040, LENGTH = 0x0000FDC0
-   psu_ocm_ram_2_S_AXI_BASEADDR : ORIGIN = 0xFFFFFE00, LENGTH = 0x00000200
+   psu_ocm_ram_0_S_AXI_BASEADDR : ORIGIN = 0xFFFC0000, LENGTH = 0x00029D00
+   psu_ocm_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFE9E00, LENGTH = 0x00000200
 }
 
 /* Specify the default entry point to the program */
@@ -265,7 +264,7 @@ SECTIONS
    *(.gnu.linkonce.sb.*)
     . = ALIGN(64);
    __sbss_end = .;
-} > psu_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .tdata (ALIGN(64)): {
    __tdata_start = .;
@@ -281,7 +280,7 @@ SECTIONS
    *(.tbss.*)
    *(.gnu.linkonce.tb.*)
    __tbss_end = .;
-} > psu_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .bss (NOLOAD) : {
    . = ALIGN(64);
@@ -292,7 +291,7 @@ SECTIONS
    *(COMMON)
    . = ALIGN(64);
    __bss_end__ = .;
-} > psu_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 _SDA_BASE_ = __sdata_start + ((__sbss_end - __sdata_start) / 2 );
 
@@ -308,7 +307,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _HEAP_SIZE;
    _heap_end = .;
    HeapLimit = .;
-} > psu_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .stack (NOLOAD) : {
    . = ALIGN(64);
@@ -327,12 +326,12 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . += _EL0_STACK_SIZE;
    . = ALIGN(64);
    __el0_stack = .;
-} > psu_ocm_ram_1_S_AXI_BASEADDR
+} > psu_ocm_ram_0_S_AXI_BASEADDR
 
 .handoff_params (NOLOAD) : {
    . = ALIGN(512);
    *(.handoff_params)
-} > psu_ocm_ram_2_S_AXI_BASEADDR
+} > psu_ocm_ram_1_S_AXI_BASEADDR
 
 _end = .;
 }

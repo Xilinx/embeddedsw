@@ -173,6 +173,7 @@ extern "C" {
 #define XFSBL_ERROR_I2C_WRITE						(0x4BU)
 #define XFSBL_ERROR_DDR_ECC_INIT					(0x4CU)
 #define XFSBL_ERROR_TCM_ECC_INIT					(0x4DU)
+#define XFSBL_ERROR_UNSUPPORTED_HANDOFF				(0x4EU)
 
 #define XFSBL_FAILURE					(0x3FFU)
 
