@@ -53,6 +53,8 @@
 * 2.8   sk     04/20/16 Added new workaround for auto tuning.
 * 3.0   sk     06/09/16 Added support for mkfs to calculate sector count.
 *       sk     07/16/16 Added support for UHS modes.
+*       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
+*                       operating modes.
 * </pre>
 *
 ******************************************************************************/
@@ -999,16 +1001,43 @@ extern "C" {
 #define XSDPS_SLOT_REM			0U
 #define XSDPS_SLOT_EMB			1U
 
-#if defined (__arm__) || defined (__aarch64__)
-#define SD_DLL_CTRL 			0x00000358U
-#define SD_ITAPDLY				0x00000314U
-#define SD_OTAPDLYSEL			0x00000318U
-#define SD0_DLL_RST				0x00000004U
-#define SD1_DLL_RST				0x00040000U
-#define SD0_ITAPCHGWIN			0x00000200U
-#define SD0_ITAPDLYENA			0x00000100U
-#define SD0_OTAPDLYENA			0x00000040U
-#define SD0_OTAPDLYSEL_HS200	0x00000003U
+#if defined (ARMR5) || defined (__aarch64__)
+#define SD_DLL_CTRL 				0x00000358U
+#define SD_ITAPDLY					0x00000314U
+#define SD_OTAPDLY					0x00000318U
+#define SD0_DLL_RST					0x00000004U
+#define SD1_DLL_RST					0x00040000U
+#define SD0_ITAPCHGWIN				0x00000200U
+#define SD0_ITAPDLYENA				0x00000100U
+#define SD0_OTAPDLYENA				0x00000040U
+#define SD1_ITAPCHGWIN				0x02000000U
+#define SD1_ITAPDLYENA				0x01000000U
+#define SD1_OTAPDLYENA				0x00400000U
+
+#define SD0_OTAPDLYSEL_HS200_B0		0x00000003U
+#define SD0_OTAPDLYSEL_HS200_B2		0x00000002U
+#define SD0_ITAPDLYSEL_SD50			0x00000014U
+#define SD0_OTAPDLYSEL_SD50			0x00000003U
+#define SD0_ITAPDLYSEL_SD_DDR50		0x0000003DU
+#define SD0_ITAPDLYSEL_EMMC_DDR50	0x00000012U
+#define SD0_OTAPDLYSEL_SD_DDR50		0x00000004U
+#define SD0_OTAPDLYSEL_EMMC_DDR50	0x00000006U
+#define SD0_ITAPDLYSEL_HSD			0x00000015U
+#define SD0_OTAPDLYSEL_SD_HSD		0x00000005U
+#define SD0_OTAPDLYSEL_EMMC_HSD		0x00000006U
+
+#define SD1_OTAPDLYSEL_HS200_B0		0x00030000U
+#define SD1_OTAPDLYSEL_HS200_B2		0x00020000U
+#define SD1_ITAPDLYSEL_SD50			0x00140000U
+#define SD1_OTAPDLYSEL_SD50			0x00030000U
+#define SD1_ITAPDLYSEL_SD_DDR50		0x003D0000U
+#define SD1_ITAPDLYSEL_EMMC_DDR50	0x00120000U
+#define SD1_OTAPDLYSEL_SD_DDR50		0x00040000U
+#define SD1_OTAPDLYSEL_EMMC_DDR50	0x00060000U
+#define SD1_ITAPDLYSEL_HSD			0x00150000U
+#define SD1_OTAPDLYSEL_SD_HSD		0x00050000U
+#define SD1_OTAPDLYSEL_EMMC_HSD		0x00060000U
+
 #endif
 
 /**************************** Type Definitions *******************************/

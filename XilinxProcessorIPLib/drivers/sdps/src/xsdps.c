@@ -68,6 +68,8 @@
 * 3.0   sk     06/09/16 Added support for mkfs to calculate sector count.
 *       sk     07/16/16 Added support for UHS modes.
 *       sk     07/07/16 Used usleep API for both arm and microblaze.
+*       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
+*                       operating modes.
 * </pre>
 *
 ******************************************************************************/
@@ -165,6 +167,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
 	InstancePtr->SectorCount = 0;
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
+	InstancePtr->Config_TapDelay = NULL;
 
 	/* Disable bus power */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
@@ -640,6 +643,9 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 				/* Check for high speed support */
 				if ((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) {
 					InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
+#if defined (ARMR5) || defined (__aarch64__)
+					InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
+#endif
 					Status = XSdPs_Change_BusSpeed(InstancePtr);
 					if (Status != XST_SUCCESS) {
 						Status = XST_FAILURE;
@@ -710,6 +716,9 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 				(EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
 				EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) {
 			InstancePtr->Mode = XSDPS_HS200_MODE;
+#if defined (ARMR5) || defined (__aarch64__)
+			InstancePtr->Config_TapDelay = XSdPs_sdr104_hs200_tapdelay;
+#endif
 			Status = XSdPs_Change_BusSpeed(InstancePtr);
 			if (Status != XST_SUCCESS) {
 				Status = XST_FAILURE;

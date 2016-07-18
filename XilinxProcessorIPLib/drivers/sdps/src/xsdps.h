@@ -130,6 +130,8 @@
 * 3.0   sk     06/09/16 Added support for mkfs to calculate sector count.
 *       sk     07/16/16 Added support for UHS modes.
 *       sk     07/07/16 Used usleep API for both arm and microblaze.
+*       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
+*                       operating modes.
 *
 * </pre>
 *
@@ -156,6 +158,9 @@ extern "C" {
 #define MAX_TUNING_COUNT	40U		/**< Maximum Tuning count */
 
 /**************************** Type Definitions *******************************/
+
+typedef void (*XSdPs_ConfigTap) (u32 Bank, u32 DeviceId, u32 CardType);
+
 /**
  * This typedef contains configuration information for the device.
  */
@@ -200,6 +205,7 @@ typedef struct {
 	u32 SectorCount;		/**< Sector Count */
 	u32 SdCardConfig;	/**< Sd Card Configuration Register */
 	u32 Mode;			/**< Bus Speed Mode */
+	XSdPs_ConfigTap Config_TapDelay;	/**< Configuring the tap delays */
 	/**< ADMA Descriptors */
 #ifdef __ICCARM__
 #pragma data_alignment = 32
@@ -232,6 +238,8 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 #if defined (ARMR5) || defined (__aarch64__)
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
+void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
+void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 #endif
 
 #ifdef __cplusplus
