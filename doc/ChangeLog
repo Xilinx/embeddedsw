@@ -16,6 +16,10 @@ Modified driver code for MISRA-C:2012 Compliance
 emacps_v3_3:
 Fixed IEEE1588 example issue for Zynq (CR#951152
 
+qspipsu_v1_2:
+Add LQSPI support
+Added Tap delay support.
+
 scugic_v3_4:
 Updated tcl to return correct PL ips' interruptIDs when no interrupt is connected to pl_ps_irq0 to fix CR#953335
 
