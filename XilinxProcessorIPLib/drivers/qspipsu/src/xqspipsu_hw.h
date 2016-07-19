@@ -48,6 +48,7 @@
 *       hk  03/18/15 Add DMA status register masks required.
 *       sk  04/24/15 Modified the code according to MISRAC-2012.
 * 1.2	nsk 07/01/16 Added LQSPI supported Masks
+*       rk  07/15/16 Added support for TapDelays at different frequencies.
 *
 * </pre>
 *
@@ -810,6 +811,23 @@ extern "C" {
 #define XQSPIPSU_GENFIFO_RX		0x20000U	/* inverse is RX discard */
 #define XQSPIPSU_GENFIFO_STRIPE		0x40000U
 #define XQSPIPSU_GENFIFO_POLL		0x80000U
+
+/*QSPI Data delay register*/
+#define XQSPIPSU_DATA_DLY_ADJ_OFFSET    0X000000F8U
+
+#define XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT   31
+#define XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_WIDTH   1
+#define XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_MASK    0X80000000U
+
+#define XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT   28
+#define XQSPIPSU_DATA_DLY_ADJ_DLY_WIDTH   3
+#define XQSPIPSU_DATA_DLY_ADJ_DLY_MASK    0X70000000U
+
+/* Tapdelay Bypass register*/
+#define IOU_TAPDLY_BYPASS_OFFSET 0X00000390
+#define IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT 0X02
+#define IOU_TAPDLY_BYPASS_LQSPI_RX_WIDTH 0X01
+#define IOU_TAPDLY_BYPASS_LQSPI_RX_MASK 0x00000004
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

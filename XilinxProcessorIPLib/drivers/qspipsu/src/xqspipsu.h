@@ -103,6 +103,7 @@
 *		     Modified XQspiPsu_SetOptions() to support
 *		     LQSPI options and updated OptionsTable in
 *		     xqspipsu_options.c
+*       rk  07/15/16 Added support for TapDelays at different frequencies.
 *
 * </pre>
 *
@@ -234,6 +235,11 @@ typedef struct {
 #define XQSPIPSU_CONNECTION_MODE_SINGLE		0U
 #define XQSPIPSU_CONNECTION_MODE_STACKED	1U
 #define XQSPIPSU_CONNECTION_MODE_PARALLEL	2U
+
+/*QSPI Frequencies*/
+#define XQSPIPSU_FREQ_40MHZ 40000000
+#define XQSPIPSU_FREQ_100MHZ 100000000
+#define XQSPIPSU_FREQ_150MHZ 150000000
 
 /* Add more flags as required */
 #define XQSPIPSU_MSG_FLAG_STRIPE	0x1U

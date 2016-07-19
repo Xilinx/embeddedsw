@@ -50,6 +50,7 @@
 * 1.1   sk  04/12/16 Added debug message prints.
 * 1.2	nsk 07/01/16 Modified XQspiPsu_SetOptions() to support
 *		     LQSPI options and updated OptionsTable
+*       rk  07/15/16 Added support for TapDelays at different frequencies.
 *
 * </pre>
 *
@@ -65,7 +66,22 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#if defined (ARMR5) || (__aarch64__)
+#define TAPDLY_BYPASS_VALVE_40MHZ 0x01
+#define TAPDLY_BYPASS_VALVE_100MHZ 0x01
+#define USE_DLY_LPBK  0x01
+#define USE_DATA_DLY_ADJ 0x01
+#define DATA_DLY_ADJ_DLY 0X02
+#define LPBK_DLY_ADJ_DLY0 0X02
+#endif
+
 /************************** Function Prototypes ******************************/
+
+#if defined (ARMR5) || (__aarch64__)
+s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
+						u32 LPBKDelay,u32 Datadelay);
+static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -293,6 +309,119 @@ u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
 	return OptionsFlag;
 }
 
+#if defined (ARMR5) || (__aarch64__)
+/*****************************************************************************/
+/**
+*
+* This function sets the Tapdelay values for the QSPIPSU device driver.The device
+* must be idle rather than busy transferring data before setting Tapdelay.
+*
+* @param	InstancePtr is a pointer to the XQspiPsu instance.
+* @param	TapdelayBypss contains the IOU_TAPDLY_BYPASS register value.
+* @param	LPBKDelay contains the GQSPI_LPBK_DLY_ADJ register value.
+* @param	Datadelay contains the QSPI_DATA_DLY_ADJ register value.
+*
+* @return
+*		- XST_SUCCESS if options are successfully set.
+*		- XST_DEVICE_BUSY if the device is currently transferring data.
+*		The transfer must complete or be aborted before setting TapDelay.
+*
+* @note
+* This function is not thread-safe.
+*
+******************************************************************************/
+s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
+						u32 LPBKDelay,u32 Datadelay)
+{
+	s32 Status;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	/*
+	 * Do not allow to modify the Control Register while a transfer is in
+	 * progress. Not thread-safe.
+	 */
+	if (InstancePtr->IsBusy == TRUE) {
+		Status = XST_DEVICE_BUSY;
+	} else {
+		XQspiPsu_WriteReg(XPS_SYS_CTRL_BASEADDR,IOU_TAPDLY_BYPASS_OFFSET,
+				TapdelayBypass);
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_LPBK_DLY_ADJ_OFFSET,LPBKDelay);
+		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
+				XQSPIPSU_DATA_DLY_ADJ_OFFSET,Datadelay);
+		Status = XST_SUCCESS;
+	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Configures the clock according to the prescaler passed.
+*
+*
+* @param	InstancePtr is a pointer to the XQspiPsu instance.
+* @param	Prescaler - clock prescaler.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_DEVICE_BUSY if the device is currently transferring data.
+*		The transfer must complete or be aborted before setting Tapdelay.
+*
+* @note		None.
+*
+******************************************************************************/
+static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
+{
+	u32 FreqDiv, Divider, Tapdelay, LBkModeReg, delayReg;
+	s32 Status;
+
+	Divider = (1 << (Prescaler+1));
+
+	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
+	Tapdelay = XQspiPsu_ReadReg(XPS_SYS_CTRL_BASEADDR,
+					IOU_TAPDLY_BYPASS_OFFSET);
+
+	Tapdelay = Tapdelay & (~IOU_TAPDLY_BYPASS_LQSPI_RX_MASK);
+
+	LBkModeReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_LPBK_DLY_ADJ_OFFSET);
+
+	LBkModeReg = (LBkModeReg &
+			(~(XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_MASK))) &
+			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY1_MASK))) &
+			(LBkModeReg & (~(XQSPIPSU_LPBK_DLY_ADJ_DLY0_MASK)));
+
+	delayReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,
+			XQSPIPSU_DATA_DLY_ADJ_OFFSET);
+
+	delayReg = (delayReg &
+			(~(XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_MASK))) &
+			(delayReg & (~( XQSPIPSU_DATA_DLY_ADJ_DLY_MASK)));
+
+	if(FreqDiv < XQSPIPSU_FREQ_40MHZ){
+		Tapdelay = Tapdelay |
+				(TAPDLY_BYPASS_VALVE_40MHZ << IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
+	} else if (FreqDiv <= XQSPIPSU_FREQ_100MHZ) {
+		Tapdelay = Tapdelay | (TAPDLY_BYPASS_VALVE_100MHZ << IOU_TAPDLY_BYPASS_LQSPI_RX_SHIFT);
+		LBkModeReg = LBkModeReg |
+				(USE_DLY_LPBK <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT);
+		delayReg = delayReg |
+				(USE_DATA_DLY_ADJ  << XQSPIPSU_DATA_DLY_ADJ_USE_DATA_DLY_SHIFT) |
+				(DATA_DLY_ADJ_DLY  << XQSPIPSU_DATA_DLY_ADJ_DLY_SHIFT);
+	} else if (FreqDiv <= XQSPIPSU_FREQ_150MHZ) {
+		LBkModeReg = LBkModeReg |
+				(USE_DLY_LPBK  <<  XQSPIPSU_LPBK_DLY_ADJ_USE_LPBK_SHIFT ) |
+				(LPBK_DLY_ADJ_DLY0  << XQSPIPSU_LPBK_DLY_ADJ_DLY0_SHIFT);
+	}
+	Status = XQspi_Set_TapDelay(InstancePtr, Tapdelay, LBkModeReg, delayReg);
+
+	return Status;
+}
+#endif
+
 /*****************************************************************************/
 /**
 *
@@ -305,6 +434,7 @@ u32 XQspiPsu_GetOptions(XQspiPsu *InstancePtr)
 * @return
 *		- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STARTED if the device is already started.
+*		- XST_DEVICE_BUSY if the device is currently transferring data.
 *		It must be stopped to re-initialize.
 *
 * @note		None.
@@ -342,7 +472,11 @@ s32 XQspiPsu_SetClkPrescaler(XQspiPsu *InstancePtr, u8 Prescaler)
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				  XQSPIPSU_CFG_OFFSET, ConfigReg);
 
+#if defined (ARMR5) || (__aarch64__)
+		Status = XQspipsu_Calculate_Tapdelay(InstancePtr,Prescaler);
+#else
 		Status = XST_SUCCESS;
+#endif
 	}
 
 	return Status;

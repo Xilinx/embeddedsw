@@ -55,6 +55,7 @@
 * 1.1   sk  04/12/16 Added debug message prints.
 * 1.2	nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
 *		     selection.
+*       rk  07/15/16 Added support for TapDelays at different frequencies.
 *
 * </pre>
 *
@@ -140,7 +141,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		InstancePtr->Config.ConnectionMode = ConfigPtr->ConnectionMode;
 		InstancePtr->StatusHandler = StubStatusHandler;
 		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
-
+		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
