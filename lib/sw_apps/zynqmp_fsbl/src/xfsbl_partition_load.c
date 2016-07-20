@@ -88,6 +88,9 @@ PTRSIZE TcmSkipAddress=0U;
 #ifdef XFSBL_AES
 static XSecure_Aes SecureAes;
 #endif
+#ifdef XFSBL_RSA
+extern u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
+#endif
 
 #if !defined(XFSBL_PS_DDR) && defined(XFSBL_BS)
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
@@ -812,12 +815,45 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	}
 
 	/**
+	 * Get the source(flash offset) address where it needs to copy
+	 */
+	SrcAddress = FsblInstancePtr->ImageOffsetAddress +
+				((PartitionHeader->DataWordOffset) *
+					XIH_PARTITION_WORD_LENGTH);
+
+	/**
+	 * Length of the partition to be copied
+	 */
+	Length  = (PartitionHeader->TotalDataWordLength) *
+					XIH_PARTITION_WORD_LENGTH;
+
+	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
+	LoadAddress = PartitionHeader->DestinationLoadAddress;
+
+	/**
+	 * Copy the authentication certificate to auth. buffer
+	 * Update Partition length to be copied.
+	 */
+#ifdef XFSBL_RSA
+	if (XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
+			XIH_PH_ATTRB_RSA_SIGNATURE ) {
+
+		Length = Length - XFSBL_AUTH_CERT_MIN_SIZE;
+
+		Status = FsblInstancePtr->DeviceOps.DeviceCopy((SrcAddress + Length),
+					(INTPTR)AuthBuffer, XFSBL_AUTH_CERT_MIN_SIZE);
+		if (XFSBL_SUCCESS != Status)
+		{
+			goto END;
+		}
+	}
+#endif
+
+	/**
 	 * Copy the PL to temporary DDR Address
 	 * Copy the PS to Load Address
 	 * Copy the PMU firmware to PMU RAM
 	 */
-	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
-	LoadAddress = PartitionHeader->DestinationLoadAddress;
 
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 	{
@@ -847,20 +883,6 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		goto END;
 #endif
 	}
-
-	/**
-	 * Get the source(flash offset) address where it needs to copy
-	 */
-	SrcAddress = FsblInstancePtr->ImageOffsetAddress +
-				((PartitionHeader->DataWordOffset) *
-					XIH_PARTITION_WORD_LENGTH);
-
-	/**
-	 * Length of the partition to be copied
-	 */
-	Length  = (PartitionHeader->TotalDataWordLength) *
-					XIH_PARTITION_WORD_LENGTH;
-
 
 	/**
 	 * When destination device is R5-0/R5-1/R5-L and load address is in TCM
@@ -1166,9 +1188,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 * Do the authentication validation
 		 */
 		Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
-				Length, (LoadAddress + Length)
-					- XFSBL_AUTH_CERT_MIN_SIZE,
-				HashLen, PartitionNum);
+				Length, (PTRSIZE)AuthBuffer, HashLen, PartitionNum);
 
 #else
 		if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
@@ -1183,9 +1203,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 					XIH_PARTITION_WORD_LENGTH);
 
 			Status = XFsbl_Authentication(FsblInstancePtr, SrcAddress,
-					Length, (SrcAddress + Length)
-						- XFSBL_AUTH_CERT_MIN_SIZE,
-					HashLen, PartitionNum);
+					Length, (PTRSIZE)AuthBuffer, HashLen, PartitionNum);
 #endif
 		}
 		else
@@ -1195,9 +1213,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			 * less system
 			 */
 			Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
-					Length, (LoadAddress + Length)
-						- XFSBL_AUTH_CERT_MIN_SIZE,
-					HashLen, XIH_PH_ATTRB_DEST_DEVICE_PS);
+					Length, (PTRSIZE)AuthBuffer, HashLen,
+					PartitionNum);
 		}
 #endif
 

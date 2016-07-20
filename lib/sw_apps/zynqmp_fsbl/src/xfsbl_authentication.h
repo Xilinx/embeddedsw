@@ -96,6 +96,8 @@ extern "C" {
 
 #define XFSBL_PARTIAL_AC_SIZE  (XFSBL_AUTH_CERT_MIN_SIZE - XFSBL_FSBL_SIG_SIZE)
 
+#define XFSBL_AUTH_BUFFER_SIZE	(XFSBL_AUTH_CERT_MIN_SIZE)
+
 /**
 * CSU RSA Register Map
 */
@@ -133,8 +135,7 @@ u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 u32 XFsbl_PartitionSignVer(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 				u32 PartitionLen, u64 AcOffset, u32 HashLen,
 				u32 PartitionNum);
-u32 XFsbl_SpkVer(XFsblPs * FsblInstancePtr, u64 AcOffset, u32 HashLen,
-			u32 PartitionNum);
+u32 XFsbl_SpkVer(XFsblPs * FsblInstancePtr, u64 AcOffset, u32 HashLen);
 
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen);
 
