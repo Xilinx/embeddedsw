@@ -43,6 +43,7 @@
 * ----- ---- -------- ---------------------------------------------------
 * 5.00  pkp  05/21/14 Initial version
 * 5.04	pkp  12/18/15 Updated the address map according to proper address map
+* 5.6   mus  07/20/16 Added warning for ddrless HW design CR-954977
 *
 * @note
 *
@@ -131,6 +132,7 @@ MMUTableL2:
 .endif
 #else
 .set DDR_REG, 0
+#warning "There's no DDR in the HW design. MMU translation table marks 2 GB DDR address space as undefined"
 #endif
 
 .set UNDEF_REG, 0x400 - DDR_REG
