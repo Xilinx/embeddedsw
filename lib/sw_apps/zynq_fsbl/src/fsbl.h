@@ -228,9 +228,13 @@
 *                       not correct.
 *                       Resolution: Corresponding fields in the devcfg.STATUS
 *                       register are written to, for clearing DMA done count.
-* 14.0 gan 01/13/16     869081 -(2016.1)FSBL -In qspi.c, FSBL picks the qspi
+* 14.00a gan 01/13/16   869081 -(2016.1)FSBL -In qspi.c, FSBL picks the qspi
 *						read command from LQSPI_CFG register instead of hard
 *		   				coded read command (0x6B).
+* 15.00a gan 07/21/16   953654 -(2016.3)FSBL -In pcap.c/pcap.h/main.c,
+* 						Fabric Initialization sequence is modified to check
+* 						the PL power before sequence starts and checking INIT_B
+* 						reset status twice in case of failure.
 *
 * </pre>
 *

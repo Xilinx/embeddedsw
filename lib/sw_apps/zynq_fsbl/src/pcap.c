@@ -1,4 +1,4 @@
-/******************************************************************************
+/
 *
 * Copyright (C) 2012 - 2014 Xilinx, Inc.  All rights reserved.
 * 
@@ -74,6 +74,13 @@
 * 10.00a kc 07/24/14    Fix for CR#809336 - Minor code cleanup
 * 13.00a ssc 04/10/15   Fix for CR#846899 - Corrected logic to clear
 *                                           DMA done count
+* 15.00a gan 07/21/16   Fix for CR# 953654 -(2016.3)FSBL -
+* 											In pcap.c/pcap.h/main.h,
+* 											Fabric Initialization sequence
+* 											is modified to check the PL power
+* 											before sequence starts and checking
+* 											INIT_B reset status twice in case
+* 											of failure.
 * </pre>
 *
 * @note
@@ -90,6 +97,7 @@
 #include "xil_exception.h"
 #include "xdevcfg.h"
 #include "sleep.h"
+#include "xtime_l.h"
 
 #ifdef XPAR_XWDTPS_0_BASEADDR
 #include "xwdtps.h"
@@ -284,7 +292,10 @@ u32 PcapLoadPartition(u32 *SourceDataPtr, u32 *DestinationDataPtr,
 	/*
 	 * New Bitstream download initialization sequence
 	 */
-	FabricInit();
+	Status = FabricInit();
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
 
 #ifdef	XPAR_XWDTPS_0_BASEADDR
@@ -396,7 +407,6 @@ int InitPcap(void)
 
 	return XST_SUCCESS;
 }
-
 /******************************************************************************/
 /**
 *
@@ -404,17 +414,23 @@ int InitPcap(void)
 *
 * @param	None
 *
-* @return	None
+* @return
 *		- XST_SUCCESS if the Fabric  initialization is successful
 *		- XST_FAILURE if the Fabric  initialization fails
 * @note		None
 *
 ****************************************************************************/
-void FabricInit(void)
+u32 FabricInit(void)
 {
 	u32 PcapReg; 
 	u32 PcapCtrlRegVal;
 	u32 StatusReg;
+	u32 MctrlReg;
+	u32 PcfgInit;
+	u32 TimerExpired=0;
+	XTime tCur=0;
+	XTime tEnd=0;
+
 
 	/*
 	 * Set Level Shifters DT618760 - PS to PL enabling
@@ -430,6 +446,19 @@ void FabricInit(void)
 				XDCFG_CTRL_OFFSET);
 
 	/*
+	 * Check the PL power status
+	 */
+	MctrlReg = XDcfg_GetMiscControlRegister(DcfgInstPtr);
+
+	if((MctrlReg & XDCFG_MCTRL_PCAP_PCFG_POR_B_MASK) !=
+			XDCFG_MCTRL_PCAP_PCFG_POR_B_MASK)
+	{
+		fsbl_printf(DEBUG_INFO,"Fabric not powered up\r\n");
+		return XST_FAILURE;
+	}
+
+
+	/*
 	 * Setting PCFG_PROG_B signal to high
 	 */
 	XDcfg_WriteReg(DcfgInstPtr->Config.BaseAddr, XDCFG_CTRL_OFFSET,
@@ -440,9 +469,9 @@ void FabricInit(void)
 	 */
 	PcapCtrlRegVal = XDcfg_GetControlRegister(DcfgInstPtr);
 	if (PcapCtrlRegVal & XDCFG_CTRL_PCFG_AES_FUSE_MASK) {
-		/*
-		 * 5msec delay
-		 */
+	/*
+	 * 5msec delay
+	 */
 		usleep(5000);
 	}
 	
@@ -456,17 +485,104 @@ void FabricInit(void)
 	 * Check for AES source key
 	 */
 	if (PcapCtrlRegVal & XDCFG_CTRL_PCFG_AES_FUSE_MASK) {
-		/*
-		 * 5msec delay
-		 */
+	/*
+	 * 5msec delay
+	 */
 		usleep(5000);
 	}
 
 	/*
-	 * Polling the PCAP_INIT status for Reset
+	 * Polling the PCAP_INIT status for Reset or timeout
 	 */
-	while(XDcfg_GetStatusRegister(DcfgInstPtr) &
+
+	XTime_GetTime(&tCur);
+	do
+	{
+		PcfgInit = (XDcfg_GetStatusRegister(DcfgInstPtr) &
 				XDCFG_STATUS_PCFG_INIT_MASK);
+		if(PcfgInit == 0)
+		{
+			break;
+		}
+		XTime_GetTime(&tEnd);
+		if((u64)((u64)tCur + (COUNTS_PER_MILLI_SECOND*30)) > (u64)tEnd)
+		{
+			TimerExpired = 1;
+		}
+
+	} while(!TimerExpired);
+
+	if(TimerExpired == 1)
+	{
+		TimerExpired = 0;
+		/*
+		 * Came here due to expiration and PCAP_INIT is set.
+		 * Retry PCFG_PROG_B High -> Low again
+		 */
+
+		/*
+		 * Setting PCFG_PROG_B signal to high
+		 */
+		XDcfg_WriteReg(DcfgInstPtr->Config.BaseAddr, XDCFG_CTRL_OFFSET,
+					(PcapReg | XDCFG_CTRL_PCFG_PROG_B_MASK));
+
+		/*
+		 * Check for AES source key
+		 */
+		PcapCtrlRegVal = XDcfg_GetControlRegister(DcfgInstPtr);
+		if (PcapCtrlRegVal & XDCFG_CTRL_PCFG_AES_FUSE_MASK) {
+			/*
+			 * 5msec delay
+			 */
+			usleep(5000);
+		}
+
+		/*
+		 * Setting PCFG_PROG_B signal to low
+		 */
+		XDcfg_WriteReg(DcfgInstPtr->Config.BaseAddr, XDCFG_CTRL_OFFSET,
+					(PcapReg & ~XDCFG_CTRL_PCFG_PROG_B_MASK));
+
+		/*
+		 * Check for AES source key
+		 */
+		if (PcapCtrlRegVal & XDCFG_CTRL_PCFG_AES_FUSE_MASK) {
+			/*
+			 * 5msec delay
+			 */
+			usleep(5000);
+		}
+		/*
+		 * Polling the PCAP_INIT status for Reset or timeout (second iteration)
+		 */
+
+		XTime_GetTime(&tCur);
+		do
+		{
+			PcfgInit = (XDcfg_GetStatusRegister(DcfgInstPtr) &
+					XDCFG_STATUS_PCFG_INIT_MASK);
+			if(PcfgInit == 0)
+			{
+				break;
+			}
+			XTime_GetTime(&tEnd);
+			if((u64)((u64)tCur + (COUNTS_PER_MILLI_SECOND*30)) > (u64)tEnd)
+			{
+				TimerExpired = 1;
+			}
+
+		} while(!TimerExpired);
+
+		if(TimerExpired == 1)
+		{
+			/*
+			 * Came here due to PCAP_INIT is not getting reset
+			 * for PCFG_PROG_B signal High -> Low
+			 */
+			fsbl_printf(DEBUG_INFO,"Fabric Init failed\r\n");
+			return XST_FAILURE;
+		}
+	}
 
 	/*
 	 * Setting PCFG_PROG_B signal to high
@@ -487,8 +603,9 @@ void FabricInit(void)
 	fsbl_printf(DEBUG_INFO,"Devcfg Status register = 0x%lx \r\n",StatusReg);
 
 	fsbl_printf(DEBUG_INFO,"PCAP:Fabric is Initialized done\r\n");
-}
 
+	return XST_SUCCESS;
+}
 /******************************************************************************/
 /**
 *

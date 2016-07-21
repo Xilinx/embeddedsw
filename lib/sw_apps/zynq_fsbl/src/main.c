@@ -99,6 +99,13 @@
 * 11.00a kv 10/08/14	Fix for CR#826030 - LinearBootDeviceFlag should
 *											be initialized to 0 in IO mode
 *											case
+* 15.00a gan 07/21/16   Fix for CR# 953654 -(2016.3)FSBL -
+* 											In pcap.c/pcap.h/main.c,
+* 											Fabric Initialization sequence
+* 											is modified to check the PL power
+* 											before sequence starts and checking
+* 											INIT_B reset status twice in case
+* 											of failure.
 * </pre>
 *
 * @note
@@ -648,7 +655,11 @@ void FsblFallback(void)
 			/*
 			 * Clean the Fabric
 			 */
-			FabricInit();
+			Status = FabricInit();
+			if(Status != XST_SUCCESS){
+				ClearFSBLIn();
+				FsblHookFallback();
+			}
 
 #ifdef RSA_SUPPORT
 
