@@ -161,6 +161,7 @@
 *						platform variable in driver instance structure.
 * 3.1   adk   14/03/16  Include interrupt examples in the peripheral test when
 *			uart is connected to a valid interrupt controller CR#946803.
+* 3.2   rk     07/20/16 Modified the logic for transmission break bit set
 *
 * </pre>
 *

@@ -47,6 +47,7 @@
 * 1.00  sdm    09/27/11 Fixed a bug in XUartPs_SetFlowDelay where the input
 *			value was not being written to the register.
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.2   rk     07/20/16 Modified the logic for transmission break bit set
 *
 * </pre>
 *
@@ -199,6 +200,8 @@ void XUartPs_SetOptions(XUartPs *InstancePtr, u16 Options)
 		 * the register.
 		 */
 		if ((Options & OptionsTable[Index].Option) != (u16)0) {
+			if(OptionsTable[Index].Option == XUARTPS_OPTION_SET_BREAK)
+				Register &= ~XUARTPS_CR_STOPBRK;
 			Register |= OptionsTable[Index].Mask;
 		}
 		else {

@@ -43,6 +43,9 @@ Added support for UHS modes.
 Corrected the logic.
 Added tap delays for SD/eMMC.
 
+uartps_v3_2:
+Modified the transmission break bit set logic.
+
 xilffs_v3_4:
 Added support for mkfs.
 Added support for multi partitions.
