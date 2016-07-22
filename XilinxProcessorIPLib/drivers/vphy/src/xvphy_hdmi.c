@@ -47,6 +47,8 @@
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support.
  *       MG   03/08/16 Fixed issue in function XVphy_HdmiCfgCalcMmcmParam
  *                       for single pixel calculation.
+ * 1.2   gm            Added XVphy_HdmiMmcmStart and
+ *                       XVphy_HdmiMmcmWriteParameters functions
  * </pre>
  *
 *******************************************************************************/
@@ -80,6 +82,8 @@ extern void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 		u8 *Id0, u8 *Id1);
 static const XVphy_GtHdmiChars *GetGtHdmiPtr(XVphy *InstancePtr);
 static void XVphy_HdmiSetSystemClockSelection(XVphy *InstancePtr, u8 QuadId);
+static u32 XVphy_HdmiMmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
+		XVphy_DirectionType Dir);
 
 /**************************** Function Definitions ****************************/
 
@@ -139,7 +143,7 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 	/* Configure clock detector. */
 	XVphy_ClkDetEnable(InstancePtr, FALSE);
 	XVphy_ClkDetSetFreqTimeout(InstancePtr, SystemFrequency);
-	XVphy_ClkDetSetFreqLockThreshold(InstancePtr, 255);
+	XVphy_ClkDetSetFreqLockThreshold(InstancePtr, 40);
 
 	/* Start capturing logs. */
 	XVphy_LogReset(InstancePtr);
@@ -169,10 +173,10 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 		XVphy_PowerDownGtPll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
 				TRUE);
 	}
-	XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
-	XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
-	XVphy_MmcmPowerDown(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
-	XVphy_MmcmPowerDown(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
+	//XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
+	//XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
+	//XVphy_MmcmPowerDown(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
+	//XVphy_MmcmPowerDown(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
 	XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_TX, (FALSE));
@@ -2231,4 +2235,108 @@ static const XVphy_GtHdmiChars *GetGtHdmiPtr(XVphy *InstancePtr)
 	}
 
 	return NULL;
+}
+
+/*****************************************************************************/
+/**
+* This function will start the mixed-mode clock manager (MMCM) core.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_HdmiMmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
+{
+	/* Toggle MMCM reset. */
+	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
+
+	/* Configure MMCM. */
+	XVphy_HdmiMmcmWriteParameters(InstancePtr, QuadId, Dir);
+
+	/* Unmask the MMCM Lock */
+	XVphy_MmcmLockedMaskEnable(InstancePtr, 0, Dir, FALSE);
+
+	XVphy_LogWrite(InstancePtr, (Dir == XVPHY_DIR_TX) ?
+		XVPHY_LOG_EVT_TXPLL_RECONFIG : XVPHY_LOG_EVT_RXPLL_RECONFIG, 1);
+}
+
+/*****************************************************************************/
+/**
+* This function will write the mixed-mode clock manager (MMCM) values currently
+* stored in the driver's instance structure to hardware .
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return
+*		- XST_SUCCESS if the MMCM write was successful.
+*		- XST_FAILURE otherwise, if the configuration success bit did
+*		  not go low.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32 XVphy_HdmiMmcmWriteParameters(XVphy *InstancePtr, u8 QuadId,
+							XVphy_DirectionType Dir)
+{
+	u32 RegOffsetCtrl;
+	u32 RegOffsetClk;
+	u32 RegVal;
+	XVphy_Mmcm *MmcmParams;
+
+	if (Dir == XVPHY_DIR_TX) {
+		RegOffsetCtrl = XVPHY_MMCM_TXUSRCLK_CTRL_REG;
+		RegOffsetClk = XVPHY_MMCM_TXUSRCLK_REG1;
+	}
+	else {
+		RegOffsetCtrl = XVPHY_MMCM_RXUSRCLK_CTRL_REG;
+		RegOffsetClk = XVPHY_MMCM_RXUSRCLK_REG1;
+	}
+	MmcmParams = &InstancePtr->Quads[QuadId].Mmcm[Dir];
+
+	/* Check Parameters if has been Initialized */
+	if (!MmcmParams->DivClkDivide && !MmcmParams->ClkFbOutMult &&
+			!MmcmParams->ClkFbOutFrac && !MmcmParams->ClkOut0Frac &&
+			!MmcmParams->ClkOut0Div && !MmcmParams->ClkOut1Div &&
+			!MmcmParams->ClkOut2Div) {
+		return XST_FAILURE;
+	}
+
+	/* MMCM_[TX|RX]USRCLK_REG1 */
+	RegVal = MmcmParams->DivClkDivide;
+	RegVal |= (MmcmParams->ClkFbOutMult <<
+				XVPHY_MMCM_USRCLK_REG1_CLKFBOUT_MULT_SHIFT);
+	RegVal |= (MmcmParams->ClkFbOutFrac <<
+				XVPHY_MMCM_USRCLK_REG1_CLKFBOUT_FRAC_SHIFT);
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetClk, RegVal);
+
+	/* MMCM_[TX|RX]USRCLK_REG2 */
+	RegOffsetClk += 4;
+	RegVal = MmcmParams->ClkOut0Div;
+	RegVal |= (MmcmParams->ClkOut0Frac <<
+				XVPHY_MMCM_USRCLK_REG2_CLKOUT0_FRAC_SHIFT);
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetClk, RegVal);
+
+	/* MMCM_[TX|RX]USRCLK_REG3 */
+	RegOffsetClk += 4;
+	RegVal = MmcmParams->ClkOut1Div;
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetClk, RegVal);
+
+	/* MMCM_[TX|RX]USRCLK_REG4 */
+	RegOffsetClk += 4;
+	RegVal = MmcmParams->ClkOut2Div;
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetClk, RegVal);
+
+	/* Update the MMCM. */
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl);
+	RegVal |= XVPHY_MMCM_USRCLK_CTRL_CFG_NEW_MASK;
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl, RegVal);
+
+	return XST_SUCCESS;
 }

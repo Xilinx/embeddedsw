@@ -46,6 +46,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm   10/19/15 Initial release.
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 constants
+ * 1.2   gm            Added XVphy_HdmiMmcmStart function
  * </pre>
  *
 *******************************************************************************/
@@ -140,5 +141,7 @@ u64 XVphy_DruCalcCenterFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId);
 void XVphy_HdmiGtDruModeEnable(XVphy *InstancePtr, u8 Enable);
 void XVphy_HdmiIntrHandlerCallbackInit(XVphy *InstancePtr);
+void XVphy_HdmiMmcmStart(XVphy *InstancePtr, u8 QuadId,
+		XVphy_DirectionType Dir);
 
 #endif /* XVPHY_HDMI_H_ */

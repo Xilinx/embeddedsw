@@ -638,8 +638,11 @@ void XVphy_HdmiTxClkDetFreqChangeHandler(XVphy *InstancePtr)
 		XVPHY_DIR_TX, FALSE);
 	}
 
+	/* Mask the MMCM Lock */
+	XVphy_MmcmLockedMaskEnable(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
+
 	/* Disable TX MMCM. */
-	XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
+	//XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
 
 	/* Clear TX timer. */
 	XVphy_ClkDetTimerClear(InstancePtr, 0, XVPHY_DIR_TX);
@@ -697,6 +700,9 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 			XVPHY_GT_STATE_IDLE;
 	}
 
+	/* Mask the MMCM Lock */
+	XVphy_MmcmLockedMaskEnable(InstancePtr, 0, XVPHY_DIR_RX, TRUE);
+
 	/* Determine PLL type and RX reference clock selection. */
 	PllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_RX,
 			XVPHY_CHANNEL_ID_CH1);
@@ -731,11 +737,11 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 	}
 
 	/* Disable RX MMCM */
-	XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_RX, TRUE);
+	//XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_RX, TRUE);
 	/* When the GT TX and RX are coupled, then disable the TX MMCM. */
-	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
-		XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
-	}
+	//if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
+	//	XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
+	//}
 
 	/* Assert GT RX reset */
 	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) ||

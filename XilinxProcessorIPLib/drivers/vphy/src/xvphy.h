@@ -54,6 +54,7 @@
  *                     Added TxBufferBypass in XVphy_Config structure
  *                     Added XVphy_SetDefaultPpc and XVphy_SetPpc functions
  *       als           Added XVphy_GetLineRateHz function.
+ * 1.2   gm            Added HdmiFastSwitch in XVphy_Config
  * </pre>
  *
 *******************************************************************************/
@@ -538,6 +539,8 @@ typedef struct {
 	XVidC_PixelsPerClock Ppc;	/**< Number of input pixels per
 						 clock. */
 	u8 TxBufferBypass;		/**< TX Buffer Bypass is enabled in the
+						design. */
+	u8  HdmiFastSwitch;		/**< HDMI fast switching is enabled in the
 						design. */
 } XVphy_Config;
 

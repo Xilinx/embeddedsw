@@ -53,6 +53,8 @@
  *                     Added XVphy_SetDefaultPpc and XVphy_SetPpc functions.
  *       als           Added XVphy_GetLineRateHz function.
  *       gm   20/04/16 Added XVphy_GetRcfgChId function
+ * 1.2   gm            Added HdmiFastSwitch in XVphy_Config
+ *                     Fixed bug in XVphy_IsPllLocked function
  * </pre>
  *
 *******************************************************************************/
@@ -1128,6 +1130,8 @@ u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
 	u32 RegVal;
 	u32 MaskVal;
+	XVphy_PllType TxPllType;
+	XVphy_PllType RxPllType;
 
 	if (ChId == XVPHY_CHANNEL_ID_CMN0) {
 		MaskVal = XVPHY_PLL_LOCK_STATUS_QPLL0_MASK;
@@ -1140,7 +1144,21 @@ u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			  XVPHY_PLL_LOCK_STATUS_QPLL1_MASK;
 	}
 	else if (ChId == XVPHY_CHANNEL_ID_CHA) {
-		MaskVal = XVPHY_PLL_LOCK_STATUS_CPLL_ALL_MASK;
+		TxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_TX,
+				XVPHY_CHANNEL_ID_CH1);
+		RxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_RX,
+				XVPHY_CHANNEL_ID_CH1);
+		if (RxPllType == XVPHY_PLL_TYPE_CPLL &&
+				InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+			MaskVal = XVPHY_PLL_LOCK_STATUS_CPLL_HDMI_MASK;
+		}
+		else if (TxPllType == XVPHY_PLL_TYPE_CPLL &&
+				InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+			MaskVal = XVPHY_PLL_LOCK_STATUS_CPLL_HDMI_MASK;
+		}
+		else {
+			MaskVal = XVPHY_PLL_LOCK_STATUS_CPLL_ALL_MASK;
+		}
 	}
 	else {
 		MaskVal = XVPHY_PLL_LOCK_STATUS_CPLL_MASK(ChId);
@@ -1148,7 +1166,7 @@ u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 			XVPHY_PLL_LOCK_STATUS_REG);
 
-	if (RegVal & MaskVal) {
+	if ((RegVal & MaskVal) == MaskVal) {
 		return XST_SUCCESS;
 	}
 
@@ -1535,10 +1553,12 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 	u32 Status;
 	u8 Retry;
 
-	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
-	    (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
-		/* Enable MMCM Locked Masking */
-		XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, Dir, TRUE);
+	if ((Dir == XVPHY_DIR_TX &&
+			InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
+		(Dir == XVPHY_DIR_RX &&
+			InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
+		XVphy_HdmiMmcmStart(InstancePtr, QuadId, Dir);
+		return;
 	}
 
 	/* Enable MMCM. */
@@ -1563,12 +1583,6 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 
 	/* Toggle MMCM reset. */
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
-
-	if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
-	    (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) {
-		/* Disable MMC Locked Masking */
-		XVphy_MmcmLockedMaskEnable(InstancePtr, QuadId, Dir, FALSE);
-	}
 
 	XVphy_LogWrite(InstancePtr, (Dir == XVPHY_DIR_TX) ?
 		XVPHY_LOG_EVT_TXPLL_RECONFIG : XVPHY_LOG_EVT_RXPLL_RECONFIG, 1);
@@ -1715,12 +1729,10 @@ void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Enable)
 {
 	XVphy_PllRefClkSelType *TypePtr, *DruTypePtr;
+	u32 RegAddr = XVPHY_IBUFDS_GTXX_CTRL_REG;
 	u32 RegVal;
 	u32 MaskVal = 0;
 	DruTypePtr = NULL;
-
-	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
-						XVPHY_IBUFDS_GTXX_CTRL_REG);
 
 	if (Dir == XVPHY_DIR_TX) {
 		TypePtr = &InstancePtr->Config.TxRefClkSel;
@@ -1740,6 +1752,17 @@ void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 			(*DruTypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK1)) {
 		MaskVal = XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK1_CEB_MASK;
 	}
+	else {
+		if (Dir == XVPHY_DIR_TX) {
+			RegAddr = XVPHY_MISC_TXUSRCLK_REG;
+		}
+		else {
+			RegAddr = XVPHY_MISC_RXUSRCLK_REG;
+		}
+		MaskVal = XVPHY_MISC_XXUSRCLK_REFCLK_CEB_MASK;
+	}
+
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegAddr);
 
 	if (Enable) {
 		RegVal &= ~MaskVal;
@@ -1747,8 +1770,7 @@ void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 	else {
 		RegVal |= MaskVal;
 	}
-	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_IBUFDS_GTXX_CTRL_REG,
-						RegVal);
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegAddr, RegVal);
 }
 
 /*****************************************************************************/
@@ -2154,6 +2176,8 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 		u8 *Id0, u8 *Id1)
 {
+	u8 Channels = 4;
+
 	if (ChId == XVPHY_CHANNEL_ID_CHA) {
 		*Id0 = XVPHY_CHANNEL_ID_CH1;
 		if ((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
@@ -2161,16 +2185,18 @@ void XVphy_Ch2Ids(XVphy *InstancePtr, XVphy_ChannelId ChId,
 			*Id1 = XVPHY_CHANNEL_ID_CH3;
 		}
 		else {
-			if ((InstancePtr->Config.TxChannels == 1) ||
-					(InstancePtr->Config.RxChannels == 1)) {
+			Channels = ((InstancePtr->Config.TxChannels >=
+							InstancePtr->Config.RxChannels) ?
+									InstancePtr->Config.TxChannels :
+									InstancePtr->Config.RxChannels);
+
+			if (Channels == 1) {
 				*Id1 = XVPHY_CHANNEL_ID_CH1;
 			}
-			else if ((InstancePtr->Config.TxChannels == 2) ||
-						(InstancePtr->Config.RxChannels == 2)) {
+			else if (Channels == 2) {
 				*Id1 = XVPHY_CHANNEL_ID_CH2;
 			}
-			else if ((InstancePtr->Config.TxChannels == 3) ||
-						(InstancePtr->Config.RxChannels == 3)) {
+			else if (Channels == 3) {
 				*Id1 = XVPHY_CHANNEL_ID_CH3;
 			}
 			else {
