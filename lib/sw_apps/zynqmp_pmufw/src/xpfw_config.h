@@ -48,14 +48,16 @@
 /* Skip UART init. FSBL does that. */
 #define SKIP_UARTINIT
 
+/*
+ * Define the below parameters to enable corresponding modules
+ * ENABLE_PM        - Enable Power Management Module
+ * ENABLE_EM        - Enable Error Management Module
+ * ENABLE_RTC_TEST  - Enable RTC Event Handler Test Module
+ * ENABLE_SCHEDULER - Enable Scheduler Test Module
+ */
+
 /* Enable Power Management and Error Management Modules */
 #define ENABLE_PM
 #define ENABLE_EM
-/*
- * Disable all other mods
- * User can enable Each of the Optional Modules if required
- */
-#undef ENABLE_RTC_TEST
-#undef ENABLE_SCHEDULER
 
 #endif /* XPFW_CONFIG_H_ */
