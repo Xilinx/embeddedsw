@@ -627,9 +627,9 @@ static void PmSetWakeupSource(const PmMaster *const master,
 		goto done;
 	}
 
-	/* Does slave have wake-up capability */
-	if (NULL == req->slave->wake) {
-		status = XST_NO_FEATURE;
+	/* Check whether the slave has wake-up capability */
+	status = PmSlaveHasWakeUpCap(req->slave);
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
 

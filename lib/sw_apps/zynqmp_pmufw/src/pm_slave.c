@@ -180,6 +180,30 @@ int PmCheckCapabilities(PmSlave* const slave, const u32 cap)
 }
 
 /**
+ * PmSlaveHasWakeUpCap() - Check if the slave has a wake-up capability
+ * @slv		Slave to be checked
+ *
+ * @return	XST_SUCCESS if the slave has the wake-up capability
+ *		XST_NO_FEATURE if the slave doesn't have the wake-up capability
+ */
+int PmSlaveHasWakeUpCap(const PmSlave* const slv)
+{
+	int status;
+
+	/* Check is the slave's pointer to the GIC Proxy wake initialized */
+	if (NULL == req->slave->wake) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	/* Check whether the slave has a state with wake-up capability */
+	status = PmCheckCapabilities(slv, PM_CAP_WAKEUP);
+
+done:
+	return status;
+}
+
+/**
  * PmSlaveChangeState() - Change state of a slave
  * @slave       Slave pointer whose state should be changed
  * @state       New state
