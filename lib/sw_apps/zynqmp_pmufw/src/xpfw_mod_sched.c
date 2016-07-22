@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,32 +28,37 @@
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
 
+#include "xpfw_default.h"
 #include "xpfw_config.h"
-
 #include "xpfw_core.h"
 #include "xpfw_events.h"
 #include "xpfw_module.h"
 
-#include "xpfw_user_startup.h"
-
-#include "pm_binding.h"
-#include "pm_api.h"
-#include "ipi_buffer.h"
-#include "pm_defs.h"
-
-#include "xpfw_mod_dap.h"
-#include "xpfw_mod_legacy.h"
-#include "xpfw_mod_em.h"
-#include "xpfw_mod_pm.h"
-#include "xpfw_mod_rtc.h"
 #include "xpfw_mod_sched.h"
 
-void XPfw_UserStartUp(void)
+#ifdef ENABLE_SCHEDULER
+static void PrintMsg1(void)
 {
-	ModRtcInit();
-	ModEmInit();
-	ModPmInit();
-	(void)ModSchInit();
-	ModDapInit();
-	ModLegacyInit();
+	fw_printf("Task#1\r\n");
 }
+static void PrintMsg2(void)
+{
+	fw_printf("Task#2\r\n");
+}
+
+static void SchCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+{
+	/* Task every 5 seconds - For our convenience in manual testing */
+	fw_printf("Adding Task1 - Status: %ld\n", XPfw_CoreScheduleTask(ModPtr, 5000U, PrintMsg1));
+	/* Every 10 seconds */
+	fw_printf("Adding Task2 - Status:%ld\n", XPfw_CoreScheduleTask(ModPtr, 10000U, PrintMsg2));
+}
+
+void ModSchInit(void)
+{
+	const XPfw_Module_t *SchModPtr = XPfw_CoreCreateMod();
+	XPfw_CoreSetCfgHandler(SchModPtr, SchCfgInit);
+}
+#else /* ENABLE_SCHEDULER */
+void ModSchInit(void) { }
+#endif /* ENABLE_SCHEDULER */

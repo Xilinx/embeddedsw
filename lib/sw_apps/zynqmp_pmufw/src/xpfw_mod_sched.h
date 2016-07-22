@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,32 +28,9 @@
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
 
-#include "xpfw_config.h"
+#ifndef XPFW_MOD_SCHED_H_
+#define XPFW_MOD_SCHED_H_
 
-#include "xpfw_core.h"
-#include "xpfw_events.h"
-#include "xpfw_module.h"
+void ModSchInit(void);
 
-#include "xpfw_user_startup.h"
-
-#include "pm_binding.h"
-#include "pm_api.h"
-#include "ipi_buffer.h"
-#include "pm_defs.h"
-
-#include "xpfw_mod_dap.h"
-#include "xpfw_mod_legacy.h"
-#include "xpfw_mod_em.h"
-#include "xpfw_mod_pm.h"
-#include "xpfw_mod_rtc.h"
-#include "xpfw_mod_sched.h"
-
-void XPfw_UserStartUp(void)
-{
-	ModRtcInit();
-	ModEmInit();
-	ModPmInit();
-	(void)ModSchInit();
-	ModDapInit();
-	ModLegacyInit();
-}
+#endif /* XPFW_MOD_SCHED_H_ */

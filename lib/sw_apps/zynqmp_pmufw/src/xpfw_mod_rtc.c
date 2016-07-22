@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,32 +28,41 @@
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
 
+#include "xpfw_default.h"
 #include "xpfw_config.h"
-
 #include "xpfw_core.h"
 #include "xpfw_events.h"
 #include "xpfw_module.h"
 
-#include "xpfw_user_startup.h"
-
-#include "pm_binding.h"
-#include "pm_api.h"
-#include "ipi_buffer.h"
-#include "pm_defs.h"
-
-#include "xpfw_mod_dap.h"
-#include "xpfw_mod_legacy.h"
-#include "xpfw_mod_em.h"
-#include "xpfw_mod_pm.h"
 #include "xpfw_mod_rtc.h"
-#include "xpfw_mod_sched.h"
 
-void XPfw_UserStartUp(void)
+#ifdef ENABLE_RTC_TEST
+static void RtcEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 {
-	ModRtcInit();
-	ModEmInit();
-	ModPmInit();
-	(void)ModSchInit();
-	ModDapInit();
-	ModLegacyInit();
+	fw_printf("MOD%d:EVENTID: %lu\r\n", ModPtr->ModId, EventId);
+
+	if (XPFW_EV_RTC_SECONDS == EventId) {
+			/* Ack the Int in RTC Module */
+			Xil_Out32(RTC_RTC_INT_STATUS, 1U);
+			fw_printf("RTC: %lu \r\n", Xil_In32(RTC_CURRENT_TIME));
+	}
 }
+
+static void RtcCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+{
+	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_RTC_SECONDS);
+	/* Enable Seconds Alarm */
+	Xil_Out32(RTC_RTC_INT_EN, 1U);
+	Xil_Out32(RTC_RTC_INT_STATUS, 1U);
+	fw_printf("RTC (MOD-%d): Initialized.\r\n", ModPtr->ModId);
+}
+void ModRtcInit(void)
+{
+	const XPfw_Module_t *RtcModPtr = XPfw_CoreCreateMod();
+
+	(void)XPfw_CoreSetCfgHandler(RtcModPtr, RtcCfgInit);
+	(void)XPfw_CoreSetEventHandler(RtcModPtr, RtcEventHandler);
+}
+#else /* ENABLE_RTC_TEST */
+void ModRtcInit(void) { }
+#endif /* ENABLE_RTC_TEST */
