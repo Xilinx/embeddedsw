@@ -52,40 +52,6 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* FPD GIC Proxy irq masks */
-
-/* GIC Proxy group 0 */
-#define FPD_GICP_CAN1_WAKE_IRQ_MASK	(1 << 24)
-#define FPD_GICP_CAN0_WAKE_IRQ_MASK	(1 << 23)
-#define FPD_GICP_UART1_WAKE_IRQ_MASK	(1 << 22)
-#define FPD_GICP_UART0_WAKE_IRQ_MASK	(1 << 21)
-#define FPD_GICP_SPI1_WAKE_IRQ_MASK	(1 << 20)
-#define FPD_GICP_SPI0_WAKE_IRQ_MASK	(1 << 19)
-#define FPD_GICP_I2C1_WAKE_IRQ_MASK	(1 << 18)
-#define FPD_GICP_I2C0_WAKE_IRQ_MASK	(1 << 17)
-#define FPD_GICP_GPIO_WAKE_IRQ_MASK	(1 << 16)
-#define FPD_GICP_SPI_WAKE_IRQ_MASK	(1 << 15)
-#define FPD_GICP_NAND_WAKE_IRQ_MASK	(1 << 14)
-
-/* GIC Proxy group 1 */
-#define FPD_GICP_ETH3_WAKE_IRQ_MASK	(1 << 31)
-#define FPD_GICP_ETH2_WAKE_IRQ_MASK	(1 << 29)
-#define FPD_GICP_ETH1_WAKE_IRQ_MASK	(1 << 27)
-#define FPD_GICP_ETH0_WAKE_IRQ_MASK	(1 << 25)
-#define FPD_GICP_SD1_WAKE_IRQ_MASK	(1 << 19)
-#define FPD_GICP_SD0_WAKE_IRQ_MASK	(1 << 18)
-#define FPD_GICP_TTC3_WAKE_IRQ_MASK	(1 << 13)
-#define FPD_GICP_TTC2_WAKE_IRQ_MASK	(1 << 10)
-#define FPD_GICP_TTC1_WAKE_IRQ_MASK	(1 << 7)
-#define FPD_GICP_TTC0_WAKE_IRQ_MASK	(1 << 4)
-#define FPD_GICP_IPI_APU_WAKE_IRQ_MASK	(1 << 3)
-
-/* GIC Proxy group 2 */
-#define FPD_GICP_USB1_WAKE_IRQ_MASK (1 << 12)
-#define FPD_GICP_USB0_WAKE_IRQ_MASK (1 << 11)
-
-/* GIC Proxy group 4 */
-#define FPD_GICP_SATA_WAKE_IRQ_MASK (1 << 5)
 
 /* Mask definitions for slave's flags */
 #define PM_SLAVE_FLAG_IS_SHAREABLE	0x1U
