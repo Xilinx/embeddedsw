@@ -103,7 +103,7 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_CUSTOM, LpdSwdtHandler);
 	XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM, FpdSwdtHandler);
 
-	fw_printf("Error Management Module (MOD-%d): Initialized.\r\n",
+	fw_printf("EM Module (MOD-%d): Initialized.\r\n",
 			ModPtr->ModId);
 }
 
