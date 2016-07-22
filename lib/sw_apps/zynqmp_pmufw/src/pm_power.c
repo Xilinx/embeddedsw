@@ -197,6 +197,9 @@ static int PmPwrDnHandler(PmNode* const nodePtr)
 	case NODE_RPU:
 		status = XpbrPwrDnRpuHandler();
 		break;
+	case NODE_PL:
+		status = XpbrPwrDnPldHandler();
+		break;
 	default:
 		PmDbg("unsupported node %s(%d)\n",
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
@@ -297,6 +300,9 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 		Xil_Out32(CRL_APB_RST_LPD_TOP, reg);
 		break;
 	}
+	case NODE_PL:
+		status = XpbrPwrUpPldHandler();
+		break;
 	default:
 		PmDbg("ERROR - unsupported node %s(%d)\n",
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
@@ -437,6 +443,27 @@ PmPower pmPowerDomainFpd_g = {
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 	.permissions = 0U,
+	.requests = 0U,
+};
+
+PmPower pmPowerDomainPld_g = {
+	.node = {
+		.derived = &pmPowerDomainPld_g,
+		.nodeId = NODE_PL,
+		.typeId = PM_TYPE_PWR_DOMAIN,
+		.parent = NULL,
+		.currState = PM_PWR_STATE_ON,
+		.latencyMarg = MAX_LATENCY,
+		.ops = &pmFpdNodeOps,	/* these are power domain shared ops */
+		.powerInfo = PmDomainPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
+	},
+	.children = NULL,
+	.childCnt = 0U,
+	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
+	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK |
+		       IPI_PMU_0_IER_RPU_1_MASK,
 	.requests = 0U,
 };
 

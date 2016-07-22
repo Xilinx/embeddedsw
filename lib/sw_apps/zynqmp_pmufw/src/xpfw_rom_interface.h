@@ -623,3 +623,13 @@ static inline u32 XpbrRstUsb1Handler(void)
 {
 	return XpbrServHndlrTbl[XPBR_SERV_EXT_RSTUSB1]();
 }
+
+static inline u32 XpbrPwrDnPldHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRDNPLD]();
+}
+
+static inline u32 XpbrPwrUpPldHandler(void)
+{
+	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPLD]();
+}

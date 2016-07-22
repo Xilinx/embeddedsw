@@ -53,6 +53,7 @@ static PmNode* const pmNodes[NODE_MAX] = {
 	&pmPowerIslandRpu_g.node,
 	&pmPowerIslandApu_g.node,
 	&pmPowerDomainFpd_g.node,
+	&pmPowerDomainPld_g.node,
 	&pmSlaveL2_g.slv.node,
 	&pmSlaveOcm0_g.slv.node,
 	&pmSlaveOcm1_g.slv.node,
