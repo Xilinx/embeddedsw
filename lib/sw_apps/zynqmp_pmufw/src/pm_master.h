@@ -140,8 +140,7 @@ typedef struct PmMaster PmMaster;
  *              possible combination of master/slave, because dynamic memory
  *              allocation cannot be used.
  * @slave       Pointer to the slave structure
- * @requestor   Pointer to the master structure. Can be removed if need to
- *              optimize for space instead performance
+ * @master      Pointer to the master structure
  * @defaultReq  Default requirements of a master - requirements for slave
  *              capabilities without which master's primary processor cannot
  *              switch to active state.
@@ -156,7 +155,7 @@ typedef struct PmMaster PmMaster;
  */
 typedef struct PmRequirement {
 	PmSlave* const slave;
-	PmMaster* const requestor;
+	PmMaster* const master;
 	const u32 defaultReq;
 	u32 currReq;
 	u32 nextReq;

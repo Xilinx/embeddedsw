@@ -508,7 +508,6 @@ static int PmSlaveWakeMasters(PmSlave* const slave)
 		if (slave->reqs[i]->info & PM_MASTER_WAKEUP_REQ_MASK) {
 			PmDbg("%s->%s\n", PmStrNode(slave->node.nodeId),
 			      PmStrNode(slave->reqs[i]->requestor->procs->node.nodeId));
-
 			slave->reqs[i]->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 			status = PmProcFsm(slave->reqs[i]->requestor->procs,
 					   PM_PROC_EVENT_WAKE);
@@ -674,7 +673,7 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 	for (i = 0U; i < slave->reqsCnt; i++) {
 		if (0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) {
 			/* Found master which is using slave */
-			usage |= slave->reqs[i]->requestor->ipiMask;
+			usage |= slave->reqs[i]->master->ipiMask;
 		}
 	}
 
