@@ -511,10 +511,11 @@ static int PmSlaveWakeMasters(PmSlave* const slave)
 	while (req) {
 		if (0U != (req->info & PM_MASTER_WAKEUP_REQ_MASK)) {
 			PmDbg("%s->%s\n", PmStrNode(slave->node.nodeId),
-			      PmStrNode(req->master->procs->node.nodeId));
+			      PmStrNode(req->master->wakeProc->node.nodeId));
 
 			req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-			status = PmProcFsm(req->master->procs, PM_PROC_EVENT_WAKE);
+			status = PmProcFsm(req->master->wakeProc,
+					   PM_PROC_EVENT_WAKE);
 			if (XST_SUCCESS != status) {
 				/*
 				 * Failed waking up processor, remember

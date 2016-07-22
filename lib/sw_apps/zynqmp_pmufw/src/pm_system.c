@@ -57,7 +57,7 @@ typedef enum {
  *                      updated based on specific configuration)
  * @permissions         ORed ipi masks of masters which are allowed to request
  *                      system shutdown/restart
- * @shuttingMasters     ORed ipi masks of masters whose next sleep of primary
+ * @shuttingMasters     ORed ipi masks of masters whose next sleep of a
  *                      processor is its shutdown suspend
  * @doneMasters         Masters which are done with suspending or were not even
  *                      involved in the shutdown procedure because they are
@@ -128,7 +128,7 @@ static void PmSystemInitShutdownMaster(const PmMaster* const mst)
 	 * than it will be woken up to perform suspend due to shutdown (it will
 	 * then be labelled as shutting down)
 	 */
-	if (false == PmProcIsSuspending(&mst->procs[0])) {
+	if (false == PmMasterIsSuspending(mst)) {
 		pmSystem.shuttingMasters |= mst->ipiMask;
 	}
 }
@@ -167,17 +167,16 @@ int PmSystemProcessShutdown(const PmMaster* const master, const u32 restart)
 			continue;
 		}
 
-		if (true == PmProcIsAsleep(&pmAllMasters[i]->procs[0])) {
-			/* Wake up processor to prepare itself for shutdown */
-			status = PmProcFsm(&pmAllMasters[i]->procs[0],
-					   PM_PROC_EVENT_WAKE);
+		if (true == PmMasterIsSuspended(pmAllMasters[i])) {
+			/* Wake up master to prepare itself for shutdown */
+			status = PmMasterWake(pmAllMasters[i]);
 			if (XST_SUCCESS != status) {
 				goto done;
 			}
 		}
 
-		/* If master is forced to off it is not involved in shutdown */
-		if (true == PmProcIsForcedOff(&pmAllMasters[i]->procs[0])) {
+		/* If master is killed it is not involved in shutdown */
+		if (true == PmMasterIsKilled(pmAllMasters[i])) {
 			pmSystem.doneMasters |= pmAllMasters[i]->ipiMask;
 			continue;
 		}

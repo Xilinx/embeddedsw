@@ -372,12 +372,15 @@ done:
  */
 static int PmProcTrActiveToSuspend(PmProc* const proc)
 {
+	int status;
+
 	PmDbg("ACTIVE->SUSPENDING %s\n", PmStrNode(proc->node.nodeId));
 
 	ENABLE_WFI(proc->wfiEnableMask);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SUSPENDING);
+	status = PmMasterNotify(proc->master, PM_PROC_EVENT_SELF_SUSPEND);
 
-	return XST_SUCCESS;
+	return status;
 }
 
 /**
@@ -403,8 +406,8 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	status = PmProcSleep(&proc->node);
 	/* Override the state set in PmProcSleep to indicate FORCED OFF */
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
-	if ((true == proc->isPrimary) && (XST_SUCCESS == status)) {
-		/* Notify master to release all requirements of this processor */
+
+	if (XST_SUCCESS == status) {
 		status = PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
 	}
 
@@ -450,23 +453,13 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 	PmDbg("SUSPENDING->SLEEP %s\n", PmStrNode(proc->node.nodeId));
 
 	status = PmProcSleep(&proc->node);
-	if ((true == proc->isPrimary) && (XST_SUCCESS == status)) {
-		if (true == PmSystemShutdownProcessing()) {
-			/* Inform environment that this master is done */
-			PmSystemCaptureSleep(proc->master);
-		}
-		/*
-		 * Notify master to update slave capabilities according to the
-		 * scheduled requests for after primary processor goes to sleep.
-		 */
+	if (XST_SUCCESS == status) {
+		/* Notify the master that the processor completed suspend */
 		status = PmMasterNotify(proc->master, PM_PROC_EVENT_SLEEP);
 
-		if (true == PmIsRequestedToSuspend(proc->master)) {
-			/*
-			 * Acknowledge to the requestor of the suspend that
-			 * suspend is completed.
-			 */
-			status = PmMasterSuspendAck(proc->master, status);
+		/* If suspended, remember which processor to wake-up first */
+		if (true == PmMasterIsSuspended(proc->master)) {
+			proc->master->wakeProc = proc;
 		}
 	}
 	DISABLE_WFI(proc->wfiEnableMask);
@@ -490,14 +483,9 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 {
 	int status = XST_SUCCESS;
 
-	if (true == proc->isPrimary) {
-		/*
-		 * Notify master to update slave capabilities according to the
-		 * scheduled requests for before the primary processor gets
-		 * woken-up.
-		 */
-		status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
-	}
+	/* Notify master (it will setup everything (if) needed for the wake) */
+	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
+
 	if (XST_SUCCESS == status) {
 		PmDbg("SLEEP->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
 		status = PmProcWake(&proc->node);
@@ -524,14 +512,9 @@ static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 	int status = XST_SUCCESS;
 	PmDbg("FORCED_PWRDN->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
 
-	if (true == proc->isPrimary) {
-		/*
-		 * Notify master to update slave capabilities according to the
-		 * scheduled requests. For waking-up from forced powerdown,
-		 * these requirements are always only default requirements.
-		 */
-		status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
-	}
+	/* Notify master, it will know if resources need to be updated */
+	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
+
 	if (XST_SUCCESS == status) {
 		status = PmProcWake(&proc->node);
 	}
@@ -653,7 +636,6 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 		},
 		.master = &pmMasterApu_g,
-		.isPrimary = true,
 		.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
 		.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_0_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU0_PWRDWN_REQ_MASK,
@@ -679,7 +661,6 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 		},
 		.master = &pmMasterApu_g,
-		.isPrimary = false,
 		.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
 		.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_1_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU1_PWRDWN_REQ_MASK,
@@ -705,7 +686,6 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 		},
 		.master = &pmMasterApu_g,
-		.isPrimary = false,
 		.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
 		.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_2_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU2_PWRDWN_REQ_MASK,
@@ -731,7 +711,6 @@ PmProc pmApuProcs_g[PM_PROC_APU_MAX] = {
 			.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 		},
 		.master = &pmMasterApu_g,
-		.isPrimary = false,
 		.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
 		.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_3_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU3_PWRDWN_REQ_MASK,
@@ -761,7 +740,6 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 			.powerInfoCnt = ARRAY_SIZE(PmProcPowerRPU_X),
 		},
 		.master = &pmMasterRpu0_g,
-		.isPrimary = true,
 		.wfiStatusMask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
 		.wakeStatusMask = PMU_IOMODULE_GPI1_R5_0_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_0_PWRDWN_REQ_MASK,
@@ -787,7 +765,6 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 			.powerInfoCnt = ARRAY_SIZE(PmProcPowerRPU_X),
 		},
 		.master = &pmMasterRpu1_g,
-		.isPrimary = false,
 		.wfiStatusMask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,
 		.wakeStatusMask = PMU_IOMODULE_GPI1_R5_1_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_1_PWRDWN_REQ_MASK,

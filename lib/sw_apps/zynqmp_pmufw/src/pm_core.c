@@ -139,7 +139,7 @@ done:
  * If suspend has been successfully requested, the requested PU needs to
  * initiate its own self suspend. Remember to acknowledge to the requestor
  * after:
- * 1. PU's primary processor goes to sleep (self suspend completed),
+ * 1. PU's last awake processor goes to sleep (self suspend completed),
  * 2. PU/processor aborts suspend,
  * 3. PU/processor does not respond to the request (timeout) - not supported
  */
@@ -356,15 +356,14 @@ static void PmReleaseNode(const PmMaster *master,
 	if (NULL == masterReq) {
 		status = XST_PM_NO_ACCESS;
 		PmDbg("ERROR Can't find requirement for slave %s of master %s\n",
-		      PmStrNode(node), PmStrNode(master->procs[0].node.nodeId));
+		      PmStrNode(node), PmStrNode(master->nid));
 		goto done;
 	}
 
 	if (0U == (masterReq->info & PM_MASTER_USING_SLAVE_MASK)) {
 		status = XST_FAILURE;
 		PmDbg("WARNING %s attempt to release %s without previous "
-		      "request\n", PmStrNode(master->procs[0].node.nodeId),
-		      PmStrNode(node));
+		      "request\n", PmStrNode(master->nid), PmStrNode(node));
 		goto done;
 	}
 
@@ -491,22 +490,12 @@ static void PmSetRequirement(const PmMaster *master,
 	}
 
 	/* Master is using slave (previously has requested node) */
-	switch (master->procs->node.currState) {
-	case PM_PROC_STATE_SUSPENDING:
+	if (true == PmMasterIsSuspending(master)) {
 		/* Schedule setting the requirement */
 		status = PmRequirementSchedule(masterReq, capabilities);
-		break;
-	case PM_PROC_STATE_ACTIVE:
+	} else {
 		/* Set capabilities now - if they are valid */
 		status = PmRequirementUpdate(masterReq, capabilities);
-		break;
-	default:
-		/*
-		 * Should never happen as processor cannot call this API while
-		 * powered down.
-		 */
-		status = XST_FAILURE;
-		break;
 	}
 	oppoint = masterReq->slave->node.currState;
 
@@ -662,8 +651,8 @@ static void PmSetWakeupSource(const PmMaster *const master,
 	}
 
 done:
-	PmDbg("(%s, %s, %lu)\n", PmStrNode(master->procs->node.nodeId),
-	      PmStrNode(sourceNode), enable);
+	PmDbg("(%s, %s, %lu)\n", PmStrNode(master->nid), PmStrNode(sourceNode),
+	      enable);
 
 	IPI_RESPONSE1(master->buffer, status);
 }

@@ -180,11 +180,11 @@ int XPfw_PmWfiHandler(const u32 srcMask)
 	}
 
 	status = PmProcFsm(proc, PM_PROC_EVENT_SLEEP);
-	if ((XST_SUCCESS == status) && (true == proc->isPrimary) &&
-	    (true == NODE_IS_OFF(&proc->node))) {
+	if ((XST_SUCCESS == status) &&
+	    (true == PmMasterIsSuspended(proc->master))) {
 		/*
-		 * We've just powered down a primary processor, now use opportunistic
-		 * suspend to power down its parent(s)
+		 * We've just powered down the last processor, now use
+		 * opportunistic suspend to power down its parent(s)
 		 */
 		PmOpportunisticSuspend(proc->node.parent);
 	}
@@ -208,10 +208,7 @@ done:
  *          determined, and target should be immediately woken-up (target is
  *          processor whose GIC wake bit is set in srcMask). If not a GIC wake,
  *          source can be determined, either from GPI1 register (if interrupt
- *          line is routed directly), or from FPD GIC Proxy registers. When the
- *          source is determined, based on master requirements for the source
- *          slave it is determined which processor should be woken-up (always
- *          wake the primary processor, owner of the master channel).
+ *          line is routed directly), or from FPD GIC Proxy registers.
  */
 int XPfw_PmWakeHandler(const u32 srcMask)
 {

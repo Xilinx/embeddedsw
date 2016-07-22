@@ -121,7 +121,6 @@ typedef struct PmProc PmProc;
  * @latencyReq      Latenct requirement as passed in by self_suspend argument
  * @pwrDnLatency    Latency (in us) for transition to OFF state
  * @pwrUpLatency    Latency (in us) for transition to ON state
- * @isPrimary       True if this is a primary core (owner of Master channel)
  */
 typedef struct PmProc {
 	PmNode node;
@@ -137,7 +136,6 @@ typedef struct PmProc {
 	u32 latencyReq;
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
-	bool isPrimary;
 } PmProc;
 
 /*********************************************************************

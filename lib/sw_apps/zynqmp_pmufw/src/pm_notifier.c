@@ -198,11 +198,11 @@ void PmNotifierUnregisterAll(const PmMaster* const mst)
 static void PmNotifierProcessEvent(const PmNotifier* const nt,
 				   const u32 event)
 {
-	if ((PM_PROC_STATE_ACTIVE != nt->master->procs[0].node.currState) &&
+	if ((false == PmMasterIsActive(nt->master)) &&
 	    (0U == (event & nt->wakeMask))) {
 		/*
-		 * If master's primary processor is not active it should be
-		 * notified about the event only if it requested to be woken up.
+		 * If master has no active processor it should be notified about
+		 * the event only if it requested to be woken up.
 		 */
 		goto done;
 	}

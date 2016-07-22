@@ -709,6 +709,7 @@ PmRequirement pmReqData[] = {
 PmMaster pmMasterApu_g = {
 	.procs = pmApuProcs_g,
 	.procsCnt = PM_PROC_APU_MAX,
+	.wakeProc = NULL,
 	.nid = NODE_APU,
 	.ipiMask = IPI_PMU_0_IER_APU_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_APU_OFFSET,
@@ -719,11 +720,13 @@ PmMaster pmMasterApu_g = {
 		.initiator = NULL,
 		.acknowledge = 0U,
 	},
+	.state = PM_MASTER_STATE_ACTIVE,
 };
 
 PmMaster pmMasterRpu0_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
 	.procsCnt = 1U,
+	.wakeProc = NULL,
 	.nid = NODE_RPU,
 	.ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_0_OFFSET,
@@ -734,11 +737,13 @@ PmMaster pmMasterRpu0_g = {
 		.initiator = NULL,
 		.acknowledge = 0U,
 	},
+	.state = PM_MASTER_STATE_ACTIVE,
 };
 
 PmMaster pmMasterRpu1_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_1],
 	.procsCnt = 1U,
+	.wakeProc = NULL,
 	.nid = NODE_RPU_0, /* placeholder for request suspend, not used */
 	.ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_1_OFFSET,
@@ -749,6 +754,7 @@ PmMaster pmMasterRpu1_g = {
 		.initiator = NULL,
 		.acknowledge = 0U,
 	},
+	.state = PM_MASTER_STATE_KILLED,
 };
 
 PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
@@ -785,17 +791,17 @@ void PmRequirementInit(void)
 }
 
 /**
- * PmRequirementSchedule() - Schedule requirements of the master for slave.
- *                           Slave state will be updated according to the
- *                           requirement once primary processor goes to sleep.
+ * PmRequirementSchedule() - Schedule requirements of the master for slave
  * @masterReq   Pointer to master requirement structure (for a slave)
- * @caps        Required capabilities of slave to be set once primary core
- *              goes to sleep.
+ * @caps        Required capabilities of slave
  *
  * @return      Status of the operation
  *              - XST_SUCCESS if requirement is successfully scheduled
  *              - XST_NO_FEATURE if there is no state with requested
  *                capabilities
+ *
+ * @note        Slave state will be updated according to the saved requirements
+ *              after all processors/master suspends.
  */
 int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps)
 {
@@ -878,7 +884,7 @@ static int PmRequirementUpdateScheduled(const PmMaster* const master,
 	int status = XST_SUCCESS;
 	PmRequirement* req = master->reqs;
 
-	PmDbg("%s\n", PmStrNode(master->procs[0].node.nodeId));
+	PmDbg("%s\n", PmStrNode(master->nid));
 
 	while (req) {
 		if (req->currReq != req->nextReq) {
@@ -958,10 +964,8 @@ static void PmRequirementRequestDefault(const PmMaster* const master)
 }
 
 /**
- * PmRequirementReleaseAll() - Called when master primary processor is forced to
- *                             power down, so all requirements of the processor
- *                             are automatically released.
- * @master  Master whose primary processor was forced to power down
+ * PmRequirementReleaseAll() - Called when a processor is forced to power down
+ * @master  Master whose processor was forced to power down
  *
  * @return  Status of the operation of releasing all slaves used by the master
  *          and changing their state to the lowest possible.
@@ -1197,7 +1201,7 @@ done:
  * @master  Pointer to master whose scheduled wake-up sources should be enabled
  *
  * When FPD is powered down, wake-up sources should be enabled in GIC Proxy,
- * if APU's primary processor is gently put into a sleep. If APU is forced to
+ * if APU has been properly suspended. If APU is forced to
  * power down, this function will return without enabling GIC Proxy, because
  * after forced power down the processor can only be woken-up by an explicit
  * wake-up request through PM API. The check whether the processor is in sleep
@@ -1209,11 +1213,11 @@ void PmEnableProxyWake(PmMaster* const master)
 {
 	PmRequirement* req = master->reqs;
 
-	if (master->procs->node.currState != PM_PROC_STATE_SLEEP) {
+	if (false == PmMasterIsSuspended(master)) {
 		goto done;
 	}
 
-	PmDbg("%s\n", PmStrNode(master->procs->node.nodeId));
+	PmDbg("%s\n", PmStrNode(master->nid));
 
 	while (req) {
 		if (req->info & PM_MASTER_WAKEUP_REQ_MASK) {
@@ -1235,7 +1239,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 {
 	PmRequirement* req = master->reqs;
 
-	PmDbg("%s\n", PmStrNode(master->procs->node.nodeId));
+	PmDbg("%s\n", PmStrNode(master->nid));
 
 	while (req) {
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
@@ -1251,7 +1255,7 @@ static void PmWakeUpDisableAll(PmMaster* const master)
 {
 	PmRequirement* mr = master->reqs;
 
-	PmDbg("for %s\n", PmStrNode(master->procs->node.nodeId));
+	PmDbg("for %s\n", PmStrNode(master->nid));
 	while (mr) {
 		PmRequirement* sr = mr->slave->reqs;
 		bool hasOtherReq = false;
@@ -1353,48 +1357,139 @@ done:
 	return status;
 }
 
+
 /**
- * PmMasterNotify() - Notify master channel of a state change in its primary processor
+ * PmMasterLastProcSuspending() - Check is the last awake processor suspending
+ * @master	Master holding array of processors to be checked
+ * @return	TRUE if there is exactly one processor in suspending state and
+ *		all others are in sleep or forced power down.
+ *		FALSE otherwise
+ */
+static bool PmMasterLastProcSuspending(const PmMaster* const master)
+{
+	bool status = false;
+	u32 sleeping = 0U;
+	u32 i;
+
+	for (i = 0U; i < master->procsCnt; i++) {
+		if (NODE_IS_OFF(&master->procs[i].node)) {
+			/* Count how many processors is down */
+			sleeping++;
+		} else {
+			/* Assume the one processor is suspending */
+			status = PmProcIsSuspending(&master->procs[i]);
+		}
+	}
+
+	/* If the number of asleep/down processors mismatch return false */
+	if (master->procsCnt != (1U + sleeping)) {
+		status = false;
+	}
+
+	/* Return whether the last standing processor is in suspending state */
+	return status;
+}
+
+/**
+ * PmMasterAllProcsDown() - Check if all processors are in sleep or forced down
+ * @master	Master holding array of processors to be checked
+ * @return	TRUE if all processors are in either sleep or forced down state
+ *		FALSE otherwise
+ */
+static bool PmMasterAllProcsDown(const PmMaster* const master)
+{
+	bool status = true;
+	u32 i;
+
+	for (i = 0U; i < master->procsCnt; i++) {
+		if (false == NODE_IS_OFF(&master->procs[i].node)) {
+			status = false;
+		}
+	}
+
+	return status;
+}
+
+/**
+ * PmMasterNotify() - Notify master of a state change of its processor
  * @master      Pointer to master object which needs to be notified
  * @event       Processor Event to notify the master about
  *
  * @return      Status of potential changing of slave states or success.
- *
- * Primary processor has changed its state, notify master to update its requirements
- * accordingly.
  */
 int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 {
 	int status = XST_SUCCESS;
 
 	switch (event) {
+	case PM_PROC_EVENT_SELF_SUSPEND:
+		if ((true == PmMasterIsActive(master)) &&
+		    (true == PmMasterLastProcSuspending(master))) {
+			master->state = PM_MASTER_STATE_SUSPENDING;
+		}
+		break;
 	case PM_PROC_EVENT_SLEEP:
-		status = PmRequirementUpdateScheduled(master, true);
+		if (true == PmMasterIsSuspending(master)) {
+			status = PmRequirementUpdateScheduled(master, true);
+			master->state = PM_MASTER_STATE_SUSPENDED;
+			if (true == PmSystemShutdownProcessing()) {
+				PmSystemCaptureSleep(master);
+			}
+			if (true == PmIsRequestedToSuspend(master)) {
+				status = PmMasterSuspendAck(master, XST_SUCCESS);
+			}
+		}
 		break;
 	case PM_PROC_EVENT_ABORT_SUSPEND:
-		PmRequirementCancelScheduled(master);
-		PmWakeUpCancelScheduled(master);
+		if (true == PmMasterIsSuspending(master)) {
+			PmRequirementCancelScheduled(master);
+			PmWakeUpCancelScheduled(master);
+			master->state = PM_MASTER_STATE_ACTIVE;
+		}
 		break;
 	case PM_PROC_EVENT_WAKE:
-		if (PM_PROC_STATE_SLEEP == master->procs->node.currState) {
+		if (true == PmMasterIsSuspended(master)) {
 			PmWakeUpDisableAll(master);
-		} else if (PM_PROC_STATE_FORCEDOFF ==
-			   master->procs->node.currState) {
+			status = PmRequirementUpdateScheduled(master, false);
+		} else if (true == PmMasterIsKilled(master)) {
 			PmRequirementRequestDefault(master);
+			status = PmRequirementUpdateScheduled(master, false);
 		} else {
+			/* Must have else branch due to MISRA */
 		}
-		status = PmRequirementUpdateScheduled(master, false);
+		master->state = PM_MASTER_STATE_ACTIVE;
 		break;
 	case PM_PROC_EVENT_FORCE_PWRDN:
-		status = PmRequirementReleaseAll(master);
-		PmWakeUpCancelScheduled(master);
-		PmNotifierUnregisterAll(master);
+		if (true == PmMasterAllProcsDown(master)) {
+			status = PmRequirementReleaseAll(master);
+			PmWakeUpCancelScheduled(master);
+			PmNotifierUnregisterAll(master);
+			master->state = PM_MASTER_STATE_KILLED;
+		}
 		break;
 	default:
 		status = XST_PM_INTERNAL;
 		PmDbg("ERROR: undefined event #%d\n", event);
 		break;
 	}
+
+	return status;
+}
+
+/**
+ * PmMasterWake() - Wake up the subsystem (master knows which processor to wake)
+ * @mst		Master whose processor shall be woken up
+ * @return	Status of the wake-up operation
+ */
+int PmMasterWake(const PmMaster* const mst)
+{
+	int status;
+	PmProc* proc = mst->wakeProc;
+
+	if (NULL == proc) {
+		proc = &mst->procs[0];
+	}
+	status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);
 
 	return status;
 }

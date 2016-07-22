@@ -59,6 +59,23 @@ typedef struct PmRequirement PmRequirement;
 /* Maximum number of masters currently supported */
 #define PM_MASTER_MAX               3U
 
+/* Master state definitions */
+
+/* Master is active if at least one of its processors is in active state */
+#define PM_MASTER_STATE_ACTIVE      1U
+
+/* Master is suspending if the last awake processor is in suspending state */
+#define PM_MASTER_STATE_SUSPENDING  2U
+
+/* Master is suspended if the last standing processor was properly suspended */
+#define PM_MASTER_STATE_SUSPENDED   3U
+
+/*
+ * Master is killed if the last standing processor or the power parent was
+ * forced to power down
+ */
+#define PM_MASTER_STATE_KILLED      4U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -72,8 +89,7 @@ typedef struct PmRequirement PmRequirement;
  * @nextSlave   Pointer to the master's requirement for a next slave in the list
  * @nextMaster  Pointer to the requirement of a next master that uses the slave
  * @defaultReq  Default requirements of a master - requirements for slave
- *              capabilities without which master's primary processor cannot
- *              switch to active state.
+ *              capabilities without which the master cannot run
  * @currReq     Currently holding requirements of a master for this slave
  * @nextReq     Requirements of a master to be configured when it changes the
  *              state (after it goes to sleep or before it gets awake)
@@ -109,6 +125,8 @@ typedef struct {
 /**
  * PmMaster - contains PM master related informations
  * @procs       Pointer to the array of processors within the master
+ * @wakeProc    Processor to wake-up (pointer to the processor that has been
+ *              suspended the last)
  * @reqs        Pointer to the master's list of requirements for slaves'
  *              capabilities. For every slave that the master can use there has
  *              to be a dedicated requirements structure
@@ -131,10 +149,14 @@ typedef struct {
  * @suspendRequest Captures info about the ongoing suspend request (this master
  *              is the target which suppose to suspend). At any moment only
  *              one suspend request can be active for one target/master
+ * @state       State of the master which is a combination of the states of its
+ *              processors and also depends on the order in which processors
+ *              enter their states.
  */
 typedef struct PmMaster {
 	PmSuspendRequest suspendRequest;
 	PmProc* const procs;
+	PmProc* wakeProc;
 	PmRequirement* reqs;
 	const u32 ipiMask;
 	const u32 pmuBuffer;
@@ -142,6 +164,7 @@ typedef struct PmMaster {
 	u32 permissions;
 	PmNodeId nid;
 	const u8 procsCnt;
+	u8 state;
 } PmMaster;
 
 /*********************************************************************
@@ -175,7 +198,7 @@ int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
 
 void PmRequirementInit(void);
 
-/* Notify master by a primary core when changing state */
+/* Notify master about its processor state change */
 int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 
 /* Call at initialization to enable all masters' IPI interrupts */
@@ -193,5 +216,29 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response);
 PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId);
 
 void PmSetupInitialMasterRequirements(void);
+
+int PmMasterWake(const PmMaster* const mst);
+
+/* Inline functions for checking the state of the master */
+
+static inline bool PmMasterIsSuspending(const PmMaster* const master)
+{
+	return PM_MASTER_STATE_SUSPENDING == master->state;
+}
+
+static inline bool PmMasterIsSuspended(const PmMaster* const master)
+{
+	return PM_MASTER_STATE_SUSPENDED == master->state;
+}
+
+static inline bool PmMasterIsKilled(const PmMaster* const master)
+{
+	return PM_MASTER_STATE_KILLED == master->state;
+}
+
+static inline bool PmMasterIsActive(const PmMaster* const master)
+{
+	return PM_MASTER_STATE_ACTIVE == master->state;
+}
 
 #endif

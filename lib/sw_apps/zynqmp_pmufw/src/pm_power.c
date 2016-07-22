@@ -725,7 +725,7 @@ static void PmForcePowerDownChildren(const PmPower* const parent)
 		if (PM_TYPE_PROC == child->typeId) {
 			proc = (PmProc*)child->derived;
 
-			if ((NULL !=proc) && (true == proc->isPrimary)) {
+			if (NULL != proc) {
 				/* Notify master so it can release all requirements */
 				PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
 			}
