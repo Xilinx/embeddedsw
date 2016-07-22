@@ -88,6 +88,13 @@ static const PmAccessRegion pmAccessTable[] = {
 			  IPI_PMU_0_IER_RPU_0_MASK |
 			  IPI_PMU_0_IER_RPU_1_MASK,
 	},
+
+	/* PMU's global Power Status register*/
+	{
+		.startAddr = PMU_GLOBAL_PWR_STATE,
+		.endAddr = PMU_GLOBAL_PWR_STATE,
+		.access = IPI_PMU_0_IER_APU_MASK,
+	},
 };
 
 /**
