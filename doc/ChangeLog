@@ -357,6 +357,7 @@ Updated the hdcp1x.h file to add documentation and driver description.
 Updated the hdcp1x.h file to add documentation for Repeater system.
 Removed all references to HDMI DDC registers in the hdcp drivers.
 Updated the tmrctr being refered to in the hdcp1x.mdd file to tmrctr_v4_1.
+Updated the drivers to use an individual timer with each hdcp interface.
 
 hdcp22_cipher_v1_0:
 Added the initial version of Xilinx HDCP Cipher core driver.
