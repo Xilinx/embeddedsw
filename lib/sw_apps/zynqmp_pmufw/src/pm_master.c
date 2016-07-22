@@ -51,9 +51,9 @@
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
-/* Requirement of APU master */
-PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
-	[PM_MASTER_APU_SLAVE_OCM0] = {
+/* Static resource allocation */
+PmRequirement pmReqData[] = {
+	{
 		.slave = &pmSlaveOcm0_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -63,8 +63,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_OCM1] = {
+	}, {
 		.slave = &pmSlaveOcm1_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -74,8 +73,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_OCM2] = {
+	}, {
 		.slave = &pmSlaveOcm2_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -85,8 +83,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_OCM3] = {
+	}, {
 		.slave = &pmSlaveOcm3_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -96,8 +93,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_L2] = {
+	}, {
 		.slave = &pmSlaveL2_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -107,8 +103,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_USB0] = {
+	}, {
 		.slave = &pmSlaveUsb0_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -118,8 +113,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_USB1] = {
+	}, {
 		.slave = &pmSlaveUsb1_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -129,8 +123,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_TTC0] = {
+	}, {
 		.slave = &pmSlaveTtc0_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -140,8 +133,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_TTC1] = {
+	}, {
 		.slave = &pmSlaveTtc1_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -151,8 +143,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_TTC2] = {
+	}, {
 		.slave = &pmSlaveTtc2_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -162,8 +153,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_TTC3] = {
+	}, {
 		.slave = &pmSlaveTtc3_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -173,8 +163,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_SATA] = {
+	}, {
 		.slave = &pmSlaveSata_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -184,8 +173,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_APLL] = {
+	}, {
 		.slave = &pmSlaveApll_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -195,8 +183,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_VPLL] = {
+	}, {
 		.slave = &pmSlaveVpll_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -206,8 +193,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_DPLL] = {
+	}, {
 		.slave = &pmSlaveDpll_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -217,8 +203,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_RPLL] = {
+	}, {
 		.slave = &pmSlaveRpll_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -228,8 +213,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_IOPLL] = {
+	}, {
 		.slave = &pmSlaveIOpll_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -239,8 +223,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_GPUPP0] = {
+	}, {
 		.slave = &pmSlaveGpuPP0_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -250,8 +233,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_GPUPP1] = {
+	}, {
 		.slave = &pmSlaveGpuPP1_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -261,8 +243,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_UART0] = {
+	}, {
 		.slave = &pmSlaveUart0_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -272,8 +253,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_UART1] = {
+	}, {
 		.slave = &pmSlaveUart1_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -283,8 +263,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_SPI0] = {
+	}, {
 		.slave = &pmSlaveSpi0_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -294,8 +273,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_SPI1] = {
+	}, {
 		.slave = &pmSlaveSpi1_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -305,8 +283,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_I2C0] = {
+	}, {
 		.slave = &pmSlaveI2C0_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -316,8 +293,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_I2C1] = {
+	}, {
 		.slave = &pmSlaveI2C1_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -327,8 +303,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_SD0] = {
+	}, {
 		.slave = &pmSlaveSD0_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -338,8 +313,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_SD1] = {
+	}, {
 		.slave = &pmSlaveSD1_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -349,8 +323,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_CAN0] = {
+	}, {
 		.slave = &pmSlaveCan0_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -360,8 +333,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_CAN1] = {
+	}, {
 		.slave = &pmSlaveCan1_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -371,8 +343,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_ETH0] = {
+	}, {
 		.slave = &pmSlaveEth0_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -382,8 +353,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_ETH1] = {
+	}, {
 		.slave = &pmSlaveEth1_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -393,8 +363,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_ETH2] = {
+	}, {
 		.slave = &pmSlaveEth2_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -404,8 +373,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_ETH3] = {
+	}, {
 		.slave = &pmSlaveEth3_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -415,8 +383,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_ADMA] = {
+	}, {
 		.slave = &pmSlaveAdma_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -426,8 +393,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_GDMA] = {
+	}, {
 		.slave = &pmSlaveGdma_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -437,8 +403,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_DP] = {
+	}, {
 		.slave = &pmSlaveDP_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -448,8 +413,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_NAND] = {
+	}, {
 		.slave = &pmSlaveNand_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -459,8 +423,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_QSPI] = {
+	}, {
 		.slave = &pmSlaveQSpi_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -470,8 +433,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_GPIO] = {
+	}, {
 		.slave = &pmSlaveGpio_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -481,8 +443,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_AFI] = {
+	}, {
 		.slave = &pmSlaveAFI_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -492,8 +453,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_DDR] = {
+	}, {
 		.slave = &pmSlaveDdr_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -503,8 +463,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_IPI_APU] = {
+	}, {
 		.slave = &pmSlaveIpiApu_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -514,8 +473,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS,
 		.nextReq = PM_CAP_ACCESS,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_TCM0A] = {
+	}, {
 		.slave = &pmSlaveTcm0A_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -525,8 +483,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_TCM0B] = {
+	}, {
 		.slave = &pmSlaveTcm0B_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -536,8 +493,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_TCM1A] = {
+	}, {
 		.slave = &pmSlaveTcm1A_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -547,8 +503,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_APU_SLAVE_TCM1B] = {
+	}, {
 		.slave = &pmSlaveTcm1B_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -558,12 +513,7 @@ PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-};
-
-/* Requirement of RPU_0 master */
-PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
-	[PM_MASTER_RPU_0_SLAVE_OCM0] = {
+	}, {
 		.slave = &pmSlaveOcm0_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -573,8 +523,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_OCM1] = {
+	}, {
 		.slave = &pmSlaveOcm1_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -584,8 +533,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_OCM2] = {
+	}, {
 		.slave = &pmSlaveOcm2_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -595,8 +543,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_OCM3] = {
+	}, {
 		.slave = &pmSlaveOcm3_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -606,8 +553,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_TCM0A] = {
+	}, {
 		.slave = &pmSlaveTcm0A_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -617,8 +563,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_TCM0B] = {
+	}, {
 		.slave = &pmSlaveTcm0B_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -628,8 +573,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_TCM1A] = {
+	}, {
 		.slave = &pmSlaveTcm1A_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -639,8 +583,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_TCM1B] = {
+	}, {
 		.slave = &pmSlaveTcm1B_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -650,8 +593,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.nextReq = PM_CAP_ACCESS | PM_CAP_CONTEXT,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_USB0] = {
+	}, {
 		.slave = &pmSlaveUsb0_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -661,8 +603,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_USB1] = {
+	}, {
 		.slave = &pmSlaveUsb1_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -672,8 +613,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_TTC0] = {
+	}, {
 		.slave = &pmSlaveTtc0_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -683,8 +623,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_SATA] = {
+	}, {
 		.slave = &pmSlaveSata_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -694,8 +633,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_APLL] = {
+	}, {
 		.slave = &pmSlaveApll_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -705,8 +643,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_VPLL] = {
+	}, {
 		.slave = &pmSlaveVpll_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -716,8 +653,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_DPLL] = {
+	}, {
 		.slave = &pmSlaveDpll_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -727,8 +663,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_RPLL] = {
+	}, {
 		.slave = &pmSlaveRpll_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -738,8 +673,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_IOPLL] = {
+	}, {
 		.slave = &pmSlaveIOpll_g.slv,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -749,8 +683,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_DDR] = {
+	}, {
 		.slave = &pmSlaveDdr_g,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -760,8 +693,7 @@ PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX] = {
 		.currReq = 0U,
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
-	},
-	[PM_MASTER_RPU_0_SLAVE_IPI_RPU_0] = {
+	}, {
 		.slave = &pmSlaveIpiRpu0_g,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
@@ -781,8 +713,7 @@ PmMaster pmMasterApu_g = {
 	.ipiMask = IPI_PMU_0_IER_APU_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_APU_OFFSET,
 	.buffer = IPI_BUFFER_APU_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
-	.reqs = pmApuReq_g,
-	.reqsCnt = ARRAY_SIZE(pmApuReq_g),
+	.reqs = NULL,
 	.permissions = IPI_PMU_0_IER_RPU_0_MASK | IPI_PMU_0_IER_RPU_1_MASK,
 	.suspendRequest = {
 		.initiator = NULL,
@@ -797,8 +728,7 @@ PmMaster pmMasterRpu0_g = {
 	.ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_0_OFFSET,
 	.buffer = IPI_BUFFER_RPU_0_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
-	.reqs = pmRpu0Req_g,
-	.reqsCnt = ARRAY_SIZE(pmRpu0Req_g),
+	.reqs = NULL,
 	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_1_MASK,
 	.suspendRequest = {
 		.initiator = NULL,
@@ -814,7 +744,6 @@ PmMaster pmMasterRpu1_g = {
 	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_1_OFFSET,
 	.buffer = IPI_BUFFER_RPU_1_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = NULL,   /* lockstep mode is assumed for now */
-	.reqsCnt = 0U,
 	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.suspendRequest = {
 		.initiator = NULL,
@@ -827,6 +756,33 @@ PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
 	&pmMasterRpu0_g,
 	&pmMasterRpu1_g,
 };
+
+/**
+ * PmRequirementLink() - Link requirement struct into master's and slave's lists
+ * @req	Pointer to the requirement structure to be linked in lists
+ */
+static void PmRequirementLink(PmRequirement* const req)
+{
+	/* The req structure is becoming master's head of requirements list */
+	req->nextSlave = req->master->reqs;
+	req->master->reqs = req;
+
+	/* The req is becoming the head of slave's requirements list as well */
+	req->nextMaster = req->slave->reqs;
+	req->slave->reqs = req;
+}
+
+/**
+ * PmRequirementInit() - Initialize requirements data structures
+ */
+void PmRequirementInit(void)
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmReqData); i++) {
+		PmRequirementLink(&pmReqData[i]);
+	}
+}
 
 /**
  * PmRequirementSchedule() - Schedule requirements of the master for slave.
@@ -920,40 +876,39 @@ static int PmRequirementUpdateScheduled(const PmMaster* const master,
 					    const bool swap)
 {
 	int status = XST_SUCCESS;
-	unsigned int i;
+	PmRequirement* req = master->reqs;
 
 	PmDbg("%s\n", PmStrNode(master->procs[0].node.nodeId));
 
-	for (i = 0; i < master->reqsCnt; i++) {
-		if (master->reqs[i].currReq != master->reqs[i].nextReq) {
-			u32 tmpReq = master->reqs[i].nextReq;
+	while (req) {
+		if (req->currReq != req->nextReq) {
+			u32 tmpReq = req->nextReq;
 
 			if (true == swap) {
-				if (0U != master->reqs[i].defaultReq) {
+				if (0U != req->defaultReq) {
 					/* Master has default requirements for
 					 * this slave, default has priority over
 					 * current requirements.
 					 */
-					master->reqs[i].nextReq =
-						master->reqs[i].defaultReq;
+					req->nextReq = req->defaultReq;
 				} else {
 					/* Save current requirements as next */
-					master->reqs[i].nextReq =
-						master->reqs[i].currReq;
+					req->nextReq = req->currReq;
 				}
 			}
 
-			master->reqs[i].currReq = tmpReq;
+			req->currReq = tmpReq;
 
 			/* Update slave setting */
-			status = PmUpdateSlave(master->reqs[i].slave);
+			status = PmUpdateSlave(req->slave);
 			/* if rom works correctly, status should be always ok */
 			if (XST_SUCCESS != status) {
 				PmDbg("ERROR setting slave node %s\n",
-				      PmStrNode(master->reqs[i].slave->node.nodeId));
+				      PmStrNode(req->slave->node.nodeId));
 				break;
 			}
 		}
+		req = req->nextSlave;
 	}
 
 	return status;
@@ -966,15 +921,15 @@ static int PmRequirementUpdateScheduled(const PmMaster* const master,
  */
 void PmRequirementCancelScheduled(const PmMaster* const master)
 {
-	unsigned int i;
+	PmRequirement* req = master->reqs;
 
-	for (i = 0; i < master->reqsCnt; i++) {
-		if (master->reqs[i].currReq != master->reqs[i].nextReq) {
+	while (req) {
+		if (req->currReq != req->nextReq) {
 			/* Drop the scheduled request by making it constant */
-			PmDbg("%s\n",
-			      PmStrNode(master->reqs[i].slave->node.nodeId));
-			master->reqs[i].nextReq = master->reqs[i].currReq;
+			PmDbg("%s\n", PmStrNode(req->slave->node.nodeId));
+			req->nextReq = req->currReq;
 		}
+		req = req->nextSlave;
 	}
 }
 
@@ -990,14 +945,15 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
  */
 static void PmRequirementRequestDefault(const PmMaster* const master)
 {
-	unsigned int i;
+	PmRequirement* req = master->reqs;
 
-	for (i = 0; i < master->reqsCnt; i++) {
-		if (0U != master->reqs[i].defaultReq) {
+	while (req) {
+		if (0U != req->defaultReq) {
 			/* Set flag to state that master is using slave */
-			master->reqs[i].info |= PM_MASTER_USING_SLAVE_MASK;
-			master->reqs[i].nextReq = master->reqs[i].defaultReq;
+			req->info |= PM_MASTER_USING_SLAVE_MASK;
+			req->nextReq = req->defaultReq;
 		}
+		req = req->nextSlave;
 	}
 }
 
@@ -1013,24 +969,25 @@ static void PmRequirementRequestDefault(const PmMaster* const master)
 static int PmRequirementReleaseAll(const PmMaster* const master)
 {
 	int status = XST_SUCCESS;
-	unsigned int i;
+	PmRequirement* req = master->reqs;
 
-	for (i = 0; i < master->reqsCnt; i++) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & master->reqs[i].info)) {
+	while (req) {
+		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
 			/* Clear flag - master is not using slave anymore */
-			master->reqs[i].info &= ~PM_MASTER_USING_SLAVE_MASK;
+			req->info &= ~PM_MASTER_USING_SLAVE_MASK;
 			/* Release current and next requirements */
-			master->reqs[i].currReq = 0U;
-			master->reqs[i].nextReq = 0U;
+			req->currReq = 0U;
+			req->nextReq = 0U;
 			/* Update slave setting */
-			status = PmUpdateSlave(master->reqs[i].slave);
+			status = PmUpdateSlave(req->slave);
 			/* if pmu rom works correctly, status should be always ok */
 			if (XST_SUCCESS != status) {
 				PmDbg("ERROR setting slave node %s\n",
-				      PmStrNode(master->reqs[i].slave->node.nodeId));
+				      PmStrNode(req->slave->node.nodeId));
 				break;
 			}
 		}
+		req = req->nextSlave;
 	}
 
 	return status;
@@ -1049,14 +1006,13 @@ static int PmRequirementReleaseAll(const PmMaster* const master)
 PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
 					const PmNodeId nodeId)
 {
-	u32 i;
-	PmRequirement *req = NULL;
+	PmRequirement* req = master->reqs;
 
-	for (i = 0; i < master->reqsCnt; i++) {
-		if (master->reqs[i].slave->node.nodeId == nodeId) {
-			req = &master->reqs[i];
+	while (req) {
+		if (nodeId == req->slave->node.nodeId) {
 			break;
 		}
+		req = req->nextSlave;
 	}
 
 	return req;
@@ -1251,7 +1207,7 @@ done:
  */
 void PmEnableProxyWake(PmMaster* const master)
 {
-	u32 i;
+	PmRequirement* req = master->reqs;
 
 	if (master->procs->node.currState != PM_PROC_STATE_SLEEP) {
 		goto done;
@@ -1259,10 +1215,11 @@ void PmEnableProxyWake(PmMaster* const master)
 
 	PmDbg("%s\n", PmStrNode(master->procs->node.nodeId));
 
-	for (i = 0; i < master->reqsCnt; i++) {
-		if (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK) {
-			PmSlaveWakeEnable(master->reqs[i].slave);
+	while (req) {
+		if (req->info & PM_MASTER_WAKEUP_REQ_MASK) {
+			PmSlaveWakeEnable(req->slave);
 		}
+		req = req->nextSlave;
 	}
 
 done:
@@ -1276,12 +1233,13 @@ done:
  */
 static void PmWakeUpCancelScheduled(PmMaster* const master)
 {
-	u32 i;
+	PmRequirement* req = master->reqs;
 
 	PmDbg("%s\n", PmStrNode(master->procs->node.nodeId));
 
-	for (i = 0; i < master->reqsCnt; i++) {
-		master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+	while (req) {
+		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+		req = req->nextSlave;
 	}
 }
 
@@ -1291,34 +1249,35 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
  */
 static void PmWakeUpDisableAll(PmMaster* const master)
 {
-	u32 i;
+	PmRequirement* mr = master->reqs;
 
 	PmDbg("for %s\n", PmStrNode(master->procs->node.nodeId));
-	for (i = 0; i < master->reqsCnt; i++) {
-		if (0U != (master->reqs[i].info & PM_MASTER_WAKEUP_REQ_MASK)) {
-			unsigned int r;
-			bool hasOtherReq = false;
+	while (mr) {
+		PmRequirement* sr = mr->slave->reqs;
+		bool hasOtherReq = false;
 
-			master->reqs[i].info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-			/*
-			 * Check if there are other masters waiting for slave's
-			 * wake-up.
-			 */
-			for (r = 0U; r < master->reqs[i].slave->reqsCnt; r++) {
-				if (0U != (master->reqs[i].slave->reqs[r]->info &
-					   PM_MASTER_WAKEUP_REQ_MASK)) {
-					hasOtherReq = true;
-					break;
-				}
-			}
-			if (false == hasOtherReq) {
-				/*
-				 * No other masters waiting for wake, disable
-				 * wake event.
-				 */
-				PmSlaveWakeDisable(master->reqs[i].slave);
-			}
+		/* If wake-up is not requested, continue with another slave */
+		if (0U == (mr->info & PM_MASTER_WAKEUP_REQ_MASK)) {
+			mr = mr->nextSlave;
+			continue;
 		}
+
+		mr->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+
+		/* Check if another master is waiting for slave's wake-up */
+		while (sr) {
+			if (0U != (sr->info & PM_MASTER_WAKEUP_REQ_MASK)) {
+				hasOtherReq = true;
+				break;
+			}
+			sr = sr->nextMaster;
+		}
+
+		/* If no other master is waiting for the wake disable it */
+		if (false == hasOtherReq) {
+			PmSlaveWakeDisable(mr->slave);
+		}
+		mr = mr->nextSlave;
 	}
 }
 

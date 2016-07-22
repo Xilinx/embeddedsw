@@ -132,17 +132,18 @@ static PmSlave* const pmSlaves[] = {
  */
 bool PmSlaveRequiresPower(const PmSlave* const slave)
 {
-	u32 i;
+	PmRequirement* req = slave->reqs;
 	bool hasRequests = false;
 	bool requiresPower = false;
 
-	for (i = 0U; i < slave->reqsCnt; i++) {
-		if ((0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) &&
-		    (0U != slave->reqs[i]->currReq)) {
+	while (req) {
+		if ((0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) &&
+		    (0U != req->currReq)) {
 			/* Slave is used by this master and has current request for caps */
 			hasRequests = true;
 			break;
 		}
+		req = req->nextMaster;
 	}
 
 	if (true == hasRequests) {
@@ -163,13 +164,14 @@ bool PmSlaveRequiresPower(const PmSlave* const slave)
  */
 static u32 PmGetMaxCapabilities(const PmSlave* const slave)
 {
-	u32 i;
+	PmRequirement* req = slave->reqs;
 	u32 maxCaps = 0U;
 
-	for (i = 0U; i < slave->reqsCnt; i++) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) {
-			maxCaps |= slave->reqs[i]->currReq;
+	while (req) {
+		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
+			maxCaps |= req->currReq;
 		}
+		req = req->nextMaster;
 	}
 
 	return maxCaps;
@@ -320,14 +322,16 @@ static int PmGetStateWithCaps(const PmSlave* const slave, const u32 caps,
  */
 static u32 PmGetMinRequestedLatency(const PmSlave* const slave)
 {
-	u32 i, minLatency = MAX_LATENCY;
+	PmRequirement* req = slave->reqs;
+	u32 minLatency = MAX_LATENCY;
 
-	for (i = 0U; i < slave->reqsCnt; i++) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) {
-			if (minLatency > slave->reqs[i]->latencyReq) {
-				minLatency = slave->reqs[i]->latencyReq;
+	while (req) {
+		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
+			if (minLatency > req->latencyReq) {
+				minLatency = req->latencyReq;
 			}
 		}
+		req = req->nextMaster;
 	}
 
 	return minLatency;
@@ -500,17 +504,17 @@ done:
  */
 static int PmSlaveWakeMasters(PmSlave* const slave)
 {
-	unsigned int i;
+	PmRequirement* req = slave->reqs;
 	int status;
 	int totalSt = XST_SUCCESS;
 
-	for (i = 0U; i < slave->reqsCnt; i++) {
-		if (slave->reqs[i]->info & PM_MASTER_WAKEUP_REQ_MASK) {
+	while (req) {
+		if (0U != (req->info & PM_MASTER_WAKEUP_REQ_MASK)) {
 			PmDbg("%s->%s\n", PmStrNode(slave->node.nodeId),
-			      PmStrNode(slave->reqs[i]->requestor->procs->node.nodeId));
-			slave->reqs[i]->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-			status = PmProcFsm(slave->reqs[i]->requestor->procs,
-					   PM_PROC_EVENT_WAKE);
+			      PmStrNode(req->master->procs->node.nodeId));
+
+			req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
+			status = PmProcFsm(req->master->procs, PM_PROC_EVENT_WAKE);
 			if (XST_SUCCESS != status) {
 				/*
 				 * Failed waking up processor, remember
@@ -519,6 +523,7 @@ static int PmSlaveWakeMasters(PmSlave* const slave)
 				totalSt = status;
 			}
 		}
+		req = req->nextMaster;
 	}
 	PmSlaveWakeDisable(slave);
 
@@ -668,13 +673,15 @@ done:
  */
 u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 {
-	u32 i, usage = 0U;
+	PmRequirement* req = slave->reqs;
+	u32 usage = 0U;
 
-	for (i = 0U; i < slave->reqsCnt; i++) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & slave->reqs[i]->info)) {
+	while (req) {
+		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
 			/* Found master which is using slave */
-			usage |= slave->reqs[i]->master->ipiMask;
+			usage |= req->master->ipiMask;
 		}
+		req = req->nextMaster;
 	}
 
 	return usage;

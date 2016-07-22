@@ -176,19 +176,17 @@ typedef struct {
 /**
  * PmSlave - Slave structure used for managing slave's states
  * @node        Pointer to the node structure of this slave
- * @reqs        Pointer to array of master requirements related to this slave
+ * @reqs        Pointer to the list of masters' requirements for the slave
  * @wake        Wake event this slave can generate
  * @slvFsm      Slave finite state machine
- * @reqsCnt     Size of masterReq array
  * @flags       Slave's flags (bit 0: whether the slave is shareable (1) or
  *              exclusive (0) resource)
  */
 typedef struct PmSlave {
 	PmNode node;
-	PmRequirement* const* reqs;
+	PmRequirement* reqs;
 	const PmWakeProperties* wake;
 	const PmSlaveFsm* slvFsm;
-	u8 reqsCnt;
 	u8 flags;
 } PmSlave;
 

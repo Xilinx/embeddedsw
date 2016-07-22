@@ -115,11 +115,6 @@ static const PmSlaveFsm slaveUsbFsm = {
 	.enterState = PmUsbFsmHandler,
 };
 
-static PmRequirement* const pmUsb0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_USB0],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_USB0],
-};
-
 static PmWakeProperties pmUsb0Wake = {
 	.proxyIrqMask = FPD_GICP_USB0_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP2],
@@ -142,19 +137,13 @@ PmSlaveUsb pmSlaveUsb0_g = {
 			.powerInfo = PmUsbPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmUsbPowers),
 		},
-		.reqs = pmUsb0Reqs,
-		.reqsCnt = ARRAY_SIZE(pmUsb0Reqs),
+		.reqs = NULL,
 		.wake = &pmUsb0Wake,
 		.slvFsm = &slaveUsbFsm,
 		.flags = 0U,
 	},
 	.PwrDn = XpbrPwrDnUsb0Handler,
 	.PwrUp = XpbrPwrUpUsb0Handler,
-};
-
-static PmRequirement* const pmUsb1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_USB1],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_USB1],
 };
 
 static PmWakeProperties pmUsb1Wake = {
@@ -174,8 +163,7 @@ PmSlaveUsb pmSlaveUsb1_g = {
 			.powerInfo = PmUsbPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmUsbPowers),
 		},
-		.reqs = pmUsb1Reqs,
-		.reqsCnt = ARRAY_SIZE(pmUsb1Reqs),
+		.reqs = NULL,
 		.wake = &pmUsb1Wake,
 		.slvFsm = &slaveUsbFsm,
 		.flags = 0U,

@@ -229,12 +229,6 @@ static const PmSlaveFsm slavePllFsm = {
 	.enterState = PmPllFsmHandler,
 };
 
-/* APLL */
-static PmRequirement* const pmApllReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_APLL],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_APLL],
-};
-
 static u32 PmStdPllPowers[] = {
 	DEFAULT_PLL_POWER_OFF,
 	DEFAULT_PLL_POWER_ON,
@@ -252,8 +246,7 @@ PmSlavePll pmSlaveApll_g = {
 			.powerInfo = PmStdPllPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
-		.reqs = pmApllReqs,
-		.reqsCnt = ARRAY_SIZE(pmApllReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -265,12 +258,6 @@ PmSlavePll pmSlaveApll_g = {
 	.toCtrlAddr = CRF_APB_APLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_APLL_LOCK_MASK,
-};
-
-/* VPLL */
-static PmRequirement* const pmVpllReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_VPLL],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_VPLL],
 };
 
 PmSlavePll pmSlaveVpll_g = {
@@ -285,8 +272,7 @@ PmSlavePll pmSlaveVpll_g = {
 			.powerInfo = PmStdPllPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
-		.reqs = pmVpllReqs,
-		.reqsCnt = ARRAY_SIZE(pmVpllReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -298,12 +284,6 @@ PmSlavePll pmSlaveVpll_g = {
 	.toCtrlAddr = CRF_APB_VPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_VPLL_LOCK_MASK,
-};
-
-/* DPLL */
-static PmRequirement* const pmDpllReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_DPLL],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_DPLL],
 };
 
 PmSlavePll pmSlaveDpll_g = {
@@ -318,8 +298,7 @@ PmSlavePll pmSlaveDpll_g = {
 			.powerInfo = PmStdPllPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
-		.reqs = pmDpllReqs,
-		.reqsCnt = ARRAY_SIZE(pmDpllReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -331,12 +310,6 @@ PmSlavePll pmSlaveDpll_g = {
 	.toCtrlAddr = CRF_APB_DPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_DPLL_LOCK_MASK,
-};
-
-/* RPLL */
-static PmRequirement* const pmRpllReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_RPLL],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_RPLL],
 };
 
 PmSlavePll pmSlaveRpll_g = {
@@ -351,8 +324,7 @@ PmSlavePll pmSlaveRpll_g = {
 			.powerInfo = PmStdPllPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
-		.reqs = pmRpllReqs,
-		.reqsCnt = ARRAY_SIZE(pmRpllReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -364,12 +336,6 @@ PmSlavePll pmSlaveRpll_g = {
 	.toCtrlAddr = CRL_APB_RPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
 	.lockMask = CRL_APB_PLL_STATUS_RPLL_LOCK_MASK,
-};
-
-/* IOPLL */
-static PmRequirement* const pmIOpllReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_IOPLL],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_IOPLL],
 };
 
 PmSlavePll pmSlaveIOpll_g = {
@@ -384,8 +350,7 @@ PmSlavePll pmSlaveIOpll_g = {
 			.powerInfo = PmStdPllPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmStdPllPowers),
 		},
-		.reqs = pmIOpllReqs,
-		.reqsCnt = ARRAY_SIZE(pmIOpllReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slavePllFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,

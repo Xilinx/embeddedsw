@@ -84,11 +84,6 @@ static PmWakeProperties pmTtc0Wake = {
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
 };
 
-static PmRequirement* const pmTtc0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_TTC0],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TTC0],
-};
-
 PmSlaveTtc pmSlaveTtc0_g = {
 	.slv = {
 		.node = {
@@ -102,8 +97,7 @@ PmSlaveTtc pmSlaveTtc0_g = {
 			.powerInfo = PmSlaveAonPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 		},
-		.reqs = pmTtc0Reqs,
-		.reqsCnt = ARRAY_SIZE(pmTtc0Reqs),
+		.reqs = NULL,
 		.wake = &pmTtc0Wake,
 		.slvFsm = &slaveAonFsm,
 		.flags = 0U,
@@ -113,10 +107,6 @@ PmSlaveTtc pmSlaveTtc0_g = {
 static PmWakeProperties pmTtc1Wake = {
 	.proxyIrqMask = FPD_GICP_TTC1_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmTtc1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_TTC1],
 };
 
 PmSlaveTtc pmSlaveTtc1_g = {
@@ -132,8 +122,7 @@ PmSlaveTtc pmSlaveTtc1_g = {
 			.powerInfo = PmSlaveAonPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 		},
-		.reqs = pmTtc1Reqs,
-		.reqsCnt = ARRAY_SIZE(pmTtc1Reqs),
+		.reqs = NULL,
 		.wake = &pmTtc1Wake,
 		.slvFsm = &slaveAonFsm,
 		.flags = 0U,
@@ -143,10 +132,6 @@ PmSlaveTtc pmSlaveTtc1_g = {
 static PmWakeProperties pmTtc2Wake = {
 	.proxyIrqMask = FPD_GICP_TTC2_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmTtc2Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_TTC2],
 };
 
 PmSlaveTtc pmSlaveTtc2_g = {
@@ -162,8 +147,7 @@ PmSlaveTtc pmSlaveTtc2_g = {
 			.powerInfo = PmSlaveAonPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 		},
-		.reqs = pmTtc2Reqs,
-		.reqsCnt = ARRAY_SIZE(pmTtc2Reqs),
+		.reqs = NULL,
 		.wake = &pmTtc2Wake,
 		.slvFsm = &slaveAonFsm,
 		.flags = 0U,
@@ -173,10 +157,6 @@ PmSlaveTtc pmSlaveTtc2_g = {
 static PmWakeProperties pmTtc3Wake = {
 	.proxyIrqMask = FPD_GICP_TTC3_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmTtc3Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_TTC3],
 };
 
 PmSlaveTtc pmSlaveTtc3_g = {
@@ -192,8 +172,7 @@ PmSlaveTtc pmSlaveTtc3_g = {
 			.powerInfo = PmSlaveAonPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 		},
-		.reqs = pmTtc3Reqs,
-		.reqsCnt = ARRAY_SIZE(pmTtc3Reqs),
+		.reqs = NULL,
 		.wake = &pmTtc3Wake,
 		.slvFsm = &slaveAonFsm,
 		.flags = 0U,
@@ -203,10 +182,6 @@ PmSlaveTtc pmSlaveTtc3_g = {
 static PmWakeProperties pmUart0Wake = {
 	.proxyIrqMask = FPD_GICP_UART0_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmUart0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_UART0],
 };
 
 PmSlave pmSlaveUart0_g = {
@@ -221,8 +196,7 @@ PmSlave pmSlaveUart0_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmUart0Reqs,
-	.reqsCnt = ARRAY_SIZE(pmUart0Reqs),
+	.reqs = NULL,
 	.wake = &pmUart0Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -231,10 +205,6 @@ PmSlave pmSlaveUart0_g = {
 static PmWakeProperties pmUart1Wake = {
 	.proxyIrqMask = FPD_GICP_UART1_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmUart1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_UART1],
 };
 
 PmSlave pmSlaveUart1_g = {
@@ -249,8 +219,7 @@ PmSlave pmSlaveUart1_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmUart1Reqs,
-	.reqsCnt = ARRAY_SIZE(pmUart1Reqs),
+	.reqs = NULL,
 	.wake = &pmUart1Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -259,10 +228,6 @@ PmSlave pmSlaveUart1_g = {
 static PmWakeProperties pmSpi0Wake = {
 	.proxyIrqMask = FPD_GICP_SPI0_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmSpi0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_SPI0],
 };
 
 PmSlave pmSlaveSpi0_g = {
@@ -277,8 +242,7 @@ PmSlave pmSlaveSpi0_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmSpi0Reqs,
-	.reqsCnt = ARRAY_SIZE(pmSpi0Reqs),
+	.reqs = NULL,
 	.wake = &pmSpi0Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -287,10 +251,6 @@ PmSlave pmSlaveSpi0_g = {
 static PmWakeProperties pmSpi1Wake = {
 	.proxyIrqMask = FPD_GICP_SPI1_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmSpi1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_SPI1],
 };
 
 PmSlave pmSlaveSpi1_g = {
@@ -305,8 +265,7 @@ PmSlave pmSlaveSpi1_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmSpi1Reqs,
-	.reqsCnt = ARRAY_SIZE(pmSpi1Reqs),
+	.reqs = NULL,
 	.wake = &pmSpi1Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -315,10 +274,6 @@ PmSlave pmSlaveSpi1_g = {
 static PmWakeProperties pmI2C0Wake = {
 	.proxyIrqMask = FPD_GICP_I2C0_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmI2C0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_I2C0],
 };
 
 PmSlave pmSlaveI2C0_g = {
@@ -333,8 +288,7 @@ PmSlave pmSlaveI2C0_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmI2C0Reqs,
-	.reqsCnt = ARRAY_SIZE(pmI2C0Reqs),
+	.reqs = NULL,
 	.wake = &pmI2C0Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -343,10 +297,6 @@ PmSlave pmSlaveI2C0_g = {
 static PmWakeProperties pmI2C1Wake = {
 	.proxyIrqMask = FPD_GICP_I2C1_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmI2C1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_I2C1],
 };
 
 PmSlave pmSlaveI2C1_g = {
@@ -361,8 +311,7 @@ PmSlave pmSlaveI2C1_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmI2C1Reqs,
-	.reqsCnt = ARRAY_SIZE(pmI2C1Reqs),
+	.reqs = NULL,
 	.wake = &pmI2C1Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -371,10 +320,6 @@ PmSlave pmSlaveI2C1_g = {
 static PmWakeProperties pmSD0Wake = {
 	.proxyIrqMask = FPD_GICP_SD0_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmSD0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_SD0],
 };
 
 PmSlave pmSlaveSD0_g = {
@@ -389,8 +334,7 @@ PmSlave pmSlaveSD0_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmSD0Reqs,
-	.reqsCnt = ARRAY_SIZE(pmSD0Reqs),
+	.reqs = NULL,
 	.wake = &pmSD0Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -399,10 +343,6 @@ PmSlave pmSlaveSD0_g = {
 static PmWakeProperties pmSD1Wake = {
 	.proxyIrqMask = FPD_GICP_SD1_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmSD1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_SD1],
 };
 
 PmSlave pmSlaveSD1_g = {
@@ -417,8 +357,7 @@ PmSlave pmSlaveSD1_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmSD1Reqs,
-	.reqsCnt = ARRAY_SIZE(pmSD1Reqs),
+	.reqs = NULL,
 	.wake = &pmSD1Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -427,10 +366,6 @@ PmSlave pmSlaveSD1_g = {
 static PmWakeProperties pmCan0Wake = {
 	.proxyIrqMask = FPD_GICP_CAN0_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmCan0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_CAN0],
 };
 
 PmSlave pmSlaveCan0_g = {
@@ -445,8 +380,7 @@ PmSlave pmSlaveCan0_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmCan0Reqs,
-	.reqsCnt = ARRAY_SIZE(pmCan0Reqs),
+	.reqs = NULL,
 	.wake = &pmCan0Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -455,10 +389,6 @@ PmSlave pmSlaveCan0_g = {
 static PmWakeProperties pmCan1Wake = {
 	.proxyIrqMask = FPD_GICP_CAN1_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmCan1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_CAN1],
 };
 
 PmSlave pmSlaveCan1_g = {
@@ -473,8 +403,7 @@ PmSlave pmSlaveCan1_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmCan1Reqs,
-	.reqsCnt = ARRAY_SIZE(pmCan1Reqs),
+	.reqs = NULL,
 	.wake = &pmCan1Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -483,10 +412,6 @@ PmSlave pmSlaveCan1_g = {
 static PmWakeProperties pmEth0Wake = {
 	.proxyIrqMask = FPD_GICP_ETH0_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmEth0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_ETH0],
 };
 
 PmSlave pmSlaveEth0_g = {
@@ -501,8 +426,7 @@ PmSlave pmSlaveEth0_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmEth0Reqs,
-	.reqsCnt = ARRAY_SIZE(pmEth0Reqs),
+	.reqs = NULL,
 	.wake = &pmEth0Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -511,10 +435,6 @@ PmSlave pmSlaveEth0_g = {
 static PmWakeProperties pmEth1Wake = {
 	.proxyIrqMask = FPD_GICP_ETH1_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmEth1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_ETH1],
 };
 
 PmSlave pmSlaveEth1_g = {
@@ -529,8 +449,7 @@ PmSlave pmSlaveEth1_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmEth1Reqs,
-	.reqsCnt = ARRAY_SIZE(pmEth1Reqs),
+	.reqs = NULL,
 	.wake = &pmEth1Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -539,10 +458,6 @@ PmSlave pmSlaveEth1_g = {
 static PmWakeProperties pmEth2Wake = {
 	.proxyIrqMask = FPD_GICP_ETH2_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmEth2Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_ETH2],
 };
 
 PmSlave pmSlaveEth2_g = {
@@ -557,8 +472,7 @@ PmSlave pmSlaveEth2_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmEth2Reqs,
-	.reqsCnt = ARRAY_SIZE(pmEth2Reqs),
+	.reqs = NULL,
 	.wake = &pmEth2Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -567,10 +481,6 @@ PmSlave pmSlaveEth2_g = {
 static PmWakeProperties pmEth3Wake = {
 	.proxyIrqMask = FPD_GICP_ETH3_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
-};
-
-static PmRequirement* const pmEth3Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_ETH3],
 };
 
 PmSlave pmSlaveEth3_g = {
@@ -585,15 +495,10 @@ PmSlave pmSlaveEth3_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmEth3Reqs,
-	.reqsCnt = ARRAY_SIZE(pmEth3Reqs),
+	.reqs = NULL,
 	.wake = &pmEth3Wake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
-};
-
-static PmRequirement* const pmAdmaReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_ADMA],
 };
 
 PmSlave pmSlaveAdma_g = {
@@ -608,8 +513,7 @@ PmSlave pmSlaveAdma_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmAdmaReqs,
-	.reqsCnt = ARRAY_SIZE(pmAdmaReqs),
+	.reqs = NULL,
 	.wake = NULL,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -618,10 +522,6 @@ PmSlave pmSlaveAdma_g = {
 static PmWakeProperties pmNandWake = {
 	.proxyIrqMask = FPD_GICP_NAND_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmNandReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_NAND],
 };
 
 PmSlave pmSlaveNand_g = {
@@ -636,8 +536,7 @@ PmSlave pmSlaveNand_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmNandReqs,
-	.reqsCnt = ARRAY_SIZE(pmNandReqs),
+	.reqs = NULL,
 	.wake = &pmNandWake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -646,10 +545,6 @@ PmSlave pmSlaveNand_g = {
 static PmWakeProperties pmQSpiWake = {
 	.proxyIrqMask = FPD_GICP_SPI_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmQSpiReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_QSPI],
 };
 
 PmSlave pmSlaveQSpi_g = {
@@ -664,8 +559,7 @@ PmSlave pmSlaveQSpi_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmQSpiReqs,
-	.reqsCnt = ARRAY_SIZE(pmQSpiReqs),
+	.reqs = NULL,
 	.wake = &pmQSpiWake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -674,10 +568,6 @@ PmSlave pmSlaveQSpi_g = {
 static PmWakeProperties pmGpioWake = {
 	.proxyIrqMask = FPD_GICP_GPIO_WAKE_IRQ_MASK,
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
-};
-
-static PmRequirement* const pmGpioReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_GPIO],
 };
 
 PmSlave pmSlaveGpio_g = {
@@ -692,8 +582,7 @@ PmSlave pmSlaveGpio_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
-	.reqs = pmGpioReqs,
-	.reqsCnt = ARRAY_SIZE(pmGpioReqs),
+	.reqs = NULL,
 	.wake = &pmGpioWake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
@@ -735,11 +624,6 @@ static PmWakeProperties pmSataWake = {
 	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP4],
 };
 
-static PmRequirement* const pmSataReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_SATA],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_SATA],
-};
-
 PmSlaveSata pmSlaveSata_g = {
 	.slv = {
 		.node = {
@@ -753,8 +637,7 @@ PmSlaveSata pmSlaveSata_g = {
 			.powerInfo = PmSlaveStdPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
 		},
-		.reqs = pmSataReqs,
-		.reqsCnt = ARRAY_SIZE(pmSataReqs),
+		.reqs = NULL,
 		.wake = &pmSataWake,
 		.slvFsm = &slaveStdFsm,
 		.flags = 0U,
@@ -831,10 +714,6 @@ static const PmSlaveFsm slaveGPPFsm = {
 	.enterState = PmGppFsmHandler,
 };
 
-static PmRequirement* const pmGpuPP0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_GPUPP0],
-};
-
 PmSlaveGpp pmSlaveGpuPP0_g = {
 	.slv = {
 		.node = {
@@ -848,18 +727,13 @@ PmSlaveGpp pmSlaveGpuPP0_g = {
 			.powerInfo = PmSlaveStdPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
 		},
-		.reqs = pmGpuPP0Reqs,
-		.reqsCnt = ARRAY_SIZE(pmGpuPP0Reqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveGPPFsm,
 		.flags = 0U,
 	},
 	.PwrDn = XpbrPwrDnPp0Handler,
 	.PwrUp = XpbrPwrUpPp0Handler,
-};
-
-static PmRequirement* const pmGpuPP1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_GPUPP1],
 };
 
 PmSlaveGpp pmSlaveGpuPP1_g = {
@@ -875,18 +749,13 @@ PmSlaveGpp pmSlaveGpuPP1_g = {
 			.powerInfo = PmSlaveStdPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
 		},
-		.reqs = pmGpuPP1Reqs,
-		.reqsCnt = ARRAY_SIZE(pmGpuPP1Reqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveGPPFsm,
 		.flags = 0U,
 	},
 	.PwrDn = XpbrPwrDnPp1Handler,
 	.PwrUp = XpbrPwrUpPp1Handler,
-};
-
-static PmRequirement* const pmGdmaReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_GDMA],
 };
 
 PmSlave pmSlaveGdma_g = {
@@ -901,15 +770,10 @@ PmSlave pmSlaveGdma_g = {
 		.powerInfo = PmSlaveStdPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers)
 	},
-	.reqs = pmGdmaReqs,
-	.reqsCnt = ARRAY_SIZE(pmGdmaReqs),
+	.reqs = NULL,
 	.wake = NULL,
 	.slvFsm = &slaveStdFsm,
 	.flags = 0U,
-};
-
-static PmRequirement* const pmDPReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_DP],
 };
 
 PmSlave pmSlaveDP_g = {
@@ -924,15 +788,10 @@ PmSlave pmSlaveDP_g = {
 		.powerInfo = PmSlaveStdPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers)
 	},
-	.reqs = pmDPReqs,
-	.reqsCnt = ARRAY_SIZE(pmDPReqs),
+	.reqs = NULL,
 	.wake = NULL,
 	.slvFsm = &slaveStdFsm,
 	.flags = 0U,
-};
-
-static PmRequirement* const pmAFIReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_AFI],
 };
 
 PmSlave pmSlaveAFI_g = {
@@ -947,15 +806,10 @@ PmSlave pmSlaveAFI_g = {
 		.powerInfo = PmSlaveStdPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers)
 	},
-	.reqs = pmAFIReqs,
-	.reqsCnt = ARRAY_SIZE(pmAFIReqs),
+	.reqs = NULL,
 	.wake = NULL,
 	.slvFsm = &slaveStdFsm,
 	.flags = 0U,
-};
-
-static PmRequirement* const pmIpiApuReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_IPI_APU],
 };
 
 static PmWakeProperties pmIpiApuWake = {
@@ -975,15 +829,10 @@ PmSlave pmSlaveIpiApu_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers)
 	},
-	.reqs = pmIpiApuReqs,
-	.reqsCnt = ARRAY_SIZE(pmIpiApuReqs),
+	.reqs = NULL,
 	.wake = &pmIpiApuWake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
-};
-
-static PmRequirement* const pmIpiRpu0Reqs[] = {
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_IPI_RPU_0],
 };
 
 PmSlave pmSlaveIpiRpu0_g = {
@@ -998,8 +847,7 @@ PmSlave pmSlaveIpiRpu0_g = {
 		.powerInfo = PmSlaveAonPowers,
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers)
 	},
-	.reqs = pmIpiRpu0Reqs,
-	.reqsCnt = ARRAY_SIZE(pmIpiRpu0Reqs),
+	.reqs = NULL,
 	.wake = NULL,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,

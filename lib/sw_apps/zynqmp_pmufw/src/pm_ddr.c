@@ -883,11 +883,6 @@ static const PmSlaveFsm pmSlaveDdrFsm = {
 	.enterState = PmDdrFsmHandler,
 };
 
-static PmRequirement* const pmDdrReqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_DDR],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_DDR],
-};
-
 static u32 PmDdrPowerConsumptions[] = {
 	DEFAULT_DDR_POWER_OFF,
 	DEFAULT_DDR_POWER_SR,
@@ -906,8 +901,7 @@ PmSlave pmSlaveDdr_g = {
 		.powerInfo = PmDdrPowerConsumptions,
 		.powerInfoCnt = ARRAY_SIZE(PmDdrPowerConsumptions),
 	},
-	.reqs = pmDdrReqs,
-	.reqsCnt = ARRAY_SIZE(pmDdrReqs),
+	.reqs = NULL,
 	.wake = NULL,
 	.slvFsm = &pmSlaveDdrFsm,
 	.flags = PM_SLAVE_FLAG_IS_SHAREABLE,

@@ -51,79 +51,6 @@ typedef struct PmRequirement PmRequirement;
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* Apu slaves */
-#define PM_MASTER_APU_SLAVE_OCM0    0U
-#define PM_MASTER_APU_SLAVE_OCM1    1U
-#define PM_MASTER_APU_SLAVE_OCM2    2U
-#define PM_MASTER_APU_SLAVE_OCM3    3U
-#define PM_MASTER_APU_SLAVE_L2      4U
-#define PM_MASTER_APU_SLAVE_USB0    5U
-#define PM_MASTER_APU_SLAVE_USB1    6U
-#define PM_MASTER_APU_SLAVE_TTC0    7U
-#define PM_MASTER_APU_SLAVE_TTC1    8U
-#define PM_MASTER_APU_SLAVE_TTC2    9U
-#define PM_MASTER_APU_SLAVE_TTC3    10U
-#define PM_MASTER_APU_SLAVE_SATA    11U
-#define PM_MASTER_APU_SLAVE_APLL    12U
-#define PM_MASTER_APU_SLAVE_VPLL    13U
-#define PM_MASTER_APU_SLAVE_DPLL    14U
-#define PM_MASTER_APU_SLAVE_RPLL    15U
-#define PM_MASTER_APU_SLAVE_IOPLL   16U
-#define PM_MASTER_APU_SLAVE_GPUPP0  17U
-#define PM_MASTER_APU_SLAVE_GPUPP1  18U
-#define PM_MASTER_APU_SLAVE_UART0   19U
-#define PM_MASTER_APU_SLAVE_UART1   20U
-#define PM_MASTER_APU_SLAVE_SPI0    21U
-#define PM_MASTER_APU_SLAVE_SPI1    22U
-#define PM_MASTER_APU_SLAVE_I2C0    23U
-#define PM_MASTER_APU_SLAVE_I2C1    24U
-#define PM_MASTER_APU_SLAVE_SD0     25U
-#define PM_MASTER_APU_SLAVE_SD1     26U
-#define PM_MASTER_APU_SLAVE_CAN0    27U
-#define PM_MASTER_APU_SLAVE_CAN1    28U
-#define PM_MASTER_APU_SLAVE_ETH0    29U
-#define PM_MASTER_APU_SLAVE_ETH1    30U
-#define PM_MASTER_APU_SLAVE_ETH2    31U
-#define PM_MASTER_APU_SLAVE_ETH3    32U
-#define PM_MASTER_APU_SLAVE_ADMA    33U
-#define PM_MASTER_APU_SLAVE_GDMA    34U
-#define PM_MASTER_APU_SLAVE_DP      35U
-#define PM_MASTER_APU_SLAVE_NAND    36U
-#define PM_MASTER_APU_SLAVE_QSPI    37U
-#define PM_MASTER_APU_SLAVE_GPIO    38U
-#define PM_MASTER_APU_SLAVE_AFI     39U
-#define PM_MASTER_APU_SLAVE_DDR     40U
-#define PM_MASTER_APU_SLAVE_IPI_APU 41U
-
-#define PM_MASTER_APU_SLAVE_TCM0A   42U
-#define PM_MASTER_APU_SLAVE_TCM0B   43U
-#define PM_MASTER_APU_SLAVE_TCM1A   44U
-#define PM_MASTER_APU_SLAVE_TCM1B   45U
-
-#define PM_MASTER_APU_SLAVE_MAX     46U
-
-/* Rpu0 slaves */
-#define PM_MASTER_RPU_0_SLAVE_TCM0A 0U
-#define PM_MASTER_RPU_0_SLAVE_TCM0B 1U
-#define PM_MASTER_RPU_0_SLAVE_TCM1A 2U
-#define PM_MASTER_RPU_0_SLAVE_TCM1B 3U
-#define PM_MASTER_RPU_0_SLAVE_OCM0  4U
-#define PM_MASTER_RPU_0_SLAVE_OCM1  5U
-#define PM_MASTER_RPU_0_SLAVE_OCM2  6U
-#define PM_MASTER_RPU_0_SLAVE_OCM3  7U
-#define PM_MASTER_RPU_0_SLAVE_USB0  8U
-#define PM_MASTER_RPU_0_SLAVE_USB1  9U
-#define PM_MASTER_RPU_0_SLAVE_TTC0  10U
-#define PM_MASTER_RPU_0_SLAVE_SATA  11U
-#define PM_MASTER_RPU_0_SLAVE_APLL  12U
-#define PM_MASTER_RPU_0_SLAVE_VPLL  13U
-#define PM_MASTER_RPU_0_SLAVE_DPLL  14U
-#define PM_MASTER_RPU_0_SLAVE_RPLL  15U
-#define PM_MASTER_RPU_0_SLAVE_IOPLL 16U
-#define PM_MASTER_RPU_0_SLAVE_DDR   17U
-#define PM_MASTER_RPU_0_SLAVE_IPI_RPU_0 18U
-
-#define PM_MASTER_RPU_0_SLAVE_MAX   19U
 
 /* Pm Master request info masks */
 #define PM_MASTER_WAKEUP_REQ_MASK   0x1U
@@ -157,8 +84,8 @@ typedef struct PmRequirement PmRequirement;
  *              encode has master requested a wake-up of this slave.
  */
 typedef struct PmRequirement {
-	PmSlave* const slave;
-	PmMaster* const master;
+	PmSlave* slave;
+	PmMaster* master;
 	PmRequirement* nextSlave;
 	PmRequirement* nextMaster;
 	const u32 defaultReq;
@@ -182,9 +109,9 @@ typedef struct {
 /**
  * PmMaster - contains PM master related informations
  * @procs       Pointer to the array of processors within the master
- * @reqs        Pointer to the masters array of requirements for slave
- *              capabilities. For every slave the master can use, there has to
- *              be a statically initialized structure for that master/slave pair
+ * @reqs        Pointer to the master's list of requirements for slaves'
+ *              capabilities. For every slave that the master can use there has
+ *              to be a dedicated requirements structure
  * @ipiMask     Mask dedicated to the master in IPI registers
  * @pmuBuffer   IPI buffer address into which PMU can write (PMU's buffer)
  * @buffer      IPI buffer address into which this master can write
@@ -197,8 +124,6 @@ typedef struct {
  *              processors in the PU. In RPU case, this data could be
  *              initialized from PCW, based on RPU configuration.
  * @procsCnt    Number of processors within the master
- * @reqsCnt     Number of requirement elements (= worst case for number of
- *              used slaves)
  * @permissions ORed ipi masks of masters which this master is allowed to
  *              request to suspend (to be updated based on specific
  *              configuration, by default all masters should be able to request
@@ -210,14 +135,13 @@ typedef struct {
 typedef struct PmMaster {
 	PmSuspendRequest suspendRequest;
 	PmProc* const procs;
-	PmRequirement* const reqs;
+	PmRequirement* reqs;
 	const u32 ipiMask;
 	const u32 pmuBuffer;
 	const u32 buffer;
 	u32 permissions;
 	PmNodeId nid;
 	const u8 procsCnt;
-	const u8 reqsCnt;
 } PmMaster;
 
 /*********************************************************************
@@ -228,9 +152,6 @@ extern PmMaster pmMasterRpu0_g;
 extern PmMaster pmMasterRpu1_g;
 
 extern PmMaster *const pmAllMasters[PM_MASTER_MAX];
-
-extern PmRequirement pmApuReq_g[PM_MASTER_APU_SLAVE_MAX];
-extern PmRequirement pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_MAX];
 
 /*********************************************************************
  * Function declarations
@@ -251,6 +172,9 @@ PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
 /* Requirements related functions */
 int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
 int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
+
+void PmRequirementInit(void);
+
 /* Notify master by a primary core when changing state */
 int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 

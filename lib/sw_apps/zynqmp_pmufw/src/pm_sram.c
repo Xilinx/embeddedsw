@@ -195,10 +195,6 @@ static const PmSlaveFsm slaveTcmFsm = {
 	.enterState = PmSramFsmHandler,
 };
 
-static PmRequirement* const pmL2Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_L2],
-};
-
 static u32 PmSramPowers[] = {
 	DEFAULT_SRAM_POWER_OFF,
 	DEFAULT_SRAM_POWER_RETENTION,
@@ -241,8 +237,7 @@ PmSlaveSram pmSlaveL2_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmL2Reqs,
-		.reqsCnt = ARRAY_SIZE(pmL2Reqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 		.flags = 0U,
@@ -251,11 +246,6 @@ PmSlaveSram pmSlaveL2_g = {
 	.PwrUp = XpbrPwrUpL2Bank0Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_L2_BANK0_MASK,
-};
-
-static PmRequirement* const pmOcm0Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_OCM0],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_OCM0],
 };
 
 PmSlaveSram pmSlaveOcm0_g = {
@@ -271,8 +261,7 @@ PmSlaveSram pmSlaveOcm0_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmOcm0Reqs,
-		.reqsCnt = ARRAY_SIZE(pmOcm0Reqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -281,11 +270,6 @@ PmSlaveSram pmSlaveOcm0_g = {
 	.PwrUp = XpbrPwrUpOcmBank0Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK0_MASK,
-};
-
-static PmRequirement* const pmOcm1Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_OCM1],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_OCM1],
 };
 
 PmSlaveSram pmSlaveOcm1_g = {
@@ -301,8 +285,7 @@ PmSlaveSram pmSlaveOcm1_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmOcm1Reqs,
-		.reqsCnt = ARRAY_SIZE(pmOcm1Reqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -311,11 +294,6 @@ PmSlaveSram pmSlaveOcm1_g = {
 	.PwrUp = XpbrPwrUpOcmBank1Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK1_MASK,
-};
-
-static PmRequirement* const pmOcm2Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_OCM2],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_OCM2],
 };
 
 PmSlaveSram pmSlaveOcm2_g = {
@@ -331,8 +309,7 @@ PmSlaveSram pmSlaveOcm2_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmOcm2Reqs,
-		.reqsCnt = ARRAY_SIZE(pmOcm2Reqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -341,11 +318,6 @@ PmSlaveSram pmSlaveOcm2_g = {
 	.PwrUp = XpbrPwrUpOcmBank2Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK2_MASK,
-};
-
-static PmRequirement* const pmOcm3Reqs[] = {
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_OCM3],
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_OCM3],
 };
 
 PmSlaveSram pmSlaveOcm3_g = {
@@ -361,8 +333,7 @@ PmSlaveSram pmSlaveOcm3_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmOcm3Reqs,
-		.reqsCnt = ARRAY_SIZE(pmOcm3Reqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -371,11 +342,6 @@ PmSlaveSram pmSlaveOcm3_g = {
 	.PwrUp = XpbrPwrUpOcmBank3Handler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK3_MASK,
-};
-
-static PmRequirement* const pmTcm0AReqs[] = {
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TCM0A],
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_TCM0A],
 };
 
 PmSlaveSram pmSlaveTcm0A_g = {
@@ -391,8 +357,7 @@ PmSlaveSram pmSlaveTcm0A_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmTcm0AReqs,
-		.reqsCnt = ARRAY_SIZE(pmTcm0AReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveTcmFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -404,11 +369,6 @@ PmSlaveSram pmSlaveTcm0A_g = {
 	.size = 0x10000,
 	.base = 0xffe00000,
 	.eccInit = tcm0EccInit,
-};
-
-static PmRequirement* const pmTcm0BReqs[] = {
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TCM0B],
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_TCM0B],
 };
 
 PmSlaveSram pmSlaveTcm0B_g = {
@@ -424,8 +384,7 @@ PmSlaveSram pmSlaveTcm0B_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmTcm0BReqs,
-		.reqsCnt = ARRAY_SIZE(pmTcm0BReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveTcmFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -437,11 +396,6 @@ PmSlaveSram pmSlaveTcm0B_g = {
 	.size = 0x10000,
 	.base = 0xffe20000,
 	.eccInit = tcm0EccInit,
-};
-
-static PmRequirement* const pmTcm1AReqs[] = {
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TCM1A],
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_TCM1A],
 };
 
 PmSlaveSram pmSlaveTcm1A_g = {
@@ -457,8 +411,7 @@ PmSlaveSram pmSlaveTcm1A_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmTcm1AReqs,
-		.reqsCnt = ARRAY_SIZE(pmTcm1AReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveTcmFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -470,11 +423,6 @@ PmSlaveSram pmSlaveTcm1A_g = {
 	.size = 0x10000,
 	.base = 0xffe90000,
 	.eccInit = tcm1EccInit,
-};
-
-static PmRequirement* const pmTcm1BReqs[] = {
-	&pmRpu0Req_g[PM_MASTER_RPU_0_SLAVE_TCM1B],
-	&pmApuReq_g[PM_MASTER_APU_SLAVE_TCM1B],
 };
 
 PmSlaveSram pmSlaveTcm1B_g = {
@@ -490,8 +438,7 @@ PmSlaveSram pmSlaveTcm1B_g = {
 			.powerInfo = PmSramPowers,
 			.powerInfoCnt = ARRAY_SIZE(PmSramPowers),
 		},
-		.reqs = pmTcm1BReqs,
-		.reqsCnt = ARRAY_SIZE(pmTcm1BReqs),
+		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveTcmFsm,
 		.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
