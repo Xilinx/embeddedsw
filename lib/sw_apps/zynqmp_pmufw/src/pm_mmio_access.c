@@ -34,6 +34,8 @@
 #include "crf_apb.h"
 #include "pmu_iomodule.h"
 
+#define PM_MMIO_IOU_SLCR_BASE  0xFF180000
+
 /**
  * PmAccessRegion - Structure containing information about memory access
                     permissions
@@ -93,6 +95,13 @@ static const PmAccessRegion pmAccessTable[] = {
 	{
 		.startAddr = PMU_GLOBAL_PWR_STATE,
 		.endAddr = PMU_GLOBAL_PWR_STATE,
+		.access = IPI_PMU_0_IER_APU_MASK,
+	},
+
+	/* IOU SLCR Registers required for Linux */
+	{
+		.startAddr = PM_MMIO_IOU_SLCR_BASE + 0x300,
+		.endAddr = PM_MMIO_IOU_SLCR_BASE + 0x308,
 		.access = IPI_PMU_0_IER_APU_MASK,
 	},
 };
