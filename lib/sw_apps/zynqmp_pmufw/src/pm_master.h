@@ -44,6 +44,7 @@
 #include "pm_node.h"
 #include "pm_power.h"
 #include "xil_types.h"
+#include "pm_gic_proxy.h"
 
 typedef struct PmMaster PmMaster;
 typedef struct PmRequirement PmRequirement;
@@ -130,6 +131,8 @@ typedef struct {
  * @reqs        Pointer to the master's list of requirements for slaves'
  *              capabilities. For every slave that the master can use there has
  *              to be a dedicated requirements structure
+ * @gic         If the master has its own GIC which is controlled by the PMU,
+ *              this is a pointer to it.
  * @ipiMask     Mask dedicated to the master in IPI registers
  * @pmuBuffer   IPI buffer address into which PMU can write (PMU's buffer)
  * @buffer      IPI buffer address into which this master can write
@@ -158,6 +161,7 @@ typedef struct PmMaster {
 	PmProc* const procs;
 	PmProc* wakeProc;
 	PmRequirement* reqs;
+	const PmGicProxy* const gic;
 	const u32 ipiMask;
 	const u32 pmuBuffer;
 	const u32 buffer;

@@ -115,9 +115,9 @@ static const PmSlaveFsm slaveUsbFsm = {
 	.enterState = PmUsbFsmHandler,
 };
 
-static PmWakeProperties pmUsb0Wake = {
-	.proxyIrqMask = FPD_GICP_USB0_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP2],
+static PmGicProxyWake pmUsb0Wake = {
+	.mask = FPD_GICP_USB0_WAKE_IRQ_MASK,
+	.group = 2U,
 };
 
 static u32 PmUsbPowers[] = {
@@ -146,9 +146,9 @@ PmSlaveUsb pmSlaveUsb0_g = {
 	.PwrUp = XpbrPwrUpUsb0Handler,
 };
 
-static PmWakeProperties pmUsb1Wake = {
-	.proxyIrqMask = FPD_GICP_USB1_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP2],
+static PmGicProxyWake pmUsb1Wake = {
+	.mask = FPD_GICP_USB1_WAKE_IRQ_MASK,
+	.group = 2U,
 };
 
 PmSlaveUsb pmSlaveUsb1_g = {

@@ -79,9 +79,9 @@ static u32 PmSlaveStdPowers[] = {
 	DEFAULT_POWER_ON,
 };
 
-static PmWakeProperties pmTtc0Wake = {
-	.proxyIrqMask = FPD_GICP_TTC0_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmTtc0Wake = {
+	.mask = FPD_GICP_TTC0_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlaveTtc pmSlaveTtc0_g = {
@@ -104,9 +104,9 @@ PmSlaveTtc pmSlaveTtc0_g = {
 	},
 };
 
-static PmWakeProperties pmTtc1Wake = {
-	.proxyIrqMask = FPD_GICP_TTC1_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmTtc1Wake = {
+	.mask = FPD_GICP_TTC1_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlaveTtc pmSlaveTtc1_g = {
@@ -129,9 +129,9 @@ PmSlaveTtc pmSlaveTtc1_g = {
 	},
 };
 
-static PmWakeProperties pmTtc2Wake = {
-	.proxyIrqMask = FPD_GICP_TTC2_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmTtc2Wake = {
+	.mask = FPD_GICP_TTC2_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlaveTtc pmSlaveTtc2_g = {
@@ -154,9 +154,9 @@ PmSlaveTtc pmSlaveTtc2_g = {
 	},
 };
 
-static PmWakeProperties pmTtc3Wake = {
-	.proxyIrqMask = FPD_GICP_TTC3_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmTtc3Wake = {
+	.mask = FPD_GICP_TTC3_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlaveTtc pmSlaveTtc3_g = {
@@ -179,9 +179,9 @@ PmSlaveTtc pmSlaveTtc3_g = {
 	},
 };
 
-static PmWakeProperties pmUart0Wake = {
-	.proxyIrqMask = FPD_GICP_UART0_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmUart0Wake = {
+	.mask = FPD_GICP_UART0_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveUart0_g = {
@@ -202,9 +202,9 @@ PmSlave pmSlaveUart0_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmUart1Wake = {
-	.proxyIrqMask = FPD_GICP_UART1_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmUart1Wake = {
+	.mask = FPD_GICP_UART1_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveUart1_g = {
@@ -225,9 +225,9 @@ PmSlave pmSlaveUart1_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmSpi0Wake = {
-	.proxyIrqMask = FPD_GICP_SPI0_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmSpi0Wake = {
+	.mask = FPD_GICP_SPI0_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveSpi0_g = {
@@ -248,9 +248,9 @@ PmSlave pmSlaveSpi0_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmSpi1Wake = {
-	.proxyIrqMask = FPD_GICP_SPI1_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmSpi1Wake = {
+	.mask = FPD_GICP_SPI1_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveSpi1_g = {
@@ -271,9 +271,9 @@ PmSlave pmSlaveSpi1_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmI2C0Wake = {
-	.proxyIrqMask = FPD_GICP_I2C0_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmI2C0Wake = {
+	.mask = FPD_GICP_I2C0_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveI2C0_g = {
@@ -294,9 +294,9 @@ PmSlave pmSlaveI2C0_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmI2C1Wake = {
-	.proxyIrqMask = FPD_GICP_I2C1_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmI2C1Wake = {
+	.mask = FPD_GICP_I2C1_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveI2C1_g = {
@@ -317,9 +317,9 @@ PmSlave pmSlaveI2C1_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmSD0Wake = {
-	.proxyIrqMask = FPD_GICP_SD0_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmSD0Wake = {
+	.mask = FPD_GICP_SD0_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlave pmSlaveSD0_g = {
@@ -340,9 +340,9 @@ PmSlave pmSlaveSD0_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmSD1Wake = {
-	.proxyIrqMask = FPD_GICP_SD1_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmSD1Wake = {
+	.mask = FPD_GICP_SD1_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlave pmSlaveSD1_g = {
@@ -363,9 +363,9 @@ PmSlave pmSlaveSD1_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmCan0Wake = {
-	.proxyIrqMask = FPD_GICP_CAN0_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmCan0Wake = {
+	.mask = FPD_GICP_CAN0_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveCan0_g = {
@@ -386,9 +386,9 @@ PmSlave pmSlaveCan0_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmCan1Wake = {
-	.proxyIrqMask = FPD_GICP_CAN1_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmCan1Wake = {
+	.mask = FPD_GICP_CAN1_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveCan1_g = {
@@ -409,9 +409,9 @@ PmSlave pmSlaveCan1_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmEth0Wake = {
-	.proxyIrqMask = FPD_GICP_ETH0_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmEth0Wake = {
+	.mask = FPD_GICP_ETH0_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlave pmSlaveEth0_g = {
@@ -432,9 +432,9 @@ PmSlave pmSlaveEth0_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmEth1Wake = {
-	.proxyIrqMask = FPD_GICP_ETH1_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmEth1Wake = {
+	.mask = FPD_GICP_ETH1_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlave pmSlaveEth1_g = {
@@ -455,9 +455,9 @@ PmSlave pmSlaveEth1_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmEth2Wake = {
-	.proxyIrqMask = FPD_GICP_ETH2_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmEth2Wake = {
+	.mask = FPD_GICP_ETH2_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlave pmSlaveEth2_g = {
@@ -478,9 +478,9 @@ PmSlave pmSlaveEth2_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmEth3Wake = {
-	.proxyIrqMask = FPD_GICP_ETH3_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmEth3Wake = {
+	.mask = FPD_GICP_ETH3_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlave pmSlaveEth3_g = {
@@ -519,9 +519,9 @@ PmSlave pmSlaveAdma_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmNandWake = {
-	.proxyIrqMask = FPD_GICP_NAND_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmNandWake = {
+	.mask = FPD_GICP_NAND_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveNand_g = {
@@ -542,9 +542,9 @@ PmSlave pmSlaveNand_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmQSpiWake = {
-	.proxyIrqMask = FPD_GICP_SPI_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmQSpiWake = {
+	.mask = FPD_GICP_SPI_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveQSpi_g = {
@@ -565,9 +565,9 @@ PmSlave pmSlaveQSpi_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmGpioWake = {
-	.proxyIrqMask = FPD_GICP_GPIO_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP0],
+static PmGicProxyWake pmGpioWake = {
+	.mask = FPD_GICP_GPIO_WAKE_IRQ_MASK,
+	.group = 0U,
 };
 
 PmSlave pmSlaveGpio_g = {
@@ -619,9 +619,9 @@ static const PmSlaveFsm slaveStdFsm = {
 	.enterState = NULL,
 };
 
-static PmWakeProperties pmSataWake = {
-	.proxyIrqMask = FPD_GICP_SATA_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP4],
+static PmGicProxyWake pmSataWake = {
+	.mask = FPD_GICP_SATA_WAKE_IRQ_MASK,
+	.group = 4U,
 };
 
 PmSlaveSata pmSlaveSata_g = {
@@ -812,9 +812,9 @@ PmSlave pmSlaveAFI_g = {
 	.flags = 0U,
 };
 
-static PmWakeProperties pmIpiApuWake = {
-	.proxyIrqMask = FPD_GICP_IPI_APU_WAKE_IRQ_MASK,
-	.proxyGroup = &gicProxyGroups_g[FPD_GICP_GROUP1],
+static PmGicProxyWake pmIpiApuWake = {
+	.mask = FPD_GICP_IPI_APU_WAKE_IRQ_MASK,
+	.group = 1U,
 };
 
 PmSlave pmSlaveIpiApu_g = {

@@ -166,7 +166,7 @@ static int PmPowerDownFpd(void)
 	 * GIC Proxy has to take over for all wake-up sources for
 	 * the APU.
 	 */
-	PmEnableProxyWake(&pmMasterApu_g);
+	pmMasterApu_g.gic->enable();
 
 err:
 	return status;

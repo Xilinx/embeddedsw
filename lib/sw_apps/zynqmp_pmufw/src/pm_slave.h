@@ -39,6 +39,7 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 #include "pm_node.h"
+#include "pm_gic_proxy.h"
 
 /* Forward declarations */
 typedef struct PmMaster PmMaster;
@@ -51,36 +52,6 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* FPD GIC Proxy group base addresses */
-#define FPD_GICP_GROUP0_BASE_ADDR   0xFF418000U
-#define FPD_GICP_GROUP1_BASE_ADDR   0xFF418014U
-#define FPD_GICP_GROUP2_BASE_ADDR   0xFF418028U
-#define FPD_GICP_GROUP3_BASE_ADDR   0xFF41803CU
-#define FPD_GICP_GROUP4_BASE_ADDR   0xFF418050U
-
-/* FPD GIC Proxy register offsets */
-#define FPD_GICP_STATUS_OFFSET      0x0U
-#define FPD_GICP_MASK_OFFSET        0x4U
-#define FPD_GICP_IRQ_ENABLE_OFFSET  0x8U
-#define FPD_GICP_IRQ_DISABLE_OFFSET 0xCU
-
-/* FPD GIC Proxy group indentifiers */
-#define FPD_GICP_GROUP0     0U
-#define FPD_GICP_GROUP1     1U
-#define FPD_GICP_GROUP2     2U
-#define FPD_GICP_GROUP3     3U
-#define FPD_GICP_GROUP4     4U
-#define FPD_GICP_GROUP_MAX  5U
-
-#define FPD_GICP_ALL_IRQ_MASKED_IN_GROUP   0xFFFFFFFFU
-
-/* FPD GIC Proxy pmu irq masks */
-#define FPD_GICP_PMU_IRQ_GROUP0 0x1U
-#define FPD_GICP_PMU_IRQ_GROUP1 0x2U
-#define FPD_GICP_PMU_IRQ_GROUP2 0x4U
-#define FPD_GICP_PMU_IRQ_GROUP3 0x8U
-#define FPD_GICP_PMU_IRQ_GROUP4 0x10U
-
 /* FPD GIC Proxy irq masks */
 
 /* GIC Proxy group 0 */
@@ -153,27 +124,6 @@ typedef struct {
 } PmSlaveFsm;
 
 /**
- * PmGicProxyProperties - Information about FPD GIC Proxy groups
- * @baseAddr    Base address of the group
- * @pmuIrqBit   Bit (mask) of the interrupt which the group generates to the PMU
- */
-typedef struct {
-	const u32 baseAddr;
-	const u32 pmuIrqBit;
-} PmGicProxyProperties;
-
-/**
- * PmWakeProperties - Wake-up event properties
- * @proxyIrqMask    As most of the interrupt routes go through FPD GIC Proxy,
- *                  this is the interrupt mask in GIC Proxy registers.
- * @proxyGroup      Group in FPD GIC Proxy
- */
-typedef struct {
-	const u32 proxyIrqMask;
-	PmGicProxyProperties *proxyGroup;
-} PmWakeProperties;
-
-/**
  * PmSlave - Slave structure used for managing slave's states
  * @node        Pointer to the node structure of this slave
  * @reqs        Pointer to the list of masters' requirements for the slave
@@ -185,15 +135,10 @@ typedef struct {
 typedef struct PmSlave {
 	PmNode node;
 	PmRequirement* reqs;
-	const PmWakeProperties* wake;
+	const PmGicProxyWake* const wake;
 	const PmSlaveFsm* slvFsm;
 	u8 flags;
 } PmSlave;
-
-/*********************************************************************
- * Global data declarations
- ********************************************************************/
-extern PmGicProxyProperties gicProxyGroups_g[FPD_GICP_GROUP_MAX];
 
 /*********************************************************************
  * Function declarations
@@ -204,25 +149,11 @@ int PmCheckCapabilities(PmSlave* const slave, const u32 capabilities);
 bool PmSlaveRequiresPower(const PmSlave* const slave);
 
 int PmSlaveVerifyRequest(const PmSlave* const slave);
-int PmSlaveProcessWake(const u32 wakeMask);
-void PmSlaveWakeEnable(PmSlave* const slave);
-void PmSlaveWakeDisable(PmSlave* const slave);
 
 u32 PmGetLatencyFromState(const PmSlave* const slave, const PmStateId state);
 u32 PmSlaveGetUsersMask(const PmSlave* const slave);
 
 u32 PmSlaveGetUsageStatus(const u32 slavenode, const PmMaster *const master);
 u32 PmSlaveGetRequirements(const u32 slavenode, const PmMaster *const master);
-
-/**
- * PmSlaveWakeClear() - Clear GIC Proxy wake interrupt of the slave
- * @slave       Slave whose interrupt should be cleared
- */
-static inline void PmSlaveWakeClear(const PmSlave* const slave)
-{
-	/* Clear GIC Proxy IRQ by writing slave's mask to status register */
-	XPfw_Write32(slave->wake->proxyGroup->baseAddr +
-		     FPD_GICP_STATUS_OFFSET, slave->wake->proxyIrqMask);
-}
 
 #endif

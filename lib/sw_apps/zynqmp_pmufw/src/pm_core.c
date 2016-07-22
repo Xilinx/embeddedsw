@@ -647,7 +647,11 @@ static void PmSetWakeupSource(const PmMaster *const master,
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 	} else {
 		req->info |= PM_MASTER_WAKEUP_REQ_MASK;
-		PmSlaveWakeClear(req->slave);
+	}
+
+	/* If master has its own GIC, call its setWake function */
+	if (NULL != req->master->gic) {
+		req->master->gic->setWake(req->slave, enable);
 	}
 
 done:

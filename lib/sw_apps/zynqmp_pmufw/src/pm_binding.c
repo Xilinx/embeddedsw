@@ -42,6 +42,7 @@
 #include "pm_notifier.h"
 #include "ipi_buffer.h"
 #include "pm_power.h"
+#include "pm_gic_proxy.h"
 
 /*
  * Macro for all wake events in GPI1 that PM handles.
@@ -206,9 +207,8 @@ done:
  *          If the wake source is one of GIC wakes, source of the interrupt
  *          (peripheral that actually generated interrupt to GIC) cannot be
  *          determined, and target should be immediately woken-up (target is
- *          processor whose GIC wake bit is set in srcMask). If not a GIC wake,
- *          source can be determined, either from GPI1 register (if interrupt
- *          line is routed directly), or from FPD GIC Proxy registers.
+ *          processor whose GIC wake bit is set in srcMask). If the wake is the
+ *          FPD GIC Proxy interrupt, the APU needs to be woken up.
  */
 int XPfw_PmWakeHandler(const u32 srcMask)
 {
@@ -223,8 +223,7 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 			status = XST_INVALID_PARAM;
 		}
 	} else if (PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK & srcMask) {
-		/* Slave wake */
-		status = PmSlaveProcessWake(srcMask);
+		status = PmMasterWake(&pmMasterApu_g);
 	} else {
 	}
 

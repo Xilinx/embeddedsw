@@ -721,6 +721,7 @@ PmMaster pmMasterApu_g = {
 		.acknowledge = 0U,
 	},
 	.state = PM_MASTER_STATE_ACTIVE,
+	.gic = &pmGicProxy,
 };
 
 PmMaster pmMasterRpu0_g = {
@@ -738,6 +739,7 @@ PmMaster pmMasterRpu0_g = {
 		.acknowledge = 0U,
 	},
 	.state = PM_MASTER_STATE_ACTIVE,
+	.gic = NULL,
 };
 
 PmMaster pmMasterRpu1_g = {
@@ -755,6 +757,7 @@ PmMaster pmMasterRpu1_g = {
 		.acknowledge = 0U,
 	},
 	.state = PM_MASTER_STATE_KILLED,
+	.gic = NULL,
 };
 
 PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
@@ -1197,40 +1200,6 @@ done:
 }
 
 /**
- * PmEnableProxyWake() - Enable scheduled wake-up sources in GIC Proxy
- * @master  Pointer to master whose scheduled wake-up sources should be enabled
- *
- * When FPD is powered down, wake-up sources should be enabled in GIC Proxy,
- * if APU has been properly suspended. If APU is forced to
- * power down, this function will return without enabling GIC Proxy, because
- * after forced power down the processor can only be woken-up by an explicit
- * wake-up request through PM API. The check whether the processor is in sleep
- * state is performed in this function and not in pm_power from where this
- * function is called in order to keep pm_power independent from (not-aware of)
- * processor states.
- */
-void PmEnableProxyWake(PmMaster* const master)
-{
-	PmRequirement* req = master->reqs;
-
-	if (false == PmMasterIsSuspended(master)) {
-		goto done;
-	}
-
-	PmDbg("%s\n", PmStrNode(master->nid));
-
-	while (req) {
-		if (req->info & PM_MASTER_WAKEUP_REQ_MASK) {
-			PmSlaveWakeEnable(req->slave);
-		}
-		req = req->nextSlave;
-	}
-
-done:
-	return;
-}
-
-/**
  * PmWakeUpCancelScheduled() - Cancel scheduled wake-up sources of the master
  * @master  Pointer to a master whose scheduled wake-up sources should be
  *          cancelled
@@ -1245,43 +1214,10 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 		req = req->nextSlave;
 	}
-}
 
-/**
- * PmWakeUpDisableAll() - Disable all wake-up sources of this master
- * @master  Pointer to a master whose wake-up sources are to be disabled
- */
-static void PmWakeUpDisableAll(PmMaster* const master)
-{
-	PmRequirement* mr = master->reqs;
-
-	PmDbg("for %s\n", PmStrNode(master->nid));
-	while (mr) {
-		PmRequirement* sr = mr->slave->reqs;
-		bool hasOtherReq = false;
-
-		/* If wake-up is not requested, continue with another slave */
-		if (0U == (mr->info & PM_MASTER_WAKEUP_REQ_MASK)) {
-			mr = mr->nextSlave;
-			continue;
-		}
-
-		mr->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
-
-		/* Check if another master is waiting for slave's wake-up */
-		while (sr) {
-			if (0U != (sr->info & PM_MASTER_WAKEUP_REQ_MASK)) {
-				hasOtherReq = true;
-				break;
-			}
-			sr = sr->nextMaster;
-		}
-
-		/* If no other master is waiting for the wake disable it */
-		if (false == hasOtherReq) {
-			PmSlaveWakeDisable(mr->slave);
-		}
-		mr = mr->nextSlave;
+	/* Clear all wake-up sources */
+	if (NULL != master->gic) {
+		master->gic->clear();
 	}
 }
 
@@ -1356,7 +1292,6 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response)
 done:
 	return status;
 }
-
 
 /**
  * PmMasterLastProcSuspending() - Check is the last awake processor suspending
@@ -1449,7 +1384,6 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 		break;
 	case PM_PROC_EVENT_WAKE:
 		if (true == PmMasterIsSuspended(master)) {
-			PmWakeUpDisableAll(master);
 			status = PmRequirementUpdateScheduled(master, false);
 		} else if (true == PmMasterIsKilled(master)) {
 			PmRequirementRequestDefault(master);
@@ -1485,6 +1419,11 @@ int PmMasterWake(const PmMaster* const mst)
 {
 	int status;
 	PmProc* proc = mst->wakeProc;
+
+	/* If master has a gic the wake-up sources need to be cleared */
+	if (NULL != mst->gic) {
+		mst->gic->clear();
+	}
 
 	if (NULL == proc) {
 		proc = &mst->procs[0];
