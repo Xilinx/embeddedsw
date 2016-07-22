@@ -787,6 +787,12 @@ int PmPowerRequest(const PmMaster* const master, PmPower* const power)
 		goto done;
 	}
 
+	/* Check whether the master has already requested the power node */
+	if (0U != (master->ipiMask & power->requests)) {
+		status = XST_PM_DOUBLE_REQ;
+		goto done;
+	}
+
 	/* Power up the whole power parent hierarchy if needed */
 	if (true == NODE_IS_OFF(&power->node)) {
 		status = PmTriggerPowerUp(power);
@@ -818,6 +824,12 @@ int PmPowerRelease(const PmMaster* const master, PmPower* const power)
 	/* Check whether the master has permissions for the power node ops */
 	if (0U == (master->ipiMask & power->permissions)) {
 		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
+	/* Check whether the master has previously requested the power node */
+	if (0U == (master->ipiMask & power->requests)) {
+		status = XST_FAILURE;
 		goto done;
 	}
 
