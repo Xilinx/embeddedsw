@@ -45,9 +45,6 @@
 /* Let the MB sleep when it is Idle in Main Loop */
 #define SLEEP_WHEN_IDLE
 
-/* Skip UART init. FSBL does that. */
-#define SKIP_UARTINIT
-
 /*
  * Define the below parameters to enable corresponding modules
  * ENABLE_PM        - Enable Power Management Module
