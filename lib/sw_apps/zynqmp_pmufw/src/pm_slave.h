@@ -144,7 +144,7 @@ typedef struct PmSlave {
  * Function declarations
  ********************************************************************/
 int PmUpdateSlave(PmSlave* const slave);
-int PmCheckCapabilities(PmSlave* const slave, const u32 capabilities);
+int PmCheckCapabilities(const PmSlave* const slave, const u32 capabilities);
 int PmSlaveHasWakeUpCap(const PmSlave* const slv);
 
 bool PmSlaveRequiresPower(const PmSlave* const slave);

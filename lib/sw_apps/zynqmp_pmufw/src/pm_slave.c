@@ -163,7 +163,7 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
  *          - XST_SUCCESS if slave has state with given capabilities
  *          - XST_NO_FEATURE if slave does not have such state
  */
-int PmCheckCapabilities(PmSlave* const slave, const u32 cap)
+int PmCheckCapabilities(const PmSlave* const slave, const u32 cap)
 {
 	PmStateId i;
 	int status = XST_NO_FEATURE;
@@ -191,7 +191,7 @@ int PmSlaveHasWakeUpCap(const PmSlave* const slv)
 	int status;
 
 	/* Check is the slave's pointer to the GIC Proxy wake initialized */
-	if (NULL == req->slave->wake) {
+	if (NULL == slv->wake) {
 		status = XST_NO_FEATURE;
 		goto done;
 	}

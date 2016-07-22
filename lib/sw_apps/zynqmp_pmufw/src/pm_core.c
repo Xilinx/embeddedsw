@@ -472,6 +472,7 @@ static void PmSetRequirement(const PmMaster *master,
 {
 	int status;
 	u32 oppoint = 0U;
+	u32 caps = capabilities;
 	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
 
 	PmDbg("(%s, %lu, %lu, %s)\n", PmStrNode(node), capabilities,
@@ -489,13 +490,18 @@ static void PmSetRequirement(const PmMaster *master,
 		goto done;
 	}
 
+	/* If slave is set as wake source add the PM_CAP_WAKEUP flag */
+	if (0U != (PM_MASTER_WAKEUP_REQ_MASK & masterReq->info)) {
+		caps |= PM_CAP_WAKEUP;
+	}
+
 	/* Master is using slave (previously has requested node) */
 	if (true == PmMasterIsSuspending(master)) {
 		/* Schedule setting the requirement */
-		status = PmRequirementSchedule(masterReq, capabilities);
+		status = PmRequirementSchedule(masterReq, caps);
 	} else {
 		/* Set capabilities now - if they are valid */
-		status = PmRequirementUpdate(masterReq, capabilities);
+		status = PmRequirementUpdate(masterReq, caps);
 	}
 	oppoint = masterReq->slave->node.currState;
 
