@@ -67,6 +67,8 @@ int SHA1Reset(SHA1Context *context)
     context->Length_High            = 0;
     context->Message_Block_Index    = 0;
 
+    memset(context->Message_Block, 0, 64);
+
     context->Intermediate_Hash[0]   = 0x67452301;
     context->Intermediate_Hash[1]   = 0xEFCDAB89;
     context->Intermediate_Hash[2]   = 0x98BADCFE;

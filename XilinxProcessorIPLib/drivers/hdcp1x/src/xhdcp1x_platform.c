@@ -69,19 +69,6 @@ extern XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck; /**< Instance of function
 						       *  KSV against the
 						       *  platforms revocation
 						       *  list */
-extern XHdcp1x_TimerStart XHdcp1xTimerStart; /**< Instance of function
-					      *  interface used for starting
-					      *  a timer on behalf of an
-					      *  HDCP interface*/
-extern XHdcp1x_TimerStop XHdcp1xTimerStop;	/**< Instance of fucntion
-						  *  interface usde for
-						  *  stopping a timer on behalf
-						  *  of an HDCP interface*/
-extern XHdcp1x_TimerDelay XHdcp1xTimerDelay;	/**< Instance of fucntion
-						  *  interface usde for
-						  *  performing a busy delay on
-						  *  behalf of an HDCP
-						  *  interface*/
 
 /************************** Function Prototypes ******************************/
 
@@ -131,8 +118,9 @@ int XHdcp1x_PlatformTimerStart(XHdcp1x *InstancePtr, u16 TimeoutInMs)
 	int Status = XST_SUCCESS;
 
 	/* Sanity Check */
-	if (XHdcp1xTimerStart != NULL) {
-		Status = (*XHdcp1xTimerStart)(InstancePtr, TimeoutInMs);
+	if (InstancePtr->XHdcp1xTimerStart != NULL) {
+		Status = (*(InstancePtr->XHdcp1xTimerStart))((void *)InstancePtr,
+				TimeoutInMs);
 	}
 	else {
 		Status = XST_FAILURE;
@@ -159,8 +147,8 @@ int XHdcp1x_PlatformTimerStop(XHdcp1x *InstancePtr)
 	int Status = XST_SUCCESS;
 
 	/* Sanity Check */
-	if (XHdcp1xTimerStop != NULL) {
-		Status = (*XHdcp1xTimerStop)(InstancePtr);
+	if (InstancePtr->XHdcp1xTimerStop != NULL) {
+		Status = (*(InstancePtr->XHdcp1xTimerStop))((void *)InstancePtr);
 	}
 	else {
 		Status = XST_FAILURE;
@@ -188,8 +176,9 @@ int XHdcp1x_PlatformTimerBusy(XHdcp1x *InstancePtr, u16 DelayInMs)
 	int Status = XST_SUCCESS;
 
 	/* Sanity Check */
-	if (XHdcp1xTimerDelay != NULL) {
-		Status = (*XHdcp1xTimerDelay)(InstancePtr, DelayInMs);
+	if (InstancePtr->XHdcp1xTimerDelay != NULL) {
+		Status = (*(InstancePtr->XHdcp1xTimerDelay))((void *)InstancePtr,
+				DelayInMs);
 	}
 	else {
 		Status = XST_FAILURE;

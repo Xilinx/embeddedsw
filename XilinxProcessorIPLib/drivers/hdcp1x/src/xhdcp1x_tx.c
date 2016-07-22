@@ -1611,7 +1611,8 @@ static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 			/* Otherwise */
 			else {
 				/* Update NextStatePtr */
-				*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
+//				*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
+				*NextStatePtr = XHDCP1X_STATE_DETERMINERXCAPABLE;
 
 				/* Log */
 				XHdcp1x_TxDebugLog(InstancePtr,

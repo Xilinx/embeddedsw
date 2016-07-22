@@ -1001,6 +1001,25 @@ typedef struct {
 } XHdcp1x_Rx;
 
 /**
+ * This typedef defines the function interface that is to be used
+ * for starting a one shot timer on behalf of an HDCP interface within
+ * the underlying platform
+ */
+typedef int (*XHdcp1x_TimerStart)(void *InstancePtr, u16 TmoInMs);
+
+/**
+ * This typedef defines the function interface that is to be used
+ * for stopping a timer on behalf of an HDCP interface
+ */
+typedef int (*XHdcp1x_TimerStop)(void *InstancePtr);
+
+/**
+ * This typedef defines the function interface that is to be used for
+ * performing a busy delay on behalf of an HDCP interface
+ */
+typedef int (*XHdcp1x_TimerDelay)(void *InstancePtr, u16 DelayInMs);
+
+/**
  * This typedef contains an instance of an HDCP interface
  */
 typedef struct {
@@ -1022,6 +1041,19 @@ typedef struct {
 				  *  association of a external core
 				  *  in our case a timer with the
 				  *  hdcp instance */
+	XHdcp1x_TimerStart XHdcp1xTimerStart; 	/**< Instance of function
+							  *  interface used for
+							  *  starting a timer on behalf
+							  *  of an HDCP interface*/
+	XHdcp1x_TimerStop XHdcp1xTimerStop; 	/**< Instance of fucntion
+							  *  interface usde for
+							  *  stopping a timer on behalf
+							  *  of an HDCP interface*/
+	XHdcp1x_TimerDelay XHdcp1xTimerDelay;	/**< Instance of fucntion
+							  *  interface usde for
+							  *  performing a busy delay on
+							  *  behalf of an HDCP
+							  *  interface*/
 } XHdcp1x;
 
 /**
@@ -1029,25 +1061,6 @@ typedef struct {
  * for checking a specific KSV against the platforms revocation list
  */
 typedef int (*XHdcp1x_KsvRevokeCheck)(const XHdcp1x *InstancePtr, u64 Ksv);
-
-/**
- * This typedef defines the function interface that is to be used
- * for starting a one shot timer on behalf of an HDCP interface within
- * the underlying platform
- */
-typedef int (*XHdcp1x_TimerStart)(const XHdcp1x *InstancePtr, u16 TmoInMs);
-
-/**
- * This typedef defines the function interface that is to be used
- * for stopping a timer on behalf of an HDCP interface
- */
-typedef int (*XHdcp1x_TimerStop)(const XHdcp1x *InstancePtr);
-
-/**
- * This typedef defines the function interface that is to be used for
- * performing a busy delay on behalf of an HDCP interface
- */
-typedef int (*XHdcp1x_TimerDelay)(const XHdcp1x *InstancePtr, u16 DelayInMs);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -1097,9 +1110,9 @@ void XHdcp1x_SetDebugPrintf(XHdcp1x_Printf PrintfFunc);
 void XHdcp1x_SetDebugLogMsg(XHdcp1x_LogMsg LogFunc);
 
 void XHdcp1x_SetKsvRevokeCheck(XHdcp1x_KsvRevokeCheck RevokeCheckFunc);
-void XHdcp1x_SetTimerStart(XHdcp1x_TimerStart TimerStartFunc);
-void XHdcp1x_SetTimerStop(XHdcp1x_TimerStop TimerStopFunc);
-void XHdcp1x_SetTimerDelay(XHdcp1x_TimerDelay TimerDelayFunc);
+void XHdcp1x_SetTimerStart(XHdcp1x *InstancePtr, XHdcp1x_TimerStart TimerStartFunc);
+void XHdcp1x_SetTimerStop(XHdcp1x *InstancePtr, XHdcp1x_TimerStop TimerStopFunc);
+void XHdcp1x_SetTimerDelay(XHdcp1x *InstancePtr, XHdcp1x_TimerDelay TimerDelayFunc);
 
 u32 XHdcp1x_GetDriverVersion(void);
 u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr);

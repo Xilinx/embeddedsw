@@ -106,19 +106,6 @@ XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck = NULL; /**< Instance of function
 						       *  KSV against the
 						       *  platforms revocation
 						       *  list */
-XHdcp1x_TimerStart XHdcp1xTimerStart = NULL;	/**< Instance of function
-						  *  interface used for
-						  *  starting a timer on behalf
-						  *  of an HDCP interface*/
-XHdcp1x_TimerStop XHdcp1xTimerStop = NULL;	/**< Instance of fucntion
-						  *  interface usde for
-						  *  stopping a timer on behalf
-						  *  of an HDCP interface*/
-XHdcp1x_TimerDelay XHdcp1xTimerDelay = NULL;	/**< Instance of fucntion
-						  *  interface usde for
-						  *  performing a busy delay on
-						  *  behalf of an HDCP
-						  *  interface*/
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -960,9 +947,12 @@ void XHdcp1x_SetKsvRevokeCheck(XHdcp1x_KsvRevokeCheck RevokeCheckFunc)
 * @note		None.
 *
 ******************************************************************************/
-void XHdcp1x_SetTimerStart(XHdcp1x_TimerStart TimerStartFunc)
+void XHdcp1x_SetTimerStart(XHdcp1x *InstancePtr, XHdcp1x_TimerStart TimerStartFunc)
 {
-	XHdcp1xTimerStart = TimerStartFunc;
+	/* Verify Argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->XHdcp1xTimerStart = TimerStartFunc;
 }
 
 /*****************************************************************************/
@@ -976,9 +966,12 @@ void XHdcp1x_SetTimerStart(XHdcp1x_TimerStart TimerStartFunc)
 * @note		None.
 *
 ******************************************************************************/
-void XHdcp1x_SetTimerStop(XHdcp1x_TimerStop TimerStopFunc)
+void XHdcp1x_SetTimerStop(XHdcp1x *InstancePtr, XHdcp1x_TimerStop TimerStopFunc)
 {
-	XHdcp1xTimerStop = TimerStopFunc;
+	/* Verify Argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->XHdcp1xTimerStop = TimerStopFunc;
 }
 
 /*****************************************************************************/
@@ -992,9 +985,12 @@ void XHdcp1x_SetTimerStop(XHdcp1x_TimerStop TimerStopFunc)
 * @note		None.
 *
 ******************************************************************************/
-void XHdcp1x_SetTimerDelay(XHdcp1x_TimerDelay TimerDelayFunc)
+void XHdcp1x_SetTimerDelay(XHdcp1x *InstancePtr, XHdcp1x_TimerDelay TimerDelayFunc)
 {
-	XHdcp1xTimerDelay = TimerDelayFunc;
+	/* Verify Argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->XHdcp1xTimerDelay = TimerDelayFunc;
 }
 
 /*****************************************************************************/
