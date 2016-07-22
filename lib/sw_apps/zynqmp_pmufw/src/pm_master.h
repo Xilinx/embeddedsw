@@ -46,6 +46,7 @@
 #include "xil_types.h"
 
 typedef struct PmMaster PmMaster;
+typedef struct PmRequirement PmRequirement;
 
 /*********************************************************************
  * Macros
@@ -141,6 +142,8 @@ typedef struct PmMaster PmMaster;
  *              allocation cannot be used.
  * @slave       Pointer to the slave structure
  * @master      Pointer to the master structure
+ * @nextSlave   Pointer to the master's requirement for a next slave in the list
+ * @nextMaster  Pointer to the requirement of a next master that uses the slave
  * @defaultReq  Default requirements of a master - requirements for slave
  *              capabilities without which master's primary processor cannot
  *              switch to active state.
@@ -156,6 +159,8 @@ typedef struct PmMaster PmMaster;
 typedef struct PmRequirement {
 	PmSlave* const slave;
 	PmMaster* const master;
+	PmRequirement* nextSlave;
+	PmRequirement* nextMaster;
 	const u32 defaultReq;
 	u32 currReq;
 	u32 nextReq;
