@@ -31,6 +31,7 @@
 #include "pm_gic_proxy.h"
 #include "pm_slave.h"
 #include "lpd_slcr.h"
+#include "pm_periph.h"
 
 /* GIC Proxy base address */
 #define GIC_PROXY_BASE_ADDR		LPD_SLCR_GICP0_IRQ_STATUS
@@ -90,6 +91,9 @@ done:
 static void PmGicProxyEnable(void)
 {
 	u32 g = 0U;
+
+	/* Always enable APU's IPI as the wake-up source (callback wake-up) */
+	PmGicProxySetWake(&pmSlaveIpiApu_g, 1U);
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
 		u32 addr = GIC_PROXY_BASE_ADDR +
