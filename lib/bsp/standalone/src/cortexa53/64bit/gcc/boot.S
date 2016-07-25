@@ -49,6 +49,7 @@
 * ----- ------- -------- ---------------------------------------------------
 * 5.00  pkp	05/21/14 Initial version
 * 5.06	pkp	07/01/16 Added support for Non-secure EL1
+* 5.06	pkp	07/25/16 Program the counter frequency
 * @note
 *
 * None.
@@ -84,6 +85,7 @@
 .set vector_base,	_vector_table
 .set rvbar_base,	0xFD5C0040
 
+.set counterfreq,	XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
 .set MODE_EL1, 0x5
 .set DAIF_BIT,	0x1C0
 
@@ -191,6 +193,10 @@ InitEL3:
 	/*configure cpu auxiliary control register EL1 */
 	ldr	x0,=0x80CA000 		// L1 Data prefetch control - 5, Enable device split throttle, 2 independent data prefetch streams
 	msr	S3_1_C15_C2_0, x0 	//CPUACTLR_EL1
+
+	/* program the counter frequency */
+	ldr	x0,=counterfreq
+	msr	CNTFRQ_EL0, x0
 
 	/*Enable hardware coherency between cores*/
 	mrs      x0, S3_1_c15_c2_1  	//Read EL1 CPU Extended Control Register

@@ -43,6 +43,7 @@
 * ----- ------- -------- ---------------------------------------------------
 * 5.2	pkp  	28/05/15 First release
 * 5.4	pkp	09/11/15 Enable I-Cache and D-Cache in the initialization
+* 5.6	pkp	07/25/16 Program the counter frequency
 * </pre>
 *
 * @note
@@ -73,6 +74,7 @@
 .set LRemap,		0xFE00000F		/* set the base address of the peripheral block as not shared */
 
 .set CRValMmuCac,	0b01000000000001	/* Enable IDC, and MMU */
+.set counterfreq,	XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ
 
 /* Stack Pointer locations for boot code */
 .set Undef_stack,	__undef_stack
@@ -157,6 +159,10 @@ OKToRun:
 	orr	r2, r2, #0x1F			/* SYS mode */
 	msr	cpsr, r2
 	ldr	r13,=SYS_stack			/* SYS stack pointer */
+
+	/* program the timer counter frequency */
+	ldr	r0,=counterfreq
+	mcr	15,0,r0,c14,c0,0
 
 	mov	r0,#0
 	mcr 	15,0,r0,c2,c0,2			/* N = 0 to use ttbr0 */

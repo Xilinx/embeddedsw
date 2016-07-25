@@ -33,6 +33,7 @@ standalone_v5_6:
 Make Xil_AsserWait a global variable
 Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot section since it is part of boot process to fix CR#949555
 Added support for non-secure EL1 with exception level selection feature for Cortex-A53 64bit mode
+Program the counter frequency in boot code for CortexA53
 
 sdps_v3_0:
 Added support for mkfs.
