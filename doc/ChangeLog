@@ -1,5 +1,8 @@
 Change Log for 2016.3
 =================================
+freertos823_xilinx_v1_2:
+Created new version to support event trace through Coresight STM
+
 coresightps_dcc_v1_1:
 Created a new version of the driver to ensure that for MB based systems the driver
 is not included. This fixes the CR#953056.
