@@ -310,6 +310,31 @@ proc generate {os_handle} {
 
 	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
 	puts $file_handle "\n/******************************************************************/\n"
+	set val [common::get_property CONFIG.enable_stm_event_trace $os_handle]
+	if { $val == "true" } {
+		if { $proctype == "psu_cortexr5" || $proctype == "psu_cortexa53" } {
+			variable stm_trace_header_data
+			puts $file_handle "/* Enable event trace through STM */"
+			puts $file_handle "#define FREERTOS_ENABLE_TRACE"
+			set val [common::get_property CONFIG.enable_timer_tick_trace $os_handle]
+			if { $val == "true" } {
+				puts $file_handle "#define FREERTOS_ENABLE_TIMER_TICK_TRACE"
+			}
+			set val [common::get_property CONFIG.stm_channel $os_handle]
+			if { ![string is double -strict $val] || [catch {expr $val >> 8}] || $val < 0 || $val > 65535 } {
+				error "Invalid STM channel $val. Please set a value between 0 - 65535"
+			}
+			puts $file_handle "#define FREERTOS_STM_CHAN $val"
+			if { $proctype == "psu_cortexa53" && [common::get_property CONFIG.exec_mode $sw_proc_handle] == "aarch64" } {
+				puts $file_handle "#define EXEC_MODE64"
+			} else {
+				puts $file_handle "#define EXEC_MODE32"
+			}
+			puts $file_handle "\n/******************************************************************/\n"
+		} else {
+			puts "WARNING: STM event trace is not supported for $proctype"
+		}
+	}
 	close $file_handle
 
 	############################################################################
@@ -842,6 +867,10 @@ proc generate {os_handle} {
 	# end of if $proctype == "microblaze"
 
 
+	# include header file with STM trace macros
+	puts $config_file "#ifdef FREERTOS_ENABLE_TRACE"
+	puts $config_file "#include \"FreeRTOSSTMTrace.h\""
+	puts $config_file "#endif /* FREERTOS_ENABLE_TRACE */\n"
 	# complete the header protectors
 	puts $config_file "\#endif"
 	close $config_file
