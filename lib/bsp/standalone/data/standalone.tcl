@@ -103,6 +103,17 @@ proc generate {os_handle} {
             puts $file_handle ""
             puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz*1e6]  "U"]
             puts $file_handle ""
+            # Define XPS_BOARD_* : For use in PMUFW to perform board specific configs
+            if { [string length $boardname] != 0 } {
+                set fields [split $boardname ":"]
+                lassign $fields prefix board suffix
+                if { [string length $board] != 0 } {
+                    set def "#define XPS_BOARD_"
+                    append def [string toupper $board]
+                    puts $file_handle $def
+                    puts $file_handle ""
+                }
+            }
             close $file_handle
 
         }
