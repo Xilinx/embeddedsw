@@ -44,6 +44,9 @@
 * ----- ---- 	-------- --------------------------------------------------------
 * 4.0   vns     10/01/15 First release
 *       vns     10/20/15 Modified secure control bits readback bits.
+* 6.0   vns     07/18/16 Added separate User FUSEs programming feasibility
+*                        Modified XilSKey_ZynqMp_EfusePs_ReadUserFuse
+*                        prototype.
 * </pre>
 *
 *****************************************************************************/
@@ -63,7 +66,7 @@ extern "C" {
 
 /* Key length definitions for ZynqMP eFuse */
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES			(32)
-#define XSK_ZYNQMP_EFUSEPS_USER_KEY_LEN_IN_BYTES		(32)
+#define XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES		(4)
 #define XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES		(48)
 #define XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BYTES			(4)
 #define XSK_ZYNQMP_EFUSEPS_JTAG_USER_CODE_LEN_IN_BYTES		(4)
@@ -71,7 +74,7 @@ extern "C" {
 
 /* ZynqMP eFuse PS keys lengths in bits */
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BITS			(256)
-#define XSK_ZYNQMP_EFUSEPS_USER_KEY_LEN_IN_BITS			(256)
+#define XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS		(32)
 #define XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS		(384)
 #define XSK_ZYNQMP_EFUSEPS_PPK_SHA2HASH_LEN_IN_BITS		(256)
 #define XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS			(32)
@@ -82,17 +85,26 @@ extern "C" {
 
 /* No of Registers allocated for PPK sha3 hash */
 #define XSK_ZYNQMP_EFUSEPS_PPK_HASH_REG_NUM			(12)
-#define XSK_ZYNQMP_EFUSEPS_USR_KEY_REG_NUM			(8)
+#define XSK_ZYNQMP_EFUSEPS_USR_FUSE_REG_NUM			(8)
 
 /* Row numbers of Efuse PS of Zynq MP */
 #define XSK_ZYNQMP_EFUSEPS_JTAG_USERCODE_ROW			(7)
-#define XSK_ZYNQMP_EFUSEPS_USR_KEY_START_ROW			(8)
 #define XSK_ZYNQMP_EFUSEPS_USR_KEY_END_ROW			(15)
 #define XSK_ZYNQMP_EFUSEPS_MISC_USR_CTRL_ROW			(16)
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW				(22)
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW				(23)
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_START_ROW			(24)
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_END_ROW			(31)
+
+/* User Fuses Row numbers */
+#define XSK_ZYNQMP_EFUSEPS_USR0_FUSE_ROW			(8)
+#define XSK_ZYNQMP_EFUSEPS_USR1_FUSE_ROW			(9)
+#define XSK_ZYNQMP_EFUSEPS_USR2_FUSE_ROW			(10)
+#define XSK_ZYNQMP_EFUSEPS_USR3_FUSE_ROW			(11)
+#define XSK_ZYNQMP_EFUSEPS_USR4_FUSE_ROW			(12)
+#define XSK_ZYNQMP_EFUSEPS_USR5_FUSE_ROW			(13)
+#define XSK_ZYNQMP_EFUSEPS_USR6_FUSE_ROW			(14)
+#define XSK_ZYNQMP_EFUSEPS_USR7_FUSE_ROW			(15)
 
 #define XSK_ZYNQMP_EFUSEPS_PPK0_START_ROW			(40)
 #define XSK_ZYNQMP_EFUSEPS_PPK0_SHA2_HASH_END_ROW		(47)
@@ -109,6 +121,16 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_TBITS_SHIFT				(28)
 
 #define XSK_ZYNQMP_EFUSEPS_CRC_AES_ZEROS		(0x6858A3D5)
+
+/* User fuses*/
+#define XSK_ZYNQMP_EFUSEPS_USR0_FUSE	(0)
+#define XSK_ZYNQMP_EFUSEPS_USR1_FUSE	(1)
+#define XSK_ZYNQMP_EFUSEPS_USR2_FUSE	(2)
+#define XSK_ZYNQMP_EFUSEPS_USR3_FUSE	(3)
+#define XSK_ZYNQMP_EFUSEPS_USR4_FUSE	(4)
+#define XSK_ZYNQMP_EFUSEPS_USR5_FUSE	(5)
+#define XSK_ZYNQMP_EFUSEPS_USR6_FUSE	(6)
+#define XSK_ZYNQMP_EFUSEPS_USR7_FUSE	(7)
 
 /* Timer related macros */
 #define XilSKey_ZynqMp_EfusePs_Tprgrm(RefClk) \
@@ -242,17 +264,34 @@ typedef struct {
 	XilSKey_SecCtrlBits PrgrmgSecCtrlBits;
 	/* For writing into eFuse */
 	u8 PrgrmAesKey;
-	u8 PrgrmUserKey;
 	u8 PrgrmPpk0Hash;
 	u8 PrgrmPpk1Hash;
 	u8 PrgrmSpkID;
 	u8 PrgrmJtagUserCode;
 
+	u8 PrgrmUser0Fuse;
+	u8 PrgrmUser1Fuse;
+	u8 PrgrmUser2Fuse;
+	u8 PrgrmUser3Fuse;
+	u8 PrgrmUser4Fuse;
+	u8 PrgrmUser5Fuse;
+	u8 PrgrmUser6Fuse;
+	u8 PrgrmUser7Fuse;
+
 	u8 IsPpk0Sha3Hash;
 	u8 IsPpk1Sha3Hash;
 
 	u8 AESKey[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES];
-	u8 UserKey[XSK_ZYNQMP_EFUSEPS_USER_KEY_LEN_IN_BYTES];
+
+	u8 User0Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
+	u8 User1Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
+	u8 User2Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
+	u8 User3Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
+	u8 User4Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
+	u8 User5Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
+	u8 User6Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
+	u8 User7Fuses[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES];
+
 	u8 Ppk0Hash[XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES];
 	u8 Ppk1Hash[XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES];
 	u8 SpkId[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BYTES];
@@ -357,7 +396,8 @@ typedef struct {
 /****************************Prototypes***************************************/
 /* Ps eFuse interface functions of Zynq MP */
 u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue);
-u32 XilSKey_ZynqMp_EfusePs_ReadUserKey(u32 *UseKeyPtr, u8 ReadOption);
+u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
+							u8 ReadOption);
 u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption);
 u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption);
 u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption);
