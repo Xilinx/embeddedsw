@@ -47,7 +47,13 @@
 * 6.0   vns     07/18/16 Added separate User FUSEs programming feasibility
 *                        Modified XilSKey_ZynqMp_EfusePs_ReadUserFuse
 *                        prototype. Removed JTAG user code programming
-*                        feature.
+*                        feature.Added XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET
+*                        to check both PPK invalid bits are set or not,
+*                        To check RSA authentication enable, defined
+*                        XSK_ZYNQMP_SEC_RSA_15BITS_SET and
+*                        XSK_ZYNQMP_SEC_RSA_2BITS_SET macros. Added all RSA
+*                        enable bits to enum. Modified RSAenable variable type
+*                        to u16.
 * </pre>
 *
 *****************************************************************************/
@@ -142,8 +148,13 @@ extern "C" {
 #define XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) \
 	XilSKey_Ceil(((float)30 * RefClk) / (float)1000000000)
 
-#define BOTH_BITS_SET					0x3
-								/**< If both bits are set */
+#define XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET	(0x3)
+			/**< If PPK invalid bits are set */
+/* For Silicon from 3.0 version */
+#define XSK_ZYNQMP_SEC_RSA_15BITS_SET		(0x7FFF)
+			/**< If RSA authentication bits are set */
+/* For Silicon before 3.0 version */
+#define XSK_ZYNQMP_SEC_RSA_2BITS_SET		(0x3)
 #define XSK_ZYNQMP_EFUSEPS_SECTRL_BIT_SHIFT	0x1
 								/**< Shift macro for SEC_CTRL
 								 *   if it has 2 bits */
@@ -173,8 +184,21 @@ typedef enum {
 	XSK_ZYNQMP_EFUSEPS_SEC_DIS_PROG_GATE1,
 	XSK_ZYNQMP_EFUSEPS_SEC_DIS_PROG_GATE2,
 	XSK_ZYNQMP_EFUSEPS_SEC_LOCK,
-	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT1 = 24,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT1,
 	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT2,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT3,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT4,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT5,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT6,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT7,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT8,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT9,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT10,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT11,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT12,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT13,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT14,
+	XSK_ZYNQMP_EFUSEPS_SEC_RSA_EN_BIT15,
 	XSK_ZYNQMP_EFUSEPS_SEC_PPK0_WRLK,
 	XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD_BIT1,
 	XSK_ZYNQMP_EFUSEPS_SEC_PPK0_INVLD_BIT2,
@@ -227,7 +251,7 @@ typedef struct {
 	u8 ProgGate1;
 	u8 ProgGate2;
 	u8 SecureLock;
-	u8 RSAEnable;
+	u16 RSAEnable;
 	u8 PPK0WrLock;
 	u8 PPK0Revoke;
 	u8 PPK1WrLock;

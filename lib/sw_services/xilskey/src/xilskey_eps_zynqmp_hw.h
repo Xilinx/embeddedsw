@@ -43,6 +43,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     10/01/15 First release
+* 6.0   vns     07/18/16 Modified RSA enable bit mask
 * </pre>
 *
 ******************************************************************************/
@@ -671,9 +672,9 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PPK0_WRLK_MASK		0x04000000U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PPK0_WRLK_DEFVAL		0x0U
 
-#define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_SHIFT		24U
-#define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_WIDTH		2U
-#define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_MASK			0x03000000U
+#define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_SHIFT		11U
+#define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_WIDTH		15U
+#define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_MASK			0x03FFF800U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_RSA_EN_DEFVAL		0x0U
 
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_LOCK_SHIFT			10U
