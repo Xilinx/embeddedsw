@@ -61,6 +61,9 @@
 *                        it returns error code when JtagWrite_Ultrascale fails
 *                        programming eFUSE bit. Error occurs only when Hardware
 *                        Module has encountered timeout.
+*               26/07/16 Added 128 bit user key programming and reading.
+*                        Provided single bit programming feature for 32 and
+*                        128 bit user keys for eFUSE Ultrascale.
 *
 ****************************************************************************/
 /***************************** Include Files *********************************/
@@ -1458,7 +1461,7 @@ static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
 
 	/* Checks conditions for read key */
 	if (XilSKey_EfusePl_ReadKey_Checks(InstancePtr) != XST_SUCCESS) {
-		return XST_FAILURE;
+		return ErrorCode;
 	}
 
 	/* Initiating all read back arrays to zeros */
@@ -2570,7 +2573,7 @@ static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 								ErrorCode);
 	}
 	if ((((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_RD_ULTRA] == TRUE) ||
-		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_WR_ULTRA]))
+		(CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_USER_KEY_WR_ULTRA] == TRUE))
 			&& (InstancePtr->ProgUserKeyUltra == TRUE))) {
 		return (XSK_EFUSEPL_ERROR_DATA_PROGRAMMING_NOT_ALLOWED +
 								ErrorCode);
@@ -2833,7 +2836,6 @@ static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 		XSK_EFUSEPL_READ_NORMAL, RowData,
 		XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
 				XST_SUCCESS) {
-		return XST_FAILURE;
 		return ErrorCode;
 	}
 
@@ -2841,7 +2843,6 @@ static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 		XSK_EFUSEPL_READ_NORMAL, RowDataRedundant,
 		XSK_EFUSEPL_REDUNDANT_ULTRA, Page) !=
 				XST_SUCCESS) {
-		return XST_FAILURE;
 		return ErrorCode;
 	}
 
@@ -2892,7 +2893,7 @@ static inline u32 XilSKey_EfusePl_GetDataRowRange_Ultra(u8 RowStart, u8 RowEnd,
 	for (Row = RowStart; Row <= RowEnd; Row++) {
 		if (XilSKey_EfusePl_GetRowData_Ultra(Row, RowData, Page)
 						!= XST_SUCCESS) {
-			return XST_FAILURE;
+			return ErrorCode;
 		}
 		Index = 0;
 		KeyRead[KeyCnt++] = RowData[Index++] & 0xFF;
