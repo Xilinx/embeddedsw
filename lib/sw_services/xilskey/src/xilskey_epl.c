@@ -168,7 +168,7 @@
 						  *  max bits of
 						  *  Ultrascale
 						  *  series */
-#define XSK_EFUSEPL_CNTRL_MAX_BITS_ULTRA	(16)
+#define XSK_EFUSEPL_CNTRL_MAX_BITS_ULTRA	(17)
 						/**< Fuse Control max
 						  * bits of Ultrascale
 						  * series */
@@ -179,7 +179,7 @@
 						/**< FUSE end bit in
 						  *  a row of Ultrascale
 						  *  series */
-#define XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA	(15)
+#define XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA	(16)
 						/**< Control
 						  * row end bit
 						  * of Ultrascale series */
@@ -362,6 +362,8 @@ static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra(u8 *CtrlData);
 
 static inline u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
 								u8 Page);
+static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(u8 *UserFuses_Write,
+					u8 *UserFuses_TobePrgrmd, u8 Size);
 /**
  * 	JTAG Server Initialization routine
  */
@@ -1841,7 +1843,8 @@ static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, 
 	}
 
 	if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
-		 (Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA)) &&
+		((Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA) &&
+		 (Row > XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA))) &&
 				(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
 		return XST_FAILURE;
@@ -1859,7 +1862,8 @@ static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, 
 	 * If row = 1 then bit should be either 0 to 2 and 5 to 9 and 15
 	 * rest all are not supported
 	 */
-	if(Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) {
+	if((Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) &&
+			(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
 		if((Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
 		(Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
 		((Bit >= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA) &&
@@ -1873,7 +1877,8 @@ static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, 
 	 * If row = 10 then bits should be supported from 0 to 5
 	 */
 	 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA) &&
-		 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) ) {
+		 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) &&
+		 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
 		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
 			return XST_FAILURE;
 	 }
@@ -1938,8 +1943,9 @@ static inline u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
 		return XST_FAILURE;
 	}
 
-	if ((Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) ||
-		(Row == XSK_EFUSEPL_SEC_ROW_ULTRA)) {
+	if (((Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) ||
+		(Row == XSK_EFUSEPL_SEC_ROW_ULTRA)) &&
+		(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
 		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_ROW_OUT_OF_RANGE;
 		return XST_FAILURE;
 	}
@@ -2369,6 +2375,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 	u8 CtrlData[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
 	u8 SecData[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
 	u32 Status;
+	u8 User32Data[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
+	u8 User128Data[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
 
 	Status = XilSKey_EfusePl_Program_Checks(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -2398,7 +2406,12 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 		 * convert each user data bits to bytes.
 		 */
 		XilSKey_Efuse_ConvertBitsToBytes(&(InstancePtr->UserKey[0]),
+			User32Data, XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE);
+		Status = XilSkey_EfusePl_UserFuses_TobeProgrammed(User32Data,
 			UserDataInBytes, XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE);
+		if (Status != XST_SUCCESS) {
+			return (Status + XSK_EFUSEPL_ERROR_PRGRMG_USER_KEY);
+		}
 		Status = XilSKey_EfusePl_Program_RowRange_ultra(
 			XSK_EFUSEPL_USER_ROW_ULTRA,
 			XSK_EFUSEPL_USER_ROW_ULTRA, UserDataInBytes,
@@ -2421,6 +2434,29 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 			RsaDataInBytes, XSK_EFUSEPL_PAGE_1_ULTRA);
 		if (Status != XST_SUCCESS) {
 			return (XSK_EFUSEPL_ERROR_PRGRMG_RSA_HASH + Status);;
+		}
+	}
+	/* Program 128 bit User key */
+	if (InstancePtr->ProgUser128BitUltra == TRUE) {
+		/**
+		 * convert each 128 bit user key data into bits
+		 */
+		XilSKey_Efuse_ConvertBitsToBytes(&(InstancePtr->User128Bit[0]),
+			User128Data, XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE);
+		Status = XilSkey_EfusePl_UserFuses_TobeProgrammed(User128Data,
+				User128BitData,
+				XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE);
+		if (Status != XST_SUCCESS) {
+			return (Status +
+				XSK_EFUSEPL_ERROR_PRGRMG_128BIT_USER_KEY);
+		}
+		Status = XilSKey_EfusePl_Program_RowRange_ultra(
+				XSK_EFUSEPL_USER_128BIT_ROW_START_ULTRA,
+				XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA,
+				User128BitData, XSK_EFUSEPL_PAGE_1_ULTRA);
+		if (Status != XST_SUCCESS) {
+			return (Status +
+				XSK_EFUSEPL_ERROR_PRGRMG_128BIT_USER_KEY);
 		}
 	}
 
@@ -2456,7 +2492,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 		(InstancePtr->KeyWrite == TRUE) ||
 		(InstancePtr->UserKeyWrite == TRUE) ||
 		(InstancePtr->SecureWrite == TRUE) ||
-		(InstancePtr->RSAWrite == TRUE)) {
+		(InstancePtr->RSAWrite == TRUE) ||
+		(InstancePtr->User128BitWrite == TRUE)) {
 		/* Programming control bits */
 		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_KEY_RD_ULTRA] =
 							InstancePtr->AESKeyRead;
@@ -2476,6 +2513,8 @@ static inline u32 XilSKey_EfusePl_Program_Ultra(XilSKey_EPl *InstancePtr)
 							InstancePtr->SecureWrite;
 		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_WR_ULTRA] =
 							InstancePtr->RSAWrite;
+		CtrlData[XSK_EFUSEPL_CNTRL_DISABLE_128BIT_USR_KEY_WR_ULTRA] =
+							InstancePtr->User128BitWrite;
 
 		if(XilSKey_EfusePl_ProgramControlRegister(CtrlData) !=
 								XST_SUCCESS) {
@@ -2543,6 +2582,13 @@ static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 								ErrorCode);
 	}
 
+	if ((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_128BIT_USR_KEY_WR_ULTRA]
+								== TRUE)
+			&& (InstancePtr->ProgUser128BitUltra == TRUE)) {
+		return (XSK_EFUSEPL_ERROR_DATA_PROGRAMMING_NOT_ALLOWED +
+								ErrorCode);
+	}
+
 	if ((CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_CNTRL_WR_ULTRA] == TRUE) &&
 		((InstancePtr->AESKeyRead == TRUE) ||
 		 (InstancePtr->UserKeyRead == TRUE) ||
@@ -2552,7 +2598,8 @@ static inline u32 XilSKey_EfusePl_Program_Checks(XilSKey_EPl *InstancePtr)
 		 (InstancePtr->KeyWrite == TRUE) ||
 		 (InstancePtr->UserKeyWrite == TRUE) ||
 		 (InstancePtr->SecureWrite == TRUE) ||
-		 (InstancePtr->RSAWrite == TRUE))) {
+		 (InstancePtr->RSAWrite == TRUE) ||
+		 (InstancePtr->User128BitWrite == TRUE))) {
 		return (XSK_EFUSEPL_ERROR_FUSE_CTRL_WRITE_NOT_ALLOWED +
 								ErrorCode);
 	}
@@ -2628,18 +2675,24 @@ static inline u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 
 	/**
 	 * Check is RowStart to RowEnd of given Page are empty before
-	 * programming the rows
+	 * programming.This check is only for RSA hash programming
 	 */
-	for (Row = RowStart; Row <= RowEnd; Row++) {
-		Status = XilSKey_EfusePl_GetRowData_Ultra(Row, RowData, Page);
-		if (Status != XST_SUCCESS) {
-			return Status;
-		}
+	if ((RowStart == XSK_EFUSEPL_RSA_ROW_START_ULTRA) &&
+		(RowEnd == XSK_EFUSEPL_RSA_ROW_END_ULTRA) &&
+		(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
+		for (Row = RowStart; Row <= RowEnd; Row++) {
+			Status = XilSKey_EfusePl_GetRowData_Ultra(Row,
+							RowData, Page);
+			if (Status != XST_SUCCESS) {
+				return Status;
+			}
 
-		if(XilSKey_EfusePl_IsVectorAllZeros(RowData) !=
-						XST_SUCCESS) {
-			return (XSK_EFUSEPL_ERROR_PRGRMG_ROWS_NOT_EMPTY +
-					ErrorCode);
+			if(XilSKey_EfusePl_IsVectorAllZeros(RowData) !=
+							XST_SUCCESS) {
+				return (
+				XSK_EFUSEPL_ERROR_PRGRMG_ROWS_NOT_EMPTY +
+						ErrorCode);
+			}
 		}
 	}
 	/**
@@ -2987,4 +3040,75 @@ static inline u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
 
 	return XST_SUCCESS;
 
+}
+
+/*****************************************************************************/
+/*
+* This function throws an error if user requests already programmed User FUSE
+* bit to revert, and copies the bits to be programmed in particular row into
+* provided UserFuses_TobePrgrmd pointer.
+*
+* @param	UserFuses_Write is a pointer to user requested programming bits
+*		of an User FUSE row.
+* @param	UserFuses_TobePrgrmd holds User FUSE row bits which needs to be
+*		programmed actually.
+* @param	Size specifies the User key size.
+*
+* @return
+*		- XST_FAILURE: Returns error if user requests programmed bit to
+*		revert
+*		- XST_SUCCESS: If User requests valid bits.
+*
+* @note		If user requests a non-zero bit for making to zero throws an
+*		error which is not possible.
+*
+******************************************************************************/
+static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
+		u8 *UserFuses_Write, u8 *UserFuses_TobePrgrmd, u8 Size)
+{
+	u32 UserFuseColumn;
+	u8 UserFuses_Read[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
+	u8 ReadData[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];
+	u32 Status;
+
+	/* Read 128 bit User Key */
+	if (Size == XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE) {
+		Status = XilSKey_EfusePl_GetDataRowRange_Ultra(
+			XSK_EFUSEPL_USER_128BIT_ROW_START_ULTRA,
+			XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA, ReadData,
+						XSK_EFUSEPL_PAGE_1_ULTRA);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+		XilSKey_Efuse_ConvertBitsToBytes(ReadData, UserFuses_Read,
+				XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE);
+	}
+
+	/* Read 32 bit User key */
+	if (Size == XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE) {
+		Status = XilSKey_EfusePl_GetDataRowRange_Ultra(
+				XSK_EFUSEPL_USER_ROW_ULTRA,
+				XSK_EFUSEPL_USER_ROW_ULTRA, ReadData,
+					XSK_EFUSEPL_PAGE_0_ULTRA);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+		XilSKey_Efuse_ConvertBitsToBytes(ReadData, UserFuses_Read,
+				XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE);
+	}
+
+
+	for (UserFuseColumn = 0; UserFuseColumn < Size; UserFuseColumn++) {
+	/* If user requests a non-zero bit for making to zero throws an error*/
+		if ((UserFuses_Write[UserFuseColumn] == 0) &&
+			(UserFuses_Read[UserFuseColumn] == 1)) {
+			return XSK_EFUSEPL_ERROR_USER_FUSE_REVERT;
+		}
+		if ((UserFuses_Write[UserFuseColumn] == 1) &&
+			(UserFuses_Read[UserFuseColumn] == 0)) {
+			UserFuses_TobePrgrmd[UserFuseColumn] = 1;
+		}
+	}
+
+	return XST_SUCCESS;
 }
