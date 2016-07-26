@@ -58,6 +58,9 @@
 *                        Modified sysmon read to 16 bit resolution as
 *                        sysmon driver has modified conversion formulae
 *                        to 16 bit resolution.
+*       vns     07/18/16 Initialized sysmonpsu driver and added
+*                        XilSKey_ZynqMP_EfusePs_ReadSysmonVol and
+*                        XilSKey_ZynqMP_EfusePs_ReadSysmonTemp functions
 *
  *****************************************************************************/
 
@@ -79,12 +82,22 @@ u16 XAdcDeviceId;	/**< XADC Device ID */
 #ifdef XSK_MICROBLAZE_PLATFORM
 XTmrCtr XTmrCtrInst;
 #endif
+
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+XSysMonPsu XSysmonInst; /* Sysmon PSU instance */
+u16 XSysmonDeviceId; /* Sysmon PSU device ID */
+#endif
+
 u32 TimerTicksfor100ns; /**< Global Variable to store ticks/100ns*/
 u32 TimerTicksfor1000ns; /**< Global Variable for 10 micro secs for microblaze */
 /************************** Function Prototypes *****************************/
 static u32 XilSKey_EfusePs_ConvertCharToNibble (char InChar, u8 *Num);
 extern void Jtag_Read_Sysmon(u8 Row, u32 *Row_Data);
 u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
+static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
+					XSKEfusePs_XAdc *XAdcInstancePtr);
+static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
+					XSKEfusePs_XAdc *XAdcInstancePtr);
 /***************************************************************************/
 /**
 * This function is used to initialize the XADC driver
@@ -140,10 +153,141 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 	XAdcPs_SetSequencerMode(XAdcInstPtr, XADCPS_SEQ_MODE_SAFE);
 
 	Status = XST_SUCCESS;
-#else
+#endif
+#ifdef XSK_MICROBLAZE_PLATFORM
 	Status = XST_FAILURE;
 #endif
+
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+	XSysMonPsu_Config *ConfigPtr;
+	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
+
+	/**
+	 * specify the Device ID that is
+	 * generated in xparameters.h
+	 */
+	XSysmonDeviceId = XSYSMON_DEVICE_ID;
+
+	/**
+	 * Initialize the XAdc driver.
+	 */
+	ConfigPtr = XSysMonPsu_LookupConfig(XSysmonDeviceId);
+	if (NULL == ConfigPtr) {
+		return XSK_EFUSEPS_ERROR_XADC_CONFIG;
+	}
+
+	Status = XSysMonPsu_CfgInitialize(XSysmonInstPtr, ConfigPtr,
+			ConfigPtr->BaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XSK_EFUSEPS_ERROR_XADC_INITIALIZE;
+	}
+	/**
+	 * Self Test for sysmon device
+	 */
+	Status = XSysMonPsu_SelfTest(XSysmonInstPtr);
+	if (Status != XST_SUCCESS) {
+		return XSK_EFUSEPS_ERROR_XADC_SELF_TEST;
+	}
+
+	/**
+	 * Disable the Channel Sequencer before configuring the Sequence
+	 * registers.
+	 */
+	XSysMonPsu_SetSequencerMode(XSysmonInstPtr,
+				XSM_SEQ_MODE_SAFE, XSYSMON_PS);
+
+	Status = XST_SUCCESS;
+#endif
+
 	return Status;
+
+}
+
+/***************************************************************************/
+/**
+* This function reads current value of the temperature from sysmon.
+*
+* @param	XAdcInstancePtr Pointer to the XSKEfusePs_XAdc.
+*
+* @return	None
+*
+* @note		Read temperature will be stored in XSKEfusePS_XAdc pointer's
+*		temperature
+*
+****************************************************************************/
+static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
+					XSKEfusePs_XAdc *XAdcInstancePtr)
+{
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
+
+	if (NULL == XSysmonInstPtr) {
+		return;
+	}
+	/**
+	 * Read the on-chip Temperature Data (Current)
+	 * from the Sysmon PSU data registers.
+	 */
+	XAdcInstancePtr->Temp = XSysMonPsu_GetAdcData(XSysmonInstPtr,
+						XSM_CH_TEMP, XSYSMON_PS);
+	xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,
+		"Read Temperature Value: %0x -> %d in Centigrades \n",
+		XAdcInstancePtr->Temp,
+	(int )XSysMonPsu_RawToTemperature_OnChip(XAdcInstancePtr->Temp));
+
+#endif
+
+}
+
+/***************************************************************************/
+/**
+* This function reads current value of the specified voltage from sysmon.
+*
+* @param	XAdcInstancePtr Pointer to the XSKEfusePs_XAdc.
+*		Voltage typ should be specified in XAdcInstancePtr's
+*		structure member VType.
+*		XSK_EFUSEPS_VPAUX - Reads PS VCC Auxilary voltage
+*		XSK_EFUSEPS_VPINT - Reads VCC INT LP voltage
+*
+* @return	None
+*
+* @note		Read voltage will be stored in XSKEfusePS_XAdc pointer's
+*		voltage
+*
+****************************************************************************/
+static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
+				XSKEfusePs_XAdc *XAdcInstancePtr)
+{
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
+	u8 V;
+
+	if (NULL == XSysmonInstPtr) {
+		return;
+	}
+	/**
+	 * Read the VccPint/PAUX Voltage Data (Current/Maximum/Minimum) from
+	 * Sysmon data registers.
+	 */
+	switch (XAdcInstancePtr->VType)
+	{
+	case XSK_EFUSEPS_VPAUX:
+		V = XSM_CH_SUPPLY3;
+		break;
+
+	case XSK_EFUSEPS_VPINT:
+	default:
+		V = XSM_CH_SUPPLY1;
+		break;
+	}
+
+	XAdcInstancePtr->V = XSysMonPsu_GetAdcData(XSysmonInstPtr, V,
+						XSYSMON_PS);
+	xeFUSE_printf(XSK_EFUSE_DEBUG_GENERAL,
+			"Read Voltage Value: %0x -> %d in Volts \n",
+			XAdcInstancePtr->V,
+			(int )XSysMonPsu_RawToVoltage(XAdcInstancePtr->V));
+#endif
 
 }
 
@@ -251,11 +395,52 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 				(int )XAdcPs_RawToVoltage(XAdcInstancePtr->V));
 
 #endif
+	return;
+}
+
+/***************************************************************************/
+/**
+* This function checks temperature and voltage ranges of ZynqMP to access
+* PS eFUSE
+*
+* @param	None
+* @return
+*		Error code: On failure
+*		XST_SUCCESS on Success
+*
+* @note		This function returns XST_SUCCESS if we try to access eFUSE
+*		on the Remus, as Sysmon access is not permitted on Remus.
+*
+****************************************************************************/
+u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()
+{
+	XSKEfusePs_XAdc XAdcInstance;
+
+	/**
+	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
+	 */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
-	/* TBD */
+	XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(&XAdcInstance);
+	if ((XAdcInstance.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
+			((XAdcInstance.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
+		return XSK_EFUSEPS_ERROR_READ_TMEPERATURE_OUT_OF_RANGE;
+	}
+	XAdcInstance.VType = XSK_EFUSEPS_VPAUX;
+	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
+	if ((XAdcInstance.V < XSK_EFUSEPS_VPAUX_MIN_RAW) ||
+			((XAdcInstance.V > XSK_EFUSEPS_VPAUX_MAX_RAW))) {
+		return XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+	}
+	XAdcInstance.VType = XSK_EFUSEPS_VPINT;
+	XilSKey_ZynqMP_EfusePs_ReadSysmonVol(&XAdcInstance);
+	if ((XAdcInstance.V < XSK_EFUSEPS_VCC_PSINTLP_MIN_RAW) ||
+			((XAdcInstance.V > XSK_EFUSEPS_VCC_PSINTLP_MAX_RAW))) {
+		return XSK_EFUSEPS_ERROR_READ_VCCPAUX_VOLTAGE_OUT_OF_RANGE;
+	}
 #endif
 
-	return;
+	return XST_SUCCESS;
+
 }
 
 /****************************************************************************/

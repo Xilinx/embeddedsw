@@ -60,6 +60,8 @@
 *       vns     10/20/15 Added cplusplus boundary blocks.
 * 6.0   vns     07/07/16 Added hardware module time out error code
 *               07/18/16 Added error codes for eFUSE PS User FUSEs programming
+*                        Added sysmonpsu driver for temperature and voltage
+*                        checks.
 *
  *****************************************************************************/
 
@@ -77,7 +79,8 @@ extern "C" {
 #include "xtmrctr.h"
 #else
 #if defined (ARMR5) || defined (__aarch64__)
-/* Need to include sysmon driver's header */
+#include "xsysmonpsu.h"
+#include "xplatform_info.h"
 #else
 #include "xadcps.h"
 #endif
@@ -103,9 +106,15 @@ extern "C" {
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#ifdef XSK_ARM_PLATFORM
+#ifdef XSK_ZYNQ_PLATFORM
 #define XADC_DEVICE_ID 		XPAR_XADCPS_0_DEVICE_ID
-#else
+#endif
+
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+#define XSYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+#endif
+
+#ifdef XSK_MICROBLAZE_PLATFORM
 #define XTMRCTR_DEVICE_ID		(XPAR_TMRCTR_0_DEVICE_ID)
 #define XSK_EFUSEPL_CLCK_FREQ_ULTRA	(XPAR_AXI_TIMER_0_CLOCK_FREQ_HZ)
 #define XSK_TMRCTR_NUM			(0)
@@ -139,7 +148,15 @@ typedef enum {
 #define XSK_EFUSEPS_READ_VPAUX_MAX		(1.98)
 #define XSK_EFUSEPS_WRITE_VPAUX_MIN	(1.71)
 #define XSK_EFUSEPS_WRITE_VPAUX_MAX	(1.98)
-#ifdef XSK_ARM_PLATFORM
+
+/* ZynqMP eFUSE voltage ranges */
+#define XSK_ZYNQMP_EFUSEPS_VCC_PSINTLP_MIN	(0.675)
+#define XSK_ZYNQMP_EFUSEPS_VCC_PSINTLP_MAX	(0.935)
+/* VCC AUX should be 1.8 +/-10% */
+#define XSK_ZYNQMP_EFUSEPS_VCC_AUX_MIN		(1.62)
+#define XSK_ZYNQMP_EFUSEPS_VCC_AUX_MAX		(1.98)
+
+#ifdef XSK_ZYNQ_PLATFORM
 /**
  * Converting the celsius temperature to equivalent Binary data for xAdc
  */
@@ -153,6 +170,26 @@ typedef enum {
 #define XSK_EFUSEPS_READ_VPAUX_MAX_RAW	(XAdcPs_VoltageToRaw(XSK_EFUSEPS_READ_VPAUX_MAX))
 #define XSK_EFUSEPS_WRITE_VPAUX_MIN_RAW	(XAdcPs_VoltageToRaw(XSK_EFUSEPS_WRITE_VPAUX_MIN))
 #define XSK_EFUSEPS_WRITE_VPAUX_MAX_RAW	(XAdcPs_VoltageToRaw(XSK_EFUSEPS_WRITE_VPAUX_MAX))
+#endif
+
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+/**
+ * Converting the celsius temperature to equivalent Binary data for xAdc
+ */
+#define XSK_EFUSEPS_TEMP_MIN_RAW \
+		(XSysMonPsu_TemperatureToRaw_OnChip(XSK_EFUSEPS_TEMP_MIN))
+#define XSK_EFUSEPS_TEMP_MAX_RAW \
+		(XSysMonPsu_TemperatureToRaw_OnChip(XSK_EFUSEPS_TEMP_MAX))
+
+#define XSK_EFUSEPS_VPAUX_MIN_RAW \
+		(XSysMonPsu_VoltageToRaw(XSK_ZYNQMP_EFUSEPS_VCC_AUX_MIN))
+#define XSK_EFUSEPS_VPAUX_MAX_RAW \
+		(XSysMonPsu_VoltageToRaw(XSK_ZYNQMP_EFUSEPS_VCC_AUX_MAX))
+
+#define XSK_EFUSEPS_VCC_PSINTLP_MIN_RAW \
+		(XSysMonPsu_VoltageToRaw(XSK_ZYNQMP_EFUSEPS_VCC_PSINTLP_MIN))
+#define XSK_EFUSEPS_VCC_PSINTLP_MAX_RAW \
+		(XSysMonPsu_VoltageToRaw(XSK_ZYNQMP_EFUSEPS_VCC_PSINTLP_MAX))
 #endif
 /**
  * Temperature and voltage range for PL eFUSE reading and programming
@@ -643,6 +680,7 @@ typedef enum {
 /************************** Function Prototypes *****************************/
 u32 XilSKey_EfusePs_XAdcInit (void );
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 void XilSKey_Efuse_StartTimer();
 u64 XilSKey_Efuse_GetTime();
 void XilSKey_Efuse_SetTimeOut(volatile u64* t, u64 us);

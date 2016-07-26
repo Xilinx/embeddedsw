@@ -49,7 +49,11 @@
 *                      bits invalid bits.
 * 6.0   vns   07/18/16 PR #1968, Provided User FUSEs single bit programming
 *                      Removed JTAG User code programming and reading
-*                      feature.
+*                      feature. Added temperature and voltage checks, while
+*                      programming and reading eFUSE array. Added separate
+*                      function to set timing parameters and sysmon PSU
+*                      driver initialization. Added init function while
+*                      from eFUSE
 * </pre>
 *
 *****************************************************************************/
@@ -76,7 +80,7 @@ typedef struct {
 
 
 /************************** Variable Definitions ****************************/
-
+u8 Init_Done;
 
 /************************** Function Prototypes *****************************/
 
@@ -87,8 +91,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(u8 *Data,
 static inline u32 XilSKey_ZynqMp_EfusePs_PrgrmTbits();
 static inline u32 XilSKey_ZynqMp_EfusePs_WriteBit(u8 Row, u8 Column,
 						XskEfusePs_Type EfuseType);
-static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues(
-				XilSKey_ZynqMpEPs *InstancePtr);
+static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues();
 static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrl(
 				XilSKey_ZynqMpEPs *InstancePtr);
 static inline u32 XilSKey_ZynqMp_EfusePs_Write_SecCtrlBits(
@@ -114,6 +117,7 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 						XskEfusePs_Type EfuseType);
 static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(u8 *RsaBits_read);
+static inline u32 XilSKey_ZynqMp_EfusePs_Init();
 
 /************************** Function Definitions *****************************/
 
@@ -139,6 +143,10 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	u8 SpkIdInBits[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
 	XilSKey_UsrFuses UsrFuses_ToPrgm[8] = {{0}};
 
+	Status = XilSKey_ZynqMp_EfusePs_Init();
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
 	/* Conditions to check programming is possible or not */
 	Status = XilSKey_ZynqMp_EfusePsWrite_Checks(InstancePtr);
 	if (Status != XST_SUCCESS) {
@@ -405,6 +413,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
+		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
 		Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 					ReadBackSecCtrlBits,ReadOption);
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -596,6 +608,17 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 					XilSKey_ZynqMpEPs *InstancePtr)
 {
 	u32 RowOffset;
+	u32 Status;
+
+	/**
+	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
+	 */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+
 	/* Read secure and control bits */
 	XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 			&(InstancePtr->ReadBackSecCtrlBits), 0);
@@ -849,10 +872,13 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 	u32 RowData;
 	u32 Status;
 
-	/*
-	 * TBD temperature and voltage check once the sysmon driver is ready
-	 * it will be added here
+	/**
+	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
 	 */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
 
 	/* Programming bit */
 	Status = XilSKey_ZynqMp_EfusePs_WriteBit(Row, Column, EfuseType);
@@ -910,6 +936,15 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 {
 	u32 WriteValue;
 	u32 ReadValue;
+	u32 Status;
+
+	/**
+	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
+	 */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
 
 	WriteValue = ((EfuseType << XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
@@ -1068,17 +1103,13 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(XilSKey_ZynqMpEPs *InstancePtr)
 	u32 ReadReg;
 	u32 Status;
 
-	/*
-	 * TBD temperature and voltage check once the sysmon driver is ready
-	 * it will be added here
-	 */
-
 	/* Enable Program enable bit */
 	XilSKey_ZynqMp_EfusePS_PrgrmEn();
 
-	/* Setting Timing Constraints */
-	if (InstancePtr->IntialisedTimer != TRUE) {
-		XilSKey_ZynqMp_EfusePs_SetTimerValues(InstancePtr);
+	/* Setting the timing Constraints and initializing the sysmon */
+	Status = XilSKey_ZynqMp_EfusePs_Init();
+	if (Status != XST_SUCCESS) {
+		return Status;
 	}
 
 	/* Read status and verify Tbits are read properly or not */
@@ -1112,8 +1143,7 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(XilSKey_ZynqMpEPs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues(
-					XilSKey_ZynqMpEPs *InstancePtr)
+static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues()
 {
 	float RefClk;
 	u32 ReadReg;
@@ -1151,7 +1181,7 @@ static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues(
 			((u32)XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) &
 			XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_VAL_DEFVAL));
 
-	InstancePtr->IntialisedTimer = TRUE;
+
 }
 
 /*****************************************************************************/
@@ -1614,6 +1644,10 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 	}
+	Status = XilSKey_ZynqMp_EfusePs_Init();
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
 
 	/* writing CRC value to check AES key's CRC */
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -1677,6 +1711,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
+		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
 
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 			XSK_ZYNQMP_EFUSEPS_USR0_FUSE_ROW + UserFuse_Num,
@@ -1738,6 +1776,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 		/* Check the unlock status */
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		}
+		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
 		}
 
 		for (Row = XSK_ZYNQMP_EFUSEPS_PPK0_SHA3_HASH_END_ROW;
@@ -1806,6 +1848,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
+		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
 
 		for (Row = XSK_ZYNQMP_EFUSEPS_PPK1_SHA3_HASH_END_ROW;
 		Row >= XSK_ZYNQMP_EFUSEPS_PPK1_START_ROW; Row--) {
@@ -1860,6 +1906,10 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
 		/* Check the unlock status */
 		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		}
+		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
 		}
 
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
@@ -2290,6 +2340,39 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(
 			}
 		}
 	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/*
+* This function initializes sysmonpsu driver and set all timing parameters.
+*
+* @param	None
+*
+* @return
+*		XST_SUCCESS - On success
+*		ErrorCode - on Failure
+*
+* @note		None.
+*
+******************************************************************************/
+static inline u32 XilSKey_ZynqMp_EfusePs_Init()
+{
+	u32 Status = XST_SUCCESS;
+
+	if (Init_Done != TRUE) {
+		/* Initialize sysmon PSU */
+		Status = XilSKey_EfusePs_XAdcInit();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		/* Set the timing constraints */
+		XilSKey_ZynqMp_EfusePs_SetTimerValues();
+		Init_Done = TRUE;
+	}
+
+END:
 
 	return Status;
 }
