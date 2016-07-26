@@ -48,6 +48,8 @@
 *                      of secure control feature for RSA enable, PPK hash
 *                      bits invalid bits.
 * 6.0   vns   07/18/16 PR #1968, Provided User FUSEs single bit programming
+*                      Removed JTAG User code programming and reading
+*                      feature.
 * </pre>
 *
 *****************************************************************************/
@@ -133,7 +135,6 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	u8 AesKeyInBits[XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BITS] = {0};
 	u8 Ppk0InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 Ppk1InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
-	u8 UsrCodeInBits[XSK_ZYNQMP_EFUSEPS_USR_CODE_LEN_IN_BITS] = {0};
 	u8 SpkIdInBits[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
 	XilSKey_UsrFuses UsrFuses_ToPrgm[8] = {{0}};
 
@@ -268,19 +269,6 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 					XSK_ZYNQMP_EFUSEPS_EFUSE_0);
 		if (Status != XST_SUCCESS) {
 			Status = (Status + XSK_EFUSEPS_ERROR_WRITE_USER7_FUSE);
-			goto END;
-		}
-	}
-	if (InstancePtr->PrgrmJtagUserCode == TRUE) {
-		XilSKey_Efuse_ConvertBitsToBytes(InstancePtr->JtagUserCode,
-			UsrCodeInBits, XSK_ZYNQMP_EFUSEPS_USR_CODE_LEN_IN_BITS);
-		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerify_RowRange(
-			UsrCodeInBits, XSK_ZYNQMP_EFUSEPS_JTAG_USERCODE_ROW,
-				XSK_ZYNQMP_EFUSEPS_JTAG_USERCODE_ROW,
-					XSK_ZYNQMP_EFUSEPS_EFUSE_0);
-		if (Status != XST_SUCCESS) {
-			Status = (Status +
-				XSK_EFUSEPS_ERROR_WRITE_JTAG_USERCODE);
 			goto END;
 		}
 	}
@@ -734,14 +722,6 @@ static inline u32 XilSKey_ZynqMp_EfusePsWrite_Checks(
 					return (
 				XSK_EFUSEPS_ERROR_RSA_HASH_ALREADY_PROGRAMMED);
 				}
-			}
-		}
-		if (InstancePtr->PrgrmJtagUserCode == TRUE) {
-			/* Check for Zeros */
-			if (XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-				XSK_ZYNQMP_EFUSEPS_USRCODE_OFFSET) != 0x00) {
-				return (
-			XSK_EFUSEPS_ERROR_JTAG_USER_CODE_ALREADY_PROGRAMED);
 			}
 		}
 
@@ -1855,58 +1835,6 @@ UNLOCK:
 
 /*****************************************************************************/
 /*
-* This function is used to read JTAG user code from efuse based on read option.
-*
-* @param	JtagUsrCode is a pointer to 32 bit variable which holds the
-*		readback JTAG user code in.
-* @param	ReadOption is a u8 variable which has to be provided by user
-*		based on this input reading is happend from cache or from efuse
-*		array.
-*		- 0	Reads from cache
-*		- 1	Reads from efuse array
-*
-* @return
-*		XST_SUCCESS - On success
-*		ErrorCode - on Failure
-*
-* @note		None.
-*
-******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_ReadJtagUsrCode(u32 *JtagUsrCode, u8 ReadOption)
-{
-	u32 Status = XST_SUCCESS;
-	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
-
-	if (ReadOption == 0) {
-		*JtagUsrCode = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
-				XSK_ZYNQMP_EFUSEPS_USRCODE_OFFSET);
-	}
-	else {
-		/* Unlock the controller */
-		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
-		/* Check the unlock status */
-		if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
-		}
-
-		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
-		XSK_ZYNQMP_EFUSEPS_JTAG_USERCODE_ROW, EfuseType, JtagUsrCode);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-
-END:
-		/* Lock the controller back */
-		XilSKey_ZynqMp_EfusePs_CtrlrLock();
-
-	}
-
-	return Status;
-
-}
-
-/*****************************************************************************/
-/*
 * This function is used to read DNA from efuse.
 *
 * @param	DnaRead is a pointer to 32 bit variable which holds the
@@ -1994,18 +1922,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_CheckZeros_BfrPrgrmg(
 		}
 	}
 
-	/* Check for JTAG user code zeros */
-	if (InstancePtr->PrgrmJtagUserCode == TRUE) {
-		Status = XilSKey_ZynqMp_EfusePs_CheckForZeros(
-			XSK_ZYNQMP_EFUSEPS_JTAG_USERCODE_ROW,
-			XSK_ZYNQMP_EFUSEPS_JTAG_USERCODE_ROW,
-				XSK_ZYNQMP_EFUSEPS_EFUSE_0);
-		if (Status != XST_SUCCESS) {
-			return XST_FAILURE;
-		}
-	}
-
-	/* Check for JTAG user code zeros */
+	/* Check for SPK ID zeros */
 	if (InstancePtr->PrgrmSpkID == TRUE) {
 		Status = XilSKey_ZynqMp_EfusePs_CheckForZeros(
 			XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW,

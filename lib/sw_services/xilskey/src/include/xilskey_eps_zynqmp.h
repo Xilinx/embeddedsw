@@ -46,7 +46,8 @@
 *       vns     10/20/15 Modified secure control bits readback bits.
 * 6.0   vns     07/18/16 Added separate User FUSEs programming feasibility
 *                        Modified XilSKey_ZynqMp_EfusePs_ReadUserFuse
-*                        prototype.
+*                        prototype. Removed JTAG user code programming
+*                        feature.
 * </pre>
 *
 *****************************************************************************/
@@ -69,7 +70,6 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES		(4)
 #define XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES		(48)
 #define XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BYTES			(4)
-#define XSK_ZYNQMP_EFUSEPS_JTAG_USER_CODE_LEN_IN_BYTES		(4)
 #define XSK_ZYNQMP_EFUSEPS_DNA_LEN_IN_BYTES			(12)
 
 /* ZynqMP eFuse PS keys lengths in bits */
@@ -78,7 +78,6 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS		(384)
 #define XSK_ZYNQMP_EFUSEPS_PPK_SHA2HASH_LEN_IN_BITS		(256)
 #define XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS			(32)
-#define XSK_ZYNQMP_EFUSEPS_USR_CODE_LEN_IN_BITS			(32)
 
 /* ZynqMP eFuse maximum bits in a row */
 #define XSK_ZYNQMP_EFUSEPS_MAX_BITS_IN_ROW			(32)
@@ -88,7 +87,6 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USR_FUSE_REG_NUM			(8)
 
 /* Row numbers of Efuse PS of Zynq MP */
-#define XSK_ZYNQMP_EFUSEPS_JTAG_USERCODE_ROW			(7)
 #define XSK_ZYNQMP_EFUSEPS_USR_KEY_END_ROW			(15)
 #define XSK_ZYNQMP_EFUSEPS_MISC_USR_CTRL_ROW			(16)
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW				(22)
@@ -267,7 +265,6 @@ typedef struct {
 	u8 PrgrmPpk0Hash;
 	u8 PrgrmPpk1Hash;
 	u8 PrgrmSpkID;
-	u8 PrgrmJtagUserCode;
 
 	u8 PrgrmUser0Fuse;
 	u8 PrgrmUser1Fuse;
@@ -295,7 +292,6 @@ typedef struct {
 	u8 Ppk0Hash[XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES];
 	u8 Ppk1Hash[XSK_ZYNQMP_EFUSEPS_PPK_HASH_LEN_IN_BYTES];
 	u8 SpkId[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BYTES];
-	u8 JtagUserCode[XSK_ZYNQMP_EFUSEPS_JTAG_USER_CODE_LEN_IN_BYTES];
 
 	XilSKey_SecCtrlBits ReadBackSecCtrlBits;
 
@@ -401,7 +397,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption);
 u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption);
 u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption);
-u32 XilSKey_ZynqMp_EfusePs_ReadJtagUsrCode(u32 *JtagUsrCode, u8 ReadOption);
 void XilSKey_ZynqMp_EfusePs_ReadDna(u32 *DnaRead);
 
 u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
