@@ -141,24 +141,6 @@ static void RestoreContext(void)
 	pm_dbg("Restored context (tick_count = %d)\n", TickCount);
 }
 
-static u32 GetCpuId(void)
-{
-#ifdef __aarch64__
-	u64 id;
-
-	__asm__ volatile("mrs	%0, MPIDR_EL1\n"
-			: "=r"(id)
-	);
-#else
-	u32 id;
-
-	__asm__ volatile("mrc	p15, 0, %0, c0, c0, 5\n"
-			: "=r"(id)
-	);
-#endif
-
-	return id & 0xff;
-}
 
 /**
  * PrepareSuspend() - save context and request suspend
