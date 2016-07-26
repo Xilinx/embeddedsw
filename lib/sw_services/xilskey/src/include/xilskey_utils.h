@@ -352,9 +352,12 @@ typedef enum {
  */
 #define XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES		(32)
 /**
- *  User Key size in Bytes
+ *  32 bit User Key size in Bytes
  */
 #define XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES		(4)
+
+/* 128 bit User key size in bytes */
+#define XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES	(16)
 /**
  *  AES Key size in Bits
  */
@@ -477,6 +480,7 @@ typedef enum {
 
 	/* Error in Hw module */
 	XSK_EFUSEPL_ERROR_HWM_TIMEOUT = 0x80,
+	XSK_EFUSEPL_ERROR_USER_FUSE_REVERT = 0x90,
 
 	/**
 	 * XSKEfusepl_Program_Efuse() error codes
@@ -504,6 +508,7 @@ typedef enum {
 	XSK_EFUSEPL_ERROR_READING_FUSE_SEC = 0x2300,
 	XSK_EFUSEPL_ERROR_PRGRMG_FUSE_SEC_ROW = 0x2500,
 	XSK_EFUSEPL_ERROR_PRGRMG_USER_KEY = 0x4000,
+	XSK_EFUSEPL_ERROR_PRGRMG_128BIT_USER_KEY = 0x5000,
 	XSK_EFUSEPL_ERROR_PRGRMG_RSA_HASH = 0x8000
 }XSKEfusePl_ErrorCodes;
 

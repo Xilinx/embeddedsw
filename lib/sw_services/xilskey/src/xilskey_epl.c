@@ -71,7 +71,10 @@
 /************************** Constant Definitions *****************************/
 #define XSK_EFUSEPL_ARRAY_FUSE_CNTRL_ROW		(0) /**< Fuse Ctrl Row*/
 #define XSK_EFUSEPL_ARRAY_FUSE_AES_KEY_SIZE		(256) /**< AES Key size*/
-#define XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE	(32) /**< User key size*/
+#define XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE	(32) /**< 32 bit
+							* User key size*/
+#define XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE	(128) /**< 128 bit
+							*  User key size*/
 #define XSK_EFUSEPL_ARRAY_MAX_ROW				(32) /**< PLeFUSE Max Rows*/
 #define XSK_EFUSEPL_ARRAY_MAX_COL				(32) /**< PLeFUSE Max Columns*/
 #define XSK_EFUSEPL_ARRAY_AES_DATA_ROW_START	(20) /**< AES Data Start Row*/
@@ -149,6 +152,12 @@
 #define XSK_EFUSEPL_RSA_ROW_END_ULTRA	(23)	/**< RSA end row of
 						  * FUSE for Ultrascale
 						  * series */
+#define XSK_EFUSEPL_USER_128BIT_ROW_START_ULTRA	(0)/**< 128 bit USER key
+						     * start row of FUSE for
+						     * Ultrascale series */
+#define XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA	(3)/**< 128 bit USER key
+						     * end row of FUSE for
+						     * Ultrascale series */
 #define XSK_EFUSEPL_DNA_KEY_SIZE_ULTRA	(96)	/**< DNA key size
 						 * of Ultrascale
 						 * series */
@@ -254,6 +263,8 @@ typedef enum {
 							  *  row of Ultrascale */
 	XSK_EFUSEPL_CNTRL_DISABLE_RSA_KEY_WR_ULTRA = 15,/**< Bit 15 of Fuse Ctrl
 							  *  row of Ultrascale */
+	XSK_EFUSEPL_CNTRL_DISABLE_128BIT_USR_KEY_WR_ULTRA/**< Bit 16 of Fuse Ctrl
+								  *  row of Ultrascale */
 }XSKEfusePl_FuseCntrlBits_Ultra;
 
 /**
@@ -283,6 +294,7 @@ static u8 UserDataInBytes[XSK_EFUSEPL_ARRAY_FUSE_USER_KEY_SIZE];
 XSKEfusePl_Fpga PlFpgaFlag;		/**< For Storing Fpga series */
 static u8 RsaDataInBytes[XSK_EFUSEPL_RSA_HASH_SIZE_ULTRA];
 static u8 CtrlBitsUltra[XSK_EFUSEPL_ARRAY_MAX_ROW];
+static u8 User128BitData[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
 XSKEfusePl_Fpga	PlFpgaFlag;		/**< For Storing Fpga series */
 
 /************************** Function Prototypes *****************************/

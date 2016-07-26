@@ -166,6 +166,11 @@ typedef struct {
 	/* If XTRUE will disable eFUSE write to FUSE_RSA block in Ultrascale */
 	u32 RSAWrite;	/* only For Ultrascale */
 	/**
+	 * If TRUE will disable eFUSE write to 128BIT FUSE_USER
+	 * block in Ultrascale
+	 */
+	u32 User128BitWrite;	/* only For Ultrascale */
+	/**
 	 * IF XTRUE will disable eFuse read to FUSE_SEC block and also disables
 	 * eFuse write to FUSE_SEC block in Ultrascale
 	 */
@@ -225,6 +230,11 @@ typedef struct {
 	 */
 	u32 ProgRSAKeyUltra;	/* Only for Ultrascale */
 	/**
+	 * Following is the define to select if the user wants to program
+	 * 128 bit User key for Ultrascale
+	 */
+	u32 ProgUser128BitUltra;	/* Only for Ultrascale */
+	/**
 	 * Following is the define to select if the user wants to read
 	 * AES key for Ultrascale
 	 */
@@ -239,6 +249,11 @@ typedef struct {
 	 * RSA key for Ultrascale
 	 */
 	u32 ReadRSAKeyUltra;	/* Only for Ultrascale */
+	/**
+	 * Following is the define to select if the user wants to read
+	 * 128 bit User key for Ultrascale
+	 */
+	u32 ReadUser128BitUltra;	/* Only for Ultrascale */
 	/**
 	 * This is the REF_CLK value in Hz
 	 */
@@ -255,6 +270,11 @@ typedef struct {
 	 * This is for the rsa_key value for Ultrascale
 	 */
 	u8 RSAKeyHash[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES]; /* Only for Ultrascale */
+	/**
+	 * This is for the User 128 bit key value for Ultrascale
+	 */
+	u8 User128Bit[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];
+						/* Only for Ultrascale */
 	/**
 	 * TDI MIO Pin Number for ZYNQ
 	 */
@@ -326,11 +346,18 @@ typedef struct {
 	u8 RSAHashReadback[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES];
 				/* Only for Ultrascale */
 	/**
+	 * User 128 bit key read back for Ultrascale
+	 */
+	u8 User128BitReadBack[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];
+			/* Only for Ultrascale */
+	/**
 	 * Internal variable to check if timer, XADC and JTAG are initialized.
 	 */
 	u32 SystemInitDone;
 	/* Stores Fpga series of Efuse */
 	XSKEfusePl_Fpga FpgaFlag;
+	/* CRC of AES key to verify programmed AES key */
+    u32 CrcToVerify; /* Only for Ultrascale */
 }XilSKey_EPl;
 
 #ifdef __cplusplus
