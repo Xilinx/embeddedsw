@@ -486,9 +486,9 @@ int main()
 			xil_printf("EfusePL status bits : AES key CRC read enabled\n\r");
 		}
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_READ_ULTRA)) {
-			xil_printf("EfusePL status bits : User key read and programming disabled \n\r");
+			xil_printf("EfusePL status bits : 32 bit User key read and programming disabled \n\r");
 		}else {
-			xil_printf("EfusePL status bits : User key read enabled\n\r");
+			xil_printf("EfusePL status bits : 32 bit User key read enabled\n\r");
 		}
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_SECURE_READ_ULTRA)) {
 			xil_printf("EfusePL status bits : Secure bits read and programming disabled \n\r");
@@ -511,9 +511,9 @@ int main()
 			xil_printf("EfusePL status bits : AES key programming enabled\n\r");
 		}
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_WRITE_ULTRA)) {
-			xil_printf("EfusePL status bits : User key programming disabled \n\r");
+			xil_printf("EfusePL status bits : 32 bit User key programming disabled \n\r");
 		}else {
-			xil_printf("EfusePL status bits : User key programming enabled\n\r");
+			xil_printf("EfusePL status bits : 32 bit User key programming enabled\n\r");
 		}
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DISABLE_SECURE_WRITE_ULTRA)) {
 			xil_printf("EfusePL status bits : Secure bits programming disabled \n\r");
@@ -524,6 +524,11 @@ int main()
 			xil_printf("EfusePL status bits : RSA key programming disabled \n\r");
 		}else {
 			xil_printf("EfusePL status bits : RSA key programming enabled\n\r");
+		}
+		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_DIABLE_128BIT_USER_KEY_WRITE_ULTRA)) {
+			xil_printf("EfusePL status bits : 128 bit User key programming disabled \n\r");
+		}else {
+			xil_printf("EfusePL status bits : 128 bit User Key programming enabled\n\r");
 		}
 		if(PlStatusBits & (1 << XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA)) {
 			xil_printf("EfusePL status bits : FUSE logic is busy \n\r");
@@ -610,6 +615,14 @@ int main()
 			  xil_printf("\r\nEfusePL RSA hash value : 0x");
 			   for(KeyCnt = (XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES - 1); KeyCnt >= 0; KeyCnt--) {
 				   xil_printf("%02x", PlInstancePtr.RSAHashReadback[KeyCnt]);
+			   }
+		}
+		xil_printf("\r\n");
+		if (XSK_EFUSEPL_READ_USER_KEY128_BIT == TRUE) {
+			xil_printf("\r\nEfusePL 128 Bit User key : 0x");
+			for(KeyCnt = (XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES - 1);
+						KeyCnt >= 0; KeyCnt--) {
+				   xil_printf("%02x", PlInstancePtr.User128BitReadBack[KeyCnt]);
 			   }
 		}
 		xil_printf("\r\n");
@@ -852,6 +865,8 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 	PlInstancePtr->SecureWrite = XSK_EFUSEPL_DISABLE_SECURE_WRITE;
 	/* eFuse control bit 15 */
 	PlInstancePtr->RSAWrite = XSK_EFUSEPL_DISABLE_RSA_HASH_WRITE;
+	/* eFUSE control bit 16 */
+	PlInstancePtr->User128BitWrite = XSK_EFUSEPL_DISABLE_128BIT_USER_KEY_WRITE;
 
 	/* eFuse secure bits [5:0] */
 	PlInstancePtr->EncryptOnly = XSK_EFUSEPL_ALLOW_ENCRYPTED_ONLY;
@@ -865,10 +880,12 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 	PlInstancePtr->ProgAESKeyUltra = XSK_EFUSEPL_PROGRAM_AES_KEY;
 	PlInstancePtr->ProgUserKeyUltra = XSK_EFUSEPL_PROGRAM_USER_KEY;
 	PlInstancePtr->ProgRSAKeyUltra = XSK_EFUSEPL_PROGRAM_RSA_KEY_HASH;
+	PlInstancePtr->ProgUser128BitUltra = XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT;
 
 	PlInstancePtr->ReadUserKeyUltra = XSK_EFUSEPL_READ_USER_KEY;
 	PlInstancePtr->ReadRSAKeyUltra = XSK_EFUSEPL_READ_RSA_KEY_HASH;
 	PlInstancePtr->CheckAESKeyUltra = XSK_EFUSEPL_CHECK_AES_KEY_CRC;
+	PlInstancePtr->ReadUser128BitUltra = XSK_EFUSEPL_READ_USER_KEY128_BIT;
 
 	PlInstancePtr->CrcOfAESKey = XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY;
 
@@ -885,7 +902,7 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 	PlInstancePtr->GpioOutPutCh = XSK_EFUSEPL_GPIO_OUTPUT_CH;
 
 	if (PlInstancePtr->ProgUserKeyUltra == TRUE) {
-		/* Validation of User High Key */
+		/* Validation of 32 bit User Key */
 		PlStatus = XilSKey_Efuse_ValidateKey(
 				(char *)XSK_EFUSEPL_USER_KEY,
 				XSK_EFUSEPL_USER_KEY_STRING_SIZE);
@@ -928,6 +945,54 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 			(char *)XSK_EFUSEPL_RSA_KEY_HASH_VALUE,
 			&PlInstancePtr->RSAKeyHash[0],
 			XSK_EFUSEPL_RSA_KEY_SIZE_IN_BITS);
+	}
+
+	if (PlInstancePtr->ProgUser128BitUltra == TRUE) {
+		/* Validation of 128 bit User Key */
+		PlStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPL_USER_KEY_128BIT_0,
+				XSK_EFUSEPL_USER_KEY_STRING_SIZE);
+		if(PlStatus != XST_SUCCESS) {
+			goto PL_INIT_ERROR;
+		}
+		PlStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPL_USER_KEY_128BIT_1,
+				XSK_EFUSEPL_USER_KEY_STRING_SIZE);
+		if(PlStatus != XST_SUCCESS) {
+			goto PL_INIT_ERROR;
+		}
+		PlStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPL_USER_KEY_128BIT_2,
+				XSK_EFUSEPL_USER_KEY_STRING_SIZE);
+		if(PlStatus != XST_SUCCESS) {
+			goto PL_INIT_ERROR;
+		}
+		PlStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPL_USER_KEY_128BIT_3,
+				XSK_EFUSEPL_USER_KEY_STRING_SIZE);
+		if(PlStatus != XST_SUCCESS) {
+			goto PL_INIT_ERROR;
+		}
+		/* Assign the 128 bit User key [31:0]bits */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPL_USER_KEY_128BIT_0,
+			&PlInstancePtr->User128Bit[0],
+			XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
+		/* Assign the 128 bit User key [63:32]bits */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPL_USER_KEY_128BIT_1,
+			&PlInstancePtr->User128Bit[4],
+			XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
+		/* Assign the 128 bit User key [95:64]bits */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPL_USER_KEY_128BIT_2,
+			&PlInstancePtr->User128Bit[8],
+			XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
+		/* Assign the 128 bit User key [128:95]bits */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPL_USER_KEY_128BIT_3,
+			&PlInstancePtr->User128Bit[12],
+			XSK_EFUSEPL_USER_KEY_SIZE_IN_BITS);
 	}
 	/* Variable to check whether internal system initialization is done.*/
 	PlInstancePtr->SystemInitDone = 0;

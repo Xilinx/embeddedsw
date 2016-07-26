@@ -219,7 +219,7 @@
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define	XSK_EFUSEPL_DISABLE_USER_KEY_READ	FALSE
-*	TRUE will permanently disables the write to FUSE_USER and
+*	TRUE will permanently disables the write to 32 bit FUSE_USER and
 *	read of FUSE_USER key by programming control bit of FUSE.
 *	FALSE will not modify this control bit of eFuse.
 *
@@ -257,6 +257,11 @@
 *	TRUE will permanently disables the write to FUSE_RSA authentication
 *	key by programming control bit of FUSE.
 *	FALSE will not modify this control bit of eFuse.
+*
+*	#define XSK_EFUSEPL_DISABLE_128BIT_USER_KEY_WRITE	FALSE
+*	TRUE will permanently disables the write to 128 bit FUSE_USER
+*	by programming control bit of FUSE.
+*	FALSE will not modify this control bit of eFuse
 *
 *	#define	XSK_EFUSEPL_ALLOW_ENCRYPTED_ONLY	FALSE
 *	TRUE will permanently allows encrypted bitstream only.
@@ -315,11 +320,17 @@
 *	FALSE will ignore the values given.
 *
 *	#define XSK_EFUSEPL_PROGRAM_USER_KEY_ULTRA	FALSE
-*	TRUE will burn User key given in XSK_EFUSEPL_USER_KEY
+*	TRUE will burn 32 bit User key given in XSK_EFUSEPL_USER_KEY
 *	FALSE will ignore the values given.
 *
 *	#define XSK_EFUSEPL_PROGRAM_RSA_HASH_ULTRA	FALSE
 *	TRUE will burn RSA hash given in XSK_EFUSEPL_RSA_KEY_HASH_VALUE
+*	FALSE will ignore the values given.
+*
+*	#define XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT	FALSE
+*	TRUE will burn 128 bit User key given in XSK_EFUSEPL_USER_KEY_128BIT_0,
+*	XSK_EFUSEPL_USER_KEY_128BIT_1, XSK_EFUSEPL_USER_KEY_128BIT_2,
+*	XSK_EFUSEPL_USER_KEY_128BIT_3
 *	FALSE will ignore the values given.
 *
 *	#define XSK_EFUSEPL_CHECK_AES_KEY_ULTRA		FALSE
@@ -330,14 +341,19 @@
 *	FALSE CRC check of FUSE_AES will not be performed.
 *
 *	#define XSK_EFUSEPL_READ_USER_KEY_ULTRA		FALSE
-*	TRUE will read FUSE_USER from Ultrascale's eFuse and updates in
+*	TRUE will read 32 bit FUSE_USER from Ultrascale's eFuse and updates in
 *	XilSKey_EPl instance parameter UserKeyReadback
-*	FALSE FUSE_USER  key read will not be performed.
+*	FALSE 32 bit FUSE_USER key read will not be performed.
 *
 *	#define XSK_EFUSEPL_READ_RSA_HASH_ULTRA		FALSE
 *	TRUE will read FUSE_USER from Ultrascale's eFuse and updates in
 *	XilSKey_EPl instance parameter RSAHashReadback
 *	FALSE FUSE_RSA_HASH read will not be performed.
+*
+*	#define XSK_EFUSEPL_READ_USER_KEY128_BIT	FALSE
+*	TRUE will read 128 bit USER key from Ultrascale's eFuse and updates in
+*	XilSKey_EPl instance parameter User128BitReadBack
+*	FALSE 128 bit USER key read will not be performed.
 *
 *	#define 	XSK_EFUSEPL_AES_KEY
 *	"0000000000000000000000000000000000000000000000000000000000000000"
@@ -366,6 +382,23 @@
 *	valid characters are 0-9,a-f,A-F. Any other character is considered as
 *	invalid string and will not burn RSA hash value. Note that, for writing
 *	the RSA hash, XSK_EFUSEPL_PROGRAM_RSA_HASH_ULTRA should have TRUE value.
+*
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_0	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_1	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_2	"00000000"
+*	#define XSK_EFUSEPL_USER_KEY_128BIT_3	"00000000"
+*	The above four macros are meant for providing 128 bit User key,
+*	XSK_EFUSEPL_USER_KEY_128BIT_0 holds 31:0 bits,
+*	XSK_EFUSEPL_USER_KEY_128BIT_1 holds 63:32 bits,
+*	XSK_EFUSEPL_USER_KEY_128BIT_2 holds 95:64 bits and
+*	XSK_EFUSEPL_USER_KEY_128BIT_3 holds 127:96 bits of whole 128 bit User
+*	key.
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the PL eFUSE array when write API used. This value should be the
+*	User Key given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Key. Note that, for writing the User Key,
+*	XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT should have TRUE value.
 *
 *	#define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY	0x621C42AA
 *	0x621C42AA is hexadecimal CRC value of FUSE_AES with all Zeros.
@@ -526,7 +559,7 @@ extern "C" {
 							  *  andprogramming
 							  */
 #define	XSK_EFUSEPL_DISABLE_USER_KEY_READ	FALSE	/**< If TRUE will disable
-							  *  User key reading and
+							  *  32 bit User key reading and
 							  *  programming
 							  */
 #define	XSK_EFUSEPL_DISABLE_SECURE_READ		FALSE	/**< If TRUE will disable
@@ -545,7 +578,7 @@ extern "C" {
 							  *  AES key programming
 							  */
 #define	XSK_EFUSEPL_DISABLE_USER_KEY_WRITE	FALSE	/**< If TRUE will disable
-							  *  Programming User
+							  *  Programming 32 bit User
 							  *  key
 							  */
 #define	XSK_EFUSEPL_DISABLE_SECURE_WRITE	FALSE	/**< If TRUE will disable
@@ -555,6 +588,11 @@ extern "C" {
 							  *  programming to RSA key
 							  *  hash
 							  */
+#define XSK_EFUSEPL_DISABLE_128BIT_USER_KEY_WRITE	FALSE
+						/**< If TRUE will disable
+						  *  Programming 128 bit User
+						  *  key
+						  */
 /**
  * Following is the define to select if the user wants to program Secure bits
  */
@@ -630,21 +668,27 @@ extern "C" {
 #define	XSK_EFUSEPL_PROGRAM_RSA_KEY_HASH	FALSE	/**< TRUE burns
 							  * the RSA hash
 							  */
+#define XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT	FALSE	/**< TRUE burns
+							  * 128 bit USER key
+							  */
 /* For reading keys */
 #define	XSK_EFUSEPL_CHECK_AES_KEY_CRC		FALSE	/**< TRUE checks
 							  * AES key with
 							  * below provided CRC
 							  */
-#define	XSK_EFUSEPL_READ_USER_KEY		FALSE	/**< TRUE read
+#define	XSK_EFUSEPL_READ_USER_KEY		FALSE	/**< TRUE read 32 bit
 							  *  USER key
 							  */
 #define	XSK_EFUSEPL_READ_RSA_KEY_HASH		FALSE	/**< TRUE read
 							  *  RSA Hash value
 							  */
+#define XSK_EFUSEPL_READ_USER_KEY128_BIT	FALSE	/**< TRUE reads
+							  * 128 bit USER key
+							  */
 
 /**
  * Following defines should be given in the form of hex string.
- * The length of AES_KEY string must me 64 and for USER_KEY must be 8.
+ * The length of AES_KEY string must me 64 and for 32 bit USER_KEY must be 8.
  */
 #define	XSK_EFUSEPL_AES_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
 #define	XSK_EFUSEPL_USER_KEY		"00000000"
@@ -654,6 +698,16 @@ extern "C" {
  * RSA string must be 96
  */
 #define	XSK_EFUSEPL_RSA_KEY_HASH_VALUE	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+/**
+ * Following define should be given only for Ultrascale the total length of
+ * User 128-bit register is 128bit, to make it easier 128 bit register is broken
+ * into four 32 bit, single bit programming is also available.
+ *
+ */
+#define XSK_EFUSEPL_USER_KEY_128BIT_0	"00000000"	/* 31:0 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_1	"00000000"	/* 63:32 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_2	"00000000"	/* 95:64 */
+#define XSK_EFUSEPL_USER_KEY_128BIT_3	"00000000"	/* 127:96 */
 
 /**
  * Following define is CRC value of expected AES key
