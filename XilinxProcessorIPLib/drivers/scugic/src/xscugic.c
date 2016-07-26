@@ -353,7 +353,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 
 	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 
-		InstancePtr->IsReady = 0;
+		InstancePtr->IsReady = 0U;
 		InstancePtr->Config = ConfigPtr;
 
 
@@ -798,10 +798,10 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 	RegValue = XScuGic_DistReadReg(InstancePtr,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
-	Offset =  (Int_Id & 0x3);
+	Offset =  (Int_Id & 0x3U);
 
-	RegValue = (RegValue & (~(0xFF << (Offset*8))) );
-	RegValue |= ((Cpu_Id) << (Offset*8));
+	RegValue = (RegValue | (~(0xFFU << (Offset*8U))) );
+	RegValue |= ((Cpu_Id) << (Offset*8U));
 
 	XScuGic_DistWriteReg(InstancePtr,
 						 XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
