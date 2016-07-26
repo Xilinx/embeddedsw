@@ -423,7 +423,7 @@ proc generate {os_handle} {
                 error "ERROR: System Timer Interrupt PORT is not specified" "" "mdt_error"
 	    }
 	    #set mhs_handle [hsi::get_cells -of_object $systmr_handle]
-	    set intr_ports [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $systmr_intr] INTERRUPT]]
+	    set intr_ports [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $systmr_handle] INTERRUPT]]
 	    #set intr_ports [xget_connected_ports_handle $mhs_handle $systmr_intr "sink"]
 	    foreach intr_port $intr_ports {
                 set intr_port_type [common::get_property TYPE $intr_port]
@@ -434,9 +434,6 @@ proc generate {os_handle} {
                 set intc_handle [hsi::get_cells -of_object $intr_port]
                 set intc_name [common::get_property NAME $intc_handle]
                 set proc_intc_handle [hsi::get_cells -hier $intc_name]
-                if { [string compare -nocase $sysintc_dev_handle $intc_handle] == 0 } {
-                    continue
-                }
                 set systmr_intrpin  [hsi::get_pins -of_objects [hsi::get_cells -hier $systmr_handle] -filter "TYPE == INTERRUPT"]
 		set intr_id [::hsi::utils::get_port_intr_id $systmr_handle $systmr_intrpin]
 		puts $config_file "#define SYSTMR_INTR_ID $intr_id\n"

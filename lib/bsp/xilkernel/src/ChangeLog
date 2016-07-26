@@ -180,4 +180,7 @@ Change Log for Xilkernel
 2016-02-03
 	* Fixed CR:938727 configuring the config_bufmalloc exporting invalid
 	  number of static bufs(N_STATIC_BUFS) to the os_config.h file.
+2016-07-26
+	* Fixed CR:955364 update get_pins command as per 2016.3 hsi changes are
+	  Made in the bsp tcl file.
 
