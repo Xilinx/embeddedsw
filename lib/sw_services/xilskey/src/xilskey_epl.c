@@ -1468,6 +1468,9 @@ static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
 		if (Index < XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES) {
 			InstancePtr->RSAHashReadback[Index] = 0;
 		}
+		if (Index < XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES) {
+			InstancePtr->User128BitReadBack[Index] = 0;
+		}
 	}
 	/*
 	 * Read AES Key is not possible directly, verifying through CRC
@@ -1501,6 +1504,16 @@ static inline u32 XilSKey_EfusePl_ReadKey_Ultra(XilSKey_EPl *InstancePtr)
 			InstancePtr->RSAHashReadback,
 			XSK_EFUSEPL_PAGE_1_ULTRA) != XST_SUCCESS) {
 			return XST_FAILURE;
+		}
+	}
+	/* Read 128 bit User key */
+	if (InstancePtr->ReadUser128BitUltra == TRUE) {
+		if (XilSKey_EfusePl_GetDataRowRange_Ultra(
+			XSK_EFUSEPL_USER_128BIT_ROW_START_ULTRA,
+			XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA,
+			InstancePtr->User128BitReadBack,
+			XSK_EFUSEPL_PAGE_1_ULTRA) != XST_SUCCESS) {
+			return ErrorCode;
 		}
 	}
 
@@ -1603,7 +1616,8 @@ static inline u8 XilSKey_EfusePl_ReadRow_Ultra(u32 Row, u8 MarginOption,
 	}
 
 	if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
-		(Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA)) &&
+		((Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA) &&
+		 (Row > XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA))) &&
 			(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
 		return XST_FAILURE;
@@ -1731,7 +1745,8 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 	}
 
 	if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
-		 (Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA)) &&
+		((Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA) &&
+		 (Row > XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA))) &&
 			(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
 		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
 		return XST_FAILURE;
@@ -1749,7 +1764,8 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 	 * If row=1 then bit should be either 0 to 2 and 5 to 9 and 15 to 17
 	 * rest all are not supported
 	 */
-	if(Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) {
+	if((Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) &&
+		(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
 		if((Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
 		(Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
 		((Bit >=
@@ -1765,7 +1781,8 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 	 * If row = 10 then bits should be supported from 0 to 5
 	 */
 	 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA) &&
-		 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) ) {
+		 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) &&
+		 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
 		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
 			return XST_FAILURE;
 	 }
