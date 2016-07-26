@@ -47,6 +47,12 @@
 *                        while reading RSA authentication and PPK revokes bits
 *                        status it may return 0 or BOTH_BITS_SET. So in place
 *                        of TRUE added BOTH_BITS_SET.
+* 6.0   vns     07/18/16 Removed JTAG user code programming and reading feature
+*                        as it is not the part of the eFUSE 3.0 silicon.
+*                        Modified XilSKey_ZynqMp_EfusePs_ReadUserKey function
+*                        to XilSKey_ZynqMp_EfusePs_ReadUserFuse.
+*                        Provided single bit programming facility for User
+*                        FUSES
 * </pre>
 *
 ******************************************************************************/
@@ -57,18 +63,16 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSK_EFUSEPS_AES_KEY_STRING_LEN			(64)
-#define XSK_EFUSEPS_USER_KEY_STRING_LEN			(64)
+#define XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN		(8)
 #define XSK_EFUSEPS_PPK_SHA3_HASH_STRING_LEN_96		(96)
 #define XSK_EFUSEPS_PPK_SHA2_HASH_STRING_LEN_64		(64)
 #define XSK_EFUSEPS_SPK_ID_STRING_LEN			(8)
-#define XSK_EFUSEPS_JTAG_USER_CODE_STRING_LEN		(8)
 
 #define XSK_EFUSEPS_AES_KEY_LEN_IN_BITS			(256)
-#define XSK_EFUSEPS_USER_KEY_LEN_IN_BITS		(256)
+#define XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS		(32)
 #define XSK_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS_384	(384)
 #define XSK_EFUSEPS_PPK_SHA2HASH_LEN_IN_BITS_256	(256)
 #define XSK_EFUSEPS_SPKID_LEN_IN_BITS			(32)
-#define XSK_EFUSEPS_JTAG_USER_CODE_LEN_IN_BITS		(32)
 
 #define XSK_EFUSEPS_RD_FROM_CACHE				(0)
 #define XSK_EFUSEPS_RD_FROM_EFUSE				(1)
@@ -89,11 +93,10 @@ int main()
 
 	XilSKey_ZynqMpEPs PsInstance = {{0}};
 	u32 PsStatus;
-	u32 UserKey[8];
+	u32 UserFuses[8];
 	u32 Ppk0[12];
 	u32 Ppk1[12];
 	u32 SpkId;
-	u32 JtagUsrCode;
 	s8 Row;
 	u32 AesCrc;
 
@@ -118,15 +121,16 @@ int main()
 		goto EFUSE_ERROR;
 	}
 	xil_printf("keys read from cache \n\r");
-	PsStatus = XilSKey_ZynqMp_EfusePs_ReadUserKey(UserKey,
-							XSK_EFUSEPS_RD_FROM_CACHE );
-	if (PsStatus != XST_SUCCESS) {
-		goto EFUSE_ERROR;
+	for (Row = 0; Row < 8; Row++) {
+		PsStatus = XilSKey_ZynqMp_EfusePs_ReadUserFuse(
+					&UserFuses[Row], Row,
+					XSK_EFUSEPS_RD_FROM_CACHE);
+		if (PsStatus != XST_SUCCESS) {
+			goto EFUSE_ERROR;
+		}
 	}
-	else {
-		xil_printf("\n\rUserKey:");
-		for (Row = 7; Row >= 0; Row--)
-			xil_printf("%08x", UserKey[Row]);
+	for (Row = 0; Row < 8; Row++) {
+		xil_printf("User%d Fuse:%08x\n\r", Row,UserFuses[Row]);
 	}
 	xil_printf("\n\r");
 
@@ -163,21 +167,13 @@ int main()
 		xil_printf("\r\nSpkid: %08x\n\r", SpkId);
 
 	}
-	PsStatus = XilSKey_ZynqMp_EfusePs_ReadJtagUsrCode(&JtagUsrCode,
-								XSK_EFUSEPS_RD_FROM_CACHE);
-	if (PsStatus != XST_SUCCESS) {
-		goto EFUSE_ERROR;
-	}
-	else {
-		xil_printf("\r\nJTAGUSER code: %08x\n\r", JtagUsrCode);
-
-	}
 
 	/* CRC check for programmed AES key */
 	AesCrc = XilSKey_CrcCalculation((u8 *)XSK_EFUSEPS_AES_KEY);
 	PsStatus = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
 	if (PsStatus != XST_SUCCESS) {
 		xil_printf("\r\nAES CRC checK is failed\n\r");
+		goto EFUSE_ERROR;
 	}
 	else {
 		xil_printf("\r\nAES CRC checK is passed\n\r");
@@ -270,11 +266,18 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 
 	/* For writing into eFuse */
 	PsInstancePtr->PrgrmAesKey = XSK_EFUSEPS_WRITE_AES_KEY;
-	PsInstancePtr->PrgrmUserKey = XSK_EFUSEPS_WRITE_USER_KEY;
 	PsInstancePtr->PrgrmPpk0Hash = XSK_EFUSEPS_WRITE_PPK0_HASH;
 	PsInstancePtr->PrgrmPpk1Hash = XSK_EFUSEPS_WRITE_PPK1_HASH;
 	PsInstancePtr->PrgrmSpkID = XSK_EFUSEPS_WRITE_SPKID;
-	PsInstancePtr->PrgrmJtagUserCode = XSK_EFUSEPS_WRITE_JTAG_USERCODE;
+
+	PsInstancePtr->PrgrmUser0Fuse = XSK_EFUSEPS_WRITE_USER0_FUSE;
+	PsInstancePtr->PrgrmUser1Fuse = XSK_EFUSEPS_WRITE_USER1_FUSE;
+	PsInstancePtr->PrgrmUser2Fuse = XSK_EFUSEPS_WRITE_USER2_FUSE;
+	PsInstancePtr->PrgrmUser3Fuse = XSK_EFUSEPS_WRITE_USER3_FUSE;
+	PsInstancePtr->PrgrmUser4Fuse = XSK_EFUSEPS_WRITE_USER4_FUSE;
+	PsInstancePtr->PrgrmUser5Fuse = XSK_EFUSEPS_WRITE_USER5_FUSE;
+	PsInstancePtr->PrgrmUser6Fuse = XSK_EFUSEPS_WRITE_USER6_FUSE;
+	PsInstancePtr->PrgrmUser7Fuse = XSK_EFUSEPS_WRITE_USER7_FUSE;
 
 	/* Variable for Timer Intialization */
 	PsInstancePtr->IntialisedTimer = 0;
@@ -283,21 +286,123 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	PsInstancePtr->IsPpk0Sha3Hash = XSK_EFUSEPS_PPK0_IS_SHA3;
 	PsInstancePtr->IsPpk1Sha3Hash = XSK_EFUSEPS_PPK1_IS_SHA3;
 
-	/* Copy the keys to be programmed */
-	if (PsInstancePtr->PrgrmUserKey == TRUE) {
-		/* Validation of User High Key */
+	/* Copy the fuses to be programmed */
+
+	/* Copy all the user fuses to be programmed */
+	if (PsInstancePtr->PrgrmUser0Fuse == TRUE) {
+		/* Validation of User 0 fuse */
 		PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_USER_KEY,
-				XSK_EFUSEPS_USER_KEY_STRING_LEN);
+				(char *)XSK_EFUSEPS_USER0_FUSES,
+				XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN);
 		if(PsStatus != XST_SUCCESS) {
 			goto ERROR;
 		}
-		/* Assign the User key [255:0]bits */
+		/* Assign the User key [32:0]bits of User fuse 0 */
 		XilSKey_Efuse_ConvertStringToHexLE(
-			(char *)XSK_EFUSEPS_USER_KEY ,
-			&PsInstancePtr->UserKey[0],
-			XSK_EFUSEPS_USER_KEY_LEN_IN_BITS);
+			(char *)XSK_EFUSEPS_USER0_FUSES,
+			&PsInstancePtr->User0Fuses[0],
+			XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS);
 	}
+	if (PsInstancePtr->PrgrmUser1Fuse == TRUE) {
+		/* Validation of User 1 fuse */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPS_USER1_FUSES,
+				XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+		/* Assign the User key [32:0]bits of User fuse  1 */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPS_USER1_FUSES,
+			&PsInstancePtr->User1Fuses[0],
+			XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS);
+	}
+	if (PsInstancePtr->PrgrmUser2Fuse == TRUE) {
+		/* Validation of User 2 fuse */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPS_USER2_FUSES,
+				XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+		/* Assign the User key [32:0]bits of User fuse  2 */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPS_USER2_FUSES,
+			&PsInstancePtr->User2Fuses[0],
+			XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS);
+	}
+	if (PsInstancePtr->PrgrmUser3Fuse == TRUE) {
+		/* Validation of User 3 fuse */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPS_USER3_FUSES,
+				XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+		/* Assign the User key [32:0]bits of User fuse 3 */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPS_USER3_FUSES,
+			&PsInstancePtr->User3Fuses[0],
+			XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS);
+	}
+	if (PsInstancePtr->PrgrmUser4Fuse == TRUE) {
+		/* Validation of User 4 fuse */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPS_USER4_FUSES,
+				XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+		/* Assign the User key [32:0]bits of User fuse  4 */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPS_USER4_FUSES,
+			&PsInstancePtr->User4Fuses[0],
+			XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS);
+	}
+	if (PsInstancePtr->PrgrmUser5Fuse == TRUE) {
+		/* Validation of User 5 fuse */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPS_USER5_FUSES,
+				XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+		/* Assign the User key [32:0]bits of User fuse 5 */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPS_USER5_FUSES,
+			&PsInstancePtr->User5Fuses[0],
+			XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS);
+	}
+	if (PsInstancePtr->PrgrmUser6Fuse == TRUE) {
+		/* Validation of User 6 fuse */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPS_USER6_FUSES,
+				XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+		/* Assign the User key [32:0]bits of User fuse 6 */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPS_USER6_FUSES,
+			&PsInstancePtr->User6Fuses[0],
+			XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS);
+	}
+	if (PsInstancePtr->PrgrmUser7Fuse == TRUE) {
+		/* Validation of User 7 fuse */
+		PsStatus = XilSKey_Efuse_ValidateKey(
+				(char *)XSK_EFUSEPS_USER7_FUSES,
+				XSK_EFUSEPS_USER_FUSE_ROW_STRING_LEN);
+		if(PsStatus != XST_SUCCESS) {
+			goto ERROR;
+		}
+		/* Assign the User key [32:0]bits of User fuse 7 */
+		XilSKey_Efuse_ConvertStringToHexLE(
+			(char *)XSK_EFUSEPS_USER7_FUSES,
+			&PsInstancePtr->User7Fuses[0],
+			XSK_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS);
+	}
+
+	/* Is AES key programming is enabled */
 	if (PsInstancePtr->PrgrmAesKey == TRUE) {
 		/* Validation of AES Key */
 		PsStatus = XilSKey_Efuse_ValidateKey(
@@ -381,21 +486,6 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 		}
 	}
 
-	if (PsInstancePtr->PrgrmJtagUserCode == TRUE) {
-		/* Validation of JTAG user code */
-		PsStatus = XilSKey_Efuse_ValidateKey(
-				(char *)XSK_EFUSEPS_JTAG_USERCODE,
-				XSK_EFUSEPS_JTAG_USER_CODE_STRING_LEN);
-		if (PsStatus != XST_SUCCESS) {
-			goto ERROR;
-		}
-		/* Assign the JTAG user code */
-		XilSKey_Efuse_ConvertStringToHexLE(
-			(char *)XSK_EFUSEPS_JTAG_USERCODE,
-			&PsInstancePtr->JtagUserCode[0],
-			XSK_EFUSEPS_JTAG_USER_CODE_LEN_IN_BITS);
-	}
-
 	if (PsInstancePtr->PrgrmSpkID == TRUE) {
 		/* Validation of SPK ID */
 		PsStatus = XilSKey_Efuse_ValidateKey(
@@ -404,7 +494,7 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 		if (PsStatus != XST_SUCCESS) {
 			goto ERROR;
 		}
-		/* Assign the JTAG user code */
+		/* Assign SPK ID */
 		XilSKey_Efuse_ConvertStringToHexLE(
 			(char *)XSK_EFUSEPS_SPK_ID,
 			&PsInstancePtr->SpkId[0],

@@ -146,10 +146,6 @@
 *	TRUE will burn the AES key provided in XSK_EFUSEPS_AES_KEY.
 *	FALSE will ignore the key provide XSK_EFUSEPS_AES_KEY.
 *
-*	#define XSK_EFUSEPS_WRITE_USER_KEY		TRUE
-*	TRUE will burn User key provided in XSK_EFUSEPS_USER_KEY.
-*	FALSE will ignore the key provided in XSK_EFUSEPS_USER_KEY.
-*
 *	#define XSK_EFUSEPS_WRITE_PPK0_SHA3_HASH	TRUE
 *	TRUE will burn PPK0 sha3 hash provided in XSK_EFUSEPS_PPK0_SHA3_HASH.
 *	FALSE will ignore the hash provided in XSK_EFUSEPS_PPK0_SHA3_HASH.
@@ -162,10 +158,37 @@
 *	TRUE will burn SPKID provided in XSK_EFUSEPS_SPK_ID.
 *	FALSE will ignore the hash provided in XSK_EFUSEPS_SPK_ID.
 *
-*	#define XSK_EFUSEPS_WRITE_JTAG_USERCODE		TRUE
-*	TRUE will burn JTAG user code provided in XSK_EFUSEPS_JTAG_USERCODE.
-*	FALSE will ignore the JTAG user code provided in
-*	XSK_EFUSEPS_JTAG_USERCODE.
+*	#define XSK_EFUSEPS_WRITE_USER0_FUSE		TRUE
+*	TRUE will burn User0 Fuse provided in XSK_EFUSEPS_USER0_FUSES.
+*	FALSE will ignore the value provided in XSK_EFUSEPS_USER0_FUSES
+*
+*	#define XSK_EFUSEPS_WRITE_USER1_FUSE		TRUE
+*	TRUE will burn User1 Fuse provided in XSK_EFUSEPS_USER1_FUSES.
+*	FALSE will ignore the value provided in XSK_EFUSEPS_USER1_FUSES
+*
+*	#define XSK_EFUSEPS_WRITE_USER2_FUSE		TRUE
+*	TRUE will burn User2 Fuse provided in XSK_EFUSEPS_USER2_FUSES.
+*	FALSE will ignore the value provided in XSK_EFUSEPS_USER2_FUSES
+*
+*	#define XSK_EFUSEPS_WRITE_USER3_FUSE		TRUE
+*	TRUE will burn User3 Fuse provided in XSK_EFUSEPS_USER3_FUSES.
+*	FALSE will ignore the value provided in XSK_EFUSEPS_USER3_FUSES
+*
+*	#define XSK_EFUSEPS_WRITE_USER4_FUSE		TRUE
+*	TRUE will burn User4 Fuse provided in XSK_EFUSEPS_USER4_FUSES.
+*	FALSE will ignore the value provided in XSK_EFUSEPS_USER4_FUSES
+*
+*	#define XSK_EFUSEPS_WRITE_USER5_FUSE		TRUE
+*	TRUE will burn User5 Fuse provided in XSK_EFUSEPS_USER5_FUSES.
+*	FALSE will ignore the value provided in XSK_EFUSEPS_USER5_FUSES
+*
+*	#define XSK_EFUSEPS_WRITE_USER6_FUSE		TRUE
+*	TRUE will burn User6 Fuse provided in XSK_EFUSEPS_USER6_FUSES.
+*	FALSE will ignore the value provided in XSK_EFUSEPS_USER6_FUSES
+*
+*	#define XSK_EFUSEPS_WRITE_USER7_FUSE		TRUE
+*	TRUE will burn User7 Fuse provided in XSK_EFUSEPS_USER7_FUSES.
+*	FALSE will ignore the value provided in XSK_EFUSEPS_USER7_FUSES
 *
 *	#define		XSK_EFUSEPS_AES_KEY
 *	"0000000000000000000000000000000000000000000000000000000000000000"
@@ -175,16 +198,6 @@
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
 *	string and will not burn AES Key.
 *	Note that,for writing the AES Key, XSK_EFUSEPS_WRITE_AES_KEY should
-*	have TRUE value.
-*
-*	#define		XSK_EFUSEPS_USER_KEY
-*	"0000000000000000000000000000000000000000000000000000000000000000"
-*	The value mentioned in this will be converted to hex buffer and written
-*	into the ZynqMP Ps eFUSE array when write API used. This value should
-*	be given in string format. It should be 64 characters long, valid
-*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
-*	string and will not burn User Key.
-*	Note that,for writing the User Key, XSK_EFUSEPS_WRITE_USER_KEY should
 *	have TRUE value.
 *
 *	#define XSK_EFUSEPS_PPK0_IS_SHA3	TRUE
@@ -240,22 +253,96 @@
 *	Note that,for writing the SPK ID, XSK_EFUSEPS_WRITE_SPKID
 *	should have TRUE value.
 *
-*	#define		XSK_EFUSEPS_JTAG_USERCODE	"00000000"
+*	#define		XSK_EFUSEPS_USER0_FUSES		"00000000"
 *	The value mentioned in this will be converted to hex buffer and written
 *	into the ZynqMP Ps eFUSE array when write API used. This value should
 *	be given in string format. It should be 8 characters long, valid
 *	characters are 0-9,a-f,A-F. Any other character is considered as invalid
-*	string and will not burn JTAG user code.
-*	Note that,for writing the JTAG user code, XSK_EFUSEPS_WRITE_JTAG_USERCODE
+*	string and will not burn User Fuse.
+*	Note that,for writing the User0 Fuse, XSK_EFUSEPS_WRITE_USER0_FUSE
+*	should have TRUE value.
+*
+*	#define		XSK_EFUSEPS_USER1_FUSES		"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the ZynqMP Ps eFUSE array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Fuse.
+*	Note that,for writing the User1 Fuse, XSK_EFUSEPS_WRITE_USER1_FUSE
+*	should have TRUE value.
+*
+*	#define		XSK_EFUSEPS_USER2_FUSES		"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the ZynqMP Ps eFUSE array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Fuse.
+*	Note that,for writing the User2 Fuse, XSK_EFUSEPS_WRITE_USER2_FUSE
+*	should have TRUE value.
+*
+*	#define		XSK_EFUSEPS_USER3_FUSES		"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the ZynqMP Ps eFUSE array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Fuse.
+*	Note that,for writing the User3 Fuse, XSK_EFUSEPS_WRITE_USER3_FUSE
+*	should have TRUE value.
+*
+*	#define		XSK_EFUSEPS_USER4_FUSES		"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the ZynqMP Ps eFUSE array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Fuse.
+*	Note that,for writing the User4 Fuse, XSK_EFUSEPS_WRITE_USER4_FUSE
+*	should have TRUE value.
+*
+*	#define		XSK_EFUSEPS_USER5_FUSES		"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the ZynqMP Ps eFUSE array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Fuse.
+*	Note that,for writing the User5 Fuse, XSK_EFUSEPS_WRITE_USER5_FUSE
+*	should have TRUE value.
+*
+*	#define		XSK_EFUSEPS_USER6_FUSES		"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the ZynqMP Ps eFUSE array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Fuse.
+*	Note that,for writing the User6 Fuse, XSK_EFUSEPS_WRITE_USER6_FUSE
+*	should have TRUE value.
+*
+*	#define		XSK_EFUSEPS_USER7_FUSES		"00000000"
+*	The value mentioned in this will be converted to hex buffer and written
+*	into the ZynqMP Ps eFUSE array when write API used. This value should
+*	be given in string format. It should be 8 characters long, valid
+*	characters are 0-9,a-f,A-F. Any other character is considered as invalid
+*	string and will not burn User Fuse.
+*	Note that,for writing the User7 Fuse, XSK_EFUSEPS_WRITE_USER7_FUSE
 *	should have TRUE value.
 *
 *	NOTE: PPK hash should be unmodified hash generated by bootgen.
+*	Single bit programming is allowed for User FUSEs (0 to 7), if the user
+*	specifies a value that tries to set a bit that was previously programmed
+*	to 1 back to 0, throws an error. User has to provide already programmed
+*	bits also along with new requests.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 4.0   vns     10/01/15 First release
+* 6.0   vns     07/18/16 Removed JTAG user code programming and reading
+*                        feature. Modified User FUSE programming, such that
+*                        library accepts separate requests for programming
+*                        and reading USER FUSES(0 to 7). Provided single bit
+*                        programming feature for USER FUSEs.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -313,32 +400,46 @@ extern "C" {
 #define XSK_EFUSEPS_USER_WRLK_7			FALSE
 
 /**
- * Following is the define to select if the user wants to select AES,
- * User keys, PPK0 Sha3 hash, PPK1 Sha3 hash, SPKID and JTAG user code
- * for Zynq MP
+ * Following is the define to select if the user wants to select AES key,
+ * User Fuses, PPK0 Sha3 hash, PPK1 Sha3 hash and SPKID for Zynq MP
  */
 /* For writing into eFuse */
 #define XSK_EFUSEPS_WRITE_AES_KEY		FALSE
-#define XSK_EFUSEPS_WRITE_USER_KEY		FALSE
 #define XSK_EFUSEPS_WRITE_PPK0_HASH	FALSE
 #define XSK_EFUSEPS_WRITE_PPK1_HASH	FALSE
 #define XSK_EFUSEPS_WRITE_SPKID			FALSE
-#define XSK_EFUSEPS_WRITE_JTAG_USERCODE		FALSE
+
+#define XSK_EFUSEPS_WRITE_USER0_FUSE		FALSE
+#define XSK_EFUSEPS_WRITE_USER1_FUSE		FALSE
+#define XSK_EFUSEPS_WRITE_USER2_FUSE		FALSE
+#define XSK_EFUSEPS_WRITE_USER3_FUSE		FALSE
+#define XSK_EFUSEPS_WRITE_USER4_FUSE		FALSE
+#define XSK_EFUSEPS_WRITE_USER5_FUSE		FALSE
+#define XSK_EFUSEPS_WRITE_USER6_FUSE		FALSE
+#define XSK_EFUSEPS_WRITE_USER7_FUSE		FALSE
 
 /**
  * Following defines should be given in the form of hex string.
- * The length of AES_KEY string must me 64 and for USER_KEY must be 64.
+ * The length of AES_KEY string must be 64, PPK hash should be 96/64 based on
+ * SHA3/SHA2 selction and and for USER_FUSES, SPK ID  must be 32.
  */
 #define XSK_EFUSEPS_AES_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
-#define XSK_EFUSEPS_USER_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
 
 #define XSK_EFUSEPS_PPK0_IS_SHA3	TRUE
-#define XSK_EFUSEPS_PPK0_HASH	"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+#define XSK_EFUSEPS_PPK0_HASH	"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 
 #define XSK_EFUSEPS_PPK1_IS_SHA3	FALSE
 #define XSK_EFUSEPS_PPK1_HASH	"0000000000000000000000000000000000000000000000000000000000000000"
 #define XSK_EFUSEPS_SPK_ID		"00000000"
-#define XSK_EFUSEPS_JTAG_USERCODE	"00000000"
+
+#define XSK_EFUSEPS_USER0_FUSES		"00000000"
+#define XSK_EFUSEPS_USER1_FUSES		"00000000"
+#define XSK_EFUSEPS_USER2_FUSES		"00000000"
+#define XSK_EFUSEPS_USER3_FUSES		"00000000"
+#define XSK_EFUSEPS_USER4_FUSES		"00000000"
+#define XSK_EFUSEPS_USER5_FUSES		"00000000"
+#define XSK_EFUSEPS_USER6_FUSES		"00000000"
+#define XSK_EFUSEPS_USER7_FUSES		"00000000"
 
 #ifdef __cplusplus
 }
