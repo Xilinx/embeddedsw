@@ -419,8 +419,6 @@ u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
 	BdVirtAddr = VirtAddr;
 	BdPhysAddr = PhysAddr + RingPtr->Separation;
 	for (i = 1; i < BdCount; i++) {
-		XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_ADDRLEN_OFFSET,
-				RingPtr->Addr_ext);
 		XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_OFFSET,
 				(BdPhysAddr & XAXIDMA_DESC_LSB_MASK));
 		XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_MSB_OFFSET,
@@ -441,8 +439,6 @@ u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
 	}
 
 	/* At the end of the ring, link the last BD back to the top */
-	XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_ADDRLEN_OFFSET,
-			RingPtr->Addr_ext);
 	XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_OFFSET,
 			(PhysAddr & XAXIDMA_DESC_LSB_MASK));
 	XAxiDma_BdWrite(BdVirtAddr, XAXIDMA_BD_NDESC_MSB_OFFSET,

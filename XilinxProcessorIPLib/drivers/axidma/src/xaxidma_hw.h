@@ -224,7 +224,6 @@ extern "C" {
 #define XAXIDMA_BD_ID_OFFSET		0x34  /**< Sw ID */
 #define XAXIDMA_BD_HAS_STSCNTRL_OFFSET	0x38  /**< Whether has stscntrl strm */
 #define XAXIDMA_BD_HAS_DRE_OFFSET	0x3C  /**< Whether has DRE */
-#define XAXIDMA_BD_ADDRLEN_OFFSET	0x40  /**< Check for BD Addr */
 
 #define XAXIDMA_BD_HAS_DRE_MASK		0xF00 /**< Whether has DRE mask */
 #define XAXIDMA_BD_WORDLEN_MASK		0xFF  /**< Whether has DRE mask */
@@ -236,7 +235,7 @@ extern "C" {
 #define XAXIDMA_BD_BYTES_TO_CLEAR	48  /**< BD specific bytes to be
 					      *  cleared */
 
-#define XAXIDMA_BD_NUM_WORDS		20U  /**< Total number of words for
+#define XAXIDMA_BD_NUM_WORDS		16U  /**< Total number of words for
 					       * one BD*/
 #define XAXIDMA_BD_HW_NUM_BYTES		52  /**< Number of bytes hw used */
 

@@ -455,6 +455,7 @@
 * 9.0   adk  19/08/15  Fixed CR#873125 DMA SG Mode example tests are failing on
 *		       HW in 2015.3.
 * 9.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+* 9.3   adk  26/07/16 Reduce the size of the buffer descriptor to 64 bytes.
 *
 * </pre>
 *

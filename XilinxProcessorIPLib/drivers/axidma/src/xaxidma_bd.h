@@ -133,7 +133,7 @@ extern "C" {
  * The XAxiDma_Bd is the type for a buffer descriptor (BD).
  */
 
-typedef UINTPTR XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
+typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -189,6 +189,25 @@ typedef UINTPTR XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
 ******************************************************************************/
 #define XAxiDma_BdWrite(BaseAddress, Offset, Data)			\
 	(*(u32 *)((UINTPTR)(void *)(BaseAddress) + (u32)(Offset))) = (u32)(Data)
+
+/*****************************************************************************/
+/**
+*
+* Write the given Buffer Descriptor word.
+*
+* @param	BaseAddress is the base address of the BD to write
+* @param	Offset is the word offset to be written
+* @param	Data is the 64-bit value to write to the field
+*
+* @return	None.
+*
+* @note
+* 		C-style signature:
+*		void XAxiDma_BdWrite(u64 BaseAddress, u32 RegOffset, u64 Data)
+*
+******************************************************************************/
+#define XAxiDma_BdWrite64(BaseAddress, Offset, Data)			\
+	(*(u64 *)((UINTPTR)(void *)(BaseAddress) + (u32)(Offset))) = (u64)(Data)
 
 /*****************************************************************************/
 /**
