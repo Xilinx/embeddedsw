@@ -815,7 +815,7 @@ proc handle_profile_opbtimer { config_file timer_inst } {
     }
     #set mhs_handle [xget_handle $timer_handle "parent"]
     # CR 302300 - There can be multiple "sink" for the interrupt. So need to iterate through the list
-    set intr_port_list [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $timer_intr] INTERRUPT]]
+    set intr_port_list [::hsi::utils::get_sink_pins [hsi::get_pins -of_objects [hsi::get_cells -hier $timer_handle] INTERRUPT]]
     set timer_connection 0
     foreach intr_port $intr_port_list {
 	set intc_handle [hsi::get_cells -of_object $intr_port]
