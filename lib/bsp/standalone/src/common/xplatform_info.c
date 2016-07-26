@@ -51,6 +51,7 @@
 /***************************** Include Files *********************************/
 
 #include "xil_types.h"
+#include "xil_io.h"
 #include "xplatform_info.h"
 
 /************************** Constant Definitions *****************************/
