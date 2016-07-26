@@ -52,7 +52,13 @@
 *                        Modified XilSKey_ZynqMp_EfusePs_ReadUserKey function
 *                        to XilSKey_ZynqMp_EfusePs_ReadUserFuse.
 *                        Provided single bit programming facility for User
-*                        FUSES
+*                        FUSES. Modified RSA authentication bit set macro
+*                        BOTH_BITS_SET to XSK_ZYNQMP_SEC_RSA_15BITS_SET and
+*                        XSK_ZYNQMP_SEC_RSA_3BITS_SET, from silicon version
+*                        3.0 RSA authentication is possible only if all 15
+*                        bits of RSA authentication bits are set, for 1.0 and
+*                        2.0 versions only 2 bits are needed, for PPK0 REVOKE
+*                        check added new macro XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET
 * </pre>
 *
 ******************************************************************************/
@@ -526,6 +532,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 {
 	u32 PsStatus;
 	XilSKey_SecCtrlBits ReadSecCtrlBits;
+	u32 Silicon_ver = XGetPSVersion_Info();
 
 	PsStatus = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(&ReadSecCtrlBits,
 								XSK_EFUSEPS_RD_FROM_CACHE);
@@ -605,7 +612,10 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 	else {
 		xil_printf("Reboot from JTAG mode is enabled\n\r");
 	}
-	if (ReadSecCtrlBits.RSAEnable == BOTH_BITS_SET) {
+	if (((Silicon_ver > XPS_VERSION_2) &&
+	 (ReadSecCtrlBits.RSAEnable == XSK_ZYNQMP_SEC_RSA_15BITS_SET)) ||
+		((Silicon_ver <= XPS_VERSION_2) &&
+	 (ReadSecCtrlBits.RSAEnable == XSK_ZYNQMP_SEC_RSA_2BITS_SET))) {
 		xil_printf("RSA authentication is enabled\n\r");
 	}
 	else {
@@ -618,7 +628,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 		xil_printf("writing to PPK0 efuse is not locked\n\r");
 	}
 
-	if (ReadSecCtrlBits.PPK0Revoke == BOTH_BITS_SET) {
+	if (ReadSecCtrlBits.PPK0Revoke == XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET) {
 		xil_printf("Revoking PPK0 is enabled \n\r");
 	}
 	else {
@@ -632,7 +642,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 		xil_printf("writing to PPK1 efuses is not locked\n\r");
 	}
 
-	if (ReadSecCtrlBits.PPK1Revoke == BOTH_BITS_SET) {
+	if (ReadSecCtrlBits.PPK1Revoke == XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET) {
 		xil_printf("Revoking PPK1 is enabled \n\r");
 	}
 	else {
