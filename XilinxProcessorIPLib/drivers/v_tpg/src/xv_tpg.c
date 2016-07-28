@@ -7,22 +7,18 @@
 
 /***************************** Include Files *********************************/
 #include "xv_tpg.h"
-#include "string.h"
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
 int XV_tpg_CfgInitialize(XV_tpg *InstancePtr,
                          XV_tpg_Config *ConfigPtr,
-                         u32 EffectiveAddr) {
+                         UINTPTR EffectiveAddr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
-    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+    Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)0x0);
 
     /* Setup the instance */
-    (void)memset((void *)InstancePtr, 0, sizeof(XV_tpg));
-    (void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
-                    sizeof(XV_tpg_Config));
-
+    InstancePtr->Config = *ConfigPtr;
     InstancePtr->Config.BaseAddress = EffectiveAddr;
 
     /* Set the flag to indicate the driver is ready */
@@ -458,6 +454,40 @@ u32 XV_tpg_Get_passthruEndY(XV_tpg *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
     Data = XV_tpg_ReadReg(InstancePtr->Config.BaseAddress, XV_TPG_CTRL_ADDR_PASSTHRUENDY_DATA);
+    return Data;
+}
+
+void XV_tpg_Set_dpDynamicRange(XV_tpg *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_tpg_WriteReg(InstancePtr->Config.BaseAddress, XV_TPG_CTRL_ADDR_DPDYNAMICRANGE_DATA, Data);
+}
+
+u32 XV_tpg_Get_dpDynamicRange(XV_tpg *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_tpg_ReadReg(InstancePtr->Config.BaseAddress, XV_TPG_CTRL_ADDR_DPDYNAMICRANGE_DATA);
+    return Data;
+}
+
+void XV_tpg_Set_dpYUVCoef(XV_tpg *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_tpg_WriteReg(InstancePtr->Config.BaseAddress, XV_TPG_CTRL_ADDR_DPYUVCOEF_DATA, Data);
+}
+
+u32 XV_tpg_Get_dpYUVCoef(XV_tpg *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_tpg_ReadReg(InstancePtr->Config.BaseAddress, XV_TPG_CTRL_ADDR_DPYUVCOEF_DATA);
     return Data;
 }
 

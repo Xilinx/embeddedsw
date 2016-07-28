@@ -5,6 +5,13 @@
 //
 // ==============================================================
 
+#ifndef XV_TPG_HW_H_  /* prevent circular inclusions */
+#define XV_TPG_HW_H_  /* by using protection macros  */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // CTRL
 // 0x00 : Control signals
 //        bit 0  - ap_start (Read/Write/COH)
@@ -112,6 +119,14 @@
 //        bit 15~0 - passthruEndY[15:0] (Read/Write)
 //        others   - reserved
 // 0xbc : reserved
+// 0xc0 : Data signal of dpDynamicRange
+//        bit 7~0 - dpDynamicRange[7:0] (Read/Write)
+//        others  - reserved
+// 0xc4 : reserved
+// 0xc8 : Data signal of dpYUVCoef
+//        bit 7~0 - dpYUVCoef[7:0] (Read/Write)
+//        others  - reserved
+// 0xcc : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_TPG_CTRL_ADDR_AP_CTRL                 0x00
@@ -162,3 +177,13 @@
 #define XV_TPG_CTRL_BITS_PASSTHRUENDX_DATA       16
 #define XV_TPG_CTRL_ADDR_PASSTHRUENDY_DATA       0xb8
 #define XV_TPG_CTRL_BITS_PASSTHRUENDY_DATA       16
+#define XV_TPG_CTRL_ADDR_DPDYNAMICRANGE_DATA     0xc0
+#define XV_TPG_CTRL_BITS_DPDYNAMICRANGE_DATA     8
+#define XV_TPG_CTRL_ADDR_DPYUVCOEF_DATA          0xc8
+#define XV_TPG_CTRL_BITS_DPYUVCOEF_DATA          8
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

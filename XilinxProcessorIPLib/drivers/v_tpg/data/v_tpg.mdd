@@ -38,6 +38,6 @@ BEGIN driver v_tpg
  OPTION DEPENDS = (video_common_v3_1);
  OPTION copyfiles = all;
  OPTION name = v_tpg;
- OPTION version = 7.0;
+ OPTION version = 8.0;
 
 END driver

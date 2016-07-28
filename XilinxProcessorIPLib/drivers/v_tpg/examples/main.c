@@ -174,20 +174,21 @@ int videoClockConfig(XVidC_VideoMode videoMode)
 	u16 PixelsPerClk, mode_index;
 
     const int ClkOut_Frac[3][XVIDC_PPC_NUM_SUPPORTED] =
-    { {250, 500, 0  }, //1080p
-      {125, 250, 500}, //4K30
-      {0,   125, 250}  //4K60
+    { {250, 500, 0  , 0}, //1080p
+      {125, 250, 500, 0}, //4K30
+      {0,   125, 250, 500}  //4K60
     };
     const int ClkOut_Div[3][XVIDC_PPC_NUM_SUPPORTED] =
-    { {6, 12, 25}, //1080p
-      {3, 6 , 12}, //4K30
-      {0, 3 , 6 }  //4K60
+    { {6, 12, 25, 50}, //1080p
+      {3, 6 , 12, 25}, //4K30
+      {0, 3 , 6 , 12}  //4K60
     };
 
     /* Validate TPG Parameters */
     Xil_AssertNonvoid((tpg1.Config.PixPerClk == XVIDC_PPC_1) ||
                       (tpg1.Config.PixPerClk == XVIDC_PPC_2) ||
-                      (tpg1.Config.PixPerClk == XVIDC_PPC_4));
+					  (tpg1.Config.PixPerClk == XVIDC_PPC_4) ||
+                      (tpg1.Config.PixPerClk == XVIDC_PPC_8));
 
 
     mode_index = ((videoMode ==  XVIDC_VM_1080_60_P) ? 0 :
@@ -201,7 +202,7 @@ int videoClockConfig(XVidC_VideoMode videoMode)
     }
 
     //map PPC to array index
-    PixelsPerClk = (tpg1.Config.PixPerClk>>1);
+    PixelsPerClk = ((tpg1.Config.PixPerClk == XVIDC_PPC_8)? 3 : tpg1.Config.PixPerClk>>1);
     CLKOUT0_FRAC   =  ClkOut_Frac[mode_index][PixelsPerClk];
     CLKOUT0_DIVIDE =  ClkOut_Div[mode_index][PixelsPerClk];
 
@@ -211,7 +212,7 @@ int videoClockConfig(XVidC_VideoMode videoMode)
 	VideoClockGen_WriteReg(0x200, clock_config_reg_0);
 	VideoClockGen_WriteReg(0x208, clock_config_reg_2);
 
-	MB_Sleep(300);
+	usleep(300000);
 
 	lock = VideoClockGen_ReadReg(0x4) & 0x1;
 	if(!lock) //check for lock
@@ -241,11 +242,11 @@ void resetIp(void)
 {
 	*gpio_hlsIpReset = 0; //reset IPs
 
-	MB_Sleep(300);
+	usleep(300000);
 
 	*gpio_hlsIpReset = 1; // release reset
 
-	MB_Sleep(300);
+	usleep(300000);
 
 }
 
@@ -280,7 +281,7 @@ int main()
 	}
 	videoIpConfig(TestMode);
 
-	MB_Sleep(300);
+	usleep(300000);
 
 	if(!(*gpio_videoLockMonitor)) {
 		print("ERR:: Video Lock failed for 1080P60\r\n");
@@ -300,7 +301,7 @@ int main()
 	}
 	videoIpConfig(TestMode);
 
-	MB_Sleep(300);
+	usleep(300000);
 
 	if(!(*gpio_videoLockMonitor)) {
 		print("ERR:: Video Lock failed for 4KP30\r\n");
@@ -311,11 +312,12 @@ int main()
 	}
 
     /* Run 4k60 Test if supported by HW
-     * Check if TPG is configured for 2/4 Pixels/Clock
+     * Check if TPG is configured for 2/4/8 Pixels/Clock
      * Required to support 4K60
      */
     if((tpg1.Config.PixPerClk == XVIDC_PPC_2) ||
-       (tpg1.Config.PixPerClk == XVIDC_PPC_4)) {
+       (tpg1.Config.PixPerClk == XVIDC_PPC_4) ||
+       (tpg1.Config.PixPerClk == XVIDC_PPC_8)) {
 
       resetIp();
 
@@ -327,7 +329,7 @@ int main()
 	  }
 	  videoIpConfig(TestMode);
 
-	  MB_Sleep(300);
+	  usleep(300000);
 
 	  if(!(*gpio_videoLockMonitor)) {
 		print("ERR:: Video Lock failed for 4KP60\r\n");

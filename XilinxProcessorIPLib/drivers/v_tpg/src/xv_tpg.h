@@ -60,6 +60,9 @@ typedef enum
   XTPG_BKGND_HV_RAMP,
   XTPG_BKGND_CHECKER_BOARD,
   XTPG_BKGND_PBRS,
+  XTPG_BKGND_DP_COLOR_RAMP,
+  XTPG_BKGND_DP_BW_VERTICAL_LINE,
+  XTPG_BKGND_DP_COLOR_SQUARE,
   XTPG_BKGND_LAST
 }XTpg_PatternId;
 
@@ -69,13 +72,20 @@ typedef enum
 */
 typedef struct {
     u16 DeviceId;          /**< Unique ID  of device */
-    u32 BaseAddress;       /**< The base address of the core instance. */
+    UINTPTR BaseAddress;   /**< The base address of the core instance. */
     u16 HasAxi4sSlave;     /**< Axi4s Slave capability indicator */
     u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
     u16 NumVidComponents;  /**< Number of Video Components */
     u16 MaxWidth;          /**< Maximum columns supported by core instance */
     u16 MaxHeight;         /**< Maximum rows supported by core instance */
     u16 MaxDataWidth;      /**< Maximum Data width of each channel */
+	u16 SolidColorEnable;  /**< Axi4s Slave capability indicator */
+	u16 RampEnable;        /**< Axi4s Slave capability indicator */
+	u16 ColorBarEnable;    /**< Axi4s Slave capability indicator */
+	u16 DisplayPortEnable; /**< Axi4s Slave capability indicator */
+	u16 ColorSweepEnable;  /**< Axi4s Slave capability indicator */
+	u16 ZoneplateEnable;   /**< Axi4s Slave capability indicator */
+	u16 ForegroundEnable;  /**< Axi4s Slave capability indicator */
 } XV_tpg_Config;
 #endif
 
@@ -114,7 +124,7 @@ int XV_tpg_Initialize(XV_tpg *InstancePtr, u16 DeviceId);
 XV_tpg_Config* XV_tpg_LookupConfig(u16 DeviceId);
 int XV_tpg_CfgInitialize(XV_tpg *InstancePtr,
                          XV_tpg_Config *ConfigPtr,
-                         u32 EffectiveAddr);
+                         UINTPTR EffectiveAddr);
 #else
 int XV_tpg_Initialize(XV_tpg *InstancePtr, const char* InstanceName);
 int XV_tpg_Release(XV_tpg *InstancePtr);
@@ -171,6 +181,10 @@ void XV_tpg_Set_passthruEndX(XV_tpg *InstancePtr, u32 Data);
 u32 XV_tpg_Get_passthruEndX(XV_tpg *InstancePtr);
 void XV_tpg_Set_passthruEndY(XV_tpg *InstancePtr, u32 Data);
 u32 XV_tpg_Get_passthruEndY(XV_tpg *InstancePtr);
+void XV_tpg_Set_dpDynamicRange(XV_tpg *InstancePtr, u32 Data);
+u32 XV_tpg_Get_dpDynamicRange(XV_tpg *InstancePtr);
+void XV_tpg_Set_dpYUVCoef(XV_tpg *InstancePtr, u32 Data);
+u32 XV_tpg_Get_dpYUVCoef(XV_tpg *InstancePtr);
 
 void XV_tpg_InterruptGlobalEnable(XV_tpg *InstancePtr);
 void XV_tpg_InterruptGlobalDisable(XV_tpg *InstancePtr);

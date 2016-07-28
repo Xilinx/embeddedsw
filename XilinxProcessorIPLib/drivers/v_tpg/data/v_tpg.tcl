@@ -40,7 +40,14 @@ proc generate {drv_handle} {
         "NUM_VIDEO_COMPONENTS" \
         "MAX_COLS" \
         "MAX_ROWS" \
-        "MAX_DATA_WIDTH"
+        "MAX_DATA_WIDTH" \
+        "SOLID_COLOR" \
+        "RAMP" \
+        "COLOR_BAR" \
+        "DISPLAY_PORT" \
+        "COLOR_SWEEP" \
+        "ZONE_PLATE" \
+        "FOREGROUND"
 
     xdefine_config_file $drv_handle "xv_tpg_g.c" "XV_tpg" \
         "DEVICE_ID" \
@@ -50,7 +57,14 @@ proc generate {drv_handle} {
         "NUM_VIDEO_COMPONENTS" \
         "MAX_COLS" \
         "MAX_ROWS" \
-        "MAX_DATA_WIDTH"
+        "MAX_DATA_WIDTH" \
+        "SOLID_COLOR" \
+        "RAMP" \
+        "COLOR_BAR" \
+        "DISPLAY_PORT" \
+        "COLOR_SWEEP" \
+        "ZONE_PLATE" \
+        "FOREGROUND"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_tpg" \
         "DEVICE_ID" \
@@ -61,5 +75,12 @@ proc generate {drv_handle} {
         "NUM_VIDEO_COMPONENTS" \
         "MAX_COLS" \
         "MAX_ROWS" \
-        "MAX_DATA_WIDTH"
+        "MAX_DATA_WIDTH" \
+        "SOLID_COLOR" \
+        "RAMP" \
+        "COLOR_BAR" \
+        "DISPLAY_PORT" \
+        "COLOR_SWEEP" \
+        "ZONE_PLATE" \
+        "FOREGROUND"
 }
