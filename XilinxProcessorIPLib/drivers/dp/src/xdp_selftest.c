@@ -48,6 +48,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
+ * 5.0   als  07/27/16 8B10B enable is now set by default in PHY_CONFIG reg.
  * </pre>
  *
 *******************************************************************************/
@@ -97,7 +98,7 @@ u32 TxResetValues[53][2] =
 	{XDP_TX_STREAM2, 0},
 	{XDP_TX_STREAM3, 0},
 	{XDP_TX_STREAM4, 0},
-	{XDP_TX_PHY_CONFIG, 0x03},
+	{XDP_TX_PHY_CONFIG, 0x200003},
 	{XDP_TX_PHY_VOLTAGE_DIFF_LANE_0, 0},
 	{XDP_TX_PHY_VOLTAGE_DIFF_LANE_1, 0},
 	{XDP_TX_PHY_VOLTAGE_DIFF_LANE_2, 0},
