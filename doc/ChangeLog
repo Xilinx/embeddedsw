@@ -13,6 +13,9 @@ is not included. This fixes the CR#953056.
 cpu_cortexa53_v1_2:
 Added new parameter for A53 execution mode
 
+dptx_v3_0:
+Obsoleted in lieu of the dp driver.
+
 iicps_v3_3:
 Modified code for MISRA-C:2012 Compliance
 
