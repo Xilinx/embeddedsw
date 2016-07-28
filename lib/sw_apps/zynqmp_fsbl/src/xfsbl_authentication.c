@@ -212,59 +212,13 @@ u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 	{
 #ifdef XFSBL_BS
-		/**
-		 * bitstream partion in DDR less system, Chunk by chunk copy
-		 * into OCM and update SHA module
-		 */
-		u32 NumChunks = 0U;
-		u32 RemainingBytes = 0U;
-		u32 Index = 0U;
-		u32 StartAddrByte = PartitionOffset;
-
-		NumChunks = HashDataLen / READ_BUFFER_SIZE;
-		RemainingBytes = (HashDataLen % READ_BUFFER_SIZE);
-
-		XFsbl_Printf(DEBUG_INFO,
-			"XFsbl_PartitionVer: NumChunks :%0d, RemainingBytes : %0d \r\n",
-			NumChunks, RemainingBytes);
-
-		for(Index = 0; Index < NumChunks; Index++)
+		if(XFSBL_SUCCESS != XFsbl_ShaUpdate_DdrLess(FsblInstancePtr,
+		 ShaCtx, PartitionOffset, HashDataLen, HashLen, PartitionHash))
 		{
-			if(XFSBL_SUCCESS !=FsblInstancePtr->DeviceOps.DeviceCopy(
-					StartAddrByte, (PTRSIZE)ReadBuffer,
-					READ_BUFFER_SIZE))
-			{
-				XFsbl_Printf(DEBUG_GENERAL,
-					"XFsblPartitionVer: Device "
-					"to OCM copy of partition failed \r\n");
-				XFsbl_Printf(DEBUG_GENERAL,
-				"XFsbl_PartitionVer: XFSBL_ERROR_PART_RSA_DECRYPT\r\n");
-				Status = XFSBL_ERROR_PART_RSA_DECRYPT;
-				goto END;
-			}
-
-			XFsbl_ShaUpdate(ShaCtx, (u8 *)ReadBuffer,
-						READ_BUFFER_SIZE, HashLen);
-
-			StartAddrByte += READ_BUFFER_SIZE;
-		}
-
-		/* Send the residual bytes if Size is not buffer size multiple */
-		if(RemainingBytes != 0)
-		{
-			if(XFSBL_SUCCESS!=FsblInstancePtr->DeviceOps.DeviceCopy(
-						StartAddrByte, (PTRSIZE)ReadBuffer,
-						RemainingBytes))
-			{
-				XFsbl_Printf(DEBUG_GENERAL,
-				"XFsbl_PartitionVer: XFSBL_ERROR_PART_RSA_DECRYPT\r\n");
-
-				Status = XFSBL_ERROR_PART_RSA_DECRYPT;
-				goto END;
-			}
-
-			XFsbl_ShaUpdate(ShaCtx, (u8 *)ReadBuffer,
-						RemainingBytes, HashLen);
+			XFsbl_Printf(DEBUG_GENERAL,
+			"XFsbl_PartitionVer: XFSBL_ERROR_PART_RSA_DECRYPT\r\n");
+			Status = XFSBL_ERROR_PART_RSA_DECRYPT;
+			goto END;
 		}
 
 #endif
@@ -380,5 +334,86 @@ u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 END:
         return Status;
 }
+#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_BS
+/*****************************************************************************/
+/**
+ *
+ * @param      FsblInstancePtr - FSBL Instance Pointer
+ * @param      Ctx - SHA Ctx Pointer
+ * @param      PartitionOffset - Start Offset
+ * @param      PatitionLen - Data Len for SHA calculation
+ * @param      HashLen - SHA3/SHA2
+ * @param      ParitionHash - Pointer to store hash
+ *
+ * @return     XFSBL_SUCCESS - In case of Success
+ *             XFSBL_FAILURE - In case of Failure
+ *
+ ******************************************************************************/
+u32 XFsbl_ShaUpdate_DdrLess(XFsblPs *FsblInstancePtr, void *Ctx,
+		u64 PartitionOffset, u32 PartitionLen,
+		u32 HashLen, u8 *PartitionHash)
+{
+	u32 Status = XFSBL_SUCCESS;
+	/**
+	 * bitstream partion in DDR less system, Chunk by chunk copy
+	 * into OCM and update SHA module
+	 */
+	u32 NumChunks = 0U;
+	u32 RemainingBytes = 0U;
+	u32 Index = 0U;
+	u32 StartAddrByte = PartitionOffset;
 
+	NumChunks = PartitionLen / READ_BUFFER_SIZE;
+	RemainingBytes = (PartitionLen % READ_BUFFER_SIZE);
+
+			/* Start the SHA engine */
+		(void)XFsbl_ShaStart(Ctx, HashLen);
+
+		XFsbl_Printf(DEBUG_INFO,
+			"XFsbl_PartitionVer: NumChunks :%0d, RemainingBytes : %0d \r\n",
+			NumChunks, RemainingBytes);
+
+		for(Index = 0; Index < NumChunks; Index++)
+		{
+			if(XFSBL_SUCCESS !=FsblInstancePtr->DeviceOps.DeviceCopy(
+					StartAddrByte, (PTRSIZE)ReadBuffer,
+					READ_BUFFER_SIZE))
+			{
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFsblPartitionVer: Device "
+					"to OCM copy of partition failed \r\n");
+				Status = XFSBL_FAILURE;
+				goto END;
+			}
+
+			XFsbl_ShaUpdate(Ctx, (u8 *)ReadBuffer,
+						READ_BUFFER_SIZE, HashLen);
+
+			StartAddrByte += READ_BUFFER_SIZE;
+		}
+
+		/* Send the residual bytes if Size is not buffer size multiple */
+		if(RemainingBytes != 0)
+		{
+			if(XFSBL_SUCCESS!=FsblInstancePtr->DeviceOps.DeviceCopy(
+						StartAddrByte, (PTRSIZE)ReadBuffer,
+						RemainingBytes))
+			{
+				XFsbl_Printf(DEBUG_GENERAL,
+					"XFsblPartitionVer: Device "
+					"to OCM copy of partition failed (last chunk)\r\n");
+				Status = XFSBL_FAILURE;
+				goto END;
+			}
+
+			XFsbl_ShaUpdate(Ctx, (u8 *)ReadBuffer,
+						RemainingBytes, HashLen);
+		}
+END:
+		return Status;
+
+}
+#endif
+#endif
 #endif /* end of XFSBL_RSA */

@@ -198,6 +198,8 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId);
  */
 u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 u32 XFsbl_PowerUpMemory(u32 MemoryType);
+u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr, u32 PartitionNum);
+u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr,u32 PartitionNum, u32 ChecksumType);
 
 /**
  * Functions defined in xfsbl_handoff.c

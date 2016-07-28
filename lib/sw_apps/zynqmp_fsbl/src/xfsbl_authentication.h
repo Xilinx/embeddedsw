@@ -145,6 +145,14 @@ void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen);
 #endif
 
+
+#ifndef XFSBL_PS_DDR
+#ifdef XFSBL_BS
+u32 XFsbl_ShaUpdate_DdrLess(XFsblPs *FsblInstancePtr, void *Ctx,
+		u64 PartitionOffset, u32 PartitionLen,
+		u32 HashLen, u8 *PartitionHash);
+#endif
+#endif
 extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 #ifdef __cplusplus

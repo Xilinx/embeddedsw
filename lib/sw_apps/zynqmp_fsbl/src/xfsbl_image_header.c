@@ -719,7 +719,9 @@ u32 XFsbl_ValidatePartitionHeader(
 	if ((XFsbl_GetChecksumType(PartitionHeader) !=
 	                      XIH_PH_ATTRB_NOCHECKSUM)
 	          && (XFsbl_GetChecksumType(PartitionHeader) !=
-	                      XIH_PH_ATTRB_CHECKSUM_MD5))
+	                      XIH_PH_ATTRB_CHECKSUM_MD5)
+			  && (XFsbl_GetChecksumType(PartitionHeader) !=
+					  XIH_PH_ATTRB_HASH_SHA3))
 	{
 		Status = XFSBL_ERROR_INVALID_CHECKSUM_TYPE;
 		XFsbl_Printf(DEBUG_GENERAL,
