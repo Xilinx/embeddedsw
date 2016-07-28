@@ -3,6 +3,9 @@ Change Log for 2016.3
 freertos823_xilinx_v1_2:
 Created new version to support event trace through Coresight STM
 
+axidma_v9_3:
+Reduce the size of the buffer descriptor to 64 bytes
+
 coresightps_dcc_v1_1:
 Created a new version of the driver to ensure that for MB based systems the driver
 is not included. This fixes the CR#953056.
@@ -40,6 +43,7 @@ Make Xil_AsserWait a global variable
 Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot section since it is part of boot process to fix CR#949555
 Added support for non-secure EL1 with exception level selection feature for Cortex-A53 64bit mode
 Program the counter frequency in boot code for CortexA53
+Update get_pins command in the standalone bsp tcl as per 2016.3 hsi
 
 sdps_v3_0:
 Added support for mkfs.
@@ -61,6 +65,11 @@ Updated the copyright year to 2016.
 Corrected the data type of temp variable.
 Enable the _WORD_ACCESS option.
 Used usleep API instead of MB_Sleep API.
+
+xilkenrel_v6_4:
+Fixed CR:955364 update get_pins command as per 2016.3 hsi changes are made in
+the bsp tcl file.
+
 
 Change Log for 2016.2
 =================================
