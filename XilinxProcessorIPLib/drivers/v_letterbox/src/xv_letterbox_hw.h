@@ -5,6 +5,13 @@
 //
 // ==============================================================
 
+#ifndef XV_LETTERBOX_HW_H_		 /* prevent circular inclusions */
+#define XV_LETTERBOX_HW_H_		 /* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // CTRL
 // 0x00 : Control signals
 //        bit 0  - ap_start (Read/Write/COH)
@@ -90,3 +97,9 @@
 #define XV_LETTERBOX_CTRL_BITS_HWREG_CB_G_VALUE_DATA   16
 #define XV_LETTERBOX_CTRL_ADDR_HWREG_CR_B_VALUE_DATA   0x58
 #define XV_LETTERBOX_CTRL_BITS_HWREG_CR_B_VALUE_DATA   16
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* end of protection macro */

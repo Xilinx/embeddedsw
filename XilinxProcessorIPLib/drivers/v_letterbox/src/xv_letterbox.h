@@ -44,7 +44,7 @@ typedef uint32_t u32;
 */
 typedef struct {
     u16 DeviceId;          /**< Unique ID  of device */
-    u32 BaseAddress;       /**< The base address of the core instance. */
+    UINTPTR BaseAddress;   /**< The base address of the core instance. */
     u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
     u16 NumVidComponents;  /**< Number of Video Components */
     u16 MaxWidth;          /**< Maximum columns supported by core instance */
@@ -88,7 +88,7 @@ int XV_letterbox_Initialize(XV_letterbox *InstancePtr, u16 DeviceId);
 XV_letterbox_Config* XV_letterbox_LookupConfig(u16 DeviceId);
 int XV_letterbox_CfgInitialize(XV_letterbox *InstancePtr,
                                XV_letterbox_Config *ConfigPtr,
-                               u32 EffectiveAddr);
+							   UINTPTR EffectiveAddr);
 #else
 int XV_letterbox_Initialize(XV_letterbox *InstancePtr, const char* InstanceName);
 int XV_letterbox_Release(XV_letterbox *InstancePtr);
