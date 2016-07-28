@@ -129,8 +129,8 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 		return XST_FAILURE;
 	}
 
-	xil_printf("FlashID=0x%x 0x%x 0x%x\n\r", ReadBuffer[0], ReadBuffer[1],
-		   ReadBuffer[2]);
+	XFsbl_Printf(DEBUG_GENERAL, "FlashID=0x%x 0x%x 0x%x\n\r", ReadBuffer[0],
+					ReadBuffer[1], ReadBuffer[2]);
 
 	/*
 	 * Deduce flash make
