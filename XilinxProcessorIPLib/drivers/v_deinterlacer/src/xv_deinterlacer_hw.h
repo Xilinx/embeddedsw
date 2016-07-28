@@ -5,6 +5,13 @@
 //
 // ==============================================================
 
+#ifndef XV_DEINTERLACER_HW_H_   /* prevent circular inclusions */
+#define XV_DEINTERLACER_HW_H_   /* by using protection macros  */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // AXILiteS
 // 0x00 : Control signals
 //        bit 0  - ap_start (Read/Write/COH)
@@ -68,3 +75,9 @@
 #define XV_DEINTERLACER_CTRL_BITS_ALGO_DATA            8
 #define XV_DEINTERLACER_CTRL_ADDR_INVERT_FIELD_ID_DATA 0x40
 #define XV_DEINTERLACER_CTRL_BITS_INVERT_FIELD_ID_DATA 1
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* end of protection macro */

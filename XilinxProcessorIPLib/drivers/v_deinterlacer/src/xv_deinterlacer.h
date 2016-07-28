@@ -45,7 +45,7 @@ typedef uint32_t u32;
 */
 typedef struct {
     u16 DeviceId;              /**< Unique ID  of device */
-    u32 BaseAddress;           /**< The base address of the core instance. */
+    UINTPTR BaseAddress;       /**< The base address of the core instance. */
     u16 NumVidComponents;      /**< Number of Video Components */
     u16 MaxDataWidth;          /**< Maximum Data width of each channel */
 } XV_deinterlacer_Config;
@@ -86,7 +86,7 @@ int XV_deinterlacer_Initialize(XV_deinterlacer *InstancePtr, u16 DeviceId);
 XV_deinterlacer_Config* XV_deinterlacer_LookupConfig(u16 DeviceId);
 int XV_deinterlacer_CfgInitialize(XV_deinterlacer *InstancePtr,
                                   XV_deinterlacer_Config *ConfigPtr,
-                                  u32 EffectiveAddr);
+								  UINTPTR EffectiveAddr);
 #else
 int XV_deinterlacer_Initialize(XV_deinterlacer *InstancePtr, const char* InstanceName);
 int XV_deinterlacer_Release(XV_deinterlacer *InstancePtr);
