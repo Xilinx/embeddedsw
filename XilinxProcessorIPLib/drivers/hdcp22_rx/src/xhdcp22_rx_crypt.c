@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xhdcp22_rx_crypt.c
-* @addtogroup hdcp22_rx_v1_0
+* @addtogroup hdcp22_rx_v2_0
 * @{
 * @details
 *
@@ -46,6 +46,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   10/30/15 First Release
+* 2.00  MH   04/14/16 Updated for repeater upstream support.
 *</pre>
 *
 *****************************************************************************/
@@ -70,20 +71,29 @@
 
 /************************** Function Prototypes *****************************/
 /* Functions for implementing PCKS1 */
-static int  XHdcp22Rx_Pkcs1Rsaep(const XHdcp22_Rx_KpubRx *KpubRx, u8 *Message, u8 *EncryptedMessage);
-static int  XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx, u8 *EncryptedMessage, u8 *Message);
+static int  XHdcp22Rx_Pkcs1Rsaep(const XHdcp22_Rx_KpubRx *KpubRx, u8 *Message,
+	            u8 *EncryptedMessage);
+static int  XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
+	            u8 *EncryptedMessage, u8 *Message);
 static int  XHdcp22Rx_Pkcs1Mgf1(const u8 *seed, const u32 seedlen, u8  *mask, u32 masklen);
-static int  XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen, const u8 *MaskingSeed, u8 *EncodedMessage);
+static int  XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
+	            const u8 *MaskingSeed, u8 *EncodedMessage);
 static int  XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *MessageLen);
 static void XHdcp22Rx_Pkcs1MontMultAdd(DIGIT_T *A, DIGIT_T C, int SDigit, int NDigits);
-static void XHdcp22Rx_Pkcs1MontMult(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits);
-static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits);
-static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits);
-static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, int NDigits);
-static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *A, DIGIT_T *E, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMult(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N,
+	            const DIGIT_T *NPrime, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N,
+	            const DIGIT_T *NPrime, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N,
+	            const DIGIT_T *NPrime, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U, DIGIT_T *A,
+	            DIGIT_T *B, int NDigits);
+static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *A, DIGIT_T *E,
+	            DIGIT_T *N, const DIGIT_T *NPrime, int NDigits);
 
 /* Functions for implementing other cryptographic tasks */
-static void XHdcp22Rx_ComputeDKey(const u8* Rrx, const u8* Rtx, const u8 *Km, const u8 *Rn, u8 *Ctr, u8 *DKey);
+static void XHdcp22Rx_ComputeDKey(const u8* Rrx, const u8* Rtx, const u8 *Km,
+	            const u8 *Rn, u8 *Ctr, u8 *DKey);
 static void XHdcp22Rx_Xor(u8 *Cout, const u8 *Ain, const u8 *Bin, u32 Len);
 
 /*****************************************************************************/
@@ -189,7 +199,8 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 *
 * @note		None.
 *****************************************************************************/
-int XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Message, const u32 MessageLen, const u8 *MaskingSeed, u8 *EncryptedMessage)
+int XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Message,
+	const u32 MessageLen, const u8 *MaskingSeed, u8 *EncryptedMessage)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(KpubRx != NULL);
@@ -239,7 +250,8 @@ int XHdcp22Rx_RsaesOaepEncrypt(const XHdcp22_Rx_KpubRx *KpubRx, const u8 *Messag
 *
 * @note		None.
 *****************************************************************************/
-int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx, u8 *EncryptedMessage, u8 *Message, int *MessageLen)
+int  XHdcp22Rx_RsaesOaepDecrypt(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
+	u8 *EncryptedMessage, u8 *Message, int *MessageLen)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -348,7 +360,8 @@ static int XHdcp22Rx_Pkcs1Rsaep(const XHdcp22_Rx_KpubRx *KpubRx, u8 *Message, u8
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx, u8 *EncryptedMessage, u8 *Message)
+static int XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivRx *KprivRx,
+	u8 *EncryptedMessage, u8 *Message)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -488,7 +501,8 @@ static int XHdcp22Rx_Pkcs1Mgf1(const u8 *Seed, const u32 SeedLen, u8  *Mask, u32
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen, const u8 *MaskingSeed, u8 *EncodedMessage)
+static int XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
+	const u8 *MaskingSeed, u8 *EncodedMessage)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(Message != NULL);
@@ -519,7 +533,8 @@ static int XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 	 */
 
 	/* Step 2e: Generate dbMask = MGF1(seed, length(DB)) */
-	Status = XHdcp22Rx_Pkcs1Mgf1(MaskingSeed, XHDCP22_RX_HASH_SIZE, dbMask, XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1);
+	Status = XHdcp22Rx_Pkcs1Mgf1(MaskingSeed, XHDCP22_RX_HASH_SIZE, dbMask,
+						XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -528,7 +543,8 @@ static int XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 	XHdcp22Rx_Xor(DB, DB, dbMask, XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1);
 
 	/* Step 2g: Generate seedMask = MGF(maskedDB, length(seed)) */
-	Status = XHdcp22Rx_Pkcs1Mgf1(DB, XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1, seedMask, XHDCP22_RX_HASH_SIZE);
+	Status = XHdcp22Rx_Pkcs1Mgf1(DB, XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1,
+						seedMask, XHDCP22_RX_HASH_SIZE);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -582,7 +598,8 @@ static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *Me
 	maskedDB = EncodedMessage+1+XHDCP22_RX_HASH_SIZE;
 
 	/* Step 3c: Generate seedMask = MGF(maskedDB, hLen) */
-	Status = XHdcp22Rx_Pkcs1Mgf1(maskedDB, XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1, seed, XHDCP22_RX_HASH_SIZE);
+	Status = XHdcp22Rx_Pkcs1Mgf1(maskedDB, XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1,
+						seed, XHDCP22_RX_HASH_SIZE);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -591,7 +608,8 @@ static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *Me
 	XHdcp22Rx_Xor(seed, maskedSeed, seed, XHDCP22_RX_HASH_SIZE);
 
 	/* Step 3e: Generate dbMask = MGF(seed, k-hLen-1) */
-	Status = XHdcp22Rx_Pkcs1Mgf1(seed, XHDCP22_RX_HASH_SIZE, DB, XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1);
+	Status = XHdcp22Rx_Pkcs1Mgf1(seed, XHDCP22_RX_HASH_SIZE, DB,
+						XHDCP22_RX_N_SIZE-XHDCP22_RX_HASH_SIZE-1);
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -711,7 +729,8 @@ static void XHdcp22Rx_Pkcs1MontMultAdd(DIGIT_T *A, DIGIT_T C, int SDigit, int ND
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMult(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits)
+static void XHdcp22Rx_Pkcs1MontMult(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N,
+	const DIGIT_T *NPrime, int NDigits)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(U != NULL);
@@ -777,7 +796,8 @@ static void XHdcp22Rx_Pkcs1MontMult(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T 
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits)
+static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B,
+	DIGIT_T *N, const DIGIT_T *NPrime, int NDigits)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(U != NULL);
@@ -873,7 +893,8 @@ static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, 
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits)
+static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N,
+	const DIGIT_T *NPrime, int NDigits)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -908,7 +929,8 @@ static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N,
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, int NDigits)
+static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U,
+	DIGIT_T *A, DIGIT_T *B, int NDigits)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -955,7 +977,8 @@ static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U, DIG
 *
 * @note		None.
 *****************************************************************************/
-static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *A, DIGIT_T *E, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits)
+static int XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *A,
+	DIGIT_T *E, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits)
 {
 	int Offset;
 	DIGIT_T R[XHDCP22_RX_N_SIZE/4];
@@ -1043,17 +1066,24 @@ static void XHdcp22Rx_Xor(u8 *Cout, const u8 *Ain, const u8 *Bin, u32 Len)
 * @param	Rtx is the Tx random generated value.
 * @param	Km is the master key generated by tx.
 * @param	Rn is the 64-bit psuedo-random nonce generated by the transmitter.
-* @param    Ctr is the 64-bit AES counter value.
+* @param	Ctr is the 64-bit AES counter value.
 * @param	DKey is the 128-bit derived key.
 *
 * @return	None.
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_ComputeDKey(const u8* Rrx, const u8* Rtx, const u8 *Km, const u8 *Rn, u8 *Ctr, u8 *DKey)
+static void XHdcp22Rx_ComputeDKey(const u8* Rrx, const u8* Rtx, const u8 *Km,
+	const u8 *Rn, u8 *Ctr, u8 *DKey)
 {
 	u8 Aes_Iv[XHDCP22_RX_AES_SIZE];
 	u8 Aes_Key[XHDCP22_RX_AES_SIZE];
+
+	/* Verify arguments */
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(DKey != NULL);
 
 	/* AES Key = Km xor Rn */
 	memcpy(Aes_Key, Km, XHDCP22_RX_AES_SIZE);
@@ -1094,17 +1124,27 @@ void XHdcp22Rx_ComputeDKey(const u8* Rrx, const u8* Rtx, const u8 *Km, const u8 
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps, const u8* Rtx, const u8 *TxCaps, const u8 *Km, u8 *Kd, u8 *HPrime)
+void XHdcp22Rx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps, const u8* Rtx,
+	const u8 *TxCaps, const u8 *Km, u8 *HPrime)
 {
-	u8 Dkey0[XHDCP22_RX_AES_SIZE];
-	u8 Dkey1[XHDCP22_RX_AES_SIZE];
-	u8 Ctr[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
 	u8 HashInput[XHDCP22_RX_RTX_SIZE + XHDCP22_RX_RXCAPS_SIZE + XHDCP22_RX_TXCAPS_SIZE];
 	int Idx = 0;
+	u8 Ctr[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
+	u8 Kd[2 * XHDCP22_RX_AES_SIZE]; /* dkey0 || dkey 1 */
 
-	/* Generate derived keys dkey0 and dkey1 */
-	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, NULL, Dkey0);
-	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, Ctr, Dkey1);
+
+	/* Verify arguments */
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(RxCaps != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(TxCaps != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(HPrime != NULL);
+
+	/* Generate derived keys dkey0 and dkey1
+	   HashKey Kd = dkey0 || dkey1 */
+	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, NULL, Kd);
+	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, Ctr, Kd+XHDCP22_RX_AES_SIZE);
 
 	/* HashInput = Rtx || RxCaps || TxCaps */
 	memcpy(HashInput, Rtx, XHDCP22_RX_RTX_SIZE);
@@ -1112,10 +1152,6 @@ void XHdcp22Rx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps, const u8* Rtx, con
 	memcpy(&HashInput[Idx], RxCaps, XHDCP22_RX_RXCAPS_SIZE);
 	Idx += XHDCP22_RX_RXCAPS_SIZE;
 	memcpy(&HashInput[Idx], TxCaps, XHDCP22_RX_TXCAPS_SIZE);
-
-	/* HashKey Kd = dkey0 || dkey1 */
-	memcpy(Kd, Dkey0, XHDCP22_RX_KM_SIZE);
-	memcpy(&Kd[XHDCP22_RX_KM_SIZE], Dkey1, XHDCP22_RX_KM_SIZE);
 
 	/* Compute H' = HMAC-SHA256(HashInput, Kd) */
 	XHdcp22Cmn_HmacSha256Hash(HashInput, sizeof(HashInput), Kd, XHDCP22_RX_KD_SIZE, HPrime);
@@ -1141,6 +1177,12 @@ void XHdcp22Rx_ComputeEkh(const u8 *KprivRx, const u8 *Km, const u8 *M, u8 *Ekh)
 {
 	u8 Kh[XHDCP22_RX_HASH_SIZE];
 
+	/* Verify arguments */
+	Xil_AssertVoid(KprivRx != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(M != NULL);
+	Xil_AssertVoid(Ekh != NULL);
+
 	/* Generate Kh = SHA256(p || q || dP || dQ || qInv)[127:0] */
 	XHdcp22Cmn_Sha256Hash(KprivRx, sizeof(XHdcp22_Rx_KprivRx), Kh);
 
@@ -1156,21 +1198,37 @@ void XHdcp22Rx_ComputeEkh(const u8 *KprivRx, const u8 *Km, const u8 *M, u8 *Ekh)
 * Reference: HDCP v2.2, section 2.3
 *
 * @param	Rn is the 64-bit psuedo-random nonce generated by the transmitter.
-* @param	Kd is the 256-bit derived key generated during HPrime calculation.
+* @param	Km is the 128-bit master key generated by tx.
 * @param	Rrx is the 64-bit pseudo-random number generated by the receiver.
-* @param    LPrime is the 256-bit value generated for locality check.
+* @param	Rtx is the 64-bit pseudo-random number generated by the transmitter.
+* @param	LPrime is the 256-bit value generated for locality check.
 *
 * @return	None.
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_ComputeLPrime(const u8 *Rn, const u8 *Kd, const u8 *Rrx, u8 *LPrime)
+void XHdcp22Rx_ComputeLPrime(const u8 *Rn, const u8 *Km, const u8 *Rrx, const u8 *Rtx, u8 *LPrime)
 {
 	u8 HashKey[XHDCP22_RX_KD_SIZE];
+	u8 Ctr[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
+	u8 Kd[2 * XHDCP22_RX_AES_SIZE]; /* dkey0 || dkey 1 */
+
+	/* Verify arguments */
+	Xil_AssertVoid(Rn != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(LPrime != NULL);
+
+	/* Generate derived keys dkey0 and dkey1
+	   HashKey Kd = dkey0 || dkey1 */
+	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, NULL, Kd);
+	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, Ctr, Kd+XHDCP22_RX_AES_SIZE);
 
 	/* HashKey = Kd[256:64] || (Kd[63:0] xor Rrx) */
 	memcpy(HashKey, Kd, XHDCP22_RX_KD_SIZE);
-	XHdcp22Rx_Xor(HashKey+(XHDCP22_RX_KD_SIZE-XHDCP22_RX_RRX_SIZE), Kd+(XHDCP22_RX_KD_SIZE-XHDCP22_RX_RRX_SIZE), Rrx, XHDCP22_RX_RRX_SIZE);
+	XHdcp22Rx_Xor(HashKey+(XHDCP22_RX_KD_SIZE-XHDCP22_RX_RRX_SIZE),
+		Kd+(XHDCP22_RX_KD_SIZE-XHDCP22_RX_RRX_SIZE), Rrx, XHDCP22_RX_RRX_SIZE);
 
 	/* LPrime = HMAC-SHA256(Rn, HashKey) */
 	XHdcp22Cmn_HmacSha256Hash(Rn, XHDCP22_RX_RN_SIZE, HashKey, XHDCP22_RX_KD_SIZE, LPrime);
@@ -1193,10 +1251,19 @@ void XHdcp22Rx_ComputeLPrime(const u8 *Rn, const u8 *Kd, const u8 *Rrx, u8 *LPri
 *
 * @note		None.
 ******************************************************************************/
-void XHdcp22Rx_ComputeKs(const u8* Rrx, const u8* Rtx, const u8 *Km, const u8 *Rn, const u8 *Eks, u8 *Ks)
+void XHdcp22Rx_ComputeKs(const u8* Rrx, const u8* Rtx, const u8 *Km, const u8 *Rn,
+	     const u8 *Eks, u8 *Ks)
 {
 	u8 Dkey2[XHDCP22_RX_KS_SIZE];
 	u8 Ctr[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02};
+
+	/* Verify arguments */
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(Rn != NULL);
+	Xil_AssertVoid(Eks != NULL);
+	Xil_AssertVoid(Ks != NULL);
 
 	/* Generate derived key dkey2 */
 	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, Rn, Ctr, Dkey2);
@@ -1205,6 +1272,122 @@ void XHdcp22Rx_ComputeKs(const u8* Rrx, const u8* Rtx, const u8 *Km, const u8 *R
 	memcpy(Ks, Dkey2, XHDCP22_RX_KS_SIZE);
 	XHdcp22Rx_Xor(Ks+XHDCP22_RX_RRX_SIZE, Ks+XHDCP22_RX_RRX_SIZE, Rrx, XHDCP22_RX_RRX_SIZE);
 	XHdcp22Rx_Xor(Ks, Ks, Eks, XHDCP22_RX_KS_SIZE);
+}
+
+/*****************************************************************************/
+/**
+* This function computes VPrime used during HDCP 2.2 repeater
+* authentication.
+*
+* Reference: HDCP v2.2, section 2.3
+*
+* @param  ReceiverIdList is a list of downstream receivers IDs in big-endian
+*         order. Each receiver ID is 5 Bytes.
+* @param  ReceiverIdListSize is the number of receiver Ids in ReceiverIdList.
+*         There can be between 1 and 31 devices in the list.
+* @param  RxInfo is the 16-bit field in the RepeaterAuth_Send_ReceiverID_List
+*         message.
+* @param  Km is the 128-bit master key generated by tx.
+* @param  Rrx is the 64-bit pseudo-random number generated by the receiver.
+* @param  Rtx is the 64-bit pseudo-random number generated by the transmitter.
+* @param  VPrime is the 256-bit value generated for repeater authentication.
+*
+* @return None.
+*
+* @note   None.
+******************************************************************************/
+void XHdcp22Rx_ComputeVPrime(const u8 *ReceiverIdList, u32 ReceiverIdListSize,
+       const u8 *RxInfo, const u8 *SeqNumV, const u8 *Km, const u8 *Rrx,
+       const u8 *Rtx, u8 *VPrime)
+{
+	int Idx = 0;
+	u8 HashInput[XHDCP22_RX_SEQNUMV_SIZE +
+					XHDCP22_RX_RXINFO_SIZE +
+					(XHDCP22_RX_MAX_DEVICE_COUNT*XHDCP22_RX_RCVID_SIZE)];
+	int HashInputSize = (ReceiverIdListSize*XHDCP22_RX_RCVID_SIZE) +
+					XHDCP22_RX_SEQNUMV_SIZE + XHDCP22_RX_RXINFO_SIZE;
+	u8 Ctr[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
+	u8 Kd[2 * XHDCP22_RX_AES_SIZE]; /* dkey0 || dkey 1 */
+
+	/* Verify arguments */
+	Xil_AssertVoid(ReceiverIdList != NULL);
+	Xil_AssertVoid(ReceiverIdListSize > 0);
+	Xil_AssertVoid(RxInfo != NULL);
+	Xil_AssertVoid(SeqNumV != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(VPrime != NULL);
+
+	/* Generate derived keys dkey0 and dkey1
+	   HashKey Kd = dkey0 || dkey1 */
+	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, NULL, Kd);
+	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, Ctr, Kd+XHDCP22_RX_AES_SIZE);
+
+	/* HashInput = ReceiverIdList || RxInfo || SeqNumV */
+	memcpy(HashInput, ReceiverIdList, ReceiverIdListSize*XHDCP22_RX_RCVID_SIZE);
+	Idx += ReceiverIdListSize*XHDCP22_RX_RCVID_SIZE;
+	memcpy(&HashInput[Idx], RxInfo, XHDCP22_RX_RXINFO_SIZE);
+	Idx += XHDCP22_RX_RXINFO_SIZE;
+	memcpy(&HashInput[Idx], SeqNumV, XHDCP22_RX_SEQNUMV_SIZE);
+
+	/* VPrime = HMAC-SHA256(HashInput, Kd) */
+	XHdcp22Cmn_HmacSha256Hash(HashInput, HashInputSize, Kd, XHDCP22_RX_KD_SIZE, VPrime);
+}
+
+/*****************************************************************************/
+/**
+* This function computes VPrime used during HDCP 2.2 repeater
+* authentication.
+*
+* Reference: HDCP v2.2, section 2.3
+*
+* @param  StreamIdType is the 16-bit field in the RepeaterAuth_Send_ReceiverID_List
+* 			  message.
+* @param  SeqNumM is the 24-bit field in the RepeaterAuth_Stream_Manage
+* 			  message.
+* @param  Km is the 128-bit master key generated by tx.
+* @param  Rrx is the 64-bit pseudo-random number generated by the receiver.
+* @param  Rtx is the 64-bit pseudo-random number generated by the transmitter.
+* @param  MPrime is the 256-bit value generated for repeater stream
+*         management ready.
+*
+* @return None.
+*
+* @note	  None.
+******************************************************************************/
+void XHdcp22Rx_ComputeMPrime(const u8 *StreamIdType, const u8 *SeqNumM,
+       const u8 *Km, const u8 *Rrx, const u8 *Rtx, u8 *MPrime)
+{
+	int Idx = 0;
+	u8 HashInput[XHDCP22_RX_STREAMID_SIZE + XHDCP22_RX_SEQNUMM_SIZE];
+	u8 HashKey[XHDCP22_RX_HASH_SIZE];
+	u8 Ctr[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01};
+	u8 Kd[2 * XHDCP22_RX_AES_SIZE]; /* dkey0 || dkey 1 */
+
+	/* Verify arguments */
+	Xil_AssertVoid(StreamIdType != NULL);
+	Xil_AssertVoid(SeqNumM != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(MPrime != NULL);
+
+	/* HashInput = StreamIdType || SeqNumM */
+	memcpy(HashInput, StreamIdType, XHDCP22_RX_STREAMID_SIZE);
+	Idx += XHDCP22_RX_STREAMID_SIZE;
+	memcpy(&HashInput[Idx], SeqNumM, XHDCP22_RX_SEQNUMM_SIZE);
+
+	/* Generate derived keys dkey0 and dkey1
+	   HashKey Kd = dkey0 || dkey1 */
+	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, NULL, Kd);
+	XHdcp22Rx_ComputeDKey(Rrx, Rtx, Km, NULL, Ctr, Kd+XHDCP22_RX_AES_SIZE);
+
+	/* Hashkey = SHA256(Kd) */
+	XHdcp22Cmn_Sha256Hash(Kd, XHDCP22_RX_KD_SIZE, HashKey);
+
+	/* VPrime = HMAC-SHA256(HashInput, Kd) */
+	XHdcp22Cmn_HmacSha256Hash(HashInput, sizeof(HashInput), HashKey, XHDCP22_RX_HASH_SIZE, MPrime);
 }
 
 /** @} */
