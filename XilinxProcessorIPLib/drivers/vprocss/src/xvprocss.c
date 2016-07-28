@@ -53,8 +53,10 @@
 *       dmc  02/17/16   Modify timing and placement of axis and aximm resets
 *       dmc  02/24/16   Rename some constants and variables
 *       dmc  03/03/16   Init VideoStream structs to 0 in SetPowerOnDefaultState
-* 2.1   mpe   04/28/16  Added optional color format conversion handling in
+* 2.10  mpe  04/28/16   Added optional color format conversion handling in
 *                       scaler only topology
+*       rco  07/20/16   Replace deprecated MB_Sleep with usleep
+*                       Maintain user defined PIP color between pipe reset
 * </pre>
 *
 ******************************************************************************/
@@ -65,12 +67,7 @@
 #include "xvprocss_vdma.h"
 #include "xvprocss_router.h"
 #include "xvprocss_coreinit.h"
-
-#if defined(__arm__)
 #include "sleep.h"
-#elif defined(__MICROBLAZE__)
-#include "microblaze_sleep.h"
-#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -142,11 +139,11 @@ static const char *XVprocSsIpStr[XVPROCSS_SUBCORE_MAX] =  {
  *  - Pixels/Clock         = 1, 2, 4
  *  - Color Depth          = 8, 10, 12, 16   (4 variations)
  */
-const u16 XVprocSs_PixelHStep[XVIDC_PPC_NUM_SUPPORTED][4] =
+const u16 XVprocSs_PixelHStep[3][4] =
 {
   {16,   4,  32,   8}, //XVIDC_PPC_1
   {16,   4,  64,  16}, //XVIDC_PPC_2
-  {32, 128, 128,  32}, //XVIDC_PPC_4
+  {32, 128, 128,  32}  //XVIDC_PPC_4
 };
 
 /************************** Function Prototypes ******************************/
@@ -251,22 +248,15 @@ static __inline void WaitUs(XVprocSs *XVprocSsPtr, u32 MicroSeconds)
   if(MicroSeconds == 0)
 	  return;
 
-#if defined(__arm__)
-  /* Wait the requested amount of time. */
-  usleep(MicroSeconds);
-#elif defined(__MICROBLAZE__)
   if(XVprocSsPtr->UsrDelayUs) {
     /* Use the time handler specified by the user for
      * better accuracy
      */
 	 XVprocSsPtr->UsrDelayUs(XVprocSsPtr->UsrTmrPtr, MicroSeconds);
   } else {
-    /* MicroBlaze sleep only has millisecond accuracy. Round up. */
-    u32 MilliSeconds = (MicroSeconds + 999) / 1000;
-
-	MB_Sleep(MilliSeconds);
+	/* use default BSP sleep API */
+	 usleep(MicroSeconds);
   }
-#endif
 }
 
 /************************** Function Definition ******************************/
@@ -348,7 +338,7 @@ static void GetIncludedSubcores(XVprocSs *XVprocSsPtr)
 * @return None
 *
 ******************************************************************************/
-void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, u32 addr)
+void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, UINTPTR addr)
 {
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
@@ -377,15 +367,12 @@ void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, u32 addr)
 *
 ******************************************************************************/
 int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
-                          u32 EffectiveAddr)
+		                   UINTPTR EffectiveAddr)
 {
-  XAxiVdma_Config *VdmaCfgPtr;
-  u32 AbsAddr;
-
   /* Verify arguments */
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid(CfgPtr != NULL);
-  Xil_AssertNonvoid(EffectiveAddr != (u32)NULL);
+  Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
   /* Log the start of initialization */
   XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_INIT, XVPROCSS_EDAT_BEGIN);
@@ -486,16 +473,16 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
 
     /* Set Deinterlacer buffer offset in allocated DDR Frame Buffer memory */
     if(InstancePtr->VdmaPtr) {
-      u32 Bpp; //bytes per pixel
+      u32 Bpc; //bytes per component
 
-      Bpp = (InstancePtr->Config.ColorDepth + 7)/8;
+      Bpc = (InstancePtr->Config.ColorDepth + 7)/8;
 
       //compute buffer size based on subsystem configuration
       //For 1 4K2K buffer (YUV444 16-bit) size is ~48MB
       bufsize = InstancePtr->Config.MaxWidth *
 		        InstancePtr->Config.MaxHeight *
 		        InstancePtr->Config.NumVidComponents *
-		        Bpp;
+		        Bpc;
 
       //VDMA requires 4 buffers for total size of ~190MB
       vdmaBufReq = InstancePtr->VdmaPtr->MaxNumFrames * bufsize;
@@ -507,7 +494,9 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
      *   - Located after vdma buffers, if included
      *   - 1 4k2k buffer added as a pad between vdma and deint
      */
-    InstancePtr->CtxtData.DeintBufAddr = InstancePtr->FrameBufBaseaddr + vdmaBufReq + bufsize;
+    InstancePtr->CtxtData.DeintBufAddr = InstancePtr->FrameBufBaseaddr +
+		                             vdmaBufReq +
+										 bufsize;
   }
 
   /* Reset the hardware */
@@ -608,6 +597,9 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
 
   if(XVprocSs_IsConfigModeMax(XVprocSsPtr))
   {
+	/* Set default PIP Background color */
+	XVprocSsPtr->CtxtData.LboxBkgndColor = XLBOX_BKGND_BLACK;
+
     /* Set default Zoom Window */
     win.Width  = 400;
     win.Height = 400;
@@ -2371,6 +2363,8 @@ void XVprocSs_SetPIPBackgroundColor(XVprocSs *InstancePtr,
 			                  ColorId,
 			                  InstancePtr->CtxtData.StrmCformat,
 			                  InstancePtr->VidIn.ColorDepth);
+	/* update default PIP background color */
+	InstancePtr->CtxtData.LboxBkgndColor = ColorId;
     XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_SET_PIPMODE, XVPROCSS_EDAT_BGND_SET);
   } else {
     XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_SET_PIPMODE, XVPROCSS_EDAT_LBOX_ABSENT);

@@ -64,10 +64,10 @@
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
-static int ComputeSubcoreAbsAddr(u32 subsys_baseaddr,
-		                         u32 subsys_highaddr,
+static int ComputeSubcoreAbsAddr(UINTPTR subsys_baseaddr,
+		                         UINTPTR subsys_highaddr,
 		                         u32 subcore_offset,
-		                         u32 *subcore_baseaddr);
+								 UINTPTR *subcore_baseaddr);
 
 
 /*****************************************************************************/
@@ -87,13 +87,13 @@ static int ComputeSubcoreAbsAddr(u32 subsys_baseaddr,
 *         subsystem address range else XST_FAILURE
 *
 ******************************************************************************/
-static int ComputeSubcoreAbsAddr(u32 subsys_baseaddr,
-		                         u32 subsys_highaddr,
+static int ComputeSubcoreAbsAddr(UINTPTR subsys_baseaddr,
+		                         UINTPTR subsys_highaddr,
 		                         u32 subcore_offset,
-		                         u32 *subcore_baseaddr)
+								 UINTPTR *subcore_baseaddr)
 {
   int status;
-  u32 absAddr;
+  UINTPTR absAddr;
 
   absAddr = subsys_baseaddr + subcore_offset;
   if((absAddr>=subsys_baseaddr) && (absAddr<subsys_highaddr))
@@ -122,7 +122,7 @@ static int ComputeSubcoreAbsAddr(u32 subsys_baseaddr,
 int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XGpio_Config *pConfig;
 
   if(XVprocSsPtr->RstAxisPtr)
@@ -176,7 +176,7 @@ int XVprocSs_SubcoreInitResetAxis(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XGpio_Config *pConfig;
 
   if(XVprocSsPtr->RstAximmPtr)
@@ -230,7 +230,7 @@ int XVprocSs_SubcoreInitResetAximm(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XAxis_Switch_Config *pConfig;
 
   if(XVprocSsPtr->RouterPtr)
@@ -284,7 +284,7 @@ int XVprocSs_SubcoreInitRouter(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XV_csc_Config *pConfig;
 
   if(XVprocSsPtr->CscPtr)
@@ -339,7 +339,7 @@ int XVprocSs_SubcoreInitCsc(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XV_hscaler_Config *pConfig;
 
   if(XVprocSsPtr->HscalerPtr)
@@ -393,7 +393,7 @@ int XVprocSs_SubcoreInitHScaler(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XV_vscaler_Config *pConfig;
 
   if(XVprocSsPtr->VscalerPtr)
@@ -447,7 +447,7 @@ int XVprocSs_SubcoreInitVScaler(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XV_hcresampler_Config *pConfig;
 
   if(XVprocSsPtr->HcrsmplrPtr)
@@ -508,7 +508,7 @@ int XVprocSs_SubcoreInitHCrsmplr(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XV_vcresampler_Config *pConfig;
 
   if(XVprocSsPtr->VcrsmplrInPtr)
@@ -569,7 +569,7 @@ int XVprocSs_SubcoreInitVCrsmpleIn(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XV_vcresampler_Config *pConfig;
 
   if(XVprocSsPtr->VcrsmplrOutPtr)
@@ -630,7 +630,7 @@ int XVprocSs_SubcoreInitVCrsmpleOut(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XV_letterbox_Config *pConfig;
 
   if(XVprocSsPtr->LboxPtr)
@@ -684,7 +684,7 @@ int XVprocSs_SubcoreInitLetterbox(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitVdma(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XAxiVdma_Config *pConfig;
 
   if(XVprocSsPtr->VdmaPtr)
@@ -738,7 +738,7 @@ int XVprocSs_SubcoreInitVdma(XVprocSs *XVprocSsPtr)
 int XVprocSs_SubcoreInitDeinterlacer(XVprocSs *XVprocSsPtr)
 {
   int status;
-  u32 AbsAddr;
+  UINTPTR AbsAddr;
   XV_deinterlacer_Config *pConfig;
 
   if(XVprocSsPtr->DeintPtr)

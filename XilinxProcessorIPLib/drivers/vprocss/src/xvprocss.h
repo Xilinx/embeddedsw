@@ -192,6 +192,10 @@
 *                       Add macros to query for the new topologies
 *       dmc   01/11/16  Add new data struct, enums, constants and prototypes
 *                       to support a new Event Logging system for xvprocss.
+* 2.10  rco   07/20/16  Add lbox background color storage to context data
+*                       Used UINTPTR instead of u32 for Baseaddress, Frameaddr
+*                       Changed the prototype of XVprocSs_CfgInitialize and
+*                       XVprocSs_SetFrameBufBaseaddr API
 * </pre>
 *
 ******************************************************************************/
@@ -300,23 +304,24 @@ typedef struct
   XVidC_VideoWindow RdWindow; /**< window for Zoom/Pip feature support */
   XVidC_VideoWindow WrWindow; /**< window for Zoom/Pip feature support */
 
-  u32 DeintBufAddr;        /**< Deinterlacer field buffer Addr. in DDR */
-  u8 PixelWidthInBits;     /**< Number of bits required to store 1 pixel */
+  UINTPTR DeintBufAddr;       /**< Deinterlacer field buffer Addr. in DDR */
+  u8 PixelWidthInBits;        /**< Number of bits required to store 1 pixel */
 
   u8 RtngTable[XVPROCSS_SUBCORE_MAX]; /**< Storage for computed routing map */
   u8 StartCore[XVPROCSS_SUBCORE_MAX]; /**< Enable flag to start sub-core */
-  u8 RtrNumCores;      /**< Number of sub-cores in routing map */
-  u8 ScaleMode;        /**< Stored computed scaling mode - UP/DN/1:1 */
-  u8 ZoomEn;           /**< Flag to store Zoom feature state */
-  u8 PipEn;            /**< Flag to store PIP feature state */
-  u16 VidInWidth;      /**< Input H Active */
-  u16 VidInHeight;     /**< Input V Active */
-  u16 PixelHStepSize;  /**< Increment step size for Pip/Zoom window */
+  u8 RtrNumCores;             /**< Number of sub-cores in routing map */
+  u8 ScaleMode;               /**< Stored computed scaling mode - UP/DN/1:1 */
+  u8 ZoomEn;                  /**< Flag to store Zoom feature state */
+  u8 PipEn;                   /**< Flag to store PIP feature state */
+  u16 VidInWidth;             /**< Input H Active */
+  u16 VidInHeight;            /**< Input V Active */
+  u16 PixelHStepSize;         /**< Increment step size for Pip/Zoom window */
   XVidC_ColorFormat StrmCformat; /**< processing pipe color format */
-  XVidC_ColorFormat CscIn;  /**< CSC core input color format */
-  XVidC_ColorFormat CscOut; /**< CSC core output color format */
-  XVidC_ColorFormat HcrIn;  /**< horiz. cresmplr core input color format */
-  XVidC_ColorFormat HcrOut; /**< horiz. cresmplr core output color format */
+  XVidC_ColorFormat CscIn;    /**< CSC core input color format */
+  XVidC_ColorFormat CscOut;   /**< CSC core output color format */
+  XVidC_ColorFormat HcrIn;    /**< horiz. cresmplr core input color format */
+  XVidC_ColorFormat HcrOut;   /**< horiz. cresmplr core output color format */
+  XLboxColorId LboxBkgndColor; /**< Lbox background color */
 }XVprocSs_ContextData;
 
 /**
@@ -338,9 +343,9 @@ typedef struct
 typedef struct
 {
   u16 DeviceId;	         /**< DeviceId is the unique ID  of the device */
-  u32 BaseAddress;       /**< BaseAddress is the physical base address of the
+  UINTPTR BaseAddress;   /**< BaseAddress is the physical base address of the
                               subsystem address range */
-  u32 HighAddress;       /**< HighAddress is the physical MAX address of the
+  UINTPTR HighAddress;   /**< HighAddress is the physical MAX address of the
                               subsystem address range */
   u8 Topology;           /**< Subsystem configuration mode */
   u8 PixPerClock;        /**< Number of Pixels Per Clock processed by Subsystem */
@@ -393,7 +398,7 @@ typedef struct
 
   XVprocSs_ContextData CtxtData;     /**< Internal Scratch pad memory for subsystem
                                          instance */
-  u32 FrameBufBaseaddr;              /**< Base address for frame buffer storage */
+  UINTPTR FrameBufBaseaddr;          /**< Base address for frame buffer storage */
 
   XVidC_DelayHandler UsrDelayUs;     /**< custom user function for delay/sleep */
   void *UsrTmrPtr;                   /**< handle to timer instance used by user
@@ -598,7 +603,7 @@ typedef struct
 /* Subsystem configuration and management functions */
 int XVprocSs_CfgInitialize(XVprocSs *InstancePtr,
                            XVprocSs_Config *CfgPtr,
-                           u32 EffectiveAddr);
+						   UINTPTR EffectiveAddr);
 int XVprocSs_SetSubsystemConfig(XVprocSs *InstancePtr);
 XVprocSs_Config* XVprocSs_LookupConfig(u32 DeviceId);
 
@@ -613,7 +618,7 @@ int XVprocSs_SetVidStreamOut(XVprocSs *InstancePtr,
 int XVprocSs_SetStreamResolution(XVidC_VideoStream *StreamPtr,
                                  const XVidC_VideoMode VmId,
                                  XVidC_VideoTiming const *Timing);
-void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, u32 addr);
+void XVprocSs_SetFrameBufBaseaddr(XVprocSs *InstancePtr, UINTPTR addr);
 
 void XVprocSs_SetUserTimerHandler(XVprocSs *InstancePtr,
                                   XVidC_DelayHandler CallbackFunc,
@@ -685,3 +690,4 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/** @} */

@@ -48,7 +48,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15  Initial Release
 * 2.00  dmc   03/03/16  Remove xil_print's and report errors via event log
-*
+* 2.10  rco   07/21/16  Used UINTPTR instead of u32 for Address
 * </pre>
 *
 ******************************************************************************/
@@ -151,7 +151,7 @@ void XVprocSs_VdmaReset(XVprocSs *XVprocSsPtr)
 *
 ******************************************************************************/
 int XVprocSs_VdmaWriteSetup(XVprocSs *XVprocSsPtr,
-                            u32 WrBaseAddress,
+		                    UINTPTR WrBaseAddress,
                             XVidC_VideoWindow *window,
                             u32 FrameWidth,
                             u32 FrameHeight,
@@ -160,7 +160,7 @@ int XVprocSs_VdmaWriteSetup(XVprocSs *XVprocSsPtr,
   XAxiVdma *XVdmaPtr = XVprocSsPtr->VdmaPtr;
   XAxiVdma_DmaSetup WriteCfg = {0};
   int Index;
-  u32 Addr;
+  UINTPTR Addr;
   int Status;
   u32 HSizeInBytes;
   u32 StrideInBytes;
@@ -254,7 +254,7 @@ int XVprocSs_VdmaWriteSetup(XVprocSs *XVprocSsPtr,
 *
 ******************************************************************************/
 int XVprocSs_VdmaReadSetup(XVprocSs *XVprocSsPtr,
-                           u32 RdBaseAddress,
+		                   UINTPTR RdBaseAddress,
                            XVidC_VideoWindow *window,
                            u32 FrameWidth,
                            u32 FrameHeight,
@@ -263,7 +263,7 @@ int XVprocSs_VdmaReadSetup(XVprocSs *XVprocSsPtr,
   XAxiVdma *XVdmaPtr = XVprocSsPtr->VdmaPtr;
   XAxiVdma_DmaSetup ReadCfg;
   int Index;
-  u32 Addr;
+  UINTPTR Addr;
   int Status;
   u32 HSizeInBytes;
   u32 StrideInBytes;

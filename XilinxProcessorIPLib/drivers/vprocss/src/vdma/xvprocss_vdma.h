@@ -72,6 +72,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco  07/21/15  Initial Release
 * 2.00  dmc  03/03/16  Pass VPSS pointer to routines for event log reporting
+* 2.10  rco  07/21/16  Used UINTPTR instead of u32 for Address
 * </pre>
 *
 ******************************************************************************/
@@ -102,13 +103,13 @@ void XVprocSs_VdmaStart(XVprocSs *XVprocSsPtr);
 void XVprocSs_VdmaStop(XVprocSs *XVprocSsPtr);
 void XVprocSs_VdmaReset(XVprocSs *XVprocSsPtr);
 int XVprocSs_VdmaWriteSetup(XVprocSs *XVprocSsPtr,
-                            u32 WrBaseAddress,
+		                    UINTPTR WrBaseAddress,
                             XVidC_VideoWindow *window,
                             u32 FrameWidth,
                             u32 FrameHeight,
                             u32 PixelWidthInBits);
 int XVprocSs_VdmaReadSetup(XVprocSs *XVprocSsPtr,
-                           u32 RdBaseAddress,
+		                   UINTPTR RdBaseAddress,
                            XVidC_VideoWindow *window,
                            u32 FrameWidth,
                            u32 FrameHeight,

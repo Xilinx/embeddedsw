@@ -242,15 +242,15 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
   switch(CtxtPtr->ScaleMode)
   {
     case XVPROCSS_SCALE_1_1:
-	if(XVprocSsPtr->VdmaPtr) {
+        if(XVprocSsPtr->VdmaPtr) {
           pTable[index++] = XVPROCSS_SUBCORE_VDMA;
-	}
+	    }
         break;
 
     case XVPROCSS_SCALE_UP:
-	if(XVprocSsPtr->VdmaPtr) {
+	    if(XVprocSsPtr->VdmaPtr) {
           pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is before Scaler */
-	}
+	    }
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         break;
@@ -258,9 +258,9 @@ int XVprocSs_BuildRoutingTable(XVprocSs *XVprocSsPtr)
     case XVPROCSS_SCALE_DN:
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_H;
         pTable[index++] = XVPROCSS_SUBCORE_SCALER_V;
-	if(XVprocSsPtr->VdmaPtr) {
+	    if(XVprocSsPtr->VdmaPtr) {
           pTable[index++] = XVPROCSS_SUBCORE_VDMA;     /* VDMA is after Scaler */
-	}
+	    }
         break;
 
     default:
@@ -591,7 +591,7 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
 
             /* set background to default color on pipe reset */
             XV_LboxSetBackgroundColor(XVprocSsPtr->LboxPtr,
-                                      XLBOX_BKGND_BLACK,
+			                  XVprocSsPtr->CtxtData.LboxBkgndColor,
                                       XVprocSsPtr->CtxtData.StrmCformat,
                                       XVprocSsPtr->VidOut.ColorDepth);
 
@@ -645,7 +645,7 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           XV_CscSetPowerOnDefaultState(XVprocSsPtr->CscPtr);
 
 	      // set the proper color depth: get it from the vprocss config
-          ColorDepth = XVprocSs_GetColorDepth(XVprocSsPtr);
+          ColorDepth = (XVidC_ColorDepth)XVprocSs_GetColorDepth(XVprocSsPtr);
           XV_CscSetColorDepth(XVprocSsPtr->CscPtr, ColorDepth);
 
 	      // all other picture settings are filled in by XV_CscSetColorspace

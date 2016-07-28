@@ -237,9 +237,9 @@ void XPeriph_ResetHlsIp(XPeriph *InstancePtr)
 {
 #ifdef XPAR_HLS_IP_RESET_DEVICE_ID
   XGpio_DiscreteWrite(InstancePtr->HlsIpResetPtr, XPER_GPIO_CHANNEL_1, XPER_HLSIP_RESET);
-  MB_Sleep(10);                                       //hold reset line
+  usleep(10000);                                       //hold reset line
   XGpio_DiscreteWrite(InstancePtr->HlsIpResetPtr, XPER_GPIO_CHANNEL_1, XPER_HLSIP_ENABLE);
-  MB_Sleep(10);                                       //allow time for start
+  usleep(10000);                                       //allow time for start
 #endif
 }
 
