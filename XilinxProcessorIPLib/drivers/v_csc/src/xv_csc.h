@@ -45,7 +45,7 @@ typedef uint32_t u32;
 */
 typedef struct {
     u16 DeviceId;            /**< Unique ID  of device */
-    u32 BaseAddress;         /**< The base address of the core instance. */
+    UINTPTR BaseAddress;     /**< The base address of the core instance. */
     u16 PixPerClk;           /**< Samples Per Clock supported by core instance */
     u16 MaxWidth;            /**< Maximum columns supported by core instance */
     u16 MaxHeight;           /**< Maximum rows supported by core instance */
@@ -90,7 +90,7 @@ int XV_csc_Initialize(XV_csc *InstancePtr, u16 DeviceId);
 XV_csc_Config* XV_csc_LookupConfig(u16 DeviceId);
 int XV_csc_CfgInitialize(XV_csc *InstancePtr,
                          XV_csc_Config *ConfigPtr,
-                         u32 EffectiveAddr);
+						 UINTPTR EffectiveAddr);
 #else
 int XV_csc_Initialize(XV_csc *InstancePtr, const char* InstanceName);
 int XV_csc_Release(XV_csc *InstancePtr);

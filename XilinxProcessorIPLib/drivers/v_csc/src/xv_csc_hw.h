@@ -5,6 +5,13 @@
 //
 // ==============================================================
 
+#ifndef XV_CSC_HW_H_  /* prevent circular inclusions */
+#define XV_CSC_HW_H_  /* by using protection macros  */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // CTRL
 // 0x000 : Control signals
 //         bit 0  - ap_start (Read/Write/COH)
@@ -246,3 +253,9 @@
 #define XV_CSC_CTRL_BITS_HWREG_CLAMPMIN_2_V_DATA   10
 #define XV_CSC_CTRL_ADDR_HWREG_CLIPMAX_2_V_DATA    0x128
 #define XV_CSC_CTRL_BITS_HWREG_CLIPMAX_2_V_DATA    10
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* end of protection macro */
