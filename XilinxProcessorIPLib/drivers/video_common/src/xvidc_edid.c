@@ -118,7 +118,7 @@ void XVidC_EdidGetManName(const u8 *EdidRaw, char ManName[4])
 *******************************************************************************/
 XVidC_ColorDepth XVidC_EdidGetColorDepth(const u8 *EdidRaw)
 {
-	u8 Bpc;
+	XVidC_ColorDepth Bpc;
 
 	switch (((EdidRaw[XVIDC_EDID_BDISP_VID] &
 			XVIDC_EDID_BDISP_VID_DIG_BPC_MASK) >>

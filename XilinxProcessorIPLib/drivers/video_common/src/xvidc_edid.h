@@ -59,6 +59,9 @@
 /* Prevent circular inclusions by using protection macros. */
 #define XVIDC_EDID_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 /******************************* Include Files ********************************/
 
 #include "xstatus.h"
@@ -482,5 +485,8 @@ u16 XVidC_EdidGetStdTimingsV(const u8 *EdidRaw, u8 StdTimingsNum);
 u32 XVidC_EdidIsVideoTimingSupported(const u8 *EdidRaw,
 		const XVidC_VideoTimingMode *VtMode);
 
+#ifdef __cplusplus
+}
+#endif
 #endif /* XVIDC_EDID_H_ */
 /** @} */

@@ -58,13 +58,19 @@
  *       yh            Added 3D support.
  * 3.0   aad  05/13/16 Added API to search for RB video modes.
  *       als  05/16/16 Added Y-only to color format enum.
+ * 3.1   rco  07/26/17 Moved timing table extern definition to xvidc.c
+ *                     Added video-in-memory color formats
+ *                     Updated XVidC_RegisterCustomTimingModes API signature
  * </pre>
  *
 *******************************************************************************/
 
-#ifndef XVIDC_H_
-/* Prevent circular inclusions by using protection macros. */
+#ifndef XVIDC_H_  /* Prevent circular inclusions by using protection macros. */
 #define XVIDC_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -298,20 +304,47 @@ typedef enum {
 	XVIDC_PPC_1 = 1,
 	XVIDC_PPC_2 = 2,
 	XVIDC_PPC_4 = 4,
-	XVIDC_PPC_NUM_SUPPORTED = 3,
+	XVIDC_PPC_8 = 8,
+	XVIDC_PPC_NUM_SUPPORTED = 4,
 } XVidC_PixelsPerClock;
 
 /**
  * Color space format.
  */
 typedef enum {
+	/* Streaming video formats */
 	XVIDC_CSF_RGB = 0,
 	XVIDC_CSF_YCRCB_444,
 	XVIDC_CSF_YCRCB_422,
 	XVIDC_CSF_YCRCB_420,
 	XVIDC_CSF_YONLY,
-	XVIDC_CSF_NUM_SUPPORTED,
-	XVIDC_CSF_UNKNOWN
+
+	/* 6 empty slots reserved for video formats for future
+	 * extension
+	 */
+
+	/* Video in memory formats */
+	XVIDC_CSF_MEM_RGBX8 = 10,   // [31:0] x:B:G:R 8:8:8:8
+	XVIDC_CSF_MEM_YUVX8,        // [31:0] x:V:U:Y 8:8:8:8
+    XVIDC_CSF_MEM_YUYV8,        // [31:0] V:Y:U:Y 8:8:8:8
+    XVIDC_CSF_MEM_RGBA8,        // [31:0] A:B:G:R 8:8:8:8
+    XVIDC_CSF_MEM_YUVA8,        // [31:0] A:V:U:Y 8:8:8:8
+    XVIDC_CSF_MEM_RGBX10,       // [31:0] x:B:G:R 2:10:10:10
+    XVIDC_CSF_MEM_YUVX10,       // [31:0] x:V:U:Y 2:10:10:10
+    XVIDC_CSF_MEM_RGB565,       // [15:0] B:G:R 5:6:5
+    XVIDC_CSF_MEM_Y_UV8,        // [15:0] Y:Y 8:8, [15:0] V:U 8:8
+    XVIDC_CSF_MEM_Y_UV8_420,    // [15:0] Y:Y 8:8, [15:0] V:U 8:8
+    XVIDC_CSF_MEM_RGB8,         // [23:0] B:G:R 8:8:8
+    XVIDC_CSF_MEM_YUV8,         // [24:0] V:U:Y 8:8:8
+
+	XVIDC_CSF_NUM_SUPPORTED,    // includes the reserved slots
+	XVIDC_CSF_UNKNOWN,
+	XVIDC_CSF_STRM_START = XVIDC_CSF_RGB,
+	XVIDC_CSF_STRM_END   = XVIDC_CSF_YONLY,
+	XVIDC_CSF_MEM_START  = XVIDC_CSF_MEM_RGBX8,
+	XVIDC_CSF_MEM_END    = (XVIDC_CSF_NUM_SUPPORTED - 1),
+	XVIDC_CSF_NUM_STRM   = (XVIDC_CSF_STRM_END - XVIDC_CSF_STRM_START + 1),
+	XVIDC_CSF_NUM_MEM    = (XVIDC_CSF_MEM_END - XVIDC_CSF_MEM_START + 1)
 } XVidC_ColorFormat;
 
 /**
@@ -439,7 +472,7 @@ typedef struct {
  */
 typedef struct {
 	XVidC_VideoMode		VmId;
-	const char		Name[21];
+	const char		    Name[21];
 	XVidC_FrameRate		FrameRate;
 	XVidC_VideoTiming	Timing;
 } XVidC_VideoTimingMode;
@@ -460,15 +493,15 @@ typedef void (*XVidC_DelayHandler)(void *TimerPtr, u32 Delay);
 
 /**************************** Function Prototypes *****************************/
 
-u32 XVidC_RegisterCustomTimingModes(XVidC_VideoTimingMode (*CustomTable)[],
-		u16 NumElems);
+u32 XVidC_RegisterCustomTimingModes(const XVidC_VideoTimingMode *CustomTable,
+		                            u16 NumElems);
 void XVidC_UnregisterCustomTimingModes(void);
 u32 XVidC_GetPixelClockHzByHVFr(u32 HTotal, u32 VTotal, u8 FrameRate);
 u32 XVidC_GetPixelClockHzByVmId(XVidC_VideoMode VmId);
 XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId);
 u8 XVidC_IsInterlaced(XVidC_VideoMode VmId);
 XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
-		u8 IsInterlaced);
+		                             u8 IsInterlaced);
 const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);
 const char *XVidC_GetVideoModeStr(XVidC_VideoMode VmId);
 char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId);
@@ -479,11 +512,11 @@ void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream);
 void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced);
 char *XVidC_Get3DFormatStr(XVidC_3DFormat Format);
 u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
-			 XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
-			 XVidC_PixelsPerClock Ppc);
+			             XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
+			             XVidC_PixelsPerClock Ppc);
 u32 XVidC_Set3DVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
-			   XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
-			   XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3DPtr);
+			               XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
+			               XVidC_PixelsPerClock Ppc, XVidC_3DInfo *Info3DPtr);
 XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height, u32 FrameRate,
 		u8 IsInterlaced, u8 RbN);
 
@@ -505,7 +538,9 @@ XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height, u32 FrameRate,
 
 /*************************** Variable Declarations ****************************/
 
-const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED];
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XVIDC_H_ */
 /** @} */

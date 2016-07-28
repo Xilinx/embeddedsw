@@ -53,6 +53,9 @@
  *                     Added ability to insert a custom video timing table.
  *       yh            Added 3D support.
  * 3.0   aad  05/13/16 Added API to search for RB video modes.
+ * 3.1   rco  07/26/16 Added extern definition for timing table array
+ *                     Added video-in-memory color formats
+ *                     Updated XVidC_RegisterCustomTimingModes API signature
  * </pre>
  *
 *******************************************************************************/
@@ -65,8 +68,9 @@
 #include "xvidc.h"
 
 /*************************** Variable Declarations ****************************/
+extern const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED];
 
-const XVidC_VideoTimingMode (*XVidC_CustomTimingModes)[] = NULL;
+const XVidC_VideoTimingMode *XVidC_CustomTimingModes = NULL;
 int XVidC_NumCustomModes = 0;
 
 /**************************** Function Prototypes *****************************/
@@ -96,15 +100,15 @@ static u8 XVidC_IsVtmRb(const char *VideoModeStr, u8 RbN);
  *		the XVidC_VideoMode enum.
  *
 *******************************************************************************/
-u32 XVidC_RegisterCustomTimingModes(XVidC_VideoTimingMode (*CustomTable)[],
-		u16 NumElems)
+u32 XVidC_RegisterCustomTimingModes(const XVidC_VideoTimingMode *CustomTable,
+		                            u16 NumElems)
 {
 	u16 Index;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(CustomTable != NULL);
 	for (Index = 0; Index < NumElems; Index++) {
-		Xil_AssertNonvoid((*CustomTable)[Index].VmId > XVIDC_VM_CUSTOM);
+		Xil_AssertNonvoid((CustomTable[Index].VmId > XVIDC_VM_CUSTOM));
 		/* The IDs of each video mode in the custom table must not
 		 * conflict with IDs reserved by video_common. */
 	}
@@ -282,18 +286,19 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 	u32 ResFound = (FALSE);
 	XVidC_VideoMode Mode;
 	u16 Index;
-	const XVidC_VideoTimingMode *VmPtr;
 
 	/* First, attempt a linear search on the custom video timing table. */
-	for (Index = 0; Index < XVidC_NumCustomModes; Index++) {
-		VmPtr = &(*XVidC_CustomTimingModes)[Index];
-		HActive = VmPtr->Timing.HActive;
-		VActive = VmPtr->Timing.VActive;
-		Rate = VmPtr->FrameRate;
-		if ((Width == HActive) && (Height == VActive) &&
-				(FrameRate == Rate)) {
-			return VmPtr->VmId;
+	if(XVidC_CustomTimingModes) {
+	  for (Index = 0; Index < XVidC_NumCustomModes; Index++) {
+		HActive = XVidC_CustomTimingModes[Index].Timing.HActive;
+		VActive = XVidC_CustomTimingModes[Index].Timing.VActive;
+		Rate = XVidC_CustomTimingModes[Index].FrameRate;
+		if ((Width  == HActive) &&
+			(Height == VActive) &&
+			(FrameRate == Rate)) {
+			   return XVidC_CustomTimingModes[Index].VmId;
 		}
+	  }
 	}
 
 	if (IsInterlaced) {
@@ -596,10 +601,6 @@ char *XVidC_Get3DFormatStr(XVidC_3DFormat Format)
  * This function returns the color format name for index specified.
  *
  * @param	ColorFormatId specifies the index of color format space.
- *		0 = XVIDC_CSF_RGB
- *		1 = XVIDC_CSF_YCRCB_444,
- *		2 = XVIDC_CSF_YCRCB_422,
- *		3 = XVIDC_CSF_YCRCB_420,
  *
  * @return	Pointer to a color space name string.
  *
@@ -609,17 +610,23 @@ char *XVidC_Get3DFormatStr(XVidC_3DFormat Format)
 char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 {
 	switch (ColorFormatId) {
-		case (XVIDC_CSF_RGB):
-			return ("RGB");
-
-		case (XVIDC_CSF_YCRCB_444):
-			return ("YUV_444");
-
-		case (XVIDC_CSF_YCRCB_422):
-			return ("YUV_422");
-
-		case (XVIDC_CSF_YCRCB_420):
-			return ("YUV_420");
+		case XVIDC_CSF_RGB:           return ("RGB");
+		case XVIDC_CSF_YCRCB_444:     return ("YUV_444");
+		case XVIDC_CSF_YCRCB_422:     return ("YUV_422");
+		case XVIDC_CSF_YCRCB_420:     return ("YUV_420");
+		case XVIDC_CSF_YONLY:         return ("Y_ONLY");
+		case XVIDC_CSF_MEM_RGBX8:     return ("RGBX8");
+		case XVIDC_CSF_MEM_YUVX8:     return ("YUVX8");
+	    case XVIDC_CSF_MEM_YUYV8:     return ("YUYV8");
+	    case XVIDC_CSF_MEM_RGBA8:     return ("RGBA8");
+	    case XVIDC_CSF_MEM_YUVA8:     return ("YUVA8");
+	    case XVIDC_CSF_MEM_RGBX10:    return ("RGBX10");
+	    case XVIDC_CSF_MEM_YUVX10:    return ("YUVX10");
+	    case XVIDC_CSF_MEM_RGB565:    return ("RGB565");
+	    case XVIDC_CSF_MEM_Y_UV8:     return ("UV8");
+	    case XVIDC_CSF_MEM_Y_UV8_420: return ("Y_UV8_420");
+	    case XVIDC_CSF_MEM_RGB8:      return ("RGB8");
+	    case XVIDC_CSF_MEM_YUV8:      return ("YUV8");
 
 		default:
 			return ("Color space format not supported");
@@ -943,8 +950,8 @@ static const XVidC_VideoTimingMode *XVidC_GetCustomVideoModeData(
 	u16 Index;
 
 	for (Index = 0; Index < XVidC_NumCustomModes; Index++) {
-		if (VmId == (*XVidC_CustomTimingModes)[Index].VmId) {
-			return &(*XVidC_CustomTimingModes)[Index];
+		if (VmId == (XVidC_CustomTimingModes[Index].VmId)) {
+			return &(XVidC_CustomTimingModes[Index]);
 		}
 	}
 
