@@ -5,6 +5,13 @@
 //
 // ==============================================================
 
+#ifndef XV_VCHROMA_RESAMPLER_HW_H_	   /* prevent circular inclusions */
+#define XV_VCHROMA_RESAMPLER_HW_H_    /* by using protection macros  */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // CTRL
 // 0x00 : Control signals
 //        bit 0  - ap_start (Read/Write/COH)
@@ -102,3 +109,9 @@
 #define XV_VCRESAMPLER_CTRL_BITS_HWREG_COEFS_1_2_DATA           16
 #define XV_VCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_3_DATA           0x68
 #define XV_VCRESAMPLER_CTRL_BITS_HWREG_COEFS_1_3_DATA           16
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* end of protection macro */

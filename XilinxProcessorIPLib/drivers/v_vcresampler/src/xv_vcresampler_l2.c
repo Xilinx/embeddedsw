@@ -49,7 +49,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
-*
+* 2.10  rco   07/20/16   Add passthrough mode support
 * </pre>
 *
 ******************************************************************************/
@@ -170,8 +170,7 @@ void XV_VCrsmplLoadDefaultCoeff(XV_Vcresampler_l2 *InstancePtr)
 		 break;
 
 	  default:
-		  xil_printf("ERR: V Chroma Resampler %d Taps Not Supported",numTaps);
-		  return;
+         return;
   }
 
   /* Use external filter load API */
@@ -213,11 +212,10 @@ void XV_VCrsmplrLoadExtCoeff(XV_Vcresampler_l2 *InstancePtr,
     case XV_VCRSMPLR_TAPS_6:
     case XV_VCRSMPLR_TAPS_8:
     case XV_VCRSMPLR_TAPS_10:
-	break;
+         break;
 
     default:
-	xil_printf("\r\nERR: V Chroma Resampler %d TAPS not supported. (Select from 4/6/8/10)\r\n");
-	return;
+	     return;
   }
 
   //determine if coefficient needs padding (effective vs. max taps)
@@ -299,7 +297,7 @@ void XV_VCrsmplSetFormat(XV_Vcresampler_l2 *InstancePtr,
                          XVidC_ColorFormat formatIn,
                          XVidC_ColorFormat formatOut)
 {
-  XV_VCRESAMPLER_CONVERSION convType;
+  XV_VCRESAMPLER_CONVERSION convType = XV_VCRSMPLR_NUM_CONVERSIONS;
 
   /*
    * validate the input arguments
@@ -322,7 +320,10 @@ void XV_VCrsmplSetFormat(XV_Vcresampler_l2 *InstancePtr,
 	  convType = XV_VCRSMPLR_422_TO_420;
     }
 
-    XV_vcresampler_SetCoefficients(InstancePtr, convType);
+    //Update coefficients only if conversion type is set
+    if(convType != XV_VCRSMPLR_NUM_CONVERSIONS) {
+      XV_vcresampler_SetCoefficients(InstancePtr, convType);
+    }
   }
 }
 
