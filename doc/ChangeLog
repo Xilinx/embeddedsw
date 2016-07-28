@@ -152,6 +152,9 @@ xilisf_v5_6:
 Added support for MT25QU02G part.
 Corrected the missing WE before erase.
 
+xilisf_v5_7:
+Added support for SubSector erase.
+
 zynqmp_fsbl:
 Added support for DDR ECC Initialization Fixed the bug causing PMUMB
 wakeup right after loading of first PMUFW partition in boot images with only FSBL and PMUFW present. Now it is being done after all partitions of PMUFW are loaded.
