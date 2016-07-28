@@ -45,7 +45,7 @@ typedef uint32_t u32;
 */
 typedef struct {
     u16 DeviceId;          /**< Unique ID  of device */
-    u32 BaseAddress;       /**< The base address of the core instance. */
+    UINTPTR BaseAddress;   /**< The base address of the core instance. */
     u16 PixPerClk;         /**< Samples Per Clock supported by core instance */
     u16 NumVidComponents;  /**< Number of Video Components */
     u16 MaxWidth;          /**< Maximum columns supported by core instance */
@@ -93,7 +93,7 @@ int XV_vscaler_Initialize(XV_vscaler *InstancePtr, u16 DeviceId);
 XV_vscaler_Config* XV_vscaler_LookupConfig(u16 DeviceId);
 int XV_vscaler_CfgInitialize(XV_vscaler *InstancePtr,
                              XV_vscaler_Config *ConfigPtr,
-                             u32 EffectiveAddr);
+							 UINTPTR EffectiveAddr);
 #else
 int XV_vscaler_Initialize(XV_vscaler *InstancePtr, const char* InstanceName);
 int XV_vscaler_Release(XV_vscaler *InstancePtr);

@@ -5,6 +5,13 @@
 //
 // ==============================================================
 
+#ifndef XV_VSCALER_HW_H_ 	 /* prevent circular inclusions */
+#define XV_VSCALER_HW_H_	 /* by using protection macros  */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // CTRL
 // 0x000 : Control signals
 //         bit 0  - ap_start (Read/Write/COH)
@@ -67,3 +74,9 @@
 #define XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_HIGH 0xbff
 #define XV_VSCALER_CTRL_WIDTH_HWREG_VFLTCOEFF     16
 #define XV_VSCALER_CTRL_DEPTH_HWREG_VFLTCOEFF     384
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* end of protection macro */
