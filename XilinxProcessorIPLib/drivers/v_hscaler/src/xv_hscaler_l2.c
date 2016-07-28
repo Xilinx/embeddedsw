@@ -193,61 +193,45 @@ static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
            break;
 
       case XV_HSCALER_TAPS_8:
-       if(ScalingRatio > 15) //>1.5
-       {
-         coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
-         numTaps = XV_HSCALER_TAPS_8;
-       }
-       else //<=1.5
-       {
-         coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
-         numTaps = XV_HSCALER_TAPS_6;
-       }
+           if(ScalingRatio > 15) {//>1.5
+             coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
+             numTaps = XV_HSCALER_TAPS_8;
+           } else {//<=1.5
+             coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
+             numTaps = XV_HSCALER_TAPS_6;
+           }
            break;
 
       case XV_HSCALER_TAPS_10:
-           if(ScalingRatio > 25) //2.5
-           {
+           if(ScalingRatio > 25) {//2.5
              coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
              numTaps = XV_HSCALER_TAPS_10;
-           }
-           else if(ScalingRatio > 15) // 1.6 < ratio <= 2.5
-           {
+           } else if(ScalingRatio > 15) {// 1.6 < ratio <= 2.5
              coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
              numTaps = XV_HSCALER_TAPS_8;
-           }
-           else // <= 1.5
-           {
+           } else {// <= 1.5
              coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
              numTaps = XV_HSCALER_TAPS_6;
            }
            break;
 
       case XV_HSCALER_TAPS_12:
-           if(ScalingRatio > 35) //> 3.5
-           {
+           if(ScalingRatio > 35) {//> 3.5
              coeff = &XV_hscaler_fixedcoeff_taps12[0][0];
              numTaps = XV_HSCALER_TAPS_12;
-           }
-           else if(ScalingRatio > 25) //2.6 < Ratio <= 3.5
-           {
+           } else if(ScalingRatio > 25) {//2.6 < Ratio <= 3.5
              coeff = &XV_hscaler_fixedcoeff_taps10[0][0];
              numTaps = XV_HSCALER_TAPS_10;
-           }
-           else if(ScalingRatio > 15) //1.6 < Ratio <= 2.5
-           {
+           } else if(ScalingRatio > 15) {//1.6 < Ratio <= 2.5
              coeff = &XV_hscaler_fixedcoeff_taps8[0][0];
              numTaps = XV_HSCALER_TAPS_8;
-           }
-           else // <=1.5
-           {
+           } else {// <=1.5
              coeff = &XV_hscaler_fixedcoeff_taps6[0][0];
              numTaps = XV_HSCALER_TAPS_6;
            }
            break;
 
       default:
-          xil_printf("ERR: H-Scaler %d Taps Not Supported",numTaps);
           return;
     }
   }
@@ -300,11 +284,10 @@ void XV_HScalerLoadExtCoeff(XV_Hscaler_l2 *InstancePtr,
     case XV_HSCALER_TAPS_8:
     case XV_HSCALER_TAPS_10:
     case XV_HSCALER_TAPS_12:
-    break;
+         break;
 
     default:
-    xil_printf("\r\nERR: H Scaler %d TAPS not supported. (Select from 8/10/12/16)\r\n");
-    return;
+         return;
   }
 
   //determine if coefficient needs padding (effective vs. max taps)
