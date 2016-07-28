@@ -501,6 +501,7 @@
 *                    Micron N25Q256A.CR#881478.
 * 5.5  sk   11/07/15 Removed Compilation warnings with SPI interface.
 *                    CR# 868893.
+* 5.7  rk   27/07/16 Added the SubSector erase option.
 *
 * </pre>
 *
@@ -740,6 +741,7 @@ typedef enum {
 	XISF_PAGE_ERASE,	/**< Page Erase operation */
 	XISF_BLOCK_ERASE,	/**< Block Erase operation */
 	XISF_SECTOR_ERASE,	/**< Sector Erase operation */
+	XISF_SUB_SECTOR_ERASE,	/**< Sub Sector Erase operation */
 	XISF_BULK_ERASE		/**< Erase an entire Flash */
 } XIsf_EraseOperation;
 

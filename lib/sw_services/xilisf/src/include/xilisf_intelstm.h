@@ -59,6 +59,7 @@
 * 5.5   sk   01/14/16 Updated IntelStmDevices list to add support for S25FL512S
 *                     and S25FL256S.
 *       sk   03/02/16 Added support for MT25QU01G.
+* 5.7   rk   27/07/16 Added Subsector erase command.
 * </pre>
 *
 ******************************************************************************/
@@ -215,6 +216,7 @@ extern "C" {
 #define XISF_CMD_SUB_SECTOR_ERASE	0x20	/**< Sub-sector Erase command.
 						  *  only for N25QXX */
 #define XISF_CMD_4BYTE_SECTOR_ERASE 0xDC
+#define XISF_CMD_4BYTE_SUB_SECTOR_ERASE 0x21
 #endif /* ((XPAR_XISF_FLASH_FAMILY==INTEL)||(XPAR_XISF_FLASH_FAMILY == STM) ||
 	   (XPAR_XISF_FLASH_FAMILY == SPANSION)) */
 
