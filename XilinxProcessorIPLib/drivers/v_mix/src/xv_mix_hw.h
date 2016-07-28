@@ -5,6 +5,13 @@
 //
 // ==============================================================
 
+#ifndef XV_MIX_HW_H_     /* prevent circular inclusions */
+#define XV_MIX_HW_H_     /* by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // CTRL
 // 0x00000 : Control signals
 //           bit 0  - ap_start (Read/Write/COH)
@@ -587,3 +594,9 @@
 #define XV_MIX_CTRL_ADDR_HWREG_LOGOB_V_HIGH            0x33fff
 #define XV_MIX_CTRL_WIDTH_HWREG_LOGOB_V                16
 #define XV_MIX_CTRL_DEPTH_HWREG_LOGOB_V                4096
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* end of protection macro */

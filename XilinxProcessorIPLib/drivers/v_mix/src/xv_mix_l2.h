@@ -126,6 +126,7 @@
 *             02/25/16   Replace GetColorFromat function with a macro
 *             03/08/16   Replace GetColorFromat macro with function and added
 *                        master layer video format
+* 2.00  rco   07/21/16   Used UINTPTR instead of u32 for Baseaddress
 * </pre>
 *
 ******************************************************************************/
@@ -168,7 +169,7 @@ typedef enum
     XVMIX_SCALE_FACTOR_1X = 0,
     XVMIX_SCALE_FACTOR_2X,
     XVMIX_SCALE_FACTOR_4X,
-	XVMIX_SCALE_FACTOR_NOT_SUPPORTED
+	XVMIX_SCALE_FACTOR_NUM_SUPPORTED
 }XVMix_Scalefactor;
 
 /**
@@ -197,11 +198,11 @@ typedef enum {
 }XVMix_LayerType;
 
 typedef enum {
-  XVMIX_ERR_LAYER_WINDOW_INVALID  = 0x10L,
-  XVMIX_ERR_WIN_STRIDE_MISALIGNED = 0x11L,
-  XVMIX_ERR_MEM_ADDR_MISALIGNED   = 0x12L,
-  XVMIX_ERR_LAYER_INTF_TYPE       = 0x13L,
-  XVMIX_ERR_DISABLED_IN_HW        = 0x20L,
+  XVMIX_ERR_LAYER_WINDOW_INVALID     = 0x10L,
+  XVMIX_ERR_WIN_STRIDE_MISALIGNED    = 0x11L,
+  XVMIX_ERR_MEM_ADDR_MISALIGNED      = 0x12L,
+  XVMIX_ERR_LAYER_INTF_TYPE_MISMATCH = 0x13L,
+  XVMIX_ERR_DISABLED_IN_HW           = 0x20L,
   XVMIX_ERR_LAST
 }XVMix_ErrorCodes;
 
@@ -225,7 +226,7 @@ typedef struct {
             u8 *GBuffer;
             u8 *BBuffer;
         };
-        u32 BufAddr;
+        UINTPTR BufAddr;
     };
 }XVMix_Layer;
 
@@ -422,8 +423,8 @@ int XVMix_GetLayerAlpha(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
                              XVMix_LayerId LayerId,
-                             u32 Addr);
-u32 XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
+							 UINTPTR Addr);
+UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
 
 int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
                           XVMix_LogoColorKey ColorKeyData);

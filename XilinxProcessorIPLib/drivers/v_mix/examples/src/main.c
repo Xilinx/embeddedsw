@@ -580,9 +580,9 @@ void resetIp(void)
 {
   xil_printf("\r\nReset HLS IP \r\n");
   *gpio_hlsIpReset = 0; //reset IPs
-  MB_Sleep(1);          //hold reset line
+  usleep(1000);         //hold reset line
   *gpio_hlsIpReset = 1; //release reset
-  MB_Sleep(1);          //wait
+  usleep(1000);         //wait
 }
 
 /***************************************************************************
