@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_tx_crypt.c
-* @addtogroup hdcp22_tx_v1_0
+* @addtogroup hdcp22_tx_v2_0
 * @{
 * @details
 *
@@ -46,6 +46,7 @@
 * ----- ------ -------- -------------------------------------------------------
 * 1.00  JO     10/06/15 Initial release.
 * 1.01  MH     01/15/16 Replaced mallocs with fixed size arrays.
+* 2.00  MH     06/28/16 Updated for repeater downstream support.
 * </pre>
 *
 ******************************************************************************/
@@ -345,6 +346,9 @@ static int XHdcp22Tx_RsaOaepEncrypt(const u8 *KeyPubNPtr, int KeyPubNSize,
 void XHdcp22Tx_GenerateRandom(XHdcp22_Tx *InstancePtr, int NumOctets,
                               u8* RandomNumberPtr)
 {
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	/* Use hardware generator */
 	XHdcp22Rng_GetRandom(&InstancePtr->Rng, RandomNumberPtr, NumOctets, NumOctets);
 }
@@ -371,6 +375,13 @@ int XHdcp22Tx_VerifyCertificate(const XHdcp22_Tx_CertRx* CertificatePtr,
                                 const u8* KpubDcpNPtr, int KpubDcpNSize,
                                 const u8* KpubDcpEPtr, int KpubDcpESize)
 {
+	/* Verify arguments */
+	Xil_AssertNonvoid(CertificatePtr != NULL);
+	Xil_AssertNonvoid(KpubDcpNPtr != NULL);
+	Xil_AssertNonvoid(KpubDcpEPtr != NULL);
+	Xil_AssertNonvoid(KpubDcpNSize > 0);
+	Xil_AssertNonvoid(KpubDcpESize > 0);
+
 	int Result = XST_SUCCESS;
 	u8* EncryptedHashPtr = NULL;
 	u8 HashedData[XHDCP22_TX_SHA256_HASH_SIZE];
@@ -409,6 +420,71 @@ int XHdcp22Tx_VerifyCertificate(const XHdcp22_Tx_CertRx* CertificatePtr,
 /*****************************************************************************/
 /**
 *
+* This function verifies a HDCP2 system renewability message (SRM) block.
+*
+* @param  SrmPtr is a pointer to the SRM.
+* @param  SrmSize is the size of the SRM in bytes.
+* @param  KpubDcpNPtr is a pointer to the N-value of the DCP LLC key.
+* @param  KpubDcpNSize is the size of the N-value of the DCP LLC key.
+* @param  KpubDcpEPtr iis a pointer to the E-value of the DCP LLC key.
+* @param  KpubDcpESize is the size of the E-value of the DCP LLC key.
+*
+* @return
+*         - XST_SUCCESS if the SRM block is valid.
+*         - XST_FAILURE if the SRM block is invalid.
+* @note   None.
+*
+******************************************************************************/
+int XHdcp22Tx_VerifySRM(const u8* SrmPtr, int SrmSize,
+	const u8* KpubDcpNPtr, int KpubDcpNSize,
+	const u8* KpubDcpEPtr, int KpubDcpESize)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(SrmPtr != NULL);
+	Xil_AssertNonvoid(KpubDcpNPtr != NULL);
+	Xil_AssertNonvoid(KpubDcpEPtr != NULL);
+	Xil_AssertNonvoid(SrmSize > 0);
+	Xil_AssertNonvoid(KpubDcpNSize > 0);
+	Xil_AssertNonvoid(KpubDcpESize > 0);
+
+	int Result = XST_SUCCESS;
+	u8* EncryptedHashPtr = NULL;
+	u8 HashedData[XHDCP22_TX_SHA256_HASH_SIZE];
+	u8 Em[XHDCP22_TX_SRM_SIGNATURE_SIZE];
+
+	/* Create hash of first part of the SRM (without the signature). */
+	XHdcp22Cmn_Sha256Hash((u8 *)SrmPtr,
+		SrmSize - XHDCP22_TX_SRM_SIGNATURE_SIZE,
+		HashedData);
+
+	/* RSA decryption. */
+	Result = XHdcp22Tx_RsaEncryptMsg(KpubDcpNPtr, KpubDcpNSize,
+		KpubDcpEPtr, KpubDcpESize,
+		SrmPtr + (SrmSize - XHDCP22_TX_SRM_SIGNATURE_SIZE),
+		XHDCP22_TX_SRM_SIGNATURE_SIZE,
+		Em);
+	if (Result != XST_SUCCESS) {
+		return Result;
+	}
+
+	/* Compare hash and the last part of the encoded message.
+	* Note the encoded message contains padding bytes (0xff, 0x00=end-of-padding),
+	*  And ASN.1 values for:
+	* - the encoded message contents,
+	* - the used algorithm identifier (OID),
+	* - the value (HASH)
+	* According HDCP2.2 protocol we do not need to check these contents so we just check
+	* the last part of the encoded message that contains the hash.
+	*/
+	EncryptedHashPtr = &Em[XHDCP22_TX_SRM_SIGNATURE_SIZE - XHDCP22_TX_SHA256_HASH_SIZE];
+	Result = memcmp(HashedData, EncryptedHashPtr,
+		XHDCP22_TX_SHA256_HASH_SIZE) == 0 ? XST_SUCCESS : XST_FAILURE;
+	return Result;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function computes HPrime
 *
 * @param  Rrx is the Rx random generated value on start of authentication.
@@ -427,6 +503,14 @@ void XHdcp22Tx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps,
                              const u8* Rtx, const u8 *TxCaps,
                              const u8 *Km, u8 *HPrime)
 {
+	/* Verify arguments */
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(RxCaps != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(TxCaps != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(HPrime != NULL);
+
 	u8 Aes_Iv[XHDCP22_TX_AES128_SIZE];
 	u8 Aes_Key[XHDCP22_TX_AES128_SIZE];
 	u8 Kd[2 * XHDCP22_TX_AES128_SIZE]; /* Dkey0 || Dkey 1. */
@@ -467,13 +551,13 @@ void XHdcp22Tx_ComputeHPrime(const u8* Rrx, const u8 *RxCaps,
 /*****************************************************************************/
 /**
 *
-* This function computes LPrime. Kd is calculated as in
+* This function computes EdkeyKs. Kd is calculated as in
 * #XHdcp22Tx_ComputeHPrime, but could also be stored the first time.
 * This could save some computing time.
 * According protocol however, only Rrx and Rtx are supposed to be stored.
 *
 * @param  Rn is a pseudo-random nonce.
- @param   Km is the master key generated by tx..
+* @param  Km is the master key generated by tx..
 *         See also #XHdcp22Tx_ComputeHPrime
 * @param  Ks is the session key.
 * @param  Rrx is the random value generated by rx.
@@ -489,6 +573,14 @@ void XHdcp22Tx_ComputeEdkeyKs(const u8* Rn, const u8* Km,
                               const u8 *Rrx, const u8 *Rtx,
                               u8 *EdkeyKs)
 {
+	/* Verify arguments */
+	Xil_AssertVoid(Rn != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(Ks != NULL);
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(EdkeyKs != NULL);
+
 	u8 Aes_Iv[XHDCP22_TX_AES128_SIZE];
 	u8 Aes_Key[XHDCP22_TX_AES128_SIZE];
 	u8 Dkey2[XHDCP22_TX_AES128_SIZE]; /* Dkey2. */
@@ -540,6 +632,13 @@ void XHdcp22Tx_ComputeLPrime(const u8* Rn, const u8 *Km,
                              const u8 *Rrx, const u8 *Rtx,
                              u8 *LPrime)
 {
+	/* Verify arguments */
+	Xil_AssertVoid(Rn != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(LPrime != NULL);
+
 	u8 Aes_Iv[XHDCP22_TX_AES128_SIZE];
 	u8 Aes_Key[XHDCP22_TX_AES128_SIZE];
 	u8 Kd[2 * XHDCP22_TX_AES128_SIZE]; /* Dkey0 || Dkey 1. */
@@ -579,6 +678,147 @@ void XHdcp22Tx_ComputeLPrime(const u8* Rn, const u8 *Km,
 /*****************************************************************************/
 /**
 *
+* This function computes V
+*
+* @param
+* @param  V is a pointer to the computed V hash.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_ComputeV(const u8* Rn, const u8* Rrx, const u8* RxInfo,
+	const u8* Rtx, const u8* RecvIDList, const u8 RecvIDCount,
+	const u8* SeqNum_V, const u8* Km, u8* V)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(Rn != NULL);
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(RxInfo != NULL);
+	Xil_AssertVoid(SeqNum_V != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(V != NULL);
+
+	u8 Aes_Iv[XHDCP22_TX_AES128_SIZE];
+	u8 Aes_Key[XHDCP22_TX_AES128_SIZE];
+	u8 Kd[2 * XHDCP22_TX_AES128_SIZE]; /* Dkey0 || Dkey 1. */
+
+	u8 Temp[XHDCP22_TX_AES128_SIZE];
+
+	u8 HashInput[(XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT * XHDCP22_TX_RCVID_SIZE) +
+		XHDCP22_TX_RXINFO_SIZE + XHDCP22_TX_SEQ_NUM_V_SIZE];
+	int Idx = 0;
+
+	/* For key derivation, use Km XOR Rn as AES key where Rn=0 during AKE.
+	* Note: Protocol says we should use incoming Rn and XOR it with Km,
+	* but then the output does not match the errata output.
+	* For now we use for Rn 0, which matches the test vectors.
+	*/
+	memcpy(Aes_Key, Km, XHDCP22_TX_KM_SIZE);
+
+	/* Determine dkey0. */
+	/* Add m = Rtx || Rrx. */
+	memcpy(Aes_Iv, Rtx, XHDCP22_TX_RTX_SIZE);
+	/* Normally we should do Rrx XOR with Ctr0, but Ctr0 is 0. */
+	memcpy(&Aes_Iv[XHDCP22_TX_RTX_SIZE], Rrx, XHDCP22_TX_RRX_SIZE);
+	XHdcp22Cmn_Aes128Encrypt(Aes_Iv, Aes_Key, Kd);
+
+	/* Determine dkey1, counter is 1: Rrx | 0x01. */
+	Aes_Iv[15] ^= 0x01; /* big endian! */
+	XHdcp22Cmn_Aes128Encrypt(Aes_Iv, Aes_Key, &Kd[XHDCP22_TX_KM_SIZE]);
+
+	/* Create hash with HMAC-SHA256. */
+	/* Input: ReceiverID list || RxInfo || seq_num_V. */
+	memcpy(HashInput, RecvIDList, (RecvIDCount*XHDCP22_TX_RCVID_SIZE));
+	Idx += (RecvIDCount*XHDCP22_TX_RCVID_SIZE);
+	memcpy(&HashInput[Idx], RxInfo, XHDCP22_TX_RXINFO_SIZE);
+	Idx += XHDCP22_TX_RXINFO_SIZE;
+	memcpy(&HashInput[Idx], SeqNum_V, XHDCP22_TX_SEQ_NUM_V_SIZE);
+	Idx += XHDCP22_TX_SEQ_NUM_V_SIZE;
+	/* HashKey:	Kd*/
+	XHdcp22Cmn_HmacSha256Hash(HashInput, Idx, Kd, sizeof(Kd), V);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function computes M
+*
+* @param
+* @param  M is a pointer to the computed M hash.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_ComputeM(const u8* Rn, const u8* Rrx, const u8* Rtx,
+	const u8* StreamIDType, const u8* k,
+	const u8* SeqNum_M, const u8* Km, u8* M)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(Rn != NULL);
+	Xil_AssertVoid(Rrx != NULL);
+	Xil_AssertVoid(Rtx != NULL);
+	Xil_AssertVoid(StreamIDType != NULL);
+	Xil_AssertVoid(k != NULL);
+	Xil_AssertVoid(SeqNum_M != NULL);
+	Xil_AssertVoid(Km != NULL);
+	Xil_AssertVoid(M != NULL);
+
+	u8 Aes_Iv[XHDCP22_TX_AES128_SIZE];
+	u8 Aes_Key[XHDCP22_TX_AES128_SIZE];
+	u8 Kd[2 * XHDCP22_TX_AES128_SIZE]; /* Dkey0 || Dkey 1. */
+
+	u8 SHA256_Kd[XHDCP22_TX_SHA256_HASH_SIZE];
+
+	u16 StreamIDCount;
+
+	/* K value is in big endian format */
+	StreamIDCount  = k[0] << 8; // MSB
+	StreamIDCount |= k[1];      // LSB
+
+	u8 Temp[XHDCP22_TX_AES128_SIZE];
+
+	u8 HashInput[(XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT * XHDCP22_TX_RCVID_SIZE) +
+		XHDCP22_TX_RXINFO_SIZE + XHDCP22_TX_SEQ_NUM_M_SIZE];
+	int Idx = 0;
+
+	/* For key derivation, use Km XOR Rn as AES key where Rn=0 during AKE.
+	* Note: Protocol says we should use incoming Rn and XOR it with Km,
+	* but then the output does not match the errata output.
+	* For now we use for Rn 0, which matches the test vectors.
+	*/
+	memcpy(Aes_Key, Km, XHDCP22_TX_KM_SIZE);
+
+	/* Determine dkey0. */
+	/* Add m = Rtx || Rrx. */
+	memcpy(Aes_Iv, Rtx, XHDCP22_TX_RTX_SIZE);
+	/* Normally we should do Rrx XOR with Ctr0, but Ctr0 is 0. */
+	memcpy(&Aes_Iv[XHDCP22_TX_RTX_SIZE], Rrx, XHDCP22_TX_RRX_SIZE);
+	XHdcp22Cmn_Aes128Encrypt(Aes_Iv, Aes_Key, Kd);
+
+	/* Determine dkey1, counter is 1: Rrx | 0x01. */
+	Aes_Iv[15] ^= 0x01; /* big endian! */
+	XHdcp22Cmn_Aes128Encrypt(Aes_Iv, Aes_Key, &Kd[XHDCP22_TX_KM_SIZE]);
+
+	/* Create hash with SHA256 */
+	XHdcp22Cmn_Sha256Hash(Kd, sizeof(Kd), SHA256_Kd);
+
+	/* Create hash with HMAC-SHA256. */
+	/* Input: StreamID_Type list || seq_num_M. */
+	memcpy(HashInput, StreamIDType, (StreamIDCount*XHDCP22_TX_STREAMID_TYPE_SIZE));
+	Idx += (StreamIDCount*XHDCP22_TX_STREAMID_TYPE_SIZE);
+	memcpy(&HashInput[Idx], SeqNum_M, XHDCP22_TX_SEQ_NUM_M_SIZE);
+	Idx += XHDCP22_TX_SEQ_NUM_M_SIZE;
+	/* HashKey:	SHA256(Kd) */
+	XHdcp22Cmn_HmacSha256Hash(HashInput, Idx, SHA256_Kd, sizeof(SHA256_Kd), M);
+}
+
+/*****************************************************************************/
+/**
+*
 * This function encrypts the Km value with the receivers public key into Ekh(Km)
 *
 * @param  CertificatePtr is a pointer to the certificate from the HDCP2.2 receiver.
@@ -597,6 +837,12 @@ void XHdcp22Tx_ComputeLPrime(const u8* Rn, const u8 *Km,
 int XHdcp22Tx_EncryptKm(const XHdcp22_Tx_CertRx* CertificatePtr,
                         const u8* KmPtr, u8 *MaskingSeedPtr, u8* EncryptedKmPtr)
 {
+	/* Verify arguments */
+	Xil_AssertNonvoid(CertificatePtr != NULL);
+	Xil_AssertNonvoid(KmPtr != NULL);
+	Xil_AssertNonvoid(MaskingSeedPtr != NULL);
+	Xil_AssertNonvoid(EncryptedKmPtr != NULL);
+
 	return XHdcp22Tx_RsaOaepEncrypt(CertificatePtr->N, 	XHDCP22_TX_CERT_PUB_KEY_N_SIZE,
                                   CertificatePtr->e, XHDCP22_TX_CERT_PUB_KEY_E_SIZE,
                                   KmPtr, XHDCP22_TX_KM_SIZE,
@@ -621,6 +867,11 @@ int XHdcp22Tx_EncryptKm(const XHdcp22_Tx_CertRx* CertificatePtr,
 void XHdcp22Tx_MemXor(u8 *Output, const u8 *InputA, const u8 *InputB,
                       unsigned int Size)
 {
+	/* Verify arguments */
+	Xil_AssertVoid(Output != NULL);
+	Xil_AssertVoid(InputA != NULL);
+	Xil_AssertVoid(InputB != NULL);
+
 	unsigned int i=0;
 	for (i=0; i<Size; i++) {
 		Output[i] = InputA[i] ^ InputB[i];

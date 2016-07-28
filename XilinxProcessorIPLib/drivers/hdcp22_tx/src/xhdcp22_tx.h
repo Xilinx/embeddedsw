@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_tx.h
-* @addtogroup hdcp22_tx_v1_0
+* @addtogroup hdcp22_tx_v2_0
 * @{
 * @details
 *
@@ -82,6 +82,7 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JO     06/24/15 Initial release.
 * 1.01  MG     02/25/16 Added authenticated callback and GetVersion.
+* 2.00  MH     06/28/16 Updated for repeater downstream support.
 * </pre>
 *
 ******************************************************************************/
@@ -97,6 +98,7 @@ extern "C" {
 #include <stdio.h>
 #include <string.h>
 #include "xparameters.h"
+
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xdebug.h"
@@ -120,6 +122,21 @@ extern "C" {
 */
 #define  XHDCP22_TX_MAX_MESSAGE_SIZE    1+534
 
+/**
+* Needed storage for the Device IDs in the revocation list.
+*/
+#define XHDCP22_TX_REVOCATION_LIST_MAX_DEVICES 944
+
+/**
+* The list of maximum pairing info items to store.
+*/
+#define XHDCP22_TX_MAX_STORED_PAIRINGINFO  2
+
+/**
+* The size of the log buffer.
+*/
+#define XHDCP22_TX_LOG_BUFFER_SIZE 256
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -131,6 +148,8 @@ typedef enum
 	XHDCP22_TX_HANDLER_DDC_WRITE,
 	XHDCP22_TX_HANDLER_DDC_READ,
 	XHDCP22_TX_HANDLER_AUTHENTICATED,
+	XHDCP22_TX_HANDLER_UNAUTHENTICATED,
+	XHDCP22_TX_HANDLER_DOWNSTREAM_TOPOLOGY_AVAILABLE,
 	XHDCP22_TX_HANDLER_INVALID
 } XHdcp22_Tx_HandlerType;
 
@@ -148,14 +167,16 @@ typedef enum
 	XHDCP22_TX_STATE_A1_NSK1, /**< No stored Km substate of A1, wait for AKE_SEND_PAIRING_INFO. */
 	XHDCP22_TX_STATE_A1_SK0,  /**< Stored substate of A1, wait for AKE_SEND_PAIRING_INFO. */
 	XHDCP22_TX_STATE_A2,      /**< Locality Check. */
-	XHDCP22_TX_STATE_A2_1,    /**< Locality Check, receiving and verify L_Prime. */
+	XHDCP22_TX_STATE_A2_1,    /**< Locality Check. Receive and verify L_Prime. */
 	XHDCP22_TX_STATE_A3,      /**< Exchange Ks. */
 	XHDCP22_TX_STATE_A4,      /**< Test for repeater. */
 	XHDCP22_TX_STATE_A5,      /**< Authenticated. */
+	XHDCP22_TX_STATE_A6_A7_A8,/**< Wait for receiver ID list, verify and send acknowledgment */
 	XHDCP22_TX_STATE_A6,      /**< Wait for receiver ID list. */
 	XHDCP22_TX_STATE_A7,      /**< Verify Receiver ID List. */
 	XHDCP22_TX_STATE_A8,      /**< Send Receiver ID List acknowledgment. */
 	XHDCP22_TX_STATE_A9,      /**< Content Stream Management. */
+	XHDCP22_TX_STATE_A9_1,    /**< Content Stream Management. Receive and verify M_Prime. */
 	XHDCP22_TX_NUM_STATES     /**< Number of states in the state machine. */
 }XHdcp22_Tx_StateType;
 
@@ -167,12 +188,25 @@ typedef enum
 */
 typedef enum
 {
-	XHDCP22_TX_INCOMPATIBLE_RX,         /**< A HDCP2 compatible receiver is not found. */
-	XHDCP22_TX_AUTHENTICATION_BUSY,     /**< Authentication is busy. */
-	XHDCP22_TX_AUTHENTICATED,           /**< Authentication is completed successfully. */
-	XHDCP22_TX_UNAUTHENTICATED,         /**< Authentication failed. */
-	XHDCP22_TX_REAUTHENTICATE_REQUESTED /**< ReAuthentication requested.*/
+	XHDCP22_TX_INCOMPATIBLE_RX,          /**< A HDCP2 compatible receiver is not found. */
+	XHDCP22_TX_AUTHENTICATION_BUSY,      /**< Authentication is busy. */
+	XHDCP22_TX_AUTHENTICATED,            /**< Authentication is completed successfully. */
+	XHDCP22_TX_UNAUTHENTICATED,          /**< Authentication failed. */
+	XHDCP22_TX_REAUTHENTICATE_REQUESTED, /**< ReAuthentication requested.*/
+	XHDCP22_TX_DEVICE_IS_REVOKED,        /**< A device in the HDCP chain is revoked. */
+	XHDCP22_TX_NO_SRM_LOADED             /**< No valid SRM is loaded. */
 } XHdcp22_Tx_AuthenticationType;
+
+/**
+* These constants are used to define the content stream type.
+*/
+typedef enum {
+	XHDCP22_STREAMTYPE_0, /**< Type 0 Content Stream.
+	                        * Stream may be transmitted to all HDCP devices. */
+	XHDCP22_STREAMTYPE_1, /**< Type 1 Content Stream.
+	                        * Stream must not be transmitted to HDCP1.x devices
+	                        * and HDCP2.0 Repeaters. */
+} XHdcp22_Tx_ContentStreamType;
 
 /**
 * These constants are events as stored in the logging list.
@@ -187,6 +221,7 @@ typedef enum {
 	XHDCP22_TX_LOG_EVT_TEST_ERROR,      /**< An error was detected in one of the test modes. */
 	XHDCP22_TX_LOG_EVT_DBG,             /**< Log event for debugging. */
 	XHDCP22_TX_LOG_EVT_LCCHK_COUNT,     /**< Number of times Locality check has been done. */
+	XHDCP22_TX_LOG_EVT_STRMMNGCHK_COUNT,/**< Number of times Content Stream Management check has been done. */
 	XHDCP22_TX_LOG_EVT_USER,            /**< User logging. */
 	XHDCP22_TX_LOG_INVALID              /**< Last value the list, only used for checking. */
 } XHdcp22_Tx_LogEvt;
@@ -208,6 +243,18 @@ typedef enum {
 	XHDCP22_TX_CONVERTER                /**< Module acts as a HDCP 2.2 converter.  */
 } XHdcp22_Tx_Mode;
 
+/**
+* These constants are used to identify fields inside the topology structure
+*/
+typedef enum {
+	XHDCP22_TX_TOPOLOGY_DEPTH,
+	XHDCP22_TX_TOPOLOGY_DEVICECNT,
+	XHDCP22_TX_TOPOLOGY_MAXDEVSEXCEEDED,
+	XHDCP22_TX_TOPOLOGY_MAXCASCADEEXCEEDED,
+	XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+	XHDCP22_TX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
+	XHDCP22_TX_TOPOLOGY_INVALID
+} XHdcp22_Tx_TopologyField;
 
 /**
 * Callback type for status.
@@ -231,7 +278,7 @@ typedef struct
 	/** DeviceId is the unique ID of the device. */
 	u16 DeviceId;
 	/** Base Address is the physical base address of the device's registers. */
-	u32 BaseAddress;
+	UINTPTR BaseAddress;
 	/** HDMI or DP (Always HDCP22_TX_HDMI: Currently DP is not supported). */
 	XHdcp22_Tx_Protocol Protocol;
 	/** Future expansion. */
@@ -260,6 +307,17 @@ typedef struct
 } XHdcp22_Tx_Timer;
 
 /**
+* This typedef contains the the used keys used for authentication with stored Km.
+*/
+typedef struct {
+	u8 ReceiverId[5];    /**< Unique receiver Id. */
+	u8 RxCaps[3];        /**< Capabilities of the receiver. */
+	u8 Rtx[8];           /**< Random nonce for tx. */
+	u8 Rrx[8];           /**< Random nonce for Rx (m: Rtx || Rrx). */
+	u8 Km[16];           /**< Km. */
+	u8 Ekh_Km[16];       /**< Ekh(Km). */
+} XHdcp22_Tx_PairingInfo;
+/**
 * This typedef contains information about the HDCP22 transmitter.
 */
 typedef struct
@@ -276,8 +334,39 @@ typedef struct
 	u16  LocalityCheckCounter;          /**< Locality may attempt 1024 times. */
 	u8 MsgAvailable;                    /**< Message is available for reading. */
 
+	XHdcp22_Tx_PairingInfo PairingInfo[XHDCP22_TX_MAX_STORED_PAIRINGINFO];
 	/** The result after a call to #XHdcp22Tx_Poll. */
 	XHdcp22_Tx_AuthenticationType AuthenticationStatus;
+
+	/** Content stream type used with Content Stream Management */
+	XHdcp22_Tx_ContentStreamType ContentStreamType;
+
+	/** Sequence number M used with Content Stream Management */
+	u32 SeqNum_M;
+
+	/** Indicates if the first seq_num_M value is sent */
+	u8 SentFirstSeqNum_M;
+
+	/** Calculated M value */
+	u8 M[32];
+
+	/** Is topology info available */
+	u8 IsTopologyAvailable;
+
+	/** Content stream type is sent */
+	u8 IsContentStreamTypeSent;
+
+	/** Content stream type is set */
+	u8 IsContentStreamTypeSet;
+
+	/** Keeps track of the number of Content Stream Management checks performed */
+	u16 ContentStreamManageCheckCounter;
+
+	/** Content stream management failed */
+	u8 ContentStreamManageFailed;
+
+	/** Indicates if the first seq_num_V value is received */
+	u8 ReceivedFirstSeqNum_V;
 
 	/** Is re-authentication requested by HDCP 2.2 RX. */
 	u8 ReAuthenticationRequested;
@@ -288,14 +377,26 @@ typedef struct
 	/** Is HDCP TX enabled (state machine is active). */
 	u8 IsEnabled;
 
-	/** Is HDMI data encryption enabled. */
-	u8 IsEncryptionEnabled;
-
 	/** Is the receiver a HDCP 2.2 type. */
 	u8 IsReceiverHDCP2Capable;
 
+	/** Is the receiver a HDCP repeater */
+	u8 IsReceiverRepeater;
+
+	/** Is revocation list valid */
+	u8 IsRevocationListValid;
+
+	/** Is a device listed in the revocation list */
+	u8 IsDeviceRevoked;
+
 	/** The currently used polling value see also #XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE. */
 	u32 PollingValue;
+
+	/** Authentication request count */
+	u32 AuthRequestCnt;
+
+	/** Re-authentication request count */
+	u32 ReauthRequestCnt;
 }XHdcp22_Tx_Info;
 
 /**
@@ -311,7 +412,7 @@ typedef struct {
 * This typedef contains the HDCP22 log list.
 */
 typedef struct {
-	XHdcp22_Tx_LogItem LogItems[256]; /**< Data. */
+	XHdcp22_Tx_LogItem LogItems[XHDCP22_TX_LOG_BUFFER_SIZE]; /**< Data. */
 	u16 Tail;                         /**< Tail pointer. */
 	u16 Head;                         /**< Head pointer. */
 	u8 Verbose;                       /**< Logging is extended with debug events. */
@@ -321,10 +422,52 @@ typedef struct {
 * This typedef contains the HDCP22 test parameters and settings.
 */
 typedef struct {
-  u32 TestMode;                 /**< Current used test mode. */
-  u32 TestFlags;                /**< Current used test flags. */
-  u8 CurrentDdcAddress;         /**< Current DDC address by the testing framework. */
+	u32 TestMode;                 /**< Current used test mode. */
+	u32 TestFlags;                /**< Current used test flags. */
+	u8 CurrentDdcAddress;         /**< Current DDC address by the testing framework. */
 } XHdcp22_Tx_Test;
+
+/**
+* This structure contains the HDCP2 Revocation information.
+*/
+typedef struct
+{
+	u32 NumDevices;
+	u8  ReceiverId[XHDCP22_TX_REVOCATION_LIST_MAX_DEVICES][5];
+} XHdcp22_Tx_RevocationList;
+
+/**
+* This structure contains the HDCP topology information.
+*/
+typedef struct
+{
+	/** Receiver ID list of all downstream devices. The list consists of
+	a contiguous set of bytes stored in big-endian order. */
+	u8  ReceiverId[32][5];
+
+	/** Repeater cascade depth. This value gives the number of attached
+	    levels through the connection topology. */
+	u8  Depth;
+
+	/** Total number of connected downstream devices. */
+	u8  DeviceCnt;
+
+	/** Flag used to indicate topology error. When set to one, more
+	    than 31 devices are attached to a downstream repeater. */
+	u8  MaxDevsExceeded;
+
+	/** Flag used to indicate topology error. When set to one, more
+	    than four levels of repeaters have been cascaded together. */
+	u8  MaxCascadeExceeded;
+
+	/** Flag used to indicate topology information. When set to one,
+	    indicates presence of an HDCP2.0-compliant Repeater in the topology. */
+	u8  Hdcp20RepeaterDownstream;
+
+	/** Flag used to indicate topology information. When set to one,
+	    indicates presence of an HDCP1.x-compliant device in the topology. */
+	u8  Hdcp1DeviceDownstream;
+} XHdcp22_Tx_Topology;
 
 /**
 * Callback type used for calling DDC read and write functions.
@@ -386,6 +529,18 @@ typedef struct
 	u8 IsAuthenticatedCallbackSet;
 	void *AuthenticatedCallbackRef;
 
+	/** Function pointer called after authentication failure */
+	XHdcp22_Tx_Callback UnauthenticatedCallback;
+	/** Set if UnauthenticatedCallback handler is defined. */
+	u8 IsUnauthenticatedCallbackSet;
+	void *UnauthenticatedCallbackRef;
+
+	/** Function pointer called after the downstream topology is available */
+	XHdcp22_Tx_Callback DownstreamTopologyAvailableCallback;
+	/** Set if DownstreamTopologyAvailableCallback handler is defined. */
+	u8 IsDownstreamTopologyAvailableCallbackSet;
+	void *DownstreamTopologyAvailableCallbackRef;
+
 	/** Internal used timer. */
 	XHdcp22_Tx_Timer Timer;
 
@@ -404,6 +559,12 @@ typedef struct
 	/** Message buffer for messages that are sent/received. */
 	u8 MessageBuffer[XHDCP22_TX_MAX_MESSAGE_SIZE];
 
+	/** Revocation List. */
+	XHdcp22_Tx_RevocationList RevocationList;
+
+	/** Topology info. */
+	XHdcp22_Tx_Topology Topology;
+
 #ifdef _XHDCP22_TX_TEST_
 	/** Testing. */
 	XHdcp22_Tx_Test Test;
@@ -413,6 +574,7 @@ typedef struct
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xhdcp22_tx_sinit.c */
@@ -420,7 +582,7 @@ XHdcp22_Tx_Config  *XHdcp22Tx_LookupConfig (u16 DeviceId);
 
 /* Initialization and control functions in xhdcp_tx.c */
 int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
-                            u32 EffectiveAddr);
+                            UINTPTR EffectiveAddr);
 int XHdcp22Tx_Reset(XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_ClearPairingInfo(XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_Authenticate (XHdcp22_Tx *InstancePtr);
@@ -429,6 +591,8 @@ int XHdcp22Tx_Enable (XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_Disable (XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_EnableEncryption (XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_DisableEncryption (XHdcp22_Tx *InstancePtr);
+void XHdcp22Tx_EnableBlank (XHdcp22_Tx *InstancePtr);
+void XHdcp22Tx_DisableBlank (XHdcp22_Tx *InstancePtr);
 u8  XHdcp22Tx_IsEnabled (XHdcp22_Tx *InstancePtr);
 u8  XHdcp22Tx_IsEncryptionEnabled (XHdcp22_Tx *InstancePtr);
 u8  XHdcp22Tx_IsInProgress (XHdcp22_Tx *InstancePtr);
@@ -450,9 +614,23 @@ XHdcp22_Tx_LogItem* XHdcp22Tx_LogRd(XHdcp22_Tx *InstancePtr);
 void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr);
 u32  XHdcp22Tx_LogGetTimeUSecs(XHdcp22_Tx *InstancePtr);
 void XHdcp22Tx_SetMessagePollingValue(XHdcp22_Tx *InstancePtr, u32 PollingValue);
+void XHdcp22Tx_Info(XHdcp22_Tx *InstancePtr);
 
 /* Functions for loading authentication constants */
 void XHdcp22Tx_LoadLc128(XHdcp22_Tx *InstancePtr, const u8 *Lc128Ptr);
+
+/* SRM and revocation */
+int XHdcp22Tx_LoadRevocationTable(XHdcp22_Tx *InstancePtr, const u8 *SrmPtr);
+XHdcp22_Tx_RevocationList* XHdcp22Tx_GetRevocationReceiverIdList(XHdcp22_Tx *InstancePtr);
+u8 XHdcp22Tx_IsDeviceRevoked(XHdcp22_Tx *InstancePtr, u8 *RecvIdPtr);
+
+/* Functions for repeater downstream interface */
+XHdcp22_Tx_Topology *XHdcp22Tx_GetTopology(XHdcp22_Tx *InstancePtr);
+u8 *XHdcp22Tx_GetTopologyReceiverIdList(XHdcp22_Tx *InstancePtr);
+u32 XHdcp22Tx_GetTopologyField(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_TopologyField Field);
+u8 XHdcp22Tx_IsRepeater(XHdcp22_Tx *InstancePtr);
+void XHdcp22Tx_SetRepeater(XHdcp22_Tx *InstancePtr, u8 Set);
+void XHdcp22Tx_SetContentStreamType(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_ContentStreamType StreamType);
 
 /************************** Variable Declarations ****************************/
 

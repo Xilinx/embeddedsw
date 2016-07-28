@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_tx_i.h
-* @addtogroup hdcp22_tx_v1_0
+* @addtogroup hdcp22_tx_v2_0
 * @{
 * @details
 *
@@ -48,6 +48,7 @@
 * 1.00  JO     06/24/15 Initial release.
 * 1.01  MH     03/14/15 Changed maximum locality check count
 *                       from 1024 to 128.
+* 2.00  MH     06/28/16 Updated for repeater downstream support.
 * </pre>
 *
 ******************************************************************************/
@@ -63,12 +64,17 @@ extern "C" {
 #include "xhdcp22_tx.h"
 
 /************************** Constant Definitions *****************************/
-/** Max number of pairing info structures containing non-confidential keys
-* that can be stored for fast authentication with stored Km.
-*/
-#define XHDCP22_TX_MAX_STORED_PAIRINGINFO       32
 /** Maximum allowed re-checking locality, prescribed by LLC. */
 #define XHDCP22_TX_MAX_ALLOWED_LOCALITY_CHECKS  128
+/** Maximum allowed re-checking content stream management */
+#define XHDCP22_TX_MAX_ALLOWED_STREAM_MANAGE_CHECKS 128
+
+#define XHDCP22_TX_LC128_SIZE                   16  /**< Lc128 global constant size */
+
+#define XHDCP22_TX_RCVID_SIZE                   5   /**< Unique receiver Id size in bytes */
+
+#define XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT    31  /**< Max number of downstream devices allowed */
+#define XHDCP22_TX_REPEATER_MAX_CASCADE_DEPTH   4   /**< Max cascade depth */
 
 /* Message Ids. */
 #define XHDCP22_TX_MSG_UNDEFINED                0   /**< Undefined. */
@@ -90,11 +96,23 @@ extern "C" {
 #define XHDCP22_TX_LC_SEND_L_PRIME_SIZE         33  /**< Send L' message size. */
 #define XHDCP22_TX_SKE_SEND_EKS                 11  /**< Send Eks message. */
 #define XHDCP22_TX_SKE_SEND_EKS_SIZE            25  /**< Send Eks message size.*/
-#define XHDCP22_TX_LC128_SIZE                   16  /**< Lc128 global constant size */
+#define XHDCP22_TX_REPEATAUTH_SEND_RECVID_LIST  12  /**< Repeater Auth send receiver ID list message. */
+#define XHDCP22_TX_REPEATAUTH_SEND_RECVID_LIST_SIZE 177 /**< Repeater Auth send receiver ID list maximum message size. */
+#define XHDCP22_TX_REPEATAUTH_SEND_ACK          15  /**< RepeaterAuth send ack message. */
+#define XHDCP22_TX_REPEATAUTH_SEND_ACK_SIZE     17  /**< RepeaterAuth send ack message size in bytes. */
+#define XHDCP22_TX_REPEATAUTH_STREAM_MANAGE     16  /**< RepeaterAuth stream manage message. */
+#define XHDCP22_TX_REPEATAUTH_STREAM_MANAGE_SIZE 8  /**< RepeaterAuth stream manage message size in bytes. */
+#define XHDCP22_TX_REPEATAUTH_STREAM_READY      17  /**< RepeaterAuth stream ready message. */
+#define XHDCP22_TX_REPEATAUTH_STREAM_READY_SIZE 33  /**< RepeaterAuth stream ready message size in bytes. */
 
 /** Reason why the timer was started: Undefined. */
 #define XHDCP22_TX_TS_UNDEFINED                 XHDCP22_TX_MSG_UNDEFINED
 
+/** Reason why the timer was started:
+* Waiting for Content Stream Type to be set when in repeater mode.
+* @note: The message ids also double as a reason identifier.
+*        Thus, the value of this define should NOT overlap a message Id.*/
+#define XHDCP22_TX_TS_WAIT_FOR_STREAM_TYPE      0xFD
 /** Reason why the timer was started:
 * Mandatory wait of 200 ms before the cipher may be activated.
 * Authenticated flag is only set after this period has expired.
@@ -157,6 +175,20 @@ extern "C" {
 #define XHDCP22_TX_KS_SIZE                      16    /**< 128 bits. */
 #define XHDCP22_TX_EDKEY_KS_SIZE                16    /**< 128 bits. */
 
+/* Sizes of SRM Fields in bytes. */
+#define XHDCP22_TX_SRM_RCVID_SIZE       XHDCP22_TX_RCVID_SIZE   /**< Receiver Id size in the SRM block. */
+#define XHDCP22_TX_SRM_SIGNATURE_SIZE   384                     /**< Signature size in the SRM block. */
+
+/* Defines for Repeater Authentication messages */
+#define XHDCP22_TX_RXINFO_SIZE                  2     /**< RxInfo size in bytes. */
+#define XHDCP22_TX_SEQ_NUM_V_SIZE               3     /**< Seq_num_v size in bytes. */
+#define XHDCP22_TX_V_SIZE                       32    /**< V size in bytes. */
+#define XHDCP22_TX_V_PRIME_SIZE                 16    /**< VPrime size in bytes. */
+#define XHDCP22_TX_SEQ_NUM_M_SIZE               3     /**< Seq_num_m size in bytes. */
+#define XHDCP22_TX_K_SIZE                       2     /**< K size in bytes. */
+#define XHDCP22_TX_STREAMID_TYPE_SIZE           2     /**< Stream ID and Type size in bytes. */
+#define XHDCP22_TX_M_PRIME_SIZE                 32    /**< MPrime size in bytes. */
+
 /* Test flags to trigger errors for unit tests. */
 
 /** Use a certificate test vector. */
@@ -171,6 +203,10 @@ extern "C" {
 #define XHDCP22_TX_TEST_INVALID_VALUE   0x00000010
 /** Timeout on a received message. */
 #define XHDCP22_TX_TEST_RCV_TIMEOUT     0x00000020
+/** Use a V_Prime test vector. */
+#define XHDCP22_TX_TEST_V1              0x00000040
+/** Use a M_Prime test vector. */
+#define XHDCP22_TX_TEST_M1              0x00000080
 /** AKE is forced using a stored Km scenarion. Pairing info is pre-loaded
 * with test vectors that forces Stored Km scenario.*/
 #define XHDCP22_TX_TEST_STORED_KM       0x00000100
@@ -180,6 +216,9 @@ extern "C" {
 #define XHDCP22_TX_TEST_NO_TIMEOUT      0x00000200
 /** Pairing info is cleared, to force a non-stored Km scenario */
 #define XHDCP22_TX_TEST_CLR_PAIRINGINFO 0x00000400
+/** Use testvectors for receiver R1 */
+#define XHDCP22_TX_TEST_USE_TEST_VECTOR_R1 0x80000000
+
 /** DDC base address (0x74 >> 1) */
 #define XHDCP22_TX_DDC_BASE_ADDRESS     0x3A
 
@@ -211,6 +250,7 @@ typedef enum
 	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE,
 	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_PASS,
 	XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_FAIL,
+	XHDCP22_TX_LOG_DBG_DEVICE_IS_REVOKED,
 	XHDCP22_TX_LOG_DBG_ENCRYPT_KM,
 	XHDCP22_TX_LOG_DBG_ENCRYPT_KM_DONE,
 	XHDCP22_TX_LOG_DBG_TX_NOSTOREDKM,
@@ -226,6 +266,12 @@ typedef enum
 	XHDCP22_TX_LOG_DBG_TX_EKS,
 	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS,
 	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS_DONE,
+	XHDCP22_TX_LOG_DBG_RX_RCVIDLIST,
+	XHDCP22_TX_LOG_DBG_COMPUTE_V,
+	XHDCP22_TX_LOG_DBG_COMPUTE_V_DONE,
+	XHDCP22_TX_LOG_DBG_RX_M1,
+	XHDCP22_TX_LOG_DBG_COMPUTE_M,
+	XHDCP22_TX_LOG_DBG_COMPUTE_M_DONE,
 	XHDCP22_TX_LOG_DBG_CHECK_REAUTH,
 	XHDCP22_TX_LOG_DBG_TIMEOUT,
 	XHDCP22_TX_LOG_DBG_TIMESTAMP,
@@ -240,20 +286,7 @@ typedef enum
 } XHdcp22_Tx_LogDebugValue;
 
 /**
-* This typedef contains the the internal (non-confidential) used keys used for
-* authentication with stored Km. After initial pairing, these are stored in
-* secure non-volatile storage.
-*/
-typedef struct {
-	u8 ReceiverId[XHDCP22_TX_CERT_RCVID_SIZE]; /**< Unique receiver Id. */
-	u8 RxCaps[XHDCP22_TX_RXCAPS_SIZE];         /**< Capabilities of the receiver. */
-	u8 Rtx[XHDCP22_TX_RTX_SIZE];               /**< Random nonce for tx. */
-	u8 Rrx[XHDCP22_TX_RRX_SIZE];               /**< Random nonce for Rx (m: Rtx || Rrx). */
-	u8 Km[XHDCP22_TX_KM_SIZE];                 /**< Km. */
-	u8 Ekh_Km[XHDCP22_TX_EKH_KM_SIZE];         /**< Ekh(Km). */
-} XHdcp22_Tx_PairingInfo;
 
-/**
 * This typedef contains the public key certificate of Receiver that is received
 * with AKE_Send_Cert.
 */
@@ -363,6 +396,51 @@ typedef struct
 } XHdcp22_Tx_SKESendEks;
 
 /**
+* This typedef contains the RepeaterAuth_Send_ReceiverID_List message definition.
+*/
+typedef struct
+{
+	u8 MsgId;
+
+	u8 RxInfo[XHDCP22_TX_RXINFO_SIZE];
+	u8 SeqNum_V[XHDCP22_TX_SEQ_NUM_V_SIZE];
+	u8 VPrime[XHDCP22_TX_V_PRIME_SIZE];
+	u8 ReceiverIDs[XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT][XHDCP22_TX_RCVID_SIZE];
+} XHdcp22_Tx_RepeatAuthSendRecvIDList;
+
+/**
+* This typedef contains the RepeaterAuth_Send_Ack message definition.
+*/
+typedef struct
+{
+	u8 MsgId;
+
+	u8 V[XHDCP22_TX_V_PRIME_SIZE];
+} XHdcp22_Tx_RepeatAuthSendAck;
+
+/**
+* This typedef contains the RepeaterAuth_Stream_Manage message definition.
+*/
+typedef struct
+{
+	u8 MsgId;
+
+	u8 SeqNum_M[XHDCP22_TX_SEQ_NUM_M_SIZE];
+	u8 K[XHDCP22_TX_K_SIZE];
+	u8 StreamID_Type[XHDCP22_TX_STREAMID_TYPE_SIZE];
+} XHdcp22_Tx_RepeatAuthStreamManage;
+
+/**
+* This typedef contains the RepeaterAuth_Stream_Ready message definition.
+*/
+typedef struct
+{
+	u8 MsgId;
+
+	u8 MPrime[XHDCP22_TX_M_PRIME_SIZE];
+} XHdcp22_Tx_RepeatAuthStreamReady;
+
+/**
 * Message buffer structure.
 */
 typedef union
@@ -375,6 +453,8 @@ typedef union
 	XHdcp22_Tx_AKESendHPrime      AKESendHPrime;
 	XHdcp22_Tx_AKESendPairingInfo AKESendPairingInfo;
 	XHdcp22_Tx_LCSendLPrime       LCSendLPrime;
+	XHdcp22_Tx_RepeatAuthSendRecvIDList RepeatAuthSendRecvIDList;
+	XHdcp22_Tx_RepeatAuthStreamReady RepeatAuthStreamReady;
 
 	/* Transmitted messages. */
 	XHdcp22_Tx_AKEInit            AKEInit;
@@ -382,6 +462,8 @@ typedef union
 	XHdcp22_Tx_AKEStoredKm        AKEStoredKm;
 	XHdcp22_Tx_LCInit             LCInit;
 	XHdcp22_Tx_SKESendEks         SKESendEks;
+	XHdcp22_Tx_RepeatAuthSendAck  RepeatAuthSendAck;
+	XHdcp22_Tx_RepeatAuthStreamManage RepeatAuthStreamManage;
 } XHdcp22_Tx_Message;
 
 /**
@@ -393,6 +475,7 @@ typedef struct
 	XHdcp22_Tx_Message Message;
 } XHdcp22_Tx_DDCMessage;
 
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
@@ -403,12 +486,21 @@ void XHdcp22Tx_MemXor(u8 *Output, const u8 *InputA, const u8 *InputB,
 int XHdcp22Tx_VerifyCertificate(const XHdcp22_Tx_CertRx *CertificatePtr,
                                 const u8* KpubDcpNPtr, int KpubDcpNSize,
                                 const u8* KpubDcpEPtr, int KpubDcpESize);
+int XHdcp22Tx_VerifySRM(const u8* SrmPtr, int SrmSize,
+                        const u8* KpubDcpNPtr, int KpubDcpNSize,
+                        const u8* KpubDcpEPtr, int KpubDcpESize);
 void XHdcp22Tx_ComputeHPrime(const u8 *Rrx, const u8 *RxCaps,
                              const u8* Rtx,  const u8 *TxCaps,
                              const u8 *Km, u8 *HPrime);
 void XHdcp22Tx_ComputeLPrime(const u8* Rn, const u8 *Km,
                              const u8 *Rrx, const u8 *Rtx,
                              u8 *LPrime);
+void XHdcp22Tx_ComputeV(const u8* Rn, const u8* Rrx, const u8* RxInfo,
+	                    const u8* Rtx, const u8* RecvIDList, const u8 RecvIDCount,
+	                    const u8* SeqNum_V, const u8* Km, u8* V);
+void XHdcp22Tx_ComputeM(const u8* Rn, const u8* Rrx, const u8* Rtx,
+                        const u8* StreamIDType, const u8* k,
+                        const u8* SeqNum_M, const u8* Km, u8* M);
 void XHdcp22Tx_ComputeEdkeyKs(const u8* Rn, const u8* Km,
                               const u8 *Ks, const u8 *Rrx,
                               const u8 *Rtx,  u8 *EdkeyKs);
@@ -438,6 +530,7 @@ void XHdcp22Tx_TestGenerateRn(XHdcp22_Tx *InstancePtr, u8* RnPtr);
 void XHdcp22Tx_TestGenerateRiv(XHdcp22_Tx *InstancePtr, u8* RivPtr);
 void XHdcp22Tx_TestGenerateKs(XHdcp22_Tx *InstancePtr, u8* KsPtr);
 const u8* XHdcp22Tx_TestGetKPubDpc(XHdcp22_Tx *InstancePtr);
+const u8* XHdcp22Tx_TestGetSrm(XHdcp22_Tx *InstancePtr, u8 Select);
 void XHdcp22Tx_LogDisplayUnitTest(XHdcp22_Tx *InstancePtr);
 #endif
 

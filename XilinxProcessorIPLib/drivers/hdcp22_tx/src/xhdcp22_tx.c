@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_tx.c
-* @addtogroup hdcp22_tx_v1_0
+* @addtogroup hdcp22_tx_v2_0
 * @{
 * @details
 *
@@ -52,7 +52,7 @@
 * 1.03  MG     02/29/16 Added XHdcp22Cipher_Disable in function XHdcp22Tx_Reset.
 * 1.04  MH     03/14/16 Updated StateA5 to check re-authentication request
 *                       before enabling the cipher.
-*
+* 2.00  MH     06/28/16 Updated for repeater downstream support.
 * </pre>
 *
 ******************************************************************************/
@@ -105,7 +105,7 @@ static int XHdcp22Tx_ComputeBaseAddress(u32 BaseAddress, u32 SubcoreOffset, u32 
 /* Stubs for callbacks */
 static int XHdcp22Tx_StubDdc(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
                              u8 Stop, void *RefPtr);
-static void XHdcp22Tx_StubAuthenticated(void* RefPtr);
+static void XHdcp22Tx_StubCallback(void* RefPtr);
 
 /* state handling  functions */
 static XHdcp22_Tx_StateType XHdcp22Tx_StateH0(XHdcp22_Tx *InstancePtr);
@@ -121,10 +121,12 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA2_1(XHdcp22_Tx *InstancePtr);
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA3(XHdcp22_Tx *InstancePtr);
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA4(XHdcp22_Tx *InstancePtr);
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr);
+static XHdcp22_Tx_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx *InstancePtr);
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA6(XHdcp22_Tx *InstancePtr);
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA7(XHdcp22_Tx *InstancePtr);
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA8(XHdcp22_Tx *InstancePtr);
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA9(XHdcp22_Tx *InstancePtr);
+static XHdcp22_Tx_StateType XHdcp22Tx_StateA9_1(XHdcp22_Tx *InstancePtr);
 
 /* State transition handling functions are used to do initial code before
 * entering a new state. This is used in cases that a state is executed
@@ -135,7 +137,10 @@ static void XHdcp22Tx_A1A0(XHdcp22_Tx *InstancePtr);
 static void XHdcp22Tx_A1A2(XHdcp22_Tx *InstancePtr);
 static void XHdcp22Tx_A2A0(XHdcp22_Tx *InstancePtr);
 static void XHdcp22Tx_A3A0(XHdcp22_Tx *InstancePtr);
+static void XHdcp22Tx_A3A4(XHdcp22_Tx *InstancePtr);
 static void XHdcp22Tx_A4A5(XHdcp22_Tx *InstancePtr);
+static void XHdcp22Tx_A6A7A0(XHdcp22_Tx *InstancePtr);
+static void XHdcp22Tx_A9A0(XHdcp22_Tx *InstancePtr);
 
 /* Protocol specific functions */
 static int XHdcp22Tx_WriteAKEInit(XHdcp22_Tx *InstancePtr);
@@ -147,10 +152,10 @@ static void XHdcp22Tx_WriteAKEStoredKm(XHdcp22_Tx *InstancePtr,
 static void XHdcp22Tx_WriteLcInit(XHdcp22_Tx *InstancePtr, const u8 *Rn);
 static void XHdcp22Tx_WriteSkeSendEks(XHdcp22_Tx *InstancePtr,
                     const u8 *EdkeyKsPtr, const u8 *RivPtr);
-
+static void XHdcp22Tx_WriteRepeaterAuth_Send_Ack(XHdcp22_Tx *InstancePtr, const u8 *V);
+static void XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_ReceiveMsg(XHdcp22_Tx *InstancePtr, u8 MessageId,
                     int MessageSize);
-
 
 /* Generators and functions that return a generated value or a testvector */
 static void XHdcp22Tx_GenerateRtx(XHdcp22_Tx *InstancePtr, u8* RtxPtr);
@@ -162,21 +167,35 @@ static void XHdcp22Tx_GenerateKs(XHdcp22_Tx *InstancePtr, u8* KsPtr);
 static const u8* XHdcp22Tx_GetKPubDpc(XHdcp22_Tx *InstancePtr);
 
 /* Cryptographic functions */
-static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(const u8 *ReceiverId);
-static void XHdcp22Tx_InvalidatePairingInfo(const u8* ReceiverId);
-static XHdcp22_Tx_PairingInfo *XHdcp22Tx_UpdatePairingInfo(
+static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(XHdcp22_Tx *InstancePtr,
+                                                        const u8 *ReceiverId);
+static void XHdcp22Tx_InvalidatePairingInfo(XHdcp22_Tx *InstancePtr,
+                                             const u8* ReceiverId);
+static XHdcp22_Tx_PairingInfo *XHdcp22Tx_UpdatePairingInfo(XHdcp22_Tx *InstancePtr,
                               const XHdcp22_Tx_PairingInfo *PairingInfo);
 
 /* Timer functions */
 static void XHdcp22Tx_TimerHandler(void *CallbackRef, u8 TmrCntNumber);
 static int XHdcp22Tx_StartTimer(XHdcp22_Tx *InstancePtr, u32 TimeOut_mSec,
                                 u8 ReasonId);
-static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize);
+static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, u8 ReadyBit);
 static u32 XHdcp22Tx_GetTimerCount(XHdcp22_Tx *InstancePtr);
 
 /* RxStatus handling */
 static void XHdcp22Tx_ReadRxStatus(XHdcp22_Tx *InstancePtr);
 static u8 XHdcp22_Tx_RxStatusMutex = FALSE;
+
+/* Status handling */
+static void XHdcp22Tx_HandleAuthenticationFailed(XHdcp22_Tx *InstancePtr);
+static void XHdcp22Tx_HandleReauthenticationRequest(XHdcp22_Tx * InstancePtr);
+
+/* Function for setting fields inside the topology structure */
+static u32 XHdcp22Tx_GetTopologyDepth(XHdcp22_Tx *InstancePtr);
+static u32 XHdcp22Tx_GetTopologyDeviceCnt(XHdcp22_Tx *InstancePtr);
+static u32 XHdcp22Tx_GetTopologyMaxDevsExceeded(XHdcp22_Tx *InstancePtr);
+static u32 XHdcp22Tx_GetTopologyMaxCascadeExceeded(XHdcp22_Tx *InstancePtr);
+static u32 XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(XHdcp22_Tx *InstancePtr);
+static u32 XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(XHdcp22_Tx *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -191,7 +210,8 @@ XHdcp22Tx_StateFuncType* const XHdcp22_Tx_StateTable[XHDCP22_TX_NUM_STATES] =
 	Xhdcp22Tx_StateA1_Nsk0, Xhdcp22Tx_StateA1_Nsk1, Xhdcp22Tx_StateA1_Sk0,
 	XHdcp22Tx_StateA2, XHdcp22Tx_StateA2_1,
 	XHdcp22Tx_StateA3, XHdcp22Tx_StateA4, XHdcp22Tx_StateA5,
-	XHdcp22Tx_StateA6, XHdcp22Tx_StateA7, XHdcp22Tx_StateA8, XHdcp22Tx_StateA9
+	XHdcp22Tx_StateA6_A7_A8,
+	XHdcp22Tx_StateA6, XHdcp22Tx_StateA7, XHdcp22Tx_StateA8, XHdcp22Tx_StateA9, XHdcp22Tx_StateA9_1
 };
 
 /**
@@ -238,21 +258,6 @@ static const u8 XHdcp22_Tx_KpubDcp[XHDCP22_TX_KPUB_DCP_LLC_N_SIZE + XHDCP22_TX_K
 */
 static const u8 XHdcp22_Tx_TxCaps[] = { 0x02, 0x00, 0x00 };
 
-/**
-* This array contains the pairing info keys that are used for authentication
-* with stored Km. It uses a mechanism that tries to find an empty entry for adding
-* a new one.
-*
-* - Optionally move to non-volatile secure storage to have persistent stored Km
-*   authentication even after power-up.
-* - It is not required by the protocol, but InvalidatePairingInfo()could be
-*   used if a failure occurs in stored Km authentication, so automatically
-*   the non-stored Km authentication is executed on next authentication.
-* - If no empty slots, and the array is full, the first entry is returned
-*   for pairing info storage.
-*
-*/
-XHdcp22_Tx_PairingInfo XHdcp22_Tx_PairingInfoStore[XHDCP22_TX_MAX_STORED_PAIRINGINFO];
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -279,14 +284,14 @@ XHdcp22_Tx_PairingInfo XHdcp22_Tx_PairingInfoStore[XHDCP22_TX_MAX_STORED_PAIRING
 *
 ******************************************************************************/
 int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
-                            u32 EffectiveAddr)
+                            UINTPTR EffectiveAddr)
 {
 	int Result = XST_SUCCESS;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+	Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
 	/* Setup the instance */
 	(void)memset((void *)InstancePtr, 0, sizeof(XHdcp22_Tx));
@@ -302,13 +307,16 @@ int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
 	InstancePtr->IsDdcReadSet = (FALSE);
 	InstancePtr->DdcWrite = XHdcp22Tx_StubDdc;
 	InstancePtr->IsDdcWriteSet = (FALSE);
-    InstancePtr->AuthenticatedCallback = XHdcp22Tx_StubAuthenticated;
+	InstancePtr->AuthenticatedCallback = XHdcp22Tx_StubCallback;
 	InstancePtr->IsAuthenticatedCallbackSet = (FALSE);
+	InstancePtr->UnauthenticatedCallback = XHdcp22Tx_StubCallback;
+	InstancePtr->IsUnauthenticatedCallbackSet = (FALSE);
+	InstancePtr->DownstreamTopologyAvailableCallback = XHdcp22Tx_StubCallback;
+	InstancePtr->IsDownstreamTopologyAvailableCallbackSet = (FALSE);
 
 	InstancePtr->Info.Protocol = XHDCP22_TX_HDMI;
 
 	/* Initialize global parameters */
-	InstancePtr->Info.IsEncryptionEnabled = (FALSE);
 	InstancePtr->Info.IsReceiverHDCP2Capable = (FALSE);
 
 	/* Initialize statemachine, but do not run it */
@@ -327,6 +335,9 @@ int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
 	transition_table[XHDCP22_TX_STATE_A2_1][XHDCP22_TX_STATE_A0] = XHdcp22Tx_A2A0;
 	transition_table[XHDCP22_TX_STATE_A3][XHDCP22_TX_STATE_A0] = XHdcp22Tx_A3A0;
 	transition_table[XHDCP22_TX_STATE_A4][XHDCP22_TX_STATE_A5] = XHdcp22Tx_A4A5;
+	transition_table[XHDCP22_TX_STATE_A3][XHDCP22_TX_STATE_A4] = XHdcp22Tx_A3A4;
+	transition_table[XHDCP22_TX_STATE_A6_A7_A8][XHDCP22_TX_STATE_A0] = XHdcp22Tx_A6A7A0;
+	transition_table[XHDCP22_TX_STATE_A9][XHDCP22_TX_STATE_A0] = XHdcp22Tx_A9A0;
 
 	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_UNAUTHENTICATED;
 	InstancePtr->Info.CurrentState = XHDCP22_TX_STATE_H0;
@@ -336,16 +347,27 @@ int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
 	InstancePtr->Info.MsgAvailable = (FALSE);
 	InstancePtr->Info.PollingValue = XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE;
 
+	/* Topology info */
+	InstancePtr->Info.IsTopologyAvailable = (FALSE);
+
 	/* Timer configuration */
 	InstancePtr->Timer.TimerExpired = (TRUE);
 	InstancePtr->Timer.ReasonId = XHDCP22_TX_TS_UNDEFINED;
 	InstancePtr->Timer.InitialTicks = 0;
 
-	/*
-	* For the time being, we invalidate the storage here, but when
-	* secure storage is available, secure storage should be formatted on
-	* very first usage only, not on every initialization of this component.
-	*/
+	/* Receiver ID list */
+	InstancePtr->Info.ReceivedFirstSeqNum_V = (FALSE);
+
+	/* Revocation List */
+	InstancePtr->Info.IsRevocationListValid = (FALSE);
+	InstancePtr->RevocationList.NumDevices = 0;
+
+	/* Content Stream Management */
+	InstancePtr->Info.ContentStreamType = XHDCP22_STREAMTYPE_0; // Default
+	InstancePtr->Info.IsContentStreamTypeSet = (TRUE);
+
+
+	/* Clear pairing info */
 	XHdcp22Tx_ClearPairingInfo(InstancePtr);
 
 	/* Initialize hardware timer */
@@ -394,9 +416,10 @@ static int XHdcp22Tx_InitializeTimer(XHdcp22_Tx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	u32 SubcoreBaseAddr;
-	XTmrCtr_Config *TimerConfigPtr;
 
 	int Result = XST_SUCCESS;
+
+	XTmrCtr_Config *TimerConfigPtr;
 
 	TimerConfigPtr = XTmrCtr_LookupConfig(InstancePtr->Config.TimerDeviceId);
 	if(TimerConfigPtr == NULL) {
@@ -455,7 +478,6 @@ static int XHdcp22Tx_InitializeCipher(XHdcp22_Tx *InstancePtr)
 
 	/* Set cipher to TX mode */
 	XHdcp22Cipher_SetTxMode(&InstancePtr->Cipher);
-
 	return Result;
 }
 
@@ -480,6 +502,7 @@ static int XHdcp22Tx_InitializeRng(XHdcp22_Tx *InstancePtr)
 
 	int Result = XST_SUCCESS;
 	u32 SubcoreBaseAddr;
+
 	XHdcp22_Rng_Config *ConfigPtr = NULL;
 
 	ConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngId);
@@ -493,7 +516,6 @@ static int XHdcp22Tx_InitializeRng(XHdcp22_Tx *InstancePtr)
 		return Result;
 	}
 	XHdcp22Rng_Enable(&InstancePtr->Rng);
-
 	return Result;
 }
 
@@ -516,8 +538,336 @@ void XHdcp22Tx_LoadLc128(XHdcp22_Tx *InstancePtr, const u8 *Lc128Ptr)
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Lc128Ptr != NULL);
+
 	XHdcp22Cipher_SetLc128(&InstancePtr->Cipher, Lc128Ptr,
 	                       XHDCP22_TX_LC128_SIZE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is used to load the system renewability messages (SRMs)
+* which carries the Receiver ID revocation list.
+*
+* @param	InstancePtr is a pointer to the XHdcp22_Tx core instance.
+* @param	SrmPtr is a pointer to an array.
+*
+* @return
+*    - XST_SUCCESS if loaded SRM successfully.
+*    - XST_FAILURE if SRM signature verification failed.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp22Tx_LoadRevocationTable(XHdcp22_Tx *InstancePtr, const u8 *SrmPtr)
+{
+	int Result;
+	const u8* KPubDpcPtr = NULL;
+	const u8* SrmBlockPtr = NULL;
+	u8 SrmId;
+	u16 SrmVersion;
+	u8 SrmGenNr;
+	u32 BlockSize;
+	u32 LengthField;
+	u16 NumDevices;
+	const u8* ReceiverIdPtr;
+	XHdcp22_Tx_RevocationList* RevocationListPtr = NULL;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(SrmPtr != NULL);
+
+	SrmBlockPtr = SrmPtr;
+
+	/* byte 1 contains the SRM ID and HDCP2 Indicator field */
+	SrmId = SrmBlockPtr[0];
+	if (SrmId != 0x91) {
+		/* Unknown SRM ID so ignore the SRM */
+		return XST_FAILURE;
+	}
+
+	/* byte 2 is reserved */
+
+	/* byte 3-4 contain the SRM Version.
+	 * Value is in big endian format, Microblaze is little endian */
+	SrmVersion  = SrmBlockPtr[2] << 8; // MSB
+	SrmVersion |= SrmBlockPtr[3];      // LSB
+
+	/* byte 5 contains the SRM Generation Number */
+	SrmGenNr = SrmBlockPtr[4];
+
+	/* byte 6,7,8 contain the length of the first-generation SRM in bytes.
+	 * Value is in big endian format, Microblaze is little endian */
+	LengthField  = SrmBlockPtr[5] << 16; // MSB
+	LengthField |= SrmBlockPtr[6] << 8;
+	LengthField |= SrmBlockPtr[7];       // LSB
+
+	/* The size of the first-generation SRM block */
+	BlockSize = LengthField + 5;
+
+	KPubDpcPtr = XHdcp22Tx_GetKPubDpc(InstancePtr);
+
+	/* Verify the first-generation SRM block */
+	Result = XHdcp22Tx_VerifySRM(SrmBlockPtr,
+	                             BlockSize,
+	                             KPubDpcPtr, // N
+	                             XHDCP22_TX_KPUB_DCP_LLC_N_SIZE,
+	                             &KPubDpcPtr[XHDCP22_TX_KPUB_DCP_LLC_N_SIZE], // e
+	                             XHDCP22_TX_KPUB_DCP_LLC_E_SIZE);
+	if (Result != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/* Update the SRM Block pointer */
+	SrmBlockPtr += BlockSize;
+
+	for (int i = 1; i < SrmGenNr; i++) {
+		/* byte 1-2 contain the length of the next-generation SRM in bytes.
+		 * Value is in big endian format, Microblaze is little endian */
+		LengthField  = SrmBlockPtr[0] << 8; // MSB
+		LengthField |= SrmBlockPtr[1];      // LSB
+
+		/* The size of the next-generation SRM block */
+		BlockSize = LengthField;
+
+		/* Verify the next-generation SRM block */
+		Result = XHdcp22Tx_VerifySRM(SrmBlockPtr,
+		                             BlockSize,
+		                             KPubDpcPtr, // N
+		                             XHDCP22_TX_KPUB_DCP_LLC_N_SIZE,
+		                             &KPubDpcPtr[XHDCP22_TX_KPUB_DCP_LLC_N_SIZE], // e
+		                             XHDCP22_TX_KPUB_DCP_LLC_E_SIZE);
+		if (Result != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+
+		/* Update the SRM Block pointer */
+		SrmBlockPtr += BlockSize;
+	}
+
+	/* SRM has been verified to be correct.
+	 * Now extract the revocation information */
+	SrmBlockPtr = SrmPtr;
+
+	/* byte 6,7,8 contain the length of the first-generation SRM in bytes.
+	 * Value is in big endian format, Microblaze is little endian */
+	LengthField  = SrmBlockPtr[5] << 16; // MSB
+	LengthField |= SrmBlockPtr[6] << 8;
+	LengthField |= SrmBlockPtr[7];       // LSB
+
+	/* The size of the first-generation SRM block */
+	BlockSize = LengthField + 5;
+
+	/* byte 9,10 contain the number of devices of the firs-generation SRM block
+	 * Value is in big endian format, Microblaze is little endian */
+	NumDevices  = SrmBlockPtr[8] << 2; // MSB
+	NumDevices |= SrmBlockPtr[9] >> 6; // LSB
+
+	RevocationListPtr = XHdcp22Tx_GetRevocationReceiverIdList(InstancePtr);
+	RevocationListPtr->NumDevices = 0;
+
+	/* byte 12 will contain the first byte of the first receiver ID */
+	ReceiverIdPtr = &SrmBlockPtr[12];
+
+	for (int i = 0; i < NumDevices; i++) {
+		/* Is the revocation list full? */
+		if (RevocationListPtr->NumDevices == XHDCP22_TX_REVOCATION_LIST_MAX_DEVICES) {
+			return XST_FAILURE;
+		}
+
+		memcpy(RevocationListPtr->ReceiverId[RevocationListPtr->NumDevices], ReceiverIdPtr, XHDCP22_TX_SRM_RCVID_SIZE);
+		RevocationListPtr->NumDevices++;
+		ReceiverIdPtr += XHDCP22_TX_SRM_RCVID_SIZE;
+	}
+
+	/* Update the SRM Block pointer */
+	SrmBlockPtr += BlockSize;
+
+	for (int j = 1; j < SrmGenNr; j++) {
+		/* byte 1-2 contain the length of the next-generation SRM in bytes.
+		 * Value is in big endian format, Microblaze is little endian */
+		LengthField  = SrmBlockPtr[0] << 8; // MSB
+		LengthField |= SrmBlockPtr[1];      // LSB
+
+		/* The size of the next-generation SRM block */
+		BlockSize = LengthField;
+
+		/* byte 3,4 contain the number of devices of the next-generation SRM block
+		 * Value is in big endian format, Microblaze is little endian */
+		NumDevices  = (SrmBlockPtr[2] & 0x3) << 8; // MSB
+		NumDevices |=  SrmBlockPtr[3]; // LSB
+
+		/* byte 5 will contain the first byte of the first receiver ID */
+		ReceiverIdPtr = &SrmBlockPtr[4];
+
+		for (int i = 0; i < NumDevices; i++) {
+			/* Is the revocation list full? */
+			if (RevocationListPtr->NumDevices == XHDCP22_TX_REVOCATION_LIST_MAX_DEVICES) {
+				return XST_FAILURE;
+			}
+
+			memcpy(RevocationListPtr->ReceiverId[RevocationListPtr->NumDevices], ReceiverIdPtr, XHDCP22_TX_SRM_RCVID_SIZE);
+			RevocationListPtr->NumDevices++;
+			ReceiverIdPtr += XHDCP22_TX_SRM_RCVID_SIZE;
+		}
+
+		/* Update the SRM Block pointer */
+		SrmBlockPtr += BlockSize;
+	}
+
+	InstancePtr->Info.IsRevocationListValid = (TRUE);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function searches for the specified ReceiverID in the revocation list.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+* @param    RecvIdPtr is a pointer to the ReceiverID to lookup
+*
+* @return
+*    - TRUE if Receiver ID was found in the revocation list
+*    - FALSE if Receiver ID was not found in the revocation list
+*
+* @note     None.
+*
+******************************************************************************/
+u8 XHdcp22Tx_IsDeviceRevoked(XHdcp22_Tx *InstancePtr, u8 *RecvIdPtr)
+{
+	int Result;
+	u32 i;
+	XHdcp22_Tx_RevocationList* RevocationListPtr = NULL;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(RecvIdPtr != NULL);
+
+	RevocationListPtr = XHdcp22Tx_GetRevocationReceiverIdList(InstancePtr);
+
+	/* Loop over the revocation list */
+	for (i = 0; i < RevocationListPtr->NumDevices; i++) {
+		Result = memcmp(RecvIdPtr, RevocationListPtr->ReceiverId[i], XHDCP22_TX_SRM_RCVID_SIZE);
+		if (Result == 0)
+			return TRUE;
+	}
+	return FALSE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns a pointer to the Revocation Receiver ID list.
+*
+* @param  InstancePtr is a pointer to the XHdcp22_Tx instance.
+*
+* @return Pointer to the XHdcp22_Tx_RevocationList instance.
+*
+******************************************************************************/
+XHdcp22_Tx_RevocationList* XHdcp22Tx_GetRevocationReceiverIdList(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return &InstancePtr->RevocationList;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns a pointer to the downstream topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   A pointer to the XHdcp22_Tx_Topology structure or NULL when
+*           the topology info is invalid.
+*
+* @note     None.
+*
+******************************************************************************/
+XHdcp22_Tx_Topology *XHdcp22Tx_GetTopology(XHdcp22_Tx *InstancePtr)
+{
+	if (InstancePtr->Info.IsTopologyAvailable)
+		return &InstancePtr->Topology;
+	else
+		return NULL;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns a pointer to the ReceiverID list in the repeater
+* topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   A pointer to the ReceiverID list in the topology structure.
+*
+* @note     None.
+*
+******************************************************************************/
+u8 *XHdcp22Tx_GetTopologyReceiverIdList(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return (InstancePtr->Topology.ReceiverId[0]);
+}
+
+/*****************************************************************************/
+/**
+* This function is used to get various fields inside the topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+* @param    Field indicates what field of the topology structure to get.
+*
+* @return   Value associated to field inside the topology structure.
+*
+* @note     None.
+******************************************************************************/
+u32 XHdcp22Tx_GetTopologyField(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_TopologyField Field)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Field < XHDCP22_TX_TOPOLOGY_INVALID);
+
+	switch(Field)
+	{
+	case XHDCP22_TX_TOPOLOGY_DEPTH :
+		return XHdcp22Tx_GetTopologyDepth(InstancePtr);
+	case XHDCP22_TX_TOPOLOGY_DEVICECNT :
+		return XHdcp22Tx_GetTopologyDeviceCnt(InstancePtr);
+	case XHDCP22_TX_TOPOLOGY_MAXDEVSEXCEEDED :
+		return XHdcp22Tx_GetTopologyMaxDevsExceeded(InstancePtr);
+	case XHDCP22_TX_TOPOLOGY_MAXCASCADEEXCEEDED :
+		return XHdcp22Tx_GetTopologyMaxCascadeExceeded(InstancePtr);
+	case XHDCP22_TX_TOPOLOGY_HDCP20REPEATERDOWNSTREAM :
+		return XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(InstancePtr);
+	case XHDCP22_TX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
+		return XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(InstancePtr);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the Content Stream Type.
+*
+* @param  InstancePtr is a pointer to the XHdcp22_Tx instance.
+* @param  StreamType specifies the content stream type.
+*
+* @return None
+*
+******************************************************************************/
+void XHdcp22Tx_SetContentStreamType(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_ContentStreamType StreamType)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	InstancePtr->Info.ContentStreamType = StreamType;
+	InstancePtr->Info.IsContentStreamTypeSet = (TRUE);
 }
 
 /*****************************************************************************/
@@ -536,7 +886,6 @@ u32 XHdcp22Tx_GetVersion(XHdcp22_Tx *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-
 	return XHdcp22Cipher_GetVersion(&InstancePtr->Cipher);
 }
 
@@ -606,6 +955,14 @@ int XHdcp22Tx_Authenticate(XHdcp22_Tx *InstancePtr)
 	InstancePtr->Info.CurrentState = XHDCP22_TX_STATE_H0;
 	InstancePtr->Info.PrvState = XHDCP22_TX_STATE_H0;
 
+	/* Clear Topology Available flag */
+	InstancePtr->Info.IsTopologyAvailable = (FALSE);
+
+	/* If in repeater mode, clear the content stream type is set flag */
+	if (XHdcp22Tx_IsRepeater(InstancePtr)) {
+		InstancePtr->Info.IsContentStreamTypeSet = (FALSE);
+	}
+
 	return XST_SUCCESS;
 }
 
@@ -655,13 +1012,6 @@ XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 	   InstancePtr->Info.AuthenticationStatus != XHDCP22_TX_AUTHENTICATION_BUSY) {
 		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_POLL_RESULT,
 		                (u8)InstancePtr->Info.AuthenticationStatus);
-
-		// Authenticated callback
-		if ( (PrvAuthenticationStatus != XHDCP22_TX_AUTHENTICATED)
-			&& (InstancePtr->Info.AuthenticationStatus == XHDCP22_TX_AUTHENTICATED)
-			&& InstancePtr->IsAuthenticatedCallbackSet) {
-			InstancePtr->AuthenticatedCallback(InstancePtr->AuthenticatedCallbackRef);
-		}
 	}
 
 	/* Enable only if the attached receiver is authenticated. */
@@ -670,7 +1020,6 @@ XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 	} else {
 		XHdcp22Cipher_Disable(&InstancePtr->Cipher);
 	}
-
 	return InstancePtr->Info.AuthenticationStatus;
 }
 
@@ -690,17 +1039,29 @@ int XHdcp22Tx_Reset(XHdcp22_Tx *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* initialize statemachine, but do not run it */
+	/* If in a authenticated state, execute the unauthenticated callback */
+	if (InstancePtr->Info.AuthenticationStatus == XHDCP22_TX_AUTHENTICATED) {
+		if (InstancePtr->IsUnauthenticatedCallbackSet)
+			InstancePtr->UnauthenticatedCallback(InstancePtr->UnauthenticatedCallbackRef);
+	}
+
+	/* Initialize statemachine, but do not run it */
 	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_UNAUTHENTICATED;
 	InstancePtr->Info.CurrentState = XHDCP22_TX_STATE_H0;
 	InstancePtr->Info.PrvState = XHDCP22_TX_STATE_H0;
 
+	/* Clear statistics counters */
+	InstancePtr->Info.AuthRequestCnt = 0;
+	InstancePtr->Info.ReauthRequestCnt = 0;
+
 	/* Stop the timer if it's still running */
 	XTmrCtr_Stop(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_0);
 
-	/* Disable the Cipher */
-	XHdcp22Cipher_Disable(InstancePtr);
+	/* Clear Topology Available flag */
+	InstancePtr->Info.IsTopologyAvailable = (FALSE);
 
+	/* Disable the Cipher */
+	XHdcp22Cipher_Disable(&InstancePtr->Cipher);
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_RESET, 0);
 
 	return XST_SUCCESS;
@@ -767,10 +1128,7 @@ int XHdcp22Tx_EnableEncryption(XHdcp22_Tx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if (XHdcp22Tx_IsAuthenticated(InstancePtr)) {
-
 		XHdcp22Cipher_EnableTxEncryption(&InstancePtr->Cipher);
-
-		InstancePtr->Info.IsEncryptionEnabled = (TRUE);
 		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_ENCR_ENABLED, 1);
 		return XST_SUCCESS;
   }
@@ -793,12 +1151,89 @@ int XHdcp22Tx_EnableEncryption(XHdcp22_Tx *InstancePtr)
 int XHdcp22Tx_DisableEncryption(XHdcp22_Tx *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
-
 	XHdcp22Cipher_DisableTxEncryption(&InstancePtr->Cipher);
-
-	InstancePtr->Info.IsEncryptionEnabled = (FALSE);
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_ENCR_ENABLED, 0);
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables the blank output for the cipher.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return - XST_SUCCESS if authenticated is started successfully.
+*         - XST_FAIL if the state machine is disabled.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_EnableBlank(XHdcp22_Tx *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XHdcp22Cipher_Blank(&InstancePtr->Cipher, TRUE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables the blank output for the cipher.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return - XST_SUCCESS if authenticated is started successfully.
+*         - XST_FAIL if the state machine is disabled.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_DisableBlank(XHdcp22_Tx *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	XHdcp22Cipher_Blank(&InstancePtr->Cipher, FALSE);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the current repeater mode status.
+*
+* @param  InstancePtr is a pointer to the XHdcp22_Tx instance.
+*
+* @return
+*   - TRUE if the HDCP 2.2 instance is part of the downstream port of a repeater
+*   - FALSE if the HDCP 2.2 instance is a transmitter
+*
+******************************************************************************/
+u8 XHdcp22Tx_IsRepeater(XHdcp22_Tx *InstancePtr)
+{
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return (InstancePtr->Config.Mode != XHDCP22_TX_TRANSMITTER)?TRUE:FALSE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the repeater mode status.
+*
+* @param  InstancePtr is a pointer to the XHdcp22_Tx instance.
+* @param  Set is TRUE to enable the repeater mode and FALSE to disable.
+*
+* @return None.
+*
+******************************************************************************/
+void XHdcp22Tx_SetRepeater(XHdcp22_Tx *InstancePtr, u8 Set)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	if (Set)
+		InstancePtr->Config.Mode = XHDCP22_TX_REPEATER;
+	else
+		InstancePtr->Config.Mode = XHDCP22_TX_TRANSMITTER;
 }
 
 /*****************************************************************************/
@@ -832,7 +1267,11 @@ u8 XHdcp22Tx_IsEnabled (XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 u8 XHdcp22Tx_IsEncryptionEnabled (XHdcp22_Tx *InstancePtr)
 {
-  return InstancePtr->Info.IsEncryptionEnabled;
+	u32 Status;
+
+	Status = XHdcp22Cipher_IsEncrypted(&InstancePtr->Cipher);
+
+	return (Status) ? TRUE : FALSE;
 }
 
 /*****************************************************************************/
@@ -878,11 +1317,13 @@ u8 XHdcp22Tx_IsAuthenticated (XHdcp22_Tx *InstancePtr)
 * HandlerType:
 *
 * <pre>
-* HandlerType                            Callback Function Type
-* -------------------------              ---------------------------
-* (XHDCP22_TX_HANDLER_DDC_WRITE)         DdcWrite
-* (XHDCP22_TX_HANDLER_DDC_READ)          DdcRead
-* (XHDCP22_TX_HANDLER_AUTHENTICATED)     AuthenticatedCallback
+* HandlerType                                        Callback Function Type
+* -------------------------                          ---------------------------
+* (XHDCP22_TX_HANDLER_DDC_WRITE)                     DdcWrite
+* (XHDCP22_TX_HANDLER_DDC_READ)                      DdcRead
+* (XHDCP22_TX_HANDLER_AUTHENTICATED)                 AuthenticatedCallback
+* (XHDCP22_TX_HANDLER_UNAUTHENTICATED)               UnauthenticatedCallback
+* (XHDCP22_TX_HANDLER_DOWNSTREAM_TOPOLOGY_AVAILABLE) DownstreamTopologyAvailableCallback
 * </pre>
 *
 * @param	InstancePtr is a pointer to the HDMI RX core instance.
@@ -934,6 +1375,22 @@ int XHdcp22Tx_SetCallback(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_HandlerType Handle
 			InstancePtr->AuthenticatedCallback = (XHdcp22_Tx_Callback)CallbackFunc;
 			InstancePtr->AuthenticatedCallbackRef = CallbackRef;
 			InstancePtr->IsAuthenticatedCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
+
+		// Authentication failed
+		case (XHDCP22_TX_HANDLER_UNAUTHENTICATED):
+			InstancePtr->UnauthenticatedCallback = (XHdcp22_Tx_Callback)CallbackFunc;
+			InstancePtr->UnauthenticatedCallbackRef = CallbackRef;
+			InstancePtr->IsUnauthenticatedCallbackSet = (TRUE);
+			Status = (XST_SUCCESS);
+			break;
+
+		// Downstream topology is available
+		case (XHDCP22_TX_HANDLER_DOWNSTREAM_TOPOLOGY_AVAILABLE) :
+			InstancePtr->DownstreamTopologyAvailableCallback = (XHdcp22_Tx_Callback)CallbackFunc;
+			InstancePtr->DownstreamTopologyAvailableCallbackRef = CallbackRef;
+			InstancePtr->IsDownstreamTopologyAvailableCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
 
@@ -1103,6 +1560,19 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA1(XHdcp22_Tx *InstancePtr)
 	/* Start the timer for receiving XHDCP22_TX_AKE_SEND_CERT */
 	XHdcp22Tx_StartTimer(InstancePtr, 100, XHDCP22_TX_AKE_SEND_CERT);
 
+	/* Reset some variables */
+	InstancePtr->Topology.DeviceCnt = 0;
+	InstancePtr->Topology.Depth = 0;
+	InstancePtr->Topology.MaxDevsExceeded = FALSE;
+	InstancePtr->Topology.MaxCascadeExceeded = FALSE;
+	InstancePtr->Topology.Hdcp20RepeaterDownstream = FALSE;
+	InstancePtr->Topology.Hdcp1DeviceDownstream = FALSE;
+	InstancePtr->Info.ReceivedFirstSeqNum_V = FALSE;
+	InstancePtr->Info.SentFirstSeqNum_M = FALSE;
+	InstancePtr->Info.IsContentStreamTypeSent = FALSE;
+	InstancePtr->Info.SeqNum_M = 0;
+	InstancePtr->Info.ContentStreamManageCheckCounter = 0;
+
 	/* Goto the waiting state for AKE_SEND_CERT */
 	return XHDCP22_TX_STATE_A1_1;
 }
@@ -1136,7 +1606,7 @@ XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx *InstancePtr)
 	XHdcp22_Tx_PairingInfo NewPairingInfo;
 
 	/* receive AKE Send message, wait for 100 ms */
-	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_AKESendCert));
+	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_AKESendCert), FALSE);
 	if (Result != XST_SUCCESS) {
 		return XHDCP22_TX_STATE_A0;
 	}
@@ -1175,17 +1645,56 @@ XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx *InstancePtr)
 	                XHDCP22_TX_LOG_DBG_VERIFY_SIGNATURE_PASS);
 	}
 
+	/* SRM and revocation check are only performed by the top-level HDCP transmitter */
+	if (InstancePtr->Config.Mode == XHDCP22_TX_TRANSMITTER) {
+		/* Check to see wether there is a valid SRM loaded */
+		if (InstancePtr->Info.IsRevocationListValid == FALSE) {
+			/* No valid revocation list loaded. According to
+			 * the HDCP spec, authentication has to be aborted */
+			InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_NO_SRM_LOADED;
+			return XHDCP22_TX_STATE_A0;
+		}
+
+		/* Check to see wether the Receiver ID is in the revocation list */
+		if (XHdcp22Tx_IsDeviceRevoked(InstancePtr, MsgPtr->Message.AKESendCert.CertRx.ReceiverId)) {
+			XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
+				XHDCP22_TX_LOG_DBG_DEVICE_IS_REVOKED);
+			InstancePtr->Info.IsDeviceRevoked = TRUE;
+			InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_DEVICE_IS_REVOKED;
+			return XHDCP22_TX_STATE_A0;
+		}
+		else {
+			InstancePtr->Info.IsDeviceRevoked = FALSE;
+		}
+	}
+
+	/* Add receiver ID to the topology info */
+	memcpy(&InstancePtr->Topology.ReceiverId[0],
+		MsgPtr->Message.AKESendCert.CertRx.ReceiverId,
+		XHDCP22_TX_RCVID_SIZE);
+	InstancePtr->Topology.DeviceCnt = 1;
+
+	/* Check to see wether the Receiver is an HDCP Repeater */
+	if (MsgPtr->Message.AKESendCert.RxCaps[2] & 0x1) { /* big endian! */
+		InstancePtr->Info.IsReceiverRepeater = TRUE;
+	}
+	else {
+		InstancePtr->Info.IsReceiverRepeater = FALSE;
+	}
+
 	/* Store received Rrx for calculations in other states */
 	memcpy(InstancePtr->Info.Rrx,  MsgPtr->Message.AKESendCert.Rrx,
 			 sizeof(InstancePtr->Info.Rrx));
 
 	/* Get pairing info pointer for the connected receiver */
-	PairingInfoPtr = XHdcp22Tx_GetPairingInfo(MsgPtr->Message.AKESendCert.CertRx.ReceiverId);
+	PairingInfoPtr = XHdcp22Tx_GetPairingInfo(InstancePtr, MsgPtr->Message.AKESendCert.CertRx.ReceiverId);
 
 	/********************* Handle Stored Km **********************************/
 	/* If already existing handle Stored Km sequence: Write AKE_Stored_Km
 	 * and wait for H Prime */
 	if (PairingInfoPtr != NULL) {
+		/* Update RxCaps in pairing info */
+		memcpy(PairingInfoPtr->RxCaps, MsgPtr->Message.AKESendCert.RxCaps, sizeof(PairingInfoPtr->RxCaps));
 
 		/* Write encrypted Km */
 		XHdcp22Tx_WriteAKEStoredKm(InstancePtr, PairingInfoPtr);
@@ -1212,7 +1721,7 @@ XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx *InstancePtr)
 
 	/* Done with first step, update pairing info and goto the next
 	 * step in the No Stored Km sequence: waiting for H Prime*/
-	PairingInfoPtr = XHdcp22Tx_UpdatePairingInfo(&NewPairingInfo);
+	PairingInfoPtr = XHdcp22Tx_UpdatePairingInfo(InstancePtr, &NewPairingInfo);
 	if (PairingInfoPtr == NULL) {
 		return XHDCP22_TX_STATE_A0;
 	}
@@ -1261,9 +1770,9 @@ static XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_Nsk0(XHdcp22_Tx *InstancePtr)
 	 * If the receiver is busy, we stay in this state (return from polling).
 	 * If the receiver has finished, but the message was not handled yet,
 	 * we handle the message.*/
-	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_AKESendHPrime));
+	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_AKESendHPrime), FALSE);
 	if (Result != XST_SUCCESS) {
-		XHdcp22Tx_InvalidatePairingInfo(PairingInfoPtr->ReceiverId);
+		XHdcp22Tx_InvalidatePairingInfo(InstancePtr, PairingInfoPtr->ReceiverId);
 		return XHDCP22_TX_STATE_A0;
 	}
 	if (InstancePtr->Info.MsgAvailable == (FALSE)) {
@@ -1278,7 +1787,7 @@ static XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_Nsk0(XHdcp22_Tx *InstancePtr)
 	Result = XHdcp22Tx_ReceiveMsg(InstancePtr, XHDCP22_TX_AKE_SEND_H_PRIME,
 	                              sizeof(XHdcp22_Tx_AKESendHPrime));
 	if (Result != XST_SUCCESS) {
-		XHdcp22Tx_InvalidatePairingInfo(PairingInfoPtr->ReceiverId);
+		XHdcp22Tx_InvalidatePairingInfo(InstancePtr, PairingInfoPtr->ReceiverId);
 		return XHDCP22_TX_STATE_A0;
 	}
 
@@ -1292,7 +1801,7 @@ static XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_Nsk0(XHdcp22_Tx *InstancePtr)
 	                XHDCP22_TX_LOG_DBG_COMPUTE_H_DONE);
 
 	if(memcmp(MsgPtr->Message.AKESendHPrime.HPrime, HPrime, sizeof(HPrime)) != 0) {
-		XHdcp22Tx_InvalidatePairingInfo(PairingInfoPtr->ReceiverId);
+		XHdcp22Tx_InvalidatePairingInfo(InstancePtr, PairingInfoPtr->ReceiverId);
 		return XHDCP22_TX_STATE_A0;
 	}
 
@@ -1330,9 +1839,9 @@ static XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_Nsk1(XHdcp22_Tx *InstancePtr)
 	                       (XHdcp22_Tx_DDCMessage *)InstancePtr->MessageBuffer;
 
 	/* Wait for the receiver to send AKE_Send_Pairing_Info */
-	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_AKESendPairingInfo));
+	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_AKESendPairingInfo), FALSE);
 	if (Result != XST_SUCCESS) {
-		XHdcp22Tx_InvalidatePairingInfo(PairingInfoPtr->ReceiverId);
+		XHdcp22Tx_InvalidatePairingInfo(InstancePtr, PairingInfoPtr->ReceiverId);
 		return XHDCP22_TX_STATE_A0;
 	}
 	if (InstancePtr->Info.MsgAvailable == (FALSE)) {
@@ -1348,7 +1857,7 @@ static XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_Nsk1(XHdcp22_Tx *InstancePtr)
 	Result = XHdcp22Tx_ReceiveMsg(InstancePtr, XHDCP22_TX_AKE_SEND_PAIRING_INFO,
 	                              sizeof(XHdcp22_Tx_AKESendPairingInfo));
 	if (Result != XST_SUCCESS) {
-		XHdcp22Tx_InvalidatePairingInfo(PairingInfoPtr->ReceiverId);
+		XHdcp22Tx_InvalidatePairingInfo(InstancePtr, PairingInfoPtr->ReceiverId);
 		return XHDCP22_TX_STATE_A0;
 	}
 
@@ -1356,7 +1865,7 @@ static XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_Nsk1(XHdcp22_Tx *InstancePtr)
 	memcpy(PairingInfoPtr->Ekh_Km, MsgPtr->Message.AKESendPairingInfo.EKhKm,
 	       sizeof(PairingInfoPtr->Ekh_Km));
 
-	XHdcp22Tx_UpdatePairingInfo(PairingInfoPtr);
+	XHdcp22Tx_UpdatePairingInfo(InstancePtr, PairingInfoPtr);
 
 	/* Authentication done, goto the next state (exchange Ks) */
 	return XHDCP22_TX_STATE_A2;
@@ -1395,7 +1904,7 @@ static XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_Sk0(XHdcp22_Tx *InstancePtr)
 	 * If the receiver is busy, we stay in this state (return from polling).
 	 * If the receiver has finished, but the message was not handled yet,
 	 * we handle the message.*/
-	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_AKESendHPrime));
+	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_AKESendHPrime), FALSE);
 	if (Result != XST_SUCCESS) {
 		return XHDCP22_TX_STATE_A0;
 	}
@@ -1505,7 +2014,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA2_1(XHdcp22_Tx *InstancePtr)
 	 * If the receiver is busy, we stay in this state (return from polling).
 	 * If the receiver has finished, but the message was not handled yet,
 	 * we handle the message.*/
-	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_LCSendLPrime));
+	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, sizeof(XHdcp22_Tx_LCSendLPrime), FALSE);
 	if (Result != XST_SUCCESS) {
 		/* Retry state state A2 */
 		return XHDCP22_TX_STATE_A2;
@@ -1577,12 +2086,10 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA3(XHdcp22_Tx *InstancePtr)
 
 	/* Set Riv in the cipher */
 	XHdcp22Cipher_SetRiv(&InstancePtr->Cipher, Riv, XHDCP22_TX_RIV_SIZE);
-
 	XHdcp22Tx_GenerateKs(InstancePtr, Ks);
 
 	/* Set Ks in the cipher */
 	XHdcp22Cipher_SetKs(&InstancePtr->Cipher, Ks, XHDCP22_TX_KS_SIZE);
-
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
 	                XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS);
 	XHdcp22Tx_ComputeEdkeyKs(InstancePtr->Info.Rn, PairingInfoPtr->Km, Ks,
@@ -1611,11 +2118,22 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA4(XHdcp22_Tx *InstancePtr)
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE,
 	                (u16)XHDCP22_TX_STATE_A4);
 
-	/* Start the mandatory 200 ms timer before authentication can be granted
-	 * and the cipher may be enabled */
-	XHdcp22Tx_StartTimer(InstancePtr, 200, XHDCP22_TX_TS_WAIT_FOR_CIPHER);
+	if (InstancePtr->Info.IsReceiverRepeater) {
 
-	return XHDCP22_TX_STATE_A5;
+		return XHDCP22_TX_STATE_A6_A7_A8;
+	}
+	else {
+		/* Start the mandatory 200 ms timer before authentication can be granted
+		 * and the cipher may be enabled */
+		XHdcp22Tx_StartTimer(InstancePtr, 200, XHDCP22_TX_TS_WAIT_FOR_CIPHER);
+
+		/* The downstream topology is definitive  */
+		InstancePtr->Info.IsTopologyAvailable = (TRUE);
+		if (InstancePtr->IsDownstreamTopologyAvailableCallbackSet)
+			InstancePtr->DownstreamTopologyAvailableCallback(InstancePtr->DownstreamTopologyAvailableCallbackRef);
+
+		return XHDCP22_TX_STATE_A5;
+	}
 }
 
 /*****************************************************************************/
@@ -1634,8 +2152,6 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA4(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr)
 {
-	u8 DdcBuf[2];
-	u16 HdcpRxStatus = 0;
 
 	/* wait for a timer to expire, either it is the 200 ms mandatory time
 	 * before cipher enabling, or the re-authentication check timer */
@@ -1653,14 +2169,11 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr)
 
 	/* Handle mandatory 200 ms cipher timeout */
 	if (InstancePtr->Timer.ReasonId == XHDCP22_TX_TS_WAIT_FOR_CIPHER) {
-		XHdcp22Tx_ReadRxStatus(InstancePtr);
-
 		/* Check re-authentication before enabling cipher */
 		if ((InstancePtr->Info.RxStatus&XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK) ==
 		    XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK)
 		{
-			InstancePtr->Info.ReAuthenticationRequested = (TRUE);
-			InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_REAUTHENTICATE_REQUESTED;
+			XHdcp22Tx_HandleReauthenticationRequest(InstancePtr);
 			return XHDCP22_TX_STATE_A0;
 		}
 		else
@@ -1668,6 +2181,11 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr)
 			/* Authenticated ! */
 			InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_AUTHENTICATED;
 			InstancePtr->Info.ReAuthenticationRequested = (FALSE);
+
+			/* Authenticated callback */
+			if (InstancePtr->IsAuthenticatedCallbackSet) {
+				InstancePtr->AuthenticatedCallback(InstancePtr->AuthenticatedCallbackRef);
+			}
 
 			/* Start the re-authentication check timer */
 			XHdcp22Tx_StartTimer(InstancePtr, 1000, XHDCP22_TX_TS_RX_REAUTH_CHECK);
@@ -1680,20 +2198,195 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr)
 		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
 		                XHDCP22_TX_LOG_DBG_CHECK_REAUTH);
 
-		XHdcp22Tx_ReadRxStatus(InstancePtr);
-
 		if ((InstancePtr->Info.RxStatus&XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK) ==
 		    XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK)
 		{
-			InstancePtr->Info.ReAuthenticationRequested = (TRUE);
-			InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_REAUTHENTICATE_REQUESTED;
+			XHdcp22Tx_HandleReauthenticationRequest(InstancePtr);
 			return XHDCP22_TX_STATE_A0;
 		}
+		/* Has the repeater built an updated downstream receiver ID list? */
+		if ((InstancePtr->Info.RxStatus&XHDCP22_TX_RXSTATUS_READY_MASK) ==
+			XHDCP22_TX_RXSTATUS_READY_MASK) {
+
+			/* The downstream topology has changed */
+			return XHDCP22_TX_STATE_A6_A7_A8;
+		}
+
 		/* Re-Start the timer for the next status check */
 		XHdcp22Tx_StartTimer(InstancePtr, 1000, XHDCP22_TX_TS_RX_REAUTH_CHECK);
 	}
 	return XHDCP22_TX_STATE_A5;
 }
+
+/*****************************************************************************/
+/**
+*
+* This function executes the states A6, A7 and A8 of the HDCP2.2 TX protocol.
+* Within these states the HDCP2.2 TX receives and verifies the receiver ID list.
+* The HDCP2.2 TX is required to send a respons within 2 seconds after the
+* HDCP2.2 repeater has made the receiver ID list available.
+* These states have been grouped in order to guarantee that the HDCP2.2 TX
+* responds as fast as it can.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return The next state to execute.
+*
+* @note   None.
+*
+******************************************************************************/
+static XHdcp22_Tx_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx *InstancePtr)
+{
+	int Result;
+	u8 DeviceCount;
+	u8 V[XHDCP22_TX_V_SIZE];
+	u32 SeqNum_V;
+
+	/* When we (re)-enter this state the topology info is not available
+	 * so clear the topology available flag */
+	InstancePtr->Info.IsTopologyAvailable = (FALSE);
+
+	XHdcp22_Tx_PairingInfo *PairingInfoPtr =
+		(XHdcp22_Tx_PairingInfo *)InstancePtr->Info.StateContext;
+	XHdcp22_Tx_DDCMessage *MsgPtr =
+		(XHdcp22_Tx_DDCMessage *)InstancePtr->MessageBuffer;
+	/* Wait for the receiver to respond within 3 secs.
+	* If the receiver has timed out we go to state A0.
+	* If the receiver is busy, we stay in this state (return from polling).
+	* If the receiver has finished, but the message was not handled yet,
+	* we handle the message.*/
+	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, 0, TRUE);
+	if (Result != XST_SUCCESS) {
+		return XHDCP22_TX_STATE_A0;
+	}
+	if (InstancePtr->Info.MsgAvailable == (FALSE)) {
+		return XHDCP22_TX_STATE_A6_A7_A8;
+	}
+
+	/* Log after waiting */
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE, (u16)XHDCP22_TX_STATE_A6_A7_A8);
+
+	/* Receive the expected message */
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_RX_RCVIDLIST);
+	Result = XHdcp22Tx_ReceiveMsg(InstancePtr, XHDCP22_TX_REPEATAUTH_SEND_RECVID_LIST,
+		InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK);
+	if (Result != XST_SUCCESS) {
+		/* Received message is invalid. Go to state A0 */
+		return XHDCP22_TX_STATE_A0;
+	}
+
+	/* Extract the RxInfo and set the topology info.
+	 * RxInfo is in big endian format */
+	DeviceCount = (MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[0] & 0x1) << 4;  // MSB
+	DeviceCount |= (MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] >> 4) & 0xF; // LSB
+
+	/* The device count extracted from RxInfo does not include
+	 * the HDCP repeater itself, hence the +1 */
+	InstancePtr->Topology.DeviceCnt = DeviceCount + 1;
+	InstancePtr->Topology.Depth =
+		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[0] >> 1) & 0x7;
+	InstancePtr->Topology.MaxDevsExceeded =
+		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x8) ? TRUE : FALSE;
+	InstancePtr->Topology.MaxCascadeExceeded =
+		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x4) ? TRUE : FALSE;
+	InstancePtr->Topology.Hdcp20RepeaterDownstream =
+		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x2) ? TRUE : FALSE;
+	InstancePtr->Topology.Hdcp1DeviceDownstream =
+		(MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo[1] & 0x1) ? TRUE : FALSE;
+
+	/* State A7: Verify Receiver ID list */
+
+	/* Check the topology */
+	if (InstancePtr->Topology.MaxDevsExceeded == TRUE ||
+	    InstancePtr->Topology.MaxCascadeExceeded == TRUE) {
+		InstancePtr->Info.IsTopologyAvailable = (TRUE);
+		if (InstancePtr->IsDownstreamTopologyAvailableCallbackSet)
+			InstancePtr->DownstreamTopologyAvailableCallback(InstancePtr->DownstreamTopologyAvailableCallbackRef);
+		/* Topology error. Go to state A0 */
+		return XHDCP22_TX_STATE_A0;
+	}
+
+	/* Verify the received VPrime */
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_COMPUTE_V);
+	XHdcp22Tx_ComputeV(InstancePtr->Info.Rn, InstancePtr->Info.Rrx,
+		MsgPtr->Message.RepeatAuthSendRecvIDList.RxInfo,
+		InstancePtr->Info.Rtx,
+		(u8 *)MsgPtr->Message.RepeatAuthSendRecvIDList.ReceiverIDs,
+		DeviceCount,
+		MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V,
+		PairingInfoPtr->Km,
+		V);
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_COMPUTE_V_DONE);
+
+	/* Compare VPrime with the most significant 128-bits of V */
+	if (memcmp(MsgPtr->Message.RepeatAuthSendRecvIDList.VPrime, V, XHDCP22_TX_V_PRIME_SIZE) != 0) {
+		/* Missmatch V MSB and VPrime. Go to state A0 */
+		return XHDCP22_TX_STATE_A0;
+	}
+
+	InstancePtr->Info.IsDeviceRevoked = FALSE;
+	for (int i = 0; i < DeviceCount; i++) {
+		/* Add receiver ID to topology info. */
+		memcpy(&InstancePtr->Topology.ReceiverId[i + 1],
+			&MsgPtr->Message.RepeatAuthSendRecvIDList.ReceiverIDs[i],
+			XHDCP22_TX_RCVID_SIZE);
+
+		/* SRM and revocation check are only performed by the top-level HDCP transmitter */
+		if (InstancePtr->Config.Mode == XHDCP22_TX_TRANSMITTER) {
+			/* Check to see wether the receiver ID is revoked */
+			if (XHdcp22Tx_IsDeviceRevoked(InstancePtr,
+				MsgPtr->Message.RepeatAuthSendRecvIDList.ReceiverIDs[i])) {
+				InstancePtr->Info.IsDeviceRevoked = TRUE;
+				InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_DEVICE_IS_REVOKED;
+				/* Device is revoked. Go to state A0 */
+				return XHDCP22_TX_STATE_A0;
+			}
+		}
+	}
+
+	/* Get the seq_num_V. Value is in big endian format */
+	SeqNum_V  = *MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V << 16; // MSB
+	SeqNum_V |= *MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V << 8;
+	SeqNum_V |= *MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V;       // LSB
+
+	/* Verify the seq_num_V value */
+	if (InstancePtr->Info.ReceivedFirstSeqNum_V == FALSE) {
+		if (SeqNum_V != 0) {
+			/* First value should be 0. Go to state A0 */
+			return XHDCP22_TX_STATE_A0;
+		}
+		InstancePtr->Info.ReceivedFirstSeqNum_V = TRUE;
+	}
+	else {
+		/* Check for roll-over of seq_num_V */
+		if (SeqNum_V == 0) {
+			/* Roll-over of seq_num_V. Go to state A0 */
+			return XHDCP22_TX_STATE_A0;
+		}
+	}
+
+	/* State A8: Send Receiver ID list acknowledgement */
+	XHdcp22Tx_WriteRepeaterAuth_Send_Ack(InstancePtr, &V[XHDCP22_TX_V_PRIME_SIZE]);
+
+	/* The downstream topology is definitive  */
+	InstancePtr->Info.IsTopologyAvailable = (TRUE);
+	if (InstancePtr->IsDownstreamTopologyAvailableCallbackSet)
+		InstancePtr->DownstreamTopologyAvailableCallback(InstancePtr->DownstreamTopologyAvailableCallbackRef);
+
+	/* Have we already sent the Content Stream Type? */
+	if (InstancePtr->Info.IsContentStreamTypeSent == TRUE) {
+		/* Start the re-authentication check timer */
+		XHdcp22Tx_StartTimer(InstancePtr, 1000, XHDCP22_TX_TS_RX_REAUTH_CHECK);
+
+		/* Go to state A5 */
+		return XHDCP22_TX_STATE_A5;
+	}
+	else {
+		/* Go to state A9 */
+		return XHDCP22_TX_STATE_A9;
+	}
+}
+
 
 /*****************************************************************************/
 /**
@@ -1710,7 +2403,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr)
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA6(XHdcp22_Tx *InstancePtr)
 {
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE,
-	                (u16)XHDCP22_TX_STATE_A6);
+		(u16)XHDCP22_TX_STATE_A6);
 	return XHDCP22_TX_STATE_A0;
 }
 
@@ -1755,7 +2448,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA8(XHdcp22_Tx *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function executes the A9 state of the HDCP2.2 TX protocol.
+* This function executes the first portion of the A9 state of the HDCP2.2 TX protocol.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 *
@@ -1766,9 +2459,132 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA8(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA9(XHdcp22_Tx *InstancePtr)
 {
-	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE,
-	                (u16)XHDCP22_TX_STATE_A9);
-	return XHDCP22_TX_STATE_A0;
+	/* Wait for the stream manage timer to expire */
+	if (InstancePtr->Timer.TimerExpired == (FALSE)) {
+		return XHDCP22_TX_STATE_A9;
+	}
+
+	/* Timer has expired, handle it */
+
+	/* Check re-authentication */
+	XHdcp22Tx_ReadRxStatus(InstancePtr);
+	if ((InstancePtr->Info.RxStatus&XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK) ==
+		XHDCP22_TX_RXSTATUS_REAUTH_REQ_MASK) {
+		XHdcp22Tx_HandleReauthenticationRequest(InstancePtr);
+		return XHDCP22_TX_STATE_A0;
+	}
+
+	/* Check if the Content Stream Type is available.
+	 * If not set, we stay in this state (return from polling) and set a timer */
+	if (InstancePtr->Info.IsContentStreamTypeSet == FALSE) {
+		/* Start the wait for stream type timer */
+		XHdcp22Tx_StartTimer(InstancePtr, 50, XHDCP22_TX_TS_WAIT_FOR_STREAM_TYPE);
+		return XHDCP22_TX_STATE_A9;
+	}
+
+	/* Log but don't clutter our log buffer, check on counter */
+	if (InstancePtr->Info.ContentStreamManageCheckCounter == 0) {
+		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE,
+		                (u16)XHDCP22_TX_STATE_A9);
+	}
+
+	if (InstancePtr->Info.ContentStreamManageCheckCounter >= XHDCP22_TX_MAX_ALLOWED_STREAM_MANAGE_CHECKS) {
+		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STRMMNGCHK_COUNT,
+		                (u16)InstancePtr->Info.ContentStreamManageCheckCounter);
+		return XHDCP22_TX_STATE_A0;
+	}
+
+	/* Check for roll-over of seq_num_M */
+	if ((InstancePtr->Info.SentFirstSeqNum_M == TRUE) &&
+		(InstancePtr->Info.SeqNum_M == 0)) {
+		/* Roll-over detected. According to the state-diagram
+		 * we should go to state H1 and restart authentication.
+		 * Instead of doing that we restart authentication by going to state A0 */
+		return XHDCP22_TX_STATE_A0;
+	}
+
+	/* Send the Content Stream Manage message */
+	XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(InstancePtr);
+
+	/* Start the timer for receiving XHDCP22_TX_REPEATAUTH_STREAM_READY */
+	XHdcp22Tx_StartTimer(InstancePtr, 100, XHDCP22_TX_REPEATAUTH_STREAM_READY);
+
+	InstancePtr->Info.SentFirstSeqNum_M = TRUE;
+	InstancePtr->Info.ContentStreamManageCheckCounter++;
+
+	return XHDCP22_TX_STATE_A9_1;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function executes the second portion of the A9 state of the HDCP2.2 TX protocol.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return The next state to execute.
+*
+* @note   None.
+*
+******************************************************************************/
+static XHdcp22_Tx_StateType XHdcp22Tx_StateA9_1(XHdcp22_Tx *InstancePtr)
+{
+	int Result;
+
+	XHdcp22_Tx_DDCMessage *MsgPtr =
+		(XHdcp22_Tx_DDCMessage *)InstancePtr->MessageBuffer;
+
+	/* Wait for the receiver to respond within 100 msecs.
+	* If the receiver has timed out we go to state A9 for a retry.
+	* If the receiver is busy, we stay in this state (return from polling).
+	* If the receiver has finished, but the message was not handled yet,
+	* we handle the message.*/
+	Result = XHdcp22Tx_WaitForReceiver(InstancePtr, XHDCP22_TX_REPEATAUTH_STREAM_READY_SIZE, FALSE);
+	if (Result != XST_SUCCESS) {
+		/* Timeout. Go to state A9 for a retry */
+		InstancePtr->Info.ContentStreamManageFailed = TRUE;
+		return XHDCP22_TX_STATE_A9;
+	}
+	if (InstancePtr->Info.MsgAvailable == (FALSE)) {
+		return XHDCP22_TX_STATE_A9_1;
+	}
+
+	/* Log after waiting (don't clutter our log buffer, check on counter) */
+	if (InstancePtr->Info.ContentStreamManageCheckCounter == 1) {
+		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE,
+		                (u16)XHDCP22_TX_STATE_A9_1);
+	}
+
+	/* Receive the expected message */
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_RX_M1);
+	Result = XHdcp22Tx_ReceiveMsg(InstancePtr, XHDCP22_TX_REPEATAUTH_STREAM_READY,
+		                                            XHDCP22_TX_REPEATAUTH_STREAM_READY_SIZE);
+	if (Result != XST_SUCCESS) {
+		/* Received message is invalid. Go to state A9 for a retry */
+		InstancePtr->Info.ContentStreamManageFailed = TRUE;
+		return XHDCP22_TX_STATE_A9;
+	}
+
+	/* Verify the received MPrime */
+	/* We've allready calculated and stored the expected value in the
+	 * XHdcp22Tx_WriteRepeaterAuth_Stream_Manage function */
+	/* Compare MPrime with M */
+	if (memcmp(MsgPtr->Message.RepeatAuthStreamReady.MPrime, InstancePtr->Info.M,
+		XHDCP22_TX_M_PRIME_SIZE) != 0) {
+		/* Missmatch M and MPrime. Go to state A9 for a retry */
+		InstancePtr->Info.ContentStreamManageFailed = TRUE;
+		return XHDCP22_TX_STATE_A9;
+	}
+
+	/* According to the spec, the HDCP transmitter must write the
+	 * RepeaterAuth_Stream_Manage message at least 100ms before the
+	 * transmission of the corresponding Content Stream. Just to make
+	 * sure the wait time is met, wait for 100ms. */
+	XHdcp22Tx_StartTimer(InstancePtr, 100, XHDCP22_TX_TS_WAIT_FOR_CIPHER);
+
+	InstancePtr->Info.ContentStreamManageFailed = FALSE;
+	InstancePtr->Info.IsContentStreamTypeSent = TRUE;
+	return XHDCP22_TX_STATE_A5;
 }
 
 /*****************************************************************************/
@@ -1786,7 +2602,7 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA9(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static void XHdcp22Tx_A1A0(XHdcp22_Tx *InstancePtr)
 {
-	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_UNAUTHENTICATED;
+	XHdcp22Tx_HandleAuthenticationFailed(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -1824,7 +2640,7 @@ static void XHdcp22Tx_A1A2(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static void XHdcp22Tx_A2A0(XHdcp22_Tx *InstancePtr)
 {
-	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_UNAUTHENTICATED;
+	XHdcp22Tx_HandleAuthenticationFailed(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -1842,7 +2658,29 @@ static void XHdcp22Tx_A2A0(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static void XHdcp22Tx_A3A0(XHdcp22_Tx *InstancePtr)
 {
-	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_UNAUTHENTICATED;
+	XHdcp22Tx_HandleAuthenticationFailed(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function executes on transition from state A3 to A4, which means that
+* the Session Key Exchange (SKE) has completed.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XHdcp22Tx_A3A4(XHdcp22_Tx *InstancePtr)
+{
+	/* Check to see wether the Receiver is an HDCP Repeater */
+	if (InstancePtr->Info.IsReceiverRepeater) {
+		/* Start timer for receiving the Receiver ID list */
+		XHdcp22Tx_StartTimer(InstancePtr, 3000, XHDCP22_TX_REPEATAUTH_SEND_RECVID_LIST);
+	}
 }
 
 /*****************************************************************************/
@@ -1860,6 +2698,42 @@ static void XHdcp22Tx_A3A0(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static void XHdcp22Tx_A4A5(XHdcp22_Tx *InstancePtr)
 {
+}
+
+/*****************************************************************************/
+/**
+*
+* This function executes on transition from state A6 or A7 to A0, which means that
+* an error in authetication has occured.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XHdcp22Tx_A6A7A0(XHdcp22_Tx *InstancePtr)
+{
+	XHdcp22Tx_HandleAuthenticationFailed(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function executes on transition from state A9 to A0, which means that
+* an error in the content stream management has occured.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XHdcp22Tx_A9A0(XHdcp22_Tx *InstancePtr)
+{
+	XHdcp22Tx_HandleAuthenticationFailed(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -1898,7 +2772,7 @@ static int XHdcp22Tx_StubDdc(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
 * @note   None.
 *
 ******************************************************************************/
-static void XHdcp22Tx_StubAuthenticated(void* RefPtr)
+static void XHdcp22Tx_StubCallback(void* RefPtr)
 {
 	Xil_AssertVoidAlways();
 }
@@ -2114,7 +2988,13 @@ static int XHdcp22Tx_StartTimer(XHdcp22_Tx *InstancePtr, u32 TimeOut_mSec,
 		InstancePtr->Info.MsgAvailable = (FALSE);
 	}
 
-#ifndef DISABLE_TIMEOUT_CHECKING
+#ifndef _XHDCP22_TX_DISABLE_TIMEOUT_CHECKING_
+#ifndef _XHDCP22_TOP_SIM_ENAB_
+#ifdef _XHDCP22_TX_TEST_
+	if (InstancePtr->Test.TestMode == XHDCP22_TX_TESTMODE_UNIT) {
+		XHdcp22Tx_TimerHandler(InstancePtr, XHDCP22_TX_TIMER_CNTR_0);
+	}
+#else
 	if (InstancePtr->Timer.TmrCtr.IsReady == (FALSE)) {
 		return XST_FAILURE;
 	}
@@ -2124,7 +3004,13 @@ static int XHdcp22Tx_StartTimer(XHdcp22_Tx *InstancePtr, u32 TimeOut_mSec,
 
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
 	                XHDCP22_TX_LOG_DBG_STARTIMER);
-#endif /* DISABLE_TIMEOUT_CHECKING */
+#endif /* _XHDCP22_TX_TEST_ */
+#endif /* _XHDCP22_TOP_SIM_ENAB_ */
+#endif /* _XHDCP22_TX_DISABLE_TIMEOUT_CHECKING_ */
+
+#ifdef _XHDCP22_TOP_SIM_ENAB_
+	XHdcp22Tx_TimerHandler(InstancePtr, XHDCP22_TX_TIMER_CNTR_0);
+#endif /* _XHDCP22_TOP_SIM_ENAB_ */
 
 	return XST_SUCCESS;
 }
@@ -2178,8 +3064,12 @@ static void XHdcp22Tx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 	/* Set timer expired signaling flag */
 	InstancePtr->Timer.TimerExpired = (TRUE);
 
+/* Do not read the status here. In the simulator all Tx components use the
+ * same timer. So reading the status should not be done here. */
+#ifndef _XHDCP22_TOP_SIM_ENAB_
 	if (InstancePtr->Info.IsEnabled)
 		XHdcp22Tx_ReadRxStatus(InstancePtr);
+#endif
 }
 
 
@@ -2213,9 +3103,11 @@ void XHdcp22Tx_SetMessagePollingValue(XHdcp22_Tx *InstancePtr, u32 PollingValue)
 * This has to be used to avoid blocking waits, and allows polling to return
 * to allow the main thread to continue handling other requests.
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
-* @param  MessageId is the messageId that we are waiting for
-* @param  TimeOutMs is the timeout in Ms
-* @param  Busy is a flag to signal we are busy with thi message id
+* @param  ExpectedSize indicates the expected message size in bytes.
+* @param  ReadyBit indicates if the repeater ready bit from RxStatus register
+*         should be used or the specified ExpectedSize.
+*         - TRUE Ready bit from RxStatus is used. ExpectedSize will be ignored.
+*         - FALSE ExpectedSize is used. Ready bit from RxStatus will be ignored.
 *
 * @return
 *         - XST_SUCCESS if no problems
@@ -2224,7 +3116,7 @@ void XHdcp22Tx_SetMessagePollingValue(XHdcp22_Tx *InstancePtr, u32 PollingValue)
 * @note   None.
 *
 ******************************************************************************/
-static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize)
+static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, u8 ReadyBit)
 {
 #ifdef _XHDCP22_TX_TEST_
 	if (XHdcp22Tx_TestSimulateTimeout(InstancePtr) == TRUE) {
@@ -2245,8 +3137,8 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize)
 		}
 		XHdcp22Tx_ReadRxStatus(InstancePtr);
 		InstancePtr->Timer.TimerExpired = (FALSE);
-		if ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) ==
-		    ExpectedSize) {
+		if (((ReadyBit == FALSE) && ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) == ExpectedSize)) ||
+			((ReadyBit == TRUE)  &&  (InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_READY_MASK))){
 			/* Set timer expired flag to signal we've finished waiting */
 			XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_MSGAVAILABLE);
 			InstancePtr->Timer.TimerExpired = (TRUE);
@@ -2272,8 +3164,8 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize)
 		{
 			/* Read Rx status. */
 			XHdcp22Tx_ReadRxStatus(InstancePtr);
-			if ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) ==
-			    ExpectedSize) {
+			if (((ReadyBit == FALSE) && ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) == ExpectedSize)) ||
+				((ReadyBit == TRUE) && (InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_READY_MASK))) {
 				/* Stop the hardware timer */
 				XTmrCtr_Stop(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_0);
 
@@ -2286,13 +3178,19 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize)
 		return XST_SUCCESS;
 	}
 
+#ifdef _XHDCP22_TOP_SIM_ENAB_
+	XHdcp22Tx_ReadRxStatus(InstancePtr);
+#endif
 	/* timer expired: waiting done...check size in the status */
-	if ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) ==
-	    ExpectedSize) {
+	if (((ReadyBit == FALSE) && ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) == ExpectedSize)) ||
+		((ReadyBit == TRUE) && (InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_READY_MASK))) {
 		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_MSGAVAILABLE);
 		InstancePtr->Info.MsgAvailable = (TRUE);
 		return XST_SUCCESS;
 	}
+#ifdef _XHDCP22_TOP_SIM_ENAB_
+		return XST_SUCCESS;
+#endif
 	/* The receiver has timed out...and the data size does not match
 	 * the expected size! */
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_TIMEOUT);
@@ -2334,6 +3232,52 @@ static void XHdcp22Tx_ReadRxStatus(XHdcp22_Tx *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function handles authentication failures.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XHdcp22Tx_HandleAuthenticationFailed(XHdcp22_Tx * InstancePtr)
+{
+	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_UNAUTHENTICATED;
+	if (InstancePtr->IsUnauthenticatedCallbackSet)
+		InstancePtr->UnauthenticatedCallback(InstancePtr->UnauthenticatedCallbackRef);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function handles reauthentication requests.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XHdcp22Tx_HandleReauthenticationRequest(XHdcp22_Tx * InstancePtr)
+{
+	InstancePtr->Info.ReAuthenticationRequested = (TRUE);
+	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_REAUTHENTICATE_REQUESTED;
+
+	/* Increment re-authentication request count */
+	InstancePtr->Info.ReauthRequestCnt++;
+
+	/* Clear Topology Available flag */
+	InstancePtr->Info.IsTopologyAvailable = (FALSE);
+
+	if (InstancePtr->IsUnauthenticatedCallbackSet)
+		InstancePtr->UnauthenticatedCallback(InstancePtr->UnauthenticatedCallbackRef);
+}
+
+/*****************************************************************************/
+/**
+*
 * This function issues a AKE_Init message
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
@@ -2351,6 +3295,9 @@ static int XHdcp22Tx_WriteAKEInit(XHdcp22_Tx *InstancePtr)
 	XHdcp22_Tx_DDCMessage* MsgPtr = (XHdcp22_Tx_DDCMessage*)InstancePtr->MessageBuffer;
 
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_TX_AKEINIT);
+
+	/* Increment authentication request count */
+	InstancePtr->Info.AuthRequestCnt++;
 
 	MsgPtr->DdcAddress = XHDCP22_TX_HDCPPORT_WRITE_MSG_OFFSET;
 	MsgPtr->Message.MsgId = XHDCP22_TX_AKE_INIT;
@@ -2525,6 +3472,99 @@ static void XHdcp22Tx_WriteSkeSendEks(XHdcp22_Tx *InstancePtr,
 	                      (TRUE), InstancePtr->DdcHandlerRef);
 }
 
+/******************************************************************************/
+/**
+*
+* This function sends the Receiver ID List acknowledgement to the repeater.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+* @param  VPtr is a pointer to the least significant 128-bits of V.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_WriteRepeaterAuth_Send_Ack(XHdcp22_Tx *InstancePtr, const u8 *VPtr)
+{
+	XHdcp22_Tx_DDCMessage* MsgPtr =
+		(XHdcp22_Tx_DDCMessage*)InstancePtr->MessageBuffer;
+
+	MsgPtr->DdcAddress = XHDCP22_TX_HDCPPORT_WRITE_MSG_OFFSET;
+	MsgPtr->Message.MsgId = XHDCP22_TX_REPEATAUTH_SEND_ACK;
+
+	memcpy(MsgPtr->Message.RepeatAuthSendAck.V, VPtr,
+		sizeof(MsgPtr->Message.RepeatAuthSendAck.V));
+
+	/* Execute write */
+	InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS,
+	                      sizeof(XHdcp22_Tx_RepeatAuthSendAck) + 1, (u8 *)MsgPtr,
+	                      (TRUE), InstancePtr->DdcHandlerRef);
+}
+
+/******************************************************************************/
+/**
+*
+* This function sends the Content Stream Type to the repeater.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(XHdcp22_Tx *InstancePtr)
+{
+	XHdcp22_Tx_PairingInfo *PairingInfoPtr =
+		(XHdcp22_Tx_PairingInfo *)InstancePtr->Info.StateContext;
+	XHdcp22_Tx_DDCMessage* MsgPtr =
+		(XHdcp22_Tx_DDCMessage*)InstancePtr->MessageBuffer;
+
+	MsgPtr->DdcAddress = XHDCP22_TX_HDCPPORT_WRITE_MSG_OFFSET;
+	MsgPtr->Message.MsgId = XHDCP22_TX_REPEATAUTH_STREAM_MANAGE;
+
+	/* Value is sent in big endian format */
+	MsgPtr->Message.RepeatAuthStreamManage.SeqNum_M[0] = (InstancePtr->Info.SeqNum_M >> 16) & 0xFF; // MSB
+	MsgPtr->Message.RepeatAuthStreamManage.SeqNum_M[1] = (InstancePtr->Info.SeqNum_M >> 8)  & 0xFF;
+	MsgPtr->Message.RepeatAuthStreamManage.SeqNum_M[2] =  InstancePtr->Info.SeqNum_M        & 0xFF; // LSB
+
+	/* The parameter K is always set to 0x1 by the HDCP transmitter */
+	/* Value is sent in big endian format */
+	MsgPtr->Message.RepeatAuthStreamManage.K[0] = 0x0; // MSB
+	MsgPtr->Message.RepeatAuthStreamManage.K[1] = 0x1; // LSB
+
+	/* StreamID_Type = STREAM_ID || Type */
+	/* Value is sent in big endian format */
+	MsgPtr->Message.RepeatAuthStreamManage.StreamID_Type[0] = 0x0; // STREAM_ID: must always be 0x0
+	MsgPtr->Message.RepeatAuthStreamManage.StreamID_Type[1] = (u8)InstancePtr->Info.ContentStreamType; // Stream Type
+
+	/* To make verifying the MPrime from the repeater easier,
+	 * the M is calculated and stored before executing the write */
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_COMPUTE_M);
+	XHdcp22Tx_ComputeM(InstancePtr->Info.Rn,
+		InstancePtr->Info.Rrx,
+		InstancePtr->Info.Rtx,
+		MsgPtr->Message.RepeatAuthStreamManage.StreamID_Type,
+		MsgPtr->Message.RepeatAuthStreamManage.K,
+		MsgPtr->Message.RepeatAuthStreamManage.SeqNum_M,
+		PairingInfoPtr->Km,
+		InstancePtr->Info.M);
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_COMPUTE_M_DONE);
+
+	/* Increment the M */
+	InstancePtr->Info.SeqNum_M += 1;
+	/* Seq_num_M is 3 bytes, the variable is a u32.
+	 * Mask out the most-significant byte.
+	 */
+	InstancePtr->Info.SeqNum_M &= 0xFFF;
+
+	/* Execute write */
+	InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS,
+		XHDCP22_TX_REPEATAUTH_STREAM_MANAGE_SIZE + 1, (u8 *)MsgPtr,
+		(TRUE), InstancePtr->DdcHandlerRef);
+}
+
 /*****************************************************************************/
 /**
 *
@@ -2600,10 +3640,9 @@ int XHdcp22Tx_ClearPairingInfo(XHdcp22_Tx *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	int i;
-	for (i=0; i<XHDCP22_TX_MAX_STORED_PAIRINGINFO; i++) {
-		memset(&XHdcp22_Tx_PairingInfoStore[i], 0x00, sizeof(XHdcp22_Tx_PairingInfo));
-	}
+	memset(InstancePtr->Info.PairingInfo, 0x00,
+	       sizeof(InstancePtr->Info.PairingInfo));
+
 	return XST_SUCCESS;
 }
 /*****************************************************************************/
@@ -2619,10 +3658,12 @@ int XHdcp22Tx_ClearPairingInfo(XHdcp22_Tx *InstancePtr)
 * @note   None.
 *
 ******************************************************************************/
-static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(const u8 *ReceiverId)
+static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(XHdcp22_Tx *InstancePtr,
+	                                                     const u8 *ReceiverId)
 {
 	int i = 0;
 	u8 IllegalRecvID[] = {0x0, 0x0, 0x0, 0x0, 0x0};
+	XHdcp22_Tx_PairingInfo * PairingInfoPtr = NULL;
 
 	/* Check for illegal Receiver ID */
 	if (memcmp(ReceiverId, IllegalRecvID, XHDCP22_TX_CERT_RCVID_SIZE) == 0) {
@@ -2630,9 +3671,10 @@ static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(const u8 *ReceiverId)
 	}
 
 	for (i=0; i<XHDCP22_TX_MAX_STORED_PAIRINGINFO; i++) {
-		if (memcmp(ReceiverId, &XHdcp22_Tx_PairingInfoStore[i],
+		PairingInfoPtr = &InstancePtr->Info.PairingInfo[i];
+		if (memcmp(ReceiverId, PairingInfoPtr,
 		           XHDCP22_TX_CERT_RCVID_SIZE) == 0) {
-			return &XHdcp22_Tx_PairingInfoStore[i];
+			return PairingInfoPtr;
 		}
 	}
 	return NULL;
@@ -2653,18 +3695,18 @@ static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(const u8 *ReceiverId)
 *
 ******************************************************************************/
 static XHdcp22_Tx_PairingInfo *XHdcp22Tx_UpdatePairingInfo(
+	                          XHdcp22_Tx *InstancePtr,
                               const XHdcp22_Tx_PairingInfo *PairingInfo)
 {
 	int i = 0;
 	u8 Empty[XHDCP22_TX_CERT_RCVID_SIZE] = {0x00, 0x00, 0x00, 0x00, 0x00};
+	XHdcp22_Tx_PairingInfo * PairingInfoPtr = NULL;
 
 	/* find the id or an empty slot */
 	for (i=0; i<XHDCP22_TX_MAX_STORED_PAIRINGINFO; i++) {
-		if (memcmp(PairingInfo->ReceiverId, &XHdcp22_Tx_PairingInfoStore[i],
-		           XHDCP22_TX_CERT_RCVID_SIZE)== 0) {
-			break;
-		}
-		if (memcmp(Empty, &XHdcp22_Tx_PairingInfoStore[i],
+
+		PairingInfoPtr = &InstancePtr->Info.PairingInfo[i];
+		if (memcmp(PairingInfo->ReceiverId, PairingInfoPtr,
 		           XHDCP22_TX_CERT_RCVID_SIZE) == 0) {
 			break;
 		}
@@ -2672,14 +3714,12 @@ static XHdcp22_Tx_PairingInfo *XHdcp22Tx_UpdatePairingInfo(
 
 	/* If no slot available, use the first one */
 	if (i==XHDCP22_TX_MAX_STORED_PAIRINGINFO) {
-		i=0;
+		PairingInfoPtr = &InstancePtr->Info.PairingInfo[0];
 	}
 
 	/* Set new pairing info*/
-	memcpy(&XHdcp22_Tx_PairingInfoStore[i], PairingInfo,
-	       sizeof(XHdcp22_Tx_PairingInfo));
-
-	return &XHdcp22_Tx_PairingInfoStore[i];
+	memcpy(PairingInfoPtr, PairingInfo, sizeof(XHdcp22_Tx_PairingInfo));
+	return PairingInfoPtr;
 }
 
 /*****************************************************************************/
@@ -2694,9 +3734,11 @@ static XHdcp22_Tx_PairingInfo *XHdcp22Tx_UpdatePairingInfo(
 * @note   None.
 *
 ******************************************************************************/
-static void XHdcp22Tx_InvalidatePairingInfo(const u8* ReceiverId)
+static void XHdcp22Tx_InvalidatePairingInfo(XHdcp22_Tx *InstancePtr,
+	                                        const u8* ReceiverId)
 {
-	XHdcp22_Tx_PairingInfo *InfoPtr = XHdcp22Tx_GetPairingInfo(ReceiverId);
+	XHdcp22_Tx_PairingInfo *InfoPtr = XHdcp22Tx_GetPairingInfo(InstancePtr,
+		                                                       ReceiverId);
 
 	/* do nothing if the id was not found */
 	if (InfoPtr == NULL) {
@@ -2704,6 +3746,130 @@ static void XHdcp22Tx_InvalidatePairingInfo(const u8* ReceiverId)
 	}
 	/* clear the found structure */
 	memset(InfoPtr, 0x00, sizeof(XHdcp22_Tx_PairingInfo));
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the DEPTH in the repeater topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   Repeater topology DEPTH.
+*
+* @note     None.
+*
+******************************************************************************/
+static u32 XHdcp22Tx_GetTopologyDepth(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return (InstancePtr->Topology.Depth);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the DEVICE_COUNT in the repeater topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   DEVICE_COUNT in the repeater topology structure.
+*
+* @note     None.
+*
+******************************************************************************/
+static u32 XHdcp22Tx_GetTopologyDeviceCnt(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return (InstancePtr->Topology.DeviceCnt);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the MAX_DEVICS_EXCEEDED flag in the repeater
+* topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   MAX_DEVICS_EXCEEDED flag in the repeater structure.
+*
+* @note     None.
+*
+******************************************************************************/
+static u32 XHdcp22Tx_GetTopologyMaxDevsExceeded(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return (InstancePtr->Topology.MaxDevsExceeded) ? TRUE : FALSE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the MAX_CASCADE_EXCEEDED flag in the repeater
+* topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   MAX_CASCADE_EXCEEDED flag in the repeater structure.
+*
+* @note     None.
+*
+******************************************************************************/
+static u32 XHdcp22Tx_GetTopologyMaxCascadeExceeded(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return (InstancePtr->Topology.MaxCascadeExceeded) ? TRUE : FALSE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the HDCP2_0_REPEATER_DOWNSTREAM flag in the repeater
+* topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   HDCP2_0_REPEATER_DOWNSTREAM flag in the repeater structure.
+*
+* @note     None.
+*
+******************************************************************************/
+static u32 XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return (InstancePtr->Topology.Hdcp20RepeaterDownstream) ? TRUE : FALSE;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the HDCP1_DEVICE_DOWNSTREAM flag in the repeater
+* topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp22_Tx core instance.
+*
+* @return   HDCP1_DEVICE_DOWNSTREAM flag in the repeater structure.
+*
+* @note     None.
+*
+******************************************************************************/
+static u32 XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(XHdcp22_Tx *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	return (InstancePtr->Topology.Hdcp1DeviceDownstream) ? TRUE : FALSE;
 }
 
 /*****************************************************************************/
@@ -2724,6 +3890,7 @@ void XHdcp22Tx_LogReset(XHdcp22_Tx *InstancePtr, u8 Verbose)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+	InstancePtr->Log.Head = 0;
 	InstancePtr->Log.Tail = 0;
 	InstancePtr->Log.Verbose = Verbose;
 	/* Reset and start the logging timer. */
@@ -2748,6 +3915,10 @@ void XHdcp22Tx_LogReset(XHdcp22_Tx *InstancePtr, u8 Verbose)
 ******************************************************************************/
 u32 XHdcp22Tx_LogGetTimeUSecs(XHdcp22_Tx *InstancePtr)
 {
+#ifdef _XHDCP22_TOP_SIM_ENAB_
+	return 0;
+#endif
+
 	if (InstancePtr->Timer.TmrCtr.IsReady != XIL_COMPONENT_IS_READY)
 		return 0;
 
@@ -2774,8 +3945,6 @@ u32 XHdcp22Tx_LogGetTimeUSecs(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 void XHdcp22Tx_LogWr(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_LogEvt Evt, u16 Data)
 {
-	int LogBufSize = 0;
-
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Evt < (XHDCP22_TX_LOG_INVALID));
@@ -2791,8 +3960,7 @@ void XHdcp22Tx_LogWr(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_LogEvt Evt, u16 Data)
                             XHdcp22Tx_LogGetTimeUSecs(InstancePtr);
 
 	/* Update head pointer if reached to end of the buffer */
-	LogBufSize = sizeof(InstancePtr->Log.LogItems)/sizeof(XHdcp22_Tx_LogItem);
-	if (InstancePtr->Log.Head == (u16)(LogBufSize) - 1) {
+	if (InstancePtr->Log.Head == XHDCP22_TX_LOG_BUFFER_SIZE - 1) {
 		/* Clear pointer */
 		InstancePtr->Log.Head = 0;
 	} else {
@@ -2805,7 +3973,7 @@ void XHdcp22Tx_LogWr(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_LogEvt Evt, u16 Data)
 	 * remove the oldest entry from the buffer.
 	 */
 	if (InstancePtr->Log.Tail == InstancePtr->Log.Head) {
-		if (InstancePtr->Log.Tail == (u16)(LogBufSize) - 1) {
+		if (InstancePtr->Log.Tail == XHDCP22_TX_LOG_BUFFER_SIZE - 1) {
 			InstancePtr->Log.Tail = 0;
 		} else {
 			InstancePtr->Log.Tail++;
@@ -2830,7 +3998,6 @@ void XHdcp22Tx_LogWr(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_LogEvt Evt, u16 Data)
 XHdcp22_Tx_LogItem* XHdcp22Tx_LogRd(XHdcp22_Tx *InstancePtr)
 {
 	XHdcp22_Tx_LogItem* LogPtr;
-	int LogBufSize = 0;
 	u16 Tail = 0;
 	u16 Head = 0;
 
@@ -2841,7 +4008,6 @@ XHdcp22_Tx_LogItem* XHdcp22Tx_LogRd(XHdcp22_Tx *InstancePtr)
 	Head = InstancePtr->Log.Head;
 
 	/* Check if there is any data in the log and return a NONE defined log item */
-	LogBufSize = sizeof(InstancePtr->Log.LogItems)/sizeof(XHdcp22_Tx_LogItem);
 	if (Tail == Head) {
 		LogPtr = &InstancePtr->Log.LogItems[Tail];
 		LogPtr->Data = 0;
@@ -2853,7 +4019,7 @@ XHdcp22_Tx_LogItem* XHdcp22Tx_LogRd(XHdcp22_Tx *InstancePtr)
 	LogPtr = &InstancePtr->Log.LogItems[Tail];
 
 	/* Increment tail pointer */
-	if (Tail == (u16)(LogBufSize) - 1) {
+	if (Tail == XHDCP22_TX_LOG_BUFFER_SIZE - 1) {
 		InstancePtr->Log.Tail = 0;
 	}
 	else {
@@ -2891,6 +4057,7 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 #endif
 
 	xil_printf("\r\n-------HDCP22 TX log start-------\r\n");
+	xil_printf("[Time(us):Delta(us)] <Event>\n\r");
 	strcpy(str, "UNDEFINED");
 	do {
 		/* Read log data */
@@ -2926,10 +4093,12 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A3)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A4)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A5)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A6_A7_A8)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A6)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A7)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A8)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A9)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_STATE_, A9_1)
 				default: break;
 			};
 			xil_printf("Current state [%s]\r\n", str);
@@ -2984,6 +4153,9 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 		case XHDCP22_TX_LOG_EVT_LCCHK_COUNT:
 			xil_printf("Locality check count [%d]\r\n", LogPtr->Data);
 			break;
+		case XHDCP22_TX_LOG_EVT_STRMMNGCHK_COUNT:
+			xil_printf("Content Stream Management check count [%d]\r\n", LogPtr->Data);
+			break;
 		case XHDCP22_TX_LOG_EVT_DBG:
 			switch(LogPtr->Data)
 			{
@@ -2994,6 +4166,7 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE_PASS)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, VERIFY_SIGNATURE_FAIL)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, DEVICE_IS_REVOKED)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, ENCRYPT_KM)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, ENCRYPT_KM_DONE)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_NOSTOREDKM)
@@ -3009,6 +4182,12 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_EDKEYKS)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_EDKEYKS_DONE)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TX_EKS)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RX_RCVIDLIST)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_V)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_V_DONE)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, RX_M1)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_M)
+				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, COMPUTE_M_DONE)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, CHECK_REAUTH)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TIMEOUT)
 				XHDCP22_TX_CASE_TO_STR_PRE(XHDCP22_TX_LOG_DBG_, TIMESTAMP)
@@ -3034,5 +4213,84 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 	} while (LogPtr->LogEvent != XHDCP22_TX_LOG_EVT_NONE);
 }
 
+/*****************************************************************************/
+/**
+*
+* This function prints the state machine information.
+*
+* @param  InstancePtr is a pointer to the HDCP22 TX core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp22Tx_Info(XHdcp22_Tx *InstancePtr)
+{
+	xil_printf("Status : ");
+	if (XHdcp22Tx_IsEnabled(InstancePtr)) {
+		switch (InstancePtr->Info.AuthenticationStatus) {
+			case XHDCP22_TX_INCOMPATIBLE_RX :
+			xil_printf("RX is incompatible.\n\r");
+			break;
+
+			case XHDCP22_TX_AUTHENTICATION_BUSY :
+			xil_printf("Busy Authentication.\n\r");
+			break;
+
+			case XHDCP22_TX_REAUTHENTICATE_REQUESTED :
+			xil_printf("Re-authentication Requested.\n\r");
+			break;
+
+			case XHDCP22_TX_UNAUTHENTICATED :
+			xil_printf("Not Authenticated.\n\r");
+			break;
+
+			case XHDCP22_TX_AUTHENTICATED :
+			xil_printf("Authenticated.\n\r");
+			break;
+
+            case XHDCP22_TX_DEVICE_IS_REVOKED :
+            xil_printf("Device Revoked.\n\r");
+
+            case XHDCP22_TX_NO_SRM_LOADED :
+            xil_printf("No SRM Loaded.\n\r");
+
+			default :
+			xil_printf("Unknown state.\n\r");
+			break;
+		}
+	} else {
+		xil_printf("Core is disabled.\n\r");
+	}
+
+	xil_printf("Encryption : ");
+	if (XHdcp22Tx_IsEncryptionEnabled(InstancePtr)) {
+		xil_printf("Enabled.\n\r");
+	} else {
+		xil_printf("Disabled.\n\r");
+	}
+
+	xil_printf("Repeater: ");
+	if (XHdcp22Tx_IsRepeater(InstancePtr)) {
+		if (InstancePtr->Topology.MaxDevsExceeded)
+			xil_printf("MaxDevsExceeded, ");
+		if (InstancePtr->Topology.MaxCascadeExceeded)
+			xil_printf("MaxCascadeExceeded, ");
+		if (InstancePtr->Topology.Hdcp20RepeaterDownstream)
+			xil_printf("Hdcp20RepeaterDownstream, ");
+		if (InstancePtr->Topology.Hdcp1DeviceDownstream)
+			xil_printf("Hdcp1DeviceDownstream, ");
+		xil_printf("Depth=%d, ", InstancePtr->Topology.Depth);
+		xil_printf("DeviceCnt=%d, ", InstancePtr->Topology.DeviceCnt);
+		xil_printf("StreamType=%d\n\r", InstancePtr->Info.ContentStreamType);
+	} else {
+		xil_printf("Disabled.\n\r");
+	}
+
+	xil_printf("Auth Requests: %d\n\r", InstancePtr->Info.AuthRequestCnt);
+	xil_printf("Reauth Requests: %d\n\r", InstancePtr->Info.ReauthRequestCnt);
+
+}
 
 /** @} */
