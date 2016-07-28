@@ -53,6 +53,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 5.4   sk  08/07/15 First Release.
+* 5.7   rk  07/27/16 Added the dummy bytecnt other than normal reads.
 *
 *</pre>
 *
@@ -398,6 +399,9 @@ int FlashRead(XIsf *InstancePtr, u32 Address, u32 ByteCount, u8 Command)
 	ReadParam.Address = Address;
 	ReadParam.NumBytes = ByteCount;
 	ReadParam.ReadPtr = ReadBuffer;
+	if(Command != XISF_READ){
+		ReadParam.NumDummyBytes = 1;
+	}
 
 	/*
 	 * Perform the Read operation.
