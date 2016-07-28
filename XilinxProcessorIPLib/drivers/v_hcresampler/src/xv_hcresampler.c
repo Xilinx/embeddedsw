@@ -12,10 +12,10 @@
 #ifndef __linux__
 int XV_hcresampler_CfgInitialize(XV_hcresampler *InstancePtr,
                                  XV_hcresampler_Config *ConfigPtr,
-                                 u32 EffectiveAddr) {
+								 UINTPTR EffectiveAddr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
-    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+    Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
     /* Setup the instance */
     InstancePtr->Config = *ConfigPtr;

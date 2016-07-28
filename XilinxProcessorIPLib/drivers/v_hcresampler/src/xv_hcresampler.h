@@ -45,7 +45,7 @@ typedef uint32_t u32;
 */
 typedef struct {
     u16 DeviceId;          /**< Unique ID  of device */
-    u32 BaseAddress;       /**< The base address of the core instance. */
+    UINTPTR BaseAddress;   /**< The base address of the core instance. */
     int PixPerClk;         /**< Samples Per Clock supported by core instance */
     u16 MaxWidth;          /**< Maximum columns supported by core instance */
     u16 MaxHeight;         /**< Maximum rows supported by core instance */
@@ -90,7 +90,7 @@ int XV_hcresampler_Initialize(XV_hcresampler *InstancePtr, u16 DeviceId);
 XV_hcresampler_Config* XV_hcresampler_LookupConfig(u16 DeviceId);
 int XV_hcresampler_CfgInitialize(XV_hcresampler *InstancePtr,
                                  XV_hcresampler_Config *ConfigPtr,
-                                 u32 EffectiveAddr);
+								 UINTPTR EffectiveAddr);
 #else
 int XV_hcresampler_Initialize(XV_hcresampler *InstancePtr, const char* InstanceName);
 int XV_hcresampler_Release(XV_hcresampler *InstancePtr);
