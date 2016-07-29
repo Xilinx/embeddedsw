@@ -1366,3 +1366,7 @@ Updated example to as per API changes
 
 libmetal_v1_0:
 Add libmetal open-source project to support OpenAMP
+
+metal_echo_demo_v1_0:
+Add an echo demo to show the communication between baremetal
+and Linux application with libmetal APIs
