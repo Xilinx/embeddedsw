@@ -1364,5 +1364,5 @@ Added PM node IDs for all remaining devices
 Added capability CAP_WAKEUP
 Updated example to as per API changes
 
-metal_v1_0:
-Add lib metal open-source project to support OpenAMP
+libmetal_v1_0:
+Add libmetal open-source project to support OpenAMP
