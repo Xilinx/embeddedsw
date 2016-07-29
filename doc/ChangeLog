@@ -70,6 +70,12 @@ xilkenrel_v6_4:
 Fixed CR:955364 update get_pins command as per 2016.3 hsi changes are made in
 the bsp tcl file.
 
+libmetal_v1_0:
+Add libmetal open-source project to support OpenAMP
+
+libmetal_echo_demo_v1_0:
+Add an echo demo to show the communication between baremetal
+and Linux application with libmetal APIs
 
 Change Log for 2016.2
 =================================
@@ -1364,9 +1370,3 @@ Added PM node IDs for all remaining devices
 Added capability CAP_WAKEUP
 Updated example to as per API changes
 
-libmetal_v1_0:
-Add libmetal open-source project to support OpenAMP
-
-metal_echo_demo_v1_0:
-Add an echo demo to show the communication between baremetal
-and Linux application with libmetal APIs
