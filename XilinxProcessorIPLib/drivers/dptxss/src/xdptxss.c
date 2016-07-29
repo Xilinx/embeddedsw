@@ -55,6 +55,8 @@
 * 3.0  sha 02/19/16 Added function: XDpTxSs_ReadDownstream,
 *                   XDpTxSs_HandleTimeout.
 *                   Enabled HDCP in XDpTxSs_Start function.
+* 3.0  aad 07/28/16 Enabled VTC before DPTX core enable for better
+*		    image stability
 * </pre>
 *
 ******************************************************************************/
@@ -305,6 +307,18 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 					"VTC%d initialization failed!\n\r",
 						Index);
 				return XST_FAILURE;
+			}
+		}
+	}
+	/* Setup VTC */
+	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
+		if (InstancePtr->VtcPtr[Index]) {
+			Status = XDpTxSs_VtcSetup(InstancePtr->VtcPtr[Index],
+			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index]);
+			if (Status != XST_SUCCESS) {
+				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
+					"VTC%d setup failed!\n\r", Index);
+				return Status;
 			}
 		}
 	}
