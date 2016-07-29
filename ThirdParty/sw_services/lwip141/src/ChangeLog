@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2016-07-29
+	* Dont set clk dividers in Zynq SLCR when EMIO clock source is used.
 2016-07-11
 	* Change Zynq BD space attributes to device memory.
 2016-04-07

@@ -176,6 +176,7 @@
 #define SLCR_UNLOCK_ADDR		(XPS_SYS_CTRL_BASEADDR + 0x8)
 #define SLCR_GEM0_CLK_CTRL_ADDR	(XPS_SYS_CTRL_BASEADDR + 0x140)
 #define SLCR_GEM1_CLK_CTRL_ADDR	(XPS_SYS_CTRL_BASEADDR + 0x144)
+#define SLCR_GEM_SRCSEL_EMIO	0x40
 #define SLCR_LOCK_KEY_VALUE 	0x767B
 #define SLCR_UNLOCK_KEY_VALUE	0xDF0D
 #define SLCR_ADDR_GEM_RST_CTRL	(XPS_SYS_CTRL_BASEADDR + 0x214)
@@ -722,6 +723,12 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		} else {
 			slcrBaseAddress = SLCR_GEM1_CLK_CTRL_ADDR;
 		}
+
+		if((*(volatile u32_t *)(UINTPTR)(slcrBaseAddress)) &
+			SLCR_GEM_SRCSEL_EMIO) {
+				return;
+		}
+
 		if (speed == 1000) {
 			if (mac_baseaddr == XPAR_XEMACPS_0_BASEADDR) {
 #ifdef XPAR_PS7_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
