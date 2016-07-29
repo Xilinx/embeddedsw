@@ -957,7 +957,7 @@ void XDecap_MatchUDPDest(XDecap *InstancePtr, u16 Channels)
 
     RegValue = (XDecap_ReadReg(InstancePtr->Config.BaseAddress,
         XDECAP_MATCH_UDP_DEST_PORT_OFFSET) &
-            ~(XDECAP_MATCH_UDP_DEST_PORT_OFFSET));
+            ~(XDECAP_MATCH_UDP_DEST_PORT_MASK));
 
     /* Write the value to the register */
     XDecap_WriteReg(InstancePtr->Config.BaseAddress,
@@ -993,7 +993,7 @@ void XDecap_MatchUDPSrc(XDecap *InstancePtr, u16 Channels)
 
     RegValue = (XDecap_ReadReg(InstancePtr->Config.BaseAddress,
         XDECAP_MATCH_UDP_SRC_PORT_OFFSET) &
-            ~(XDECAP_MATCH_UDP_SRC_PORT_OFFSET));
+            ~(XDECAP_MATCH_UDP_SRC_PORT_MASK));
 
     /* Write the value to the register */
     XDecap_WriteReg(InstancePtr->Config.BaseAddress,
