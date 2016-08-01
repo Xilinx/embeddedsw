@@ -540,7 +540,7 @@ void XFsbl_MeasurePerfTime(XTime tCur)
 	tPerfMsFrac = tPerfNs % (u64)1e6;
 
 	/* Print the whole (in ms.) and fractional part */
-	XFsbl_Printf(DEBUG_PRINT_ALWAYS, "%d.%d ms.",
+	XFsbl_Printf(DEBUG_PRINT_ALWAYS, "%d.%06d ms.",
 			(u32)tPerfMs, (u32)tPerfMsFrac);
 }
 
