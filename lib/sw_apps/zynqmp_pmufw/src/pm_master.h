@@ -133,6 +133,9 @@ typedef struct {
  *              to be a dedicated requirements structure
  * @gic         If the master has its own GIC which is controlled by the PMU,
  *              this is a pointer to it.
+ * @evalState   Function to be called when a state specified by the master
+ *              needs to be evaluated (implicit scheduling of requirements)
+ * @memories    Pointer to the array of memories used by the master
  * @ipiMask     Mask dedicated to the master in IPI registers
  * @pmuBuffer   IPI buffer address into which PMU can write (PMU's buffer)
  * @buffer      IPI buffer address into which this master can write
@@ -162,6 +165,8 @@ typedef struct PmMaster {
 	PmProc* wakeProc;
 	PmRequirement* reqs;
 	const PmGicProxy* const gic;
+	int (*const evalState)(const u32 state);
+	const PmSlave** const memories;
 	const u32 ipiMask;
 	const u32 pmuBuffer;
 	const u32 buffer;

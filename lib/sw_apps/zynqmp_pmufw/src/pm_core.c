@@ -81,7 +81,7 @@ static void PmProcessAckRequest(const u32 ack,
  * @master  Master who initiated the request
  * @node    Processor or subsystem node to be suspended
  * @latency Maximum latency for processor to go back to active state
- * @state   Not supported
+ * @state   Encoded state that is specific for each master
  *
  * @note    Used to announce starting of self suspend procedure. Node will be
  *          put to sleep when server handles corresponding processor's WFI
@@ -123,6 +123,13 @@ static void PmSelfSuspend(const PmMaster *const master,
 		goto done;
 	}
 	status = PmProcFsm(proc, PM_PROC_EVENT_SELF_SUSPEND);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	if (NULL != master->evalState) {
+		status = master->evalState(state);
+	}
 
 done:
 	IPI_RESPONSE1(master->buffer, status);

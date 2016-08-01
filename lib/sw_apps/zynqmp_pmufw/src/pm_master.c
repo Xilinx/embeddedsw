@@ -706,6 +706,83 @@ PmRequirement pmReqData[] = {
 	},
 };
 
+static const PmSlave* pmApuMemories[] = {
+	&pmSlaveOcm0_g.slv,
+	&pmSlaveOcm1_g.slv,
+	&pmSlaveOcm2_g.slv,
+	&pmSlaveOcm3_g.slv,
+	&pmSlaveDdr_g,
+	NULL,
+};
+
+/**
+ * PmApuPrepareSuspendToRam() - Prepare the APU data structs for suspend to RAM
+ */
+static int PmApuPrepareSuspendToRam(void)
+{
+	int status;
+	u32 i;
+	PmRequirement* req = PmGetRequirementForSlave(&pmMasterApu_g, NODE_L2);
+
+	if (NULL == req) {
+		status = XST_FAILURE;
+		goto done;
+	}
+
+	status = PmRequirementSchedule(req, 0U);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	if (NULL == pmMasterApu_g.memories) {
+		goto done;
+	}
+
+	i = 0U;
+	while (NULL != pmMasterApu_g.memories[i]) {
+		PmNodeId memNid = pmMasterApu_g.memories[i]->node.nodeId;
+
+		req = PmGetRequirementForSlave(&pmMasterApu_g, memNid);
+		if (NULL == req) {
+			status = XST_FAILURE;
+			goto done;
+		}
+		status = PmRequirementSchedule(req, PM_CAP_CONTEXT);
+		i++;
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmApuEvaluateState() - Evaluate state specified by the APU master for itself
+ * @state	State argument to be evaluated (specified as the argument of the
+ *		self suspend call)
+ *
+ * @return	XST_SUCCESS if state is supported
+ *		XST_NO_FEATURE if state is not supported
+ *		Error code if requirements are not properly set for a slave
+ */
+static int PmApuEvaluateState(const u32 state)
+{
+	int status;
+
+	switch (state) {
+	case PM_APU_STATE_CPU_IDLE:
+		status = XST_SUCCESS;
+		break;
+	case PM_APU_STATE_SUSPEND_TO_RAM:
+		status = PmApuPrepareSuspendToRam();
+		break;
+	default:
+		status = XST_NO_FEATURE;
+		break;
+	}
+
+	return status;
+}
+
 PmMaster pmMasterApu_g = {
 	.procs = pmApuProcs_g,
 	.procsCnt = PM_PROC_APU_MAX,
@@ -722,6 +799,8 @@ PmMaster pmMasterApu_g = {
 	},
 	.state = PM_MASTER_STATE_ACTIVE,
 	.gic = &pmGicProxy,
+	.memories = pmApuMemories,
+	.evalState = PmApuEvaluateState,
 };
 
 PmMaster pmMasterRpu0_g = {
@@ -740,6 +819,8 @@ PmMaster pmMasterRpu0_g = {
 	},
 	.state = PM_MASTER_STATE_ACTIVE,
 	.gic = NULL,
+	.memories = NULL,
+	.evalState = NULL,
 };
 
 PmMaster pmMasterRpu1_g = {
@@ -758,6 +839,8 @@ PmMaster pmMasterRpu1_g = {
 	},
 	.state = PM_MASTER_STATE_KILLED,
 	.gic = NULL,
+	.memories = NULL,
+	.evalState = NULL,
 };
 
 PmMaster *const pmAllMasters[PM_MASTER_MAX] = {

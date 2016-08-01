@@ -188,6 +188,10 @@
 #define SUSPEND_REASON_MIN  SUSPEND_REASON_PU_REQ
 #define SUSPEND_REASON_MAX  SUSPEND_REASON_SYS_SHUTDOWN
 
+/* State arguments of the self suspend (master specific) */
+#define PM_APU_STATE_CPU_IDLE           0x0U
+#define PM_APU_STATE_SUSPEND_TO_RAM     0xFU
+
 /* Operating characteristics type */
 #define PM_OPCHAR_TYPE_POWER    1U
 #define PM_OPCHAR_TYPE_TEMP     2U
