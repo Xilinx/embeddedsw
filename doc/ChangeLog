@@ -738,8 +738,11 @@ Fixed 1PPC MMCM parameter calculation in HDMI
 Corrected TX_CLK25_DIV1 and added RX_CLK25_DIV1 initialization
 Updated the RXCDRCFG2 values for GTHE4
 Updated xvphy_gtpe2.c to take the correct refclk frequency for DP
+
+vphy_v1_2:
 Added HdmiFastSwitch in XVphy_Config
 Fixed bug in XVphy_IsPllLocked function
+Updates for 64-bit compilation
 
 vprocss_v2_1:
 Added new version 2.1

@@ -55,6 +55,8 @@
  *       gm   20/04/16 Added XVphy_GetRcfgChId function
  * 1.2   gm            Added HdmiFastSwitch in XVphy_Config
  *                     Fixed bug in XVphy_IsPllLocked function
+ *                     Changed EffectiveAddr datatype in XVphy_CfgInitialize
+ *                       to UINTPTR
  * </pre>
  *
 *******************************************************************************/
@@ -108,7 +110,7 @@ static u32 XVphy_PllCalculator(XVphy *InstancePtr, u8 QuadId,
  *
 *******************************************************************************/
 void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
-		u32 EffectiveAddr)
+		UINTPTR EffectiveAddr)
 {
 	u8 Sel;
 

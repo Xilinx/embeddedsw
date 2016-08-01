@@ -55,6 +55,8 @@
  *                     Added XVphy_SetDefaultPpc and XVphy_SetPpc functions
  *       als           Added XVphy_GetLineRateHz function.
  * 1.2   gm            Added HdmiFastSwitch in XVphy_Config
+ *                     Changed EffectiveAddr datatype in XVphy_CfgInitialize
+ *                       to UINTPTR
  * </pre>
  *
 *******************************************************************************/
@@ -522,7 +524,7 @@ typedef struct {
  */
 typedef struct {
 	u16 DeviceId;			/**< Device instance ID. */
-	u32 BaseAddr;			/**< The base address of the core
+	UINTPTR BaseAddr;		/**< The base address of the core
 						instance. */
 	XVphy_GtType XcvrType;		/**< VPHY Transceiver Type */
 	u8 TxChannels;			/**< No. of active channels in TX */
@@ -658,7 +660,7 @@ typedef struct {
 
 /* xvphy.c: Setup and initialization functions. */
 void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
-		u32 EffectiveAddr);
+		UINTPTR EffectiveAddr);
 u32 XVphy_PllInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_PllRefClkSelType QpllRefClkSel,
 		XVphy_PllRefClkSelType CpllxRefClkSel,
