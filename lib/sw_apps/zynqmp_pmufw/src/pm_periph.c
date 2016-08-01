@@ -81,7 +81,8 @@ static u32 PmSlaveStdPowers[] = {
 };
 
 static PmGicProxyWake pmRtcWake = {
-	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC26_MASK,
+	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC27_MASK |
+		LPD_SLCR_GICP0_IRQ_MASK_SRC26_MASK,
 	.group = 0U,
 };
 
@@ -104,7 +105,9 @@ PmSlave pmSlaveRtc_g = {
 };
 
 static PmGicProxyWake pmTtc0Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC4_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC6_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC5_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC4_MASK,
 	.group = 1U,
 };
 
@@ -129,7 +132,9 @@ PmSlaveTtc pmSlaveTtc0_g = {
 };
 
 static PmGicProxyWake pmTtc1Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC7_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC9_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC8_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC7_MASK,
 	.group = 1U,
 };
 
@@ -154,7 +159,9 @@ PmSlaveTtc pmSlaveTtc1_g = {
 };
 
 static PmGicProxyWake pmTtc2Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC10_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC12_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC11_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC10_MASK,
 	.group = 1U,
 };
 
@@ -179,7 +186,9 @@ PmSlaveTtc pmSlaveTtc2_g = {
 };
 
 static PmGicProxyWake pmTtc3Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC13_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC15_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC14_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC13_MASK,
 	.group = 1U,
 };
 
@@ -342,7 +351,8 @@ PmSlave pmSlaveI2C1_g = {
 };
 
 static PmGicProxyWake pmSD0Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC18_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC18_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC16_MASK,
 	.group = 1U,
 };
 
@@ -365,7 +375,8 @@ PmSlave pmSlaveSD0_g = {
 };
 
 static PmGicProxyWake pmSD1Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC19_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC19_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC17_MASK,
 	.group = 1U,
 };
 
@@ -434,7 +445,8 @@ PmSlave pmSlaveCan1_g = {
 };
 
 static PmGicProxyWake pmEth0Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC25_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC25_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC24_MASK,
 	.group = 1U,
 };
 
@@ -457,7 +469,8 @@ PmSlave pmSlaveEth0_g = {
 };
 
 static PmGicProxyWake pmEth1Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC27_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC27_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC26_MASK,
 	.group = 1U,
 };
 
@@ -480,7 +493,8 @@ PmSlave pmSlaveEth1_g = {
 };
 
 static PmGicProxyWake pmEth2Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC29_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC29_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC28_MASK,
 	.group = 1U,
 };
 
@@ -503,7 +517,8 @@ PmSlave pmSlaveEth2_g = {
 };
 
 static PmGicProxyWake pmEth3Wake = {
-	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC31_MASK,
+	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC31_MASK |
+		LPD_SLCR_GICP1_IRQ_MASK_SRC30_MASK,
 	.group = 1U,
 };
 
@@ -525,6 +540,18 @@ PmSlave pmSlaveEth3_g = {
 	.flags = 0U,
 };
 
+static PmGicProxyWake pmAdmaWake = {
+	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC19_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC18_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC17_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC16_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC15_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC14_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC13_MASK |
+		LPD_SLCR_GICP2_IRQ_MASK_SRC12_MASK,
+	.group = 2U,
+};
+
 PmSlave pmSlaveAdma_g = {
 	.node = {
 		.derived = &pmSlaveAdma_g,
@@ -538,7 +565,7 @@ PmSlave pmSlaveAdma_g = {
 		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
 	.reqs = NULL,
-	.wake = NULL,
+	.wake = &pmAdmaWake,
 	.slvFsm = &slaveAonFsm,
 	.flags = 0U,
 };
