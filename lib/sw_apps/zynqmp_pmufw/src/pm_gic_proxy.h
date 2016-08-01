@@ -35,47 +35,6 @@
 
 typedef struct PmSlave PmSlave;
 
-/*********************************************************************
- * Macros
- ********************************************************************/
-
-/* FPD GIC Proxy irq masks */
-
-/* GIC Proxy group 0 */
-#define FPD_GICP_RTC_WAKE_IRQ_MASK	(1U << 26U)
-#define FPD_GICP_CAN1_WAKE_IRQ_MASK	(1U << 24U)
-#define FPD_GICP_CAN0_WAKE_IRQ_MASK	(1U << 23U)
-#define FPD_GICP_UART1_WAKE_IRQ_MASK	(1U << 22U)
-#define FPD_GICP_UART0_WAKE_IRQ_MASK	(1U << 21U)
-#define FPD_GICP_SPI1_WAKE_IRQ_MASK	(1U << 20U)
-#define FPD_GICP_SPI0_WAKE_IRQ_MASK	(1U << 19U)
-#define FPD_GICP_I2C1_WAKE_IRQ_MASK	(1U << 18U)
-#define FPD_GICP_I2C0_WAKE_IRQ_MASK	(1U << 17U)
-#define FPD_GICP_GPIO_WAKE_IRQ_MASK	(1U << 16U)
-#define FPD_GICP_SPI_WAKE_IRQ_MASK	(1U << 15U)
-#define FPD_GICP_NAND_WAKE_IRQ_MASK	(1U << 14U)
-
-/* GIC Proxy group 1 */
-#define FPD_GICP_ETH3_WAKE_IRQ_MASK	(1U << 31U)
-#define FPD_GICP_ETH2_WAKE_IRQ_MASK	(1U << 29U)
-#define FPD_GICP_ETH1_WAKE_IRQ_MASK	(1U << 27U)
-#define FPD_GICP_ETH0_WAKE_IRQ_MASK	(1U << 25U)
-#define FPD_GICP_SD1_WAKE_IRQ_MASK	(1U << 19U)
-#define FPD_GICP_SD0_WAKE_IRQ_MASK	(1U << 18U)
-#define FPD_GICP_TTC3_WAKE_IRQ_MASK	(1U << 13U)
-#define FPD_GICP_TTC2_WAKE_IRQ_MASK	(1U << 10U)
-#define FPD_GICP_TTC1_WAKE_IRQ_MASK	(1U << 7U)
-#define FPD_GICP_TTC0_WAKE_IRQ_MASK	(1U << 4U)
-#define FPD_GICP_IPI_APU_WAKE_IRQ_MASK	(1U << 3U)
-
-/* GIC Proxy group 2 */
-#define FPD_GICP_USB1_WAKE_IRQ_MASK (1U << 12U)
-#define FPD_GICP_USB0_WAKE_IRQ_MASK (1U << 11U)
-
-/* GIC Proxy group 4 */
-#define FPD_GICP_SATA_WAKE_IRQ_MASK (1U << 5U)
-
-
 /**
  * PmGicProxyWake - Properties of the GIC Proxy wake event
  * @mask	Interrupt mask associated with the slave's wake event in the

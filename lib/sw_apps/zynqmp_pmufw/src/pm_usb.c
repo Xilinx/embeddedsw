@@ -36,6 +36,7 @@
 #include "pm_common.h"
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
+#include "lpd_slcr.h"
 
 /* Power states of USB */
 #define PM_USB_STATE_OFF   0U
@@ -116,7 +117,7 @@ static const PmSlaveFsm slaveUsbFsm = {
 };
 
 static PmGicProxyWake pmUsb0Wake = {
-	.mask = FPD_GICP_USB0_WAKE_IRQ_MASK,
+	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC10_MASK,
 	.group = 2U,
 };
 
@@ -148,7 +149,7 @@ PmSlaveUsb pmSlaveUsb0_g = {
 };
 
 static PmGicProxyWake pmUsb1Wake = {
-	.mask = FPD_GICP_USB1_WAKE_IRQ_MASK,
+	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC11_MASK,
 	.group = 2U,
 };
 
