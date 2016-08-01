@@ -35,10 +35,10 @@
 
 /* GIC Proxy base address */
 #define GIC_PROXY_BASE_ADDR		LPD_SLCR_GICP0_IRQ_STATUS
-#define GIC_PROXY_GROUP_OFFSET		0x14U
+#define GIC_PROXY_GROUP_OFFSET(g)	(0x14U * g)
 
 /* GIC Proxy register offsets */
-#define GIC_PROXY_STATUS_OFFSET		0x0U
+#define GIC_PROXY_IRQ_STATUS_OFFSET	0x0U
 #define GIC_PROXY_IRQ_ENABLE_OFFSET	0x8U
 #define GIC_PROXY_IRQ_DISABLE_OFFSET	0xCU
 
@@ -66,8 +66,8 @@ static int PmGicProxySetWake(const PmSlave* const slv, const u32 enable)
 	if (0U != enable) {
 		/* Calculate address of the status register */
 		addr = GIC_PROXY_BASE_ADDR +
-		       GIC_PROXY_GROUP_OFFSET * slv->wake->group +
-		       GIC_PROXY_STATUS_OFFSET;
+		       GIC_PROXY_GROUP_OFFSET(slv->wake->group) +
+		       GIC_PROXY_IRQ_STATUS_OFFSET;
 
 		/* Write 1 into status register to clear interrupt */
 		XPfw_Write32(addr, slv->wake->mask);
@@ -97,7 +97,7 @@ static void PmGicProxyEnable(void)
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
 		u32 addr = GIC_PROXY_BASE_ADDR +
-			   GIC_PROXY_GROUP_OFFSET * g +
+			   GIC_PROXY_GROUP_OFFSET(g) +
 			   GIC_PROXY_IRQ_ENABLE_OFFSET;
 
 		/* Clear GIC Proxy group interrupt */
@@ -124,12 +124,18 @@ static void PmGicProxyDisable(void)
 	u32 g = 0U;
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
-		u32 addr = GIC_PROXY_BASE_ADDR +
-			   GIC_PROXY_GROUP_OFFSET * g +
-			   GIC_PROXY_IRQ_DISABLE_OFFSET;
+		u32 disableAddr = GIC_PROXY_BASE_ADDR +
+				  GIC_PROXY_GROUP_OFFSET(g) +
+				  GIC_PROXY_IRQ_DISABLE_OFFSET;
+		u32 statusAddr = GIC_PROXY_BASE_ADDR +
+				 GIC_PROXY_GROUP_OFFSET(g) +
+				 GIC_PROXY_IRQ_STATUS_OFFSET;
 
-		/* Disable interrupts in the GIC Proxy group */
-		XPfw_Write32(addr, pmGicProxy.groups[g].setMask);
+		/* Clear all interrupts in the GIC Proxy group */
+		XPfw_Write32(statusAddr, ~0U);
+
+		/* Disable all interrupts in the GIC Proxy group */
+		XPfw_Write32(disableAddr, ~0U);
 
 		/* Disable GIC Proxy group interrupt */
 		XPfw_Write32(LPD_SLCR_GICP_PMU_IRQ_DISABLE, 1U << g);
