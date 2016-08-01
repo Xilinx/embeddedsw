@@ -54,6 +54,16 @@
 /* Static resource allocation */
 PmRequirement pmReqData[] = {
 	{
+		.slave = &pmSlavePcap_g,
+		.master = &pmMasterApu_g,
+		.nextSlave = NULL,
+		.nextMaster = NULL,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
+	}, {
 		.slave = &pmSlavePcie_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,

@@ -794,6 +794,24 @@ PmSlave pmSlavePcie_g = {
 	.flags = 0U,
 };
 
+PmSlave pmSlavePcap_g = {
+	.node = {
+		.derived = &pmSlavePcap_g,
+		.nodeId = NODE_PCAP,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_STD_SLAVE_STATE_OFF,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveStdPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
+	},
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &slaveStdFsm,
+	.flags = 0U,
+};
+
 PmSlave pmSlaveGdma_g = {
 	.node = {
 		.derived = &pmSlaveGdma_g,

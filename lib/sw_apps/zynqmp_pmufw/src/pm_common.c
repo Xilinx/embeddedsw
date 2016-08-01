@@ -165,6 +165,8 @@ const char* PmStrNode(const u32 node)
 		return "NODE_GPU";
 	case NODE_PCIE:
 		return "NODE_PCIE";
+	case NODE_PCAP:
+		return "NODE_PCAP";
 	default:
 		return "ERROR_NODE";
 	}

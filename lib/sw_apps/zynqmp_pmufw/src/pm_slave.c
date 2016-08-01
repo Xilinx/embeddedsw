@@ -96,6 +96,7 @@ static PmSlave* const pmSlaves[] = {
 	&pmSlaveIpiRpu0_g,
 	&pmSlaveGpu_g,
 	&pmSlavePcie_g,
+	&pmSlavePcap_g,
 };
 
 /**
