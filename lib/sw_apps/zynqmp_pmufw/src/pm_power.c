@@ -340,6 +340,7 @@ static PmNode* pmFpdChildren[] = {
 	&pmSlaveApll_g.slv.node,
 	&pmSlaveVpll_g.slv.node,
 	&pmSlaveDpll_g.slv.node,
+	&pmSlaveGpu_g.node,
 	&pmSlaveGpuPP0_g.slv.node,
 	&pmSlaveGpuPP1_g.slv.node,
 	&pmSlaveGdma_g.node,

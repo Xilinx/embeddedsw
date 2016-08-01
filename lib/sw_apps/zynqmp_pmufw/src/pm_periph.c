@@ -758,6 +758,24 @@ PmSlaveGpp pmSlaveGpuPP1_g = {
 	.PwrUp = XpbrPwrUpPp1Handler,
 };
 
+PmSlave pmSlaveGpu_g = {
+	.node = {
+		.derived = &pmSlaveGpu_g,
+		.nodeId = NODE_GPU,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainFpd_g,
+		.currState = PM_STD_SLAVE_STATE_ON,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveStdPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
+	},
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &slaveStdFsm,
+	.flags = 0U,
+};
+
 PmSlave pmSlaveGdma_g = {
 	.node = {
 		.derived = &pmSlaveGdma_g,

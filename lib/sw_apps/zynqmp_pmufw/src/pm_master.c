@@ -54,6 +54,16 @@
 /* Static resource allocation */
 PmRequirement pmReqData[] = {
 	{
+		.slave = &pmSlaveGpu_g,
+		.master = &pmMasterApu_g,
+		.nextSlave = NULL,
+		.nextMaster = NULL,
+		.info = 0U,
+		.defaultReq = 0U,
+		.currReq = 0U,
+		.nextReq = 0U,
+		.latencyReq = MAX_LATENCY,
+	}, {
 		.slave = &pmSlaveTcm1B_g.slv,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
@@ -1576,6 +1586,7 @@ void PmSetupInitialMasterRequirements(void)
 		NODE_UART_1,
 		NODE_USB_0,
 		NODE_USB_1,
+		NODE_GPU,
 	};
 	u32 i;
 
