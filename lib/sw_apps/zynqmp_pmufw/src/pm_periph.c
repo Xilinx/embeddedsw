@@ -776,6 +776,24 @@ PmSlave pmSlaveGpu_g = {
 	.flags = 0U,
 };
 
+PmSlave pmSlavePcie_g = {
+	.node = {
+		.derived = &pmSlavePcie_g,
+		.nodeId = NODE_PCIE,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainFpd_g,
+		.currState = PM_STD_SLAVE_STATE_ON,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveStdPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
+	},
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &slaveStdFsm,
+	.flags = 0U,
+};
+
 PmSlave pmSlaveGdma_g = {
 	.node = {
 		.derived = &pmSlaveGdma_g,

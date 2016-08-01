@@ -97,5 +97,6 @@ extern PmSlave pmSlaveAFI_g;
 extern PmSlave pmSlaveIpiApu_g;
 extern PmSlave pmSlaveIpiRpu0_g;
 extern PmSlave pmSlaveGpu_g;
+extern PmSlave pmSlavePcie_g;
 
 #endif

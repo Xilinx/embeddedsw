@@ -163,6 +163,8 @@ const char* PmStrNode(const u32 node)
 		return "NODE_IPI_APU";
 	case NODE_GPU:
 		return "NODE_GPU";
+	case NODE_PCIE:
+		return "NODE_PCIE";
 	default:
 		return "ERROR_NODE";
 	}

@@ -347,6 +347,7 @@ static PmNode* pmFpdChildren[] = {
 	&pmSlaveDP_g.node,
 	&pmSlaveAFI_g.node,
 	&pmSlaveDdr_g.node,
+	&pmSlavePcie_g.node,
 };
 
 /* Operations for the Rpu power island */
