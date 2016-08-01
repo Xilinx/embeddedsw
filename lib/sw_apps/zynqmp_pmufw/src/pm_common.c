@@ -167,6 +167,8 @@ const char* PmStrNode(const u32 node)
 		return "NODE_PCIE";
 	case NODE_PCAP:
 		return "NODE_PCAP";
+	case NODE_RTC:
+		return "NODE_RTC";
 	default:
 		return "ERROR_NODE";
 	}

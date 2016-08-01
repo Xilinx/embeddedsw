@@ -79,6 +79,29 @@ static u32 PmSlaveStdPowers[] = {
 	DEFAULT_POWER_ON,
 };
 
+static PmGicProxyWake pmRtcWake = {
+	.mask = FPD_GICP_RTC_WAKE_IRQ_MASK,
+	.group = 0U,
+};
+
+PmSlave pmSlaveRtc_g = {
+	.node = {
+		.derived = &pmSlaveRtc_g,
+		.nodeId = NODE_RTC,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = NULL,
+		.currState = PM_AON_SLAVE_STATE,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveAonPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
+	},
+	.reqs = NULL,
+	.wake = &pmRtcWake,
+	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
+};
+
 static PmGicProxyWake pmTtc0Wake = {
 	.mask = FPD_GICP_TTC0_WAKE_IRQ_MASK,
 	.group = 1U,

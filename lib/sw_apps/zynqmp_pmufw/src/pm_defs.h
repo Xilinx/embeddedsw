@@ -163,9 +163,10 @@
 #define NODE_GPU        58U
 #define NODE_PCIE       59U
 #define NODE_PCAP       60U
+#define NODE_RTC        61U
 
 #define NODE_MIN        NODE_APU
-#define NODE_MAX        NODE_PCAP
+#define NODE_MAX        NODE_RTC
 
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U

@@ -42,6 +42,7 @@ typedef struct PmSlave PmSlave;
 /* FPD GIC Proxy irq masks */
 
 /* GIC Proxy group 0 */
+#define FPD_GICP_RTC_WAKE_IRQ_MASK	(1U << 26U)
 #define FPD_GICP_CAN1_WAKE_IRQ_MASK	(1U << 24U)
 #define FPD_GICP_CAN0_WAKE_IRQ_MASK	(1U << 23U)
 #define FPD_GICP_UART1_WAKE_IRQ_MASK	(1U << 22U)
