@@ -420,6 +420,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiTxAdaptor =
 	&XHdcp1x_PortHdmiTxWrite,
 	&XHdcp1x_PortHdmiTxIsCapable,
 	&XHdcp1x_PortHdmiTxIsRepeater,
+	NULL,
 	&XHdcp1x_PortHdmiTxGetRepeaterInfo,
 	NULL,
 	NULL

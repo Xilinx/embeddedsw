@@ -52,6 +52,19 @@
 *                       XHdcp1x_RxDownstreamReady, XHdcp1x_RxGetRepeaterInfo,
 *                       XHdcp1x_RxDownstreamReadyCallback,
 *                       XHdcp1x_RxSetCallBack.
+* 3.1   yas    07/28/16 Repeater functionality extended to support HDMI.
+*                       Removed the XHdcp1x_RxDownstreamReadyCallback.
+*                       Added fucntions,
+*                       XHdcp1x_RxSetRepeaterBcaps,XHdcp1x_RxIsInComputations,
+*                       XHdcp1x_RxIsInWaitforready, XHdcp1x_RxHandleTimeout,
+*                       XHdcp1x_RxStartTimer, XHdcp1x_RxStopTimer,
+*                       XHdcp1x_RxBusyDelay, XHdcp1x_RxSetTopologyUpdate,
+*                       XHdcp1x_RxSetTopology, XHdcp1x_RxSetTopologyKSVList,
+*                       XHdcp1x_RxSetTopologyDepth,
+*                       XHdcp1x_RxSetTopologyDeviceCnt,
+*                       XHdcp1x_RxSetTopologyMaxCascadeExceeded,
+*                       XHdcp1x_RxSetTopologyMaxDevsExceeded,
+*                       XHdcp1x_RxCheckEncryptionChange.
 * </pre>
 *
 ******************************************************************************/
@@ -85,6 +98,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 		void *CallbackRef);
 
 int XHdcp1x_RxPoll(XHdcp1x *InstancePtr);
+int XHdcp1x_RxSetRepeaterBcaps(XHdcp1x *InstancePtr, u8 IsRptr);
 
 int XHdcp1x_RxReset(XHdcp1x *InstancePtr);
 int XHdcp1x_RxEnable(XHdcp1x *InstancePtr);
@@ -95,15 +109,28 @@ int XHdcp1x_RxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
 int XHdcp1x_RxDownstreamReady(XHdcp1x *InstancePtr);
 int XHdcp1x_RxAuthenticate(XHdcp1x *InstancePtr);
 int XHdcp1x_RxIsAuthenticated(const XHdcp1x *InstancePtr);
+int XHdcp1x_RxIsInComputations(const XHdcp1x *InstancePtr);
+int XHdcp1x_RxIsInWaitforready(const XHdcp1x *InstancePtr);
 int XHdcp1x_RxIsEnabled(const XHdcp1x *InstancePtr);
 int XHdcp1x_RxIsInProgress(const XHdcp1x *InstancePtr);
 
 u64 XHdcp1x_RxGetEncryption(const XHdcp1x *InstancePtr);
 
+void XHdcp1x_RxHandleTimeout(XHdcp1x *InstancePtr);
 int XHdcp1x_RxInfo(const XHdcp1x *InstancePtr);
 int XHdcp1x_RxGetRepeaterInfo(XHdcp1x *InstancePtr,
 		XHdcp1x_RepeaterExchange *RepeaterInfoPtr);
-void XHdcp1x_RxDownstreamReadyCallback(void *Parameter);
+
+void XHdcp1x_RxSetTopologyMaxDevsExceeded(XHdcp1x *InstancePtr, u8 Value);
+void XHdcp1x_RxSetTopologyMaxCascadeExceeded(XHdcp1x *InstancePtr, u8 Value);
+void XHdcp1x_RxSetTopologyDeviceCnt(XHdcp1x *InstancePtr, u32 Value);
+void XHdcp1x_RxSetTopologyDepth(XHdcp1x *InstancePtr, u32 Value);
+void XHdcp1x_RxSetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
+		u32 ListSize);
+void XHdcp1x_RxSetTopologyUpdate(XHdcp1x *InstancePtr);
+void XHdcp1x_RxSetTopology(XHdcp1x *InstancePtr,
+		const XHdcp1x_RepeaterExchange *TopologyPtr);
+
 
 #ifdef __cplusplus
 }

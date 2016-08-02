@@ -50,6 +50,7 @@
 *                       XHDCP1X_PORT_HDCP_RESET_KSV,
 *                       XHDCP1X_PORT_SIZE_HDCP_RESET_KSV and
 *                       XHDCP1X_PORT_HDCP_RESET_KSV_RST.
+* 3.1	yas    07/28/16 Added Bitmasks for BIFO register
 * </pre>
 *
 ******************************************************************************/
@@ -121,7 +122,7 @@ extern "C" {
 #define XHDCP1X_PORT_BIT_BSTATUS_READY		(1u << 0) /**< BStatus Ready
 							    *  Mask          */
 #define XHDCP1X_PORT_BIT_BSTATUS_RO_AVAILABLE	(1u << 1)/**< BStatus Ro
-							    *  available Mask */
+							   *  available Mask */
 #define XHDCP1X_PORT_BIT_BSTATUS_LINK_FAILURE	(1u << 2) /**< BStatus Link
 							    *  Failure Mask  */
 #define XHDCP1X_PORT_BIT_BSTATUS_REAUTH_REQUEST	(1u << 3) /**< BStatus Reauth
@@ -131,11 +132,26 @@ extern "C" {
 #define XHDCP1X_PORT_BIT_BCAPS_REPEATER		(1u << 1) /**< BCaps HDCP
 							    *  Repeater Mask */
 #define XHDCP1X_PORT_BIT_AINFO_REAUTH_ENABLE_IRQ	(1u << 0) /**< Ainfo
-								    *  Reauth
-								    *  Enable
-								    *  Mask  */
+						      *  Reauth Enable Mask  */
+
 #define XHDCP1X_PORT_HDCP_RESET_KSV_RST		(1u << 0) /**< KSV FIFO pointer
 							    *  Reset Mask    */
+#define XHDCP1X_PORT_BINFO_BIT_DEV_CNT_ERR	(1u << 7) /**< BInfo Device
+							 *  Count Error Mask */
+#define XHDCP1X_PORT_BINFO_BIT_DEV_CNT_NO_ERR	(0u << 7) /**< BInfo Device
+					          *  Count for No Error Mask */
+#define XHDCP1X_PORT_BINFO_DEV_CNT_MASK		(0x7F) /**< BInfo Device
+							 *  Count Error Mask */
+#define XHDCP1X_PORT_BINFO_BIT_DEPTH_ERR	(1u << 11) /**< BInfo Depth
+							    *  Error Mask    */
+#define XHDCP1X_PORT_BINFO_BIT_DEPTH_NO_ERR	(0u << 11) /**< BInfo Depth
+						  *  Error for No Error Mask */
+#define XHDCP1X_PORT_BINFO_DEV_CNT_ERR_SHIFT	(7) /**< BStatus Device
+						    *  Count Error Shift Mask*/
+#define XHDCP1X_PORT_BINFO_DEPTH_ERR_SHIFT	(11) /**< BStatus Depth
+							  *  Error Shift Mask*/
+#define XHDCP1X_PORT_BINFO_DEPTH_SHIFT		(8) /**< BInfo Device
+							 *  Count Error Mask */
 
 /**
  * This constant defines the base address of the hdcp port within the DPCD

@@ -627,8 +627,7 @@
 * topology. The user applicaition needs to update these value and set them
 * for the receiver. At this point the RX is expected to be in the
 * WAIT-FOR-READY state. Here the user should post EVENT_DOWNSTREAMREADY to the
-* RX state machine. The user can configure the DownstreamReadyCallback to do
-* this or use a different way. Consequently, the RX state machine will
+* RX state machine. Consequently, the RX state machine will
 * calculate the SHA-1 value, update the device count and depth value and set
 * the READY bit for the upstream transmitter device to read and complete the
 * authentication.
@@ -636,12 +635,16 @@
 * If the authentication fails and the upstream device triggers the
 * authentication again, then the entire authenitcation process is re-started.
 *
-* <b> Repeater Callback functions </b>
+* <b> HDCP (Repeater) Callback functions </b>
 * - Transmitter
-*   - XHdcp1xInst.Tx.RepeaterExchangeCallback
-*   - XHdcp1xInst.Tx.DownstreamReadyCallback
+*   - XHdcp1xInst.Tx.RepeaterExchangeCallback (Repeater)
+*   - XHdcp1xInst.Tx.UnauthenticatedCallback
 * - Receiver
-*   - XHdcp1xInst.Rx.RepeaterDownstreamAuthCallback
+*   - XHdcp1xInst.Rx.RepeaterDownstreamAuthCallback (Repeater)
+*   - XHdcp1xInst.Rx.AuthenticatedCallback
+*   - XHdcp1xInst.Rx.UnauthenticatedCallback
+*   - XHdcp1xInst.Rx.TopologyUpdateCallback
+*   - XHdcp1xInst.Rx.EncryptionUpdateCallback
 *
 * Handler associated with each callback:
 * - XHdcp1xInst.Tx.RepeaterExchangeCallback
@@ -650,11 +653,11 @@
 *     set get the KSV values from the downstream transmitter and set the
 *     values in the Receiver's Ksv List. This function is called by the
 *     drivers.
-* - XHdcp1xInst.Tx.DownstreamReadyCallback
-*   - XHDCP1X_HANDLER_RPTR_DWNSTRMREADY
-*   - DownstreamReadyCallback has to be defined by the user and called
-*     by the user once the application has assembled the KsvList for
-*     the Receiver to validate and authenticate with upstream.
+* - XHdcp1xInst.Tx.UnauthenticatedCallback
+*   - XHDCP1X_HANDLER_UNAUTHENTICATED
+*   - UnauthenticatedCallback has to be defined by the user , to handle
+*     repeater situations where the transmitter state machine goes to the
+*     unauthenticate state.
 * - XHdcp1xInst.Rx.RepeaterDownstreamAuthCallback
 *   - XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH
 *   - RepeaterDownstreamAuthCallback has to be defined by the user in order
@@ -664,6 +667,24 @@
 *     EVENT_AUTHENTICATE to the TX interface in order to begin the
 *     authentication process for the downstream TX interface. Called by the
 *     drivers.
+* - XHdcp1xInst.Rx.AuthenticatedCallback
+*   - XHDCP1X_HANDLER_AUTHENTICATED
+*   - AuthenticatedCallback has to be defined by the user and is called
+*     when the HDCP state machine has completed authentication.
+* - XHdcp1xInst.Rx.UnauthenticatedCallback
+*   - XHDCP1X_HANDLER_UNAUTHENTICATED
+*   - UnauthenticatedCallback has to be defined by the user , to handle
+*     repeater situations where the transmitter state machine goes to the
+*     unauthenticate state.
+* - XHdcp1xInst.Rx.TopologyUpdateCallback
+*   - XHDCP1X_HANDLER_TOPOLOGY_UPDATE
+*   - The TopologyUpdateCallback should be set by the user to handle changes
+*     in downstream topology. This is currently not supprted for hdcp 1.4.
+* - XHdcp1xInst.Rx.EncryptionUpdateCallback
+*   - XHDCP1X_HANDLER_ENCRYPTION_UPDATE
+*   - The EncryptionUpdateCallback needs to be set by the user and is called
+*     if the upstream device stops sending encrypted content to the receiver
+*     after authentication or vice-versa.
 *
 * -- -- -- -- -- -- -- -- -- -- -- -- --
 *
@@ -693,6 +714,7 @@
 *                       Added following functions:
 *                       XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
 *                       XHdcp1x_SetCallBack, XHdcp1x_ReadDownstream.
+* 3.0   yas    06/15/16 Added support for Cipher Blank Value and select.
 * </pre>
 *
 ******************************************************************************/
@@ -713,7 +735,8 @@ extern "C" {
 #include "xtmrctr.h"
 
 /************************** Constant Definitions *****************************/
-
+#define XHDCP1X_KSV_SIZE	5 /**< Size of each hdcp 1.4 Public Key
+				    *  in bytes */
 #define XHDCP1X_RPTR_MAX_CASCADE	4	/**< Maximum depth that the
 						  *  Repeater can support on
 						  *  the downstream
@@ -731,6 +754,38 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /**
+ * This enumerates the State Types for HDCP Receiver state machine.
+ */
+enum XHdcp1x_Rx_StateType {
+	XHDCP1X_RX_STATE_DISABLED,
+	XHDCP1X_RX_STATE_UNAUTHENTICATED,
+	XHDCP1X_RX_STATE_COMPUTATIONS,
+	XHDCP1X_RX_STATE_WAITFORDOWNSTREAM,
+	XHDCP1X_RX_STATE_ASSEMBLEKSVLIST,
+	XHDCP1X_RX_STATE_AUTHENTICATED,
+	XHDCP1X_RX_STATE_LINKINTEGRITYFAILED,
+	XHDCP1X_RX_STATE_PHYDOWN,
+} ;
+
+/**
+ * This enumerates the Event Types for HDCP Transmitter state machine.
+ */
+enum XHdcp1x_Tx_StateType {
+	XHDCP1X_TX_STATE_DISABLED,
+	XHDCP1X_TX_STATE_DETERMINERXCAPABLE,
+	XHDCP1X_TX_STATE_EXCHANGEKSVS,
+	XHDCP1X_TX_STATE_COMPUTATIONS,
+	XHDCP1X_TX_STATE_VALIDATERX,
+	XHDCP1X_TX_STATE_AUTHENTICATED,
+	XHDCP1X_TX_STATE_LINKINTEGRITYCHECK,
+	XHDCP1X_TX_STATE_TESTFORREPEATER,
+	XHDCP1X_TX_STATE_WAITFORREADY,
+	XHDCP1X_TX_STATE_READKSVLIST,
+	XHDCP1X_TX_STATE_UNAUTHENTICATED,
+	XHDCP1X_TX_STATE_PHYDOWN,
+};
+
+/**
  * These constants are used to identify callback functions.
  */
 typedef enum
@@ -742,9 +797,11 @@ typedef enum
 	XHDCP1X_HANDLER_DDC_WRITE,
 	XHDCP1X_HANDLER_DDC_READ,
 	XHDCP1X_HANDLER_AUTHENTICATED,
-	XHDCP1X_HANDLER_RPTR_DWNSTRMREADY,
+	XHDCP1X_HANDLER_UNAUTHENTICATED,
 	XHDCP1X_HANDLER_RPTR_RPTREXCHANGE,
 	XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH,
+	XHDCP1X_HANDLER_TOPOLOGY_UPDATE,
+	XHDCP1X_HANDLER_ENCRYPTION_UPDATE,
 	XHDCP1X_HANDLER_INVALID
 } XHdcp1x_HandlerType;
 
@@ -770,13 +827,24 @@ typedef void (*XHdcp1x_LogMsg)(const char *fmt, ...);
  * This enumerates the call back for the HDCP Repeater Tx state machine
  */
 typedef enum {
-	XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY =
-			XHDCP1X_HANDLER_RPTR_DWNSTRMREADY,
 	XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE =
 			XHDCP1X_HANDLER_RPTR_RPTREXCHANGE,
 	XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH =
 			XHDCP1X_HANDLER_RPTR_TRIGDWNSTRMAUTH,
 } XHdcp1x_RepeaterStateMachineHandlerType;
+
+/**
+* These constants are used to identify fields inside the topology structure
+*/
+typedef enum {
+	XHDCP1X_TOPOLOGY_DEPTH,
+	XHDCP1X_TOPOLOGY_DEVICECNT,
+	XHDCP1X_TOPOLOGY_MAXDEVSEXCEEDED,
+	XHDCP1X_TOPOLOGY_MAXCASCADEEXCEEDED,
+	XHDCP1X_TOPOLOGY_HDCP20REPEATERDOWNSTREAM,
+	XHDCP1X_TOPOLOGY_HDCP1DEVICEDOWNSTREAM,
+	XHDCP1X_TOPOLOGY_INVALID
+} XHdcp1x_TopologyField;
 
 /**
 * Callback type used for calling DDC read and write functions.
@@ -912,6 +980,16 @@ typedef struct {
 } XHdcp1x_RxStats;
 
 /**
+ * This typedef is used to keep a tab on the changes in the encryption
+ * status of the HDCP receiver, depending on whether the incoming
+ * data non the receiver is HDCP protected or not.
+ */
+typedef struct {
+	u8 PreviousState;	/**< Previous state of encryption */
+	u8 CurrentState;	/**< Current state of encryption */
+} XHdcp1x_RxEncyptionWatch;
+
+/**
  * This typedef contains the transmit HDCP interface
  */
 typedef struct {
@@ -925,22 +1003,14 @@ typedef struct {
 	XHdcp1x_Callback AuthenticatedCallback;	/**< Authentication callback */
 	void *AuthenticatedCallbackRef;	/**< Authentication reference */
 	u32 IsAuthenticatedCallbackSet;	/**< Authentication config flag */
-	XHdcp1x_RunDdcHandler DdcRead;	/**< Function pointer for reading DDC */
+	XHdcp1x_RunDdcHandler DdcRead;	/**< Function pointer for reading DDC*/
 	void *DdcReadRef;	/**< Reference pointer set with
 				  *  XHdcp1x_SetCallback function. */
 	u8 IsDdcReadSet;	/**< Set if DdcRead handler is defined. */
-	XHdcp1x_RunDdcHandler DdcWrite;	/**< Function pointer for writing DDC */
+	XHdcp1x_RunDdcHandler DdcWrite;	/**< Function pointer for writing DDC*/
 	void *DdcWriteRef;	/**< Reference pointer set with
 				  *  XHdcp1x_SetCallback function. */
 	u8 IsDdcWriteSet;	/**< Set if DdcWrite handler is defined. */
-	XHdcp1x_Callback DownstreamReadyCallback; /**< (Repeater)Downstream
-						    *  Ready callback */
-	void *DownstreamReadyRef;	/**< (Repeater)Downstream Ready
-					  *  reference */
-	u32 IsDownStreamReadyCallbackSet;	/**< (Repeater)Check to
-						  *  determine if Downstream
-						  *  Ready callback is set
-						  *  flag*/
 	XHdcp1x_Callback RepeaterExchangeCallback; /**< (Repeater)Exchange
 						     *  Repeater Values
 						     *  callback */
@@ -950,6 +1020,12 @@ typedef struct {
 						  *  determine if Exchange
 						  *  Repeater Values
 						  *  callback is set flag */
+	XHdcp1x_Callback UnauthenticatedCallback; /**< Unauthenticated
+						    * callback */
+	void *UnauthenticatedCallbackRef;	/**< Unauthenticated
+						  *  reference */
+	u32 IsUnauthenticatedCallbackSet;	/**< Unauthenticated config
+						  *  flag */
 	u16 DownstreamReady;/**< The downstream interface's status flag */
 } XHdcp1x_Tx;
 
@@ -962,6 +1038,8 @@ typedef struct {
 	u16 Flags;			/**< The interface flags */
 	u16 PendingEvents;		/**< The bit map of pending events */
 	XHdcp1x_RxStats Stats;		/**< The interface's statistics */
+	XHdcp1x_RxEncyptionWatch XORState;	/**< The interface's encryption
+						  *  state */
 	XHdcp1x_SetDdcHandler DdcSetAddressCallback; /**< Function pointer for
 						       *  setting DDC register
 						       *  address */
@@ -988,7 +1066,7 @@ typedef struct {
 							   *  downstream,
 							   *  second part of
 							   *  authentication
-							   *  start callback */
+							   *  start callback*/
 	void *RepeaterDownstreamAuthRef; /**< (Repeater)Post authenticate to
 					   *  downstream, second part of
 					   *  authentication start reference */
@@ -998,6 +1076,27 @@ typedef struct {
 						   *  second part of
 						   *  authentication" callback
 						   *  set flag*/
+	XHdcp1x_Callback AuthenticatedCallback; /**< Unauthenticated callback*/
+	void *AuthenticatedCallbackRef;	/**< Unauthenticated reference */
+	u32 IsAuthenticatedCallbackSet;	/**< Unauthenticated config flag */
+	XHdcp1x_Callback UnauthenticatedCallback; /**< Unauthenticated
+						    *  callback */
+	void *UnauthenticatedCallbackRef;	/**< Unauthenticated
+						  *  reference */
+	u32 IsUnauthenticatedCallbackSet;	/**< Unauthenticated config
+						  *  flag */
+	XHdcp1x_Callback TopologyUpdateCallback; /**< Topology Update
+						   *  callback */
+	void *TopologyUpdateCallbackRef;	/**< Topology Update
+						  *  reference */
+	u32 IsTopologyUpdateCallbackSet;	/**< Topology Update config
+						  *  flag */
+	XHdcp1x_Callback EncryptionUpdateCallback; /**< Encryption Update
+						     *  callback */
+	void *EncryptionUpdateCallbackRef;	/**< Encryption Update
+						  *  reference */
+	u32 IsEncryptionUpdateCallbackSet;	/**< Encryption Update
+						  *  config flag */
 } XHdcp1x_Rx;
 
 /**
@@ -1042,18 +1141,18 @@ typedef struct {
 				  *  in our case a timer with the
 				  *  hdcp instance */
 	XHdcp1x_TimerStart XHdcp1xTimerStart; 	/**< Instance of function
-							  *  interface used for
-							  *  starting a timer on behalf
-							  *  of an HDCP interface*/
+						*  interface used for
+						*  starting a timer on behalf
+						*  of an HDCP interface*/
 	XHdcp1x_TimerStop XHdcp1xTimerStop; 	/**< Instance of fucntion
-							  *  interface usde for
-							  *  stopping a timer on behalf
-							  *  of an HDCP interface*/
+						*  interface usde for
+						*  stopping a timer on behalf
+						*  of an HDCP interface*/
 	XHdcp1x_TimerDelay XHdcp1xTimerDelay;	/**< Instance of fucntion
-							  *  interface usde for
-							  *  performing a busy delay on
-							  *  behalf of an HDCP
-							  *  interface*/
+						*  interface usde for
+						*  performing a busy delay on
+						*  behalf of an HDCP
+						*  interface*/
 } XHdcp1x;
 
 /**
@@ -1078,6 +1177,7 @@ int XHdcp1x_Poll(XHdcp1x *InstancePtr);
 int XHdcp1x_DownstreamReady(XHdcp1x *InstancePtr);
 int XHdcp1x_GetRepeaterInfo(XHdcp1x *InstancePtr,
 		XHdcp1x_RepeaterExchange *RepeaterInfoPtr);
+int XHdcp1x_SetRepeater(XHdcp1x *InstancePtr, u8 State);
 
 int XHdcp1x_Reset(XHdcp1x *InstancePtr);
 int XHdcp1x_Enable(XHdcp1x *InstancePtr);
@@ -1090,6 +1190,9 @@ int XHdcp1x_Authenticate(XHdcp1x *InstancePtr);
 int XHdcp1x_ReadDownstream(XHdcp1x *InstancePtr);
 int XHdcp1x_IsInProgress(const XHdcp1x *InstancePtr);
 int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr);
+int XHdcp1x_IsInComputations(const XHdcp1x *InstancePtr);
+int XHdcp1x_IsInWaitforready(const XHdcp1x *InstancePtr);
+int XHdcp1x_IsDwnstrmCapable(const XHdcp1x *InstancePtr);
 int XHdcp1x_IsEnabled(const XHdcp1x *InstancePtr);
 
 u64 XHdcp1x_GetEncryption(const XHdcp1x *InstancePtr);
@@ -1101,7 +1204,8 @@ int XHdcp1x_SetKeySelect(XHdcp1x *InstancePtr, u8 KeySelect);
 
 void XHdcp1x_HandleTimeout(void *InstancePtr);
 
-int XHdcp1x_SetCallback(XHdcp1x *InstancePtr, XHdcp1x_HandlerType HandlerType,
+int XHdcp1x_SetCallback(XHdcp1x *InstancePtr,
+		XHdcp1x_HandlerType HandlerType,
 		void *CallbackFunc, void *CallbackRef);
 void XHdcp1x_CipherIntrHandler(void *InstancePtr);
 void XHdcp1x_PortIntrHandler(void *InstancePtr, u32 IntCause);
@@ -1110,14 +1214,34 @@ void XHdcp1x_SetDebugPrintf(XHdcp1x_Printf PrintfFunc);
 void XHdcp1x_SetDebugLogMsg(XHdcp1x_LogMsg LogFunc);
 
 void XHdcp1x_SetKsvRevokeCheck(XHdcp1x_KsvRevokeCheck RevokeCheckFunc);
-void XHdcp1x_SetTimerStart(XHdcp1x *InstancePtr, XHdcp1x_TimerStart TimerStartFunc);
-void XHdcp1x_SetTimerStop(XHdcp1x *InstancePtr, XHdcp1x_TimerStop TimerStopFunc);
-void XHdcp1x_SetTimerDelay(XHdcp1x *InstancePtr, XHdcp1x_TimerDelay TimerDelayFunc);
+void XHdcp1x_SetTimerStart(XHdcp1x *InstancePtr,
+		XHdcp1x_TimerStart TimerStartFunc);
+void XHdcp1x_SetTimerStop(XHdcp1x *InstancePtr,
+		XHdcp1x_TimerStop TimerStopFunc);
+void XHdcp1x_SetTimerDelay(XHdcp1x *InstancePtr,
+		XHdcp1x_TimerDelay TimerDelayFunc);
 
 u32 XHdcp1x_GetDriverVersion(void);
 u32 XHdcp1x_GetVersion(const XHdcp1x *InstancePtr);
 void XHdcp1x_Info(const XHdcp1x *InstancePtr);
 void XHdcp1x_ProcessAKsv(XHdcp1x *InstancePtr);
+
+void *XHdcp1x_GetTopology(XHdcp1x *InstancePtr);
+void XHdcp1x_DisableBlank(XHdcp1x *InstancePtr);
+void XHdcp1x_EnableBlank(XHdcp1x *InstancePtr);
+void XHdcp1x_SetTopologyField(XHdcp1x *InstancePtr,
+		XHdcp1x_TopologyField Field, u8 Value);
+u32 XHdcp1x_GetTopologyField(XHdcp1x *InstancePtr,
+		XHdcp1x_TopologyField Field);
+u8 *XHdcp1x_GetTopologyKSVList(XHdcp1x *InstancePtr);
+u8 *XHdcp1x_GetTopologyBKSV(XHdcp1x *InstancePtr);
+int XHdcp1x_IsRepeater(XHdcp1x *InstancePtr);
+
+void XHdcp1x_SetTopology(XHdcp1x *InstancePtr,
+		const XHdcp1x_RepeaterExchange *TopologyPtr);
+void XHdcp1x_SetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
+		u32 ListSize);
+void XHdcp1x_SetTopologyUpdate(XHdcp1x *InstancePtr);
 
 #ifdef __cplusplus
 }

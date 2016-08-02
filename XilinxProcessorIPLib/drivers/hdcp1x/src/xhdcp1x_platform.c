@@ -119,8 +119,8 @@ int XHdcp1x_PlatformTimerStart(XHdcp1x *InstancePtr, u16 TimeoutInMs)
 
 	/* Sanity Check */
 	if (InstancePtr->XHdcp1xTimerStart != NULL) {
-		Status = (*(InstancePtr->XHdcp1xTimerStart))((void *)InstancePtr,
-				TimeoutInMs);
+	Status = (*(InstancePtr->XHdcp1xTimerStart))((void *)InstancePtr,
+			TimeoutInMs);
 	}
 	else {
 		Status = XST_FAILURE;
@@ -148,7 +148,7 @@ int XHdcp1x_PlatformTimerStop(XHdcp1x *InstancePtr)
 
 	/* Sanity Check */
 	if (InstancePtr->XHdcp1xTimerStop != NULL) {
-		Status = (*(InstancePtr->XHdcp1xTimerStop))((void *)InstancePtr);
+	Status = (*(InstancePtr->XHdcp1xTimerStop))((void *)InstancePtr);
 	}
 	else {
 		Status = XST_FAILURE;
@@ -177,8 +177,8 @@ int XHdcp1x_PlatformTimerBusy(XHdcp1x *InstancePtr, u16 DelayInMs)
 
 	/* Sanity Check */
 	if (InstancePtr->XHdcp1xTimerDelay != NULL) {
-		Status = (*(InstancePtr->XHdcp1xTimerDelay))((void *)InstancePtr,
-				DelayInMs);
+	Status = (*(InstancePtr->XHdcp1xTimerDelay))((void *)InstancePtr,
+			DelayInMs);
 	}
 	else {
 		Status = XST_FAILURE;

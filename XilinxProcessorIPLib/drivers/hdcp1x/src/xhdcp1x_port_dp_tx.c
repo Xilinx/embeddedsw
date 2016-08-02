@@ -449,7 +449,7 @@ static void XHdcp1x_CheckForRxStatusChange(XHdcp1x *InstancePtr)
 			/* Invoke authentication callback if set */
 			if (InstancePtr->Port.IsAuthCallbackSet) {
 				(*(InstancePtr->Port.AuthCallback))(
-						InstancePtr->Port.AuthRef);
+					InstancePtr->Port.AuthRef);
 			}
 		}
 	}
@@ -469,6 +469,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpTxAdaptor =
 	&XHdcp1x_PortDpTxWrite,
 	&XHdcp1x_PortDpTxIsCapable,
 	&XHdcp1x_PortDpTxIsRepeater,
+	NULL,
 	&XHdcp1x_PortDpTxGetRepeaterInfo,
 	&XHdcp1x_PortDpTxIntrHandler,
 };

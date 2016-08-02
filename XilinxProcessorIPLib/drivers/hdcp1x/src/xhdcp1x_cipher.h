@@ -46,6 +46,8 @@
 * 1.00  fidus  07/16/15 Initial release.
 * 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
 *                       Added macro HDCP1X_CIPHER_BIT_REPEATER_ENABLE
+* 3.1   yas    06/15/16 Added new functions XHdcp1x_CipherEnableBlank
+*                       and XHdcp1x_CipherDisableBlank.
 * </pre>
 *
 ******************************************************************************/
@@ -149,6 +151,9 @@ u16 XHdcp1x_CipherGetRo(const XHdcp1x *InstancePtr);
 u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr);
 
 void XHdcp1x_CipherHandleInterrupt(void *InstancePtr);
+
+void XHdcp1x_CipherEnableBlank(XHdcp1x *InstancePtr);
+void XHdcp1x_CipherDisableBlank(XHdcp1x *InstancePtr);
 
 #ifdef __cplusplus
 }

@@ -45,6 +45,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.1   yas    06/14/16 Added new functions XHdcp1x_CipherEnableBlank
+*                       and XHdcp1x_CipherDisableBlank
 * </pre>
 *
 ******************************************************************************/
@@ -1244,5 +1246,65 @@ u32 XHdcp1x_CipherGetVersion(const XHdcp1x *InstancePtr)
 		XHDCP1X_CIPHER_REG_VERSION);
 
 	return (Version);
+}
+
+/*****************************************************************************/
+/**
+ * This function sets the cipher blank value to 0x0000FF (blue),
+ * and sets the cipher blank select to TRUE
+ *
+ * @param	InstancePtr is the device to query.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void XHdcp1x_CipherEnableBlank(XHdcp1x *InstancePtr)
+{
+	u32 Value = 0;
+
+	/* Verify Arguments */
+	Xil_AssertVoid(InstancePtr);
+
+	/* Set the cipher blank value */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_BLANK_VALUE);
+	Value |= XHDCP1X_CIPHER_BITMASK_BLANK_VALUE;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_BLANK_VALUE, Value);
+
+	/* Enable the cipher blank */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_BLANK_SEL);
+	Value |= XHDCP1X_CIPHER_BITMASK_BLANK_SEL;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_BLANK_SEL, Value);
+}
+
+/*****************************************************************************/
+/**
+ *  This function sets the cipher blank select to FALSE
+ *
+ * @param	InstancePtr is the device to query.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+void XHdcp1x_CipherDisableBlank(XHdcp1x *InstancePtr)
+{
+	u32 Value = 0;
+
+	/* Verify Arguments */
+	Xil_AssertVoid(InstancePtr);
+
+	/* Disable the cipher blank */
+	Value = XHdcp1x_ReadReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_BLANK_SEL);
+	Value &= ~XHDCP1X_CIPHER_BITMASK_BLANK_SEL;
+	XHdcp1x_WriteReg(InstancePtr->Config.BaseAddress,
+			XHDCP1X_CIPHER_REG_BLANK_SEL, Value);
 }
 /** @} */

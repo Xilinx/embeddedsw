@@ -47,6 +47,7 @@
 * 1.00  fidus  07/16/15 Initial release.
 * 3.0   yas    02/13/16 Upgraded function XHdcp1x_PortDpRxEnable support
 *                       HDCP Repeater functionality.
+* 3.1   yas    07/28/16 Added fucntion XHdcp1x_PortDpRxSetRepeater
 * </pre>
 *
 ******************************************************************************/
@@ -83,6 +84,7 @@ static int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize);
 static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize);
+static int XHdcp1x_PortDpRxSetRepeater(XHdcp1x *InstancePtr, u8 RptrConf);
 static void XHdcp1x_PortDpRxProcessAKsvWrite(void *CallbackRef);
 static void XHdcp1x_PortDpRxProcessRoRead(void *CallbackRef);
 static void XHdcp1x_PortDpRxProcessBinfoRead(void *CallbackRef);
@@ -419,6 +421,38 @@ static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 
 /*****************************************************************************/
 /**
+* This function set the REPEATER bit in the BCaps of the device.
+*
+* @param	InstancePtr is the device to write to.
+* @param	RptrConf is the repeater capability for the device.
+*
+* @return	None.
+*
+* @note		This function sets the REPEATER bit in the BCaps register for the
+* 		upstream device to read. This can be used to update the device
+* 		configuration if it changes in real time.
+*
+******************************************************************************/
+static int XHdcp1x_PortDpRxSetRepeater(XHdcp1x *InstancePtr, u8 RptrConf)
+{
+	u8 Value = 0;
+
+	/* Set the Ready bit in the BCaps Register */
+	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
+			&Value, XHDCP1X_PORT_SIZE_BCAPS);
+	if(RptrConf) {
+		Value |= XHDCP1X_PORT_BIT_BCAPS_REPEATER;
+	}
+	else {
+		Value &= ~XHDCP1X_PORT_BIT_BCAPS_REPEATER;
+	}
+	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
+			&Value, XHDCP1X_PORT_SIZE_BCAPS);
+
+}
+
+/*****************************************************************************/
+/**
 * This function process a write to the AKsv register from the tx device.
 *
 * @param	CallbackRef is the device to whose register was written.
@@ -444,17 +478,17 @@ static void XHdcp1x_PortDpRxProcessAKsvWrite(void *CallbackRef)
 
 	/* Clear bit 0 of  Ainfo register */
 	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
-								&Value, 1);
+						&Value, 1);
 	Value &= 0xFEu;
 	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
-								&Value, 1);
+						&Value, 1);
 
 	/* Clear bits 3:2 of  Bstatus register */
 	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
-								&Value, 1);
+						&Value, 1);
 	Value &= 0xF3u;
 	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
-								&Value, 1);
+						&Value, 1);
 
 	/* Invoke authentication callback if set */
 	if (InstancePtr->Port.IsAuthCallbackSet) {
@@ -488,10 +522,10 @@ static void XHdcp1x_PortDpRxProcessRoRead(void *CallbackRef)
 
 	/* Clear bit 1 of  Bstatus register */
 	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
-								&Value, 1);
+					&Value, 1);
 	Value &= 0xFDu;
 	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
-								&Value, 1);
+					&Value, 1);
 }
 
 /*****************************************************************************/
@@ -520,10 +554,10 @@ static void XHdcp1x_PortDpRxProcessBinfoRead(void *CallbackRef)
 
 	/* Clear bit 0 of Bstatus register */
 	XHdcp1x_PortDpRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
-								&Value, 1);
+					&Value, 1);
 	Value &= 0xFEu;
 	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
-								&Value, 1);
+					&Value, 1);
 }
 
 /*****************************************************************************/
@@ -540,6 +574,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpRxAdaptor =
 	&XHdcp1x_PortDpRxWrite,
 	NULL,
 	NULL,
+	&XHdcp1x_PortDpRxSetRepeater,
 	NULL,
 	NULL,
 };

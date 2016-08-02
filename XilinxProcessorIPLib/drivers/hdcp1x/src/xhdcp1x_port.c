@@ -44,6 +44,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.10  yas    07/28/16 Added fucntion XHdcp1x_PortSetRepeater
 * </pre>
 *
 *****************************************************************************/
@@ -277,6 +278,43 @@ int XHdcp1x_PortIsRepeater(const XHdcp1x *InstancePtr)
 	}
 
 	return (IsRepeater);
+}
+
+/*****************************************************************************/
+/**
+* This function set the REPEATER information in the connected device.
+*
+* @param	InstancePtr is the device to query.
+* @param	RptrConf is the configuration of the device as repeater.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_NO_FEATURE if the port fails to set the Repeater value.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_PortSetRepeater(XHdcp1x *InstancePtr, u8 RptrConf)
+{
+	const XHdcp1x_PortPhyIfAdaptor *Adaptor = NULL;
+	int Status = XST_SUCCESS;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Determine Adaptor */
+	Adaptor = InstancePtr->Port.Adaptor;
+
+	/* Sanity Check */
+	if (Adaptor == NULL) {
+		Status = XST_NO_FEATURE;
+	}
+	/* Invoke adaptor function if present */
+	else if (Adaptor->SetRepeater != NULL) {
+		Status = (*(Adaptor->SetRepeater))(InstancePtr, RptrConf);
+	}
+
+	return (Status);
 }
 
 /*****************************************************************************/

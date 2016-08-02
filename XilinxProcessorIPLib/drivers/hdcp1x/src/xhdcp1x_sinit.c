@@ -69,8 +69,8 @@
 /************************** Variable Definitions *****************************/
 
 extern XHdcp1x_Config XHdcp1x_ConfigTable[];	/**< Instance of Lookup table
-						  *  of HDCP instance(s) in the
-						  *  design */
+						  *  of HDCP instance(s) in
+						  *  the design */
 
 /************************** Function Definitions *****************************/
 

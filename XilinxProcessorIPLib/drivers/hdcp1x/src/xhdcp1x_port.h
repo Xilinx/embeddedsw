@@ -45,6 +45,8 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
 * 2.00  MG     01/20/16 Added callback handler to XHdcp1x_PortPhyIfAdaptor
+* 3.10  yas    07/28/16 Added callback handler SetRepeater to
+*                       XHdcp1x_PortPhyIfAdaptor
 * </pre>
 *
 ******************************************************************************/
@@ -89,6 +91,7 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 	int (*Write)(XHdcp1x *, u8, const void *, u32); /**< Reg write */
 	int (*IsCapable)(const XHdcp1x *);	/**< Tests for HDCP capable */
 	int (*IsRepeater)(const XHdcp1x *);	/**< Tests for repeater */
+	int (*SetRepeater)(XHdcp1x *, u8);	/**< Sets repeater */
 	int (*GetRepeaterInfo)(const XHdcp1x *, u16 *); /**< Gets repeater
 							  *  info */
 	void (*IntrHandler)(XHdcp1x *, u32); /**< Interrupt handler */
@@ -201,6 +204,7 @@ int XHdcp1x_PortEnable(XHdcp1x *InstancePtr);
 int XHdcp1x_PortDisable(XHdcp1x *InstancePtr);
 int XHdcp1x_PortIsCapable(const XHdcp1x *InstancePtr);
 int XHdcp1x_PortIsRepeater(const XHdcp1x *InstancePtr);
+int XHdcp1x_PortSetRepeater(XHdcp1x *InstancePtr, u8 RptrConf);
 int XHdcp1x_PortGetRepeaterInfo(XHdcp1x *InstancePtr, u16 *Info);
 int XHdcp1x_PortRead(const XHdcp1x *InstancePtr, u8 Offset, void *Buf,
 	u32 BufSize);

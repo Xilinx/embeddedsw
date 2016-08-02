@@ -45,6 +45,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.1   yas    07/28/16 Added Bitmasks for BSTATUS register.
 * </pre>
 *
 ******************************************************************************/
@@ -127,6 +128,23 @@ extern "C" {
 #define XHDCP1X_PORT_BIT_AINFO_ENABLE_1d1_FEATURES (1u <<  1) /**< AInfo Enable
 								*  1.1
 								*  Features */
+
+#define XHDCP1X_PORT_BSTATUS_BIT_DEV_CNT_ERR	(1u << 7) /**< BStatus Device
+							 *  Count Error Mask */
+#define XHDCP1X_PORT_BSTATUS_BIT_DEV_CNT_NO_ERR	(0u << 7) /**< BStatus Device
+						  *  Count for No Error Mask */
+#define XHDCP1X_PORT_BSTATUS_DEV_CNT_MASK		(0x7F) /**< BStatus
+						  *  Device Count Error Mask */
+#define XHDCP1X_PORT_BSTATUS_BIT_DEPTH_ERR		(1u << 11) /**< BStatus
+							  * Depth Error Mask */
+#define XHDCP1X_PORT_BSTATUS_BIT_DEPTH_NO_ERR	(0u << 11) /**< BStatus Depth
+						  *  Error for No Error Mask */
+#define XHDCP1X_PORT_BSTATUS_DEV_CNT_ERR_SHIFT	(7) /**< BStatus Device
+						    *  Count Error Shift Mask*/
+#define XHDCP1X_PORT_BSTATUS_DEPTH_ERR_SHIFT	(11) /**< BStatus Depth
+							  *  Error Shift Mask*/
+#define XHDCP1X_PORT_BSTATUS_DEPTH_SHIFT		(8) /**< BStatus Device
+							 *  Count Error Mask */
 
 /**
  * This constant defines the i2c address of the hdcp port

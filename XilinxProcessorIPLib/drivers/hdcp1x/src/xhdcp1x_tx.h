@@ -50,6 +50,18 @@
 *                       Added the following functions:
 *                       XHdcp1x_TxReadDownstream, XHdcp1x_TxSetCallBack,
 *                       XHdcp1x_TxTriggerDownstreamAuth.
+* 3.1   yas    06/15/16 Repeater functionality extended to support HDMI.
+*                       Added fucntions,
+*                       XHdcp1x_TxIsInComputations,XHdcp1x_TxIsInWaitforready,
+*                       XHdcp1x_TxIsDownstrmCapable, XHdcp1x_TxIsRepeater,
+*                       XHdcp1x_TxEnableBlank, XHdcp1x_TxDisableBlank,
+*                       XHdcp1x_TxGetTopologyKSVList,
+*                       XHdcp1x_TxGetTopologyDepth,
+*                       XHdcp1x_TxGetTopologyDeviceCnt,
+*                       XHdcp1x_TxGetTopologyMaxCascadeExceeded,
+*                       XHdcp1x_TxGetTopologyBKSV,
+*                       XHdcp1x_TxGetTopologyMaxDevsExceeded,
+*                       XHdcp1x_TxGetTopology
 * </pre>
 *
 ******************************************************************************/
@@ -88,6 +100,7 @@ int XHdcp1x_TxReset(XHdcp1x *InstancePtr);
 int XHdcp1x_TxEnable(XHdcp1x *InstancePtr);
 int XHdcp1x_TxDisable(XHdcp1x *InstancePtr);
 
+int XHdcp1x_TxIsDownstrmCapable(const XHdcp1x *InstancePtr);
 u64 XHdcp1x_TxGetEncryption(const XHdcp1x *InstancePtr);
 int XHdcp1x_TxEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 int XHdcp1x_TxDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
@@ -99,11 +112,25 @@ int XHdcp1x_TxAuthenticate(XHdcp1x *InstancePtr);
 int XHdcp1x_TxReadDownstream(XHdcp1x *InstancePtr);
 int XHdcp1x_TxIsInProgress(const XHdcp1x *InstancePtr);
 int XHdcp1x_TxIsAuthenticated(const XHdcp1x *InstancePtr);
+int XHdcp1x_TxIsInComputations(const XHdcp1x *InstancePtr);
+int XHdcp1x_TxIsInWaitforready(const XHdcp1x *InstancePtr);
 int XHdcp1x_TxIsEnabled(const XHdcp1x *InstancePtr);
 void XHdcp1x_TxHandleTimeout(XHdcp1x *InstancePtr);
 
 int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr);
 void XHdcp1x_TxTriggerDownstreamAuth(void *Parameter);
+
+void XHdcp1x_TxEnableBlank(XHdcp1x *InstancePtr);
+void XHdcp1x_TxDisableBlank(XHdcp1x *InstancePtr);
+int XHdcp1x_TxIsRepeater(XHdcp1x *InstancePtr);
+
+XHdcp1x_RepeaterExchange *XHdcp1x_TxGetTopology(XHdcp1x *InstancePtr);
+u32 XHdcp1x_TxGetTopologyMaxDevsExceeded(XHdcp1x *InstancePtr);
+u8 *XHdcp1x_TxGetTopologyBKSV(XHdcp1x *InstancePtr);
+u32 XHdcp1x_TxGetTopologyMaxCascadeExceeded(XHdcp1x *InstancePtr);
+u32 XHdcp1x_TxGetTopologyDeviceCnt(XHdcp1x *InstancePtr);
+u32 XHdcp1x_TxGetTopologyDepth(XHdcp1x *InstancePtr);
+u8 *XHdcp1x_TxGetTopologyKSVList(XHdcp1x *InstancePtr);
 
 #ifdef __cplusplus
 }

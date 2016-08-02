@@ -50,6 +50,7 @@
 * 2.10  MG     02/29/16 Added DDC write and read handlers
 * 3.0   yas    02/13/16 Upgraded function XHdcp1x_PortHdmiRxEnable to
 *                       support HDCP Repeater functionality.
+* 3.1   yas    07/28/16 Added function XHdcp1x_PortHdmiRxSetRepeater
 * </pre>
 *
 ******************************************************************************/
@@ -84,6 +85,7 @@ static int XHdcp1x_PortHdmiRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize);
 static int XHdcp1x_PortHdmiRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize);
+static int XHdcp1x_PortHdmiRxSetRepeater(XHdcp1x *InstancePtr, u8 RptrConf);
 static void XHdcp1x_ProcessAKsvWrite(void *CallbackRef);
 
 /************************** Function Definitions *****************************/
@@ -163,10 +165,6 @@ static int XHdcp1x_PortHdmiRxDisable(XHdcp1x *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->Port.PhyIfPtr != NULL);
-
-	/* Determine HdmiRxBase */
-	HdmiRxBase =
-		((XV_HdmiRx *)InstancePtr->Port.PhyIfPtr)->Config.BaseAddress;
 
 	/* Clear the hdcp registers */
 	Value = 0;
@@ -304,6 +302,38 @@ static int XHdcp1x_PortHdmiRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 
 /*****************************************************************************/
 /**
+* This function set the REPEATER bit in the BCaps of the device.
+*
+* @param	InstancePtr is the device to write to.
+* @param	RptrConf is the repeater capability for the device.
+*
+* @return	None.
+*
+* @note		This function sets the REPEATER bit in the BCaps register for the
+* 		upstream device to read. This can be used to update the device
+* 		configuration if it changes in real time.
+*
+******************************************************************************/
+static int XHdcp1x_PortHdmiRxSetRepeater(XHdcp1x *InstancePtr, u8 RptrConf)
+{
+	u8 Value = 0;
+
+	/* Set the Ready bit in the BCaps Register */
+	XHdcp1x_PortHdmiRxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
+			&Value, XHDCP1X_PORT_SIZE_BCAPS);
+	if(RptrConf) {
+		Value |= XHDCP1X_PORT_BIT_BCAPS_REPEATER;
+	}
+	else {
+		Value &= ~XHDCP1X_PORT_BIT_BCAPS_REPEATER;
+	}
+	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
+			&Value, XHDCP1X_PORT_SIZE_BCAPS);
+
+}
+
+/*****************************************************************************/
+/**
 * This function process a write to the AKsv register from the tx device.
 *
 * @param	CallbackRef is the device to whose register was written.
@@ -330,6 +360,14 @@ static void XHdcp1x_ProcessAKsvWrite(void *CallbackRef)
 	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
 			&Value, 1);
 
+	/* Clear the Ready bit in the BCaps Register */
+	Value = 0;
+	XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
+			&Value, XHDCP1X_PORT_SIZE_BCAPS);
+	Value &= 0xDFu;
+	XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
+			&Value, XHDCP1X_PORT_SIZE_BCAPS);
+
 	/* Invoke authentication callback if set */
 	if (InstancePtr->Port.IsAuthCallbackSet) {
 		(*(InstancePtr->Port.AuthCallback))(InstancePtr->Port.AuthRef);
@@ -350,6 +388,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiRxAdaptor =
 	&XHdcp1x_PortHdmiRxWrite,
 	NULL,
 	NULL,
+	&XHdcp1x_PortHdmiRxSetRepeater,
 	NULL,
 	NULL,
 	&XHdcp1x_ProcessAKsvWrite

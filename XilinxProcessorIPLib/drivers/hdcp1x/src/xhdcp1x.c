@@ -44,14 +44,25 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
-* 2.00  als    09/30/15 Added EffectiveAddr argument to XHdcp1x_CfgInitialize.
+* 2.00  als    09/30/15 Added EffectiveAddr argument to
+*                       XHdcp1x_CfgInitialize.
 * 2.10  MG     01/18/16 Added function XHdcp1x_IsEnabled.
 * 2.20  MG     01/20/16 Added function XHdcp1x_GetHdcpCallback.
-* 2.30  MG     02/25/16 Added function XHdcp1x_SetCallback and authenticated callback.
+* 2.30  MG     02/25/16 Added function XHdcp1x_SetCallback and authenticated
+*                       callback.
 * 3.0   yas    02/13/16 Upgraded to support HDCP Repeater functionality.
 *                       Added functions:
 *                       XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
 *                       XHdcp1x_SetCallBack, XHdcp1x_ReadDownstream
+* 3.1   yas    07/30/16 Addded function:
+*                       XHdcp1x_SetRepeater, XHdcp1x_IsInComputations,
+*                       XHdcp1x_IsInWaitforready, XHdcp1x_IsDwnstrmCapable,
+*                       XHdcp1x_GetTopology, XHdcp1x_DisableBlank,
+*                       XHdcp1x_EnableBlank, XHdcp1x_GetTopologyKSVList,
+*                       XHdcp1x_GetTopologyBKSV, XHdcp1x_SetTopologyField,
+*                       Hdcp1x_GetTopologyField, XHdcp1x_IsRepeater,
+*                       XHdcp1x_SetTopology, XHdcp1x_SetTopologyKSVList,
+*                       XHdcp1x_SetTopologyUpdate.
 * </pre>
 *
 ******************************************************************************/
@@ -174,7 +185,8 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	XHdcp1x_CipherInit(InstancePtr);
 	/* Initialize the transmitter/receiver state machine. */
 	if (!InstancePtr->Config.IsRx) {
-		/* Set all handlers to stub values, let user configure this data later */
+		/* Set all handlers to stub values, let user configure this
+		 * data later */
 		InstancePtr->Tx.AuthenticatedCallback = NULL;
 		InstancePtr->Tx.IsAuthenticatedCallbackSet = (FALSE);
 
@@ -311,6 +323,41 @@ int XHdcp1x_GetRepeaterInfo(XHdcp1x *InstancePtr,
 	}
 
 	return Status;
+}
+
+
+/*****************************************************************************/
+/**
+* This function sets the Repeater functionality for an HDCP interface.
+*
+* @param	InstancePtr is the interface to disable.
+* @param	State is etiher TRUE or FALSE
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_SetRepeater(XHdcp1x *InstancePtr, u8 State)
+{
+	int Status = XST_SUCCESS;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	InstancePtr->IsRepeater = State;
+
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_RxSetRepeaterBcaps(InstancePtr,
+			State);
+	}
+#endif
+
+	return (Status);
 }
 
 /*****************************************************************************/
@@ -675,6 +722,115 @@ int XHdcp1x_IsAuthenticated(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function queries an interface to determine if it is in the state of
+* computations or not.
+*
+* @param	InstancePtr is the interface to query.
+*
+* @return	Truth value indicating authenticated (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_IsInComputations(const XHdcp1x *InstancePtr)
+{
+	int IsInComp = FALSE;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		IsInComp = XHdcp1x_TxIsInComputations(InstancePtr);
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		IsInComp = XHdcp1x_RxIsInComputations(InstancePtr);
+	}
+	else
+#endif
+	{
+		IsInComp = FALSE;
+	}
+
+	return (IsInComp);
+}
+
+/*****************************************************************************/
+/**
+* This function queries an interface to determine if it is in the
+* wait-for-ready state or not.
+*
+* @param	InstancePtr is the interface to query.
+*
+* @return	Truth value indicating authenticated (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_IsInWaitforready(const XHdcp1x *InstancePtr)
+{
+	int IsInWfr = FALSE;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		IsInWfr = XHdcp1x_TxIsInWaitforready(InstancePtr);
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		IsInWfr = XHdcp1x_RxIsInWaitforready(InstancePtr);
+	}
+	else
+#endif
+	{
+		IsInWfr = FALSE;
+	}
+
+	return (IsInWfr);
+}
+
+/*****************************************************************************/
+/**
+* This function queries the device connected to the downstream interface to
+* determine if it supports hdcp or not.
+*
+* @param	InstancePtr is the interface to query.
+*
+* @return	Truth value indicating HDCP capability (TRUE) or not (FALSE).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_IsDwnstrmCapable(const XHdcp1x *InstancePtr)
+{
+	int IsCapable = FALSE;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		IsCapable = XHdcp1x_TxIsDownstrmCapable(InstancePtr);
+	}
+#endif
+
+	return (IsCapable);
+}
+
+/*****************************************************************************/
+/**
 * This function queries an interface to determine if it is enabled.
 *
 * @param	InstancePtr is the interface to query.
@@ -885,6 +1041,13 @@ void XHdcp1x_HandleTimeout(void *InstancePtr)
 	if (!HdcpPtr->Config.IsRx) {
 		XHdcp1x_TxHandleTimeout(HdcpPtr);
 	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	if (HdcpPtr->Config.IsRx) {
+		XHdcp1x_RxHandleTimeout(HdcpPtr);
+	}
+
 #endif
 }
 
@@ -1084,5 +1247,383 @@ void XHdcp1x_ProcessAKsv(XHdcp1x *InstancePtr)
 		InstancePtr->Port.Adaptor->CallbackHandler(InstancePtr);
 	}
 	#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns a pointer to the downstream Topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return   A pointer to the XHdcp14 Topology structure or NULL when
+*           the topology info is invalid.
+*
+* @note     None.
+*
+******************************************************************************/
+void *XHdcp1x_GetTopology(XHdcp1x *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	void *TopologyPtr = NULL;
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		TopologyPtr = XHdcp1x_TxGetTopology(InstancePtr);
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		/* Not currently applicable */
+	}
+	else
+#endif
+	{
+		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");
+	}
+
+	return TopologyPtr;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables the blank output for the cipher.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XHdcp1x_DisableBlank(XHdcp1x *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		XHdcp1x_TxDisableBlank(InstancePtr);
+	}
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables the blank output for the cipher.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XHdcp1x_EnableBlank(XHdcp1x *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		XHdcp1x_TxEnableBlank(InstancePtr);
+	}
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the value of KSV List read in the downstream interface
+* of the repeater topology.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return
+*           - List of KSVs of the downstream devices
+*
+* @note     None.
+*
+******************************************************************************/
+u8 *XHdcp1x_GetTopologyKSVList(XHdcp1x *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	u8 *KSVList = NULL;
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		KSVList = XHdcp1x_TxGetTopologyKSVList(InstancePtr);
+	}
+#endif
+
+	return (KSVList);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the value of KSV of the device attached to the
+* downstream interface of the repeater.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return
+*           - TRUE if MAX_DEPTH_EXCEEDED
+*
+* @note     None.
+*
+******************************************************************************/
+u8 *XHdcp1x_GetTopologyBKSV(XHdcp1x *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	u8 *BKSV = NULL;
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		BKSV = XHdcp1x_TxGetTopologyBKSV(InstancePtr);
+	}
+#endif
+
+	return (BKSV);
+}
+
+/*****************************************************************************/
+/**
+* This function is used to set various fields inside the topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp1x core instance.
+* @param    Field indicates what field of the topology structure to update.
+* @param    Value is the value assigned to the field of the topology structure.
+*
+* @return   None.
+*
+* @note     None.
+******************************************************************************/
+void XHdcp1x_SetTopologyField(XHdcp1x *InstancePtr,
+		XHdcp1x_TopologyField Field, u8 Value)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Field < XHDCP1X_TOPOLOGY_INVALID);
+
+	switch(Field)
+	{
+	case XHDCP1X_TOPOLOGY_DEPTH :
+		XHdcp1x_RxSetTopologyDepth(InstancePtr, Value);
+		break;
+	case XHDCP1X_TOPOLOGY_DEVICECNT :
+		XHdcp1x_RxSetTopologyDeviceCnt(InstancePtr, Value);
+		break;
+	case XHDCP1X_TOPOLOGY_MAXDEVSEXCEEDED :
+		XHdcp1x_RxSetTopologyMaxDevsExceeded(InstancePtr, Value);
+		break;
+	case XHDCP1X_TOPOLOGY_MAXCASCADEEXCEEDED :
+		XHdcp1x_RxSetTopologyMaxCascadeExceeded(InstancePtr, Value);
+		break;
+	case XHDCP1X_TOPOLOGY_HDCP20REPEATERDOWNSTREAM :
+		/* Not currently applicable */
+		break;
+	case XHDCP1X_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
+		/* Not currently applicable */
+		break;
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function is used to get various fields inside the topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp1x core instance.
+* @param    Field indicates what field of the topology structure to update.
+*
+* @return   None.
+*
+* @note     None.
+******************************************************************************/
+u32 XHdcp1x_GetTopologyField(XHdcp1x *InstancePtr, XHdcp1x_TopologyField Field)
+{
+	u32 Value;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Field < XHDCP1X_TOPOLOGY_INVALID);
+
+	switch(Field)
+	{
+	case XHDCP1X_TOPOLOGY_DEPTH :
+		Value = XHdcp1x_TxGetTopologyDepth(InstancePtr);
+		break;
+	case XHDCP1X_TOPOLOGY_DEVICECNT :
+		Value = XHdcp1x_TxGetTopologyDeviceCnt(InstancePtr);
+		break;
+	case XHDCP1X_TOPOLOGY_MAXDEVSEXCEEDED :
+		Value = XHdcp1x_TxGetTopologyMaxDevsExceeded(InstancePtr);
+		break;
+	case XHDCP1X_TOPOLOGY_MAXCASCADEEXCEEDED :
+		Value = XHdcp1x_TxGetTopologyMaxCascadeExceeded(InstancePtr);
+		break;
+	case XHDCP1X_TOPOLOGY_HDCP20REPEATERDOWNSTREAM :
+		/* Not currently applicable */
+		break;
+	case XHDCP1X_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
+		/* Not currently applicable */
+		break;
+	}
+
+	return Value;
+}
+
+/*****************************************************************************/
+/**
+* This function return if the HDCP interface is a repeater in case of Rx or
+* is connected to a repeater in case of Tx
+*
+* @param	InstancePtr is the transmitter instance.
+*
+* @return
+*		- TRUE if Repeater.
+*		- FALSE if not Repeater,
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_IsRepeater(XHdcp1x *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	u8 Status = FALSE;
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		Status = XHdcp1x_TxIsRepeater(InstancePtr);
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		Status = (InstancePtr->IsRepeater)? TRUE : FALSE;
+	}
+	else
+#endif
+	{
+		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* This function sets the RepeaterInfo value int the HDCP RX instance
+*
+* @param    InstancePtr is a pointer to the Hdcp1x core instance.
+* @param    TopologyPtr is a pointer to the Repeater Info value(s).
+*
+* @return   None.
+*
+* @note     None.
+******************************************************************************/
+void XHdcp1x_SetTopology(XHdcp1x *InstancePtr,
+		const XHdcp1x_RepeaterExchange *TopologyPtr)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(TopologyPtr != NULL);
+
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		 XHdcp1x_RxSetTopology(InstancePtr, TopologyPtr);
+	}
+	else
+#endif
+	{
+		TopologyPtr = NULL;
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function sets the KSVList value(s) in the HDCP RX KSV Fifo register
+* space for the upstream interface to read.
+*
+* @param    InstancePtr is a pointer to the Hdcp1x core instance.
+* @param    ListPtr is a pointer to the KSV list.
+* @param    ListSize is the number of KSVs in the list.
+*
+* @return   None.
+*
+* @note     None.
+******************************************************************************/
+void XHdcp1x_SetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
+		u32 ListSize)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(ListPtr != NULL);
+
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		XHdcp1x_RxSetTopologyKSVList(InstancePtr, ListPtr,	ListSize);
+	}
+	else
+#endif
+	{
+		ListPtr = NULL;
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function does the necessary actions to update HDCP
+* after the topology has been set.
+*
+* @param    InstancePtr is a pointer to the Hdcp1x core instance.
+*
+* @return   None.
+*
+* @note     None.
+******************************************************************************/
+void XHdcp1x_SetTopologyUpdate(XHdcp1x *InstancePtr)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		/* Not currently applicable */
+	}
+	else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		XHdcp1x_RxSetTopologyUpdate(InstancePtr);
+	}
+	else
+#endif
+	{
+		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");
+	}
 }
 /** @} */

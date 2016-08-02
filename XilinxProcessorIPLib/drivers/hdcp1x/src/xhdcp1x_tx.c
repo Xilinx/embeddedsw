@@ -55,6 +55,18 @@
 *                       XHdcp1x_TxReadDownstream, XHdcp1x_TxSetCallBack,
 *                       XHdcp1x_TxTriggerDownstreamAuth,
 *                       XHdcp1x_TxSetRepeaterInfo.
+* 3.1   yas    06/15/16 Repeater functionality extended to support HDMI.
+*                       Added fucntions,
+*                       XHdcp1x_TxIsInComputations,XHdcp1x_TxIsInWaitforready,
+*                       XHdcp1x_TxIsDownstrmCapable, XHdcp1x_TxIsRepeater,
+*                       XHdcp1x_TxEnableBlank, XHdcp1x_TxDisableBlank,
+*                       XHdcp1x_TxGetTopologyKSVList,
+*                       XHdcp1x_TxGetTopologyDepth,
+*                       XHdcp1x_TxGetTopologyDeviceCnt,
+*                       XHdcp1x_TxGetTopologyMaxCascadeExceeded,
+*                       XHdcp1x_TxGetTopologyBKSV,
+*                       XHdcp1x_TxGetTopologyMaxDevsExceeded,
+*                       XHdcp1x_TxGetTopology
 * </pre>
 *
 *****************************************************************************/
@@ -84,8 +96,8 @@
 #define XVPHY_FLAG_PHY_UP	(1u << 0)  /**< Flag to track physical state */
 #define XVPHY_FLAG_IS_REPEATER	(1u << 1)  /**< Flag to track repeater state */
 
-#define XVPHY_TMO_5MS		(   5u)    /**< Timeout value for 5ms */
-#define XVPHY_TMO_100MS		( 100u)    /**< Timeout value for 100ms */
+#define XVPHY_TMO_5MS		(5u)    /**< Timeout value for 5ms */
+#define XVPHY_TMO_100MS		(100u)    /**< Timeout value for 100ms */
 #define XVPHY_TMO_1SECOND	(1000u)    /**< Timeout value for 1s */
 
 /**************************** Type Definitions *******************************/
@@ -111,18 +123,18 @@ typedef enum {
  * This enumerates the Event Types for HDCP Transmitter state machine.
  */
 typedef enum {
-	XHDCP1X_STATE_DISABLED,
-	XHDCP1X_STATE_DETERMINERXCAPABLE,
-	XHDCP1X_STATE_EXCHANGEKSVS,
-	XHDCP1X_STATE_COMPUTATIONS,
-	XHDCP1X_STATE_VALIDATERX,
-	XHDCP1X_STATE_AUTHENTICATED,
-	XHDCP1X_STATE_LINKINTEGRITYCHECK,
-	XHDCP1X_STATE_TESTFORREPEATER,
-	XHDCP1X_STATE_WAITFORREADY,
-	XHDCP1X_STATE_READKSVLIST,
-	XHDCP1X_STATE_UNAUTHENTICATED,
-	XHDCP1X_STATE_PHYDOWN,
+	XHDCP1X_STATE_DISABLED = XHDCP1X_TX_STATE_DISABLED,
+	XHDCP1X_STATE_DETERMINERXCAPABLE = XHDCP1X_TX_STATE_DETERMINERXCAPABLE,
+	XHDCP1X_STATE_EXCHANGEKSVS = XHDCP1X_TX_STATE_EXCHANGEKSVS,
+	XHDCP1X_STATE_COMPUTATIONS = XHDCP1X_TX_STATE_COMPUTATIONS,
+	XHDCP1X_STATE_VALIDATERX = XHDCP1X_TX_STATE_VALIDATERX,
+	XHDCP1X_STATE_AUTHENTICATED = XHDCP1X_TX_STATE_AUTHENTICATED,
+	XHDCP1X_STATE_LINKINTEGRITYCHECK = XHDCP1X_TX_STATE_LINKINTEGRITYCHECK,
+	XHDCP1X_STATE_TESTFORREPEATER = XHDCP1X_TX_STATE_TESTFORREPEATER,
+	XHDCP1X_STATE_WAITFORREADY = XHDCP1X_TX_STATE_WAITFORREADY,
+	XHDCP1X_STATE_READKSVLIST = XHDCP1X_TX_STATE_READKSVLIST,
+	XHDCP1X_STATE_UNAUTHENTICATED = XHDCP1X_TX_STATE_UNAUTHENTICATED,
+	XHDCP1X_STATE_PHYDOWN = XHDCP1X_TX_STATE_PHYDOWN,
 } XHdcp1x_StateType;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -233,7 +245,8 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 	{
 		/* DDC write */
 		case (XHDCP1X_HANDLER_DDC_WRITE):
-			InstancePtr->Tx.DdcWrite = (XHdcp1x_RunDdcHandler)CallbackFunc;
+			InstancePtr->Tx.DdcWrite
+				= (XHdcp1x_RunDdcHandler)CallbackFunc;
 			InstancePtr->Tx.DdcWriteRef = CallbackRef;
 			InstancePtr->Tx.IsDdcWriteSet = (TRUE);
 			Status = (XST_SUCCESS);
@@ -241,7 +254,8 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 
 		/* DDC read */
 		case (XHDCP1X_HANDLER_DDC_READ):
-			InstancePtr->Tx.DdcRead = (XHdcp1x_RunDdcHandler)CallbackFunc;
+			InstancePtr->Tx.DdcRead
+				= (XHdcp1x_RunDdcHandler)CallbackFunc;
 			InstancePtr->Tx.DdcReadRef = CallbackRef;
 			InstancePtr->Tx.IsDdcReadSet = (TRUE);
 			Status = (XST_SUCCESS);
@@ -256,15 +270,6 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 			Status = (XST_SUCCESS);
 			break;
 
-		/* Repeater - downstream Ready */
-		/* Equivalent of case (XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY): */
-		case (XHDCP1X_HANDLER_RPTR_DWNSTRMREADY):
-			InstancePtr->Tx.DownstreamReadyCallback
-				= (XHdcp1x_Callback)CallbackFunc;
-			InstancePtr->Tx.DownstreamReadyRef = CallbackRef;
-			InstancePtr->Tx.IsDownStreamReadyCallbackSet = (TRUE);
-			break;
-
 		/* Repeater - Repeater exchange (values) */
 		/* Equivalent of case (XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE): */
 		case (XHDCP1X_HANDLER_RPTR_RPTREXCHANGE):
@@ -272,6 +277,15 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 				= (XHdcp1x_Callback)CallbackFunc;
 			InstancePtr->Tx.RepeaterExchangeRef = CallbackRef;
 			InstancePtr->Tx.IsRepeaterExchangeCallbackSet = (TRUE);
+			break;
+
+		/* Un-authenticated */
+		case (XHDCP1X_HANDLER_UNAUTHENTICATED):
+			InstancePtr->Tx.UnauthenticatedCallback
+				= (XHdcp1x_Callback)CallbackFunc;
+			InstancePtr->Tx.UnauthenticatedCallbackRef
+				= CallbackRef;
+			InstancePtr->Tx.IsUnauthenticatedCallbackSet = (TRUE);
 			break;
 
 		default:
@@ -622,6 +636,86 @@ int XHdcp1x_TxIsAuthenticated(const XHdcp1x *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function queries an interface to check if its in the computations state.
+*
+* @param	InstancePtr is the transmitter instance.
+*
+* @return	Truth value indicating authenticated (true) or not (false).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_TxIsInComputations(const XHdcp1x *InstancePtr)
+{
+	int IsInComp = FALSE;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Determine IsInComputations */
+	if (InstancePtr->Tx.CurrentState == XHDCP1X_STATE_COMPUTATIONS) {
+		IsInComp = TRUE;
+	}
+
+	return (IsInComp);
+}
+
+/*****************************************************************************/
+/**
+* This function queries an interface to check if its in the
+* wait-for-ready state.
+*
+* @param	InstancePtr is the transmitter instance.
+*
+* @return	Truth value indicating authenticated (true) or not (false).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_TxIsInWaitforready(const XHdcp1x *InstancePtr)
+{
+	int IsInWfr = FALSE;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Determine IsInWaitforready */
+	if (InstancePtr->Tx.CurrentState == XHDCP1X_STATE_WAITFORREADY) {
+		IsInWfr = TRUE;
+	}
+
+	return (IsInWfr);
+}
+
+/*****************************************************************************/
+/**
+* This function queries the downstream device to check if the downstream
+* device is HDCP capable.
+*
+* @param	InstancePtr is the receiver instance.
+*
+* @return	Truth value indicating HDCP capability (true) or not (false).
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_TxIsDownstrmCapable(const XHdcp1x *InstancePtr)
+{
+	int IsCapable = FALSE;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Determine IsCapable */
+	if (XHdcp1x_PortIsCapable(InstancePtr)) {
+		IsCapable = TRUE;
+	}
+
+	return (IsCapable);
+}
+
+/*****************************************************************************/
+/**
 * This function retrieves the current encryption stream map.
 *
 * @param	InstancePtr the transmitter instance.
@@ -724,6 +818,34 @@ void XHdcp1x_TxHandleTimeout(XHdcp1x *InstancePtr)
 	XHdcp1x_TxPostEvent(InstancePtr, XHDCP1X_EVENT_TIMEOUT);
 }
 
+
+/*****************************************************************************/
+/**
+* This function returns if HDCP TX interface is connected
+* to a downstream repeater.
+*
+* @param	InstancePtr is the transmitter instance.
+*
+* @return
+*		- TRUE if Repeater.
+*		- FALSE if not Repeater,
+*
+* @note		None.
+*
+******************************************************************************/
+int XHdcp1x_TxIsRepeater(XHdcp1x *InstancePtr)
+{
+	int Status = XST_SUCCESS;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Check if downstream is Repeater */
+	Status = XHdcp1x_PortIsRepeater(InstancePtr);
+
+	return (Status);
+}
+
 /*****************************************************************************/
 /**
 * This function implements the debug display output for transmit instances.
@@ -802,6 +924,40 @@ int XHdcp1x_TxInfo(const XHdcp1x *InstancePtr)
 			InstancePtr->Port.Stats.IntCount);
 
 	return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables the blank output for the cipher.
+*
+* @param  InstancePtr is a pointer to the Hdcp1.4 core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp1x_TxEnableBlank(XHdcp1x *InstancePtr)
+{
+	XHdcp1x_CipherEnableBlank(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function disables the blank output for the cipher.
+*
+* @param  InstancePtr is a pointer to the Hdcp1.4 core instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XHdcp1x_TxDisableBlank(XHdcp1x *InstancePtr)
+{
+	XHdcp1x_CipherDisableBlank(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -1568,8 +1724,13 @@ static void XHdcp1x_TxTestForRepeater(XHdcp1x *InstancePtr,
 		/* Update InstancePtr */
 		InstancePtr->Tx.Flags &= ~XVPHY_FLAG_IS_REPEATER;
 
+		/* Set the Down Stream Ready flag - in case of repeater
+		 * we are ready to send repeater values upstream */
+		InstancePtr->Tx.DownstreamReady = 1;
+
 		/* Update NextStatePtr */
 		*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
+
 	}
 }
 
@@ -1673,6 +1834,52 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 
 	NumOfKsvsToRead = (NumToRead / 5);
 
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
+	/* Read the ksv list */
+	/* Read the entire KSV fifo list in one go */
+	int ByteCount = 0;
+	while (ByteCount < NumToRead) {
+		if(XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_KSVFIFO,
+				Buf, XHDCP1X_PORT_SIZE_KSVFIFO)) {
+
+			KsvList[ByteCount] = *Buf;
+
+			/* Update the sha-1 calculation */
+			SHA1Input(&Sha1Context, Buf, XHDCP1X_PORT_SIZE_KSVFIFO);
+
+			/* Update this value in the RepeaterExchange
+			 * structure to be read later by RX
+			 */
+			u64 Value = 0;
+
+			if((ByteCount + 1) % 5 == 0) {
+				XHDCP1X_PORT_BUF_TO_UINT(Value ,
+					(KsvList + ( (((ByteCount+1)
+					/ XHDCP1X_PORT_SIZE_BKSV) - 1)
+					* XHDCP1X_PORT_SIZE_BKSV)) ,
+					XHDCP1X_PORT_SIZE_BKSV * 8);
+				if (!(Value)) {
+					XHdcp1x_TxDebugLog(InstancePtr ,
+						"Error: Null KSV read "
+						"from downstream KSV List");
+				}
+			InstancePtr->RepeaterValues.KsvList[KsvCount++] =
+					(Value & 0xFFFFFFFFFFul);
+				Value = 0;
+			}
+		}
+		else {
+			/* Update the statistics */
+			InstancePtr->Tx.Stats.ReadFailures++;
+
+			/* Update IsValid */
+			IsValid = FALSE;
+		}
+
+		ByteCount++;
+	}
+
+#else
 	/* Read the ksv list */
 	do {
 		/* Read 15 bytes at a go */
@@ -1745,6 +1952,7 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 		NumOfKsvsToRead -= NumOfKsvsThisTime;
 	}
 	while ((NumToRead > 0) && (IsValid));
+#endif
 
 	{
 		u8 Bksv[5];
@@ -1776,7 +1984,14 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 
 		/* Insert RepeaterInfo into the SHA-1 transform */
 		Buf[0] = (u8) (RepeaterInfo & 0xFFu);
-		Buf[1] = (u8) ((RepeaterInfo >> 8) & 0xFFu);
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
+		Buf[1] = (u8) ( ((RepeaterInfo |
+			(XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE))
+			>> XHDCP1X_PORT_BSTATUS_DEPTH_SHIFT) & 0xFFu);
+#else
+		Buf[1] = (u8) ((RepeaterInfo >> XHDCP1X_PORT_BINFO_DEPTH_SHIFT)
+						& 0xFFu);
+#endif
 		SHA1Input(&Sha1Context, Buf, 2);
 
 		/* Insert the Mo into the SHA-1 transform */
@@ -1786,6 +2001,7 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 
 		/* Finalize the SHA-1 result and confirm success */
 		if (SHA1Result(&Sha1Context, Sha1Result) == shaSuccess) {
+
 			u8 Offset = XHDCP1X_PORT_OFFSET_VH0;
 			const u8 *Sha1Buf = Sha1Result;
 			int NumIterations = (SHA1HashSize >> 2);
@@ -1841,6 +2057,227 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 
 /*****************************************************************************/
 /**
+*
+* This function returns the value of KSV List read in the downstream interface
+* of the repeater topology.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return
+*           - TRUE if MAX_DEPTH_EXCEEDED
+*           - FALSE if not
+*
+* @note     None.
+*
+******************************************************************************/
+u8 *XHdcp1x_TxGetTopologyKSVList(XHdcp1x *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	static u8  DeviceList[256][5];
+	u32 DeviceCnt;
+	u32 i;
+
+	memset(DeviceList[0],0,(32*5));
+	DeviceCnt = InstancePtr->RepeaterValues.DeviceCount;
+
+	for(i=0;i<DeviceCnt;i++) {
+		memcpy(&DeviceList[i][0],
+			&InstancePtr->RepeaterValues.KsvList[i], 5);
+	}
+
+	return(DeviceList[0]);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the value of Depth read in the downstream interface
+* of the repeater topology.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return	Value of Depth.
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XHdcp1x_TxGetTopologyDepth(XHdcp1x *InstancePtr)
+{
+	return (InstancePtr->RepeaterValues.Depth);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the value of Device Count read in the downstream
+* interface of the repeater topology.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return
+*           - TRUE if MAX_DEPTH_EXCEEDED
+*           - FALSE if not
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XHdcp1x_TxGetTopologyDeviceCnt(XHdcp1x *InstancePtr)
+{
+	return (InstancePtr->RepeaterValues.DeviceCount);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the MAX_DEPTH_EXCEEDED flag in the repeater
+* topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return
+*           - TRUE if MAX_DEPTH_EXCEEDED
+*           - FALSE if not
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XHdcp1x_TxGetTopologyMaxCascadeExceeded(XHdcp1x *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	u32 Buf;
+	u32 Status;
+
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
+	/* Read the BStatus Register */
+	XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+			&Buf, XHDCP1X_PORT_SIZE_BSTATUS);
+
+	/* BInfo : Max_device_exceeded[7] */
+	Status = (Buf & XHDCP1X_PORT_BSTATUS_BIT_DEPTH_ERR)? TRUE : FALSE;
+#else
+	/* Read the BInfo Register */
+	XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO,
+			&Buf, XHDCP1X_PORT_SIZE_BINFO);
+
+	/* BInfo : Max_device_exceeded[7] */
+	Status = (Buf & XHDCP1X_PORT_BINFO_BIT_DEPTH_ERR)? TRUE : FALSE;
+#endif
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the value of BKSV of the device connected to the
+* repeater downstream interface.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return
+*           - TRUE if MAX_DEPTH_EXCEEDED
+*           - FALSE if not
+*
+* @note     None.
+*
+******************************************************************************/
+u8 *XHdcp1x_TxGetTopologyBKSV(XHdcp1x *InstancePtr)
+{
+	u8 Buf[8];
+	u64 RemoteKsv = 0;
+	static u8 Bksv[5];
+
+	/* Initialize Buf */
+	memset(Buf, 0, 8);
+	memset(Bksv, 0, 5);
+
+	XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BKSV,
+				Buf, XHDCP1X_PORT_SIZE_BKSV);
+
+	XHDCP1X_PORT_BUF_TO_UINT(RemoteKsv, Buf,
+					XHDCP1X_PORT_SIZE_BKSV * 8);
+
+	memcpy(&Bksv[0], &RemoteKsv, XHDCP1X_PORT_SIZE_BKSV);
+
+	return(&Bksv[0]);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns the MAX_DEVICS_EXCEEDED flag in the repeater
+* topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return
+*           - TRUE if MAX_DEVICES_EXCEEDED
+*           - FALSE if not
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XHdcp1x_TxGetTopologyMaxDevsExceeded(XHdcp1x *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	u32 Buf;
+	u32 Status;
+
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
+	/* Read the BStatus Register */
+	XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+			&Buf, XHDCP1X_PORT_SIZE_BSTATUS);
+
+	/* BInfo : Max_device_exceeded[7] */
+	Status = (Buf & XHDCP1X_PORT_BSTATUS_BIT_DEV_CNT_ERR)? TRUE : FALSE;
+#else
+	/* Read the BInfo Register */
+	XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO,
+			&Buf, XHDCP1X_PORT_SIZE_BINFO);
+
+	/* BInfo : Max_device_exceeded[7] */
+	Status = (Buf & XHDCP1X_PORT_BINFO_BIT_DEV_CNT_ERR)? TRUE : FALSE;
+#endif
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function returns a pointer to the downstream Topology structure.
+*
+* @param    InstancePtr is a pointer to the XHdcp14 core instance.
+*
+* @return   A pointer to the XHdcp14 Topology structure or NULL when
+*           the topology info is invalid.
+*
+* @note     None.
+*
+******************************************************************************/
+XHdcp1x_RepeaterExchange *XHdcp1x_TxGetTopology(XHdcp1x *InstancePtr)
+{
+	u16 RepeaterInfo = 0;
+	int Status = XST_SUCCESS;
+
+	if (InstancePtr->IsRepeater) {
+		if (InstancePtr->Rx.CurrentState == XHDCP1X_STATE_AUTHENTICATED) {
+			return &InstancePtr->RepeaterValues;
+		}
+	}
+
+	return NULL;
+}
+
+/*****************************************************************************/
+/**
 * This function sets the V'H0, V'H1, V'H2, V'H3, V'H4, KSVList and BInfo values
 * in the HDCP TX HDCP Instance for Repeater validation .
 *
@@ -1873,38 +2310,51 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 		InstancePtr->RepeaterValues.V[0] = (Buf&0xFFFF);
 
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH1,
-					&Buf, XHDCP1X_PORT_SIZE_VH1);
+				&Buf, XHDCP1X_PORT_SIZE_VH1);
 
 		/* V'H1 */
 		InstancePtr->RepeaterValues.V[1] = (Buf&0xFFFF);
 
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH2,
-					&Buf, XHDCP1X_PORT_SIZE_VH2);
+				&Buf, XHDCP1X_PORT_SIZE_VH2);
 
 		/* V'H2 */
 		InstancePtr->RepeaterValues.V[2] = (Buf&0xFFFF);
 
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH3,
-					&Buf, XHDCP1X_PORT_SIZE_VH3);
+				&Buf, XHDCP1X_PORT_SIZE_VH3);
 
 		/* V'H3 */
 		InstancePtr->RepeaterValues.V[3] = (Buf&0xFFFF);
 
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH4,
-					&Buf, XHDCP1X_PORT_SIZE_VH4);
+				&Buf, XHDCP1X_PORT_SIZE_VH4);
 
 		/* V'H4 */
 		InstancePtr->RepeaterValues.V[4] = (Buf&0xFFFF);
 
 #if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
-		/* HDMI Repeater currently not supported.
-		 * Read XHDCP1X_PORT_OFFSET_BCAPS
+
+		/* Copy the Depth read from the downstream HDCP device */
+		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+				&Buf, XHDCP1X_PORT_SIZE_BSTATUS);
+		/* BInfo : Device_Count[6:0], Max_device_exceeded[7],
+		 * Depth[10:8], Max_cascade_exceeded[11], Hdmi_Mode[12],
+		 * Hdmi_Reserved_2[13], Rsvd[15:14].
 		 */
+		InstancePtr->RepeaterValues.Depth = ((Buf & 0x0700)>>8);
+
+		/* Copy the device count read from
+		 * the downstream HDCP device */
+		InstancePtr->RepeaterValues.DeviceCount = (Buf & 0x007F);
+		/* Increment the device count by 1 to account for
+		 * the HDCP Repeater system itsef */
+		InstancePtr->RepeaterValues.DeviceCount++;
 #else
 		/* Copy the Depth read from the downstream HDCP device */
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO,
 				&Buf, XHDCP1X_PORT_SIZE_BINFO);
-		/* BInfo : Device_Count[7:0], Max_device_exceeded[7],
+		/* BInfo : Device_Count[6:0], Max_device_exceeded[7],
 		 * Depth[10:8], Max_cascade_exceeded[11]
 		 */
 		InstancePtr->RepeaterValues.Depth = ((Buf & 0x0700)>>8);
@@ -1912,6 +2362,9 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 		/* Copy the device count read from
 		 * the downstream HDCP device */
 		InstancePtr->RepeaterValues.DeviceCount = (Buf & 0x007F);
+		/* Increment the device count by 1 to account for
+		 * the HDCP Repeater system itsef */
+		InstancePtr->RepeaterValues.DeviceCount++;
 #endif
 
 		/* Assemble the ksv list */
@@ -1926,7 +2379,7 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 		InstancePtr->RepeaterValues.Depth = 0;
 
 		/* Write the Device Count to the RepeaterValues */
-		InstancePtr->RepeaterValues.DeviceCount = 0;
+		InstancePtr->RepeaterValues.DeviceCount = 1;
 
 		/* Add the BKSV of the attached downstream receiver
 		* to the KSV List */
@@ -1995,25 +2448,6 @@ static void XHdcp1x_TxReadKsvList(XHdcp1x *InstancePtr,
 		* authenticated and call back the RX
 		*/
 		InstancePtr->Tx.DownstreamReady = 1;
-
-		if (InstancePtr->IsRepeater) {
-			/* Exchange/Pass Repeater values to the Rx side of
-			 * the Repeater */
-			if (InstancePtr->Tx.IsRepeaterExchangeCallbackSet) {
-				if (InstancePtr->Tx.RepeaterExchangeCallback
-								!= NULL) {
-				InstancePtr->Tx.RepeaterExchangeCallback
-					(InstancePtr->Tx.RepeaterExchangeRef);
-				}
-				else {
-					XHdcp1x_TxDebugLog(InstancePtr,
-						"Warning: Repeater Values"
-						"not exchanged with"
-						"Upstream, CallBack not"
-						"Initialized !!!");
-				}
-			}
-		}
 
 		/* Update NextStatePtr */
 		*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
@@ -2621,13 +3055,7 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		/* For the authenticated state */
 		case XHDCP1X_STATE_AUTHENTICATED:
 			InstancePtr->Tx.StateHelper = 0;
-			if ( !(XHdcp1x_PortIsRepeater(InstancePtr)) ) {
-				XHdcp1x_TxSetRepeaterInfo(InstancePtr);
-			if (InstancePtr->Tx.IsRepeaterExchangeCallbackSet) {
-				InstancePtr->Tx.RepeaterExchangeCallback(
-					InstancePtr->Tx.RepeaterExchangeRef);
-			}
-			}
+
 			XHdcp1x_TxEnableEncryptionState(InstancePtr);
 			if (InstancePtr->Tx.PreviousState !=
 					XHDCP1X_STATE_LINKINTEGRITYCHECK) {
@@ -2642,6 +3070,17 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 				InstancePtr->Tx.AuthenticatedCallback
 				(InstancePtr->Tx.AuthenticatedCallbackRef);
 				}
+			}
+
+			if (InstancePtr->IsRepeater == 1) {
+			  if(InstancePtr->Tx.DownstreamReady == 1) {
+			    InstancePtr->Tx.DownstreamReady = 0;
+			    XHdcp1x_TxSetRepeaterInfo(InstancePtr);
+			    if (InstancePtr->Tx.IsRepeaterExchangeCallbackSet) {
+			      InstancePtr->Tx.RepeaterExchangeCallback(
+			        InstancePtr->Tx.RepeaterExchangeRef);
+			    }
+			  }
 			}
 			break;
 
@@ -2829,6 +3268,13 @@ static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 		InstancePtr->Tx.CurrentState = NextState;
 		XHdcp1x_TxEnterState(InstancePtr, InstancePtr->Tx.CurrentState,
 				&NextState);
+		if( ((InstancePtr->Tx.PreviousState != XHDCP1X_STATE_DISABLED)
+		&& (InstancePtr->Tx.PreviousState != XHDCP1X_STATE_PHYDOWN))
+		&& (InstancePtr->Tx.CurrentState
+			== XHDCP1X_STATE_UNAUTHENTICATED) ){
+				InstancePtr->Tx.UnauthenticatedCallback(
+				InstancePtr->Tx.UnauthenticatedCallbackRef);
+		}
 	}
 }
 

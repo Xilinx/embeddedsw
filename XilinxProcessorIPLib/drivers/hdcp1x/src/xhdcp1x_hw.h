@@ -49,6 +49,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 3.10  yas    06/14/16 Added cipher registers XHDCP1X_CIPHER_REG_BLANK_VALUE
+*                       and XHDCP1X_CIPHER_REG_BLANK_SEL
 * </pre>
 *
 ******************************************************************************/
@@ -135,6 +137,10 @@ extern "C" {
 						register offset */
 #define XHDCP1X_CIPHER_REG_CIPHER_Mo_L	(0x0084u)  /**< Cipher Mo (Low) register
 						offset */
+#define XHDCP1X_CIPHER_REG_BLANK_VALUE 	(0x00BCu)  /**< Cipher blank value
+						register */
+#define XHDCP1X_CIPHER_REG_BLANK_SEL (0x00C0u)  /**< Cipher blank select
+						register */
 
 /* HDCP Cipher register bit mask definitions */
 #define XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL \
@@ -205,6 +211,13 @@ extern "C" {
 					(0x07u <<  8)  /**< Request In Progress
 						bitmask in Cipher Status
 						register */
+
+#define XHDCP1X_CIPHER_BITMASK_BLANK_VALUE \
+					(0x000000FF) /**< Cipher blank value
+					bitmask, lower 24 bits */
+#define XHDCP1X_CIPHER_BITMASK_BLANK_SEL \
+					(0x1u)  /**< Cipher blank
+						select bitmask */
 
 /* HDCP Cipher register bit value definitions */
 #define XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP \
