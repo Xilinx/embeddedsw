@@ -37,6 +37,7 @@
 ##  1.1     yh      20/01/15 Added remapper subcore,
 ##                           axi_gpio is to reset remapper (hls core)
 ##  1.2     MG      03/03/16 Added HDCP 2.2
+##  1.3     YH      30/07/16 No HDCP22_SS sub-cores included in _g.c generation
 #
 ################################################################################
 
@@ -103,7 +104,8 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
         ::hsi::current_hw_instance $periph_g;
 
-        set child_cells_g [::hsi::get_cells -hier]
+        #set child_cells_g [::hsi::get_cells -hier]
+        set child_cells_g [::hsi::get_cells]
 
         foreach child_cell_g $child_cells_g {
             set child_cell_vlnv [::common::get_property VLNV $child_cell_g]
