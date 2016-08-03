@@ -372,4 +372,6 @@
  *		       standalone.mld to add support for non-secure el1 with el selection feature
  *     hk    07/12/16  Correct masks for IOU SLCR GEM registers
  * 5.6 pkp   07/25/16  Program the counter frequency in boot code for CortexA53
+ * 5.6 asa   08/03/16  Updated sleep_common function in microblaze_sleep.c to improve the
+ *                     the accuracy of MB sleep functionality. This fixes the CR#954191.
  *****************************************************************************************/

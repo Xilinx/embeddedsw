@@ -56,21 +56,23 @@
 #include "microblaze_sleep.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define ITERS_PER_SEC	(XPAR_CPU_CORE_CLOCK_FREQ_HZ / 6)
+#define ITERS_PER_SEC	(XPAR_CPU_CORE_CLOCK_FREQ_HZ / 4)
 #define ITERS_PER_MSEC	(ITERS_PER_SEC / 1000)
 #define ITERS_PER_USEC	(ITERS_PER_MSEC / 1000)
 
 
 static void sleep_common(u32 n, u32 iters)
 {
-	asm volatile (  "1:               \n\t"
+	asm volatile (
+			"1:               \n\t"
+			"addik %1, %1, -1 \n\t"
 			"add   r7, r0, %0 \n\t"
 			"2:               \n\t"
 			"addik r7, r7, -1 \n\t"
 			"bneid  r7, 2b    \n\t"
 			"or  r0, r0, r0   \n\t"
 			"bneid %1, 1b     \n\t"
-			"addik %1, %1, -1 \n\t"
+			"or  r0, r0, r0   \n\t"
 			:
 			: "r"(iters), "r"(n)
 			: "r0", "r7"
