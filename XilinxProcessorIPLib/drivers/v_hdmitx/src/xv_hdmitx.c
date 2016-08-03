@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,7 +45,9 @@
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     15/01/16 Add 3D Support
 * 1.2   MG     09/03/16 Added XV_HdmiTx_SetHdmiMode and XV_HdmiTx_SetDviMode
-
+* 1.3   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+*                       XV_HdmiTx_CfgInitialize
+* 1.4   YH     27/07/16 Remove checking VideoMode < (XVIDC_VM_NUM_SUPPORTED));
 * </pre>
 *
 ******************************************************************************/
@@ -151,14 +153,14 @@ static int HdmiTx_DdcExec(XV_HdmiTx *InstancePtr);
 *
 ******************************************************************************/
 int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
-    u32 EffectiveAddr)
+    UINTPTR EffectiveAddr)
 {
     u32 RegValue;
 
     /* Verify arguments. */
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(CfgPtr != NULL);
-    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+    Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)0x0);
 
     /* Setup the instance */
     (void)memset((void *)InstancePtr, 0, sizeof(XV_HdmiTx));
@@ -284,7 +286,7 @@ void XV_HdmiTx_SetHdmiMode(XV_HdmiTx *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* This function sets the core into HDMI mode.
+* This function sets the core into DVI mode.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
@@ -349,9 +351,6 @@ u8 XV_HdmiTx_LookupVic(XVidC_VideoMode VideoMode)
 {
     XV_HdmiTx_VicTable const *Entry;
     u8 Index;
-
-    /* Verify argument. */
-   // Xil_AssertNonvoid(VideoMode < (XVIDC_VM_NUM_SUPPORTED));
 
     for (Index = 0; Index < sizeof(VicTable)/sizeof(XV_HdmiTx_VicTable);
         Index++) {
@@ -646,7 +645,6 @@ XVidC_3DInfo *Info3D)
 
     /* Verify arguments. */
     Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(VideoMode < (XVIDC_VM_NUM_SUPPORTED));
     Xil_AssertNonvoid((ColorFormat == (XVIDC_CSF_RGB))       ||
                       (ColorFormat == (XVIDC_CSF_YCRCB_444)) ||
                       (ColorFormat == (XVIDC_CSF_YCRCB_422)) ||
@@ -664,9 +662,6 @@ XVidC_3DInfo *Info3D)
     else
         XVidC_Set3DVideoStream(&InstancePtr->Stream.Video, VideoMode, ColorFormat, Bpc, Ppc, Info3D);
 
-//  InstancePtr->Stream.Video.VmId = VideoMode;
-//  InstancePtr->Stream.Video.ColorFormatId = ColorFormat;
-
     /** In HDMI the colordepth in YUV422 is always 12 bits,
     * although on the link itself it is being transmitted as 8-bits.
     * Therefore if the colorspace is YUV422, then force the colordepth
@@ -677,21 +672,6 @@ XVidC_3DInfo *Info3D)
 
     InstancePtr->Stream.Vic = XV_HdmiTx_LookupVic(
         InstancePtr->Stream.Video.VmId);
-
-//  // Other colorspaces
-//  else {
-//      InstancePtr->Stream.Video.ColorDepth = Bpc;
-//  }
-//
-//  InstancePtr->Stream.Video.PixPerClk = Ppc;
-//    InstancePtr->Stream.Video.Timing = *XVidC_GetTimingInfo(
-//      InstancePtr->Stream.Video.VmId);
-//    InstancePtr->Stream.Video.FrameRate = XVidC_GetFrameRate(
-//      InstancePtr->Stream.Video.VmId);
-//    InstancePtr->Stream.Vic = XV_HdmiTx_LookupVic(
-//      InstancePtr->Stream.Video.VmId);
-//    InstancePtr->Stream.Video.IsInterlaced = XVidC_GetVideoFormat(
-//      InstancePtr->Stream.Video.VmId);
 
     // Set TX pixel rate
     XV_HdmiTx_SetPixelRate(InstancePtr);

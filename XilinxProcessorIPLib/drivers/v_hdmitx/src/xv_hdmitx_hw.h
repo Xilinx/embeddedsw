@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         10/07/15 Initial release.
-
+* 1.01  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+*                       XV_HdmiTx_WriteReg
+*                       XV_HdmiTx_ReadReg
 * </pre>
 *
 ******************************************************************************/
@@ -291,7 +293,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XV_HdmiTx_ReadReg(BaseAddress, RegOffset) \
-    XV_HdmiTx_In32((BaseAddress) + ((u32)RegOffset))
+    XV_HdmiTx_In32((BaseAddress) + (RegOffset))
 
 /*****************************************************************************/
 /**
@@ -312,7 +314,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data) \
-    XV_HdmiTx_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
+    XV_HdmiTx_Out32((BaseAddress) + (RegOffset), (u32)(Data))
 /*@}*/
 
 /************************** Function Prototypes ******************************/

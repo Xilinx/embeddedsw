@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -124,6 +124,10 @@
 * 1.1   yh     15/01/16 Add 3D Support
 * 1.2   MG     09/03/16 Added XV_HdmiTx_SetHdmiMode and XV_HdmiTx_SetDviMode.
 *                       Removed support for reduced blanking
+* 1.3   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+*                       XV_HdmiTx_Config
+*                       XV_HdmiTx_CfgInitialize
+*
 * </pre>
 *
 ******************************************************************************/
@@ -179,7 +183,7 @@ typedef enum {
 */
 typedef struct {
     u16 DeviceId;       /**< DeviceId is the unique ID of the HDMI TX core */
-    u32 BaseAddress;    /**< BaseAddress is the physical
+    UINTPTR BaseAddress;    /**< BaseAddress is the physical
                         * base address of the core's registers */
 } XV_HdmiTx_Config;
 
@@ -803,7 +807,7 @@ XV_HdmiTx_Config *XV_HdmiTx_LookupConfig(u16 DeviceId);
 /* Initialization and control functions in xv_hdmitx.c */
 int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr,
     XV_HdmiTx_Config *CfgPtr,
-    u32 EffectiveAddr);
+    UINTPTR EffectiveAddr);
 void XV_HdmiTx_SetHdmiMode(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_SetDviMode(XV_HdmiTx *InstancePtr);
 void XV_HdmiTx_Clear(XV_HdmiTx *InstancePtr);
