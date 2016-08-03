@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,9 @@
 * 1.3   MG     19/02/16 Added link error callback
 * 1.4   MG     08/03/16 Updated XV_HdmiRx_SetStream to use RefClk
 * 1.5   MG     27/05/16 Updated XV_HdmiRx_CfgInitialize
+* 1.6   YH     18/07/16 Replace xil_printf with xdbg_printf
+* 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+*                       XV_HdmiRx_CfgInitialize
 * </pre>
 *
 ******************************************************************************/
@@ -154,7 +157,7 @@ static void StubCallback(void *CallbackRef);
 * @note     None.
 *
 ******************************************************************************/
-int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, u32 EffectiveAddr)
+int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UINTPTR EffectiveAddr)
 {
     u32 RegValue;
     u32 Status;
@@ -162,7 +165,7 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, u3
     /* Verify arguments. */
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(CfgPtr != NULL);
-    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+    Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)0x0);
 
     /* Setup the instance */
     (void)memset((void *)InstancePtr, 0, sizeof(XV_HdmiRx));
@@ -764,7 +767,7 @@ int XV_HdmiRx_DdcLoadEdid(XV_HdmiRx *InstancePtr, u8 *EdidData, u16 Length)
     // The EDID data is larger than the DDC slave EDID buffer size
     else
     {
-        xil_printf("The EDID data structure is too large to be stored in the DDC peripheral (%0d).\n\r", Length);
+        xdbg_printf("The EDID data structure is too large to be stored in the DDC peripheral (%0d).\n\r", Length);
         return (XST_FAILURE);
     }
 }
@@ -864,7 +867,7 @@ u16 XV_HdmiRx_DdcGetHdcpWriteMessageBufferWords(XV_HdmiRx *InstancePtr)
 
     // Read status register
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_STA_OFFSET));
-    Data >= XV_HDMIRX_DDC_STA_HDCP_WMSG_WORDS_SHIFT;
+    Data >>= XV_HDMIRX_DDC_STA_HDCP_WMSG_WORDS_SHIFT;
     Data &= XV_HDMIRX_DDC_STA_HDCP_WMSG_WORDS_MASK;
     return (Data);
 }
@@ -921,7 +924,7 @@ u16 XV_HdmiRx_DdcGetHdcpReadMessageBufferWords(XV_HdmiRx *InstancePtr)
 
     // Read status register
     Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_HDCP_STA_OFFSET));
-    Data >= XV_HDMIRX_DDC_STA_HDCP_RMSG_WORDS_SHIFT;
+    Data >>= XV_HDMIRX_DDC_STA_HDCP_RMSG_WORDS_SHIFT;
     Data &= XV_HDMIRX_DDC_STA_HDCP_RMSG_WORDS_MASK;
     return (Data);
 }

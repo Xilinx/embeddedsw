@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,8 @@
 * 1.5   MH     08/03/16 Added support for read not complete DDC event
 * 1.6   MG     27/05/16 Updated HdmiRx_VtdIntrHandler
 * 1.7   MG     27/05/16 Updated HdmiRx_TmrIntrHandler
+* 1.8   MG     30/05/16 Fixed issue with pixel clock adjustment for YUV422 colorspace
+* 1.9   MH     26/07/16 Added DDC HDCP protocol event.
 * </pre>
 *
 ******************************************************************************/
@@ -393,7 +395,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
 
         /* Callback */
         if (InstancePtr->IsHdcpCallbackSet) {
-			InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_WMSG_NEW_EVT_MASK);
+            InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_WMSG_NEW_EVT_MASK);
         }
     }
 
@@ -405,7 +407,7 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
 
         /* Callback */
         if (InstancePtr->IsHdcpCallbackSet) {
-			InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK);
+            InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK);
         }
     }
 
@@ -429,7 +431,31 @@ static void HdmiRx_DdcIntrHandler(XV_HdmiRx *InstancePtr)
 
         /* Callback */
         if (InstancePtr->IsHdcpCallbackSet) {
-			InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_AKSV_EVT_MASK);
+            InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_AKSV_EVT_MASK);
+        }
+    }
+
+    /* Check for HDCP 1.4 protocol event */
+    if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK)) {
+
+        // Clear event flag
+        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK));
+
+        /* Callback */
+        if (InstancePtr->IsHdcpCallbackSet) {
+            InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK);
+        }
+    }
+
+    /* Check for HDCP 2.2 protocol event */
+    if ((Status) & (XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK)) {
+
+        // Clear event flag
+        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_DDC_STA_OFFSET), (XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK));
+
+        /* Callback */
+        if (InstancePtr->IsHdcpCallbackSet) {
+            InstancePtr->HdcpCallback(InstancePtr->HdcpRef, XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK);
         }
     }
 
@@ -629,6 +655,7 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 
             // For the other color spaces the pixel clock needs to be adjusted
             else {
+
                 switch (InstancePtr->Stream.Video.ColorDepth) {
                     case XVIDC_BPC_10:
                         InstancePtr->Stream.PixelClk = (InstancePtr->Stream.RefClk * 4)/5;
@@ -636,7 +663,6 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 
                     case XVIDC_BPC_12:
                         InstancePtr->Stream.PixelClk = (InstancePtr->Stream.RefClk * 2)/3;
-
                         break;
 
                     case XVIDC_BPC_16:

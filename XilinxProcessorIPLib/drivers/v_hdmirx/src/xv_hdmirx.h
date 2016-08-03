@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -123,6 +123,9 @@
 * 1.4   MG     08/03/16 Added RefClk to structure XV_HdmiRx_Stream
 * 1.5   MG     13/05/16 Added XV_HdmiRx_DdcHdcp22Mode and XV_HdmiRx_DdcHdcp14Mode macros
 * 1.6   MG     27/05/16 Added VTD timebase macro
+* 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+*                       XV_HdmiRx_Config
+*                       XV_HdmiRx_CfgInitialize
 * </pre>
 *
 ******************************************************************************/
@@ -195,7 +198,7 @@ typedef struct {
 */
 typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the HDMI RX core */
-	u32 BaseAddress;	/**< BaseAddress is the physical base address
+	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 						* of the core's registers */
 } XV_HdmiRx_Config;
 
@@ -1121,7 +1124,7 @@ typedef struct {
 XV_HdmiRx_Config *XV_HdmiRx_LookupConfig(u16 DeviceId);
 
 /* Initialization and control functions in xv_hdmirx.c */
-int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, u32 EffectiveAddr);
+int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UINTPTR EffectiveAddr);
 void XV_HdmiRx_Clear(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_SetStream(XV_HdmiRx *InstancePtr, XVidC_PixelsPerClock Ppc, u32 Clock);
 int XV_HdmiRx_IsStreamUp(XV_HdmiRx *InstancePtr);

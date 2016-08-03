@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,11 @@
 * 1.3   MG     18/02/16 Added AUX peripheral error event mask
 * 1.4   MG     13/05/16 Added DDC HDCP mode mask
 * 1.5   MG     27/05/16 Added VTD timebase
+* 1.6   MH     15/07/16 Added DDC HDCP 2.2 version read event mask
+* 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+*                       XV_HdmiRx_WriteReg
+*                       XV_HdmiRx_ReadReg
+* 1.8   MH     26/07/16 Added DDC HDCP protocol event.
 * </pre>
 *
 ******************************************************************************/
@@ -211,6 +216,10 @@ extern "C" {
 #define XV_HDMIRX_DDC_STA_HDCP_WMSG_NEW_EVT_MASK    (1<<6)  /**< DDC Status HDCP write message buffer new event mask */
 #define XV_HDMIRX_DDC_STA_HDCP_RMSG_END_EVT_MASK    (1<<7)  /**< DDC Status HDCP read message buffer end event mask */
 #define XV_HDMIRX_DDC_STA_HDCP_RMSG_NC_EVT_MASK     (1<<8)  /**< DDC Status HDCP read message buffer not completed event mask */
+#define XV_HDMIRX_DDC_STA_HDCP_1_PROT_MASK          (1<<9)  /**< DDC Status HDCP 1.4 protocol flag */
+#define XV_HDMIRX_DDC_STA_HDCP_2_PROT_MASK          (1<<10) /**< DDC Status HDCP 2.2 protocol flag */
+#define XV_HDMIRX_DDC_STA_HDCP_1_PROT_EVT_MASK      (1<<11) /**< DDC Status HDCP 1.4 protocol event flag */
+#define XV_HDMIRX_DDC_STA_HDCP_2_PROT_EVT_MASK      (1<<12) /**< DDC Status HDCP 2.2 protocol event flag */
 #define XV_HDMIRX_DDC_STA_EDID_WORDS_SHIFT          0       /**< DDC Status EDID words shift */
 #define XV_HDMIRX_DDC_STA_EDID_WORDS_MASK           0xFFFF  /**< DDC Status EDID words mask */
 #define XV_HDMIRX_DDC_STA_HDCP_WMSG_WORDS_MASK      0x7FF   /**< DDC Status HDCP 2.2 write message buffer words mask */
@@ -334,7 +343,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XV_HdmiRx_ReadReg(BaseAddress, RegOffset) \
-    XV_HdmiRx_In32((BaseAddress) + ((u32)RegOffset))
+    XV_HdmiRx_In32((BaseAddress) + (RegOffset))
 
 /*****************************************************************************/
 /**
@@ -355,7 +364,7 @@ extern "C" {
 *
 ******************************************************************************/
 #define XV_HdmiRx_WriteReg(BaseAddress, RegOffset, Data) \
-    XV_HdmiRx_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))
+    XV_HdmiRx_Out32((BaseAddress) + (RegOffset), (u32)(Data))
 /*@}*/
 
 /************************** Function Prototypes ******************************/
