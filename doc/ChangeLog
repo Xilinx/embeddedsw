@@ -122,6 +122,30 @@ qspipsu: Added debug message prints.
 usb_v5_2:
 Updated the driver to support 64-bit DMA addressing
 
+v_hdmirx_v1_2:
+Up version to 1.2 with the following updates:
+Update Address data type to support ZynqMP
+Update HDCP support
+
+v_hdmitx_v1_2:
+Up version to 1.2 with the following updates:
+Remove checking VideoMode
+Update Address data type to support ZynqMP
+
+v_hdmirxss_v3_0:
+Up version to 3.0 with the following updates:
+Add HDCP repeater support
+Add HDCP 1.4 & 2.2 auto switching support
+Add Import Example Design support
+
+v_hdmitxss_v3_0:
+Up version to 3.0 with the following updates:
+Add HDCP repeater support
+Add HDCP 1.4 & 2.2 auto switching support
+Add Import Example Design support
+Update Address data type to support ZynqMP
+Remove checking VideoMode
+
 v_hdmirx_v1_1:
 Updated VTD control in HDMI RX core driver
 
