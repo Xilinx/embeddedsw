@@ -62,12 +62,25 @@
 #ifdef XFSBL_WDT_PRESENT
 #include "xwdtps.h"
 #endif
+
+/**
+ * Include IPI driver only if IPI device is present
+ */
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#include "xipipsu.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+#define IPI_DEVICE_ID			XPAR_XIPIPSU_0_DEVICE_ID
+#define IPI_PMU_PM_INT_MASK		XPAR_XIPIPS_TARGET_PSU_PMU_0_CH0_MASK
+#define PM_INIT				21U
+#define PM_IPI_TIMEOUT			(~0)
+#endif
+#define PM_INIT_COMPLETED_KEY		0x5A5A5A5AU
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -244,3 +257,100 @@ void XFsbl_StopWdt()
 }
 
 #endif /** end of WDT wrapper code */
+
+/******************************************************************************
+*
+* This function is used to notify PMU firmware (if present) that initialization
+* of all PM related register is completed
+*
+* @param	None
+*
+* @return	Success or XFSBL_ERROR_PM_INIT in case of any error
+*
+* @note		None
+*
+*******************************************************************************/
+u32 XFsbl_PmInit(void)
+{
+	u32 Status = XFSBL_SUCCESS;
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	XIpiPsu IpiInstance;
+	XIpiPsu_Config *Config;
+	u32 Response, Buffer = PM_INIT;
+#endif
+
+	/**
+	 * Mark to the PMU that FSBL has completed with system initialization
+	 * This is needed for the JTAG boot mode
+	 */
+	Xil_Out32(PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5, PM_INIT_COMPLETED_KEY);
+
+	/**
+	 * Check if PMU FW is present
+	 * If PMU FW is present, but IPI device does not exist, report an error
+	 * If IPI device exists, but PMU FW is not present, do not issue IPI
+	 */
+	if ((XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) &
+			PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) !=
+				PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) {
+		goto END;
+	}
+#ifndef XPAR_XIPIPSU_0_DEVICE_ID
+	else {
+		Status = XFSBL_ERROR_PM_INIT;
+		XFsbl_Printf(DEBUG_GENERAL,
+			"PMU firmware is present, but IPI is disabled\r\n");
+		goto END;
+	}
+#endif
+
+#ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	/* Initialize IPI peripheral */
+	Config = XIpiPsu_LookupConfig(IPI_DEVICE_ID);
+	if (Config == NULL) {
+		Status = XFSBL_ERROR_PM_INIT;
+		goto END;
+	}
+
+	Status = (u32)XIpiPsu_CfgInitialize(&IpiInstance, Config,
+			Config->BaseAddress);
+	if (XST_SUCCESS != Status) {
+		Status = XFSBL_ERROR_PM_INIT;
+		goto END;
+	}
+
+	/* Send PM_INIT API to the PMU */
+	Status = XIpiPsu_WriteMessage(&IpiInstance, IPI_PMU_PM_INT_MASK,
+					&Buffer, 1, XIPIPSU_BUF_TYPE_MSG);
+	if (XST_SUCCESS != Status) {
+		Status = XFSBL_ERROR_PM_INIT;
+		goto END;
+	}
+
+	Status = XIpiPsu_TriggerIpi(&IpiInstance, IPI_PMU_PM_INT_MASK);
+	if (XST_SUCCESS != Status) {
+		Status = XFSBL_ERROR_PM_INIT;
+		goto END;
+	}
+
+
+	/* This is a blocking call, wait until IPI is handled by the PMU */
+	Status = XIpiPsu_PollForAck(&IpiInstance, IPI_PMU_PM_INT_MASK,
+				  PM_IPI_TIMEOUT);
+	if (XST_SUCCESS != Status) {
+		Status = XFSBL_ERROR_PM_INIT;
+		goto END;
+	}
+
+	Status = XIpiPsu_ReadMessage(&IpiInstance, IPI_PMU_PM_INT_MASK,
+					&Response, 1, XIPIPSU_BUF_TYPE_RESP);
+	if ((Status != XST_SUCCESS) || (Response != XST_SUCCESS)) {
+		Status = XFSBL_ERROR_PM_INIT;
+		goto END;
+	}
+#endif /** end of IPI related code */
+
+	XFsbl_Printf(DEBUG_DETAILED,"PM Init Success\r\n");
+END:
+	return Status;
+}

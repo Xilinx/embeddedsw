@@ -112,6 +112,11 @@ u32 XFsbl_NandCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_NandRelease(void );
 #endif
 
+/**
+ * PMU firmware initialization
+ */
+u32 XFsbl_PmInit(void);
+
 #ifdef __cplusplus
 }
 #endif

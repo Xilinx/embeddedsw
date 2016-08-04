@@ -714,6 +714,12 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 	/* Restoring the SD card detection signal */
 	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, 0X0U);
 
+	Status = XFsbl_PmInit();
+	if (Status != XFSBL_SUCCESS) {
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PM_INIT\r\n");
+		goto END;
+	}
+
 	/**
 	 * if JTAG bootmode, be in while loop as of now
 	 * Check if Process can be parked in HALT state
