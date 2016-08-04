@@ -130,6 +130,8 @@ extern int Bbram_VerifyKey_Ultra(u32 *Crc);
 
 /* De-initialization */
 extern void Bbram_DeInit_Ultra(void);
+/* Calculates CRC of a Row */
+u32 XilSKey_RowCrcCalculation(u32 PrevCRC, u32 Data, u32 Addr);
 
 /* Programming Zynq Bbram */
 static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr);
