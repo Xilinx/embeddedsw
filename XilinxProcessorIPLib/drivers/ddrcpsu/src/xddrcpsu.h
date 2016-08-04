@@ -49,6 +49,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0	ssc   04/28/16 First Release.
+ * 1.1  adk   04/08/16 Export DDR freq to xparameters.h file.
  *
  * </pre>
  *
