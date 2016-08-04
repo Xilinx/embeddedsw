@@ -40,9 +40,55 @@
 *
 *  		User configurable parameters for Ultrascale BBRAM
 *  	----------------------------------------------------------------------
+*	#define XSK_BBRAM_PGM_OBFUSCATED_KEY	FALSE
+*	TRUE will program BBRAM with OBFUSCATED key provided in
+*	XSK_BBRAM_OBFUSCATED_KEY. While programming obfuscated key DPA
+*	configurations cannot be done due to silicon bug, and values provided
+*	in DPA configuration macros will be ignored.
+*	FALSE will program the BBRAM with key provided in XSK_BBRAM_AES_KEY
+*	and DPA configurations (protect, count and mode) can be configured
+*
+*	#define		XSK_BBRAM_OBFUSCATED_KEY
+*	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+*	The value mentioned in this will be converted to hex buffer and the
+*	key is programmed into BBRAM, when program API used. It should be 64
+*	characters long, valid characters are 0-9,a-f,A-F. Any other character
+*	is considered as invalid string and will not program BBRAM. Note that,
+*	for writing the OBFUSCATED Key, XSK_BBRAM_PGM_OBFUSCATED_KEY should
+*	have TRUE value.
+*
 * 	#define 	XSK_BBRAM_AES_KEY
 *	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
+*	The value mentioned in this will be converted to hex buffer and the
+*	key is programmed into BBRAM, when program API used. It should be 64
+*	characters long, valid characters are 0-9,a-f,A-F. Any other character
+*	is considered as invalid string and will not program BBRAM. Note that,
+*	for writing the BBRAM Key, XSK_BBRAM_PGM_OBFUSCATED_KEY should
+*	have FALSE value.
 * 	#define	XSK_BBRAM_AES_KEY_SIZE_IN_BITS	256
+*
+*	#define XSK_BBRAM_DPA_PROTECT_ENABLE	FALSE
+*	TRUE will enable the DPA protection for BBRAM key, to enable
+*	DPA protection XSK_BBRAM_PGM_OBFUSCATED_KEY should be FALSE,
+*	as DPA protection is not supported for Obfuscated key due to silicon
+*	bug, XSK_BBRAM_DPA_COUNT should be in the range of 1-255 and
+*	XSK_BBRAM_DPA_MODE can be XSK_BBRAM_INVALID_CONFIGURATIONS or
+*	XSK_BBRAM_ALL_CONFIGURATIONS.
+*	FALSE will not enable DPA protection, XSK_BBRAM_DPA_COUNT and
+*	XSK_BBRAM_DPA_MODE both will be taken default values 0 and
+*	XSK_BBRAM_INVALID_CONFIGURATIONS respectively
+*
+*	#define XSK_BBRAM_DPA_COUNT	0
+*	Default value will be zero,
+*	when XSK_BBRAM_DPA_PROTECT_ENABLE is TRUE this should be in range
+*	of 1-255 (should be greater that zero).
+*
+*	#define XSK_BBRAM_DPA_MODE	XSK_BBRAM_INVALID_CONFIGURATIONS
+*	Default value is XSK_BBRAM_INVALID_CONFIGURATIONS
+*	When XSK_BBRAM_DPA_PROTECT_ENABLE is TRUE it can be
+*	XSK_BBRAM_INVALID_CONFIGURATIONS or XSK_BBRAM_ALL_CONFIGURATIONS
+*	If XSK_BBRAM_DPA_PROTECT_ENABLE is FALSE, it should be
+*	XSK_BBRAM_INVALID_CONFIGURATIONS.
 *
 *	In Ultrascale GPIO pins are used for connecting MASTER_JTAG pins to
 *	access BBRAM.
@@ -64,6 +110,7 @@
 *	Among (TDI, TCK, TMS) Outputs of GPIO cannot be connected to different
 *	GPIO channels all the 3 signals should be in same channel.
 *	TDO can be a other channel of (TDI, TCK, TMS) or the same.
+*	DPA protection can be enabled only when programming non-obfuscated key.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -71,6 +118,9 @@
 * Ver   Who     Date     Changes
 * ----- ----    -------- ------------------------------------------------------
 * 5.0   vns     09/01/16 First Release.
+* 6.0   vns     07/28/16 Added counting configuration
+*                        feature(DPA count), protection and to
+*                        program Obfuscated key.
 *
 * </pre>
 *
@@ -89,6 +139,10 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/* Constant definitions to specify the configurations in XSK_BBRAM_DPA_MODE*/
+/* User should not change the below two constant definitions */
+#define XSK_BBRAM_INVALID_CONFIGURATIONS	0
+#define XSK_BBRAM_ALL_CONFIGURATIONS		1
 
 /**************************** Type Definitions ******************************/
 
@@ -116,14 +170,35 @@ extern "C" {
 						  *  TMS and TCK pin
 						  *  connected */
 
+/*
+ * If following is TRUE Obfuscated key will be programmed
+ * and DPA macros will be ignored.
+ * otherwise AES key will be programmed and DPA configurations will
+ * be considered
+ */
+#define XSK_BBRAM_PGM_OBFUSCATED_KEY	FALSE	/** TRUE burns obfuscated key */
+
 /**
  *
  * This is the 256 bit key to be programmed into BBRAM.
  * This should entered by user in HEX.
  */
-#define 	XSK_BBRAM_AES_KEY	"349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd"
+#define		XSK_BBRAM_OBFUSCATED_KEY	"b1c276899d71fb4cdd4a0a7905ea46c2e11f9574d09c7ea23b70b67de713ccd1"
+#define		XSK_BBRAM_AES_KEY		"0000000000000000524156a63950bcedafeadcdeabaadee34216615aaaabbaaa"
 
 #define		XSK_BBRAM_AES_KEY_SIZE_IN_BITS	256
+
+/*
+* If XSK_BBRAM_PGM_OBFUSCATED_KEY FALSE user can set below macros.
+* else this values will be ignored.
+*/
+#define XSK_BBRAM_DPA_PROTECT_ENABLE	FALSE
+
+/* If DPA protect is enabled */
+#if (XSK_BBRAM_DPA_PROTECT_ENABLE == TRUE)
+#define XSK_BBRAM_DPA_COUNT		0
+#define XSK_BBRAM_DPA_MODE		XSK_BBRAM_INVALID_CONFIGURATIONS
+#endif
 
 /*
  * End of definitions for BBRAM

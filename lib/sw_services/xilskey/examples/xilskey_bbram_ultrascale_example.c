@@ -83,6 +83,8 @@
 * Ver   Who     Date     Changes
 * ----- ----    -------- ------------------------------------------------------
 * 5.0   vns     09/01/16 First Release.
+* 6.0   vns     07/28/16 Updated example to allow counting configuration
+*                        feature and to program Obfuscated key.
 *
 ******************************************************************************/
 
@@ -131,7 +133,7 @@ int main()
 	}
 
 	xil_printf("Successfully programmed and verified Ultrascale"
-							"BBRAM key \r\n");
+							" BBRAM key \r\n");
 	return XST_SUCCESS;
 
 }
@@ -162,13 +164,50 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 	BbramInstancePtr->GpioInputCh = XSK_BBRAM_GPIO_INPUT_CH;
 	BbramInstancePtr->GpioOutPutCh = XSK_BBRAM_GPIO_OUTPUT_CH;
 
-	/*
-	 * Convert key given in xilskey_input.h and
-	 * assign it to the variable in instance.
-	 */
-	XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY,
-				&(BbramInstancePtr->AESKey[0]),
-				XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+	if (XSK_BBRAM_PGM_OBFUSCATED_KEY == TRUE) {
+		BbramInstancePtr->IsKeyObfuscated =
+					XSK_BBRAM_PGM_OBFUSCATED_KEY;
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_OBFUSCATED_KEY,
+					&(BbramInstancePtr->AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+		if (XSK_BBRAM_DPA_PROTECT_ENABLE == TRUE) {
+			xil_printf("WARNING: DPA_PROTECT is not supported "
+				"for Obfucated key, DPA count and mode "
+				"will be programmed with default values\n\r");
+		}
+		BbramInstancePtr->Enable_DpaProtect = 0;
+		BbramInstancePtr->Dpa_Count = 0;
+		BbramInstancePtr->Dpa_Mode = XSK_BBRAM_INVALID_CONFIGURATIONS;
+	}
+	else {
+		/*
+		 * Convert key given in xilskey_input.h and
+		 * assign it to the variable in instance.
+		 */
+		XilSKey_Efuse_ConvertStringToHexLE(XSK_BBRAM_AES_KEY,
+					&(BbramInstancePtr->AESKey[0]),
+					XSK_BBRAM_AES_KEY_SIZE_IN_BITS);
+#if (XSK_BBRAM_DPA_PROTECT_ENABLE == TRUE)
+		if (XSK_BBRAM_DPA_COUNT == 0) {
+			xil_printf("ERROR: To enable DPA protection "
+			"DPA count can't be zero valid values are "
+			"1 to 255\n\r");
+			return XST_FAILURE;
+		}
+		BbramInstancePtr->Enable_DpaProtect =
+					XSK_BBRAM_DPA_PROTECT_ENABLE;
+		BbramInstancePtr->Dpa_Count = XSK_BBRAM_DPA_COUNT;
+		BbramInstancePtr->Dpa_Mode = XSK_BBRAM_DPA_MODE;
+#else
+		BbramInstancePtr->Enable_DpaProtect = 0;
+		BbramInstancePtr->Dpa_Count = 0;
+		BbramInstancePtr->Dpa_Mode = XSK_BBRAM_INVALID_CONFIGURATIONS;
+#endif
+	}
 
 	Status = XST_SUCCESS;
 
