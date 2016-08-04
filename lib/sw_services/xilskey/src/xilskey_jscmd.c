@@ -74,6 +74,8 @@
 *                        END pin to High state.
 *                        Modified retur type of JtagWrite_Ultrascale API to int
 *                        for returning FAILURE on timeout.
+*       vns     07/28/16 Modified Bbram_ProgramKey_Ultra API to program control
+*                        word based on user inputs.
 * </pre>
 *
 *
@@ -2538,7 +2540,7 @@ int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr)
 			NULL, JS_IRPAUSE);
 
 	/* Shift 0x0000557B Cotrol word */
-	*WriteBuf32 = XSK_CTRL_WORD_BBRAM_ULTRA;
+	*WriteBuf32 = InstancePtr->CtrlWord;
 	jtag_shift (g_port, ATOMIC_DR_SCAN, DRLENGTH_PROGRAM,
 			&WriteBuffer[0], NULL, JS_IDLE);
 

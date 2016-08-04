@@ -47,6 +47,8 @@
 * 4.0   vns     10/08/15 Added prototypes for ZynqMp BBRAM PS
 * 5.0   vns     01/09/16 Added functionality of Ultrascale BBRAM
 *                        programming.
+* 6.0   vns     07/28/16 Added IsKeyObfuscated, Enable_DpaProtect, Dpa_Count,
+*                        Dpa_Mode and CtrlWord fields to BBRAM instance.
 *
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
@@ -111,6 +113,16 @@ typedef struct {
 	u32 GpioInputCh;	/* Only for Ultrascale */
 	/* AXI GPIO Channel number for all Outputs TDI/TMS/TCK */
 	u32 GpioOutPutCh;	/* Only for Ultrascale */
+	/* Is BBRAM key is obfuscated */
+	u16 IsKeyObfuscated;	/* Only for Ultrascale */
+	/* DPA protection enable */
+	u16 Enable_DpaProtect;	/* Only for Ultrascale */
+	/* DPA count */
+	u16 Dpa_Count;	/* Only for Ultrascale */
+	/* DPA configuration */
+	u16 Dpa_Mode;	/* Only for Ultrascale */
+	/* BBRAM control word to be programmed */
+	u32 CtrlWord;	/* Only for Ultrascale */
 
 	/* Stores Fpga series of BBRAM */
 	XSKEfusePl_Fpga FpgaFlag;
@@ -210,9 +222,6 @@ typedef struct {
  */
 #define IRDEINITLEN		10
 #define DRDEINITLEN		2
-
-/* Control word of Bbram Ultrascale */
-#define XSK_CTRL_WORD_BBRAM_ULTRA		0x0000557B/**< Control word of Bbram */
 
 /************************** Function Prototypes *****************************/
 /*
