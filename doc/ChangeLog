@@ -392,6 +392,26 @@ Updated to use cannonical xparameters in examples and clean up of the comments,
 removed support for DCR bridge and removed xgpio_intr_example for CR 900381.
 Used UINTPTR type for BaseAddress.
 
+hdcp1x_v4_0:
+Updated the tmrctr being refered to in the hdcp1x.mdd file to tmrctr_v4_1.
+Updated the drivers to use an individual timer with each hdcp interface.
+Updated the drivers to support repeater fucntionality for HDMI.
+Added following fucntions:
+  XHdcp1x_RxSetRepeaterBcaps, XHdcp1x_RxIsInComputations,
+  XHdcp1x_TxIsInComputations, XHdcp1x_RxIsInWaitforready,
+  XHdcp1x_TxIsInWaitforready, XHdcp1x_RxHandleTimeout,
+  XHdcp1x_RxStartTimer, XHdcp1x_RxStopTimer,
+  XHdcp1x_RxBusyDelay, XHdcp1x_RxSetTopologyUpdate,
+  XHdcp1x_RxSetTopology, XHdcp1x_TxGetTopology,
+  XHdcp1x_RxSetTopologyKSVList, XHdcp1x_TxGetTopologyKSVList,
+  XHdcp1x_RxSetTopologyDepth, XHdcp1x_TxGetTopologyDepth,
+  XHdcp1x_RxSetTopologyDeviceCnt, XHdcp1x_TxGetTopologyDeviceCnt,
+  XHdcp1x_RxSetTopologyMaxCascadeExceeded, XHdcp1x_TxGetTopologyMaxCascadeExceeded,
+  XHdcp1x_RxSetTopologyMaxDevsExceeded, XHdcp1x_TxGetTopologyMaxDevsExceeded,
+  XHdcp1x_RxCheckEncryptionChange, XHdcp1x_TxIsDownstrmCapable,
+  XHdcp1x_TxIsRepeater, XHdcp1x_TxEnableBlank,
+  XHdcp1x_TxDisableBlank, XHdcp1x_TxGetTopologyBKSV
+
 hdcp1x_v3_0:
 Updated the drivers to support HDCP Repeater functionality.
 Added following functions:
@@ -415,24 +435,6 @@ Added a check in xhdcp1x_g.c file to check if HDCP is present.
 Updated the hdcp1x.h file to add documentation and driver description.
 Updated the hdcp1x.h file to add documentation for Repeater system.
 Removed all references to HDMI DDC registers in the hdcp drivers.
-Updated the tmrctr being refered to in the hdcp1x.mdd file to tmrctr_v4_1.
-Updated the drivers to use an individual timer with each hdcp interface.
-Updated the drivers to support repeater fucntionality for HDMI.
-Added following fucntions:
-  XHdcp1x_RxSetRepeaterBcaps, XHdcp1x_RxIsInComputations,
-  XHdcp1x_TxIsInComputations, XHdcp1x_RxIsInWaitforready,
-  XHdcp1x_TxIsInWaitforready, XHdcp1x_RxHandleTimeout,
-  XHdcp1x_RxStartTimer, XHdcp1x_RxStopTimer,
-  XHdcp1x_RxBusyDelay, XHdcp1x_RxSetTopologyUpdate,
-  XHdcp1x_RxSetTopology, XHdcp1x_TxGetTopology,
-  XHdcp1x_RxSetTopologyKSVList, XHdcp1x_TxGetTopologyKSVList,
-  XHdcp1x_RxSetTopologyDepth, XHdcp1x_TxGetTopologyDepth,
-  XHdcp1x_RxSetTopologyDeviceCnt, XHdcp1x_TxGetTopologyDeviceCnt,
-  XHdcp1x_RxSetTopologyMaxCascadeExceeded, XHdcp1x_TxGetTopologyMaxCascadeExceeded,
-  XHdcp1x_RxSetTopologyMaxDevsExceeded, XHdcp1x_TxGetTopologyMaxDevsExceeded,
-  XHdcp1x_RxCheckEncryptionChange, XHdcp1x_TxIsDownstrmCapable,
-  XHdcp1x_TxIsRepeater, XHdcp1x_TxEnableBlank,
-  XHdcp1x_TxDisableBlank, XHdcp1x_TxGetTopologyBKSV
 
 hdcp22_cipher_v1_0:
 Added the initial version of Xilinx HDCP Cipher core driver.
