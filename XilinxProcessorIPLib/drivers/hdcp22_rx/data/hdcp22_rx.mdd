@@ -38,7 +38,7 @@ BEGIN driver hdcp22_rx
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 2.0;
-  OPTION DEPENDS = (tmrctr_v4_1 hdcp22_common_v1_0 hdcp22_cipher_v1_0 hdcp22_mmult_v1_0 hdcp22_rng_v1_0);
+  OPTION DEPENDS = (tmrctr_v4_1 hdcp22_common_v1_0 hdcp22_cipher_v1_1 hdcp22_mmult_v1_1 hdcp22_rng_v1_1);
   OPTION NAME = hdcp22_rx;
 
 END driver
