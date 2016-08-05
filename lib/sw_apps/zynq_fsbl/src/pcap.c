@@ -81,6 +81,10 @@
 * 											before sequence starts and checking
 * 											INIT_B reset status twice in case
 * 											of failure.
+* 16.00a gan 08/02/16   Fix for CR# 955897 -(2016.3)FSBL -
+* 											In pcap.c, check pl power
+* 											through MCTRL register for
+* 											3.0 and later versions of silicon.
 * </pre>
 *
 * @note
@@ -122,7 +126,7 @@ extern int XDcfgPollDone(u32 MaskValue, u32 MaxCount);
 /* Devcfg driver instance */
 static XDcfg DcfgInstance;
 XDcfg *DcfgInstPtr;
-
+extern u32 Silicon_Version;
 #ifdef XPAR_XWDTPS_0_BASEADDR
 extern XWdtPs Watchdog;	/* Instance of WatchDog Timer	*/
 #endif
@@ -448,13 +452,16 @@ u32 FabricInit(void)
 	/*
 	 * Check the PL power status
 	 */
-	MctrlReg = XDcfg_GetMiscControlRegister(DcfgInstPtr);
-
-	if((MctrlReg & XDCFG_MCTRL_PCAP_PCFG_POR_B_MASK) !=
-			XDCFG_MCTRL_PCAP_PCFG_POR_B_MASK)
+	if(Silicon_Version >= SILICON_VERSION_3)
 	{
-		fsbl_printf(DEBUG_INFO,"Fabric not powered up\r\n");
-		return XST_FAILURE;
+		MctrlReg = XDcfg_GetMiscControlRegister(DcfgInstPtr);
+
+		if((MctrlReg & XDCFG_MCTRL_PCAP_PCFG_POR_B_MASK) !=
+				XDCFG_MCTRL_PCAP_PCFG_POR_B_MASK)
+		{
+			fsbl_printf(DEBUG_INFO,"Fabric not powered up\r\n");
+			return XST_FAILURE;
+		}
 	}
 
 

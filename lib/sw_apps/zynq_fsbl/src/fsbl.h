@@ -235,7 +235,9 @@
 * 						Fabric Initialization sequence is modified to check
 * 						the PL power before sequence starts and checking INIT_B
 * 						reset status twice in case of failure.
-*
+* 16.00a gan 08/02/16   Fix for CR# 955897 -(2016.3)FSBL -
+* 						In pcap.c, check pl power through MCTRL register
+* 						for 3.0 and later versions of silicon.
 * </pre>
 *
 * </pre>
