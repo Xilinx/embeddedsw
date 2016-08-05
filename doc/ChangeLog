@@ -13,6 +13,9 @@ is not included. This fixes the CR#953056.
 cpu_cortexa53_v1_2:
 Added new parameter for A53 execution mode
 
+ddrcpsu_v1_1:
+Export ddr freq value to xparameters.h file.
+
 dptx_v3_0:
 Obsoleted in lieu of the dp driver.
 
