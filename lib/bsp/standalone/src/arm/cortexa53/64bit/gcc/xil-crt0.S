@@ -56,16 +56,16 @@
 
 	.text
 .Lsbss_start:
-	.long	__sbss_start
+	.quad	__sbss_start
 
 .Lsbss_end:
-	.long	__sbss_end
+	.quad	__sbss_end
 
 .Lbss_start:
-	.long	__bss_start__
+	.quad	__bss_start__
 
 .Lbss_end:
-	.long	__bss_end__
+	.quad	__bss_end__
 
 
 .set APU_PWRCTL,	0xFD5C0090
@@ -86,10 +86,8 @@ _startup:
 	bne	.Lenclbss		/* Skip BSS and SBSS clearing */
 
 	/* clear sbss */
-	ldr 	w1,.Lsbss_start		/* calculate beginning of the SBSS */
-	ldr	w2,.Lsbss_end		/* calculate end of the SBSS */
-	uxtw	x1, w1			/*zero extension to w1 register*/
-	uxtw	x2, w2			/*zero extension to w2 register*/
+	ldr 	x1,.Lsbss_start		/* calculate beginning of the SBSS */
+	ldr	x2,.Lsbss_end		/* calculate end of the SBSS */
 
 .Lloop_sbss:
 	cmp	x1,x2
@@ -99,10 +97,8 @@ _startup:
 
 .Lenclsbss:
 	/* clear bss */
-	ldr	w1,.Lbss_start		/* calculate beginning of the BSS */
-	ldr	w2,.Lbss_end		/* calculate end of the BSS */
-	uxtw	x1, w1			/*zero extension to w1 register*/
-	uxtw	x2, w2			/*zero extension to w2 register*/
+	ldr	x1,.Lbss_start		/* calculate beginning of the BSS */
+	ldr	x2,.Lbss_end		/* calculate end of the BSS */
 
 .Lloop_bss:
 	cmp	x1,x2
