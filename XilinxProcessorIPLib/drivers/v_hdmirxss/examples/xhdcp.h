@@ -92,10 +92,10 @@ typedef struct
   u8 UpstreamInstanceBinded;
   /** Count of HDMI repeater downstream interfaces binded */
   u8 DownstreamInstanceBinded;
-  /** Indicates that upstream interface is connected */
+  /** Flag Indicates that upstream interface is connected */
   u8 UpstreamInstanceConnected;
-  /** Count of downstream interfaces connected */
-  u8 DownstreamInstanceConnected;
+  /** Flag indicates downstream interface is connected */
+  u32 DownstreamInstanceConnected;
   /** Flag indicates upstream interface stream is up */
   u8 UpstreamInstanceStreamUp;
   /** Flag indicates downstream interface stream is up */

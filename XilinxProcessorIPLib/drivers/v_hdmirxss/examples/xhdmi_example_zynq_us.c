@@ -45,6 +45,7 @@
 * 1.00         25/11/15 Initial release.
 * 1.10         05/02/16 Updated function RxAuxCallback.
 * 2.00  MG     02/03/15 Added upgraded with HDCP driver and overlay
+* 2.10  MH     06/23/16 Added HDCP repeater support.
 * </pre>
 *
 ******************************************************************************/
@@ -95,11 +96,6 @@
 #endif
 #include "xhdmi_hdcp_keys.h"
 #include "xhdcp.h"
-
-/* Overlay */
-#ifdef XPAR_V_OVERLAY_0_BASEADDR
-#include "v_overlay/xv_overlay.h"
-#endif
 
 #define LOOPBACK_MODE_EN 0
 
@@ -333,8 +329,6 @@ u8 Hdcp14KeyB[] = {
 
 
 /************************** Function Prototypes ******************************/
-
-//void print(char *str);
 int I2cMux(void);
 int I2cClk(u32 InFreq, u32 OutFreq);
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -417,11 +411,6 @@ u32 Index;
 XHdmi_Menu HdmiMenu;      // Menu structure
 #ifdef USE_HDCP
 XHdcp_Repeater HdcpRepeater;
-#endif
-
-#ifdef XPAR_XV_OVERLAY_NUM_INSTANCES
-  XV_Overlay      Overlay;      // Video overlay structure
-  XV_Overlay_Config   *Overlay_ConfigPtr; // Video overlay pointer
 #endif
 
 /************************** Function Definitions *****************************/
@@ -916,48 +905,7 @@ void TxVsCallback(void *CallbackRef)
 ******************************************************************************/
 void RxAuxCallback(void *CallbackRef)
 {
-//  XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
-
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-//	  if (HdmiRx.Aux.Header.Byte[0] == 0x81) {
-//		  XHdmi_VSIF_ParsePacket(&HdmiRx.Aux, &VSIF);
-//
-//		  // Defaults
-//		  HdmiRx.Stream.Video.Is3D = FALSE;
-//		  HdmiRx.Stream.Video.Info_3D.Format = XVIDC_3D_UNKNOWN;
-//
-//		  if (VSIF.Format == XHDMI_VSIF_VF_3D) {
-//			  HdmiRx.Stream.Video.Is3D = TRUE;
-//			  HdmiRx.Stream.Video.Info_3D = VSIF.Info_3D.Stream;
-//		  } else if (VSIF.Format == XHDMI_VSIF_VF_EXTRES) {
-//			  switch(VSIF.HDMI_VIC) {
-//			  	  case 1 :
-//			  		  HdmiRx.Stream.Vic = 95;
-//			  		  break;
-//
-//			  	  case 2 :
-//			  		  HdmiRx.Stream.Vic = 94;
-//			  		  break;
-//
-//			  	  case 3 :
-//			  		  HdmiRx.Stream.Vic = 93;
-//			  		  break;
-//
-//			  	  case 4 :
-//			  		  HdmiRx.Stream.Vic = 98;
-//			  		  break;
-//
-//			  	  default :
-//			  		  break;
-//			  }
-//		  }
-//	  }
-
-// Org //  // In pass-through mode copy some aux packets
-// Org //  if (IsPassThrough) {
-// Org //	  XV_HdmiTxSs_SendAuxInfoframe(&HdmiTxSs,
-// Org //			  	  	  XV_HdmiRxSs_GetAuxiliary(&HdmiRxSs));
-// Org //  }
 
   u8 AuxBuffer[36];
 
@@ -1079,8 +1027,6 @@ void RxStreamDownCallback(void *CallbackRef)
   XHdcp_StreamDownCallback(&HdcpRepeater);
 #endif
 
-//  // Clear VSIF instance
-//  VSIF.Format = XHDMI_VSIF_VF_UNKNOWN;
 }
 
 /*****************************************************************************/
@@ -1351,11 +1297,6 @@ void TxStreamUpCallback(void *CallbackRef)
 
   ReportStreamMode(HdmiTxSsPtr, IsPassThrough);
 
-#ifdef XPAR_XV_OVERLAY_NUM_INSTANCES
-  // Enable Overlay
-  XV_Overlay_Start(&Overlay);
-#endif
-
 #ifdef USE_HDCP
   /* Call HDCP stream-up callback */
   XHdcp_StreamUpCallback(&HdcpRepeater);
@@ -1381,12 +1322,6 @@ void TxStreamUpCallback(void *CallbackRef)
 void TxStreamDownCallback(void *CallbackRef)
 {
   xil_printf("TX stream is down\n\r");
-
-/*  XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
-#ifdef XPAR_XV_OVERLAY_NUM_INSTANCES
-  // Stop Overlay
-  XV_Overlay_Stop(&Overlay);
-#endif */
 
 #ifdef USE_HDCP
   /* Call HDCP stream-down callback */
@@ -1807,7 +1742,7 @@ int main()
   print("\n\r\n\r");
   print("--------------------------------------\r\n");
   print("---  HDMI SS + VPhy Example v1.0   ---\r\n");
-  print("---  (c) 2015 by Xilinx, Inc.      ---\r\n");
+  print("---  (c) 2016 by Xilinx, Inc.      ---\r\n");
   print("--------------------------------------\r\n");
   xil_printf("Build %s - %s\r\n", __DATE__, __TIME__);
   print("--------------------------------------\r\n");
@@ -2405,24 +2340,6 @@ int main()
     }
 #endif
 
-/* Video Overlay */
-#ifdef XPAR_XV_OVERLAY_NUM_INSTANCES
-    // Initialize Video Overlay
-    Overlay_ConfigPtr = XV_Overlay_LookupConfig(XPAR_XV_OVERLAY_SS_V_OVERLAY_0_DEVICE_ID);
-    if(Overlay_ConfigPtr == NULL)
-    {
-      Overlay.IsReady = 0;
-        return (XST_DEVICE_NOT_FOUND);
-    }
-
-    Status = XV_Overlay_CfgInitialize(&Overlay, Overlay_ConfigPtr, Overlay_ConfigPtr->BaseAddress);
-    if (Status != XST_SUCCESS)
-    {
-        xil_printf("ERR:: Overlay Initialization failed %d\r\n", Status);
-        return(XST_FAILURE);
-    }
-#endif
-
   print("---------------------------------\r\n");
 
   /* Enable exceptions. */
@@ -2461,11 +2378,6 @@ int main()
                      HdmiTxSsVidStreamPtr->ColorFormatId,
                      HdmiTxSsVidStreamPtr->ColorDepth);
     }
-
-    // Overlay
-  #ifdef XPAR_XV_OVERLAY_NUM_INSTANCES
-    XV_Overlay_SetDisplay(&Overlay, &HdmiTxSs, &HdmiRxSs);
-  #endif
 
     // HDMI menu
     XHdmi_MenuProcess(&HdmiMenu);

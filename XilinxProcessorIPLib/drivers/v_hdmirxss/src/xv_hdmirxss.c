@@ -79,11 +79,7 @@
 
 /***************************** Include Files *********************************/
 #include "xenv.h"
-#if defined(__MICROBLAZE__)
-#include "microblaze_sleep.h"
-#elif defined(__arm__)
 #include "sleep.h"
-#endif
 #include "xv_hdmirxss.h"
 #include "xv_hdmirxss_coreinit.h"
 
@@ -244,22 +240,14 @@ static void XV_HdmiRxSs_WaitUs(XV_HdmiRxSs *InstancePtr, u32 MicroSeconds)
         return;
     }
 
-#if defined(__MICROBLAZE__)
     if (InstancePtr->UserTimerWaitUs != NULL) {
         /* Use the timer handler specified by the user for better
          * accuracy. */
         InstancePtr->UserTimerWaitUs(InstancePtr, MicroSeconds);
     }
     else {
-        /* MicroBlaze sleep only has millisecond accuracy. Round up. */
-        /* u32 MilliSeconds = (MicroSeconds + 999) / 1000;
-        MB_Sleep(MilliSeconds);                            */
-		usleep(MicroSeconds);
+        usleep(MicroSeconds);
     }
-#elif defined(__arm__)
-    /* Wait the requested amount of time. */
-    usleep(MicroSeconds);
-#endif
 }
 
 /*****************************************************************************/
@@ -1148,7 +1136,10 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
         case (XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE):
             // Register HDCP 1.4 callbacks
             if (InstancePtr->Hdcp14Ptr) {
-              // TODO: Set HDCP 1.4 callback
+		XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
+                                 XHDCP1X_HANDLER_ENCRYPTION_UPDATE,
+                                 (XHdcp1x_Callback)CallbackFunc,
+                                 CallbackRef);
             }
 
             // Register HDCP 2.2 callbacks
