@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_cipher.h
-* @addtogroup hdcp22_cipher_v1_0
+* @addtogroup hdcp22_cipher_v1_1
 * @{
 * @details
 *
@@ -74,7 +74,7 @@
 * 1.00  JO     10/01/15 Initial release.
 * 1.01  MG     10/28/15 Added Noise and blank macros
 * 1.02  MG     02/25/15 Added GetVersion macro
-*
+* 1.03  MH     08/04/16 Added 64 bit address support.
 * </pre>
 *
 ******************************************************************************/
@@ -102,7 +102,7 @@ extern "C" {
 */
 typedef struct {
 	u16 DeviceId;     /**< DeviceId is the unique ID of the HDCP22 Cipher core */
-	u32 BaseAddress;  /**< BaseAddress is the physical base address of the core's registers */
+	UINTPTR BaseAddress;  /**< BaseAddress is the physical base address of the core's registers */
 } XHdcp22_Cipher_Config;
 
 /**
@@ -344,7 +344,7 @@ typedef struct {
 XHdcp22_Cipher_Config *XHdcp22Cipher_LookupConfig(u16 DeviceId);
 
 /* Initialization and control functions in xhdcp22_cipher.c */
-int XHdcp22Cipher_CfgInitialize(XHdcp22_Cipher *InstancePtr, XHdcp22_Cipher_Config *CfgPtr, u32 EffectiveAddr);
+int XHdcp22Cipher_CfgInitialize(XHdcp22_Cipher *InstancePtr, XHdcp22_Cipher_Config *CfgPtr, UINTPTR EffectiveAddr);
 
 void XHdcp22Cipher_SetKs(XHdcp22_Cipher *InstancePtr, const u8 *KsPtr, u16 Length);
 void XHdcp22Cipher_SetLc128(XHdcp22_Cipher *InstancePtr, const u8 *Lc128Ptr,  u16 Length);

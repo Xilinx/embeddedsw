@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_cipher.c
-* @addtogroup hdcp22_cipher_v1_0
+* @addtogroup hdcp22_cipher_v1_1
 * @{
 * @details
 *
@@ -46,6 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JO     10/01/15 Initial release.
+* 1.10  MH     08/04/16 Added 64 bit address support.
 * </pre>
 *
 ******************************************************************************/
@@ -93,14 +94,14 @@
 ******************************************************************************/
 int XHdcp22Cipher_CfgInitialize(XHdcp22_Cipher *InstancePtr,
                                 XHdcp22_Cipher_Config *CfgPtr,
-                                u32 EffectiveAddr)
+                                UINTPTR EffectiveAddr)
 {
 	u32 RegValue;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+	Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
 	/* Setup the instance */
 	(void)memset((void *)InstancePtr, 0, sizeof(XHdcp22_Cipher));
