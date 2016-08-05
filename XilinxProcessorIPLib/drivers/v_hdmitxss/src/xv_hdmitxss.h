@@ -153,6 +153,7 @@ typedef enum
     XV_HDMITXSS_HDCP_STREAMDOWN_EVT,
     XV_HDMITXSS_HDCP_CONNECT_EVT,
     XV_HDMITXSS_HDCP_DISCONNECT_EVT,
+    XV_HDMITXSS_HDCP_AUTHENTICATE_EVT,
     XV_HDMITXSS_HDCP_INVALID_EVT
 } XV_HdmiTxSs_HdcpEvent;
 
@@ -332,8 +333,8 @@ void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_IsStreamUp(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_IsStreamConnected(XV_HdmiTxSs *InstancePtr);
-u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTx *HdmiInstPtr);
-u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTx *HdmiInstPtr);
+u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr);
+u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTxSs *InstancePtr);
 
 // HDCP
 void XV_HdmiTxSs_HdcpSetKey(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpKeyType KeyType, u8 *KeyPtr);

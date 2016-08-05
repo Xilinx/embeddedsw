@@ -79,17 +79,15 @@
 *                       XV_HdmiTxSs_SetStream to support customized video format
 * 1.15   YH    25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiTxSs_CfgInitialize
+* 1.16   YH    04/08/16 Remove unused functions
+*                       XV_HdmiTxSs_GetSubSysStruct
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
 #include "xenv.h"
-#if defined(__MICROBLAZE__)
-#include "microblaze_sleep.h"
-#elif defined(__arm__)
 #include "sleep.h"
-#endif
 #include "xv_hdmitxss.h"
 #include "xv_hdmitxss_coreinit.h"
 
@@ -118,7 +116,6 @@ XV_HdmiTxSs_SubCores XV_HdmiTxSs_SubCoreRepo[XPAR_XV_HDMITXSS_NUM_INSTANCES];
 /************************** Function Prototypes ******************************/
 static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr,
     u16 DevId);
-static XV_HdmiTxSs_SubCores *XV_HdmiTxSs_GetSubSysStruct(void *SubCorePtr);
 static void XV_HdmiTxSs_WaitUs(XV_HdmiTxSs *InstancePtr, u32 MicroSeconds);
 static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr);
 static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr);
@@ -269,44 +266,15 @@ void XV_HdmiTxSs_WaitUs(XV_HdmiTxSs *InstancePtr, u32 MicroSeconds)
         return;
     }
 
-#if defined(__MICROBLAZE__)
     if (InstancePtr->UserTimerWaitUs != NULL) {
         /* Use the timer handler specified by the user for better
          * accuracy. */
         InstancePtr->UserTimerWaitUs(InstancePtr, MicroSeconds);
     }
     else {
-        /* MicroBlaze sleep only has millisecond accuracy. Round up. */
-        /* u32 MilliSeconds = (MicroSeconds + 999) / 1000;
-        MB_Sleep(MilliSeconds);                            */
 		usleep(MicroSeconds);
     }
-#elif defined(__arm__)
-    /* Wait the requested amount of time. */
-    usleep(MicroSeconds);
-#endif
 }
-
-///*****************************************************************************/
-///**
-//* This function registers the user defined delay/sleep function with subsystem
-//*
-//* @param  InstancePtr is a pointer to the Subsystem instance
-//* @param  waitmsec is the function pointer to the user defined delay function
-//* @param  pTimer is the pointer to timer instance used by the delay function
-//*
-//* @return None
-//*
-//******************************************************************************/
-//void XV_HdmiTxSs_RegisterDelayHandler(XV_HdmiTxSs *InstancePtr,
-//                                   XVidC_DelayHandler WaitMsec,
-//                                   void *TimerPtr)
-//{
-//  Xil_AssertVoid(InstancePtr != NULL);
-//
-//  InstancePtr->UsrDelaymsec = WaitMsec;
-//  InstancePtr->UsrTmrPtr    = TimerPtr;
-//}
 
 /*****************************************************************************/
 /**
@@ -433,53 +401,6 @@ static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr, u16 DevId)
                         ? (&XV_HdmiTxSs_SubCoreRepo[DevId].RemapperReset) : NULL);
   HdmiTxSsPtr->RemapperPtr  = ((HdmiTxSsPtr->Config.Remapper.IsPresent) \
                         ? (&XV_HdmiTxSs_SubCoreRepo[DevId].Remapper) : NULL);
-}
-
-/*****************************************************************************/
-/**
-* This function searches for the XV_HdmiTxSs_SubCores pointer
-*
-* @param  SubCorePtr address of reference subcore
-*
-* @return Pointer to XV_HdmiTxSs_SubCoreRepo
-*
-******************************************************************************/
-static XV_HdmiTxSs_SubCores *XV_HdmiTxSs_GetSubSysStruct(void *SubCorePtr)
-{
-    int i;
-
-    for (i=0; i<XPAR_XV_HDMITXSS_NUM_INSTANCES;i++){
-        if (&XV_HdmiTxSs_SubCoreRepo[i].HdmiTx == SubCorePtr){
-            return &XV_HdmiTxSs_SubCoreRepo[i];
-        }
-
-        if (&XV_HdmiTxSs_SubCoreRepo[i].Vtc == SubCorePtr){
-            return &XV_HdmiTxSs_SubCoreRepo[i];
-        }
-
-        // HDCP 1.4
-        if (&XV_HdmiTxSs_SubCoreRepo[i].Hdcp14 == SubCorePtr){
-            return &XV_HdmiTxSs_SubCoreRepo[i];
-        }
-
-        if (&XV_HdmiTxSs_SubCoreRepo[i].HdcpTimer == SubCorePtr){
-            return &XV_HdmiTxSs_SubCoreRepo[i];
-        }
-
-        // HDCP 2.2
-        if (&XV_HdmiTxSs_SubCoreRepo[i].Hdcp22 == SubCorePtr){
-            return &XV_HdmiTxSs_SubCoreRepo[i];
-        }
-
-        if (&XV_HdmiTxSs_SubCoreRepo[i].RemapperReset == SubCorePtr){
-            return &XV_HdmiTxSs_SubCoreRepo[i];
-        }
-
-        if (&XV_HdmiTxSs_SubCoreRepo[i].Remapper == SubCorePtr){
-            return &XV_HdmiTxSs_SubCoreRepo[i];
-        }
-    }
-    return (NULL);
 }
 
 /*****************************************************************************/
@@ -1223,14 +1144,34 @@ void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
 
-  /* Set TX sample rate */
-  XV_HdmiTx_SetSampleRate(HdmiTxSsPtr->HdmiTxPtr, HdmiTxSsPtr->SamplingRate);
+  /* Set stream up flag */
+  HdmiTxSsPtr->IsStreamUp = (TRUE);
 
   /* Release HDMI TX reset */
   XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, FALSE);
 
-  /* Set stream up flag */
-  HdmiTxSsPtr->IsStreamUp = (TRUE);
+  /* Push the stream-up event to the HDCP event queue */
+  XV_HdmiTxSs_HdcpPushEvent(HdmiTxSsPtr, XV_HDMITXSS_HDCP_STREAMUP_EVT);
+
+  if (HdmiTxSsPtr->RemapperResetPtr) {
+      /* Toggle AXI_GPIO to Reset Remapper */
+      XV_HdmiTxSs_ResetRemapper(HdmiTxSsPtr);
+  }
+
+  /* Check if user callback has been registered.
+     User may change the video stream properties in the callback;
+     therefore, execute the callback before changing stream settings. */
+  if (HdmiTxSsPtr->StreamUpCallback) {
+      HdmiTxSsPtr->StreamUpCallback(HdmiTxSsPtr->StreamUpRef);
+  }
+
+  if (HdmiTxSsPtr->RemapperPtr) {
+      /* Configure Remapper according to HW setting and video format */
+      XV_HdmiTxSs_ConfigRemapper(HdmiTxSsPtr);
+  }
+
+  /* Set TX sample rate */
+  XV_HdmiTx_SetSampleRate(HdmiTxSsPtr->HdmiTxPtr, HdmiTxSsPtr->SamplingRate);
 
   if (HdmiTxSsPtr->VtcPtr) {
     /* Setup VTC */
@@ -1241,24 +1182,6 @@ void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
       /* HDMI TX unmute audio */
       HdmiTxSsPtr->AudioMute = (FALSE);
       XV_HdmiTx_AudioUnmute(HdmiTxSsPtr->HdmiTxPtr);
-  }
-
-  /* Push the stream-up event to the HDCP event queue */
-  XV_HdmiTxSs_HdcpPushEvent(HdmiTxSsPtr, XV_HDMITXSS_HDCP_STREAMUP_EVT);
-
-  if (HdmiTxSsPtr->RemapperResetPtr) {
-      /* Toggle AXI_GPIO to Reset Remapper */
-      XV_HdmiTxSs_ResetRemapper(HdmiTxSsPtr);
-  }
-
-  if (HdmiTxSsPtr->RemapperPtr) {
-      /* Configure Remapper according to HW setting and video format */
-      XV_HdmiTxSs_ConfigRemapper(HdmiTxSsPtr);
-  }
-
-  /* Check if user callback has been registered */
-  if (HdmiTxSsPtr->StreamUpCallback) {
-      HdmiTxSsPtr->StreamUpCallback(HdmiTxSsPtr->StreamUpRef);
   }
 }
 
@@ -2515,6 +2438,11 @@ static int XV_HdmiTxSs_HdcpProcessEvents(XV_HdmiTxSs *InstancePtr)
       XV_HdmiTxSs_HdcpReset(InstancePtr);
       break;
 
+    // Authenticate
+    case XV_HDMITXSS_HDCP_AUTHENTICATE_EVT :
+      XV_HdmiTxSs_HdcpAuthRequest(InstancePtr);
+      break;
+
     default :
       break;
   }
@@ -2842,7 +2770,7 @@ int XV_HdmiTxSs_HdcpAuthRequest(XV_HdmiTxSs *InstancePtr)
 
   /* Authenticate HDCP 2.2, takes priority */
   if (InstancePtr->Hdcp22Ptr) {
-    if (XV_HdmiTxSs_IsSinkHdcp22Capable(InstancePtr->HdmiTxPtr)) {
+    if (XV_HdmiTxSs_IsSinkHdcp22Capable(InstancePtr)) {
       xdbg_printf(XDBG_DEBUG_GENERAL, "Starting HDCP 2.2 authentication\n\r");
       Status = XV_HdmiTxSs_HdcpSetProtocol(InstancePtr, XV_HDMITXSS_HDCP_22);
       Status |= XHdcp22Tx_Authenticate(InstancePtr->Hdcp22Ptr);
@@ -2855,7 +2783,7 @@ int XV_HdmiTxSs_HdcpAuthRequest(XV_HdmiTxSs *InstancePtr)
 
   /* Authenticate HDCP 1.4 */
   if ((InstancePtr->Hdcp14Ptr) && (Status == XST_FAILURE)) {
-    if (XV_HdmiTxSs_IsSinkHdcp14Capable(InstancePtr->HdmiTxPtr)) {
+    if (XV_HdmiTxSs_IsSinkHdcp14Capable(InstancePtr)) {
       xdbg_printf(XDBG_DEBUG_GENERAL, "Starting HDCP 1.4 authentication\n\r");
       Status = XV_HdmiTxSs_HdcpSetProtocol(InstancePtr, XV_HDMITXSS_HDCP_14);
       Status |= XHdcp1x_Authenticate(InstancePtr->Hdcp14Ptr);
@@ -3048,17 +2976,17 @@ int XV_HdmiTxSs_HdcpDisableBlank(XV_HdmiTxSs *InstancePtr)
 *
 * This function determines if the connected HDMI sink has HDCP1.4 capabilities.
 *
-* @param HdmiInstPtr is a pointer to the XHdmi_Tx core instance.
+* @param InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return
 *  - TRUE if sink is HDCP1.4 capable
-*  - FALSE if sink does not support HDCP1.4
+*  - FALSE if sink does not support HDCP 1.4 or HDCP 1.4 is not available.
 *
 ******************************************************************************/
-u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTx *HdmiInstPtr)
+u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr)
 {
   /* Verify argument. */
-  Xil_AssertNonvoid(HdmiInstPtr != NULL);
+  Xil_AssertNonvoid(InstancePtr != NULL);
 
   int status;
   u8 buffer[5];
@@ -3067,13 +2995,14 @@ u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTx *HdmiInstPtr)
   int one_count = 0;
   int i,j;
 
+  if (InstancePtr->Hdcp14Ptr) {
   buffer[0] = 0x0; // XHDCP14_BKSV_REG
-  status = XV_HdmiTx_DdcWrite(HdmiInstPtr, 0x3A, 1, (u8*)&buffer, FALSE);
+    status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x3A, 1, (u8*)&buffer, FALSE);
   if (status != XST_SUCCESS)
     return FALSE;
 
   /* Read the receiver KSV */
-  status = XV_HdmiTx_DdcRead(HdmiInstPtr, 0x3A, 5, (u8*)&buffer, TRUE);
+    status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr, 0x3A, 5, (u8*)&buffer, TRUE);
   if (status != XST_SUCCESS)
     return FALSE;
 
@@ -3097,34 +3026,39 @@ u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTx *HdmiInstPtr)
   else
     return FALSE;
 }
+  else {
+    return FALSE;
+  }
+}
 
 /*****************************************************************************/
 /**
 *
 * This function determines if the connected HDMI sink has HDCP2.2 capabilities.
 *
-* @param HdmiInstPtr is a pointer to the XHdmi_Tx core instance.
+* @param InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return
 *  - TRUE if sink is HDCP2.2 capable
-*  - FALSE if sink does not support HDCP2.2
+*  - FALSE if sink does not support HDCP 2.2 or HDCP 2.2 is not available.
 *
 ******************************************************************************/
-u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTx *HdmiInstPtr)
+u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTxSs *InstancePtr)
 {
   /* Verify argument. */
-  Xil_AssertNonvoid(HdmiInstPtr != NULL);
+  Xil_AssertNonvoid(InstancePtr != NULL);
 
   int status;
   u8 data = 0x50; // XHDCP2_VERSION_REG
 
+  if (InstancePtr->Hdcp22Ptr) {
   /* Write the register offset */
-  status = XV_HdmiTx_DdcWrite(HdmiInstPtr, 0x3A, 1, (u8*)&data, FALSE);
+    status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x3A, 1, (u8*)&data, FALSE);
   if (status != XST_SUCCESS)
     return FALSE;
 
   /* Read the HDCP2 version */
-  status = XV_HdmiTx_DdcRead(HdmiInstPtr, 0x3A, 1, (u8*)&data, TRUE);
+    status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr, 0x3A, 1, (u8*)&data, TRUE);
   if (status != XST_SUCCESS)
     return FALSE;
 
@@ -3133,6 +3067,10 @@ u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTx *HdmiInstPtr)
     return TRUE;
   else
     return FALSE;
+}
+  else {
+    return FALSE;
+  }
 }
 
 /*****************************************************************************/
