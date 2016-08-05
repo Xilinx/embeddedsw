@@ -53,6 +53,7 @@
 
 #include "xstatus.h"
 #include "xdsi.h"
+#include "xvidc.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -354,7 +355,8 @@ void XDsi_GetConfigParams(XDsi *InstancePtr,
 *
 * @return
 *		- XST_SUCCESS is returned if Video interfacing was
-*		  successfully set.
+*		  successfully set
+*		- XST_FAILURE is returned if TimingMode is not found
 *
 * @note		None.
 *
@@ -362,10 +364,16 @@ void XDsi_GetConfigParams(XDsi *InstancePtr,
 s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,
 			 XVidC_VideoMode Resolution, u16 BurstPacketSize)
 {
+	const XVidC_VideoTimingMode *TimingMode = NULL;
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(VideoMode < XDSI_VM_NUM_SUPPORTED);
 	Xil_AssertNonvoid(Resolution < XVIDC_VM_NUM_SUPPORTED);
+
+	TimingMode = XVidC_GetVideoModeData(Resolution);
+
+	if (TimingMode == NULL)
+		return XST_FAILURE;
 
 	/* Set the Video mode transmission sequence*/
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
@@ -377,7 +385,7 @@ s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,
 	/* Set HSA and Burst Packet size in Timing 1 register */
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME1_OFFSET, XDSI_TIME1_HSA_MASK, XDSI_TIME1_HSA_SHIFT,
-	XVidC_VideoTimingModes[Resolution].Timing.HSyncWidth);
+	TimingMode->Timing.HSyncWidth);
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME1_OFFSET, XDSI_TIME1_BLLP_BURST_MASK,
 	XDSI_TIME1_BLLP_BURST_SHIFT, BurstPacketSize);
@@ -385,29 +393,29 @@ s32 XDsi_SetVideoInterfaceTiming(XDsi *InstancePtr, XDsi_VideoMode VideoMode,
 	/* Set HACT and VACT in Timing 2 register */
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME2_OFFSET, XDSI_TIME2_HACT_MASK, XDSI_TIME2_HACT_SHIFT,
-	XVidC_VideoTimingModes[Resolution].Timing.HActive);
+	TimingMode->Timing.HActive);
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME2_OFFSET, XDSI_TIME2_VACT_MASK, XDSI_TIME2_VACT_SHIFT,
-	XVidC_VideoTimingModes[Resolution].Timing.VActive);
+	TimingMode->Timing.VActive);
 
 	/* Set HBP and HFP in Timing 3 register */
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME3_OFFSET, XDSI_TIME3_HBP_MASK, XDSI_TIME3_HBP_SHIFT,
-	XVidC_VideoTimingModes[Resolution].Timing.HBackPorch);
+	TimingMode->Timing.HBackPorch);
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME3_OFFSET, XDSI_TIME3_HFP_MASK, XDSI_TIME3_HFP_SHIFT,
-	XVidC_VideoTimingModes[Resolution].Timing.HFrontPorch);
+	TimingMode->Timing.HFrontPorch);
 
 	/* Set VSA, VBP and VFP in Timing 4 register */
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME4_OFFSET, XDSI_TIME4_VSA_MASK, XDSI_TIME4_VSA_SHIFT,
-	XVidC_VideoTimingModes[Resolution].Timing.F0PVSyncWidth);
+	TimingMode->Timing.F0PVSyncWidth);
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME4_OFFSET, XDSI_TIME4_VBP_MASK, XDSI_TIME4_VBP_SHIFT,
-	XVidC_VideoTimingModes[Resolution].Timing.F0PVBackPorch);
+	TimingMode->Timing.F0PVBackPorch);
 	XDsi_SetBitField(InstancePtr->Config.BaseAddr,
 	XDSI_TIME4_OFFSET, XDSI_TIME4_VFP_MASK, XDSI_TIME4_VFP_SHIFT,
-	XVidC_VideoTimingModes[Resolution].Timing.F0PVFrontPorch);
+	TimingMode->Timing.F0PVFrontPorch);
 
 	return XST_SUCCESS;
 }
