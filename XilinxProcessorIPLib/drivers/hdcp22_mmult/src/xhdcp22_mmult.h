@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_mmult.h
-* @addtogroup hdcp22_mmult_v1_0
+* @addtogroup hdcp22_mmult_v1_1
 * @{
 * @details
 *
@@ -46,6 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  MH     12/07/15 Initial release.
+* 1.01  MH     08/04/16 Added 64 bit address support.
 * </pre>
 *
 ******************************************************************************/
@@ -85,7 +86,7 @@ typedef uint32_t u32;
 #else
 typedef struct {
     u16 DeviceId;
-    u32 BaseAddress;
+    UINTPTR BaseAddress;
 } XHdcp22_mmult_Config;
 #endif
 
@@ -119,7 +120,7 @@ typedef struct {
 #ifndef __linux__
 int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, u16 DeviceId);
 XHdcp22_mmult_Config* XHdcp22_mmult_LookupConfig(u16 DeviceId);
-int XHdcp22_mmult_CfgInitialize(XHdcp22_mmult *InstancePtr, XHdcp22_mmult_Config *ConfigPtr, u32 EffectiveAddr);
+int XHdcp22_mmult_CfgInitialize(XHdcp22_mmult *InstancePtr, XHdcp22_mmult_Config *ConfigPtr, UINTPTR EffectiveAddr);
 #else
 int XHdcp22_mmult_Initialize(XHdcp22_mmult *InstancePtr, const char* InstanceName);
 int XHdcp22_mmult_Release(XHdcp22_mmult *InstancePtr);

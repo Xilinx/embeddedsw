@@ -34,10 +34,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver hdcp22_mmult
 
- OPTION supported_peripherals = (hdcp22_mmult_v1_0 );
+ OPTION supported_peripherals = (hdcp22_mmult_v1_0);
  OPTION driver_state = ACTIVE;
  OPTION copyfiles = all;
  OPTION name = hdcp22_mmult;
- OPTION version = 1.0;
+ OPTION version = 1.1;
 
 END driver

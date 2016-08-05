@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_mmult_hw.h
-* @addtogroup hdcp22_mmult_v1_0
+* @addtogroup hdcp22_mmult_v1_1
 * @{
 * @details
 *

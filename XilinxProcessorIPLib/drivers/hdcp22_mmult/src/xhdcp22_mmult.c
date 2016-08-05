@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_mmult.c
-* @addtogroup hdcp22_mmult_v1_0
+* @addtogroup hdcp22_mmult_v1_1
 * @{
 * @details
 *
@@ -46,6 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  MH     12/07/15 Initial release.
+* 1.01  MH     08/04/16 Added 64 bit address support.
 * </pre>
 *
 ******************************************************************************/
@@ -55,9 +56,10 @@
 
 /************************** Function Implementation *************************/
 #ifndef __linux__
-int XHdcp22_mmult_CfgInitialize(XHdcp22_mmult *InstancePtr, XHdcp22_mmult_Config *ConfigPtr, u32 EffectiveAddr) {
+int XHdcp22_mmult_CfgInitialize(XHdcp22_mmult *InstancePtr, XHdcp22_mmult_Config *ConfigPtr, UINTPTR EffectiveAddr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
+    Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
     InstancePtr->Config.BaseAddress = EffectiveAddr;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;

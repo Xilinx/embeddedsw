@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_mmult_linux.c
-* @addtogroup hdcp22_mmult_v1_0
+* @addtogroup hdcp22_mmult_v1_1
 * @{
 * @details
 *
