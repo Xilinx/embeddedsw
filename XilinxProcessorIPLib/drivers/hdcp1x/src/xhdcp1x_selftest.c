@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_selftest.c
-* @addtogroup hdcp1x_v3_0
+* @addtogroup hdcp1x_v4_0
 * @{
 *
 * This file contains self test function for the hdcp interface

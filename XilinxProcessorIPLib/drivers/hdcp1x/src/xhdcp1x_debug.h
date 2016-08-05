@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp1x_debug.h
-* @addtogroup hdcp1x_v3_0
+* @addtogroup hdcp1x_v4_0
 * @{
 *
 * This file provides the interface of the HDCP debug commands
