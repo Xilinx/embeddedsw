@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_rng_selftest.c
-* @addtogroup hdcp22_rng_v1_0
+* @addtogroup hdcp22_rng_v1_1
 * @{
 * @details
 *

@@ -33,7 +33,7 @@
 /**
 *
 * @file xhdcp22_rng.h
-* @addtogroup hdcp22_rng_v1_0
+* @addtogroup hdcp22_rng_v1_1
 * @{
 * @details
 *
@@ -60,6 +60,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JO     10/01/15 Initial release.
+* 1.01  MH     08/04/16 Added 64 bit address support.
 * </pre>
 *
 ******************************************************************************/
@@ -86,7 +87,7 @@ extern "C" {
 */
 typedef struct {
 	u16 DeviceId;     /**< DeviceId is the unique ID of the HDCP22 Rng core */
-	u32 BaseAddress;  /**< BaseAddress is the physical base address of the core's registers */
+	UINTPTR BaseAddress;  /**< BaseAddress is the physical base address of the core's registers */
 } XHdcp22_Rng_Config;
 
 /**
@@ -157,7 +158,7 @@ typedef struct {
 XHdcp22_Rng_Config *XHdcp22Rng_LookupConfig(u16 DeviceId);
 
 /* Initialization and control functions in xhdcp22_rng.c */
-int XHdcp22Rng_CfgInitialize(XHdcp22_Rng *InstancePtr, XHdcp22_Rng_Config *CfgPtr, u32 EffectiveAddr);
+int XHdcp22Rng_CfgInitialize(XHdcp22_Rng *InstancePtr, XHdcp22_Rng_Config *CfgPtr, UINTPTR EffectiveAddr);
 
 /* Return a random number */
 void XHdcp22Rng_GetRandom(XHdcp22_Rng *InstancePtr, u8 *BufferPtr, u16 BufferLength, u16 RandomLength);
