@@ -39,11 +39,11 @@ proc swapp_get_description {} {
 }
 
 proc swapp_get_supported_processors {} {
-	return "microblaze"
+	return "";
 }
 
 proc swapp_get_supported_os {} {
-    return "standalone";
+	return "";
 }
 
 proc get_stdout {} {
