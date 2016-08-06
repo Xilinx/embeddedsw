@@ -35,6 +35,9 @@ qspipsu_v1_2:
 Add LQSPI support
 Added Tap delay support.
 
+v_mix_v2_0:
+Add support for logo layer per pixel alpha feature
+
 scugic_v3_4:
 Updated tcl to return correct PL ips' interruptIDs when no interrupt is connected to pl_ps_irq0 to fix CR#953335
 Made changes in xscugic.c. Created a new static function DoDistributorInit to simplify the flow and avoid code duplication.
