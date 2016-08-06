@@ -396,6 +396,10 @@ extern "C" {
 // 0x33fff : Memory 'HwReg_logoB_V' (4096 * 16b)
 //           Word n : bit [15: 0] - HwReg_logoB_V[2n]
 //                    bit [31:16] - HwReg_logoB_V[2n+1]
+// 0x40000 ~
+// 0x43fff : Memory 'HwReg_logoA_V' (4096 * 16b)
+//           Word n : bit [15: 0] - HwReg_logoA_V[2n]
+//                    bit [31:16] - HwReg_logoA_V[2n+1]
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_MIX_CTRL_ADDR_AP_CTRL                       0x00000
@@ -594,6 +598,10 @@ extern "C" {
 #define XV_MIX_CTRL_ADDR_HWREG_LOGOB_V_HIGH            0x33fff
 #define XV_MIX_CTRL_WIDTH_HWREG_LOGOB_V                16
 #define XV_MIX_CTRL_DEPTH_HWREG_LOGOB_V                4096
+#define XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE            0x40000
+#define XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_HIGH            0x43fff
+#define XV_MIX_CTRL_WIDTH_HWREG_LOGOA_V                16
+#define XV_MIX_CTRL_DEPTH_HWREG_LOGOA_V                4096
 
 #ifdef __cplusplus
 }

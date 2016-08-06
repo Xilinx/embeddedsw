@@ -1896,6 +1896,100 @@ u32 XV_mix_Read_HwReg_logoB_V_Bytes(XV_mix *InstancePtr, int offset, char *data,
     return length;
 }
 
+u32 XV_mix_Get_HwReg_logoA_V_BaseAddress(XV_mix *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return (InstancePtr->Config.BaseAddress + XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE);
+}
+
+u32 XV_mix_Get_HwReg_logoA_V_HighAddress(XV_mix *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return (InstancePtr->Config.BaseAddress + XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_HIGH);
+}
+
+u32 XV_mix_Get_HwReg_logoA_V_TotalBytes(XV_mix *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return (XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_HIGH - XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + 1);
+}
+
+u32 XV_mix_Get_HwReg_logoA_V_BitWidth(XV_mix *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return XV_MIX_CTRL_WIDTH_HWREG_LOGOA_V;
+}
+
+u32 XV_mix_Get_HwReg_logoA_V_Depth(XV_mix *InstancePtr) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    return XV_MIX_CTRL_DEPTH_HWREG_LOGOA_V;
+}
+
+u32 XV_mix_Write_HwReg_logoA_V_Words(XV_mix *InstancePtr, int offset, int *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length)*4 > (XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_HIGH - XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(int *)(InstancePtr->Config.BaseAddress + XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + (offset + i)*4) = *(data + i);
+    }
+    return length;
+}
+
+u32 XV_mix_Read_HwReg_logoA_V_Words(XV_mix *InstancePtr, int offset, int *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length)*4 > (XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_HIGH - XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(data + i) = *(int *)(InstancePtr->Config.BaseAddress + XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + (offset + i)*4);
+    }
+    return length;
+}
+
+u32 XV_mix_Write_HwReg_logoA_V_Bytes(XV_mix *InstancePtr, int offset, char *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length) > (XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_HIGH - XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(char *)(InstancePtr->Config.BaseAddress + XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + offset + i) = *(data + i);
+    }
+    return length;
+}
+
+u32 XV_mix_Read_HwReg_logoA_V_Bytes(XV_mix *InstancePtr, int offset, char *data, int length) {
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr -> IsReady == XIL_COMPONENT_IS_READY);
+
+    int i;
+
+    if ((offset + length) > (XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_HIGH - XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + 1))
+        return 0;
+
+    for (i = 0; i < length; i++) {
+        *(data + i) = *(char *)(InstancePtr->Config.BaseAddress + XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE + offset + i);
+    }
+    return length;
+}
 void XV_mix_InterruptGlobalEnable(XV_mix *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);

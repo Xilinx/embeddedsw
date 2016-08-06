@@ -48,6 +48,7 @@
 *                        delay with polling with time out
 *             03/14/16   Fix bug startx not multiple of pixels/clk for window
 *                        move
+*             08/05/16   Add Logo Pixel Alpha test
 * </pre>
 *
 ******************************************************************************/
@@ -72,6 +73,7 @@
 extern unsigned char Logo_R[];
 extern unsigned char Logo_G[];
 extern unsigned char Logo_B[];
+extern unsigned char Logo_A[];
 
 XV_tpg     tpg;
 XV_Mix_l2  mix;
@@ -311,6 +313,15 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
     if(Status != XST_SUCCESS) {
       xil_printf("MIXER ERR:: Unable to load Logo \r\n");
     }
+
+    if(XVMix_IsLogoPixAlphaEnabled(MixerPtr)) {
+      Status = XVMix_LoadLogoPixelAlpha(MixerPtr, &Win, Logo_A);
+      if(Status != XST_SUCCESS) {
+        xil_printf("MIXER ERR:: Unable to load Logo pixel alpha \r\n");
+      }
+    }
+  } else {
+      xil_printf("INFO: Logo Layer Disabled in HW \r\n");
   }
   XVMix_SetBackgndColor(MixerPtr, XVMIX_BKGND_BLUE, StreamPtr->ColorDepth);
 
@@ -519,6 +530,13 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   } else {
      xil_printf("  (Disabled in HW)\r\n");
      return(ErrorCount);
+  }
+
+  xil_printf("   Logo Pixel Alpha: ");
+  if(XVMix_IsLogoPixAlphaEnabled(MixerPtr)) {
+	  xil_printf("Enabled\r\n");
+  } else {
+	  xil_printf("(Disabled in HW)\r\n");
   }
 
   {

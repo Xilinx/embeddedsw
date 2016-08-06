@@ -54,6 +54,7 @@
 *             03/09/16   Removed stream layer error check from SetWindow API
 *             03/18/16   Window coordinates can start from 0,0
 * 2.00  rco   07/21/16   Used UINTPTR instead of u32 for Baseaddress
+*             08/03/16   Add Logo Pixel Alpha support
 * </pre>
 *
 ******************************************************************************/
@@ -513,7 +514,7 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid((LayerId > XVMIX_LAYER_MASTER) &&
                     (LayerId <= XVMIX_LAYER_LOGO));
   Xil_AssertNonvoid((Win->StartX % InstancePtr->Mix.Config.PixPerClk) == 0);
-  Xil_AssertNonvoid((Win->Width % InstancePtr->Mix.Config.PixPerClk) == 0);
+  Xil_AssertNonvoid((Win->Width  % InstancePtr->Mix.Config.PixPerClk) == 0);
 
   /* Check window coordinates */
   Scale = XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
@@ -1083,11 +1084,11 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
 * @param  LayerId is the layer to be updated
-* @param  Addr is the absolute addrees of buffer in memory
+* @param  Addr is the absolute address of buffer in memory
 *
 * @return XST_SUCCESS or XST_FAILURE
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-7
 *
 ******************************************************************************/
 int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
@@ -1138,7 +1139,7 @@ int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
 *
 * @return Address of buffer in memory
 *
-* @note   Applicable only for Layer1-7 and Logo Layer
+* @note   Applicable only for Layer1-7
 *
 ******************************************************************************/
 UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
@@ -1258,7 +1259,6 @@ int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
                    u8 *BBuffer)
 {
   XV_mix *MixPtr;
-  u32 BaseReg;
   int x,y;
   u32 Rword, Gword, Bword;
   u32 Width, Height;
@@ -1269,10 +1269,10 @@ int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid(RBuffer != NULL);
   Xil_AssertNonvoid(GBuffer != NULL);
   Xil_AssertNonvoid(BBuffer != NULL);
-  Xil_AssertNonvoid(Win->Width <= InstancePtr->Mix.Config.MaxLogoWidth);
+  Xil_AssertNonvoid(Win->Width  <= InstancePtr->Mix.Config.MaxLogoWidth);
   Xil_AssertNonvoid(Win->Height <= InstancePtr->Mix.Config.MaxLogoHeight);
   Xil_AssertNonvoid((Win->StartX % InstancePtr->Mix.Config.PixPerClk) == 0);
-  Xil_AssertNonvoid((Win->Width % InstancePtr->Mix.Config.PixPerClk) == 0);
+  Xil_AssertNonvoid((Win->Width  % InstancePtr->Mix.Config.PixPerClk) == 0);
 
   if(XVMix_IsLogoEnabled(InstancePtr)) {
 	  MixPtr = &InstancePtr->Mix;
@@ -1310,6 +1310,58 @@ int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
       InstancePtr->Layer[XVMIX_LAYER_LOGO].BBuffer = BBuffer;
 
       Status = XVMix_SetLayerWindow(InstancePtr, XVMIX_LAYER_LOGO, Win, 0);
+  }
+  return(Status);
+}
+
+/*****************************************************************************/
+/**
+* This function loads the logo pixel alpha data into core BRAM
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  Win is logo window (logo width must be multiple of 4 bytes)
+* @param  ABuffer is the pointer to Pixel Alpha buffer
+*
+* @return XST_SUCCESS or XST_FAILURE
+*
+* @note   none
+*
+******************************************************************************/
+int XVMix_LoadLogoPixelAlpha(XV_Mix_l2 *InstancePtr,
+                             XVidC_VideoWindow *Win,
+                             u8 *ABuffer)
+{
+  XV_mix *MixPtr;
+  int x,y;
+  u32 Aword, ABaseAddr;
+  u32 Width, Height;
+  int Status = XST_FAILURE;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(ABuffer != NULL);
+  Xil_AssertNonvoid(Win->Width  <= InstancePtr->Mix.Config.MaxLogoWidth);
+  Xil_AssertNonvoid(Win->Height <= InstancePtr->Mix.Config.MaxLogoHeight);
+  Xil_AssertNonvoid((Win->StartX % InstancePtr->Mix.Config.PixPerClk) == 0);
+  Xil_AssertNonvoid((Win->Width  % InstancePtr->Mix.Config.PixPerClk) == 0);
+
+  if(XVMix_IsLogoPixAlphaEnabled(InstancePtr)) {
+	  MixPtr = &InstancePtr->Mix;
+	  Width  = Win->Width;
+	  Height = Win->Height;
+
+      ABaseAddr = XV_MIX_CTRL_ADDR_HWREG_LOGOA_V_BASE;
+
+      for (y=0; y<Height; y++) {
+          for (x=0; x<Width; x+=4) {
+		Aword = (u32)ABuffer[y*Width+x] |
+                    (((u32)ABuffer[y*Width+x+1])<<8) |
+                    (((u32)ABuffer[y*Width+x+2])<<16) |
+                    (((u32)ABuffer[y*Width+x+3])<<24);
+
+            XV_mix_WriteReg(MixPtr->Config.BaseAddress, (ABaseAddr+(y*Width+x)), Aword);
+          }
+      }
+      Status = XST_SUCCESS;
   }
   return(Status);
 }
@@ -1437,6 +1489,8 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 		  } else {
             xil_printf("Color Key: %s\r\n", Status[IsEnabled]);
 		  }
+		  IsEnabled = XVMix_IsLogoPixAlphaEnabled(InstancePtr);
+          xil_printf("\r\nPixel Alpha: %s\r\n", Status[IsEnabled]);
         }
 	    break;
 

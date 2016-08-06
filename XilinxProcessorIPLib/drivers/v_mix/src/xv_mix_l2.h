@@ -127,6 +127,7 @@
 *             03/08/16   Replace GetColorFromat macro with function and added
 *                        master layer video format
 * 2.00  rco   07/21/16   Used UINTPTR instead of u32 for Baseaddress
+*             08/03/16   Add Logo Pixel Alpha support
 * </pre>
 *
 ******************************************************************************/
@@ -197,12 +198,13 @@ typedef enum {
   XVMIX_LAYER_TYPE_STREAM
 }XVMix_LayerType;
 
+/****************** Mixer status 4096 - 4100  *****************************/
 typedef enum {
-  XVMIX_ERR_LAYER_WINDOW_INVALID     = 0x10L,
-  XVMIX_ERR_WIN_STRIDE_MISALIGNED    = 0x11L,
-  XVMIX_ERR_MEM_ADDR_MISALIGNED      = 0x12L,
-  XVMIX_ERR_LAYER_INTF_TYPE_MISMATCH = 0x13L,
-  XVMIX_ERR_DISABLED_IN_HW           = 0x20L,
+  XVMIX_ERR_LAYER_WINDOW_INVALID     = 0x1000L,
+  XVMIX_ERR_WIN_STRIDE_MISALIGNED    = 0x1001L,
+  XVMIX_ERR_MEM_ADDR_MISALIGNED      = 0x1002L,
+  XVMIX_ERR_LAYER_INTF_TYPE_MISMATCH = 0x1003L,
+  XVMIX_ERR_DISABLED_IN_HW           = 0x1004L,
   XVMIX_ERR_LAST
 }XVMix_ErrorCodes;
 
@@ -343,6 +345,22 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
+* This macro returns if Logo layer alpha feature is enabled
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVMix_IsLogoPixAlphaEnabled(InstancePtr) \
+	                          ((InstancePtr)->Mix.Config.LogoPixAlphaEn)
+
+
+/*****************************************************************************/
+/**
+*
 * This macro returns if alpha feature of specified layer is available
 *
 * @param    InstancePtr is a pointer to the core instance.
@@ -439,7 +457,9 @@ int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
                    u8 *RBuffer,
                    u8 *GBuffer,
                    u8 *BBuffer);
-
+int XVMix_LoadLogoPixelAlpha(XV_Mix_l2 *InstancePtr,
+                             XVidC_VideoWindow *Win,
+                             u8 *ABuffer);
 
 void XVMix_DbgReportStatus(XV_Mix_l2 *InstancePtr);
 void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);

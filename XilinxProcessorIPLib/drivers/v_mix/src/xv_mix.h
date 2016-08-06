@@ -121,7 +121,8 @@ typedef struct {
   u8  LogoEn;            /**< Logo layer support indicator flag  */
   u16 MaxLogoWidth;      /**< Maximum columns supported by log layer */
   u16 MaxLogoHeight;     /**< Maximum rows supported by log layer */
-  u16 LogoColorKeyEn;    /**< Logo layer color key feature indicatior flag */
+  u16 LogoColorKeyEn;    /**< Logo layer color key feature indicator flag */
+  u16 LogoPixAlphaEn;    /**< Logo layer per pixel alpha feature indicator flag */
   union {                /**< Alpha feature enable flag per memory layer */
 	  XVMix_AlphaFlag AlphaFlag;
 	  u8 AlphaEn[XV_MIX_MAX_MEMORY_LAYERS];
@@ -400,6 +401,15 @@ u32 XV_mix_Write_HwReg_logoB_V_Words(XV_mix *InstancePtr, int offset, int *data,
 u32 XV_mix_Read_HwReg_logoB_V_Words(XV_mix *InstancePtr, int offset, int *data, int length);
 u32 XV_mix_Write_HwReg_logoB_V_Bytes(XV_mix *InstancePtr, int offset, char *data, int length);
 u32 XV_mix_Read_HwReg_logoB_V_Bytes(XV_mix *InstancePtr, int offset, char *data, int length);
+u32 XV_mix_Get_HwReg_logoA_V_BaseAddress(XV_mix *InstancePtr);
+u32 XV_mix_Get_HwReg_logoA_V_HighAddress(XV_mix *InstancePtr);
+u32 XV_mix_Get_HwReg_logoA_V_TotalBytes(XV_mix *InstancePtr);
+u32 XV_mix_Get_HwReg_logoA_V_BitWidth(XV_mix *InstancePtr);
+u32 XV_mix_Get_HwReg_logoA_V_Depth(XV_mix *InstancePtr);
+u32 XV_mix_Write_HwReg_logoA_V_Words(XV_mix *InstancePtr, int offset, int *data, int length);
+u32 XV_mix_Read_HwReg_logoA_V_Words(XV_mix *InstancePtr, int offset, int *data, int length);
+u32 XV_mix_Write_HwReg_logoA_V_Bytes(XV_mix *InstancePtr, int offset, char *data, int length);
+u32 XV_mix_Read_HwReg_logoA_V_Bytes(XV_mix *InstancePtr, int offset, char *data, int length);
 
 void XV_mix_InterruptGlobalEnable(XV_mix *InstancePtr);
 void XV_mix_InterruptGlobalDisable(XV_mix *InstancePtr);
