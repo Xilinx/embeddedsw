@@ -505,56 +505,25 @@ char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 	}
 
 	switch (VmPtr->FrameRate) {
-		case (XVIDC_FR_24HZ):
-			return ("24Hz");
-
-		case (XVIDC_FR_25HZ):
-			return ("25Hz");
-
-		case (XVIDC_FR_30HZ):
-			return ("30Hz");
-
-		case (XVIDC_FR_50HZ):
-			return ("50Hz");
-
-		case (XVIDC_FR_56HZ):
-			return ("56Hz");
-
-		case (XVIDC_FR_60HZ):
-			return ("60Hz");
-
-		case (XVIDC_FR_65HZ):
-			return ("65Hz");
-
-		case (XVIDC_FR_67HZ):
-			return ("67Hz");
-
-		case (XVIDC_FR_70HZ):
-			return("70Hz");
-
-		case (XVIDC_FR_72HZ):
-			return ("72Hz");
-
-		case (XVIDC_FR_75HZ):
-			return ("75Hz");
-
-		case (XVIDC_FR_85HZ):
-			return ("85Hz");
-
-		case (XVIDC_FR_87HZ):
-			return ("87Hz");
-
-		case (XVIDC_FR_88HZ):
-			return ("88Hz");
-
-		case (XVIDC_FR_100HZ):
-			return("100Hz");
-
-		case (XVIDC_FR_120HZ):
-			return ("120Hz");
+		case (XVIDC_FR_24HZ):   return ("24Hz");
+		case (XVIDC_FR_25HZ):   return ("25Hz");
+		case (XVIDC_FR_30HZ):   return ("30Hz");
+		case (XVIDC_FR_50HZ):   return ("50Hz");
+		case (XVIDC_FR_56HZ):   return ("56Hz");
+		case (XVIDC_FR_60HZ):   return ("60Hz");
+		case (XVIDC_FR_65HZ):   return ("65Hz");
+		case (XVIDC_FR_67HZ):   return ("67Hz");
+		case (XVIDC_FR_70HZ):   return("70Hz");
+		case (XVIDC_FR_72HZ):   return ("72Hz");
+		case (XVIDC_FR_75HZ):   return ("75Hz");
+		case (XVIDC_FR_85HZ):   return ("85Hz");
+		case (XVIDC_FR_87HZ):   return ("87Hz");
+		case (XVIDC_FR_88HZ):   return ("88Hz");
+		case (XVIDC_FR_100HZ):  return("100Hz");
+		case (XVIDC_FR_120HZ):  return ("120Hz");
 
 		default:
-			return ("Frame rate not supported");
+		     return ("Frame rate not supported");
 	}
 }
 
@@ -623,7 +592,7 @@ char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 	    case XVIDC_CSF_MEM_RGBX10:    return ("RGBX10");
 	    case XVIDC_CSF_MEM_YUVX10:    return ("YUVX10");
 	    case XVIDC_CSF_MEM_RGB565:    return ("RGB565");
-	    case XVIDC_CSF_MEM_Y_UV8:     return ("UV8");
+	    case XVIDC_CSF_MEM_Y_UV8:     return ("Y_UV8");
 	    case XVIDC_CSF_MEM_Y_UV8_420: return ("Y_UV8_420");
 	    case XVIDC_CSF_MEM_RGB8:      return ("RGB8");
 	    case XVIDC_CSF_MEM_YUV8:      return ("YUV8");
