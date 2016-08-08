@@ -65,14 +65,30 @@ proc generate {os_handle} {
 
     # proctype should be "microblaze" or psu_cortexa53 or psu_cortexr5 or ps7_cortexa9
     set mbsrcdir "./src/microblaze"
-    set cortexa53srcdir "./src/cortexa53"
-    set cortexr5srcdir "./src/cortexr5"
-    set cortexa9srcdir "./src/cortexa9"
+    set cortexa53srcdir "./src/arm/cortexa53"
+    set cortexr5srcdir "./src/arm/cortexr5"
+    set cortexa9srcdir "./src/arm/cortexa9"
     set procdrv [hsi::get_sw_processor]
     set commonsrcdir "./src/common"
+    set armcommonsrcdir "./src/arm/common"
+    set armsrcdir "./src/arm"
 
     foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
         file copy -force $entry "./src"
+    }
+
+    if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" } {
+        set compiler [common::get_property CONFIG.compiler $procdrv]
+        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
+            file copy -force $entry "./src"
+            file delete -force "./src/gcc"
+        }
+        if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0} {
+            set commonccdir "./src/arm/common/gcc"
+            foreach entry [glob -nocomplain [file join $commonccdir *]] {
+	         file copy -force $entry "./src/"
+            }
+        }
     }
 
     # Only processor specific file should be copied to specified standalone folder
@@ -121,14 +137,14 @@ proc generate {os_handle} {
             set procdrv [hsi::get_sw_processor]
             set compiler [get_property CONFIG.compiler $procdrv]
             if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-		set ccdir "./src/cortexa53/32bit/gcc"
-		set cortexa53srcdir1 "./src/cortexa53/32bit"
+		set ccdir "./src/arm/cortexa53/32bit/gcc"
+		set cortexa53srcdir1 "./src/arm/cortexa53/32bit"
 	    } else {
-	        set ccdir "./src/cortexa53/64bit/gcc"
-	        set cortexa53srcdir1 "./src/cortexa53/64bit"
+	        set ccdir "./src/arm/cortexa53/64bit/gcc"
+	        set cortexa53srcdir1 "./src/arm/cortexa53/64bit"
 	    }
 
-	    set includedir "./src/cortexa53/includes_ps"
+	    set includedir "./src/arm/cortexa53/includes_ps"
             foreach entry [glob -nocomplain [file join $cortexa53srcdir1 *]] {
                 file copy -force $entry "./src/"
             }
@@ -160,8 +176,8 @@ proc generate {os_handle} {
         }
         "psu_cortexr5"  {
 	    set procdrv [hsi::get_sw_processor]
-	    set includedir "./src/cortexa53/includes_ps"
-	    set ccdir "./src/cortexr5/gcc"
+	    set includedir "./src/arm/cortexa53/includes_ps"
+	    set ccdir "./src/arm/cortexr5/gcc"
 	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
 		file copy -force $entry "./src/"
 	    }
@@ -213,11 +229,11 @@ proc generate {os_handle} {
                    set procdrv [hsi::get_sw_processor]
                    set compiler [common::get_property CONFIG.compiler $procdrv]
                    if {[string compare -nocase $compiler "armcc"] == 0} {
-                       set ccdir "./src/cortexa9/armcc"
+                       set ccdir "./src/arm/cortexa9/armcc"
 	    } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
-		set ccdir "./src/cortexa9/iccarm"
+		set ccdir "./src/arm/cortexa9/iccarm"
                    } else {
-                       set ccdir "./src/cortexa9/gcc"
+                       set ccdir "./src/arm/cortexa9/gcc"
                    }
                    foreach entry [glob -nocomplain [file join $cortexa9srcdir *]] {
                        file copy -force $entry "./src/"
@@ -275,10 +291,8 @@ proc generate {os_handle} {
 
     # Remove microblaze,  cortexr5, cortexa53 and common directories...
     file delete -force $mbsrcdir
-    file delete -force $cortexr5srcdir
-    file delete -force $cortexa53srcdir
-    file delete -force $cortexa9srcdir
     file delete -force $commonsrcdir
+    file delete -force $armsrcdir
 
     # Handle stdin and stdout
     ::hsi::utils::handle_stdin $os_handle

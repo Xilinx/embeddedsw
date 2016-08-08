@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,8 @@
 *
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
-* 5.00 	pkp  	 05/29/14 First release
+* 5.00 	pkp		 05/21/14 First release
+* 6.0   mus      07/27/16 Consolidated file for a53,a9 and r5 processors
 * </pre>
 *
 ******************************************************************************/
@@ -53,6 +54,7 @@
 /***************************** Include Files ********************************/
 
 #include "xil_types.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
@@ -66,6 +68,59 @@ extern "C" {
 /* necessary for pre-processor */
 #define stringify(s)	tostring(s)
 #define tostring(s)	#s
+
+#if defined (__aarch64__)
+/* pseudo assembler instructions */
+#define mfcpsr()	({u32 rval; \
+			   asm volatile("mrs %0,  DAIF" : "=r" (rval));\
+			  rval;\
+			 })
+
+#define mtcpsr(v) __asm__ __volatile__ ("msr DAIF, %0" : : "r" (v))
+
+#define cpsiei()	//__asm__ __volatile__("cpsie	i\n")
+#define cpsidi()	//__asm__ __volatile__("cpsid	i\n")
+
+#define cpsief()	//__asm__ __volatile__("cpsie	f\n")
+#define cpsidf()	//__asm__ __volatile__("cpsid	f\n")
+
+
+
+#define mtgpr(rn, v)	/*__asm__ __volatile__(\
+			  "mov r" stringify(rn) ", %0 \n"\
+			  : : "r" (v)\
+			)*/
+
+#define mfgpr(rn)	/*({u32 rval; \
+			  __asm__ __volatile__(\
+			    "mov %0,r" stringify(rn) "\n"\
+			    : "=r" (rval)\
+			  );\
+			  rval;\
+			 })*/
+
+/* memory synchronization operations */
+
+/* Instruction Synchronization Barrier */
+#define isb() __asm__ __volatile__ ("isb sy")
+
+/* Data Synchronization Barrier */
+#define dsb() __asm__ __volatile__("dsb sy")
+
+/* Data Memory Barrier */
+#define dmb() __asm__ __volatile__("dmb sy")
+
+
+/* Memory Operations */
+#define ldr(adr)	({u64 rval; \
+			  __asm__ __volatile__(\
+			    "ldr	%0,[%1]"\
+			    : "=r" (rval) : "r" (adr)\
+			  );\
+			  rval;\
+			 })
+
+#else
 
 /* pseudo assembler instructions */
 #define mfcpsr()	({u32 rval; \
@@ -123,6 +178,8 @@ extern "C" {
 			  rval;\
 			 })
 
+#endif
+
 #define ldrb(adr)	({u8 rval; \
 			  __asm__ __volatile__(\
 			    "ldrb	%0,[%1]"\
@@ -150,6 +207,22 @@ extern "C" {
 			  rval;\
 			 })
 
+#if defined (__aarch64__)
+#define mtcpdc(reg,val)	__asm__ __volatile__("dc " #reg ",%0"  : : "r" (val))
+#define mtcpic(reg,val)	__asm__ __volatile__("ic " #reg ",%0"  : : "r" (val))
+
+#define mtcpicall(reg)	__asm__ __volatile__("ic " #reg)
+#define mtcptlbi(reg)	__asm__ __volatile__("tlbi " #reg)
+#define mtcpat(reg,val)	__asm__ __volatile__("at " #reg ",%0"  : : "r" (val))
+/* CP15 operations */
+#define mfcp(reg)	({u64 rval;\
+			__asm__ __volatile__("mrs	%0, " #reg : "=r" (rval));\
+			rval;\
+			})
+
+#define mtcp(reg,val)	__asm__ __volatile__("msr " #reg ",%0"  : : "r" (val))
+
+#else
 /* CP15 operations */
 #define mtcp(rn, v)	__asm__ __volatile__(\
 			 "mcr " rn "\n"\
@@ -163,6 +236,7 @@ extern "C" {
 			 );\
 			 rval;\
 			 })
+#endif
 
 /************************** Variable Definitions ****************************/
 
