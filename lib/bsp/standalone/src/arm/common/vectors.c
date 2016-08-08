@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,14 +33,17 @@
 /**
 * @file vectors.c
 *
-* This file contains the C level vectors for the ARM Cortex A53 core.
+* This file contains the C level vectors for the ARM Cortex A9 core.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
-* 5.2	pkp  28/05/15 First release
+* 1.00a ecm  10/20/09 Initial version, moved over from bsp area
+* 6.0   mus  27/07/16 Consolidated vectors for a53,a9 and r5 processor
+*                     and added UndefinedException for a53 32 bit and r5
+*                     processor
 * </pre>
 *
 * @note
@@ -69,7 +72,6 @@ typedef struct {
 extern XExc_VectorTableEntry XExc_VectorTable[];
 
 /************************** Function Prototypes ******************************/
-
 
 
 /*****************************************************************************/
@@ -108,6 +110,26 @@ void IRQInterrupt(void)
 {
 	XExc_VectorTable[XIL_EXCEPTION_ID_IRQ_INT].Handler(XExc_VectorTable[
 					XIL_EXCEPTION_ID_IRQ_INT].Data);
+}
+
+#if !defined (__aarch64__)
+/*****************************************************************************/
+/**
+*
+* This is the C level wrapper for the Undefined exception called from the
+* vectors.s file.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void UndefinedException(void)
+{
+	XExc_VectorTable[XIL_EXCEPTION_ID_UNDEFINED_INT].Handler(XExc_VectorTable[
+					XIL_EXCEPTION_ID_UNDEFINED_INT].Data);
 }
 
 /*****************************************************************************/
@@ -166,3 +188,44 @@ void PrefetchAbortInterrupt(void)
 	XExc_VectorTable[XIL_EXCEPTION_ID_PREFETCH_ABORT_INT].Handler(
 		XExc_VectorTable[XIL_EXCEPTION_ID_PREFETCH_ABORT_INT].Data);
 }
+#else
+
+/*****************************************************************************/
+/**
+*
+* This is the C level wrapper for the Synchronous Interrupt called from the vectors.s
+* file.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void SynchronousInterrupt(void)
+{
+	XExc_VectorTable[XIL_EXCEPTION_ID_SYNC_INT].Handler(XExc_VectorTable[
+					XIL_EXCEPTION_ID_SYNC_INT].Data);
+}
+
+/*****************************************************************************/
+/**
+*
+* This is the C level wrapper for the SError Interrupt called from the
+* vectors.s file.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void SErrorInterrupt(void)
+{
+	XExc_VectorTable[XIL_EXCEPTION_ID_SERROR_ABORT_INT].Handler(
+		XExc_VectorTable[XIL_EXCEPTION_ID_SERROR_ABORT_INT].Data);
+}
+
+#endif

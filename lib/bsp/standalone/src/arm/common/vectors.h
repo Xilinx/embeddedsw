@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,14 +33,15 @@
 /**
 * @file vectors.h
 *
-* This file contains the C level vector prototypes for the ARM Cortex A53 core.
+* This file contains the C level vector prototypes for the ARM Cortex A9 core.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
-* 5.00 	pkp  05/29/14 First release
+* 1.00a ecm  10/20/10 Initial version, moved over from bsp area
+* 6.0   mus  07/27/16 Consolidated vectors for a9,a53 and r5 processors
 * </pre>
 *
 * @note
@@ -67,12 +68,18 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /************************** Function Prototypes ******************************/
+
 void FIQInterrupt(void);
 void IRQInterrupt(void);
+#if !defined (__aarch64__)
+void SWInterrupt(void);
+void DataAbortInterrupt(void);
+void PrefetchAbortInterrupt(void);
+void UndefinedException(void);
+#else
 void SynchronousInterrupt(void);
 void SErrorInterrupt(void);
-
-
+#endif
 
 #ifdef __cplusplus
 }

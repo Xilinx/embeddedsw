@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@
 *
 * @file xil_exception.c
 *
-* This file contains low-level driver functions for the Cortex A53 exception
+* This file contains low-level driver functions for the Cortex A53,A9,R5 exception
 * Handler.
 *
 * <pre>
@@ -42,7 +42,10 @@
 *
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
-* 5.00 	pkp  05/29/14 First release
+* 5.2	pkp  	 28/05/15 First release
+* 6.0   mus      27/07/16 Consolidated exceptions for a53,a9 and r5
+*                         processors and added Xil_UndefinedExceptionHandler
+*                         for a53 32 bit and r5 as well.
 * </pre>
 *
 *****************************************************************************/
@@ -66,13 +69,12 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions ********************/
 
 /************************** Function Prototypes *****************************/
-
 static void Xil_ExceptionNullHandler(void *Data);
-
 /************************** Variable Definitions *****************************/
 /*
  * Exception vector table to store handlers for each exception vector.
  */
+#if defined (__aarch64__)
 XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
 {
         {Xil_ExceptionNullHandler, NULL},
@@ -82,6 +84,27 @@ XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
         {Xil_SErrorAbortHandler, NULL},
 
 };
+#else
+XExc_VectorTableEntry XExc_VectorTable[XIL_EXCEPTION_ID_LAST + 1] =
+{
+	{Xil_ExceptionNullHandler, NULL},
+	{Xil_UndefinedExceptionHandler, NULL},
+	{Xil_ExceptionNullHandler, NULL},
+	{Xil_PrefetchAbortHandler, NULL},
+	{Xil_DataAbortHandler, NULL},
+	{Xil_ExceptionNullHandler, NULL},
+	{Xil_ExceptionNullHandler, NULL},
+};
+#endif
+#if !defined (__aarch64__)
+u32 DataAbortAddr;       /* Address of instruction causing data abort */
+u32 PrefetchAbortAddr;   /* Address of instruction causing prefetch abort */
+u32 UndefinedExceptionAddr;   /* Address of instruction causing Undefined
+							     exception */
+#endif
+
+/*****************************************************************************/
+
 /****************************************************************************/
 /**
 *
@@ -105,11 +128,13 @@ DieLoop: goto DieLoop;
 
 /****************************************************************************/
 /**
-*
 * The function is a common API used to initialize exception handlers across all
-* processors supported. For ARM CortexA53, the exception handlers are being
+* processors supported. For ARM CortexA53,R5,A9, the exception handlers are being
 * initialized statically and hence this function does not do anything.
-*
+* However, it is still present to avoid any compilation issues in case an
+* application uses this API and also to take care of backward compatibility
+* issues (in earlier versions of BSPs, this API was being used to initialize
+* exception handlers).
 *
 * @param	None.
 *
@@ -172,6 +197,8 @@ void Xil_ExceptionRemoveHandler(u32 Exception_id)
 				       Xil_ExceptionNullHandler,
 				       NULL);
 }
+
+#if defined (__aarch64__)
 /*****************************************************************************/
 /**
 *
@@ -212,3 +239,89 @@ void Xil_SErrorAbortHandler(void *CallBackRef){
 		;
 	}
 }
+#else
+/*****************************************************************************/
+/**
+*
+* Default Data abort handler which prints data fault status register through
+* which information about data fault can be acquired
+*
+* @param	None
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+
+void Xil_DataAbortHandler(void *CallBackRef){
+	u32 FaultStatus;
+
+        xdbg_printf(XDBG_DEBUG_ERROR, "Data abort \n");
+        #ifdef __GNUC__
+	FaultStatus = mfcp(XREG_CP15_DATA_FAULT_STATUS);
+	    #elif defined (__ICCARM__)
+	        mfcp(XREG_CP15_DATA_FAULT_STATUS,FaultStatus);
+	    #else
+	        { volatile register u32 Reg __asm(XREG_CP15_DATA_FAULT_STATUS);
+	        FaultStatus = Reg; }
+	    #endif
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Data abort with Data Fault Status Register  %x\n",FaultStatus);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instrcution causing Data abort %x\n",DataAbortAddr);
+	while(1) {
+		;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* Default Prefetch abort handler which prints prefetch fault status register through
+* which information about instruction prefetch fault can be acquired
+*
+* @param	None
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void Xil_PrefetchAbortHandler(void *CallBackRef){
+	u32 FaultStatus;
+
+    xdbg_printf(XDBG_DEBUG_ERROR, "Prefetch abort \n");
+        #ifdef __GNUC__
+	FaultStatus = mfcp(XREG_CP15_INST_FAULT_STATUS);
+	    #elif defined (__ICCARM__)
+			mfcp(XREG_CP15_INST_FAULT_STATUS,FaultStatus);
+	    #else
+			{ volatile register u32 Reg __asm(XREG_CP15_INST_FAULT_STATUS);
+			FaultStatus = Reg; }
+		#endif
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Prefetch abort with Instruction Fault Status Register  %x\n",FaultStatus);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instrcution causing Prefetch abort %x\n",PrefetchAbortAddr);
+	while(1) {
+		;
+	}
+}
+/*****************************************************************************/
+/**
+*
+* Default undefined exception handler which prints address of the undefined
+* instruction if debug prints are enabled
+*
+* @param	None
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void Xil_UndefinedExceptionHandler(void *CallBackRef){
+
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of the undefined instruction %x\n",UndefinedExceptionAddr);
+	while(1) {
+		;
+	}
+}
+#endif

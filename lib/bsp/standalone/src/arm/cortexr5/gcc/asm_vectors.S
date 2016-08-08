@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 5.00  pkp	02/10/14 Initial version
+* 6.0   mus     27/07/16 Added UndefinedException handler
 * </pre>
 *
 * @note
@@ -90,8 +91,12 @@ FIQLoop:
 
 Undefined:					/* Undefined handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =UndefinedExceptionAddr
+	sub     r1, lr, #4
+	str     r1, [r0]            		/* Store address of instruction causing undefined exception */
+
+	bl	UndefinedException		/* UndefinedException: call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
-	b	_prestart
 	movs	pc, lr
 
 SVCHandler:					/* SWI handler */
@@ -107,12 +112,18 @@ SVCHandler:					/* SWI handler */
 
 DataAbortHandler:				/* Data Abort handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =DataAbortAddr
+	sub     r1, lr, #8
+	str     r1, [r0]            		/* Stores instruction causing data abort */
 	bl	DataAbortInterrupt		/*DataAbortInterrupt :call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 	subs	pc, lr, #8			/* adjust return */
 
 PrefetchAbortHandler:				/* Prefetch Abort handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
+	ldr     r0, =PrefetchAbortAddr
+	sub     r1, lr, #4
+	str     r1, [r0]            		/* Stores instruction causing prefetch abort */
 	bl	PrefetchAbortInterrupt		/* PrefetchAbortInterrupt: call C function here */
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 	subs	pc, lr, #4			/* adjust return */
