@@ -57,6 +57,7 @@
  *                     Fixed bug in XVphy_IsPllLocked function
  *                     Changed EffectiveAddr datatype in XVphy_CfgInitialize
  *                       to UINTPTR
+ *                     Used usleep API instead of MB_Sleep API
  * </pre>
  *
 *******************************************************************************/
@@ -67,11 +68,7 @@
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_hdmi.h"
-#if defined(__MICROBLAZE__)
-#include "microblaze_sleep.h"
-#elif defined(__arm__)
 #include "sleep.h"
-#endif
 #include "xvphy_gt.h"
 
 /**************************** Function Prototypes *****************************/
@@ -296,21 +293,15 @@ void XVphy_WaitUs(XVphy *InstancePtr, u32 MicroSeconds)
 		return;
 	}
 
-#if defined(__MICROBLAZE__)
 	if (InstancePtr->UserTimerWaitUs != NULL) {
 		/* Use the timer handler specified by the user for better
 		 * accuracy. */
 		InstancePtr->UserTimerWaitUs(InstancePtr, MicroSeconds);
 	}
 	else {
-		/* MicroBlaze sleep only has millisecond accuracy. Round up. */
-		u32 MilliSeconds = (MicroSeconds + 999) / 1000;
-		MB_Sleep(MilliSeconds);
+	    /* Wait the requested amount of time. */
+	    usleep(MicroSeconds);
 	}
-#elif defined(__arm__)
-	/* Wait the requested amount of time. */
-	usleep(MicroSeconds);
-#endif
 }
 
 /*****************************************************************************/
