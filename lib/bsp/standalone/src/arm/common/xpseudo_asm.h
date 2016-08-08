@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,19 +43,26 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a ecm  10/18/09 First release
 * 3.04a sdm  01/02/12 Remove redundant dsb in mcr instruction.
+* 6.6   mus  27/07/16 Consolidated file for a53,a9 and r5 processor
 * </pre>
 *
 ******************************************************************************/
 #ifndef XPSEUDO_ASM_H
 #define XPSEUDO_ASM_H
 
-#include "xreg_cortexa9.h"
 #ifdef __GNUC__
  #include "xpseudo_asm_gcc.h"
 #elif defined (__ICCARM__)
  #include "xpseudo_asm_iccarm.h"
 #else
  #include "xpseudo_asm_rvct.h"
+#endif
+#if defined (__aarch64__) || (ARMA53_32)
+#include "xreg_cortexa53.h"
+#elif defined (ARMR5)
+#include "xreg_cortexr5.h"
+#else
+#include "xreg_cortexa9.h"
 #endif
 
 #endif /* XPSEUDO_ASM_H */
