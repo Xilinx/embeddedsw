@@ -38,6 +38,6 @@ BEGIN driver v_hcresampler
  OPTION DEPENDS = (video_common_v3_1);
  OPTION copyfiles = all;
  OPTION name = v_hcresampler;
- OPTION version = 2.1;
+ OPTION version = 3.0;
 
 END driver

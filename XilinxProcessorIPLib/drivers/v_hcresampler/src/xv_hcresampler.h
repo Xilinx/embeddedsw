@@ -113,20 +113,6 @@ void XV_hcresampler_Set_HwReg_output_video_format(XV_hcresampler *InstancePtr, u
 u32 XV_hcresampler_Get_HwReg_output_video_format(XV_hcresampler *InstancePtr);
 void XV_hcresampler_Set_HwReg_coefs_0_0(XV_hcresampler *InstancePtr, u32 Data);
 u32 XV_hcresampler_Get_HwReg_coefs_0_0(XV_hcresampler *InstancePtr);
-void XV_hcresampler_Set_HwReg_coefs_0_1(XV_hcresampler *InstancePtr, u32 Data);
-u32 XV_hcresampler_Get_HwReg_coefs_0_1(XV_hcresampler *InstancePtr);
-void XV_hcresampler_Set_HwReg_coefs_0_2(XV_hcresampler *InstancePtr, u32 Data);
-u32 XV_hcresampler_Get_HwReg_coefs_0_2(XV_hcresampler *InstancePtr);
-void XV_hcresampler_Set_HwReg_coefs_0_3(XV_hcresampler *InstancePtr, u32 Data);
-u32 XV_hcresampler_Get_HwReg_coefs_0_3(XV_hcresampler *InstancePtr);
-void XV_hcresampler_Set_HwReg_coefs_1_0(XV_hcresampler *InstancePtr, u32 Data);
-u32 XV_hcresampler_Get_HwReg_coefs_1_0(XV_hcresampler *InstancePtr);
-void XV_hcresampler_Set_HwReg_coefs_1_1(XV_hcresampler *InstancePtr, u32 Data);
-u32 XV_hcresampler_Get_HwReg_coefs_1_1(XV_hcresampler *InstancePtr);
-void XV_hcresampler_Set_HwReg_coefs_1_2(XV_hcresampler *InstancePtr, u32 Data);
-u32 XV_hcresampler_Get_HwReg_coefs_1_2(XV_hcresampler *InstancePtr);
-void XV_hcresampler_Set_HwReg_coefs_1_3(XV_hcresampler *InstancePtr, u32 Data);
-u32 XV_hcresampler_Get_HwReg_coefs_1_3(XV_hcresampler *InstancePtr);
 
 void XV_hcresampler_InterruptGlobalEnable(XV_hcresampler *InstancePtr);
 void XV_hcresampler_InterruptGlobalDisable(XV_hcresampler *InstancePtr);

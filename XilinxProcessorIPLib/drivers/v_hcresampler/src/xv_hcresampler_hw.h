@@ -51,34 +51,10 @@ extern "C" {
 //        bit 15~0 - HwReg_coefs_0_0[15:0] (Read/Write)
 //        others   - reserved
 // 0x34 : reserved
-// 0x38 : Data signal of HwReg_coefs_0_1
-//        bit 15~0 - HwReg_coefs_0_1[15:0] (Read/Write)
+// 0x38-0xC8 : Data signal of HwReg_coefs_0_1->P_T (phase,tap)
+//        bit 15~0 - HwReg_coefs_<P>_<T>[15:0] (Read/Write)
 //        others   - reserved
-// 0x3c : reserved
-// 0x40 : Data signal of HwReg_coefs_0_2
-//        bit 15~0 - HwReg_coefs_0_2[15:0] (Read/Write)
-//        others   - reserved
-// 0x44 : reserved
-// 0x48 : Data signal of HwReg_coefs_0_3
-//        bit 15~0 - HwReg_coefs_0_3[15:0] (Read/Write)
-//        others   - reserved
-// 0x4c : reserved
-// 0x50 : Data signal of HwReg_coefs_1_0
-//        bit 15~0 - HwReg_coefs_1_0[15:0] (Read/Write)
-//        others   - reserved
-// 0x54 : reserved
-// 0x58 : Data signal of HwReg_coefs_1_1
-//        bit 15~0 - HwReg_coefs_1_1[15:0] (Read/Write)
-//        others   - reserved
-// 0x5c : reserved
-// 0x60 : Data signal of HwReg_coefs_1_2
-//        bit 15~0 - HwReg_coefs_1_2[15:0] (Read/Write)
-//        others   - reserved
-// 0x64 : reserved
-// 0x68 : Data signal of HwReg_coefs_1_3
-//        bit 15~0 - HwReg_coefs_1_3[15:0] (Read/Write)
-//        others   - reserved
-// 0x6c : reserved
+// 0xcc : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_HCRESAMPLER_CTRL_ADDR_AP_CTRL                        0x00
@@ -95,20 +71,6 @@ extern "C" {
 #define XV_HCRESAMPLER_CTRL_BITS_HWREG_OUTPUT_VIDEO_FORMAT_DATA 8
 #define XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA           0x30
 #define XV_HCRESAMPLER_CTRL_BITS_HWREG_COEFS_0_0_DATA           16
-#define XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_1_DATA           0x38
-#define XV_HCRESAMPLER_CTRL_BITS_HWREG_COEFS_0_1_DATA           16
-#define XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_2_DATA           0x40
-#define XV_HCRESAMPLER_CTRL_BITS_HWREG_COEFS_0_2_DATA           16
-#define XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_3_DATA           0x48
-#define XV_HCRESAMPLER_CTRL_BITS_HWREG_COEFS_0_3_DATA           16
-#define XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_0_DATA           0x50
-#define XV_HCRESAMPLER_CTRL_BITS_HWREG_COEFS_1_0_DATA           16
-#define XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_1_DATA           0x58
-#define XV_HCRESAMPLER_CTRL_BITS_HWREG_COEFS_1_1_DATA           16
-#define XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_2_DATA           0x60
-#define XV_HCRESAMPLER_CTRL_BITS_HWREG_COEFS_1_2_DATA           16
-#define XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_1_3_DATA           0x68
-#define XV_HCRESAMPLER_CTRL_BITS_HWREG_COEFS_1_3_DATA           16
 
 #ifdef __cplusplus
 }
