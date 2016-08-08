@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 Xilinx, Inc.
+# Copyright (C) 2015 - 2016 Xilinx, Inc.
 #
 # This file is part of the FreeRTOS port.
 #
@@ -19,7 +19,7 @@
 
 
 # standalone bsp version. set this to the latest "ACTIVE" version.
-set standalone_version standalone_v5_6
+set standalone_version standalone_v6_0
 
 proc FreeRTOS_drc {os_handle} {
 
@@ -46,22 +46,35 @@ proc generate {os_handle} {
 	# proctype should be "microblaze", ps7_cortexa9, psu_cortexr5 or psu_cortexa53
 	set commonsrcdir "../${standalone_version}/src/common"
 	set mbsrcdir "../${standalone_version}/src/microblaze"
-	set armr5srcdir "../${standalone_version}/src/cortexr5"
-	set armr5gccdir "../${standalone_version}/src/cortexr5/gcc"
-	set arma53srcdir "../${standalone_version}/src/cortexa53"
-	set arma5364srcdir "../${standalone_version}/src/cortexa53/64bit"
-	set arma5332srcdir "../${standalone_version}/src/cortexa53/32bit"
-	set arma5364gccdir "../${standalone_version}/src/cortexa53/64bit/gcc"
-	set arma5332gccdir "../${standalone_version}/src/cortexa53/32bit/gcc"
-	set includedir "../${standalone_version}/src/cortexa53/includes_ps"
-	set arma9srcdir "../${standalone_version}/src/cortexa9"
-	set arma9gccdir "../${standalone_version}/src/cortexa9/gcc"
-	set arma9armccdir "../${standalone_version}/src/cortexa9/armcc"
-	set arma9iarccdir "../${standalone_version}/src/cortexa9/iarcc"
+	set armr5srcdir "../${standalone_version}/src/arm/cortexr5"
+	set armr5gccdir "../${standalone_version}/src/arm/cortexr5/gcc"
+	set arma53srcdir "../${standalone_version}/src/arm/cortexa53"
+	set arma5364srcdir "../${standalone_version}/src/arm/cortexa53/64bit"
+	set arma5332srcdir "../${standalone_version}/src/arm/cortexa53/32bit"
+	set arma5364gccdir "../${standalone_version}/src/arm/cortexa53/64bit/gcc"
+	set arma5332gccdir "../${standalone_version}/src/arm/cortexa53/32bit/gcc"
+	set includedir "../${standalone_version}/src/arm/cortexa53/includes_ps"
+	set arma9srcdir "../${standalone_version}/src/arm/cortexa9"
+	set arma9gccdir "../${standalone_version}/src/arm/cortexa9/gcc"
+	set arma9armccdir "../${standalone_version}/src/arm/cortexa9/armcc"
+	set arma9iarccdir "../${standalone_version}/src/arm/cortexa9/iarcc"
+	set armcommonsrcdir "../${standalone_version}/src/arm/common"
+	set armsrcdir "../${standalone_version}/src/arm"
 
 	foreach entry [glob -nocomplain [file join $commonsrcdir *]] {
 		file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	}
+
+	if { $proctype == "psu_cortexa53" || $proctype == "ps7_cortexa9" || $proctype == "psu_cortexr5" } {
+	        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
+	       file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	       file delete -force "../${standalone_version}/src/gcc"
+	     }
+	     set commonccdir "../${standalone_version}/src/arm/common/gcc"
+	     foreach entry [glob -nocomplain [file join $commonccdir *]] {
+                 file copy -force $entry [file join ".." "${standalone_version}" "src"]
+	     }
+	 }
 
 	switch $proctype {
 
@@ -293,13 +306,7 @@ proc generate {os_handle} {
 	# Remove microblaze, cortexa9 and common directories...
 	file delete -force $mbsrcdir
 	file delete -force $commonsrcdir
-	file delete -force $armr5srcdir
-	file delete -force $armr5gccdir
-	file delete -force $arma53srcdir
-	file delete -force $arma9srcdir
-	file delete -force $arma9gccdir
-	file delete -force $arma9armccdir
-	file delete -force $arma9iarccdir
+	file delete -force $armsrcdir
 
 	# Handle stdin and stdout
 	::hsi::utils::handle_stdin $os_handle
