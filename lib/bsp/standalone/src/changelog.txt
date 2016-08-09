@@ -374,4 +374,15 @@
  * 5.6 pkp   07/25/16  Program the counter frequency in boot code for CortexA53
  * 5.6 asa   08/03/16  Updated sleep_common function in microblaze_sleep.c to improve the
  *                     the accuracy of MB sleep functionality. This fixes the CR#954191.
+ * 6.0 mus   08/03/16  Restructured the BSP to avoid code duplication across all BSPs.
+ *                     Source code directories specific to ARM processor's are moved to src/arm
+ *                     directory(i.e. src/cortexa53,src/cortexa9 and src/cortexr5 moved to src/arm/cortexa53,
+ *                     src/arm/cortexa9 and src/arm/cortexr5 respectively).Files xil_printf.c,xil_printf.h,
+ *                     print.c,xil_io.c and xil_io.h are consolidated across all BSPs into common file each and
+ *                     consolidated files are kept at src/common directory.Files putnum.c,vectors.c,vectors.h,
+ *                     xil_exception.c,xil_exception.h and xpseudo_asm.h are consolidated across all ARM BSPs
+ *                     into common file each and consolidated files are kept at src/arm/common directory.
+ *                     GCC source files related to file  operations are consolidated and kept
+ *                     at src/arm/common/gcc directory.
+ *                     Added undefined exception handler for A53 32 bit and R5 processor
  *****************************************************************************************/
