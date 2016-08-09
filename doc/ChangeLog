@@ -2,6 +2,7 @@ Change Log for 2016.3
 =================================
 freertos823_xilinx_v1_2:
 Created new version to support event trace through Coresight STM
+Updated tcl files as per modified standalone BSP structure.
 
 axidma_v9_3:
 Reduce the size of the buffer descriptor to 64 bytes
@@ -47,13 +48,21 @@ the R5 running the baremetal app tasked to initialize the Distributor hangs or c
 Changes are made so that the R5 under AMP first checks if the distributor is enabled or not and if not, it does the standard Distributor initialization.
 This fixes the CR#952962.
 
-standalone_v5_6:
+standalone_v6_0:
 Make Xil_AsserWait a global variable
 Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot section since it is part of boot process to fix CR#949555
 Added support for non-secure EL1 with exception level selection feature for Cortex-A53 64bit mode
 Program the counter frequency in boot code for CortexA53
 Update get_pins command in the standalone bsp tcl as per 2016.3 hsi
 Updated the sleep_common function in microblaze_sleep.c. Fix for CR#954191.
+Restructured the BSP to avoid code duplication across all BSPs.Source code directories specific to ARM processor's are
+moved to src/arm directory(i.e. src/cortexa53,src/cortexa9 and src/cortexr5 moved to src/arm/cortexa53,src/arm/cortexa9
+and src/arm/cortexr5 respectively).Files xil_printf.c,xil_printf.h,print.c,xil_io.c and xil_io.h are consolidated across all
+BSPs into common file each and consolidated files are kept at src/common directory.Files putnum.c,vectors.c,vectors.h,
+xil_exception.c,xil_exception.h and xpseudo_asm.h are consolidated across all ARM BSPs into common file each and consolidated
+files are kept at src/arm/common directory.GCC files related to file operations are consolidated and kept at src/arm/common/gcc
+directory.
+Added undefined exception handler for A53 32 bit and R5 processor.
 
 sdps_v3_0:
 Added support for mkfs.
