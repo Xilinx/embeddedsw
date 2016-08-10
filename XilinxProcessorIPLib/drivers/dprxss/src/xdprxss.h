@@ -101,6 +101,7 @@
 *                   Added handler type as enum for HDCP:
 *                   XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT.
 *                   Added function: XDpRxSs_DownstreamReady.
+* 3.1  als 08/08/16 Added HDCP timeout functionality.
 * </pre>
 *
 ******************************************************************************/
@@ -488,6 +489,7 @@ void XDpRxSs_SetDebugLogMsg(XDpRxSs *InstancePtr, XDpRxSs_LogMsg LogFunc);
 void XDpRxSs_StartTimer(XDpRxSs *InstancePtr);
 void XDpRxSs_StopTimer(XDpRxSs *InstancePtr);
 u32 XDpRxSs_DownstreamReady(XDpRxSs *InstancePtr);
+void XDpRxSs_HandleTimeout(XDpRxSs *InstancePtr);
 #endif
 
 void XDpRxSs_ReportCoreInfo(XDpRxSs *InstancePtr);

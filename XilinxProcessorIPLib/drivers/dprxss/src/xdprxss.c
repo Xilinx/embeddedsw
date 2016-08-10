@@ -56,6 +56,7 @@
 * 3.0  sha 02/05/16 Added support for multiple subsystems in a design.
 * 3.0  sha 02/19/16 Added function: XDpRxSs_DownstreamReady.
 * 3.1  als 08/08/16 Synchronize with new HDCP APIs.
+* 3.1  als 08/08/16 Added HDCP timeout functionality.
 * </pre>
 *
 ******************************************************************************/
@@ -1094,6 +1095,228 @@ static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber)
 
 	/* Set Timer Counter reset done */
 	XDpRxSsPtr->TmrCtrResetDone = 1;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function handles a timeout for HDCP.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XDpRxSs_HandleTimeout(XDpRxSs *InstancePtr)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->Config.HdcpEnable == 0x1);
+
+	/* Handle timeout */
+	XHdcp1x_HandleTimeout(InstancePtr->Hdcp1xPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function starts a timer on behalf of an HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+* @param	TimeoutInMs the timer duration in milliseconds.
+*
+* @return
+*		- XST_SUCCESS if Timer Counter started successfully.
+*
+* @note		None.
+*
+******************************************************************************/
+static int DpRxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs)
+{
+	XHdcp1x *HdcpPtr = (XHdcp1x *)InstancePtr;
+	XTmrCtr *TmrCtrPtr = (XTmrCtr *)HdcpPtr->Hdcp1xRef;
+	u8 TimerChannel;
+	u32 TimerOptions;
+	u32 NumTicks;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(HdcpPtr != NULL);
+	Xil_AssertNonvoid(TmrCtrPtr != NULL);
+
+	/* Determine NumTicks */
+	NumTicks = DpRxSs_ConvertUsToTicks((TimeoutInMs * 1000),
+				TmrCtrPtr->Config.SysClockFreqHz);
+
+	/* Stop Timer Counter */
+	TimerChannel = 0;
+	XTmrCtr_Stop(TmrCtrPtr, TimerChannel);
+
+	/* Configure the callback */
+	XTmrCtr_SetHandler(TmrCtrPtr, &DpRxSs_TimerCallback,
+				(void *)HdcpPtr);
+
+	/* Configure the timer options */
+	TimerOptions = XTmrCtr_GetOptions(TmrCtrPtr, TimerChannel);
+	TimerOptions |= XTC_DOWN_COUNT_OPTION;
+	TimerOptions |= XTC_INT_MODE_OPTION;
+	TimerOptions &= ~XTC_AUTO_RELOAD_OPTION;
+	XTmrCtr_SetOptions(TmrCtrPtr, TimerChannel, TimerOptions);
+
+	/* Set the timeout and start */
+	XTmrCtr_SetResetValue(TmrCtrPtr, TimerChannel, NumTicks);
+	XTmrCtr_Start(TmrCtrPtr, TimerChannel);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function stops a timer on behalf of an HDCP interface
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+*
+* @return
+*		- XST_SUCCESS if Timer Counter stopped successfully.
+*
+* @note		None.
+*
+******************************************************************************/
+static int DpRxSs_HdcpStopTimer(void *InstancePtr)
+{
+	XHdcp1x *HdcpPtr = (XHdcp1x *)InstancePtr;
+	XTmrCtr *TmrCtrPtr = (XTmrCtr *)HdcpPtr->Hdcp1xRef;
+	u8 TimerChannel;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(TmrCtrPtr != NULL);
+
+	/* Stop Timer Counter */
+	TimerChannel = 0;
+	XTmrCtr_Stop(TmrCtrPtr, TimerChannel);
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function busy waits for an interval on behalf of an HDCP interface.
+*
+* @param	InstancePtr is a pointer to the XHdcp1x core instance.
+* @param	DelayInMs the delay duration in milliseconds.
+*
+* @return
+*		- XST_SUCCESS if Timer Counter busy wait successfully.
+*
+* @note		None.
+*
+******************************************************************************/
+static int DpRxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs)
+{
+	XHdcp1x *HdcpPtr = (XHdcp1x *)InstancePtr;
+	XTmrCtr *TmrCtrPtr = (XTmrCtr *)HdcpPtr->Hdcp1xRef;
+	u8 TimerChannel;
+	u32 TimerOptions;
+	u32 NumTicks;
+
+	/* Verify argument. */
+	Xil_AssertNonvoid(TmrCtrPtr != NULL);
+
+	/* Determine number of timer ticks */
+	NumTicks = DpRxSs_ConvertUsToTicks((DelayInMs * 1000),
+				TmrCtrPtr->Config.SysClockFreqHz);
+
+	/* Stop it */
+	TimerChannel = 0;
+	XTmrCtr_Stop(TmrCtrPtr, TimerChannel);
+
+	/* Configure the timer options */
+	TimerOptions = XTmrCtr_GetOptions(TmrCtrPtr, TimerChannel);
+	TimerOptions |= XTC_DOWN_COUNT_OPTION;
+	TimerOptions &= ~XTC_INT_MODE_OPTION;
+	TimerOptions &= ~XTC_AUTO_RELOAD_OPTION;
+	XTmrCtr_SetOptions(TmrCtrPtr, TimerChannel, TimerOptions);
+
+	/* Set the timeout and start */
+	XTmrCtr_SetResetValue(TmrCtrPtr, TimerChannel, NumTicks);
+	XTmrCtr_Start(TmrCtrPtr, TimerChannel);
+
+	/* Wait until done */
+	while (!XTmrCtr_IsExpired(TmrCtrPtr, TimerChannel));
+
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function serves as the timer callback.
+*
+* @param	InstancePtr is a pointer to the XDpRxSs core instance.
+* @param 	TmrCtrNumber is the number of the timer/counter within the
+*		device. The device typically contains at least two
+*		timer/counters.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void DpRxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber)
+{
+	XHdcp1x *Hdcp1xPtr = (XHdcp1x *)InstancePtr;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(Hdcp1xPtr != NULL);
+	Xil_AssertVoid(TmrCtrNumber < XTC_DEVICE_TIMER_COUNT);
+
+	/* Handle timeout */
+	XHdcp1x_HandleTimeout(Hdcp1xPtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function converts from microseconds to timer ticks.
+*
+* @param	TimeoutInUs is the timeout value to convert into timer ticks.
+* @param 	ClkFreq the clock frequency to use in the conversion.
+*
+* @return	The number of timer ticks.
+*
+* @note		None.
+*
+******************************************************************************/
+static u32 DpRxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq)
+{
+	u32 TimeoutFreq;
+	u32 NumSeconds;
+	u32 NumTicks = 0;
+
+	/* Check for greater than one second */
+	if (TimeoutInUs > 1000000) {
+		/* Determine the number of seconds */
+		NumSeconds = (TimeoutInUs / 1000000);
+
+		/* Update theNumTicks */
+		NumTicks = (NumSeconds * ClkFreq);
+
+		/* Adjust the TimeoutInUs */
+		TimeoutInUs -= (NumSeconds * 1000000);
+	}
+
+	/* Convert TimeoutFreq to a frequency */
+	TimeoutFreq = 1000;
+	TimeoutFreq *= 1000;
+	TimeoutFreq /= TimeoutInUs;
+
+	/* Update NumTicks */
+	NumTicks += ((ClkFreq / TimeoutFreq) + 1);
+
+	return NumTicks;
 }
 #endif
 
