@@ -56,6 +56,7 @@
 * 1.2	nsk 07/01/16 Changed XQspiPsu_Select to support GQSPI and LQSPI
 *		     selection.
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
+*	nsk 08/05/16 Added example support PollData and PollTimeout
 *
 * </pre>
 *
@@ -87,6 +88,10 @@ static inline void XQspiPsu_GenFifoEntryData(XQspiPsu *InstancePtr,
 static inline void XQspiPsu_GenFifoEntryCSDeAssert(XQspiPsu *InstancePtr);
 static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 			XQspiPsu_Msg *Msg, s32 Size);
+static inline void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr,
+		XQspiPsu_Msg *FlashMsg);
+static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
+		XQspiPsu_Msg *FlashMsg);
 
 /************************** Variable Definitions *****************************/
 
@@ -553,10 +558,13 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		return (s32)XST_DEVICE_BUSY;
 	}
 
-	/* Check for ByteCount upper limit - 2^28 for DMA */
-	for (Index = 0; Index < (s32)NumMsg; Index++) {
-		if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
-				((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
+	if (Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) {
+		XQspiPsu_PollData(InstancePtr, Msg);
+	} else {
+		/* Check for ByteCount upper limit - 2^28 for DMA */
+		for (Index = 0; Index < (s32)NumMsg; Index++) {
+			if ((Msg[Index].ByteCount > XQSPIPSU_DMA_BYTES_MAX) &&
+					((Msg[Index].Flags & XQSPIPSU_MSG_FLAG_RX) != FALSE)) {
 			return (s32)XST_FAILURE;
 		}
 	}
@@ -602,7 +610,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 		XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_QSPIDMA_DST_I_EN_OFFSET,
 				XQSPIPSU_QSPIDMA_DST_I_EN_DONE_MASK);
 	}
-
+	}
 	return XST_SUCCESS;
 }
 
@@ -649,8 +657,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 		XQspiPsu_WriteReg(BaseAddress,
 			XQSPIPSU_QSPIDMA_DST_I_STS_OFFSET, DmaIntrStatusReg);
 	}
-	if (((QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK) != FALSE) ||
-		((DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_INTR_ERR_MASK) != FALSE)) {
+	if (((DmaIntrStatusReg & XQSPIPSU_QSPIDMA_DST_INTR_ERR_MASK) != FALSE)) {
 		/* Call status handler to indicate error */
 		InstancePtr->StatusHandler(InstancePtr->StatusRef,
 					XST_SPI_COMMAND_ERROR, 0);
@@ -743,6 +750,7 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 	if ((MsgCnt < NumMsg) && (DeltaMsgCnt == FALSE) &&
 		((TxRxFlag & XQSPIPSU_MSG_FLAG_RX) == FALSE) &&
 		((TxRxFlag & XQSPIPSU_MSG_FLAG_TX) == FALSE) &&
+		((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) == FALSE) &&
 		((QspiPsuStatusReg & XQSPIPSU_ISR_GENFIFOEMPTY_MASK) != FALSE)) {
 		MsgCnt += 1;
 		DeltaMsgCnt = 1U;
@@ -822,7 +830,34 @@ s32 XQspiPsu_InterruptHandler(XQspiPsu *InstancePtr)
 						XST_SPI_TRANSFER_DONE, 0);
 		}
 	}
+	if ((TxRxFlag & XQSPIPSU_MSG_FLAG_POLL) != FALSE){
+		 if (QspiPsuStatusReg & XQSPIPSU_ISR_RXNEMPTY_MASK){
+			 /*
+			  * Read data from RXFIFO, since when data from the flash device
+			  * (status data) matched with configured value in poll_cfg, then
+			  * controller writes the matched data into RXFIFO.
+			  */
+			XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress, XQSPIPSU_RXD_OFFSET);
 
+			XQspiPsu_WriteReg(BaseAddress, XQSPIPSU_IDR_OFFSET,
+					(u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
+					(u32)XQSPIPSU_IER_TXEMPTY_MASK |
+					(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
+					(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
+					(u32)XQSPIPSU_IER_RXEMPTY_MASK |
+					(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
+			InstancePtr->StatusHandler(InstancePtr->StatusRef, XST_SPI_POLL_DONE, 0);
+
+			InstancePtr->IsBusy = FALSE;
+			/* Disable the device. */
+			XQspiPsu_Disable(InstancePtr);
+
+		 }
+		 if (QspiPsuStatusReg & XQSPIPSU_ISR_POLL_TIME_EXPIRE_MASK){
+			InstancePtr->StatusHandler(InstancePtr->StatusRef,
+					XST_FLASH_TIMEOUT_ERROR, 0);
+		 }
+	}
 	return XST_SUCCESS;
 }
 
@@ -1358,5 +1393,118 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 			InstancePtr->RxBytes = 0;
 		}
 	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function enables the polling functionality of controller
+*
+* @param	QspiPsuPtr is a pointer to the XQspiPsu instance.
+*
+* @param	Statuscommand is the status command which send by controller.
+*
+* @param	FlashMsg is a pointer to the structure containing transfer data
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
+{
+	u32 polldata, test;
+	u32 QspiPsuStatusReg,QspiPsuStatusReg1;
+	u32 GenFifoEntry ;
+	u32 Value;
+
+	Xil_AssertVoid(QspiPsuPtr != NULL);
+	Xil_AssertVoid(FlashMsg != NULL );
+
+	Value = XQspiPsu_Create_PollConfigData(QspiPsuPtr, FlashMsg);
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+			XQSPIPSU_POLL_CFG_OFFSET, Value);
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+			XQSPIPSU_P_TO_OFFSET, FlashMsg->PollTimeout);
+
+	XQspiPsu_Enable(QspiPsuPtr);
+
+	GenFifoEntry = (u32)0;
+	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_TX;
+	GenFifoEntry |= QspiPsuPtr->GenFifoBus;
+	GenFifoEntry |= QspiPsuPtr->GenFifoCS;
+	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_MODE_SPI;
+	GenFifoEntry |= (u32)FlashMsg->PollStatusCmd;
+
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+					XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+	GenFifoEntry = (u32)0;
+	GenFifoEntry = (u32)XQSPIPSU_GENFIFO_POLL;
+	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_RX;
+	GenFifoEntry |= QspiPsuPtr->GenFifoBus;
+	GenFifoEntry |= QspiPsuPtr->GenFifoCS;
+	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_MODE_SPI;
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
+		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
+
+
+	QspiPsuPtr->IsBusy = TRUE;
+	QspiPsuPtr->Msg = FlashMsg;
+	QspiPsuPtr->NumMsg = (s32)1;
+	QspiPsuPtr->MsgCnt = 0;
+
+	Value = XQspiPsu_ReadReg(QspiPsuPtr->Config.BaseAddress,
+			XQSPIPSU_CFG_OFFSET);
+	Value |= (XQSPIPSU_CFG_START_GEN_FIFO_MASK |
+			XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK |
+			XQSPIPSU_CFG_EN_POLL_TO_MASK);
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
+			Value);
+
+	/* Enable interrupts */
+	Value = ((u32)XQSPIPSU_IER_TXNOT_FULL_MASK |
+		(u32)XQSPIPSU_IER_TXEMPTY_MASK |
+		(u32)XQSPIPSU_IER_RXNEMPTY_MASK |
+		(u32)XQSPIPSU_IER_GENFIFOEMPTY_MASK |
+		(u32)XQSPIPSU_IER_RXEMPTY_MASK |
+		(u32)XQSPIPSU_IER_POLL_TIME_EXPIRE_MASK);
+	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_IER_OFFSET,
+			Value);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function creates Poll config register data to write
+*
+* @param	BusMask is mask to enable/disable upper/lower data bus masks.
+*
+* @param	DataBusMask is Data bus mask value during poll operation.
+*
+* @param	Data is the poll data value to write into config regsiter.
+*
+* @return	None
+*
+* @note		None.
+*
+******************************************************************************/
+static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
+		XQspiPsu_Msg *FlashMsg)
+{
+	u32 ConfigData = 0;
+
+	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER)
+		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
+			           XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
+	else
+		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
+			           XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
+	ConfigData |= ((FlashMsg->PollBusMask << XQSPIPSU_POLL_CFG_MASK_EN_SHIFT)
+			& XQSPIPSU_POLL_CFG_MASK_EN_MASK);
+	ConfigData |= ((FlashMsg->PollData << XQSPIPSU_POLL_CFG_DATA_VALUE_SHIFT)
+		          & XQSPIPSU_POLL_CFG_DATA_VALUE_MASK);
+	return ConfigData;
 }
 /** @} */

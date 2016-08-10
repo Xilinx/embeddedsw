@@ -104,6 +104,10 @@
 *		     LQSPI options and updated OptionsTable in
 *		     xqspipsu_options.c
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
+*	nsk 08/05/16 Added example support PollData and PollTimeout
+*		     Added  XQSPIPSU_MSG_FLAG_POLL macro in xqspipsu.h
+*		     Added XQspiPsu_Create_PollConfigData and
+*		     XQspiPsu_PollData() functions in xqspipsu.c
 *
 * </pre>
 *
@@ -152,6 +156,10 @@ typedef struct {
 	u32 ByteCount;
 	u32 BusWidth;
 	u32 Flags;
+	u8 PollData;
+	u32 PollTimeout;
+	u8 PollStatusCmd;
+	u8 PollBusMask;
 } XQspiPsu_Msg;
 
 /**
@@ -245,6 +253,7 @@ typedef struct {
 #define XQSPIPSU_MSG_FLAG_STRIPE	0x1U
 #define XQSPIPSU_MSG_FLAG_RX		0x2U
 #define XQSPIPSU_MSG_FLAG_TX		0x4U
+#define XQSPIPSU_MSG_FLAG_POLL		0x8U
 
 #define XQspiPsu_Select(InstancePtr, Mask)	XQspiPsu_Out32(((InstancePtr)->Config.BaseAddress) + XQSPIPSU_SEL_OFFSET, Mask)
 
