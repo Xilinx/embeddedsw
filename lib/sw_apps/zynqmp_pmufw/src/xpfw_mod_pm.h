@@ -30,7 +30,7 @@
 
 #ifndef XPFW_MOD_PM_H_
 #define XPFW_MOD_PM_H_
-
+extern const XPfw_Module_t *PmModPtr;
 void ModPmInit(void);
 
 #endif /* XPFW_MOD_PM_H_ */

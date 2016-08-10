@@ -44,9 +44,10 @@
 #include "pm_periph.h"
 #include "pm_callbacks.h"
 #include "pm_notifier.h"
-#include "ipi_buffer.h"
 #include "pm_system.h"
 #include "pm_ddr.h"
+
+#include "xpfw_ipi_manager.h"
 
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
@@ -829,8 +830,6 @@ PmMaster pmMasterApu_g = {
 	.wakeProc = NULL,
 	.nid = NODE_APU,
 	.ipiMask = IPI_PMU_0_IER_APU_MASK,
-	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_APU_OFFSET,
-	.buffer = IPI_BUFFER_APU_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = NULL,
 	.permissions = IPI_PMU_0_IER_RPU_0_MASK | IPI_PMU_0_IER_RPU_1_MASK,
 	.suspendRequest = {
@@ -849,8 +848,6 @@ PmMaster pmMasterRpu0_g = {
 	.wakeProc = NULL,
 	.nid = NODE_RPU,
 	.ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
-	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_0_OFFSET,
-	.buffer = IPI_BUFFER_RPU_0_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = NULL,
 	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_1_MASK,
 	.suspendRequest = {
@@ -869,8 +866,6 @@ PmMaster pmMasterRpu1_g = {
 	.wakeProc = NULL,
 	.nid = NODE_RPU_0, /* placeholder for request suspend, not used */
 	.ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
-	.pmuBuffer = IPI_BUFFER_PMU_BASE + IPI_BUFFER_TARGET_RPU_1_OFFSET,
-	.buffer = IPI_BUFFER_RPU_1_BASE + IPI_BUFFER_TARGET_PMU_OFFSET,
 	.reqs = NULL,   /* lockstep mode is assumed for now */
 	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.suspendRequest = {
@@ -1149,21 +1144,6 @@ PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
 }
 
 /**
- * PmEnableAllMasterIpis() - Iterate through all masters and enable their IPI
- *                           interrupt
- */
-void PmEnableAllMasterIpis(void)
-{
-	u8 i;
-
-	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-		XPfw_RMW32(IPI_PMU_0_IER,
-			   pmAllMasters[i]->ipiMask,
-			   pmAllMasters[i]->ipiMask);
-	}
-}
-
-/**
  * PmGetMasterByIpiMask() - Use to get pointer to master structure by ipi mask
  * @mask    IPI Mask of a master (requestor) in IPI registers
  *
@@ -1406,7 +1386,7 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response)
 				mst->procs->node.nodeId, response,
 				mst->procs->node.currState);
 	} else if (REQUEST_ACK_BLOCKING == mst->suspendRequest.acknowledge) {
-		IPI_RESPONSE1(mst->buffer, response);
+		IPI_RESPONSE1(mst->ipiMask, response);
 	} else {
 		/* No acknowledge */
 	}

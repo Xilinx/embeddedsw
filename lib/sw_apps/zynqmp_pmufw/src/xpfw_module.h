@@ -41,7 +41,7 @@ struct XPfw_Module_s;
 typedef void (*XPfwModEventHandler_t)(const struct XPfw_Module_s *ModPtr,
 		u32 EventId);
 typedef void (*XPfwModIpiHandler_t)(const struct XPfw_Module_s *ModPtr,
-		u32 IpiNum, u32 SrcMask);
+		u32 IpiNum, u32 SrcMask, const u32* Payload, u8 Len);
 typedef void (*XPfwModCfgInitHandler_t)(const struct XPfw_Module_s *ModPtr,
 		const u32 *CfgObject, u32 CfgLen);
 
@@ -57,7 +57,7 @@ typedef struct XPfw_Module_s {
 	XPfwModCfgInitHandler_t CfgInitHandler; /**< Callback when an Event is triggered for this Module */
 	XPfwModIpiHandler_t IpiHandler; /**< Callback when an IPI is triggered for this Module */
 	XPfwModEventHandler_t EventHandler; /**< Callback during Initialization of Core FW (Post User_StartUp) */
-	u32 IpiId; /**< Filter for First Word of IPI Message */
+	u16 IpiId; /**< Filter for First Word of IPI Message */
 } XPfw_Module_t;
 
 /**

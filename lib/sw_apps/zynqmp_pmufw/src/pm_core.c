@@ -42,7 +42,6 @@
 #include "pm_callbacks.h"
 #include "pm_reset.h"
 #include "pm_notifier.h"
-#include "ipi_buffer.h"
 #include "pm_mmio_access.h"
 #include "pm_system.h"
 
@@ -67,7 +66,7 @@ static void PmProcessAckRequest(const u32 ack,
 #endif
 	if (REQUEST_ACK_BLOCKING == ack) {
 		/* Return status immediately */
-		IPI_RESPONSE1(master->buffer, status);
+		IPI_RESPONSE1(master->ipiMask, status);
 	} else if (REQUEST_ACK_NON_BLOCKING == ack) {
 		/* Return acknowledge through callback */
 		PmAcknowledgeCb(master, nodeId, status, oppoint);
@@ -132,7 +131,7 @@ static void PmSelfSuspend(const PmMaster *const master,
 	}
 
 done:
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -290,7 +289,7 @@ static void PmAbortSuspend(const PmMaster *const master,
 	status = PmProcFsm(proc, PM_PROC_EVENT_ABORT_SUSPEND);
 
 done:
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -390,7 +389,7 @@ static void PmReleaseNode(const PmMaster *master,
 
 done:
 	PmDbg("(%s)\n", PmStrNode(node));
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -526,7 +525,7 @@ static void PmGetApiVersion(const PmMaster *const master)
 
 	PmDbg("version %d.%d\n", PM_VERSION_MAJOR, PM_VERSION_MINOR);
 
-	IPI_RESPONSE2(master->buffer, XST_SUCCESS, version);
+	IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, version);
 }
 
 /**
@@ -576,7 +575,7 @@ do_write:
 	XPfw_Write32(address, value);
 
 done:
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -606,7 +605,7 @@ static void PmMmioRead(const PmMaster *const master, const u32 address)
 	      address, value);
 
 done:
-	IPI_RESPONSE2(master->buffer, status, value);
+	IPI_RESPONSE2(master->ipiMask, status, value);
 }
 
 /**
@@ -662,7 +661,7 @@ done:
 	PmDbg("(%s, %s, %lu)\n", PmStrNode(master->nid), PmStrNode(sourceNode),
 	      enable);
 
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -697,7 +696,7 @@ static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
 	status = PmSystemProcessShutdown(master, restart);
 
 done:
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -731,7 +730,7 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 	status = PmUpdateSlave(masterReq->slave);
 
 done:
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -771,7 +770,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 	}
 
 done:
-	IPI_RESPONSE4(master->buffer, status, oppoint, currReq, usage);
+	IPI_RESPONSE4(master->ipiMask, status, oppoint, currReq, usage);
 }
 
 /**
@@ -811,7 +810,7 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 
 done:
 	PmDbg("(%s, %lu, %lu)\n", PmStrNode(node), type, result);
-	IPI_RESPONSE2(master->buffer, status, result);
+	IPI_RESPONSE2(master->ipiMask, status, result);
 }
 
 /**
@@ -844,7 +843,7 @@ static void PmRegisterNotifier(const PmMaster *const master, const u32 node,
 	}
 
 done:
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**

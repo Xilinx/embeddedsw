@@ -35,45 +35,31 @@
 
 #include "pm_binding.h"
 #include "pm_api.h"
-#include "ipi_buffer.h"
 #include "pm_defs.h"
 
+#include "xpfw_ipi_manager.h"
 #include "xpfw_mod_pm.h"
+
 
 #ifdef ENABLE_PM
 
-static const XPfw_Module_t *PmModPtr;
+#define PM_MAX_MSG_LEN XPFW_IPI_MAX_MSG_LEN
+const XPfw_Module_t *PmModPtr;
 
-static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask)
+static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, const u32* Payload, u8 Len)
 {
-	u32 isrVal, isrClr, apiId;
 	XPfw_PmIpiStatus ipiStatus;
-	XStatus status;
+	u32 isrVal;
 
 	switch (IpiNum) {
 	case 0:
-		isrVal = XPfw_Read32(IPI_PMU_0_ISR);
-		fw_printf("Received IPI Mask:0x%08lx\r\n", isrVal);
-		ipiStatus = XPfw_PmCheckIpiRequest(isrVal, &apiId);
+		ipiStatus = XPfw_PmCheckIpiRequest(SrcMask, &Payload[0]);
+
 		if (XPFW_PM_IPI_IS_PM_CALL == ipiStatus) {
 			/* Power management API processing */
-			status = XPfw_PmIpiHandler(isrVal, apiId, &isrClr);
-			if (XST_SUCCESS == status) {
-				/* Clear only irq for handled PM request */
-				XPfw_Write32(IPI_PMU_0_ISR, isrClr);
-			}
+			XPfw_PmIpiHandler(SrcMask, &Payload[0], Len);
 		} else {
-			status = XST_NO_FEATURE;
 			fw_printf("MOD-%d: Non-PM IPI-%lu call received\r\n", ModPtr->ModId, IpiNum);
-		}
-
-		if (XST_SUCCESS != status) {
-			/*
-			 * Clear all irqs if something went wrong, to avoid
-			 * system looping in interrupt handler because of error
-			 */
-			XPfw_Write32(IPI_PMU_0_ISR, isrVal);
-			fw_printf("ERROR #%ld : IPI-%lu\r\n", status, IpiNum);
 		}
 		break;
 

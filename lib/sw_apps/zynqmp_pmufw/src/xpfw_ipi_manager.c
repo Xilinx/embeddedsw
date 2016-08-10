@@ -44,11 +44,13 @@
 /* Instance of IPI Driver */
 static XIpiPsu IpiInst;
 static XIpiPsu *IpiInstPtr = &IpiInst;
+u32 IpiMaskList[XPFW_IPI_MASK_COUNT] = {0U};
 
 s32 XPfw_IpiManagerInit(void)
  {
 	s32 Status;
 	XIpiPsu_Config *IpiCfgPtr;
+	int i;
 
 	/* Load Config for PMU IPI-0 */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
@@ -57,9 +59,18 @@ s32 XPfw_IpiManagerInit(void)
 		Status = XST_FAILURE;
 		goto Done;
 	}
+	/* Init Mask List */
+	for (i = 0; i < XPFW_IPI_MASK_COUNT; i++) {
+		IpiMaskList[i] = IpiCfgPtr->TargetList[i].Mask;
+	}
 	/* Initialize the IPI driver */
 	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
 			IpiCfgPtr->BaseAddress);
+
+	/* Enable IPIs from all Masters */
+	for (i = 0; i < XPFW_IPI_MASK_COUNT; i++) {
+		XIpiPsu_InterruptEnable(IpiInstPtr, IpiCfgPtr->TargetList[i].Mask);
+	}
 
 Done:
 	return Status;
@@ -101,28 +112,15 @@ Done:
 	return Status;
 }
 
-s32 XPfw_IpiReadMessage(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
+s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen)
  {
 	s32 Status = XST_FAILURE;
-	u32 MsgHeader;
 
-	if ((ModPtr == NULL) || (MsgPtr == NULL)) {
+	if (MsgPtr == NULL) {
 		Status = XST_FAILURE;
 		goto Done;
 	}
-	/* Read the first word */
-	Status = XIpiPsu_ReadMessage(IpiInstPtr, SrcCpuMask, &MsgHeader, 1U,
-			XIPIPSU_BUF_TYPE_MSG);
 
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
-	/* Check if IPI Id matches the upper 16 bits of first word*/
-	if ((MsgHeader >> 16) != ModPtr->IpiId) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
 	/* Read Entire Message to Buffer */
 	Status = XIpiPsu_ReadMessage(IpiInstPtr, SrcCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_MSG);

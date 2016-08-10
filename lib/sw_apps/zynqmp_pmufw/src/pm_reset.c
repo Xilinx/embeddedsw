@@ -48,7 +48,6 @@
 #include "crl_apb.h"
 #include "crf_apb.h"
 #include "pmu_iomodule.h"
-#include "ipi_buffer.h"
 
 /**
  * PmResetOps - Reset operations
@@ -2039,7 +2038,7 @@ void PmResetAssert(const PmMaster *const master, const u32 reset,
 	status = ResetDoAssert(resetPtr, action);
 
 done:
-	IPI_RESPONSE1(master->buffer, status);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -2064,5 +2063,5 @@ void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 	resetStatus = resetPtr->ops->getStatus(resetPtr);
 
 done:
-	IPI_RESPONSE2(master->buffer, status, resetStatus);
+	IPI_RESPONSE2(master->ipiMask, status, resetStatus);
 }

@@ -55,10 +55,10 @@ typedef enum {
 void XPfw_PmInit(void);
 
 /* Check whether the ipi is power management related */
-XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal, u32* const apiId);
+XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal, const u32* apiId);
 
 /* Call from IPI interrupt routine to handle PM API request */
-int XPfw_PmIpiHandler(const u32 isrMask, const u32 apiId, u32* const isrClr);
+int XPfw_PmIpiHandler(const u32 IsrMask, const u32* Payload, u8 Len);
 
 /* Call from GPI2 interrupt routine to handle processor sleep request */
 int XPfw_PmWfiHandler(const u32 srcMask);

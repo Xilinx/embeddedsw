@@ -34,6 +34,7 @@
 #include "xpfw_core.h"
 #include "xpfw_events.h"
 #include "xpfw_interrupts.h"
+#include "xpfw_ipi_manager.h"
 
 #define CORE_IS_READY	((u32)0x5AFEC0DEU)
 #define CORE_IS_DEAD	((u32)0xDEADBEAFU)
@@ -47,32 +48,41 @@ XStatus XPfw_CoreInit(u32 Options)
 {
 	u32 Index;
 	XStatus Status;
-	if (CorePtr != NULL) {
-
-		XPfw_InterruptInit();
-
-		/* Clear the DONT_SLEEP bit */
-		XPfw_RMW32(PMU_GLOBAL_GLOBAL_CNTRL,
-			PMU_GLOBAL_GLOBAL_CNTRL_DONT_SLEEP_MASK, 0U);
-
-		CorePtr->ModCount = (u8)0U;
-
-		for (Index = 0U; Index < ARRAYSIZE(CorePtr->ModList); Index++) {
-			Status = XPfw_ModuleInit(&CorePtr->ModList[Index], (u8) 0U);
-			/* If there was an error, then just get out of here */
-			if (XST_SUCCESS != Status) {
-				break;
-			}
-		}
-		/* Got to Scheduler Init only if we were able to init the Mods */
-		if (XST_SUCCESS == Status) {
-			Status = XPfw_SchedulerInit(&CorePtr->Scheduler,
-			PMU_IOMODULE_PIT1_PRELOAD);
-		}
-
-	} else {
+	if (CorePtr == NULL) {
 		Status = XST_FAILURE;
+		goto Done;
 	}
+
+	XPfw_InterruptInit();
+
+	/* Clear the DONT_SLEEP bit */
+	XPfw_RMW32(PMU_GLOBAL_GLOBAL_CNTRL,
+		PMU_GLOBAL_GLOBAL_CNTRL_DONT_SLEEP_MASK, 0U);
+
+	CorePtr->ModCount = (u8)0U;
+
+	for (Index = 0U; Index < ARRAYSIZE(CorePtr->ModList); Index++) {
+		Status = XPfw_ModuleInit(&CorePtr->ModList[Index], (u8) 0U);
+		/* If there was an error, then just get out of here */
+		if (XST_SUCCESS != Status) {
+			break;
+		}
+	}
+
+	if (XST_SUCCESS != Status) {
+		goto Done;
+	}
+
+	Status = XPfw_SchedulerInit(&CorePtr->Scheduler,
+		PMU_IOMODULE_PIT1_PRELOAD);
+
+	if (XST_SUCCESS != Status) {
+		goto Done;
+	}
+
+	Status = XPfw_IpiManagerInit();
+
+Done:
 	return Status;
 }
 
@@ -140,33 +150,48 @@ XStatus XPfw_CoreDispatchEvent(u32 EventId)
  * dispatch events based on IPI_ID (first word in msg buffer) Mask
  *
  */
-XStatus XPfw_CoreDispatchIpi(u32 IpiNum)
+XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 {
 	XStatus Status;
 	u32 Idx;
+	u32 MaskIndex;
 	u32 CallCount = 0U;
+	u32 Payload[XPFW_IPI_MAX_MSG_LEN];
 
-	if ((CorePtr != NULL) && (IpiNum < 4U)) {
-		for (Idx = 0U; Idx < CorePtr->ModCount; Idx++) {
-			/**
-			 * TODO: Check if Mod[Idx] is registered for this Ipi
-			 * TODO: What if it is registered , but Handler is NULL. Report it!
-			 */
-			if (NULL != CorePtr->ModList[Idx].IpiHandler) {
-				CorePtr->ModList[Idx].IpiHandler(&CorePtr->ModList[Idx], IpiNum,
-						0U);
-				CallCount++;
+	if ((CorePtr == NULL) || (IpiNum > 3U)) {
+		Status = XST_FAILURE;
+		goto Done;
+	}
+
+	/* For each of the IPI sources */
+	for (MaskIndex = 0; MaskIndex < XPFW_IPI_MASK_COUNT; MaskIndex++) {
+		/* Check if the Mask is set */
+		if (SrcMask & IpiMaskList[MaskIndex]) {
+			/* If set, read the message into buffer */
+			Status = XPfw_IpiReadMessage(IpiMaskList[MaskIndex],
+						&Payload[0], XPFW_IPI_MAX_MSG_LEN);
+			/* Dispatch based on IPI ID (MSB 16 bits of Word-0) of the module */
+			for (Idx = 0U; Idx < CorePtr->ModCount; Idx++) {
+				/* If API ID matches and IpiHandler is set */
+				if ( (CorePtr->ModList[Idx].IpiId == (Payload[0] >> 16)) &&
+					(CorePtr->ModList[Idx].IpiHandler != NULL)) {
+					/* Call the module's IPI handler */
+					CorePtr->ModList[Idx].IpiHandler(&CorePtr->ModList[Idx],
+							IpiNum, IpiMaskList[MaskIndex],
+							&Payload[0], XPFW_IPI_MAX_MSG_LEN);
+					CallCount++;
+				}
 			}
 		}
 	}
-	/* fw_printf("%s: IPI-%d dispatched to  %d Mods\r\n", __func__, IpiNum,
-			CallCount); */
+
 	if (CallCount > 0U) {
 		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
 	}
 
+Done:
 	return Status;
 }
 
@@ -362,7 +387,7 @@ XStatus XPfw_CoreSetEventHandler(const XPfw_Module_t *ModPtr, XPfwModEventHandle
 }
 
 
-XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t IpiHandlerFn, u32 IpiId)
+XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t IpiHandlerFn, u16 IpiId)
 {
 	XStatus Status;
 	if ((ModPtr != NULL) && (CorePtr != NULL)) {

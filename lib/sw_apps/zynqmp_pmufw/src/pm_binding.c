@@ -40,7 +40,6 @@
 #include "pm_proc.h"
 #include "pm_core.h"
 #include "pm_notifier.h"
-#include "ipi_buffer.h"
 #include "pm_power.h"
 #include "pm_gic_proxy.h"
 
@@ -89,70 +88,37 @@ void XPfw_PmInit(void)
 	PmRequirementInit();
 	/* Setup initial slaves for masters */
 	PmSetupInitialMasterRequirements();
-	/* Enable all IPI interrupts so masters' requests can be received */
-	PmEnableAllMasterIpis();
 }
 
 /**
  * XPfw_PmIpiHandler() - Call from IPI interrupt handler to process PM API call
- * @isrMask IPI's ISR register value. Needed to determine buffer holding the
- *          payload
- * @isrClr  Pointer to a variable in which PM returns an ISR mask of the master
- *          whose request is handled (mask to write in ISR register to clear
- *          interrupt)
- * @apiId   PM API id that was read from master's IPI buffer and validated as
- *          existing
+ * @IsrMask IPI's ISR register value. Needed to determine the source master
+ *
+ * @Payload  Pointer to IPI Payload
+ *
+ * @Len Size of the payload in words
  *
  * @return  Status of the processing IPI
- *          - XST_INVALID_PARAM if isrMask parameter has invalid value
+ *          - XST_INVALID_PARAM if input parameters have invalid value
  *          - XST_SUCCESS otherwise
  *          - Note that if request is processed, firmware is not receiving any
  *            status of processing information. Processing status is returned to
  *            the master which initiated communication through IPI.
  *
- * @note    Call from IPI#0 interrupt routine. IPI's #0 interrupt can be used
- *          for some other purposes, not only for PM, and in #0 interrupt
- *          routine must :
- *          1. Read ISR register before calling this function
- *          2. Determine master requestor and accordingly read first 32b
- *             argument from master's IPI buffer. Determine is it PM API.
- *             If yes, this function is called.
- *          3. Write into ISR register after this function returns.
- *             Write to ISR clears interrupt in IPI peripheral. Interrupt must
- *             be cleared after this function returns to make PM API call
- *             atomic.
  */
-int XPfw_PmIpiHandler(const u32 isrMask, const u32 apiId, u32* const isrClr)
+int XPfw_PmIpiHandler(const u32 IsrMask, const u32* Payload, u8 Len)
 {
 	int status = XST_SUCCESS;
-	u32 i;
-	u32 payload[PAYLOAD_ELEM_CNT];
-	u32 bufferBase;
-	u32 offset = 0U;
-	const PmMaster* master = PmGetMasterByIpiMask(isrMask);
+	const PmMaster* master = PmGetMasterByIpiMask(IsrMask);
 
-	if ((NULL == isrClr) || (NULL == master)) {
+	if ((NULL == Payload) || (NULL == master) || (Len < PAYLOAD_ELEM_CNT)) {
 		/* Never happens if IPI irq handler is implemented correctly */
-		PmDbg("ERROR: IPI source not supported %lu\n", isrMask);
+		PmDbg("ERROR: IPI source not supported %lu\n", IsrMask);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	/* Already have first argument (apiId) */
-	payload[0] = apiId;
-	bufferBase = master->buffer + IPI_BUFFER_REQ_OFFSET;
-	for (i = 1U; i < PAYLOAD_ELEM_CNT; i++) {
-		offset += PAYLOAD_ELEM_SIZE;
-		payload[i] = XPfw_Read32(bufferBase + offset);
-	}
-
-	PmProcessRequest(master, payload);
-
-	/*
-	 * Master's bitfield in isr register will be cleared based on isrClr
-	 * variable value (master's request is handled)
-	 */
-	*isrClr = master->ipiMask;
+	PmProcessRequest(master, Payload);
 
 done:
 	return status;
@@ -233,7 +199,7 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 /**
  * XPfw_PmCheckIpiRequest() - Check whether the IPI interrupt is a PM call
  * @isrVal  IPI's ISR register value
- * @apiId   Pointer to a variable where api id can be returned
+ * @apiId   Pointer to a variable holding the api id (first word of message)
  *
  * @return  Check result
  *
@@ -243,7 +209,7 @@ int XPfw_PmWakeHandler(const u32 srcMask)
  *          PM API regular ids.
  */
 XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal,
-					u32* const apiId)
+					const u32* apiId)
 {
 	XPfw_PmIpiStatus status;
 	bool isValid;
@@ -256,7 +222,6 @@ XPfw_PmIpiStatus XPfw_PmCheckIpiRequest(const u32 isrVal,
 	}
 
 	/* Api id is first argument in payload */
-	*apiId = XPfw_Read32(master->buffer);
 	isValid = PmIsApiIdValid(*apiId);
 	if (true == isValid) {
 		/* Api id is within valid range */

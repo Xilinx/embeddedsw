@@ -37,30 +37,39 @@
 #include "pm_callbacks.h"
 #include "pm_defs.h"
 #include "pm_api.h"
-#include "ipi_buffer.h"
 
-#define IPI_REQUEST1(buf, arg0)				\
-	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET, arg0);
+#include "xpfw_ipi_manager.h"
+#include "xpfw_mod_pm.h"
 
-#define IPI_REQUEST2(buf, arg0, arg1)				\
-	IPI_REQUEST1(buf, arg0);				\
-	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET + PAYLOAD_ELEM_SIZE, arg1);
+#define IPI_REQUEST1(mask, arg0)				\
+{	\
+	u32 _ipi_req_data[] = {arg0};	\
+	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+}
 
-#define IPI_REQUEST3(buf, arg0, arg1, arg2)			\
-	IPI_REQUEST2(buf, arg0, arg1);				\
-	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET +		\
-		     2 * PAYLOAD_ELEM_SIZE, arg2);
+#define IPI_REQUEST2(mask, arg0, arg1)				\
+{	\
+	u32 _ipi_req_data[] = {arg0, arg1};	\
+	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+}
 
-#define IPI_REQUEST4(buf, arg0, arg1, arg2, arg3)		\
-	IPI_REQUEST3(buf, arg0, arg1, arg2);			\
-	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET +		\
-		     3 * PAYLOAD_ELEM_SIZE, arg3);
+#define IPI_REQUEST3(mask, arg0, arg1, arg2)			\
+{	\
+	u32 _ipi_req_data[] = {arg0, arg1, arg2};	\
+	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+}
 
-#define IPI_REQUEST5(buf, arg0, arg1, arg2, arg3, arg4)	\
-	IPI_REQUEST4(buf, arg0, arg1, arg2, arg3);		\
-	XPfw_Write32(buf + IPI_BUFFER_REQ_OFFSET +		\
-		     4 * PAYLOAD_ELEM_SIZE, arg4);
+#define IPI_REQUEST4(mask, arg0, arg1, arg2, arg3)		\
+{	\
+	u32 _ipi_req_data[] = {arg0, arg1, arg2, arg3};	\
+	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+}
 
+#define IPI_REQUEST5(mask, arg0, arg1, arg2, arg3, arg4)	\
+{	\
+	u32 _ipi_req_data[] = {arg0, arg1, arg2, arg3, arg4};	\
+	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+}
 /**
  * PmAcknowledgeCb() - sends acknowledge via callback
  * @master      Master who is blocked and waiting for the acknowledge
@@ -74,9 +83,9 @@
 void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 		     const u32 status, const u32 oppoint)
 {
-	IPI_REQUEST4(master->pmuBuffer, PM_ACKNOWLEDGE_CB, nodeId, status,
+	IPI_REQUEST4(master->ipiMask, PM_ACKNOWLEDGE_CB, nodeId, status,
 		     oppoint);
-	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
+	XPfw_IpiTrigger( master->ipiMask);
 }
 
 /**
@@ -89,8 +98,8 @@ void PmAcknowledgeCb(const PmMaster* const master, const PmNodeId nodeId,
 void PmNotifyCb(const PmMaster* const master, const PmNodeId nodeId,
 		const u32 event, const u32 oppoint)
 {
-	IPI_REQUEST4(master->pmuBuffer, PM_NOTIFY_CB, nodeId, event, oppoint);
-	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
+	IPI_REQUEST4(master->ipiMask, PM_NOTIFY_CB, nodeId, event, oppoint);
+	XPfw_IpiTrigger( master->ipiMask);
 }
 
 /**
@@ -107,7 +116,7 @@ void PmInitSuspendCb(const PmMaster* const master, const u32 reason,
 	PmDbg("of %s (%lu, %lu, %lu, %lu)\n", PmStrNode(master->nid), reason,
 	      latency, state, timeout);
 
-	IPI_REQUEST5(master->pmuBuffer, PM_INIT_SUSPEND_CB, reason, latency,
+	IPI_REQUEST5(master->ipiMask, PM_INIT_SUSPEND_CB, reason, latency,
 		     state, timeout);
-	XPfw_Write32(IPI_PMU_0_TRIG, master->ipiMask);
+	XPfw_IpiTrigger( master->ipiMask);
 }

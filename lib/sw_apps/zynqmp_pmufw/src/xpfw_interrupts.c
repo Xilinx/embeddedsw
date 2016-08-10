@@ -256,48 +256,61 @@ static void XPfw_Pit1Handler(void)
 
 static void XPfw_Ipi0Handler(void)
 {
-	XStatus Status = XPfw_CoreDispatchIpi(0U);
+	u32 Mask;
+	XStatus Status;
+
+	Mask = XPfw_Read32(IPI_PMU_0_ISR);
+	Status = XPfw_CoreDispatchIpi(0U, Mask);
+	XPfw_Write32(IPI_PMU_0_ISR, Mask);
 
 	/* If no Mod has registered for IPI, Ack it to prevent re-triggering */
 	if (XST_SUCCESS != Status) {
-		u32 Mask = XPfw_Read32(IPI_PMU_0_ISR);
 		fw_printf("Error: Unhandled IPI received\r\n");
-		XPfw_Write32(IPI_PMU_0_ISR, Mask);
 	}
 }
 
 static void XPfw_Ipi1Handler(void)
 {
-	XStatus Status = XPfw_CoreDispatchIpi(1U);
+	u32 Mask;
+	XStatus Status;
+
+	Mask = XPfw_Read32(IPI_PMU_1_ISR);
+	Status = XPfw_CoreDispatchIpi(1U, Mask);
+	XPfw_Write32(IPI_PMU_1_ISR, Mask);
 
 	/* If no Mod has registered for IPI, Ack it to prevent re-triggering */
 	if (XST_SUCCESS != Status) {
-		u32 Mask = XPfw_Read32(IPI_PMU_1_ISR);
 		fw_printf("Error: Unhandled IPI received\r\n");
-		XPfw_Write32(IPI_PMU_1_ISR, Mask);
 	}
 }
 
 static void XPfw_Ipi2Handler(void)
 {
-	XStatus Status = XPfw_CoreDispatchIpi(2U);
+	u32 Mask;
+	XStatus Status;
+
+	Mask = XPfw_Read32(IPI_PMU_2_ISR);
+	Status = XPfw_CoreDispatchIpi(2U, Mask);
+	XPfw_Write32(IPI_PMU_2_ISR, Mask);
 
 	/* If no Mod has registered for IPI, Ack it to prevent re-triggering */
-	if(XST_SUCCESS != Status){
-		u32 Mask = XPfw_Read32(IPI_PMU_2_ISR);
+	if (XST_SUCCESS != Status) {
 		fw_printf("Error: Unhandled IPI received\r\n");
-		XPfw_Write32(IPI_PMU_2_ISR, Mask);
 	}
 }
 
 static void XPfw_Ipi3Handler(void)
 {
-	XStatus Status = XPfw_CoreDispatchIpi(3U);
+	u32 Mask;
+	XStatus Status;
+
+	Mask = XPfw_Read32(IPI_PMU_3_ISR);
+	Status = XPfw_CoreDispatchIpi(3U, Mask);
+	XPfw_Write32(IPI_PMU_3_ISR, Mask);
+
 	/* If no Mod has registered for IPI, Ack it to prevent re-triggering */
-	if(XST_SUCCESS != Status){
-		u32 Mask = XPfw_Read32(IPI_PMU_3_ISR);
+	if (XST_SUCCESS != Status) {
 		fw_printf("Error: Unhandled IPI received\r\n");
-		XPfw_Write32(IPI_PMU_3_ISR, Mask);
 	}
 }
 

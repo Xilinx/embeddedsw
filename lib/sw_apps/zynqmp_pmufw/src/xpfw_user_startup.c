@@ -36,11 +36,6 @@
 
 #include "xpfw_user_startup.h"
 
-#include "pm_binding.h"
-#include "pm_api.h"
-#include "ipi_buffer.h"
-#include "pm_defs.h"
-
 #include "xpfw_mod_dap.h"
 #include "xpfw_mod_legacy.h"
 #include "xpfw_mod_em.h"

@@ -37,12 +37,19 @@
 #include "xipipsu.h"
 #include "xparameters.h"
 
+#define XPFW_IPI_MASK_COUNT XIPIPSU_MAX_TARGETS
+extern u32 IpiMaskList[XPFW_IPI_MASK_COUNT];
 
+#define XPFW_IPI_MAX_MSG_LEN XIPIPSU_MAX_MSG_LEN
+
+#define IPI_PMU_0_IER_APU_MASK	  XPAR_XIPIPS_TARGET_PSU_CORTEXA53_0_CH0_MASK
+#define IPI_PMU_0_IER_RPU_0_MASK  XPAR_XIPIPS_TARGET_PSU_CORTEXR5_0_CH0_MASK
+#define IPI_PMU_0_IER_RPU_1_MASK  XPAR_XIPIPS_TARGET_PSU_CORTEXR5_1_CH0_MASK
 /**
  * Initialize the IPI driver instance
  * This should be called in the core init
  */
-s32 XPfw_IpiInit(void);
+s32 XPfw_IpiManagerInit(void);
 
 /**
  * Write a message to IPI Message Buffer
@@ -69,15 +76,14 @@ s32 XPfw_IpiWriteMessage(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *MsgP
 s32 XPfw_IpiWriteResponse(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *MsgPtr, u32 MsgLen);
 
 /**
- * Read Message buffer contents
- * @param ModPtr is the pointer to module that is requesting teh message
+ * Read Message buffer contents (Used only by Core)
  * @param SrcCpuMask is mask for the Source CPU
  * @param MsgPtr is pointer to the buffer to which message is to be retrieved
  * @param MsgLen is the number of 32-bits to be retrieved
  * @return XST_SUCCESS if IPI ID of the module matches and the message is read into buffer
- *         XST_FAILURE if a mismatch in IPI ID or failure to read message
+ *         XST_FAILURE in case of an error
  */
-s32 XPfw_IpiReadMessage(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen);
+s32 XPfw_IpiReadMessage(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen);
 
 /**
  * Read Response buffer contents
@@ -85,7 +91,7 @@ s32 XPfw_IpiReadMessage(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPtr
  * @param SrcCpuMask is mask for the Source CPU
  * @param MsgPtr is pointer to the buffer to which message is to be retrieved
  * @param MsgLen is the number of 32-bits to be retrieved
- * @return XST_SUCCESS if IPI ID of the module matches and the message is read into buffer
+ * @return XST_SUCCESS if the message is read into buffer
  *         XST_FAILURE if a mismatch in IPI ID or failure to read message
  */
 s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen);

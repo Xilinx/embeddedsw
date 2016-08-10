@@ -61,14 +61,14 @@ void XPfw_CorePrintStats(void);
 XStatus XPfw_CoreRegisterEvent(const XPfw_Module_t *ModPtr, u32 EventId);
 XStatus XPfw_CoreDeRegisterEvent(const XPfw_Module_t *ModPtr, u32 EventId);
 
-XStatus XPfw_CoreDispatchIpi(u32 IpiNum);
+XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask);
 
 void XPfw_CoreTickHandler(void);
 XStatus XPfw_CoreIsReady(void);
 
 XStatus XPfw_CoreSetCfgHandler(const XPfw_Module_t *ModPtr, XPfwModCfgInitHandler_t CfgHandler);
 XStatus XPfw_CoreSetEventHandler(const XPfw_Module_t *ModPtr, XPfwModEventHandler_t EventHandler);
-XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t IpiHandler, u32 IpiId);
+XStatus XPfw_CoreSetIpiHandler(const XPfw_Module_t *ModPtr, XPfwModIpiHandler_t IpiHandler, u16 IpiId);
 
 
 #endif /* XPFW_CORE_H_ */
