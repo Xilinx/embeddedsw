@@ -303,6 +303,8 @@ extern "C" {
 #define XST_SPI_RECEIVE_NOT_EMPTY   1161	/* device received data in slave mode */
 
 #define XST_SPI_COMMAND_ERROR       1162	/* unrecognised command - qspi only */
+#define XST_SPI_POLL_DONE           1163        /* controller completed polling the
+						   device for status */
 
 /********************** OPB Arbiter statuses 1176 - 1200 *********************/
 
