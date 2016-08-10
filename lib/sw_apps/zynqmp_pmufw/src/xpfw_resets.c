@@ -34,6 +34,7 @@
 #include "xpfw_util.h"
 #include "xpfw_resets.h"
 #include "xpfw_platform.h"
+#include "xpfw_aib.h"
 
 
 
@@ -42,6 +43,7 @@
  */
 #define XPFW_TO_AIB_PS_PL	(0xFU)
 #define XPFW_RST_PROP_DELAY (0xFU)
+#define XPFW_AIB_ISO_DELAY	(0xFU)
 
 /**
  * Macros used for convenience
@@ -145,47 +147,49 @@ void XPfw_ResetPsOnly(void)
 
 XStatus XPfw_ResetFpd(void)
 {
-	/*
-	 * Block FPD=>LPD interfaces with the help of AIB (in FPS).
-	 */
-	Xil_Out32(PMU_LOCAL_DOMAIN_ISO_CNTRL,
-			(PMU_LOCAL_DOMAIN_ISO_CNTRL_LP_FP_1_MASK |
-					PMU_LOCAL_DOMAIN_ISO_CNTRL_FP_PL_MASK));
+	/* Enable FPD=>LPD Isolations */
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_LPD_NON_OCM);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_LPD_OCM);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_GPU);
 
-	/**
-	 * FIXME: Update with correct delay here for AIB
+	/* Enable LPD=>FPD Isolations */
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD);
+
+	/*
+	 * Suggested flow is to check the status with a timeout and proceed.
+	 * Since there is no specific action required even in cases where the
+	 * status check fails, we just wait for a pre-defined time and proceed
 	 */
-	XPfw_UtilWait(XPFW_RST_PROP_DELAY);
-	/**
-	 *  Initiate FPD reset by writing to PMU-local register
-	 */
+	XPfw_UtilWait(XPFW_AIB_ISO_DELAY);
+
+	/* Initiate FPD reset by writing to PMU-local register */
 	XPfw_UtilRMW(PMU_GLOBAL_GLOBAL_RESET,
 			PMU_GLOBAL_GLOBAL_RESET_FPD_RST_MASK,
 			PMU_GLOBAL_GLOBAL_RESET_FPD_RST_MASK);
-	/**
-	 * Hold in Reset and wait till it propagates
-	 */
+
+	/* Hold in Reset and wait till it propagates */
 	XPfw_UtilWait(XPFW_RST_PROP_DELAY);
-	/**
-	 * Remove Isolation
-	 */
-	Xil_Out32(PMU_LOCAL_DOMAIN_ISO_CNTRL,0U);
-	/**
-	 * FIXME: Update with correct delay here
-	 */
-	XPfw_UtilWait(XPFW_RST_PROP_DELAY);
-	/**
-	 * Release from Reset and wait till it propagates
-	 */
+
+	/* Disable FPD=>LPD Isolations */
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_LPD_NON_OCM);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_LPD_OCM);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS1);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_GPU);
+
+	/* Release from Reset and wait till it propagates */
 	XPfw_UtilRMW(PMU_GLOBAL_GLOBAL_RESET,
 				PMU_GLOBAL_GLOBAL_RESET_FPD_RST_MASK,
 				0);
 	XPfw_UtilWait(XPFW_RST_PROP_DELAY);
 
-	/**
-	 * FIXME: Is there something that we can poll to
-	 * check if we failed somewhere?
-	 */
+	/* Disable LPD=>FPD Isolations */
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_FPD);
+
 	return XST_SUCCESS;
 
 }
