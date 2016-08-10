@@ -20,6 +20,25 @@ Export ddr freq value to xparameters.h file.
 dptx_v3_0:
 Obsoleted in lieu of the dp driver.
 
+dp_v5_1:
+Updated version from 5.0 to 5.1.
+Updated to access timing table from video_common using APIs.
+Use consolidated usleep rather than deprecated MB_Sleep.
+Updated self-test to reflect IP updates.
+Update to use new video_common v3.1.
+
+dprxss_v3_1:
+Updated version from 3.0 to 3.1.
+Synchronize with new HDCP API modifications.
+Added HDCP timeout functionality.
+Update to use new video_common v3.1.
+
+dptxss_v4_1:
+Updated version from 4.0 to 4.1.
+Synchronize with new HDCP API modifications.
+Reordered VTC enable and DPTX core enable.
+Update to use new video_common v3.1.
+
 iicps_v3_3:
 Modified code for MISRA-C:2012 Compliance
 
@@ -76,6 +95,10 @@ Added tap delays for SD/eMMC.
 
 uartps_v3_2:
 Modified the transmission break bit set logic.
+
+video_common_v3_1:
+Updated version from 3.0 to 3.1.
+Reordered wait for PLL lock.
 
 xilffs_v3_4:
 Added support for mkfs.
