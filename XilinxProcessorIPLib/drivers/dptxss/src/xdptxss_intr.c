@@ -52,6 +52,7 @@
 *                   XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY and
 *                   XDPTXSS_HANDLER_HDCP_RPTR_EXCHG to register callback
 *                   with HDCP.
+* 4.1  als 08/08/16 Synchronize with new HDCP APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -180,7 +181,6 @@ void XDpTxSs_TmrCtrIntrHandler(void *InstancePtr)
 * (XDPTXSS_HANDLER_DP_LANE_COUNT_CHG)      XDp_TxSetLaneCountChangeCallback
 * (XDPTXSS_HANDLER_DP_LINK_RATE_CHG)       XDp_TxSetLinkRateChangeCallback
 * (XDPTXSS_HANDLER_DP_PE_VS_ADJUST)        XDp_TxSetPeVsAdjustCallback
-* (XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY) XHdcp1x_SetCallBack
 * (XDPTXSS_HANDLER_HDCP_RPTR_EXCHG)        XHdcp1x_SetCallBack
 * (XDPTXSS_HANDLER_DP_SET_MSA)             XDp_TxSetMsaHandler
 * </pre>
@@ -244,13 +244,6 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			break;
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
-		case XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY:
-			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
-				XHDCP1X_RPTR_HDLR_DOWNSTREAM_READY,
-					CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
 		case XDPTXSS_HANDLER_HDCP_RPTR_EXCHG:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
 				XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,

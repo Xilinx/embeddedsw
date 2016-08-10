@@ -108,6 +108,7 @@
 *                   Added function: XDpTxSs_ReadDownstream,
 *                   XDpTxSs_HandleTimeout.
 * 4.0  aad 05/13/16 Expose API to set (a)synchronous clock mode from DP driver.
+* 4.1  als 08/08/16 Synchronize with new HDCP APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -160,9 +161,6 @@ typedef enum {
 						  *  type for DisplayPort
 						  *  core */
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
-	XDPTXSS_HANDLER_HDCP_RPTR_DWN_STRM_RDY,	/**< Repeater Downstream Ready
-						  *  interrupt type for
-						  *  HDCP core */
 	XDPTXSS_HANDLER_HDCP_RPTR_EXCHG,	/**< Repeater Exchange
 						  *  interrupt type for
 						  *  HDCP core */

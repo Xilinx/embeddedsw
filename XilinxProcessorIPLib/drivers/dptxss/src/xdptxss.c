@@ -55,8 +55,9 @@
 * 3.0  sha 02/19/16 Added function: XDpTxSs_ReadDownstream,
 *                   XDpTxSs_HandleTimeout.
 *                   Enabled HDCP in XDpTxSs_Start function.
-* 3.0  aad 07/28/16 Enabled VTC before DPTX core enable for better
+* 4.1  aad 07/28/16 Enabled VTC before DPTX core enable for better
 *		    image stability
+* 4.1  als 08/08/16 Synchronize with new HDCP APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -96,9 +97,9 @@ static u32 DpTxSs_CheckRxDeviceMode(XDpTxSs *InstancePtr);
 static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr);
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
-static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs);
-static int DpTxSs_HdcpStopTimer(const XHdcp1x *InstancePtr);
-static int DpTxSs_HdcpBusyDelay(const XHdcp1x *InstancePtr, u16 DelayInMs);
+static int DpTxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
+static int DpTxSs_HdcpStopTimer(void *InstancePtr);
+static int DpTxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs);
 static u32 DpTxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq);
 static void DpTxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
@@ -249,9 +250,12 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 					InstancePtr->Config.BaseAddress;
 
 		/* Initialize the HDCP timer functions */
-		XHdcp1x_SetTimerStart(&DpTxSs_HdcpStartTimer);
-		XHdcp1x_SetTimerStop(&DpTxSs_HdcpStopTimer);
-		XHdcp1x_SetTimerDelay(&DpTxSs_HdcpBusyDelay);
+		XHdcp1x_SetTimerStart(InstancePtr->Hdcp1xPtr,
+						&DpTxSs_HdcpStartTimer);
+		XHdcp1x_SetTimerStop(InstancePtr->Hdcp1xPtr,
+						&DpTxSs_HdcpStopTimer);
+		XHdcp1x_SetTimerDelay(InstancePtr->Hdcp1xPtr,
+						&DpTxSs_HdcpBusyDelay);
 	}
 
 	/* Check for HDCP availability */
@@ -1535,16 +1539,19 @@ void XDpTxSs_HandleTimeout(XDpTxSs *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs)
+static int DpTxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs)
 {
-	XTmrCtr *TmrCtrPtr = (XTmrCtr *)InstancePtr->Hdcp1xRef;
+	XHdcp1x *HdcpPtr = (XHdcp1x *)InstancePtr;
+	XTmrCtr *TmrCtrPtr;
 	u8 TimerChannel;
 	u32 TimerOptions;
 	u32 NumTicks;
 
 	/* Verify argument. */
-	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid(TmrCtrPtr != NULL);
+	Xil_AssertNonvoid(HdcpPtr != NULL);
+	Xil_AssertNonvoid(HdcpPtr->Hdcp1xRef != NULL);
+
+	TmrCtrPtr = (XTmrCtr *)HdcpPtr->Hdcp1xRef;
 
 	/* Determine NumTicks */
 	NumTicks = DpTxSs_ConvertUsToTicks((TimeoutInMs * 1000),
@@ -1555,8 +1562,7 @@ static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs)
 	XTmrCtr_Stop(TmrCtrPtr, TimerChannel);
 
 	/* Configure the callback */
-	XTmrCtr_SetHandler(TmrCtrPtr, &DpTxSs_TimerCallback,
-				(void *)InstancePtr);
+	XTmrCtr_SetHandler(TmrCtrPtr, &DpTxSs_TimerCallback, (void *)HdcpPtr);
 
 	/* Configure the timer options */
 	TimerOptions = XTmrCtr_GetOptions(TmrCtrPtr, TimerChannel);
@@ -1585,13 +1591,17 @@ static int DpTxSs_HdcpStartTimer(const XHdcp1x *InstancePtr, u16 TimeoutInMs)
 * @note		None.
 *
 ******************************************************************************/
-static int DpTxSs_HdcpStopTimer(const XHdcp1x *InstancePtr)
+static int DpTxSs_HdcpStopTimer(void *InstancePtr)
 {
-	XTmrCtr *TmrCtrPtr = (XTmrCtr *)InstancePtr->Hdcp1xRef;
+	XHdcp1x *HdcpPtr = (XHdcp1x *)InstancePtr;
+	XTmrCtr *TmrCtrPtr;
 	u8 TimerChannel;
 
 	/* Verify argument. */
-	Xil_AssertNonvoid(TmrCtrPtr != NULL);
+	Xil_AssertNonvoid(HdcpPtr != NULL);
+	Xil_AssertNonvoid(HdcpPtr->Hdcp1xRef != NULL);
+
+	TmrCtrPtr = (XTmrCtr *)HdcpPtr->Hdcp1xRef;
 
 	/* Stop Timer Counter */
 	TimerChannel = 0;
@@ -1614,15 +1624,19 @@ static int DpTxSs_HdcpStopTimer(const XHdcp1x *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-static int DpTxSs_HdcpBusyDelay(const XHdcp1x *InstancePtr, u16 DelayInMs)
+static int DpTxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs)
 {
-	XTmrCtr *TmrCtrPtr = (XTmrCtr *)InstancePtr->Hdcp1xRef;
+	XHdcp1x *HdcpPtr = (XHdcp1x *)InstancePtr;
+	XTmrCtr *TmrCtrPtr;
 	u8 TimerChannel;
 	u32 TimerOptions;
 	u32 NumTicks;
 
 	/* Verify argument. */
-	Xil_AssertNonvoid(TmrCtrPtr != NULL);
+	Xil_AssertNonvoid(HdcpPtr != NULL);
+	Xil_AssertNonvoid(HdcpPtr->Hdcp1xRef != NULL);
+
+	TmrCtrPtr = (XTmrCtr *)HdcpPtr->Hdcp1xRef;
 
 	/* Determine number of timer ticks */
 	NumTicks = DpTxSs_ConvertUsToTicks((DelayInMs * 1000),
