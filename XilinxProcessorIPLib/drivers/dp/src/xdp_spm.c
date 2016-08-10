@@ -53,6 +53,8 @@
  * 3.0   als  10/07/15 Added MSA callback.
  * 4.0   als  02/07/16 Enable/disable end of line reset for reduced blanking.
  * 5.0   als  05/16/16 Added API to set color encoding scheme.
+ * 5.1   als  08/03/16 Use video common API rather than internal structure when
+ *                     checking for interlaced mode.
  * </pre>
  *
 *******************************************************************************/
@@ -306,40 +308,8 @@ void XDp_TxCfgMsaUseStandardVideoMode(XDp *InstancePtr, u8 Stream,
 	MsaConfig = &InstancePtr->TxInstance.MsaConfig[Stream - 1];
 
 	/* Configure the MSA values from the display monitor DMT table. */
-	MsaConfig->Vtm.VmId = XVidC_VideoTimingModes[VideoMode].VmId;
-	MsaConfig->Vtm.FrameRate = XVidC_VideoTimingModes[VideoMode].FrameRate;
-	MsaConfig->Vtm.Timing.HActive =
-			XVidC_VideoTimingModes[VideoMode].Timing.HActive;
-	MsaConfig->Vtm.Timing.HFrontPorch =
-			XVidC_VideoTimingModes[VideoMode].Timing.HFrontPorch;
-	MsaConfig->Vtm.Timing.HSyncWidth =
-			XVidC_VideoTimingModes[VideoMode].Timing.HSyncWidth;
-	MsaConfig->Vtm.Timing.HBackPorch =
-			XVidC_VideoTimingModes[VideoMode].Timing.HBackPorch;
-	MsaConfig->Vtm.Timing.HTotal =
-			XVidC_VideoTimingModes[VideoMode].Timing.HTotal;
-	MsaConfig->Vtm.Timing.HSyncPolarity =
-			XVidC_VideoTimingModes[VideoMode].Timing.HSyncPolarity;
-	MsaConfig->Vtm.Timing.VActive =
-			XVidC_VideoTimingModes[VideoMode].Timing.VActive;
-	MsaConfig->Vtm.Timing.F0PVFrontPorch =
-			XVidC_VideoTimingModes[VideoMode].Timing.F0PVFrontPorch;
-	MsaConfig->Vtm.Timing.F0PVSyncWidth =
-			XVidC_VideoTimingModes[VideoMode].Timing.F0PVSyncWidth;
-	MsaConfig->Vtm.Timing.F0PVBackPorch =
-			XVidC_VideoTimingModes[VideoMode].Timing.F0PVBackPorch;
-	MsaConfig->Vtm.Timing.F0PVTotal =
-			XVidC_VideoTimingModes[VideoMode].Timing.F0PVTotal;
-	MsaConfig->Vtm.Timing.F1VFrontPorch =
-			XVidC_VideoTimingModes[VideoMode].Timing.F1VFrontPorch;
-	MsaConfig->Vtm.Timing.F1VSyncWidth =
-			XVidC_VideoTimingModes[VideoMode].Timing.F1VSyncWidth;
-	MsaConfig->Vtm.Timing.F1VBackPorch =
-			XVidC_VideoTimingModes[VideoMode].Timing.F1VBackPorch;
-	MsaConfig->Vtm.Timing.F1VTotal =
-			XVidC_VideoTimingModes[VideoMode].Timing.F1VTotal;
-	MsaConfig->Vtm.Timing.VSyncPolarity =
-			XVidC_VideoTimingModes[VideoMode].Timing.VSyncPolarity;
+	memcpy(&MsaConfig->Vtm, XVidC_GetVideoModeData(VideoMode),
+			sizeof(XVidC_VideoTimingMode));
 
 	/* Calculate the pixel clock frequency. */
 	MsaConfig->PixelClockHz =
