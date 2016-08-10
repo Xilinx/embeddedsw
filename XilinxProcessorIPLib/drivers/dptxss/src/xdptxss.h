@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.h
-* @addtogroup dptxss_v4_0
+* @addtogroup dptxss_v4_1
 * @{
 * @details
 *
