@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -64,6 +64,7 @@
 *                     Updated to use usleep instead of delay loop
 * 1.04a hk   09/03/13 Removed GPIO code to pull MUX out of reset - CR#722425.
 * 2.3 	sk	 10/07/14 Removed multiple initializations for read buffer.
+* 3.3   Nava 08/08/16 Adopt the Dynamic EEPROM finding support.
 * </pre>
 *
 ******************************************************************************/
@@ -81,21 +82,13 @@
 /************************** Constant Definitions *****************************/
 
 /*
- * The following constants map to the XPAR parameters created in the
- * xparameters.h file. They are defined here such that a user can easily
- * change all the needed parameters in one place.
- */
-
-#define INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
-
-/*
  * The following constant defines the address of the IIC Slave device on the
  * IIC bus. Note that since the address is only 7 bits, this constant is the
  * address divided by 2.
  */
 
 #define IIC_SCLK_RATE		100000
-#define SLV_MON_LOOP_COUNT 0x000FFFFF	/**< Slave Monitor Loop Count*/
+#define SLV_MON_LOOP_COUNT 0x00FFFFFF	/**< Slave Monitor Loop Count*/
 #define MUX_ADDR 0x74
 #define MAX_CHANNELS 0x08
 
@@ -103,7 +96,7 @@
  * The page size determines how much data should be written at a time.
  * The write function should be called with this as a maximum byte count.
  */
-#define MAX_SIZE		32
+#define MAX_SIZE	32
 #define PAGE_SIZE_16	16
 #define PAGE_SIZE_32	32
 
@@ -124,21 +117,18 @@ typedef u16 AddressType;
 
 /************************** Function Prototypes ******************************/
 
-int IicPsEepromPolledExample(void);
-static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount);
-static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount);
-static void Handler(void *CallBackRef, u32 Event);
-static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id);
-static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id);
-static int MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
-static int FindEepromDevice(u16 Address);
-static int IicPsFindEeprom(u16 *Eeprom_Addr, int *PageSize);
-static int IicPsConfig(u16 DeviceId, u32 Int_Id);
-static int IicPsFindDevice(u16 addr);
+s32 IicPsEepromPolledExample(void);
+static s32 EepromWriteData(XIicPs *IicInstance, u16 ByteCount);
+static s32 EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount);
+static s32 IicPsSlaveMonitor(u16 Address, u16 DeviceId);
+static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer);
+static s32 FindEepromDevice(u16 Address);
+static s32 IicPsFindEeprom(u16 *Eeprom_Addr, u32 *PageSize);
+static s32 IicPsConfig(u16 DeviceId);
+static s32 IicPsFindDevice(u16 addr);
 /************************** Variable Definitions *****************************/
 #ifndef TESTAPP_GEN
 XIicPs IicInstance;		/* The instance of the IIC device. */
-XScuGic InterruptController;	/* The instance of the Interrupt Controller. */
 #endif
 u32 Platform;
 
@@ -149,17 +139,12 @@ u8 WriteBuffer[sizeof(AddressType) + MAX_SIZE];
 
 u8 ReadBuffer[MAX_SIZE];	/* Read buffer for reading a page. */
 
-volatile u8 TransmitComplete;	/**< Flag to check completion of Transmission */
-volatile u8 ReceiveComplete;	/**< Flag to check completion of Reception */
-volatile u32 TotalErrorCount;	/**< Total Error Count Flag */
-volatile u32 SlaveResponse;		/**< Slave Response Flag */
-
 /**Searching for the required EEPROM Address and user can also add
  * their own EEPROM Address in the below array list**/
 u16 EepromAddr[] = {0x54,0x55,0};
 u16 MuxAddr[] = {0x74,0};
 u16 EepromSlvAddr;
-int PageSize;
+u32 PageSize;
 
 /************************** Function Definitions *****************************/
 
@@ -178,7 +163,7 @@ int PageSize;
 #ifndef TESTAPP_GEN
 int main(void)
 {
-	int Status;
+	s32 Status;
 
 	xil_printf("IIC EEPROM Polled Mode Example Test \r\n");
 
@@ -207,12 +192,12 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
-int IicPsEepromPolledExample()
+s32 IicPsEepromPolledExample()
 {
 	u32 Index;
-	int Status;
+	s32 Status;
 	AddressType Address = EEPROM_START_ADDRESS;
-	int WrBfrOffset;
+	u32 WrBfrOffset;
 
 
 	Status = IicPsFindEeprom(&EepromSlvAddr,&PageSize);
@@ -319,40 +304,32 @@ int IicPsEepromPolledExample()
 *		noted by the constant PAGE_SIZE.
 *
 ******************************************************************************/
-static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
+static s32 EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 {
 
-	TransmitComplete = FALSE;
+	s32 Status;
 
-		/*
-		 * Send the Data.
-		 */
-		XIicPs_MasterSend(IicInstance, WriteBuffer,
-				   ByteCount, EepromSlvAddr);
+	/*
+	 * Send the Data.
+	 */
 
-		/*
-		 * Wait for the entire buffer to be sent, letting the interrupt
-		 * processing work in the background, this function may get
-		 * locked up in this loop if the interrupts are not working
-		 * correctly.
-		 */
-		while (TransmitComplete == FALSE) {
-			if (0 != TotalErrorCount) {
-				return XST_FAILURE;
-			}
-		}
+	Status = XIicPs_MasterSendPolled(IicInstance, WriteBuffer,
+					  ByteCount, EepromSlvAddr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
 
-		/*
-		 * Wait until bus is idle to start another transfer.
-		 */
-		while (XIicPs_BusIsBusy(IicInstance));
+	/*
+	 * Wait until bus is idle to start another transfer.
+	 */
+	while (XIicPs_BusIsBusy(IicInstance));
 
-		/*
-		 * Wait for a bit of time to allow the programming to complete
-		 */
-		usleep(250000);
+	/*
+	 * Wait for a bit of time to allow the programming to complete
+	 */
+	usleep(250000);
 
-		return XST_SUCCESS;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -367,11 +344,11 @@ static int EepromWriteData(XIicPs *IicInstance, u16 ByteCount)
 * @note		None.
 *
 ******************************************************************************/
-static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
+static s32 EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
 {
-	int Status;
+	s32 Status;
 	AddressType Address = EEPROM_START_ADDRESS;
-	int WrBfrOffset;
+	u32 WrBfrOffset;
 
 	/*
 	 * Position the Pointer in EEPROM.
@@ -386,139 +363,25 @@ static int EepromReadData(XIicPs *IicInstance, u8 *BufferPtr, u16 ByteCount)
 	}
 
 	Status = EepromWriteData(IicInstance, WrBfrOffset);
-		if (Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	/*
+	 * Receive the Data.
+	 */
+
+	Status = XIicPs_MasterRecvPolled(IicInstance, BufferPtr,
+						  ByteCount, EepromSlvAddr);
+	if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
-		}
-
-		ReceiveComplete = FALSE;
-
-		/*
-		 * Receive the Data.
-		 */
-		XIicPs_MasterRecv(IicInstance, BufferPtr,
-				   ByteCount, EepromSlvAddr);
-
-		while (ReceiveComplete == FALSE) {
-			if (0 != TotalErrorCount) {
-				return XST_FAILURE;
-			}
-		}
-
-		/*
-		 * Wait until bus is idle to start another transfer.
-		 */
-		while (XIicPs_BusIsBusy(IicInstance));
-
-		return XST_SUCCESS;
-}
-
-/******************************************************************************/
-/**
-*
-* This function setups the interrupt system such that interrupts can occur
-* for the IIC.
-*
-* @param	IicPsPtr contains a pointer to the instance of the Iic
-*		which is going to be connected to the interrupt controller.
-*
-* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
-*
-* @note		None.
-*
-*******************************************************************************/
-static int SetupInterruptSystem(XIicPs *IicPsPtr, u32 Int_Id)
-{
-	int Status;
-	XScuGic_Config *IntcConfig; /* Instance of the interrupt controller */
-
-	Xil_ExceptionInit();
-
-	/*
-	 * Initialize the interrupt controller driver so that it is ready to
-	 * use.
-	 */
-	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
-	if (NULL == IntcConfig) {
-		return XST_FAILURE;
 	}
-
-	Status = XScuGic_CfgInitialize(&InterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-
 	/*
-	 * Connect the interrupt controller interrupt handler to the hardware
-	 * interrupt handling logic in the processor.
+	 * Wait until bus is idle to start another transfer.
 	 */
-	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-				(Xil_ExceptionHandler)XScuGic_InterruptHandler,
-				&InterruptController);
-
-	/*
-	 * Connect the device driver handler that will be called when an
-	 * interrupt for the device occurs, the handler defined above performs
-	 * the specific interrupt processing for the device.
-	 */
-	Status = XScuGic_Connect(&InterruptController, Int_Id,
-			(Xil_InterruptHandler)XIicPs_MasterInterruptHandler,
-			(void *)IicPsPtr);
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
-
-	/*
-	 * Enable the interrupt for the Iic device.
-	 */
-	XScuGic_Enable(&InterruptController, Int_Id);
-
-
-	/*
-	 * Enable interrupts in the Processor.
-	 */
-	Xil_ExceptionEnable();
+	while (XIicPs_BusIsBusy(IicInstance));
 
 	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is the handler which performs processing to handle data events
-* from the IIC.  It is called from an interrupt context such that the amount
-* of processing performed should be minimized.
-*
-* This handler provides an example of how to handle data for the IIC and
-* is application specific.
-*
-* @param	CallBackRef contains a callback reference from the driver, in
-*		this case it is the instance pointer for the IIC driver.
-* @param	Event contains the specific kind of event that has occurred.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
-*
-* @return	None.
-*
-* @note		None.
-*
-*******************************************************************************/
-void Handler(void *CallBackRef, u32 Event)
-{
-	/*
-	 * All of the data transfer has been finished.
-	 */
-
-	if (0 != (Event & XIICPS_EVENT_COMPLETE_SEND)) {
-		TransmitComplete = TRUE;
-	} else if (0 != (Event & XIICPS_EVENT_COMPLETE_RECV)){
-		ReceiveComplete = TRUE;
-	} else if (0 != (Event & XIICPS_EVENT_SLAVE_RDY)) {
-		SlaveResponse = TRUE;
-	} else if (0 != (Event & XIICPS_EVENT_ERROR)){
-		TotalErrorCount++;
-	}
 }
 
 /*****************************************************************************/
@@ -532,37 +395,33 @@ void Handler(void *CallBackRef, u32 Event)
 * @note		None.
 *
 ****************************************************************************/
-static int MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
+static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 {
 	u8 Buffer = 0;
+	s32 Status = 0;
 
-	TotalErrorCount = 0;
-	TransmitComplete = FALSE;
-	TotalErrorCount = 0;
-
-	XIicPs_MasterSend(&IicInstance, &WriteBuffer,1,MuxIicAddr);
-	while (TransmitComplete == FALSE) {
-		if (0 != TotalErrorCount) {
-			return XST_FAILURE;
-		}
+	/*
+	 * Send the Data.
+	 */
+	Status = XIicPs_MasterSendPolled(&IicInstance, &WriteBuffer,1,
+					MuxIicAddr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
+
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
-
 	while (XIicPs_BusIsBusy(&IicInstance));
 
-	ReceiveComplete = FALSE;
 	/*
 	 * Receive the Data.
 	 */
-	XIicPs_MasterRecv(&IicInstance, &Buffer,1, MuxIicAddr);
-
-	while (ReceiveComplete == FALSE) {
-		if (0 != TotalErrorCount) {
-			return XST_FAILURE;
-		}
+	Status = XIicPs_MasterRecvPolled(&IicInstance, &Buffer,1, MuxIicAddr);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
 	}
+
 	/*
 	 * Wait until bus is idle to start another transfer.
 	 */
@@ -570,20 +429,21 @@ static int MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 
 	return XST_SUCCESS;
 }
+
 /*****************************************************************************/
 /**
 * This function perform the initial configuration for the IICPS Device.
 *
-* @param	DeviceId instance and Interrupt ID mapped to the device.
+* @param	DeviceId instance.
 *
 * @return	XST_SUCCESS if pass, otherwise XST_FAILURE.
 *
 * @note		None.
 *
 ****************************************************************************/
-static int IicPsConfig(u16 DeviceId, u32 Int_Id)
+static s32 IicPsConfig(u16 DeviceId)
 {
-	int Status;
+	s32 Status;
 	XIicPs_Config *ConfigPtr;	/* Pointer to configuration data */
 
 	/*
@@ -599,23 +459,6 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-
-	/*
-	 * Setup the Interrupt System.
-	 */
-	Status = SetupInterruptSystem(&IicInstance, Int_Id);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Setup the handlers for the IIC that will be called from the
-	 * interrupt context when data has been sent and received, specify a
-	 * pointer to the IIC driver instance as the callback reference so
-	 * the handlers are able to access the instance data.
-	 */
-	XIicPs_SetStatusHandler(&IicInstance, (void *) &IicInstance, Handler);
-
 	/*
 	 * Set the IIC serial clock rate.
 	 */
@@ -623,26 +466,32 @@ static int IicPsConfig(u16 DeviceId, u32 Int_Id)
 	return XST_SUCCESS;
 }
 
-static int IicPsFindDevice(u16 addr)
-{
-	int Status;
+/*****************************************************************************/
+/**
+*
+* This function is use to figure out the slave device is alive or not.
+*
+* @param        slave address and Device ID .
+*
+* @return       XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note         None.
+*
+*******************************************************************************/
 
-	Status = IicPsSlaveMonitor(addr,0,XPAR_XIICPS_0_INTR);
+static s32 IicPsFindDevice(u16 addr)
+{
+	s32 Status;
+
+	Status = IicPsSlaveMonitor(addr,0);
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
 	}
-	Status = IicPsSlaveMonitor(addr,1,XPAR_XIICPS_1_INTR);
+	Status = IicPsSlaveMonitor(addr,1);
 	if (Status == XST_SUCCESS) {
 		return XST_SUCCESS;
 	}
-	Status = IicPsSlaveMonitor(addr,0,XPAR_XIICPS_1_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
-	}
-	Status = IicPsSlaveMonitor(addr,1,XPAR_XIICPS_0_INTR);
-	if (Status == XST_SUCCESS) {
-		return XST_SUCCESS;
-	}
+
 	return XST_FAILURE;
 }
 /*****************************************************************************/
@@ -657,24 +506,23 @@ static int IicPsFindDevice(u16 addr)
 * @note		None.
 *
 ******************************************************************************/
-static int IicPsFindEeprom(u16 *Eeprom_Addr,int *PageSize)
+static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 {
-	int Status;
-	int MuxIndex,Index;
+	s32 Status;
+	u32 MuxIndex,Index;
 	u8 MuxChannel;
 
 	for(MuxIndex=0;MuxAddr[MuxIndex] != 0;MuxIndex++){
 		Status = IicPsFindDevice(MuxAddr[MuxIndex]);
 		if (Status == XST_SUCCESS) {
 			for(Index=0;EepromAddr[Index] != 0;Index++) {
-					for(MuxChannel = 0x01; MuxChannel <= MAX_CHANNELS; MuxChannel = MuxChannel << 1) {
+				for(MuxChannel = 0x01; MuxChannel <= MAX_CHANNELS; MuxChannel = MuxChannel << 1) {
 					Status = MuxInitChannel(MuxAddr[MuxIndex], MuxChannel);
 					if (Status != XST_SUCCESS) {
 						xil_printf("Failed to enable the MUX channel\r\n");
 						return XST_FAILURE;
 					}
 					Status = FindEepromDevice(EepromAddr[Index]);
-					FindEepromDevice(MUX_ADDR);
 					if (Status == XST_SUCCESS) {
 						*Eeprom_Addr = EepromAddr[Index];
 						*PageSize = PAGE_SIZE_16;
@@ -694,45 +542,46 @@ static int IicPsFindEeprom(u16 *Eeprom_Addr,int *PageSize)
 	}
 	return XST_FAILURE;
 }
-static int FindEepromDevice(u16 Address)
+/*****************************************************************************/
+/**
+*
+* This function checks the availability of EEPROM using slave monitor mode.
+*
+* @param	EEPROM address.
+*
+* @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
+*
+* @note 	None.
+*
+*******************************************************************************/
+static s32 FindEepromDevice(u16 Address)
 {
-	int Index;
+	u32 Index,IntrStatusReg;
 	XIicPs *IicPtr = &IicInstance;
 
-	XIicPs_DisableAllInterrupts(IicPtr->Config.BaseAddress);
+
 	XIicPs_EnableSlaveMonitor(&IicInstance, Address);
 
-		TotalErrorCount = 0;
-		SlaveResponse = FALSE;
-
-		Index = 0;
-
+	Index = 0;
+	/*
+	 * Wait for the Slave Monitor status
+	 */
+	while (Index < SLV_MON_LOOP_COUNT) {
+		Index++;
 		/*
-		 * Wait for the Slave Monitor Interrupt, the interrupt processing
-		 * works in the background, this function may get locked up in this
-		 * loop if the interrupts are not working correctly or the slave
-		 * never responds.
+		 * Read the Interrupt status register.
 		 */
-		while ((!SlaveResponse) && (Index < SLV_MON_LOOP_COUNT)) {
-			Index++;
-
-			/*
-			 * Ignore any errors. The hardware generates NACK interrupts
-			 * if the slave is not present.
-			 */
-			if (0 != TotalErrorCount) {
-				xil_printf("Test error unexpected NACK\n");
-			}
-		}
-
-		if (Index >= SLV_MON_LOOP_COUNT) {
+		IntrStatusReg = XIicPs_ReadReg(IicPtr->Config.BaseAddress,
+						 (u32)XIICPS_ISR_OFFSET);
+		if (0U != (IntrStatusReg & XIICPS_IXR_SLV_RDY_MASK)) {
 			XIicPs_DisableSlaveMonitor(&IicInstance);
-			return XST_FAILURE;
-
+			XIicPs_WriteReg(IicPtr->Config.BaseAddress,
+					(u32)XIICPS_ISR_OFFSET, IntrStatusReg);
+			return XST_SUCCESS;
 		}
-
-		XIicPs_DisableSlaveMonitor(&IicInstance);
-		return XST_SUCCESS;
+	}
+	XIicPs_DisableSlaveMonitor(&IicInstance);
+	return XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -748,55 +597,41 @@ static int FindEepromDevice(u16 Address)
 * @note 	None.
 *
 *******************************************************************************/
-static int IicPsSlaveMonitor(u16 Address, u16 DeviceId, u32 Int_Id)
+static s32 IicPsSlaveMonitor(u16 Address, u16 DeviceId)
 {
-	u32 Index;
-	int Status;
+	u32 Index,IntrStatusReg;
+	s32 Status;
 	XIicPs *IicPtr;
 
 	/*
 	 * Initialize the IIC driver so that it is ready to use.
 	 */
-	Status = IicPsConfig(DeviceId,Int_Id);
+	Status = IicPsConfig(DeviceId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	IicPtr = &IicInstance;
-	XIicPs_DisableAllInterrupts(IicPtr->Config.BaseAddress);
 	XIicPs_EnableSlaveMonitor(&IicInstance, Address);
 
-	TotalErrorCount = 0;
-	SlaveResponse = FALSE;
-
 	Index = 0;
-
 	/*
-	 * Wait for the Slave Monitor Interrupt, the interrupt processing
-	 * works in the background, this function may get locked up in this
-	 * loop if the interrupts are not working correctly or the slave
-	 * never responds.
+	 * Wait for the Slave Monitor Status
 	 */
-	while ((!SlaveResponse) && (Index < SLV_MON_LOOP_COUNT)) {
+	while (Index < SLV_MON_LOOP_COUNT) {
 		Index++;
-
 		/*
-		 * Ignore any errors. The hardware generates NACK interrupts
-		 * if the slave is not present.
+		 * Read the Interrupt status register.
 		 */
-		if (0 != TotalErrorCount) {
-			xil_printf("Test error unexpected NACK\n");
-			return XST_FAILURE;
+		IntrStatusReg = XIicPs_ReadReg(IicPtr->Config.BaseAddress,
+						 (u32)XIICPS_ISR_OFFSET);
+		if (0U != (IntrStatusReg & XIICPS_IXR_SLV_RDY_MASK)) {
+			XIicPs_DisableSlaveMonitor(&IicInstance);
+			XIicPs_WriteReg(IicPtr->Config.BaseAddress,
+					(u32)XIICPS_ISR_OFFSET, IntrStatusReg);
+			return XST_SUCCESS;
 		}
 	}
-
-	if (Index >= SLV_MON_LOOP_COUNT) {
-		return XST_FAILURE;
-
-	}
-
 	XIicPs_DisableSlaveMonitor(&IicInstance);
-	return XST_SUCCESS;
+	return XST_FAILURE;
 }
-
-/******************************************************************************/
