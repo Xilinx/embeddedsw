@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_intr.c
- * @addtogroup dp_v5_0
+ * @addtogroup dp_v5_1
  * @{
  *
  * This file contains functions related to XDp interrupt handling.

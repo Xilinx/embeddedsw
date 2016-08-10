@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_hw.h
- * @addtogroup dp_v5_0
+ * @addtogroup dp_v5_1
  * @{
  *
  * This header file contains the identifiers and low-level driver functions (or
