@@ -49,6 +49,7 @@
 * 2.2  als 02/01/16 Functions with pointer arguments that don't modify
 *                   contents now const.
 * 3.0  aad 05/13/16 Added bus busy check before I2C reads and writes.
+* 3.1  als 08/03/16 Reordered wait for PLL lock.
 * </pre>
 *
 ******************************************************************************/
@@ -334,15 +335,6 @@ void XVidC_Dp159Config(const XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
                                0x4D, (LRate << 4) |
                                        (XVIDC_DP159_EQ_LEV & 0x0F));
 
-                       /* Wait for PLL lock */
-                       while ((ReadBuf == 0) && (Counter <
-                                               XVIDC_DP159_LOCK_WAIT)) {
-                               XVidC_Dp159Read(InstancePtr,
-                                       XVIDC_DP159_IIC_SLAVE, 0x00, &ReadBuf);
-                               ReadBuf = ReadBuf & 0x40;
-                               Counter++;
-                       }
-
                        if (LinkRate == XVIDC_DP159_HBR2) {
                                Cpi = XVIDC_DP159_CPI_PD_HBR2;
                                PllCtrl = XVIDC_DP159_PLL_CTRL_PD_HBR2;
@@ -365,6 +357,15 @@ void XVidC_Dp159Config(const XIic *InstancePtr, u8 ConfigType, u8 LinkRate,
                         */
                        XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE,
                                0x00, 0x23);
+
+                       /* Wait for PLL lock */
+                       while ((ReadBuf == 0) && (Counter <
+                                               XVIDC_DP159_LOCK_WAIT)) {
+                               XVidC_Dp159Read(InstancePtr,
+					XVIDC_DP159_IIC_SLAVE, 0x00, &ReadBuf);
+                               ReadBuf &= 0x40; /* Lock status. */
+                               Counter++;
+                       }
 
                        /* CP_CURRENT */
                        XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE,
@@ -518,6 +519,10 @@ void XVidC_Dp159BitErrCount(const XIic *InstancePtr)
 
 	/* Select page 0 */
 	XVidC_Dp159Write(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0xFF, 0x00);
+
+	/* Read LOCK_STATUS */
+	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x00, &Data);
+	xil_printf("LOCK_STATUS         : %d\n\r", Data & 0x40);
 
 	/* Read TST_INT/Q */
 	XVidC_Dp159Read(InstancePtr, XVIDC_DP159_IIC_SLAVE, 0x17, &Data);
