@@ -55,6 +55,7 @@
 *                   config for TP1 and then link bandwidth callback.
 * 3.0  sha 02/05/16 Added support for multiple subsystems in a design.
 * 3.0  sha 02/19/16 Added function: XDpRxSs_DownstreamReady.
+* 3.1  als 08/08/16 Synchronize with new HDCP APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -91,6 +92,12 @@ static void DpRxSs_PopulateDpRxPorts(XDpRxSs *InstancePtr);
 static void StubTp1Callback(void *InstancePtr);
 static void StubTp2Callback(void *InstancePtr);
 static void StubUnplugCallback(void *InstancePtr);
+
+static int DpRxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
+static int DpRxSs_HdcpStopTimer(void *InstancePtr);
+static int DpRxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs);
+static void DpRxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
+static u32 DpRxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq);
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
@@ -327,6 +334,14 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		/* Set the reset value to Timer Counter zero */
 		XTmrCtr_SetResetValue(InstancePtr->TmrCtrPtr, 0,
 					XDPRXSS_TMRCTR_RST_VAL);
+
+		/* Initialize the HDCP timer functions */
+		XHdcp1x_SetTimerStart(InstancePtr->Hdcp1xPtr,
+						&DpRxSs_HdcpStartTimer);
+		XHdcp1x_SetTimerStop(InstancePtr->Hdcp1xPtr,
+						&DpRxSs_HdcpStopTimer);
+		XHdcp1x_SetTimerDelay(InstancePtr->Hdcp1xPtr,
+						&DpRxSs_HdcpBusyDelay);
 	}
 
 	/* Check for HDCP availability */
@@ -1115,7 +1130,7 @@ static void DpRxSs_GetIncludedSubCores(XDpRxSs *InstancePtr)
 	InstancePtr->TmrCtrPtr =
 		((InstancePtr->Config.TmrCtrSubCore.IsPresent) ?
 	(&DpRxSsSubCores[InstancePtr->Config.DeviceId].TmrCtrInst) : NULL);
-	InstancePtr->Hdcp1xPtr->Hdcp1xRef = NULL;
+	InstancePtr->Hdcp1xPtr->Hdcp1xRef = (void *)InstancePtr->TmrCtrPtr;
 #endif
 }
 
