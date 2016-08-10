@@ -51,6 +51,7 @@
  * 2.0   als  06/08/15 Updated RX initialization with MST support.
  *                     Added callbacks for lane count changes, link rate changes
  *                     and pre-emphasis + voltage swing adjust requests.
+ * 4.1   als  08/09/16 Replaced deprecated MB_Sleep with consolidated usleep.
  * </pre>
  *
 *******************************************************************************/
@@ -59,11 +60,7 @@
 
 #include <string.h>
 #include "xdp.h"
-#if defined(__arm__)
 #include "sleep.h"
-#elif defined(__MICROBLAZE__)
-#include "microblaze_sleep.h"
-#endif
 #include "xenv.h"
 
 /**************************** Constant Definitions ****************************/
@@ -1703,21 +1700,15 @@ void XDp_WaitUs(XDp *InstancePtr, u32 MicroSeconds)
 		return;
 	}
 
-#if defined(__arm__)
 	/* Wait the requested amount of time. */
-	usleep(MicroSeconds);
-#elif defined(__MICROBLAZE__)
 	if (InstancePtr->UserTimerWaitUs != NULL) {
 		/* Use the timer handler specified by the user for better
 		 * accuracy. */
 		InstancePtr->UserTimerWaitUs(InstancePtr, MicroSeconds);
 	}
 	else {
-		/* MicroBlaze sleep only has millisecond accuracy. Round up. */
-		u32 MilliSeconds = (MicroSeconds + 999) / 1000;
-		MB_Sleep(MilliSeconds);
+		usleep(MicroSeconds);
 	}
-#endif
 }
 
 /******************************************************************************/
