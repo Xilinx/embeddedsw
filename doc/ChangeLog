@@ -35,6 +35,7 @@ Fixed IEEE1588 example issue for Zynq (CR#951152
 qspipsu_v1_2:
 Add LQSPI support
 Added Tap delay support.
+Added PollData and PollTimeout Support
 
 v_mix_v2_0:
 Add support for logo layer per pixel alpha feature
