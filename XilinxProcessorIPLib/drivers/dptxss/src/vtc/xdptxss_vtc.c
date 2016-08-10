@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,8 @@
 * 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
 *                   name with prefix XDpTxSs_*
 * 2.00 sha 08/07/15 Set interlace to zero when video mode is XVIDC_VM_CUSTOM.
+* 4.1  als 08/03/16 Use video common API rather than internal structure when
+*                   checking for interlaced mode.
 * </pre>
 *
 ******************************************************************************/
@@ -151,13 +153,10 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
 	VideoTiming.VSyncPolarity = MsaConfig->Vtm.Timing.VSyncPolarity;
 
 	/* Check for interlaced mode */
-	if (MsaConfig->Vtm.VmId != XVIDC_VM_CUSTOM) {
-		VideoTiming.Interlaced = XVidC_VideoTimingModes[
-			MsaConfig->Vtm.VmId].Timing.F1VTotal == 0 ? 0: 1;
-	}
-	else {
-		VideoTiming.Interlaced = 0;
-	}
+	VideoTiming.Interlaced =
+		(MsaConfig->Vtm.VmId == XVIDC_VM_CUSTOM ||
+		!XVidC_GetVideoModeData(MsaConfig->Vtm.VmId)->Timing.F1VTotal) ?
+		0 : 1;
 
 	/* Set timing */
 	XVtc_SetGeneratorTiming(InstancePtr, &VideoTiming);
