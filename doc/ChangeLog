@@ -83,6 +83,7 @@ xil_exception.c,xil_exception.h and xpseudo_asm.h are consolidated across all AR
 files are kept at src/arm/common directory.GCC files related to file operations are consolidated and kept at src/arm/common/gcc
 directory.
 Added undefined exception handler for A53 32 bit and R5 processor.
+Updated xtime_l.c in R5 BSP to remove implementation of XTime_SetTime API, since TTC counter value register is read only.
 
 sdps_v3_0:
 Added support for mkfs.

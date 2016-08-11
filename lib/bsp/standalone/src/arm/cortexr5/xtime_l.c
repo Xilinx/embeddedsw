@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,9 @@
 *						are modified to read and write TTC counter value
 *						respectively
 * 5.04	pkp
+* 6.0   mus    08/11/16  Removed implementation of XTime_SetTime API, since
+*                        TTC counter value register is read only.
+*
 * </pre>
 *
 * @note		None.
@@ -63,6 +66,7 @@
 #include "xpseudo_asm.h"
 #include "xil_assert.h"
 #include "xil_io.h"
+#include "xdebug.h"
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -148,24 +152,8 @@ void XTime_StartTimer(void)
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
 {
-	u32 TimerCntrl;
-	/* Disable the timer to configure */
-	TimerCntrl = Xil_In32(SLEEP_TIMER_BASEADDR +
-							SLEEP_TIMER_CNTR_CNTRL_OFFSET);
-	TimerCntrl = TimerCntrl | SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK;
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET,
-				TimerCntrl);
-
-	/* Write the lower 32bit value to timer counter register */
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_VAL_OFFSET,
-				Xtime_Global);
-
-	/* Enable the Timer */
-	TimerCntrl = Xil_In32(SLEEP_TIMER_BASEADDR +
-							SLEEP_TIMER_CNTR_CNTRL_OFFSET);
-	TimerCntrl = TimerCntrl & (~SLEEP_TIMER_COUNTER_CONTROL_DIS_MASK);
-	Xil_Out32(SLEEP_TIMER_BASEADDR + SLEEP_TIMER_CNTR_CNTRL_OFFSET,
-				TimerCntrl);
+/*Timer cannot be set to desired value, so the API is left unimplemented*/
+    xdbg_printf("XTime_SetTime:Timer cannot be set to desired value, so API is not implemented\n");
 }
 
 /****************************************************************************
