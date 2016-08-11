@@ -67,6 +67,7 @@
 * 1.6   MH     23/06/16 Added HDCP repeater support.
 * 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 * 1.8   MH     26/07/16 Updates for automatic protocol switching
+* 1.9   MH     05/08/16 Updates to optimize out HDCP when excluded
 * </pre>
 *
 ******************************************************************************/
@@ -79,16 +80,24 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
+#include "xparameters.h"
 #include "xstatus.h"
 #include "xv_hdmirx.h"
+#ifdef XPAR_XHDCP_NUM_INSTANCES
 #include "xtmrctr.h"
 #include "xhdcp1x.h"
+#endif
+#ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
 #include "xhdcp22_rx.h"
+#endif
 #include "xgpio.h"
 #include "xv_axi4s_remap.h"
 
 #define XV_HDMIRXSS_HDCP_KEYSEL 0x00u
 #define XV_HDMIRXSS_HDCP_MAX_QUEUE_SIZE 16
+#if defined(XPAR_XHDCP_NUM_INSTANCES) || defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
+#define USE_HDCP
+#endif
 
 /****************************** Type Definitions ******************************/
 /** @name Handler Types
@@ -236,9 +245,13 @@ typedef struct
   u32 IsReady;                  /**< Device and the driver instance are
                                      initialized */
   XGpio *RemapperResetPtr;        /**< handle to sub-core driver instance */
+#ifdef XPAR_XHDCP_NUM_INSTANCES
   XTmrCtr *HdcpTimerPtr;           /**< handle to sub-core driver instance */
   XHdcp1x *Hdcp14Ptr;                /**< handle to sub-core driver instance */
+#endif
+#ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
   XHdcp22_Rx  *Hdcp22Ptr;           /**< handle to sub-core driver instance */
+#endif
   XV_axi4s_remap *RemapperPtr;    /**< handle to sub-core driver instance */
   XV_HdmiRx *HdmiRxPtr;             /**< handle to sub-core driver instance */
 
@@ -304,12 +317,9 @@ void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_SetUserTimerHandler(XV_HdmiRxSs *InstancePtr,
         XVidC_DelayHandler CallbackFunc, void *CallbackRef);
 void XV_HdmiRxSS_HdmiRxIntrHandler(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSS_HdcpIntrHandler(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSS_HdcpTimerIntrHandler(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
     XV_HdmiRxSs_Config *CfgPtr,
     UINTPTR EffectiveAddr);
-void XV_HdmiRxSS_Hdcp22TimerIntrHandler(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr);
@@ -342,6 +352,7 @@ void XV_HdmiRxSs_ReportSubcoreVersion(XV_HdmiRxSs *InstancePtr);
 int  XV_HdmiRxSs_IsStreamUp(XV_HdmiRxSs *InstancePtr);
 int  XV_HdmiRxSs_IsStreamConnected(XV_HdmiRxSs *InstancePtr);
 
+#ifdef USE_HDCP
 // HDCP
 void XV_HdmiRxSs_HdcpSetKey(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpKeyType KeyType, u8 *KeyPtr);
 int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr);
@@ -365,11 +376,19 @@ int XV_HdmiRxSs_HdcpSetRepeater(XV_HdmiRxSs *InstancePtr, u8 Set);
 int XV_HdmiRxSs_HdcpSetTopologyUpdate(XV_HdmiRxSs *InstancePtr);
 XV_HdmiRxSs_HdcpContentStreamType XV_HdmiRxSs_HdcpGetContentStreamType(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_HdcpIsRepeater(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpIsInWaitforready(XV_HdmiRxSs *InstancePtr);
+int XV_HdmiRxSs_HdcpIsInComputations(XV_HdmiRxSs *InstancePtr);
+#ifdef XPAR_XHDCP_NUM_INSTANCES
 int XV_HdmiRxSs_HdcpTimerStart(void *InstancePtr, u16 TimeoutInMs);
 int XV_HdmiRxSs_HdcpTimerStop(void *InstancePtr);
 int XV_HdmiRxSs_HdcpTimerBusyDelay(void *InstancePtr, u16 DelayInMs);
-int XV_HdmiRxSs_HdcpIsInWaitforready(XV_HdmiRxSs *InstancePtr);
-int XV_HdmiRxSs_HdcpIsInComputations(XV_HdmiRxSs *InstancePtr);
+void XV_HdmiRxSS_HdcpIntrHandler(XV_HdmiRxSs *InstancePtr);
+void XV_HdmiRxSS_HdcpTimerIntrHandler(XV_HdmiRxSs *InstancePtr);
+#endif
+#ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
+void XV_HdmiRxSS_Hdcp22TimerIntrHandler(XV_HdmiRxSs *InstancePtr);
+#endif
+#endif // USE_HDCP
 
 #ifdef __cplusplus
 }

@@ -32,47 +32,17 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdmi_hdcp.h
+* @file xhdmi_hdcp_keys.h
 *
-* This is the main header file for the Xilinx HDCP wrapper as used
+* This is the main header file for the Xilinx HDCP key loading utility used
 * in the HDMI example design. The HDCP cores are used for content protection
 * according to the HDCP 1.4 and HDCP 2.2 specifications.
-*
-* It consists of
-* -
-*
-*
-* <b>Software Initialization & Configuration</b>
-*
-*
-* <b>Interrupts </b>
-*
-* <b> Virtual Memory </b>
-*
-* This driver supports Virtual Memory. The RTOS is responsible for calculating
-* the correct device base address in Virtual Memory space.
-*
-* <b> Threads </b>
-*
-* This driver is not thread safe. Any needs for threads or thread mutual
-* exclusion must be satisfied by the layer above this driver.
-*
-* <b> Asserts </b>
-*
-* Asserts are used within all Xilinx drivers to enforce constraints on argument
-* values. Asserts can be turned off on a system-wide basis by defining at
-* compile time, the NDEBUG identifier. By default, asserts are turned on and it
-* is recommended that users leave asserts on during development.
-*
-* <b> Building the driver </b>
-*
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date       Changes
 * ----- ---- ---------- --------------------------------------------------
-* X.X   ..   DD-MM-YYYY ..
 * 1.0   MG   26-01-2016 Initial version
 * </pre>
 *
@@ -90,6 +60,7 @@ extern "C" {
 #include "xil_printf.h"
 #include "xiic.h"
 #include "aes256.h"
+#include "sha256.h"
 #include "xparameters.h"
 #include <string.h>
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
@@ -97,7 +68,6 @@ extern "C" {
 #else
 #include "xuartps.h"
 #endif
-#include "xhdcp22_common.h"
 
 /************************** Function Prototypes ******************************/
 int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey, u32 Hdcp22RxPrivateKeySize,

@@ -32,18 +32,19 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdmi_menu.c
+* @file xhdmi_hdcp_keys.c
 *
-* This file contains the Xilinx Menu implementation as used
-* in the HDMI example design. Please see xhdmi_menu.h for more details.
+* This file contains the Xilinx HDCP key loading utility implementation
+* as used in the HDMI example design. Please see xhdmi_hdcp_keys.h for
+* more details.
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
 * Ver   Who  Date       Changes
 * ----- ---- ---------- --------------------------------------------------
-* X.X   ..   DD-MM-YYYY ..
 * 1.0   MG   26-01-2016 Initial release
+* 1.1   YH   04-08-2016 Bypass HDCP Key password for VIPER run in board farm
 * </pre>
 *
 ******************************************************************************/
@@ -53,33 +54,32 @@
 
 /************************** Constant Definitions *****************************/
 #if defined (XPAR_XUARTLITE_NUM_INSTANCES)
-#define XHDCP_UART_BASEADDR 		XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
+#define XHDCP_UART_BASEADDR       XPAR_MB_SS_0_AXI_UARTLITE_BASEADDR
 #else
-#define XHDCP_UART_BASEADDR 		XPAR_XUARTPS_0_BASEADDR
+#define XHDCP_UART_BASEADDR       XPAR_XUARTPS_0_BASEADDR
 #endif
 
 #if defined (XPAR_MB_SS_0_FMCH_AXI_IIC_DEVICE_ID)
-#define XHDCP_IIC_BASEADDR 			XPAR_MB_SS_0_FMCH_AXI_IIC_BASEADDR
+#define XHDCP_IIC_BASEADDR        XPAR_MB_SS_0_FMCH_AXI_IIC_BASEADDR
 #else
-#define XHDCP_IIC_BASEADDR          XPAR_ZYNQ_SS_0_FMCH_AXI_IIC_BASEADDR
+#define XHDCP_IIC_BASEADDR        XPAR_ZYNQ_SS_0_FMCH_AXI_IIC_BASEADDR
 #endif
 
-#define XHDCP_EEPROM_ADDRESS		0x50	 /* 0xA0 as an 8 bit number */
-#define XHDCP_EEPROM_PAGE_SIZE 		16
-#define SIGNATURE_OFFSET			0
-#define HDCP22_LC128_OFFSET			16
-#define HDCP22_CERTIFICATE_OFFSET	32
-#define HDCP14_KEY1_OFFSET			1024
-#define HDCP14_KEY2_OFFSET			1536
+#define XHDCP_EEPROM_ADDRESS      0x50 /* 0xA0 as an 8 bit number */
+#define XHDCP_EEPROM_PAGE_SIZE    16
+#define SIGNATURE_OFFSET          0
+#define HDCP22_LC128_OFFSET       16
+#define HDCP22_CERTIFICATE_OFFSET 32
+#define HDCP14_KEY1_OFFSET        1024
+#define HDCP14_KEY2_OFFSET        1536
 
 /************************** Function Prototypes ******************************/
 //int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u8 *Hdcp22RxPrivateKey);
-static u16 Round16 (u16 Size);
-static void Decrypt (u8 *CipherBufferPtr, u8 *PlainBufferPtr, u8 *Key, u16 Length);
+static u16 Round16(u16 Size);
+static void Decrypt(u8 *CipherBufferPtr, u8 *PlainBufferPtr, u8 *Key, u16 Length);
 static u16 EepromGet(u16 Address, u8 *BufferPtr, u16 Length);
 static u8 EepromReadByte(u16 Address, u8 *BufferPtr, u16 ByteCount);
 static u8 EnterPassword (u8 *Password);
-
 
 /*****************************************************************************/
 /**
@@ -95,7 +95,6 @@ static u8 EnterPassword (u8 *Password);
 int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey, u32 Hdcp22RxPrivateKeySize,
 		u8 *Hdcp14KeyA, u32 Hdcp14KeyASize, u8 *Hdcp14KeyB, u32 Hdcp14KeyBSize)
 {
-//	u16 BytesRead;
 	u8 i;
 	u8 HdcpSignature[16] = {"xilinx_hdcp_keys"};
 	u8 Buffer[1024];
@@ -103,6 +102,7 @@ int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey,
 	u8 Key[32];
 	u8 SignatureOk;
 	u8 HdcpSignatureBuffer[16];
+	SHA256_CTX Ctx;
 
 	print("Before the HDCP functionality can be enabled, \n\r");
 	print("the application will load the encrypted HDCP keys\n\r");
@@ -110,14 +110,24 @@ int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey,
 	print("The HDCP keys are protected with a unique password.\n\r");
 	print("Please enter your password.\n\r");
 
+#if	(BASIC_VALIDATION == 1) || (PRBS_VALIDATION == 1)
+	memset(Password, 0x00, 32);
+	Password[0] = (u8)'t';
+	Password[1] = (u8)'e';
+	Password[2] = (u8)'s';
+	Password[3] = (u8)'t';
+#else
 	EnterPassword(Password);
+#endif
 	print("\n\r");
 
+
 	// Generate password hash
-	XHdcp22Cmn_Sha256Hash(Password, sizeof(Password), Key);
+	sha256_init(&Ctx);
+	sha256_update(&Ctx, Password, sizeof(Password));
+	sha256_final(&Ctx, Key);
 
 	// Signature
-//	BytesRead = EepromGet(SIGNATURE_OFFSET, Buffer, sizeof(HdcpSignature));
 	EepromGet(SIGNATURE_OFFSET, Buffer, sizeof(HdcpSignature));
 	Decrypt(Buffer, HdcpSignatureBuffer, Key, sizeof(HdcpSignature));
 
@@ -132,59 +142,34 @@ int XHdcp_LoadKeys(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey,
 	{
 		print("Password is valid.\n\r");
 		print("Loading HDCP keys from EEPROM... ");
-		//xil_printf("HDCP signature ok\n\r");
 
 		// HDCP 2.2 LC128
-		//xil_printf("HDCP 2.2 Reading LC128 ");
-
 		// Read from EEPROM
-//		BytesRead = EepromGet(HDCP22_LC128_OFFSET, Buffer, Round16(Hdcp22Lc128Size));
 		EepromGet(HDCP22_LC128_OFFSET, Buffer, Round16(Hdcp22Lc128Size));
-		//xil_printf("ok (%d bytes)\n\r", BytesRead);
 
 		// Decrypt
-		//xil_printf("HDCP 2.2 Decrypting LC128 ");
 		Decrypt(Buffer, Hdcp22Lc128, Key, Hdcp22Lc128Size);
-		//xil_printf("ok\n\r");
 
 		// Certificate
-		//xil_printf("HDCP 2.2 Reading Certificate ");
-
 		// Read from EEPROM
-//		BytesRead = EepromGet(HDCP22_CERTIFICATE_OFFSET, Buffer, Round16(Hdcp22RxPrivateKeySize));
 		EepromGet(HDCP22_CERTIFICATE_OFFSET, Buffer, Round16(Hdcp22RxPrivateKeySize));
-		//xil_printf("ok (%d bytes)\n\r", BytesRead);
 
 		// Decrypt
-		//xil_printf("HDCP 2.2 Decrypting Certificate ");
 		Decrypt(Buffer, Hdcp22RxPrivateKey, Key, Hdcp22RxPrivateKeySize);
-		//xil_printf("ok\n\r");
 
 		// HDCP 1.4 key A
-		//xil_printf("HDCP 1.4 Reading Key A ");
-
 		// Read from EEPROM
-//		BytesRead = EepromGet(HDCP14_KEY1_OFFSET, Buffer, Round16(Hdcp14KeyASize));
 		EepromGet(HDCP14_KEY1_OFFSET, Buffer, Round16(Hdcp14KeyASize));
-		//xil_printf("ok (%d bytes)\n\r", BytesRead);
 
 		// Decrypt
-		//xil_printf("HDCP 1.4 Decrypting Key A ");
 		Decrypt(Buffer, Hdcp14KeyA, Key, Hdcp14KeyASize);
-		//xil_printf("ok\n\r");
 
 		// HDCP 1.4 key B
-		//xil_printf("HDCP 1.4 Reading Key B ");
-
 		// Read from EEPROM
-//		BytesRead = EepromGet(HDCP14_KEY2_OFFSET, Buffer, Round16(Hdcp14KeyBSize));
 		EepromGet(HDCP14_KEY2_OFFSET, Buffer, Round16(Hdcp14KeyBSize));
-		//xil_printf("ok (%d bytes)\n\r", BytesRead);
 
 		// Decrypt
-		//xil_printf("HDCP 1.4 Decrypting Key B ");
 		Decrypt(Buffer, Hdcp14KeyB, Key, Hdcp14KeyBSize);
-		//xil_printf("ok\n\r");
 		print("done\n\r");
 		print("Enabling HDCP functionality\n\r");
 
@@ -343,8 +328,7 @@ int XHdcp_KeyManagerInit(u32 BaseAddress, u8 *Hdcp14Key)
  *  - XST_SUCCESS if action was successful
  *
  ******************************************************************************/
-
-static u8 EnterPassword (u8 *Password)
+static u8 EnterPassword(u8 *Password)
 {
 	u8 Data;
 	u8 i;
@@ -395,7 +379,6 @@ static u8 EnterPassword (u8 *Password)
 	}
 }
 
-
 /*****************************************************************************/
 /**
  *
@@ -407,7 +390,7 @@ static u8 EnterPassword (u8 *Password)
  *  - XST_FAILURE if action was not successful
  *
  ******************************************************************************/
-static u16 Round16 (u16 Size)
+static u16 Round16(u16 Size)
 {
 	if (Size % 16)
 		return ((Size/16)+1) * 16;
@@ -426,7 +409,7 @@ static u16 Round16 (u16 Size)
  *  - XST_FAILURE if action was not successful
  *
  ******************************************************************************/
-static void Decrypt (u8 *CipherBufferPtr, u8 *PlainBufferPtr, u8 *Key, u16 Length)
+static void Decrypt(u8 *CipherBufferPtr, u8 *PlainBufferPtr, u8 *Key, u16 Length)
 {
     u8 i;
     u8 *AesBufferPtr;
@@ -488,14 +471,12 @@ static u16 EepromGet(u16 Address, u8 *BufferPtr, u16 Length)
 		TotalBytesRead += BytesRead;
 		Address += BytesRead;
 		Ptr += BytesRead;
-	//	xil_printf("i : %d rd : %0d\n\r", i, BytesRead);
 	}
 
 	if (Length > TotalBytesRead)
 	{
 		BytesRead = EepromReadByte(Address, Ptr, (Length - TotalBytesRead));
 		TotalBytesRead += BytesRead;
-	//	xil_printf("rd : %0d\n\r", i, BytesRead);
 	}
 	return TotalBytesRead;
 }
