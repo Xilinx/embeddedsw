@@ -767,7 +767,7 @@ int XV_HdmiRx_DdcLoadEdid(XV_HdmiRx *InstancePtr, u8 *EdidData, u16 Length)
     // The EDID data is larger than the DDC slave EDID buffer size
     else
     {
-        xdbg_printf("The EDID data structure is too large to be stored in the DDC peripheral (%0d).\n\r", Length);
+        xdbg_printf(XDBG_DEBUG_GENERAL,"The EDID data structure is too large to be stored in the DDC peripheral (%0d).\n\r", Length);
         return (XST_FAILURE);
     }
 }

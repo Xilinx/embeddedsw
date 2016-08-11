@@ -180,6 +180,7 @@ Up version to 3.0 with the following updates:
 Add HDCP repeater support
 Add HDCP 1.4 & 2.2 auto switching support
 Add Import Example Design support
+Update to optimize out HDCP when excluded
 
 v_hdmitxss_v3_0:
 Up version to 3.0 with the following updates:
@@ -188,6 +189,7 @@ Add HDCP 1.4 & 2.2 auto switching support
 Add Import Example Design support
 Update Address data type to support ZynqMP
 Remove checking VideoMode
+Update to optimize out HDCP when excluded
 
 v_hdmirx_v1_1:
 Updated VTD control in HDMI RX core driver
