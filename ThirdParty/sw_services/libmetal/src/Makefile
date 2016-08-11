@@ -3,8 +3,7 @@ LIBDIR=../../../lib
 .PHONY: libs
 .PHONY: include
 include:
-	mkdir -p $(INCLUDEDIR)/metal
-	cp -R -f ../build_libmetal/lib/metal/*.h $(INCLUDEDIR)/metal/.
+	cp -R -f ../build_libmetal/lib/metal $(INCLUDEDIR)/.
 libs:
 	make -C ../build_libmetal DESTDIR=../../../ install 2>&1
 clean:

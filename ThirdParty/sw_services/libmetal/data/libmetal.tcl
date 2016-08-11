@@ -129,7 +129,10 @@ proc generate {libhandle} {
 
 	} else {
 		# Windows
-		if { [catch {exec ${cmake_cmd} "../src/libmetal" ${cmake_opt} -G "Unix Makefiles"} msg] } {
+		#
+		# Note: windows tcl exec does not do well when trying to provide ${cmake_opt}
+		#       for now hardcoding the values directly on the command line.
+		if { [catch {exec ${cmake_cmd} "../src/libmetal" -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_DEFAULT_LOGGER=off -DWITH_DOC=off } msg] } {
 			puts "${msg}"
 			error "Failed to generate cmake files."
 		} else {
