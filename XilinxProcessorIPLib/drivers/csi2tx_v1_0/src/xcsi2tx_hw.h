@@ -70,17 +70,17 @@ extern "C" {
  */
 
 
-#define XCSI2TX_CCR_OFFSET		0x00000000	/**< Core Configuration
+#define XCSI2TX_CCR_OFFSET	0x00000000	/**< Core Configuration
 						  *  Register */
-#define XCSI2TX_PCR_OFFSET		0x00000004	/*Protocol Configuration
+#define XCSI2TX_PCR_OFFSET	0x00000004	/*Protocol Configuration
 						  *  Register */
 #define XCSI2TX_GIER_OFFSET	0x00000020	/**< Global Interrupt
 						  *  Register */
-#define XCSI2TX_ISR_OFFSET		0x00000024	/**< Interrupt Status
+#define XCSI2TX_ISR_OFFSET	0x00000024	/**< Interrupt Status
 						  *  Register */
-#define XCSI2TX_IER_OFFSET		0x00000028	/**< Interrupt Enable
+#define XCSI2TX_IER_OFFSET	0x00000028	/**< Interrupt Enable
 						  *  Register */
-#define XCSI2TX_CLKINFR_OFFSET	0x0000002C	/**< Frame Blanking */
+#define XCSI2TX_FRMBLNK_OFFSET	0x0000002C	/**< Frame Blanking */
 #define XCSI2TX_SPKTR_OFFSET	0x00000030	/**< Generic Short Packet
 						  *  Entry */
 #define XCSI2TX_GSP_OFFSET	0x00000078	/* < GSP Status*/
@@ -96,7 +96,7 @@ extern "C" {
 					  *  Enable */
 
 #define XCSI2TX_GIER_SET	1	/**< Enable the Global Interrupts */
-#define XCSI2TX_GIER_RESET 0	/**< Disable the Global Interrupts */
+#define XCSI2TX_GIER_RESET 	0	/**< Disable the Global Interrupts */
 
 /*@}*/
 
@@ -111,10 +111,10 @@ extern "C" {
 #define XCSI2TX_CCR_SOFTRESET_MASK	0x00000002 /* Soft Reset the core */
 #define XCSI2TX_CSR_RIPCD_MASK		0x00000004 /* Core ready */
 #define XCSI2TX_CCR_ULPS_MASK		0x00000008 /* ULPS */
-#define XCSI2TX_CCR_COREENB_SHIFT		0 /* Shift bit for Core Enable*/
-#define XCSI2TX_CCR_SOFTRESET_SHIFT		1 /* Shift bit for Soft reset */
-#define XCSI2TX_CSR_RIPCD_SHIFT			2 /* Bit Shift for Core Ready */
-#define XCSI2TX_CCR_ULPS_SHIFT 			3 /* Shift bits for ulps */
+#define XCSI2TX_CCR_COREENB_SHIFT	0 	/* Shift bit for Core Enable*/
+#define XCSI2TX_CCR_SOFTRESET_SHIFT	1 	/* Shift bit for Soft reset */
+#define XCSI2TX_CSR_RIPCD_SHIFT		2 	/* Bit Shift for Core Ready */
+#define XCSI2TX_CCR_ULPS_SHIFT 		3 	/* Shift bits for ulps */
 /*@}*/
 
 /** @name Bitmasks and offset of XCSI2TX_PCR_OFFSET register
@@ -123,15 +123,17 @@ extern "C" {
  * and number of lanes actively used.
  * @{
  */
-#define XCSI2TX_PCR_LINEGEN_MASK	0x00008000 /* Pixel Mode */
+/* Mask bits */
+#define XCSI2TX_PCR_LINEGEN_MASK	0x00008000 /* Line generation Mode */
 #define XCSI2TX_PCR_PIXEL_MASK		0x00006000 /* Pixel Mode */
 #define XCSI2TX_PCR_MAXLANES_MASK	0x00000018 /* Maximum lanes in core */
 #define XCSI2TX_PCR_ACTLANES_MASK	0x00000003 /* Active  lanes in core */
 
-#define XCSI2TX_PCR_LINEGEN_SHIFT	15 /* Pixel Mode */
-#define XCSI2TX_PCR_PIXEL_SHIFT		13 /* Shift bits for Pixel Mode */
-#define XCSI2TX_PCR_MAXLANES_SHIFT	3 /* Shift bits for Max Lanes */
-#define XCSI2TX_PCR_ACTLANES_SHIFT	0 /* Shift bits for Active Lanes */
+/* Shift bits */
+#define XCSI2TX_PCR_LINEGEN_SHIFT	15 	/* Line generation */
+#define XCSI2TX_PCR_PIXEL_SHIFT		13 	/* Pixel Mode */
+#define XCSI2TX_PCR_MAXLANES_SHIFT	3 	/* Max Lanes */
+#define XCSI2TX_PCR_ACTLANES_SHIFT	0 	/* Active Lanes */
 
 /*@}*/
 
@@ -145,8 +147,8 @@ extern "C" {
  * @{
  */
 
-#define XCSI2TX_IER_ALLINTR_MASK	0x0000002F /* All interrupts mask */
-#define	XCSI2TX_ISR_ALLINTR_MASK	0x0000002F /* All interrupts mask */
+#define XCSI2TX_IER_ALLINTR_MASK	0x0000003F /* All interrupts mask */
+#define	XCSI2TX_ISR_ALLINTR_MASK	0x0000003F /* All interrupts mask */
 #define XCSI2TX_UNDERRUN_PIXEL_MASK	(1<<0)	/* Underrun Pixel */
 #define XCSI2TX_WRONG_DATATYPE_MASK	(1<<1)	/* Wrong data type */
 #define XCSI2TX_LINE_BUFF_FULL_MASK	(1<<2)	/* Line buffer full */
@@ -182,7 +184,7 @@ extern "C" {
 * @note		None
 *
 ******************************************************************************/
-static inline u32 XCsi2Tx_ReadReg(u64 BaseAddress, u32 RegOffset)
+static inline u32 XCsi2Tx_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 {
 #if defined(__MICROBLAZE__)
 	return Xil_In32(BaseAddress + RegOffset);
@@ -205,7 +207,8 @@ static inline u32 XCsi2Tx_ReadReg(u64 BaseAddress, u32 RegOffset)
 * @note		None.
 *
 ******************************************************************************/
-static inline void XCsi2Tx_WriteReg(u64 BaseAddress, u32 RegOffset, u32 Data)
+static inline void XCsi2Tx_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
+								u32 Data)
 {
 #if defined(__MICROBLAZE__)
 	Xil_Out32(BaseAddress + RegOffset, Data);

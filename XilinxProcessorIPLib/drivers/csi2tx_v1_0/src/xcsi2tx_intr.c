@@ -205,11 +205,11 @@ void XCsi2Tx_InterruptClear(XCsi2Tx *InstancePtr, u32 Mask)
 * <pre>
 * HandlerType				Callback Function Type
 * ----------------------------  --------------------------------------------
-* (XCSI2TX_HANDLER_INCOR_LANE)		IncorrectLaneCallBack
-* (XCSI2TX_HANDLER_GSPFIFO_FULL)		GSPFIFOCallBack
-* (XCSI2TX_HANDLER_ULPS)			DPhyUlpsCallBack
-* (XCSI2TX_HANDLER_LINEBUF_FULL)		LineBufferCallBack
-* (XCSI2TX_HANDLER_WRG_DATATYPE)		WrgDataTypeCallBack
+* (XCSI2TX_HANDLER_WRG_LANE)		IncorrectLaneCallBack
+* (XCSI2TX_HANDLER_GSPFIFO_FULL)	GSPFIFOCallBack
+* (XCSI2TX_HANDLER_ULPS)		DPhyUlpsCallBack
+* (XCSI2TX_HANDLER_LINEBUF_FULL)	LineBufferCallBack
+* (XCSI2TX_HANDLER_WRG_DATATYPE)	WrgDataTypeCallBack
 * (XCSI2TX_HANDLER_UNDERRUN_PIXEL)	UnderrunPixelCallBack
 * </pre>
 *
@@ -221,7 +221,7 @@ void XCsi2Tx_InterruptClear(XCsi2Tx *InstancePtr, u32 Mask)
 * 		by the Callbackfunc
 *
 * @return
-* 		- XST_SUCCESS when handler is installed.
+*		- XST_SUCCESS when handler is installed.
 *		- XST_INVALID_PARAM when HandlerType is invalid.
 *
 * @note 	Invoking this function for a handler that already has been
@@ -237,7 +237,7 @@ int XCsi2Tx_SetCallBack(XCsi2Tx *InstancePtr, u32 HandleType,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	switch (HandleType) {
-		case XCSI2TX_HANDLER_INCOR_LANE:
+		case XCSI2TX_HANDLER_WRG_LANE:
 			InstancePtr->IncorrectLaneCallBack = Callbackfunc;
 			InstancePtr->IncorrectLaneRef = Callbackref;
 			break;

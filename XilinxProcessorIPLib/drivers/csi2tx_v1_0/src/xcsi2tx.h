@@ -53,30 +53,30 @@
 *
 * <b>Core Features</b>
 * The Xilinx CSI-2 Tx has the following features:
-•	Compliant with the MIPI CSI-2 Interface Specification, rev. 1.1
-•	Standard PPI interface i.e. D-PHY
-•	1-4 Lane Support,configurable through GUI
-•	Maximum Data Rate per – 1.5 Gigabits per second
-•	Multiple data type support :
-o	RAW8,RAW10,RAW12,RAW14,RGB888,YUV422-8Bit,User defined  Data types
-•	Supports Single,Dual,Quad Pixel Modes, configurable through GUI
-•	Virtual channel Support (1 to 4)
-•	Low Power State(LPS) insertion between the packets.
-•	Ultra Low Power(ULP) mode generation using register access.
-•	Interrupt generation & Core Status information can be accessed through
+* • Compliant with the MIPI CSI-2 Interface Specification, rev. 1.1
+* • Standard PPI interface i.e. D-PHY
+* • 1-4 Lane Support,configurable through GUI
+* • Maximum Data Rate per – 1.5 Gigabits per second
+* • Multiple data type support :
+* • RAW8,RAW10,RAW12,RAW14,RGB888,YUV422-8Bit,User defined  Data types
+* • Supports Single,Dual,Quad Pixel Modes, configurable through GUI
+* • Virtual channel Support (1 to 4)
+* • Low Power State(LPS) insertion between the packets.
+* • Ultra Low Power(ULP) mode generation using register access.
+* • Interrupt generation & Core Status information can be accessed through
 	Register Interface
-•	Multilane interoperability.
-•	ECC generation for packet header.
-•	CRC generation for data bytes(Can be Enabled / Disabled),
+* • Multilane interoperability.
+* • ECC generation for packet header.
+* • CRC generation for data bytes(Can be Enabled / Disabled),
 	configurable through GUI.
-•	Pixel byte conversion based on data format.
-•	AXI4-Lite interface to access core registers.
-•	Compliant with Xilinx AXI Stream Interface & native
+* • Pixel byte conversion based on data format.
+* • AXI4-Lite interface to access core registers.
+* • Compliant with Xilinx AXI Stream Interface & native
 	Interface for input video stream.
-•	LS/LE Packet Generation,can be configured through  register interface.
-•	Programmable Frame Blanking period,through register interface.
-•	Configurable selection of D-PHY Register Interface through GUI options.
-•	Support for transmission of Embedded Data packet’s through Input
+* • LS/LE Packet Generation,can be configured through  register interface.
+* • Programmable Frame Blanking period,through register interface.
+* • Configurable selection of D-PHY Register Interface through GUI options.
+* • Support for transmission of Embedded Data packet’s through Input
 	Interface.
 *
 *
@@ -132,7 +132,7 @@ extern "C" {
 /** @name Interrupt Types for setting Callbacks
  * @{
 */
-#define XCSI2TX_HANDLER_INCOR_LANE		1
+#define XCSI2TX_HANDLER_WRG_LANE		1
 #define XCSI2TX_HANDLER_GSPFIFO_FULL		2
 #define XCSI2TX_HANDLER_ULPS			3
 #define XCSI2TX_HANDLER_LINEBUF_FULL		4
@@ -145,6 +145,8 @@ extern "C" {
 #define XCSI2TX_DISABLE	0	/**< Flag denoting disabling of CSI */
 
 #define XCSI2TX_MAX_LANES	4	/**< Max Lanes supported by CSI */
+#define XCSI2TX_INACTIVE	1
+#define XCSI2TX_READY		0
 
 /**************************** Type Definitions *******************************/
 
@@ -168,8 +170,9 @@ typedef struct {
 */
 typedef struct {
 	u32 DeviceId;		/**< Device Id */
-	u64 BaseAddr;		/**< Base address of CSI2 Rx Controller */
-	u32 MaxLanesPresent;	/**< Number of Lanes. Range 0 - 3 */
+	UINTPTR BaseAddr;	/**< Base address of CSI2 Rx Controller */
+	u32 MaxLanesPresent;	/**< Max value of Lanes. Range 0 - 3 */
+	u32 ActiveLanes;	/**< Number of Lanes configured. Range 0 - 3 */
 } XCsi2Tx_Config;
 
 /**
@@ -240,7 +243,7 @@ typedef struct {
 * @note		None
 *
 ****************************************************************************/
-static inline void XCsi2Tx_BitSet(u64 BaseAddress, u32 RegisterOffset,
+static inline void XCsi2Tx_BitSet(UINTPTR BaseAddress, u32 RegisterOffset,
 				u32 BitMask)
 {
 	XCsi2Tx_WriteReg(BaseAddress, RegisterOffset,
@@ -261,7 +264,7 @@ static inline void XCsi2Tx_BitSet(u64 BaseAddress, u32 RegisterOffset,
 * @note		None
 *
 ****************************************************************************/
-static inline void XCsi2Tx_BitReset(u64 BaseAddress, u32 RegisterOffset,
+static inline void XCsi2Tx_BitReset(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask)
 {
 	XCsi2Tx_WriteReg(BaseAddress, RegisterOffset,
@@ -283,7 +286,7 @@ static inline void XCsi2Tx_BitReset(u64 BaseAddress, u32 RegisterOffset,
 * @note 	None
 *
 ****************************************************************************/
-static inline u32 XCsi2Tx_GetBitField(u64 BaseAddress, u32 RegisterOffset,
+static inline u32 XCsi2Tx_GetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask, u32 BitShift)
 {
 	return((XCsi2Tx_ReadReg(BaseAddress, RegisterOffset)
@@ -306,7 +309,7 @@ static inline u32 XCsi2Tx_GetBitField(u64 BaseAddress, u32 RegisterOffset,
 * @note		None
 *
 ****************************************************************************/
-static inline void XCsi2Tx_SetBitField(u64 BaseAddress, u32 RegisterOffset,
+static inline void XCsi2Tx_SetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask, u32 BitShift, u32 Value)
 {
 	XCsi2Tx_WriteReg(BaseAddress, RegisterOffset,
@@ -458,7 +461,7 @@ static inline u32 XCsi2Tx_IsUlps(XCsi2Tx *InstancePtr)
 * @note		None
 *
 ****************************************************************************/
-static void XCsi2Tx_SetUlps(XCsi2Tx *InstancePtr, u32 Value)
+static inline void XCsi2Tx_SetUlps(XCsi2Tx *InstancePtr, u32 Value)
 {
 	XCsi2Tx_SetBitField(InstancePtr->Config.BaseAddr,
 	XCSI2TX_CCR_OFFSET, XCSI2TX_CCR_ULPS_MASK, XCSI2TX_CCR_ULPS_SHIFT,
@@ -494,9 +497,9 @@ static inline u32 XCsi2Tx_GetMaxLaneCount(XCsi2Tx *InstancePtr)
 * @param	InstancePtr is a pointer to the CSI Instance to be
 *		worked on.
 *
-* @return	0x0  - 1 Pixel Mode
-* 		0x1  - 2 Pixel Mode
-* 		0x3  - 4 Pixel Mode
+* @return	0x0  - Single Pixel Mode
+* 		0x1  - Dual Pixel Mode
+* 		0x3  - Quad Pixel Mode
 *
 * @note		None
 *
@@ -613,8 +616,13 @@ static inline u32 XCsi2Tx_GetActiveLaneCount(XCsi2Tx *InstancePtr)
 ****************************************************************************/
 static inline u32 XCsi2Tx_IsSoftResetInProgress(XCsi2Tx *InstancePtr)
 {
-	return XCsi2Tx_GetBitField(InstancePtr->Config.BaseAddr,
+	u32 value;
+	value = XCsi2Tx_GetBitField(InstancePtr->Config.BaseAddr,
 	XCSI2TX_CCR_OFFSET, XCSI2TX_CSR_RIPCD_MASK, XCSI2TX_CSR_RIPCD_SHIFT);
+	if (value)
+		return XCSI2TX_READY;
+	else
+		return XCSI2TX_INACTIVE;
 }
 
 /****************************************************************************
@@ -722,7 +730,7 @@ static inline void XCsi2Tx_SetGSPEntry(XCsi2Tx *InstancePtr, u32 Value)
 ****************************************************************************/
 static inline void XCsi2Tx_SetFrameBlank(XCsi2Tx *InstancePtr, u32 Value)
 {
-	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr, XCSI2TX_CLKINFR_OFFSET,
+	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr, XCSI2TX_FRMBLNK_OFFSET,
 									Value);
 }
 

@@ -149,7 +149,8 @@ u32 XCsi2Tx_Reset(XCsi2Tx *InstancePtr)
 	/* wait till core resets */
 	do {
 		Status = XCsi2Tx_IsSoftResetInProgress(InstancePtr);
-	} while (Status && Timeout--);
+		Timeout--;
+	} while (Status && Timeout);
 
 	if (!Timeout) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "CSI2TX Reset failed\r\n");
@@ -177,8 +178,6 @@ u32 XCsi2Tx_Reset(XCsi2Tx *InstancePtr)
 ****************************************************************************/
 u32 XCsi2Tx_Activate(XCsi2Tx *InstancePtr, u8 Flag)
 {
-	u32 Timeout = XCSI2TX_RESET_TIMEOUT;
-	u32 Status = XST_SUCCESS;
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -186,15 +185,6 @@ u32 XCsi2Tx_Activate(XCsi2Tx *InstancePtr, u8 Flag)
 	if (Flag == XCSI2TX_DISABLE) {
 		XCsi2Tx_ResetGlobalInterrupt(InstancePtr);
 		XCsi2Tx_Disable(InstancePtr);
-		/* wait till core resets */
-		do {
-			Status = XCsi2Tx_IsSoftResetInProgress(InstancePtr);
-		} while (Status && Timeout--);
-
-		if (!Timeout) {
-			xdbg_printf(XDBG_DEBUG_ERROR, "CSI2TX Reset fail\r\n");
-			return XST_FAILURE;
-		}
 	}
 	else if (Flag == XCSI2TX_ENABLE) {
 		XCsi2Tx_SetGlobalInterrupt(InstancePtr);
@@ -219,7 +209,6 @@ u32 XCsi2Tx_Activate(XCsi2Tx *InstancePtr, u8 Flag)
 u32 XCsi2Tx_Configure(XCsi2Tx *InstancePtr)
 {
 	u32 Status = XST_SUCCESS;
-	u32 Timeout = XCSI2TX_RESET_TIMEOUT;
 	u32 IntEnReg, GlbIntEnReg;
 	u32 ActiveLanesSet;
 
@@ -238,26 +227,10 @@ u32 XCsi2Tx_Configure(XCsi2Tx *InstancePtr)
 					XCSI2TX_GIER_OFFSET);
 
 	/* Set the Soft reset bit */
-	XCsi2Tx_SetSoftReset(InstancePtr);
-
-	/* wait till core resets */
-	do {
-		Status = XCsi2Tx_IsSoftResetInProgress(InstancePtr);
-	} while (Status && Timeout--);
-
-	if (!Timeout) {
-		xdbg_printf(XDBG_DEBUG_ERROR, "CSI2TX Reset failed\r\n");
-		XCsi2Tx_IntrEnable(InstancePtr, IntEnReg);
-		XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr,
-				XCSI2TX_GIER_OFFSET, GlbIntEnReg);
-		return XST_FAILURE;
-	}
+	XCsi2Tx_Reset(InstancePtr);
 
 	 /* ActiveLanes bits range from 0 - 3. Hence subtract 1 */
 	XCsi2Tx_SetActiveLaneCount(InstancePtr, (InstancePtr->ActiveLanes - 1));
-
-	/* Reset the Soft reset bit */
-	XCsi2Tx_ClearSoftReset(InstancePtr);
 
 	/* Restore the Interrupt enable and global interrupt enable register */
 	XCsi2Tx_IntrEnable(InstancePtr, IntEnReg);

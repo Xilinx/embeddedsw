@@ -59,7 +59,26 @@
 /**************************** Type Definitions *******************************/
 
 /*************************** Macros Definitions ******************************/
+#define CSI2TX_ACTIVELANES	\
+	XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_CSI_EN_ACTIVELANES
+#define	CSI2TX_MAX_LANES	\
+	XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_CSI_LANES
 
+#define GSP_MASK		0x3F
+#define GSP_DEFAULT		0x20
+#define SPKTR_MASK		0xFFFF
+#define SPKTR_DEFAULT		0x00
+#define IER_MASK		0x3F
+#define IER_DEFAULT		0x00
+#define ISR_MASK		0x3F
+#define ISR_DEFAULT		0x00
+#define GIER_MASK		0x01
+#define GIER_DEFAULT		0x00
+#define ACT_LANES_MASK		0xE01B
+#define FRMBLNK_MASK		0xFF
+#define FRMBLNK_DEFAULT		0x01
+#define CCR_MASK		0x0F
+#define CCR_DEFAULT		0x04
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
@@ -75,7 +94,7 @@
 * @param	InstancePtr is a pointer to the XCsi instance.
 *
 * @return
-* 		- XST_SUCCESS if self-test was successful
+*		- XST_SUCCESS if self-test was successful
 *		- XST_FAILURE if the read value was not equal to _g.c file
 *
 * @note		None
@@ -83,7 +102,7 @@
 ******************************************************************************/
 u32 XCsi2Tx_SelfTest(XCsi2Tx *InstancePtr)
 {
-	u32 Result, RegValue;
+	u32 Result, RegValue, mask;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -95,43 +114,44 @@ u32 XCsi2Tx_SelfTest(XCsi2Tx *InstancePtr)
 		return XST_FAILURE;
 
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
-						XCSI2TX_CLKINFR_OFFSET);
-	if (RegValue & 0xFF != 0x1)
+						XCSI2TX_CCR_OFFSET);
+	if ((RegValue & CCR_MASK) != CCR_DEFAULT)
+		return XST_FAILURE;
+
+	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
+						XCSI2TX_FRMBLNK_OFFSET);
+	if ((RegValue & FRMBLNK_MASK) != FRMBLNK_DEFAULT)
 		return XST_FAILURE;
 
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_PCR_OFFSET);
-	if (RegValue & 0xE018 != 0x0018)
-		return XST_FAILURE;
+	mask = ((CSI2TX_MAX_LANES - 1) << 3) | (CSI2TX_ACTIVELANES);
 
+	if ((RegValue & ACT_LANES_MASK) != mask)
+		return XST_FAILURE;
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_GIER_OFFSET);
-	if (RegValue & 0x1 != 0x0)
+	if ((RegValue & GIER_MASK) != GIER_DEFAULT)
 		return XST_FAILURE;
 
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_ISR_OFFSET);
-	if (RegValue & 0x3F != 0x0)
+	if ((RegValue & ISR_MASK) != ISR_DEFAULT)
 		return XST_FAILURE;
 
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_IER_OFFSET);
-	if (RegValue & 0x3F != 0x0)
-		return XST_FAILURE;
-
-	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
-						XCSI2TX_CLKINFR_OFFSET);
-	if (RegValue & 0xFF != 0x1)
+	if ((RegValue & IER_MASK) != IER_DEFAULT)
 		return XST_FAILURE;
 
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_SPKTR_OFFSET);
-	if (RegValue & 0xFFFF != 0x0)
+	if ((RegValue & SPKTR_MASK) != SPKTR_DEFAULT)
 		return XST_FAILURE;
 
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_GSP_OFFSET);
-	if (RegValue & 0x1F != 0x10)
+	if ((RegValue & GSP_MASK) != GSP_DEFAULT)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
