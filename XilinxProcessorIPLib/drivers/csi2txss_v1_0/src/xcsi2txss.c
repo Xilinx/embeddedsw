@@ -54,7 +54,7 @@
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xcsi2tx.h"
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 #include "xdphy.h"
 #endif
 #include "xcsi2txss.h"
@@ -69,7 +69,7 @@
  */
 typedef struct {
 	XCsi2Tx CsiInst;
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 	XDphy DphyInst;
 #endif
 } XCsi2TxSs_SubCores;
@@ -86,11 +86,12 @@ XCsi2TxSs_SubCores Csi2TxSsSubCores[XPAR_XCSI2TXSS_NUM_INSTANCES];
 
 static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr);
 static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *Csi2TxSsPtr);
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *Csi2TxSsPtr);
 #endif
-static u32 Csi2TxSs_ComputeSubCoreAbsAddr(u64 SsBaseAddr, u64 SsHighAddr,
-					u64 Offset, u64 *BaseAddr);
+static u32 Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
+					UINTPTR SsHighAddr,
+					UINTPTR Offset, UINTPTR *BaseAddr);
 
 /************************** Variable Definitions *****************************/
 
@@ -146,7 +147,7 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 		}
 	}
 
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 	if (InstancePtr->DphyPtr) {
 		Status = Csi2TxSs_SubCoreInitDphy(InstancePtr);
 		if (Status != XST_SUCCESS) {
@@ -175,9 +176,9 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr)
 {
 	Csi2TxSsPtr->CsiPtr = ((Csi2TxSsPtr->Config.CsiInfo.IsPresent) ?
-		(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].CsiInst) : NULL);
+	(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].CsiInst) : NULL);
 
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 	Csi2TxSsPtr->DphyPtr = ((Csi2TxSsPtr->Config.DphyInfo.IsPresent) ?
 		(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].DphyInst) : NULL);
 #endif
@@ -257,8 +258,9 @@ u32 XCsi2TxSs_Activate(XCsi2TxSs *InstancePtr, u8 Flag)
 	if (Status != XST_SUCCESS)
 		return Status;
 
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	if (InstancePtr->DphyPtr->Config.IsRegisterPresent) {
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+	if (InstancePtr->DphyPtr &&
+		InstancePtr->DphyPtr->Config.IsRegisterPresent) {
 		XDphy_Activate(InstancePtr->DphyPtr, Flag);
 	}
 #endif
@@ -320,7 +322,7 @@ void XCsi2TxSs_ReportCoreInfo(XCsi2TxSs *InstancePtr)
 		xdbg_printf(XDBG_DEBUG_INFO,"    : CSI2 Tx Controller \n\r");
 	}
 
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 	if (InstancePtr->DphyPtr) {
 		xdbg_printf(XDBG_DEBUG_INFO,"    : DPhy ");
 		if (InstancePtr->DphyPtr->Config.IsRegisterPresent) {
@@ -372,7 +374,7 @@ void XCsi2TxSs_GetShortPacket(XCsi2TxSs *InstancePtr)
 static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 {
 	u32 Status;
-	u64 AbsAddr;
+	UINTPTR AbsAddr;
 	XCsi2Tx_Config *ConfigPtr;
 
 	/* Get core configuration */
@@ -408,7 +410,7 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 
 
 
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 /*****************************************************************************/
 /**
 * This function initializes the included sub-core to it's static configuration
@@ -425,7 +427,7 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 {
 	u32 Status;
-	u64 AbsAddr;
+	UINTPTR AbsAddr;
 	XDphy_Config *ConfigPtr;
 
 	/* Get core configuration */
@@ -484,11 +486,12 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 * @note		None
 *
 ******************************************************************************/
-static u32 Csi2TxSs_ComputeSubCoreAbsAddr(u64 SsBaseAddr, u64 SsHighAddr,
-					u64 Offset, u64 *BaseAddr)
+static u32 Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
+					UINTPTR SsHighAddr,
+					UINTPTR Offset, UINTPTR *BaseAddr)
 {
 	u32 Status;
-	u64 AbsAddr;
+	UINTPTR AbsAddr;
 
 	AbsAddr = SsBaseAddr + Offset;
 
@@ -502,5 +505,83 @@ static u32 Csi2TxSs_ComputeSubCoreAbsAddr(u64 SsBaseAddr, u64 SsHighAddr,
 	}
 
 	return Status;
+}
+
+/****************************************************************************/
+/**
+*
+* This function is to set the Line Synchronization packet Generation status
+*
+* @param	InstancePtr is a pointer to the CSI2 TX SS Instance to be
+*		worked on.
+*
+* @param	Value
+* 		0 : DISABLE
+* 		1 : ENABLE
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+void XCsi2TxSs_LineGen(XCsi2TxSs *InstancePtr, u32 Value) {
+	XCsi2Tx_SetLineGen(InstancePtr->CsiPtr, Value);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is to set Generic Short Packet Entries
+*
+* @param	InstancePtr is a pointer to the CSI2 TX SS Instance to be
+*		worked on.
+*
+* @param	Value
+* 		GSP 32 bit Entry
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+void XCsi2TxSs_SetGSPEntry(XCsi2TxSs *InstancePtr, u32 Value) {
+	XCsi2Tx_SetGSPEntry(InstancePtr->CsiPtr, Value);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to get the Pixel Mode
+*
+* @param	InstancePtr is a pointer to the CSI2TX SS Instance to be
+*		worked on.
+*
+* @return	0x0  - Single Pixel Mode
+* 		0x1  - Dual Pixel Mode
+* 		0x3  - Quad Pixel Mode
+*
+* @note		None
+*
+****************************************************************************/
+u32 XCsi2TxSs_GetPixelMode(XCsi2TxSs *InstancePtr) {
+	return XCsi2Tx_GetPixelMode(InstancePtr->CsiPtr);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to get the number of lanes configured in
+* the IP.
+*
+* @param	InstancePtr is a pointer to the CSI2TX SS Instance to be
+*		worked on.
+*
+* @return	Max number of lanes available in u32 format
+*
+* @note		None
+*
+****************************************************************************/
+u32 XCsi2TxSs_GetMaxLaneCount(XCsi2TxSs *InstancePtr) {
+	return XCsi2Tx_GetMaxLaneCount(InstancePtr->CsiPtr);
 }
 /** @} */

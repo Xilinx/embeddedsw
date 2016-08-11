@@ -35,9 +35,9 @@
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsi2TxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF" "C_DPHY_MODE"
-	hier_ip_define_config_file $drv_handle "xcsi2txss_g.c" "XCsi2TxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF" "C_DPHY_MODE"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Csi2TxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF" "C_DPHY_MODE"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsi2TxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF"
+	hier_ip_define_config_file $drv_handle "xcsi2txss_g.c" "XCsi2TxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "Csi2TxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "C_CSI_LANES" "C_CSI_DATATYPE" "C_CSI_PIXEL_MODE" "C_CSI_LINE_BUFR_DEPTH" "C_DPHY_LINERATE" "C_DPHY_EN_REG_IF"
 
 	set orig_dir [pwd]
 	cd ../../include/

@@ -74,7 +74,8 @@ o	RAW8,RAW10,RAW12,RAW14,RGB888,YUV422-8Bit,User defined  Data types
 •	LS/LE Packet Generation,can be configured through  register interface.
 •	Programmable Frame Blanking period,through register interface.
 •	Configurable selection of D-PHY Register Interface through GUI options.
-•	Support for transmission of Embedded Data packet’s through Input Interface.
+•	Support for transmission of Embedded Data packet’s through Input
+	Interface.
 *
 *
 * <b>Software Initialization & Configuration</b>
@@ -139,13 +140,30 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xcsi2tx.h"
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 #include "xdphy.h"
 #endif
 #include "xdebug.h"
 #include "xcsi2txss_hw.h"
 
 /************************** Constant Definitions *****************************/
+
+/** @name Interrupt Types for setting Callbacks
+ *
+ * These handlers are used to determine the type of the interrupt handler being
+ * registered with the MIPI CSI2 Tx Subsystem. Since the subsystem is tightly
+ * coupled with the CSI2 Tx Controller driver, the handlers from the sub core
+ * are promoted to the subsystem level so that the application can use them.
+ * @{
+ */
+#define XCSI2TXSS_HANDLER_WRG_LANE		XCSI2TX_HANDLER_WRG_LANE
+#define XCSI2TXSS_HANDLER_GSPFIFO_FULL		XCSI2TX_HANDLER_GSPFIFO_FULL
+#define XCSI2TXSS_HANDLER_ULPS			XCSI2TX_HANDLER_ULPS
+#define XCSI2TXSS_HANDLER_LINEBUF_FULL		XCSI2TX_HANDLER_LINEBUF_FULL
+#define XCSI2TXSS_HANDLER_WRG_DATATYPE		XCSI2TX_HANDLER_WRG_DATATYPE
+#define XCSI2TXSS_HANDLER_UNDERRUN_PIXEL	XCSI2TX_HANDLER_UNDERRUN_PIXEL
+/*@}*/
+
 /**
 *
 * Callback type which acts as a wrapper on top of CSI Callback.
@@ -172,7 +190,7 @@ typedef struct {
 			  *  design */
 	u32 DeviceId;	/**< Device ID of the sub-core */
 	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
-} SubCore;
+} SubCoreCsi2Tx;
 
 /**
  * MIPI CSI Tx Subsystem configuration structure.
@@ -181,9 +199,9 @@ typedef struct {
  */
 typedef struct {
 	u32 DeviceId;	/**< DeviceId is the unique ID  of the device */
-	u64 BaseAddr;	/**< BaseAddress is the physical base address of the
+	UINTPTR BaseAddr; /**< BaseAddress is the physical base address of the
 			  *  subsystem address range */
-	u64 HighAddr;	/**< HighAddress is the physical MAX address of the
+	UINTPTR HighAddr; /**< HighAddress is the physical MAX address of the
 			  *  subsystem address range */
 	u32 LanesPresent;	/**< Active Lanes programming optimization
 				  *  enabled */
@@ -196,9 +214,8 @@ typedef struct {
 						  *  80-1500 Mbps */
 	u32 IsDphyRegIntfcPresent;	/**< Flag for DPHY register interface
 					  *  presence */
-	u32 DphyMode;		/**< DPHY Mode */
-	SubCore CsiInfo;	/**< CSI sub-core configuration */
-	SubCore DphyInfo;	/**< DPHY sub-core configuration */
+	SubCoreCsi2Tx CsiInfo;	/**< CSI sub-core configuration */
+	SubCoreCsi2Tx DphyInfo;	/**< DPHY sub-core configuration */
 } XCsi2TxSs_Config;
 
 /**
@@ -213,7 +230,7 @@ typedef struct {
 				  *  initialized */
 	XCsi2Tx  *CsiPtr;		/* handle to sub-core driver instance */
 	XCsi2Tx_SPktData SpktData;		/**< Short packet */
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
 #endif
 
@@ -232,6 +249,10 @@ u32 XCsi2TxSs_Activate(XCsi2TxSs *InstancePtr, u8 Flag);
 u32 XCsi2TxSs_Reset(XCsi2TxSs *InstancePtr);
 void XCsi2TxSs_ReportCoreInfo(XCsi2TxSs *InstancePtr);
 void XCsi2TxSs_GetShortPacket(XCsi2TxSs *InstancePtr);
+void XCsi2TxSs_LineGen(XCsi2TxSs *InstancePtr, u32 Value);
+void XCsi2TxSs_SetGSPEntry(XCsi2TxSs *InstancePtr, u32 Value);
+u32 XCsi2TxSs_GetPixelMode(XCsi2TxSs *InstancePtr);
+u32 XCsi2TxSs_GetMaxLaneCount(XCsi2TxSs *InstancePtr);
 
 /* Self test function in xcsi2txss_selftest.c */
 u32 XCsi2TxSs_SelfTest(XCsi2TxSs *InstancePtr);

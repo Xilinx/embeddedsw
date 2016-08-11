@@ -37,7 +37,7 @@
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
-* macros) that can be used to access the Xilinx MIPI CSI Tx Subsystem core.
+* macros) that can be used to access the Xilinx MIPI CSI2 Tx Subsystem core.
 *
 * For more information about the operation of this core see the hardware
 * specification and documentation in the higher level driver
@@ -68,11 +68,12 @@ extern "C" {
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XCSI2TXSS_ISR_ALLINTR_MASK	XCSI2TX_ISR_ALLINTR_MASK
 
 /*****************************************************************************/
 /**
 *
-* This function reads a value from a MIPI CSI Tx Subsystem register.
+* This function reads a value from a MIPI CSI2 Tx Subsystem register.
 * A 32 bit read is performed. If the component is implemented in a smaller
 * width, only the least significant data is read from the register. The most
 * significant data will be read as 0.
@@ -86,7 +87,7 @@ extern "C" {
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XCsi2TxSs_ReadReg(u64 BaseAddress, u32 RegOffset)
+static inline u32 XCsi2TxSs_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 {
 #if defined(__MICROBLAZE__)
 	return Xil_In32(BaseAddress + RegOffset);
@@ -98,7 +99,7 @@ static inline u32 XCsi2TxSs_ReadReg(u64 BaseAddress, u32 RegOffset)
 /*****************************************************************************/
 /**
 *
-* This function writes a value to a MIPI CSI Tx Subsystem register.
+* This function writes a value to a MIPI CSI2 Tx Subsystem register.
 * A 32 bit write is performed. If the component is implemented in a smaller
 * width, only the least significant data is written.
 *
@@ -112,7 +113,8 @@ static inline u32 XCsi2TxSs_ReadReg(u64 BaseAddress, u32 RegOffset)
 * @note		None.
 *
 ******************************************************************************/
-static inline void XCsi2TxSs_WriteReg(u64 BaseAddress, u32 RegOffset, u32 Data)
+static inline void XCsi2TxSs_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
+								u32 Data)
 {
 #if defined(__MICROBLAZE__)
 	Xil_Out32(BaseAddress + RegOffset, Data);

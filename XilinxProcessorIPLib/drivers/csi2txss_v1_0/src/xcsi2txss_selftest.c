@@ -97,14 +97,16 @@ u32 XCsi2TxSs_SelfTest(XCsi2TxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR, "ERR::CSI2TXSS Self test"
 			"failed\n\r");
+			return Status;
 		}
 	}
-#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
 	if (InstancePtr->DphyPtr) {
 		Status = XDphy_SelfTest(InstancePtr->DphyPtr);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_ERROR,"ERR::Dphy Self test "
 			"failed\n\r");
+			return Status;
 		}
 	}
 #endif

@@ -35,9 +35,11 @@
 /**
 *
 * @file xcsi2txss_selftest_example.c
+* @addtogroup csi2txss_v1_0
+* @{
 *
 * This file contains a design example using the XCsi2TxSs driver. It performs a
-* self test on the MIPI CSI Tx Subsystem that will test its sub-cores
+* self test on the MIPI CSI2 Tx Subsystem that will test its sub-cores
 * self test functions.
 *
 * @note		None.
@@ -60,7 +62,7 @@
 
 /************************** Constant Definitions *****************************/
 
-/* The unique device ID of the MIPI CSI Tx Subsystem instance to be used */
+/* The unique device ID of the MIPI CSI2 Tx Subsystem instance to be used */
 #ifndef TESTAPP_GEN
 #define XCSI2TXSS_DEVICE_ID	XPAR_CSI2TXSS_0_DEVICE_ID
 #endif
@@ -77,7 +79,7 @@ u32 Csi2TxSs_SelfTestExample(u32 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
-XCsi2TxSs Csi2TxSsInst;	/* The MIPI CSI Tx Subsystem instance.*/
+XCsi2TxSs Csi2TxSsInst;	/* The MIPI CSI2 Tx Subsystem instance.*/
 
 /************************** Function Definitions *****************************/
 
@@ -100,17 +102,17 @@ int main()
 	u32 Status;
 
 	xil_printf("---------------------------------\n\r");
-	xil_printf("MIPI CSI TX Subsystem self test example\n\r");
+	xil_printf("MIPI CSI2 TX Subsystem self test example\n\r");
 	xil_printf("---------------------------------\n\r\n\r");
 
 	Status = Csi2TxSs_SelfTestExample(XCSI2TXSS_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("MIPI CSI TX Subsystem self test example "
+		xil_printf("MIPI CSI2 TX Subsystem self test example "
 			"failed\n\r");
 		return XST_FAILURE;
 	}
 
-	xil_printf("MIPI CSI TX Subsystem self test example passed\n\r");
+	xil_printf("MIPI CSI2 TX Subsystem self test example passed\n\r");
 
 	return XST_SUCCESS;
 }
@@ -122,13 +124,13 @@ int main()
 * XCsi2TxSs driver. This function check whether or not its sub-core drivers
 * self test functions are in working state.
 *
-* @param	DeviceId is the unique device ID of the MIPI CSI TX
+* @param	DeviceId is the unique device ID of the MIPI CSI2 TX
 *		Subsystem core.
 *
 * @return
-*		- XST_FAILURE if any of MIPI CSI TX Subsystem sub-core self
+*		- XST_FAILURE if any of MIPI CSI2 TX Subsystem sub-core self
 *		test failed.
-*		- XST_SUCCESS, if all of MIPI CSI TX Subsystem sub-core self
+*		- XST_SUCCESS, if all of MIPI CSI2 TX Subsystem sub-core self
 *		test passed.
 *
 * @note		None.
@@ -139,7 +141,7 @@ u32 Csi2TxSs_SelfTestExample(u32 DeviceId)
 	u32 Status;
 	XCsi2TxSs_Config *ConfigPtr;
 
-	/* Obtain the device configuration for the MIPI CSI TX Subsystem */
+	/* Obtain the device configuration for the MIPI CSI2 TX Subsystem */
 	ConfigPtr = XCsi2TxSs_LookupConfig(DeviceId);
 	if (!ConfigPtr) {
 		return XST_FAILURE;
@@ -149,7 +151,7 @@ u32 Csi2TxSs_SelfTestExample(u32 DeviceId)
 	Status = XCsi2TxSs_CfgInitialize(&Csi2TxSsInst, ConfigPtr,
 					ConfigPtr->BaseAddr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("MIPI CSI TX SS config initialization failed.\n\r");
+		xil_printf("MIPI CSI2 TX SS config initialization failed.\n\r");
 		return XST_FAILURE;
 	}
 
@@ -158,3 +160,4 @@ u32 Csi2TxSs_SelfTestExample(u32 DeviceId)
 
 	return Status;
 }
+/** @} */
