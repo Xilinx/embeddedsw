@@ -82,6 +82,7 @@ int spi_flash_probe()
 	 * QSPI provides command. So first command fails.
 	 */
 	xspi_xfersetup(SPI_CS);
+	cmd[0] = OPCODE_READ_ID;
 	xspi_xfer(cmd, 1, 0, 0);
 	xspi_xfer(0, 5, &cmd[1], 1);
 	xspi_xfersetup(SPI_CS);
