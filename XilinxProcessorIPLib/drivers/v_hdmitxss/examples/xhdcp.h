@@ -133,6 +133,7 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr);
 void XHdcp_Authenticate(XHdcp_Repeater *InstancePtr);
 void XHdcp_EnableEncryption(XHdcp_Repeater *InstancePtr);
 void XHdcp_DisableEncryption(XHdcp_Repeater *InstancePtr);
+void XHdcp_DisplayInfo(XHdcp_Repeater *InstancePtr, u8 Verbose);
 
 #ifdef __cplusplus
 }

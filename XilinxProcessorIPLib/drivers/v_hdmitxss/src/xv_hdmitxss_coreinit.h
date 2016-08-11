@@ -47,7 +47,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
 * 1.1   yh     20/01/16 Added remapper support
-* 1.w   MG     03/02/16 Added HDCP support
+* 1.2   MG     03/02/16 Added HDCP support
+* 1.3   MH     08/08/16 Updates to optimize out HDCP when excluded.
 * </pre>
 *
 ******************************************************************************/
@@ -62,7 +63,9 @@ extern "C" {
 #include "xv_hdmitxss.h"
 #include "xv_hdmitx.h"
 #include "xvtc.h"
+#ifdef XPAR_XHDCP_NUM_INSTANCES
 #include "xtmrctr.h"
+#endif
 #include "xgpio.h"
 #include "xv_axi4s_remap.h"
 /************************** Constant Definitions *****************************/
@@ -70,9 +73,13 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XV_HdmiTxSs_SubcoreInitHdmiTx(XV_HdmiTxSs *HdmiTxSsPtr);
 int XV_HdmiTxSs_SubcoreInitVtc(XV_HdmiTxSs *HdmiTxSsPtr);
+#ifdef XPAR_XHDCP_NUM_INSTANCES
 int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr);
 int XV_HdmiTxSs_SubcoreInitHdcp14(XV_HdmiTxSs *HdmiTxSsPtr);
+#endif
+#ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
 int XV_HdmiTxSs_SubcoreInitHdcp22(XV_HdmiTxSs *HdmiTxSsPtr);
+#endif
 int XV_HdmiTxSs_SubcoreInitRemapperReset(XV_HdmiTxSs *HdmiTxSsPtr);
 int XV_HdmiTxSs_SubcoreInitRemapper(XV_HdmiTxSs *HdmiTxSsPtr);
 

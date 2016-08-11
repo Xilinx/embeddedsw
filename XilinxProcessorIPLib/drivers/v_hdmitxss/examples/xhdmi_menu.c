@@ -91,8 +91,10 @@ static void XHdmi_DisplayColorSpaceMenu(void);
 static void XHdmi_DisplayGtPllLayoutMenu(void);
 static void XHdmi_DisplayEdidMenu(void);
 static void XHdmi_DisplayAudioMenu(void);
-static void XHdmi_DisplayHdcpMainMenu(void);
 static void XHdmi_DisplayVideoMenu(void);
+#ifdef USE_HDCP
+static void XHdmi_DisplayHdcpMainMenu(void);
+#endif
 
 extern void Info(void);
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -1505,6 +1507,7 @@ static XHdmi_MenuType XHdmi_AudioMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	return Menu;
 }
 
+#if defined(USE_HDCP)
 /*****************************************************************************/
 /**
 *
@@ -1521,14 +1524,16 @@ void XHdmi_DisplayHdcpMainMenu(void)
 	print("--------------------------\n\r");
 	print("---   HDCP Main Menu   ---\n\r");
 	print("--------------------------\n\r");
-	print(" 1 - Enable Repeater\n\r");
-	print(" 2 - Disable Repeater\n\r");
+	print(" 1 - Enable repeater\n\r");
+	print(" 2 - Disable repeater\n\r");
 	print(" 3 - Enable detailed logging\n\r");
 	print(" 4 - Disable detailed logging\n\r");
 	print(" 5 - Display log\n\r");
+	print(" 6 - Display repeater info\n\r");
 	print("99 - Exit\n\r");
 	print("Enter Selection -> ");
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1585,6 +1590,12 @@ static XHdmi_MenuType XHdmi_HdcpMainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			print("Display log.\n\r");
 			XV_HdmiRxSs_HdcpInfo(&HdmiRxSs);
 			XV_HdmiTxSs_HdcpInfo(&HdmiTxSs);
+			break;
+
+		/* 6 - Display repeater info */
+		case 6 :
+			print("Display repeater info.\n\r");
+			XHdcp_DisplayInfo(&HdcpRepeater, TRUE);
 			break;
 
 		// Exit

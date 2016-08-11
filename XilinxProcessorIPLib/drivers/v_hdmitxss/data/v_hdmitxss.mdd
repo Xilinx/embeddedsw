@@ -38,7 +38,7 @@ BEGIN driver v_hdmitxss
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 3.0;
-  OPTION DEPENDS = (v_hdmitx_v1_2 vtc_v7_1 hdcp1x_v4_0 tmrctr_v4_1 gpio_v4_1 v_axi4s_remap_v1_0 hdcp22_tx_v2_0 hdcp22_cipher_v1_1 hdcp22_rng_v1_1 hdcp22_common_v1_0);
+  OPTION DEPENDS = (v_hdmitx_v1_2 vtc_v7_1 gpio_v4_1 v_axi4s_remap_v1_0);
   OPTION NAME = v_hdmitxss;
 
 END driver
