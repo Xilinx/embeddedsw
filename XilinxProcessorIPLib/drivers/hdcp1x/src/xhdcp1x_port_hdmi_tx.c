@@ -318,6 +318,8 @@ static int XHdcp1x_PortHdmiTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Buf != NULL);
+	Xil_AssertNonvoid(InstancePtr->Tx.DdcRead != NULL);
+	Xil_AssertNonvoid(InstancePtr->Tx.DdcWrite != NULL);
 
 	/* Truncate if necessary */
 	if ((BufSize + Offset) > 0x100u) {
@@ -369,6 +371,7 @@ static int XHdcp1x_PortHdmiTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Buf != NULL);
+	Xil_AssertNonvoid(InstancePtr->Tx.DdcWrite != NULL);
 
 	/* Truncate if necessary */
 	if ((BufSize + Offset) > 0x100u) {

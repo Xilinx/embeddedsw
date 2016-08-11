@@ -1052,7 +1052,7 @@ static void XHdcp1x_TxStopTimer(XHdcp1x *InstancePtr)
 * This function busy delays a state machine.
 *
 * @param	InstancePtr is the state machine.
-* @param	TimeoutInMs is the delay time in milli-seconds.
+* @param	DelayInMs is the delay time in milli-seconds.
 *
 * @return	None.
 *
@@ -2282,8 +2282,6 @@ XHdcp1x_RepeaterExchange *XHdcp1x_TxGetTopology(XHdcp1x *InstancePtr)
 * in the HDCP TX HDCP Instance for Repeater validation .
 *
 * @param	InstancePtr is the transmitter instance.
-* @param	RepeaterInfoPtr is the Repeater information in the transmitter
-* 		instance.
 *
 * @return
 *		-XST_SUCCESS if successful.
@@ -3076,7 +3074,8 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 			  if(InstancePtr->Tx.DownstreamReady == 1) {
 			    InstancePtr->Tx.DownstreamReady = 0;
 			    XHdcp1x_TxSetRepeaterInfo(InstancePtr);
-			    if (InstancePtr->Tx.IsRepeaterExchangeCallbackSet) {
+			    if (InstancePtr->Tx.IsRepeaterExchangeCallbackSet)
+			    {
 			      InstancePtr->Tx.RepeaterExchangeCallback(
 			        InstancePtr->Tx.RepeaterExchangeRef);
 			    }
@@ -3272,8 +3271,10 @@ static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 		&& (InstancePtr->Tx.PreviousState != XHDCP1X_STATE_PHYDOWN))
 		&& (InstancePtr->Tx.CurrentState
 			== XHDCP1X_STATE_UNAUTHENTICATED) ){
+			if (InstancePtr->Tx.IsUnauthenticatedCallbackSet) {
 				InstancePtr->Tx.UnauthenticatedCallback(
 				InstancePtr->Tx.UnauthenticatedCallbackRef);
+			}
 		}
 	}
 }
@@ -3391,7 +3392,7 @@ static const char *XHdcp1x_TxStateToString(XHdcp1x_StateType State)
 /**
 * This function converts from a state to a display string.
 *
-* @param	State is the state to convert.
+* @param	Event is the event to convert.
 *
 * @return	The corresponding display string.
 *

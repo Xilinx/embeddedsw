@@ -1070,7 +1070,7 @@ typedef struct {
 	void *RepeaterDownstreamAuthRef; /**< (Repeater)Post authenticate to
 					   *  downstream, second part of
 					   *  authentication start reference */
-	u32 IsRepeaterDownStreamAuthCallbackSet; /**< (Repeater)Is "Post
+	u32 IsRepeaterDownstreamAuthCallbackSet; /**< (Repeater)Is "Post
 						   *  authenticate to
 						   *  downstream to trigger
 						   *  second part of

@@ -151,11 +151,11 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
 
+
 	/* Initialize InstancePtr. */
 	InstancePtr->Config = *CfgPtr;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->Port.PhyIfPtr = PhyIfPtr;
-
 
 	/* Update IsRx. */
 	RegVal = XHdcp1x_ReadReg(EffectiveAddr, XHDCP1X_CIPHER_REG_TYPE);
@@ -186,14 +186,56 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	/* Initialize the transmitter/receiver state machine. */
 	if (!InstancePtr->Config.IsRx) {
 		/* Set all handlers to stub values, let user configure this
-		 * data later */
+		 * data later. If any new callbacks are added to the HDCP
+		 * RX interface they should be initialized to null. */
 		InstancePtr->Tx.AuthenticatedCallback = NULL;
 		InstancePtr->Tx.IsAuthenticatedCallbackSet = (FALSE);
+
+		InstancePtr->Tx.DdcRead = NULL;
+		InstancePtr->Tx.IsDdcReadSet = (FALSE);
+
+		InstancePtr->Tx.DdcWrite = NULL;
+		InstancePtr->Tx.IsDdcWriteSet = (FALSE);
+
+		InstancePtr->Tx.RepeaterExchangeCallback = NULL;
+		InstancePtr->Tx.IsRepeaterExchangeCallbackSet = (FALSE);
+
+		InstancePtr->Tx.UnauthenticatedCallback = NULL;
+		InstancePtr->Tx.IsUnauthenticatedCallbackSet = (FALSE);
 
 		/* Initialize TX */
 		XHdcp1x_TxInit(InstancePtr);
 	}
 	else {
+		/* Set all the receiver handlers to stub value, let
+		 * user configure this data later. If any new callbacks
+		 * are added to the HDCP TX interface they should be
+		 * initialized to null. */
+		InstancePtr->Rx.DdcSetAddressCallback = NULL;
+		InstancePtr->Rx.IsDdcSetAddressCallbackSet = (FALSE);
+
+		InstancePtr->Rx.DdcSetDataCallback = NULL;
+		InstancePtr->Rx.IsDdcSetDataCallbackSet = (FALSE);
+
+		InstancePtr->Rx.DdcGetDataCallback = NULL;
+		InstancePtr->Rx.IsDdcGetDataCallbackSet = (FALSE);
+
+		InstancePtr->Rx.RepeaterDownstreamAuthCallback = NULL;
+		InstancePtr->Rx.IsRepeaterDownstreamAuthCallbackSet = (FALSE);
+
+		InstancePtr->Rx.AuthenticatedCallback = NULL;
+		InstancePtr->Rx.IsAuthenticatedCallbackSet = (FALSE);
+
+		InstancePtr->Rx.UnauthenticatedCallback = NULL;
+		InstancePtr->Rx.IsUnauthenticatedCallbackSet = (FALSE);
+
+		InstancePtr->Rx.TopologyUpdateCallback = NULL;
+		InstancePtr->Rx.IsTopologyUpdateCallbackSet = (FALSE);
+
+		InstancePtr->Rx.EncryptionUpdateCallback = NULL;
+		InstancePtr->Rx.IsEncryptionUpdateCallbackSet = (FALSE);
+
+		/* Initialize RX */
 		XHdcp1x_RxInit(InstancePtr);
 	}
 
@@ -1103,6 +1145,7 @@ void XHdcp1x_SetKsvRevokeCheck(XHdcp1x_KsvRevokeCheck RevokeCheckFunc)
 /**
 * This function sets timer start function for the module.
 *
+* @param	InstancePtr is the pointer to the HDCP interface.
 * @param	TimerStartFunc is the timer start function.
 *
 * @return	None.
@@ -1122,6 +1165,7 @@ void XHdcp1x_SetTimerStart(XHdcp1x *InstancePtr, XHdcp1x_TimerStart TimerStartFu
 /**
 * This function sets timer stop function for the module.
 *
+* @param	InstancePtr is the pointer to the HDCP interface.
 * @param	TimerStopFunc is the timer stop function.
 *
 * @return	None.
@@ -1141,6 +1185,7 @@ void XHdcp1x_SetTimerStop(XHdcp1x *InstancePtr, XHdcp1x_TimerStop TimerStopFunc)
 /**
 * This function sets timer busy delay function for the module.
 *
+* @param	InstancePtr is the pointer to the HDCP interface.
 * @param	TimerDelayFunc is the timer busy delay function.
 *
 * @return	None.

@@ -255,7 +255,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 				= (XHdcp1x_Callback)CallbackFunc;
 			InstancePtr->Rx.RepeaterDownstreamAuthRef
 				= CallbackRef;
-			InstancePtr->Rx.IsRepeaterDownStreamAuthCallbackSet
+			InstancePtr->Rx.IsRepeaterDownstreamAuthCallbackSet
 				= (TRUE);
 			break;
 
@@ -358,7 +358,8 @@ int XHdcp1x_RxPoll(XHdcp1x *InstancePtr)
 * This function set the REPEATER bit for the HDCP RX interface.
 *
 * @param	InstancePtr is the receiver instance.
-*
+* @param	IsRptr is the truth value to determine if the repeater bit
+* 		in the port registers is to be set.
 * @return
 *		- XST_SUCCESS if successful.
 *
@@ -971,7 +972,7 @@ static void XHdcp1x_RxStopTimer(XHdcp1x *InstancePtr)
 * This function busy delays a state machine.
 *
 * @param	InstancePtr is the state machine.
-* @param	TimeoutInMs is the delay time in milli-seconds.
+* @param	DelayInMs is the delay time in milli-seconds.
 *
 * @return	None.
 *
@@ -1239,7 +1240,8 @@ static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
 				Buf, 2);
 
 #if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
-
+		/* No reset required in the sofware for HDMI. KSV fifo
+		 * pointer reset is implemented in the hardware. */
 
 #else
 		/* Reset the KSV FIFO read pointer to ox6802C */
@@ -1267,7 +1269,7 @@ static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
 		if (InstancePtr->IsRepeater) {
 			*NextStatePtr = XHDCP1X_STATE_WAITFORDOWNSTREAM;
 			if (InstancePtr->Rx.
-				IsRepeaterDownStreamAuthCallbackSet) {
+				IsRepeaterDownstreamAuthCallbackSet) {
 				if (InstancePtr->Rx.
 					RepeaterDownstreamAuthCallback
 							!= NULL) {
@@ -1423,8 +1425,7 @@ void XHdcp1x_RxSetTopologyUpdate(XHdcp1x *InstancePtr)
 * This function sets the RepeaterInfo value int the HDCP RX instance
 *
 * @param    InstancePtr is a pointer to the Hdcp1x core instance.
-* @param    ListPtr is a pointer to the KSV list.
-* @param    ListSize is the number of KSVs in the list.
+* @param    TopologyPtr is the pointer to topology information.
 *
 * @return   None.
 *
@@ -2321,8 +2322,10 @@ static void XHdcp1x_RxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		case XHDCP1X_STATE_UNAUTHENTICATED:
 			XHdcp1x_RxSetCheckLinkState(InstancePtr, FALSE);
 			InstancePtr->Rx.Flags |= XVPHY_FLAG_PHY_UP;
-			InstancePtr->Rx.UnauthenticatedCallback(
-			InstancePtr->Rx.UnauthenticatedCallbackRef);
+			if (InstancePtr->Rx.IsUnauthenticatedCallbackSet) {
+				InstancePtr->Rx.UnauthenticatedCallback(
+				InstancePtr->Rx.UnauthenticatedCallbackRef);
+			}
 			break;
 
 		/* For the computations state */
@@ -2348,7 +2351,7 @@ static void XHdcp1x_RxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		case XHDCP1X_STATE_AUTHENTICATED:
 			XHdcp1x_RxDebugLog(InstancePtr, "authenticated");
 			XHdcp1x_RxSetCheckLinkState(InstancePtr, TRUE);
-			if(InstancePtr->Rx.IsAuthenticatedCallbackSet == TRUE) {
+			if(InstancePtr->Rx.IsAuthenticatedCallbackSet) {
 				InstancePtr->Rx.AuthenticatedCallback(
 				InstancePtr->Rx.AuthenticatedCallbackRef);
 			}
