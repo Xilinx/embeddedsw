@@ -52,6 +52,7 @@
  *                     Added callbacks for lane count changes, link rate changes
  *                     and pre-emphasis + voltage swing adjust requests.
  * 4.1   als  08/09/16 Replaced deprecated MB_Sleep with consolidated usleep.
+ *            08/11/16 RX to support maximum pre-emphasis level of 1.
  * </pre>
  *
 *******************************************************************************/
@@ -2005,13 +2006,16 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 						XDP_RX_SINK_COUNT, 0x1);
 	}
 
-	/* Set other link training parameters parameters. */
+	/* Set other link training parameters parameters.
+	 *	Minimum voltage swing of 1.
+	 *	Voltage swing sweep count of 4.
+	 *	Maximum pre-emphasis level of 1. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MIN_VOLTAGE_SWING,
 		1 | (XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_VS_INC_4CNT <<
-		XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_SHIFT) |
+			XDP_RX_MIN_VOLTAGE_SWING_CR_OPT_SHIFT) |
 		(4 << XDP_RX_MIN_VOLTAGE_SWING_VS_SWEEP_CNT_SHIFT) |
-		(XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_VS_NA <<
-		XDP_RX_MIN_VOLTAGE_SWING_CE_OPT_SHIFT));
+		(1 << XDP_RX_MIN_VOLTAGE_SWING_SET_PE_SHIFT));
+
 	/* Set the AUX training interval. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
