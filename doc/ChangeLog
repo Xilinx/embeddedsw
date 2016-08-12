@@ -26,6 +26,7 @@ Updated to access timing table from video_common using APIs.
 Use consolidated usleep rather than deprecated MB_Sleep.
 Updated self-test to reflect IP updates.
 Update to use new video_common v3.1.
+RX to support maximum pre-emphasis level of 1.
 
 dprxss_v3_1:
 Updated version from 3.0 to 3.1.
@@ -38,6 +39,7 @@ Updated version from 4.0 to 4.1.
 Synchronize with new HDCP API modifications.
 Reordered VTC enable and DPTX core enable.
 Update to use new video_common v3.1.
+Fix for native video mode compilation.
 
 iicps_v3_3:
 Modified code for MISRA-C:2012 Compliance
@@ -100,6 +102,9 @@ Modified the transmission break bit set logic.
 video_common_v3_1:
 Updated version from 3.0 to 3.1.
 Reordered wait for PLL lock.
+
+vtc_v7_1:
+Added compilation protection in case driver is included without instantiation.
 
 xilffs_v3_4:
 Added support for mkfs.
