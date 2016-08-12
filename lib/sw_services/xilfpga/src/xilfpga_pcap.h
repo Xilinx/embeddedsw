@@ -138,7 +138,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-u32 XFpga_PL_BitSream_Load (u32 WrAddr, u32 WrSize, u32 flags);
+u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
+				u32 WrSize, u32 flags);
 u32 XFpga_PcapStatus(void);
 /************************** Variable Definitions *****************************/
 

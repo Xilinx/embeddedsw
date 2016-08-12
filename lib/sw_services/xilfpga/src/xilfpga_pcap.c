@@ -66,9 +66,8 @@
 
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PcapWaitForDone();
-static u32 XFpga_WriteToPcap(u32 WrSize, UINTPTR *WrAddr);
+static u32 XFpga_WriteToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow);
 static u32 XFpga_PcapInit(void);
-static u32 XFpga_BitStream_Write(u32 size, UINTPTR addr);
 static u32 XFpga_CsuDmaInit();
 static u32 XFpga_PLWaitForDone(void);
 /************************** Variable Definitions *****************************/
@@ -79,8 +78,11 @@ XCsuDma CsuDma;
 /*****************************************************************************/
 /** This function does the calls the necessary PCAP interfaces based on flags.
  *
- *@param	WrAddr: Linear memory space from where CSUDMA will read
- *	        the data to be written to PCAP interface
+ *@param	WrAddrHigh: Higher 32-bit Linear memory space from where CSUDMA
+ *		will read the data to be written to PCAP interface
+ *
+ *@param        WrAddrLow: Lower 32-bit Linear memory space from where CSUDMA
+ *              will read the data to be written to PCAP interface
  *
  *@param        WrSize: Number of 32bit words that the DMA should write to
  *              the PCAP interface
@@ -92,7 +94,8 @@ XCsuDma CsuDma;
  *@return	error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-u32 XFpga_PL_BitSream_Load (u32 WrAddr, u32 WrSize, u32 flags )
+u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
+				u32 WrSize, u32 flags )
 {
 	u32 Status = XFPGA_SUCCESS;
 
@@ -102,7 +105,7 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddr, u32 WrSize, u32 flags )
 		Status = XFpga_PcapInit();
 		break;
 	case PCAP_WRITE:
-		Status = XFpga_WriteToPcap(WrSize, (UINTPTR *)WrAddr);
+		Status = XFpga_WriteToPcap(WrSize, WrAddrHigh, WrAddrLow);
 		break;
 	case PCAP_DONE:
 		Status = XFpga_PLWaitForDone();
@@ -111,7 +114,7 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddr, u32 WrSize, u32 flags )
 		Status = XFpga_PcapInit();
 		if(Status != XFPGA_SUCCESS)
 			break;
-		Status = XFpga_WriteToPcap(WrSize, (UINTPTR *)WrAddr);
+		Status = XFpga_WriteToPcap(WrSize, WrAddrHigh, WrAddrLow);
 		if(Status != XFPGA_SUCCESS)
 			break;
 		Status = XFpga_PLWaitForDone();
@@ -196,17 +199,23 @@ static u32 XFpga_PcapWaitForDone() {
 /** This is the function to write data to PCAP interface
  *
  * @param	WrSize: Number of 32bit words that the DMA should write to
- *          the PCAP interface
- * @param   WrAddr: Linear memory space from where CSUDMA will read
- *	        the data to be written to PCAP interface
+ *         	the PCAP interface
+ *
+ * @param       WrAddrHigh: Higher 32-bit Linear memory space from where CSUDMA
+ *              will read the data to be written to PCAP interfacae
+ *
+ * @param       WrAddrLow: Lower 32-bit Linear memory space from where CSUDMA
+ *              will read the data to be written to PCAP interface
  *
  * @return	None
  *
  *****************************************************************************/
-static u32 XFpga_WriteToPcap(u32 WrSize, UINTPTR *WrAddr) {
+static u32 XFpga_WriteToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow) {
 	u32 RegVal;
 	u32 Status = XFPGA_SUCCESS;
+	u64 WrAddr;
 
+	WrAddr = ((u64)WrAddrHigh << 32)|WrAddrLow;
 	/*
 	 * Setup the  SSS, setup the PCAP to receive from DMA source
 	 */
@@ -216,7 +225,7 @@ static u32 XFpga_WriteToPcap(u32 WrSize, UINTPTR *WrAddr) {
 	Xil_Out32(CSU_CSU_SSS_CFG, RegVal);
 
 	/* Setup the source DMA channel */
-	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, (UINTPTR) WrAddr, WrSize, 0);
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, WrAddr, WrSize, 0);
 
 	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
 	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_SRC_CHANNEL);
