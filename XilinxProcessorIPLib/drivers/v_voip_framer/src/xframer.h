@@ -174,7 +174,7 @@ typedef struct {
 typedef struct {
     u16 DeviceId;                       /**< DeviceId is the unique ID of the
                                         **VoIP Framer core */
-    u32 BaseAddress;                    /**< BaseAddress is the physical
+    UINTPTR BaseAddress;                /**< BaseAddress is the physical
                                         *base address of the core's registers */
 
     /* <Core Generics Info> */
@@ -234,7 +234,7 @@ XFramer_Config *XFramer_LookupConfig(u16 DeviceId);
 
 /* Level 2 Drivers */
 int XFramer_CfgInitialize(XFramer *InstancePtr, XFramer_Config *CfgPtr, \
-    u32 EffectiveAddr);
+    UINTPTR EffectiveAddr);
 void XFramer_CoreConfig(XFramer *InstancePtr);
 void XFramer_CoreChannelConfig(XFramer *InstancePtr);
 void XFramer_ChannelConfig(XFramer *InstancePtr, u16 Channels);

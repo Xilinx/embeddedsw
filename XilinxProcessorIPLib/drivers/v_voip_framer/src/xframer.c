@@ -92,7 +92,7 @@
 *
 ******************************************************************************/
 int XFramer_CfgInitialize(XFramer *InstancePtr,
-                                  XFramer_Config *CfgPtr, u32 EffectiveAddr)
+                                  XFramer_Config *CfgPtr, UINTPTR EffectiveAddr)
 {
        u16 Index;
     XFramer_Config XFramer_Config_RegValue;
@@ -452,6 +452,20 @@ void XFramer_ChannelUpdate(XFramer *InstancePtr)
 ******************************************************************************/
 void XFramer_ChannelAccess(XFramer *InstancePtr, u16 Channels)
 {
+    u16 Index;
+
+    /* Check Busy Bit Before accessing new/next channel */
+    /* Check The Busy Bit - Wait the Busy Bit = 0 */
+    Index = 0x00;
+    while (XFramer_BusyBit(InstancePtr)) {
+        if (Index == 65535) {
+            xil_printf("Error: VoIP Framer Busy Bit Longer than \
+            Expected\n\r");
+            break;
+        }
+        Index ++;
+    }
+
     /* Set the Channel Update */
     XFramer_WriteReg((InstancePtr)->Config.BaseAddress,
            (XFRAMER_CHANNEL_ACCESS),(Channels & XFRAMER_CHANNEL_ACCESS_MASK));
