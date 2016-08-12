@@ -33,7 +33,7 @@
  * @brief	Generic libmetal I/O handling.
  */
 
-#include <metal/io.h>
+#include "metal/io.h"
 
 extern void metal_machine_io_mem_map(metal_phys_addr_t pa,
 				      size_t size, unsigned int flags);

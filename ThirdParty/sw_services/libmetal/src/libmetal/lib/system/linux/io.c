@@ -33,7 +33,7 @@
  * @brief	Linux libmetal I/O handling.
  */
 
-#include <metal/io.h>
+#include "metal/io.h"
 
 void *metal_io_mem_map(metal_phys_addr_t pa,
 		       struct metal_io_region *io, size_t size)

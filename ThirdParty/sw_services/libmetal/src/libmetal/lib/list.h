@@ -89,7 +89,7 @@ static inline void metal_list_add_tail(struct metal_list *list,
 
 static inline int metal_list_is_empty(struct metal_list *list)
 {
-	return list->next == list->prev;
+	return list->next == list;
 }
 
 static inline void metal_list_del(struct metal_list *node)

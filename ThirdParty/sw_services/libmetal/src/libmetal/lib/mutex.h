@@ -43,43 +43,47 @@ extern "C" {
 /** \defgroup mutex Mutex Interfaces
  *  @{ */
 
-/** Opaque libmetal mutex data structure. */
-struct metal_mutex;
+#include "metal/system/@PROJECT_SYSTEM@/mutex.h"
 
 /**
  * @brief	Initialize a libmetal mutex.
  * @param[in]	mutex	Mutex to initialize.
  */
-static inline void metal_mutex_init(struct metal_mutex *mutex);
+static inline void metal_mutex_init(metal_mutex_t *mutex);
 
 /**
- * @brief	Try to acquire a mutex without bmutexing on contention.
+ * @brief	Deinitialize a libmetal mutex.
+ * @param[in]	mutex	Mutex to deinitialize.
+ */
+static inline void metal_mutex_deinit(metal_mutex_t *mutex);
+
+/**
+ * @brief	Try to acquire a mutex
  * @param[in]	mutex	Mutex to mutex.
  * @return	0 on failure to acquire, non-zero on success.
  */
-static inline int metal_mutex_try_acquire(struct metal_mutex *mutex);
+static inline int metal_mutex_try_acquire(metal_mutex_t *mutex);
 
 /**
- * @brief	Acquire a mutex with bmutexing on contention.
+ * @brief	Acquire a mutex
  * @param[in]	mutex	Mutex to mutex.
  */
-static inline void metal_mutex_acquire(struct metal_mutex *mutex);
+static inline void metal_mutex_acquire(metal_mutex_t *mutex);
 
 /**
  * @brief	Release a previously acquired mutex.
  * @param[in]	mutex	Mutex to mutex.
  * @see metal_mutex_try_acquire, metal_mutex_acquire
  */
-static inline void metal_mutex_release(struct metal_mutex *mutex);
+static inline void metal_mutex_release(metal_mutex_t *mutex);
 
 /**
  * @brief	Checked if a mutex has been acquired.
  * @param[in]	mutex	mutex to check.
  * @see metal_mutex_try_acquire, metal_mutex_acquire
  */
-static inline int metal_mutex_is_acquired(struct metal_mutex *mutex);
+static inline int metal_mutex_is_acquired(metal_mutex_t *mutex);
 
-#include <metal/system/@PROJECT_SYSTEM@/mutex.h>
 
 /** @} */
 

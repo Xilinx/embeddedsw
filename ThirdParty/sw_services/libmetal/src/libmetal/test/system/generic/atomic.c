@@ -28,21 +28,31 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * @file	generic/alloc.c
- * @brief	generic libmetal memory allocattion definitions.
- */
-
 #include <stdlib.h>
-#include "metal/alloc.h"
 
+#include <metal-test.h>
+#include <metal/atomic.h>
+#include <metal/log.h>
+#include <metal/sys.h>
 
-void *metal_allocate_memory(unsigned int size)
+static const int atomic_test_count = 1000;
+
+static int atomic(void)
 {
-	return (malloc(size));
-}
+	atomic_int counter = ATOMIC_VAR_INIT(0);
+	int value, error=0, i;
 
-void metal_free_memory(void *ptr)
-{
-	free(ptr);
+	for (i = 0; i < atomic_test_count; i++) {
+		atomic_fetch_add(&counter, 1);
+	}
+
+	value = atomic_load(&counter);
+	value -= atomic_test_count;
+	if (value) {
+		metal_log(LOG_DEBUG, "counter mismatch, delta = %d\n", value);
+		error = -1;
+	}
+
+	return error;
 }
+METAL_ADD_TEST(atomic);

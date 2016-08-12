@@ -31,9 +31,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <metal-test.h>
-#include <metal/config.h>
-#include <metal/version.h>
+#include "metal-test.h"
+#include "metal/config.h"
+#include "metal/version.h"
 
 static int version(void)
 {

@@ -44,37 +44,42 @@
 #include <sys/syscall.h>
 #include <linux/futex.h>
 
-#include <metal/atomic.h>
+#include "metal/atomic.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct metal_mutex {
+typedef struct {
 	atomic_int v;
-};
+} metal_mutex_t;
 
 #define METAL_MUTEX_INIT		{ ATOMIC_VAR_INIT(0) }
 
-static inline int __metal_mutex_cmpxchg(struct metal_mutex *mutex,
+static inline int __metal_mutex_cmpxchg(metal_mutex_t *mutex,
 					int exp, int val)
 {
 	atomic_compare_exchange_strong(&mutex->v, (int *)&exp, val);
 	return exp;
 }
 
-static inline void metal_mutex_init(struct metal_mutex *mutex)
+static inline void metal_mutex_init(metal_mutex_t *mutex)
 {
 	atomic_store(&mutex->v, 0);
 }
 
-static inline int metal_mutex_try_acquire(struct metal_mutex *mutex)
+static inline void metal_mutex_deinit(metal_mutex_t *mutex)
+{
+	(void)mutex;
+}
+
+static inline int metal_mutex_try_acquire(metal_mutex_t *mutex)
 {
 	int val = 0;
 	return atomic_compare_exchange_strong(&mutex->v, &val, 1);
 }
 
-static inline void metal_mutex_acquire(struct metal_mutex *mutex)
+static inline void metal_mutex_acquire(metal_mutex_t *mutex)
 {
 	int c = 0;
 
@@ -88,7 +93,7 @@ static inline void metal_mutex_acquire(struct metal_mutex *mutex)
 	}
 }
 
-static inline void metal_mutex_release(struct metal_mutex *mutex)
+static inline void metal_mutex_release(metal_mutex_t *mutex)
 {
 	if (atomic_fetch_sub(&mutex->v, 1) != 1) {
 		atomic_store(&mutex->v, 0);
@@ -96,7 +101,7 @@ static inline void metal_mutex_release(struct metal_mutex *mutex)
 	}
 }
 
-static inline int metal_mutex_is_acquired(struct metal_mutex *mutex)
+static inline int metal_mutex_is_acquired(metal_mutex_t *mutex)
 {
 	return atomic_load(&mutex->v);
 }

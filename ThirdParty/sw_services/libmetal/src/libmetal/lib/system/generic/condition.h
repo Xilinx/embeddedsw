@@ -41,7 +41,7 @@
 #define __METAL_GENERIC_CONDITION__H__
 
 #include <unistd.h>
-#include <metal/atomic.h>
+#include "metal/atomic.h"
 #include <stdint.h>
 #include <limits.h>
 #include <errno.h>
@@ -51,11 +51,11 @@ extern "C" {
 #endif
 
 struct metal_condition {
-	struct metal_mutex *m; /**< mutex.
-	                          The condition variable is attached to
-	                          this mutex when it is waiting.
-	                          It is also used to check correctness
-	                          in case there are multiple waiters. */
+	metal_mutex_t *m; /**< mutex.
+	                       The condition variable is attached to
+	                       this mutex when it is waiting.
+	                       It is also used to check correctness
+	                       in case there are multiple waiters. */
 
 	atomic_int v; /**< condition variable value. */
 };

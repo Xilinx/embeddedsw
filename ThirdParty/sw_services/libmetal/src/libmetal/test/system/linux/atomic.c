@@ -31,10 +31,10 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-#include <metal-test.h>
-#include <metal/atomic.h>
-#include <metal/log.h>
-#include <metal/sys.h>
+#include "metal-test.h"
+#include "metal/atomic.h"
+#include "metal/log.h"
+#include "metal/sys.h"
 
 static const int atomic_test_count = 1000;
 

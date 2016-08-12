@@ -36,7 +36,7 @@
 
 #include <stdint.h>
 #include "xil_cache.h"
-#include <xil_mmu.h>
+#include "xil_mmu.h"
 #include "metal/io.h"
 #include "xscugic.h"
 #include "xil_exception.h"

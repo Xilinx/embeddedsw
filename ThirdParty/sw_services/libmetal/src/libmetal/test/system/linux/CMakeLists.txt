@@ -1,3 +1,4 @@
+collect (PROJECT_LIB_TESTS main.c)
 collect (PROJECT_LIB_TESTS atomic.c)
 collect (PROJECT_LIB_TESTS mutex.c)
 collect (PROJECT_LIB_TESTS shmem.c)

@@ -28,11 +28,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <metal-test.h>
-#include <metal/log.h>
-#include <metal/mutex.h>
-#include <metal/shmem.h>
-#include <metal/sys.h>
+#include "metal-test.h"
+#include "metal/log.h"
+#include "metal/mutex.h"
+#include "metal/shmem.h"
+#include "metal/sys.h"
 
 static const int shmem_threads = 10;
 static const int shmem_count = 10;
@@ -40,7 +40,7 @@ static void *shmem_child(void *arg)
 {
 	const char *name = arg;
 	struct {
-		struct metal_mutex	mutex;
+		metal_mutex_t	mutex;
 		int			counter;
 	} *virt;
 	struct metal_io_region *io;

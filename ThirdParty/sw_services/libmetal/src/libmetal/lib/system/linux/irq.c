@@ -35,10 +35,10 @@
 
 #include <pthread.h>
 #include <sched.h>
-#include <metal/device.h>
-#include <metal/irq.h>
-#include <metal/sys.h>
-#include <metal/mutex.h>
+#include "metal/device.h"
+#include "metal/irq.h"
+#include "metal/sys.h"
+#include "metal/mutex.h"
 #include <sys/time.h>
 #include <sys/eventfd.h>
 #include <stdint.h>
@@ -71,7 +71,7 @@ struct metal_irqs_state {
 	int   irq_reg_fd; /**< irqs registration notification file
 	                    descriptor */
 
-	struct metal_mutex irq_lock; /**< irq handling lock */
+	metal_mutex_t irq_lock; /**< irq handling lock */
 
 	unsigned int irq_state; /**< global irq handling state */
 
@@ -176,6 +176,16 @@ void metal_irq_restore_enable(unsigned flags)
 {
 	(void)flags;
 	metal_mutex_release(&_irqs.irq_lock);
+}
+
+void metal_irq_enable(unsigned int vector)
+{
+	(void)vector;
+}
+
+void metal_irq_disable(unsigned int vector)
+{
+	(void)vector;
 }
 
 /**
@@ -331,4 +341,5 @@ void metal_linux_irq_shutdown()
 		metal_log(LOG_ERROR, "Failed to join IRQ thread: %d.\n", ret);
 	}
 	close(_irqs.irq_reg_fd);
+	metal_mutex_deinit(&_irqs.irq_lock);
 }

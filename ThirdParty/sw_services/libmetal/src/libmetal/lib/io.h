@@ -40,8 +40,8 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
-#include <metal/atomic.h>
-#include <metal/sys.h>
+#include "metal/atomic.h"
+#include "metal/sys.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -347,6 +347,32 @@ metal_io_write(struct metal_io_region *io, unsigned long offset,
 void *metal_io_mem_map(metal_phys_addr_t pa,
 		     struct metal_io_region *io,
 		     size_t size);
+
+/**
+ * @brief	libmetal set device memory
+ *
+ * This function is to fill the device memory with the specified value.
+ *
+ * @param[in]   dst  target memory
+ * @param[in]   c    val to fill
+ * @param[in]   size size of memory to fill.
+ * @return	pointer to the target memory
+ */
+void *metal_memset_io(void *dst, int c, size_t size);
+
+/**
+ * @brief	libmetal copy to target memory
+ *
+ * This function is to copy specified memory area.
+ * The source memory or the destination memory can be device memory.
+ *
+ * @param[in]   dst    target memory
+ * @param[in]   src    source memory
+ * @param[in]   size   size of memory to copy.
+ * @return	pointer to the target memory
+ */
+void *metal_memcpy_io(void *dst, const void *src, size_t size);
+
 #ifdef __cplusplus
 }
 #endif

@@ -40,41 +40,46 @@
 #ifndef __METAL_GENERIC_MUTEX__H__
 #define __METAL_GENERIC_MUTEX__H__
 
-#include <metal/atomic.h>
+#include "metal/atomic.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct metal_mutex {
+typedef struct {
 	atomic_int v;
-};
+} metal_mutex_t;
 
 #define METAL_MUTEX_INIT		{ ATOMIC_VAR_INIT(0) }
 
-static inline void metal_mutex_init(struct metal_mutex *mutex)
+static inline void metal_mutex_init(metal_mutex_t *mutex)
 {
 	atomic_store(&mutex->v, 0);
 }
 
-static inline int metal_mutex_try_acquire(struct metal_mutex *mutex)
+static inline void metal_mutex_deinit(metal_mutex_t *mutex)
+{
+	(void)mutex;
+}
+
+static inline int metal_mutex_try_acquire(metal_mutex_t *mutex)
 {
 	return 1 - atomic_flag_test_and_set(&mutex->v);
 }
 
-static inline void metal_mutex_acquire(struct metal_mutex *mutex)
+static inline void metal_mutex_acquire(metal_mutex_t *mutex)
 {
 	while (atomic_flag_test_and_set(&mutex->v)) {
 		;
 	}
 }
 
-static inline void metal_mutex_release(struct metal_mutex *mutex)
+static inline void metal_mutex_release(metal_mutex_t *mutex)
 {
 	atomic_flag_clear(&mutex->v);
 }
 
-static inline int metal_mutex_is_acquired(struct metal_mutex *mutex)
+static inline int metal_mutex_is_acquired(metal_mutex_t *mutex)
 {
 	return atomic_load(&mutex->v);
 }

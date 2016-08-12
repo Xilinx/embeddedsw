@@ -85,13 +85,31 @@ int metal_irq_register(int irq,
  * @brief      disable interrupts
  * @return     interrupts state
  */
-unsigned int metal_irq_save_disable();
+unsigned int metal_irq_save_disable(void);
 
 /**
  * @brief      restore interrupts to their previous state
  * @param[in]  flags previous interrupts state
  */
-void metal_irq_restore_enable(unsigned flags);
+void metal_irq_restore_enable(unsigned int flags);
+
+/**
+ * @brief	metal_irq_enable
+ *
+ * Enables the given interrupt
+ *
+ * @param vector   - interrupt vector number
+ */
+void metal_irq_enable(unsigned int vector);
+
+/**
+ * @brief	metal_irq_disable
+ *
+ * Disables the given interrupt
+ *
+ * @param vector   - interrupt vector number
+ */
+void metal_irq_disable(unsigned int vector);
 
 /** @} */
 

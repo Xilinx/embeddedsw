@@ -30,6 +30,7 @@ collect (PROJECT_LIB_SOURCES log.c)
 collect (PROJECT_LIB_SOURCES shmem.c)
 collect (PROJECT_LIB_SOURCES version.c)
 collect (PROJECT_LIB_SOURCES dma.c)
+collect (PROJECT_LIB_SOURCES io.c)
 
 add_subdirectory (compiler)
 add_subdirectory (processor)

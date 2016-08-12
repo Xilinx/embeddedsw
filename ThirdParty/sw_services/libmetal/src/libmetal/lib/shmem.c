@@ -33,9 +33,10 @@
  * @brief	Generic libmetal shared memory handling.
  */
 
-#include <metal/shmem.h>
-#include <metal/sys.h>
-#include <metal/utilities.h>
+#include <errno.h>
+#include "metal/shmem.h"
+#include "metal/sys.h"
+#include "metal/utilities.h"
 
 int metal_shmem_register_generic(struct metal_generic_shmem *shmem)
 {

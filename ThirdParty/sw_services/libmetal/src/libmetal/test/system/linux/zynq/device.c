@@ -30,8 +30,8 @@
 
 #include <unistd.h>
 
-#include <metal-test.h>
-#include <metal/device.h>
+#include "metal-test.h"
+#include "metal/device.h"
 
 static int device(void)
 {

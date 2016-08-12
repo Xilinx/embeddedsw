@@ -30,19 +30,31 @@
 
 /*
  * @file	linux/alloc.c
- * @brief	linux libmetal memory allocattion definitions.
+ * @brief	linux memory allocattion definitions.
  */
 
+#ifndef __METAL_ALLOC__H__
+#error "Include metal/alloc.h instead of metal/linux/alloc.h"
+#endif
+
+#ifndef __METAL_LINUX_ALLOC__H__
+#define __METAL_LINUX_ALLOC__H__
+
 #include <stdlib.h>
-#include "metal/alloc.h"
 
 
-void *metal_allocate_memory(unsigned int size)
+static inline void *metal_allocate_memory(unsigned int size)
 {
 	return (malloc(size));
 }
 
-void metal_free_memory(void *ptr)
+static inline void metal_free_memory(void *ptr)
 {
 	free(ptr);
 }
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __METAL_LINUX_ALLOC__H__ */

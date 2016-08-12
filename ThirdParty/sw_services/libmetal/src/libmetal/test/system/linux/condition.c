@@ -30,17 +30,17 @@
 
 #include <pthread.h>
 
-#include <metal-test.h>
-#include <metal/log.h>
-#include <metal/sys.h>
-#include <metal/mutex.h>
-#include <metal/condition.h>
+#include "metal-test.h"
+#include "metal/log.h"
+#include "metal/sys.h"
+#include "metal/mutex.h"
+#include "metal/condition.h"
 
 #define COUNTER_MAX 10
 
 #define THREADS 10
 
-static struct metal_mutex lock = METAL_MUTEX_INIT;
+static metal_mutex_t lock = METAL_MUTEX_INIT;
 static struct metal_condition nempty_condv = METAL_CONDITION_INIT;
 static struct metal_condition nfull_condv = METAL_CONDITION_INIT;
 static unsigned int counter;

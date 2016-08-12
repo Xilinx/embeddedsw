@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -28,9 +28,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <metal-test.h>
-#include <metal/sys.h>
-#include <metal/utilities.h>
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+#include "metal-test.h"
+#include "metal/sys.h"
+#include "metal/utilities.h"
 
 static METAL_DECLARE_LIST(test_cases);
 
@@ -39,7 +42,7 @@ void metal_add_test_case(struct metal_test_case *test_case)
 	metal_list_add_tail(&test_cases, &test_case->node);
 }
 
-int main(void)
+int metal_tests_run(void)
 {
 	struct metal_init_params params = METAL_INIT_DEFAULTS;
 	struct metal_test_case *test_case;

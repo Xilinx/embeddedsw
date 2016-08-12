@@ -36,10 +36,11 @@
 #ifndef __METAL_BUS__H__
 #define __METAL_BUS__H__
 
-#include <metal/io.h>
-#include <metal/list.h>
-#include <metal/dma.h>
 #include <stdint.h>
+#include "metal/io.h"
+#include "metal/list.h"
+#include "metal/dma.h"
+#include "metal/sys.h"
 
 #ifdef __cplusplus
 extern "C" {

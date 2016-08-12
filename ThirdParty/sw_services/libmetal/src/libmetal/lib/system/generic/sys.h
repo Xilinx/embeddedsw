@@ -66,6 +66,8 @@ struct metal_state {
 	struct metal_common_state common;
 };
 
+#ifdef METAL_INTERNAL
+
 /**
  * @brief restore interrupts to state before disable_global_interrupt()
  */
@@ -75,6 +77,8 @@ void sys_irq_restore_enable(void);
  * @brief disable all interrupts
  */
 void sys_irq_save_disable(void);
+
+#endif /* METAL_INTERNAL */
 
 #ifdef __cplusplus
 }

@@ -39,8 +39,8 @@
 
 #include "xscugic.h"
 
-#ifndef __METAL_GENERIC_ZYNQ7_SYS_H__
-#define __METAL_GENERIC_ZYNQ7_SYS_H__
+#ifndef __METAL_GENERIC_ZYNQ7_SYS__H__
+#define __METAL_GENERIC_ZYNQ7_SYS__H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,9 +51,19 @@ extern "C" {
 #define MAX_IRQS	((int)XSCUGIC_MAX_NUM_INTR_INPUTS)          /**< maximum number of irqs */
 #endif
 
+static inline void sys_irq_enable(unsigned int vector)
+{
+        XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+}
+
+static inline void sys_irq_disable(unsigned int vector)
+{
+        XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+}
+
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_GENERIC_ZYNQ7_SYS_H__ */
+#endif /* __METAL_GENERIC_ZYNQ7_SYS__H__ */

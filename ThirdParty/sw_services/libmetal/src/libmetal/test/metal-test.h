@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,26 +29,32 @@
  */
 
 /*
- * @file	internal/test.h
+ * @file	metal-test.h
  * @brief	Top level include internal to libmetal tests.
  */
 
-#ifndef __METAL_INTERNAL_TEST__H__
-#define __METAL_INTERNAL_TEST__H__
+#ifndef __METAL_TEST__H__
+#define __METAL_TEST__H__
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include <metal/list.h>
+#include "metal/sys.h"
+#include "metal/list.h"
+
+typedef int (*test_func_t)(void);
+typedef void *(*metal_thread_t)(void *);
 
 struct metal_test_case {
 	struct metal_list node;
 	const char *name;
-	int (*test)(void);
+	test_func_t test;
 };
 
+
 extern void metal_add_test_case(struct metal_test_case *test_case);
+
 
 #define METAL_ADD_TEST(func)						\
 __attribute__ ((constructor)) static void metal_test_##func() {		\
@@ -60,23 +66,31 @@ __attribute__ ((constructor)) static void metal_test_##func() {		\
 }
 
 /**
+ * @brief        run all tests cases
+ *
+ * @return       non-zero on error
+ */
+int metal_tests_run(void);
+
+
+/**
  * @brief        run child threads and wait until all they finish.
  *               if tids1 is zero, that is not required to store
  *               threads ids for the caller, it will not return
  *               until all the threads finishes.
  * @param[in]    threads how many threads to run
- * @param[in]    child child child routine which the threads will run
+ * @param[in]    child routine which the threads will run
  * @param[in]    arg argument passed to the child threads
  *
  * @return       zero on no errors, non-zero on errors
  */
-extern int metal_run(int threads, void *(*child)(void *), void *arg);
+extern int metal_run(int threads, metal_thread_t child, void *arg);
 
 /**
  * @brief        run child threads and return without waiting
  *               for all the threads to finish.
  * @param[in]    threads  how many threads to run
- * @param[in]    child child child routine which the threads will run
+ * @param[in]    child routine which the threads will run
  * @param[in]    arg argument passed to the child threads
  * @param[in]    tids pointers to store the threads ids.
  *                    the caller is required to make sure the tids is
@@ -85,7 +99,7 @@ extern int metal_run(int threads, void *(*child)(void *), void *arg);
  *
  * @return       zero on no errors, non-zero on errors
  */
-extern int metal_run_noblock(int threads, void *(*child)(void *),
+extern int metal_run_noblock(int threads, metal_thread_t child,
 		    void *arg, void *tids, int *threads_out);
 
 /**
@@ -96,8 +110,9 @@ extern int metal_run_noblock(int threads, void *(*child)(void *),
  *
 */
 extern void metal_finish_threads(int threads, void *tids);
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __METAL_INTERNAL_TEST__H__ */
+#endif /* __METAL_TEST__H__ */

@@ -33,10 +33,10 @@
  * @brief	Linux libmetal bus definitions.
  */
 
-#include <metal/device.h>
-#include <metal/sys.h>
-#include <metal/utilities.h>
-#include <metal/irq.h>
+#include "metal/device.h"
+#include "metal/sys.h"
+#include "metal/utilities.h"
+#include "metal/irq.h"
 
 #define MAX_DRIVERS	64
 

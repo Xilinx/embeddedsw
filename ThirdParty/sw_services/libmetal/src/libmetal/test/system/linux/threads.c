@@ -28,15 +28,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <pthread.h>
-#include <metal/sys.h>
-#include <metal/utilities.h>
+#include "metal/sys.h"
+#include "metal/utilities.h"
+#include "metal-test.h"
 
-void metal_finish_threads(int threads, void *tids);
-int metal_run_noblock(int threads, void *(*child)(void *),
-		     void *arg, void *tids, int *threads_out);
-
-int metal_run(int threads, void *(*child)(void *), void *arg)
+int metal_run(int threads, metal_thread_t child, void *arg)
 {
 	pthread_t tids[threads];
 	int error, ts_created;
@@ -48,7 +44,7 @@ int metal_run(int threads, void *(*child)(void *), void *arg)
 	return error;
 }
 
-int metal_run_noblock(int threads, void *(*child)(void *),
+int metal_run_noblock(int threads, metal_thread_t child,
 		     void *arg, void *tids, int *threads_out)
 {
 	int error, i;
