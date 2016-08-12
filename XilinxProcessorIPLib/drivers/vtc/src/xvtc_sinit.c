@@ -53,6 +53,8 @@
 *                       Replaced the following:
 *                       "Xuint16" -> "u16".
 * 6.1   adk    08/23/14 updated doxygen tags.
+* 7.1   als    08/11/16 Provide protection against driver inclusion in the
+*                       absence of VTC instantiation.
 * </pre>
 *
 ******************************************************************************/
@@ -64,6 +66,9 @@
 
 /************************** Constant Definitions *****************************/
 
+#ifndef XPAR_XVTC_NUM_INSTANCES
+#define XPAR_XVTC_NUM_INSTANCES 0
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
