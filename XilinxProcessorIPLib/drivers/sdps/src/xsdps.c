@@ -76,6 +76,7 @@
 
 /***************************** Include Files *********************************/
 #include "xsdps.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 #define XSDPS_CMD8_VOL_PATTERN	0x1AAU

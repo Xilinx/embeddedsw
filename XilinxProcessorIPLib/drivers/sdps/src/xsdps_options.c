@@ -67,6 +67,7 @@
 
 /***************************** Include Files *********************************/
 #include "xsdps.h"
+#include "sleep.h"
 
 /************************** Constant Definitions *****************************/
 #define UHS_SDR12_SUPPORT	0x1U

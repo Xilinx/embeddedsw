@@ -132,6 +132,8 @@
 *       sk     07/07/16 Used usleep API for both arm and microblaze.
 *       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
 *                       operating modes.
+*       sk     08/13/16 Removed sleep.h from xsdps.h as a temporary fix for
+*                       CR#956899.
 *
 * </pre>
 *
@@ -149,7 +151,6 @@ extern "C" {
 #include "xil_cache.h"
 #include "xstatus.h"
 #include "xsdps_hw.h"
-#include "sleep.h"
 #include <string.h>
 
 /************************** Constant Definitions *****************************/
