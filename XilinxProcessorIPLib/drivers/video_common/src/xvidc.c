@@ -403,7 +403,6 @@ XVidC_VideoMode XVidC_GetVideoModeId(u32 Width, u32 Height, u32 FrameRate,
 XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height,
 		u32 FrameRate, u8 IsInterlaced, u8 RbN)
 {
-	const char *Name;
 	XVidC_VideoMode VmId;
 	const XVidC_VideoTimingMode *VtmPtr;
 	u8 Found = 0;
