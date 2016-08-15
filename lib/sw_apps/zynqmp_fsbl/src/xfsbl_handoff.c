@@ -721,6 +721,15 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 		goto END;
 	}
 
+	/* Apply protection configuration */
+	Status = (u32)psu_protection();
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PROTECTION_CFG;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
+		goto END;
+	}
+	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
+
 	/**
 	 * if JTAG bootmode, be in while loop as of now
 	 * Check if Process can be parked in HALT state
