@@ -378,7 +378,7 @@ void XV_HCrsmplDbgReportStatus(XV_Hcresampler_l2 *InstancePtr)
   XV_hcresampler *pHCrsmplr = &InstancePtr->Hcr;
   u32 done, idle, ready, ctrl;
   u32 vidfmtIn, vidfmtOut, height, width;
-  u32 baseAddr, convType;
+  u32 baseAddr;
   const char *RsmplrTypeStr[] = {"Nearest Neighbor", "Fixed Coeff", "FIR"};
 
   /*
@@ -397,18 +397,6 @@ void XV_HCrsmplDbgReportStatus(XV_Hcresampler_l2 *InstancePtr)
   vidfmtOut = XV_hcresampler_Get_HwReg_output_video_format(pHCrsmplr);
   height    = XV_hcresampler_Get_HwReg_height(pHCrsmplr);
   width     = XV_hcresampler_Get_HwReg_width(pHCrsmplr);
-
-  convType = XV_HCRSMPLR_422_TO_444;
-  if((vidfmtIn  == XVIDC_CSF_YCRCB_422) &&
-     (vidfmtOut == XVIDC_CSF_YCRCB_444))
-  {
-	convType = XV_HCRSMPLR_422_TO_444;
-  }
-  else if((vidfmtIn  == XVIDC_CSF_YCRCB_444) &&
-          (vidfmtOut == XVIDC_CSF_YCRCB_422))
-  {
-	convType = XV_HCRSMPLR_444_TO_422;
-  }
 
   xil_printf("IsDone:  %d\r\n", done);
   xil_printf("IsIdle:  %d\r\n", idle);
