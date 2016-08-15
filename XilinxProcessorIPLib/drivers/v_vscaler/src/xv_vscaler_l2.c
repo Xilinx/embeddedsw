@@ -423,9 +423,9 @@ void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr)
   XV_vscaler *VscPtr = &InstancePtr->Vsc;
   u32 done, idle, ready, ctrl;
   u32 widthin, heightin, heightout, linerate, cformat;
-  u32 baseAddr, taps, phases;
+  u32 baseAddr, taps, phases, i, j;
   u16 allow420;
-  int val,i,j;
+  int val;
   const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};
 
   /*
