@@ -196,7 +196,7 @@ void XV_VCrsmplrLoadExtCoeff(XV_Vcresampler_l2 *InstancePtr,
                              u16 num_taps,
                              const short *Coeff)
 {
-  int i,j, k, pad, offset;
+  int pad, offset;
   int index, phase, tap, conversion;
 
   /*
@@ -378,7 +378,7 @@ void XV_VCrsmplDbgReportStatus(XV_Vcresampler_l2 *InstancePtr)
   XV_vcresampler *pVCrsmplr = &InstancePtr->Vcr;
   u32 done, idle, ready, ctrl;
   u32 vidfmtIn, vidfmtOut, height, width;
-  u32 baseAddr, convType;
+  u32 baseAddr;
   const char *RsmplrTypeStr[] = {"Nearest Neighbor", "Fixed Coeff", "FIR"};
 
   /*
@@ -397,20 +397,6 @@ void XV_VCrsmplDbgReportStatus(XV_Vcresampler_l2 *InstancePtr)
   vidfmtOut = XV_vcresampler_Get_HwReg_output_video_format(pVCrsmplr);
   height    = XV_vcresampler_Get_HwReg_height(pVCrsmplr);
   width     = XV_vcresampler_Get_HwReg_width(pVCrsmplr);
-
-  convType = XV_VCRSMPLR_420_TO_422;
-
-  if((vidfmtIn  == XVIDC_CSF_YCRCB_420) &&
-     (vidfmtOut == XVIDC_CSF_YCRCB_422))
-  {
-	convType = XV_VCRSMPLR_420_TO_422;
-  }
-  else if((vidfmtIn  == XVIDC_CSF_YCRCB_422) &&
-          (vidfmtOut == XVIDC_CSF_YCRCB_420))
-
-  {
-	convType = XV_VCRSMPLR_422_TO_420;
-  }
 
   xil_printf("IsDone:  %d\r\n", done);
   xil_printf("IsIdle:  %d\r\n", idle);
@@ -447,9 +433,9 @@ void XV_VCrsmplDbgReportStatus(XV_Vcresampler_l2 *InstancePtr)
       xil_printf("\r\nPhase %2d: ", phase);
       for(tap=0; tap < numTaps; ++tap)
       {
-	coeff = Xil_In32((baseAddr+(regcount*8)));
-	xil_printf("%4d ",coeff);
-	++regcount;
+	    coeff = Xil_In32((baseAddr+(regcount*8)));
+	    xil_printf("%4d ",coeff);
+	    ++regcount;
       }
     }
   }
