@@ -378,7 +378,7 @@ static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
                 xReadPos++;
             }
 
-            if (((offset >> STEP_PRECISION_SHIFT) == 0) && (xWritePos< WidthOut))
+            if (((offset >> STEP_PRECISION_SHIFT) == 0) && (xWritePos< (int)WidthOut))
             {
                 // produce a new output sample
                 offset += PixelRate;
@@ -389,14 +389,14 @@ static void CalculatePhases(XV_Hscaler_l2 *HscPtr,
             if(HscPtr->Hsc.Config.PixPerClk == XVIDC_PPC_4)
             {
               HscPtr->phasesH[x] = HscPtr->phasesH[x] | (PhaseH << (s*10));
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << 6 + (s*10));
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << 9 + (s*10));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << (6 + (s*10)));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << (9 + (s*10)));
             }
             else
             {
               HscPtr->phasesH[x] = HscPtr->phasesH[x] | (PhaseH << (s*9));
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << 6 + (s*9));
-              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << 8 + (s*9));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (arrayIdx << (6 + (s*9)));
+              HscPtr->phasesH[x] = HscPtr->phasesH[x] | (OutputWriteEn << (8 + (s*9)));
             }
 
             if (GetNewPix) nrRdsClck++;
@@ -616,8 +616,8 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
   u32 done, idle, ready, ctrl;
   u32 widthin, widthout, height, pixrate, cformatin, cformatOut;
   u16 allow422, allow420, allowCsc;
-  u32 baseAddr, taps, phases;
-  int val,i,j;
+  u32 baseAddr, taps, phases, i, j;
+  int val;
   const char *ScalerTypeStr[] = {"Bilinear", "Bicubic", "Polyphase"};
 
   /*
