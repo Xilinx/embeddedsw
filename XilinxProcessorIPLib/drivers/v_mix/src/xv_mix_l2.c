@@ -134,7 +134,6 @@ static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
   u32 index;
   XVidC_VideoStream VidStrm = {0};
   XVidC_VideoTiming const *ResTiming;
-  XVidC_VideoWindow Win;
   XV_mix *MixPtr;
 
   MixPtr = &InstancePtr->Mix;
@@ -284,11 +283,8 @@ static int IsWindowValid(XVidC_VideoStream *Strm,
 	  NewWin.Height *= ScaleFactor[Scale];
   }
 
-  if((NewWin.StartX >= 0) &&
-	 (NewWin.StartY >= 0) &&
-	 ((NewWin.StartX + NewWin.Width)  <= Strm->Timing.HActive) &&
+  if(((NewWin.StartX + NewWin.Width)  <= Strm->Timing.HActive) &&
 	 ((NewWin.StartY + NewWin.Height) <= Strm->Timing.VActive)) {
-
 	  return(TRUE);
   } else {
 	  return(FALSE);
@@ -904,8 +900,7 @@ int XVMix_SetLayerAlpha(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid(InstancePtr != NULL);
   Xil_AssertNonvoid((LayerId > XVMIX_LAYER_MASTER) &&
                     (LayerId <= XVMIX_LAYER_LOGO));
-  Xil_AssertNonvoid((Alpha >= XVMIX_ALPHA_MIN) &&
-                    (Alpha <= XVMIX_ALPHA_MAX));
+  Xil_AssertNonvoid(Alpha <= XVMIX_ALPHA_MAX);
 
   MixPtr = &InstancePtr->Mix;
 
@@ -1259,7 +1254,7 @@ int XVMix_LoadLogo(XV_Mix_l2 *InstancePtr,
                    u8 *BBuffer)
 {
   XV_mix *MixPtr;
-  int x,y;
+  u32 x,y;
   u32 Rword, Gword, Bword;
   u32 Width, Height;
   u32 RBaseAddr, GBaseAddr, BBaseAddr;
@@ -1332,7 +1327,7 @@ int XVMix_LoadLogoPixelAlpha(XV_Mix_l2 *InstancePtr,
                              u8 *ABuffer)
 {
   XV_mix *MixPtr;
-  int x,y;
+  u32 x,y;
   u32 Aword, ABaseAddr;
   u32 Width, Height;
   int Status = XST_FAILURE;
@@ -1425,7 +1420,7 @@ void XVMix_DbgReportStatus(XV_Mix_l2 *InstancePtr)
 void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 {
   XV_mix *MixPtr;
-  u32 index, IsEnabled;
+  u32 IsEnabled;
   u32 ReadVal;
   XVidC_VideoWindow Win;
   XVidC_ColorFormat ColFormat;
