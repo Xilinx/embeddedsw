@@ -716,6 +716,7 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 
 	Status = XFsbl_PmInit();
 	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PM_INIT;
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PM_INIT\r\n");
 		goto END;
 	}
