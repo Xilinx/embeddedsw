@@ -51,6 +51,7 @@
  * 2.0   als  06/08/15 Added MST registers, masks, and values for RX.
  *                     Added HDCP registers and masks.
  * 5.0   als  05/16/16 Added MISC0 and MISC1 definitions.
+ * 5.1   aad  08/16/16 Updated MISC0 definitions.
  * </pre>
  *
 *******************************************************************************/
@@ -633,6 +634,19 @@
 				0x3		/**< 12 bits per component.*/
 #define XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC \
 				0x4		/**< 16 bits per component.*/
+#define XDP_TX_MAIN_STREAMX_MISC0_OVERRIDE_CLOCKING_MODE_MASK \
+				0x00000100	/**<Override Audio clk Mode.*/
+#define XDP_TX_MAIN_STREAMX_MISC0_AUD_MODE_MASK \
+				0x00000200	/**< Audio clock modes,
+						     Setting this bit to 1
+						     enables sync mode */
+#define XDP_TX_MAIN_STREAMX_MISC0_AUD_INSERT_TIMESTAMP_MASK \
+				0x00000400	/**< Inserts info/timestamp
+						     every 512 BS symbols. */
+#define XDP_TX_MAIN_STREAMX_MISC0_AUD_UNMASK_LOWER_MAUD_BITS_MASK \
+				0x00000800	/**< Unmasks lower 2-bits of
+						     Maud value. Masked by
+						     default */
 /* 0x1A8, 0x528, 0x578, 0x5C8: MAIN_STREAM[1-4]_MISC1 */
 #define XDP_TX_MAIN_STREAMX_MISC1_INTERLACED_VTOTAL_GIVEN_MASK \
 				0x00000001	/**< Interlaced vertical total
