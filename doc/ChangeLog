@@ -86,6 +86,7 @@ files are kept at src/arm/common directory.GCC files related to file operations 
 directory.
 Added undefined exception handler for A53 32 bit and R5 processor.
 Updated xtime_l.c in R5 BSP to remove implementation of XTime_SetTime API, since TTC counter value register is read only.
+Updated the signature for functions sleep/usleep. This fixes the CR#956899.
 
 sdps_v3_0:
 Added support for mkfs.

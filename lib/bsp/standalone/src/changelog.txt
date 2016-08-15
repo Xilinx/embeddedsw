@@ -387,4 +387,6 @@
  *                     Added undefined exception handler for A53 32 bit and R5 processor
  * 6.0 mus   08/11/16  Updated xtime_l.c in R5 BSP to remove implementation of XTime_SetTime API, since
  *                     TTC counter value register is read only.
+ * 6.0 asa   08/15/16  Modified the signatures for functions sleep and usleep. This fixes
+ *                     the CR#956899.
  *****************************************************************************************/

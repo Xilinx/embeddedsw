@@ -49,6 +49,7 @@
 *						  which enables timer only when it is disabled and
 *						  read counter value directly from register instead
 *						  of calling XTime_GetTime for optimization
+* 6.0   asa      08/15/16 Updated the sleep/usleep signature. Fix for CR#956899.
 * </pre>
 *
 ******************************************************************************/
@@ -87,9 +88,9 @@ static void sleep_common(u32 n, u32 count)
 * @note		None.
 *
 ****************************************************************************/
-s32 usleep(u32 useconds)
+int usleep(unsigned long useconds)
 {
-	sleep_common(useconds, COUNTS_PER_USECOND);
+	sleep_common((u32)useconds, COUNTS_PER_USECOND);
 
 	return 0;
 }
@@ -106,7 +107,7 @@ s32 usleep(u32 useconds)
 * @note		None.
 *
 ****************************************************************************/
-s32 sleep(u32 seconds)
+unsigned sleep(unsigned int seconds)
 {
 	sleep_common(seconds, COUNTS_PER_SECOND);
 

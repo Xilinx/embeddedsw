@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -40,8 +40,8 @@
 extern "C" {
 #endif
 
-s32 usleep(u32 useconds);
-s32 sleep(u32 seconds);
+int usleep(unsigned long useconds);
+unsigned sleep(unsigned int seconds);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 *						  disabling the interrupt
 * 5.04	pkp		 03/11/16 Compare the counter value to previously read value
 *						  to detect the overflow for TTC3
+* 6.0   asa      08/15/16 Updated the usleep signature. Fix for CR#956899.
 * </pre>
 *
 ******************************************************************************/
@@ -83,7 +84,7 @@
 *
 ****************************************************************************/
 
-s32 usleep(u32 useconds)
+int usleep(unsigned long useconds)
 {
 
 #ifdef SLEEP_TIMER_BASEADDR
