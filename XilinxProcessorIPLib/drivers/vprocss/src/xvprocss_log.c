@@ -232,7 +232,7 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 			if (Data == XVPROCSS_EDAT_INITFAIL) {
 				xil_printf("Error: Topology Not Supported\r\n");
 			}
-			else if ((Data>=0)&&(Data<XVPROCSS_TOPOLOGY_NUM_SUPPORTED)) {
+			else if (Data<XVPROCSS_TOPOLOGY_NUM_SUPPORTED) {
 				xil_printf("Info: Topology is %s\r\n",topo_name[Data]);
 			}
 			break;

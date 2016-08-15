@@ -590,7 +590,7 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
     case XVIDC_BPC_10: PixPrecisionIndex = 1; break;
     case XVIDC_BPC_12: PixPrecisionIndex = 2; break;
     case XVIDC_BPC_16: PixPrecisionIndex = 3; break;
-    default: break;
+    default:           PixPrecisionIndex = 0; break;
   }
 
   XVprocSsPtr->CtxtData.PixelHStepSize = XVprocSs_PixelHStep[XVprocSsPtr->Config.PixPerClock>>1][PixPrecisionIndex];
@@ -1419,7 +1419,7 @@ static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
   XVidC_ColorDepth ColorDepth;
   u32 HeightOut = 0;
   u32 WidthOut = 0;
-  u16 Allow422, AllowWindow;
+  u16 Allow422;
   int status = XST_SUCCESS;
 
   if(!XVprocSsPtr->CscPtr) {
@@ -1428,7 +1428,6 @@ static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
   }
 
   Allow422 = XV_CscIs422Enabled(XVprocSsPtr->CscPtr);
-  AllowWindow = XV_CscIsDemoWindowEnabled(XVprocSsPtr->CscPtr);
 
   /* check if input/output stream configuration is supported */
   status = ValidateCscOnlyConfig(XVprocSsPtr, Allow422);
@@ -2314,9 +2313,9 @@ int XVprocSs_SetPictureDemoWindow(XVprocSs *InstancePtr,
 	height = XV_csc_Get_HwReg_height(&InstancePtr->CscPtr->Csc);
 
 	//Check if window is within the active frame resolution
-	if(((Win->StartX < 0) || (Win->StartX > width))  ||
-	   ((Win->StartY < 0) || (Win->StartY > height)) ||
-	   ((Win->StartX + Win->Width) > width)         ||
+	if((Win->StartX > width)   ||
+	   (Win->StartY > height) ||
+	   ((Win->StartX + Win->Width) > width) ||
 	   ((Win->StartY + Win->Height) > height)) {
 	  status = XST_FAILURE;
       XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_CSC_BADWIN);
