@@ -76,7 +76,6 @@ static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
 		u32 DestinationCpu);
 static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
 		u32 DestinationCpu, u64 Address, u32 Length);
-void XFsbl_EccInitialize(u32 Address, u32 Length);
 u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr,
 		u32 Length);
 static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum);
@@ -489,27 +488,6 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 END:
 	return Status;
 }
-
-void XFsbl_EccInitialize(u32 Address, u32 Length)
-{
-	u32 Index=0U;
-
-	/* Disable cache to ensure proper ECC initialization */
-	Xil_DCacheDisable();
-	while (Index<Length)
-	{
-		XFsbl_Out32(Address+Index, 1U) ;
-		Index += 4U;
-	}
-	Xil_DCacheEnable();
-
-	XFsbl_Printf(DEBUG_INFO,
-	  "Address 0x%0lx, Length %0lx, ECC initialized \r\n",
-		Address, Length);
-
-	return ;
-}
-
 
 u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Length)
 {
