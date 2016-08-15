@@ -938,58 +938,58 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 	Xil_DCacheDisable();
 
 	while (NumBytes > 0) {
-		if (NumBytes > GDMA_TRANSFER_MAX_LEN) {
-			Length = GDMA_TRANSFER_MAX_LEN;
+		if (NumBytes > ZDMA_TRANSFER_MAX_LEN) {
+			Length = ZDMA_TRANSFER_MAX_LEN;
 		} else {
 			Length = NumBytes;
 		}
 
 		/* Wait until the DMA is in idle state */
 		do {
-			RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_STATUS);
-			RegVal &= GDMA_CH0_ZDMA_CH_STATUS_STATE_MASK;
-		} while ((RegVal != GDMA_CH0_ZDMA_CH_STATUS_STATE_DONE) &&
-				(RegVal != GDMA_CH0_ZDMA_CH_STATUS_STATE_ERR));
+			RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_STATUS);
+			RegVal &= ADMA_CH0_ZDMA_CH_STATUS_STATE_MASK;
+		} while ((RegVal != ADMA_CH0_ZDMA_CH_STATUS_STATE_DONE) &&
+				(RegVal != ADMA_CH0_ZDMA_CH_STATUS_STATE_ERR));
 
 		/* Enable Simple (Write Only) Mode */
-		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_CTRL0);
-		RegVal &= (GDMA_CH0_ZDMA_CH_CTRL0_POINT_TYPE_MASK |
-				GDMA_CH0_ZDMA_CH_CTRL0_MODE_MASK);
-		RegVal |= (GDMA_CH0_ZDMA_CH_CTRL0_POINT_TYPE_NORMAL |
-				GDMA_CH0_ZDMA_CH_CTRL0_MODE_WR_ONLY);
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_CTRL0, RegVal);
+		RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_CTRL0);
+		RegVal &= (ADMA_CH0_ZDMA_CH_CTRL0_POINT_TYPE_MASK |
+				ADMA_CH0_ZDMA_CH_CTRL0_MODE_MASK);
+		RegVal |= (ADMA_CH0_ZDMA_CH_CTRL0_POINT_TYPE_NORMAL |
+				ADMA_CH0_ZDMA_CH_CTRL0_MODE_WR_ONLY);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0, RegVal);
 
 		/* Fill in the data to be written */
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD0, XFSBL_ECC_INIT_VAL_WORD);
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD1, XFSBL_ECC_INIT_VAL_WORD);
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD2, XFSBL_ECC_INIT_VAL_WORD);
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_WR_ONLY_WORD3, XFSBL_ECC_INIT_VAL_WORD);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD0, XFSBL_ECC_INIT_VAL_WORD);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD1, XFSBL_ECC_INIT_VAL_WORD);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD2, XFSBL_ECC_INIT_VAL_WORD);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD3, XFSBL_ECC_INIT_VAL_WORD);
 
 		/* Write Destination Address */
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_DST_DSCR_WORD0, StartAddr);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, StartAddr);
 
 		/* Size to be Transferred (for write-only mode, only dest is needed)*/
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_DST_DSCR_WORD2, Length);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, Length);
 
 		/* DMA Enable */
-		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_CTRL2);
-		RegVal |= GDMA_CH0_ZDMA_CH_CTRL2_EN_MASK;
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_CTRL2, RegVal);
+		RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_CTRL2);
+		RegVal |= ADMA_CH0_ZDMA_CH_CTRL2_EN_MASK;
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL2, RegVal);
 
 		/* Check the status of the transfer by polling on DMA Done */
 		do {
-			RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_ISR);
-			RegVal &= GDMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK;
-		} while (RegVal != GDMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK);
+			RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_ISR);
+			RegVal &= ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK;
+		} while (RegVal != ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK);
 
 		/* Clear DMA status */
-		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_ISR);
-		RegVal |= GDMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK;
-		XFsbl_Out32(GDMA_CH0_ZDMA_CH_ISR, GDMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK);
+		RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_ISR);
+		RegVal |= ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK;
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_ISR, ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK);
 
 		/* Read the channel status for errors */
-		RegVal = XFsbl_In32(GDMA_CH0_ZDMA_CH_STATUS);
-		if (RegVal == GDMA_CH0_ZDMA_CH_STATUS_STATE_ERR) {
+		RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_STATUS);
+		if (RegVal == ADMA_CH0_ZDMA_CH_STATUS_STATE_ERR) {
 			Status = XFSBL_FAILURE;
 			Xil_DCacheEnable();
 			goto END;
@@ -1000,6 +1000,15 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 	}
 
 	Xil_DCacheEnable();
+
+	/* Restore reset values for the DMA registers used */
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0, 0x00000080U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD0, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD1, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD2, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD3, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, 0x00000000U);
 
 	XFsbl_Printf(DEBUG_INFO,
 			"Address 0x%0lx, Length %0lx, ECC initialized \r\n",
