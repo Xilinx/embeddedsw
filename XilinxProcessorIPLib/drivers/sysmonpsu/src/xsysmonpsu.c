@@ -52,6 +52,15 @@
 *                       channel API. Also corrected external mux channel
 *                       numbers.
 * 1.1   kvn    05/05/16 Modified code for MISRA-C:2012 Compliance.
+* 2.0   vns    08/14/16 Fixed CR #956780, added support for enabling/disabling
+*                       SEQ_CH2 and SEQ_AVG2 registers, modified function
+*                       prototypes of XSysMonPsu_GetSeqAvgEnables,
+*                       XSysMonPsu_SetSeqAvgEnables, XSysMonPsu_SetSeqChEnables,
+*                       XSysMonPsu_GetSeqChEnables,
+*                       XSysMonPsu_SetSeqInputMode, XSysMonPsu_GetSeqInputMode,
+*                       XSysMonPsu_SetSeqAcqTime
+*                       and XSysMonPsu_GetSeqAcqTime to provide support for
+*                       set/get 64 bit value.
 *
 * </pre>
 *
@@ -653,10 +662,11 @@ End:
 *
 * @param	InstancePtr is a pointer to the XSysMonPsu instance.
 * @param	AlmEnableMask is the bit-mask of the alarm outputs to be enabled
-*		in the Configuration Register 1.
+*		in the Configuration Registers 1 and 3.
 *		Bit positions of 1 will be enabled. Bit positions of 0 will be
 *		disabled. This mask is formed by OR'ing XSYSMONPSU_CFR_REG1_ALRM_*_MASK
-*		masks defined in xsysmonpsu.h.
+*		masks defined in xsysmonpsu.h, but XSM_CFR_ALM_SUPPLY8_MASK to
+*		XSM_CFR_ALM_SUPPLY13_MASK are applicable only for PS.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
 *
@@ -668,6 +678,7 @@ End:
 *		The alarm outputs specified by the AlmEnableMask are negated
 *		before writing to the Configuration Register 1 because it
 *		was Disable register bits.
+*		Upper 16 bits of AlmEnableMask are applicable only for PS.
 *
 *****************************************************************************/
 void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
@@ -679,7 +690,9 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid(AlmEnableMask <= XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);
+	Xil_AssertVoid(AlmEnableMask <=
+			(XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK |
+			(XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK << XSM_CFG_ALARM_SHIFT)));
 	Xil_AssertVoid((SysmonBlk == XSYSMON_PS)||(SysmonBlk == XSYSMON_PL));
 
 	/* Calculate the effective baseaddress based on the Sysmon instance. */
@@ -698,6 +711,16 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 	 */
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_CFG_REG1_OFFSET,
 			 RegValue);
+	/* Upper 16 bits of AlmEnableMask are valid only for PS */
+	if (SysmonBlk == XSYSMON_PS) {
+		RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+					XSYSMONPSU_CFG_REG3_OFFSET);
+		RegValue &= (u32)(~XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
+		RegValue |= (~(AlmEnableMask >> XSM_CFG_ALARM_SHIFT) &
+				(u32)XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
+		XSysmonPsu_WriteReg(EffectiveBaseAddress +
+			XSYSMONPSU_CFG_REG3_OFFSET, RegValue);
+	}
 }
 
 /****************************************************************************/
@@ -723,13 +746,15 @@ void XSysMonPsu_SetAlarmEnables(XSysMonPsu *InstancePtr, u32 AlmEnableMask,
 *		be disabled and alarms for bit positions of 0 will be enabled.
 *		The enabled alarm outputs returned by this function is the
 *		negated value of the the data read from the Configuration
-*		Register 1.
+*		Register 1. Upper 16 bits of return value are valid only if the
+*		channel selected is PS.
 *
 *****************************************************************************/
 u32 XSysMonPsu_GetAlarmEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
 	u32 RegValue;
 	u32 EffectiveBaseAddress;
+	u32 ReadReg;
 
 	/* Assert the arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -748,6 +773,13 @@ u32 XSysMonPsu_GetAlarmEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	RegValue = XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_CFG_REG1_OFFSET) & XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK;
 	RegValue = (~RegValue & XSYSMONPSU_CFG_REG1_ALRM_ALL_MASK);
+
+	if (SysmonBlk == XSYSMON_PS) {
+		ReadReg = XSysmonPsu_ReadReg(EffectiveBaseAddress +
+			XSYSMONPSU_CFG_REG3_OFFSET) & XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK;
+		ReadReg = (~ReadReg & XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK);
+		RegValue |= ReadReg << XSM_CFG_ALARM_SHIFT;
+	}
 
 	return RegValue;
 }
@@ -1389,7 +1421,7 @@ u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *		defined in xsysmonpsu_hw.h to specify the channel numbers. Differential
 *		or  Bipolar input mode will be set for bit masks of 1 and unipolar input
 *		mode for bit masks of 0.
-*		The InputModeChMask is a 32 bit mask that is written to the two
+*		The InputModeChMask is a 64 bit mask that is written to the three
 *		16 bit ADC Channel Analog-Input Mode Sequencer Registers.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
@@ -1402,7 +1434,7 @@ u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 * @note		None.
 *
 *****************************************************************************/
-s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u32 InputModeChMask,
+s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
@@ -1442,6 +1474,11 @@ s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u32 InputModeChMask,
 			 (InputModeChMask >> XSM_SEQ_CH_SHIFT) &
 			 XSYSMONPSU_SEQ_INPUT_MDE1_MASK);
 
+	XSysmonPsu_WriteReg(EffectiveBaseAddress +
+		XSYSMONPSU_SEQ_INPUT_MDE2_OFFSET,
+		 (InputModeChMask >> XSM_SEQ_CH2_SHIFT) &
+		 XSYSMONPSU_SEQ_INPUT_MDE2_MASK);
+
 	Status = (s32)XST_SUCCESS;
 
 End:
@@ -1467,9 +1504,9 @@ End:
 * @note		None.
 *
 *****************************************************************************/
-u32 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
+u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
-	u32 InputMode;
+	u64 InputMode;
 	u32 EffectiveBaseAddress;
 
 	/* Assert the arguments. */
@@ -1491,6 +1528,9 @@ u32 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	InputMode |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_INPUT_MDE1_OFFSET) & XSYSMONPSU_SEQ_INPUT_MDE1_MASK) <<
 				XSM_SEQ_CH_SHIFT;
+	InputMode |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+			XSYSMONPSU_SEQ_INPUT_MDE2_OFFSET) &
+			XSYSMONPSU_SEQ_INPUT_MDE2_MASK) << XSM_SEQ_CH2_SHIFT;
 
 	return InputMode;
 }
@@ -1509,7 +1549,7 @@ u32 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *		numbers. Acquisition cycles will be extended to 10 ADCCLK cycles
 *		for bit masks of 1 and will be the default 4 ADCCLK cycles for
 *		bit masks of 0.
-*		The AcqCyclesChMask is a 32 bit mask that is written to the two
+*		The AcqCyclesChMask is a 64 bit mask that is written to the three
 *		16 bit ADC Channel Acquisition Time Sequencer Registers.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
@@ -1522,7 +1562,7 @@ u32 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 * @note		None.
 *
 *****************************************************************************/
-s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u32 AcqCyclesChMask,
+s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
@@ -1559,6 +1599,10 @@ s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u32 AcqCyclesChMask,
 	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_ACQ1_OFFSET,
 			 (AcqCyclesChMask >> XSM_SEQ_CH_SHIFT) & XSYSMONPSU_SEQ_ACQ1_MASK);
 
+	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_ACQ2_OFFSET,
+			(AcqCyclesChMask >> XSM_SEQ_CH2_SHIFT) &
+					XSYSMONPSU_SEQ_ACQ2_MASK);
+
 	Status = (s32)XST_SUCCESS;
 
 End:
@@ -1584,9 +1628,9 @@ End:
 * @note		None.
 *
 *****************************************************************************/
-u32 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
+u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
-	u32 RegValAcq;
+	u64 RegValAcq;
 	u32 EffectiveBaseAddress;
 
 	/* Assert the arguments. */
@@ -1608,6 +1652,9 @@ u32 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	RegValAcq |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
 					XSYSMONPSU_SEQ_ACQ1_OFFSET) & XSYSMONPSU_SEQ_ACQ1_MASK) <<
 					XSM_SEQ_CH_SHIFT;
+	RegValAcq |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+			XSYSMONPSU_SEQ_ACQ2_OFFSET) &
+			XSYSMONPSU_SEQ_ACQ2_MASK) << XSM_SEQ_CH2_SHIFT;
 
 	return RegValAcq;
 }

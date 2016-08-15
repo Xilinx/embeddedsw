@@ -152,6 +152,17 @@
 *                       channel API. Also corrected external mux channel
 *                       numbers.
 * 1.1   kvn    05/05/16 Modified code for MISRA-C:2012 Compliance.
+* 2.0   vns    08/14/16 Fixed CR #956780, added support for enabling/disabling
+*                       SEQ_CH2 and SEQ_AVG2 registers, modified function
+*                       prototypes of XSysMonPsu_GetSeqAvgEnables,
+*                       XSysMonPsu_SetSeqAvgEnables, XSysMonPsu_SetSeqChEnables,
+*                       XSysMonPsu_GetSeqChEnables,
+*                       XSysMonPsu_SetSeqInputMode, XSysMonPsu_GetSeqInputMode,
+*                       XSysMonPsu_SetSeqAcqTime
+*                       and XSysMonPsu_GetSeqAcqTime to provide support for
+*                       set/get 64 bit value.
+*                       Added constants XSM_CFR_ALM_SUPPLY*(8-31)_MASKs to
+*                       provide support for enabling extra PS alarams.
 *
 * </pre>
 *
@@ -333,6 +344,12 @@ extern "C" {
  * @name Alarm masks for channels in Configuration registers 1
  * @{
  */
+#define XSM_CFR_ALM_SUPPLY13_MASK	0x200000 /**< Alarm 6 - SUPPLY6 */
+#define XSM_CFR_ALM_SUPPLY12_MASK	0x100000 /**< Alarm 6 - SUPPLY6 */
+#define XSM_CFR_ALM_SUPPLY11_MASK	0x080000 /**< Alarm 6 - SUPPLY6 */
+#define XSM_CFR_ALM_SUPPLY10_MASK	0x040000 /**< Alarm 6 - SUPPLY6 */
+#define XSM_CFR_ALM_SUPPLY9_MASK	0x020000 /**< Alarm 6 - SUPPLY6 */
+#define XSM_CFR_ALM_SUPPLY8_MASK	0x010000 /**< Alarm 6 - SUPPLY6 */
 #define XSM_CFR_ALM_SUPPLY6_MASK	0x0800 /**< Alarm 6 - SUPPLY6 */
 #define XSM_CFR_ALM_SUPPLY5_MASK	0x0400 /**< Alarm 5 - SUPPLY5 */
 #define XSM_CFR_ALM_SUPPLY4_MASK	0x0200 /**< Alarm 4 - SUPPLY4 */
@@ -563,12 +580,12 @@ u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 		u32 SysmonBlk);
-s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u32 InputModeChMask,
+s32 XSysMonPsu_SetSeqInputMode(XSysMonPsu *InstancePtr, u64 InputModeChMask,
 		u32 SysmonBlk);
-u32 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk);
-s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u32 AcqCyclesChMask,
+u64 XSysMonPsu_GetSeqInputMode(XSysMonPsu *InstancePtr, u32 SysmonBlk);
+s32 XSysMonPsu_SetSeqAcqTime(XSysMonPsu *InstancePtr, u64 AcqCyclesChMask,
 		u32 SysmonBlk);
-u32 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk);
+u64 XSysMonPsu_GetSeqAcqTime(XSysMonPsu *InstancePtr, u32 SysmonBlk);
 void XSysMonPsu_SetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,
 		u16 Value, u32 SysmonBlk);
 u16 XSysMonPsu_GetAlarmThreshold(XSysMonPsu *InstancePtr, u8 AlarmThrReg,

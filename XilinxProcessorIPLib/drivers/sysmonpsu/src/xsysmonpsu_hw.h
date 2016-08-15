@@ -44,6 +44,8 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   kvn	  12/15/15 First release
+* 2.0   vns    08/14/16  Added CFG_REG3, SEQ_INPUT_MODE2, SEQ_ACQ2,
+*                        SEQ_CH2 and SEQ_AVG2 offsets and bit masks
 *
 * </pre>
 *
@@ -1563,6 +1565,12 @@ extern "C" {
 #define XSYSMONPSU_CFG_REG2_TST_MDE_WIDTH   2U
 #define XSYSMONPSU_CFG_REG2_TST_MDE_MASK    0x00000003U
 
+/* Register: XSysmonPsuCfgReg3 */
+#define XSYSMONPSU_CFG_REG3_OFFSET		0x0000010CU
+#define XSYSMONPSU_CFG_REG3_ALRM_ALL_MASK	0x0000003FU
+
+#define XSM_CFG_ALARM_SHIFT			16U
+
 /* Register: XSysmonPsuSeqCh2 */
 #define XSYSMONPSU_SEQ_CH2_OFFSET   0x00000118U
 
@@ -2076,6 +2084,22 @@ extern "C" {
 #define XSYSMONPSU_ALRM_TREMOTE_LWR_TSHLD_MDE_SHIFT   0U
 #define XSYSMONPSU_ALRM_TREMOTE_LWR_TSHLD_MDE_WIDTH   1U
 #define XSYSMONPSU_ALRM_TREMOTE_LWR_TSHLD_MDE_MASK    0x00000001U
+
+/* Register: XSysmonPsuSeqInputMde2 */
+#define XSYSMONPSU_SEQ_INPUT_MDE2_OFFSET	0x000001E0U
+#define XSYSMONPSU_SEQ_INPUT_MDE2_RSTVAL	0x00000000U
+
+#define XSYSMONPSU_SEQ_INPUT_MDE2_SHIFT		0U
+#define XSYSMONPSU_SEQ_INPUT_MDE2_MASK		0x0000003FU
+
+/**
+ * Register: XSysmonPsuSeqAcq2
+ */
+#define XSYSMONPSU_SEQ_ACQ2_OFFSET		0x000001E4U
+#define XSYSMONPSU_SEQ_ACQ2_RSTVAL		0x00000000U
+
+#define XSYSMONPSU_SEQ_ACQ2_SHIFT		0U
+#define XSYSMONPSU_SEQ_ACQ2_MASK		0x0000003FU
 
 /**
  * Register: XSysmonPsuSup7
