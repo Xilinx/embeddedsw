@@ -795,6 +795,9 @@ Change space to tab in the Makefile
 v_voip_framer_v1_0:
 Initial Commit for 2016.1
 Change space to tab in the Makefile
+Added 64 Bit Address Support (UINTPTR)
+Fixed mismatched function with PG (CR 955024)
+Removed all the xil_printf from the drivers
 
 v_voip_packetizer56_v1_0:
 Initial Commit for 2016.1
