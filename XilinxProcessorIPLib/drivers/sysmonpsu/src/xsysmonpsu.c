@@ -1143,7 +1143,7 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *		Use XSYSMONPSU_SEQ_CH* defined in xsysmon_hw.h to specify the Channel
 *		numbers. Bit masks of 1 will be enabled and bit mask of 0 will
 *		be disabled.
-*		The ChEnableMask is a 32 bit mask that is written to the two
+*		The ChEnableMask is a 64 bit mask that is written to the three
 *		16 bit ADC Channel Selection Sequencer Registers.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
@@ -1156,7 +1156,7 @@ u8 XSysMonPsu_GetAdcClkDivisor(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 * @note		None.
 *
 *****************************************************************************/
-s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u32 ChEnableMask,
+s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u64 ChEnableMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
@@ -1193,6 +1193,10 @@ s32 XSysMonPsu_SetSeqChEnables(XSysMonPsu *InstancePtr, u32 ChEnableMask,
 			 (ChEnableMask >> XSM_SEQ_CH_SHIFT) &
 			 XSYSMONPSU_SEQ_CH1_VALID_MASK);
 
+	XSysmonPsu_WriteReg(EffectiveBaseAddress + XSYSMONPSU_SEQ_CH2_OFFSET,
+				 (ChEnableMask >> XSM_SEQ_CH2_SHIFT) &
+			 XSYSMONPSU_SEQ_CH2_VALID_MASK);
+
 	Status = (s32)XST_SUCCESS;
 
 End:
@@ -1219,9 +1223,9 @@ End:
 * @note		None.
 *
 *****************************************************************************/
-u32 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
+u64 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
-	u32 RegVal;
+	u64 RegVal;
 	u32 EffectiveBaseAddress;
 
 	/* Assert the arguments. */
@@ -1243,6 +1247,9 @@ u32 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	RegVal |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_CH1_OFFSET) & XSYSMONPSU_SEQ_CH1_VALID_MASK) <<
 					XSM_SEQ_CH_SHIFT;
+	RegVal |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+			XSYSMONPSU_SEQ_CH2_OFFSET) &
+			XSYSMONPSU_SEQ_CH2_VALID_MASK) << XSM_SEQ_CH2_SHIFT;
 
 	return RegVal;
 }
@@ -1259,8 +1266,8 @@ u32 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 *		averaging is to be enabled. Use XSYSMONPSU_SEQ_AVERAGE* defined in
 *		xsysmonpsu_hw.h to specify the Channel numbers. Averaging will be
 *		enabled for bit masks of 1 and disabled for bit mask of 0.
-*		The AvgEnableChMask is a 32 bit mask that is written to the
-*		two 16 bit ADC Channel Averaging Enable Sequencer Registers.
+*		The AvgEnableChMask is a 64 bit mask that is written to the
+*		three 16 bit ADC Channel Averaging Enable Sequencer Registers.
 * @param	SysmonBlk is the value that tells whether it is for PS Sysmon
 *       block or PL Sysmon block register region.
 *
@@ -1272,7 +1279,7 @@ u32 XSysMonPsu_GetSeqChEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 * @note		None.
 *
 *****************************************************************************/
-s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 AvgEnableChMask,
+s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u64 AvgEnableChMask,
 		u32 SysmonBlk)
 {
 	s32 Status;
@@ -1308,6 +1315,11 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 AvgEnableChMask,
 				 (AvgEnableChMask >> XSM_SEQ_CH_SHIFT) &
 				 XSYSMONPSU_SEQ_AVERAGE1_MASK);
 
+		XSysmonPsu_WriteReg(EffectiveBaseAddress +
+				XSYSMONPSU_SEQ_AVERAGE2_OFFSET,
+				 (AvgEnableChMask >> XSM_SEQ_CH2_SHIFT) &
+				 XSYSMONPSU_SEQ_AVERAGE2_MASK);
+
 		Status = (s32)XST_SUCCESS;
 	}
 
@@ -1333,9 +1345,9 @@ s32 XSysMonPsu_SetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 AvgEnableChMask,
 * @note		None.
 *
 *****************************************************************************/
-u32 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
+u64 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 {
-	u32 RegVal;
+	u64 RegVal;
 	u32 EffectiveBaseAddress;
 
 	/* Assert the arguments. */
@@ -1357,6 +1369,9 @@ u32 XSysMonPsu_GetSeqAvgEnables(XSysMonPsu *InstancePtr, u32 SysmonBlk)
 	RegVal |= (XSysmonPsu_ReadReg(EffectiveBaseAddress +
 			XSYSMONPSU_SEQ_AVERAGE1_OFFSET) & XSYSMONPSU_SEQ_AVERAGE1_MASK) <<
 			XSM_SEQ_CH_SHIFT;
+	RegVal |= (u64)(XSysmonPsu_ReadReg(EffectiveBaseAddress +
+			XSYSMONPSU_SEQ_AVERAGE2_OFFSET) &
+			XSYSMONPSU_SEQ_AVERAGE2_MASK) << XSM_SEQ_CH2_SHIFT;
 
 	return RegVal;
 }
