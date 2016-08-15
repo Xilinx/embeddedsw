@@ -121,14 +121,6 @@ int XFramer_CfgInitialize(XFramer *InstancePtr,
              XFramer_Config_RegValue.HWChannelNumber) ||
                  (InstancePtr->Config.OverflowHandlingStrategy !=
                       XFramer_Config_RegValue.OverflowHandlingStrategy)) {
-        xil_printf("Channels: Reg: %d <-> GUI: %d\n\r",
-                XFramer_Config_RegValue.HWChannelNumber,
-                        InstancePtr->Config.HWChannelNumber);
-
-        xil_printf("Overflow Strategy: Reg: %d <-> GUI%d\n\r",
-                XFramer_Config_RegValue.OverflowHandlingStrategy,
-                        InstancePtr->Config.OverflowHandlingStrategy);
-
         return (XST_FAILURE);
     }
 
