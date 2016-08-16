@@ -89,6 +89,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
+* 1.1   sk  08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                    Changed the prototype of XAxisScr_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -119,7 +121,7 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the AXI4-
 				  *  Stream Switch core */
-	u32 BaseAddress;	/**< BaseAddress is the physical base address
+	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the core's registers */
 	u8 MaxNumSI;		/**< Maximum number of Slave interfaces */
 	u8 MaxNumMI;		/**< Maximum number of Master interfaces */
@@ -184,7 +186,7 @@ XAxis_Switch_Config *XAxisScr_LookupConfig(u16 DeviceId);
 
 /* Initialization and control functions in xaxis_switch.c */
 s32 XAxisScr_CfgInitialize(XAxis_Switch *InstancePtr,
-			XAxis_Switch_Config *CfgPtr, u32 EffectiveAddr);
+			XAxis_Switch_Config *CfgPtr, UINTPTR EffectiveAddr);
 
 void XAxisScr_MiPortEnable(XAxis_Switch *InstancePtr, u8 MiIndex,
 				u8 SiIndex);
