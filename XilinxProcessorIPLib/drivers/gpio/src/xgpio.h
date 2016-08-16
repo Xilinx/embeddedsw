@@ -106,6 +106,8 @@
 * 4.1   lks  11/18/15 Updated to use cannonical xparameters in examples and
 *		      clean up of the comments, removed support for DCR bridge
 *		      and removed xgpio_intr_example for CR 900381
+* 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XGpio_CfgInitialize API.
 *
 * </pre>
 *****************************************************************************/
@@ -133,7 +135,7 @@ extern "C" {
  */
 typedef struct {
 	u16 DeviceId;		/* Unique ID  of device */
-	u32 BaseAddress;	/* Device base address */
+	UINTPTR BaseAddress;	/* Device base address */
 	int InterruptPresent;	/* Are interrupts supported in h/w */
 	int IsDual;		/* Are 2 channels supported in h/w */
 } XGpio_Config;
@@ -144,7 +146,7 @@ typedef struct {
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	u32 BaseAddress;	/* Device base address */
+	UINTPTR BaseAddress;	/* Device base address */
 	u32 IsReady;		/* Device is initialized and ready */
 	int InterruptPresent;	/* Are interrupts supported in h/w */
 	int IsDual;		/* Are 2 channels supported in h/w */
@@ -165,7 +167,7 @@ XGpio_Config *XGpio_LookupConfig(u16 DeviceId);
  * API Basic functions implemented in xgpio.c
  */
 int XGpio_CfgInitialize(XGpio *InstancePtr, XGpio_Config * Config,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 void XGpio_SetDataDirection(XGpio *InstancePtr, unsigned Channel,
 			    u32 DirectionMask);
 u32 XGpio_GetDataDirection(XGpio *InstancePtr, unsigned Channel);

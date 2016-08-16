@@ -62,6 +62,8 @@
 *		      macros to remove _m from the name.
 * 4.1   lks  11/18/15 Clean up of the comments in the code and
 *		      removed support for DCR bridge
+* 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                     Changed the prototype of XGpio_CfgInitialize API.
 * </pre>
 *
 *****************************************************************************/
@@ -116,7 +118,7 @@
 *
 *****************************************************************************/
 int XGpio_CfgInitialize(XGpio * InstancePtr, XGpio_Config * Config,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 	/* Assert arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
