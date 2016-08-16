@@ -52,7 +52,8 @@
 * Please see xgpiops.h file for description of the pin numbering.
 *
 * @note		This example assumes that there is a Uart device in the HW
-*		design.
+*		design. This example is to provide support only for zcu102 on
+*		ZynqMp Platform and only for zc702 on Zynq Platform.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -73,6 +74,7 @@
 #include "xparameters.h"
 #include "xgpiops.h"
 #include "xstatus.h"
+#include "xplatform_info.h"
 #include <xil_printf.h>
 
 /************************** Constant Definitions ****************************/
@@ -91,11 +93,6 @@
  */
 #define LED_DELAY		10000000
 
-/* Following constant define the Input and Output pins. */
-#define OUTPUT_PIN		10	/* Pin connected to LED/Output */
-#define INPUT_PIN		14	/* Pin connected to Switch/Input */
-
-
 #define LED_MAX_BLINK		0x10	/* Number of times the LED Blinks */
 
 #define printf			xil_printf	/* Smalller foot-print printf */
@@ -110,8 +107,9 @@ static int GpioOutputExample(void);
 static int GpioInputExample(u32 *DataRead);
 int GpioPolledExample(u16 DeviceId, u32 *DataRead);
 
-
 /************************** Variable Definitions **************************/
+static u32 Input_Pin; /* Switch button */
+static u32 Output_Pin; /* LED button */
 
 /*
  * The following are declared globally so they are zeroed and can be
@@ -170,6 +168,20 @@ int GpioPolledExample(u16 DeviceId, u32 *DataRead)
 {
 	int Status;
 	XGpioPs_Config *ConfigPtr;
+	int Type_of_board;
+
+	Type_of_board = XGetPlatform_Info();
+	switch (Type_of_board) {
+		case XPLAT_ZYNQ_ULTRA_MP:
+			Input_Pin = 22;
+			Output_Pin = 23;
+			break;
+
+		case XPLAT_ZYNQ:
+			Input_Pin = 14;
+			Output_Pin = 10;
+			break;
+		}
 
 	/* Initialize the GPIO driver. */
 	ConfigPtr = XGpioPs_LookupConfig(GPIO_DEVICE_ID);
@@ -217,11 +229,11 @@ static int GpioOutputExample(void)
 	 * Set the direction for the pin to be output and
 	 * Enable the Output enable for the LED Pin.
 	 */
-	XGpioPs_SetDirectionPin(&Gpio, OUTPUT_PIN, 1);
-	XGpioPs_SetOutputEnablePin(&Gpio, OUTPUT_PIN, 1);
+	XGpioPs_SetDirectionPin(&Gpio, Output_Pin, 1);
+	XGpioPs_SetOutputEnablePin(&Gpio, Output_Pin, 1);
 
 	/* Set the GPIO output to be low. */
-	XGpioPs_WritePin(&Gpio, OUTPUT_PIN, 0x0);
+	XGpioPs_WritePin(&Gpio, Output_Pin, 0x0);
 
 
 	for (LedLoop = 0; LedLoop < LED_MAX_BLINK; LedLoop ++) {
@@ -233,14 +245,14 @@ static int GpioOutputExample(void)
 
 #endif
 		/* Set the GPIO Output to High. */
-		XGpioPs_WritePin(&Gpio, OUTPUT_PIN, 0x1);
+		XGpioPs_WritePin(&Gpio, Output_Pin, 0x1);
 
 		/*
 		 * Read the state of the data and verify. If the data
 		 * read back is not the same as the data written then
 		 * return FAILURE.
 		 */
-		Data = XGpioPs_ReadPin(&Gpio, OUTPUT_PIN);
+		Data = XGpioPs_ReadPin(&Gpio, Output_Pin);
 		if (Data != 1 ) {
 			return XST_FAILURE;
 		}
@@ -252,14 +264,14 @@ static int GpioOutputExample(void)
 #endif
 
 		/* Clear the GPIO Output. */
-		XGpioPs_WritePin(&Gpio, OUTPUT_PIN, 0x0);
+		XGpioPs_WritePin(&Gpio, Output_Pin, 0x0);
 
 		/*
 		 * Read the state of the data and verify. If the data
 		 * read back is not the same as the data written then
 		 * return FAILURE.
 		 */
-		Data = XGpioPs_ReadPin(&Gpio, OUTPUT_PIN);
+		Data = XGpioPs_ReadPin(&Gpio, Output_Pin);
 		if (Data != 0) {
 			return XST_FAILURE;
 		}
@@ -286,10 +298,10 @@ static int GpioInputExample(u32 *DataRead)
 {
 
 	/* Set the direction for the specified pin to be input. */
-	XGpioPs_SetDirectionPin(&Gpio, INPUT_PIN, 0x0);
+	XGpioPs_SetDirectionPin(&Gpio, Input_Pin, 0x0);
 
 	/* Read the state of the data so that it can be  verified. */
-	*DataRead = XGpioPs_ReadPin(&Gpio, INPUT_PIN);
+	*DataRead = XGpioPs_ReadPin(&Gpio, Input_Pin);
 
 	return XST_SUCCESS;
 }
