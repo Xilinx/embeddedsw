@@ -92,6 +92,13 @@ int ProgramSi5324(void);
 int ProgramSfpPhy(void);
 #endif
 #endif
+
+#ifdef XPS_BOARD_ZCU102
+#ifdef XPAR_XIICPS_0_DEVICE_ID
+int IicPhyReset(void);
+#endif
+#endif
+
 int main()
 {
 	struct ip_addr ipaddr, netmask, gw;
@@ -106,6 +113,11 @@ int main()
 	ProgramSi5324();
 	ProgramSfpPhy();
 #endif
+#endif
+
+/* Define this board specific macro in order perform PHY reset on ZCU102 */
+#ifdef XPS_BOARD_ZCU102
+	IicPhyReset();
 #endif
 
 	init_platform();
