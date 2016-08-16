@@ -1086,7 +1086,7 @@ void XAxiVdma_ChannelStop(XAxiVdma_Channel *Channel)
  *****************************************************************************/
 void XAxiVdma_ChannelRegisterDump(XAxiVdma_Channel *Channel)
 {
-	xil_printf("Dump register for channel %x:\r\n", Channel->ChanBase);
+	xil_printf("Dump register for channel %p:\r\n", (void *)Channel->ChanBase);
 	xil_printf("\tControl Reg: %x\r\n",
 	    XAxiVdma_ReadReg(Channel->ChanBase, XAXIVDMA_CR_OFFSET));
 	xil_printf("\tStatus Reg: %x\r\n",

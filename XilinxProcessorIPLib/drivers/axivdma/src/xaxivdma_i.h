@@ -84,9 +84,9 @@ typedef u32 XAxiVdma_Bd[XAXIVDMA_BD_MINIMUM_ALIGNMENT_WD];
 /* The DMA channel is only visible to driver files
  */
 typedef struct {
-    u32 ChanBase;       /* Base address for this channel */
-    u32 InstanceBase;   /* Base address for the whole device */
-    u32 StartAddrBase;  /* Start address register array base */
+    UINTPTR ChanBase;       /* Base address for this channel */
+    UINTPTR InstanceBase;   /* Base address for the whole device */
+    UINTPTR StartAddrBase;  /* Start address register array base */
 
     int IsValid;        /* Whether the channel has been initialized */
     int FlushonFsync;	/* VDMA Transactions are flushed & channel states
