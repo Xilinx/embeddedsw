@@ -120,6 +120,9 @@ Reordered wait for PLL lock.
 vtc_v7_1:
 Added compilation protection in case driver is included without instantiation.
 
+xilapufw_v1_0:
+Added new library Xilinx APU firmware for secure EL1 to support secure operations via SMC calling
+
 xilffs_v3_4:
 Added support for mkfs.
 Added support for multi partitions.
