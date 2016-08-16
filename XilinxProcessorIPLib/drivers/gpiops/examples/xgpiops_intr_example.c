@@ -42,6 +42,8 @@
 *
 * @note
 * This example assumes that there is a Uart device in the HW design.
+* This example is to provide support only for zcu102 on ZynqMp Platform and
+* only for zc702 on Zynq Platform.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -59,6 +61,7 @@
 #include "xgpiops.h"
 #include "xscugic.h"
 #include "xil_exception.h"
+#include "xplatform_info.h"
 #include <xil_printf.h>
 
 /************************** Constant Definitions *****************************/
@@ -75,17 +78,6 @@
 /* The following constants define the GPIO banks that are used. */
 #define INPUT_BANK	XGPIOPS_BANK0  /* Bank 0 of the GPIO Device */
 #define OUTPUT_BANK	XGPIOPS_BANK1  /* Bank 1 of the GPIO Device */
-
-/* The following constants define the positions of the buttons of the GPIO. */
-#define GPIO_ALL_BUTTONS	0xFFFF
-
-/*
- * The following constant determines which buttons must be pressed to cause
- * interrupt processing to stop.
- */
-#define GPIO_EXIT_CONTROL_VALUE	0x1F
-
-#define printf			xil_printf	/* Smalller foot-print printf */
 
 /**************************** Type Definitions *******************************/
 
@@ -109,6 +101,8 @@ static XGpioPs Gpio; /* The Instance of the GPIO Driver */
 static XScuGic Intc; /* The Instance of the Interrupt Controller Driver */
 
 static u32 AllButtonsPressed; /* Intr status of the bank */
+static u32 Input_Pin; /* Switch button */
+static u32 Output_Pin; /* LED button */
 
 /****************************************************************************/
 /**
@@ -169,6 +163,20 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 {
 	XGpioPs_Config *ConfigPtr;
 	int Status;
+	int Type_of_board;
+
+	Type_of_board = XGetPlatform_Info();
+	switch (Type_of_board) {
+	case XPLAT_ZYNQ_ULTRA_MP:
+		Input_Pin = 22;
+		Output_Pin = 23;
+		break;
+
+	case XPLAT_ZYNQ:
+		Input_Pin = 14;
+		Output_Pin = 10;
+		break;
+	}
 
 	/* Initialize the Gpio driver. */
 	ConfigPtr = XGpioPs_LookupConfig(DeviceId);
@@ -183,19 +191,13 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Setup direction register of bank0, so
-	 * that all the pins are configured as inputs.
-	 */
-	XGpioPs_SetDirection(Gpio, INPUT_BANK, ~GPIO_ALL_BUTTONS);
+	/* Set the direction for the specified pin to be input */
+	XGpioPs_SetDirectionPin(Gpio, Input_Pin, 0x0);
 
-
-	/*
-	 * Set the direction for all signals to be
-	 * outputs and Enable the Output enable for the LED Pins.
-	 */
-	XGpioPs_SetDirection(Gpio, OUTPUT_BANK, GPIO_ALL_BUTTONS);
-	XGpioPs_SetOutputEnable(Gpio, OUTPUT_BANK, GPIO_ALL_BUTTONS);
+	/* Set the direction for the specified pin to be output. */
+	XGpioPs_SetDirectionPin(Gpio, Output_Pin, 1);
+	XGpioPs_SetOutputEnablePin(Gpio, Output_Pin, 1);
+	XGpioPs_WritePin(Gpio, Output_Pin, 0x0);
 
 	/*
 	 * Setup the interrupts such that interrupt processing can occur. If
@@ -206,7 +208,7 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 		return XST_FAILURE;
 	}
 
-	printf("\n\rPush each of the 5 buttons once to exit\n\r");
+	xil_printf("\n\rPush Switch button to exit\n\r");
 	AllButtonsPressed = FALSE;
 
 	/*
@@ -214,8 +216,6 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 	 * level processing.
 	 */
 	while(AllButtonsPressed == FALSE);
-
-	printf("\n\r The GPIO Interrupt example has passed Successfully.\n\r");
 
 	return XST_SUCCESS;
 }
@@ -237,22 +237,15 @@ int GpioIntrExample(XScuGic *Intc, XGpioPs *Gpio, u16 DeviceId, u16 GpioIntrId)
 static void IntrHandler(void *CallBackRef, u32 Bank, u32 Status)
 {
 	XGpioPs *Gpio = (XGpioPs *)CallBackRef;
-	static u32 ButtonsChanged;
+	u32 DataRead;
 
-	/* Do nothing if the intr is generated for a different bank. */
-	if (Bank != INPUT_BANK) {
-		return;
-	}
-
-	ButtonsChanged |= Status;
-
-	/* Set the LEDs. */
-	XGpioPs_Write(Gpio, OUTPUT_BANK, ButtonsChanged);
-
-	if (ButtonsChanged == GPIO_EXIT_CONTROL_VALUE) {
-		/* Five buttons are pressed to mark the completion of the test. */
+	/* Push the switch button */
+	DataRead = XGpioPs_ReadPin(Gpio, Input_Pin);
+	if (DataRead != 0) {
+		XGpioPs_SetDirectionPin(Gpio, Output_Pin, 1);
+		XGpioPs_SetOutputEnablePin(Gpio, Output_Pin, 1);
+		XGpioPs_WritePin(Gpio, Output_Pin, DataRead);
 		AllButtonsPressed = TRUE;
-		ButtonsChanged = 0;
 	}
 }
 
@@ -329,7 +322,7 @@ static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 
 
 	/* Enable the GPIO interrupts of Bank 0. */
-	XGpioPs_IntrEnable(Gpio, INPUT_BANK, 0xFFFFFFFF);
+	XGpioPs_IntrEnable(Gpio, INPUT_BANK, (1 << Output_Pin));
 
 
 	/* Enable the interrupt for the GPIO device. */
