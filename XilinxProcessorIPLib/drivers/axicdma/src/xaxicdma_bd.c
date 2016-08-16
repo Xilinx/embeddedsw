@@ -511,7 +511,7 @@ LONG XAxiCdma_BdGetPhysAddr(XAxiCdma_Bd* BdPtr)
  *****************************************************************************/
 void XAxiCdma_DumpBd(XAxiCdma_Bd* BdPtr)
 {
-	xil_printf("\r\nDump BD %x:\r\n", (UINTPTR)BdPtr);
+	xil_printf("\r\nDump BD %p:\r\n", BdPtr);
 
 	xil_printf("Next BD ptr \t%x\r\n",
 	    (unsigned int)XAxiCdma_BdGetNextPtr(BdPtr));
