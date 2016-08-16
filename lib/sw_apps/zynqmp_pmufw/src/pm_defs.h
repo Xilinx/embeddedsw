@@ -36,6 +36,8 @@
 #ifndef PM_DEFS_H_
 #define PM_DEFS_H_
 
+#include "pmu_global.h"
+
 /*********************************************************************
  * Macro definitions
  ********************************************************************/
@@ -93,8 +95,10 @@
 #define PM_MMIO_WRITE               19U
 #define PM_MMIO_READ                20U
 
+#define PM_INIT                     21U
+
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_MMIO_READ
+#define PM_API_MAX	PM_INIT
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
@@ -167,6 +171,10 @@
 
 #define NODE_MIN        NODE_APU
 #define NODE_MAX        NODE_RTC
+
+/* System init synchronization */
+#define PM_INIT_COMPLETED_KEY    0x5A5A5A5AU
+#define PM_INIT_SYNC_REGISTER    PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5
 
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U

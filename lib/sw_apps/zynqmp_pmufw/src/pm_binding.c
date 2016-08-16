@@ -79,6 +79,8 @@
  */
 void XPfw_PmInit(void)
 {
+	u32 val;
+
 	PmDbg("Power Management Init\n");
 	/* Disable all wake requests in GPI1 */
 	DISABLE_WAKE(PMU_IOMODULE_GPI1_WAKES_ALL_MASK);
@@ -86,6 +88,14 @@ void XPfw_PmInit(void)
 	DISABLE_WFI(PMU_LOCAL_GPI2_ENABLE_ALL_PWRDN_REQ_MASK);
 
 	PmRequirementInit();
+
+	val = XPfw_Read32(PM_INIT_SYNC_REGISTER);
+	if (PM_INIT_COMPLETED_KEY == val) {
+		/* System init is completed, no one will call PmInit later */
+		XPfw_Write32(PM_INIT_SYNC_REGISTER, 0U);
+		PmInit(NULL);
+	}
+
 	/* Setup initial slaves for masters */
 	PmSetupInitialMasterRequirements();
 }

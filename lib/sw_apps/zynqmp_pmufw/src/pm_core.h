@@ -46,5 +46,6 @@
  * Function declarations
  ********************************************************************/
 void PmProcessRequest(const PmMaster *const master, const u32 *payload);
+void PmInit(const PmMaster* const master);
 
 #endif

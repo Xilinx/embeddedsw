@@ -847,6 +847,19 @@ done:
 }
 
 /**
+ * PmInit() - Initialization of the power management data
+ * @master  Initiator of the request
+ */
+void PmInit(const PmMaster* const master)
+{
+	PmDbg("\n");
+
+	if (NULL != master) {
+		IPI_RESPONSE1(master->ipiMask, XST_SUCCESS);
+	}
+}
+
+/**
  * PmProcessApiCall() - Called to process PM API call
  * @master  Pointer to a requesting master structure
  * @pload   Pointer to array of integers with the information about the pm call
@@ -926,6 +939,9 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 		break;
 	case PM_MMIO_READ:
 		PmMmioRead(master, pload[1]);
+		break;
+	case PM_INIT:
+		PmInit(master);
 		break;
 	default:
 		PmDbg("ERROR unsupported PM API #%lu\n", pload[0]);
