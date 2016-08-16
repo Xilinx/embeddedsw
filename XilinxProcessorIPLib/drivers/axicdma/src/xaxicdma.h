@@ -539,7 +539,7 @@ int XAxiCdma_SelectKeyHole(XAxiCdma *InstancePtr, u32 Direction, u32 Select);
 
 /* BD ring API functions
  */
-u32 XAxiCdma_BdRingCntCalc(u32 Alignment, u32 Bytes, u32 BuffAddr);
+u32 XAxiCdma_BdRingCntCalc(u32 Alignment, u32 Bytes, UINTPTR BuffAddr);
 u32 XAxiCdma_BdRingMemCalc(u32 Alignment, int NumBd);
 u32 XAxiCdma_BdRingGetCnt(XAxiCdma *InstancePtr);
 u32 XAxiCdma_BdRingGetFreeCnt(XAxiCdma *InstancePtr);

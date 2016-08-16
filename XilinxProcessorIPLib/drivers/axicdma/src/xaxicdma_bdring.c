@@ -129,7 +129,7 @@
  *			it to this function.
  *
  *****************************************************************************/
-u32 XAxiCdma_BdRingCntCalc(u32 Alignment, u32 Bytes, u32 BdBuffAddr)
+u32 XAxiCdma_BdRingCntCalc(u32 Alignment, u32 Bytes, UINTPTR BdBuffAddr)
 {
 
 	/* The buffer alignment has to be taken account of. An unaligned buffer
