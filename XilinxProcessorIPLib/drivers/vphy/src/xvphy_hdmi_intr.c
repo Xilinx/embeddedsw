@@ -47,6 +47,7 @@
  * 1.0   gm   10/19/15 Initial release.
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
  *                     Added XVphy_HdmiGtpPllLockHandler for GTPE2
+ * 1.2   gm            Replaced xil_printf with log events for debugging
  * </pre>
  *
 *******************************************************************************/
@@ -882,9 +883,7 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	Status = XVphy_SetHdmiRxParam(InstancePtr, 0, ChId);
 	if (Status != XST_SUCCESS) {
 		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
-			xil_printf("\n\rCouldn't find the correct GT "
-				"parameters for this video resolution.\n\r");
-			xil_printf("Try another GT PLL layout.\n\r");
+			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_PLL_LAYOUT, 1);
 		}
 
 		for (Id = Id0; Id <= Id1; Id++) {
@@ -975,11 +974,7 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	/* When the TX and RX are coupled, clear GT alignment. */
 	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
 		if (InstancePtr->HdmiRxDruIsEnabled) {
-			xil_printf("WARNING: "
-					"Transmitter cannot be used on\r\n");
-			xil_printf("         "
-					"bonded mode when DRU is enabled\r\n");
-			xil_printf("Switch to unbonded PLL layout\r\n");
+			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_UNBONDED, 1);
 		}
 		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_TX, 0);

@@ -846,6 +846,9 @@ Added HdmiFastSwitch in XVphy_Config
 Fixed bug in XVphy_IsPllLocked function
 Updates for 64-bit compilation
 Used usleep API instead of MB_Sleep API
+Replaced xil_printf with log events for debugging
+Modified XVphy_DruGetRefClkFreqHz API
+
 
 vprocss_v2_1:
 Added new version 2.1

@@ -49,6 +49,8 @@
  *                       for single pixel calculation.
  * 1.2   gm            Added XVphy_HdmiMmcmStart and
  *                       XVphy_HdmiMmcmWriteParameters functions
+ *                     Replaced xil_printf with log events
+ *                     Modified XVphy_DruGetRefClkFreqHz
  * </pre>
  *
 *******************************************************************************/
@@ -696,12 +698,46 @@ u32 XVphy_ClkDetGetRefClkFreqHz(XVphy *InstancePtr, XVphy_DirectionType Dir)
 ******************************************************************************/
 u32 XVphy_DruGetRefClkFreqHz(XVphy *InstancePtr)
 {
+	u32 DruFreqHz = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+			XVPHY_CLKDET_FREQ_DRU_REG);;
+
+
+
 	/* Verify argument. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Read clock frequency. */
-	return XVphy_ReadReg(InstancePtr->Config.BaseAddr,
-			XVPHY_CLKDET_FREQ_DRU_REG);
+	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
+		if (DruFreqHz > XVPHY_HDMI_GTXE2_DRU_REFCLK_MIN &&
+				DruFreqHz < XVPHY_HDMI_GTXE2_DRU_REFCLK_MAX){
+			return XVPHY_HDMI_GTXE2_DRU_REFCLK;
+		}
+	}
+	else if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE2) {
+		if (DruFreqHz > XVPHY_HDMI_GTHE2_DRU_REFCLK_MIN &&
+				DruFreqHz < XVPHY_HDMI_GTHE2_DRU_REFCLK_MAX){
+			return XVPHY_HDMI_GTHE2_DRU_REFCLK;
+		}
+	}
+	else if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
+		if (DruFreqHz > XVPHY_HDMI_GTPE2_DRU_REFCLK_MIN &&
+				DruFreqHz < XVPHY_HDMI_GTPE2_DRU_REFCLK_MAX){
+			return XVPHY_HDMI_GTPE2_DRU_REFCLK;
+		}
+	}
+	else if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
+		if (DruFreqHz > XVPHY_HDMI_GTHE3_DRU_REFCLK_MIN &&
+				DruFreqHz < XVPHY_HDMI_GTHE3_DRU_REFCLK_MAX){
+			return XVPHY_HDMI_GTHE3_DRU_REFCLK;
+		}
+	}
+	else {
+		if (DruFreqHz > XVPHY_HDMI_GTHE4_DRU_REFCLK_MIN &&
+				DruFreqHz < XVPHY_HDMI_GTHE4_DRU_REFCLK_MAX){
+			return XVPHY_HDMI_GTHE4_DRU_REFCLK;
+		}
+	}
+	/* Return Failure */
+	return XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -1045,8 +1081,7 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 	Div = 1;
 
 	if (((LineRate / 1000000) > 2970) && (Ppc == XVIDC_PPC_1)) {
-		xil_printf("Error! The Video PHY cannot support this video ");
-		xil_printf("format at PPC = 1\r\n");
+		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_1PPC_ERR, 1);
 		return (XST_FAILURE);
 	}
 
@@ -1246,8 +1281,7 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 
 	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) &&
 			(((RefClk/1000)*(Mult/MmcmPtr->ClkOut2Div)) > 148500)) {
-		xil_printf("Error! GTPE2 Video PHY cannot support resolutions");
-		xil_printf("\r\n\twith video clock > 148.5 MHz.\r\n");
+		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_VDCLK_HIGH_ERR, 1);
 		return (XST_FAILURE);
 	}
 
@@ -1417,8 +1451,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			}
 		}
 		else {
-			xil_printf("Low resolution video isn't supported in "
-				"this version.\r\n No DRU instance found.\r\n");
+			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_NO_DRU, 1);
 			return (XST_FAILURE);
 		}
 	}
@@ -1502,18 +1535,15 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 					(*RefClkPtr) = (*RefClkPtr) * SRValue;
 				}
 				else if (SRValue > 1) {
-					xil_printf("\n\rCouldn't find the "
-						"correct GT parameters for this "
-						"video resolution.\n\r");
-					xil_printf("Try another GT PLL layout."
-						"\n\r");
+					XVphy_LogWrite(InstancePtr,
+							XVPHY_LOG_EVT_GT_PLL_LAYOUT, 1);
 					return (XST_FAILURE);
 				}
 			}
 			return (XST_SUCCESS);
 		}
 	}
-	xil_printf("QPLL config not found!\r\n");
+	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_QPLL_CFG_ERR, 1);
 	return (XST_FAILURE);
 }
 
@@ -1657,18 +1687,13 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 				if (TxLineRate > (((GetGtHdmiPtr(InstancePtr))
 						->DruLineRate) / 1000000)) {
-					xil_printf("Warning: "
-						"This video format is not "
-						"supported by this device\r\n");
-					xil_printf("         "
-						"Change to another format\r\n");
+					XVphy_LogWrite(InstancePtr,
+							XVPHY_LOG_EVT_VD_NOT_SPRTD_ERR, 1);
 					return (XST_FAILURE);
 				}
 			}
 			else {
-				xil_printf("Low resolution video isn't "
-						"supported in this version.\r\n"
-						"No DRU instance found.\r\n");
+				XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_NO_DRU, 1);
 				return (XST_FAILURE);
 			}
 		}
@@ -1715,7 +1740,7 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		}
 	}
 
-	xil_printf("CPLL config not found!\r\n");
+	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_CPLL_CFG_ERR, 1);
 	return (XST_FAILURE);
 }
 
@@ -1803,8 +1828,7 @@ u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		Status = (XST_SUCCESS);
 	}
 	else {
-		xil_printf("Warning: HDMI TX SS PPC = %d, doesn't match with"
-			" VPhy PPC = %d\r\n",Ppc, InstancePtr->Config.Ppc);
+		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_PPC_MSMTCH_ERR, 1);
 		Status = (XST_FAILURE);
 	}
 	if (Status == (XST_SUCCESS)) {
