@@ -93,7 +93,7 @@
 #ifdef FILE_SYSTEM_INTERFACE_SD
 #include "xsdps.h"		/* SD device driver */
 #endif
-
+#include "sleep.h"
 #include "xil_printf.h"
 
 #define HIGH_SPEED_SUPPORT	0x01U

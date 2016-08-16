@@ -109,6 +109,7 @@ Added BUS_WIDTH, BUS_WIDTH, MIO_Bank and HAS_EMIO parameters.
 Added support for UHS modes.
 Corrected the logic.
 Added tap delays for SD/eMMC.
+Removed sleep.h file from xsdps.h file
 
 uartps_v3_2:
 Modified the transmission break bit set logic.
@@ -131,6 +132,7 @@ Updated the copyright year to 2016.
 Corrected the data type of temp variable.
 Enable the _WORD_ACCESS option.
 Used usleep API instead of MB_Sleep API.
+Included sleep.h in diskio.c file
 
 xilkernel_v6_4:
 Fixed CR:955364 update get_pins command as per 2016.3 hsi changes are made in
