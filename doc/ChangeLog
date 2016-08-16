@@ -7,6 +7,12 @@ Updated tcl files as per modified standalone BSP structure.
 axidma_v9_3:
 Reduce the size of the buffer descriptor to 64 bytes
 
+axicdma_v4_2:
+Fix compilation warining in the 64-bit platforms.
+
+axivdma_v6_2:
+Fix compilation warining in the 64-bit platforms.
+
 coresightps_dcc_v1_1:
 Created a new version of the driver to ensure that for MB based systems the driver
 is not included. This fixes the CR#953056.
