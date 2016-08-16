@@ -1600,6 +1600,8 @@ void PmSetupInitialMasterRequirements(void)
 		NODE_PCIE,
 		NODE_RTC,
 		NODE_ETH_3,
+		NODE_GPU_PP_0,
+		NODE_GPU_PP_1,
 	};
 	u32 i;
 
