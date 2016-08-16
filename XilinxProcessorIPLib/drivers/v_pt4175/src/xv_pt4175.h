@@ -44,17 +44,26 @@ typedef struct {
     u8  Packet_Per_Line;
     u16 Packet_Length;
     u16 Re_Packet_Length;
+
+    u32 SSRC;
+    u8  DynamicPayloadType;
 } XV_pt4175_PcktInfo;
 
 
 typedef struct {
     u16 DeviceId;
-    u32 Ctrl_BaseAddress;
+    UINTPTR Ctrl_BaseAddress;
+
+    u8 DynamicBPCEn;
+    u8 MaxBPC;
+    u8 SamplesPerClock;
+    u16 MaxCol;
+    u16 MaxRow;
 } XV_pt4175_Config;
 #endif
 
 typedef struct {
-    u32 Ctrl_BaseAddress;
+    XV_pt4175_Config Config;
     u32 IsReady;
 
     XV_pt4175_PcktInfo  PcktInfo;
@@ -69,9 +78,9 @@ typedef struct {
     Xil_In32((BaseAddress) + (RegOffset))
 #else
 #define XV_pt4175_WriteReg(BaseAddress, RegOffset, Data) \
-    *(volatile u32*)((BaseAddress) + (RegOffset)) = (u32)(Data)
+    *(volatile UINTPTR*)((BaseAddress) + (RegOffset)) = (u32)(Data)
 #define XV_pt4175_ReadReg(BaseAddress, RegOffset) \
-    *(volatile u32*)((BaseAddress) + (RegOffset))
+    *(volatile UINTPTR*)((BaseAddress) + (RegOffset))
 
 #define Xil_AssertVoid(expr)    assert(expr)
 #define Xil_AssertNonvoid(expr) assert(expr)
@@ -93,8 +102,9 @@ int XV_pt4175_Release(XV_pt4175 *InstancePtr);
 #endif
 
 void XV_pt4175_SetVideoStream(XV_pt4175 *InstancePtr, XVidC_VideoStream VidStream);
+void XV_pt4175_SetPcktInfo (XV_pt4175 *InstancePtr);
 XV_pt4175_PcktInfo XV_pt4175_ComputePckt (XV_pt4175 *InstancePtr);
-u16 XV_pt4175_LCM (int x, int y);
+u16 XV_pt4175_LCM (int FirstVal, int SecondVal);
 
 void XV_pt4175_Start(XV_pt4175 *InstancePtr);
 u32 XV_pt4175_IsDone(XV_pt4175 *InstancePtr);
@@ -125,14 +135,10 @@ void XV_pt4175_Set_HwReg_channel_number_V(XV_pt4175 *InstancePtr, u32 Data);
 u32 XV_pt4175_Get_HwReg_channel_number_V(XV_pt4175 *InstancePtr);
 u32 XV_pt4175_Get_HwReg_tx_pkt_cnt_V(XV_pt4175 *InstancePtr);
 u32 XV_pt4175_Get_HwReg_tx_pkt_cnt_V_vld(XV_pt4175 *InstancePtr);
-void XV_pt4175_Set_HwReg_module_reset_V(XV_pt4175 *InstancePtr, u32 Data);
-u32 XV_pt4175_Get_HwReg_module_reset_V(XV_pt4175 *InstancePtr);
+void XV_pt4175_Set_HwReg_reserved1_V(XV_pt4175 *InstancePtr, u32 Data);
+u32 XV_pt4175_Get_HwReg_reserved1_V(XV_pt4175 *InstancePtr);
 void XV_pt4175_Set_HwReg_stat_reset_V(XV_pt4175 *InstancePtr, u32 Data);
 u32 XV_pt4175_Get_HwReg_stat_reset_V(XV_pt4175 *InstancePtr);
-u32 XV_pt4175_Get_HwReg_ppc_gui_V(XV_pt4175 *InstancePtr);
-u32 XV_pt4175_Get_HwReg_ppc_gui_V_vld(XV_pt4175 *InstancePtr);
-u32 XV_pt4175_Get_HwReg_max_bpc_gui_V(XV_pt4175 *InstancePtr);
-u32 XV_pt4175_Get_HwReg_max_bpc_gui_V_vld(XV_pt4175 *InstancePtr);
 
 void XV_pt4175_InterruptGlobalEnable(XV_pt4175 *InstancePtr);
 void XV_pt4175_InterruptGlobalDisable(XV_pt4175 *InstancePtr);

@@ -10,14 +10,30 @@ proc generate {drv_handle} {
         "NUM_INSTANCES" \
         "DEVICE_ID" \
         "C_S_AXI_CTRL_BASEADDR" \
-        "C_S_AXI_CTRL_HIGHADDR"
+        "C_S_AXI_CTRL_HIGHADDR" \
+        "DYNAMIC_BPC" \
+        "MAX_BPC" \
+        "SAMPLES_PER_CLOCK" \
+        "MAX_COLS" \
+        "MAX_ROWS"
+
 
     xdefine_config_file $drv_handle "xv_pt4175_g.c" "XV_pt4175" \
         "DEVICE_ID" \
-        "C_S_AXI_CTRL_BASEADDR"
+        "C_S_AXI_CTRL_BASEADDR" \
+        "DYNAMIC_BPC" \
+        "MAX_BPC" \
+        "SAMPLES_PER_CLOCK" \
+        "MAX_COLS" \
+        "MAX_ROWS"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_pt4175" \
         "DEVICE_ID" \
         "C_S_AXI_CTRL_BASEADDR" \
-        "C_S_AXI_CTRL_HIGHADDR"
+        "C_S_AXI_CTRL_HIGHADDR" \
+        "DYNAMIC_BPC" \
+        "MAX_BPC" \
+        "SAMPLES_PER_CLOCK" \
+        "MAX_COLS" \
+        "MAX_ROWS"
 }
