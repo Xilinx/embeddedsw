@@ -168,6 +168,8 @@
 *                       Corrected XVtc_ConvSignal2Timing API to get interlaced
 *                       mode from SignalCfgPtr structure.
 * 7.2   mh     04/20/16 Removed call to XVtc_Reset from XVtc_CfgInitialize.
+*       sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*                       Changed the prototype of XVtc_CfgInitialize API.
 * </pre>
 *
 ******************************************************************************/
@@ -225,7 +227,7 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask);
 *
 ******************************************************************************/
 int XVtc_CfgInitialize(XVtc *InstancePtr, XVtc_Config *CfgPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
