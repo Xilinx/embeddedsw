@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2016-08-17
+	* Update divisors in CRL_APB (for ZynqMP) based on speed negotiated.
 2016-07-29
 	* Dont set clk dividers in Zynq SLCR when EMIO clock source is used.
 2016-07-11

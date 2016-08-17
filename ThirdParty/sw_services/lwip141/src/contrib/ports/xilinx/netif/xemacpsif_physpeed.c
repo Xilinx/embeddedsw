@@ -712,6 +712,8 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 	u32_t SlcrDiv1;
 	u32_t SlcrTxClkCntrl;
 	u32_t gigeversion;
+	volatile u32_t CrlApbBaseAddr;
+	u32_t CrlApbDiv0, CrlApbDiv1, CrlApbGemCtrl;
 
 	gigeversion = ((Xil_In32(mac_baseaddr + 0xFC)) >> 16) & 0xFFF;
 	if (gigeversion == 2) {
@@ -772,6 +774,93 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		SlcrTxClkCntrl |= (SlcrDiv0 << 8);
 		*(volatile u32_t *)(UINTPTR)(slcrBaseAddress) = SlcrTxClkCntrl;
 		*(volatile u32_t *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
+	} else if (gigeversion > 2) {
+		/* Setup divisors in CRL_APB for Zynq Ultrascale+ MPSoC */
+		if (mac_baseaddr == ZYNQMP_EMACPS_0_BASEADDR) {
+			CrlApbBaseAddr = CRL_APB_GEM0_REF_CTRL;
+		} else if (mac_baseaddr == ZYNQMP_EMACPS_1_BASEADDR) {
+			CrlApbBaseAddr = CRL_APB_GEM1_REF_CTRL;
+		} else if (mac_baseaddr == ZYNQMP_EMACPS_2_BASEADDR) {
+			CrlApbBaseAddr = CRL_APB_GEM2_REF_CTRL;
+		} else if (mac_baseaddr == ZYNQMP_EMACPS_3_BASEADDR) {
+			CrlApbBaseAddr = CRL_APB_GEM3_REF_CTRL;
+		}
+
+		if (speed == 1000) {
+			if (mac_baseaddr == ZYNQMP_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_2_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_2_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_2_ENET_SLCR_1000MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_2_ENET_SLCR_1000MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_3_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV1;
+#endif
+			}
+		} else if (speed == 100) {
+			if (mac_baseaddr == ZYNQMP_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_0_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_0_ENET_SLCR_100MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_0_ENET_SLCR_100MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_1_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_1_ENET_SLCR_100MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_1_ENET_SLCR_100MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_2_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_2_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_2_ENET_SLCR_100MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_2_ENET_SLCR_100MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_3_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_3_ENET_SLCR_100MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_3_ENET_SLCR_100MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_3_ENET_SLCR_100MBPS_DIV1;
+#endif
+			}
+		} else {
+			if (mac_baseaddr == ZYNQMP_EMACPS_0_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_0_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_0_ENET_SLCR_10MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_0_ENET_SLCR_10MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_1_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_1_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_1_ENET_SLCR_10MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_1_ENET_SLCR_10MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_2_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_2_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_2_ENET_SLCR_10MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_2_ENET_SLCR_10MBPS_DIV1;
+#endif
+			} else if (mac_baseaddr == ZYNQMP_EMACPS_3_BASEADDR) {
+#ifdef XPAR_PSU_ETHERNET_3_ENET_SLCR_10MBPS_DIV0
+				CrlApbDiv0 = XPAR_PSU_ETHERNET_3_ENET_SLCR_10MBPS_DIV0;
+				CrlApbDiv1 = XPAR_PSU_ETHERNET_3_ENET_SLCR_10MBPS_DIV1;
+#endif
+			}
+		}
+
+		CrlApbGemCtrl = *(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr);
+		CrlApbGemCtrl &= ~CRL_APB_GEM_DIV0_MASK;
+		CrlApbGemCtrl |= CrlApbDiv0 << CRL_APB_GEM_DIV0_SHIFT;
+		CrlApbGemCtrl &= ~CRL_APB_GEM_DIV1_MASK;
+		CrlApbGemCtrl |= CrlApbDiv1 << CRL_APB_GEM_DIV1_SHIFT;
+		*(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr) = CrlApbGemCtrl;
 	}
+
 	return;
 }
