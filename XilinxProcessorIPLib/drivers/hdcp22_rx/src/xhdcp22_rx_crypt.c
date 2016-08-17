@@ -79,15 +79,16 @@ static int  XHdcp22Rx_Pkcs1Mgf1(const u8 *seed, const u32 seedlen, u8  *mask, u3
 static int  XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 	            const u8 *MaskingSeed, u8 *EncodedMessage);
 static int  XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *MessageLen);
-static void XHdcp22Rx_Pkcs1MontMultAdd(DIGIT_T *A, DIGIT_T C, int SDigit, int NDigits);
-static void XHdcp22Rx_Pkcs1MontMult(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N,
-	            const DIGIT_T *NPrime, int NDigits);
-static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N,
-	            const DIGIT_T *NPrime, int NDigits);
 static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N,
 	            const DIGIT_T *NPrime, int NDigits);
+#ifndef _XHDCP22_RX_SW_MMULT_
 static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U, DIGIT_T *A,
 	            DIGIT_T *B, int NDigits);
+#else
+static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N,
+	            const DIGIT_T *NPrime, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMultAdd(DIGIT_T *A, DIGIT_T C, int SDigit, int NDigits);
+#endif
 static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *A, DIGIT_T *E,
 	            DIGIT_T *N, const DIGIT_T *NPrime, int NDigits);
 
@@ -144,11 +145,11 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 	mpConvFromOctets(N_i, XHdcp22Rx_MpSizeof(N_i), N, 4*NDigits);
 
 	/* Step 1: R = 2^(NDigits*32) */
-	mpConvFromDecimal(R, XHdcp22Rx_MpSizeof(R), "1");
+	R[0] = 1;
 	mpShiftLeft(R, R, 32*NDigits, XHdcp22Rx_MpSizeof(R));
 
 	/* Step 2: Rinv = R^(-1)*mod(N) */
-	mpConvFromDecimal(T1, XHdcp22Rx_MpSizeof(T1), "0");
+	T1[0] = 0;
 	memcpy(T1, N_i, sizeof(N_i)); // Increase precision of N
 	if(mpModInv(RInv, R, T1, XHdcp22Rx_MpSizeof(RInv)))
 	{
@@ -158,7 +159,8 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 
 	/* Step 3: NPrime = (R*Rinv-1)/N */
 	mpMultiply(T1, R, RInv, 2*NDigits);
-	mpConvFromDecimal(T2, XHdcp22Rx_MpSizeof(T2), "1");
+	memset(T2, 0, sizeof(T2));
+	T2[0] = 1;
 	mpSubtract(T1, T1, T2, XHdcp22Rx_MpSizeof(T1));
 	mpDivide(NPrime_i, T2, T1, XHdcp22Rx_MpSizeof(NPrime_i), (DIGIT_T *)N_i, NDigits);
 
@@ -166,7 +168,8 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 	mpMultiply(T1, R, RInv, 2*NDigits);
 	mpMultiply(T2, (DIGIT_T *)N_i, NPrime_i, XHdcp22Rx_MpSizeof(NPrime_i));
 	mpSubtract(T1, T1, T2, XHdcp22Rx_MpSizeof(T1));
-	mpConvFromDecimal(T2, XHdcp22Rx_MpSizeof(T2), "1");
+	memset(T2, 0, sizeof(T2));
+	T2[0] = 1;
 	if(!mpEqual(T1, T2, XHdcp22Rx_MpSizeof(T1)))
 	{
 		print("ERROR: Failed NPrime Calculation\n\r");
@@ -580,7 +583,7 @@ static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *Me
 	/* Verify arguments */
 	Xil_AssertNonvoid(EncodedMessage != NULL);
 	Xil_AssertNonvoid(Message != NULL);
-	Xil_AssertNonvoid(MessageLen > 0);
+	Xil_AssertNonvoid(MessageLen != NULL);
 
 	u8  lHash[XHDCP22_RX_HASH_SIZE];
 	u8  *maskedSeed;
@@ -664,6 +667,7 @@ static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *Me
 	return XST_SUCCESS;
 }
 
+#ifdef _XHDCP22_RX_SW_MMULT_
 /****************************************************************************/
 /**
 * This function performs a carry propagation adding C to the input
@@ -705,72 +709,9 @@ static void XHdcp22Rx_Pkcs1MontMultAdd(DIGIT_T *A, DIGIT_T C, int SDigit, int ND
 		}
 	}
 }
+#endif
 
-/****************************************************************************/
-/**
-* This function implements the Montgomery Modular Multiplication (MMM)
-* algorithm without any optimizations.
-*
-* U = MontMult(A,B,N)
-*
-* Reference:
-* Analyzing and Comparing Montgomery Multiplication Algorithms
-* IEEE Micro, 16(3):26-33,June 1996
-* By: Cetin Koc, Tolga Acar, and Burton Kaliski
-*
-* @param	U is the MMM result
-* @param	A is the n-residue input, A' = A*R mod N
-* @param	B is the n-residue input, B' = B*R mod N
-* @param	N is the modulus
-* @param	NPrime is a pre-computed constant, NPrime = (1-R*Rbar)/N
-* @param	NDigits is the integer precision of the arguments (C,A,B,N,NPrime)
-*
-* @return	None.
-*
-* @note		None.
-*****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMult(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N,
-	const DIGIT_T *NPrime, int NDigits)
-{
-	/* Verify arguments */
-	Xil_AssertVoid(U != NULL);
-	Xil_AssertVoid(A != NULL);
-	Xil_AssertVoid(B != NULL);
-	Xil_AssertVoid(N != NULL);
-	Xil_AssertVoid(NPrime != NULL);
-	Xil_AssertVoid(NDigits == 16);
-
-	DIGIT_T T[XHDCP22_RX_N_SIZE];
-	DIGIT_T Mbar[XHDCP22_RX_N_SIZE];
-	DIGIT_T Ubar[XHDCP22_RX_N_SIZE];
-
-	memset(T, 0, 4*XHDCP22_RX_N_SIZE);
-	memset(Mbar, 0, 4*XHDCP22_RX_N_SIZE);
-	memset(Ubar, 0, 4*XHDCP22_RX_N_SIZE);
-
-	/* Step 1: t = a' * b' */
-	// t = a*b, when a=b we can perform optimized squaring using => mpSquare(T, A, NDigits)
-	mpMultiply(T, A, B, NDigits); // Double precision
-
-	/* Step 2a: m = ((t*mod(r))*n')*mod(r) */
-	mpModPowerOf2(T, 2*NDigits, NDigits*32);
-	mpMultiply(Mbar, T, NPrime, NDigits);
-	mpModPowerOf2(Mbar, 2*NDigits, NDigits*32);
-
-	/* Step 2b: u = (t+(m*n))/r */
-	mpMultiply(Ubar, Mbar, N, NDigits);
-	mpAdd(Mbar, T, Ubar, 2*NDigits);
-	mpShiftRight(Ubar, Mbar, NDigits*32, XHDCP22_RX_N_SIZE);
-
-	/* Step 3: if(u>=n) return u-n else return u */
-	if(mpCompare(Ubar, N, 2*NDigits) >= 0)
-	{
-		mpSubtract(U, Ubar, N, 2*NDigits);
-	}
-
-	memcpy(U, Ubar, 4*NDigits);
-}
-
+#ifdef _XHDCP22_RX_SW_MMULT_
 /****************************************************************************/
 /**
 * This function implements the Montgomery Modular Multiplication (MMM)
@@ -871,6 +812,7 @@ static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B,
 
 	memcpy(U, T, 4*NDigits);
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -912,6 +854,7 @@ static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N,
 	XHdcp22_mmult_Write_NPrime_Words(&InstancePtr->MmultInst, 0, (int *)NPrime, NDigits);
 }
 
+#ifndef _XHDCP22_RX_SW_MMULT_
 /****************************************************************************/
 /**
 * This function runs the Montgomery Multiplier (MMULT) hardware to perform
@@ -957,6 +900,7 @@ static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U,
 	/* Read Register U */
 	XHdcp22_mmult_Read_U_Words(&InstancePtr->MmultInst, 0, (int *)U, NDigits);
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -994,7 +938,7 @@ static int XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *
 #endif
 
 	/* Step 0: R = 2^(NDigits*32) */
-	mpConvFromDecimal(R, XHDCP22_RX_N_SIZE/4, "1");
+	R[0] = 1;
 	mpShiftLeft(R, R, NDigits*32, XHDCP22_RX_N_SIZE/4);
 
 	/* Step 1: Xbar = 1*R*mod(N) */
@@ -1023,7 +967,8 @@ static int XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *
 	}
 
 	/* Step 4: C=MonPro(Xbar,1) */
-	mpConvFromDecimal(R, XHDCP22_RX_N_SIZE/4, "1");
+	memset(R, 0, sizeof(R));
+	R[0] = 1;
 
 #ifndef _XHDCP22_RX_SW_MMULT_
 	XHdcp22Rx_Pkcs1MontMultFios(InstancePtr, C, Xbar, R, NDigits);

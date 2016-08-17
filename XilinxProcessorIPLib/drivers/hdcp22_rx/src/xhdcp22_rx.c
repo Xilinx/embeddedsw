@@ -90,16 +90,17 @@ static int  XHdcp22Rx_GenerateRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr);
 /* Functions for performing various tasks during authentication */
 static u8   XHdcp22Rx_IsWriteMessageAvailable(XHdcp22_Rx *InstancePtr);
 static u8   XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx *InstancePtr);
-static void XHdcp22Rx_SetDdcMessageSize(XHdcp22_Rx *InstancePtr, u16 MessageSize, u8 RepeaterReady);
+static void XHdcp22Rx_SetRxStatus(XHdcp22_Rx *InstancePtr, u16 MessageSize,
+              u8 ReauthReq, u8 TopologyReady);
 static void	XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr);
 static void XHdcp22Rx_ResetDdc(XHdcp22_Rx *InstancePtr, u8 ClrWrBuffer,
-							u8 ClrRdBuffer, u8 ClrReady, u8 ClrReauthReq);
+              u8 ClrRdBuffer, u8 ClrReady, u8 ClrReauthReq);
 static void XHdcp22Rx_ResetAfterError(XHdcp22_Rx *InstancePtr);
 static void XHdcp22Rx_ResetParams(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_PollMessage(XHdcp22_Rx *InstancePtr);
 static void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber);
 static void XHdcp22Rx_StartTimer(XHdcp22_Rx *InstancePtr, u32 TimeOut_mSec,
-                                 u8 ReasonId);
+              u8 ReasonId);
 static void XHdcp22Rx_StopTimer(XHdcp22_Rx *InstancePtr);
 
 /* Functions for implementing the receiver state machine */
@@ -193,6 +194,8 @@ int XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigPt
 	InstancePtr->Info.IsEnabled = FALSE;
 	InstancePtr->Info.AuthenticationStatus = XHDCP22_RX_UNAUTHENTICATED;
 	InstancePtr->Info.IsNoStoredKm = FALSE;
+	InstancePtr->Info.ReauthReq = FALSE;
+	InstancePtr->Info.TopologyReady = FALSE;
 	InstancePtr->Info.IsEncrypted = FALSE;
 	InstancePtr->Info.LCInitAttempts = 0;
 	InstancePtr->Info.AuthRequestCnt = 0;
@@ -332,6 +335,8 @@ int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
 	InstancePtr->StateFunc = (XHdcp22_Rx_StateFunc)(&XHdcp22Rx_StateB0);
 	InstancePtr->Info.AuthenticationStatus = XHDCP22_RX_UNAUTHENTICATED;
 	InstancePtr->Info.IsNoStoredKm = FALSE;
+	InstancePtr->Info.ReauthReq = FALSE;
+	InstancePtr->Info.TopologyReady = FALSE;
 	InstancePtr->Info.IsEncrypted = FALSE;
 	InstancePtr->Info.LCInitAttempts = 0;
 	InstancePtr->Info.AuthRequestCnt = 0;
@@ -355,7 +360,7 @@ int XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr)
 	XHdcp22Rx_ResetParams(InstancePtr);
 
 	/* Reset DDC registers */
-	XHdcp22Rx_ResetDdc(InstancePtr, TRUE, TRUE, TRUE, TRUE);
+	XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 
 	/* Disable timer */
 	XHdcp22Rx_StopTimer(InstancePtr);
@@ -1128,6 +1133,8 @@ void XHdcp22Rx_SetTopologyField(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_TopologyFiel
 	case XHDCP22_RX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
 		XHdcp22Rx_SetTopologyHdcp1DeviceDownstream(InstancePtr, Value);
 		break;
+	default:
+		break;
 	}
 }
 
@@ -1536,34 +1543,32 @@ static u8 XHdcp22Rx_IsReadMessageComplete(XHdcp22_Rx *InstancePtr)
 * a complete message into the read message buffer. The repeater READY bit
 * can also be updated in conjunction to the message size.
 *
-* @param	InstancePtr is a pointer to the XHdcp22_Rx core instance.
-* @param	MessageSize indicates the size in bytes of the message
-*			available in the read message buffer.
-* @param	RepeaterReady is set to TRUE to assert the READY bit.
+* @param  InstancePtr is a pointer to the XHdcp22_Rx core instance.
+* @param  MessageSize indicates the size in bytes of the message
+*         available in the read message buffer.
+* @param  ReauthReq is set to TRUE to assert the REAUTH_REQ bit.
+* @param  TopologyReady is set to TRUE to assert the READY bit.
 *
-* @return	None.
+* @return None.
 *
-* @note		None.
+* @note	  None.
 ******************************************************************************/
-static void XHdcp22Rx_SetDdcMessageSize(XHdcp22_Rx *InstancePtr, u16 MessageSize, u8 RepeaterReady)
+static void XHdcp22Rx_SetRxStatus(XHdcp22_Rx *InstancePtr, u16 MessageSize, u8 ReauthReq, u8 TopologyReady)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MessageSize <= 0x03FF);
 
-	u8 RxStatus[2];
-
-	/* Get RxStatus */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS0_REG);
-	RxStatus[0] = InstancePtr->Handles.DdcGetDataCallback(InstancePtr->Handles.DdcGetDataCallbackRef);
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS1_REG);
-	RxStatus[1] = InstancePtr->Handles.DdcGetDataCallback(InstancePtr->Handles.DdcGetDataCallbackRef);
+	u8 RxStatus[2] = {0, 0};
 
 	/* Update RxStatus[11:0] */
-	*(u16 *)RxStatus &= 0x0C00;     // Clear fields except for RxStatus[11:10], REAUTH_REQ and READY
-	*(u16 *)RxStatus |= MessageSize; // Update RxStatus[9:0], Message_Size
-	if(RepeaterReady == TRUE)        // Update RxStatus[10], READY bit
-		*(u16 *)RxStatus |= 0x0400;
+	RxStatus[1] &= (0x0C00 >> 8);                  // Clear fields except for RxStatus[11:10], REAUTH_REQ and READY
+	RxStatus[0] = (MessageSize & 0x00FF);          // Update RxStatus[7:0], Message_Size
+	RxStatus[1] |= ((MessageSize & 0x0300) >> 8);  // Update RxStatus[9:8], Message_Size
+	if(TopologyReady)
+		RxStatus[1] |= (0x0400 >> 8);                // Set RxStatus[10], READY bit
+	if(ReauthReq)
+		RxStatus[1] |= (0x0800 >> 8);                // Set RxStatus[11], REAUTH_REQ bit
 
 	/* Set RxStatus */
 	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS0_REG);
@@ -1571,8 +1576,9 @@ static void XHdcp22Rx_SetDdcMessageSize(XHdcp22_Rx *InstancePtr, u16 MessageSize
 	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS1_REG);
 	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, RxStatus[1]);
 
-	/* Set DDC read message buffer ready */
-	InstancePtr->Info.DdcFlag &= ~XHDCP22_RX_DDC_FLAG_READ_MESSAGE_READY;
+	/* Clear DDC read message buffer ready */
+	if (MessageSize > 0)
+		InstancePtr->Info.DdcFlag &= ~XHDCP22_RX_DDC_FLAG_READ_MESSAGE_READY;
 }
 
 /*****************************************************************************/
@@ -1593,28 +1599,18 @@ static void XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 #ifndef _XHDCP22_RX_DISABLE_REAUTH_REQUEST_
-	u8 RxStatus[2];
-
 	/* Log info event */
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO, XHDCP22_RX_LOG_INFO_REQAUTH_REQ);
 
 	/* Increment re-authentication request count */
 	InstancePtr->Info.ReauthRequestCnt++;
 
-	/* Get RxStatus */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS0_REG);
-	RxStatus[0] = InstancePtr->Handles.DdcGetDataCallback(InstancePtr->Handles.DdcGetDataCallbackRef);
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS1_REG);
-	RxStatus[1] = InstancePtr->Handles.DdcGetDataCallback(InstancePtr->Handles.DdcGetDataCallbackRef);
+	/* Set the ReauthReq flag */
+	InstancePtr->Info.ReauthReq = TRUE;
 
-	/* Update RxStatus[11] REAUTH_REQ bit */
-	*(u16 *)RxStatus |= 0x800;
-
-	/* Set RxStatus */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS0_REG);
-	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, RxStatus[0]);
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS1_REG);
-	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, RxStatus[1]);
+	/* Set the RxStatus register */
+	XHdcp22Rx_SetRxStatus(InstancePtr, 0,
+		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
 
 	/* Clear link integrity error flag */
 	InstancePtr->Info.ErrorFlag &= ~XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY;
@@ -1638,35 +1634,24 @@ static void XHdcp22Rx_SetDdcReauthReq(XHdcp22_Rx *InstancePtr)
 * @note		None.
 ******************************************************************************/
 static void XHdcp22Rx_ResetDdc(XHdcp22_Rx *InstancePtr, u8 ClrWrBuffer,
-							u8 ClrRdBuffer, u8 ClrReady, u8 ClrReauthReq)
+	u8 ClrRdBuffer, u8 ClrReady, u8 ClrReauthReq)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->Handles.IsDdcAllCallbacksSet == TRUE);
 
-	u8 RxStatus[2];
+	/* Clear READY flag */
+	if(ClrReady) {
+		InstancePtr->Info.TopologyReady = FALSE;
+	}
 
-	/* Get RxStatus */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS0_REG);
-	RxStatus[0] = InstancePtr->Handles.DdcGetDataCallback(InstancePtr->Handles.DdcGetDataCallbackRef);
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS1_REG);
-	RxStatus[1] = InstancePtr->Handles.DdcGetDataCallback(InstancePtr->Handles.DdcGetDataCallbackRef);
+	/* Clear REAUTH_REQ flag */
+	if(ClrReauthReq) {
+		InstancePtr->Info.ReauthReq = FALSE;
+	}
 
-	/* Clear RxStatus[9:0] Message_Size field */
-  if(ClrRdBuffer)
-		*(u16 *)RxStatus &= ~(0x03FF);
-	/* Clear RxStatus[10] READY bit */
-	if(ClrReady)
-		*(u16 *)RxStatus &= ~(0x0400);
-	/* Clear RxStatus[11] REAUTH_REQ bit */
-	if(ClrReauthReq)
-		*(u16 *)RxStatus &= ~(0x0800);
-
-	/* Set RXSTATUS registers */
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS0_REG);
-	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, RxStatus[0]);
-	InstancePtr->Handles.DdcSetAddressCallback(InstancePtr->Handles.DdcSetAddressCallbackRef, XHDCP22_RX_DDC_RXSTATUS1_REG);
-	InstancePtr->Handles.DdcSetDataCallback(InstancePtr->Handles.DdcSetDataCallbackRef, RxStatus[1]);
+	/* Update RxStatus register */
+	XHdcp22Rx_SetRxStatus(InstancePtr, 0, InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
 
 	/* Reset read message buffers */
 	if(ClrRdBuffer)
@@ -1677,8 +1662,9 @@ static void XHdcp22Rx_ResetDdc(XHdcp22_Rx *InstancePtr, u8 ClrWrBuffer,
 	}
 
 	/* Reset write message buffers */
-	if(ClrWrBuffer)
+	if(ClrWrBuffer) {
 		InstancePtr->Handles.DdcClearWriteBufferCallback(InstancePtr->Handles.DdcClearWriteBufferCallbackRef);
+	}
 
 	/* Clear DDC error flags */
 	InstancePtr->Info.ErrorFlag &= ~XHDCP22_RX_ERROR_FLAG_DDC_BURST;
@@ -1799,8 +1785,8 @@ static int XHdcp22Rx_PollMessage(XHdcp22_Rx *InstancePtr)
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	int Size = 0;
-	int Offset = 0;
+	u32 Size = 0;
+	u32 Offset = 0;
 
 	/* Get message */
 	if(XHdcp22Rx_IsWriteMessageAvailable(InstancePtr) == TRUE)
@@ -2138,9 +2124,6 @@ static void *XHdcp22Rx_StateB3(XHdcp22_Rx *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-
-	int Status;
-	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Update state */
 	InstancePtr->Info.AuthenticationStatus = XHDCP22_RX_AUTHENTICATION_BUSY;
@@ -2610,6 +2593,8 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 						case XHDCP22_RX_STATE_C7_SEND_STREAM_READY:
 							InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
 							return XHdcp22Rx_StateC7;
+						default:
+							break;
 						}
 					}
 				}
@@ -2934,6 +2919,8 @@ static int XHdcp22Rx_ProcessMessageAKEInit(XHdcp22_Rx *InstancePtr)
 
 	/* Reset repeater values */
 	memset(&InstancePtr->Topology, 0, sizeof(XHdcp22_Rx_Topology));
+	InstancePtr->Info.ReauthReq = FALSE;
+	InstancePtr->Info.TopologyReady = FALSE;
 	InstancePtr->Info.IsTopologyValid = FALSE;
 	InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
 	InstancePtr->Info.SeqNumV = 0;
@@ -2992,7 +2979,7 @@ static int XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx *InstancePtr)
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	int Offset = 0;
+	u32 Offset = 0;
 	int Status = XST_SUCCESS;
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
@@ -3012,7 +2999,8 @@ static int XHdcp22Rx_SendMessageAKESendCert(XHdcp22_Rx *InstancePtr)
 	}
 
 	/* Write message size signaling completion */
-	XHdcp22Rx_SetDdcMessageSize(InstancePtr, sizeof(XHdcp22_Rx_AKESendCert), FALSE);
+	XHdcp22Rx_SetRxStatus(InstancePtr, sizeof(XHdcp22_Rx_AKESendCert),
+		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
 
 	/* Record Rrx and RxCaps */
 	memcpy(InstancePtr->Params.Rrx, MsgPtr->AKESendCert.Rrx, XHDCP22_RX_RRX_SIZE);
@@ -3127,7 +3115,7 @@ static int XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx *InstancePtr)
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	int Offset;
+	u32 Offset;
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
 
 	/* Compute H Prime */
@@ -3150,7 +3138,8 @@ static int XHdcp22Rx_SendMessageAKESendHPrime(XHdcp22_Rx *InstancePtr)
 	}
 
 	/* Write message size signaling completion */
-	XHdcp22Rx_SetDdcMessageSize(InstancePtr, sizeof(XHdcp22_Rx_AKESendHPrime), FALSE);
+	XHdcp22Rx_SetRxStatus(InstancePtr, sizeof(XHdcp22_Rx_AKESendHPrime),
+		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
 
 	/* Record HPrime */
 	memcpy(InstancePtr->Params.HPrime, MsgPtr->AKESendHPrime.HPrime, XHDCP22_RX_HPRIME_SIZE);
@@ -3186,7 +3175,7 @@ static int XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
 	u8 M[XHDCP22_RX_RTX_SIZE+XHDCP22_RX_RRX_SIZE];
 	u8 EKhKm[XHDCP22_RX_EKH_SIZE];
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
-	int Offset;
+	u32 Offset;
 
 	/* Concatenate M = (Rtx || Rrx) */
 	memcpy(M, InstancePtr->Params.Rtx, XHDCP22_RX_RTX_SIZE);
@@ -3211,7 +3200,8 @@ static int XHdcp22Rx_SendMessageAKESendPairingInfo(XHdcp22_Rx *InstancePtr)
 	}
 
 	/* Write message size signaling completion */
-	XHdcp22Rx_SetDdcMessageSize(InstancePtr, sizeof(XHdcp22_Rx_AKESendPairingInfo), FALSE);
+	XHdcp22Rx_SetRxStatus(InstancePtr, sizeof(XHdcp22_Rx_AKESendPairingInfo),
+		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
 
 	/* Record Ekh */
 	memcpy(InstancePtr->Params.EKh, EKhKm, XHDCP22_RX_EKH_SIZE);
@@ -3282,7 +3272,7 @@ static int XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
-	int Offset;
+	u32 Offset;
 
 	/* Compute LPrime */
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_LPRIME);
@@ -3303,7 +3293,8 @@ static int XHdcp22Rx_SendMessageLCSendLPrime(XHdcp22_Rx *InstancePtr)
 	}
 
 	/* Write message size signaling completion */
-	XHdcp22Rx_SetDdcMessageSize(InstancePtr, sizeof(XHdcp22_Rx_LCSendLPrime), FALSE);
+	XHdcp22Rx_SetRxStatus(InstancePtr, sizeof(XHdcp22_Rx_LCSendLPrime),
+		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
 
 	/* Record LPrime parameter */
 	memcpy(InstancePtr->Params.LPrime, MsgPtr->LCSendLPrime.LPrime, XHDCP22_RX_LPRIME_SIZE);
@@ -3390,8 +3381,8 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
-	int Offset;
-	int MessageSize;
+	u32 Offset;
+	u32 MessageSize;
 
 	/* Set message ID */
 	MsgPtr->RepeaterAuthSendRxIdList.MsgId      =
@@ -3466,8 +3457,12 @@ static int XHdcp22Rx_SendMessageRepeaterAuthSendRxIdList(XHdcp22_Rx *InstancePtr
 			InstancePtr->MessageBuffer[Offset]);
 	}
 
+	/* Set the TopologyReady flag */
+	InstancePtr->Info.TopologyReady = TRUE;
+
 	/* Write message size and assert the RxStatus READY bit signaling completion */
-	XHdcp22Rx_SetDdcMessageSize(InstancePtr, MessageSize, TRUE);
+	XHdcp22Rx_SetRxStatus(InstancePtr, MessageSize,
+		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
 
 	/* Start 2 second timer */
 	XHdcp22Rx_StartTimer(InstancePtr, XHDCP22_RX_REPEATERAUTH_ACK_INTERVAL, 0);
@@ -3594,7 +3589,7 @@ static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	XHdcp22_Rx_Message *MsgPtr = (XHdcp22_Rx_Message*)InstancePtr->MessageBuffer;
-	int Offset;
+	u32 Offset;
 
 	/* Compute MPrime */
 	XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_DEBUG, XHDCP22_RX_LOG_DEBUG_COMPUTE_MPRIME);
@@ -3616,7 +3611,8 @@ static int XHdcp22Rx_SendMessageRepeaterAuthStreamReady(XHdcp22_Rx *InstancePtr)
 	}
 
 	/* Write message size signaling completion */
-	XHdcp22Rx_SetDdcMessageSize(InstancePtr, sizeof(XHdcp22_Rx_RepeaterAuthStreamReady), FALSE);
+	XHdcp22Rx_SetRxStatus(InstancePtr, sizeof(XHdcp22_Rx_RepeaterAuthStreamReady),
+		InstancePtr->Info.ReauthReq, InstancePtr->Info.TopologyReady);
 
 	/* Record MPrime parameter */
 	memcpy(InstancePtr->Params.MPrime, MsgPtr->RepeaterAuthStreamReady.MPrime, XHDCP22_RX_MPRIME_SIZE);
@@ -3976,6 +3972,8 @@ void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
 				strcpy(str, "Asserted [ENCRYPTION_ENABLE]"); break;
 			case XHDCP22_RX_LOG_INFO_TOPOLOGY_UPDATE:
 				strcpy(str, "Asserted [TOPOLOGY_UPDATE]"); break;
+			default:
+				strcpy(str, "Unknown?"); break;
 			}
 			xil_printf("%s\r\n", str);
 			break;
@@ -4188,7 +4186,7 @@ void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
 			break;
 
 			default :
-			xil_printf("Unknown.\n\r");
+			xil_printf("Unknown?\n\r");
 			break;
 		}
 	} else {
@@ -4242,6 +4240,7 @@ void XHdcp22Rx_Info(XHdcp22_Rx *InstancePtr)
 ******************************************************************************/
 static void XHdcp22_Rx_StubRunHandler(void *HandlerRef)
 {
+	Xil_AssertVoid(HandlerRef != NULL);
 	Xil_AssertVoidAlways();
 }
 
@@ -4263,6 +4262,8 @@ static void XHdcp22_Rx_StubRunHandler(void *HandlerRef)
 ******************************************************************************/
 static void XHdcp22_Rx_StubSetHandler(void *HandlerRef, u32 Data)
 {
+	Xil_AssertVoid(HandlerRef != NULL);
+	Xil_AssertVoid(Data != 0);
 	Xil_AssertVoidAlways();
 }
 
@@ -4283,6 +4284,7 @@ static void XHdcp22_Rx_StubSetHandler(void *HandlerRef, u32 Data)
 ******************************************************************************/
 static u32 XHdcp22_Rx_StubGetHandler(void *HandlerRef)
 {
+	Xil_AssertNonvoid(HandlerRef != NULL);
 	Xil_AssertNonvoidAlways();
 }
 

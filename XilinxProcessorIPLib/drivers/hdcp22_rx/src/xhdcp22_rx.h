@@ -467,7 +467,11 @@ typedef struct
 	/** Flag indicates that AKE_No_Stored_Km message was received */
 	u8  IsNoStoredKm;
 	/** Number of LC_Init attempts */
-	u8  LCInitAttempts;
+	u16 LCInitAttempts;
+	/** Reauthentication request flag */
+	u8  ReauthReq;
+	/** Topology ready flag */
+	u8  TopologyReady;
 	/** Flag to capture error events that require service */
 	u32 ErrorFlag;
 	/** Flag to capture all error conditions persistently */
