@@ -44,19 +44,29 @@ typedef struct {
     u8  Packet_Per_Line;
     u16 Packet_Length;
     u16 Re_Packet_Length;
+
+    u32 SSRC;
+    u8  DynamicPayloadType;
 } XV_dpt4175_PcktInfo;
 
 typedef struct {
     u16 DeviceId;
-    u32 Ctrl_BaseAddress;
+    UINTPTR Ctrl_BaseAddress;
+
+    u8 DynamicBPCEn;
+    u8 MaxBPC;
+    u8 SamplesPerClock;
+    u8 MPcktDetEn;
+    u16 MaxCol;
+    u16 MaxRow;
 } XV_dpt4175_Config;
 #endif
 
 typedef struct {
-    u32 Ctrl_BaseAddress;
+    XV_dpt4175_Config Config;
     u32 IsReady;
 
-    XV_dpt4175_PcktInfo PcktInfo;
+    XV_dpt4175_PcktInfo  PcktInfo;
     XVidC_VideoStream   VideoStream;
 } XV_dpt4175;
 
@@ -92,8 +102,9 @@ int XV_dpt4175_Release(XV_dpt4175 *InstancePtr);
 #endif
 
 void XV_dpt4175_SetVideoStream(XV_dpt4175 *InstancePtr, XVidC_VideoStream VidStream);
+void XV_dpt4175_SetPcktInfo (XV_dpt4175 *InstancePtr);
 XV_dpt4175_PcktInfo XV_dpt4175_ComputePckt (XV_dpt4175 *InstancePtr);
-u16 XV_dpt4175_LCM (int x, int y);
+u16 XV_dpt4175_LCM (int FirstVal, int SecondVal);
 
 void XV_dpt4175_Start(XV_dpt4175 *InstancePtr);
 u32 XV_dpt4175_IsDone(XV_dpt4175 *InstancePtr);
@@ -118,14 +129,10 @@ void XV_dpt4175_Set_HwReg_bpc_reg_V(XV_dpt4175 *InstancePtr, u32 Data);
 u32 XV_dpt4175_Get_HwReg_bpc_reg_V(XV_dpt4175 *InstancePtr);
 u32 XV_dpt4175_Get_HwReg_rx_pkt_cnt_V(XV_dpt4175 *InstancePtr);
 u32 XV_dpt4175_Get_HwReg_rx_pkt_cnt_V_vld(XV_dpt4175 *InstancePtr);
-void XV_dpt4175_Set_HwReg_module_reset_V(XV_dpt4175 *InstancePtr, u32 Data);
-u32 XV_dpt4175_Get_HwReg_module_reset_V(XV_dpt4175 *InstancePtr);
+void XV_dpt4175_Set_HwReg_reserved1_V(XV_dpt4175 *InstancePtr, u32 Data);
+u32 XV_dpt4175_Get_HwReg_reserved1_V(XV_dpt4175 *InstancePtr);
 void XV_dpt4175_Set_HwReg_stat_reset_V(XV_dpt4175 *InstancePtr, u32 Data);
 u32 XV_dpt4175_Get_HwReg_stat_reset_V(XV_dpt4175 *InstancePtr);
-u32 XV_dpt4175_Get_HwReg_ppc_gui_V(XV_dpt4175 *InstancePtr);
-u32 XV_dpt4175_Get_HwReg_ppc_gui_V_vld(XV_dpt4175 *InstancePtr);
-u32 XV_dpt4175_Get_HwReg_max_bpc_gui_V(XV_dpt4175 *InstancePtr);
-u32 XV_dpt4175_Get_HwReg_max_bpc_gui_V_vld(XV_dpt4175 *InstancePtr);
 
 void XV_dpt4175_InterruptGlobalEnable(XV_dpt4175 *InstancePtr);
 void XV_dpt4175_InterruptGlobalDisable(XV_dpt4175 *InstancePtr);

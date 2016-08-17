@@ -49,7 +49,7 @@
 //        others   - reserved
 // 0x3c : reserved
 // 0x40 : Data signal of HwReg_bpc_reg_V
-//        bit 3~0 - HwReg_bpc_reg_V[3:0] (Read/Write)
+//        bit 4~0 - HwReg_bpc_reg_V[4:0] (Read/Write)
 //        others  - reserved
 // 0x44 : reserved
 // 0x48 : Data signal of HwReg_rx_pkt_cnt_V
@@ -57,26 +57,14 @@
 // 0x4c : Control signal of HwReg_rx_pkt_cnt_V
 //        bit 0  - HwReg_rx_pkt_cnt_V_ap_vld (Read/COR)
 //        others - reserved
-// 0x50 : Data signal of HwReg_module_reset_V
-//        bit 0  - HwReg_module_reset_V[0] (Read/Write)
+// 0x50 : Data signal of HwReg_reserved1_V
+//        bit 0  - HwReg_reserved1_V[0] (Read/Write)
 //        others - reserved
 // 0x54 : reserved
 // 0x58 : Data signal of HwReg_stat_reset_V
 //        bit 0  - HwReg_stat_reset_V[0] (Read/Write)
 //        others - reserved
 // 0x5c : reserved
-// 0x60 : Data signal of HwReg_ppc_gui_V
-//        bit 3~0 - HwReg_ppc_gui_V[3:0] (Read)
-//        others  - reserved
-// 0x64 : Control signal of HwReg_ppc_gui_V
-//        bit 0  - HwReg_ppc_gui_V_ap_vld (Read/COR)
-//        others - reserved
-// 0x68 : Data signal of HwReg_max_bpc_gui_V
-//        bit 3~0 - HwReg_max_bpc_gui_V[3:0] (Read)
-//        others  - reserved
-// 0x6c : Control signal of HwReg_max_bpc_gui_V
-//        bit 0  - HwReg_max_bpc_gui_V_ap_vld (Read/COR)
-//        others - reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_DPT4175_CTRL_ADDR_AP_CTRL                   0x00
@@ -96,17 +84,11 @@
 #define XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_LAST_V_DATA 0x38
 #define XV_DPT4175_CTRL_BITS_HWREG_PYLDLEN_LAST_V_DATA 11
 #define XV_DPT4175_CTRL_ADDR_HWREG_BPC_REG_V_DATA      0x40
-#define XV_DPT4175_CTRL_BITS_HWREG_BPC_REG_V_DATA      4
+#define XV_DPT4175_CTRL_BITS_HWREG_BPC_REG_V_DATA      5
 #define XV_DPT4175_CTRL_ADDR_HWREG_RX_PKT_CNT_V_DATA   0x48
 #define XV_DPT4175_CTRL_BITS_HWREG_RX_PKT_CNT_V_DATA   32
 #define XV_DPT4175_CTRL_ADDR_HWREG_RX_PKT_CNT_V_CTRL   0x4c
-#define XV_DPT4175_CTRL_ADDR_HWREG_MODULE_RESET_V_DATA 0x50
-#define XV_DPT4175_CTRL_BITS_HWREG_MODULE_RESET_V_DATA 1
+#define XV_DPT4175_CTRL_ADDR_HWREG_RESERVED1_V_DATA    0x50
+#define XV_DPT4175_CTRL_BITS_HWREG_RESERVED1_V_DATA    1
 #define XV_DPT4175_CTRL_ADDR_HWREG_STAT_RESET_V_DATA   0x58
 #define XV_DPT4175_CTRL_BITS_HWREG_STAT_RESET_V_DATA   1
-#define XV_DPT4175_CTRL_ADDR_HWREG_PPC_GUI_V_DATA      0x60
-#define XV_DPT4175_CTRL_BITS_HWREG_PPC_GUI_V_DATA      4
-#define XV_DPT4175_CTRL_ADDR_HWREG_PPC_GUI_V_CTRL      0x64
-#define XV_DPT4175_CTRL_ADDR_HWREG_MAX_BPC_GUI_V_DATA  0x68
-#define XV_DPT4175_CTRL_BITS_HWREG_MAX_BPC_GUI_V_DATA  4
-#define XV_DPT4175_CTRL_ADDR_HWREG_MAX_BPC_GUI_V_CTRL  0x6c

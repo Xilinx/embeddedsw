@@ -14,7 +14,12 @@ int XV_dpt4175_CfgInitialize(XV_dpt4175 *InstancePtr, XV_dpt4175_Config *ConfigP
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(ConfigPtr != NULL);
 
-    InstancePtr->Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
+    /* Setup the instance */
+    (void)memset((void *)InstancePtr, 0, sizeof(XV_dpt4175));
+    (void)memcpy((void *)&(InstancePtr->Config), (const void *)ConfigPtr,
+            sizeof(XV_dpt4175_Config));
+
+    InstancePtr->Config.Ctrl_BaseAddress = ConfigPtr->Ctrl_BaseAddress;
     InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
     return XST_SUCCESS;
@@ -27,8 +32,8 @@ void XV_dpt4175_Start(XV_dpt4175 *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL) & 0x80;
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL, Data | 0x01);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL) & 0x80;
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL, Data | 0x01);
 }
 
 u32 XV_dpt4175_IsDone(XV_dpt4175 *InstancePtr) {
@@ -37,7 +42,7 @@ u32 XV_dpt4175_IsDone(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL);
     return (Data >> 1) & 0x1;
 }
 
@@ -47,7 +52,7 @@ u32 XV_dpt4175_IsIdle(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL);
     return (Data >> 2) & 0x1;
 }
 
@@ -57,7 +62,7 @@ u32 XV_dpt4175_IsReady(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL);
     // check ap_start to see if the pcore is ready for next input
     return !(Data & 0x1);
 }
@@ -66,21 +71,21 @@ void XV_dpt4175_EnableAutoRestart(XV_dpt4175 *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL, 0x80);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL, 0x80);
 }
 
 void XV_dpt4175_DisableAutoRestart(XV_dpt4175 *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL, 0);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_AP_CTRL, 0);
 }
 
 void XV_dpt4175_Set_HwReg_width_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_WIDTH_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_WIDTH_V_DATA, Data);
 }
 
 u32 XV_dpt4175_Get_HwReg_width_V(XV_dpt4175 *InstancePtr) {
@@ -89,7 +94,7 @@ u32 XV_dpt4175_Get_HwReg_width_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_WIDTH_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_WIDTH_V_DATA);
     return Data;
 }
 
@@ -97,7 +102,7 @@ void XV_dpt4175_Set_HwReg_height_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_HEIGHT_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_HEIGHT_V_DATA, Data);
 }
 
 u32 XV_dpt4175_Get_HwReg_height_V(XV_dpt4175 *InstancePtr) {
@@ -106,7 +111,7 @@ u32 XV_dpt4175_Get_HwReg_height_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_HEIGHT_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_HEIGHT_V_DATA);
     return Data;
 }
 
@@ -114,7 +119,7 @@ void XV_dpt4175_Set_HwReg_video_format_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_VIDEO_FORMAT_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_VIDEO_FORMAT_V_DATA, Data);
 }
 
 u32 XV_dpt4175_Get_HwReg_video_format_V(XV_dpt4175 *InstancePtr) {
@@ -123,7 +128,7 @@ u32 XV_dpt4175_Get_HwReg_video_format_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_VIDEO_FORMAT_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_VIDEO_FORMAT_V_DATA);
     return Data;
 }
 
@@ -131,7 +136,7 @@ void XV_dpt4175_Set_HwReg_PktsPerLine_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PKTSPERLINE_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PKTSPERLINE_V_DATA, Data);
 }
 
 u32 XV_dpt4175_Get_HwReg_PktsPerLine_V(XV_dpt4175 *InstancePtr) {
@@ -140,7 +145,7 @@ u32 XV_dpt4175_Get_HwReg_PktsPerLine_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PKTSPERLINE_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PKTSPERLINE_V_DATA);
     return Data;
 }
 
@@ -148,7 +153,7 @@ void XV_dpt4175_Set_HwReg_PyldLen_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_V_DATA, Data);
 }
 
 u32 XV_dpt4175_Get_HwReg_PyldLen_V(XV_dpt4175 *InstancePtr) {
@@ -157,7 +162,7 @@ u32 XV_dpt4175_Get_HwReg_PyldLen_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_V_DATA);
     return Data;
 }
 
@@ -165,7 +170,7 @@ void XV_dpt4175_Set_HwReg_PyldLen_last_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_LAST_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_LAST_V_DATA, Data);
 }
 
 u32 XV_dpt4175_Get_HwReg_PyldLen_last_V(XV_dpt4175 *InstancePtr) {
@@ -174,7 +179,7 @@ u32 XV_dpt4175_Get_HwReg_PyldLen_last_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_LAST_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PYLDLEN_LAST_V_DATA);
     return Data;
 }
 
@@ -182,7 +187,7 @@ void XV_dpt4175_Set_HwReg_bpc_reg_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_BPC_REG_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_BPC_REG_V_DATA, Data);
 }
 
 u32 XV_dpt4175_Get_HwReg_bpc_reg_V(XV_dpt4175 *InstancePtr) {
@@ -191,7 +196,7 @@ u32 XV_dpt4175_Get_HwReg_bpc_reg_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_BPC_REG_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_BPC_REG_V_DATA);
     return Data;
 }
 
@@ -201,7 +206,7 @@ u32 XV_dpt4175_Get_HwReg_rx_pkt_cnt_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_RX_PKT_CNT_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_RX_PKT_CNT_V_DATA);
     return Data;
 }
 
@@ -211,24 +216,24 @@ u32 XV_dpt4175_Get_HwReg_rx_pkt_cnt_V_vld(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_RX_PKT_CNT_V_CTRL);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_RX_PKT_CNT_V_CTRL);
     return Data & 0x1;
 }
 
-void XV_dpt4175_Set_HwReg_module_reset_V(XV_dpt4175 *InstancePtr, u32 Data) {
+void XV_dpt4175_Set_HwReg_reserved1_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_MODULE_RESET_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_RESERVED1_V_DATA, Data);
 }
 
-u32 XV_dpt4175_Get_HwReg_module_reset_V(XV_dpt4175 *InstancePtr) {
+u32 XV_dpt4175_Get_HwReg_reserved1_V(XV_dpt4175 *InstancePtr) {
     u32 Data;
 
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_MODULE_RESET_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_RESERVED1_V_DATA);
     return Data;
 }
 
@@ -236,7 +241,7 @@ void XV_dpt4175_Set_HwReg_stat_reset_V(XV_dpt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_STAT_RESET_V_DATA, Data);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_STAT_RESET_V_DATA, Data);
 }
 
 u32 XV_dpt4175_Get_HwReg_stat_reset_V(XV_dpt4175 *InstancePtr) {
@@ -245,62 +250,22 @@ u32 XV_dpt4175_Get_HwReg_stat_reset_V(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_STAT_RESET_V_DATA);
+    Data = XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_STAT_RESET_V_DATA);
     return Data;
-}
-
-u32 XV_dpt4175_Get_HwReg_ppc_gui_V(XV_dpt4175 *InstancePtr) {
-    u32 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PPC_GUI_V_DATA);
-    return Data;
-}
-
-u32 XV_dpt4175_Get_HwReg_ppc_gui_V_vld(XV_dpt4175 *InstancePtr) {
-    u32 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_PPC_GUI_V_CTRL);
-    return Data & 0x1;
-}
-
-u32 XV_dpt4175_Get_HwReg_max_bpc_gui_V(XV_dpt4175 *InstancePtr) {
-    u32 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_MAX_BPC_GUI_V_DATA);
-    return Data;
-}
-
-u32 XV_dpt4175_Get_HwReg_max_bpc_gui_V_vld(XV_dpt4175 *InstancePtr) {
-    u32 Data;
-
-    Xil_AssertNonvoid(InstancePtr != NULL);
-    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    Data = XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_HWREG_MAX_BPC_GUI_V_CTRL);
-    return Data & 0x1;
 }
 
 void XV_dpt4175_InterruptGlobalEnable(XV_dpt4175 *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_GIE, 1);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_GIE, 1);
 }
 
 void XV_dpt4175_InterruptGlobalDisable(XV_dpt4175 *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_GIE, 0);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_GIE, 0);
 }
 
 void XV_dpt4175_InterruptEnable(XV_dpt4175 *InstancePtr, u32 Mask) {
@@ -309,8 +274,8 @@ void XV_dpt4175_InterruptEnable(XV_dpt4175 *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER);
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER, Register | Mask);
+    Register =  XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER, Register | Mask);
 }
 
 void XV_dpt4175_InterruptDisable(XV_dpt4175 *InstancePtr, u32 Mask) {
@@ -319,33 +284,54 @@ void XV_dpt4175_InterruptDisable(XV_dpt4175 *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Register =  XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER);
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER, Register & (~Mask));
+    Register =  XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER, Register & (~Mask));
 }
 
 void XV_dpt4175_InterruptClear(XV_dpt4175 *InstancePtr, u32 Mask) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt4175_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_ISR, Mask);
+    XV_dpt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_ISR, Mask);
 }
 
 u32 XV_dpt4175_InterruptGetEnabled(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER);
+    return XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_IER);
 }
 
 u32 XV_dpt4175_InterruptGetStatus(XV_dpt4175 *InstancePtr) {
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    return XV_dpt4175_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_ISR);
+    return XV_dpt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_DPT4175_CTRL_ADDR_ISR);
 }
 
-void XV_dpt4175_SetVideoStream(XV_dpt4175 *InstancePtr, XVidC_VideoStream VidStream) {
+void XV_dpt4175_SetVideoStream(XV_dpt4175 *InstancePtr,
+                                                  XVidC_VideoStream VidStream) {
     InstancePtr->VideoStream = VidStream;
+
+    XV_dpt4175_Set_HwReg_width_V(InstancePtr,VidStream.Timing.HActive);
+    XV_dpt4175_Set_HwReg_height_V(InstancePtr,VidStream.Timing.VActive);
+
+    XV_dpt4175_Set_HwReg_video_format_V(InstancePtr,VidStream.ColorFormatId);
+}
+
+void XV_dpt4175_SetPcktInfo (XV_dpt4175 *InstancePtr) {
+    XV_dpt4175_PcktInfo XV_dpt4175_PcktInfoVal;
+
+    XV_dpt4175_PcktInfoVal = XV_dpt4175_ComputePckt (InstancePtr);
+
+    XV_dpt4175_Set_HwReg_PyldLen_V(InstancePtr,
+                                       XV_dpt4175_PcktInfoVal.Packet_Length);
+
+    XV_dpt4175_Set_HwReg_PyldLen_last_V(InstancePtr,
+                                       XV_dpt4175_PcktInfoVal.Re_Packet_Length);
+
+    XV_dpt4175_Set_HwReg_PktsPerLine_V(InstancePtr,
+                                       XV_dpt4175_PcktInfoVal.Packet_Per_Line);
 }
 
 XV_dpt4175_PcktInfo XV_dpt4175_ComputePckt (XV_dpt4175 *InstancePtr) {
@@ -367,7 +353,17 @@ XV_dpt4175_PcktInfo XV_dpt4175_ComputePckt (XV_dpt4175 *InstancePtr) {
     Active_Width = InstancePtr->VideoStream.Timing.HActive;
     Active_Heigth = InstancePtr->VideoStream.Timing.VActive;
 
-    BPC = InstancePtr->VideoStream.ColorDepth;
+    //Check if the core has Dynamic BPC enabled
+    if (InstancePtr->Config.DynamicBPCEn) {
+        /*If Supported used BPC information obtained
+         *from source
+         */
+        BPC = InstancePtr->VideoStream.ColorDepth;
+    } else {
+        BPC = InstancePtr->Config.MaxBPC;
+    }
+    XV_dpt4175_Set_HwReg_bpc_reg_V(InstancePtr, BPC);
+
     PPC = InstancePtr->VideoStream.PixPerClk;
 
     switch (InstancePtr->VideoStream.ColorFormatId){
@@ -376,26 +372,31 @@ XV_dpt4175_PcktInfo XV_dpt4175_ComputePckt (XV_dpt4175 *InstancePtr) {
             Comp_Per_Pixel=3;
             Comp_Per_Unit=3;
             break;
+
         case  XVIDC_CSF_YCRCB_444:
             Comp_Per_Pixel=3;
             Comp_Per_Unit=3;
             break;
+
         case  XVIDC_CSF_YCRCB_422:
             Comp_Per_Pixel=2;
             Comp_Per_Unit=4;
             break;
+
         case  XVIDC_CSF_YCRCB_420:
             Comp_Per_Pixel=1.5;
+            Comp_Per_Unit=6;
             break;
+
         default:
             Comp_Per_Pixel=0;
-            Comp_Per_Unit=6;
+            Comp_Per_Unit=0;
             break;
     }
 
     Active_Line_Length = (Active_Width*Comp_Per_Pixel*BPC)/8;
 
-    PGroup_Bytes = (XV_dpt4175_LCM (BPC,8))/8;
+    PGroup_Bytes = (XV_dpt4175_LCM ((BPC*Comp_Per_Unit),8))/8;
 
     Bytes_per_Cycle = (BPC*PPC*Comp_Per_Pixel)/8;
 
@@ -408,34 +409,26 @@ XV_dpt4175_PcktInfo XV_dpt4175_ComputePckt (XV_dpt4175 *InstancePtr) {
                                            XV_dpt4175_PcktInfoVal.Packet_Length;
 
     XV_dpt4175_PcktInfoVal.Packet_Per_Line =
-             (XV_dpt4175_PcktInfoVal.Re_Packet_Length > 0) ?
-                 ((Active_Line_Length/XV_dpt4175_PcktInfoVal.Packet_Length)+1) :
-                       (Active_Line_Length/XV_dpt4175_PcktInfoVal.Packet_Length);
-
-    xil_printf("Packet Length         : %d\n\r",XV_dpt4175_PcktInfoVal.Packet_Length);
-    xil_printf("Last Packet Length    : %d\n\r",XV_dpt4175_PcktInfoVal.Re_Packet_Length);
-    xil_printf("Packet Per Line       : %d\n\r",XV_dpt4175_PcktInfoVal.Packet_Per_Line);
-
-//  XV_pt4175_Set_HwReg_PktLength_V(InstancePtr, Packet_Len);
-//  XV_pt4175_Set_HwReg_NumOfPktPerLine_V(InstancePtr, Last_Packet_Len);
-//  XV_pt4175_Set_HwReg_ResLength_V(InstancePtr, Packet_Per_Line);
+           (XV_dpt4175_PcktInfoVal.Re_Packet_Length > 0) ?
+               ((Active_Line_Length/XV_dpt4175_PcktInfoVal.Packet_Length)+1) :
+                      (Active_Line_Length/XV_dpt4175_PcktInfoVal.Packet_Length);
 
     return (XV_dpt4175_PcktInfoVal);
 }
 
-
-u16 XV_dpt4175_LCM (int x, int y) {
+u16 XV_dpt4175_LCM (int FirstVal, int SecondVal) {
     u16 Index;
     u16 LCMval;
 
-    Index = (x>y) ? x:y;
+    Index = (FirstVal > SecondVal) ? FirstVal:SecondVal;
 
     while (1) {
-        if (Index%x==0 && Index%y==0){
+        if (((Index % FirstVal) == 0) &&
+                   ((Index % SecondVal) == 0)){
             LCMval = Index;
             break;
         }
-        ++Index;
+        Index ++;
     }
     return (LCMval);
 }
