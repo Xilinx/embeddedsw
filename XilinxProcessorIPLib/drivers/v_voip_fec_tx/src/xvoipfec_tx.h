@@ -216,7 +216,8 @@ XVoipFEC_TX_Config *XVoipFEC_TX_LookupConfig(u16 DeviceId);
 
 /* Level 2 Drivers/API */
 int XVoipFEC_TX_CfgInitialize(XVoipFEC_TX *InstancePtr,
-                                 XVoipFEC_TX_Config *CfgPtr, u32 EffectiveAddr);
+                                 XVoipFEC_TX_Config *CfgPtr,
+                                                         UINTPTR EffectiveAddr);
 XVoipFEC_TX_Config XVoipFEC_TX_CoreStatusRegValue(XVoipFEC_TX *InstancePtr);
 XVoipFEC_TX_PktCnt XVoipFEC_TX_CoreStatisics(XVoipFEC_TX *InstancePtr);
 XVoipFEC_TX_FECParams
