@@ -43,6 +43,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/08/15 Initial release
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 ******************************************************************************/
 
@@ -85,19 +86,19 @@
 * @note		None.
 *****************************************************************************/
 u32 XDphy_CfgInitialize(XDphy *InstancePtr, XDphy_Config *CfgPtr,
-						u32 EffectiveAddr)
+						UINTPTR EffectiveAddr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid((u32 *)EffectiveAddr != NULL);
+	Xil_AssertNonvoid(EffectiveAddr != 0);
 
 	/* Setup the instance */
 	InstancePtr->Config = *CfgPtr;
 
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
 
-	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
+	InstancePtr->IsReady = (XIL_COMPONENT_IS_READY);
 
 	return XST_SUCCESS;
 }

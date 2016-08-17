@@ -117,6 +117,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/08/15 Initial release
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -194,7 +195,7 @@ extern "C" {
 * @note 	None
 *
 ****************************************************************************/
-static inline void XDphy_BitSet(u32 BaseAddress, u32 RegisterOffset,
+static inline void XDphy_BitSet(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask)
 {
 	XDphy_WriteReg(BaseAddress, RegisterOffset,
@@ -216,7 +217,7 @@ static inline void XDphy_BitSet(u32 BaseAddress, u32 RegisterOffset,
 *
 ****************************************************************************/
 
-static inline void XDphy_BitReset(u32 BaseAddress, u32 RegisterOffset,
+static inline void XDphy_BitReset(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask)
 {
 	XDphy_WriteReg(BaseAddress, RegisterOffset,
@@ -239,7 +240,7 @@ static inline void XDphy_BitReset(u32 BaseAddress, u32 RegisterOffset,
 * @note 	None
 *
 ****************************************************************************/
-static inline u32 XDphy_GetBitField(u32 BaseAddress, u32 RegisterOffset,
+static inline u32 XDphy_GetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 						u32 BitMask, u32 BitShift)
 {
 	return((XDphy_ReadReg(BaseAddress, RegisterOffset)
@@ -261,7 +262,7 @@ static inline u32 XDphy_GetBitField(u32 BaseAddress, u32 RegisterOffset,
 *
 * @note 	None
 ****************************************************************************/
-static inline void XDphy_SetBitField(u32 BaseAddress, u32 RegisterOffset,
+static inline void XDphy_SetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 				u32 BitMask, u32 BitShift, u32 Value)
 {
 	XDphy_WriteReg(BaseAddress, RegisterOffset,
@@ -279,7 +280,7 @@ static inline void XDphy_SetBitField(u32 BaseAddress, u32 RegisterOffset,
 */
 typedef struct {
 	u32 DeviceId; /**< Device Id */
-	u32 BaseAddr; /**< Base address of DPHY */
+	UINTPTR BaseAddr; /**< Base address of DPHY */
 
 	u32 IsRx; /**< TX or RX Mode */
 	u32 IsRegisterPresent; /**< Is register access allowed */
@@ -313,7 +314,7 @@ XDphy_Config *XDphy_LookupConfig(u32 DeviceId);
 
 /* Initialization and control functions xdphy.c */
 u32 XDphy_CfgInitialize(XDphy *InstancePtr, XDphy_Config *Config,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value);
 u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle);
 void XDphy_Reset(XDphy *InstancePtr);
