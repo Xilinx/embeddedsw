@@ -245,7 +245,7 @@ typedef struct {
 typedef struct {
     u16 DeviceId;      /**< DeviceId is the unique ID of the VoIP FEC Receiver
                        * core */
-    u32 BaseAddress;   /**< BaseAddress is the physical base address of the
+    UINTPTR BaseAddress;/**< BaseAddress is the physical base address of the
                        * core's registers */
 
     /*<Core Generics Info>*/
@@ -342,7 +342,7 @@ XVoipFEC_RX_Config *XVoipFEC_RX_LookupConfig(u16 DeviceId);
 
 /* Level 2 Drivers */
 int XVoipFEC_RX_CfgInitialize(XVoipFEC_RX *InstancePtr,
-                       XVoipFEC_RX_Config *CfgPtr, u32 EffectiveAddr);
+                       XVoipFEC_RX_Config *CfgPtr, UINTPTR EffectiveAddr);
 
 XVoipFEC_RX_Config XVoipFEC_RX_CoreInfo(XVoipFEC_RX *InstancePtr);
 XVoipFEC_RX_FECStatus XVoipFEC_RX_FECStatusRegValue

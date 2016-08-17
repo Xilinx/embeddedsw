@@ -90,7 +90,7 @@
 ******************************************************************************/
 int XVoipFEC_RX_CfgInitialize(XVoipFEC_RX *InstancePtr,
                                           XVoipFEC_RX_Config *CfgPtr,
-                                                             u32 EffectiveAddr)
+                                                          UINTPTR EffectiveAddr)
 {
     u16 Index;
 
@@ -475,8 +475,8 @@ void XVoipFEC_RX_ClearChannel(XVoipFEC_RX *InstancePtr, u16 Channels)
     Index = 0x00;
     while (XVoipFEC_RX_BusyBit(InstancePtr)) {
         if (Index == 65535){
-            xil_printf("Error: VoIP FEC Receiver Busy Bit Longer than \
-            Expected\n\r");
+            xdbg_printf(XDBG_DEBUG_GENERAL,"Error: VoIP FEC RX Busy Bit Longer \
+            than Expected\n\r");
             break;
         }
         Index ++;
