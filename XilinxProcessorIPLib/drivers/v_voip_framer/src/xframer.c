@@ -131,8 +131,8 @@ int XFramer_CfgInitialize(XFramer *InstancePtr,
     Index = 0x00;
     while (XFramer_BusyBit(InstancePtr)) {
         if (Index == 65535) {
-            xil_printf("Error: VoIP Framer Busy Bit Longer than \
-            Expected\n\r");
+            xdbg_printf(XDBG_DEBUG_GENERAL,"Error: VoIP Framer Busy Bit Longer \
+            than Expected\n\r");
             break;
         }
         Index ++;
@@ -451,8 +451,8 @@ void XFramer_ChannelAccess(XFramer *InstancePtr, u16 Channels)
     Index = 0x00;
     while (XFramer_BusyBit(InstancePtr)) {
         if (Index == 65535) {
-            xil_printf("Error: VoIP Framer Busy Bit Longer than \
-            Expected\n\r");
+            xdbg_printf(XDBG_DEBUG_GENERAL,"Error: VoIP Framer Busy Bit Longer \
+            than Expected\n\r");
             break;
         }
         Index ++;
