@@ -85,7 +85,7 @@ void Xil_DCacheEnable(void)
 
 	if (EL3 == 1) {
 		CtrlReg = mfcp(SCTLR_EL3);
-	} else if (EL1_NONSECURE == 1) {
+	} else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1)) {
 		CtrlReg = mfcp(SCTLR_EL1);
 	}
 
@@ -99,7 +99,7 @@ void Xil_DCacheEnable(void)
 		if (EL3 == 1) {
 			/* enable the Data cache for el3*/
 			mtcp(SCTLR_EL3,CtrlReg);
-		} else if (EL1_NONSECURE == 1) {
+		} else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1)) {
 			/* enable the Data cache for el1*/
 			mtcp(SCTLR_EL1,CtrlReg);
 		}
@@ -125,14 +125,14 @@ void Xil_DCacheDisable(void)
 
 	if (EL3 == 1) {
 		CtrlReg = mfcp(SCTLR_EL3);
-	} else if (EL1_NONSECURE == 1) {
+	} else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1)) {
 		CtrlReg = mfcp(SCTLR_EL1);
 	}
 	CtrlReg &= ~(XREG_CONTROL_DCACHE_BIT);
 	if (EL3 == 1) {
 		/* disable the Data cache for el3*/
 		mtcp(SCTLR_EL3,CtrlReg);
-	} else if (EL1_NONSECURE == 1) {
+	} else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1)) {
 		/* disable the Data cache for el1*/
 		mtcp(SCTLR_EL1,CtrlReg);
 	}
@@ -551,7 +551,7 @@ void Xil_ICacheEnable(void)
 	u32 CtrlReg;
 	if (EL3 == 1) {
 		CtrlReg = mfcp(SCTLR_EL3);
-	} else if (EL1_NONSECURE == 1) {
+	} else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1)) {
 		CtrlReg = mfcp(SCTLR_EL1);
 	}
 
@@ -565,7 +565,7 @@ void Xil_ICacheEnable(void)
 		if (EL3 == 1) {
 			/* enable the instruction cache for el3*/
 			mtcp(SCTLR_EL3,CtrlReg);
-		} else if (EL1_NONSECURE == 1) {
+		} else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1)) {
 			/* enable the instruction cache for el1*/
 			mtcp(SCTLR_EL1,CtrlReg);
 		}
@@ -588,7 +588,7 @@ void Xil_ICacheDisable(void)
 	u32 CtrlReg;
 	if (EL3 == 1) {
 		CtrlReg = mfcp(SCTLR_EL3);
-	} else if (EL1_NONSECURE == 1) {
+	} else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1)) {
 		CtrlReg = mfcp(SCTLR_EL1);
 	}
 
@@ -598,7 +598,7 @@ void Xil_ICacheDisable(void)
 	if (EL3 == 1) {
 		/* disable the instruction cache */
 		mtcp(SCTLR_EL3,CtrlReg);
-	} else if (EL1_NONSECURE == 1) {
+	} else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1)) {
 		/* disable the instruction cache */
 		mtcp(SCTLR_EL1,CtrlReg);
 	}

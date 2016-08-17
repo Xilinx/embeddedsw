@@ -360,6 +360,7 @@ proc generate {os_handle} {
 				if { $secstate == "secure" } {
 					puts $bspcfg_fh "#define EL3 1"
 					puts $bspcfg_fh "#define EL1_NONSECURE 0"
+					puts $bspcfg_fh "#define EL1_SECURE 0"
 				} else {
 					error "ERROR: EL3 is secure monitor state which cannot be built for non-secure state"
 				}
@@ -367,13 +368,17 @@ proc generate {os_handle} {
 				if { $secstate == "non-secure" } {
 					puts $bspcfg_fh "#define EL3 0"
 					puts $bspcfg_fh "#define EL1_NONSECURE 1"
+					puts $bspcfg_fh "#define EL1_SECURE 0"
 				} else {
-					error "ERROR: EL1 secure state is currently not supported"
+					puts $bspcfg_fh "#define EL3 0"
+					puts $bspcfg_fh "#define EL1_NONSECURE 0"
+					puts $bspcfg_fh "#define EL1_SECURE 1"
 				}
 			}
 		} elseif { $el_selection == "false" } {
 			puts $bspcfg_fh "#define EL3 1"
 			puts $bspcfg_fh "#define EL1_NONSECURE 0"
+			puts $bspcfg_fh "#define EL1_SECURE 0"
 		}
 	}
     }
