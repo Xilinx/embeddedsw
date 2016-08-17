@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal 
@@ -67,6 +67,8 @@
 *			   the IARCC compiler around PDBG, it is better to remove it.
 *			   Users can always use xil_printfs if they want to debug.
 * 2.01 kpc    08/23/14   Fixed the IAR compiler reported errors
+* 2.2  mus    12/08/16   Remove definition of INLINE macro to avoid re-definition,
+*                         since it is being defined in xil_io.h
 * </pre>
 *
 *****************************************************************************/
@@ -93,11 +95,6 @@
 
 /**************************** Type Definitions ******************************/
 
-#ifdef __ICCARM__
-#define INLINE
-#else
-#define INLINE __inline
-#endif
 /***************** Macros (Inline Functions) Definitions ********************/
 
 
