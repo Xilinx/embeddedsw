@@ -45,6 +45,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 06/17/15 Initial release
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 ******************************************************************************/
 
@@ -97,12 +98,12 @@ static void StubErrCallBack(void *Callbackref, u32 ErrorMask);
 * @note		None.
 *****************************************************************************/
 u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *CfgPtr,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid((u32 *)EffectiveAddr != NULL);
+	Xil_AssertNonvoid(EffectiveAddr != 0);
 
 	/* Setup the instance */
 	InstancePtr->Config = *CfgPtr;
@@ -120,7 +121,7 @@ u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *CfgPtr,
 
 	InstancePtr->ErrorCallBack = StubErrCallBack;
 
-	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	return XST_SUCCESS;
 }
@@ -152,7 +153,8 @@ u32 XCsi_Reset(XCsi *InstancePtr)
 	/* wait till core resets */
 	do {
 		Status = XCsi_IsSoftResetInProgress(InstancePtr);
-	} while (Status && Timeout--);
+		Timeout--;
+	} while (Status && Timeout);
 
 	if (!Timeout) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "CSI Reset failed\r\n");
@@ -192,7 +194,8 @@ u32 XCsi_Activate(XCsi *InstancePtr, u8 Flag)
 		/* wait till core resets */
 		do {
 			Status = XCsi_IsSoftResetInProgress(InstancePtr);
-		} while (Status && Timeout--);
+			Timeout--;
+		} while (Status && Timeout);
 
 		if (!Timeout) {
 			xdbg_printf(XDBG_DEBUG_ERROR, "CSI Reset failed\r\n");
@@ -253,7 +256,8 @@ u32 XCsi_Configure(XCsi *InstancePtr)
 	/* wait till core resets */
 	do {
 		Status = XCsi_IsSoftResetInProgress(InstancePtr);
-	} while (Status && Timeout--);
+		Timeout--;
+	} while (Status && Timeout);
 
 	if (!Timeout) {
 		xdbg_printf(XDBG_DEBUG_ERROR, "CSI Reset failed\r\n");

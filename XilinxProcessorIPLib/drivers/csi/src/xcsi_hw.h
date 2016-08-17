@@ -43,6 +43,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 06/15/15 Initial release
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 *****************************************************************************/
@@ -508,7 +509,7 @@ extern "C" {
 * @note		None
 *
 ******************************************************************************/
-static inline u32 XCsi_ReadReg(u32 BaseAddress, u32 RegOffset)
+static inline u32 XCsi_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 {
 	return Xil_In32(BaseAddress + (u32)RegOffset);
 }
@@ -526,7 +527,7 @@ static inline u32 XCsi_ReadReg(u32 BaseAddress, u32 RegOffset)
 * @note		None.
 *
 ******************************************************************************/
-static inline void XCsi_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+static inline void XCsi_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)
 {
 	Xil_Out32(BaseAddress + (u32)RegOffset, (u32)Data);
 }

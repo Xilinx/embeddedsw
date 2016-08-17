@@ -110,6 +110,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 06/16/15 Initial release
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -199,7 +200,7 @@ typedef struct {
 */
 typedef struct {
 	u32 DeviceId;		/**< Device Id */
-	u32 BaseAddr;		/**< Base address of CSI2 Rx Controller */
+	UINTPTR BaseAddr;	/**< Base address of CSI2 Rx Controller */
 	u32 MaxLanesPresent;	/**< Number of Lanes. Range 0 - 3 */
 	u32 HasOffloadNonImageSupport;	/**< Offload non image data
 					  *  via separate stream */
@@ -281,7 +282,7 @@ typedef struct {
 * @note		None
 *
 ****************************************************************************/
-static inline void XCsi_BitSet(u32 BaseAddress, u32 RegisterOffset,
+static inline void XCsi_BitSet(UINTPTR BaseAddress, u32 RegisterOffset,
 				u32 BitMask)
 {
 	XCsi_WriteReg(BaseAddress, RegisterOffset,
@@ -302,7 +303,7 @@ static inline void XCsi_BitSet(u32 BaseAddress, u32 RegisterOffset,
 * @note		None
 *
 ****************************************************************************/
-static inline void XCsi_BitReset(u32 BaseAddress, u32 RegisterOffset,
+static inline void XCsi_BitReset(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask)
 {
 	XCsi_WriteReg(BaseAddress, RegisterOffset,
@@ -324,7 +325,7 @@ static inline void XCsi_BitReset(u32 BaseAddress, u32 RegisterOffset,
 * @note 	None
 *
 ****************************************************************************/
-static inline u32 XCsi_GetBitField(u32 BaseAddress, u32 RegisterOffset,
+static inline u32 XCsi_GetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask, u32 BitShift)
 {
 	return((XCsi_ReadReg(BaseAddress, RegisterOffset)
@@ -347,7 +348,7 @@ static inline u32 XCsi_GetBitField(u32 BaseAddress, u32 RegisterOffset,
 * @note		None
 *
 ****************************************************************************/
-static inline void XCsi_SetBitField(u32 BaseAddress, u32 RegisterOffset,
+static inline void XCsi_SetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 					u32 BitMask, u32 BitShift, u32 Value)
 {
 	XCsi_WriteReg(BaseAddress, RegisterOffset,
@@ -673,7 +674,7 @@ XCsi_Config *XCsi_LookupConfig(u32 DeviceId);
 
 /* Initialization and control functions in xcsi.c */
 u32 XCsi_CfgInitialize(XCsi *InstancePtr, XCsi_Config *Config,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 u32 XCsi_Configure(XCsi *InstancePtr);
 u32 XCsi_Activate(XCsi *InstancePtr, u8 Flag);
 u32 XCsi_Reset(XCsi *InstancePtr);
