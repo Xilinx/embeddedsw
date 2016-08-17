@@ -245,6 +245,10 @@ XPm_ClientSuspendFinalize API for RPU now disables lock-step fault log before go
 Example now uses XPm_ClientSuspendFinalize API instead of a direct wfi
 call
 
+xilfpga_v1_0:
+Added supported_peripheral field in mld for xilfpga library.
+It supports only for ZynqMp.
+
 xilffs_v3_3:
 Added one second delay before CD pin check.
 Corrected the if condition logic.
