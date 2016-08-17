@@ -389,4 +389,5 @@
  *                     TTC counter value register is read only.
  * 6.0 asa   08/15/16  Modified the signatures for functions sleep and usleep. This fixes
  *                     the CR#956899.
+ * 6.0 pkp   08/15/16  Added Xil_Smc to call SMC from Cortex A53 64bit
  *****************************************************************************************/
