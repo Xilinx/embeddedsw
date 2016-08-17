@@ -23,6 +23,11 @@ Added new parameter for A53 execution mode
 ddrcpsu_v1_1:
 Export ddr freq value to xparameters.h file.
 
+dmaps_v2_2:
+Removed definition of "INLINE" macro from xdmaps.c to avoid
+re-definition of the same, since "INLINE" macro is defined
+in xil_io.h.
+
 dptx_v3_0:
 Obsoleted in lieu of the dp driver.
 
