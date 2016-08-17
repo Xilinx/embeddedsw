@@ -44,7 +44,8 @@
 *
 * Ver Who Date    Changes
 * --- --- ------- -------------------------------------------------------
-* 1.0 ram 11/2/16 Initial Release DSI driver
+* 1.0 ram 11/02/16 Initial Release DSI driver
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -96,12 +97,12 @@ static void StubErrCallback(void *CallbackRef, u32 ErrorMask);
 * @note		None.
 *****************************************************************************/
 u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *CfgPtr,
-					 u32 EffectiveAddr)
+					 UINTPTR EffectiveAddr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid((u32 *)EffectiveAddr != NULL);
+	Xil_AssertNonvoid(EffectiveAddr != 0);
 
 	/* Setup the instance */
 	InstancePtr->Config = *CfgPtr;
@@ -115,7 +116,7 @@ u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *CfgPtr,
 
 	InstancePtr->ErrorCallback = StubErrCallback;
 
-	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	return XST_SUCCESS;
 }

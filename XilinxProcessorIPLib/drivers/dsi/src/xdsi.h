@@ -47,7 +47,8 @@
 *
 * Ver Who Date    Changes
 * --- --- ------- -------------------------------------------------------
-* 1.0 ram 11/2/16 Initial Release for DSI driver
+* 1.0 ram 11/02/16 Initial Release for DSI driver
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -130,7 +131,7 @@ typedef struct {
  */
 typedef struct {
 	u32 DeviceId;		/**< Device Id */
-	u32 BaseAddr;		/**< Base address of DSI Controller */
+	UINTPTR BaseAddr;	/**< Base address of DSI Controller */
 	u8  DsiLanes;		/**< DSI supported lanes1, 2, 3, 4 */
 	u8  DataType;		/**< RGB  type */
 	u32 DsiByteFifo;	/**< DSI byte FIFO size 128, 256, 512,
@@ -225,7 +226,7 @@ typedef struct {
 * @note		None
 *
 ****************************************************************************/
-static inline void XDsi_BitSet(u32 BaseAddress,u32 RegisterOffset,u32 BitMask)
+static inline void XDsi_BitSet(UINTPTR BaseAddress,u32 RegisterOffset,u32 BitMask)
 {
 	XDsi_WriteReg(BaseAddress, RegisterOffset,
 	(XDsi_ReadReg(BaseAddress, RegisterOffset) | BitMask));
@@ -245,7 +246,7 @@ static inline void XDsi_BitSet(u32 BaseAddress,u32 RegisterOffset,u32 BitMask)
 * @note		None
 *
 ****************************************************************************/
-static inline void XDsi_BitReset(u32 BaseAddress, u32 RegisterOffset,
+static inline void XDsi_BitReset(UINTPTR BaseAddress, u32 RegisterOffset,
 							u32 BitMask)
 {
 	XDsi_WriteReg(BaseAddress, RegisterOffset,
@@ -266,7 +267,7 @@ static inline void XDsi_BitReset(u32 BaseAddress, u32 RegisterOffset,
 * @note 	None
 *
 ****************************************************************************/
-static inline u32 XDsi_GetBitField(u32 BaseAddress, u32 RegisterOffset,
+static inline u32 XDsi_GetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 						u32 BitMask, u32 BitShift)
 {
 	return((XDsi_ReadReg(BaseAddress, RegisterOffset)
@@ -289,7 +290,7 @@ static inline u32 XDsi_GetBitField(u32 BaseAddress, u32 RegisterOffset,
 * @note		None
 *
 ****************************************************************************/
-static inline void XDsi_SetBitField(u32 BaseAddress, u32 RegisterOffset,
+static inline void XDsi_SetBitField(UINTPTR BaseAddress, u32 RegisterOffset,
 				u32 BitMask, u32 BitShift, u32 Value)
 {
 	XDsi_WriteReg(BaseAddress, RegisterOffset,
@@ -566,7 +567,7 @@ static inline void XDsi_IntrClear(XDsi *InstancePtr, u32 Value)
 
 XDsi_Config *XDsi_LookupConfig(u32 DeviceId);
 u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *Config,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 u32 XDsi_Activate(XDsi *InstancePtr, XDsi_Selection Flag);
 void XDsi_Reset(XDsi *InstancePtr);
 u32 XDsi_DefaultConfigure(XDsi *InstancePtr);

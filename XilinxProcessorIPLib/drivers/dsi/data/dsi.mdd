@@ -36,7 +36,7 @@ BEGIN driver dsi
   OPTION supported_peripherals = (mipi_dsi_tx_ctrl);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.0;
+  OPTION VERSION = 1.1;
   OPTION DEPENDS = (video_common_v3_1);
   OPTION NAME = dsi;
 END driver
