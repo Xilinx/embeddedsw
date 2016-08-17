@@ -184,3 +184,6 @@ Change Log for Xilkernel
 	* Fixed CR:955364 update get_pins command as per 2016.3 hsi changes are
 	  Made in the bsp tcl file.
 
+2016-08-17
+        * Updated DEPENDS in tcl, mld, makefile from standalone to standalone_v6_0.
+

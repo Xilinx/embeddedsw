@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,9 @@
 #
 # $Id: xilkernel_v2_1_0.tcl,v 1.1.2.2 2011/12/08 08:17:56 anirudh Exp $
 ###############################################################################
+
+# standalone bsp version. set this to the latest "ACTIVE" version.
+set standalone_version standalone_v6_0
 
 proc kernel_drc {os_handle} {
     set sw_proc_handle [hsi::get_sw_processor]
@@ -122,6 +125,7 @@ proc kernel_drc {os_handle} {
 
 proc generate {os_handle} {
     variable standalone_version
+
     set sw_proc_handle [hsi::get_sw_processor]
     set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_proc_handle]]
     set proctype [common::get_property IP_NAME $hw_proc_handle]
@@ -130,14 +134,14 @@ proc generate {os_handle} {
     set need_config_file "false"
 
     # proctype should be "microblaze"
-    set mbsrcdir  "../standalone/src/microblaze"
-    set ppcsrcdir "../standalone/src/ppc405"
-    set ppc440srcdir "../standalone/src/ppc440"
-    set commondir   "../standalone/src/common"
-    set datadir   "../standalone/data"
+    set mbsrcdir  "../${standalone_version}/src/microblaze"
+    set ppcsrcdir "../${standalone_version}/src/ppc405"
+    set ppc440srcdir "../${standalone_version}/src/ppc440"
+    set commondir   "../${standalone_version}/src/common"
+    set datadir   "../${standalone_version}/data"
 
     foreach entry [glob -nocomplain [file join $commondir *]] {
-        file copy -force $entry [file join ".." "standalone" "src"]
+        file copy -force $entry [file join ".." "${standalone_version}" "src"]
     }
 
     # proctype should be "microblaze"
@@ -147,10 +151,10 @@ proc generate {os_handle} {
 	    file copy -force "./src/Makefile_mb.sh" "./src/Makefile"
             foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
 		if { [string first "hw_exception_handler" $entry] == -1 } { ;# Do not copy over the Standalone BSP exception handler
-		    file copy -force $entry [file join ".." "standalone" "src"]
+		    file copy -force $entry [file join ".." "${standalone_version}" "src"]
 		}
             }
-	   file rename -force -- "../standalone/src/Makefile" "../standalone/src/Makefile_depends"
+	   file rename -force -- "../${standalone_version}/src/Makefile" "../${standalone_version}/src/Makefile_depends"
 	    set need_config_file "true"
 	}
 	ppc*  {
@@ -172,7 +176,7 @@ proc generate {os_handle} {
 
 	    foreach entry [glob -nocomplain [file join $ppcsrcdir *]] {
                 if { [string first "xvectors" $entry] == -1 } {      ;# Do not copy xvectors.S. Xilkernel provides its own.
-                    file copy -force $entry [file join ".." "standalone" "src"]
+                    file copy -force $entry [file join ".." "${standalone_version}" "src"]
                 }
 	    }
 	}
@@ -180,7 +184,7 @@ proc generate {os_handle} {
     }
 
     # Write the config.make file
-    set makeconfig [open "../standalone/src/config.make" w]
+    set makeconfig [open "../${standalone_version}/src/config.make" w]
     #::hsi::utils::write_tcl_header $makeconfig "Configuration parameters for Standalone Makefile"
 
     if { $proctype == "microblaze" } {
@@ -213,8 +217,8 @@ proc generate {os_handle} {
 		set lines [split $contents \n]
 
 		foreach line $lines {
-			if {[regexp -- "standalone:" $line]} {
-				puts $destination "standalone:"
+			if {[regexp -- "${standalone_version}:" $line]} {
+				puts $destination "${standalone_version}:"
 				puts $destination "\t\$(CC) \$(CFLAGS) -c \$(INCLUDES) \$(STANDALONE_STDIN_SRC)"
 				puts $destination "\t\$(AR) -r \$(LIBDIR)/\$(LIBXIL) \$(STANDALONE_STDIN_OBJ)"
 				puts $destination "\t\$(CC) \$(CFLAGS) -c \$(INCLUDES) \$(STANDALONE_STDOUT_SRC)"
@@ -242,7 +246,7 @@ proc generate {os_handle} {
     }
 
     # Create bspconfig file
-    set bspcfg_fn [file join ".." "standalone" "src"  "bspconfig.h"]
+    set bspcfg_fn [file join ".." "${standalone_version}" "src"  "bspconfig.h"]
     file delete $bspcfg_fn
     set bspcfg_fh [open $bspcfg_fn w]
     ::hsi::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
@@ -826,7 +830,7 @@ proc xcreate_mb_intr_config_file {handler arg} {
     variable standalone_version
     set mb_table "MB_InterruptVectorTable"
 
-    set filename [file join "../standalone/src" "microblaze_interrupts_g.c"]
+    set filename [file join "../${standalone_version}/src" "microblaze_interrupts_g.c"]
     file delete $filename
     set config_file [open $filename w]
 

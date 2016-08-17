@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2005 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2005 - 2016 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,7 @@ BEGIN OS xilkernel
   OPTION DRC = kernel_drc ;
   OPTION SUPPORTED_PERIPHERALS = (microblaze);
   OPTION COPYFILES = all;
-  OPTION DEPENDS = (standalone);
+  OPTION DEPENDS = (standalone_v6_0);
   OPTION APP_COMPILER_FLAGS = "-D __XMK__";
   OPTION APP_LINKER_FLAGS = "-lxilkernel";
   OPTION OS_STATE = ACTIVE;

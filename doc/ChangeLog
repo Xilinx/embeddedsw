@@ -122,9 +122,10 @@ Corrected the data type of temp variable.
 Enable the _WORD_ACCESS option.
 Used usleep API instead of MB_Sleep API.
 
-xilkenrel_v6_4:
+xilkernel_v6_4:
 Fixed CR:955364 update get_pins command as per 2016.3 hsi changes are made in
 the bsp tcl file.
+Updated the DEPENDS in mld, tcl and makefile to standalone_v6_0 from standalone.
 
 libmetal_v1_0:
 Add libmetal open-source project to support OpenAMP
