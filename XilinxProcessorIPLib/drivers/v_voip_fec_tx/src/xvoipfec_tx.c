@@ -93,7 +93,8 @@
 *
 ******************************************************************************/
 int XVoipFEC_TX_CfgInitialize(XVoipFEC_TX *InstancePtr,
-                                  XVoipFEC_TX_Config *CfgPtr, u32 EffectiveAddr)
+                                  XVoipFEC_TX_Config *CfgPtr,
+                                                          UINTPTR EffectiveAddr)
 {
     u16 Index;
 
@@ -114,8 +115,8 @@ int XVoipFEC_TX_CfgInitialize(XVoipFEC_TX *InstancePtr,
     Index = 0x00;
     while(XVoipFEC_TX_BusyBit(InstancePtr)){
         if (Index == 65535){
-            xil_printf("Error: VoIP FEC Transmitter Busy Bit Longer than \
-            Expected\n\r");
+            xdbg_printf(XDBG_DEBUG_GENERAL,"Error: VoIP FEC TX Busy Bit Longer \
+            than Expected\n\r");
             break;
         }
         Index ++;

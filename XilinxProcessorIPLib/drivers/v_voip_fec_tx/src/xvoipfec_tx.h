@@ -158,7 +158,7 @@ typedef struct {
 */
 typedef struct {
     u16 DeviceId;
-    u32 BaseAddress;                  /**< BaseAddress is the physical base
+    UINTPTR BaseAddress;              /**< BaseAddress is the physical base
                                       *address of the core's registers */
 
     /* <Core Generics Info> */
