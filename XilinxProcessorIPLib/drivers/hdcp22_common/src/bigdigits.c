@@ -1642,52 +1642,52 @@ void mpPrintHex(const char *prefix, const DIGIT_T *p, size_t len, const char *su
 	if (suffix) xil_printf("%s", suffix);
 }
 
-void mpPrintDecimal(const char *prefix, const DIGIT_T *p, size_t len, const char *suffix)
-{
-#ifdef NO_ALLOCS
-	char s[MAX_ALLOC_SIZE];
-#else
-	char *s;
-#endif
-	size_t nc;
-	/* Put big digit into a string of decimal chars */
-	nc = mpConvToDecimal(p, len, NULL, 0);
-	ALLOC_BYTES(s, nc + 1);
-	nc = mpConvToDecimal(p, len, s, nc + 1);
-	if (prefix) xil_printf("%s", prefix);
-	xil_printf("%s", s);
-	if (suffix) xil_printf("%s", suffix);
-	FREE_BYTES(s, nc + 1);
-}
+//void mpPrintDecimal(const char *prefix, const DIGIT_T *p, size_t len, const char *suffix)
+//{
+//#ifdef NO_ALLOCS
+//	char s[MAX_ALLOC_SIZE];
+//#else
+//	char *s;
+//#endif
+//	size_t nc;
+//	/* Put big digit into a string of decimal chars */
+//	nc = mpConvToDecimal(p, len, NULL, 0);
+//	ALLOC_BYTES(s, nc + 1);
+//	nc = mpConvToDecimal(p, len, s, nc + 1);
+//	if (prefix) xil_printf("%s", prefix);
+//	xil_printf("%s", s);
+//	if (suffix) xil_printf("%s", suffix);
+//	FREE_BYTES(s, nc + 1);
+//}
 
-/* ADDED [v2.5] */
-void mpPrintDecimalSigned(const char *prefix, DIGIT_T *p, size_t len, const char *suffix)
-{
-#ifdef NO_ALLOCS
-	char s[MAX_ALLOC_SIZE];
-#else
-	char *s;
-#endif
-	size_t nc;
-	int isneg = 0;
-	if (prefix) xil_printf("%s", prefix);
-	if (mpIsNegative(p, len)) {
-		/* NB changes p in situ temporarily */
-		mpChs(p, p, len);
-		xil_printf("-");
-		isneg = 1;
-	}
-	/* Put big digit into a string of decimal chars */
-	nc = mpConvToDecimal(p, len, NULL, 0);
-	ALLOC_BYTES(s, nc + 1);
-	nc = mpConvToDecimal(p, len, s, nc + 1);
-	xil_printf("%s", s);
-	if (suffix) xil_printf("%s", suffix);
-	if (isneg) {
-		mpChs(p, p, len);
-	}
-	FREE_BYTES(s, nc + 1);
-}
+///* ADDED [v2.5] */
+//void mpPrintDecimalSigned(const char *prefix, DIGIT_T *p, size_t len, const char *suffix)
+//{
+//#ifdef NO_ALLOCS
+//	char s[MAX_ALLOC_SIZE];
+//#else
+//	char *s;
+//#endif
+//	size_t nc;
+//	int isneg = 0;
+//	if (prefix) xil_printf("%s", prefix);
+//	if (mpIsNegative(p, len)) {
+//		/* NB changes p in situ temporarily */
+//		mpChs(p, p, len);
+//		xil_printf("-");
+//		isneg = 1;
+//	}
+//	/* Put big digit into a string of decimal chars */
+//	nc = mpConvToDecimal(p, len, NULL, 0);
+//	ALLOC_BYTES(s, nc + 1);
+//	nc = mpConvToDecimal(p, len, s, nc + 1);
+//	xil_printf("%s", s);
+//	if (suffix) xil_printf("%s", suffix);
+//	if (isneg) {
+//		mpChs(p, p, len);
+//	}
+//	FREE_BYTES(s, nc + 1);
+//}
 
 /************************/
 /* CONVERSION FUNCTIONS */
@@ -1744,228 +1744,228 @@ size_t mpConvToOctets(const DIGIT_T a[], size_t ndigits, unsigned char *c, size_
 	return (size_t)noctets;
 }
 
-static size_t uiceil(double x)
-/* Returns ceil(x) as a non-negative integer or 0 if x < 0 */
-{
-	size_t c;
+//static size_t uiceil(double x)
+///* Returns ceil(x) as a non-negative integer or 0 if x < 0 */
+//{
+//	size_t c;
+//
+//	if (x < 0) return 0;
+//	c = (size_t)x;
+//	if ((x - c) > 0.0)
+//		c++;
+//
+//	return c;
+//}
 
-	if (x < 0) return 0;
-	c = (size_t)x;
-	if ((x - c) > 0.0)
-		c++;
+//static size_t conv_to_base(const DIGIT_T a[], size_t ndigits, char *s, size_t smax, int base)
+///* Convert big digit a into a string in given base format,
+//   where s has max size smax.
+//   Return number of chars set excluding leading zeroes.
+//   smax can be 0 to find out the required length.
+//*/
+//{
+//#ifdef NO_ALLOCS
+//	uint8_t bytes[MAX_ALLOC_SIZE], newdigits[MAX_ALLOC_SIZE];
+//#else
+//	uint8_t *bytes, *newdigits;
+//#endif
+//	const char DEC_DIGITS[] = "0123456789";
+//	const char HEX_DIGITS[] = "0123456789abcdef";
+//	size_t newlen, nbytes, nchars;
+//	size_t n;
+//	unsigned long t;
+//	size_t i, j, isig;
+//	const char *digits;
+//	double factor;
+//
+//	switch (base)
+//	{
+//	case 10:
+//		digits = DEC_DIGITS;
+//		factor = 2.40824;	/* log(256)/log(10)=2.40824 */
+//		break;
+//	case 16:
+//		digits = HEX_DIGITS;
+//		factor = 2.0;	/* log(256)/log(16)=2.0 */
+//		break;
+//	default:
+//		assert (10 == base || 16 == base);
+//		return 0;
+//	}
+//
+//	/* Set up output string with null chars */
+//	if (smax > 0 && s)
+//	{
+//		memset(s, '0', smax-1);
+//		s[smax-1] = '\0';
+//	}
+//
+//	/* Catch zero input value (return 1 not zero) */
+//	if (mpIsZero(a, ndigits))
+//	{
+//		if (smax > 0 && s)
+//			s[1] = '\0';
+//		return 1;
+//	}
+//
+//	/* First, we convert to 8-bit octets (bytes), which are easier to handle */
+//	nbytes = ndigits * BITS_PER_DIGIT / 8;
+//	ALLOC_BYTES(bytes, nbytes);
+//
+//	n = mpConvToOctets(a, ndigits, bytes, nbytes);
+//
+//	/* Create some temp storage for int values */
+//	newlen = uiceil(n * factor);
+//	ALLOC_BYTES(newdigits, newlen);
+//
+//	for (i = 0; i < nbytes; i++)
+//	{
+//		t = bytes[i];
+//		for (j = newlen; j > 0; j--)
+//		{
+//			t += (unsigned long)newdigits[j-1] * 256;
+//			newdigits[j-1] = (unsigned char)(t % base);
+//			t /= base;
+//		}
+//	}
+//
+//	/* Find index of leading significant digit */
+//	for (isig = 0; isig < newlen; isig++)
+//		if (newdigits[isig])
+//			break;
+//
+//	nchars = newlen - isig;
+//
+//	/* Convert to a null-terminated string of decimal chars */
+//	/* up to limit, unless user has specified null or size == 0 */
+//	if (smax > 0 && s)
+//	{
+//		for (i = 0; i < nchars && i < smax-1; i++)
+//		{
+//			s[i] = digits[newdigits[isig+i]];
+//		}
+//		s[i] = '\0';
+//	}
+//
+//	FREE_BYTES(bytes, nbytes);
+//	FREE_BYTES(newdigits, newlen);
+//
+//	return nchars;
+//}
 
-	return c;
-}
+//size_t mpConvToDecimal(const DIGIT_T a[], size_t ndigits, char *s, size_t smax)
+///* Convert big digit a into a string in decimal format,
+//   where s has max size smax.
+//   Return number of chars set excluding leading zeroes.
+//*/
+//{
+//	return conv_to_base(a, ndigits, s, smax, 10);
+//}
 
-static size_t conv_to_base(const DIGIT_T a[], size_t ndigits, char *s, size_t smax, int base)
-/* Convert big digit a into a string in given base format,
-   where s has max size smax.
-   Return number of chars set excluding leading zeroes.
-   smax can be 0 to find out the required length.
-*/
-{
-#ifdef NO_ALLOCS
-	uint8_t bytes[MAX_ALLOC_SIZE], newdigits[MAX_ALLOC_SIZE];
-#else
-	uint8_t *bytes, *newdigits;
-#endif
-	const char DEC_DIGITS[] = "0123456789";
-	const char HEX_DIGITS[] = "0123456789abcdef";
-	size_t newlen, nbytes, nchars;
-	size_t n;
-	unsigned long t;
-	size_t i, j, isig;
-	const char *digits;
-	double factor;
+//size_t mpConvToHex(const DIGIT_T a[], size_t ndigits, char *s, size_t smax)
+///* Convert big digit a into a string in hexadecimal format,
+//   where s has max size smax.
+//   Return number of chars set excluding leading zeroes.
+//*/
+//{
+//	return conv_to_base(a, ndigits, s, smax, 16);
+//}
 
-	switch (base)
-	{
-	case 10:
-		digits = DEC_DIGITS;
-		factor = 2.40824;	/* log(256)/log(10)=2.40824 */
-		break;
-	case 16:
-		digits = HEX_DIGITS;
-		factor = 2.0;	/* log(256)/log(16)=2.0 */
-		break;
-	default:
-		assert (10 == base || 16 == base);
-		return 0;
-	}
+//size_t mpConvFromDecimal(DIGIT_T a[], size_t ndigits, const char *s)
+///* Convert a string in decimal format to a big digit.
+//   Return actual number of digits set (may be larger than mpSizeof).
+//   Just ignores invalid characters in s.
+//*/
+//{
+//#ifdef NO_ALLOCS
+//	uint8_t newdigits[MAX_ALLOC_SIZE];
+//#else
+//	uint8_t *newdigits;
+//#endif
+//	size_t newlen;
+//	size_t n;
+//	unsigned long t;
+//	size_t i, j;
+//	const int base = 10;
+//
+//	mpSetZero(a, ndigits);
+//
+//	/* Create some temp storage for int values */
+//	n = strlen(s);
+//	if (0 == n) return 0;
+//	newlen = uiceil(n * 0.41524);	/* log(10)/log(256)=0.41524 */
+//	ALLOC_BYTES(newdigits, newlen);
+//
+//	/* Work through zero-terminated string */
+//	for (i = 0; s[i]; i++)
+//	{
+//		t = s[i] - '0';
+//		if (t > 9 || t < 0) continue;
+//		for (j = newlen; j > 0; j--)
+//		{
+//			t += (unsigned long)newdigits[j-1] * base;
+//			newdigits[j-1] = (unsigned char)(t & 0xFF);
+//			t >>= 8;
+//		}
+//	}
+//
+//	/* Convert bytes to big digits */
+//	n = mpConvFromOctets(a, ndigits, newdigits, newlen);
+//
+//	/* Clean up */
+//	FREE_BYTES(newdigits, newlen);
+//
+//	return n;
+//}
 
-	/* Set up output string with null chars */
-	if (smax > 0 && s)
-	{
-		memset(s, '0', smax-1);
-		s[smax-1] = '\0';
-	}
-
-	/* Catch zero input value (return 1 not zero) */
-	if (mpIsZero(a, ndigits))
-	{
-		if (smax > 0 && s)
-			s[1] = '\0';
-		return 1;
-	}
-
-	/* First, we convert to 8-bit octets (bytes), which are easier to handle */
-	nbytes = ndigits * BITS_PER_DIGIT / 8;
-	ALLOC_BYTES(bytes, nbytes);
-
-	n = mpConvToOctets(a, ndigits, bytes, nbytes);
-
-	/* Create some temp storage for int values */
-	newlen = uiceil(n * factor);
-	ALLOC_BYTES(newdigits, newlen);
-
-	for (i = 0; i < nbytes; i++)
-	{
-		t = bytes[i];
-		for (j = newlen; j > 0; j--)
-		{
-			t += (unsigned long)newdigits[j-1] * 256;
-			newdigits[j-1] = (unsigned char)(t % base);
-			t /= base;
-		}
-	}
-
-	/* Find index of leading significant digit */
-	for (isig = 0; isig < newlen; isig++)
-		if (newdigits[isig])
-			break;
-
-	nchars = newlen - isig;
-
-	/* Convert to a null-terminated string of decimal chars */
-	/* up to limit, unless user has specified null or size == 0 */
-	if (smax > 0 && s)
-	{
-		for (i = 0; i < nchars && i < smax-1; i++)
-		{
-			s[i] = digits[newdigits[isig+i]];
-		}
-		s[i] = '\0';
-	}
-
-	FREE_BYTES(bytes, nbytes);
-	FREE_BYTES(newdigits, newlen);
-
-	return nchars;
-}
-
-size_t mpConvToDecimal(const DIGIT_T a[], size_t ndigits, char *s, size_t smax)
-/* Convert big digit a into a string in decimal format,
-   where s has max size smax.
-   Return number of chars set excluding leading zeroes.
-*/
-{
-	return conv_to_base(a, ndigits, s, smax, 10);
-}
-
-size_t mpConvToHex(const DIGIT_T a[], size_t ndigits, char *s, size_t smax)
-/* Convert big digit a into a string in hexadecimal format,
-   where s has max size smax.
-   Return number of chars set excluding leading zeroes.
-*/
-{
-	return conv_to_base(a, ndigits, s, smax, 16);
-}
-
-size_t mpConvFromDecimal(DIGIT_T a[], size_t ndigits, const char *s)
-/* Convert a string in decimal format to a big digit.
-   Return actual number of digits set (may be larger than mpSizeof).
-   Just ignores invalid characters in s.
-*/
-{
-#ifdef NO_ALLOCS
-	uint8_t newdigits[MAX_ALLOC_SIZE];
-#else
-	uint8_t *newdigits;
-#endif
-	size_t newlen;
-	size_t n;
-	unsigned long t;
-	size_t i, j;
-	const int base = 10;
-
-	mpSetZero(a, ndigits);
-
-	/* Create some temp storage for int values */
-	n = strlen(s);
-	if (0 == n) return 0;
-	newlen = uiceil(n * 0.41524);	/* log(10)/log(256)=0.41524 */
-	ALLOC_BYTES(newdigits, newlen);
-
-	/* Work through zero-terminated string */
-	for (i = 0; s[i]; i++)
-	{
-		t = s[i] - '0';
-		if (t > 9 || t < 0) continue;
-		for (j = newlen; j > 0; j--)
-		{
-			t += (unsigned long)newdigits[j-1] * base;
-			newdigits[j-1] = (unsigned char)(t & 0xFF);
-			t >>= 8;
-		}
-	}
-
-	/* Convert bytes to big digits */
-	n = mpConvFromOctets(a, ndigits, newdigits, newlen);
-
-	/* Clean up */
-	FREE_BYTES(newdigits, newlen);
-
-	return n;
-}
-
-size_t mpConvFromHex(DIGIT_T a[], size_t ndigits, const char *s)
-/* Convert a string in hexadecimal format to a big digit.
-   Return actual number of digits set (may be larger than mpSizeof).
-   Just ignores invalid characters in s.
-*/
-{
-#ifdef NO_ALLOCS
-	uint8_t newdigits[MAX_ALLOC_SIZE];
-#else
-	uint8_t *newdigits;
-#endif
-	size_t newlen;
-	size_t n;
-	unsigned long t;
-	size_t i, j;
-
-	mpSetZero(a, ndigits);
-
-	/* Create some temp storage for int values */
-	n = strlen(s);
-	if (0 == n) return 0;
-	newlen = uiceil(n * 0.5);	/* log(16)/log(256)=0.5 */
-	ALLOC_BYTES(newdigits, newlen);
-
-	/* Work through zero-terminated string */
-	for (i = 0; s[i]; i++)
-	{
-		t = s[i];
-		if ((t >= '0') && (t <= '9')) t = (t - '0');
-		else if ((t >= 'a') && (t <= 'f')) t = (t - 'a' + 10);
-		else if ((t >= 'A') && (t <= 'F')) t = (t - 'A' + 10);
-		else continue;
-		for (j = newlen; j > 0; j--)
-		{
-			t += (unsigned long)newdigits[j-1] << 4;
-			newdigits[j-1] = (unsigned char)(t & 0xFF);
-			t >>= 8;
-		}
-	}
-
-	/* Convert bytes to big digits */
-	n = mpConvFromOctets(a, ndigits, newdigits, newlen);
-
-	/* Clean up */
-	FREE_BYTES(newdigits, newlen);
-
-	return n;
-}
+//size_t mpConvFromHex(DIGIT_T a[], size_t ndigits, const char *s)
+///* Convert a string in hexadecimal format to a big digit.
+//   Return actual number of digits set (may be larger than mpSizeof).
+//   Just ignores invalid characters in s.
+//*/
+//{
+//#ifdef NO_ALLOCS
+//	uint8_t newdigits[MAX_ALLOC_SIZE];
+//#else
+//	uint8_t *newdigits;
+//#endif
+//	size_t newlen;
+//	size_t n;
+//	unsigned long t;
+//	size_t i, j;
+//
+//	mpSetZero(a, ndigits);
+//
+//	/* Create some temp storage for int values */
+//	n = strlen(s);
+//	if (0 == n) return 0;
+//	newlen = uiceil(n * 0.5);	/* log(16)/log(256)=0.5 */
+//	ALLOC_BYTES(newdigits, newlen);
+//
+//	/* Work through zero-terminated string */
+//	for (i = 0; s[i]; i++)
+//	{
+//		t = s[i];
+//		if ((t >= '0') && (t <= '9')) t = (t - '0');
+//		else if ((t >= 'a') && (t <= 'f')) t = (t - 'a' + 10);
+//		else if ((t >= 'A') && (t <= 'F')) t = (t - 'A' + 10);
+//		else continue;
+//		for (j = newlen; j > 0; j--)
+//		{
+//			t += (unsigned long)newdigits[j-1] << 4;
+//			newdigits[j-1] = (unsigned char)(t & 0xFF);
+//			t >>= 8;
+//		}
+//	}
+//
+//	/* Convert bytes to big digits */
+//	n = mpConvFromOctets(a, ndigits, newdigits, newlen);
+//
+//	/* Clean up */
+//	FREE_BYTES(newdigits, newlen);
+//
+//	return n;
+//}
 
 /***************************/
 /* NUMBER THEORY FUNCTIONS */

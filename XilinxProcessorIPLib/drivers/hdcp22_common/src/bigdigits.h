@@ -360,7 +360,7 @@ size_t mpQuickRandBits(DIGIT_T a[], size_t ndigits, size_t nbits);
 /** Print in hex format with optional prefix and suffix strings */
 void mpPrintHex(const char *prefix, const DIGIT_T *p, size_t ndigits, const char *suffix);
 /** Print in decimal format with optional prefix and suffix strings */
-void mpPrintDecimal(const char *prefix, const DIGIT_T *p, size_t ndigits, const char *suffix);
+// void mpPrintDecimal(const char *prefix, const DIGIT_T *p, size_t ndigits, const char *suffix);
 
 /* See also mpPrintDecimalSigned() - new in [v2.5] */
 
@@ -390,17 +390,17 @@ size_t mpConvFromOctets(DIGIT_T a[], size_t ndigits, const unsigned char *c, siz
 size_t mpConvToOctets(const DIGIT_T a[], size_t ndigits, unsigned char *c, size_t nbytes);
 /** Converts a string in decimal format to a big digit.
 @returns actual number of (possibly zero) digits set. */
-size_t mpConvFromDecimal(DIGIT_T a[], size_t ndigits, const char *s);
+//size_t mpConvFromDecimal(DIGIT_T a[], size_t ndigits, const char *s);
 /** Converts big digit a into a string in decimal format, where s has size smax including the terminating zero.
 @returns number of chars required excluding leading zeroes. */
-size_t mpConvToDecimal(const DIGIT_T a[], size_t ndigits, char *s, size_t smax);
+//size_t mpConvToDecimal(const DIGIT_T a[], size_t ndigits, char *s, size_t smax);
 /** Converts a string in hexadecimal format to a big digit.
 @return actual number of (possibly zero) digits set. */
-size_t mpConvFromHex(DIGIT_T a[], size_t ndigits, const char *s);
+//size_t mpConvFromHex(DIGIT_T a[], size_t ndigits, const char *s);
 /** Converts big digit a into a string in hexadecimal format,
    where s has size smax including the terminating zero.
 @return number of chars required excluding leading zeroes. */
-size_t mpConvToHex(const DIGIT_T a[], size_t ndigits, char *s, size_t smax);
+//size_t mpConvToHex(const DIGIT_T a[], size_t ndigits, char *s, size_t smax);
 
 
 /****************************/
@@ -461,7 +461,7 @@ int mpAbs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits);
 /** Print a signed integer in decimal format with optional prefix and suffix strings
  *  @remark Expects a negative number to be stored in two's-complement representation.
  */
-void mpPrintDecimalSigned(const char *prefix, DIGIT_T *p, size_t ndigits, const char *suffix);
+//void mpPrintDecimalSigned(const char *prefix, DIGIT_T *p, size_t ndigits, const char *suffix);
 
 
 /****************/
