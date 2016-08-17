@@ -68,9 +68,9 @@
 // 0x64 : Control signal of HwReg_tx_pkt_cnt_V
 //        bit 0  - HwReg_tx_pkt_cnt_V_ap_vld (Read/COR)
 //        others - reserved
-// 0x68 : Data signal of HwReg_reserved1_V
-//        bit 0  - HwReg_reserved1_V[0] (Read/Write)
-//        others - reserved
+// 0x68 : Data signal of HwReg_PixPerPkt_V
+//        bit 15~0 - HwReg_PixPerPkt_V[15:0] (Read/Write)
+//        others   - reserved
 // 0x6c : reserved
 // 0x70 : Data signal of HwReg_stat_reset_V
 //        bit 0  - HwReg_stat_reset_V[0] (Read/Write)
@@ -105,7 +105,7 @@
 #define XV_PT4175_CTRL_ADDR_HWREG_TX_PKT_CNT_V_DATA     0x60
 #define XV_PT4175_CTRL_BITS_HWREG_TX_PKT_CNT_V_DATA     32
 #define XV_PT4175_CTRL_ADDR_HWREG_TX_PKT_CNT_V_CTRL     0x64
-#define XV_PT4175_CTRL_ADDR_HWREG_RESERVED1_V_DATA      0x68
-#define XV_PT4175_CTRL_BITS_HWREG_RESERVED1_V_DATA      1
+#define XV_PT4175_CTRL_ADDR_HWREG_PIXPERPKT_V_DATA      0x68
+#define XV_PT4175_CTRL_BITS_HWREG_PIXPERPKT_V_DATA      16
 #define XV_PT4175_CTRL_ADDR_HWREG_STAT_RESET_V_DATA     0x70
 #define XV_PT4175_CTRL_BITS_HWREG_STAT_RESET_V_DATA     1

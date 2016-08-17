@@ -271,20 +271,20 @@ u32 XV_pt4175_Get_HwReg_tx_pkt_cnt_V_vld(XV_pt4175 *InstancePtr) {
     return Data & 0x1;
 }
 
-void XV_pt4175_Set_HwReg_module_reset_V(XV_pt4175 *InstancePtr, u32 Data) {
+void XV_pt4175_Set_HwReg_PixPerPkt_V(XV_pt4175 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_pt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_PT4175_CTRL_ADDR_HWREG_RESERVED1_V_DATA, Data);
+    XV_pt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_PT4175_CTRL_ADDR_HWREG_PIXPERPKT_V_DATA, Data);
 }
 
-u32 XV_pt4175_Get_HwReg_module_reset_V(XV_pt4175 *InstancePtr) {
+u32 XV_pt4175_Get_HwReg_PixPerPkt_V(XV_pt4175 *InstancePtr) {
     u32 Data;
 
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_pt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_PT4175_CTRL_ADDR_HWREG_RESERVED1_V_DATA);
+    Data = XV_pt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_PT4175_CTRL_ADDR_HWREG_PIXPERPKT_V_DATA);
     return Data;
 }
 
@@ -384,6 +384,9 @@ void XV_pt4175_SetPcktInfo (XV_pt4175 *InstancePtr) {
     XV_pt4175_Set_HwReg_PktsPerLine_V(InstancePtr,
                                        XV_pt4175_PcktInfoVal.Packet_Per_Line);
 
+    XV_pt4175_Set_HwReg_PixPerPkt_V(InstancePtr,
+                                XV_pt4175_PcktInfoVal.PixPerPkt);
+
     XV_pt4175_Set_HwReg_ssrc_V(InstancePtr,InstancePtr->PcktInfo.SSRC);
 
     XV_pt4175_Set_HwReg_payloadtype_V(InstancePtr,
@@ -405,6 +408,7 @@ XV_pt4175_PcktInfo XV_pt4175_ComputePckt (XV_pt4175 *InstancePtr) {
     volatile u16 Packet_Len;
     volatile u16 Last_Packet_Len;
     volatile u8 Packet_Per_Line;
+    volatile u16 PixPerPkt;
 
     Active_Width = InstancePtr->VideoStream.Timing.HActive;
     Active_Heigth = InstancePtr->VideoStream.Timing.VActive;
@@ -460,6 +464,9 @@ XV_pt4175_PcktInfo XV_pt4175_ComputePckt (XV_pt4175 *InstancePtr) {
             (((Active_Line_Length > 1376) ? 1376 : Active_Line_Length)/
                         XV_pt4175_LCM (PGroup_Bytes,Bytes_per_Cycle))*
                                 XV_pt4175_LCM (PGroup_Bytes,Bytes_per_Cycle);
+
+    XV_pt4175_PcktInfoVal.PixPerPkt = (XV_pt4175_PcktInfoVal.Packet_Length * 8)/
+                              (Comp_Per_Pixel*BPC);
 
     XV_pt4175_PcktInfoVal.Re_Packet_Length = Active_Line_Length %
                                            XV_pt4175_PcktInfoVal.Packet_Length;

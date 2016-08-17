@@ -41,6 +41,8 @@ typedef uint32_t u32;
 #else
 
 typedef struct {
+    u16 PixPerPkt;
+
     u8  Packet_Per_Line;
     u16 Packet_Length;
     u16 Re_Packet_Length;
@@ -135,8 +137,8 @@ void XV_pt4175_Set_HwReg_channel_number_V(XV_pt4175 *InstancePtr, u32 Data);
 u32 XV_pt4175_Get_HwReg_channel_number_V(XV_pt4175 *InstancePtr);
 u32 XV_pt4175_Get_HwReg_tx_pkt_cnt_V(XV_pt4175 *InstancePtr);
 u32 XV_pt4175_Get_HwReg_tx_pkt_cnt_V_vld(XV_pt4175 *InstancePtr);
-void XV_pt4175_Set_HwReg_reserved1_V(XV_pt4175 *InstancePtr, u32 Data);
-u32 XV_pt4175_Get_HwReg_reserved1_V(XV_pt4175 *InstancePtr);
+void XV_pt4175_Set_HwReg_PixPerPkt_V(XV_pt4175 *InstancePtr, u32 Data);
+u32 XV_pt4175_Get_HwReg_PixPerPkt_V(XV_pt4175 *InstancePtr);
 void XV_pt4175_Set_HwReg_stat_reset_V(XV_pt4175 *InstancePtr, u32 Data);
 u32 XV_pt4175_Get_HwReg_stat_reset_V(XV_pt4175 *InstancePtr);
 
