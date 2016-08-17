@@ -704,8 +704,6 @@ void XHdcp22Tx_ComputeV(const u8* Rn, const u8* Rrx, const u8* RxInfo,
 	u8 Aes_Key[XHDCP22_TX_AES128_SIZE];
 	u8 Kd[2 * XHDCP22_TX_AES128_SIZE]; /* Dkey0 || Dkey 1. */
 
-	u8 Temp[XHDCP22_TX_AES128_SIZE];
-
 	u8 HashInput[(XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT * XHDCP22_TX_RCVID_SIZE) +
 		XHDCP22_TX_RXINFO_SIZE + XHDCP22_TX_SEQ_NUM_V_SIZE];
 	int Idx = 0;
@@ -778,8 +776,6 @@ void XHdcp22Tx_ComputeM(const u8* Rn, const u8* Rrx, const u8* Rtx,
 	/* K value is in big endian format */
 	StreamIDCount  = k[0] << 8; // MSB
 	StreamIDCount |= k[1];      // LSB
-
-	u8 Temp[XHDCP22_TX_AES128_SIZE];
 
 	u8 HashInput[(XHDCP22_TX_REPEATER_MAX_DEVICE_COUNT * XHDCP22_TX_RCVID_SIZE) +
 		XHDCP22_TX_RXINFO_SIZE + XHDCP22_TX_SEQ_NUM_M_SIZE];

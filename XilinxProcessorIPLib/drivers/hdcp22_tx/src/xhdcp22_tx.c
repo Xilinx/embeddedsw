@@ -155,7 +155,7 @@ static void XHdcp22Tx_WriteSkeSendEks(XHdcp22_Tx *InstancePtr,
 static void XHdcp22Tx_WriteRepeaterAuth_Send_Ack(XHdcp22_Tx *InstancePtr, const u8 *V);
 static void XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_ReceiveMsg(XHdcp22_Tx *InstancePtr, u8 MessageId,
-                    int MessageSize);
+                    u32 MessageSize);
 
 /* Generators and functions that return a generated value or a testvector */
 static void XHdcp22Tx_GenerateRtx(XHdcp22_Tx *InstancePtr, u8* RtxPtr);
@@ -847,6 +847,8 @@ u32 XHdcp22Tx_GetTopologyField(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_TopologyField
 		return XHdcp22Tx_GetTopologyHdcp20RepeaterDownstream(InstancePtr);
 	case XHDCP22_TX_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
 		return XHdcp22Tx_GetTopologyHdcp1DeviceDownstream(InstancePtr);
+	default:
+		return 0;
 	}
 }
 
@@ -2698,6 +2700,7 @@ static void XHdcp22Tx_A3A4(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static void XHdcp22Tx_A4A5(XHdcp22_Tx *InstancePtr)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
 }
 
 /*****************************************************************************/
@@ -2757,6 +2760,11 @@ static int XHdcp22Tx_StubDdc(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
                              u8 Stop, void* RefPtr)
 {
 	Xil_AssertNonvoidAlways();
+	Xil_AssertNonvoid(DeviceAddress);
+	Xil_AssertNonvoid(ByteCount);
+	Xil_AssertNonvoid(BufferPtr != NULL);
+	Xil_AssertNonvoid(Stop);
+	Xil_AssertNonvoid(RefPtr != NULL);
 }
 
 /*****************************************************************************/
@@ -2775,6 +2783,7 @@ static int XHdcp22Tx_StubDdc(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
 static void XHdcp22Tx_StubCallback(void* RefPtr)
 {
 	Xil_AssertVoidAlways();
+	Xil_AssertVoid(RefPtr != NULL);
 }
 
 /*****************************************************************************/
@@ -2793,6 +2802,8 @@ static void XHdcp22Tx_StubCallback(void* RefPtr)
 ******************************************************************************/
 static void XHdcp22Tx_GenerateRtx(XHdcp22_Tx *InstancePtr, u8* RtxPtr)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	/* get a 64 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_RTX_SIZE, RtxPtr);
 
@@ -2818,6 +2829,8 @@ static void XHdcp22Tx_GenerateRtx(XHdcp22_Tx *InstancePtr, u8* RtxPtr)
 ******************************************************************************/
 static void XHdcp22Tx_GenerateKm(XHdcp22_Tx *InstancePtr, u8* KmPtr)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	/* get a 128 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_KM_SIZE, KmPtr);
 
@@ -2845,6 +2858,8 @@ static void XHdcp22Tx_GenerateKm(XHdcp22_Tx *InstancePtr, u8* KmPtr)
 static void XHdcp22Tx_GenerateKmMaskingSeed(XHdcp22_Tx *InstancePtr,
                                              u8* SeedPtr)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	/* get a 128 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_KM_MSK_SEED_SIZE, SeedPtr);
 
@@ -2870,6 +2885,8 @@ static void XHdcp22Tx_GenerateKmMaskingSeed(XHdcp22_Tx *InstancePtr,
 ******************************************************************************/
 static void XHdcp22Tx_GenerateRn(XHdcp22_Tx *InstancePtr, u8* RnPtr)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	/* get a 128 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_RN_SIZE, RnPtr);
 
@@ -2894,6 +2911,8 @@ static void XHdcp22Tx_GenerateRn(XHdcp22_Tx *InstancePtr, u8* RnPtr)
 ******************************************************************************/
 static void XHdcp22Tx_GenerateKs(XHdcp22_Tx *InstancePtr, u8* KsPtr)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	/* get a 64 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_KS_SIZE, KsPtr);
 
@@ -2918,6 +2937,8 @@ static void XHdcp22Tx_GenerateKs(XHdcp22_Tx *InstancePtr, u8* KsPtr)
 ******************************************************************************/
 static void XHdcp22Tx_GenerateRiv(XHdcp22_Tx *InstancePtr, u8* RivPtr)
 {
+	Xil_AssertVoid(InstancePtr != NULL);
+
 	/* get a 64 bits random number */
 	XHdcp22Tx_GenerateRandom(InstancePtr, XHDCP22_TX_RIV_SIZE, RivPtr);
 
@@ -2943,6 +2964,8 @@ static void XHdcp22Tx_GenerateRiv(XHdcp22_Tx *InstancePtr, u8* RivPtr)
 static const u8* XHdcp22Tx_GetKPubDpc(XHdcp22_Tx *InstancePtr)
 {
 	const u8* KPubDpcPtr = NULL;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 #ifdef _XHDCP22_TX_TEST_
 	/* Let the test module decide if it should be overwritten with a test vector */
@@ -2975,6 +2998,8 @@ static int XHdcp22Tx_StartTimer(XHdcp22_Tx *InstancePtr, u32 TimeOut_mSec,
                                 u8 ReasonId)
 {
 	u32 Ticks = (u32)(InstancePtr->Timer.TmrCtr.Config.SysClockFreqHz/1e6) * TimeOut_mSec * 1000;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->Timer.TimerExpired = (FALSE);
 	InstancePtr->Timer.ReasonId = ReasonId;
@@ -3225,7 +3250,7 @@ static void XHdcp22Tx_ReadRxStatus(XHdcp22_Tx *InstancePtr)
 	                      InstancePtr->DdcHandlerRef);
 	InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS, sizeof(DdcBuf), DdcBuf, (TRUE),
 	                     InstancePtr->DdcHandlerRef);
-	InstancePtr->Info.RxStatus = *(u16 *)DdcBuf;
+	InstancePtr->Info.RxStatus = DdcBuf[0] | (DdcBuf[1] << 8);
 	XHdcp22_Tx_RxStatusMutex = FALSE;
 }
 
@@ -3581,7 +3606,7 @@ void XHdcp22Tx_WriteRepeaterAuth_Stream_Manage(XHdcp22_Tx *InstancePtr)
 *
 ******************************************************************************/
 static int XHdcp22Tx_ReceiveMsg(XHdcp22_Tx *InstancePtr, u8 MessageId,
-                                int MessageSize)
+                                u32 MessageSize)
 {
 	int Result = XST_SUCCESS;
 	XHdcp22_Tx_DDCMessage* MsgPtr =
@@ -3699,7 +3724,6 @@ static XHdcp22_Tx_PairingInfo *XHdcp22Tx_UpdatePairingInfo(
                               const XHdcp22_Tx_PairingInfo *PairingInfo)
 {
 	int i = 0;
-	u8 Empty[XHDCP22_TX_CERT_RCVID_SIZE] = {0x00, 0x00, 0x00, 0x00, 0x00};
 	XHdcp22_Tx_PairingInfo * PairingInfoPtr = NULL;
 
 	/* find the id or an empty slot */
