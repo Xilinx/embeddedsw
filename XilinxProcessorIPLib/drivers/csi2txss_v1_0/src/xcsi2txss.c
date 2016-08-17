@@ -91,7 +91,7 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *Csi2TxSsPtr);
 #endif
 static u32 Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
 					UINTPTR SsHighAddr,
-					UINTPTR Offset, UINTPTR *BaseAddr);
+					u32 Offset, UINTPTR *BaseAddr);
 
 /************************** Variable Definitions *****************************/
 
@@ -122,10 +122,10 @@ static u32 Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
 *
 ******************************************************************************/
 u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	u32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -488,7 +488,7 @@ static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *CsiSsPtr)
 ******************************************************************************/
 static u32 Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
 					UINTPTR SsHighAddr,
-					UINTPTR Offset, UINTPTR *BaseAddr)
+					u32 Offset, UINTPTR *BaseAddr)
 {
 	u32 Status;
 	UINTPTR AbsAddr;

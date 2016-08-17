@@ -89,11 +89,7 @@ extern "C" {
 ******************************************************************************/
 static inline u32 XCsi2TxSs_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 {
-#if defined(__MICROBLAZE__)
 	return Xil_In32(BaseAddress + RegOffset);
-#elif defined(__arm__)
-	return (u32)(Xil_In64(BaseAddress + RegOffset));
-#endif
 }
 
 /*****************************************************************************/
@@ -116,11 +112,7 @@ static inline u32 XCsi2TxSs_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 static inline void XCsi2TxSs_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
 								u32 Data)
 {
-#if defined(__MICROBLAZE__)
 	Xil_Out32(BaseAddress + RegOffset, Data);
-#elif defined(__arm__)
-	Xil_Out64(BaseAddress + RegOffset, Data);
-#endif
 }
 /************************** Function Prototypes ******************************/
 

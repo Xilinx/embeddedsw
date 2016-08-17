@@ -211,7 +211,7 @@ typedef struct {
 				4 - Quad pixels per beat */
 	u32 CsiBuffDepth;	/**< Line buffer Depth set */
 	u32 DphyLineRate;	/**< DPHY Line Rate ranging from
-						  *  80-1500 Mbps */
+					*  80-1500 Mbps */
 	u32 IsDphyRegIntfcPresent;	/**< Flag for DPHY register interface
 					  *  presence */
 	SubCoreCsi2Tx CsiInfo;	/**< CSI sub-core configuration */
@@ -243,7 +243,7 @@ XCsi2TxSs_Config* XCsi2TxSs_LookupConfig(u32 DeviceId);
 
 /* Initialization and control functions xcsi2txss.c */
 u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 u32 XCsi2TxSs_Configure(XCsi2TxSs *InstancePtr, u8 ActiveLanes, u32 IntrMask);
 u32 XCsi2TxSs_Activate(XCsi2TxSs *InstancePtr, u8 Flag);
 u32 XCsi2TxSs_Reset(XCsi2TxSs *InstancePtr);
