@@ -741,7 +741,7 @@ XCsi2Tx_Config *XCsi2Tx_LookupConfig(u32 DeviceId);
 
 /* Initialization and control functions in xcsi2tx.c */
 u32 XCsi2Tx_CfgInitialize(XCsi2Tx *InstancePtr, XCsi2Tx_Config *Config,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 u32 XCsi2Tx_Configure(XCsi2Tx *InstancePtr);
 u32 XCsi2Tx_Activate(XCsi2Tx *InstancePtr, u8 Flag);
 u32 XCsi2Tx_Reset(XCsi2Tx *InstancePtr);

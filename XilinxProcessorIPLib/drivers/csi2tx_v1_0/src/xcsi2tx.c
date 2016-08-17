@@ -44,7 +44,7 @@
 *
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
-* 1.0 sss 7/15/16 Initial release
+* 1.0 sss 07/15/16 Initial release
 * </pre>
 ******************************************************************************/
 
@@ -96,12 +96,12 @@ static void StubErrCallBack(void *Callbackref, u32 ErrorMask);
 * @note		None.
 *****************************************************************************/
 u32 XCsi2Tx_CfgInitialize(XCsi2Tx *InstancePtr, XCsi2Tx_Config *CfgPtr,
-			u32 EffectiveAddr)
+			UINTPTR EffectiveAddr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid((u32 *)EffectiveAddr != NULL);
+	Xil_AssertNonvoid(EffectiveAddr != 0);
 
 	/* Setup the instance */
 	InstancePtr->Config = *CfgPtr;
@@ -117,7 +117,7 @@ u32 XCsi2Tx_CfgInitialize(XCsi2Tx *InstancePtr, XCsi2Tx_Config *CfgPtr,
 	InstancePtr->WrgDataTypeCallBack = StubErrCallBack;
 	InstancePtr->UnderrunPixelCallBack = StubErrCallBack;
 
-	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	return XST_SUCCESS;
 }
