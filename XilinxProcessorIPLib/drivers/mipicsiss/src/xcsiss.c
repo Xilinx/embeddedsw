@@ -45,6 +45,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/21/15 Initial release
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -99,8 +100,8 @@ static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr);
 #endif
-static u32 CsiSs_ComputeSubCoreAbsAddr(u32 SsBaseAddr, u32 SsHighAddr,
-					u32 Offset, u32 *BaseAddr);
+static u32 CsiSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
+					u32 Offset, UINTPTR *BaseAddr);
 
 /************************** Variable Definitions *****************************/
 
@@ -131,10 +132,10 @@ static u32 CsiSs_ComputeSubCoreAbsAddr(u32 SsBaseAddr, u32 SsHighAddr,
 *
 ******************************************************************************/
 u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 	u32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -487,7 +488,7 @@ static void CsiSs_GetIncludedSubCores(XCsiSs *CsiSsPtr)
 static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 {
 	u32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 	XCsi_Config *ConfigPtr;
 
 	/* Get core configuration */
@@ -537,7 +538,7 @@ static u32 CsiSs_SubCoreInitCsi(XCsiSs *CsiSsPtr)
 static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr)
 {
 	u32  Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 	XIic_Config *ConfigPtr;
 
 	/* Get core configuration */
@@ -590,7 +591,7 @@ static u32 CsiSs_SubCoreInitIic(XCsiSs *CsiSsPtr)
 static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 {
 	u32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 	XDphy_Config *ConfigPtr;
 
 	/* Get core configuration */
@@ -653,11 +654,11 @@ static u32 CsiSs_SubCoreInitDphy(XCsiSs *CsiSsPtr)
 * @note		None
 *
 ******************************************************************************/
-static u32 CsiSs_ComputeSubCoreAbsAddr(u32 SsBaseAddr, u32 SsHighAddr,
-					u32 Offset, u32 *BaseAddr)
+static u32 CsiSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
+					u32 Offset, UINTPTR *BaseAddr)
 {
 	u32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 
 	AbsAddr = SsBaseAddr + Offset;
 

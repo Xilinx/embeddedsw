@@ -142,6 +142,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/25/15 Initial release
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -220,10 +221,10 @@ typedef struct {
  */
 typedef struct {
 	u32 DeviceId;	/**< DeviceId is the unique ID  of the device */
-	u32 BaseAddr;	/**< BaseAddress is the physical base address of the
-			  *  subsystem address range */
-	u32 HighAddr;	/**< HighAddress is the physical MAX address of the
-			  *  subsystem address range */
+	UINTPTR BaseAddr;	/**< BaseAddress is the physical base address
+				of the subsystem address range */
+	UINTPTR HighAddr;	/**< HighAddress is the physical MAX address
+				of the  subsystem address range */
 	u32 IsIicPresent;	/**< Flag for IIC presence in subsystem */
 	u32 LanesPresent;	/**< Number of PPI Lanes in the design */
 	u32 PixelCount;	/**< Number of Pixels per clock 1,2,4 */
@@ -266,7 +267,7 @@ typedef struct {
 	XCsi_DataLaneInfo DLInfo[XCSI_MAX_LANES];	/**< Data Lane
 							  *  information */
 	XCsi_SPktData SpktData;		/**< Short packet */
-	XCsi_VCInfo VCInfo[XCSI_MAX_VC];	/**< Virtual Channel information */
+	XCsi_VCInfo VCInfo[XCSI_MAX_VC];/**< Virtual Channel information */
 } XCsiSs;
 
 /************************** Function Prototypes ******************************/
@@ -276,7 +277,7 @@ XCsiSs_Config* XCsiSs_LookupConfig(u32 DeviceId);
 
 /* Initialization and control functions xcsiss.c */
 u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 #if (XPAR_XIIC_NUM_INSTANCES > 0)
 XIic* XCsiSs_GetIicInstance(XCsiSs *InstancePtr);
 #endif
