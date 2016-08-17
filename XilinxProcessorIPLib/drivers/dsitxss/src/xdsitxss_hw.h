@@ -48,7 +48,8 @@
 *
 * Ver Who Date    Changes
 * --- --- ------- -------------------------------------------------------
-* 1.0 ram 11/2/16 Initial Release for MIPI DSI TX subsystem
+* 1.0 ram 11/02/16 Initial Release for MIPI DSI TX subsystem
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -92,7 +93,7 @@ extern "C" {
 * @note		None
 *
 ******************************************************************************/
-static inline u32 XDsiTxSs_ReadReg(u32 BaseAddress, u32 RegOffset)
+static inline u32 XDsiTxSs_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 {
 	return	XDsiTxSs_In32(BaseAddress + (u32)RegOffset);
 }
@@ -114,7 +115,8 @@ static inline u32 XDsiTxSs_ReadReg(u32 BaseAddress, u32 RegOffset)
 * @note		None
 *
 ******************************************************************************/
-static inline void XDsiTxSs_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+static inline void XDsiTxSs_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
+								u32 Data)
 {
 	XDsiTxSs_Out32(BaseAddress + (u32)RegOffset, (u32)Data);
 }

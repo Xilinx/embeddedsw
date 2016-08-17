@@ -44,7 +44,8 @@
 *
 * Ver Who Date     Changes
 * --- --- ------- -------------------------------------------------------
-* 1.0 ram 11/2/16 Initial Release for MIPI DSI TX subsystem
+* 1.0 ram 11/02/16 Initial Release for MIPI DSI TX subsystem
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -87,8 +88,8 @@ XDsiTxSs_SubCores DsiTxSsSubCores; /**< Define Driver instance of all sub-core
 static void XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr);
 static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr);
 static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr);
-static s32 ComputeSubCoreAbsAddr(u32 SsBaseAddr, u32 SsHighAddr, u32 Offset,
-								u32 *BaseAddr);
+static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr, UINTPTR SsHighAddr,
+					u32 Offset, UINTPTR *BaseAddr);
 
 /************************** Function Definitions ******************************/
 
@@ -115,15 +116,15 @@ static s32 ComputeSubCoreAbsAddr(u32 SsBaseAddr, u32 SsHighAddr, u32 Offset,
 *
 ******************************************************************************/
 s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
-							u32 EffectiveAddr)
+							UINTPTR EffectiveAddr)
 {
 	s32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(EffectiveAddr != (u32)NULL);
+	Xil_AssertNonvoid(EffectiveAddr != 0);
 
 	/* Setup the instance */
 	InstancePtr->Config = *CfgPtr;
@@ -435,7 +436,7 @@ static void XDsiTxSs_GetIncludedSubCores(XDsiTxSs *DsiTxSsPtr)
 static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 {
 	s32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 	XDsi_Config *ConfigPtr;
 
 	if (!DsiTxSsPtr->DsiPtr) {
@@ -491,7 +492,7 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 {
 	s32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 	XDphy_Config *ConfigPtr;
 
 	if (!DsiTxSsPtr->DphyPtr) {
@@ -554,13 +555,13 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 * @note		None
 *
 ******************************************************************************/
-static s32 ComputeSubCoreAbsAddr(u32 SsBaseAddr,
-				u32 SsHighAddr,
+static s32 ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
+				UINTPTR SsHighAddr,
 				u32 Offset,
-				u32 *BaseAddr)
+				UINTPTR *BaseAddr)
 {
 	s32 Status;
-	u32 AbsAddr;
+	UINTPTR AbsAddr;
 
 	AbsAddr = SsBaseAddr + Offset;
 

@@ -119,7 +119,8 @@
 *
 * Ver Who Date    Changes
 * --- --- ------- -------------------------------------------------------
-* 1.0 ram 11/2/16 Initial Release for MIPI DSI TX subsystem
+* 1.0 ram 11/02/16 Initial Release for MIPI DSI TX subsystem
+* 1.1 sss 08/17/16 Added 64 bit support
 * </pre>
 *
 ******************************************************************************/
@@ -176,10 +177,10 @@ typedef enum {
 typedef struct {
 	u32 DeviceId;	/**< DeviceId is the unique ID
 			  *  of the device */
-	u32 BaseAddr;	/**< BaseAddress is the physical
+	UINTPTR BaseAddr;	/**< BaseAddress is the physical
 			  *  base address of the subsystem
 			  *  address range */
-	u32 HighAddr;	/**< HighAddress is the physical
+	UINTPTR HighAddr;	/**< HighAddress is the physical
 			  *  MAX address of the subsystem address range */
 	u8 DsiLanes;	/**< DSI supported lanes 1, 2, 3, 4 */
 	u8 DataType;	/**< RGB  type */
@@ -242,7 +243,7 @@ typedef struct {
 
 XDsiTxSs_Config* XDsiTxSs_LookupConfig(u32 DeviceId);
 s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
-							u32 EffectiveAddr);
+							UINTPTR EffectiveAddr);
 u32 XDsiTxSs_DefaultConfigure(XDsiTxSs *InstancePtr);
 void XDsiTxSs_Activate(XDsiTxSs *InstancePtr, u8 Flag);
 void XDsiTxSs_Reset(XDsiTxSs *InstancePtr);
