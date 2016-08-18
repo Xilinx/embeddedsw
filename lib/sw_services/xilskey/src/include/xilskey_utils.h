@@ -112,6 +112,9 @@ extern "C" {
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 #define XSYSMON_DEVICE_ID	XPAR_XSYSMONPSU_0_DEVICE_ID
+
+/* ZynqMp efusePs ps Ref Clk frequency */
+#define XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ	XPAR_PSU_PSS_REF_CLK_FREQ_HZ
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -383,11 +386,6 @@ typedef enum {
  */
 #define XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES			(48)
 
-/**
- * ZynqMp efusePs ps Ref Clk frequency
- */
-#define XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ		(33330000) /**< Need to be
-													* from design */
 
 /************************** Variable Definitions ****************************/
 /**

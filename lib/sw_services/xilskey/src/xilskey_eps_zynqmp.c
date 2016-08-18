@@ -1166,7 +1166,9 @@ static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues()
 			XSK_ZYNQMP_EFUSEPS_CFG_OFFSET, ReadReg);
 
 	/* Initialized Timer */
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	RefClk = XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ;
+#endif
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_TPGM_OFFSET,
 			((u32)XilSKey_ZynqMp_EfusePs_Tprgrm(RefClk) &
