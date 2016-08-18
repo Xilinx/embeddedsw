@@ -223,6 +223,23 @@ usb_v5_2:
 Updated the driver to support 64-bit DMA addressing
 
 v_hdmirx_v1_2:
+squash unused variable compiler warning
+
+v_hdmitx_v1_2:
+Added API to set AXI4-Lite clock frequency
+squash unused variable compiler warning
+
+v_hdmirxss_v3_0:
+Combine multiple report API into one ReportInfo
+Clean up warnings
+Add Event Log
+
+v_hdmitxss_v3_0:
+Add API to set AXI4-Lite clock frequency
+Added Event Log
+Combine Report function into one ReportInfo
+
+v_hdmirx_v1_2:
 Up version to 1.2 with the following updates:
 Update Address data type to support ZynqMP
 Update HDCP support
