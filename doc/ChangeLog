@@ -13,6 +13,9 @@ Fix compilation warining in the 64-bit platforms.
 axivdma_v6_2:
 Fix compilation warining in the 64-bit platforms.
 
+axis_switch_v1_1:
+Used UINTPTR type for BaseAddress
+
 coresightps_dcc_v1_1:
 Created a new version of the driver to ensure that for MB based systems the driver
 is not included. This fixes the CR#953056.
@@ -51,6 +54,9 @@ Synchronize with new HDCP API modifications.
 Reordered VTC enable and DPTX core enable.
 Update to use new video_common v3.1.
 Fix for native video mode compilation.
+
+gpio_v4_2:
+Used UINTPTR type for BaseAddress
 
 iicps_v3_3:
 Modified code for MISRA-C:2012 Compliance
@@ -121,8 +127,9 @@ video_common_v3_1:
 Updated version from 3.0 to 3.1.
 Reordered wait for PLL lock.
 
-vtc_v7_1:
+vtc_v7_2:
 Added compilation protection in case driver is included without instantiation.
+Used UINTPTR type for BaseAddress
 
 xilapufw_v1_0:
 Added new library Xilinx APU firmware for secure EL1 to support secure operations via SMC calling
@@ -136,6 +143,10 @@ Corrected the data type of temp variable.
 Enable the _WORD_ACCESS option.
 Used usleep API instead of MB_Sleep API.
 Included sleep.h in diskio.c file
+
+xilisf_v5_7:
+Added support for SubSector erase.
+Updated subsector erase function for Atmel/Winbond
 
 xilkernel_v6_4:
 Fixed CR:955364 update get_pins command as per 2016.3 hsi changes are made in
@@ -276,9 +287,6 @@ Corrected the if condition logic.
 xilisf_v5_6:
 Added support for MT25QU02G part.
 Corrected the missing WE before erase.
-
-xilisf_v5_7:
-Added support for SubSector erase.
 
 zynqmp_fsbl:
 Added support for DDR ECC Initialization Fixed the bug causing PMUMB
