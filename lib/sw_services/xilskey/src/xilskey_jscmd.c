@@ -1091,11 +1091,10 @@ void JtagWrite(unsigned char row, unsigned char bit)
     Go to TLR to clear FUSE_CTS
 	*/
     unsigned char wrBuffer [8];
-    int bits = 0;
-    unsigned long long time = 0;
-    unsigned long long time_start = 0;
-    unsigned long long time_end = 0;
-    unsigned int delay = 0;
+    u32 bits = 0;
+    u64 time = 0;
+    u64 time_start = 0;
+    u64 time_end = 0;
 
 	// program FUSE_USER bit in row 31 bit 0
 	//Go to TLR to clear FUSE_CTS
@@ -1273,7 +1272,7 @@ int JtagValidateMioPins(XilSKey_ModuleSelection Module)
 int JtagServerInit(XilSKey_EPl *InstancePtr)
 {
     int retval=0, i=0, num_taps=0, status=0;
-    unsigned long *tap_codes = NULL;
+    u32 *tap_codes = NULL;
 
 #ifdef XSK_ARM_PLATFORM
 	g_mio_jtag_tdi		=	InstancePtr->JtagMioTDI;
@@ -1397,7 +1396,7 @@ do_deinit:
 int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 {
     int retval=0, i=0, num_taps=0, status=0;
-    unsigned long *tap_codes = NULL;
+    u32 *tap_codes = NULL;
 #ifdef XSK_ARM_PLATFORM
     g_mio_jtag_tdi		=	InstancePtr->JtagMioTDI;
     g_mio_jtag_tdo		= 	InstancePtr->JtagMioTDO;
@@ -1515,7 +1514,7 @@ int Bbram_Init(XilSKey_Bbram *InstancePtr)
 {
 	u8 IRCaptureStatus = 0;
 	u8 WriteBuffer[4];
-	unsigned long long Time = 0;
+	u64 Time = 0;
 
 	jtag_navigate (g_port, JS_RESET);
 	jtag_navigate (g_port, JS_IDLE);

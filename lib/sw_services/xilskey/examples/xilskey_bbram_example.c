@@ -88,7 +88,6 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr);
 int main()
 {
 	int Status;
-	u8 StartProg;
 
 	xil_printf(" BBRAM Example start \r\n");
 
