@@ -33,7 +33,7 @@
 /**
 *
 * @file xvtc.h
-* @addtogroup vtc_v7_0
+* @addtogroup vtc_v7_2
 * @{
 * @details
 *
@@ -294,7 +294,8 @@
 *                       XVtc_SelfTest.
 * 7.1   vns    10/14/15 Added InterlacedMode feild to XVtc_SourceSelect
 *                       structure
-* 7.2   sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+* 7.2   sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+*                       adding 64 bit support. CR# 867425.
 *                       Changed the prototype of XVtc_CfgInitialize API.
 * </pre>
 *

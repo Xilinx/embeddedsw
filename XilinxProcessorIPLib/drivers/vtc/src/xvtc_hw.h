@@ -33,7 +33,7 @@
 /**
 *
 * @file xvtc_hw.h
-* @addtogroup vtc_v7_0
+* @addtogroup vtc_v7_2
 * @{
 *
 * This header file contains identifiers and register-level core functions (or

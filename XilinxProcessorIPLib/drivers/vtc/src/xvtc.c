@@ -33,7 +33,7 @@
 /**
 *
 * @file xvtc.c
-* @addtogroup vtc_v7_0
+* @addtogroup vtc_v7_2
 * @{
 *
 * This is main code of Xilinx MVI Video Timing Controller (VTC) device driver.
@@ -168,7 +168,8 @@
 *                       Corrected XVtc_ConvSignal2Timing API to get interlaced
 *                       mode from SignalCfgPtr structure.
 * 7.2   mh     04/20/16 Removed call to XVtc_Reset from XVtc_CfgInitialize.
-*       sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+*       sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+*                       adding 64 bit support. CR# 867425.
 *                       Changed the prototype of XVtc_CfgInitialize API.
 * </pre>
 *

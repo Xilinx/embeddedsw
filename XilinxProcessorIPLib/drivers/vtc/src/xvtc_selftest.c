@@ -33,7 +33,7 @@
 /**
 *
 * @file xvtc_selftest.c
-* @addtogroup vtc_v7_0
+* @addtogroup vtc_v7_2
 * @{
 *
 * This file contains the self test function for the VTC core.
