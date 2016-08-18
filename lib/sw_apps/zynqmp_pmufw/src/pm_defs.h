@@ -97,8 +97,11 @@
 
 #define PM_INIT                     21U
 
+#define PM_FPGA_LOAD                22U
+#define PM_FPGA_GET_STATUS          23U
+
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_INIT
+#define PM_API_MAX	PM_FPGA_GET_STATUS
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U

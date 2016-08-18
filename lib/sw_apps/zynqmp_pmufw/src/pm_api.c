@@ -130,6 +130,14 @@ static const PmApiEntry pmApiTable[] = {
 		.apiId = PM_INIT,
 		.argTypes = { ARG_UNDEF, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
 			      ARG_UNDEF }
+	}, {
+		.apiId = PM_FPGA_LOAD,
+		.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UINT32, ARG_UINT32,
+			      ARG_UNDEF }
+	}, {
+		.apiId = PM_FPGA_GET_STATUS,
+		.argTypes = { ARG_UNDEF, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF }
 	},
 };
 

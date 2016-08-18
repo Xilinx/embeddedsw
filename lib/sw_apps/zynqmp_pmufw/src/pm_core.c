@@ -44,6 +44,7 @@
 #include "pm_notifier.h"
 #include "pm_mmio_access.h"
 #include "pm_system.h"
+#include "xilfpga_pcap.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -609,6 +610,50 @@ done:
 }
 
 /**
+ * Pmfpgaload() - Load the bitstream into the PL.
+ * This function does the calls the necessary PCAP interfaces based on flags.
+ *
+ * AddrHigh: Higher 32-bit Linear memory space from where CSUDMA
+ *         will read the data to be written to PCAP interface
+ *
+ * AddrLow: Lower 32-bit Linear memory space from where CSUDMA
+ *         will read the data to be written to PCAP interface
+ *
+ * WrSize: Number of 32bit words that the DMA should write to
+ *        the PCAP interface
+ *
+ * flags:
+ *      0x00000001 - PCAP_INIT,
+ *      0x00000002 - PCAP_WRITE,
+ *      0x00000004 - PCAP_DONE,
+ *
+ * @return  error status based on implemented functionality (SUCCESS by default)
+ */
+static void PmFpgaLoad(const PmMaster *const master,
+			const u32 AddrHigh, const u32 AddrLow,
+			const u32 size, const u32 flags)
+{
+	u32 Status;
+
+       Status = XFpga_PL_BitSream_Load(AddrHigh, AddrLow, size, flags);
+
+       IPI_RESPONSE1(master->ipiMask, Status);
+}
+
+/**
+ * PmFpgaGetStatus() - Get status of the PL-block
+ * @master  Initiator of the request
+ */
+static void PmFpgaGetStatus(const PmMaster *const master)
+{
+	u32 value;
+
+       value = XFpga_PcapStatus();
+
+       IPI_RESPONSE2(master->ipiMask, XST_SUCCESS, value);
+}
+
+/**
  * PmSetWakeupSource() - Master requests to be woken-up by the slaves interrupt
  * @master      Initiator of the request
  * @targetNode  Master node to be woken-up (currently must be same as initiator)
@@ -942,6 +987,12 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 		break;
 	case PM_INIT:
 		PmInit(master);
+		break;
+	case PM_FPGA_LOAD:
+		PmFpgaLoad(master, pload[1], pload[2], pload[3], pload[4]);
+		break;
+	case PM_FPGA_GET_STATUS:
+		PmFpgaGetStatus(master);
 		break;
 	default:
 		PmDbg("ERROR unsupported PM API #%lu\n", pload[0]);
