@@ -556,6 +556,8 @@ static int SubSectorErase(XIsf *InstancePtr, u32 Address)
 	u8 ReadFlagSRCmd[] = {READ_FLAG_STATUS_CMD, 0};
 	u8 *WriteBfrPtr = InstancePtr->WriteBufPtr;
 	u8 FSRFlag, ReadStatusCmd;
+#if((XPAR_XISF_FLASH_FAMILY != ATMEL) && \
+		(XPAR_XISF_FLASH_FAMILY != WINBOND))
 #ifdef	XPAR_XISF_INTERFACE_QSPIPSU
 	XQspiPsu_Msg FlashMsg[2];
 #endif
@@ -762,7 +764,7 @@ static int SubSectorErase(XIsf *InstancePtr, u32 Address)
 	}
 #endif
 #endif
-
+#endif
 	return Status;
 }
 
