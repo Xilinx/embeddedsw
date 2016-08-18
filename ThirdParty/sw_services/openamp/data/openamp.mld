@@ -44,7 +44,8 @@ BEGIN LIBRARY openamp
   OPTION DRC = openamp_drc;
   OPTION COPYFILES = all;
   OPTION REQUIRES_OS = (standalone freertos823_xilinx);
-  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lopen_amp,-lgcc,-lc,--end-group";
+  OPTION DEPENDS = (libmetal_v1_0);
+  OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lopen_amp,-lgcc,-lc,--end-group";
   OPTION DESC = "OpenAmp Library ";
   OPTION VERSION = 1.1;
   OPTION NAME = openamp;

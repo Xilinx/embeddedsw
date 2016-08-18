@@ -98,6 +98,7 @@ proc generate {libhandle} {
 	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER CACHE STRING \"\")"
 	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER CACHE STRING \"\")"
 	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER CACHE STRING \"\")"
+	puts $fd "set (CMAKE_FIND_ROOT_PATH /ws/open-amp-ghe/scripts/ZCU102/2016.3_0805_1/standalone /ws/open-amp-ghe/scripts/ZCU102/2016.3_0805_1/standalone/include)"
 	close $fd
 
 	# Run cmake to generate make file
