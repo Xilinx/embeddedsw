@@ -49,6 +49,7 @@
 *						  which enables timer only when it is disabled and
 *						  read counter value directly from register instead
 *						  of calling XTime_GetTime for optimization
+* 6.0   mus      08/18/16 Updated the sleep signature. Fix for CR#956899
 * </pre>
 *
 ******************************************************************************/
@@ -70,7 +71,7 @@
 * @note		None.
 *
 ****************************************************************************/
-s32 sleep(u32 seconds)
+unsigned sleep(unsigned int seconds)
 {
 	XTime tEnd, tCur;
 	/* Start global timer counter, it will only be enabled if it is disabled */

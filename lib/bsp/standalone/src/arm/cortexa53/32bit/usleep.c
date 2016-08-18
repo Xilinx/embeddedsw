@@ -50,6 +50,7 @@
 *						  which enables timer only when it is disabled and
 *						  read counter value directly from register instead
 *						  of calling XTime_GetTime for optimization
+* 6.0   mus      08/18/16 Updated the usleep signature. Fix for CR#956899
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
@@ -76,7 +77,7 @@
 * @note		None.
 *
 ****************************************************************************/
-s32 usleep(u32 useconds)
+int usleep(unsigned long useconds)
 {
 
 	XTime tEnd, tCur;
