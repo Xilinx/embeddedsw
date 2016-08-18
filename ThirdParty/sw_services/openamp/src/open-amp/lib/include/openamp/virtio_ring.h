@@ -121,7 +121,7 @@ struct vring {
  * versa. They are at the end for backwards compatibility.
  */
 #define vring_used_event(vr)	((vr)->avail->ring[(vr)->num])
-#define vring_avail_event(vr)	(*(uint16_t *)&(vr)->used->ring[(vr)->num])
+#define vring_avail_event(vr)	((vr)->used->ring[(vr)->num].id & 0xFFFF)
 
 static inline int vring_size(unsigned int num, unsigned long align)
 {

@@ -1,4 +1,7 @@
 #include "openamp/open_amp.h"
+#include "metal/mutex.h"
+#include "metal/atomic.h"
+
 /* RPC response buffer size */
 #define RPC_BUFF_SIZE 512
 
@@ -20,8 +23,8 @@ typedef void (*rpc_shutdown_cb) (struct rpmsg_channel *);
 struct _rpc_data {
 	struct rpmsg_channel *rpmsg_chnl;
 	struct rpmsg_endpoint *rp_ept;
-	void *rpc_lock;
-	void *sync_lock;
+	metal_mutex_t rpc_lock;
+	atomic_int sync;
 	struct _sys_rpc *rpc;
 	struct _sys_rpc *rpc_response;
 	rpc_shutdown_cb shutdown_cb;

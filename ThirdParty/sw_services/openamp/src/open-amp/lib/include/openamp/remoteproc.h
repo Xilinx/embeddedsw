@@ -66,10 +66,10 @@
  */
 OPENAMP_PACKED_BEGIN
 struct resource_table {
-	unsigned int ver;
-	unsigned int num;
-	unsigned int reserved[2];
-	unsigned int offset[0];
+	uint32_t ver;
+	uint32_t num;
+	uint32_t reserved[2];
+	uint32_t offset[0];
 } OPENAMP_PACKED_END;
 
 /**
@@ -83,8 +83,8 @@ struct resource_table {
  */
 OPENAMP_PACKED_BEGIN
 struct fw_rsc_hdr {
-	unsigned int type;
-	unsigned char data[0];
+	uint32_t type;
+	uint8_t data[0];
 } OPENAMP_PACKED_END;
 
 /**
@@ -162,13 +162,13 @@ enum fw_resource_type {
  */
 OPENAMP_PACKED_BEGIN
 struct fw_rsc_carveout {
-	unsigned int type;
-	unsigned int da;
-	unsigned int pa;
-	unsigned int len;
-	unsigned int flags;
-	unsigned int reserved;
-	unsigned char name[32];
+	uint32_t type;
+	uint32_t da;
+	uint32_t pa;
+	uint32_t len;
+	uint32_t flags;
+	uint32_t reserved;
+	uint8_t name[32];
 } OPENAMP_PACKED_END;
 
 /**
@@ -202,13 +202,13 @@ struct fw_rsc_carveout {
  */
 OPENAMP_PACKED_BEGIN
 struct fw_rsc_devmem {
-	unsigned int type;
-	unsigned int da;
-	unsigned int pa;
-	unsigned int len;
-	unsigned int flags;
-	unsigned int reserved;
-	unsigned char name[32];
+	uint32_t type;
+	uint32_t da;
+	uint32_t pa;
+	uint32_t len;
+	uint32_t flags;
+	uint32_t reserved;
+	uint8_t name[32];
 } OPENAMP_PACKED_END;
 
 /**
@@ -229,11 +229,11 @@ struct fw_rsc_devmem {
  */
 OPENAMP_PACKED_BEGIN
 struct fw_rsc_trace {
-	unsigned int type;
-	unsigned int da;
-	unsigned int len;
-	unsigned int reserved;
-	unsigned char name[32];
+	uint32_t type;
+	uint32_t da;
+	uint32_t len;
+	uint32_t reserved;
+	uint8_t name[32];
 } OPENAMP_PACKED_END;
 
 /**
@@ -255,11 +255,11 @@ struct fw_rsc_trace {
  */
 OPENAMP_PACKED_BEGIN
 struct fw_rsc_vdev_vring {
-	unsigned int da;
-	unsigned int align;
-	unsigned int num;
-	unsigned int notifyid;
-	unsigned int reserved;
+	uint32_t da;
+	uint32_t align;
+	uint32_t num;
+	uint32_t notifyid;
+	uint32_t reserved;
 } OPENAMP_PACKED_END;
 
 /**
@@ -299,15 +299,15 @@ struct fw_rsc_vdev_vring {
  */
 OPENAMP_PACKED_BEGIN
 struct fw_rsc_vdev {
-	unsigned int type;
-	unsigned int id;
-	unsigned int notifyid;
-	unsigned int dfeatures;
-	unsigned int gfeatures;
-	unsigned int config_len;
-	unsigned char status;
-	unsigned char num_of_vrings;
-	unsigned char reserved[2];
+	uint32_t type;
+	uint32_t id;
+	uint32_t notifyid;
+	uint32_t dfeatures;
+	uint32_t gfeatures;
+	uint32_t config_len;
+	uint8_t status;
+	uint8_t num_of_vrings;
+	uint8_t reserved[2];
 	struct fw_rsc_vdev_vring vring[0];
 } OPENAMP_PACKED_END;
 
@@ -386,19 +386,24 @@ struct rsc_table_info {
  *
  * @param rsc_info          - pointer to resource table info control
  *                            block
+ * @param pdata             - platform data for remote processor
  * @param channel_created   - callback function for channel creation
  * @param channel_destroyed - callback function for channel deletion
  * @param default_cb        - default callback for channel I/O
  * @param rproc_handle      - pointer to new remoteproc instance
+ * @param init_env          - 1 to initialize environment, 0 not to
+ * @param rpmsg_role        - 1 for rpmsg master,  or 0 for rpmsg slave
  *
  * @param returns - status of execution
  *
  */
 int remoteproc_resource_init(struct rsc_table_info *rsc_info,
+			     void *pdata,
 			     rpmsg_chnl_cb_t channel_created,
 			     rpmsg_chnl_cb_t channel_destroyed,
 			     rpmsg_rx_cb_t default_cb,
-			     struct remote_proc **rproc_handle);
+			     struct remote_proc **rproc_handle,
+			     int rpmsg_role);
 
 /**
  * remoteproc_resource_deinit
@@ -420,6 +425,7 @@ int remoteproc_resource_deinit(struct remote_proc *rproc);
  * remoteproc master applications are allowed to call this function.
  *
  * @param fw_name           - name of firmware
+ * @param pdata             - platform data for remote processor
  * @param channel_created   - callback function for channel creation
  * @param channel_destroyed - callback function for channel deletion
  * @param default_cb        - default callback for channel I/O
@@ -428,7 +434,7 @@ int remoteproc_resource_deinit(struct remote_proc *rproc);
  * @param returns - status of function execution
  *
  */
-int remoteproc_init(char *fw_name,
+int remoteproc_init(char *fw_name, void *pdata,
 		    rpmsg_chnl_cb_t channel_created,
 		    rpmsg_chnl_cb_t channel_destroyed,
 		    rpmsg_rx_cb_t default_cb,

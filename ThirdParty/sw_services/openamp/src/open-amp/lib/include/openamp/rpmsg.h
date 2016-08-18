@@ -4,7 +4,7 @@
  * Copyright (C) 2011 Texas Instruments, Inc.
  * Copyright (C) 2011 Google, Inc.
  * All rights reserved.
- * Copyright (c) 2016 NXP, Inc. All rights reserved.
+ * Copyright (c) 2016 Freescale Semiconductor, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -56,11 +56,11 @@
  */
 OPENAMP_PACKED_BEGIN
 struct rpmsg_hdr {
-	unsigned long src;
-	unsigned long dst;
-	unsigned long reserved;
-	unsigned short len;
-	unsigned short flags;
+	uint32_t src;
+	uint32_t dst;
+	uint32_t reserved;
+	uint16_t len;
+	uint16_t flags;
 } OPENAMP_PACKED_END;
 
 /**
@@ -78,8 +78,8 @@ struct rpmsg_hdr {
 OPENAMP_PACKED_BEGIN
 struct rpmsg_ns_msg {
 	char name[RPMSG_NAME_SIZE];
-	unsigned long addr;
-	unsigned long flags;
+	uint32_t addr;
+	uint32_t flags;
 } OPENAMP_PACKED_END;
 
 /**
@@ -106,11 +106,12 @@ enum rpmsg_ns_flags {
  */
 struct rpmsg_channel {
 	char name[RPMSG_NAME_SIZE];
-	unsigned long src;
-	unsigned long dst;
+	uint32_t src;
+	uint32_t dst;
 	struct remote_device *rdev;
 	struct rpmsg_endpoint *rp_ept;
 	unsigned int state;
+	struct metal_list node;
 };
 
 /**
@@ -122,8 +123,8 @@ struct rpmsg_channel {
 
 struct channel_info {
 	char name[RPMSG_NAME_SIZE];
-	unsigned long src;
-	unsigned long dest;
+	uint32_t src;
+	uint32_t dest;
 };
 
 /**
@@ -150,48 +151,20 @@ struct channel_info {
 struct rpmsg_endpoint {
 	struct rpmsg_channel *rp_chnl;
 	rpmsg_rx_cb_t cb;
-	unsigned long addr;
+	uint32_t addr;
 	void *priv;
+	struct metal_list node;
 };
 
 struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_channel *rp_chnl,
 					rpmsg_rx_cb_t cb, void *priv,
-					unsigned long addr);
+					uint32_t addr);
 
 void rpmsg_destroy_ept(struct rpmsg_endpoint *rp_ept);
 
 int
-rpmsg_send_offchannel_raw(struct rpmsg_channel *, unsigned long, unsigned long,
+rpmsg_send_offchannel_raw(struct rpmsg_channel *, uint32_t, uint32_t,
 			  char *, int, int);
-
-/**
- * rpmsg_sendto() - send a message across to the remote processor, specify dst
- * @rpdev: the rpmsg channel
- * @data: payload of message
- * @len: length of payload
- * @dst: destination address
- *
- * This function sends @data of length @len to the remote @dst address.
- * The message will be sent to the remote processor which the @rpdev
- * channel belongs to, using @rpdev's source address.
- * In case there are no TX buffers available, the function will block until
- * one becomes available, or a timeout of 15 seconds elapses. When the latter
- * happens, -ERESTARTSYS is returned.
- *
- * Can only be called from process context (for now).
- *
- * Returns 0 on success and an appropriate error value on failure.
- */
-static inline
-    int rpmsg_sendto(struct rpmsg_channel *rpdev, void *data, int len,
-		     unsigned long dst)
-{
-	if (!rpdev || !data)
-		return RPMSG_ERR_PARAM;
-
-	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, dst, (char *)data,
-					 len, RPMSG_TRUE);
-}
 
 /**
  * rpmsg_send() - send a message across to the remote processor
@@ -212,11 +185,33 @@ static inline
  */
 static inline int rpmsg_send(struct rpmsg_channel *rpdev, void *data, int len)
 {
-	if (!rpdev || !data)
-		return RPMSG_ERR_PARAM;
-
 	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, rpdev->dst,
 					 (char *)data, len, RPMSG_TRUE);
+}
+
+/**
+ * rpmsg_sendto() - send a message across to the remote processor, specify dst
+ * @rpdev: the rpmsg channel
+ * @data: payload of message
+ * @len: length of payload
+ * @dst: destination address
+ *
+ * This function sends @data of length @len to the remote @dst address.
+ * The message will be sent to the remote processor which the @rpdev
+ * channel belongs to, using @rpdev's source address.
+ * In case there are no TX buffers available, the function will block until
+ * one becomes available, or a timeout of 15 seconds elapses. When the latter
+ * happens, -ERESTARTSYS is returned.
+ *
+ * Can only be called from process context (for now).
+ *
+ * Returns 0 on success and an appropriate error value on failure.
+ */
+static inline int rpmsg_sendto(struct rpmsg_channel *rpdev, void *data,
+			       int len, uint32_t dst)
+{
+	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, dst, (char *)data,
+					 len, RPMSG_TRUE);
 }
 
 /**
@@ -239,13 +234,10 @@ static inline int rpmsg_send(struct rpmsg_channel *rpdev, void *data, int len)
  *
  * Returns 0 on success and an appropriate error value on failure.
  */
-static inline
-    int rpmsg_send_offchannel(struct rpmsg_channel *rpdev, unsigned long src,
-			      unsigned long dst, void *data, int len)
+static inline int rpmsg_send_offchannel(struct rpmsg_channel *rpdev,
+					uint32_t src, uint32_t dst,
+					void *data, int len)
 {
-	if (!rpdev || !data)
-		return RPMSG_ERR_PARAM;
-
 	return rpmsg_send_offchannel_raw(rpdev, src, dst, (char *)data, len,
 					 RPMSG_TRUE);
 }
@@ -266,13 +258,9 @@ static inline
  *
  * Returns 0 on success and an appropriate error value on failure.
  */
-static inline
-    int rpmsg_trysend(struct rpmsg_channel *rpdev, void *data, int len)
+static inline int rpmsg_trysend(struct rpmsg_channel *rpdev, void *data,
+				int len)
 {
-
-	if (!rpdev || !data)
-		return RPMSG_ERR_PARAM;
-
 	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, rpdev->dst,
 					 (char *)data, len, RPMSG_FALSE);
 }
@@ -294,18 +282,10 @@ static inline
  *
  * Returns 0 on success and an appropriate error value on failure.
  */
-static inline
-    int rpmsg_trysendto(struct rpmsg_channel *rpdev, void *data, int len,
-			unsigned long dst)
+static inline int rpmsg_trysendto(struct rpmsg_channel *rpdev, void *data,
+				  int len, uint32_t dst)
 {
-	unsigned long src;
-
-	if (!rpdev || !data)
-		return RPMSG_ERR_PARAM;
-
-	src = rpdev->src;
-
-	return rpmsg_send_offchannel_raw(rpdev, src, dst, (char *)data, len,
+	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, dst, (char *)data, len,
 					 RPMSG_FALSE);
 }
 
@@ -328,13 +308,10 @@ static inline
  *
  * Returns 0 on success and an appropriate error value on failure.
  */
-static inline
-    int rpmsg_trysend_offchannel(struct rpmsg_channel *rpdev, unsigned long src,
-				 unsigned long dst, void *data, int len)
+static inline int rpmsg_trysend_offchannel(struct rpmsg_channel *rpdev,
+					   uint32_t src, uint32_t dst,
+					   void *data, int len)
 {
-	if (!rpdev || !data)
-		return RPMSG_ERR_PARAM;
-
 	return rpmsg_send_offchannel_raw(rpdev, src, dst, (char *)data, len,
 					 RPMSG_FALSE);
 }
@@ -346,6 +323,7 @@ static inline
  * device id (cpu id).The successful return from this function leaves
  * fully enabled IPC link.
  *
+ * @param pdata             - platform data for remote processor
  * @param dev_id            - rpmsg remote device for which driver is to
  *                            be initialized
  * @param rdev              - pointer to newly created remote device
@@ -357,7 +335,7 @@ static inline
  *
  */
 
-int rpmsg_init(int dev_id, struct remote_device **rdev,
+int rpmsg_init(void *pdata, int dev_id, struct remote_device **rdev,
 	       rpmsg_chnl_cb_t channel_created,
 	       rpmsg_chnl_cb_t channel_destroyed,
 	       rpmsg_rx_cb_t default_cb, int role);

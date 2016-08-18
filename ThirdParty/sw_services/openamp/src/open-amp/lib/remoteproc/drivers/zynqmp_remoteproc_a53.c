@@ -40,128 +40,104 @@
  *
  **************************************************************************/
 
+#include <errno.h>
+#include <string.h>
+#include "metal/io.h"
+#include "metal/device.h"
+#include "metal/utilities.h"
+#include "metal/atomic.h"
+#include "metal/irq.h"
+#include "metal/alloc.h"
 #include "openamp/hil.h"
-#include "machine.h"
+#include "openamp/remoteproc_plat.h"
+#include "openamp/virtqueue.h"
+
+/* IPI REGs OFFSET */
+#define IPI_TRIG_OFFSET          0x00000000    /* IPI trigger register offset */
+#define IPI_OBS_OFFSET           0x00000004    /* IPI observation register offset */
+#define IPI_ISR_OFFSET           0x00000010    /* IPI interrupt status register offset */
+#define IPI_IMR_OFFSET           0x00000014    /* IPI interrupt mask register offset */
+#define IPI_IER_OFFSET           0x00000018    /* IPI interrupt enable register offset */
+#define IPI_IDR_OFFSET           0x0000001C    /* IPI interrupt disable register offset */
+
+#define _rproc_wait() asm volatile("wfi")
 
 /* -- FIX ME: ipi info is to be defined -- */
 struct ipi_info {
-	uint32_t ipi_base_addr;
 	uint32_t ipi_chn_mask;
+	int need_reg;
+	atomic_int sync;
 };
 
 /*--------------------------- Declare Functions ------------------------ */
 static int _enable_interrupt(struct proc_vring *vring_hw);
-static void _reg_ipi_after_deinit(struct proc_vring *vring_hw);
 static void _notify(int cpu_id, struct proc_intr *intr_info);
 static int _boot_cpu(int cpu_id, unsigned int load_addr);
 static void _shutdown_cpu(int cpu_id);
+static int _poll(struct hil_proc *proc, int nonblock);
+static struct hil_proc *_initialize(void *pdata, int cpu_id);
+static void _release(struct hil_proc *proc);
 
-static void _ipi_handler(int vect_id, void *data);
-static void _ipi_handler_deinit(int vect_id, void *data);
+static int _ipi_handler(int vect_id, void *data);
 
 /*--------------------------- Globals ---------------------------------- */
-struct hil_platform_ops proc_ops = {
+struct hil_platform_ops zynqmp_r5_a53_proc_ops = {
 	.enable_interrupt     = _enable_interrupt,
-	.reg_ipi_after_deinit = _reg_ipi_after_deinit,
 	.notify               = _notify,
 	.boot_cpu             = _boot_cpu,
 	.shutdown_cpu         = _shutdown_cpu,
+	.poll                 = _poll,
+	.initialize    = _initialize,
+	.release    = _release,
 };
 
-/* Extern functions defined out from OpenAMP lib */
-extern void ipi_enable_interrupt(unsigned int vector);
-extern void ipi_isr(int vect_id, void *data);
-
-/* static variables */
-static struct ipi_info saved_ipi_info;
-
-/*------------------- Extern variable -----------------------------------*/
-extern struct hil_proc proc_table[];
-extern const int proc_table_size;
-
-void _ipi_handler(int vect_id, void *data)
+int _ipi_handler(int vect_id, void *data)
 {
 	(void) vect_id;
 	struct proc_vring *vring_hw = (struct proc_vring *)(data);
-	struct ipi_info *chn_ipi_info =
+	struct ipi_info *ipi =
 		(struct ipi_info *)(vring_hw->intr_info.data);
-	unsigned int ipi_base_addr = chn_ipi_info->ipi_base_addr;
+	struct metal_io_region *io = vring_hw->intr_info.io;
 	unsigned int ipi_intr_status =
-	    (unsigned int)HIL_MEM_READ32(ipi_base_addr + IPI_ISR_OFFSET);
-	if (ipi_intr_status & chn_ipi_info->ipi_chn_mask) {
-		platform_dcache_all_flush();
-		platform_isr(vect_id, data);
-		HIL_MEM_WRITE32((ipi_base_addr + IPI_ISR_OFFSET),
-				chn_ipi_info->ipi_chn_mask);
+	    (unsigned int)metal_io_read32(io, IPI_ISR_OFFSET);
+	if (ipi_intr_status & ipi->ipi_chn_mask) {
+		atomic_flag_clear(&ipi->sync);
+		metal_io_write32(io, IPI_ISR_OFFSET,
+				ipi->ipi_chn_mask);
+		return 0;
 	}
-}
-
-void _ipi_handler_deinit(int vect_id, void *data)
-{
-	(void) vect_id;
-	struct ipi_info *chn_ipi_info =
-		(struct ipi_info *)(data);
-	unsigned int ipi_base_addr = chn_ipi_info->ipi_base_addr;
-	unsigned int ipi_intr_status =
-	    (unsigned int)HIL_MEM_READ32(ipi_base_addr + IPI_ISR_OFFSET);
-	if (ipi_intr_status & chn_ipi_info->ipi_chn_mask) {
-		HIL_MEM_WRITE32((ipi_base_addr + IPI_ISR_OFFSET),
-				chn_ipi_info->ipi_chn_mask);
-	}
-	return;
+	return -1;
 }
 
 static int _enable_interrupt(struct proc_vring *vring_hw)
 {
-	struct ipi_info *chn_ipi_info =
+	struct ipi_info *ipi =
 	    (struct ipi_info *)(vring_hw->intr_info.data);
-	unsigned int ipi_base_addr = chn_ipi_info->ipi_base_addr;
+	struct metal_io_region *io = vring_hw->intr_info.io;
 
-	if (vring_hw->intr_info.vect_id == 0xFFFFFFFF) {
+	if (!ipi->need_reg) {
 		return 0;
 	}
 
 	/* Register ISR */
-	env_register_isr_shared(vring_hw->intr_info.vect_id,
-			 vring_hw, _ipi_handler, "remoteproc_a53", 1);
+	metal_irq_register(vring_hw->intr_info.vect_id, _ipi_handler,
+				vring_hw->intr_info.dev, vring_hw);
 	/* Enable IPI interrupt */
-	env_enable_interrupt(vring_hw->intr_info.vect_id,
-			     vring_hw->intr_info.priority,
-			     vring_hw->intr_info.trigger_type);
-	HIL_MEM_WRITE32((ipi_base_addr + IPI_IER_OFFSET),
-		chn_ipi_info->ipi_chn_mask);
+	metal_irq_enable(vring_hw->intr_info.vect_id);
+	metal_io_write32(io, IPI_IER_OFFSET, ipi->ipi_chn_mask);
 	return 0;
-}
-
-/* In case there is an interrupt received after deinit. */
-static void _reg_ipi_after_deinit(struct proc_vring *vring_hw)
-{
-	struct ipi_info *chn_ipi_info =
-	    (struct ipi_info *)(vring_hw->intr_info.data);
-
-	if (vring_hw->intr_info.vect_id == 0xFFFFFFFF)
-		return;
-	saved_ipi_info.ipi_base_addr = chn_ipi_info->ipi_base_addr;
-	saved_ipi_info.ipi_chn_mask = chn_ipi_info->ipi_chn_mask;
-
-	env_update_isr(vring_hw->intr_info.vect_id, &saved_ipi_info,
-                    _ipi_handler_deinit,
-                    "remoteproc_a53", 1);
 }
 
 static void _notify(int cpu_id, struct proc_intr *intr_info)
 {
 
 	(void)cpu_id;
-	struct ipi_info *chn_ipi_info = (struct ipi_info *)(intr_info->data);
-	if (chn_ipi_info == NULL)
+	struct ipi_info *ipi = (struct ipi_info *)(intr_info->data);
+	if (ipi == NULL)
 		return;
-	platform_dcache_all_flush();
-	env_wmb();
 
 	/* Trigger IPI */
-	HIL_MEM_WRITE32((chn_ipi_info->ipi_base_addr + IPI_TRIG_OFFSET),
-			chn_ipi_info->ipi_chn_mask);
+	metal_io_write32(intr_info->io, IPI_TRIG_OFFSET, ipi->ipi_chn_mask);
 }
 
 static int _boot_cpu(int cpu_id, unsigned int load_addr)
@@ -177,35 +153,80 @@ static void _shutdown_cpu(int cpu_id)
 	return;
 }
 
-/**
- * platform_get_processor_info
- *
- * Copies the target info from the user defined data structures to
- * HIL proc  data structure.In case of remote contexts this function
- * is called with the reserved CPU ID HIL_RSVD_CPU_ID, because for
- * remotes there is only one master.
- *
- * @param proc   - HIL proc to populate
- * @param cpu_id - CPU ID
- *
- * return  - status of execution
- */
-int platform_get_processor_info(struct hil_proc *proc , int cpu_id)
+static int _poll(struct hil_proc *proc, int nonblock)
 {
-	int idx;
-	unsigned int u_cpu_id = cpu_id;
+	struct proc_vring *vring;
+	struct ipi_info *ipi;
+	unsigned int flags;
 
-	for(idx = 0; idx < proc_table_size; idx++) {
-		if ((u_cpu_id == HIL_RSVD_CPU_ID) || (proc_table[idx].cpu_id == u_cpu_id)) {
-			env_memcpy(proc,&proc_table[idx], sizeof(struct hil_proc));
+	vring = &proc->vdev.vring_info[1];
+	ipi = (struct ipi_info *)(vring->intr_info.data);
+	while(1) {
+		flags = metal_irq_save_disable();
+		if (!(atomic_flag_test_and_set(&ipi->sync))) {
+			metal_irq_restore_enable(flags);
+			virtqueue_notification(vring->vq);
 			return 0;
 		}
+		if (nonblock) {
+			metal_irq_restore_enable(flags);
+			return -EAGAIN;
+		}
+		_rproc_wait();
+		metal_irq_restore_enable(flags);
 	}
-	return -1;
 }
 
-int platform_get_processor_for_fw(char *fw_name)
+static struct hil_proc * _initialize(void *pdata, int cpu_id)
 {
-	(void)fw_name;
-	return 1;
+	(void) cpu_id;
+
+	struct hil_proc *proc;
+	int ret;
+	struct metal_io_region *io;
+	struct proc_intr *intr_info;
+	struct ipi_info *ipi;
+	unsigned int ipi_intr_status;
+
+	/* Allocate memory for proc instance */
+	proc = metal_allocate_memory(sizeof(struct hil_proc));
+	if (!proc) {
+		return NULL;
+	}
+	memset(proc, 0, sizeof(struct hil_proc));
+
+	ret = rproc_init_plat_data(pdata, proc);
+	if (ret)
+		goto error;
+	intr_info = &(proc->vdev.vring_info[1].intr_info);
+	io = intr_info->io;
+	ipi = (struct ipi_info *)(intr_info->data);
+	ipi_intr_status =
+	    (unsigned int)metal_io_read32(io, IPI_ISR_OFFSET);
+	if (ipi_intr_status & ipi->ipi_chn_mask) {
+		metal_io_write32(io, IPI_ISR_OFFSET, ipi->ipi_chn_mask);
+	}
+	metal_io_write32(io, IPI_IDR_OFFSET, ipi->ipi_chn_mask);
+	atomic_store(&ipi->sync, 1);
+	return proc;
+error:
+	if (proc) {
+		rproc_close_plat(proc);
+		metal_free_memory(proc);
+	}
+	return NULL;
+}
+
+static void _release(struct hil_proc *proc)
+{
+	if (proc) {
+		struct proc_intr *intr_info =
+			&(proc->vdev.vring_info[1].intr_info);
+		struct metal_io_region *io = intr_info->io;
+		struct ipi_info *ipi = (struct ipi_info *)(intr_info->data);
+		metal_io_write32(io, IPI_IDR_OFFSET, ipi->ipi_chn_mask);
+
+		rproc_close_plat(proc);
+		metal_free_memory(proc);
+	}
 }

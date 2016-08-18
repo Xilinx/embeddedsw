@@ -33,7 +33,7 @@
 #include "openamp/remoteproc_loader.h"
 
 /* ELF base types - 32-bit. */
-typedef unsigned int Elf32_Addr;
+typedef uintptr_t Elf32_Addr;
 typedef unsigned short Elf32_Half;
 typedef unsigned int Elf32_Off;
 typedef signed int Elf32_Sword;

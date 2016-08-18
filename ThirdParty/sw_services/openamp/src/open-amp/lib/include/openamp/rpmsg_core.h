@@ -35,8 +35,9 @@
 #include "openamp/virtio.h"
 #include "openamp/hil.h"
 #include "openamp/sh_mem.h"
-#include "openamp/llist.h"
 #include "openamp/rpmsg.h"
+#include "metal/mutex.h"
+#include "metal/list.h"
 
 /* Configurable parameters */
 #define RPMSG_BUFFER_SIZE                       512
@@ -68,15 +69,23 @@
 #define RPMSG_TICKS_PER_INTERVAL                10
 
 /* Error macros. */
-#define RPMSG_ERRORS_BASE                       -3000
-#define RPMSG_ERR_NO_MEM                        (RPMSG_ERRORS_BASE - 1)
-#define RPMSG_ERR_NO_BUFF                       (RPMSG_ERRORS_BASE - 2)
-#define RPMSG_ERR_MAX_VQ                        (RPMSG_ERRORS_BASE - 3)
-#define RPMSG_ERR_PARAM                         (RPMSG_ERRORS_BASE - 4)
-#define RPMSG_ERR_DEV_STATE                     (RPMSG_ERRORS_BASE - 5)
-#define RPMSG_ERR_BUFF_SIZE                     (RPMSG_ERRORS_BASE - 6)
-#define RPMSG_ERR_DEV_ID                        (RPMSG_ERRORS_BASE - 7)
-#define RPMSG_ERR_DEV_ADDR                      (RPMSG_ERRORS_BASE - 8)
+#define RPMSG_ERROR_BASE                        -2000
+#define RPMSG_ERR_NO_MEM                        (RPMSG_ERROR_BASE - 1)
+#define RPMSG_ERR_NO_BUFF                       (RPMSG_ERROR_BASE - 2)
+#define RPMSG_ERR_MAX_VQ                        (RPMSG_ERROR_BASE - 3)
+#define RPMSG_ERR_PARAM                         (RPMSG_ERROR_BASE - 4)
+#define RPMSG_ERR_DEV_STATE                     (RPMSG_ERROR_BASE - 5)
+#define RPMSG_ERR_BUFF_SIZE                     (RPMSG_ERROR_BASE - 6)
+#define RPMSG_ERR_DEV_ID                        (RPMSG_ERROR_BASE - 7)
+#define RPMSG_ERR_DEV_ADDR                      (RPMSG_ERROR_BASE - 8)
+
+#if (RPMSG_DEBUG == true)
+#define RPMSG_ASSERT(_exp, _msg) do{ \
+    if (!(_exp)){ printf("%s - "_msg, __func__); while(1);} \
+    } while(0)
+#else
+#define RPMSG_ASSERT(_exp, _msg) if (!(_exp)) while(1)
+#endif
 
 struct rpmsg_channel;
 typedef void (*rpmsg_rx_cb_t) (struct rpmsg_channel *, void *, int, void *,
@@ -109,14 +118,14 @@ struct remote_device {
 	struct virtqueue *rvq;
 	struct virtqueue *tvq;
 	struct hil_proc *proc;
-	struct llist *rp_channels;
-	struct llist *rp_endpoints;
+	struct metal_list rp_channels;
+	struct metal_list rp_endpoints;
 	struct sh_mem_pool *mem_pool;
 	unsigned long bitmap[RPMSG_ADDR_BMP_SIZE];
 	rpmsg_chnl_cb_t channel_created;
 	rpmsg_chnl_cb_t channel_destroyed;
 	rpmsg_rx_cb_t default_cb;
-	LOCK *lock;
+	metal_mutex_t lock;
 	unsigned int role;
 	unsigned int state;
 	int support_ns;
@@ -153,17 +162,16 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl,
 		       void *data, int len, void *priv, unsigned long src);
 
 /* Remote device functions */
-int rpmsg_rdev_init(struct remote_device **rdev, int dev_id, int role,
+int rpmsg_rdev_init(void *pdata, struct remote_device **rdev, int dev_id, int role,
 		    rpmsg_chnl_cb_t channel_created,
 		    rpmsg_chnl_cb_t channel_destroyed,
 		    rpmsg_rx_cb_t default_cb);
 void rpmsg_rdev_deinit(struct remote_device *rdev);
-struct llist *rpmsg_rdev_get_chnl_node_from_id(struct remote_device *rdev,
+struct rpmsg_channel *rpmsg_rdev_get_chnl_from_id(struct remote_device *rdev,
 					       char *rp_chnl_id);
-struct llist *rpmsg_rdev_get_chnl_from_addr(struct remote_device *rdev,
-					    unsigned long addr);
-struct llist *rpmsg_rdev_get_endpoint_from_addr(struct remote_device *rdev,
-						unsigned long addr);
+struct rpmsg_endpoint *rpmsg_rdev_get_endpoint_from_addr(
+					struct remote_device *rdev,
+					unsigned long addr);
 int rpmsg_rdev_notify(struct remote_device *rdev);
 int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 				 const char *names[], vq_callback * callbacks[],

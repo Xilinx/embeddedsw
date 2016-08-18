@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- * Copyright (c) 2016 NXP Semiconductor, Inc. All rights reserved.
+ * Copyright (c) 2016 Freescale Semiconductor, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -42,7 +42,9 @@
  *       it is only being used to manage shared memory.
  *
  **************************************************************************/
+#include <string.h>
 #include "openamp/sh_mem.h"
+#include "metal/alloc.h"
 
 /**
  * sh_mem_create_pool
@@ -60,7 +62,7 @@ struct sh_mem_pool *sh_mem_create_pool(void *start_addr, unsigned int size,
 				       unsigned int buff_size)
 {
 	struct sh_mem_pool *mem_pool;
-	int status, pool_size;
+	int pool_size;
 	int num_buffs, bmp_size;
 
 	if (!start_addr || !size || !buff_size)
@@ -83,16 +85,12 @@ struct sh_mem_pool *sh_mem_create_pool(void *start_addr, unsigned int size,
 	pool_size = sizeof(struct sh_mem_pool) + WORD_SIZE * bmp_size;
 
 	/* Create pool control block. */
-	mem_pool = env_allocate_memory(pool_size);
+	mem_pool = metal_allocate_memory(pool_size);
 
 	if (mem_pool) {
 		/* Initialize pool parameters */
-		env_memset(mem_pool, 0x00, pool_size);
-		status = env_create_mutex(&mem_pool->lock, 1);
-		if (status) {
-			env_free_memory(mem_pool);
-			return NULL;
-		}
+		memset(mem_pool, 0x00, pool_size);
+		metal_mutex_init(&mem_pool->lock);
 		mem_pool->start_addr = start_addr;
 		mem_pool->buff_size = buff_size;
 		mem_pool->bmp_size = bmp_size;
@@ -120,10 +118,10 @@ void *sh_mem_get_buffer(struct sh_mem_pool *pool)
 	if (!pool)
 		return NULL;
 
-	env_lock_mutex(pool->lock);
+	metal_mutex_acquire(&pool->lock);
 
 	if (pool->used_buffs >= pool->total_buffs) {
-		env_unlock_mutex(pool->lock);
+		metal_mutex_release(&pool->lock);
 		return NULL;
 	}
 
@@ -144,7 +142,7 @@ void *sh_mem_get_buffer(struct sh_mem_pool *pool)
 		}
 	}
 
-	env_unlock_mutex(pool->lock);
+	metal_mutex_release(&pool->lock);
 
 	return buff;
 }
@@ -168,7 +166,7 @@ void sh_mem_free_buffer(void *buff, struct sh_mem_pool *pool)
 		return;
 
 	/* Acquire the pool lock */
-	env_lock_mutex(pool->lock);
+	metal_mutex_acquire(&pool->lock);
 
 	/* Map the buffer address to its index. */
 	buff_idx = ((char *)buff - (char *)pool->start_addr) / pool->buff_size;
@@ -184,7 +182,7 @@ void sh_mem_free_buffer(void *buff, struct sh_mem_pool *pool)
 	pool->used_buffs--;
 
 	/* Release the pool lock. */
-	env_unlock_mutex(pool->lock);
+	metal_mutex_release(&pool->lock);
 
 }
 
@@ -201,8 +199,8 @@ void sh_mem_delete_pool(struct sh_mem_pool *pool)
 {
 
 	if (pool) {
-		env_delete_mutex(pool->lock);
-		env_free_memory(pool);
+		metal_mutex_deinit(&pool->lock);
+		metal_free_memory(pool);
 	}
 }
 

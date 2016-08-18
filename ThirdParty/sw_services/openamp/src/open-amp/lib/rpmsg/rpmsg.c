@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- * Copyright (c) 2016 NXP, Inc. All rights reserved.
+ * Copyright (c) 2016 Freescale Semiconductor, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -54,7 +54,9 @@
  * irrespective of the fact whether it is RPMSG Remote or Master.
  *
  **************************************************************************/
+#include <string.h>
 #include "openamp/rpmsg.h"
+#include "metal/sys.h"
 
 /**
  * rpmsg_init
@@ -63,6 +65,7 @@
  * given device ID(cpu id). The successful return from this function leaves
  * fully enabled IPC link.
  *
+ * @param pdata             - platform data for remote processor
  * @param dev_id            - remote device for which driver is to
  *                            be initialized
  * @param rdev              - pointer to newly created remote device
@@ -75,23 +78,19 @@
  *
  */
 
-int rpmsg_init(int dev_id, struct remote_device **rdev,
+int rpmsg_init(void *pdata, int dev_id, struct remote_device **rdev,
 	       rpmsg_chnl_cb_t channel_created,
 	       rpmsg_chnl_cb_t channel_destroyed,
 	       rpmsg_rx_cb_t default_cb, int role)
 {
 	int status;
 
-	/* Initialize IPC environment */
-	status = env_init();
+	/* Initialize the remote device for given cpu id */
+	status = rpmsg_rdev_init(pdata, rdev, dev_id, role, channel_created,
+				 channel_destroyed, default_cb);
 	if (status == RPMSG_SUCCESS) {
-		/* Initialize the remote device for given cpu id */
-		status = rpmsg_rdev_init(rdev, dev_id, role, channel_created,
-					 channel_destroyed, default_cb);
-		if (status == RPMSG_SUCCESS) {
-			/* Kick off IPC with the remote device */
-			status = rpmsg_start_ipc(*rdev);
-		}
+		/* Kick off IPC with the remote device */
+		status = rpmsg_start_ipc(*rdev);
 	}
 
 	/* Deinit system in case of error */
@@ -115,7 +114,6 @@ void rpmsg_deinit(struct remote_device *rdev)
 {
 	if (rdev) {
 		rpmsg_rdev_deinit(rdev);
-		env_deinit();
 	}
 }
 
@@ -134,18 +132,18 @@ void rpmsg_deinit(struct remote_device *rdev)
  *
  */
 
-int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, unsigned long src,
-			      unsigned long dst, char *data, int size, int wait)
+int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, uint32_t src,
+			      uint32_t dst, char *data, int size, int wait)
 {
 	struct remote_device *rdev;
 	struct rpmsg_hdr *rp_hdr;
 	void *buffer;
-	int status = RPMSG_SUCCESS;
 	unsigned short idx;
 	int tick_count = 0;
 	unsigned long buff_len;
+	int ret;
 
-	if (!rp_chnl) {
+	if (!rp_chnl || !data) {
 		return RPMSG_ERR_PARAM;
 	}
 
@@ -158,71 +156,61 @@ int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, unsigned long src,
 		return RPMSG_ERR_DEV_STATE;
 	}
 
+	if (size > (rpmsg_get_buffer_size(rp_chnl))) {
+		return RPMSG_ERR_BUFF_SIZE;
+	}
+
 	/* Lock the device to enable exclusive access to virtqueues */
-	env_lock_mutex(rdev->lock);
+	metal_mutex_acquire(&rdev->lock);
 	/* Get rpmsg buffer for sending message. */
 	buffer = rpmsg_get_tx_buffer(rdev, &buff_len, &idx);
+	/* Unlock the device */
+	metal_mutex_release(&rdev->lock);
+
 	if (!buffer && !wait) {
-		status = RPMSG_ERR_NO_MEM;
+		return RPMSG_ERR_NO_BUFF;
 	}
-	env_unlock_mutex(rdev->lock);
 
-	if (status == RPMSG_SUCCESS) {
-
-		while (!buffer) {
-			/*
-			 * Wait parameter is true - pool the buffer for
-			 * 15 secs as defined by the APIs.
-			 */
-			env_sleep_msec(RPMSG_TICKS_PER_INTERVAL);
-			env_lock_mutex(rdev->lock);
-			buffer = rpmsg_get_tx_buffer(rdev, &buff_len, &idx);
-			env_unlock_mutex(rdev->lock);
-			tick_count += RPMSG_TICKS_PER_INTERVAL;
-			if (tick_count >=
-			    (RPMSG_TICK_COUNT / RPMSG_TICKS_PER_INTERVAL)) {
-				status = RPMSG_ERR_NO_BUFF;
-				break;
-			}
-		}
-
-		if (status == RPMSG_SUCCESS) {
-			//FIXME : may be just copy the data size equal to buffer length and Tx it.
-			if ((unsigned int)size > (buff_len - sizeof(struct rpmsg_hdr)))
-				status = RPMSG_ERR_BUFF_SIZE;
-
-			if (status == RPMSG_SUCCESS) {
-				rp_hdr = (struct rpmsg_hdr *)buffer;
-
-				/* Initialize RPMSG header. */
-				rp_hdr->dst = dst;
-				rp_hdr->src = src;
-				rp_hdr->len = size;
-
-				/* Copy data to rpmsg buffer. */
-				env_memcpy((void*)RPMSG_LOCATE_DATA(rp_hdr), data, size);
-
-				env_lock_mutex(rdev->lock);
-				/* Enqueue buffer on virtqueue. */
-				status =
-				    rpmsg_enqueue_buffer(rdev, buffer, buff_len,
-							 idx);
-				if (status == RPMSG_SUCCESS) {
-					/* Let the other side know that there is a job to process. */
-					virtqueue_kick(rdev->tvq);
-				}
-				env_unlock_mutex(rdev->lock);
-			}
-
+	while (!buffer) {
+		/*
+		 * Wait parameter is true - pool the buffer for
+		 * 15 secs as defined by the APIs.
+		 */
+		env_sleep_msec(RPMSG_TICKS_PER_INTERVAL);
+		metal_mutex_acquire(&rdev->lock);
+		buffer = rpmsg_get_tx_buffer(rdev, &buff_len, &idx);
+		metal_mutex_release(&rdev->lock);
+		tick_count += RPMSG_TICKS_PER_INTERVAL;
+		if (!buffer && (tick_count >=
+		    (RPMSG_TICK_COUNT / RPMSG_TICKS_PER_INTERVAL))) {
+			return RPMSG_ERR_NO_BUFF;
 		}
 	}
 
-	/* Do cleanup in case of error. */
-	if (status != RPMSG_SUCCESS) {
-		rpmsg_free_buffer(rdev, buffer);
-	}
+	rp_hdr = (struct rpmsg_hdr *)buffer;
 
-	return status;
+	/* Initialize RPMSG header. */
+	rp_hdr->dst = dst;
+	rp_hdr->src = src;
+	rp_hdr->len = size;
+
+	/* Copy data to rpmsg buffer. */
+	if (rdev->proc->sh_buff.io->mem_flags & METAL_IO_MAPPED)
+		metal_memcpy_io((void *)RPMSG_LOCATE_DATA(rp_hdr), data, size);
+	else
+		memcpy((void *)RPMSG_LOCATE_DATA(rp_hdr), data, size);
+
+	metal_mutex_acquire(&rdev->lock);
+
+	/* Enqueue buffer on virtqueue. */
+	ret = rpmsg_enqueue_buffer(rdev, buffer, buff_len, idx);
+	RPMSG_ASSERT(ret == VQUEUE_SUCCESS, "FATAL: RPMSG failed to enqueue buffer.\n");
+	/* Let the other side know that there is a job to process. */
+	virtqueue_kick(rdev->tvq);
+
+	metal_mutex_release(&rdev->lock);
+
+	return RPMSG_SUCCESS;
 }
 
 /**
@@ -240,20 +228,10 @@ int rpmsg_get_buffer_size(struct rpmsg_channel *rp_chnl)
 	struct remote_device *rdev;
 	int length;
 
-	if (!rp_chnl) {
-		return RPMSG_ERR_PARAM;
-	}
-
 	/* Get associated remote device for channel. */
 	rdev = rp_chnl->rdev;
 
-	/* Validate device state */
-	if (rp_chnl->state != RPMSG_CHNL_STATE_ACTIVE
-	    || rdev->state != RPMSG_DEV_STATE_ACTIVE) {
-		return RPMSG_ERR_DEV_STATE;
-	}
-
-	env_lock_mutex(rdev->lock);
+	metal_mutex_acquire(&rdev->lock);
 
 	if (rdev->role == RPMSG_REMOTE) {
 		/*
@@ -271,7 +249,7 @@ int rpmsg_get_buffer_size(struct rpmsg_channel *rp_chnl)
 		    sizeof(struct rpmsg_hdr);
 	}
 
-	env_unlock_mutex(rdev->lock);
+	metal_mutex_release(&rdev->lock);
 
 	return length;
 }
@@ -291,7 +269,7 @@ int rpmsg_get_buffer_size(struct rpmsg_channel *rp_chnl)
  */
 struct rpmsg_endpoint *rpmsg_create_ept(struct rpmsg_channel *rp_chnl,
 					rpmsg_rx_cb_t cb, void *priv,
-					unsigned long addr)
+					uint32_t addr)
 {
 
 	struct remote_device *rdev = RPMSG_NULL;

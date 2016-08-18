@@ -1,0 +1,10 @@
+collect (PROJECT_INC_DIRS "${CMAKE_CURRENT_SOURCE_DIR}")
+collect (PROJECT_LIB_DIRS "${CMAKE_CURRENT_BINARY_DIR}")
+include_directories (${CMAKE_CURRENT_SOURCE_DIR})
+file (GLOB C_SRCS *.c)
+file (GLOB ASM_SRCS *.S *.s)
+
+set (XIL_C_FLAGS "${CMAKE_C_FLAGS} -O2 -c -DUSEAMP=1")
+set_source_files_properties(${ASM_SRCS} PROPERTIES COMPILE_FLAGS "${XIL_C_FLAGS}")
+set_source_files_properties(${C_SRCS} PROPERTIES COMPILE_FLAGS "${XIL_C_FLAGS}")
+add_library (xil STATIC ${C_SRCS} ${ASM_SRCS})

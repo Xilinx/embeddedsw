@@ -34,7 +34,8 @@ typedef uint8_t boolean;
 
 #include "openamp/virtio_ring.h"
 #include "openamp/env.h"
-#include "openamp/llist.h"
+#include "metal/dma.h"
+#include "metal/io.h"
 
 /*Error Codes*/
 #define VQ_ERROR_BASE                                 -3000
@@ -104,6 +105,8 @@ struct virtqueue {
 	struct vring vq_ring;
 	uint16_t vq_free_cnt;
 	uint16_t vq_queued_cnt;
+	/** Shared memory I/O region */
+	struct metal_io_region *shm_io;
 
 	/*
 	 * Head of the free chain in the descriptor table. If
@@ -142,7 +145,7 @@ struct virtqueue {
 
 /* struct to hold vring specific information */
 struct vring_alloc_info {
-	void *phy_addr;
+	void *vaddr;
 	uint32_t align;
 	uint16_t num_descs;
 	uint16_t pad;
@@ -154,7 +157,7 @@ typedef void vq_notify(struct virtqueue *);
 #if (VQUEUE_DEBUG == true)
 
 #define VQASSERT(_vq, _exp, _msg) do{ \
-    if (!(_exp)){ env_print("%s: %s - "_msg, __func__, (_vq)->vq_name); while(1);} \
+    if (!(_exp)){ printf("%s: %s - "_msg, __func__, (_vq)->vq_name); while(1);} \
     } while(0)
 
 #define VQ_RING_ASSERT_VALID_IDX(_vq, _idx)            \
@@ -195,13 +198,14 @@ int virtqueue_create(struct virtio_device *device, unsigned short id,
 		     char *name, struct vring_alloc_info *ring,
 		     void (*callback) (struct virtqueue * vq),
 		     void (*notify) (struct virtqueue * vq),
+		     struct metal_io_region *shm_io,
 		     struct virtqueue **v_queue);
 
-int virtqueue_add_buffer(struct virtqueue *vq, struct llist *buffer,
+int virtqueue_add_buffer(struct virtqueue *vq, struct metal_sg *sg,
 			 int readable, int writable, void *cookie);
 
 int virtqueue_add_single_buffer(struct virtqueue *vq, void *cookie,
-				void *buffer_addr, uint32_t len, int writable,
+				struct metal_sg *sg, int writable,
 				boolean has_next);
 
 void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t * len);

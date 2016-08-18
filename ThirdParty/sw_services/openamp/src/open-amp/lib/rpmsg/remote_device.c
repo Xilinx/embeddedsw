@@ -2,7 +2,7 @@
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
  * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
- * Copyright (c) 2016 NXP, Inc. All rights reserved.
+ * Copyright (c) 2016 Freescale Semiconductor, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -46,11 +46,14 @@
  *
  **************************************************************************/
 
+#include <string.h>
 #include "openamp/rpmsg.h"
+#include "metal/utilities.h"
+#include "metal/alloc.h"
 
 /* Macro to initialize vring HW info */
 #define INIT_VRING_ALLOC_INFO(ring_info,vring_hw)                             \
-                         (ring_info).phy_addr  = (vring_hw).phy_addr;         \
+                         (ring_info).vaddr  = (vring_hw).vaddr;               \
                          (ring_info).align     = (vring_hw).align;             \
                          (ring_info).num_descs = (vring_hw).num_descs
 
@@ -76,6 +79,7 @@ virtio_dispatch rpmsg_rdev_config_ops = {
  * This function creates and initializes the remote device. The remote device
  * encapsulates virtio device.
  *
+ * @param pdata             - platform data for remote processor
  * @param rdev              - pointer to newly created remote device
  * @param dev-id            - ID of device to create , remote cpu id
  * @param role              - role of the other device, Master or Remote
@@ -86,7 +90,7 @@ virtio_dispatch rpmsg_rdev_config_ops = {
  * @return - status of function execution
  *
  */
-int rpmsg_rdev_init(struct remote_device **rdev, int dev_id, int role,
+int rpmsg_rdev_init(void *pdata, struct remote_device **rdev, int dev_id, int role,
 		    rpmsg_chnl_cb_t channel_created,
 		    rpmsg_chnl_cb_t channel_destroyed, rpmsg_rx_cb_t default_cb)
 {
@@ -98,29 +102,21 @@ int rpmsg_rdev_init(struct remote_device **rdev, int dev_id, int role,
 	int status;
 
 	/* Initialize HIL data structures for given device */
-	proc = hil_create_proc(dev_id);
+	proc = hil_create_proc(pdata, dev_id);
 
 	if (!proc) {
 		return RPMSG_ERR_DEV_ID;
 	}
 
 	/* Create software representation of remote processor. */
-	rdev_loc =
-	    (struct remote_device *)
-	    env_allocate_memory(sizeof(struct remote_device));
+	rdev_loc = (struct remote_device *)metal_allocate_memory(sizeof(struct remote_device));
 
 	if (!rdev_loc) {
 		return RPMSG_ERR_NO_MEM;
 	}
 
-	env_memset(rdev_loc, 0x00, sizeof(struct remote_device));
-	status = env_create_mutex(&rdev_loc->lock, 1);
-
-	if (status != RPMSG_SUCCESS) {
-
-		/* Cleanup required in case of error is performed by caller */
-		return status;
-	}
+	memset(rdev_loc, 0x00, sizeof(struct remote_device));
+	metal_mutex_init(&rdev_loc->lock);
 
 	rdev_loc->proc = proc;
 	rdev_loc->role = role;
@@ -154,6 +150,9 @@ int rpmsg_rdev_init(struct remote_device **rdev, int dev_id, int role,
 		}
 	}
 
+	/* Initialize endpoints list */
+	metal_list_init(&rdev_loc->rp_endpoints);
+
 	/* Initialize channels for RPMSG Remote */
 	status = rpmsg_rdev_init_channels(rdev_loc);
 
@@ -178,15 +177,14 @@ int rpmsg_rdev_init(struct remote_device **rdev, int dev_id, int role,
  */
 void rpmsg_rdev_deinit(struct remote_device *rdev)
 {
-	struct llist *rp_chnl_head, *rp_chnl_temp, *node;
+	struct metal_list *node;
 	struct rpmsg_channel *rp_chnl;
+	struct rpmsg_endpoint *rp_ept;
 
-	rp_chnl_head = rdev->rp_channels;
 
-	while (rp_chnl_head != RPMSG_NULL) {
-
-		rp_chnl_temp = rp_chnl_head->next;
-		rp_chnl = (struct rpmsg_channel *)rp_chnl_head->data;
+	while(!metal_list_is_empty(&rdev->rp_channels)) {
+		node = rdev->rp_channels.next;
+		rp_chnl = metal_container_of(node, struct rpmsg_channel, node);
 
 		if (rdev->channel_destroyed) {
 			rdev->channel_destroyed(rp_chnl);
@@ -202,13 +200,14 @@ void rpmsg_rdev_deinit(struct remote_device *rdev)
 		}
 
 		_rpmsg_delete_channel(rp_chnl);
-		rp_chnl_head = rp_chnl_temp;
 	}
 
 	/* Delete name service endpoint */
-	node = rpmsg_rdev_get_endpoint_from_addr(rdev, RPMSG_NS_EPT_ADDR);
-	if (node) {
-		_destroy_endpoint(rdev, (struct rpmsg_endpoint *)node->data);
+	metal_mutex_acquire(&rdev->lock);
+	rp_ept = rpmsg_rdev_get_endpoint_from_addr(rdev, RPMSG_NS_EPT_ADDR);
+	metal_mutex_release(&rdev->lock);
+	if (rp_ept) {
+		_destroy_endpoint(rdev, rp_ept);
 	}
 
 	if (rdev->rvq) {
@@ -220,81 +219,41 @@ void rpmsg_rdev_deinit(struct remote_device *rdev)
 	if (rdev->mem_pool) {
 		sh_mem_delete_pool(rdev->mem_pool);
 	}
-	if (rdev->lock) {
-		env_delete_mutex(rdev->lock);
-	}
+	metal_mutex_deinit(&rdev->lock);
 	if (rdev->proc) {
 		hil_delete_proc(rdev->proc);
 		rdev->proc = 0;
 	}
 
-	env_free_memory(rdev);
+	metal_free_memory(rdev);
 }
 
 /**
- * rpmsg_rdev_get_chnl_node_from_id
+ * rpmsg_rdev_get_chnl_from_id
  *
- * This function returns channel node based on channel name.
+ * This function returns channel node based on channel name. It must be called
+ * with mutex locked.
  *
  * @param stack      - pointer to remote device
  * @param rp_chnl_id - rpmsg channel name
  *
- * @return - channel node
+ * @return - rpmsg channel
  *
  */
-struct llist *rpmsg_rdev_get_chnl_node_from_id(struct remote_device *rdev,
+struct rpmsg_channel *rpmsg_rdev_get_chnl_from_id(struct remote_device *rdev,
 					       char *rp_chnl_id)
 {
 	struct rpmsg_channel *rp_chnl;
-	struct llist *rp_chnl_head;
+	struct metal_list *node;
 
-	rp_chnl_head = rdev->rp_channels;
-
-	env_lock_mutex(rdev->lock);
-	while (rp_chnl_head) {
-		rp_chnl = (struct rpmsg_channel *)rp_chnl_head->data;
-		if (env_strncmp
+	metal_list_for_each(&rdev->rp_channels, node) {
+		rp_chnl = metal_container_of(node, struct rpmsg_channel, node);
+		if (strncmp
 		    (rp_chnl->name, rp_chnl_id, sizeof(rp_chnl->name))
 		    == 0) {
-			env_unlock_mutex(rdev->lock);
-			return rp_chnl_head;
+			return rp_chnl;
 		}
-		rp_chnl_head = rp_chnl_head->next;
 	}
-	env_unlock_mutex(rdev->lock);
-
-	return RPMSG_NULL;
-}
-
-/**
- * rpmsg_rdev_get_chnl_from_addr
- *
- * This function returns channel node based on src/dst address.
- *
- * @param rdev - pointer remote device control block
- * @param addr - src/dst address
- *
- * @return - channel node
- *
- */
-struct llist *rpmsg_rdev_get_chnl_from_addr(struct remote_device *rdev,
-					    unsigned long addr)
-{
-	struct rpmsg_channel *rp_chnl;
-	struct llist *rp_chnl_head;
-
-	rp_chnl_head = rdev->rp_channels;
-
-	env_lock_mutex(rdev->lock);
-	while (rp_chnl_head) {
-		rp_chnl = (struct rpmsg_channel *)rp_chnl_head->data;
-		if ((rp_chnl->src == addr) || (rp_chnl->dst == addr)) {
-			env_unlock_mutex(rdev->lock);
-			return rp_chnl_head;
-		}
-		rp_chnl_head = rp_chnl_head->next;
-	}
-	env_unlock_mutex(rdev->lock);
 
 	return RPMSG_NULL;
 }
@@ -302,32 +261,28 @@ struct llist *rpmsg_rdev_get_chnl_from_addr(struct remote_device *rdev,
 /**
  * rpmsg_rdev_get_endpoint_from_addr
  *
- * This function returns endpoint node based on src address.
+ * This function returns endpoint node based on src address. It must be called
+ * with mutex locked.
  *
  * @param rdev - pointer remote device control block
  * @param addr - src address
  *
- * @return - endpoint node
+ * @return - rpmsg endpoint
  *
  */
-struct llist *rpmsg_rdev_get_endpoint_from_addr(struct remote_device *rdev,
+struct rpmsg_endpoint *rpmsg_rdev_get_endpoint_from_addr(struct remote_device *rdev,
 						unsigned long addr)
 {
-	struct llist *rp_ept_lut_head;
+	struct rpmsg_endpoint *rp_ept;
+	struct metal_list *node;
 
-	rp_ept_lut_head = rdev->rp_endpoints;
-
-	env_lock_mutex(rdev->lock);
-	while (rp_ept_lut_head) {
-		struct rpmsg_endpoint *rp_ept =
-		    (struct rpmsg_endpoint *)rp_ept_lut_head->data;
+	metal_list_for_each(&rdev->rp_endpoints, node) {
+		rp_ept = metal_container_of(node,
+				struct rpmsg_endpoint, node);
 		if (rp_ept->addr == addr) {
-			env_unlock_mutex(rdev->lock);
-			return rp_ept_lut_head;
+			return rp_ept;
 		}
-		rp_ept_lut_head = rp_ept_lut_head->next;
 	}
-	env_unlock_mutex(rdev->lock);
 
 	return RPMSG_NULL;
 }
@@ -385,6 +340,7 @@ int rpmsg_rdev_init_channels(struct remote_device *rdev)
 	struct proc_chnl *chnl_info;
 	int num_chnls, idx;
 
+	metal_list_init(&rdev->rp_channels);
 	if (rdev->role == RPMSG_MASTER) {
 
 		chnl_info = hil_get_chnl_info(rdev->proc, &num_chnls);
@@ -412,6 +368,15 @@ int rpmsg_rdev_init_channels(struct remote_device *rdev)
 	return RPMSG_SUCCESS;
 }
 
+static void rpmsg_memset_io(struct metal_io_region *io, void *dst, int c, size_t count)
+{
+	if ((io->mem_flags & METAL_IO_MAPPED)) {
+		metal_memset_io(dst, c, count);
+	} else {
+		memset(dst, c, count);
+	}
+}
+
 /**
  *------------------------------------------------------------------------
  * The rest of the file implements the virtio device interface as defined
@@ -427,7 +392,7 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 	struct virtqueue *vqs[RPMSG_MAX_VQ_PER_RDEV];
 	struct proc_vring *vring_table;
 	void *buffer;
-	struct llist node;
+	struct metal_sg sg;
 	int idx, num_vrings, status;
 
 	(void)flags;
@@ -448,14 +413,14 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 		INIT_VRING_ALLOC_INFO(ring_info, vring_table[idx]);
 
 		if (rdev->role == RPMSG_REMOTE) {
-			env_memset((void *)ring_info.phy_addr, 0x00,
-				   vring_size(vring_table[idx].num_descs,
-					      vring_table[idx].align));
+			rpmsg_memset_io(vring_table[idx].io, (void *)ring_info.vaddr, 0x00,
+			       vring_size(vring_table[idx].num_descs, vring_table[idx].align));
 		}
 
 		status =
 		    virtqueue_create(dev, idx, (char *)names[idx], &ring_info,
 				     callbacks[idx], hil_vring_notify,
+				    rdev->proc->sh_buff.io,
 				     &vqs[idx]);
 
 		if (status != RPMSG_SUCCESS) {
@@ -473,6 +438,8 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 	}
 
 	if (rdev->role == RPMSG_REMOTE) {
+		sg.io = rdev->proc->sh_buff.io;
+		sg.len = RPMSG_BUFFER_SIZE;
 		for (idx = 0; ((idx < rdev->rvq->vq_nentries)
 			       && (idx < rdev->mem_pool->total_buffs / 2));
 		     idx++) {
@@ -484,13 +451,11 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 				return RPMSG_ERR_NO_BUFF;
 			}
 
-			node.data = buffer;
-			node.attr = RPMSG_BUFFER_SIZE;
-			node.next = RPMSG_NULL;
+			sg.virt = buffer;
 
-			env_memset(buffer, 0x00, RPMSG_BUFFER_SIZE);
+			rpmsg_memset_io(sg.io, buffer, 0x00, RPMSG_BUFFER_SIZE);
 			status =
-			    virtqueue_add_buffer(rdev->rvq, &node, 0, 1,
+			    virtqueue_add_buffer(rdev->rvq, &sg, 0, 1,
 						 buffer);
 
 			if (status != RPMSG_SUCCESS) {

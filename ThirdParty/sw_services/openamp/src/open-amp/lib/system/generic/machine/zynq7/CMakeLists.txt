@@ -1,2 +1,5 @@
 
-collect (PROJECT_LIB_SOURCES machine_system.c)
+#collect (PROJECT_LIB_SOURCES machine_system.c)
+
+find_path (LIBXIL_INCLUDE_DIR NAMES xparameters.h PATHS ${CMAKE_FIND_ROOT_PATH})
+collect (PROJECT_INC_DIRS ${LIBXIL_INCLUDE_DIR})

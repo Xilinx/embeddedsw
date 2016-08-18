@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- * Copyright (c) 2016 NXP Semiconductor, Inc. All rights reserved.
+ * Copyright (c) 2016 Freescale Semiconductor, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -47,6 +47,7 @@
 #define SH_MEM_H_
 
 #include "openamp/env.h"
+#include "metal/mutex.h"
 
 /* Macros */
 #define BITMAP_WORD_SIZE         32
@@ -72,7 +73,7 @@
 
 struct sh_mem_pool {
 	void *start_addr;
-	LOCK *lock;
+	metal_mutex_t lock;
 	int size;
 	int buff_size;
 	int total_buffs;

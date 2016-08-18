@@ -45,9 +45,10 @@
  **************************************************************************/
 
 #include "openamp/hil.h"
+#include "metal/utilities.h"
 
 /*--------------------------- Globals ---------------------------------- */
-struct hil_proc_list procs;
+static METAL_DECLARE_LIST (procs);
 
 #if defined (OPENAMP_BENCHMARK_ENABLE)
 
@@ -56,81 +57,37 @@ unsigned long long shutdown_time_stamp;
 
 #endif
 
-extern int platform_get_processor_info(struct hil_proc *proc, int cpu_id);
-extern int platform_get_processor_for_fw(char *fw_name);
-
 /**
  * hil_create_proc
  *
  * This function creates a HIL proc instance for given CPU id and populates
  * it with platform info.
  *
+ * @param pdata  - platform data for the remote processor
  * @param cpu_id - cpu id
  *
  * @return - pointer to proc instance
  *
  */
-struct hil_proc *hil_create_proc(int cpu_id)
+struct hil_proc *hil_create_proc(void *pdata, int cpu_id)
 {
-	struct hil_proc *proc = NULL;
-	struct llist *node = NULL;
-	struct llist *proc_hd = procs.proc_list;
-	int status;
+	struct hil_proc *proc = 0;
+	struct proc_info_hdr *info_hdr = (struct proc_info_hdr *)pdata;
+	struct metal_list *node;
 
 	/* If proc already exists then return it */
-	while (proc_hd != NULL) {
-		proc = (struct hil_proc *)proc_hd->data;
+	metal_list_for_each(&procs, node) {
+		proc = metal_container_of(node, struct hil_proc, node);
 		if (proc->cpu_id == (unsigned int)cpu_id) {
 			return proc;
 		}
-		proc_hd = proc_hd->next;
 	}
 
-	/* Allocate memory for proc instance */
-	proc = env_allocate_memory(sizeof(struct hil_proc));
-	if (!proc) {
-		return NULL;
-	}
-
-	/* Get HW specfic info */
-	status = platform_get_processor_info(proc, cpu_id);
-	if (status) {
-		env_free_memory(proc);
-		return NULL;
-	}
-
-	/* Enable mapping for the shared memory region */
-	env_map_memory((unsigned int)proc->sh_buff.start_addr,
-		       (unsigned int)proc->sh_buff.start_addr,
-		       proc->sh_buff.size, (SHARED_MEM | UNCACHED));
-
-	/* Put the new proc in the procs list */
-	node = env_allocate_memory(sizeof(struct llist));
-
-	if (!node) {
-		env_free_memory(proc);
-		return NULL;
-	}
-
-	node->data = proc;
-	add_to_list(&procs.proc_list, node);
+	proc = info_hdr->ops->initialize(pdata, cpu_id);
+	if (proc)
+		metal_list_add_tail(&procs, &proc->node);
 
 	return proc;
-}
-
-/**
- * hil_get_cpuforfw
- *
- * This function provides the CPU ID for the given firmware.
- *
- * @param fw_name - name of firmware
- *
- * @return - cpu id
- *
- */
-int hil_get_cpuforfw(char *fw_name)
-{
-	return (platform_get_processor_for_fw(fw_name));
 }
 
 /**
@@ -144,23 +101,15 @@ int hil_get_cpuforfw(char *fw_name)
  */
 void hil_delete_proc(struct hil_proc *proc)
 {
-	struct llist *proc_hd = NULL;
-
-	if (!proc)
-		return;
-
-	proc_hd = procs.proc_list;
-
-	while (proc_hd != NULL) {
-		if (proc_hd->data == proc) {
-			remove_from_list(&procs.proc_list, proc_hd);
-			env_free_memory(proc_hd);
-			env_free_memory(proc);
-			break;
+	struct metal_list *node;
+	metal_list_for_each(&procs, node) {
+		if (proc ==
+			metal_container_of(node, struct hil_proc, node)) {
+			metal_list_del(&proc->node);
+			proc->ops->release(proc);
+			return;
 		}
-		proc_hd = proc_hd->next;
 	}
-
 }
 
 /**
@@ -191,17 +140,14 @@ void hil_isr(struct proc_vring *vring_hw)
  */
 struct hil_proc *hil_get_proc(int cpu_id)
 {
-	struct llist *proc_hd = procs.proc_list;
+	struct metal_list *node;
+	struct hil_proc *proc;
 
-	if (!proc_hd)
-		return NULL;
-
-	while (proc_hd != NULL) {
-		struct hil_proc *proc = (struct hil_proc *)proc_hd->data;
+	metal_list_for_each(&procs, node) {
+		proc = metal_container_of(node, struct hil_proc, node);
 		if (proc->cpu_id == (unsigned int)cpu_id) {
 			return proc;
 		}
-		proc_hd = proc_hd->next;
 	}
 
 	return NULL;
@@ -418,8 +364,13 @@ void hil_shutdown_cpu(struct hil_proc *proc)
  * returns -  status of function execution
  *
  */
-int hil_get_firmware(char *fw_name, unsigned int *start_addr,
+int hil_get_firmware(char *fw_name, uintptr_t *start_addr,
 		     unsigned int *size)
 {
 	return (config_get_firmware(fw_name, start_addr, size));
+}
+
+int hil_poll (struct hil_proc *proc, int nonblock)
+{
+	return proc->ops->poll(proc, nonblock);
 }

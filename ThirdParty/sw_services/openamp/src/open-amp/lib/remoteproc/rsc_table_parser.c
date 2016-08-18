@@ -28,6 +28,7 @@
  */
 
 #include "openamp/rsc_table_parser.h"
+#include "metal/io.h"
 
 /* Resources handler */
 rsc_handler rsc_handler_table[] = {
@@ -126,8 +127,22 @@ int handle_carve_out_rsc(struct remote_proc *rproc, void *rsc)
 
 	if (rproc->role == RPROC_MASTER) {
 		/* Map memory region for loading the image */
-		env_map_memory(carve_rsc->da, carve_rsc->da, carve_rsc->len,
-			       (SHARED_MEM | UNCACHED));
+		/* Use generic I/O region here. This is a temporary solution.
+		 * It will not work in Linux userspace. It is not decided if use
+		 * linux kernel remmoteproc to load the firmware or do it in user
+		 * space. */
+		metal_phys_addr_t carve_out_generic_base_addr = 0;
+		struct metal_io_region generic_io = {
+			(void *)0,
+			&carve_out_generic_base_addr,
+			(size_t)-1,
+			(sizeof(metal_phys_addr_t) << 3),
+			(unsigned long)(-1),
+			METAL_UNCACHED | METAL_SHARED_MEM,
+			{NULL},
+		};
+		metal_io_mem_map((metal_phys_addr_t)carve_rsc->da,
+			&generic_io, carve_rsc->len);
 	}
 
 	return RPROC_SUCCESS;
@@ -218,14 +233,14 @@ int handle_vdev_rsc(struct remote_proc *rproc, void *rsc)
 		vring = &vdev_rsc->vring[idx];
 
 		/* Initialize HIL vring resources */
-		vring_table[idx].phy_addr = (void *)vring->da;
 		vring_table[idx].num_descs = vring->num;
 		vring_table[idx].align = vring->align;
 
 		/* Enable access to vring memory regions */
-		env_map_memory(vring->da, vring->da,
-			       vring_size(vring->num, vring->align),
-			       (SHARED_MEM | UNCACHED));
+		vring_table[idx].vaddr =
+			metal_io_mem_map((metal_phys_addr_t)vring->da,
+				vring_table->io,
+				vring_size(vring->num, vring->align));
 	}
 
 	return RPROC_SUCCESS;

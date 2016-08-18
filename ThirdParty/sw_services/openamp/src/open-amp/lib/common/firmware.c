@@ -41,32 +41,8 @@
  *
  **************************************************************************/
 
+#include <string.h>
 #include "openamp/firmware.h"
-
-/* Start and end addresses of firmware image for remotes. These are defined in the
- * object files that are obtained by converting the remote ELF Image into object
- * files. These symbols are not used for remotes.
- */
-extern unsigned char _binary_firmware1_start;
-extern unsigned char _binary_firmware1_end;
-
-extern unsigned char _binary_firmware2_start;
-extern unsigned char _binary_firmware2_end;
-
-#define FIRMWARE1_START  (void *)&_binary_firmware1_start
-#define FIRMWARE1_END    (void *)&_binary_firmware1_end
-
-#define FIRMWARE2_START  (void *)&_binary_firmware2_start
-#define FIRMWARE2_END    (void *)&_binary_firmware2_end
-
-/* Init firmware table */
-
-const struct firmware_info fw_table[] = { {"firmware1",
-					   (unsigned int)FIRMWARE1_START,
-					   (unsigned int)FIRMWARE1_END},
-{"firmware2", (unsigned int)FIRMWARE2_START,
- (unsigned int)FIRMWARE2_END}
-};
 
 /**
  * config_get_firmware
@@ -82,14 +58,15 @@ const struct firmware_info fw_table[] = { {"firmware1",
  *
  */
 
-int config_get_firmware(char *fw_name, unsigned int *start_addr,
+extern struct firmware_info fw_table[];
+extern int fw_table_size;
+
+int config_get_firmware(char *fw_name, uintptr_t *start_addr,
 			unsigned int *size)
 {
-	unsigned int idx;
-	for (idx = 0; idx < sizeof(fw_table) / (sizeof(struct firmware_info));
-	     idx++) {
-		if (!env_strncmp((char *)fw_table[idx].name, fw_name,
-				 sizeof(fw_table[idx].name))) {
+	int idx;
+	for (idx = 0; idx < fw_table_size; idx++) {
+		if (!strncmp((char *)fw_table[idx].name, fw_name, sizeof(fw_table[idx].name))) {
 			*start_addr = fw_table[idx].start_addr;
 			*size =
 			    fw_table[idx].end_addr - fw_table[idx].start_addr +

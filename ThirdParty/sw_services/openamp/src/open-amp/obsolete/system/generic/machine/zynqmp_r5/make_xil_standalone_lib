@@ -1,0 +1,22 @@
+PBUILD := $(BUILD)
+BUILD := $(PBUILD)/xil_standalone_lib
+
+XIL_DIR := ./xil_standalone_lib
+LIB := $(BUILDLIB)/libxil.a
+
+all: $(LIB)
+
+$(LIB): $(BUILD)/Makefile $(BUILDLIB)
+	make -C $(BUILD) all || exit 255
+	cp $(BUILD)/libxil.a $(BUILDLIB)/
+
+clean:
+	rm -rf $(BUILD)
+
+$(BUILD) $(BUILDLIB):
+	mkdir -p $@
+
+$(BUILD)/Makefile: $(BUILD)
+	rsync -a $(XIL_DIR)/ $(BUILD)/
+
+.PHONY: all clean

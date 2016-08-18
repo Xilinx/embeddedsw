@@ -44,6 +44,9 @@
 
 #include "openamp/virtio.h"
 #include "openamp/firmware.h"
+#include "metal/list.h"
+#include "metal/io.h"
+#include "metal/device.h"
 
 /* Configurable parameters */
 #define HIL_MAX_CORES                   2
@@ -51,6 +54,19 @@
 #define HIL_MAX_NUM_CHANNELS            1
 /* Reserved CPU id */
 #define HIL_RSVD_CPU_ID                 0xffffffff
+
+/**
+ * struct proc_info_hdr
+ *
+ * This structure is maintained by hardware interface layer
+ * for user to pass hardware information to remote processor.
+ */
+struct proc_info_hdr {
+	/* CPU ID as defined by the platform */
+	unsigned long cpu_id;
+	/* HIL platform ops table */
+	struct hil_platform_ops *ops;
+};
 
 /**
  * struct proc_shm
@@ -63,6 +79,8 @@
 struct proc_shm {
 	/* Start address of shared memory used for buffers. */
 	void *start_addr;
+	/* sharmed memory I/O region */
+	struct metal_io_region *io;
 	/* Size of shared memory. */
 	unsigned long size;
 	/* Attributes for shared memory - cached or uncached. */
@@ -85,6 +103,10 @@ struct proc_intr {
 	unsigned int priority;
 	/* Interrupt trigger type */
 	unsigned int trigger_type;
+	/* IPI metal device */
+	struct metal_device *dev;
+	/* IPI device I/O */
+	struct metal_io_region *io;
 	/* Private data */
 	void *data;
 };
@@ -99,8 +121,12 @@ struct proc_intr {
 struct proc_vring {
 	/* Pointer to virtqueue encapsulating the vring */
 	struct virtqueue *vq;
-	/* Vring physical address */
-	void *phy_addr;
+	/* Vring logical address */
+	void *vaddr;
+	/* Vring metal device */
+	struct metal_device *dev;
+	/* Vring I/O region */
+	struct metal_io_region *io;
 	/* Number of vring descriptors */
 	unsigned short num_descs;
 	/* Vring alignment */
@@ -150,6 +176,8 @@ struct proc_chnl {
 struct hil_proc {
 	/* CPU ID as defined by the platform */
 	unsigned long cpu_id;
+	/* HIL platform ops table */
+	struct hil_platform_ops *ops;
 	/* Shared memory info */
 	struct proc_shm sh_buff;
 	/* Virtio device hardware info */
@@ -158,8 +186,6 @@ struct hil_proc {
 	unsigned long num_chnls;
 	/* RPMsg channels array */
 	struct proc_chnl chnls[HIL_MAX_NUM_CHANNELS];
-	/* HIL platform ops table */
-	struct hil_platform_ops *ops;
 	/* Attrbites to represent processor role, master or remote . This field is for
 	 * future use. */
 	unsigned long attr;
@@ -170,17 +196,8 @@ struct hil_proc {
 	unsigned long cpu_bitmask;
 	/* Spin lock - This field is for future use. */
 	volatile unsigned int *slock;
-};
-
-/**
- * struct hil_proc_list
- *
- * This structure serves as lists for cores present in the system.
- * It provides entry point to access remote core parameters.
- *
- */
-struct hil_proc_list {
-	struct llist *proc_list;
+	/* List node */
+	struct metal_list node;
 };
 
 /**
@@ -189,12 +206,13 @@ struct hil_proc_list {
  * This function creates a HIL proc instance for given CPU id and populates
  * it with platform info.
  *
+ * @param pdata  - platform data for remote processor
  * @param cpu_id - cpu id
  *
  * @return - pointer to proc instance
  *
  */
-struct hil_proc *hil_create_proc(int cpu_id);
+struct hil_proc *hil_create_proc(void *pdata, int cpu_id);
 
 /**
  * hil_delete_proc
@@ -231,18 +249,6 @@ struct hil_proc *hil_get_proc(int cpu_id);
  *
  */
 void hil_isr(struct proc_vring *vring_hw);
-
-/**
- * hil_get_cpuforfw
- *
- * This function provides the CPU ID for the given firmware.
- *
- * @param fw_name - name of firmware
- *
- * @return - cpu id
- *
- */
-int hil_get_cpuforfw(char *fw_name);
 
 /**
  * hil_get_vdev_info
@@ -386,9 +392,24 @@ void hil_shutdown_cpu(struct hil_proc *proc);
  * returns -  status of function execution
  *
  */
-int hil_get_firmware(char *fw_name, unsigned int *start_addr,
+int hil_get_firmware(char *fw_name, uintptr_t *start_addr,
 		     unsigned int *size);
 
+/**
+ * hil_poll
+ *
+ * This function polls the remote processor.
+ * If it is blocking mode, it will not return until the remoteproc
+ * is signaled. If it is non-blocking mode, it will return 0
+ * if the remoteproc has pending signals, it will return non 0
+ * otherwise.
+ *
+ * @param proc     - hil_proc to poll
+ * @param nonblock - 0 for blocking, non-0 for non-blocking.
+ *
+ * @return - 0 for no errors, non-0 for errors.
+ */
+int hil_poll (struct hil_proc *proc, int nonblock);
 /**
  *
  * This structure is an interface between HIL and platform porting
@@ -407,14 +428,6 @@ struct hil_platform_ops {
      * @return  - execution status
      */
 	int (*enable_interrupt) (struct proc_vring * vring_hw);
-
-    /**
-     * reg_ipi_after_deinit()
-     * This function register interrupt(IPI) after openamp resource .
-     *
-     * @param vring_hw - pointer to vring control block
-     */
-	void (*reg_ipi_after_deinit) (struct proc_vring * vring_hw);
 
     /**
      * notify()
@@ -475,6 +488,40 @@ struct hil_platform_ops {
      */
 	void (*shutdown_cpu) (int cpu_id);
 
+    /**
+     * poll
+     *
+     * This function polls the remote processor.
+     *
+     * @param proc     - hil_proc to poll
+     * @param nonblock - 0 for blocking, non-0 for non-blocking.
+     *
+     * @return - 0 for no errors, non-0 for errors.
+     */
+	int (*poll) (struct hil_proc *proc, int nonblock);
+
+    /**
+     * initialize
+     *
+     *  This function initialize remote processor with platform data.
+     *
+     * @param[in] pdata - platform data
+     * @param[in] cpu_id - CPU id
+     *
+     * @return NULL on failure, hil_proc pointer otherwise
+     *
+     */
+	struct hil_proc *(*initialize) (void *pdata, int cpu_id);
+
+    /**
+     * release
+     *
+     *  This function is to release remote processor resource
+     *
+     * @param[in] proc - pointer to the remote processor
+     *
+     */
+	void (*release) (struct hil_proc *proc);
 };
 
 /* Utility macros for register read/write */

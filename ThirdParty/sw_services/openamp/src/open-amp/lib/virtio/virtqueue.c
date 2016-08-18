@@ -24,13 +24,18 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <string.h>
 #include "openamp/virtqueue.h"
+#include "metal/atomic.h"
+#include "metal/dma.h"
+#include "metal/io.h"
+#include "metal/alloc.h"
 
 /* Prototype for internal functions. */
 static void vq_ring_init(struct virtqueue *);
 static void vq_ring_update_avail(struct virtqueue *, uint16_t);
 static uint16_t vq_ring_add_buffer(struct virtqueue *, struct vring_desc *,
-				   uint16_t, struct llist *, int, int);
+				   uint16_t, struct metal_sg *, int, int);
 static int vq_ring_enable_interrupt(struct virtqueue *, uint16_t);
 static void vq_ring_free_chain(struct virtqueue *, uint16_t);
 static int vq_ring_must_notify_host(struct virtqueue *vq);
@@ -48,6 +53,7 @@ static int virtqueue_nused(struct virtqueue *vq);
  *                    when message is available on VirtIO queue
  * @param notify    - Pointer to notify function, used to notify
  *                    other side that there is job available for it
+ * @param shm_io    - shared memory I/O region of the virtqueue
  * @param v_queue   - Created VirtIO queue.
  *
  * @return          - Function status
@@ -56,6 +62,7 @@ int virtqueue_create(struct virtio_device *virt_dev, unsigned short id,
 		     char *name, struct vring_alloc_info *ring,
 		     void (*callback) (struct virtqueue * vq),
 		     void (*notify) (struct virtqueue * vq),
+		     struct metal_io_region *shm_io,
 		     struct virtqueue **v_queue)
 {
 
@@ -74,26 +81,27 @@ int virtqueue_create(struct virtio_device *virt_dev, unsigned short id,
 
 		vq_size = sizeof(struct virtqueue)
 		    + (ring->num_descs) * sizeof(struct vq_desc_extra);
-		vq = (struct virtqueue *)env_allocate_memory(vq_size);
+		vq = (struct virtqueue *)metal_allocate_memory(vq_size);
 
 		if (vq == VQ_NULL) {
 			return (ERROR_NO_MEM);
 		}
 
-		env_memset(vq, 0x00, vq_size);
+		memset(vq, 0x00, vq_size);
 
 		vq->vq_dev = virt_dev;
-		env_strncpy(vq->vq_name, name, VIRTQUEUE_MAX_NAME_SZ);
+		strncpy(vq->vq_name, name, VIRTQUEUE_MAX_NAME_SZ);
 		vq->vq_queue_index = id;
 		vq->vq_alignment = ring->align;
 		vq->vq_nentries = ring->num_descs;
 		vq->vq_free_cnt = vq->vq_nentries;
 		vq->callback = callback;
 		vq->notify = notify;
+		vq->shm_io = shm_io;
 
 		//TODO : Whether we want to support indirect addition or not.
 		vq->vq_ring_size = vring_size(ring->num_descs, ring->align);
-		vq->vq_ring_mem = (void *)ring->phy_addr;
+		vq->vq_ring_mem = (void *)ring->vaddr;
 
 		/* Initialize vring control block in virtqueue. */
 		vq_ring_init(vq);
@@ -118,14 +126,14 @@ int virtqueue_create(struct virtio_device *virt_dev, unsigned short id,
  *                            inserted before writable buffers
  *
  * @param vq                - Pointer to VirtIO queue control block.
- * @param buffer            - Pointer to buffer list
+ * @param sg                - Pointer to buffer scatter/gather list
  * @param readable          - Number of readable buffers
  * @param writable          - Number of writable buffers
  * @param cookie            - Pointer to hold call back data
  *
  * @return                  - Function status
  */
-int virtqueue_add_buffer(struct virtqueue *vq, struct llist *buffer,
+int virtqueue_add_buffer(struct virtqueue *vq, struct metal_sg *sg,
 			 int readable, int writable, void *cookie)
 {
 
@@ -162,7 +170,7 @@ int virtqueue_add_buffer(struct virtqueue *vq, struct llist *buffer,
 		dxp->ndescs = needed;
 
 		/* Enqueue buffer onto the ring. */
-		idx = vq_ring_add_buffer(vq, vq->vq_ring.desc, head_idx, buffer,
+		idx = vq_ring_add_buffer(vq, vq->vq_ring.desc, head_idx, sg,
 					 readable, writable);
 
 		vq->vq_desc_head_idx = idx;
@@ -191,8 +199,7 @@ int virtqueue_add_buffer(struct virtqueue *vq, struct llist *buffer,
  *
  * @param vq                    - Pointer to VirtIO queue control block
  * @param cookie                - Pointer to hold call back data
- * @param buffer_addr           - Address of buffer
- * @param len                   - Length of buffer
+ * @param sg                    - metal_scatter/gather struct element
  * @param writable              - If buffer writable
  * @param has_next              - If buffers for subsequent call are
  *                                to be chained
@@ -200,7 +207,7 @@ int virtqueue_add_buffer(struct virtqueue *vq, struct llist *buffer,
  * @return                      - Function status
  */
 int virtqueue_add_single_buffer(struct virtqueue *vq, void *cookie,
-				void *buffer_addr, uint32_t len, int writable,
+				struct metal_sg *sg, int writable,
 				boolean has_next)
 {
 
@@ -227,8 +234,8 @@ int virtqueue_add_single_buffer(struct virtqueue *vq, void *cookie,
 		idx = head_idx;
 
 		dp = &vq->vq_ring.desc[idx];
-		dp->addr = env_map_vatopa(buffer_addr);
-		dp->len = len;
+		dp->addr = metal_io_virt_to_phys(sg->io, sg->virt);
+		dp->len = sg->len;
 		dp->flags = 0;
 		idx = dp->next;
 
@@ -276,7 +283,7 @@ void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t * len)
 	used_idx = vq->vq_used_cons_idx++ & (vq->vq_nentries - 1);
 	uep = &vq->vq_ring.used->ring[used_idx];
 
-	env_rmb();
+	atomic_thread_fence(memory_order_seq_cst);
 
 	desc_idx = (uint16_t) uep->id;
 	if (len != VQ_NULL)
@@ -304,7 +311,7 @@ void virtqueue_free(struct virtqueue *vq)
 	if (vq != VQ_NULL) {
 
 		if (vq->vq_free_cnt != vq->vq_nentries) {
-			env_print
+			printf
 			    ("\r\nWARNING %s: freeing non-empty virtqueue\r\n",
 			     vq->vq_name);
 		}
@@ -315,7 +322,7 @@ void virtqueue_free(struct virtqueue *vq)
 			vq->vq_ring_mem = VQ_NULL;
 		}
 
-		env_free_memory(vq);
+		metal_free_memory(vq);
 	}
 }
 
@@ -345,9 +352,9 @@ void *virtqueue_get_available_buffer(struct virtqueue *vq, uint16_t * avail_idx,
 	head_idx = vq->vq_available_idx++ & (vq->vq_nentries - 1);
 	*avail_idx = vq->vq_ring.avail->ring[head_idx];
 
-	env_rmb();
+	atomic_thread_fence(memory_order_seq_cst);
 
-	buffer = env_map_patova(vq->vq_ring.desc[*avail_idx].addr);
+	buffer = metal_io_phys_to_virt(vq->shm_io, vq->vq_ring.desc[*avail_idx].addr);
 	*len = vq->vq_ring.desc[*avail_idx].len;
 
 	VQUEUE_IDLE(vq);
@@ -382,7 +389,7 @@ int virtqueue_add_consumed_buffer(struct virtqueue *vq, uint16_t head_idx,
 	used_desc->id = head_idx;
 	used_desc->len = len;
 
-	env_wmb();
+	atomic_thread_fence(memory_order_seq_cst);
 
 	vq->vq_ring.used->idx++;
 
@@ -436,7 +443,7 @@ void virtqueue_kick(struct virtqueue *vq)
 	VQUEUE_BUSY(vq);
 
 	/* Ensure updated avail->idx is visible to host. */
-	env_mb();
+	atomic_thread_fence(memory_order_seq_cst);
 
 	if (vq_ring_must_notify_host(vq))
 		vq_ring_notify_host(vq);
@@ -457,7 +464,7 @@ void virtqueue_dump(struct virtqueue *vq)
 	if (vq == VQ_NULL)
 		return;
 
-	env_print("VQ: %s - size=%d; free=%d; used=%d; queued=%d; "
+	printf("VQ: %s - size=%d; free=%d; used=%d; queued=%d; "
 		  "desc_head_idx=%d; avail.idx=%d; used_cons_idx=%d; "
 		  "used.idx=%d; avail.flags=0x%x; used.flags=0x%x\r\n",
 		  vq->vq_name, vq->vq_nentries, vq->vq_free_cnt,
@@ -506,7 +513,7 @@ uint32_t virtqueue_get_desc_size(struct virtqueue * vq)
  */
 static uint16_t vq_ring_add_buffer(struct virtqueue *vq,
 				   struct vring_desc *desc, uint16_t head_idx,
-				   struct llist *buffer, int readable,
+				   struct metal_sg *sg, int readable,
 				   int writable)
 {
 
@@ -518,15 +525,14 @@ static uint16_t vq_ring_add_buffer(struct virtqueue *vq,
 
 	needed = readable + writable;
 
-	for (i = 0, idx = head_idx; (i < needed && buffer != VQ_NULL);
-	     i++, idx = dp->next, buffer = buffer->next) {
+	for (i = 0, idx = head_idx; i < needed; i++, idx = dp->next) {
 
 		VQASSERT(vq, idx != VQ_RING_DESC_CHAIN_END,
 			 "premature end of free desc chain");
 
 		dp = &desc[idx];
-		dp->addr = env_map_vatopa(buffer->data);
-		dp->len = buffer->attr;
+		dp->addr = metal_io_virt_to_phys(sg[i].io, sg[i].virt);
+		dp->len = sg[i].len;
 		dp->flags = 0;
 
 		if (i < needed - 1)
@@ -622,7 +628,7 @@ static void vq_ring_update_avail(struct virtqueue *vq, uint16_t desc_idx)
 	avail_idx = vq->vq_ring.avail->idx & (vq->vq_nentries - 1);
 	vq->vq_ring.avail->ring[avail_idx] = desc_idx;
 
-	env_wmb();
+	atomic_thread_fence(memory_order_seq_cst);
 
 	vq->vq_ring.avail->idx++;
 
@@ -648,7 +654,7 @@ static int vq_ring_enable_interrupt(struct virtqueue *vq, uint16_t ndesc)
 		vq->vq_ring.avail->flags &= ~VRING_AVAIL_F_NO_INTERRUPT;
 	}
 
-	env_mb();
+	atomic_thread_fence(memory_order_seq_cst);
 
 	/*
 	 * Enough items may have already been consumed to meet our threshold
@@ -686,9 +692,6 @@ static int vq_ring_must_notify_host(struct virtqueue *vq)
 	if (vq->vq_flags & VIRTQUEUE_FLAG_EVENT_IDX) {
 		new_idx = vq->vq_ring.avail->idx;
 		prev_idx = new_idx - vq->vq_queued_cnt;
-
-/* TODO: remove this pragma after this is clarified/fixed */
-#pragma GCC diagnostic ignored "-Wstrict-aliasing"
 		event_idx = vring_avail_event(&vq->vq_ring);
 
 		return (vring_need_event(event_idx, new_idx, prev_idx) != 0);

@@ -1,0 +1,110 @@
+--- gic.c	2013-11-21 11:47:12.000000000 +0500
++++ gic_modified.c	2014-06-18 12:59:23.241004626 +0500
+@@ -294,6 +294,59 @@
+ #define gic_set_wake	NULL
+ #endif
+
++#ifndef CONFIG_SMP
++
++struct ipi {
++	void (*handler)(void);
++};
++
++static struct ipi ipi_types[8];
++
++void handle_IPI(int ipinr, struct pt_regs *regs)
++{
++	struct pt_regs *old_regs = set_irq_regs(regs);
++
++	if (ipi_types[ipinr].handler) {
++		irq_enter();
++		(*ipi_types[ipinr].handler)();
++		irq_exit();
++	} else
++		pr_debug("CPU%u: Unknown IPI message %x\n", ipinr);
++
++	set_irq_regs(old_regs);
++}
++
++
++/*
++ * set_ipi_handler:
++ * Interface provided for a kernel module to specify an IPI handler function.
++ */
++int set_ipi_handler(int ipinr, void *handler, char *desc)
++{
++	if (ipi_types[ipinr].handler) {
++		pr_crit("IPI handler 0x%x already registered to %pf\n",
++					ipinr, ipi_types[ipinr].handler);
++		return -1;
++	}
++
++	ipi_types[ipinr].handler = handler;
++
++	return 0;
++}
++EXPORT_SYMBOL(set_ipi_handler);
++
++/*
++ * clear_ipi_handler:
++ * Interface provided for a kernel module to clear an IPI handler function.
++ */
++void clear_ipi_handler(int ipinr)
++{
++	ipi_types[ipinr].handler = NULL;
++}
++EXPORT_SYMBOL(clear_ipi_handler);
++
++#endif
++
+ asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs)
+ {
+	u32 irqstat, irqnr;
+@@ -311,9 +364,9 @@
+		}
+		if (irqnr < 16) {
+			writel_relaxed(irqstat, cpu_base + GIC_CPU_EOI);
+-#ifdef CONFIG_SMP
++
+			handle_IPI(irqnr, regs);
+-#endif
++
+			continue;
+		}
+		break;
+@@ -418,6 +471,7 @@
+	for (i = 32; i < gic_irqs; i += 4)
+		writel_relaxed(0xa0a0a0a0, base + GIC_DIST_PRI + i * 4 / 4);
+
++
+	/*
+	 * Disable all interrupts.  Leave the PPI and SGIs alone
+	 * as these enables are banked registers.
+@@ -815,8 +869,28 @@
+	writel_relaxed(map << 16 | irq, gic_data_dist_base(&gic_data[0]) + GIC_DIST_SOFTINT);
+ }
+ EXPORT_SYMBOL(gic_raise_softirq);
++
++#else
++void gic_raise_softirq_unicore(unsigned long cpu, unsigned int irq)
++{
++	unsigned long map = 0;
++
++	map |= 1 << cpu;
++
++	/*
++	 * Ensure that stores to Normal memory are visible to the
++	 * other CPUs before issuing the IPI.
++	 */
++	dsb();
++
++	/* this always happens on GIC0 */
++	writel_relaxed(map << 16 | irq,
++		gic_data_dist_base(&gic_data[0]) + GIC_DIST_SOFTINT);
++}
++EXPORT_SYMBOL(gic_raise_softirq_unicore);
+ #endif
+
++
+ #ifdef CONFIG_OF
+ static int gic_cnt __initdata = 0;

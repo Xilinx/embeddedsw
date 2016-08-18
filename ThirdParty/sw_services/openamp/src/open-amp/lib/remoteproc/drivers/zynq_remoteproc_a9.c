@@ -39,8 +39,12 @@
  *
  **************************************************************************/
 
+#include <string.h>
 #include "openamp/hil.h"
-#include "openamp/machine/machine_common.h"
+#include "openamp/remoteproc_plat.h"
+#include "metal/alloc.h"
+#include "metal/irq.h"
+#include "metal/atomic.h"
 
 /* ------------------------- Macros --------------------------*/
 #define ESAL_DP_SLCR_BASE                  0xF8000000
@@ -76,30 +80,49 @@
 #define         HIL_CACHE_UNLOCK_ALL_WAYS   0xFFFF0000
 #define         HIL_CACHE_CLEAR_INT         0x1FF
 
+#define _rproc_wait() asm volatile("wfi")
+
 /*--------------------------- Declare Functions ------------------------ */
 static int _enable_interrupt(struct proc_vring *vring_hw);
 static void _notify(int cpu_id, struct proc_intr *intr_info);
 static int _boot_cpu(int cpu_id, unsigned int load_addr);
 static void _shutdown_cpu(int cpu_id);
+static int _poll(struct hil_proc *proc, int nonblock);
+static struct hil_proc * _initialize(void *pdata, int cpu_id);
+static void _release(struct hil_proc *proc);
+static int _ipi_handler(int vect_id, void *data);
 
 /*--------------------------- Globals ---------------------------------- */
-struct hil_platform_ops proc_ops = {
+struct hil_platform_ops zynq_a9_proc_ops = {
 	.enable_interrupt = _enable_interrupt,
 	.notify           = _notify,
 	.boot_cpu         = _boot_cpu,
 	.shutdown_cpu     = _shutdown_cpu,
+	.poll             = _poll,
+	.initialize = _initialize,
+	.release = _release,
 };
+
+int _ipi_handler(int vect_id, void *data)
+{
+	(void) vect_id;
+	struct proc_vring *vring_hw = (struct proc_vring *)(data);
+	struct proc_intr *intr_info;
+
+	intr_info = &(vring_hw->intr_info);
+	atomic_flag_clear(&(intr_info->data));
+	return 0;
+}
 
 static int _enable_interrupt(struct proc_vring *vring_hw)
 {
 
 	/* Register ISR */
-	env_register_isr(vring_hw->intr_info.vect_id, vring_hw, platform_isr);
+	metal_irq_register(vring_hw->intr_info.vect_id, _ipi_handler,
+				vring_hw->intr_info.dev, vring_hw);
 
 	/* Enable the interrupts */
-	env_enable_interrupt(vring_hw->intr_info.vect_id,
-			     vring_hw->intr_info.priority,
-			     vring_hw->intr_info.trigger_type);
+	metal_irq_enable(vring_hw->intr_info.vect_id);
 	return 0;
 }
 
@@ -111,7 +134,47 @@ static void _notify(int cpu_id, struct proc_intr *intr_info)
 	mask = ((1 << (GIC_CPU_ID_BASE + cpu_id)) | (intr_info->vect_id))
 	    & (GIC_SFI_TRIG_CPU_MASK | GIC_SFI_TRIG_INTID_MASK);
 
-	HIL_MEM_WRITE32((GIC_DIST_BASE + GIC_DIST_SOFTINT), mask);
+	/* Trigger IPI */
+	metal_io_write32(intr_info->io, GIC_DIST_SOFTINT, mask);
+}
+
+static int _poll(struct hil_proc *proc, int nonblock)
+{
+	struct proc_vring *vring;
+	unsigned int flags;
+	struct proc_intr *intr_info;
+	int i = 0;
+	int kicked = 0;
+
+	while(1) {
+		vring = &proc->vdev.vring_info[i];
+		intr_info = &(vring->intr_info);
+		flags = metal_irq_save_disable();
+		if (!(atomic_flag_test_and_set(&intr_info->data))) {
+			metal_irq_restore_enable(flags);
+			virtqueue_notification(vring->vq);
+			kicked = 1;
+			if (i)
+				return 0;
+			i++;
+		} else if (!i) {
+			metal_irq_restore_enable(flags);
+			i++;
+		} else {
+			if (kicked) {
+				metal_irq_restore_enable(flags);
+				return 0;
+			} else if (nonblock) {
+				metal_irq_restore_enable(flags);
+				return -EAGAIN;
+			} else {
+				_rproc_wait();
+				metal_irq_restore_enable(flags);
+				i--;
+				continue;
+			}
+		}
+	}
 }
 
 extern char zynq_trampoline;
@@ -120,6 +183,8 @@ extern char zynq_trampoline_end;
 
 static int _boot_cpu(int cpu_id, unsigned int load_addr)
 {
+	/* FIXME: Will need to add the boot_cpu implementation back */
+#if 0
 	unsigned int reg;
 	unsigned int tramp_size;
 	unsigned int tramp_addr = 0;
@@ -139,7 +204,7 @@ static int _boot_cpu(int cpu_id, unsigned int load_addr)
 		 * copy trampoline code in such cases.
 		 *
 		 */
-		env_memcpy((char *)tramp_addr, &zynq_trampoline, tramp_size);
+		memcpy((char *)tramp_addr, &zynq_trampoline, tramp_size);
 		/* Write image address at the word reserved at the trampoline end */
 		HIL_MEM_WRITE32((char *)(tramp_addr + tramp_size), load_addr);
 	}
@@ -155,11 +220,17 @@ static int _boot_cpu(int cpu_id, unsigned int load_addr)
 
 	lock_slcr();
 
+#else
+	(void)cpu_id;
+	(void)load_addr;
+#endif
 	return 0;
 }
 
 static void _shutdown_cpu(int cpu_id)
 {
+	/* FIXME: Will need to add the shutdown CPU implementation back */
+#if 0
 	unsigned int reg;
 
 	unlock_slcr();
@@ -170,6 +241,49 @@ static void _shutdown_cpu(int cpu_id)
 	HIL_MEM_WRITE32(ESAL_DP_SLCR_BASE + A9_CPU_SLCR_RESET_CTRL, reg);
 
 	lock_slcr();
+#else
+	(void)cpu_id;
+#endif
 }
 
+static struct hil_proc * _initialize(void *pdata, int cpu_id)
+{
+	(void) cpu_id;
+	int ret;
+	int i;
+	struct proc_intr *intr_info;
+
+	struct hil_proc *proc;
+	/* Allocate memory for proc instance */
+	proc = metal_allocate_memory(sizeof(struct hil_proc));
+	if (!proc) {
+		return NULL;
+	}
+	memset(proc, 0, sizeof(struct hil_proc));
+
+	ret = rproc_init_plat_data(pdata, proc);
+	if (ret)
+		goto error;
+
+	for (i = 0; i < 2; i++) {
+		intr_info = &(proc->vdev.vring_info[i].intr_info);
+		atomic_store(&(intr_info->data), 1);
+	}
+
+	return proc;
+error:
+	if (proc) {
+		rproc_close_plat(proc);
+		metal_free_memory(proc);
+	}
+	return NULL;
+}
+
+static void _release(struct hil_proc *proc)
+{
+	if (proc) {
+		rproc_close_plat(proc);
+		metal_free_memory(proc);
+	}
+}
 
