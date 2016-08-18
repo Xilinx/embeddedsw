@@ -2997,7 +2997,7 @@ static const u8* XHdcp22Tx_GetKPubDpc(XHdcp22_Tx *InstancePtr)
 static int XHdcp22Tx_StartTimer(XHdcp22_Tx *InstancePtr, u32 TimeOut_mSec,
                                 u8 ReasonId)
 {
-	u32 Ticks = (u32)(InstancePtr->Timer.TmrCtr.Config.SysClockFreqHz/1e6) * TimeOut_mSec * 1000;
+	u32 Ticks = (u32)(InstancePtr->Timer.TmrCtr.Config.SysClockFreqHz / 1000000) * TimeOut_mSec * 1000;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -3946,7 +3946,7 @@ u32 XHdcp22Tx_LogGetTimeUSecs(XHdcp22_Tx *InstancePtr)
 	if (InstancePtr->Timer.TmrCtr.IsReady != XIL_COMPONENT_IS_READY)
 		return 0;
 
-	u32 PeriodUsec = (u32)InstancePtr->Timer.TmrCtr.Config.SysClockFreqHz * 1e-6;
+	u32 PeriodUsec = (u32)InstancePtr->Timer.TmrCtr.Config.SysClockFreqHz / 1000000;
 	return 	 ( XTmrCtr_GetValue(&InstancePtr->Timer.TmrCtr,
 			   XHDCP22_TX_TIMER_CNTR_1) / PeriodUsec);
 }

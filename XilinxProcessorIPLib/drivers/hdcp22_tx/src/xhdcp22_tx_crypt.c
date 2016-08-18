@@ -53,11 +53,8 @@
 
 /***************************** Include Files *********************************/
 #include "xhdcp22_tx_i.h"
-
 #include "xhdcp22_common.h"
-
 #include <stdlib.h>
-#include <math.h>
 
 /************************** Constant Definitions *****************************/
 
