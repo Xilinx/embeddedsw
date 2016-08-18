@@ -249,10 +249,10 @@ extern "C" {
 * @return	Value of the register.
 *
 * @note		C-style signature:
-* 		u32 XClk_Wiz_ReadReg(u32 BaseAddress, u32 RegOffset)
+* 		u32 XClk_Wiz_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
-static inline u32 XClk_Wiz_ReadReg(u32 BaseAddress, u32 RegOffset)  {
+static inline u32 XClk_Wiz_ReadReg(UINTPTR BaseAddress, u32 RegOffset)  {
 			return (Xil_In32((BaseAddress) + (u32)(RegOffset)));
 }
 
@@ -267,10 +267,12 @@ static inline u32 XClk_Wiz_ReadReg(u32 BaseAddress, u32 RegOffset)  {
 * @return	None.
 *
 * @note		C-style signature:
-* 		void XClk_Wiz_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+* 		void XClk_Wiz_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
+* 								u32 Data)
 *
 ******************************************************************************/
-static inline void XClk_Wiz_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) {
+static inline void XClk_Wiz_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
+								u32 Data) {
 		Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data));
 }
 

@@ -61,7 +61,14 @@
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#include "xintc.h"
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #include "xintc.h"
+ #include <stdio.h>
+#else
+ #include "xscugic.h"
+ #include "xil_printf.h"
+#endif
+
 
 /************************** Constant Definitions *****************************/
 
@@ -71,8 +78,14 @@
 * needed device IDs in one place.
 */
 #define XCLK_WIZ_DEVICE_ID		XPAR_CLK_WIZ_0_DEVICE_ID
-#define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_INTC_0_CLK_WIZ_0_VEC_ID
-#define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_INTC_0_CLK_WIZ_0_VEC_ID
+ #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#else
+ #define XINTC_CLK_WIZ_INTERRUPT_ID	XPAR_FABRIC_AXI_CLK_WIZ_0_INTERRUPT_INTR
+ #define XINTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+#endif /* XPAR_INTC_0_DEVICE_ID */
 
 /*
 * change the XCLK_WIZ_DYN_DEVICE_ID value as per the Clock wizard
@@ -108,6 +121,19 @@
 #define CLK_WIZ_RECONFIG_OUTPUT		DYNAMIC_OUTPUT_FREQ
 #define CLK_FRAC_EN			1
 
+
+
+#ifdef XPAR_INTC_0_DEVICE_ID
+ #define XINTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+ #define INTC		XIntc
+ #define INTC_HANDLER	XIntc_InterruptHandler
+#else
+ #define XINTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
+ #define INTC		XScuGic
+ #define INTC_HANDLER	XScuGic_InterruptHandler
+#endif /* XPAR_INTC_0_DEVICE_ID */
+
+
 /***************** Macros (Inline Functions) Definitions *********************/
 
 
@@ -116,8 +142,8 @@
 
 /************************** Function Prototypes ******************************/
 
-u32 ClkWiz_IntrExample(u32 DeviceId);
-int SetupInterruptSystem(XClk_Wiz *ClkWizPtr);
+u32 ClkWiz_IntrExample(INTC *IntcInstancePtr, u32 DeviceId);
+int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr);
 void XClk_Wiz_IntrHandler(void *InstancePtr);
 void XClk_Wiz_InterruptEnable(XClk_Wiz *InstancePtr, u32 Mask);
 int Clk_Wiz_Reconfig(XClk_Wiz_Config *CfgPtr_Dynamic);
@@ -131,12 +157,13 @@ void ClkWiz_ClkStopEventHandler(void *CallBackRef, u32 Mask);
 /************************** Variable Definitions *****************************/
 XClk_Wiz ClkWiz_Mon;   /* The instance of the ClkWiz_Mon */
 XClk_Wiz ClkWiz_Dynamic; /* The instance of the ClkWiz_Dynamic */
-XIntc InterruptController;  /* The instance of the Interrupt Controller */
+//XIntc InterruptController;  /* The instance of the Interrupt Controller */
 
 volatile u8 Clk_Outof_Range_Flag = 1;
 volatile u8 Clk_Glitch_Flag = 1;
 volatile u8 Clk_Stop_Flag = 1;
 
+INTC Intc;
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -376,7 +403,7 @@ int main()
 	xil_printf("(c) 2016 by Xilinx\n\r");
 	xil_printf("-------------------------------------------\n\r\n\r");
 
-	Status = ClkWiz_IntrExample(XCLK_WIZ_DEVICE_ID);
+	Status = ClkWiz_IntrExample(&Intc, XCLK_WIZ_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("CLK_WIZ Monitor interrupt example "
 			"failed.");
@@ -407,10 +434,11 @@ int main()
 * @note		None
 *
 ****************************************************************************/
-int SetupInterruptSystem(XClk_Wiz *ClkWizPtr)
+int SetupInterruptSystem(INTC *IntcInstancePtr, XClk_Wiz *ClkWizPtr)
 {
 
 	int Status;
+
 
 	/* Setup call back handlers */
 	XClk_Wiz_SetCallBack(ClkWizPtr, XCLK_WIZ_HANDLER_CLK_OUTOF_RANGE,
@@ -419,11 +447,13 @@ int SetupInterruptSystem(XClk_Wiz *ClkWizPtr)
 				ClkWiz_ClkGlitchEventHandler, ClkWizPtr);
 	XClk_Wiz_SetCallBack(ClkWizPtr, XCLK_WIZ_HANDLER_CLK_STOP,
 				ClkWiz_ClkStopEventHandler, ClkWizPtr);
+
+#ifdef XPAR_INTC_0_DEVICE_ID
 	/*
 	 * Initialize the interrupt controller driver so that it is ready to
 	 * use.
 	 */
-	Status = XIntc_Initialize(&InterruptController, XINTC_DEVICE_ID);
+	Status = XIntc_Initialize(IntcInstancePtr, XINTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -433,7 +463,7 @@ int SetupInterruptSystem(XClk_Wiz *ClkWizPtr)
 	 * for the device occurs, the device driver handler performs the
 	 * specific interrupt processing for the device.
 	 */
-	Status = XIntc_Connect(&InterruptController, XINTC_CLK_WIZ_INTERRUPT_ID,\
+	Status = XIntc_Connect(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID,\
 			   (XInterruptHandler)XClk_Wiz_IntrHandler, \
 			   (void *)ClkWizPtr);
 	if (Status != XST_SUCCESS) {
@@ -445,7 +475,7 @@ int SetupInterruptSystem(XClk_Wiz *ClkWizPtr)
 	 * all devices that cause interrupts, specific real mode so that
 	 * the CLK_WIZ can cause interrupts through the interrupt controller.
 	 */
-	Status = XIntc_Start(&InterruptController, XIN_REAL_MODE);
+	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -453,8 +483,42 @@ int SetupInterruptSystem(XClk_Wiz *ClkWizPtr)
 	/*
 	 * Enable the interrupt for the CLK_WIZ.
 	 */
-	XIntc_Enable(&InterruptController, XINTC_CLK_WIZ_INTERRUPT_ID);
+	XIntc_Enable(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID);
 
+#else
+	XScuGic_Config *IntcConfig;
+
+	/*
+	 * Initialize the interrupt controller driver so that it is ready to
+	 * use.
+	 */
+	IntcConfig = XScuGic_LookupConfig(XINTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return XST_FAILURE;
+	}
+
+	Status = XScuGic_CfgInitialize(IntcInstancePtr, IntcConfig,
+					IntcConfig->CpuBaseAddress);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+
+	XScuGic_SetPriorityTriggerType(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID,
+					0xA0, 0x3);
+
+	/*
+	 * Connect the interrupt handler that will be called when an
+	 * interrupt occurs for the device.
+	 */
+	Status = XScuGic_Connect(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID,
+			(XInterruptHandler)XClk_Wiz_IntrHandler, (void *)ClkWizPtr);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
+
+	/* Enable the interrupt for the GPIO device.*/
+	XScuGic_Enable(IntcInstancePtr, XINTC_CLK_WIZ_INTERRUPT_ID);
+#endif
 	/*
 	 * Initialize the exception table.
 	 */
@@ -464,8 +528,8 @@ int SetupInterruptSystem(XClk_Wiz *ClkWizPtr)
 	 * Register the interrupt controller handler with the exception table.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
-			 (Xil_ExceptionHandler)XIntc_InterruptHandler, \
-			 &InterruptController);
+			 (Xil_ExceptionHandler)INTC_HANDLER, \
+			 IntcInstancePtr);
 
 	/*
 	 * Enable exceptions.
@@ -495,7 +559,7 @@ int SetupInterruptSystem(XClk_Wiz *ClkWizPtr)
 *		events.
 *
 ******************************************************************************/
-u32 ClkWiz_IntrExample(u32 DeviceId)
+u32 ClkWiz_IntrExample(INTC *IntcInstancePtr, u32 DeviceId)
 {
 	XClk_Wiz_Config *CfgPtr_Mon;
 	XClk_Wiz_Config *CfgPtr_Dynamic;
@@ -530,7 +594,7 @@ u32 ClkWiz_IntrExample(u32 DeviceId)
 	 * Get the CLK_WIZ Dynamic reconfiguration driver instance
 	 */
 	CfgPtr_Dynamic = XClk_Wiz_LookupConfig(XCLK_WIZ_DYN_DEVICE_ID);
-	if (!CfgPtr_Mon) {
+	if (!CfgPtr_Dynamic) {
 		return XST_FAILURE;
 	}
 
@@ -548,7 +612,7 @@ u32 ClkWiz_IntrExample(u32 DeviceId)
 	 * occur. This function is application specific.
 	 */
 
-	Status = SetupInterruptSystem(&ClkWiz_Mon);
+	Status = SetupInterruptSystem(IntcInstancePtr, &ClkWiz_Mon);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

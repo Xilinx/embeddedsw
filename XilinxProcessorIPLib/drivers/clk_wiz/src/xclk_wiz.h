@@ -137,7 +137,7 @@ extern "C" {
 */
 typedef struct {
 	u32 DeviceId;	         /**< Device Id */
-	u32 BaseAddr;            /**< Base address of CLK_WIZ Controller */
+	UINTPTR BaseAddr;        /**< Base address of CLK_WIZ Controller */
 	u32 EnableClkMon;        /**< It enables the Clock Monitor*/
 	u32 EnableUserClkWiz0;   /**< Enable user clk 0 */
 	u32 EnableUserClkWiz1;   /**< Enable user clk 1 */
@@ -225,7 +225,7 @@ typedef struct {
 * @note		None
 *
 ****************************************************************************/
-static inline void XCLK_WIZ_BIT_SET(u32 BaseAddress,u32 RegisterOffset,\
+static inline void XCLK_WIZ_BIT_SET(UINTPTR BaseAddress,u32 RegisterOffset,\
 							u32 BitMask) {
 	XClk_Wiz_WriteReg((BaseAddress), (RegisterOffset), \
 	(XClk_Wiz_ReadReg((BaseAddress), (RegisterOffset)) | BitMask));
@@ -247,7 +247,7 @@ static inline void XCLK_WIZ_BIT_SET(u32 BaseAddress,u32 RegisterOffset,\
 * @note		None
 *
 ****************************************************************************/
-static inline void XCLK_WIZ_BIT_RESET(u32 BaseAddress, u32 RegisterOffset,
+static inline void XCLK_WIZ_BIT_RESET(UINTPTR BaseAddress, u32 RegisterOffset,
 							u32 BitMask) {
 	XClk_Wiz_WriteReg((BaseAddress), (RegisterOffset), \
 	(XClk_Wiz_ReadReg((BaseAddress), (RegisterOffset) ) & \
@@ -271,8 +271,8 @@ static inline void XCLK_WIZ_BIT_RESET(u32 BaseAddress, u32 RegisterOffset,
 * @note		None
 *
 ****************************************************************************/
-static inline u32 XCLK_WIZ_GET_BITFIELD_VALUE(u32 BaseAddress, u32 RegisterOffset,
-						u32 BitMask, u32 BitShift) {
+static inline u32 XCLK_WIZ_GET_BITFIELD_VALUE(UINTPTR BaseAddress,
+		u32 RegisterOffset, u32 BitMask, u32 BitShift) {
 	return ((XClk_Wiz_ReadReg((BaseAddress), (RegisterOffset)) \
 		  & (BitMask)) >> (BitShift));
 }
@@ -296,7 +296,7 @@ static inline u32 XCLK_WIZ_GET_BITFIELD_VALUE(u32 BaseAddress, u32 RegisterOffse
 * @note		None
 *
 ****************************************************************************/
-static inline void XCLK_WIZ_SET_BITFIELD_VALUE(u32 BaseAddress, \
+static inline void XCLK_WIZ_SET_BITFIELD_VALUE(UINTPTR BaseAddress, \
 		u32 RegisterOffset, u32 BitMask, u32 BitShift, u32 Value) {
 	XClk_Wiz_WriteReg((BaseAddress), (RegisterOffset), \
 	((XClk_Wiz_ReadReg((BaseAddress), (RegisterOffset)) & \
@@ -411,7 +411,7 @@ static inline void XClk_Wiz_IntrAckIrq(XClk_Wiz *InstancePtr, u32 Value) {
 XClk_Wiz_Config *XClk_Wiz_LookupConfig(u32 DeviceId);
 
 u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *Config,
-			u32 EffectiveAddr);
+			UINTPTR EffectiveAddr);
 
 void XClk_Wiz_GetInterruptSettings(XClk_Wiz  *InstancePtr);
 

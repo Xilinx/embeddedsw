@@ -34,6 +34,7 @@
 # Ver Who Date     Changes
 # -------- ------ -------- ------------------------------------
 # 1.0 ram 02/15/16 Initial version for Clock Wizard
+# 1.1 siv 08/17/16 Added support for Zynq MPSoC and 64-bit addressing
 ##############################################################################
 
 ## @BEGIN_CHANGELOG EDK_I

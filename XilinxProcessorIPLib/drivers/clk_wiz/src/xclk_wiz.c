@@ -45,6 +45,8 @@
 * Ver Who Date    Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0 ram 2/12/16 Initial version for Clock Wizard
+* 1.1 siv 8/17/16 Used UINTPTR instead of u32 for Baseaddress
+* 	Changed the prototype of XClk_Wiz_CfgInitialize
 * </pre>
 ******************************************************************************/
 
@@ -96,12 +98,12 @@ static void StubErrCallBack(void *CallBackRef, u32 ErrorMask);
 * @note		None
 *****************************************************************************/
 u32 XClk_Wiz_CfgInitialize(XClk_Wiz *InstancePtr, XClk_Wiz_Config *CfgPtr,
-			   u32 EffectiveAddr)
+			   UINTPTR EffectiveAddr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid((u32 *)EffectiveAddr != NULL);
+	Xil_AssertNonvoid((UINTPTR *)EffectiveAddr != NULL);
 
 	/* Setup the instance */
 	InstancePtr->Config = *CfgPtr;
