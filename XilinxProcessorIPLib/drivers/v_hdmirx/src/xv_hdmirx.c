@@ -51,6 +51,7 @@
 * 1.6   YH     18/07/16 Replace xil_printf with xdbg_printf
 * 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiRx_CfgInitialize
+* 1.8   YH     18/08/16 squash unused variable compiler warning
 * </pre>
 *
 ******************************************************************************/
@@ -160,7 +161,6 @@ static void StubCallback(void *CallbackRef);
 int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UINTPTR EffectiveAddr)
 {
     u32 RegValue;
-    u32 Status;
 
     /* Verify arguments. */
     Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1310,7 +1310,7 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
     u16 HSyncWidth;
     u16 HBackPorch;
     u16 HTotal;
-    u16 HSyncPolarity;
+    // u16 HSyncPolarity; //squash unused variable compiler warning
     u16 VActive;
     u16 F0PVFrontPorch;
     u16 F0PVSyncWidth;

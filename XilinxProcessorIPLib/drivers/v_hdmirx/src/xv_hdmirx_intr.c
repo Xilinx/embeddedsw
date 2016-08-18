@@ -51,6 +51,7 @@
 * 1.7   MG     27/05/16 Updated HdmiRx_TmrIntrHandler
 * 1.8   MG     30/05/16 Fixed issue with pixel clock adjustment for YUV422 colorspace
 * 1.9   MH     26/07/16 Added DDC HDCP protocol event.
+* 2.0   YH     18/08/16 squash unused variable compiler warning
 * </pre>
 *
 ******************************************************************************/
@@ -319,7 +320,6 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
 ******************************************************************************/
 static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
 {
-    u32 Data;
     u32 Status;
 
     /* Read Video timing detector Status register */

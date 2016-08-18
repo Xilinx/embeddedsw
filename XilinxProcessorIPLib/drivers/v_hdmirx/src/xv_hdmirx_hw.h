@@ -51,11 +51,10 @@
 * 1.3   MG     18/02/16 Added AUX peripheral error event mask
 * 1.4   MG     13/05/16 Added DDC HDCP mode mask
 * 1.5   MG     27/05/16 Added VTD timebase
-* 1.6   MH     15/07/16 Added DDC HDCP 2.2 version read event mask
+* 1.6   MH     26/07/16 Added DDC HDCP protocol event.
 * 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiRx_WriteReg
 *                       XV_HdmiRx_ReadReg
-* 1.8   MH     26/07/16 Added DDC HDCP protocol event.
 * </pre>
 *
 ******************************************************************************/
