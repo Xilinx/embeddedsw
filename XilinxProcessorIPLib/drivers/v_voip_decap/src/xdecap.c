@@ -93,7 +93,7 @@ static void StubCallback(void *CallbackRef);
 *
 ******************************************************************************/
 int XDecap_CfgInitialize(XDecap *InstancePtr, XDecap_Config *CfgPtr,
-                u32 EffectiveAddr)
+                UINTPTR EffectiveAddr)
 {
     u32 Index;
     XDecap_Config XDecap_Config_RegValue;
@@ -101,7 +101,7 @@ int XDecap_CfgInitialize(XDecap *InstancePtr, XDecap_Config *CfgPtr,
     /* Verify arguments. */
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(CfgPtr != NULL);
-    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+    Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)0x0);
 
     /* Setup the instance */
     (void)memset((void *)InstancePtr, 0, sizeof(XDecap));

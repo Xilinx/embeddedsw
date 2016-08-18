@@ -386,7 +386,7 @@ typedef void (*XDecap_Callback)(void *CallbackRef);
 typedef struct {
    u16 DeviceId;       /**< DeviceId is the unique ID of the VoIP Decapsulator
                        *core */
-   u32 BaseAddress;    /**< BaseAddress is the physical
+   UINTPTR BaseAddress;/**< BaseAddress is the physical
                        *base address of the core's registers */
 
    /*<Core Generics Info>*/
@@ -508,7 +508,7 @@ XDecap_Config *XDecap_LookupConfig(u16 DeviceId);
 
 /* Level 2 Drivers */
 int XDecap_CfgInitialize(XDecap *InstancePtr, XDecap_Config *CfgPtr,
-                    u32 EffectiveAddr);
+                    UINTPTR EffectiveAddr);
 void XDecap_CoreChannelConfig(XDecap *InstancePtr);
 void XDecap_ChannelConfig(XDecap *InstancePtr, u16 Channels);
 XDecap_Config XDecap_CoreInfo(XDecap *InstancePtr);
