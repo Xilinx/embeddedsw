@@ -230,7 +230,7 @@ typedef void (*XDepacketizer56_Callback)(void *CallbackRef);
 */
 typedef struct {
     u16 DeviceId;
-    u32 BaseAddress;
+    UINTPTR BaseAddress;
 }XDepacketizer56_Config;
 
 /**
@@ -340,7 +340,8 @@ XDepacketizer56_Config *XDepacketizer56_LookupConfig(u16 DeviceId);
 
 /* Top Level API */
 int XDepacketizer56_CfgInitialize(XDepacketizer56 *InstancePtr,
-                            XDepacketizer56_Config *CfgPtr, u32 EffectiveAddr);
+                                     XDepacketizer56_Config *CfgPtr,
+                                                   UINTPTR EffectiveAddr);
 XDepacketizer56_ModuleStatus
                      XDepacketizer56_ErroStatus (XDepacketizer56 *InstancePtr);
 

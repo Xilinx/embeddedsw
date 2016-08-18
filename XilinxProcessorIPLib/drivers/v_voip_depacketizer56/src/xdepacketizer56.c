@@ -94,12 +94,13 @@ static void StubCallback(void *CallbackRef);
 *
 ******************************************************************************/
 int XDepacketizer56_CfgInitialize(XDepacketizer56 *InstancePtr,
-                             XDepacketizer56_Config *CfgPtr, u32 EffectiveAddr)
+                                     XDepacketizer56_Config *CfgPtr,
+                                                   UINTPTR EffectiveAddr)
 {
     /* Verify arguments. */
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(CfgPtr != NULL);
-    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+    Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)0x0);
 
     /* Setup the instance */
     (void)memset((void *)InstancePtr, 0, sizeof(XDepacketizer56));
