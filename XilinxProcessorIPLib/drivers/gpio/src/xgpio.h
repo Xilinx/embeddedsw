@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio.h
-* @addtogroup gpio_v4_1
+* @addtogroup gpio_v4_2
 * @{
 * @details
 *
@@ -106,7 +106,8 @@
 * 4.1   lks  11/18/15 Updated to use cannonical xparameters in examples and
 *		      clean up of the comments, removed support for DCR bridge
 *		      and removed xgpio_intr_example for CR 900381
-* 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+* 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+*                     adding 64 bit support. CR# 867425.
 *                     Changed the prototype of XGpio_CfgInitialize API.
 *
 * </pre>

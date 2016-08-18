@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
 * @file xgpio_i.h
-* @addtogroup gpio_v4_1
+* @addtogroup gpio_v4_2
 * @{
 *
 * This header file contains internal identifiers, which are those shared

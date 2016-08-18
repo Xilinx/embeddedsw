@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio.c
-* @addtogroup gpio_v4_1
+* @addtogroup gpio_v4_2
 * @{
 *
 * The implementation of the XGpio driver's basic functionality. See xgpio.h
@@ -62,7 +62,8 @@
 *		      macros to remove _m from the name.
 * 4.1   lks  11/18/15 Clean up of the comments in the code and
 *		      removed support for DCR bridge
-* 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+* 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+*                     adding 64 bit support. CR# 867425.
 *                     Changed the prototype of XGpio_CfgInitialize API.
 * </pre>
 *

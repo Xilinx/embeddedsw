@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 * @file xgpio_sinit.c
-* @addtogroup gpio_v4_1
+* @addtogroup gpio_v4_2
 * @{
 *
 * The implementation of the XGpio driver's static initialzation
