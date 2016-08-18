@@ -1376,7 +1376,7 @@ static void XHdcp22Rx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 static void XHdcp22Rx_StartTimer(XHdcp22_Rx *InstancePtr, u32 TimeOut_mSec,
                                 u8 ReasonId)
 {
-	u32 Ticks = (u32)(InstancePtr->TimerInst.Config.SysClockFreqHz/1e6) * TimeOut_mSec * 1000;
+	u32 Ticks = (u32)(InstancePtr->TimerInst.Config.SysClockFreqHz / 1000000) * TimeOut_mSec * 1000;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3802,7 +3802,7 @@ u32 XHdcp22Rx_LogGetTimeUSecs(XHdcp22_Rx *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	u32 PeriodUsec = InstancePtr->TimerInst.Config.SysClockFreqHz * 1e-6;
+	u32 PeriodUsec = InstancePtr->TimerInst.Config.SysClockFreqHz / 1000000;
 	return (XTmrCtr_GetValue(&InstancePtr->TimerInst, XHDCP22_RX_TMR_CTR_0) / PeriodUsec);
 }
 
