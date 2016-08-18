@@ -94,12 +94,13 @@ static void StubCallback(void *CallbackRef);
 *
 ******************************************************************************/
 int XPacketizer56_CfgInitialize(XPacketizer56 *InstancePtr,
-                                XPacketizer56_Config *CfgPtr, u32 EffectiveAddr)
+                                XPacketizer56_Config *CfgPtr,
+                                          UINTPTR EffectiveAddr)
 {
     /* Verify arguments. */
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(CfgPtr != NULL);
-    Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+    Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)0x0);
 
     /* Setup the instance */
     (void)memset((void *)InstancePtr, 0, sizeof(XPacketizer56));

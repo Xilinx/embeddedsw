@@ -230,7 +230,7 @@ typedef void (*XPacketizer56_Callback)(void *CallbackRef);
 */
 typedef struct {
     u16 DeviceId;
-    u32 BaseAddress;
+    UINTPTR BaseAddress;
 }XPacketizer56_Config;
 
 /**
@@ -323,7 +323,8 @@ typedef struct {
 XPacketizer56_Config *XPacketizer56_LookupConfig(u16 DeviceId);
 
 int XPacketizer56_CfgInitialize(XPacketizer56 *InstancePtr,
-                               XPacketizer56_Config *CfgPtr, u32 EffectiveAddr);
+                               XPacketizer56_Config *CfgPtr,
+                                       UINTPTR EffectiveAddr);
 
 // INterrupt Functions
 void XPacketizer56_IntrHandler(void *InstancePtr);
