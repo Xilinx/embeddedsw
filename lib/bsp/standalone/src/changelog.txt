@@ -380,7 +380,7 @@
  *                     src/arm/cortexa9 and src/arm/cortexr5 respectively).Files xil_printf.c,xil_printf.h,
  *                     print.c,xil_io.c and xil_io.h are consolidated across all BSPs into common file each and
  *                     consolidated files are kept at src/common directory.Files putnum.c,vectors.c,vectors.h,
- *                     xil_exception.c,xil_exception.h and xpseudo_asm.h are consolidated across all ARM BSPs
+ *                     xil_exception.c and xil_exception.h are consolidated across all ARM BSPs
  *                     into common file each and consolidated files are kept at src/arm/common directory.
  *                     GCC source files related to file  operations are consolidated and kept
  *                     at src/arm/common/gcc directory.
@@ -391,4 +391,6 @@
  *                     the CR#956899.
  * 6.0 pkp   08/15/16  Added Xil_Smc to call SMC from Cortex A53 64bit
  * 6.0 pkp   08/15/16  Added support for secure EL1 to Cortex-A53 64bit mode
+ * 6.0 mus   08/18/16  Defined ARMA53_32 flag in cortexa53/32bit/xparameters_ps.h and ARMR5 flag
+ *                     in cortexr5/xparameters_ps.h
  *****************************************************************************************/
