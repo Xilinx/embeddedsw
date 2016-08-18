@@ -54,14 +54,16 @@
 
 int main()
 {
-	int count = XFPGA_NUMBYTES/4;
-	int Status;
+	u32 count = XFPGA_NUMBYTES/4;
+	u64 addr = XFPGA_BASE_ADDRESS;
+	s32 Status;
 
 	xil_printf("Loading Bit-stream for DDR location :0x%x and Length :%d\n\r",
 				XFPGA_BASE_ADDRESS, XFPGA_NUMBYTES);
 	xil_printf("Trying to configure the PL ......\n\r");
 
-	Status = XFpga_PL_BitSream_Load(XFPGA_BASE_ADDRESS,count,PCAP_LOAD);
+	Status = XFpga_PL_BitSream_Load((u32)(addr >> 32),
+					(u32)addr, count, PCAP_LOAD);
 
 	if(Status == XFPGA_SUCCESS)
 		xil_printf("PL Configuration done successfully");
