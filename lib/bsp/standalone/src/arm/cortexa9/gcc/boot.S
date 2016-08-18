@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,10 @@
 *			 bit in ACTLR. L2Cache invalidation and enabling of L2Cache
 *			 is done later.
 * 5.4   asa     12/6/15  Added code to initialize SPSR for all relevant modes.
+* 6.0   mus     08/04/16 Added code to detect zynq-7000 base silicon configuration and
+*                        attempt to enable dual core behavior on single cpu zynq-7000s
+*                        devices is prevented from corrupting system behavior.
+*
 * </pre>
 *
 * @note
@@ -102,6 +106,8 @@
 .set SLCRlockReg,	    (PSS_SLCR_BASE_ADDR + 0x04)	/*(PSS_SLCR_BASE_ADDR + XPSS_SLCR_LOCK_OFFSET)*/
 .set SLCRUnlockReg,     (PSS_SLCR_BASE_ADDR + 0x08)	/*(PSS_SLCR_BASE_ADDR + XPSS_SLCR_UNLOCK_OFFSET)*/
 .set SLCRL2cRamReg,     (PSS_SLCR_BASE_ADDR + 0xA1C) /*(PSS_SLCR_BASE_ADDR + XPSS_SLCR_L2C_RAM_OFFSET)*/
+.set SLCRCPURSTReg,     (0xF8000000 + 0x244)           /*(XPS_SYS_CTRL_BASEADDR + A9_CPU_RST_CTRL_OFFSET)*/
+.set EFUSEStaus,        (0xF800D000 + 0x10)            /*(XPS_EFUSE_BASEADDR + EFUSE_STATUS_OFFSET)*/
 
 /* workaround for simulation not working when L1 D and I caches,MMU and  L2 cache enabled - DT568997 */
 .if SIM_MODE == 1
@@ -141,27 +147,25 @@
 
 _prestart:
 _boot:
+        ldr r0,=EFUSEStaus
+        ldr r1,[r0]      /*Read eFuse to detect zynq silicon configuration*/
+        ands r1,r1,#0x80  /*Check wheter cpu1 is disabled through eFuse*/
+	beq OKToRun
 
-#if XPAR_CPU_ID==0
-/* only allow cpu0 through */
-	mrc	p15,0,r1,c0,c0,5
-	and	r1, r1, #0xf
-	cmp	r1, #0
-	beq	OKToRun
-EndlessLoop0:
-	wfe
-	b	EndlessLoop0
+ /*cpu1 is disabled through eFuse,reset cpu1*/
+        ldr     r0,=SLCRUnlockReg               /* Load SLCR base address base + unlock register */
+        ldr     r1,=SLCRUnlockKey               /* set unlock key */
+        str     r1, [r0]                        /* Unlock SLCR */
 
-#elif XPAR_CPU_ID==1
-/* only allow cpu1 through */
-	mrc	p15,0,r1,c0,c0,5
-	and	r1, r1, #0xf
-	cmp	r1, #1
-	beq	OKToRun
-EndlessLoop1:
-	wfe
-	b	EndlessLoop1
-#endif
+	ldr r0,=SLCRCPURSTReg
+	ldr r1,[r0]                             /*Read CPU Software Reset Control register*/
+	orr r1,r1,#0x22
+        str r1,[r0]                             /*Reset CPU1*/
+
+        ldr	r0,=SLCRlockReg         	/* Load SLCR base address base + lock register */
+	ldr	r1,=SLCRlockKey	        	/* set lock key */
+	str	r1, [r0]	        	/* lock SLCR */
+
 
 OKToRun:
 	mrc     p15, 0, r0, c0, c0, 0		/* Get the revision */

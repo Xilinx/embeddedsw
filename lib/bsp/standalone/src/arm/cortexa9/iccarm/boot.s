@@ -1,6 +1,6 @@
 ;******************************************************************************
 ;
-; Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+; Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,9 @@
 ;			 caches and TLB, enable MMU and caches, then enable SMP
 ;			 bit in ACTLR. L2Cache invalidation and enabling of L2Cache
 ;			 is done later.
+; 6.0   mus     08/04/16 Added code to detect zynq-7000 base silicon configuration and
+;                        attempt to enable dual core behavior on single cpu zynq-7000s devices
+;                        is prevented from corrupting system behavior.
 ; </pre>
 ;
 ; @note
@@ -98,6 +101,8 @@ L2CCIntRaw	EQU	(PSS_L2CC_BASE_ADDR + 0x021C)	;(PSS_L2CC_BASE_ADDR + XPSS_L2CC_IS
 SLCRlockReg	EQU	(PSS_SLCR_BASE_ADDR + 0x04)	;(PSS_SLCR_BASE_ADDR + XPSS_SLCR_LOCK_OFFSET)
 SLCRUnlockReg	EQU     (PSS_SLCR_BASE_ADDR + 0x08)	;(PSS_SLCR_BASE_ADDR + XPSS_SLCR_UNLOCK_OFFSET)
 SLCRL2cRamReg	EQU     (PSS_SLCR_BASE_ADDR + 0xA1C) ;(PSS_SLCR_BASE_ADDR + XPSS_SLCR_L2C_RAM_OFFSET)
+SLCRCPURSTReg   EQU     (0xF8000000 + 0x244)             ;(XPS_SYS_CTRL_BASEADDR + A9_CPU_RST_CTRL_OFFSET)
+EFUSEStaus      EQU     (0xF800D000 + 0x10)              ;(XPS_EFUSE_BASEADDR + EFUSE_STATUS_OFFSET)
 
 /* workaround for simulation not working when L1 D and I caches,MMU and  L2 cache enabled - DT568997 */
 #if SIM_MODE == 1
@@ -151,6 +156,25 @@ EndlessLoop1
 #endif
 
 OKToRun
+        ldr r0,=EFUSEStaus
+        ldr r1,[r0]      ; Read eFuse to detect zynq silicon configuration
+        ands r1,r1,#0x80  ; Check wheter cpu1 is disabled through eFuse
+	beq DualCPU
+	; cpu1 is disabled through eFuse,reset cpu1
+	ldr	r0,=SLCRUnlockReg		; Load SLCR base address base + unlock register
+	ldr	r1,=SLCRUnlockKey	    	; set unlock key
+	str	r1, [r0]		    	; Unlock SLCR
+
+	ldr r0,=SLCRCPURSTReg
+	ldr r1,[r0]                             ; Read CPU Software Reset Control register
+	orr r1,r1,#0x22
+        str r1,[r0]                             ; Reset CPU1
+
+	ldr	r0,=SLCRlockReg         	; Load SLCR base address base + lock register
+	ldr	r1,=SLCRlockKey	        	; set lock key
+	str	r1, [r0]	        	; lock SLCR
+
+DualCPU
 	mrc     p15, 0, r0, c0, c0, 0		; Get the revision
 	and     r5, r0, #0x00f00000
 	and     r6, r0, #0x0000000f

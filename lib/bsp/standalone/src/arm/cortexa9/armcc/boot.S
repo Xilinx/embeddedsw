@@ -1,6 +1,6 @@
 ;******************************************************************************
 ;
-; Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+; Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,9 @@
 ;			 bit in ACTLR. L2Cache invalidation and enabling of L2Cache
 ;			 is done later.
 ; 5.4  asa      12/06/15 Added code to initialize SPSR for all relevant modes.
+; 6.0  mus      04/08/16 Added code to detect zynq-7000 base silicon configuration and
+;                        attempt to enable dual core behavior on single cpu zynq-7000s devices
+;                        is prevented from corrupting system behavior.
 ; </pre>
 ;
 ; @note
@@ -102,6 +105,8 @@ L2CCIntRaw	EQU	(PSS_L2CC_BASE_ADDR + 0x021C)	;(PSS_L2CC_BASE_ADDR + XPSS_L2CC_IS
 SLCRlockReg	EQU    (PSS_SLCR_BASE_ADDR + 0x04)	/*(PSS_SLCR_BASE_ADDR + XPSS_SLCR_LOCK_OFFSET)*/
 SLCRUnlockReg   EQU    (PSS_SLCR_BASE_ADDR + 0x08)	/*(PSS_SLCR_BASE_ADDR + XPSS_SLCR_UNLOCK_OFFSET)*/
 SLCRL2cRamReg   EQU    (PSS_SLCR_BASE_ADDR + 0xA1C) /*(PSS_SLCR_BASE_ADDR + XPSS_SLCR_L2C_RAM_OFFSET)*/
+SLCRCPURSTReg   EQU    (0xF8000000 + 0x244)             ;(XPS_SYS_CTRL_BASEADDR + A9_CPU_RST_CTRL_OFFSET)
+EFUSEStaus      EQU    (0xF800D000 + 0x10)              ;(XPS_EFUSE_BASEADDR + EFUSE_STATUS_OFFSET)
 
 SLCRlockKey	EQU        	0x767B			/* SLCR lock key */
 SLCRUnlockKey	EQU        	0xDF0D			/* SLCR unlock key */
@@ -126,26 +131,23 @@ FPEXC_EN	EQU	0x40000000	; FPU enable bit, (1 << 30)
 _prestart
 _boot
 
-#if XPAR_CPU_ID==0
-; only allow cp0 through
-	mrc	p15,0,r1,c0,c0,5
-	and	r1, r1, #0xf
-	cmp	r1, #0
-	beq	OKToRun
-EndlessLoop0
-	wfe
-	b	EndlessLoop0
+        ldr r0,=EFUSEStaus
+        ldr r1,[r0]      ; Read eFuse to detect zynq silicon configuration
+        ands r1,r1,#0x80  ; Check wheter cpu1 is disabled through eFuse
+	beq OKToRun
+ ; cpu1 is disabled through eFuse,reset cpu1
+	ldr	r0,=SLCRUnlockReg		;Load SLCR base address base + unlock register
+	ldr	r1,=SLCRUnlockKey	   	;set unlock key
+	str	r1, [r0]		   	;Unlock SLCR
 
-#elif XPAR_CPU_ID==1
-; only allow cp1 through
-	mrc	p15,0,r1,c0,c0,5
-	and	r1, r1, #0xf
-	cmp	r1, #1
-	beq	OKToRun
-EndlessLoop1
-	wfe
-	b	EndlessLoop1
-#endif
+	ldr r0,=SLCRCPURSTReg
+	ldr r1,[r0]                             ;Read CPU Software Reset Control register
+	orr r1,r1,#0x22
+        str r1,[r0]                             ;Reset CPU1
+
+	ldr	r0,=SLCRlockReg         	;Load SLCR base address base + lock register
+	ldr	r1,=SLCRlockKey	        	;set lock key
+	str	r1, [r0]	        	;lock SLCR
 
 OKToRun
 	mrc     p15, 0, r0, c0, c0, 0		/* Get the revision */
