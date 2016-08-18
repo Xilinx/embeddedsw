@@ -74,8 +74,6 @@
 #include "xparameters.h"
 #include "sleep.h"
 #include "xiicps.h"
-#include "xscugic.h"
-#include "xil_exception.h"
 #include "xil_printf.h"
 #include "xplatform_info.h"
 
