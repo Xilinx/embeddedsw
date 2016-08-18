@@ -93,7 +93,6 @@ static void outs(const charptr lp, struct params_s *par)
 
 static void outnum( const s32 n, const s32 base, struct params_s *par)
 {
-    charptr cp;
     s32 negative;
 	s32 i;
     char8 outbuf[32];
@@ -150,7 +149,6 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
 #if defined (__aarch64__)
 static void outnum1( const s64 n, const s32 base, params_t *par)
 {
-    charptr cp;
     s32 negative;
 	s32 i;
     char8 outbuf[64];
@@ -244,7 +242,9 @@ static s32 getnum( charptr* linep)
 void xil_printf( const char8 *ctrl1, ...)
 {
 	s32 Check;
+#if defined (__aarch64__)
     s32 long_flag;
+#endif
     s32 dot_flag;
 
     params_t par;
@@ -269,7 +269,9 @@ void xil_printf( const char8 *ctrl1, ...)
 
         /* initialize all the flags for this format.   */
         dot_flag = 0;
+#if defined (__aarch64__)
 		long_flag = 0;
+#endif
         par.unsigned_flag = 0;
 		par.left_flag = 0;
 		par.do_padding = 0;
@@ -327,7 +329,9 @@ void xil_printf( const char8 *ctrl1, ...)
                 break;
 
             case 'l':
+            #if defined (__aarch64__)
                 long_flag = 1;
+            #endif
                 Check = 0;
                 break;
 

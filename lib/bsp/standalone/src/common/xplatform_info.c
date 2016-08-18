@@ -44,6 +44,7 @@
 * 5.00  pkp  12/15/14 Initial release
 * 5.04  pkp  01/12/16 Added platform information support for Cortex-A53 32bit
 *					  mode
+* 6.00  mus  17/08/16 Removed unused variable from XGetPlatform_Info
 * </pre>
 *
 ******************************************************************************/
@@ -79,7 +80,7 @@
 ******************************************************************************/
 u32 XGetPlatform_Info()
 {
-	u32 reg;
+
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
