@@ -968,7 +968,8 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 		/* Write Destination Address */
 		XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, StartAddr);
 
-		/* Size to be Transferred (for write-only mode, only dest is needed)*/
+		/* Size to be Transferred. Recommended to set both src and dest sizes */
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2, Length);
 		XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, Length);
 
 		/* DMA Enable */
@@ -1008,6 +1009,7 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD2, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD3, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, 0x00000000U);
 
 	XFsbl_Printf(DEBUG_INFO,
