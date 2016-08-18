@@ -60,6 +60,8 @@ Modified code for MISRA-C:2012 Compliance
 
 sysmonpsu_v1_1:
 Modified driver code for MISRA-C:2012 Compliance
+Added SEQ_CH2_REG and SEQ_AVG2_REG, SEQ_INPUT2, SEQ_ACQ2
+and CFG3_REG configurations
 
 emacps_v3_3:
 Fixed IEEE1588 example issue for Zynq (CR#951152
@@ -100,6 +102,7 @@ Updated xtime_l.c in R5 BSP to remove implementation of XTime_SetTime API, since
 Updated the signature for functions sleep/usleep. This fixes the CR#956899.
 Added Xil_Smc to call SMC from Cortex A53 64bit
 Added support for secure EL1 to Cortex-A53 64bit mode
+Added PSS_PSU_REF_CLK macro to xparameters.h for ZynqMP A53 and R5.
 
 sdps_v3_0:
 Added support for mkfs.
@@ -138,6 +141,23 @@ xilkernel_v6_4:
 Fixed CR:955364 update get_pins command as per 2016.3 hsi changes are made in
 the bsp tcl file.
 Updated the DEPENDS in mld, tcl and makefile to standalone_v6_0 from standalone.
+
+xilskey_v6_0:
+Added margin 2 read checks for Zynq eFUSE PS and PL.
+Ultrscale eFUSE programming is handled using hardware
+module, Hardware module is controlled through GPIO pins,
+Modified Ultrascale eFUSE example and input.h files to
+accept GPIO pin numbers from user, Corrected sysmon
+temperature read to 16-bit resolution.
+Fixed CR #954260 to correct the sequence of Zynq eFUSE programming
+Modified ZynqMP PS eFUSE's single USER key programming to
+separate 32 bit User keys. Provided single bit programming
+for User Key.
+For Ultrascale: Added 128 bit user key programming.
+Provided single bit programming for User keys 32 and
+128 bit User keys. Added error codes on failures.
+BBRAM is updated to have DPA protection, and
+count configuration.
 
 libmetal_v1_0:
 Add libmetal open-source project to support OpenAMP
