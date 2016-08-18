@@ -43,7 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00         10/07/15 Initial release.
-
+* 1.1   YH     18/08/16 squash unused variable compiler warning
 * </pre>
 *
 ******************************************************************************/
@@ -175,6 +175,13 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
+        case (XV_HDMITX_HANDLER_TOGGLE):
+            InstancePtr->ToggleCallback = (XV_HdmiTx_Callback)CallbackFunc;
+            InstancePtr->ToggleRef = CallbackRef;
+            InstancePtr->IsToggleCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
         case (XV_HDMITX_HANDLER_VS):
             InstancePtr->VsCallback = (XV_HdmiTx_Callback)CallbackFunc;
             InstancePtr->VsRef = CallbackRef;
@@ -239,6 +246,15 @@ static void HdmiTx_PioIntrHandler(XV_HdmiTx *InstancePtr)
     /* Read data */
     Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
                             (XV_HDMITX_PIO_IN_OFFSET));
+
+    /* HPD event has occurred */
+    if ((Event) & (XV_HDMITX_PIO_IN_HPD_TOGGLE_MASK)) {
+
+        // Check if user callback has been registered
+        if (InstancePtr->IsToggleCallbackSet) {
+            InstancePtr->ToggleCallback(InstancePtr->ToggleRef);
+        }
+    }
 
     /* HPD event has occurred */
     if ((Event) & (XV_HDMITX_PIO_IN_HPD_MASK)) {
@@ -329,4 +345,5 @@ static void HdmiTx_DdcIntrHandler(XV_HdmiTx *InstancePtr)
     /* Read DDC Status register */
     Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
                             (XV_HDMITX_DDC_STA_OFFSET));
+    Data = Data; //squash unused variable compiler warning
 }

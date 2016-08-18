@@ -48,6 +48,9 @@
 * 1.3   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiTx_CfgInitialize
 * 1.4   YH     27/07/16 Remove checking VideoMode < (XVIDC_VM_NUM_SUPPORTED));
+* 1.5   YH     17/08/16 Add XV_HdmiTx_SetAxiClkFreq
+*                       Move XV_HdmiTx_DdcInit to XV_HdmiTx_SetAxiClkFreq
+*                       squash unused variable compiler warning
 * </pre>
 *
 ******************************************************************************/
@@ -122,7 +125,6 @@ static const XV_HdmiTx_VicTable VicTable[34] = {
 /************************** Function Prototypes ******************************/
 
 static void StubCallback(void *Callback);
-static int HdmiTx_DdcExec(XV_HdmiTx *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -168,15 +170,12 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
         sizeof(XV_HdmiTx_Config));
     InstancePtr->Config.BaseAddress = EffectiveAddr;
 
-#if defined(__MICROBLAZE__)
-    InstancePtr->CpuClkFreq = XPAR_CPU_CORE_CLOCK_FREQ_HZ;
-#elif defined(__arm__)
-    InstancePtr->CpuClkFreq = XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ;
-#endif
-
     /* Set all handlers to stub values, let user configure this data later */
     InstancePtr->ConnectCallback = (XV_HdmiTx_Callback)((void *)StubCallback);
     InstancePtr->IsConnectCallbackSet = (FALSE);
+
+    InstancePtr->ToggleCallback = (XV_HdmiTx_Callback)((void *)StubCallback);
+    InstancePtr->IsToggleCallbackSet = (FALSE);
 
     InstancePtr->VsCallback = (XV_HdmiTx_Callback)((void *)StubCallback);
     InstancePtr->IsVsCallbackSet = (FALSE);
@@ -219,6 +218,7 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
     /* PIO: Set event rising edge masks */
     XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
     (XV_HDMITX_PIO_IN_EVT_RE_OFFSET),
+            (XV_HDMITX_PIO_IN_HPD_TOGGLE_MASK) |
             (XV_HDMITX_PIO_IN_HPD_MASK) |
             (XV_HDMITX_PIO_IN_VS_MASK) |
             (XV_HDMITX_PIO_IN_LNK_RDY_MASK)
@@ -248,13 +248,32 @@ int XV_HdmiTx_CfgInitialize(XV_HdmiTx *InstancePtr, XV_HdmiTx_Config *CfgPtr,
     /* The audio peripheral is enabled at stream up */
     //XV_HdmiTx_AudioEnable(InstancePtr);
 
-    /* Initialize DDC */
-    XV_HdmiTx_DdcInit(InstancePtr, InstancePtr->CpuClkFreq);
-
     /* Reset the hardware and set the flag to indicate the driver is ready */
     InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
     return (XST_SUCCESS);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the AXI4-Lite Clock Frequency
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+* @param    ClkFreq specifies the value that needs to be set.
+*
+* @return
+*
+*
+* @note     This is required after a reset or init.
+*
+******************************************************************************/
+void XV_HdmiTx_SetAxiClkFreq(XV_HdmiTx *InstancePtr, u32 ClkFreq)
+{
+	InstancePtr->CpuClkFreq = ClkFreq;
+
+    /* Initialize DDC */
+    XV_HdmiTx_DdcInit(InstancePtr, InstancePtr->CpuClkFreq);
 }
 
 /*****************************************************************************/
@@ -499,6 +518,7 @@ int XV_HdmiTx_ClockRatio(XV_HdmiTx *InstancePtr) {
         }
     return XST_SUCCESS;
     }
+    return XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -641,7 +661,6 @@ XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc, XVidC_PixelsPerClock Ppc,
 XVidC_3DInfo *Info3D)
 {
     u32 TmdsClock;
-    u32 Status;
 
     /* Verify arguments. */
     Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1423,7 +1442,6 @@ int XV_HdmiTx_AuxSend(XV_HdmiTx *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTx_DebugInfo(XV_HdmiTx *InstancePtr)
 {
-    u32 Reset;
 
     /* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);

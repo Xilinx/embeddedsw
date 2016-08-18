@@ -144,6 +144,7 @@ extern "C" {
 #define XV_HDMITX_PIO_IN_VS_MASK            (1<<3)  /**< PIO In Vsync mask */
 #define XV_HDMITX_PIO_IN_PPP_MASK           0x07    /**< PIO In Pixel packing
                                                     * phase mask */
+#define XV_HDMITX_PIO_IN_HPD_TOGGLE_MASK    (1<<8)  /**< PIO In HPD toggle mask */
 #define XV_HDMITX_PIO_IN_PPP_SHIFT          5       /**< PIO In Pixel packing
                                                     * phase shift */
 
