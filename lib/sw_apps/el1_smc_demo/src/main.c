@@ -51,7 +51,7 @@
 #include "xil_smc.h"
 
 /************************** Constant Definitions *****************************/
-
+#define SMC_UNK     0xFFFFFFFF
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -88,7 +88,7 @@ int main(void)
 	xil_printf("Calling SMC to perform arithmetic operation \n");
 	Result = Xil_Smc(FID, x1, x2, 0, 0, 0, 0, 0);
 
-	if (Result.Arg0 == x1) {
+	if (Result.Arg0 == SMC_UNK) {
 		xil_printf("SMC operation is failed \n");
 	} else {
 		xil_printf("SMC operation is successful with Result : \n");
