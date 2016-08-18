@@ -99,6 +99,8 @@
 *                     the distributor is enabled or not and if not, it does the
 *                     standard Distributor initialization.
 *                     This fixes the CR#952962.
+* 3.4   mus  09/08/16 Added assert to avoid invalid access of GIC from CPUID 1
+*                     for single core zynq-7000s
 *
 *
 * </pre>
@@ -350,6 +352,17 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
+	/*
+     * Detect Zynq-7000 base silicon configuration,Dual or Single CPU.
+     * If it is single CPU cnfiguration then invoke assert for CPU ID=1
+	 */
+#if !defined (ARMR5) && !defined (__aarch64__) && !defined (ARMA53_32)
+	if ( XPAR_CPU_ID == 0x01 )
+	{
+		Xil_AssertNonvoid((Xil_In32(XPS_EFUSE_BASEADDR + EFUSE_STATUS_OFFSET)
+		 & EFUSE_STATUS_CPU_MASK ) == 0);
+	}
+#endif
 
 	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 

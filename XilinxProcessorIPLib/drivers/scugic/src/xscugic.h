@@ -179,6 +179,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+#define EFUSE_STATUS_OFFSET   0x10
+#define EFUSE_STATUS_CPU_MASK 0x80
 
 /**************************** Type Definitions *******************************/
 
