@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxis_switch.h
-* @addtogroup axis_switch_v1_0
+* @addtogroup axis_switch_v1_1
 * @{
 * @details
 *
@@ -89,7 +89,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 01/28/15 Initial release.
-* 1.1   sk  08/16/16 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+* 1.1   sk  08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+*                    adding 64 bit support. CR# 867425.
 *                    Changed the prototype of XAxisScr_CfgInitialize API.
 * </pre>
 *

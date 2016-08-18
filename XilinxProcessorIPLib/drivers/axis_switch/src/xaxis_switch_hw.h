@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxis_switch_hw.h
-* @addtogroup axis_switch_v1_0
+* @addtogroup axis_switch_v1_1
 * @{
 *
 * This header file contains identifiers and register-level core functions (or
