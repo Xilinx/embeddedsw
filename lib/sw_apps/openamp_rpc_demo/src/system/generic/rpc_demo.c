@@ -125,6 +125,7 @@ static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 {
+	(void)rp_chnl;
 	app_rp_chnl = NULL;
 }
 
@@ -233,7 +234,6 @@ static void rpc_demo(void)
 				printf("\r\nRemote>Invalid option. Starting again....\r\n");
 			} else if((!strcmp(ubuff,"no"))) {
 				printf("\r\nRemote>RPC retargetting quitting ...\r\n");
-				sprintf(wbuff, RPC_CHANNEL_READY_TO_CLOSE);
 				break;
 			}
 		}
@@ -241,6 +241,7 @@ static void rpc_demo(void)
 
 	printf("\r\nRemote> Firmware's rpmsg-openamp-demo-channel going down! \r\n");
 
+	sprintf(wbuff, RPC_CHANNEL_READY_TO_CLOSE);
 	rpmsg_retarget_send(wbuff, sizeof (RPC_CHANNEL_READY_TO_CLOSE) + 1);
 
 	while (chnl_is_alive) {
