@@ -32,12 +32,17 @@
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xscugic.h"
+#include "xil_cache.h"
 #include "platform_info.h"
+#include "metal/sys.h"
+#include "metal/irq.h"
+#include "metal/system/generic/irq.h"
 
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
-extern void bm_env_isr(int vector);
+extern int platform_register_metal_device(void);
+
 static XScuGic xInterruptController;
 
 /* Interrupt Controller setup */
@@ -67,13 +72,14 @@ static int app_gic_initialize(void)
 	 * logic in the ARM processor.
 	 */
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
-			(Xil_ExceptionHandler)XScuGic_InterruptHandler,&xInterruptController);
+			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+			&xInterruptController);
 
 	Xil_ExceptionEnable();
 
 	/* Connect Interrupt ID with ISR */
 	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
-			   (Xil_ExceptionHandler)bm_env_isr,
+			   (Xil_ExceptionHandler)metal_irq_isr,
 			   (void *)VRING1_IPI_INTR_VECT);
 
 	return 0;
@@ -83,8 +89,26 @@ static int app_gic_initialize(void)
 /* return 0 on success */
 int init_system(void)
 {
+	struct metal_init_params metal_param = METAL_INIT_DEFAULTS;
+
+	/* Low level abstraction layer for openamp initialization */
+	metal_init(&metal_param);
+
 	/* configure the global interrupt controller */
 	app_gic_initialize();
 
+	/**/
+	platform_register_metal_device();
+
 	return 0;
+}
+
+void cleanup_system()
+{
+	metal_finish();
+
+	Xil_DCacheDisable();
+	Xil_ICacheDisable();
+	Xil_DCacheInvalidate();
+	Xil_ICacheInvalidate();
 }

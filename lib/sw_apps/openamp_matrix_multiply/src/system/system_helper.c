@@ -25,12 +25,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include <string.h>
 #include "openamp/env.h"
 
 /*-----------------------------------------------------------------------------*
  *  Circular buffer to send data between RPMSG callback and receiving task
  *  The memory is pre-allocated
- *  Synchronization is included to block-wait for data
  *-----------------------------------------------------------------------------*/
 static struct rb_str {
 	#define RB_SZ 2
@@ -39,14 +40,12 @@ static struct rb_str {
 	unsigned char buffer[RB_BUF_DATA_SZ][RB_SZ];
 	int head;
 	int tail;
-	void *sync_lock;
 } rb;
 
 /* create buffer */
 void buffer_create(void)
 {
 	rb.tail=rb.head=0;
-	env_create_sync_lock(&rb.sync_lock, LOCKED);
 }
 
 /* copy data to buffer */
@@ -57,13 +56,10 @@ int buffer_push(void *data, int len)
 	if (((rb.head + 1) % RB_SZ) == rb.tail) return 0;
 
 	if (len > RB_DATA_SZ) len = RB_DATA_SZ;
-	env_memcpy(&rb.buffer[sizeof(int)][rb.head], data, len);
+	memcpy(&rb.buffer[sizeof(int)][rb.head], data, len);
 
 	*(int *)&rb.buffer[0][rb.head] = len;
 	rb.head = (rb.head + 1) % RB_SZ;
-
-	/* notify possibly waiting receiver */
-	env_release_sync_lock(rb.sync_lock);
 
 	return 1;
 }
@@ -71,8 +67,12 @@ int buffer_push(void *data, int len)
 /* wait for data and return data pointer when available */
 void buffer_pull(void **data, int *len)
 {
-	/* empty ? then block-wait for notification of new data*/
-	while (rb.head == rb.tail) env_acquire_sync_lock(rb.sync_lock);
+	/* empty ? */
+	if (rb.head == rb.tail) {
+		*data=NULL;
+		*len=0;
+		return;
+	}
 
 	*data = (void *)&rb.buffer[sizeof(int)][rb.tail];
 	*len  = *(int *)&rb.buffer[0][rb.tail];

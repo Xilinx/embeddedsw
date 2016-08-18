@@ -87,11 +87,13 @@ typedef struct _matrix {
 } matrix;
 
 
-/* Global variables */
+/* Global functions or variables */
 extern const struct remote_resource_table resources;
+extern struct rproc_info_plat_local proc_table;
 
 /* from helper.c */
 extern int init_system(void);
+extern void cleanup_system();
 
 /* from system_helper.c */
 extern void buffer_create(void);
@@ -103,8 +105,10 @@ static struct rpmsg_channel *app_rp_chnl;
 static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
+
 static matrix matrix_array[NUM_MATRIX];
 static matrix matrix_result;
+static int have_data_flag=0;
 
 /*-----------------------------------------------------------------------------*
  *  RPMSG callbacks setup by remoteproc_resource_init()
@@ -112,9 +116,15 @@ static matrix matrix_result;
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
 {
-	/* Callback data are lost on return and need to be saved */
+	(void)rp_chnl;
+	(void)priv;
+	(void)src;
+
+	/* data may be lost when returning from this call and need to be copied away */
 	if (!buffer_push(data, len)) {
 		xil_printf("warning: cannot save data\n");
+	} else {
+		have_data_flag = 1;
 	}
 }
 
@@ -127,7 +137,11 @@ static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 {
+	(void)rp_chnl;
+
 	rpmsg_destroy_ept(rp_ept);
+	rp_ept = NULL;
+	app_rp_chnl = NULL;
 }
 
 /*-----------------------------------------------------------------------------*
@@ -136,7 +150,7 @@ static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r) {
 	int i, j, k;
 
-	env_memset(r, 0x0, sizeof(matrix));
+	memset(r, 0x0, sizeof(matrix));
 	r->size = m->size;
 
 	for (i = 0; i < m->size; ++i) {
@@ -151,20 +165,22 @@ static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r) {
 static void mat_mul_demo(void)
 {
 	while (1) {
-		void *data;
-		int len;
+		hil_poll(proc->proc, 0);
 
-		/* wait for data... */
-		buffer_pull(&data, &len);
+		if (have_data_flag) {
+			void *data;
+			int len;
 
-		/* Process incoming message/data */
-		if (*(int *)data == SHUTDOWN_MSG) {
-			/* disable interrupts and free resources */
-			remoteproc_resource_deinit(proc);
+			have_data_flag = 0;
 
-			break;
-		} else {
-			env_memcpy(matrix_array, data, len);
+			buffer_pull(&data, &len);
+
+			/* Process incoming message/data */
+			if (*(unsigned int *)data == SHUTDOWN_MSG) {
+				break;
+			}
+
+			memcpy(matrix_array, data, len);
 
 			/* Process received data and multiple matrices. */
 			Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
@@ -195,15 +211,23 @@ int main(void)
 	rsc_info.size = sizeof(resources);
 
 	/* Initialize OpenAMP framework */
-	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
-                            rpmsg_channel_deleted, rpmsg_read_cb,
-							&proc);
+	status = remoteproc_resource_init(&rsc_info, &proc_table,
+						rpmsg_channel_created,
+						rpmsg_channel_deleted, rpmsg_read_cb,
+						&proc, 0);
 	if (RPROC_SUCCESS != status) {
 		/* print directly on serial port */
 		xil_printf("Error: initializing OpenAMP framework\n");
 	} else {
 		mat_mul_demo();
+
+		/* disable interrupts and free resources */
+		remoteproc_resource_deinit(proc);
     }
+
+	cleanup_system();
+
+	/* We shall never exit main, just wait forever */
 
 	while (1) {
 		__asm__("wfi\n\t");

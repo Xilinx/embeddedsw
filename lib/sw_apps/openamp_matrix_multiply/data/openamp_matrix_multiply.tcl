@@ -55,13 +55,21 @@ proc swapp_is_supported_sw {} {
     # make sure we are using a supported OS
     check_oamp_supported_os
 
-    # make sure xilffs is available
-    set librarylist [hsi::get_libs -filter "NAME==openamp"]
+    # make sure openamp and metal libs are available
+    set librarylist_1 [hsi::get_libs -filter "NAME==openamp"]
+    set librarylist_2 [hsi::get_libs -filter "NAME==libmetal"]
 
-    if { [llength $librarylist] == 0 } {
+
+    if { [llength $librarylist_1] == 0 && [llength $librarylist_2] == 0 } {
+        error "This application requires openamp and libmetal libraries in the Board Support Package."
+    } elseif { [llength $librarylist_1] == 0 } {
         error "This application requires openamp library in the Board Support Package."
-    } elseif { [llength $librarylist] > 1} {
+    } elseif { [llength $librarylist_1] > 1} {
         error "Multiple openamp libraries present in the Board Support Package."
+    } elseif { [llength $librarylist_2] == 0 } {
+        error "This application requires the libmetal library in the Board Support Package."
+    } elseif { [llength $librarylist_2] > 1} {
+        error "Multiple metal libraries present in the Board Support Package."
     }
 }
 
