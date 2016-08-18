@@ -84,9 +84,11 @@
 
 /* Global variables */
 extern const struct remote_resource_table resources;
+extern struct rproc_info_plat_local proc_table;
 
 /* from helper.c */
 extern int init_system(void);
+extern void cleanup_system(void);
 
 /* from system_helper.c */
 extern void buffer_create(void);
@@ -98,7 +100,9 @@ static struct rpmsg_channel *app_rp_chnl;
 static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
+
 static TaskHandle_t comm_task;
+static int have_data_flag=0;
 
 /*-----------------------------------------------------------------------------*
  *  RPMSG callbacks setup by remoteproc_resource_init()
@@ -106,8 +110,13 @@ static TaskHandle_t comm_task;
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
 {
+	(void)priv;
+	(void)src;
+
 	if (!buffer_push(data, len)) {
 		xil_printf("warning: cannot save data\n");
+	} else {
+		have_data_flag =1;
 	}
 }
 
@@ -120,7 +129,10 @@ static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 {
-	/* TODO: rpmsg_destroy_ept() ... */
+	(void)rp_chnl;
+
+	rpmsg_destroy_ept(rp_ept);
+	rp_ept = NULL;
 }
 
 /*-----------------------------------------------------------------------------*
@@ -143,37 +155,44 @@ static void processing(void *unused_arg)
 	rsc_info.size = sizeof(resources);
 
 	/* Initialize OpenAMP framework */
-	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
-								 rpmsg_channel_deleted, rpmsg_read_cb,
-								 &proc);
+	status = remoteproc_resource_init(&rsc_info, &proc_table,
+						rpmsg_channel_created,
+						rpmsg_channel_deleted, rpmsg_read_cb,
+						&proc, 0);
 	if (RPROC_SUCCESS != status) {
 		xil_printf("Error: initializing OpenAMP framework\n");
-		return;
-	}
+	} else {
+		/* Stay in data processing loop until we receive a 'shutdown' message */
+		while (1) {
+			hil_poll(proc->proc, 0);
 
-	/* Stay in data processing loop until we receive a 'shutdown' message */
-	while (1) {
-		void *data;
-		int len;
+			if (have_data_flag) {
+				void *data;
+				int len;
 
-		/* wait for data... */
-		buffer_pull(&data, &len);
+				have_data_flag = 0;
 
-		/* Process incoming message/data */
-		if (*(int *)data == SHUTDOWN_MSG) {
-			/* disable interrupts and free resources */
-			remoteproc_resource_deinit(proc);
+				buffer_pull(&data, &len);
 
-			/* Terminate this task */
-			vTaskDelete(NULL);
-			break;
-		} else {
-			/* Send data back to master*/
-			if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, data, len)) {
-				xil_printf("Error: rpmsg_send failed\n");
+				/* If we get a shutdown request we will stop and end this task */
+				if (*(unsigned int *)data == SHUTDOWN_MSG) {
+					break;
+				}
+
+				/* Send data back to master*/
+				if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, data, len)) {
+					xil_printf("Error: rpmsg_send failed\n");
+				}
 			}
 		}
+		/* disable interrupts and free resources */
+		remoteproc_resource_deinit(proc);
+
 	}
+	cleanup_system();
+
+	/* Terminate this task */
+	vTaskDelete(NULL);
 }
 
 /*-----------------------------------------------------------------------------*
