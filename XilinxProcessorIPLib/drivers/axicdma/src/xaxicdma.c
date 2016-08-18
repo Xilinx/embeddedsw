@@ -180,7 +180,7 @@ u32 XAxiCdma_CfgInitialize(XAxiCdma *InstancePtr, XAxiCdma_Config *CfgPtr,
 		return XST_INVALID_PARAM;
 	}
 
-	RegValue = XAxiCdma_ReadReg(CfgPtr->BaseAddress, XAXICDMA_SR_OFFSET);
+	RegValue = XAxiCdma_ReadReg(InstancePtr->BaseAddr, XAXICDMA_SR_OFFSET);
 
 	InstancePtr->SimpleOnlyBuild = !(RegValue & XAXICDMA_SR_SGINCLD_MASK);
 
