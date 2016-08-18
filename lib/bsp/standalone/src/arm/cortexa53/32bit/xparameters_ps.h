@@ -42,6 +42,7 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 5.2	pkp  	28/05/15 First release
+* 6.0   mus     18/08/16 Defined ARMA53_32 flag
 * </pre>
 *
 * @note
@@ -52,6 +53,10 @@
 
 #ifndef _XPARAMETERS_PS_H_
 #define _XPARAMETERS_PS_H_
+
+#ifndef ARMA53_32
+#define ARMA53_32 ARMA53_32
+#endif
 
 #ifdef __cplusplus
 extern "C" {
