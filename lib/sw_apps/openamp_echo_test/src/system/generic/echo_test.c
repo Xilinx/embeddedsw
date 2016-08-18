@@ -78,15 +78,18 @@
 
 #define SHUTDOWN_MSG	0xEF56A55A
 
-/* Global variables */
+/* Global functions and variables */
 extern const struct remote_resource_table resources;
 extern int init_system(void);
+extern void cleanup_system(void);
+
+extern struct rproc_info_plat_local proc_table;
 
 /* Local variables */
-static struct rpmsg_channel *app_rp_chnl;
 static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
+static int evt_chnl_deleted = 0;
 
 /*-----------------------------------------------------------------------------*
  *  RPMSG callbacks setup by remoteproc_resource_init()
@@ -94,25 +97,31 @@ static struct rsc_table_info rsc_info;
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
 {
-	if ((*(int *)data) == SHUTDOWN_MSG) {
-		/* disable interrupts and free resources */
-		remoteproc_resource_deinit(proc);
-	} else {
-		/* send back the data */
-		rpmsg_send(app_rp_chnl, data, len);
+	(void)priv;
+	(void)src;
+
+	/* On reception of a shutdown we signal the application to terminate */
+	if ((*(unsigned int *)data) == SHUTDOWN_MSG) {
+		evt_chnl_deleted = 1;
+		return;
 	}
+
+	/* send back the data */
+	rpmsg_send(rp_chnl, data, len);
 }
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
-	app_rp_chnl = rp_chnl;
 	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
 				RPMSG_ADDR_ANY);
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 {
-	/* rpmsg_destroy_ept() ... */
+	(void)rp_chnl;
+
+	rpmsg_destroy_ept(rp_ept);
+	rp_ept = NULL;
 }
 
 
@@ -131,14 +140,25 @@ int main(void)
 	rsc_info.size = sizeof(resources);
 
 	/* Initialize OpenAMP framework */
-	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
-                            rpmsg_channel_deleted, rpmsg_read_cb,
-							&proc);
+	status = remoteproc_resource_init(&rsc_info, &proc_table,
+				rpmsg_channel_created,
+				rpmsg_channel_deleted, rpmsg_read_cb,
+				&proc, 0);
 	if (RPROC_SUCCESS != status) {
 		/* print directly on serial port */
 		xil_printf("Error: initializing OpenAMP framework\n");
+	} else {
+		do {
+			hil_poll(proc->proc, 0);
+		} while (!evt_chnl_deleted);
+
+		/* disable interrupts and free resources */
+		remoteproc_resource_deinit(proc);
 	}
 
+	cleanup_system();
+
+	/* We shall never exit main, just wait forever */
 	while (1) {
 		__asm__("wfi\n\t");
 	}

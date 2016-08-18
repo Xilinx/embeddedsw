@@ -30,8 +30,20 @@
 #ifndef PLATFORM_INFO_H_
 #define PLATFORM_INFO_H_
 
+#include "openamp/hil.h"
+#include "openamp/remoteproc_plat.h"
+
 /* Interrupt vectors */
-#define VRING0_IPI_INTR_VECT              -1
 #define VRING1_IPI_INTR_VECT              65
+
+/* remoteproc platform data structure */
+struct rproc_info_plat_local {
+	struct proc_info_hdr proc_hdr; /**< hil proc header */
+	struct plat_vring vring0; /**< vring0 data */
+	struct plat_vring vring1; /**< vring1 data */
+	struct plat_shm shm; /**< shared memory data */
+	struct plat_rpmsg_chnl rpmsg_chnl; /**< RPMSG channel data */
+	unsigned int last_type;
+};
 
 #endif /* PLATFORM_INFO_H_ */
