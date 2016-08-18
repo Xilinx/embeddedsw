@@ -60,6 +60,7 @@
 * 1.6   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddr,HighAddr,Offset
 *                       AbsAddr
 * 1.7   MH     08/08/16 Updates to optimize out HDCP when excluded.
+* 1.8   YH     17/08/16 Added Event Log
 * </pre>
 *
 ******************************************************************************/
@@ -74,10 +75,12 @@ static int XV_HdmiTxSs_ComputeSubcoreAbsAddr(UINTPTR SubSys_BaseAddr,
     UINTPTR SubSys_HighAddr,
     UINTPTR SubCore_Offset,
     UINTPTR *SubCore_BaseAddr);
+#ifdef USE_HDCP
 static int XV_HdmiTxSs_DdcReadHandler(u8 DeviceAddress,
     u16 ByteCount, u8* BufferPtr, u8 Stop, void *RefPtr);
 static int XV_HdmiTxSs_DdcWriteHandler(u8 DeviceAddress,
     u16 ByteCount, u8* BufferPtr, u8 Stop, void *RefPtr);
+#endif
 
 /*****************************************************************************/
 /**
@@ -134,7 +137,7 @@ int XV_HdmiTxSs_SubcoreInitHdmiTx(XV_HdmiTxSs *HdmiTxSsPtr)
 
   if (HdmiTxSsPtr->HdmiTxPtr) {
     /* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDMI TX core.... \r\n");
+	XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_HDMITX_INIT, 0);
     ConfigPtr  = XV_HdmiTx_LookupConfig(HdmiTxSsPtr->Config.HdmiTx.DeviceId);
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMITXSS ERR:: HDMI TX device not found\r\n");
@@ -184,7 +187,7 @@ int XV_HdmiTxSs_SubcoreInitVtc(XV_HdmiTxSs *HdmiTxSsPtr)
 
   if (HdmiTxSsPtr->VtcPtr) {
     /* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing VTC core.... \r\n");
+	XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_VTC_INIT, 0);
     ConfigPtr  = XVtc_LookupConfig(HdmiTxSsPtr->Config.Vtc.DeviceId);
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMITXSS ERR:: VTC device not found\r\n");
@@ -235,7 +238,7 @@ int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr)
 
   if (HdmiTxSsPtr->HdcpTimerPtr) {
     /* Get core configuration */
-    xdbg_printf(XDBG_DEBUG_GENERAL,"   ->Initializing AXI Timer core.... \r\n");
+	XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_HDCPTIMER_INIT, 0);
     ConfigPtr  = XTmrCtr_LookupConfig(HdmiTxSsPtr->Config.HdcpTimer.DeviceId);
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMITXSS ERR:: AXIS Timer device not found\r\n");
@@ -306,7 +309,7 @@ int XV_HdmiTxSs_SubcoreInitHdcp14(XV_HdmiTxSs *HdmiTxSsPtr)
     if (HdmiTxSsPtr->Hdcp14KeyPtr) {
 
       /* Get core configuration */
-      xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP 1.4 core.... \r\n");
+	  XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_HDCP14_INIT, 0);
       ConfigPtr  = XHdcp1x_LookupConfig(HdmiTxSsPtr->Config.Hdcp14.DeviceId);
       if (ConfigPtr == NULL){
         xdbg_printf(XDBG_DEBUG_GENERAL,"HDMITXSS ERR:: HDCP 1.4 device not found\r\n");
@@ -380,15 +383,14 @@ int XV_HdmiTxSs_SubcoreInitHdcp22(XV_HdmiTxSs *HdmiTxSsPtr)
   UINTPTR AbsAddr;
   XHdcp22_Tx_Config *Hdcp22TxConfig;
 
-  /* Is the HDCP 2.2 RX present? */
+  /* Is the HDCP 2.2 TX present? */
   if (HdmiTxSsPtr->Hdcp22Ptr) {
 
     /* Is the key loaded? */
     if (HdmiTxSsPtr->Hdcp22Lc128Ptr && HdmiTxSsPtr->Hdcp22SrmPtr) {
 
       /* Get core configuration */
-      xdbg_printf(XDBG_DEBUG_GENERAL,"    ->Initializing HDCP 2.2 core.... \r\n");
-
+	  XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_HDCP22_INIT, 0);
       /* Initialize HDCP 2.2 TX */
       Hdcp22TxConfig = XHdcp22Tx_LookupConfig(HdmiTxSsPtr->Config.Hdcp22.DeviceId);
       if (Hdcp22TxConfig == NULL) {
@@ -462,6 +464,7 @@ int XV_HdmiTxSs_SubcoreInitRemapperReset(XV_HdmiTxSs *HdmiTxSsPtr)
 
   if (HdmiTxSsPtr->RemapperResetPtr) {
     /* Get core configuration */
+	XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_REMAP_HWRESET_INIT, 0);
     ConfigPtr  = XGpio_LookupConfig(HdmiTxSsPtr->Config.RemapperReset.DeviceId);
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMITXSS ERR:: Reset module for Remapper not found\r\n");
@@ -511,6 +514,7 @@ int XV_HdmiTxSs_SubcoreInitRemapper(XV_HdmiTxSs *HdmiTxSsPtr)
 
   if (HdmiTxSsPtr->RemapperPtr) {
     /* Get core configuration */
+	XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_REMAP_INIT, 0);
     ConfigPtr  = XV_axi4s_remap_LookupConfig(HdmiTxSsPtr->Config.Remapper.DeviceId);
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,"HDMITXSS ERR:: Remapper not found\r\n");
@@ -544,6 +548,7 @@ int XV_HdmiTxSs_SubcoreInitRemapper(XV_HdmiTxSs *HdmiTxSsPtr)
 
 }
 
+#ifdef USE_HDCP
 /*****************************************************************************/
 /**
  *
@@ -572,7 +577,9 @@ static int XV_HdmiTxSs_DdcReadHandler(u8 DeviceAddress,
   XV_HdmiTx *InstancePtr = (XV_HdmiTx *)RefPtr;
   return XV_HdmiTx_DdcRead(InstancePtr, DeviceAddress, ByteCount, BufferPtr, Stop);
 }
+#endif
 
+#ifdef USE_HDCP
 /*****************************************************************************/
 /**
  *
@@ -601,5 +608,6 @@ static int XV_HdmiTxSs_DdcWriteHandler(u8 DeviceAddress,
   XV_HdmiTx *InstancePtr = (XV_HdmiTx *)RefPtr;
   return XV_HdmiTx_DdcWrite(InstancePtr, DeviceAddress, ByteCount, BufferPtr, Stop);
 }
+#endif
 
 /** @} */

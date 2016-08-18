@@ -43,11 +43,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xil_io.h"
-#if defined (__arm__)
 #include "sleep.h"
-#else
-#include "microblaze_sleep.h"
-#endif
 
 typedef struct {
   u32 TMDSCharRate;

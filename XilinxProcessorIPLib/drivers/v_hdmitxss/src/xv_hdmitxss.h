@@ -70,6 +70,9 @@
 * 1.9   MH     23/06/16 Added HDCP repeater support.
 * 1.10  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 * 1.11  MH     08/08/16 Updates to optimize out HDCP when excluded.
+* 1.12  YH     17/08/16 Added XV_HdmiTxSs_SetAxiClkFreq
+* 1.13  YH     18/08/16 Combine Report function into one ReportInfo
+*                       Add Event Log
 * </pre>
 *
 ******************************************************************************/
@@ -107,12 +110,49 @@ extern "C" {
 /** @name Handler Types
 * @{
 */
+
+typedef enum {
+	XV_HDMITXSS_LOG_EVT_NONE = 1,		/**< Log event none. */
+	XV_HDMITXSS_LOG_EVT_HDMITX_INIT,	/**< Log event HDMITX Init. */
+	XV_HDMITXSS_LOG_EVT_VTC_INIT,	/**< Log event VTC Init. */
+	XV_HDMITXSS_LOG_EVT_HDCPTIMER_INIT,	/**< Log event HDCP Timer Init */
+	XV_HDMITXSS_LOG_EVT_HDCP14_INIT,	/**< Log event HDCP 14 Init. */
+	XV_HDMITXSS_LOG_EVT_HDCP22_INIT,	/**< Log event HDCP 22 Init. */
+	XV_HDMITXSS_LOG_EVT_REMAP_HWRESET_INIT,	/**< Log event Remap reset Init. */
+	XV_HDMITXSS_LOG_EVT_REMAP_INIT,		/**< Log event Remapper Init. */
+	XV_HDMITXSS_LOG_EVT_START,	/**< Log event HDMITXSS Start. */
+	XV_HDMITXSS_LOG_EVT_STOP,	/**< Log event HDMITXSS Stop. */
+	XV_HDMITXSS_LOG_EVT_RESET,	/**< Log event HDMITXSS Reset. */
+	XV_HDMITXSS_LOG_EVT_CONNECT, /**< Log event Cable connect. */
+	XV_HDMITXSS_LOG_EVT_DISCONNECT,	/**< Log event Cable disconnect. */
+	XV_HDMITXSS_LOG_EVT_STREAMUP,	/**< Log event Stream Up. */
+	XV_HDMITXSS_LOG_EVT_STREAMDOWN,	/**< Log event Stream Down. */
+	XV_HDMITXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
+	XV_HDMITXSS_LOG_EVT_SETAUDIOCHANNELS, /**< Log event Set Audio Channels. */
+	XV_HDMITXSS_LOG_EVT_AUDIOMUTE,		/**< Log event Audio Mute */
+	XV_HDMITXSS_LOG_EVT_AUDIOUNMUTE,	/**< Log event Audio Unmute. */
+	XV_HDMITXSS_LOG_EVT_SETSTREAM,   /**< Log event HDMITXSS Setstream. */
+	XV_HDMITXSS_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
+} XV_HdmiTxSs_LogEvent;
+
+/**
+ * This typedef contains the logging mechanism for debug.
+ */
+typedef struct {
+	u16 DataBuffer[256];		/**< Log buffer with event data. */
+	u8 HeadIndex;			/**< Index of the head entry of the
+						Event/DataBuffer. */
+	u8 TailIndex;			/**< Index of the tail entry of the
+						Event/DataBuffer. */
+} XV_HdmiTxSs_Log;
+
 /**
 * These constants specify different types of handler and used to differentiate
 * interrupt requests from peripheral.
 */
 typedef enum {
     XV_HDMITXSS_HANDLER_CONNECT = 1,                         /**< Handler for connect event */
+    XV_HDMITXSS_HANDLER_TOGGLE,                              /**< Handler for toggle event */
     XV_HDMITXSS_HANDLER_VS,                                  /**< Handler for vsync event */
     XV_HDMITXSS_HANDLER_STREAM_DOWN,                         /**< Handler for stream down event */
     XV_HDMITXSS_HANDLER_STREAM_UP,                           /**< Handler for stream up event */
@@ -242,7 +282,7 @@ typedef struct
 {
     XV_HdmiTxSs_Config Config;  /**< Hardware configuration */
     u32 IsReady;         /**< Device and the driver instance are initialized */
-
+	XV_HdmiTxSs_Log Log;				/**< A log of events. */
     XGpio *RemapperResetPtr;        /**< handle to sub-core driver instance */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
     XTmrCtr *HdcpTimerPtr;          /**< handle to sub-core driver instance */
@@ -259,6 +299,9 @@ typedef struct
     XV_HdmiTxSs_Callback ConnectCallback; /**< Callback for connect event */
     void *ConnectRef;              /**< To be passed to the connect callback */
 
+    XV_HdmiTxSs_Callback ToggleCallback; /**< Callback for toggle event */
+    void *ToggleRef;                     /**< To be passed to the toggle callback */
+
     XV_HdmiTxSs_Callback VsCallback; /**< Callback for Vsync event */
     void *VsRef;                   /**< To be passed to the Vsync callback */
 
@@ -272,6 +315,7 @@ typedef struct
     u8 SamplingRate;              /**< HDMI TX Sampling rate */
     u8 IsStreamConnected;         /**< HDMI TX Stream Connected */
     u8 IsStreamUp;                /**< HDMI TX Stream Up */
+    u8 IsStreamToggled;           /**< HDMI TX Stream Toggled */
     u8 AudioEnabled;              /**< HDMI TX Audio Enabled */
     u8 AudioMute;                 /**< HDMI TX Audio Mute */
     u8 AudioChannels;             /**< Number of Audio Channels */
@@ -299,7 +343,6 @@ typedef struct
 XV_HdmiTxSs_Config *XV_HdmiTxSs_LookupConfig(u32 DeviceId);
 void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_SetDviMode(XV_HdmiTxSs *InstancePtr);
-void XV_HdmiTxSs_ReportCoreInfo(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_SetUserTimerHandler(XV_HdmiTxSs *InstancePtr,
         XVidC_DelayHandler CallbackFunc, void *CallbackRef);
 void XV_HdmiTxSS_HdmiTxIntrHandler(XV_HdmiTxSs *InstancePtr);
@@ -337,12 +380,22 @@ void XV_HdmiTxSs_SetTmdsClockRatio(XV_HdmiTxSs *InstancePtr, u8 Ratio);
 u32 XV_HdmiTxSs_GetTmdsClockFreqHz(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_DetectHdmi20(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_RefClockChangeInit(XV_HdmiTxSs *InstancePtr);
-void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr);
-void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_ReportInfo(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_IsStreamUp(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_IsStreamConnected(XV_HdmiTxSs *InstancePtr);
+int XV_HdmiTxSs_IsStreamToggled(XV_HdmiTxSs *InstancePtr);
 u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr);
 u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTxSs *InstancePtr);
+
+void XV_HdmiTxSs_SetAxiClkFreq(XV_HdmiTxSs *InstancePtr, u32 ClkFreq);
+void XV_HdmiTxSs_SetDefaultPpc(XV_HdmiTxSs *InstancePtr, u8 Id);
+void XV_HdmiTxSs_SetPpc(XV_HdmiTxSs *InstancePtr, u8 Id, u8 Ppc);
+
+/* XV_HdmiTxSs_log.c: Logging functions. */
+void XV_HdmiTxSs_LogReset(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_LogWrite(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_LogEvent Evt, u8 Data);
+u16 XV_HdmiTxSs_LogRead(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr);
 
 #ifdef USE_HDCP
 // HDCP

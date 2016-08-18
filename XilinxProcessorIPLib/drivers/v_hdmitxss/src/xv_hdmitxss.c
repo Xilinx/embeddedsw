@@ -82,6 +82,10 @@
 * 1.16   YH    04/08/16 Remove unused functions
 *                       XV_HdmiTxSs_GetSubSysStruct
 * 1.17   MH    08/08/16 Updates to optimize out HDCP when excluded.
+* 1.18   YH    17/08/16 Added XV_HdmiTxSs_SetAxiClkFreq
+*                       Remove sleep in XV_HdmiTxSs_ResetRemapper
+*                       Added Event Log
+*                       Combine Report function into one ReportInfo
 * </pre>
 *
 ******************************************************************************/
@@ -128,13 +132,17 @@ static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTxPtr);
 static void XV_HdmiTxSs_SendGeneralControlPacket(XV_HdmiTx *HdmiTxPtr);
 static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTxPtr);
 static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef);
+static void XV_HdmiTxSs_ToggleCallback(void *CallbackRef);
 static void XV_HdmiTxSs_VsCallback(void *CallbackRef);
 static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef);
 static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef);
-static u32 XV_HdmiTxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
-    u32 ClockFrequency);
+
+static void XV_HdmiTxSs_ReportCoreInfo(XV_HdmiTxSs *InstancePtr);
+static void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr);
+static void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr);
 
 // HDCP specific
+#ifdef USE_HDCP
 static XV_HdmiTxSs_HdcpEvent XV_HdmiTxSs_HdcpGetEvent(XV_HdmiTxSs *InstancePtr);
 static int XV_HdmiTxSs_HdcpProcessEvents(XV_HdmiTxSs *InstancePtr);
 static int XV_HdmiTxSs_HdcpReset(XV_HdmiTxSs *InstancePtr);
@@ -144,11 +152,14 @@ static u8 XV_HdmiTxSs_HdcpGetTopologyMaxDevsExceeded(XV_HdmiTxSs *InstancePtr);
 static u8 XV_HdmiTxSs_HdcpGetTopologyMaxCascadeExceeded(XV_HdmiTxSs *InstancePtr);
 static u8 XV_HdmiTxSs_HdcpGetTopologyHdcp20RepeaterDownstream(XV_HdmiTxSs *InstancePtr);
 static u8 XV_HdmiTxSs_HdcpGetTopologyHdcp1DeviceDownstream(XV_HdmiTxSs *InstancePtr);
+#endif
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+static u32 XV_HdmiTxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
+    u32 ClockFrequency);
+#endif
 
 static void XV_HdmiTxSs_ResetRemapper(XV_HdmiTxSs *InstancePtr);
 static void XV_HdmiTxSs_ConfigRemapper(XV_HdmiTxSs *InstancePtr);
-static void XV_HdmiTxSs_SetDefaultPpc(XV_HdmiTxSs *InstancePtr, u8 Id);
-static void XV_HdmiTxSs_SetPpc(XV_HdmiTxSs *InstancePtr, u8 Id, u8 Ppc);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /************************** Function Definition ******************************/
@@ -220,10 +231,28 @@ void XV_HdmiTxSs_ReportCoreInfo(XV_HdmiTxSs *InstancePtr)
 
 /******************************************************************************/
 /**
+* This function sets the AXI4-Lite Clock Frequency
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param    ClkFreq specifies the value that needs to be set.
+*
+* @return
+*
+*
+* @note     This is required after a reset or init.
+*
+******************************************************************************/
+void XV_HdmiTxSs_SetAxiClkFreq(XV_HdmiTxSs *InstancePtr, u32 ClkFreq)
+{
+	XV_HdmiTx_SetAxiClkFreq(InstancePtr->HdmiTxPtr, ClkFreq);
+}
+
+/******************************************************************************/
+/**
  * This function installs a custom delay/sleep function to be used by the XV_HdmiTxSs
  * driver.
  *
- * @param   InstancePtr is a pointer to the XDptx instance.
+ * @param   InstancePtr is a pointer to the XV_HdmiTxSs instance.
  * @param   CallbackFunc is the address to the callback function.
  * @param   CallbackRef is the user data item (microseconds to delay) that
  *      will be passed to the custom sleep/delay function when it is
@@ -284,6 +313,7 @@ void XV_HdmiTxSs_WaitUs(XV_HdmiTxSs *InstancePtr, u32 MicroSeconds)
         usleep(MicroSeconds);
     }
 }
+
 
 /*****************************************************************************/
 /**
@@ -364,6 +394,11 @@ static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr)
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
                           XV_HDMITX_HANDLER_CONNECT,
                           XV_HdmiTxSs_ConnectCallback,
+                          InstancePtr);
+
+    XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
+                          XV_HDMITX_HANDLER_TOGGLE,
+                          XV_HdmiTxSs_ToggleCallback,
                           InstancePtr);
 
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
@@ -566,7 +601,7 @@ void XV_HdmiTxSs_Start(XV_HdmiTxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Start HDMI TX Subsystem.... \r\n");
+  XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_START, 0);
 }
 
 /*****************************************************************************/
@@ -583,7 +618,7 @@ void XV_HdmiTxSs_Stop(XV_HdmiTxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Stop HDMI TX Subsystem.... \r\n");
+  XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_STOP, 0);
 
   if (InstancePtr->VtcPtr) {
     /* Disable VTC */
@@ -607,7 +642,7 @@ void XV_HdmiTxSs_Reset(XV_HdmiTxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Reset HDMI TX Subsystem.... \r\n");
+  XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_RESET, 0);
 
   /* Assert TX reset */
   XV_HdmiTx_Reset(InstancePtr->HdmiTxPtr, TRUE);
@@ -823,13 +858,13 @@ static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr)
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
+static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
 
   /* Is the cable connected */
   if (XV_HdmiTx_IsStreamConnected(HdmiTxSsPtr->HdmiTxPtr)) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"TX cable is connected\n\r");
+    XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_CONNECT, 0);
 
     /* Set stream connected flag */
     HdmiTxSsPtr->IsStreamConnected = (TRUE);
@@ -842,7 +877,7 @@ void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
 
   /* TX cable is disconnected */
   else {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"TX cable is disconnected\n\r");
+    XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_DISCONNECT, 0);
 
     /* Set stream connected flag */
     HdmiTxSsPtr->IsStreamConnected = (FALSE);
@@ -862,6 +897,34 @@ void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when a TX toggle event has occurred.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiTxSs_ToggleCallback(void *CallbackRef)
+{
+  XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
+
+  /* Set toggle flag */
+  HdmiTxSsPtr->IsStreamToggled = TRUE;
+
+  /* Check if user callback has been registered */
+  if (HdmiTxSsPtr->ToggleCallback) {
+    HdmiTxSsPtr->ToggleCallback(HdmiTxSsPtr->ToggleRef);
+  }
+
+  /* Clear toggle flag */
+  HdmiTxSsPtr->IsStreamToggled = FALSE;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function is called when a TX vsync has occurred.
 *
 * @param  None.
@@ -871,7 +934,7 @@ void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiTxSs_VsCallback(void *CallbackRef)
+static void XV_HdmiTxSs_VsCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
 
@@ -1170,7 +1233,7 @@ static void XV_HdmiTxSs_SendVSInfoframe(XV_HdmiTx *HdmiTx)
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
+static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
 
@@ -1179,6 +1242,7 @@ void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
 
   /* Release HDMI TX reset */
   XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, FALSE);
+  XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_STREAMUP, 0);
 
 #ifdef USE_HDCP
   /* Push the stream-up event to the HDCP event queue */
@@ -1230,7 +1294,7 @@ void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
+static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
 
@@ -1239,6 +1303,7 @@ void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
 
   /* Set stream up flag */
   HdmiTxSsPtr->IsStreamUp = (FALSE);
+  XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_STREAMDOWN, 0);
 
 #ifdef USE_HDCP
   /* Push the stream-down event to the HDCP event queue */
@@ -1298,12 +1363,21 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
 
     /* Check for handler type */
     switch (HandlerType) {
+        // Connect
         case (XV_HDMITXSS_HANDLER_CONNECT):
             InstancePtr->ConnectCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
             InstancePtr->ConnectRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 
+        // Toggle
+        case (XV_HDMITXSS_HANDLER_TOGGLE):
+            InstancePtr->ToggleCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
+            InstancePtr->ToggleRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
+
+        // Vsync
         case (XV_HDMITXSS_HANDLER_VS):
             InstancePtr->VsCallback = (XV_HdmiTxSs_Callback)CallbackFunc;
             InstancePtr->VsRef = CallbackRef;
@@ -1528,6 +1602,8 @@ void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr)
 
   // Set TX clock ratio
   XV_HdmiTx_ClockRatio(InstancePtr->HdmiTxPtr);
+
+  XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_STREAMSTART, 0);
 }
 
 /*****************************************************************************/
@@ -1653,6 +1729,7 @@ void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels)
 {
     InstancePtr->AudioChannels = AudioChannels;
     XV_HdmiTx_SetAudioChannels(InstancePtr->HdmiTxPtr, AudioChannels);
+    XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_SETAUDIOCHANNELS, AudioChannels);
 }
 
 /*****************************************************************************/
@@ -1672,9 +1749,11 @@ void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable)
   //Audio Mute Mode
   if (Enable){
     XV_HdmiTx_AudioMute(InstancePtr->HdmiTxPtr);
+    XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_AUDIOMUTE, 0);
   }
   else{
     XV_HdmiTx_AudioUnmute(InstancePtr->HdmiTxPtr);
+    XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_AUDIOUNMUTE, 0);
   }
 }
 
@@ -1698,6 +1777,8 @@ u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
 
   TmdsClock = XV_HdmiTx_SetStream(InstancePtr->HdmiTxPtr, VideoMode,
     ColorFormat, Bpc, InstancePtr->Config.Ppc, Info3D);
+
+  XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_SETSTREAM, TmdsClock);
 
   if(TmdsClock == 0) {
     xdbg_printf(XDBG_DEBUG_GENERAL,"\nWarning: Sink does not support HDMI 2.0\r\n");
@@ -1966,6 +2047,32 @@ void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr)
 
 }
 
+
+/*****************************************************************************/
+/**
+*
+* This function prints the HDMI TX SS subcore versions
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiTxSs_ReportInfo(XV_HdmiTxSs *InstancePtr)
+{
+	xil_printf("------------\n\r");
+    xil_printf("HDMI TX SubSystem\n\r");
+	xil_printf("------------\n\r");
+    XV_HdmiTxSs_ReportCoreInfo(InstancePtr);
+    XV_HdmiTxSs_ReportSubcoreVersion(InstancePtr);
+	xil_printf("\n\r");
+    xil_printf("HDMI TX timing\n\r");
+    xil_printf("------------\n\r");
+    XV_HdmiTxSs_ReportTiming(InstancePtr);
+	xil_printf("\n\r");
+}
 /*****************************************************************************/
 /**
 *
@@ -1982,6 +2089,9 @@ void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 int XV_HdmiTxSs_IsStreamUp(XV_HdmiTxSs *InstancePtr)
 {
+  /* Verify arguments. */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
   return (InstancePtr->IsStreamUp);
 }
 
@@ -2001,7 +2111,32 @@ int XV_HdmiTxSs_IsStreamUp(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 int XV_HdmiTxSs_IsStreamConnected(XV_HdmiTxSs *InstancePtr)
 {
+  /* Verify arguments. */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
   return (InstancePtr->IsStreamConnected);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function checks if the interface has toggled.
+*
+* @param  None.
+*
+* @return
+*   - TRUE if the interface HPD has toggled.
+*   - FALSE if the interface HPD has not toggled.
+*
+* @note   None.
+*
+******************************************************************************/
+int XV_HdmiTxSs_IsStreamToggled(XV_HdmiTxSs *InstancePtr)
+{
+  /* Verify arguments. */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  return (InstancePtr->IsStreamToggled);
 }
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -2228,9 +2363,7 @@ void XV_HdmiTxSs_ResetRemapper(XV_HdmiTxSs *InstancePtr) {
 
     XGpio_SetDataDirection(RemapperResetPtr, 1, 0);
     XGpio_DiscreteWrite(RemapperResetPtr, 1, 0);
-    XV_HdmiTxSs_WaitUs(InstancePtr, 1000);
     XGpio_DiscreteWrite(RemapperResetPtr, 1, 1);
-    XV_HdmiTxSs_WaitUs(InstancePtr, 1000);
 }
 
 void XV_HdmiTxSs_ConfigRemapper(XV_HdmiTxSs *InstancePtr) {
@@ -2328,6 +2461,7 @@ void XV_HdmiTxSs_SetDefaultPpc(XV_HdmiTxSs *InstancePtr, u8 Id) {
 ******************************************************************************/
 void XV_HdmiTxSs_SetPpc(XV_HdmiTxSs *InstancePtr, u8 Id, u8 Ppc) {
     InstancePtr->Config.Ppc = Ppc;
+    Id = Id; //squash unused variable compiler warning
 }
 
 #ifdef USE_HDCP
@@ -3131,6 +3265,7 @@ u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr)
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
 
+#ifdef XPAR_XHDCP_NUM_INSTANCES
   int status;
   u8 buffer[5];
   u8 temp = 0;
@@ -3138,7 +3273,6 @@ u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr)
   int one_count = 0;
   int i,j;
 
-#ifdef XPAR_XHDCP_NUM_INSTANCES
   if (InstancePtr->Hdcp14Ptr) {
     buffer[0] = 0x0; // XHDCP14_BKSV_REG
     status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x3A, 1, (u8*)&buffer, FALSE);
@@ -3195,10 +3329,10 @@ u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTxSs *InstancePtr)
   /* Verify argument. */
   Xil_AssertNonvoid(InstancePtr != NULL);
 
+#ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
   int status;
   u8 data = 0x50; // XHDCP2_VERSION_REG
 
-#ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
   if (InstancePtr->Hdcp22Ptr) {
     /* Write the register offset */
     status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x3A, 1, (u8*)&data, FALSE);
@@ -3571,6 +3705,10 @@ void XV_HdmiTxSs_HdcpInfo(XV_HdmiTxSs *InstancePtr)
       }
       break;
 #endif
+
+    default:
+      xil_printf("\n\rHDCP Info Unknown?\n\r");
+      break;
   }
 }
 #endif
@@ -3755,6 +3893,8 @@ u32 XV_HdmiTxSs_HdcpGetTopologyField(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpT
       return XV_HdmiTxSs_HdcpGetTopologyHdcp20RepeaterDownstream(InstancePtr);
 	  case XV_HDMITXSS_HDCP_TOPOLOGY_HDCP1DEVICEDOWNSTREAM:
       return XV_HdmiTxSs_HdcpGetTopologyHdcp1DeviceDownstream(InstancePtr);
+    default:
+      return 0;
   }
 }
 #endif
