@@ -68,6 +68,7 @@
 * 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 * 1.8   MH     26/07/16 Updates for automatic protocol switching
 * 1.9   MH     05/08/16 Updates to optimize out HDCP when excluded
+* 1.10  YH     18/08/16 Combine Report function into one ReportInfo
 * </pre>
 *
 ******************************************************************************/
@@ -103,6 +104,41 @@ extern "C" {
 /** @name Handler Types
 * @{
 */
+
+typedef enum {
+	XV_HDMIRXSS_LOG_EVT_NONE = 1,		/**< Log event none. */
+	XV_HDMIRXSS_LOG_EVT_HDMIRX_INIT,	/**< Log event HDMIRX Init. */
+	XV_HDMIRXSS_LOG_EVT_VTC_INIT,	/**< Log event VTC Init. */
+	XV_HDMIRXSS_LOG_EVT_HDCPTIMER_INIT,	/**< Log event HDCP Timer Init */
+	XV_HDMIRXSS_LOG_EVT_HDCP14_INIT,	/**< Log event HDCP 14 Init. */
+	XV_HDMIRXSS_LOG_EVT_HDCP22_INIT,	/**< Log event HDCP 22 Init. */
+	XV_HDMIRXSS_LOG_EVT_REMAP_HWRESET_INIT,	/**< Log event Remap reset Init. */
+	XV_HDMIRXSS_LOG_EVT_REMAP_INIT,		/**< Log event Remapper Init. */
+	XV_HDMIRXSS_LOG_EVT_START,	/**< Log event HDMIRXSS Start. */
+	XV_HDMIRXSS_LOG_EVT_STOP,	/**< Log event HDMIRXSS Stop. */
+	XV_HDMIRXSS_LOG_EVT_RESET,	/**< Log event HDMIRXSS Reset. */
+	XV_HDMIRXSS_LOG_EVT_CONNECT, /**< Log event Cable connect. */
+	XV_HDMIRXSS_LOG_EVT_DISCONNECT,	/**< Log event Cable disconnect. */
+	XV_HDMIRXSS_LOG_EVT_LINKSTATUS, /**< Log event Link Status Error. */
+	XV_HDMIRXSS_LOG_EVT_STREAMUP,	/**< Log event Stream Up. */
+	XV_HDMIRXSS_LOG_EVT_STREAMDOWN,	/**< Log event Stream Down. */
+	XV_HDMIRXSS_LOG_EVT_STREAMINIT,	/**< Log event Stream Init. */
+	XV_HDMIRXSS_LOG_EVT_SETSTREAM,   /**< Log event HDMIRXSS Setstream. */
+	XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE, /**< Log event TMDS Ref clock change. */
+	XV_HDMIRXSS_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
+} XV_HdmiRxSs_LogEvent;
+
+/**
+ * This typedef contains the logging mechanism for debug.
+ */
+typedef struct {
+	u16 DataBuffer[256];		/**< Log buffer with event data. */
+	u8 HeadIndex;			/**< Index of the head entry of the
+						Event/DataBuffer. */
+	u8 TailIndex;			/**< Index of the tail entry of the
+						Event/DataBuffer. */
+} XV_HdmiRxSs_Log;
+
 /**
 * These constants specify different types of handler and used to differentiate
 * interrupt requests from peripheral.
@@ -244,6 +280,7 @@ typedef struct
   XV_HdmiRxSs_Config Config;    /**< Hardware configuration */
   u32 IsReady;                  /**< Device and the driver instance are
                                      initialized */
+  XV_HdmiRxSs_Log Log;				/**< A log of events. */
   XGpio *RemapperResetPtr;        /**< handle to sub-core driver instance */
 #ifdef XPAR_XHDCP_NUM_INSTANCES
   XTmrCtr *HdcpTimerPtr;           /**< handle to sub-core driver instance */
@@ -313,7 +350,6 @@ typedef struct
 
 /************************** Function Prototypes ******************************/
 XV_HdmiRxSs_Config* XV_HdmiRxSs_LookupConfig(u32 DeviceId);
-void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_SetUserTimerHandler(XV_HdmiRxSs *InstancePtr,
         XVidC_DelayHandler CallbackFunc, void *CallbackRef);
 void XV_HdmiRxSS_HdmiRxIntrHandler(XV_HdmiRxSs *InstancePtr);
@@ -344,13 +380,18 @@ u8 XV_HdmiRxSs_GetVideoStreamType(XV_HdmiRxSs *InstancePtr);
 u8 XV_HdmiRxSs_GetVideoStreamScramblingFlag(XV_HdmiRxSs *InstancePtr);
 u8 XV_HdmiRxSs_GetAudioChannels(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_RefClockChangeInit(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSs_ReportTiming(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSs_ReportLinkQuality(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSs_ReportAudio(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSs_ReportInfoFrame(XV_HdmiRxSs *InstancePtr);
-void XV_HdmiRxSs_ReportSubcoreVersion(XV_HdmiRxSs *InstancePtr);
+void XV_HdmiRxSs_ReportInfo(XV_HdmiRxSs *InstancePtr);
 int  XV_HdmiRxSs_IsStreamUp(XV_HdmiRxSs *InstancePtr);
 int  XV_HdmiRxSs_IsStreamConnected(XV_HdmiRxSs *InstancePtr);
+
+void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id);
+void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc);
+
+/* XV_HdmiRxSs_log.c: Logging functions. */
+void XV_HdmiRxSs_LogReset(XV_HdmiRxSs *InstancePtr);
+void XV_HdmiRxSs_LogWrite(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_LogEvent Evt, u8 Data);
+u16 XV_HdmiRxSs_LogRead(XV_HdmiRxSs *InstancePtr);
+void XV_HdmiRxSs_LogDisplay(XV_HdmiRxSs *InstancePtr);
 
 #ifdef USE_HDCP
 // HDCP

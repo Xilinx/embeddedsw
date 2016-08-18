@@ -73,11 +73,7 @@
 #include "xvidc_edid.h"
 #include "dp159.h"
 #include "audiogen_drv.h"
-#if defined (__arm__)
 #include "sleep.h"
-#else
-#include "microblaze_sleep.h"
-#endif
 #include "xhdmi_menu.h"
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #include "xv_hdmirxss.h"
@@ -357,6 +353,7 @@ void ResetTpg(void);
 #endif
 
 void TxConnectCallback(void *CallbackRef);
+void TxToggleCallback(void *CallbackRef);
 void TxStreamUpCallback(void *CallbackRef);
 void TxStreamDownCallback(void *CallbackRef);
 void RxConnectCallback(void *CallbackRef);
@@ -638,20 +635,24 @@ void ReportStreamMode(XV_HdmiTxSs *HdmiTxSsPtr, u8 IsPassThrough)
 ******************************************************************************/
 void Info(void)
 {
+  u32 Data;
   print("\n\r-----\n\r");
   print("Info\n\r");
   print("-----\n\r\n\r");
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-  print("HDMI TX timing\n\r");
-  print("------------\n\r");
-  XV_HdmiTxSs_ReportTiming(&HdmiTxSs);
+  XV_HdmiTxSs_ReportInfo(&HdmiTxSs);
 #endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-  print("HDMI RX timing\n\r");
-  print("------------\n\r");
-  XV_HdmiRxSs_ReportTiming(&HdmiRxSs);
+  XV_HdmiRxSs_ReportInfo(&HdmiRxSs);
 #endif
+  xil_printf("------------\n\r");
+  xil_printf("HDMI PHY\n\r");
+  xil_printf("------------\n\r");
+  Data = XVphy_GetVersion(&Vphy);
+  xil_printf("  VPhy version : %02d.%02d (%04x)\n\r",
+     ((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
+  xil_printf("\n\r");
   print("GT status\n\r");
   print("---------\n\r");
   xil_printf("TX reference clock frequency %0d Hz\n\r",
@@ -664,22 +665,9 @@ void Info(void)
   }
   XVphy_HdmiDebugInfo(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
 
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
-  print("Link quality\n\r");
-  print("---------\n\r");
-  XV_HdmiRxSs_ReportLinkQuality(&HdmiRxSs);
 
-  print("\n\r");
 
-  print("Audio\n\r");
-  print("---------\n\r");
-  XV_HdmiRxSs_ReportAudio(&HdmiRxSs);
 
-  print("Infoframe\n\r");
-  print("---------\n\r");
-  XV_HdmiRxSs_ReportInfoFrame(&HdmiRxSs);
-  print("---------\r\n");
-#endif
 }
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -730,6 +718,12 @@ void TxConnectCallback(void *CallbackRef)
 		XHdcp_StreamConnectCallback(&HdcpRepeater);
 #endif
 	}
+}
+void TxToggleCallback(void *CallbackRef)
+{
+#ifdef USE_HDCP
+	XHdcp_Authenticate(&HdcpRepeater);
+#endif
 }
 
 /*****************************************************************************/
@@ -1930,6 +1924,7 @@ int main()
   {
     xil_printf("ERR:: HDMI TX Subsystem Initialization failed %d\r\n", Status);
   }
+  XV_HdmiTxSs_SetAxiClkFreq(&HdmiTxSs, 100000000);
 
   //Register HDMI TX SS Interrupt Handler with Interrupt Controller
 #if defined(__arm__)
@@ -2053,6 +2048,10 @@ int main()
   XV_HdmiTxSs_SetCallback(&HdmiTxSs,
 							  XV_HDMITXSS_HANDLER_CONNECT,
 							  TxConnectCallback,
+							  (void *)&HdmiTxSs);
+  XV_HdmiTxSs_SetCallback(&HdmiTxSs,
+							  XV_HDMITXSS_HANDLER_TOGGLE,
+							  TxToggleCallback,
 							  (void *)&HdmiTxSs);
   XV_HdmiTxSs_SetCallback(&HdmiTxSs,
 							  XV_HDMITXSS_HANDLER_VS,

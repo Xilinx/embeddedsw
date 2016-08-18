@@ -11,11 +11,7 @@
 */
 
 #include "dp159.h"
-#if defined (__arm__)
 #include "sleep.h"
-#else
-#include "microblaze_sleep.h"
-#endif
 #include "xiic.h"
 
 #define DP159_VERBOSE			0

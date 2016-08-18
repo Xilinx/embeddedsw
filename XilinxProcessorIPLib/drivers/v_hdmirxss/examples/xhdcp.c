@@ -371,7 +371,8 @@ void XHdcp_Authenticate(XHdcp_Repeater *InstancePtr)
     for (int i = 0; (i < InstancePtr->DownstreamInstanceBinded); i++) {
       if (InstancePtr->DownstreamInstanceConnected & (0x1 << i)) {
         /* If downstream is already authenticated or busy then don't trigger authentication */
-        if (!(XV_HdmiTxSs_HdcpIsAuthenticated(InstancePtr->DownstreamInstancePtr[i])) &&
+        if ((!(XV_HdmiTxSs_HdcpIsAuthenticated(InstancePtr->DownstreamInstancePtr[i])) ||
+            XV_HdmiTxSs_IsStreamToggled(InstancePtr->DownstreamInstancePtr[i])) &&
             !(XV_HdmiTxSs_HdcpIsInProgress(InstancePtr->DownstreamInstancePtr[i]))) {
           InstancePtr->AuthenticationRequestEvent |= (0x1 << i);
         }

@@ -59,9 +59,9 @@
 *                       2. HDCP 1.x driver has fixed the problem where the
 *                       reset for the receiver causes the entire DDC peripheral
 *                       to get reset. Based on this change the driver has been
-*                       updated to use XV_HdmiTxSs_HdcpReset and
+*                       updated to use XV_HdmiRxSs_HdcpReset and
 *                       XV_HdmiRxSs_HdcpReset functions directly.
-*                       3. Updated XV_HdmiTxSs_HdcpEnable and
+*                       3. Updated XV_HdmiRxSs_HdcpEnable and
 *                       XV_HdmiRxSs_HdcpEnable functions to ensure that
 *                       HDCP 1.4 and 2.2 are mutually exclusive.
 *                       This fixes the problem where HDCP 1.4 and 2.2
@@ -74,6 +74,9 @@
 *                       XV_HdmiRxSs_CfgInitialize
 * 1.15  MH     26/07/16 Updates for automatic protocol switching
 * 1.16  MH     05/08/16 Updates to optimize out HDCP when excluded
+* 1.17  YH     17/08/16 Remove sleep in XV_HdmiRxSs_ResetRemapper
+*                       squash unused variable compiler warning
+*                       Added Event Log
 * </pre>
 *
 ******************************************************************************/
@@ -124,11 +127,16 @@ static void XV_HdmiRxSs_DdcCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamInitCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamUpCallback(void *CallbackRef);
-static u32 XV_HdmiRxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
-                                            u32 ClockFrequency);
-static void XV_HdmiRxSs_HdcpTimerCallback(void *CallBackRef, u8 TimerChannel);
+
+static void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
+static void XV_HdmiRxSs_ReportTiming(XV_HdmiRxSs *InstancePtr);
+static void XV_HdmiRxSs_ReportLinkQuality(XV_HdmiRxSs *InstancePtr);
+static void XV_HdmiRxSs_ReportAudio(XV_HdmiRxSs *InstancePtr);
+static void XV_HdmiRxSs_ReportInfoFrame(XV_HdmiRxSs *InstancePtr);
+static void XV_HdmiRxSs_ReportSubcoreVersion(XV_HdmiRxSs *InstancePtr);
 
 // HDCP specific
+#ifdef USE_HDCP
 static XV_HdmiRxSs_HdcpEvent XV_HdmiRxSs_HdcpGetEvent(XV_HdmiRxSs *InstancePtr);
 static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr);
 static int XV_HdmiRxSs_HdcpReset(XV_HdmiRxSs *InstancePtr);
@@ -138,16 +146,42 @@ static int XV_HdmiRxSs_HdcpSetTopologyMaxDevsExceeded(XV_HdmiRxSs *InstancePtr, 
 static int XV_HdmiRxSs_HdcpSetTopologyMaxCascadeExceeded(XV_HdmiRxSs *InstancePtr, u8 Value);
 static int XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(XV_HdmiRxSs *InstancePtr, u8 Value);
 static int XV_HdmiRxSs_HdcpSetTopologyHdcp1DeviceDownstream(XV_HdmiRxSs *InstancePtr, u8 Value);
+#endif
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+static u32 XV_HdmiRxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
+                                            u32 ClockFrequency);
+static void XV_HdmiRxSs_HdcpTimerCallback(void *CallBackRef, u8 TimerChannel);
+#endif
 
 static void XV_HdmiRxSs_ResetRemapper(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ConfigRemapper(XV_HdmiRxSs *InstancePtr);
-static void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id);
-static void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc);
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Definition ******************************/
 
+void XV_HdmiRxSs_ReportInfo(XV_HdmiRxSs *InstancePtr)
+{
+    xil_printf("------------\n\r");
+    xil_printf("HDMI RX SubSystem\n\r");
+	xil_printf("------------\n\r");
+    XV_HdmiRxSs_ReportCoreInfo(InstancePtr);
+    XV_HdmiRxSs_ReportSubcoreVersion(InstancePtr);
+	xil_printf("\n\r");
+    xil_printf("HDMI RX timing\n\r");
+    xil_printf("------------\n\r");
+    XV_HdmiRxSs_ReportTiming(InstancePtr);
+    xil_printf("Link quality\n\r");
+    xil_printf("---------\n\r");
+    XV_HdmiRxSs_ReportLinkQuality(InstancePtr);
+    xil_printf("Audio\n\r");
+    xil_printf("---------\n\r");
+    XV_HdmiRxSs_ReportAudio(InstancePtr);
+    xil_printf("Infoframe\n\r");
+    xil_printf("---------\n\r");
+    XV_HdmiRxSs_ReportInfoFrame(InstancePtr);
+    xil_printf("\n\r");
+}
 
 /*****************************************************************************/
 /**
@@ -562,8 +596,7 @@ void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Start HDMI RX Subsystem.... \r\n");
-
+  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_START, 0);
   /* Set RX hot plug detect */
   XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, TRUE);
 
@@ -586,7 +619,7 @@ void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Stop HDMI RX Subsystem.... \r\n");
+  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_STOP, 0);
 }
 
 /*****************************************************************************/
@@ -605,7 +638,7 @@ void XV_HdmiRxSs_Reset(XV_HdmiRxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
-  xdbg_printf(XDBG_DEBUG_GENERAL,"  ->Reset HDMI RX Subsystem.... \r\n");
+  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_RESET, 0);
 
   /* Assert RX reset */
   XV_HdmiRx_Reset(InstancePtr->HdmiRxPtr, TRUE);
@@ -632,7 +665,7 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
 
   // Is the cable connected?
   if (XV_HdmiRx_IsStreamConnected(HdmiRxSsPtr->HdmiRxPtr)) {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"RX cable is connected\n\r");
+    XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_CONNECT, 0);
 
     // Set RX hot plug detect
     XV_HdmiRx_SetHpd(HdmiRxSsPtr->HdmiRxPtr, TRUE);
@@ -648,7 +681,7 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
 
   // RX cable is disconnected
   else {
-    xdbg_printf(XDBG_DEBUG_GENERAL,"RX cable is disconnected\n\r");
+    XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_DISCONNECT, 0);
 
     // Clear RX hot plug detect
     XV_HdmiRx_SetHpd(HdmiRxSsPtr->HdmiRxPtr, FALSE);
@@ -796,6 +829,8 @@ static void XV_HdmiRxSs_LnkStaCallback(void *CallbackRef)
   HdmiRxSsPtr->IsLinkStatusErrMax =
     XV_HdmiRx_IsLinkStatusErrMax(HdmiRxSsPtr->HdmiRxPtr);
 
+  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_LINKSTATUS, 0);
+
   // Check if user callback has been registered
   if (HdmiRxSsPtr->LnkStaCallback) {
       HdmiRxSsPtr->LnkStaCallback(HdmiRxSsPtr->LnkStaRef);
@@ -846,6 +881,8 @@ static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef)
   /* Set stream up flag */
   HdmiRxSsPtr->IsStreamUp = (FALSE);
 
+  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_STREAMDOWN, 0);
+
 #ifdef USE_HDCP
   // Push stream-down event to HDCP event queue
   XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_STREAMDOWN_EVT);
@@ -874,6 +911,8 @@ static void XV_HdmiRxSs_StreamInitCallback(void *CallbackRef)
 {
   XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
 
+  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_STREAMINIT, 0);
+
   // Check if user callback has been registered
   if (HdmiRxSsPtr->StreamInitCallback) {
       HdmiRxSsPtr->StreamInitCallback(HdmiRxSsPtr->StreamInitRef);
@@ -896,13 +935,14 @@ static void XV_HdmiRxSs_StreamInitCallback(void *CallbackRef)
 static void XV_HdmiRxSs_StreamUpCallback(void *CallbackRef)
 {
   XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
-  u32 count = 0;
 
   /* Clear link Status error counters */
   XV_HdmiRx_ClearLinkStatus(HdmiRxSsPtr->HdmiRxPtr);
 
   /* Set stream up flag */
   HdmiRxSsPtr->IsStreamUp = (TRUE);
+
+  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_STREAMUP, 0);
 
 #ifdef USE_HDCP
   // Push stream-up event to HDCP event queue
@@ -1321,6 +1361,7 @@ u32 XV_HdmiRxSs_SetStream(XV_HdmiRxSs *InstancePtr,
 
   XV_HdmiRx_SetStream(InstancePtr->HdmiRxPtr, InstancePtr->Config.Ppc, Clock);
 
+  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_SETSTREAM, 0);
   // Check line rate
   // For 4k60p select 4 pixels per clock
   if (LineRate > 3400) {
@@ -1432,6 +1473,8 @@ void XV_HdmiRxSs_RefClockChangeInit(XV_HdmiRxSs *InstancePtr)
   // Set TMDS Clock ratio
   InstancePtr->TMDSClockRatio =
     XV_HdmiRx_GetTmdsClockRatio(InstancePtr->HdmiRxPtr);
+
+  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE, 0);
 }
 
 /*****************************************************************************/
@@ -1620,6 +1663,7 @@ int XV_HdmiRxSs_IsStreamConnected(XV_HdmiRxSs *InstancePtr)
   return (InstancePtr->IsStreamConnected);
 }
 
+#ifdef XPAR_XHDCP_NUM_INSTANCES
 /******************************************************************************/
 /**
 *
@@ -1665,6 +1709,7 @@ static u32 XV_HdmiRxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
 
   return (NumTicks);
 }
+#endif
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 /*****************************************************************************/
@@ -1837,9 +1882,7 @@ void XV_HdmiRxSs_ResetRemapper(XV_HdmiRxSs *InstancePtr) {
 
     XGpio_SetDataDirection(RemapperResetPtr, 1, 0);
     XGpio_DiscreteWrite(RemapperResetPtr, 1, 0);
-    XV_HdmiRxSs_WaitUs(InstancePtr, 1000);
     XGpio_DiscreteWrite(RemapperResetPtr, 1, 1);
-    XV_HdmiRxSs_WaitUs(InstancePtr, 1000);
 }
 
 void XV_HdmiRxSs_ConfigRemapper(XV_HdmiRxSs *InstancePtr) {
@@ -1938,6 +1981,7 @@ void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id) {
 ******************************************************************************/
 void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc) {
     InstancePtr->Config.Ppc = Ppc;
+    Id = Id; //squash unused variable compiler warning
 }
 
 #ifdef USE_HDCP
@@ -2768,7 +2812,7 @@ void XV_HdmiRxSs_HdcpInfo(XV_HdmiRxSs *InstancePtr)
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
     // HDCP 1.4
-    case XV_HDMIRXSS_HDCP_14 :
+    case XV_HDMIRXSS_HDCP_14:
       if (InstancePtr->Hdcp14Ptr) {
         if (XHdcp1x_IsEnabled(InstancePtr->Hdcp14Ptr)) {
           xil_printf("\n\rHDCP 1.4 RX Info\n\r");
@@ -2795,7 +2839,7 @@ void XV_HdmiRxSs_HdcpInfo(XV_HdmiRxSs *InstancePtr)
 
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
     // HDCP 2.2
-    case XV_HDMIRXSS_HDCP_22 :
+    case XV_HDMIRXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
         if (XHdcp22Rx_IsEnabled(InstancePtr->Hdcp22Ptr)) {
           XHdcp22Rx_LogDisplay(InstancePtr->Hdcp22Ptr);
@@ -2809,6 +2853,9 @@ void XV_HdmiRxSs_HdcpInfo(XV_HdmiRxSs *InstancePtr)
       }
       break;
 #endif
+
+    default:
+      xil_printf("\n\rHDCP info unknown?\n\r");
   }
 }
 #endif

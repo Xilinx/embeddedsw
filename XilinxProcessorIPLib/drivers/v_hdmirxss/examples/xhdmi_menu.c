@@ -150,39 +150,6 @@ extern XTpg_PatternId Pattern;
 extern XHdcp_Repeater HdcpRepeater;
 
 /************************** Function Definitions *****************************/
-/*****************************************************************************/
-/**
-*
-* This function displays the GT version
-*
-* @param  None.
-*
-* @return None.
-*
-* @note   None.
-*
-******************************************************************************/
-void ShowVersion(void)
-{
- u32 Data;
-
- // GT
- xil_printf("HDMI PHY\n\r");
- Data = XVphy_GetVersion(&Vphy);
- xil_printf("  VPhy version : %02d.%02d (%04x)\n\r", ((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
-
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
- // TX
- xil_printf("HDMI TX SubSystem\n\r");
- XV_HdmiTxSs_ReportSubcoreVersion(&HdmiTxSs);
-#endif
-
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
- // RX
- xil_printf("HDMI RX SubSystem\n\r");
- XV_HdmiRxSs_ReportSubcoreVersion(&HdmiRxSs);
-#endif
-}
 
 /*****************************************************************************/
 /**
@@ -266,6 +233,8 @@ void XHdmi_DisplayMainMenu(void)
 	print("       => Select GT tranceiver PLL layout.\n\r");
 	print("z - GT log\n\r");
 	print("       => Shows the GT transceiver log information.\n\r");
+	print("w - HDMI TX/RX log\n\r");
+	print("       => Shows the HDMI TX and RX log information.\n\r");
 	print("e - Edid\n\r");
 	print("       => Display and set edid.\n\r");
 	print("a - Audio\n\r");
@@ -310,7 +279,6 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 		// Info
 		case ('i') :
 		case ('I') :
-			ShowVersion();
 			Info();
 	        Menu = XHDMI_MAIN_MENU;
 		break;
@@ -495,6 +463,14 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 		case ('z') :
 		case ('Z') :
 			XVphy_LogDisplay(&Vphy);
+			Menu = XHDMI_MAIN_MENU;
+		break;
+
+		// HDMI log
+		case ('w') :
+		case ('W') :
+			XV_HdmiTxSs_LogDisplay(&HdmiTxSs);
+			XV_HdmiRxSs_LogDisplay(&HdmiRxSs);
 			Menu = XHDMI_MAIN_MENU;
 		break;
 
