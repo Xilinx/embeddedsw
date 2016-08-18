@@ -92,15 +92,17 @@
 
 #define RPC_CHANNEL_READY_TO_CLOSE "rpc_channel_ready_to_close"
 
-/* Global variables */
+/* Global functions and variables */
 extern const struct remote_resource_table resources;
 extern int init_system(void);
+extern void cleanup_system(void);
+extern struct rproc_info_plat_local proc_table;
 
 /* Local variables */
 static struct rpmsg_channel *app_rp_chnl;
+static volatile int chnl_is_alive = 0;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
-static void *chnl_cb_flag;
 
 /*-----------------------------------------------------------------------------*
  *  RPMSG callbacks setup by remoteproc_resource_init()
@@ -108,21 +110,27 @@ static void *chnl_cb_flag;
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
                 void * priv, unsigned long src)
 {
+	(void)rp_chnl;
+	(void)data;
+	(void)len;
+	(void)priv;
+	(void)src;
 }
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
 	app_rp_chnl = rp_chnl;
-	env_release_sync_lock(chnl_cb_flag);
+	chnl_is_alive = 1;
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 {
+	app_rp_chnl = NULL;
 }
 
-static void shutdown_cb(struct rpmsg_channel *rp_chnl) {
-	rpmsg_retarget_deinit(rp_chnl);
-	remoteproc_resource_deinit(proc);
+static void shutdown_cb(struct rpmsg_channel *rp_chnl)
+{
+	chnl_is_alive = 0;
 }
 
 /*-----------------------------------------------------------------------------*
@@ -138,29 +146,29 @@ static void rpc_demo(void)
 	float fdata;
 	int idata;
 	int ret;
-	int status = 0;
+	int status;
 
 	/* Initialize HW and SW components/objects */
 	init_system();
-
-	env_create_sync_lock(&chnl_cb_flag, LOCKED);
 
 	/* Resource table needs to be provided to remoteproc_resource_init() */
 	rsc_info.rsc_tab = (struct resource_table *)&resources;
 	rsc_info.size = sizeof(resources);
 
-	/* Initialize OpenAMP framework */
-	status = remoteproc_resource_init(&rsc_info, rpmsg_channel_created,
-                            rpmsg_channel_deleted, rpmsg_read_cb,
-							&proc);
+	/* Initialize OpenAMP RPMSG framework */
+	status = remoteproc_resource_init(&rsc_info,  &proc_table,
+						rpmsg_channel_created,
+						rpmsg_channel_deleted, rpmsg_read_cb,
+						&proc, 0);
 	if (RPROC_SUCCESS != status) {
 		/* print error directly on serial port */
 		xil_printf("Error: initializing OpenAMP framework\n");
         return;
 	}
 
-	/* wait for notification that will happen on channel creation (interrupt) */
-	env_acquire_sync_lock(chnl_cb_flag);
+	while (!chnl_is_alive) {
+		hil_poll(proc->proc, 0);
+	}
 
 	/* redirect I/Os */
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
@@ -226,12 +234,22 @@ static void rpc_demo(void)
 			} else if((!strcmp(ubuff,"no"))) {
 				printf("\r\nRemote>RPC retargetting quitting ...\r\n");
 				sprintf(wbuff, RPC_CHANNEL_READY_TO_CLOSE);
-				rpmsg_retarget_send(wbuff, sizeof(RPC_CHANNEL_READY_TO_CLOSE) + 1);
 				break;
 			}
 		}
 	}
+
 	printf("\r\nRemote> Firmware's rpmsg-openamp-demo-channel going down! \r\n");
+
+	rpmsg_retarget_send(wbuff, sizeof (RPC_CHANNEL_READY_TO_CLOSE) + 1);
+
+	while (chnl_is_alive) {
+		hil_poll(proc->proc, 0);
+	}
+
+	rpmsg_retarget_deinit(app_rp_chnl);
+	remoteproc_resource_deinit(proc);
+	cleanup_system();
 }
 
 /*-----------------------------------------------------------------------------*
