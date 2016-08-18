@@ -31,7 +31,6 @@
 /* This file populates resource table for BM remote
  * for use by the Linux Master */
 
-//#include "openamp/open_amp.h"
 #include "rsc_table.h"
 
 /* Place resource table in special ELF section */
@@ -45,7 +44,6 @@
 
 /* Remote supports Name Service announcement */
 #define VIRTIO_RPMSG_F_NS           0
-
 
 /* Resource table entries */
 #define ELF_START                   0x00000000
