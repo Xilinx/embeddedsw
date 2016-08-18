@@ -125,7 +125,7 @@ struct metal_device metal_dev_table[] = {
 	},
 };
 
-extern void metal_irq_bm_isr(int irq);
+extern void metal_irq_isr(int irq);
 
 void enable_caches()
 {
@@ -191,7 +191,7 @@ int init_irq()
 	Xil_ExceptionEnable();
 	/* Connect Interrupt ID with ISR */
 	XScuGic_Connect(&InterruptController, IPI_IRQ_VECT_ID,
-			   (Xil_ExceptionHandler)metal_irq_bm_isr,
+			   (Xil_ExceptionHandler)metal_irq_isr,
 			   (void *)IPI_IRQ_VECT_ID);
 
 	XScuGic_Enable(&InterruptController, IPI_IRQ_VECT_ID);
