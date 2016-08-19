@@ -3,6 +3,7 @@ Change Log for 2016.3
 freertos823_xilinx_v1_2:
 Created new version to support event trace through Coresight STM
 Updated tcl files as per modified standalone BSP structure.
+Updated tcl file to add macro for EL1 secure selectcion. This fixes CR#957174.
 
 axidma_v9_3:
 Reduce the size of the buffer descriptor to 64 bytes
