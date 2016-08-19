@@ -48,6 +48,8 @@
 * 3.0   yas    02/13/16 Upgraded function XHdcp1x_PortDpRxEnable support
 *                       HDCP Repeater functionality.
 * 3.1   yas    07/28/16 Added fucntion XHdcp1x_PortDpRxSetRepeater
+* 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
+*                       of DisplayPort DPCD registers
 * </pre>
 *
 ******************************************************************************/
@@ -201,7 +203,10 @@ static int XHdcp1x_PortDpRxDisable(XHdcp1x *InstancePtr)
 	/* Clear hdcp registers */
 	Value = 0;
 	Offset = 0;
-	NumLeft = 256;
+	/* First clear all the HDCP 1.4 registers from the BKSV (0x0 - 0x4,
+	 * 5 bytes)to and including the KSV FIFO (0x2C - 0x3A,
+	 * 15 bytes). Not clearing the reserved and debug registera. */
+	NumLeft = 59;
 	while (NumLeft-- > 0) {
 		XHdcp1x_PortDpRxWrite(InstancePtr, Offset++, &Value,
 			sizeof(Value));
@@ -258,7 +263,7 @@ static int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize)
 {
 	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
-	u32 Base = HwDp->Config.BaseAddr;
+	UINTPTR Base = HwDp->Config.BaseAddr;
 	u32 RegOffset = 0;
 	int NumRead = 0;
 	u8 *ReadBuf = Buf;
@@ -337,7 +342,7 @@ static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize)
 {
 	XDprx *HwDp = InstancePtr->Port.PhyIfPtr;
-	u32 Base = HwDp->Config.BaseAddr;
+	UINTPTR Base = HwDp->Config.BaseAddr;
 	u32 RegOffset = 0;
 	int NumWritten = 0;
 	const u8 *WriteBuf = Buf;

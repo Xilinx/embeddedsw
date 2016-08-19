@@ -90,7 +90,7 @@ extern XHdcp1x_Config XHdcp1x_ConfigTable[];	/**< Instance of Lookup table
 ******************************************************************************/
 XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId)
 {
-	XHdcp1x_Config *CfgPtr;
+	XHdcp1x_Config *CfgPtr = NULL;
 	u32 Index;
 
 	for (Index = 0; Index < XPAR_XHDCP_NUM_INSTANCES; Index++) {

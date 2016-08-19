@@ -714,7 +714,10 @@
 *                       Added following functions:
 *                       XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
 *                       XHdcp1x_SetCallBack, XHdcp1x_ReadDownstream.
-* 3.0   yas    06/15/16 Added support for Cipher Blank Value and select.
+* 4.0   yas    06/15/16 Added support for Cipher Blank Value and select.
+*                       Extended support for Repeater functionality.
+* 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
+*                       XHdcp1x_CfgInitialize
 * </pre>
 *
 ******************************************************************************/
@@ -887,7 +890,7 @@ typedef u32 (*XHdcp1x_GetDdcHandler)(void *HandlerRef);
 */
 typedef struct {
 	u16 DeviceId;		/**< Device instance ID. */
-	u32 BaseAddress;	/**< The base address of the core  */
+	UINTPTR BaseAddress;	/**< The base address of the core  */
 	u32 SysFrequency;	/**< The main clock frequency of the core */
 	u16 IsRx;		/**< Flag indicating the core direction */
 	u16 IsHDMI;		/**< Flag indicating if the core is meant to
@@ -1132,24 +1135,24 @@ typedef struct {
 	u32 IsReady;		/**< The ready flag */
 	u32 IsRepeater;		/**< The IsRepeater flag determines if the
 				  *  HDCP is part of a Repeater system
-				  *  or a standalone interface */
+				  *  or a non-repeater interface */
 	XHdcp1x_RepeaterExchange RepeaterValues; /**< The Repeater value to
 						   *  be exchanged between
 						   *  Tx and Rx */
 	void *Hdcp1xRef;	/**< A void reference pointer for
 				  *  association of a external core
 				  *  in our case a timer with the
-				  *  hdcp instance */
+				  *  HDCP instance */
 	XHdcp1x_TimerStart XHdcp1xTimerStart; 	/**< Instance of function
 						*  interface used for
 						*  starting a timer on behalf
 						*  of an HDCP interface*/
-	XHdcp1x_TimerStop XHdcp1xTimerStop; 	/**< Instance of fucntion
-						*  interface usde for
+	XHdcp1x_TimerStop XHdcp1xTimerStop; 	/**< Instance of function
+						*  interface used for
 						*  stopping a timer on behalf
 						*  of an HDCP interface*/
-	XHdcp1x_TimerDelay XHdcp1xTimerDelay;	/**< Instance of fucntion
-						*  interface usde for
+	XHdcp1x_TimerDelay XHdcp1xTimerDelay;	/**< Instance of function
+						*  interface used for
 						*  performing a busy delay on
 						*  behalf of an HDCP
 						*  interface*/
@@ -1168,7 +1171,7 @@ typedef int (*XHdcp1x_KsvRevokeCheck)(const XHdcp1x *InstancePtr, u64 Ksv);
 XHdcp1x_Config *XHdcp1x_LookupConfig(u16 DeviceId);
 
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
-		void *PhyIfPtr, u32 EffectiveAddr);
+		void *PhyIfPtr, UINTPTR EffectiveAddr);
 
 int XHdcp1x_SelfTest(XHdcp1x *InstancePtr);
 

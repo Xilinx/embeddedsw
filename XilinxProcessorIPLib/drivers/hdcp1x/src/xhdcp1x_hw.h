@@ -265,7 +265,7 @@ extern "C" {
 *  The 32-bit value of the register.
 *
 * @note
-* C-style: u32 XHdcp1x_ReadReg(u32 BaseAddress, u32 RegOffset)
+* C-style: u32 XHdcp1x_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
 #define XHdcp1x_ReadReg(BaseAddress, RegOffset) \
@@ -285,7 +285,7 @@ extern "C" {
 *  None.
 *
 * @note
-* C-style: void XHdcp1x_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+* C-style: void XHdcp1x_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)
 *
 ******************************************************************************/
 #define XHdcp1x_WriteReg(BaseAddress, RegOffset, Data) \

@@ -54,7 +54,7 @@
 *                       Added functions:
 *                       XHdcp1x_DownstreamReady, XHdcp1x_GetRepeaterInfo,
 *                       XHdcp1x_SetCallBack, XHdcp1x_ReadDownstream
-* 3.1   yas    07/30/16 Addded function:
+* 4.0   yas    07/30/16 Addded function:
 *                       XHdcp1x_SetRepeater, XHdcp1x_IsInComputations,
 *                       XHdcp1x_IsInWaitforready, XHdcp1x_IsDwnstrmCapable,
 *                       XHdcp1x_GetTopology, XHdcp1x_DisableBlank,
@@ -63,6 +63,8 @@
 *                       Hdcp1x_GetTopologyField, XHdcp1x_IsRepeater,
 *                       XHdcp1x_SetTopology, XHdcp1x_SetTopologyKSVList,
 *                       XHdcp1x_SetTopologyUpdate.
+* 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
+*                       XHdcp1x_CfgInitialize
 * </pre>
 *
 ******************************************************************************/
@@ -142,7 +144,7 @@ XHdcp1x_KsvRevokeCheck XHdcp1xKsvRevokeCheck = NULL; /**< Instance of function
 *
 ******************************************************************************/
 int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
-		void *PhyIfPtr, u32 EffectiveAddr)
+		void *PhyIfPtr, UINTPTR EffectiveAddr)
 {
 	int Status;
 	u32 RegVal;
@@ -150,6 +152,7 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
+	Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
 
 	/* Initialize InstancePtr. */

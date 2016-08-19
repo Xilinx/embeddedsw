@@ -157,7 +157,6 @@ static int XHdcp1x_PortHdmiRxDisable(XHdcp1x *InstancePtr)
 {
 	u8 Offset = 0;
 	u8 Value = 0;
-	u32 HdmiRxBase = 0;
 	u32 RegValue;
 	int NumLeft = 0;
 	int Status = XST_SUCCESS;
@@ -169,8 +168,15 @@ static int XHdcp1x_PortHdmiRxDisable(XHdcp1x *InstancePtr)
 	/* Clear the hdcp registers */
 	Value = 0;
 	Offset = 0;
-	NumLeft = 256;
+	/* Clear HDCP register space from BKSV (0x0) to V'H0 (0x30) */
+	NumLeft = 52;
 	while (NumLeft-- > 0) {
+		XHdcp1x_PortHdmiRxWrite(InstancePtr, Offset++, &Value, 1);
+	}
+	/* Clear HDCP register space from BCaps (0x40) to KSV FIFO (0x43) */
+	Offset = 64;
+	NumLeft = 68;
+	while (NumLeft-- > 64) {
 		XHdcp1x_PortHdmiRxWrite(InstancePtr, Offset++, &Value, 1);
 	}
 

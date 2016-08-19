@@ -1100,7 +1100,7 @@ static void XHdcp1x_RxEnableState(XHdcp1x *InstancePtr)
 	/* Read MyKsv */
 	MyKsv = XHdcp1x_CipherGetLocalKsv(InstancePtr);
 
-	/* If unknown - try against for good luck */
+	/* If unknown - try again for good luck */
 	if (MyKsv == 0) {
 		MyKsv = XHdcp1x_CipherGetLocalKsv(InstancePtr);
 	}
