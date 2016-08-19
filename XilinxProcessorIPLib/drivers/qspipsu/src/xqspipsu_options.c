@@ -51,6 +51,7 @@
 * 1.2	nsk 07/01/16 Modified XQspiPsu_SetOptions() to support
 *		     LQSPI options and updated OptionsTable
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
+*	nsk 08/19/16 Add support for use in EL1 non secure mode
 *
 * </pre>
 *
@@ -59,6 +60,10 @@
 /***************************** Include Files *********************************/
 
 #include "xqspipsu.h"
+#if defined (__aarch64__)
+#include "bspconfig.h"
+#include "xil_smc.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 
@@ -74,6 +79,10 @@
 #define DATA_DLY_ADJ_DLY 0X02
 #define LPBK_DLY_ADJ_DLY0 0X02
 #endif
+
+/* SMC function IDs */
+#define MMIO_WRITE_SMC_FID	0xC2000013
+#define MMIO_READ_SMC_FID	0xC2000014
 
 /************************** Function Prototypes ******************************/
 
@@ -345,8 +354,15 @@ s32 XQspi_Set_TapDelay(XQspiPsu * InstancePtr,u32 TapdelayBypass,
 	if (InstancePtr->IsBusy == TRUE) {
 		Status = XST_DEVICE_BUSY;
 	} else {
+	#if EL1_NONSECURE && defined (__aarch64__)
+		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(XPS_SYS_CTRL_BASEADDR +
+				IOU_TAPDLY_BYPASS_OFFSET) |
+				((u64)(0x4) << 32),
+				(u64)TapdelayBypass, 0, 0, 0, 0, 0);
+	#else
 		XQspiPsu_WriteReg(XPS_SYS_CTRL_BASEADDR,IOU_TAPDLY_BYPASS_OFFSET,
 				TapdelayBypass);
+	#endif
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_LPBK_DLY_ADJ_OFFSET,LPBKDelay);
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
@@ -381,9 +397,17 @@ static s32 XQspipsu_Calculate_Tapdelay(XQspiPsu *InstancePtr, u8 Prescaler)
 	Divider = (1 << (Prescaler+1));
 
 	FreqDiv = (InstancePtr->Config.InputClockHz)/Divider;
-	Tapdelay = XQspiPsu_ReadReg(XPS_SYS_CTRL_BASEADDR,
+	#if EL1_NONSECURE && defined (__aarch64__)
+		XSmc_OutVar RegRead;
+		RegRead = Xil_Smc(MMIO_READ_SMC_FID,
+				(u64)(XPS_SYS_CTRL_BASEADDR +
+				IOU_TAPDLY_BYPASS_OFFSET), 0, 0, 0,
+				0, 0, 0);
+		Tapdelay = RegRead.Arg0 >> 32;
+	#else
+		Tapdelay = XQspiPsu_ReadReg(XPS_SYS_CTRL_BASEADDR,
 					IOU_TAPDLY_BYPASS_OFFSET);
-
+	#endif
 	Tapdelay = Tapdelay & (~IOU_TAPDLY_BYPASS_LQSPI_RX_MASK);
 
 	LBkModeReg = XQspiPsu_ReadReg(InstancePtr->Config.BaseAddress,

@@ -108,6 +108,7 @@
 *		     Added  XQSPIPSU_MSG_FLAG_POLL macro in xqspipsu.h
 *		     Added XQspiPsu_Create_PollConfigData and
 *		     XQspiPsu_PollData() functions in xqspipsu.c
+*	nsk 08/19/16 Add support for use in EL1 non secure mode
 *
 * </pre>
 *
