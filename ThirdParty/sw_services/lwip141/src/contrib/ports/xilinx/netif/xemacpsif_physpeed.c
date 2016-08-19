@@ -110,8 +110,10 @@
 #include "lwipopts.h"
 #include "xparameters_ps.h"
 #include "xparameters.h"
+#if defined (__aarch64__)
 #include "bspconfig.h"
 #include "xil_smc.h"
+#endif
 
 /* Advertisement control register. */
 #define ADVERTISE_10HALF		0x0020  /* Try for 10mbps half-duplex  */
@@ -866,7 +868,7 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		CrlApbGemCtrl &= ~CRL_APB_GEM_DIV1_MASK;
 		CrlApbGemCtrl |= CrlApbDiv1 << CRL_APB_GEM_DIV1_SHIFT;
 
-#if EL1_NONSECURE
+#if EL1_NONSECURE && defined (__aarch64__)
 		Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(CrlApbBaseAddr) | ((u64)(0xFFFFFFFF) << 32),
 			(u64)CrlApbGemCtrl, 0, 0, 0, 0, 0);
 
