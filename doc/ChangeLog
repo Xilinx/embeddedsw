@@ -100,15 +100,21 @@ Restructured the BSP to avoid code duplication across all BSPs.Source code direc
 moved to src/arm directory(i.e. src/cortexa53,src/cortexa9 and src/cortexr5 moved to src/arm/cortexa53,src/arm/cortexa9
 and src/arm/cortexr5 respectively).Files xil_printf.c,xil_printf.h,print.c,xil_io.c and xil_io.h are consolidated across all
 BSPs into common file each and consolidated files are kept at src/common directory.Files putnum.c,vectors.c,vectors.h,
-xil_exception.c,xil_exception.h and xpseudo_asm.h are consolidated across all ARM BSPs into common file each and consolidated
+xil_exception.c and xil_exception.h are consolidated across all ARM BSPs into common file each and consolidated
 files are kept at src/arm/common directory.GCC files related to file operations are consolidated and kept at src/arm/common/gcc
 directory.
+All io interfacing functions (i.e. All variants of xil_out, xil_in ) are made as static inline and implementation
+is kept in consolidated common/xil_io.h,xil_io.h must be included as a header file to access io interfacing functions.
 Added undefined exception handler for A53 32 bit and R5 processor.
 Updated xtime_l.c in R5 BSP to remove implementation of XTime_SetTime API, since TTC counter value register is read only.
 Updated the signature for functions sleep/usleep. This fixes the CR#956899.
 Added Xil_Smc to call SMC from Cortex A53 64bit
 Added support for secure EL1 to Cortex-A53 64bit mode
 Added PSS_PSU_REF_CLK macro to xparameters.h for ZynqMP A53 and R5.
+Removed unused variables from xil_printf.c and xplatform_info.c
+Defined ARMA53_32 flag in cortexa53/32bit/xparameters_ps.h.
+Defined ARMR5 flag in cortexr5/xparameters_ps.h.
+Added support for zynq 7000s devices
 
 sdps_v3_0:
 Added support for mkfs.
