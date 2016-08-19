@@ -134,6 +134,7 @@
 *                       operating modes.
 *       sk     08/13/16 Removed sleep.h from xsdps.h as a temporary fix for
 *                       CR#956899.
+*       sk     08/19/16 Add support for EL1 non secure mode.
 *
 * </pre>
 *

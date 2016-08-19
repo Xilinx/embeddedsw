@@ -55,6 +55,7 @@
 *       sk     07/16/16 Added support for UHS modes.
 *       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
 *                       operating modes.
+*       sk     08/19/16 Add support for EL1 non secure mode.
 * </pre>
 *
 ******************************************************************************/
@@ -1014,6 +1015,10 @@ extern "C" {
 #define SD1_ITAPDLYENA				0x01000000U
 #define SD1_OTAPDLYENA				0x00400000U
 
+#define SD0_ITAPDLY_SEL_MASK		0x000000FFU
+#define SD0_OTAPDLY_SEL_MASK		0x0000003FU
+#define SD1_ITAPDLY_SEL_MASK		0x00FF0000U
+#define SD1_OTAPDLY_SEL_MASK		0x003F0000U
 #define SD0_OTAPDLYSEL_HS200_B0		0x00000003U
 #define SD0_OTAPDLYSEL_HS200_B2		0x00000002U
 #define SD0_ITAPDLYSEL_SD50			0x00000014U

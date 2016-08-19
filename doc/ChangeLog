@@ -127,6 +127,7 @@ Added support for UHS modes.
 Corrected the logic.
 Added tap delays for SD/eMMC.
 Removed sleep.h file from xsdps.h file
+Add support in EL1 non secure mode
 
 uartps_v3_2:
 Modified the transmission break bit set logic.
