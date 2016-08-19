@@ -398,4 +398,5 @@
  *                     in cortexr5/xparameters_ps.h
  * 6.0 mus   08/18/16  Added support for the the Zynq 7000s devices
  * 6.0 mus   08/18/16  Removed unused variables from xil_printf.c and xplatform_info.c
+ * 6.0 mus   08/19/16  Modified xil_io.h to remove __LITTLE_ENDIAN__ flag check for all ARM processors
  *****************************************************************************************/
