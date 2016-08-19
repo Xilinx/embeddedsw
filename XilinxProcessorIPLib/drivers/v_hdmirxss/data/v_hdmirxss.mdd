@@ -38,7 +38,7 @@ BEGIN driver v_hdmirxss
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
   OPTION VERSION = 3.0;
-  OPTION DEPENDS = (v_hdmirx_v1_2 gpio_v4_1 v_axi4s_remap_v1_0);
+  OPTION DEPENDS = (v_hdmirx_v1_2 gpio_v4_1 v_axi4s_remap_v1_1);
   OPTION NAME = v_hdmirxss;
 
 END driver
