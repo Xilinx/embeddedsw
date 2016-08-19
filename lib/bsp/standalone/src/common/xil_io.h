@@ -45,6 +45,8 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 5.00 	pkp  	 05/29/14 First release
+* 6.00  mus      08/19/16 Remove checking of __LITTLE_ENDIAN__ flag for
+*                         ARM processors
 * </pre>
 ******************************************************************************/
 
@@ -255,6 +257,7 @@ static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
 	*LocalAddr = Value;
 }
 
+#if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
 # define Xil_In16LE	Xil_In16
 # define Xil_In32LE	Xil_In32
@@ -264,7 +267,7 @@ static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
 # define Xil_Htonl	Xil_EndianSwap32
 # define Xil_Ntohs	Xil_EndianSwap16
 # define Xil_Ntohl	Xil_EndianSwap32
-#else
+# else
 # define Xil_In16BE	Xil_In16
 # define Xil_In32BE	Xil_In32
 # define Xil_Out16BE	Xil_Out16
@@ -274,41 +277,67 @@ static INLINE void Xil_Out64(UINTPTR Addr, u64 Value)
 # define Xil_Ntohs(Data) (Data)
 # define Xil_Ntohl(Data) (Data)
 #endif
+#else
+# define Xil_In16LE	Xil_In16
+# define Xil_In32LE	Xil_In32
+# define Xil_Out16LE	Xil_Out16
+# define Xil_Out32LE	Xil_Out32
+# define Xil_Htons	Xil_EndianSwap16
+# define Xil_Htonl	Xil_EndianSwap32
+# define Xil_Ntohs	Xil_EndianSwap16
+# define Xil_Ntohl	Xil_EndianSwap32
+#endif
 
+#if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
 static INLINE u16 Xil_In16BE(UINTPTR Addr)
 #else
 static INLINE u16 Xil_In16LE(UINTPTR Addr)
+#endif
+#else
+static INLINE u16 Xil_In16BE(UINTPTR Addr)
 #endif
 {
 	u16 value = Xil_In16(Addr);
 	return Xil_EndianSwap16(value);
 }
 
+#if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
 static INLINE u32 Xil_In32BE(UINTPTR Addr)
 #else
 static INLINE u32 Xil_In32LE(UINTPTR Addr)
+#endif
+#else
+static INLINE u32 Xil_In32BE(UINTPTR Addr)
 #endif
 {
 	u16 value = Xil_In32(Addr);
 	return Xil_EndianSwap32(value);
 }
 
+#if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
 static INLINE void Xil_Out16BE(UINTPTR Addr, u16 Value)
 #else
 static INLINE void Xil_Out16LE(UINTPTR Addr, u16 Value)
+#endif
+#else
+static INLINE void Xil_Out16BE(UINTPTR Addr, u16 Value)
 #endif
 {
 	Value = Xil_EndianSwap16(Value);
 	Xil_Out16(Addr, Value);
 }
 
+#if defined (__MICROBLAZE__)
 #ifdef __LITTLE_ENDIAN__
 static INLINE void Xil_Out32BE(UINTPTR Addr, u32 Value)
 #else
 static INLINE void Xil_Out32LE(UINTPTR Addr, u32 Value)
+#endif
+#else
+static INLINE void Xil_Out32BE(UINTPTR Addr, u32 Value)
 #endif
 {
 	Value = Xil_EndianSwap32(Value);
