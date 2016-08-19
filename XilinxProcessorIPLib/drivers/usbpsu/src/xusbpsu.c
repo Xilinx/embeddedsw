@@ -80,7 +80,7 @@
 *			- XST_FAILURE when timed out.
 *
 ******************************************************************************/
-int XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
+s32 XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 								u32 BitMask, u32 Timeout)
 {
 	u32 RegVal;
@@ -115,7 +115,7 @@ int XUsbPsu_Wait_Clear_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 *			- XST_FAILURE when timed out.
 *
 ******************************************************************************/
-int XUsbPsu_Wait_Set_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
+s32 XUsbPsu_Wait_Set_Timeout(struct XUsbPsu *InstancePtr, u32 Offset,
 								u32 BitMask, u32 Timeout)
 {
 	u32 RegVal;
@@ -304,7 +304,7 @@ u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
 *		- XST_FAILURE if initialization was not successful
 *
 ******************************************************************************/
-int XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_CoreInit(struct XUsbPsu *InstancePtr)
 {
 	u32		RegVal;
 	u32		Hwparams1;
@@ -438,7 +438,7 @@ void XUsbPsu_DisableIntr(struct XUsbPsu *InstancePtr, u32 Mask)
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
+s32 XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 			XUsbPsu_Config *ConfigPtr, u32 BaseAddress)
 {
 	int Status;
@@ -493,7 +493,7 @@ int XUsbPsu_CfgInitialize(struct XUsbPsu *InstancePtr,
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_Start(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_Start(struct XUsbPsu *InstancePtr)
 {
 	u32			RegVal;
 
@@ -525,7 +525,7 @@ int XUsbPsu_Start(struct XUsbPsu *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_Stop(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_Stop(struct XUsbPsu *InstancePtr)
 {
 	u32	RegVal;
 
@@ -556,7 +556,7 @@ int XUsbPsu_Stop(struct XUsbPsu *InstancePtr)
  * @note	None.
  *
  ****************************************************************************/
-int XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
+s32 XUsbPsu_SetTestMode(struct XUsbPsu *InstancePtr, u32 Mode)
 {
 	u32	RegVal;
 	s32 Status = XST_SUCCESS;
@@ -624,7 +624,7 @@ XusbPsuLinkState XUsbPsu_GetLinkState(struct XUsbPsu *InstancePtr)
  * @note	None.
  *
  ****************************************************************************/
-int XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
+s32 XUsbPsu_SetLinkState(struct XUsbPsu *InstancePtr,
 		XusbPsuLinkStateChange State)
 {
 	u32		RegVal;
@@ -688,7 +688,7 @@ void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed)
 * @note	None.
 *
 *****************************************************************************/
-int XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
+s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 {
 	u32 RegVal;
 
@@ -726,7 +726,7 @@ int XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 * @note	None.
 *
 *****************************************************************************/
-int XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
+s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 {
 	u32 RegVal;
 
@@ -752,7 +752,7 @@ int XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 * @note	None.
 *
 *****************************************************************************/
-int XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
+s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 {
 	u32 RegVal;
 
@@ -776,7 +776,7 @@ int XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep)
 * @note	None.
 *
 *****************************************************************************/
-int XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal;
 
@@ -800,7 +800,7 @@ int XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr)
 * @note	None.
 *
 *****************************************************************************/
-int XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal;
 
@@ -824,7 +824,7 @@ int XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr)
 * @note	None.
 *
 *****************************************************************************/
-int XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal;
 
@@ -848,7 +848,7 @@ int XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr)
 * @note	None.
 *
 *****************************************************************************/
-int XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal;
 
@@ -872,7 +872,7 @@ int XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr)
 * @note	None.
 *
 *****************************************************************************/
-int XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr)
 {
 	u32 RegVal;
 

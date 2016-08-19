@@ -550,7 +550,7 @@ u32 XUsbPsu_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen)
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_SetConfiguration(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl)
+s32 XUsbPsu_SetConfiguration(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl)
 {
 	u8 State;
 	s32 Ret = XST_SUCCESS;
@@ -599,7 +599,7 @@ int XUsbPsu_SetConfiguration(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl)
 *		except control endpoints when this command is received.
 *
 *****************************************************************************/
-int XUsbPsu_SetConfigurationApp(struct XUsbPsu *InstancePtr,
+s32 XUsbPsu_SetConfigurationApp(struct XUsbPsu *InstancePtr,
 								 SetupPacket *SetupData)
 {
 	int RetVal;

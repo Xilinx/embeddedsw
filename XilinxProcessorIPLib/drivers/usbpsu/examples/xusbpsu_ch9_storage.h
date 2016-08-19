@@ -83,8 +83,8 @@ u32 XUsbPsu_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufLen);
 u32 XUsbPsu_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen);
 u32 XUsbPsu_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen);
 u32 XUsbPsu_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index);
-int XUsbPsu_SetConfiguration(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl);
-int XUsbPsu_SetConfigurationApp(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl);
+s32 XUsbPsu_SetConfiguration(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl);
+s32 XUsbPsu_SetConfigurationApp(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl);
 
 #ifdef __cplusplus
 }

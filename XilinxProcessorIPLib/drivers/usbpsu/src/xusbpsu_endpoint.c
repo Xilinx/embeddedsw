@@ -139,7 +139,7 @@ u32 XUsbPsu_EpGetTransferIndex(struct XUsbPsu *InstancePtr, u8 UsbEpNum,
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
+s32 XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 					  u32 Cmd, struct XUsbPsu_EpParams *Params)
 {
 	u32	PhyEpNum;
@@ -191,7 +191,7 @@ int XUsbPsu_SendEpCmd(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 *				   Endpoint 0 (DEPCMD0).
 *
 *****************************************************************************/
-int XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
+s32 XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 {
 	struct XUsbPsu_EpParams *Params;
 	u32	Cmd;
@@ -239,7 +239,7 @@ int XUsbPsu_StartEpConfig(struct XUsbPsu *InstancePtr, u32 UsbEpNum, u8 Dir)
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
+s32 XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 						u16 Size, u8 Type)
 {
 	struct XUsbPsu_EpParams *Params;
@@ -297,7 +297,7 @@ int XUsbPsu_SetEpConfig(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
+s32 XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 {
 	struct XUsbPsu_EpParams *Params;
 	u8 PhyEpNum;
@@ -332,7 +332,7 @@ int XUsbPsu_SetXferResource(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 * @note		None.
 *
 ****************************************************************************/
-int XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
+s32 XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 			u16 Maxsize, u8 Type)
 {
 	struct XUsbPsu_Ep *Ept;
@@ -397,7 +397,7 @@ int XUsbPsu_EpEnable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir,
 * @note		None.
 *
 ****************************************************************************/
-int XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
+s32 XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 {
 	u32	RegVal;
 	u8	PhyEpNum;
@@ -434,7 +434,7 @@ int XUsbPsu_EpDisable(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 * @note		None.
 *
 ****************************************************************************/
-int XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)
+s32 XUsbPsu_EnableControlEp(struct XUsbPsu *InstancePtr, u16 Size)
 {
 	s32 RetVal;
 
@@ -592,7 +592,7 @@ void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr)
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
+s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 						 u8 *BufferPtr, u32 BufferLen)
 {
 	u8	PhyEpNum;
@@ -667,7 +667,7 @@ int XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
+s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 						 u8 *BufferPtr, u32 Length)
 {
 	u8	PhyEpNum;
@@ -855,7 +855,7 @@ void XUsbPsu_SetEpHandler(struct XUsbPsu *InstancePtr, u8 Epnum,
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
+s32 XUsbPsu_IsEpStalled(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 {
 	u8 PhyEpNum;
 	struct XUsbPsu_Ep *Ept;

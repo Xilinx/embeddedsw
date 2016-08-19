@@ -509,13 +509,13 @@ s32 XUsbPsu_SendGenericCmd(struct XUsbPsu *InstancePtr,
 void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed);
 s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr);
 
-int XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
-int XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
-int XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr);
-int XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr);
-int XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr);
-int XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr);
-int XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
+s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
+s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_U1SleepEnable(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_U2SleepEnable(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_U1SleepDisable(struct XUsbPsu *InstancePtr);
+s32 XUsbPsu_U2SleepDisable(struct XUsbPsu *InstancePtr);
 
 /*
  * Functions in xusbpsu_endpoint.c

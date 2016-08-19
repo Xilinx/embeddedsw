@@ -77,7 +77,7 @@
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
+s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 {
 	struct XUsbPsu_EpParams *Params;
 	struct XUsbPsu_Trb	*TrbPtr;
@@ -330,7 +330,7 @@ void XUsbPsu_Ep0XferComplete(struct XUsbPsu *InstancePtr,
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
+s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 				const struct XUsbPsu_Event_Epevt *Event)
 {
 	struct XUsbPsu_Ep  *Ept;
@@ -527,7 +527,7 @@ void XUsbPsu_Ep0Intr(struct XUsbPsu *InstancePtr,
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
+s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 {
 	/* Control IN - EP1 */
 	struct XUsbPsu_EpParams *Params;
@@ -596,7 +596,7 @@ int XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 * @note		None.
 *
 *****************************************************************************/
-int XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
+s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 {
 	struct XUsbPsu_EpParams *Params;
 	struct XUsbPsu_Ep 	*Ept;
@@ -676,11 +676,6 @@ int XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 *
 ******************************************************************************/
 void XUsbSleep(u32 USeconds) {
-#if defined (__arm__) || defined (__aarch64__)
 	(void)usleep(USeconds);
-#endif
-#ifdef __MICROBLAZE__
-	(void)MB_Sleep(USeconds/1000U);
-#endif
 }
 /** @} */
