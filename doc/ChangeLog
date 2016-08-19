@@ -115,6 +115,7 @@ Removed unused variables from xil_printf.c and xplatform_info.c
 Defined ARMA53_32 flag in cortexa53/32bit/xparameters_ps.h.
 Defined ARMR5 flag in cortexr5/xparameters_ps.h.
 Added support for zynq 7000s devices
+Modified xil_io.h to remove __LITTLE_ENDIAN__ flag check for all ARM processors.
 
 sdps_v3_0:
 Added support for mkfs.
