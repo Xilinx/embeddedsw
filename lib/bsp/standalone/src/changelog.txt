@@ -384,6 +384,9 @@
  *                     into common file each and consolidated files are kept at src/arm/common directory.
  *                     GCC source files related to file  operations are consolidated and kept
  *                     at src/arm/common/gcc directory.
+ *                     All io interfacing functions (i.e. All variants of xil_out, xil_in )
+ *                     are made as static inline and implementation is kept in consolidated common/xil_io.h,
+ *                     xil_io.h must be included as a header file to access io interfacing functions.
  *                     Added undefined exception handler for A53 32 bit and R5 processor
  * 6.0 mus   08/11/16  Updated xtime_l.c in R5 BSP to remove implementation of XTime_SetTime API, since
  *                     TTC counter value register is read only.
@@ -393,4 +396,6 @@
  * 6.0 pkp   08/15/16  Added support for secure EL1 to Cortex-A53 64bit mode
  * 6.0 mus   08/18/16  Defined ARMA53_32 flag in cortexa53/32bit/xparameters_ps.h and ARMR5 flag
  *                     in cortexr5/xparameters_ps.h
+ * 6.0 mus   08/18/16  Added support for the the Zynq 7000s devices
+ * 6.0 mus   08/18/16  Removed unused variables from xil_printf.c and xplatform_info.c
  *****************************************************************************************/
