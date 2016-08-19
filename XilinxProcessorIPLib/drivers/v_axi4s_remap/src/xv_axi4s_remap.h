@@ -45,7 +45,7 @@ typedef uint32_t u32;
 */
 typedef struct {
   u16 DeviceId;            /**< Unique ID  of device */
-  u32 BaseAddress;         /**< The base address of the core instance. */
+  UINTPTR BaseAddress;     /**< The base address of the core instance. */
   u16 NumVidComponents;    /**< Number of Video Components */
   u16 MaxWidth;            /**< Maximum columns supported by core instance */
   u16 MaxHeight;           /**< Maximum rows supported by core instance */
@@ -95,8 +95,8 @@ typedef struct {
 int XV_axi4s_remap_Initialize(XV_axi4s_remap *InstancePtr, u16 DeviceId);
 XV_axi4s_remap_Config* XV_axi4s_remap_LookupConfig(u16 DeviceId);
 int XV_axi4s_remap_CfgInitialize(XV_axi4s_remap *InstancePtr,
-		                         XV_axi4s_remap_Config *ConfigPtr,
-		                         u32 EffectiveAddr);
+		                 XV_axi4s_remap_Config *ConfigPtr,
+		                 UINTPTR EffectiveAddr);
 #else
 int XV_axi4s_remap_Initialize(XV_axi4s_remap *InstancePtr, const char* InstanceName);
 int XV_axi4s_remap_Release(XV_axi4s_remap *InstancePtr);

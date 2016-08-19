@@ -4,6 +4,12 @@
 // Copyright (C) 2015 Xilinx Inc. All rights reserved.
 //
 // ==============================================================
+#ifndef XV_AXI4S_REMAP_HW_H_  /* prevent circular inclusions */
+#define XV_AXI4S_REMAP_HW_H_  /* by using protection macros  */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 // CTRL
 // 0x00 : Control signals
@@ -84,3 +90,9 @@
 #define XV_AXI4S_REMAP_CTRL_BITS_INPIXDROP_DATA    8
 #define XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXREPEAT_DATA 0x50
 #define XV_AXI4S_REMAP_CTRL_BITS_OUTPIXREPEAT_DATA 8
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* end of protection macro */
