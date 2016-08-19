@@ -123,6 +123,46 @@ Removed sleep.h file from xsdps.h file
 uartps_v3_2:
 Modified the transmission break bit set logic.
 
+v_axi4s_remap:
+Used UINTPTR type for BaseAddress
+
+v_csc_v2_1:
+Used UINTPTR type for BaseAddress
+
+v_deinterlacer_v6_1:
+Used UINTPTR type for BaseAddress
+
+v_hcresampler_v3_0:
+Used UINTPTR type for BaseAddress
+Added passthrough mode support
+Removed layer1 API's for coefficient peek/poke
+
+v_vcresampler_v3_0:
+Used UINTPTR type for BaseAddress
+Added passthrough mode support
+Removed layer1 API's for coefficient peek/poke
+
+v_hscaler_v3_0:
+Used UINTPTR type for BaseAddress
+Added optional color format conversion handling
+
+v_vscaler_v3_0:
+Used UINTPTR type for BaseAddress
+Added optional color format conversion handling
+
+v_letterbox_v2_1:
+Used UINTPTR type for BaseAddress
+
+v_mix_v2_0:
+Used UINTPTR type for BaseAddress
+Added per pixel alpha support to logo layer
+
+v_procss_v2_1:
+Used UINTPTR type for BaseAddress
+Added optional color format conversion hadnling in scale-only topology
+Added support to maintain user defined PIP background color after pipe reset
+Replace deprecated MB_Sleep with usleep
+
 video_common_v3_1:
 Updated version from 3.0 to 3.1.
 Reordered wait for PLL lock.
