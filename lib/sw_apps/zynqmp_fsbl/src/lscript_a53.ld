@@ -38,10 +38,6 @@
 _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x2000;
 _HEAP_SIZE = DEFINED(_HEAP_SIZE) ? _HEAP_SIZE : 1024;
 
-_EL0_STACK_SIZE = DEFINED(_EL0_STACK_SIZE) ? _EL0_STACK_SIZE : 1024;
-_EL1_STACK_SIZE = DEFINED(_EL1_STACK_SIZE) ? _EL1_STACK_SIZE : 2048;
-_EL2_STACK_SIZE = DEFINED(_EL2_STACK_SIZE) ? _EL2_STACK_SIZE : 1024;
-
 /* Define Memories in the system */
 
 MEMORY
@@ -314,17 +310,8 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    _el3_stack_end = .;
    . += _STACK_SIZE;
    __el3_stack = .;
-   _el2_stack_end = .;
-   . += _EL2_STACK_SIZE;
-   . = ALIGN(64);
    __el2_stack = .;
-   _el1_stack_end = .;
-   . += _EL1_STACK_SIZE;
-   . = ALIGN(64);
    __el1_stack = .;
-   _el0_stack_end = .;
-   . += _EL0_STACK_SIZE;
-   . = ALIGN(64);
    __el0_stack = .;
 } > psu_ocm_ram_0_S_AXI_BASEADDR
 
