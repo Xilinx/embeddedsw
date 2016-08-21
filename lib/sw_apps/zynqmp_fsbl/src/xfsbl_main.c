@@ -54,6 +54,7 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
+#include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -85,6 +86,10 @@ int main(void )
 	u32 EarlyHandoff = FALSE;
 #ifdef XFSBL_PERF
 	XTime tCur = 0;
+#endif
+
+#if EL3 != 1
+#error "FSBL should be generated using only EL3 BSP"
 #endif
 
 	/**
