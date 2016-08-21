@@ -1629,7 +1629,7 @@ u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr,
 	u32 Status=XFSBL_SUCCESS;
 	XFsblPs_PartitionHeader * PartitionHeader;
 	u32 DestinationDevice;
-	u8 *LoadAddress;
+	PTRSIZE LoadAddress;
 
 	/**
 	 * Update the variables
@@ -1640,16 +1640,14 @@ u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr,
 	HashOffset = PartitionHeader->ChecksumWordOffset * 4U;
 	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 
-	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
+	if ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
+			(PartitionHeader->DestinationLoadAddress == XFSBL_DUMMY_PL_ADDR))
 	{
-		if (PartitionHeader->DestinationLoadAddress == XFSBL_DUMMY_PL_ADDR)
-		{
-			LoadAddress = (u8*)XFSBL_DDR_TEMP_ADDRESS;
-		}
+		LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
 	}
 	else
 	{
-		LoadAddress=(u8*)PartitionHeader->DestinationLoadAddress;
+		LoadAddress = PartitionHeader->DestinationLoadAddress;
 	}
 
 	/* Start the SHA engine */

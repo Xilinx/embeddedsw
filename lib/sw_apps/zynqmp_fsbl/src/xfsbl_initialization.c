@@ -1070,9 +1070,9 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 {
 	u32 Status =  XFSBL_SUCCESS;
 	u32 LengthBytes;
-	u32 ATcmAddr;
-	u32 BTcmAddr;
-	u32 EccInitStatus;
+	u32 ATcmAddr = 0;
+	u32 BTcmAddr = 0;
+	u32 EccInitStatus = 0;
 
 	XFsbl_Printf(DEBUG_GENERAL,"Initializing TCM ECC\n\r");
 
