@@ -45,6 +45,7 @@
 #define SPI_FLASH_16MB_BOUN 0x1000000
 
 #define OPCODE_FAST_READ 0x0b
+#define OPCODE_QUAD_READ 0x6B
 #define OPCODE_READ_ID   0x9F
 #define OPCODE_READ_STATUS 0x05
 #define OPCODE_WRITE_ENABLE 0x06
@@ -135,12 +136,15 @@ int spi_flash_probe()
 
 int spi_flash_read(unsigned long offset, unsigned char *rx, int rxlen, char startflag, char endflag)
 {
-	unsigned char cmd[5];
+	unsigned char cmd[8];
 
 	if (rx == 0 || rxlen == 0)
 		return -1;
 
-	cmd[0] = OPCODE_FAST_READ;
+	if (XSP_SPI_MODE == XSP_SPI_QUAD_MODE)
+		cmd[0] = OPCODE_QUAD_READ;
+	else
+		cmd [0] = OPCODE_FAST_READ;
 	cmd[1] = (unsigned char) (offset >> 16);
 	cmd[2] = (unsigned char) (offset >> 8);
 	cmd[3] = (unsigned char) (offset);
@@ -149,8 +153,14 @@ int spi_flash_read(unsigned long offset, unsigned char *rx, int rxlen, char star
 	if (startflag)
 		xspi_xfersetup(SPI_CS);
 
-	if (xspi_xfer(cmd, 5, 0, 0) != 0)
-		return -1;
+	if (XSP_SPI_MODE == XSP_SPI_QUAD_MODE) {
+		if (xspi_xfer(cmd, 8, 0, 0) != 0)
+			return -1;
+	} else {
+		if (xspi_xfer(cmd, 5, 0, 0) != 0)
+			return -1;
+	}
+
 	if (endflag)
 		return xspi_xfer(0, rxlen, rx, 1);
 	else

@@ -122,7 +122,7 @@ void xspi_rx(struct spi_xfer_s *xfer)
 
 int xspi_xfer(unsigned char *cmd, int cmdlen, unsigned char *rx, int endflag)
 {
-	unsigned int sr, cr;
+	unsigned int sr, cr, i;
 	struct spi_xfer_s xfer;
 
 	xfer.mrxlen = 0;
@@ -131,11 +131,11 @@ int xspi_xfer(unsigned char *cmd, int cmdlen, unsigned char *rx, int endflag)
 
 	cr = XIo_In32(XSP_BASEADDR + XSP_CR_OFFSET);
 
-	XIo_Out32((XSP_BASEADDR + XSP_CR_OFFSET),
-				(cr | XSP_CR_TRANS_INHIBIT_MASK));
 	for(xfer.mtxlen = 0; xfer.mtxlen < cmdlen;) {
 		sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
-		while((sr & XSP_SR_TX_FULL_MASK) == 0 && xfer.mtxlen < cmdlen) {
+		i = 0;
+		while((sr & XSP_SR_TX_FULL_MASK) == 0 && xfer.mtxlen < cmdlen &&
+		       i < XSP_SPI_FIFO_DEPTH) {
 			if (cmd != 0) {
 				xspi_tx(&xfer);
 			} else {
@@ -148,46 +148,31 @@ int xspi_xfer(unsigned char *cmd, int cmdlen, unsigned char *rx, int endflag)
 				xfer.mtxlen += 4;
 #endif
 			}
-			sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
-			while((sr & XSP_SR_RX_EMPTY_MASK) == 0) {
-				if (xfer.mrxlen < cmdlen && xfer.rxbuf != 0) {
-					xspi_rx(&xfer);
-				} else {
-					XIo_In32(XSP_BASEADDR + XSP_DRR_OFFSET);
-				}
-				sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
-			}
+			i++;
 		}
+
 		XIo_Out32((XSP_BASEADDR + XSP_CR_OFFSET),
 			(cr & (~XSP_CR_TRANS_INHIBIT_MASK)));
 		do {
 			sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
-			while((sr & XSP_SR_RX_EMPTY_MASK) == 0) {
-				if( xfer.mrxlen < cmdlen && xfer.rxbuf != 0) {
-					xspi_rx(&xfer);
-				} else {
-					XIo_In32(XSP_BASEADDR + XSP_DRR_OFFSET);
-				}
-				sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
-			}
 		} while((sr & XSP_SR_TX_EMPTY_MASK) == 0);
-	}
 
-	XIo_Out32((XSP_BASEADDR + XSP_CR_OFFSET),
-		(cr | XSP_CR_TRANS_INHIBIT_MASK));
-
-	sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
-	while((sr & XSP_SR_RX_EMPTY_MASK) == 0) {
-		if (xfer.mrxlen < cmdlen && xfer.rxbuf != 0) {
-			xspi_rx(&xfer);
-		} else {
-			XIo_In32(XSP_BASEADDR + XSP_DRR_OFFSET);
-		}
 		sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
+		while((sr & XSP_SR_RX_EMPTY_MASK) == 0) {
+			if (xfer.mrxlen < cmdlen && xfer.rxbuf != 0) {
+				xspi_rx(&xfer);
+			} else {
+				XIo_In32(XSP_BASEADDR + XSP_DRR_OFFSET);
+			}
+			sr = XIo_In32(XSP_BASEADDR + XSP_SR_OFFSET);
+		}
 	}
 
-	if (endflag != 0)
-		 XIo_Out32((XSP_BASEADDR + XSP_SSR_OFFSET), 0xffffffff);
+	if (endflag != 0) {
+		XIo_Out32((XSP_BASEADDR + XSP_CR_OFFSET),
+			  (cr | XSP_CR_TRANS_INHIBIT_MASK));
+		XIo_Out32((XSP_BASEADDR + XSP_SSR_OFFSET), 0xffffffff);
+	}
 
 	return xfer.mrxlen;
 }

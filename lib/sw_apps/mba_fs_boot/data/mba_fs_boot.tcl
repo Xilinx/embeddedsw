@@ -116,6 +116,12 @@ proc get_flash_config { fp } {
 		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
                 puts $fp "#define CONFIG_PRIMARY_FLASH_SPI_BASEADDR	 $flash_start";
                 puts $fp "#define CONFIG_PRIMARY_FLASH_SPI";
+		set spi_mode [common::get_property CONFIG.C_SPI_MODE \
+		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
+		set spi_fifo_depth [common::get_property CONFIG.C_FIFO_DEPTH \
+		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
+		puts $fp "#define CONFIG_FLASH_SPI_MODE		$spi_mode";
+		puts $fp "#define CONFIG_FLASH_SPI_FIFO_DEPTH	$spi_fifo_depth";
 	} elseif {[llength [hsi::get_cells -hier -filter {IP_NAME == "axi_emc"}]] > 0} {
 		set flash_start [common::get_property CONFIG.C_S_AXI_MEM0_BASEADDR \
 		[hsi::get_cells -hier -filter {IP_NAME == "axi_emc"}]];
