@@ -545,8 +545,12 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 		return XST_FAILURE;
 	}
 
-	/* To test, change connection mode here till we can get data from HDF */
-	//QspiPsuConfig->ConnectionMode = 2;
+	/*
+	 * In Dual parallel mode ZynqMP GQSPI writes data in bytes(Even bytes in lower flash and
+	 * odd bytes in upper flash), where as LQSPI reads the data in bitwise. So this is causing
+	 * data mismatch while reading. So proceed with single mode irrespective of flash connection.
+	 */
+	QspiPsuConfig->ConnectionMode = XQSPIPSU_CONNECTION_MODE_SINGLE;
 
 	Status = XQspiPsu_CfgInitialize(QspiPsuInstancePtr, QspiPsuConfig,
 					QspiPsuConfig->BaseAddress);
