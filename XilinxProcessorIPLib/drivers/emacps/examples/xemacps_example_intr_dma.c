@@ -113,6 +113,7 @@
 * 3.2  mus  20/02/16.Added support for INTC interrupt controlller.
 *                    Added support to access zynq emacps interrupt from
 *                    microblaze.
+* 3.3  hk   08/22/16 Add support for EL1 non secure mode.
 *
 * </pre>
 *
@@ -125,6 +126,12 @@
 #ifndef __MICROBLAZE__
 #include "xil_mmu.h"
 #endif
+
+#if defined (__aarch64__)
+#include "bspconfig.h"
+#include "xil_smc.h"
+#endif
+
 /*************************** Constant Definitions ***************************/
 
 /*
@@ -184,8 +191,8 @@
 #define CRL_GEM3_REF_CTRL	(XPAR_PSU_CRL_APB_S_AXI_BASEADDR + 0x5C)
 
 #define CRL_GEM_DIV_MASK	0x003F3F00
-#define CRL_GEM_1G_DIV0		0x00000C00
-#define CRL_GEM_1G_DIV1		0x00010000
+#define CRL_GEM_DIV0_SHIFT	8
+#define CRL_GEM_DIV1_SHIFT	16
 
 #define JUMBO_FRAME_SIZE	10240
 #define FRAME_HDR_SIZE		18
@@ -341,6 +348,9 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	LONG Status;
 	XEmacPs_Config *Config;
 	XEmacPs_Bd BdTemplate;
+#if EL1_NONSECURE && defined (__aarch64__)
+	XSmc_OutVar PlatformArg;
+#endif
 
 	/*************************************/
 	/* Setup device for first-time usage */
@@ -366,7 +376,13 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	GemVersion = ((Xil_In32(Config->BaseAddress + 0xFC)) >> 16) & 0xFFF;
 
 	if (GemVersion > 2) {
+#if EL1_NONSECURE && defined (__aarch64__)
+		PlatformArg = Xil_Smc(MMIO_READ_SMC_FID, (u64)(CSU_VERSION),
+					0, 0, 0, 0, 0, 0);
+		Platform = PlatformArg.Arg0 >> 32;
+#else
 		Platform = Xil_In32(CSU_VERSION);
+#endif
 	}
 	/* Enable jumbo frames for zynqmp */
 	if (GemVersion > 2) {
@@ -1285,6 +1301,9 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 {
 	u32 SlcrTxClkCntrl;
 	u32 CrlApbClkCntrl;
+#if EL1_NONSECURE && defined (__aarch64__)
+	XSmc_OutVar RegRead;
+#endif
 
 	if (GemVersion == 2)
 	{
@@ -1366,6 +1385,17 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 #ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM0_INT_ID) {
 			/* GEM0 1G clock configuration*/
+#if EL1_NONSECURE && defined (__aarch64__)
+			CrlApbClkCntrl = (XPAR_PSU_ETHERNET_0_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV0_SHIFT) |
+					(XPAR_PSU_ETHERNET_0_ENET_SLCR_1000MBPS_DIV1 <<	CRL_GEM_DIV1_SHIFT);
+			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(CRL_GEM0_REF_CTRL) | ((u64)(CRL_GEM_DIV_MASK) << 32),
+						(u64)CrlApbClkCntrl, 0, 0, 0, 0, 0);
+
+			do {
+				RegRead = Xil_Smc(MMIO_READ_SMC_FID, (u64)(CRL_GEM0_REF_CTRL),
+						0, 0, 0, 0, 0, 0);
+			} while(((RegRead.Arg0 >> 32) & CRL_GEM_DIV_MASK) != CrlApbClkCntrl);
+#else
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM0_REF_CTRL);
 			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
@@ -1374,12 +1404,24 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			*(volatile unsigned int *)(CRL_GEM0_REF_CTRL) =
 									CrlApbClkCntrl;
 
+#endif
 		}
 #endif
 #ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM1_INT_ID) {
 
 			/* GEM1 1G clock configuration*/
+#if EL1_NONSECURE && defined (__aarch64__)
+			CrlApbClkCntrl = (XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV0_SHIFT) |
+					(XPAR_PSU_ETHERNET_1_ENET_SLCR_1000MBPS_DIV1 <<	CRL_GEM_DIV1_SHIFT);
+			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(CRL_GEM1_REF_CTRL) | ((u64)(CRL_GEM_DIV_MASK) << 32),
+						(u64)CrlApbClkCntrl, 0, 0, 0, 0, 0);
+
+			do {
+				RegRead = Xil_Smc(MMIO_READ_SMC_FID, (u64)(CRL_GEM1_REF_CTRL),
+						0, 0, 0, 0, 0, 0);
+			} while(((RegRead.Arg0 >> 32) & CRL_GEM_DIV_MASK) != CrlApbClkCntrl);
+#else
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM1_REF_CTRL);
 			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
@@ -1387,12 +1429,25 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
 			*(volatile unsigned int *)(CRL_GEM1_REF_CTRL) =
 									CrlApbClkCntrl;
+
+#endif
 		}
 #endif
 #ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM2_INT_ID) {
 
 			/* GEM2 1G clock configuration*/
+#if EL1_NONSECURE && defined (__aarch64__)
+			CrlApbClkCntrl = (XPAR_PSU_ETHERNET_2_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV0_SHIFT) |
+					(XPAR_PSU_ETHERNET_2_ENET_SLCR_1000MBPS_DIV1 <<	CRL_GEM_DIV1_SHIFT);
+			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(CRL_GEM2_REF_CTRL) | ((u64)(CRL_GEM_DIV_MASK) << 32),
+						(u64)CrlApbClkCntrl, 0, 0, 0, 0, 0);
+
+			do {
+				RegRead = Xil_Smc(MMIO_READ_SMC_FID, (u64)(CRL_GEM2_REF_CTRL),
+						0, 0, 0, 0, 0, 0);
+			} while(((RegRead.Arg0 >> 32) & CRL_GEM_DIV_MASK) != CrlApbClkCntrl);
+#else
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL);
 			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
@@ -1401,11 +1456,22 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			*(volatile unsigned int *)(CRL_GEM2_REF_CTRL) =
 									CrlApbClkCntrl;
 
+#endif
 		}
 #endif
 #ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
 		if (EmacPsIntrId == XPS_GEM3_INT_ID) {
 			/* GEM3 1G clock configuration*/
+#if EL1_NONSECURE && defined (__aarch64__)
+			CrlApbClkCntrl = (XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV0 << CRL_GEM_DIV0_SHIFT) |
+					(XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV1 <<	CRL_GEM_DIV1_SHIFT);
+			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(CRL_GEM3_REF_CTRL) | ((u64)(CRL_GEM_DIV_MASK) << 32),
+						(u64)CrlApbClkCntrl, 0, 0, 0, 0, 0);
+			do {
+				RegRead = Xil_Smc(MMIO_READ_SMC_FID, (u64)(CRL_GEM3_REF_CTRL),
+						0, 0, 0, 0, 0, 0);
+			} while(((RegRead.Arg0 >> 32) & CRL_GEM_DIV_MASK) != CrlApbClkCntrl);
+#else
 			CrlApbClkCntrl =
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL);
 			CrlApbClkCntrl &= ~CRL_GEM_DIV_MASK;
@@ -1413,6 +1479,8 @@ void XEmacPsClkSetup(XEmacPs *EmacPsInstancePtr, u16 EmacPsIntrId)
 			CrlApbClkCntrl |= CRL_GEM_1G_DIV0;
 			*(volatile unsigned int *)(CRL_GEM3_REF_CTRL) =
 									CrlApbClkCntrl;
+
+#endif
 		}
 #endif
 	}
