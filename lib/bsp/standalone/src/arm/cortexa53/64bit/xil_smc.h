@@ -65,6 +65,9 @@ extern "C" {
 #define XILSP_INIT_DONE 0xF2000000
 #define	ARITH_SMC_FID	0xF2000001
 
+#define MMIO_WRITE_SMC_FID	0xC2000013
+#define MMIO_READ_SMC_FID	0xC2000014
+
 /**************************** Type Definitions ******************************/
 typedef struct {
 	u64 Arg0;
