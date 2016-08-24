@@ -36,14 +36,6 @@
 #include "lpd_slcr.h"
 
 /*
- * Standard slave states (used for generic slaves with trivial on/off)
- * These slaves have no machanisms for controlling their own state, and their
- * off state is controlled by the power parent state.
- */
-#define PM_STD_SLAVE_STATE_OFF	0U
-#define PM_STD_SLAVE_STATE_ON	1U
-
-/*
  * States of a slave with its own power island (PI), who has dependencies to the
  * power parent (power domain) and have no wake-up capability through GIC Proxy.
  * In this case, those are graphics processors
@@ -72,11 +64,6 @@ static const PmSlaveFsm slaveAonFsm = {
 };
 
 static u32 PmSlaveAonPowers[] = {
-	DEFAULT_POWER_ON,
-};
-
-static u32 PmSlaveStdPowers[] = {
-	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };
 
@@ -675,34 +662,38 @@ PmSlave pmSlaveGpio_g = {
 	.flags = 0U,
 };
 
-/*
- * Standard slave with no private PM properties to be controlled.
- * It can be powered down with the power parent.
- */
-static const u32 pmStdStates[] = {
-	[PM_STD_SLAVE_STATE_OFF] = 0U,
-	[PM_STD_SLAVE_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS |
-				  PM_CAP_CONTEXT | PM_CAP_POWER,
+/* Definitions for typical FPD slave with controllable clock */
+#define PM_FPD_SLAVE_STATE_OFF	0U
+#define PM_FPD_SLAVE_STATE_RUN	1U
+
+static const u32 pmFpdSlaveStates[] = {
+	[PM_FPD_SLAVE_STATE_OFF] = 0U,
+	[PM_FPD_SLAVE_STATE_RUN] = PM_CAP_CONTEXT | PM_CAP_POWER |
+				   PM_CAP_ACCESS | PM_CAP_WAKEUP | PM_CAP_CLOCK,
 };
 
-/* Standard slave transitions (from which to which state Std slave transits) */
-static const PmStateTran pmStdTransitions[] = {
+static const PmStateTran pmFpdSlaveTransitions[] = {
 	{
-		.fromState = PM_STD_SLAVE_STATE_ON,
-		.toState = PM_STD_SLAVE_STATE_OFF,
+		.fromState = PM_FPD_SLAVE_STATE_RUN,
+		.toState = PM_FPD_SLAVE_STATE_OFF,
 		.latency = PM_DEFAULT_LATENCY,
 	}, {
-		.fromState = PM_STD_SLAVE_STATE_OFF,
-		.toState = PM_STD_SLAVE_STATE_ON,
+		.fromState = PM_FPD_SLAVE_STATE_OFF,
+		.toState = PM_FPD_SLAVE_STATE_RUN,
 		.latency = PM_DEFAULT_LATENCY,
 	},
 };
 
-static const PmSlaveFsm slaveStdFsm = {
-	.states = pmStdStates,
-	.statesCnt = ARRAY_SIZE(pmStdStates),
-	.trans = pmStdTransitions,
-	.transCnt = ARRAY_SIZE(pmStdTransitions),
+static u32 pmFpdSlavePowers[] = {
+	DEFAULT_POWER_OFF,
+	DEFAULT_POWER_ON,
+};
+
+static const PmSlaveFsm pmFpdSlaveFsm = {
+	.states = pmFpdSlaveStates,
+	.statesCnt = ARRAY_SIZE(pmFpdSlaveStates),
+	.trans = pmFpdSlaveTransitions,
+	.transCnt = ARRAY_SIZE(pmFpdSlaveTransitions),
 	.enterState = NULL,
 };
 
@@ -716,17 +707,17 @@ PmSlaveSata pmSlaveSata_g = {
 		.node = {
 			.derived = &pmSlaveSata_g,
 			.nodeId = NODE_SATA,
-			.typeId = PM_TYPE_SATA,
+			.typeId = PM_TYPE_SLAVE,
 			.parent = &pmPowerDomainFpd_g,
-			.currState = PM_STD_SLAVE_STATE_ON,
+			.currState = PM_FPD_SLAVE_STATE_RUN,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
-			.powerInfo = PmSlaveStdPowers,
-			.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
+			.powerInfo = pmFpdSlavePowers,
+			.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers),
 		},
 		.reqs = NULL,
 		.wake = &pmSataWake,
-		.slvFsm = &slaveStdFsm,
+		.slvFsm = &pmFpdSlaveFsm,
 		.flags = 0U,
 	},
 };
@@ -808,11 +799,11 @@ PmSlaveGpp pmSlaveGpuPP0_g = {
 			.nodeId = NODE_GPU_PP_0,
 			.typeId = PM_TYPE_SLAVE,
 			.parent = &pmPowerDomainFpd_g,
-			.currState = PM_STD_SLAVE_STATE_ON,
+			.currState = PM_FPD_SLAVE_STATE_RUN,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
-			.powerInfo = PmSlaveStdPowers,
-			.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
+			.powerInfo = pmFpdSlavePowers,
+			.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers),
 		},
 		.reqs = NULL,
 		.wake = NULL,
@@ -830,11 +821,11 @@ PmSlaveGpp pmSlaveGpuPP1_g = {
 			.nodeId = NODE_GPU_PP_1,
 			.typeId = PM_TYPE_SLAVE,
 			.parent = &pmPowerDomainFpd_g,
-			.currState = PM_STD_SLAVE_STATE_ON,
+			.currState = PM_FPD_SLAVE_STATE_RUN,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
-			.powerInfo = PmSlaveStdPowers,
-			.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
+			.powerInfo = pmFpdSlavePowers,
+			.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers),
 		},
 		.reqs = NULL,
 		.wake = NULL,
@@ -851,15 +842,15 @@ PmSlave pmSlaveGpu_g = {
 		.nodeId = NODE_GPU,
 		.typeId = PM_TYPE_SLAVE,
 		.parent = &pmPowerDomainFpd_g,
-		.currState = PM_STD_SLAVE_STATE_ON,
+		.currState = PM_FPD_SLAVE_STATE_RUN,
 		.latencyMarg = MAX_LATENCY,
 		.ops = NULL,
-		.powerInfo = PmSlaveStdPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
+		.powerInfo = pmFpdSlavePowers,
+		.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &slaveStdFsm,
+	.slvFsm = &pmFpdSlaveFsm,
 	.flags = 0U,
 };
 
@@ -869,15 +860,15 @@ PmSlave pmSlavePcie_g = {
 		.nodeId = NODE_PCIE,
 		.typeId = PM_TYPE_SLAVE,
 		.parent = &pmPowerDomainFpd_g,
-		.currState = PM_STD_SLAVE_STATE_ON,
+		.currState = PM_FPD_SLAVE_STATE_RUN,
 		.latencyMarg = MAX_LATENCY,
 		.ops = NULL,
-		.powerInfo = PmSlaveStdPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers),
+		.powerInfo = pmFpdSlavePowers,
+		.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &slaveStdFsm,
+	.slvFsm = &pmFpdSlaveFsm,
 	.flags = 0U,
 };
 
@@ -905,15 +896,15 @@ PmSlave pmSlaveGdma_g = {
 		.nodeId = NODE_GDMA,
 		.typeId = PM_TYPE_SLAVE,
 		.parent = &pmPowerDomainFpd_g,
-		.currState = PM_STD_SLAVE_STATE_ON,
+		.currState = PM_FPD_SLAVE_STATE_RUN,
 		.latencyMarg = MAX_LATENCY,
 		.ops = NULL,
-		.powerInfo = PmSlaveStdPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers)
+		.powerInfo = pmFpdSlavePowers,
+		.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers)
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &slaveStdFsm,
+	.slvFsm = &pmFpdSlaveFsm,
 	.flags = 0U,
 };
 
@@ -923,15 +914,15 @@ PmSlave pmSlaveDP_g = {
 		.nodeId = NODE_DP,
 		.typeId = PM_TYPE_SLAVE,
 		.parent = &pmPowerDomainFpd_g,
-		.currState = PM_STD_SLAVE_STATE_ON,
+		.currState = PM_FPD_SLAVE_STATE_RUN,
 		.latencyMarg = MAX_LATENCY,
 		.ops = NULL,
-		.powerInfo = PmSlaveStdPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers)
+		.powerInfo = pmFpdSlavePowers,
+		.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers)
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &slaveStdFsm,
+	.slvFsm = &pmFpdSlaveFsm,
 	.flags = 0U,
 };
 
@@ -941,15 +932,15 @@ PmSlave pmSlaveAFI_g = {
 		.nodeId = NODE_AFI,
 		.typeId = PM_TYPE_SLAVE,
 		.parent = NULL,
-		.currState = PM_STD_SLAVE_STATE_OFF,
+		.currState = PM_FPD_SLAVE_STATE_RUN,
 		.latencyMarg = MAX_LATENCY,
 		.ops = NULL,
-		.powerInfo = PmSlaveStdPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmSlaveStdPowers)
+		.powerInfo = pmFpdSlavePowers,
+		.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers)
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &slaveStdFsm,
+	.slvFsm = &pmFpdSlaveFsm,
 	.flags = 0U,
 };
 
