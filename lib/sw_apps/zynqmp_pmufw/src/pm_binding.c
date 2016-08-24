@@ -42,6 +42,7 @@
 #include "pm_notifier.h"
 #include "pm_power.h"
 #include "pm_gic_proxy.h"
+#include "pm_clock.h"
 
 /*
  * Macro for all wake events in GPI1 that PM handles.
@@ -88,6 +89,7 @@ void XPfw_PmInit(void)
 	DISABLE_WFI(PMU_LOCAL_GPI2_ENABLE_ALL_PWRDN_REQ_MASK);
 
 	PmRequirementInit();
+	PmClockInitList();
 
 	val = XPfw_Read32(PM_INIT_SYNC_REGISTER);
 	if (PM_INIT_COMPLETED_KEY == val) {

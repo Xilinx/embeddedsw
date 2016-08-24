@@ -85,6 +85,7 @@ typedef struct PmPllContext {
  * @toCtrlAddr  Absolute address of cross-domain control register
  * @statusAddr  Address of the PLL's status register
  * @lockMask    Mask of the lock in status register
+ * @useCount    The number of clocks currently driven by this PLL
  */
 typedef struct PmSlavePll {
 	PmSlave slv;
@@ -93,6 +94,7 @@ typedef struct PmSlavePll {
 	const u32 toCtrlAddr;
 	const u32 statusAddr;
 	const u32 lockMask;
+	u32 useCount;
 } PmSlavePll;
 
 /*********************************************************************
@@ -109,5 +111,9 @@ extern PmSlavePll pmSlaveIOpll_g;
  ********************************************************************/
 void PmPllSuspendAll(const PmPower* const powerParent);
 void PmPllResumeAll(const PmPower* const powerParent);
+
+int PmPllRequest(PmSlavePll* const pll);
+void PmPllRelease(PmSlavePll* const pll);
+void PmPllClearUseCount(void);
 
 #endif

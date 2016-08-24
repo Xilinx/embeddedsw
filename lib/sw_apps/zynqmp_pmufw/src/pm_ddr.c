@@ -896,6 +896,7 @@ PmSlave pmSlaveDdr_g = {
 		.nodeId = NODE_DDR,
 		.typeId = PM_TYPE_DDR,
 		.parent = &pmPowerDomainFpd_g,
+		.clocks = NULL,
 		.currState = PM_DDR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = NULL,

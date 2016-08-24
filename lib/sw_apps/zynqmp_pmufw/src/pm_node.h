@@ -46,6 +46,7 @@ typedef u8 PmNodeTypeId;
 
 /* Forward declaration */
 typedef struct PmPower PmPower;
+typedef struct PmClockHandle PmClockHandle;
 typedef struct PmNode PmNode;
 
 /* Function pointer for wake/sleep transition functions */
@@ -97,6 +98,7 @@ typedef struct PmNodeOps {
  * PmNode - Structure common for all entities that have node id
  * @derived     Pointer to a derived node type structure
  * @parent      Pointer to power parent node
+ * @clocks      Pointer to the list of clocks that the node uses
  * @ops         Pointer to the operations structure
  * @latencyMarg Latency margin: lowest latency requirement - powerup latency
  * @nodeId      Node id defined in pm_defs.h
@@ -111,6 +113,7 @@ typedef struct PmNodeOps {
 typedef struct PmNode {
 	void* const derived;
 	PmPower* const parent;
+	PmClockHandle* clocks;
 	const PmNodeOps* const ops;
 	const u32 *const powerInfo;
 	const u32 powerInfoCnt;

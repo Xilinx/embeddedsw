@@ -45,6 +45,7 @@
 #include "pm_mmio_access.h"
 #include "pm_system.h"
 #include "xilfpga_pcap.h"
+#include "pm_clock.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -898,6 +899,8 @@ done:
 void PmInit(const PmMaster* const master)
 {
 	PmDbg("\n");
+
+	PmClockInitData();
 
 	if (NULL != master) {
 		IPI_RESPONSE1(master->ipiMask, XST_SUCCESS);

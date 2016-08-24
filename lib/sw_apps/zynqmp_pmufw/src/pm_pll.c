@@ -241,6 +241,7 @@ PmSlavePll pmSlaveApll_g = {
 			.nodeId = NODE_APLL,
 			.typeId = PM_TYPE_PLL,
 			.parent = &pmPowerDomainFpd_g,
+			.clocks = NULL,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
 			.powerInfo = PmStdPllPowers,
@@ -258,6 +259,7 @@ PmSlavePll pmSlaveApll_g = {
 	.toCtrlAddr = CRF_APB_APLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_APLL_LOCK_MASK,
+	.useCount = 0U,
 };
 
 PmSlavePll pmSlaveVpll_g = {
@@ -267,6 +269,7 @@ PmSlavePll pmSlaveVpll_g = {
 			.nodeId = NODE_VPLL,
 			.typeId = PM_TYPE_PLL,
 			.parent = &pmPowerDomainFpd_g,
+			.clocks = NULL,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
 			.powerInfo = PmStdPllPowers,
@@ -284,6 +287,7 @@ PmSlavePll pmSlaveVpll_g = {
 	.toCtrlAddr = CRF_APB_VPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_VPLL_LOCK_MASK,
+	.useCount = 0U,
 };
 
 PmSlavePll pmSlaveDpll_g = {
@@ -293,6 +297,7 @@ PmSlavePll pmSlaveDpll_g = {
 			.nodeId = NODE_DPLL,
 			.typeId = PM_TYPE_PLL,
 			.parent = &pmPowerDomainFpd_g,
+			.clocks = NULL,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
 			.powerInfo = PmStdPllPowers,
@@ -310,6 +315,7 @@ PmSlavePll pmSlaveDpll_g = {
 	.toCtrlAddr = CRF_APB_DPLL_TO_LPD_CTRL,
 	.statusAddr = CRF_APB_PLL_STATUS,
 	.lockMask = CRF_APB_PLL_STATUS_DPLL_LOCK_MASK,
+	.useCount = 0U,
 };
 
 PmSlavePll pmSlaveRpll_g = {
@@ -319,6 +325,7 @@ PmSlavePll pmSlaveRpll_g = {
 			.nodeId = NODE_RPLL,
 			.typeId = PM_TYPE_PLL,
 			.parent = NULL,
+			.clocks = NULL,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
 			.powerInfo = PmStdPllPowers,
@@ -336,6 +343,7 @@ PmSlavePll pmSlaveRpll_g = {
 	.toCtrlAddr = CRL_APB_RPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
 	.lockMask = CRL_APB_PLL_STATUS_RPLL_LOCK_MASK,
+	.useCount = 0U,
 };
 
 PmSlavePll pmSlaveIOpll_g = {
@@ -345,6 +353,7 @@ PmSlavePll pmSlaveIOpll_g = {
 			.nodeId = NODE_IOPLL,
 			.typeId = PM_TYPE_PLL,
 			.parent = NULL,
+			.clocks = NULL,
 			.latencyMarg = MAX_LATENCY,
 			.ops = NULL,
 			.powerInfo = PmStdPllPowers,
@@ -362,6 +371,7 @@ PmSlavePll pmSlaveIOpll_g = {
 	.toCtrlAddr = CRL_APB_IOPLL_TO_FPD_CTRL,
 	.statusAddr = CRL_APB_PLL_STATUS,
 	.lockMask = CRL_APB_PLL_STATUS_IOPLL_LOCK_MASK,
+	.useCount = 0U,
 };
 
 static PmSlavePll* const pmPlls[] = {
@@ -371,6 +381,15 @@ static PmSlavePll* const pmPlls[] = {
 	&pmSlaveRpll_g,
 	&pmSlaveIOpll_g,
 };
+
+void PmPllClearUseCount(void)
+{
+	u32 i = 0U;
+
+	for (i = 0U; i < ARRAY_SIZE(pmPlls); i++) {
+		pmPlls[i]->useCount = 0U;
+	}
+}
 
 /**
  * PmPllSuspendAll() - Suspend all PLLs whose power parent is given as argument
@@ -399,5 +418,42 @@ void PmPllResumeAll(const PmPower* const powerParent)
 		if (powerParent == pmPlls[i]->slv.node.parent) {
 			PmPllResume(pmPlls[i]);
 		}
+	}
+}
+
+/**
+ * PmPllRequest() - Request the PLL
+ * @pll		The requested PLL
+ * @return	XST_SUCCESS if the request is processed ok, else XST_FAILURE
+ *
+ * @note	If the requested PLL is not locked and if it was never locked
+ *		before, the PM framework will not lock it because the frequency
+ *		related aspects are not handled by the PM framework. The PM
+ *		framework only saves/restores the context of PLLs.
+ */
+int PmPllRequest(PmSlavePll* const pll)
+{
+	int status = XST_SUCCESS;
+
+	/* If the PLL is suspended it needs to be resumed first */
+	if (true == pll->context.saved) {
+		status = PmPllResume(pll);
+	}
+
+	pll->useCount++;
+
+	return status;
+}
+
+/**
+ * PmPllRequest() - Release the PLL (if PLL becomes unused, it will be reset)
+ * @pll		The released PLL
+ */
+void PmPllRelease(PmSlavePll* const pll)
+{
+	pll->useCount--;
+
+	if (0U == pll->useCount) {
+		PmPllSuspend(pll);
 	}
 }
