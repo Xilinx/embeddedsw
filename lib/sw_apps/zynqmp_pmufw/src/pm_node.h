@@ -129,4 +129,6 @@ void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
 u32 PmNodeGetPowerConsumption(PmNode* const node, const PmStateId state);
 u32 PmNodeGetWakeLatency(PmNode* const node);
 
+bool PmNodeDependsOnClock(const PmNode* const node);
+
 #endif /* PM_NODE_H_ */
