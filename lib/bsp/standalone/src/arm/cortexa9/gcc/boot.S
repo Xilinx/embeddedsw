@@ -65,6 +65,8 @@
 * 6.0   mus     08/04/16 Added code to detect zynq-7000 base silicon configuration and
 *                        attempt to enable dual core behavior on single cpu zynq-7000s
 *                        devices is prevented from corrupting system behavior.
+* 6.0   mus     08/24/16 Check CPU core before putting cpu1 to reset for single core
+*                        zynq-7000s devices
 *
 * </pre>
 *
@@ -147,6 +149,8 @@
 
 _prestart:
 _boot:
+
+#if XPAR_CPU_ID==0
         ldr r0,=EFUSEStaus
         ldr r1,[r0]      /*Read eFuse to detect zynq silicon configuration*/
         ands r1,r1,#0x80  /*Check wheter cpu1 is disabled through eFuse*/
@@ -166,6 +170,15 @@ _boot:
 	ldr	r1,=SLCRlockKey	        	/* set lock key */
 	str	r1, [r0]	        	/* lock SLCR */
 
+#elif XPAR_CPU_ID==1
+        ldr r0,=EFUSEStaus
+        ldr r1,[r0]      /*Read eFuse to detect zynq silicon configuration*/
+        ands r1,r1,#0x80  /*Check wheter cpu1 is disabled through eFuse*/
+	beq OKToRun
+	EndlessLoop1:
+	wfe
+	b	EndlessLoop1
+#endif
 
 OKToRun:
 	mrc     p15, 0, r0, c0, c0, 0		/* Get the revision */
