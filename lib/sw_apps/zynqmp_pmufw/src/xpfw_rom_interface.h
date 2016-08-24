@@ -330,7 +330,8 @@ static inline u32 XpbrACPU0SleepHandler(void)
 
 static inline u32 XpbrACPU0WakeHandler(void)
 {
-	return IS_IPDISABLED(EFUSE_IPDISABLE_APU0_DIS_MASK) ? (u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_ACPU0WAKE]();
+	return IS_IPDISABLED(EFUSE_IPDISABLE_APU0_DIS_MASK) ?
+		(u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_ACPU0WAKE]();
 }
 
 static inline u32 XpbrACPU1SleepHandler(void)
@@ -341,7 +342,8 @@ static inline u32 XpbrACPU1SleepHandler(void)
 
 static inline u32 XpbrACPU1WakeHandler(void)
 {
-	return IS_IPDISABLED(EFUSE_IPDISABLE_APU1_DIS_MASK) ? (u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_ACPU1WAKE]();
+	return IS_IPDISABLED(EFUSE_IPDISABLE_APU1_DIS_MASK) ?
+		(u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_ACPU1WAKE]();
 }
 
 static inline u32 XpbrACPU2SleepHandler(void)
@@ -351,7 +353,8 @@ static inline u32 XpbrACPU2SleepHandler(void)
 
 static inline u32 XpbrACPU2WakeHandler(void)
 {
-	return IS_IPDISABLED(EFUSE_IPDISABLE_APU2_DIS_MASK) ? (u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_ACPU2WAKE]();
+	return IS_IPDISABLED(EFUSE_IPDISABLE_APU2_DIS_MASK) ?
+		(u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_ACPU2WAKE]();
 }
 
 static inline u32 XpbrACPU3SleepHandler(void)
@@ -361,7 +364,8 @@ static inline u32 XpbrACPU3SleepHandler(void)
 
 static inline u32 XpbrACPU3WakeHandler(void)
 {
-	return IS_IPDISABLED(EFUSE_IPDISABLE_APU3_DIS_MASK) ? (u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_ACPU3WAKE]();
+	return IS_IPDISABLED(EFUSE_IPDISABLE_APU3_DIS_MASK) ?
+		(u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_ACPU3WAKE]();
 }
 
 static inline u32 XpbrRstFpdHandler(void)
@@ -521,12 +525,14 @@ static inline u32 XpbrPwrDnPp1Handler(void)
 
 static inline u32 XpbrPwrUpPp0Handler(void)
 {
-	return IS_IPDISABLED(EFUSE_IPDISABLE_GPU_DIS_MASK) ? (u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPP0]();
+	return IS_IPDISABLED(EFUSE_IPDISABLE_GPU_DIS_MASK) ?
+		(u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPP0]();
 }
 
 static inline u32 XpbrPwrUpPp1Handler(void)
 {
-	return IS_IPDISABLED(EFUSE_IPDISABLE_GPU_DIS_MASK) ? (u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPP1]();
+	return IS_IPDISABLED(EFUSE_IPDISABLE_GPU_DIS_MASK) ?
+		(u32)XST_FAILURE : XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPP1]();
 }
 
 static inline u32 XpbrRstACPU0Handler(void)
