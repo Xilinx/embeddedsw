@@ -50,7 +50,8 @@
 /* USB states */
 static const u32 pmUsbStates[PM_USB_STATE_MAX] = {
 	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP,
-	[PM_USB_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
+	[PM_USB_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT |
+			    PM_CAP_CLOCK,
 };
 
 /* USB transition table (from which to which state USB can transit) */
