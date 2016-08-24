@@ -35,6 +35,7 @@
 #include "pmu_iomodule.h"
 
 #define PM_MMIO_IOU_SLCR_BASE  0xFF180000
+#define PM_MMIO_CSU_BASE       0xFFCA0000
 
 /**
  * PmAccessRegion - Structure containing information about memory access
@@ -102,6 +103,13 @@ static const PmAccessRegion pmAccessTable[] = {
 	{
 		.startAddr = PM_MMIO_IOU_SLCR_BASE + 0x300,
 		.endAddr = PM_MMIO_IOU_SLCR_BASE + 0x524,
+		.access = IPI_PMU_0_IER_APU_MASK,
+	},
+
+	/* CSU Device IDCODE and Version Registers */
+	{
+		.startAddr = PM_MMIO_CSU_BASE + 0x40,
+		.endAddr = PM_MMIO_CSU_BASE + 0x44,
 		.access = IPI_PMU_0_IER_APU_MASK,
 	},
 };
