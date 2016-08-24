@@ -59,17 +59,12 @@ proc swapp_is_supported_sw {} {
     set librarylist_1 [hsi::get_libs -filter "NAME==openamp"]
     set librarylist_2 [hsi::get_libs -filter "NAME==libmetal"]
 
-
-    if { [llength $librarylist_1] == 0 && [llength $librarylist_2] == 0 } {
-        error "This application requires openamp and libmetal libraries in the Board Support Package."
-    } elseif { [llength $librarylist_1] == 0 } {
-        error "This application requires openamp library in the Board Support Package."
-    } elseif { [llength $librarylist_1] > 1} {
-        error "Multiple openamp libraries present in the Board Support Package."
-    } elseif { [llength $librarylist_2] == 0 } {
-        error "This application requires the libmetal library in the Board Support Package."
-    } elseif { [llength $librarylist_2] > 1} {
-        error "Multiple metal libraries present in the Board Support Package."
+    if { ([llength $librarylist_1] == 0) || ([llength $librarylist_2] == 0) } {
+        error "This application requires OpenAMP and Libmetal libraries in the Board Support Package."
+    } elseif { [llength $librarylist_1] > 1 } {
+        error "Multiple OpenAMP  libraries present in the Board Support Package."
+    } elseif { [llength $librarylist_2] > 1 } {
+        error "Multiple Libmetal libraries present in the Board Support Package."
     }
 }
 
