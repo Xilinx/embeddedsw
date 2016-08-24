@@ -252,21 +252,15 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 			/* Execute transition action of slave's FSM */
 			status = slave->slvFsm->enterState(slave, state);
 		} else {
-			/*
-			 * Slave's FSM has no actions, because it has no private
-			 * properties to be controlled here.
-			 */
-			slave->node.currState = state;
 			status = XST_SUCCESS;
 		}
 		break;
 	}
 
-	if ((oldState == slave->node.currState) || (XST_SUCCESS != status)) {
-		goto done;
-	}
-
 done:
+	if ((oldState != state) && (XST_SUCCESS == status)) {
+		PmNodeUpdateCurrState(&slave->node, state);
+	}
 #ifdef DEBUG_PM
 	if (XST_SUCCESS == status) {
 		PmDbg("%s %d->%d\n", PmStrNode(slave->node.nodeId), oldState,

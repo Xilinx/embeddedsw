@@ -796,9 +796,6 @@ static int PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		PmDbg("ERROR: Unknown state #%d\n", slave->node.currState);
 		break;
 	}
-	if (XST_SUCCESS == status) {
-		PmNodeUpdateCurrState(&slave->node, nextState);
-	}
 
 	return status;
 }

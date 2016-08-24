@@ -217,10 +217,6 @@ static int PmPllFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	}
 
-	if (XST_SUCCESS == status) {
-		PmNodeUpdateCurrState(&slave->node, nextState);
-	}
-
 	return status;
 }
 

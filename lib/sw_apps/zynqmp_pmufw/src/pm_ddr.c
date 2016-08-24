@@ -869,9 +869,6 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	}
 
 done:
-	if (XST_SUCCESS == status) {
-		PmNodeUpdateCurrState(&slave->node, nextState);
-	}
 	return status;
 }
 
