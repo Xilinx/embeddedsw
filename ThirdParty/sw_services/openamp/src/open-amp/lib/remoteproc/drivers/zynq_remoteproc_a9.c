@@ -111,7 +111,7 @@ int _ipi_handler(int vect_id, void *data)
 	struct proc_intr *intr_info;
 
 	intr_info = &(vring_hw->intr_info);
-	atomic_flag_clear(&(intr_info->data));
+	atomic_flag_clear((atomic_uint *)&(intr_info->data));
 	return 0;
 }
 
@@ -151,7 +151,7 @@ static int _poll(struct hil_proc *proc, int nonblock)
 		vring = &proc->vdev.vring_info[i];
 		intr_info = &(vring->intr_info);
 		flags = metal_irq_save_disable();
-		if (!(atomic_flag_test_and_set(&intr_info->data))) {
+		if (!(atomic_flag_test_and_set((atomic_uint *)&(intr_info->data)))) {
 			metal_irq_restore_enable(flags);
 			virtqueue_notification(vring->vq);
 			kicked = 1;
@@ -268,7 +268,7 @@ static struct hil_proc * _initialize(void *pdata, int cpu_id)
 
 	for (i = 0; i < 2; i++) {
 		intr_info = &(proc->vdev.vring_info[i].intr_info);
-		atomic_store(&(intr_info->data), 1);
+		atomic_store((atomic_uint *)&(intr_info->data), 1);
 	}
 
 	return proc;
