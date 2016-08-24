@@ -67,6 +67,7 @@ extern "C" {
 #define BLOCK_SIZE_2MB 0x200000U
 #define BLOCK_SIZE_1GB 0x40000000U
 #define ADDRESS_LIMIT_4GB 0x100000000UL
+#define ARRAY_SIZE(a)	(sizeof(a) / sizeof((a)[0]))
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -78,6 +79,7 @@ void *XFsbl_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len);
 int XFsbl_MemCmp(const void *Str1Ptr, const void *Str2Ptr, u32 Count);
 char *XFsbl_Strcpy(char *DestPtr, const char *SrcPtr);
 char * XFsbl_Strcat(char* Str1Ptr, const char* Str2Ptr);
+int XFsbl_Strcmp(const char* Str1Ptr, const char* Str2Ptr);
 void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 		u32 MultibootReg, u32 DrvNum);
 u32 XFsbl_GetDrvNumSD(u32 DeviceFlags);
@@ -85,6 +87,10 @@ u32 XFsbl_Htonl(u32 Value1);
 u32 XFsbl_PowerUpIsland(u32 PwrIslandMask);
 u32 XFsbl_IsolationRestore(u32 IsolationMask);
 void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib);
+char *XFsbl_GetSiliconIdName(void);
+char *XFsbl_GetProcEng(void);
+u32 XFsbl_CheckSupportedCpu(u32 CpuId);
+
 #ifndef ARMA53_64
 void XFsbl_RegisterHandlers(void);
 #endif

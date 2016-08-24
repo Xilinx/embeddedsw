@@ -830,6 +830,17 @@ u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff
 			 */
 			if (CpuId != FsblInstancePtr->ProcessorID)
 			{
+
+				/* Check if handoff CPU is supported */
+				Status = XFsbl_CheckSupportedCpu(CpuId);
+				if (XFSBL_SUCCESS != Status)
+				{
+					XFsbl_Printf(DEBUG_GENERAL,
+							"XFSBL_ERROR_UNAVAILABLE_CPU\n\r");
+					Status = XFSBL_ERROR_UNAVAILABLE_CPU;
+					goto END;
+				}
+
 				/**
 				 * Check for power status of the cpu
 				 * Update the IVT

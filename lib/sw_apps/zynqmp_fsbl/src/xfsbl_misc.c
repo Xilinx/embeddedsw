@@ -61,6 +61,10 @@
 #define XFSBL_NUM_DIGITS_IN_FILE_NAME 4
 
 /**************************** Type Definitions *******************************/
+typedef struct {
+	u32 Id;
+	char *Name;
+} XFsblPs_ZynqmpDevices;
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #if 0
@@ -101,6 +105,21 @@ extern INTPTR MMUTableL2;
 extern u32 MMUTable;
 #endif
 #endif
+
+/* Lookup table for Device-SVD Id and DeviceId Name */
+XFsblPs_ZynqmpDevices ZynqmpDevices[] = {
+	{0x10, "3",},
+	{0x11, "2",},
+	{0x20, "5",},
+	{0x21, "4",},
+	{0x30, "7",},
+	{0x38, "9",},
+	{0x39, "6",},
+	{0x40, "11",},
+	{0x50, "15",},
+	{0x58, "19",},
+	{0x59, "17",},
+};
 
 /****************************************************************************/
 /**
@@ -191,6 +210,43 @@ char * XFsbl_Strcat(char* Str1Ptr, const char* Str2Ptr)
 
 	*Str1Ptr = '\0';
 	return --Str1Ptr;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to compare two strings
+ *
+ *
+ * @param	Str1Ptr First string to be compared
+ *
+ * @param	Str2Ptr Second string to be compared
+ *
+ * @return	0 if both strings are same, -1/1 if first non matching character has
+ * 				lower/greater value in Str1Ptr
+ *
+ ******************************************************************************/
+int XFsbl_Strcmp(const char* Str1Ptr, const char* Str2Ptr)
+{
+	int retVal;
+
+	while (*Str1Ptr == *Str2Ptr) {
+		if (*Str1Ptr == '\0') {
+			retVal = 0;
+			goto END;
+		}
+		Str1Ptr++;
+		Str2Ptr++;
+	}
+
+	if( *(unsigned char *)Str1Ptr < *(unsigned char *)Str1Ptr) {
+		retVal = -1;
+	}
+	else {
+		retVal = 1;
+	}
+
+END:
+	return retVal;
 }
 
 
@@ -681,3 +737,82 @@ void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib)
 #endif
 }
 #endif
+
+/*****************************************************************************
+*
+* This function looksup for the Device-SVD Id and returns corresponding
+* DeviceId Name
+*
+* @param	none
+*
+* @return	string containing Device Id Name or "UNKN" if none found
+*
+******************************************************************************/
+char *XFsbl_GetSiliconIdName(void)
+{
+	u32 DevSvdId;
+	u32 Index;
+
+	DevSvdId = XFsbl_In32(CSU_IDCODE);
+
+	DevSvdId &= CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK;
+	DevSvdId >>= CSU_IDCODE_SVD_SHIFT;
+
+	for (Index = 0; Index < ARRAY_SIZE(ZynqmpDevices); Index++) {
+		if (ZynqmpDevices[Index].Id == DevSvdId) {
+			return ZynqmpDevices[Index].Name;
+		}
+	}
+
+	return "UNKN";
+}
+
+/*****************************************************************************
+*
+* This function determines and returns the Processor System Id and Engine Type
+* Currently it checks between CG/EG and returns accordingly.
+*
+* @param	none
+*
+* @return	"CG" or "EG" based on IPDISABLE register
+*
+******************************************************************************/
+char *XFsbl_GetProcEng(void)
+{
+
+	if ((XFsbl_In32(EFUSE_IPDISABLE) & EFUSE_IPDISABLE_CG_MASK) ==
+			EFUSE_IPDISABLE_CG_MASK) {
+		return "CG";
+	}
+	else {
+		return "EG";
+	}
+	/* Add more cases like "EV" */
+}
+
+/*****************************************************************************
+*
+* This function checks if a given CPU is supported by this variant of Silicon
+* Currently it checks if it is CG part and disallows handoff to A53_2/3 cores
+*
+* @param	none
+*
+* @return	XFSBL_SUCCESS if supported CPU, XFSBL_FAILURE if not.
+*
+******************************************************************************/
+u32 XFsbl_CheckSupportedCpu(u32 CpuId)
+{
+	u32 Status = XFSBL_SUCCESS;
+
+	if ((0 == XFsbl_Strcmp(XFsbl_GetProcEng(), "CG")) &&
+			((CpuId == XIH_PH_ATTRB_DEST_CPU_A53_2) ||
+			(CpuId == XIH_PH_ATTRB_DEST_CPU_A53_3))){
+		Status = XFSBL_FAILURE;
+		goto END;
+	}
+
+	/* Add code to check for support of other CPUs/cores in future */
+
+END:
+	return Status;
+}

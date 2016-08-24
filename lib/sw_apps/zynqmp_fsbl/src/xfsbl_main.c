@@ -354,7 +354,8 @@ void XFsbl_PrintFsblBanner(void )
 		XFsbl_Printf(DEBUG_GENERAL, "Platform: REMUS, ");
 	} else  if (PlatInfo == XPLAT_ZYNQ_ULTRA_MP_SILICON)
 	{
-		XFsbl_Printf(DEBUG_GENERAL, "Platform: Silicon, ");
+		XFsbl_Printf(DEBUG_GENERAL, "Platform: Silicon (%d.0), ",
+				XGetPSVersion_Info()+1U);
 	} else {
 		XFsbl_Printf(DEBUG_GENERAL, "Platform Not identified \r\n");
 	}

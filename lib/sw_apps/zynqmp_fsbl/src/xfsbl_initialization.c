@@ -64,6 +64,7 @@
 
 /************************** Constant Definitions *****************************/
 #define XFSBL_R5_VECTOR_VALUE 	0xEAFEFFFEU
+#define PART_NAME_LEN_MAX		20U
 
 /**************************** Type Definitions *******************************/
 
@@ -286,6 +287,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	PTRSIZE ClusterId=0U;
 	u32 RegValue;
 	u32 Index=0U;
+	char DevName[PART_NAME_LEN_MAX];
 
 	/**
 	 * Read the cluster ID and Update the Processor ID
@@ -324,11 +326,11 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				XIH_PH_ATTRB_DEST_CPU_A53_0;
 #ifdef __aarch64__
 		/* Running on A53 64-bit */
-		XFsbl_Printf(DEBUG_GENERAL,"(64-bit) Processor \n\r");
+		XFsbl_Printf(DEBUG_GENERAL,"(64-bit) Processor");
 		FsblInstancePtr->A53ExecState = XIH_PH_ATTRB_A53_EXEC_ST_AA64;
 #else
 		/* Running on A53 32-bit */
-		XFsbl_Printf(DEBUG_GENERAL,"(32-bit) Processor \n\r");
+		XFsbl_Printf(DEBUG_GENERAL,"(32-bit) Processor");
 		FsblInstancePtr->A53ExecState = XIH_PH_ATTRB_A53_EXEC_ST_AA32;
 #endif
 
@@ -339,12 +341,12 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		RegValue = XFsbl_In32(RPU_RPU_GLBL_CNTL);
 		if ((RegValue & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK) == 0U) {
 			XFsbl_Printf(DEBUG_GENERAL,
-				"Running on R5 Processor in Lockstep \n\r");
+				"Running on R5 Processor in Lockstep");
 			FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_R5_L;
 		} else {
 			XFsbl_Printf(DEBUG_GENERAL,
-				"Running on R5-0 Processor \n\r");
+				"Running on R5-0 Processor");
 			FsblInstancePtr->ProcessorID =
 				XIH_PH_ATTRB_DEST_CPU_R5_0;
 		}
@@ -363,6 +365,12 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				"XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID\n\r");
 		goto END;
 	}
+
+	/* Build Device name and print it */
+	XFsbl_Strcpy(DevName, "XCZU");
+	XFsbl_Strcat(DevName, XFsbl_GetSiliconIdName());
+	XFsbl_Strcat(DevName, XFsbl_GetProcEng());
+	XFsbl_Printf(DEBUG_GENERAL, ", Device Name: %s\n\r", DevName);
 
 	/**
 	 * Register the exception handlers
