@@ -1,7 +1,8 @@
 INCLUDEDIR=../../../include
 LIBDIR=../../../lib
-.PHONY: libs
-.PHONY: include
+
+.PHONY: libs include clean
+
 include:
 	cp -R -f ../build_libmetal/lib/metal $(INCLUDEDIR)/.
 libs:
