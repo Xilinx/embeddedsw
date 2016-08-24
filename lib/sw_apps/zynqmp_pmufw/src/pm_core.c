@@ -575,6 +575,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 
 do_write:
 	XPfw_Write32(address, value);
+	PmClockSnoop(address, mask, value);
 
 done:
 	IPI_RESPONSE1(master->ipiMask, status);

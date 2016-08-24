@@ -1163,3 +1163,51 @@ void PmClockRelease(const PmNode* const node)
 		ch = ch->nextClock;
 	}
 }
+
+/**
+ * PmClockSnoop() - Snoop mmio write access for a possible MUX select change
+ * @addr	Address that needs to be snooped
+ * @mask	Mask provided with the mmio write access
+ * @val		Value that will be written into the register
+ */
+void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
+{
+	u32 i;
+
+	/* Check if the mask even covers the multiplexer bits */
+	if (PM_CLOCK_MUX_SELECT_MASK != (mask & PM_CLOCK_MUX_SELECT_MASK)) {
+		goto done;
+	}
+
+	/* If address is not in CRF or CRL modules ignore the access */
+	if ((CRL_APB_BASEADDR != (addr & CRL_APB_BASEADDR)) &&
+	    (CRF_APB_BASEADDR != (addr & CRF_APB_BASEADDR))) {
+		goto done;
+	}
+
+	/* Find if a clock multiplexer is changed */
+	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
+		PmClock* const clk = pmClocks[i];
+		PmSlavePll* const prevPll = clk->pll;
+		u32 clkUseCnt = PmClockGetUseCount(clk);
+
+		if (addr != clk->ctrlAddr) {
+			continue;
+		}
+
+		clk->pll = PmClockGetParent(clk, val & PM_CLOCK_MUX_SELECT_MASK);
+
+		if (0U != clkUseCnt) {
+			/* Release previously used PLL */
+			PmPllRelease(prevPll);
+		}
+
+		/* If parent is not a known pll it's the oscillator clock */
+		if (NULL != clk->pll) {
+			PmPllRequest(clk->pll);
+		}
+	}
+
+done:
+	return;
+}
