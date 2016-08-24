@@ -88,9 +88,18 @@ XCsuDma CsuDma;
  *              the PCAP interface
  *
  *@param	flags:
- *				0x00000001 - PCAP_INIT,
- *				0x00000002 - PCAP_WRITE,
- *				0x00000004 - PCAP_DONE,
+ *		BIT(0) - Bit-stream type.
+ *			 0 - Full Bit-stream.
+ *			 1 - Partial Bit-stream.
+ *		BIT(1) - Authentication.
+ *			 1 - Enable.
+ *		 	 0 - Disable.
+ *		BIT(2) - Encryption.
+ *			 1 - Enable.
+ *			 0 - Disable.
+ * NOTE -
+ *	The current implementation supports only Full Bit-stream.
+ *
  *@return	error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
@@ -99,30 +108,22 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 {
 	u32 Status = XFPGA_SUCCESS;
 
-	switch (flags)
-	{
-	case PCAP_INIT:
-		Status = XFpga_PcapInit();
-		break;
-	case PCAP_WRITE:
-		Status = XFpga_WriteToPcap(WrSize, WrAddrHigh, WrAddrLow);
-		break;
-	case PCAP_DONE:
-		Status = XFpga_PLWaitForDone();
-		break;
-	case PCAP_LOAD:
-		Status = XFpga_PcapInit();
-		if(Status != XFPGA_SUCCESS)
-			break;
-		Status = XFpga_WriteToPcap(WrSize, WrAddrHigh, WrAddrLow);
-		if(Status != XFPGA_SUCCESS)
-			break;
-		Status = XFpga_PLWaitForDone();
-		break;
-	default:
-		xil_printf("ERROR unsupported XilFpga API\n");
-
+	Status = XFpga_PcapInit();
+	if(Status != XFPGA_SUCCESS) {
+		xil_printf("FPGA Init fail\n");
+		goto END;
 	}
+	Status = XFpga_WriteToPcap(WrSize, WrAddrHigh, WrAddrLow);
+	if(Status != XFPGA_SUCCESS) {
+		xil_printf("FPGA fail to write Bit-stream into PL\n");
+		goto END;
+	}
+	Status = XFpga_PLWaitForDone();
+	if(Status != XFPGA_SUCCESS) {
+		xil_printf("FPGA fail to get the done status\n");
+		goto END;
+     }
+	END:
 	return Status;
 }
 /*****************************************************************************/
