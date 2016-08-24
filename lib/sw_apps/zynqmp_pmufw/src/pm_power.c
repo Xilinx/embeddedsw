@@ -151,7 +151,6 @@ static int PmPowerDownFpd(void)
 {
 	int status;
 
-	PmPllSuspendAll(&pmPowerDomainFpd_g);
 	PmFpdSaveContext();
 
 	PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
@@ -255,7 +254,6 @@ static int PmPowerUpFpd(void)
 	}
 
 	PmFpdRestoreContext();
-	PmPllResumeAll(&pmPowerDomainFpd_g);
 
 err:
 	return status;

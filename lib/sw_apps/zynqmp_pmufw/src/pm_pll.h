@@ -109,9 +109,6 @@ extern PmSlavePll pmSlaveIOpll_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void PmPllSuspendAll(const PmPower* const powerParent);
-void PmPllResumeAll(const PmPower* const powerParent);
-
 int PmPllRequest(PmSlavePll* const pll);
 void PmPllRelease(PmSlavePll* const pll);
 void PmPllClearUseCount(void);

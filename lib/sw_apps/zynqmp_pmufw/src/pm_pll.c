@@ -208,8 +208,8 @@ static int PmPllFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		status = PmPllResume(pll);
 		break;
 	case PM_PLL_STATE_UNUSED:
-		/* Bypassing and reseting PLL cannot fail */
-		PmPllBypassAndReset(pll);
+		/* Suspend the PLL (cannot fail) */
+		PmPllSuspend(pll);
 		status = XST_SUCCESS;
 		break;
 	default:
@@ -392,36 +392,6 @@ void PmPllClearUseCount(void)
 }
 
 /**
- * PmPllSuspendAll() - Suspend all PLLs whose power parent is given as argument
- * @powerParent Power parent of PLLs to be suspended
- */
-void PmPllSuspendAll(const PmPower* const powerParent)
-{
-	u8 i;
-
-	for (i = 0U; i < ARRAY_SIZE(pmPlls); i++) {
-		if (powerParent == pmPlls[i]->slv.node.parent) {
-			PmPllSuspend(pmPlls[i]);
-		}
-	}
-}
-
-/**
- * PmPllResumeAll() - Resume all PLLs whose power parent is given as argument
- * @powerParent Power parent of PLLs to be resumed
- */
-void PmPllResumeAll(const PmPower* const powerParent)
-{
-	u8 i;
-
-	for (i = 0U; i < ARRAY_SIZE(pmPlls); i++) {
-		if (powerParent == pmPlls[i]->slv.node.parent) {
-			PmPllResume(pmPlls[i]);
-		}
-	}
-}
-
-/**
  * PmPllRequest() - Request the PLL
  * @pll		The requested PLL
  * @return	XST_SUCCESS if the request is processed ok, else XST_FAILURE
@@ -441,6 +411,9 @@ int PmPllRequest(PmSlavePll* const pll)
 	/* If the PLL is suspended it needs to be resumed first */
 	if (true == pll->context.saved) {
 		status = PmPllResume(pll);
+		if (XST_SUCCESS == status) {
+			PmNodeUpdateCurrState(&pll->slv.node, PM_PLL_STATE_USED);
+		}
 	}
 
 	pll->useCount++;
@@ -461,5 +434,6 @@ void PmPllRelease(PmSlavePll* const pll)
 #endif
 	if (0U == pll->useCount) {
 		PmPllSuspend(pll);
+		PmNodeUpdateCurrState(&pll->slv.node, PM_PLL_STATE_UNUSED);
 	}
 }
