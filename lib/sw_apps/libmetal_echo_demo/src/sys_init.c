@@ -55,8 +55,9 @@ XScuGic InterruptController;
 
 const metal_phys_addr_t metal_phys[] = {
 	0xFF310000, /**< base IPI address */
-	0x3ED00000, /**< shared memory description base address */
-	0x3ED10000, /**< shared memory base address */
+	0x3ED00000, /**< shared memory0 description base address */
+	0x3ED10000, /**< shared memory0 description base address */
+	0x3ED20000, /**< shared memory base address */
 };
 
 struct metal_device metal_dev_table[] = {
@@ -82,7 +83,7 @@ struct metal_device metal_dev_table[] = {
 
 	},
 	{
-		/* Shared memory management device */
+		/* Shared memory0 management device */
 		"3ed00000.shm_desc",
 		NULL,
 		1,
@@ -103,14 +104,35 @@ struct metal_device metal_dev_table[] = {
 
 	},
 	{
-		/* Shared memory management device */
-		"3ed10000.shm",
+		/* Shared memory1 management device */
+		"3ed10000.shm_desc",
 		NULL,
 		1,
 		{
 			{
 				(void *)0x3ED10000,
 				&metal_phys[2],
+				0x1000,
+				(sizeof(metal_phys_addr_t) << 3),
+				(unsigned long)(-1),
+				METAL_UNCACHED | METAL_SHARED_MEM,
+				{NULL},
+			}
+		},
+		{NULL},
+		0,
+		NULL,
+
+	},
+	{
+		/* Shared memory management device */
+		"3ed20000.shm",
+		NULL,
+		1,
+		{
+			{
+				(void *)0x3ED20000,
+				&metal_phys[3],
 				0x100000,
 				(sizeof(metal_phys_addr_t) << 3),
 				(unsigned long)(-1),
@@ -251,4 +273,8 @@ int run_comm_task(task_to_run task, void *arg)
 {
 	task(arg);
 	return 0;
+}
+
+void wait_for_interrupt(void) {
+	asm volatile("wfi");
 }
