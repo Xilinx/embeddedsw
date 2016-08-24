@@ -216,7 +216,8 @@
 static const u32 pmDdrStates[PM_DDR_STATE_MAX] = {
 	[PM_DDR_STATE_OFF] = 0U,
 	[PM_DDR_STATE_SR] = PM_CAP_CONTEXT,
-	[PM_DDR_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
+	[PM_DDR_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER |
+			    PM_CAP_CLOCK,
 };
 
 /* DDR transition table (from which to which state DDR can transit) */
