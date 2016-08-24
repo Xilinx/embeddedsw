@@ -34,7 +34,7 @@
 #
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
-# 1.00  srt  05/16/16  Initial Release
+# 1.00  srt  07/16/16  Initial Release
 #
 ##############################################################################
 
@@ -43,9 +43,10 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY libmetal
   OPTION DRC = libmetal_drc;
   OPTION COPYFILES = all;
-  OPTION REQUIRES_OS = (standalone, freertos823_xilinx);
+  OPTION REQUIRES_OS = (standalone freertos823_xilinx);
+  OPTION supported_peripherals = (ps7_cortexa9 psu_cortexr5);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lgcc,-lc,--end-group";
-  OPTION DESC = "Libmetal Library ";
+  OPTION DESC = "Libmetal Library";
   OPTION VERSION = 1.0;
   OPTION NAME = libmetal;
 END LIBRARY
