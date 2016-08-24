@@ -1,7 +1,9 @@
-find_package (Libmetal REQUIRED)
-collect (PROJECT_INC_DIRS "${LIBMETAL_INCLUDE_DIR}")
-collect (PROJECT_LIB_DIRS "${LIBMETAL_LIB_DIR}")
-collect (PROJECT_LIB_DEPS "${LIBMETAL_LIB}")
+if (WITH_LIBMETAL_FIND)
+  find_package (Libmetal REQUIRED)
+  collect (PROJECT_INC_DIRS "${LIBMETAL_INCLUDE_DIR}")
+  collect (PROJECT_LIB_DIRS "${LIBMETAL_LIB_DIR}")
+  collect (PROJECT_LIB_DEPS "${LIBMETAL_LIB}")
+endif (WITH_LIBMETAL_FIND)
 
 if ("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
   check_include_files (stdatomic.h HAVE_STDATOMIC_H)

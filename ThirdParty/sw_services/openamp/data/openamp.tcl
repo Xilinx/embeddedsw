@@ -42,14 +42,27 @@
 #---------------------------------------------
 proc openamp_drc {libhandle} {
     # check processor type
-    set proc_instance [hsi::get_sw_processor];
+    set proc_instance [hsi::get_sw_processor]
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
-    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
     if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) } {
-                error "ERROR: This library is supported only for CortexR5 and CortexA9 processors.";
-                return;
+                error "ERROR: This library is supported only for CortexR5 and CortexA9 processors."
+                return
     }
+
+    # make sure libmetal is available
+    set librarylist_1 [hsi::get_libs -filter "NAME==libmetal"]
+
+    if { [llength $librarylist_1] == 0 } {
+        # do not error "OpenAMP library requires Libmetal library."
+        # simply add the required library
+        # The GUI/SDK seem to be unable to handle the dependency
+        hsi::add_library libmetal
+    } elseif { [llength $librarylist_1] > 1} {
+        error "Multiple Libmetal libraries present."
+    }
+
 }
 
 #-------
@@ -98,7 +111,6 @@ proc generate {libhandle} {
 	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER CACHE STRING \"\")"
 	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY NEVER CACHE STRING \"\")"
 	puts $fd "set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER CACHE STRING \"\")"
-	puts $fd "set (CMAKE_FIND_ROOT_PATH /ws/open-amp-ghe/scripts/ZCU102/2016.3_0805_1/standalone /ws/open-amp-ghe/scripts/ZCU102/2016.3_0805_1/standalone/include)"
 	close $fd
 
 	# Run cmake to generate make file
@@ -114,7 +126,7 @@ proc generate {libhandle} {
 		# Linux
 		file attributes ${cmake_cmd} -permissions ugo+rx
 
-		set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on"
+		set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_LIBMETAL_FIND=off -DWITH_EXT_INCLUDES_FIND=off"
 		if { [catch {exec ${cmake_cmd} "../src/open-amp" ${cmake_opt}} msg] } {
 			puts "${msg}"
 			error "Failed to generate cmake files."
@@ -124,7 +136,7 @@ proc generate {libhandle} {
 
 	} else {
 		# Windows
-		if { [catch {exec ${cmake_cmd} -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on "../src/open-amp" } msg] } {
+		if { [catch {exec ${cmake_cmd} -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_LIBMETAL_FIND=off -DWITH_EXT_INCLUDES_FIND=off "../src/open-amp" } msg] } {
 			puts "${msg}"
 			error "Failed to generate cmake files."
 		} else {

@@ -62,5 +62,8 @@ if ("${PROJECT_SYSTEM}" STREQUAL "linux")
   option (WITH_SHARED_LIB "Build with a shared library" ON)
 endif ("${PROJECT_SYSTEM}" STREQUAL "linux")
 
+option (WITH_LIBMETAL_FIND "Check Libmetal library can be found" ON)
+option (WITH_EXT_INCLUDES_FIND "Check other external includes are found" ON)
+
 message ("-- C_FLAGS : ${CMAKE_C_FLAGS}")
 # vim: expandtab:ts=2:sw=2:smartindent
