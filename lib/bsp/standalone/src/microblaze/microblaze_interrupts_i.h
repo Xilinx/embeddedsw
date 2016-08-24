@@ -68,6 +68,8 @@ typedef struct
    void *CallBackRef;
 } MB_InterruptVectorTableEntry;
 
+#define MB_INTERRUPT_VECTOR_TABLE_ENTRIES	1
+
 #ifdef __cplusplus
 }
 #endif

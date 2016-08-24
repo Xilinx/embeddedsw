@@ -57,7 +57,7 @@
 * The interrupt handler table for microblaze processor
 */
 
-MB_InterruptVectorTableEntry MB_InterruptVectorTable[] =
+MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_TABLE_ENTRIES] =
 {
    {XNullHandler,
     (void)XNULL}

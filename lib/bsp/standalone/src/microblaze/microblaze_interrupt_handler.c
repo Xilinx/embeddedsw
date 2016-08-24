@@ -68,7 +68,7 @@ void microblaze_register_handler(XInterruptHandler Handler, void *DataPtr);
 
 /************************** Variable Definitions *****************************/
 
-extern MB_InterruptVectorTableEntry MB_InterruptVectorTable;
+extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_TABLE_ENTRIES];
 /*****************************************************************************/
 /**
 *
@@ -92,7 +92,7 @@ extern MB_InterruptVectorTableEntry MB_InterruptVectorTable;
 void __interrupt_handler(void)
 {
 	/* The compiler saves all volatiles and the MSR */
-	(void)MB_InterruptVectorTable.Handler(MB_InterruptVectorTable.CallBackRef);
+	(void)MB_InterruptVectorTable[0].Handler(MB_InterruptVectorTable[0].CallBackRef);
 	/* The compiler restores all volatiles and MSR, and returns from interrupt */
 }
 
@@ -117,6 +117,6 @@ void __interrupt_handler(void)
 ****************************************************************************/
 void microblaze_register_handler(XInterruptHandler Handler, void *DataPtr)
 {
-   MB_InterruptVectorTable.Handler = Handler;
-   MB_InterruptVectorTable.CallBackRef = DataPtr;
+   MB_InterruptVectorTable[0].Handler = Handler;
+   MB_InterruptVectorTable[0].CallBackRef = DataPtr;
 }
