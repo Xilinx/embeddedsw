@@ -516,7 +516,7 @@ static PmResetRom pmResetGpuPp0 = {
 	},
 	.ctrlAddr = CRF_APB_RST_FPD_TOP,
 	.mask = CRF_APB_RST_FPD_TOP_GPU_PP0_RESET_MASK,
-	.pulseRom = XpbrRstPp1Handler,
+	.pulseRom = XpbrRstPp0Handler,
 };
 
 static PmResetRom pmResetGpu = {
