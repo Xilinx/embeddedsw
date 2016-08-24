@@ -882,14 +882,14 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 		== XIH_BH_IMAGE_ATTRB_RSA_MASK)) {
 
 		XFsbl_Printf(DEBUG_INFO,"Authentication Enabled\r\n");
-#ifdef XFSBL_RSA
+#ifdef XFSBL_SECURE
 		/**
 		 * Authenticate the image header
 		 */
 
 #else
-                XFsbl_Printf(DEBUG_GENERAL,"Rsa code not Enabled\r\n");
-                Status = XFSBL_ERROR_RSA_NOT_ENABLED;
+                XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED\r\n");
+                Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
                 goto END;
 #endif
 	}

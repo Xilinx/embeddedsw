@@ -51,11 +51,9 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 #include "xfsbl_main.h"
-#ifdef XFSBL_RSA
+#ifdef XFSBL_SECURE
 #include "xsecure_sha.h"
 #include "xsecure_rsa.h"
-#endif
-#ifdef XFSBL_AES
 #include "xsecure_aes.h"
 #endif
 #include "xcsudma.h"
@@ -128,7 +126,7 @@ extern "C" {
 
 #define	XFSBL_SHA3_LAST_PACKET			 (0x1)
 
-#ifdef XFSBL_RSA
+#ifdef XFSBL_SECURE
 u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 				u32 PartitionLen, u64 AcOffset, u32 HashLen,
 				u32 PartitionNum);

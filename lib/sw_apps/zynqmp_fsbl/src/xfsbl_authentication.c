@@ -42,7 +42,7 @@
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
 
-#ifdef XFSBL_RSA
+#ifdef XFSBL_SECURE
 
 #include "xfsbl_authentication.h"
 #include "xfsbl_csu_dma.h"
@@ -63,7 +63,7 @@ static XSecure_Rsa SecureRsa;
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
 
-#if defined XFSBL_RSA
+#ifdef XFSBL_SECURE
 u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
 #endif
 
@@ -416,4 +416,4 @@ END:
 }
 #endif
 #endif
-#endif /* end of XFSBL_RSA */
+#endif /* end of XFSBL_SECURE */

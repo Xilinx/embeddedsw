@@ -53,7 +53,7 @@
 
 /***************************** Include Files *********************************/
 #include "xfsbl_authentication.h"
-#ifdef XFSBL_RSA
+#ifdef XFSBL_SECURE
 
 /************************** Constant Definitions *****************************/
 
