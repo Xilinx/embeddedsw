@@ -76,11 +76,6 @@ typedef struct {
    void *CallBackRef;
 } MB_ExceptionVectorTableEntry;
 
-/*typedef struct {
-   Xil_ExceptionHandler Handler,
-   void *CallBackRef,
-} MB_InterruptVectorTableEntry, */
-
 #ifdef __cplusplus
 }
 #endif
