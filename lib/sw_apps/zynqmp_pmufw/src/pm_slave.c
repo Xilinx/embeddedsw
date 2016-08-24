@@ -44,6 +44,7 @@
 #include "pm_power.h"
 #include "lpd_slcr.h"
 #include "pm_ddr.h"
+#include "pm_clock.h"
 
 /* All slaves array */
 static PmSlave* const pmSlaves[] = {
@@ -236,8 +237,34 @@ static int PmSlavePrepareState(const PmSlave* const slv, const PmStateId next)
 		}
 	}
 
+	/* Check if slave requires clocks in the next state */
+	if (NULL != slv->node.clocks) {
+		if ((0U == (slv->slvFsm->states[curr] & PM_CAP_CLOCK)) &&
+		    (0U != (slv->slvFsm->states[next] & PM_CAP_CLOCK))) {
+			status = PmClockRequest(&slv->node);
+		}
+	}
+
 done:
 	return status;
+}
+
+/**
+ * PmSlaveClearAfterState() - Clean after exiting a state
+ * @slv		Slave that exited the prev state
+ * @prev	Previous state the slave was in
+ */
+static void PmSlaveClearAfterState(const PmSlave* const slv, const PmStateId prev)
+{
+	const PmStateId curr = slv->node.currState;
+
+	/* Check if slave doesn't use clocks in the new state */
+	if (NULL != slv->node.clocks) {
+		if ((0U != (slv->slvFsm->states[prev] & PM_CAP_CLOCK)) &&
+		    (0U == (slv->slvFsm->states[curr] & PM_CAP_CLOCK))) {
+			PmClockRelease(&slv->node);
+		}
+	}
 }
 
 /**
@@ -290,6 +317,7 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 done:
 	if ((oldState != state) && (XST_SUCCESS == status)) {
 		PmNodeUpdateCurrState(&slave->node, state);
+		PmSlaveClearAfterState(slave, oldState);
 	}
 #ifdef DEBUG_PM
 	if (XST_SUCCESS == status) {

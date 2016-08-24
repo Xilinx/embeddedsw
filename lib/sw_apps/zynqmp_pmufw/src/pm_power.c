@@ -47,6 +47,7 @@
 #include "pm_system.h"
 #include "pm_ddr.h"
 #include "apu.h"
+#include "pm_clock.h"
 
 /*
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
@@ -205,8 +206,13 @@ static int PmPwrDnHandler(PmNode* const nodePtr)
 		break;
 	}
 
-	if (XST_SUCCESS == status) {
-		PmNodeUpdateCurrState(nodePtr, PM_PWR_STATE_OFF);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	PmNodeUpdateCurrState(nodePtr, PM_PWR_STATE_OFF);
+	if (NULL != nodePtr->clocks) {
+		PmClockRelease(nodePtr);
 	}
 
 done:
@@ -306,8 +312,13 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
 		break;
 	}
-	if (XST_SUCCESS == status) {
-		PmNodeUpdateCurrState(nodePtr, PM_PWR_STATE_ON);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	PmNodeUpdateCurrState(nodePtr, PM_PWR_STATE_ON);
+	if (NULL != nodePtr->clocks) {
+		status = PmClockRequest(nodePtr);
 	}
 
 done:
