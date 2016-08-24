@@ -84,10 +84,8 @@ static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 u8 TcmVectorArray[32];
 u32 TcmSkipLength=0U;
 PTRSIZE TcmSkipAddress=0U;
-#ifdef XFSBL_AES
+#ifdef XFSBL_SECURE
 static XSecure_Aes SecureAes;
-#endif
-#ifdef XFSBL_RSA
 extern u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
 #endif
 
@@ -812,7 +810,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	 * Copy the authentication certificate to auth. buffer
 	 * Update Partition length to be copied.
 	 */
-#ifdef XFSBL_RSA
+#ifdef XFSBL_SECURE
 	if (XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
 			XIH_PH_ATTRB_RSA_SIGNATURE ) {
 
@@ -995,21 +993,18 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 Status=XFSBL_SUCCESS;
 	s32 IsEncryptionEnabled=FALSE;
 	s32 IsAuthenticationEnabled=FALSE;
+	s32 IsChecksumEnabled=FALSE;
 	u32 DestinationDevice=0U;
 	u32 DestinationCpu=0U;
 	u32 ExecState=0U;
 	u32 CpuNo=0U;
 	XFsblPs_PartitionHeader * PartitionHeader;
-#if defined(XFSBL_RSA)
+#if defined(XFSBL_SECURE)
 	u32 HashLen=0U;
-#endif
-#if defined(XFSBL_AES)
 	u32 ImageOffset = 0U;
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U];
 	u32 UnencryptedLength = 0;
 	u32 IvLocation;
-#endif
-#if defined(XFSBL_RSA) || defined(XFSBL_AES)
 	u32 Length=0U;
 #endif
 	PTRSIZE LoadAddress=0U;
@@ -1029,16 +1024,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	 */
 	PartitionHeader =
 	    &FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
+#ifdef XFSBL_SECURE
 	Length = PartitionHeader->TotalDataWordLength * 4U;
-
-
-	Status = XFsbl_CalcualteCheckSum(FsblInstancePtr, PartitionNum);
-	if (Status != XFSBL_SUCCESS) {
-		XFsbl_Printf(DEBUG_GENERAL,
-				"XFSBL_ERROR_PARTITION_CHECKSUM_FAILED \r\n");
-		Status = XFSBL_ERROR_PARTITION_CHECKSUM_FAILED;
-		goto END;
-	}
+#endif
 
 	/**
 	 * Check the encryption status
@@ -1048,7 +1036,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	{
 		IsEncryptionEnabled = TRUE;
 
-#ifdef XFSBL_AES
+#ifdef XFSBL_SECURE
 		/* Copy the Iv from Flash into local memory */
 		IvLocation = ImageOffset + XIH_BH_IV_OFFSET;
 
@@ -1062,8 +1050,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			goto END;
 		}
 #else
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_AES_NOT_ENABLED \r\n");
-		Status = XFSBL_ERROR_AES_NOT_ENABLED;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
+		Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
 		goto END;
 #endif
 	}
@@ -1076,6 +1064,13 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	{
 		IsAuthenticationEnabled = TRUE;
 	}
+	/* check the checksum status */
+	if (XFsbl_GetChecksumType(PartitionHeader) !=
+			XIH_PH_ATTRB_NOCHECKSUM )
+	{
+		IsChecksumEnabled = TRUE;
+	}
+
 	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
 
@@ -1110,8 +1105,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 	LoadAddress = PartitionHeader->DestinationLoadAddress;
 
-#if defined(XFSBL_RSA) || defined(XFSBL_AES)
-	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE))
+#ifdef XFSBL_SECURE
+	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE) ||
+			(IsChecksumEnabled == TRUE))
 	{
 		Length = PartitionHeader->TotalDataWordLength * 4U;
 		Status = XFsbl_GetLoadAddress(DestinationCpu,
@@ -1133,6 +1129,24 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	}
 #endif
 
+	/* Checksum verification */
+	if (IsChecksumEnabled == TRUE)
+	{
+#ifdef XFSBL_SECURE
+		Status = XFsbl_CalcualteCheckSum(FsblInstancePtr,
+				LoadAddress, PartitionNum);
+		if (Status != XFSBL_SUCCESS) {
+			XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_PARTITION_CHECKSUM_FAILED \r\n");
+			Status = XFSBL_ERROR_PARTITION_CHECKSUM_FAILED;
+			goto END;
+		}
+#else
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
+		Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
+		goto END;
+#endif
+	}
 
 	/**
 	 * Authentication Check
@@ -1140,7 +1154,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	if (IsAuthenticationEnabled == TRUE)
 	{
 		XFsbl_Printf(DEBUG_INFO,"Authentication Enabled\r\n");
-#ifdef XFSBL_RSA
+#ifdef XFSBL_SECURE
 		/**
 		 * Get the Sha type to be used from
 		 * boot header attributes
@@ -1206,8 +1220,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 
 #else
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_RSA_NOT_ENABLED \r\n");
-		Status = XFSBL_ERROR_RSA_NOT_ENABLED;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
+		Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
 		goto END;
 #endif
 	}
@@ -1217,7 +1231,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	 */
 	if (IsEncryptionEnabled == TRUE) {
 		XFsbl_Printf(DEBUG_INFO, "Decryption Enabled\r\n");
-#ifdef XFSBL_AES
+#ifdef XFSBL_SECURE
 
 		/* AES expects IV in big endian form */
 		FsblIv[0] = Xil_Htonl(FsblIv[0]);
@@ -1260,8 +1274,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 		}
 #else
-		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_AES_NOT_ENABLED \r\n");
-		Status = XFSBL_ERROR_AES_NOT_ENABLED;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
+		Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
 		goto END;
 #endif
 	}
@@ -1292,7 +1306,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 
 		if (IsEncryptionEnabled == TRUE) {
-#ifdef XFSBL_AES
+#ifdef XFSBL_SECURE
 
 #ifdef XFSBL_PERF
 			/* Start time for bitstream decryption */
@@ -1492,12 +1506,14 @@ static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 
 }
 
-
+#ifdef XFSBL_SECURE
 /*****************************************************************************/
 /**
  * This function validates the partition
  *
  * @param	FsblInstancePtr is pointer to the XFsbl Instance
+ *
+ * @param	LoadAddress Load address of partition
  *
  * @param	PartitionNum is the partition number to calculate checksum
  *
@@ -1506,7 +1522,8 @@ static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum)
  *
  *****************************************************************************/
 
-u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr, u32 PartitionNum)
+u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
+		PTRSIZE LoadAddress, u32 PartitionNum)
 {
 
 	XFsblPs_PartitionHeader * PartitionHeader;
@@ -1586,13 +1603,15 @@ u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		else
 		{
 		/* SHA calculation for non-bitstream, DDR less partitions */
-			Status = XFsbl_CalcualteSHA(FsblInstancePtr, PartitionNum, XFSBL_HASH_TYPE_SHA3);
+			Status = XFsbl_CalcualteSHA(FsblInstancePtr, LoadAddress,
+					PartitionNum, XFSBL_HASH_TYPE_SHA3);
 			if (Status != XFSBL_SUCCESS) {
 				return XFSBL_FAILURE;
 			}
 		}
 	#else /* SHA calculation in DDRful systems */
-		Status = XFsbl_CalcualteSHA(FsblInstancePtr, PartitionNum, XFSBL_HASH_TYPE_SHA3);
+		Status = XFsbl_CalcualteSHA(FsblInstancePtr, LoadAddress,
+				PartitionNum, XFSBL_HASH_TYPE_SHA3);
 		if (Status != XFSBL_SUCCESS) {
 			return XFSBL_FAILURE;
 		}
@@ -1608,6 +1627,8 @@ u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr, u32 PartitionNum)
  *
  * @param	FsblInstancePtr is pointer to the XFsbl Instance
  *
+ * @param	LoadAddress Load address of partition
+ *
  * @param	PartitionNum is the partition number to calculate checksum
  *
  * @param	ShaType is either SHA2/SHA3
@@ -1617,7 +1638,7 @@ u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr, u32 PartitionNum)
  *
  *****************************************************************************/
 
-u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr,
+u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr, PTRSIZE LoadAddress,
 						u32 PartitionNum, u32 ShaType)
 {
 	u8 PartitionHash[ShaType] __attribute__ ((aligned (4)));
@@ -1628,8 +1649,6 @@ u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr,
 	u32 Length=0U;
 	u32 Status=XFSBL_SUCCESS;
 	XFsblPs_PartitionHeader * PartitionHeader;
-	u32 DestinationDevice;
-	PTRSIZE LoadAddress;
 
 	/**
 	 * Update the variables
@@ -1638,17 +1657,6 @@ u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr,
 	    &FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 	Length = PartitionHeader->TotalDataWordLength * 4U;
 	HashOffset = PartitionHeader->ChecksumWordOffset * 4U;
-	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
-
-	if ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
-			(PartitionHeader->DestinationLoadAddress == XFSBL_DUMMY_PL_ADDR))
-	{
-		LoadAddress = XFSBL_DDR_TEMP_ADDRESS;
-	}
-	else
-	{
-		LoadAddress = PartitionHeader->DestinationLoadAddress;
-	}
 
 	/* Start the SHA engine */
 	XFsbl_ShaStart(ShaCtx, ShaType);
@@ -1673,3 +1681,4 @@ u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr,
 	}
 	return Status;
 }
+#endif  /* end of XFSBL_SECURE */

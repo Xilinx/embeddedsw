@@ -679,17 +679,10 @@ extern "C" {
 #endif
 
 /**
- * Definition for RSA to be included
+ * Definition for SECURE to be included
  */
-#if !defined(FSBL_RSA_EXCLUDE)
-#define XFSBL_RSA
-#endif
-
-/**
- * Definition for AES to be included
- */
-#if !defined(FSBL_AES_EXCLUDE)
-#define XFSBL_AES
+#if !defined(FSBL_SECURE_EXCLUDE)
+#define XFSBL_SECURE
 #endif
 
 /**
