@@ -152,19 +152,19 @@ _boot:
 
 #if XPAR_CPU_ID==0
         ldr r0,=EFUSEStaus
-        ldr r1,[r0]      /*Read eFuse to detect zynq silicon configuration*/
-        ands r1,r1,#0x80  /*Check wheter cpu1 is disabled through eFuse*/
+        ldr r1,[r0]                             /* Read eFuse setting */
+        ands r1,r1,#0x80                        /* Check whether device is having single core */
 	beq OKToRun
 
- /*cpu1 is disabled through eFuse,reset cpu1*/
+ /* single core device, reset cpu1 */
         ldr     r0,=SLCRUnlockReg               /* Load SLCR base address base + unlock register */
         ldr     r1,=SLCRUnlockKey               /* set unlock key */
         str     r1, [r0]                        /* Unlock SLCR */
 
 	ldr r0,=SLCRCPURSTReg
-	ldr r1,[r0]                             /*Read CPU Software Reset Control register*/
+	ldr r1,[r0]                             /* Read CPU Software Reset Control register */
 	orr r1,r1,#0x22
-        str r1,[r0]                             /*Reset CPU1*/
+        str r1,[r0]                             /* Reset CPU1 */
 
         ldr	r0,=SLCRlockReg         	/* Load SLCR base address base + lock register */
 	ldr	r1,=SLCRlockKey	        	/* set lock key */
@@ -172,8 +172,8 @@ _boot:
 
 #elif XPAR_CPU_ID==1
         ldr r0,=EFUSEStaus
-        ldr r1,[r0]      /*Read eFuse to detect zynq silicon configuration*/
-        ands r1,r1,#0x80  /*Check wheter cpu1 is disabled through eFuse*/
+        ldr r1,[r0]                             /* Read eFuse setting */
+        ands r1,r1,#0x80                        /* Check whether device is having single core */
 	beq OKToRun
 	EndlessLoop1:
 	wfe
