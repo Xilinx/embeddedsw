@@ -35,7 +35,8 @@ _STACK_SIZE = DEFINED(_STACK_SIZE) ? _STACK_SIZE : 0x1000;
 /* Define Memories in the system */
 MEMORY
 {
-	PMU_RAM : ORIGIN = 0xFFDC0000, LENGTH = 0x20000	/* 128 k */
+	PMU_RAM : ORIGIN = 0xFFDC0000, LENGTH = 0x1F6E0	/* ~125.7 k */
+	PMU_RAM_EXT_TABLE : ORIGIN = 0xFFDDF6E0, LENGTH = 0x400	/* 1 k */
 }
 
 /* Specify the default entry point to the program */
@@ -166,7 +167,7 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
 
 .xpbr_serv_ext_tbl 0xffddf6e0: {
    KEEP (*(.xpbr_serv_ext_tbl))
-} > PMU_RAM
+} > PMU_RAM_EXT_TABLE
 
 _end = .;
 }
