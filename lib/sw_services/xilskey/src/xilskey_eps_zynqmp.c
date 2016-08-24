@@ -55,6 +55,8 @@
 *                      driver initialization. Added init function while
 *                      from eFUSE. Added appropriate error codes on failure
 *                      returns.
+*       vns   08/24/16 Fixed eFUSE ZynqMP programming by adding unlocking
+*                      before eFUSE PS initialization.
 * </pre>
 *
 *****************************************************************************/
@@ -144,29 +146,32 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	u8 SpkIdInBits[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
 	XilSKey_UsrFuses UsrFuses_ToPrgm[8] = {{0}};
 
+	/* Unlock the controller */
+	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
+
+	/* Check the unlock status */
+	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
+		Status = (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		goto UNLOCK;
+	}
+
 	Status = XilSKey_ZynqMp_EfusePs_Init();
 	if (Status != XST_SUCCESS) {
-		return Status;
+		goto UNLOCK;
 	}
 	/* Conditions to check programming is possible or not */
 	Status = XilSKey_ZynqMp_EfusePsWrite_Checks(InstancePtr);
 	if (Status != XST_SUCCESS) {
-		return (Status + XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING);
+		Status = (Status + XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING);
+		goto UNLOCK;
 	}
 
 	/* Validation of requested User FUSES bits */
 	Status = XilSKey_ZynqMp_EfusePs_UserFuses_WriteChecks(
 			InstancePtr, UsrFuses_ToPrgm);
 	if (Status != XST_SUCCESS) {
-		return (Status + XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING);
-	}
-
-	/* Unlock the controller */
-	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
-
-	/* Check the unlock status */
-	if (XilSKey_ZynqMp_EfusePs_CtrlrLockStatus()) {
-		return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
+		Status = (Status + XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING);
+		goto UNLOCK;
 	}
 
 	/* Setting all the conditions for writing into eFuse */
@@ -370,9 +375,10 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	}
 
 END:
+	XilSKey_ZynqMp_EfusePS_PrgrmDisable();
+UNLOCK:
 	/* Lock the controller back */
 	XilSKey_ZynqMp_EfusePs_CtrlrLock();
-	XilSKey_ZynqMp_EfusePS_PrgrmDisable();
 
 	return Status;
 
