@@ -208,6 +208,39 @@ done:
 }
 
 /**
+ * PmSlavePrepareState() - Prepare for entering a state
+ * @slv		Slave that would enter next state
+ * @next	Next state the slave would enter
+ *
+ * @return	Status fo preparing for the transition (XST_SUCCESS or an error
+ *		code)
+ */
+static int PmSlavePrepareState(const PmSlave* const slv, const PmStateId next)
+{
+	int status = XST_SUCCESS;
+	const PmStateId curr = slv->node.currState;
+
+	/* If slave has power parent make sure the parent is in proper state */
+	if (NULL != slv->node.parent) {
+
+		if ((0U == (slv->slvFsm->states[curr] & PM_CAP_POWER)) &&
+		    (0U != (slv->slvFsm->states[next] & PM_CAP_POWER))) {
+
+			/* Slave will need power parent to be on */
+			if (true == NODE_IS_OFF(&slv->node.parent->node)) {
+				status = PmTriggerPowerUp(slv->node.parent);
+				if (XST_SUCCESS != status) {
+					goto done;
+				}
+			}
+		}
+	}
+
+done:
+	return status;
+}
+
+/**
  * PmSlaveChangeState() - Change state of a slave
  * @slave       Slave pointer whose state should be changed
  * @state       New state
@@ -221,6 +254,12 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 	int status;
 	const PmSlaveFsm* fsm = slave->slvFsm;
 	PmStateId oldState = slave->node.currState;
+
+	/* Check what needs to be done prior to performing the transition */
+	status = PmSlavePrepareState(slave, state);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 
 	if (0U == fsm->transCnt) {
 		/* Slave's FSM has no transitions when it has only one state */
@@ -238,15 +277,6 @@ static int PmSlaveChangeState(PmSlave* const slave, const PmStateId state)
 		if ((fsm->trans[t].fromState != slave->node.currState) ||
 			(fsm->trans[t].toState != state)) {
 			continue;
-		}
-		if ((0U != (slave->slvFsm->states[state] & PM_CAP_POWER)) &&
-		    (NULL != slave->node.parent) &&
-		    (true == NODE_IS_OFF(&slave->node.parent->node))) {
-			/* Next state requires powering up power parent */
-			status = PmTriggerPowerUp(slave->node.parent);
-			if (XST_SUCCESS != status) {
-				goto done;
-			}
 		}
 		if (NULL != slave->slvFsm->enterState) {
 			/* Execute transition action of slave's FSM */
