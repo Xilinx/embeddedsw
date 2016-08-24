@@ -117,6 +117,8 @@ static void PmPllSuspend(PmSlavePll* const pll)
 {
 	u32 val;
 
+	PmDbg("%s\n", PmStrNode(pll->slv.node.nodeId));
+
 	/* Save register setting */
 	pll->context.ctrl = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
 	pll->context.cfg = XPfw_Read32(pll->addr + PM_PLL_CFG_OFFSET);
@@ -142,6 +144,8 @@ static void PmPllSuspend(PmSlavePll* const pll)
 static int PmPllResume(PmSlavePll* const pll)
 {
 	int status = XST_SUCCESS;
+
+	PmDbg("%s\n", PmStrNode(pll->slv.node.nodeId));
 
 	if (true == pll->context.saved) {
 		/* Restore register values with reset and bypass asserted */
@@ -435,6 +439,9 @@ int PmPllRequest(PmSlavePll* const pll)
 {
 	int status = XST_SUCCESS;
 
+#ifdef DEBUG_CLK
+	PmDbg("%s\n", PmStrNode(pll->slv.node.nodeId));
+#endif
 	/* If the PLL is suspended it needs to be resumed first */
 	if (true == pll->context.saved) {
 		status = PmPllResume(pll);
@@ -453,6 +460,9 @@ void PmPllRelease(PmSlavePll* const pll)
 {
 	pll->useCount--;
 
+#ifdef DEBUG_CLK
+	PmDbg("%s\n", PmStrNode(pll->slv.node.nodeId));
+#endif
 	if (0U == pll->useCount) {
 		PmPllSuspend(pll);
 	}

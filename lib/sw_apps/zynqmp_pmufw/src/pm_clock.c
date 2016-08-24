@@ -876,6 +876,158 @@ static u32 PmClockGetUseCount(const PmClock* const clk)
 	return useCnt;
 }
 
+#ifdef DEBUG_CLK
+static const char* PmStrClk(const PmClock* const clk)
+{
+	if (clk == &pmClockAcpu) {
+		return "acpu";
+	} else if (clk == &pmClockDbgTrace) {
+		return "dbg_trace";
+	} else if (clk == &pmClockDbgFpd) {
+		return "dbg_fpd";
+	} else if (clk == &pmClockDpVideo) {
+		return "dp_video";
+	} else if (clk == &pmClockDpAudio) {
+		return "dp_audio";
+	} else if (clk == &pmClockDpStc) {
+		return "dp_stc";
+	} else if (clk == &pmClockDdr) {
+		return "ddr";
+	} else if (clk == &pmClockGpu) {
+		return "gpu";
+	} else if (clk == &pmClockSata) {
+		return "sata";
+	} else if (clk == &pmClockPcie) {
+		return "pcie";
+	} else if (clk == &pmClockGdma) {
+		return "gdma";
+	} else if (clk == &pmClockDpDma) {
+		return "dp_dma";
+	} else if (clk == &pmClockGtgRef0) {
+		return "gtg_ref0";
+	} else if (clk == &pmClockDbgTstmp) {
+		return "dbg_tstmp";
+	} else if (clk == &pmClockUsb3Dual) {
+		return "usb3_dual";
+	} else if (clk == &pmClockGem0) {
+		return "gem0";
+	} else if (clk == &pmClockGem1) {
+		return "gem1";
+	} else if (clk == &pmClockGem2) {
+		return "gem2";
+	} else if (clk == &pmClockGem3) {
+		return "gem3";
+	} else if (clk == &pmClockUsb0Bus) {
+		return "usb0_bus";
+	} else if (clk == &pmClockUsb1Bus) {
+		return "usb1_bus";
+	} else if (clk == &pmClockQSpi) {
+		return "qspi";
+	} else if (clk == &pmClockSdio0) {
+		return "sdio0";
+	} else if (clk == &pmClockSdio1) {
+		return "sdio1";
+	} else if (clk == &pmClockUart0) {
+		return "uart0";
+	} else if (clk == &pmClockUart1) {
+		return "uart1";
+	} else if (clk == &pmClockSpi0) {
+		return "spi0";
+	} else if (clk == &pmClockSpi1) {
+		return "spi1";
+	} else if (clk == &pmClockCan0) {
+		return "can0";
+	} else if (clk == &pmClockCan1) {
+		return "can1";
+	} else if (clk == &pmClockCpuR5) {
+		return "cpur5";
+	} else if (clk == &pmClockIouSwitch) {
+		return "iou_switch";
+	} else if (clk == &pmClockCsuPll) {
+		return "csu_pll";
+	} else if (clk == &pmClockPcap) {
+		return "pcap";
+	} else if (clk == &pmClockLpdSwitch) {
+		return "lpd_switch";
+	} else if (clk == &pmClockLpdLsBus) {
+		return "lpd_ls_bus";
+	} else if (clk == &pmClockDbgLpd) {
+		return "dbg_lpd";
+	} else if (clk == &pmClockNand) {
+		return "nand";
+	} else if (clk == &pmClockAdma) {
+		return "adma";
+	} else if (clk == &pmClockPl0) {
+		return "pl0";
+	} else if (clk == &pmClockPl1) {
+		return "pl1";
+	} else if (clk == &pmClockPl2) {
+		return "pl2";
+	} else if (clk == &pmClockPl3) {
+		return "pl3";
+	} else if (clk == &pmClockGemTsu) {
+		return "gem_tsu";
+	} else if (clk == &pmClockDll) {
+		return "dll";
+	} else if (clk == &pmClockAms) {
+		return "ams";
+	} else if (clk == &pmClockI2C0) {
+		return "i2c0";
+	} else if (clk == &pmClockI2C1) {
+		return "i2c1";
+	} else if (clk == &pmClockTimeStamp) {
+		return "timestamp";
+	} else {
+		return "unknown";
+	}
+}
+
+void PmClockDump(const PmClock* const clk)
+{
+	const PmClockHandle* ch = clk->users;
+	u32 clkUseCnt = PmClockGetUseCount(clk);
+
+	fw_printf("\t%s #%lu { ", PmStrClk(clk), clkUseCnt);
+
+	while (NULL != ch) {
+		bool used = PmNodeDependsOnClock(ch->node);
+
+		if (true == used) {
+			if (clk->users != ch) {
+				fw_printf(", ");
+			}
+			fw_printf("%s", PmStrNode(ch->node->nodeId));
+		}
+
+		ch = ch->nextNode;
+	}
+	fw_printf(" }\n");
+}
+
+void PmClockDumpChildren(const PmSlavePll* const pll)
+{
+	u32 i;
+
+	fw_printf("%s #%ld:\n", PmStrNode(pll->slv.node.nodeId), pll->useCount);
+
+	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
+		if (pll != pmClocks[i]->pll) {
+			continue;
+		}
+		PmClockDump(pmClocks[i]);
+	}
+}
+
+void PmClockDumpTree()
+{
+	PmClockDumpChildren(&pmSlaveApll_g);
+	PmClockDumpChildren(&pmSlaveVpll_g);
+	PmClockDumpChildren(&pmSlaveDpll_g);
+	PmClockDumpChildren(&pmSlaveRpll_g);
+	PmClockDumpChildren(&pmSlaveIOpll_g);
+}
+#endif
+
 /**
  * PmClockGetParent() - Get PLL parent of the clock based on MUX select value
  * @clock	Pointer to the clock whose PLL parent shall be find
@@ -948,6 +1100,9 @@ void PmClockInitData(void)
 		clkUseCnt = PmClockGetUseCount(clk);
 		clk->pll->useCount += clkUseCnt;
 	}
+#ifdef DEBUG_CLK
+	PmClockDumpTree();
+#endif
 }
 
 /**
@@ -962,6 +1117,9 @@ int PmClockRequest(const PmNode* const node)
 	PmClockHandle* ch = node->clocks;
 	int totStatus = XST_SUCCESS;
 
+#ifdef DEBUG_CLK
+	PmDbg("%s\n", PmStrNode(node->nodeId));
+#endif
 	while (NULL != ch) {
 		int status = XST_SUCCESS;
 		u32 clkUseCnt = PmClockGetUseCount(ch->clock);
@@ -993,6 +1151,9 @@ void PmClockRelease(const PmNode* const node)
 {
 	PmClockHandle* ch = node->clocks;
 
+#ifdef DEBUG_CLK
+	PmDbg("%s\n", PmStrNode(node->nodeId));
+#endif
 	while (NULL != ch) {
 		u32 clkUseCnt = PmClockGetUseCount(ch->clock);
 

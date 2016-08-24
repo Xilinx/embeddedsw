@@ -66,6 +66,7 @@ typedef u32 (*const PmTranHandler)(void);
  */
 #ifdef DEBUG_MODE
 	#define DEBUG_PM
+	#define DEBUG_CLK
 #endif
 /*
  * Conditional debugging prints used for PM. PM prints should never
