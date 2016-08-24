@@ -40,6 +40,7 @@
  **************************************************************************/
 
 #include <string.h>
+#include <errno.h>
 #include "openamp/hil.h"
 #include "openamp/remoteproc_plat.h"
 #include "metal/alloc.h"
