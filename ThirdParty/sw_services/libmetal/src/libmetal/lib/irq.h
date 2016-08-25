@@ -111,6 +111,8 @@ void metal_irq_enable(unsigned int vector);
  */
 void metal_irq_disable(unsigned int vector);
 
+#include "metal/system/@PROJECT_SYSTEM@/irq.h"
+
 /** @} */
 
 #ifdef __cplusplus
