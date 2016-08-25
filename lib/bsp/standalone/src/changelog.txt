@@ -365,14 +365,14 @@
  * 5.5 pkp   05/06/16  Modified the cortexr5/xil_exception.h to update the macros
  *		       Xil_EnableNestedInterrupts and Xil_DisableNestedInterrupts for fixing
  *		       the issue of lr being corrupted to resolve CR#950468
- * 5.6 kvn   05/31/16  Make Xil_AsserWait a global variable
- * 5.6 pkp   06/27/16  Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot
+ * 6.0 kvn   05/31/16  Make Xil_AsserWait a global variable
+ * 6.0 pkp   06/27/16  Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot
  *		       section since it is part of boot process to fix CR#949555
- * 5.6 pkp   07/01/16  Updated cortexa53/64bit/boot.s, xil_cache.c, xtime_l.c and standalone.tcl
+ * 6.0 pkp   07/01/16  Updated cortexa53/64bit/boot.s, xil_cache.c, xtime_l.c and standalone.tcl
  *		       standalone.mld to add support for non-secure el1 with el selection feature
  *     hk    07/12/16  Correct masks for IOU SLCR GEM registers
- * 5.6 pkp   07/25/16  Program the counter frequency in boot code for CortexA53
- * 5.6 asa   08/03/16  Updated sleep_common function in microblaze_sleep.c to improve the
+ * 6.0 pkp   07/25/16  Program the counter frequency in boot code for CortexA53
+ * 6.0 asa   08/03/16  Updated sleep_common function in microblaze_sleep.c to improve the
  *                     the accuracy of MB sleep functionality. This fixes the CR#954191.
  * 6.0 mus   08/03/16  Restructured the BSP to avoid code duplication across all BSPs.
  *                     Source code directories specific to ARM processor's are moved to src/arm
