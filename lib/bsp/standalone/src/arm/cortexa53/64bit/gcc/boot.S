@@ -48,8 +48,8 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 5.00  pkp	05/21/14 Initial version
-* 5.06	pkp	07/01/16 Added support for Non-secure EL1
-* 5.06	pkp	07/25/16 Program the counter frequency
+* 6.00	pkp	07/01/16 Added support for Non-secure EL1
+* 6.00	pkp	07/25/16 Program the counter frequency
 * 6.00  pkp	08/15/16 Added support for Secure EL1
 * @note
 *

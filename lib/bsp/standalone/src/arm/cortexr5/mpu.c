@@ -42,7 +42,7 @@
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  02/20/14 First release
 * 5.04	pkp  12/18/15 Updated MPU initialization as per the proper address map
-* 5.06  pkp  06/27/15 moving the Init_MPU code to .boot section since it is a
+* 6.00  pkp  06/27/16 moving the Init_MPU code to .boot section since it is a
 *                     part of processor boot process
 * </pre>
 *

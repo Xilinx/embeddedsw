@@ -46,7 +46,7 @@
 * 5.05	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
 *					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
 *					  functions description for proper explaination
-* 5.06	pkp	 07/01/16 Added support for el1
+* 6.00	pkp	 07/01/16 Added support for el1
 *
 * </pre>
 *
