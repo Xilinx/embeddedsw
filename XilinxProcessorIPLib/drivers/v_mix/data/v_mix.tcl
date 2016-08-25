@@ -32,7 +32,7 @@
 proc generate {drv_handle} {
     xdefine_include_file $drv_handle "xparameters.h" "XV_mix" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_CTRL_BASEADDR" "C_S_AXI_CTRL_HIGHADDR" "SAMPLES_PER_CLOCK" "MAX_COLS" "MAX_ROWS" "MAX_DATA_WIDTH" "VIDEO_FORMAT" "NR_LAYERS" "LOGO_LAYER" "MAX_LOGO_COLS" "MAX_LOGO_ROWS" "LOGO_TRANSPARENCY_COLOR" "LOGO_PIXEL_ALPHA" "LAYER1_ALPHA" "LAYER2_ALPHA" "LAYER3_ALPHA" "LAYER4_ALPHA" "LAYER5_ALPHA" "LAYER6_ALPHA" "LAYER7_ALPHA" "LAYER1_UPSAMPLE" "LAYER2_UPSAMPLE" "LAYER3_UPSAMPLE" "LAYER4_UPSAMPLE" "LAYER5_UPSAMPLE" "LAYER6_UPSAMPLE" "LAYER7_UPSAMPLE" "LAYER1_MAX_WIDTH" "LAYER2_MAX_WIDTH" "LAYER3_MAX_WIDTH" "LAYER4_MAX_WIDTH" "LAYER5_MAX_WIDTH" "LAYER6_MAX_WIDTH" "LAYER7_MAX_WIDTH" "LAYER1_INTF_TYPE" "LAYER2_INTF_TYPE" "LAYER3_INTF_TYPE" "LAYER4_INTF_TYPE" "LAYER5_INTF_TYPE" "LAYER6_INTF_TYPE" "LAYER7_INTF_TYPE" "LAYER1_VIDEO_FORMAT" "LAYER2_VIDEO_FORMAT" "LAYER3_VIDEO_FORMAT" "LAYER4_VIDEO_FORMAT" "LAYER5_VIDEO_FORMAT" "LAYER6_VIDEO_FORMAT" "LAYER7_VIDEO_FORMAT"
 
-    ::hsi::utils::define_config_file $drv_handle "xv_mix_g.c" "XV_mix" "DEVICE_ID" "C_S_AXI_CTRL_BASEADDR" "SAMPLES_PER_CLOCK" "MAX_COLS" "MAX_ROWS" "MAX_DATA_WIDTH" "VIDEO_FORMAT" "NR_LAYERS" "LOGO_LAYER" "MAX_LOGO_COLS" "MAX_LOGO_ROWS" "LOGO_TRANSPARENCY_COLOR" "LOGO_PIXEL_ALPHA" "LAYER1_ALPHA" "LAYER2_ALPHA" "LAYER3_ALPHA" "LAYER4_ALPHA" "LAYER5_ALPHA" "LAYER6_ALPHA" "LAYER7_ALPHA" "LAYER1_UPSAMPLE" "LAYER2_UPSAMPLE" "LAYER3_UPSAMPLE" "LAYER4_UPSAMPLE" "LAYER5_UPSAMPLE" "LAYER6_UPSAMPLE" "LAYER7_UPSAMPLE" "LAYER1_MAX_WIDTH" "LAYER2_MAX_WIDTH" "LAYER3_MAX_WIDTH" "LAYER4_MAX_WIDTH" "LAYER5_MAX_WIDTH" "LAYER6_MAX_WIDTH" "LAYER7_MAX_WIDTH" "LAYER1_INTF_TYPE" "LAYER2_INTF_TYPE" "LAYER3_INTF_TYPE" "LAYER4_INTF_TYPE" "LAYER5_INTF_TYPE" "LAYER6_INTF_TYPE" "LAYER7_INTF_TYPE"  "LAYER1_VIDEO_FORMAT" "LAYER2_VIDEO_FORMAT" "LAYER3_VIDEO_FORMAT" "LAYER4_VIDEO_FORMAT" "LAYER5_VIDEO_FORMAT" "LAYER6_VIDEO_FORMAT" "LAYER7_VIDEO_FORMAT"
+    xdefine_config_file $drv_handle "xv_mix_g.c" "XV_mix" "DEVICE_ID" "C_S_AXI_CTRL_BASEADDR" "SAMPLES_PER_CLOCK" "MAX_COLS" "MAX_ROWS" "MAX_DATA_WIDTH" "VIDEO_FORMAT" "NR_LAYERS" "LOGO_LAYER" "MAX_LOGO_COLS" "MAX_LOGO_ROWS" "LOGO_TRANSPARENCY_COLOR" "LOGO_PIXEL_ALPHA" "LAYER1_ALPHA" "LAYER2_ALPHA" "LAYER3_ALPHA" "LAYER4_ALPHA" "LAYER5_ALPHA" "LAYER6_ALPHA" "LAYER7_ALPHA" "LAYER1_UPSAMPLE" "LAYER2_UPSAMPLE" "LAYER3_UPSAMPLE" "LAYER4_UPSAMPLE" "LAYER5_UPSAMPLE" "LAYER6_UPSAMPLE" "LAYER7_UPSAMPLE" "LAYER1_MAX_WIDTH" "LAYER2_MAX_WIDTH" "LAYER3_MAX_WIDTH" "LAYER4_MAX_WIDTH" "LAYER5_MAX_WIDTH" "LAYER6_MAX_WIDTH" "LAYER7_MAX_WIDTH" "LAYER1_INTF_TYPE" "LAYER2_INTF_TYPE" "LAYER3_INTF_TYPE" "LAYER4_INTF_TYPE" "LAYER5_INTF_TYPE" "LAYER6_INTF_TYPE" "LAYER7_INTF_TYPE"  "LAYER1_VIDEO_FORMAT" "LAYER2_VIDEO_FORMAT" "LAYER3_VIDEO_FORMAT" "LAYER4_VIDEO_FORMAT" "LAYER5_VIDEO_FORMAT" "LAYER6_VIDEO_FORMAT" "LAYER7_VIDEO_FORMAT"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_mix" "DEVICE_ID" "C_S_AXI_CTRL_BASEADDR" "C_S_AXI_CTRL_HIGHADDR" "SAMPLES_PER_CLOCK" "MAX_COLS" "MAX_ROWS" "MAX_DATA_WIDTH" "VIDEO_FORMAT" "NR_LAYERS" "LOGO_LAYER" "MAX_LOGO_COLS" "MAX_LOGO_ROWS" "LOGO_TRANSPARENCY_COLOR" "LOGO_PIXEL_ALPHA" "LAYER1_ALPHA" "LAYER2_ALPHA" "LAYER3_ALPHA" "LAYER4_ALPHA" "LAYER5_ALPHA" "LAYER6_ALPHA" "LAYER7_ALPHA" "LAYER1_UPSAMPLE" "LAYER2_UPSAMPLE" "LAYER3_UPSAMPLE" "LAYER4_UPSAMPLE" "LAYER5_UPSAMPLE" "LAYER6_UPSAMPLE" "LAYER7_UPSAMPLE" "LAYER1_MAX_WIDTH" "LAYER2_MAX_WIDTH" "LAYER3_MAX_WIDTH" "LAYER4_MAX_WIDTH" "LAYER5_MAX_WIDTH" "LAYER6_MAX_WIDTH" "LAYER7_MAX_WIDTH" "LAYER1_INTF_TYPE" "LAYER2_INTF_TYPE" "LAYER3_INTF_TYPE" "LAYER4_INTF_TYPE" "LAYER5_INTF_TYPE" "LAYER6_INTF_TYPE" "LAYER7_INTF_TYPE"  "LAYER1_VIDEO_FORMAT" "LAYER2_VIDEO_FORMAT" "LAYER3_VIDEO_FORMAT" "LAYER4_VIDEO_FORMAT" "LAYER5_VIDEO_FORMAT" "LAYER6_VIDEO_FORMAT" "LAYER7_VIDEO_FORMAT"
 
@@ -220,4 +220,81 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
    puts $file_handle "\n/******************************************************************/\n"
    close $file_handle
+}
+
+#
+# Create configuration C file as required by Xilinx  drivers
+#
+proc xdefine_config_file {drv_handle file_name drv_string args} {
+    set args [::hsi::utils::get_exact_arg_list $args]
+    set filename [file join "src" $file_name]
+    #Fix for CR 784758
+    #file delete $filename
+    set config_file [open $filename w]
+    ::hsi::utils::write_c_header $config_file "Driver configuration"
+    puts $config_file "#include \"xparameters.h\""
+    puts $config_file "#include \"[string tolower $drv_string].h\""
+    puts $config_file "\n/*"
+    puts $config_file "* The configuration table for devices"
+    puts $config_file "*/\n"
+    puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+    puts $config_file "\{"
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+    set start_comma ""
+	set start_brace "{{"
+	set end_brace "}}"
+    foreach periph $periphs {
+        puts $config_file [format "%s\t\{" $start_comma]
+        set comma ""
+        foreach arg $args {
+            if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s,\n" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+                continue
+            }
+
+            if {[string compare -nocase "LAYER1_ALPHA" $arg] == 0} {
+				puts -nonewline $config_file [format "%s\t\t%s\n" $comma $start_brace]
+				set comma ""
+			}
+
+            if {([string compare -nocase "LAYER1_UPSAMPLE" $arg] == 0)  ||
+				([string compare -nocase "LAYER1_MAX_WIDTH" $arg] == 0) ||
+				([string compare -nocase "LAYER1_INTF_TYPE" $arg] == 0) ||
+				([string compare -nocase "LAYER1_VIDEO_FORMAT" $arg] == 0)} {
+					puts -nonewline $config_file [format "\n\t\t%s,\n" $end_brace]
+					puts -nonewline $config_file [format "\t\t%s\n" $start_brace]
+					set comma ""
+			}
+
+            # Check if this is a driver parameter or a peripheral parameter
+            set value [common::get_property CONFIG.$arg $drv_handle]
+            if {[llength $value] == 0} {
+                set local_value [common::get_property CONFIG.$arg $periph ]
+                # If a parameter isn't found locally (in the current
+                # peripheral), we will (for some obscure and ancient reason)
+                # look in peripherals connected via point to point links
+                if { [string compare -nocase $local_value ""] == 0} {
+                    set p2p_name [::hsi::utils::get_p2p_name $periph $arg]
+                    if { [string compare -nocase $p2p_name ""] == 0} {
+                        puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+                    } else {
+                        puts -nonewline $config_file [format "%s\t\t%s" $comma $p2p_name]
+                    }
+                } else {
+                    puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+                }
+            } else {
+                puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_driver_param_name $drv_string $arg]]
+            }
+            set comma ",\n"
+        }
+		puts -nonewline $config_file [format "\n\t\t%s\n" $end_brace]
+        puts -nonewline $config_file "\n\t\}"
+        set start_comma ",\n"
+    }
+    puts $config_file "\n\};"
+
+    puts $config_file "\n";
+
+    close $config_file
 }
