@@ -35,6 +35,7 @@
 #  1.1      rco    11/20/15 Bug fix for designs with single instance of
 #                           vcresampler core
 #  1.2      rco    06/06/16 Extended to support multiple instances
+#                  08/22/16 Bug fix for dictionary get without exists check
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -352,14 +353,17 @@ proc GetSubcoreInstanceName {subsys_inst instance_list} {
 # Param: ss_ip_list is the dictionary
 proc IsSubcoreInSubsystem {subcore subsys_inst ss_ip_list} {
 
-	set subcore_instances [dict get $ss_ip_list $subcore]
+	set is_present [dict exists $ss_ip_list $subcore]
+	if {$is_present == 1} {
+		set subcore_instances [dict get $ss_ip_list $subcore]
 		# ex for axi_vdma {v_proc_ss_0_axi_vdma v_proc_ss_1_axi_vdma}
-	set subcore_inst_name [GetSubcoreInstanceName $subsys_inst $subcore_instances]
+		set subcore_inst_name [GetSubcoreInstanceName $subsys_inst $subcore_instances]
 
-	if {[string match "Unknown" $subcore_inst_name]} {
-		set is_present 0
-	} else {
-		set is_present 1
+		if {[string match "Unknown" $subcore_inst_name]} {
+			set is_present 0
+		} else {
+			set is_present 1
+		}
 	}
 	return $is_present
 }
