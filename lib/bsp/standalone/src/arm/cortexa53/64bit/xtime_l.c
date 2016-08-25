@@ -45,7 +45,7 @@
 * 5.05	pkp	   04/13/16 Added XTime_StartTimer API to start the global timer
 *						counter if it is disabled. Also XTime_GetTime calls
 *						this API to ensure the global timer counter is enabled
-* 5.06	pkp	   07/01/16	Added support for el1
+* 6.00	pkp	   07/01/16	Added support for el1
 * 6.00  pkp	   08/15/16 Start the timer for Secure EL1 if disabled
 * </pre>
 *

@@ -42,7 +42,7 @@
 * Ver   Who    Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a hbm  07/14/09 Initial release
-* 5.6   kvn  05/31/16 Make Xil_AsserWait a global variable
+* 6.0   kvn  05/31/16 Make Xil_AsserWait a global variable
 * </pre>
 *
 ******************************************************************************/

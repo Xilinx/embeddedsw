@@ -43,7 +43,7 @@
 * ----- ---- -------- ---------------------------------------------------
 * 5.2	pkp  28/05/15 First release
 * 5.4	pkp  18/12/15 Updated the address map according to proper address map
-* 5.6   mus  20/07/16 Added warning for ddrless HW design CR-954977
+* 6.0   mus  20/07/16 Added warning for ddrless HW design CR-954977
 * </pre>
 *
 * @note
