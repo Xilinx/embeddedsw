@@ -88,7 +88,7 @@ int main(void )
 	XTime tCur = 0;
 #endif
 
-#if EL3 != 1
+#if defined(EL3) && (EL3 != 1)
 #error "FSBL should be generated using only EL3 BSP"
 #endif
 
