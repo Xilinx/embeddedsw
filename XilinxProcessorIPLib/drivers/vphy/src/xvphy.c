@@ -58,6 +58,8 @@
  *                     Changed EffectiveAddr datatype in XVphy_CfgInitialize
  *                       to UINTPTR
  *                     Used usleep API instead of MB_Sleep API
+ *                     Fixed Null pointer dereference in XVphy_IBufDsEnable
+ *                     Suppressed warning messages due to unused arguments
  * </pre>
  *
 *******************************************************************************/
@@ -205,6 +207,9 @@ u32 XVphy_PllInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_PllRefClkSelType CpllRefClkSel,
 		XVphy_PllType TxPllSelect, XVphy_PllType RxPllSelect)
 {
+	/* Suppress Warning Messages */
+	ChId = ChId;
+
 	XVphy_SelQuad(InstancePtr, QuadId);
 
 	/* Set configuration in software. */
@@ -382,6 +387,10 @@ void XVphy_SetRxLpm(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 RegVal;
 	u32 MaskVal;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	Dir = Dir;
+
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 							XVPHY_RX_EQ_CDR_REG);
 
@@ -423,6 +432,9 @@ void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
 	u32 MaskVal;
 	u32 RegOffset;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
 		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
 	}
@@ -457,6 +469,9 @@ void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 RegVal;
 	u32 MaskVal;
 	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
 	if ((ChId == XVPHY_CHANNEL_ID_CH1) || (ChId == XVPHY_CHANNEL_ID_CH2)) {
 		RegOffset = XVPHY_TX_DRIVER_CH12_REG;
@@ -775,6 +790,11 @@ XVphy_ChannelId XVphy_GetRcfgChId(XVphy *InstancePtr, u8 QuadId,
 {
 	XVphy_ChannelId ChId;
 
+	/* Suppress Warning Messages */
+	InstancePtr = InstancePtr;
+	QuadId = QuadId;
+	Dir = Dir;
+
 	/* Determine which channel(s) to operate on. */
 	switch (PllType) {
 	case XVPHY_PLL_TYPE_QPLL:
@@ -841,6 +861,9 @@ XVphy_PllRefClkSelType XVphy_GetPllRefClkSel(XVphy *InstancePtr, u8 QuadId,
 	u32 Sel;
 	u32 RegVal;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	Xil_AssertNonvoid((XVPHY_CHANNEL_ID_CH1 <= ChId) &&
 			(ChId <= XVPHY_CHANNEL_ID_CMN1));
 
@@ -883,6 +906,10 @@ XVphy_SysClkDataSelType XVphy_GetSysClkDataSel(XVphy *InstancePtr, u8 QuadId,
 	u32 Sel;
 	u32 RegVal;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	ChId = ChId;
+
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 							XVPHY_REF_CLK_SEL_REG);
 
@@ -923,6 +950,10 @@ XVphy_SysClkOutSelType XVphy_GetSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
 {
 	u32 Sel;
 	u32 RegVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	ChId = ChId;
 
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 			XVPHY_REF_CLK_SEL_REG);
@@ -993,6 +1024,9 @@ u32 XVphy_WaitForPmaResetDone(XVphy *InstancePtr, u8 QuadId,
 	u32 RegOffset;
 	u8 Retry = 0;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	if (Dir == XVPHY_DIR_TX) {
 		RegOffset = XVPHY_TX_INIT_STATUS_REG;
 	}
@@ -1045,6 +1079,9 @@ u32 XVphy_WaitForResetDone(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 MaskVal;
 	u32 RegOffset;
 	u8 Retry = 0;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
 	if (Dir == XVPHY_DIR_TX) {
 		RegOffset = XVPHY_TX_INIT_STATUS_REG;
@@ -1126,6 +1163,9 @@ u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	XVphy_PllType TxPllType;
 	XVphy_PllType RxPllType;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	if (ChId == XVPHY_CHANNEL_ID_CMN0) {
 		MaskVal = XVPHY_PLL_LOCK_STATUS_QPLL0_MASK;
 	}
@@ -1190,6 +1230,9 @@ u32 XVphy_ResetGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 MaskVal;
 	u32 RegOffset;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	if (Dir == XVPHY_DIR_TX) {
 		RegOffset = XVPHY_TX_INIT_REG;
 	}
@@ -1241,6 +1284,9 @@ u32 XVphy_ResetGtTxRx(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 MaskVal;
 	u32 RegOffset;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	if (Dir == XVPHY_DIR_TX) {
 		RegOffset = XVPHY_TX_INIT_REG;
 	}
@@ -1291,6 +1337,9 @@ u32 XVphy_GtUserRdyEnable(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 RegVal;
 	u32 MaskVal;
 	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
 	if (Dir == XVPHY_DIR_TX) {
 		RegOffset = XVPHY_TX_INIT_REG;
@@ -1721,11 +1770,15 @@ void XVphy_SetBufgGtDiv(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Div)
 void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Enable)
 {
-	XVphy_PllRefClkSelType *TypePtr, *DruTypePtr;
+	XVphy_PllRefClkSelType *TypePtr, *DruTypePtr, DruTypeDummy;
 	u32 RegAddr = XVPHY_IBUFDS_GTXX_CTRL_REG;
 	u32 RegVal;
 	u32 MaskVal = 0;
-	DruTypePtr = NULL;
+	DruTypeDummy = XVPHY_PLL_REFCLKSEL_TYPE_GTGREFCLK;
+	DruTypePtr = &DruTypeDummy;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
 	if (Dir == XVPHY_DIR_TX) {
 		TypePtr = &InstancePtr->Config.TxRefClkSel;
@@ -1738,11 +1791,13 @@ void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 	}
 
 	if ((*TypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0) ||
-			(*DruTypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0)) {
+			((InstancePtr->Config.DruIsPresent) &&
+			(*DruTypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0))) {
 		MaskVal = XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK0_CEB_MASK;
 	}
 	else if ((*TypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK1) ||
-			(*DruTypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK1)) {
+			((InstancePtr->Config.DruIsPresent) &&
+			(*DruTypePtr == XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK1))) {
 		MaskVal = XVPHY_IBUFDS_GTXX_CTRL_GTREFCLK1_CEB_MASK;
 	}
 	else {
@@ -1827,6 +1882,9 @@ void XVphy_Set8b10b(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 MaskVal;
 	u32 RegVal;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	if (Dir == XVPHY_DIR_TX) {
 		RegOffset = XVPHY_TX_CONTROL_REG;
 		if (ChId == XVPHY_CHANNEL_ID_CHA) {
@@ -1879,6 +1937,9 @@ u32 XVphy_PowerDownGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 MaskVal = 0;
 	u32 RegVal;
 	u8 Id, Id0, Id1;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
 	if (XVPHY_ISCH(ChId)) {
 		XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
@@ -2609,6 +2670,9 @@ void XVphy_SetDefaultPpc(XVphy *InstancePtr, u8 QuadId)
 ******************************************************************************/
 void XVphy_SetPpc(XVphy *InstancePtr, u8 QuadId, u8 Ppc)
 {
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	InstancePtr->Config.Ppc = Ppc;
 }
 

@@ -45,6 +45,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   vkd  10/19/15 Initial release.
+ * 1.2   gm   08/26/16 Suppressed warning messages due to unused arguments
  * </pre>
  *
 *******************************************************************************/
@@ -92,6 +93,9 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
+
+	/* Suppress Warning Messages */
+	LinkRate = LinkRate;
 
 	/* Setup the instance */
 	(void)memset((void *)InstancePtr, 0, sizeof(XVphy));
