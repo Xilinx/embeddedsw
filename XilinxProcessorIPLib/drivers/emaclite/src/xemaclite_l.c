@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2004 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,7 +60,8 @@
 *                     Changed the prototypes of XEmacLite_SendFrame,
 *                     XEmacLite_RecvFrame, XEmacLite_AlignedWrite,
 *                     XEmacLite_AlignedRead APIs.
-*
+* 4.3   asa  08/27/16 Fix compilation warning by making changes in
+*                     XEmacLite_AlignedWrite.
 * </pre>
 *
 ******************************************************************************/
@@ -237,14 +238,14 @@ void XEmacLite_AlignedWrite(void *SrcPtr, UINTPTR *DestPtr, unsigned ByteCount)
 	unsigned Index;
 	unsigned Length = ByteCount;
 	volatile u32 AlignBuffer;
-	volatile u32 *To32Ptr;
+	volatile UINTPTR *To32Ptr;
 	u32 *From32Ptr;
 	volatile u16 *To16Ptr;
 	u16 *From16Ptr;
 	volatile u8 *To8Ptr;
 	u8 *From8Ptr;
 
-	To32Ptr = DestPtr;
+	To32Ptr = (volatile UINTPTR *)DestPtr;
 
 	if ((((u32) SrcPtr) & 0x00000003) == 0) {
 
