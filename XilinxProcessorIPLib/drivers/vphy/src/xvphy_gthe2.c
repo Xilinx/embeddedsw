@@ -46,6 +46,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
+ * 1.2   gm   08/26/16 Suppressed warning messages due to unused arguments
  * </pre>
  *
 *******************************************************************************/
@@ -216,6 +217,10 @@ u32 XVphy_Gthe2CheckPllOpRange(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, u64 PllClkOutFreqHz)
 {
 	u32 Status = XST_FAILURE;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+	InstancePtr = InstancePtr;
 
 	if ((ChId == XVPHY_CHANNEL_ID_CMN0) &&
 			(XVPHY_QPLL_LB_MIN <= PllClkOutFreqHz) &&

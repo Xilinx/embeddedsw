@@ -47,6 +47,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
  * 1.1   gm   03/18/16 Added XVphy_Gtpe2RxPllRefClkDiv1Reconfig function
+ * 1.2   gm   08/26/16 Suppressed warning messages due to unused arguments
  * </pre>
  *
 *******************************************************************************/
@@ -238,6 +239,11 @@ u32 XVphy_Gtpe2CheckPllOpRange(XVphy *InstancePtr, u8 QuadId,
 {
 	u32 Status = XST_FAILURE;
 
+	/* Suppress Warning Messages */
+	InstancePtr = InstancePtr;
+	QuadId = QuadId;
+	ChId = ChId;
+
 	if ((XVPHY_CPLL_MIN <= PllClkOutFreqHz) &&
 			(PllClkOutFreqHz <= XVPHY_CPLL_MAX)) {
 		Status = XST_SUCCESS;
@@ -310,6 +316,11 @@ u32 XVphy_Gtpe2OutDivChReconfig(XVphy *InstancePtr, u8 QuadId,
 u32 XVphy_Gtpe2ClkChReconfig(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId)
 {
+	/* Suppress Warning Messages */
+	InstancePtr = InstancePtr;
+	QuadId = QuadId;
+	ChId = ChId;
+
 	/* GTPE2 doesn't have channel PLL. */
 	return XST_FAILURE;
 }

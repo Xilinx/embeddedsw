@@ -101,10 +101,10 @@ typedef struct XVphy_GtConfigS {
 
 /*************************** Variable Declarations ****************************/
 
-const XVphy_GtConfig Gtxe2Config;
-const XVphy_GtConfig Gthe2Config;
-const XVphy_GtConfig Gtpe2Config;
-const XVphy_GtConfig Gthe3Config;
-const XVphy_GtConfig Gthe4Config;
+extern const XVphy_GtConfig Gtxe2Config;
+extern const XVphy_GtConfig Gthe2Config;
+extern const XVphy_GtConfig Gtpe2Config;
+extern const XVphy_GtConfig Gthe3Config;
+extern const XVphy_GtConfig Gthe4Config;
 
 #endif /* XVPHY_GT_H_ */

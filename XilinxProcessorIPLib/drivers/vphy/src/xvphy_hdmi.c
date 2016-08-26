@@ -51,6 +51,7 @@
  *                       XVphy_HdmiMmcmWriteParameters functions
  *                     Replaced xil_printf with log events
  *                     Modified XVphy_DruGetRefClkFreqHz
+ *                     Suppressed warning messages due to unused arguments
  * </pre>
  *
 *******************************************************************************/
@@ -493,6 +494,9 @@ void XVphy_ClkDetTimerClear(XVphy *InstancePtr, u8 QuadId,
 {
 	u32 RegVal;
 
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
 	/* Read the clock detector control register. */
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 			XVPHY_CLKDET_CTRL_REG);
@@ -526,6 +530,9 @@ void XVphy_ClkDetFreqReset(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir)
 {
 	u32 RegVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
 	/* Read clkdet ctrl register. */
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
@@ -645,6 +652,9 @@ void XVphy_ClkDetTimerLoad(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, u32 TimeoutVal)
 {
 	u32 RegOffset;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
 	if (Dir == XVPHY_DIR_TX) {
 		RegOffset = XVPHY_CLKDET_TMR_TX_REG;
@@ -1044,6 +1054,9 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 	XVphy_Mmcm *MmcmPtr;
 	XVphy_PllType PllType;
 
+	/* Suppress Warning Messages */
+	ChId = ChId;
+
 	if (Dir == XVPHY_DIR_RX) {
 		RefClk = InstancePtr->HdmiRxRefClkHz;
 		MmcmPtr= &InstancePtr->Quads[QuadId].RxMmcm;
@@ -1323,6 +1336,9 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u8 SRIndex;
 	u8 SRValue;
 
+	/* Suppress Warning Messages */
+	ChId = ChId;
+
 	XVphy_SysClkDataSelType SysClkDataSel = 0;
 	XVphy_SysClkOutSelType SysClkOutSel = 0;
 	XVphy_ChannelId ActiveCmnId = XVPHY_CHANNEL_ID_CMN0;
@@ -1579,6 +1595,9 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u8 SRValue;
 
 	XVphy_PllType PllType;
+
+	/* Suppress Warning Messages */
+	ChId = ChId;
 
 	/* Change Channel ID to Common if GTPE2 */
 	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {

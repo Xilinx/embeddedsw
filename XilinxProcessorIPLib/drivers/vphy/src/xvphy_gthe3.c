@@ -47,6 +47,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
  * 1.1   gm   03/18/16 Added XVphy_Gthe3RxPllRefClkDiv1Reconfig function
+ * 1.2   gm   08/26/16 Suppressed warning messages due to unused arguments
  * </pre>
  *
 *******************************************************************************/
@@ -240,6 +241,10 @@ u32 XVphy_Gthe3CheckPllOpRange(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, u64 PllClkOutFreqHz)
 {
 	u32 Status = XST_FAILURE;
+
+	/* Suppress Warning Messages */
+	InstancePtr = InstancePtr;
+	QuadId = QuadId;
 
 	if (((ChId == XVPHY_CHANNEL_ID_CMN0) &&
 				(XVPHY_QPLL0_MIN <= PllClkOutFreqHz) &&
