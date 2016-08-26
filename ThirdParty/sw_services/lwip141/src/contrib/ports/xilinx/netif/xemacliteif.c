@@ -31,7 +31,7 @@
  */
 
 /*
- * Copyright (c) 2007-2013 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2007-2016 Xilinx, Inc.  All rights reserved.
  *
  * Xilinx, Inc.
  * XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A
@@ -52,8 +52,17 @@
 #include "xlwipconfig.h"
 
 #if !NO_SYS
+#ifdef OS_IS_XILKERNEL
 #include "xmk.h"
 #include "sys/intr.h"
+#endif
+#ifdef OS_IS_FREERTOS
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "timers.h"
+#endif
+#include "lwip/sys.h"
+#include "lwip/timers.h"
 #endif
 
 #include <stdio.h>
@@ -147,6 +156,10 @@ unsigned configure_IEEE_phy_speed_emaclite(XEmacLite *xemaclitep, unsigned speed
  * only in a protected context
  */
 unsigned char xemac_tx_frame[XEL_MAX_FRAME_SIZE] __attribute__((aligned(64)));
+
+#ifdef OS_IS_FREERTOS
+unsigned int xInsideISR = 0;
+#endif
 
 #ifndef XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ
 #if XPAR_INTC_0_HAS_FAST == 1
@@ -538,7 +551,6 @@ static err_t low_level_init(struct netif *netif)
 					xtopologyp->intc_emac_intr);
 #else
 #if NO_SYS
-
 #if XPAR_INTC_0_HAS_FAST == 1
 	XIntc_RegisterFastHandler(xtopologyp->intc_baseaddr,
 		xtopologyp->intc_emac_intr,
@@ -549,13 +561,26 @@ static err_t low_level_init(struct netif *netif)
 				(XInterruptHandler)XEmacLite_InterruptHandler,
 				xemaclitep);
 #endif
-
 #else
-#include "xmk.h"
+#ifdef OS_IS_XILKERNEL
 	register_int_handler(xtopologyp->intc_emac_intr,
 			(XInterruptHandler)XEmacLite_InterruptHandler,
 			xemaclitep);
 	enable_interrupt(xtopologyp->intc_emac_intr);
+#else
+#if XPAR_INTC_0_HAS_FAST == 1
+	XIntc_RegisterFastHandler(xtopologyp->intc_baseaddr,
+			xtopologyp->intc_emac_intr,
+			(XFastInterruptHandler)XEmacLite_FastInterruptHandler);
+
+#else
+
+	XIntc_RegisterHandler(xtopologyp->intc_baseaddr,
+					xtopologyp->intc_emac_intr,
+					(XInterruptHandler)XEmacLite_InterruptHandler,
+					xemaclitep);
+#endif
+#endif
 #endif
 #endif
 
