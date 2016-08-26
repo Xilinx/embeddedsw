@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2004 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2004 - 2016 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -202,6 +202,7 @@
 *		      CR#917930
 * 4.2	adk  29/02/16 Updated interrupt example to support Zynq and ZynqMP
 *		      CR#938244.
+* 4.3   asa  08/27/16 Fix compilation warning by making change xemaclite_l.c
 *
 * </pre>
 *
