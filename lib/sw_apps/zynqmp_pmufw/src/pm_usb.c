@@ -35,6 +35,7 @@
 #include "pm_usb.h"
 #include "pm_common.h"
 #include "pm_master.h"
+#include "pm_reset.h"
 #include "xpfw_rom_interface.h"
 #include "lpd_slcr.h"
 
@@ -92,6 +93,10 @@ static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_USB_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = usb->PwrUp();
+			if (XST_SUCCESS == status) {
+				status = PmResetAssertInt(usb->rstId,
+						PM_RESET_ACTION_PULSE);
+			}
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -150,6 +155,7 @@ PmSlaveUsb pmSlaveUsb0_g = {
 	},
 	.PwrDn = XpbrPwrDnUsb0Handler,
 	.PwrUp = XpbrPwrUpUsb0Handler,
+	.rstId = PM_RESET_USB0_CORERESET,
 };
 
 static PmGicProxyWake pmUsb1Wake = {
@@ -183,4 +189,5 @@ PmSlaveUsb pmSlaveUsb1_g = {
 	},
 	.PwrDn = XpbrPwrDnUsb1Handler,
 	.PwrUp = XpbrPwrUpUsb1Handler,
+	.rstId = PM_RESET_USB1_CORERESET,
 };
