@@ -624,11 +624,6 @@ done:
  * WrSize: Number of 32bit words that the DMA should write to
  *        the PCAP interface
  *
- * flags:
- *      0x00000001 - PCAP_INIT,
- *      0x00000002 - PCAP_WRITE,
- *      0x00000004 - PCAP_DONE,
- *
  * @return  error status based on implemented functionality (SUCCESS by default)
  */
 static void PmFpgaLoad(const PmMaster *const master,
