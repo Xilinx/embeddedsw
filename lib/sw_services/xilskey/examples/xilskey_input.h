@@ -284,7 +284,7 @@
 *	TRUE will disables Xilinx test access.
 *	FALSE will not modify this secure bit of eFuse.
 *
-*	#define	XSK_EFUSEPL_DISABLE_DECODER		FALSE
+*	#define	XSK_EFUSEPL_DISABLE_AES_DECRYPTOR	FALSE
 *	TRUE will disables decoder completely.
 *	FALSE will not modify this secure bit of eFuse.
 *
@@ -412,7 +412,7 @@
 *
 *	NOTE:Please make sure you have sufficient heap and stack to run this
 *	application.
-*	For more information on creating vivado design please refer to xapp.
+*	For more information on creating vivado design please refer to xapp1283.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -429,6 +429,8 @@
 * 4.00  vns     09/10/15 Added DFT JTAG disable and DFT MODE disable programming
 *                        options for Zynq eFuse PS.
 * 6.0   vns     07/07/16 Added Gpio pin numbers connected to hardware module.
+*               27/08/16 Modified XSK_EFUSEPL_DISABLE_DECODER macro to
+*                        XSK_EFUSEPL_DISABLE_AES_DECRYPTOR
 *
 * </pre>
 *
@@ -618,8 +620,8 @@ extern "C" {
 #define	XSK_EFUSEPL_DISABLE_TEST_ACCESS		FALSE	/**< If TRUE will disable internal
 							  * test access for ULTRASCALE
 							  */
-#define	XSK_EFUSEPL_DISABLE_DECODER		FALSE	/**< If TRUE will
-							  *  Disable's decoder
+#define	XSK_EFUSEPL_DISABLE_AES_DECRYPTOR	FALSE	/**< If TRUE will
+							  *  Disable AES decryptor
 							  */
 
 /**

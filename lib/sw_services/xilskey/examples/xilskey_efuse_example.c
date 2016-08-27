@@ -874,7 +874,7 @@ u32 XilSKey_EfusePl_InitData(XilSKey_EPl *PlInstancePtr)
 	PlInstancePtr->RSAEnable = XSK_EFUSEPL_ENABLE_RSA_AUTH;
 	PlInstancePtr->JtagDisable = XSK_EFUSEPL_DISABLE_JTAG_CHAIN;
 	PlInstancePtr->IntTestAccessDisable = XSK_EFUSEPL_DISABLE_TEST_ACCESS;
-	PlInstancePtr->DecoderDisable = XSK_EFUSEPL_DISABLE_DECODER;
+	PlInstancePtr->DecoderDisable = XSK_EFUSEPL_DISABLE_AES_DECRYPTOR;
 
 
 	PlInstancePtr->ProgAESKeyUltra = XSK_EFUSEPL_PROGRAM_AES_KEY;
