@@ -45,11 +45,13 @@
  * @slv         Base slave structure
  * @PwrDn   Pointer to a power down pmu-rom handler
  * @PwrUp   Pointer to a power up pmu-rom handler
+ * @rstId   USB reset ID
  */
 typedef struct PmSlaveUsb {
 	PmSlave slv;
 	PmTranHandler PwrDn;
 	PmTranHandler PwrUp;
+	const u32 rstId;
 } PmSlaveUsb;
 
 /*********************************************************************
