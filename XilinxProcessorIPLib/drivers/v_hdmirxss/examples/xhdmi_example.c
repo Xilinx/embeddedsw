@@ -646,6 +646,8 @@ void Info(void)
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
   XV_HdmiRxSs_ReportInfo(&HdmiRxSs);
 #endif
+
+  // GT
   xil_printf("------------\n\r");
   xil_printf("HDMI PHY\n\r");
   xil_printf("------------\n\r");
@@ -664,10 +666,6 @@ void Info(void)
 				XVphy_DruGetRefClkFreqHz(&Vphy));
   }
   XVphy_HdmiDebugInfo(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
-
-
-
-
 }
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -719,9 +717,23 @@ void TxConnectCallback(void *CallbackRef)
 #endif
 	}
 }
+
+/*****************************************************************************/
+/**
+*
+* This function is called when a TX toggle event has occurred.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
 void TxToggleCallback(void *CallbackRef)
 {
 #ifdef USE_HDCP
+	/* Call HDCP connect callback */
 	XHdcp_Authenticate(&HdcpRepeater);
 #endif
 }
@@ -1924,7 +1936,6 @@ int main()
   {
     xil_printf("ERR:: HDMI TX Subsystem Initialization failed %d\r\n", Status);
   }
-  XV_HdmiTxSs_SetAxiClkFreq(&HdmiTxSs, 100000000);
 
   //Register HDMI TX SS Interrupt Handler with Interrupt Controller
 #if defined(__arm__)
