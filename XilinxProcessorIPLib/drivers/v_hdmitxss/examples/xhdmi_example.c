@@ -1937,9 +1937,6 @@ int main()
     xil_printf("ERR:: HDMI TX Subsystem Initialization failed %d\r\n", Status);
   }
 
-  // Set AXI4-Lite Frequency, which is used to generate DDC clock
-  XV_HdmiTxSs_SetAxiClkFreq(&HdmiTxSs, 100000000);
-
   //Register HDMI TX SS Interrupt Handler with Interrupt Controller
 #if defined(__arm__)
   Status |= XScuGic_Connect(&Intc,
