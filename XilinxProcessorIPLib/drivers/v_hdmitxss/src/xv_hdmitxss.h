@@ -70,9 +70,9 @@
 * 1.9   MH     23/06/16 Added HDCP repeater support.
 * 1.10  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 * 1.11  MH     08/08/16 Updates to optimize out HDCP when excluded.
-* 1.12  YH     17/08/16 Added XV_HdmiTxSs_SetAxiClkFreq
-* 1.13  YH     18/08/16 Combine Report function into one ReportInfo
+* 1.12  YH     18/08/16 Combine Report function into one ReportInfo
 *                       Add Event Log
+* 1.13  YH     27/08/16 Remove unused function XV_HdmiTxSs_SetUserTimerHandler
 * </pre>
 *
 ******************************************************************************/
@@ -250,6 +250,7 @@ typedef struct
                                 subsystem address range */
     XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
     u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
+	u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
     XV_HdmiTxSs_SubCore RemapperReset;/**< Sub-core instance configuration */
     XV_HdmiTxSs_SubCore HdcpTimer;    /**< Sub-core instance configuration */
     XV_HdmiTxSs_SubCore Hdcp14;       /**< Sub-core instance configuration */
@@ -343,8 +344,6 @@ typedef struct
 XV_HdmiTxSs_Config *XV_HdmiTxSs_LookupConfig(u32 DeviceId);
 void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_SetDviMode(XV_HdmiTxSs *InstancePtr);
-void XV_HdmiTxSs_SetUserTimerHandler(XV_HdmiTxSs *InstancePtr,
-        XVidC_DelayHandler CallbackFunc, void *CallbackRef);
 void XV_HdmiTxSS_HdmiTxIntrHandler(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
     XV_HdmiTxSs_Config *CfgPtr,
@@ -387,7 +386,6 @@ int XV_HdmiTxSs_IsStreamToggled(XV_HdmiTxSs *InstancePtr);
 u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr);
 u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTxSs *InstancePtr);
 
-void XV_HdmiTxSs_SetAxiClkFreq(XV_HdmiTxSs *InstancePtr, u32 ClkFreq);
 void XV_HdmiTxSs_SetDefaultPpc(XV_HdmiTxSs *InstancePtr, u8 Id);
 void XV_HdmiTxSs_SetPpc(XV_HdmiTxSs *InstancePtr, u8 Id, u8 Ppc);
 

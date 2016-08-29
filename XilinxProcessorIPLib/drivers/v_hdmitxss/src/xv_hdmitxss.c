@@ -82,10 +82,11 @@
 * 1.16   YH    04/08/16 Remove unused functions
 *                       XV_HdmiTxSs_GetSubSysStruct
 * 1.17   MH    08/08/16 Updates to optimize out HDCP when excluded.
-* 1.18   YH    17/08/16 Added XV_HdmiTxSs_SetAxiClkFreq
-*                       Remove sleep in XV_HdmiTxSs_ResetRemapper
+* 1.18   YH    17/08/16 Remove sleep in XV_HdmiTxSs_ResetRemapper
 *                       Added Event Log
 *                       Combine Report function into one ReportInfo
+* 1.19  YH     27/08/16 Remove unused functions XV_HdmiTxSs_SetUserTimerHandler
+*                       XV_HdmiTxSs_WaitUs
 * </pre>
 *
 ******************************************************************************/
@@ -125,7 +126,6 @@ XV_HdmiTxSs_SubCores XV_HdmiTxSs_SubCoreRepo[XPAR_XV_HDMITXSS_NUM_INSTANCES];
 /************************** Function Prototypes ******************************/
 static void XV_HdmiTxSs_GetIncludedSubcores(XV_HdmiTxSs *HdmiTxSsPtr,
     u16 DevId);
-static void XV_HdmiTxSs_WaitUs(XV_HdmiTxSs *InstancePtr, u32 MicroSeconds);
 static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr);
 static int XV_HdmiTxSs_VtcSetup(XVtc *XVtcPtr, XV_HdmiTx *HdmiTxPtr);
 static void XV_HdmiTxSs_SendAviInfoframe(XV_HdmiTx *HdmiTxPtr);
@@ -228,92 +228,6 @@ void XV_HdmiTxSs_ReportCoreInfo(XV_HdmiTxSs *InstancePtr)
   }
 #endif
 }
-
-/******************************************************************************/
-/**
-* This function sets the AXI4-Lite Clock Frequency
-*
-* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
-* @param    ClkFreq specifies the value that needs to be set.
-*
-* @return
-*
-*
-* @note     This is required after a reset or init.
-*
-******************************************************************************/
-void XV_HdmiTxSs_SetAxiClkFreq(XV_HdmiTxSs *InstancePtr, u32 ClkFreq)
-{
-	XV_HdmiTx_SetAxiClkFreq(InstancePtr->HdmiTxPtr, ClkFreq);
-}
-
-/******************************************************************************/
-/**
- * This function installs a custom delay/sleep function to be used by the XV_HdmiTxSs
- * driver.
- *
- * @param   InstancePtr is a pointer to the XV_HdmiTxSs instance.
- * @param   CallbackFunc is the address to the callback function.
- * @param   CallbackRef is the user data item (microseconds to delay) that
- *      will be passed to the custom sleep/delay function when it is
- *      invoked.
- *
- * @return  None.
- *
- * @note    None.
- *
-*******************************************************************************/
-void XV_HdmiTxSs_SetUserTimerHandler(XV_HdmiTxSs *InstancePtr,
-            XVidC_DelayHandler CallbackFunc, void *CallbackRef)
-{
-    /* Verify arguments. */
-    Xil_AssertVoid(InstancePtr != NULL);
-    Xil_AssertVoid(CallbackFunc != NULL);
-    Xil_AssertVoid(CallbackRef != NULL);
-
-    InstancePtr->UserTimerWaitUs = CallbackFunc;
-    InstancePtr->UserTimerPtr = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function is the delay/sleep function for the XV_HdmiTxSs driver. For the Zynq
- * family, there exists native sleep functionality. For MicroBlaze however,
- * there does not exist such functionality. In the MicroBlaze case, the default
- * method for delaying is to use a predetermined amount of loop iterations. This
- * method is prone to inaccuracy and dependent on system configuration; for
- * greater accuracy, the user may supply their own delay/sleep handler, pointed
- * to by InstancePtr->UserTimerWaitUs, which may have better accuracy if a
- * hardware timer is used.
- *
- * @param   InstancePtr is a pointer to the XDptx instance.
- * @param   MicroSeconds is the number of microseconds to delay/sleep for.
- *
- * @return  None.
- *
- * @note    None.
- *
-*******************************************************************************/
-void XV_HdmiTxSs_WaitUs(XV_HdmiTxSs *InstancePtr, u32 MicroSeconds)
-{
-    /* Verify arguments. */
-    Xil_AssertVoid(InstancePtr != NULL);
-    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-
-    if (MicroSeconds == 0) {
-        return;
-    }
-
-    if (InstancePtr->UserTimerWaitUs != NULL) {
-        /* Use the timer handler specified by the user for better
-         * accuracy. */
-        InstancePtr->UserTimerWaitUs(InstancePtr, MicroSeconds);
-    }
-    else {
-        usleep(MicroSeconds);
-    }
-}
-
 
 /*****************************************************************************/
 /**
@@ -514,6 +428,7 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
     if (XV_HdmiTxSs_SubcoreInitHdmiTx(HdmiTxSsPtr) != XST_SUCCESS) {
       return(XST_FAILURE);
     }
+	XV_HdmiTx_SetAxiClkFreq(HdmiTxSsPtr->HdmiTxPtr, HdmiTxSsPtr->Config.AxiLiteClkFreq);
   }
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES

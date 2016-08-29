@@ -231,10 +231,8 @@ void XHdmi_DisplayMainMenu(void)
 	print("       => Passes the sink input to source output.\n\r");
 	print("l - GT PLL layout\n\r");
 	print("       => Select GT tranceiver PLL layout.\n\r");
-	print("z - GT log\n\r");
-	print("       => Shows the GT transceiver log information.\n\r");
-	print("w - HDMI TX/RX log\n\r");
-	print("       => Shows the HDMI TX and RX log information.\n\r");
+	print("z - GT & HDMI TX/RX log\n\r");
+	print("       => Shows log information for GT & HDMI TX/RX.\n\r");
 	print("e - Edid\n\r");
 	print("       => Display and set edid.\n\r");
 	print("a - Audio\n\r");
@@ -459,16 +457,10 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			Menu = XHDMI_GTPLLLAYOUT_MENU;
 		break;
 
-		// GT log
+		// GT & HDMI TX/RX log
 		case ('z') :
 		case ('Z') :
 			XVphy_LogDisplay(&Vphy);
-			Menu = XHDMI_MAIN_MENU;
-		break;
-
-		// HDMI log
-		case ('w') :
-		case ('W') :
 			XV_HdmiTxSs_LogDisplay(&HdmiTxSs);
 			XV_HdmiRxSs_LogDisplay(&HdmiRxSs);
 			Menu = XHDMI_MAIN_MENU;
