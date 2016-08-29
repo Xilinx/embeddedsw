@@ -278,6 +278,7 @@ Updated the driver to support 64-bit DMA addressing
 
 v_hdmirx_v1_2:
 squash unused variable compiler warning
+Resolve wrong image size issue when HTotal=0
 
 v_hdmitx_v1_2:
 Added API to set AXI4-Lite clock frequency
@@ -289,9 +290,11 @@ Clean up warnings
 Add Event Log
 
 v_hdmitxss_v3_0:
-Add API to set AXI4-Lite clock frequency
+Add Config to get AXI4-Lite clock frequency from HW and set hdmi tx core
 Added Event Log
 Combine Report function into one ReportInfo
+squash unused variable compiler warning
+Update XV_HdmiTxSs_SetAudioChannels
 
 v_hdmirx_v1_2:
 Up version to 1.2 with the following updates:
