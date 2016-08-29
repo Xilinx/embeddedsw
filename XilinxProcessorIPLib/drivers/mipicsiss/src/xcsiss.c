@@ -46,6 +46,7 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/21/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
+*     sss 08/29/16 Added check for Dphy register interface
 * </pre>
 *
 ******************************************************************************/
@@ -166,7 +167,7 @@ u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 	}
 
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	if (InstancePtr->DphyPtr) {
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
 		Status = CsiSs_SubCoreInitDphy(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -286,7 +287,7 @@ u32 XCsiSs_Activate(XCsiSs *InstancePtr, u8 Flag)
 		return Status;
 
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	if (InstancePtr->DphyPtr->Config.IsRegisterPresent) {
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
 		XDphy_Activate(InstancePtr->DphyPtr, Flag);
 	}
 #endif
@@ -352,7 +353,7 @@ void XCsiSs_ReportCoreInfo(XCsiSs *InstancePtr)
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr) {
 		xdbg_printf(XDBG_DEBUG_INFO,"    : DPhy ");
-		if (InstancePtr->DphyPtr->Config.IsRegisterPresent) {
+		if (InstancePtr->Config.IsDphyRegIntfcPresent) {
 			xdbg_printf(XDBG_DEBUG_INFO,"with ");
 		}
 		else {
