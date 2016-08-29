@@ -34,23 +34,55 @@
 /**
 *
 * @file xilfpga_pcap.h
+* @addtogroup xfpga_apis XilFPGA APIs
+* @{
+*
+* The XILFPGA Library provides the interfaces to the application to configure
+* the programmable logic (PL) though the PS.
+*
+* Features
+*	Supported:
+*		Full Bit-stream loading.
+*	To be supported features:
+* 		Partial Bit-stream loading.
+*		Encrypted Bit-stream loading.
+*		Authenticated Bit stream loading.
+*
+* Xilfpga_PL library Interface modules:
+*	Xilfpga_PL library uses the below major components to configure the PL through PS.
+*		CSU DMA driver.
+*		Xilsecure_library.
+*
+* CSU DMA driver:
+*	It is used to transfer the actual Bit stream file for the PS to PL after PCAP initialization
+*
+* Xilsecure_library:
+*	The LibXilSecure library provides APIs to access secure hardware on the Zynq® UltraScale+™
+*	MPSoC devices.
+*	This library includes:
+*		• SHA-3 engine hash functions
+*		• AES for symmetric key encryption
+*		• RSA for authentication
+*	These algorithms are needed to support to load the Encrypted and Authenticated bit-streams
+*	into PL.
+*
+* @note
+*       -xilfpga library is capable of loading only .bin format files into PL.
+*        it will not support the other file formates.
+*
+*       -The current implementation supports only Full Bit-stream.
 *
 * This is the header file which contains definitions for the PCAP hardware
 * registers and declarations of bitstream download functions
 *
 *
-* <b>Initialization & writing bitstream >
+* <b>Initialization & writing bitstream </b>
 *
-* The fpga driver can be initialized and write the Bitstream
+* The fpga driver can be initialized and load the bit-stream
 * in the following way:
 *
-*   - u32 XFpga_PL_BitSream_Load (u32 WrAddr, u32 WrSize, u32 flags);
+*   - u32 XFpga_PL_BitSream_Load ();
 *
-* @note
-*       -xilfpga library is capable of loading only .bin format files into PL.
-*	 it will not support the other file formates.
-*
-*	-The current implementation supports only Full Bit-stream.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -138,3 +170,4 @@ u32 XFpga_PcapStatus(void);
 extern XCsuDma CsuDma;  /* CSU DMA instance */
 
 #endif  /* XILFPGA_PCAP_H */
+/** @} */
