@@ -143,6 +143,7 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/25/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
+*     sss 08/29/16 Renamed SubCore to CsiRxSsSubCore
 * </pre>
 *
 ******************************************************************************/
@@ -212,7 +213,7 @@ typedef struct {
 			  *  design */
 	u32 DeviceId;	/**< Device ID of the sub-core */
 	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
-} SubCore;
+} CsiRxSsSubCore;
 
 /**
  * MIPI CSI Rx Subsystem configuration structure.
@@ -242,9 +243,9 @@ typedef struct {
 	u32 EnableCrc;		/**< CRC Calculation optimization enabled */
 	u32 EnableActiveLanes;	/**< Active Lanes programming optimization
 				  *  enabled */
-	SubCore IicInfo;	/**< IIC sub-core configuration */
-	SubCore CsiInfo;	/**< CSI sub-core configuration */
-	SubCore DphyInfo;	/**< DPHY sub-core configuration */
+	CsiRxSsSubCore IicInfo;	/**< IIC sub-core configuration */
+	CsiRxSsSubCore CsiInfo;	/**< CSI sub-core configuration */
+	CsiRxSsSubCore DphyInfo;	/**< DPHY sub-core configuration */
 } XCsiSs_Config;
 
 /**
