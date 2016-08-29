@@ -63,7 +63,7 @@ int main()
 	xil_printf("Trying to configure the PL ......\n\r");
 
 	Status = XFpga_PL_BitSream_Load((u32)(addr >> 32),
-					(u32)addr, count, PCAP_LOAD);
+					(u32)addr, count, 0);
 
 	if(Status == XFPGA_SUCCESS)
 		xil_printf("PL Configuration done successfully");

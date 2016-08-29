@@ -46,15 +46,11 @@
 *
 *   - u32 XFpga_PL_BitSream_Load (u32 WrAddr, u32 WrSize, u32 flags);
 *
-*This function does the calls the necessary PCAP interfaces based on flags
-*flags:
-*	0x00000001 - PCAP_INIT,
-*       0x00000002 - PCAP_WRITE,
-*       0x00000004 - PCAP_DONE,
-*
 * @note
 *       -xilfpga library is capable of loading only .bin format files into PL.
 *	 it will not support the other file formates.
+*
+*	-The current implementation supports only Full Bit-stream.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -129,10 +125,6 @@
 #define XFPGA_SUCCESS					(0x0U)
 #define XFPGA_ERROR_CSUDMA_INIT_FAIL                (0x1U)
 #define XFPGA_ERROR_BITSTREAM_LOAD_FAIL             (0x2U)
-#define PCAP_INIT	0x00000001
-#define PCAP_WRITE	0x00000002
-#define PCAP_DONE	0x00000004
-#define PCAP_LOAD	PCAP_INIT|PCAP_WRITE|PCAP_DONE
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
