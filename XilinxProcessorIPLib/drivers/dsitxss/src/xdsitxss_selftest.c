@@ -52,6 +52,7 @@
 
 #include "xstatus.h"
 #include "xdsitxss.h"
+#include "xdebug.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -96,14 +97,16 @@ u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr)
 	if (InstancePtr->DsiPtr) {
 		Status = XDsi_SelfTest(InstancePtr->DsiPtr);
 		if (Status != XST_SUCCESS) {
-			xil_printf("ERR::DSI Self test failed\n\r");
+			xdbg_printf(XDBG_DEBUG_ERROR,
+				"ERR::DSI Self test failed\n\r");
 		}
 	}
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->Config.DphyInfo.IsPresent && InstancePtr->DphyPtr) {
 		Status = XDphy_SelfTest(InstancePtr->DphyPtr);
 		if (Status != XST_SUCCESS) {
-			xil_printf("ERR::Dphy Self test failed\n\r");
+			xdbg_printf(XDBG_DEBUG_ERROR,
+				"ERR::Dphy Self test failed\n\r");
 		}
 	}
 #endif
