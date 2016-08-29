@@ -46,6 +46,8 @@
 * --- --- ------- -------------------------------------------------------
 * 1.0 ram 11/02/16 Initial Release DSI driver
 * 1.1 sss 08/17/16 Added 64 bit support
+*     sss 08/26/16 Add "Command Queue Vacancy" API
+*
 * </pre>
 *
 ******************************************************************************/
@@ -113,6 +115,7 @@ u32 XDsi_CfgInitialize(XDsi *InstancePtr, XDsi_Config *CfgPtr,
 	 */
 	InstancePtr->UnSupportedDataTypeCallback = StubErrCallback;
 	InstancePtr->PixelDataUnderrunCallback   = StubErrCallback;
+	InstancePtr->CmdQFIFOFullCallback	 = StubErrCallback;
 
 	InstancePtr->ErrorCallback = StubErrCallback;
 
