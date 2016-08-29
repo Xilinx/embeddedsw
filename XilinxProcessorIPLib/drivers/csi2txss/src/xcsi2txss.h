@@ -140,7 +140,7 @@ extern "C" {
 
 #include "xil_types.h"
 #include "xcsi2tx.h"
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
 #include "xdebug.h"
@@ -230,7 +230,7 @@ typedef struct {
 				  *  initialized */
 	XCsi2Tx  *CsiPtr;		/* handle to sub-core driver instance */
 	XCsi2Tx_SPktData SpktData;		/**< Short packet */
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy *DphyPtr;		/**< handle to sub-core driver instance */
 #endif
 

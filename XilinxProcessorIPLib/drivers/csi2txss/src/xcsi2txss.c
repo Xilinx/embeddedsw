@@ -54,7 +54,7 @@
 #include "xstatus.h"
 #include "xdebug.h"
 #include "xcsi2tx.h"
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
 #include "xdphy.h"
 #endif
 #include "xcsi2txss.h"
@@ -69,7 +69,7 @@
  */
 typedef struct {
 	XCsi2Tx CsiInst;
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	XDphy DphyInst;
 #endif
 } XCsi2TxSs_SubCores;
@@ -86,7 +86,7 @@ XCsi2TxSs_SubCores Csi2TxSsSubCores[XPAR_XCSI2TXSS_NUM_INSTANCES];
 
 static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr);
 static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *Csi2TxSsPtr);
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
 static u32 Csi2TxSs_SubCoreInitDphy(XCsi2TxSs *Csi2TxSsPtr);
 #endif
 static u32 Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR SsBaseAddr,
@@ -147,8 +147,8 @@ u32 XCsi2TxSs_CfgInitialize(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr,
 		}
 	}
 
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
-	if (InstancePtr->DphyPtr) {
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
 		Status = Csi2TxSs_SubCoreInitDphy(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			return XST_FAILURE;
@@ -178,7 +178,7 @@ static void Csi2TxSs_GetIncludedSubCores(XCsi2TxSs *Csi2TxSsPtr)
 	Csi2TxSsPtr->CsiPtr = ((Csi2TxSsPtr->Config.CsiInfo.IsPresent) ?
 	(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].CsiInst) : NULL);
 
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	Csi2TxSsPtr->DphyPtr = ((Csi2TxSsPtr->Config.DphyInfo.IsPresent) ?
 		(&Csi2TxSsSubCores[Csi2TxSsPtr->Config.DeviceId].DphyInst) : NULL);
 #endif
@@ -258,9 +258,8 @@ u32 XCsi2TxSs_Activate(XCsi2TxSs *InstancePtr, u8 Flag)
 	if (Status != XST_SUCCESS)
 		return Status;
 
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
-	if (InstancePtr->DphyPtr &&
-		InstancePtr->DphyPtr->Config.IsRegisterPresent) {
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
 		XDphy_Activate(InstancePtr->DphyPtr, Flag);
 	}
 #endif
@@ -322,10 +321,10 @@ void XCsi2TxSs_ReportCoreInfo(XCsi2TxSs *InstancePtr)
 		xdbg_printf(XDBG_DEBUG_INFO,"    : CSI2 Tx Controller \n\r");
 	}
 
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
 	if (InstancePtr->DphyPtr) {
 		xdbg_printf(XDBG_DEBUG_INFO,"    : DPhy ");
-		if (InstancePtr->DphyPtr->Config.IsRegisterPresent) {
+		if (InstancePtr->Config.IsDphyRegIntfcPresent) {
 			xdbg_printf(XDBG_DEBUG_INFO,"with ");
 		}
 		else {
@@ -410,7 +409,7 @@ static u32 Csi2TxSs_SubCoreInitCsi(XCsi2TxSs *CsiSsPtr)
 
 
 
-#if ((XPAR_XDPHY_NUM_INSTANCES & XPAR_CSI2TXSS_0_DPHY_EN_REG_IF) > 0)
+#if (XPAR_XDPHY_NUM_INSTANCES > 0)
 /*****************************************************************************/
 /**
 * This function initializes the included sub-core to it's static configuration
