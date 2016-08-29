@@ -121,6 +121,8 @@
 * --- --- ------- -------------------------------------------------------
 * 1.0 ram 11/02/16 Initial Release for MIPI DSI TX subsystem
 * 1.1 sss 08/17/16 Added 64 bit support
+*     sss 08/26/16 Add "Command Queue Vacancy" API
+*                  API for getting pixel format
 * </pre>
 *
 ******************************************************************************/
@@ -159,7 +161,7 @@ typedef struct {
 			in the design */
 	u32 DeviceId;   /**< Device ID of the sub-core */
 	u32 AddrOffset;	/**< sub-core offset from subsystem base address */
-} SubCore;
+} DsiTxSsSubCore;
 
 /**
  * Subsystem Enable/Disable
@@ -191,8 +193,8 @@ typedef struct {
 	u32 DphyLinerate;	/**< DPHY line rate */
 	u32 IsDphyRegIntfcPresent; /**< Flag for DPHY register
 				 *  interface presence */
-	SubCore DphyInfo;	/**< Sub-core instance configuration */
-	SubCore DsiInfo;	/**< Sub-core instance configuration */
+	DsiTxSsSubCore DphyInfo;	/**< Sub-core instance configuration */
+	DsiTxSsSubCore DsiInfo;	/**< Sub-core instance configuration */
 } XDsiTxSs_Config;
 
 /**
@@ -251,6 +253,9 @@ void XDsiTxSs_ReportCoreInfo(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr);
 void XDsiTxSs_SendShortPacket(XDsiTxSs *InstancePtr);
 void XDsiTxSs_GetConfigParams(XDsiTxSs *InstancePtr);
+u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr);
+u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr);
+u32 XDsiTxSs_GetCmdQVacancy(XDsiTxSs *InstancePtr);
 s32 XDsiTxSs_SetVideoInterfaceTiming(XDsiTxSs *InstancePtr,
 					XDsi_VideoMode VideoMode,
 					XVidC_VideoMode Resolution,

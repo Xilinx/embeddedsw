@@ -82,6 +82,7 @@ void XDsiTxSs_InterruptEnable(void *InstancePtr, u32 Mask);
 /* Interrupt helper functions */
 void DsiTxSs_PixelUnderrunEventHandler(void *CallbackRef, u32 Mask);
 void DsiTxSs_UnSupportDataEventHandler(void *CallbackRef, u32 Mask);
+void DsiTxSs_CmdQFIFOFullEventHandler(void *CallbackRef, u32 Mask);
 
 /************************** Variable Definitions *****************************/
 
@@ -91,6 +92,7 @@ XIntc InterruptController; /* The instance of the Interrupt Controller */
 
 volatile u8 data_err_flag = 1;
 volatile u8 pixel_underrun_flag = 1;
+volatile u8 cmdq_fifo_full_flag = 1;
 
 /************************** Function Definitions *****************************/
 
@@ -205,6 +207,8 @@ s32 SetupInterruptSystem(XDsiTxSs *DsiTxSsPtr)
 				DsiTxSs_UnSupportDataEventHandler, DsiTxSsPtr);
 	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_PIXELDATA_UNDERRUN,
 				DsiTxSs_PixelUnderrunEventHandler, DsiTxSsPtr);
+	XDsiTxSs_SetCallback(DsiTxSsPtr, XDSITXSS_HANDLER_CMDQ_FIFOFULL,
+				DsiTxSs_CmdQFIFOFullEventHandler, DsiTxSsPtr);
 
 	/*
 	 * Initialize the interrupt controller driver so that it is ready to
@@ -321,7 +325,7 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 		return XST_FAILURE;
 	    }
 	}
-	while((data_err_flag == 1) && (pixel_underrun_flag == 1));
+	while(data_err_flag && pixel_underrun_flag && cmdq_fifo_full_flag);
 
 	return XST_SUCCESS;
 }
@@ -338,13 +342,13 @@ u32 DsiTxSs_IntrExample(u32 DeviceId)
 *
 * @return	None.
 *
-* @note		Use the DsiTxSs_UnSupportDataEventHandler driver function to set this
-*		function as the handler for Unsupport data error event.
+* @note		Use the DsiTxSs_UnSupportDataEventHandler driver function to set
+* 		this function as the handler for Unsupport data error event.
 *
 ******************************************************************************/
 void DsiTxSs_UnSupportDataEventHandler(void *CallbackRef, u32 Mask)
 {
-	if (Mask & XDSI_ISR_DATA_ID_ERR_MASK) {
+	if (Mask & XDSITXSS_ISR_DATAIDERR_MASK) {
 		xil_printf("Invalid data type Error \r\n");
 		data_err_flag = 0;
 	}
@@ -362,14 +366,39 @@ void DsiTxSs_UnSupportDataEventHandler(void *CallbackRef, u32 Mask)
 *
 * @return	None.
 *
-* @note		Use the DsiTxSs_PixelUnderrunEventHandler driver function to set this
-*		function as the handler for Packet level error event.
+* @note		Use the DsiTxSs_PixelUnderrunEventHandler driver function to set
+* 		this function as the handler for Packet level error event.
 *
 ******************************************************************************/
 void DsiTxSs_PixelUnderrunEventHandler(void *CallbackRef, u32 Mask)
 {
-	if (Mask & XDSI_ISR_PXL_UNDR_RUN_MASK) {
+	if (Mask & XDSITXSS_ISR_PIXELUNDERRUN_MASK) {
 		xil_printf("Pixel Underrun Error \r\n");
 		pixel_underrun_flag = 0;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when a Command Queue FIFO full error event is received
+* by the MIPI DSI Tx Subsystem core.
+*
+* @param	CallbackRef is a pointer to the DsiTxSs instance.
+*
+* @param	Mask of interrupt which caused this event
+*
+* @return	None.
+*
+* @note		Use the DsiTxSs_CmdQFIFOFullEventHandler driver function to set
+* 		this function as the handler for Command Queue FIFO Full error
+* 		event.
+*
+******************************************************************************/
+void DsiTxSs_CmdQFIFOFullEventHandler(void *CallbackRef, u32 Mask)
+{
+	if (Mask & XDSITXSS_ISR_CMDQ_FIFO_FULL_MASK) {
+		xil_printf("Command queue FIFO Error \r\n");
+		cmdq_fifo_full_flag = 0;
 	}
 }

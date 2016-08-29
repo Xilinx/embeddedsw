@@ -46,6 +46,8 @@
 * --- --- ------- -------------------------------------------------------
 * 1.0 ram 11/02/16 Initial Release for MIPI DSI TX subsystem
 * 1.1 sss 08/17/16 Added 64 bit support
+*     sss 08/26/16 Add "Command Queue Vacancy" API
+*                  API for getting pixel format
 * </pre>
 *
 ******************************************************************************/
@@ -209,10 +211,9 @@ void XDsiTxSs_Activate(XDsiTxSs *InstancePtr, u8 Flag)
 	XDsi_Activate(InstancePtr->DsiPtr, Flag);
 
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-		if ((InstancePtr->DphyPtr != NULL) &&
-		(InstancePtr->DphyPtr->Config.IsRegisterPresent)) {
-			XDphy_Activate(InstancePtr->DphyPtr, Flag);
-		}
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
+		XDphy_Activate(InstancePtr->DphyPtr, Flag);
+	}
 #endif
 }
 
@@ -236,10 +237,9 @@ void XDsiTxSs_Reset(XDsiTxSs *InstancePtr)
 
 	XDsi_Reset(InstancePtr->DsiPtr);
 #if (XPAR_XDPHY_NUM_INSTANCES > 0)
-	if ((InstancePtr->DphyPtr != NULL) &&
-		(InstancePtr->DphyPtr->Config.IsRegisterPresent)) {
-			XDphy_Reset(InstancePtr->DphyPtr);
-		}
+	if (InstancePtr->Config.IsDphyRegIntfcPresent && InstancePtr->DphyPtr) {
+		XDphy_Reset(InstancePtr->DphyPtr);
+	}
 #endif
 }
 
@@ -319,6 +319,72 @@ void XDsiTxSs_GetConfigParams(XDsiTxSs *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XDsi_GetConfigParams(InstancePtr->DsiPtr, &InstancePtr->ConfigInfo);
+}
+
+/*****************************************************************************/
+/**
+* This function will get the information from the GUI settings
+*
+* @param	InstancePtr is the XDsiTxss instance to operate on
+*
+* @return 	Controller ready status
+*
+* @note		None.
+*
+****************************************************************************/
+u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	return XDsi_IsControllerReady(InstancePtr->DsiPtr);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to get pixel format
+*
+* @param	InstancePtr is a pointer to the DsiTxSs Instance to be
+*		worked on.
+*
+* @return	0x0E – Packed RGB565
+*		0x1E- packed RGB666
+*		0x2E – Loosely packed RGB666
+*		0x3E- Packed RGB888
+*		0x0B- Compressed Pixel Stream
+*
+* @note		None
+*
+****************************************************************************/
+u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	return XDsi_GetPixelFormat(InstancePtr->DsiPtr);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to get Command queue Vacancy
+*
+* @param	InstancePtr is a pointer to the DSITxSs Instance to be
+*		worked on.
+*
+* @return	Number of command queue entries can be safely written
+* 		to Command queue FIFO, before it goes full.
+*
+* @note		None
+*
+****************************************************************************/
+u32 XDsiTxSs_GetCmdQVacancy(XDsiTxSs *InstancePtr)
+{
+	/* Verify argument */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	return XDsi_GetCmdQVacancy(InstancePtr->DsiPtr);
 }
 
 /*****************************************************************************/
@@ -444,10 +510,10 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Get core configuration */
-	xil_printf("->Initializing DSI Tx Controller...\n\r");
+	xdbg_printf(XDBG_DEBUG_INFO, ">Initializing DSI Tx Controller...\n\r");
 	ConfigPtr = XDsi_LookupConfig(DsiTxSsPtr->Config.DsiInfo.DeviceId);
 	if (ConfigPtr == NULL) {
-		xil_printf("DSITXSS ERR:: DSI not found\n\r");
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DSI not found\n\r");
 		return XST_FAILURE;
 	}
 
@@ -458,8 +524,8 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 					DsiTxSsPtr->Config.DsiInfo.AddrOffset,
 					&AbsAddr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("DSITXSS ERR:: DSI core base address "
-				"(0x%x) invalid \n\r", AbsAddr);
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DSI core base"
+			"address (0x%x) invalid \n\r", AbsAddr);
 		return XST_FAILURE;
 	}
 
@@ -467,8 +533,8 @@ static s32 XDsiTxSs_SubCoreInitDsi(XDsiTxSs *DsiTxSsPtr)
 	Status = XDsi_CfgInitialize(DsiTxSsPtr->DsiPtr, ConfigPtr, AbsAddr);
 
 	if (Status != XST_SUCCESS) {
-		xil_printf("DSITXSS ERR:: DSI core Initialization "
-				"failed\n\r");
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DSI core"
+			"Initialization failed\n\r");
 		return XST_FAILURE;
 	}
 
@@ -500,10 +566,10 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 	}
 
 	/* Get core configuration */
-	xil_printf("->Initializing DPHY ...\n\r");
+	xdbg_printf(XDBG_DEBUG_INFO, "->Initializing DPHY ...\n\r");
 	ConfigPtr = XDphy_LookupConfig(DsiTxSsPtr->Config.DphyInfo.DeviceId);
 	if (!ConfigPtr) {
-		xil_printf("DSITXSS ERR:: DPHY not found \n\r");
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DPHY not found \n\r");
 		return (XST_FAILURE);
 	}
 
@@ -514,7 +580,7 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 					DsiTxSsPtr->Config.DphyInfo.AddrOffset,
 					&AbsAddr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("DSITXSS ERR:: DPHY core base address "
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: DPHY core base address "
 				"(0x%x) invalid \n\r", AbsAddr);
 		return XST_FAILURE;
 	}
@@ -522,7 +588,7 @@ static s32 XDsiTxSs_SubCoreInitDphy(XDsiTxSs *DsiTxSsPtr)
 	/* Initialize core */
 	Status = XDphy_CfgInitialize(DsiTxSsPtr->DphyPtr, ConfigPtr, AbsAddr);
 	if (Status != XST_SUCCESS) {
-		xil_printf("DSITXSS ERR:: Dphy core Initialization "
+		xdbg_printf(XDBG_DEBUG_ERROR, "DSITXSS ERR:: Dphy core Initialization "
 				"failed \n\r");
 		return XST_FAILURE;
 	}

@@ -45,9 +45,10 @@
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver Who Date    Changes
-* --- --- ------- -------------------------------------------------------
-* 1.0 ram 11/2/16 Initial Release for MIPI DSI TX subsystem
+* Ver Who Date     Changes
+* --- --- -------- -------------------------------------------------------
+* 1.0 ram 11/02/16 Initial Release for MIPI DSI TX subsystem
+* 1.1 sss 08/26/16 Added "Command Queue Vacancy FIFO Full" interrupt support
 * </pre>
 *
 ******************************************************************************/
@@ -164,6 +165,7 @@ void XDsiTxSs_InterruptEnable(void *InstancePtr, u32 Mask)
 *					 HACT transmission
 * XDSI_HANDLER_OTHERERROR  Any other type of interrupt has occured like
 * 			Stream Line Buffer Full, Incorrect Lanes, etc
+* XDSI_HANDLER_CMDQ_FIFOFULL	Command queue FIFO Full
 *
 * </pre>
 *
