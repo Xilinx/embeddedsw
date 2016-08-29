@@ -213,6 +213,7 @@ void XDsi_InterruptClear(XDsi *InstancePtr, u32 Mask)
 * 				  HACT transmission
 * XDSI_HANDLER_OTHERERROR  Any other type of interrupt has occured like
 * 			   Stream Line Buffer Full, Incorrect Lanes, etc
+* XDSI_HANDLER_CMDQ_FIFOFULL Command queue FIFO full
 *
 * </pre>
 *
@@ -248,6 +249,11 @@ s32 XDsi_SetCallback(XDsi *InstancePtr, u32 HandleType,
 	case XDSI_HANDLER_PIXELDATA_UNDERRUN:
 		InstancePtr->PixelDataUnderrunCallback = CallbackFunc;
 		InstancePtr->PixelDataUnderrundRef = CallbackRef;
+		break;
+
+	case XDSI_HANDLER_CMDQ_FIFOFULL:
+		InstancePtr->CmdQFIFOFullCallback = CallbackFunc;
+		InstancePtr->CmdQFIFOFullRef = CallbackRef;
 		break;
 
 	case XDSI_HANDLER_OTHERERROR:
@@ -312,6 +318,14 @@ void XDsi_IntrHandler(void *InstancePtr)
 		 * callback function */
 		XDsiPtr->PixelDataUnderrunCallback
 			(XDsiPtr->PixelDataUnderrundRef, Mask);
+	}
+
+	Mask = InvokedIntr & XDSI_IER_CMDQ_FIFO_FULL_MASK;
+	if (Mask) {
+		/* If Command queue FIFO full Interrupts then call corresponding
+		 * callback function */
+		XDsiPtr->CmdQFIFOFullCallback
+			(XDsiPtr->CmdQFIFOFullRef, Mask);
 	}
 
 	/* Clear Invoked interrupt(s) */

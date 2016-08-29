@@ -44,6 +44,8 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0 ram 02/11/16 First release
  * 1.1 sss 08/17/16 Added 64 bit support
+ *     sss 08/26/16 Add "Command queue Vacancy" api support
+ *                  Add "Command queue FIFO Full" interrupt support
  * </pre>
  *
  *****************************************************************************/
@@ -76,6 +78,7 @@ extern "C" {
 						Register Offset */
 #define XDSI_ISR_OFFSET         0x00000024  /**< Interrupt Status Register */
 #define XDSI_IER_OFFSET         0x00000028  /**< Interrupt Enable Register */
+#define XDSI_STATUS_OFFSET      0x0000002C  /**< Status Register */
 #define XDSI_COMMAND_OFFSET	0x00000030  /**< Packet Entry to command Queue */
 #define XDSI_TIME1_OFFSET	0x00000050  /**< Time 1 Offset */
 #define XDSI_TIME2_OFFSET	0x00000054  /**< Time 2 Offset */
@@ -137,6 +140,17 @@ extern "C" {
 						Max Lanes */
 #define XDSI_PCR_ACTLANES_SHIFT 	0  /**< Shift for
 						Active Lanes */
+
+/** @name Bitmasks and shift of XDSI_STSTUS_OFFSET
+ *
+ * This register used to get Command Queue Vacancy
+ * @{
+ */
+#define XDSI_CMDQ_MASK		0x0000003F	/**< Command Queue Vacancy*/
+
+#define XDSI_CMDQ_SHIFT		0		/**< Shift for Command Queue */
+
+/*@}*/
 
 /** @name Bitmasks and shift of XDSI_TIME1_OFFSET
  *
@@ -216,11 +230,13 @@ extern "C" {
  * This register contains the interrupt status.
  * @{
  */
+#define XDSI_ISR_CMDQ_FIFO_FULL_MASK	0x00000004 /**< Command queue vacancy
+							full */
 #define XDSI_ISR_DATA_ID_ERR_MASK	0x00000002  /**< Unsupport datatype
 						      *  Error */
 #define XDSI_ISR_PXL_UNDR_RUN_MASK	0x00000001  /**< Pixel under run
 						      *  error */
-#define XDSI_ISR_ALLINTR_MASK   	0x00000003 /**< All interrupts mask */
+#define XDSI_ISR_ALLINTR_MASK   	0x00000007 /**< All interrupts mask */
 #define XDSI_ISR_DATA_ID_ERR_SHIFT	1  /**< Shift for
 						Unsupport Data Type */
 #define XDSI_ISR_PXL_UNDR_RUN_SHIFT	0  /**< Shift for
@@ -233,10 +249,12 @@ extern "C" {
  * This register contains the interrupt enable masks
  * @{
  */
+#define XDSI_IER_CMDQ_FIFO_FULL_MASK	0x00000004 /**< Command queue vacancy
+							full */
 #define XDSI_IER_DATA_ID_ERR_MASK	0x00000002 /**< Un supported
 							data type */
 #define XDSI_IER_PXL_UNDR_RUN_MASK	0x00000001 /**< Pixel Under run */
-#define XDSI_IER_ALLINTR_MASK   	0x00000003 /**< All interrupts mask */
+#define XDSI_IER_ALLINTR_MASK   	0x00000007 /**< All interrupts mask */
 
 #define XDSI_IER_DATA_ID_ERR_SHIFT	1   	   /**< Shift for
 						     *  Unsupport data type */

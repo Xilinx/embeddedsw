@@ -49,6 +49,9 @@
 * --- --- ------- -------------------------------------------------------
 * 1.0 ram 11/02/16 Initial Release for DSI driver
 * 1.1 sss 08/17/16 Added 64 bit support
+*     sss 08/26/16 XDSI_VM_NON_BURST_SYNC_PULSES enum changed
+*                  Add "Command Queue Vacancy" API
+*                  API for getting pixel format
 * </pre>
 *
 ******************************************************************************/
@@ -74,6 +77,7 @@ extern "C" {
 #define XDSI_HANDLER_UNSUPPORT_DATATYPE		1
 #define XDSI_HANDLER_PIXELDATA_UNDERRUN		2
 #define XDSI_HANDLER_OTHERERROR			3
+#define XDSI_HANDLER_CMDQ_FIFOFULL		4
 
 typedef enum {
 	XDSI_DISABLE, /* DSI Tx controller Disable */
@@ -99,8 +103,8 @@ typedef struct {
  * Video Timing Mode by default Non-burst mode with Sync Events
  */
 typedef enum {
-	XDSI_VM_NON_BURST_SYNC_EVENT,
 	XDSI_VM_NON_BURST_SYNC_PULSES,
+	XDSI_VM_NON_BURST_SYNC_EVENT,
 	XDSI_VM_BURST_MODE,
 	XDSI_VM_NUM_SUPPORTED
 } XDsi_VideoMode;
@@ -201,6 +205,10 @@ typedef struct {
 						   *  HACT transmission */
 	void *PixelDataUnderrundRef;	/**< To be passed for
 					  *  Pixel under run  */
+	XDsi_Callback CmdQFIFOFullCallback; /**< Callback invoked for
+						   *  Command queue FIFO Full */
+	void *CmdQFIFOFullRef;		/**< To be passed for
+					  Command queue FIFO Full */
 	XDsi_Callback ErrorCallback; /**< Call back function for
 				       *  rest all errors */
 	void *ErrRef; /**< To be passed to the Error Call back */
@@ -561,6 +569,49 @@ static inline void XDsi_IntrClear(XDsi *InstancePtr, u32 Value)
 {
 	XDsi_WriteReg(InstancePtr->Config.BaseAddr, XDSI_ISR_OFFSET,
 			(Value & XDSI_ISR_ALLINTR_MASK));
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to get pixel format
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	0x0E – Packed RGB565
+*		0x1E- packed RGB666
+*		0x2E – Loosely packed RGB666
+*		0x3E- Packed RGB888
+*		0x0B- Compressed Pixel Stream
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetPixelFormat(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_PCR_OFFSET, XDSI_PCR_PIXELFORMAT_MASK, XDSI_PCR_PIXELFORMAT_SHIFT);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to get Command queue Vacancy
+*
+* @param	InstancePtr is a pointer to the DSI Instance to be
+*		worked on.
+*
+* @return	Number of command queue entries can be safely written
+* 		to Command queue FIFO, before it goes full.
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XDsi_GetCmdQVacancy(XDsi *InstancePtr)
+{
+	return XDsi_GetBitField(InstancePtr->Config.BaseAddr,
+	XDSI_STATUS_OFFSET, XDSI_CMDQ_MASK, XDSI_CMDQ_SHIFT);
 }
 
 /************************** Function Prototypes ******************************/
