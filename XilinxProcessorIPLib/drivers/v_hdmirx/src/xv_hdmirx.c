@@ -52,6 +52,7 @@
 * 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiRx_CfgInitialize
 * 1.8   YH     18/08/16 squash unused variable compiler warning
+* 1.9   YH     29/08/16 Set Match to FALSE when HTotal = 0
 * </pre>
 *
 ******************************************************************************/
@@ -1405,6 +1406,10 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
         if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
             Match = FALSE;
         }
+
+		if (!HTotal) {
+			Match = FALSE;
+		}
 
         // HActive
         if (HActive != InstancePtr->Stream.Video.Timing.HActive) {
