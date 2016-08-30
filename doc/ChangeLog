@@ -5,6 +5,12 @@ Created new version to support event trace through Coresight STM
 Updated tcl files as per modified standalone BSP structure.
 Updated tcl file to add macro for EL1 secure selectcion. This fixes CR#957174.
 
+lwip141_v1_6:
+Add support for freertos in the emaclite adapter. Fix for CR#957572.
+
+emaclite_v4_3:
+Fix compilation warning.
+
 axidma_v9_3:
 Reduce the size of the buffer descriptor to 64 bytes
 
