@@ -1197,6 +1197,11 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
 
 		clk->pll = PmClockGetParent(clk, val & PM_CLOCK_MUX_SELECT_MASK);
 
+		/* If the PLL source has not changed go to done */
+		if (clk->pll == prevPll) {
+			goto done;
+		}
+
 		if (0U != clkUseCnt) {
 			/* Release previously used PLL */
 			PmPllRelease(prevPll);
