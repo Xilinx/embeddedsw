@@ -559,7 +559,7 @@ void PmOpportunisticSuspend(PmPower* const powerParent)
 	u32 worstCaseLatency;
 	PmPower* power = powerParent;
 
-	if (NULL == powerParent) {
+	if ((NULL == power) || NODE_IS_OFF(&power->node)) {
 		goto done;
 	}
 
