@@ -189,6 +189,10 @@ xemacif_recv_handler(void *arg) {
 	int len = 0;
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 
+#ifdef OS_IS_FREERTOS
+	xInsideISR++;
+#endif
+
 #if XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ == 1
 #else
 	XIntc_AckIntr(xtopologyp->intc_baseaddr, 1 << xtopologyp->intc_emac_intr);
@@ -205,6 +209,9 @@ xemacif_recv_handler(void *arg) {
 		 * and we do not actively poll the emaclite
 		 */
 		XEmacLite_Recv(instance, xemac_tx_frame);
+#ifdef OS_IS_FREERTOS
+		xInsideISR--;
+#endif
 		return;
 	}
 
@@ -216,6 +223,9 @@ xemacif_recv_handler(void *arg) {
 		lwip_stats.link.drop++;
 #endif
 		pbuf_free(p);
+#ifdef OS_IS_FREERTOS
+		xInsideISR--;
+#endif
 		return;
 	}
 
@@ -226,13 +236,18 @@ xemacif_recv_handler(void *arg) {
 		lwip_stats.link.drop++;
 #endif
 		pbuf_free(p);
+#ifdef OS_IS_FREERTOS
+		xInsideISR--;
+#endif
 		return;
 	}
 
 #if !NO_SYS
 	sys_sem_signal(&xemac->sem_rx_data_available);
 #endif
-
+#ifdef OS_IS_FREERTOS
+	xInsideISR--;
+#endif
 }
 
 int transmit_packet(XEmacLite *instancep, void *packet, unsigned len)
@@ -355,6 +370,9 @@ xemacif_send_handler(void *arg) {
 	XEmacLite *instance = xemacliteif->instance;
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 
+#ifdef OS_IS_FREERTOS
+	xInsideISR++;
+#endif
 #if XLWIP_CONFIG_INCLUDE_EMACLITE_ON_ZYNQ == 1
 #else
 	XIntc_AckIntr(xtopologyp->intc_baseaddr, 1 << xtopologyp->intc_emac_intr);
@@ -365,6 +383,9 @@ xemacif_send_handler(void *arg) {
 		_unbuffered_low_level_output(instance, p);
 		pbuf_free(p);
 	}
+#ifdef OS_IS_FREERTOS
+	xInsideISR--;
+#endif
 }
 
 /*
@@ -573,12 +594,16 @@ static err_t low_level_init(struct netif *netif)
 			xtopologyp->intc_emac_intr,
 			(XFastInterruptHandler)XEmacLite_FastInterruptHandler);
 
+	XIntc_EnableIntr(xtopologyp->intc_baseaddr, XIntc_In32(xtopologyp->intc_baseaddr +
+			XIN_IER_OFFSET) | (1 << xtopologyp->intc_emac_intr));
 #else
 
 	XIntc_RegisterHandler(xtopologyp->intc_baseaddr,
 					xtopologyp->intc_emac_intr,
 					(XInterruptHandler)XEmacLite_InterruptHandler,
 					xemaclitep);
+	XIntc_EnableIntr(xtopologyp->intc_baseaddr, XIntc_In32(xtopologyp->intc_baseaddr +
+				XIN_IER_OFFSET) | (1 << xtopologyp->intc_emac_intr));
 #endif
 #endif
 #endif
