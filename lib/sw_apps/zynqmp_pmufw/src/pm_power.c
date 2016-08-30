@@ -316,10 +316,11 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 		goto done;
 	}
 
-	PmNodeUpdateCurrState(nodePtr, PM_PWR_STATE_ON);
 	if (NULL != nodePtr->clocks) {
 		status = PmClockRequest(nodePtr);
 	}
+
+	PmNodeUpdateCurrState(nodePtr, PM_PWR_STATE_ON);
 
 done:
 	return status;
