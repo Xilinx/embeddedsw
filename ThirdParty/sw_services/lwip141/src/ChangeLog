@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2016-08-30
+	* Add support for freertos in the emaclite adapter. Fix for CR#957572.
 2016-08-17
 	* Update divisors in CRL_APB (for ZynqMP) based on speed negotiated.
 2016-07-29
