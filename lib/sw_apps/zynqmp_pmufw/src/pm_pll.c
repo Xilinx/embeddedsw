@@ -406,7 +406,7 @@ int PmPllRequest(PmSlavePll* const pll)
 	int status = XST_SUCCESS;
 
 #ifdef DEBUG_CLK
-	PmDbg("%s\n", PmStrNode(pll->slv.node.nodeId));
+	PmDbg("%s #%lu\n", PmStrNode(pll->slv.node.nodeId), 1 + pll->useCount);
 #endif
 	/* If the PLL is suspended it needs to be resumed first */
 	if (true == pll->context.saved) {
@@ -430,7 +430,7 @@ void PmPllRelease(PmSlavePll* const pll)
 	pll->useCount--;
 
 #ifdef DEBUG_CLK
-	PmDbg("%s\n", PmStrNode(pll->slv.node.nodeId));
+	PmDbg("%s #%lu\n", PmStrNode(pll->slv.node.nodeId), pll->useCount);
 #endif
 	if (0U == pll->useCount) {
 		PmPllSuspend(pll);
