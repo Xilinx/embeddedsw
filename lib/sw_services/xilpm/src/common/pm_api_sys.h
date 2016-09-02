@@ -57,7 +57,7 @@ void XPm_SuspendFinalize();
 
 enum XPmBootStatus XPm_GetBootStatus();
 
-/**  System-level API function declarations */
+/* System-level API function declarations */
 XStatus XPm_RequestSuspend(const enum XPmNodeId node,
 			   const enum XPmRequestAck ack,
 			   const u32 latency,
@@ -106,7 +106,7 @@ struct pm_acknowledge {
 	u32 opp;					/**< Operating point of node in question */
 };
 
-/** Forward declaration to enable self reference in struct definition */
+/* Forward declaration to enable self reference in struct definition */
 typedef struct XPm_Notifier XPm_Notifier;
 
 /**
@@ -175,7 +175,7 @@ void XPm_NotifyCb(const enum XPmNodeId node,
 		  const u32 event,
 		  const u32 oppoint);
 
-/** API functions for managing PM Slaves */
+/* API functions for managing PM Slaves */
 XStatus XPm_RequestNode(const enum XPmNodeId node,
 			const u32 capabilities,
 			const u32 qos,
@@ -188,7 +188,7 @@ XStatus XPm_SetRequirement(const enum XPmNodeId node,
 XStatus XPm_SetMaxLatency(const enum XPmNodeId node,
 			  const u32 latency);
 
-/**  Miscellaneous API functions */
+/* Miscellaneous API functions */
 XStatus XPm_GetApiVersion(u32 *version);
 
 XStatus XPm_GetNodeStatus(const enum XPmNodeId node,
@@ -201,7 +201,7 @@ XStatus XPm_GetOpCharacteristic(const enum XPmNodeId node,
 				const enum XPmOpCharType type,
 				u32* const result);
 
-/**  Direct-Control API functions */
+/* Direct-Control API functions */
 XStatus XPm_ResetAssert(const enum XPmReset reset,
 			const enum XPmResetAction assert);
 
