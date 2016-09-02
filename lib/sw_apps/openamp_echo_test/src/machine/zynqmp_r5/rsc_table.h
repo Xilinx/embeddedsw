@@ -44,7 +44,7 @@ struct remote_resource_table {
     unsigned int reserved[2];
     unsigned int offset[NO_RESOURCE_ENTRIES];
     /* text carve out entry */
-    struct fw_rsc_carveout ocm_1_cout;
+    struct fw_rsc_carveout tcm_0_cout;
     struct fw_rsc_carveout ddr_cout;
    /* rpmsg vdev entry */
     struct fw_rsc_vdev rpmsg_vdev;
