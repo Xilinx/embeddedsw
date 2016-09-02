@@ -3,7 +3,6 @@ Change Log for 2016.3
 freertos823_xilinx_v1_2:
 Created new version to support event trace through Coresight STM
 Updated tcl files as per modified standalone BSP structure.
-Updated tcl file to add macro for EL1 secure selectcion. This fixes CR#957174.
 
 lwip141_v1_6:
 Add support for freertos in the emaclite adapter. Fix for CR#957572.
@@ -99,7 +98,6 @@ This fixes the CR#952962.
 standalone_v6_0:
 Make Xil_AsserWait a global variable
 Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot section since it is part of boot process to fix CR#949555
-Added support for non-secure EL1 with exception level selection feature for Cortex-A53 64bit mode
 Program the counter frequency in boot code for CortexA53
 Update get_pins command in the standalone bsp tcl as per 2016.3 hsi
 Updated the sleep_common function in microblaze_sleep.c. Fix for CR#954191.
@@ -115,8 +113,6 @@ is kept in consolidated common/xil_io.h,xil_io.h must be included as a header fi
 Added undefined exception handler for A53 32 bit and R5 processor.
 Updated xtime_l.c in R5 BSP to remove implementation of XTime_SetTime API, since TTC counter value register is read only.
 Updated the signature for functions sleep/usleep. This fixes the CR#956899.
-Added Xil_Smc to call SMC from Cortex A53 64bit
-Added support for secure EL1 to Cortex-A53 64bit mode
 Added PSS_PSU_REF_CLK macro to xparameters.h for ZynqMP A53 and R5.
 Removed unused variables from xil_printf.c and xplatform_info.c
 Defined ARMA53_32 flag in cortexa53/32bit/xparameters_ps.h.
@@ -184,9 +180,6 @@ Reordered wait for PLL lock.
 vtc_v7_2:
 Added compilation protection in case driver is included without instantiation.
 Used UINTPTR type for BaseAddress
-
-xilapufw_v1_0:
-Added new library Xilinx APU firmware for secure EL1 to support secure operations via SMC calling
 
 xilffs_v3_4:
 Added support for mkfs.
