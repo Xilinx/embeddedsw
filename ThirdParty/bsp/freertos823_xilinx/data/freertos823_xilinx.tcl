@@ -267,43 +267,6 @@ proc generate {os_handle} {
 		}
 
 	}
-
-	if { $proctype == "psu_cortexa53" } {
-		set procdrv [hsi::get_sw_processor]
-		set compiler [get_property CONFIG.compiler $procdrv]
-		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] != 0} {
-		set el [common::get_property CONFIG.exception_level $os_handle]
-		set secstate [common::get_property CONFIG.security_state $os_handle]
-		set el_selection [common::get_property CONFIG.ARMv8_EL_selection $os_handle]
-		puts $bspcfg_fh ""
-		puts $bspcfg_fh " /* Definitions for cortex-A53 64bit mode exception level */"
-			if { $el_selection == "true" } {
-				if { $el == "EL3" } {
-					if { $secstate == "secure" } {
-						puts $bspcfg_fh "#define EL3 1"
-						puts $bspcfg_fh "#define EL1_NONSECURE 0"
-						puts $bspcfg_fh "#define EL1_SECURE 0"
-					} else {
-						error "ERROR: EL3 is secure monitor state which cannot be built for non-secure state"
-					}
-				} elseif { $el == "EL1" } {
-					if { $secstate == "non-secure" } {
-						puts $bspcfg_fh "#define EL3 0"
-						puts $bspcfg_fh "#define EL1_NONSECURE 1"
-						puts $bspcfg_fh "#define EL1_SECURE 0"
-					} else {
-						puts $bspcfg_fh "#define EL3 0"
-						puts $bspcfg_fh "#define EL1_NONSECURE 0"
-						puts $bspcfg_fh "#define EL1_SECURE 1"
-					}
-				}
-			} elseif { $el_selection == "false" } {
-				puts $bspcfg_fh "#define EL3 1"
-				puts $bspcfg_fh "#define EL1_NONSECURE 0"
-				puts $bspcfg_fh "#define EL1_SECURE 0"
-				}
-			}
-	}
 	close $bspcfg_fh
 
 	set headers [glob -join ./src/Source/include *.\[h\]]
