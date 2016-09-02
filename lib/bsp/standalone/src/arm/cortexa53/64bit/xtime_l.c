@@ -45,8 +45,6 @@
 * 5.05	pkp	   04/13/16 Added XTime_StartTimer API to start the global timer
 *						counter if it is disabled. Also XTime_GetTime calls
 *						this API to ensure the global timer counter is enabled
-* 6.00	pkp	   07/01/16	Added support for el1
-* 6.00  pkp	   08/15/16 Start the timer for Secure EL1 if disabled
 * </pre>
 *
 * @note		None.
@@ -84,19 +82,16 @@
 ****************************************************************************/
 void XTime_StartTimer(void)
 {
-	if ((EL3 == 1) || (EL1_SECURE == 1)) {
-		/* Enable the global timer counter only if it is disabled */
-		if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET))
-					& XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) !=
-					XIOU_SCNTRS_CNT_CNTRL_REG_EN){
+	/* Enable the global timer counter only if it is disabled */
+	if(((Xil_In32(XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET))
+				& XIOU_SCNTRS_CNT_CNTRL_REG_EN_MASK) !=
+				XIOU_SCNTRS_CNT_CNTRL_REG_EN){
 		/*write frequency to System Time Stamp Generator Register*/
 		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_FREQ_REG_OFFSET),
-					XIOU_SCNTRS_FREQ);
-
+				XIOU_SCNTRS_FREQ);
 		/*Enable the timer/counter*/
 		Xil_Out32((XIOU_SCNTRS_BASEADDR + XIOU_SCNTRS_CNT_CNTRL_REG_OFFSET),
 					XIOU_SCNTRS_CNT_CNTRL_REG_EN);
-		}
 	}
 }
 /****************************************************************************
@@ -130,9 +125,8 @@ so the API is left unimplemented*/
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
 {
-	if ((EL3 == 1) || (EL1_SECURE == 1)) {
-		/* Start global timer counter, it will only be enabled if it is disabled */
-		XTime_StartTimer();
-	}
+	/* Start global timer counter, it will only be enabled if it is disabled */
+	XTime_StartTimer();
+
 	*Xtime_Global = mfcp(CNTPCT_EL0);
 }
