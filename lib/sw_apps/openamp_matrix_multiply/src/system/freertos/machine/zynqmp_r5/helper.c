@@ -36,7 +36,6 @@
 #include "platform_info.h"
 #include "metal/sys.h"
 #include "metal/irq.h"
-#include "metal/system/freertos/irq.h"
 
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
