@@ -48,9 +48,8 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 5.00  pkp	05/21/14 Initial version
-* 6.00	pkp	07/01/16 Added support for Non-secure EL1
-* 6.00	pkp	07/25/16 Program the counter frequency
-* 6.00  pkp	08/15/16 Added support for Secure EL1
+* 6.00	pkp     07/25/16 Program the counter frequency
+*
 * @note
 *
 * None.
@@ -139,19 +138,6 @@ EndlessLoop0:
 	b        EndlessLoop0
 #endif
 OKToRun:
-
-	mrs	x0, currentEL
-	cmp	x0, #0xC
-	beq	InitEL3
-
-	cmp	x0, #0x8
-	beq	InitEL2
-
-	cmp	x0, #0x4
-	beq	InitEL1
-
-InitEL3:
-.if (EL3 == 1)
 
 	/*Set vector table base address*/
 	ldr	x1, =vector_base
@@ -252,96 +238,8 @@ InitEL3:
 	isb
 
 	b 	 _startup		//jump to start
-.else
-	b 	error			// present exception level and selected exception level mismatch
-.endif
-InitEL2:
-.if (EL1_NONSECURE == 1)
-	ldr	x0,=0x80000000 		/* configure EL1 to be AArch64 */
-	msr	HCR_EL2, x0
-
-	adr	x1,InitEL1
-	msr	ELR_EL2, x1
-
-	ldr	x0,=MODE_EL1
-	ldr	x1,=DAIF_BIT
-	orr	x0, x0, x1
-	msr	spsr_el2,x0
-
-	eret
-.else
-	b 	error			// present exception level and selected exception level mismatch
-.endif
-
-InitEL1:
-.if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1))
-	/*Set vector table base address*/
-	ldr	x1, =vector_base
-	msr	VBAR_EL1,x1
-
-	mrs	x0, CPACR_EL1
-	orr	x0, x0, #0x300000
-	msr	CPACR_EL1, x0
-
-	/*Define stack pointer for current exception level*/
-	ldr	 x2,=EL1_stack
-	mov	 sp,x2
-
-	TLBI    VMALLE1
-
-	ic      IALLU                  	//; Invalidate I cache to PoU
-	bl 	invalidate_dcaches
-	dsb	 sy
-	isb
-
-	ldr      x1, =L0Table 		//; Get address of level 0 for TTBR0_EL1
-	msr      TTBR0_EL1, x1		//; Set TTBR0_EL1
-
-	/**********************************************
-	* Set up memory attributes
-	* This equates to:
-	* 0 = b01000100 = Normal, Inner/Outer Non-Cacheable
-	* 1 = b11111111 = Normal, Inner/Outer WB/WA/RA
-	* 2 = b00000000 = Device-nGnRnE
-	* 3 = b00000100 = Device-nGnRE
-	* 4 = b10111011 = Normal, Inner/Outer WT/WA/RA
-	**********************************************/
-	ldr      x1, =0x000000BB0400FF44
-	msr      MAIR_EL1, x1
-
-        /**********************************************
-        * Set up TCR_EL1
-	* Physical Address Size PS =  010 -> 40bits 1TB
-	* Granual Size TG0 = 00 -> 4KB
-        * size offset of the memory region T0SZ = 24 -> (region size 2^(64-24) = 2^40)
-        ***************************************************/
-        ldr     x1,=0x285800518
-        msr     TCR_EL1, x1
-        isb
-	/* Enable SError Exception for asynchronous abort */
-	mrs 	x1,DAIF
-        bic	x1,x1,#(0x1<<8)
-        msr	DAIF,x1
-
-	//; Enable MMU
-	mov	x1,#0x0
-	orr     x1, x1, #(1 << 18)    // ; Set WFE non trapping
-	orr     x1, x1, #(1 << 17)    // ; Set WFI non trapping
-	orr     x1, x1, #(1 << 5)    // ; Set CP15 barrier enabled
-	orr     x1, x1, #(1 << 12)    // ; Set I bit
-	orr     x1, x1, #(1 << 2)    // ; Set C bit
-	orr     x1, x1, #(1 << 0)    // ; Set M bit
-	msr     SCTLR_EL1, x1
-	isb
-
-	bl 	 _startup		//jump to start
-.else
-	b 	error			// present exception level and selected exception level mismatch
-.endif
 
 loop:	b	loop
-
-error: 	b	error
 
 invalidate_dcaches:
 

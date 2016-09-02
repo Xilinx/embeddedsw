@@ -44,7 +44,6 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  05/29/14 First release
-* 6.00	pkp	 08/19/16 Added support for EL1
 * </pre>
 *
 * @note
@@ -112,10 +111,9 @@ void Xil_SetTlbAttributes(INTPTR Addr, u64 attrib)
 	*ptr = (Addr & (~(block_size-1))) | attrib;
 
 	Xil_DCacheFlush();
-	if (EL3 == 1)
-		mtcptlbi(ALLE3);
-	else if ((EL1_NONSECURE == 1) || (EL1_SECURE == 1))
-		mtcptlbi(VMALLE1);
+
+	mtcptlbi(ALLE3);
+
 	dsb(); /* ensure completion of the BP and TLB invalidation */
     isb(); /* synchronize context on this processor */
 

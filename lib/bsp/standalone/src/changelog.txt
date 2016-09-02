@@ -368,8 +368,6 @@
  * 6.0 kvn   05/31/16  Make Xil_AsserWait a global variable
  * 6.0 pkp   06/27/16  Updated cortexr5/mpu.c to move the code related to Init_MPU to .boot
  *		       section since it is part of boot process to fix CR#949555
- * 6.0 pkp   07/01/16  Updated cortexa53/64bit/boot.s, xil_cache.c, xtime_l.c and standalone.tcl
- *		       standalone.mld to add support for non-secure el1 with el selection feature
  *     hk    07/12/16  Correct masks for IOU SLCR GEM registers
  * 6.0 pkp   07/25/16  Program the counter frequency in boot code for CortexA53
  * 6.0 asa   08/03/16  Updated sleep_common function in microblaze_sleep.c to improve the
@@ -392,8 +390,6 @@
  *                     TTC counter value register is read only.
  * 6.0 asa   08/15/16  Modified the signatures for functions sleep and usleep. This fixes
  *                     the CR#956899.
- * 6.0 pkp   08/15/16  Added Xil_Smc to call SMC from Cortex A53 64bit
- * 6.0 pkp   08/15/16  Added support for secure EL1 to Cortex-A53 64bit mode
  * 6.0 mus   08/18/16  Defined ARMA53_32 flag in cortexa53/32bit/xparameters_ps.h and ARMR5 flag
  *                     in cortexr5/xparameters_ps.h
  * 6.0 mus   08/18/16  Added support for the the Zynq 7000s devices
