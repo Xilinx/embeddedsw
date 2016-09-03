@@ -28,6 +28,40 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+ /***************************************************************************
+  * libmetal_amp_demo.c
+  *
+  * This application shows how to use IPI to trigger interrupt and how to
+  * setup shared memory with libmetal API for communication between processors.
+  *
+  * This app does the following:
+  * 1.  Initialize the platform hardware such as UART, GIC.
+  * 2.  Connect the IPI interrupt.
+  * 3.  Register IPI device, shared memory descriptor device and shared memory
+  *     device with libmetal in the intialization.
+  * 4.  In the main application it does the following,
+  *     * open the registered libmetal devices: IPI device, shared memory
+  *       descriptor device and shared memory device.
+  *     * Map the shared memory descriptor as non-cached memory.
+  *     * Map the shared memory as non-cached memory. If you do not map the
+  *       shared memory as non-cached memory, make sure you flush the cache,
+  *       before you notify the remote.
+  * 7.  Register the IPI interrupt handler with libmetal.
+  * 8.  Run the atomic demo task ipi_task_shm_atomicd():
+  *     * Wait for the IPI interrupt from the remote.
+  *     * Once it receives the interrupt, it does atomic add by 1 to the
+  *       first 32bit of the shared memory descriptor location by 1000 times.
+  *     * It will then notify the remote after the calucation.
+  *     * As the remote side also does 1000 times add after it has notified
+  *       this end. The remote side will check if the result is 2000, if not,
+  *       it will error.
+  * 9.  Run the shared memory echo demo task ipi_task_echod()
+  *     * Wait for the IPI interrupt from the other end.
+  *     * If an IPI interrupt is received, copy the message to the current
+  *       available RPU to APU buffer, increase the available buffer indicator,
+  *       and trigger IPI to notify the remote.
+  *     * If "shutdown" message is received, cleanup the libmetal source.
+  */
 #include <unistd.h>
 
 #include <metal/sys.h>
@@ -97,6 +131,17 @@ extern int system_init();
 extern int run_comm_task(void *task, void *arg);
 extern void wait_for_interrupt(void);
 
+/**
+ * @brief ipi_irq_isr() - IPI interrupt handler
+ *        It will clear the notified flag to mark it's got an IPI interrupt.
+ *
+ * @param[in]     vect_id - IPI interrupt vector ID
+ * @param[in/out] priv    - communication channel data for this application.
+ *
+ * @return - If the IPI interrupt is triggered by its remote, it returns
+ *          METAL_IRQ_HANDLED. It returns METAL_IRQ_NOT_HANDLED, if it is
+ *          not the interupt it expected.
+ */
 static int ipi_irq_isr (int vect_id, void *priv)
 {
 	(void)vect_id;
@@ -114,6 +159,17 @@ static int ipi_irq_isr (int vect_id, void *priv)
 	return METAL_IRQ_NOT_HANDLED;
 }
 
+/**
+ * @brief   ipi_task_shm_atomicd() - Shared memory atomic operation demo
+ *          This task will:
+ *          * Wait for the remote to trigger IPI.
+ *          * Once it receives the IPI interrupt, it start atomic add by 1 for
+ *            1000 times to the first 32bit of the shared memory descriptor
+ *            location.
+ *          * Trigger IPI to notify the remote once it finishes calculation.
+ *
+ * @param[in] arg - channel information
+ */
 static void *ipi_task_shm_atomicd(void *arg)
 {
 	struct channel_s *ch = (struct channel_s *)arg;
@@ -148,6 +204,18 @@ static void *ipi_task_shm_atomicd(void *arg)
 	return NULL;
 }
 
+/**
+ * @brief   ipi_task_echod() - shared memory ping-pong demo
+ *          This task will:
+ *          * Wait for IPI interrupt from the remote
+ *          * Once it received the interrupt, copy the content from
+ *            the ping buffer to the pong buffer.
+ *          * Update the shared memory descriptor for the new available
+ *            pong buffer.
+ *          * Trigger IPI to notifty the remote.
+ *
+ * @param[in] arg - channel information
+ */
 static void *ipi_task_echod(void *arg)
 {
 	struct channel_s *ch = (struct channel_s *)arg;
@@ -221,6 +289,46 @@ static void *ipi_task_echod(void *arg)
 	return NULL;
 }
 
+/**
+ * @brief    cleanup - cleanup the application
+ *           The cleanup funciton will disable the IPI interrupt
+ *           close the metal devices and clean the system.
+ */
+void cleanup(void)
+{
+	int irq;
+	/* Disable IPI interrupt */
+	if (ch0.ipi_io) {
+		metal_io_write32(ch0.ipi_io, IPI_IDR_OFFSET, ch0.ipi_mask);
+		/* Get interrupt ID from IPI metal device */
+		irq = (intptr_t)ch0.ipi_dev->irq_info;
+		metal_irq_register(irq, 0, ch0.ipi_dev, &ch0);
+	}
+	if (ch0.ipi_dev)
+		metal_device_close(ch0.ipi_dev);
+	if (ch0.shm0_desc_dev)
+		metal_device_close(ch0.shm0_desc_dev);
+	if (ch0.shm1_desc_dev)
+		metal_device_close(ch0.shm1_desc_dev);
+	if (ch0.shm_dev)
+		metal_device_close(ch0.shm_dev);
+	sys_cleanup();
+}
+
+/**
+ * @brief    main function of the demo application.
+ *           Here are the steps for the main function:
+ *           * call sys_init() function for system related initialization and
+ *             metal device registration.
+ *           * Open the IPI, shared memory descriptors, and shared memory
+ *             devices, and stored the I/O region.
+ *           * Register the IPI interrupt handler.
+ *           * Enable the IPI interrupt.
+ *           * Run the atomic across shared memory task.
+ *           * Run the echo demo with shared memory task.
+ *           * cleanup the libmetal resource before return.
+ * @return   0 - succeeded, non-zero for failures.
+ */
 int main(void)
 {
 	struct metal_device *device;
@@ -378,15 +486,7 @@ int main(void)
 		LPRINTF("ERROR: Failed to run IPI communication task.\n");
 
 out:
-	if (ch0.ipi_dev)
-		metal_device_close(ch0.ipi_dev);
-	if (ch0.shm0_desc_dev)
-		metal_device_close(ch0.shm0_desc_dev);
-	if (ch0.shm1_desc_dev)
-		metal_device_close(ch0.shm1_desc_dev);
-	if (ch0.shm_dev)
-		metal_device_close(ch0.shm_dev);
-	sys_cleanup();
+	cleanup();
 
 	return ret;
 }

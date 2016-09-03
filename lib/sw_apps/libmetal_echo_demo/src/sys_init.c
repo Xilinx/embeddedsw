@@ -149,12 +149,12 @@ struct metal_device metal_dev_table[] = {
 
 extern void metal_irq_isr(int irq);
 
+/**
+ * @brief enable_caches() - Enable caches
+ */
 void enable_caches()
 {
-#ifdef __PPC__
-	Xil_ICacheEnableRegion(CACHEABLE_REGION_MASK);
-	Xil_DCacheEnableRegion(CACHEABLE_REGION_MASK);
-#elif __MICROBLAZE__
+#ifdef __MICROBLAZE__
 #ifdef XPAR_MICROBLAZE_USE_ICACHE
 	Xil_ICacheEnable();
 #endif
@@ -164,12 +164,18 @@ void enable_caches()
 #endif
 }
 
+/**
+ * @brief disable_caches() - Disable caches
+ */
 void disable_caches()
 {
 	Xil_DCacheDisable();
 	Xil_ICacheDisable();
 }
 
+/**
+ * @brief init_uart() - Initialize UARTs
+ */
 void init_uart()
 {
 #ifdef STDOUT_IS_16550
@@ -180,6 +186,13 @@ void init_uart()
 	/* Bootrom/BSP configures PS7/PSU UART to 115200 bps */
 }
 
+/**
+ * @brief init_irq() - Initialize GIC and connect IPI interrupt
+ *        This function will initialize the GIC and connect the IPI
+ *        interrupt.
+ *
+ * @return 0 - succeeded, non-0 for failures
+ */
 int init_irq()
 {
 	int ret = 0;
@@ -211,7 +224,7 @@ int init_irq()
 			&InterruptController);
 
 	Xil_ExceptionEnable();
-	/* Connect Interrupt ID with ISR */
+	/* Connect IPI Interrupt ID with libmetal ISR */
 	XScuGic_Connect(&InterruptController, IPI_IRQ_VECT_ID,
 			   (Xil_ExceptionHandler)metal_irq_isr,
 			   (void *)IPI_IRQ_VECT_ID);
@@ -222,7 +235,12 @@ int init_irq()
 }
 
 /**
- * This funciton is to install baremeta/RTOS libmetal devices.
+ * @brief platform_register_metal_device() - Register libmetal devices.
+ *        This function register the libmetal generic bus, and then
+ *        register the IPI, shared memory descriptor and shared memory
+ *        devices to the libmetal generic bus.
+ *
+ * @return 0 - succeeded, non-zero for failures.
  */
 int platform_register_metal_device (void)
 {
@@ -241,6 +259,14 @@ int platform_register_metal_device (void)
 	return 0;
 }
 
+/**
+ * @brief sys_init() - Register libmetal devices.
+ *        This function register the libmetal generic bus, and then
+ *        register the IPI, shared memory descriptor and shared memory
+ *        devices to the libmetal generic bus.
+ *
+ * @return 0 - succeeded, non-zero for failures.
+ */
 int sys_init()
 {
 	struct metal_init_params metal_param = METAL_INIT_DEFAULTS;
@@ -262,6 +288,13 @@ int sys_init()
 	return 0;
 }
 
+/**
+ * @brief sys_cleanup() - system cleanup
+ *        This function finish the libmetal environment
+ *        and disable caches.
+ *
+ * @return 0 - succeeded, non-zero for failures.
+ */
 void sys_cleanup()
 {
 	metal_finish();
@@ -269,6 +302,9 @@ void sys_cleanup()
 }
 
 typedef void *(*task_to_run)(void *arg);
+/**
+ * @brief run_comm_task() - run the communication task
+ */
 int run_comm_task(task_to_run task, void *arg)
 {
 	task(arg);
