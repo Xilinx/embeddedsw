@@ -260,7 +260,13 @@ void XDecap_ChannelConfig(XDecap *InstancePtr, u16 Channels)
     /* Set Packet Timer Stop (Only for Incoming ST2022-6 Packets */
     XDecap_PacketStopTimer(InstancePtr,Channels);
 
-    /* Set Channel Enable */
+    /* Set Marker Packet Detection Enable/Disable */
+    XDecap_ControlMPktDetEn(InstancePtr,Channels);
+
+    /* Set Marker Packet Drop Enable/Disable */
+    XDecap_ControlMPktDropEn(InstancePtr,Channels);
+
+    /* Set Channel Enable/Disable */
     XDecap_ControlChannelEn(InstancePtr,Channels);
 }
 
@@ -829,6 +835,82 @@ void XDecap_ControlChannelEn(XDecap *InstancePtr, u16 Channels)
           (RegValue |
               (((InstancePtr)->ChannelCfg[Channels].Channel_Enable) &
                  XDECAP_CHANNEL_CONTROL_CHANNEL_ENABLE_MASK)));
+
+    /* Update the Channels */
+    XDecap_ChannelUpdate(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Enable/Disable the Marker Packet Detection
+*
+* @param    InstancePtr is a pointer to the XDecap core instance.
+*
+* @param    Channels is current configured channel
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XDecap_ControlMPktDetEn(XDecap *InstancePtr, u16 Channels)
+{
+    u32 RegValue;
+
+    /* Select the Channel */
+    XDecap_ChannelAccess(InstancePtr, Channels);
+
+    /* Obtain Current Register Value */
+    RegValue = (XDecap_ReadReg(InstancePtr->Config.BaseAddress,
+        XDECAP_CHANNEL_CONTROL_OFFSET) &
+            (~(XDECAP_CHANNEL_CONTROL_M_PKT_DET_EN_MASK)));
+
+    /* Write the value to the register */
+    XDecap_WriteReg(InstancePtr->Config.BaseAddress,
+        XDECAP_CHANNEL_CONTROL_OFFSET,
+           (RegValue |
+              ((((InstancePtr)->ChannelCfg[Channels].MPkt_DetEn) <<
+                 XDECAP_CHANNEL_CONTROL_M_PKT_DET_EN_SHIFT) &
+                    XDECAP_CHANNEL_CONTROL_M_PKT_DET_EN_MASK)));
+
+    /* Update the Channels */
+    XDecap_ChannelUpdate(InstancePtr);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function Enable/Disable the Marker Packet Drop
+*
+* @param    InstancePtr is a pointer to the XDecap core instance.
+*
+* @param    Channels is current configured channel
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XDecap_ControlMPktDropEn(XDecap *InstancePtr, u16 Channels)
+{
+    u32 RegValue;
+
+    /* Select the Channel */
+    XDecap_ChannelAccess(InstancePtr, Channels);
+
+    /* Obtain Current Register Value */
+    RegValue = (XDecap_ReadReg(InstancePtr->Config.BaseAddress,
+        XDECAP_CHANNEL_CONTROL_OFFSET) &
+            (~(XDECAP_CHANNEL_CONTROL_DROP_M_PKT_EN_MASK)));
+
+    /* Write the value to the register */
+    XDecap_WriteReg(InstancePtr->Config.BaseAddress,
+        XDECAP_CHANNEL_CONTROL_OFFSET,
+           (RegValue |
+              ((((InstancePtr)->ChannelCfg[Channels].MPkt_DropEn) <<
+                 XDECAP_CHANNEL_CONTROL_DROP_M_PKT_EN_SHIFT) &
+                    XDECAP_CHANNEL_CONTROL_DROP_M_PKT_EN_MASK)));
 
     /* Update the Channels */
     XDecap_ChannelUpdate(InstancePtr);
