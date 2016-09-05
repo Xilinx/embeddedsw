@@ -291,6 +291,29 @@ typedef enum operation_mode {
     XDECAP_LOSSLESS_MODE = 1
 } XDecap_OperationMode;
 
+/** @name VoIP Decapsulator Marker Packet Detection Enable/Disable
+* @{
+*/
+/**
+* These constants specify the Marker Packet Detection Enable/Disable of VoIP
+* Decapsulator
+*/
+typedef enum m_pkt_det {
+    XDECAP_MARKER_PACKET_DET_DISABLE = 0,
+    XDECAP_MARKER_PACKET_DET_ENABLE = 1
+} XDecap_MPktDetEn;
+
+/** @name VoIP Decapsulator Marker Packet Drop Enable
+* @{
+*/
+/**
+* These constants specify the Marker Packet Drop Enable/Disable of
+* VoIP Decapsulator
+*/
+typedef enum m_pkt_drop {
+    XDECAP_MARKER_PACKET_DROP_DISABLE = 0,
+    XDECAP_MARKER_PACKET_DROP_ENABLE = 1
+} XDecap_MPktDropEn;
 
 /**
 * This typedef contains Incoming IP Header Filtering Enable Information
@@ -356,6 +379,8 @@ typedef struct {
 typedef struct {
     XDecap_ChannelEnable  Channel_Enable;
     XDecap_OperationMode  LosslessMode;
+    XDecap_MPktDetEn      MPkt_DetEn;
+    XDecap_MPktDropEn     MPkt_DropEn;
     XDecap_VLANMatching   is_MatchVlanPckt;
     XDecap_Header         MatchHeader;
     XDecap_MatchSelect    MatchSelect;
@@ -536,6 +561,8 @@ u32 XDecap_DropPcktCnt(XDecap *InstancePtr, u16 Channels);
 void XDecap_SetOperationMode(XDecap *InstancePtr, u16 Channels);
 void XDecap_SetIPType(XDecap *InstancePtr, u16 Channels);
 void XDecap_ControlChannelEn(XDecap *InstancePtr, u16 Channels);
+void XDecap_ControlMPktDetEn(XDecap *InstancePtr, u16 Channels);
+void XDecap_ControlMPktDropEn(XDecap *InstancePtr, u16 Channels);
 void XDecap_ChannelClearStatistic(XDecap *InstancePtr, u16 Channels);
 void XDecap_SetMatchSelect(XDecap *InstancePtr, u16 Channels);
 void XDecap_MatchIPv4Dest(XDecap *InstancePtr, u16 Channels);
