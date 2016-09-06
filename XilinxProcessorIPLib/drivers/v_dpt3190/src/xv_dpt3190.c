@@ -528,20 +528,20 @@ u32 XV_dpt3190_Get_HwReg_U191_160_V(XV_dpt3190 *InstancePtr) {
     return Data;
 }
 
-void XV_dpt3190_Set_HwReg_module_reset_V(XV_dpt3190 *InstancePtr, u32 Data) {
+void XV_dpt3190_Set_HwReg_reserved1_V(XV_dpt3190 *InstancePtr, u32 Data) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    XV_dpt3190_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT3190_CTRL_ADDR_HWREG_MODULE_RESET_V_DATA, Data);
+    XV_dpt3190_WriteReg(InstancePtr->Ctrl_BaseAddress, XV_DPT3190_CTRL_ADDR_HWREG_RESERVED1_V_DATA, Data);
 }
 
-u32 XV_dpt3190_Get_HwReg_module_reset_V(XV_dpt3190 *InstancePtr) {
+u32 XV_dpt3190_Get_HwReg_reserved1_V(XV_dpt3190 *InstancePtr) {
     u32 Data;
 
     Xil_AssertNonvoid(InstancePtr != NULL);
     Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-    Data = XV_dpt3190_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT3190_CTRL_ADDR_HWREG_MODULE_RESET_V_DATA);
+    Data = XV_dpt3190_ReadReg(InstancePtr->Ctrl_BaseAddress, XV_DPT3190_CTRL_ADDR_HWREG_RESERVED1_V_DATA);
     return Data;
 }
 

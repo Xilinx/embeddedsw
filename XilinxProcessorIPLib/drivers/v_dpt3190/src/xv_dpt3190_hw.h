@@ -97,8 +97,8 @@
 // 0xa0 : Data signal of HwReg_U191_160_V
 //        bit 31~0 - HwReg_U191_160_V[31:0] (Read/Write)
 // 0xa4 : reserved
-// 0xa8 : Data signal of HwReg_module_reset_V
-//        bit 0  - HwReg_module_reset_V[0] (Read/Write)
+// 0xa8 : Data signal of HwReg_reserved1_V
+//        bit 0  - HwReg_reserved1_V[0] (Read/Write)
 //        others - reserved
 // 0xac : reserved
 // 0xb0 : Data signal of HwReg_stat_reset_V
@@ -154,8 +154,8 @@
 #define XV_DPT3190_CTRL_BITS_HWREG_U159_128_V_DATA       32
 #define XV_DPT3190_CTRL_ADDR_HWREG_U191_160_V_DATA       0xa0
 #define XV_DPT3190_CTRL_BITS_HWREG_U191_160_V_DATA       32
-#define XV_DPT3190_CTRL_ADDR_HWREG_MODULE_RESET_V_DATA   0xa8
-#define XV_DPT3190_CTRL_BITS_HWREG_MODULE_RESET_V_DATA   1
+#define XV_DPT3190_CTRL_ADDR_HWREG_RESERVED1_V_DATA      0xa8
+#define XV_DPT3190_CTRL_BITS_HWREG_RESERVED1_V_DATA      1
 #define XV_DPT3190_CTRL_ADDR_HWREG_STAT_RESET_V_DATA     0xb0
 #define XV_DPT3190_CTRL_BITS_HWREG_STAT_RESET_V_DATA     1
 
