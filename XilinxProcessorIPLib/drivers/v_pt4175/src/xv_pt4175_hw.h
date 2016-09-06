@@ -76,6 +76,10 @@
 //        bit 0  - HwReg_stat_reset_V[0] (Read/Write)
 //        others - reserved
 // 0x74 : reserved
+// 0x78 : Data signal of HwReg_interlace_ctrl_V
+//        bit 1~0 - HwReg_interlace_ctrl_V[1:0] (Read/Write)
+//        others  - reserved
+// 0x7c : reserved
 // (SC = Self Clear, COR = Clear on Read, TOW = Toggle on Write, COH = Clear on Handshake)
 
 #define XV_PT4175_CTRL_ADDR_AP_CTRL                     0x00
@@ -109,3 +113,5 @@
 #define XV_PT4175_CTRL_BITS_HWREG_PIXPERPKT_V_DATA      16
 #define XV_PT4175_CTRL_ADDR_HWREG_STAT_RESET_V_DATA     0x70
 #define XV_PT4175_CTRL_BITS_HWREG_STAT_RESET_V_DATA     1
+#define XV_PT4175_CTRL_ADDR_HWREG_INTERLACE_CTRL_V_DATA 0x78
+#define XV_PT4175_CTRL_BITS_HWREG_INTERLACE_CTRL_V_DATA 2
