@@ -217,6 +217,9 @@ Provided single bit programming for User keys 32 and
 BBRAM is updated to have DPA protection, and
 count configuration.
 
+xilmfs_v2_1:
+CR#958938: Update freertos OS name in xilmfs.mld as per latest freertos port.
+
 libmetal_v1_0:
 Add libmetal open-source project to support OpenAMP
 
