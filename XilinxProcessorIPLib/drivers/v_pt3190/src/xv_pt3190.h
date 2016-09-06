@@ -179,8 +179,8 @@ u32 XV_pt3190_Get_HwReg_U159_128_V(XV_pt3190 *InstancePtr);
 u32 XV_pt3190_Get_HwReg_U159_128_V_vld(XV_pt3190 *InstancePtr);
 u32 XV_pt3190_Get_HwReg_U191_160_V(XV_pt3190 *InstancePtr);
 u32 XV_pt3190_Get_HwReg_U191_160_V_vld(XV_pt3190 *InstancePtr);
-void XV_pt3190_Set_HwReg_module_reset_V(XV_pt3190 *InstancePtr, u32 Data);
-u32 XV_pt3190_Get_HwReg_module_reset_V(XV_pt3190 *InstancePtr);
+void XV_pt3190_Set_HwReg_reserved1_V(XV_pt3190 *InstancePtr, u32 Data);
+u32 XV_pt3190_Get_HwReg_reserved1_V(XV_pt3190 *InstancePtr);
 void XV_pt3190_Set_HwReg_stat_reset_V(XV_pt3190 *InstancePtr, u32 Data);
 u32 XV_pt3190_Get_HwReg_stat_reset_V(XV_pt3190 *InstancePtr);
 
