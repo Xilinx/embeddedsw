@@ -305,6 +305,23 @@ u32 XV_pt4175_Get_HwReg_stat_reset_V(XV_pt4175 *InstancePtr) {
     return Data;
 }
 
+void XV_pt4175_Set_HwReg_interlace_ctrl_V(XV_pt4175 *InstancePtr, u32 Data) {
+    Xil_AssertVoid(InstancePtr != NULL);
+    Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    XV_pt4175_WriteReg(InstancePtr->Config.Ctrl_BaseAddress, XV_PT4175_CTRL_ADDR_HWREG_INTERLACE_CTRL_V_DATA, Data);
+}
+
+u32 XV_pt4175_Get_HwReg_interlace_ctrl_V(XV_pt4175 *InstancePtr) {
+    u32 Data;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+    Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+
+    Data = XV_pt4175_ReadReg(InstancePtr->Config.Ctrl_BaseAddress, XV_PT4175_CTRL_ADDR_HWREG_INTERLACE_CTRL_V_DATA);
+    return Data;
+}
+
 void XV_pt4175_InterruptGlobalEnable(XV_pt4175 *InstancePtr) {
     Xil_AssertVoid(InstancePtr != NULL);
     Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -375,20 +392,30 @@ void XV_pt4175_SetPcktInfo (XV_pt4175 *InstancePtr) {
 
     XV_pt4175_PcktInfoVal = XV_pt4175_ComputePckt (InstancePtr);
 
+    //Set Payload Length
     XV_pt4175_Set_HwReg_PyldLen_V(InstancePtr,
                                        XV_pt4175_PcktInfoVal.Packet_Length);
 
+    //Set Last Payload Length in Line
     XV_pt4175_Set_HwReg_PyldLen_last_V(InstancePtr,
                                        XV_pt4175_PcktInfoVal.Re_Packet_Length);
 
+    //Set Packets per Line
     XV_pt4175_Set_HwReg_PktsPerLine_V(InstancePtr,
                                        XV_pt4175_PcktInfoVal.Packet_Per_Line);
 
+    //Set Channel Number
+    XV_pt4175_Set_HwReg_channel_number_V(InstancePtr,
+                                      InstancePtr->PcktInfo.ChannelNumber);
+
+    //Set Pixel Per Packet (RFC4175 Header)
     XV_pt4175_Set_HwReg_PixPerPkt_V(InstancePtr,
                                 XV_pt4175_PcktInfoVal.PixPerPkt);
 
+    //Set SSRC (RTP Header)
     XV_pt4175_Set_HwReg_ssrc_V(InstancePtr,InstancePtr->PcktInfo.SSRC);
 
+    //Set Payload Type (TUSER)
     XV_pt4175_Set_HwReg_payloadtype_V(InstancePtr,
                                       InstancePtr->PcktInfo.DynamicPayloadType);
 }
