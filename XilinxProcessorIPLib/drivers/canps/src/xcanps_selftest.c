@@ -166,7 +166,7 @@ s32 XCanPs_SelfTest(XCanPs *InstancePtr)
 	for (Index = 0U; Index < 8U; Index++) {
 		if(*FramePtr != 0U) {
 			*FramePtr = (u8)Index;
-			*FramePtr++;
+			FramePtr++;
 		}
 	}
 
