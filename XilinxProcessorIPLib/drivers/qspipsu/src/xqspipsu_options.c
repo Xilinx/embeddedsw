@@ -222,7 +222,6 @@ s32 XQspiPsu_ClearOptions(XQspiPsu *InstancePtr, u32 Options)
 {
 	u32 ConfigReg;
 	u32 Index;
-	u32 QspiPsuOptions;
 	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
