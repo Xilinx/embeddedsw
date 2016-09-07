@@ -60,6 +60,7 @@
 *       sk     07/16/16 Added support for UHS modes.
 *       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
 *                       operating modes.
+* 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
 *
 * </pre>
 *
@@ -449,7 +450,6 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 	s32 Status;
 	u32 StatusReg;
 	u32 Arg;
-	u32 ClockReg;
 	u16 BlkCnt;
 	u16 BlkSize;
 	u8 ReadBuff[64];
@@ -638,7 +638,6 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 	u16 DivCnt;
 	u16 Divisor = 0U;
 	u16 ExtDivisor;
-	u16 ClkLoopCnt;
 	s32 Status;
 	u16 ReadReg;
 
@@ -1049,18 +1048,13 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 {
 	s32 Status;
-	u32 StatusReg;
-	u32 Arg;
-	u16 BlkCnt;
 	u16 BlkSize;
-	s32 LoopCnt;
 	u16 CtrlReg;
 	u8 TuningCount;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	BlkCnt = XSDPS_TUNING_CMD_BLKCNT;
 	BlkSize = XSDPS_TUNING_CMD_BLKSIZE;
 	if(InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH)
 	{
@@ -1144,6 +1138,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 {
 	u32 TapDelay;
+	(void) CardType;
 
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
 	if (DeviceId == 0U) {
@@ -1187,6 +1182,8 @@ void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 {
 	u32 TapDelay;
+	(void) Bank;
+	(void) CardType;
 
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
 	if (DeviceId == 0U) {
@@ -1224,6 +1221,7 @@ void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 {
 	u32 TapDelay;
+	(void) Bank;
 
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
 	if (DeviceId == 0U) {
@@ -1294,6 +1292,7 @@ void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 {
 	u32 TapDelay;
+	(void) Bank;
 
 #ifdef XPAR_PSU_SD_0_DEVICE_ID
 	if (DeviceId == 0U) {
@@ -1358,7 +1357,6 @@ void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType)
 void XSdPs_SetTapDelay(XSdPs *InstancePtr)
 {
 	u32 DllCtrl, BankNum, DeviceId, CardType;
-	u32 TapDelay;
 
 	BankNum = InstancePtr->Config.BankNumber;
 	DeviceId = InstancePtr->Config.DeviceId ;
