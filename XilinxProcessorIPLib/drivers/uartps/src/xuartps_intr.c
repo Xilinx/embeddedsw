@@ -249,7 +249,7 @@ void XUartPs_InterruptHandler(XUartPs *InstancePtr)
 *****************************************************************************/
 static void ReceiveErrorHandler(XUartPs *InstancePtr, u32 IsrStatus)
 {
-	u32 ByteStatusValue, EventData;
+	u32 EventData;
 	u32 Event;
 
 	InstancePtr->is_rxbs_error = 0;
