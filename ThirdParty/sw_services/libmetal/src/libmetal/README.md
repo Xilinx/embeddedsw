@@ -47,11 +47,6 @@ The following utilities are provided in lib/utilities.h:
 
 The libmetal version interface allows user to get the version of the library.
 
-### Domain
-
-This is used in Linux shared memory implementation today, but will be removed
-in the future.
-
 ### Top Level Interfaces
 
 The users will need to call two top level interfaces to use libmetal APIs:
@@ -80,13 +75,28 @@ including GCC and LLVM/Clang.  When porting to a different toolchain, it may be
 necessary to provide an stdatomic compatible implementation if the toolchain
 does not already provide one.
 
-### Mutex
+### Alloc
+
+libmetal provides memory allocation and release APIs.
+
+### Locking
+
+libmetal provides the following locking APIs.
+
+#### Mutex
 
 libmetal has a generic mutex implementation which is a busy wait.  It is
 recommended to have OS specific implementation for mutex.
 
 The Linux userspace mutex implementation uses futex to wait for the lock
 and wakeup a waiter.
+
+#### Condition Variable
+libmetal condition variable APIs provide "wait" for user applications to wait
+on some condition to be met, and "signal" to indicate a particular even occurs.
+
+#### Spinlock
+libmetal spinlock APIs provides busy waiting mechanism to acquire a lock.
 
 ### Shmem
 
@@ -112,9 +122,6 @@ The VFIO support is not yet implemented.
 
 ### Interrupt
 
-This API is not in the current release yet.  The interrupt API implementation
-will be OS specific or platform specific.
-
 libmetal provides APIs to register an interrupt, disable interrupts and restore
 interrupts.
 
@@ -122,6 +129,24 @@ The Linux userspace implementation will use a thread to call select() function
 to listen to the file descriptors of the devices to see if there is an interrupt
 triggered.  If there is an interrupt triggered, it will call the interrupt
 handler registered by the user application.
+
+### Cache
+
+libmetal provides APIs to flush and invalidate caches.
+
+The cache APIs for Linux userspace are empty functions for now as cache
+operations system calls are not avaiable for all architectures.
+
+### DMA
+
+libmetal DMA APIs provide DMA map and unmap implementation.
+
+After calling DMA map, the DMA device will own the memory.
+After calling DMA unmap, the cpu will own the memory.
+
+For Linux userspace, it only supports to use UIO device memory as DMA
+memory for this release.
+
 
 ### Compiler
 
