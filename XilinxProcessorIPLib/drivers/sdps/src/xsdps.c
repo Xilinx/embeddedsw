@@ -70,6 +70,7 @@
 *       sk     07/07/16 Used usleep API for both arm and microblaze.
 *       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
 *                       operating modes.
+* 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
 * </pre>
 *
 ******************************************************************************/
@@ -112,7 +113,9 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
 extern s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static s32 XSdPs_IdentifyCard(XSdPs *InstancePtr);
+#ifndef UHS_BROKEN
 static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr);
+#endif
 
 /*****************************************************************************/
 /**
@@ -500,12 +503,8 @@ RETURN_PATH:
 *
 *
 ******************************************************************************/
-s32 XSdPs_CardInitialize(XSdPs *InstancePtr) {
-	u8 Tmp;
-	u32 Cnt;
-	u32 PresentStateReg;
-	u32 CtrlReg;
-	u32 CSD[4];
+s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
+{
 #ifdef __ICCARM__
 #pragma data_alignment = 32
 static u8 ExtCsd[512];
@@ -761,7 +760,6 @@ RETURN_PATH:
 static s32 XSdPs_IdentifyCard(XSdPs *InstancePtr)
 {
 	s32 Status;
-	u32 OperCondReg;
 	u8 ReadReg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -809,6 +807,7 @@ RETURN_PATH:
 	return Status;
 }
 
+#ifndef UHS_BROKEN
 /*****************************************************************************/
 /**
 *
@@ -875,6 +874,7 @@ static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
 RETURN_PATH:
 	return Status;
 }
+#endif
 
 /*****************************************************************************/
 /**
