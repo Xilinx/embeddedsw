@@ -234,8 +234,10 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 ******************************************************************************/
 static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 {
+#ifdef ARMR5
 	u32 Int_Id;
 	u32 LocalCpuID = CpuID;
+#endif
 
 #if USE_AMP==1
 	#warning "Building GIC for AMP"
