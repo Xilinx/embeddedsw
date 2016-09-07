@@ -352,12 +352,10 @@ void XQspiPsu_Abort(XQspiPsu *InstancePtr)
 s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 				u32 NumMsg)
 {
-	u32 StatusReg;
-	u32 ConfigReg;
+
 	s32 Index;
-	u32 QspiPsuStatusReg, DmaStatusReg;
+	u32 QspiPsuStatusReg;
 	u32 BaseAddress;
-	s32 Status;
 	s32 RxThr;
 	u32 IOPending = (u32)FALSE;
 
@@ -541,11 +539,9 @@ s32 XQspiPsu_PolledTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 				u32 NumMsg)
 {
-	u32 StatusReg;
-	u32 ConfigReg;
+
 	s32 Index;
 	u32 BaseAddress;
-	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -1413,8 +1409,7 @@ static inline void XQspiPsu_ReadRxFifo(XQspiPsu *InstancePtr,
 ******************************************************************************/
 void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 {
-	u32 polldata, test;
-	u32 QspiPsuStatusReg,QspiPsuStatusReg1;
+
 	u32 GenFifoEntry ;
 	u32 Value;
 
