@@ -285,8 +285,7 @@ u32 XUsbPsu_ReadHwParams(struct XUsbPsu *InstancePtr, u8 RegIndex)
 	u32 RegVal;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((RegIndex >= (u8)XUSBPSU_GHWPARAMS0) &&
-				(RegIndex <= (u8)XUSBPSU_GHWPARAMS7));
+	Xil_AssertNonvoid(RegIndex <= (u8)XUSBPSU_GHWPARAMS7);
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, ((u32)XUSBPSU_GHWPARAMS0_OFFSET +
 							((u32)RegIndex * (u32)4)));
@@ -667,8 +666,7 @@ void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed)
 	u32	RegVal;
 
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid((Speed >= (u32)XUSBPSU_DCFG_HIGHSPEED) &&
-			(Speed <= (u32)XUSBPSU_DCFG_SUPERSPEED));
+	Xil_AssertVoid(Speed <= (u32)XUSBPSU_DCFG_SUPERSPEED);
 
 	RegVal = XUsbPsu_ReadReg(InstancePtr, XUSBPSU_DCFG);
 	RegVal &= ~(XUSBPSU_DCFG_SPEED_MASK);
