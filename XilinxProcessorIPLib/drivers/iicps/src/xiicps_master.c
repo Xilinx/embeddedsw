@@ -213,7 +213,7 @@ void XIicPs_MasterRecv(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount,
 	 * Setup the transfer size register so the slave knows how much
 	 * to send to us.
 	 */
-	if (ByteCount > XIICPS_MAX_TRANSFER_SIZE) {
+	if (ByteCount > (s32)XIICPS_MAX_TRANSFER_SIZE) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET,
 				XIICPS_MAX_TRANSFER_SIZE);
 		InstancePtr->CurrByteCount = (s32)XIICPS_MAX_TRANSFER_SIZE;
@@ -264,7 +264,6 @@ s32 XIicPs_MasterSendPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	u32 BaseAddr;
 	u32 Intrs;
 	_Bool Value;
-	s32 Status;
 
 	/*
 	 * Assert validates the input arguments.
@@ -386,11 +385,6 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	u32 Intrs;
 	u32 StatusReg;
 	u32 BaseAddr;
-	s32 BytesToRecv;
-	s32 BytesToRead;
-	s32 TransSize;
-	u32 Status_Rcv;
-	u32 Status;
 	s32 Result;
 	s32 IsHold;
 	s32 UpdateTxSize = 0;
@@ -436,7 +430,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 	 * Set up the transfer size register so the slave knows how much
 	 * to send to us.
 	 */
-	if (ByteCountVar > XIICPS_MAX_TRANSFER_SIZE) {
+	if (ByteCountVar > (s32)XIICPS_MAX_TRANSFER_SIZE) {
 		XIicPs_WriteReg(BaseAddr, XIICPS_TRANS_SIZE_OFFSET,
 				XIICPS_MAX_TRANSFER_SIZE);
 		ByteCountVar = (s32)XIICPS_MAX_TRANSFER_SIZE;
@@ -492,7 +486,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 				}
 
 				if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
-					XIICPS_MAX_TRANSFER_SIZE) {
+					(s32)XIICPS_MAX_TRANSFER_SIZE) {
 
 					XIicPs_WriteReg(BaseAddr,
 						XIICPS_TRANS_SIZE_OFFSET,
@@ -520,7 +514,7 @@ s32 XIicPs_MasterRecvPolled(XIicPs *InstancePtr, u8 *MsgPtr,
 				XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
 
 				if ((InstancePtr->RecvByteCount) >
-					XIICPS_MAX_TRANSFER_SIZE) {
+					(s32)XIICPS_MAX_TRANSFER_SIZE) {
 
 					XIicPs_WriteReg(BaseAddr,
 						XIICPS_TRANS_SIZE_OFFSET,
@@ -786,7 +780,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 				}
 
 				if ((InstancePtr->RecvByteCount - XIICPS_FIFO_DEPTH) >
-					XIICPS_MAX_TRANSFER_SIZE) {
+					(s32)XIICPS_MAX_TRANSFER_SIZE) {
 
 					XIicPs_WriteReg(BaseAddr,
 						XIICPS_TRANS_SIZE_OFFSET,
@@ -815,7 +809,7 @@ void XIicPs_MasterInterruptHandler(XIicPs *InstancePtr)
 				XIicPs_WriteReg(BaseAddr, XIICPS_ADDR_OFFSET, SlaveAddr);
 
 				if ((InstancePtr->RecvByteCount) >
-					XIICPS_MAX_TRANSFER_SIZE) {
+					(s32)XIICPS_MAX_TRANSFER_SIZE) {
 
 					XIicPs_WriteReg(BaseAddr,
 						XIICPS_TRANS_SIZE_OFFSET,
