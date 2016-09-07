@@ -143,7 +143,7 @@ void Xil_DCacheInvalidate(void)
 {
 	register u32 CsidReg, C7Reg;
 	u32 LineSize, NumWays;
-	u32 Way, WayIndex,WayAdjust, Set, SetIndex, NumSet, NumCacheLevel, CacheLevel,CacheLevelIndex;
+	u32 Way, WayIndex,WayAdjust, Set, SetIndex, NumSet, CacheLevel;
 	u32 currmask;
 
 	currmask = mfcpsr();
@@ -151,7 +151,6 @@ void Xil_DCacheInvalidate(void)
 
 
 	/* Number of level of cache*/
-	NumCacheLevel = (mfcp(CLIDR_EL1)>>24U) & 0x00000007U;
 
 	CacheLevel=0U;
 	/* Select cache level 0 and D cache in CSSR */
@@ -340,7 +339,7 @@ void Xil_DCacheFlush(void)
 {
 	register u32 CsidReg, C7Reg;
 	u32 LineSize, NumWays;
-	u32 Way, WayIndex,WayAdjust, Set, SetIndex, NumSet, NumCacheLevel, CacheLevel,CacheLevelIndex;
+	u32 Way, WayIndex,WayAdjust, Set, SetIndex, NumSet, CacheLevel;
 	u32 currmask;
 
 	currmask = mfcpsr();
@@ -348,7 +347,6 @@ void Xil_DCacheFlush(void)
 
 
 	/* Number of level of cache*/
-	NumCacheLevel = (mfcp(CLIDR_EL1)>>24U) & 0x00000007U;
 
 	CacheLevel = 0U;
 	/* Select cache level 0 and D cache in CSSR */
