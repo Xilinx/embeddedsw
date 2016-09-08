@@ -233,6 +233,10 @@ openamp_matrix_multiply_demo:
 openamp_echo_test:
 Use libmetal to abstract OS services.
 
+freertos_lwip_echo_server:
+Fix echo thread stack size. CR#958898.
+
+
 Change Log for 2016.2
 =================================
 axidma_v9_2:
