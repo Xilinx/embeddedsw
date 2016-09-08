@@ -113,7 +113,7 @@ void echo_application_thread()
 		if ((new_sd = lwip_accept(sock, (struct sockaddr *)&remote, (socklen_t *)&size)) > 0) {
 			sys_thread_new("echos", process_echo_request,
 				(void*)new_sd,
-				4096,
+				THREAD_STACKSIZE,
 				DEFAULT_THREAD_PRIO);
 		}
 	}
