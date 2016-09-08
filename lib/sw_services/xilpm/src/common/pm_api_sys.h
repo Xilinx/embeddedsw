@@ -36,9 +36,12 @@
  * PM API System implementation
  * @addtogroup xpm_apis XilPM APIs
  *
- * XilPM provides Extensible Energy Management Interface (EEMI) APIs for
- * power management on Zynq MPSoC. For more details about power management
- * on Zynq MPSoC, please refer to UG1199. EEMI is documented in UG1200.
+ * Xilinx Power Management(XilPM) provides Embedded Energy Management
+ * Interface (EEMI) APIs for power management on Zynq&reg; UltraScale+&trade;
+ * MPSoC. For more details about power management on Zynq Ultrascale+ MPSoC,
+ * see the Zynq UltraScale+ MPSoC Power Management User Guide (UG1199).
+ * For more details about EEMI, see the Embedded Energy Management Interface
+ * (EEMI) API User Guide(UG1200).
  * @{
  *****************************************************************************/
 
