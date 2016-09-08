@@ -134,6 +134,16 @@ _prestart
 _boot
 
 #if XPAR_CPU_ID==0
+; only allow cp0 through
+	mrc	p15,0,r1,c0,c0,5
+	and	r1, r1, #0xf
+	cmp	r1, #0
+	beq	CheckEFUSE
+EndlessLoop0
+	wfe
+	b	EndlessLoop0
+
+CheckEFUSE
         ldr r0,=EFUSEStaus
         ldr r1,[r0]                             ; Read eFuse setting
         ands r1,r1,#0x80                        ; Check whether device is having single core
@@ -153,6 +163,14 @@ _boot
 	str	r1, [r0]	        	; lock SLCR
 
 #elif XPAR_CPU_ID==1
+; only allow cpu1 through
+	mrc	p15,0,r1,c0,c0,5
+	and	r1, r1, #0xf
+	cmp	r1, #1
+	beq	CheckEFUSE1
+        b	EndlessLoop1
+
+CheckEFUSE1
         ldr r0,=EFUSEStaus
         ldr r1,[r0]                             ; Read eFuse setting
         ands r1,r1,#0x80                        ; Check whether device is having single core
