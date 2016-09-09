@@ -109,6 +109,7 @@
 *                   XDpTxSs_HandleTimeout.
 * 4.0  aad 05/13/16 Expose API to set (a)synchronous clock mode from DP driver.
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
+*      aad 09/06/16 Updates to support 64-bit base addresses.
 * </pre>
 *
 ******************************************************************************/
@@ -240,7 +241,7 @@ typedef struct {
 typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
 				  *  DisplayPort TX Subsystem core */
-	u32 BaseAddress;	/**< BaseAddress is the physical base address
+	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the core's registers */
 	u8 SecondaryChEn;	/**< This Subsystem core supports audio packets
 				  *  being sent by the secondary channel. */
@@ -316,7 +317,7 @@ XDpTxSs_Config* XDpTxSs_LookupConfig(u16 DeviceId);
 
 /* Initialization and control functions in xaxi4s_switch.c */
 u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 u32 XDpTxSs_Start(XDpTxSs *InstancePtr);
 u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 		XDpTxSs_MainStreamAttributes *MsaConfigCustom);
