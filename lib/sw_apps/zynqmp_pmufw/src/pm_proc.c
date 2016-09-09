@@ -374,7 +374,7 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
 {
 	int status;
 
-	PmDbg("ACTIVE->SUSPENDING %s\n", PmStrNode(proc->node.nodeId));
+	PmDbg("ACTIVE->SUSPENDING %s\r\n", PmStrNode(proc->node.nodeId));
 
 	ENABLE_WFI(proc->wfiEnableMask);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SUSPENDING);
@@ -401,7 +401,7 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 {
 	u32 status;
 
-	PmDbg("ACTIVE->FORCED_PWRDN %s\n", PmStrNode(proc->node.nodeId));
+	PmDbg("ACTIVE->FORCED_PWRDN %s\r\n", PmStrNode(proc->node.nodeId));
 
 	status = PmProcSleep(&proc->node);
 	/* Override the state set in PmProcSleep to indicate FORCED OFF */
@@ -426,7 +426,7 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg("SUSPENDING->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
+	PmDbg("SUSPENDING->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
 
 	DISABLE_WFI(proc->wfiEnableMask);
 
@@ -450,7 +450,7 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 {
 	int status;
 
-	PmDbg("SUSPENDING->SLEEP %s\n", PmStrNode(proc->node.nodeId));
+	PmDbg("SUSPENDING->SLEEP %s\r\n", PmStrNode(proc->node.nodeId));
 
 	status = PmProcSleep(&proc->node);
 	if (XST_SUCCESS == status) {
@@ -487,7 +487,7 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
 
 	if (XST_SUCCESS == status) {
-		PmDbg("SLEEP->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
+		PmDbg("SLEEP->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
 		status = PmProcWake(&proc->node);
 		DISABLE_WAKE(proc->wakeEnableMask);
 	}
@@ -510,7 +510,7 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
 	int status = XST_SUCCESS;
-	PmDbg("FORCED_PWRDN->ACTIVE %s\n", PmStrNode(proc->node.nodeId));
+	PmDbg("FORCED_PWRDN->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
 
 	/* Notify master, it will know if resources need to be updated */
 	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
@@ -587,12 +587,12 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		proc->latencyReq = MAX_LATENCY;
 		break;
 	default:
-		PmDbg("ERROR: unrecognized event %d\n", event);
+		PmDbg("ERROR: unrecognized event %d\r\n", event);
 		break;
 	}
 #ifdef DEBUG_PM
 	if (status == XST_PM_INTERNAL) {
-		PmDbg("ERROR: state #%d event #%d\n", currState, event);
+		PmDbg("ERROR: state #%d event #%d\r\n", currState, event);
 	}
 #endif
 

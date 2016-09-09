@@ -1001,14 +1001,14 @@ void PmClockDump(const PmClock* const clk)
 
 		ch = ch->nextNode;
 	}
-	fw_printf(" }\n");
+	fw_printf(" }\r\n");
 }
 
 void PmClockDumpChildren(const PmSlavePll* const pll)
 {
 	u32 i;
 
-	fw_printf("%s #%ld:\n", PmStrNode(pll->slv.node.nodeId), pll->useCount);
+	fw_printf("%s #%ld:\r\n", PmStrNode(pll->slv.node.nodeId), pll->useCount);
 
 	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
 		if (pll != pmClocks[i]->pll) {
@@ -1118,7 +1118,7 @@ int PmClockRequest(const PmNode* const node)
 	int totStatus = XST_SUCCESS;
 
 #ifdef DEBUG_CLK
-	PmDbg("%s\n", PmStrNode(node->nodeId));
+	PmDbg("%s\r\n", PmStrNode(node->nodeId));
 #endif
 	while (NULL != ch) {
 		int status = XST_SUCCESS;
@@ -1152,7 +1152,7 @@ void PmClockRelease(const PmNode* const node)
 	PmClockHandle* ch = node->clocks;
 
 #ifdef DEBUG_CLK
-	PmDbg("%s\n", PmStrNode(node->nodeId));
+	PmDbg("%s\r\n", PmStrNode(node->nodeId));
 #endif
 	while (NULL != ch) {
 		u32 clkUseCnt = PmClockGetUseCount(ch->clock);
