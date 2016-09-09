@@ -55,6 +55,7 @@
  * 5.0   als  05/16/16 Added API to set color encoding scheme.
  * 5.1   als  08/03/16 Use video common API rather than internal structure when
  *                     checking for interlaced mode.
+ *       als  08/12/16 Updates to support 64-bit base addresses.
  * </pre>
  *
 *******************************************************************************/
@@ -1058,7 +1059,7 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 *******************************************************************************/
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 {
-	u32 BaseAddr;
+	UINTPTR BaseAddr;
 	u8  LaneCount;
 	u8  BitsPerPixel, BitsPerColor, ColorComponent;
 	u8  ColComp;

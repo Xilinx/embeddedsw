@@ -51,8 +51,9 @@
  * 2.0   als  06/08/15 Updated RX initialization with MST support.
  *                     Added callbacks for lane count changes, link rate changes
  *                     and pre-emphasis + voltage swing adjust requests.
- * 4.1   als  08/09/16 Replaced deprecated MB_Sleep with consolidated usleep.
+ * 5.1   als  08/09/16 Replaced deprecated MB_Sleep with consolidated usleep.
  *            08/11/16 RX to support maximum pre-emphasis level of 1.
+ *            08/12/16 Updates to support 64-bit base addresses.
  * </pre>
  *
 *******************************************************************************/
@@ -165,7 +166,7 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
  *
 *******************************************************************************/
 void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
-							u32 EffectiveAddr)
+							UINTPTR EffectiveAddr)
 {
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
