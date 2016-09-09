@@ -133,7 +133,7 @@ extern "C" {
 * @return	The 32-bit value of the register.
 *
 * @note		C-style signature:
-*		u32 XDpTxSs_ReadReg(u32 BaseAddress, u32 RegOffset)
+*		u32 XDpTxSs_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
 #define XDpTxSs_ReadReg(BaseAddress, RegOffset) \
@@ -154,7 +154,7 @@ extern "C" {
 * @return	None.
 *
 * @note		C-style signature:
-*		void XDpTxSs_WriteReg(u32 BaseAddress, u32 RegOffset,
+*		void XDpTxSs_WriteReg(UINTPTR BaseAddress, u32 RegOffset,
 *		u32 Data)
 *
 ******************************************************************************/

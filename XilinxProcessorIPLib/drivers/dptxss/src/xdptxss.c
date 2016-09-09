@@ -58,6 +58,7 @@
 * 4.1  aad 07/28/16 Enabled VTC before DPTX core enable for better
 *		    image stability
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
+*      aad 09/06/16 Updates to support 64-bit base address
 * </pre>
 *
 ******************************************************************************/
@@ -135,7 +136,7 @@ XDpTxSs_SubCores DpTxSsSubCores[XPAR_XDPTXSS_NUM_INSTANCES];
 *
 ******************************************************************************/
 u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
 	XDualSplitter_Config DualConfig;
@@ -151,7 +152,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CfgPtr != NULL);
-	Xil_AssertNonvoid(EffectiveAddr != (u32)0x0);
+	Xil_AssertNonvoid(EffectiveAddr != 0x0);
 
 	/* Setup the instance */
 	(void)memset((void *)InstancePtr, 0, sizeof(XDpTxSs));
