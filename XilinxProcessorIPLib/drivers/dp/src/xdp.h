@@ -362,6 +362,7 @@
  *                     Added RX MST API to allocate payload from ISR:
  *                         XDp_RxAllocatePayloadStream
  * 5.0   als  05/16/16 Added APIs to set color encoding scheme.
+ * 5.1   als  08/12/16 Updates to support 64-bit base addresses.
  * </pre>
  *
 *******************************************************************************/
@@ -402,7 +403,7 @@ typedef enum {
  */
 typedef struct {
 	u16 DeviceId;		/**< Device instance ID. */
-	u32 BaseAddr;		/**< The base address of the core instance. */
+	UINTPTR BaseAddr;	/**< The base address of the core instance. */
 	u32 SAxiClkHz;		/**< The clock frequency of the core instance's
 					S_AXI_ACLK port. */
 	u8 MaxLaneCount;	/**< The maximum lane count supported by this
@@ -1085,7 +1086,7 @@ XDp_Config *XDp_LookupConfig(u16 DeviceId);
 
 /* xdp.c: Setup and initialization functions. */
 void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
-							u32 EffectiveAddr);
+							UINTPTR EffectiveAddr);
 u32 XDp_Initialize(XDp *InstancePtr);
 u32 XDp_TxGetRxCapabilities(XDp *InstancePtr);
 

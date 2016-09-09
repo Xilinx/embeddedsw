@@ -2619,7 +2619,7 @@
  * @return	The 32-bit value of the specified register.
  *
  * @note	C-style signature:
- *		u32 XDp_ReadReg(u32 BaseAddress, u32 RegOffset)
+ *		u32 XDp_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
  *
 *******************************************************************************/
 #define XDp_ReadReg(BaseAddress, RegOffset) \
@@ -2636,7 +2636,7 @@
  * @return	None.
  *
  * @note	C-style signature:
- *		void XDp_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+ *		void XDp_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)
  *
 *******************************************************************************/
 #define XDp_WriteReg(BaseAddress, RegOffset, Data) \
