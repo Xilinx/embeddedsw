@@ -49,9 +49,9 @@ static void PrintMsg2(void)
 static void SchCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 	/* Task every 5 seconds - For our convenience in manual testing */
-	fw_printf("Adding Task1 - Status: %ld\n", XPfw_CoreScheduleTask(ModPtr, 5000U, PrintMsg1));
+	fw_printf("Adding Task1 - Status: %ld\r\n", XPfw_CoreScheduleTask(ModPtr, 5000U, PrintMsg1));
 	/* Every 10 seconds */
-	fw_printf("Adding Task2 - Status:%ld\n", XPfw_CoreScheduleTask(ModPtr, 10000U, PrintMsg2));
+	fw_printf("Adding Task2 - Status:%ld\r\n", XPfw_CoreScheduleTask(ModPtr, 10000U, PrintMsg2));
 }
 
 void ModSchInit(void)

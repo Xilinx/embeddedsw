@@ -1005,7 +1005,7 @@ static int PmRequirementUpdateScheduled(const PmMaster* const master,
 	int status = XST_SUCCESS;
 	PmRequirement* req = master->reqs;
 
-	PmDbg("%s\n", PmStrNode(master->nid));
+	PmDbg("%s\r\n", PmStrNode(master->nid));
 
 	while (req) {
 		if (req->currReq != req->nextReq) {
@@ -1030,7 +1030,7 @@ static int PmRequirementUpdateScheduled(const PmMaster* const master,
 			status = PmUpdateSlave(req->slave);
 			/* if rom works correctly, status should be always ok */
 			if (XST_SUCCESS != status) {
-				PmDbg("ERROR setting slave node %s\n",
+				PmDbg("ERROR setting slave node %s\r\n",
 				      PmStrNode(req->slave->node.nodeId));
 				break;
 			}
@@ -1053,7 +1053,7 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
 	while (req) {
 		if (req->currReq != req->nextReq) {
 			/* Drop the scheduled request by making it constant */
-			PmDbg("%s\n", PmStrNode(req->slave->node.nodeId));
+			PmDbg("%s\r\n", PmStrNode(req->slave->node.nodeId));
 			req->nextReq = req->currReq;
 		}
 		req = req->nextSlave;
@@ -1107,7 +1107,7 @@ static int PmRequirementReleaseAll(const PmMaster* const master)
 			status = PmUpdateSlave(req->slave);
 			/* if pmu rom works correctly, status should be always ok */
 			if (XST_SUCCESS != status) {
-				PmDbg("ERROR setting slave node %s\n",
+				PmDbg("ERROR setting slave node %s\r\n",
 				      PmStrNode(req->slave->node.nodeId));
 				break;
 			}
@@ -1311,7 +1311,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 {
 	PmRequirement* req = master->reqs;
 
-	PmDbg("%s\n", PmStrNode(master->nid));
+	PmDbg("%s\r\n", PmStrNode(master->nid));
 
 	while (req) {
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
@@ -1506,7 +1506,7 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 		break;
 	default:
 		status = XST_PM_INTERNAL;
-		PmDbg("ERROR: undefined event #%d\n", event);
+		PmDbg("ERROR: undefined event #%d\r\n", event);
 		break;
 	}
 

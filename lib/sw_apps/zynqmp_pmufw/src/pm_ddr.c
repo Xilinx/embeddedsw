@@ -612,7 +612,7 @@ static void store_state(PmRegisterContext *context)
 			context->value &= ~DDRPHY_DX8SLBOSC_PHYFRST;
 		}
 #ifdef DDRSR_DEBUG_STATE
-		ddr_print_dbg("%s: addr:%lx, value:%lx\n",
+		ddr_print_dbg("%s: addr:%lx, value:%lx\r\n",
 			      __func__, context->addr, context->value);
 #endif
 		context++;
@@ -623,7 +623,7 @@ static void restore_state(PmRegisterContext *context)
 {
 	while (context->addr) {
 #ifdef DDRSR_DEBUG_STATE
-		ddr_print_dbg("%s: addr:0x%lx, value:0x%lx\n",
+		ddr_print_dbg("%s: addr:0x%lx, value:0x%lx\r\n",
 			      __func__, context->addr, context->value);
 #endif
 		Xil_Out32(context->addr, context->value);
@@ -635,7 +635,7 @@ static void restore_ddrphy_zqdata(PmRegisterContext *context)
 {
 	while (context->addr) {
 #ifdef DDRSR_DEBUG_STATE
-		ddr_print_dbg("%s: addr:%lx, value:%lx\n",
+		ddr_print_dbg("%s: addr:%lx, value:%lx\r\n",
 			      __func__, context->addr + 8, context->value);
 #endif
 		/* write result data back to override register */
@@ -864,7 +864,7 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	default:
 		status = XST_PM_INTERNAL;
-		PmDbg("ERROR: Unknown DDR state #%d\n", slave->node.currState);
+		PmDbg("ERROR: Unknown DDR state #%d\r\n", slave->node.currState);
 		break;
 	}
 

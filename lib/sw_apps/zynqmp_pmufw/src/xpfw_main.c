@@ -46,7 +46,7 @@ XStatus XPfw_Main(void)
 	XStatus Status;
 
 	/* Start the Init Routine */
-	fw_printf("PMU Firmware %s\t%s   %s\n",
+	fw_printf("PMU Firmware %s\t%s   %s\r\n",
 	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
 	/* TODO: Print ROM version */
 

@@ -201,7 +201,7 @@ static int PmPwrDnHandler(PmNode* const nodePtr)
 		status = XpbrPwrDnPldHandler();
 		break;
 	default:
-		PmDbg("unsupported node %s(%d)\n",
+		PmDbg("unsupported node %s(%d)\r\n",
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
 		break;
 	}
@@ -216,7 +216,7 @@ static int PmPwrDnHandler(PmNode* const nodePtr)
 	}
 
 done:
-	PmDbg("%s\n", PmStrNode(nodePtr->nodeId));
+	PmDbg("%s\r\n", PmStrNode(nodePtr->nodeId));
 	return status;
 }
 
@@ -275,7 +275,7 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 {
 	int status = XST_PM_INTERNAL;
 
-	PmDbg("%s\n", PmStrNode(nodePtr->nodeId));
+	PmDbg("%s\r\n", PmStrNode(nodePtr->nodeId));
 
 	if (NULL == nodePtr) {
 		goto done;
@@ -308,7 +308,7 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 		status = XpbrPwrUpPldHandler();
 		break;
 	default:
-		PmDbg("ERROR - unsupported node %s(%d)\n",
+		PmDbg("ERROR - unsupported node %s(%d)\r\n",
 		      PmStrNode(nodePtr->nodeId), nodePtr->nodeId);
 		break;
 	}
@@ -538,7 +538,7 @@ static bool PmHasAwakeChild(PmPower* const power)
 
 		if (false == PmChildIsInLowestPowerState(power->children[i])) {
 			hasAwakeChild = true;
-			PmDbg("%s\n", PmStrNode(power->children[i]->nodeId));
+			PmDbg("%s\r\n", PmStrNode(power->children[i]->nodeId));
 			break;
 		}
 	}
@@ -573,7 +573,7 @@ void PmOpportunisticSuspend(PmPower* const powerParent)
 	}
 
 	do {
-		PmDbg("Opportunistic suspend attempt for %s\n",
+		PmDbg("Opportunistic suspend attempt for %s\r\n",
 		      PmStrNode(power->node.nodeId));
 
 		worstCaseLatency = power->pwrUpLatency + power->pwrDnLatency;
@@ -664,7 +664,7 @@ int PmTriggerPowerUp(PmPower* const power)
 done:
 #ifdef DEBUG_PM
 	if (XST_SUCCESS != status) {
-		PmDbg("ERROR #%d failed to power up\n", status);
+		PmDbg("ERROR #%d failed to power up\r\n", status);
 	}
 #endif
 
@@ -730,7 +730,7 @@ static void PmForcePowerDownChildren(const PmPower* const parent)
 			continue;
 		}
 
-		PmDbg("Powering OFF child node %s\n", PmStrNode(child->nodeId));
+		PmDbg("Powering OFF child node %s\r\n", PmStrNode(child->nodeId));
 
 		/* Force the child's state to 0, which is its lowest power state */
 		child->ops->sleep(child);

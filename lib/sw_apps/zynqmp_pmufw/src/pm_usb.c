@@ -103,7 +103,7 @@ static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	default:
 		status = XST_PM_INTERNAL;
-		PmDbg("ERROR: Unknown USB state #%d\n", slave->node.currState);
+		PmDbg("ERROR: Unknown USB state #%d\r\n", slave->node.currState);
 		break;
 	}
 

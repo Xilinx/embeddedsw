@@ -97,7 +97,7 @@ PmSystem pmSystem = {
  */
 static void PmShutdownFinalize(void)
 {
-	PmDbg("\n");
+	PmDbg("\r\n");
 
 	if (PM_SYSTEM_STATE_SHUTDOWN == pmSystem.state) {
 		/*
