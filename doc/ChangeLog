@@ -236,7 +236,44 @@ Use libmetal to abstract OS services.
 freertos_lwip_echo_server:
 Fix echo thread stack size. CR#958898.
 
+zynqmp_pmufw:
 
+- The IPI Framework is now fully integrated with IPI Driver.
+So PMUFW now works only with a HDF generated from 2016.3 release
+and uses the IPI configuration as specified in HDF.
+
+- FPD power-off suspend is now supported with DDR in self-refresh mode.
+The sequences required for transitioning DDR into and out of Self-Refresh
+are included in this release.
+
+- Clocks dependencies are modelled and PLLs usage is accounted. This enables
+suspending of unused PLLs.
+
+- PMUFW syncs up with FSBL to initialize the clock/PLL related data structures.
+IPI or a Register Poll is used as a sync mechanism depending on the order in
+which FSBL and PMUFW are loaded. A corresponding change in FSBL is also in
+this release, which means the sync mechanism is taken care seamlessly in the flow.
+
+- Linker script has fixes to account for the exact size of PMU RAM available for
+Firmware, which is 125.7 KB. By default PMUFW is built with -O0 optimization.
+In case of insufficient memory due to addition of custom code, optimization
+can be changed to -Os.
+
+- PMUFW uses XilFPGA library and it is included by default in the build.
+APIs to load bitstream into PL have been added.
+
+- TCMs are initialized to prevent ECC errors during a power cycle and all
+dependencies to make TCMs accessible are handled.
+
+- FPD power up/down routines are made available as hooks which can be used to
+override default handlers.
+
+- Power operations (using PM module) on unavailable islands have been blocked and
+return an error.
+
+- Each module now resides in its own file with xpfw_mod_ prefix. All modules
+should follow the same prefix to differentiate from core files and
+segregate functionality.
 Change Log for 2016.2
 =================================
 axidma_v9_2:
