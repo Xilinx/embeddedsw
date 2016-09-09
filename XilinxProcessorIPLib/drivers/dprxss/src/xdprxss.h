@@ -102,6 +102,7 @@
 *                   XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT.
 *                   Added function: XDpRxSs_DownstreamReady.
 * 3.1  als 08/08/16 Added HDCP timeout functionality.
+* 3.1  aad 09/07/16 Updates to support 64-bit base addresses.
 * </pre>
 *
 ******************************************************************************/
@@ -261,7 +262,7 @@ typedef struct {
 typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the
 				  *  DisplayPort RX Subsystem core */
-	u32 BaseAddress;	/**< BaseAddress is the physical base address
+	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 				  *  of the core's registers */
 	u8 SecondaryChEn;	/**< This Subsystem core supports audio packets
 				  *  being sent by the secondary channel. */
@@ -464,7 +465,7 @@ XDpRxSs_Config* XDpRxSs_LookupConfig(u16 DeviceId);
 
 /* Initialization and control functions in xdprxss.c */
 u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
-				u32 EffectiveAddr);
+				UINTPTR EffectiveAddr);
 u32 XDpRxSs_Start(XDpRxSs *InstancePtr);
 void XDpRxSs_Reset(XDpRxSs *InstancePtr);
 u32 XDpRxSs_SetLinkRate(XDpRxSs *InstancePtr, u8 LinkRate);

@@ -57,6 +57,7 @@
 * 3.0  sha 02/19/16 Added function: XDpRxSs_DownstreamReady.
 * 3.1  als 08/08/16 Synchronize with new HDCP APIs.
 * 3.1  als 08/08/16 Added HDCP timeout functionality.
+* 3.1  aad 09/06/16 Updates to support 64-bit base addresses.
 * </pre>
 *
 ******************************************************************************/
@@ -161,7 +162,7 @@ XDpRxSs_SubCores DpRxSsSubCores[XPAR_XDPRXSS_NUM_INSTANCES];
 *
 ******************************************************************************/
 u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
-				u32 EffectiveAddr)
+				UINTPTR EffectiveAddr)
 {
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	XHdcp1x_Config Hdcp1xConfig;
