@@ -232,6 +232,7 @@ openamp_rpc_demo:
 openamp_matrix_multiply_demo:
 openamp_echo_test:
 Use libmetal to abstract OS services.
+Apps changed to use vector table in TCM
 
 freertos_lwip_echo_server:
 Fix echo thread stack size. CR#958898.
