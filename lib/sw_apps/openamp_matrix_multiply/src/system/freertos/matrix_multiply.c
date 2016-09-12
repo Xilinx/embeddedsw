@@ -183,6 +183,8 @@ static void mat_mul_demo(void *unused_arg)
 	rsc_info.rsc_tab = (struct resource_table *)&resources;
 	rsc_info.size = sizeof(resources);
 
+	xil_printf("Initializing OpenAMP...\n");
+
 	/* Initialize OpenAMP framework */
 	status = remoteproc_resource_init(&rsc_info, &proc_table,
 				rpmsg_channel_created,
@@ -191,6 +193,7 @@ static void mat_mul_demo(void *unused_arg)
 	if (RPROC_SUCCESS != status) {
 		xil_printf("Error: initializing OpenAMP framework\n");
 	} else {
+		xil_printf("Waiting for events...\n");
 		/* Stay in data processing loop until we receive a 'shutdown' message */
 		while (1) {
 			hil_poll(proc->proc, 0);
@@ -219,6 +222,8 @@ static void mat_mul_demo(void *unused_arg)
 				}
 			}
 		}
+		xil_printf("Stopping OpenAMP...\n");
+
 		/* disable interrupts and free resources */
 		remoteproc_resource_deinit(proc);
 	}

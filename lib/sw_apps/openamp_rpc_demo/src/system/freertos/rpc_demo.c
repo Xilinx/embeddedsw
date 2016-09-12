@@ -165,6 +165,8 @@ static void rpc_demo(void *unused_arg)
 	rsc_info.rsc_tab = (struct resource_table *)&resources;
 	rsc_info.size = sizeof(resources);
 
+	xil_printf("Initializing OpenAMP...\n");
+
 	/* Initialize OpenAMP RPMSG framework */
 	status = remoteproc_resource_init(&rsc_info, &proc_table,
 				rpmsg_channel_created,
@@ -176,10 +178,12 @@ static void rpc_demo(void *unused_arg)
 		return;
 	}
 
+	xil_printf("Waiting for channel creation...\n");
 	while (!chnl_is_alive) {
 		hil_poll(proc->proc, 0);
 	}
 
+	xil_printf("Initializating I/Os redirection...\n");
 	/* redirect I/Os */
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
 
@@ -252,10 +256,12 @@ static void rpc_demo(void *unused_arg)
 	sprintf(wbuff, RPC_CHANNEL_READY_TO_CLOSE);
 	rpmsg_retarget_send(wbuff, sizeof(RPC_CHANNEL_READY_TO_CLOSE) + 1);
 
+	xil_printf("Waiting for channel deletion...\n");
 	while (chnl_is_alive) {
 		hil_poll(proc->proc, 0);
 	}
 
+	xil_printf("Stopping OpenAMP...\n");
 	rpmsg_retarget_deinit(app_rp_chnl);
 	remoteproc_resource_deinit(proc);
 	cleanup_system();
