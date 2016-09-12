@@ -228,11 +228,16 @@ Add an echo demo to show the communication between baremetal
 and Linux application with libmetal APIs
 
 openamp_v1.1:
+Use libmetal to abstract OS services.
+Automatically set extra compiler flags -DUNDEFINE_FILE_OPS
+based on WITH_PROXY parameter setting in the GUI.
+
 openamp_rpc_demo:
 openamp_matrix_multiply_demo:
 openamp_echo_test:
-Use libmetal to abstract OS services.
 Apps changed to use vector table in TCM
+Initialization changed for libmetal support.
+Added some debug print with xil_printf.
 
 freertos_lwip_echo_server:
 Fix echo thread stack size. CR#958898.
