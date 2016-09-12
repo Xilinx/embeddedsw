@@ -34,7 +34,7 @@
 #include "openamp/remoteproc_plat.h"
 
 /* Interrupt vectors */
-#define VRING1_IPI_INTR_VECT              65
+#define IPI_IRQ_VECT_ID              65
 
 /* remoteproc platform data structure */
 struct rproc_info_plat_local {

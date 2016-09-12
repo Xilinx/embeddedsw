@@ -77,9 +77,9 @@ static int app_gic_initialize(void)
 	Xil_ExceptionEnable();
 
 	/* Connect Interrupt ID with ISR */
-	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
+	XScuGic_Connect(&xInterruptController, IPI_IRQ_VECT_ID,
 			   (Xil_ExceptionHandler)metal_irq_isr,
-			   (void *)VRING1_IPI_INTR_VECT);
+			   (void *)IPI_IRQ_VECT_ID);
 
 	return 0;
 }
