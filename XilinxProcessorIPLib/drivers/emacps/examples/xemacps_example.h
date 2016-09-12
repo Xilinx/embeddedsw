@@ -53,6 +53,7 @@
 *					  Fix for CR #663885.
 * 3.0   hk   02/20/15 Increase array sizes to add support for jumbo frames.
 * 3.2   mus  02//16 Added support support to INTC controller
+* 3.3   kpc  12/09/16 Fixed issue when -O2 is enabled
 * </pre>
 *
 *****************************************************************************/
@@ -127,6 +128,7 @@ void EmacPsUtilFrameMemClear(EthernetFrame * FramePtr);
 LONG EmacPsUtilEnterLoopback(XEmacPs * XEmacPsInstancePtr, u32 Speed);
 void EmacPsUtilstrncpy(char *Destination, const char *Source, u32 n);
 void EmacPsUtilErrorTrap(const char *Message);
+void EmacpsDelay(u32 delay);
 
 /************************** Variable Definitions ****************************/
 
