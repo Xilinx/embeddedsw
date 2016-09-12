@@ -416,7 +416,6 @@ LONG EmacPsUtilMarvellPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	u16 PhyReg0  = 0;
 	u16 PhyReg21  = 0;
 	u16 PhyReg22  = 0;
-	u32 i = 0;
 
 	/*
 	 * Setup speed and duplex
@@ -498,12 +497,7 @@ LONG EmacPsUtilMarvellPhyLoopback(XEmacPs * EmacPsInstancePtr,
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Delay loop
-	 */
-	for(i=0;i<0xfffff;i++);
-	/* FIXME: Sleep doesn't seem to work */
-	//sleep(1);
+	EmacpsDelay(1);
 
 	return XST_SUCCESS;
 }
@@ -513,7 +507,6 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 {
 	LONG Status;
 	u16 PhyReg0  = 0;
-	u32 i = 0;
 
 	/*
 	 * Setup speed and duplex
@@ -588,12 +581,7 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 		return XST_FAILURE;
 	}
 
-	/*
-	 * Delay loop
-	 */
-	for(i=0;i<1000000000;i++);
-	/* FIXME: Sleep doesn't seem to work */
-	//sleep(1);
+	EmacpsDelay(1);
 
 	/* enable loopback */
 	PhyReg0 = PHY_REG0_1000 | PHY_REG0_LOOPBACK;
@@ -658,6 +646,33 @@ LONG EmacPsUtilTiPhyLoopback(XEmacPs * EmacPsInstancePtr,
 	}
 
 	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* This function provides delays in seconds
+*
+* @param    Delay in seconds
+*
+* @return   None.
+*
+* @note     for microblaze the delay is not accurate and it need to tuned.
+*
+*****************************************************************************/
+void EmacpsDelay(u32 delay)
+{
+
+#ifndef __MICROBLAZE__
+	sleep(delay);
+#else
+	unsigned long count=0;
+	while(count < (delay * 0xffff))
+	{
+		count++;
+	}
+#endif
+
 }
 
 

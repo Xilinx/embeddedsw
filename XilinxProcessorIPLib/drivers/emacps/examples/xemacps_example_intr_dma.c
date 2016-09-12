@@ -113,6 +113,7 @@
 * 3.2  mus  20/02/16.Added support for INTC interrupt controlller.
 *                    Added support to access zynq emacps interrupt from
 *                    microblaze.
+* 3.3 kpc   12/09/16 Fixed issue when -O2 is enabled
 *
 * </pre>
 *
@@ -519,15 +520,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 	if (GemVersion == 2)
 	{
 		XEmacPs_SetMdioDivisor(EmacPsInstancePtr, MDC_DIV_224);
-		#ifndef __MICROBLAZE__
-		sleep(1);
-		#else
-		unsigned long count=0;
-		while(count < 0xffff)
-		{
-			count++;
-		}
-		#endif
+		EmacpsDelay(1);
 		EmacPsUtilEnterLoopback(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 		XEmacPs_SetOperatingSpeed(EmacPsInstancePtr, EMACPS_LOOPBACK_SPEED_1G);
 	}
