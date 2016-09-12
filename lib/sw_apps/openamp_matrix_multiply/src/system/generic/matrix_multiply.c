@@ -210,6 +210,8 @@ int main(void)
 	rsc_info.rsc_tab = (struct resource_table *)&resources;
 	rsc_info.size = sizeof(resources);
 
+	xil_printf("Initializing OpenAMP...\n");
+
 	/* Initialize OpenAMP framework */
 	status = remoteproc_resource_init(&rsc_info, &proc_table,
 						rpmsg_channel_created,
@@ -219,11 +221,14 @@ int main(void)
 		/* print directly on serial port */
 		xil_printf("Error: initializing OpenAMP framework\n");
 	} else {
+		xil_printf("Waiting for events...\n");
 		mat_mul_demo();
+
+		xil_printf("Stopping OpenAMP...\n");
 
 		/* disable interrupts and free resources */
 		remoteproc_resource_deinit(proc);
-    }
+	}
 
 	cleanup_system();
 
