@@ -84,7 +84,24 @@ proc generate {libhandle} {
 	set c_flags [common::get_property CONFIG.compiler_flags -object ${proc_instance}]
 	set extra_flags [common::get_property CONFIG.extra_compiler_flags -object ${proc_instance}]
 	set linclude [file normalize "../.."]
-	set extra_flags "${extra_flags} -I${linclude}/include"
+	set extra_flags_oamp "${extra_flags} -I${linclude}/include"
+	set with_proxy [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == WITH_PROXY } ] ]
+
+	puts "WITH_PROXY=${with_proxy}"
+
+	if { "${with_proxy}" == "true" } {
+		if {[string match "*-DUNDEFINE_FILE_OPS*" $extra_flags] != 1} {
+			set extra_flags "$extra_flags -DUNDEFINE_FILE_OPS"
+			common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+			puts "updated extra flags=${extra_flags}"
+		}
+	} else {
+		if {[string match "*-DUNDEFINE_FILE_OPS*" $extra_flags] == 1} {
+			regsub -- {-DUNDEFINE_FILE_OPS} $extra_flags {} extra_flags
+			common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+			puts "updated extra flags=${extra_flags}"
+		}
+	}
 
 	# Generate cmake toolchain file
 	set toolchain_cmake "toolchain"
@@ -98,7 +115,7 @@ proc generate {libhandle} {
 		puts $fd "set (MACHINE \"zynq7\")"
 	}
 	puts $fd "set (CROSS_PREFIX \"${crosscompile}\" CACHE STRING \"\")"
-	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags}\" CACHE STRING \"\")"
+	puts $fd "set (CMAKE_C_FLAGS \"${c_flags} ${extra_flags_oamp}\" CACHE STRING \"\")"
 	if { [string match "freertos*" "${os}"] > 0 } {
 		puts $fd "set (CMAKE_SYSTEM_NAME \"FreeRTOS\" CACHE STRING \"\")"
 	} else {
@@ -122,11 +139,12 @@ proc generate {libhandle} {
 	cd "${bdir}"
 	set cmake_cmd "../src/run_cmake"
 	set os_platform_type "$::tcl_platform(platform)"
+
 	if { [string match -nocase "windows*" "${os_platform_type}"] == 0 } {
 		# Linux
 		file attributes ${cmake_cmd} -permissions ugo+rx
 
-		set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_LIBMETAL_FIND=off -DWITH_EXT_INCLUDES_FIND=off"
+		set cmake_opt "-DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_LIBMETAL_FIND=off -DWITH_EXT_INCLUDES_FIND=off -DWITH_PROXY=${with_proxy}"
 		if { [catch {exec ${cmake_cmd} "../src/open-amp" ${cmake_opt}} msg] } {
 			puts "${msg}"
 			error "Failed to generate cmake files."
@@ -136,7 +154,7 @@ proc generate {libhandle} {
 
 	} else {
 		# Windows
-		if { [catch {exec ${cmake_cmd} -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_LIBMETAL_FIND=off -DWITH_EXT_INCLUDES_FIND=off "../src/open-amp" } msg] } {
+		if { [catch {exec ${cmake_cmd} -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=toolchain -DCMAKE_INSTALL_PREFIX=/ -DCMAKE_VERBOSE_MAKEFILE=on -DWITH_LIBMETAL_FIND=off -DWITH_EXT_INCLUDES_FIND=off -DWITH_PROXY=${with_proxy} "../src/open-amp" } msg] } {
 			puts "${msg}"
 			error "Failed to generate cmake files."
 		} else {
