@@ -275,6 +275,31 @@ return an error.
 - Each module now resides in its own file with xpfw_mod_ prefix. All modules
 should follow the same prefix to differentiate from core files and
 segregate functionality.
+
+zynqmp_fsbl:
+- Avoided multiple IPI triggers during PMUFW load. FSBL now triggers IPI for just the first partition of PMUFW. FSBL wakes up PMU after loading all partitions.
+- Added compile time check to ensure FSBL (A53_64) is built only with EL3 BSP.
+- Added support for SHA3 checksum validation by FSBL for partitions that it loads.
+- FSBL identifies device type and restricts handoff to unavailable CPU cores accordingly.
+- To optimize usage of OCM, reduced stack usage of exception handlers (R5) and removed stacks for EL0/1/2.
+- Changed the ECC Initialization code to use ADMA for DMA transfers. Earlier, GDMA was used, which cannot be accessed when FPD is powered down.
+- FSBL now calls protection/security configuration functions defined by psu_init. This is used for XMPU/XPPU configuration, if any, as per design.
+- Changed FSBL error code storage register to PMU_GLOBAL_PERS_GLOB_GEN_STORAGE4 (0xFFD80040).
+- Added XFsbl_PmInit call to notify PMU firmware that initialization of all PM related registers is complete.
+- Corrected print format for Performance measurement value (fractional part).
+- Authentication Certificate for the partition will now be copied separately to an OCM buffer (not to memory area where partition is to be loaded).
+- Changed the FSBL memory layout to have more space for ATF in OCM. FSBL now starts at 0xFFFC0000 and ends at 0xFFFEA000.
+- Added support for TCM ECC Initialization in FSBL (always in R5 and conditionally in A53).
+- Added a hook in FSBL to facilitate users to define different variants of psu_init() functions based on different configurations in Vivado.
+- Remove inline specifier from function prototypes (as per new version of GCC).
+- Corrected (feature include/exclude) logic to resolve DDRless build failure.
+- Change done to calculate the actual read offset including bad blocks while reading from NAND. This read offset will be calculated against each read call from FSBL.
+- Disabled the use_mkfs option in FSBL.
+
+zynq_fsbl:
+- Fabric Initialization sequence is modified to check the PL power before sequence starts and checking INIT_B reset status twice in case of failure.
+
+
 Change Log for 2016.2
 =================================
 axidma_v9_2:
