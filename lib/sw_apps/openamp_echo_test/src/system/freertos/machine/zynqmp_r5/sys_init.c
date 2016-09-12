@@ -54,9 +54,6 @@
 
 #define UNDEFINE_MEM_SIZE       0xFFFFFFFF
 
-/** IPI IRQ ID */
-#define IPI_IRQ_VECT_ID         65
-
 #define IPI_DEV_NAME            "ff310000.ipi"
 #define VRING_DEV_NAME          "vrings"
 #define SHM_NAME                "shm"
@@ -85,7 +82,7 @@ struct metal_device metal_dev_table[] = {
 		},
 		{NULL},
 		1,
-		(void *)VRING1_IPI_INTR_VECT,
+		(void *)IPI_IRQ_VECT_ID,
 
 	},
 	{
