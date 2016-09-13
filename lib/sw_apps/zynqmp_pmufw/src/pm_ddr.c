@@ -762,7 +762,6 @@ void DDR_reinit(void)
 	}
 
 	Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-			      DDRPHY_PIR_RDIMMINIT |
 			      DDRPHY_PIR_INIT);
 	do {
 		readVal = Xil_In32(DDRPHY_PGSR(0));
