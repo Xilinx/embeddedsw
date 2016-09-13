@@ -92,7 +92,6 @@
 #define DDRC_DFITMG0_SHADOW	(DDRC_BASE + 0X2190)
 
 #define DDRC_PWRCTL_SR_SW	BIT(5)
-#define DDRC_PWRCTL_STAY_IN_SR	BIT(6)
 
 #define DDRC_STAT_OPMODE_MASK	7
 #define DDRC_STAT_OPMODE_SHIFT	0
@@ -525,7 +524,7 @@ static int ddrc_enable_sr(void)
 
 	/* enable self refresh */
 	r = Xil_In32(DDRC_PWRCTL);
-	r |= DDRC_PWRCTL_STAY_IN_SR | DDRC_PWRCTL_SR_SW;
+	r |= DDRC_PWRCTL_SR_SW;
 	Xil_Out32(DDRC_PWRCTL, r);
 
 	while (!ddrc_opmode_is_sr())
