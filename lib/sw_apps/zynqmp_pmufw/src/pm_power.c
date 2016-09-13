@@ -154,6 +154,8 @@ static int PmPowerDownFpd(void)
 
 	PmFpdSaveContext();
 
+	ddr_io_retention_set(true);
+
 	PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
 
 	status = PmUserHookPowerDownFpd();

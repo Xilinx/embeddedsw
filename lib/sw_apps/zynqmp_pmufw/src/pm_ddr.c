@@ -536,26 +536,6 @@ static int ddrc_enable_sr(void)
 	return 0;
 }
 
-static void io_retention_set(int en)
-{
-	u32 r = Xil_In32(PMU_GLOBAL_DDR_CNTRL);
-	if (en)
-		r |= PMU_GLOBAL_DDR_CNTRL_RET_MASK;
-	else
-		r &= ~PMU_GLOBAL_DDR_CNTRL_RET_MASK;
-	Xil_Out32(PMU_GLOBAL_DDR_CNTRL, r);
-}
-
-static void io_retention_enable(void)
-{
-	io_retention_set(1);
-}
-
-static void io_retention_disable(void)
-{
-	io_retention_set(0);
-}
-
 static void ddr_clock_set(int en)
 {
 	u32 r = Xil_In32(DDRQOS_DDR_CLK_CTRL);
@@ -643,71 +623,73 @@ static void restore_ddrphy_zqdata(PmRegisterContext *context)
 	}
 }
 
-void DDR_reinit(void)
+void DDR_reinit(bool ddrss_is_reset)
 {
 	size_t i;
 	unsigned int readVal;
 
-	/* PHY init */
-	Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
-			      DDRPHY_PIR_CTLDINIT |
-			      DDRPHY_PIR_PHYRST |
-			      DDRPHY_PIR_DCAL |
-			      DDRPHY_PIR_PLLINIT |
-			      DDRPHY_PIR_INIT);
-	do {
-		readVal = Xil_In32(DDRPHY_PGSR(0));
-	} while (!(readVal & DDRPHY_PGSR0_IDONE));
-	while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-		;
+	if (ddrss_is_reset) {
+		/* PHY init */
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
+				      DDRPHY_PIR_CTLDINIT |
+				      DDRPHY_PIR_PHYRST |
+				      DDRPHY_PIR_DCAL |
+				      DDRPHY_PIR_PLLINIT |
+				      DDRPHY_PIR_INIT);
+		do {
+			readVal = Xil_In32(DDRPHY_PGSR(0));
+		} while (!(readVal & DDRPHY_PGSR0_IDONE));
+		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+			;
 
-	for (i = 0; i < 4; i++) {
-		readVal = Xil_In32(DDRPHY_ZQPR(i, 0));
-		readVal |= 0xf << 28;
-		Xil_Out32(DDRPHY_ZQPR(i, 0), readVal);
+		for (i = 0; i < 4; i++) {
+			readVal = Xil_In32(DDRPHY_ZQPR(i, 0));
+			readVal |= 0xf << 28;
+			Xil_Out32(DDRPHY_ZQPR(i, 0), readVal);
+		}
+		restore_ddrphy_zqdata(ctx_ddrphy_zqdata);
+
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+				      DDRPHY_PIR_INIT);
+		do {
+			readVal = Xil_In32(DDRPHY_PGSR(0));
+		} while (!(readVal & DDRPHY_PGSR0_IDONE));
+		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+			;
+
+		ddr_io_retention_set(false);
+
+		/* remove ZQ override */
+		for (i = 0; i < 4; i++) {
+			readVal = Xil_In32(DDRPHY_ZQPR(i, 0));
+			readVal &= ~(0xf << 28);
+			Xil_Out32(DDRPHY_ZQPR(i, 0), readVal);
+		}
+
+		/* zcal */
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+				      DDRPHY_PIR_ZCAL |
+				      DDRPHY_PIR_INIT);
+		do {
+			readVal = Xil_In32(DDRPHY_PGSR(0));
+		} while (!(readVal & DDRPHY_PGSR0_IDONE));
+		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+			;
+
+		/* FIFO reset */
+		readVal = Xil_In32(DDRPHY_PGCR(0));
+		readVal |= DDRPHY_PGCR0_PHYFRST;
+		Xil_Out32(DDRPHY_PGCR(0), readVal);
+
+		for (i = 0; i < 9; i++) {
+			readVal = Xil_In32(DDRPHY_DX8SLNOSC(i));
+			readVal |= DDRPHY_DX8SLBOSC_PHYFRST;
+			Xil_Out32(DDRPHY_DX8SLNOSC(i), readVal);
+		}
+
+		Xil_Out32(DDRC_DFIMISC, DDRC_DFIMISC_DFI_INIT_COMP_EN);
+		Xil_Out32(DDRC_SWCTL, DDRC_SWCTL_SW_DONE);
 	}
-	restore_ddrphy_zqdata(ctx_ddrphy_zqdata);
-
-	Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-			      DDRPHY_PIR_INIT);
-	do {
-		readVal = Xil_In32(DDRPHY_PGSR(0));
-	} while (!(readVal & DDRPHY_PGSR0_IDONE));
-	while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-		;
-
-	io_retention_disable();
-
-	/* remove ZQ override */
-	for (i = 0; i < 4; i++) {
-		readVal = Xil_In32(DDRPHY_ZQPR(i, 0));
-		readVal &= ~(0xf << 28);
-		Xil_Out32(DDRPHY_ZQPR(i, 0), readVal);
-	}
-
-	/* zcal */
-	Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-			      DDRPHY_PIR_ZCAL |
-			      DDRPHY_PIR_INIT);
-	do {
-		readVal = Xil_In32(DDRPHY_PGSR(0));
-	} while (!(readVal & DDRPHY_PGSR0_IDONE));
-	while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-		;
-
-	/* FIFO reset */
-	readVal = Xil_In32(DDRPHY_PGCR(0));
-	readVal |= DDRPHY_PGCR0_PHYFRST;
-	Xil_Out32(DDRPHY_PGCR(0), readVal);
-
-	for (i = 0; i < 9; i++) {
-		readVal = Xil_In32(DDRPHY_DX8SLNOSC(i));
-		readVal |= DDRPHY_DX8SLBOSC_PHYFRST;
-		Xil_Out32(DDRPHY_DX8SLNOSC(i), readVal);
-	}
-
-	Xil_Out32(DDRC_DFIMISC, DDRC_DFIMISC_DFI_INIT_COMP_EN);
-	Xil_Out32(DDRC_SWCTL, DDRC_SWCTL_SW_DONE);
 
 	Xil_Out32(DDRC_PWRCTL, 0);
 	do {
@@ -721,60 +703,80 @@ void DDR_reinit(void)
 		readVal >>= DDRC_STAT_OPMODE_SHIFT;
 	} while (readVal != DDRC_STAT_OPMODE_NORMAL);
 
-	/* training */
-	Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-			      DDRPHY_PIR_WREYE |
-			      DDRPHY_PIR_RDEYE |
-			      DDRPHY_PIR_WRDSKW |
-			      DDRPHY_PIR_RDDSKW |
-			      DDRPHY_PIR_WLADJ |
-			      DDRPHY_PIR_QSGATE |
-			      DDRPHY_PIR_WL |
-			      DDRPHY_PIR_INIT);
-	do {
-		readVal = Xil_In32(DDRPHY_PGSR(0));
-	} while (!(readVal & DDRPHY_PGSR0_IDONE));
-	while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-		;
+	if (ddrss_is_reset) {
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+				      DDRPHY_PIR_WREYE |
+				      DDRPHY_PIR_RDEYE |
+				      DDRPHY_PIR_WRDSKW |
+				      DDRPHY_PIR_RDDSKW |
+				      DDRPHY_PIR_WLADJ |
+				      DDRPHY_PIR_QSGATE |
+				      DDRPHY_PIR_WL |
+				      DDRPHY_PIR_INIT);
+		do {
+			readVal = Xil_In32(DDRPHY_PGSR(0));
+		} while (!(readVal & DDRPHY_PGSR0_IDONE));
+		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+			;
 
-	/* enable static read mode for VREF training */
-	for (i = 0; i < 5; i++) {
-		readVal = Xil_In32(DDRPHY_DX8SLDXCTL2(i));
-		readVal |= 3 << 4;
-		Xil_Out32(DDRPHY_DX8SLDXCTL2(i), readVal);
+		/* enable static read mode for VREF training */
+		for (i = 0; i < 5; i++) {
+			readVal = Xil_In32(DDRPHY_DX8SLDXCTL2(i));
+			readVal |= 3 << 4;
+			Xil_Out32(DDRPHY_DX8SLDXCTL2(i), readVal);
+		}
+
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+				      DDRPHY_PIR_VREF |
+				      DDRPHY_PIR_INIT);
+		do {
+			readVal = Xil_In32(DDRPHY_PGSR(0));
+		} while (!(readVal & DDRPHY_PGSR0_IDONE));
+		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+			;
+
+		/* disable static read mode */
+		for (i = 0; i < 5; i++) {
+			readVal = Xil_In32(DDRPHY_DX8SLDXCTL2(i));
+			readVal &= ~(3 << 4);
+			Xil_Out32(DDRPHY_DX8SLDXCTL2(i), readVal);
+		}
+
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+				      DDRPHY_PIR_INIT);
+		do {
+			readVal = Xil_In32(DDRPHY_PGSR(0));
+		} while (!(readVal & DDRPHY_PGSR0_IDONE));
+		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+			;
+
+		readVal = Xil_In32(DDRC_RFSHCTL3);
+		readVal &= ~DDRC_RFSHCTL3_AUTORF_DIS;
+		Xil_Out32(DDRC_RFSHCTL3, readVal);
+
+		readVal = Xil_In32(DDRC_ZQCTL(0));
+		readVal &= ~DDRC_ZQCTL0_ZQ_DIS;
+		Xil_Out32(DDRC_ZQCTL(0), readVal);
+	} else {
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_WREYE |
+				      DDRPHY_PIR_RDEYE |
+				      DDRPHY_PIR_WRDSKW |
+				      DDRPHY_PIR_RDDSKW);
+		do {
+			readVal = Xil_In32(DDRPHY_PGSR(0));
+		} while (!(readVal & DDRPHY_PGSR0_IDONE));
+		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+			;
+
+		/* enable AXI ports */
+		for (i = 0; i < 6; i++) {
+			while (Xil_In32(DDRC_PSTAT) & DDRC_PSTAT_PORT_BUSY(i))
+				;
+			readVal = Xil_In32(DDRC_PCTRL(i));
+			readVal |= DDRC_PCTRL_PORT_EN;
+			Xil_Out32(DDRC_PCTRL(i), readVal);
+		}
 	}
-
-	Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-			      DDRPHY_PIR_VREF |
-			      DDRPHY_PIR_INIT);
-	do {
-		readVal = Xil_In32(DDRPHY_PGSR(0));
-	} while (!(readVal & DDRPHY_PGSR0_IDONE));
-	while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-		;
-
-	/* disable static read mode */
-	for (i = 0; i < 5; i++) {
-		readVal = Xil_In32(DDRPHY_DX8SLDXCTL2(i));
-		readVal &= ~(3 << 4);
-		Xil_Out32(DDRPHY_DX8SLDXCTL2(i), readVal);
-	}
-
-	Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-			      DDRPHY_PIR_INIT);
-	do {
-		readVal = Xil_In32(DDRPHY_PGSR(0));
-	} while (!(readVal & DDRPHY_PGSR0_IDONE));
-	while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-		;
-
-	readVal = Xil_In32(DDRC_RFSHCTL3);
-	readVal &= ~DDRC_RFSHCTL3_AUTORF_DIS;
-	Xil_Out32(DDRC_RFSHCTL3, readVal);
-
-	readVal = Xil_In32(DDRC_ZQCTL(0));
-	readVal &= ~DDRC_ZQCTL0_ZQ_DIS;
-	Xil_Out32(DDRC_ZQCTL(0), readVal);
 }
 
 static int pm_ddr_sr_enter(void)
@@ -790,30 +792,30 @@ static int pm_ddr_sr_enter(void)
 		goto err;
 	}
 
-	io_retention_enable();
-
 	ddr_clock_disable();
 
 err:
 	return ret;
 }
 
-static int pm_ddr_sr_exit(void)
+static int pm_ddr_sr_exit(bool ddrss_is_reset)
 {
 	unsigned int readVal;
 
 	ddr_clock_enable();
 
-	Xil_Out32(DDRC_SWCTL, 0);
-	restore_state(ctx_ddrc);
+	if (ddrss_is_reset) {
+		Xil_Out32(DDRC_SWCTL, 0);
+		restore_state(ctx_ddrc);
 
-	readVal = Xil_In32(CRF_APB_RST_DDR_SS);
-	readVal &= ~CRF_APB_RST_DDR_SS_DDR_RESET_MASK;
-	Xil_Out32(CRF_APB_RST_DDR_SS, readVal);
+		readVal = Xil_In32(CRF_APB_RST_DDR_SS);
+		readVal &= ~CRF_APB_RST_DDR_SS_DDR_RESET_MASK;
+		Xil_Out32(CRF_APB_RST_DDR_SS, readVal);
 
-	restore_state(ctx_ddrphy);
+		restore_state(ctx_ddrphy);
+	}
 
-	DDR_reinit();
+	DDR_reinit(ddrss_is_reset);
 
 	return 0;
 }
@@ -847,7 +849,9 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	case PM_DDR_STATE_SR:
 		if (PM_DDR_STATE_ON == nextState) {
-			status = pm_ddr_sr_exit();
+			bool ddrss_is_reset = !Xil_In32(DDRC_STAT);
+
+			status = pm_ddr_sr_exit(ddrss_is_reset);
 		} else {
 			status = XST_NO_FEATURE;
 		}
