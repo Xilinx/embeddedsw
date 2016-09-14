@@ -32,15 +32,18 @@
 * Ver   Who Date         Changes
 * ----- --- ----------   -----------------------------------------------
 * 1.00  hf  2014/10/10   First release
+* 1.10  MG  2016/07/05   Updated LOCKT register
+* 1.11  YH  2016/09/14   Add option to enable fast switching
 * </pre>
 *
 ****************************************************************************/
 
 #include <stdlib.h>
-#include "platform.h"
+//#include "platform.h"
 #include "xil_types.h"
 #include "xiic.h"
 #include "si5324drv.h"
+#include "xparameters.h"
 
 
 /******************************************************************************
@@ -71,9 +74,16 @@ u8 SI5324_DEFAULTS[] = {
     // enable CKIN1 buffer (bit 0 PD_CK1=0)
     // (bit 6 is reserved, write default value)
      11, 0x42,
-    // Set lock time to 53ms as recommended (bits 2:0 LOCKT=001)
+
+#if	(XPAR_VID_PHY_CONTROLLER_HDMI_FAST_SWITCH)
+    // Set lock time to 13.3ms (bits 2:0 LOCKT=011)
     // other bits are default
-     19, 0x2f,  // 0x29
+     19, 0x23,//0x2f  // 0x29
+#else
+	// Set lock time to 53ms as recommended (bits 2:0 LOCKT=001)
+	// other bits are default
+	19, 0x2f,//0x2f  // 0x29
+#endif
     // Enable fast locking (bit 0 FASTLOCK=1)
     137, 0x01   // FASTLOCK=1 (enable fast locking)
     };
