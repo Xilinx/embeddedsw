@@ -34,11 +34,11 @@
   * This application shows how to use IPI to trigger interrupt and how to
   * setup shared memory with libmetal API for communication between processors.
   *
-  * This app does the following:
+  * This application does the following:
   * 1.  Initialize the platform hardware such as UART, GIC.
   * 2.  Connect the IPI interrupt.
   * 3.  Register IPI device, shared memory descriptor device and shared memory
-  *     device with libmetal in the intialization.
+  *     device with libmetal in the initialization.
   * 4.  In the main application it does the following,
   *     * open the registered libmetal devices: IPI device, shared memory
   *       descriptor device and shared memory device.
@@ -51,7 +51,7 @@
   *     * Wait for the IPI interrupt from the remote.
   *     * Once it receives the interrupt, it does atomic add by 1 to the
   *       first 32bit of the shared memory descriptor location by 1000 times.
-  *     * It will then notify the remote after the calucation.
+  *     * It will then notify the remote after the calculation.
   *     * As the remote side also does 1000 times add after it has notified
   *       this end. The remote side will check if the result is 2000, if not,
   *       it will error.
@@ -140,7 +140,7 @@ extern void wait_for_interrupt(void);
  *
  * @return - If the IPI interrupt is triggered by its remote, it returns
  *          METAL_IRQ_HANDLED. It returns METAL_IRQ_NOT_HANDLED, if it is
- *          not the interupt it expected.
+ *          not the interrupt it expected.
  */
 static int ipi_irq_isr (int vect_id, void *priv)
 {
@@ -212,7 +212,7 @@ static void *ipi_task_shm_atomicd(void *arg)
  *            the ping buffer to the pong buffer.
  *          * Update the shared memory descriptor for the new available
  *            pong buffer.
- *          * Trigger IPI to notifty the remote.
+ *          * Trigger IPI to notify the remote.
  *
  * @param[in] arg - channel information
  */
@@ -291,7 +291,7 @@ static void *ipi_task_echod(void *arg)
 
 /**
  * @brief    cleanup - cleanup the application
- *           The cleanup funciton will disable the IPI interrupt
+ *           The cleanup function will disable the IPI interrupt
  *           close the metal devices and clean the system.
  */
 void cleanup(void)
@@ -355,7 +355,7 @@ int main(void)
 	/* Map IPI device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		LPRINTF("ERROR: Failed to map io regio for %s.\n",
+		LPRINTF("ERROR: Failed to map io region for %s.\n",
 			  device->name);
 		metal_device_close(device);
 		ret = -ENODEV;
@@ -377,7 +377,7 @@ int main(void)
 	/* Map shared memory0 descriptor device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		LPRINTF("ERROR: Failed to map io regio for %s.\n",
+		LPRINTF("ERROR: Failed to map io region for %s.\n",
 			  device->name);
 		metal_device_close(device);
 		ret = -ENODEV;
@@ -405,7 +405,7 @@ int main(void)
 	/* Map shared memory1 descriptor device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		LPRINTF("ERROR: Failed to map io regio for %s.\n",
+		LPRINTF("ERROR: Failed to map io region for %s.\n",
 			  device->name);
 		metal_device_close(device);
 		ret = -ENODEV;
@@ -432,7 +432,7 @@ int main(void)
 	/* Map shared memory device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		LPRINTF("ERROR: Failed to map io regio for %s.\n",
+		LPRINTF("ERROR: Failed to map io region for %s.\n",
 			  device->name);
 		metal_device_close(device);
 		ret = -ENODEV;

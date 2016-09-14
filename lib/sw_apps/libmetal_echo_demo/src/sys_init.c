@@ -274,7 +274,7 @@ int sys_init()
 	enable_caches();
 	init_uart();
 	if (init_irq()) {
-		xil_printf("Failed to intialize interrupt\n");
+		xil_printf("Failed to initialize interrupt\n");
 	}
 	/** Register the device */
 	metal_init(&metal_param);
