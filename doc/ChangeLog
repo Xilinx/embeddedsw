@@ -350,6 +350,12 @@ qspipsu: Added debug message prints.
 usb_v5_2:
 Updated the driver to support 64-bit DMA addressing
 
+v_hdmirxss_v3_0:
+update SI5324 driver to support fast-switching mode
+
+v_hdmitxss_v3_0:
+update SI5324 driver to support fast-switching mode
+
 v_hdmirx_v1_2:
 squash unused variable compiler warning
 Resolve wrong image size issue when HTotal=0
