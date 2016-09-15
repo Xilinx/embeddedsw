@@ -179,7 +179,7 @@ MMUTable:
 /* 0xfff00000 to 0xfffb0000 is reserved but due to granual size of
    1MB, it is not possible to define separate region for  it
 
-/* 0xfff00000 - 0xffffffff
+ 0xfff00000 - 0xffffffff
    256K OCM when mapped to high address space
    inner-cacheable */
 .word	SECT + 0x4c0e		/* S=b0 TEX=b100 AP=b11, Domain=b0, C=b1, B=b1 */
