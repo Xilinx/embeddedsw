@@ -150,6 +150,9 @@
 * 4.0   als  09/30/15 Updated initialization API.
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XTmrCtr_CfgInitialize API.
+* 4.2   nsk  15/09/16 Updated tcl, to get correct device id for canonical defines,
+*                     when there exist more than one timer perepheral
+*
 * </pre>
 *
 ******************************************************************************/
