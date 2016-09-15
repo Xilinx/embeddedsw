@@ -865,9 +865,10 @@ Correct the assert function call.
 Modified interrupt examples.
 Corrected valid list of Single and External Mux channels.
 
-tmrctr_v4_1:
+tmrctr_v4_2:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
 Changed the prototype of XTmrCtr_CfgInitialize API.
+Updated tcl, to generate correct device id for timer canonical define
 
 trafgen_v4_1:
 Made changes in tcl to remove delete filename statement to fix CR# 784758.
