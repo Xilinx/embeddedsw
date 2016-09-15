@@ -1492,7 +1492,6 @@ void Xil_L2CacheInvalidateRange(u32 adr, u32 len)
 ****************************************************************************/
 void Xil_L2CacheFlush(void)
 {
-	u16 L2CCReg;
 	u32 ResultL2Cache;
 
 	/* Flush the caches */
