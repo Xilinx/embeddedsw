@@ -40,6 +40,12 @@
 #include "lwip/dhcp.h"
 #endif
 
+#ifdef XPS_BOARD_ZCU102
+#ifdef XPAR_XIICPS_0_DEVICE_ID
+int IicPhyReset(void);
+#endif
+#endif
+
 int main_thread();
 void print_echo_app_header();
 void echo_application_thread(void *);
@@ -161,6 +167,10 @@ int main_thread()
 {
 #if LWIP_DHCP==1
 	int mscnt = 0;
+#endif
+
+#ifdef XPS_BOARD_ZCU102
+	IicPhyReset();
 #endif
 
 	/* initialize lwIP before calling sys_thread_new */
