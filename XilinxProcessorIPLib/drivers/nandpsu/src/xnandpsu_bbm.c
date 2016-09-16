@@ -548,7 +548,6 @@ static s32 XNandPsu_SearchBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 	u32 Block;
 	u32 Offset;
 	s32 Status;
-	u64 BlockOff;
 
 	StartBlock = ((Target + (u32)1) *
 				InstancePtr->Geometry.NumTargetBlocks) - (u32)1;
