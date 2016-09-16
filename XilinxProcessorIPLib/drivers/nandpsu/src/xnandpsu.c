@@ -97,6 +97,7 @@
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
 * 1.0   kpc    17/6/2015   Added timer based timeout intsead of sw counter.
+* 1.1   mi     09/16/16 Removed compilation warnings with extra compiler flags.
 * </pre>
 *
 ******************************************************************************/
@@ -104,9 +105,10 @@
 /***************************** Include Files *********************************/
 #include "xnandpsu.h"
 #include "xnandpsu_bbm.h"
+#include "sleep.h"
 /************************** Constant Definitions *****************************/
 
-const static XNandPsu_EccMatrix EccMatrix[] = {
+static const XNandPsu_EccMatrix EccMatrix[] = {
 	/* 512 byte page */
 	{XNANDPSU_PAGE_SIZE_512, 9U, 1U, XNANDPSU_HAMMING, 0x20DU, 0x3U},
 	{XNANDPSU_PAGE_SIZE_512, 9U, 4U, XNANDPSU_BCH, 0x209U, 0x7U},
@@ -1565,7 +1567,6 @@ s32 XNandPsu_Erase(XNandPsu *InstancePtr, u64 Offset, u64 Length)
 	u32 AlignOff;
 	u32 EraseLen;
 	u32 BlockRemLen;
-	u16 OnfiStatus;
 	u64 OffsetVar = Offset;
 	u64 LengthVar = Length;
 
@@ -1660,10 +1661,8 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 				InstancePtr->Geometry.ColAddrCycles;
 	u32 PktSize;
 	u32 PktCount;
-	u32 BufWrCnt = 0U;
 	s32 Status = XST_FAILURE;
 	u32 IsrValue;
-	u32 Index;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(Page < InstancePtr->Geometry.NumPages);
@@ -1739,7 +1738,6 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	u32 Target = Page/InstancePtr->Geometry.NumTargetPages;
 	u32 PktSize = InstancePtr->Geometry.SpareBytesPerPage;
 	u32 PktCount = 1U;
-	u32 BufWrCnt = 0U;
 	u32 *BufPtr = (u32 *)(void *)Buf;
 	u16 PreEccSpareCol = 0U;
 	u16 PreEccSpareWrCnt = 0U;
@@ -1748,7 +1746,6 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	u32 PostWrite = 0U;
 	OnfiCmdFormat Cmd;
 	s32 Status = XST_FAILURE;
-	u32 Index;
 	u32 PageVar = Page;
 	u32 RegVal;
 
@@ -1879,9 +1876,8 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 				InstancePtr->Geometry.ColAddrCycles;
 	u32 PktSize;
 	u32 PktCount;
-	u32 BufRdCnt = 0U;
 	s32 Status = XST_FAILURE;
-	u32 Index, RegVal;
+	u32 RegVal;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(Page < InstancePtr->Geometry.NumPages);
@@ -1934,7 +1930,6 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 
 	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 0, 1);
 
-CheckEccError:
 	/* Check ECC Errors */
 	if (InstancePtr->EccMode == XNANDPSU_HWECC) {
 		/* Hamming Multi Bit Errors */
@@ -2009,10 +2004,7 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 	u32 Target = Page/InstancePtr->Geometry.NumTargetPages;
 	u32 PktSize = InstancePtr->Geometry.SpareBytesPerPage;
 	u32 PktCount = 1U;
-	u32 BufRdCnt = 0U;
-	u32 *BufPtr = (u32 *)(void *)Buf;
 	s32 Status = XST_FAILURE;
-	u32 Index;
 	u32 PageVar = Page;
 	u32 RegVal;
 
@@ -2131,10 +2123,8 @@ s32 XNandPsu_GetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf)
 {
 	s32 Status;
-	u32 Index;
 	u32 PktSize = 4;
 	u32 PktCount = 1;
-	u32 *BufPtr = (u32 *)(void *)Buf;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(Buf != NULL);
@@ -2189,10 +2179,8 @@ s32 XNandPsu_SetFeature(XNandPsu *InstancePtr, u32 Target, u8 Feature,
 								u8 *Buf)
 {
 	s32 Status;
-	u32 Index;
 	u32 PktSize = 4U;
 	u32 PktCount = 1U;
-	u32 *BufPtr = (u32 *)(void *)Buf;
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(Buf != NULL);
@@ -2268,7 +2256,6 @@ s32 XNandPsu_ChangeTimingMode(XNandPsu *InstancePtr,
 {
 	s32 Status = XST_SUCCESS;
 	u32 Target;
-	u32 Index;
 	u32 RegVal;
 	u8 Buf[4] = {0U};
 	u32 *Feature = (u32 *)(void *)&Buf[0];
@@ -2417,10 +2404,7 @@ static s32 XNandPsu_ChangeReadColumn(XNandPsu *InstancePtr, u32 Target,
 					u8 *Buf)
 {
 	u32 AddrCycles = InstancePtr->Geometry.ColAddrCycles;
-	u32 BufRdCnt = 0U;
-	u32 *BufPtr = (u32 *)(void *)Buf;
 	s32 Status = XST_FAILURE;
-	u32 Index;
 	u32 RegVal;
 
 	/* Assert the input arguments. */
@@ -2483,11 +2467,8 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 					u8 *Buf)
 {
 	u32 AddrCycles = InstancePtr->Geometry.ColAddrCycles;
-	u32 BufWrCnt = 0U;
-	u32 *BufPtr = (u32 *)(void *)Buf;
 	s32 Status = XST_FAILURE;
 	OnfiCmdFormat OnfiCommand;
-	u32 Index;
 	u32 RegVal;
 
 	/* Assert the input arguments. */
@@ -2527,7 +2508,6 @@ static s32 XNandPsu_ChangeWriteColumn(XNandPsu *InstancePtr, u32 Target,
 		XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_CHNG_ROW_ADDR_END_MASK);
 
 	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, PktCount, PktSize, 1, 0);
-Out:
 	return Status;
 }
 
@@ -2549,9 +2529,6 @@ Out:
 static s32 XNandPsu_InitExtEcc(XNandPsu *InstancePtr, OnfiExtPrmPage *ExtPrm)
 {
 	s32 Status = XST_FAILURE;
-	u32 Index;
-	u32 SectionType;
-	u32 SectionLen;
 	u32 Offset = 0U;
 	u32 Found = 0U;
 	OnfiExtEccBlock *EccBlock;
