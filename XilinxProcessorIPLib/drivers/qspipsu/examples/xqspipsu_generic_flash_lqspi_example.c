@@ -48,22 +48,23 @@
 *
 * This file contains a design example using the QSPIPSU driver (XQspiPsu)
 * with a serial Flash device greater than or equal to 128Mb.
-* The example writes to flash and reads it back in DMA mode.
-* This examples runs with GENFIFO Manual start. It runs in interrupt mode.
-* This example illustrates single, parallel and stacked modes.
-* Both the flash devices have to be of the same make and size.
-* The hardware which this example runs on, must have a serial Flash (Micron
-* N25Q or Spansion S25FL) for it to run. In order to test in single,
-* parallel or stacked flash configurations the necessary HW must be present
-* and QSPI_MODE (also reflected in ConnectionMode in the instance) has
-* to be in sync with HW flash configuration being tested.
+* The example writes to flash in GQSPI mode and reads it back in Linear
+* QSPI mode.This examples runs with GENFIFO Manual start. It runs in
+* interrupt mode.This example runs in single mode.
 *
-* This example has been tested with the Micron Serial Flash (N25Q512) in
-* single and parallel modes using A53 and R5 processors.
+* The hardware which this example runs on, must have a serial Flash (Micron
+* N25Q or Spansion S25FL) for it to run.
+*
+* This example has been tested with the Micron Serial Flash (N25Q512A) in
+* single mode using A53 and R5 processors.
 *
 * @note
 *
-* None.
+* In dual parallel mode flash connection, ZynqMP GQSPI writes data in
+* bytes(Even bytes in lower flash and odd bytes in upper flash),
+* where as LQSPI reads the data in bitwise. so this is causing
+* data mismatch while reading in LQSPI mode. so this application proceeds
+* with single mode irrespective of flash connection.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -74,6 +75,7 @@
 *       sk  06/17/15 Used Tx/Rx flags for Transmitting/Receiving.
 *		sk  11/23/15 Added Support for Macronix 1Gb part.
 * 1.2	nsk 07/01/16 Add LQSPI support
+* 1.3	nsk 09/19/16 Update documentation
 *
 *</pre>
 *

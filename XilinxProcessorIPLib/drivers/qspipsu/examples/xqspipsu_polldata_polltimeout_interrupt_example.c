@@ -57,11 +57,11 @@
 * parallel or stacked flash configurations the necessary HW must be present
 * and QSPI_MODE (also reflected in ConnectionMode in the instance) has
 * to be in sync with HW flash configuration being tested.
-* This application will configure controller to send status command to know
-* the flash status, instead of sending status command from application.
+* This application will configure GQSPI controller to send status command to know
+* the flash status, instead of sending status command from the application.
 *
-* This example has been tested with the Micron Serial Flash (N25Q512) in
-* single using A53 processor.
+* This example has been tested with the Micron Serial Flash (N25Q512A) in
+* single and parallel using A53 and r5 processors.
 *
 * @note
 *
@@ -74,6 +74,7 @@
 * ----- --- -------- -----------------------------------------------
 * 1.2   nsk  08/05/16 First release
 * 1.3   nsk  09/16/16 Update for dual parallel configuration
+* 1.3	nsk  09/19/16 Update documentation
 *
 *</pre>
 *
