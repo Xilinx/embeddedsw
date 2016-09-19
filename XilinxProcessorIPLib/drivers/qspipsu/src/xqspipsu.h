@@ -108,6 +108,10 @@
 *		     Added  XQSPIPSU_MSG_FLAG_POLL macro in xqspipsu.h
 *		     Added XQspiPsu_Create_PollConfigData and
 *		     XQspiPsu_PollData() functions in xqspipsu.c
+* 1.3	nsk 09/16/16 Update PollData and Polltimeout support for dual parallel
+*	             configuration. Updated XQspiPsu_PollData() and
+*	             XQspiPsu_Create_PollConfigData() functions in xqspipsu.c
+*                    and also modified the polldata example
 *
 * </pre>
 *

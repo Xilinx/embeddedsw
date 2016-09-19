@@ -57,6 +57,9 @@
 *		     selection.
 *       rk  07/15/16 Added support for TapDelays at different frequencies.
 *	nsk 08/05/16 Added example support PollData and PollTimeout
+* 1.3	nsk 09/16/16 Update PollData and PollTimeout support for dual
+*	             parallel configurations, modified XQspiPsu_PollData()
+*	             and XQspiPsu_Create_PollConfigData()
 *
 * </pre>
 *
@@ -559,6 +562,7 @@ s32 XQspiPsu_InterruptTransfer(XQspiPsu *InstancePtr, XQspiPsu_Msg *Msg,
 	}
 
 	if (Msg[0].Flags & XQSPIPSU_MSG_FLAG_POLL) {
+		InstancePtr->IsBusy = TRUE;
 		XQspiPsu_PollData(InstancePtr, Msg);
 	} else {
 		/* Check for ByteCount upper limit - 2^28 for DMA */
@@ -1439,18 +1443,23 @@ void XQspiPsu_PollData(XQspiPsu *QspiPsuPtr, XQspiPsu_Msg *FlashMsg)
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress, XQSPIPSU_CFG_OFFSET,
-					XQSPIPSU_CFG_START_GEN_FIFO_MASK);
+				(XQSPIPSU_CFG_START_GEN_FIFO_MASK
+				| XQSPIPSU_CFG_GEN_FIFO_START_MODE_MASK));
+
 	GenFifoEntry = (u32)0;
 	GenFifoEntry = (u32)XQSPIPSU_GENFIFO_POLL;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_RX;
 	GenFifoEntry |= QspiPsuPtr->GenFifoBus;
 	GenFifoEntry |= QspiPsuPtr->GenFifoCS;
 	GenFifoEntry |= (u32)XQSPIPSU_GENFIFO_MODE_SPI;
+	if (((FlashMsg->Flags) & XQSPIPSU_MSG_FLAG_STRIPE) != FALSE)
+		GenFifoEntry |= XQSPIPSU_GENFIFO_STRIPE;
+	else
+		GenFifoEntry &= ~XQSPIPSU_GENFIFO_STRIPE;
+
 	XQspiPsu_WriteReg(QspiPsuPtr->Config.BaseAddress,
 		XQSPIPSU_GEN_FIFO_OFFSET, GenFifoEntry);
 
-
-	QspiPsuPtr->IsBusy = TRUE;
 	QspiPsuPtr->Msg = FlashMsg;
 	QspiPsuPtr->NumMsg = (s32)1;
 	QspiPsuPtr->MsgCnt = 0;
@@ -1498,8 +1507,8 @@ static inline u32 XQspiPsu_Create_PollConfigData(XQspiPsu *QspiPsuPtr,
 	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_UPPER)
 		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 			           XQSPIPSU_POLL_CFG_EN_MASK_UPPER_SHIFT;
-	else
-		ConfigData = XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
+	if (QspiPsuPtr->GenFifoBus & XQSPIPSU_GENFIFO_BUS_LOWER)
+		ConfigData |= XQSPIPSU_SELECT_FLASH_BUS_LOWER <<
 			           XQSPIPSU_POLL_CFG_EN_MASK_LOWER_SHIFT;
 	ConfigData |= ((FlashMsg->PollBusMask << XQSPIPSU_POLL_CFG_MASK_EN_SHIFT)
 			& XQSPIPSU_POLL_CFG_MASK_EN_MASK);
