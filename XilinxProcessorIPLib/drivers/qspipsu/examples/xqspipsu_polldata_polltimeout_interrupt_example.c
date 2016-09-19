@@ -73,6 +73,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.2   nsk  08/05/16 First release
+* 1.3   nsk  09/16/16 Update for dual parallel configuration
 *
 *</pre>
 *
@@ -184,8 +185,8 @@
  * Bus Mask values required for Write and Erase functions when
  * Poll Data and Poll Time-out is used
  */
-#define POLL_CFG_WRITE_BUSMASK_VALUE	0x6F
-#define POLL_CFG_ERASE_BUSMASK_VALUE	0x1F
+#define POLL_CFG_WRITE_BUSMASK_VALUE	0x7F
+#define POLL_CFG_ERASE_BUSMASK_VALUE	0x7F
 
 /*
  * Identification of Flash
@@ -328,6 +329,7 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
 			       XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuIntrId);
 static void QspiPsuDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiPsuIntrId);
 void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
+void QspiPsuConfigurePoll(XQspiPsu *QspiPsuPtr);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
@@ -462,7 +464,7 @@ int main(void)
 {
 	int Status;
 
-	xil_printf("QSPIPSU Generic Flash Interrupt Example Test \r\n");
+	xil_printf("QSPIPSU Flash PollData and PollTimeout Example Test \r\n");
 
 	/*
 	 * Run the QspiPsu Interrupt example.
@@ -470,11 +472,11 @@ int main(void)
 	Status = QspiPsuInterruptFlashExample(&IntcInstance, &QspiPsuInstance,
 					QSPIPSU_DEVICE_ID, QSPIPSU_INTR_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("QSPIPSU Generic Flash Interrupt Ex Failed\r\n");
+		xil_printf("QSPIPSU Flash PollData and PollTimeout Ex Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Successfully ran QSPIPSU Generic Interrupt Ex\r\n");
+	xil_printf("Successfully ran QSPIPSU PollData and PollTimeout Ex\r\n");
 	return XST_SUCCESS;
 }
 
@@ -688,6 +690,46 @@ void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 
 /*****************************************************************************
 *
+* This function configures the values required to poll the device
+* for status.
+*
+* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void QspiPsuConfigurePoll(XQspiPsu *QspiPsuPtr)
+{
+	u8 FlashStatus[2];
+
+	if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL)
+		XQspiPsu_SelectFlash(QspiPsuPtr, XQSPIPSU_SELECT_FLASH_CS_BOTH,
+				XQSPIPSU_SELECT_FLASH_BUS_BOTH);
+	else
+		XQspiPsu_SelectFlash(QspiPsuPtr, XQSPIPSU_SELECT_FLASH_CS_LOWER,
+				XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+
+	FlashMsg[0].TxBfrPtr = NULL;
+	FlashMsg[0].RxBfrPtr = FlashStatus;
+	FlashMsg[0].ByteCount = 2;
+	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_POLL;
+	if(FSRFlag)
+		FlashMsg[0].PollData = 0x80;
+	else
+		FlashMsg[0].PollData = 0x01;
+
+	FlashMsg[0].PollTimeout = 0xFFFFFFFF;
+	FlashMsg[0].PollStatusCmd = StatusCmd;
+	FlashMsg[0].PollBusMask = POLL_CFG_WRITE_BUSMASK_VALUE;
+	if (QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL)
+		FlashMsg[0].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
+
+}
+/*****************************************************************************
+*
 * Reads the flash ID and identifies the flash in FCT table.
 *
 * @param	None.
@@ -886,7 +928,6 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 {
 	u8 WriteEnableCmd;
 	u8 WriteCmd[5];
-	u8 FlashStatus[2];
 	u32 RealAddr;
 	u32 CmdByteCount;
 	int Status;
@@ -966,22 +1007,8 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	 * Wait for the write command to the Flash to be completed, it takes
 	 * some time for the data to be written
 	 */
-	XQspiPsu_SelectFlash(QspiPsuPtr, XQSPIPSU_SELECT_FLASH_CS_LOWER,
-				XQSPIPSU_SELECT_FLASH_BUS_LOWER);
+	QspiPsuConfigurePoll(QspiPsuPtr);
 
-	FlashMsg[0].TxBfrPtr = NULL;
-	FlashMsg[0].RxBfrPtr = FlashStatus;
-	FlashMsg[0].ByteCount = 2;
-	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_POLL;
-	if(FSRFlag)
-		FlashMsg[0].PollData = 0x80;
-	else
-		FlashMsg[0].PollData = 0x01;
-
-	FlashMsg[0].PollTimeout = 0xFFFF;
-	FlashMsg[0].PollStatusCmd = StatusCmd;
-	FlashMsg[0].PollBusMask = POLL_CFG_WRITE_BUSMASK_VALUE;
 	PollTransferProgress = TRUE;
 	XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg,0);
 
@@ -1017,7 +1044,6 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 {
 	u8 WriteEnableCmd;
 	int Sector;
-	u8 FlashStatus[2];
 	u32 RealAddr;
 	u32 NumSect;
 	int Status;
@@ -1159,25 +1185,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 		/*
 		 * Wait for the erase command to be completed
 		 */
-		XQspiPsu_SelectFlash(QspiPsuPtr, XQSPIPSU_SELECT_FLASH_CS_LOWER,
-				XQSPIPSU_SELECT_FLASH_BUS_LOWER);
-
-		/* Set PollTimeout as maximum value, since Erase may takes
-		 * long time
-		 */
-		FlashMsg[0].TxBfrPtr = NULL;
-		FlashMsg[0].RxBfrPtr = FlashStatus;
-		FlashMsg[0].ByteCount = 2;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_POLL;
-		if(FSRFlag)
-			FlashMsg[0].PollData = 0x80;
-		else
-			FlashMsg[0].PollData = 0x01;
-		FlashMsg[0].PollTimeout = 0xFFFFFFFF;
-		FlashMsg[0].PollStatusCmd = StatusCmd;
-		FlashMsg[0].PollBusMask = POLL_CFG_ERASE_BUSMASK_VALUE;
-
+		QspiPsuConfigurePoll(QspiPsuPtr);
 		PollTransferProgress = TRUE;
 		XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg,0);
 
