@@ -82,6 +82,7 @@ qspipsu_v1_2:
 Add LQSPI support
 Added Tap delay support.
 Added PollData and PollTimeout Support
+Update PollData and PollTimeout for dualparallel configurations
 
 v_mix_v2_0:
 Add support for logo layer per pixel alpha feature
