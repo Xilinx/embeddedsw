@@ -333,6 +333,7 @@
  * 4.0	 adk  27/07/15 Added support for 64-bit Addressing.
  * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
  *                     Changed the prototype of XAxiCdma_CfgInitialize API.
+ * 4.3   mi   09/21/16 Fixed compilation warnings.
  * </pre>
  *****************************************************************************/
 
