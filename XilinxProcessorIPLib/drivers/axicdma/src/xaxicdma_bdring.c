@@ -46,6 +46,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.00a jz   04/18/10 First release
  * 2.01a rkv  01/25/11 Replaced with "\r\n" in place on "\n\r" in printf statements
+ * 4.3   mi   09/21/16 Fixed compilation warnings
  * </pre>
  *
  *****************************************************************************/
@@ -201,7 +202,7 @@ XAxiCdma_Bd *XAxiCdma_BdRingGetCurrBd(XAxiCdma *InstancePtr)
 {
 
 	if (InstancePtr->AddrWidth > 32) {
-		return (XAxiCdma_Bd *)((XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_OFFSET)) |
+		return (XAxiCdma_Bd *)(UINTPTR)((XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_OFFSET)) |
 		((uint64_t)(XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_MSB_OFFSET)) << 32U));
 	} else {
 		return (XAxiCdma_Bd *)(UINTPTR)(XAxiCdma_BdRead(InstancePtr->BaseAddr, XAXICDMA_CDESC_OFFSET));
