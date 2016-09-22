@@ -123,6 +123,11 @@ enum XPmApiId {
 	PM_RESET_GET_STATUS,
 	PM_MMIO_WRITE,
 	PM_MMIO_READ,
+	PM_INIT,
+	PM_FPGA_LOAD,
+	PM_FPGA_GET_STATUS,
+	PM_GET_CHIPID,
+	PM_API_MAX
 };
 
 /** @name PM API Min and Max macros
@@ -130,7 +135,6 @@ enum XPmApiId {
  * @{
  */
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_MMIO_READ
 /*@}*/
 
 /**
