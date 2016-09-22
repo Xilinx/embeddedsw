@@ -56,6 +56,5 @@ BEGIN LIBRARY xilskey
   OPTION REQUIRES_OS = (standalone);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilskey,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Key Library ";
-  OPTION VERSION = 6.0;
   OPTION NAME = xilskey;
 END LIBRARY
