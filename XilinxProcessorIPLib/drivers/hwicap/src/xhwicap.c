@@ -81,6 +81,7 @@
 *		      data width of HWICAP.
 * 10.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                      Changed the prototype of XHwIcap_CfgInitialize API.
+* 10.2   mi   09/22/16 Fixed compilation warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -136,10 +137,6 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 	int Status;
 	u32 DeviceIdCode;
 	u32 TempDevId;
-	u8 DeviceIdIndex;
-	u8 NumDevices;
-	u8 IndexCount;
-	int DeviceFound = FALSE;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);

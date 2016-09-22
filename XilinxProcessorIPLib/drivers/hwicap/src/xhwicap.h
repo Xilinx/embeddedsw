@@ -182,6 +182,7 @@
 *                      Updated XHI_NUM_FRAME_WORDS to 101
 *                      Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
 *                      CR# 909615.
+* 10.2   mi   09/22/16 Fixed compilation warnings.
 *
 * </pre>
 *
