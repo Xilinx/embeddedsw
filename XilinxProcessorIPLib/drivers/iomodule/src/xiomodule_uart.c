@@ -47,6 +47,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.02a sa   07/25/12 First release
 * 1.03a sa   10/16/12 Moved interrupt mode functions to separate file
+* 2.4   mi   09/20/16 Fixed compilation warnings
 * </pre>
 *
 *****************************************************************************/
@@ -110,11 +111,13 @@ int XIOModule_CfgInitialize(XIOModule *InstancePtr, XIOModule_Config *Config,
 				u32 EffectiveAddr)
 {
 	u32 NewIER;
+	(void) EffectiveAddr;
 
 	/*
 	 * Assert validates the input arguments
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Config!= NULL);
 
 	/*
 	 * Set some default values, including setting the callback
