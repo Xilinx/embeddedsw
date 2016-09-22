@@ -46,6 +46,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ------------------------------------------------------
 * 1.0   nsk  06/04/15 First release
+* 1.2   mi   09/22/16 Fixed compilation warnings.
 *
 * </pre>
 *
@@ -111,13 +112,9 @@ static u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES];
 int XCanFd_SelfTest(XCanFd *InstancePtr)
 {
 	u8 *FramePtr;
-	u32 Result;
 	u32 Index;
-	u32 RxErrorCount;
-	u32 TxErrorCount;
 	u32 TxBuffer;
 	u32 Dlc;
-	u32 TransmittedDlc;
 	u32 ReceivedDlc;
 	u32 Status;
 

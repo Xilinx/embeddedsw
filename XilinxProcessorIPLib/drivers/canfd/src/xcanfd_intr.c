@@ -48,6 +48,7 @@
 *		       changed. RTL Changes,Added new bits to MSR,SR,ISR,
 *		       IER,ICR Registers and modified TS2 bits in
 *		       BTR and F_SJW bits in F_BTR Registers.
+* 1.2   mi   09/22/16  Fixed compilation warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -123,7 +124,6 @@ void XCanFd_InterruptEnable(XCanFd *InstancePtr, u32 Mask)
 u32 XCanFd_SetRxIntrWatermark(XCanFd *InstancePtr, u8 Threshold)
 {
 
-	u32 ThrReg;
 	s32 Status;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -134,7 +134,7 @@ u32 XCanFd_SetRxIntrWatermark(XCanFd *InstancePtr, u8 Threshold)
 		Status = XST_FAILURE;
 	}
 	else {
-		ThrReg = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+		XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_WIR_OFFSET);
 		Threshold &= XCANFD_WIR_MASK;
 		XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,

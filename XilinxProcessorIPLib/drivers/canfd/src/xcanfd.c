@@ -54,6 +54,7 @@
 *		      TS2 bits in BTR and F_SJW bits in F_BTR Registers.
 * 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XCanFd_CfgInitialize API.
+* 1.2   mi   09/22/16 Fixed compilation warnings.
 *		      .
 *
 * </pre>
@@ -80,7 +81,6 @@ extern XCanFd_Config XCanFd_ConfigTable[];
 
 /************************** Function Prototypes ******************************/
 
-static void Initialize(XCanFd *InstancePtr, XCanFd_Config * ConfigPtr);
 static void StubHandler(void);
 
 /************************** Global Variables ******************************/
@@ -447,7 +447,6 @@ void XCanFd_GetBusErrorCounter(XCanFd *InstancePtr, u8 *RxErrorCount,
 *****************************************************************************/
 int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 {
-	u32 Result;
 	u32 FreeTxBuffer;
 	u32 DwIndex=0;
 	u32 Value;
@@ -460,7 +459,7 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Poll TRR to check pending transmission requests */
-	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+	XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_TRR_OFFSET);
 
 	FreeTxBuffer = XCanFd_GetFreeBuffer(InstancePtr);
@@ -552,7 +551,6 @@ int XCanFd_Send(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 ******************************************************************************/
 int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 {
-	u32 Result;
 	u32 FreeTxBuffer;
 	u32 DwIndex=0;
 	u32 Len;
@@ -564,7 +562,7 @@ int XCanFd_Addto_Queue(XCanFd *InstancePtr, u32 *FramePtr,u32 *TxBufferNumber)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 	/* Poll TRR to check pending transmission requests */
-	Result = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
+	XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 			XCANFD_TRR_OFFSET);
 
 	FreeTxBuffer = XCanFd_GetFreeBuffer(InstancePtr);
@@ -862,7 +860,7 @@ u32 XCanFd_RxBuff_MailBox_Active(XCanFd *InstancePtr, u32 RxBuffer)
 	Status = XCanFd_ReadReg(InstancePtr->CanFdConfig.BaseAddress,
 				XCANFD_RCS_OFFSET(NoCtrlStatus));
 	if (Status & 1 << RxBuffer) {
-		return;
+		return 1;
 	}
 	Status |= (1<< RxBuffer);
 	XCanFd_WriteReg(InstancePtr->CanFdConfig.BaseAddress,
