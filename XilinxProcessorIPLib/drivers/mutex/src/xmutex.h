@@ -104,6 +104,7 @@
 * 4.00a bss  03/05/14 Modified XMutex_CfgInitialize to fix CR# 770096
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XMutex_CfgInitialize API.
+* 4.2   mi   09/22/16 Fixed compilation warnings.
 * </pre>
 *
 ******************************************************************************/
