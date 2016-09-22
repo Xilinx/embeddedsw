@@ -46,6 +46,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------------
 * 1.00a sa   07/15/11 First release
+* 2.4   mi   09/20/16 Fixed compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -242,8 +243,6 @@ void XIOModule_Timer_SetOptions(XIOModule * InstancePtr, u8 TimerNumber,
 ******************************************************************************/
 u32 XIOModel_Timer_GetOptions(XIOModule * InstancePtr, u8 TimerNumber)
 {
-
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 	u32 Options = 0;
 	u32 CounterControlReg;
 	u32 Index;

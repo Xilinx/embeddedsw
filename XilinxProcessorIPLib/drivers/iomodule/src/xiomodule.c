@@ -49,6 +49,7 @@
 * 1.01a sa   04/10/12 Updated with fast interrupt
 * 2.1   bss  05/02/14 Modified XIOModule_IsExpired to check for all 1's instead
 *		      of 0 in CounterReg.(CR#794167)
+* 2.4   mi   09/20/16 Fixed compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -1076,7 +1077,6 @@ void XIOModule_SetResetValue(XIOModule * InstancePtr, u8 TimerNumber,
 *******************************************************************************/
 u32 XIOModule_GetCaptureValue(XIOModule * InstancePtr, u8 TimerNumber)
 {
-	u32 TimerOffset = TimerNumber << XTC_TIMER_COUNTER_SHIFT;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(TimerNumber < XTC_DEVICE_TIMER_COUNT);
@@ -1171,7 +1171,7 @@ int XIOModule_IsExpired(XIOModule * InstancePtr, u8 TimerNumber)
 		CounterReg = XIOModule_ReadReg(InstancePtr->BaseAddress,
 					       TimerOffset + XTC_TCR_OFFSET);
 
-		if (CounterReg & InstancePtr->CfgPtr->PitMask[TimerNumber] ==
+		if ((CounterReg & InstancePtr->CfgPtr->PitMask[TimerNumber]) ==
 				InstancePtr->CfgPtr->PitMask[TimerNumber]) {
 			return 1;
 		} else {
