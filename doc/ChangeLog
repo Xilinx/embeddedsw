@@ -37,6 +37,59 @@ Removed definition of "INLINE" macro from xdmaps.c to avoid
 re-definition of the same, since "INLINE" macro is defined
 in xil_io.h.
 
+v_hdmirxss_v3_0:
+update SI5324 driver to support fast-switching mode
+
+v_hdmitxss_v3_0:
+update SI5324 driver to support fast-switching mode
+
+v_hdmirx_v1_2:
+squash unused variable compiler warning
+Resolve wrong image size issue when HTotal=0
+
+v_hdmitx_v1_2:
+Added API to set AXI4-Lite clock frequency
+squash unused variable compiler warning
+
+v_hdmirxss_v3_0:
+Combine multiple report API into one ReportInfo
+Clean up warnings
+Add Event Log
+
+v_hdmitxss_v3_0:
+Add Config to get AXI4-Lite clock frequency from HW and set hdmi tx core
+Added Event Log
+Combine Report function into one ReportInfo
+squash unused variable compiler warning
+Update XV_HdmiTxSs_SetAudioChannels
+
+v_hdmirx_v1_2:
+Up version to 1.2 with the following updates:
+Update Address data type to support ZynqMP
+Update HDCP support
+
+v_hdmitx_v1_2:
+Up version to 1.2 with the following updates:
+Remove checking VideoMode
+Update Address data type to support ZynqMP
+
+v_hdmirxss_v3_0:
+Up version to 3.0 with the following updates:
+Add HDCP repeater support
+Add HDCP 1.4 & 2.2 auto switching support
+Add Import Example Design support
+Update to optimize out HDCP when excluded
+
+v_hdmitxss_v3_0:
+Up version to 3.0 with the following updates:
+Add HDCP repeater support
+Add HDCP 1.4 & 2.2 auto switching support
+Add Import Example Design support
+Update Address data type to support ZynqMP
+Remove checking VideoMode
+Update to optimize out HDCP when excluded
+
+
 dptx_v3_0:
 Obsoleted in lieu of the dp driver.
 
@@ -349,58 +402,6 @@ qspipsu: Added debug message prints.
 
 usb_v5_2:
 Updated the driver to support 64-bit DMA addressing
-
-v_hdmirxss_v3_0:
-update SI5324 driver to support fast-switching mode
-
-v_hdmitxss_v3_0:
-update SI5324 driver to support fast-switching mode
-
-v_hdmirx_v1_2:
-squash unused variable compiler warning
-Resolve wrong image size issue when HTotal=0
-
-v_hdmitx_v1_2:
-Added API to set AXI4-Lite clock frequency
-squash unused variable compiler warning
-
-v_hdmirxss_v3_0:
-Combine multiple report API into one ReportInfo
-Clean up warnings
-Add Event Log
-
-v_hdmitxss_v3_0:
-Add Config to get AXI4-Lite clock frequency from HW and set hdmi tx core
-Added Event Log
-Combine Report function into one ReportInfo
-squash unused variable compiler warning
-Update XV_HdmiTxSs_SetAudioChannels
-
-v_hdmirx_v1_2:
-Up version to 1.2 with the following updates:
-Update Address data type to support ZynqMP
-Update HDCP support
-
-v_hdmitx_v1_2:
-Up version to 1.2 with the following updates:
-Remove checking VideoMode
-Update Address data type to support ZynqMP
-
-v_hdmirxss_v3_0:
-Up version to 3.0 with the following updates:
-Add HDCP repeater support
-Add HDCP 1.4 & 2.2 auto switching support
-Add Import Example Design support
-Update to optimize out HDCP when excluded
-
-v_hdmitxss_v3_0:
-Up version to 3.0 with the following updates:
-Add HDCP repeater support
-Add HDCP 1.4 & 2.2 auto switching support
-Add Import Example Design support
-Update Address data type to support ZynqMP
-Remove checking VideoMode
-Update to optimize out HDCP when excluded
 
 v_hdmirx_v1_1:
 Updated VTD control in HDMI RX core driver
