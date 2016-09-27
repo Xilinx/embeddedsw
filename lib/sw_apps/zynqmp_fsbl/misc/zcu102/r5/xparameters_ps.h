@@ -42,6 +42,7 @@
 * Ver   Who     Date     Changes
 * ----- ------- -------- ---------------------------------------------------
 * 5.00  pkp  	02/29/14 Initial version
+* 6.0   mus     08/18/16 Defined ARMR5 flag
 * </pre>
 *
 * @note
@@ -52,6 +53,10 @@
 
 #ifndef XPARAMETERS_PS_H_
 #define XPARAMETERS_PS_H_
+
+#ifndef ARMR5
+#define ARMR5 ARMR5
+#endif
 
 #ifdef __cplusplus
 extern "C" {
