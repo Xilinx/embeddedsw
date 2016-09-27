@@ -8,6 +8,7 @@
 	-------
 	v1.0 - Initial release
 	v1.1 - Updated DP159 setting to automatic redriver to retimer for HDMI 1.4 data rates
+	v1.2 - Added Reset to I2C controller before issuing new transaction
 */
 
 #include "dp159.h"
@@ -116,6 +117,11 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 {
   u32 r;
   u8 mode;
+
+  // Reset I2C controller before issuing new transaction. This is required to
+  // recover the IIC controller in case a previous transaction is pending.
+  XIic_WriteReg(XPAR_IIC_0_BASEADDR, XIIC_RESETR_OFFSET,
+			XIIC_RESET_MASK);
 
   // Select mode
   // HDMI 2.0
