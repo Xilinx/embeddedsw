@@ -109,6 +109,8 @@
 * 4.2   sk   08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
 *                     adding 64 bit support. CR# 867425.
 *                     Changed the prototype of XGpio_CfgInitialize API.
+* 4.3   sk   09/29/16 Modified the example to make it work when LED_bits are
+*                     configured as an output. CR# 958644
 *
 * </pre>
 *****************************************************************************/
