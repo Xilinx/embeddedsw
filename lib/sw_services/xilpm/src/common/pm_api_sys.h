@@ -85,7 +85,7 @@ XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
 			    const enum XPmNodeId wkup_node,
 			    const u8 enable);
 
-XStatus XPm_SystemShutdown(const u8 restart);
+XStatus XPm_SystemShutdown(u32 type, u32 subtype);
 
 /* Callback API function */
 /*

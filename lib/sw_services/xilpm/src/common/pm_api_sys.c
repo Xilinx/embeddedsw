@@ -511,10 +511,10 @@ XStatus XPm_SetWakeUpSource(const enum XPmNodeId target,
  * not receive an init suspend callback.
  *
  ****************************************************************************/
-XStatus XPm_SystemShutdown(const u8 restart)
+XStatus XPm_SystemShutdown(u32 type, u32 subtype)
 {
 	u32 payload[PAYLOAD_ARG_CNT];
-	PACK_PAYLOAD1(payload, PM_SYSTEM_SHUTDOWN, restart);
+	PACK_PAYLOAD2(payload, PM_SYSTEM_SHUTDOWN, type, subtype);
 	return pm_ipi_send(primary_master, payload);
 }
 
