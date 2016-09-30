@@ -50,8 +50,6 @@
 * 3.00a ktn  11/20/09 Minor changes as per coding guidelines.
 * 4.1   lks  11/18/15 Updated to use canonical xparameters and
 *		      clean up of the comments and code for CR 900381
-* 4.2   sk   09/14/16 Modified the example to make it work when LED_bits are
-*                     configured as an output. CR# 958644
 *
 * </pre>
 ******************************************************************************/
@@ -78,7 +76,7 @@
  * sure that it is visible to the human eye.  This constant might need to be
  * tuned for faster or slower processor speeds.
  */
-#define LED_DELAY     10000000
+#define LED_DELAY     1000000
 
 /*
  * The following constant is used to determine which channel of the GPIO is
@@ -140,6 +138,7 @@ XGpio Gpio; /* The Instance of the GPIO Driver */
 ******************************************************************************/
 int main(void)
 {
+	u32 Data;
 	int Status;
 	volatile int Delay;
 
@@ -155,14 +154,41 @@ int main(void)
 	/* Loop forever blinking the LED */
 
 	while (1) {
-		/* Set the LED to High */
-		XGpio_DiscreteWrite(&Gpio, LED_CHANNEL, LED);
+		/*
+		 * Read the state of the data so that only the LED state can be
+		 * modified
+		 */
+		Data = XGpio_DiscreteRead(&Gpio, LED_CHANNEL);
+
+		/*
+		 * Set the LED to the opposite state such that it blinks using
+		 * the first method, two methods are used for illustration
+		 * purposes only
+		 */
+		if (Data & LED) {
+			XGpio_DiscreteWrite(&Gpio, LED_CHANNEL, Data & ~LED);
+		} else {
+			XGpio_DiscreteWrite(&Gpio, LED_CHANNEL, Data | LED);
+		}
 
 		/* Wait a small amount of time so the LED is visible */
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 
-		/* Clear the LED bit */
-		XGpio_DiscreteClear(&Gpio, LED_CHANNEL, LED);
+		/*
+		 * Read the state of the data so that only the LED state can be
+		 * modified
+		 */
+		Data = XGpio_DiscreteRead(&Gpio, LED_CHANNEL);
+
+		/*
+		 * Set the LED to the opposite state such that it blinks using
+		 * the other API functions
+		 */
+		if (Data & LED) {
+			XGpio_DiscreteClear(&Gpio, LED_CHANNEL, LED);
+		} else {
+			XGpio_DiscreteSet(&Gpio, LED_CHANNEL, LED);
+		}
 
 		/* Wait a small amount of time so the LED is visible */
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
