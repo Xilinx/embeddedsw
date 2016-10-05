@@ -13,3 +13,4 @@ sysmonpsu
 ttcps
 uartps
 wdtps
+ipipsu
