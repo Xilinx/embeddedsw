@@ -472,6 +472,8 @@
 * 5.1  adk 02/11/16  Updated example to Support ZynqMp.
 * 5.2  adk 13/05/16  Fixed CR#951669 Fix compilation errors when axi dma
 * 		     interrupts are not connected.
+* 5.3  adk 05/10/16  Fixed CR#961152 PMU template firmware fails to compile on
+* 		     ZynqMP AXI-Ethernet designs.
 * </pre>
 *
 ******************************************************************************/
