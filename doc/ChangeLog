@@ -1,3 +1,9 @@
+Change Log for 2016.4
+=================================
+axiethernet_v5_3:
+Fixed compilation errors for PMU template firmware on ZynqMP
+for AXI-Ethernet based designs
+
 Change Log for 2016.3
 =================================
 freertos823_xilinx_v1_2:
