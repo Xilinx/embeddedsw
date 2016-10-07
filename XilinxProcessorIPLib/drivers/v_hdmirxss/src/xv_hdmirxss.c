@@ -77,6 +77,7 @@
 * 1.17  YH     17/08/16 Remove sleep in XV_HdmiRxSs_ResetRemapper
 *                       squash unused variable compiler warning
 *                       Added Event Log
+* 1.18  MH     08/10/16 Improve HDCP 1.4 authentication
 * </pre>
 *
 ******************************************************************************/
@@ -2130,6 +2131,14 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
 
     // Stream up
     case XV_HDMIRXSS_HDCP_STREAMUP_EVT :
+      break;
+
+    // Stream down
+    case XV_HDMIRXSS_HDCP_STREAMDOWN_EVT :
+      break;
+
+    // Connect
+    case XV_HDMIRXSS_HDCP_CONNECT_EVT :
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (InstancePtr->Hdcp14Ptr) {
         // Set physical state
@@ -2137,10 +2146,12 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
       }
 #endif
+      XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, InstancePtr->HdcpProtocol);
       break;
 
-    // Stream down
-    case XV_HDMIRXSS_HDCP_STREAMDOWN_EVT :
+    // Disconnect
+    // Enable the previous HDCP protocol
+    case XV_HDMIRXSS_HDCP_DISCONNECT_EVT :
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (InstancePtr->Hdcp14Ptr) {
         // Set physical state
@@ -2148,17 +2159,6 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
       }
 #endif
-      break;
-
-    // Connect
-    case XV_HDMIRXSS_HDCP_CONNECT_EVT :
-      break;
-
-    // Disconnect
-    // Enable the previous HDCP protocol
-    case XV_HDMIRXSS_HDCP_DISCONNECT_EVT :
-      XV_HdmiRxSs_HdcpReset(InstancePtr);
-      XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, InstancePtr->HdcpProtocol);
       break;
 
     // HDCP 1.4 protocol event
