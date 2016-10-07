@@ -48,11 +48,11 @@ fi
 cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
 cp    $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
 cp    $STANDALONE_DIR/arm/common/*  $BSP_DIR/libsrc/standalone/src/
-cp    $STANDALONE_DIR/arm/common/gcc/*  $BSP_DIR/libsrc/standalone/src/
 cp    $STANDALONE_DIR/arm/cortexa9/*  $BSP_DIR/libsrc/standalone/src/
 
 if [ $COMPILER == "arm-xilinx-eabi-gcc" ]; then 
 	cp $STANDALONE_DIR/arm/cortexa9/gcc/*  $BSP_DIR/libsrc/standalone/src/
+	cp    $STANDALONE_DIR/arm/common/gcc/*  $BSP_DIR/libsrc/standalone/src/
 elif [ $COMPILER == "armcc" ]; then 
 	cp $STANDALONE_DIR/arm/cortexa9/armcc/*  $BSP_DIR/libsrc/standalone/src/
 fi
