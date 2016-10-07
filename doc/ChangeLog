@@ -39,9 +39,11 @@ in xil_io.h.
 
 v_hdmirxss_v3_0:
 update SI5324 driver to support fast-switching mode
+Improve HDCP 1.4 authentication
 
 v_hdmitxss_v3_0:
 update SI5324 driver to support fast-switching mode
+Update function call sequence in XV_HdmiTxSs_StreamUpCallback
 
 v_hdmirx_v1_2:
 squash unused variable compiler warning
