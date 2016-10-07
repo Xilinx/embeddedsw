@@ -42,6 +42,14 @@
 *
 * This example was tested using SD2.0 card and eMMC (using eMMC to SD adaptor).
 *
+* To test with different logical drives, drive number should be mentioned in
+* both FileName and Path variables. By default, it will take drive 0 if drive
+* number is not mentioned in the FileName variable.
+* For example, to test logical drive 1
+* FileName =  "1:/<file_name>" and Path = "1:/"
+* Similarly to test logical drive N, FileName = "N:/<file_name>" and
+* Path = "N:/"
+*
 * None.
 *
 * <pre>
@@ -80,6 +88,10 @@ int FfsSdPolledExample(void);
 /************************** Variable Definitions *****************************/
 static FIL fil;		/* File object */
 static FATFS fatfs;
+/*
+ * To test logical drive 0, FileName should be "0:/<File name>" or
+ * "<file_name>". For logical drive 1, FileName should be "1:/<file_name>"
+ */
 static char FileName[32] = "Test.bin";
 static char *SD_File;
 u32 Platform;
@@ -148,6 +160,10 @@ int FfsSdPolledExample(void)
 	UINT NumBytesWritten;
 	u32 BuffCnt;
 	u32 FileSize = (8*1024*1024);
+	/*
+	 * To test logical drive 0, Path should be "0:/"
+	 * For logical drive 1, Path should be "1:/"
+	 */
 	TCHAR *Path = "0:/";
 
 	Platform = XGetPlatform_Info();
