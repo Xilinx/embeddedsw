@@ -87,6 +87,8 @@
 *                       Combine Report function into one ReportInfo
 * 1.19  YH     27/08/16 Remove unused functions XV_HdmiTxSs_SetUserTimerHandler
 *                       XV_HdmiTxSs_WaitUs
+* 1.20   MH    08/10/16 Update function call sequence in
+*                       XV_HdmiTxSs_StreamUpCallback
 * </pre>
 *
 ******************************************************************************/
@@ -1155,19 +1157,10 @@ static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
   /* Set stream up flag */
   HdmiTxSsPtr->IsStreamUp = (TRUE);
 
-  /* Release HDMI TX reset */
-  XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, FALSE);
-  XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_STREAMUP, 0);
-
 #ifdef USE_HDCP
   /* Push the stream-up event to the HDCP event queue */
   XV_HdmiTxSs_HdcpPushEvent(HdmiTxSsPtr, XV_HDMITXSS_HDCP_STREAMUP_EVT);
 #endif
-
-  if (HdmiTxSsPtr->RemapperResetPtr) {
-      /* Toggle AXI_GPIO to Reset Remapper */
-      XV_HdmiTxSs_ResetRemapper(HdmiTxSsPtr);
-  }
 
   /* Check if user callback has been registered.
      User may change the video stream properties in the callback;
@@ -1176,13 +1169,11 @@ static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
       HdmiTxSsPtr->StreamUpCallback(HdmiTxSsPtr->StreamUpRef);
   }
 
-  if (HdmiTxSsPtr->RemapperPtr) {
-      /* Configure Remapper according to HW setting and video format */
-      XV_HdmiTxSs_ConfigRemapper(HdmiTxSsPtr);
-  }
-
   /* Set TX sample rate */
   XV_HdmiTx_SetSampleRate(HdmiTxSsPtr->HdmiTxPtr, HdmiTxSsPtr->SamplingRate);
+
+  /* Release HDMI TX reset */
+  XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, FALSE);
 
   if (HdmiTxSsPtr->VtcPtr) {
     /* Setup VTC */
@@ -1195,6 +1186,17 @@ static void XV_HdmiTxSs_StreamUpCallback(void *CallbackRef)
       XV_HdmiTx_AudioUnmute(HdmiTxSsPtr->HdmiTxPtr);
   }
 
+  if (HdmiTxSsPtr->RemapperResetPtr) {
+      /* Toggle AXI_GPIO to Reset Remapper */
+      XV_HdmiTxSs_ResetRemapper(HdmiTxSsPtr);
+  }
+
+  if (HdmiTxSsPtr->RemapperPtr) {
+      /* Configure Remapper according to HW setting and video format */
+      XV_HdmiTxSs_ConfigRemapper(HdmiTxSsPtr);
+  }
+
+  XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_STREAMUP, 0);
 }
 
 /*****************************************************************************/
