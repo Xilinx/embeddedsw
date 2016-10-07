@@ -59,6 +59,7 @@
 #include "xhdcp1x_cipher.h"
 #include "xil_assert.h"
 #include "xil_types.h"
+#include "xhdcp1x_platform.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -549,6 +550,7 @@ u64 XHdcp1x_CipherGetEncryption(const XHdcp1x *InstancePtr)
 int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 {
 	u32 Value = 0;
+	u32 Tries = 0;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -604,9 +606,18 @@ int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 		XHDCP1X_CIPHER_REG_CONTROL, Value);
 
 	/* Wait until the XOR has actually started */
-	while (!XHdcp1x_CipherXorInProgress(InstancePtr));
-
-	return (XST_SUCCESS);
+	while (1) {
+		if (!XHdcp1x_CipherXorInProgress(InstancePtr)) {
+			return (XST_SUCCESS);
+		} else {
+			if (Tries < 10000) {
+				Tries++;
+				XHdcp1x_PlatformTimerBusy(InstancePtr, 1);
+			} else {
+				return (XST_FAILURE);
+			}
+		}
+	}
 }
 
 /*****************************************************************************/
