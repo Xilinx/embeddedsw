@@ -71,6 +71,7 @@
 *       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
 *                       operating modes.
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
+*       sk     10/13/16 Reduced the delay during power cycle to 1ms as per spec
 * </pre>
 *
 ******************************************************************************/
@@ -178,7 +179,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 			XSDPS_POWER_CTRL_OFFSET, 0U);
 
 	/* Delay to poweroff card */
-    (void)sleep(1U);
+    (void)usleep(1000U);
 
 	/* "Software reset for all" is initiated */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress, XSDPS_SW_RST_OFFSET,
