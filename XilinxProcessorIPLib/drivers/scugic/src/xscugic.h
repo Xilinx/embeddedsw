@@ -182,6 +182,9 @@ extern "C" {
 #define EFUSE_STATUS_OFFSET   0x10
 #define EFUSE_STATUS_CPU_MASK 0x80
 
+#if !defined (ARMR5) && !defined (__aarch64__) && !defined (ARMA53_32)
+#define ARMA9
+#endif
 /**************************** Type Definitions *******************************/
 
 /* The following data type defines each entry in an interrupt vector table.

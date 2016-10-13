@@ -101,6 +101,8 @@
 *                     This fixes the CR#952962.
 * 3.4   mus  09/08/16 Added assert to avoid invalid access of GIC from CPUID 1
 *                     for single core zynq-7000s
+* 3.5   mus  10/05/16 Modified DistributorInit function to avoid re-initialization of
+*                     distributor,If it is already initialized by other CPU.
 *
 *
 * </pre>
@@ -234,18 +236,22 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 ******************************************************************************/
 static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 {
-#ifdef ARMR5
 	u32 Int_Id;
 	u32 LocalCpuID = CpuID;
-#endif
+	u32 RegValue;
 
-#if USE_AMP==1
-	#warning "Building GIC for AMP"
-#ifdef ARMR5
-    u32 RegValue;
+#if USE_AMP==1 && (defined (ARMA9) || defined(__aarch64__))
+#warning "Building GIC for AMP"
+	/*
+	 * GIC initialization is taken care by master CPU in
+	 * openamp configuration, so do nothing and return.
+	 */
+	return;
+#endif
 
 	RegValue = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
 	if (!(RegValue & XSCUGIC_EN_INT_MASK)) {
+		Xil_AssertVoid(InstancePtr != NULL);
 		DoDistributorInit(InstancePtr, CpuID);
 		return;
 	}
@@ -264,12 +270,6 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 				     XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 				     RegValue);
 	}
-#endif
-	return;
-#endif
-
-	Xil_AssertVoid(InstancePtr != NULL);
-	DoDistributorInit(InstancePtr, CpuID);
 }
 
 /*****************************************************************************/
@@ -358,7 +358,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
      * Detect Zynq-7000 base silicon configuration,Dual or Single CPU.
      * If it is single CPU cnfiguration then invoke assert for CPU ID=1
 	 */
-#if !defined (ARMR5) && !defined (__aarch64__) && !defined (ARMA53_32)
+#ifdef ARMA9
 	if ( XPAR_CPU_ID == 0x01 )
 	{
 		Xil_AssertNonvoid((Xil_In32(XPS_EFUSE_BASEADDR + EFUSE_STATUS_OFFSET)
