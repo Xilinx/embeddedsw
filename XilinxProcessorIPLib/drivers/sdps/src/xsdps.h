@@ -135,6 +135,7 @@
 *       sk     08/13/16 Removed sleep.h from xsdps.h as a temporary fix for
 *                       CR#956899.
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
+*       sk     10/13/16 Reduced the delay during power cycle to 1ms as per spec
 *
 * </pre>
 *
