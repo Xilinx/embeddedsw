@@ -107,12 +107,12 @@ SUBDIRS =
 
 libs: real_libs
 	echo "Compiling xilkernel"
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v6_0/src libs
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v6_1/src libs
 
 	echo "killing the .o files"
 	$(ARCHIVER) -d ${LIBXIL} errno.o
 	$(ARCHIVER) -d ${LIBXIL} kill.o
-real_libs: dir_syscall dir_src standalone_v6_0 rellibs
+real_libs: dir_syscall dir_src standalone rellibs
 
 
 
@@ -130,7 +130,7 @@ dir_syscall:
 # of standard tcl library routines xhandle_stdin and xhandle_stdout
 #
 
-standalone_v6_0:
+standalone:
 	$(CC) $(CFLAGS) -c $(INCLUDES) $(STANDALONE_STDIN_SRC)
 	$(AR) -r $(LIBDIR)/$(LIBXIL) $(STANDALONE_STDIN_OBJ)
 	$(CC) $(CFLAGS) -c $(INCLUDES) $(STANDALONE_STDOUT_SRC)
@@ -143,11 +143,11 @@ include: standalone_include dummy
 	$(CP) -rf $(INCLUDEFILES) $(INCLUDEDIR)
 
 standalone_include:
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v6_0/src include
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v6_1/src include
 
 dummy:
 
-rellibs: standalone_v6_0
+rellibs: standalone
 
 	$(AR) -r ${LIBSYSCALL} $(LIBSYSCALL_OBJS)
 	$(CP)  $(LIBSYSCALL) $(LIBDIR)

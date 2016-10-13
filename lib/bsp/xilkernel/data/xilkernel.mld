@@ -39,7 +39,7 @@ BEGIN OS xilkernel
   OPTION DRC = kernel_drc ;
   OPTION SUPPORTED_PERIPHERALS = (microblaze);
   OPTION COPYFILES = all;
-  OPTION DEPENDS = (standalone_v6_0);
+  OPTION DEPENDS = (standalone_v6_1);
   OPTION APP_COMPILER_FLAGS = "-D __XMK__";
   OPTION APP_LINKER_FLAGS = "-lxilkernel";
   OPTION OS_STATE = ACTIVE;
