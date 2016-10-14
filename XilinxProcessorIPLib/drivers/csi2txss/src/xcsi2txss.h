@@ -72,7 +72,6 @@ o	RAW8,RAW10,RAW12,RAW14,RGB888,YUV422-8Bit,User defined  Data types
 •	Compliant with Xilinx AXI Stream Interface & native
 	Interface for input video stream.
 •	LS/LE Packet Generation,can be configured through  register interface.
-•	Programmable Frame Blanking period,through register interface.
 •	Configurable selection of D-PHY Register Interface through GUI options.
 •	Support for transmission of Embedded Data packet’s through Input
 	Interface.
