@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2016 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,9 @@
 #		      for zynqmpsoc to fix CR#940127
 # 3.4	pkp  29/06/16 Updated get_psu_interrupt_id to return correct PL ips'
 #		      interruptIDs when no interrupt is connected to pl_ps_irq0
+# 3.5	mus  14/10/16 Modified xdefine_gic_params and get_psu_interrupt_id
+#		      functions to get correct PL-PS interrupt IDs.Fix for the
+#                     CR#961257
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -436,7 +439,7 @@ proc xdefine_gic_params {drvhandle} {
             if {$external_pin} {
 				set source_port_name($i) [common::get_property NAME $source_port]
 				set source_periph($i) ""
-				set source_name($i) "system"
+				set source_name($i) ""
             } else {
                 set source_port_name($i) [common::get_property NAME $source_port]
                 set source_ip [hsi::get_cells -of_objects $source_port]
@@ -485,13 +488,23 @@ proc xdefine_gic_params {drvhandle} {
             if { [llength $port_intr_id] > 1 } {
                 set j 0
                 foreach intr_id $port_intr_id {
-                    puts $config_inc [format "#define XPAR_FABRIC_%s_%s_INTR %d" \
-                    [string toupper $ip_name] [string toupper "${port_name}$j"] $intr_id ]
+                    if { [string compare -nocase $ip_name ""] } {
+                            puts $config_inc [format "#define XPAR_FABRIC_%s_%s_INTR %d" \
+                            [string toupper $ip_name] [string toupper "${port_name}$j"] $intr_id ]
+                    } else {
+                            puts $config_inc [format "#define XPAR_FABRIC_%s_INTR %d" \
+                            [string toupper "${port_name}$j"] $intr_id ]
+                    }
                     incr j
                 }
             } else {
-                puts $config_inc [format "#define XPAR_FABRIC_%s_%s_INTR %d" \
-                [string toupper $ip_name] [string toupper $port_name] $port_intr_id]
+                if { [string compare -nocase $ip_name ""] } {
+                         puts $config_inc [format "#define XPAR_FABRIC_%s_%s_INTR %d" \
+                        [string toupper $ip_name] [string toupper $port_name] $port_intr_id]
+                } else {
+                        puts $config_inc [format "#define XPAR_FABRIC_%s_INTR %d" \
+                        [string toupper $port_name] $port_intr_id]
+                }
             }
 
         }
@@ -737,8 +750,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
 
     set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
     set intr_list_irq1 [list 104 105 106 107 108 109 110 111]
-    set pins [::hsi::get_pins -of_objects $periph -filter "NAME==$port_name"]
-    set sink_pins [::hsi::utils::get_sink_pins $pins]
+    set sink_pins [::hsi::utils::get_sink_pins $intr_pin]
     if { [llength $sink_pins] == 0 } {
         return
      }
