@@ -80,7 +80,6 @@ extern "C" {
 						  *  Register */
 #define XCSI2TX_IER_OFFSET	0x00000028	/**< Interrupt Enable
 						  *  Register */
-#define XCSI2TX_FRMBLNK_OFFSET	0x0000002C	/**< Frame Blanking */
 #define XCSI2TX_SPKTR_OFFSET	0x00000030	/**< Generic Short Packet
 						  *  Entry */
 #define XCSI2TX_GSP_OFFSET	0x00000078	/* < GSP Status*/
