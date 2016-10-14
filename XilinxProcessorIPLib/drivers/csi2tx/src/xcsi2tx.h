@@ -74,7 +74,6 @@
 * • Compliant with Xilinx AXI Stream Interface & native
 	Interface for input video stream.
 * • LS/LE Packet Generation,can be configured through  register interface.
-* • Programmable Frame Blanking period,through register interface.
 * • Configurable selection of D-PHY Register Interface through GUI options.
 * • Support for transmission of Embedded Data packet’s through Input
 	Interface.
@@ -708,29 +707,6 @@ static inline u32 XCsi2Tx_GetGSPCount(XCsi2Tx *InstancePtr)
 static inline void XCsi2Tx_SetGSPEntry(XCsi2Tx *InstancePtr, u32 Value)
 {
 	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr, XCSI2TX_SPKTR_OFFSET,
-									Value);
-}
-
-/****************************************************************************/
-/**
-*
-* This function is used to set insert the Frame Blanking between the
-* Frame End to Next Frame Start. The user must ensure that the counter
-* value must expire before any valid data arrives.
-*
-* @param	InstancePtr is a pointer to the CSI Instance to be
-*		worked on.
-*
-* @param	Value
-*
-* @return	None
-*
-* @note		None
-*
-****************************************************************************/
-static inline void XCsi2Tx_SetFrameBlank(XCsi2Tx *InstancePtr, u32 Value)
-{
-	XCsi2Tx_WriteReg(InstancePtr->Config.BaseAddr, XCSI2TX_FRMBLNK_OFFSET,
 									Value);
 }
 

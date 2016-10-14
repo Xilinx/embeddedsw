@@ -59,8 +59,6 @@
 /**************************** Type Definitions *******************************/
 
 /*************************** Macros Definitions ******************************/
-#define CSI2TX_ACTIVELANES	\
-	XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_CSI_EN_ACTIVELANES
 #define	CSI2TX_MAX_LANES	\
 	XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_CSI_LANES
 
@@ -75,8 +73,6 @@
 #define GIER_MASK		0x01
 #define GIER_DEFAULT		0x00
 #define ACT_LANES_MASK		0xE01B
-#define FRMBLNK_MASK		0xFF
-#define FRMBLNK_DEFAULT		0x01
 #define CCR_MASK		0x0F
 #define CCR_DEFAULT		0x04
 /************************** Function Prototypes ******************************/
@@ -119,13 +115,8 @@ u32 XCsi2Tx_SelfTest(XCsi2Tx *InstancePtr)
 		return XST_FAILURE;
 
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
-						XCSI2TX_FRMBLNK_OFFSET);
-	if ((RegValue & FRMBLNK_MASK) != FRMBLNK_DEFAULT)
-		return XST_FAILURE;
-
-	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_PCR_OFFSET);
-	mask = ((CSI2TX_MAX_LANES - 1) << 3) | (CSI2TX_ACTIVELANES);
+	mask = ((CSI2TX_MAX_LANES - 1) << 3) | (CSI2TX_MAX_LANES - 1);
 
 	if ((RegValue & ACT_LANES_MASK) != mask)
 		return XST_FAILURE;
