@@ -69,6 +69,7 @@
 * 2.01 kpc    08/23/14   Fixed the IAR compiler reported errors
 * 2.2  mus    12/08/16   Remove definition of INLINE macro to avoid re-definition,
 *                         since it is being defined in xil_io.h
+* 2.3 kpc     14/10/16   Fixed the compiler error when optimization O0 is used.
 * </pre>
 *
 *****************************************************************************/
@@ -415,7 +416,7 @@ int XDmaPs_SetFaultHandler(XDmaPs *InstPtr,
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMAEND(char *DmaProg)
+static INLINE int XDmaPs_Instr_DMAEND(char *DmaProg)
 {
 	/*
 	 * DMAEND encoding:
@@ -427,7 +428,7 @@ INLINE int XDmaPs_Instr_DMAEND(char *DmaProg)
 	return 1;
 }
 
-INLINE void XDmaPs_Memcpy4(char *Dst, char *Src)
+static INLINE void XDmaPs_Memcpy4(char *Dst, char *Src)
 {
 	*Dst = *Src;
 	*(Dst + 1) = *(Src + 1);
@@ -458,7 +459,7 @@ INLINE void XDmaPs_Memcpy4(char *Dst, char *Src)
 * @note		None
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMAGO(char *DmaProg, unsigned int Cn,
+static INLINE int XDmaPs_Instr_DMAGO(char *DmaProg, unsigned int Cn,
 			       u32 Imm, unsigned int Ns)
 {
 	/*
@@ -494,7 +495,7 @@ INLINE int XDmaPs_Instr_DMAGO(char *DmaProg, unsigned int Cn,
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMALD(char *DmaProg)
+static INLINE int XDmaPs_Instr_DMALD(char *DmaProg)
 {
 	/*
 	 * DMALD encoding
@@ -525,7 +526,7 @@ INLINE int XDmaPs_Instr_DMALD(char *DmaProg)
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
+static INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
 			       unsigned LoopIterations)
 {
 	/*
@@ -555,7 +556,7 @@ INLINE int XDmaPs_Instr_DMALP(char *DmaProg, unsigned Lc,
 * @note	None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned Lc)
+static INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned Lc)
 {
 	/*
 	 * DMALPEND encoding
@@ -596,7 +597,7 @@ INLINE int XDmaPs_Instr_DMALPEND(char *DmaProg, char *BodyStart, unsigned Lc)
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMAMOV(char *DmaProg, unsigned Rd, u32 Imm)
+static INLINE int XDmaPs_Instr_DMAMOV(char *DmaProg, unsigned Rd, u32 Imm)
 {
 	/*
 	 * DMAMOV encoding
@@ -629,7 +630,7 @@ INLINE int XDmaPs_Instr_DMAMOV(char *DmaProg, unsigned Rd, u32 Imm)
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMANOP(char *DmaProg)
+static INLINE int XDmaPs_Instr_DMANOP(char *DmaProg)
 {
 	/*
 	 * DMANOP encoding
@@ -654,7 +655,7 @@ INLINE int XDmaPs_Instr_DMANOP(char *DmaProg)
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMARMB(char *DmaProg)
+static INLINE int XDmaPs_Instr_DMARMB(char *DmaProg)
 {
 	/*
 	 * DMARMB encoding
@@ -680,7 +681,7 @@ INLINE int XDmaPs_Instr_DMARMB(char *DmaProg)
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMASEV(char *DmaProg, unsigned int EventNumber)
+static INLINE int XDmaPs_Instr_DMASEV(char *DmaProg, unsigned int EventNumber)
 {
 	/*
 	 * DMASEV encoding
@@ -708,7 +709,7 @@ INLINE int XDmaPs_Instr_DMASEV(char *DmaProg, unsigned int EventNumber)
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMAST(char *DmaProg)
+static INLINE int XDmaPs_Instr_DMAST(char *DmaProg)
 {
 	/*
 	 * DMAST encoding
@@ -737,7 +738,7 @@ INLINE int XDmaPs_Instr_DMAST(char *DmaProg)
 * @note		None.
 *
 *****************************************************************************/
-INLINE int XDmaPs_Instr_DMAWMB(char *DmaProg)
+static INLINE int XDmaPs_Instr_DMAWMB(char *DmaProg)
 {
 	/*
 	 * DMAWMB encoding
@@ -761,7 +762,7 @@ INLINE int XDmaPs_Instr_DMAWMB(char *DmaProg)
 * @note	None.
 *
 *****************************************************************************/
-INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize)
+static INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize)
 {
 	switch (EndianSwapSize) {
 	case 0:
@@ -794,7 +795,7 @@ INLINE unsigned XDmaPs_ToEndianSwapSizeBits(unsigned int EndianSwapSize)
 * @note		None.
 *
 *****************************************************************************/
-INLINE unsigned XDmaPs_ToBurstSizeBits(unsigned BurstSize)
+static INLINE unsigned XDmaPs_ToBurstSizeBits(unsigned BurstSize)
 {
 	switch (BurstSize) {
 	case 1:
