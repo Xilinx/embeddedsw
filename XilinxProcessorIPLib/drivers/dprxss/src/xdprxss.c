@@ -58,6 +58,7 @@
 * 3.1  als 08/08/16 Synchronize with new HDCP APIs.
 * 3.1  als 08/08/16 Added HDCP timeout functionality.
 * 3.1  aad 09/06/16 Updates to support 64-bit base addresses.
+* 3.1  aad 10/17/16 Updated timer initialization
 * </pre>
 *
 ******************************************************************************/
@@ -301,28 +302,26 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
 	/* Check for Timer Counter availability */
+	XTmrCtr_Config *ConfigPtr;
 	if (InstancePtr->TmrCtrPtr != NULL) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO: Initializing Timer "
 			"Counter IP \n\r");
 
-		/* Calculate absolute base address of Timer Counter sub-core */
-		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.BaseAddress +=
-					InstancePtr->Config.BaseAddress;
+		ConfigPtr = XTmrCtr_LookupConfig(InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.DeviceId);
+		if (!ConfigPtr) {
+			return XST_DEVICE_NOT_FOUND;
+		}
 
-		/* Timer Counter config initialize */
-		Status = XTmrCtr_Initialize(InstancePtr->TmrCtrPtr,
-		InstancePtr->Config.TmrCtrSubCore.TmrCtrConfig.DeviceId);
+		/* Calculate absolute base address of Timer Counter sub-core */
+		XTmrCtr_CfgInitialize(InstancePtr->TmrCtrPtr, ConfigPtr,
+				ConfigPtr->BaseAddress +
+				InstancePtr->Config.BaseAddress);
+		Status = XTmrCtr_InitHw(InstancePtr->TmrCtrPtr);
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR:: Timer "
 				"Counter initialization failed\n\r");
 			return XST_FAILURE;
 		}
-
-		/* Calculate absolute base address of Timer Counter sub-core */
-		InstancePtr->TmrCtrPtr->Config.BaseAddress +=
-					InstancePtr->Config.BaseAddress;
-		InstancePtr->TmrCtrPtr->BaseAddress +=
-					InstancePtr->Config.BaseAddress;
 
 		/* Configure the callback */
 		XTmrCtr_SetHandler(InstancePtr->TmrCtrPtr,
