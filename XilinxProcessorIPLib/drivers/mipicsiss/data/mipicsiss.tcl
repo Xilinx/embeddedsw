@@ -54,8 +54,9 @@ proc generate {drv_handle} {
 	# line-by-line, read the original file
 	while {[gets $in line] != -1} {
 		# if XPAR_MIPI_CSI2_RX_SUBSYSTEM is present in the string
-		if {[regexp -nocase {XPAR_MIPI_CSI2_RX_SUBSYSTEM} $line] ||
+		if {[regexp -nocase {XPAR_.*MIPI_CSI2_RX_SUBSYSTEM} $line] ||
 			[regexp -nocase {XPAR_CSISS} $line]} {
+
 			# if substring CMN_INC_IIC is present in the string
 			if {[regexp -nocase {CMN_INC_IIC} $line]} {
 				# using string map to replace true with 1 and false with 0
