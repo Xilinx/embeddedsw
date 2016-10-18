@@ -351,14 +351,12 @@ void XDphy_Reset(XDphy *InstancePtr)
 *****************************************************************************/
 void XDphy_ClearDataLane(XDphy *InstancePtr, u8 DataLane, u32 Mask)
 {
-	u32 Value;
-
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->Config.IsRegisterPresent != 0);
 	Xil_AssertVoid(DataLane < InstancePtr->Config.MaxLanesPresent);
-	Xil_AssertVoid(Mask & (XDPHY_DLXSTATUS_REG_ESCABRT_MASK |
-			XDPHY_DLXSTATUS_REG_HSABRT_MASK) != 0);
+	Xil_AssertVoid((Mask & (XDPHY_DLXSTATUS_REG_ESCABRT_MASK |
+			XDPHY_DLXSTATUS_REG_HSABRT_MASK)) != 0);
 
 	/* Ensure only Escape Abort or HS Abort are set */
 	Mask = Mask & (XDPHY_DLXSTATUS_REG_ESCABRT_MASK |
