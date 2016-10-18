@@ -87,8 +87,6 @@
 ****************************************************************************/
 void XDsi_InterruptEnable(XDsi *InstancePtr, u32 Mask)
 {
-	u32 Temp;
-
 	/* Verify argument */
 	Xil_AssertVoid(InstancePtr != NULL);
 	/* Checking for invalid mask bits being set */

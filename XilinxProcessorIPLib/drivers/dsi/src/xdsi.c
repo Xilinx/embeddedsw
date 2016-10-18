@@ -522,6 +522,8 @@ s32 XDsi_SetCustomVideoInterfaceTiming(XDsi *InstancePtr,
 ******************************************************************************/
 static void StubErrCallback(void *CallbackRef, u32 ErrorMask)
 {
+	(void) ((void *)CallbackRef);
+	(void) ErrorMask;
 	Xil_AssertVoidAlways();
 }
 /** @} */

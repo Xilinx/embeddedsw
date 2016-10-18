@@ -87,9 +87,8 @@
 ******************************************************************************/
 u32 XDsi_SelfTest(XDsi *InstancePtr)
 {
-	u32 Result;
+	u8 Result;
 	u32 Status;
-	XDsi_ConfigParameters ConfigInfo;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
