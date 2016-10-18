@@ -55,8 +55,9 @@ proc generate {drv_handle} {
 	# line-by-line, read the original file
 	while {[gets $in line] != -1} {
 		# if XPAR_MIPI_DSI_TX_SUBSYSTEM is present in the string
-		if { [regexp -nocase {XPAR_MIPI_DSI_TX_SUBSYSTEM} $line] ||
+		if { [regexp -nocase {XPAR_.*MIPI_DSI_TX_SUBSYSTEM} $line] ||
 			[regexp -nocase {XPAR_DSI} $line] } {
+
 			# if substring DSI_CRC_GEN is present in the string
 			if { [regexp -nocase {DSI_CRC_GEN} $line] } {
 				# using string map to replace true with 1 and false with 0
