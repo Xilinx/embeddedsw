@@ -302,7 +302,6 @@ int XCsi_SetCallBack(XCsi *InstancePtr, u32 HandleType,
 void XCsi_IntrHandler(void *InstancePtr)
 {
 	u32 ActiveIntr;
-	u32 ErrorStatus;
 	u32 Mask;
 
 	XCsi *XCsiPtr = (XCsi *)InstancePtr;

@@ -372,7 +372,7 @@ void XCsi_GetClkLaneInfo(XCsi *InstancePtr, XCsi_ClkLaneInfo *ClkLane)
 void XCsi_GetDataLaneInfo(XCsi *InstancePtr, u8 Lane,
 				XCsi_DataLaneInfo *DataLane)
 {
-	u32 Value, Offset;
+	u32 Value, Offset = XCSI_L0INFR_OFFSET;
 
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -540,6 +540,8 @@ u8 XCsi_IsActiveLaneCountValid(XCsi *InstancePtr, u8 ActiveLanesCount)
 ******************************************************************************/
 static void StubErrCallBack(void *Callbackref, u32 ErrorMask)
 {
+	(void) ((void *)Callbackref);
+	(void) ErrorMask;
 	Xil_AssertVoidAlways();
 }
 /** @} */

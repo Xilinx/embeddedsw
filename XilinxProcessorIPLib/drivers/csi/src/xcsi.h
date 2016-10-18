@@ -201,7 +201,7 @@ typedef struct {
 typedef struct {
 	u32 DeviceId;		/**< Device Id */
 	UINTPTR BaseAddr;	/**< Base address of CSI2 Rx Controller */
-	u32 MaxLanesPresent;	/**< Number of Lanes. Range 0 - 3 */
+	u32 MaxLanesPresent;	/**< Number of Lanes. Range 1 - 4 */
 	u32 HasOffloadNonImageSupport;	/**< Offload non image data
 					  *  via separate stream */
 	u32 HasVCSupport;	/**< Supports Virtual Channels */
