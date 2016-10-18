@@ -89,7 +89,6 @@ u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr);
 u32 XDsiTxSs_SelfTest(XDsiTxSs *InstancePtr)
 {
 	u32 Status;
-	u32 Index;
 
 	/* Verify argument */
 	Xil_AssertNonvoid(InstancePtr != NULL);

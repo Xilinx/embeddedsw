@@ -121,7 +121,6 @@ s32 XDsiTxSs_CfgInitialize(XDsiTxSs *InstancePtr, XDsiTxSs_Config *CfgPtr,
 							UINTPTR EffectiveAddr)
 {
 	s32 Status;
-	UINTPTR AbsAddr;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -201,8 +200,6 @@ u32 XDsiTxSs_DefaultConfigure(XDsiTxSs *InstancePtr)
 ******************************************************************************/
 void XDsiTxSs_Activate(XDsiTxSs *InstancePtr, u8 Flag)
 {
-	u32 Status;
-
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Flag <= XDSITXSS_ENABLE);
@@ -335,7 +332,7 @@ void XDsiTxSs_GetConfigParams(XDsiTxSs *InstancePtr)
 u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr)
 {
 	/* Verify argument */
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return XDsi_IsControllerReady(InstancePtr->DsiPtr);
 }
@@ -360,7 +357,7 @@ u32 XDsiTxSs_IsControllerReady(XDsiTxSs *InstancePtr)
 u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr)
 {
 	/* Verify argument */
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return XDsi_GetPixelFormat(InstancePtr->DsiPtr);
 }
@@ -382,7 +379,7 @@ u32 XDsiTxSs_GetPixelFormat(XDsiTxSs *InstancePtr)
 u32 XDsiTxSs_GetCmdQVacancy(XDsiTxSs *InstancePtr)
 {
 	/* Verify argument */
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	return XDsi_GetCmdQVacancy(InstancePtr->DsiPtr);
 }
