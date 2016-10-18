@@ -136,7 +136,6 @@ u32 XCsiSs_CfgInitialize(XCsiSs *InstancePtr, XCsiSs_Config *CfgPtr,
 				UINTPTR EffectiveAddr)
 {
 	u32 Status;
-	UINTPTR AbsAddr;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);

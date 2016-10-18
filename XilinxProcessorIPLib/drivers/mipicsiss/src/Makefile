@@ -15,7 +15,7 @@ LIBSOURCES=*.c
 INCLUDEFILES=*.h
 
 libs:
-	echo "Compiling MIPI CSI Subsystem"
+	echo "Compiling mipicsiss"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
 	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
 	make clean
