@@ -566,14 +566,6 @@ void PmOpportunisticSuspend(PmPower* const powerParent)
 		goto done;
 	}
 
-	if (true == PmSystemShutdownProcessing()) {
-		/*
-		 * Opportunistic suspend is not performed when shutting down
-		 * or restarting.
-		 */
-		goto done;
-	}
-
 	do {
 		PmDbg("Opportunistic suspend attempt for %s\r\n",
 		      PmStrNode(power->node.nodeId));

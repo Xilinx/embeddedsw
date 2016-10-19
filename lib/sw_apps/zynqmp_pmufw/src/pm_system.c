@@ -38,37 +38,18 @@
 #include "pm_callbacks.h"
 
 /*********************************************************************
- * Enum definitions
- ********************************************************************/
-typedef enum {
-	PM_SYSTEM_STATE_NORMAL,
-	PM_SYSTEM_STATE_SHUTDOWN,
-	PM_SYSTEM_STATE_RESTART,
-} PmSystemState;
-
-/*********************************************************************
  * Structure definitions
  ********************************************************************/
 /**
  * PmSystem - System level information
- * @state               Current system state representing system level operation
- *                      in progress (normal, shutting down, restarting)
  * @masters             ORed ipi masks of masters available in the system (to be
  *                      updated based on specific configuration)
  * @permissions         ORed ipi masks of masters which are allowed to request
  *                      system shutdown/restart
- * @shuttingMasters     ORed ipi masks of masters whose next sleep of a
- *                      processor is its shutdown suspend
- * @doneMasters         Masters which are done with suspending or were not even
- *                      involved in the shutdown procedure because they are
- *                      forced to power down.
  */
 typedef struct {
-	PmSystemState state;
 	u32 masters;
 	u32 permissions;
-	u32 shuttingMasters;
-	u32 doneMasters;
 } PmSystem;
 
 /*********************************************************************
@@ -77,160 +58,42 @@ typedef struct {
 
 /* By default all masters are allowed to request shutdown. */
 PmSystem pmSystem = {
-	.state = PM_SYSTEM_STATE_NORMAL,
 	.masters = IPI_PMU_0_IER_APU_MASK |
 		   IPI_PMU_0_IER_RPU_0_MASK,
 	.permissions = IPI_PMU_0_IER_APU_MASK |
 		       IPI_PMU_0_IER_RPU_0_MASK,
-	.shuttingMasters = 0U,
-	.doneMasters = 0U,
 };
 
 /*********************************************************************
  * Function definitions
  ********************************************************************/
-
 /**
- * PmShutdownFinalize() - Shut down or restart entire system, final step
- *
- * @note	Turns off power to the power rails or asserts system reset
+ * PmSystemProcessShutdown() - Process shutdown by initiating suspend requests
+ * @master      Master which requested system shutdown
+ * @type        Shutdown type
+ * @subtype     Shutdown subtype
  */
-static void PmShutdownFinalize(void)
+void PmSystemProcessShutdown(const PmMaster *master, u32 type, u32 subtype)
 {
 	PmDbg("\r\n");
 
-	if (PM_SYSTEM_STATE_SHUTDOWN == pmSystem.state) {
+	if (PMF_SHUTDOWN_TYPE_SHUTDOWN == type) {
 		/*
 		 * Communicate with PMIC to turn off power rails - request for
 		 * LPD off must be the last!
 		 */
 	}
 
-	if (PM_SYSTEM_STATE_RESTART == pmSystem.state) {
+	if (PMF_SHUTDOWN_TYPE_RESET == type) {
 		/* assert soft reset */
 		XPfw_RMW32(CRL_APB_RESET_CTRL,
 			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
 			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
 	}
-}
 
-/**
- * PmSystemInitShutdownMaster() - Init suspend due to shutdown of a master
- * @mst Master to be initiated to suspend
- */
-static void PmSystemInitShutdownMaster(const PmMaster* const mst)
-{
-	/* Request master to shutdown */
-	PmInitSuspendCb(mst, SUSPEND_REASON_SYS_SHUTDOWN, MAX_LATENCY, 0U, 0U);
-
-	/*
-	 * If master is suspending it first has to finish its ongoing suspend,
-	 * than it will be woken up to perform suspend due to shutdown (it will
-	 * then be labelled as shutting down)
-	 */
-	if (false == PmMasterIsSuspending(mst)) {
-		pmSystem.shuttingMasters |= mst->ipiMask;
+	while (true) {
+		mb_sleep();
 	}
-}
-
-/**
- * PmSystemProcessShutdown() - Process shutdown by initiating suspend requests
- * @master      Master which requested system shutdown
- * @type        Shutdown type
- *
- * @return      Status of initiating shutdown which should be returned to the
- *              master which requested shutdown
- */
-int PmSystemProcessShutdown(const PmMaster* const master, const u32 type)
-{
-	int status = XST_SUCCESS;
-	u32 i;
-
-	switch (type) {
-	case PMF_SHUTDOWN_TYPE_SHUTDOWN:
-		pmSystem.state = PM_SYSTEM_STATE_SHUTDOWN;
-		break;
-	case PMF_SHUTDOWN_TYPE_RESET:
-		pmSystem.state = PM_SYSTEM_STATE_RESTART;
-		break;
-	default:
-		status = XST_INVALID_PARAM;
-		goto done;
-		break;
-	}
-
-	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-		/*
-		 * Master requesting shutdown will suspend on its own, no need
-		 * to send init suspend callback.
-		 */
-		if (master == pmAllMasters[i]) {
-			pmSystem.shuttingMasters |= master->ipiMask;
-			continue;
-		}
-
-		/* Check if the master is even possible/used in the system */
-		if (0U == (pmAllMasters[i]->ipiMask & pmSystem.masters)) {
-			continue;
-		}
-
-		if (true == PmMasterIsSuspended(pmAllMasters[i])) {
-			/* Wake up master to prepare itself for shutdown */
-			status = PmMasterWake(pmAllMasters[i]);
-			if (XST_SUCCESS != status) {
-				goto done;
-			}
-		}
-
-		/* If master is killed it is not involved in shutdown */
-		if (true == PmMasterIsKilled(pmAllMasters[i])) {
-			pmSystem.doneMasters |= pmAllMasters[i]->ipiMask;
-			continue;
-		}
-
-		PmSystemInitShutdownMaster(pmAllMasters[i]);
-	}
-
-done:
-	return status;
-}
-
-/**
- * PmSystemCaptureSleep() - Called when shutting down to capture a sleep
- * @master      Master whose last awake processor has just went to sleep
- */
-void PmSystemCaptureSleep(const PmMaster* const master)
-{
-	if (PM_SYSTEM_STATE_NORMAL == pmSystem.state) {
-		goto done;
-	}
-
-	if (0U == (pmSystem.shuttingMasters & master->ipiMask)) {
-		/*
-		 * This sleep is not for shutdown. This master will suspend
-		 * again due to shutdown, mark it as shutting.
-		 */
-		pmSystem.shuttingMasters |= master->ipiMask;
-		goto done;
-	}
-
-	pmSystem.doneMasters |= master->ipiMask;
-
-	if (pmSystem.doneMasters == pmSystem.masters) {
-		PmShutdownFinalize();
-	}
-
-done:
-	return;
-}
-
-/**
- * PmSystemShutdownProcessing() - Check whether system shutdown is in progress
- */
-inline bool PmSystemShutdownProcessing(void)
-{
-	return (PM_SYSTEM_STATE_SHUTDOWN == pmSystem.state) ||
-	       (PM_SYSTEM_STATE_RESTART == pmSystem.state);
 }
 
 /**

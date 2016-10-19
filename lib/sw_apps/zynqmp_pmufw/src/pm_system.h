@@ -41,10 +41,8 @@
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmSystemProcessShutdown(const PmMaster* const master, const u32 type);
-void PmSystemCaptureSleep(const PmMaster* const master);
-
+void PmSystemProcessShutdown(const PmMaster *master, u32 type, u32 subtype)
+	__attribute__((noreturn));
 bool PmSystemRequestNotAllowed(const PmMaster* const master);
-bool PmSystemShutdownProcessing(void);
 
 #endif
