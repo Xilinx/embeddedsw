@@ -42,6 +42,7 @@
 #include "pm_sram.h"
 #include "pm_periph.h"
 #include "pm_pll.h"
+#include "pm_usb.h"
 #include "xpfw_rom_interface.h"
 #include "crf_apb.h"
 #include "pm_system.h"
@@ -177,6 +178,29 @@ err:
 }
 
 /**
+ * PmUserHookPowerDownLpd - Power down LPD
+ *
+ * This function powers down the LP supply.
+ *
+ * @return	XST_SUCCESS or an error code.
+ */
+#pragma weak PmUserHookPowerDownLpd
+int PmUserHookPowerDownLpd(void)
+{
+	return XST_SUCCESS;
+}
+
+/**
+ * PmPowerDownLpd() - Power down LPD domain
+ *
+ * @return      Status of the pmu-rom operations
+ */
+static int PmPowerDownLpd(void)
+{
+	return PmUserHookPowerDownLpd();
+}
+
+/**
  * PmPwrDnHandler() - Power down island/domain
  * @nodePtr Pointer to node-structure of power island/dom to be powered off
  *
@@ -194,6 +218,9 @@ static int PmPwrDnHandler(PmNode* const nodePtr)
 	switch (nodePtr->nodeId) {
 	case NODE_FPD:
 		status = PmPowerDownFpd();
+		break;
+	case NODE_LPD:
+		status = PmPowerDownLpd();
 		break;
 	case NODE_APU:
 		status = XST_SUCCESS;
@@ -291,6 +318,7 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 		status = PmPowerUpFpd();
 		break;
 	case NODE_APU:
+	case NODE_LPD:
 		status = XST_SUCCESS;
 		break;
 	case NODE_RPU:
@@ -363,6 +391,45 @@ static PmNode* pmFpdChildren[] = {
 	&pmSlavePcie_g.node,
 };
 
+static PmNode* pmLpdChildren[] = {
+	&pmPowerIslandRpu_g.node,
+	&pmSlaveOcm0_g.slv.node,
+	&pmSlaveOcm1_g.slv.node,
+	&pmSlaveOcm2_g.slv.node,
+	&pmSlaveOcm3_g.slv.node,
+	&pmSlaveUsb0_g.slv.node,
+	&pmSlaveUsb1_g.slv.node,
+	&pmSlaveTtc0_g.slv.node,
+	&pmSlaveTtc1_g.slv.node,
+	&pmSlaveTtc2_g.slv.node,
+	&pmSlaveTtc3_g.slv.node,
+	&pmSlaveSata_g.slv.node,
+	&pmSlaveRpll_g.slv.node,
+	&pmSlaveIOpll_g.slv.node,
+	&pmSlaveUart0_g.node,
+	&pmSlaveUart1_g.node,
+	&pmSlaveSpi0_g.node,
+	&pmSlaveSpi1_g.node,
+	&pmSlaveI2C0_g.node,
+	&pmSlaveI2C1_g.node,
+	&pmSlaveSD0_g.node,
+	&pmSlaveSD1_g.node,
+	&pmSlaveCan0_g.node,
+	&pmSlaveCan1_g.node,
+	&pmSlaveEth0_g.node,
+	&pmSlaveEth1_g.node,
+	&pmSlaveEth2_g.node,
+	&pmSlaveEth3_g.node,
+	&pmSlaveAdma_g.node,
+	&pmSlaveNand_g.node,
+	&pmSlaveQSpi_g.node,
+	&pmSlaveGpio_g.node,
+	&pmSlaveAFI_g.node,
+	&pmSlaveIpiApu_g.node,
+	&pmSlaveIpiRpu0_g.node,
+	&pmSlavePcap_g.node,
+};
+
 /* Operations for the Rpu power island */
 static const PmNodeOps pmRpuNodeOps = {
 	.sleep = PmPwrDnHandler,
@@ -377,6 +444,12 @@ static const PmNodeOps pmApuNodeOps = {
 
 /* Operations for the Fpd power domain */
 static const PmNodeOps pmFpdNodeOps = {
+	.sleep = PmPwrDnHandler,
+	.wake = PmPwrUpHandler,
+};
+
+/* Operations for the Lpd power domain */
+static const PmNodeOps pmLpdNodeOps = {
 	.sleep = PmPwrDnHandler,
 	.wake = PmPwrUpHandler,
 };
@@ -400,7 +473,7 @@ PmPower pmPowerIslandRpu_g = {
 		.derived = &pmPowerIslandRpu_g,
 		.nodeId = NODE_RPU,
 		.typeId = PM_TYPE_PWR_ISLAND,
-		.parent = NULL,
+		.parent = &pmPowerDomainLpd_g,
 		.clocks = NULL,
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
@@ -455,6 +528,26 @@ PmPower pmPowerDomainFpd_g = {
 		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmFpdChildren),
+	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
+	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+	.permissions = 0U,
+	.requests = 0U,
+};
+
+PmPower pmPowerDomainLpd_g = {
+	.node = {
+		.derived = &pmPowerDomainLpd_g,
+		.nodeId = NODE_LPD,
+		.typeId = PM_TYPE_PWR_DOMAIN,
+		.parent = NULL,
+		.clocks = NULL,
+		.currState = PM_PWR_STATE_ON,
+		.latencyMarg = MAX_LATENCY,
+		.ops = &pmLpdNodeOps,
+		.powerInfo = PmDomainPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
+	},
+	DEFINE_PM_POWER_CHILDREN(pmLpdChildren),
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 	.permissions = 0U,

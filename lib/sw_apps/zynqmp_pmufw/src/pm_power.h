@@ -82,6 +82,7 @@ typedef struct PmPower {
 extern PmPower pmPowerIslandRpu_g;
 extern PmPower pmPowerIslandApu_g;
 extern PmPower pmPowerDomainFpd_g;
+extern PmPower pmPowerDomainLpd_g;
 extern PmPower pmPowerDomainPld_g;
 
 /*********************************************************************

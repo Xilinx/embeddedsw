@@ -177,9 +177,10 @@
 #define NODE_PCIE       59U
 #define NODE_PCAP       60U
 #define NODE_RTC        61U
+#define NODE_LPD        62U
 
 #define NODE_MIN        NODE_APU
-#define NODE_MAX        NODE_RTC
+#define NODE_MAX        NODE_LPD
 
 /* System init synchronization */
 #define PM_INIT_COMPLETED_KEY    0x5A5A5A5AU
