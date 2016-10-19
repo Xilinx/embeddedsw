@@ -166,7 +166,7 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 	/* For each of the IPI sources */
 	for (MaskIndex = 0; MaskIndex < XPFW_IPI_MASK_COUNT; MaskIndex++) {
 		/* Check if the Mask is set */
-		if (SrcMask & IpiMaskList[MaskIndex]) {
+		if ((SrcMask & IpiMaskList[MaskIndex]) != 0U) {
 			/* If set, read the message into buffer */
 			Status = XPfw_IpiReadMessage(IpiMaskList[MaskIndex],
 						&Payload[0], XPFW_IPI_MAX_MSG_LEN);
