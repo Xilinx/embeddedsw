@@ -107,7 +107,6 @@ proc xgen_opts_file {libhandle} {
 	# Generate parameters for "file system with SD" and "MMC support"
 	puts $file_handle "/* Xilinx FAT File System Library (XilFFs) User Settings */"
 	set fs_interface [common::get_property CONFIG.fs_interface $libhandle]
-	set enable_mmc [common::get_property CONFIG.enable_mmc $libhandle]
 	set read_only [common::get_property CONFIG.read_only $libhandle]
 	set use_lfn [common::get_property CONFIG.use_lfn $libhandle]
 	set use_mkfs [common::get_property CONFIG.use_mkfs $libhandle]
@@ -148,10 +147,6 @@ proc xgen_opts_file {libhandle} {
 
 	}
 
-	# MMC support
-	if {$enable_mmc == true} {
-		puts $file_handle "\#define MMC_CARD"
-	}
 
 	close $file_handle
 
