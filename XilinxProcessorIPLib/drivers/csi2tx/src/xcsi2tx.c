@@ -346,6 +346,8 @@ u8 XCsi2Tx_IsActiveLaneCountValid(XCsi2Tx *InstancePtr, u8 ActiveLanesCount)
 ******************************************************************************/
 static void StubErrCallBack(void *Callbackref, u32 ErrorMask)
 {
+	(void) ((void *)Callbackref);
+	(void) ErrorMask;
 	Xil_AssertVoidAlways();
 }
 /** @} */

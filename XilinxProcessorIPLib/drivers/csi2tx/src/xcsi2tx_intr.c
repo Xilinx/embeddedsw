@@ -300,7 +300,6 @@ int XCsi2Tx_SetCallBack(XCsi2Tx *InstancePtr, u32 HandleType,
 void XCsi2Tx_IntrHandler(void *InstancePtr)
 {
 	u32 ActiveIntr;
-	u32 ErrorStatus;
 	u32 Mask;
 
 	XCsi2Tx *XCsiPtr = (XCsi2Tx *)InstancePtr;
