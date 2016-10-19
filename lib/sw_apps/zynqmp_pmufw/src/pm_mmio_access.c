@@ -128,7 +128,7 @@ static const PmAccessRegion pmAccessTable[] = {
 
 	/* IOU SLCR Registers required for Linux */
 	{
-		.startAddr = PM_MMIO_IOU_SLCR_BASE + 0x300,
+		.startAddr = PM_MMIO_IOU_SLCR_BASE,
 		.endAddr = PM_MMIO_IOU_SLCR_BASE + 0x524,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
 	},
