@@ -630,7 +630,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 	size_t i;
 	unsigned int readVal;
 
-	if (ddrss_is_reset) {
+	if (true == ddrss_is_reset) {
 		/* PHY init */
 		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
 				      DDRPHY_PIR_CTLDINIT |
@@ -705,7 +705,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 		readVal >>= DDRC_STAT_OPMODE_SHIFT;
 	} while (readVal != DDRC_STAT_OPMODE_NORMAL);
 
-	if (ddrss_is_reset) {
+	if (true == ddrss_is_reset) {
 		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 				      DDRPHY_PIR_WREYE |
 				      DDRPHY_PIR_RDEYE |
@@ -745,7 +745,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 		}
 
 		readVal = DDRPHY_PIR_CTLDINIT | DDRPHY_PIR_INIT;
-		if (Xil_In32(DDRPHY_RDIMMGCR(0U)) & DDRPHY_RDIMMGCR0_RDIMM) {
+		if (0U != (Xil_In32(DDRPHY_RDIMMGCR(0U)) & DDRPHY_RDIMMGCR0_RDIMM)) {
 			readVal |= DDRPHY_PIR_RDIMMINIT;
 		}
 
@@ -794,7 +794,7 @@ static int pm_ddr_sr_enter(void)
 	store_state(ctx_ddrphy_zqdata);
 
 	ret = ddrc_enable_sr();
-	if (ret) {
+	if (0U != ret) {
 		goto err;
 	}
 
@@ -810,7 +810,7 @@ static int pm_ddr_sr_exit(bool ddrss_is_reset)
 
 	ddr_clock_enable();
 
-	if (ddrss_is_reset) {
+	if (true == ddrss_is_reset) {
 		Xil_Out32(DDRC_SWCTL, 0U);
 		restore_state(ctx_ddrc);
 
