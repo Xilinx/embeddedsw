@@ -101,29 +101,6 @@ static const PmAccessRegion pmAccessTable[] = {
 			  IPI_PMU_0_IER_RPU_1_MASK,
 	},
 
-	/* PMU's general purpose output registers */
-	/* GPO0 */
-	{
-		.startAddr = PMU_IOMODULE_GPO0,
-		.endAddr = PMU_IOMODULE_GPO0,
-		.access = IPI_PMU_0_IER_APU_MASK,
-	},
-	/* GPO1 */
-	{
-		.startAddr = PMU_IOMODULE_GPO1,
-		.endAddr = PMU_IOMODULE_GPO1,
-		.access = IPI_PMU_0_IER_RPU_0_MASK,
-	},
-
-	/* Dummy OCM Region to test write followed by read access */
-	{
-		.startAddr = 0xFFFC0000,
-		.endAddr = 0xFFFC0100,
-		.access = IPI_PMU_0_IER_APU_MASK |
-			  IPI_PMU_0_IER_RPU_0_MASK |
-			  IPI_PMU_0_IER_RPU_1_MASK,
-	},
-
 	/* PMU's global Power Status register*/
 	{
 		.startAddr = PMU_GLOBAL_PWR_STATE,
