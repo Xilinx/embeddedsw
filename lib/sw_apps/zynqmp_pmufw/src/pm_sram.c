@@ -130,7 +130,7 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_SRAM_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = sram->PwrUp();
-			if (sram->eccInit) {
+			if (NULL != sram->eccInit) {
 				sram->eccInit(sram);
 			}
 		} else {
@@ -164,7 +164,7 @@ static void tcm1EccInit(PmSlaveSram *sram)
 {
 	uintptr_t base = sram->base;
 
-	if (Xil_In32(RPU_RPU_GLBL_CNTL) & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK) {
+	if (0U != (Xil_In32(RPU_RPU_GLBL_CNTL) & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK)) {
 		base -= 0x80000;
 	}
 	eccInit(base, sram->size);
