@@ -72,6 +72,7 @@
 *                       operating modes.
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
 *       sk     10/13/16 Reduced the delay during power cycle to 1ms as per spec
+*       sk     10/19/16 Used emmc_hwreset pin to reset eMMC.
 * </pre>
 *
 ******************************************************************************/
@@ -208,6 +209,21 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_POWER_CTRL_OFFSET,
 			XSDPS_PC_BUS_VSEL_3V3_MASK | XSDPS_PC_BUS_PWR_MASK);
+
+	/* Issue HW reset for eMMC */
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
+		if ((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK) ==
+				XSDPS_CAPS_EMB_SLOT) {
+			ReadReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
+							XSDPS_SW_RST_OFFSET);
+			ReadReg |= XSDPS_PC_EMMC_HW_RST_MASK;
+			XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+					XSDPS_POWER_CTRL_OFFSET, ReadReg);
+			ReadReg &= ~XSDPS_PC_EMMC_HW_RST_MASK;
+			XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+								XSDPS_POWER_CTRL_OFFSET, ReadReg);
+		}
+	}
 
 	/* Change the clock frequency to 400 KHz */
 	Status = XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_400_KHZ);

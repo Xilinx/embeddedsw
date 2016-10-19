@@ -136,6 +136,7 @@
 *                       CR#956899.
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
 *       sk     10/13/16 Reduced the delay during power cycle to 1ms as per spec
+*       sk     10/19/16 Used emmc_hwreset pin to reset eMMC.
 *
 * </pre>
 *
