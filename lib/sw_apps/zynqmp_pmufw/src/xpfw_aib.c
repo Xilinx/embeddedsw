@@ -167,7 +167,7 @@ s32 XPfw_AibIsEnabled(enum XPfwAib AibId)
 		Status = XST_FAILURE;
 		goto Done;
 	}
-	if(XPfw_Read32(AibList[AibId].StsRegAddr) & AibList[AibId].Mask) {
+	if((XPfw_Read32(AibList[AibId].StsRegAddr) & AibList[AibId].Mask) != 0U) {
 		Status = XST_SUCCESS;
 	} else {
 		Status = XST_FAILURE;
