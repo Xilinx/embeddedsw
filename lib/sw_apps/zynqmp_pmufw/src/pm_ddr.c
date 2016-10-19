@@ -623,7 +623,7 @@ static void restore_ddrphy_zqdata(PmRegisterContext *context)
 	}
 }
 
-void DDR_reinit(bool ddrss_is_reset)
+static void DDR_reinit(bool ddrss_is_reset)
 {
 	size_t i;
 	unsigned int readVal;
