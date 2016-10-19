@@ -35,7 +35,7 @@
 
 /* GIC Proxy base address */
 #define GIC_PROXY_BASE_ADDR		LPD_SLCR_GICP0_IRQ_STATUS
-#define GIC_PROXY_GROUP_OFFSET(g)	(0x14U * g)
+#define GIC_PROXY_GROUP_OFFSET(g)	(0x14U * (g))
 
 /* GIC Proxy register offsets */
 #define GIC_PROXY_IRQ_STATUS_OFFSET	0x0U
