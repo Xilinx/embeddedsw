@@ -1,4 +1,4 @@
 #ifndef ZYNQMP_XPFW_VERSION__H_
  #define ZYNQMP_XPFW_VERSION__H_
- #define ZYNQMP_XPFW_VERSION	"2016.3-8-g018cbddf3566"
+ #define ZYNQMP_XPFW_VERSION	"2016.3-9-gdcc0553fc37d"
  #endif
