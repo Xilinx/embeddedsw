@@ -86,7 +86,7 @@ s32 XPfw_IpiWriteMessage(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *MsgP
 		goto Done;
 	}
 
-	MsgPtr[0] = (MsgPtr[0] & 0x0000FFFFU) | (ModPtr->IpiId << 16U);
+	MsgPtr[0] = (MsgPtr[0] & 0x0000FFFFU) | ((u32)ModPtr->IpiId << 16U);
 	Status = XIpiPsu_WriteMessage(IpiInstPtr, DestCpuMask, MsgPtr, MsgLen,
 	XIPIPSU_BUF_TYPE_MSG);
 
@@ -104,7 +104,7 @@ s32 XPfw_IpiWriteResponse(const XPfw_Module_t *ModPtr, u32 DestCpuMask, u32 *Msg
 		goto Done;
 	}
 
-	MsgPtr[0] = (MsgPtr[0] & 0x0000FFFFU) | (ModPtr->IpiId << 16U);
+	MsgPtr[0] = (MsgPtr[0] & 0x0000FFFFU) | ((u32)ModPtr->IpiId << 16U);
 	Status = XIpiPsu_WriteMessage(IpiInstPtr, DestCpuMask, MsgPtr, MsgLen,
 			XIPIPSU_BUF_TYPE_RESP);
 
