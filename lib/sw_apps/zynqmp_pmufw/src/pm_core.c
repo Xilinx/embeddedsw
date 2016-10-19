@@ -203,27 +203,12 @@ done:
 	}
 }
 
-/**
- * PmForcePowerdown() - Powerdown a PU or domain forcefully
- * @master  Master who initiated the request
- * @node    Processor, subsystem or domain node to be powered down
- * @ack     Acknowledge request
- *
- * @note    The affected PUs are not notified about the upcoming powerdown,
- *          and PMU does not wait for their WFI interrupt.
- *          Admissible nodes are :
- *          1. Processor nodes (RPU0..1, APU0..3, and in future: PL Procs)
- *          2. Parent nodes (APU, RPU, FPD, and in future PL)
- */
-static void PmForcePowerdown(const PmMaster *const master,
-			     const u32 node,
-			     const u32 ack)
+int PmForcePowerDownInt(u32 node, u32 *oppoint)
 {
 	int status;
-	u32 oppoint = 0U;
 	PmNode* nodePtr = PmGetNodeById(node);
 
-	PmDbg("(%s, %s)\r\n", PmStrNode(node), PmStrAck(ack));
+	PmDbg("(%s)\r\n", PmStrNode(node));
 
 	if (NULL == nodePtr) {
 		status = XST_INVALID_PARAM;
@@ -244,7 +229,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 		break;
 	}
 
-	oppoint = nodePtr->currState;
+	*oppoint = nodePtr->currState;
 
 	/*
 	 * Successfully powered down a node, now trigger opportunistic
@@ -253,8 +238,29 @@ static void PmForcePowerdown(const PmMaster *const master,
 	if ((XST_SUCCESS == status) && (NULL != nodePtr->parent)) {
 		PmOpportunisticSuspend(nodePtr->parent);
 	}
-
 done:
+	return status;
+}
+
+/**
+ * PmForcePowerdown() - Powerdown a PU or domain forcefully
+ * @master  Master who initiated the request
+ * @node    Processor, subsystem or domain node to be powered down
+ * @ack     Acknowledge request
+ *
+ * @note    The affected PUs are not notified about the upcoming powerdown,
+ *          and PMU does not wait for their WFI interrupt.
+ *          Admissible nodes are :
+ *          1. Processor nodes (RPU0..1, APU0..3, and in future: PL Procs)
+ *          2. Parent nodes (APU, RPU, FPD, and in future PL)
+ */
+static void PmForcePowerdown(const PmMaster *const master,
+			     const u32 node,
+			     const u32 ack)
+{
+	u32 oppoint = 0U;
+	int status = PmForcePowerDownInt(node, &oppoint);
+
 	PmProcessAckRequest(ack, master, node, status, oppoint);
 }
 

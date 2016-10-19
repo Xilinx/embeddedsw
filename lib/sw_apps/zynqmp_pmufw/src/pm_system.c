@@ -32,6 +32,7 @@
  * Contains system-level PM functions and state
  ********************************************************************/
 
+#include "pm_core.h"
 #include "pm_system.h"
 #include "pm_common.h"
 #include "crl_apb.h"
@@ -79,10 +80,14 @@ void PmSystemProcessShutdown(const PmMaster *master, u32 type, u32 subtype)
 	PmDbg("\r\n");
 
 	if (PMF_SHUTDOWN_TYPE_SHUTDOWN == type) {
-		/*
-		 * Communicate with PMIC to turn off power rails - request for
-		 * LPD off must be the last!
-		 */
+		u32 dummy;
+
+		if (PMF_SHUTDOWN_SUBTYPE_SYSTEM == subtype) {
+			PmForcePowerDownInt(NODE_PL, &dummy);
+		}
+
+		PmForcePowerDownInt(NODE_FPD, &dummy);
+		PmForcePowerDownInt(NODE_LPD, &dummy);
 	}
 
 	if (PMF_SHUTDOWN_TYPE_RESET == type) {
