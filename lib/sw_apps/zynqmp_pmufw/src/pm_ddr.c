@@ -191,6 +191,8 @@
 				 DDRPHY_PGSR0_CAWRN | \
 				 DDRPHY_PGSR0_SRDERR)
 
+#define DDRPHY_RDIMMGCR0_RDIMM	BIT(0)
+
 #define DDRPHY_DQSDR0_DFTDTEN	BIT(0)
 
 #define DDRPHY_DX8SLBOSC_PHYFRST	BIT(15)
@@ -742,8 +744,12 @@ static void DDR_reinit(bool ddrss_is_reset)
 			Xil_Out32(DDRPHY_DX8SLDXCTL2(i), readVal);
 		}
 
-		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-				      DDRPHY_PIR_INIT);
+		readVal = DDRPHY_PIR_CTLDINIT | DDRPHY_PIR_INIT;
+		if (Xil_In32(DDRPHY_RDIMMGCR(0)) & DDRPHY_RDIMMGCR0_RDIMM) {
+			readVal |= DDRPHY_PIR_RDIMMINIT;
+		}
+
+		Xil_Out32(DDRPHY_PIR, readVal);
 		do {
 			readVal = Xil_In32(DDRPHY_PGSR(0));
 		} while (!(readVal & DDRPHY_PGSR0_IDONE));
