@@ -555,7 +555,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 	}
 
 	/* Check access permissions */
-	if (false == PmGetMmioAccess(master, address)) {
+	if (false == PmGetMmioAccessWrite(master, address)) {
 		PmDbg("(%s) ERROR: access denied for address 0x%lx\r\n",
 		      PmStrNode(master->nid), address);
 		status = XST_PM_NO_ACCESS;
@@ -595,7 +595,7 @@ static void PmMmioRead(const PmMaster *const master, const u32 address)
 	u32 value = 0;
 
 	/* Check access permissions */
-	if (false == PmGetMmioAccess(master, address)) {
+	if (false == PmGetMmioAccessRead(master, address)) {
 		PmDbg("(%s) ERROR: access denied for address 0x%lx\r\n",
 		      PmStrNode(master->nid), address);
 		status = XST_PM_NO_ACCESS;
