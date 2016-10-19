@@ -278,13 +278,35 @@ static u32 PmResetPulseRom(const PmReset *const rstPtr)
 }
 
 /**
+ * PmUserHookResetAssertPl() - Assert reset handler for PL
+ * @rstPtr	Pointer to the PL reset structure
+ * @action	States whether to assert or release reset
+ */
+#pragma weak PmUserHookResetAssertPl
+void PmUserHookResetAssertPl(const PmReset *const rstPtr, const u32 action)
+{
+}
+
+/**
  * PmResetAssertPl() - Assert reset handler for PL
  * @rstPtr	Pointer to the PL reset structure
  * @action	States whether to assert or release reset
  */
 static void PmResetAssertPl(const PmReset *const rstPtr, const u32 action)
 {
-	/* Place code to reset PL here */
+	PmUserHookResetAssertPl(rstPtr, action);
+}
+
+/**
+ * PmUserHookResetGetStatusPl() - Get PL reset status handler
+ * @rstPtr	Pointer to PL reset structure
+ *
+ * @return	Current reset status (0 - released, 1 - asserted)
+ */
+#pragma weak PmUserHookResetGetStatusPl
+static u32 PmUserHookResetGetStatusPl(const PmReset *const rstPtr)
+{
+	return 0;
 }
 
 /**
@@ -295,11 +317,19 @@ static void PmResetAssertPl(const PmReset *const rstPtr, const u32 action)
  */
 static u32 PmResetGetStatusPl(const PmReset *const rstPtr)
 {
-	u32 resetStatus = 0U;
+	return PmUserHookResetGetStatusPl(rstPtr);
+}
 
-	/* Place code to get information if PL is under reset */
-
-	return resetStatus;
+/**
+ * PmUserHookResetPulsePl() - PL reset pulse handler
+ * @rstPtr	Pointer to PL reset structure
+ *
+ * @return	Operation status
+ */
+#pragma weak PmUserHookResetPulsePl
+static u32 PmUserHookResetPulsePl(const PmReset* const rst)
+{
+	return XST_SUCCESS;
 }
 
 /**
@@ -310,11 +340,7 @@ static u32 PmResetGetStatusPl(const PmReset *const rstPtr)
  */
 static u32 PmResetPulsePl(const PmReset* const rst)
 {
-	u32 status = XST_SUCCESS;
-
-	/* Place code to cycle PL reset here */
-
-	return status;
+	return PmUserHookResetPulsePl(rst);
 }
 
 static const PmResetOps pmResetOpsGeneric = {
