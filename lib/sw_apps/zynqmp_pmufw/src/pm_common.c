@@ -216,6 +216,7 @@ const char* PmStrReason(const u32 reason)
 	}
 }
 
+#endif /* DEBUG_PM */
 void ddr_io_retention_set(bool en)
 {
 	u32 r = Xil_In32(PMU_GLOBAL_DDR_CNTRL);
@@ -226,4 +227,3 @@ void ddr_io_retention_set(bool en)
 	Xil_Out32(PMU_GLOBAL_DDR_CNTRL, r);
 }
 
-#endif /* DEBUG_PM */
