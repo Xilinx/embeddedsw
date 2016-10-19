@@ -90,7 +90,7 @@ done:
  */
 static void PmGicProxyEnable(void)
 {
-	u32 g = 0U;
+	u32 g;
 
 	/* Always enable APU's IPI as the wake-up source (callback wake-up) */
 	PmGicProxySetWake(&pmSlaveIpiApu_g, 1U);
@@ -121,7 +121,7 @@ static void PmGicProxyEnable(void)
  */
 static void PmGicProxyDisable(void)
 {
-	u32 g = 0U;
+	u32 g;
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
 		u32 disableAddr = GIC_PROXY_BASE_ADDR +
@@ -152,7 +152,7 @@ static void PmGicProxyDisable(void)
  */
 static void PmGicProxyClear(void)
 {
-	u32 g = 0U;
+	u32 g;
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
 		pmGicProxy.groups[g].setMask = 0U;
