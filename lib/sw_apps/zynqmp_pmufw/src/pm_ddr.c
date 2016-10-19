@@ -535,7 +535,7 @@ static int ddrc_enable_sr(void)
 	while ((Xil_In32(DDRC_STAT) & (3U << 4U)) != (2U << 4U))
 		;
 
-	return 0U;
+	return XST_SUCCESS;
 }
 
 static void ddr_clock_set(bool en)
@@ -794,7 +794,7 @@ static int pm_ddr_sr_enter(void)
 	store_state(ctx_ddrphy_zqdata);
 
 	ret = ddrc_enable_sr();
-	if (0U != ret) {
+	if (XST_SUCCESS != ret) {
 		goto err;
 	}
 
@@ -823,7 +823,7 @@ static int pm_ddr_sr_exit(bool ddrss_is_reset)
 
 	DDR_reinit(ddrss_is_reset);
 
-	return 0U;
+	return XST_SUCCESS;
 }
 
 /**
