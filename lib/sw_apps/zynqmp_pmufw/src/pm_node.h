@@ -69,16 +69,16 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 #define PM_TYPE_PLL             (PM_TYPE_SLAVE + 5U)
 #define PM_TYPE_DDR             (PM_TYPE_SLAVE + 6U)
 
-#define NODE_IS_PROC(type)       (PM_TYPE_PROC == type)
+#define NODE_IS_PROC(type)       (PM_TYPE_PROC == (type))
 
-#define NODE_IS_POWER(type)      ((PM_TYPE_PWR_ISLAND == type) || \
-				(PM_TYPE_PWR_DOMAIN == type))
+#define NODE_IS_POWER(type)      ((PM_TYPE_PWR_ISLAND == (type)) || \
+				(PM_TYPE_PWR_DOMAIN == (type)))
 
-#define NODE_IS_SLAVE(type)      (type >= PM_TYPE_SLAVE)
+#define NODE_IS_SLAVE(type)      ((type) >= PM_TYPE_SLAVE)
 
 #define NODE_IS_OFF(nodePtr)     (0U == ((nodePtr)->currState & 1U))
 
-#define NODE_HAS_SLEEP(opsPtr)   ((NULL != opsPtr) && (NULL != (opsPtr)->sleep))
+#define NODE_HAS_SLEEP(opsPtr)   ((NULL != (opsPtr)) && (NULL != (opsPtr)->sleep))
 
 
 /*********************************************************************
