@@ -628,7 +628,7 @@ static void restore_ddrphy_zqdata(PmRegisterContext *context)
 static void DDR_reinit(bool ddrss_is_reset)
 {
 	size_t i;
-	unsigned int readVal;
+	u32 readVal;
 
 	if (true == ddrss_is_reset) {
 		/* PHY init */
@@ -806,11 +806,11 @@ err:
 
 static int pm_ddr_sr_exit(bool ddrss_is_reset)
 {
-	unsigned int readVal;
-
 	ddr_clock_enable();
 
 	if (true == ddrss_is_reset) {
+		u32 readVal;
+
 		Xil_Out32(DDRC_SWCTL, 0U);
 		restore_state(ctx_ddrc);
 
