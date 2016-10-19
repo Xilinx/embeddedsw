@@ -724,8 +724,6 @@ static void PmSystemShutdown(const PmMaster *const master, const u32 type,
 		status = XST_NO_FEATURE;
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_PS_ONLY:
-		status = XST_NO_FEATURE;
-		break;
 	case PMF_SHUTDOWN_SUBTYPE_SYSTEM:
 		/* Check whether the master is allowed to trigger system level action */
 		if (true == PmSystemRequestNotAllowed(master)) {

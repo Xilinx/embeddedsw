@@ -36,6 +36,7 @@
 #include "pm_common.h"
 #include "crl_apb.h"
 #include "pm_callbacks.h"
+#include "xpfw_resets.h"
 
 /*********************************************************************
  * Structure definitions
@@ -85,10 +86,16 @@ void PmSystemProcessShutdown(const PmMaster *master, u32 type, u32 subtype)
 	}
 
 	if (PMF_SHUTDOWN_TYPE_RESET == type) {
-		/* assert soft reset */
-		XPfw_RMW32(CRL_APB_RESET_CTRL,
-			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
-			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
+		if (PMF_SHUTDOWN_SUBTYPE_SYSTEM == subtype) {
+			/* assert soft reset */
+			XPfw_RMW32(CRL_APB_RESET_CTRL,
+				   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
+				   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
+		}
+
+		if (PMF_SHUTDOWN_SUBTYPE_PS_ONLY == subtype) {
+			XPfw_ResetPsOnly();
+		}
 	}
 
 	while (true) {
