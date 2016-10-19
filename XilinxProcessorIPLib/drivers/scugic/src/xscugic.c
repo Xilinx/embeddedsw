@@ -103,6 +103,10 @@
 *                     for single core zynq-7000s
 * 3.5   mus  10/05/16 Modified DistributorInit function to avoid re-initialization of
 *                     distributor,If it is already initialized by other CPU.
+* 3.5	pkp	 10/17/16 Modified XScuGic_InterruptMaptoCpu to correct the CPU Id value
+*					  and properly mask interrupt target processor value to modify
+*					  interrupt target processor register for a given interrupt ID
+*					  and cpu ID
 *
 *
 * </pre>
@@ -813,9 +817,10 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 	RegValue = XScuGic_DistReadReg(InstancePtr,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
-	Offset =  (Int_Id & 0x3U);
+	Offset = (Int_Id & 0x3U);
+	Cpu_Id = (0x1U << Cpu_Id);
 
-	RegValue = (RegValue | (~(0xFFU << (Offset*8U))) );
+	RegValue = (RegValue & (~(0xFFU << (Offset*8U))) );
 	RegValue |= ((Cpu_Id) << (Offset*8U));
 
 	XScuGic_DistWriteReg(InstancePtr,
