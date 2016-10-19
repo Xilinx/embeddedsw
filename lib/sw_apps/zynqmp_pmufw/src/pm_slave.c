@@ -173,7 +173,7 @@ int PmCheckCapabilities(const PmSlave* const slave, const u32 cap)
 	PmStateId i;
 	int status = XST_NO_FEATURE;
 
-	for (i = 0; i < slave->slvFsm->statesCnt; i++) {
+	for (i = 0U; i < slave->slvFsm->statesCnt; i++) {
 		/* Find the first state that contains all capabilities */
 		if ((cap & slave->slvFsm->states[i]) == cap) {
 			status = XST_SUCCESS;
@@ -356,7 +356,7 @@ static int PmGetStateWithCaps(const PmSlave* const slave, const u32 caps,
 	PmStateId i;
 	int status = XST_PM_CONFLICT;
 
-	for (i = 0; i < slave->slvFsm->statesCnt; i++) {
+	for (i = 0U; i < slave->slvFsm->statesCnt; i++) {
 		/* Find the first state that contains all capabilities */
 		if ((caps & slave->slvFsm->states[i]) == caps) {
 			status = XST_SUCCESS;
