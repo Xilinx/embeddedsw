@@ -55,7 +55,7 @@ typedef u8 PmProcEvent;
 #define PM_PROC_RPU_1   1U
 #define PM_PROC_RPU_MAX 2U
 
-#define DISABLE_WFI(mask)   XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, mask, ~(mask));
+#define DISABLE_WFI(mask)   XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), ~(mask));
 
 /*
  * Processor is powered down as requested by a master which is priviledged
