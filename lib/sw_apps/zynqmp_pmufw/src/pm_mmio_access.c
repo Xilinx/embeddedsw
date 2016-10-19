@@ -108,6 +108,15 @@ static const PmAccessRegion pmAccessTable[] = {
 		.access = IPI_PMU_0_IER_APU_MASK,
 	},
 
+	/* PMU's global gen storage */
+	{
+		.startAddr = PMU_GLOBAL_GLOBAL_GEN_STORAGE0,
+		.endAddr = PMU_GLOBAL_PERS_GLOB_GEN_STORAGE7,
+		.access = IPI_PMU_0_IER_APU_MASK |
+			  IPI_PMU_0_IER_RPU_0_MASK |
+			  IPI_PMU_0_IER_RPU_1_MASK,
+	},
+
 	/* IOU SLCR Registers required for Linux */
 	{
 		.startAddr = PM_MMIO_IOU_SLCR_BASE + 0x300,
