@@ -55,22 +55,23 @@
 /* Payload element size in bytes */
 #define PAYLOAD_ELEM_SIZE	4U
 
-#define ARG_UNDEF           0U
-#define ARG_NODE            1U
-#define ARG_ACK             2U
-#define ARG_ABORT_REASON    3U
-#define ARG_SUSPEND_REASON  4U
-#define ARG_CAPABILITIES    5U
-#define ARG_OP_CH_TYPE      6U
-#define ARG_STATE           7U
-#define ARG_QOS             8U
-#define ARG_EVENT_ID        9U
-#define ARG_RESET           11U
-#define ARG_LATENCY         12U
-#define ARG_UINT32          13U
-#define ARG_WAKE            14U
-#define ARG_ENABLE          15U
-#define ARG_RESTART         16U
+#define ARG_UNDEF              0U
+#define ARG_NODE               1U
+#define ARG_ACK                2U
+#define ARG_ABORT_REASON       3U
+#define ARG_SUSPEND_REASON     4U
+#define ARG_CAPABILITIES       5U
+#define ARG_OP_CH_TYPE         6U
+#define ARG_STATE              7U
+#define ARG_QOS                8U
+#define ARG_EVENT_ID           9U
+#define ARG_RESET              11U
+#define ARG_LATENCY            12U
+#define ARG_UINT32             13U
+#define ARG_WAKE               14U
+#define ARG_ENABLE             15U
+#define ARG_SHUTDOWN_TYPE      16U
+#define ARG_SHUTDOWN_SUBTYPE   17U
 
 /*********************************************************************
  * Enum definitions
@@ -91,7 +92,8 @@ typedef enum {
 	PM_PAYLOAD_ERR_LATENCY,
 	PM_PAYLOAD_ERR_WAKE,
 	PM_PAYLOAD_ERR_ENABLE,
-	PM_PAYLOAD_ERR_RESTART,
+	PM_PAYLOAD_ERR_SHUTDOWN_TYPE,
+	PM_PAYLOAD_ERR_SHUTDOWN_SUBTYPE,
 	PM_PAYLOAD_ERR_UNKNOWN,
 } PmPayloadStatus;
 

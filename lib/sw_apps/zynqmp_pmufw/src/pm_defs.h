@@ -67,8 +67,12 @@
 #define MAX_QOS     100U
 
 /* System shutdown macros */
-#define PM_SHUTDOWN	0U
-#define PM_RESTART	1U
+#define PMF_SHUTDOWN_TYPE_SHUTDOWN	0U
+#define PMF_SHUTDOWN_TYPE_RESET		1U
+
+#define PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM	0U
+#define PMF_SHUTDOWN_SUBTYPE_PS_ONLY	1U
+#define PMF_SHUTDOWN_SUBTYPE_SYSTEM	2U
 
 /* PM API ids */
 #define PM_GET_API_VERSION          1U

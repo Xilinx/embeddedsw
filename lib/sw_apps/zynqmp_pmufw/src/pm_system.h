@@ -41,7 +41,7 @@
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmSystemProcessShutdown(const PmMaster* const master, const u32 restart);
+int PmSystemProcessShutdown(const PmMaster* const master, const u32 type);
 void PmSystemCaptureSleep(const PmMaster* const master);
 
 bool PmSystemRequestNotAllowed(const PmMaster* const master);
