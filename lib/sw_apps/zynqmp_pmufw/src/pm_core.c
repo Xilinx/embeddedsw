@@ -442,7 +442,7 @@ static void PmRequestNode(const PmMaster *master,
 		goto done;
 	}
 
-	if (PM_MASTER_USING_SLAVE_MASK & masterReq->info) {
+	if (0U != (PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
 		status = XST_PM_DOUBLE_REQ;
 		goto done;
 	}
