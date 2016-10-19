@@ -169,6 +169,8 @@ const char* PmStrNode(const u32 node)
 		return "NODE_PCAP";
 	case NODE_RTC:
 		return "NODE_RTC";
+	case NODE_LPD:
+		return "NODE_LPD";
 	default:
 		return "ERROR_NODE";
 	}

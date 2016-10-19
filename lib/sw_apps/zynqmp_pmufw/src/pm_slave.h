@@ -45,6 +45,7 @@
 typedef struct PmMaster PmMaster;
 typedef struct PmRequirement PmRequirement;
 typedef struct PmSlave PmSlave;
+typedef struct PmSlaveUsb PmSlaveUsb;
 
 typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 					   const PmStateId nextState);

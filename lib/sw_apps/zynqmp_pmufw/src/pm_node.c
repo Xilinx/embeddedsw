@@ -105,6 +105,7 @@ static PmNode* const pmNodes[NODE_MAX] = {
 	&pmSlavePcie_g.node,
 	&pmSlavePcap_g.node,
 	&pmSlaveRtc_g.node,
+	&pmPowerDomainLpd_g.node,
 };
 
 /**
