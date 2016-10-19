@@ -27,10 +27,10 @@ proc FreeRTOS_drc {os_handle} {
 
 	set sw_proc_handle [hsi::get_sw_processor]
 	set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
-	set proctype [common::get_property IPNAME $hw_proc_handle]
+	set proctype [common::get_property IP_NAME $hw_proc_handle]
 
 	if { $proctype == "microblaze" } {
-		mb_drc_checks
+		mb_drc_checks $sw_proc_handle $hw_proc_handle $os_handle
 	}
 }
 
@@ -1058,7 +1058,7 @@ proc mb_has_pvr { hw_proc_handle } {
 # --------------------------------------
 # Microblaze config checks
 # --------------------------------------
-proc mb_drc_checks { } {
+proc mb_drc_checks { sw_proc_handle hw_proc_handle os_handle } {
 	set compiler [common::get_property CONFIG.compiler $sw_proc_handle]
 
 	# check for valid compiler
@@ -1080,7 +1080,7 @@ proc mb_drc_checks { } {
 		set intr_flag 0
 	} else {
 		set intr_net [hsi::get_nets -of_objects $intr_port]
-		if  { [llength $intr_port] == 0 }  {
+		if  { [llength $intr_net] == 0 }  {
 			set intr_flag 0
 		}
 	}
@@ -1116,17 +1116,22 @@ proc mb_drc_checks { } {
 	foreach if $slave_ifs {
 		set ip_handle [hsi::get_cells -of_objects $if]
 
-		if {$ip_handle != $hw_proc_handle} {
-			set type [common::get_property IP_NAME $ip_handle]
-			if { $type == "axi_timer" } {
-				incr timer_count
+                set intf_pins [hsi::get_intf_pins -of_objects $ip_handle]
+                foreach pin $intf_pins {
+                        set net [hsi::get_intf_net -of_objects $pin]
+                        set cell [hsi::get_cell -of_objects $net]
+                        foreach cell_block $cell {
+                                set ip [common::get_property IP_NAME $cell_block]
+                                if {[string compare -nocase $ip "axi_timer"] == 0} {
+					incr timer_count
 
-				# check if the timer interrupts are enabled
-				set intr_port [hsi::get_pins -of_objects $ip_handle interrupt]
-				if { [llength $intr_port] != 0 } {
-					set intr_net [hsi::get_nets -of_objects $intr_port]
-					if { [llength $intr_net] !=  0 } {
-						set timer_has_intr 1
+					# check if the timer interrupts are enabled
+					set intr_port [hsi::get_pins -of_objects $cell_block interrupt]
+					if { [llength $intr_port] != 0 } {
+						set intr_net [hsi::get_nets -of_objects $intr_port]
+						if { [llength $intr_net] !=  0 } {
+							set timer_has_intr 1
+						}
 					}
 				}
 			}
@@ -1141,8 +1146,5 @@ proc mb_drc_checks { } {
 		error "FreeRTOS for Microblaze requires interrupts enabled for a timer." "" "mdt_error"
 	}
 
-	set systmr_interval_ms [common::get_property CONFIG.systmr_interval $os_handle]
-	if { $systmr_interval_ms <= 0 } {
-		error "Invalid value for parameter systmr_interval specified. Please specify a positive value." "" "mdt_error"
-	}
+
 }
