@@ -721,33 +721,50 @@ done:
 /**
  * PmSystemShutdown() - Request system shutdown or restart
  * @master  Master requesting system shutdown
- * @restart Flag, 0 is for shutdown, 1 for restart
+ * @type    Shutdown type
+ * @subtype Shutdown subtype
  */
-static void PmSystemShutdown(const PmMaster *const master, const u32 restart)
+static void PmSystemShutdown(const PmMaster *const master, const u32 type,
+			     const u32 subtype)
 {
 	int status;
 
-	PmDbg("(%lu)\r\n", restart);
+	PmDbg("(%lu, %lu)\r\n", type, subtype);
 
-	/* Check whether the master is allowed to trigger system level action */
-	if (true == PmSystemRequestNotAllowed(master)) {
-		status = XST_PM_NO_ACCESS;
-		goto done;
-	}
+	switch (subtype) {
+	case PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM:
+		status = XST_NO_FEATURE;
+		break;
+	case PMF_SHUTDOWN_SUBTYPE_PS_ONLY:
+		status = XST_NO_FEATURE;
+		break;
+	case PMF_SHUTDOWN_SUBTYPE_SYSTEM:
+		/* Check whether the master is allowed to trigger system level action */
+		if (true == PmSystemRequestNotAllowed(master)) {
+			status = XST_PM_NO_ACCESS;
+			goto done;
+		}
 
-	/* Check whether given arguments are ok */
-	if ((PM_SHUTDOWN != restart) && (PM_RESTART != restart)) {
+		/* Check whether given arguments are ok */
+		if ((PMF_SHUTDOWN_TYPE_SHUTDOWN != type) &&
+		    (PMF_SHUTDOWN_TYPE_RESET != type)) {
+			status = XST_INVALID_PARAM;
+			goto done;
+		}
+
+		/* Check if system is already processing a shut down */
+		if (true == PmSystemShutdownProcessing()) {
+			status = XST_PM_DOUBLE_REQ;
+			goto done;
+		}
+
+		status = PmSystemProcessShutdown(master, type);
+		break;
+	default:
+		PmDbg("invalid subtype (%lx)\n", subtype);
 		status = XST_INVALID_PARAM;
-		goto done;
+		break;
 	}
-
-	/* Check if system is already processing a shut down */
-	if (true == PmSystemShutdownProcessing()) {
-		status = XST_PM_DOUBLE_REQ;
-		goto done;
-	}
-
-	status = PmSystemProcessShutdown(master, restart);
 
 done:
 	IPI_RESPONSE1(master->ipiMask, status);
@@ -955,7 +972,7 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 		PmSetWakeupSource(master, pload[1], pload[2], pload[3]);
 		break;
 	case PM_SYSTEM_SHUTDOWN:
-		PmSystemShutdown(master, pload[1]);
+		PmSystemShutdown(master, pload[1], pload[2]);
 		break;
 	case PM_REQUEST_NODE:
 		PmRequestNode(master, pload[1], pload[2], pload[3], pload[4]);

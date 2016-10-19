@@ -72,8 +72,8 @@ static const PmApiEntry pmApiTable[] = {
 			      ARG_UNDEF }
 	}, {
 		.apiId = PM_SYSTEM_SHUTDOWN,
-		.argTypes = { ARG_RESTART, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
-			      ARG_UNDEF }
+		.argTypes = { ARG_SHUTDOWN_TYPE, ARG_SHUTDOWN_SUBTYPE,
+			      ARG_UNDEF, ARG_UNDEF, ARG_UNDEF }
 	}, {
 		.apiId = PM_REQUEST_NODE,
 		.argTypes = { ARG_NODE, ARG_CAPABILITIES, ARG_QOS, ARG_ACK,
@@ -200,9 +200,17 @@ static PmPayloadStatus PmCheckArgument(const u8 argType,
 		}
 		break;
 	case ARG_ENABLE:
-	case ARG_RESTART:
-		if (arg != 1U && arg != 0U) {
-			status = PM_PAYLOAD_ERR_ENABLE;
+	case ARG_SHUTDOWN_TYPE:
+		if (arg != PMF_SHUTDOWN_TYPE_SHUTDOWN &&
+		    arg != PMF_SHUTDOWN_TYPE_RESET) {
+			status = PM_PAYLOAD_ERR_SHUTDOWN_TYPE;
+		}
+		break;
+	case ARG_SHUTDOWN_SUBTYPE:
+		if (arg != PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM &&
+		    arg != PMF_SHUTDOWN_SUBTYPE_PS_ONLY &&
+		    arg != PMF_SHUTDOWN_SUBTYPE_SYSTEM) {
+			status = PM_PAYLOAD_ERR_SHUTDOWN_TYPE;
 		}
 		break;
 	case ARG_CAPABILITIES:

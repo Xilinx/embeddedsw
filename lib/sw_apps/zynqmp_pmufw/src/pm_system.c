@@ -136,20 +136,27 @@ static void PmSystemInitShutdownMaster(const PmMaster* const mst)
 /**
  * PmSystemProcessShutdown() - Process shutdown by initiating suspend requests
  * @master      Master which requested system shutdown
- * @restart     Argument of the system shutdown (shutdown or restart)
+ * @type        Shutdown type
  *
  * @return      Status of initiating shutdown which should be returned to the
  *              master which requested shutdown
  */
-int PmSystemProcessShutdown(const PmMaster* const master, const u32 restart)
+int PmSystemProcessShutdown(const PmMaster* const master, const u32 type)
 {
 	int status = XST_SUCCESS;
 	u32 i;
 
-	if (PM_SHUTDOWN == restart) {
+	switch (type) {
+	case PMF_SHUTDOWN_TYPE_SHUTDOWN:
 		pmSystem.state = PM_SYSTEM_STATE_SHUTDOWN;
-	} else {
+		break;
+	case PMF_SHUTDOWN_TYPE_RESET:
 		pmSystem.state = PM_SYSTEM_STATE_RESTART;
+		break;
+	default:
+		status = XST_INVALID_PARAM;
+		goto done;
+		break;
 	}
 
 	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
