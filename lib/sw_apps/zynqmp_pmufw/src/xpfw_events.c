@@ -31,7 +31,7 @@
 #include "xpfw_events.h"
 #include "xpfw_interrupts.h"
 
-static struct XPfw_Event_t EventTable[] = {
+static struct XPfw_Event_t EventTable[XPFW_EV_MAX] = {
 	[0U] = {.Type = (u8)0U, .RegMask = MASK32_ALL_LOW, .ModMask = MASK32_ALL_LOW },
 	[XPFW_EV_MB_FAULT] = { .Type = XPFW_EV_TYPE_GPI0, .RegMask = MASK32_ALL_HIGH, .ModMask = MASK32_ALL_LOW },
 	[XPFW_EV_APB_AIB_ERROR] = { .Type = XPFW_EV_TYPE_GPI1, .RegMask =  PMU_IOMODULE_GPI1_APB_AIB_ERROR_MASK, .ModMask = MASK32_ALL_LOW },

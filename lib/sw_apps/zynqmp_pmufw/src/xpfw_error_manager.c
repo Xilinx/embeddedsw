@@ -38,7 +38,7 @@ struct XPfw_Error_t {
 };
 
 
-static struct XPfw_Error_t ErrorTable[] = {
+static struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX] = {
 	[EM_ERR_ID_INVALID] = {.Type = (u8)0U, .RegMask = MASK32_ALL_LOW, .Action = EM_ACTION_NONE, .Handler = NULL},
 	[EM_ERR_ID_CSU_ROM] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_CSU_ROM_MASK, .Action = EM_ACTION_NONE, .Handler = NULL},
 	[EM_ERR_ID_PMU_PB] = { .Type = EM_ERR_TYPE_2, .RegMask = PMU_GLOBAL_ERROR_STATUS_2_PMU_PB_MASK, .Action = EM_ACTION_NONE, .Handler = NULL},

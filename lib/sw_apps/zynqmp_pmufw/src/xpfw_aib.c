@@ -38,7 +38,7 @@ struct Aib {
 	u32 Mask;
 };
 
-struct Aib AibList[] = {
+struct Aib AibList[XPFW_AIB_ID_MAX] = {
 	[XPFW_AIB_RPU0_TO_LPD] = {
 		.ReqRegAddr = LPD_SLCR_ISO_AIBAXI_REQ,
 		.StsRegAddr = LPD_SLCR_ISO_AIBAXI_ACK,
