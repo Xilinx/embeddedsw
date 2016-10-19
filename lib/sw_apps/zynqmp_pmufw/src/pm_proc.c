@@ -481,7 +481,7 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
  */
 static int PmProcTrSleepToActive(PmProc* const proc)
 {
-	int status = XST_SUCCESS;
+	int status;
 
 	/* Notify master (it will setup everything (if) needed for the wake) */
 	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
@@ -509,7 +509,7 @@ static int PmProcTrSleepToActive(PmProc* const proc)
  */
 static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
-	int status = XST_SUCCESS;
+	int status;
 	PmDbg("FORCED_PWRDN->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
 
 	/* Notify master, it will know if resources need to be updated */
