@@ -99,6 +99,7 @@ static s32 XPfw_EmDisable(u8 ErrorId)
 	default:
 		/* Invalid Error Type */
 		Status = XST_FAILURE;
+		break;
 	}
 
 Done:
@@ -123,7 +124,7 @@ static s32 XPfw_EmEnablePOR(u8 ErrorId)
 		break;
 	default:
 		Status = XST_FAILURE;
-
+		break;
 	}
 
 Done:
@@ -148,6 +149,7 @@ static s32 XPfw_EmEnableSRST(u8 ErrorId)
 		break;
 	default:
 		Status = XST_FAILURE;
+		break;
 	}
 
 Done:
@@ -174,6 +176,7 @@ static s32 XPfw_EmEnableInt(u8 ErrorId)
 	default:
 		/* Invalid Err Type */
 		Status = XST_FAILURE;
+		break;
 	}
 
 Done:
@@ -238,6 +241,7 @@ s32 XPfw_EmSetAction(u8 ErrorId, u8 ActionId,
 	default:
 		/* Invalid Action Id */
 		Status = XST_FAILURE;
+		break;
 
 	}
 
@@ -314,6 +318,7 @@ s32 XPfw_EmEnablePSError(u8 ErrorId)
 		break;
 	default:
 		Status = XST_FAILURE;
+		break;
 	}
 
 Done:
