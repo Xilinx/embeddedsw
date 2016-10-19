@@ -230,10 +230,10 @@ static PmPayloadStatus PmCheckArgument(const u8 argType,
  * @return  Status, either OK or ERR_<reason>
  */
 static PmPayloadStatus PmCheckPayloadArgs(const PmApiEntry* entry,
-					  const u32 args[PAYLOAD_API_ARGS_CNT])
+					  const u32 *args)
 {
 	u8 i;
-	PmPayloadStatus status = PM_PAYLOAD_OK;
+	PmPayloadStatus status;
 
 	for (i = 0U; i < PAYLOAD_API_ARGS_CNT; i++) {
 		/* if not an argument don't check anymore, return ok */
@@ -261,7 +261,7 @@ done:
  *
  * @return  Status of the performed check: OK or ERR_<reason>
  */
-PmPayloadStatus PmCheckPayload(const u32 args[PAYLOAD_ELEM_CNT])
+PmPayloadStatus PmCheckPayload(const u32 *args)
 {
 	u32 i;
 	PmPayloadStatus ret;
