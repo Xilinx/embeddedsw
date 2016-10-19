@@ -52,8 +52,8 @@ proc generate {drv_handle} {
 
 	# line-by-line, read the original file
 	while {[gets $in line] != -1} {
-		# if XPAR_MIPI_CSI2_TX_SUBSYSTEM is present in the string
-		if {[regexp -nocase {XPAR_MIPI_CSI2_TX_SUBSYSTEM} $line] ||
+		# if XPAR_.*MIPI_CSI2_TX_SUBSYSTEM is present in the string
+		if {[regexp -nocase {XPAR_.*MIPI_CSI2_TX_SUBSYSTEM} $line] ||
 			[regexp -nocase {XPAR_CSI2TXSS} $line]} {
 
 			# if substring DPY_EN_REG_IF is present in the string
