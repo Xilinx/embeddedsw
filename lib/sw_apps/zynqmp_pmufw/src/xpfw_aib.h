@@ -28,6 +28,9 @@
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
 
+#ifndef XPFW_AIB_H_
+#define XPFW_AIB_H_
+
 #include "xstatus.h"
 #include "xil_types.h"
 
@@ -54,3 +57,5 @@ enum XPfwAib {
 s32 XPfw_AibEnable(enum XPfwAib AibId);
 s32 XPfw_AibDisable(enum XPfwAib AibId);
 s32 XPfw_AibIsEnabled(enum XPfwAib AibId);
+
+#endif /* XPFW_AIB_H_ */

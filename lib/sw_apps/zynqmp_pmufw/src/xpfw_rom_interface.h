@@ -50,6 +50,9 @@
  *        error.
  */
 
+#ifndef XPFW_ROM_INTERFACE_H_
+#define XPFW_ROM_INTERFACE_H_
+
 #include "xil_types.h"
 #include "xil_io.h"
 #include "xstatus.h"
@@ -644,3 +647,5 @@ static inline u32 XpbrPwrUpPldHandler(void)
 {
 	return XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPLD]();
 }
+
+#endif /* XPFW_ROM_INTERFACE_H_ */
