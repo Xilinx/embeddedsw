@@ -1210,7 +1210,7 @@ PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 			continue;
 		}
 
-		for (p = 0; p < pmAllMasters[i]->procsCnt; p++) {
+		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
 			if (nodeId == pmAllMasters[i]->procs[p].node.nodeId) {
 				proc = &pmAllMasters[i]->procs[p];
 				goto done;
@@ -1605,7 +1605,7 @@ void PmSetupInitialMasterRequirements(void)
 	};
 	u32 i;
 
-	for (i = 0; i < ARRAY_SIZE(apuDefaultSlaves); i++) {
+	for (i = 0U; i < ARRAY_SIZE(apuDefaultSlaves); i++) {
 		masterReq = PmGetRequirementForSlave(&pmMasterApu_g,
 						     apuDefaultSlaves[i]);
 		if (NULL != masterReq) {
