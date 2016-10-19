@@ -53,8 +53,24 @@ typedef struct PmAccessRegion {
 static const PmAccessRegion pmAccessTable[] = {
 	/* Module clock controller full power domain (CRF_APB) */
 	{
-		.startAddr = CRF_APB_BASEADDR,
-		.endAddr = CRF_APB_BASEADDR + 0x108,
+		.startAddr = CRF_APB_BASEADDR + 0x20,
+		.endAddr = CRF_APB_BASEADDR + 0x63,
+		.access = IPI_PMU_0_IER_APU_MASK |
+			  IPI_PMU_0_IER_RPU_0_MASK |
+			  IPI_PMU_0_IER_RPU_1_MASK,
+	},
+
+	{
+		.startAddr = CRF_APB_BASEADDR + 0x70,
+		.endAddr = CRF_APB_BASEADDR + 0x7b,
+		.access = IPI_PMU_0_IER_APU_MASK |
+			  IPI_PMU_0_IER_RPU_0_MASK |
+			  IPI_PMU_0_IER_RPU_1_MASK,
+	},
+
+	{
+		.startAddr = CRF_APB_BASEADDR + 0x84,
+		.endAddr = CRF_APB_BASEADDR + 0xbf,
 		.access = IPI_PMU_0_IER_APU_MASK |
 			  IPI_PMU_0_IER_RPU_0_MASK |
 			  IPI_PMU_0_IER_RPU_1_MASK,
@@ -62,8 +78,24 @@ static const PmAccessRegion pmAccessTable[] = {
 
 	/* Module clock controller low power domain (CRL_APB) */
 	{
-		.startAddr = CRL_APB_BASEADDR,
-		.endAddr = CRL_APB_BASEADDR + 0x288,
+		.startAddr = CRL_APB_BASEADDR + 0x20,
+		.endAddr = CRL_APB_BASEADDR + 0x8c,
+		.access = IPI_PMU_0_IER_APU_MASK |
+			  IPI_PMU_0_IER_RPU_0_MASK |
+			  IPI_PMU_0_IER_RPU_1_MASK,
+	},
+
+	{
+		.startAddr = CRL_APB_BASEADDR + 0xa4,
+		.endAddr = CRL_APB_BASEADDR + 0xa7,
+		.access = IPI_PMU_0_IER_APU_MASK |
+			  IPI_PMU_0_IER_RPU_0_MASK |
+			  IPI_PMU_0_IER_RPU_1_MASK,
+	},
+
+	{
+		.startAddr = CRL_APB_BASEADDR + 0xb4,
+		.endAddr = CRL_APB_BASEADDR + 0x12b,
 		.access = IPI_PMU_0_IER_APU_MASK |
 			  IPI_PMU_0_IER_RPU_0_MASK |
 			  IPI_PMU_0_IER_RPU_1_MASK,
