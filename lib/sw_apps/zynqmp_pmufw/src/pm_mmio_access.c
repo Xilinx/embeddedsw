@@ -137,7 +137,9 @@ static const PmAccessRegion pmAccessTable[] = {
 	{
 		.startAddr = PM_MMIO_CSU_BASE + 0x40,
 		.endAddr = PM_MMIO_CSU_BASE + 0x44,
-		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK),
+		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 };
 
