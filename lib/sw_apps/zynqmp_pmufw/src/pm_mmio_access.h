@@ -34,6 +34,7 @@
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-bool PmGetMmioAccess(const PmMaster *const master, const u32 address);
+bool PmGetMmioAccessRead(const PmMaster *const master, const u32 address);
+bool PmGetMmioAccessWrite(const PmMaster *const master, const u32 address);
 
 #endif

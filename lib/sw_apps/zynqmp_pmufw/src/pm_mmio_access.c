@@ -37,6 +37,15 @@
 #define PM_MMIO_IOU_SLCR_BASE  0xFF180000
 #define PM_MMIO_CSU_BASE       0xFFCA0000
 
+#define WRITE_PERM_SHIFT	16
+#define MMIO_ACCESS_RO(m)	(m)
+#define MMIO_ACCESS_RW(m)	((m) | ((m) << WRITE_PERM_SHIFT))
+
+enum mmio_access_type {
+	MMIO_ACCESS_TYPE_READ,
+	MMIO_ACCESS_TYPE_WRITE,
+};
+
 /**
  * PmAccessRegion - Structure containing information about memory access
                     permissions
@@ -55,80 +64,80 @@ static const PmAccessRegion pmAccessTable[] = {
 	{
 		.startAddr = CRF_APB_BASEADDR + 0x20,
 		.endAddr = CRF_APB_BASEADDR + 0x63,
-		.access = IPI_PMU_0_IER_APU_MASK |
-			  IPI_PMU_0_IER_RPU_0_MASK |
-			  IPI_PMU_0_IER_RPU_1_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	{
 		.startAddr = CRF_APB_BASEADDR + 0x70,
 		.endAddr = CRF_APB_BASEADDR + 0x7b,
-		.access = IPI_PMU_0_IER_APU_MASK |
-			  IPI_PMU_0_IER_RPU_0_MASK |
-			  IPI_PMU_0_IER_RPU_1_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	{
 		.startAddr = CRF_APB_BASEADDR + 0x84,
 		.endAddr = CRF_APB_BASEADDR + 0xbf,
-		.access = IPI_PMU_0_IER_APU_MASK |
-			  IPI_PMU_0_IER_RPU_0_MASK |
-			  IPI_PMU_0_IER_RPU_1_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	/* Module clock controller low power domain (CRL_APB) */
 	{
 		.startAddr = CRL_APB_BASEADDR + 0x20,
 		.endAddr = CRL_APB_BASEADDR + 0x8c,
-		.access = IPI_PMU_0_IER_APU_MASK |
-			  IPI_PMU_0_IER_RPU_0_MASK |
-			  IPI_PMU_0_IER_RPU_1_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	{
 		.startAddr = CRL_APB_BASEADDR + 0xa4,
 		.endAddr = CRL_APB_BASEADDR + 0xa7,
-		.access = IPI_PMU_0_IER_APU_MASK |
-			  IPI_PMU_0_IER_RPU_0_MASK |
-			  IPI_PMU_0_IER_RPU_1_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	{
 		.startAddr = CRL_APB_BASEADDR + 0xb4,
 		.endAddr = CRL_APB_BASEADDR + 0x12b,
-		.access = IPI_PMU_0_IER_APU_MASK |
-			  IPI_PMU_0_IER_RPU_0_MASK |
-			  IPI_PMU_0_IER_RPU_1_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	/* PMU's global Power Status register*/
 	{
 		.startAddr = PMU_GLOBAL_PWR_STATE,
 		.endAddr = PMU_GLOBAL_PWR_STATE,
-		.access = IPI_PMU_0_IER_APU_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
 	},
 
 	/* PMU's global gen storage */
 	{
 		.startAddr = PMU_GLOBAL_GLOBAL_GEN_STORAGE0,
 		.endAddr = PMU_GLOBAL_PERS_GLOB_GEN_STORAGE7,
-		.access = IPI_PMU_0_IER_APU_MASK |
-			  IPI_PMU_0_IER_RPU_0_MASK |
-			  IPI_PMU_0_IER_RPU_1_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
 
 	/* IOU SLCR Registers required for Linux */
 	{
 		.startAddr = PM_MMIO_IOU_SLCR_BASE + 0x300,
 		.endAddr = PM_MMIO_IOU_SLCR_BASE + 0x524,
-		.access = IPI_PMU_0_IER_APU_MASK,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK),
 	},
 
 	/* CSU Device IDCODE and Version Registers */
 	{
 		.startAddr = PM_MMIO_CSU_BASE + 0x40,
 		.endAddr = PM_MMIO_CSU_BASE + 0x44,
-		.access = IPI_PMU_0_IER_APU_MASK,
+		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK),
 	},
 };
 
@@ -136,11 +145,13 @@ static const PmAccessRegion pmAccessTable[] = {
  * PmGetMmioAccess() - Retrieve access info for a particular address
  * @master     Master who requests access permission
  * @address    Address to write/read
+ * @type       Type of access (read or write)
  *
  * @return     Return true if master's IPI bit was present in the access region
  *             table
  */
-bool PmGetMmioAccess(const PmMaster *const master, const u32 address)
+static bool PmGetMmioAccess(const PmMaster *const master, const u32 address,
+			    enum mmio_access_type type)
 {
 	u32 i;
 	bool permission = false;
@@ -152,12 +163,28 @@ bool PmGetMmioAccess(const PmMaster *const master, const u32 address)
 	for (i = 0U; i < ARRAY_SIZE(pmAccessTable); i++) {
 		if ((address >= pmAccessTable[i].startAddr) &&
 		    (address <= pmAccessTable[i].endAddr)) {
-			permission = !!(pmAccessTable[i].access &
-					master->ipiMask);
+
+			u32 mask = master->ipiMask;
+
+			if (MMIO_ACCESS_TYPE_WRITE == type) {
+				mask <<= WRITE_PERM_SHIFT;
+			}
+
+			permission = !!(pmAccessTable[i].access & mask);
 			break;
 		}
 	}
 
 done:
 	return permission;
+}
+
+bool PmGetMmioAccessRead(const PmMaster *const master, const u32 address)
+{
+	return PmGetMmioAccess(master, address, MMIO_ACCESS_TYPE_READ);
+}
+
+bool PmGetMmioAccessWrite(const PmMaster *const master, const u32 address)
+{
+	return PmGetMmioAccess(master, address, MMIO_ACCESS_TYPE_WRITE);
 }
