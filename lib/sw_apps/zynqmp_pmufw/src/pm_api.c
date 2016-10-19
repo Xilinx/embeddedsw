@@ -138,6 +138,10 @@ static const PmApiEntry pmApiTable[] = {
 		.apiId = PM_FPGA_GET_STATUS,
 		.argTypes = { ARG_UNDEF, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
 			      ARG_UNDEF }
+	}, {
+		.apiId = PM_GET_CHIPID,
+		.argTypes = { ARG_UNDEF, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
+			      ARG_UNDEF },
 	},
 };
 

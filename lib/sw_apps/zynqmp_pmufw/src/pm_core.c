@@ -33,6 +33,7 @@
  * should be used directly only by power management itself.
  *********************************************************************/
 
+#include "csu.h"
 #include "pm_api.h"
 #include "pm_core.h"
 #include "pm_node.h"
@@ -651,6 +652,17 @@ static void PmFpgaGetStatus(const PmMaster *const master)
 }
 
 /**
+ * PmGetChipid() - Get silicon version register
+ */
+static void PmGetChipid(const PmMaster *const master)
+{
+	u32 idcode = XPfw_Read32(CSU_IDCODE);
+	u32 version = XPfw_Read32(CSU_VERSION);
+
+	IPI_RESPONSE3(master->ipiMask, XST_SUCCESS, idcode, version);
+}
+
+/**
  * PmSetWakeupSource() - Master requests to be woken-up by the slaves interrupt
  * @master      Initiator of the request
  * @targetNode  Master node to be woken-up (currently must be same as initiator)
@@ -992,6 +1004,9 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 		break;
 	case PM_FPGA_GET_STATUS:
 		PmFpgaGetStatus(master);
+		break;
+	case PM_GET_CHIPID:
+		PmGetChipid(master);
 		break;
 	default:
 		PmDbg("ERROR unsupported PM API #%lu\r\n", pload[0]);
