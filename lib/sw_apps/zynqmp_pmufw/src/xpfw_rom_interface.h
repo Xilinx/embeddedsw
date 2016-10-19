@@ -55,7 +55,7 @@
 #include "xstatus.h"
 #include "efuse.h"
 
-#define IS_IPDISABLED(mask)  ((Xil_In32(EFUSE_IPDISABLE) & mask) != 0U)
+#define IS_IPDISABLED(mask)  ((Xil_In32(EFUSE_IPDISABLE) & (mask)) != 0U)
 
 enum xpbr_serv_ext_id {
         XPBR_SERV_EXT_TBL_BASE                    = 0U,
