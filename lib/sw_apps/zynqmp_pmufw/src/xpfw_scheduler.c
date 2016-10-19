@@ -185,7 +185,7 @@ XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 Mi
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
 		if ((Callback == SchedPtr->TaskList[Idx].Callback) &&
 		    (SchedPtr->TaskList[Idx].OwnerId == OwnerId) &&
-		    ((SchedPtr->TaskList[Idx].Interval == MilliSeconds/TICK_MILLISECONDS) ||
+		    ((SchedPtr->TaskList[Idx].Interval == (MilliSeconds/TICK_MILLISECONDS)) ||
 				(0U == MilliSeconds))) {
 			SchedPtr->TaskList[Idx].Interval = 0U;
 			SchedPtr->TaskList[Idx].OwnerId = 0U;
