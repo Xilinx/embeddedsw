@@ -491,7 +491,7 @@ static PmRegisterContext ctx_ddrphy_zqdata[] = {
 	{ },
 };
 
-static int ddrc_opmode_is(u32 m)
+static bool ddrc_opmode_is(u32 m)
 {
 	u32 r = Xil_In32(DDRC_STAT);
 	r &= DDRC_STAT_OPMODE_MASK;
@@ -500,7 +500,7 @@ static int ddrc_opmode_is(u32 m)
 	return r == m;
 }
 
-static int ddrc_opmode_is_sr(void)
+static bool ddrc_opmode_is_sr(void)
 {
 	return ddrc_opmode_is(DDRC_STAT_OPMODE_SR);
 }
@@ -529,7 +529,7 @@ static int ddrc_enable_sr(void)
 	r |= DDRC_PWRCTL_SR_SW;
 	Xil_Out32(DDRC_PWRCTL, r);
 
-	while (!ddrc_opmode_is_sr())
+	while (true != ddrc_opmode_is_sr())
 		;
 
 	while ((Xil_In32(DDRC_STAT) & (3U << 4U)) != (2U << 4U))
@@ -538,10 +538,10 @@ static int ddrc_enable_sr(void)
 	return 0U;
 }
 
-static void ddr_clock_set(int en)
+static void ddr_clock_set(bool en)
 {
 	u32 r = Xil_In32(DDRQOS_DDR_CLK_CTRL);
-	if (en)
+	if (true == en)
 		r |= DDRQOS_DDR_CLK_CTRL_CLKACT;
 	else
 		r &= ~DDRQOS_DDR_CLK_CTRL_CLKACT;
@@ -550,12 +550,12 @@ static void ddr_clock_set(int en)
 
 static void ddr_clock_enable(void)
 {
-	ddr_clock_set(1U);
+	ddr_clock_set(true);
 }
 
 static void ddr_clock_disable(void)
 {
-	ddr_clock_set(0U);
+	ddr_clock_set(false);
 }
 
 static void store_state(PmRegisterContext *context)
