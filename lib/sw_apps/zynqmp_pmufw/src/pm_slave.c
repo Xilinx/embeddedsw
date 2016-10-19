@@ -117,7 +117,7 @@ bool PmSlaveRequiresPower(const PmSlave* const slave)
 	bool hasRequests = false;
 	bool requiresPower = false;
 
-	while (req) {
+	while (NULL != req) {
 		if ((0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) &&
 		    (0U != req->currReq)) {
 			/* Slave is used by this master and has current request for caps */
@@ -148,7 +148,7 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
 	PmRequirement* req = slave->reqs;
 	u32 maxCaps = 0U;
 
-	while (req) {
+	while (NULL != req) {
 		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
 			maxCaps |= req->currReq;
 		}
@@ -381,7 +381,7 @@ static u32 PmGetMinRequestedLatency(const PmSlave* const slave)
 	PmRequirement* req = slave->reqs;
 	u32 minLatency = MAX_LATENCY;
 
-	while (req) {
+	while (NULL != req) {
 		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
 			if (minLatency > req->latencyReq) {
 				minLatency = req->latencyReq;
@@ -561,7 +561,7 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 	PmRequirement* req = slave->reqs;
 	u32 usage = 0U;
 
-	while (req) {
+	while (NULL != req) {
 		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
 			/* Found master which is using slave */
 			usage |= req->master->ipiMask;
