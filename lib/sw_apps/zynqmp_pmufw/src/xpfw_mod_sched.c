@@ -37,21 +37,8 @@
 #include "xpfw_mod_sched.h"
 
 #ifdef ENABLE_SCHEDULER
-static void PrintMsg1(void)
-{
-	fw_printf("Task#1\r\n");
-}
-static void PrintMsg2(void)
-{
-	fw_printf("Task#2\r\n");
-}
-
 static void SchCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
-	/* Task every 5 seconds - For our convenience in manual testing */
-	fw_printf("Adding Task1 - Status: %ld\r\n", XPfw_CoreScheduleTask(ModPtr, 5000U, PrintMsg1));
-	/* Every 10 seconds */
-	fw_printf("Adding Task2 - Status:%ld\r\n", XPfw_CoreScheduleTask(ModPtr, 10000U, PrintMsg2));
 }
 
 void ModSchInit(void)
