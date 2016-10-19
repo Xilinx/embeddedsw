@@ -1377,11 +1377,6 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response)
 	}
 
 	if (REQUEST_ACK_NON_BLOCKING == mst->suspendRequest.acknowledge) {
-		/* If shutdown is being processed drop the callback */
-		if (true == PmSystemShutdownProcessing()) {
-			goto done;
-		}
-
 		PmAcknowledgeCb(mst->suspendRequest.initiator,
 				mst->procs->node.nodeId, response,
 				mst->procs->node.currState);
@@ -1470,9 +1465,6 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 		if (true == PmMasterIsSuspending(master)) {
 			status = PmRequirementUpdateScheduled(master, true);
 			master->state = PM_MASTER_STATE_SUSPENDED;
-			if (true == PmSystemShutdownProcessing()) {
-				PmSystemCaptureSleep(master);
-			}
 			if (true == PmIsRequestedToSuspend(master)) {
 				status = PmMasterSuspendAck(master, XST_SUCCESS);
 			}
