@@ -80,6 +80,7 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 
 	default:
 		fw_printf("ERROR: Invalid IPI Number: %lu\r\n", IpiNum);
+		break;
 	}
 }
 
