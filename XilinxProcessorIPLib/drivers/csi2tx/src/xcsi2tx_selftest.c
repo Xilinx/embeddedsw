@@ -59,8 +59,6 @@
 /**************************** Type Definitions *******************************/
 
 /*************************** Macros Definitions ******************************/
-#define	CSI2TX_MAX_LANES	\
-	XPAR_MIPI_CSI2_TX_SUBSYSTEM_0_MIPI_CSI2_TX_CTRL_0_CSI_LANES
 
 #define GSP_MASK		0x3F
 #define GSP_DEFAULT		0x20
@@ -116,7 +114,9 @@ u32 XCsi2Tx_SelfTest(XCsi2Tx *InstancePtr)
 
 	RegValue = XCsi2Tx_ReadReg(InstancePtr->Config.BaseAddr,
 						XCSI2TX_PCR_OFFSET);
-	mask = ((CSI2TX_MAX_LANES - 1) << 3) | (CSI2TX_MAX_LANES - 1);
+
+	mask = ((InstancePtr->Config.MaxLanesPresent - 1) << 3) |
+						(InstancePtr->Config.MaxLanesPresent - 1);
 
 	if ((RegValue & ACT_LANES_MASK) != mask)
 		return XST_FAILURE;
