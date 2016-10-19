@@ -1210,7 +1210,7 @@ static PmResetGeneric pmResetRtc = {
 static PmResetGeneric pmResetSysmon = {
 	.rst = {
 		.ops = &pmResetOpsGeneric,
-		.access = 0,
+		.access = 0U,
 		.derived = &pmResetSysmon,
 	},
 	.ctrlAddr = CRL_APB_RST_LPD_TOP,
