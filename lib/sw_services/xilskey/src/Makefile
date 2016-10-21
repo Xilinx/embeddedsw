@@ -52,7 +52,8 @@ INCLUDEFILES=$(SKEY_DIR)/include/xilskey_eps.h \
 			$(SKEY_DIR)/include/xilskey_epl.h \
 			$(SKEY_DIR)/include/xilskey_utils.h \
 			$(SKEY_DIR)/include/xilskey_bbram.h \
-			$(SKEY_DIR)/include/xilskey_eps_zynqmp.h
+			$(SKEY_DIR)/include/xilskey_eps_zynqmp.h \
+			$(SKEY_DIR)/include/xilskey_eps_zynqmp_puf.h
 
 libs: libxilskey.a
 

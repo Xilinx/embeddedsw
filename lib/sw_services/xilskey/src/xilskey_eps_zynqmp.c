@@ -118,7 +118,7 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 u32 XilSKey_ZynqMp_EfusePs_CheckForZeros(u8 RowStart, u8 RowEnd,
 						XskEfusePs_Type EfuseType);
 static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(u8 *RsaBits_read);
-static inline u32 XilSKey_ZynqMp_EfusePs_Init();
+u32 XilSKey_ZynqMp_EfusePs_Init();
 
 /************************** Function Definitions *****************************/
 
@@ -2281,7 +2281,7 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(
 * @note		None.
 *
 ******************************************************************************/
-static inline u32 XilSKey_ZynqMp_EfusePs_Init()
+u32 XilSKey_ZynqMp_EfusePs_Init()
 {
 	u32 Status = XST_SUCCESS;
 
