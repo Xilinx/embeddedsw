@@ -223,17 +223,6 @@ typedef enum {
 }XskEfusePS_MiscUserBits;
 /*@}*/
 
-/** @name xilinx specific bits
- * @{
- */
-typedef enum {
-	XSK_ZYNQMP_EFUSEPS_XILINX_SPECFC_BIT1 = 28,
-	XSK_ZYNQMP_EFUSEPS_XILINX_SPECFC_BIT2,
-	XSK_ZYNQMP_EFUSEPS_XILINX_SPECFC_BIT3,
-	XSK_ZYNQMP_EFUSEPS_XILINX_SPECFC_BIT4
-}XskEfusePS_XilinxSpecificBits;
-/*@}*/
-
 /**
 *
 * This typedef contains secure control features of efusePs
@@ -266,13 +255,6 @@ typedef struct {
 	u8 UserWrLk5;
 	u8 UserWrLk6;
 	u8 UserWrLk7;
-
-	/* Xilinx specific bits */
-	u8 XilinxSpecfBit1;
-	u8 XilinxSpecfBit2;
-	u8 XilinxSpecfBit3;
-	u8 XilinxSpecfBit4;
-
 } XilSKey_SecCtrlBits;
 /*@}*/
 
