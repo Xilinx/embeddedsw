@@ -71,6 +71,10 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
+/* Efuse read selection */
+#define XSK_EFUSEPS_READ_FROM_CACHE	0
+#define XSK_EFUSEPS_READ_FROM_EFUSE	1
+
 /* Key length definitions for ZynqMP eFuse */
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_LEN_IN_BYTES			(32)
 #define XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BYTES		(4)
@@ -99,6 +103,10 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW				(23)
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_START_ROW			(24)
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_END_ROW			(31)
+#define XSK_ZYNQMP_EFUSEPS_PUF_ROW_START		(0)
+#define XSK_ZYNQMP_EFUSEPS_PUF_ROW_END			(63)
+#define XSK_ZYNQMP_EFUSEPS_PUF_CHASH_ROW		(20)
+#define XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW			(21)
 
 /* User Fuses Row numbers */
 #define XSK_ZYNQMP_EFUSEPS_USR0_FUSE_ROW			(8)
