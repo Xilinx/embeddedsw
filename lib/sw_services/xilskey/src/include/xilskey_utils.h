@@ -733,6 +733,7 @@ u32 XilSKey_Timer_Intialise();
 u32 XilSKey_Efuse_ReverseHex(u32 Input);
 void XilSKey_StrCpyRange(u8 *Src, u8 *Dst, u32 From, u32 To);
 u32 XilSKey_CrcCalculation(u8 *Key);
+u32 XilSkey_CrcCalculation_AesKey(u8 *Key);
 u32 XilSKey_Ceil(float Freq);
 /***************************************************************************/
 
