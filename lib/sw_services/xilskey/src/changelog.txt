@@ -95,5 +95,7 @@
 *                      128 bit User keys. Added error codes on failures.
 *                      BBRAM is updated to have DPA protection, and
 *                      count configuration.
+* 6.1    vns  20/10/16 Added support for PUF registration, programming eFUSE
+*                      with syndrome data, Auxilary value and CHash value.
 *
  ********************************************************************************/
