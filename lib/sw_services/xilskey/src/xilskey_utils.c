@@ -1249,3 +1249,57 @@ u32 XilSKey_Ceil(float Value)
 	return RetValue;
 
 }
+
+/****************************************************************************/
+/**
+ * Calculates CRC value of the provided key. Key should be provided in
+ * hexa buffer.
+ *
+ * @param	Key is the array of size 32 which contains AES key in
+ *		hexa decimal.
+ *
+ * @return	Crc of AES key value.
+ *
+ * @note	This API calculates CRC of AES key for Ultrascale Microblaze's
+ * 		PL eFuse and ZynqMp Ultrascale's PS eFuse.
+ * 		In Microblaze CRC will be calculated from 8th word of key to 0th
+ * 		word whereas in ZynqMp Ultrascale's PS eFuse from 0th word to
+ * 		8th word
+ *		This API is calculates CRC on AES key provided in an array.
+ *		To calculate CRC on the AES string please use
+ *		XilSKey_CrcCalculation.
+ *		To call this API one can directly pass array of
+ *		AES key which exists in an instance.
+ *		Example for storing key into Buffer:
+ *		If Key is "123456" buffer should be {0x12 0x34 0x56}
+ *
+ ****************************************************************************/
+u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
+{
+	u32 Crc = 0;
+	u32 Index;
+	u32 Key_32;
+	u32 Index1;
+
+	for (Index = 0; Index < 8;Index++) {
+#ifdef XSK_MICROBLAZE_PLATFORM
+		Index1 = (Index * 4);
+#endif
+
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+		Index1 = ((7 - Index) * 4);
+#endif
+		Key_32 = (Key[Index1 + 3] << 24) | (Key[Index1 + 2] << 16) |
+			(Key[Index1 + 1] << 8) | (Key[Index1 + 0]);
+
+#ifdef XSK_MICROBLAZE_PLATFORM
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 20 + Index);
+#endif
+
+#ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8 - Index);
+#endif
+	}
+
+	return Crc;
+}
