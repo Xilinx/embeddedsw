@@ -491,18 +491,6 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_DNA_2_DEFVAL		0x0U
 /*@}*/
 
-/** @name user code register
- * @{
- */
-#define XSK_ZYNQMP_EFUSEPS_USRCODE_OFFSET	0x0000101CU
-#define XSK_ZYNQMP_EFUSEPS_USRCODE_RSTVAL	0x00000000U
-
-#define XSK_ZYNQMP_EFUSEPS_USRCODE_SHIFT	0U
-#define XSK_ZYNQMP_EFUSEPS_USRCODE_WIDTH	32U
-#define XSK_ZYNQMP_EFUSEPS_USRCODE_MASK		0xffffffffU
-#define XSK_ZYNQMP_EFUSEPS_USRCODE_DEFVAL	0x0U
-/*@}*/
-
 /** @name User_0 register
  * @{
  */

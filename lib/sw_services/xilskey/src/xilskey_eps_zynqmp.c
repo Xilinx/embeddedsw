@@ -405,9 +405,7 @@ UNLOCK:
 u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 		XilSKey_SecCtrlBits *ReadBackSecCtrlBits, u8 ReadOption)
 {
-	u32 RegData;
 	u32 Status;
-	u8 DataInBits[32];
 
 	if (ReadOption == 0) {
 		Status = XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(

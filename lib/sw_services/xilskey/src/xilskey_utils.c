@@ -114,7 +114,7 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 
 u32 XilSKey_EfusePs_XAdcInit (void )
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 #ifdef XSK_ZYNQ_PLATFORM
 	XAdcPs_Config *ConfigPtr;
 	XAdcPs *XAdcInstPtr = &XAdcInst;
@@ -1010,7 +1010,7 @@ u32 XilSKey_Efuse_IsValidChar(const char *c)
 u32 XilSKey_Timer_Intialise()
 {
 
-	u32 RefClk;
+	u32 RefClk = 0;
 
 #ifdef XSK_ZYNQ_PLATFORM
 	TimerTicksfor100ns = 0;
