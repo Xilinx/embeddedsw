@@ -266,10 +266,11 @@ int virtqueue_add_single_buffer(struct virtqueue *vq, void *cookie,
  *
  * @param vq            - Pointer to VirtIO queue control block
  * @param len           - Length of conumed buffer
+ * @param idx           - index of the buffer
  *
  * @return              - Pointer to used buffer
  */
-void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t * len)
+void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t * len, uint16_t * idx)
 {
 	struct vring_used_elem *uep;
 	void *cookie;
@@ -294,9 +295,16 @@ void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t * len)
 	cookie = vq->vq_descx[desc_idx].cookie;
 	vq->vq_descx[desc_idx].cookie = VQ_NULL;
 
+	if (idx != VQ_NULL)
+		*idx = used_idx;
 	VQUEUE_IDLE(vq);
 
 	return (cookie);
+}
+
+uint32_t virtqueue_get_buffer_length(struct virtqueue *vq, uint16_t idx)
+{
+	return vq->vq_ring.desc[idx].len;
 }
 
 /**
@@ -311,7 +319,7 @@ void virtqueue_free(struct virtqueue *vq)
 	if (vq != VQ_NULL) {
 
 		if (vq->vq_free_cnt != vq->vq_nentries) {
-			printf
+			openamp_print
 			    ("\r\nWARNING %s: freeing non-empty virtqueue\r\n",
 			     vq->vq_name);
 		}
@@ -464,7 +472,7 @@ void virtqueue_dump(struct virtqueue *vq)
 	if (vq == VQ_NULL)
 		return;
 
-	printf("VQ: %s - size=%d; free=%d; used=%d; queued=%d; "
+	openamp_print("VQ: %s - size=%d; free=%d; used=%d; queued=%d; "
 		  "desc_head_idx=%d; avail.idx=%d; used_cons_idx=%d; "
 		  "used.idx=%d; avail.flags=0x%x; used.flags=0x%x\r\n",
 		  vq->vq_name, vq->vq_nentries, vq->vq_free_cnt,

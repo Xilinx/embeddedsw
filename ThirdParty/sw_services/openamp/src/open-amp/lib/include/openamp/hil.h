@@ -56,19 +56,6 @@
 #define HIL_RSVD_CPU_ID                 0xffffffff
 
 /**
- * struct proc_info_hdr
- *
- * This structure is maintained by hardware interface layer
- * for user to pass hardware information to remote processor.
- */
-struct proc_info_hdr {
-	/* CPU ID as defined by the platform */
-	unsigned long cpu_id;
-	/* HIL platform ops table */
-	struct hil_platform_ops *ops;
-};
-
-/**
  * struct proc_shm
  *
  * This structure is maintained by hardware interface layer for
@@ -79,8 +66,12 @@ struct proc_info_hdr {
 struct proc_shm {
 	/* Start address of shared memory used for buffers. */
 	void *start_addr;
+	/* Start physical address of shared memory used for buffers. */
+	metal_phys_addr_t start_paddr;
 	/* sharmed memory I/O region */
 	struct metal_io_region *io;
+	/* sharmed memory metal device */
+	struct metal_device *dev;
 	/* Size of shared memory. */
 	unsigned long size;
 	/* Attributes for shared memory - cached or uncached. */
@@ -174,7 +165,7 @@ struct proc_chnl {
 *
 */
 struct hil_proc {
-	/* CPU ID as defined by the platform */
+	/* HIL CPU ID */
 	unsigned long cpu_id;
 	/* HIL platform ops table */
 	struct hil_platform_ops *ops;
@@ -186,6 +177,8 @@ struct hil_proc {
 	unsigned long num_chnls;
 	/* RPMsg channels array */
 	struct proc_chnl chnls[HIL_MAX_NUM_CHANNELS];
+	/* Initialized status */
+	int is_initialized;
 	/* Attrbites to represent processor role, master or remote . This field is for
 	 * future use. */
 	unsigned long attr;
@@ -196,6 +189,8 @@ struct hil_proc {
 	unsigned long cpu_bitmask;
 	/* Spin lock - This field is for future use. */
 	volatile unsigned int *slock;
+	/* private data */
+	void *pdata;
 	/* List node */
 	struct metal_list node;
 };
@@ -203,16 +198,18 @@ struct hil_proc {
 /**
  * hil_create_proc
  *
- * This function creates a HIL proc instance for given CPU id and populates
- * it with platform info.
+ * This function creates a HIL proc instance
  *
- * @param pdata  - platform data for remote processor
- * @param cpu_id - cpu id
- *
+ * @param ops - hil proc platform operations
+ * @param cpu_id - remote CPU ID.
+ *                 E.g. the CPU ID of the remote processor in its
+ *                 cluster.
+ * @param pdata  - private data
  * @return - pointer to proc instance
  *
  */
-struct hil_proc *hil_create_proc(void *pdata, int cpu_id);
+struct hil_proc *hil_create_proc(struct hil_platform_ops *ops,
+				unsigned long cpu_id, void *pdata);
 
 /**
  * hil_delete_proc
@@ -226,17 +223,15 @@ struct hil_proc *hil_create_proc(void *pdata, int cpu_id);
 void hil_delete_proc(struct hil_proc *proc);
 
 /**
- * hil_get_proc
+ * hil_init_proc
  *
- * This function finds the proc instance based on the given ID
- * from the proc list and returns it to user.
+ * This function initialize a HIL proc instance with the given platform data
+ * @param proc  - pointer to the hil_proc to initialize
  *
- * @param cpu_id - cpu id
- *
- * @return - pointer to proc instance
+ * @return - 0 succeeded, non-0 for failure
  *
  */
-struct hil_proc *hil_get_proc(int cpu_id);
+int hil_init_proc(struct hil_proc *proc);
 
 /**
  * hil_isr()
@@ -410,6 +405,82 @@ int hil_get_firmware(char *fw_name, uintptr_t *start_addr,
  * @return - 0 for no errors, non-0 for errors.
  */
 int hil_poll (struct hil_proc *proc, int nonblock);
+
+/**
+ * hil_set_shm
+ *
+ * This function set HIL proc shared memory
+ *
+ * @param proc     - hil_proc to set
+ * @param bus_name - bus name of the shared memory device
+ * @param name     - name of the shared memory, or platform device
+ *                   mandatory for Linux system.
+ * @param paddr    - physical address of the memory for baremetal/RTOS only
+ * @param size     - size of the shared memory
+ *
+ * If name argument exists, it will open the specified libmetal
+ * shared memory or the specified libmetal device if bus_name
+ * is specified to get the I/O region of the shared memory. Otherwise, it
+ * will use a generic normal I/O region for the shared memory.
+ * paddr argument is for baremetal/RTOS system only. Linux system
+ * will not take this paddr, for Linux system, you have to specify
+ * the name, otherwise, you will get segfault later.
+ *
+ * @return - 0 for no errors, non-0 for errors.
+ */
+int hil_set_shm (struct hil_proc *proc,
+		 const char *bus_name, const char *name,
+		 metal_phys_addr_t paddr, size_t size);
+
+/**
+ * hil_set_vring
+ *
+ * This function set HIL proc vring
+ *
+ * @param proc     - hil_proc to set
+ * @param index    - vring index
+ * @param bus_name - bus name of the vring device
+ * @param name     - name of the shared memory, or platform device
+ *                   mandatory for Linux system.
+ *
+ * If name argument exists, it will open the specified libmetal
+ * shared memory or the specified device if bus name is specified
+ * to get the I/O region of the vring.
+ *
+ * @return - 0 for no errors, non-0 for errors.
+ */
+int hil_set_vring (struct hil_proc *proc, int index,
+		   const char *bus_name, const char *name);
+
+/**
+ * hil_set_ipi
+ *
+ * This function set HIL proc IPI
+ *
+ * @param proc     - hil_proc to set
+ * @param index    - vring index for the IPI
+ * @param irq      - IPI irq vector ID
+ * @param data     - IPI data
+ *
+ * @return - 0 for no errors, non-0 for errors.
+ */
+int hil_set_ipi (struct hil_proc *proc, int index,
+		 unsigned int irq, void *data);
+
+/**
+ * hil_set_rpmsg_channel
+ *
+ * This function set HIL proc rpmsg_channel
+ *
+ * @param proc     - hil_proc to set
+ * @param index    - vring index for the rpmsg_channel
+ * @param name     - RPMsg channel name
+ *
+ * @return - 0 for no errors, non-0 for errors.
+ */
+int hil_set_rpmsg_channel (struct hil_proc *proc, int index,
+		char *name);
+
 /**
  *
  * This structure is an interface between HIL and platform porting
@@ -435,58 +506,32 @@ struct hil_platform_ops {
      * This function generates IPI to let the other side know that there is
      * job available for it.
      *
-     * @param cpu_id - ID of CPU which is to be notified
+     * @param proc - pointer to the hil_proc
      * @param intr_info - pointer to interrupt info control block
      */
-	void (*notify) (int cpu_id, struct proc_intr * intr_info);
-
-    /**
-     * get_status
-     *
-     * This function is used to check if the given core is
-     * up and running. This call will return after it is confirmed
-     * that remote core is initialized.
-     *
-     * @param cpu_id - ID of CPU for which status is requested.
-     *
-     * @return - execution status
-     */
-	int (*get_status) (int cpu_id);
-
-    /**
-     * set_status
-     *
-     * This function is used to update the status
-     * of the given core i.e it is ready for IPC.
-     *
-     * @param cpu_id - ID of CPU for which status is to be set
-     *
-     * @return - execution status
-     */
-
-	int (*set_status) (int cpu_id);
+	void (*notify) (struct hil_proc *proc, struct proc_intr * intr_info);
 
     /**
      * boot_cpu
      *
-     * This function boots the remote processor.
+     * This unction boots the remote processor.
      *
-     * @param cpu_id     - ID of CPU to boot
+     * @param proc - pointer to the hil_proc
      * @param start_addr - start address of remote cpu
      *
      * @return - execution status
      */
-	int (*boot_cpu) (int cpu_id, unsigned int start_addr);
+	int (*boot_cpu) (struct hil_proc *proc, unsigned int start_addr);
 
     /**
      * shutdown_cpu
      *
      *  This function shutdowns the remote processor.
      *
-     * @param cpu_id    - ID of CPU to shutdown
+     * @param proc - pointer to the hil_proc
      *
      */
-	void (*shutdown_cpu) (int cpu_id);
+	void (*shutdown_cpu) (struct hil_proc *proc);
 
     /**
      * poll
@@ -505,13 +550,12 @@ struct hil_platform_ops {
      *
      *  This function initialize remote processor with platform data.
      *
-     * @param[in] pdata - platform data
-     * @param[in] cpu_id - CPU id
+     * @param proc     - hil_proc to poll
      *
      * @return NULL on failure, hil_proc pointer otherwise
      *
      */
-	struct hil_proc *(*initialize) (void *pdata, int cpu_id);
+	int (*initialize) (struct hil_proc *proc);
 
     /**
      * release

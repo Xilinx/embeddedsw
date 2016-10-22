@@ -1,5 +1,0 @@
-
-This folder contains makefiles for PetaLinux applicatiosn and modules
-which need to be updated before the build process. These files are only
-for the process of build automation and do not constitute the standard
-part of OpenAMP.

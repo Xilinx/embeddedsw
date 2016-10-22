@@ -410,7 +410,7 @@ void *rpmsg_get_tx_buffer(struct remote_device *rdev, unsigned long *len,
 	void *data;
 
 	if (rdev->role == RPMSG_REMOTE) {
-		data = virtqueue_get_buffer(rdev->tvq, (uint32_t *) len);
+		data = virtqueue_get_buffer(rdev->tvq, (uint32_t *) len, idx);
 		if (data == RPMSG_NULL) {
 			data = sh_mem_get_buffer(rdev->mem_pool);
 			*len = RPMSG_BUFFER_SIZE;
@@ -441,7 +441,7 @@ void *rpmsg_get_rx_buffer(struct remote_device *rdev, unsigned long *len,
 
 	void *data;
 	if (rdev->role == RPMSG_REMOTE) {
-		data = virtqueue_get_buffer(rdev->rvq, (uint32_t *) len);
+		data = virtqueue_get_buffer(rdev->rvq, (uint32_t *) len, idx);
 	} else {
 		data =
 		    virtqueue_get_available_buffer(rdev->rvq, idx,
@@ -456,6 +456,7 @@ void *rpmsg_get_rx_buffer(struct remote_device *rdev, unsigned long *len,
 					(unsigned int)(*len));
 		}
 	}
+
 	return data;
 }
 
@@ -543,6 +544,7 @@ void rpmsg_rx_callback(struct virtqueue *vq)
 	struct rpmsg_channel *rp_chnl;
 	struct rpmsg_endpoint *rp_ept;
 	struct rpmsg_hdr *rp_hdr;
+	struct rpmsg_hdr_reserved *reserved;
 	struct metal_list *node;
 	unsigned long len;
 	unsigned short idx;
@@ -604,8 +606,17 @@ void rpmsg_rx_callback(struct virtqueue *vq)
 
 		metal_mutex_acquire(&rdev->lock);
 
-		/* Return used buffers. */
-		rpmsg_return_buffer(rdev, rp_hdr, len, idx);
+		/* Check whether callback wants to hold buffer */
+		if (rp_hdr->reserved & RPMSG_BUF_HELD)
+		{
+			/* 'rp_hdr->reserved' field is now used as storage for
+			 * 'idx' to release buffer later */
+			reserved = (struct rpmsg_hdr_reserved*)&rp_hdr->reserved;
+			reserved->idx = (uint16_t)idx;
+		} else {
+			/* Return used buffers. */
+			rpmsg_return_buffer(rdev, rp_hdr, len, idx);
+		}
 
 		rp_hdr =
 		    (struct rpmsg_hdr *)rpmsg_get_rx_buffer(rdev, &len, &idx);

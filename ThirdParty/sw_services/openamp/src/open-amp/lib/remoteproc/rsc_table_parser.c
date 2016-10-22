@@ -33,8 +33,8 @@
 /* Resources handler */
 rsc_handler rsc_handler_table[] = {
 	handle_carve_out_rsc,
-	handle_trace_rsc,
 	handle_dev_mem_rsc,
+	handle_trace_rsc,
 	handle_vdev_rsc,
 	handle_mmu_rsc
 };

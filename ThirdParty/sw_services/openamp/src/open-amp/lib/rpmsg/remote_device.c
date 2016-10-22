@@ -79,9 +79,8 @@ virtio_dispatch rpmsg_rdev_config_ops = {
  * This function creates and initializes the remote device. The remote device
  * encapsulates virtio device.
  *
- * @param pdata             - platform data for remote processor
+ * @param proc              - pointer to hil_proc
  * @param rdev              - pointer to newly created remote device
- * @param dev-id            - ID of device to create , remote cpu id
  * @param role              - role of the other device, Master or Remote
  * @param channel_created   - callback function for channel creation
  * @param channel_destroyed - callback function for channel deletion
@@ -90,23 +89,22 @@ virtio_dispatch rpmsg_rdev_config_ops = {
  * @return - status of function execution
  *
  */
-int rpmsg_rdev_init(void *pdata, struct remote_device **rdev, int dev_id, int role,
+int rpmsg_rdev_init(struct hil_proc *proc,
+		    struct remote_device **rdev, int role,
 		    rpmsg_chnl_cb_t channel_created,
 		    rpmsg_chnl_cb_t channel_destroyed, rpmsg_rx_cb_t default_cb)
 {
 
 	struct remote_device *rdev_loc;
 	struct virtio_device *virt_dev;
-	struct hil_proc *proc;
 	struct proc_shm *shm;
 	int status;
 
+	if (!proc)
+		return RPMSG_ERR_PARAM;
 	/* Initialize HIL data structures for given device */
-	proc = hil_create_proc(pdata, dev_id);
-
-	if (!proc) {
-		return RPMSG_ERR_DEV_ID;
-	}
+	if (hil_init_proc(proc))
+		return RPMSG_ERR_DEV_INIT;
 
 	/* Create software representation of remote processor. */
 	rdev_loc = (struct remote_device *)metal_allocate_memory(sizeof(struct remote_device));

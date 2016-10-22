@@ -45,7 +45,14 @@
  **************************************************************************/
 
 #include "openamp/hil.h"
-#include "metal/utilities.h"
+#include <metal/io.h>
+#include <metal/alloc.h>
+#include <metal/device.h>
+#include <metal/shmem.h>
+#include <metal/utilities.h>
+#include <metal/time.h>
+
+#define DEFAULT_VRING_MEM_SIZE 0x10000
 
 /*--------------------------- Globals ---------------------------------- */
 static METAL_DECLARE_LIST (procs);
@@ -57,35 +64,50 @@ unsigned long long shutdown_time_stamp;
 
 #endif
 
-/**
- * hil_create_proc
- *
- * This function creates a HIL proc instance for given CPU id and populates
- * it with platform info.
- *
- * @param pdata  - platform data for the remote processor
- * @param cpu_id - cpu id
- *
- * @return - pointer to proc instance
- *
- */
-struct hil_proc *hil_create_proc(void *pdata, int cpu_id)
+metal_phys_addr_t hil_generic_start_paddr = 0;
+struct metal_io_region hil_shm_generic_io = {
+	0,
+	&hil_generic_start_paddr,
+	(size_t)(-1),
+	(sizeof(metal_phys_addr_t) << 3),
+	(metal_phys_addr_t)(-1),
+	0,
+	{NULL},
+};
+
+struct metal_io_region hil_devmem_generic_io = {
+	0,
+	&hil_generic_start_paddr,
+	(size_t)(-1),
+	(sizeof(metal_phys_addr_t) << 3),
+	(metal_phys_addr_t)(-1),
+	METAL_UNCACHED | METAL_SHARED_MEM,
+	{NULL},
+};
+
+struct hil_proc *hil_create_proc(struct hil_platform_ops *ops,
+			unsigned long cpu_id, void *pdata)
 {
 	struct hil_proc *proc = 0;
-	struct proc_info_hdr *info_hdr = (struct proc_info_hdr *)pdata;
-	struct metal_list *node;
+	int i;
 
-	/* If proc already exists then return it */
-	metal_list_for_each(&procs, node) {
-		proc = metal_container_of(node, struct hil_proc, node);
-		if (proc->cpu_id == (unsigned int)cpu_id) {
-			return proc;
-		}
-	}
+	proc = metal_allocate_memory(sizeof(struct hil_proc));
+	if (!proc)
+		return NULL;
+	memset(proc, 0, sizeof(struct hil_proc));
 
-	proc = info_hdr->ops->initialize(pdata, cpu_id);
-	if (proc)
-		metal_list_add_tail(&procs, &proc->node);
+	proc->ops = ops;
+	proc->num_chnls = 1;
+	proc->cpu_id = cpu_id;
+	proc->pdata = pdata;
+
+	/* Setup generic shared memory I/O region */
+	proc->sh_buff.io = &hil_shm_generic_io;
+	/* Setup generic vrings I/O region */
+	for (i = 0; i < HIL_MAX_NUM_VRINGS; i++)
+		proc->vdev.vring_info[i].io = &hil_devmem_generic_io;
+
+	metal_list_add_tail(&procs, &proc->node);
 
 	return proc;
 }
@@ -102,16 +124,54 @@ struct hil_proc *hil_create_proc(void *pdata, int cpu_id)
 void hil_delete_proc(struct hil_proc *proc)
 {
 	struct metal_list *node;
+	struct metal_device *dev;
+	struct metal_io_region *io;
+	struct proc_vring *vring;
+	int i;
 	metal_list_for_each(&procs, node) {
 		if (proc ==
 			metal_container_of(node, struct hil_proc, node)) {
 			metal_list_del(&proc->node);
 			proc->ops->release(proc);
+			/* Close shmem device */
+			dev = proc->sh_buff.dev;
+			io = proc->sh_buff.io;
+			if (dev) {
+				metal_device_close(dev);
+			} else if (io && io->ops.close) {
+				io->ops.close(io);
+			}
+
+			/* Close vring device */
+			for (i = 0; i < HIL_MAX_NUM_VRINGS; i++) {
+				vring = &proc->vdev.vring_info[i];
+				dev = vring->dev;
+				io = vring->io;
+				if (dev) {
+					metal_device_close(dev);
+				} if (io && io->ops.close) {
+					io->ops.close(io);
+				}
+			}
+
+			metal_free_memory(proc);
 			return;
 		}
 	}
 }
 
+int hil_init_proc(struct hil_proc *proc)
+{
+	int ret = 0;
+	if (!proc->is_initialized && proc->ops->initialize) {
+		ret = proc->ops->initialize(proc);
+		if (!ret)
+			proc->is_initialized = 1;
+		else
+			return -1;
+	}
+	return 0;
+}
 /**
  * hil_isr()
  *
@@ -125,32 +185,6 @@ void hil_delete_proc(struct hil_proc *proc)
 void hil_isr(struct proc_vring *vring_hw)
 {
 	virtqueue_notification(vring_hw->vq);
-}
-
-/**
- * hil_get_proc
- *
- * This function finds the proc instance based on the given ID
- * from the proc list and returns it to user.
- *
- * @param cpu_id - cpu id
- *
- * @return - pointer to hil proc instance
- *
- */
-struct hil_proc *hil_get_proc(int cpu_id)
-{
-	struct metal_list *node;
-	struct hil_proc *proc;
-
-	metal_list_for_each(&procs, node) {
-		proc = metal_container_of(node, struct hil_proc, node);
-		if (proc->cpu_id == (unsigned int)cpu_id) {
-			return proc;
-		}
-	}
-
-	return NULL;
 }
 
 /**
@@ -269,7 +303,7 @@ void hil_vring_notify(struct virtqueue *vq)
 	    &proc_hw->vdev.vring_info[vq->vq_queue_index];
 
 	if (proc_hw->ops->notify) {
-		proc_hw->ops->notify(proc_hw->cpu_id, &vring_hw->intr_info);
+		proc_hw->ops->notify(proc_hw, &vring_hw->intr_info);
 	}
 }
 
@@ -324,10 +358,10 @@ int hil_boot_cpu(struct hil_proc *proc, unsigned int start_addr)
 {
 
 	if (proc->ops->boot_cpu) {
-		proc->ops->boot_cpu(proc->cpu_id, start_addr);
+		proc->ops->boot_cpu(proc, start_addr);
 	}
 #if defined (OPENAMP_BENCHMARK_ENABLE)
-	boot_time_stamp = env_get_timestamp();
+	boot_time_stamp = metal_get_timestamp();
 #endif
 
 	return 0;
@@ -344,10 +378,10 @@ int hil_boot_cpu(struct hil_proc *proc, unsigned int start_addr)
 void hil_shutdown_cpu(struct hil_proc *proc)
 {
 	if (proc->ops->shutdown_cpu) {
-		proc->ops->shutdown_cpu(proc->cpu_id);
+		proc->ops->shutdown_cpu(proc);
 	}
 #if defined (OPENAMP_BENCHMARK_ENABLE)
-	shutdown_time_stamp = env_get_timestamp();
+	shutdown_time_stamp = metal_get_timestamp();
 #endif
 }
 
@@ -373,4 +407,100 @@ int hil_get_firmware(char *fw_name, uintptr_t *start_addr,
 int hil_poll (struct hil_proc *proc, int nonblock)
 {
 	return proc->ops->poll(proc, nonblock);
+}
+
+int hil_set_shm (struct hil_proc *proc,
+		 const char *bus_name, const char *name,
+		 metal_phys_addr_t paddr, size_t size)
+{
+	struct metal_device *dev;
+	struct metal_io_region *io;
+	int ret;
+	if (!proc)
+		return -1;
+	if (name && bus_name) {
+		ret = metal_device_open(bus_name, name, &dev);
+		if (ret)
+			return ret;
+		io = metal_device_io_region(dev, 0);
+		if (!io)
+			return -1;
+		proc->sh_buff.io = io;
+		proc->sh_buff.dev = dev;
+	} else if (name) {
+		ret = metal_shmem_open(name, size, &io);
+		if (ret)
+			return ret;
+		proc->sh_buff.io = io;
+	}
+	if (!paddr && io) {
+		proc->sh_buff.start_paddr = io->physmap[0];
+		proc->sh_buff.start_addr = io->virt;
+	} else {
+		proc->sh_buff.start_paddr = paddr;
+	}
+	if (!size && io)
+		proc->sh_buff.size = io->size;
+	else
+		proc->sh_buff.size = size;
+
+	metal_io_mem_map(proc->sh_buff.start_paddr, proc->sh_buff.io,
+			 proc->sh_buff.size);
+	return 0;
+}
+
+int hil_set_vring (struct hil_proc *proc, int index,
+		 const char *bus_name, const char *name)
+{
+	struct metal_device *dev;
+	struct metal_io_region *io;
+	struct proc_vring *vring;
+	int ret;
+
+	if (!proc)
+		return -1;
+	if (index >= HIL_MAX_NUM_VRINGS)
+		return -1;
+	vring = &proc->vdev.vring_info[index];
+	if (name && bus_name) {
+		ret = metal_device_open(bus_name, name, &dev);
+		if (ret)
+			return ret;
+		io = metal_device_io_region(dev, 0);
+		if (!io)
+			return -1;
+		vring->io = io;
+		vring->dev = dev;
+	} else if (name) {
+		ret = metal_shmem_open(name, DEFAULT_VRING_MEM_SIZE, &io);
+		if (ret)
+			return ret;
+		vring->io = io;
+	}
+
+	return 0;
+}
+
+int hil_set_ipi (struct hil_proc *proc, int index,
+		 unsigned int irq, void *data)
+{
+	struct proc_intr *vring_intr;
+
+	if (!proc)
+		return -1;
+	vring_intr = &proc->vdev.vring_info[index].intr_info;
+	vring_intr->vect_id = irq;
+	vring_intr->data = data;
+	return 0;
+}
+
+int hil_set_rpmsg_channel (struct hil_proc *proc, int index,
+			   char *name)
+{
+	if (!proc)
+		return -1;
+	if (index >= HIL_MAX_NUM_CHANNELS)
+		return -1;
+	strcpy(proc->chnls[index].name, name);
+	return 0;
 }

@@ -57,17 +57,17 @@
 #include <string.h>
 #include "openamp/rpmsg.h"
 #include "metal/sys.h"
+#include "metal/cache.h"
+#include "metal/sleep.h"
 
 /**
  * rpmsg_init
  *
  * Thus function allocates and initializes the rpmsg driver resources for
- * given device ID(cpu id). The successful return from this function leaves
+ * given hil_proc. The successful return from this function leaves
  * fully enabled IPC link.
  *
- * @param pdata             - platform data for remote processor
- * @param dev_id            - remote device for which driver is to
- *                            be initialized
+ * @param proc              - pointer to hil_proc
  * @param rdev              - pointer to newly created remote device
  * @param channel_created   - callback function for channel creation
  * @param channel_destroyed - callback function for channel deletion
@@ -78,7 +78,8 @@
  *
  */
 
-int rpmsg_init(void *pdata, int dev_id, struct remote_device **rdev,
+int rpmsg_init(struct hil_proc *proc,
+	       struct remote_device **rdev,
 	       rpmsg_chnl_cb_t channel_created,
 	       rpmsg_chnl_cb_t channel_destroyed,
 	       rpmsg_rx_cb_t default_cb, int role)
@@ -86,7 +87,8 @@ int rpmsg_init(void *pdata, int dev_id, struct remote_device **rdev,
 	int status;
 
 	/* Initialize the remote device for given cpu id */
-	status = rpmsg_rdev_init(pdata, rdev, dev_id, role, channel_created,
+	status = rpmsg_rdev_init(proc, rdev, role,
+				 channel_created,
 				 channel_destroyed, default_cb);
 	if (status == RPMSG_SUCCESS) {
 		/* Kick off IPC with the remote device */
@@ -176,7 +178,7 @@ int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, uint32_t src,
 		 * Wait parameter is true - pool the buffer for
 		 * 15 secs as defined by the APIs.
 		 */
-		env_sleep_msec(RPMSG_TICKS_PER_INTERVAL);
+		metal_sleep_usec(RPMSG_TICKS_PER_INTERVAL);
 		metal_mutex_acquire(&rdev->lock);
 		buffer = rpmsg_get_tx_buffer(rdev, &buff_len, &idx);
 		metal_mutex_release(&rdev->lock);
@@ -193,6 +195,7 @@ int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, uint32_t src,
 	rp_hdr->dst = dst;
 	rp_hdr->src = src;
 	rp_hdr->len = size;
+	rp_hdr->reserved = 0;
 
 	/* Copy data to rpmsg buffer. */
 	if (rdev->proc->sh_buff.io->mem_flags & METAL_IO_MAPPED)
@@ -252,6 +255,144 @@ int rpmsg_get_buffer_size(struct rpmsg_channel *rp_chnl)
 	metal_mutex_release(&rdev->lock);
 
 	return length;
+}
+
+void rpmsg_hold_rx_buffer(struct rpmsg_channel *rpdev, void *rxbuf)
+{
+	struct rpmsg_hdr *rp_hdr = NULL;
+	if (!rpdev || !rxbuf)
+	    return;
+
+	rp_hdr = RPMSG_HDR_FROM_BUF(rxbuf);
+
+	/* set held status to keep buffer */
+	rp_hdr->reserved |= RPMSG_BUF_HELD;
+}
+
+void rpmsg_release_rx_buffer(struct rpmsg_channel *rpdev, void *rxbuf)
+{
+	struct rpmsg_hdr *hdr;
+	struct remote_device *rdev;
+	struct rpmsg_hdr_reserved * reserved = NULL;
+	struct metal_io_region *io;
+	unsigned int len;
+
+	if (!rpdev || !rxbuf)
+	    return;
+
+	rdev = rpdev->rdev;
+	hdr = RPMSG_HDR_FROM_BUF(rxbuf);
+
+	/* Get the pointer to the reserved field that contains buffer size
+	 * and the index */
+	reserved = (struct rpmsg_hdr_reserved*)&hdr->reserved;
+	hdr->reserved &= (~RPMSG_BUF_HELD);
+	len = (unsigned int)virtqueue_get_buffer_length(rdev->rvq,
+						reserved->idx);
+
+	io = rdev->proc->sh_buff.io;
+	if (io) {
+		if (! (io->mem_flags & METAL_UNCACHED))
+			metal_cache_flush(rxbuf, len);
+	}
+
+	metal_mutex_acquire(&rdev->lock);
+
+	/* Return used buffer, with total length
+	   (header length + buffer size). */
+	rpmsg_return_buffer(rdev, hdr, (unsigned long)len, reserved->idx);
+
+	metal_mutex_release(&rdev->lock);
+}
+
+void *rpmsg_get_tx_payload_buffer(struct rpmsg_channel *rpdev, uint32_t *size,
+				 int wait)
+{
+	struct rpmsg_hdr *hdr;
+	struct remote_device *rdev;
+	struct rpmsg_hdr_reserved *reserved;
+	unsigned short idx;
+	unsigned long buff_len, tick_count = 0;
+
+	if (!rpdev || !size)
+		return NULL;
+
+	rdev = rpdev->rdev;
+
+	metal_mutex_acquire(&rdev->lock);
+
+	/* Get tx buffer from vring */
+	hdr = (struct rpmsg_hdr *) rpmsg_get_tx_buffer(rdev, &buff_len, &idx);
+
+	metal_mutex_release(&rdev->lock);
+
+	if (!hdr && !wait) {
+		return NULL;
+	} else {
+		while (!hdr) {
+			/*
+			 * Wait parameter is true - pool the buffer for
+			 * 15 secs as defined by the APIs.
+			 */
+			metal_sleep_usec(RPMSG_TICKS_PER_INTERVAL);
+			metal_mutex_acquire(&rdev->lock);
+			hdr = (struct rpmsg_hdr *) rpmsg_get_tx_buffer(rdev, &buff_len, &idx);
+			metal_mutex_release(&rdev->lock);
+			tick_count += RPMSG_TICKS_PER_INTERVAL;
+			if (tick_count >= (RPMSG_TICK_COUNT / RPMSG_TICKS_PER_INTERVAL)) {
+					return NULL;
+			}
+		}
+
+		/* Store the index into the reserved field to be used when sending */
+		reserved = (struct rpmsg_hdr_reserved*)&hdr->reserved;
+		reserved->idx = (uint16_t)idx;
+
+		/* Actual data buffer size is vring buffer size minus rpmsg header length */
+		*size = (uint32_t)(buff_len - sizeof(struct rpmsg_hdr));
+		return (void *)RPMSG_LOCATE_DATA(hdr);
+	}
+}
+
+int rpmsg_send_offchannel_nocopy(struct rpmsg_channel *rpdev, uint32_t src,
+				 uint32_t dst, void *txbuf, int len)
+{
+	struct rpmsg_hdr *hdr;
+	struct remote_device *rdev;
+	struct rpmsg_hdr_reserved * reserved = NULL;
+	int status;
+
+	if (!rpdev || !txbuf)
+	    return RPMSG_ERR_PARAM;
+
+	rdev = rpdev->rdev;
+	hdr = RPMSG_HDR_FROM_BUF(txbuf);
+
+	/* Initialize RPMSG header. */
+	hdr->dst = dst;
+	hdr->src = src;
+	hdr->len = len;
+	hdr->flags = 0;
+	hdr->reserved &= (~RPMSG_BUF_HELD);
+
+	/* Get the pointer to the reserved field that contains buffer size and
+	 * the index */
+	reserved = (struct rpmsg_hdr_reserved*)&hdr->reserved;
+
+	metal_mutex_acquire(&rdev->lock);
+
+	status = rpmsg_enqueue_buffer(rdev, hdr,
+			(unsigned long)virtqueue_get_buffer_length(
+			rdev->tvq, reserved->idx),
+			reserved->idx);
+	if (status == RPMSG_SUCCESS) {
+		/* Let the other side know that there is a job to process. */
+		virtqueue_kick(rdev->tvq);
+	}
+
+	metal_mutex_release(&rdev->lock);
+
+	return status;
 }
 
 /**

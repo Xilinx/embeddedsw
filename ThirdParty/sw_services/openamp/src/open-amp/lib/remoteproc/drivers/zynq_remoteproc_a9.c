@@ -42,15 +42,14 @@
 #include <string.h>
 #include <errno.h>
 #include "openamp/hil.h"
-#include "openamp/remoteproc_plat.h"
 #include "metal/alloc.h"
 #include "metal/irq.h"
 #include "metal/atomic.h"
 
 /* ------------------------- Macros --------------------------*/
+#define SCUGIC_PERIPH_BASE      	   0xF8F00000
+#define SCUGIC_DIST_BASE        	   (SCUGIC_PERIPH_BASE + 0x00001000)
 #define ESAL_DP_SLCR_BASE                  0xF8000000
-#define PERIPH_BASE                        0xF8F00000
-#define GIC_DIST_BASE                      (PERIPH_BASE + 0x00001000)
 #define GIC_DIST_SOFTINT                   0xF00
 #define GIC_SFI_TRIG_CPU_MASK              0x00FF0000
 #define GIC_SFI_TRIG_SATT_MASK             0x00008000
@@ -62,7 +61,6 @@
 
 #define unlock_slcr()                       HIL_MEM_WRITE32(ESAL_DP_SLCR_BASE + 0x08, 0xDF0DDF0D)
 #define lock_slcr()                         HIL_MEM_WRITE32(ESAL_DP_SLCR_BASE + 0x04, 0x767B767B)
-
 
 /* L2Cpl310 L2 cache controller base address. */
 #define         HIL_PL130_BASE              0xF8F02000
@@ -85,11 +83,11 @@
 
 /*--------------------------- Declare Functions ------------------------ */
 static int _enable_interrupt(struct proc_vring *vring_hw);
-static void _notify(int cpu_id, struct proc_intr *intr_info);
-static int _boot_cpu(int cpu_id, unsigned int load_addr);
-static void _shutdown_cpu(int cpu_id);
+static void _notify(struct hil_proc *proc, struct proc_intr *intr_info);
+static int _boot_cpu(struct hil_proc *proc, unsigned int load_addr);
+static void _shutdown_cpu(struct hil_proc *proc);
 static int _poll(struct hil_proc *proc, int nonblock);
-static struct hil_proc * _initialize(void *pdata, int cpu_id);
+static int _initialize(struct hil_proc *proc);
 static void _release(struct hil_proc *proc);
 static int _ipi_handler(int vect_id, void *data);
 
@@ -104,6 +102,20 @@ struct hil_platform_ops zynq_a9_proc_ops = {
 	.release = _release,
 };
 
+static metal_phys_addr_t git_dist_base_addr = SCUGIC_DIST_BASE;
+static struct metal_io_region gic_dist_io = {
+	(void *)SCUGIC_DIST_BASE,
+	&git_dist_base_addr,
+	0x1000,
+	(sizeof(metal_phys_addr_t) << 3),
+	(metal_phys_addr_t)(-1),
+	METAL_UNCACHED,
+	{NULL},
+};
+
+//volatile unsigned int ipi_counter = 0;
+//volatile unsigned int enableirq_counter = 0;
+
 int _ipi_handler(int vect_id, void *data)
 {
 	(void) vect_id;
@@ -112,31 +124,33 @@ int _ipi_handler(int vect_id, void *data)
 
 	intr_info = &(vring_hw->intr_info);
 	atomic_flag_clear((atomic_uint *)&(intr_info->data));
+
+	//ipi_counter++;
 	return 0;
 }
 
 static int _enable_interrupt(struct proc_vring *vring_hw)
 {
-
+	//enableirq_counter++;
 	/* Register ISR */
 	metal_irq_register(vring_hw->intr_info.vect_id, _ipi_handler,
 				vring_hw->intr_info.dev, vring_hw);
 
 	/* Enable the interrupts */
 	metal_irq_enable(vring_hw->intr_info.vect_id);
+
 	return 0;
 }
 
-static void _notify(int cpu_id, struct proc_intr *intr_info)
+static void _notify(struct hil_proc *proc, struct proc_intr *intr_info)
 {
-
 	unsigned long mask = 0;
 
-	mask = ((1 << (GIC_CPU_ID_BASE + cpu_id)) | (intr_info->vect_id))
+	mask = ((1 << (GIC_CPU_ID_BASE + proc->cpu_id)) | (intr_info->vect_id))
 	    & (GIC_SFI_TRIG_CPU_MASK | GIC_SFI_TRIG_INTID_MASK);
 
 	/* Trigger IPI */
-	metal_io_write32(intr_info->io, GIC_DIST_SOFTINT, mask);
+	metal_io_write32(&gic_dist_io, GIC_DIST_SOFTINT, mask);
 }
 
 static int _poll(struct hil_proc *proc, int nonblock)
@@ -151,7 +165,8 @@ static int _poll(struct hil_proc *proc, int nonblock)
 		vring = &proc->vdev.vring_info[i];
 		intr_info = &(vring->intr_info);
 		flags = metal_irq_save_disable();
-		if (!(atomic_flag_test_and_set((atomic_uint *)&(intr_info->data)))) {
+		if (!(atomic_flag_test_and_set(
+			(atomic_uint *)&(intr_info->data)))) {
 			metal_irq_restore_enable(flags);
 			virtqueue_notification(vring->vq);
 			kicked = 1;
@@ -182,7 +197,7 @@ extern char zynq_trampoline;
 extern char zynq_trampoline_jump;
 extern char zynq_trampoline_end;
 
-static int _boot_cpu(int cpu_id, unsigned int load_addr)
+static int _boot_cpu(struct hil_proc *proc, unsigned int load_addr)
 {
 	/* FIXME: Will need to add the boot_cpu implementation back */
 #if 0
@@ -222,13 +237,13 @@ static int _boot_cpu(int cpu_id, unsigned int load_addr)
 	lock_slcr();
 
 #else
-	(void)cpu_id;
+	(void)proc;
 	(void)load_addr;
 #endif
 	return 0;
 }
 
-static void _shutdown_cpu(int cpu_id)
+static void _shutdown_cpu(struct hil_proc *proc)
 {
 	/* FIXME: Will need to add the shutdown CPU implementation back */
 #if 0
@@ -243,48 +258,26 @@ static void _shutdown_cpu(int cpu_id)
 
 	lock_slcr();
 #else
-	(void)cpu_id;
+	(void)proc;
 #endif
 }
 
-static struct hil_proc * _initialize(void *pdata, int cpu_id)
+static int _initialize(struct hil_proc *proc)
 {
-	(void) cpu_id;
-	int ret;
 	int i;
 	struct proc_intr *intr_info;
-
-	struct hil_proc *proc;
-	/* Allocate memory for proc instance */
-	proc = metal_allocate_memory(sizeof(struct hil_proc));
-	if (!proc) {
-		return NULL;
-	}
-	memset(proc, 0, sizeof(struct hil_proc));
-
-	ret = rproc_init_plat_data(pdata, proc);
-	if (ret)
-		goto error;
 
 	for (i = 0; i < 2; i++) {
 		intr_info = &(proc->vdev.vring_info[i].intr_info);
 		atomic_store((atomic_uint *)&(intr_info->data), 1);
 	}
 
-	return proc;
-error:
-	if (proc) {
-		rproc_close_plat(proc);
-		metal_free_memory(proc);
-	}
-	return NULL;
+	return 0;
 }
 
 static void _release(struct hil_proc *proc)
 {
-	if (proc) {
-		rproc_close_plat(proc);
-		metal_free_memory(proc);
-	}
+	(void)proc;
+	return;
 }
 

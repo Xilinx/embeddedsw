@@ -76,12 +76,16 @@
 #define RPMSG_ERR_PARAM                         (RPMSG_ERROR_BASE - 4)
 #define RPMSG_ERR_DEV_STATE                     (RPMSG_ERROR_BASE - 5)
 #define RPMSG_ERR_BUFF_SIZE                     (RPMSG_ERROR_BASE - 6)
-#define RPMSG_ERR_DEV_ID                        (RPMSG_ERROR_BASE - 7)
+#define RPMSG_ERR_DEV_INIT                      (RPMSG_ERROR_BASE - 7)
 #define RPMSG_ERR_DEV_ADDR                      (RPMSG_ERROR_BASE - 8)
+
+/* Zero-Copy extension macros */
+#define RPMSG_HDR_FROM_BUF(buf)             (struct rpmsg_hdr *)((char*)buf - \
+                                            sizeof(struct rpmsg_hdr))
 
 #if (RPMSG_DEBUG == true)
 #define RPMSG_ASSERT(_exp, _msg) do{ \
-    if (!(_exp)){ printf("%s - "_msg, __func__); while(1);} \
+    if (!(_exp)){ openamp_print("%s - "_msg, __func__); while(1);} \
     } while(0)
 #else
 #define RPMSG_ASSERT(_exp, _msg) if (!(_exp)) while(1)
@@ -162,7 +166,8 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl,
 		       void *data, int len, void *priv, unsigned long src);
 
 /* Remote device functions */
-int rpmsg_rdev_init(void *pdata, struct remote_device **rdev, int dev_id, int role,
+int rpmsg_rdev_init(struct hil_proc *proc,
+		    struct remote_device **rdev, int role,
 		    rpmsg_chnl_cb_t channel_created,
 		    rpmsg_chnl_cb_t channel_destroyed,
 		    rpmsg_rx_cb_t default_cb);

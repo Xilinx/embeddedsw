@@ -10,3 +10,7 @@ endif ("${MACHINE}" STREQUAL "zynq7")
 if ("${MACHINE}" STREQUAL "zynqmp")
   collect (PROJECT_LIB_SOURCES zynqmp_remoteproc_r5.c)
 endif ("${MACHINE}" STREQUAL "zynqmp")
+
+if ("${PROJECT_SYSTEM}" STREQUAL "linux")
+  collect (PROJECT_LIB_SOURCES linux_remoteproc.c)
+endif ("${PROJECT_SYSTEM}" STREQUAL "linux")
