@@ -286,7 +286,13 @@ static void metal_uio_dev_irq_ack(struct linux_bus *lbus,
 	(void)lbus;
 	(void)irq;
 	unsigned int irq_info = 1;
+	unsigned int val;
+	int ret;
 
+	ret = read(ldev->fd, (void *)&val, sizeof(val));
+	if (ret < 0)
+		metal_log(LOG_ERROR, "%s, read uio irq fd %d failed: %d.\n",
+						__func__, ldev->fd, ret);
 	(void)write(ldev->fd, &irq_info, sizeof(irq_info));
 }
 

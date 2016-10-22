@@ -74,10 +74,8 @@ static int metal_shmem_try_map(struct metal_page_size *ps, int fd, size_t size,
 
 	error = metal_mlock(mem, size);
 	if (error) {
-		metal_log(LOG_ERROR, "failed to mlock shmem - %s\n",
+		metal_log(LOG_WARNING, "failed to mlock shmem - %s\n",
 			  strerror(-error));
-		metal_unmap(mem, size);
-		return error;
 	}
 
 	phys_size = sizeof(*phys) * pages;
@@ -94,14 +92,21 @@ static int metal_shmem_try_map(struct metal_page_size *ps, int fd, size_t size,
 		return -ENOMEM;
 	}
 
-	for (virt = mem, page = 0; page < pages; page++) {
-		size_t offset = page * ps->page_size;
-		error = metal_virt2phys(virt + offset, &phys[page]);
-		if (error < 0)
-			phys[page] = METAL_BAD_OFFSET;
+	if (_metal.pagemap_fd < 0) {
+		phys[0] = 0;
+		metal_log(LOG_WARNING,
+		"shmem - failed to get va2pa mapping. use offset as pa.\n");
+		metal_io_init(io, mem, phys, size, -1, 0, &metal_shmem_io_ops);
+	} else {
+		for (virt = mem, page = 0; page < pages; page++) {
+			size_t offset = page * ps->page_size;
+			error = metal_virt2phys(virt + offset, &phys[page]);
+			if (error < 0)
+				phys[page] = METAL_BAD_OFFSET;
+		}
+		metal_io_init(io, mem, phys, size, ps->page_shift, 0,
+			&metal_shmem_io_ops);
 	}
-
-	metal_io_init(io, mem, phys, size, ps->page_shift, 0, &metal_shmem_io_ops);
 	*result = io;
 
 	return 0;
@@ -118,8 +123,10 @@ int metal_shmem_open(const char *name, size_t size,
 		return error;
 
 	error = metal_open(name, 1);
-	if (error < 0)
+	if (error < 0) {
+		metal_log(LOG_ERROR, "Failed to open shmem file :%s\n", name);
 		return error;
+	}
 	fd = error;
 
 	/* Iterate through page sizes in decreasing order. */
