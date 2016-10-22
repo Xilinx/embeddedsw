@@ -23,6 +23,8 @@ collect (PROJECT_LIB_HEADERS irq.h)
 collect (PROJECT_LIB_HEADERS alloc.h)
 collect (PROJECT_LIB_HEADERS cache.h)
 collect (PROJECT_LIB_HEADERS dma.h)
+collect (PROJECT_LIB_HEADERS time.h)
+collect (PROJECT_LIB_HEADERS sleep.h)
 
 collect (PROJECT_LIB_SOURCES device.c)
 collect (PROJECT_LIB_SOURCES init.c)

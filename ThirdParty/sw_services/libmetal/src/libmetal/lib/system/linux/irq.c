@@ -119,7 +119,7 @@ int metal_irq_register(int irq,
 	for(i = 0; i < MAX_HDS; i++) {
 		hd_desc = &_irqs.hds[irq][i];
 		if ((hd_desc->drv_id == drv_id) &&
-		    (hd_desc->dev = dev)) {
+		    (hd_desc->dev == dev)) {
 			if (hd) {
 				metal_log(LOG_ERROR, "%s: irq %d has already registered."
 				         "Will not register again.\n",
@@ -259,7 +259,7 @@ static void *metal_linux_irq_handling(void *args)
 					sizeof(uint64_t)) < 0)
 					metal_log(LOG_ERROR,
 					"%s, read irq fd %d failed.\n",
-					__func__, i);
+					__func__, pfds[i].fd);
 			} else if ((pfds[i].revents & (POLLIN | POLLERR))) {
 				irq_handled = 0;
 				dev = NULL;
@@ -274,17 +274,12 @@ static void *metal_linux_irq_handling(void *args)
 					if (!dev)
 						dev = hddec->dev;
 					metal_mutex_release(&_irqs.irq_lock);
-					if (hd(i, hddec->drv_id) ==
+
+					if (hd(pfds[i].fd, hddec->drv_id) ==
 						METAL_IRQ_HANDLED)
-							irq_handled = 1;
+						irq_handled = 1;
 				}
 				if (irq_handled) {
-					ret = read(pfds[i].fd, (void *)&val,
-						   sizeof(uint32_t));
-					if (ret < 0)
-						metal_log(LOG_ERROR,
-						"%s, read irq fd %d failed: %d.\n",
-						__func__, pfds[i].fd, ret);
 					if (dev && dev->bus->ops.dev_irq_ack)
 						dev->bus->ops.dev_irq_ack(
 							dev->bus, dev, i);
