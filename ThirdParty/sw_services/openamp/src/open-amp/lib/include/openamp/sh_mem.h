@@ -50,10 +50,10 @@
 #include "metal/mutex.h"
 
 /* Macros */
-#define BITMAP_WORD_SIZE         32
+#define BITMAP_WORD_SIZE         (sizeof(unsigned long) << 3)
 #define WORD_SIZE                sizeof(unsigned long)
 #define WORD_ALIGN(a)            (((a) & (WORD_SIZE-1)) != 0)? \
-                                 (((a) & (~(WORD_SIZE-1))) + 4):(a)
+                                 (((a) & (~(WORD_SIZE-1))) + sizeof(unsigned long)):(a)
 #define SH_MEM_POOL_LOCATE_BITMAP(pool,idx) ((unsigned char *) pool \
                                              + sizeof(struct sh_mem_pool) \
                                              + (BITMAP_WORD_SIZE * idx))
@@ -87,6 +87,6 @@ struct sh_mem_pool *sh_mem_create_pool(void *start_addr, unsigned int size,
 void sh_mem_delete_pool(struct sh_mem_pool *pool);
 void *sh_mem_get_buffer(struct sh_mem_pool *pool);
 void sh_mem_free_buffer(void *ptr, struct sh_mem_pool *pool);
-unsigned int get_first_zero_bit(unsigned long value);
+int get_first_zero_bit(unsigned long value);
 
 #endif				/* SH_MEM_H_ */

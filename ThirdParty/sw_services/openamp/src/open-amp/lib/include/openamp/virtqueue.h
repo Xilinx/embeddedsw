@@ -157,7 +157,7 @@ typedef void vq_notify(struct virtqueue *);
 #if (VQUEUE_DEBUG == true)
 
 #define VQASSERT(_vq, _exp, _msg) do{ \
-    if (!(_exp)){ printf("%s: %s - "_msg, __func__, (_vq)->vq_name); while(1);} \
+    if (!(_exp)){ openamp_print("%s: %s - "_msg, __func__, (_vq)->vq_name); while(1);} \
     } while(0)
 
 #define VQ_RING_ASSERT_VALID_IDX(_vq, _idx)            \
@@ -208,7 +208,7 @@ int virtqueue_add_single_buffer(struct virtqueue *vq, void *cookie,
 				struct metal_sg *sg, int writable,
 				boolean has_next);
 
-void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t * len);
+void *virtqueue_get_buffer(struct virtqueue *vq, uint32_t * len, uint16_t *idx);
 
 void *virtqueue_get_available_buffer(struct virtqueue *vq, uint16_t * avail_idx,
 				     uint32_t * len);
@@ -229,5 +229,7 @@ void virtqueue_dump(struct virtqueue *vq);
 void virtqueue_notification(struct virtqueue *vq);
 
 uint32_t virtqueue_get_desc_size(struct virtqueue *vq);
+
+uint32_t virtqueue_get_buffer_length(struct virtqueue *vq, uint16_t idx);
 
 #endif				/* VIRTQUEUE_H_ */

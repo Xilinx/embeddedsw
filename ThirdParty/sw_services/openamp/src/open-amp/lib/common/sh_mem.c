@@ -82,7 +82,7 @@ struct sh_mem_pool *sh_mem_create_pool(void *start_addr, unsigned int size,
 	    + ((num_buffs % BITMAP_WORD_SIZE) == 0 ? 0 : 1);
 
 	/* Total size required for pool control block. */
-	pool_size = sizeof(struct sh_mem_pool) + WORD_SIZE * bmp_size;
+	pool_size = sizeof(struct sh_mem_pool) + BITMAP_WORD_SIZE * bmp_size;
 
 	/* Create pool control block. */
 	mem_pool = metal_allocate_memory(pool_size);
@@ -130,10 +130,12 @@ void *sh_mem_get_buffer(struct sh_mem_pool *pool)
 		 * Find the first 0 bit in the buffers bitmap. The 0th bit
 		 * represents a free buffer.
 		 */
-		bit_idx = get_first_zero_bit(*(unsigned long*)SH_MEM_POOL_LOCATE_BITMAP(pool,idx));
-		if (bit_idx < 32) {
+		bit_idx = get_first_zero_bit(
+			*(unsigned long*)SH_MEM_POOL_LOCATE_BITMAP(pool,idx));
+		if (bit_idx >= 0) {
 			/* Set bit to mark it as consumed. */
-			*(unsigned long*)(SH_MEM_POOL_LOCATE_BITMAP(pool,idx)) |= (1 << bit_idx);
+			*(unsigned long*)(SH_MEM_POOL_LOCATE_BITMAP(pool,idx))
+				|= ((unsigned long)1 << (unsigned long)bit_idx);
 			buff = (char *)pool->start_addr +
 			    pool->buff_size * (idx * BITMAP_WORD_SIZE +
 					       bit_idx);
@@ -213,23 +215,13 @@ void sh_mem_delete_pool(struct sh_mem_pool *pool)
  *
  * @return - 0th bit position
  */
-unsigned int get_first_zero_bit(unsigned long value)
+int get_first_zero_bit(unsigned long value)
 {
-	unsigned int idx;
-	unsigned int tmp32;
-
-	/* Invert value */
-	value = ~value;
-
-	/* (~value) & (2's complement of value) */
-	value = (value & (-value)) - 1;
-
-	/* log2(value) */
-
-	tmp32 = value - ((value >> 1) & 033333333333)
-	    - ((value >> 2) & 011111111111);
-
-	idx = ((tmp32 + (tmp32 >> 3)) & 030707070707) % 63;
-
-	return idx;
+	unsigned int idx = 0;
+	value = ((~value) & (value + 1));
+	while (value) {
+		idx++;
+		value >>= 1;
+	}
+	return ((int)idx-1);
 }

@@ -33,4 +33,5 @@
 #include "openamp/rpmsg.h"
 #include "openamp/remoteproc.h"
 
+
 #endif				/* OPEN_AMP_H_ */

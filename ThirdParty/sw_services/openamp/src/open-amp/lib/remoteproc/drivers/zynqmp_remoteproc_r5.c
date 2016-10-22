@@ -51,7 +51,6 @@
 #include "metal/cpu.h"
 #include "metal/alloc.h"
 #include "openamp/hil.h"
-#include "openamp/remoteproc_plat.h"
 #include "openamp/virtqueue.h"
 
 /* IPI REGs OFFSET */
@@ -68,6 +67,11 @@
 
 /* -- FIX ME: ipi info is to be defined -- */
 struct ipi_info {
+	const char *name;
+	const char *bus_name;
+	struct metal_device *dev;
+	struct metal_io_region *io;
+	metal_phys_addr_t paddr;
 	uint32_t ipi_chn_mask;
 	int need_reg;
 	atomic_int sync;
@@ -75,11 +79,11 @@ struct ipi_info {
 
 /*--------------------------- Declare Functions ------------------------ */
 static int _enable_interrupt(struct proc_vring *vring_hw);
-static void _notify(int cpu_id, struct proc_intr *intr_info);
-static int _boot_cpu(int cpu_id, unsigned int load_addr);
-static void _shutdown_cpu(int cpu_id);
+static void _notify(struct hil_proc *proc, struct proc_intr *intr_info);
+static int _boot_cpu(struct hil_proc *proc, unsigned int load_addr);
+static void _shutdown_cpu(struct hil_proc *proc);
 static int _poll(struct hil_proc *proc, int nonblock);
-static struct hil_proc *_initialize(void *pdata, int cpu_id);
+static int _initialize(struct hil_proc *proc);
 static void _release(struct hil_proc *proc);
 
 /*--------------------------- Globals ---------------------------------- */
@@ -99,28 +103,28 @@ static int _enable_interrupt(struct proc_vring *vring_hw)
 	return 0;
 }
 
-static void _notify(int cpu_id, struct proc_intr *intr_info)
+static void _notify(struct hil_proc *proc, struct proc_intr *intr_info)
 {
 
-	(void)cpu_id;
+	(void)proc;
 	struct ipi_info *ipi = (struct ipi_info *)(intr_info->data);
 	if (ipi == NULL)
 		return;
 
 	/* Trigger IPI */
-	metal_io_write32(intr_info->io, IPI_TRIG_OFFSET, ipi->ipi_chn_mask);
+	metal_io_write32(ipi->io, IPI_TRIG_OFFSET, ipi->ipi_chn_mask);
 }
 
-static int _boot_cpu(int cpu_id, unsigned int load_addr)
+static int _boot_cpu(struct hil_proc *proc, unsigned int load_addr)
 {
-	(void)cpu_id;
+	(void)proc;
 	(void)load_addr;
 	return -1;
 }
 
-static void _shutdown_cpu(int cpu_id)
+static void _shutdown_cpu(struct hil_proc *proc)
 {
-	(void)cpu_id;
+	(void)proc;
 	return;
 }
 
@@ -132,7 +136,7 @@ static int _poll(struct hil_proc *proc, int nonblock)
 
 	vring = &proc->vdev.vring_info[0];
 	ipi = (struct ipi_info *)(vring->intr_info.data);
-	io = vring->intr_info.io;
+	io = ipi->io;
 	while(1) {
 		unsigned int ipi_intr_status =
 		    (unsigned int)metal_io_read32(io, IPI_ISR_OFFSET);
@@ -148,53 +152,82 @@ static int _poll(struct hil_proc *proc, int nonblock)
 	}
 }
 
-static struct hil_proc * _initialize(void *pdata, int cpu_id)
+static int _initialize(struct hil_proc *proc)
 {
-	(void) cpu_id;
-
-	struct hil_proc *proc;
 	int ret;
-	struct metal_io_region *io;
 	struct proc_intr *intr_info;
 	struct ipi_info *ipi;
 	unsigned int ipi_intr_status;
+	int i;
 
-	/* Allocate memory for proc instance */
-	proc = metal_allocate_memory(sizeof(struct hil_proc));
-	if (!proc) {
-		openamp_dbg("failed to allocate hil_proc mem\n");
-		return NULL;
-	}
-	memset(proc, 0, sizeof(struct hil_proc));
+	if (!proc)
+		return -1;
 
-	ret = rproc_init_plat_data(pdata, proc);
-	if (ret) {
-		openamp_dbg("failed to allocate hil_proc mem\n");
-		goto error;
+	for (i = 0; i < HIL_MAX_NUM_VRINGS; i++) {
+		intr_info = &(proc->vdev.vring_info[i].intr_info);
+		ipi = intr_info->data;
+
+		if (ipi && ipi->name && ipi->bus_name) {
+			ret = metal_device_open(ipi->bus_name, ipi->name,
+						     &ipi->dev);
+			if (ret)
+				return -ENODEV;
+			ipi->io = metal_device_io_region(ipi->dev, 0);
+			intr_info->vect_id = (uintptr_t)ipi->dev->irq_info;
+		} else if (ipi->paddr) {
+			ipi->io = metal_allocate_memory(
+				sizeof(struct metal_io_region));
+			if (!ipi->io)
+				goto error;
+			metal_io_init(ipi->io, (void *)ipi->paddr,
+				&ipi->paddr, 0x1000,
+				(unsigned)(-1),
+				METAL_UNCACHED | METAL_IO_MAPPED,
+				NULL);
+		}
+
+		if (ipi->io) {
+			ipi_intr_status = (unsigned int)metal_io_read32(
+				ipi->io, IPI_ISR_OFFSET);
+			if (ipi_intr_status & ipi->ipi_chn_mask)
+				metal_io_write32(ipi->io, IPI_ISR_OFFSET,
+					ipi->ipi_chn_mask);
+			metal_io_write32(ipi->io, IPI_IDR_OFFSET,
+				ipi->ipi_chn_mask);
+			atomic_store(&ipi->sync, 1);
+		}
 	}
-	intr_info = &(proc->vdev.vring_info[0].intr_info);
-	io = intr_info->io;
-	ipi = (struct ipi_info *)(intr_info->data);
-	ipi_intr_status =
-	    (unsigned int)metal_io_read32(io, IPI_ISR_OFFSET);
-	if (ipi_intr_status & ipi->ipi_chn_mask) {
-		metal_io_write32(io, IPI_ISR_OFFSET, ipi->ipi_chn_mask);
-	}
-	metal_io_write32(io, IPI_IDR_OFFSET, ipi->ipi_chn_mask);
-	atomic_store(&ipi->sync, 1);
-	return proc;
+	return 0;
+
 error:
-	if (proc) {
-		rproc_close_plat(proc);
-		metal_free_memory(proc);
-	}
-	return NULL;
+	_release(proc);
+	return -1;
 }
 
 static void _release(struct hil_proc *proc)
 {
-	if (proc) {
-		rproc_close_plat(proc);
-		metal_free_memory(proc);
+	int i;
+	struct proc_intr *intr_info;
+	struct ipi_info *ipi;
+
+	if (!proc)
+		return;
+	for (i = 0; i < HIL_MAX_NUM_VRINGS; i++) {
+		intr_info = &(proc->vdev.vring_info[1].intr_info);
+		ipi = (struct ipi_info *)(intr_info->data);
+		if (ipi) {
+			if (ipi->io) {
+				metal_io_write32(ipi->io, IPI_IDR_OFFSET,
+					ipi->ipi_chn_mask);
+				if (ipi->dev) {
+					metal_device_close(ipi->dev);
+					ipi->dev = NULL;
+				} else {
+					metal_free_memory(ipi->io);
+				}
+				ipi->io = NULL;
+			}
+		}
+
 	}
 }

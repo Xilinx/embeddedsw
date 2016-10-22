@@ -41,6 +41,7 @@
 /* The feature bitmap for virtio rpmsg */
 #define VIRTIO_RPMSG_F_NS	0	/* RP supports name service notifications */
 #define RPMSG_NAME_SIZE     32
+#define RPMSG_BUF_HELD      (1U << 31) /* Flag to suggest to hold the buffer */
 
 #define RPMSG_LOCATE_DATA(p)  ((unsigned char *) p + sizeof (struct rpmsg_hdr))
 
@@ -62,6 +63,20 @@ struct rpmsg_hdr {
 	uint16_t len;
 	uint16_t flags;
 } OPENAMP_PACKED_END;
+
+/**
+ * struct rpmsg_hdr_reserved - this is the "union" of the rpmsg_hdr->reserved
+ * @rfu: reserved for future usage
+ * @idx: index of a buffer (not to be returned back to the buffer's pool)
+ *
+ * This structure has been introduced to keep the backward compatibility.
+ * It could be integrated into rpmsg_hdr struct, replacing the reserved field.
+ */
+struct rpmsg_hdr_reserved
+{
+	uint16_t rfu; /* reserved for future usage */
+	uint16_t idx;
+};
 
 /**
  * struct rpmsg_ns_msg - dynamic name service announcement message
@@ -317,15 +332,192 @@ static inline int rpmsg_trysend_offchannel(struct rpmsg_channel *rpdev,
 }
 
 /**
+ * @brief Holds the rx buffer for usage outside the receive callback.
+ *
+ * Calling this function prevents the RPMsg receive buffer from being released
+ * back to the pool of shmem buffers. This API can only be called at rx
+ * callback context (rpmsg_rx_cb_t). With this API, the application doesn't
+ * need to copy the message in rx callback. Instead, the rx buffer base address
+ * is saved in application context and further processed in application
+ * process. After the message is processed, the application can release the rx
+ * buffer for future reuse in vring by calling the rpmsg_release_rx_buffer()
+ * function.
+ *
+ * @param[in] rpdev The rpmsg channel
+ * @param[in] rxbuf RX buffer with message payload
+ *
+ * @see rpmsg_release_rx_buffer
+ */
+void rpmsg_hold_rx_buffer(struct rpmsg_channel *rpdev, void *rxbuf);
+
+/**
+ * @brief Releases the rx buffer for future reuse in vring.
+ *
+ * This API can be called at process context when the message in rx buffer is
+ * processed.
+ *
+ * @param rpdev - the rpmsg channel
+ * @param rxbuf - rx buffer with message payload
+ *
+ * @see rpmsg_hold_rx_buffer
+ */
+void rpmsg_release_rx_buffer(struct rpmsg_channel *rpdev, void *rxbuf);
+
+/**
+ * @brief Gets the tx buffer for message payload.
+ *
+ * This API can only be called at process context to get the tx buffer in vring.
+ * By this way, the application can directly put its message into the vring tx
+ * buffer without copy from an application buffer.
+ * It is the application responsibility to correctly fill the allocated tx
+ * buffer by data and passing correct parameters to the rpmsg_send_nocopy() or
+ * rpmsg_sendto_nocopy() function to perform data no-copy-send mechanism.
+ *
+ * @param[in] rpdev Pointer to rpmsg channel
+ * @param[in] size  Pointer to store tx buffer size
+ * @param[in] wait  Boolean, wait or not for buffer to become available
+ *
+ * @return The tx buffer address on success and NULL on failure
+ *
+ * @see rpmsg_send_offchannel_nocopy
+ * @see rpmsg_sendto_nocopy
+ * @see rpmsg_send_nocopy
+ */
+void *rpmsg_get_tx_payload_buffer(struct rpmsg_channel *rpdev, uint32_t *size,
+			    int wait);
+
+/**
+ * @brief Sends a message in tx buffer allocated by rpmsg_alloc_tx_buffer()
+ * using explicit src/dst addresses.
+ *
+ * This function sends txbuf of length len to the remote dst address,
+ * and uses src as the source address.
+ * The message will be sent to the remote processor which the rpdev
+ * channel belongs to.
+ * The application has to take the responsibility for:
+ *  1. tx buffer allocation (rpmsg_alloc_tx_buffer() )
+ *  2. filling the data to be sent into the pre-allocated tx buffer
+ *  3. not exceeding the buffer size when filling the data
+ *  4. data cache coherency
+ *
+ * After the rpmsg_send_offchannel_nocopy() function is issued the tx buffer is
+ * no more owned by the sending task and must not be touched anymore unless the
+ * rpmsg_send_offchannel_nocopy() function fails and returns an error. In that
+ * case the application should try to re-issue the
+ * rpmsg_send_offchannel_nocopy() again and if it is still not possible to send
+ * the message and the application wants to give it up from whatever reasons
+ * the rpmsg_release_rx_buffer function could be called, passing the pointer to
+ * the tx buffer to be released as a parameter.
+ *
+ * @param[in] rpdev The rpmsg channel
+ * @param[in] src   Source address
+ * @param[in] dst   Destination address
+ * @param[in] txbuf TX buffer with message filled
+ * @param[in] len   Length of payload
+ *
+ * @return 0 on success and an appropriate error value on failure
+ *
+ * @see rpmsg_alloc_tx_buffer
+ * @see rpmsg_sendto_nocopy
+ * @see rpmsg_send_nocopy
+ */
+int rpmsg_send_offchannel_nocopy(struct rpmsg_channel *rpdev, uint32_t src,
+				 uint32_t dst, void *txbuf, int len);
+
+/**
+ * @brief Sends a message in tx buffer allocated by rpmsg_alloc_tx_buffer()
+ * across to the remote processor, specify dst.
+ *
+ * This function sends txbuf of length len to the remote dst address.
+ * The message will be sent to the remote processor which the rpdev
+ * channel belongs to, using rpdev's source address.
+ * The application has to take the responsibility for:
+ *  1. tx buffer allocation (rpmsg_alloc_tx_buffer() )
+ *  2. filling the data to be sent into the pre-allocated tx buffer
+ *  3. not exceeding the buffer size when filling the data
+ *  4. data cache coherency
+ *
+ * After the rpmsg_sendto_nocopy() function is issued the tx buffer is no more
+ * owned by the sending task and must not be touched anymore unless the
+ * rpmsg_sendto_nocopy() function fails and returns an error. In that case the
+ * application should try to re-issue the rpmsg_sendto_nocopy() again and if
+ * it is still not possible to send the message and the application wants to
+ * give it up from whatever reasons the rpmsg_release_rx_buffer function
+ * could be called,
+ * passing the pointer to the tx buffer to be released as a parameter.
+ *
+ * @param[in] rpdev The rpmsg channel
+ * @param[in] txbuf TX buffer with message filled
+ * @param[in] len   Length of payload
+ * @param[in] dst   Destination address
+ *
+ * @return 0 on success and an appropriate error value on failure
+ *
+ * @see rpmsg_alloc_tx_buffer
+ * @see rpmsg_send_offchannel_nocopy
+ * @see rpmsg_send_nocopy
+ */
+static inline
+int rpmsg_sendto_nocopy(struct rpmsg_channel *rpdev, void *txbuf, int len,
+			uint32_t dst)
+{
+	if (!rpdev)
+		return RPMSG_ERR_PARAM;
+
+	return rpmsg_send_offchannel_nocopy(rpdev, (uint32_t)rpdev->src, dst,
+					    txbuf, len);
+}
+
+/**
+ * @brief Sends a message in tx buffer allocated by
+ * rpmsg_alloc_tx_buffer() across to the remote processor.
+ *
+ * This function sends txbuf of length len on the rpdev channel.
+ * The message will be sent to the remote processor which the rpdev
+ * channel belongs to, using rpdev's source and destination addresses.
+ * The application has to take the responsibility for:
+ *  1. tx buffer allocation (rpmsg_alloc_tx_buffer() )
+ *  2. filling the data to be sent into the pre-allocated tx buffer
+ *  3. not exceeding the buffer size when filling the data
+ *  4. data cache coherency
+ *
+ * After the rpmsg_send_nocopy() function is issued the tx buffer is no more
+ * owned by the sending task and must not be touched anymore unless the
+ * rpmsg_send_nocopy() function fails and returns an error. In that case the
+ * application should try to re-issue the rpmsg_send_nocopy() again and if
+ * it is still not possible to send the message and the application wants to
+ * give it up from whatever reasons the rpmsg_release_rx_buffer function
+ * could be called, passing the pointer to the tx buffer to be released as a
+ * parameter.
+ *
+ * @param[in] rpdev The rpmsg channel
+ * @param[in] txbuf TX buffer with message filled
+ * @param[in] len   Length of payload
+ *
+ * @return 0 on success and an appropriate error value on failure
+ *
+ * @see rpmsg_alloc_tx_buffer
+ * @see rpmsg_send_offchannel_nocopy
+ * @see rpmsg_sendto_nocopy
+ */
+static inline
+int rpmsg_send_nocopy(struct rpmsg_channel *rpdev, void *txbuf, int len)
+{
+	if (!rpdev)
+		return RPMSG_ERR_PARAM;
+
+	return rpmsg_send_offchannel_nocopy(rpdev, rpdev->src, rpdev->dst,
+					    txbuf, len);
+}
+
+/**
  * rpmsg_init
  *
- * Thus function allocates and initializes the rpmsg driver resources for given
- * device id (cpu id).The successful return from this function leaves
+ * Thus function allocates and initializes the rpmsg driver resources for
+ * the given hil_proc.The successful return from this function leaves
  * fully enabled IPC link.
  *
- * @param pdata             - platform data for remote processor
- * @param dev_id            - rpmsg remote device for which driver is to
- *                            be initialized
+ * @param proc              - pointer to hil_proc
  * @param rdev              - pointer to newly created remote device
  * @param channel_created   - callback function for channel creation
  * @param channel_destroyed - callback function for channel deletion
@@ -335,7 +527,8 @@ static inline int rpmsg_trysend_offchannel(struct rpmsg_channel *rpdev,
  *
  */
 
-int rpmsg_init(void *pdata, int dev_id, struct remote_device **rdev,
+int rpmsg_init(struct hil_proc *proc,
+	       struct remote_device **rdev,
 	       rpmsg_chnl_cb_t channel_created,
 	       rpmsg_chnl_cb_t channel_destroyed,
 	       rpmsg_rx_cb_t default_cb, int role);
