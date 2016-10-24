@@ -96,6 +96,8 @@
 #include "xhdmi_hdcp_keys.h"
 #include "xhdcp.h"
 
+#define LOOPBACK_MODE_EN 0
+
 #if defined (__arm__)
 #define XPAR_CPU_CORE_CLOCK_FREQ_HZ 100000000
 #endif
