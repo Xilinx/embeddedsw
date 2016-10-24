@@ -228,7 +228,7 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 			 * Set up the reply buffer with the device descriptor
 			 * data.
 			 */
-			ReplyLen = XUsbPsu_Ch9SetupDevDescReply(
+			ReplyLen = XUsbPsu_Ch9SetupDevDescReply(InstancePtr,
 						Reply, XUSBPSU_REQ_REPLY_LEN);
 
 			ReplyLen = ReplyLen > SetupData->wLength ?
@@ -263,7 +263,7 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 			/* Set up the reply buffer with the configuration
 			 * descriptor data.
 			 */
-			ReplyLen = XUsbPsu_Ch9SetupCfgDescReply(
+			ReplyLen = XUsbPsu_Ch9SetupCfgDescReply(InstancePtr,
 						Reply, XUSBPSU_REQ_REPLY_LEN);
 
 #ifdef CH9_DEBUG
@@ -285,7 +285,7 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
             /* Set up the reply buffer with the configuration
 			 * descriptor data.
 			 */
-			ReplyLen = XUsbPsu_Ch9SetupStrDescReply(
+			ReplyLen = XUsbPsu_Ch9SetupStrDescReply(InstancePtr,
 						Reply, 128,
 						SetupData->wValue & 0xFF);
 

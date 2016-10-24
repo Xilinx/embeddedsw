@@ -43,6 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/16/16 First release
+* 1.1   sg    10/24/16 Added new function XUsbPsu_IsSuperSpeed
 *
 * </pre>
 *
@@ -707,6 +708,26 @@ s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr)
 	}
 	else {
 		InstancePtr->State = XUSBPSU_STATE_DEFAULT;
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* Sets speed of the Core for connecting to Host
+*
+* @param	InstancePtr is a pointer to the XUsbPsu instance.
+*
+* @return	XST_SUCCESS else XST_FAILURE
+*
+* @note		None.
+*
+*****************************************************************************/
+s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr)
+{
+	if (InstancePtr->Speed != XUSBPSU_SPEED_SUPER) {
+		return XST_FAILURE;
 	}
 
 	return XST_SUCCESS;

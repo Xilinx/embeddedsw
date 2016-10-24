@@ -79,10 +79,13 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-u32 XUsbPsu_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufLen);
-u32 XUsbPsu_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen);
+u32 XUsbPsu_Ch9SetupDevDescReply(struct XUsbPsu *InstancePtr,
+                                 u8 *BufPtr, u32 BufLen);
+u32 XUsbPsu_Ch9SetupCfgDescReply(struct XUsbPsu *InstancePtr,
+                                 u8 *BufPtr, u32 BufLen);
 u32 XUsbPsu_Ch9SetupBosDescReply(u8 *BufPtr, u32 BufLen);
-u32 XUsbPsu_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index);
+u32 XUsbPsu_Ch9SetupStrDescReply(struct XUsbPsu *InstancePtr,
+                                 u8 *BufPtr, u32 BufLen, u8 Index);
 s32 XUsbPsu_SetConfiguration(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl);
 s32 XUsbPsu_SetConfigurationApp(struct XUsbPsu *InstancePtr, SetupPacket *Ctrl);
 
