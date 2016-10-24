@@ -203,41 +203,9 @@ extern USB_CBW CBW;
 #define USB_INTERFACE_CFG_DESC		0x04
 #define USB_ENDPOINT_CFG_DESC		0x05
 
-
-/*****************************************************************************/
-/**
-*
-* This function returns the device descriptor for the device.
-*
-* @param	BufPtr is pointer to the buffer that is to be filled
-*		with the descriptor.
-* @param	BufLen is the size of the provided buffer.
-*
-* @return 	Length of the descriptor in the buffer on success.
-*		0 on error.
-*
-******************************************************************************/
-u32 XUsbPsu_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufLen)
-{
-#ifdef XUSBPSU_SUPER_SPEED
-	USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc = {
-		sizeof(USB_STD_DEV_DESC),	/* bLength */
-		USB_DEVICE_DESC,		/* bDescriptorType */
-		(0x0300),			/* bcdUSB 2.0 */
-		0x00,				/* bDeviceClass */
-		0x00,				/* bDeviceSubClass */
-		0x00,				/* bDeviceProtocol */
-		0x09,		/* bMaxPackedSize0 */
-		(0x0525),			/* idVendor */
-		(0xA4A5),			/* idProduct */
-		(0x0404),			/* bcdDevice */
-		0x03,				/* iManufacturer */
-		0x04,				/* iProduct */
-		0x05,				/* iSerialNumber */
-		0x01				/* bNumConfigurations */
-	};
-#else
-	USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc = {
+/* Device Descriptors */
+USB_STD_DEV_DESC __attribute__ ((aligned(16))) deviceDesc[] = {
+{/* USB 2.0 */
 		sizeof(USB_STD_DEV_DESC),	/* bLength */
 		USB_DEVICE_DESC,		/* bDescriptorType */
 		(0x0200),			/* bcdUSB 2.0 */
@@ -252,41 +220,26 @@ u32 XUsbPsu_Ch9SetupDevDescReply(u8 *BufPtr, u32 BufLen)
 		0x02,				/* iProduct */
 		0x03,				/* iSerialNumber */
 		0x01				/* bNumConfigurations */
-	};
-#endif
+},
+{/* USB 3.0 */
+		sizeof(USB_STD_DEV_DESC),	/* bLength */
+		USB_DEVICE_DESC,		/* bDescriptorType */
+		(0x0300),			/* bcdUSB 3.0 */
+		0x00,				/* bDeviceClass */
+		0x00,				/* bDeviceSubClass */
+		0x00,				/* bDeviceProtocol */
+		0x09,		/* bMaxPackedSize0 */
+		(0x0525),			/* idVendor */
+		(0xA4A5),			/* idProduct */
+		(0x0404),			/* bcdDevice */
+		0x03,				/* iManufacturer */
+		0x04,				/* iProduct */
+		0x05,				/* iSerialNumber */
+		0x01				/* bNumConfigurations */
+	}};
 
-	/* Check buffer pointer is there and buffer is big enough. */
-	if (!BufPtr) {
-		return 0;
-	}
-
-	if (BufLen < sizeof(USB_STD_DEV_DESC)) {
-		return 0;
-	}
-
-	memcpy(BufPtr, &deviceDesc, sizeof(USB_STD_DEV_DESC));
-
-	return sizeof(USB_STD_DEV_DESC);
-}
-
-
-/*****************************************************************************/
-/**
-*
-* This function returns the configuration descriptor for the device.
-*
-* @param	BufPtr is the pointer to the buffer that is to be filled with
-*		the descriptor.
-* @param	BufLen is the size of the provided buffer.
-*
-* @return 	Length of the descriptor in the buffer on success.
-*		0 on error.
-*
-******************************************************************************/
-u32 XUsbPsu_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
-{
-#ifdef XUSBPSU_SUPER_SPEED
-	USB30_CONFIG __attribute__ ((aligned(16))) config = {
+/* Configuration Descriptors */
+USB30_CONFIG __attribute__ ((aligned(16))) config3 = {
 		/* Std Config */
 		{sizeof(USB_STD_CFG_DESC),	/* bLength */
 		 USB_CONFIG_DESC,		/* bDescriptorType */
@@ -340,8 +293,8 @@ u32 XUsbPsu_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
 		 0x00,			/* bmAttributes */
 		 0x00}			/* wBytesPerInterval */
 	};
-#else
-	USB_CONFIG __attribute__ ((aligned(16))) config = {
+
+USB_CONFIG __attribute__ ((aligned(16))) config2 = {
 		/* Std Config */
 		{sizeof(USB_STD_CFG_DESC),	/* bLength */
 		 USB_CONFIG_DESC,		/* bDescriptorType */
@@ -381,7 +334,100 @@ u32 XUsbPsu_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
 		 0x02,					/* wMaxPacketSize - MSB */
 		 0x00}				/* bInterval */
 	};
-#endif
+
+/* String Descriptors */
+static char StringList[2][6][128] = {
+			{
+				"UNUSED",
+				"Mass Storage",
+				"USB 2.0 Flash Drive Disk Emulation",
+				"2A49876D9CC1AA4",
+				"Mass Storage Gadget",
+				"Default Interface"
+			},
+			{
+				"UNUSED",
+				"Mass Storage",
+				"2A49876D9CC1AA4",
+				"USB 3.0 Flash Drive Disk Emulation",
+				"Mass Storage Gadget",
+				"7ABC7ABC7ABC7ABC7ABC7ABC"
+			}
+	};
+/*****************************************************************************/
+/**
+*
+* This function returns the device descriptor for the device.
+*
+* @param	BufPtr is pointer to the buffer that is to be filled
+*		with the descriptor.
+* @param	BufLen is the size of the provided buffer.
+*
+* @return 	Length of the descriptor in the buffer on success.
+*		0 on error.
+*
+******************************************************************************/
+u32 XUsbPsu_Ch9SetupDevDescReply(struct XUsbPsu *InstancePtr,
+		u8 *BufPtr, u32 BufLen)
+{
+	u8 Index;
+	s32 Status;
+
+	Status = XUsbPsu_IsSuperSpeed(InstancePtr);
+	if(Status != XST_SUCCESS) {
+		/* USB 2.0 */
+		Index = 0;
+	} else {
+		/* USB 3.0 */
+		Index = 1;
+	}
+
+	/* Check buffer pointer is there and buffer is big enough. */
+	if (!BufPtr) {
+		return 0;
+	}
+
+	if (BufLen < sizeof(USB_STD_DEV_DESC)) {
+		return 0;
+	}
+
+	memcpy(BufPtr, &deviceDesc[Index], sizeof(USB_STD_DEV_DESC));
+
+	return sizeof(USB_STD_DEV_DESC);
+}
+
+
+/*****************************************************************************/
+/**
+*
+* This function returns the configuration descriptor for the device.
+*
+* @param	BufPtr is the pointer to the buffer that is to be filled with
+*		the descriptor.
+* @param	BufLen is the size of the provided buffer.
+*
+* @return 	Length of the descriptor in the buffer on success.
+*		0 on error.
+*
+******************************************************************************/
+u32 XUsbPsu_Ch9SetupCfgDescReply(struct XUsbPsu *InstancePtr,
+		u8 *BufPtr, u32 BufLen)
+{
+	s32 Status;
+	char *config;
+	u32 CfgDescLen;
+
+	Status = XUsbPsu_IsSuperSpeed(InstancePtr);
+	if(Status != XST_SUCCESS) {
+		/* USB 2.0 */
+		config = (char *)&config2;
+		CfgDescLen  = sizeof(USB_CONFIG);
+	} else {
+		/* USB 3.0 */
+		config = (char *)&config3;
+		CfgDescLen  = sizeof(USB30_CONFIG);
+	}
+
 	/* Check buffer pointer is OK and buffer is big enough. */
 	if (!BufPtr) {
 		return 0;
@@ -391,9 +437,9 @@ u32 XUsbPsu_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
 		return 0;
 	}
 
-	memcpy(BufPtr, &config, sizeof(config));
+	memcpy(BufPtr, config, CfgDescLen);
 
-	return sizeof(config);
+	return CfgDescLen;
 }
 
 
@@ -412,45 +458,39 @@ u32 XUsbPsu_Ch9SetupCfgDescReply(u8 *BufPtr, u32 BufLen)
 *		0 on error.
 *
 ******************************************************************************/
-u32 XUsbPsu_Ch9SetupStrDescReply(u8 *BufPtr, u32 BufLen, u8 Index)
+u32 XUsbPsu_Ch9SetupStrDescReply(struct XUsbPsu *InstancePtr,
+		u8 *BufPtr,	u32 BufLen, u8 Index)
 {
 	int i;
-
-#ifdef XUSBPSU_SUPER_SPEED
-	static char *StringList[] = {
-		"UNUSED",
-		"Mass Storage",
-		"2A49876D9CC1AA4",
-		"USB 3.0 Flash Drive Disk Emulation",
-		"Mass Storage Gadget",
-		"7ABC7ABC7ABC7ABC7ABC7ABC", };
-#else
-	static char *StringList[] = {
-		"UNUSED",
-		"Mass Storage"
-		"USB 2.0 Flash Drive Disk Emulation",
-		"2A49876D9CC1AA4",
-		"Mass Storage Gadget",
-		"Default Interface",
-	};
-#endif
-
 	char *String;
 	u32 StringLen;
 	u32 DescLen;
 	u8 TmpBuf[128];
+	s32 Status;
+	u8 StrArray;
 
 	USB_STD_STRING_DESC *StringDesc;
+
+	Status = XUsbPsu_IsSuperSpeed(InstancePtr);
+	if(Status != XST_SUCCESS) {
+		/* USB 2.0 */
+		StrArray = 0;
+	} else {
+		/* USB 3.0 */
+		StrArray = 1;
+	}
 
 	if (!BufPtr) {
 		return 0;
 	}
 
+	String = (char *)&StringList[StrArray][Index];
+
 	if (Index >= sizeof(StringList) / sizeof(char *)) {
 		return 0;
 	}
 
-	String = StringList[Index];
+
 	StringLen = strlen(String);
 
 	StringDesc = (USB_STD_STRING_DESC *) TmpBuf;

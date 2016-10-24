@@ -44,6 +44,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sg    06/06/16 First release
+* 1.1   sg    10/24/16 Update for backward compatability
+*                      Added XUsbPsu_IsSuperSpeed function in xusbpsu.c
 *
 * </pre>
 *
@@ -508,7 +510,7 @@ s32 XUsbPsu_SendGenericCmd(struct XUsbPsu *InstancePtr,
 					s32 Cmd, u32 Param);
 void XUsbPsu_SetSpeed(struct XUsbPsu *InstancePtr, u32 Speed);
 s32 XUsbPsu_SetDeviceAddress(struct XUsbPsu *InstancePtr, u16 Addr);
-
+s32 XUsbPsu_IsSuperSpeed(struct XUsbPsu *InstancePtr);
 s32 XUsbPsu_SetU1SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
 s32 XUsbPsu_SetU2SleepTimeout(struct XUsbPsu *InstancePtr, u8 Sleep);
 s32 XUsbPsu_AcceptU1U2Sleep(struct XUsbPsu *InstancePtr);

@@ -64,38 +64,37 @@ void SendCSW(struct XUsbPsu *InstancePtr, u32 Length);
 extern u8 Phase;
 extern u8 VirtFlash[];
 
-#ifdef XUSBPSU_SUPER_SPEED
 /*
  * Pre-manufactured response to the SCSI Inquiry command.
  */
-const static SCSI_INQUIRY scsiInquiry ALIGNMENT_CACHELINE = {
-	0x00,
-	0x80,
-	0x02,
-	0x02,
-	0x1F,
-	0x00,
-	0x00,
-	0x00,
-	{"Linux  "},		/* Vendor ID:  must be  8 characters long. */
-	{"File-Stor Gadget"},	/* Product ID: must be 16 characters long. */
-	{"0404"}		/* Revision:   must be  4 characters long. */
+const static SCSI_INQUIRY scsiInquiry[] ALIGNMENT_CACHELINE = {
+		{
+			0x00,
+			0x80,
+			0x00,
+			0x01,
+			0x1f,
+			0x00,
+			0x00,
+			0x00,
+			{"Xilinx  "},		/* Vendor ID:  must be  8 characters long. */
+			{"PS USB VirtDisk"},/* Product ID: must be 16 characters long. */
+			{"1.00"}		/* Revision:   must be  4 characters long. */
+		},
+		{
+			0x00,
+			0x80,
+			0x02,
+			0x02,
+			0x1F,
+			0x00,
+			0x00,
+			0x00,
+			{"Linux  "},		/* Vendor ID:  must be  8 characters long. */
+			{"File-Stor Gadget"},	/* Product ID: must be 16 characters long. */
+			{"0404"}		/* Revision:   must be  4 characters long. */
+		}
 };
-#else
-const static SCSI_INQUIRY scsiInquiry ALIGNMENT_CACHELINE = {
-	0x00,
-	0x80,
-	0x00,
-	0x01,
-	0x1f,
-	0x00,
-	0x00,
-	0x00,
-	{"Xilinx  "},		/* Vendor ID:  must be  8 characters long. */
-	{"PS USB VirtDisk"},	/* Product ID: must be 16 characters long. */
-	{"1.00"}		/* Revision:   must be  4 characters long. */
-};
-#endif
 
 static u8 MaxLUN ALIGNMENT_CACHELINE = 0;
 
@@ -160,8 +159,11 @@ void XUsbPsu_ClassReq(struct XUsbPsu *InstancePtr,
 void ParseCBW(struct XUsbPsu *InstancePtr)
 {
 	u32	Offset;
-	u8 Array[50]= {0x0F, 0x00, 0x00, 0x00, 0x08, 0x0A, 0x04, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF};
+	u8 Array[50]= {0x0F, 0x00, 0x00, 0x00, 0x08, 0x0A, 0x04, 0x00, 0xFF, 0xFF,
+        0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF};
 	u8 Array1[50];
+	u8 Index;
+	s32 Status;
 
 	switch (CBW.CBWCB[0]) {
 	case USB_RBC_INQUIRY:
@@ -169,8 +171,18 @@ void ParseCBW(struct XUsbPsu *InstancePtr)
 		printf("SCSI: INQUIRY\r\n");
 #endif
 		Phase = USB_EP_STATE_DATA;
-		XUsbPsu_EpBufferSend(InstancePtr, 1, (void *) &scsiInquiry,
-								sizeof(scsiInquiry));
+
+		Status = XUsbPsu_IsSuperSpeed(InstancePtr);
+		if(Status != XST_SUCCESS) {
+			/* USB 2.0 */
+			Index = 0;
+		} else {
+			/* USB 3.0 */
+			Index = 1;
+		}
+
+		XUsbPsu_EpBufferSend(InstancePtr, 1, (void *) &scsiInquiry[Index],
+								sizeof(scsiInquiry[Index]));
 		break;
 
 	case USB_UFI_GET_CAP_LIST:
@@ -229,8 +241,8 @@ void ParseCBW(struct XUsbPsu *InstancePtr)
 		printf("SCSI: MODE SENSE\r\n");
 #endif
 		Phase = USB_EP_STATE_DATA;
-		XUsbPsu_EpBufferSend(InstancePtr, 1, (u8 *)Array,
-												16);
+		XUsbPsu_EpBufferSend(InstancePtr,
+				1, (u8 *)Array, 16);
 		break;
 
 	case USB_RBC_MODE_SELECT:
@@ -238,8 +250,8 @@ void ParseCBW(struct XUsbPsu *InstancePtr)
 			printf("SCSI: MODE_SELECT\r\n");
 	#endif
 		Phase = USB_EP_STATE_DATA;
-		XUsbPsu_EpBufferRecv(InstancePtr, 1, (u8 *)Array1,
-													24);
+		XUsbPsu_EpBufferRecv(InstancePtr,
+				1, (u8 *)Array1, 24);
 		break;
 
 	case USB_RBC_TEST_UNIT_READY:
