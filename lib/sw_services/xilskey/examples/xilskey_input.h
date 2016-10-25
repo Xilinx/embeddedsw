@@ -191,12 +191,6 @@
 *
 * BBRAM related definitions:
 *-----------------------------------------------------------------------------
-*	#define 	XSK_BBRAM_FORCE_PCYCLE_RECONFIG		FALSE
-*			If TRUE then part has to be power cycled to be
-*			able to be reconfigured
-*	#define 	XSK_BBRAM_DISABLE_JTAG_CHAIN		FALSE
-*			If TRUE then permanently sets the Zynq
-* 			ARM DAP controller in bypass mode
 *	MIO pins used for JTAG signals. Can be changed as per hardware.
 *	#define		XSK_BBRAM_MIO_JTAG_TDI		(17)
 *	#define		XSK_BBRAM_MIO_JTAG_TDO		(21)
@@ -431,6 +425,13 @@
 * 6.0   vns     07/07/16 Added Gpio pin numbers connected to hardware module.
 *               27/08/16 Modified XSK_EFUSEPL_DISABLE_DECODER macro to
 *                        XSK_EFUSEPL_DISABLE_AES_DECRYPTOR
+* 6.1   vns     10/25/16 Removed XSK_BBRAM_FORCE_PCYCLE_RECONFIG and
+*                        XSK_BBRAM_DISABLE_JTAG_CHAIN, from Zynq BBRAM
+*                        configurations as they are not actually
+*                        programming any control bit. These 2 are part of the
+*                        eFUSE PL and they already exist at eFUSE PL
+*                        configurations (XSK_EFUSEPL_FORCE_PCYCLE_RECONFIG and
+*                        XSK_EFUSEPL_DISABLE_JTAG_CHAIN)
 *
 * </pre>
 *
@@ -752,19 +753,6 @@ extern "C" {
 /*
  * Definitions for BBRAM
  */
-
-/**< If TRUE then part
-  *  has to be power cycled to be
-  *  able to be reconfigured
-  */
-#define 	XSK_BBRAM_FORCE_PCYCLE_RECONFIG		FALSE
-
-/**< If TRUE then
-  * permanently sets the Zynq
-  * ARM DAP controller in bypass
-  * mode
-  */
-#define 	XSK_BBRAM_DISABLE_JTAG_CHAIN		FALSE
 
 #define		XSK_BBRAM_MIO_JTAG_TDI	(17) /**< JTAG MIO pin for TDI */
 #define		XSK_BBRAM_MIO_JTAG_TDO	(21) /**< JTAG MIO pin for TDO */

@@ -49,6 +49,9 @@
 *                        programming.
 * 6.0   vns     07/28/16 Added IsKeyObfuscated, Enable_DpaProtect, Dpa_Count,
 *                        Dpa_Mode and CtrlWord fields to BBRAM instance.
+* 6.1   vns     10/25/16 Removed ForcePowerCycle and JtagDisable from BBRAM
+*                        Zynq instance, as they are not actually programming
+*                        any bit They already exists in Zynq eFUSE PL instances
 *
 ****************************************************************************/
 #ifndef XILSKEY_BBRAM_H
@@ -65,16 +68,8 @@ extern "C" {
 typedef struct {
 
 	/**
-	 * If XTRUE then part has to be power cycled to be able to be reconfigured
-	 */
-	u32	ForcePowerCycle;
-	/**
-	 * If XTRUE then permanently sets the Zynq ARM DAP controller in bypass mode
-	 */
-	u32 JtagDisable;
-	/**
 	 * This is for the aes_key value
-	 */;
+	 */
 	u8 AESKey[32];
 	/**
 	 * TDI MIO Pin Number

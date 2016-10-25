@@ -95,7 +95,11 @@
 *                      128 bit User keys. Added error codes on failures.
 *                      BBRAM is updated to have DPA protection, and
 *                      count configuration.
-* 6.1    vns  20/10/16 Added support for PUF registration, programming eFUSE
+* 6.1    vns  10/20/16 Added support for PUF registration, programming eFUSE
 *                      with syndrome data, Auxilary value and CHash value.
+*        vns  10/25/16 Removed ForcePowerCycle and JtagDisable, from BBRAM Zynq
+*                      PL instance as they are not actually programming any
+*                      control bit. These are already exists in Zynq eFUSE PL
+*                      instance.
 *
  ********************************************************************************/

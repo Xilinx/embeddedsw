@@ -66,6 +66,9 @@
 * Ver   Who  	Date     Changes
 * ----- ---- 	-------- --------------------------------------------------------
 * 1.01a hk      09/18/13 First release
+* 6.1   vns     10/25/16 Removed ForcePowerCycle and JtagDisable from Zynq
+*                        BBRAM configuration as they are not actually
+*                        programming any control bit.
 *
 *
 ****************************************************************************/
@@ -130,8 +133,6 @@ int XilSKey_Bbram_InitData(XilSKey_Bbram *BbramInstancePtr)
 
 	u32 Status;
 
-	BbramInstancePtr->ForcePowerCycle		= 	XSK_BBRAM_FORCE_PCYCLE_RECONFIG;
-	BbramInstancePtr->JtagDisable			= 	XSK_BBRAM_DISABLE_JTAG_CHAIN;
 	BbramInstancePtr->JtagMioTDI 			=	XSK_BBRAM_MIO_JTAG_TDI;
 	BbramInstancePtr->JtagMioTDO			=	XSK_BBRAM_MIO_JTAG_TDO;
 	BbramInstancePtr->JtagMioTCK			=	XSK_BBRAM_MIO_JTAG_TCK;
