@@ -8,6 +8,15 @@ scugic_v3_5:
 Fixed incorrect modification of interrupt target processor register in
 XScuGic_InterruptMaptoCpu
 
+sdps_v3_1:
+Fixed compilation warnings
+Reduce the delay during power cycle
+Use emmc_hwreset pin to reset eMMC card
+Add delay between assert/deassert of emmc reset
+
+xilffs_v3_5:
+Removed enable_mmc option
+
 Change Log for 2016.3
 =================================
 freertos823_xilinx_v1_2:
