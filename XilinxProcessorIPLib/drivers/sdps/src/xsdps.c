@@ -175,9 +175,15 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
 	InstancePtr->Config_TapDelay = NULL;
 
-	/* Disable bus power */
-	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-			XSDPS_POWER_CTRL_OFFSET, 0U);
+	/* Disable bus power and issue emmc hw reset */
+	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_HOST_CTRL_VER_OFFSET) & XSDPS_HC_SPEC_VER_MASK) ==
+			XSDPS_HC_SPEC_V3)
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_POWER_CTRL_OFFSET, XSDPS_PC_EMMC_HW_RST_MASK);
+	else
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_POWER_CTRL_OFFSET, 0x0);
 
 	/* Delay to poweroff card */
     (void)usleep(1000U);
@@ -206,24 +212,21 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 						XSDPS_CAPS_OFFSET);
 
 	/* Select voltage and enable bus power. */
-	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-			XSDPS_POWER_CTRL_OFFSET,
-			XSDPS_PC_BUS_VSEL_3V3_MASK | XSDPS_PC_BUS_PWR_MASK);
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3)
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_POWER_CTRL_OFFSET,
+				(XSDPS_PC_BUS_VSEL_3V3_MASK | XSDPS_PC_BUS_PWR_MASK) &
+				~XSDPS_PC_EMMC_HW_RST_MASK);
+	else
+		XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+				XSDPS_POWER_CTRL_OFFSET,
+				XSDPS_PC_BUS_VSEL_3V3_MASK | XSDPS_PC_BUS_PWR_MASK);
 
-	/* Issue HW reset for eMMC */
-	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
+	/* Delay before issuing the command after emmc reset */
+	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3)
 		if ((InstancePtr->Host_Caps & XSDPS_CAPS_SLOT_TYPE_MASK) ==
-				XSDPS_CAPS_EMB_SLOT) {
-			ReadReg = XSdPs_ReadReg8(InstancePtr->Config.BaseAddress,
-							XSDPS_SW_RST_OFFSET);
-			ReadReg |= XSDPS_PC_EMMC_HW_RST_MASK;
-			XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-					XSDPS_POWER_CTRL_OFFSET, ReadReg);
-			ReadReg &= ~XSDPS_PC_EMMC_HW_RST_MASK;
-			XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
-								XSDPS_POWER_CTRL_OFFSET, ReadReg);
-		}
-	}
+				XSDPS_CAPS_EMB_SLOT)
+			usleep(200);
 
 	/* Change the clock frequency to 400 KHz */
 	Status = XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_400_KHZ);
