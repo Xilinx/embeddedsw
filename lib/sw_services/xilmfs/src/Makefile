@@ -33,28 +33,48 @@
 COMPILER=
 ARCHIVER=
 CP=cp
-COMPILER_FLAGS=-O2 -c -g
-EXTRA_COMPILER_FLAGS=
+COMPILER_FLAGS =
 LIB=libxil.a
+
+ifeq ($(notdir $(COMPILER)) , iccarm)
+	EXTRA_ARCHIVE_FLAGS=--create
+else
+ifeq ($(notdir $(COMPILER)) , armcc)
+	EXTRA_ARCHIVE_FLAGS=--create
+else
+	EXTRA_ARCHIVE_FLAGS=rc
+endif
+endif
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
-LIBSOURCES=mfs_filesys.c mfs_filesys_util.c
-LIBOBJS=$(LIBSOURCES:%.c=%.o)
-INCLUDEFILES=xilmfs.h
+MFS_DIR = .
+OUTS = *.o
 
-libs: ${RELEASEDIR}/${LIB}(${LIBOBJS})
+MFS_SRCS := $(wildcard *.c)
+MFS_OBJS = $(addprefix $(MFS_DIR)/, $(MFS_SRCS:%.c=%.o))
 
-(%.o):%.c
-	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $< -o $*.o
-	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} $*.o
-	$(RM) $*.o
+INCLUDEFILES=$(MFS_DIR)/xilmfs.h
 
-include:
-	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
+libs: libxil.a
+
+libxil.a: print_msg_fatfs $(MFS_OBJS)
+	$(ARCHIVER) $(EXTRA_ARCHIVE_FLAGS) ${RELEASEDIR}/${LIB} ${MFS_OBJS}
+
+print_msg_fatfs:
+	@echo "Compiling XilMFS Library"
+
+.PHONY: include
+include: libxilmfs_includes
+
+libxilmfs_includes:
+	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf *.o
+	rm -rf $(MFS_DIR)/${OUTS}
+	rm -rf ${RELEASEDIR}/${LIB}
 
+$(MFS_DIR)/%.o: $(MFS_DIR)/%.c $(INCLUDEFILES)
+	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) -c $< -o $@
