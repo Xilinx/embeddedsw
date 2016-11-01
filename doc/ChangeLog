@@ -1,3 +1,12 @@
+Change Log for 2017.1
+=================================
+xilpm_v2_1:
+Modified clean rule in makefile to remove libxilpm.a. Fix for
+CR#962551.
+
+xilrsa_v1_3:
+Updated makefile to add clean rule.Fix for CR#962551.
+
 Change Log for 2016.4
 =================================
 axiethernet_v5_3:
