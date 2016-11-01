@@ -82,38 +82,38 @@ typedef u32 (*const PmTranHandler)(void);
 #define ARRAY_SIZE(x)   (sizeof(x) / sizeof((x)[0]))
 
 /* Enable/disable macros for wake events in GPI1 register */
-#define ENABLE_WAKE(mask)   XPfw_RMW32(PMU_LOCAL_GPI1_ENABLE, mask, mask);
-#define DISABLE_WAKE(mask)  XPfw_RMW32(PMU_LOCAL_GPI1_ENABLE, mask, ~(mask));
+#define ENABLE_WAKE(mask)   XPfw_RMW32(PMU_LOCAL_GPI1_ENABLE, (mask), (mask));
+#define DISABLE_WAKE(mask)  XPfw_RMW32(PMU_LOCAL_GPI1_ENABLE, (mask), ~(mask));
 
 /* Macros for IPI responses (return values and callbacks) */
 #define IPI_RESPONSE1(mask, arg0)				\
 {	\
-	u32 _ipi_resp_data[] = {arg0};	\
-	XPfw_IpiWriteResponse(PmModPtr, mask, &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[] = {(arg0)};	\
+	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE2(mask, arg0, arg1)				\
 {	\
-	u32 _ipi_resp_data[] = {arg0, arg1};	\
-	XPfw_IpiWriteResponse(PmModPtr, mask, &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[] = {(arg0), (arg1)};	\
+	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE3(mask, arg0, arg1, arg2)			\
 {	\
-	u32 _ipi_resp_data[] = {arg0, arg1, arg2};	\
-	XPfw_IpiWriteResponse(PmModPtr, mask, &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2)};	\
+	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE4(mask, arg0, arg1, arg2, arg3)		\
 {	\
-	u32 _ipi_resp_data[] = {arg0, arg1, arg2, arg3};	\
-	XPfw_IpiWriteResponse(PmModPtr, mask, &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2), (arg3)};	\
+	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 #define IPI_RESPONSE5(mask, arg0, arg1, arg2, arg3, arg4)	\
 {	\
-	u32 _ipi_resp_data[] = {arg0, arg1, arg2, arg3, arg4};	\
-	XPfw_IpiWriteResponse(PmModPtr, mask, &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
+	u32 _ipi_resp_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4)};	\
+	XPfw_IpiWriteResponse(PmModPtr, (mask), &_ipi_resp_data[0], ARRAY_SIZE(_ipi_resp_data));	\
 }
 
 /* PMU internal capabilities used in definition of slaves' states */
