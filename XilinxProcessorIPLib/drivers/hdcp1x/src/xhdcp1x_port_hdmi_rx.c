@@ -51,6 +51,8 @@
 * 3.0   yas    02/13/16 Upgraded function XHdcp1x_PortHdmiRxEnable to
 *                       support HDCP Repeater functionality.
 * 3.1   yas    07/28/16 Added function XHdcp1x_PortHdmiRxSetRepeater
+* 3.2   yas    10/27/16 Updated the XHdcp1x_PortHdmiRxDisable function to not
+*                       clear the AKSV, An and AInfo values in the DDC space.
 * </pre>
 *
 ******************************************************************************/
@@ -168,8 +170,20 @@ static int XHdcp1x_PortHdmiRxDisable(XHdcp1x *InstancePtr)
 	/* Clear the hdcp registers */
 	Value = 0;
 	Offset = 0;
-	/* Clear HDCP register space from BKSV (0x0) to V'H0 (0x30) */
-	NumLeft = 52;
+	/* Clear HDCP register space from BKSV (0x0) to AKSV (0x10) */
+	NumLeft = 16;
+	while (NumLeft-- > 0) {
+		XHdcp1x_PortHdmiRxWrite(InstancePtr, Offset++, &Value, 1);
+	}
+	/* Clear the HDCP RSVD (0x16) register */
+	Offset = 22;
+	NumLeft = 2;
+	while (NumLeft-- > 0) {
+		XHdcp1x_PortHdmiRxWrite(InstancePtr, Offset++, &Value, 1);
+	}
+	/* Clear HDCP register space from VH0 (0x20) to RSVD (0x34) */
+	Offset = 32;
+	NumLeft = 20;
 	while (NumLeft-- > 0) {
 		XHdcp1x_PortHdmiRxWrite(InstancePtr, Offset++, &Value, 1);
 	}
