@@ -222,10 +222,11 @@ const char* PmStrReason(const u32 reason)
 void ddr_io_retention_set(bool en)
 {
 	u32 r = Xil_In32(PMU_GLOBAL_DDR_CNTRL);
-	if (en)
+	if (0U != en) {
 		r |= PMU_GLOBAL_DDR_CNTRL_RET_MASK;
-	else
+	} else {
 		r &= ~PMU_GLOBAL_DDR_CNTRL_RET_MASK;
+	}
 	Xil_Out32(PMU_GLOBAL_DDR_CNTRL, r);
 }
 
