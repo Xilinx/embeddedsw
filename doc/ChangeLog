@@ -25,6 +25,7 @@ Add delay between assert/deassert of emmc reset
 
 xilffs_v3_5:
 Removed enable_mmc option
+Added support for FreeRTOS
 
 xilskey_v6_0:
 Removed Zynq BBRAM control bits as they are part of the eFUSE
