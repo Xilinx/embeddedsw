@@ -1142,8 +1142,10 @@ Replaced xil_printf with log events for debugging
 Modified XVphy_DruGetRefClkFreqHz API
 Fixed Null pointer dereference in XVphy_IBufDsEnable
 Suppressed warning messages due to unused arguments
-
-
+Added comments in xvphy_hdmi_intr.c on the XVphy_WaitUs usage.
+Added error message in XVphy_HdmiCpllParam when DRU is enabled and RX TMDS ratio is 1/40
+Fixed rounding of DRU and RX refclk frequencies
+Fixed race condition in XVphy_HdmiRxClkDetFreqChangeHandler when storing RxRefClkHz value
 
 vprocss_v2_1:
 Added new version 2.1

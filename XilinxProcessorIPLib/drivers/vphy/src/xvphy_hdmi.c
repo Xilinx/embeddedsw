@@ -52,6 +52,9 @@
  *                     Replaced xil_printf with log events
  *                     Modified XVphy_DruGetRefClkFreqHz
  *                     Suppressed warning messages due to unused arguments
+ *                     Added error message in XVphy_HdmiCpllParam when DRU is
+ *                     enabled and RX TMDS ratio is 1/40
+ *                     Fixed rounding of DRU refclk frequency
  * </pre>
  *
 *******************************************************************************/
@@ -1445,7 +1448,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 			RefClk = XVphy_DruGetRefClkFreqHz(InstancePtr);
 
 			/* Round input frequency to 10 kHz. */
-			RefClk = RefClk / 10000;
+			RefClk = (RefClk+5000) / 10000;
 			RefClk = RefClk * 10000;
 
 			/* Set the DRU to operate at a linerate of 2.5 Gbps. */
@@ -1676,10 +1679,17 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		 * select the DRU. */
 		else {
 			if (InstancePtr->Config.DruIsPresent) {
-				RefClk = XVphy_DruGetRefClkFreqHz(InstancePtr);
+				/* Return config not found error when TMDS ratio is 1/40 */
+                if (InstancePtr->HdmiRxTmdsClockRatio) {
+                    XVphy_LogWrite(InstancePtr,
+                        XVPHY_LOG_EVT_GT_CPLL_CFG_ERR, 1);
+                    return (XST_FAILURE);
+                }
 
-				/* Round input frequency to 100 kHz. */
-				RefClk = RefClk / 10000;
+                RefClk = XVphy_DruGetRefClkFreqHz(InstancePtr);
+
+				/* Round input frequency to 10 kHz. */
+				RefClk = (RefClk+5000) / 10000;
 				RefClk = RefClk * 10000;
 
 				/* Set the DRU to operate at a linerate of
