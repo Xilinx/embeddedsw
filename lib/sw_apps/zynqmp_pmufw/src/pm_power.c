@@ -49,6 +49,7 @@
 #include "pm_ddr.h"
 #include "apu.h"
 #include "pm_clock.h"
+#include "rpu.h"
 
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
@@ -329,6 +330,15 @@ static int PmPwrUpHandler(PmNode* const nodePtr)
 		u32 reg;
 
 		status = XpbrPwrUpRpuHandler();
+
+		/* Put both the R5s in HALT */
+		XPfw_RMW32(RPU_RPU_0_CFG,
+			   RPU_RPU_0_CFG_NCPUHALT_MASK,
+			  ~RPU_RPU_0_CFG_NCPUHALT_MASK);
+
+		XPfw_RMW32(RPU_RPU_1_CFG,
+			   RPU_RPU_1_CFG_NCPUHALT_MASK,
+			  ~RPU_RPU_1_CFG_NCPUHALT_MASK);
 
 		/* release RPU island reset */
 		reg = Xil_In32(CRL_APB_RST_LPD_TOP);
