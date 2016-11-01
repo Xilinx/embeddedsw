@@ -150,8 +150,8 @@ static void eccInit(uintptr_t base, size_t sz)
 {
 	size_t i;
 
-	for (i = 0; i < sz; i += 4) {
-		Xil_Out32(base + i, 0);
+	for (i = 0U; i < sz; i += 4U) {
+		Xil_Out32(base + i, 0U);
 	}
 }
 
@@ -368,8 +368,8 @@ PmSlaveSram pmSlaveTcm0A_g = {
 	.PwrUp = XpbrPwrUpTcm0AHandler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0A_MASK,
-	.size = 0x10000,
-	.base = 0xffe00000,
+	.size = 0x10000U,
+	.base = 0xffe00000U,
 	.eccInit = tcm0EccInit,
 };
 
@@ -396,8 +396,8 @@ PmSlaveSram pmSlaveTcm0B_g = {
 	.PwrUp = XpbrPwrUpTcm0BHandler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0B_MASK,
-	.size = 0x10000,
-	.base = 0xffe20000,
+	.size = 0x10000U,
+	.base = 0xffe20000U,
 	.eccInit = tcm0EccInit,
 };
 
@@ -424,8 +424,8 @@ PmSlaveSram pmSlaveTcm1A_g = {
 	.PwrUp = XpbrPwrUpTcm1AHandler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1A_MASK,
-	.size = 0x10000,
-	.base = 0xffe90000,
+	.size = 0x10000U,
+	.base = 0xffe90000U,
 	.eccInit = tcm1EccInit,
 };
 
@@ -452,7 +452,7 @@ PmSlaveSram pmSlaveTcm1B_g = {
 	.PwrUp = XpbrPwrUpTcm1BHandler,
 	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1B_MASK,
-	.size = 0x10000,
-	.base = 0xffeb0000,
+	.size = 0x10000U,
+	.base = 0xffeb0000U,
 	.eccInit = tcm1EccInit,
 };
