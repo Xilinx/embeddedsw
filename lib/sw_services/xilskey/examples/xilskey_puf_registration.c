@@ -147,7 +147,12 @@ int main() {
 
 	/* Request PUF for registration */
 	Status = XilSKey_Puf_Registration(&PufInstance);
-	if (Status != XST_SUCCESS) {
+	if (Status == XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW) {
+		xPuf_printf(XPUF_DEBUG_GENERAL,
+		"App:PUF Registration completed with an overflow:0x%08x\r\n",
+								Status);
+	}
+	else if ((Status != XST_SUCCESS)) {
 		xPuf_printf(XPUF_DEBUG_GENERAL,
 			"App:PUF Registration Failed:0x%08x\r\n", Status);
 		goto ENDF;
