@@ -77,7 +77,7 @@ static const PmStateTran pmUsbTransitions[] = {
  */
 static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status = XST_PM_INTERNAL;
+	int status;
 	PmSlaveUsb* usb = (PmSlaveUsb*)slave->node.derived;
 
 	switch (slave->node.currState) {
