@@ -71,7 +71,7 @@ static void LpdSwdtHandler(u8 ErrorId)
  * @ErrorId   ID of the error
  *
  * @note      Called when an error from watchdog timer in the FPD subsystem
- *            occurs and it resets the FPD
+ *            occurs and it resets the FPD. APU resumes from HIVEC after reset
  */
 static void FpdSwdtHandler(u8 ErrorId)
 {
