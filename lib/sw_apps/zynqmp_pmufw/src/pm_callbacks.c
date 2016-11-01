@@ -43,32 +43,32 @@
 
 #define IPI_REQUEST1(mask, arg0)				\
 {	\
-	u32 _ipi_req_data[] = {arg0};	\
-	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	u32 _ipi_req_data[] = {(arg0)};	\
+	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 
 #define IPI_REQUEST2(mask, arg0, arg1)				\
 {	\
-	u32 _ipi_req_data[] = {arg0, arg1};	\
-	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	u32 _ipi_req_data[] = {(arg0), (arg1)};	\
+	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 
 #define IPI_REQUEST3(mask, arg0, arg1, arg2)			\
 {	\
-	u32 _ipi_req_data[] = {arg0, arg1, arg2};	\
-	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2)};	\
+	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 
 #define IPI_REQUEST4(mask, arg0, arg1, arg2, arg3)		\
 {	\
-	u32 _ipi_req_data[] = {arg0, arg1, arg2, arg3};	\
-	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3)};	\
+	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 
 #define IPI_REQUEST5(mask, arg0, arg1, arg2, arg3, arg4)	\
 {	\
-	u32 _ipi_req_data[] = {arg0, arg1, arg2, arg3, arg4};	\
-	XPfw_IpiWriteMessage(PmModPtr, mask, &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
+	u32 _ipi_req_data[] = {(arg0), (arg1), (arg2), (arg3), (arg4)};	\
+	XPfw_IpiWriteMessage(PmModPtr, (mask), &_ipi_req_data[0], ARRAY_SIZE(_ipi_req_data));	\
 }
 /**
  * PmAcknowledgeCb() - sends acknowledge via callback
