@@ -545,7 +545,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 	      PmStrNode(master->nid), address, mask, value);
 
 	/* no bits to be updated */
-	if (mask == 0) {
+	if (0U == mask) {
 		goto done;
 	}
 
@@ -558,7 +558,7 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 	}
 
 	/* replace whole word */
-	if (mask == 0xffffffff) {
+	if (0xffffffffU == mask) {
 		goto do_write;
 	}
 
