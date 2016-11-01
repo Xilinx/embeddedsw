@@ -835,7 +835,7 @@ static int pm_ddr_sr_exit(bool ddrss_is_reset)
  */
 static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	int status = XST_PM_INTERNAL;
+	int status;
 
 	/* Handle transition to OFF state here */
 	if ((PM_DDR_STATE_OFF != slave->node.currState) &&
