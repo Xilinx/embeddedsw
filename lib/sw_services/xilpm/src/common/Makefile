@@ -19,7 +19,7 @@ INCLUDEFILES:=*.h
 
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
-libs: banner xilpm_libs clean
+libs: banner xilpm_libs
 
 %.o: %.c
 	${COMPILER} $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) -o $@ $<
@@ -33,3 +33,4 @@ include:
 	echo "Include files for this library have already been copied."
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf $(RELEASEDIR)/${LIB}
