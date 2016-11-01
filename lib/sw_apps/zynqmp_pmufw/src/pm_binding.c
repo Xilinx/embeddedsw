@@ -190,9 +190,9 @@ done:
  */
 int XPfw_PmWakeHandler(const u32 srcMask)
 {
-	int status = XST_SUCCESS;
+	int status;
 
-	if (PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK & srcMask) {
+	if (0U != (PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK & srcMask))  {
 		/* Processor GIC wake */
 		PmProc* proc = PmGetProcByWakeStatus(srcMask);
 		if (NULL != proc) {
@@ -200,9 +200,10 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 		} else {
 			status = XST_INVALID_PARAM;
 		}
-	} else if (PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK & srcMask) {
+	} else if (0U != (PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK & srcMask)) {
 		status = PmMasterWake(&pmMasterApu_g);
 	} else {
+		status = XST_SUCCESS;
 	}
 
 	return status;
