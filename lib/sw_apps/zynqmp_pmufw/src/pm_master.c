@@ -1007,7 +1007,7 @@ static int PmRequirementUpdateScheduled(const PmMaster* const master,
 
 	PmDbg("%s\r\n", PmStrNode(master->nid));
 
-	while (req) {
+	while (NULL != req) {
 		if (req->currReq != req->nextReq) {
 			u32 tmpReq = req->nextReq;
 
@@ -1050,7 +1050,7 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
 {
 	PmRequirement* req = master->reqs;
 
-	while (req) {
+	while (NULL != req) {
 		if (req->currReq != req->nextReq) {
 			/* Drop the scheduled request by making it constant */
 			PmDbg("%s\r\n", PmStrNode(req->slave->node.nodeId));
@@ -1074,7 +1074,7 @@ static void PmRequirementRequestDefault(const PmMaster* const master)
 {
 	PmRequirement* req = master->reqs;
 
-	while (req) {
+	while (NULL != req) {
 		if (0U != req->defaultReq) {
 			/* Set flag to state that master is using slave */
 			req->info |= PM_MASTER_USING_SLAVE_MASK;
@@ -1096,7 +1096,7 @@ static int PmRequirementReleaseAll(const PmMaster* const master)
 	int status = XST_SUCCESS;
 	PmRequirement* req = master->reqs;
 
-	while (req) {
+	while (NULL != req) {
 		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
 			/* Clear flag - master is not using slave anymore */
 			req->info &= ~PM_MASTER_USING_SLAVE_MASK;
@@ -1133,7 +1133,7 @@ PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
 {
 	PmRequirement* req = master->reqs;
 
-	while (req) {
+	while (NULL != req) {
 		if (nodeId == req->slave->node.nodeId) {
 			break;
 		}
@@ -1155,7 +1155,7 @@ const PmMaster* PmGetMasterByIpiMask(const u32 mask)
 	const PmMaster *mst = NULL;
 
 	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-		if (mask & pmAllMasters[i]->ipiMask) {
+		if (0U != (mask & pmAllMasters[i]->ipiMask)) {
 			mst = pmAllMasters[i];
 			break;
 		}
@@ -1265,7 +1265,7 @@ PmProc* PmGetProcByWfiStatus(const u32 mask)
 		u32 p;
 
 		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-			if (mask & pmAllMasters[i]->procs[p].wfiStatusMask) {
+			if (0U != (mask & pmAllMasters[i]->procs[p].wfiStatusMask)) {
 				proc = &pmAllMasters[i]->procs[p];
 				goto done;
 			}
@@ -1291,7 +1291,7 @@ PmProc* PmGetProcByWakeStatus(const u32 mask)
 		u32 p;
 
 		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-			if (mask & pmAllMasters[i]->procs[p].wakeStatusMask) {
+			if (0U != (mask & pmAllMasters[i]->procs[p].wakeStatusMask)) {
 				proc = &pmAllMasters[i]->procs[p];
 				goto done;
 			}
@@ -1313,7 +1313,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 
 	PmDbg("%s\r\n", PmStrNode(master->nid));
 
-	while (req) {
+	while (NULL != req) {
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 		req = req->nextSlave;
 	}
