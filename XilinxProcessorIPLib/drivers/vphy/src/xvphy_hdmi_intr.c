@@ -48,6 +48,10 @@
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
  *                     Added XVphy_HdmiGtpPllLockHandler for GTPE2
  * 1.2   gm            Replaced xil_printf with log events for debugging
+ *            01/11/16 Fixed rounding of RX refclk frequency
+ *                     Fixed race condition in
+ *                       XVphy_HdmiRxClkDetFreqChangeHandler when  storing
+ *                       RxRefClkHz value
  * </pre>
  *
 *******************************************************************************/
@@ -712,7 +716,7 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 	RxRefClkHz = XVphy_ClkDetGetRefClkFreqHz(InstancePtr, XVPHY_DIR_RX);
 
 	/* Round input frequency to 10 kHz. */
-	RxRefClkHz = RxRefClkHz / 10000;
+	RxRefClkHz = (RxRefClkHz+5000) / 10000;
 	RxRefClkHz = RxRefClkHz * 10000;
 
 	/* Store RX reference clock. */
@@ -760,14 +764,16 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 	/* Clear RX timer. */
 	XVphy_ClkDetTimerClear(InstancePtr, 0, XVPHY_DIR_RX);
 
-	/* If there is reference clock, load RX timer in usec. */
-	if (XVphy_ClkDetGetRefClkFreqHz(InstancePtr, XVPHY_DIR_RX)) {
+	/* If there is reference clock, load RX timer in usec.
+	 * The reference clock should be larger than 25Mhz. We are using a 20Mhz
+	 * instead to keep some margin for errors. */
+	if (RxRefClkHz > 20000000) {
 		XVphy_ClkDetTimerLoad(InstancePtr, 0, XVPHY_DIR_RX, 100000);
-	}
 
-	/* Callback to re-initialize. */
-	if (InstancePtr->HdmiRxInitCallback) {
-		InstancePtr->HdmiRxInitCallback(InstancePtr->HdmiRxInitRef);
+		/* Callback to re-initialize. */
+		if (InstancePtr->HdmiRxInitCallback) {
+			InstancePtr->HdmiRxInitCallback(InstancePtr->HdmiRxInitRef);
+		}
 	}
 }
 
@@ -938,6 +944,7 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
 		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_RX, TRUE);
+        /* GTP Wizard locks the DRP access to its internal FSM during reset */
 		/* Wait for reset sequence to release DRP port. */
 		XVphy_WaitUs(InstancePtr, 5000);
 	}
