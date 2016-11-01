@@ -1018,7 +1018,7 @@ void PmClockDumpChildren(const PmSlavePll* const pll)
 	}
 }
 
-void PmClockDumpTree()
+void PmClockDumpTree(void)
 {
 	PmClockDumpChildren(&pmSlaveApll_g);
 	PmClockDumpChildren(&pmSlaveVpll_g);
