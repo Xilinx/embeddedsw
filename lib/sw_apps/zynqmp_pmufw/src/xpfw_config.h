@@ -53,8 +53,7 @@
  * ENABLE_SCHEDULER - Enable Scheduler Test Module
  */
 
-/* Enable Power Management and Error Management Modules */
+/* Enable Power Management Module */
 #define ENABLE_PM
-#define ENABLE_EM
 
 #endif /* XPFW_CONFIG_H_ */
