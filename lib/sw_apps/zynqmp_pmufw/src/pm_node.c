@@ -119,7 +119,7 @@ PmNode* PmGetNodeById(const u32 nodeId)
 	u32 i;
 	PmNode* node = NULL;
 
-	for (i=0; i < NODE_MAX; i++) {
+	for (i = 0U; i < NODE_MAX; i++) {
 		if (pmNodes[i]->nodeId == nodeId) {
 			node = pmNodes[i];
 			break;
