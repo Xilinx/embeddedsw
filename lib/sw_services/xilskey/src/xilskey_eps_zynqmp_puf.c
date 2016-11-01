@@ -537,7 +537,7 @@ END:
  *****************************************************************************/
 u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 {
-	u32 Status;
+	u32 Status = XST_SUCCESS;
 	u32 PufStatus;
 	u32 Index;
 	Index = 0U;
@@ -607,23 +607,19 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 		xPuf_printf(Debug,
 			"API: Overflow warning\r\n");
 		Status = XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW;
-		goto ENDF;
 	}
-	else {
-		/* Capture CHASH & AUX */
-		InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1];
-		InstancePtr->Aux = ((PufStatus &
-			XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) >> 4U);
+	/* Capture CHASH & AUX */
+	InstancePtr->Chash = InstancePtr->SyndromeData[Index - 1];
+	InstancePtr->Aux = ((PufStatus &
+		XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) >> 4U);
 
-		/* Also move the CHASH & AUX into array */
-		InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 2] =
-							InstancePtr->Chash;
-		InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 1] =
-		((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) << 4U);
+	/* Also move the CHASH & AUX into array */
+	InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 2] =
+						InstancePtr->Chash;
+	InstancePtr->SyndromeData[XSK_ZYNQMP_PUF_SYN_LEN - 1] =
+	((PufStatus & XSK_ZYNQMP_CSU_PUF_STATUS_AUX_MASK) << 4U);
 
-		Status = XST_SUCCESS;
-		xPuf_printf(Debug,"API: PUF Helper Data Generated!!!\r\n");
-	}
+	xPuf_printf(Debug,"API: PUF Helper Data Generated!!!\r\n");
 ENDF:
 	return Status;
 }
