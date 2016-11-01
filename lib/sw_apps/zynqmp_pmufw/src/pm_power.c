@@ -52,6 +52,9 @@
 
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
+
+#define DEFINE_PM_POWER_INFO(i)	.powerInfo = (i), \
+				.powerInfoCnt = ARRAY_SIZE(i)
 /*
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
  * context. PLLs have separate logic, which is part of PmSlavePll (pm_pll.h/c)
@@ -478,8 +481,7 @@ PmPower pmPowerIslandRpu_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = &pmRpuNodeOps,
-		.powerInfo = PmDomainPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
+		DEFINE_PM_POWER_INFO(PmDomainPowers),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmRpuChildren),
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
@@ -504,8 +506,7 @@ PmPower pmPowerIslandApu_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = &pmApuNodeOps,
-		.powerInfo = PmDomainPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
+		DEFINE_PM_POWER_INFO(PmDomainPowers),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmApuChildren),
 	.pwrDnLatency = 0,
@@ -524,8 +525,7 @@ PmPower pmPowerDomainFpd_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = &pmFpdNodeOps,
-		.powerInfo = PmDomainPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
+		DEFINE_PM_POWER_INFO(PmDomainPowers),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmFpdChildren),
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
@@ -544,8 +544,7 @@ PmPower pmPowerDomainLpd_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = &pmLpdNodeOps,
-		.powerInfo = PmDomainPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
+		DEFINE_PM_POWER_INFO(PmDomainPowers),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmLpdChildren),
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
@@ -564,8 +563,7 @@ PmPower pmPowerDomainPld_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.ops = &pmFpdNodeOps,	/* these are power domain shared ops */
-		.powerInfo = PmDomainPowers,
-		.powerInfoCnt = ARRAY_SIZE(PmDomainPowers),
+		DEFINE_PM_POWER_INFO(PmDomainPowers),
 	},
 	.children = NULL,
 	.childCnt = 0U,
