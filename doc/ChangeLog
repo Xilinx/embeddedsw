@@ -17,6 +17,12 @@ Add delay between assert/deassert of emmc reset
 xilffs_v3_5:
 Removed enable_mmc option
 
+xilskey_v6_0:
+Removed Zynq BBRAM control bits as they are part of the eFUSE
+Fixed compilation warnings
+Added support for PUF registration and eFUSE programming with PUF data
+Removed xilinx specific bits programming
+
 Change Log for 2016.3
 =================================
 freertos823_xilinx_v1_2:
