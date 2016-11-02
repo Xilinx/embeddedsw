@@ -111,7 +111,7 @@ typedef struct {
  * @{
  */
 typedef struct {
-	u8 RegistrationMode;	/**< PUF Registration Mode 4K/12K Mode */
+	u8 RegistrationMode;	/**< PUF Registration Mode: Always 4K Mode */
 	u32 ShutterValue;	/**< PUF Shutter value */
 	u32 SyndromeData[XSK_ZYNQMP_PUF_SYN_DATA_LEN_IN_BYTES];
 				/**< Helper data */
