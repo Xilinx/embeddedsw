@@ -23,6 +23,11 @@ Reduce the delay during power cycle
 Use emmc_hwreset pin to reset eMMC card
 Add delay between assert/deassert of emmc reset
 
+ttcps_v3_2:
+Modified XTtcPs_GetCounterValue,XTtcPs_GetInterval and
+XTtcPs_CalcIntervalFromFreq functions to use 32 bit counter/
+interval values for zynq ultrascale+mpsoc.It fixes CR#962482.
+
 xilffs_v3_5:
 Removed enable_mmc option
 Added support for FreeRTOS
