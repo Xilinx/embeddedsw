@@ -50,6 +50,8 @@
 * 3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.01	pkp	   01/30/16 Modified XTtcPs_CfgInitialize to add XTtcps_Stop
 *						to stop the timer before configuring
+* 3.2   mus    10/28/16 Modified XTtcPs_CalcIntervalFromFreq to calculate
+*                       32 bit interval count for zynq ultrascale+mpsoc
 *
 * </pre>
 *
@@ -377,7 +379,7 @@ u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr)
 *
 ****************************************************************************/
 void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
-        u16 *Interval, u8 *Prescaler)
+        XInterval *Interval, u8 *Prescaler)
 {
 	u8 TmpPrescaler;
 	u32 TempValue;
@@ -396,7 +398,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 		 * The frequency is too high, it is too close to the input
 		 * clock value. Use maximum values to signal caller.
 		 */
-		*Interval = 0xFFFFU;
+		*Interval = XTTCPS_MAX_INTERVAL_COUNT;
 		*Prescaler = 0xFFU;
 		return;
 	}
@@ -408,7 +410,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 		/*
 		 * We do not need a prescaler, so set the values appropriately
 		 */
-		*Interval = (u16)TempValue;
+		*Interval = (XInterval)TempValue;
 		*Prescaler = XTTCPS_CLK_CNTRL_PS_DISABLE;
 		return;
 	}
@@ -425,7 +427,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 			/*
 			 * Set the values appropriately
 			 */
-			*Interval = (u16)TempValue;
+			*Interval = (XInterval)TempValue;
 			*Prescaler = TmpPrescaler;
 			return;
 		}
@@ -434,7 +436,7 @@ void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
 	/* Can not find interval values that work for the given frequency.
 	 * Return maximum values to signal caller.
 	 */
-	*Interval = 0XFFFFU;
+	*Interval = XTTCPS_MAX_INTERVAL_COUNT;
 	*Prescaler = 0XFFU;
 	return;
 }

@@ -91,6 +91,8 @@
 * 2.0   adk    12/10/13 Updated as per the New Tcl API's
 * 3.0	pkp    12/09/14 Added support for Zynq Ultrascale Mp.Also code
 *			modified for MISRA-C:2012 compliance.
+* 3.2   mus    10/28/16 Modified XTtcPs_GetCounterValue and XTtcPs_SetInterval
+*                       macros to return 32 bit values for zynq ultrascale+mpsoc
 * </pre>
 *
 ******************************************************************************/
@@ -108,6 +110,21 @@ extern "C" {
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
+/*
+ * Flag for a9 processor
+ */
+ #if !defined (ARMR5) && !defined (__aarch64__) && !defined (ARMA53_32)
+ #define ARMA9
+ #endif
+
+/*
+ * Maximum Value for interval counter
+ */
+ #if defined(ARMA9)
+ #define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFU
+ #else
+ #define XTTCPS_MAX_INTERVAL_COUNT 0xFFFFFFFFU
+ #endif
 
 /** @name Configuration options
  *
@@ -125,7 +142,6 @@ extern "C" {
 #define XTTCPS_OPTION_WAVE_DISABLE	0x00000020U 	/**< No waveform output */
 #define XTTCPS_OPTION_WAVE_POLARITY	0x00000040U	/**< Waveform polarity */
 /*@}*/
-
 /**************************** Type Definitions *******************************/
 
 /**
@@ -148,7 +164,14 @@ typedef struct {
 	u32 IsReady;		/**< Device is initialized and ready */
 } XTtcPs;
 
-
+/**
+ * This typedef contains interval count
+ */
+#if defined(ARMA9)
+typedef u16 XInterval;
+#else
+typedef u32 XInterval;
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /*
@@ -223,14 +246,27 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @return	16-bit counter value.
+* @return	zynq:16 bit counter value.
+*           zynq ultrascale+mpsoc:32 bit counter value.
 *
 * @note		C-style signature:
-*		u16 XTtcPs_GetCounterValue(XTtcPs *InstancePtr)
+*		zynq: u16 XTtcPs_GetCounterValue(XTtcPs *InstancePtr)
+*       zynq ultrascale+mpsoc: u32 XTtcPs_GetCounterValue(XTtcPs *InstancePtr)
 *
 ****************************************************************************/
+#if defined(ARMA9)
+/*
+ * ttc supports 16 bit counter for zynq
+ */
 #define XTtcPs_GetCounterValue(InstancePtr) \
 		(u16)InstReadReg((InstancePtr), XTTCPS_COUNT_VALUE_OFFSET)
+#else
+/*
+ * ttc supports 32 bit counter for zynq ultrascale+mpsoc
+ */
+#define XTtcPs_GetCounterValue(InstancePtr) \
+               InstReadReg((InstancePtr), XTTCPS_COUNT_VALUE_OFFSET)
+#endif
 
 /*****************************************************************************/
 /**
@@ -256,15 +292,27 @@ typedef struct {
 *
 * @param	InstancePtr is a pointer to the XTtcPs instance.
 *
-* @return	16-bit interval value
+* @return	zynq:16 bit interval value.
+*           zynq ultrascale+mpsoc:32 bit interval value.
 *
 * @note		C-style signature:
-*		u16 XTtcPs_GetInterval(XTtcPs *InstancePtr)
+*		zynq: u16 XTtcPs_GetInterval(XTtcPs *InstancePtr)
+*       zynq ultrascale+mpsoc: u32 XTtcPs_GetInterval(XTtcPs *InstancePtr)
 *
 ****************************************************************************/
+#if defined(ARMA9)
+/*
+ * ttc supports 16 bit interval counter for zynq
+ */
 #define XTtcPs_GetInterval(InstancePtr) \
 		(u16)InstReadReg((InstancePtr), XTTCPS_INTERVAL_VAL_OFFSET)
-
+#else
+/*
+ * ttc supports 32 bit interval counter for zynq ultrascale+mpsoc
+ */
+#define XTtcPs_GetInterval(InstancePtr) \
+		InstReadReg((InstancePtr), XTTCPS_INTERVAL_VAL_OFFSET)
+#endif
 /*****************************************************************************/
 /**
 *
@@ -391,7 +439,7 @@ void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue);
 u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr);
 
 void XTtcPs_CalcIntervalFromFreq(XTtcPs *InstancePtr, u32 Freq,
-        u16 *Interval, u8 *Prescaler);
+        XInterval *Interval, u8 *Prescaler);
 
 /*
  * Functions for options, in file xttcps_options.c
