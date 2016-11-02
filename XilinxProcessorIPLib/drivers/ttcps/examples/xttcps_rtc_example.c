@@ -48,6 +48,8 @@
 * 3.01 pkp	  01/30/16 Modified SetupTimer to remove XTtcps_Stop before TTC
 *					   configuration as it is added in xttcps.c in
 *					   XTtcPs_CfgInitialize
+* 3.2  mus    10/28/16 Updated TmrCntrSetup as per prototype of
+*                      XTtcPs_CalcIntervalFromFreq
 *</pre>
 ******************************************************************************/
 
@@ -86,7 +88,7 @@
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u32 OutputHz;	/* Output frequency */
-	u16 Interval;	/* Interval value */
+	XInterval Interval;	/* Interval value */
 	u8 Prescaler;	/* Prescaler value */
 	u16 Options;	/* Option settings */
 } TmrCntrSetup;
