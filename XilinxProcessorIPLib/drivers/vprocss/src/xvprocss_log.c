@@ -45,6 +45,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 2.00  dmc  01/11/16 Initial release.
  *       dmc  03/03/16 Add events for VDMA configuration and operational errors
+ * 2.2   rco  11/01/16 Change setup ignore messages (for csc, hscaler, vscaler
+ *                     etc.) severity from Info to Error
  * </pre>
  *
 *******************************************************************************/
@@ -318,7 +320,7 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: Csc start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
-				xil_printf("Info: Csc setup ignored\r\n");
+				xil_printf("Error: Csc setup ignored\r\n");
 				break;
 			case (XVPROCSS_EDAT_CSC_BADWIN):
 				xil_printf("Csc error: Demo window is invalid\r\n");
@@ -395,7 +397,7 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: Scalers start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
-				xil_printf("Info: HScaler setup ignored\r\n");
+				xil_printf("Error: HScaler setup ignored\r\n");
 				break;
 			case (XVPROCSS_EDAT_LDCOEF):
 				xil_printf("Info: HScaler coefficients loaded\r\n");
@@ -420,7 +422,7 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("VScaler error: IP not found\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
-				xil_printf("Info: VScaler setup ignored\r\n");
+				xil_printf("Error: VScaler setup ignored\r\n");
 				break;
 			case (XVPROCSS_EDAT_LDCOEF):
 				xil_printf("Info: VScaler coefficients loaded\r\n");
@@ -466,7 +468,7 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: HCResampler start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
-				xil_printf("Info: HCResampler setup ignored\r\n");
+				xil_printf("Error: HCResampler setup ignored\r\n");
 				break;
 			case (XVPROCSS_EDAT_LDCOEF):
 				xil_printf("Info: HCResampler coefficients loaded\r\n");
@@ -512,7 +514,7 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				xil_printf("Info: VCResampler start\r\n");
 				break;
 			case (XVPROCSS_EDAT_IGNORE):
-				xil_printf("Info: VCResamplerIn setup ignored\r\n");
+				xil_printf("Error: VCResamplerIn setup ignored\r\n");
 				break;
 			case (XVPROCSS_EDAT_LDCOEF):
 				xil_printf("Info: VCResamplerIn coefficients loaded\r\n");
