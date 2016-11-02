@@ -51,6 +51,8 @@
 *					   XTtcPs_CfgInitialize
 * 3.01 pkp	  03/04/16 Added status check after SetupTicker is called by
 *					   TmrInterruptExample
+* 3.2  mus    10/28/16 Updated TmrCntrSetup as per prototype of
+*                      XTtcPs_CalcIntervalFromFreq
 *</pre>
 ******************************************************************************/
 
@@ -84,7 +86,7 @@
 /**************************** Type Definitions *******************************/
 typedef struct {
 	u32 OutputHz;	/* Output frequency */
-	u16 Interval;	/* Interval value */
+	XInterval Interval;	/* Interval value */
 	u8 Prescaler;	/* Prescaler value */
 	u16 Options;	/* Option settings */
 } TmrCntrSetup;
