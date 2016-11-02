@@ -13,6 +13,9 @@ axiethernet_v5_3:
 Fixed compilation errors for PMU template firmware on ZynqMP
 for AXI-Ethernet based designs
 
+axipmon_v6_5:
+Updated OCM axipmon example for proper ID
+
 scugic_v3_5:
 Fixed incorrect modification of interrupt target processor register in
 XScuGic_InterruptMaptoCpu
@@ -69,6 +72,8 @@ Reduce the size of the buffer descriptor to 64 bytes
 
 axicdma_v4_2:
 Fix compilation warining in the 64-bit platforms.
+
+axipmon
 
 axivdma_v6_2:
 Fix compilation warining in the 64-bit platforms.
