@@ -51,7 +51,8 @@
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
 *       dmc   12/17/15   Updated the XV_HScalerDbgReportStatus routine
 * 3.0   mpe   04/28/16   Added optional color format conversion handling
-*
+* 3.1   rco   11/01/16   Fixed bug in config validation API, wherein hi/lo
+*                        check should be made only if input is not RGB
 * </pre>
 *
 ******************************************************************************/
@@ -719,13 +720,14 @@ int XV_HScalerValidateConfig(XV_Hscaler_l2 *InstancePtr,
     return(FALSE);
   }
 
-  lo = (XV_HscalerIsCscEnabled(InstancePtr)) ? XVIDC_CSF_RGB : XVIDC_CSF_YCRCB_444;
-  hi = (XV_HscalerIs420Enabled(InstancePtr)) ? XVIDC_CSF_YCRCB_420 : ((XV_HscalerIs422Enabled(InstancePtr)) ? XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444);
-  if (cformatOut<lo || cformatOut>hi )
-  {
-    return(FALSE);
+  if(cformatIn != XVIDC_CSF_RGB) {
+    lo = (XV_HscalerIsCscEnabled(InstancePtr)) ? XVIDC_CSF_RGB : XVIDC_CSF_YCRCB_444;
+    hi = (XV_HscalerIs420Enabled(InstancePtr)) ? XVIDC_CSF_YCRCB_420 : ((XV_HscalerIs422Enabled(InstancePtr)) ? XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444);
+    if (cformatOut<lo || cformatOut>hi )
+    {
+      return(FALSE);
+    }
   }
-
   return(TRUE);
 }
 
