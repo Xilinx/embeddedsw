@@ -1092,8 +1092,11 @@ void XHdcp1x_HandleTimeout(void *InstancePtr)
 	if (HdcpPtr->Config.IsRx) {
 		XHdcp1x_RxHandleTimeout(HdcpPtr);
 	}
-
+	else
 #endif
+	{
+		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");
+	}
 }
 
 /*****************************************************************************/
