@@ -49,6 +49,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a bss    04/01/15 First release
+* 6.5   sg     11/02/16 Updated device ID to OCM PSU APM ID
 *
 * </pre>
 *
@@ -66,7 +67,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define AXIPMON_DEVICE_ID		XPAR_AXIPMON_1_DEVICE_ID
+#define AXIPMON_DEVICE_ID		XPAR_PSU_APM_1_DEVICE_ID
 
 /* Sampling interval */
 #define SAMPLE_INTERVAL			0x100
