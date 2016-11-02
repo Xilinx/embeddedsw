@@ -54,6 +54,8 @@
 *                       The Event Logging replaces all the printf statements
 * 2.1   mpe  04/28/16   Added optional color format conversion handling in
 *                       scaler only topology
+* 2.2   rco  11/01/16   Add log events to capture failure during router data
+*                       flow setup
 * </pre>
 *
 ******************************************************************************/
@@ -479,6 +481,8 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
   u32 hsc_HeightIn, hsc_WidthIn, hsc_WidthOut;
   XVidC_ColorDepth ColorDepth;
   u32 count;
+  int Result = XST_SUCCESS;
+  int SetupFlag = XST_SUCCESS;
   XVprocSs_ContextData *CtxtPtr = &XVprocSsPtr->CtxtData;
   u8 *pTable = &XVprocSsPtr->CtxtData.RtngTable[0];
   u8 *StartCorePtr = &XVprocSsPtr->CtxtData.StartCore[0];
@@ -532,12 +536,17 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
               vsc_HeightOut = XVprocSsPtr->VidOut.Timing.VActive;
             }
 
-            XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
-                            vsc_WidthIn,
-                            vsc_HeightIn,
-                            vsc_HeightOut,
-							XVprocSsPtr->CtxtData.StrmCformat);
-            StartCorePtr[XVPROCSS_SUBCORE_SCALER_V] = TRUE;
+            Result = XV_VScalerSetup(XVprocSsPtr->VscalerPtr,
+                                     vsc_WidthIn,
+                                     vsc_HeightIn,
+                                     vsc_HeightOut,
+							         XVprocSsPtr->CtxtData.StrmCformat);
+            if(Result != XST_SUCCESS) {
+              XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_VSCALER, XVPROCSS_EDAT_IGNORE);
+              SetupFlag = Result;
+            } else {
+              StartCorePtr[XVPROCSS_SUBCORE_SCALER_V] = TRUE;
+            }
           }
           break;
 
@@ -557,13 +566,18 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
               hsc_WidthOut = XVprocSsPtr->VidOut.Timing.HActive;
             }
 
-            XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
-                            hsc_HeightIn,
-                            hsc_WidthIn,
-                            hsc_WidthOut,
-                            XVprocSsPtr->CtxtData.StrmCformat,
-                            XVprocSsPtr->CtxtData.StrmCformat);
-            StartCorePtr[XVPROCSS_SUBCORE_SCALER_H] = TRUE;
+            Result = XV_HScalerSetup(XVprocSsPtr->HscalerPtr,
+                                     hsc_HeightIn,
+                                     hsc_WidthIn,
+                                     hsc_WidthOut,
+                                     XVprocSsPtr->CtxtData.StrmCformat,
+                                     XVprocSsPtr->CtxtData.StrmCformat);
+            if(Result != XST_SUCCESS) {
+              XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_HSCALER, XVPROCSS_EDAT_IGNORE);
+              SetupFlag = Result;
+            } else {
+              StartCorePtr[XVPROCSS_SUBCORE_SCALER_H] = TRUE;
+            }
           }
           break;
 
@@ -656,6 +670,11 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
                               XVprocSsPtr->CscPtr->StandardOut,
                               XVprocSsPtr->CscPtr->OutputRange);
 
+          if(Result != XST_SUCCESS) {
+		 XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_IGNORE);
+             SetupFlag = Result;
+          }
+
 	      // set the Global Window size
           XV_CscSetActiveSize(XVprocSsPtr->CscPtr,
                               XVprocSsPtr->VidOut.Timing.HActive,
@@ -687,7 +706,10 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           break;
     }
   }
-  XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_DFLOWOK);
+
+  if(SetupFlag == XST_SUCCESS) {
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_MAX, XVPROCSS_EDAT_MAX_DFLOWOK);
+  }
 
   /* Start all IP Blocks in the processing chain */
   XVprocSs_Start(XVprocSsPtr);
