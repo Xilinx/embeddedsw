@@ -395,4 +395,8 @@
  * 6.0 mus   08/18/16  Added support for the the Zynq 7000s devices
  * 6.0 mus   08/18/16  Removed unused variables from xil_printf.c and xplatform_info.c
  * 6.0 mus   08/19/16  Modified xil_io.h to remove __LITTLE_ENDIAN__ flag check for all ARM processors
+ * 6.1 mus   11/03/16  Added APIs handle_stdin_parameter and handle_stdout_parameter in standalone tcl.
+ *                     ::hsi::utils::handle_stdin and ::hsi::utils::handle_stdout are taken as a base for
+ *                     these APIs and modifications are done on top of it to handle stdout/stdin
+ *                     parameters for design which doesnt have UART.It fixes CR#953681
  *****************************************************************************************/
