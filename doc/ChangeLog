@@ -35,6 +35,14 @@ Fixed configuration validation check for RGB input
 vprocss_v2_2:
 Capture failure during router data flow setup in log buffer
 
+Standalone_v6_1:
+Defines interrupt ID number for FPD_SWDT, renamed XPS_WDT_INT_ID
+as XPS_LPD_SWDT_INT_ID in xparameters_ps.h of cortex r5 and for
+32bit, 64bit of cortex a53 and also removed SCUTIMER, SCUWDT
+parameters as they are private timers for a9 only.
+Fix for CR-962858.
+
+
 Change Log for 2016.3
 =================================
 freertos823_xilinx_v1_2:
