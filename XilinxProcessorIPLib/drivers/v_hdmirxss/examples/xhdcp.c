@@ -47,6 +47,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   05/24/16 First Release
+* 1.10  MG   10/21/16 Updated the Hdcp_Poll function
+* 1.20  MG   10/26/16 Added interval in Hdcp_Poll function
 *</pre>
 *
 *****************************************************************************/
@@ -313,6 +315,14 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr)
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
+  /* This counter is used as an interval timer */
+  /* Some HDCP source devices might not delay the HDPC capabilities after the video stream has started */
+  /* As a result the link isn't authenticated at stream up */
+  /* When there is a authentication request and the HDMI TX SS driver doesn't detect a HDCP capable sink, */
+  /* then the authentication request remains pending the interval counter is set. */
+  /* When the interval counter expires the sink is checked again for HDCP capabilities */
+  static u32 IntervalCounter = 0;
+
   if (InstancePtr->IsReady) {
     /* Call the upstream interface Poll function */
     XV_HdmiRxSs_HdcpPoll(InstancePtr->UpstreamInstancePtr);
@@ -324,19 +334,32 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr)
       /* Initiate authentication when request flag has been set */
       if (InstancePtr->AuthenticationRequestEvent & (0x1 << i)) {
 
-        /* Delay until downstream interface stream is up */
+        /* Delay until downstream interface stream is up and the counter has expired */
         if ((InstancePtr->DownstreamInstanceStreamUp & (0x1 << i)) &&
-            (InstancePtr->DownstreamInstanceConnected & (0x1 << i))) {
-          InstancePtr->AuthenticationRequestEvent &= ~(0x1 << i);
+            (InstancePtr->DownstreamInstanceConnected & (0x1 << i)) &&
+			(IntervalCounter == 0)) {
 
           /* Authenticate when HDCP is support for connected device, otherwise enforce blank */
           if (XV_HdmiTxSs_IsSinkHdcp14Capable(InstancePtr->DownstreamInstancePtr[i]) ||
               XV_HdmiTxSs_IsSinkHdcp22Capable(InstancePtr->DownstreamInstancePtr[i])) {
 		  XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i],
               XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
+
+		  /* Clear the authentication request */
+		  InstancePtr->AuthenticationRequestEvent &= ~(0x1 << i);
+
           } else {
-            XHdcp_EnforceBlank(InstancePtr);
+		  /* Force blank, but leave the authentication request pending */
+		  XHdcp_EnforceBlank(InstancePtr);
+		  /* Load counter */
+		  /* With the processor running at 100 MHz, this counter value will give roughly a 500 ms interval */
+		  IntervalCounter = 100000;
           }
+        } else {
+		/* Decrement counter */
+		if (IntervalCounter > 0) {
+			IntervalCounter--;
+		}
         }
       }
     }
