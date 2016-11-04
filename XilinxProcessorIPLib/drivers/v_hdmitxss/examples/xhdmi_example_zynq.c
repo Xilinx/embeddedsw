@@ -49,6 +49,8 @@
 * 2.11  YH     04/08/16 Added two level validation routines
 *                       Basic_validation will only check the received VmId
 *                       PRBS_validation will check both video & audio contents
+* 2.12  GM     07/10/16 Added onboard SI5324 Initialization API to enable
+*                       125Mhz as NI-DRU reference clock
 * </pre>
 *
 ******************************************************************************/
@@ -332,6 +334,7 @@ u8 Hdcp14KeyB[] = {
 /************************** Function Prototypes ******************************/
 int I2cMux(void);
 int I2cClk(u32 InFreq, u32 OutFreq);
+int OnBoardSi5324Init(void);
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 void EnableColorBar(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
 						XVidC_VideoMode VideoMode,
@@ -589,6 +592,43 @@ int I2cClk(u32 InFreq, u32 OutFreq)
   return 1;
 }
 
+/*****************************************************************************/
+/**
+*
+* This function initializes the ZC706 on-board SI5324 clock generator over IIC.
+* CLKOUT1 is set to 125 MHz
+*
+* @param  None.
+*
+* @return The number of bytes sent.
+*
+* @note   None.
+*
+******************************************************************************/
+int OnBoardSi5324Init(void)
+{
+  u8 Buffer;
+  int Status;
+
+  /* Select SI5324 clock generator */
+  Buffer = 0x10;
+  XIic_Send((XPAR_IIC_1_BASEADDR), (I2C_MUX_ADDR),
+								  (u8 *)&Buffer, 1, (XIIC_STOP));
+
+  /* Initialize Si5324 */
+  Si5324_Init(XPAR_IIC_1_BASEADDR, I2C_CLK_ADDR);
+
+  /* Program Output Frequency Si5324 */
+  Status = Si5324_SetClock((XPAR_IIC_1_BASEADDR), (I2C_CLK_ADDR),
+			   (SI5324_CLKSRC_XTAL), (SI5324_XTAL_FREQ), (u32)125000000);
+
+if (Status != (SI5324_SUCCESS)) {
+	print("Error programming On-Board SI5324\n\r");
+	return 0;
+}
+
+  return Status;
+}
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 /*****************************************************************************/
@@ -1910,7 +1950,10 @@ int main()
   /* Initialize external clock generator */
   Si5324_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
 
-  /* Initialize IRQ */
+   /* Initialize on-board clock generator */
+  OnBoardSi5324Init();
+
+ /* Initialize IRQ */
   Status = SetupInterruptSystem();
   if (Status == XST_FAILURE) {
     print("IRQ init failed.\n\r\r");
@@ -1948,14 +1991,14 @@ int main()
 #ifdef XPAR_XHDCP_NUM_INSTANCES
   // HDCP 1.4 Cipher interrupt
   Status |= XScuGic_Connect(&Intc,
-		      XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_IRQ_INTR,
+		      XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_IRQ_INTR,
 			  (XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
 			  (void *)&HdmiTxSs);
 
   // HDCP 1.4 Timer interrupt
   Status |= XScuGic_Connect(&Intc,
 			  XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_TIMER_IRQ_INTR,
-			  (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+			  (XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
 			  (void *)&HdmiTxSs);
 #endif
 
