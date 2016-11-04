@@ -148,6 +148,8 @@ proc generate {os_handle} {
     switch -regexp $proctype {
 	"microblaze" {
 
+            puts "Xil_kernel is being deprecated and will not be available from our 2017.1 release and beyond.
+                  We recommend you use FreeRTOS instead, which is available in the Xilinx SDK."
 	    file copy -force "./src/Makefile_mb.sh" "./src/Makefile"
             foreach entry [glob -nocomplain [file join $mbsrcdir *]] {
 		if { [string first "hw_exception_handler" $entry] == -1 } { ;# Do not copy over the Standalone BSP exception handler
