@@ -33,7 +33,7 @@
 /**
  *
  * @file xvidc_edid.h
- * @addtogroup video_common_v3_1
+ * @addtogroup video_common_v4_0
  * @{
  *
  * Contains macros, definitions, and function declarations related to the
@@ -51,6 +51,8 @@
  * 1.0   als  11/09/14 Initial release.
  * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
  *                     contents now const.
+ * 4.0   aad  10/26/16 Functions which return fixed point values instead of
+ *		       float
  * </pre>
  *
 *******************************************************************************/
@@ -375,16 +377,6 @@ extern "C" {
 	((E[XVIDC_EDID_BDISP_FEATURE] & \
 	XVIDC_EDID_BDISP_FEATURE_CONTFREQ_MASK) != 0)
 
-/* Color characterisitics (display x,y chromaticity coordinates). */
-/* float XVidC_EdidGetCcRedX(const u8 *EdidRaw); */
-/* float XVidC_EdidGetCcRedY(const u8 *EdidRaw); */
-/* float XVidC_EdidGetCcGreenX(const u8 *EdidRaw); */
-/* float XVidC_EdidGetCcGreenY(const u8 *EdidRaw); */
-/* float XVidC_EdidGetCcBlueX(const u8 *EdidRaw); */
-/* float XVidC_EdidGetCcBlueY(const u8 *EdidRaw); */
-/* float XVidC_EdidGetCcWhiteX(const u8 *EdidRaw); */
-/* float XVidC_EdidGetCcWhiteY(const u8 *EdidRaw); */
-
 /* Established timings. */
 #define XVidC_EdidSuppEstTimings720x400_70(E) \
 	((E[XVIDC_EDID_EST_TIMINGS_I] & \
@@ -469,14 +461,14 @@ void XVidC_EdidGetManName(const u8 *EdidRaw, char ManName[4]);
 XVidC_ColorDepth XVidC_EdidGetColorDepth(const u8 *EdidRaw);
 
 /* Color characteristics (display x,y chromaticity coordinates). */
-float XVidC_EdidGetCcRedX(const u8 *EdidRaw);
-float XVidC_EdidGetCcRedY(const u8 *EdidRaw);
-float XVidC_EdidGetCcGreenX(const u8 *EdidRaw);
-float XVidC_EdidGetCcGreenY(const u8 *EdidRaw);
-float XVidC_EdidGetCcBlueX(const u8 *EdidRaw);
-float XVidC_EdidGetCcBlueY(const u8 *EdidRaw);
-float XVidC_EdidGetCcWhiteX(const u8 *EdidRaw);
-float XVidC_EdidGetCcWhiteY(const u8 *EdidRaw);
+int XVidC_EdidGetCcRedX(const u8 *EdidRaw);
+int XVidC_EdidGetCcRedY(const u8 *EdidRaw);
+int XVidC_EdidGetCcGreenX(const u8 *EdidRaw);
+int XVidC_EdidGetCcGreenY(const u8 *EdidRaw);
+int XVidC_EdidGetCcBlueX(const u8 *EdidRaw);
+int XVidC_EdidGetCcBlueY(const u8 *EdidRaw);
+int XVidC_EdidGetCcWhiteX(const u8 *EdidRaw);
+int XVidC_EdidGetCcWhiteY(const u8 *EdidRaw);
 
 /* Standard timings. */
 u16 XVidC_EdidGetStdTimingsV(const u8 *EdidRaw, u8 StdTimingsNum);

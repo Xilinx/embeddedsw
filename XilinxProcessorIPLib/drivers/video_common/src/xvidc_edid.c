@@ -33,7 +33,7 @@
 /**
  *
  * @file xvidc_edid.c
- * @addtogroup video_common_v3_1
+ * @addtogroup video_common_v4_0
  * @{
  *
  * Contains function definitions related to the Extended Display Identification
@@ -50,6 +50,8 @@
  * 1.0   als  11/09/14 Initial release.
  * 2.2   als  02/01/16 Functions with pointer arguments that don't modify
  *                     contents now const.
+ * 4.0   aad  10/26/16 Added API for colormetry which returns fixed point
+ *		       in Q0.10 format instead of float.
  * </pre>
  *
 *******************************************************************************/
@@ -66,8 +68,8 @@ static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings(const u8 *EdidRaw,
 		const XVidC_VideoTimingMode *VtMode);
 static u32 XVidC_EdidIsVideoTimingSupportedStandardTimings(const u8 *EdidRaw,
 		const XVidC_VideoTimingMode *VtMode);
-static float XVidC_CalculatePower(float Base, u8 Power);
-static float XVidC_CalculateBinaryFraction(u16 Val, u8 DecPtIndex);
+static int XVidC_CalculatePower(u8 Base, u8 Power);
+static int XVidC_CalculateBinaryFraction_QFormat(u16 Val, u8 DecPtIndex);
 
 /**************************** Function Definitions ****************************/
 
@@ -159,7 +161,8 @@ XVidC_ColorDepth XVidC_EdidGetColorDepth(const u8 *EdidRaw)
 /**
  * Calculates the x chromaticity coordinate for red by converting a 10 bit
  * binary fraction representation from the supplied base Extended Display
- * Identification Data (EDID) to a float.
+ * Identification Data (EDID) to a integer in Q0.10 Format. To convert back
+ * to float divide the fixed point value by 2^10.
  *
  * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
  *		information from.
@@ -169,19 +172,20 @@ XVidC_ColorDepth XVidC_EdidGetColorDepth(const u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcRedX(const u8 *EdidRaw)
+int XVidC_EdidGetCcRedX(const u8 *EdidRaw)
 {
-	return XVidC_CalculateBinaryFraction(
+	return XVidC_CalculateBinaryFraction_QFormat(
 		(EdidRaw[XVIDC_EDID_CC_REDX_HIGH] <<
 		XVIDC_EDID_CC_HIGH_SHIFT) | (EdidRaw[XVIDC_EDID_CC_RG_LOW] >>
-		XVIDC_EDID_CC_RBX_LOW_SHIFT), 9);
+		XVIDC_EDID_CC_RBX_LOW_SHIFT), 10);
 }
 
 /******************************************************************************/
 /**
  * Calculates the y chromaticity coordinate for red by converting a 10 bit
  * binary fraction representation from the supplied base Extended Display
- * Identification Data (EDID) to a float.
+ * Identification Data (EDID) to a integer in Q0.10 Format. To convert back
+ * to float divide the fixed point value by 2^10.
  *
  * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
  *		information from.
@@ -191,20 +195,21 @@ float XVidC_EdidGetCcRedX(const u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcRedY(const u8 *EdidRaw)
+int XVidC_EdidGetCcRedY(const u8 *EdidRaw)
 {
-	return XVidC_CalculateBinaryFraction(
+	return XVidC_CalculateBinaryFraction_QFormat(
 		(EdidRaw[XVIDC_EDID_CC_REDY_HIGH] <<
 		XVIDC_EDID_CC_HIGH_SHIFT) | ((EdidRaw[XVIDC_EDID_CC_RG_LOW] &
 		XVIDC_EDID_CC_RBY_LOW_MASK) >>
-		XVIDC_EDID_CC_RBY_LOW_SHIFT), 9);
+		XVIDC_EDID_CC_RBY_LOW_SHIFT), 10);
 }
 
 /******************************************************************************/
 /**
  * Calculates the x chromaticity coordinate for green by converting a 10 bit
  * binary fraction representation from the supplied base Extended Display
- * Identification Data (EDID) to a float.
+ * Identification Data (EDID) to a integer in Q0.10 Format. To convert back
+ * to float divide the fixed point value by 2^10.
  *
  * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
  *		information from.
@@ -214,20 +219,21 @@ float XVidC_EdidGetCcRedY(const u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcGreenX(const u8 *EdidRaw)
+int XVidC_EdidGetCcGreenX(const u8 *EdidRaw)
 {
-	return XVidC_CalculateBinaryFraction(
+	return XVidC_CalculateBinaryFraction_QFormat(
 		(EdidRaw[XVIDC_EDID_CC_GREENX_HIGH] <<
 		XVIDC_EDID_CC_HIGH_SHIFT) | ((EdidRaw[XVIDC_EDID_CC_RG_LOW] &
 		XVIDC_EDID_CC_GWX_LOW_MASK) >>
-		XVIDC_EDID_CC_GWX_LOW_SHIFT), 9);
+		XVIDC_EDID_CC_GWX_LOW_SHIFT), 10);
 }
 
 /******************************************************************************/
 /**
  * Calculates the y chromaticity coordinate for green by converting a 10 bit
  * binary fraction representation from the supplied base Extended Display
- * Identification Data (EDID) to a float.
+ * Identification Data (EDID) to a integer in Q0.10 Format. To convert back
+ * to float divide the fixed point value by 2^10.
  *
  * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
  *		information from.
@@ -237,19 +243,20 @@ float XVidC_EdidGetCcGreenX(const u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcGreenY(const u8 *EdidRaw)
+int XVidC_EdidGetCcGreenY(const u8 *EdidRaw)
 {
-	return XVidC_CalculateBinaryFraction(
+	return XVidC_CalculateBinaryFraction_QFormat(
 		(EdidRaw[XVIDC_EDID_CC_GREENY_HIGH] <<
 		XVIDC_EDID_CC_HIGH_SHIFT) | (EdidRaw[XVIDC_EDID_CC_RG_LOW] &
-		XVIDC_EDID_CC_GWY_LOW_MASK), 9);
+		XVIDC_EDID_CC_GWY_LOW_MASK), 10);
 }
 
 /******************************************************************************/
 /**
  * Calculates the x chromaticity coordinate for blue by converting a 10 bit
  * binary fraction representation from the supplied base Extended Display
- * Identification Data (EDID) to a float.
+ * Identification Data (EDID) to a integer in Q0.10 Format. To convert back
+ * to float divide the fixed point value by 2^10.
  *
  * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
  *		information from.
@@ -259,19 +266,20 @@ float XVidC_EdidGetCcGreenY(const u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcBlueX(const u8 *EdidRaw)
+int XVidC_EdidGetCcBlueX(const u8 *EdidRaw)
 {
-	return XVidC_CalculateBinaryFraction(
+	return XVidC_CalculateBinaryFraction_QFormat(
 		(EdidRaw[XVIDC_EDID_CC_BLUEX_HIGH] <<
 		XVIDC_EDID_CC_HIGH_SHIFT) | (EdidRaw[XVIDC_EDID_CC_BW_LOW] >>
-		XVIDC_EDID_CC_RBX_LOW_SHIFT), 9);
+		XVIDC_EDID_CC_RBX_LOW_SHIFT), 10);
 }
 
 /******************************************************************************/
 /**
  * Calculates the y chromaticity coordinate for blue by converting a 10 bit
  * binary fraction representation from the supplied base Extended Display
- * Identification Data (EDID) to a float.
+ * Identification Data (EDID) to a integer in Q0.10 Format. To convert back
+ * to float divide the fixed point value by 2^10.
  *
  * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
  *		information from.
@@ -281,19 +289,21 @@ float XVidC_EdidGetCcBlueX(const u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcBlueY(const u8 *EdidRaw)
+int XVidC_EdidGetCcBlueY(const u8 *EdidRaw)
 {
-	return XVidC_CalculateBinaryFraction(
+	return XVidC_CalculateBinaryFraction_QFormat(
 		(EdidRaw[XVIDC_EDID_CC_BLUEY_HIGH] <<
 		XVIDC_EDID_CC_HIGH_SHIFT) | ((EdidRaw[XVIDC_EDID_CC_BW_LOW] &
-		XVIDC_EDID_CC_RBY_LOW_MASK) >> XVIDC_EDID_CC_RBY_LOW_SHIFT), 9);
+		XVIDC_EDID_CC_RBY_LOW_MASK) >>
+		XVIDC_EDID_CC_RBY_LOW_SHIFT), 10);
 }
 
 /******************************************************************************/
 /**
  * Calculates the x chromaticity coordinate for white by converting a 10 bit
  * binary fraction representation from the supplied base Extended Display
- * Identification Data (EDID) to a float.
+ * Identification Data (EDID) to a integer in Q0.10 Format. To convert back
+ * to float divide the fixed point value by 2^10.
  *
  * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
  *		information from.
@@ -303,19 +313,20 @@ float XVidC_EdidGetCcBlueY(const u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcWhiteX(const u8 *EdidRaw)
+int XVidC_EdidGetCcWhiteX(const u8 *EdidRaw)
 {
-	return XVidC_CalculateBinaryFraction(
+	return XVidC_CalculateBinaryFraction_QFormat(
 		(EdidRaw[XVIDC_EDID_CC_WHITEX_HIGH] <<
 		XVIDC_EDID_CC_HIGH_SHIFT) | ((EdidRaw[XVIDC_EDID_CC_BW_LOW] &
-		XVIDC_EDID_CC_GWX_LOW_MASK) >> XVIDC_EDID_CC_GWX_LOW_SHIFT), 9);
+		XVIDC_EDID_CC_GWX_LOW_MASK) >> XVIDC_EDID_CC_GWX_LOW_SHIFT), 10);
 }
 
 /******************************************************************************/
 /**
  * Calculates the y chromaticity coordinate for white by converting a 10 bit
  * binary fraction representation from the supplied base Extended Display
- * Identification Data (EDID) to a float.
+ * Identification Data (EDID) to an integer in Q0.10 Format. To convert back
+ * to float divide the fixed point value by 2^10.
  *
  * @param	EdidRaw is the supplied base EDID to retrieve chromaticity
  *		information from.
@@ -325,12 +336,12 @@ float XVidC_EdidGetCcWhiteX(const u8 *EdidRaw)
  * @note	All values will be accurate to +/-0.0005.
  *
 *******************************************************************************/
-float XVidC_EdidGetCcWhiteY(const u8 *EdidRaw)
+int XVidC_EdidGetCcWhiteY(const u8 *EdidRaw)
 {
-	return XVidC_CalculateBinaryFraction(
+	return XVidC_CalculateBinaryFraction_QFormat(
 		(EdidRaw[XVIDC_EDID_CC_WHITEY_HIGH] <<
 		XVIDC_EDID_CC_HIGH_SHIFT) | (EdidRaw[XVIDC_EDID_CC_BW_LOW] &
-		XVIDC_EDID_CC_GWY_LOW_MASK), 9);
+		XVIDC_EDID_CC_GWY_LOW_MASK), 10);
 }
 
 /******************************************************************************/
@@ -645,10 +656,10 @@ static u32 XVidC_EdidIsVideoTimingSupportedStandardTimings(const u8 *EdidRaw,
  * @note	None.
  *
 *******************************************************************************/
-static float XVidC_CalculatePower(float Base, u8 Power)
+static int XVidC_CalculatePower(u8 Base, u8 Power)
 {
 	u8 Index;
-	float Res = 1.0;
+	u32 Res = 1;
 
 	for (Index = 0; Index < Power; Index++) {
 		Res *= Base;
@@ -657,34 +668,40 @@ static float XVidC_CalculatePower(float Base, u8 Power)
 	return Res;
 }
 
+
 /******************************************************************************/
 /**
- * Convert a fractional binary number into a decimal number. Binary digits to
- * the right of the decimal point represent 2^-1 to 2^-(DecPtIndex+1). Binary
- * digits to the left of the decimal point represent 2^0, 2^1, etc.
+ * Convert a fractional binary number into a fixed point  Q0.DecPtIndex number
+ * Binary digits to the right of the decimal point represent 2^-1 to
+ * 2^-(DecPtIndex+1). Binary digits to the left of the decimal point represent
+ * 2^0, 2^1, etc. For a given Q format, using an unsigned integer container with
+ * n fractional bits:
+ * its range is [0, 2^-n]
+ * its resolution is 2^n
  *
  * @param	Val is the binary representation of the fraction.
  * @param	DecPtIndex is the index of the decimal point in the binary
  *		number. The decimal point is between the binary digits at Val's
- *		indices (DecPtIndex) and (DecPtIndex + 1).
+ *		indices (DecPtIndex -1) and (DecPtIndex). DecPtIndex will
+ *		determine the Q format resolution.
  *
- * @return	Base^Power (Base to the power of Power).
+ * @return	Fixed point representation of the fractional part of the binary
+ *              number in Q format.
  *
  * @note	None.
  *
 *******************************************************************************/
-static float XVidC_CalculateBinaryFraction(u16 Val, u8 DecPtIndex)
+static int XVidC_CalculateBinaryFraction_QFormat(u16 Val, u8 DecPtIndex)
 {
 	int Index;
-	float Res;
+	u32 Res;
 
-	for (Index = DecPtIndex, Res = 0; Index >= 0; Index--) {
+	for (Index = DecPtIndex - 1, Res = 0; Index >= 0; Index--) {
 		if (((Val >> Index) & 0x1) == 1) {
-			Res += XVidC_CalculatePower(
-						0.5, DecPtIndex - Index + 1);
+			Res += XVidC_CalculatePower(2 , Index);
 		}
 	}
 
-	return (Val >> (DecPtIndex + 1)) + Res;
+	return Res;
 }
 /** @} */

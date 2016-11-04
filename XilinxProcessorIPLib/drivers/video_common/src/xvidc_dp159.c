@@ -33,7 +33,7 @@
 /**
 *
 * @file xvidc_dp159.c
-* @addtogroup video_common_v3_1
+* @addtogroup video_common_v4_0
 * @{
 *
 * This file contains a set of functions to configure the DP159.
