@@ -78,6 +78,7 @@
 *                       squash unused variable compiler warning
 *                       Added Event Log
 * 1.18  MH     08/10/16 Improve HDCP 1.4 authentication
+* 1.19  MG     31/10/16 Fixed issue with reference clock compensation in XV_HdmiRxSS_SetStream
 * </pre>
 *
 ******************************************************************************/
@@ -1360,13 +1361,16 @@ u32 XV_HdmiRxSs_SetStream(XV_HdmiRxSs *InstancePtr,
         u32 Clock, u32 LineRate)
 {
 
+  /* Write log */
+  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_SETSTREAM, 0);
+
+  /* Set stream */
   XV_HdmiRx_SetStream(InstancePtr->HdmiRxPtr, InstancePtr->Config.Ppc, Clock);
 
-  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_SETSTREAM, 0);
-  // Check line rate
-  // For 4k60p select 4 pixels per clock
-  if (LineRate > 3400) {
-    InstancePtr->HdmiRxPtr->Stream.PixelClk = Clock * 4;
+  /* In case the TMDS clock ratio is 1/40 */
+  /* The reference clock must be compensated */
+  if (XV_HdmiRx_GetTmdsClockRatio(InstancePtr->HdmiRxPtr)) {
+	  InstancePtr->HdmiRxPtr->Stream.RefClk = InstancePtr->HdmiRxPtr->Stream.RefClk * 4;
   }
 
   return (XST_SUCCESS);
