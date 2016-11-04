@@ -89,6 +89,10 @@
 *                       XV_HdmiTxSs_WaitUs
 * 1.20   MH    08/10/16 Update function call sequence in
 *                       XV_HdmiTxSs_StreamUpCallback
+*
+* 1.1x   mmo   04/11/16 Updated the XV_HdmiTxSs_SetAudioChannels API which currently calls
+*                       XV_HdmiTx_SetAudioChannels driver, which sets the Audio Channels
+*                       accordingly. This fixed is made during v1.2 (2016.1)
 * </pre>
 *
 ******************************************************************************/
