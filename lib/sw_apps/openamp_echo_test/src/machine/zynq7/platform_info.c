@@ -41,57 +41,12 @@
  **************************************************************************/
 
 #include "openamp/hil.h"
-#include "openamp/remoteproc_plat.h"
 #include "metal/atomic.h"
 #include "platform_info.h"
 
-#define REMOTE_CPU_ID                     0
-
-/* Reference implementation that show cases platform_get_cpu_info and
- platform_get_for_firmware API implementation for Bare metal environment */
+#define APU_CPU_ID                     0
 
 extern struct hil_platform_ops zynq_a9_proc_ops;
-
-
-struct rproc_info_plat_local proc_table = {
-	{
-		/* CPU ID of master */
-		REMOTE_CPU_ID,
-
-		/* HIL platform ops table. */
-		&zynq_a9_proc_ops,
-	},
-	/* vring0 ipi device and vring descriptors memory device */
-	{
-		PLAT_RSC_VRING,
-		"generic",
-		"ipi0",
-		NULL,
-		"generic",
-		"vrings",
-	},
-	/* vring1 ipi device and vring descriptors memory device */
-	{
-		PLAT_RSC_VRING,
-		"generic",
-		"ipi1",
-		NULL,
-		"generic",
-		"vrings",
-	},
-	/* Shared memory device */
-	{
-		PLAT_RSC_SHM,
-		"shm",
-		0,  /* UNDEFINED */
-	},
-	/* Shared memory device */
-	{
-		PLAT_RSC_RPMSG_CHANNEL,
-		"rpmsg-openamp-demo-channel",
-	},
-	PLAT_RSC_LAST,
-};
 
 const struct firmware_info fw_table[] =
 {
@@ -100,4 +55,19 @@ const struct firmware_info fw_table[] =
 	 0}
 };
 
-int fw_table_size = sizeof(fw_table)/sizeof(struct firmware_info);
+const int fw_table_size = sizeof(fw_table)/sizeof(struct firmware_info);
+
+struct hil_proc *platform_create_proc(int proc_index)
+{
+	(void) proc_index;
+	struct hil_proc *proc;
+	proc = hil_create_proc(&zynq_a9_proc_ops, APU_CPU_ID, NULL);
+	if (!proc)
+		return NULL;
+
+	hil_set_ipi(proc, 0, VRING0_IPI_INTR_VECT, NULL);
+	hil_set_ipi(proc, 1, VRING1_IPI_INTR_VECT, NULL);
+
+	hil_set_rpmsg_channel(proc, 0, RPMSG_CHAN_NAME);
+	return proc;
+}

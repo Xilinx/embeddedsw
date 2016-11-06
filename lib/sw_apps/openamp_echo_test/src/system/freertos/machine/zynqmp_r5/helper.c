@@ -40,8 +40,6 @@
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
-extern int platform_register_metal_device(void);
-
 extern XScuGic xInterruptController;
 
 /* Complete Interrupt Controller setup, FreeRTOS is doing the pre-init */
@@ -67,10 +65,7 @@ int init_system(void)
 	/* configure the global interrupt controller */
 	app_gic_initialize();
 
-	/**/
-	platform_register_metal_device();
-
-    return 0;
+	return 0;
 }
 
 void cleanup_system()

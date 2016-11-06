@@ -32,13 +32,12 @@
 #include "xil_exception.h"
 #include "xscugic.h"
 #include "xil_cache.h"
-#include "platform_info.h"
 #include "metal/sys.h"
 #include "metal/irq.h"
+#include "platform_info.h"
 
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
-extern int platform_register_metal_device(void);
 
 extern XScuGic xInterruptController;
 
@@ -46,13 +45,13 @@ extern XScuGic xInterruptController;
 static int app_gic_initialize(void)
 {
 	/* Connect Interrupt ID with ISR */
-	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
-			   (Xil_ExceptionHandler)metal_irq_isr,
-			   (void *)VRING1_IPI_INTR_VECT);
-
 	XScuGic_Connect(&xInterruptController, VRING0_IPI_INTR_VECT,
+			   (Xil_ExceptionHandler)metal_irq_isr,
+			   (void *)VRING0_IPI_INTR_VECT);
+
+	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
 				   (Xil_ExceptionHandler)metal_irq_isr,
-				   (void *)VRING0_IPI_INTR_VECT);
+				   (void *)VRING1_IPI_INTR_VECT);
 
 	return 0;
 }
@@ -68,9 +67,6 @@ int init_system(void)
 
 	/* configure the global interrupt controller */
 	app_gic_initialize();
-
-	/**/
-	platform_register_metal_device();
 
     return 0;
 }

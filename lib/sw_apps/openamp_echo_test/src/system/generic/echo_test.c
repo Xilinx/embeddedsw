@@ -74,21 +74,24 @@
 **************************************************************************************/
 
 #include "xil_printf.h"
+#include "openamp/open_amp.h"
 #include "rsc_table.h"
+#include "platform_info.h"
 
 #define SHUTDOWN_MSG	0xEF56A55A
 
+#define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
+#define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
+
 /* Global functions and variables */
-extern const struct remote_resource_table resources;
 extern int init_system(void);
 extern void cleanup_system(void);
-
-extern struct rproc_info_plat_local proc_table;
 
 /* Local variables */
 static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
+
 static int evt_chnl_deleted = 0;
 
 /*-----------------------------------------------------------------------------*
@@ -107,7 +110,9 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 	}
 
 	/* send back the data */
-	rpmsg_send(rp_chnl, data, len);
+	if (RPMSG_SUCCESS != rpmsg_send(rp_chnl, data, len)) {
+		LPERROR("rpmsg_send failed\n");
+	}
 }
 
 static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
@@ -124,47 +129,76 @@ static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 	rp_ept = NULL;
 }
 
+/*-----------------------------------------------------------------------------*
+ *  Application
+ *-----------------------------------------------------------------------------*/
+int app(struct hil_proc *hproc)
+{
+	int status = 0;
+
+	/* Initialize RPMSG framework */
+	LPRINTF("Try to init remoteproc resource\n");
+	status = remoteproc_resource_init(&rsc_info, hproc,
+				     rpmsg_channel_created,
+				     rpmsg_channel_deleted, rpmsg_read_cb,
+				     &proc, 0);
+
+	if (RPROC_SUCCESS != status) {
+		LPERROR("Failed  to initialize remoteproc resource.\n");
+		return -1;
+	}
+
+	LPRINTF("Init remoteproc resource done\n");
+
+	LPRINTF("Waiting for events...\n");
+	do {
+		hil_poll(proc->proc, 0);
+	} while (!evt_chnl_deleted);
+
+	/* disable interrupts and free resources */
+	LPRINTF("De-initializating remoteproc resource\n");
+	remoteproc_resource_deinit(proc);
+
+	return 0;
+}
 
 /*-----------------------------------------------------------------------------*
  *  Application entry point
  *-----------------------------------------------------------------------------*/
-int main(void)
+int main(int argc, char *argv[])
 {
-	int status = 0;
+	unsigned long proc_id = 0;
+	unsigned long rsc_id = 0;
+	struct hil_proc *hproc;
+	int status = -1;
+
+	LPRINTF("Starting application...\n");
 
 	/* Initialize HW and SW components/objects */
 	init_system();
 
-	/* Resource table needs to be provided to remoteproc_resource_init() */
-	rsc_info.rsc_tab = (struct resource_table *)&resources;
-	rsc_info.size = sizeof(resources);
-
-	/* Initialize OpenAMP framework */
-	xil_printf("Initializing OpenAMP...\n");
-	status = remoteproc_resource_init(&rsc_info, &proc_table,
-				rpmsg_channel_created,
-				rpmsg_channel_deleted, rpmsg_read_cb,
-				&proc, 0);
-	if (RPROC_SUCCESS != status) {
-		xil_printf("Error: initializing OpenAMP framework\n");
-	} else {
-		xil_printf("Waiting for events...\n");
-		do {
-			hil_poll(proc->proc, 0);
-		} while (!evt_chnl_deleted);
-
-		/* disable interrupts and free resources */
-		xil_printf("Stopping OpenAMP...\n");
-		remoteproc_resource_deinit(proc);
+	if (argc >= 2) {
+		proc_id = strtoul(argv[1], NULL, 0);
 	}
+
+	if (argc >= 3) {
+		rsc_id = strtoul(argv[2], NULL, 0);
+	}
+
+	hproc = platform_create_proc(proc_id);
+	if (!hproc) {
+		LPERROR("Failed to create proc platform data.\n");
+	} else {
+		rsc_info.rsc_tab = get_resource_table((int)rsc_id, &rsc_info.size);
+		if (!rsc_info.rsc_tab) {
+			LPERROR("Failed to get resource table data.\n");
+		} else {
+			status = app(hproc);
+		}
+	}
+
+	LPRINTF("Stopping application...\n");
 
 	cleanup_system();
-
-	/* We shall never exit main, just wait forever */
-	while (1) {
-		__asm__("wfi\n\t");
-	}
-
-	/* suppress compilation warnings*/
-	return 0;
+	return status;
 }
