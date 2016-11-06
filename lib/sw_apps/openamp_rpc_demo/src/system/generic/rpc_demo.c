@@ -72,14 +72,12 @@
 *
 **************************************************************************************/
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include "openamp/rpmsg_retarget.h"
 #include "xil_printf.h"
+#include "openamp/open_amp.h"
+#include "openamp/rpmsg_retarget.h"
 #include "rsc_table.h"
+#include "platform_info.h"
 
 
 #define REDEF_O_CREAT 100
@@ -92,11 +90,13 @@
 
 #define RPC_CHANNEL_READY_TO_CLOSE "rpc_channel_ready_to_close"
 
+/* xil_printf goes directly to serial port */
+#define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
+#define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
+
 /* Global functions and variables */
-extern const struct remote_resource_table resources;
 extern int init_system(void);
 extern void cleanup_system(void);
-extern struct rproc_info_plat_local proc_table;
 
 /* Local variables */
 static struct rpmsg_channel *app_rp_chnl;
@@ -137,7 +137,7 @@ static void shutdown_cb(struct rpmsg_channel *rp_chnl)
 /*-----------------------------------------------------------------------------*
  *  Application specific
  *-----------------------------------------------------------------------------*/
-static void rpc_demo(void)
+int app (struct hil_proc *hproc)
 {
 	int fd, bytes_written, bytes_read;
 	char fname[] = "remote.file";
@@ -149,34 +149,26 @@ static void rpc_demo(void)
 	int ret;
 	int status;
 
-	/* Initialize HW and SW components/objects */
-	init_system();
-
-	/* Resource table needs to be provided to remoteproc_resource_init() */
-	rsc_info.rsc_tab = (struct resource_table *)&resources;
-	rsc_info.size = sizeof(resources);
-
-	xil_printf("Initializing OpenAMP...\n");
-
-	/* Initialize OpenAMP RPMSG framework */
-	status = remoteproc_resource_init(&rsc_info,  &proc_table,
+	/* Initialize framework */
+	LPRINTF("Try to init remoteproc resource\n");
+	status = remoteproc_resource_init(&rsc_info, hproc,
 						rpmsg_channel_created,
 						rpmsg_channel_deleted, rpmsg_read_cb,
 						&proc, 0);
 	if (RPROC_SUCCESS != status) {
-		/* print error directly on serial port */
-		xil_printf("Error: initializing OpenAMP framework\n");
-        return;
+		LPERROR("Failed  to initialize remoteproc resource.\n");
+        return -1;
 	}
 
-	xil_printf("Waiting for channel creation...\n");
+	LPRINTF("Init remoteproc resource done\n");
+
+	LPRINTF("Waiting for channel creation...\n");
 	while (!chnl_is_alive) {
 		hil_poll(proc->proc, 0);
 	}
 
-	xil_printf("Initializating I/Os redirection...\n");
-
 	/* redirect I/Os */
+	LPRINTF("Initializating I/Os redirection...\n");
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
 
 	printf("\r\nRemote>Baremetal Remote Procedure Call (RPC) Demonstration\r\n");
@@ -189,13 +181,13 @@ static void rpc_demo(void)
 
 	printf("\r\nRemote>Creating a file on master and writing to it..\r\n");
 	fd = open(fname, REDEF_O_CREAT | REDEF_O_WRONLY | REDEF_O_APPEND,
-			S_IRUSR | S_IWUSR);
+		  S_IRUSR | S_IWUSR);
 	printf("\r\nRemote>Opened file '%s' with fd = %d\r\n", fname, fd);
 
 	sprintf(wbuff, "This is a test string being written to file..");
 	bytes_written = write(fd, wbuff, strlen(wbuff));
 	printf("\r\nRemote>Wrote to fd = %d, size = %d, content = %s\r\n", fd,
-			bytes_written, wbuff);
+	       bytes_written, wbuff);
 	close(fd);
 	printf("\r\nRemote>Closed fd = %d\r\n", fd);
 
@@ -204,9 +196,9 @@ static void rpc_demo(void)
 	fd = open(fname, REDEF_O_RDONLY, S_IRUSR | S_IWUSR);
 	printf("\r\nRemote>Opened file '%s' with fd = %d\r\n", fname, fd);
 	bytes_read = read(fd, rbuff, 1024);
-	*(char*) (&rbuff[0] + bytes_read + 1) = 0;
-	printf( "\r\nRemote>Read from fd = %d, size = %d, printing contents below .. %s\r\n",
-			fd, bytes_read, rbuff);
+	*(char *)(&rbuff[0] + bytes_read + 1) = 0;
+	printf("\r\nRemote>Read from fd = %d, size = %d, printing contents below .. %s\r\n",
+	     fd, bytes_read, rbuff);
 	close(fd);
 	printf("\r\nRemote>Closed fd = %d\r\n", fd);
 
@@ -219,25 +211,25 @@ static void rpc_demo(void)
 		if (ret) {
 			printf("\r\nRemote>Enter age\r\n");
 			ret = scanf("%d", &idata);
-			if(ret) {
+			if (ret) {
 				printf("\r\nRemote>Enter value for pi\r\n");
 				ret = scanf("%f", &fdata);
-				if(ret) {
+				if (ret) {
 					printf("\r\nRemote>User name = '%s'\r\n", ubuff);
 					printf("\r\nRemote>User age = '%d'\r\n", idata);
 					printf("\r\nRemote>User entered value of pi = '%f'\r\n", fdata);
 				}
 			}
 		}
-		if(!ret) {
+		if (!ret) {
 			scanf("%s", ubuff);
 			printf("Remote> Invalid value. Starting again....");
 		} else {
 			printf("\r\nRemote>Repeat demo ? (enter yes or no) \r\n");
 			scanf("%s", ubuff);
-			if((strcmp(ubuff,"no")) && (strcmp(ubuff,"yes"))) {
+			if ((strcmp(ubuff, "no")) && (strcmp(ubuff, "yes"))) {
 				printf("\r\nRemote>Invalid option. Starting again....\r\n");
-			} else if((!strcmp(ubuff,"no"))) {
+			} else if ((!strcmp(ubuff, "no"))) {
 				printf("\r\nRemote>RPC retargetting quitting ...\r\n");
 				break;
 			}
@@ -249,29 +241,59 @@ static void rpc_demo(void)
 	sprintf(wbuff, RPC_CHANNEL_READY_TO_CLOSE);
 	rpmsg_retarget_send(wbuff, sizeof (RPC_CHANNEL_READY_TO_CLOSE) + 1);
 
-	xil_printf("Waiting for channel deletion...\n");
+	LPRINTF("Waiting for channel deletion...\n");
 	while (chnl_is_alive) {
 		hil_poll(proc->proc, 0);
 	}
 
-	xil_printf("Stopping OpenAMP...\n");
+	LPRINTF("De-initializating rpmsg_retarget\n");
 	rpmsg_retarget_deinit(app_rp_chnl);
+	/* disable interrupts and free resources */
+	LPRINTF("De-initializating remoteproc resource\n");
 	remoteproc_resource_deinit(proc);
-	cleanup_system();
+
+	return 0;
 }
 
 /*-----------------------------------------------------------------------------*
  *  Application entry point
  *-----------------------------------------------------------------------------*/
-int main(void)
+int main(int argc, char *argv[])
 {
-	rpc_demo();
+	unsigned long proc_id = 0;
+	unsigned long rsc_id = 0;
+	struct hil_proc *hproc;
+	int status = -1;
 
-	while (1) {
-		__asm__("wfi\n\t");
+	LPRINTF("Starting application...\n");
+
+	/* Initialize HW system components */
+	init_system();
+
+	if (argc >= 2) {
+		proc_id = strtoul(argv[1], NULL, 0);
 	}
 
-	/* suppress compilation warnings*/
-	return 0;
+	if (argc >= 3) {
+		rsc_id = strtoul(argv[2], NULL, 0);
+	}
+
+	/* Create HIL proc */
+	hproc = platform_create_proc(proc_id);
+	if (!hproc) {
+		LPERROR("Failed to create hil proc.\n");
+	} else {
+		rsc_info.rsc_tab = get_resource_table((int)rsc_id, &rsc_info.size);
+		if (!rsc_info.rsc_tab) {
+			LPERROR("Failed to get resource table data.\n");
+		} else {
+			status = app(hproc);
+		}
+	}
+
+	LPRINTF("Stopping application...\n");
+
+	cleanup_system();
+	return status;
 }
 
