@@ -59,19 +59,12 @@ ENTRY(_vector_table)
 
 SECTIONS
 {
-
 .vectors : {
-   *(.vectors)
+   KEEP (*(.vectors))
+   *(.boot)
 } > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
-
-_binary_firmware1_start = 0;
-_binary_firmware1_end = 0;
-_binary_firmware2_start = 0;
-_binary_firmware2_end = 0;
-
 .text : {
-   *(.boot)
    *(.text)
    *(.text.*)
    *(.gnu.linkonce.t.*)
