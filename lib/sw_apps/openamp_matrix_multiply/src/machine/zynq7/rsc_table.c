@@ -31,11 +31,13 @@
 /* This file populates resource table for BM remote
  * for use by the Linux Master */
 
+#include "openamp/open_amp.h"
 #include "rsc_table.h"
 
 /* Place resource table in special ELF section */
-#define __rsc_section(S)    __attribute__((__section__(#S)))
-#define __resource          __rsc_section(.resource_table)
+/* Redefine __section for section name with token */
+#define __section_t(S)          __attribute__((__section__(#S)))
+#define __resource              __section_t(.resource_table)
 
 #define RPMSG_IPU_C0_FEATURES        1
 
@@ -59,8 +61,7 @@
 #define CARVEOUT_SRC                { RSC_CARVEOUT, ELF_START, ELF_START, ELF_END, 0, 0, "ELF_COUT", },
 
 
-const struct remote_resource_table __resource resources =
-{
+struct remote_resource_table __resource resources = {
 	/* Version */
 	1,
 
@@ -70,9 +71,8 @@ const struct remote_resource_table __resource resources =
 	{ 0, 0,},
 
 	/* Offsets of rsc entries */
-	{
-		CARVEOUT_SRC_OFFSETS
-		offsetof(struct remote_resource_table, rpmsg_vdev),
+	{ CARVEOUT_SRC_OFFSETS
+	  offsetof(struct remote_resource_table, rpmsg_vdev),
 	},
 
 	/* End of ELF file */
@@ -83,10 +83,15 @@ const struct remote_resource_table __resource resources =
 	},
 
 	/* Vring rsc entry - part of vdev rsc entry */
-	{
-	RING_TX, VRING_ALIGN, VRING_SIZE, 1, 0
+	{ RING_TX, VRING_ALIGN, VRING_SIZE, 1, 0
 	},
-	{
-		RING_RX, VRING_ALIGN, VRING_SIZE, 2, 0
+	{ RING_RX, VRING_ALIGN, VRING_SIZE, 2, 0
 	},
 };
+
+void *get_resource_table (int rsc_id, int *len)
+{
+	(void) rsc_id;
+	*len = sizeof(resources);
+	return &resources;
+}
