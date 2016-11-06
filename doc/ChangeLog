@@ -45,6 +45,11 @@ as XPS_LPD_SWDT_INT_ID in xparameters_ps.h of cortex r5 and for
 parameters as they are private timers for a9 only.
 Fix for CR-962858.
 
+Removes DMAPS and PS7 definitions as they are supported
+by Zynq, and modifies interrupt ID number for FPGA in
+xparameters_ps.h of cortex r5 and for 32bit, 64bit of cortex a53.
+Fix for CR-963258.
+
 openamp_v1_2:
 sync with upstream (fix mem allocator, run as rpmsg master, flood ping)
 
