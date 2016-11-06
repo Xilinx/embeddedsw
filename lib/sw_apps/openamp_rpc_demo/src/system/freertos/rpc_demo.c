@@ -77,11 +77,12 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "openamp/open_amp.h"
-#include "openamp/rpmsg_retarget.h"
 #include "xil_printf.h"
 #include "xil_exception.h"
+#include "openamp/open_amp.h"
+#include "openamp/rpmsg_retarget.h"
 #include "rsc_table.h"
+#include "platform_info.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -96,10 +97,11 @@
 
 #define RPC_CHANNEL_READY_TO_CLOSE "rpc_channel_ready_to_close"
 
-/* Global variables */
-extern const struct remote_resource_table resources;
-extern struct rproc_info_plat_local proc_table;
+/* xil_printf goes directly to serial port */
+#define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
+#define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
 
+/* Global functions and variables */
 extern int init_system(void);
 extern void cleanup_system(void);
 
@@ -144,7 +146,7 @@ static void shutdown_cb(struct rpmsg_channel *rp_chnl)
 /*-----------------------------------------------------------------------------*
  * Application specific
  *-----------------------------------------------------------------------------*/
-static void rpc_demo(void *unused_arg)
+int app (struct hil_proc *hproc)
 {
 	int fd, bytes_written, bytes_read;
 	char fname[] = "remote.file";
@@ -156,35 +158,27 @@ static void rpc_demo(void *unused_arg)
 	int ret;
 	int status;
 
-	(void)unused_arg;
-
-	/* Initialize HW and SW components/objects */
-	init_system();
-
-	/* Resource table needs to be provided to remoteproc_resource_init() */
-	rsc_info.rsc_tab = (struct resource_table *)&resources;
-	rsc_info.size = sizeof(resources);
-
-	xil_printf("Initializing OpenAMP...\n");
-
 	/* Initialize OpenAMP RPMSG framework */
-	status = remoteproc_resource_init(&rsc_info, &proc_table,
+	LPRINTF("Try to init remoteproc resource\n");
+	status = remoteproc_resource_init(&rsc_info, hproc,
 				rpmsg_channel_created,
 				rpmsg_channel_deleted, rpmsg_read_cb,
 				&proc, 0);
+
 	if (RPROC_SUCCESS != status) {
-		/* print error directly on serial port */
-		xil_printf("Error: initializing OpenAMP framework\n");
-		return;
+		LPERROR("Failed  to initialize remoteproc resource.\n");
+		return -1;
 	}
 
-	xil_printf("Waiting for channel creation...\n");
+	LPRINTF("Init remoteproc resource done\n");
+
+	LPRINTF("Waiting for channel creation...\n");
 	while (!chnl_is_alive) {
 		hil_poll(proc->proc, 0);
 	}
 
-	xil_printf("Initializating I/Os redirection...\n");
 	/* redirect I/Os */
+	LPRINTF("Initializating I/Os redirection...\n");
 	rpmsg_retarget_init(app_rp_chnl, shutdown_cb);
 
 	printf("\r\nRemote>FreeRTOS Remote Procedure Call (RPC) Demonstration\r\n");
@@ -256,14 +250,50 @@ static void rpc_demo(void *unused_arg)
 	sprintf(wbuff, RPC_CHANNEL_READY_TO_CLOSE);
 	rpmsg_retarget_send(wbuff, sizeof(RPC_CHANNEL_READY_TO_CLOSE) + 1);
 
-	xil_printf("Waiting for channel deletion...\n");
+	LPRINTF("Waiting for channel deletion...\n");
 	while (chnl_is_alive) {
 		hil_poll(proc->proc, 0);
 	}
 
-	xil_printf("Stopping OpenAMP...\n");
+	LPRINTF("De-initializating rpmsg_retarget\n");
 	rpmsg_retarget_deinit(app_rp_chnl);
+	/* disable interrupts and free resources */
+	LPRINTF("De-initializating remoteproc resource\n");
 	remoteproc_resource_deinit(proc);
+
+	return 0;
+}
+
+/*-----------------------------------------------------------------------------*
+ *  Processing Task
+ *-----------------------------------------------------------------------------*/
+static void processing(void *unused_arg)
+{
+	int proc_id = 0;
+	int rsc_id = 0;
+	struct hil_proc *hproc;
+
+	(void)unused_arg;
+
+	LPRINTF("Starting application...\n");
+
+	/* Initialize HW and SW components/objects */
+	init_system();
+
+	/* Get selected hproc and rsc_info */
+	hproc = platform_create_proc(proc_id);
+	if (!hproc) {
+		LPERROR("Failed to create proc platform data.\n");
+	} else {
+		rsc_info.rsc_tab = get_resource_table(rsc_id, &rsc_info.size);
+		if (!rsc_info.rsc_tab) {
+			LPERROR("Failed to get resource table data.\n");
+		} else {
+			(void) app(hproc);
+		}
+	}
+
+	LPRINTF("Stopping application...\n");
 	cleanup_system();
 
 	/* Terminate this task */
@@ -280,10 +310,10 @@ int main(void)
 	Xil_ExceptionDisable();
 
 	/* Create the tasks */
-	stat = xTaskCreate(rpc_demo, ( const char * ) "HW2",
+	stat = xTaskCreate(processing, ( const char * ) "HW2",
 				1024, NULL, 2, &comm_task);
 	if (stat != pdPASS) {
-		xil_printf("Error: cannot create task\n");
+		LPERROR("cannot create task\n");
 	} else {
 		/* Start running FreeRTOS tasks */
 		vTaskStartScheduler();
