@@ -74,17 +74,17 @@
 **************************************************************************************/
 
 #include "xil_printf.h"
-#include "xil_exception.h"
+#include "openamp/open_amp.h"
 #include "rsc_table.h"
+#include "platform_info.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
 
 #define SHUTDOWN_MSG	0xEF56A55A
 
-/* Global variables */
-extern const struct remote_resource_table resources;
-extern struct rproc_info_plat_local proc_table;
+#define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
+#define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
 
 /* from helper.c */
 extern int init_system(void);
@@ -114,7 +114,7 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 	(void)src;
 
 	if (!buffer_push(data, len)) {
-		xil_printf("warning: cannot save data\n");
+		LPERROR("cannot save data\n");
 	} else {
 		have_data_flag =1;
 	}
@@ -136,13 +136,71 @@ static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 }
 
 /*-----------------------------------------------------------------------------*
- *  Processing Task receiving data from ISR handler
+ *  Application
  *-----------------------------------------------------------------------------*/
-static void processing(void *unused_arg)
+int app(struct hil_proc *hproc)
 {
 	int status = 0;
 
+	/* Initialize RPMSG framework */
+	LPRINTF("Try to init remoteproc resource\n");
+	status = remoteproc_resource_init(&rsc_info, hproc,
+						rpmsg_channel_created,
+						rpmsg_channel_deleted, rpmsg_read_cb,
+						&proc, 0);
+
+	if (RPROC_SUCCESS != status) {
+		LPERROR("Failed  to initialize remoteproc resource.\n");
+		return -1;
+	}
+
+	LPRINTF("Init remoteproc resource done\n");
+
+	LPRINTF("Waiting for events...\n");
+
+	/* Stay in data processing loop until we receive a 'shutdown' message */
+	while (1) {
+		hil_poll(proc->proc, 0);
+
+		if (have_data_flag) {
+			void *data;
+			int len;
+
+			have_data_flag = 0;
+
+			buffer_pull(&data, &len);
+
+			/* If we get a shutdown request we will stop and end this task */
+			if (*(unsigned int *)data == SHUTDOWN_MSG) {
+				break;
+			}
+
+			/* Send data back to master*/
+			if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, data, len)) {
+				LPERROR("rpmsg_send failed\n");
+			}
+		}
+	}
+
+	/* disable interrupts and free resources */
+	LPRINTF("De-initializating remoteproc resource\n");
+	remoteproc_resource_deinit(proc);
+
+	return 0;
+}
+
+/*-----------------------------------------------------------------------------*
+ *  Processing Task
+ *-----------------------------------------------------------------------------*/
+static void processing(void *unused_arg)
+{
+	int proc_id = 0;
+	int rsc_id = 0;
+	struct hil_proc *hproc;
+
 	(void)unused_arg;
+
+	LPRINTF("Starting application...\n");
 
 	/* Create buffer to send data between RPMSG callback and processing task */
 	buffer_create();
@@ -150,49 +208,20 @@ static void processing(void *unused_arg)
 	/* Initialize HW and SW components/objects */
 	init_system();
 
-	/* Resource table needs to be provided to remoteproc_resource_init() */
-	rsc_info.rsc_tab = (struct resource_table *)&resources;
-	rsc_info.size = sizeof(resources);
-
-	xil_printf("Initializing OpenAMP...\n");
-
-	/* Initialize OpenAMP framework */
-	status = remoteproc_resource_init(&rsc_info, &proc_table,
-						rpmsg_channel_created,
-						rpmsg_channel_deleted, rpmsg_read_cb,
-						&proc, 0);
-	if (RPROC_SUCCESS != status) {
-		xil_printf("Error: initializing OpenAMP framework\n");
+	/* Get selected hproc and rsc_info */
+	hproc = platform_create_proc(proc_id);
+	if (!hproc) {
+		LPERROR("Failed to create proc platform data.\n");
 	} else {
-		xil_printf("Waiting for events...\n");
-		/* Stay in data processing loop until we receive a 'shutdown' message */
-		while (1) {
-			hil_poll(proc->proc, 0);
-
-			if (have_data_flag) {
-				void *data;
-				int len;
-
-				have_data_flag = 0;
-
-				buffer_pull(&data, &len);
-
-				/* If we get a shutdown request we will stop and end this task */
-				if (*(unsigned int *)data == SHUTDOWN_MSG) {
-					break;
-				}
-
-				/* Send data back to master*/
-				if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, data, len)) {
-					xil_printf("Error: rpmsg_send failed\n");
-				}
-			}
+		rsc_info.rsc_tab = get_resource_table((int)rsc_id, &rsc_info.size);
+		if (!rsc_info.rsc_tab) {
+			LPERROR("Failed to get resource table data.\n");
+		} else {
+			(void) app(hproc);
 		}
-		xil_printf("Stopping OpenAMP...\n");
-
-		/* disable interrupts and free resources */
-		remoteproc_resource_deinit(proc);
 	}
+
+	LPRINTF("Stopping application...\n");
 	cleanup_system();
 
 	/* Terminate this task */
@@ -212,7 +241,7 @@ int main(void)
 	stat = xTaskCreate(processing, ( const char * ) "HW2",
 				1024, NULL, 2, &comm_task);
 	if (stat != pdPASS) {
-		xil_printf("Error: cannot create task\n");
+		LPERROR("cannot create task\n");
 	} else {
 		/* Start running FreeRTOS tasks */
 		vTaskStartScheduler();
