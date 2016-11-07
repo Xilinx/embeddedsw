@@ -281,9 +281,20 @@ proc generate {os_handle} {
 	file delete -force $commonsrcdir
 	file delete -force $armsrcdir
 
-	# Handle stdin and stdout
-	::hsi::utils::handle_stdin $os_handle
-	::hsi::utils::handle_stdout $os_handle
+	# Handle stdin
+	set stdin [common::get_property CONFIG.stdin $os_handle]
+	if { $stdin == "" || $stdin == "none" } {
+                handle_stdin_parameter $os_handle
+	} else {
+		::hsi::utils::handle_stdin $os_handle
+	}
+	# Handle stdout
+	set stdout [common::get_property CONFIG.stdout $os_handle]
+	if { $stdout == "" || $stdout == "none" } {
+		handle_stdout_parameter $os_handle
+	} else {
+		::hsi::utils::handle_stdout $os_handle
+	}
 
 	file copy -force "./src/outbyte.c" "../${standalone_version}/src/"
 	file copy -force "./src/inbyte.c" "../${standalone_version}/src/"
@@ -1147,4 +1158,155 @@ proc mb_drc_checks { sw_proc_handle hw_proc_handle os_handle } {
 	}
 
 
+}
+
+#
+# Handle the stdout parameter of a processor
+#
+proc handle_stdout_parameter {drv_handle} {
+   set stdout [common::get_property CONFIG.stdout $drv_handle]
+   set sw_proc_handle [::hsi::get_sw_processor]
+   set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $sw_proc_handle]]
+   set processor [common::get_property NAME $hw_proc_handle]
+
+   if {[llength $stdout] == 1 && [string compare -nocase "none" $stdout] != 0} {
+
+       set stdout_drv_handle [::hsi::get_drivers -filter "HW_INSTANCE==$stdout"]
+       if {[llength $stdout_drv_handle] == 0} {
+           error "No driver for stdout peripheral $stdout. Check the following reasons: \n
+                  1. $stdout is not accessible from processor $processor.\n
+                  2. No Driver block is defined for $stdout in MSS file." "" "hsi_error"
+           return
+       }
+
+       set interface_handle [::hsi::get_sw_interfaces -of_objects $stdout_drv_handle -filter "NAME==stdout"]
+       if {[llength $interface_handle] == 0} {
+         error "No stdout interface available for driver for peripheral $stdout" "" "hsi_error"
+       }
+       set outbyte_name [common::get_property FUNCTION.outbyte $interface_handle]
+       if {[llength $outbyte_name] == 0} {
+         error "No outbyte function available for driver for peripheral $stdout" "" "hsi_error"
+       }
+       set header [common::get_property PROPERTY.header $interface_handle]
+       if {[llength $header] == 0} {
+         error "No header property available in stdout interface for driver for peripheral $stdout" "" "hsi_error"
+       }
+       set config_file [open "src/outbyte.c" w]
+       puts $config_file "\#include \"xparameters.h\""
+       puts $config_file [format "\#include \"%s\"\n" $header ]
+       puts $config_file "\#ifdef __cplusplus"
+       puts $config_file "extern \"C\" {"
+       puts $config_file "\#endif"
+       puts $config_file "void outbyte(char c); \n"
+       puts $config_file "\#ifdef __cplusplus"
+       puts $config_file "}"
+       puts $config_file "\#endif \n"
+       puts $config_file "void outbyte(char c) {"
+       puts $config_file [format "\t %s(STDOUT_BASEADDRESS, c);" $outbyte_name]
+       puts $config_file "}"
+       close $config_file
+       set config_file [::hsi::utils::open_include_file "xparameters.h"]
+       set stdout_mem_range [::hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$stdout && IS_DATA==1" ]
+       if { [llength $stdout_mem_range] > 1 } {
+           set stdout_mem_range [::hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$stdout&& (BASE_NAME==C_BASEADDR||BASE_NAME==C_S_AXI_BASEADDR)"]
+       }
+       set base_name [common::get_property BASE_NAME $stdout_mem_range]
+       set base_value [common::get_property BASE_VALUE $stdout_mem_range]
+       puts $config_file "\#define STDOUT_BASEADDRESS [::hsi::utils::format_addr_string $base_value $base_name]"
+       close $config_file
+   } else {
+            if { $stdout == "" || $stdout == "none" } {
+                    #
+                    # UART is not present in the system, add dummy implementatin for outbyte
+                    #
+                    set config_file [open "src/outbyte.c" w]
+		    puts $config_file "\#include \"xparameters.h\""
+		    puts $config_file "\#ifdef __cplusplus"
+		    puts $config_file "extern \"C\" {"
+		    puts $config_file "\#endif"
+		    puts $config_file "void outbyte(char c); \n"
+		    puts $config_file "\#ifdef __cplusplus"
+		    puts $config_file "}"
+		    puts $config_file "\#endif \n"
+		    puts $config_file "void outbyte(char c) {"
+		    puts $config_file "}"
+                    close $config_file
+            }
+     }
+}
+
+#
+# Handle the stdin parameter of a processor
+#
+proc handle_stdin_parameter {drv_handle} {
+
+   set stdin [common::get_property CONFIG.stdin $drv_handle]
+   set sw_proc_handle [::hsi::get_sw_processor]
+   set hw_proc_handle [::hsi::get_cells -hier [common::get_property hw_instance $sw_proc_handle]]
+
+   set processor [common::get_property hw_instance $sw_proc_handle]
+   if {[llength $stdin] == 1 && [string compare -nocase "none" $stdin] != 0} {
+       set stdin_drv_handle [::hsi::get_drivers -filter "HW_INSTANCE==$stdin"]
+       if {[llength $stdin_drv_handle] == 0} {
+           error "No driver for stdin peripheral $stdin. Check the following reasons: \n
+                  1. $stdin is not accessible from processor $processor.\n
+                  2. No Driver block is defined for $stdin in MSS file." "" "hsi_error"
+           return
+       }
+
+       set interface_handle [::hsi::get_sw_interfaces -of_objects $stdin_drv_handle -filter "NAME==stdin"]
+       if {[llength $interface_handle] == 0} {
+           error "No stdin interface available for driver for peripheral $stdin" "" "hsi_error"
+       }
+
+       set inbyte_name [common::get_property FUNCTION.inbyte $interface_handle ]
+       if {[llength $inbyte_name] == 0} {
+         error "No inbyte function available for driver for peripheral $stdin" "" "hsi_error"
+       }
+       set header [common::get_property PROPERTY.header $interface_handle]
+       if {[llength $header] == 0} {
+         error "No header property available in stdin interface for driver for peripheral $stdin" "" "hsi_error"
+       }
+       set config_file [open "src/inbyte.c" w]
+       puts $config_file "\#include \"xparameters.h\""
+       puts $config_file [format "\#include \"%s\"\n" $header]
+       puts $config_file "\#ifdef __cplusplus"
+       puts $config_file "extern \"C\" {"
+       puts $config_file "\#endif"
+       puts $config_file "char inbyte(void);"
+       puts $config_file "\#ifdef __cplusplus"
+       puts $config_file "}"
+       puts $config_file "\#endif \n"
+       puts $config_file "char inbyte(void) {"
+       puts $config_file [format "\t return %s(STDIN_BASEADDRESS);" $inbyte_name]
+       puts $config_file "}"
+       close $config_file
+       set config_file [::hsi::utils::open_include_file "xparameters.h"]
+       set stdin_mem_range [::hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$stdin && IS_DATA==1"]
+       if { [llength $stdin_mem_range] > 1 } {
+           set stdin_mem_range [::hsi::get_mem_ranges -of_objects $hw_proc_handle -filter "INSTANCE==$stdin&& (BASE_NAME==C_BASEADDR||BASE_NAME==C_S_AXI_BASEADDR)"]
+       }
+       set base_name [common::get_property BASE_NAME $stdin_mem_range]
+       set base_value [common::get_property BASE_VALUE $stdin_mem_range]
+       puts $config_file "\#define STDIN_BASEADDRESS [::hsi::utils::format_addr_string $base_value $base_name]"
+       close $config_file
+   } else {
+            if { $stdin == "" || $stdin == "none" } {
+                    #
+                    # UART is not present in the system, add dummy implementatin for inbyte
+                    #
+                    set config_file [open "src/inbyte.c" w]
+                    puts $config_file "\#include \"xparameters.h\""
+                    puts $config_file "\#ifdef __cplusplus"
+                    puts $config_file "extern \"C\" {"
+                    puts $config_file "\#endif"
+                    puts $config_file "char inbyte(void);"
+                    puts $config_file "\#ifdef __cplusplus"
+                    puts $config_file "}"
+                    puts $config_file "\#endif \n"
+                    puts $config_file "char inbyte(void) {"
+                    puts $config_file "}"
+                    close $config_file
+            }
+     }
 }
