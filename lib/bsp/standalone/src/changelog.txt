@@ -399,4 +399,5 @@
  *                     ::hsi::utils::handle_stdin and ::hsi::utils::handle_stdout are taken as a base for
  *                     these APIs and modifications are done on top of it to handle stdout/stdin
  *                     parameters for design which doesnt have UART.It fixes CR#953681
+ * 6.1 nsk   11/07/16  Added two new files xil_mem.c and xil_mem.h for xil_memcpy
  *****************************************************************************************/
