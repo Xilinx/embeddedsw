@@ -99,7 +99,6 @@ static u32 XilSkey_Program_Black_Key();
 static u32 XilSKey_Puf_ConvertStringToHexBE(const char * Str,
 					u8 * Buf, u32 Len);
 static u32 XilSKey_Puf_Encrypt_Key();
-static void XilSKey_Puf_Check_ShutterValue(XilSKey_Puf *InstancePtr);
 #if defined XPUF_INFO_ON_UART
 static u32 XilSKey_Puf_Fetch_Dbg_Mode2_result(XilSKey_Puf *InstancePtr);
 #endif
@@ -141,9 +140,6 @@ int main() {
 		"App:Registration at Contract Manufacturer's site!!!\r\n");
 	}
 #endif /* XPUF_CONTRACT_MANUFACTURER */
-
-	/* Update with proper shutter value */
-	XilSKey_Puf_Check_ShutterValue(&PufInstance);
 
 	/* Request PUF for registration */
 	Status = XilSKey_Puf_Registration(&PufInstance);
@@ -890,55 +886,6 @@ static u32 XilSKey_Puf_Encrypt_Key()
 ENDENCRYPT:
 	return Status;
 
-}
-
-/*****************************************************************************/
-/**
- *
- * This function assigns proper shutter value.
- *
- * @param	InstancePtr is an PUF instance
- *
- * @param	SiliconVer holds the version of the silicon used to generate
- *		PUF data.
- *
- * @return	None.
- *
- * @note	External reference clock setting enabled setting shutter value
- *		to 0x0100020 and Sysosc clock setting enabled: setting
- *		shutter value to 0x0100005e
- *
- ******************************************************************************/
-static void XilSKey_Puf_Check_ShutterValue(XilSKey_Puf *InstancePtr)
-{
-	u32 RegData;
-
-	InstancePtr->ShutterValue = XSK_PUF_SHUTTER_VAL;
-
-	RegData = XilSKey_ReadReg(XSK_EFUSEPS_BASEADDR,
-		XSK_EFUSEPS_SYSOSC_OFFSET) & XSK_EFUSEPS_SYSOSC_EN_MASK;
-	/*
-	 * External reference clock setting enabled:
-	 * setting shutter value to 0x0100020 and
-	 * Sysosc clock setting enabled: setting
-	 * shutter value to 0x0100005e
-	 */
-	if (RegData == XSK_EFUSEPS_SYSOSC_EN_MASK) {
-		if (InstancePtr->ShutterValue != 0x0100005e) {
-			InstancePtr->ShutterValue = 0x0100005e;
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-				"App: When Sysosc clock is enabled shutter "
-			"value should be = %x\r\n", InstancePtr->ShutterValue);
-		}
-	}
-	else {
-		if (InstancePtr->ShutterValue != 0x01000020) {
-			InstancePtr->ShutterValue = 0x01000020;
-			xPuf_printf(XPUF_DEBUG_GENERAL,
-			"App: When external reference clock is enabled shutter "
-			"value should be = %x\r\n", InstancePtr->ShutterValue);
-		}
-	}
 }
 
 #if defined XPUF_INFO_ON_UART

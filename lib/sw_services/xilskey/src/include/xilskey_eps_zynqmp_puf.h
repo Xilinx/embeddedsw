@@ -83,6 +83,7 @@ extern "C" {
 #define		XSK_ZYNQMP_PUF_DBG2_DATA_LEN_IN_BYTES	(36)
 #define		XSK_ZYNQMP_PUF_KEY_IV_LEN_IN_BYTES	(12)
 #define		XSK_ZYNQMP_PUF_AUX_LEN_IN_BITS		(24)
+#define		XSK_ZYNQMP_PUF_SHUTTER_VALUE		(0x0100005e)
 
 /************************** Type Definitions ********************************/
 

@@ -40,7 +40,9 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- --------------------------------------------------------
-* 6.1   vns  17/10/16 First release.
+* 6.1   vns  10/17/16 First release.
+*       vns  11/07/16 Fixed shutter value to 0x0100005e, as sysosc selection
+*                     is fixed for PUF registration.
 * </pre>
 *
 *****************************************************************************/
@@ -547,6 +549,8 @@ u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	xPuf_printf(Debug,"API: PUF Registration\r\n");
+	/* Update the shutter value, as forced sysoc selection */
+	InstancePtr->ShutterValue = XSK_ZYNQMP_PUF_SHUTTER_VALUE;
 
 	Status = XilSkey_Puf_Validate_Access_Rules(XSK_ZYNQMP_PUF_REGISTRATION);
 	if(Status != XST_SUCCESS) {
