@@ -84,7 +84,7 @@ void FreeRTOS_SetupTickInterrupt( void )
 {
 BaseType_t xStatus;
 XTtcPs_Config *pxTimerConfiguration;
-uint16_t usInterval;
+XInterval usInterval;
 uint8_t ucPrescale;
 const uint8_t ucLevelSensitive = 1;
 XScuGic_Config *pxInterruptControllerConfig;
