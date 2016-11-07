@@ -100,7 +100,7 @@ XScuGic xInterruptController;
 
 void FreeRTOS_SetupTickInterrupt( void )
 {
-uint16_t usInterval;
+XInterval usInterval;
 uint8_t ucPrescaler;
 int iStatus;
 XTtcPs_Config *pxTimerConfig;
