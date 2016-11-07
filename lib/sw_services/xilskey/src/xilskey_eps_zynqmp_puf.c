@@ -88,8 +88,7 @@ static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 /**
 * This function programs the PS efuse's puf helper data of ZynqMp.
 *
-* @param	PufSyndromeData is a pointer to data array which holds the
-*		data to be programmed.
+* @param	InstancePtr is a pointer to the XilSKey_Puf instance.
 *
 * @return
 *		- XST_SUCCESS if programs successfully.
@@ -99,12 +98,12 @@ static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 *		u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(u8 *PufSyndromeData)
+u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr)
 {
 	u8 Row;
 	u32 Data;
-	u32 *DataPtr = (u32 *)PufSyndromeData;
-	u32 *TempPtr = (u32 *)PufSyndromeData;
+	u32 *DataPtr = InstancePtr->EfuseSynData;
+	u32 *TempPtr = InstancePtr->EfuseSynData;
 	XskEfusePs_Type EfuseType;
 	u8 DataInBits[32];
 	u32 Status = XST_SUCCESS;
@@ -192,7 +191,7 @@ END:
 *		is no option to read from Cache.
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u8 *Address)
+u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address)
 {
 
 	u32 Status;
@@ -270,8 +269,7 @@ END:
 /**
 * This API programs eFUSE with CHash value.
 *
-* @param	CHash is a pointer to 32 bit variable which holds Chash data
-*		in hexadecimal.
+* @param	InstancePtr is a pointer to the XilSKey_Puf instance.
 *
 * @return
 *		- XST_SUCCESS if chash is programmed successfully.
@@ -281,13 +279,14 @@ END:
 *		u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_WritePufChash(u8 *CHash)
+u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr)
 {
 
 	u32 Status;
 	u8 Value[32];
 	u8 Column = 0;
 	XskEfusePs_Type EfuseType;
+	u8 *CHash = (u8 *)&(InstancePtr->Chash);
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -351,7 +350,7 @@ END:
 *		ReadOption 0.
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u8 *Address, u8 ReadOption)
+u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption)
 {
 
 	u32 Data;
@@ -395,8 +394,7 @@ END:
 /**
 * This API programs efuse puf Auxilary Data.
 *
-* @param	AuxValue is a pointer to a variable which holds Auxilary data
-*		in hexadecimal.
+* @param	InstancePtr is a pointer to the XilSKey_Puf instance.
 *
 * @return
 *		- XST_SUCCESS if programs successfully.
@@ -406,7 +404,7 @@ END:
 *		u32 XilSKey_Puf_Registration(XilSKey_Puf *InstancePtr)
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_WritePufAux(u8 *AuxValue)
+u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr)
 {
 
 	u32 Status;
@@ -414,6 +412,7 @@ u32 XilSKey_ZynqMp_EfusePs_WritePufAux(u8 *AuxValue)
 	u8 Column = 0;
 	XskEfusePs_Type EfuseType;
 	u32 RowData;
+	u8 *AuxValue = (u8 *)&(InstancePtr->Aux);
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -482,7 +481,7 @@ END:
 *		ReadOption 0.
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u8 *Address, u8 ReadOption)
+u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
 {
 
 	u32 Data;
@@ -1022,11 +1021,11 @@ static inline u32 XilSkey_Puf_Validate_Access_Rules(u8 RequestType)
 		goto END;
 	}
 
-	Status = XilSKey_ZynqMp_EfusePs_ReadPufAux((u8 *)&PufAux, 0);
+	Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&PufAux, 0);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	Status = XilSKey_ZynqMp_EfusePs_ReadPufChash((u8 *)&PufChash, 0);
+	Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&PufChash, 0);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
