@@ -137,6 +137,7 @@
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
 *       sk     10/13/16 Reduced the delay during power cycle to 1ms as per spec
 *       sk     10/19/16 Used emmc_hwreset pin to reset eMMC.
+*       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 *
 * </pre>
 *
@@ -240,6 +241,7 @@ s32 XSdPs_Pullup(XSdPs *InstancePtr);
 s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
+s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg);
 #if defined (ARMR5) || defined (__aarch64__)
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
 void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);

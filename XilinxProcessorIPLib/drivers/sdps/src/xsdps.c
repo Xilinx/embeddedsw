@@ -73,6 +73,7 @@
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
 *       sk     10/13/16 Reduced the delay during power cycle to 1ms as per spec
 *       sk     10/19/16 Used emmc_hwreset pin to reset eMMC.
+*       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 * </pre>
 *
 ******************************************************************************/
@@ -535,6 +536,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 	u8 SCR[8] = { 0U };
 	u8 ReadBuff[64] = { 0U };
 	s32 Status;
+	u32 Arg;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -752,6 +754,16 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			}
 
 			if (ExtCsd[EXT_CSD_HS_TIMING_BYTE] != EXT_CSD_HS_TIMING_HS200) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+		}
+
+		/* Enable Rst_n_Fun bit if it is disabled */
+		if(ExtCsd[EXT_CSD_RST_N_FUN_BYTE] == EXT_CSD_RST_N_FUN_TEMP_DIS) {
+			Arg = XSDPS_MMC_RST_FUN_EN_ARG;
+			Status = XSdPs_Set_Mmc_ExtCsd(InstancePtr, Arg);
+			if (Status != XST_SUCCESS) {
 				Status = XST_FAILURE;
 				goto RETURN_PATH;
 			}

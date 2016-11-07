@@ -55,6 +55,7 @@
 *       sk     07/16/16 Added support for UHS modes.
 *       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
 *                       operating modes.
+* 3.1   sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 * </pre>
 *
 ******************************************************************************/
@@ -853,6 +854,10 @@ extern "C" {
 #define EXT_CSD_HS_TIMING_HIGH		1U	/* Card is in high speed mode */
 #define EXT_CSD_HS_TIMING_HS200		2U	/* Card is in HS200 mode */
 
+#define EXT_CSD_RST_N_FUN_BYTE		162U
+#define EXT_CSD_RST_N_FUN_TEMP_DIS	0U	/* RST_n signal is temporarily disabled */
+#define EXT_CSD_RST_N_FUN_PERM_EN	1U	/* RST_n signal is permanently enabled */
+#define EXT_CSD_RST_N_FUN_PERM_DIS	2U	/* RST_n signal is permanently disabled */
 
 #define XSDPS_EXT_CSD_CMD_SET		0U
 #define XSDPS_EXT_CSD_SET_BITS		1U
@@ -890,6 +895,10 @@ extern "C" {
 #define XSDPS_MMC_DDR_8_BIT_BUS_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24) \
 					 | ((u32)EXT_CSD_BUS_WIDTH_BYTE << 16) \
 					 | ((u32)EXT_CSD_BUS_WIDTH_DDR_8_BIT << 8))
+
+#define XSDPS_MMC_RST_FUN_EN_ARG		(((u32)XSDPS_EXT_CSD_WRITE_BYTE << 24) \
+					 | ((u32)EXT_CSD_RST_N_FUN_BYTE << 16) \
+					 | ((u32)EXT_CSD_RST_N_FUN_PERM_EN << 8))
 
 #define XSDPS_MMC_DELAY_FOR_SWITCH	1000U
 
