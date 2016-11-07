@@ -158,6 +158,8 @@
 * 1.0   kpc    17/06/2015  Increased the timeout for complete event to avoid
 *			   timeout errors for erase operation on slower devices.
 * 1.1   mi     09/16/16 Removed compilation warnings with extra compiler flags.
+* 1.1	nsk    11/07/16    Change memcpy to Xil_MemCpy, CR#960462
+*
 * </pre>
 *
 ******************************************************************************/

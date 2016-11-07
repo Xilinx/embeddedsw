@@ -51,15 +51,18 @@
 *			   in page section by enabling XNANDPSU_BBT_NO_OOB.
 *			   Modified Bbt Signature and Version Offset value for
 *			   Oob and No-Oob region.
+* 1.1	nsk    11/07/16    Change memcpy to Xil_MemCpy to handle word aligned
+*	                   data access.
 * </pre>
 *
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include <string.h>	/**< For memcpy and memset */
+#include <string.h>	/**< For Xil_MemCpy and memset */
 #include "xil_types.h"
 #include "xnandpsu.h"
 #include "xnandpsu_bbm.h"
+#include "xil_mem.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -699,7 +702,7 @@ static s32 XNandPsu_WriteBbt(XNandPsu *InstancePtr, XNandPsu_BbtDesc *Desc,
 		goto Out;
 	}
 
-	(void)memcpy(SpareBuf + Desc->SigOffset, &Desc->Signature[0],
+	(void)Xil_MemCpy(SpareBuf + Desc->SigOffset, &Desc->Signature[0],
 							Desc->SigLength);
 	(void)memcpy(SpareBuf + Desc->VerOffset, &Desc->Version[Target], 1U);
 

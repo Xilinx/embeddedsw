@@ -98,6 +98,9 @@
 *			   Oob and No-Oob region.
 * 1.0   kpc    17/6/2015   Added timer based timeout intsead of sw counter.
 * 1.1   mi     09/16/16 Removed compilation warnings with extra compiler flags.
+* 1.1	nsk    11/07/16    Change memcpy to Xil_MemCpy to handle word aligned
+*	                   data access.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -106,6 +109,7 @@
 #include "xnandpsu.h"
 #include "xnandpsu_bbm.h"
 #include "sleep.h"
+#include "xil_mem.h"
 /************************** Constant Definitions *****************************/
 
 static const XNandPsu_EccMatrix EccMatrix[] = {
@@ -1401,7 +1405,7 @@ s32 XNandPsu_Write(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *SrcBuf)
 			BufPtr = &InstancePtr->PartialDataBuf[0];
 			(void)memset(BufPtr, 0xFF,
 					InstancePtr->Geometry.BytesPerPage);
-			(void)memcpy(BufPtr + Col, SrcBufPtr, PartialBytes);
+			(void)Xil_MemCpy(BufPtr + Col, SrcBufPtr, PartialBytes);
 
 			NumBytes = PartialBytes;
 		} else {
@@ -1527,7 +1531,7 @@ s32 XNandPsu_Read(XNandPsu *InstancePtr, u64 Offset, u64 Length, u8 *DestBuf)
 			goto Out;
 		}
 		if (PartialBytes > 0U) {
-			(void)memcpy(DestBufPtr, BufPtr + Col, NumBytes);
+			(void)Xil_MemCpy(DestBufPtr, BufPtr + Col, NumBytes);
 		}
 		DestBufPtr += NumBytes;
 		OffsetVar += NumBytes;
