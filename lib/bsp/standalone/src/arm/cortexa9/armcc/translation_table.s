@@ -47,6 +47,7 @@
 ; 4.2	pkp  09/02/14 modified translation table entries according to address map
 ; 4.2	pkp  09/11/14 modified translation table entries to resolve compilation
 ;		      error for solving CR#822897
+; 6.1	pkp  07/11/16 Corrected comments for memory attributes
 ; </pre>
 ;
 ; @note
@@ -79,7 +80,7 @@ count   SETA  count+1
 ; 0x40000000 - 0x7fffffff (GpAxi0)
 count   SETA  0
    WHILE count<0x400
-   DCD	sect + 0xc02		; S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1
+   DCD	sect + 0xc02		; S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    WEND
@@ -87,7 +88,7 @@ count   SETA  count+1
 ; 0x80000000 - 0xbfffffff (GpAxi1)
 count   SETA  0
    WHILE count<0x400
-   DCD	sect + 0xc02		; S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1w
+   DCD	sect + 0xc02		; S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    WEND
@@ -171,7 +172,7 @@ count   SETA  count+1
 ; 0xfc000000 - 0xfdffffff   (QSPI)
 count   SETA  0
     WHILE count<0x20
-    DCD	sect + 0xc0a		; S=b0 TEX=b000 AP=b11, Domain=b0, C=b1, B=b1
+    DCD	sect + 0xc0a		; S=b0 TEX=b000 AP=b11, Domain=b0, C=b1, B=b0
 sect    SETA  sect+0x100000
 count   SETA  count+1
    WEND
