@@ -54,6 +54,8 @@ as XPS_LPD_SWDT_INT_ID in xparameters_ps.h of cortex r5 and for
 32bit, 64bit of cortex a53 and also removed SCUTIMER, SCUWDT
 parameters as they are private timers for a9 only.
 Fix for CR-962858.
+Modified CortexA9 translation table to correct explanation for memory
+attributes to fix CR#963345
 
 Removes DMAPS and PS7 definitions as they are supported
 by Zynq, and modifies interrupt ID number for FPGA in
