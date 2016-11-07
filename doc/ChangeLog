@@ -1,5 +1,11 @@
 Change Log for 2017.1
 =================================
+standlone_v6_2:
+Added Xil_MemCpy for word alinged data access
+
+nandpsu_v1_2:
+change memcpy to Xil_MemCpy. fixes CR#960462
+
 xilpm_v2_1:
 Modified clean rule in makefile to remove libxilpm.a. Fix for
 CR#962551.
