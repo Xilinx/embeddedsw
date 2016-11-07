@@ -54,6 +54,7 @@
 * 5.2	pkp  06/08/2015 put a check for XPAR_PS7_DDR_0_S_AXI_BASEADDR to confirm
 *			if DDR is present or not and accordingly generate the
 *			translation table
+* 6.1	pkp  07/11/2016 Corrected comments for memory attributes
 * </pre>
 *
 * @note
@@ -101,12 +102,12 @@ MMUTable:
 
 
 .rept	0x0400			/* 0x40000000 - 0x7fffffff (FPGA slave0) */
-.word	SECT + 0xc02		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
+.word	SECT + 0xc02		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b0 */
 .set	SECT, SECT+0x100000
 .endr
 
 .rept	0x0400			/* 0x80000000 - 0xbfffffff (FPGA slave1) */
-.word	SECT + 0xc02		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b1 */
+.word	SECT + 0xc02		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b0, B=b0 */
 .set	SECT, SECT+0x100000
 .endr
 
@@ -166,7 +167,7 @@ MMUTable:
 .endr
 
 .rept	0x0020			/* 0xfc000000 - 0xfdffffff (Linear QSPI - XIP) */
-.word	SECT + 0xc0a		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b1, B=b1 */
+.word	SECT + 0xc0a		/* S=b0 TEX=b000 AP=b11, Domain=b0, C=b1, B=b0 */
 .set	SECT, SECT+0x100000
 .endr
 
