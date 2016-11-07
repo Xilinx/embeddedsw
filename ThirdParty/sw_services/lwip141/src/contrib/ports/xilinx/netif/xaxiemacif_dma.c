@@ -113,6 +113,10 @@ xaxiemacif_s *xaxiemacif_fast;
 unsigned int xInsideISR = 0;
 #endif
 
+#if defined (__aarch64__) || defined (ARMR5)
+u8_t bd_space[0x200000] __attribute__ ((aligned (0x200000)));
+#endif
+
 static void bd_csum_enable(XAxiDma_Bd *bd)
 {
 	XAxiDma_BdWrite((bd), XAXIDMA_BD_USR0_OFFSET,
@@ -272,6 +276,8 @@ static void axidma_send_handler(void *arg)
 	xtopologyp = &xtopology[xemac->topology_index];
 	xaxiemac = &xaxiemacif->axi_ethernet;
 
+	XAxiDma_BdRingIntDisable(txringptr, XAXIDMA_IRQ_ALL_MASK);
+
 	/* Read pending interrupts */
 	irq_status = XAxiDma_BdRingGetIrq(txringptr);
 
@@ -295,6 +301,9 @@ static void axidma_send_handler(void *arg)
 	if (irq_status & (XAXIDMA_IRQ_DELAY_MASK | XAXIDMA_IRQ_IOC_MASK)) {
 		process_sent_bds(txringptr);
 	}
+
+	XAxiDma_BdRingIntEnable(txringptr, XAXIDMA_IRQ_ALL_MASK);
+
 #ifdef OS_IS_FREERTOS
 	xInsideISR--;
 #endif
@@ -341,6 +350,7 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 		XAxiDma_BdSetLength(rxbd, p->len, rxring->MaxTransferLen);
 		XAxiDma_BdSetCtrl(rxbd, 0);
 		XAxiDma_BdSetId(rxbd, p);
+		dsb();
 #if defined(__aarch64__)
 		XCACHE_INVALIDATE_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_FRAME_SIZE);
 #else
@@ -633,8 +643,16 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 #endif
 
+	/* FIXME: On ZyqnMP Multiple Axi Ethernet are not supported */
+#if defined (__aarch64__) || defined (ARMR5)
+	xaxiemacif->rx_bdspace = (void *)(UINTPTR)&(bd_space[0]);;
+	xaxiemacif->tx_bdspace = (void *)(UINTPTR)&(bd_space[0x10000]);
+#endif
+
+#if !defined (__aarch64__) && !defined (ARMR5)
 	xaxiemacif->rx_bdspace = alloc_bdspace(XLWIP_CONFIG_N_RX_DESC);
 	xaxiemacif->tx_bdspace = alloc_bdspace(XLWIP_CONFIG_N_TX_DESC);
+#endif
 
 	/* For A53 case Mark the BD Region as uncaheable */
 #if defined(__aarch64__)

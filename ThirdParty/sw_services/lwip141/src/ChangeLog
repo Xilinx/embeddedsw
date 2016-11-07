@@ -1,5 +1,11 @@
 Change Log for lwip
 =================================
+2016-11-06
+	* Axi Ethernet Lwip Performance issue on ZynqMP Fix for CR#953533
+	* The uncached memory needed for BDs were not aligned properly to meet
+	* AR3/R5 MMU requirements. The performance was low because of that anomaly.
+	* Fixed the issue by properly aligning the memory allocated for BDs.
+	* (Changes are made in the xaxiemacif_dma.c file).
 2016-08-30
 	* Add support for freertos in the emaclite adapter. Fix for CR#957572.
 2016-08-17
