@@ -57,13 +57,6 @@
 *	TRUE will allow only authenticated application.
 *	FALSE authentication is not mandatory.
 *
-*	#define XSK_PUF_SHUTTER_VAL			0x01000020U
-*	User can provide shutter value over here, but application will modify
-*	shutter value with proper value
-*	When External reference clock setting enabled, shutter value should be
-*	0x0100020 and when Sysosc clock setting enabled, shutter value to
-*	should be 0x0100005e
-*
 *	#define XSK_PUF_REG_MODE			XSK_PUF_MODE4K
 *	PUF registration is performed in 4K mode. For only understanding it is
 *	provided in this file, but user is not supposed to modify this.
@@ -164,9 +157,6 @@ extern "C" {
 
 #define	XSK_PUF_AES_KEY		"0000000000000000000000000000000000000000000000000000000000000000"
 #define	XSK_PUF_IV		"000000000000000000000000"
-
-#define XSK_PUF_SHUTTER_VAL			(0x01000020U)
-						/**< PUF Shutter value */
 
 #define XSK_PUF_REG_MODE			XSK_PUF_MODE4K
 						/**< Registration Mode
