@@ -61,6 +61,7 @@
 *       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
 *                       operating modes.
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
+*       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 *
 * </pre>
 *
@@ -844,6 +845,65 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 					XSDPS_NORM_INTR_STS_OFFSET);
 		if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
 			/* Write to clear error bits */
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_ERR_INTR_STS_OFFSET,
+					XSDPS_ERROR_INTR_ALL_MASK);
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} while ((StatusReg & XSDPS_INTR_TC_MASK) == 0U);
+
+	/* Write to clear bit */
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
+
+	Status = (s32)XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
+			XSDPS_RESP0_OFFSET);
+
+	Status = XST_SUCCESS;
+
+	RETURN_PATH:
+		return Status;
+
+}
+
+/*****************************************************************************/
+/**
+*
+* API to write EXT_CSD register of eMMC.
+*
+*
+* @param	InstancePtr is a pointer to the XSdPs instance.
+* @param	Arg is the argument to be sent along with the command
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if fail.
+*
+* @note		None.
+*
+******************************************************************************/
+s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg)
+{
+	s32 Status;
+	u32 StatusReg;
+
+	Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 0U);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto RETURN_PATH;
+	}
+
+	/*
+	 * Check for transfer complete
+	 */
+	do {
+		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_NORM_INTR_STS_OFFSET);
+		if ((StatusReg & XSDPS_INTR_ERR_MASK) != 0U) {
+			/*
+			 * Write to clear error bits
+			 */
 			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 					XSDPS_ERR_INTR_STS_OFFSET,
 					XSDPS_ERROR_INTR_ALL_MASK);
