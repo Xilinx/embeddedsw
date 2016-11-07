@@ -210,8 +210,7 @@ int main() {
 		(void)XilSKey_Generate_FuseFormat(&PufInstance);
 
 		/* Writes PUF helper data into eFUSE */
-		Status = XilSKey_ZynqMp_EfusePs_WritePufHelprData(
-					(u8*)PufInstance.EfuseSynData);
+		Status = XilSKey_ZynqMp_EfusePs_WritePufHelprData(&PufInstance);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
 					"App: Helper data writing failed\r\n");
@@ -226,8 +225,7 @@ int main() {
 		 * Reads PUF helper data from eFUSE and
 		 * compares with programmed data
 		 */
-		Status = XilSKey_ZynqMp_EfusePs_ReadPufHelprData(
-							(u8*)SynReadData);
+		Status = XilSKey_ZynqMp_EfusePs_ReadPufHelprData(SynReadData);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
 					"App: Helper data read failed\r\n");
@@ -247,8 +245,7 @@ int main() {
 		}
 
 		/* Programming Auxilary data into eFUSE */
-		Status = XilSKey_ZynqMp_EfusePs_WritePufAux(
-					(u8*)&(PufInstance.Aux));
+		Status = XilSKey_ZynqMp_EfusePs_WritePufAux(&PufInstance);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
 					"App: Aux write failed\r\n");
@@ -259,7 +256,7 @@ int main() {
 					"App: Aux write successful\r\n");
 		}
 
-		Status = XilSKey_ZynqMp_EfusePs_ReadPufAux((u8 *)&Aux,
+		Status = XilSKey_ZynqMp_EfusePs_ReadPufAux(&Aux,
 					XSK_EFUSEPS_READ_FROM_EFUSE);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,
@@ -274,8 +271,7 @@ int main() {
 			goto ENDF;
 		}
 		/* programming CHash into eFUSE */
-		Status = XilSKey_ZynqMp_EfusePs_WritePufChash(
-				(u8*)&(PufInstance.Chash));
+		Status = XilSKey_ZynqMp_EfusePs_WritePufChash(&PufInstance);
 		if (Status != XST_SUCCESS)	{
 			xPuf_printf(XPUF_DEBUG_GENERAL,
 					"App: CHASH write failed\r\n");
@@ -286,7 +282,7 @@ int main() {
 					"App: CHASH write successful\r\n");
 		}
 
-		Status = XilSKey_ZynqMp_EfusePs_ReadPufChash((u8 *)&Chash,
+		Status = XilSKey_ZynqMp_EfusePs_ReadPufChash(&Chash,
 						XSK_EFUSEPS_READ_FROM_EFUSE);
 		if (Status != XST_SUCCESS) {
 			xPuf_printf(XPUF_DEBUG_GENERAL,

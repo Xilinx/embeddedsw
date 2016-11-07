@@ -133,14 +133,14 @@ typedef struct {
 /*@}*/
 
 /****************************Prototypes***************************************/
-u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(u8 *Array);
-u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u8 *Address);
+u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData(u32 *Address);
 
-u32 XilSKey_ZynqMp_EfusePs_WritePufChash(u8 *CHash);
-u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u8 *Address, u8 ReadOption);
+u32 XilSKey_ZynqMp_EfusePs_WritePufChash(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_ReadPufChash(u32 *Address, u8 ReadOption);
 
-u32 XilSKey_ZynqMp_EfusePs_WritePufAux(u8 *AuxValue);
-u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u8 *Address, u8 ReadOption);
+u32 XilSKey_ZynqMp_EfusePs_WritePufAux(XilSKey_Puf *InstancePtr);
+u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption);
 
 u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits);
 u32 XilSKey_Read_Puf_EfusePs_SecureBits(
