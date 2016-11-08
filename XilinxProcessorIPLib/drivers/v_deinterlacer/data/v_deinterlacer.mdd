@@ -38,6 +38,6 @@ BEGIN driver v_deinterlacer
  OPTION DEPENDS = (video_common_v4_0);
  OPTION copyfiles = all;
  OPTION name = v_deinterlacer;
- OPTION version = 6.1;
+ OPTION version = 6.2;
 
 END driver
