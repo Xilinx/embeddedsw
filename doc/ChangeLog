@@ -50,6 +50,9 @@ Fixed compilation warnings
 Added support for PUF registration and eFUSE programming with PUF data
 Removed xilinx specific bits programming
 
+v_deinterlacer_v6_2:
+Fix c++ compile problem
+
 v_hscaler_v3_1:
 Fixed configuration validation check for RGB input
 
