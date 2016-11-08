@@ -89,6 +89,7 @@
 * 5.00  rco   07/21/15   Initial Release
 * 6.00  rco   11/05/15   Integrate layer-1 with layer-2
 *       dmc   02/25/16   add public routine XV_DeintWaitForIdle()
+* 6.1   rco   11/07/16   Fix for c++ compile
 *
 * </pre>
 *
@@ -129,6 +130,8 @@ void XV_DeintSetFieldBuffers(XV_Deint_l2   *InstancePtr,
 
 void XV_DeintDbgReportStatus(XV_Deint_l2 *InstancePtr);
 
-
+#ifdef __cplusplus
+}
+#endif
 #endif
 /** @} */
