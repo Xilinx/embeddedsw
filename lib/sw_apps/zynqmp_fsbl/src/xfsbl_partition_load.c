@@ -1406,13 +1406,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 * PL is powered-up before its configuration, but will be in isolation.
 		 * Now since PL configuration is done, just remove the isolation
 		 */
-		Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_PL_MASK);
-
-		if (Status != XFSBL_SUCCESS) {
-			Status = XFSBL_ERROR_PL_POWER_UP;
-			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PL_POWER_UP\r\n");
-			goto END;
-		}
+		psu_ps_pl_isolation_removal_data();
 
 		/* Reset PL, if configured for */
 		psu_ps_pl_reset_config_data();
