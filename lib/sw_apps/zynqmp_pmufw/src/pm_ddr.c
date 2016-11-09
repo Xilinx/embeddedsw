@@ -93,6 +93,9 @@
 
 #define DDRC_PWRCTL_SR_SW	BIT(5U)
 
+#define DDRC_MSTR_LPDDR3		BIT(3U)
+#define DDRC_MSTR_LPDDR4		BIT(5U)
+
 #define DDRC_STAT_OPMODE_MASK	7U
 #define DDRC_STAT_OPMODE_SHIFT	0U
 #define DDRC_STAT_OPMODE_INIT	0U
@@ -130,7 +133,7 @@
 #define DDRPHY_ACIOCR(n)	(DDRPHY_BASE + 0X500U + (4U * (n)))
 #define DDRPHY_IOVCR(n)		(DDRPHY_BASE + 0X520U + (4U * (n)))
 #define DDRPHY_VTCR(n)		(DDRPHY_BASE + 0X528U + (4U * (n)))
-#define DDRPHY_DQSDR0		(DDRPHY_BASE + 0x250U)
+#define DDRPHY_DQSDR(n)		(DDRPHY_BASE + 0x250U + (4U * (n)))
 #define DDRPHY_ACBDLR(n)	(DDRPHY_BASE + 0x540U + (4U * (n)))
 #define DDRPHY_ZQCR		(DDRPHY_BASE + 0x680U)
 #define DDRPHY_ZQPR(n, m)	(DDRPHY_BASE + 0x684U + (0x20U * (n)) + (4U * (m)))
@@ -193,9 +196,29 @@
 
 #define DDRPHY_RDIMMGCR0_RDIMM	BIT(0U)
 
-#define DDRPHY_DQSDR0_DFTDTEN	BIT(0U)
+#define DDRPHY_DQSDR0_DFTDTEN		BIT(0U)
+#define DDRPHY_DQSDR0_DFTDTMODE		BIT(1U)
+#define DDRPHY_DQSDR0_DFTUPMODE		(BIT(2U) | BIT(3U))
+#define DDRPHY_DQSDR0_DFTUPMODE_SHIFT	2U
+#define DDRPHY_DQSDR0_DFTGPULSE		(BIT(4U) | BIT(5U) | BIT(6U) | BIT(7U))
+#define DDRPHY_DQSDR0_DFTRDSPC		(BIT(20U) | BIT(21U))
+#define DDRPHY_DQSDR0_DFTRDSPC_SHIFT	20U
+#define DDRPHY_DQSDR0_DFTDLY		(BIT(28U) | BIT(29U) | BIT(30U) | BIT(31U))
+#define DDRPHY_DQSDR0_DFTDLY_SHIFT	28U
+
+#define DDRPHY_DQSDR1_DFTRDIDLC		0x000000FFU
+#define DDRPHY_DQSDR1_DFTRDIDLC_SHIFT	0U
+#define DDRPHY_DQSDR1_DFTRDIDLF		0x000F0000U
+#define DDRPHY_DQSDR1_DFTRDIDLF_SHIFT	16U
 
 #define DDRPHY_DX8SLBOSC_PHYFRST	BIT(15U)
+
+#define DDRPHY_DTCR0_INCWEYE		BIT(4U)
+
+#define DDRPHY_DSGCR_CTLZUEN		BIT(2U)
+
+#define DDRPHY_DXGCR3_WDLVT		BIT(25U)
+#define DDRPHY_DXGCR3_RGLVT		BIT(27U)
 
 #define DDRQOS_BASE		0xFD090000U
 #define DDRQOS_DDR_CLK_CTRL	(DDRQOS_BASE + 0x700U)
@@ -395,6 +418,8 @@ static PmRegisterContext ctx_ddrphy[] = {
 	{ .addr = DDRPHY_IOVCR(0U), },
 	{ .addr = DDRPHY_VTCR(0U), },
 	{ .addr = DDRPHY_VTCR(1U), },
+	{ .addr = DDRPHY_DQSDR(0U), },
+	{ .addr = DDRPHY_DQSDR(1U), },
 	{ .addr = DDRPHY_ACBDLR(1U), },
 	{ .addr = DDRPHY_ACBDLR(2U), },
 	{ .addr = DDRPHY_ACBDLR(6U), },
@@ -405,53 +430,62 @@ static PmRegisterContext ctx_ddrphy[] = {
 	{ .addr = DDRPHY_ZQPR(0U, 0U), },
 	{ .addr = DDRPHY_ZQPR(1U, 0U), },
 	{ .addr = DDRPHY_DXGCR(0U, 0U), },
+	{ .addr = DDRPHY_DXGCR(0U, 3U), },
 	{ .addr = DDRPHY_DXGCR(0U, 4U), },
 	{ .addr = DDRPHY_DXGCR(0U, 5U), },
 	{ .addr = DDRPHY_DXGCR(0U, 6U), },
 	{ .addr = DDRPHY_DXGTR0(0U), },
 	{ .addr = DDRPHY_DXGCR(1U, 0U), },
+	{ .addr = DDRPHY_DXGCR(1U, 3U), },
 	{ .addr = DDRPHY_DXGCR(1U, 4U), },
 	{ .addr = DDRPHY_DXGCR(1U, 5U), },
 	{ .addr = DDRPHY_DXGCR(1U, 6U), },
 	{ .addr = DDRPHY_DXGTR0(1U), },
 	{ .addr = DDRPHY_DXGCR(2U, 0U), },
 	{ .addr = DDRPHY_DXGCR(2U, 1U), },
+	{ .addr = DDRPHY_DXGCR(2U, 3U), },
 	{ .addr = DDRPHY_DXGCR(2U, 4U), },
 	{ .addr = DDRPHY_DXGCR(2U, 5U), },
 	{ .addr = DDRPHY_DXGCR(2U, 6U), },
 	{ .addr = DDRPHY_DXGTR0(2U), },
 	{ .addr = DDRPHY_DXGCR(3U, 0U), },
 	{ .addr = DDRPHY_DXGCR(3U, 1U), },
+	{ .addr = DDRPHY_DXGCR(3U, 3U), },
 	{ .addr = DDRPHY_DXGCR(3U, 4U), },
 	{ .addr = DDRPHY_DXGCR(3U, 5U), },
 	{ .addr = DDRPHY_DXGCR(3U, 6U), },
 	{ .addr = DDRPHY_DXGTR0(3U), },
 	{ .addr = DDRPHY_DXGCR(4U, 0U), },
 	{ .addr = DDRPHY_DXGCR(4U, 1U), },
+	{ .addr = DDRPHY_DXGCR(4U, 3U), },
 	{ .addr = DDRPHY_DXGCR(4U, 4U), },
 	{ .addr = DDRPHY_DXGCR(4U, 5U), },
 	{ .addr = DDRPHY_DXGCR(4U, 6U), },
 	{ .addr = DDRPHY_DXGTR0(4U), },
 	{ .addr = DDRPHY_DXGCR(5U, 0U), },
 	{ .addr = DDRPHY_DXGCR(5U, 1U), },
+	{ .addr = DDRPHY_DXGCR(5U, 3U), },
 	{ .addr = DDRPHY_DXGCR(5U, 4U), },
 	{ .addr = DDRPHY_DXGCR(5U, 5U), },
 	{ .addr = DDRPHY_DXGCR(5U, 6U), },
 	{ .addr = DDRPHY_DXGTR0(5U), },
 	{ .addr = DDRPHY_DXGCR(6U, 0U), },
 	{ .addr = DDRPHY_DXGCR(6U, 1U), },
+	{ .addr = DDRPHY_DXGCR(6U, 3U), },
 	{ .addr = DDRPHY_DXGCR(6U, 4U), },
 	{ .addr = DDRPHY_DXGCR(6U, 5U), },
 	{ .addr = DDRPHY_DXGCR(6U, 6U), },
 	{ .addr = DDRPHY_DXGTR0(6U), },
 	{ .addr = DDRPHY_DXGCR(7U, 0U), },
 	{ .addr = DDRPHY_DXGCR(7U, 1U), },
+	{ .addr = DDRPHY_DXGCR(7U, 3U), },
 	{ .addr = DDRPHY_DXGCR(7U, 4U), },
 	{ .addr = DDRPHY_DXGCR(7U, 5U), },
 	{ .addr = DDRPHY_DXGCR(7U, 6U), },
 	{ .addr = DDRPHY_DXGTR0(7U), },
 	{ .addr = DDRPHY_DXGCR(8U, 0U), },
 	{ .addr = DDRPHY_DXGCR(8U, 1U), },
+	{ .addr = DDRPHY_DXGCR(8U, 3U), },
 	{ .addr = DDRPHY_DXGCR(8U, 4U), },
 	{ .addr = DDRPHY_DXGCR(8U, 5U), },
 	{ .addr = DDRPHY_DXGCR(8U, 6U), },
@@ -491,6 +525,223 @@ static PmRegisterContext ctx_ddrphy_zqdata[] = {
 	{ },
 };
 
+static void ddr_disable_wr_drift(void)
+{
+	u32 r;
+
+	r = Xil_In32(DDRPHY_DTCR(0U));
+	r &= ~DDRPHY_DTCR0_INCWEYE;
+	Xil_Out32(DDRPHY_DTCR(0U), r);
+
+	r = Xil_In32(DDRPHY_DSGCR);
+	r &= ~DDRPHY_DSGCR_CTLZUEN;
+	Xil_Out32(DDRPHY_DSGCR, r);
+
+	r = Xil_In32(DDRPHY_DXGCR(0U, 3U));
+	r |= DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(0U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(1U, 3U));
+	r |= DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(1U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(2U, 3U));
+	r |= DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(2U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(3U, 3U));
+	r |= DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(3U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(8U, 3U));
+	r |= DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(8U, 3U), r);
+}
+
+static void ddr_disable_rd_drift(void)
+{
+	u32 r;
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTDTEN;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTDTMODE;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTUPMODE;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTGPULSE;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTRDSPC;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTDLY;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(0U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(0U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(1U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(1U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(2U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(2U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(3U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(3U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(4U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(4U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(5U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(5U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(6U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(6U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(7U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(7U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(8U, 3U));
+	r |= DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(8U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(1U));
+	r &= ~DDRPHY_DQSDR1_DFTRDIDLC;
+	r |= (1U << DDRPHY_DQSDR1_DFTRDIDLC_SHIFT);
+	Xil_Out32(DDRPHY_DQSDR(1U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(1U));
+	r &= ~DDRPHY_DQSDR1_DFTRDIDLF;
+	r |= (10U << DDRPHY_DQSDR1_DFTRDIDLF_SHIFT);
+	Xil_Out32(DDRPHY_DQSDR(1U), r);
+}
+
+static void ddr_enable_wr_drift(void)
+{
+	u32 r;
+
+	r = Xil_In32(DDRPHY_DSGCR);
+	r |= DDRPHY_DSGCR_CTLZUEN;
+	Xil_Out32(DDRPHY_DSGCR, r);
+
+	r = Xil_In32(DDRPHY_DXGCR(0U, 3U));
+	r &= ~DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(0U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(1U, 3U));
+	r &= ~DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(1U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(2U, 3U));
+	r &= ~DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(2U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(3U, 3U));
+	r &= ~DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(3U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(8U, 3U));
+	r &= ~DDRPHY_DXGCR3_WDLVT;
+	Xil_Out32(DDRPHY_DXGCR(8U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DTCR(0U));
+	r |= DDRPHY_DTCR0_INCWEYE;
+	Xil_Out32(DDRPHY_DTCR(0U), r);
+}
+
+static void ddr_enable_rd_drift(void)
+{
+	u32 r;
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTDTMODE;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTUPMODE;
+	r |= (1 << DDRPHY_DQSDR0_DFTUPMODE_SHIFT);
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTGPULSE;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTRDSPC;
+	r |= (1 << DDRPHY_DQSDR0_DFTRDSPC_SHIFT);
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r &= ~DDRPHY_DQSDR0_DFTDLY;
+	r |= (2 << DDRPHY_DQSDR0_DFTDLY_SHIFT);
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(0U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(0U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(1U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(1U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(2U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(2U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(3U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(3U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(4U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(4U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(5U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(5U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(6U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(6U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(7U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(7U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DXGCR(8U, 3U));
+	r &= ~DDRPHY_DXGCR3_RGLVT;
+	Xil_Out32(DDRPHY_DXGCR(8U, 3U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(1U));
+	r &= ~DDRPHY_DQSDR1_DFTRDIDLC;
+	Xil_Out32(DDRPHY_DQSDR(1U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(1U));
+	r &= ~DDRPHY_DQSDR1_DFTRDIDLF;
+	Xil_Out32(DDRPHY_DQSDR(1U), r);
+
+	r = Xil_In32(DDRPHY_DQSDR(0U));
+	r |= DDRPHY_DQSDR0_DFTDTEN;
+	Xil_Out32(DDRPHY_DQSDR(0U), r);
+}
+
 static bool ddrc_opmode_is(u32 m)
 {
 	u32 r = Xil_In32(DDRC_STAT);
@@ -518,11 +769,6 @@ static int ddrc_enable_sr(void)
 		r &= ~DDRC_PCTRL_PORT_EN;
 		Xil_Out32(DDRC_PCTRL(i), r);
 	}
-
-	/* disable drift detection */
-	r = Xil_In32(DDRPHY_DQSDR0);
-	r &= ~DDRPHY_DQSDR0_DFTDTEN;
-	Xil_Out32(DDRPHY_DQSDR0, r);
 
 	/* enable self refresh */
 	r = Xil_In32(DDRC_PWRCTL);
@@ -678,6 +924,18 @@ static void DDR_reinit(bool ddrss_is_reset)
 		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
 			;
 
+		/* enable drift */
+		readVal = Xil_In32(DDRC_MSTR);
+		if (0U != (readVal & DDRC_MSTR_LPDDR3)) {
+			/* enable read drift only for LPDDR3 */
+			ddr_enable_rd_drift();
+		} else if (0U != (readVal & DDRC_MSTR_LPDDR4)) {
+			/* enable read and write drift for LPDDR4 */
+			ddr_enable_rd_drift();
+			ddr_enable_wr_drift();
+		}
+		/* do not enable drift for DDR3/4, and LPDDR2 is not supported */
+
 		/* FIFO reset */
 		readVal = Xil_In32(DDRPHY_PGCR(0U));
 		readVal |= DDRPHY_PGCR0_PHYFRST;
@@ -788,6 +1046,10 @@ static void DDR_reinit(bool ddrss_is_reset)
 static int pm_ddr_sr_enter(void)
 {
 	int ret;
+
+	/* disable read and write drift */
+	ddr_disable_rd_drift();
+	ddr_disable_wr_drift();
 
 	store_state(ctx_ddrc);
 	store_state(ctx_ddrphy);
