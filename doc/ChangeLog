@@ -14,10 +14,21 @@ FreeRTOS tcl.::hsi::utils::handle_stdin and
 modifications are done on top of it to handle stdin and stdout parameters for
 design which doesnt have UART.
 It fixes CR#953681
+As per modified prototype of XTtcPs_CalcIntervalFromFreq,changes are 
+done to pass interval value of type "XInterval" to
+XTtcPs_CalcIntervalFromFreq.
+Modified FreeRTOS_drc and mb_drc_checks functions in tcl to correct the 
+logic, which checks for valid timer and interrupt controller.It fixes
+CR#961734
 
 scugic_v3_5:
 Fixed incorrect modification of interrupt target processor register in
 XScuGic_InterruptMaptoCpu
+Modified DistributorInit function to avoid re-initialization of
+distributor,If it is already initialized by other CPU.It fixes
+CR#960357.
+Modified xdefine_gic_params and get_psu_interrupt_id functions
+in tcl to get correct PL-PS interrupt IDs.It fixes CR#961257.
 
 sdps_v3_1:
 Fixed compilation warnings
@@ -41,9 +52,6 @@ Fixed compilation warnings
 Added support for PUF registration and eFUSE programming with PUF data
 Removed xilinx specific bits programming
 
-v_deinterlacer_v6_2:
-Fix c++ compile problem
-
 v_hscaler_v3_1:
 Fixed configuration validation check for RGB input
 
@@ -58,7 +66,11 @@ parameters as they are private timers for a9 only.
 Fix for CR-962858.
 Modified CortexA9 translation table to correct explanation for memory
 attributes to fix CR#963345
-
+Added APIs handle_stdin_parameter and handle_stdout_parameter in
+standalone tcl.::hsi::utils::handle_stdin and ::hsi::utils::handle_stdout 
+are taken as a base for these APIs and modifications are done on top of it 
+to handle stdin and stdout parameters for design which doesnt have UART.
+It fixes CR#953681
 Removes DMAPS and PS7 definitions as they are supported
 by Zynq, and modifies interrupt ID number for FPGA in
 xparameters_ps.h of cortex r5 and for 32bit, 64bit of cortex a53.
@@ -69,6 +81,9 @@ sync with upstream (fix mem allocator, run as rpmsg master, flood ping)
 
 libmetal_v1_1:
 sync with upstream (fix interrupt handling for more than one handler)
+
+lwip141_v1_7:
+Axi Ethernet Lwip Performance issue on ZynqMP Fix for CR#953533.
 
 openamp apps: echo_test, rpc_demo, mat_mul
 sync with upstream demo apps
