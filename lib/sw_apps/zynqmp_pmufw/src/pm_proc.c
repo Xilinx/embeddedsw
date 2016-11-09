@@ -252,6 +252,7 @@ int PmProcSleep(PmNode* const nodePtr)
 		status = XST_SUCCESS;
 		break;
 	default:
+        /* Proc Node ID is not supported, so nothing to be done here */
 		break;
 	}
 
