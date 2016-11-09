@@ -399,7 +399,7 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
  */
 static int PmProcTrToForcedOff(PmProc* const proc)
 {
-	u32 status;
+	int status;
 
 	PmDbg("ACTIVE->FORCED_PWRDN %s\r\n", PmStrNode(proc->node.nodeId));
 
