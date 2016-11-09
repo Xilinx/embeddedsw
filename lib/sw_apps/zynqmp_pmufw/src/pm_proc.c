@@ -183,7 +183,7 @@ done:
  *          - XST_SUCCESS if processor has no sleep handler (example Rpu0)
  *          - Returned status by pmu-rom if processor sleep handler is called
  */
-int PmProcSleep(PmNode* const nodePtr)
+static int PmProcSleep(PmNode* const nodePtr)
 {
 	PmProc* proc;
 	u32 worstCaseLatency = 0;
@@ -273,7 +273,7 @@ done:
  *          - Returned status of power up function if something goes wrong
  *          - Returned status by pmu-rom if processor wake handler is called
  */
-int PmProcWake(PmNode* const nodePtr)
+static int PmProcWake(PmNode* const nodePtr)
 {
 	int status = XST_SUCCESS;
 	PmProc *proc;
