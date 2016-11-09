@@ -389,7 +389,7 @@ static PmSlavePll* const pmPlls[] = {
 
 void PmPllClearUseCount(void)
 {
-	u32 i = 0U;
+	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmPlls); i++) {
 		pmPlls[i]->useCount = 0U;
