@@ -350,7 +350,9 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 		XAxiDma_BdSetLength(rxbd, p->len, rxring->MaxTransferLen);
 		XAxiDma_BdSetCtrl(rxbd, 0);
 		XAxiDma_BdSetId(rxbd, p);
+#if !defined (__MICROBLAZE__)
 		dsb();
+#endif
 #if defined(__aarch64__)
 		XCACHE_INVALIDATE_DCACHE_RANGE((UINTPTR)p->payload, (UINTPTR)XAE_MAX_FRAME_SIZE);
 #else
