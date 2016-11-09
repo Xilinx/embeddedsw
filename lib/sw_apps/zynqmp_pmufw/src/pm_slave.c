@@ -168,14 +168,14 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
  *          - XST_SUCCESS if slave has state with given capabilities
  *          - XST_NO_FEATURE if slave does not have such state
  */
-int PmCheckCapabilities(const PmSlave* const slave, const u32 cap)
+int PmCheckCapabilities(const PmSlave* const slave, const u32 capabilities)
 {
 	PmStateId i;
 	int status = XST_NO_FEATURE;
 
 	for (i = 0U; i < slave->slvFsm->statesCnt; i++) {
 		/* Find the first state that contains all capabilities */
-		if ((cap & slave->slvFsm->states[i]) == cap) {
+		if ((capabilities & slave->slvFsm->states[i]) == capabilities) {
 			status = XST_SUCCESS;
 			break;
 		}
