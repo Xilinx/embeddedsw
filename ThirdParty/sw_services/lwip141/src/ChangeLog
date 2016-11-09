@@ -1,5 +1,9 @@
 Change Log for lwip
 =================================
+2016-11-09
+	* Fix compilation errors for microblaze based designs CR#963580
+	* dsb() is not availble for Microblaze added checks for the same
+	* in the xaxiemacif_dma.c file.
 2016-11-06
 	* Axi Ethernet Lwip Performance issue on ZynqMP Fix for CR#953533
 	* The uncached memory needed for BDs were not aligned properly to meet
