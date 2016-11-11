@@ -98,7 +98,15 @@ proc generate {os_handle} {
 				}
 				set need_config_file "true"
 
+                                set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
+	                        if { $pss_ref_clk_mhz == "" } {
+		                        puts "WARNING: CONFIG.C_PSS_REF_CLK_FREQ not found. Using default value for XPAR_PSU_PSS_REF_CLK_FREQ_HZ."
+		                        set pss_ref_clk_mhz 33333000
+	                        }
 				set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+                                puts $file_handle " /* Definition for PSS REF CLK FREQUENCY */"
+		                puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz]  "U"]
+	                        puts $file_handle ""
 				puts $file_handle "#include \"xparameters_ps.h\""
 				puts $file_handle ""
 				close $file_handle
@@ -128,7 +136,15 @@ proc generate {os_handle} {
 				}
 				set need_config_file "true"
 
+                                set pss_ref_clk_mhz [common::get_property CONFIG.C_PSS_REF_CLK_FREQ $hw_proc_handle]
+	                        if { $pss_ref_clk_mhz == "" } {
+	                                puts "WARNING: CONFIG.C_PSS_REF_CLK_FREQ not found. Using default value for XPAR_PSU_PSS_REF_CLK_FREQ_HZ."
+	                                set pss_ref_clk_mhz 33333000
+                                }
 				set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+                                puts $file_handle " /* Definition for PSS REF CLK FREQUENCY */"
+	                        puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz]  "U"]
+                                puts $file_handle ""
 				puts $file_handle "#include \"xparameters_ps.h\""
 				puts $file_handle ""
 				close $file_handle
