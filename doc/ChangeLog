@@ -20,6 +20,7 @@ XTtcPs_CalcIntervalFromFreq.
 Modified FreeRTOS_drc and mb_drc_checks functions in tcl to correct the 
 logic, which checks for valid timer and interrupt controller.It fixes
 CR#961734
+Updated TCL file to export PSS_REF_CLK to xparameter.h
 
 scugic_v3_5:
 Fixed incorrect modification of interrupt target processor register in
