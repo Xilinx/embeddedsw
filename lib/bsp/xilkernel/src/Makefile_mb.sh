@@ -109,7 +109,7 @@ libs: real_libs
 	echo "Compiling xilkernel"
 	echo "Xil_kernel is being deprecated and will not be available from our 2017.1 release and beyond."
 	echo "We recommend you use FreeRTOS instead, which is available in the Xilinx SDK."
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v6_1/src libs
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_*/src libs
 
 	echo "killing the .o files"
 	$(ARCHIVER) -d ${LIBXIL} errno.o
@@ -145,7 +145,7 @@ include: standalone_include dummy
 	$(CP) -rf $(INCLUDEFILES) $(INCLUDEDIR)
 
 standalone_include:
-	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_v6_1/src include
+	$(MAKE) -f Makefile_depends -e "COMPILER_FLAGS=$(COMPILER_FLAGS)" "EXTRA_COMPILER_FLAGS=$(EXTRA_COMPILER_FLAGS)" -C ../../standalone_*/src include
 
 dummy:
 
