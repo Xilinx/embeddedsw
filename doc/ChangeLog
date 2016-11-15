@@ -13,6 +13,15 @@ CR#962551.
 xilrsa_v1_3:
 Updated makefile to add clean rule.Fix for CR#962551.
 
+vmix_v2_1
+Added check to make sure logo layer is enabled before loading logo pixel alpha
+
+vprocss_v2_3
+Make log feature optional
+Updated example design FULL topology test cases
+Updated makefile to add compiler flags to seggregate dat and text sections
+Updated mdd to remove sub-core version dependency
+
 Change Log for 2016.4
 =================================
 axiethernet_v5_3:
