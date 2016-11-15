@@ -57,6 +57,9 @@
 *             08/03/16   Add Logo Pixel Alpha support
 *             08/16/16   Add check for stream and logo layer minimum width and
 *                        height
+*2.10   rco   11/15/16   Add a check for logo layer enable before loading logo
+*                        pixel alpha. IP confguration can have logo feature
+*                        disabled but logo pixel alpha enabled
 * </pre>
 *
 ******************************************************************************/
@@ -1353,7 +1356,8 @@ int XVMix_LoadLogoPixelAlpha(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid((Win->StartX % InstancePtr->Mix.Config.PixPerClk) == 0);
   Xil_AssertNonvoid((Win->Width  % InstancePtr->Mix.Config.PixPerClk) == 0);
 
-  if(XVMix_IsLogoPixAlphaEnabled(InstancePtr)) {
+  if(XVMix_IsLogoEnabled(InstancePtr) &&
+	 XVMix_IsLogoPixAlphaEnabled(InstancePtr)) {
 	  MixPtr = &InstancePtr->Mix;
 	  Width  = Win->Width;
 	  Height = Win->Height;
