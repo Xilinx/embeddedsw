@@ -85,10 +85,10 @@ vpssVideo useCase[TOPOLOGY_COUNT][USECASE_COUNT] =
     {1280,  720, XVIDC_CSF_YCRCB_422, XTPG_BKGND_COLOR_BARS, FALSE,
       720,  480, XVIDC_CSF_YCRCB_420                             }},
   //full fledged
-   {{1280,  720, XVIDC_CSF_YCRCB_444, XTPG_BKGND_COLOR_BARS, FALSE,
+   {{ 720,  240, XVIDC_CSF_YCRCB_422, XTPG_BKGND_COLOR_BARS, TRUE,
      1920, 1080, XVIDC_CSF_RGB                                   },
-    {1280,  720, XVIDC_CSF_YCRCB_444, XTPG_BKGND_COLOR_BARS, FALSE,
-     1920, 1080, XVIDC_CSF_RGB                                   }},
+    {1280,  720, XVIDC_CSF_YCRCB_420, XTPG_BKGND_COLOR_BARS, FALSE,
+     1920, 1080, XVIDC_CSF_YCRCB_420                             }},
   //deinterlacer only
    {{1920,  540, XVIDC_CSF_YCRCB_444, XTPG_BKGND_COLOR_BARS, TRUE,
      1920, 1080, XVIDC_CSF_YCRCB_444                             },
@@ -137,9 +137,8 @@ int main(void)
   xil_printf("  (c) 2015, 2016 by Xilinx Inc.\r\n");
 
   status = XSys_Init(PeriphPtr, VpssPtr);
-  if(status != XST_SUCCESS)
-  {
-     xil_printf("CRITICAL ERR:: System Init Failed. Cannot recover from this error. Check HW\n\r");
+  if(status != XST_SUCCESS) {
+     xil_printf("CRITICAL ERROR:: System Init Failed. Cannot recover from this error. Check HW\n\r");
   }
 
   /* Based on the customized Video Processing Subsystem functionality
@@ -166,29 +165,38 @@ int main(void)
         // Full Fledged mode may deinterlace, change picture size and/or color format.
         // In the Full Fledged configuration, the presence of a sub-core
         //   is indicated by a non-NULL pointer to the sub-core driver instance.
-        // If there is no Deinterlacer AND 420 input is supported (Vcr present),
-        //   choose progressive 420 input format
-        if ((VpssPtr->DeintPtr      == NULL) &&
-            (VpssPtr->VcrsmplrInPtr != NULL)) {
-        // Video In: 720P 420  Video Out: 1080P RGB
-          thisCase->width_in = 1280;
-          thisCase->height_in = 720;
-          thisCase->Cformat_in = XVIDC_CSF_YCRCB_420;
-          thisCase->IsInterlaced = FALSE;
+	//Check if FULL topology has any sub-cores excluded
+	if((VpssPtr->DeintPtr      == NULL) ||  //No interlaced support
+	   (VpssPtr->VcrsmplrInPtr == NULL) ||  //No 420 support
+		   (VpssPtr->HcrsmplrPtr   == NULL)) {  //No 422 support
 
-        // If the Deinterlacer is present,
-        //   choose 480i interlaced input 422 (Hcr present) or 444 (Hcr absent)
-        } else {
-          if (VpssPtr->DeintPtr != NULL) {
-          // Video In: 480i YUV  Video Out: 1080P RGB
-            thisCase->width_in = 720;
-            thisCase->height_in = 240;
-            thisCase->Cformat_in = (VpssPtr->HcrsmplrPtr != NULL)?
-              XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444;
-            thisCase->IsInterlaced = TRUE;
+	  //Overwirte default test case with specific ones
+          // If there is no Deinterlacer AND 420 input is supported (Vcr present),
+          //   choose progressive 420 input format
+          if ((VpssPtr->DeintPtr      == NULL) &&
+              (VpssPtr->VcrsmplrInPtr != NULL)) {
+          // Video In: 720P 420  Video Out: 1080P RGB
+            thisCase->width_in = 1280;
+            thisCase->height_in = 720;
+            thisCase->Cformat_in = XVIDC_CSF_YCRCB_420;
+            thisCase->IsInterlaced = FALSE;
+
+          // If the Deinterlacer is present,
+          //   choose 480i interlaced input 422 (Hcr present) or 444 (Hcr absent)
+          } else {
+            if (VpssPtr->DeintPtr != NULL) {
+            // Video In: 480i YUV  Video Out: 1080P RGB
+              thisCase->width_in = 720;
+              thisCase->height_in = 240;
+              thisCase->Cformat_in = (VpssPtr->HcrsmplrPtr != NULL)?
+                XVIDC_CSF_YCRCB_422 : XVIDC_CSF_YCRCB_444;
+              thisCase->IsInterlaced = TRUE;
+            }
           }
-        }
+	} else {
+	  //NOP - use default test cases
 
+	}
         break;
 
       default:
@@ -227,9 +235,9 @@ int main(void)
         --Timeout;
       }
       if(!Timeout) {
-        xil_printf("\r\nTEST FAILED\r\n");
+        xil_printf("\r\nERROR:: Test Failed\r\n");
       } else {
-        xil_printf("\r\nTEST PASSED\r\n\r\n");
+        xil_printf("\r\nTest Completed Successfully\r\n\r\n");
       }
 
       xil_printf("Stop... ");
@@ -241,12 +249,12 @@ int main(void)
         if (XV_DeintWaitForIdle(VpssPtr->DeintPtr) == XST_SUCCESS)
           xil_printf ("Deint subcore IDLE.\r\n");
       else
-          xil_printf ("Error: Deint subcore NOT IDLE.\r\n");
+          xil_printf ("ERROR:: Deint subcore NOT IDLE.\r\n");
       }
 
     } else {
-      xil_printf("\r\nERR:: VProcss Configuration Failed. \r\n");
-      xil_printf("\r\nTEST FAILED\r\n");
+        xil_printf("\r\nERROR:: Test Failed\r\n");
+        xil_printf("    ->VProcss Configuration Failed. \r\n");
     }
 
 #if VERBOSE_MODE
