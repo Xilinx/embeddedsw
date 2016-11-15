@@ -159,6 +159,16 @@
 * responsible for triggering processing pipe update when any change in subsystem
 * configuration is performed at application level
 *
+* <b>Log Capability</b>
+* Subsystem driver implements a logging feature that captures the interaction
+* between included sub-core(s) as the subsystem is being configured and started.
+* This is a potenital debugging aid should the system not behave as expected.
+* If code size becomes a concern this logging capability can be removed from
+* the driver by defining XV_CONFIG_LOG_VPRCOSS_DISABLE preprocessor macro in
+* driver/BSP makefile. For maximun code savings logging capaibility can be
+* disabled, globally, for all included video drivers in BSP by defining the
+* preprocessor macro XV_CONFIG_LOG_DISABLE_ALL in the BSP makefile.
+*
 * <b> Virtual Memory </b>
 *
 * This driver supports Virtual Memory. The RTOS is responsible for calculating
@@ -196,6 +206,8 @@
 *                       Used UINTPTR instead of u32 for Baseaddress, Frameaddr
 *                       Changed the prototype of XVprocSs_CfgInitialize and
 *                       XVprocSs_SetFrameBufBaseaddr API
+* 2.30  rco  11/15/16   Make debug log optional (can be disabled via makefile)
+*
 * </pre>
 *
 ******************************************************************************/
@@ -404,7 +416,9 @@ typedef struct
   void *UsrTmrPtr;                   /**< handle to timer instance used by user
                                          delay function */
 
+#ifdef XV_VPROCSS_LOG_ENABLE
   XVprocSs_Log Log;                  /**< A log of events. */
+#endif
 } XVprocSs;
 
 /************************** Macros Definitions *******************************/
@@ -681,9 +695,13 @@ void XVprocSs_ReportSubcoreStatus(XVprocSs *InstancePtr,
 
 /* Event Logging functions. */
 void XVprocSs_LogReset(XVprocSs *InstancePtr);
-void XVprocSs_LogWrite(XVprocSs *InstancePtr, XVprocSs_LogEvent Evt, u8 Data);
 u16  XVprocSs_LogRead(XVprocSs *InstancePtr);
 void XVprocSs_LogDisplay(XVprocSs *InstancePtr);
+#ifdef XV_VPROCSS_LOG_ENABLE
+void XVprocSs_LogWrite(XVprocSs *InstancePtr, XVprocSs_LogEvent Evt, u8 Data);
+#else
+#define XVprocSs_LogWrite(...)
+#endif
 
 #ifdef __cplusplus
 }

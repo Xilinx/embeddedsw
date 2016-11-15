@@ -45,14 +45,14 @@
  * ----- ---- -------- -----------------------------------------------
  * 2.00  dmc  01/11/16 Initial release.
  *       dmc  03/03/16 Add events for VDMA configuration and operational errors
- * 2.2   rco  11/01/16 Change setup ignore messages (for csc, hscaler, vscaler
+ * 2.20  rco  11/01/16 Change setup ignore messages (for csc, hscaler, vscaler
  *                     etc.) severity from Info to Error
+ * 2.30  rco  11/15/16 Make debug log optional (can be disabled via makefile)*
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
-
 #include "xvprocss.h"
 
 /**************************** Function Prototypes *****************************/
@@ -72,13 +72,16 @@
 ******************************************************************************/
 void XVprocSs_LogReset(XVprocSs *InstancePtr)
 {
+#ifdef XV_VPROCSS_LOG_ENABLE
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->Log.HeadIndex = 0;
 	InstancePtr->Log.TailIndex = 0;
+#endif
 }
 
+#ifdef XV_VPROCSS_LOG_ENABLE
 /*****************************************************************************/
 /**
 * This function will insert an event in the driver's logging mechanism.
@@ -126,6 +129,7 @@ void XVprocSs_LogWrite(XVprocSs *InstancePtr, XVprocSs_LogEvent Evt, u8 Data)
 		}
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -143,6 +147,7 @@ void XVprocSs_LogWrite(XVprocSs *InstancePtr, XVprocSs_LogEvent Evt, u8 Data)
 ******************************************************************************/
 u16 XVprocSs_LogRead(XVprocSs *InstancePtr)
 {
+#ifdef XV_VPROCSS_LOG_ENABLE
 	u16 Log;
 
 	/* Verify argument. */
@@ -165,6 +170,7 @@ u16 XVprocSs_LogRead(XVprocSs *InstancePtr)
 	}
 
 	return Log;
+#endif
 }
 
 /*****************************************************************************/
@@ -180,6 +186,7 @@ u16 XVprocSs_LogRead(XVprocSs *InstancePtr)
 ******************************************************************************/
 void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 {
+#ifdef XV_VPROCSS_LOG_ENABLE
 	u16 Log;
 	u8 Evt;
 	u8 Data;
@@ -766,4 +773,7 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 			break;
 		}
 	} while (Log != XVPROCSS_EVT_NONE);
+#else
+    xil_printf("\r\n INFO:: VPSS Log Feature is Disabled \r\n");
+#endif
 }

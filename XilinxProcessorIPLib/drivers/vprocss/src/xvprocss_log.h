@@ -47,12 +47,20 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  dmc  01/27/16 Initial Release
 *       dmc  03/03/16 Add events for VDMA configuration and operational errors
+* 2.30  rco  11/15/16 Make debug log optional (can be disabled via makefile)
+*
 * </pre>
 *
 ******************************************************************************/
 
 #ifndef XVPROCSS_LOG_H /**< prevent circular inclusions by using protection macros*/
 #define XVPROCSS_LOG_H
+
+#if !defined(XV_CONFIG_LOG_VPRCOSS_DISABLE) && !defined(XV_CONFIG_LOG_DISABLE_ALL)
+#define XV_VPROCSS_LOG_ENABLE
+#endif
+
+#ifdef XV_VPROCSS_LOG_ENABLE
 
 #ifdef __cplusplus
 extern "C" {
@@ -196,5 +204,7 @@ typedef struct {
 #ifdef __cplusplus
 }
 #endif
+
+#endif //XV_VPROCSS_LOG_ENABLE
 
 #endif /* end of protection macro */
