@@ -90,6 +90,7 @@
 *                     send/recv.
 * 3.3   als  06/27/16 Added Low-level XIic_CheckIsBusBusy API.
 * 3.3   als  06/27/16 Added low-level XIic_WaitBusFree API.
+* 3.4	nk   16/11/16 Reduced sleeping time in Bus-busy check.
 * </pre>
 *
 ****************************************************************************/
@@ -1083,13 +1084,13 @@ u32 XIic_CheckIsBusBusy(UINTPTR BaseAddress)
 *******************************************************************************/
 u32 XIic_WaitBusFree(UINTPTR BaseAddress)
 {
-	u8 BusyCount = 0;
+	u32 BusyCount = 0;
 
 	while (XIic_CheckIsBusBusy(BaseAddress)) {
-		if (BusyCount++ > 100) {
+		if (BusyCount++ > 1000) {
 			return XST_FAILURE;
 		}
-		usleep(10000);
+		usleep(1000);
 	}
 
 	return XST_SUCCESS;
