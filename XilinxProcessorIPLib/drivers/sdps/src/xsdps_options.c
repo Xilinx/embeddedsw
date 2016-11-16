@@ -62,6 +62,7 @@
 *                       operating modes.
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
 *       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
+*       sk     11/16/16 Issue DLL reset at 31 iteration to load new zero value.
 *
 * </pre>
 *
@@ -1162,6 +1163,13 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 				XSDPS_HOST_CTRL2_OFFSET) & XSDPS_HC2_EXEC_TNG_MASK) == 0U) {
 			break;
 		}
+
+		if (TuningCount == 31) {
+#if defined (ARMR5) || defined (__aarch64__)
+			/* Issue DLL Reset to load new SDHC tuned tap values */
+			XSdPs_DllReset(InstancePtr);
+#endif
+		}
 	}
 
 	if ((XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
@@ -1169,6 +1177,9 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
+
+	/* Wait for ~12 clock cycles to synchronize the new tap values */
+	(void)usleep(1U);
 
 #if defined (ARMR5) || defined (__aarch64__)
 	/* Issue DLL Reset to load new SDHC tuned tap values */
