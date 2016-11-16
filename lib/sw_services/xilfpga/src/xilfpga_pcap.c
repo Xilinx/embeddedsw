@@ -42,6 +42,7 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   Nava  08/06/16 Initial release
+ * 1.1   Nava  16/11/16 Added PL power-up sequence.
  *
  * </pre>
  *
@@ -58,11 +59,16 @@
 #include "xilfpga_pcap.h"
 
 /************************** Constant Definitions *****************************/
-
+#ifdef __MICROBLAZE__
+#define XPBR_SERV_EXT_PWRUPPLD		119
+#define XPBR_SERV_EXT_PLNONPCAPISO	162
+#define XPBR_SERV_EXT_TBL_MAX		256
+#endif
 /**************************** Type Definitions *******************************/
-
+#ifdef __MICROBLAZE__
+typedef u32 (*XpbrServHndlr_t) (void);
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
-
 
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PcapWaitForDone();
@@ -70,6 +76,12 @@ static u32 XFpga_WriteToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow);
 static u32 XFpga_PcapInit(void);
 static u32 XFpga_CsuDmaInit();
 static u32 XFpga_PLWaitForDone(void);
+static u32 XFpga_PowerUpPl(void);
+static u32 XFpga_IsolationRestore(void);
+
+#ifdef __MICROBLAZE__
+extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
+#endif
 /************************** Variable Definitions *****************************/
 XCsuDma CsuDma;
 
@@ -108,6 +120,22 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 {
 	u32 Status = XFPGA_SUCCESS;
 
+	/* Power-Up PL */
+	Status = XFpga_PowerUpPl();
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("XFPGA_ERROR_PL_POWER_UP\r\n");
+		Status = XFPGA_ERROR_PL_POWER_UP;
+		goto END;
+	}
+
+	/* PS PL Isolation Restore */
+	Status = XFpga_IsolationRestore();
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("XFPGA_ERROR_PL_ISOLATION\r\n");
+		Status = XFPGA_ERROR_PL_ISOLATION;
+		goto END;
+	}
+
 	Status = XFpga_PcapInit();
 	if(Status != XFPGA_SUCCESS) {
 		xil_printf("FPGA Init fail\n");
@@ -123,6 +151,14 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 		xil_printf("FPGA fail to get the done status\n");
 		goto END;
      }
+
+	/* Power-Up PL */
+	Status = XFpga_PowerUpPl();
+	if (Status != XFPGA_SUCCESS) {
+		xil_printf("XFPGA_ERROR_PL_POWER_UP\r\n");
+		Status = XFPGA_ERROR_PL_POWER_UP;
+		goto END;
+	}
 	END:
 	return Status;
 }
@@ -169,7 +205,7 @@ static u32 XFpga_PcapInit(void) {
 		PollCount--;
 	}
 	Status = XFpga_CsuDmaInit();
-
+END:
 	return Status;
 }
 /*****************************************************************************/
@@ -318,7 +354,84 @@ static u32 XFpga_CsuDmaInit()
 END:
 	return Status;
 }
+/*****************************************************************************/
+/**
+ * This function is used to power-up the PL
+ *
+ * @param	None
+ *
+ * @return	error status based on implemented functionality (SUCCESS by default)
+ *
+ *****************************************************************************/
+static u32 XFpga_PowerUpPl(void) {
 
+	u32 Status = XFPGA_SUCCESS;
+
+#ifdef __MICROBLAZE__
+	Status = XpbrServHndlrTbl[XPBR_SERV_EXT_PWRUPPLD]();
+#else
+
+	u32 RegVal;
+	u32 PollCount;
+
+
+	Xil_Out32(PMU_GLOBAL_PWRUP_EN, PMU_GLOBAL_PWR_PL_MASK);
+	Xil_Out32(PMU_GLOBAL_PWRUP_TRIG, PMU_GLOBAL_PWR_PL_MASK);
+	PollCount = (PL_DONE_POLL_COUNT);
+	do {
+		RegVal = Xil_In32(PMU_GLOBAL_PWRUP_STATUS) &
+					PMU_GLOBAL_PWR_PL_MASK;
+		PollCount--;
+	} while ((RegVal != 0) && PollCount);
+
+	if (PollCount == 0)
+		Status = XFPGA_ERROR_PL_POWER_UP;
+#endif
+	return Status;
+
+}
+/**
+*
+* This function is used to request isolation restore, through PMU
+*
+* @param	Mask of the entries for which isolation is to be restored
+*
+* @return	XFSBL_SUCCESS (for now always returns this)
+*
+* @note		None.
+*
+****************************************************************************/
+static u32 XFpga_IsolationRestore()
+{
+	u32 Status = XFPGA_SUCCESS;
+
+#ifdef __MICROBLAZE__
+	u32 Reg;
+	Status = XpbrServHndlrTbl[XPBR_SERV_EXT_PLNONPCAPISO]();
+#else
+
+	u32 PollCount;
+	u32 RegVal;
+
+
+	/* Isolation request enable */
+	Xil_Out32(PMU_GLOBAL_ISO_INT_EN, PMU_GLOBAL_PWR_PL_MASK);
+
+	/* Trigger Isolation request */
+	Xil_Out32(PMU_GLOBAL_ISO_TRIG, PMU_GLOBAL_PWR_PL_MASK);
+
+	/* Poll for Isolation complete */
+	PollCount = (PL_DONE_POLL_COUNT);
+	do {
+		RegVal = Xil_In32(PMU_GLOBAL_ISO_STATUS) & PMU_GLOBAL_PWR_PL_MASK;
+		PollCount--;
+	} while ((RegVal != 0) && PollCount);
+
+	if (PollCount == 0)
+		Status = XFPGA_ERROR_PL_ISOLATION;
+#endif
+	return Status;
+}
 /*****************************************************************************/
 /** This function  provides the STATUS of PCAP interface
  *
