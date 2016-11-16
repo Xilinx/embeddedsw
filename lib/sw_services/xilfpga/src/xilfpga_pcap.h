@@ -105,7 +105,7 @@
 #include "xcsudma.h"
 /************************** Constant Definitions *****************************/
 
-#define PL_DONE_POLL_COUNT  10000U
+#define PL_DONE_POLL_COUNT  30000U
 #define PL_RESET_PERIOD_IN_US  1U
 
 
@@ -154,9 +154,22 @@
 #define CSU_PCAP_PROG_PCFG_PROG_B_MASK    0X00000001U
 #define CSU_PCAP_PROG_PCFG_PROG_B_SHIFT   0U
 
-#define XFPGA_SUCCESS					(0x0U)
-#define XFPGA_ERROR_CSUDMA_INIT_FAIL                (0x1U)
-#define XFPGA_ERROR_BITSTREAM_LOAD_FAIL             (0x2U)
+/* Register: PMU_GLOBAL for PL power-up */
+#define PMU_GLOBAL_BASE			0xFFD80000U
+#define PMU_GLOBAL_PWRUP_STATUS		(PMU_GLOBAL_BASE + 0x110U)
+#define PMU_GLOBAL_PWRUP_EN		(PMU_GLOBAL_BASE + 0x118U)
+#define PMU_GLOBAL_PWRUP_TRIG		(PMU_GLOBAL_BASE + 0x120U)
+#define PMU_GLOBAL_PWR_PL_MASK		0x800000
+
+#define PMU_GLOBAL_ISO_INT_EN		( PMU_GLOBAL_BASE + 0X318U )
+#define PMU_GLOBAL_ISO_TRIG		( PMU_GLOBAL_BASE + 0X320U )
+#define PMU_GLOBAL_ISO_STATUS		( PMU_GLOBAL_BASE + 0X310U )
+
+#define XFPGA_SUCCESS				(0x0U)
+#define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x1U)
+#define XFPGA_ERROR_BITSTREAM_LOAD_FAIL		(0x2U)
+#define XFPGA_ERROR_PL_POWER_UP			(0x3U)
+#define XFPGA_ERROR_PL_ISOLATION		(0x4U)
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/
