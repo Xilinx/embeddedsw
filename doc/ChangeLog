@@ -46,6 +46,7 @@ Reduce the delay during power cycle
 Use emmc_hwreset pin to reset eMMC card
 Add delay between assert/deassert of emmc reset
 Enable Rst_n bit in ext_csd reg if disabled
+Add dll reset during auto tuning
 
 ttcps_v3_2:
 Modified XTtcPs_GetCounterValue,XTtcPs_GetInterval and
