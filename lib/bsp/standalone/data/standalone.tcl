@@ -130,6 +130,7 @@ proc generate {os_handle} {
                     puts $file_handle ""
                 }
             }
+            xdefine_fabric_reset $file_handle
             close $file_handle
 
         }
@@ -180,6 +181,7 @@ proc generate {os_handle} {
                     puts $file_handle ""
                 }
             }
+            xdefine_fabric_reset $file_handle
             close $file_handle
         }
         "psu_cortexr5"  {
@@ -239,6 +241,7 @@ proc generate {os_handle} {
 			}
 		}
             }
+            xdefine_fabric_reset $file_handle
 	    close $file_handle
         }
        "ps7_cortexa9"  {
@@ -1026,4 +1029,18 @@ proc handle_stdin_parameter {drv_handle} {
                     close $config_file
             }
      }
+}
+
+proc xdefine_fabric_reset {file_handle} {
+	puts $file_handle ""
+	puts $file_handle "/* Number of Fabric Resets */"
+	set periph_list [get_cells -hier]
+	foreach periph $periph_list {
+		set zynq_ultra_ps [get_property IP_NAME $periph]
+		if {[string match -nocase $zynq_ultra_ps "zynq_ultra_ps_e"] } {
+			set nr_rst [get_property CONFIG.C_NUM_FABRIC_RESETS [get_cells zynq_ultra_ps_e_0]]
+			puts $file_handle "#define XPAR_NUM_FABRIC_RESETS $nr_rst"
+		}
+	}
+	puts $file_handle ""
 }
