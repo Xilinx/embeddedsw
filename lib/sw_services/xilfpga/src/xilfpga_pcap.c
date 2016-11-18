@@ -57,6 +57,7 @@
 #include "sleep.h"
 #include "xil_printf.h"
 #include "xilfpga_pcap.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef __MICROBLAZE__
@@ -64,6 +65,7 @@
 #define XPBR_SERV_EXT_PLNONPCAPISO	162
 #define XPBR_SERV_EXT_TBL_MAX		256
 #endif
+
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__
 typedef u32 (*XpbrServHndlr_t) (void);
@@ -78,7 +80,7 @@ static u32 XFpga_CsuDmaInit();
 static u32 XFpga_PLWaitForDone(void);
 static u32 XFpga_PowerUpPl(void);
 static u32 XFpga_IsolationRestore(void);
-
+static u32 XFpga_PsPlGpioReset(u32 TotalResets);
 #ifdef __MICROBLAZE__
 extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
 #endif
@@ -159,6 +161,10 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 		Status = XFPGA_ERROR_PL_POWER_UP;
 		goto END;
 	}
+
+	/* PS-PL reset */
+	XFpga_PsPlGpioReset(XPAR_NUM_FABRIC_RESETS);
+
 	END:
 	return Status;
 }
@@ -431,6 +437,38 @@ static u32 XFpga_IsolationRestore()
 		Status = XFPGA_ERROR_PL_ISOLATION;
 #endif
 	return Status;
+}
+/**
+*
+* This function is used to reset the PL from PS EMIO pins
+*
+* @param	TotalResets
+*
+* @return	XFSBL_SUCCESS (for now always returns this)
+*
+* @note		None.
+*
+****************************************************************************/
+static u32 XFpga_PsPlGpioReset(u32 TotalResets) {
+	u32 RegVal = 0;
+	u32 MaskVal;
+
+	for (int i = 0; i < TotalResets; i++) {
+
+		/* Set EMIO Direction */
+		RegVal = Xil_In32(GPIO_DIRM_5_EMIO);
+		Xil_Out32(GPIO_DIRM_5_EMIO, (RegVal | (1 << (31 - i))));
+		/*Assert the EMIO with the required Mask */
+		MaskVal = ~(1 << (31-i)) & 0xFFFF0000;
+		RegVal = MaskVal | (1 << (15 - i));
+		Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
+		usleep(1000);
+		/*De-assert the EMIO with the required Mask */
+		RegVal = MaskVal & ~(1 << (15 - i));
+		Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
+		usleep(1000);
+	}
+
 }
 /*****************************************************************************/
 /** This function  provides the STATUS of PCAP interface
