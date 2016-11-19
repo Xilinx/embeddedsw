@@ -258,7 +258,7 @@ int app (struct hil_proc *hproc)
 /*-----------------------------------------------------------------------------*
  *  Application entry point
  *-----------------------------------------------------------------------------*/
-int main(int argc, char *argv[])
+int main(void)
 {
 	unsigned long proc_id = 0;
 	unsigned long rsc_id = 0;
@@ -269,14 +269,6 @@ int main(int argc, char *argv[])
 
 	/* Initialize HW system components */
 	init_system();
-
-	if (argc >= 2) {
-		proc_id = strtoul(argv[1], NULL, 0);
-	}
-
-	if (argc >= 3) {
-		rsc_id = strtoul(argv[2], NULL, 0);
-	}
 
 	/* Create HIL proc */
 	hproc = platform_create_proc(proc_id);
@@ -292,8 +284,13 @@ int main(int argc, char *argv[])
 	}
 
 	LPRINTF("Stopping application...\n");
-
 	cleanup_system();
+
+	/* Suspend processor execution */
+	while (1) {
+		__asm__("wfi\n\t");
+	}
+
 	return status;
 }
 
