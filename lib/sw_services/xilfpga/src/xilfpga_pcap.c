@@ -66,6 +66,12 @@
 #define XPBR_SERV_EXT_TBL_MAX		256
 #endif
 
+#ifdef XPAR_NUM_FABRIC_RESETS
+#define FPGA_NUM_FABRIC_RESETS	XPAR_NUM_FABRIC_RESETS
+#else
+#define FPGA_NUM_FABRIC_RESETS	1
+#endif
+
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__
 typedef u32 (*XpbrServHndlr_t) (void);
@@ -163,7 +169,7 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 	}
 
 	/* PS-PL reset */
-	XFpga_PsPlGpioReset(XPAR_NUM_FABRIC_RESETS);
+	XFpga_PsPlGpioReset(FPGA_NUM_FABRIC_RESETS);
 
 	END:
 	return Status;
