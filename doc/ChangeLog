@@ -113,6 +113,14 @@ xilmfs_v2_2:
 CR#962571: Update Makefile to fix the compilation issues due to incremental
 build
 
+dprxss_v4_0:
+CR#960371: Move DP159 files out of video_common to dprxss.
+
+video_common_v4_0:
+CR#956975: Modified functions to return fixed point instead of floating point
+CR#960371: Move DP159 files out of video_common to dprxss.
+
+
 Change Log for 2016.3
 =================================
 freertos823_xilinx_v1_2:
