@@ -85,7 +85,7 @@
  * control a DP159 retimer. This is system-specific. */
 #define USE_DP159
 #include "xiic.h"
-#include "xvidc_dp159.h"
+#include "xdprxss_dp159.h"
 #endif /* XPAR_IIC_0_DEVICE_ID */
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
@@ -501,11 +501,11 @@ static u32 Dprx_Dp159Setup(XIic *InstancePtr, u16 DeviceId)
 	 * this function if needed. In some systems, a GPIO controller can reset
 	 * the DP159. In other systems, the reset functionality may be
 	 * accomplished using:
-	 *	void XVidC_Dp159Reset(XIic *InstancePtr, u8 Reset); */
+	 *	void XDpRxSs_Dp159Reset(XIic *InstancePtr, u8 Reset); */
 	Dprx_Dp159Reset();
 	/*******************/
 
-	Status = XVidC_Dp159Initialize(InstancePtr);
+	Status = XDpRxSs_Dp159Initialize(InstancePtr);
 
 	return Status;
 }
@@ -539,7 +539,7 @@ static void Dprx_Dp159Config(XDp *InstancePtr, XIic *IicInstancePtr,
 	LinkRate = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						XDP_RX_OVER_LINK_BW_SET);
 
-	XVidC_Dp159Config(IicInstancePtr, ConfigType, LinkRate, LaneCount);
+	XDpRxSs_Dp159Config(IicInstancePtr, ConfigType, LinkRate, LaneCount);
 }
 #endif /* USE_DP159 */
 
@@ -619,7 +619,7 @@ static void Dprx_ResetVideoOutput(void *InstancePtr)
  * @return	None.
  *
  * @note	The resolution will be rounded up to the nearest resolution
- *		present in the XVidC_VideoTimingModes table.
+ *		present in the XDpRxSs_VideoTimingModes table.
  *
 *******************************************************************************/
 static void Dprx_DetectResolution(void *InstancePtr)
@@ -837,7 +837,7 @@ static void Dprx_InterruptHandlerTp1(void *InstancePtr)
 	xil_printf("> Interrupt: training pattern 1.\n");
 
 #ifdef USE_DP159
-	Dprx_Dp159Config(InstancePtr, &IicInst, XVIDC_DP159_CT_TP1);
+	Dprx_Dp159Config(InstancePtr, &IicInst, XDPRXSS_DP159_CT_TP1);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 }
 
@@ -858,7 +858,7 @@ static void Dprx_InterruptHandlerTp2(void *InstancePtr)
 	xil_printf("> Interrupt: training pattern 2.\n");
 
 #ifdef USE_DP159
-	Dprx_Dp159Config(InstancePtr, &IicInst, XVIDC_DP159_CT_TP2);
+	Dprx_Dp159Config(InstancePtr, &IicInst, XDPRXSS_DP159_CT_TP2);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 }
 
@@ -879,6 +879,6 @@ static void Dprx_InterruptHandlerTp3(void *InstancePtr)
 	xil_printf("> Interrupt: training pattern 3.\n");
 
 #ifdef USE_DP159
-	Dprx_Dp159Config(InstancePtr, &IicInst, XVIDC_DP159_CT_TP3);
+	Dprx_Dp159Config(InstancePtr, &IicInst, XDPRXSS_DP159_CT_TP3);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 }

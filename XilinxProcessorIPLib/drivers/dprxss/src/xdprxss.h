@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v3_1
+* @addtogroup dprxss_v4_0
 * @{
 * @details
 *

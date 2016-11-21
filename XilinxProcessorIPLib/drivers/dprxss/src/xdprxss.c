@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss.c
-* @addtogroup dprxss_v3_1
+* @addtogroup dprxss_v4_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Receiver Subsystem driver.
@@ -59,6 +59,7 @@
 * 3.1  als 08/08/16 Added HDCP timeout functionality.
 * 3.1  aad 09/06/16 Updates to support 64-bit base addresses.
 * 3.1  aad 10/17/16 Updated timer initialization
+* 4.0  aad 11/15/16 Modified to use DP159 from dprxss driver
 * </pre>
 *
 ******************************************************************************/
@@ -66,7 +67,7 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
-#include "xvidc_dp159.h"
+#include "xdprxss_dp159.h"
 #include "string.h"
 #include "xdebug.h"
 
@@ -213,7 +214,7 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		}
 
 		/* Reset DP159 */
-		XVidC_Dp159Reset(InstancePtr->IicPtr, TRUE);
+		XDpRxSs_Dp159Reset(InstancePtr->IicPtr, TRUE);
 
 		/* IIC initialization for dynamic functionality */
 		Status = XIic_DynamicInitialize(InstancePtr->IicPtr);
@@ -264,13 +265,13 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				InstancePtr->Config.MaxLaneCount);
 
 		/* Bring DP159 out of reset */
-		XVidC_Dp159Reset(InstancePtr->IicPtr, FALSE);
+		XDpRxSs_Dp159Reset(InstancePtr->IicPtr, FALSE);
 
 		/* Wait for us */
 		XDp_WaitUs(InstancePtr->DpPtr, 1000);
 
 		/* Initialize DP159 */
-		XVidC_Dp159Initialize(InstancePtr->IicPtr);
+		XDpRxSs_Dp159Initialize(InstancePtr->IicPtr);
 
 		/* Wait for us */
 		XDp_WaitUs(InstancePtr->DpPtr, 1000);
@@ -1488,7 +1489,7 @@ static void StubTp1Callback(void *InstancePtr)
 			XDPRXSS_DPCD_LANE_COUNT_SET);
 
 	/* DP159 config for TP1 */
-	XVidC_Dp159Config(DpRxSsPtr->IicPtr, XVIDC_DP159_CT_TP1,
+	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP1,
 			DpRxSsPtr->UsrOpt.LinkRate,
 				DpRxSsPtr->UsrOpt.LaneCount);
 
@@ -1538,7 +1539,7 @@ static void StubTp2Callback(void *InstancePtr)
 	Xil_AssertVoid(DpRxSsPtr != NULL);
 
 	/* DP159 config for TP2 */
-	XVidC_Dp159Config(DpRxSsPtr->IicPtr, XVIDC_DP159_CT_TP2,
+	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP2,
 			DpRxSsPtr->UsrOpt.LinkRate,
 				DpRxSsPtr->UsrOpt.LaneCount);
 }
@@ -1565,7 +1566,7 @@ static void StubUnplugCallback(void *InstancePtr)
 	Xil_AssertVoid(DpRxSsPtr != NULL);
 
 	/* DP159 config for TP2 */
-	XVidC_Dp159Config(DpRxSsPtr->IicPtr, XVIDC_DP159_CT_UNPLUG,
+	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
 		DpRxSsPtr->UsrOpt.LinkRate, DpRxSsPtr->UsrOpt.LaneCount);
 
 	/* Disable unplug interrupt so that no unplug event when RX is
