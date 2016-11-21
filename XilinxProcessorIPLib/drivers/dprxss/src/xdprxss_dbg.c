@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_dbg.c
-* @addtogroup dprxss_v3_1
+* @addtogroup dprxss_v4_0
 * @{
 *
 * This file contains functions to report debug information of DisplayPort RX
@@ -48,6 +48,7 @@
 * 2.00 sha 10/05/15 Added HDCP support.
 *                   Removed DP159 bit error count code. Used DP159 bit error
 *                   count function from Video Common library.
+* 4.00 aad 11/14/16 Modified to use DP159 from dprxss
 * </pre>
 *
 ******************************************************************************/
@@ -55,7 +56,7 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
-#include "xvidc_dp159.h"
+#include "xdprxss_dp159.h"
 #include "xdebug.h"
 
 /************************** Constant Definitions *****************************/
@@ -272,7 +273,7 @@ void XDpRxSs_ReportDp159BitErrCount(XDpRxSs *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/* Print bit error count */
-	XVidC_Dp159BitErrCount(InstancePtr->IicPtr);
+	XDpRxSs_Dp159BitErrCount(InstancePtr->IicPtr);
 }
 
 /*****************************************************************************/
