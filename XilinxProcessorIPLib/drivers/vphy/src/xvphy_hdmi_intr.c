@@ -48,7 +48,7 @@
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
  *                     Added XVphy_HdmiGtpPllLockHandler for GTPE2
  * 1.2   gm            Replaced xil_printf with log events for debugging
- *            01/11/16 Fixed rounding of RX refclk frequency
+ * 1.3   gm   01/11/16 Fixed rounding of RX refclk frequency
  *                     Fixed race condition in
  *                       XVphy_HdmiRxClkDetFreqChangeHandler when  storing
  *                       RxRefClkHz value
