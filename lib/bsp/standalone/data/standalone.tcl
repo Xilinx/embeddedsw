@@ -1038,8 +1038,11 @@ proc xdefine_fabric_reset {file_handle} {
 	foreach periph $periph_list {
 		set zynq_ultra_ps [get_property IP_NAME $periph]
 		if {[string match -nocase $zynq_ultra_ps "zynq_ultra_ps_e"] } {
-			set nr_rst [get_property CONFIG.C_NUM_FABRIC_RESETS [get_cells zynq_ultra_ps_e_0]]
-			puts $file_handle "#define XPAR_NUM_FABRIC_RESETS $nr_rst"
+			set avail_param [list_property [get_cells -hier $periph]]
+			if {[lsearch -nocase $avail_param "CONFIG.C_NUM_FABRIC_RESETS"] >= 0} {
+				set nr_rst [get_property CONFIG.C_NUM_FABRIC_RESETS [get_cells -hier $periph]]
+				puts $file_handle "#define XPAR_NUM_FABRIC_RESETS $nr_rst"
+			}
 		}
 	}
 	puts $file_handle ""
