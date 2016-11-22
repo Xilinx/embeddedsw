@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2016 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,9 @@
 # 2.2   adk  29/10/14 Fixed CR#827686 when PCS/PMA core is configured with
 #		      1000BASE-X mode export proper values to the xparameters.h
 #		      file.
+# 3.4   hk   11/22/16 Update how PCS definitions are exported for
+#                     newer version of Xilinx PCS PMA when PHY address is not
+#                     a parameter.
 #
 ##############################################################################
 
@@ -137,16 +140,20 @@ proc is_gmii2rgmii_conv_present {slave} {
 proc generate_sgmii_params {drv_handle file_name} {
 	set file_handle [::hsi::utils::open_include_file $file_name]
 	set ips [hsi::get_cells -hier "*"]
+	set pcs_pma false
 
 	foreach ip $ips {
 		set ipname [common::get_property NAME $ip]
 		set periph [common::get_property IP_NAME  $ip]
 		if { [string compare -nocase $periph "gig_ethernet_pcs_pma"] == 0} {
+				set pcs_pma true
 				set PhyStandard [common::get_property CONFIG.Standard $ip]
+				set sgmii_param [common::get_property CONFIG.c_is_sgmii $ip]
 		}
-		if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0} {
+		if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0 ||
+		     [string compare -nocase $ipname "psu_ethernet_0"] == 0} {
 			set phya [is_gige_pcs_pma_ip_present $ip]
-			if { $phya == 0} {
+			if {$pcs_pma == false} {
 				close $file_handle
 				return 0
 			}
@@ -156,11 +163,12 @@ proc generate_sgmii_params {drv_handle file_name} {
 				puts $file_handle "\#define XPAR_PCSPMA_1000BASEX_PHYADDR $phya"
 				puts $file_handle "\n/******************************************************************/\n"
 			} else {
-				puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
-				puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1"
-				puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
-				puts $file_handle "\n/******************************************************************/\n"
-
+				if {$sgmii_param == true} {
+					puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
+					puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1"
+					puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
+					puts $file_handle "\n/******************************************************************/\n"
+				}
 			}
 		}
 	}
