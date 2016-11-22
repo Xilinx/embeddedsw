@@ -22,6 +22,10 @@ Updated example design FULL topology test cases
 Updated makefile to add compiler flags to seggregate dat and text sections
 Updated mdd to remove sub-core version dependency
 
+xilopenamp_v1_0:
+obsoleted lib (was replaced in 2016.1 release by openamp lib)
+This is mainly a name change to better match the github project library name.
+
 Change Log for 2016.4
 =================================
 axiethernet_v5_3:
