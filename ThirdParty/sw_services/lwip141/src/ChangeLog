@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2016-11-22
+	* Add support in xemaps_physpeed.c for newer version of Xilinx
+	  PCS PMA core with phy address scanning.
 2016-11-09
 	* Fix compilation errors for microblaze based designs CR#963580
 	* dsb() is not availble for Microblaze added checks for the same

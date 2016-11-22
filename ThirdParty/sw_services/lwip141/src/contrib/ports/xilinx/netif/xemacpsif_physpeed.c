@@ -153,9 +153,12 @@
 
 #define PHY_DETECT_REG  						1
 #define PHY_IDENTIFIER_1_REG					2
+#define PHY_IDENTIFIER_2_REG					3
 #define PHY_DETECT_MASK 					0x1808
 #define PHY_MARVELL_IDENTIFIER				0x0141
 #define PHY_TI_IDENTIFIER					0x2000
+#define PHY_XILINX_PCS_PMA_ID1			0x0174
+#define PHY_XILINX_PCS_PMA_ID2			0x0C00
 
 #define XEMACPS_GMII2RGMII_SPEED1000_FD		0x140
 #define XEMACPS_GMII2RGMII_SPEED100_FD		0x2100
@@ -206,6 +209,25 @@ u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr)
 {
 	u32_t link_speed;
 	u16_t regval;
+	u16_t phy_id;
+
+	if(phy_addr == 0) {
+		for (phy_addr = 31; phy_addr > 0; phy_addr--) {
+			XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_1_REG,
+					&phy_id);
+
+			if (phy_id == PHY_XILINX_PCS_PMA_ID1) {
+				XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_IDENTIFIER_2_REG,
+						&phy_id);
+				if (phy_id == PHY_XILINX_PCS_PMA_ID2) {
+					/* Found a valid PHY address */
+					LWIP_DEBUGF(NETIF_DEBUG, ("XEmacPs detect_phy: PHY detected at address %d.\r\n",
+							phy_addr));
+					break;
+				}
+			}
+		}
+	}
 
 	link_speed = get_IEEE_phy_speed(xemacpsp, phy_addr);
 	if (link_speed == 1000)
