@@ -52,7 +52,7 @@
  *                     Replaced xil_printf with log events
  *                     Modified XVphy_DruGetRefClkFreqHz
  *                     Suppressed warning messages due to unused arguments
- *                     Added error message in XVphy_HdmiCpllParam when DRU is
+ * 1.3   gm   01/11/16 Added error message in XVphy_HdmiCpllParam when DRU is
  *                     enabled and RX TMDS ratio is 1/40
  *                     Fixed rounding of DRU refclk frequency
  * </pre>
