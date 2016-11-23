@@ -83,8 +83,7 @@ static s32 XFsbl_BoardConfig(void)
 	u8 WriteBuffer[BUF_LEN] = {0};
 	XIicPs_Config *I2c0CfgPtr;
 	s32 Status = XFSBL_SUCCESS;
-	u32 ICMCfg0;
-	u32 ICMCfg1;
+	u32 ICMCfgLane[NUM_GT_LANES];
 
 	/* Initialize the IIC0 driver so that it is ready to use */
 	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
@@ -126,34 +125,61 @@ static s32 XFsbl_BoardConfig(void)
 	 */
 	WriteBuffer[0] = CMD_OUTPUT_0_REG;
 
-	/* Populate WriteBuffer[1] based on ICM_CFG configuration */
-	ICMCfg0 = XFsbl_In32(SERDES_ICM_CFG0) &
-			(SERDES_ICM_CFG0_L0_ICM_CFG_MASK | SERDES_ICM_CFG0_L1_ICM_CFG_MASK);
+	ICMCfgLane[0] = XFsbl_In32(SERDES_ICM_CFG0) & SERDES_ICM_CFG0_L0_ICM_CFG_MASK;
+	ICMCfgLane[1] = (XFsbl_In32(SERDES_ICM_CFG0) &
+		SERDES_ICM_CFG0_L1_ICM_CFG_MASK) >> SERDES_ICM_CFG0_L1_ICM_CFG_SHIFT;
+	ICMCfgLane[2] = XFsbl_In32(SERDES_ICM_CFG1) & (SERDES_ICM_CFG1_L2_ICM_CFG_MASK);
+	ICMCfgLane[3] = (XFsbl_In32(SERDES_ICM_CFG1) &
+		SERDES_ICM_CFG1_L3_ICM_CFG_MASK) >> SERDES_ICM_CFG1_L3_ICM_CFG_SHIFT;
 
-	ICMCfg1 = XFsbl_In32(SERDES_ICM_CFG1) &
-			(SERDES_ICM_CFG1_L2_ICM_CFG_MASK | SERDES_ICM_CFG1_L3_ICM_CFG_MASK);
+	/* For ZCU102 board, check if GT combination is valid against the lane# */
+	if (((ICMCfgLane[0] != ICM_CFG_VAL_PCIE)
+			&& (ICMCfgLane[0] != ICM_CFG_VAL_DP)
+			&& (ICMCfgLane[0] != ICM_CFG_VAL_PWRDN)) ||
+		((ICMCfgLane[1] != ICM_CFG_VAL_PCIE)
+			&& (ICMCfgLane[1] != ICM_CFG_VAL_DP)
+			&& (ICMCfgLane[1] != ICM_CFG_VAL_PWRDN)) ||
+		((ICMCfgLane[2] != ICM_CFG_VAL_PCIE)
+			&& (ICMCfgLane[2] != ICM_CFG_VAL_USB)
+			&& (ICMCfgLane[2] != ICM_CFG_VAL_PWRDN)) ||
+		((ICMCfgLane[3] != ICM_CFG_VAL_PCIE)
+			&& (ICMCfgLane[3] != ICM_CFG_VAL_SATA)
+			&& (ICMCfgLane[3] != ICM_CFG_VAL_PWRDN))) {
 
-	if ((ICMCfg0 == ICM_CFG0_PCIE_DP) && (ICMCfg1 == ICM_CFG1_USB_SATA))
-	{
-		/* gt1110 */
-		WriteBuffer[1] = DATA_COMMON_CFG | DATA_GT_1110_CFG;
+		Status = XFSBL_ERROR_GT_LANE_SELECTION;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_GT_LANE_SELECTION\r\n");
+		goto END;
 	}
-	else
-	if ((ICMCfg0 == ICM_CFG0_DP_DP) && (ICMCfg1 == ICM_CFG1_USB_SATA))
-	{
-		/* gt1111 */
-		WriteBuffer[1] = DATA_COMMON_CFG | DATA_GT_1111_CFG;
+
+	WriteBuffer[1] = DATA_COMMON_CFG;
+
+	/**
+	 * If any of the lanes are of PCIe or PowerDown, that particular lane
+	 * shall be configured as PCIe, else shall be configured
+	 * as DP/USB/SATA, as applicable to that lane.
+	 *
+	 * Lane# 	WriteBuffer[1] bit#		bit value '0'	bit value '1'
+	 * --------------------------------------------------------------
+	 * Lane0			0					PCIe		DP
+	 * Lane1			1					PCIe		DP
+	 * Lane2			2					PCIe		USB
+	 * Lane3			3					PCIe		SATA
+	 */
+
+	if (ICMCfgLane[0] == ICM_CFG_VAL_DP) {
+		WriteBuffer[1] |= DATA_GT_L0_DP_CFG;
 	}
-	else
-	if ((ICMCfg0 == ICM_CFG0_PCIE_PCIE) && (ICMCfg1 == ICM_CFG1_USB_SATA))
-	{
-		/* gt1100 */
-		WriteBuffer[1] = DATA_COMMON_CFG | DATA_GT_1100_CFG;
+
+	if (ICMCfgLane[1] == ICM_CFG_VAL_DP) {
+		WriteBuffer[1] |= DATA_GT_L1_DP_CFG;
 	}
-	else
-	{
-		/* gt0000 or no GT configuration */
-		WriteBuffer[1] = DATA_COMMON_CFG | DATA_GT_0000_CFG;
+
+	if (ICMCfgLane[2] == ICM_CFG_VAL_USB) {
+		WriteBuffer[1] |= DATA_GT_L2_USB_CFG;
+	}
+
+	if (ICMCfgLane[3] == ICM_CFG_VAL_SATA) {
+		WriteBuffer[1] |= DATA_GT_L3_SATA_CFG;
 	}
 
 	/* Send the Data */
@@ -240,17 +266,12 @@ void XFsbl_PcieReset(void)
 {
 
 	u32 RegVal = 0;
-	u32 ICMCfg0;
-	u32 ICMCfg1;
+	u32 ICMCfg0L0;
 
-	ICMCfg0 = XFsbl_In32(SERDES_ICM_CFG0) &
-			(SERDES_ICM_CFG0_L0_ICM_CFG_MASK | SERDES_ICM_CFG0_L1_ICM_CFG_MASK);
-
-	ICMCfg1 = XFsbl_In32(SERDES_ICM_CFG1) &
-			(SERDES_ICM_CFG1_L2_ICM_CFG_MASK | SERDES_ICM_CFG1_L3_ICM_CFG_MASK);
+	ICMCfg0L0 = XFsbl_In32(SERDES_ICM_CFG0) & SERDES_ICM_CFG0_L0_ICM_CFG_MASK;
 
 	/* Give reset only if we have PCIe in design */
-	if ((ICMCfg0 == ICM_CFG0_PCIE_PCIE) || (ICMCfg1 == ICM_CFG1_PCIE_PCIE))
+	if (ICMCfg0L0 == ICM_CFG_VAL_PCIE)
 	{
 
 		/* Set MIO31 direction as output */

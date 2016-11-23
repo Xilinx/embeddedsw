@@ -178,6 +178,7 @@ extern "C" {
 #define XFSBL_ERROR_PM_INIT					(0x50U)
 #define XFSBL_ERROR_PROTECTION_CFG					(0x51U)
 #define XFSBL_ERROR_UNAVAILABLE_CPU					(0x52U)
+#define XFSBL_ERROR_GT_LANE_SELECTION				(0x53U)
 
 #define XFSBL_FAILURE					(0x3FFU)
 
