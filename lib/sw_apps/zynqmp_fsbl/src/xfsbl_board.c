@@ -210,6 +210,12 @@ static s32 XFsbl_BoardConfig(void)
 	/* Wait until bus is idle */
 	while (XIicPs_BusIsBusy(&I2c0InstancePtr));
 
+	/**
+	 * The below piece of code is needed for PL DDR to work
+	 * (to take PL DDR out of reset). Hence including this code only when
+	 * PL DDR is in design.
+	 */
+#ifdef XPAR_MIG_0_BASEADDR
 	/* Enable Regulator (FMC ADJ) */
 	WriteBuffer[0] = CMD_ON_OFF_CFG;
 	WriteBuffer[1] = ON_OFF_CFG_VAL;
@@ -223,6 +229,7 @@ static s32 XFsbl_BoardConfig(void)
 
 	/* Wait until bus is idle */
 	while (XIicPs_BusIsBusy(&I2c0InstancePtr));
+#endif
 
 	XFsbl_Printf(DEBUG_INFO,"Board Configuration successful \n\r");
 
