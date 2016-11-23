@@ -62,11 +62,6 @@ extern "C" {
 #ifdef XPS_BOARD_ZCU102
 #include "xiicps.h"
 /************************** Constant Definitions *****************************/
-#define SERDES_ICM_CFG0_L0_ICM_CFG_MASK	0x00000007U
-#define SERDES_ICM_CFG0_L1_ICM_CFG_MASK	0x00000070U
-#define SERDES_ICM_CFG1_L2_ICM_CFG_MASK	0x00000007U
-#define SERDES_ICM_CFG1_L3_ICM_CFG_MASK	0x00000070U
-
 #define GPIO_MIO31_MASK	0x00000020U
 
 #define CRL_APB_BOOTMODE_1_HI 	0x00000202U
@@ -99,10 +94,18 @@ extern "C" {
  */
 #define DATA_COMMON_CFG		0xE0U
 
-#define DATA_GT_0000_CFG	0x00U
-#define DATA_GT_1100_CFG	0x0CU
-#define DATA_GT_1110_CFG	0x0EU
-#define DATA_GT_1111_CFG	0x0FU
+#define DATA_GT_L0_DP_CFG	0x1U
+#define DATA_GT_L1_DP_CFG	0x2U
+#define DATA_GT_L2_USB_CFG	0x4U
+#define DATA_GT_L3_SATA_CFG	0x8U
+
+#define ICM_CFG_VAL_PWRDN	0X0U
+#define ICM_CFG_VAL_PCIE	0X1U
+#define ICM_CFG_VAL_SATA	0X2U
+#define ICM_CFG_VAL_USB		0X3U
+#define ICM_CFG_VAL_DP		0X4U
+
+#define NUM_GT_LANES		4U
 
 #define CMD_CH_2_REG		0x06U
 #define CMD_ON_OFF_CFG		0x02U
