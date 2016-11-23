@@ -30,6 +30,14 @@ xilopenamp_v1_0:
 obsoleted lib (was replaced in 2016.1 release by openamp lib)
 This is mainly a name change to better match the github project library name.
 
+emacps_v3_4:
+Updated emacps tcl to export PCS definitions for newer version of
+Xilinx PCS PMA core where PHY address is not a parameter.
+
+lwip141_v1_8:
+Updated xemacpsif_physpeed.c to scan for phy addr when newer version of
+Xilinx PCS PMA core is used.
+
 Change Log for 2016.4
 =================================
 axiethernet_v5_3:
