@@ -475,10 +475,19 @@ static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId, u32 DevId)
 	 * Check if Address is in the range of PS DDR
 	 */
 	if ((Address >= XFSBL_PS_DDR_START_ADDRESS) &&
-	     (Address < XFSBL_PS_DDR_END_ADDRESS) )
+	     (Address <= XFSBL_PS_DDR_END_ADDRESS) )
 	{
 		goto END;
 	}
+
+#ifdef XFSBL_PS_HI_DDR_START_ADDRESS
+	/* Check if Address is in the range of HIGH PS DDR */
+	if ((Address >= XFSBL_PS_HI_DDR_START_ADDRESS) &&
+	     (Address <= XFSBL_PS_HI_DDR_END_ADDRESS) )
+	{
+		goto END;
+	}
+#endif
 #endif
 
 #ifdef XFSBL_PL_DDR

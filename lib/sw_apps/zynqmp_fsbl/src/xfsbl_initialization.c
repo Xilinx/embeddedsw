@@ -78,7 +78,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_DdrEccInit(void);
-static u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes);
+static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes);
 static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr);
 
 /* Functions from xfsbl_misc.c */
@@ -533,6 +533,15 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	{
 		XFsbl_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_64, ATTRIB_MEMORY_A53_64);
 	}
+
+#ifdef XFSBL_PS_HI_DDR_START_ADDRESS
+	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_64_HIGH; BlockNum++)
+	{
+		XFsbl_SetTlbAttributes(
+			XFSBL_PS_HI_DDR_START_ADDRESS + BlockNum * BLOCK_SIZE_A53_64_HIGH,
+			ATTRIB_MEMORY_A53_64);
+	}
+#endif
 	Xil_DCacheFlush();
 #else
 	/* For A53 32bit*/
@@ -935,13 +944,13 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
  * 		- errors as mentioned in xfsbl_error.h
  *
  *****************************************************************************/
-u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
+u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes)
 {
 	u32 RegVal;
 	u32 Status =  XFSBL_SUCCESS;
 	u32 Length = 0;
-	u32 StartAddr = DestAddr;
-	u32 NumBytes = LengthBytes;
+	u64 StartAddr = DestAddr;
+	u64 NumBytes = LengthBytes;
 
 	Xil_DCacheDisable();
 
@@ -974,7 +983,11 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 		XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD3, XFSBL_ECC_INIT_VAL_WORD);
 
 		/* Write Destination Address */
-		XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, StartAddr);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0,
+				(u32)(StartAddr & ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0_LSB_MASK));
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1,
+				(u32)((StartAddr >> 32U) &
+						ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1_MSB_MASK));
 
 		/* Size to be Transferred. Recommended to set both src and dest sizes */
 		XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2, Length);
@@ -1017,6 +1030,7 @@ u32 XFsbl_EccInit(u32 DestAddr, u32 LengthBytes)
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD2, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_WR_ONLY_WORD3, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, 0x00000000U);
 
@@ -1044,8 +1058,9 @@ u32 XFsbl_DdrEccInit(void)
 {
 	u32 Status =  XFSBL_SUCCESS;
 #if XPAR_PSU_DDRC_0_HAS_ECC
-	u32 LengthBytes = XFSBL_PS_DDR_END_ADDRESS - XFSBL_PS_DDR_INIT_START_ADDRESS;
-	u32 DestAddr = XFSBL_PS_DDR_INIT_START_ADDRESS;
+	u64 LengthBytes =
+			(XFSBL_PS_DDR_END_ADDRESS - XFSBL_PS_DDR_INIT_START_ADDRESS) + 1;
+	u64 DestAddr = XFSBL_PS_DDR_INIT_START_ADDRESS;
 
 	XFsbl_Printf(DEBUG_GENERAL,"Initializing DDR ECC\n\r");
 
@@ -1055,6 +1070,20 @@ u32 XFsbl_DdrEccInit(void)
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_DDR_ECC_INIT\n\r");
 		goto END;
 	}
+
+	/* If there is upper PS DDR, initialize its ECC */
+#ifdef XFSBL_PS_HI_DDR_START_ADDRESS
+	LengthBytes =
+		(XFSBL_PS_HI_DDR_END_ADDRESS - XFSBL_PS_HI_DDR_START_ADDRESS) + 1;
+	DestAddr = XFSBL_PS_HI_DDR_START_ADDRESS;
+
+	Status = XFsbl_EccInit(DestAddr, LengthBytes);
+	if (XFSBL_SUCCESS != Status) {
+		Status = XFSBL_ERROR_DDR_ECC_INIT;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_DDR_ECC_INIT\n\r");
+		goto END;
+	}
+#endif
 
 END:
 #endif
