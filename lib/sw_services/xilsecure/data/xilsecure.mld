@@ -35,6 +35,7 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00a ba  06/01/15  Initial Release
+# 2.0   vns 11/28/16  Added support for PMU
 #
 ##############################################################################
 
@@ -44,9 +45,9 @@ BEGIN LIBRARY xilsecure
   OPTION drc = secure_drc;
   OPTION copyfiles = all;
   OPTION REQUIRES_OS = (standalone freertos823_xilinx);
-  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5);
+  OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library ";
-  OPTION VERSION = 1.2;
+  OPTION VERSION = 2.0;
   OPTION NAME = xilsecure;
 END LIBRARY

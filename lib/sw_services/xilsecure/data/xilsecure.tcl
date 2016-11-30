@@ -36,6 +36,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00a ba  06/01/15 Initial Release
 # 1.2   vns 08/23/16 Added support for SHA2 by adding .a files
+# 2.0   vns 11/28/16  Added support for PMU
 ##############################################################################
 
 #---------------------------------------------
@@ -48,24 +49,32 @@ proc secure_drc {libhandle} {
 	set compiler [common::get_property CONFIG.compiler $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-	if { $proc_type != "psu_cortexa53" && $proc_type != "psu_cortexr5" } {
-				error "ERROR: XilSecure library is supported only for CortexA53 and CortexR5 processors.";
+	if { $proc_type != "psu_cortexa53" && $proc_type != "psu_cortexr5" && $proc_type != "psu_pmu" } {
+				error "ERROR: XilSecure library is supported only for PMU, CortexA53 and CortexR5 processors.";
 				return;
 	}
 
 	#Copying .a file based on compiler
 	if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
+		file delete -force ./src/xsecure_sha2_pmu.a
 		file delete -force ./src/xsecure_sha2_r5.a
 		file delete -force ./src/xsecure_sha2_a53_64b.a
 		file rename -force ./src/xsecure_sha2_a53_32b.a ./src/libxilsecure.a
 	} elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0} {
+		file delete -force ./src/xsecure_sha2_pmu.a
 		file delete -force ./src/xsecure_sha2_r5.a
 		file delete -force ./src/xsecure_sha2_a53_32b.a
 		file rename -force ./src/xsecure_sha2_a53_64b.a ./src/libxilsecure.a
 	} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0} {
+		file delete -force ./src/xsecure_sha2_pmu.a
 		file delete -force ./src/xsecure_sha2_a53_32b.a
 		file delete -force ./src/xsecure_sha2_a53_64b.a
 		file rename -force ./src/xsecure_sha2_r5.a ./src/libxilsecure.a
+	} elseif {[string compare -nocase $compiler "mb-gcc"] == 0} {
+		file delete -force ./src/xsecure_sha2_r5.a
+		file delete -force ./src/xsecure_sha2_a53_32b.a
+		file delete -force ./src/xsecure_sha2_a53_64b.a
+		file rename -force ./src/xsecure_sha2_pmu.a ./src/libxilsecure.a
 	}
 
 }
