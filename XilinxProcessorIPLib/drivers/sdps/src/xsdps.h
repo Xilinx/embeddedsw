@@ -139,6 +139,7 @@
 *       sk     10/19/16 Used emmc_hwreset pin to reset eMMC.
 *       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 *       sk     11/16/16 Issue DLL reset at 31 iteration to load new zero value.
+* 3.2   sk     11/30/16 Modified the voltage switching sequence as per spec.
 *
 * </pre>
 *

@@ -74,6 +74,7 @@
 *       sk     10/13/16 Reduced the delay during power cycle to 1ms as per spec
 *       sk     10/19/16 Used emmc_hwreset pin to reset eMMC.
 *       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
+* 3.2   sk     11/30/16 Modified the voltage switching sequence as per spec.
 * </pre>
 *
 ******************************************************************************/
@@ -853,7 +854,7 @@ static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
 {
 	s32 Status;
 	u16 CtrlReg;
-	u32 ReadReg;
+	u32 ReadReg, ClockReg;
 
 	/* Send switch voltage command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD11, 0U, 0U);
@@ -877,9 +878,6 @@ static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CLK_CTRL_OFFSET,
 			CtrlReg);
 
-	/* Wait minimum 5mSec */
-	(void)usleep(5000U);
-
 	/* Enabling 1.8V in controller */
 	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL2_OFFSET);
@@ -887,12 +885,39 @@ static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_HOST_CTRL2_OFFSET,
 			CtrlReg);
 
-	/* Start clock */
-	Status = XSdPs_Change_ClkFreq(InstancePtr, XSDPS_CLK_400_KHZ);
-	if (Status != XST_SUCCESS) {
+	/* Wait minimum 5mSec */
+	(void)usleep(5000U);
+
+	/* Check for 1.8V signal enable bit is cleared by Host */
+	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL2_OFFSET);
+	if ((CtrlReg & XSDPS_HC2_1V8_EN_MASK) == 0U) {
 		Status = XST_FAILURE;
 		goto RETURN_PATH;
 	}
+
+	/* Wait for internal clock to stabilize */
+	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_CLK_CTRL_OFFSET);
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_CLK_CTRL_OFFSET,
+				ClockReg | XSDPS_CC_INT_CLK_EN_MASK);
+	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_CLK_CTRL_OFFSET);
+	while((ClockReg & XSDPS_CC_INT_CLK_STABLE_MASK) == 0U) {
+		ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_CLK_CTRL_OFFSET);
+	}
+
+	/* Enable SD clock */
+	ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_CLK_CTRL_OFFSET);
+	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+			XSDPS_CLK_CTRL_OFFSET,
+			ClockReg | XSDPS_CC_SD_CLK_EN_MASK);
+
+	/* Wait for 1mSec */
+	(void)usleep(1000U);
 
 	/* Wait for CMD and DATA line to go high */
 	ReadReg = XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
