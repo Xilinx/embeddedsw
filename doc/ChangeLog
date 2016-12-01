@@ -115,6 +115,16 @@ CR#956975: Modified functions to return fixed point instead of floating point
 CR#960371: Move DP159 files out of video_common to dprxss.
 
 
+zynqmp_fsbl:
+- PS PL isolation is now removed by calling psu_ps_pl_isolation_removal_data() from psu_init.c
+instead of using fsbl local API XFsbl_PowerUpIsland(). psu_ps_pl_isolation_removal_data()
+function also has AXI data width configurations which are required.
+- Added support for initializing upper PS DDR (earlier only lower PS DDR was supported).
+- Fixed GT mux configuration logic in FSBL for ZCU102, by making each lane individually configurable.
+- For ZCU102, FSBL sets VADJ in the board specific configuration. Since, this needs to be done only
+if design has PL DDR (to take PL DDR out of reset), this code is now included under the
+corresponding conditional.
+
 Change Log for 2016.3
 =================================
 freertos823_xilinx_v1_2:
