@@ -38,6 +38,9 @@ lwip141_v1_8:
 Updated xemacpsif_physpeed.c to scan for phy addr when newer version of
 Xilinx PCS PMA core is used.
 
+sdps_v3_2:
+Corrected voltage switching sequence
+
 Change Log for 2016.4
 =================================
 axiethernet_v5_3:
