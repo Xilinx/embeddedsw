@@ -147,6 +147,19 @@ video_common_v4_0:
 CR#956975: Modified functions to return fixed point instead of floating point
 CR#960371: Move DP159 files out of video_common to dprxss.
 
+xilpm_v2_0:
+- Added missing API IDs to sync up with PMUFW
+- Migrated to a new shutdown interface to support passing shutdown type and sub-type arguments
+
+zynqmp_pmufw:
+- Fixed DDR self-refresh sequence to trigger RDIMM init and update drift settings
+- Split MMIO regions for finer granularity in permissions
+- Added GET_CHIPID API to query the silicon version register value
+- Removed shutdown callbacks. Now shutdown requests are executed as they come in.
+- Fixed build errors when DEBUG_MODE is disabled
+- Error Management module is disabled by default and should be enabled by adding ENABLE_EM to build flags
+- MISRA C related fixes have been applied
+- Migrated to a new shutdown interface to support passing shutdown type and sub-type arguments
 
 zynqmp_fsbl:
 - PS PL isolation is now removed by calling psu_ps_pl_isolation_removal_data() from psu_init.c
