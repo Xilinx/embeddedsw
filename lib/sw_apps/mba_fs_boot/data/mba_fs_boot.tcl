@@ -132,8 +132,6 @@ proc get_flash_config { fp } {
 		puts $fp "#define CONFIG_XILINX_FLASH_START	$flash_start";
 		puts $fp "#define CONFIG_XILINX_FLASH_END	$flash_end";
 		puts $fp "#define CONFIG_XILINX_FLASH_SIZE	$flash_size";
-	} else {
-		error "flash not found";
 	}
 }
 proc get_uart_config { fp } {
