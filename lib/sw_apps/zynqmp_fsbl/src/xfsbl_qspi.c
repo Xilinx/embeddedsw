@@ -73,16 +73,15 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-void XFsbl_PrintArray (u32 DebugType, const u8 *Buf, u32 Len, const char *Str);
+static u32 FlashReadID(XQspiPsu *QspiPsuPtr);
 
 /************************** Variable Definitions *****************************/
 static XQspiPsu QspiPsuInstance;
-static XQspiPsu *QspiPsuInstancePtr;
-static u32 QspiFlashSize=0;
-static u32 QspiFlashMake=0;
-static u32 ReadCommand=0;
+static u32 QspiFlashSize=0U;
+static u32 QspiFlashMake=0U;
+static u32 ReadCommand=0U;
 static XQspiPsu_Msg FlashMsg[5];
-static u8 IssiIdFlag=0;
+static u8 IssiIdFlag=0U;
 
 static u8 TxBfrPtr __attribute__ ((aligned(32)));
 static u8 ReadBuffer[10] __attribute__ ((aligned(32)));
@@ -104,9 +103,10 @@ static u8 WriteBuffer[10] __attribute__ ((aligned(32)));
 * @note		None.
 *
 ******************************************************************************/
-int FlashReadID(XQspiPsu *QspiPsuPtr)
+static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 {
-	int Status = XST_SUCCESS;
+	s32 Status;
+	u32 UStatus;
 
 	/*
 	 * Read ID
@@ -124,9 +124,10 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 	FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, FlashMsg, 2);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	Status = XQspiPsu_PolledTransfer(QspiPsuPtr, &FlashMsg[0], 2);
+	if (Status != XFSBL_SUCCESS) {
+		UStatus = XFSBL_FAILURE;
+		goto END;
 	}
 
 	XFsbl_Printf(DEBUG_GENERAL, "FlashID=0x%x 0x%x 0x%x\n\r", ReadBuffer[0],
@@ -151,7 +152,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 		QspiFlashMake = ISSI_ID;
 		XFsbl_Printf(DEBUG_INFO, "ISSI ");
 	} else {
-		Status = XFSBL_ERROR_UNSUPPORTED_QSPI;
+		UStatus = XFSBL_ERROR_UNSUPPORTED_QSPI;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_UNSUPPORTED_QSPI\r\n");
 		goto END;
 	}
@@ -177,7 +178,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 		QspiFlashSize = FLASH_SIZE_1G;
 		XFsbl_Printf(DEBUG_INFO, "1G Bits\r\n");
 	}else {
-		Status = XFSBL_ERROR_UNSUPPORTED_QSPI;
+		UStatus = XFSBL_ERROR_UNSUPPORTED_QSPI;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_UNSUPPORTED_QSPI\r\n");
 		goto END;
 	}
@@ -188,9 +189,9 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	{
 		IssiIdFlag=1;
 	}
-
+	UStatus = XFSBL_SUCCESS;
 END:
-	return Status;
+	return UStatus;
 }
 
 
@@ -206,24 +207,26 @@ END:
 u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 {
 	XQspiPsu_Config *QspiConfig;
-	u32 Status = XFSBL_SUCCESS;
+	s32 Status;
+	u32 UStatus;
+	u32 QspiMode;
 
-	QspiPsuInstancePtr = &QspiPsuInstance;
+
 
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
 	 */
 	QspiConfig =  XQspiPsu_LookupConfig(QSPI_DEVICE_ID);
 	if (NULL == QspiConfig) {
-		Status = XFSBL_ERROR_QSPI_INIT;
+		UStatus = XFSBL_ERROR_QSPI_INIT;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_INIT\r\n");
 		goto END;
 	}
 
-	Status =  XQspiPsu_CfgInitialize(QspiPsuInstancePtr, QspiConfig,
+	Status =  XQspiPsu_CfgInitialize(&QspiPsuInstance, QspiConfig,
 			QspiConfig->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		Status = XFSBL_ERROR_QSPI_INIT;
+	if (Status != XFSBL_SUCCESS) {
+		UStatus = XFSBL_ERROR_QSPI_INIT;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_INIT\r\n");
 		goto END;
 	}
@@ -231,14 +234,24 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 	/*
 	 * Set Manual Start
 	 */
-	XQspiPsu_SetOptions(QspiPsuInstancePtr, XQSPIPSU_MANUAL_START_OPTION);
+	Status = XQspiPsu_SetOptions(&QspiPsuInstance, XQSPIPSU_MANUAL_START_OPTION);
 
+	if (Status != XFSBL_SUCCESS) {
+		UStatus = XFSBL_ERROR_QSPI_MANUAL_START;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_MANUAL_START\r\n");
+		goto END;
+	}
 	/*
 	 * Set the pre-scaler for QSPI clock
 	 */
-	XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, XQSPIPSU_CLK_PRESCALE_8);
+	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance, XQSPIPSU_CLK_PRESCALE_8);
 
-	XQspiPsu_SelectFlash(QspiPsuInstancePtr,
+	if (Status != XFSBL_SUCCESS) {
+		UStatus = XFSBL_ERROR_QSPI_PRESCALER_CLK;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_PRESCALER_CLK\r\n");
+		goto END;
+	}
+	XQspiPsu_SelectFlash(&QspiPsuInstance,
 		XQSPIPSU_SELECT_FLASH_CS_LOWER, XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 
 	/*
@@ -246,7 +259,7 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 	 * TBD: XIP Support
 	 */
 
-	switch (XPAR_PSU_QSPI_0_QSPI_MODE) {
+	switch ((u32)(XPAR_PSU_QSPI_0_QSPI_MODE)) {
 
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 		{
@@ -268,22 +281,26 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 			Status = XFSBL_ERROR_INVALID_QSPI_CONNECTION;
 			XFsbl_Printf(DEBUG_GENERAL,
 					"XFSBL_ERROR_INVALID_QSPI_CONNECTION\r\n");
-			goto END;
-		}break;
+		}
+		break;
 
+	}
+	if(Status != XFSBL_SUCCESS) {
+		UStatus = (u32)Status;
+		goto END;
 	}
 	/**
 	 * Read Flash ID and extract Manufacture and Size information
 	 */
-	Status = FlashReadID(QspiPsuInstancePtr);
-	if (Status != XFSBL_SUCCESS) {
+	UStatus = FlashReadID(&QspiPsuInstance);
+	if (UStatus != XFSBL_SUCCESS) {
 		goto END;
 	}
 	/**
 	 *  add code for 1x, 2x and 4x
 	 *
 	 */
-	if(IssiIdFlag==1) {
+	if(IssiIdFlag==1U) {
 		ReadCommand = DUAL_READ_CMD_24BIT;
 	} else {
 		ReadCommand = QUAD_READ_CMD_24BIT;
@@ -291,15 +308,14 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 	/**
 	 * add code: For a Stacked connection, read second Flash ID
 	 */
-	if ((XPAR_PSU_QSPI_0_QSPI_MODE ==
-			XQSPIPSU_CONNECTION_MODE_PARALLEL) ||
-			(XPAR_PSU_QSPI_0_QSPI_MODE ==
-					XQSPIPSU_CONNECTION_MODE_STACKED) ) {
+	QspiMode=(XPAR_PSU_QSPI_0_QSPI_MODE);
+	if ((QspiMode ==(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
+			(QspiMode ==(XQSPIPSU_CONNECTION_MODE_STACKED) )) {
 		QspiFlashSize = 2 * QspiFlashSize;
 	}
 
 END:
-	return Status;
+	return UStatus;
 }
 
 
@@ -323,10 +339,10 @@ static u32 XFsbl_GetQspiAddr(u32 Address )
 {
 	u32 RealAddr;
 
-	switch(QspiPsuInstancePtr->Config.ConnectionMode) {
+	switch(QspiPsuInstance.Config.ConnectionMode) {
 
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
-			XQspiPsu_SelectFlash(QspiPsuInstancePtr,
+			XQspiPsu_SelectFlash(&QspiPsuInstance,
 					XQSPIPSU_SELECT_FLASH_CS_LOWER,
 					XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 			RealAddr = Address;
@@ -336,19 +352,19 @@ static u32 XFsbl_GetQspiAddr(u32 Address )
 			/*
 			 * Select lower or upper Flash based on sector address
 			 */
-			if(Address >= (QspiFlashSize/2)) {
-				XQspiPsu_SelectFlash(QspiPsuInstancePtr,
+			if(Address >= (QspiFlashSize/2U)) {
+				XQspiPsu_SelectFlash(&QspiPsuInstance,
 						XQSPIPSU_SELECT_FLASH_CS_UPPER,
 						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 				/*
 				 * Subtract first flash size when accessing second flash
 				 */
-				RealAddr = Address - (QspiFlashSize/2);
+				RealAddr = Address - (QspiFlashSize/2U);
 			}else{
 				/*
 				 * Set selection to L_PAGE
 				 */
-				XQspiPsu_SelectFlash(QspiPsuInstancePtr,
+				XQspiPsu_SelectFlash(&QspiPsuInstance,
 						XQSPIPSU_SELECT_FLASH_CS_LOWER,
 						XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 				RealAddr = Address;
@@ -360,9 +376,9 @@ static u32 XFsbl_GetQspiAddr(u32 Address )
 			 * The effective address in each flash is the actual
 			 * address / 2
 			 */
-			XQspiPsu_SelectFlash(QspiPsuInstancePtr,
+			XQspiPsu_SelectFlash(&QspiPsuInstance,
 			XQSPIPSU_SELECT_FLASH_CS_BOTH, XQSPIPSU_SELECT_FLASH_BUS_BOTH);
-			RealAddr = Address / 2;
+			RealAddr = Address / 2U;
 			break;
 
 		default:
@@ -392,15 +408,16 @@ static u32 XFsbl_GetQspiAddr(u32 Address )
 *
 *
 ******************************************************************************/
-static int SendBankSelect(u32 BankSel)
+static u32 SendBankSelect(u32 BankSel)
 {
-	u32 Status = XFSBL_SUCCESS;
+	s32 Status;
+	u32 UStatus;
 
 	/*
 	 * bank select commands for Micron and Spansion are different
 	 * Macronix bank select is same as Micron
 	 */
-	if (QspiFlashMake == MICRON_ID || QspiFlashMake == MACRONIX_ID)	{
+	if ((QspiFlashMake == MICRON_ID) || (QspiFlashMake == MACRONIX_ID))	{
 		/*
 		 * For micron command WREN should be sent first
 		 * except for some specific feature set
@@ -412,9 +429,9 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			Status = XFSBL_ERROR_QSPI_READ;
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
+		if (Status != XFSBL_SUCCESS) {
+			UStatus = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
@@ -424,7 +441,7 @@ static int SendBankSelect(u32 BankSel)
 		 * written, no receive buffer required
 		 */
 		WriteBuffer[COMMAND_OFFSET]   = EXTADD_REG_WR_CMD;
-		WriteBuffer[ADDRESS_1_OFFSET] = BankSel;
+		WriteBuffer[ADDRESS_1_OFFSET] = (u8)BankSel;
 
 		FlashMsg[0].TxBfrPtr = WriteBuffer;
 		FlashMsg[0].RxBfrPtr = NULL;
@@ -432,9 +449,9 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			Status = XFSBL_ERROR_QSPI_READ;
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
+		if (Status != XFSBL_SUCCESS) {
+			UStatus = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
@@ -446,7 +463,7 @@ static int SendBankSelect(u32 BankSel)
 		 * written, no receive buffer required
 		 */
 		WriteBuffer[COMMAND_OFFSET]   = BANK_REG_WR_CMD;
-		WriteBuffer[ADDRESS_1_OFFSET] = BankSel;
+		WriteBuffer[ADDRESS_1_OFFSET] = (u8)BankSel;
 
 		FlashMsg[0].TxBfrPtr = WriteBuffer;
 		FlashMsg[0].RxBfrPtr = NULL;
@@ -454,9 +471,9 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
 
-		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 1);
-		if (Status != XST_SUCCESS) {
-			Status = XFSBL_ERROR_QSPI_READ;
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 1);
+		if (Status != XFSBL_SUCCESS) {
+			UStatus = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
@@ -465,7 +482,7 @@ static int SendBankSelect(u32 BankSel)
 	/*
 	 * For testing - Read bank to verify
 	 */
-	if (QspiFlashMake == MICRON_ID || QspiFlashMake == MACRONIX_ID) {
+	if ((QspiFlashMake == MICRON_ID) || (QspiFlashMake == MACRONIX_ID)) {
 		/*
 		 * Extended address register read command
 		 */
@@ -483,9 +500,9 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			Status = XFSBL_ERROR_QSPI_READ;
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 2);
+		if (Status != XFSBL_SUCCESS) {
+			UStatus = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
@@ -508,9 +525,9 @@ static int SendBankSelect(u32 BankSel)
 		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
 		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
-			Status = XFSBL_ERROR_QSPI_READ;
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 2);
+		if (Status != XFSBL_SUCCESS) {
+			UStatus = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
@@ -518,15 +535,15 @@ static int SendBankSelect(u32 BankSel)
 		if (ReadBuffer[0] != BankSel) {
 			XFsbl_Printf(DEBUG_INFO, "Bank Select %d != Register Read %d\n\r", BankSel,
 				ReadBuffer[0]);
-			Status = XFSBL_ERROR_QSPI_READ;
+			UStatus = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
 	}
-
+	UStatus = XFSBL_SUCCESS;
 	/* Winbond can be added here */
 END:
-	return Status;
+	return UStatus;
 }
 
 /*****************************************************************************/
@@ -549,15 +566,16 @@ END:
  *****************************************************************************/
 u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 {
-	u32 Status = XFSBL_SUCCESS;
-	u32 QspiAddr=0, OrigAddr=0;
-	u32 BankSel=0;
-	u32 RemainingBytes=0;
-	u32 TransferBytes=0;
+	u32 Status;
+	u32 QspiAddr, OrigAddr;
+	u32 BankSel;
+	u32 RemainingBytes;
+	u32 TransferBytes;
 	u32 DiscardByteCnt;
-	u8 BankSwitchFlag=0;
-	u32 BankSize=SINGLEBANKSIZE;
-	u32 BankMask=SINGLEBANKMASK;
+	u8 BankSwitchFlag=0U;
+	u32 BankSize;
+	u32 BankMask;
+	s32 SStatus;
 
 	XFsbl_Printf(DEBUG_INFO,"QSPI Reading Src 0x%0lx, Dest %0lx, Length %0lx\r\n",
 			SrcAddress, DestAddress, Length);
@@ -573,10 +591,15 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	}
 
 	/* Multiply bank size & mask in case of Dual Parallel */
-	if (QspiPsuInstancePtr->Config.ConnectionMode ==
+	if (QspiPsuInstance.Config.ConnectionMode ==
 	    XQSPIPSU_CONNECTION_MODE_PARALLEL){
-		BankSize =  SINGLEBANKSIZE * 2;
-		BankMask =  SINGLEBANKMASK * 2;
+		BankSize =  SINGLEBANKSIZE * 2U;
+		BankMask =  SINGLEBANKMASK * 2U;
+	}
+	else
+	{
+		BankSize = SINGLEBANKSIZE;
+		BankMask = SINGLEBANKMASK;
 	}
 
 	/**
@@ -584,7 +607,7 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	 */
 	RemainingBytes = Length;
 
-	while(RemainingBytes > 0) {
+	while(RemainingBytes > 0U) {
 
 		if (RemainingBytes > DMA_DATA_TRAN_SIZE)
 		{
@@ -604,9 +627,9 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * This address is used to calculate the bank crossing
 		 * condition
 		 */
-		if (QspiPsuInstancePtr->Config.ConnectionMode ==
+		if (QspiPsuInstance.Config.ConnectionMode ==
 		    XQSPIPSU_CONNECTION_MODE_PARALLEL){
-			OrigAddr = QspiAddr * 2;
+			OrigAddr = QspiAddr * 2U;
 		} else {
 			OrigAddr = QspiAddr;
 		}
@@ -646,10 +669,10 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * Flash
 		 */
 
-		WriteBuffer[COMMAND_OFFSET]   = ReadCommand;
-		WriteBuffer[ADDRESS_1_OFFSET] = (u8)((QspiAddr & 0xFF0000) >> 16);
-		WriteBuffer[ADDRESS_2_OFFSET] = (u8)((QspiAddr & 0xFF00) >> 8);
-		WriteBuffer[ADDRESS_3_OFFSET] = (u8)(QspiAddr & 0xFF);
+		WriteBuffer[COMMAND_OFFSET]   = (u8)ReadCommand;
+		WriteBuffer[ADDRESS_1_OFFSET] = (u8)((QspiAddr & 0xFF0000U) >> 16);
+		WriteBuffer[ADDRESS_2_OFFSET] = (u8)((QspiAddr & 0xFF00U) >> 8);
+		WriteBuffer[ADDRESS_3_OFFSET] = (u8)(QspiAddr & 0xFFU);
 		DiscardByteCnt = 4;
 
 		FlashMsg[0].TxBfrPtr = WriteBuffer;
@@ -682,7 +705,7 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			FlashMsg[1].TxBfrPtr = NULL;
 			FlashMsg[1].RxBfrPtr = NULL;
 			FlashMsg[1].ByteCount = DUMMY_CLOCKS;
-			FlashMsg[1].Flags = 0;
+			FlashMsg[1].Flags = 0U;
 		}
 
 		if (ReadCommand == FAST_READ_CMD_24BIT) {
@@ -702,7 +725,7 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		FlashMsg[2].ByteCount = TransferBytes;
 		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-		if(QspiPsuInstancePtr->Config.ConnectionMode ==
+		if(QspiPsuInstance.Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_PARALLEL){
 			FlashMsg[2].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		}
@@ -712,8 +735,8 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * of bytes from the Flash, send the read command and address and
 		 * receive the specified number of bytes of data in the data buffer
 		 */
-		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 3);
-		if (Status != XST_SUCCESS) {
+		SStatus = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 3);
+		if (SStatus != XFSBL_SUCCESS) {
 			Status = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
@@ -727,21 +750,25 @@ u32 XFsbl_Qspi24Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		SrcAddress += TransferBytes;
 	}
 
-	if(BankSwitchFlag == 1)
+	if(BankSwitchFlag == 1U)
 	{
 		/*
 		 * Reset Bank selection to zero
 		 */
 		Status = SendBankSelect(0);
-		if (Status != XST_SUCCESS) {
+		if (Status != XFSBL_SUCCESS) {
 			Status = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
 	}
+	else
+	{
+		Status = XFSBL_SUCCESS;
+	}
 
 END:
-	return Status;
+	return (u32)Status;
 }
 
 /*****************************************************************************/
@@ -753,7 +780,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-u32 XFsbl_Qspi24Release()
+u32 XFsbl_Qspi24Release(void)
 {
 	u32 Status = XFSBL_SUCCESS;
 
@@ -773,24 +800,26 @@ u32 XFsbl_Qspi24Release()
 u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 {
 	XQspiPsu_Config *QspiConfig;
-	u32 Status = XFSBL_SUCCESS;
+	s32 Status;
+	u32 QspiMode;
+	u32 UStatus;
 
-	QspiPsuInstancePtr = &QspiPsuInstance;
+
 
 	/**
 	 * Initialize the QSPI driver so that it's ready to use
 	 */
 	QspiConfig =  XQspiPsu_LookupConfig(QSPI_DEVICE_ID);
 	if (NULL == QspiConfig) {
-		Status = XFSBL_ERROR_QSPI_INIT;
+		UStatus = XFSBL_ERROR_QSPI_INIT;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_INIT\r\n");
 		goto END;
 	}
 
-	Status =  XQspiPsu_CfgInitialize(QspiPsuInstancePtr, QspiConfig,
+	Status =  XQspiPsu_CfgInitialize(&QspiPsuInstance, QspiConfig,
 			QspiConfig->BaseAddress);
-	if (Status != XST_SUCCESS) {
-		Status = XFSBL_ERROR_QSPI_INIT;
+	if (Status != XFSBL_SUCCESS) {
+		UStatus = XFSBL_ERROR_QSPI_INIT;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_INIT\r\n");
 		goto END;
 	}
@@ -798,14 +827,24 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 	/*
 	 * Set Manual Start
 	 */
-	XQspiPsu_SetOptions(QspiPsuInstancePtr, XQSPIPSU_MANUAL_START_OPTION);
+	Status = XQspiPsu_SetOptions(&QspiPsuInstance, XQSPIPSU_MANUAL_START_OPTION);
 
+	if (Status != XFSBL_SUCCESS) {
+		UStatus = XFSBL_ERROR_QSPI_MANUAL_START;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_MANUAL_START\r\n");
+		goto END;
+	}
 	/*
 	 * Set the pre-scaler for QSPI clock
 	 */
-	XQspiPsu_SetClkPrescaler(QspiPsuInstancePtr, XQSPIPSU_CLK_PRESCALE_8);
+	Status = XQspiPsu_SetClkPrescaler(&QspiPsuInstance, XQSPIPSU_CLK_PRESCALE_8);
 
-	XQspiPsu_SelectFlash(QspiPsuInstancePtr,
+	if (Status != XFSBL_SUCCESS) {
+		UStatus = XFSBL_ERROR_QSPI_PRESCALER_CLK;
+		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_PRESCALER_CLK\r\n");
+		goto END;
+	}
+	XQspiPsu_SelectFlash(&QspiPsuInstance,
 		XQSPIPSU_SELECT_FLASH_CS_LOWER, XQSPIPSU_SELECT_FLASH_BUS_LOWER);
 
 	/*
@@ -813,7 +852,7 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 	 * TBD
 	 */
 
-	switch (XPAR_PSU_QSPI_0_QSPI_MODE) {
+	switch ((u32)XPAR_PSU_QSPI_0_QSPI_MODE) {
 
 		case XQSPIPSU_CONNECTION_MODE_SINGLE:
 		{
@@ -835,9 +874,14 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 			Status = XFSBL_ERROR_INVALID_QSPI_CONNECTION;
 			XFsbl_Printf(DEBUG_GENERAL,
 					"XFSBL_ERROR_INVALID_QSPI_CONNECTION\r\n");
-			goto END;
-		}break;
+		}
+		break;
 
+	}
+
+	if(Status != XFSBL_SUCCESS) {
+		UStatus = (u32)Status;
+		goto END;
 	}
 
 
@@ -850,23 +894,24 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 	/**
 	 * Read Flash ID and extract Manufacture and Size information
 	 */
-	Status = FlashReadID(QspiPsuInstancePtr);
-	if (Status != XFSBL_SUCCESS) {
+	UStatus = FlashReadID(&QspiPsuInstance);
+	if (UStatus != XFSBL_SUCCESS) {
 		goto END;
 	}
 
 	/**
 	 * add code: For a Stacked connection, read second Flash ID
 	 */
-	if ((XPAR_PSU_QSPI_0_QSPI_MODE ==
-			XQSPIPSU_CONNECTION_MODE_PARALLEL) ||
-			(XPAR_PSU_QSPI_0_QSPI_MODE ==
-					XQSPIPSU_CONNECTION_MODE_STACKED) ) {
+	 QspiMode = XPAR_PSU_QSPI_0_QSPI_MODE;
+	if ((QspiMode ==
+			(s32)(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
+			(QspiMode ==
+					(s32)(XQSPIPSU_CONNECTION_MODE_STACKED)) ) {
 		QspiFlashSize = 2 * QspiFlashSize;
 	}
 
 END:
-	return Status;
+	return UStatus;
 }
 
 /*****************************************************************************/
@@ -889,11 +934,12 @@ END:
  *****************************************************************************/
 u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 {
-	u32 Status = XFSBL_SUCCESS;
-	u32 QspiAddr=0;
-	u32 RemainingBytes=0;
-	u32 TransferBytes=0;
+	s32 Status;
+	u32 QspiAddr;
+	u32 RemainingBytes;
+	u32 TransferBytes;
 	u32 DiscardByteCnt;
+	u32 UStatus;
 
 	XFsbl_Printf(DEBUG_INFO,"QSPI Reading Src 0x%0lx, Dest %0lx, Length %0lx\r\n",
 			SrcAddress, DestAddress, Length);
@@ -903,7 +949,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	 */
 	if ((SrcAddress + Length) > QspiFlashSize)
 	{
-		Status = XFSBL_ERROR_QSPI_LENGTH;
+		UStatus = XFSBL_ERROR_QSPI_LENGTH;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_LENGTH\r\n");
 		goto END;
 	}
@@ -914,7 +960,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	 */
 	RemainingBytes = Length;
 
-	while(RemainingBytes > 0) {
+	while(RemainingBytes > 0U) {
 
 		if (RemainingBytes > DMA_DATA_TRAN_SIZE)
 		{
@@ -939,11 +985,11 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * Flash
 		 */
 
-		WriteBuffer[COMMAND_OFFSET]   = ReadCommand;
-		WriteBuffer[ADDRESS_1_OFFSET] = (u8)((QspiAddr & 0xFF000000) >> 24);
-		WriteBuffer[ADDRESS_2_OFFSET] = (u8)((QspiAddr & 0xFF0000) >> 16);
-		WriteBuffer[ADDRESS_3_OFFSET] = (u8)((QspiAddr & 0xFF00) >> 8);
-		WriteBuffer[ADDRESS_4_OFFSET] = (u8)(QspiAddr & 0xFF);
+		WriteBuffer[COMMAND_OFFSET]   = (u8)ReadCommand;
+		WriteBuffer[ADDRESS_1_OFFSET] = (u8)((QspiAddr & 0xFF000000U) >> 24);
+		WriteBuffer[ADDRESS_2_OFFSET] = (u8)((QspiAddr & 0xFF0000U) >> 16);
+		WriteBuffer[ADDRESS_3_OFFSET] = (u8)((QspiAddr & 0xFF00U) >> 8);
+		WriteBuffer[ADDRESS_4_OFFSET] = (u8)(QspiAddr & 0xFFU);
 		DiscardByteCnt = 5;
 
 		FlashMsg[0].TxBfrPtr = WriteBuffer;
@@ -980,7 +1026,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 			FlashMsg[1].TxBfrPtr = NULL;
 			FlashMsg[1].RxBfrPtr = NULL;
 			FlashMsg[1].ByteCount = DUMMY_CLOCKS;
-			FlashMsg[1].Flags = 0;
+			FlashMsg[1].Flags = 0U;
 		}
 
 		if (ReadCommand == FAST_READ_CMD_32BIT) {
@@ -1000,7 +1046,7 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		FlashMsg[2].ByteCount = TransferBytes;
 		FlashMsg[2].Flags = XQSPIPSU_MSG_FLAG_RX;
 
-		if(QspiPsuInstancePtr->Config.ConnectionMode ==
+		if(QspiPsuInstance.Config.ConnectionMode ==
 				XQSPIPSU_CONNECTION_MODE_PARALLEL){
 			FlashMsg[2].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
 		}
@@ -1010,9 +1056,9 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		 * of bytes from the Flash, send the read command and address and
 		 * receive the specified number of bytes of data in the data buffer
 		 */
-		Status = XQspiPsu_PolledTransfer(QspiPsuInstancePtr, FlashMsg, 3);
-		if (Status != XST_SUCCESS) {
-			Status = XFSBL_ERROR_QSPI_READ;
+		Status = XQspiPsu_PolledTransfer(&QspiPsuInstance, &FlashMsg[0], 3);
+		if (Status != XFSBL_SUCCESS) {
+			UStatus = XFSBL_ERROR_QSPI_READ;
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
@@ -1025,9 +1071,9 @@ u32 XFsbl_Qspi32Copy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 		SrcAddress += TransferBytes;
 
 	}
-
+	UStatus = XFSBL_SUCCESS;
 END:
-	return Status;
+	return UStatus;
 }
 
 /*****************************************************************************/
@@ -1039,7 +1085,7 @@ END:
  * @return	None
  *
  *****************************************************************************/
-u32 XFsbl_Qspi32Release()
+u32 XFsbl_Qspi32Release(void)
 {
 	u32 Status = XFSBL_SUCCESS;
 

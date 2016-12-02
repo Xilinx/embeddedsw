@@ -66,7 +66,7 @@ extern "C" {
 #include "xcsudma.h"
 /************************** Constant Definitions *****************************/
 
-#define PL_DONE_POLL_COUNT  10000U
+#define PL_DONE_POLL_COUNT  (u32)(10000U)
 #define PL_RESET_PERIOD_IN_US  1U
 
 /* Dummy address to indicate that destination is PCAP */

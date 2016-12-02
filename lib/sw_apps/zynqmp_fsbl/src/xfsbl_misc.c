@@ -67,20 +67,6 @@ typedef struct {
 } XFsblPs_ZynqmpDevices;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#if 0
-__inline void XFsbl_Printf(u32 DebugType,char *Format, ...)
-{
-#ifdef STDOUT_BASEADDRESS
-	va_list Args;
-	if (((DebugType) & XFsblDbgCurrentTypes) != 0)
-	{
-		va_start(Args, Format);
-		xil_printf(Format, Args);
-		va_end(Args);
-	}
-#endif
-}
-#endif
 /************************** Function Prototypes ******************************/
 static void XFsbl_UndefHandler (void);
 #ifndef ARMA53_64
@@ -94,8 +80,7 @@ static void XFsbl_FiqHandler (void);
 /**
  * functions from xfsbl_main.c
  */
-extern void XFsbl_ErrorLockDown(u32 ErrorStatus);
-
+static s32 XFsbl_Strcmp(const char* Str1Ptr,  const char* Str2Ptr);
 /************************** Variable Definitions *****************************/
 #if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 #ifdef ARMA53_64
@@ -105,21 +90,6 @@ extern INTPTR MMUTableL2;
 extern u32 MMUTable;
 #endif
 #endif
-
-/* Lookup table for Device-SVD Id and DeviceId Name */
-XFsblPs_ZynqmpDevices ZynqmpDevices[] = {
-	{0x10, "3",},
-	{0x11, "2",},
-	{0x20, "5",},
-	{0x21, "4",},
-	{0x30, "7",},
-	{0x38, "9",},
-	{0x39, "6",},
-	{0x40, "11",},
-	{0x50, "15",},
-	{0x58, "19",},
-	{0x59, "17",},
-};
 
 /****************************************************************************/
 /**
@@ -143,7 +113,7 @@ XFsblPs_ZynqmpDevices ZynqmpDevices[] = {
 *****************************************************************************/
 void XFsbl_PrintArray (u32 DebugType, const u8 Buf[], u32 Len, const char *Str)
 {
-	u32 Index=0U;
+	u32 Index;
 
 	if ((DebugType & XFsblDbgCurrentTypes) != 0U)
 	{
@@ -197,12 +167,12 @@ char *XFsbl_Strcpy(char *DestPtr, const char *SrcPtr)
  ******************************************************************************/
 char * XFsbl_Strcat(char* Str1Ptr, const char* Str2Ptr)
 {
-	while( *Str1Ptr )
+	while( *Str1Ptr > '\0')
 	{
 		Str1Ptr++;
 	}
 
-	while( *Str2Ptr )
+	while( *Str2Ptr > '\0')
 	{
 		*Str1Ptr = *Str2Ptr;
 		Str1Ptr++; Str2Ptr++;
@@ -225,9 +195,9 @@ char * XFsbl_Strcat(char* Str1Ptr, const char* Str2Ptr)
  * 				lower/greater value in Str1Ptr
  *
  ******************************************************************************/
-int XFsbl_Strcmp(const char* Str1Ptr, const char* Str2Ptr)
+static s32 XFsbl_Strcmp( const char* Str1Ptr, const char* Str2Ptr)
 {
-	int retVal;
+	s32 retVal;
 
 	while (*Str1Ptr == *Str2Ptr) {
 		if (*Str1Ptr == '\0') {
@@ -238,7 +208,7 @@ int XFsbl_Strcmp(const char* Str1Ptr, const char* Str2Ptr)
 		Str2Ptr++;
 	}
 
-	if( *(unsigned char *)Str1Ptr < *(unsigned char *)Str1Ptr) {
+	if( *Str1Ptr < *Str1Ptr) {
 		retVal = -1;
 	}
 	else {
@@ -260,35 +230,13 @@ END:
  * @return	None
  *
  ******************************************************************************/
-void XFsbl_MemSet(void *SrcPtr, u8 Char, u32 Len)
-{
-	u8 *UsPtr = SrcPtr;
-
-	while (Len != 0)
-	{
-		*UsPtr = Char;
-		UsPtr++;
-		Len--;
-	}
-}
-
-/*****************************************************************************/
-/**
- *
- *
- *
- * @param	None
- *
- * @return	None
- *
- ******************************************************************************/
-void *XFsbl_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
+void* XFsbl_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
 {
 	u8 *Dst = DestPtr;
 	const u8 *Src = SrcPtr;
 
 	/* Loop and copy.  */
-	while (Len != 0)
+	while (Len != 0U)
 	{
 		*Dst = *Src;
 		Dst++;
@@ -309,49 +257,6 @@ void *XFsbl_MemCpy(void * DestPtr, const void * SrcPtr, u32 Len)
  * @return	None
  *
  ******************************************************************************/
-int XFsbl_MemCmp(const void *Str1Ptr, const void *Str2Ptr, u32 Count)
-{
-	const u8 *S1Ptr = (const u8 *)Str1Ptr;
-	const u8 *S2Ptr = (const u8 *)Str2Ptr;
-	int Status = 0;
-
-	while (Count--)
-	{
-	  if (*S1Ptr != *S2Ptr)
-	  {
-	    Status = ((*S1Ptr < *S2Ptr) ? -1 : 1);
-	    break;
-    }
-	  S1Ptr++;
-	  S2Ptr++;
-  }
-
-	return Status;
-}
-
-/*****************************************************************************/
-/**
- *
- *
- *
- * @param       None
- *
- * @return      None
- *
- ******************************************************************************/
-u32 XFsbl_Htonl(u32 Value1)
-{
-    u32 Value2 = 0;
-
-        Value2 |= (Value1 & 0xFF000000) >> 24;
-        Value2 |= (Value1 & 0x00FF0000) >> 8;
-        Value2 |= (Value1 & 0x0000FF00) << 8;
-        Value2 |= (Value1 & 0x000000FF) << 24;
-
-        return Value2;
-}
-
-
 
 /*****************************************************************************/
 /**
@@ -376,35 +281,35 @@ void XFsbl_MakeSdFileName(char *XFsbl_SdEmmcFileName,
 	{
 		/* SD file name is BOOT.BIN when Multiboot register value is 0 */
 		if (DrvNum == XFSBL_SD_DRV_NUM_0) {
-			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT.BIN");
+			(void)XFsbl_Strcpy(XFsbl_SdEmmcFileName, "BOOT.BIN");
 		}
 		else {
 			/* For second SD instance, include drive number 1 as well */
-			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "1:/BOOT.BIN");
+			(void)XFsbl_Strcpy(XFsbl_SdEmmcFileName, "1:/BOOT.BIN");
 		}
 	}
 	else
 	{
 		/* set default SD file name as BOOT0000.BIN */
 		if (DrvNum == XFSBL_SD_DRV_NUM_0) {
-			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "BOOT0000.BIN");
+			(void)XFsbl_Strcpy(XFsbl_SdEmmcFileName, "BOOT0000.BIN");
 			FileNameLen = XFSBL_BASE_FILE_NAME_LEN_SD_0;
 		}
 		else {
 			/* For second SD instance, include drive number 1 as well */
-			(void)XFsbl_Strcpy((char *)XFsbl_SdEmmcFileName, "1:/BOOT0000.BIN");
+			(void)XFsbl_Strcpy(XFsbl_SdEmmcFileName, "1:/BOOT0000.BIN");
 			FileNameLen = XFSBL_BASE_FILE_NAME_LEN_SD_1;
 		}
 
 		/* Update file name (to BOOTXXXX.BIN) based on Multiboot register value */
-		for(Index = FileNameLen - 1;
-				Index >= FileNameLen - XFSBL_NUM_DIGITS_IN_FILE_NAME;
+		for(Index = FileNameLen - 1U;
+				Index >= (FileNameLen - XFSBL_NUM_DIGITS_IN_FILE_NAME);
 				Index--)
 		{
-			Value = MultiBootNum % 10;
-			MultiBootNum = MultiBootNum / 10;
-			XFsbl_SdEmmcFileName[Index] += (s8)Value;
-			if (MultiBootNum == 0)
+			Value = MultiBootNum % 10U;
+			MultiBootNum = MultiBootNum / 10U;
+			XFsbl_SdEmmcFileName[Index] += (char)Value;
+			if (MultiBootNum == 0U)
 			{
 				break;
 			}
@@ -617,7 +522,7 @@ u32 XFsbl_PowerUpIsland(u32 PwrIslandMask)
 	u32 Status = XFSBL_SUCCESS;
 
 	/* Skip power-up request for QEMU */
-	if (XGet_Zynq_UltraMp_Platform_info() != XPLAT_ZYNQ_ULTRA_MPQEMU)
+	if (XGet_Zynq_UltraMp_Platform_info() != (u32)XPLAT_ZYNQ_ULTRA_MPQEMU)
 	{
 		/* There is a single island for both R5_0 and R5_1 */
 		if ((PwrIslandMask & PMU_GLOBAL_PWR_STATE_R5_1_MASK) ==
@@ -659,7 +564,7 @@ u32 XFsbl_IsolationRestore(u32 IsolationMask)
 	u32 Status = XFSBL_SUCCESS;
 
 	/* Skip power-up request for QEMU */
-	if (XGet_Zynq_UltraMp_Platform_info() != XPLAT_ZYNQ_ULTRA_MPQEMU)
+	if (XGet_Zynq_UltraMp_Platform_info() != (u32)XPLAT_ZYNQ_ULTRA_MPQEMU)
 	{
 
 		/* Isolation request enable */
@@ -748,8 +653,22 @@ void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib)
 * @return	string containing Device Id Name or "UNKN" if none found
 *
 ******************************************************************************/
-char *XFsbl_GetSiliconIdName(void)
+const char *XFsbl_GetSiliconIdName(void)
 {
+	/* Lookup table for Device-SVD Id and DeviceId Name */
+	static XFsblPs_ZynqmpDevices ZynqmpDevices[] = {
+		{0x10U, "3",},
+		{0x11U, "2",},
+		{0x20U, "5",},
+		{0x21U, "4",},
+		{0x30U, "7",},
+		{0x38U, "9",},
+		{0x39U, "6",},
+		{0x40U, "11",},
+		{0x50U, "15",},
+		{0x58U, "19",},
+		{0x59U, "17",},
+	};
 	u32 DevSvdId;
 	u32 Index;
 
@@ -758,7 +677,7 @@ char *XFsbl_GetSiliconIdName(void)
 	DevSvdId &= CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK;
 	DevSvdId >>= CSU_IDCODE_SVD_SHIFT;
 
-	for (Index = 0; Index < ARRAY_SIZE(ZynqmpDevices); Index++) {
+	for (Index = 0U; Index < ARRAY_SIZE(ZynqmpDevices); Index++) {
 		if (ZynqmpDevices[Index].Id == DevSvdId) {
 			return ZynqmpDevices[Index].Name;
 		}
@@ -777,7 +696,7 @@ char *XFsbl_GetSiliconIdName(void)
 * @return	"CG" or "EG" based on IPDISABLE register
 *
 ******************************************************************************/
-char *XFsbl_GetProcEng(void)
+const char *XFsbl_GetProcEng(void)
 {
 
 	if ((XFsbl_In32(EFUSE_IPDISABLE) & EFUSE_IPDISABLE_CG_MASK) ==
@@ -802,7 +721,7 @@ char *XFsbl_GetProcEng(void)
 ******************************************************************************/
 u32 XFsbl_CheckSupportedCpu(u32 CpuId)
 {
-	u32 Status = XFSBL_SUCCESS;
+	u32 Status;
 
 	if ((0 == XFsbl_Strcmp(XFsbl_GetProcEng(), "CG")) &&
 			((CpuId == XIH_PH_ATTRB_DEST_CPU_A53_2) ||
@@ -812,6 +731,7 @@ u32 XFsbl_CheckSupportedCpu(u32 CpuId)
 	}
 
 	/* Add code to check for support of other CPUs/cores in future */
+	Status = XFSBL_SUCCESS;
 
 END:
 	return Status;

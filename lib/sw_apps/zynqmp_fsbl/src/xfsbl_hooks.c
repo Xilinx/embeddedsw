@@ -136,7 +136,7 @@ u32 XFsbl_HookBeforeFallback(void)
 
 u32 XFsbl_HookPsuInit(void)
 {
-	u32 Status = XFSBL_SUCCESS;
+	u32 Status;
 
 	/* Add the code here */
 

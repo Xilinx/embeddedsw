@@ -92,13 +92,8 @@ extern "C" {
 #else
 #define XFsblDbgCurrentTypes (0U)
 #endif
-
-#if 0
-__inline void XFsbl_Printf(u32 DebugType,char *Format, ...);
-#else
 #define XFsbl_Printf(DebugType,...) \
-		if (((DebugType) & XFsblDbgCurrentTypes) != 0U)  {xil_printf (__VA_ARGS__); }
-#endif
+		if(((DebugType) & XFsblDbgCurrentTypes)!=XFSBL_SUCCESS) {xil_printf (__VA_ARGS__); }
 
 #ifdef __cplusplus
 }

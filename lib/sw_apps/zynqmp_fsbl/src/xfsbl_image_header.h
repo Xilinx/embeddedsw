@@ -153,26 +153,26 @@ extern "C" {
 #define XIH_PH_ATTRB_HASH_SHA3			(0x3000U)
 
 #define XIH_PH_ATTRB_DEST_CPU_NONE	(0x0000U)
-#define XIH_PH_ATTRB_DEST_CPU_A53_0	(0x0100U)
-#define XIH_PH_ATTRB_DEST_CPU_A53_1	(0x0200U)
-#define XIH_PH_ATTRB_DEST_CPU_A53_2	(0x0300U)
-#define XIH_PH_ATTRB_DEST_CPU_A53_3	(0x0400U)
-#define XIH_PH_ATTRB_DEST_CPU_R5_0	(0x0500U)
-#define XIH_PH_ATTRB_DEST_CPU_R5_1	(0x0600U)
-#define XIH_PH_ATTRB_DEST_CPU_R5_L	(0x0700U)
+#define XIH_PH_ATTRB_DEST_CPU_A53_0	(u32)(0x100U)
+#define XIH_PH_ATTRB_DEST_CPU_A53_1	(u32)(0x200U)
+#define XIH_PH_ATTRB_DEST_CPU_A53_2	(u32)(0x300U)
+#define XIH_PH_ATTRB_DEST_CPU_A53_3	(u32)(0x400U)
+#define XIH_PH_ATTRB_DEST_CPU_R5_0	(u32)(0x500U)
+#define XIH_PH_ATTRB_DEST_CPU_R5_1	(u32)(0x600U)
+#define XIH_PH_ATTRB_DEST_CPU_R5_L	(u32)(0x700U)
 
-#define XIH_PH_ATTRB_ENCRYPTION		(0x0080U)
+#define XIH_PH_ATTRB_ENCRYPTION		(u32)(0x80U)
 
 
-#define XIH_PH_ATTRB_DEST_DEVICE_NONE	(0x0000U)
-#define XIH_PH_ATTRB_DEST_DEVICE_PS	(0x0010U)
-#define XIH_PH_ATTRB_DEST_DEVICE_PL	(0x0020U)
-#define XIH_PH_ATTRB_DEST_DEVICE_PMU	(0x0030U)
+#define XIH_PH_ATTRB_DEST_DEVICE_NONE	(u32)(0x0000U)
+#define XIH_PH_ATTRB_DEST_DEVICE_PS	(u32)(0x0010U)
+#define XIH_PH_ATTRB_DEST_DEVICE_PL	(u32)(0x0020U)
+#define XIH_PH_ATTRB_DEST_DEVICE_PMU	(u32)(0x0030U)
 
-#define XIH_PH_ATTRB_A53_EXEC_ST_AA32	(0x0008U)
-#define XIH_PH_ATTRB_A53_EXEC_ST_AA64	(0x0000U)
+#define XIH_PH_ATTRB_A53_EXEC_ST_AA32	(u32)(0x0008U)
+#define XIH_PH_ATTRB_A53_EXEC_ST_AA64	(u32)(0x0000U)
 
-#define XIH_INVALID_EXEC_ST	(0xFFFFU)
+#define XIH_INVALID_EXEC_ST	(u32)(0xFFFFU)
 /**
  * Below is the bit mapping of fields in the ATF Handoff parameters
  * with that of Partition header. The number of bits shifted is
@@ -194,13 +194,13 @@ extern "C" {
 
 
 #define XIH_PART_FLAGS_DEST_CPU_A53_MASK   	(0x60U)
-#define XIH_PART_FLAGS_DEST_CPU_A53_0   	(0x00U)
-#define XIH_PART_FLAGS_DEST_CPU_A53_1   	(0x20U)
-#define XIH_PART_FLAGS_DEST_CPU_A53_2   	(0x40U)
-#define XIH_PART_FLAGS_DEST_CPU_A53_3   	(0x60U)
+#define XIH_PART_FLAGS_DEST_CPU_A53_0   	(u32)(0x00U)
+#define XIH_PART_FLAGS_DEST_CPU_A53_1   	(u32)(0x20U)
+#define XIH_PART_FLAGS_DEST_CPU_A53_2   	(u32)(0x40U)
+#define XIH_PART_FLAGS_DEST_CPU_A53_3   	(u32)(0x60U)
 
 /* Number of entries possible in ATF: 4 cores * 2 (secure, nonsecure) */
-#define XFSBL_MAX_ENTRIES_FOR_ATF	8
+#define XFSBL_MAX_ENTRIES_FOR_ATF	8U
 
 /**************************** Type Definitions *******************************/
 
@@ -277,19 +277,19 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-u32 XFsbl_GetPartitionOwner(XFsblPs_PartitionHeader * PartitionHeader);
-u32 XFsbl_IsRsaSignaturePresent(XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetPartitionOwner(const XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_IsRsaSignaturePresent(const XFsblPs_PartitionHeader * PartitionHeader);
 u32 XFsbl_GetChecksumType(XFsblPs_PartitionHeader * PartitionHeader);
-u32 XFsbl_GetDestinationCpu(XFsblPs_PartitionHeader * PartitionHeader);
-u32 XFsbl_IsEncrypted(XFsblPs_PartitionHeader * PartitionHeader);
-u32 XFsbl_GetDestinationDevice(XFsblPs_PartitionHeader * PartitionHeader);
-u32 XFsbl_GetA53ExecState(XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetDestinationCpu(const XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_IsEncrypted(const XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetDestinationDevice(const XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetA53ExecState(const XFsblPs_PartitionHeader * PartitionHeader);
 
 u32 XFsbl_ValidateChecksum(u32 Buffer[], u32 Length);
 u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
-                  XFsblPs_DeviceOps * DeviceOps, u32 FlashImageOffsetAddress,
+                  const XFsblPs_DeviceOps * DeviceOps, u32 FlashImageOffsetAddress,
                   u32 RunningCpu);
-u32 XFsbl_ValidateImageHeader(XFsblPs_ImageHeaderTable * ImageHeaderTable);
+u32 XFsbl_ValidateImageHeader(const XFsblPs_ImageHeaderTable * ImageHeaderTable);
 u32 XFsbl_ValidatePartitionHeader(XFsblPs_PartitionHeader * PartitionHeader,
 			u32 RunningCpu);
 

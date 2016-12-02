@@ -72,8 +72,8 @@
 
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr);
-static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr);
-static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr);
+static u32 XFsbl_ResetValidation(void);
+static u32 XFsbl_SystemInit(const XFsblPs * FsblInstancePtr);
 static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
@@ -96,28 +96,6 @@ void XFsbl_RegisterHandlers(void);
 
 /************************** Variable Definitions *****************************/
 
-
-/****************************************************************************/
-/**
- * This function is used to initialize the FsblInstance with the
- * default values
- *
- * @param  FsblInstancePtr is pointer to the XFsbl Instance
- *
- * @return None
- *
- * @note
- *
- *****************************************************************************/
-void XFsbl_CfgInitialize (XFsblPs * FsblInstancePtr)
-{
-	FsblInstancePtr->Version = 0x3U;
-	FsblInstancePtr->ErrorCode = XFSBL_SUCCESS;
-	FsblInstancePtr->HandoffCpuNo = 0U;
-	FsblInstancePtr->ResetReason = 0U;
-	FsblInstancePtr->TcmEccInitStatus = 0U;
-}
-
 /****************************************************************************/
 /**
  * This function is used to get the Reset Reason
@@ -132,15 +110,19 @@ void XFsbl_CfgInitialize (XFsblPs * FsblInstancePtr)
 static u32 XFsbl_GetResetReason (void)
 {
 	u32 Val;
-	u32 Ret = 0;
+	u32 Ret;
 
 	Val = XFsbl_In32(CRL_APB_RESET_REASON);
 
-	if (Val & CRL_APB_RESET_REASON_PSONLY_RESET_REQ_MASK) {
+	if ((Val & CRL_APB_RESET_REASON_PSONLY_RESET_REQ_MASK) != 0U) {
 		/* Clear the PS Only reset bit as it is sticky */
 		Val = CRL_APB_RESET_REASON_PSONLY_RESET_REQ_MASK;
 		XFsbl_Out32(CRL_APB_RESET_REASON, Val);
 		Ret = PS_ONLY_RESET;
+	}
+	else
+	{
+		Ret=0U;
 	}
 
 	return Ret;
@@ -159,7 +141,7 @@ static u32 XFsbl_GetResetReason (void)
  *****************************************************************************/
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 {
-	u32 Status = XFSBL_SUCCESS;
+	u32 Status;
 	u32 ResetReason;
 
 	ResetReason = XFsbl_GetResetReason();
@@ -207,7 +189,7 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	/**
 	 * Validate the reset reason
 	 */
-	Status = XFsbl_ResetValidation(FsblInstancePtr);
+	Status = XFsbl_ResetValidation();
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
@@ -230,7 +212,7 @@ END:
  ******************************************************************************/
 u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr)
 {
-	u32 Status = XFSBL_SUCCESS;
+	u32 Status;
 
 	/**
 	 * Configure the primary boot device
@@ -282,9 +264,8 @@ END:
  ******************************************************************************/
 static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 {
-	u32 Status = XFSBL_SUCCESS;
-	//u64 ClusterId=0U;
-	PTRSIZE ClusterId=0U;
+	u32 Status;
+	PTRSIZE ClusterId;
 	u32 RegValue;
 	u32 Index=0U;
 	char DevName[PART_NAME_LEN_MAX];
@@ -302,7 +283,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 
 	XFsbl_Printf(DEBUG_INFO,"Cluster ID 0x%0lx\n\r", ClusterId);
 
-	if (XGet_Zynq_UltraMp_Platform_info() == XPLAT_ZYNQ_ULTRA_MPQEMU) {
+	if (XGet_Zynq_UltraMp_Platform_info() == (u32)XPLAT_ZYNQ_ULTRA_MPQEMU) {
 		/**
 		 * Remmaping for R5 in QEMU
 		 */
@@ -356,7 +337,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 		 */
 		while (Index<32U) {
 			XFsbl_Out32(Index, XFSBL_R5_VECTOR_VALUE);
-			Index += 4;
+			Index += 4U;
 		}
 
 	} else {
@@ -367,9 +348,9 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 	}
 
 	/* Build Device name and print it */
-	XFsbl_Strcpy(DevName, "XCZU");
-	XFsbl_Strcat(DevName, XFsbl_GetSiliconIdName());
-	XFsbl_Strcat(DevName, XFsbl_GetProcEng());
+	(void)XFsbl_Strcpy(DevName, "XCZU");
+	(void)XFsbl_Strcat(DevName, XFsbl_GetSiliconIdName());
+	(void)XFsbl_Strcat(DevName, XFsbl_GetProcEng());
 	XFsbl_Printf(DEBUG_GENERAL, ", Device Name: %s\n\r", DevName);
 
 	/**
@@ -406,6 +387,7 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 
 #endif
 
+	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
@@ -421,11 +403,11 @@ END:
  *
  ******************************************************************************/
 
-static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
+static u32 XFsbl_ResetValidation(void)
 {
-	u32 Status =  XFSBL_SUCCESS;
-	u32 FsblErrorStatus=0U;
-	u32 ResetReasonValue=0U;
+	u32 Status;
+	u32 FsblErrorStatus;
+	u32 ResetReasonValue;
 	u32 ErrStatusRegValue;
 
 	/**
@@ -435,15 +417,15 @@ static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
 	FsblErrorStatus = XFsbl_In32(XFSBL_ERROR_STATUS_REGISTER_OFFSET);
 
 	ResetReasonValue = XFsbl_In32(CRL_APB_RESET_REASON);
-	ErrStatusRegValue = XFsbl_In32(PMU_GLOBAL_ERROR_STATUS_1);
 
 	/**
 	 * Check if the reset is due to system WDT during
 	 * previous FSBL execution
 	 */
-	if (((ResetReasonValue & CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK)
-			== CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK) &&
-			((ErrStatusRegValue & PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK)
+	if ((ResetReasonValue & CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK)
+			== CRL_APB_RESET_REASON_PMU_SYS_RESET_MASK) {
+		ErrStatusRegValue = XFsbl_In32(PMU_GLOBAL_ERROR_STATUS_1);
+		if(((ErrStatusRegValue& PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK)
 			== PMU_GLOBAL_ERROR_STATUS_1_LPD_SWDT_MASK) &&
 			(FsblErrorStatus == XFSBL_RUNNING)) {
 		/**
@@ -453,6 +435,7 @@ static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
 		Status = XFSBL_ERROR_SYSTEM_WDT_RESET;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SYSTEM_WDT_RESET\n\r");
 		goto END;
+		}
 	}
 
 	/**
@@ -469,6 +452,7 @@ static u32 XFsbl_ResetValidation(XFsblPs * FsblInstancePtr)
 	 * 	provide FsblHook function for any action
 	 */
 
+	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
@@ -483,9 +467,9 @@ END:
  * 			returns XFSBL_SUCCESS on success
  *
  ******************************************************************************/
-static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
+static u32 XFsbl_SystemInit(const XFsblPs * FsblInstancePtr)
 {
-	u32 Status =  XFSBL_SUCCESS;
+	u32 Status;
 #if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 	u32 BlockNum;
 #endif
@@ -496,7 +480,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	 * before MIO33 is configured. Hence, before MIO configuration,
 	 * Powerup PL (but restore isolation).
 	 */
-	if (XGetPSVersion_Info() <= XPS_VERSION_2) {
+	if (XGetPSVersion_Info() <= (u32)XPS_VERSION_2) {
 		Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_PL_MASK);
 
 		if (Status != XFSBL_SUCCESS) {
@@ -507,7 +491,12 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 
 		/* For PS only reset, make sure FSBL exits with isolation removed */
 		if (FsblInstancePtr->ResetReason != PS_ONLY_RESET) {
-		XFsbl_IsolationRestore(PMU_GLOBAL_REQ_ISO_INT_EN_PL_NONPCAP_MASK);
+			Status  = XFsbl_IsolationRestore(PMU_GLOBAL_REQ_ISO_INT_EN_PL_NONPCAP_MASK);
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_PMU_GLOBAL_REQ_ISO;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PMU_GLOBAL_REQ_ISO_INT_EN_PL\r\n");
+				goto END;
+			}
 		}
 	}
 
@@ -545,7 +534,7 @@ static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 	Xil_DCacheFlush();
 #else
 	/* For A53 32bit*/
-	for(BlockNum = 0; BlockNum < NUM_BLOCKS_A53_32; BlockNum++)
+	for(BlockNum = 0U; BlockNum < NUM_BLOCKS_A53_32; BlockNum++)
 	{
 		XFsbl_SetTlbAttributes(BlockNum * BLOCK_SIZE_A53_32, ATTRIB_MEMORY_A53_32);
 	}
@@ -588,8 +577,8 @@ END:
  ******************************************************************************/
 static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 {
-	u32 Status =  XFSBL_SUCCESS;
-	u32 BootMode=0U;
+	u32 Status;
+	u32 BootMode;
 
 	/**
 	 * Read Boot Mode register and update the value
@@ -650,6 +639,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_Qspi24Init;
 			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_Qspi24Copy;
 			FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_Qspi24Release;
+			Status = XFSBL_SUCCESS;
 #else
 			/**
 			 * This bootmode is not supported in this release
@@ -672,6 +662,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
             FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_Qspi32Init;
 			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_Qspi32Copy;
 			FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_Qspi32Release;
+			Status = XFSBL_SUCCESS;
 #else
 			/**
 			 * This bootmode is not supported in this release
@@ -695,6 +686,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_NandCopy;
 			FsblInstancePtr->DeviceOps.DeviceRelease =
 							XFsbl_NandRelease;
+			Status = XFSBL_SUCCESS;
 #else
 			/**
 			 * This bootmode is not supported in this release
@@ -721,6 +713,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 			FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
+			Status = XFSBL_SUCCESS;
 #else
 			/**
 			 * This bootmode is not supported in this release
@@ -748,6 +741,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
 			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
 			FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
+			Status = XFSBL_SUCCESS;
 #else
 			/**
 			 * This bootmode is not supported in this release
@@ -829,29 +823,25 @@ END:
  ******************************************************************************/
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 {
-	u32 Status =  XFSBL_SUCCESS;
+	u32 Status;
 	u32 MultiBootOffset=0U;
 	u32 BootHdrAttrb=0U;
-	u32 FlashImageOffsetAddress=0U;
-	u32 EfuseCtrl=0U;
+	u32 FlashImageOffsetAddress;
+	u32 EfuseCtrl;
 
 	/**
 	 * Read the Multiboot Register
 	 */
-	MultiBootOffset = XFsbl_In32(CSU_CSU_MULTI_BOOT);
-	XFsbl_Printf(DEBUG_INFO,"Multiboot Reg : 0x%0lx \n\r", MultiBootOffset);
 
 	/**
 	 *  Calculate the Flash Offset Address
 	 *  For file system based devices, Flash Offset Address should be 0 always
 	 */
-	if ((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD0_BOOT_MODE) ||
+	if (!((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD0_BOOT_MODE) ||
 			(FsblInstancePtr->PrimaryBootDevice == XFSBL_EMMC_BOOT_MODE) ||
 			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_BOOT_MODE) ||
-			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_LS_BOOT_MODE))
+			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_LS_BOOT_MODE)))
 	{
-		FsblInstancePtr->ImageOffsetAddress = 0x0U;
-	} else {
 		FsblInstancePtr->ImageOffsetAddress =
 				MultiBootOffset * XFSBL_IMAGE_SEARCH_OFFSET;
 	}
@@ -886,7 +876,7 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	 * Read Efuse bit and check Boot Header for Authentication
 	 */
 	EfuseCtrl = XFsbl_In32(EFUSE_SEC_CTRL);
-	if (((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0) ||
+	if (((EfuseCtrl & EFUSE_SEC_CTRL_RSA_EN_MASK) != 0U) ||
 	    ((BootHdrAttrb & XIH_BH_IMAGE_ATTRB_RSA_MASK)
 		== XIH_BH_IMAGE_ATTRB_RSA_MASK)) {
 
@@ -944,21 +934,21 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
  * 		- errors as mentioned in xfsbl_error.h
  *
  *****************************************************************************/
-u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes)
+static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes)
 {
 	u32 RegVal;
-	u32 Status =  XFSBL_SUCCESS;
-	u32 Length = 0;
+	u32 Status;
+	u32 Length;
 	u64 StartAddr = DestAddr;
 	u64 NumBytes = LengthBytes;
 
 	Xil_DCacheDisable();
 
-	while (NumBytes > 0) {
+	while (NumBytes > 0U) {
 		if (NumBytes > ZDMA_TRANSFER_MAX_LEN) {
 			Length = ZDMA_TRANSFER_MAX_LEN;
 		} else {
-			Length = NumBytes;
+			Length = (u32)NumBytes;
 		}
 
 		/* Wait until the DMA is in idle state */
@@ -1038,6 +1028,7 @@ u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes)
 			"Address 0x%0lx, Length %0lx, ECC initialized \r\n",
 			DestAddr, LengthBytes);
 
+	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
@@ -1054,9 +1045,9 @@ END:
  * 		- errors as mentioned in xfsbl_error.h
  *
  *****************************************************************************/
-u32 XFsbl_DdrEccInit(void)
+static u32 XFsbl_DdrEccInit(void)
 {
-	u32 Status =  XFSBL_SUCCESS;
+	u32 Status;
 #if XPAR_PSU_DDRC_0_HAS_ECC
 	u64 LengthBytes =
 			(XFSBL_PS_DDR_END_ADDRESS - XFSBL_PS_DDR_INIT_START_ADDRESS) + 1;
@@ -1084,8 +1075,9 @@ u32 XFsbl_DdrEccInit(void)
 		goto END;
 	}
 #endif
-
 END:
+#else
+	Status = XFSBL_SUCCESS;
 #endif
 	return Status;
 }
@@ -1105,11 +1097,11 @@ END:
  *****************************************************************************/
 u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 {
-	u32 Status =  XFSBL_SUCCESS;
+	u32 Status;
 	u32 LengthBytes;
-	u32 ATcmAddr = 0;
-	u32 BTcmAddr = 0;
-	u32 EccInitStatus = 0;
+	u32 ATcmAddr;
+	u32 BTcmAddr;
+	u32 EccInitStatus;
 
 	XFsbl_Printf(DEBUG_GENERAL,"Initializing TCM ECC\n\r");
 
@@ -1139,6 +1131,9 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 		}
 		else {
 			/* for MISRA-C */
+			ATcmAddr=0U;
+			BTcmAddr=0U;
+			EccInitStatus=0U;
 		}
 
 		LengthBytes = XFSBL_R5_TCM_BANK_LENGTH;
@@ -1176,13 +1171,14 @@ END:
  * 		- errors as mentioned in xfsbl_error.h
  *
  *****************************************************************************/
-u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr)
+static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr)
 {
-	u32 Status =  XFSBL_SUCCESS;
+	u32 Status;
 	u32 RegValue;
 
 	if (FsblInstancePtr->ProcessorID == XIH_PH_ATTRB_DEST_CPU_A53_0) {
 #ifndef XFSBL_A53_TCM_ECC
+		Status = XFSBL_SUCCESS;
 		goto END;
 #endif
 	}

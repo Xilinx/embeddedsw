@@ -100,7 +100,7 @@ void XFsbl_ShaStart(void * Ctx, u32 HashLen)
 {
 	if(XFSBL_HASH_TYPE_SHA3 == HashLen)
 	{
-		XSecure_Sha3Initialize(&SecureSha3, &CsuDma);
+		(void)XSecure_Sha3Initialize(&SecureSha3, &CsuDma);
 
 		XSecure_Sha3Start(&SecureSha3);
 	}

@@ -67,6 +67,6 @@ extern "C" {
 #define XFSBL_CSU_SSS_SRC_SRC_DMA    0x5U
 
 /************************** Function Prototypes ******************************/
-u32 XFsbl_CsuDmaInit();
+u32 XFsbl_CsuDmaInit(void);
 
 #endif /* XFSBL_CSU_DMA_H*/

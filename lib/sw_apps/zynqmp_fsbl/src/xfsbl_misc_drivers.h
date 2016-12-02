@@ -75,10 +75,9 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 #ifdef XFSBL_WDT_PRESENT
-u32 XFsbl_InitWdt();
-u32 XFsbl_ConvertTime_WdtCounter(u32 seconds);
-void XFsbl_StopWdt();
-void XFsbl_RestartWdt();
+u32 XFsbl_InitWdt(void);
+void XFsbl_StopWdt(void);
+void XFsbl_RestartWdt(void);
 #endif
 
 /************************** Variable Definitions *****************************/

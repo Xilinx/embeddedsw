@@ -61,7 +61,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-XCsuDma CsuDma;
+XCsuDma CsuDma = {0U};
 
 /*****************************************************************************/
 /**
@@ -73,9 +73,10 @@ XCsuDma CsuDma;
  * 		returns XFSBL_SUCCESS on success
  *
  *****************************************************************************/
-u32 XFsbl_CsuDmaInit()
+u32 XFsbl_CsuDmaInit(void)
 {
-	u32 Status = XFSBL_SUCCESS;
+	u32 Status;
+	s32 SStatus;
 	XCsuDma_Config * CsuDmaConfig;
 
 	CsuDmaConfig = XCsuDma_LookupConfig(0);
@@ -85,13 +86,14 @@ u32 XFsbl_CsuDmaInit()
 		goto END;
 	}
 
-	Status = XCsuDma_CfgInitialize(&CsuDma, CsuDmaConfig,
+	SStatus = XCsuDma_CfgInitialize(&CsuDma, CsuDmaConfig,
 			CsuDmaConfig->BaseAddress);
-	if (Status != XFSBL_SUCCESS) {
+	if (SStatus != XFSBL_SUCCESS) {
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_CSUDMA_INIT_FAIL \n\r");
 		Status = XFSBL_ERROR_CSUDMA_INIT_FAIL;
 		goto END;
 	}
+	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }

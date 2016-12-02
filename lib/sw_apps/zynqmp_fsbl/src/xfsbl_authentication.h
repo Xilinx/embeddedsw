@@ -59,14 +59,14 @@ extern "C" {
 #include "xcsudma.h"
 #include "xparameters.h"
 #ifdef XFSBL_SHA2
-#include "xilrsa.h"
+#include "xsecure_sha2.h"
 #endif
 /***************************** Type defines *********************************/
 #define XFSBL_HASH_TYPE_SHA3					(48U)
 #define XFSBL_HASH_TYPE_SHA2					(32U)
 
-#define XFSBL_PPK_SIZE						(512U+512U+64U)
-#define XFSBL_SPK_SIZE						XFSBL_PPK_SIZE
+#define XFSBL_SPK_SIZE						(512U+512U+64U)
+#define XFSBL_PPK_SIZE						(u32)(XFSBL_SPK_SIZE)
 #define XFSBL_PPK_MOD_SIZE					(512U)
 #define XFSBL_PPK_MOD_EXT_SIZE				(512U)
 #define XFSBL_SPK_MOD_SIZE				XFSBL_PPK_MOD_SIZE
@@ -74,13 +74,11 @@ extern "C" {
 #define XFSBL_SPK_SIG_SIZE					(512U)
 #define XFSBL_BHDR_SIG_SIZE					(512U)
 #define XFSBL_FSBL_SIG_SIZE					(512U)
-#define XFSBL_RSA_KEY_LEN					(4096U)
-#define XFSBL_RSA_BIG_ENDIAN					(0x1U)
 #define XFSBL_RSA_AC_ALIGN					(64U)
 
-#define XFSBL_AUTH_HEADER_SIZE				(8U)
+#define XFSBL_AUTH_HEADER_SIZE				(u32)(8U)
 
-#define	XFSBL_AUTH_CERT_USER_DATA		(64U - XFSBL_AUTH_HEADER_SIZE)
+#define	XFSBL_AUTH_CERT_USER_DATA		((u32)64U - XFSBL_AUTH_HEADER_SIZE)
 
 #define XFSBL_AUTH_CERT_MIN_SIZE	(XFSBL_AUTH_HEADER_SIZE 	\
 					+ XFSBL_AUTH_CERT_USER_DATA 	\
@@ -90,9 +88,6 @@ extern "C" {
 					+ XFSBL_BHDR_SIG_SIZE 		\
 					+ XFSBL_FSBL_SIG_SIZE)
 
-#define XFSBL_AUTH_CERT_MAX_SIZE	(XFSBL_AUTH_CERT_MIN_SIZE + 60)
-
-#define XFSBL_PARTIAL_AC_SIZE  (XFSBL_AUTH_CERT_MIN_SIZE - XFSBL_FSBL_SIG_SIZE)
 
 #define XFSBL_AUTH_BUFFER_SIZE	(XFSBL_AUTH_CERT_MIN_SIZE)
 
@@ -100,43 +95,11 @@ extern "C" {
 * CSU RSA Register Map
 */
 
-#define XFSBL_CSU_RSA_CONTROL_2048	     (0xA0U)
-#define XFSBL_CSU_RSA_CONTROL_4096	     (0xC0U)
-#define XFSBL_CSU_RSA_CONTROL_DCA         (0x08U)
-#define XFSBL_CSU_RSA_CONTROL_NOP         (0x00U)
-#define XFSBL_CSU_RSA_CONTROL_EXP         (0x01U)
-#define XFSBL_CSU_RSA_CONTROL_EXP_PRE     (0x05U)
-#define XFSBL_CSU_RSA_CONTROL_MASK		 (XFSBL_CSU_RSA_CONTROL_4096 \
-						+ XFSBL_CSU_RSA_CONTROL_EXP_PRE)
-
-#define XFSBL_CSU_RSA_RAM_EXPO			 (0)
-#define XFSBL_CSU_RSA_RAM_MOD			 (1)
-#define XFSBL_CSU_RSA_RAM_DIGEST		 (2)
-#define XFSBL_CSU_RSA_RAM_SPAD			 (3)
-#define XFSBL_CSU_RSA_RAM_RES_Y			 (4)
-#define XFSBL_CSU_RSA_RAM_RES_Q			 (5)
-
-#define XFSBL_CSU_RSA_RAM_WORDS			 (6)
-
-/**
-* CSU SHA3 Memory Map
-*/
-
-#define XFSBL_SHA3_BLOCK_LEN 			 (104)
-
-#define	XFSBL_SHA3_LAST_PACKET			 (0x1)
 
 #ifdef XFSBL_SECURE
-u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
-				u32 PartitionLen, u64 AcOffset, u32 HashLen,
+u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
+				u32 PartitionLen, u64 AcOffset,
 				u32 PartitionNum);
-u32 XFsbl_PartitionSignVer(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
-				u32 PartitionLen, u64 AcOffset, u32 HashLen,
-				u32 PartitionNum);
-u32 XFsbl_SpkVer(XFsblPs * FsblInstancePtr, u64 AcOffset, u32 HashLen);
-
-u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen);
-
 void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 void XFsbl_ShaStart(void * Ctx, u32 HashLen);
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);

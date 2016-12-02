@@ -182,8 +182,6 @@ typedef struct {
  */
 void XFsbl_PrintFsblBanner(void );
 void XFsbl_ErrorLockDown(u32 ErrorStatus);
-void XFsbl_FallBack(void );
-void XFsbl_UpdateMultiBoot(u32 MultiBootValue);
 
 #if defined(XFSBL_PERF)
 void XFsbl_MeasurePerfTime(XTime tCur);
@@ -192,7 +190,6 @@ void XFsbl_MeasurePerfTime(XTime tCur);
 /**
  * Functions defined in xfsbl_initialization.c
  */
-void XFsbl_CfgInitialize (XFsblPs * FsblInstancePtr);
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr);
 u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr);
 u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId);
@@ -202,17 +199,11 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId);
  */
 u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 u32 XFsbl_PowerUpMemory(u32 MemoryType);
-u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
-		PTRSIZE LoadAddress, u32 PartitionNum);
-u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr, PTRSIZE LoadAddress,
-		u32 PartitionNum, u32 ChecksumType);
-
 /**
  * Functions defined in xfsbl_handoff.c
  */
-u32 XFsbl_Handoff (XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff);
+u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyHandoff);
 void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags);
-u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId);
 u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 /************************** Variable Definitions *****************************/
 

@@ -64,7 +64,7 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XFSBL_IVT_LENGTH	(0x8U)
+#define XFSBL_IVT_LENGTH	(u32)(0x8U)
 
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_PartitionHeaderValidation(XFsblPs * FsblInstancePtr,
@@ -72,21 +72,22 @@ static u32 XFsbl_PartitionHeaderValidation(XFsblPs * FsblInstancePtr,
 static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum);
 static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		u32 PartitionNum);
-static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
+static u32 XFsbl_CheckHandoffCpu (const XFsblPs * FsblInstancePtr,
 		u32 DestinationCpu);
 static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
-		u32 DestinationCpu, u64 Address, u32 Length);
-u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr,
+		u32 DestinationCpu, u64 Address);
+static u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr,
 		u32 Length);
-static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum);
-
+static void XFsbl_CheckPmuFw(const XFsblPs * FsblInstancePtr, u32 PartitionNum);
+static u32 XFsbl_CalcualteCheckSum(XFsblPs* FsblInstancePtr, PTRSIZE LoadAddress, u32 PartitionNum);
+static u32 XFsbl_CalcualteSHA(const XFsblPs* FsblInstancePtr, PTRSIZE LoadAddress,
+		u32 PartitionNum, u32 ShaType);
 /************************** Variable Definitions *****************************/
-u8 TcmVectorArray[32];
+u8 TcmVectorArray[32] = {0};
 u32 TcmSkipLength=0U;
 PTRSIZE TcmSkipAddress=0U;
 #ifdef XFSBL_SECURE
-static XSecure_Aes SecureAes;
-extern u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
+static u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]={0};
 #endif
 
 #if !defined(XFSBL_PS_DDR) && defined(XFSBL_BS)
@@ -106,7 +107,7 @@ extern u8 ReadBuffer[READ_BUFFER_SIZE];
  *****************************************************************************/
 u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 {
-	u32 Status=XFSBL_SUCCESS;
+	u32 Status;
 
 #ifdef XFSBL_WDT_PRESENT
 	/* Restart WDT as partition copy can take more time */
@@ -177,7 +178,7 @@ END:
 static u32 XFsbl_PartitionHeaderValidation(XFsblPs * FsblInstancePtr,
 		u32 PartitionNum)
 {
-	u32 Status=XFSBL_SUCCESS;
+	u32 Status;
 	XFsblPs_PartitionHeader * PartitionHeader;
 
 	/**
@@ -243,13 +244,13 @@ END:
  * @note
  *
  *****************************************************************************/
-static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
+static u32 XFsbl_CheckHandoffCpu (const XFsblPs * FsblInstancePtr,
 						u32 DestinationCpu)
 {
-	u32 ValidHandoffCpuNo=0U;
-	u32 Status=XFSBL_SUCCESS;
-	u32 Index=0U;
-	u32 CpuId=0U;
+	u32 ValidHandoffCpuNo;
+	u32 Status;
+	u32 Index;
+	u32 CpuId;
 
 
 	ValidHandoffCpuNo = FsblInstancePtr->HandoffCpuNo;
@@ -261,10 +262,12 @@ static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
 		if (CpuId == DestinationCpu)
 		{
 			Status = XFSBL_FAILURE;
-			break;
+			goto END;
 		}
 	}
 
+	Status = XFSBL_SUCCESS;
+END:
 	return Status;
 }
 
@@ -287,7 +290,7 @@ static u32 XFsbl_CheckHandoffCpu (XFsblPs * FsblInstancePtr,
 u32 XFsbl_PowerUpMemory(u32 MemoryType)
 {
 	u32 RegValue;
-	u32 Status = XFSBL_SUCCESS;
+	u32 Status;
 	u32 PwrStateMask;
 
 	/**
@@ -301,9 +304,9 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 		case XFSBL_R5_0_TCM:
 		{
 
-			PwrStateMask = PMU_GLOBAL_PWR_STATE_R5_0_MASK |
+			PwrStateMask = (PMU_GLOBAL_PWR_STATE_R5_0_MASK |
 					PMU_GLOBAL_PWR_STATE_TCM0A_MASK |
-					PMU_GLOBAL_PWR_STATE_TCM0B_MASK;
+					PMU_GLOBAL_PWR_STATE_TCM0B_MASK);
 
 			Status = XFsbl_PowerUpIsland(PwrStateMask);
 
@@ -363,9 +366,9 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 		case XFSBL_R5_1_TCM:
 		{
 
-			PwrStateMask = PMU_GLOBAL_PWR_STATE_R5_1_MASK |
+			PwrStateMask = (PMU_GLOBAL_PWR_STATE_R5_1_MASK |
 					PMU_GLOBAL_PWR_STATE_TCM1A_MASK |
-					PMU_GLOBAL_PWR_STATE_TCM1B_MASK;
+					PMU_GLOBAL_PWR_STATE_TCM1B_MASK);
 
 			Status = XFsbl_PowerUpIsland(PwrStateMask);
 
@@ -417,11 +420,11 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 		{
 
 
-			PwrStateMask = PMU_GLOBAL_PWR_STATE_R5_0_MASK |
+			PwrStateMask = (PMU_GLOBAL_PWR_STATE_R5_0_MASK |
 					PMU_GLOBAL_PWR_STATE_TCM0A_MASK |
 					PMU_GLOBAL_PWR_STATE_TCM0B_MASK |
 					PMU_GLOBAL_PWR_STATE_TCM1A_MASK |
-					PMU_GLOBAL_PWR_STATE_TCM1B_MASK;
+					PMU_GLOBAL_PWR_STATE_TCM1B_MASK);
 
 			Status = XFsbl_PowerUpIsland(PwrStateMask);
 
@@ -480,6 +483,7 @@ u32 XFsbl_PowerUpMemory(u32 MemoryType)
 
 		default:
 			/* nothing to do */
+			Status = XFSBL_SUCCESS;
 			break;
 	}
 
@@ -487,19 +491,19 @@ END:
 	return Status;
 }
 
-u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Length)
+static u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Length)
 {
-	u32 Status = XFSBL_SUCCESS;
-	PTRSIZE Address=0U;
+	u32 Status;
+	PTRSIZE Address;
 
 	Address = *LoadAddressPtr;
 
 	/* Update for R50 TCM address if the partition fits with in a TCM bank */
 	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_0) &&
-			((Address < XFSBL_R5_TCM_START_ADDRESS + XFSBL_R5_TCM_BANK_LENGTH)||
+			((Address < (XFSBL_R5_TCM_START_ADDRESS + XFSBL_R5_TCM_BANK_LENGTH))||
 					((Address >= XFSBL_R5_BTCM_START_ADDRESS) &&
-							(Address < XFSBL_R5_BTCM_START_ADDRESS +
-									XFSBL_R5_TCM_BANK_LENGTH))))
+							(Address < (XFSBL_R5_BTCM_START_ADDRESS +
+							XFSBL_R5_TCM_BANK_LENGTH)))))
 	{
 		/* Check if fits in to a single TCM bank or not */
 		if (Length > XFSBL_R5_TCM_BANK_LENGTH)
@@ -518,10 +522,10 @@ u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Lengt
 	} else
 		/* Update for R51 TCM address if the partition fits with in a TCM bank */
 		if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_1) &&
-				((Address < XFSBL_R5_TCM_START_ADDRESS + XFSBL_R5_TCM_BANK_LENGTH)||
+			((Address < (XFSBL_R5_TCM_START_ADDRESS + XFSBL_R5_TCM_BANK_LENGTH))||
 						((Address >= XFSBL_R5_BTCM_START_ADDRESS) &&
-								(Address < XFSBL_R5_BTCM_START_ADDRESS +
-										XFSBL_R5_TCM_BANK_LENGTH))))
+								(Address < (XFSBL_R5_BTCM_START_ADDRESS +
+							XFSBL_R5_TCM_BANK_LENGTH)))))
 	{
 		/* Check if fits in to a single TCM bank or not */
 		if (Length > XFSBL_R5_TCM_BANK_LENGTH)
@@ -540,8 +544,8 @@ u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Lengt
 	 * Update for the R5-L TCM address
 	 */
 	if ((DestinationCpu == XIH_PH_ATTRB_DEST_CPU_R5_L) &&
-			(Address < XFSBL_R5_TCM_START_ADDRESS +
-					(XFSBL_R5_TCM_BANK_LENGTH * 4U)))
+			(Address < (XFSBL_R5_TCM_START_ADDRESS +
+					(XFSBL_R5_TCM_BANK_LENGTH * 4U))))
 	{
 		/**
 		 * Check if fits to TCM or not
@@ -569,6 +573,7 @@ u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr, u32 Lengt
 	 */
 	*LoadAddressPtr = Address;
 
+	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
@@ -592,10 +597,10 @@ END:
  * 			returns XFSBL_SUCCESS on success
  *****************************************************************************/
 static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
-		u32 DestinationCpu, u64 Address, u32 Length)
+		u32 DestinationCpu, u64 Address)
 {
 
-	u32 Status = XFSBL_SUCCESS;
+	u32 Status;
 	/**
 	 * Configure R50 TCM Memory
 	 */
@@ -706,6 +711,7 @@ static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
 		 */
 	}
 
+	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
@@ -724,16 +730,17 @@ END:
  *****************************************************************************/
 static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 {
-	u32 Status=XFSBL_SUCCESS;
-	u32 DestinationCpu=0U;
-	u32 CpuNo=0U;
-	u32 DestinationDevice=0U;
-	u32 ExecState=0U;
+	u32 Status;
+	u32 DestinationCpu;
+	u32 CpuNo;
+	u32 DestinationDevice;
+	u32 ExecState;
 	XFsblPs_PartitionHeader * PartitionHeader;
-	u32 SrcAddress=0U;
-	PTRSIZE LoadAddress=0U;
-	u32 Length=0U;
-	u32 RunningCpu=0U;
+	u32 SrcAddress;
+	PTRSIZE LoadAddress;
+	u32 Length;
+	u32 RunningCpu;
+	u32 RegVal;
 
 	/**
 	 * Assign the partition header to local variable
@@ -748,11 +755,6 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	 * No need to copy for XIP image
 	 */
 	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
-
-	/**
-	 * Get the execution state
-	 */
-	ExecState = XFsbl_GetA53ExecState(PartitionHeader);
 
 	/**
 	 * if destination cpu is not present, it means it is for same cpu
@@ -774,6 +776,8 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		if (XFsbl_CheckHandoffCpu(FsblInstancePtr,
 				DestinationCpu) == XFSBL_SUCCESS)
 		{
+			/* Get the execution state */
+			ExecState = XFsbl_GetA53ExecState(PartitionHeader);
 			FsblInstancePtr->HandoffValues[CpuNo].CpuSettings =
 			        DestinationCpu | ExecState;
 			FsblInstancePtr->HandoffValues[CpuNo].HandoffAddress =
@@ -803,9 +807,6 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	Length  = (PartitionHeader->TotalDataWordLength) *
 					XIH_PARTITION_WORD_LENGTH;
 
-	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
-	LoadAddress = PartitionHeader->DestinationLoadAddress;
-
 	/**
 	 * Copy the authentication certificate to auth. buffer
 	 * Update Partition length to be copied.
@@ -825,6 +826,8 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	}
 #endif
 
+	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
+	LoadAddress = (PTRSIZE)PartitionHeader->DestinationLoadAddress;
 	/**
 	 * Copy the PL to temporary DDR Address
 	 * Copy the PS to Load Address
@@ -840,6 +843,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		 */
 		if (FsblInstancePtr->ResetReason == PS_ONLY_RESET)
 		{
+			Status = XFSBL_SUCCESS;
 			goto END;
 		}
 
@@ -849,6 +853,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 
 #ifndef XFSBL_PS_DDR
 			/* In case of DDR less system, skip copying */
+			Status = XFSBL_SUCCESS;
 			goto END;
 #endif
 		}
@@ -875,7 +880,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	 * Configure the memory
 	 */
 	Status = XFsbl_ConfigureMemory(FsblInstancePtr, RunningCpu, DestinationCpu,
-						LoadAddress, Length);
+						LoadAddress);
 	if (XFSBL_SUCCESS != Status)
 	{
 		goto END;
@@ -900,7 +905,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 			XIH_PH_ATTRB_ENCRYPTION ) &&
 		((LoadAddress >= XFSBL_R50_HIGH_ATCM_START_ADDRESS) &&
 		(LoadAddress <
-			XFSBL_R50_HIGH_ATCM_START_ADDRESS + XFSBL_IVT_LENGTH)))
+			(XFSBL_R50_HIGH_ATCM_START_ADDRESS + XFSBL_IVT_LENGTH))))
 	{
 
 		/**
@@ -948,9 +953,13 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		 * Wait until PMU Microblaze goes to sleep state,
 		 * before starting firmware download to PMU RAM
 		 */
-		while((XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) &
-				PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK) !=
-						PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK ) {;}
+		do {
+				RegVal = XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL);
+				if ((RegVal & PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK)
+					== PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK) {
+					break;
+				}
+		} while (1);
 	}
 
 #ifdef XFSBL_PERF
@@ -969,10 +978,6 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 				PartitionNum, Length);
 #endif
 
-	if (XFSBL_SUCCESS != Status)
-	{
-		goto END;
-	}
 
 END:
 	return Status;
@@ -993,26 +998,27 @@ END:
 static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 						u32 PartitionNum)
 {
-	u32 Status=XFSBL_SUCCESS;
-	s32 IsEncryptionEnabled=FALSE;
-	s32 IsAuthenticationEnabled=FALSE;
-	s32 IsChecksumEnabled=FALSE;
-	u32 DestinationDevice=0U;
-	u32 DestinationCpu=0U;
-	u32 ExecState=0U;
-	u32 CpuNo=0U;
+	u32 Status;
+	u32 IsEncryptionEnabled;
+	u32 IsAuthenticationEnabled;
+	u32 IsChecksumEnabled;
+	u32 DestinationDevice;
+	u32 DestinationCpu;
+	u32 ExecState;
+	u32 CpuNo;
 	XFsblPs_PartitionHeader * PartitionHeader;
+	s32 SStatus;
 #if defined(XFSBL_SECURE)
-	u32 HashLen=0U;
 	u32 ImageOffset = 0U;
-	u32 FsblIv[XIH_BH_IV_LENGTH / 4U];
-	u32 UnencryptedLength = 0;
+	u32 FsblIv[XIH_BH_IV_LENGTH / 4U] = { 0 };
+	u32 UnencryptedLength;
 	u32 IvLocation;
-	u32 Length=0U;
+	u32 Length;
+	static XSecure_Aes SecureAes;
 #endif
-	PTRSIZE LoadAddress=0U;
+	PTRSIZE LoadAddress;
 #if defined(XFSBL_BS) && defined(XFSBL_PS_DDR)
-	u32 BitstreamWordSize = 0;
+	u32 BitstreamWordSize;
 #endif
 #if !defined(XFSBL_PS_DDR) &&  defined(XFSBL_BS)
 	u32 SrcAddress = 0U;
@@ -1029,6 +1035,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	    &FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 #ifdef XFSBL_SECURE
 	Length = PartitionHeader->TotalDataWordLength * 4U;
+#else
+	Length = 0U;
 #endif
 
 	/**
@@ -1058,6 +1066,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		goto END;
 #endif
 	}
+	else
+	{
+		Status = XFSBL_SUCCESS;
+		IsEncryptionEnabled = FALSE;
+	}
 
 	/**
 	 * check the authentication status
@@ -1067,15 +1080,22 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	{
 		IsAuthenticationEnabled = TRUE;
 	}
+	else
+	{
+		IsAuthenticationEnabled = FALSE;
+	}
 	/* check the checksum status */
 	if (XFsbl_GetChecksumType(PartitionHeader) !=
 			XIH_PH_ATTRB_NOCHECKSUM )
 	{
 		IsChecksumEnabled = TRUE;
 	}
+	else
+	{
+		IsChecksumEnabled = FALSE;
+	}
 
 	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
-	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
 
 #ifdef XFSBL_BS
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
@@ -1094,19 +1114,15 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 
 	/**
-         * Get the execution state
-         */
-        ExecState = XFsbl_GetA53ExecState(PartitionHeader);
-
-	/**
 	 * if destination cpu is not present, it means it is for same cpu
 	 */
+	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
 	if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_NONE)
 	{
 		DestinationCpu = FsblInstancePtr->ProcessorID;
 	}
 
-	LoadAddress = PartitionHeader->DestinationLoadAddress;
+	LoadAddress = (PTRSIZE) PartitionHeader->DestinationLoadAddress;
 
 #ifdef XFSBL_SECURE
 	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE) ||
@@ -1120,6 +1136,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			goto END;
 		}
 	}
+#else
+	 Length = 0U;
 #endif
 
 #ifdef XFSBL_BS
@@ -1158,18 +1176,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	{
 		XFsbl_Printf(DEBUG_INFO,"Authentication Enabled\r\n");
 #ifdef XFSBL_SECURE
-		/**
-		 * Get the Sha type to be used from
-		 * boot header attributes
-		 */
-		if ((FsblInstancePtr->BootHdrAttributes &
-			XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
-			XIH_BH_IMAGE_ATTRB_SHA2_MASK)
-		{
-			HashLen = XFSBL_HASH_TYPE_SHA2;
-		} else {
-			HashLen = XFSBL_HASH_TYPE_SHA3;
-		}
 
 #ifdef XFSBL_PERF
 		/* Start time for partition authentication */
@@ -1181,7 +1187,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 * Do the authentication validation
 		 */
 		Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
-				Length, (PTRSIZE)AuthBuffer, HashLen, PartitionNum);
+				Length, (PTRSIZE)AuthBuffer, PartitionNum);
 
 #else
 		if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
@@ -1196,7 +1202,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 					XIH_PARTITION_WORD_LENGTH);
 
 			Status = XFsbl_Authentication(FsblInstancePtr, SrcAddress,
-					Length, (PTRSIZE)AuthBuffer, HashLen, PartitionNum);
+					Length, (PTRSIZE)AuthBuffer, PartitionNum);
 #endif
 		}
 		else
@@ -1242,8 +1248,14 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		FsblIv[2] = Xil_Htonl(FsblIv[2]);
 
 		/* Initialize the Aes Instance so that it's ready to use */
-		XSecure_AesInitialize(&SecureAes, &CsuDma,
+		SStatus = XSecure_AesInitialize(&SecureAes, &CsuDma,
 		 XSECURE_CSU_AES_KEY_SRC_DEV, FsblIv, NULL);
+		if (SStatus != XFSBL_SUCCESS)
+		{
+			Status = XFSBL_ERROR_AES_INITIALIZE;
+			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_AES_INITIALIZE_FAIL\r\n");
+			goto END;
+		}
 
 		XFsbl_Printf(DEBUG_INFO, " Aes initialized \r\n");
 
@@ -1256,11 +1268,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			/* Start time for non bitstream partition decryption */
 			XTime_GetTime(&tCur);
 #endif
-			Status = XSecure_AesDecrypt(&SecureAes,
+			SStatus = XSecure_AesDecrypt(&SecureAes,
 					(u8 *) LoadAddress, (u8 *) LoadAddress,
 					UnencryptedLength);
 
-			if (Status != XFSBL_SUCCESS) {
+			if (SStatus != XFSBL_SUCCESS) {
 				Status = XFSBL_ERROR_DECRYPTION_FAIL;
 				XFsbl_Printf(DEBUG_GENERAL,
 					"XFSBL_ERROR_DECRYPTION_FAIL\r\n");
@@ -1277,10 +1289,15 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 		}
 #else
+		UnenCryptedLength=0U;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
 		Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
 		goto END;
 #endif
+	}
+	else
+	{
+		UnencryptedLength = 0U;
 	}
 
 #ifdef XFSBL_BS
@@ -1322,7 +1339,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			 */
 #ifdef XFSBL_PS_DDR
 
-			Status = XSecure_AesDecrypt(&SecureAes,
+			Status = (u32)XSecure_AesDecrypt(&SecureAes,
 					(u8 *) XFSBL_DESTINATION_PCAP_ADDR,
 					(u8 *) LoadAddress, UnencryptedLength);
 #else
@@ -1340,7 +1357,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			 * In case of DDR less system, pass the partition source
 			 * address from Flash device.
 			 */
-			Status = XSecure_AesDecrypt(&SecureAes,
+			Status = (u32)XSecure_AesDecrypt(&SecureAes,
 					(u8 *) XFSBL_DESTINATION_PCAP_ADDR,
 					(u8 *)(PTRSIZE) SrcAddress,
 					UnencryptedLength);
@@ -1409,7 +1426,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		psu_ps_pl_isolation_removal_data();
 
 		/* Reset PL, if configured for */
-		psu_ps_pl_reset_config_data();
+		(void)psu_ps_pl_reset_config_data();
 
 		/**
 		 * Fsbl hook after bit stream download
@@ -1435,6 +1452,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		if (XFsbl_CheckHandoffCpu(FsblInstancePtr,
 				DestinationCpu) == XFSBL_SUCCESS)
 		{
+			/* Get the execution state */
+			ExecState = XFsbl_GetA53ExecState(PartitionHeader);
 			FsblInstancePtr->HandoffValues[CpuNo].CpuSettings =
 					DestinationCpu | ExecState;
 			FsblInstancePtr->HandoffValues[CpuNo].HandoffAddress =
@@ -1458,26 +1477,31 @@ END:
  * @return	None
  *
  *****************************************************************************/
-static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum)
+static void XFsbl_CheckPmuFw(const XFsblPs* FsblInstancePtr, u32 PartitionNum)
 {
 
 	u32 DestinationDev;
-	u32 DestinationDevNxt = 0;
-	u32 PmuFwLoadDone = FALSE;
+	u32 DestinationDevNxt;
+	u32 PmuFwLoadDone;
+	u32 RegVal;
 
 	DestinationDev = XFsbl_GetDestinationDevice(
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum]);
 
 	if (DestinationDev == XIH_PH_ATTRB_DEST_DEVICE_PMU) {
-		if ((PartitionNum + 1) <=
+		if ((PartitionNum + 1U) <=
 				(FsblInstancePtr->
 						ImageHeader.ImageHeaderTable.NoOfPartitions-1U)) {
 			DestinationDevNxt = XFsbl_GetDestinationDevice(
 					&FsblInstancePtr->
-					ImageHeader.PartitionHeader[PartitionNum + 1]);
+					ImageHeader.PartitionHeader[PartitionNum + 1U]);
 			if (DestinationDevNxt != XIH_PH_ATTRB_DEST_DEVICE_PMU) {
 				/* there is a partition after this but that is not PMU FW */
 				PmuFwLoadDone = TRUE;
+			}
+			else
+			{
+				PmuFwLoadDone = FALSE;
 			}
 		}
 		else
@@ -1486,18 +1510,26 @@ static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 			PmuFwLoadDone = TRUE;
 		}
 	}
+	else
+	{
+		PmuFwLoadDone = FALSE;
+	}
 
 	/* If all partitions of PMU FW loaded, handoff it to PMU MicroBlaze */
-	if (TRUE == PmuFwLoadDone)
+	if (PmuFwLoadDone == TRUE)
 	{
 		/* Wakeup the processor */
 		XFsbl_Out32(PMU_GLOBAL_GLOBAL_CNTRL,
 				XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) | 0x1);
 
 		/* wait until done waking up */
-		while((XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) &
-				PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) !=
-						PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK ) {;}
+		do {
+				RegVal = XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL);
+				if ((RegVal & PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)
+					== PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) {
+					break;
+				}
+		} while(1);
 
 	}
 
@@ -1519,13 +1551,13 @@ static void XFsbl_CheckPmuFw(XFsblPs * FsblInstancePtr, u32 PartitionNum)
  *
  *****************************************************************************/
 
-u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
+static u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
 		PTRSIZE LoadAddress, u32 PartitionNum)
 {
 
 	XFsblPs_PartitionHeader * PartitionHeader;
-	u32 Status=XFSBL_SUCCESS;
-	u32 ChecksumType=0U;
+	u32 Status;
+	u32 ChecksumType;
 	/**
 	 * Update the variables
 	 */
@@ -1542,12 +1574,12 @@ u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
 		/**
 		 * Do the checksum validation
 		 */
+		Status = XFSBL_SUCCESS;
 	}
 	else if (ChecksumType == XIH_PH_ATTRB_HASH_SHA3)
 	{
 		XFsbl_Printf(DEBUG_INFO,"CheckSum Type - SHA3\r\n");
 	#ifndef XFSBL_PS_DDR
-		u32 DestinationDevice=0U;
 		DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 		if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 		{
@@ -1613,7 +1645,11 @@ u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
 			return XFSBL_FAILURE;
 		}
 	#endif
-
+	}
+	else
+	{
+		/* MISRA C*/
+		Status = XFSBL_SUCCESS;
 	}
 	return Status;
 }
@@ -1635,17 +1671,17 @@ u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
  *
  *****************************************************************************/
 
-u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr, PTRSIZE LoadAddress,
+static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddress,
 						u32 PartitionNum, u32 ShaType)
 {
-	u8 PartitionHash[ShaType] __attribute__ ((aligned (4)));
-	u8 Hash[ShaType] __attribute__ ((aligned (4)));
+	u8 PartitionHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4))) = {0};
+	u8 Hash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4))) = {0};
 	u32 HashOffset;
 	u32 Index;
 	void * ShaCtx = (void * )NULL;
-	u32 Length=0U;
-	u32 Status=XFSBL_SUCCESS;
-	XFsblPs_PartitionHeader * PartitionHeader;
+	u32 Length;
+	u32 Status;
+	const XFsblPs_PartitionHeader * PartitionHeader;
 
 	/**
 	 * Update the variables
@@ -1667,7 +1703,7 @@ u32 XFsbl_CalcualteSHA(XFsblPs * FsblInstancePtr, PTRSIZE LoadAddress,
 		return XFSBL_FAILURE;
 	}
 
-	for(Index=0;Index<ShaType;Index++)
+	for (Index = 0U; Index < ShaType; Index++)
 	{
 		if(PartitionHash[Index]!= Hash[Index])
 		{

@@ -47,13 +47,14 @@
 #include "xfsbl_authentication.h"
 #include "xfsbl_csu_dma.h"
 
+static u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
 /*****************************************************************************/
 
-const u8 XFsbl_TPadSha3[] = {0x30, 0x41, 0x30, 0x0D, 0x06, 0x09, 0x60,
+static const u8 XFsbl_TPadSha3[] = {0x30, 0x41, 0x30, 0x0D, 0x06, 0x09, 0x60,
 	0x86, 0x48, 0x01, 0x65, 0x03, 0x04, 0x02,
 	0x02, 0x05, 0x00, 0x04, 0x30 };
 
-const u8 XFsbl_TPadSha2[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60,
+static const u8 XFsbl_TPadSha2[] = {0x30, 0x31, 0x30, 0x0D, 0x06, 0x09, 0x60,
 	0x86, 0x48, 0x01, 0x65, 0x03, 0x04, 0x02,
 	0x01, 0x05, 0x00, 0x04, 0x20 };
 
@@ -61,10 +62,6 @@ static XSecure_Rsa SecureRsa;
 
 #if !defined(XFSBL_PS_DDR) && defined(XFSBL_BS)
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
-#endif
-
-#ifdef XFSBL_SECURE
-u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
 #endif
 
 /*****************************************************************************/
@@ -80,16 +77,17 @@ u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
  * @return
  *
  ******************************************************************************/
-u32 XFsbl_SpkVer(XFsblPs *FsblInstancePtr , u64 AcOffset, u32 HashLen)
+static u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 {
-	u8 SpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)));
-	u8 * PpkModular = (u8 *)NULL;
-	u8 * PpkModularEx = (u8 *)NULL;
-	u32 PpkExp = 0;
+	u8 SpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)))={0};
+	u8* PpkModular;
+	u8* PpkModularEx;
+	u8* PpkExpPtr;
+	u32 PpkExp;
 	u8 * AcPtr = (u8*) (PTRSIZE) AcOffset;
-	u32 Status = XFSBL_SUCCESS;
+	u32 Status;
 	void * ShaCtx = (void * )NULL;
-	u8 XFsbl_RsaSha3Array[512];
+	u8 XFsbl_RsaSha3Array[512] = {0};
 
 #ifdef XFSBL_SHA2
 	sha2_context ShaCtxObj;
@@ -98,7 +96,7 @@ u32 XFsbl_SpkVer(XFsblPs *FsblInstancePtr , u64 AcOffset, u32 HashLen)
 
 	/* Re-initialize CSU DMA. This is a workaround and need to be removed */
 	Status = XFsbl_CsuDmaInit();
-	if (XST_SUCCESS != Status) {
+	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
 
@@ -111,14 +109,17 @@ u32 XFsbl_SpkVer(XFsblPs *FsblInstancePtr , u64 AcOffset, u32 HashLen)
 	AcPtr += XFSBL_RSA_AC_ALIGN;
 	PpkModular = (u8 *)AcPtr;
 	AcPtr += XFSBL_PPK_MOD_SIZE;
-	PpkModularEx = (u8 *)AcPtr;
+	PpkModularEx = AcPtr;
 	AcPtr += XFSBL_PPK_MOD_EXT_SIZE;
 	PpkExp = *((u32 *)AcPtr);
+	PpkExpPtr = AcPtr;
 	AcPtr += XFSBL_RSA_AC_ALIGN;
 
+	if((PpkModular != NULL) && (PpkModularEx != NULL)) {
 	XFsbl_Printf(DEBUG_DETAILED,
 		"XFsbl_SpkVer: Ppk Mod %0x, Ppk Mod Ex %0x, Ppk Exp %0x\r\n",
 		PpkModular, PpkModularEx, PpkExp);
+	}
 
 	/* Calculate SPK + Auth header Hash */
 	XFsbl_ShaUpdate(ShaCtx, (u8 *)AcPtr, XFSBL_SPK_SIZE, HashLen);
@@ -128,9 +129,20 @@ u32 XFsbl_SpkVer(XFsblPs *FsblInstancePtr , u64 AcOffset, u32 HashLen)
 	/* Set SPK Signature pointer */
 	AcPtr += XFSBL_SPK_SIZE;
 
-	XSecure_RsaInitialize(&SecureRsa, PpkModular,
-				PpkModularEx, (u8 *)&PpkExp);
+	if(PpkExpPtr!=NULL) {
+		Status = (u32)XSecure_RsaInitialize(&SecureRsa, PpkModular,
+			PpkModularEx, PpkExpPtr);
+	}
+	else
+	{
+		Status = (u32)(XFSBL_FAILURE);
+	}
 
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_RSA_INITIALIZE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_RSA_INITIALIZE\r\n");
+		goto END;
+	}
 	/* Decrypt SPK Signature */
 	if(XFSBL_SUCCESS !=
 		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array))
@@ -171,20 +183,22 @@ END:
  * @return
  *
  ******************************************************************************/
-u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
-				u32 PartitionLen, u64 AcOffset, u32 HashLen,
+static u32 XFsbl_PartitionSignVer(const XFsblPs *FsblInstancePtr, u64 PartitionOffset,
+				u32 PartitionLen, u64 AcOffset,
 				u32 PartitionNum)
 {
 
-	u8 PartitionHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)));
-	u8 * SpkModular = (u8 *)NULL;
-	u8 * SpkModularEx = (u8 *)NULL;
-	u32 SpkExp = 0;
+	u8 PartitionHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4))) = {0};
+	u8 * SpkModular;
+	u8* SpkModularEx;
+	u32 SpkExp;
 	u8 * AcPtr = (u8*)(PTRSIZE) AcOffset;
-	u32 Status = XFSBL_SUCCESS;
-	u32 HashDataLen=0U;
+	u32 Status;
+	u32 HashDataLen;
 	void * ShaCtx = (void * )NULL;
-	u8 XFsbl_RsaSha3Array[512];
+	u8 XFsbl_RsaSha3Array[512] = {0};
+	u32 HashLen;
+	s32 SStatus;
 
 #ifdef XFSBL_SHA2
 	sha2_context ShaCtxObj;
@@ -192,6 +206,17 @@ u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
 #endif
 
 	XFsbl_Printf(DEBUG_INFO, "Doing Partition Sign verification\r\n");
+
+	/* Get the Sha type to be used from boot header attributes */
+	if ((FsblInstancePtr->BootHdrAttributes &
+			XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
+			XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
+		HashLen = XFSBL_HASH_TYPE_SHA2;
+	}
+	else
+	{
+		HashLen = XFSBL_HASH_TYPE_SHA3;
+	}
 
 	/**
 	 * total partition length to be hashed except the AC
@@ -245,9 +270,9 @@ u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
 
 	/* Set SPK pointer */
 	AcPtr += (XFSBL_RSA_AC_ALIGN + XFSBL_PPK_SIZE);
-	SpkModular = (u8 *)AcPtr;
+	SpkModular = AcPtr;
 	AcPtr += XFSBL_SPK_MOD_SIZE;
-	SpkModularEx = (u8 *)AcPtr;
+	SpkModularEx = AcPtr;
 	AcPtr += XFSBL_SPK_MOD_EXT_SIZE;
 	SpkExp = *((u32 *)AcPtr);
 	AcPtr += XFSBL_RSA_AC_ALIGN;
@@ -256,16 +281,21 @@ u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
 	AcPtr += XFSBL_SPK_SIG_SIZE;
 	/* Increment by  BHDR Signature pointer */
 	AcPtr += XFSBL_BHDR_SIG_SIZE;
-
+	if((SpkModular != NULL) && (SpkModularEx != NULL)) {
 	XFsbl_Printf(DEBUG_DETAILED,
 		"XFsbl_PartVer: Spk Mod %0x, Spk Mod Ex %0x, Spk Exp %0x\r\n",
 		SpkModular, SpkModularEx, SpkExp);
-
+	}
 	XFsbl_Printf(DEBUG_INFO,
 			"Partition Verification done \r\n");
 
-	XSecure_RsaInitialize(&SecureRsa, SpkModular,
+	SStatus = XSecure_RsaInitialize(&SecureRsa, SpkModular,
 				SpkModularEx, (u8 *)&SpkExp);
+	if (SStatus != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_RSA_INITIALIZE;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_RSA_INITIALIZE\r\n");
+		goto END;
+	}
 	/* Decrypt Partition Signature. */
 	if(XFSBL_SUCCESS !=
 		XSecure_RsaDecrypt(&SecureRsa, AcPtr, XFsbl_RsaSha3Array))
@@ -289,7 +319,7 @@ u32 XFsbl_PartitionSignVer(XFsblPs *FsblInstancePtr, u64 PartitionOffset,
 		Status = XFSBL_ERROR_PART_SIGNATURE;
 		goto END;
 	}
-
+	Status = XFSBL_SUCCESS;
 END:
 	return Status;
 }
@@ -302,11 +332,23 @@ END:
  * @return      None
  *
  ******************************************************************************/
-u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
-				u32 PartitionLen, u64 AcOffset, u32 HashLen,
+u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
+				u32 PartitionLen, u64 AcOffset,
 				u32 PartitionNum)
 {
-        u32 Status = XFSBL_SUCCESS;
+        u32 Status;
+        u32 HashLen;
+
+	/* Get the Sha type to be used from boot header attributes */
+	if ((FsblInstancePtr->BootHdrAttributes &
+			XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
+			XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
+		HashLen = XFSBL_HASH_TYPE_SHA2;
+	}
+	else
+	{
+		HashLen = XFSBL_HASH_TYPE_SHA3;
+	}
 
 	XFsbl_Printf(DEBUG_INFO,
 		"Auth: Partition Offset %0x, PartitionLen %0x,"
@@ -315,7 +357,7 @@ u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 		(PTRSIZE )AcOffset, HashLen);
 
         /* Do SPK Signature verification using PPK */
-        Status = XFsbl_SpkVer(FsblInstancePtr, AcOffset, HashLen);
+        Status = XFsbl_SpkVer(AcOffset, HashLen);
 
         if(XFSBL_SUCCESS != Status)
         {
@@ -324,7 +366,7 @@ u32 XFsbl_Authentication(XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 
         /* Do Partition Signature verification using SPK */
         Status = XFsbl_PartitionSignVer(FsblInstancePtr, PartitionOffset,
-					PartitionLen, AcOffset, HashLen, PartitionNum);
+					PartitionLen, AcOffset, PartitionNum);
 
         if(XFSBL_SUCCESS != Status)
         {
