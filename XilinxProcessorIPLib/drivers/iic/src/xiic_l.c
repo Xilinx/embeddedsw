@@ -1087,10 +1087,10 @@ u32 XIic_WaitBusFree(UINTPTR BaseAddress)
 	u32 BusyCount = 0;
 
 	while (XIic_CheckIsBusBusy(BaseAddress)) {
-		if (BusyCount++ > 1000) {
+		if (BusyCount++ > 10000) {
 			return XST_FAILURE;
 		}
-		usleep(1000);
+		usleep(100);
 	}
 
 	return XST_SUCCESS;
