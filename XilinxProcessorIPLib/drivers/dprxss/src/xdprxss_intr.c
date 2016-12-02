@@ -49,6 +49,7 @@
 *                   Added HDCP and Timer Counter interrupt handler.
 * 3.0  sha 02/19/16 Added switch case for XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT
 *                   to register callback with HDCP.
+* 4.0  aad 12/01/16 Added HDCP Authentication interrupt handler
 * </pre>
 *
 ******************************************************************************/
@@ -322,6 +323,13 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 		case XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT:
 			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
 				XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
+					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_HANDLER_HDCP_AUTHENTICATED:
+			XHdcp1x_SetCallBack(InstancePtr->Hdcp1xPtr,
+				XHDCP1X_HANDLER_AUTHENTICATED,
 					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
