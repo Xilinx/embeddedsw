@@ -72,6 +72,8 @@
 #define FPGA_NUM_FABRIC_RESETS	1
 #endif
 
+#define MAX_REG_BITS	31
+
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__
 typedef u32 (*XpbrServHndlr_t) (void);
@@ -158,7 +160,7 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 	if(Status != XFPGA_SUCCESS) {
 		xil_printf("FPGA fail to get the done status\n");
 		goto END;
-     }
+	}
 
 	/* Power-Up PL */
 	Status = XFpga_PowerUpPl();
@@ -456,26 +458,35 @@ static u32 XFpga_IsolationRestore()
 *
 ****************************************************************************/
 static u32 XFpga_PsPlGpioReset(u32 TotalResets) {
+	u32 Status = XFPGA_SUCCESS;
 	u32 RegVal = 0;
 	u32 MaskVal;
 
-	for (int i = 0; i < TotalResets; i++) {
+	/* Set EMIO Direction */
+	RegVal = Xil_In32(GPIO_DIRM_5_EMIO) |
+		~(~0 << TotalResets) << (MAX_REG_BITS + 1 - TotalResets);
+	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
-		/* Set EMIO Direction */
-		RegVal = Xil_In32(GPIO_DIRM_5_EMIO);
-		Xil_Out32(GPIO_DIRM_5_EMIO, (RegVal | (1 << (31 - i))));
-		/*Assert the EMIO with the required Mask */
-		MaskVal = ~(1 << (31-i)) & 0xFFFF0000;
-		RegVal = MaskVal | (1 << (15 - i));
-		Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
-		usleep(1000);
-		/*De-assert the EMIO with the required Mask */
-		RegVal = MaskVal & ~(1 << (15 - i));
-		Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
-		usleep(1000);
-	}
+	/*Assert the EMIO with the required Mask */
+	MaskVal = ~(~0 << TotalResets) << (MAX_REG_BITS/2 + 1 - TotalResets) | 0xFFFF0000;
+	RegVal = MaskVal & ~(~(~0 << TotalResets) << (MAX_REG_BITS + 1 - TotalResets));
+	Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
+	usleep(1000);
 
+	/*De-assert the EMIO with the required Mask */
+	RegVal = ~(~(~0 << TotalResets) << (MAX_REG_BITS + 1 - TotalResets)) & 0xFFFF0000;
+	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
+	usleep(1000);
+
+	/*Assert the EMIO with the required Mask */
+	MaskVal = ~(~0 << TotalResets) << (MAX_REG_BITS/2 + 1 - TotalResets) | 0xFFFF0000;
+	RegVal = MaskVal & ~(~(~0 << TotalResets) << (MAX_REG_BITS + 1 - TotalResets));
+	Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
+	usleep(1000);
+
+	return Status;
 }
+
 /*****************************************************************************/
 /** This function  provides the STATUS of PCAP interface
  *
