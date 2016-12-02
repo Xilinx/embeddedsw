@@ -58,7 +58,7 @@ Updated OCM axipmon example for proper ID
 
 iic_v3_4:
 Reduce the usleep time in Bus-busy check condition.
-
+Reduce the usleep time from 1000 to 100 usec in Bus-busy check condition.
 xilfpga_v1_1:
 Added PL power-up and Isolation sequence to the xilfpga library
 Added PS-PL Reset sequence.
