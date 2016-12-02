@@ -108,6 +108,7 @@ build
 
 dprxss_v4_0:
 CR#960371: Move DP159 files out of video_common to dprxss.
+CR#964969: Added interrupt handler for HDCP authentication.
 
 video_common_v4_0:
 CR#956975: Modified functions to return fixed point instead of floating point
