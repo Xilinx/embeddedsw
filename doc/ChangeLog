@@ -17,6 +17,12 @@ video_common_v4_1
 Added new memory formats
 Adde API to get video mode id with matching balnking information
 
+v_frmbuf_rd_v1_0
+added initial version
+
+v_frmbuf_wr_v1_0
+added initial version
+
 vmix_v2_1
 Added check to make sure logo layer is enabled before loading logo pixel alpha
 
