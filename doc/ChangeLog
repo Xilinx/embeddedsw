@@ -64,6 +64,7 @@ Added PL power-up and Isolation sequence to the xilfpga library
 Added PS-PL Reset sequence.
 Added Preprocessor check for XPAR_NUM_FABRIC_RESETS to avoid the
 compilation errors.
+Added gpio assert logic to properly reset the PL from PS.
 
 freertos823_xilinx_v1_3:
 Added APIs handle_stdin_parameter and handle_stdout_parameter in
