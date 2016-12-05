@@ -60,5 +60,5 @@
 MB_InterruptVectorTableEntry MB_InterruptVectorTable[] =
 {
    {XNullHandler,
-    (void)XNULL}
+    (void*)XNULL}
 };
