@@ -254,7 +254,7 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 #endif
 
 	RegValue = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
-	if (!(RegValue & XSCUGIC_EN_INT_MASK)) {
+	if ((RegValue & XSCUGIC_EN_INT_MASK) == 0U) {
 		Xil_AssertVoid(InstancePtr != NULL);
 		DoDistributorInit(InstancePtr, CpuID);
 		return;
