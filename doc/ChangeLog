@@ -1,5 +1,9 @@
 Change Log for 2017.1
 =================================
+uartps_v3_4:
+sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
+parameter macro
+
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
 
