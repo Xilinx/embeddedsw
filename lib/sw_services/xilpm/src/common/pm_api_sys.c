@@ -301,6 +301,36 @@ XStatus XPm_SelfSuspend(const enum XPmNodeId nid,
 
 /****************************************************************************/
 /**
+ * @brief  This function is called to configure the power management
+ * framework. The call triggers power management controller to load the
+ * configuration object and configure itself according to the content of the
+ * object.
+ *
+ * @param  address Start address of the configuration object
+ *
+ * @return XST_SUCCESS if successful, otherwise an error code
+ *
+ * @note   The provided address must be in 32-bit address space which is
+ * accessible by the PMU.
+ *
+ ****************************************************************************/
+XStatus XPm_SetConfiguration(const u32 address)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD1(payload, PM_SET_CONFIGURATION, address);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status)
+		return status;
+
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is used by a PU to request suspend of another PU.
  * This call triggers the power management controller to notify the PU
  * identified by 'nodeID' that a suspend has been requested. This will
