@@ -116,6 +116,8 @@ void AxiEthernetUtilErrorTrap(char *Message);
 void AxiEthernetUtilPhyDelay(unsigned int Seconds);
 int AxiEthernetUtilConfigureInternalPhy(XAxiEthernet *AxiEthernetInstancePtr,
 					int Speed);
+int AxiEtherentConfigureTIPhy(XAxiEthernet *AxiEthernetInstancePtr,
+			      u32 PhyAddr);
 
 /************************** Variable Definitions ****************************/
 

@@ -54,6 +54,7 @@
 *			axi ethernet physical interface type and allows to
 *			operate in specific interface mode without changing
 *			jumpers on the Microblaze board.
+* 5.4	adk  07/12/16  Added Support for TI PHY DP83867.
 *
 * </pre>
 *
@@ -525,6 +526,20 @@ u32 AxiEthernetDetectPHY(XAxiEthernet * AxiEthernetInstancePtr)
 #define MARVEL_PHY_88E1116R_MODEL	0x240
 #define PHY_MODEL_NUM_MASK		0x3F0
 
+/* TI PHY flags */
+#define TI_PHY_IDENTIFIER		0x2000
+#define TI_PHY_MODEL			0x230
+#define TI_PHY_CR			0xD
+#define TI_PHY_PHYCTRL			0x10
+#define TI_PHY_CR_SGMII_EN		0x0800
+#define TI_PHY_ADDDR			0xE
+#define TI_PHY_CFGR2			0x14
+#define TI_PHY_SGMIITYPE		0xD3
+#define TI_PHY_CFGR2_SGMII_AUTONEG_EN	0x0080
+#define TI_PHY_SGMIICLK_EN		0x4000
+#define TI_PHY_CR_DEVAD_EN		0x001F
+#define TI_PHY_CR_DEVAD_DATAEN		0x4000
+
 /******************************************************************************/
 /**
 *
@@ -658,6 +673,15 @@ int AxiEthernetUtilEnterLoopback(XAxiEthernet *AxiEthernetInstancePtr,
 				PHY_R0_CTRL_REG,
 				PhyReg0 | PHY_R0_LOOPBACK);
 
+	if ((PhyModel == TI_PHY_MODEL) && (PhyType == XAE_PHY_TYPE_SGMII)) {
+		XAxiEthernet_PhyRead(AxiEthernetInstancePtr,PhyAddr,
+				     PHY_R0_CTRL_REG, &PhyReg0);
+		PhyReg0 &= (~PHY_R0_ANEG_ENABLE);
+		XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr,
+				      PHY_R0_CTRL_REG, PhyReg0 );
+		AxiEtherentConfigureTIPhy(AxiEthernetInstancePtr, PhyAddr);
+	}
+
 	if ((PhyType == XAE_PHY_TYPE_SGMII) ||
 		(PhyType == XAE_PHY_TYPE_1000BASE_X)) {
 		AxiEthernetUtilConfigureInternalPhy(AxiEthernetInstancePtr, Speed);
@@ -785,5 +809,32 @@ int AxiEthernetUtilConfigureInternalPhy(XAxiEthernet *AxiEthernetInstancePtr,
 	AxiEthernetUtilPhyDelay(1);
 	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr,
 				PHY_R0_CTRL_REG, PhyReg0);
+	return XST_SUCCESS;
+}
+
+int AxiEtherentConfigureTIPhy(XAxiEthernet *AxiEthernetInstancePtr, u32 PhyAddr)
+{
+	u16 PhyReg14;
+
+	/* Enable SGMII Clock */
+	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr, TI_PHY_CR,
+			      TI_PHY_CR_DEVAD_EN);
+	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr, TI_PHY_ADDDR,
+			      TI_PHY_SGMIITYPE);
+	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr, TI_PHY_CR,
+			      TI_PHY_CR_DEVAD_EN | TI_PHY_CR_DEVAD_DATAEN);
+	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr, TI_PHY_ADDDR,
+			      TI_PHY_SGMIICLK_EN);
+
+	/* Enable SGMII */
+	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr, TI_PHY_PHYCTRL,
+	                      TI_PHY_CR_SGMII_EN);
+	XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr, TI_PHY_CFGR2,
+			     &PhyReg14);
+	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr, TI_PHY_CFGR2,
+			      PhyReg14 & (~TI_PHY_CFGR2_SGMII_AUTONEG_EN));
+	XAxiEthernet_PhyRead(AxiEthernetInstancePtr, PhyAddr, TI_PHY_CFGR2,
+			     &PhyReg14);
+
 	return XST_SUCCESS;
 }

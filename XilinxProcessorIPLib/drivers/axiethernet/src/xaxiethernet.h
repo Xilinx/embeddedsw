@@ -474,6 +474,8 @@
 * 		     interrupts are not connected.
 * 5.3  adk 05/10/16  Fixed CR#961152 PMU template firmware fails to compile on
 * 		     ZynqMP AXI-Ethernet designs.
+* 5.4  adk 07/12/16  Added Support for TI PHY DP83867 changes are made in the
+* 		     examples xaxiethernet_example_util.c file.
 * </pre>
 *
 ******************************************************************************/
