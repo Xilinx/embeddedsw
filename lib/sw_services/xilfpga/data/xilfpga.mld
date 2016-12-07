@@ -47,7 +47,6 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx fpga Library ";
-  OPTION VERSION = 1.1;
   OPTION NAME = xilfpga;
 PARAM name = size, desc = "Number of Bytes", type = int, default = 100000, drc = drc_numbytes ;
 PARAM name = base_address, desc = "Base Address", type = int, default = 0x80000, drc = drc_base_address ;

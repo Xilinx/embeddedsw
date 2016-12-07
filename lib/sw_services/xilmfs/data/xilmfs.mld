@@ -37,7 +37,6 @@ BEGIN LIBRARY xilmfs
  OPTION drc = mfs_drc ; 
  option copyfiles = all;
  OPTION REQUIRES_OS = (standalone xilkernel freertos823_xilinx);
- OPTION VERSION = 2.2;
   OPTION NAME = xilmfs;
 
  PARAM name = numbytes, desc = "Number of Bytes", type = int, default = 100000, drc = drc_numbytes ; 

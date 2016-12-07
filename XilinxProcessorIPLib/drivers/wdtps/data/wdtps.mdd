@@ -36,7 +36,6 @@ BEGIN driver wdtps
   OPTION supported_peripherals = (ps7_wdt psu_wdt);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.0;
   OPTION NAME = wdtps;
 
 END driver
