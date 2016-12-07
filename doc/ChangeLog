@@ -43,10 +43,13 @@ Xilinx PCS PMA core where PHY address is not a parameter.
 lwip141_v1_8:
 Updated xemacpsif_physpeed.c to scan for phy addr when newer version of
 Xilinx PCS PMA core is used.
+Add Support for TI PHY DP83867 SGMII Mode configuration.
 
 sdps_v3_2:
 Corrected voltage switching sequence
 
+axiethernet_v5_4:
+Add Support for TI PHY DP83867 SGMII Mode configuration in the examples.
 Change Log for 2016.4
 =================================
 axiethernet_v5_3:
