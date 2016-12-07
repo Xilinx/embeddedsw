@@ -92,6 +92,7 @@
 #define IEEE_CTRL_LINKSPEED_1000M				0x0040
 #define IEEE_CTRL_LINKSPEED_100M				0x2000
 #define IEEE_CTRL_LINKSPEED_10M					0x0000
+#define IEEE_CTRL_FULL_DUPLEX				0x100
 #define IEEE_CTRL_RESET_MASK					0x8000
 #define IEEE_CTRL_AUTONEGOTIATE_ENABLE			0x1000
 #define IEEE_STAT_AUTONEGOTIATE_CAPABLE			0x0008
@@ -138,6 +139,25 @@
 /* TI DP83867 PHY Registers */
 #define DP83867_R32_RGMIICTL1					0x32
 #define DP83867_R86_RGMIIDCTL					0x86
+
+#define TI_PHY_REGCR			0xD
+#define TI_PHY_ADDDR			0xE
+#define TI_PHY_PHYCTRL			0x10
+#define TI_PHY_CFGR2			0x14
+#define TI_PHY_SGMIITYPE		0xD3
+#define TI_PHY_CFGR2_SGMII_AUTONEG_EN	0x0080
+#define TI_PHY_SGMIICLK_EN		0x4000
+#define TI_PHY_REGCR_DEVAD_EN		0x001F
+#define TI_PHY_REGCR_DEVAD_DATAEN	0x4000
+#define TI_PHY_CFGR2_MASK		0x003F
+
+#define TI_PHY_CFG2_SPEEDOPT_10EN          0x0040
+#define TI_PHY_CFG2_SGMII_AUTONEGEN        0x0080
+#define TI_PHY_CFG2_SPEEDOPT_ENH           0x0100
+#define TI_PHY_CFG2_SPEEDOPT_CNT           0x0800
+#define TI_PHY_CFG2_SPEEDOPT_INTLOW        0x2000
+
+#define TI_PHY_CR_SGMII_EN		0x0800
 
 /* Loop counters to check for reset done
  */
@@ -232,6 +252,12 @@ unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 	u16 phylinkspeed;
 	int TimeOut;
 	u16 temp;
+
+#ifdef XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT
+	phy_addr = XPAR_PCSPMA_1000BASEX_PHYADDR;
+#elif XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT
+	phy_addr = XPAR_PCSPMA_SGMII_PHYADDR;
+#endif
 
 	xil_printf("Start PHY autonegotiation \r\n");
 	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET,
@@ -389,6 +415,66 @@ unsigned int get_phy_speed_TI_DP83867(XAxiEthernet *xaxiemacp, u32 phy_addr)
 	return get_phy_negotiated_speed(xaxiemacp, phy_addr);
 }
 
+unsigned int get_phy_speed_TI_DP83867_SGMII(XAxiEthernet *xaxiemacp, u32 phy_addr)
+{
+	u16 phy_val;
+	u16 control;
+	u16 temp;
+	u16 temp1;
+	u16 partner_capabilities;
+
+	xil_printf("Start TI PHY autonegotiation \r\n");
+
+	/* Enable SGMII Clock */
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR,
+			      TI_PHY_REGCR_DEVAD_EN);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR,
+			      TI_PHY_SGMIITYPE);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR,
+			      TI_PHY_REGCR_DEVAD_EN | TI_PHY_REGCR_DEVAD_DATAEN);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR,
+			      TI_PHY_SGMIICLK_EN);
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET,
+			     &control);
+	control |= (IEEE_CTRL_AUTONEGOTIATE_ENABLE | IEEE_CTRL_LINKSPEED_1000M |
+		    IEEE_CTRL_FULL_DUPLEX);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, IEEE_CONTROL_REG_OFFSET,
+			      control);
+
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, TI_PHY_CFGR2, &control);
+	control &= TI_PHY_CFGR2_MASK;
+	control |= (TI_PHY_CFG2_SPEEDOPT_10EN   |
+		    TI_PHY_CFG2_SGMII_AUTONEGEN |
+		    TI_PHY_CFG2_SPEEDOPT_ENH    |
+		    TI_PHY_CFG2_SPEEDOPT_CNT    |
+		    TI_PHY_CFG2_SPEEDOPT_INTLOW);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_CFGR2, control);
+
+	/* Disable RGMII */
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR,
+			      TI_PHY_REGCR_DEVAD_EN);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR,
+			      DP83867_R32_RGMIICTL1);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR,
+			      TI_PHY_REGCR_DEVAD_EN | TI_PHY_REGCR_DEVAD_DATAEN);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR, 0);
+
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_PHYCTRL,
+			      TI_PHY_CR_SGMII_EN);
+
+	xil_printf("Waiting for Link to be up \r\n");
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
+			     IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+	while(!(temp & 0x4000)) {
+		XAxiEthernet_PhyRead(xaxiemacp, phy_addr,
+				IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
+	}
+	xil_printf("Auto negotiation completed for TI PHY\n\r");
+
+	return get_phy_negotiated_speed(xaxiemacp, phy_addr);
+}
+
 unsigned int get_phy_speed_88E1116R(XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
 	u16 phy_val;
@@ -516,12 +602,9 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 {
 	u16 phy_identifier;
 	u16 phy_model;
+	u8 phytype;
 
-#ifdef XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT
-	u32 phy_addr = XPAR_PCSPMA_1000BASEX_PHYADDR;
-#elif XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT
-	u32 phy_addr = XPAR_PCSPMA_SGMII_PHYADDR;
-#elif XPAR_AXIETHERNET_0_BASEADDR
+#ifdef XPAR_AXIETHERNET_0_BASEADDR
 	u32 phy_addr = detect_phy(xaxiemacp);
 
 	/* Get the PHY Identifier and Model number */
@@ -540,6 +623,11 @@ unsigned get_IEEE_phy_speed(XAxiEthernet *xaxiemacp)
 		}
 	} else if (phy_identifier == TI_PHY_IDENTIFIER) {
 		phy_model = phy_model & TI_PHY_DP83867_MODEL;
+		phytype = XAxiEthernet_GetPhysicalInterface(xaxiemacp);
+
+		if (phy_model == TI_PHY_DP83867_MODEL && phytype == XAE_PHY_TYPE_SGMII) {
+			return get_phy_speed_TI_DP83867_SGMII(xaxiemacp, phy_addr);
+		}
 
 		if (phy_model == TI_PHY_DP83867_MODEL) {
 			return get_phy_speed_TI_DP83867(xaxiemacp, phy_addr);

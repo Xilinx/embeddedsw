@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2016-12-07
+	* Add Support for TI PHY DP83867 SGMII Mode configuration.
 2016-11-22
 	* Add support in xemaps_physpeed.c for newer version of Xilinx
 	  PCS PMA core with phy address scanning.
