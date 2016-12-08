@@ -61,6 +61,7 @@
 #include "xil_mmu.h"
 #include "xil_cache.h"
 #include "xfsbl_hooks.h"
+#include "xfsbl_bs.h"
 
 /************************** Constant Definitions *****************************/
 #define XFSBL_R5_VECTOR_VALUE 	0xEAFEFFFEU
@@ -178,6 +179,14 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	Status = XFsbl_DdrEccInit();
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
+	}
+
+	/* In case of PS only reset skipping PCAP initialization*/
+	if (FsblInstancePtr->ResetReason != PS_ONLY_RESET) {
+		Status = XFsbl_PcapInit();
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
+		}
 	}
 
 	/* Do board specific initialization if any */

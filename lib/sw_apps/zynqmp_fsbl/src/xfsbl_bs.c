@@ -130,6 +130,12 @@ u32 XFsbl_PcapInit(void) {
 
 	if ((PlatInfo != (u32)XPLAT_ZYNQ_ULTRA_MP)
 			&& (PlatInfo != (u32)XPLAT_ZYNQ_ULTRA_MPQEMU)) {
+		/* To confirm house cleaning of PL is started */
+		do {
+			RegVal = XFsbl_In32(CSU_PCAP_STATUS) &
+				CSU_PCAP_STATUS_PL_CFG_RST_MASK;
+		} while (RegVal != CSU_PCAP_STATUS_PL_CFG_RST_MASK);
+		/* To confirm house cleaning of PL is done */
 		do {
 			RegVal = XFsbl_In32(CSU_PCAP_STATUS) &
 			CSU_PCAP_STATUS_PL_INIT_MASK;

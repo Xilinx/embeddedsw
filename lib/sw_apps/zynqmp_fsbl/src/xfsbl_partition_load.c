@@ -1320,11 +1320,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 		XFsbl_Printf(DEBUG_GENERAL, "Bitstream download to start now\r\n");
 
-		Status = XFsbl_PcapInit();
-		if (Status != XFSBL_SUCCESS) {
-			goto END;
-		}
-
 		if (IsEncryptionEnabled == TRUE) {
 #ifdef XFSBL_SECURE
 
