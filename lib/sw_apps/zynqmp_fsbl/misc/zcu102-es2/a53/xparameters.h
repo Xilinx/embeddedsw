@@ -1,14 +1,16 @@
 /* Definition for CPU ID */
 #define XPAR_CPU_ID 0
 
-/* Definitions for peripheral PSU_CORTEXR5_0 */
-#define XPAR_PSU_CORTEXR5_0_CPU_CLK_FREQ_HZ 499994995
+/* Definitions for peripheral PSU_CORTEXA53_0 */
+#define XPAR_PSU_CORTEXA53_0_CPU_CLK_FREQ_HZ 1199988037
+#define XPAR_PSU_CORTEXA53_0_TIMESTAMP_CLK_FREQ 99998999
 
 
 /******************************************************************/
 
-/* Canonical definitions for peripheral PSU_CORTEXR5_0 */
-#define XPAR_CPU_CORTEXR5_0_CPU_CLK_FREQ_HZ 499994995
+/* Canonical definitions for peripheral PSU_CORTEXA53_0 */
+#define XPAR_CPU_CORTEXA53_0_CPU_CLK_FREQ_HZ 1199988037
+#define XPAR_CPU_CORTEXA53_0_TIMESTAMP_CLK_FREQ 99998999
 
 
 /******************************************************************/
@@ -19,18 +21,6 @@
 #include "xparameters_ps.h"
 
 #define XPS_BOARD_ZCU102
-
-/******************************************************************/
-
-/*
- * Definitions of PSU_TTC_3 counter 0 base address and frequency used
- * by sleep and usleep APIs
- */
-
-#define SLEEP_TIMER_BASEADDR 0xFF140000
-#define SLEEP_TIMER_FREQUENCY 100000000
-
-/******************************************************************/
 
 
 /* Number of Fabric Resets */
@@ -387,6 +377,16 @@
 #define XPAR_PSU_CRL_APB_S_AXI_HIGHADDR 0xFF85FFFF
 
 
+/* Definitions for peripheral PSU_DDR_0 */
+#define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000
+#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0xFFFFFFFF
+
+
+/* Definitions for peripheral PSU_DDR_1 */
+#define XPAR_PSU_DDR_1_S_AXI_BASEADDR 0x800000000
+#define XPAR_PSU_DDR_1_S_AXI_HIGHADDR 0x87FFFFFFF
+
+
 /* Definitions for peripheral PSU_DDR_PHY */
 #define XPAR_PSU_DDR_PHY_S_AXI_BASEADDR 0xFD080000
 #define XPAR_PSU_DDR_PHY_S_AXI_HIGHADDR 0xFD08FFFF
@@ -547,6 +547,11 @@
 #define XPAR_PSU_PCIE_DMA_S_AXI_HIGHADDR 0xFD0FFFFF
 
 
+/* Definitions for peripheral PSU_PCIE_HIGH */
+#define XPAR_PSU_PCIE_HIGH_S_AXI_BASEADDR 0x600000000
+#define XPAR_PSU_PCIE_HIGH_S_AXI_HIGHADDR 0x7FFFFFFFF
+
+
 /* Definitions for peripheral PSU_PCIE_LOW */
 #define XPAR_PSU_PCIE_LOW_S_AXI_BASEADDR 0xE0000000
 #define XPAR_PSU_PCIE_LOW_S_AXI_HIGHADDR 0xEFFFFFFF
@@ -567,24 +572,29 @@
 #define XPAR_PSU_QSPI_LINEAR_0_S_AXI_HIGHADDR 0xDFFFFFFF
 
 
-/* Definitions for peripheral PSU_R5_0_ATCM */
-#define XPAR_PSU_R5_0_ATCM_S_AXI_BASEADDR 0x00000000
-#define XPAR_PSU_R5_0_ATCM_S_AXI_HIGHADDR 0x0000FFFF
+/* Definitions for peripheral PSU_R5_0_ATCM_GLOBAL */
+#define XPAR_PSU_R5_0_ATCM_GLOBAL_S_AXI_BASEADDR 0xFFE00000
+#define XPAR_PSU_R5_0_ATCM_GLOBAL_S_AXI_HIGHADDR 0xFFE0FFFF
 
 
-/* Definitions for peripheral PSU_R5_0_BTCM */
-#define XPAR_PSU_R5_0_BTCM_S_AXI_BASEADDR 0x00020000
-#define XPAR_PSU_R5_0_BTCM_S_AXI_HIGHADDR 0x0002FFFF
+/* Definitions for peripheral PSU_R5_0_BTCM_GLOBAL */
+#define XPAR_PSU_R5_0_BTCM_GLOBAL_S_AXI_BASEADDR 0xFFE20000
+#define XPAR_PSU_R5_0_BTCM_GLOBAL_S_AXI_HIGHADDR 0xFFE2FFFF
 
 
-/* Definitions for peripheral PSU_R5_DDR_0 */
-#define XPAR_PSU_R5_DDR_0_S_AXI_BASEADDR 0x00100000
-#define XPAR_PSU_R5_DDR_0_S_AXI_HIGHADDR 0xFFFFFFFF
+/* Definitions for peripheral PSU_R5_1_ATCM_GLOBAL */
+#define XPAR_PSU_R5_1_ATCM_GLOBAL_S_AXI_BASEADDR 0xFFE90000
+#define XPAR_PSU_R5_1_ATCM_GLOBAL_S_AXI_HIGHADDR 0xFFE9FFFF
 
 
-/* Definitions for peripheral PSU_R5_TCM_RAM_0 */
-#define XPAR_PSU_R5_TCM_RAM_0_S_AXI_BASEADDR 0x00000000
-#define XPAR_PSU_R5_TCM_RAM_0_S_AXI_HIGHADDR 0x0003FFFF
+/* Definitions for peripheral PSU_R5_1_BTCM_GLOBAL */
+#define XPAR_PSU_R5_1_BTCM_GLOBAL_S_AXI_BASEADDR 0xFFEB0000
+#define XPAR_PSU_R5_1_BTCM_GLOBAL_S_AXI_HIGHADDR 0xFFEBFFFF
+
+
+/* Definitions for peripheral PSU_R5_TCM_RAM_GLOBAL */
+#define XPAR_PSU_R5_TCM_RAM_GLOBAL_S_AXI_BASEADDR 0xFFE00000
+#define XPAR_PSU_R5_TCM_RAM_GLOBAL_S_AXI_HIGHADDR 0xFFE3FFFF
 
 
 /* Definitions for peripheral PSU_RPU */
@@ -679,19 +689,19 @@
 
 #define  XPAR_XIPIPSU_NUM_INSTANCES  1
 
-/* Parameter definitions for peripheral psu_ipi_1 */
-#define  XPAR_PSU_IPI_1_DEVICE_ID  0
-#define  XPAR_PSU_IPI_1_BASE_ADDRESS  0xFF310000
-#define  XPAR_PSU_IPI_1_BIT_MASK  0x00000100
-#define  XPAR_PSU_IPI_1_BUFFER_INDEX  0
-#define  XPAR_PSU_IPI_1_INT_ID  65
+/* Parameter definitions for peripheral psu_ipi_0 */
+#define  XPAR_PSU_IPI_0_DEVICE_ID  0
+#define  XPAR_PSU_IPI_0_BASE_ADDRESS  0xFF300000
+#define  XPAR_PSU_IPI_0_BIT_MASK  0x00000001
+#define  XPAR_PSU_IPI_0_BUFFER_INDEX  2
+#define  XPAR_PSU_IPI_0_INT_ID  67
 
-/* Canonical definitions for peripheral psu_ipi_1 */
-#define  XPAR_XIPIPSU_0_DEVICE_ID	XPAR_PSU_IPI_1_DEVICE_ID
-#define  XPAR_XIPIPSU_0_BASE_ADDRESS	XPAR_PSU_IPI_1_BASE_ADDRESS
-#define  XPAR_XIPIPSU_0_BIT_MASK	XPAR_PSU_IPI_1_BIT_MASK
-#define  XPAR_XIPIPSU_0_BUFFER_INDEX	XPAR_PSU_IPI_1_BUFFER_INDEX
-#define  XPAR_XIPIPSU_0_INT_ID	XPAR_PSU_IPI_1_INT_ID
+/* Canonical definitions for peripheral psu_ipi_0 */
+#define  XPAR_XIPIPSU_0_DEVICE_ID	XPAR_PSU_IPI_0_DEVICE_ID
+#define  XPAR_XIPIPSU_0_BASE_ADDRESS	XPAR_PSU_IPI_0_BASE_ADDRESS
+#define  XPAR_XIPIPSU_0_BIT_MASK	XPAR_PSU_IPI_0_BIT_MASK
+#define  XPAR_XIPIPSU_0_BUFFER_INDEX	XPAR_PSU_IPI_0_BUFFER_INDEX
+#define  XPAR_XIPIPSU_0_INT_ID	XPAR_PSU_IPI_0_INT_ID
 
 #define  XPAR_XIPIPSU_NUM_TARGETS  11
 
@@ -793,20 +803,20 @@
 /* Definitions for driver SCUGIC */
 #define XPAR_XSCUGIC_NUM_INSTANCES 1
 
-/* Definitions for peripheral PSU_RCPU_GIC */
-#define XPAR_PSU_RCPU_GIC_DEVICE_ID 0
-#define XPAR_PSU_RCPU_GIC_BASEADDR 0xF9001000
-#define XPAR_PSU_RCPU_GIC_HIGHADDR 0xF9001FFF
-#define XPAR_PSU_RCPU_GIC_DIST_BASEADDR 0xF9000000
+/* Definitions for peripheral PSU_ACPU_GIC */
+#define XPAR_PSU_ACPU_GIC_DEVICE_ID 0
+#define XPAR_PSU_ACPU_GIC_BASEADDR 0xF9020000
+#define XPAR_PSU_ACPU_GIC_HIGHADDR 0xF9020FFF
+#define XPAR_PSU_ACPU_GIC_DIST_BASEADDR 0xF9010000
 
 
 /******************************************************************/
 
-/* Canonical definitions for peripheral PSU_RCPU_GIC */
+/* Canonical definitions for peripheral PSU_ACPU_GIC */
 #define XPAR_SCUGIC_0_DEVICE_ID 0
-#define XPAR_SCUGIC_0_CPU_BASEADDR 0xF9001000
-#define XPAR_SCUGIC_0_CPU_HIGHADDR 0xF9001FFF
-#define XPAR_SCUGIC_0_DIST_BASEADDR 0xF9000000
+#define XPAR_SCUGIC_0_CPU_BASEADDR 0xF9020000
+#define XPAR_SCUGIC_0_CPU_HIGHADDR 0xF9020FFF
+#define XPAR_SCUGIC_0_DIST_BASEADDR 0xF9010000
 
 
 /******************************************************************/
@@ -821,7 +831,7 @@
 #define XPAR_PSU_SD_1_SDIO_CLK_FREQ_HZ 199998006
 #define XPAR_PSU_SD_1_HAS_CD 1
 #define XPAR_PSU_SD_1_HAS_WP 1
-#define XPAR_PSU_SD_1_BUS_WIDTH 4
+#define XPAR_PSU_SD_1_BUS_WIDTH 8
 #define XPAR_PSU_SD_1_MIO_BANK 1
 #define XPAR_PSU_SD_1_HAS_EMIO 0
 
@@ -835,7 +845,7 @@
 #define XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ 199998006
 #define XPAR_XSDPS_0_HAS_CD 1
 #define XPAR_XSDPS_0_HAS_WP 1
-#define XPAR_XSDPS_0_BUS_WIDTH 4
+#define XPAR_XSDPS_0_BUS_WIDTH 8
 #define XPAR_XSDPS_0_MIO_BANK 1
 #define XPAR_XSDPS_0_HAS_EMIO 0
 

@@ -77,7 +77,7 @@ FSBL(zynq_fsbl/zynqmp_fsbl) has 3 directories.
 		  compile FSBL.
 		  For zynq (zynq_fsbl), builds for zc702, zc706, zed and
 		  microzed boards are supported.
-		  For zynqmp (zynqmp_fsbl), builds for zcu102 board are
+		  For zynqmp (zynqmp_fsbl), builds for zcu102,zcu102-es2 board are
 		  supported.
 		  It also contains the ps7_init_gpl.[c/h] with gpl
 		  header in respective board directories.
@@ -108,7 +108,7 @@ How to compile FSBL:
 	  make clean to delete them.
 	2.Give build command in the following manner.
 		a. make "BOARD=<>" "PROC=<>" "A53_STATE=<>"
-		a. Value for BOARD is zcu102. (Default is zcu102)
+		a. Value for BOARD can be zcu102 or zcu102-es2. (Default is zcu102)
 		b. Value for PROC can be a53 or r5. (Default is a53)
 		c. Value for A53_STATE can be 64 or 32. (Default: 64)
 			A53_STATE is only to be given when processor is a53.
@@ -121,3 +121,9 @@ How to compile FSBL:
 			i.make "BOARD=zcu102" "PROC=r5" "CFLAGS+=-DFSBL_DEBUG_INFO"
 		c.To generate A53 32 bit Fsbl for zcu102 board.
 			i.make "BOARD=zcu102" "PROC=a53" "A53_STATE=32"
+		d. To generate A53 64 bit Fsbl for zcu102-es2 board
+			i.make "BOARD=zcu102-es2" "PROC=a53" "A53_STATE=64"
+		e.To generate R5 Fsbl for zcu102-es2 board with debug enable
+			i.make "BOARD=zcu102-es2" "PROC=r5" "CFLAGS+=-DFSBL_DEBUG_INFO"
+		f.To generate A53 32 bit Fsbl for zcu102-es2 board.
+			i.make "BOARD=zcu102-es2" "PROC=a53" "A53_STATE=32"
