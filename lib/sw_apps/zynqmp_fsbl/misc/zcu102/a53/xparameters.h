@@ -22,6 +22,10 @@
 
 #define XPS_BOARD_ZCU102
 
+
+/* Number of Fabric Resets */
+#define XPAR_NUM_FABRIC_RESETS 1
+
 #define STDIN_BASEADDRESS 0xFF000000
 #define STDOUT_BASEADDRESS 0xFF000000
 
