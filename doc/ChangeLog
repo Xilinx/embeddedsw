@@ -35,6 +35,7 @@ Make log feature optional
 Updated example design FULL topology test cases
 Updated makefile to add compiler flags to seggregate dat and text sections
 Updated mdd to remove sub-core version dependency
+Added HasMADI flag to subsystem configuration and fix for CR#964829
 
 xilopenamp_v1_0:
 obsoleted lib (was replaced in 2016.1 release by openamp lib)
