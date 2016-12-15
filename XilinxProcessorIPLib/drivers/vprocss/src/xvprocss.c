@@ -57,6 +57,8 @@
 *                       scaler only topology
 *       rco  07/20/16   Replace deprecated MB_Sleep with usleep
 *                       Maintain user defined PIP color between pipe reset
+* 2.30  rco  12/15/16   Added HasMADI configuration option check
+*
 * </pre>
 *
 ******************************************************************************/
@@ -451,15 +453,13 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
 	}
   }
 
-  if((InstancePtr->VdmaPtr) || (InstancePtr->DeintPtr)) {
-	  if(InstancePtr->FrameBufBaseaddr == 0) {
-        XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CHK_BASEADDR, XVPROCSS_EDAT_FAILURE);
-		return(XST_FAILURE);
-	  }
-  }
-
   if(InstancePtr->VdmaPtr) {
 	if(XVprocSs_SubcoreInitVdma(InstancePtr) != XST_SUCCESS) {
+	  return(XST_FAILURE);
+	}
+	/* If VDMA is included, Buffer address must be set */
+    if(InstancePtr->FrameBufBaseaddr == 0) {
+      XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CHK_BASEADDR, XVPROCSS_EDAT_FAILURE);
 	  return(XST_FAILURE);
 	}
   }
@@ -490,12 +490,19 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
       vdmaBufReq = 0;
       bufsize    = 0;
     }
+
+	/* If MADI is included, Buffer address must be set */
+    if((InstancePtr->Config.HasMADI) && (InstancePtr->FrameBufBaseaddr == 0)) {
+      XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CHK_BASEADDR, XVPROCSS_EDAT_FAILURE);
+	  return(XST_FAILURE);
+	}
+
     /* Set Deint Buffer Address Offset
      *   - Located after vdma buffers, if included
      *   - 1 4k2k buffer added as a pad between vdma and deint
      */
     InstancePtr->CtxtData.DeintBufAddr = InstancePtr->FrameBufBaseaddr +
-		                             vdmaBufReq +
+		                                 vdmaBufReq +
 										 bufsize;
   }
 

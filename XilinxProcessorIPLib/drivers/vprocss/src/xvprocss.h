@@ -207,6 +207,7 @@
 *                       Changed the prototype of XVprocSs_CfgInitialize and
 *                       XVprocSs_SetFrameBufBaseaddr API
 * 2.30  rco  11/15/16   Make debug log optional (can be disabled via makefile)
+* 			 12/15/16   Added HasMADI configuration option
 *
 * </pre>
 *
@@ -365,6 +366,7 @@ typedef struct
   u16 NumVidComponents;  /**< Number of Video Components */
   u16 MaxWidth;          /**< Maximum cols supported by subsystem instance */
   u16 MaxHeight;         /**< Maximum rows supported by subsystem instance */
+  u16 HasMADI;           /**< Motion Adaptive Deinterlacer available flag */
   XSubCore RstAximm;     /**< Axi MM reset network instance configuration */
   XSubCore RstAxis;      /**< Axi stream reset network instance configuration */
   XSubCore Vdma;         /**< Sub-core instance configuration */

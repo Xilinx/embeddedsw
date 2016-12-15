@@ -101,7 +101,6 @@ void XVprocSs_LogWrite(XVprocSs *InstancePtr, XVprocSs_LogEvent Evt, u8 Data)
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Evt < (XVPROCSS_EVT_LAST_ENUM));
-	Xil_AssertVoid(Data < 0xFF);
 
 	/* Write data and event into log buffer */
 	InstancePtr->Log.DataBuffer[InstancePtr->Log.HeadIndex] =
