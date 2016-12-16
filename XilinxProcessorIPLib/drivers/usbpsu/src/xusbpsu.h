@@ -346,7 +346,8 @@ struct XUsbPsu {
 	u32 DevDescSize;
 	u32 ConfigDescSize;
 	void (*Chapter9)(struct XUsbPsu *, SetupPacket *);
-	void (*ClassHandler)(struct XUsbPsu *, SetupPacket *);
+	void (*ResetIntrHandler)(struct XUsbPsu *);
+	void (*DisconnectIntrHandler)(struct XUsbPsu *);
 	void *DevDesc;
 	void *ConfigDesc;
 	u8 EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]
@@ -363,6 +364,7 @@ struct XUsbPsu {
 	u8 UnalignedTx;
 	u8 IsConfigDone;
 	u8 IsThreeStage;
+	void *data_ptr; /* pointer for storing applications data */
 };
 
 struct XUsbPsu_Event_Type {
@@ -478,6 +480,32 @@ union XUsbPsu_Event {
 #define DECLARE_CONFIG_DESC(Instance, desc) 		\
 	(Instance).ConfigDesc = &(desc); 				\
 	(Instance).ConfigDescSize = sizeof((desc))
+
+static inline void *XUsbPsu_get_drvdata(struct XUsbPsu *InstancePtr) {
+	return InstancePtr->data_ptr;
+}
+
+static inline void XUsbPsu_set_drvdata(struct XUsbPsu *InstancePtr, void *data) {
+	InstancePtr->data_ptr = data;
+}
+
+static inline void XUsbPsu_set_ch9handler(
+		struct XUsbPsu *InstancePtr,
+		void (*func)(struct XUsbPsu *, SetupPacket *)) {
+	InstancePtr->Chapter9 = func;
+}
+
+static inline void XUsbPsu_set_rsthandler(
+		struct XUsbPsu *InstancePtr,
+		void (*func)(struct XUsbPsu *)) {
+	InstancePtr->ResetIntrHandler = func;
+}
+
+static inline void XUsbPsu_set_disconnect(
+		struct XUsbPsu *InstancePtr,
+		void (*func)(struct XUsbPsu *)) {
+	InstancePtr->DisconnectIntrHandler = func;
+}
 
 /************************** Function Prototypes ******************************/
 
