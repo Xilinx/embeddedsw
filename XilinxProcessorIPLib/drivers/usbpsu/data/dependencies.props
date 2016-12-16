@@ -1,0 +1,2 @@
+xusbpsu_intr_example.c=xusbpsu_intr_example.c,xusbpsu_class_storage.c,xusbpsu_class_storage.h,xusbpsu_ch9_storage.c,xusbpsu_ch9_storage.h,xusbpsu_ch9.c,xusbpsu_ch9.h
+xusbpsu_dfu_example.c=xusbpsu_dfu_example.c,xusbpsu_dfu_class.c,xusbpsu_dfu.h,xusbpsu_ch9_dfu.c,xusbpsu_ch9_dfu.h,xusbpsu_ch9.c,xusbpsu_ch9.h
