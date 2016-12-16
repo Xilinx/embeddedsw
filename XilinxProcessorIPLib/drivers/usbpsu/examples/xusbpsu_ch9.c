@@ -40,13 +40,13 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg   06/06/16 First release
+* 1.1	vak  30/11/16 Addded DFU support
 *
 *
 * </pre>
 *
 *****************************************************************************/
 #include "xusbpsu_ch9.h"
-#include "xusbpsu_ch9_storage.h"
 #include "xil_cache.h"
 #include "sleep.h"
 
@@ -85,13 +85,16 @@ void XUsbPsu_ClassReq(struct XUsbPsu *InstancePtr,
 void XUsbPsu_Ch9Handler(struct XUsbPsu *InstancePtr,
 			SetupPacket *SetupData)
 {
+	USBCH9_DATA *ch9_ptr =
+		(USBCH9_DATA *)XUsbPsu_get_drvdata(InstancePtr);
+
 	switch (SetupData->bRequestType & XUSBPSU_REQ_TYPE_MASK) {
 	case XUSBPSU_CMD_STDREQ:
 		XUsbPsu_StdDevReq(InstancePtr, SetupData);
 		break;
 
 	case XUSBPSU_CMD_CLASSREQ:
-		InstancePtr->ClassHandler(InstancePtr, SetupData);
+		ch9_ptr->ch9_func.XUsbPsu_ClassReq(InstancePtr, SetupData);
 		break;
 
 	case XUSBPSU_CMD_VENDREQ:
@@ -134,6 +137,8 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 	u8 Direction;
 	static u8 Reply[XUSBPSU_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
 	static u8 TmpBuffer[10] ALIGNMENT_CACHELINE;
+	USBCH9_DATA *usb_data =
+			(USBCH9_DATA *)XUsbPsu_get_drvdata(InstancePtr);
 
 	/* Check that the requested reply length is not bigger than our reply
 	 * buffer. This should never happen...
@@ -228,8 +233,10 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 			 * Set up the reply buffer with the device descriptor
 			 * data.
 			 */
-			ReplyLen = XUsbPsu_Ch9SetupDevDescReply(InstancePtr,
-						Reply, XUSBPSU_REQ_REPLY_LEN);
+			ReplyLen = usb_data->ch9_func.
+					XUsbPsu_Ch9SetupDevDescReply(
+						InstancePtr, Reply,
+						XUSBPSU_REQ_REPLY_LEN);
 
 			ReplyLen = ReplyLen > SetupData->wLength ?
 						SetupData->wLength : ReplyLen;
@@ -263,8 +270,10 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 			/* Set up the reply buffer with the configuration
 			 * descriptor data.
 			 */
-			ReplyLen = XUsbPsu_Ch9SetupCfgDescReply(InstancePtr,
-						Reply, XUSBPSU_REQ_REPLY_LEN);
+			ReplyLen = usb_data->ch9_func.
+					XUsbPsu_Ch9SetupCfgDescReply(
+						InstancePtr, Reply,
+						XUSBPSU_REQ_REPLY_LEN);
 
 #ifdef CH9_DEBUG
 			printf("GET CONFIG DESC %d/%d\r\n", ReplyLen,
@@ -285,8 +294,9 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
             /* Set up the reply buffer with the configuration
 			 * descriptor data.
 			 */
-			ReplyLen = XUsbPsu_Ch9SetupStrDescReply(InstancePtr,
-						Reply, 128,
+			ReplyLen = usb_data->ch9_func.
+					XUsbPsu_Ch9SetupStrDescReply(
+						InstancePtr, Reply, 128,
 						SetupData->wValue & 0xFF);
 
 #ifdef CH9_DEBUG
@@ -309,8 +319,9 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
             /* Set up the reply buffer with the BOS descriptor
 			 * data.
 			 */
-			ReplyLen = XUsbPsu_Ch9SetupBosDescReply(
-						Reply, XUSBPSU_REQ_REPLY_LEN);
+			ReplyLen = usb_data->ch9_func.
+					XUsbPsu_Ch9SetupBosDescReply(Reply,
+							XUSBPSU_REQ_REPLY_LEN);
 
 #ifdef CH9_DEBUG
 			printf("GET BOS DESC %d/%d\r\n", ReplyLen,
@@ -358,8 +369,10 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 #endif
 		}
 
-		XUsbPsu_SetConfiguration(InstancePtr, SetupData);
-		XUsbPsu_SetConfigurationApp(InstancePtr, SetupData);
+		usb_data->ch9_func.
+			XUsbPsu_SetConfiguration(InstancePtr, SetupData);
+		usb_data->ch9_func.
+			XUsbPsu_SetConfigurationApp(InstancePtr, SetupData);
 		break;
 
 	case XUSBPSU_REQ_GET_CONFIGURATION:
@@ -466,13 +479,19 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 #ifdef CH9_DEBUG
 		printf("SET INTERFACE %d/%d\n", SetupData->wValue, SetupData->wIndex);
 #endif
-		/* Not supported */
+
+		/* Call the set interface handler, if any*/
+		if (usb_data->ch9_func.XUsbPsu_SetInterfaceHandler != NULL) {
+			usb_data->ch9_func.XUsbPsu_SetInterfaceHandler(
+							InstancePtr, SetupData);
+		}
 		break;
 
 	case XUSBPSU_REQ_SET_SEL:
 #ifdef CH9_DEBUG
 		printf("SET SEL \r\n");
 #endif
+
 		XUsbPsu_EpBufferRecv(InstancePtr, 0, TmpBuffer, 6);
 		XUsbPsu_SetU1SleepTimeout(InstancePtr, 0x0A);
 		XUsbPsu_SetU2SleepTimeout(InstancePtr, 0x04);

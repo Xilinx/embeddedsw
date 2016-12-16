@@ -40,6 +40,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
+* 1.1	vak 30/11/16 updated for adding ch9 function callbacks
 *
 * </pre>
 *
@@ -62,6 +63,23 @@ extern "C" {
 #include <stdio.h>
 #define printf	xil_printf
 #endif
+
+/************************** TypeDef Definitions *****************************/
+typedef struct {
+    u32 (*XUsbPsu_Ch9SetupDevDescReply)(struct XUsbPsu *,u8 *, u32);
+    u32 (*XUsbPsu_Ch9SetupCfgDescReply)(struct XUsbPsu *,u8 *, u32);
+    u32 (*XUsbPsu_Ch9SetupBosDescReply)(u8 *, u32);
+    u32 (*XUsbPsu_Ch9SetupStrDescReply)(struct XUsbPsu *,u8 *, u32, u8);
+    s32 (*XUsbPsu_SetConfiguration)(struct XUsbPsu *, SetupPacket *);
+    s32 (*XUsbPsu_SetConfigurationApp)(struct XUsbPsu *, SetupPacket *);
+	void (*XUsbPsu_SetInterfaceHandler)(struct XUsbPsu *, SetupPacket *);
+	void (*XUsbPsu_ClassReq)(struct XUsbPsu *, SetupPacket *);
+} __attribute__((__packed__))CH9FUNC_CONTAINER;
+
+typedef struct {
+	CH9FUNC_CONTAINER ch9_func;
+	void * data_ptr;
+} __attribute__((__packed__))USBCH9_DATA;
 
 /************************** Constant Definitions *****************************/
 
