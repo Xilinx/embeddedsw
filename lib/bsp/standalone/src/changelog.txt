@@ -400,4 +400,8 @@
  *                     these APIs and modifications are done on top of it to handle stdout/stdin
  *                     parameters for design which doesnt have UART.It fixes CR#953681
  * 6.1 nsk   11/07/16  Added two new files xil_mem.c and xil_mem.h for xil_memcpy
+ * 6.2 pkp   12/14/16  Updated cortexa53/64bit/translation_table.S for upper ps DDR. The 0x800000000 -
+ *		       0xFFFFFFFFF range is marked normal memory for the DDR size defined in hdf
+ *		       and rest of the memory in that 32GB region is marked as reserved to avoid
+ *		       any speculative access
  *****************************************************************************************/
