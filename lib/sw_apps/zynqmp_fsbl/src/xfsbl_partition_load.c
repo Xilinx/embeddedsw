@@ -1212,7 +1212,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			 * less system
 			 */
 			Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
-					Length, (PTRSIZE)AuthBuffer, HashLen,
+					Length, (PTRSIZE)AuthBuffer,
 					PartitionNum);
 		}
 #endif
@@ -1575,7 +1575,7 @@ static u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
 	{
 		XFsbl_Printf(DEBUG_INFO,"CheckSum Type - SHA3\r\n");
 	#ifndef XFSBL_PS_DDR
-		DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
+		u32 DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 		if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
 		{
 	#ifdef XFSBL_BS
