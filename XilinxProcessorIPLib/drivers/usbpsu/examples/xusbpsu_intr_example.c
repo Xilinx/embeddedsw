@@ -52,6 +52,7 @@
 #include "xparameters.h"
 #include "xscugic.h"
 #include "xusbpsu_class_storage.h"
+#include "xusbpsu_ch9_storage.h"
 #include "xusbpsu.h"
 
 /************************** Constant Definitions ****************************/
@@ -91,6 +92,30 @@ u8 Phase;
 int	rxBytesLeft;
 u8 *VirtFlashWritePointer = VirtFlash;
 
+/* Initialize a DFU data structure */
+static USBCH9_DATA storage_data = {
+		.ch9_func = {
+				/* Set the chapter9 hooks */
+				.XUsbPsu_Ch9SetupDevDescReply =
+						XUsbPsu_Ch9SetupDevDescReply,
+				.XUsbPsu_Ch9SetupCfgDescReply =
+						XUsbPsu_Ch9SetupCfgDescReply,
+				.XUsbPsu_Ch9SetupBosDescReply =
+						XUsbPsu_Ch9SetupBosDescReply,
+				.XUsbPsu_Ch9SetupStrDescReply =
+						XUsbPsu_Ch9SetupStrDescReply,
+				.XUsbPsu_SetConfiguration =
+						XUsbPsu_SetConfiguration,
+				.XUsbPsu_SetConfigurationApp =
+						XUsbPsu_SetConfigurationApp,
+				/* hook the set interface handler */
+				.XUsbPsu_SetInterfaceHandler = NULL,
+				/* hook up storage class handler */
+				.XUsbPsu_ClassReq = XUsbPsu_ClassReq,
+
+		},
+		.data_ptr = (void *)NULL,
+};
 /****************************************************************************/
 /**
 * This function is the main function of the USB mass storage example.
@@ -123,10 +148,10 @@ int main(void)
 	}
 
 	/* hook up chapter9 handler */
-	UsbInstance.Chapter9 = XUsbPsu_Ch9Handler;
+	XUsbPsu_set_ch9handler(&UsbInstance, XUsbPsu_Ch9Handler);
 
-	/* hook up storage class handler */
-	UsbInstance.ClassHandler  = XUsbPsu_ClassReq;
+	/* Assign the data to usb driver */
+	XUsbPsu_set_drvdata(&UsbInstance, &storage_data);
 
 	/*
      * set endpoint handlers
