@@ -6,6 +6,10 @@ parameter macro
 
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
+Modified Cortex-A53 translation table for upper ps DDR. The 0x800000000 -
+0xFFFFFFFFF range is marked normal memory for the DDR size defined in hdf
+and rest of the memory in that 32GB region is marked as reserved to avoid
+any speculative access
 
 nandpsu_v1_2:
 change memcpy to Xil_MemCpy. fixes CR#960462
