@@ -20,3 +20,6 @@ libs:
 .PHONY: include
 include:
 	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
+
+clean:
+	rm -rf ${OUTS}
