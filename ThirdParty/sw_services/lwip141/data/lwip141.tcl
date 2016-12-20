@@ -424,11 +424,16 @@ proc generate_lwip_opts {libhandle} {
 
 	set api_mode [common::get_property CONFIG.api_mode $libhandle]
 	if {$api_mode == "RAW_API"} {
+		# If RAW_API mode, NO_SYS should be 1, else this is set to zero by default in opt.h
 		puts $lwipopts_fd "\#define NO_SYS 1"
 		puts $lwipopts_fd "\#define LWIP_SOCKET 0"
 		puts $lwipopts_fd "\#define LWIP_COMPAT_SOCKETS 0"
 		puts $lwipopts_fd "\#define LWIP_NETCONN 0"
 	}
+	puts $lwipopts_fd ""
+
+	set no_sys_no_timers	[expr [common::get_property CONFIG.no_sys_no_timers $libhandle] == true]
+	puts $lwipopts_fd "\#define NO_SYS_NO_TIMERS $no_sys_no_timers"
 	puts $lwipopts_fd ""
 
 	set thread_prio [common::get_property CONFIG.socket_mode_thread_prio $libhandle]
@@ -463,6 +468,10 @@ proc generate_lwip_opts {libhandle} {
 
 	set use_axieth_on_zynq [common::get_property CONFIG.use_axieth_on_zynq $libhandle]
 	set use_emaclite_on_zynq [common::get_property CONFIG.use_emaclite_on_zynq  $libhandle]
+
+	set lwip_tcp_keepalive	[expr [common::get_property CONFIG.lwip_tcp_keepalive $libhandle] == true]
+	puts $lwipopts_fd "\#define LWIP_TCP_KEEPALIVE $lwip_tcp_keepalive"
+	puts $lwipopts_fd ""
 
 	# memory options
 	set mem_size 		[common::get_property CONFIG.mem_size $libhandle]
@@ -683,7 +692,6 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd ""
 
 
-	puts $lwipopts_fd "\#define NO_SYS_NO_TIMERS 1"
 	puts $lwipopts_fd "\#define MEMP_SEPARATE_POOLS 1"
 	puts $lwipopts_fd "\#define MEMP_NUM_FRAG_PBUF 256"
 	puts $lwipopts_fd "\#define IP_OPTIONS_ALLOWED 0"

@@ -11,9 +11,11 @@ BEGIN LIBRARY lwip141
   OPTION NAME = lwip141;
 
   PARAM name = api_mode, desc = "Mode of operation for lwIP (RAW API/Sockets API)", type = enum, values = ("RAW API" = RAW_API, "SOCKET API" = SOCKET_API), default = RAW_API;
+  PARAM name = no_sys_no_timers, desc = "Drops support for sys_timeout when NO_SYS==1", type = bool, default = true;
   PARAM name = socket_mode_thread_prio, desc = "Priority of threads in socket mode", type = int, default = 2;
   PARAM name = use_axieth_on_zynq, desc = "Option if set to 1 ensures axiethernet adapter being used in Zynq. Valid only for Zynq", type = int, default = 1;
   PARAM name = use_emaclite_on_zynq, desc = "Option if set to 1 ensures emaclite adapter being used in Zynq. Valid only for Zynq", type = int, default = 1;
+  PARAM name = lwip_tcp_keepalive, desc = "Enable keepalive processing with default interval", type = bool, default = false;
 
   BEGIN CATEGORY temac_adapter_options
 	PARAM name = temac_adapter_options, desc = "Settings for xps-ll-temac/Axi-Ethernet/Gem lwIP adapter", type = bool, default = true, permit = none;

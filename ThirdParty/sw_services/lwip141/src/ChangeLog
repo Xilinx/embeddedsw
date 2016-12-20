@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2016-12-19
+	* Export options for user to change NO_SYS_NO_TIMERS and
+	  LWIP_TCP_KEEP_ALIVE.
 2016-12-07
 	* Add Support for TI PHY DP83867 SGMII Mode configuration.
 2016-11-22
