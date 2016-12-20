@@ -124,6 +124,7 @@ int main(void)
 {
 	int Status;
 
+	printf("\r\nHwIcapReadFramePolledExample\r\n");
 	/*
 	 * Run the HwIcap example, specify the Device ID generated in
 	 * xparameters.h
@@ -197,11 +198,11 @@ int HwIcapReadFramePolledExample(u16 DeviceId)
 	/*
 	 * Print Frame contents
 	 */
-	for (Index = XHI_NUM_FRAME_WORDS;
-		Index < (XHI_NUM_FRAME_WORDS << 1) ; Index++) {
+	for (Index = HwIcap.WordsPerFrame;
+		Index < (HwIcap.WordsPerFrame << 1) ; Index++) {
 
 		printf("Frame Word %d -> \t %x \r\n",
-			(Index - XHI_NUM_FRAME_WORDS) , FrameData[Index]);
+			(Index - HwIcap.WordsPerFrame) , FrameData[Index]);
 	}
 
 	printf("\r\nHwIcapReadFramePolledExample Passed Successfully.\r\n\r\n");

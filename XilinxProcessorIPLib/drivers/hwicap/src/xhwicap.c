@@ -82,6 +82,7 @@
 * 10.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                      Changed the prototype of XHwIcap_CfgInitialize API.
 * 10.2   mi   09/22/16 Fixed compilation warnings.
+* 11.0   MNK  12/06/16 Added support for 8-series family devices.
 * </pre>
 *
 *****************************************************************************/
@@ -102,11 +103,36 @@
 
 
 /************************** Variable Definitions ****************************/
+/*
+ * 7-series family number information taken for ug470_7series_config.pdf
+ */
+
+static u32 series_7idcodes[NUM_7SERIES_IDCODES] =
+	{0x3622093, 0x3620093, 0x37C4093, 0x362F093, 0x37C8093, 0x37C7093,
+	0x37C3093, 0x362E093, 0x37C2093, 0x362D093, 0x362C093, 0x3632093,
+	0x3631093, 0x3636093, 0x3647093, 0x364C093, 0x3651093, 0x3747093,
+	0x3656093, 0x3752093, 0x3751093, 0x3671093, 0x36B3093, 0x3667093,
+	0x3682093, 0x3687093, 0x3692093, 0x3691093, 0x3696093, 0x36D5093,
+	0x36D9093, 0x36DB093 };
+
+/*
+ * 8-series family number information taken for ug570_7series_config.pdf
+ */
+
+static u32 series_ultra_idcodes[NUM_ULTRA_SERIES_IDCODES] =
+	{0x3824093, 0x3823093, 0x3822093, 0x3919093, 0x380F093, 0x3844093,
+	0x390D093, 0x3939093, 0x3843093, 0x3842093, 0x392D093, 0x3933093,
+	0x3931093 };
+
+static u32 series_ultra_plus_idcodes[NUM_ULTRA_PLUS_SERIES_IDCODES] =
+	{0x4A63093, 0x4A62093, 0x484A093, 0x4A4E093, 0x4A52093, 0x4A56093,
+	0x4B39093, 0x4B2B093, 0x4B29093, 0x4B31093, 0x4B49093, 0x4B51093 };
 
 
 /************************** Function Prototypes *****************************/
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount);
+static u32 FindDeviceType(u32 IdCode);
 
 /****************************************************************************/
 /**
@@ -137,6 +163,7 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 	int Status;
 	u32 DeviceIdCode;
 	u32 TempDevId;
+	u32 DeviceType;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -160,6 +187,11 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 
 	/** Set IsLiteMode **/
 	InstancePtr->HwIcapConfig.IsLiteMode = ConfigPtr->IsLiteMode;
+
+#ifdef __aarch64__
+	/* Controls the method for PL partial reconfiguraiton,0x0 - ICAP */
+	XHwIcap_Out32(PCAP_CR_OFFSET, 0);
+#endif
 
 	/*
 	 * Read the IDCODE from ICAP.
@@ -204,8 +236,24 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 		return XST_FAILURE;
 	}
 
-	InstancePtr->BytesPerFrame = XHI_NUM_FRAME_BYTES;
-	InstancePtr->WordsPerFrame = (InstancePtr->BytesPerFrame/4);
+	DeviceType = FindDeviceType (DeviceIdCode);
+	InstancePtr->DeviceFamily = DeviceType;
+
+	switch (DeviceType) {
+		case DEVICE_TYPE_7SERIES :
+				InstancePtr->WordsPerFrame = 101;
+				break;
+		case DEVICE_TYPE_ULTRA :
+				InstancePtr->WordsPerFrame = 93;
+				break;
+		case DEVICE_TYPE_ULTRA_PLUS :
+				InstancePtr->WordsPerFrame = 123;
+				break;
+		default:
+			return XST_FAILURE;
+        }
+
+	InstancePtr->BytesPerFrame = (InstancePtr->WordsPerFrame * 4);
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 
 	/*
@@ -728,6 +776,45 @@ void XHwIcap_Abort(XHwIcap *InstancePtr)
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
 				RegData | XHI_CR_SW_ABORT_MASK);
 
+}
+
+/******************************************************************************
+* This function is used to identify the device family.
+* @param        Device ID Code.
+* @return       Device Family ID( 7-series or 8-series).
+* @note         None.
+*
+*******************************************************************************/
+static u32 FindDeviceType(u32 IdCode)
+{
+        u32 i=0;
+        u32 DeviceType = 0;
+
+        for (i = 0; i < NUM_7SERIES_IDCODES; i++) {
+
+                if ( series_7idcodes[i] == IdCode ) {
+                        DeviceType = DEVICE_TYPE_7SERIES;
+                        goto END;
+                }
+        }
+
+        for (i = 0; i < NUM_ULTRA_SERIES_IDCODES; i++) {
+
+                if ( series_ultra_idcodes[i] == IdCode ) {
+                        DeviceType = DEVICE_TYPE_ULTRA;
+                        goto END;
+                }
+        }
+
+        for (i = 0; i < NUM_ULTRA_PLUS_SERIES_IDCODES; i++) {
+
+                if ( series_ultra_plus_idcodes[i] == IdCode ) {
+                        DeviceType = DEVICE_TYPE_ULTRA_PLUS;
+                        goto END;
+                }
+        }
+END:
+        return DeviceType;
 }
 
 /*****************************************************************************/

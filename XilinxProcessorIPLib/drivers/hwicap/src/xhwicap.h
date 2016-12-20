@@ -202,6 +202,15 @@ extern "C" {
 #include "xparameters.h"
 
 /************************** Constant Definitions ****************************/
+#define DEVICE_TYPE_7SERIES		1
+#define DEVICE_TYPE_ULTRA		2
+#define DEVICE_TYPE_ULTRA_PLUS		3
+
+#define NUM_7SERIES_IDCODES		32
+#define NUM_ULTRA_SERIES_IDCODES	13
+#define NUM_ULTRA_PLUS_SERIES_IDCODES	12
+
+#define PCAP_CR_OFFSET         0xFFCA3008 /**< PCAP CR Register */
 
 /************************** Type Definitions ********************************/
 
@@ -252,6 +261,7 @@ typedef struct {
 	u32 IsReady;		     /**< Device is initialized and ready */
 	int IsPolled;		     /**< Device is in polled mode */
 	u32 DeviceIdCode;	     /**< IDCODE of targeted device */
+	u32 DeviceFamily;		 /**< Targeted device family */
 	u32 BytesPerFrame;	     /**< Number of Bytes per minor Frame */
 	u32 WordsPerFrame;	     /**< Number of Words per minor Frame */
 
