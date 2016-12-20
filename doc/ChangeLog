@@ -240,6 +240,7 @@ Updated tcl files as per modified standalone BSP structure.
 
 lwip141_v1_6:
 Add support for freertos in the emaclite adapter. Fix for CR#957572.
+Expose NO_SYS_NO_TIMERS and LWIP_TCP_KEEPALIVE as options
 
 emaclite_v4_3:
 Fix compilation warning.
