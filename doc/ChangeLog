@@ -1,5 +1,10 @@
 Change Log for 2017.1
 =================================
+cpu_v2_6:
+Added "ffunction-sections" and  "fdata-sections"
+to the deafult extra complier flags, and remove "-g" from
+the same.It fixes CR#965574.
+
 uartps_v3_4:
 sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
 parameter macro
