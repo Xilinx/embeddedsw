@@ -35,9 +35,11 @@ Every driver/lib/apps/services has these sub-directories
 |		|- standalone
 |			|- data
 |			|- src
-|				|- cortexa9
-|				|- cortexa53
-|				|- cortexr5
+|                               |- arm
+|                                     |- common
+|				      |- cortexa9
+|				      |- cortexa53
+|				      |- cortexr5
 |				|- microblaze
 |				|- common
 |				|- profile
