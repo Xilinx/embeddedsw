@@ -5,6 +5,15 @@ Added "ffunction-sections" and  "fdata-sections"
 to the deafult extra complier flags, and remove "-g" from
 the same.It fixes CR#965574.
 
+cpu_cortexa53_v1_3:
+Updated makefile with "clean" target
+
+cpu_cortexa9_v2_4:
+Updated makefile with "clean" target
+
+cpu_cortexr5_v1_2:
+Updated makefile with "clean" target
+
 uartps_v3_4:
 sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
 parameter macro
