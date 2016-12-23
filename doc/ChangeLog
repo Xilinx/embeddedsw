@@ -60,13 +60,11 @@ Removed enable_mmc option
 Added support for FreeRTOS
 
 xilskey_v6_1:
-ZynqMP:
-Added support for PUF registration, programming eFUSE with syndrome data, Auxilary value and CHash value.
+Removed Zynq BBRAM control bits as they are part of the eFUSE
+Fixed compilation warnings
+Added support for PUF registration and eFUSE programming with PUF data
+Removed xilinx specific bits programming
 
-Zynq:
-Removed ForcePowerCycle and JtagDisable, from BBRAM Zynq PL instance as they are not actually programming any control bit.
-
-These are already exists in Zynq eFUSE PL instance.  
 v_hscaler_v3_1:
 Fixed configuration validation check for RGB input
 
@@ -110,7 +108,7 @@ CR#962571: Update Makefile to fix the compilation issues due to incremental
 build
 
 dprxss_v4_0:
-CR#960371: Move DP159 files out of video_common to dprxss.
+CR#960371: Moved DP159 files out of video_common to dprxss driver.
 CR#964969: Added interrupt handler for HDCP authentication.
 
 video_common_v4_0:
@@ -144,45 +142,46 @@ corresponding conditional.
 axicdma_v4_3:
 - Fixed compilation warnings
 
-canfd_v1_2:
-- Fixed compilation warnings
-
-canps_v3_2:
-- Fixed compilation warnings
-
-dmaps_v2_2:
-- Fixed compilation warnings
-
-gpio_v4_3:
-- Fixed compilation warnings
-
-hwicap_v10_2:
+canps_v3_2: 
 - Fixed compilation warnings
 
 iicps_v3_4:
 - Fixed compilation warnings
 
+uartps_v3_2: 
+- Fixed compilation warnings
+
+qspipsu_v1_3:
+- GQSPI PollData/PollTimeout updated for dualparallel configurations
+
+nandpsu_v1_1: 
+- Fixed compilation warnings
+
+hwicap_v10_2 is missing 
+- Fixed compilation warnings
+
 iomodule_v2_4:
 - Fixed compilation warnings
 
-nandpsu_v1_1:
+canfd_v1_2:
 - Fixed compilation warnings
 
-qspispu_v1_3:
-- GQSPI PollData/PollTimeout for dualparallel configurations
-
-tmrctr_v4_2:
-- Used UINTPTR instead of u32 for Baseaddress
-
-- Changed the prototype of XTmrCtr_CfgInitialize API
-
-- Fixed wrong canonical defines for axi_timer
-
-uartps_v3_3:
-- Fixed compilation warnings
+dmaps_v2_2
+- Fixed compilation error when optimization -O0 is enabled
 
 usbpsu_v1_1:
 - Added USB 3.0/2.0 backward capability
+
+gpio_v4_3 :
+- Modified the example to work when LED_bits are configured as output
+
+tmrctr_v4_2 :
+- Used UINTPTR instead of u32 for Baseaddress
+- Changed the prototype of XTmrCtr_CfgInitialize API
+- Fixed wrong canonical defines for axi_timer
+
+v_deinterlacer_v6_2: 
+- Fix c++ compile problem
 
 Change Log for 2016.3
 =================================
@@ -1047,6 +1046,11 @@ Added new system monitor driver.
 Correct the assert function call.
 Modified interrupt examples.
 Corrected valid list of Single and External Mux channels.
+
+tmrctr_v4_2:
+Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
+Changed the prototype of XTmrCtr_CfgInitialize API.
+Updated tcl, to generate correct device id for timer canonical define
 
 trafgen_v4_1:
 Made changes in tcl to remove delete filename statement to fix CR# 784758.
