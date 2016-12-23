@@ -71,6 +71,7 @@ Updated OCM axipmon example for proper ID
 iic_v3_4:
 Reduce the usleep time in Bus-busy check condition.
 Reduce the usleep time from 1000 to 100 usec in Bus-busy check condition.
+
 xilfpga_v1_1:
 Added PL power-up and Isolation sequence to the xilfpga library
 Added PS-PL Reset sequence.
@@ -107,7 +108,7 @@ xilffs_v3_5:
 Removed enable_mmc option
 Added support for FreeRTOS
 
-xilskey_v6_0:
+xilskey_v6_1:
 Removed Zynq BBRAM control bits as they are part of the eFUSE
 Fixed compilation warnings
 Added support for PUF registration and eFUSE programming with PUF data
@@ -182,6 +183,49 @@ function also has AXI data width configurations which are required.
 - For ZCU102, FSBL sets VADJ in the board specific configuration. Since, this needs to be done only
 if design has PL DDR (to take PL DDR out of reset), this code is now included under the
 corresponding conditional.
+
+axicdma_v4_3:
+- Fixed compilation warnings
+
+canfd_v1_2:
+- Fixed compilation warnings
+
+canps_v3_2:
+- Fixed compilation warnings
+
+dmaps_v2_2:
+- Fixed compilation warnings
+
+gpio_v4_3:
+- Fixed compilation warnings
+
+hwicap_v10_2:
+- Fixed compilation warnings
+
+iicps_v3_4:
+- Fixed compilation warnings
+
+iomodule_v2_4:
+- Fixed compilation warnings
+
+nandpsu_v1_1:
+- Fixed compilation warnings
+
+qspispu_v1_3:
+- GQSPI PollData/PollTimeout for dualparallel configurations
+
+tmrctr_v4_2:
+- Used UINTPTR instead of u32 for Baseaddress
+
+- Changed the prototype of XTmrCtr_CfgInitialize API
+
+- Fixed wrong canonical defines for axi_timer
+
+uartps_v3_3:
+- Fixed compilation warnings
+
+usbpsu_v1_1:
+- Added USB 3.0/2.0 backward capability
 
 Change Log for 2016.3
 =================================
