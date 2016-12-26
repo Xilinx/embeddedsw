@@ -1,22 +1,37 @@
 Change Log for 2017.1
 =================================
-cpu_v2_6:
-Added "ffunction-sections" and  "fdata-sections"
-to the deafult extra complier flags, and remove "-g" from
-the same.It fixes CR#965574.
 
-cpu_cortexa53_v1_3:
-Updated makefile with "clean" target
+axiethernet_v5_4:
+Add Support for TI PHY DP83867 SGMII Mode configuration in the examples.
 
 cpu_cortexa9_v2_4:
+Updated makefile with "clean" target
+
+cpu_cortexa53_v1_3:
 Updated makefile with "clean" target
 
 cpu_cortexr5_v1_2:
 Updated makefile with "clean" target
 
-uartps_v3_4:
-sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
-parameter macro
+cpu_v2_6:
+Added "ffunction-sections" and  "fdata-sections"
+to the deafult extra complier flags, and remove "-g" from
+the same.It fixes CR#965574.
+
+emacps_v3_4:
+Updated emacps tcl to export PCS definitions for newer version of
+Xilinx PCS PMA core where PHY address is not a parameter.
+
+lwip141_v1_8:
+Updated xemacpsif_physpeed.c to scan for phy addr when newer version of
+Xilinx PCS PMA core is used.
+Add Support for TI PHY DP83867 SGMII Mode configuration.
+
+nandpsu_v1_2:
+change memcpy to Xil_MemCpy. fixes CR#960462
+
+sdps_v3_2:
+Corrected voltage switching sequence
 
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
@@ -25,25 +40,19 @@ Modified Cortex-A53 translation table for upper ps DDR. The 0x800000000 -
 and rest of the memory in that 32GB region is marked as reserved to avoid
 any speculative access
 
-nandpsu_v1_2:
-change memcpy to Xil_MemCpy. fixes CR#960462
-
-xilpm_v2_1:
-Modified clean rule in makefile to remove libxilpm.a. Fix for
-CR#962551.
-
-xilrsa_v1_3:
-Updated makefile to add clean rule.Fix for CR#962551.
-
-video_common_v4_1
-Added new memory formats
-Adde API to get video mode id with matching balnking information
+uartps_v3_4:
+sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
+parameter macro
 
 v_frmbuf_rd_v1_0
 added initial version
 
 v_frmbuf_wr_v1_0
 added initial version
+
+video_common_v4_1
+Added new memory formats
+Adde API to get video mode id with matching balnking information
 
 vmix_v2_1
 Added check to make sure logo layer is enabled before loading logo pixel alpha
@@ -59,20 +68,13 @@ xilopenamp_v1_0:
 obsoleted lib (was replaced in 2016.1 release by openamp lib)
 This is mainly a name change to better match the github project library name.
 
-emacps_v3_4:
-Updated emacps tcl to export PCS definitions for newer version of
-Xilinx PCS PMA core where PHY address is not a parameter.
+xilpm_v2_1:
+Modified clean rule in makefile to remove libxilpm.a. Fix for
+CR#962551.
 
-lwip141_v1_8:
-Updated xemacpsif_physpeed.c to scan for phy addr when newer version of
-Xilinx PCS PMA core is used.
-Add Support for TI PHY DP83867 SGMII Mode configuration.
+xilrsa_v1_3:
+Updated makefile to add clean rule.Fix for CR#962551.
 
-sdps_v3_2:
-Corrected voltage switching sequence
-
-axiethernet_v5_4:
-Add Support for TI PHY DP83867 SGMII Mode configuration in the examples.
 Change Log for 2016.4
 =================================
 axiethernet_v5_3:
