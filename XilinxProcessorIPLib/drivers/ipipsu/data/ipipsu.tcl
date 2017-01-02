@@ -83,7 +83,8 @@ proc ipi_generate_config {drv_handle file_name} {
 	puts $config_file "\n/*"
 	puts $config_file "* The configuration table for devices"
 	puts $config_file "*/\n"
-	puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+	set num_insts [::hsi::utils::get_driver_param_name $drv_string "NUM_INSTANCES"]
+	puts $config_file [format "%s_Config %s_ConfigTable\[%s\] =" $drv_string $drv_string $num_insts]
 	puts $config_file "\{"
 
 	set comma ""
