@@ -40,7 +40,7 @@
 
 #uses "xillib.tcl"
 
-set periph_config_params	0
+set periph_config_params_wdt	0
 set periph_ninstances		0
 
 # -----------------------------------------------------------------------------
@@ -53,17 +53,17 @@ proc generate {drv_handle} {
 }
 
 proc init_periph_config_struct { deviceid } {
-	global periph_config_params
-	set periph_config_params($deviceid) [list]
+	global periph_config_params_wdt
+	set periph_config_params_wdt($deviceid) [list]
 }
 
 proc get_periph_config_struct_fields { deviceid } {
-	global periph_config_params
-	return $periph_config_params($deviceid)
+	global periph_config_params_wdt
+	return $periph_config_params_wdt($deviceid)
 }
 proc add_field_to_periph_config_struct { deviceid fieldval } {
-	global periph_config_params
-	lappend periph_config_params($deviceid) $fieldval
+	global periph_config_params_wdt
+	lappend periph_config_params_wdt($deviceid) $fieldval
 }
 
 # -----------------------------------------------------------------------------
