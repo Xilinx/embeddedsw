@@ -44,6 +44,23 @@ uartps_v3_4:
 sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
 parameter macro
 
+nandpsu_v1_2:
+change memcpy to Xil_MemCpy. fixes CR#960462
+
+wdttb_v4_1:
+Fixed race condition in the driver CR#966068
+
+xilpm_v2_1:
+Modified clean rule in makefile to remove libxilpm.a. Fix for
+CR#962551.
+
+xilrsa_v1_3:
+Updated makefile to add clean rule.Fix for CR#962551.
+
+video_common_v4_1
+Added new memory formats
+Adde API to get video mode id with matching balnking information
+
 v_frmbuf_rd_v1_0
 added initial version
 
