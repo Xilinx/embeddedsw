@@ -50,6 +50,10 @@
 #		      update the extra compiler flag for particular compiler only
 #		      when some flag apart from default while generating BSP.
 #		      These modifications fix CR#951335
+# 2.4   pkp  12/23/16 Updated tcl to check each extra compiler flag individually
+#		      for linaro toolchain and if any default flags are missing,
+#		      it adds the required flags. This change allows users
+#		      to modify default flag value. This change fixes CR#965023.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -75,9 +79,27 @@ proc xdefine_cortexa9_params {drvhandle} {
     set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
     if {[string compare -nocase $compiler_name "arm-none-eabi-gcc"] == 0} {
 	set temp_flag $extra_flags
-	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles"] != 0} {
-		regsub -- {-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles } $temp_flag {} temp_flag
-		set extra_flags "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles $temp_flag"
+	if {[string compare -nocase $temp_flag "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -nostartfiles "] != 0} {
+		set flagindex [string first {-mcpu=cortex-a9} $temp_flag 0]
+		if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -mcpu=cortex-a9"
+		}
+
+		set flagindex [string first {-mfpu=} $temp_flag 0]
+		if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -mfpu=vfpv3"
+		}
+
+		set flagindex [string first {-mfloat-abi=} $temp_flag 0]
+		if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -mfloat-abi=hard"
+		}
+
+		set flagindex [string first {-nostartfiles} $temp_flag 0]
+		if { $flagindex == -1 } {
+		    set temp_flag "$temp_flag -nostartfiles"
+		}
+		set extra_flags $temp_flag
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
    } elseif {[string compare -nocase $compiler_name "iccarm"] == 0} {
