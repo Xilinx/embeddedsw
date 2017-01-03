@@ -6,6 +6,9 @@ Add Support for TI PHY DP83867 SGMII Mode configuration in the examples.
 
 cpu_cortexa9_v2_4:
 Updated makefile with "clean" target
+Updated tcl to check each extra compiler flag individually
+for linaro toolchain and if any default flags are missing,
+it adds the required flags. It fixes CR#965023.
 
 cpu_cortexa53_v1_3:
 Updated makefile with "clean" target
