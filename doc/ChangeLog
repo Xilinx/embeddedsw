@@ -48,6 +48,9 @@ Modified Cortex-A53 translation table for upper ps DDR. The 0x800000000 -
 and rest of the memory in that 32GB region is marked as reserved to avoid
 any speculative access
 
+uartlite_v3_2:
+Added supported peripheral tmr_sem
+
 uartps_v3_4:
 sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
 parameter macro
