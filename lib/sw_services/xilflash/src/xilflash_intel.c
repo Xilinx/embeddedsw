@@ -1710,7 +1710,7 @@ static int WriteBuffer8(XFlash *InstancePtr, void *DestPtr,
 	u32 PartialBytes;
 	u32 Count;
 	int Status = XST_SUCCESS;
-	int Index;
+	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
 	BaseAddress = InstancePtr->Geometry.BaseAddress;
@@ -1946,18 +1946,15 @@ static int WriteBufferStrataFlashDevice(XFlash *InstancePtr, void *DestPtr,
 	XFlashVendorData_Intel *DevDataPtr;
 	u16 *SrcWordPtr = (u16*)SrcPtr;
 	u16 *DestWordPtr = (u16*)DestPtr;
-	u16 StatusReg;
-	u16 ReadyMask;
 	u32 BaseAddress;
 	u32 BytesLeft = Bytes;
 	u32 PartialBytes;
 	u32 Count;
 	int Status = XST_SUCCESS;
-	int Index;
+	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
 	BaseAddress = InstancePtr->Geometry.BaseAddress;
-	ReadyMask = DevDataPtr->SR_WsmReady.Mask16;
 
 	/*
 	 * Make sure DestPtr and SrcPtr are aligned to a 16-bit word.
@@ -2207,7 +2204,7 @@ static int WriteBufferIntelFlashDevice(XFlash *InstancePtr, void *DestPtr,
 	u32 PartialBytes;
 	u32 Count;
 	int Status = XST_SUCCESS;
-	int Index;
+	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
 	BaseAddress = InstancePtr->Geometry.BaseAddress;
@@ -2517,7 +2514,7 @@ static int WriteBuffer32(XFlash *InstancePtr, void *DestPtr,
 	u32 PartialBytes;
 	u32 Count;
 	int Status = XST_SUCCESS;
-	int Index;
+	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
 	BaseAddress = InstancePtr->Geometry.BaseAddress;
@@ -2826,7 +2823,7 @@ static int WriteBuffer64(XFlash *InstancePtr, void *DestPtr,
 	u32 PartialBytes;
 	u32 Count;
 	int Status = XST_SUCCESS;
-	int Index;
+	u32 Index;
 
 	DevDataPtr = GET_PARTDATA(InstancePtr);
 	BaseAddress = InstancePtr->Geometry.BaseAddress;

@@ -790,6 +790,8 @@ int XFlashCFI_ReadCommon(XFlash *InstancePtr, u8 BusWidth)
 *****************************************************************************/
 int XFlashCFI_Read8(u8 *Ptr, u8 Interleave, u8 Mode)
 {
+	(void) Interleave;
+	(void) Mode;
 	return (READ_FLASH_8((u32)Ptr));
 }
 
@@ -807,6 +809,7 @@ int XFlashCFI_Read8(u8 *Ptr, u8 Interleave, u8 Mode)
 *****************************************************************************/
 int XFlashCFI_Read16(u8 *Ptr, u8 Interleave, u8 Mode)
 {
+	(void) Mode;
 	int Data = 0;
 
 	(Data) = (u8)READ_FLASH_8((u8*)(Ptr) + Interleave);
