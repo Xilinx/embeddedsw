@@ -928,7 +928,7 @@ void XQspiPsu_SetStatusHandler(XQspiPsu *InstancePtr, void *CallBackRef,
 static void StubStatusHandler(void *CallBackRef, u32 StatusEvent,
 				u32 ByteCount)
 {
-	(void *) CallBackRef;
+	(void) CallBackRef;
 	(void) StatusEvent;
 	(void) ByteCount;
 
