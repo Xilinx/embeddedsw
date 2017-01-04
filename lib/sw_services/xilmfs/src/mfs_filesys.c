@@ -265,7 +265,7 @@ static int get_dir_ent(const char *filename,  int *dir_block, int *dir_index, in
  *                    index of last searched block which should have no free entries
  * return dir_index = index within dir_block of first free entry or MFS_MAX_LOCAL_ENT if last searched block has no free entry
 */
-static int get_dir_ent_by_index(int file_index,  int *dir_block, int *dir_index) {
+static int get_dir_ent_by_index(unsigned int file_index,  int *dir_block, int *dir_index) {
 
    int numentriesleft;
    /* dir_block is the parent directory of file_index block -> entry 0 is always ".." */
@@ -427,7 +427,7 @@ static int set_filename(char *to_name, char *from_name) {
  * @param dir_block is the index of "this" directory block
  * @return the index of the first directory block
  */
-static int get_first_dir_block(int dir_block) {
+static int get_first_dir_block(unsigned int dir_block) {
    while (mfs_file_system[dir_block].prev_block != 0) {
     dir_block = mfs_file_system[dir_block].prev_block;
   }
@@ -990,7 +990,7 @@ int mfs_file_close(int fd) {
  */
 long mfs_file_lseek(int fd, long offset, int whence) {
   long local_offset;
-  int local_block;
+  unsigned int local_block;
   if (fd <0 || fd >= MFS_MAX_OPEN_FILES || mfs_open_files[fd].mode == MFS_MODE_FREE)
     return -1;
   /* calculate value of offset from the beginning of the file */

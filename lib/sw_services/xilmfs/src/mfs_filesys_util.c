@@ -72,14 +72,18 @@ int mfs_ls_r(int recurse) {
 
       if (!(entry_name[0] == '.' && entry_name[1] == '\0') &&
           !(entry_name[0] == '.' && entry_name[1] == '.' && entry_name[2] == '\0')) {
+#if defined (TESTING_XILMFS)
 	print("Directory ");
 	print(entry_name);
 	print(" ");
 	putnum(entry_size);
 	print("\r\n");
+#endif
 	if (recurse != 0) {
 	  if (!mfs_change_dir(entry_name)) {
+#if defined (TESTING_XILMFS)
 	    print("Failed\r\n");
+#endif
 	    mfs_dir_close(fd);
 	    return 0;
 	  }
@@ -87,10 +91,15 @@ int mfs_ls_r(int recurse) {
 	    mfs_dir_close(fd);
 	    return 0;
 	  }
-	  if(mfs_change_dir(".."))
-	    print("cd..\r\n");
+	  if(mfs_change_dir("..")) {
+#if defined (TESTING_XILMFS)
+		print("cd..\r\n");
+#endif
+	  }
 	  else {
+#if defined (TESTING_XILMFS)
 	    print("Failed..\r\n");
+#endif
 	    mfs_dir_close(fd);
 	    return 0;
 	  }
@@ -98,10 +107,12 @@ int mfs_ls_r(int recurse) {
       }
     }
     else {
+#if defined (TESTING_XILMFS)
       print(entry_name);
       print(" ");
       putnum(entry_size);
       print("\r\n");
+#endif
     }
   }
   mfs_dir_close(fd);
@@ -118,19 +129,27 @@ int mfs_cat(char *filename) {
   int tmp;
   int fdr = mfs_file_open(filename, MFS_MODE_READ);
   if (fdr < 0) { /* error opening file */
+#if defined (TESTING_XILMFS)
     print("Cannot open file\n");
+#endif
     return 0;
   }
   while((tmp= mfs_file_read(fdr, buf2, 512))== 512){
     buf2[512]='\0';
+#if defined (TESTING_XILMFS)
     print(buf2);
+#endif
   }
   if (tmp > 0) {
     buf2[tmp] = '\0';
+#if defined (TESTING_XILMFS)
     print(buf2);
+#endif
   }
   tmp = mfs_file_close(fdr);
+#if defined (TESTING_XILMFS)
   print("\n");
+#endif
   return 1;
 }
 
@@ -152,7 +171,9 @@ int mfs_copy_stdin_to_file(char *filename) {
   int c;
   int fdw = mfs_file_open(filename, MFS_MODE_CREATE);
   if (fdw < 0) { /* cannot open file */
+#if defined (TESTING_XILMFS)
     print ("Cannot open file\n");
+#endif
     return 0;
   }
   while ((c = inbyte()) != EOF) {
@@ -185,7 +206,9 @@ int mfs_file_copy(char *from_file, char *to_file) {
   int fdr = mfs_file_open(from_file, MFS_MODE_READ);
   int fdw = mfs_file_open(to_file, MFS_MODE_CREATE);
   if (fdr < 0 || fdw < 0) { /* error opening file */
+#if defined (TESTING_XILMFS)
     print("Cannot open file to read/write\n");
+#endif
     mfs_file_close(fdr);
     mfs_file_close(fdw);
     return 0;
