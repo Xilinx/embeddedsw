@@ -505,7 +505,7 @@ LONG XEmacPs_BdRingUnAlloc(XEmacPs_BdRing * RingPtr, u32 NumBd,
 			   XEmacPs_Bd * BdSetPtr)
 {
 	LONG Status;
-	(void *)BdSetPtr;
+	(void) BdSetPtr;
 	Xil_AssertNonvoid(RingPtr != NULL);
 	Xil_AssertNonvoid(BdSetPtr != NULL);
 
