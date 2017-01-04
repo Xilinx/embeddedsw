@@ -200,9 +200,14 @@
 u32_t phymapemac0[32];
 u32_t phymapemac1[32];
 
+#if defined (PCM_PMA_CORE_PRESENT) || defined (CONFIG_LINKSPEED_AUTODETECT)
 static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr);
+#endif
 static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed);
+#if defined (CONFIG_LINKSPEED1000) || defined (CONFIG_LINKSPEED100) \
+	|| defined (CONFIG_LINKSPEED10)
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed);
+#endif
 
 #ifdef PCM_PMA_CORE_PRESENT
 u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr)
@@ -340,7 +345,6 @@ void detect_phy(XEmacPs *xemacpsp)
 u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr)
 {
 	u32_t link_speed;
-	u16_t regval;
 	u32_t conv_present = 0;
 	u32_t convspeeddupsetting = 0;
 	u32_t convphyaddr = 0;
@@ -397,14 +401,13 @@ u32_t phy_setup (XEmacPs *xemacpsp, u32_t phy_addr)
 	return link_speed;
 }
 
+#if defined CONFIG_LINKSPEED_AUTODETECT
 static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 {
-	u16_t temp;
 	u16_t control;
 	u16_t status;
 	u16_t status_speed;
 	u32_t timeout_counter = 0;
-	u32_t temp_speed;
 	u32_t phyregtemp;
 	int i;
 	u32_t RetStatus;
@@ -540,7 +543,6 @@ static u32_t get_Marvell_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	u16_t status_speed;
 	u32_t timeout_counter = 0;
 	u32_t temp_speed;
-	u32_t phyregtemp;
 
 	xil_printf("Start PHY autonegotiation \r\n");
 
@@ -637,7 +639,10 @@ static u32_t get_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 
 	return RetStatus;
 }
+#endif
 
+#if defined (CONFIG_LINKSPEED1000) || defined (CONFIG_LINKSPEED100) \
+	|| defined (CONFIG_LINKSPEED10)
 static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t speed)
 {
 	u16_t control;
@@ -725,17 +730,20 @@ static u32_t configure_IEEE_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr, u32_t s
 	}
 	return 0;
 }
+#endif
 #endif /*PCM_PMA_CORE_PRESENT*/
 
 static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 {
 	volatile u32_t slcrBaseAddress;
-	u32_t SlcrDiv0;
-	u32_t SlcrDiv1;
+	u32_t SlcrDiv0 = 0;
+	u32_t SlcrDiv1 = 0;
 	u32_t SlcrTxClkCntrl;
 	u32_t gigeversion;
 	volatile u32_t CrlApbBaseAddr;
-	u32_t CrlApbDiv0, CrlApbDiv1, CrlApbGemCtrl;
+	u32_t CrlApbDiv0 = 0;
+	u32_t CrlApbDiv1 = 0;
+	u32_t CrlApbGemCtrl;
 
 	gigeversion = ((Xil_In32(mac_baseaddr + 0xFC)) >> 16) & 0xFFF;
 	if (gigeversion == 2) {
@@ -790,12 +798,17 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 #endif
 			}
 		}
-		SlcrTxClkCntrl = *(volatile u32_t *)(UINTPTR)(slcrBaseAddress);
-		SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
-		SlcrTxClkCntrl |= (SlcrDiv1 << 20);
-		SlcrTxClkCntrl |= (SlcrDiv0 << 8);
-		*(volatile u32_t *)(UINTPTR)(slcrBaseAddress) = SlcrTxClkCntrl;
-		*(volatile u32_t *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
+
+		if (SlcrDiv0 != 0 && SlcrDiv1 != 0) {
+			SlcrTxClkCntrl = *(volatile u32_t *)(UINTPTR)(slcrBaseAddress);
+			SlcrTxClkCntrl &= EMACPS_SLCR_DIV_MASK;
+			SlcrTxClkCntrl |= (SlcrDiv1 << 20);
+			SlcrTxClkCntrl |= (SlcrDiv0 << 8);
+			*(volatile u32_t *)(UINTPTR)(slcrBaseAddress) = SlcrTxClkCntrl;
+			*(volatile u32_t *)(SLCR_LOCK_ADDR) = SLCR_LOCK_KEY_VALUE;
+		} else {
+			xil_printf("Clock Divisors incorrect - Please check\r\n");
+		}
 	} else if (gigeversion > 2) {
 		/* Setup divisors in CRL_APB for Zynq Ultrascale+ MPSoC */
 		if (mac_baseaddr == ZYNQMP_EMACPS_0_BASEADDR) {
@@ -876,12 +889,16 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 			}
 		}
 
-		CrlApbGemCtrl = *(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr);
-		CrlApbGemCtrl &= ~CRL_APB_GEM_DIV0_MASK;
-		CrlApbGemCtrl |= CrlApbDiv0 << CRL_APB_GEM_DIV0_SHIFT;
-		CrlApbGemCtrl &= ~CRL_APB_GEM_DIV1_MASK;
-		CrlApbGemCtrl |= CrlApbDiv1 << CRL_APB_GEM_DIV1_SHIFT;
-		*(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr) = CrlApbGemCtrl;
+		if (CrlApbDiv0 != 0 && CrlApbDiv1 != 0) {
+			CrlApbGemCtrl = *(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr);
+			CrlApbGemCtrl &= ~CRL_APB_GEM_DIV0_MASK;
+			CrlApbGemCtrl |= CrlApbDiv0 << CRL_APB_GEM_DIV0_SHIFT;
+			CrlApbGemCtrl &= ~CRL_APB_GEM_DIV1_MASK;
+			CrlApbGemCtrl |= CrlApbDiv1 << CRL_APB_GEM_DIV1_SHIFT;
+			*(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr) = CrlApbGemCtrl;
+		} else {
+			xil_printf("Clock Divisors incorrect - Please check\r\n");
+		}
 	}
 
 	return;

@@ -390,10 +390,12 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 		status = XEmacPs_BdRingToHw(rxring, 1, rxbd);
 		if (status != XST_SUCCESS) {
 			LWIP_DEBUGF(NETIF_DEBUG, ("Error committing RxBD to hardware: "));
-			if (status == XST_DMA_SG_LIST_ERROR)
+			if (status == XST_DMA_SG_LIST_ERROR) {
 				LWIP_DEBUGF(NETIF_DEBUG, ("XST_DMA_SG_LIST_ERROR: this function was called out of sequence with XEmacPs_BdRingAlloc()\r\n"));
-			else
+			}
+			else {
 				LWIP_DEBUGF(NETIF_DEBUG, ("set of BDs was rejected because the first BD did not have its start-of-packet bit set, or the last BD did not have its end-of-packet bit set, or any one of the BD set has 0 as length value\r\n"));
+			}
 
 			pbuf_free(p);
 			XEmacPs_BdRingUnAlloc(rxring, 1, rxbd);

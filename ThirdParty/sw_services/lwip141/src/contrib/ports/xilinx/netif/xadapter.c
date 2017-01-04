@@ -209,7 +209,6 @@ int
 xemacif_input(struct netif *netif)
 {
 	struct xemac_s *emac = (struct xemac_s *)netif->state;
-	SYS_ARCH_DECL_PROTECT(lev);
 
 	int n_packets = 0;
 

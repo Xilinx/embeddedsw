@@ -851,7 +851,9 @@ err_t
 tcp_send_empty_ack(struct tcp_pcb *pcb)
 {
   struct pbuf *p;
+#if LWIP_TCP_TIMESTAMPS || CHECKSUM_GEN_TCP
   struct tcp_hdr *tcphdr;
+#endif
   u8_t optlen = 0;
 
 #if LWIP_TCP_TIMESTAMPS
@@ -865,7 +867,9 @@ tcp_send_empty_ack(struct tcp_pcb *pcb)
     LWIP_DEBUGF(TCP_OUTPUT_DEBUG, ("tcp_output: (ACK) could not allocate pbuf\n"));
     return ERR_BUF;
   }
+#if LWIP_TCP_TIMESTAMPS || CHECKSUM_GEN_TCP
   tcphdr = (struct tcp_hdr *)p->payload;
+#endif
   LWIP_DEBUGF(TCP_OUTPUT_DEBUG,
               ("tcp_output: sending ACK for %"U32_F"\n", pcb->rcv_nxt));
   /* remove ACK flags from the PCB, as we send an empty ACK now */
@@ -1373,7 +1377,9 @@ void
 tcp_keepalive(struct tcp_pcb *pcb)
 {
   struct pbuf *p;
+#if CHECKSUM_GEN_TCP
   struct tcp_hdr *tcphdr;
+#endif
 
   LWIP_DEBUGF(TCP_DEBUG, ("tcp_keepalive: sending KEEPALIVE probe to %"U16_F".%"U16_F".%"U16_F".%"U16_F"\n",
                           ip4_addr1_16(&pcb->remote_ip), ip4_addr2_16(&pcb->remote_ip),
@@ -1388,7 +1394,9 @@ tcp_keepalive(struct tcp_pcb *pcb)
                 ("tcp_keepalive: could not allocate memory for pbuf\n"));
     return;
   }
+#if CHECKSUM_GEN_TCP
   tcphdr = (struct tcp_hdr *)p->payload;
+#endif
 
 #if CHECKSUM_GEN_TCP
   tcphdr->chksum = inet_chksum_pseudo(p, &pcb->local_ip, &pcb->remote_ip,

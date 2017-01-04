@@ -62,16 +62,11 @@ XEmacPs_Config *xemacps_lookup_config(unsigned mac_base)
 
 void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 {
-	UINTPTR mac_address = (UINTPTR)(netif->state);
 	XEmacPs *xemacpsp;
-	XEmacPs_Config *mac_config;
 	s32_t status = XST_SUCCESS;
 	u32_t i;
 	u32_t phyfoundforemac0 = FALSE;
 	u32_t phyfoundforemac1 = FALSE;
-
-	/* obtain config of this emac */
-	mac_config = (XEmacPs_Config *)xemacps_lookup_config(mac_address);
 
 	xemacpsp = &xemacps->emacps;
 
@@ -138,13 +133,8 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 
 void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif)
 {
-	UINTPTR mac_address = (UINTPTR)(netif->state);
 	XEmacPs *xemacpsp;
-	XEmacPs_Config *mac_config;
 	s32_t status = XST_SUCCESS;
-
-	/* obtain config of this emac */
-	mac_config = (XEmacPs_Config *)xemacps_lookup_config(mac_address);
 
 	xemacpsp = &xemacps->emacps;
 
@@ -209,8 +199,6 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 {
 	struct xemac_s *xemac;
 	xemacpsif_s   *xemacpsif;
-	struct xtopology_t *xtopologyp;
-	XEmacPs *xemacps;
 	XEmacPs_BdRing *rxring;
 	XEmacPs_BdRing *txring;
 
@@ -218,8 +206,6 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 	xemacpsif = (xemacpsif_s *)(xemac->state);
 	rxring = &XEmacPs_GetRxRing(&xemacpsif->emacps);
 	txring = &XEmacPs_GetRxRing(&xemacpsif->emacps);
-	xtopologyp = &xtopology[xemac->topology_index];
-	xemacps = &xemacpsif->emacps;
 
 	if (ErrorWord != 0) {
 		switch (Direction) {
