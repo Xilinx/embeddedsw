@@ -635,7 +635,7 @@ s32 XUartPs_SetBaudRate(XUartPs *InstancePtr, u32 BaudRate)
 static void XUartPs_StubHandler(void *CallBackRef, u32 Event,
 				 u32 ByteCount)
 {
-	(void *) CallBackRef;
+	(void) CallBackRef;
 	(void) Event;
 	(void) ByteCount;
 	/* Assert occurs always since this is a stub and should never be called */
