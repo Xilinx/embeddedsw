@@ -44,7 +44,7 @@ extern "C" {
  */
 __attribute__((weak)) sint32 unlink(char8 *path)
 {
-  (void *)path;
+  (void) path;
   errno = EIO;
   return (-1);
 }

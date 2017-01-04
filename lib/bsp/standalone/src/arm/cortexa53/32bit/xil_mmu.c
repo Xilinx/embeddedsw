@@ -84,7 +84,7 @@ extern u32 MMUTable;
 *		translation table attribute.
 *
 ******************************************************************************/
-void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
+void Xil_SetTlbAttributes(UINTPTR Addr, u32 attrib)
 {
 	u32 *ptr;
 	u32 section;

@@ -108,6 +108,7 @@ void XTime_StartTimer(void)
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
 {
+	(void) Xtime_Global;
 /*As the generic timer of A53 runs constantly time can not be set as desired
 so the API is left unimplemented*/
 }

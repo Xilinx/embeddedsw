@@ -89,7 +89,7 @@ extern INTPTR MMUTableL2;
 *
 ******************************************************************************/
 
-void Xil_SetTlbAttributes(INTPTR Addr, u64 attrib)
+void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 {
 	INTPTR *ptr;
 	INTPTR section;

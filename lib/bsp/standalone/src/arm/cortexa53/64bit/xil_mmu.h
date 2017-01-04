@@ -96,7 +96,7 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-void Xil_SetTlbAttributes(INTPTR Addr, u64 attrib);
+void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib);
 
 #ifdef __cplusplus
 }

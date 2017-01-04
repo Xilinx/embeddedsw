@@ -152,6 +152,7 @@ void XTime_StartTimer(void)
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
 {
+	(void) Xtime_Global;
 /*Timer cannot be set to desired value, so the API is left unimplemented*/
     xdbg_printf(XDBG_DEBUG_GENERAL,
                 "XTime_SetTime:Timer cannot be set to desired value,so API is not implemented\n");

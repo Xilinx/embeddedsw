@@ -45,7 +45,7 @@ extern "C" {
  */
 __attribute__((weak)) s32 _open(const char8 *buf, s32 flags, s32 mode)
 {
-  (void *)buf;
+  (void)buf;
   (void)flags;
   (void)mode;
   errno = EIO;

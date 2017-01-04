@@ -142,5 +142,5 @@ void Xil_AssertSetCallback(Xil_AssertCallback Routine)
 ******************************************************************************/
 void XNullHandler(void *NullParameter)
 {
- (void *) NullParameter;
+	(void) NullParameter;
 }

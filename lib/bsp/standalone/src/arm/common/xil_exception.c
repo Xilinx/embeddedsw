@@ -122,7 +122,7 @@ u32 UndefinedExceptionAddr;   /* Address of instruction causing Undefined
 *****************************************************************************/
 static void Xil_ExceptionNullHandler(void *Data)
 {
-	(void *)Data;
+	(void) Data;
 DieLoop: goto DieLoop;
 }
 
@@ -214,6 +214,7 @@ void Xil_ExceptionRemoveHandler(u32 Exception_id)
 ****************************************************************************/
 
 void Xil_SyncAbortHandler(void *CallBackRef){
+	(void) CallBackRef;
 	xdbg_printf(XDBG_DEBUG_ERROR, "Synchronous abort \n");
 	while(1) {
 		;
@@ -234,6 +235,7 @@ void Xil_SyncAbortHandler(void *CallBackRef){
 *
 ****************************************************************************/
 void Xil_SErrorAbortHandler(void *CallBackRef){
+	(void) CallBackRef;
 	xdbg_printf(XDBG_DEBUG_ERROR, "Synchronous abort \n");
 	while(1) {
 		;
@@ -255,6 +257,7 @@ void Xil_SErrorAbortHandler(void *CallBackRef){
 ****************************************************************************/
 
 void Xil_DataAbortHandler(void *CallBackRef){
+	(void) CallBackRef;
 #ifdef DEBUG
 	u32 FaultStatus;
 
@@ -289,6 +292,7 @@ void Xil_DataAbortHandler(void *CallBackRef){
 *
 ****************************************************************************/
 void Xil_PrefetchAbortHandler(void *CallBackRef){
+	(void) CallBackRef;
 #ifdef DEBUG
 	u32 FaultStatus;
 
@@ -322,7 +326,7 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 *
 ****************************************************************************/
 void Xil_UndefinedExceptionHandler(void *CallBackRef){
-
+	(void) CallBackRef;
 	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of the undefined instruction %x\n",UndefinedExceptionAddr);
 	while(1) {
 		;
