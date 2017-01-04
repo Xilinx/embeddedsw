@@ -2155,7 +2155,7 @@ FRESULT create_name (
 	BYTE b, c, d, *sfn;
 	UINT ni, si, i;
 	const BYTE *p;
-	p = *path;
+	p = ((const BYTE *)(*path));
 	/* Create file name in directory form */
 	for (; (*p == (BYTE)'/') || (*p == (BYTE)'\\'); ) {p++;}/* Strip duplicated separator */
 	sfn = dp->fn;
@@ -2228,7 +2228,7 @@ FRESULT create_name (
 			i+=1U;
 		}
 	}
-	*path = (p+si);						/* Return pointer to the next segment */
+	*path = ((const TCHAR *)(p+si));						/* Return pointer to the next segment */
 	c = (c <= (BYTE)' ') ? NS_LAST : 0;		/* Set last segment flag if end of path */
 
 	if (i == (UINT)0U){
@@ -2408,14 +2408,14 @@ BYTE check_fs (	/* 0:FAT boor sector, 1:Valid boor sector but not FAT, 2:Not a b
 		return (BYTE)3;
 	}
 
-	if (LD_WORD(&fs->win[BS_55AA]) != 0xAA55U) {	/* Check boot record signature (always placed at offset 510 even if the sector size is >512) */
+	if (LD_WORD(fs->win+BS_55AA) != 0xAA55U) {	/* Check boot record signature (always placed at offset 510 even if the sector size is >512) */
 		return (BYTE)2;
 	}
 
-	if ((LD_DWORD(&fs->win[BS_FilSysType]) & 0xFFFFFFU) == 0x544146U) {		/* Check "FAT" string */
+	if ((LD_DWORD(fs->win+BS_FilSysType) & 0xFFFFFFU) == 0x544146U) {		/* Check "FAT" string */
 		return (BYTE)0;
 	}
-	if ((LD_DWORD(&fs->win[BS_FilSysType32]) & 0xFFFFFFU) == 0x544146U) {	/* Check "FAT" string */
+	if ((LD_DWORD(fs->win+BS_FilSysType32) & 0xFFFFFFU) == 0x544146U) {	/* Check "FAT" string */
 		return (BYTE)0;
 	}
 
