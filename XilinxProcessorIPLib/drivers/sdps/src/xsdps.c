@@ -96,7 +96,10 @@
 #define SD_CLK_19_MHZ		19000000U
 #define SD_CLK_26_MHZ		26000000U
 #define EXT_CSD_DEVICE_TYPE_BYTE	196U
-#define EXT_CSD_SEC_COUNT	212U
+#define EXT_CSD_SEC_COUNT_BYTE1		212U
+#define EXT_CSD_SEC_COUNT_BYTE2		213U
+#define EXT_CSD_SEC_COUNT_BYTE3		214U
+#define EXT_CSD_SEC_COUNT_BYTE4		215U
 #define EXT_CSD_DEVICE_TYPE_HIGH_SPEED			0x2U
 #define EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED	0x4U
 #define EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED	0x8U
@@ -696,7 +699,10 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			goto RETURN_PATH;
 		}
 
-		InstancePtr->SectorCount = *(u32 *)&ExtCsd[EXT_CSD_SEC_COUNT];
+		InstancePtr->SectorCount = ((u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE4]) << 24;
+		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE3] << 16;
+		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE2] << 8;
+		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE1];
 
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
@@ -733,7 +739,10 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			goto RETURN_PATH;
 		}
 
-		InstancePtr->SectorCount = *(u32 *)&ExtCsd[EXT_CSD_SEC_COUNT];
+		InstancePtr->SectorCount = ((u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE4]) << 24;
+		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE3] << 16;
+		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE2] << 8;
+		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE1];
 
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				(EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
