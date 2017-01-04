@@ -51,7 +51,7 @@ OPTION psf_version = 2.1;
 
 BEGIN driver uartlite
 
-  OPTION supported_peripherals = (mdm axi_uartlite);
+  OPTION supported_peripherals = (mdm axi_uartlite tmr_sem);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;	
   OPTION VERSION = 3.2;
