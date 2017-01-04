@@ -142,7 +142,7 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	u8 Ppk0InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 Ppk1InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 SpkIdInBits[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
-	XilSKey_UsrFuses UsrFuses_ToPrgm[8] = {{0}};
+	XilSKey_UsrFuses UsrFuses_ToPrgm[8] = {0};
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -173,7 +173,7 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	}
 
 	/* Setting all the conditions for writing into eFuse */
-	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions(InstancePtr);
+	Status = XilSKey_ZynqMp_EfusePs_SetWriteConditions();
 	if (Status != XST_SUCCESS) {
 		Status = (Status + XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING);
 		goto END;
@@ -1074,7 +1074,7 @@ u32 XilSKey_ZynqMp_EfusePs_CacheLoad()
 /*
 * This function sets all the required parameters to program efuse array.
 *
-* @param	InstancePtr is an instance of efuseps of Zynq MP.
+* @param	None.
 *
 * @return
 *		XST_SUCCESS - On success
@@ -1083,7 +1083,7 @@ u32 XilSKey_ZynqMp_EfusePs_CacheLoad()
 * @note		None.
 *
 ******************************************************************************/
-u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(XilSKey_ZynqMpEPs *InstancePtr)
+u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions()
 {
 	u32 ReadReg;
 	u32 Status;
@@ -1130,7 +1130,6 @@ u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions(XilSKey_ZynqMpEPs *InstancePtr)
 ******************************************************************************/
 static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues()
 {
-	float RefClk;
 	u32 ReadReg;
 
 	ReadReg = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -1145,8 +1144,9 @@ static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues()
 
 	/* Initialized Timer */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+	float RefClk;
 	RefClk = XSK_ZYNQMP_EFUSEPS_PS_REF_CLK_FREQ;
-#endif
+
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
 			XSK_ZYNQMP_EFUSEPS_TPGM_OFFSET,
 			((u32)XilSKey_ZynqMp_EfusePs_Tprgrm(RefClk) &
@@ -1167,7 +1167,7 @@ static inline void XilSKey_ZynqMp_EfusePs_SetTimerValues()
 			XSK_ZYNQMP_EFUSEPS_TSU_H_CS_OFFSET,
 			((u32)XilSKey_ZynqMp_EfusePs_TsuHCs(RefClk) &
 			XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_VAL_DEFVAL));
-
+#endif
 
 }
 
@@ -1617,9 +1617,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 							u8 ReadOption)
 {
 	u32 Status = XST_SUCCESS;
-	u32 Row;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
-	u32 RegNum;
 
 	if (ReadOption ==  0) {
 		*UseFusePtr = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -2234,8 +2232,8 @@ static inline u32 XilSKey_ZynqMp_EfusePs_Enable_Rsa(
 	u32 Status = XST_SUCCESS;
 	XskEfusePs_Type EfuseType = XSK_ZYNQMP_EFUSEPS_EFUSE_0;
 	u32 Row = XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW;
-	u32 BitStart;
-	u32 BitEnd;
+	u32 BitStart = 0;
+	u32 BitEnd = 0;
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	u32 Silicon_Ver = XGetPSVersion_Info();

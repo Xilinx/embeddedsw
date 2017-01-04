@@ -1154,8 +1154,13 @@ void XilSKey_EfusePl_CalculateEcc(u8 *RowData, u8 *ECCData)
 *****************************************************************************/
 u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 {
+#if defined XSK_ZYNQ_PLATFORM || defined XSK_MICROBLAZE_PLATFORM
 	unsigned int RowData;
 	XSKEfusePs_XAdc PL_XAdc = {0};
+#endif
+	if(NULL == StatusBits)	{
+		return XST_FAILURE;
+	}
 
 	if(NULL == InstancePtr)	{
 		return XSK_EFUSEPL_ERROR_PL_STRUCT_NULL;
@@ -1203,6 +1208,7 @@ u32 XilSKey_EfusePl_ReadStatus(XilSKey_EPl *InstancePtr, u32 *StatusBits)
 	}
 
 #ifdef XSK_ZYNQ_PLATFORM
+
 	/**
 	 * Monitor the Voltage and temperature using XADC, if out of range return
 	 * unique error.

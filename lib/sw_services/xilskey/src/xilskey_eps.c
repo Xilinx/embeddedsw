@@ -808,6 +808,7 @@ XilSKey_EfusePs_ReadWithXadcCheck(u32 EfuseAddress, u32 RefClk, u8 *Data)
 {
 	XSKEfusePs_XAdc XAdcInstancePtr;
 	u32 Status;
+	(void) RefClk;
 
 	XAdcInstancePtr.VType = XSK_EFUSEPS_VPAUX;
 	XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(&XAdcInstancePtr);
@@ -1531,6 +1532,10 @@ u32 XilSKey_EfusePs_ReadStatus(XilSKey_EPs *InstancePtr, u32 *StatusBits)
 	u32 RetValue;
 
 	RetValue = XST_SUCCESS;
+
+	if (NULL == InstancePtr) {
+		return XSK_EFUSEPS_ERROR_PS_STRUCT_NULL;
+	}
 
 	/**
 	 *  Unlock the eFUSE controller

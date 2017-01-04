@@ -102,7 +102,7 @@ extern int JtagServerInitBbram(XilSKey_Bbram *InstancePtr);
 /**
  * BBRAM Algorithm - Initialization
  */
-extern int Bbram_Init(XilSKey_Bbram *InstancePtr);
+extern int Bbram_Init(void);
 
 /**
  * BBRAM Algorithm - Program key
@@ -120,7 +120,7 @@ extern int Bbram_VerifyKey(XilSKey_Bbram *InstancePtr);
 extern void Bbram_DeInit(void);
 
 /* BBRAM Algorithm - Initialization */
-extern int Bbram_Init_Ultra(XilSKey_Bbram *InstancePtr);
+extern int Bbram_Init_Ultra(void);
 
 /* BBRAM Algorithm - Program key */
 extern int Bbram_ProgramKey_Ultra(XilSKey_Bbram *InstancePtr);
@@ -171,7 +171,6 @@ static inline u8 XilSKey_Calc_Row_Ecc_Bbram_Ultra(u8 *Value, u8 *Mask);
 *****************************************************************************/
 int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 {
-	u32 RefClk;
 	int Status;
 
 	if(NULL == InstancePtr)	{
@@ -179,7 +178,7 @@ int XilSKey_Bbram_Program(XilSKey_Bbram *InstancePtr)
 	}
 
 	/* Get timer values */
-	RefClk = XilSKey_Timer_Intialise();
+	XilSKey_Timer_Intialise();
 	/*
 	 * Initialize and start the timer
 	 */
@@ -230,7 +229,7 @@ static inline int XilSKey_Bbram_Program_Zynq(XilSKey_Bbram *InstancePtr)
 	/*
 	 * BBRAM Algorithm initialization
 	 */
-	Status = Bbram_Init(InstancePtr);
+	Status = Bbram_Init();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -293,7 +292,7 @@ static inline int XilSKey_Bbram_Program_Ultra(XilSKey_Bbram *InstancePtr)
 	/*
 	 * BBRAM Algorithm initialization
 	 */
-	Status = Bbram_Init_Ultra(InstancePtr);
+	Status = Bbram_Init_Ultra();
 	if(Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -370,8 +369,6 @@ static inline u32 XilSKey_Bbram_CrcCalc_Ultra(u32 *AesKey, u32 CtrlWord)
 static inline void XilSKey_Bbram_Framing_Ctrl_Word_Ultra(
 				XilSKey_Bbram *InstancePtr)
 {
-
-	u32 Ecc;
 
 	/* Configure DPA protection */
 	if (InstancePtr->Enable_DpaProtect == TRUE) {

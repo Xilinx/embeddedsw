@@ -218,6 +218,10 @@ u32 XilSKey_EfusePs_XAdcInit (void )
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 					XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+	if (NULL == XAdcInstancePtr) {
+		return;
+	}
+
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 
@@ -258,6 +262,10 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(
 static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 				XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+	if (NULL == XAdcInstancePtr) {
+		return;
+	}
+
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 	XSysMonPsu *XSysmonInstPtr = &XSysmonInst;
 	u8 V;
@@ -313,6 +321,10 @@ static inline void XilSKey_ZynqMP_EfusePs_ReadSysmonVol(
 
 void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstancePtr)
 {
+	if (NULL == XAdcInstancePtr) {
+		return;
+	}
+
 #ifdef XSK_MICROBLAZE_PLATFORM
 	/* Temperature */
 	Jtag_Read_Sysmon(XSK_SYSMON_TEMP_ROW, &(XAdcInstancePtr->Temp));
@@ -414,12 +426,11 @@ void XilSKey_EfusePs_XAdcReadTemperatureAndVoltage(XSKEfusePs_XAdc *XAdcInstance
 ****************************************************************************/
 u32 XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks()
 {
-	XSKEfusePs_XAdc XAdcInstance;
-
 	/**
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
 	 */
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
+	XSKEfusePs_XAdc XAdcInstance;
 	XilSKey_ZynqMP_EfusePs_ReadSysmonTemp(&XAdcInstance);
 	if ((XAdcInstance.Temp < XSK_EFUSEPS_TEMP_MIN_RAW) ||
 			((XAdcInstance.Temp > XSK_EFUSEPS_TEMP_MAX_RAW))) {
@@ -1112,10 +1123,12 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	u8 Key_8[8];
 	u8 Key_Hex[4];
 	u32 Index;
-	u32 Key_32;
+#if defined (XSK_MICROBLAZE_PLATFORM) || \
+	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
+		u32 Key_32;
+#endif
 	u8 FullKey[64] = {0};
 	u32 Length = strlen((char *)Key);
-
 
 	if (Length > 64) {
 		return XSK_EFUSEPL_ERROR_NOT_VALID_KEY_LENGTH;
@@ -1140,8 +1153,11 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 #endif
 
 		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8);
+#if defined (XSK_MICROBLAZE_PLATFORM) || \
+	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		Key_32 = (Key_Hex[0] << 24) | (Key_Hex[1] << 16) |
 				(Key_Hex[2] << 8) | (Key_Hex[3]);
+#endif
 #ifdef XSK_MICROBLAZE_PLATFORM
 		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 20 + Index);
 #endif
@@ -1278,8 +1294,11 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 {
 	u32 Crc = 0;
 	u32 Index;
-	u32 Key_32;
-	u32 Index1;
+#if defined (XSK_MICROBLAZE_PLATFORM) || \
+	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
+		u32 Key_32;
+		u32 Index1;
+#endif
 
 	for (Index = 0; Index < 8;Index++) {
 #ifdef XSK_MICROBLAZE_PLATFORM
@@ -1289,8 +1308,14 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 		Index1 = ((7 - Index) * 4);
 #endif
-		Key_32 = (Key[Index1 + 3] << 24) | (Key[Index1 + 2] << 16) |
+
+#if defined XSK_MICROBLAZE_PLATFORM || \
+	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
+	Key_32 = (Key[Index1 + 3] << 24) | (Key[Index1 + 2] << 16) |
 			(Key[Index1 + 1] << 8) | (Key[Index1 + 0]);
+#else
+	(void) Key;
+#endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
 		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 20 + Index);

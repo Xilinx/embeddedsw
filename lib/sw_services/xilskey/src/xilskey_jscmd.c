@@ -139,6 +139,7 @@ static inline int JtagValidateMioPins_Bbram_Ultra();
 
 void dummy_printf(const char *ctrl1, ...)
 {
+	(void) ctrl1;
 	return;
 }
 static int close_port(
@@ -210,6 +211,7 @@ void GpioConfig(unsigned long addr, unsigned long mask, unsigned long val)
 void JtagInitGpio (XilSKey_ModuleSelection Module)
 {
 #ifdef XSK_ARM_PLATFORM
+	(void) Module;
 	js_printf("===== Initializing PS GPIO pins...\n\r");
 	XGpioPs_Config *ptrConfigPtrPs = XGpioPs_LookupConfig(0);
 	XGpioPs_CfgInitialize(&structXGpioPs,ptrConfigPtrPs,ptrConfigPtrPs->BaseAddr);
@@ -871,6 +873,8 @@ static int get_property(
     js_property_kind_t kind,
     js_property_value_t *valuep)
 {
+	(void) kind;
+	(void) valuep;
     js_port_impl_t *port = (js_port_impl_t *)port_arg;
 
     js_set_last_error(port->lib.base.server, "unsupported property");
@@ -883,6 +887,8 @@ static int set_property(
     js_property_kind_t kind,
     js_property_value_t value)
 {
+	(void) kind;
+	(void) value;
     js_port_impl_t *port = (js_port_impl_t *)port_arg;
 
     js_set_last_error(port->lib.base.server, "unsupported property");
@@ -966,6 +972,8 @@ static int get_port_descr_list(
     js_lib_server_t *server,
     js_port_descr_t **port_listp)
 {
+	(void) server;
+	(void) port_listp;
 	return 1;
 }
 
@@ -975,7 +983,7 @@ int open_port(
     js_port_descr_t *port_descr,
     js_lib_port_t **result)
 {
-
+	(void) port_descr;
 	struct js_zynq *js = (struct js_zynq *)server;
 
 	js_port_impl_t *port;
@@ -1093,8 +1101,6 @@ void JtagWrite(unsigned char row, unsigned char bit)
     unsigned char wrBuffer [8];
     u32 bits = 0;
     u64 time = 0;
-    u64 time_start = 0;
-    u64 time_end = 0;
 
 	// program FUSE_USER bit in row 31 bit 0
 	//Go to TLR to clear FUSE_CTS
@@ -1211,7 +1217,9 @@ void JtagRead(unsigned char row, unsigned int * row_data, unsigned char marginOp
 }
 int JtagValidateMioPins(XilSKey_ModuleSelection Module)
 {
+
 #ifdef XSK_ARM_PLATFORM
+	(void) Module;
 	/*
 	 * Make sure that each every MIO pin defined is valid
 	 */
@@ -1499,7 +1507,7 @@ do_deinit:
 *
 * This function implements the BBRAM algorithm initialization
 *
-* @param  BBRAM instance pointer
+* @param  None
 *
 * @return
 *
@@ -1510,7 +1518,7 @@ do_deinit:
 * @note
 *
 *****************************************************************************/
-int Bbram_Init(XilSKey_Bbram *InstancePtr)
+int Bbram_Init(void)
 {
 	u8 IRCaptureStatus = 0;
 	u8 WriteBuffer[4];
@@ -2418,7 +2426,7 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 *
 * This function implements the UltraScale's BBRAM algorithm initialization
 *
-* @param	BBRAM instance pointer
+* @param	None
 *
 * @return
 *		- XST_FAILURE - In case of failure
@@ -2427,12 +2435,10 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 * @note		None.
 *
 *****************************************************************************/
-int Bbram_Init_Ultra(XilSKey_Bbram *InstancePtr)
+int Bbram_Init_Ultra(void)
 {
-	u8 IRCaptureStatus = 0;
 	u8 WriteBuffer[4];
 	u64 Time = 0;
-	u32 TckCnt;
 
 	jtag_navigate (g_port, JS_RESET);
 	jtag_navigate (g_port, JS_IDLE);
@@ -2674,14 +2680,8 @@ void Bbram_DeInit_Ultra(void)
 *****************************************************************************/
 int Bbram_VerifyKey_Ultra(u32 *Crc32)
 {
-	u32 KeyCnt;
-	u32 BufferCnt;
-	u32 KeyCnt_Char;
-	u32 ReadKey_Char;
 	u8 WriteBuffer[5];
 	u64 ReadBuffer;
-	u8 TckCnt;
-	unsigned long long DataReg = 0;
 	int Status = XST_SUCCESS;
 	u32 Num;
 
