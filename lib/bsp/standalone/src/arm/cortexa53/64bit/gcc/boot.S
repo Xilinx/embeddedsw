@@ -160,8 +160,11 @@ OKToRun:
 	ldr	 x2,=EL3_stack
 	mov	 sp,x2
 
-	/* Disable trapping of CPTR_EL3 accesses or use of Adv.SIMD/FPU*/
-	mov      x0, #0                 // Clear all trap bits
+	/* Enable Trapping of SIMD/FPU register for standalone BSP */
+	mov      x0, #0
+#ifndef FREERTOS_BSP
+	orr      x0, x0, #(0x1 << 10)
+#endif
 	msr      CPTR_EL3, x0
 
 	/* Configure SCR_EL3 */

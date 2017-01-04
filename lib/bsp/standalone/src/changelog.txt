@@ -404,4 +404,13 @@
  *		       0xFFFFFFFFF range is marked normal memory for the DDR size defined in hdf
  *		       and rest of the memory in that 32GB region is marked as reserved to avoid
  *		       any speculative access
+ * 6.2 pkp   12/23/16  Added support for floating point operation to Cortex-A53 64bit mode. It modified
+ *		       asm_vectors.S to implement lazy floating point context saving i.e. floating point
+ *		       access is enabled if there is any floating point operation, it is disabled by
+ *		       default. Also FPU is initally disabled for IRQ and none of the floating point
+ *		       registers are saved during normal context saving. If IRQ handler does not require
+ *		       floating point operation, the floating point registers are untouched and no need
+ *		       for saving/restoring. If IRQ handler uses any floating point operation, then floating
+ *		       point registers are saved and FPU is enabled for IRQ handler. Then floating point
+ *		       registers are restored back after servicing IRQ during normal context restoring.
  *****************************************************************************************/
