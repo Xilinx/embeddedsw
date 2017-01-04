@@ -283,6 +283,13 @@ proc generate {os_handle} {
 		}
 
 	}
+
+	puts $bspcfg_fh "/*"
+	puts $bspcfg_fh " * Definition to indicate that current BSP is a FreeRTOS BSP which can be used to"
+	puts $bspcfg_fh " * distinguish between standalone BSP and FreeRTOS BSP."
+	puts $bspcfg_fh " */"
+	puts $bspcfg_fh "#define FREERTOS_BSP"
+
 	close $bspcfg_fh
 
 	set headers [glob -join ./src/Source/include *.\[h\]]
