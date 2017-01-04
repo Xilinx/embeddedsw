@@ -24,6 +24,13 @@ the same.It fixes CR#965574.
 emacps_v3_4:
 Updated emacps tcl to export PCS definitions for newer version of
 Xilinx PCS PMA core where PHY address is not a parameter.
+Fixed Compilation warnings - CR#957004
+
+gpiops_v3_2:
+Fixed Compilation warnings - CR#957004.
+
+hwicap_v11_0:
+Adopted read-back configuration data frame support for 8-series devices
 
 iicps_v3_5:
 Workaround for SLVMON issue in zynq.
@@ -39,9 +46,16 @@ lwip141_v1_8:
 Updated xemacpsif_physpeed.c to scan for phy addr when newer version of
 Xilinx PCS PMA core is used.
 Add Support for TI PHY DP83867 SGMII Mode configuration.
+Fixed Compilation warnings - CR#957004
 
 nandpsu_v1_2:
 change memcpy to Xil_MemCpy. fixes CR#960462
+
+qspipsu_v1_4:
+Fixed Compilation warnings - CR#957004
+
+rtcpsu_v1_4:
+Fixed Compilation warnings - CR#957004
 
 scugic_v3_6:
 Modified the scugic.tcl script to have array size in config table. Fixes
@@ -49,6 +63,7 @@ CR#963134
 
 sdps_v3_2:
 Corrected voltage switching sequence
+Fixed Compilation warnings - CR#957004
 
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
@@ -57,6 +72,10 @@ Modified Cortex-A53 translation table for upper ps DDR. The 0x800000000 -
 0xFFFFFFFFF range is marked normal memory for the DDR size defined in hdf
 and rest of the memory in that 32GB region is marked as reserved to avoid
 any speculative access
+Fixed Compilation warnings - CR#957004
+
+sysmonpsu_v2_1:
+Fixed Compilation warnings - CR#957004
 
 uartlite_v3_2:
 Added supported peripheral tmr_sem
@@ -64,19 +83,7 @@ Added supported peripheral tmr_sem
 uartps_v3_4:
 sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
 parameter macro
-
-nandpsu_v1_2:
-change memcpy to Xil_MemCpy. fixes CR#960462
-
-wdttb_v4_1:
-Fixed race condition in the driver CR#966068
-
-xilpm_v2_1:
-Modified clean rule in makefile to remove libxilpm.a. Fix for
-CR#962551.
-
-xilrsa_v1_3:
-Updated makefile to add clean rule.Fix for CR#962551.
+Fixed Compilation warnings - CR#957004
 
 video_common_v4_1
 Added new memory formats
@@ -105,6 +112,18 @@ Added HasMADI flag to subsystem configuration and fix for CR#964829
 xilfpga_v2_0:
 Added Encrypted BitStream Loading support to the xilfpga library.
 
+wdttb_v4_1:
+Fixed race condition in the driver CR#966068
+
+xilffs_v3_6:
+Fixed Compilation warnings - CR#957004
+
+xilflash_v4_3:
+Fixed Compilation warnings - CR#957004
+
+xilmfs_v2_3:
+Fixed Compilation warnings - CR#957004
+
 xilopenamp_v1_0:
 obsoleted lib (was replaced in 2016.1 release by openamp lib)
 This is mainly a name change to better match the github project library name.
@@ -112,9 +131,13 @@ This is mainly a name change to better match the github project library name.
 xilpm_v2_1:
 Modified clean rule in makefile to remove libxilpm.a. Fix for
 CR#962551.
+Fixed Compilation warnings - CR#957004
 
 xilrsa_v1_3:
 Updated makefile to add clean rule.Fix for CR#962551.
+
+xilskey_v6_2:
+Fixed Compilation warnings - CR#957004
 
 zynqmp_fsbl:
 - Added support for micron QSPI 2G part.
