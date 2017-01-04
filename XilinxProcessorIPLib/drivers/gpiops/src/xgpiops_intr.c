@@ -722,7 +722,7 @@ void XGpioPs_IntrHandler(XGpioPs *InstancePtr)
 ******************************************************************************/
 void StubHandler(void *CallBackRef, u32 Bank, u32 Status)
 {
-	(void*) CallBackRef;
+	(void) CallBackRef;
 	(void) Bank;
 	(void) Status;
 
