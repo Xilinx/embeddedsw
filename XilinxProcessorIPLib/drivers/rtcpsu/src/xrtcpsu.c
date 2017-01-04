@@ -166,7 +166,7 @@ s32 XRtcPsu_CfgInitialize(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr,
 *****************************************************************************/
 static void XRtcPsu_StubHandler(void *CallBackRef, u32 Event)
 {
-	(void *) CallBackRef;
+	(void) CallBackRef;
 	(void) Event;
 	/* Assert occurs always since this is a stub and should never be called */
 	Xil_AssertVoidAlways();
@@ -415,7 +415,8 @@ void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr,u32 TimeReal,
 		u32 CrystalOscFreq)
 {
 	u32 ReadTime, SetTime;
-	u32 Cprev,Fprev,Cnew,Fnew,Xf,Calibration;
+	u32 Cprev,Fprev,Cnew,Fnew,Calibration;
+	float Xf;
 	Xil_AssertVoid(TimeReal != 0U);
 	Xil_AssertVoid(CrystalOscFreq != 0U);
 
