@@ -166,7 +166,7 @@ s32 XSysMonPsu_CfgInitialize(XSysMonPsu *InstancePtr, XSysMonPsu_Config *ConfigP
 *****************************************************************************/
 static void XSysMonPsu_StubHandler(void *CallBackRef)
 {
-	(void *) CallBackRef;
+	(void) CallBackRef;
 
 	/* Assert occurs always since this is a stub and should never be called */
 	Xil_AssertVoidAlways();
