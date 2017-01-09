@@ -71,6 +71,8 @@
 ##		    correctly (CR#799609).
 ##     11/3/14 adk  added generation of C_HAS_ILR parameter to xparameters.h
 ##		    (CR#828046).
+##     01/07/17 mus Updated xredefine_intc to return immediately, if number of
+##                  connected interrupt sources are 0 (CR#966295)
 ##
 ##
 ##
@@ -280,8 +282,10 @@ proc intc_define_vector_table {periph config_inc config_file} {
     set total_intr_ports [::hsi::utils::get_connected_pin_count $interrupt_pin]
 
     if {$num_intr_inputs != $total_intr_ports} {
-        puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the same as length of ::hsi::utils::get_interrupt_sources [llength $source_pins] hsi_error"
-	return
+        if {$num_intr_inputs != 1} {
+            puts "ERROR: Internal error: Num intr inputs $num_intr_inputs not the same as length of ::hsi::utils::get_interrupt_sources [llength $source_pins] hsi_error"
+        }
+       return
     }
 
     #Check if default_interrupt_handler has to have an extern definition
@@ -442,6 +446,10 @@ proc xredefine_intc {drvhandle config_inc} {
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
     set device_id 0
     set periph_name [string toupper "intc"]
+
+    if {$total_source_intrs == 0} {
+        return
+     }
 
     foreach periph $periphs {
         #update global array of Interrupt sources for this periph
