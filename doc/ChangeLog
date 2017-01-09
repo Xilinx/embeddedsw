@@ -53,6 +53,11 @@ As per user guide when SLVMON bit is cleared in control register,
 master should stop sending the address.But, this is not happening
 with the zynq I2C IP.
 
+intc_v3_6:
+Updated xredefine_intc function in tcl to avoid errors,
+for design in which number of interrupt sources connected
+to AXI INTC is 0.It fixes CR#966295
+
 ipipsu_v2_2:
 Modified the ipipsu.tcl script to have array size in config table. Fixes
 CR#963134
