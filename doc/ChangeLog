@@ -25,6 +25,12 @@ emacps_v3_4:
 Updated emacps tcl to export PCS definitions for newer version of
 Xilinx PCS PMA core where PHY address is not a parameter.
 
+iicps_v3_5:
+Workaround for SLVMON issue in zynq.
+As per user guide when SLVMON bit is cleared in control register,
+master should stop sending the address.But, this is not happening
+with the zynq I2C IP.
+
 ipipsu_v2_2:
 Modified the ipipsu.tcl script to have array size in config table. Fixes
 CR#963134
