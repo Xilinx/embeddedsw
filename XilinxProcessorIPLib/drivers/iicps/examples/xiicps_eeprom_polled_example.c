@@ -88,7 +88,7 @@
 #define IIC_SCLK_RATE		100000
 #define SLV_MON_LOOP_COUNT 0x00FFFFFF	/**< Slave Monitor Loop Count*/
 #define MUX_ADDR 0x74
-#define MAX_CHANNELS 0x08
+#define MAX_CHANNELS 0x04
 
 /*
  * The page size determines how much data should be written at a time.
@@ -398,6 +398,12 @@ static s32 MuxInitChannel(u16 MuxIicAddr, u8 WriteBuffer)
 	u8 Buffer = 0;
 	s32 Status = 0;
 
+
+	/*
+	 * Wait until bus is idle to start another transfer.
+	 */
+	while (XIicPs_BusIsBusy(&IicInstance));
+
 	/*
 	 * Send the Data.
 	 */
@@ -514,7 +520,7 @@ static s32 IicPsFindEeprom(u16 *Eeprom_Addr,u32 *PageSize)
 		Status = IicPsFindDevice(MuxAddr[MuxIndex]);
 		if (Status == XST_SUCCESS) {
 			for(Index=0;EepromAddr[Index] != 0;Index++) {
-				for(MuxChannel = 0x01; MuxChannel <= MAX_CHANNELS; MuxChannel = MuxChannel << 1) {
+				for(MuxChannel = MAX_CHANNELS; MuxChannel > 0x0; MuxChannel = MuxChannel >> 1) {
 					Status = MuxInitChannel(MuxAddr[MuxIndex], MuxChannel);
 					if (Status != XST_SUCCESS) {
 						xil_printf("Failed to enable the MUX channel\r\n");
@@ -579,6 +585,7 @@ static s32 FindEepromDevice(u16 Address)
 		}
 	}
 	XIicPs_DisableSlaveMonitor(&IicInstance);
+
 	return XST_FAILURE;
 }
 

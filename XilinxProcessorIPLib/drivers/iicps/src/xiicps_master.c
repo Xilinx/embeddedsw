@@ -633,6 +633,11 @@ void XIicPs_DisableSlaveMonitor(XIicPs *InstancePtr)
 			& (~XIICPS_CR_SLVMON_MASK));
 
 	/*
+	 * wait for slv monitor control bit to be clear
+	 */
+	while (XIicPs_ReadReg(BaseAddr, XIICPS_CR_OFFSET)
+				& XIICPS_CR_SLVMON_MASK);
+	/*
 	 * Clear interrupt flag for slave monitor interrupt.
 	 */
 	XIicPs_DisableInterrupts(BaseAddr, XIICPS_IXR_SLV_RDY_MASK);
