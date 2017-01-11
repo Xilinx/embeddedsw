@@ -173,6 +173,8 @@
 #define XFPGA_ERROR_BITSTREAM_LOAD_FAIL		(0x2U)
 #define XFPGA_ERROR_PL_POWER_UP			(0x3U)
 #define XFPGA_ERROR_PL_ISOLATION		(0x4U)
+#define XFPGA_PARAMETER_NULL_ERROR		(0x5U)
+#define XFPGA_STRING_INVALID_ERROR		(0x6U)
 
 /**************************** Type Definitions *******************************/
 /***************** Macros (Inline Functions) Definitions *********************/

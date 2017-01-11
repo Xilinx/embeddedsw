@@ -43,6 +43,7 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   Nava  08/06/16 Initial release
  * 1.1   Nava  16/11/16 Added PL power-up sequence.
+ * 2.0	 Nava  10/1/17  Added Encrypted bitstream loading support.
  *
  * </pre>
  *
@@ -56,8 +57,12 @@
 #include "xcsudma.h"
 #include "sleep.h"
 #include "xil_printf.h"
+#include "xfpga_config.h"
 #include "xilfpga_pcap.h"
 #include "xparameters.h"
+#ifdef XFPGA_SECURE_MODE
+#include "xsecure_aes.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #ifdef __MICROBLAZE__
@@ -73,12 +78,23 @@
 #endif
 
 #define MAX_REG_BITS	31
+#ifdef XFPGA_SECURE_MODE
+#define KEY_LEN		64	/* Bytes */
+#define IV_LEN		24 	/* Bytes */
+#define GCM_TAG_LEN	128 	/* Bytes */
+#define WORD_LEN	4	/* Bytes */
+#define MAX_NIBBLES	8
+#endif
+
+#define XFSBL_DESTINATION_PCAP_ADDR		(0XFFFFFFFFU)
+#define XFPGA_ENCRYPTION_EN				(0x00000008U)
 
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__
 typedef u32 (*XpbrServHndlr_t) (void);
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
+#define ARRAY_LENGTH(array) (sizeof((array))/sizeof((array)[0]))
 
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PcapWaitForDone();
@@ -89,11 +105,21 @@ static u32 XFpga_PLWaitForDone(void);
 static u32 XFpga_PowerUpPl(void);
 static u32 XFpga_IsolationRestore(void);
 static u32 XFpga_PsPlGpioReset(u32 TotalResets);
+#ifdef XFPGA_SECURE_MODE
+static u32 XFpga_WriteEncryptToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow);
+static u32 Xilfpga_ConvertCharToNibble(char InChar, u8 *Num);
+static u32 Xilfpga_ConvertStringToHex(const char * Str, u32 * buf, u8 Len);
+#endif
 #ifdef __MICROBLAZE__
 extern const XpbrServHndlr_t XpbrServHndlrTbl[XPBR_SERV_EXT_TBL_MAX];
 #endif
 /************************** Variable Definitions *****************************/
 XCsuDma CsuDma;
+#ifdef XFPGA_SECURE_MODE
+XSecure_Aes Secure_Aes;
+u32 iv[3];
+u32 key[8];
+#endif
 
 /*****************************************************************************/
 
@@ -151,7 +177,19 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 		xil_printf("FPGA Init fail\n");
 		goto END;
 	}
-	Status = XFpga_WriteToPcap(WrSize, WrAddrHigh, WrAddrLow);
+
+	if (flags & XFPGA_ENCRYPTION_EN) {
+#ifdef XFPGA_SECURE_MODE
+		Status = XFpga_WriteEncryptToPcap(WrSize * WORD_LEN,
+						WrAddrHigh, WrAddrLow);
+#else
+		xil_printf("Fail to load: Enable secure mode and try...\r\n");
+		Status = XFPGA_ERROR_BITSTREAM_LOAD_FAIL;
+		goto END;
+#endif
+	} else
+		Status = XFpga_WriteToPcap(WrSize, WrAddrHigh, WrAddrLow);
+
 	if(Status != XFPGA_SUCCESS) {
 		xil_printf("FPGA fail to write Bit-stream into PL\n");
 		goto END;
@@ -289,7 +327,50 @@ static u32 XFpga_WriteToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow) {
 	return Status;
 }
 
+#ifdef XFPGA_SECURE_MODE
 /*****************************************************************************/
+/** This is the function to write Encrypted data into PCAP interface
+ *
+ * @param	WrSize: Number of bytes that the DMA should write to the
+ * 			PCAP interface
+ *
+ * @param       WrAddrHigh: Higher 32-bit Linear memory space from where CSUDMA
+ *              will read the data to be written to PCAP interfacae
+ *
+ * @param       WrAddrLow: Lower 32-bit Linear memory space from where CSUDMA
+ *              will read the data to be written to PCAP interface
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+static u32 XFpga_WriteEncryptToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow) {
+	u32 Status = XFPGA_SUCCESS;
+	u64 WrAddr;
+
+	WrAddr = ((u64)WrAddrHigh << 32)|WrAddrLow;
+
+	Xilfpga_ConvertStringToHex((char *)(UINTPTR)WrAddr + WrSize,
+							key, KEY_LEN);
+	Xilfpga_ConvertStringToHex((char *)(UINTPTR)WrAddr  + KEY_LEN + WrSize,
+								iv, IV_LEN);
+
+	/* Xilsecure expects Key in little endian form */
+	for (u8 i = 0; i < ARRAY_LENGTH(key); i++)
+		key[i] = Xil_Htonl(key[i]);
+
+	/* Initialize the Aes driver so that it's ready to use */
+	XSecure_AesInitialize(&Secure_Aes, &CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
+			                           (u32 *)iv, (u32 *)key);
+	Status = XSecure_AesDecrypt(&Secure_Aes,
+				(u8 *) XFSBL_DESTINATION_PCAP_ADDR,
+				(u8 *)(UINTPTR)WrAddr, WrSize - GCM_TAG_LEN);
+
+	Status = XFpga_PcapWaitForDone();
+
+	return Status;
+}
+#endif
+
 /**
  * This function waits for PL Done bit to be set or till timeout and resets
  * PCAP after this.
@@ -499,3 +580,80 @@ u32 XFpga_PcapStatus() {
 
 	return Xil_In32(CSU_PCAP_STATUS);
 }
+
+#ifdef XFPGA_SECURE_MODE
+/****************************************************************************/
+/**
+ * Converts the char into the equivalent nibble.
+ *	Ex: 'a' -> 0xa, 'A' -> 0xa, '9'->0x9
+ *
+ * @param	InChar is input character. It has to be between 0-9,a-f,A-F
+ * @param	Num is the output nibble.
+ *
+ * @return
+ * 		- XST_SUCCESS no errors occured.
+ *		- ERROR when input parameters are not valid
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+static u32 Xilfpga_ConvertCharToNibble(char InChar, u8 *Num) {
+	/* Convert the char to nibble */
+	if ((InChar >= '0') && (InChar <= '9'))
+		*Num = InChar - '0';
+	else if ((InChar >= 'a') && (InChar <= 'f'))
+		*Num = InChar - 'a' + 10;
+	else if ((InChar >= 'A') && (InChar <= 'F'))
+		*Num = InChar - 'A' + 10;
+	else
+		return XFPGA_STRING_INVALID_ERROR;
+
+	return XFPGA_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+ * Converts the string into the equivalent Hex buffer.
+ *	Ex: "abc123" -> {0xab, 0xc1, 0x23}
+ *
+ * @param	Str is a Input String. Will support the lower and upper
+ *		case values. Value should be between 0-9, a-f and A-F
+ *
+ * @param	Buf is Output buffer.
+ * @param	Len of the input string. Should have even values
+ *
+ * @return
+ *		- XST_SUCCESS no errors occured.
+ *		- ERROR when input parameters are not valid
+ *		- an error when input buffer has invalid values
+ *
+ * @note	None.
+ *
+ *****************************************************************************/
+static u32 Xilfpga_ConvertStringToHex(const char * Str, u32 * buf, u8 Len)
+{
+	u32 Status = XFPGA_SUCCESS;
+	u8 ConvertedLen = 0,index=0;
+	u8 Nibble[MAX_NIBBLES];
+
+	while (ConvertedLen < Len) {
+		/* Convert char to nibble */
+		for (u8 i = 0; i < ARRAY_LENGTH(Nibble); i++) {
+			Status = Xilfpga_ConvertCharToNibble(
+					Str[ConvertedLen++],&Nibble[i]);
+
+			if (Status != XFPGA_SUCCESS)
+				/* Error converting char to nibble */
+				return XFPGA_STRING_INVALID_ERROR;
+
+		}
+
+		buf[index++] = Nibble[0] << 28 | Nibble[1] << 24 |
+				Nibble[2] << 20 | Nibble[3] << 16 |
+				Nibble[4] << 12 | Nibble[5] << 8 |
+				Nibble[6] << 4 | Nibble[7];
+	}
+	return XFPGA_SUCCESS;
+}
+
+#endif

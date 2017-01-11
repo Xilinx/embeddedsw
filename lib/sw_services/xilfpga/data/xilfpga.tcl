@@ -74,6 +74,12 @@ proc generate {lib_handle} {
     puts  $conffile "#define XFPGA_NUMBYTES  $value"
     set value  [common::get_property CONFIG.base_address $lib_handle]
     puts  $conffile "#define XFPGA_BASE_ADDRESS $value"
+    set value  [common::get_property CONFIG.secure_mode $lib_handle]
+
+    if {$value == true} {
+	puts $conffile "#define XFPGA_SECURE_MODE"
+    }
+
     puts $conffile "#endif"
     close $conffile
 }
