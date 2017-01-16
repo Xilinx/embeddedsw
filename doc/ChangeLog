@@ -168,6 +168,7 @@ Fixed Compilation warnings - CR#957004
 
 zynqmp_fsbl:
 - Added support for micron QSPI 2G part.
+- Added PL clearing based on the user configuration
 
 Change Log for 2016.4
 =================================
