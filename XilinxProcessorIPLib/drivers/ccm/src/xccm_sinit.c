@@ -45,6 +45,13 @@
 * ----- ------- -------- --------------------------------------------------
 * 6.0   adk     03/06/14 First release.
 *                        Implemented XCcm_LookupConfig function.
+* 6.1   ms     01/16/17  Updated the parameter naming from
+*                        XPAR_CCM_NUM_INSTANCES to XPAR_XCCM_NUM_INSTANCES
+*                        to avoid  compilation failure for
+*                        XPAR_CCM_NUM_INSTANCES as the tools are generating
+*                        XPAR_XCCM_NUM_INSTANCES in the generated xccm_g.c
+*                        for fixing MISRA-C files. This is a fix for
+*                        CR-966099 based on the update in the tools.
 *
 *</pre>
 *
@@ -91,12 +98,12 @@
 ******************************************************************************/
 XCcm_Config *XCcm_LookupConfig(u16 DeviceId)
 {
-	extern XCcm_Config XCcm_ConfigTable[XPAR_CCM_NUM_INSTANCES];
+	extern XCcm_Config XCcm_ConfigTable[XPAR_XCCM_NUM_INSTANCES];
 	XCcm_Config *CfgPtr = NULL;
 	u32 Index;
 
 	/* Checks all the instances */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_CCM_NUM_INSTANCES);
+	for (Index = (u32)0x0; Index < (u32)(XPAR_XCCM_NUM_INSTANCES);
 								Index++) {
 		if (XCcm_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XCcm_ConfigTable[Index];

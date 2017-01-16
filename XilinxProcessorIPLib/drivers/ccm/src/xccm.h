@@ -161,6 +161,13 @@
 *                        Implemented the following functions:
 *                        XCcm_IntrHandler
 *                        XCcm_SetCallBack
+* 6.1   ms     01/16/17  Updated the parameter naming from
+*                        XPAR_CCM_NUM_INSTANCES to XPAR_XCCM_NUM_INSTANCES
+*                        to avoid  compilation failure for
+*                        XPAR_CCM_NUM_INSTANCES as the tools are generating
+*                        XPAR_XCCM_NUM_INSTANCES in the generated xccm_g.c
+*                        for fixing MISRA-C files. This is a fix for
+*                        CR-966099 based on the update in the tools.
 *
 * </pre>
 *
