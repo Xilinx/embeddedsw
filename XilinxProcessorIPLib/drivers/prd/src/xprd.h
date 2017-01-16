@@ -85,7 +85,15 @@
 *
 * Ver   Who     Date          Changes
 * ----- -----  -----------   ---------------------------------------------
-* 1.0   ms     07/14/2016     First release
+* 1.0   ms     07/14/16      First release
+* 1.1   ms     01/16/17      Updated the parameter naming from
+*                            XPAR_PR_DECOUPLER_NUM_INSTANCES to
+*                            XPAR_XPRD_NUM_INSTANCES to avoid compilation
+*                            failure for XPAR_PR_DECOUPLER_NUM_INSTANCES as the
+*                            tools are generating XPAR_XPRD_NUM_INSTANCES
+*                            in the generated xprd_g.c for fixing MISRA-C
+*                            files. This is a fix for CR-966099 based on the
+*                            update in the tools.
 *
 * </pre>
 *

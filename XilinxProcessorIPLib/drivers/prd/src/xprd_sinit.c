@@ -45,7 +45,15 @@
 *
 * Ver   Who    Date          Changes
 * ----- ----- -----------   ---------------------------------------------
-* 1.0   ms    07/14/2016     First release
+* 1.0   ms    07/14/16      First release
+* 1.1   ms    01/16/17      Updated the parameter naming from
+*                           XPAR_PR_DECOUPLER_NUM_INSTANCES to
+*                           XPAR_XPRD_NUM_INSTANCES to avoid compilation
+*                           failure for XPAR_PR_DECOUPLER_NUM_INSTANCES as
+*                           the tools are generating XPAR_XPRD_NUM_INSTANCES
+*                           in the generated xprd_g.c for fixing MISRA-C
+*                           files. This is a fix for CR-966099 based on the
+*                           update in the tools.
 *
 * </pre>
 *
@@ -65,7 +73,7 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-extern XPrd_Config XPrd_ConfigTable[];
+extern XPrd_Config XPrd_ConfigTable[XPAR_XPRD_NUM_INSTANCES];
 
 /*****************************************************************************/
 /**
@@ -87,7 +95,7 @@ XPrd_Config *XPrd_LookupConfig(u16 DeviceId)
 	XPrd_Config *CfgPtr = NULL;
 	u32 Index;
 
-	for (Index = 0; Index < (u32)XPAR_PR_DECOUPLER_NUM_INSTANCES;
+	for (Index = 0; Index < (u32)XPAR_XPRD_NUM_INSTANCES;
 		Index++) {
 		if (XPrd_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XPrd_ConfigTable[Index];
