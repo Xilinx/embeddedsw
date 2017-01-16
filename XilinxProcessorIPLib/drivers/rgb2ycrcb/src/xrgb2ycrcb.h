@@ -177,6 +177,14 @@
 *                       XRgb2YCrCb_Select_Standard,
 *                       XRgb2YCrCb_Coefficient_Translation,
 *                       XRgb2YCrCb_Select_OutputRange.
+* 7.1   ms     01/16/17 Updated the parameter naming from
+*                       XPAR_RGB2YCRCB_NUM_INSTANCES  to
+*                       XPAR_XRGB2YCRCB_NUM_INSTANCES to avoid compilation
+*                       failure for XPAR_RGB2YCRCB_NUM_INSTANCES as the
+*                       tools are generating XPAR_XRGB2YCRCB_NUM_INSTANCES
+*                       in the generated xrgb2ycrcb_g.c for fixing MISRA-C
+*                       files. This is a fix for CR-966099 based on the
+*                       update in the tools.
 *</pre>
 *
 ******************************************************************************/

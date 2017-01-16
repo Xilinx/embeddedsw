@@ -46,6 +46,14 @@
 * 7.0   adk    01/28/14 First release.
 *                       Implemented following function:
 *                       XRgb2YCrCb_LookupConfig.
+* 7.1   ms     01/16/17 Updated the parameter naming from
+*                       XPAR_RGB2YCRCB_NUM_INSTANCES  to
+*                       XPAR_XRGB2YCRCB_NUM_INSTANCES to avoid compilation
+*                       failure for XPAR_RGB2YCRCB_NUM_INSTANCES as the
+*                       tools are generating XPAR_XRGB2YCRCB_NUM_INSTANCES
+*                       in the generated xrgb2ycrcb_g.c for fixing MISRA-C
+*                       files. This is a fix for CR-966099 based on the
+*                       update in the tools.
 * </pre>
 *
 ******************************************************************************/
@@ -95,10 +103,10 @@ XRgb2YCrCb_Config *XRgb2YCrCb_LookupConfig(u16 DeviceId)
 	u32 Index;
 	XRgb2YCrCb_Config *CfgPtr = NULL;
 	extern XRgb2YCrCb_Config
-		XRgb2YCrCb_ConfigTable[XPAR_RGB2YCRCB_NUM_INSTANCES];
+		XRgb2YCrCb_ConfigTable[XPAR_XRGB2YCRCB_NUM_INSTANCES];
 
 	/* Get the reference pointer to XRgb2YCrCb_Config structure */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_RGB2YCRCB_NUM_INSTANCES);
+	for (Index = (u32)0x0; Index < (u32)(XPAR_XRGB2YCRCB_NUM_INSTANCES);
 								Index++) {
 
 		/* Compare device Id with configTable's device Id */
