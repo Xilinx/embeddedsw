@@ -128,6 +128,8 @@ extern "C" {
  *     - FSBL_WDT_EXCLUDE WDT code will be excluded
  *     - FSBL_PERF_EXCLUDE_VAL Performance prints are excluded
  *     - FSBL_A53_TCM_ECC_EXCLUDE_VAL TCM ECC Init will be excluded for A53
+ *     - FSBL_PL_CLEAR_EXCLUDE_VAL PL clear will be excluded unless boot.bin
+ *     	 contains bitstream
  */
 #define FSBL_NAND_EXCLUDE_VAL			(0U)
 #define FSBL_QSPI_EXCLUDE_VAL			(0U)
@@ -139,6 +141,7 @@ extern "C" {
 #define FSBL_WDT_EXCLUDE_VAL			(0U)
 #define FSBL_PERF_EXCLUDE_VAL			(1U)
 #define FSBL_A53_TCM_ECC_EXCLUDE_VAL	(1U)
+#define FSBL_PL_CLEAR_EXCLUDE_VAL		(1U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -178,6 +181,10 @@ extern "C" {
 
 #if FSBL_A53_TCM_ECC_EXCLUDE_VAL
 #define FSBL_A53_TCM_ECC_EXCLUDE
+#endif
+
+#if FSBL_PL_CLEAR_EXCLUDE_VAL
+#define FSBL_PL_CLEAR_EXCLUDE
 #endif
 
 /************************** Function Prototypes ******************************/

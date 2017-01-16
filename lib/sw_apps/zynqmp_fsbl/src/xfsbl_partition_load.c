@@ -1320,6 +1320,17 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 		XFsbl_Printf(DEBUG_GENERAL, "Bitstream download to start now\r\n");
 
+		/**
+		 * PCAP init will be skipped here if it is already done at
+		 * FSBL initialization
+		 */
+#ifndef XFSBL_PL_CLEAR
+		Status = XFsbl_PcapInit();
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
+		}
+#endif
+
 		if (IsEncryptionEnabled == TRUE) {
 #ifdef XFSBL_SECURE
 

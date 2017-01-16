@@ -180,7 +180,7 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
-
+#ifdef XFSBL_PL_CLEAR
 	/* In case of PS only reset skipping PCAP initialization*/
 	if (FsblInstancePtr->ResetReason != PS_ONLY_RESET) {
 		Status = XFsbl_PcapInit();
@@ -188,6 +188,7 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 			goto END;
 		}
 	}
+#endif
 
 	/* Do board specific initialization if any */
 	Status = XFsbl_BoardInit();

@@ -729,6 +729,11 @@ extern "C" {
 #define XFSBL_A53_TCM_ECC
 #endif
 
+/* Definition for PL clear include irrespective of boot image has bitstream or not */
+#if !defined(FSBL_PL_CLEAR_EXCLUDE)
+#define XFSBL_PL_CLEAR
+#endif
+
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_START		(0xC0000000U)
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_END		(0xDFFFFFFFU)
 
