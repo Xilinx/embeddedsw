@@ -153,6 +153,13 @@
 *
 *                       Changes in xcfa_sinit.c :
 *                       Implemented XCfa_LookupConfig function.
+* 7.1   ms     01/16/17 Updated the parameter naming from
+*                       XPAR_CFA_NUM_INSTANCES to XPAR_XCFA_NUM_INSTANCES
+*                       to avoid  compilation failure for
+*                       XPAR_CFA_NUM_INSTANCES as the tools are generating
+*                       XPAR_XCFA_NUM_INSTANCES in the generated xcfa_g.c
+*                       for fixing MISRA-C files. This is a fix for
+*                       CR-966099 based on the update in the tools.
 * </pre>
 *
 ******************************************************************************/
