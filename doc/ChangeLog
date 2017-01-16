@@ -4,6 +4,16 @@ Change Log for 2017.1
 axiethernet_v5_4:
 Add Support for TI PHY DP83867 SGMII Mode configuration in the examples.
 
+ccm_v6_1:
+Modified num instances parameter as XPAR_XCCM_NUM_INSTANCES
+in xparameters.h, xccm_sinit.c to avoid compilation errors because it
+was updated as XPAR_CCM_NUM_INSTANCES in both files. Fix for CR#966099.
+
+cfa_v7_1:
+Modified num instances parameter as XPAR_XCFA_NUM_INSTANCES
+in xparameters.h, xcfa_sinit.c to avoid compilation errors because it
+was updated as XPAR_CFA_NUM_INSTANCES in both files. Fix for CR#966099
+
 cpu_cortexa9_v2_4:
 Updated makefile with "clean" target
 Updated tcl to check each extra compiler flag individually
@@ -20,6 +30,11 @@ cpu_v2_6:
 Added "ffunction-sections" and  "fdata-sections"
 to the deafult extra complier flags, and remove "-g" from
 the same.It fixes CR#965574.
+
+cresample_v4_1:
+Modified num instances parameter as XPAR_XCRESAMPLE_NUM_INSTANCES
+in xparameters.h, xcresample_sinit.c to avoid compilation errors because it
+was updated as XPAR_CRESAMPLE_NUM_INSTANCES in both files. Fix for CR#966099
 
 emacps_v3_4:
 Updated emacps tcl to export PCS definitions for newer version of
@@ -51,11 +66,23 @@ Fixed Compilation warnings - CR#957004
 nandpsu_v1_2:
 change memcpy to Xil_MemCpy. fixes CR#960462
 
+prd_v1_1:
+Modified num instances parameter as XPAR_XPRD_NUM_INSTANCES in xparameters.h,
+xprd_sinit.c to avoid compilation errors because it was updated as
+XPAR_PR_DECOUPLER_NUM_INSTANCES in both files. Fix for CR#966099
+
 qspipsu_v1_4:
 Fixed Compilation warnings - CR#957004
 
 rtcpsu_v1_4:
 Fixed Compilation warnings - CR#957004
+
+
+rgb2ycrcb_v7_1:
+Modified num instances parameter as XPAR_XRGB2YCRCB_NUM_INSTANCES
+in xparameters.h, xrgb2ycrcb_sinit.c to avoid compilation errors
+because it was updated as XPAR_RGB2YCRCB_NUM_INSTANCES in both
+files. Fix for CR#966099
 
 scugic_v3_6:
 Modified the scugic.tcl script to have array size in config table. Fixes
