@@ -53,12 +53,18 @@
 * @note
 * This example requires downloading an encrypted boot image without PMU
 * firmware to a location in DDR memory.
+* Following key and IV should be provided in .nky file while creating
+* the boot image:
+* Key 0  f878b838d8589818e868a828c8488808f070b030d0509010e060a020c0408000;
+* IV     D2450E07EA5DE0426C0FA133;
 *
 * MODIFICATION HISTORY:
 * <pre>
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.00a ba     01/13/14 First Release
+* 2.0   vns    01/17/17 For CR-964195 added required .nky fields
+*                       in the comments, also print for decryption failure.
 *
 * </pre>
 ******************************************************************************/
@@ -122,7 +128,10 @@ int main(void)
 	Status = SecureAesExample();
 
 	if(Status == XST_SUCCESS) {
-		xil_printf("\r\n Decryption was successful \r\n");
+		xil_printf("\r\nDecryption was successful \r\n");
+	}
+	else {
+		xil_printf("\r\nDecryption example was failed \r\n");
 	}
 
 	return Status;
