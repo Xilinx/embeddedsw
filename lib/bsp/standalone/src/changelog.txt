@@ -413,4 +413,6 @@
  *		       for saving/restoring. If IRQ handler uses any floating point operation, then floating
  *		       point registers are saved and FPU is enabled for IRQ handler. Then floating point
  *		       registers are restored back after servicing IRQ during normal context restoring.
+ * 6.2 mus   01/01/17  Updated makefiles of R5 and a53 64 bit/32 bit processors to fix error in clean
+ *                     target.It fixes the CR#966900
  *****************************************************************************************/
