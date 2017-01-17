@@ -175,8 +175,9 @@ Fixed Compilation warnings - CR#957004
 xilrsa_v1_3:
 Updated makefile to add clean rule.Fix for CR#962551.
 
-xilskey_v6_2:
-Fixed Compilation warnings - CR#957004
+xilsecure_v2_0:
+Added support for PMU
+Added comments with .nky fields for aes encryption example.
 
 zynqmp_fsbl:
 - Added support for micron QSPI 2G part.
