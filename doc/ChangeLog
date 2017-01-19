@@ -105,6 +105,8 @@ Modified Cortex-A53 translation table for upper ps DDR. The 0x800000000 -
 and rest of the memory in that 32GB region is marked as reserved to avoid
 any speculative access
 Fixed Compilation warnings - CR#957004
+Updated makefiles of R5 and a53 64 bit/32 bit processors to fix error in clean 
+target.It fixes the CR#966900.
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
