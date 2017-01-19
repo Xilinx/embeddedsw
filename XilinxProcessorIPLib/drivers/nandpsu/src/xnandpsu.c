@@ -100,6 +100,8 @@
 * 1.1   mi     09/16/16 Removed compilation warnings with extra compiler flags.
 * 1.1	nsk    11/07/16    Change memcpy to Xil_MemCpy to handle word aligned
 *	                   data access.
+* 1.2	nsk    01/19/17    Fix for the failure of reading nand first redundant
+* 	                   parameter page. CR#966603
 *
 * </pre>
 *
@@ -303,7 +305,7 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 {
 	u32 Target;
 	u8 Id[ONFI_SIG_LEN] = {0U};
-	OnfiParamPage Param = {0U};
+	OnfiParamPage Param[ONFI_MND_PRM_PGS] = {0U};
 	s32 Status = XST_FAILURE;
 	u32 Index;
 	u32 Crc;
@@ -349,25 +351,16 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 		}
 
 		/* Read Parameter Page */
-		for(Index = 0U; Index < ONFI_MND_PRM_PGS; Index++) {
-			if (Index == 0U) {
-				Status = XNandPsu_OnfiReadParamPage(InstancePtr,
-							Target, (u8 *)&Param);
-			} else {
-				PrmPgOff = Index * ONFI_PRM_PG_LEN;
-				PrmPgLen = ONFI_PRM_PG_LEN;
-				Status = XNandPsu_ChangeReadColumn(InstancePtr,
-							Target,PrmPgOff,
-							ONFI_PRM_PG_LEN, 1U,
-							(u8 *) &Param);
-			}
-			if (Status != XST_SUCCESS) {
-				goto Out;
-			}
+		Status = XNandPsu_OnfiReadParamPage(InstancePtr,
+						Target, (u8 *)&Param[0]);
+		if (Status != XST_SUCCESS) {
+			goto Out;
+		}
+		for(Index = 0U; Index < ONFI_MND_PRM_PGS; Index++){
 			/* Check CRC */
-			Crc = XNandPsu_OnfiParamPageCrc((u8*)&Param, 0U,
+			Crc = XNandPsu_OnfiParamPageCrc((u8*)&Param[Index], 0U,
 								ONFI_CRC_LEN);
-			if (Crc != Param.Crc) {
+			if (Crc != Param[Index].Crc) {
 #ifdef XNANDPSU_DEBUG
 				xil_printf("%s: ONFI parameter page (%d) crc check failed\r\n",
 							__func__, Index);
@@ -383,53 +376,49 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 		}
 		/* Fill Geometry for the first target */
 		if (Target == 0U) {
-			XNandPsu_InitGeometry(InstancePtr, &Param);
-			XNandPsu_InitFeatures(InstancePtr, &Param);
+			XNandPsu_InitGeometry(InstancePtr, &Param[Index]);
+			XNandPsu_InitFeatures(InstancePtr, &Param[Index]);
 			if ((!InstancePtr->Features.EzNand) != 0U) {
-				Status =XNandPsu_CheckOnDie(InstancePtr,&Param);
+				Status =XNandPsu_CheckOnDie(InstancePtr,&Param[Index]);
 				if (Status != XST_SUCCESS) {
 					InstancePtr->Features.OnDie = 0U;
 				}
 			}
-
 			if ((InstancePtr->Geometry.NumBitsECC == 0xFFU) &&
 				(InstancePtr->Features.ExtPrmPage != 0U)) {
-				/* ONFI 3.1 section 5.7.1.6 & 5.7.1.7 */
-				PrmPgLen = (u32)Param.ExtParamPageLen * 16U;
-					PrmPgOff = (u32)((u32)Param.NumOfParamPages *
-							ONFI_PRM_PG_LEN) +
-							(Index * (u32)PrmPgLen);
-					Status = XNandPsu_ChangeReadColumn(
-							InstancePtr,
-							Target,
-							PrmPgOff,
-							PrmPgLen, 1U,
-							(u8 *)(void *)&ExtParam);
-					if (Status != XST_SUCCESS) {
-						goto Out;
-					}
-					/* Check CRC */
-					Crc = XNandPsu_OnfiParamPageCrc(
-							(u8 *)&ExtParam,
-							2U,
-							PrmPgLen);
-					if (Crc != ExtParam.Crc) {
+					/* ONFI 3.1 section 5.7.1.6 & 5.7.1.7 */
+				PrmPgLen = (u32)Param[Index].ExtParamPageLen * 16U;
+				PrmPgOff = (u32)((u32)Param[Index].NumOfParamPages *
+						ONFI_PRM_PG_LEN) + (Index * (u32)PrmPgLen);
+
+				Status = XNandPsu_ChangeReadColumn(
+						InstancePtr, Target,
+						PrmPgOff, PrmPgLen, 1U,
+						(u8 *)(void *)&ExtParam);
+				if (Status != XST_SUCCESS) {
+					goto Out;
+				}
+				/* Check CRC */
+				Crc = XNandPsu_OnfiParamPageCrc(
+						(u8 *)&ExtParam,
+						2U, PrmPgLen);
+				if (Crc != ExtParam.Crc) {
 #ifdef XNANDPSU_DEBUG
 	xil_printf("%s: ONFI extended parameter page (%d) crc check failed\r\n",
 							__func__, Index);
 #endif
-						Status = XST_FAILURE;
-						goto Out;
-					}
-					/* Initialize Extended ECC info */
-					Status = XNandPsu_InitExtEcc(
-							InstancePtr,
-							&ExtParam);
-					if (Status != XST_SUCCESS) {
+					Status = XST_FAILURE;
+					goto Out;
+				}
+				/* Initialize Extended ECC info */
+				Status = XNandPsu_InitExtEcc(
+						InstancePtr,
+						&ExtParam);
+				if (Status != XST_SUCCESS) {
 #ifdef XNANDPSU_DEBUG
 	xil_printf("%s: Init extended ecc failed\r\n",__func__);
 #endif
-						goto Out;
+					goto Out;
 				}
 			}
 			/* Configure ECC settings */
@@ -1260,12 +1249,12 @@ static s32 XNandPsu_OnfiReadParamPage(XNandPsu *InstancePtr, u32 Target,
 	/* Program Memory Address Register2 for chip select */
 	XNandPsu_SelectChip(InstancePtr, Target);
 	/* Program Packet Size and Packet Count */
-	XNandPsu_SetPktSzCnt(InstancePtr, ONFI_PRM_PG_LEN, 1U);
+	XNandPsu_SetPktSzCnt(InstancePtr, ONFI_MND_PRM_PGS*ONFI_PRM_PG_LEN, 1U);
 	/* Set Read Parameter Page in Program Register */
 	XNandPsu_WriteReg((InstancePtr)->Config.BaseAddress,
 			XNANDPSU_PROG_OFFSET,XNANDPSU_PROG_RD_PRM_PG_MASK);
 
-	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, 1, ONFI_PRM_PG_LEN, 0, 0);
+	Status = XNandPsu_Data_ReadWrite(InstancePtr, Buf, 1U, ONFI_MND_PRM_PGS*ONFI_PRM_PG_LEN, 0, 0);
 
 	return Status;
 }

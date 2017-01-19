@@ -159,6 +159,8 @@
 *			   timeout errors for erase operation on slower devices.
 * 1.1   mi     09/16/16 Removed compilation warnings with extra compiler flags.
 * 1.1	nsk    11/07/16    Change memcpy to Xil_MemCpy, CR#960462
+* 1.2   nsk    01/19/17    Fix for the failure of reading nand first redundant
+*                          parameter page. CR#966603
 *
 * </pre>
 *
