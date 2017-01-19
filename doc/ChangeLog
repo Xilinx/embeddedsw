@@ -70,6 +70,8 @@ Fixed Compilation warnings - CR#957004
 
 nandpsu_v1_2:
 change memcpy to Xil_MemCpy. fixes CR#960462
+fix for the failure of reading nand first redundant paramter page
+CR#966603
 
 prd_v1_1:
 Modified num instances parameter as XPAR_XPRD_NUM_INSTANCES in xparameters.h,
