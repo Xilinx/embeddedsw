@@ -105,6 +105,12 @@ u32 XFsbl_GetA53ExecState(const XFsblPs_PartitionHeader * PartitionHeader)
                                 XIH_PH_ATTRB_A53_EXEC_ST_MASK;
 }
 
+u32 XFsbl_GetVectorLocation(const XFsblPs_PartitionHeader * PartitionHeader)
+{
+        return (PartitionHeader->PartitionAttributes &
+           XIH_PH_ATTRB_VEC_LOCATION_MASK);
+}
+
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_ValidateImageHeaderTable(
 		XFsblPs_ImageHeaderTable * ImageHeaderTable);

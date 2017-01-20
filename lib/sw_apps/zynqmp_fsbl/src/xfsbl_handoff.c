@@ -69,10 +69,15 @@
 #define APU_CONFIG_0_AA64N32_MASK_CPU2 (0x4U)
 #define APU_CONFIG_0_AA64N32_MASK_CPU3 (0x8U)
 
-#define APU_CONFIG_0_VINITHI_MASK_CPU0  (u32)(0x10U)
-#define APU_CONFIG_0_VINITHI_MASK_CPU1  (u32)(0x20U)
-#define APU_CONFIG_0_VINITHI_MASK_CPU2  (u32)(0x40U)
-#define APU_CONFIG_0_VINITHI_MASK_CPU3  (u32)(0x80U)
+#define APU_CONFIG_0_VINITHI_MASK_CPU0  (u32)(0x100U)
+#define APU_CONFIG_0_VINITHI_MASK_CPU1  (u32)(0x200U)
+#define APU_CONFIG_0_VINITHI_MASK_CPU2  (u32)(0x400U)
+#define APU_CONFIG_0_VINITHI_MASK_CPU3  (u32)(0x800U)
+
+#define APU_CONFIG_0_VINITHI_SHIFT_CPU0	(8U)
+#define APU_CONFIG_0_VINITHI_SHIFT_CPU1	(9U)
+#define APU_CONFIG_0_VINITHI_SHIFT_CPU2	(10U)
+#define APU_CONFIG_0_VINITHI_SHIFT_CPU3	(11U)
 
 #define OTHER_CPU_HANDOFF				(0x0U)
 #define A53_0_64_HANDOFF_TO_A53_0_32	(0x1U)
@@ -86,7 +91,7 @@
 
 static u32 XFsbl_SetCpuPwrSettings (u32 CpuSettings, u32 Flags);
 static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
-		u32 HandoffType);
+		u32 HandoffType, u32 Vector);
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings);
 static u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId);
 
@@ -580,7 +585,7 @@ void XFsbl_HandoffExit(u64 HandoffAddress, u32 Flags)
 *
 *****************************************************************************/
 static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
-		u32 HandoffType)
+		u32 HandoffType, u32 Vector)
 {
 	u32 HandOffAddressLow;
 	u32 HandOffAddressHigh;
@@ -594,12 +599,13 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 	ExecState = CpuSettings & XIH_PH_ATTRB_A53_EXEC_ST_MASK;
 
 	/**
-	 * Put R5 or A53-32 in Lovec
+	 * Put R5 or A53-32 in Lovec/Hivec
 	 */
 	if ((CpuId == XIH_PH_ATTRB_DEST_CPU_R5_0)
 			|| (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L)) {
 		RegVal = XFsbl_In32(RPU_RPU_0_CFG);
 		RegVal &= ~RPU_RPU_0_CFG_VINITHI_MASK;
+		RegVal |= (Vector << RPU_RPU_0_CFG_VINITHI_SHIFT);
 		XFsbl_Out32(RPU_RPU_0_CFG, RegVal);
 	}
 
@@ -607,6 +613,7 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 			|| (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L)) {
 		RegVal = XFsbl_In32(RPU_RPU_1_CFG);
 		RegVal &= ~RPU_RPU_1_CFG_VINITHI_MASK;
+		RegVal |= (Vector << RPU_RPU_1_CFG_VINITHI_SHIFT);
 		XFsbl_Out32(RPU_RPU_1_CFG, RegVal);
 	}
 
@@ -614,6 +621,7 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 		&& (ExecState == XIH_PH_ATTRB_A53_EXEC_ST_AA32)) {
 		RegVal = XFsbl_In32(APU_CONFIG_0);
 		RegVal &= ~APU_CONFIG_0_VINITHI_MASK_CPU0;
+		RegVal |= (Vector << APU_CONFIG_0_VINITHI_SHIFT_CPU0);
 		XFsbl_Out32(APU_CONFIG_0, RegVal);
 	}
 
@@ -621,6 +629,7 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 		&& (ExecState == XIH_PH_ATTRB_A53_EXEC_ST_AA32)) {
 		RegVal = XFsbl_In32(APU_CONFIG_0);
 		RegVal &= ~APU_CONFIG_0_VINITHI_MASK_CPU1;
+		RegVal |= (Vector << APU_CONFIG_0_VINITHI_SHIFT_CPU1);
 		XFsbl_Out32(APU_CONFIG_0, RegVal);
 	}
 
@@ -628,6 +637,7 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 			&& (ExecState == XIH_PH_ATTRB_A53_EXEC_ST_AA32)) {
 		RegVal = XFsbl_In32(APU_CONFIG_0);
 		RegVal &= ~APU_CONFIG_0_VINITHI_MASK_CPU2;
+		RegVal |= (Vector << APU_CONFIG_0_VINITHI_SHIFT_CPU2);
 		XFsbl_Out32(APU_CONFIG_0, RegVal);
 		}
 
@@ -635,6 +645,7 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 		&& (ExecState == XIH_PH_ATTRB_A53_EXEC_ST_AA32)) {
 		RegVal = XFsbl_In32(APU_CONFIG_0);
 		RegVal &= ~APU_CONFIG_0_VINITHI_MASK_CPU3;
+		RegVal |= (Vector << APU_CONFIG_0_VINITHI_SHIFT_CPU3);
 		XFsbl_Out32(APU_CONFIG_0, RegVal);
 	}
 	else
@@ -714,11 +725,14 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	u32 RunningCpuExecState=0U;
 	u32 RunningCpuHandoffAddressPresent=FALSE;
 	u32 CpuNeedsEarlyHandoff;
+	const XFsblPs_PartitionHeader * PartitionHeader;
 
 	static u32 CpuIndexEarlyHandoff = 0;
 
 	/* Restoring the SD card detection signal */
 	XFsbl_Out32(IOU_SLCR_SD_CDN_CTRL, 0X0U);
+	PartitionHeader =
+			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 
 	Status = XFsbl_PmInit();
 	if (Status != XFSBL_SUCCESS) {
@@ -888,7 +902,9 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 				 * Update the handoff address at reset vector address
 				 */
 				XFsbl_UpdateResetVector(HandoffAddress, CpuSettings,
-						OTHER_CPU_HANDOFF);
+						OTHER_CPU_HANDOFF,
+						XFsbl_GetVectorLocation(PartitionHeader) >>
+							XIH_ATTRB_VECTOR_LOCATION_SHIFT);
 
 				XFsbl_Printf(DEBUG_INFO,"CPU 0x%0lx reset release, "
 						"Exec State 0x%0lx, HandoffAddress: %0lx\n\r",
