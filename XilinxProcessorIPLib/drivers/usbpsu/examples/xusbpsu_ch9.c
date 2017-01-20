@@ -133,12 +133,16 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 	int Status;
 	int Error = 0;
 	int ReplyLen;
-	u8 EpNum;
-	u8 Direction;
 	static u8 Reply[XUSBPSU_REQ_REPLY_LEN] ALIGNMENT_CACHELINE;
 	static u8 TmpBuffer[10] ALIGNMENT_CACHELINE;
 	USBCH9_DATA *usb_data =
 			(USBCH9_DATA *)XUsbPsu_get_drvdata(InstancePtr);
+	u8 EpNum = SetupData->wIndex & XUSBPSU_ENDPOINT_NUMBER_MASK;
+	/*
+	 * Direction - 1 -- XUSBPSU_EP_DIR_IN
+	 * Direction - 0 -- XUSBPSU_EP_DIR_OUT
+	 */
+	u8 Direction = !!(SetupData->wIndex & XUSBPSU_ENDPOINT_DIR_MASK);
 
 	/* Check that the requested reply length is not bigger than our reply
 	 * buffer. This should never happen...
@@ -184,14 +188,8 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 #ifdef CH9_DEBUG
 			printf("GET STATUS ENDPOINT\r\n");
 #endif
-			EpNum = SetupData->wIndex & XUSBPSU_ENDPOINT_NUMBER_MASK;
-			/*
-			 * Direction - 1 -- XUSBPSU_EP_DIR_IN
-			 * Direction - 0 -- XUSBPSU_EP_DIR_OUT
-			 */
-			Direction = !!(SetupData->wIndex & XUSBPSU_ENDPOINT_DIR_MASK);
 			*((u16 *) &Reply[0]) = XUsbPsu_IsEpStalled(InstancePtr, EpNum,
-														Direction);
+					Direction);
 			break;
 		default:
 #ifdef CH9_DEBUG
@@ -388,17 +386,9 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 
 		switch(SetupData->bRequestType & XUSBPSU_STATUS_MASK) {
 		case XUSBPSU_STATUS_ENDPOINT:
-			if(SetupData->wValue == XUSBPSU_ENDPOINT_HALT) {
-				int EpNum = SetupData->wIndex;
-
-				if(EpNum & 0x80) {	/* In ep */
-					XUsbPsu_EpClearStall(InstancePtr, EpNum,
-											XUSBPSU_EP_DIR_IN);
-				} else { 			/* Out ep */
-					XUsbPsu_EpClearStall(InstancePtr, EpNum,
-											XUSBPSU_EP_DIR_OUT);
-				}
-			}
+			if (SetupData->wValue == XUSBPSU_ENDPOINT_HALT)
+				XUsbPsu_EpClearStall(InstancePtr, EpNum,
+						Direction);
 			break;
 
 		case XUSBPSU_STATUS_DEVICE:
@@ -423,15 +413,9 @@ static void XUsbPsu_StdDevReq(struct XUsbPsu *InstancePtr,
 #endif
 		switch(SetupData->bRequestType & XUSBPSU_STATUS_MASK) {
 		case XUSBPSU_STATUS_ENDPOINT:
-			if(SetupData->wValue == XUSBPSU_ENDPOINT_HALT) {
-				int EpNum = SetupData->wIndex;
-
-				if(EpNum & 0x80) {	/* In ep */
-					XUsbPsu_EpSetStall(InstancePtr, EpNum, XUSBPSU_EP_DIR_IN);
-				} else { /* Out ep */
-					XUsbPsu_EpSetStall(InstancePtr, EpNum, XUSBPSU_EP_DIR_OUT);
-				}
-			}
+			if (SetupData->wValue == XUSBPSU_ENDPOINT_HALT)
+				XUsbPsu_EpSetStall(InstancePtr, EpNum,
+						Direction);
 			break;
 
 		case XUSBPSU_STATUS_DEVICE:
