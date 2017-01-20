@@ -734,6 +734,15 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
 		goto END;
 	}
+
+	/* Lock XMPU/XPPU for further access */
+	Status = (u32)psu_protection_lock();
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PROTECTION_CFG;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
+		goto END;
+	}
+
 	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
 
 	/**
