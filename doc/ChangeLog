@@ -92,6 +92,9 @@ because it was updated as XPAR_RGB2YCRCB_NUM_INSTANCES in both
 files. Fix for CR#966099
 
 scugic_v3_6:
+Added new API XScuGic_Stop to Disable distributor and interrupts
+in case they are being used only by current cpu. It also removes
+current cpu from interrupt target registers for all interrupts.
 Modified the scugic.tcl script to have array size in config table. Fixes
 CR#963134
 
