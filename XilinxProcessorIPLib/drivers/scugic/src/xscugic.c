@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -107,7 +107,10 @@
 *					  and properly mask interrupt target processor value to modify
 *					  interrupt target processor register for a given interrupt ID
 *					  and cpu ID
-*
+* 3.6	pkp	 20/01/17 Added new API XScuGic_Stop to Disable distributor and
+*					  interrupts in case they are being used only by current cpu.
+*					  It also removes current cpu from interrupt target registers
+*					  for all interrupts.
 *
 * </pre>
 *
@@ -392,7 +395,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 			InstancePtr->Config->HandlerTable[Int_Id].CallBackRef =
 								InstancePtr;
 		}
-
+		XScuGic_Stop(InstancePtr);
 		DistributorInit(InstancePtr, Cpu_Id);
 		CPUInitialize(InstancePtr);
 
@@ -827,4 +830,80 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 						 XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 						 RegValue);
 }
+/****************************************************************************/
+/**
+* It checks if the interrupt target register contains all interrupts to be
+* targeted for current CPU. If they are programmed to be forwarded to current
+* cpu, this API disable all interrupts and disable GIC distributor.
+* This API also removes current CPU from interrupt target registers for all
+* interrupt.
+*
+* @param	InstancePtr is a pointer to the instance to be worked on.
+*
+* @return	None.
+*
+* @note		None
+*
+*****************************************************************************/
+void XScuGic_Stop(XScuGic *InstancePtr)
+{
+	u32 Int_Id;
+	u32 RegValue;
+	u32 Target_Cpu;
+	u32 DistDisable = 1; /* To track if distributor need to be disabled or not */
+	u32 LocalCpuID = ((u32)0x1 << ((u32)XPAR_CPU_ID));
+
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* If distributor is already disabled, no need to do anything */
+	RegValue = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
+	if ((RegValue & XSCUGIC_EN_INT_MASK) == 0U) {
+		return;
+	}
+
+	LocalCpuID |= LocalCpuID << 8U;
+	LocalCpuID |= LocalCpuID << 16U;
+
+	/*
+	 * Check if the interrupt are targeted to current cpu only or not.
+	 * Also remove current cpu from interrupt target register for all
+	 * interrupts.
+	 */
+	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
+
+		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
+									XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+		if ((Target_Cpu != LocalCpuID) && (Target_Cpu!= 0)) {
+			/*
+			 * If any other CPU is also programmed to target register, GIC
+			 * distributor can not be disabled.
+			 */
+			DistDisable = 0;
+		}
+
+		/* Remove current CPU from interrupt target register */
+		Target_Cpu &= (~LocalCpuID);
+		XScuGic_DistWriteReg(InstancePtr,
+						XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), Target_Cpu);
+
+	}
+
+	/*
+	 * If GIC distributor is safe to be disabled, disable all the interrupt
+	 * and then disable distributor.
+	 */
+	if ( DistDisable == 1) {
+		for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
+			/*
+			 * Disable all the interrupts
+			 */
+			XScuGic_DistWriteReg(InstancePtr,
+							XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
+							Int_Id),
+			0xFFFFFFFFU);
+		}
+		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
+	}
+}
+
 /** @} */
