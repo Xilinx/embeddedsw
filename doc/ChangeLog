@@ -182,6 +182,7 @@ Added comments with .nky fields for aes encryption example.
 zynqmp_fsbl:
 - Added support for micron QSPI 2G part.
 - Added PL clearing based on the user configuration
+- Added HIVEC support
 
 Change Log for 2016.4
 =================================
