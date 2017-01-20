@@ -585,8 +585,6 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
  */
 s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr);
 void XUsbPsu_Ep0StallRestart(struct XUsbPsu *InstancePtr);
-s32 XUsbPsu_SetConfiguration(struct XUsbPsu *InstancePtr,
-				SetupPacket *Ctrl);
 void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 		const struct XUsbPsu_Event_Epevt *Event);
 void XUsbPsu_Ep0StatusDone(struct XUsbPsu *InstancePtr,
