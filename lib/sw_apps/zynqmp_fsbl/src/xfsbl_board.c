@@ -36,6 +36,8 @@
 * @file xfsbl_board.c
 *
 * This file contains board specific code of FSBL.
+* Board specific code for ZCU106 is similar to that of ZCU102, except that
+* GT mux configuration and PCIe reset are not applicable for ZCU106.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -51,7 +53,7 @@
 ******************************************************************************/
 /***************************** Include Files *********************************/
 #include "xfsbl_board.h"
-#ifdef XPS_BOARD_ZCU102
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -61,7 +63,9 @@
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_BoardConfig(void);
 static void XFsbl_UsbPhyReset(void);
+#if defined(XPS_BOARD_ZCU102)
 static void XFsbl_PcieReset(void);
+#endif
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
@@ -82,8 +86,10 @@ static u32 XFsbl_BoardConfig(void)
 	u8 WriteBuffer[BUF_LEN] = {0};
 	XIicPs_Config *I2c0CfgPtr;
 	s32 Status;
-	u32 ICMCfgLane[NUM_GT_LANES];
 	u32 UStatus;
+#if defined(XPS_BOARD_ZCU102)
+	u32 ICMCfgLane[NUM_GT_LANES];
+#endif
 
 	/* Initialize the IIC0 driver so that it is ready to use */
 	I2c0CfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_0_DEVICE_ID);
@@ -130,7 +136,9 @@ static u32 XFsbl_BoardConfig(void)
 	 * Selecting lanes based on configuration
 	 */
 	WriteBuffer[0] = CMD_OUTPUT_0_REG;
+	WriteBuffer[1] = DATA_COMMON_CFG;
 
+#if defined(XPS_BOARD_ZCU102)
 	ICMCfgLane[0] = XFsbl_In32(SERDES_ICM_CFG0) & SERDES_ICM_CFG0_L0_ICM_CFG_MASK;
 	ICMCfgLane[1] = (XFsbl_In32(SERDES_ICM_CFG0) &
 		SERDES_ICM_CFG0_L1_ICM_CFG_MASK) >> SERDES_ICM_CFG0_L1_ICM_CFG_SHIFT;
@@ -156,8 +164,6 @@ static u32 XFsbl_BoardConfig(void)
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_GT_LANE_SELECTION\r\n");
 		goto END;
 	}
-
-	WriteBuffer[1] = DATA_COMMON_CFG;
 
 	/**
 	 * If any of the lanes are of PCIe or PowerDown, that particular lane
@@ -187,6 +193,7 @@ static u32 XFsbl_BoardConfig(void)
 	if (ICMCfgLane[3] == ICM_CFG_VAL_SATA) {
 		WriteBuffer[1] |= DATA_GT_L3_SATA_CFG;
 	}
+#endif
 
 	/* Send the Data */
 	Status = XIicPs_MasterSendPolled(&I2c0InstancePtr,
@@ -277,6 +284,7 @@ static void XFsbl_UsbPhyReset(void)
 
 }
 
+#if defined(XPS_BOARD_ZCU102)
 /*****************************************************************************/
 /**
  * This function is used to provide PCIe reset on ZCU102 board.
@@ -323,7 +331,7 @@ static void XFsbl_PcieReset(void)
 
 }
 #endif
-
+#endif
 /*****************************************************************************/
 /**
  * This function does board specific initialization.
@@ -340,7 +348,7 @@ static void XFsbl_PcieReset(void)
 u32 XFsbl_BoardInit(void)
 {
 	u32 Status;
-#ifdef XPS_BOARD_ZCU102
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 	/* Program I2C to configure GT lanes */
 	Status = XFsbl_BoardConfig();
 	if (Status != XFSBL_SUCCESS) {
@@ -348,11 +356,14 @@ u32 XFsbl_BoardInit(void)
 	}
 
 	XFsbl_UsbPhyReset();
+#if defined(XPS_BOARD_ZCU102)
 	XFsbl_PcieReset();
-
-
 #endif
+#else
 	Status = XFSBL_SUCCESS;
+	goto END;
+#endif
+
 END:
 	return Status;
 }

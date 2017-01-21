@@ -59,7 +59,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
-#ifdef XPS_BOARD_ZCU102
+#if defined(XPS_BOARD_ZCU102) || defined(XPS_BOARD_ZCU106)
 #include "xiicps.h"
 /************************** Constant Definitions *****************************/
 #define GPIO_MIO31_MASK	0x00000020U
