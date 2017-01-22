@@ -496,6 +496,7 @@ PmPower pmPowerIslandRpu_g = {
 	DEFINE_PM_POWER_CHILDREN(pmRpuChildren),
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+	.forcePerms = IPI_PMU_0_IER_APU_MASK,
 	.permissions = IPI_PMU_0_IER_APU_MASK,
 	.requests = 0U,
 };
@@ -521,6 +522,7 @@ PmPower pmPowerIslandApu_g = {
 	DEFINE_PM_POWER_CHILDREN(pmApuChildren),
 	.pwrDnLatency = 0,
 	.pwrUpLatency = 0,
+	.forcePerms = IPI_PMU_0_IER_RPU_0_MASK,
 	.permissions = 0U,
 	.requests = 0U,
 };
@@ -540,6 +542,7 @@ PmPower pmPowerDomainFpd_g = {
 	DEFINE_PM_POWER_CHILDREN(pmFpdChildren),
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+	.forcePerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.permissions = 0U,
 	.requests = 0U,
 };
@@ -559,6 +562,7 @@ PmPower pmPowerDomainLpd_g = {
 	DEFINE_PM_POWER_CHILDREN(pmLpdChildren),
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+	.forcePerms = 0U,
 	.permissions = 0U,
 	.requests = 0U,
 };
@@ -579,6 +583,8 @@ PmPower pmPowerDomainPld_g = {
 	.childCnt = 0U,
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+	.forcePerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK |
+		      IPI_PMU_0_IER_RPU_1_MASK,
 	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK |
 		       IPI_PMU_0_IER_RPU_1_MASK,
 	.requests = 0U,

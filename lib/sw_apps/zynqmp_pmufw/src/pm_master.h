@@ -214,4 +214,7 @@ static inline bool PmMasterCanRequestWake(const PmMaster* const requestor,
 	return 0U != (requestor->wakePerms & target->ipiMask);
 }
 
+bool PmMasterCanForceDown(const PmMaster* const master,
+			  const PmPower* const power);
+
 #endif

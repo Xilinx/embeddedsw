@@ -259,8 +259,24 @@ static void PmForcePowerdown(const PmMaster *const master,
 			     const u32 ack)
 {
 	u32 oppoint = 0U;
-	int status = PmForcePowerDownInt(node, &oppoint);
+	int status;
+	PmNode* nodePtr = PmGetNodeById(node);
 
+	if (NULL == nodePtr) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	if (NODE_IS_POWER(nodePtr->typeId)) {
+		PmPower* power = (PmPower*)nodePtr->derived;
+		if (false == PmMasterCanForceDown(master, power)) {
+			status = XST_PM_NO_ACCESS;
+			goto done;
+		}
+	}
+
+	status = PmForcePowerDownInt(node, &oppoint);
+done:
 	PmProcessAckRequest(ack, master, node, status, oppoint);
 }
 

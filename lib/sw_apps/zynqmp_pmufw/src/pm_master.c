@@ -566,3 +566,18 @@ PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId)
 
 	return holder;
 }
+
+/**
+ * PmMasterCanForceDown() - Check if master has permissions to force power down
+ *                          the power node
+ * @master      Master which wants to force power down the node
+ * @power       Target power node
+ *
+ * @return      True if master has permission to force power down the node,
+ *              false otherwise
+ */
+inline bool PmMasterCanForceDown(const PmMaster* const master,
+				 const PmPower* const power)
+{
+	return 0U != (power->forcePerms & master->ipiMask);
+}
