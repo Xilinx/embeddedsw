@@ -175,187 +175,244 @@ done:
 }
 
 /**
- * PmProcSleep() - Put a processor to sleep
- * @nodePtr Pointer to node-structure of processor to be put to sleep
- *
- * @return  Operation status
- *          - XST_PM_INTERNAL if processor cannot be identified
- *          - XST_SUCCESS if processor has no sleep handler (example Rpu0)
- *          - Returned status by pmu-rom if processor sleep handler is called
+ * PmProcApu0Sleep() - Put APU_0 into sleep
+ * @return      The status returned by PMU-ROM
  */
-static int PmProcSleep(PmNode* const nodePtr)
+static int PmProcApu0Sleep(void)
 {
-	PmProc* proc;
-	u32 worstCaseLatency = 0;
-	int status = XST_PM_INTERNAL;
+	int status;
 
-	if ((NULL == nodePtr) || (false == NODE_IS_PROC(nodePtr))) {
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK,
+		   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK);
+	status = XpbrACPU0SleepHandler();
+
+	return status;
+}
+
+/**
+ * PmProcApu1Sleep() - Put APU_1 into sleep
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcApu1Sleep(void)
+{
+	int status;
+
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK,
+		   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK);
+	status = XpbrACPU1SleepHandler();
+
+	return status;
+}
+
+/**
+ * PmProcApu2Sleep() - Put APU_2 into sleep
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcApu2Sleep(void)
+{
+	int status;
+
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK,
+		   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK);
+	status = XpbrACPU2SleepHandler();
+
+	return status;
+}
+
+/**
+ * PmProcApu3Sleep() - Put APU_3 into sleep
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcApu3Sleep(void)
+{
+	int status;
+
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK,
+		   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK);
+	status = XpbrACPU3SleepHandler();
+
+	return status;
+}
+
+/**
+ * PmProcRpu0Sleep() - Put RPU_0 into sleep (reset only)
+ * @return      Always success, reset cannot fail
+ */
+static int PmProcRpu0Sleep(void)
+{
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
+		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
+	XPfw_RMW32(RPU_RPU_0_CFG,
+		   RPU_RPU_0_CFG_NCPUHALT_MASK,
+		  ~RPU_RPU_0_CFG_NCPUHALT_MASK);
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+		   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
+		  ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
+
+	return XST_SUCCESS;
+}
+
+/**
+ * PmProcRpu1Sleep() - Put RPU_1 into sleep (reset only)
+ * @return      Always success, reset cannot fail
+ */
+static int PmProcRpu1Sleep(void)
+{
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
+		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+	XPfw_RMW32(RPU_RPU_1_CFG,
+		   RPU_RPU_1_CFG_NCPUHALT_MASK,
+		  ~RPU_RPU_1_CFG_NCPUHALT_MASK);
+	XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+		   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
+		  ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+
+	return XST_SUCCESS;
+}
+
+/**
+ * PmProcApu0Wake() - Wake up APU_0
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcApu0Wake(void)
+{
+	int status;
+
+	status = XpbrACPU0WakeHandler();
+	if (XST_SUCCESS != status) {
 		goto done;
 	}
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK,
+		   0U);
+done:
+	return status;
+}
 
-	proc = (PmProc*)nodePtr->derived;
-	worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
-	/* Sanity check has already been performed in PmSelfSuspend */
-	nodePtr->latencyMarg = proc->latencyReq - worstCaseLatency;
+/**
+ * PmProcApu1Wake() - Wake up APU_1
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcApu1Wake(void)
+{
+	int status;
 
-	/*
-	 * Call proper PMU-ROM handler as needed, provided that the latency
-	 * requirement is satisfied. Otherwise put processor into reset only!
-	 */
-	switch (nodePtr->nodeId) {
-	case NODE_APU_0:
-		XPfw_RMW32(CRF_APB_RST_FPD_APU,
-			   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK,
-			   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK);
-		status = XpbrACPU0SleepHandler();
-		break;
-	case NODE_APU_1:
-		XPfw_RMW32(CRF_APB_RST_FPD_APU,
-			   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK,
-			   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK);
-		status = XpbrACPU1SleepHandler();
-		break;
-	case NODE_APU_2:
-		XPfw_RMW32(CRF_APB_RST_FPD_APU,
-			   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK,
-			   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK);
-		status = XpbrACPU2SleepHandler();
-		break;
-	case NODE_APU_3:
-		XPfw_RMW32(CRF_APB_RST_FPD_APU,
-			   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK,
-			   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK);
-		status = XpbrACPU3SleepHandler();
-		break;
-	case NODE_RPU_0:
-		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
-			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
-			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
-		XPfw_RMW32(RPU_RPU_0_CFG,
-			   RPU_RPU_0_CFG_NCPUHALT_MASK,
-			  ~RPU_RPU_0_CFG_NCPUHALT_MASK);
-		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
-			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
-			   ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
-		status = XST_SUCCESS;
-		break;
-	case NODE_RPU_1:
-		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
-			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
-			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
-		XPfw_RMW32(RPU_RPU_1_CFG,
-			   RPU_RPU_1_CFG_NCPUHALT_MASK,
-			  ~RPU_RPU_1_CFG_NCPUHALT_MASK);
-		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
-			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
-			   ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
-		status = XST_SUCCESS;
-		break;
-	default:
-        /* Proc Node ID is not supported, so nothing to be done here */
-		break;
+	status = XpbrACPU1WakeHandler();
+	if (XST_SUCCESS != status) {
+		goto done;
 	}
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK,
+		   0U);
+done:
+	return status;
+}
 
-	if (XST_SUCCESS == status) {
-		PmNodeUpdateCurrState(nodePtr, PM_PROC_STATE_SLEEP);
+/**
+ * PmProcApu2Wake() - Wake up APU_2
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcApu2Wake(void)
+{
+	int status;
+
+	status = XpbrACPU2WakeHandler();
+	if (XST_SUCCESS != status) {
+		goto done;
 	}
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK,
+		   0U);
+done:
+	return status;
+}
 
+/**
+ * PmProcApu3Wake() - Wake up APU_3
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcApu3Wake(void)
+{
+	int status;
+
+	status = XpbrACPU3WakeHandler();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	XPfw_RMW32(CRF_APB_RST_FPD_APU,
+		   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK,
+		   0U);
+done:
+	return status;
+}
+
+/**
+ * PmProcRpu0Wake() - Wake up RPU_0
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcRpu0Wake(void)
+{
+	int status;
+
+	status = XpbrRstR50Handler();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	XPfw_RMW32(RPU_RPU_0_CFG,
+		   RPU_RPU_0_CFG_NCPUHALT_MASK,
+		   RPU_RPU_0_CFG_NCPUHALT_MASK);
+done:
+	return status;
+}
+
+/**
+ * PmProcRpu1Wake() - Wake up RPU_1
+ * @return      The status returned by PMU-ROM
+ */
+static int PmProcRpu1Wake(void)
+{
+	int status;
+
+	status = XpbrRstR51Handler();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	XPfw_RMW32(RPU_RPU_1_CFG,
+		   RPU_RPU_1_CFG_NCPUHALT_MASK,
+		   RPU_RPU_1_CFG_NCPUHALT_MASK);
 done:
 	return status;
 }
 
 /**
  * PmProcWake() - Wake up a processor node
- * @nodePtr Pointer to node-structure of processor to be woken-up
+ * @proc        Processor to be woken-up
  *
- * @return  Operation status
- *          - XST_PM_INTERNAL if processor cannot be identified
- *          - Returned status of power up function if something goes wrong
- *          - Returned status by pmu-rom if processor wake handler is called
+ * @return      Return status of processor specific wake handler
  */
-static int PmProcWake(PmNode* const nodePtr)
+static int PmProcWake(PmProc* const proc)
 {
-	int status = XST_SUCCESS;
-	PmProc *proc;
+	int status;
 
-	if (NULL == nodePtr) {
-		status = XST_PM_INTERNAL;
-		goto done;
-	}
-
-	if (PM_PWR_STATE_OFF == nodePtr->parent->node.currState) {
+	if (PM_PWR_STATE_OFF == proc->node.parent->node.currState) {
 		/* Power parent is down, trigger its powering up */
-		status = PmTriggerPowerUp(nodePtr->parent);
+		status = PmTriggerPowerUp(proc->node.parent);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
 	}
 
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-
-	proc = (PmProc*)nodePtr->derived;
 	proc->restoreResumeAddr(proc);
-
-	/* Call proper PMU-ROM handler as needed */
-	switch (nodePtr->nodeId) {
-	case NODE_APU_0:
-		status = XpbrACPU0WakeHandler();
-		if (status != XST_SUCCESS) {
-			break;
-		}
-
-		XPfw_RMW32(CRF_APB_RST_FPD_APU,
-			   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK,
-			   0);
-		break;
-	case NODE_APU_1:
-		status = XpbrACPU1WakeHandler();
-		if (status != XST_SUCCESS) {
-			break;
-		}
-
-		XPfw_RMW32(CRF_APB_RST_FPD_APU,
-			   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK,
-			   0);
-		break;
-	case NODE_APU_2:
-		status = XpbrACPU2WakeHandler();
-		if (status != XST_SUCCESS) {
-			break;
-		}
-
-		XPfw_RMW32(CRF_APB_RST_FPD_APU,
-			   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK,
-			   0);
-		break;
-	case NODE_APU_3:
-		status = XpbrACPU3WakeHandler();
-		if (status != XST_SUCCESS) {
-			break;
-		}
-
-		XPfw_RMW32(CRF_APB_RST_FPD_APU,
-			   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK,
-			   0);
-		break;
-	case NODE_RPU_0:
-		status = XpbrRstR50Handler();
-		XPfw_RMW32(RPU_RPU_0_CFG,
-			   RPU_RPU_0_CFG_NCPUHALT_MASK,
-			   RPU_RPU_0_CFG_NCPUHALT_MASK);
-		break;
-	case NODE_RPU_1:
-		status = XpbrRstR51Handler();
-		XPfw_RMW32(RPU_RPU_1_CFG,
-			   RPU_RPU_1_CFG_NCPUHALT_MASK,
-			   RPU_RPU_1_CFG_NCPUHALT_MASK);
-		break;
-	default:
-		status = XST_PM_INTERNAL;
-		break;
-	}
+	status = proc->wake();
 
 	if (XST_SUCCESS == status) {
-		PmNodeUpdateCurrState(nodePtr, PM_PROC_STATE_ACTIVE);
+		PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_ACTIVE);
 	}
 
 done:
@@ -404,8 +461,8 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 
 	PmDbg("ACTIVE->FORCED_PWRDN %s\r\n", PmStrNode(proc->node.nodeId));
 
-	status = PmProcSleep(&proc->node);
-	/* Override the state set in PmProcSleep to indicate FORCED OFF */
+	status = proc->sleep();
+	proc->node.latencyMarg = MAX_LATENCY;
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
 	DISABLE_WFI(proc->wfiEnableMask);
 	DISABLE_WAKE(proc->wakeEnableMask);
@@ -452,11 +509,15 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 static int PmProcTrSuspendToSleep(PmProc* const proc)
 {
 	int status;
-
 	PmDbg("SUSPENDING->SLEEP %s\r\n", PmStrNode(proc->node.nodeId));
 
-	status = PmProcSleep(&proc->node);
+	status = proc->sleep();
 	if (XST_SUCCESS == status) {
+		u32 worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
+		proc->node.latencyMarg = proc->latencyReq - worstCaseLatency;
+
+		PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SLEEP);
+
 		/* Notify the master that the processor completed suspend */
 		status = PmMasterNotify(proc->master, PM_PROC_EVENT_SLEEP);
 
@@ -491,7 +552,7 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 
 	if (XST_SUCCESS == status) {
 		PmDbg("SLEEP->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
-		status = PmProcWake(&proc->node);
+		status = PmProcWake(proc);
 		DISABLE_WAKE(proc->wakeEnableMask);
 	}
 
@@ -519,7 +580,7 @@ static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
 
 	if (XST_SUCCESS == status) {
-		status = PmProcWake(&proc->node);
+		status = PmProcWake(proc);
 	}
 
 	return status;
@@ -663,12 +724,6 @@ done:
 
 }
 
-/* NodeOps for all processors */
-static const PmNodeOps pmProcOps = {
-	.sleep = PmProcSleep,
-	.wake = PmProcWake,
-};
-
 /* Power consumptions for the APU for specific states */
 static u32 PmProcPowerAPU_X[] = {
 	DEFAULT_APU_POWER_OFF,
@@ -695,7 +750,6 @@ PmProc pmProcApu0_g = {
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_ACTIVE,
 		.latencyMarg = MAX_LATENCY,
-		.ops = &pmProcOps,
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 	},
 	.master = NULL,
@@ -707,6 +761,8 @@ PmProc pmProcApu0_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.sleep = PmProcApu0Sleep,
+	.wake = PmProcApu0Wake,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
@@ -721,7 +777,6 @@ PmProc pmProcApu1_g = {
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_SLEEP,
 		.latencyMarg = MAX_LATENCY,
-		.ops = &pmProcOps,
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 	},
 	.master = NULL,
@@ -733,6 +788,8 @@ PmProc pmProcApu1_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.sleep = PmProcApu1Sleep,
+	.wake = PmProcApu1Wake,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
@@ -747,7 +804,6 @@ PmProc pmProcApu2_g = {
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_SLEEP,
 		.latencyMarg = MAX_LATENCY,
-		.ops = &pmProcOps,
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 	},
 	.master = NULL,
@@ -759,6 +815,8 @@ PmProc pmProcApu2_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.sleep = PmProcApu2Sleep,
+	.wake = PmProcApu2Wake,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
@@ -773,7 +831,6 @@ PmProc pmProcApu3_g = {
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_SLEEP,
 		.latencyMarg = MAX_LATENCY,
-		.ops = &pmProcOps,
 		DEFINE_PM_POWER_INFO(PmProcPowerAPU_X),
 	},
 	.master = NULL,
@@ -785,6 +842,8 @@ PmProc pmProcApu3_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.sleep = PmProcApu3Sleep,
+	.wake = PmProcApu3Wake,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
@@ -800,7 +859,6 @@ PmProc pmProcRpu0_g = {
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_ACTIVE,
 		.latencyMarg = MAX_LATENCY,
-		.ops = &pmProcOps,
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
 	},
 	.master = NULL,
@@ -812,6 +870,8 @@ PmProc pmProcRpu0_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
+	.sleep = PmProcRpu0Sleep,
+	.wake = PmProcRpu0Wake,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = 0,
 	.pwrUpLatency = 0,
@@ -826,7 +886,6 @@ PmProc pmProcRpu1_g = {
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_SLEEP,
 		.latencyMarg = MAX_LATENCY,
-		.ops = &pmProcOps,
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
 	},
 	.master = NULL,
@@ -838,6 +897,8 @@ PmProc pmProcRpu1_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
+	.sleep = PmProcRpu1Sleep,
+	.wake = PmProcRpu1Wake,
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = 0,
 	.pwrUpLatency = 0,

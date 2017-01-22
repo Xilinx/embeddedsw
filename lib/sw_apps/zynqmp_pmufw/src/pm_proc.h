@@ -118,6 +118,8 @@ typedef struct PmProc {
 	PmMaster* master;
 	int (*const saveResumeAddr)(PmProc* const, u64);
 	void (*const restoreResumeAddr)(PmProc* const);
+	int (*const sleep)(void);
+	int (*const wake)(void);
 	const u32 wfiStatusMask;
 	const u32 wakeStatusMask;
 	const u32 wfiEnableMask;
