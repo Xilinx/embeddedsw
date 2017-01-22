@@ -419,6 +419,7 @@ static int PmConfigSetConfigSectionHandler(u32* const addr)
 static void PmConfigClear(void)
 {
 	PmMasterClearConfig();
+	PmResetClearConfig();
 }
 
 /**

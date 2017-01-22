@@ -53,5 +53,6 @@ void PmResetAssert(const PmMaster *const master, const u32 reset, const u32 acti
 void PmResetGetStatus(const PmMaster *const master, const u32 reset);
 int PmResetAssertInt(u32 reset, u32 action);
 int PmResetSetConfig(const u32 resetId, const u32 permissions);
+void PmResetClearConfig(void);
 
 #endif

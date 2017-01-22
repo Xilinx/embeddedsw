@@ -2115,3 +2115,15 @@ int PmResetSetConfig(const u32 resetId, const u32 permissions)
 done:
 	return status;
 }
+
+/**
+ * PmResetClearConfig() - Clear configuration for all resets
+ */
+void PmResetClearConfig(void)
+{
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmAllResets); i++) {
+		pmAllResets[i]->access = 0U;
+	}
+}
