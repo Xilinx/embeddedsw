@@ -49,42 +49,6 @@
 #include "pm_gpp.h"
 
 /**
- * PmSlaveRequiresPower() - Check whether slave has any request for any
- *                          capability and if current state requires power
- * @slave   Pointer to a slave whose requests are to be checked
- *
- * @return  Based on checking all masters' requests function returns :
- *          - true if there is at least one master requesting a capability and
- *            current state requires power
- *          - false if no master is requesting anything from this slave
- */
-bool PmSlaveRequiresPower(const PmSlave* const slave)
-{
-	PmRequirement* req = slave->reqs;
-	bool hasRequests = false;
-	bool requiresPower = false;
-
-	while (NULL != req) {
-		if ((0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) &&
-		    (0U != req->currReq)) {
-			/* Slave is used by this master and has current request for caps */
-			hasRequests = true;
-			break;
-		}
-		req = req->nextMaster;
-	}
-
-	if (true == hasRequests) {
-		if (0U != (PM_CAP_POWER &
-			   slave->slvFsm->states[slave->node.currState])) {
-			requiresPower = true;
-		}
-	}
-
-	return requiresPower;
-}
-
-/**
  * PmGetMaxCapabilities()- Get maximum of all requested capabilities of slave
  * @slave   Slave whose maximum required capabilities should be determined
  *
