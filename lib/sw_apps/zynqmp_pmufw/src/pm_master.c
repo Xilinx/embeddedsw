@@ -265,33 +265,6 @@ done:
 }
 
 /**
- * PmGetProcByNodeId() - Get a pointer to processor structure by the node id
- * @nodeId  Node of the processor to be found
- *
- * @return  Pointer to a processor structure whose node is provided, or
- *          NULL if processor is not found
- */
-PmProc* PmGetProcByNodeId(const PmNodeId nodeId)
-{
-	u32 i;
-	PmProc *proc = NULL;
-
-	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-		u32 p;
-
-		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-			if (nodeId == pmAllMasters[i]->procs[p].node.nodeId) {
-				proc = &pmAllMasters[i]->procs[p];
-				goto done;
-			}
-		}
-	}
-
-done:
-	return proc;
-}
-
-/**
  * PmGetProcByWfiStatus() - Get processor struct by wfi interrupt status
  * @mask    WFI interrupt mask read from GPI2 register
  *

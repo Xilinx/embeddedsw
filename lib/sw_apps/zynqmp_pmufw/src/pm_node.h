@@ -48,6 +48,8 @@ typedef u8 PmNodeTypeId;
 typedef struct PmPower PmPower;
 typedef struct PmClockHandle PmClockHandle;
 typedef struct PmNode PmNode;
+typedef struct PmSlave PmSlave;
+typedef struct PmProc PmProc;
 
 /* Function pointer for wake/sleep transition functions */
 typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
@@ -115,6 +117,9 @@ typedef struct PmNode {
  * Function declarations
  ********************************************************************/
 PmNode* PmGetNodeById(const u32 nodeId);
+PmSlave* PmNodeGetSlave(const u32 nodeId);
+PmPower* PmNodeGetPower(const u32 nodeId);
+PmProc* PmNodeGetProc(const u32 nodeId);
 
 void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
 u32 PmNodeGetPowerConsumption(PmNode* const node, const PmStateId state);

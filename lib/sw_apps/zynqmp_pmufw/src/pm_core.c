@@ -307,7 +307,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 {
 	int status;
 	u32 oppoint = 0U;
-	PmProc* proc = PmGetProcByNodeId(node);
+	PmProc* proc = PmNodeGetProc(node);
 
 	PmDbg("(%s, %s)\r\n", PmStrNode(node), PmStrAck(ack));
 
@@ -340,16 +340,20 @@ static void PmReleaseNode(const PmMaster *master,
 	int status;
 	u32 usage;
 	PmRequirement* masterReq;
-	PmNode* nodePtr;
+	PmSlave* slave;
+	PmPower* power;
 
-	nodePtr = PmGetNodeById(node);
-	if (NULL == nodePtr) {
-		status = XST_INVALID_PARAM;
+	/* Check if node is power. If it is, call power specific release */
+	power = PmNodeGetPower(node);
+	if (NULL != power) {
+		status = PmPowerRelease(master, power);
 		goto done;
 	}
 
-	if (true == NODE_IS_POWER(nodePtr->typeId)) {
-		status = PmPowerRelease(master, (PmPower*)nodePtr->derived);
+	/* Check if node is slave. If it is, handle request via requirements */
+	slave = PmNodeGetSlave(node);
+	if (NULL == slave) {
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -406,19 +410,23 @@ static void PmRequestNode(const PmMaster *master,
 	int status;
 	u32 oppoint = 0U;
 	PmRequirement* masterReq;
-	PmNode* nodePtr;
+	PmSlave* slave;
+	PmPower* power;
 
 	PmDbg("(%s, %lu, %lu, %s)\r\n", PmStrNode(node), capabilities,
 	      qos, PmStrAck(ack));
 
-	nodePtr = PmGetNodeById(node);
-	if (NULL == nodePtr) {
-		status = XST_INVALID_PARAM;
+	/* Check if node is power. If it is, call power specific request */
+	power = PmNodeGetPower(node);
+	if (NULL != power) {
+		status = PmPowerRequest(master, power);
 		goto done;
 	}
 
-	if (true == NODE_IS_POWER(nodePtr->typeId)) {
-		status = PmPowerRequest(master, (PmPower*)nodePtr->derived);
+	/* Check if node is slave. If it is, handle request via requirements */
+	slave = PmNodeGetSlave(node);
+	if (NULL == slave) {
+		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
@@ -476,12 +484,20 @@ static void PmSetRequirement(const PmMaster *master,
 	int status;
 	u32 oppoint = 0U;
 	u32 caps = capabilities;
-	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
+	PmRequirement* masterReq;
+	PmSlave* slave = PmNodeGetSlave(node);
 
 	PmDbg("(%s, %lu, %lu, %s)\r\n", PmStrNode(node), capabilities,
 	      qos, PmStrAck(ack));
 
+	/* Set requirement call applies only to slaves */
+	if (NULL == slave) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	/* Is there a provision for the master to use the given slave node */
+	masterReq = PmGetRequirementForSlave(master, node);
 	if (NULL == masterReq) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
@@ -672,7 +688,8 @@ static void PmSetWakeupSource(const PmMaster *const master,
 			      const u32 enable)
 {
 	int status = XST_SUCCESS;
-	PmRequirement* req = PmGetRequirementForSlave(master, sourceNode);
+	PmRequirement* req;
+	PmSlave* slave = PmNodeGetSlave(sourceNode);
 
 	/* Check if given target node is valid */
 	if ((targetNode != master->nid) &&
@@ -681,6 +698,13 @@ static void PmSetWakeupSource(const PmMaster *const master,
 		goto done;
 	}
 
+	/* The call applies only to slave nodes */
+	if (NULL == slave) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	req = PmGetRequirementForSlave(master, sourceNode);
 	/* Is master allowed to use resource (slave)? */
 	if (NULL == req) {
 		status = XST_PM_NO_ACCESS;
@@ -767,10 +791,17 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 			    const u32 latency)
 {
 	int status = XST_SUCCESS;
-	PmRequirement* masterReq = PmGetRequirementForSlave(master, node);
+	PmRequirement* masterReq;
+	PmSlave* slave = PmNodeGetSlave(node);
 
 	PmDbg("(%s, %lu)\r\n", PmStrNode(node), latency);
 
+	if (NULL == slave) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	masterReq = PmGetRequirementForSlave(master, node);
 	/* Check if the master can use given slave node */
 	if (NULL == masterReq) {
 		status = XST_PM_NO_ACCESS;

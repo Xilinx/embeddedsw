@@ -385,3 +385,88 @@ bool PmNodeDependsOnClock(const PmNode* const node)
 
 	return deps;
 }
+
+/**
+ * PmNodeGetByType() - Get node based on type and node ID
+ * @nodeId      ID of the node to get
+ * @typeId      Type of the node to get
+ *
+ * @return      NULL if node with given ID and of given type does not exist.
+ *              Pointer to the node otherwise.
+ */
+static PmNode* PmNodeGetByType(const PmNodeId nodeId, const PmNodeTypeId typeId)
+{
+	u32 i, n;
+	PmNode* node = NULL;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNodesColl); i++) {
+		PmNodeCollection* coll = &pmNodesColl[i];
+
+		if (coll->key != typeId) {
+			continue;
+		}
+		for (n = 0U; n < pmNodesColl[i].bucketSize; n++) {
+			if (nodeId == pmNodesColl[i].bucket[n]->nodeId) {
+				node = pmNodesColl[i].bucket[n];
+				goto done;
+			}
+		}
+	}
+
+done:
+	return node;
+}
+
+/**
+ * PmNodeGetSlave() - Get pointer to the slave by node ID
+ * @nodeId      ID of the slave node
+ *
+ * @return      Pointer to the slave if found, NULL otherwise
+ */
+PmSlave* PmNodeGetSlave(const u32 nodeId)
+{
+	PmSlave* slave = NULL;
+	PmNode* node = PmNodeGetByType(nodeId, PM_TYPE_SLAVE);
+
+	if (NULL != node) {
+		slave = (PmSlave*)node->derived;
+	}
+
+	return slave;
+}
+
+/**
+ * PmNodeGetPower() - Get pointer to the power by node ID
+ * @nodeId      ID of the power node
+ *
+ * @return      Pointer to the power if found, NULL otherwise
+ */
+PmPower* PmNodeGetPower(const u32 nodeId)
+{
+	PmPower* power = NULL;
+	PmNode* node = PmNodeGetByType(nodeId, PM_TYPE_POWER);
+
+	if (NULL != node) {
+		power = (PmPower*)node->derived;
+	}
+
+	return power;
+}
+
+/**
+ * PmNodeGetProc() - Get pointer to the processor structure by node ID
+ * @nodeId      ID of the processor node
+ *
+ * @return      Pointer to the processor if found, NULL otherwise
+ */
+PmProc* PmNodeGetProc(const u32 nodeId)
+{
+	PmProc* proc = NULL;
+	PmNode* node = PmNodeGetByType(nodeId, PM_TYPE_PROC);
+
+	if (NULL != node) {
+		proc = (PmProc*)node->derived;
+	}
+
+	return proc;
+}
