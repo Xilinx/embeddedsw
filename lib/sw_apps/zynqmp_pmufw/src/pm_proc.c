@@ -610,6 +610,7 @@ void PmProcClearConfig(PmNode* const procNode)
 
 	proc->latencyReq = MAX_LATENCY;
 	proc->resumeAddress = 0ULL;
+	proc->master = NULL;
 
 	/* Disable wake requests in GPI1 */
 	DISABLE_WAKE(proc->wakeEnableMask);
@@ -654,7 +655,7 @@ PmProc pmProcApu0_g = {
 		.powerInfo = PmProcPowerAPU_X,
 		.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 	},
-	.master = &pmMasterApu_g,
+	.master = NULL,
 	.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_0_SLEEP_MASK,
 	.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_0_WAKE_MASK,
 	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU0_PWRDWN_REQ_MASK,
@@ -681,7 +682,7 @@ PmProc pmProcApu1_g = {
 		.powerInfo = PmProcPowerAPU_X,
 		.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 	},
-	.master = &pmMasterApu_g,
+	.master = NULL,
 	.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_1_SLEEP_MASK,
 	.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_1_WAKE_MASK,
 	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU1_PWRDWN_REQ_MASK,
@@ -708,7 +709,7 @@ PmProc pmProcApu2_g = {
 		.powerInfo = PmProcPowerAPU_X,
 		.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 	},
-	.master = &pmMasterApu_g,
+	.master = NULL,
 	.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_2_SLEEP_MASK,
 	.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_2_WAKE_MASK,
 	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU2_PWRDWN_REQ_MASK,
@@ -735,7 +736,7 @@ PmProc pmProcApu3_g = {
 		.powerInfo = PmProcPowerAPU_X,
 		.powerInfoCnt = ARRAY_SIZE(PmProcPowerAPU_X),
 	},
-	.master = &pmMasterApu_g,
+	.master = NULL,
 	.wfiStatusMask = PMU_IOMODULE_GPI2_ACPU_3_SLEEP_MASK,
 	.wakeStatusMask = PMU_IOMODULE_GPI1_ACPU_3_WAKE_MASK,
 	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_ACPU3_PWRDWN_REQ_MASK,
@@ -763,7 +764,7 @@ PmProc pmProcRpu0_g = {
 		.powerInfo = PmProcPowerRPU_X,
 		.powerInfoCnt = ARRAY_SIZE(PmProcPowerRPU_X),
 	},
-	.master = &pmMasterRpu_g,
+	.master = NULL,
 	.wfiStatusMask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
 	.wakeStatusMask = PMU_IOMODULE_GPI1_R5_0_WAKE_MASK,
 	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_0_PWRDWN_REQ_MASK,
@@ -790,7 +791,7 @@ PmProc pmProcRpu1_g = {
 		.powerInfo = PmProcPowerRPU_X,
 		.powerInfoCnt = ARRAY_SIZE(PmProcPowerRPU_X),
 	},
-	.master = &pmMasterRpu1_g,
+	.master = NULL,
 	.wfiStatusMask = PMU_IOMODULE_GPI2_R5_1_SLEEP_MASK,
 	.wakeStatusMask = PMU_IOMODULE_GPI1_R5_1_WAKE_MASK,
 	.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_1_PWRDWN_REQ_MASK,
