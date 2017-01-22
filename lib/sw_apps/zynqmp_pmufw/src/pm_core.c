@@ -342,7 +342,7 @@ static void PmReleaseNode(const PmMaster *master,
 	/* Check if node is power. If it is, call power specific release */
 	power = PmNodeGetPower(node);
 	if (NULL != power) {
-		status = PmPowerRelease(master, power);
+		status = PmPowerMasterRelease(master, power);
 		goto done;
 	}
 
@@ -415,7 +415,7 @@ static void PmRequestNode(const PmMaster *master,
 	/* Check if node is power. If it is, call power specific request */
 	power = PmNodeGetPower(node);
 	if (NULL != power) {
-		status = PmPowerRequest(master, power);
+		status = PmPowerMasterRequest(master, power);
 		goto done;
 	}
 

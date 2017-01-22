@@ -833,14 +833,14 @@ done:
 }
 
 /**
- * PmPowerRequest() - Explicit request for power node (power up)
+ * PmPowerMasterRequest() - Explicit request for power node (power up)
  * @master	Master which has requested power node
  * @power	The requested node
  * @return	Status of processing request
  * @note	If the request is processed successfully the power node ON
  *		state is granted to the caller
  */
-int PmPowerRequest(const PmMaster* const master, PmPower* const power)
+int PmPowerMasterRequest(const PmMaster* const master, PmPower* const power)
 {
 	int status = XST_SUCCESS;
 
@@ -871,7 +871,7 @@ done:
 }
 
 /**
- * PmPowerRelease() - Explicit release for power node
+ * PmPowerMasterRelease() - Explicit release for power node
  * @master	Master which has requested power node
  * @power	The requested node
  * @return	Status of processing request
@@ -880,7 +880,7 @@ done:
  *		turned off. Whether it will be turned off depends on other
  *		requests (related to slaves, latencies, etc.)
  */
-int PmPowerRelease(const PmMaster* const master, PmPower* const power)
+int PmPowerMasterRelease(const PmMaster* const master, PmPower* const power)
 {
 	int status = XST_SUCCESS;
 
