@@ -856,7 +856,7 @@ static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 
 	PmDbg("(0x%lx) %s\r\n", address, PmStrNode(master->nid));
 
-	status = PmConfigLoadObject(address);
+	status = PmConfigLoadObject(address, callerIpiMask);
 	/*
 	 * Respond using the saved IPI mask of the caller (master's IPI mask
 	 * may change after setting the configuration)

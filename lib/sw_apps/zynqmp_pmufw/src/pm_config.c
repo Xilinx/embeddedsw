@@ -32,6 +32,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "pm_common.h"
+#include "pm_defs.h"
 
 typedef int (*const PmConfigSectionHandler)(u32* const addr);
 
@@ -101,9 +102,11 @@ static PmConfigSection pmConfigSections[] = {
 
 /**
  * PmConfig - Configuration object data
+ * @configPerms ORed masks of masters which are allowed to load the object
  * @flags       Flags: bit(0) - set if the configuration object is loaded
  */
 typedef struct {
+	u32 configPerms;
 	u8 flags;
 } PmConfig;
 
@@ -114,6 +117,7 @@ typedef struct {
  * configuration is locked-down.
  */
 static PmConfig pmConfig = {
+	.configPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.flags = 0U,
 };
 
@@ -277,14 +281,21 @@ static PmConfigSection* PmConfigGetSectionById(const u32 sid)
 /**
  * PmConfigLoadObject() - Load information provided in configuration object
  * @address     Start address of the configuration object
+ * @callerIpi   IPI mask of the master who called set configuration API
  *
  * @return      Status of loading information from configuration object
  */
-int PmConfigLoadObject(const u32 address)
+int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 {
 	int status = XST_SUCCESS;
 	u32 currAddr = address;
 	u32 i, remWords;
+
+	/* Check for permissions to load the configuration object */
+	if (0U == (callerIpi & pmConfig.configPerms)) {
+		status = XST_PM_NO_ACCESS;
+		goto ret;
+	}
 
 	/* Read number of remaining words in header */
 	remWords = PmConfigReadNext(&currAddr);
@@ -317,5 +328,6 @@ done:
 	} else {
 		pmConfig.flags &= ~PM_CONFIG_OBJECT_LOADED;
 	}
+ret:
 	return status;
 }
