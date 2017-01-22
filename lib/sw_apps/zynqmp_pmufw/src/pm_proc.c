@@ -531,13 +531,13 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 static int PmProcTrSuspendToSleep(PmProc* const proc)
 {
 	int status;
+	u32 worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
+
 	PmDbg("SUSPENDING->SLEEP %s\r\n", PmStrNode(proc->node.nodeId));
+	proc->node.latencyMarg = proc->latencyReq - worstCaseLatency;
 
 	status = PmProcSleep(proc);
 	if (XST_SUCCESS == status) {
-		u32 worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
-		proc->node.latencyMarg = proc->latencyReq - worstCaseLatency;
-
 		PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SLEEP);
 
 		/* Notify the master that the processor completed suspend */
