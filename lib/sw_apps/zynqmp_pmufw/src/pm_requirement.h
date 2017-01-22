@@ -54,7 +54,7 @@ typedef struct PmRequirement PmRequirement;
  * exist at the runtime). The value is used to statically initialize
  * size of the pmReqData array, which is used as the heap.
  */
-#define PM_REQUIREMENT_MAX	100U
+#define PM_REQUIREMENT_MAX	200U
 
 /*********************************************************************
  * Structure definitions
