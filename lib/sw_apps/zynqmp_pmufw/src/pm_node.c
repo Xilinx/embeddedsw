@@ -49,11 +49,13 @@
 /**
  * PmNodeCollection - Collection of nodes with the same type, used for
  *              implementing associative array of nodes
+ * @clearConfig Pointer to the function which clears configuration of the node
  * @bucket      Pointer to the array of nodes
  * @bucketSize  Number of elements in the array of nodes
  * @key         Type of the nodes from the bucket
  */
 typedef struct {
+	void (*const clearConfig)(PmNode* const node);
 	PmNode** const bucket;
 	const u32 bucketSize;
 	const PmNodeTypeId key;
@@ -137,12 +139,15 @@ static PmNodeCollection pmNodesColl[] = {
 	{
 		DEFINE_NODE_COLLECTION(pmNodeProcCollection),
 		.key = PM_TYPE_PROC,
+		.clearConfig = NULL,
 	}, {
 		DEFINE_NODE_COLLECTION(pmNodePowerCollection),
 		.key = PM_TYPE_POWER,
+		.clearConfig = NULL,
 	}, {
 		DEFINE_NODE_COLLECTION(pmNodeSlaveCollection),
 		.key = PM_TYPE_SLAVE,
+		.clearConfig = NULL,
 	},
 };
 
@@ -469,4 +474,25 @@ PmProc* PmNodeGetProc(const u32 nodeId)
 	}
 
 	return proc;
+}
+
+/**
+ * PmNodeClearConfig() - Clear configuration for all nodes
+ */
+void PmNodeClearConfig(void)
+{
+	u32 i, n;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNodesColl); i++) {
+		for (n = 0U; n < pmNodesColl[i].bucketSize; n++) {
+
+			pmNodesColl[i].bucket[n]->latencyMarg = MAX_LATENCY;
+
+			if (NULL == pmNodesColl[i].clearConfig) {
+				continue;
+			}
+
+			pmNodesColl[i].clearConfig(pmNodesColl[i].bucket[n]);
+		}
+	}
 }

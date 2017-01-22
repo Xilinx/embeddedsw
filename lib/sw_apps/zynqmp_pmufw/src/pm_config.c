@@ -37,6 +37,7 @@
 #include "pm_slave.h"
 #include "pm_reset.h"
 #include "pm_requirement.h"
+#include "pm_node.h"
 
 typedef int (*const PmConfigSectionHandler)(u32* const addr);
 
@@ -420,6 +421,7 @@ static void PmConfigClear(void)
 {
 	PmMasterClearConfig();
 	PmResetClearConfig();
+	PmNodeClearConfig();
 }
 
 /**

@@ -122,6 +122,8 @@ PmPower* PmNodeGetPower(const u32 nodeId);
 PmProc* PmNodeGetProc(const u32 nodeId);
 
 void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
+void PmNodeClearConfig(void);
+
 u32 PmNodeGetPowerConsumption(PmNode* const node, const PmStateId state);
 u32 PmNodeGetWakeLatency(PmNode* const node);
 
