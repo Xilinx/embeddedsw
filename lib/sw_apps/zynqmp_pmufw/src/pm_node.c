@@ -43,17 +43,43 @@
 #include "pm_notifier.h"
 #include "pm_ddr.h"
 
-static PmNode* const pmNodes[NODE_MAX] = {
+#define DEFINE_NODE_COLLECTION(c)	.bucket = (c), \
+					.bucketSize = ARRAY_SIZE(c)
+
+/**
+ * PmNodeCollection - Collection of nodes with the same type, used for
+ *              implementing associative array of nodes
+ * @bucket      Pointer to the array of nodes
+ * @bucketSize  Number of elements in the array of nodes
+ * @key         Type of the nodes from the bucket
+ */
+typedef struct {
+	PmNode** const bucket;
+	const u32 bucketSize;
+	const PmNodeTypeId key;
+} PmNodeCollection;
+
+/* Collection of processor nodes */
+static PmNode* pmNodeProcCollection[] = {
 	&pmApuProcs_g[PM_PROC_APU_0].node,
 	&pmApuProcs_g[PM_PROC_APU_1].node,
 	&pmApuProcs_g[PM_PROC_APU_2].node,
 	&pmApuProcs_g[PM_PROC_APU_3].node,
 	&pmRpuProcs_g[PM_PROC_RPU_0].node,
 	&pmRpuProcs_g[PM_PROC_RPU_1].node,
+};
+
+/* Collection of power nodes */
+static PmNode* pmNodePowerCollection[] = {
 	&pmPowerIslandRpu_g.node,
 	&pmPowerIslandApu_g.node,
 	&pmPowerDomainFpd_g.node,
 	&pmPowerDomainPld_g.node,
+	&pmPowerDomainLpd_g.node,
+};
+
+/* Collection of slave nodes */
+static PmNode* pmNodeSlaveCollection[] = {
 	&pmSlaveL2_g.slv.node,
 	&pmSlaveOcm0_g.slv.node,
 	&pmSlaveOcm1_g.slv.node,
@@ -105,7 +131,19 @@ static PmNode* const pmNodes[NODE_MAX] = {
 	&pmSlavePcie_g.node,
 	&pmSlavePcap_g.node,
 	&pmSlaveRtc_g.node,
-	&pmPowerDomainLpd_g.node,
+};
+
+static PmNodeCollection pmNodesColl[] = {
+	{
+		DEFINE_NODE_COLLECTION(pmNodeProcCollection),
+		.key = PM_TYPE_PROC,
+	}, {
+		DEFINE_NODE_COLLECTION(pmNodePowerCollection),
+		.key = PM_TYPE_POWER,
+	}, {
+		DEFINE_NODE_COLLECTION(pmNodeSlaveCollection),
+		.key = PM_TYPE_SLAVE,
+	},
 };
 
 /**
@@ -116,16 +154,19 @@ static PmNode* const pmNodes[NODE_MAX] = {
  */
 PmNode* PmGetNodeById(const u32 nodeId)
 {
-	u32 i;
+	u32 i, n;
 	PmNode* node = NULL;
 
-	for (i = 0U; i < NODE_MAX; i++) {
-		if (pmNodes[i]->nodeId == nodeId) {
-			node = pmNodes[i];
-			break;
+	for (i = 0U; i < ARRAY_SIZE(pmNodesColl); i++) {
+		for (n = 0U; n < pmNodesColl[i].bucketSize; n++) {
+			if (nodeId == pmNodesColl[i].bucket[n]->nodeId) {
+				node = pmNodesColl[i].bucket[n];
+				goto done;
+			}
 		}
 	}
 
+done:
 	return node;
 }
 
