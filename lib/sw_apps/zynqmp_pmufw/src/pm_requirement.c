@@ -967,22 +967,20 @@ int PmRequirementReleaseAll(const PmMaster* const master)
 }
 
 /**
- * PmGetRequirementForSlave() - Get pointer to the master's request structure for
- *          a given slave
+ * PmRequirementGet() - Get requirement for master/slave pair
  * @master  Master whose request structure should be found
- * @nodeId  Slave nodeId
+ * @slave   Slave in question
  *
- * @return  Pointer to the master's request structure dedicated to a slave with
- *          given node. If such structure is not found, it means the master is
- *          not allowed to use the slave.
+ * @return  Pointer to the requirement associated with the master/slave pair.
+ *          NULL if such structure is not found.
  */
-PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
-					const PmNodeId nodeId)
+PmRequirement* PmRequirementGet(const PmMaster* const master,
+				const PmSlave* const slave)
 {
 	PmRequirement* req = master->reqs;
 
 	while (NULL != req) {
-		if (nodeId == req->slave->node.nodeId) {
+		if (slave == req->slave) {
 			break;
 		}
 		req = req->nextSlave;

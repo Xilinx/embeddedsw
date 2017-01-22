@@ -64,7 +64,7 @@ static int PmApuPrepareSuspendToRam(void)
 {
 	int status;
 	u32 i;
-	PmRequirement* req = PmGetRequirementForSlave(&pmMasterApu_g, NODE_L2);
+	PmRequirement* req = PmRequirementGet(&pmMasterApu_g, &pmSlaveL2_g.slv);
 
 	if (NULL == req) {
 		status = XST_FAILURE;
@@ -82,9 +82,8 @@ static int PmApuPrepareSuspendToRam(void)
 
 	i = 0U;
 	while (NULL != pmMasterApu_g.memories[i]) {
-		PmNodeId memNid = pmMasterApu_g.memories[i]->node.nodeId;
-
-		req = PmGetRequirementForSlave(&pmMasterApu_g, memNid);
+		req = PmRequirementGet(&pmMasterApu_g,
+					pmMasterApu_g.memories[i]);
 		if (NULL == req) {
 			status = XST_FAILURE;
 			goto done;

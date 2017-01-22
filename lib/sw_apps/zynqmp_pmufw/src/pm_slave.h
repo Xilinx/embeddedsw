@@ -121,7 +121,9 @@ int PmSlaveVerifyRequest(const PmSlave* const slave);
 u32 PmGetLatencyFromState(const PmSlave* const slave, const PmStateId state);
 u32 PmSlaveGetUsersMask(const PmSlave* const slave);
 
-u32 PmSlaveGetUsageStatus(const u32 slavenode, const PmMaster *const master);
-u32 PmSlaveGetRequirements(const u32 slavenode, const PmMaster *const master);
+u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
+			  const PmMaster* const master);
+u32 PmSlaveGetRequirements(const PmSlave* const slave,
+			   const PmMaster* const master);
 
 #endif

@@ -358,7 +358,7 @@ static void PmReleaseNode(const PmMaster *master,
 	}
 
 	/* Get static requirements structure for this master/slave pair */
-	masterReq = PmGetRequirementForSlave(master, node);
+	masterReq = PmRequirementGet(master, slave);
 
 	if (NULL == masterReq) {
 		status = XST_PM_NO_ACCESS;
@@ -435,7 +435,7 @@ static void PmRequestNode(const PmMaster *master,
 	 * structure. Retrieve the pointer to the structure in order to set the
 	 * requested capabilities and mark slave as used by this master.
 	 */
-	masterReq = PmGetRequirementForSlave(master, node);
+	masterReq = PmRequirementGet(master, slave);
 
 	if (NULL == masterReq) {
 		/* Master is not allowed to use the slave with given node */
@@ -497,7 +497,7 @@ static void PmSetRequirement(const PmMaster *master,
 	}
 
 	/* Is there a provision for the master to use the given slave node */
-	masterReq = PmGetRequirementForSlave(master, node);
+	masterReq = PmRequirementGet(master, slave);
 	if (NULL == masterReq) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
@@ -704,7 +704,7 @@ static void PmSetWakeupSource(const PmMaster *const master,
 		goto done;
 	}
 
-	req = PmGetRequirementForSlave(master, sourceNode);
+	req = PmRequirementGet(master, slave);
 	/* Is master allowed to use resource (slave)? */
 	if (NULL == req) {
 		status = XST_PM_NO_ACCESS;
@@ -801,7 +801,7 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 		goto done;
 	}
 
-	masterReq = PmGetRequirementForSlave(master, node);
+	masterReq = PmRequirementGet(master, slave);
 	/* Check if the master can use given slave node */
 	if (NULL == masterReq) {
 		status = XST_PM_NO_ACCESS;
@@ -853,8 +853,10 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 
 	oppoint = nodePtr->currState;
 	if (PM_TYPE_SLAVE == nodePtr->typeId) {
-		currReq = PmSlaveGetRequirements(node, master);
-		usage = PmSlaveGetUsageStatus(node, master);
+		PmSlave* const slave = (PmSlave*)nodePtr->derived;
+
+		currReq = PmSlaveGetRequirements(slave, master);
+		usage = PmSlaveGetUsageStatus(slave, master);
 	}
 
 done:

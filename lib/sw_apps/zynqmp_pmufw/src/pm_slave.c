@@ -519,7 +519,7 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 
 /**
  * PmSlaveGetUsageStatus() - get current usage status for a slave node
- * @slavenode  Slave node for which the usage status is requested
+ * @slave      Slave node for which the usage status is requested
  * @master     Master that's requesting the current usage status
  *
  * @return  Usage status:
@@ -529,7 +529,8 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
  *	    - 3: Both the current and at least one other master is currently
  *               using the node
  */
-u32 PmSlaveGetUsageStatus(const u32 slavenode, const PmMaster *const master)
+u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
+			  const PmMaster* const master)
 {
 	u32 i;
 	u32 usageStatus = 0;
@@ -539,7 +540,7 @@ u32 PmSlaveGetUsageStatus(const u32 slavenode, const PmMaster *const master)
 	for (i = 0U; i < PM_MASTER_MAX; i++) {
 		currMaster = pmAllMasters[i];
 
-		masterReq = PmGetRequirementForSlave(currMaster, slavenode);
+		masterReq = PmRequirementGet(currMaster, slave);
 
 		if (NULL == masterReq) {
 			/* This master has no access to this slave */
@@ -563,15 +564,16 @@ u32 PmSlaveGetUsageStatus(const u32 slavenode, const PmMaster *const master)
 
 /**
  * PmSlaveGetRequirements() - get current requirements for a slave node
- * @slavenode  Slave node for which the current requirements are requested
+ * @slave      Slave node for which the current requirements are requested
  * @master     Master that's making the request
  *
  * @return  Current requirements of the requesting master on the node
  */
-u32 PmSlaveGetRequirements(const u32 slavenode, const PmMaster *const master)
+u32 PmSlaveGetRequirements(const PmSlave* const slave,
+			   const PmMaster* const master)
 {
 	u32 currReq = 0;
-	PmRequirement* masterReq = PmGetRequirementForSlave(master, slavenode);
+	PmRequirement* masterReq = PmRequirementGet(master, slave);
 
 	if (NULL == masterReq) {
 		/* This master has no access to this slave */

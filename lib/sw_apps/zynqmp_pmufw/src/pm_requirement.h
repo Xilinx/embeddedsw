@@ -94,7 +94,7 @@ int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
 int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap);
 int PmRequirementReleaseAll(const PmMaster* const master);
 
-PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
-					const PmNodeId nodeId);
+PmRequirement* PmRequirementGet(const PmMaster* const master,
+				const PmSlave* const slave);
 
 #endif
