@@ -216,6 +216,22 @@ void PmMasterInit(void)
 }
 
 /**
+ * PmMasterSetConfig() - Set configuration for a master
+ * @mst         Master for which the configuration is set
+ * @cfg         Configuration data to set
+ *
+ * @note        Master is automatically added in the list of available masters
+ */
+void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg)
+{
+	mst->ipiMask = cfg->ipiMask;
+	mst->suspendTimeout = cfg->ipiMask;
+	mst->suspendPerms = cfg->suspendPerms;
+	mst->wakePerms = cfg->wakePerms;
+	PmMasterAdd(mst);
+}
+
+/**
  * PmGetMasterByIpiMask() - Use to get pointer to master structure by ipi mask
  * @mask    IPI Mask of a master (requestor) in IPI registers
  *

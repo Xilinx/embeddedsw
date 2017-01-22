@@ -146,6 +146,20 @@ typedef struct PmMaster {
 	u8 state;
 } PmMaster;
 
+/**
+ * PmMasterConfig - Structure to store master configuration data
+ * @ipiMask             IPI mask assigned to the master
+ * @suspendTimeout      Master's suspend timeout
+ * @suspendPerms        Permissions to request suspend of other masters
+ * @wakePerms           Permissions to request wake of other masters
+ */
+typedef struct PmMasterConfig {
+	u32 ipiMask;
+	u32 suspendTimeout;
+	u32 suspendPerms;
+	u32 wakePerms;
+} PmMasterConfig;
+
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
@@ -173,6 +187,7 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 void PmEnableProxyWake(PmMaster* const master);
 
 void PmMasterInit(void);
+void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg);
 
 bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster);

@@ -33,6 +33,7 @@
 #include "xstatus.h"
 #include "pm_common.h"
 #include "pm_defs.h"
+#include "pm_master.h"
 
 typedef int (*const PmConfigSectionHandler)(u32* const addr);
 
@@ -167,7 +168,30 @@ static void PmConfigSkipWords(u32* const addr, const u32 words)
 static int PmConfigMasterSectionHandler(u32* const addr)
 {
 	int status = XST_SUCCESS;
+	u32 i, mastersCnt;
 
+	mastersCnt = PmConfigReadNext(addr);
+
+	for (i = 0U; i < mastersCnt; i++) {
+		u32 nodeId;
+		PmMaster* master;
+		PmMasterConfig config;
+
+		nodeId = PmConfigReadNext(addr);
+		master = PmMasterGetPlaceholder(nodeId);
+		if (NULL == master) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		config.ipiMask = PmConfigReadNext(addr);
+		config.suspendTimeout = PmConfigReadNext(addr);
+		config.suspendPerms = PmConfigReadNext(addr);
+		config.wakePerms = PmConfigReadNext(addr);
+		PmMasterSetConfig(master, &config);
+	}
+
+done:
 	return status;
 }
 
