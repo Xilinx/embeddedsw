@@ -1967,9 +1967,9 @@ static PmReset* const pmAllResets[] = {
  *
  * @return       Pointer to PmReset structure (or NULL if not found)
  */
-static const PmReset* PmGetResetById(const u32 resetId)
+static PmReset* PmGetResetById(const u32 resetId)
 {
-	const PmReset *resetPtr = NULL;
+	PmReset* resetPtr = NULL;
 
 	if (resetId >= (ARRAY_SIZE(pmAllResets) + PM_RESET_BASE)) {
 		/* Reset id is higher than maximum */
@@ -2090,4 +2090,28 @@ void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 
 done:
 	IPI_RESPONSE2(master->ipiMask, status, resetStatus);
+}
+
+/**
+ * PmResetSetConfig() - Set configuration for reset control
+ * @resetId     ID of the reset whose permissions should be set
+ * @permissions Permissions to set (ORed IPI masks of permissible masters)
+ *
+ * @return      XST_INVALID_PARAM if reset with given ID is not found,
+ *              XST_SUCCESS if permissions are set
+ */
+int PmResetSetConfig(const u32 resetId, const u32 permissions)
+{
+	int status = XST_SUCCESS;
+	PmReset* rst = PmGetResetById(resetId);
+
+	if (NULL == rst) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	rst->access = permissions;
+
+done:
+	return status;
 }

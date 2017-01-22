@@ -35,6 +35,7 @@
 #include "pm_defs.h"
 #include "pm_master.h"
 #include "pm_slave.h"
+#include "pm_reset.h"
 
 typedef int (*const PmConfigSectionHandler)(u32* const addr);
 
@@ -272,7 +273,23 @@ static int PmConfigPowerSectionHandler(u32* const addr)
 static int PmConfigResetSectionHandler(u32* const addr)
 {
 	int status = XST_SUCCESS;
+	u32 i, resetsCnt;
 
+	resetsCnt = PmConfigReadNext(addr);
+
+	for (i = 0U; i < resetsCnt; i++) {
+		u32 resetId, permissions;
+
+		resetId = PmConfigReadNext(addr);
+		permissions = PmConfigReadNext(addr);
+
+		status = PmResetSetConfig(resetId, permissions);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+
+done:
 	return status;
 }
 
