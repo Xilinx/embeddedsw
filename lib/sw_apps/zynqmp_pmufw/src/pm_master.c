@@ -231,6 +231,41 @@ void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg)
 	PmMasterAdd(mst);
 }
 
+void PmMasterClearConfig(void)
+{
+	PmMaster* mst = pmMasterHead;
+
+	while (NULL != mst) {
+		PmMaster* next;
+
+		/* Clear the configuration of the master */
+		mst->wakeProc = 0U;
+		mst->ipiMask = 0U;
+		mst->wakePerms = 0U;
+		mst->suspendPerms = 0U;
+		mst->suspendTimeout = 0U;
+		mst->suspendRequest.initiator = NULL;
+		mst->suspendRequest.acknowledge = 0U;
+		mst->state = PM_MASTER_STATE_ACTIVE;
+
+		/* Clear requirements of the master */
+		mst->reqs = NULL;
+
+		/* Clear the pointer to the next master */
+		next = mst->nextMaster;
+		mst->nextMaster = NULL;
+
+		/* Process next master */
+		mst = next;
+	}
+
+	/* Delete the list of available masters */
+	pmMasterHead = NULL;
+
+	/* Free allocated requirements from the heap */
+	PmRequirementFreeAll();
+}
+
 /**
  * PmGetMasterByIpiMask() - Use to get pointer to master structure by ipi mask
  * @mask    IPI Mask of a master (requestor) in IPI registers

@@ -414,6 +414,14 @@ static int PmConfigSetConfigSectionHandler(u32* const addr)
 }
 
 /**
+ * PmConfigClear() - Clear previous PFW configuration
+ */
+static void PmConfigClear(void)
+{
+	PmMasterClearConfig();
+}
+
+/**
  * PmConfigGetSectionById() - Get section struct based on section ID
  * @sid         Section ID to look for
  *
@@ -452,6 +460,8 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 		status = XST_PM_NO_ACCESS;
 		goto ret;
 	}
+
+	PmConfigClear();
 
 	/* Read number of remaining words in header */
 	remWords = PmConfigReadNext(&currAddr);
