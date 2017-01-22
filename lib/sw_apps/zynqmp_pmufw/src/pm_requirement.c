@@ -63,18 +63,6 @@ static void PmRequirementLink(PmRequirement* const req)
 }
 
 /**
- * PmRequirementInit() - Initialize requirements data structures
- */
-void PmRequirementInit(void)
-{
-	u32 i;
-
-	for (i = 0U; i < ARRAY_SIZE(pmReqData); i++) {
-		PmRequirementLink(&pmReqData[i]);
-	}
-}
-
-/**
  * PmRequirementMalloc() - Allocate a PmRequirement structure
  *
  * @return      Pointer to the allocated structure or NULL if there is no free

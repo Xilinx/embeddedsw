@@ -91,7 +91,6 @@ void XPfw_PmInit(void)
 
 	PmMasterInit();
 
-	PmRequirementInit();
 	PmClockInitList();
 
 	val = XPfw_Read32(PM_INIT_SYNC_REGISTER);

@@ -95,7 +95,6 @@ typedef struct PmRequirement {
  * Function declarations
  ********************************************************************/
 
-void PmRequirementInit(void);
 void PmRequirementCancelScheduled(const PmMaster* const master);
 void PmRequirementRequestDefault(const PmMaster* const master);
 void PmRequirementFreeAll(void);
