@@ -33,7 +33,7 @@
  ************************************************************************/
 
 #include "pm_slave.h"
-#include "pm_master.h"
+#include "pm_requirement.h"
 #include "pm_defs.h"
 #include "pm_common.h"
 #include "pm_node.h"

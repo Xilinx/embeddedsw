@@ -30,9 +30,7 @@
 
 /*********************************************************************
  * This file contains PM master related data structures and
- * functions for accessing them. Also, each PM masters have defined
- * data structures used for tracking it's requests for each slave's
- * capabilities/states.
+ * functions for accessing them.
  *********************************************************************/
 
 #ifndef PM_MASTER_H_
@@ -80,37 +78,6 @@ typedef struct PmRequirement PmRequirement;
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
-/**
- * PmRequirement - structure for tracking requirements of a master for the slave
- *              setting. One structure should be statically assigned for each
- *              possible combination of master/slave, because dynamic memory
- *              allocation cannot be used.
- * @slave       Pointer to the slave structure
- * @master      Pointer to the master structure
- * @nextSlave   Pointer to the master's requirement for a next slave in the list
- * @nextMaster  Pointer to the requirement of a next master that uses the slave
- * @defaultReq  Default requirements of a master - requirements for slave
- *              capabilities without which the master cannot run
- * @currReq     Currently holding requirements of a master for this slave
- * @nextReq     Requirements of a master to be configured when it changes the
- *              state (after it goes to sleep or before it gets awake)
- * @latencyReq  Latency requirements of master for the slave's transition time
- *              from any to its maximum (highest id) state
- * @info        Contains information about master's request - a bit for
- *              encoding has master requested or released node, and a bit to
- *              encode has master requested a wake-up of this slave.
- */
-typedef struct PmRequirement {
-	PmSlave* slave;
-	PmMaster* master;
-	PmRequirement* nextSlave;
-	PmRequirement* nextMaster;
-	const u32 defaultReq;
-	u32 currReq;
-	u32 nextReq;
-	u32 latencyReq;
-	u8 info;
-} PmRequirement;
 
 /**
  * PmSuspendRequest() - For tracking information about request suspend being
@@ -193,14 +160,6 @@ PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
 			      const PmNodeId nodeId);
 PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 			       const PmNodeId nodeId);
-PmRequirement* PmGetRequirementForSlave(const PmMaster* const master,
-			      const PmNodeId nodeId);
-
-/* Requirements related functions */
-int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
-int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
-
-void PmRequirementInit(void);
 
 /* Notify master about its processor state change */
 int PmMasterNotify(PmMaster* const master, const PmProcEvent event);

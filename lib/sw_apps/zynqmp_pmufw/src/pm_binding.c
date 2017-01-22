@@ -43,6 +43,7 @@
 #include "pm_power.h"
 #include "pm_gic_proxy.h"
 #include "pm_clock.h"
+#include "pm_requirement.h"
 
 /*
  * Macro for all wake events in GPI1 that PM handles.

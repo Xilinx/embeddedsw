@@ -47,6 +47,7 @@
 #include "pm_system.h"
 #include "xilfpga_pcap.h"
 #include "pm_clock.h"
+#include "pm_requirement.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
