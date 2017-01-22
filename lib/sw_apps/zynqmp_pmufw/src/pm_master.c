@@ -147,7 +147,8 @@ PmMaster pmMasterApu_g = {
 	.evalState = PmApuEvaluateState,
 };
 
-PmMaster pmMasterRpu0_g = {
+/* RPU in lockstep mode */
+PmMaster pmMasterRpu_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
 	.procsCnt = 1U,
 	.wakeProc = NULL,
@@ -168,13 +169,35 @@ PmMaster pmMasterRpu0_g = {
 	.evalState = NULL,
 };
 
+/* RPU in split mode can have 2 masters: RPU_0 and RPU_1 */
+PmMaster pmMasterRpu0_g = {
+	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
+	.procsCnt = 1U,
+	.wakeProc = NULL,
+	.nextMaster = NULL,
+	.nid = NODE_RPU_0,
+	.ipiMask = 0U,
+	.reqs = NULL,
+	.wakePerms = 0U,
+	.suspendPerms = 0U,
+	.suspendTimeout = 0U,
+	.suspendRequest = {
+		.initiator = NULL,
+		.acknowledge = 0U,
+	},
+	.state = PM_MASTER_STATE_ACTIVE,
+	.gic = NULL,
+	.memories = NULL,
+	.evalState = NULL,
+};
+
 PmMaster pmMasterRpu1_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_1],
 	.procsCnt = 1U,
 	.wakeProc = NULL,
-	.nid = NODE_RPU_0, /* placeholder for request suspend, not used */
-	.ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
-	.reqs = NULL,   /* lockstep mode is assumed for now */
+	.nid = NODE_RPU_1,
+	.ipiMask = 0U,
+	.reqs = NULL,
 	.nextMaster = NULL,
 	.wakePerms = 0U,
 	.suspendPerms = 0U,
@@ -183,17 +206,18 @@ PmMaster pmMasterRpu1_g = {
 		.initiator = NULL,
 		.acknowledge = 0U,
 	},
-	.state = PM_MASTER_STATE_KILLED,
+	.state = PM_MASTER_STATE_ACTIVE,
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
 };
 
 /* Array of all possible masters supported by the PFW */
-static PmMaster *const pmMastersAll[PM_MASTER_MAX] = {
+static PmMaster *const pmMastersAll[] = {
 	&pmMasterApu_g,
-	&pmMasterRpu0_g,
-	&pmMasterRpu1_g,
+	&pmMasterRpu_g,		/* RPU lockstep */
+	&pmMasterRpu0_g,	/* RPU split mode, core 0 */
+	&pmMasterRpu1_g,	/* RPU split mode, core 1 */
 };
 
 /**
@@ -212,7 +236,7 @@ static void PmMasterAdd(PmMaster* const newMaster)
 void PmMasterInit(void)
 {
 	PmMasterAdd(&pmMasterApu_g);
-	PmMasterAdd(&pmMasterRpu0_g);
+	PmMasterAdd(&pmMasterRpu_g);
 }
 
 /**
@@ -224,11 +248,18 @@ void PmMasterInit(void)
  */
 void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg)
 {
+	u32 i;
+
 	mst->ipiMask = cfg->ipiMask;
 	mst->suspendTimeout = cfg->ipiMask;
 	mst->suspendPerms = cfg->suspendPerms;
 	mst->wakePerms = cfg->wakePerms;
 	PmMasterAdd(mst);
+
+	/* Update pointers of processors to the master */
+	for (i = 0U; i < mst->procsCnt; i++) {
+		mst->procs[i].master = mst;
+	}
 }
 
 void PmMasterClearConfig(void)

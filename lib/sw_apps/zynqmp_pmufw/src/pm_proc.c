@@ -763,7 +763,7 @@ PmProc pmRpuProcs_g[PM_PROC_RPU_MAX] = {
 			.powerInfo = PmProcPowerRPU_X,
 			.powerInfoCnt = ARRAY_SIZE(PmProcPowerRPU_X),
 		},
-		.master = &pmMasterRpu0_g,
+		.master = &pmMasterRpu_g,
 		.wfiStatusMask = PMU_IOMODULE_GPI2_R5_0_SLEEP_MASK,
 		.wakeStatusMask = PMU_IOMODULE_GPI1_R5_0_WAKE_MASK,
 		.wfiEnableMask = PMU_LOCAL_GPI2_ENABLE_R5_0_PWRDWN_REQ_MASK,

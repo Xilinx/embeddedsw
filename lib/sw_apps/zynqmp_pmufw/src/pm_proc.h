@@ -125,7 +125,7 @@ typedef struct PmProc PmProc;
 typedef struct PmProc {
 	PmNode node;
 	u64 resumeAddress;
-	PmMaster* const master;
+	PmMaster* master;
 	int (*const saveResumeAddr)(PmProc* const, u64);
 	void (*const restoreResumeAddr)(PmProc* const);
 	const u32 wfiStatusMask;

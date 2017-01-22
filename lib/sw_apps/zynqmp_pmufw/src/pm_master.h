@@ -56,9 +56,6 @@ typedef struct PmRequirement PmRequirement;
 #define PM_MASTER_USING_SLAVE_MASK  0x2U
 #define PM_MASTER_SET_LATENCY_REQ   0x4U
 
-/* Maximum number of masters currently supported */
-#define PM_MASTER_MAX               3U
-
 /* Master state definitions */
 
 /* Master is active if at least one of its processors is in active state */
@@ -165,6 +162,7 @@ typedef struct PmMasterConfig {
  * Global data declarations
  ********************************************************************/
 extern PmMaster pmMasterApu_g;
+extern PmMaster pmMasterRpu_g;
 extern PmMaster pmMasterRpu0_g;
 extern PmMaster pmMasterRpu1_g;
 
