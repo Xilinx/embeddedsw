@@ -852,6 +852,7 @@ static PmClockHandle pmClockHandles[] = {
 	},
 };
 
+#ifdef DEBUG_CLK
 /**
  * PmClockGetUseCount() - Get the use count for the clock
  * @clk		Clock whose use count shall be counted
@@ -864,19 +865,15 @@ static u32 PmClockGetUseCount(const PmClock* const clk)
 	PmClockHandle* ch = clk->users;
 
 	while (NULL != ch) {
-		bool depends = PmNodeDependsOnClock(ch->node);
-
-		if (true == depends) {
+		if (0U != (NODE_LOCKED_CLOCK_FLAG & ch->node->flags)) {
 			useCnt++;
 		}
-
 		ch = ch->nextNode;
 	}
 
 	return useCnt;
 }
 
-#ifdef DEBUG_CLK
 static const char* PmStrClk(const PmClock* const clk)
 {
 	if (clk == &pmClockAcpu) {
@@ -990,7 +987,7 @@ void PmClockDump(const PmClock* const clk)
 	fw_printf("\t%s #%lu { ", PmStrClk(clk), clkUseCnt);
 
 	while (NULL != ch) {
-		bool used = PmNodeDependsOnClock(ch->node);
+		bool used = 0U != (NODE_LOCKED_CLOCK_FLAG & ch->node->flags);
 
 		if (true == used) {
 			if (clk->users != ch) {
@@ -1112,32 +1109,40 @@ void PmClockInitData(void)
  *		if a PLL parent needed to be locked and the locking has failed.
  * @note	The dependency toward a PLL parent is automatically resolved
  */
-int PmClockRequest(const PmNode* const node)
+int PmClockRequest(PmNode* const node)
 {
 	PmClockHandle* ch = node->clocks;
-	int totStatus = XST_SUCCESS;
+	int status = XST_SUCCESS;
 
+	if (0U != (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
+		PmDbg("Warning %s double request\r\n", PmStrNode(node->nodeId));
+		goto done;
+	}
 #ifdef DEBUG_CLK
 	PmDbg("%s\r\n", PmStrNode(node->nodeId));
 #endif
 	while (NULL != ch) {
-		int status = XST_SUCCESS;
-		u32 clkUseCnt = PmClockGetUseCount(ch->clock);
+		const u32 val = XPfw_Read32(ch->clock->ctrlAddr);
+		const u32 sel = val & PM_CLOCK_MUX_SELECT_MASK;
 
-		if ((0U == clkUseCnt) && (NULL != ch->clock->pll)) {
-			/* This node is the first one to depend on the PLL */
-			status = PmPllRequest(ch->clock->pll);
+		ch->clock->pll = PmClockGetParent(ch->clock, sel);
+
+		/* If parent is not a known pll it's the oscillator clock */
+		if (NULL == ch->clock->pll) {
+			continue;
 		}
 
-		/* If requesting the PLL failed, remember to return the error */
+		status = PmPllRequest(ch->clock->pll);
 		if (XST_SUCCESS != status) {
-			totStatus = status;
+			goto done;
 		}
 
 		ch = ch->nextClock;
 	}
+	node->flags |= NODE_LOCKED_CLOCK_FLAG;
 
-	return totStatus;
+done:
+	return status;
 }
 
 /**
@@ -1147,21 +1152,27 @@ int PmClockRequest(const PmNode* const node)
  * @note	If a PLL parent of a released clock have no other users, the
  *		PM framework will suspend that PLL.
  */
-void PmClockRelease(const PmNode* const node)
+void PmClockRelease(PmNode* const node)
 {
 	PmClockHandle* ch = node->clocks;
 
+	if (0U == (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
+		PmDbg("Warning %s double release\r\n", PmStrNode(node->nodeId));
+		goto done;
+	}
 #ifdef DEBUG_CLK
 	PmDbg("%s\r\n", PmStrNode(node->nodeId));
 #endif
 	while (NULL != ch) {
-		u32 clkUseCnt = PmClockGetUseCount(ch->clock);
-
-		if ((0U == clkUseCnt) && (NULL != ch->clock->pll)) {
+		if (NULL != ch->clock->pll) {
 			PmPllRelease(ch->clock->pll);
 		}
 		ch = ch->nextClock;
 	}
+	node->flags &= ~NODE_LOCKED_CLOCK_FLAG;
+
+done:
+	return;
 }
 
 /**
@@ -1189,23 +1200,21 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
 	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
 		PmClock* const clk = pmClocks[i];
 		PmSlavePll* const prevPll = clk->pll;
-		u32 clkUseCnt = PmClockGetUseCount(clk);
+		const u32 sel = val & PM_CLOCK_MUX_SELECT_MASK;
 
 		if (addr != clk->ctrlAddr) {
 			continue;
 		}
 
-		clk->pll = PmClockGetParent(clk, val & PM_CLOCK_MUX_SELECT_MASK);
+		clk->pll = PmClockGetParent(clk, sel);
 
 		/* If the PLL source has not changed go to done */
 		if (clk->pll == prevPll) {
 			goto done;
 		}
 
-		if (0U != clkUseCnt) {
-			/* Release previously used PLL */
-			PmPllRelease(prevPll);
-		}
+		/* Release previously used PLL */
+		PmPllRelease(prevPll);
 
 		/* If parent is not a known pll it's the oscillator clock */
 		if (NULL != clk->pll) {

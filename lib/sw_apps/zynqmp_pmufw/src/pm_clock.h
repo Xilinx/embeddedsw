@@ -100,9 +100,9 @@ typedef struct PmClockHandle {
  * Function declarations
  ********************************************************************/
 void PmClockInitData(void);
+int PmClockRequest(PmNode* const node);
 
-int PmClockRequest(const PmNode* const node);
-void PmClockRelease(const PmNode* const node);
+void PmClockRelease(PmNode* const node);
 void PmClockSnoop(const u32 addr, const u32 mask, const u32 val);
 void PmClockConstructList(void);
 
