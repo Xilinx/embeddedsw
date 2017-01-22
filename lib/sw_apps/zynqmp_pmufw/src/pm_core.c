@@ -316,6 +316,12 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 		goto done;
 	}
 
+	if ((false == PmMasterCanRequestWake(master, proc->master)) &&
+	    (master != proc->master)) {
+		status = XST_PM_NO_ACCESS;
+		goto done;
+	}
+
 	if (1U == setAddress) {
 		proc->saveResumeAddr(proc, address);
 	}

@@ -112,6 +112,8 @@ typedef struct {
  *              processors in the PU. In RPU case, this data could be
  *              initialized from PCW, based on RPU configuration.
  * @procsCnt    Number of processors within the master
+ * @wakePerms   ORed ipi masks of masters which this master is allowed to
+ *              request to wake up
  * @permissions ORed ipi masks of masters which this master is allowed to
  *              request to suspend (to be updated based on specific
  *              configuration, by default all masters should be able to request
@@ -132,6 +134,7 @@ typedef struct PmMaster {
 	int (*const evalState)(const u32 state);
 	const PmSlave** const memories;
 	const u32 ipiMask;
+	u32 wakePerms;
 	u32 permissions;
 	PmNodeId nid;
 	const u8 procsCnt;
@@ -196,6 +199,19 @@ static inline bool PmMasterIsKilled(const PmMaster* const master)
 static inline bool PmMasterIsActive(const PmMaster* const master)
 {
 	return PM_MASTER_STATE_ACTIVE == master->state;
+}
+
+/**
+ * PmMasterCanRequestWake() - Check if master has permissions to request wake
+ * @requestor   Master which requested wake
+ * @target      Target master to wake
+ *
+ * @return      True if master has permission to request wake, false otherwise
+ */
+static inline bool PmMasterCanRequestWake(const PmMaster* const requestor,
+					  const PmMaster* const target)
+{
+	return 0U != (requestor->wakePerms & target->ipiMask);
 }
 
 #endif
