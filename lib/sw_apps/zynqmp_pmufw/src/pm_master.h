@@ -205,9 +205,6 @@ void PmRequirementInit(void);
 /* Notify master about its processor state change */
 int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 
-/* Call at initialization to enable all masters' IPI interrupts */
-void PmEnableAllMasterIpis(void);
-
 /* Call when FPD goes down to enable GIC Proxy interrupts */
 void PmEnableProxyWake(PmMaster* const master);
 
