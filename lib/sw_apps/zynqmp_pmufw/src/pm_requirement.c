@@ -293,6 +293,22 @@ void PmRequirementRequestDefault(const PmMaster* const master)
 }
 
 /**
+ * PmRequirementClear() - Clear requirements
+ * @req         Requirements to clear
+ *
+ * @note        The function marks slave as unused
+ */
+void PmRequirementClear(PmRequirement* const req)
+{
+	/* Clear flag - master is not using slave anymore */
+	req->info &= ~PM_MASTER_USING_SLAVE_MASK;
+
+	/* Release current and next requirements */
+	req->currReq = 0U;
+	req->nextReq = 0U;
+}
+
+/**
  * PmRequirementReleaseAll() - Called when a processor is forced to power down
  * @master  Master whose processor was forced to power down
  *
@@ -306,11 +322,7 @@ int PmRequirementReleaseAll(const PmMaster* const master)
 
 	while (NULL != req) {
 		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
-			/* Clear flag - master is not using slave anymore */
-			req->info &= ~PM_MASTER_USING_SLAVE_MASK;
-			/* Release current and next requirements */
-			req->currReq = 0U;
-			req->nextReq = 0U;
+			PmRequirementClear(req);
 			/* Update slave setting */
 			status = PmUpdateSlave(req->slave);
 			/* if pmu rom works correctly, status should be always ok */

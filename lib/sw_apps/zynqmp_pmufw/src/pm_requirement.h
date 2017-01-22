@@ -98,6 +98,7 @@ typedef struct PmRequirement {
 void PmRequirementCancelScheduled(const PmMaster* const master);
 void PmRequirementRequestDefault(const PmMaster* const master);
 void PmRequirementFreeAll(void);
+void PmRequirementClear(PmRequirement* const req);
 
 int PmRequirementAdd(PmMaster* const master, PmSlave* const slave);
 int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
