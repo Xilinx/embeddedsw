@@ -435,7 +435,7 @@ PmRequirement pmReqData[] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	}, {
-		.slave = &pmSlaveSata_g.slv,
+		.slave = &pmSlaveSata_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
 		.nextMaster = NULL,
@@ -445,7 +445,7 @@ PmRequirement pmReqData[] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	}, {
-		.slave = &pmSlaveTtc3_g.slv,
+		.slave = &pmSlaveTtc3_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
 		.nextMaster = NULL,
@@ -455,7 +455,7 @@ PmRequirement pmReqData[] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	}, {
-		.slave = &pmSlaveTtc2_g.slv,
+		.slave = &pmSlaveTtc2_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
 		.nextMaster = NULL,
@@ -465,7 +465,7 @@ PmRequirement pmReqData[] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	}, {
-		.slave = &pmSlaveTtc1_g.slv,
+		.slave = &pmSlaveTtc1_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
 		.nextMaster = NULL,
@@ -475,7 +475,7 @@ PmRequirement pmReqData[] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	}, {
-		.slave = &pmSlaveTtc0_g.slv,
+		.slave = &pmSlaveTtc0_g,
 		.master = &pmMasterApu_g,
 		.nextSlave = NULL,
 		.nextMaster = NULL,
@@ -625,7 +625,7 @@ PmRequirement pmReqData[] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	}, {
-		.slave = &pmSlaveSata_g.slv,
+		.slave = &pmSlaveSata_g,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
 		.nextMaster = NULL,
@@ -635,7 +635,7 @@ PmRequirement pmReqData[] = {
 		.nextReq = 0U,
 		.latencyReq = MAX_LATENCY,
 	}, {
-		.slave = &pmSlaveTtc0_g.slv,
+		.slave = &pmSlaveTtc0_g,
 		.master = &pmMasterRpu0_g,
 		.nextSlave = NULL,
 		.nextMaster = NULL,

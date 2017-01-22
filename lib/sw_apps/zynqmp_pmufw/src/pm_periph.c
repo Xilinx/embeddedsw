@@ -135,24 +135,22 @@ static PmGicProxyWake pmTtc0Wake = {
 	.group = 1U,
 };
 
-PmSlaveTtc pmSlaveTtc0_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveTtc0_g,
-			.nodeId = NODE_TTC_0,
-			.typeId = PM_TYPE_TTC,
-			.parent = &pmPowerDomainLpd_g,
-			.currState = PM_AON_SLAVE_STATE,
-			.latencyMarg = MAX_LATENCY,
-			.ops = NULL,
-			.powerInfo = PmSlaveAonPowers,
-			.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
-		},
-		.reqs = NULL,
-		.wake = &pmTtc0Wake,
-		.slvFsm = &slaveAonFsm,
-		.flags = 0U,
+PmSlave pmSlaveTtc0_g = {
+	.node = {
+		.derived = &pmSlaveTtc0_g,
+		.nodeId = NODE_TTC_0,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainLpd_g,
+		.currState = PM_AON_SLAVE_STATE,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveAonPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
+	.reqs = NULL,
+	.wake = &pmTtc0Wake,
+	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmGicProxyWake pmTtc1Wake = {
@@ -162,24 +160,22 @@ static PmGicProxyWake pmTtc1Wake = {
 	.group = 1U,
 };
 
-PmSlaveTtc pmSlaveTtc1_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveTtc1_g,
-			.nodeId = NODE_TTC_1,
-			.typeId = PM_TYPE_TTC,
-			.parent = &pmPowerDomainLpd_g,
-			.currState = PM_AON_SLAVE_STATE,
-			.latencyMarg = MAX_LATENCY,
-			.ops = NULL,
-			.powerInfo = PmSlaveAonPowers,
-			.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
-		},
-		.reqs = NULL,
-		.wake = &pmTtc1Wake,
-		.slvFsm = &slaveAonFsm,
-		.flags = 0U,
+PmSlave pmSlaveTtc1_g = {
+	.node = {
+		.derived = &pmSlaveTtc1_g,
+		.nodeId = NODE_TTC_1,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainLpd_g,
+		.currState = PM_AON_SLAVE_STATE,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveAonPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
+	.reqs = NULL,
+	.wake = &pmTtc1Wake,
+	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmGicProxyWake pmTtc2Wake = {
@@ -189,24 +185,22 @@ static PmGicProxyWake pmTtc2Wake = {
 	.group = 1U,
 };
 
-PmSlaveTtc pmSlaveTtc2_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveTtc2_g,
-			.nodeId = NODE_TTC_2,
-			.typeId = PM_TYPE_TTC,
-			.parent = &pmPowerDomainLpd_g,
-			.currState = PM_AON_SLAVE_STATE,
-			.latencyMarg = MAX_LATENCY,
-			.ops = NULL,
-			.powerInfo = PmSlaveAonPowers,
-			.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
-		},
-		.reqs = NULL,
-		.wake = &pmTtc2Wake,
-		.slvFsm = &slaveAonFsm,
-		.flags = 0U,
+PmSlave pmSlaveTtc2_g = {
+	.node = {
+		.derived = &pmSlaveTtc2_g,
+		.nodeId = NODE_TTC_2,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainLpd_g,
+		.currState = PM_AON_SLAVE_STATE,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveAonPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
+	.reqs = NULL,
+	.wake = &pmTtc2Wake,
+	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmGicProxyWake pmTtc3Wake = {
@@ -216,24 +210,22 @@ static PmGicProxyWake pmTtc3Wake = {
 	.group = 1U,
 };
 
-PmSlaveTtc pmSlaveTtc3_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveTtc3_g,
-			.nodeId = NODE_TTC_3,
-			.typeId = PM_TYPE_TTC,
-			.parent = &pmPowerDomainLpd_g,
-			.currState = PM_AON_SLAVE_STATE,
-			.latencyMarg = MAX_LATENCY,
-			.ops = NULL,
-			.powerInfo = PmSlaveAonPowers,
-			.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
-		},
-		.reqs = NULL,
-		.wake = &pmTtc3Wake,
-		.slvFsm = &slaveAonFsm,
-		.flags = 0U,
+PmSlave pmSlaveTtc3_g = {
+	.node = {
+		.derived = &pmSlaveTtc3_g,
+		.nodeId = NODE_TTC_3,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainLpd_g,
+		.currState = PM_AON_SLAVE_STATE,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = PmSlaveAonPowers,
+		.powerInfoCnt = ARRAY_SIZE(PmSlaveAonPowers),
 	},
+	.reqs = NULL,
+	.wake = &pmTtc3Wake,
+	.slvFsm = &slaveAonFsm,
+	.flags = 0U,
 };
 
 static PmGicProxyWake pmUart0Wake = {
@@ -721,24 +713,22 @@ static PmGicProxyWake pmSataWake = {
 	.group = 4U,
 };
 
-PmSlaveSata pmSlaveSata_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveSata_g,
-			.nodeId = NODE_SATA,
-			.typeId = PM_TYPE_SLAVE,
-			.parent = &pmPowerDomainFpd_g,
-			.currState = PM_FPD_SLAVE_STATE_OFF,
-			.latencyMarg = MAX_LATENCY,
-			.ops = NULL,
-			.powerInfo = pmFpdSlavePowers,
-			.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers),
-		},
-		.reqs = NULL,
-		.wake = &pmSataWake,
-		.slvFsm = &pmFpdSlaveFsm,
-		.flags = 0U,
+PmSlave pmSlaveSata_g = {
+	.node = {
+		.derived = &pmSlaveSata_g,
+		.nodeId = NODE_SATA,
+		.typeId = PM_TYPE_SLAVE,
+		.parent = &pmPowerDomainFpd_g,
+		.currState = PM_FPD_SLAVE_STATE_OFF,
+		.latencyMarg = MAX_LATENCY,
+		.ops = NULL,
+		.powerInfo = pmFpdSlavePowers,
+		.powerInfoCnt = ARRAY_SIZE(pmFpdSlavePowers),
 	},
+	.reqs = NULL,
+	.wake = &pmSataWake,
+	.slvFsm = &pmFpdSlaveFsm,
+	.flags = 0U,
 };
 
 /*

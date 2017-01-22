@@ -671,7 +671,7 @@ static PmClockHandle pmClockHandles[] = {
 		.nextNode = NULL,
 	}, {
 		.clock = &pmClockSata,
-		.node = &pmSlaveSata_g.slv.node,
+		.node = &pmSlaveSata_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {

@@ -36,22 +36,6 @@
  * Structure definitions
  ********************************************************************/
 /**
- * PmSlaveTtc - Structure used for timer peripheral
- * @slv Base slave structure
- */
-typedef struct PmSlaveTtc {
-	PmSlave slv;
-} PmSlaveTtc;
-
-/**
- * PmSlaveSata - Structure used for Sata peripheral
- * @slv Base slave structure
- */
-typedef struct PmSlaveSata {
-	PmSlave slv;
-} PmSlaveSata;
-
-/**
  * PmSlaveGpp - Structure used for GPP
  * @slv         Base slave structure
  * @PwrDn   Pointer to a power down pmu-rom handler
@@ -66,11 +50,11 @@ typedef struct PmSlaveGpp {
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
-extern PmSlaveTtc pmSlaveTtc0_g;
-extern PmSlaveTtc pmSlaveTtc1_g;
-extern PmSlaveTtc pmSlaveTtc2_g;
-extern PmSlaveTtc pmSlaveTtc3_g;
-extern PmSlaveSata pmSlaveSata_g;
+extern PmSlave pmSlaveTtc0_g;
+extern PmSlave pmSlaveTtc1_g;
+extern PmSlave pmSlaveTtc2_g;
+extern PmSlave pmSlaveTtc3_g;
+extern PmSlave pmSlaveSata_g;
 extern PmSlaveGpp pmSlaveGpuPP0_g;
 extern PmSlaveGpp pmSlaveGpuPP1_g;
 extern PmSlave pmSlaveUart0_g;
