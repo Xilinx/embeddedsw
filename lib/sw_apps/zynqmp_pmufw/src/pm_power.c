@@ -54,9 +54,6 @@
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
 
-#define DEFINE_PM_POWER_INFO(i)	.powerInfo = (i), \
-				.powerInfoCnt = ARRAY_SIZE(i)
-
 #define PM_POWER_SUPPLYCHECK_TIMEOUT	100000U
 
 /*

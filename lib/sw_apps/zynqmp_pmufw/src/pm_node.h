@@ -71,6 +71,9 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 #define NODE_HAS_SLEEP(opsPtr)   ((NULL != (opsPtr)) && (NULL != (opsPtr)->sleep))
 
 
+#define DEFINE_PM_POWER_INFO(i)	.powerInfo = (i), \
+				.powerInfoCnt = ARRAY_SIZE(i)
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
