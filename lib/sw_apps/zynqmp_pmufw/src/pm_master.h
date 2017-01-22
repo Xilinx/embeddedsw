@@ -137,7 +137,7 @@ typedef struct PmMaster {
 	const PmGicProxy* const gic;
 	int (*const evalState)(const u32 state);
 	const PmSlave** const memories;
-	const u32 ipiMask;
+	u32 ipiMask;
 	u32 wakePerms;
 	u32 suspendPerms;
 	u32 suspendTimeout;
@@ -157,7 +157,7 @@ extern PmMaster pmMasterRpu1_g;
  * Function declarations
  ********************************************************************/
 /* Get functions */
-const PmMaster* PmGetMasterByIpiMask(const u32 mask);
+PmMaster* PmGetMasterByIpiMask(const u32 mask);
 
 PmProc* PmGetProcByWfiStatus(const u32 mask);
 PmProc* PmGetProcByWakeStatus(const u32 mask);

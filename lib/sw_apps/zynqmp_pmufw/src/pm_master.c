@@ -221,9 +221,9 @@ void PmMasterInit(void)
  *
  * @return  Pointer to a PmMaster structure or NULL if master is not found
  */
-const PmMaster* PmGetMasterByIpiMask(const u32 mask)
+PmMaster* PmGetMasterByIpiMask(const u32 mask)
 {
-	const PmMaster* mst = pmMasterHead;
+	PmMaster* mst = pmMasterHead;
 
 	while (NULL != mst) {
 		if (0U != (mask & mst->ipiMask)) {
