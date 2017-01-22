@@ -126,6 +126,67 @@ static int PmApuEvaluateState(const u32 state)
 	return status;
 }
 
+/**
+ * PmMasterRpuRemapAddr() - Remap address from RPU's (lockstep) to PMU's view
+ * @address     Address to remap
+ *
+ * @return      Remapped address or the provided address if no remapping done
+ */
+static u32 PmMasterRpuRemapAddr(const u32 address)
+{
+	u32 remapAddr = address;
+
+	if (address < 4U * pmSlaveTcm0A_g.size) {
+		remapAddr += pmSlaveTcm0A_g.base;
+	}
+
+	return remapAddr;
+}
+
+/**
+ * PmMasterRpu0RemapAddr() - Remap address from RPU_0's to PMU's view
+ * @address     Address to remap
+ *
+ * @return      Remapped address or the provided address if no remapping done
+ */
+static u32 PmMasterRpu0RemapAddr(const u32 address)
+{
+	u32 remapAddr = address;
+
+	if (address < pmSlaveTcm0A_g.size) {
+		remapAddr += pmSlaveTcm0A_g.base;
+	} else {
+		if ((address >= 2U * pmSlaveTcm0A_g.size) &&
+		    (address < 2U * pmSlaveTcm0A_g.size + pmSlaveTcm0B_g.size)) {
+			remapAddr += pmSlaveTcm0B_g.base;
+		}
+	}
+
+	return remapAddr;
+}
+
+/**
+ * PmMasterRpu1RemapAddr() - Remap address from RPU_1's to PMU's view
+ * @address     Address to remap
+ *
+ * @return      Remapped address or the provided address if no remapping done
+ */
+static u32 PmMasterRpu1RemapAddr(const u32 address)
+{
+	u32 remapAddr = address;
+
+	if (address < pmSlaveTcm1A_g.size) {
+		remapAddr += pmSlaveTcm1A_g.base;
+	} else {
+		if ((address >= 2U * pmSlaveTcm1A_g.size) &&
+		    (address < 2U * pmSlaveTcm1A_g.size + pmSlaveTcm1B_g.size)) {
+			remapAddr += pmSlaveTcm1B_g.base;
+		}
+	}
+
+	return remapAddr;
+}
+
 PmMaster pmMasterApu_g = {
 	.procs = pmApuProcs_g,
 	.procsCnt = PM_PROC_APU_MAX,
@@ -145,6 +206,7 @@ PmMaster pmMasterApu_g = {
 	.gic = &pmGicProxy,
 	.memories = pmApuMemories,
 	.evalState = PmApuEvaluateState,
+	.remapAddr = NULL,
 };
 
 /* RPU in lockstep mode */
@@ -167,6 +229,7 @@ PmMaster pmMasterRpu_g = {
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
+	.remapAddr = PmMasterRpuRemapAddr,
 };
 
 /* RPU in split mode can have 2 masters: RPU_0 and RPU_1 */
@@ -189,6 +252,7 @@ PmMaster pmMasterRpu0_g = {
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
+	.remapAddr = PmMasterRpu0RemapAddr,
 };
 
 PmMaster pmMasterRpu1_g = {
@@ -210,6 +274,7 @@ PmMaster pmMasterRpu1_g = {
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
+	.remapAddr = PmMasterRpu1RemapAddr,
 };
 
 /* Array of all possible masters supported by the PFW */

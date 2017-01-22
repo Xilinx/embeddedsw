@@ -101,6 +101,7 @@ typedef struct {
  *              this is a pointer to it.
  * @evalState   Function to be called when a state specified by the master
  *              needs to be evaluated (implicit scheduling of requirements)
+ * @remapAddr   Remap address (used when master's and PMU's memory map differ)
  * @memories    Pointer to the array of memories used by the master
  * @ipiMask     Mask dedicated to the master in IPI registers
  * @nid         Placeholder nodeId - used to encode request suspend for group of
@@ -134,6 +135,7 @@ typedef struct PmMaster {
 	PmMaster* nextMaster;
 	const PmGicProxy* const gic;
 	int (*const evalState)(const u32 state);
+	u32 (*const remapAddr)(const u32 address);
 	const PmSlave** const memories;
 	u32 ipiMask;
 	u32 wakePerms;

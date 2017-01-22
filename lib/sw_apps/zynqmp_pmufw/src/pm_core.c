@@ -853,11 +853,16 @@ done:
 static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 {
 	int status;
+	u32 configAddr = address;
 	u32 callerIpiMask = master->ipiMask;
 
 	PmDbg("(0x%lx) %s\r\n", address, PmStrNode(master->nid));
 
-	status = PmConfigLoadObject(address, callerIpiMask);
+	if (NULL != master->remapAddr) {
+		configAddr = master->remapAddr(address);
+	}
+
+	status = PmConfigLoadObject(configAddr, callerIpiMask);
 	/*
 	 * Respond using the saved IPI mask of the caller (master's IPI mask
 	 * may change after setting the configuration)
