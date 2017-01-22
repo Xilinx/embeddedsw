@@ -149,6 +149,8 @@ extern PmProc pmRpuProcs_g[PM_PROC_RPU_MAX];
  ********************************************************************/
 int PmProcFsm(PmProc* const proc, const PmProcEvent event);
 
+void PmProcClearConfig(PmNode* const procNode);
+
 /**
  * PmProcIsForcedOff() - Check whether given processor is in forced off state
  */

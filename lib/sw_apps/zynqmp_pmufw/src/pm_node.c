@@ -139,7 +139,7 @@ static PmNodeCollection pmNodesColl[] = {
 	{
 		DEFINE_NODE_COLLECTION(pmNodeProcCollection),
 		.key = PM_TYPE_PROC,
-		.clearConfig = NULL,
+		.clearConfig = PmProcClearConfig,
 	}, {
 		DEFINE_NODE_COLLECTION(pmNodePowerCollection),
 		.key = PM_TYPE_POWER,

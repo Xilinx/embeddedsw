@@ -600,6 +600,24 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 	return status;
 }
 
+/**
+ * PmProcClearConfig() - Clear configuration of the processor node
+ * @procNode    Processor node
+ */
+void PmProcClearConfig(PmNode* const procNode)
+{
+	PmProc* const proc = (PmProc*)procNode->derived;
+
+	proc->latencyReq = MAX_LATENCY;
+	proc->resumeAddress = 0ULL;
+
+	/* Disable wake requests in GPI1 */
+	DISABLE_WAKE(proc->wakeEnableMask);
+
+	/* Disable wfi requests in GPI2 */
+	DISABLE_WFI(proc->wfiEnableMask);
+}
+
 /* NodeOps for all processors */
 static const PmNodeOps pmProcOps = {
 	.sleep = PmProcSleep,
