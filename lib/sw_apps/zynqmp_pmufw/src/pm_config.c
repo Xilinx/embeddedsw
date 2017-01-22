@@ -36,6 +36,7 @@
 #include "pm_master.h"
 #include "pm_slave.h"
 #include "pm_reset.h"
+#include "pm_requirement.h"
 
 typedef int (*const PmConfigSectionHandler)(u32* const addr);
 
@@ -235,6 +236,54 @@ done:
 }
 
 /**
+ * PmConfigPreallocForMaster() - Process preallocation for the master
+ * @master      Master whose preallocated slaves are to be processed
+ * @addr        Start address of the prealloc subsection in the configuration
+ *              object
+ * @return      XST_SUCCESS if preallocated slaves are processed correctly,
+ *              XST_FAILURE otherwise
+ */
+static int PmConfigPreallocForMaster(const PmMaster* const master,
+				     u32* const addr)
+{
+	int status = XST_SUCCESS;
+	u32 i, preallocCnt;
+
+	preallocCnt = PmConfigReadNext(addr);
+	for (i = 0U; i < preallocCnt; i++) {
+		u32 nodeId, flags, currReq, defReq;
+		PmSlave* slave;
+		PmRequirement* req;
+
+		/* Get slave by node ID */
+		nodeId = PmConfigReadNext(addr);
+		slave = PmNodeGetSlave(nodeId);
+		if (NULL == slave) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		/* Get the requirement structure for master/slave pair */
+		req = PmRequirementGet(master, slave);
+		if (NULL == req) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		flags = PmConfigReadNext(addr);
+		currReq = PmConfigReadNext(addr);
+		defReq = PmConfigReadNext(addr);
+		status = PmRequirementSetConfig(req, flags, currReq, defReq);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+
+done:
+	return status;
+}
+
+/**
  * PmConfigPreallocSectionHandler() - Read and process section containing
  *              information about the preallocated slaves
  * @addr        Start address of the section in configuration object
@@ -246,6 +295,29 @@ static int PmConfigPreallocSectionHandler(u32* const addr)
 {
 	int status = XST_SUCCESS;
 
+	u32 i, mastersCnt;
+
+	mastersCnt = PmConfigReadNext(addr);
+
+	for (i = 0U; i < mastersCnt; i++) {
+		u32 ipiMask;
+		PmMaster* master;
+
+		/* Get the master by specified IPI mask */
+		ipiMask = PmConfigReadNext(addr);
+		master = PmGetMasterByIpiMask(ipiMask);
+		if (NULL == master) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		status = PmConfigPreallocForMaster(master, addr);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+
+done:
 	return status;
 }
 

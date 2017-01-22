@@ -346,3 +346,42 @@ PmRequirement* PmRequirementGet(const PmMaster* const master,
 
 	return req;
 }
+
+/**
+ * PmRequirementSetConfig() - Set requirement configuration
+ * @req         Requirement structure to configure
+ * @flags       Flags to configure (is the slave currently used by the master)
+ * @currReq     Current requirements of the master
+ * @defaultReq  Default requirement of the master
+ *
+ * @return      XST_SUCCESS if requirements are configured properly,
+ *              XST_FAILURE otherwise
+ */
+int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
+			   const u32 currReq, const u32 defaultReq)
+{
+	int status;
+
+	status = PmCheckCapabilities(req->slave, currReq);
+	if (XST_SUCCESS != status) {
+		status = XST_FAILURE;
+		goto done;
+	}
+
+	status = PmCheckCapabilities(req->slave, defaultReq);
+	if (XST_SUCCESS != status) {
+		status = XST_FAILURE;
+		goto done;
+	}
+
+	if (0U != (PM_MASTER_USING_SLAVE_MASK & flags)) {
+		req->info |= PM_MASTER_USING_SLAVE_MASK;
+	}
+	req->defaultReq = defaultReq;
+	req->currReq = currReq;
+	req->nextReq = currReq;
+	req->latencyReq = MAX_LATENCY;
+
+done:
+	return status;
+}
