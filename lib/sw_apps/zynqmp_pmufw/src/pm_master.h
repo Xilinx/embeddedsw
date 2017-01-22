@@ -184,9 +184,6 @@ PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 /* Notify master about its processor state change */
 int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 
-/* Call when FPD goes down to enable GIC Proxy interrupts */
-void PmEnableProxyWake(PmMaster* const master);
-
 void PmMasterInit(void);
 void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg);
 void PmMasterClearConfig(void);
