@@ -48,6 +48,9 @@
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
+#define DEFINE_PM_PROCS(c)	.procs = (c), \
+				.procsCnt = ARRAY_SIZE(c)
+
 static PmMaster* pmMasterHead = NULL;
 
 static const PmSlave* pmApuMemories[] = {
@@ -187,9 +190,15 @@ static u32 PmMasterRpu1RemapAddr(const u32 address)
 	return remapAddr;
 }
 
+static PmProc* pmMasterApuProcs[] = {
+	&pmProcApu0_g,
+	&pmProcApu1_g,
+	&pmProcApu2_g,
+	&pmProcApu3_g,
+};
+
 PmMaster pmMasterApu_g = {
-	.procs = pmApuProcs_g,
-	.procsCnt = PM_PROC_APU_MAX,
+	DEFINE_PM_PROCS(pmMasterApuProcs),
 	.wakeProc = NULL,
 	.nid = NODE_APU,
 	.ipiMask = IPI_PMU_0_IER_APU_MASK,
@@ -209,10 +218,13 @@ PmMaster pmMasterApu_g = {
 	.remapAddr = NULL,
 };
 
+static PmProc* pmMasterRpuProcs[] = {
+	&pmProcRpu0_g,
+};
+
 /* RPU in lockstep mode */
 PmMaster pmMasterRpu_g = {
-	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
-	.procsCnt = 1U,
+	DEFINE_PM_PROCS(pmMasterRpuProcs),
 	.wakeProc = NULL,
 	.nextMaster = NULL,
 	.nid = NODE_RPU,
@@ -232,10 +244,13 @@ PmMaster pmMasterRpu_g = {
 	.remapAddr = PmMasterRpuRemapAddr,
 };
 
+static PmProc* pmMasterRpu0Procs[] = {
+	&pmProcRpu0_g,
+};
+
 /* RPU in split mode can have 2 masters: RPU_0 and RPU_1 */
 PmMaster pmMasterRpu0_g = {
-	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
-	.procsCnt = 1U,
+	DEFINE_PM_PROCS(pmMasterRpu0Procs),
 	.wakeProc = NULL,
 	.nextMaster = NULL,
 	.nid = NODE_RPU_0,
@@ -255,9 +270,12 @@ PmMaster pmMasterRpu0_g = {
 	.remapAddr = PmMasterRpu0RemapAddr,
 };
 
+static PmProc* pmMasterRpu1Procs[] = {
+	&pmProcRpu1_g,
+};
+
 PmMaster pmMasterRpu1_g = {
-	.procs = &pmRpuProcs_g[PM_PROC_RPU_1],
-	.procsCnt = 1U,
+	DEFINE_PM_PROCS(pmMasterRpu1Procs),
 	.wakeProc = NULL,
 	.nid = NODE_RPU_1,
 	.ipiMask = 0U,
@@ -323,7 +341,7 @@ void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg)
 
 	/* Update pointers of processors to the master */
 	for (i = 0U; i < mst->procsCnt; i++) {
-		mst->procs[i].master = mst;
+		mst->procs[i]->master = mst;
 	}
 }
 
@@ -398,8 +416,8 @@ PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
 	PmProc *proc = NULL;
 
 	for (i = 0U; i < master->procsCnt; i++) {
-		if (nodeId == master->procs[i].node.nodeId) {
-			proc = &master->procs[i];
+		if (nodeId == master->procs[i]->node.nodeId) {
+			proc = master->procs[i];
 		}
 	}
 
@@ -428,8 +446,8 @@ PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 		}
 
 		for (i = 0U; i < mst->procsCnt; i++) {
-			if (nodeId == mst->procs[i].node.nodeId) {
-				proc = &mst->procs[i];
+			if (nodeId == mst->procs[i]->node.nodeId) {
+				proc = mst->procs[i];
 				goto done;
 			}
 		}
@@ -456,8 +474,8 @@ PmProc* PmGetProcByWfiStatus(const u32 mask)
 		u32 p;
 
 		for (p = 0U; p < mst->procsCnt; p++) {
-			if (0U != (mask & mst->procs[p].wfiStatusMask)) {
-				proc = &mst->procs[p];
+			if (0U != (mask & mst->procs[p]->wfiStatusMask)) {
+				proc = mst->procs[p];
 				goto done;
 			}
 		}
@@ -483,8 +501,8 @@ PmProc* PmGetProcByWakeStatus(const u32 mask)
 		u32 p;
 
 		for (p = 0U; p < mst->procsCnt; p++) {
-			if (0U != (mask & mst->procs[p].wakeStatusMask)) {
-				proc = &mst->procs[p];
+			if (0U != (mask & mst->procs[p]->wakeStatusMask)) {
+				proc = mst->procs[p];
 				goto done;
 			}
 		}
@@ -571,8 +589,8 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response)
 
 	if (REQUEST_ACK_NON_BLOCKING == mst->suspendRequest.acknowledge) {
 		PmAcknowledgeCb(mst->suspendRequest.initiator,
-				mst->procs->node.nodeId, response,
-				mst->procs->node.currState);
+				mst->procs[0]->node.nodeId, response,
+				mst->procs[0]->node.currState);
 	} else if (REQUEST_ACK_BLOCKING == mst->suspendRequest.acknowledge) {
 		IPI_RESPONSE1(mst->ipiMask, response);
 	} else {
@@ -598,12 +616,12 @@ static bool PmMasterLastProcSuspending(const PmMaster* const master)
 	u32 i;
 
 	for (i = 0U; i < master->procsCnt; i++) {
-		if (NODE_IS_OFF(&master->procs[i].node)) {
+		if (NODE_IS_OFF(&master->procs[i]->node)) {
 			/* Count how many processors is down */
 			sleeping++;
 		} else {
 			/* Assume the one processor is suspending */
-			status = PmProcIsSuspending(&master->procs[i]);
+			status = PmProcIsSuspending(master->procs[i]);
 		}
 	}
 
@@ -628,7 +646,7 @@ static bool PmMasterAllProcsDown(const PmMaster* const master)
 	u32 i;
 
 	for (i = 0U; i < master->procsCnt; i++) {
-		if (false == NODE_IS_OFF(&master->procs[i].node)) {
+		if (false == NODE_IS_OFF(&master->procs[i]->node)) {
 			status = false;
 		}
 	}
@@ -714,7 +732,7 @@ int PmMasterWake(const PmMaster* const mst)
 	}
 
 	if (NULL == proc) {
-		proc = &mst->procs[0];
+		proc = mst->procs[0];
 	}
 	status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);
 

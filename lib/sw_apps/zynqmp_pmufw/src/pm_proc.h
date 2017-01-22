@@ -44,16 +44,6 @@ typedef u8 PmProcEvent;
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* Used for designated initialization */
-#define PM_PROC_APU_0   0U
-#define PM_PROC_APU_1   1U
-#define PM_PROC_APU_2   2U
-#define PM_PROC_APU_3   3U
-#define PM_PROC_APU_MAX 4U
-
-#define PM_PROC_RPU_0   0U
-#define PM_PROC_RPU_1   1U
-#define PM_PROC_RPU_MAX 2U
 
 #define DISABLE_WFI(mask)   XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), ~(mask));
 
@@ -141,8 +131,12 @@ typedef struct PmProc {
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
-extern PmProc pmApuProcs_g[PM_PROC_APU_MAX];
-extern PmProc pmRpuProcs_g[PM_PROC_RPU_MAX];
+extern PmProc pmProcApu0_g;
+extern PmProc pmProcApu1_g;
+extern PmProc pmProcApu2_g;
+extern PmProc pmProcApu3_g;
+extern PmProc pmProcRpu0_g;
+extern PmProc pmProcRpu1_g;
 
 /*********************************************************************
  * Function declarations

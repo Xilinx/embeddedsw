@@ -129,7 +129,7 @@ typedef struct {
  */
 typedef struct PmMaster {
 	PmSuspendRequest suspendRequest;
-	PmProc* const procs;
+	PmProc** const procs;
 	PmProc* wakeProc;
 	PmRequirement* reqs;
 	PmMaster* nextMaster;

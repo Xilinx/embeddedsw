@@ -63,12 +63,12 @@ typedef struct {
 
 /* Collection of processor nodes */
 static PmNode* pmNodeProcCollection[] = {
-	&pmApuProcs_g[PM_PROC_APU_0].node,
-	&pmApuProcs_g[PM_PROC_APU_1].node,
-	&pmApuProcs_g[PM_PROC_APU_2].node,
-	&pmApuProcs_g[PM_PROC_APU_3].node,
-	&pmRpuProcs_g[PM_PROC_RPU_0].node,
-	&pmRpuProcs_g[PM_PROC_RPU_1].node,
+	&pmProcApu0_g.node,
+	&pmProcApu1_g.node,
+	&pmProcApu2_g.node,
+	&pmProcApu3_g.node,
+	&pmProcRpu0_g.node,
+	&pmProcRpu1_g.node,
 };
 
 /* Collection of power nodes */

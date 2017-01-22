@@ -332,15 +332,15 @@ done:
 
 /* Children array definitions */
 static PmNode* pmApuChildren[] = {
-	&pmApuProcs_g[PM_PROC_APU_0].node,
-	&pmApuProcs_g[PM_PROC_APU_1].node,
-	&pmApuProcs_g[PM_PROC_APU_2].node,
-	&pmApuProcs_g[PM_PROC_APU_3].node,
+	&pmProcApu0_g.node,
+	&pmProcApu1_g.node,
+	&pmProcApu2_g.node,
+	&pmProcApu3_g.node,
 };
 
 static PmNode* pmRpuChildren[] = {
-	&pmRpuProcs_g[PM_PROC_RPU_0].node,
-	&pmRpuProcs_g[PM_PROC_RPU_1].node,
+	&pmProcRpu0_g.node,
+	&pmProcRpu1_g.node,
 	&pmSlaveTcm0A_g.slv.node,
 	&pmSlaveTcm0B_g.slv.node,
 	&pmSlaveTcm1A_g.slv.node,
