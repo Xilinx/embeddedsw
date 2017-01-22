@@ -997,6 +997,14 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 	u32 setAddress;
 	u64 address;
 
+	/* If the object is not loaded only APIs below can be processed */
+	if (false == PmConfigObjectIsLoaded()) {
+		if ((PM_GET_API_VERSION != pload[0]) &&
+		    (PM_SET_CONFIGURATION != pload[0])) {
+			goto done;
+		}
+	}
+
 	switch (pload[0]) {
 	case PM_SELF_SUSPEND:
 		address = ((u64) pload[5]) << 32ULL;
@@ -1083,6 +1091,8 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 				    NODE_UNKNOWN, XST_INVALID_VERSION, 0);
 		break;
 	}
+done:
+	return;
 }
 
 /**

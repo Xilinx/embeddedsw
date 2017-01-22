@@ -59,6 +59,8 @@ static int PmConfigSetConfigSectionHandler(u32* const addr);
 /* Size in bytes of one data field in configuration object */
 #define PM_CONFIG_WORD_SIZE	4U
 
+#define PM_CONFIG_OBJECT_LOADED	0x1U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -96,6 +98,33 @@ static PmConfigSection pmConfigSections[] = {
 		.handler = PmConfigSetConfigSectionHandler,
 	},
 };
+
+/**
+ * PmConfig - Configuration object data
+ * @flags       Flags: bit(0) - set if the configuration object is loaded
+ */
+typedef struct {
+	u8 flags;
+} PmConfig;
+
+/*
+ * The first configuration object can be loaded only by APU or RPU_0. Later,
+ * the loading depends on the permissions specified in the set config section
+ * in the provided object. If zero permissions are given, the loading of
+ * configuration is locked-down.
+ */
+static PmConfig pmConfig = {
+	.flags = 0U,
+};
+
+/**
+ * PmConfigObjectIsLoaded() - Check if the configuration object is loaded
+ * @return	True if the object is loaded, false otherwise
+ */
+inline bool PmConfigObjectIsLoaded(void)
+{
+	return 0U != (pmConfig.flags & PM_CONFIG_OBJECT_LOADED);
+}
 
 /**
  * PmConfigReadNext() - Read the next word from configuration object
@@ -283,5 +312,10 @@ int PmConfigLoadObject(const u32 address)
 	}
 
 done:
+	if (XST_SUCCESS == status) {
+		pmConfig.flags |= PM_CONFIG_OBJECT_LOADED;
+	} else {
+		pmConfig.flags &= ~PM_CONFIG_OBJECT_LOADED;
+	}
 	return status;
 }

@@ -36,11 +36,14 @@
 #define PM_CONFIG_H_
 
 #include "xil_types.h"
+#include "pm_common.h"
 
 /*********************************************************************
  * Function declarations
  ********************************************************************/
 
 int PmConfigLoadObject(const u32 address);
+
+bool PmConfigObjectIsLoaded(void);
 
 #endif
