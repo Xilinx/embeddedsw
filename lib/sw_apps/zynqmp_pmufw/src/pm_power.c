@@ -964,3 +964,16 @@ int PmPowerRelease(const PmMaster* const master, PmPower* const power)
 done:
 	return status;
 }
+
+/**
+ * PmPowerClearConfig() - Clear configuration of the power node
+ * @powerNode   Pointer to the power node
+ */
+void PmPowerClearConfig(PmNode* const powerNode)
+{
+	PmPower* const power = (PmPower*)powerNode->derived;
+
+	power->reqPerms = 0U;
+	power->forcePerms = 0U;
+	power->requests = 0U;
+}

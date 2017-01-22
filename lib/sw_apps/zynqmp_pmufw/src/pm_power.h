@@ -92,6 +92,8 @@ extern PmPower pmPowerDomainPld_g;
  * Function declarations
  ********************************************************************/
 void PmOpportunisticSuspend(PmPower* const power);
+void PmPowerClearConfig(PmNode* const powerNode);
+
 int PmTriggerPowerUp(PmPower* const power);
 int PmForceDownTree(PmPower* const root);
 
