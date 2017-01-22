@@ -121,6 +121,8 @@ typedef struct {
  * @suspendRequest Captures info about the ongoing suspend request (this master
  *              is the target which suppose to suspend). At any moment only
  *              one suspend request can be active for one target/master
+ * @suspendTimeout Timeout which specifies how much time the master has to
+ *              complete suspend, otherwise it is considered to be unresponsive
  * @state       State of the master which is a combination of the states of its
  *              processors and also depends on the order in which processors
  *              enter their states.
@@ -136,6 +138,7 @@ typedef struct PmMaster {
 	const u32 ipiMask;
 	u32 wakePerms;
 	u32 suspendPerms;
+	u32 suspendTimeout;
 	PmNodeId nid;
 	const u8 procsCnt;
 	u8 state;
