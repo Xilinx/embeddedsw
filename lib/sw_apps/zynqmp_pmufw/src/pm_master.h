@@ -137,9 +137,6 @@ typedef struct {
  *              needs to be evaluated (implicit scheduling of requirements)
  * @memories    Pointer to the array of memories used by the master
  * @ipiMask     Mask dedicated to the master in IPI registers
- * @pmuBuffer   IPI buffer address into which PMU can write (PMU's buffer)
- * @buffer      IPI buffer address into which this master can write
- *              (master's buffer)
  * @nid         Placeholder nodeId - used to encode request suspend for group of
  *              processors sharing the same communication channel. When PM
  *              receives this nid as request suspend argument, it initiates
@@ -168,8 +165,6 @@ typedef struct PmMaster {
 	int (*const evalState)(const u32 state);
 	const PmSlave** const memories;
 	const u32 ipiMask;
-	const u32 pmuBuffer;
-	const u32 buffer;
 	u32 permissions;
 	PmNodeId nid;
 	const u8 procsCnt;
