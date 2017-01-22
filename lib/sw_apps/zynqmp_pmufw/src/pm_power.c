@@ -497,7 +497,7 @@ PmPower pmPowerIslandRpu_g = {
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
 	.forcePerms = IPI_PMU_0_IER_APU_MASK,
-	.permissions = IPI_PMU_0_IER_APU_MASK,
+	.reqPerms = IPI_PMU_0_IER_APU_MASK,
 	.requests = 0U,
 };
 
@@ -523,7 +523,7 @@ PmPower pmPowerIslandApu_g = {
 	.pwrDnLatency = 0,
 	.pwrUpLatency = 0,
 	.forcePerms = IPI_PMU_0_IER_RPU_0_MASK,
-	.permissions = 0U,
+	.reqPerms = 0U,
 	.requests = 0U,
 };
 
@@ -543,7 +543,7 @@ PmPower pmPowerDomainFpd_g = {
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 	.forcePerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
-	.permissions = 0U,
+	.reqPerms = 0U,
 	.requests = 0U,
 };
 
@@ -563,7 +563,7 @@ PmPower pmPowerDomainLpd_g = {
 	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 	.forcePerms = 0U,
-	.permissions = 0U,
+	.reqPerms = 0U,
 	.requests = 0U,
 };
 
@@ -585,7 +585,7 @@ PmPower pmPowerDomainPld_g = {
 	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 	.forcePerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK |
 		      IPI_PMU_0_IER_RPU_1_MASK,
-	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK |
+	.reqPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK |
 		       IPI_PMU_0_IER_RPU_1_MASK,
 	.requests = 0U,
 };
@@ -897,7 +897,7 @@ int PmPowerRequest(const PmMaster* const master, PmPower* const power)
 	int status = XST_SUCCESS;
 
 	/* Check whether the master is allowed to request the power node */
-	if (0U == (master->ipiMask & power->permissions)) {
+	if (0U == (master->ipiMask & power->reqPerms)) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -937,7 +937,7 @@ int PmPowerRelease(const PmMaster* const master, PmPower* const power)
 	int status = XST_SUCCESS;
 
 	/* Check whether the master has permissions for the power node ops */
-	if (0U == (master->ipiMask & power->permissions)) {
+	if (0U == (master->ipiMask & power->reqPerms)) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
