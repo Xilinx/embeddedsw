@@ -50,12 +50,16 @@
 #include "apu.h"
 #include "pm_clock.h"
 #include "rpu.h"
+#include "xpfw_util.h"
 
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
 
 #define DEFINE_PM_POWER_INFO(i)	.powerInfo = (i), \
 				.powerInfoCnt = ARRAY_SIZE(i)
+
+#define PM_POWER_SUPPLYCHECK_TIMEOUT	100000U
+
 /*
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
  * context. PLLs have separate logic, which is part of PmSlavePll (pm_pll.h/c)
@@ -83,6 +87,38 @@ static PmRegisterContext pmFpdContext[] = {
 	{ .addr = CRF_APB_RST_FPD_APU },
 	{ .addr = APU_PWRCTL },
 };
+
+/**
+ * PmPowerSupplyCheck() - Wrapper for PMU-ROM power supply check handler
+ * @RomHandler  Default PMU-ROM handler for power supply check
+ *
+ * @return      The PMU-ROM handler's return value
+ *
+ * @note        The wrapper just introduces a timeout based on counting.
+ *              This function should be replaced by either Sysmon-based check
+ *              or custom/board specific implementation.
+ */
+static u32 PmPowerSupplyCheck(XpbrServHndlr_t RomHandler)
+{
+	int status;
+	u32 var = 0U;
+
+	/* Cheat compiler to not optimize timeout based on counting */
+	XPfw_UtilPollForMask((u32)&var, ~var, PM_POWER_SUPPLYCHECK_TIMEOUT);
+
+	status = RomHandler();
+
+	return status;
+}
+
+/**
+ * PmPowerInit() - Initialize power (call only upon boot)
+ */
+void PmPowerInit(void)
+{
+	XpbrServExtTbl[XPBR_SERV_EXT_FPD_SUPPLYCHECK] = PmPowerSupplyCheck;
+	XpbrServExtTbl[XPBR_SERV_EXT_PLD_SUPPLYCHECK] = PmPowerSupplyCheck;
+}
 
 /**
  * PmFpdSaveContext() - Save context of CRF_APB module due to powering down FPD

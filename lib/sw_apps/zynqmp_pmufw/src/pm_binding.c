@@ -92,6 +92,7 @@ void XPfw_PmInit(void)
 	PmMasterInit();
 
 	PmClockInitList();
+	PmPowerInit();
 
 	val = XPfw_Read32(PM_INIT_SYNC_REGISTER);
 	if (PM_INIT_COMPLETED_KEY == val) {

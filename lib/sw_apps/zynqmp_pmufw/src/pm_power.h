@@ -93,6 +93,7 @@ extern PmPower pmPowerDomainPld_g;
  ********************************************************************/
 void PmOpportunisticSuspend(PmPower* const power);
 void PmPowerClearConfig(PmNode* const powerNode);
+void PmPowerInit(void);
 
 int PmTriggerPowerUp(PmPower* const power);
 int PmForceDownTree(PmPower* const root);
