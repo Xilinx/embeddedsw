@@ -48,6 +48,7 @@
 #include "xilfpga_pcap.h"
 #include "pm_clock.h"
 #include "pm_requirement.h"
+#include "pm_config.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -850,7 +851,17 @@ done:
  */
 static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 {
-	PmDbg("(0x%lx) %s: not implemented\r\n", address, PmStrNode(master->nid));
+	int status;
+	u32 callerIpiMask = master->ipiMask;
+
+	PmDbg("(0x%lx) %s\r\n", address, PmStrNode(master->nid));
+
+	status = PmConfigLoadObject(address);
+	/*
+	 * Respond using the saved IPI mask of the caller (master's IPI mask
+	 * may change after setting the configuration)
+	 */
+	IPI_RESPONSE1(callerIpiMask, status);
 }
 
 /**
