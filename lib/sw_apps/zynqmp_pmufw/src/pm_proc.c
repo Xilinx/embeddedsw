@@ -410,7 +410,7 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	DISABLE_WFI(proc->wfiEnableMask);
 	DISABLE_WAKE(proc->wakeEnableMask);
 
-	if (XST_SUCCESS == status) {
+	if ((XST_SUCCESS == status) && (NULL != proc->master)) {
 		status = PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
 	}
 
