@@ -34,8 +34,6 @@
 #define XPFW_CONFIG_H_
 
 /************* User Configurable Options ***************/
-/* Define DEBUG_MODE to enable debug prints on PS_UART */
-#define DEBUG_MODE
 
 /* PMU clock frequency in Hz */
 #ifndef XPFW_CFG_PMU_CLK_FREQ
