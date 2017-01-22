@@ -97,9 +97,6 @@ void XPfw_PmInit(void)
 		XPfw_Write32(PM_INIT_SYNC_REGISTER, 0U);
 		PmInit(NULL);
 	}
-
-	/* Setup initial slaves for masters */
-	PmSetupInitialMasterRequirements();
 }
 
 /**
