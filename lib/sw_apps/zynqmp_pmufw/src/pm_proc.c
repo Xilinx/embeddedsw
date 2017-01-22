@@ -621,6 +621,48 @@ static void PmProcClearConfig(PmNode* const procNode)
 	DISABLE_WFI(proc->wfiEnableMask);
 }
 
+/**
+ * PmProcGetWakeUpLatency() - Get wake-up latency of the processor node
+ * @node	Processor node whose wake-up latency should be get
+ * @lat		Pointer to the location where the latency value should be stored
+ *
+ * @return	XST_SUCCESS if latency value is stored in *lat, XST_NO_FEATURE
+ *		if the latency depends on power parent which has no method
+ *		(getWakeUpLatency) to provide latency information
+ */
+static int PmProcGetWakeUpLatency(const PmNode* const node, u32* const lat)
+{
+	PmProc* const proc = (PmProc*)node->derived;
+	PmNode* const powerNode = &node->parent->node;
+	int status = XST_SUCCESS;
+	u32 latency;
+
+	*lat = 0U;
+	if (PM_PROC_STATE_ACTIVE == node->currState) {
+		goto done;
+	}
+
+	*lat = proc->pwrUpLatency;
+	if (PM_PROC_STATE_SUSPENDING == proc->node.currState) {
+		*lat += proc->pwrDnLatency;
+		goto done;
+	}
+
+	if (NULL == powerNode->class->getWakeUpLatency) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	status = powerNode->class->getWakeUpLatency(powerNode, &latency);
+	if (XST_SUCCESS == status) {
+		*lat += latency;
+	}
+
+done:
+	return status;
+
+}
+
 /* NodeOps for all processors */
 static const PmNodeOps pmProcOps = {
 	.sleep = PmProcSleep,
@@ -815,4 +857,5 @@ PmNodeClass pmNodeClassProc_g = {
 	DEFINE_NODE_BUCKET(pmNodeProcBucket),
 	.id = NODE_CLASS_PROC,
 	.clearConfig = PmProcClearConfig,
+	.getWakeUpLatency = PmProcGetWakeUpLatency,
 };

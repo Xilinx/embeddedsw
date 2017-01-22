@@ -130,7 +130,6 @@ bool PmSlaveRequiresPower(const PmSlave* const slave);
 
 int PmSlaveVerifyRequest(const PmSlave* const slave);
 
-u32 PmGetLatencyFromState(const PmSlave* const slave, const PmStateId state);
 u32 PmSlaveGetUsersMask(const PmSlave* const slave);
 
 u32 PmSlaveGetUsageStatus(const PmSlave* const slave,

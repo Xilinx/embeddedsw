@@ -224,45 +224,6 @@ done:
 }
 
 /**
- * PmNodeGetWakeLatency() - Get wake-up latency of a node
- * @node       Pointer to the node
- *
- * @returns    Wake-up latency for the node
- */
-u32 PmNodeGetWakeLatency(PmNode* const nodePtr)
-{
-	u32 result = 0U;
-	PmPower* parent = nodePtr->parent;
-	const PmPower* power;
-	const PmSlave* slave;
-	const PmProc* proc;
-
-	if (true == NODE_IS_SLAVE(nodePtr)) {
-		slave = (PmSlave*)nodePtr->derived;
-		result = PmGetLatencyFromState(slave, nodePtr->currState);
-	} else if ((true == NODE_IS_PROC(nodePtr)) &&
-		   (true == NODE_IS_OFF(nodePtr))) {
-		proc = (PmProc*)nodePtr->derived;
-		result = proc->pwrUpLatency;
-	} else if ((true == NODE_IS_POWER(nodePtr)) &&
-		   (true == NODE_IS_OFF(nodePtr))) {
-		power = (PmPower*)nodePtr->derived;
-		result = power->pwrUpLatency;
-	}
-
-	/*
-	 * In case when parent power islands/domains are turned off,
-	 * hierarchically account its powerUp latencies
-	 */
-	while ((NULL != parent) && (true == NODE_IS_OFF(&parent->node))) {
-		result += parent->pwrUpLatency;
-		parent = parent->node.parent;
-	}
-
-	return result;
-}
-
-/**
  * PmNodeDependsOnClock() - Check whether node currently depends on its clock
  */
 bool PmNodeDependsOnClock(const PmNode* const node)

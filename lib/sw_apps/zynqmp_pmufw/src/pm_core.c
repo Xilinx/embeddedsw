@@ -930,7 +930,11 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 		PmDbg("(%s) WARNING: Temperature unsupported\r\n", PmStrNode(node));
 		break;
 	case PM_OPCHAR_TYPE_LATENCY:
-		result = PmNodeGetWakeLatency(nodePtr);
+		if (NULL == nodePtr->class->getWakeUpLatency) {
+			status = XST_NO_FEATURE;
+			goto done;
+		}
+		status = nodePtr->class->getWakeUpLatency(nodePtr, &result);
 		break;
 	default:
 		PmDbg("(%s) ERROR: Invalid type: %lu\r\n", PmStrNode(node), type);

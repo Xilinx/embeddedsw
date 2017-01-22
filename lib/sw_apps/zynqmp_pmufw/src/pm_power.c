@@ -932,6 +932,38 @@ static void PmPowerClearConfig(PmNode* const powerNode)
 	power->requests = 0U;
 }
 
+/**
+ * PmPowerGetWakeUpLatency() - Get wake-up latency of the power node
+ * @node	Power node whose wake-up latency should be get
+ * @lat		Pointer to the location where the latency value should be stored
+ *
+ * @return	XST_SUCCESS always
+ */
+static int PmPowerGetWakeUpLatency(const PmNode* const node, u32* const lat)
+{
+	PmPower* const power = (PmPower*)node->derived;
+	PmPower* parent = power->node.parent;
+
+	*lat = 0U;
+	if (PM_PWR_STATE_ON == node->currState) {
+		goto done;
+	}
+
+	*lat = power->pwrUpLatency;
+
+	/* Account latencies of powered down parents (if a parent is down) */
+	while (NULL != parent) {
+		if (PM_PWR_STATE_ON == parent->node.currState) {
+			break;
+		}
+		*lat += parent->pwrUpLatency;
+		parent = parent->node.parent;
+	}
+
+done:
+	return XST_SUCCESS;
+}
+
 /* Collection of power nodes */
 static PmNode* pmNodePowerBucket[] = {
 	&pmPowerIslandRpu_g.node,
@@ -945,4 +977,5 @@ PmNodeClass pmNodeClassPower_g = {
 	DEFINE_NODE_BUCKET(pmNodePowerBucket),
 	.id = NODE_CLASS_POWER,
 	.clearConfig = PmPowerClearConfig,
+	.getWakeUpLatency = PmPowerGetWakeUpLatency,
 };

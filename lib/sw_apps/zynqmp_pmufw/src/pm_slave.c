@@ -347,7 +347,7 @@ static u32 PmGetMinRequestedLatency(const PmSlave* const slave)
  *
  * @return      Return value for the found latency
  */
-u32 PmGetLatencyFromState(const PmSlave* const slave,
+static u32 PmGetLatencyFromState(const PmSlave* const slave,
 			  const PmStateId state)
 {
 	u32 i, latency = 0U;
@@ -679,6 +679,40 @@ static void PmSlaveClearConfig(PmNode* const slaveNode)
 	slave->flags = 0U;
 }
 
+/**
+ * PmSlaveGetWakeUpLatency() - Get wake-up latency of the slave node
+ * @node	Slave node
+ * @lat		Pointer to the location where the latency value should be stored
+ *
+ * @return	XST_SUCCESS if latency value is stored in *lat, XST_NO_FEATURE
+ *		if the latency depends on power parent which has no method
+ *		(getWakeUpLatency) to provide latency information
+ */
+static int PmSlaveGetWakeUpLatency(const PmNode* const node, u32* const lat)
+{
+	PmSlave* const slave = (PmSlave*)node->derived;
+	PmNode* const powerNode = &node->parent->node;
+	int status = XST_SUCCESS;
+	u32 latency;
+
+	*lat = PmGetLatencyFromState(slave, slave->node.currState);
+
+
+	if (NULL == powerNode->class->getWakeUpLatency) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	status = powerNode->class->getWakeUpLatency(powerNode, &latency);
+	if (XST_SUCCESS == status) {
+		*lat += latency;
+	}
+
+done:
+	return status;
+
+}
+
 /* Collection of slave nodes */
 static PmNode* pmNodeSlaveBucket[] = {
 	&pmSlaveL2_g.slv.node,
@@ -738,4 +772,5 @@ PmNodeClass pmNodeClassSlave_g = {
 	DEFINE_NODE_BUCKET(pmNodeSlaveBucket),
 	.id = NODE_CLASS_SLAVE,
 	.clearConfig = PmSlaveClearConfig,
+	.getWakeUpLatency = PmSlaveGetWakeUpLatency,
 };
