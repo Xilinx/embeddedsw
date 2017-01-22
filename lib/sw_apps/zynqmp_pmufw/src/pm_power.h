@@ -60,6 +60,8 @@
  *           structure must exist.
  * @node     Node structure of this power entity
  * @children Pointer to the array of children
+ * @powerUp  Handler for powering up the node
+ * @powerDown Handler for powering down the node
  * @pwrDnLatency Latency (in us) for transition to OFF state
  * @pwrUpLatency Latency (in us) for transition to ON state
  * @childCnt Number of childs in children array
@@ -72,6 +74,8 @@
 typedef struct PmPower {
 	PmNode node;
 	PmNode** const children;
+	int (*const powerUp)(void);
+	int (*const powerDown)(void);
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
 	u32 forcePerms;
