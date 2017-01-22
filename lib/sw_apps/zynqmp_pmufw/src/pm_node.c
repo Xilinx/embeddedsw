@@ -275,6 +275,35 @@ void PmNodeConstruct(void)
 }
 
 /**
+ * PmNodeInit() - Initialize all nodes
+ * @return	XST_SUCCESS or error code if failed to initialize a node
+ */
+int PmNodeInit(void)
+{
+	u32 i, n;
+	int status;
+	int ret = XST_SUCCESS;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
+		for (n = 0U; n < pmNodeClasses[i]->bucketSize; n++) {
+			PmNode* node = pmNodeClasses[i]->bucket[n];
+
+			if (NULL == pmNodeClasses[i]->init) {
+				continue;
+			}
+			status = pmNodeClasses[i]->init(node);
+			if (XST_SUCCESS != status) {
+				ret = XST_FAILURE;
+				PmDbg("%s failed\r\n", PmStrNode(node->nodeId));
+			}
+
+		}
+	}
+
+	return ret;
+}
+
+/**
  * PmNodeForceDown() - Force down the node
  * @node	Node to force down
  *

@@ -512,6 +512,7 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 done:
 	if (XST_SUCCESS == status) {
 		pmConfig.flags |= PM_CONFIG_OBJECT_LOADED;
+		status = PmNodeInit();
 	} else {
 		pmConfig.flags &= ~PM_CONFIG_OBJECT_LOADED;
 	}

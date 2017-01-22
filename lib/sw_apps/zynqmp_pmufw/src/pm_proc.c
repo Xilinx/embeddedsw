@@ -790,6 +790,37 @@ static int PmProcForceDown(PmNode* const node)
 	return status;
 }
 
+/**
+ * PmProcInit() - Startup initialization of the processor node
+ * @node	Node to initialize
+ *
+ * @return	Status of initializing the node
+ */
+static int PmProcInit(PmNode* const node)
+{
+	PmProc* const proc = (PmProc*)node->derived;
+	int status = XST_SUCCESS;
+
+	PmProcDisableEvents(proc);
+
+	if (PM_PROC_STATE_ACTIVE != node->currState) {
+		goto done;
+	}
+	if (NULL != node->parent) {
+		status = PmPowerRequestParent(node);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+	if (NULL != node->clocks) {
+		status = PmClockRequest(node);
+	}
+
+done:
+	return status;
+
+}
+
 /* Power consumptions for the APU for specific states */
 static u32 PmProcPowerAPU_X[] = {
 	DEFAULT_APU_POWER_OFF,
@@ -994,4 +1025,5 @@ PmNodeClass pmNodeClassProc_g = {
 	.getWakeUpLatency = PmProcGetWakeUpLatency,
 	.getPowerData = PmNodeGetPowerInfo,
 	.forceDown = PmProcForceDown,
+	.init = PmProcInit,
 };

@@ -1095,6 +1095,33 @@ done:
 	return status;
 }
 
+/**
+ * PmPowerInit() - Initialize power node
+ * @powerNode	Power node to initialize
+ *
+ * @return	Status of initializing the node
+ */
+static int PmPowerInit(PmNode* const powerNode)
+{
+	int status = XST_SUCCESS;
+
+	if (PM_PWR_STATE_OFF == powerNode->currState) {
+		goto done;
+	}
+	if (NULL != powerNode->parent) {
+		status = PmPowerRequestParent(powerNode);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+	if (NULL != powerNode->clocks) {
+		status = PmClockRequest(powerNode);
+	}
+
+done:
+	return status;
+}
+
 /* Collection of power nodes */
 static PmNode* pmNodePowerBucket[] = {
 	&pmPowerIslandRpu_g.node,
@@ -1112,4 +1139,5 @@ PmNodeClass pmNodeClassPower_g = {
 	.getWakeUpLatency = PmPowerGetWakeUpLatency,
 	.getPowerData = PmPowerGetPowerData,
 	.forceDown = PmPowerForceDown,
+	.init = PmPowerInit,
 };

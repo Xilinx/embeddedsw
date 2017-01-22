@@ -48,6 +48,10 @@
 #include <unistd.h>
 #include "pm_gpp.h"
 
+
+#define HAS_CAPABILITIES(slavePtr, state, caps)	\
+	((caps) == ((caps) & (slavePtr)->slvFsm->states[state]))
+
 /**
  * PmGetMaxCapabilities()- Get maximum of all requested capabilities of slave
  * @slave   Slave whose maximum required capabilities should be determined
@@ -676,6 +680,36 @@ static int PmSlaveForceDown(PmNode* const node)
 	return status;
 }
 
+/**
+ * PmSlaveInit() - Initialize the slave node
+ * @node	Node to initialize
+ *
+ * @return	Status of initializing the node
+ */
+static int PmSlaveInit(PmNode* const node)
+{
+	PmSlave* const slave = (PmSlave*)node->derived;
+	int status = XST_SUCCESS;
+
+	if (NULL != node->parent) {
+		if (HAS_CAPABILITIES(slave, node->currState, PM_CAP_POWER)) {
+			status = PmPowerRequestParent(node);
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+		}
+	}
+
+	if (NULL != node->clocks) {
+		if (HAS_CAPABILITIES(slave, node->currState, PM_CAP_CLOCK)) {
+			status = PmClockRequest(node);
+		}
+	}
+
+done:
+	return status;
+}
+
 /* Collection of slave nodes */
 static PmNode* pmNodeSlaveBucket[] = {
 	&pmSlaveL2_g.slv.node,
@@ -739,4 +773,5 @@ PmNodeClass pmNodeClassSlave_g = {
 	.getWakeUpLatency = PmSlaveGetWakeUpLatency,
 	.getPowerData = PmNodeGetPowerInfo,
 	.forceDown = PmSlaveForceDown,
+	.init = PmSlaveInit,
 };
