@@ -416,80 +416,54 @@ static int PmConstrainStateByLatency(const PmSlave* const slave,
  * @slave       Slave whose state is about to be updated
  *
  * @return      Status of operation of updating slave's state.
+ *
+ * @note	A slave may not have state with zero capabilities. If that is
+ * the case and no capabilities are requested, it is put in lowest power state
+ * (state ID 0).
+ * When non-zero capabilities are requested and a selected state which has the
+ * requested capabilities doesn't satisfy the wake-up latency requirements, the
+ * first higher power state which satisfies latency requirement and has the
+ * requested capabilities is configured (in the worst case it's the highest
+ * power state).
  */
 int PmUpdateSlave(PmSlave* const slave)
 {
 	PmStateId state = 0U;
 	int status = XST_SUCCESS;
-	u32 wkupLat, minLat, latencyMargin;
-	u32 capsToSet = PmGetMaxCapabilities(slave);
-	PmPower* parent;
+	u32 wkupLat, minLat;
+	u32 caps = PmGetMaxCapabilities(slave);
 
-	if (0U != capsToSet) {
-		/*
-		 * This check has to exist because some slaves have no state
-		 * with 0 capabilities. Therefore, they are always placed in
-		 * first, lowest power state when their caps are not required.
-		 */
-
-		/* Get state that has all required capabilities */
-		status = PmGetStateWithCaps(slave, capsToSet, &state);
-	}
-
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-
-	minLat = PmGetMinRequestedLatency(slave);
-	wkupLat = PmGetLatencyFromState(slave, state);
-	if (wkupLat > minLat) {
-		/*
-		 * State does not satisfy wake-up latency requirements. Find the
-		 * first higher power state which does (in the worst case the
-		 * highest power state may be chosen)
-		 */
-		status = PmConstrainStateByLatency(slave, &state, capsToSet,
-						   minLat);
-
+	if (0U != caps) {
+		/* Find which state has the requested capabilities */
+		status = PmGetStateWithCaps(slave, caps, &state);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
 	}
 
-	if (state != slave->node.currState) {
-		/*
-		 * Change state of a slave if state with required capabilities
-		 * exists and slave is not already in that state.
-		 */
-		status = PmSlaveChangeState(slave, state);
-	} else {
-		/* Ensure that parents meet latency requirement as well */
-		parent = slave->node.parent;
-		latencyMargin = minLat;
-
-		while ((NULL != parent) && (true == NODE_IS_OFF(&parent->node))) {
-			/* Calculate remaining latency budget */
-			latencyMargin -= wkupLat;
-			wkupLat = parent->pwrUpLatency;
-			if (latencyMargin < wkupLat) {
-				/* Power up parents from this level up */
-				status = PmPowerRequestParent(&slave->node);
-				if (XST_SUCCESS != status) {
-					goto done;
-				}
-				break;
-			}
-			parent = parent->node.parent;
+	minLat = PmGetMinRequestedLatency(slave);
+	wkupLat = PmGetLatencyFromState(slave, state);
+	if (wkupLat > minLat) {
+		/* State does not satisfy latency requirement, find another */
+		status = PmConstrainStateByLatency(slave, &state, caps, minLat);
+		if (XST_SUCCESS != status) {
+			goto done;
 		}
+		wkupLat = PmGetLatencyFromState(slave, state);
 	}
 
-	/* determine the new latency margin for the parent nodes */
-	latencyMargin = slave->node.latencyMarg;
-	/* remember the remaining latency margin for upper levels to use */
-	slave->node.latencyMarg = minLat - PmGetLatencyFromState(slave, state);
-
-	/* remember the remaining latency margin for upper levels to use */
-	slave->node.latencyMarg = minLat - PmGetLatencyFromState(slave, state);
+	slave->node.latencyMarg = minLat - wkupLat;
+	if (state != slave->node.currState) {
+		status = PmSlaveChangeState(slave, state);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	} else {
+		if (!HAS_CAPABILITIES(slave, state, PM_CAP_POWER)) {
+			/* Notify power parent (changed latency requirement) */
+			status = PmPowerUpdateLatencyReq(&slave->node);
+		}
+	}
 
 done:
 	return status;
