@@ -428,6 +428,10 @@ static int PmPowerDown(PmPower* const power)
 
 	PmNodeUpdateCurrState(&power->node, PM_PWR_STATE_OFF);
 
+	if (NULL != power->node.clocks) {
+		PmClockRelease(&power->node);
+	}
+
 done:
 	PmDbg("%s\r\n", PmStrNode(power->node.nodeId));
 	return status;
@@ -456,6 +460,10 @@ static int PmPowerUp(PmPower* const power)
 
 	if (XST_SUCCESS != status) {
 		goto done;
+	}
+
+	if (NULL != power->node.clocks) {
+		status = PmClockRequest(&power->node);
 	}
 
 	PmNodeUpdateCurrState(&power->node, PM_PWR_STATE_ON);

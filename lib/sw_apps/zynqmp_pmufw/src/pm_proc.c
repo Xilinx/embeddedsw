@@ -56,6 +56,7 @@
 #include "apu.h"
 #include "rpu.h"
 #include "pm_system.h"
+#include "pm_clock.h"
 
 /* Enable/disable macros for processor's wfi event in GPI2 register */
 #define ENABLE_WFI(mask)    XPfw_RMW32(PMU_LOCAL_GPI2_ENABLE, (mask), (mask));
@@ -419,6 +420,9 @@ static int PmProcWake(PmProc* const proc)
 			goto done;
 		}
 	}
+	if (NULL != proc->node.clocks) {
+		PmClockRequest(&proc->node);
+	}
 
 	proc->restoreResumeAddr(proc);
 	status = proc->wake();
@@ -448,6 +452,9 @@ static int PmProcSleep(PmProc* const proc)
 	}
 	if (NULL != proc->node.parent) {
 		PmPowerReleaseParent(&proc->node);
+	}
+	if (NULL != proc->node.clocks) {
+		PmClockRelease(&proc->node);
 	}
 
 done:
