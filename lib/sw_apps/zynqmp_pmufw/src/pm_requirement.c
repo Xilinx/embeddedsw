@@ -75,6 +75,8 @@ static PmRequirement* PmRequirementMalloc(void)
 	if (pmReqTop < ARRAY_SIZE(pmReqData)) {
 		newReq = &pmReqData[pmReqTop];
 		pmReqTop++;
+	} else {
+		PmDbgCfg("ERROR: out of memory!\r\n");
 	}
 
 	return newReq;
@@ -365,13 +367,13 @@ int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 	status = PmCheckCapabilities(req->slave, currReq);
 	if (XST_SUCCESS != status) {
 		status = XST_FAILURE;
-		goto done;
+		goto error;
 	}
 
 	status = PmCheckCapabilities(req->slave, defaultReq);
 	if (XST_SUCCESS != status) {
 		status = XST_FAILURE;
-		goto done;
+		goto error;
 	}
 
 	if (0U != (PM_MASTER_USING_SLAVE_MASK & flags)) {
@@ -381,6 +383,11 @@ int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 	req->currReq = currReq;
 	req->nextReq = currReq;
 	req->latencyReq = MAX_LATENCY;
+	goto done;
+
+error:
+	PmDbgCfg("ERROR: Slave %s has no state with caps 0x%lx\r\n",
+		 PmStrNode(req->slave->node.nodeId), currReq);
 
 done:
 	return status;
