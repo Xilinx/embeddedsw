@@ -399,7 +399,7 @@ static void PmReleaseNode(const PmMaster *master,
 
 	/* Release requirements */
 	status = PmRequirementUpdate(masterReq, 0U);
-	masterReq->info &= ~PM_MASTER_USING_SLAVE_MASK;
+	masterReq->info = 0U;
 
 	usage = PmSlaveGetUsersMask(masterReq->slave);
 	if (0U == usage) {
@@ -838,6 +838,7 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 	}
 
 	masterReq->latencyReq = latency;
+	masterReq->info |= PM_MASTER_SET_LATENCY_REQ;
 	status = PmUpdateSlave(masterReq->slave);
 
 done:

@@ -328,7 +328,7 @@ static u32 PmGetMinRequestedLatency(const PmSlave* const slave)
 	u32 minLatency = MAX_LATENCY;
 
 	while (NULL != req) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
+		if (0U != (PM_MASTER_SET_LATENCY_REQ & req->info)) {
 			if (minLatency > req->latencyReq) {
 				minLatency = req->latencyReq;
 			}

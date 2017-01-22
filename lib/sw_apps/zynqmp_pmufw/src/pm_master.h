@@ -54,6 +54,7 @@ typedef struct PmRequirement PmRequirement;
 /* Pm Master request info masks */
 #define PM_MASTER_WAKEUP_REQ_MASK   0x1U
 #define PM_MASTER_USING_SLAVE_MASK  0x2U
+#define PM_MASTER_SET_LATENCY_REQ   0x4U
 
 /* Maximum number of masters currently supported */
 #define PM_MASTER_MAX               3U
