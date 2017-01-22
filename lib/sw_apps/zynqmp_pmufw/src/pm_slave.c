@@ -773,4 +773,5 @@ PmNodeClass pmNodeClassSlave_g = {
 	.id = NODE_CLASS_SLAVE,
 	.clearConfig = PmSlaveClearConfig,
 	.getWakeUpLatency = PmSlaveGetWakeUpLatency,
+	.getPowerData = PmNodeGetPowerInfo,
 };

@@ -123,6 +123,7 @@ typedef struct PmNode {
  * PmNodeClass - Node class models common behavior for a collection of nodes
  * @clearConfig		Clear current configuration of the node
  * @getWakeUpLatency	Get wake-up latency of the node
+ * @getPowerData	Get power consumption of the node
  * @bucket		Pointer to the array of nodes from the class
  * @bucketSize		Number of nodes in the bucket
  * @id			Nodes' class/type ID
@@ -130,6 +131,7 @@ typedef struct PmNode {
 typedef struct PmNodeClass {
 	void (*const clearConfig)(PmNode* const node);
 	int (*const getWakeUpLatency)(const PmNode* const node, u32* const lat);
+	int (*const getPowerData)(const PmNode* const node, u32* const data);
 	PmNode** const bucket;
 	const u32 bucketSize;
 	const u8 id;
@@ -146,7 +148,7 @@ PmProc* PmNodeGetProc(const u32 nodeId);
 void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
 void PmNodeClearConfig(void);
 
-u32 PmNodeGetPowerConsumption(PmNode* const node, const PmStateId state);
+int PmNodeGetPowerInfo(const PmNode* const node, u32* const data);
 
 bool PmNodeDependsOnClock(const PmNode* const node);
 

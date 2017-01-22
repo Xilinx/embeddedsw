@@ -858,4 +858,5 @@ PmNodeClass pmNodeClassProc_g = {
 	.id = NODE_CLASS_PROC,
 	.clearConfig = PmProcClearConfig,
 	.getWakeUpLatency = PmProcGetWakeUpLatency,
+	.getPowerData = PmNodeGetPowerInfo,
 };

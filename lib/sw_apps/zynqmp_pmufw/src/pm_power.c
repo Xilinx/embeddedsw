@@ -57,6 +57,134 @@
 
 #define PM_POWER_SUPPLYCHECK_TIMEOUT	100000U
 
+/**
+ * PmPowerStack() - Used to construct stack for implementing non-recursive
+ *		depth-first search in power graph
+ * @power	Power node pushed/popped from stack
+ * @index	Index of the child to be visited when the power node gets popped
+ */
+typedef struct PmPowerStack {
+	PmPower* power;
+	u8 index;
+} PmPowerStack;
+
+/**
+ * PmPowerDfs() - Captures current state of depth-first search in power graph
+ * @power	Currently visited power node
+ * @it		Iterator/index of the power's child that is currently visited
+ * @sp		Power stack pointer
+ */
+typedef struct PmPowerDfs {
+	PmPower* power;
+	u8 it;
+	u8 sp;
+} PmPowerDfs;
+
+/*
+ * Stack size is equal to the number of levels in power hierarchy. Power
+ * hierarchy has only 2 levels: power islands and domains, therefore the stack
+ * size is 2. If this changes in future the stack size should be incremented.
+ */
+static PmPowerStack pmPowerStack[2];
+static PmPowerDfs pmDfs;
+
+/**
+ * PmPowerStackPush() - Push power/index on stack
+ * @power	Power node pushed on stack
+ * @index	Index of a child which should be visited upon pop
+ */
+void PmPowerStackPush(PmPower* const power, const u8 index)
+{
+	/* Stack overflow should never happen */
+	if (ARRAY_SIZE(pmPowerStack) == pmDfs.sp) {
+		PmDbg("ERROR: stack overflow!\r\n");
+		goto done;
+	}
+	pmPowerStack[pmDfs.sp].power = power;
+	pmPowerStack[pmDfs.sp].index = index;
+	pmDfs.sp++;
+done:
+	return;
+}
+
+/**
+ * PmPowerStackPop() - Pop power/index from stack
+ * @power	Pointer to the location where to store popped power node pointer
+ * @index	Pointer to the location where to store popped index
+ */
+void PmPowerStackPop(PmPower** const power, u8* const index)
+{
+	if (0U == pmDfs.sp) {
+		/* This should never happen */
+		PmDbg("ERROR: empty stack!\r\n");
+		goto done;
+	}
+	pmDfs.sp--;
+	*power = pmPowerStack[pmDfs.sp].power;
+	*index = pmPowerStack[pmDfs.sp].index;
+
+	/* Clearing is not needed, but it's nice for debugging */
+	(void)memset(&pmPowerStack[pmDfs.sp], 0U, sizeof(PmPowerStack));
+
+done:
+	return;
+}
+
+/**
+ * PmPowerStackIsEmpty() - Check if power stack is empty
+ * @return	True if empty, false otherwise
+ */
+static inline bool PmPowerStackIsEmpty(void)
+{
+	return 0U == pmDfs.sp;
+}
+
+/**
+ * PmPowerDfsBegin() - Prepare for the power graph search
+ * @power	Power node which is the root of the searched graph
+ */
+static void PmPowerDfsBegin(PmPower* const power)
+{
+	/* Clearing stack is not needed, but it's nice for debugging */
+	(void)memset(pmPowerStack, 0U, sizeof(pmPowerStack));
+	pmDfs.sp = 0U;
+	pmDfs.it = 0U;
+	pmDfs.power = NULL;
+	PmPowerStackPush(power, 0U);
+}
+
+/**
+ * PmPowerDfsGetNext() - Get next node (DFS)
+ * @return	Pointer to the next node or NULL if all nodes are visited
+ */
+static PmNode* PmPowerDfsGetNext(void)
+{
+	PmNode* node = NULL;
+
+	while ((NULL != pmDfs.power) || (false == PmPowerStackIsEmpty())) {
+		if (NULL == pmDfs.power) {
+			PmPowerStackPop(&pmDfs.power, &pmDfs.it);
+		}
+		if (pmDfs.power->childCnt == pmDfs.it) {
+			node = &pmDfs.power->node;
+			pmDfs.power = NULL;
+			goto done;
+		}
+		if (NODE_IS_POWER(pmDfs.power->children[pmDfs.it])) {
+			PmPowerStackPush(pmDfs.power, pmDfs.it + 1U);
+			PmPowerStackPush(pmDfs.power->children[pmDfs.it]->derived, 0U);
+			pmDfs.power = NULL;
+		} else {
+			node = pmDfs.power->children[pmDfs.it];
+			pmDfs.it++;
+			goto done;
+		}
+	}
+
+done:
+	return node;
+}
+
 /*
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
  * context. PLLs have separate logic, which is part of PmSlavePll (pm_pll.h/c)
@@ -964,6 +1092,51 @@ done:
 	return XST_SUCCESS;
 }
 
+/**
+ * PmPowerGetPowerData() - Get power consumption of the node
+ * @powerNode	Power node whose power consumption should be get
+ * @data	Pointer to the location where the power data should be stored
+ *
+ * @return	XST_SUCCESS if power consumption data is stored in *data
+ *		XST_NO_FEATURE otherwise
+ * @note	Power consumption of power node is a sum of consumptions of the
+ *		children.
+ */
+static int PmPowerGetPowerData(const PmNode* const powerNode, u32* const data)
+{
+	PmNode* node;
+	u32 val;
+	int status = XST_NO_FEATURE;
+
+	*data = 0U;
+	if (PM_PWR_STATE_OFF == powerNode->currState) {
+		status = XST_SUCCESS;
+		goto done;
+	}
+
+	PmPowerDfsBegin((PmPower*)powerNode->derived);
+	node = PmPowerDfsGetNext();
+	while (NULL != node) {
+		if (NODE_IS_POWER(node)) {
+			status = PmNodeGetPowerInfo(node, &val);
+		} else {
+			if (NULL != node->class->getPowerData) {
+				status = node->class->getPowerData(node, &val);
+			} else {
+				status = XST_NO_FEATURE;
+			}
+		}
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+		*data += val;
+		node = PmPowerDfsGetNext();
+	}
+
+done:
+	return status;
+}
+
 /* Collection of power nodes */
 static PmNode* pmNodePowerBucket[] = {
 	&pmPowerIslandRpu_g.node,
@@ -978,4 +1151,5 @@ PmNodeClass pmNodeClassPower_g = {
 	.id = NODE_CLASS_POWER,
 	.clearConfig = PmPowerClearConfig,
 	.getWakeUpLatency = PmPowerGetWakeUpLatency,
+	.getPowerData = PmPowerGetPowerData,
 };

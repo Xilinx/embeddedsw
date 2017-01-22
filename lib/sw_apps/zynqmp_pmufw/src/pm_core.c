@@ -924,7 +924,11 @@ static void PmGetOpCharacteristics(const PmMaster *const master, const u32 node,
 
 	switch(type) {
 	case PM_OPCHAR_TYPE_POWER:
-		result = PmNodeGetPowerConsumption(nodePtr, nodePtr->currState);
+		if (NULL == nodePtr->class->getPowerData) {
+			status = XST_NO_FEATURE;
+			goto done;
+		}
+		status = nodePtr->class->getPowerData(nodePtr, &result);
 		break;
 	case PM_OPCHAR_TYPE_TEMP:
 		PmDbg("(%s) WARNING: Temperature unsupported\r\n", PmStrNode(node));

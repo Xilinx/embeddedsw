@@ -87,140 +87,27 @@ done:
 }
 
 /**
- * PmNodeLookupConsumption() - Lookup the power consumption of a node in a
- *			       specific state
- * @node       Pointer to the node of the slave
- * @state      State of the slave
+ * PmNodeGetPowerInfo() - Get power consumption information for a node
+ * @node	Pointer to the node
+ * @data	Pointer to the location where the power info should be stored
  *
- * @returns    Power consumption for the slave in the specified state
+ * @returns	Status about returning power info
+ *		XST_SUCCESS if power info is stored in *data
+ *		XST_NO_FEATURE if no power info can be provided for the node
  */
-static u32 PmNodeLookupConsumption(PmNode* const nodePtr, PmStateId state)
+int PmNodeGetPowerInfo(const PmNode* const node, u32* const data)
 {
-	u32 power = POWER_MISSING;
+	int status = XST_SUCCESS;
 
-	if ((NULL == nodePtr) || (NULL == nodePtr->powerInfo) ||
-	    (nodePtr->powerInfoCnt <= state)) {
+	if (NULL == node->powerInfo) {
+		status = XST_NO_FEATURE;
 		goto done;
 	}
 
-	power = nodePtr->powerInfo[state];
+	*data = node->powerInfo[node->currState];
 
 done:
-	return power;
-}
-
-/**
- * PmNodeGetChildPos() - Find child's position in its parent array of children
- *                 matching a given node ID
- * @node        ID of the node
- *
- * @returns     Child's position in its parent's array of children
- */
-static u32 PmNodeGetChildPos(PmNodeId node)
-{
-	u8 i;
-	u32 childPos = ~0;
-	PmNode* nodePtr = PmGetNodeById(node);
-
-	if ((NULL == nodePtr) || (NULL == nodePtr->parent)) {
-		goto done;
-	}
-
-	for (i = 0U; i < nodePtr->parent->childCnt; i++) {
-		if (node == nodePtr->parent->children[i]->nodeId) {
-			childPos = i;
-			break;
-		}
-	}
-
-done:
-	return childPos;
-}
-
-/**
- * PmNodeGetPowerConsumption() - Get power consumption of a node in a specific
- *                               state
- * @node       Pointer to the node
- * @state      State of the node
- *
- * @returns    Power consumption for the node in a specific state
- *
- * If the requested component represents power island or domain, return the
- * power consumption as a sum of consumptions of the children.
- */
-u32 PmNodeGetPowerConsumption(PmNode* const nodePtr, const PmStateId state)
-{
-	u32 childPwr;
-	u32 childPos;
-	PmPower* root;
-	PmPower* currParent;
-	PmNode* childNode;
-	u32 power = 0U;
-
-	if ((NULL == nodePtr) || (NULL == nodePtr->powerInfo) ||
-	    (nodePtr->powerInfoCnt <= state)) {
-		goto done;
-	}
-
-	power = PmNodeLookupConsumption(nodePtr, state);
-
-	if ((false == NODE_IS_POWER(nodePtr)) ||
-	    (true == NODE_IS_OFF(nodePtr))) {
-		goto done;
-	}
-
-	/*
-	 * If requested node is power island or domain, account
-	 * power consumptions of components in hierarchy below
-	 */
-	root = (PmPower*)nodePtr->derived;
-	currParent = root;
-	childPos = 0U;
-
-	/*
-	 * Since MISRA-C doesn't allow recursion, we need an iterative
-	 * algorithm to determine the power consumption for the complete tree.
-	 * Using a depth-first approach:
-	 */
-	do {
-		while (childPos < currParent->childCnt) {
-			childNode = currParent->children[childPos];
-			/* Every node may have a power consumption: */
-			childPwr = PmNodeLookupConsumption(childNode,
-							   childNode->currState);
-
-			if (childPwr == POWER_MISSING) {
-				power = POWER_MISSING;
-				goto done;
-			} else {
-				power += childPwr;
-			}
-
-			if (true == NODE_IS_POWER(childNode)) {
-				/* Work our way down to the lowest child */
-				currParent = (PmPower*)childNode->derived;
-				childPos = 0U;
-			} else {
-				childPos++;
-			}
-		}
-
-		if (currParent == root) {
-			break;
-		}
-
-		/* Now go back up one level, and continue where we left off */
-		childPos = PmNodeGetChildPos(currParent->node.nodeId);
-		if (currParent->childCnt <= childPos) {
-			power = POWER_MISSING;
-			goto done;
-		}
-		childPos++;
-		currParent = currParent->node.parent;
-	} while (1);
-
-done:
-	return power;
+	return status;
 }
 
 /**

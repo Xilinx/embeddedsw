@@ -138,8 +138,6 @@ typedef u32 (*const PmTranHandler)(void);
 #define DEFAULT_POWER_RETENTION		50U
 #define DEFAULT_POWER_OFF		0U
 
-#define POWER_MISSING			~0U
-
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
