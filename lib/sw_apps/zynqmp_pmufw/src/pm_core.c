@@ -231,6 +231,11 @@ static void PmForcePowerdown(const PmMaster *const master,
 		goto done;
 	}
 
+	if (NODE_IS_SLAVE(nodePtr)) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	if (NODE_IS_POWER(nodePtr)) {
 		PmPower* power = (PmPower*)nodePtr->derived;
 		if (false == PmMasterCanForceDown(master, power)) {
