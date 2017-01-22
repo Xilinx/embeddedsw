@@ -1967,7 +1967,7 @@ static PmReset* const pmAllResets[] = {
  *
  * @return       Pointer to PmReset structure (or NULL if not found)
  */
-const PmReset* PmGetResetById(const u32 resetId)
+static const PmReset* PmGetResetById(const u32 resetId)
 {
 	const PmReset *resetPtr = NULL;
 
