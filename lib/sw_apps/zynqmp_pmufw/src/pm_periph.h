@@ -84,7 +84,5 @@ extern PmSlave pmSlaveGpu_g;
 extern PmSlave pmSlavePcie_g;
 extern PmSlave pmSlavePcap_g;
 extern PmSlave pmSlaveRtc_g;
-extern PmSlaveUsb pmSlaveUsb0_g;
-extern PmSlaveUsb pmSlaveUsb1_g;
 
 #endif
