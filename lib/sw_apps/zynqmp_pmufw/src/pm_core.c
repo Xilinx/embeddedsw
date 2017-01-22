@@ -102,7 +102,8 @@ static void PmSelfSuspend(const PmMaster *const master,
 	/* the node ID must refer to a processor belonging to this master */
 	PmProc* proc = PmGetProcOfThisMaster(master, node);
 
-	PmDbg("(%s, %lu, %lu)\r\n", PmStrNode(node), latency, state);
+	PmDbg("(%s, %lu, %lu, 0x%llx)\r\n", PmStrNode(node), latency, state,
+					   address);
 
 	if (NULL == proc) {
 		PmDbg("ERROR node ID %s(=%lu) does not refer to a processor of "
