@@ -259,7 +259,27 @@ static int PmConfigPreallocSectionHandler(u32* const addr)
 static int PmConfigPowerSectionHandler(u32* const addr)
 {
 	int status = XST_SUCCESS;
+	u32 i, powersCnt;
 
+	powersCnt = PmConfigReadNext(addr);
+
+	for (i = 0U; i < powersCnt; i++) {
+		u32 powerId;
+		PmPower* power;
+
+		powerId = PmConfigReadNext(addr);
+
+		power = PmNodeGetPower(powerId);
+		if (NULL == power) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		power->reqPerms = PmConfigReadNext(addr);
+		power->forcePerms = PmConfigReadNext(addr);
+	}
+
+done:
 	return status;
 }
 
