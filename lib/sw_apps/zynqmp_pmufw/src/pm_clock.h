@@ -99,7 +99,6 @@ typedef struct PmClockHandle {
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void PmClockInitData(void);
 int PmClockRequest(PmNode* const node);
 
 void PmClockRelease(PmNode* const node);

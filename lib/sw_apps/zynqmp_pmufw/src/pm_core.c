@@ -961,8 +961,6 @@ void PmInit(const PmMaster* const master)
 {
 	PmDbg("\r\n");
 
-	PmClockInitData();
-
 	if (NULL != master) {
 		IPI_RESPONSE1(master->ipiMask, XST_SUCCESS);
 	}

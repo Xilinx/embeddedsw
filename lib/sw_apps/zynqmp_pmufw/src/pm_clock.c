@@ -1068,41 +1068,6 @@ void PmClockConstructList(void)
 }
 
 /**
- * PmClockInitData() - Initialize clock data structures based on HW setting
- * @note	Must execute only once upon the system init
- */
-void PmClockInitData(void)
-{
-	u32 i;
-
-	PmPllClearUseCount();
-
-	/* Read the current hardware configuration for all clocks */
-	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
-		PmClock* const clk = pmClocks[i];
-		const u32 val = XPfw_Read32(clk->ctrlAddr);
-		u32 clkUseCnt;
-
-		clk->pll = PmClockGetParent(clk, val & PM_CLOCK_MUX_SELECT_MASK);
-
-		/* If parent is not a known pll it's the oscillator clock */
-		if (NULL == clk->pll) {
-			continue;
-		}
-
-		/*
-		 * Increase the use count of the PLL parent by the number of
-		 * nodes that are in a state that requires clock to be running.
-		 */
-		clkUseCnt = PmClockGetUseCount(clk);
-		clk->pll->useCount += clkUseCnt;
-	}
-#ifdef DEBUG_CLK
-	PmClockDumpTree();
-#endif
-}
-
-/**
  * PmClockRequest() - Request clocks used by the given node
  * @node	Node whose clocks need to be requested
  * @return	XST_SUCCESS if the request is processed correctly, or error code
