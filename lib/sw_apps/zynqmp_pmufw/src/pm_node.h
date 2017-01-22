@@ -113,6 +113,7 @@ typedef struct PmNode {
 /**
  * PmNodeClass - Node class models common behavior for a collection of nodes
  * @clearConfig		Clear current configuration of the node
+ * @construct		Constructor for the node, call only once on startup
  * @getWakeUpLatency	Get wake-up latency of the node
  * @getPowerData	Get power consumption of the node
  * @forceDown		Put node in the lowest power state
@@ -122,6 +123,7 @@ typedef struct PmNode {
  */
 typedef struct PmNodeClass {
 	void (*const clearConfig)(PmNode* const node);
+	void (*const construct)(PmNode* const node);
 	int (*const getWakeUpLatency)(const PmNode* const node, u32* const lat);
 	int (*const getPowerData)(const PmNode* const node, u32* const data);
 	int (*const forceDown)(PmNode* const node);
@@ -140,6 +142,7 @@ PmProc* PmNodeGetProc(const u32 nodeId);
 
 void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
 void PmNodeClearConfig(void);
+void PmNodeConstruct(void);
 
 int PmNodeGetPowerInfo(const PmNode* const node, u32* const data);
 

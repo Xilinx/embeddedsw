@@ -735,6 +735,7 @@ PmNodeClass pmNodeClassSlave_g = {
 	DEFINE_NODE_BUCKET(pmNodeSlaveBucket),
 	.id = NODE_CLASS_SLAVE,
 	.clearConfig = PmSlaveClearConfig,
+	.construct = NULL,
 	.getWakeUpLatency = PmSlaveGetWakeUpLatency,
 	.getPowerData = PmNodeGetPowerInfo,
 	.forceDown = PmSlaveForceDown,

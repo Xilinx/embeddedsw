@@ -45,23 +45,6 @@
 #include "pm_clock.h"
 #include "pm_requirement.h"
 
-/*
- * Macro for all wake events in GPI1 that PM handles.
- * Used for initialization to avoid looping through all slaves array.
- */
-#define PMU_IOMODULE_GPI1_WAKES_ALL_MASK \
-		(PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK | \
-		PMU_LOCAL_GPI1_ENABLE_FPD_WAKE_GIC_PROX_MASK)
-
-/* All WFI bitfields in GPI2 */
-#define PMU_LOCAL_GPI2_ENABLE_ALL_PWRDN_REQ_MASK \
-		(PMU_LOCAL_GPI2_ENABLE_ACPU0_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_ACPU1_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_ACPU2_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_ACPU3_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_R5_0_PWRDWN_REQ_MASK | \
-		PMU_LOCAL_GPI2_ENABLE_R5_1_PWRDWN_REQ_MASK)
-
 /* All GIC wakes in GPI1 */
 #define PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK \
 		(PMU_IOMODULE_GPI1_ACPU_0_WAKE_MASK | \
@@ -84,15 +67,12 @@ void XPfw_PmInit(void)
 	u32 val;
 
 	PmDbg("Power Management Init\r\n");
-	/* Disable all wake requests in GPI1 */
-	DISABLE_WAKE(PMU_IOMODULE_GPI1_WAKES_ALL_MASK);
-	/* Disable all wfi requests in GPI2 */
-	DISABLE_WFI(PMU_LOCAL_GPI2_ENABLE_ALL_PWRDN_REQ_MASK);
 
 	PmMasterInit();
 
 	PmClockInitList();
-	PmPowerInit();
+
+	PmNodeConstruct();
 
 	val = XPfw_Read32(PM_INIT_SYNC_REGISTER);
 	if (PM_INIT_COMPLETED_KEY == val) {

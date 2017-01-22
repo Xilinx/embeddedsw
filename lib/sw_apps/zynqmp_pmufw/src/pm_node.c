@@ -254,6 +254,24 @@ void PmNodeClearConfig(void)
 }
 
 /**
+ * PmNodeConstruct() - Call constructors for all nodes
+ */
+void PmNodeConstruct(void)
+{
+	u32 i, n;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
+		for (n = 0U; n < pmNodeClasses[i]->bucketSize; n++) {
+			PmNode* node = pmNodeClasses[i]->bucket[n];
+
+			if (NULL != pmNodeClasses[i]->construct) {
+				pmNodeClasses[i]->construct(node);
+			}
+		}
+	}
+}
+
+/**
  * PmNodeForceDown() - Force down the node
  * @node	Node to force down
  *

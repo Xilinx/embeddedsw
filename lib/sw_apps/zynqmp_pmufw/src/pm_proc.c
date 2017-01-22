@@ -713,6 +713,17 @@ static void PmProcClearConfig(PmNode* const procNode)
 }
 
 /**
+ * PmProcConstruct() - Constructor for the processor node
+ * @node	Processor node
+ */
+static void PmProcConstruct(PmNode* const node)
+{
+	PmProc* const proc = (PmProc*)node->derived;
+
+	PmProcDisableEvents(proc);
+}
+
+/**
  * PmProcGetWakeUpLatency() - Get wake-up latency of the processor node
  * @node	Processor node whose wake-up latency should be get
  * @lat		Pointer to the location where the latency value should be stored
@@ -972,6 +983,7 @@ PmNodeClass pmNodeClassProc_g = {
 	DEFINE_NODE_BUCKET(pmNodeProcBucket),
 	.id = NODE_CLASS_PROC,
 	.clearConfig = PmProcClearConfig,
+	.construct = PmProcConstruct,
 	.getWakeUpLatency = PmProcGetWakeUpLatency,
 	.getPowerData = PmNodeGetPowerInfo,
 	.forceDown = PmProcForceDown,

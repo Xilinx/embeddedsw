@@ -125,7 +125,6 @@ extern PmNodeClass pmNodeClassPower_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void PmPowerInit(void);
 void PmPowerReleaseParent(PmNode* const node);
 
 int PmPowerRequestParent(PmNode* const node);

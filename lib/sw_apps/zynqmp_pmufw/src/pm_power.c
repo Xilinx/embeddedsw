@@ -236,17 +236,21 @@ static u32 PmPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 	return status;
 }
 
-/**
- * PmPowerInit() - Initialize power (call only upon boot)
+ /*
+ * PmPowerDomainConstruct() - Constructor method to call for power domain node
+ * @power	Power node of a domain
  */
-void PmPowerInit(void)
+static void PmPowerDomainConstruct(PmPower* const power)
 {
-	XpbrServExtTbl[XPBR_SERV_EXT_FPD_SUPPLYCHECK] = PmPowerSupplyCheck;
-	XpbrServExtTbl[XPBR_SERV_EXT_PLD_SUPPLYCHECK] = PmPowerSupplyCheck;
+	PmPowerDomain* pd = (PmPowerDomain*)power->node.derived;
+
+	if (NULL != pd->supplyCheckHook) {
+		XpbrServExtTbl[pd->supplyCheckHookId] = pd->supplyCheckHook;
+	}
 }
 
 static PmPowerClass pmPowerClassDomain_g = {
-	.construct = NULL,
+	.construct = PmPowerDomainConstruct,
 };
 
 /**
@@ -968,6 +972,15 @@ static void PmPowerClearConfig(PmNode* const powerNode)
 	PmPowerClearLocks(power);
 }
 
+static void PmPowerConstruct(PmNode* const powerNode)
+{
+	PmPower* const power = (PmPower*)powerNode->derived;
+
+	if ((NULL != power->class) && (NULL != power->class->construct)) {
+		power->class->construct(power);
+	}
+}
+
 /**
  * PmPowerGetWakeUpLatency() - Get wake-up latency of the power node
  * @node	Power node whose wake-up latency should be get
@@ -1087,6 +1100,7 @@ PmNodeClass pmNodeClassPower_g = {
 	DEFINE_NODE_BUCKET(pmNodePowerBucket),
 	.id = NODE_CLASS_POWER,
 	.clearConfig = PmPowerClearConfig,
+	.construct = PmPowerConstruct,
 	.getWakeUpLatency = PmPowerGetWakeUpLatency,
 	.getPowerData = PmPowerGetPowerData,
 	.forceDown = PmPowerForceDown,
