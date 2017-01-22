@@ -391,6 +391,19 @@ done:
 }
 
 /**
+ * PmProcDisableEvents() - Disable wake and sleep events for the processor
+ * @proc	Processor node
+ */
+static void PmProcDisableEvents(const PmProc* const proc)
+{
+	/* Disable wake event in GPI1 */
+	DISABLE_WAKE(proc->wakeEnableMask);
+
+	/* Disable wfi event in GPI2 */
+	DISABLE_WFI(proc->wfiEnableMask);
+}
+
+/**
  * PmProcWake() - Wake up a processor node
  * @proc        Processor to be woken-up
  *
@@ -486,8 +499,7 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	proc->node.latencyMarg = MAX_LATENCY;
 	status = PmProcSleep(proc);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
-	DISABLE_WFI(proc->wfiEnableMask);
-	DISABLE_WAKE(proc->wakeEnableMask);
+	PmProcDisableEvents(proc);
 
 	if ((XST_SUCCESS == status) && (NULL != proc->master)) {
 		status = PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
@@ -697,11 +709,7 @@ static void PmProcClearConfig(PmNode* const procNode)
 	proc->resumeAddress = 0ULL;
 	proc->master = NULL;
 
-	/* Disable wake requests in GPI1 */
-	DISABLE_WAKE(proc->wakeEnableMask);
-
-	/* Disable wfi requests in GPI2 */
-	DISABLE_WFI(proc->wfiEnableMask);
+	PmProcDisableEvents(proc);
 }
 
 /**
