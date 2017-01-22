@@ -147,7 +147,7 @@ static PmNodeCollection pmNodesColl[] = {
 	}, {
 		DEFINE_NODE_COLLECTION(pmNodeSlaveCollection),
 		.key = PM_TYPE_SLAVE,
-		.clearConfig = NULL,
+		.clearConfig = PmSlaveClearConfig,
 	},
 };
 

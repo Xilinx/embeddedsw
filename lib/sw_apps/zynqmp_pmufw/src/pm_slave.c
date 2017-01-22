@@ -665,3 +665,15 @@ int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 done:
 	return status;
 }
+
+/**
+ * PmSlaveClearConfig() - Clear configuration of the slave node
+ * @slaveNode	Slave node to clear
+ */
+void PmSlaveClearConfig(PmNode* const slaveNode)
+{
+	PmSlave* const slave = (PmSlave*)slaveNode->derived;
+
+	slave->reqs = NULL;
+	slave->flags = 0U;
+}
