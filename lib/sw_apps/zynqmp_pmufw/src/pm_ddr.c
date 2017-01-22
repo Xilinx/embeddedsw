@@ -1173,5 +1173,5 @@ PmSlave pmSlaveDdr_g = {
 	.reqs = NULL,
 	.wake = NULL,
 	.slvFsm = &pmSlaveDdrFsm,
-	.flags = PM_SLAVE_FLAG_IS_SHAREABLE,
+	.flags = 0U,
 };
