@@ -332,14 +332,13 @@ static int PmConfigShutdownSectionHandler(u32* const addr)
  *              section
  * @addr        Start address of the section in configuration object
  *
- * @return      XST_SUCCESS if section is loaded successfully, XST_FAILURE
- *              otherwise
+ * @return      XST_SUCCESS always
  */
 static int PmConfigSetConfigSectionHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
+	pmConfig.configPerms = PmConfigReadNext(addr);
 
-	return status;
+	return XST_SUCCESS;
 }
 
 /**
