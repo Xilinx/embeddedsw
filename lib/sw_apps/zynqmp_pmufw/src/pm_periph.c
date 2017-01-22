@@ -35,14 +35,6 @@
 #include "xpfw_rom_interface.h"
 #include "lpd_slcr.h"
 
-/*
- * States of a slave with its own power island (PI), who has dependencies to the
- * power parent (power domain) and have no wake-up capability through GIC Proxy.
- * In this case, those are graphics processors
- */
-#define PM_GPP_SLAVE_STATE_OFF	0U
-#define PM_GPP_SLAVE_STATE_ON	1U
-
 /* Always-on slaves, have only one state */
 #define PM_AON_SLAVE_STATE	0U
 
@@ -710,115 +702,6 @@ PmSlave pmSlaveSata_g = {
 	.wake = &pmSataWake,
 	.slvFsm = &pmFpdSlaveFsm,
 	.flags = 0U,
-};
-
-/*
- * States of a GPP slave (GPPs have its own power island (PI) and dependencies
- * to the power parent (FPD)
- */
-static const u32 PmGppStates[] = {
-	[PM_GPP_SLAVE_STATE_OFF] = 0U,
-	[PM_GPP_SLAVE_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
-};
-
-/* GPP slave transitions (from which to which state slave can transits) */
-static const PmStateTran PmGppTransitions[] = {
-	{
-		.fromState = PM_GPP_SLAVE_STATE_ON,
-		.toState = PM_GPP_SLAVE_STATE_OFF,
-		.latency = PM_DEFAULT_LATENCY,
-	}, {
-		.fromState = PM_GPP_SLAVE_STATE_OFF,
-		.toState = PM_GPP_SLAVE_STATE_ON,
-		.latency = PM_DEFAULT_LATENCY,
-	},
-};
-
-/**
- * PmGppFsmHandler() - FSM handler of a GPP slave
- * @slave       Slave whose state should be changed
- * @nextState   State the slave should enter
- *
- * @return      Status of performing transition action
- */
-static int PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
-{
-	int status = XST_PM_INTERNAL;
-	PmSlaveGpp* gpp = (PmSlaveGpp*)slave->node.derived;
-
-	switch (slave->node.currState) {
-	case PM_GPP_SLAVE_STATE_ON:
-		if (PM_GPP_SLAVE_STATE_OFF == nextState) {
-			/* ON -> OFF*/
-			status = gpp->PwrDn();
-		} else {
-			status = XST_NO_FEATURE;
-		}
-		break;
-	case PM_GPP_SLAVE_STATE_OFF:
-		if (PM_GPP_SLAVE_STATE_ON == nextState) {
-			/* OFF -> ON */
-			status = gpp->PwrUp();
-		} else {
-			status = XST_NO_FEATURE;
-		}
-		break;
-	default:
-		PmDbg("ERROR: Unknown state #%d\r\n", slave->node.currState);
-		break;
-	}
-
-	return status;
-}
-
-static const PmSlaveFsm slaveGPPFsm = {
-	.states = PmGppStates,
-	.statesCnt = ARRAY_SIZE(PmGppStates),
-	.trans = PmGppTransitions,
-	.transCnt = ARRAY_SIZE(PmGppTransitions),
-	.enterState = PmGppFsmHandler,
-};
-
-PmSlaveGpp pmSlaveGpuPP0_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveGpuPP0_g,
-			.nodeId = NODE_GPU_PP_0,
-			.typeId = PM_TYPE_SLAVE,
-			.parent = &pmPowerDomainFpd_g,
-			.currState = PM_FPD_SLAVE_STATE_OFF,
-			.latencyMarg = MAX_LATENCY,
-			.ops = NULL,
-			DEFINE_PM_POWER_INFO(pmFpdSlavePowers),
-		},
-		.reqs = NULL,
-		.wake = NULL,
-		.slvFsm = &slaveGPPFsm,
-		.flags = 0U,
-	},
-	.PwrDn = XpbrPwrDnPp0Handler,
-	.PwrUp = XpbrPwrUpPp0Handler,
-};
-
-PmSlaveGpp pmSlaveGpuPP1_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveGpuPP1_g,
-			.nodeId = NODE_GPU_PP_1,
-			.typeId = PM_TYPE_SLAVE,
-			.parent = &pmPowerDomainFpd_g,
-			.currState = PM_FPD_SLAVE_STATE_OFF,
-			.latencyMarg = MAX_LATENCY,
-			.ops = NULL,
-			DEFINE_PM_POWER_INFO(pmFpdSlavePowers),
-		},
-		.reqs = NULL,
-		.wake = NULL,
-		.slvFsm = &slaveGPPFsm,
-		.flags = 0U,
-	},
-	.PwrDn = XpbrPwrDnPp1Handler,
-	.PwrUp = XpbrPwrUpPp1Handler,
 };
 
 PmSlave pmSlaveGpu_g = {

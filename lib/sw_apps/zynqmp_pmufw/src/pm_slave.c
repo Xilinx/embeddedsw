@@ -46,6 +46,7 @@
 #include "pm_ddr.h"
 #include "pm_clock.h"
 #include <unistd.h>
+#include "pm_gpp.h"
 
 /**
  * PmSlaveRequiresPower() - Check whether slave has any request for any

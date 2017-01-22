@@ -50,6 +50,7 @@
 #include "pm_clock.h"
 #include "rpu.h"
 #include "xpfw_util.h"
+#include "pm_gpp.h"
 
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)

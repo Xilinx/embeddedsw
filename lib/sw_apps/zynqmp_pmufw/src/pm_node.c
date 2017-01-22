@@ -42,6 +42,7 @@
 #include "pm_pll.h"
 #include "pm_notifier.h"
 #include "pm_ddr.h"
+#include "pm_gpp.h"
 
 #define DEFINE_NODE_COLLECTION(c)	.bucket = (c), \
 					.bucketSize = ARRAY_SIZE(c)

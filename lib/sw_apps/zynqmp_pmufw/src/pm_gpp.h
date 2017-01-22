@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 - 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,45 +27,35 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#ifndef PM_PERIPH_H_
-#define PM_PERIPH_H_
+
+/*********************************************************************
+ * GPU Pixel Processors slaves data structures
+ *********************************************************************/
+
+#ifndef PM_GPP_H_
+#define PM_GPP_H_
 
 #include "pm_slave.h"
 
 /*********************************************************************
+ * Structure definitions
+ ********************************************************************/
+/**
+ * PmSlaveGpp - Slave wrapper structure used for GPP
+ * @slv		Base slave structure
+ * @PwrDn	Pointer to power down PMU-ROM handler
+ * @PwrUp	Pointer to power up PMU-ROM handler
+ */
+typedef struct PmSlaveGpp {
+	PmSlave slv;
+	PmTranHandler PwrDn;
+	PmTranHandler PwrUp;
+} PmSlaveGpp;
+
+/*********************************************************************
  * Global data declarations
  ********************************************************************/
-extern PmSlave pmSlaveTtc0_g;
-extern PmSlave pmSlaveTtc1_g;
-extern PmSlave pmSlaveTtc2_g;
-extern PmSlave pmSlaveTtc3_g;
-extern PmSlave pmSlaveSata_g;
-extern PmSlave pmSlaveUart0_g;
-extern PmSlave pmSlaveUart1_g;
-extern PmSlave pmSlaveSpi0_g;
-extern PmSlave pmSlaveSpi1_g;
-extern PmSlave pmSlaveI2C0_g;
-extern PmSlave pmSlaveI2C1_g;
-extern PmSlave pmSlaveSD0_g;
-extern PmSlave pmSlaveSD1_g;
-extern PmSlave pmSlaveCan0_g;
-extern PmSlave pmSlaveCan1_g;
-extern PmSlave pmSlaveEth0_g;
-extern PmSlave pmSlaveEth1_g;
-extern PmSlave pmSlaveEth2_g;
-extern PmSlave pmSlaveEth3_g;
-extern PmSlave pmSlaveAdma_g;
-extern PmSlave pmSlaveGdma_g;
-extern PmSlave pmSlaveDP_g;
-extern PmSlave pmSlaveNand_g;
-extern PmSlave pmSlaveQSpi_g;
-extern PmSlave pmSlaveGpio_g;
-extern PmSlave pmSlaveAFI_g;
-extern PmSlave pmSlaveIpiApu_g;
-extern PmSlave pmSlaveIpiRpu0_g;
-extern PmSlave pmSlaveGpu_g;
-extern PmSlave pmSlavePcie_g;
-extern PmSlave pmSlavePcap_g;
-extern PmSlave pmSlaveRtc_g;
+extern PmSlaveGpp pmSlaveGpuPP0_g;
+extern PmSlaveGpp pmSlaveGpuPP1_g;
 
 #endif
