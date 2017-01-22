@@ -37,6 +37,7 @@
 #include "pm_proc.h"
 #include "pm_slave.h"
 #include "pm_notifier.h"
+#include "pm_clock.h"
 
 static PmNodeClass* pmNodeClasses[] = {
 	&pmNodeClassProc_g,
@@ -259,6 +260,8 @@ void PmNodeClearConfig(void)
 void PmNodeConstruct(void)
 {
 	u32 i, n;
+
+	PmClockConstructList();
 
 	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
 		for (n = 0U; n < pmNodeClasses[i]->bucketSize; n++) {

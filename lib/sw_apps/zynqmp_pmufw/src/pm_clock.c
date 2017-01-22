@@ -1051,9 +1051,9 @@ static PmSlavePll* PmClockGetParent(PmClock* const clock, const u32 sel)
 }
 
 /**
- * PmClockInitList() - Init and link clock handles into clock's/node's lists
+ * PmClockConstructList() - Link clock handles into clock's/node's lists
  */
-void PmClockInitList(void)
+void PmClockConstructList(void)
 {
 	u32 i;
 

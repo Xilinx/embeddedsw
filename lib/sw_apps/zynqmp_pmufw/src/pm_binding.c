@@ -42,7 +42,6 @@
 #include "pm_notifier.h"
 #include "pm_power.h"
 #include "pm_gic_proxy.h"
-#include "pm_clock.h"
 #include "pm_requirement.h"
 
 /* All GIC wakes in GPI1 */
@@ -69,8 +68,6 @@ void XPfw_PmInit(void)
 	PmDbg("Power Management Init\r\n");
 
 	PmMasterInit();
-
-	PmClockInitList();
 
 	PmNodeConstruct();
 
