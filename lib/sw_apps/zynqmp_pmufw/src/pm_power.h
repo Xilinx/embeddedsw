@@ -70,6 +70,7 @@
  * @reqPerms    ORed flags of masters which are allowed to directly control
  *              the state (request/release) of the power node
  * @requests ORed flags of masters which have requested the power node
+ * @useCount    How many nodes currently use this power node
  */
 typedef struct PmPower {
 	PmNode node;
@@ -82,6 +83,7 @@ typedef struct PmPower {
 	u32 reqPerms;
 	u32 requests;
 	const u8 childCnt;
+	u8 useCount;
 } PmPower;
 
 /*********************************************************************
@@ -98,11 +100,12 @@ extern PmNodeClass pmNodeClassPower_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void PmOpportunisticSuspend(PmPower* const power);
 void PmPowerInit(void);
+void PmPowerReleaseParent(PmNode* const node);
 
-int PmTriggerPowerUp(PmPower* const power);
+int PmPowerRequestParent(PmNode* const node);
 int PmPowerMasterRequest(const PmMaster* const master, PmPower* const power);
 int PmPowerMasterRelease(const PmMaster* const master, PmPower* const power);
+int PmPowerUpdateLatencyReq(const PmNode* const node);
 
 #endif

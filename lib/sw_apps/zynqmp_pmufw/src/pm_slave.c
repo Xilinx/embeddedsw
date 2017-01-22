@@ -163,7 +163,7 @@ done:
  * @return	Status fo preparing for the transition (XST_SUCCESS or an error
  *		code)
  */
-static int PmSlavePrepareState(const PmSlave* const slv, const PmStateId next)
+static int PmSlavePrepareState(PmSlave* const slv, const PmStateId next)
 {
 	int status = XST_SUCCESS;
 	const PmStateId curr = slv->node.currState;
@@ -173,13 +173,9 @@ static int PmSlavePrepareState(const PmSlave* const slv, const PmStateId next)
 
 		if ((0U == (slv->slvFsm->states[curr] & PM_CAP_POWER)) &&
 		    (0U != (slv->slvFsm->states[next] & PM_CAP_POWER))) {
-
-			/* Slave will need power parent to be on */
-			if (true == NODE_IS_OFF(&slv->node.parent->node)) {
-				status = PmTriggerPowerUp(slv->node.parent);
-				if (XST_SUCCESS != status) {
-					goto done;
-				}
+			status = PmPowerRequestParent(&slv->node);
+			if (XST_SUCCESS != status) {
+				goto done;
 			}
 		}
 	}
@@ -201,7 +197,7 @@ done:
  * @slv		Slave that exited the prev state
  * @prev	Previous state the slave was in
  */
-static void PmSlaveClearAfterState(const PmSlave* const slv, const PmStateId prev)
+static void PmSlaveClearAfterState(PmSlave* const slv, const PmStateId prev)
 {
 	const PmStateId curr = slv->node.currState;
 
@@ -212,6 +208,15 @@ static void PmSlaveClearAfterState(const PmSlave* const slv, const PmStateId pre
 			PmClockRelease(&slv->node);
 		}
 	}
+
+	/* Check if slave doesn't need power in the new state */
+	if (NULL != slv->node.parent) {
+		if ((0U != (slv->slvFsm->states[prev] & PM_CAP_POWER)) &&
+		    (0U == (slv->slvFsm->states[curr] & PM_CAP_POWER))) {
+			PmPowerReleaseParent(&slv->node);
+		}
+	}
+
 }
 
 /**
@@ -468,7 +473,7 @@ int PmUpdateSlave(PmSlave* const slave)
 			wkupLat = parent->pwrUpLatency;
 			if (latencyMargin < wkupLat) {
 				/* Power up parents from this level up */
-				status = PmTriggerPowerUp(parent);
+				status = PmPowerRequestParent(&slave->node);
 				if (XST_SUCCESS != status) {
 					goto done;
 				}
@@ -482,11 +487,6 @@ int PmUpdateSlave(PmSlave* const slave)
 	latencyMargin = slave->node.latencyMarg;
 	/* remember the remaining latency margin for upper levels to use */
 	slave->node.latencyMarg = minLat - PmGetLatencyFromState(slave, state);
-
-	if ((0U == (slave->slvFsm->states[state] & PM_CAP_POWER)) &&
-	    (NULL != slave->node.parent)) {
-		PmOpportunisticSuspend(slave->node.parent);
-	}
 
 	/* remember the remaining latency margin for upper levels to use */
 	slave->node.latencyMarg = minLat - PmGetLatencyFromState(slave, state);

@@ -159,14 +159,6 @@ int XPfw_PmWfiHandler(const u32 srcMask)
 	}
 
 	status = PmProcFsm(proc, PM_PROC_EVENT_SLEEP);
-	if ((XST_SUCCESS == status) &&
-	    (true == PmMasterIsSuspended(proc->master))) {
-		/*
-		 * We've just powered down the last processor, now use
-		 * opportunistic suspend to power down its parent(s)
-		 */
-		PmOpportunisticSuspend(proc->node.parent);
-	}
 
 done:
 	return status;

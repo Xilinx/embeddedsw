@@ -68,6 +68,8 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 
 #define NODE_IS_OFF(nodePtr)     (0U == ((nodePtr)->currState & 1U))
 
+#define NODE_LOCKED_POWER_FLAG	0x1U
+
 #define DEFINE_NODE_BUCKET(b)	.bucket = (b), \
 				.bucketSize = ARRAY_SIZE(b)
 

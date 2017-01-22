@@ -246,9 +246,6 @@ static void PmForcePowerdown(const PmMaster *const master,
 
 	status = PmNodeForceDown(nodePtr);
 	oppoint = nodePtr->currState;
-	if ((XST_SUCCESS == status) && (NULL != nodePtr->parent)) {
-		PmOpportunisticSuspend(nodePtr->parent);
-	}
 
 done:
 	PmProcessAckRequest(ack, master, node, status, oppoint);

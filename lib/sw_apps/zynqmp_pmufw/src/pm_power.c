@@ -660,181 +660,168 @@ PmPower pmPowerDomainPld_g = {
 };
 
 /**
- * PmChildIsInLowestPowerState() - Checked whether the child node is in lowest
- *                                 power state
- * @nodePtr     Pointer to a node whose state should be checked
+ * PmPowerClearLocks() - Clear data used for locking the power
+ * @power	Power node
  */
-static bool PmChildIsInLowestPowerState(const PmNode* const nodePtr)
+static void PmPowerClearLocks(PmPower* const power)
 {
-	bool status = false;
-
-	if (NODE_IS_PROC(nodePtr) || NODE_IS_POWER(nodePtr)) {
-		if (true == NODE_IS_OFF(nodePtr)) {
-			status = true;
-		}
-	} else {
-		/* Node is a slave */
-		if (false == PmSlaveRequiresPower((PmSlave*)nodePtr->derived)) {
-			status = true;
-		}
-	}
-
-	return status;
+	power->requests = 0U;
+	power->useCount = 0U;
 }
 
 /**
- * PmHasAwakeChild() - Check whether power node has awake children
- * @power       Pointer to PmPower object to be checked
- *
- * Used during opportunistic suspend:
- * Function checks whether any child of the power provided as argument stops
- * power from being turned off. In the case of processor or power child, that
- * can be checked by inspecting currState value. For slaves, that is not the
- * case, as slave can be in non-off state just because the off state is entered
- * when power is turned off. This is the case when power parent is common for
- * multiple nodes. Therefore, slave does not block power from turning off if
- * it is unused and not in lowest power state.
- *
- * Latency accounting: determine the lowest latency requirement of any child
- * and pass it up to the power island/domain node.
- *
- * @return      True if it has a child that is not off
+ * PmPowerUpdateLatencyMargin() - Update latency margin for the power node
+ * @power	Power node to update
  */
-static bool PmHasAwakeChild(PmPower* const power)
+static void PmPowerUpdateLatencyMargin(PmPower* const power)
 {
 	u32 i;
-	u32 minLatencyMargin = MAX_LATENCY;
-	bool hasAwakeChild = false;
 
+	/* Find minimum latency margin of all children */
+	power->node.latencyMarg = MAX_LATENCY;
 	for (i = 0U; i < power->childCnt; i++) {
-		/* Determine the lowest latency requirement of any child */
-		if (power->children[i]->latencyMarg < minLatencyMargin) {
-			minLatencyMargin = power->children[i]->latencyMarg;
-		}
-
-		if (false == PmChildIsInLowestPowerState(power->children[i])) {
-			hasAwakeChild = true;
-			PmDbg("%s\r\n", PmStrNode(power->children[i]->nodeId));
-			break;
+		if (power->children[i]->latencyMarg < power->node.latencyMarg) {
+			power->node.latencyMarg = power->children[i]->latencyMarg;
 		}
 	}
-
-	/* Pass the lowest latency margin to the power island/domain node */
-	power->node.latencyMarg = minLatencyMargin;
-
-	return hasAwakeChild;
+	if ((power->pwrDnLatency + power->pwrUpLatency) < power->node.latencyMarg) {
+		power->node.latencyMarg -= power->pwrDnLatency + power->pwrUpLatency;
+	} else {
+		power->node.latencyMarg = 0U;
+	}
 }
 
 /**
- * PmOpportunisticSuspend() - After a node goes to sleep, try to power off
- *                            parents
- * @powerParent Pointer to the power node which should try to suspend, as well
- *              its parents.
+ * PmPowerDownCond() - Power the node down if conditions are satisfied
+ * @power	Power node to conditionally power down
+ *
+ * @note	Conditions for powering down the node
+ *		1) Use count is zero (power node is unused)
+ *		2) Latency requirements of the children allow the power down
  */
-void PmOpportunisticSuspend(PmPower* const powerParent)
+static void PmPowerDownCond(PmPower* const power)
 {
-	u32 worstCaseLatency;
-	PmPower* power = powerParent;
-
-	if ((NULL == power) || NODE_IS_OFF(&power->node)) {
-		goto done;
+	if (0U == power->useCount) {
+		PmPowerUpdateLatencyMargin(power);
+		if (power->node.latencyMarg > 0U) {
+			(void)PmPowerDown(power);
+		}
 	}
+}
 
-	do {
-		PmDbg("Opportunistic suspend attempt for %s\r\n",
-		      PmStrNode(power->node.nodeId));
+/**
+ * PmPowerUpdateLatencyReq() - Child updates its power parent about latency req
+ * @node	Child node whose latency requirement have changed
+ *
+ * @return	If the change of the latency requirement caused the power up of
+ *		the power parent, the status of performing power up operation
+ *		is returned. Otherwise, XST_SUCCESS.
+ */
+int PmPowerUpdateLatencyReq(const PmNode* const node)
+{
+	int status = XST_SUCCESS;
+	PmPower* power = node->parent;
 
-		worstCaseLatency = power->pwrUpLatency + power->pwrDnLatency;
-
-		if ((false == PmHasAwakeChild(power)) &&
-		    (0U == power->requests)) {
-			/* Note: latencyMarg field updated by PmHasAwakeChild */
-			if (worstCaseLatency < power->node.latencyMarg) {
-				(void)PmPowerDown(power);
-				power = power->node.parent;
-				continue;
+	if (PM_PWR_STATE_ON == power->node.currState) {
+		/* Try to power down the node if all conditions are ok */
+		PmPowerDownCond(power);
+		if (PM_PWR_STATE_OFF == power->node.currState) {
+			if (NULL != power->node.parent) {
+				PmPowerReleaseParent(&power->node);
 			}
 		}
-		power = NULL;
-
-	} while (NULL != power);
-
-done:
-	return;
-}
-
-/**
- * PmPowerUpTopParent() - Power up top parent in hierarchy that's currently off
- * @powerChild  Power child whose power parent has to be powered up
- *
- * @return      Status of the power up operation (XST_SUCCESS if all power
- *              parents are already powered on)
- *
- * This function turns on exactly one power parent, starting with the highest
- * level parent that's currently off. If all power parents are on, it will
- * turn on "powerChild", which was passed as an argument.
- *
- * Since MISRA-C doesn't allow recursion, there's an iterative algorithm in
- * PmTriggerPowerUp that calls this function iteratively until all power
- * nodes in the hierarchy are powered up.
- */
-static int PmPowerUpTopParent(PmPower* const powerChild)
-{
-	int status = XST_SUCCESS;
-	PmPower* powerParent = powerChild;
-
-	if (NULL == powerParent) {
-		status = XST_PM_INTERNAL;
 		goto done;
 	}
 
-	/*
-	 * Powering up needs to happen from the top down, so find the highest
-	 * level parent that's currently still off and turn it on.
-	 */
-	while ((NULL != powerParent->node.parent) &&
-	       (true == NODE_IS_OFF(&powerParent->node.parent->node))) {
-		powerParent = powerChild->node.parent;
+	/* Power is down, check if latency requirements trigger the power up */
+	if (node->latencyMarg < (power->pwrDnLatency + power->pwrUpLatency)) {
+		power->node.latencyMarg = 0U;
+		if (NULL != power->node.parent) {
+			status = PmPowerRequestParent(&power->node);
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+		}
+		status = PmPowerUp(power);
 	}
-
-	status = PmPowerUp(powerParent);
 
 done:
 	return status;
 }
 
 /**
- * PmTriggerPowerUp() - Triggered by child node (processor or slave) when it
- *                      needs its power islands/domains to be powered up
- * @power       Power node that needs to be powered up
+ * PmPowerRequestInt() - Used internally to request a power node
+ * @power	Requested power node
  *
- * @return      Status of the power up operation.
+ * @return	XST_SUCCESS if power is already powered up, otherwise status
+ *		of powering up.
  */
-int PmTriggerPowerUp(PmPower* const power)
+static int PmPowerRequestInt(PmPower* const power)
 {
 	int status = XST_SUCCESS;
 
-	if (NULL == power) {
-		goto done;
+	if (PM_PWR_STATE_OFF == power->node.currState) {
+		status = PmPowerUp(power);
 	}
 
-	/*
-	 * Multiple hierarchy levels of power islands/domains may need to be
-	 * turned on (always top-down).
-	 * Use iterative approach for MISRA-C compliance
-	 */
-	while ((true == NODE_IS_OFF(&power->node)) && (XST_SUCCESS == status)) {
-		status = PmPowerUpTopParent(power);
+	if (XST_SUCCESS == status) {
+		power->useCount++;
 	}
-
-done:
-#ifdef DEBUG_PM
-	if (XST_SUCCESS != status) {
-		PmDbg("ERROR #%d failed to power up\r\n", status);
-	}
-#endif
 
 	return status;
+}
+
+/**
+ * PmPowerRequest() - Request for power to be powered up
+ * @power	Requested power
+ *
+ * @return	XST_SUCCESS if power is already powered up, otherwise status
+ *		of powering up.
+ */
+int PmPowerRequest(PmPower* const power)
+{
+	int status = XST_SUCCESS;
+
+	if (NULL != power->node.parent) {
+		if (0U == (power->node.flags & NODE_LOCKED_POWER_FLAG)) {
+			status = PmPowerRequestInt(power->node.parent);
+			if (XST_SUCCESS != status) {
+				goto done;
+			}
+			power->node.flags |= NODE_LOCKED_POWER_FLAG;
+		}
+	}
+	status = PmPowerRequestInt(power);
+
+done:
+	return status;
+}
+
+/**
+ * PmPowerReleaseInt() - Used internally to release the power node
+ * @power	Power node
+ */
+static void PmPowerReleaseInt(PmPower* const power)
+{
+	if (power->useCount > 0U) {
+		power->useCount--;
+		PmPowerDownCond(power);
+	}
+}
+
+/**
+ * PmPowerRelease() - Release the power
+ * @power	Released power
+ */
+void PmPowerRelease(PmPower* const power)
+{
+	PmPowerReleaseInt(power);
+	if (NULL != power->node.parent) {
+		if (0U != (power->node.flags & NODE_LOCKED_POWER_FLAG)) {
+			PmPowerReleaseInt(power->node.parent);
+			power->node.flags &= ~NODE_LOCKED_POWER_FLAG;
+		}
+	}
 }
 
 /**
@@ -861,10 +848,7 @@ int PmPowerMasterRequest(const PmMaster* const master, PmPower* const power)
 		goto done;
 	}
 
-	/* Power up the whole power parent hierarchy if needed */
-	if (true == NODE_IS_OFF(&power->node)) {
-		status = PmTriggerPowerUp(power);
-	}
+	status = PmPowerRequest(power);
 
 	/* Remember master's mask if request is processed successfully */
 	if (XST_SUCCESS == status) {
@@ -904,18 +888,47 @@ int PmPowerMasterRelease(const PmMaster* const master, PmPower* const power)
 	/* Clear the request flag */
 	power->requests &= ~master->ipiMask;
 
-	/*
-	 * If no other master has explicitely requested power node we call
-	 * opportunistic suspend. It will take care of all dependencies that
-	 * might exist with respect to the slaves or latencies. If there are
-	 * no dependencies the power node will be powered down.
-	 */
-	if (0U == power->requests) {
-		PmOpportunisticSuspend(power);
-	}
+	PmPowerRelease(power);
 
 done:
 	return status;
+}
+
+/**
+ * PmPowerRequestParent() - Request power parent to be powered up
+ * @node	Node which requests its power parent
+ *
+ * @return	XST_SUCCESS if power parent is already up, status of powering up
+ *		otherwise.
+ */
+int PmPowerRequestParent(PmNode* const node)
+{
+	int status = XST_SUCCESS;
+
+	if (0U == (NODE_LOCKED_POWER_FLAG & node->flags)) {
+		PmDbg("%s->%s\r\n", PmStrNode(node->nodeId),
+			PmStrNode(node->parent->node.nodeId));
+		status = PmPowerRequest(node->parent);
+		if (XST_SUCCESS == status) {
+			node->flags |= NODE_LOCKED_POWER_FLAG;
+		}
+	}
+
+	return status;
+}
+
+/**
+ * PmPowerReleaseParent() - Release power parent
+ * @node	Node which releases its power parent
+ */
+void PmPowerReleaseParent(PmNode* const node)
+{
+	if (0U != (NODE_LOCKED_POWER_FLAG & node->flags)) {
+		PmDbg("%s->%s\r\n", PmStrNode(node->nodeId),
+			PmStrNode(node->parent->node.nodeId));
+		node->flags &= ~NODE_LOCKED_POWER_FLAG;
+		PmPowerRelease(node->parent);
+	}
 }
 
 /**
@@ -928,7 +941,7 @@ static void PmPowerClearConfig(PmNode* const powerNode)
 
 	power->reqPerms = 0U;
 	power->forcePerms = 0U;
-	power->requests = 0U;
+	PmPowerClearLocks(power);
 }
 
 /**

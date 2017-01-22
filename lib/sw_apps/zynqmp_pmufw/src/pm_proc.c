@@ -400,9 +400,8 @@ static int PmProcWake(PmProc* const proc)
 {
 	int status;
 
-	if (PM_PWR_STATE_OFF == proc->node.parent->node.currState) {
-		/* Power parent is down, trigger its powering up */
-		status = PmTriggerPowerUp(proc->node.parent);
+	if (NULL != proc->node.parent) {
+		status = PmPowerRequestParent(&proc->node);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -413,6 +412,29 @@ static int PmProcWake(PmProc* const proc)
 
 	if (XST_SUCCESS == status) {
 		PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_ACTIVE);
+	}
+
+done:
+	return status;
+}
+
+/**
+ * PmProcSleep() - Put processor node to sleep
+ * @proc        Processor to sleep
+ *
+ * @return      Return status of processor specific sleep handler
+ */
+static int PmProcSleep(PmProc* const proc)
+{
+	int status;
+
+	status = proc->sleep();
+
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	if (NULL != proc->node.parent) {
+		PmPowerReleaseParent(&proc->node);
 	}
 
 done:
@@ -461,8 +483,8 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 
 	PmDbg("ACTIVE->FORCED_PWRDN %s\r\n", PmStrNode(proc->node.nodeId));
 
-	status = proc->sleep();
 	proc->node.latencyMarg = MAX_LATENCY;
+	status = PmProcSleep(proc);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
 	DISABLE_WFI(proc->wfiEnableMask);
 	DISABLE_WAKE(proc->wakeEnableMask);
@@ -511,7 +533,7 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 	int status;
 	PmDbg("SUSPENDING->SLEEP %s\r\n", PmStrNode(proc->node.nodeId));
 
-	status = proc->sleep();
+	status = PmProcSleep(proc);
 	if (XST_SUCCESS == status) {
 		u32 worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
 		proc->node.latencyMarg = proc->latencyReq - worstCaseLatency;
