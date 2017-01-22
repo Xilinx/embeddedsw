@@ -74,6 +74,18 @@ XPfw_Init:
 		addik	r11,	r0,		_stack_end  /* Load  Stack's lowest address into temp R11 */
 		mts		rslr,	r11					/* Store Stack's lowest address into STACK_LOW_REGISTER */
 
+		/* Clear BSS */
+
+		addi	r6, r0, __bss_start
+		addi	r7, r0, __bss_end
+		rsub	r18, r6, r7
+		blei	r18, .Lendbss
+	.Lloopbss:
+		swi	r0, r6, 0
+		addi	r6, r6, 4
+		rsub	r18, r6, r7
+		bgti	r18, .Lloopbss
+	.Lendbss:
 		/* Call Main*/
 		brlid	r15, XPfw_Main
 		nop
