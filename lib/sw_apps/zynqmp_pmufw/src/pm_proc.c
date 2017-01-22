@@ -407,6 +407,8 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	status = PmProcSleep(&proc->node);
 	/* Override the state set in PmProcSleep to indicate FORCED OFF */
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
+	DISABLE_WFI(proc->wfiEnableMask);
+	DISABLE_WAKE(proc->wakeEnableMask);
 
 	if (XST_SUCCESS == status) {
 		status = PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
