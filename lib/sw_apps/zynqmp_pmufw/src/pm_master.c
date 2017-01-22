@@ -132,7 +132,7 @@ PmMaster pmMasterApu_g = {
 	.ipiMask = IPI_PMU_0_IER_APU_MASK,
 	.reqs = NULL,
 	.wakePerms = IPI_PMU_0_IER_RPU_0_MASK | IPI_PMU_0_IER_RPU_1_MASK,
-	.permissions = IPI_PMU_0_IER_RPU_0_MASK | IPI_PMU_0_IER_RPU_1_MASK,
+	.suspendPerms = IPI_PMU_0_IER_RPU_0_MASK | IPI_PMU_0_IER_RPU_1_MASK,
 	.suspendRequest = {
 		.initiator = NULL,
 		.acknowledge = 0U,
@@ -151,7 +151,7 @@ PmMaster pmMasterRpu0_g = {
 	.ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
 	.reqs = NULL,
 	.wakePerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_1_MASK,
-	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_1_MASK,
+	.suspendPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_1_MASK,
 	.suspendRequest = {
 		.initiator = NULL,
 		.acknowledge = 0U,
@@ -170,7 +170,7 @@ PmMaster pmMasterRpu1_g = {
 	.ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
 	.reqs = NULL,   /* lockstep mode is assumed for now */
 	.wakePerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
-	.permissions = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
+	.suspendPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.suspendRequest = {
 		.initiator = NULL,
 		.acknowledge = 0U,
@@ -355,7 +355,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster)
 {
-	return 0U != (reqMaster->permissions & respMaster->ipiMask);
+	return 0U != (reqMaster->suspendPerms & respMaster->ipiMask);
 }
 
 /**

@@ -114,7 +114,7 @@ typedef struct {
  * @procsCnt    Number of processors within the master
  * @wakePerms   ORed ipi masks of masters which this master is allowed to
  *              request to wake up
- * @permissions ORed ipi masks of masters which this master is allowed to
+ * @suspendPerms ORed ipi masks of masters which this master is allowed to
  *              request to suspend (to be updated based on specific
  *              configuration, by default all masters should be able to request
  *              any other master to suspend)
@@ -135,7 +135,7 @@ typedef struct PmMaster {
 	const PmSlave** const memories;
 	const u32 ipiMask;
 	u32 wakePerms;
-	u32 permissions;
+	u32 suspendPerms;
 	PmNodeId nid;
 	const u8 procsCnt;
 	u8 state;
