@@ -311,12 +311,12 @@ enum xpbr_serv_ext_id {
         /*       RESERVED                           247U */
         /*       RESERVED                           248U */
         /*       RESERVED                           249U */
-        XPBR_SERV_EXT_FPD_SUPPYENABLE             = 250U,
-        XPBR_SERV_EXT_FPD_SUPPYDISABLE            = 251U,
-        XPBR_SERV_EXT_FPD_SUPPYCHECK              = 252U,
-        XPBR_SERV_EXT_PLD_SUPPYENABLE             = 253U,
-        XPBR_SERV_EXT_PLD_SUPPYDISABLE            = 254U,
-        XPBR_SERV_EXT_PLD_SUPPYCHECK              = 255U,
+        XPBR_SERV_EXT_FPD_SUPPLYENABLE            = 250U,
+        XPBR_SERV_EXT_FPD_SUPPLYDISABLE           = 251U,
+        XPBR_SERV_EXT_FPD_SUPPLYCHECK             = 252U,
+        XPBR_SERV_EXT_PLD_SUPPLYENABLE            = 253U,
+        XPBR_SERV_EXT_PLD_SUPPLYDISABLE           = 254U,
+        XPBR_SERV_EXT_PLD_SUPPLYCHECK             = 255U,
         XPBR_SERV_EXT_TBL_MAX                     = 256U
 };
 
