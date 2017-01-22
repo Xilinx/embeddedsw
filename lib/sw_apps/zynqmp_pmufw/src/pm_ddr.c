@@ -1166,7 +1166,6 @@ PmSlave pmSlaveDdr_g = {
 		.clocks = NULL,
 		.currState = PM_DDR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
-		.ops = NULL,
 		DEFINE_PM_POWER_INFO(PmDdrPowerConsumptions),
 	},
 	.reqs = NULL,

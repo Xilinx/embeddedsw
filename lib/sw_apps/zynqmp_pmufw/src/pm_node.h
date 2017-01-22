@@ -68,8 +68,6 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 
 #define NODE_IS_OFF(nodePtr)     (0U == ((nodePtr)->currState & 1U))
 
-#define NODE_HAS_SLEEP(opsPtr)   ((NULL != (opsPtr)) && (NULL != (opsPtr)->sleep))
-
 #define DEFINE_NODE_BUCKET(b)	.bucket = (b), \
 				.bucketSize = ARRAY_SIZE(b)
 
@@ -79,15 +77,6 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
-/**
- * PmNodeOps - Node operations
- * @sleep       Put node into sleep (what the sleep is depends on node's type)
- * @wake        Wake up this node (procedure depends on node type)
- */
-typedef struct PmNodeOps {
-	PmNodeTranHandler sleep;
-	PmNodeTranHandler wake;
-} PmNodeOps;
 
 /**
  * PmNode - Structure common for all entities that have node id
@@ -95,7 +84,6 @@ typedef struct PmNodeOps {
  * @class	Pointer to the node class of the node
  * @parent      Pointer to power parent node
  * @clocks      Pointer to the list of clocks that the node uses
- * @ops         Pointer to the operations structure
  * @latencyMarg Latency margin: lowest latency requirement - powerup latency
  * @nodeId      Node id defined in pm_defs.h
  * @typeId      Type id, used to distinguish the nodes
@@ -111,7 +99,6 @@ typedef struct PmNode {
 	PmNodeClass* const class;
 	PmPower* const parent;
 	PmClockHandle* clocks;
-	const PmNodeOps* const ops;
 	const u32 *const powerInfo;
 	const u32 powerInfoCnt;
 	u32 latencyMarg;
