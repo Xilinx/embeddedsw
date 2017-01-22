@@ -1175,3 +1175,14 @@ PmSlave pmSlaveDdr_g = {
 	.slvFsm = &pmSlaveDdrFsm,
 	.flags = 0U,
 };
+
+void ddr_io_retention_set(bool en)
+{
+	u32 r = Xil_In32(PMU_GLOBAL_DDR_CNTRL);
+	if (0U != en) {
+		r |= PMU_GLOBAL_DDR_CNTRL_RET_MASK;
+	} else {
+		r &= ~PMU_GLOBAL_DDR_CNTRL_RET_MASK;
+	}
+	Xil_Out32(PMU_GLOBAL_DDR_CNTRL, r);
+}

@@ -157,7 +157,6 @@ typedef struct PmRegisterContext {
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void ddr_io_retention_set(bool en);
 
 #ifdef DEBUG_PM
 const char* PmStrNode(const u32 node);
