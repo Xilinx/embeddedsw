@@ -218,12 +218,12 @@ int PmForcePowerDownInt(u32 node, u32 *oppoint)
 		goto done;
 	}
 
-	switch (nodePtr->typeId) {
-	case PM_TYPE_PROC:
+	switch (nodePtr->class->id) {
+	case NODE_CLASS_PROC:
 		status = PmProcFsm((PmProc*)nodePtr->derived,
 				   PM_PROC_EVENT_FORCE_PWRDN);
 		break;
-	case PM_TYPE_POWER:
+	case NODE_CLASS_POWER:
 		status = PmForceDownTree((PmPower*)nodePtr->derived);
 		break;
 	default:
@@ -269,7 +269,7 @@ static void PmForcePowerdown(const PmMaster *const master,
 		goto done;
 	}
 
-	if (NODE_IS_POWER(nodePtr->typeId)) {
+	if (NODE_IS_POWER(nodePtr)) {
 		PmPower* power = (PmPower*)nodePtr->derived;
 		if (false == PmMasterCanForceDown(master, power)) {
 			status = XST_PM_NO_ACCESS;
@@ -892,7 +892,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 	}
 
 	oppoint = nodePtr->currState;
-	if (PM_TYPE_SLAVE == nodePtr->typeId) {
+	if (NODE_IS_SLAVE(nodePtr)) {
 		PmSlave* const slave = (PmSlave*)nodePtr->derived;
 
 		currReq = PmSlaveGetRequirements(slave, master);

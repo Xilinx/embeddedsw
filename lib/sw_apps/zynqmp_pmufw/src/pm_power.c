@@ -442,7 +442,7 @@ PmPower pmPowerIslandRpu_g = {
 	.node = {
 		.derived = &pmPowerIslandRpu_g,
 		.nodeId = NODE_RPU,
-		.typeId = PM_TYPE_POWER,
+		.class = &pmNodeClassPower_g,
 		.parent = &pmPowerDomainLpd_g,
 		.clocks = NULL,
 		.currState = PM_PWR_STATE_ON,
@@ -468,7 +468,7 @@ PmPower pmPowerIslandApu_g = {
 	.node = {
 		.derived = &pmPowerIslandApu_g,
 		.nodeId = NODE_APU,
-		.typeId = PM_TYPE_POWER,
+		.class = &pmNodeClassPower_g,
 		.parent = &pmPowerDomainFpd_g,
 		.clocks = NULL,
 		.currState = PM_PWR_STATE_ON,
@@ -488,7 +488,7 @@ PmPower pmPowerDomainFpd_g = {
 	.node = {
 		.derived = &pmPowerDomainFpd_g,
 		.nodeId = NODE_FPD,
-		.typeId = PM_TYPE_POWER,
+		.class = &pmNodeClassPower_g,
 		.parent = NULL,
 		.clocks = NULL,
 		.currState = PM_PWR_STATE_ON,
@@ -508,7 +508,7 @@ PmPower pmPowerDomainLpd_g = {
 	.node = {
 		.derived = &pmPowerDomainLpd_g,
 		.nodeId = NODE_LPD,
-		.typeId = PM_TYPE_POWER,
+		.class = &pmNodeClassPower_g,
 		.parent = NULL,
 		.clocks = NULL,
 		.currState = PM_PWR_STATE_ON,
@@ -528,7 +528,7 @@ PmPower pmPowerDomainPld_g = {
 	.node = {
 		.derived = &pmPowerDomainPld_g,
 		.nodeId = NODE_PL,
-		.typeId = PM_TYPE_POWER,
+		.class = &pmNodeClassPower_g,
 		.parent = NULL,
 		.clocks = NULL,
 		.currState = PM_PWR_STATE_ON,
@@ -554,8 +554,7 @@ static bool PmChildIsInLowestPowerState(const PmNode* const nodePtr)
 {
 	bool status = false;
 
-	if ((true == NODE_IS_PROC(nodePtr->typeId)) ||
-	    (true == NODE_IS_POWER(nodePtr->typeId))) {
+	if (NODE_IS_PROC(nodePtr) || NODE_IS_POWER(nodePtr)) {
 		if (true == NODE_IS_OFF(nodePtr)) {
 			status = true;
 		}
@@ -752,8 +751,8 @@ static PmPower* PmGetLowestParent(PmPower* const root)
 		prevParent = currParent;
 
 		for (i = 0U; i < currParent->childCnt; i++) {
-			if ((true != NODE_IS_POWER(currParent->children[i]->typeId)) ||
-				(false != NODE_IS_OFF(currParent->children[i]))) {
+			if ((true != NODE_IS_POWER(currParent->children[i])) ||
+			    (false != NODE_IS_OFF(currParent->children[i]))) {
 				continue;
 			}
 
@@ -792,7 +791,7 @@ static void PmForcePowerDownChildren(const PmPower* const parent)
 		PmNodeUpdateCurrState(child, 0U);
 
 		/* Special case: node is a processor, release slave-requirements */
-		if (PM_TYPE_PROC == child->typeId) {
+		if (NODE_IS_PROC(child)) {
 			proc = (PmProc*)child->derived;
 
 			if (NULL != proc) {
@@ -922,9 +921,9 @@ done:
 
 /**
  * PmPowerClearConfig() - Clear configuration of the power node
- * @powerNode   Pointer to the power node
+ * @powerNode	Pointer to the power node
  */
-void PmPowerClearConfig(PmNode* const powerNode)
+static void PmPowerClearConfig(PmNode* const powerNode)
 {
 	PmPower* const power = (PmPower*)powerNode->derived;
 
@@ -932,3 +931,18 @@ void PmPowerClearConfig(PmNode* const powerNode)
 	power->forcePerms = 0U;
 	power->requests = 0U;
 }
+
+/* Collection of power nodes */
+static PmNode* pmNodePowerBucket[] = {
+	&pmPowerIslandRpu_g.node,
+	&pmPowerIslandApu_g.node,
+	&pmPowerDomainFpd_g.node,
+	&pmPowerDomainPld_g.node,
+	&pmPowerDomainLpd_g.node,
+};
+
+PmNodeClass pmNodeClassPower_g = {
+	DEFINE_NODE_BUCKET(pmNodePowerBucket),
+	.id = NODE_CLASS_POWER,
+	.clearConfig = PmPowerClearConfig,
+};

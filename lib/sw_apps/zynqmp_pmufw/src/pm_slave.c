@@ -671,10 +671,71 @@ done:
  * PmSlaveClearConfig() - Clear configuration of the slave node
  * @slaveNode	Slave node to clear
  */
-void PmSlaveClearConfig(PmNode* const slaveNode)
+static void PmSlaveClearConfig(PmNode* const slaveNode)
 {
 	PmSlave* const slave = (PmSlave*)slaveNode->derived;
 
 	slave->reqs = NULL;
 	slave->flags = 0U;
 }
+
+/* Collection of slave nodes */
+static PmNode* pmNodeSlaveBucket[] = {
+	&pmSlaveL2_g.slv.node,
+	&pmSlaveOcm0_g.slv.node,
+	&pmSlaveOcm1_g.slv.node,
+	&pmSlaveOcm2_g.slv.node,
+	&pmSlaveOcm3_g.slv.node,
+	&pmSlaveTcm0A_g.slv.node,
+	&pmSlaveTcm0B_g.slv.node,
+	&pmSlaveTcm1A_g.slv.node,
+	&pmSlaveTcm1B_g.slv.node,
+	&pmSlaveUsb0_g.slv.node,
+	&pmSlaveUsb1_g.slv.node,
+	&pmSlaveTtc0_g.node,
+	&pmSlaveTtc1_g.node,
+	&pmSlaveTtc2_g.node,
+	&pmSlaveTtc3_g.node,
+	&pmSlaveSata_g.node,
+	&pmSlaveApll_g.slv.node,
+	&pmSlaveVpll_g.slv.node,
+	&pmSlaveDpll_g.slv.node,
+	&pmSlaveRpll_g.slv.node,
+	&pmSlaveIOpll_g.slv.node,
+	&pmSlaveGpuPP0_g.slv.node,
+	&pmSlaveGpuPP1_g.slv.node,
+	&pmSlaveUart0_g.node,
+	&pmSlaveUart1_g.node,
+	&pmSlaveSpi0_g.node,
+	&pmSlaveSpi1_g.node,
+	&pmSlaveI2C0_g.node,
+	&pmSlaveI2C1_g.node,
+	&pmSlaveSD0_g.node,
+	&pmSlaveSD1_g.node,
+	&pmSlaveCan0_g.node,
+	&pmSlaveCan1_g.node,
+	&pmSlaveEth0_g.node,
+	&pmSlaveEth1_g.node,
+	&pmSlaveEth2_g.node,
+	&pmSlaveEth3_g.node,
+	&pmSlaveAdma_g.node,
+	&pmSlaveGdma_g.node,
+	&pmSlaveDP_g.node,
+	&pmSlaveNand_g.node,
+	&pmSlaveQSpi_g.node,
+	&pmSlaveGpio_g.node,
+	&pmSlaveAFI_g.node,
+	&pmSlaveDdr_g.node,
+	&pmSlaveIpiApu_g.node,
+	&pmSlaveIpiRpu0_g.node,
+	&pmSlaveGpu_g.node,
+	&pmSlavePcie_g.node,
+	&pmSlavePcap_g.node,
+	&pmSlaveRtc_g.node,
+};
+
+PmNodeClass pmNodeClassSlave_g = {
+	DEFINE_NODE_BUCKET(pmNodeSlaveBucket),
+	.id = NODE_CLASS_SLAVE,
+	.clearConfig = PmSlaveClearConfig,
+};

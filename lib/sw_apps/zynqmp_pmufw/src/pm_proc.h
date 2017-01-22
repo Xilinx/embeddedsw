@@ -138,12 +138,12 @@ extern PmProc pmProcApu3_g;
 extern PmProc pmProcRpu0_g;
 extern PmProc pmProcRpu1_g;
 
+extern PmNodeClass pmNodeClassProc_g;
+
 /*********************************************************************
  * Function declarations
  ********************************************************************/
 int PmProcFsm(PmProc* const proc, const PmProcEvent event);
-
-void PmProcClearConfig(PmNode* const procNode);
 
 /**
  * PmProcIsForcedOff() - Check whether given processor is in forced off state

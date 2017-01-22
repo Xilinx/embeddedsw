@@ -189,7 +189,7 @@ static int PmProcSleep(PmNode* const nodePtr)
 	u32 worstCaseLatency = 0;
 	int status = XST_PM_INTERNAL;
 
-	if ((NULL == nodePtr) || (false == NODE_IS_PROC(nodePtr->typeId))) {
+	if ((NULL == nodePtr) || (false == NODE_IS_PROC(nodePtr))) {
 		goto done;
 	}
 
@@ -604,9 +604,9 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 
 /**
  * PmProcClearConfig() - Clear configuration of the processor node
- * @procNode    Processor node
+ * @procNode	Processor node
  */
-void PmProcClearConfig(PmNode* const procNode)
+static void PmProcClearConfig(PmNode* const procNode)
 {
 	PmProc* const proc = (PmProc*)procNode->derived;
 
@@ -648,7 +648,7 @@ PmProc pmProcApu0_g = {
 	.node = {
 		.derived = &pmProcApu0_g,
 		.nodeId = NODE_APU_0,
-		.typeId = PM_TYPE_PROC,
+		.class = &pmNodeClassProc_g,
 		.parent = &pmPowerIslandApu_g,
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_ACTIVE,
@@ -674,7 +674,7 @@ PmProc pmProcApu1_g = {
 	.node = {
 		.derived = &pmProcApu1_g,
 		.nodeId = NODE_APU_1,
-		.typeId = PM_TYPE_PROC,
+		.class = &pmNodeClassProc_g,
 		.parent = &pmPowerIslandApu_g,
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_SLEEP,
@@ -700,7 +700,7 @@ PmProc pmProcApu2_g = {
 	.node = {
 		.derived = &pmProcApu2_g,
 		.nodeId = NODE_APU_2,
-		.typeId = PM_TYPE_PROC,
+		.class = &pmNodeClassProc_g,
 		.parent = &pmPowerIslandApu_g,
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_SLEEP,
@@ -726,7 +726,7 @@ PmProc pmProcApu3_g = {
 	.node = {
 		.derived = &pmProcApu3_g,
 		.nodeId = NODE_APU_3,
-		.typeId = PM_TYPE_PROC,
+		.class = &pmNodeClassProc_g,
 		.parent = &pmPowerIslandApu_g,
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_SLEEP,
@@ -753,7 +753,7 @@ PmProc pmProcRpu0_g = {
 	.node = {
 		.derived = &pmProcRpu0_g,
 		.nodeId = NODE_RPU_0,
-		.typeId = PM_TYPE_PROC,
+		.class = &pmNodeClassProc_g,
 		.parent = &pmPowerIslandRpu_g,
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_ACTIVE,
@@ -779,7 +779,7 @@ PmProc pmProcRpu1_g = {
 	.node = {
 		.derived = &pmProcRpu1_g,
 		.nodeId = NODE_RPU_1,
-		.typeId = PM_TYPE_PROC,
+		.class = &pmNodeClassProc_g,
 		.parent = &pmPowerIslandRpu_g,
 		.clocks = NULL,
 		.currState = PM_PROC_STATE_SLEEP,
@@ -799,4 +799,20 @@ PmProc pmProcRpu1_g = {
 	.latencyReq = MAX_LATENCY,
 	.pwrDnLatency = 0,
 	.pwrUpLatency = 0,
+};
+
+/* Collection of processor nodes */
+static PmNode* pmNodeProcBucket[] = {
+	&pmProcApu0_g.node,
+	&pmProcApu1_g.node,
+	&pmProcApu2_g.node,
+	&pmProcApu3_g.node,
+	&pmProcRpu0_g.node,
+	&pmProcRpu1_g.node,
+};
+
+PmNodeClass pmNodeClassProc_g = {
+	DEFINE_NODE_BUCKET(pmNodeProcBucket),
+	.id = NODE_CLASS_PROC,
+	.clearConfig = PmProcClearConfig,
 };

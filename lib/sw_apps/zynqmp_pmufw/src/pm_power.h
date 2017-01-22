@@ -43,6 +43,7 @@
 /*********************************************************************
  * Macros
  ********************************************************************/
+
 /* States of power island/domain */
 #define PM_PWR_STATE_OFF    0U
 #define PM_PWR_STATE_ON     1U
@@ -88,11 +89,12 @@ extern PmPower pmPowerDomainFpd_g;
 extern PmPower pmPowerDomainLpd_g;
 extern PmPower pmPowerDomainPld_g;
 
+extern PmNodeClass pmNodeClassPower_g;
+
 /*********************************************************************
  * Function declarations
  ********************************************************************/
 void PmOpportunisticSuspend(PmPower* const power);
-void PmPowerClearConfig(PmNode* const powerNode);
 void PmPowerInit(void);
 
 int PmTriggerPowerUp(PmPower* const power);

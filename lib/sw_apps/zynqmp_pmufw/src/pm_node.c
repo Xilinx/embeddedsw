@@ -36,120 +36,12 @@
 #include "pm_power.h"
 #include "pm_proc.h"
 #include "pm_slave.h"
-#include "pm_sram.h"
-#include "pm_usb.h"
-#include "pm_periph.h"
-#include "pm_pll.h"
 #include "pm_notifier.h"
-#include "pm_ddr.h"
-#include "pm_gpp.h"
 
-#define DEFINE_NODE_COLLECTION(c)	.bucket = (c), \
-					.bucketSize = ARRAY_SIZE(c)
-
-/**
- * PmNodeCollection - Collection of nodes with the same type, used for
- *              implementing associative array of nodes
- * @clearConfig Pointer to the function which clears configuration of the node
- * @bucket      Pointer to the array of nodes
- * @bucketSize  Number of elements in the array of nodes
- * @key         Type of the nodes from the bucket
- */
-typedef struct {
-	void (*const clearConfig)(PmNode* const node);
-	PmNode** const bucket;
-	const u32 bucketSize;
-	const PmNodeTypeId key;
-} PmNodeCollection;
-
-/* Collection of processor nodes */
-static PmNode* pmNodeProcCollection[] = {
-	&pmProcApu0_g.node,
-	&pmProcApu1_g.node,
-	&pmProcApu2_g.node,
-	&pmProcApu3_g.node,
-	&pmProcRpu0_g.node,
-	&pmProcRpu1_g.node,
-};
-
-/* Collection of power nodes */
-static PmNode* pmNodePowerCollection[] = {
-	&pmPowerIslandRpu_g.node,
-	&pmPowerIslandApu_g.node,
-	&pmPowerDomainFpd_g.node,
-	&pmPowerDomainPld_g.node,
-	&pmPowerDomainLpd_g.node,
-};
-
-/* Collection of slave nodes */
-static PmNode* pmNodeSlaveCollection[] = {
-	&pmSlaveL2_g.slv.node,
-	&pmSlaveOcm0_g.slv.node,
-	&pmSlaveOcm1_g.slv.node,
-	&pmSlaveOcm2_g.slv.node,
-	&pmSlaveOcm3_g.slv.node,
-	&pmSlaveTcm0A_g.slv.node,
-	&pmSlaveTcm0B_g.slv.node,
-	&pmSlaveTcm1A_g.slv.node,
-	&pmSlaveTcm1B_g.slv.node,
-	&pmSlaveUsb0_g.slv.node,
-	&pmSlaveUsb1_g.slv.node,
-	&pmSlaveTtc0_g.node,
-	&pmSlaveTtc1_g.node,
-	&pmSlaveTtc2_g.node,
-	&pmSlaveTtc3_g.node,
-	&pmSlaveSata_g.node,
-	&pmSlaveApll_g.slv.node,
-	&pmSlaveVpll_g.slv.node,
-	&pmSlaveDpll_g.slv.node,
-	&pmSlaveRpll_g.slv.node,
-	&pmSlaveIOpll_g.slv.node,
-	&pmSlaveGpuPP0_g.slv.node,
-	&pmSlaveGpuPP1_g.slv.node,
-	&pmSlaveUart0_g.node,
-	&pmSlaveUart1_g.node,
-	&pmSlaveSpi0_g.node,
-	&pmSlaveSpi1_g.node,
-	&pmSlaveI2C0_g.node,
-	&pmSlaveI2C1_g.node,
-	&pmSlaveSD0_g.node,
-	&pmSlaveSD1_g.node,
-	&pmSlaveCan0_g.node,
-	&pmSlaveCan1_g.node,
-	&pmSlaveEth0_g.node,
-	&pmSlaveEth1_g.node,
-	&pmSlaveEth2_g.node,
-	&pmSlaveEth3_g.node,
-	&pmSlaveAdma_g.node,
-	&pmSlaveGdma_g.node,
-	&pmSlaveDP_g.node,
-	&pmSlaveNand_g.node,
-	&pmSlaveQSpi_g.node,
-	&pmSlaveGpio_g.node,
-	&pmSlaveAFI_g.node,
-	&pmSlaveDdr_g.node,
-	&pmSlaveIpiApu_g.node,
-	&pmSlaveIpiRpu0_g.node,
-	&pmSlaveGpu_g.node,
-	&pmSlavePcie_g.node,
-	&pmSlavePcap_g.node,
-	&pmSlaveRtc_g.node,
-};
-
-static PmNodeCollection pmNodesColl[] = {
-	{
-		DEFINE_NODE_COLLECTION(pmNodeProcCollection),
-		.key = PM_TYPE_PROC,
-		.clearConfig = PmProcClearConfig,
-	}, {
-		DEFINE_NODE_COLLECTION(pmNodePowerCollection),
-		.key = PM_TYPE_POWER,
-		.clearConfig = PmPowerClearConfig,
-	}, {
-		DEFINE_NODE_COLLECTION(pmNodeSlaveCollection),
-		.key = PM_TYPE_SLAVE,
-		.clearConfig = PmSlaveClearConfig,
-	},
+static PmNodeClass* pmNodeClasses[] = {
+	&pmNodeClassProc_g,
+	&pmNodeClassPower_g,
+	&pmNodeClassSlave_g,
 };
 
 /**
@@ -163,10 +55,10 @@ PmNode* PmGetNodeById(const u32 nodeId)
 	u32 i, n;
 	PmNode* node = NULL;
 
-	for (i = 0U; i < ARRAY_SIZE(pmNodesColl); i++) {
-		for (n = 0U; n < pmNodesColl[i].bucketSize; n++) {
-			if (nodeId == pmNodesColl[i].bucket[n]->nodeId) {
-				node = pmNodesColl[i].bucket[n];
+	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
+		for (n = 0U; n < pmNodeClasses[i]->bucketSize; n++) {
+			if (nodeId == pmNodeClasses[i]->bucket[n]->nodeId) {
+				node = pmNodeClasses[i]->bucket[n];
 				goto done;
 			}
 		}
@@ -272,7 +164,7 @@ u32 PmNodeGetPowerConsumption(PmNode* const nodePtr, const PmStateId state)
 
 	power = PmNodeLookupConsumption(nodePtr, state);
 
-	if ((false == NODE_IS_POWER(nodePtr->typeId)) ||
+	if ((false == NODE_IS_POWER(nodePtr)) ||
 	    (true == NODE_IS_OFF(nodePtr))) {
 		goto done;
 	}
@@ -304,7 +196,7 @@ u32 PmNodeGetPowerConsumption(PmNode* const nodePtr, const PmStateId state)
 				power += childPwr;
 			}
 
-			if (true == NODE_IS_POWER(childNode->typeId)) {
+			if (true == NODE_IS_POWER(childNode)) {
 				/* Work our way down to the lowest child */
 				currParent = (PmPower*)childNode->derived;
 				childPos = 0U;
@@ -345,14 +237,14 @@ u32 PmNodeGetWakeLatency(PmNode* const nodePtr)
 	const PmSlave* slave;
 	const PmProc* proc;
 
-	if (true == NODE_IS_SLAVE(nodePtr->typeId)) {
+	if (true == NODE_IS_SLAVE(nodePtr)) {
 		slave = (PmSlave*)nodePtr->derived;
 		result = PmGetLatencyFromState(slave, nodePtr->currState);
-	} else if ((true == NODE_IS_PROC(nodePtr->typeId)) &&
+	} else if ((true == NODE_IS_PROC(nodePtr)) &&
 		   (true == NODE_IS_OFF(nodePtr))) {
-			proc = (PmProc*)nodePtr->derived;
-			result = proc->pwrUpLatency;
-	} else if ((true == NODE_IS_POWER(nodePtr->typeId)) &&
+		proc = (PmProc*)nodePtr->derived;
+		result = proc->pwrUpLatency;
+	} else if ((true == NODE_IS_POWER(nodePtr)) &&
 		   (true == NODE_IS_OFF(nodePtr))) {
 		power = (PmPower*)nodePtr->derived;
 		result = power->pwrUpLatency;
@@ -377,7 +269,7 @@ bool PmNodeDependsOnClock(const PmNode* const node)
 {
 	bool deps = false;
 
-	if (true == NODE_IS_SLAVE(node->typeId)) {
+	if (true == NODE_IS_SLAVE(node)) {
 		const PmSlave* const slv = (PmSlave*)node->derived;
 
 		if (0U != (PM_CAP_CLOCK & slv->slvFsm->states[node->currState])) {
@@ -393,33 +285,45 @@ bool PmNodeDependsOnClock(const PmNode* const node)
 }
 
 /**
- * PmNodeGetByType() - Get node based on type and node ID
- * @nodeId      ID of the node to get
- * @typeId      Type of the node to get
+ * PmNodeGetClassById() - Get node class by class ID
+ * @id		ID of the class to get
  *
- * @return      NULL if node with given ID and of given type does not exist.
- *              Pointer to the node otherwise.
+ * @return	Pointer to class if found, NULL otherwise.
  */
-static PmNode* PmNodeGetByType(const PmNodeId nodeId, const PmNodeTypeId typeId)
+static PmNodeClass* PmNodeGetClassById(const u8 id)
 {
-	u32 i, n;
-	PmNode* node = NULL;
+	u32 i;
+	PmNodeClass* class = NULL;
 
-	for (i = 0U; i < ARRAY_SIZE(pmNodesColl); i++) {
-		PmNodeCollection* coll = &pmNodesColl[i];
-
-		if (coll->key != typeId) {
-			continue;
-		}
-		for (n = 0U; n < pmNodesColl[i].bucketSize; n++) {
-			if (nodeId == pmNodesColl[i].bucket[n]->nodeId) {
-				node = pmNodesColl[i].bucket[n];
-				goto done;
-			}
+	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
+		if (id == pmNodeClasses[i]->id) {
+			class = pmNodeClasses[i];
+			break;
 		}
 	}
 
-done:
+	return class;
+}
+
+/**
+ * PmNodeGetFromClass() - Get node with given ID from class
+ * @class	Node class to search through
+ * @nid		ID of the node to get
+ *
+ * @return	Pointer to node if found, NULL otherwise.
+ */
+static PmNode* PmNodeGetFromClass(const PmNodeClass* const class, const u8 nid)
+{
+	u32 i;
+	PmNode* node = NULL;
+
+	for (i = 0U; i < class->bucketSize; i++) {
+		if (nid == class->bucket[i]->nodeId) {
+			node = class->bucket[i];
+			break;
+		}
+	}
+
 	return node;
 }
 
@@ -432,7 +336,8 @@ done:
 PmSlave* PmNodeGetSlave(const u32 nodeId)
 {
 	PmSlave* slave = NULL;
-	PmNode* node = PmNodeGetByType(nodeId, PM_TYPE_SLAVE);
+	PmNodeClass* class = PmNodeGetClassById(NODE_CLASS_SLAVE);
+	PmNode* node = PmNodeGetFromClass(class, nodeId);
 
 	if (NULL != node) {
 		slave = (PmSlave*)node->derived;
@@ -450,7 +355,8 @@ PmSlave* PmNodeGetSlave(const u32 nodeId)
 PmPower* PmNodeGetPower(const u32 nodeId)
 {
 	PmPower* power = NULL;
-	PmNode* node = PmNodeGetByType(nodeId, PM_TYPE_POWER);
+	PmNodeClass* class = PmNodeGetClassById(NODE_CLASS_POWER);
+	PmNode* node = PmNodeGetFromClass(class, nodeId);
 
 	if (NULL != node) {
 		power = (PmPower*)node->derived;
@@ -468,7 +374,8 @@ PmPower* PmNodeGetPower(const u32 nodeId)
 PmProc* PmNodeGetProc(const u32 nodeId)
 {
 	PmProc* proc = NULL;
-	PmNode* node = PmNodeGetByType(nodeId, PM_TYPE_PROC);
+	PmNodeClass* class = PmNodeGetClassById(NODE_CLASS_PROC);
+	PmNode* node = PmNodeGetFromClass(class, nodeId);
 
 	if (NULL != node) {
 		proc = (PmProc*)node->derived;
@@ -484,16 +391,15 @@ void PmNodeClearConfig(void)
 {
 	u32 i, n;
 
-	for (i = 0U; i < ARRAY_SIZE(pmNodesColl); i++) {
-		for (n = 0U; n < pmNodesColl[i].bucketSize; n++) {
+	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
+		for (n = 0U; n < pmNodeClasses[i]->bucketSize; n++) {
+			PmNode* node = pmNodeClasses[i]->bucket[n];
 
-			pmNodesColl[i].bucket[n]->latencyMarg = MAX_LATENCY;
+			node->latencyMarg = MAX_LATENCY;
 
-			if (NULL == pmNodesColl[i].clearConfig) {
-				continue;
+			if (NULL != pmNodeClasses[i]->clearConfig) {
+				pmNodeClasses[i]->clearConfig(node);
 			}
-
-			pmNodesColl[i].clearConfig(pmNodesColl[i].bucket[n]);
 		}
 	}
 }

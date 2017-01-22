@@ -42,7 +42,6 @@
 
 typedef u8 PmNodeId;
 typedef u8 PmStateId;
-typedef u8 PmNodeTypeId;
 
 /* Forward declaration */
 typedef struct PmPower PmPower;
@@ -50,6 +49,7 @@ typedef struct PmClockHandle PmClockHandle;
 typedef struct PmNode PmNode;
 typedef struct PmSlave PmSlave;
 typedef struct PmProc PmProc;
+typedef struct PmNodeClass PmNodeClass;
 
 /* Function pointer for wake/sleep transition functions */
 typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
@@ -57,19 +57,21 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 /*********************************************************************
  * Macros
  ********************************************************************/
-/* Node types */
-#define PM_TYPE_PROC            1U
-#define PM_TYPE_POWER           2U
-#define PM_TYPE_SLAVE           3U
 
-#define NODE_IS_PROC(type)       (PM_TYPE_PROC == (type))
-#define NODE_IS_POWER(type)      (PM_TYPE_POWER == (type))
-#define NODE_IS_SLAVE(type)      (PM_TYPE_SLAVE == (type))
+#define NODE_CLASS_PROC		1U
+#define NODE_CLASS_POWER	2U
+#define NODE_CLASS_SLAVE	3U
+
+#define NODE_IS_PROC(nodePtr)	(NODE_CLASS_PROC == (nodePtr)->class->id)
+#define NODE_IS_POWER(nodePtr)	(NODE_CLASS_POWER == (nodePtr)->class->id)
+#define NODE_IS_SLAVE(nodePtr)	(NODE_CLASS_SLAVE == (nodePtr)->class->id)
 
 #define NODE_IS_OFF(nodePtr)     (0U == ((nodePtr)->currState & 1U))
 
 #define NODE_HAS_SLEEP(opsPtr)   ((NULL != (opsPtr)) && (NULL != (opsPtr)->sleep))
 
+#define DEFINE_NODE_BUCKET(b)	.bucket = (b), \
+				.bucketSize = ARRAY_SIZE(b)
 
 #define DEFINE_PM_POWER_INFO(i)	.powerInfo = (i), \
 				.powerInfoCnt = ARRAY_SIZE(i)
@@ -89,7 +91,8 @@ typedef struct PmNodeOps {
 
 /**
  * PmNode - Structure common for all entities that have node id
- * @derived     Pointer to a derived node type structure
+ * @derived     Pointer to a derived node structure
+ * @class	Pointer to the node class of the node
  * @parent      Pointer to power parent node
  * @clocks      Pointer to the list of clocks that the node uses
  * @ops         Pointer to the operations structure
@@ -105,6 +108,7 @@ typedef struct PmNodeOps {
  */
 typedef struct PmNode {
 	void* const derived;
+	PmNodeClass* const class;
 	PmPower* const parent;
 	PmClockHandle* clocks;
 	const PmNodeOps* const ops;
@@ -112,9 +116,22 @@ typedef struct PmNode {
 	const u32 powerInfoCnt;
 	u32 latencyMarg;
 	const PmNodeId nodeId;
-	const PmNodeTypeId typeId;
 	PmStateId currState;
 } PmNode;
+
+/**
+ * PmNodeClass - Node class models common behavior for a collection of nodes
+ * @clearConfig		Clear current configuration of the node
+ * @bucket		Pointer to the array of nodes from the class
+ * @bucketSize		Number of nodes in the bucket
+ * @id			Nodes' class/type ID
+ */
+typedef struct PmNodeClass {
+	void (*const clearConfig)(PmNode* const node);
+	PmNode** const bucket;
+	const u32 bucketSize;
+	const u8 id;
+} PmNodeClass;
 
 /*********************************************************************
  * Function declarations
