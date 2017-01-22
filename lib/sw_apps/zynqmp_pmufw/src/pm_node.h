@@ -93,6 +93,7 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
  *              stateId
  * @powerInfoCnt  Number of power consumptions in powerInfo array based on
  *                number of states
+ * @flags       Node flags
  */
 typedef struct PmNode {
 	void* const derived;
@@ -104,6 +105,7 @@ typedef struct PmNode {
 	u32 latencyMarg;
 	const PmNodeId nodeId;
 	PmStateId currState;
+	u8 flags;
 } PmNode;
 
 /**

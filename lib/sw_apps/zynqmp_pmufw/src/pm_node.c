@@ -244,6 +244,7 @@ void PmNodeClearConfig(void)
 			PmNode* node = pmNodeClasses[i]->bucket[n];
 
 			node->latencyMarg = MAX_LATENCY;
+			node->flags = 0U;
 
 			if (NULL != pmNodeClasses[i]->clearConfig) {
 				pmNodeClasses[i]->clearConfig(node);
