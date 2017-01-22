@@ -39,6 +39,9 @@
 #include "pm_common.h"
 #include "pm_node.h"
 #include "pm_master.h"
+#include "xpfw_rom_interface.h"
+
+typedef struct PmPowerClass PmPowerClass;
 
 /*********************************************************************
  * Macros
@@ -59,6 +62,7 @@
  *           is controlled within its transition actions. Otherwise, this power
  *           structure must exist.
  * @node     Node structure of this power entity
+ * @class    If power node has derived structure this is the pointer the class
  * @children Pointer to the array of children
  * @powerUp  Handler for powering up the node
  * @powerDown Handler for powering down the node
@@ -74,6 +78,7 @@
  */
 typedef struct PmPower {
 	PmNode node;
+	PmPowerClass* const class;
 	PmNode** const children;
 	int (*const powerUp)(void);
 	int (*const powerDown)(void);
@@ -86,14 +91,34 @@ typedef struct PmPower {
 	u8 useCount;
 } PmPower;
 
+/**
+ * PmPowerDomain - Structure for power domains (do not have power parent)
+ * @power		Basic power structure
+ * @supplyCheckHook	PMU-ROM hook to check power supply on power up
+ * @supplyCheckHookId	PMU-ROM service ID for the supply check
+ */
+typedef struct PmPowerDomain {
+	PmPower power;
+	u32 (*const supplyCheckHook)(const XpbrServHndlr_t RomHandler);
+	enum xpbr_serv_ext_id supplyCheckHookId;
+} PmPowerDomain;
+
+/**
+ * PmPowerClass - Power class to model properties of PmPower derived objects
+ * @construct	Constructor for the power node, call only once on startup
+ */
+typedef struct PmPowerClass {
+	void (*const construct)(PmPower* const power);
+} PmPowerClass;
+
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
 extern PmPower pmPowerIslandRpu_g;
 extern PmPower pmPowerIslandApu_g;
-extern PmPower pmPowerDomainFpd_g;
-extern PmPower pmPowerDomainLpd_g;
-extern PmPower pmPowerDomainPld_g;
+extern PmPowerDomain pmPowerDomainFpd_g;
+extern PmPowerDomain pmPowerDomainLpd_g;
+extern PmPowerDomain pmPowerDomainPld_g;
 
 extern PmNodeClass pmNodeClassPower_g;
 

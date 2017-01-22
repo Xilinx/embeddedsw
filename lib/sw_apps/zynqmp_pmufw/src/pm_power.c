@@ -245,6 +245,10 @@ void PmPowerInit(void)
 	XpbrServExtTbl[XPBR_SERV_EXT_PLD_SUPPLYCHECK] = PmPowerSupplyCheck;
 }
 
+static PmPowerClass pmPowerClassDomain_g = {
+	.construct = NULL,
+};
+
 /**
  * PmFpdSaveContext() - Save context of CRF_APB module due to powering down FPD
  */
@@ -547,7 +551,7 @@ PmPower pmPowerIslandRpu_g = {
 		.derived = &pmPowerIslandRpu_g,
 		.nodeId = NODE_RPU,
 		.class = &pmNodeClassPower_g,
-		.parent = &pmPowerDomainLpd_g,
+		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
@@ -555,6 +559,7 @@ PmPower pmPowerIslandRpu_g = {
 		DEFINE_PM_POWER_INFO(PmDomainPowers),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmRpuChildren),
+	.class = NULL,
 	.powerUp = PmPowerUpRpu,
 	.powerDown = PmPowerDownRpu,
 	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
@@ -575,7 +580,7 @@ PmPower pmPowerIslandApu_g = {
 		.derived = &pmPowerIslandApu_g,
 		.nodeId = NODE_APU,
 		.class = &pmNodeClassPower_g,
-		.parent = &pmPowerDomainFpd_g,
+		.parent = &pmPowerDomainFpd_g.power,
 		.clocks = NULL,
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
@@ -583,6 +588,7 @@ PmPower pmPowerIslandApu_g = {
 		DEFINE_PM_POWER_INFO(PmDomainPowers),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmApuChildren),
+	.class = NULL,
 	.powerUp = NULL,
 	.powerDown = NULL,
 	.pwrDnLatency = 0,
@@ -592,71 +598,89 @@ PmPower pmPowerIslandApu_g = {
 	.requests = 0U,
 };
 
-PmPower pmPowerDomainFpd_g = {
-	.node = {
-		.derived = &pmPowerDomainFpd_g,
-		.nodeId = NODE_FPD,
-		.class = &pmNodeClassPower_g,
-		.parent = NULL,
-		.clocks = NULL,
-		.currState = PM_PWR_STATE_ON,
-		.latencyMarg = MAX_LATENCY,
-		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmDomainPowers),
+PmPowerDomain pmPowerDomainFpd_g = {
+	.power = {
+		.node = {
+			.derived = &pmPowerDomainFpd_g,
+			.nodeId = NODE_FPD,
+			.class = &pmNodeClassPower_g,
+			.parent = NULL,
+			.clocks = NULL,
+			.currState = PM_PWR_STATE_ON,
+			.latencyMarg = MAX_LATENCY,
+			.flags = 0U,
+			DEFINE_PM_POWER_INFO(PmDomainPowers),
+		},
+		DEFINE_PM_POWER_CHILDREN(pmFpdChildren),
+		.class = &pmPowerClassDomain_g,
+		.powerUp = PmPowerUpFpd,
+		.powerDown = PmPowerDownFpd,
+		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
+		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+		.forcePerms = 0U,
+		.reqPerms = 0U,
+		.requests = 0U,
+		.useCount = 0U,
 	},
-	DEFINE_PM_POWER_CHILDREN(pmFpdChildren),
-	.powerUp = PmPowerUpFpd,
-	.powerDown = PmPowerDownFpd,
-	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
-	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
-	.forcePerms = 0U,
-	.reqPerms = 0U,
-	.requests = 0U,
+	.supplyCheckHook = PmPowerSupplyCheck,
+	.supplyCheckHookId = XPBR_SERV_EXT_FPD_SUPPLYCHECK,
 };
 
-PmPower pmPowerDomainLpd_g = {
-	.node = {
-		.derived = &pmPowerDomainLpd_g,
-		.nodeId = NODE_LPD,
-		.class = &pmNodeClassPower_g,
-		.parent = NULL,
-		.clocks = NULL,
-		.currState = PM_PWR_STATE_ON,
-		.latencyMarg = MAX_LATENCY,
-		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmDomainPowers),
+PmPowerDomain pmPowerDomainLpd_g = {
+	.power = {
+		.node = {
+			.derived = &pmPowerDomainLpd_g,
+			.nodeId = NODE_LPD,
+			.class = &pmNodeClassPower_g,
+			.parent = NULL,
+			.clocks = NULL,
+			.currState = PM_PWR_STATE_ON,
+			.latencyMarg = MAX_LATENCY,
+			.flags = 0U,
+			DEFINE_PM_POWER_INFO(PmDomainPowers),
+		},
+		DEFINE_PM_POWER_CHILDREN(pmLpdChildren),
+		.class = &pmPowerClassDomain_g,
+		.powerUp = NULL,
+		.powerDown = PmPowerDownLpd,
+		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
+		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+		.forcePerms = 0U,
+		.reqPerms = 0U,
+		.requests = 0U,
+		.useCount = 0U,
 	},
-	DEFINE_PM_POWER_CHILDREN(pmLpdChildren),
-	.powerUp = NULL,
-	.powerDown = PmPowerDownLpd,
-	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
-	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
-	.forcePerms = 0U,
-	.reqPerms = 0U,
-	.requests = 0U,
+	.supplyCheckHook = NULL,
+	.supplyCheckHookId = 0U,
 };
 
-PmPower pmPowerDomainPld_g = {
-	.node = {
-		.derived = &pmPowerDomainPld_g,
-		.nodeId = NODE_PL,
-		.class = &pmNodeClassPower_g,
-		.parent = NULL,
-		.clocks = NULL,
-		.currState = PM_PWR_STATE_ON,
-		.latencyMarg = MAX_LATENCY,
-		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmDomainPowers),
+PmPowerDomain pmPowerDomainPld_g = {
+	.power = {
+		.node = {
+			.derived = &pmPowerDomainPld_g,
+			.nodeId = NODE_PL,
+			.class = &pmNodeClassPower_g,
+			.parent = NULL,
+			.clocks = NULL,
+			.currState = PM_PWR_STATE_ON,
+			.latencyMarg = MAX_LATENCY,
+			.flags = 0U,
+			DEFINE_PM_POWER_INFO(PmDomainPowers),
+		},
+		.class = &pmPowerClassDomain_g,
+		.children = NULL,
+		.childCnt = 0U,
+		.powerUp = PmPowerUpPld,
+		.powerDown = PmPowerDownPld,
+		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
+		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
+		.forcePerms = 0U,
+		.reqPerms = 0U,
+		.requests = 0U,
+		.useCount = 0U,
 	},
-	.children = NULL,
-	.childCnt = 0U,
-	.powerUp = PmPowerUpPld,
-	.powerDown = PmPowerDownPld,
-	.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
-	.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
-	.forcePerms = 0U,
-	.reqPerms = 0U,
-	.requests = 0U,
+	.supplyCheckHook = PmPowerSupplyCheck,
+	.supplyCheckHookId = XPBR_SERV_EXT_PLD_SUPPLYCHECK,
 };
 
 /**
@@ -1054,9 +1078,9 @@ done:
 static PmNode* pmNodePowerBucket[] = {
 	&pmPowerIslandRpu_g.node,
 	&pmPowerIslandApu_g.node,
-	&pmPowerDomainFpd_g.node,
-	&pmPowerDomainPld_g.node,
-	&pmPowerDomainLpd_g.node,
+	&pmPowerDomainFpd_g.power.node,
+	&pmPowerDomainPld_g.power.node,
+	&pmPowerDomainLpd_g.power.node,
 };
 
 PmNodeClass pmNodeClassPower_g = {

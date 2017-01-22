@@ -791,22 +791,22 @@ static PmClockHandle pmClockHandles[] = {
 		.nextNode = NULL,
 	}, {
 		.clock = &pmClockPl0,
-		.node = &pmPowerDomainPld_g.node,
+		.node = &pmPowerDomainPld_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {
 		.clock = &pmClockPl1,
-		.node = &pmPowerDomainPld_g.node,
+		.node = &pmPowerDomainPld_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {
 		.clock = &pmClockPl2,
-		.node = &pmPowerDomainPld_g.node,
+		.node = &pmPowerDomainPld_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {
 		.clock = &pmClockPl3,
-		.node = &pmPowerDomainPld_g.node,
+		.node = &pmPowerDomainPld_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {

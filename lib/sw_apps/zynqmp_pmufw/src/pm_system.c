@@ -82,10 +82,10 @@ void PmSystemProcessShutdown(const PmMaster *master, u32 type, u32 subtype)
 	if (PMF_SHUTDOWN_TYPE_SHUTDOWN == type) {
 
 		if (PMF_SHUTDOWN_SUBTYPE_SYSTEM == subtype) {
-			(void)PmNodeForceDown(&pmPowerDomainPld_g.node);
+			(void)PmNodeForceDown(&pmPowerDomainPld_g.power.node);
 		}
-		(void)PmNodeForceDown(&pmPowerDomainFpd_g.node);
-		(void)PmNodeForceDown(&pmPowerDomainLpd_g.node);
+		(void)PmNodeForceDown(&pmPowerDomainFpd_g.power.node);
+		(void)PmNodeForceDown(&pmPowerDomainLpd_g.power.node);
 	}
 
 	if (PMF_SHUTDOWN_TYPE_RESET == type) {

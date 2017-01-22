@@ -245,7 +245,7 @@ done:
  */
 void XPfw_DapFpdWakeEvent(void)
 {
-	pmPowerDomainFpd_g.node.currState = PM_PWR_STATE_ON;
+	pmPowerDomainFpd_g.power.node.currState = PM_PWR_STATE_ON;
 }
 
 /**
