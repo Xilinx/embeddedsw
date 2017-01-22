@@ -112,28 +112,6 @@ done:
 }
 
 /**
- * PmNodeDependsOnClock() - Check whether node currently depends on its clock
- */
-bool PmNodeDependsOnClock(const PmNode* const node)
-{
-	bool deps = false;
-
-	if (true == NODE_IS_SLAVE(node)) {
-		const PmSlave* const slv = (PmSlave*)node->derived;
-
-		if (0U != (PM_CAP_CLOCK & slv->slvFsm->states[node->currState])) {
-			deps = true;
-		}
-	} else if (false == NODE_IS_OFF(node)) {
-		deps = true;
-	} else {
-		/* Empty else required by MISRA */
-	}
-
-	return deps;
-}
-
-/**
  * PmNodeGetClassById() - Get node class by class ID
  * @id		ID of the class to get
  *

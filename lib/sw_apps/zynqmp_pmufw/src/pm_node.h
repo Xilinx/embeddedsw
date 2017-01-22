@@ -148,8 +148,6 @@ void PmNodeClearConfig(void);
 void PmNodeConstruct(void);
 
 int PmNodeGetPowerInfo(const PmNode* const node, u32* const data);
-
-bool PmNodeDependsOnClock(const PmNode* const node);
 int PmNodeForceDown(PmNode* const node);
 int PmNodeInit(void);
 
