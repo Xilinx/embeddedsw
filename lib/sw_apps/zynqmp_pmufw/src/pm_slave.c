@@ -45,6 +45,7 @@
 #include "lpd_slcr.h"
 #include "pm_ddr.h"
 #include "pm_clock.h"
+#include <unistd.h>
 
 /**
  * PmSlaveRequiresPower() - Check whether slave has any request for any
@@ -608,6 +609,58 @@ int PmSlaveVerifyRequest(const PmSlave* const slave)
 
 	/* Slave request cannot be granted, node is non-shareable and used */
 	status = XST_PM_NODE_USED;
+
+done:
+	return status;
+}
+
+/**
+ * PmSlaveSetConfig() - Set the configuration for the slave
+ * @slave       Slave to configure
+ * @policy      Usage policy for the slave to configure
+ * @perms       Permissions to use the slave (ORed IPI masks of permissible
+ *              masters)
+ * @return      XST_SUCCESS if configuration is set, XST_FAILURE otherwise
+ *
+ * @note        For each master whose IPI is encoded in the 'perms', the
+ *              requirements structure is automatically allocated and added in
+ *              master's/slave's lists of requirements.
+ */
+int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
+{
+	int status = XST_SUCCESS;
+	u32 masterIpiMasks = perms;
+	u32 i, masterCnt;
+
+	if (0U != (policy & PM_SLAVE_FLAG_IS_SHAREABLE)) {
+		slave->flags |= PM_SLAVE_FLAG_IS_SHAREABLE;
+	}
+
+	/*
+	 * Number of masters allowed to use the slave is equal to the number of
+	 * set bits. By extracting one-hot mask we get IPI mask associated with
+	 * the master, then by IPI mask we get the pointer to master.
+	 */
+	masterCnt = __builtin_popcount(perms);
+	for (i = 0U; i < masterCnt; i++) {
+		u32 ipiMask;
+		PmMaster* master;
+
+		ipiMask = 1U << __builtin_ctz(masterIpiMasks);
+		master = PmGetMasterByIpiMask(ipiMask);
+		if (NULL == master) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		status = PmRequirementAdd(master, slave);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		/* Done with this master, clear the bit */
+		masterIpiMasks &= ~ipiMask;
+	}
 
 done:
 	return status;

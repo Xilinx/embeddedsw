@@ -34,6 +34,7 @@
 #include "pm_common.h"
 #include "pm_defs.h"
 #include "pm_master.h"
+#include "pm_slave.h"
 
 typedef int (*const PmConfigSectionHandler)(u32* const addr);
 
@@ -205,7 +206,30 @@ done:
 static int PmConfigSlaveSectionHandler(u32* const addr)
 {
 	int status = XST_SUCCESS;
+	u32 i, slavesCnt;
 
+	slavesCnt = PmConfigReadNext(addr);
+
+	for (i = 0U; i < slavesCnt; i++) {
+		u32 nodeId, usagePolicy, usagePerms;
+		PmSlave* slave;
+
+		nodeId = PmConfigReadNext(addr);
+		slave = PmNodeGetSlave(nodeId);
+		if (NULL == slave) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		usagePolicy = PmConfigReadNext(addr);
+		usagePerms = PmConfigReadNext(addr);
+		status = PmSlaveSetConfig(slave, usagePolicy, usagePerms);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+
+done:
 	return status;
 }
 

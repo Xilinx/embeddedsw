@@ -113,6 +113,7 @@ typedef struct PmSlave {
 int PmUpdateSlave(PmSlave* const slave);
 int PmCheckCapabilities(const PmSlave* const slave, const u32 capabilities);
 int PmSlaveHasWakeUpCap(const PmSlave* const slv);
+int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms);
 
 bool PmSlaveRequiresPower(const PmSlave* const slave);
 
