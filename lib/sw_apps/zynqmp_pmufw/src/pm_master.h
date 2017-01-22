@@ -98,6 +98,7 @@ typedef struct {
  * @reqs        Pointer to the master's list of requirements for slaves'
  *              capabilities. For every slave that the master can use there has
  *              to be a dedicated requirements structure
+ * @nextMaster  Pointer to the next used master in the system
  * @gic         If the master has its own GIC which is controlled by the PMU,
  *              this is a pointer to it.
  * @evalState   Function to be called when a state specified by the master
@@ -132,6 +133,7 @@ typedef struct PmMaster {
 	PmProc* const procs;
 	PmProc* wakeProc;
 	PmRequirement* reqs;
+	PmMaster* nextMaster;
 	const PmGicProxy* const gic;
 	int (*const evalState)(const u32 state);
 	const PmSlave** const memories;
@@ -151,8 +153,6 @@ extern PmMaster pmMasterApu_g;
 extern PmMaster pmMasterRpu0_g;
 extern PmMaster pmMasterRpu1_g;
 
-extern PmMaster *const pmAllMasters[PM_MASTER_MAX];
-
 /*********************************************************************
  * Function declarations
  ********************************************************************/
@@ -171,6 +171,8 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 
 /* Call when FPD goes down to enable GIC Proxy interrupts */
 void PmEnableProxyWake(PmMaster* const master);
+
+void PmMasterInit(void);
 
 bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster);

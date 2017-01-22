@@ -532,33 +532,22 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
 			  const PmMaster* const master)
 {
-	u32 i;
 	u32 usageStatus = 0;
-	PmMaster* currMaster;
-	PmRequirement* masterReq;
+	const PmRequirement* req = slave->reqs;
 
-	for (i = 0U; i < PM_MASTER_MAX; i++) {
-		currMaster = pmAllMasters[i];
+	while (NULL != req) {
 
-		masterReq = PmRequirementGet(currMaster, slave);
-
-		if (NULL == masterReq) {
-			/* This master has no access to this slave */
-			continue;
+		if (0U != (req->info & PM_MASTER_USING_SLAVE_MASK)) {
+			/* This master is currently using this slave */
+			if (master == req->master) {
+				usageStatus |= PM_USAGE_CURRENT_MASTER;
+			} else {
+				usageStatus |= PM_USAGE_OTHER_MASTER;
+			}
 		}
-
-		if (0U == (masterReq->info & PM_MASTER_USING_SLAVE_MASK)) {
-			/* This master is currently not using this slave */
-			continue;
-		}
-
-		/* This master is currently using this slave */
-		if (currMaster == master) {
-			usageStatus |= PM_USAGE_CURRENT_MASTER;
-		} else {
-			usageStatus |= PM_USAGE_OTHER_MASTER;
-		}
+		req = req->nextMaster;
 	}
+
 	return usageStatus;
 }
 

@@ -48,6 +48,8 @@
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
+static PmMaster* pmMasterHead = NULL;
+
 static const PmSlave* pmApuMemories[] = {
 	&pmSlaveOcm0_g.slv,
 	&pmSlaveOcm1_g.slv,
@@ -131,6 +133,7 @@ PmMaster pmMasterApu_g = {
 	.nid = NODE_APU,
 	.ipiMask = IPI_PMU_0_IER_APU_MASK,
 	.reqs = NULL,
+	.nextMaster = NULL,
 	.wakePerms = IPI_PMU_0_IER_RPU_0_MASK | IPI_PMU_0_IER_RPU_1_MASK,
 	.suspendPerms = IPI_PMU_0_IER_RPU_0_MASK | IPI_PMU_0_IER_RPU_1_MASK,
 	.suspendTimeout = 0U,
@@ -148,6 +151,7 @@ PmMaster pmMasterRpu0_g = {
 	.procs = &pmRpuProcs_g[PM_PROC_RPU_0],
 	.procsCnt = 1U,
 	.wakeProc = NULL,
+	.nextMaster = NULL,
 	.nid = NODE_RPU,
 	.ipiMask = IPI_PMU_0_IER_RPU_0_MASK,
 	.reqs = NULL,
@@ -171,6 +175,7 @@ PmMaster pmMasterRpu1_g = {
 	.nid = NODE_RPU_0, /* placeholder for request suspend, not used */
 	.ipiMask = IPI_PMU_0_IER_RPU_1_MASK,
 	.reqs = NULL,   /* lockstep mode is assumed for now */
+	.nextMaster = NULL,
 	.wakePerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.suspendPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.suspendTimeout = 0U,
@@ -184,11 +189,31 @@ PmMaster pmMasterRpu1_g = {
 	.evalState = NULL,
 };
 
-PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
+/* Array of all possible masters supported by the PFW */
+static PmMaster *const pmMastersAll[PM_MASTER_MAX] = {
 	&pmMasterApu_g,
 	&pmMasterRpu0_g,
 	&pmMasterRpu1_g,
 };
+
+/**
+ * PmMasterAdd() - Add new master in the list
+ * @newMaster   Master to be added in the list
+ */
+static void PmMasterAdd(PmMaster* const newMaster)
+{
+	newMaster->nextMaster = pmMasterHead;
+	pmMasterHead = newMaster;
+}
+
+/**
+ * PmMasterInit() - Initialize masters (to be called only upon PM init)
+ */
+void PmMasterInit(void)
+{
+	PmMasterAdd(&pmMasterApu_g);
+	PmMasterAdd(&pmMasterRpu0_g);
+}
 
 /**
  * PmGetMasterByIpiMask() - Use to get pointer to master structure by ipi mask
@@ -198,14 +223,13 @@ PmMaster *const pmAllMasters[PM_MASTER_MAX] = {
  */
 const PmMaster* PmGetMasterByIpiMask(const u32 mask)
 {
-	u32 i;
-	const PmMaster *mst = NULL;
+	const PmMaster* mst = pmMasterHead;
 
-	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-		if (0U != (mask & pmAllMasters[i]->ipiMask)) {
-			mst = pmAllMasters[i];
+	while (NULL != mst) {
+		if (0U != (mask & mst->ipiMask)) {
 			break;
 		}
+		mst = mst->nextMaster;
 	}
 
 	return mst;
@@ -248,21 +272,21 @@ PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 			       const PmNodeId nodeId)
 {
 	u32 i;
-	PmProc *proc = NULL;
+	PmProc* proc = NULL;
+	PmMaster* mst = pmMasterHead;
 
-	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-		u32 p;
-
-		if (master == pmAllMasters[i]) {
+	while (NULL != mst) {
+		if (master == mst) {
 			continue;
 		}
 
-		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-			if (nodeId == pmAllMasters[i]->procs[p].node.nodeId) {
-				proc = &pmAllMasters[i]->procs[p];
+		for (i = 0U; i < mst->procsCnt; i++) {
+			if (nodeId == mst->procs[i].node.nodeId) {
+				proc = &mst->procs[i];
 				goto done;
 			}
 		}
+		mst = mst->nextMaster;
 	}
 
 done:
@@ -278,18 +302,19 @@ done:
  */
 PmProc* PmGetProcByWfiStatus(const u32 mask)
 {
-	u32 i;
 	PmProc *proc = NULL;
+	PmMaster* mst = pmMasterHead;
 
-	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+	while (NULL != mst) {
 		u32 p;
 
-		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-			if (0U != (mask & pmAllMasters[i]->procs[p].wfiStatusMask)) {
-				proc = &pmAllMasters[i]->procs[p];
+		for (p = 0U; p < mst->procsCnt; p++) {
+			if (0U != (mask & mst->procs[p].wfiStatusMask)) {
+				proc = &mst->procs[p];
 				goto done;
 			}
 		}
+		mst = mst->nextMaster;
 	}
 
 done:
@@ -304,18 +329,19 @@ done:
  */
 PmProc* PmGetProcByWakeStatus(const u32 mask)
 {
-	u32 i;
 	PmProc *proc = NULL;
+	PmMaster* mst = pmMasterHead;
 
-	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
+	while (NULL != mst) {
 		u32 p;
 
-		for (p = 0U; p < pmAllMasters[i]->procsCnt; p++) {
-			if (0U != (mask & pmAllMasters[i]->procs[p].wakeStatusMask)) {
-				proc = &pmAllMasters[i]->procs[p];
+		for (p = 0U; p < mst->procsCnt; p++) {
+			if (0U != (mask & mst->procs[p].wakeStatusMask)) {
+				proc = &mst->procs[p];
 				goto done;
 			}
 		}
+		mst = mst->nextMaster;
 	}
 
 done:
@@ -560,9 +586,9 @@ PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId)
 	u32 i;
 
 	/* Find the master with the node placeholder */
-	for (i = 0U; i < ARRAY_SIZE(pmAllMasters); i++) {
-		if (nodeId == pmAllMasters[i]->nid) {
-			holder = pmAllMasters[i];
+	for (i = 0U; i < ARRAY_SIZE(pmMastersAll); i++) {
+		if (nodeId == pmMastersAll[i]->nid) {
+			holder = pmMastersAll[i];
 			break;
 		}
 	}

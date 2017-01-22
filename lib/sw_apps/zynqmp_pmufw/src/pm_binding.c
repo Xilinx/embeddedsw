@@ -89,6 +89,8 @@ void XPfw_PmInit(void)
 	/* Disable all wfi requests in GPI2 */
 	DISABLE_WFI(PMU_LOCAL_GPI2_ENABLE_ALL_PWRDN_REQ_MASK);
 
+	PmMasterInit();
+
 	PmRequirementInit();
 	PmClockInitList();
 
