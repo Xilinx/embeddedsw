@@ -221,8 +221,7 @@ int PmForcePowerDownInt(u32 node, u32 *oppoint)
 		status = PmProcFsm((PmProc*)nodePtr->derived,
 				   PM_PROC_EVENT_FORCE_PWRDN);
 		break;
-	case PM_TYPE_PWR_ISLAND:
-	case PM_TYPE_PWR_DOMAIN:
+	case PM_TYPE_POWER:
 		status = PmForceDownTree((PmPower*)nodePtr->derived);
 		break;
 	default:
@@ -822,7 +821,7 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 	}
 
 	oppoint = nodePtr->currState;
-	if (nodePtr->typeId >= PM_TYPE_SLAVE) {
+	if (PM_TYPE_SLAVE == nodePtr->typeId) {
 		currReq = PmSlaveGetRequirements(node, master);
 		usage = PmSlaveGetUsageStatus(node, master);
 	}
