@@ -422,6 +422,7 @@ static void PmConfigClear(void)
 	PmMasterClearConfig();
 	PmResetClearConfig();
 	PmNodeClearConfig();
+	pmConfig.configPerms = 0U;
 }
 
 /**
