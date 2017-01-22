@@ -833,116 +833,6 @@ done:
 }
 
 /**
- * PmGetLowestParent() - Returns the first leaf parent with active children
- * @root    Pointer to a power object of which the leafs should be found
- *
- * In a parent-child tree, a leaf parent is a parent that has one or more
- * children, where none of the children are parents.
- * (Any state != 0 is considered an active state)
- *
- * Iterative algorithm for MISRA-C compliance
- *
- * @return  Pointer to an active leaf or root itself if no leafs exist
- */
-static PmPower* PmGetLowestParent(PmPower* const root)
-{
-	PmPower* prevParent;
-	PmPower* currParent = root;
-
-	if (NULL == currParent) {
-		goto done;
-	}
-
-	do {
-		u32 i;
-		prevParent = currParent;
-
-		for (i = 0U; i < currParent->childCnt; i++) {
-			if ((true != NODE_IS_POWER(currParent->children[i])) ||
-			    (false != NODE_IS_OFF(currParent->children[i]))) {
-				continue;
-			}
-
-			/* Active power child found */
-			currParent = (PmPower*)currParent->children[i]->derived;
-			break;
-		}
-	} while (currParent != prevParent);
-
-done:
-	return currParent;
-}
-
-/**
- * PmForcePowerDownChildren() - Forces power down for child nodes
- * @parent      pointer to power object whose children are to be turned off
- */
-static void PmForcePowerDownChildren(const PmPower* const parent)
-{
-	u32 i;
-	PmNode* child;
-	PmProc* proc;
-
-	for (i = 0U; i < parent->childCnt; i++) {
-		child = parent->children[i];
-
-		if ((false != PmChildIsInLowestPowerState(child)) ||
-		    (true != NODE_HAS_SLEEP(child->ops))) {
-			continue;
-		}
-
-		PmDbg("Powering OFF child node %s\r\n", PmStrNode(child->nodeId));
-
-		/* Force the child's state to 0, which is its lowest power state */
-		child->ops->sleep(child);
-		PmNodeUpdateCurrState(child, 0U);
-
-		/* Special case: node is a processor, release slave-requirements */
-		if (NODE_IS_PROC(child)) {
-			proc = (PmProc*)child->derived;
-
-			if (NULL != proc) {
-				/* Notify master so it can release all requirements */
-				PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
-			}
-		}
-	}
-
-	return;
-}
-
-/**
- * PmForceDownTree() - Force power down node and all its children
- * @root        power node (island/domain) to turn off
- *
- * @return      Operation status of power down procedure
- *
- * This is a power island or power domain, power it off from the bottom up:
- * find out if this parent has children which themselves have children.
- * Note: using iterative algorithm for MISRA-C compliance
- * (instead of recursion)
- *
- */
-int PmForceDownTree(PmPower* const root)
-{
-	int status = XST_SUCCESS;
-	PmPower* lowestParent;
-
-	if (NULL == root) {
-		goto done;
-	}
-
-	do {
-		lowestParent = PmGetLowestParent(root);
-		PmForcePowerDownChildren(lowestParent);
-		status = PmPowerDown(lowestParent);
-	} while ((lowestParent != root) && (XST_SUCCESS == status));
-
-done:
-	return status;
-}
-
-/**
  * PmPowerRequest() - Explicit request for power node (power up)
  * @master	Master which has requested power node
  * @power	The requested node
@@ -1113,6 +1003,35 @@ done:
 	return status;
 }
 
+/**
+ * PmPowerForceDown() - Force down the power node and all of its children
+ * @powerNode	Power node to force down
+ *
+ * @return	Status of performing force power down
+ */
+static int PmPowerForceDown(PmNode* const powerNode)
+{
+	PmNode* node;
+	int status = XST_FAILURE;
+
+	PmPowerDfsBegin((PmPower*)powerNode->derived);
+	node = PmPowerDfsGetNext();
+	while (NULL != node) {
+		if (NODE_IS_POWER(node)) {
+			status = PmPowerDown((PmPower*)node->derived);
+		} else {
+			status = PmNodeForceDown(node);
+		}
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+		node = PmPowerDfsGetNext();
+	}
+
+done:
+	return status;
+}
+
 /* Collection of power nodes */
 static PmNode* pmNodePowerBucket[] = {
 	&pmPowerIslandRpu_g.node,
@@ -1128,4 +1047,5 @@ PmNodeClass pmNodeClassPower_g = {
 	.clearConfig = PmPowerClearConfig,
 	.getWakeUpLatency = PmPowerGetWakeUpLatency,
 	.getPowerData = PmPowerGetPowerData,
+	.forceDown = PmPowerForceDown,
 };

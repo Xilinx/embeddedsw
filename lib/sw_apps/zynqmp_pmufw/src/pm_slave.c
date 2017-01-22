@@ -713,6 +713,31 @@ done:
 
 }
 
+ /**
+ * PmSlaveForceDown() - Force down the slave node
+ * @node	Slave node to force down
+ *
+ * @return	Status of performing force down operation
+ */
+static int PmSlaveForceDown(PmNode* const node)
+{
+	int status = XST_SUCCESS;
+	PmSlave* const slave = (PmSlave*)node->derived;
+	PmRequirement* req = slave->reqs;
+
+	while (NULL != req) {
+		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
+			PmRequirementClear(req);
+		}
+		req = req->nextMaster;
+	}
+	if (0U != slave->node.currState) {
+		status = PmSlaveChangeState(slave, 0U);
+	}
+
+	return status;
+}
+
 /* Collection of slave nodes */
 static PmNode* pmNodeSlaveBucket[] = {
 	&pmSlaveL2_g.slv.node,
@@ -774,4 +799,5 @@ PmNodeClass pmNodeClassSlave_g = {
 	.clearConfig = PmSlaveClearConfig,
 	.getWakeUpLatency = PmSlaveGetWakeUpLatency,
 	.getPowerData = PmNodeGetPowerInfo,
+	.forceDown = PmSlaveForceDown,
 };

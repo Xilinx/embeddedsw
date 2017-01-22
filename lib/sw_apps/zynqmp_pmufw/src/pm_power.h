@@ -102,7 +102,6 @@ void PmOpportunisticSuspend(PmPower* const power);
 void PmPowerInit(void);
 
 int PmTriggerPowerUp(PmPower* const power);
-int PmForceDownTree(PmPower* const root);
 
 int PmPowerRequest(const PmMaster* const master, PmPower* const power);
 int PmPowerRelease(const PmMaster* const master, PmPower* const power);

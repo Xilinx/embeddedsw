@@ -206,44 +206,6 @@ done:
 	}
 }
 
-int PmForcePowerDownInt(u32 node, u32 *oppoint)
-{
-	int status;
-	PmNode* nodePtr = PmGetNodeById(node);
-
-	PmDbg("(%s)\r\n", PmStrNode(node));
-
-	if (NULL == nodePtr) {
-		status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	switch (nodePtr->class->id) {
-	case NODE_CLASS_PROC:
-		status = PmProcFsm((PmProc*)nodePtr->derived,
-				   PM_PROC_EVENT_FORCE_PWRDN);
-		break;
-	case NODE_CLASS_POWER:
-		status = PmForceDownTree((PmPower*)nodePtr->derived);
-		break;
-	default:
-		status = XST_INVALID_PARAM;
-		break;
-	}
-
-	*oppoint = nodePtr->currState;
-
-	/*
-	 * Successfully powered down a node, now trigger opportunistic
-	 * suspend to power down its parent(s) if possible
-	 */
-	if ((XST_SUCCESS == status) && (NULL != nodePtr->parent)) {
-		PmOpportunisticSuspend(nodePtr->parent);
-	}
-done:
-	return status;
-}
-
 /**
  * PmForcePowerdown() - Powerdown a PU or domain forcefully
  * @master  Master who initiated the request
@@ -277,7 +239,12 @@ static void PmForcePowerdown(const PmMaster *const master,
 		}
 	}
 
-	status = PmForcePowerDownInt(node, &oppoint);
+	status = PmNodeForceDown(nodePtr);
+	oppoint = nodePtr->currState;
+	if ((XST_SUCCESS == status) && (NULL != nodePtr->parent)) {
+		PmOpportunisticSuspend(nodePtr->parent);
+	}
+
 done:
 	PmProcessAckRequest(ack, master, node, status, oppoint);
 }

@@ -251,3 +251,21 @@ void PmNodeClearConfig(void)
 		}
 	}
 }
+
+/**
+ * PmNodeForceDown() - Force down the node
+ * @node	Node to force down
+ *
+ * @return	XST_FAILURE if no force operation to execute for the node,
+ *		otherwise status of performing force down operation
+ */
+int PmNodeForceDown(PmNode* const node)
+{
+	int status = XST_FAILURE;
+
+	if (NULL != node->class->forceDown) {
+		status = node->class->forceDown(node);
+	}
+
+	return status;
+}

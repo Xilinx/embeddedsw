@@ -724,6 +724,24 @@ done:
 
 }
 
+/**
+ * PmProcForceDown() - Force down the processor node
+ * @node	Processor node to force down
+ *
+ * @return	Status of performing the force down operation
+ */
+static int PmProcForceDown(PmNode* const node)
+{
+	PmProc* const proc = (PmProc*)node->derived;
+	int status = XST_SUCCESS;
+
+	if (PM_PROC_STATE_FORCEDOFF != node->currState) {
+		status = PmProcFsm(proc, PM_PROC_EVENT_FORCE_PWRDN);
+	}
+
+	return status;
+}
+
 /* Power consumptions for the APU for specific states */
 static u32 PmProcPowerAPU_X[] = {
 	DEFAULT_APU_POWER_OFF,
@@ -920,4 +938,5 @@ PmNodeClass pmNodeClassProc_g = {
 	.clearConfig = PmProcClearConfig,
 	.getWakeUpLatency = PmProcGetWakeUpLatency,
 	.getPowerData = PmNodeGetPowerInfo,
+	.forceDown = PmProcForceDown,
 };
