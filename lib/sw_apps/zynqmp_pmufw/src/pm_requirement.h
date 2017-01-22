@@ -47,6 +47,16 @@ typedef struct PmSlave PmSlave;
 typedef struct PmRequirement PmRequirement;
 
 /*********************************************************************
+ * Macros
+ ********************************************************************/
+/*
+ * Max number of master/slave pairs (max number of combinations that can
+ * exist at the runtime). The value is used to statically initialize
+ * size of the pmReqData array, which is used as the heap.
+ */
+#define PM_REQUIREMENT_MAX	100U
+
+/*********************************************************************
  * Structure definitions
  ********************************************************************/
 /**
@@ -88,7 +98,9 @@ typedef struct PmRequirement {
 void PmRequirementInit(void);
 void PmRequirementCancelScheduled(const PmMaster* const master);
 void PmRequirementRequestDefault(const PmMaster* const master);
+void PmRequirementFreeAll(void);
 
+int PmRequirementAdd(PmMaster* const master, PmSlave* const slave);
 int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
 int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
 int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap);
