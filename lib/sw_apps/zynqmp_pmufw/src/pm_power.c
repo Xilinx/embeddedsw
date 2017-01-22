@@ -33,7 +33,6 @@
  * transition actions, and FSM definition.
  *********************************************************************/
 
-#include <sleep.h>
 #include "pm_power.h"
 #include "pm_common.h"
 #include "pm_proc.h"
@@ -146,47 +145,6 @@ static void PmFpdRestoreContext(void)
 }
 
 /**
- * PmUserHookPowerGood - Check power supply
- * @node	Node associated with supply rail
- * @power	Indicating transition to on (!=0) or off (==0)
- *
- * This function can check/wait for @supply to be stable at @power.
- *
- * @return	XST_SUCCESS or an error code.
- */
-#pragma weak PmUserHookPowerGood
-int PmUserHookPowerGood(unsigned int node, bool power)
-{
-	/* give time for supplies to settle on power up */
-	if (power) {
-		sleep(1);
-	}
-
-	return XST_SUCCESS;
-}
-
-/**
- * PmUserHookPowerDownFpd - Power down FPD
- *
- * This function powers down the FP supply.
- *
- * @return	XST_SUCCESS or an error code.
- */
-#pragma weak PmUserHookPowerDownFpd
-int PmUserHookPowerDownFpd(void)
-{
-	int status = XpbrPwrDnFpdHandler();
-	if (XST_SUCCESS != status) {
-		goto err;
-	}
-
-	status = PmUserHookPowerGood(NODE_FPD, 0);
-
-err:
-	return status;
-}
-
-/**
  * PmPowerDownFpd() - Power down FPD domain
  *
  * @return      Status of the pmu-rom operations
@@ -201,7 +159,7 @@ static int PmPowerDownFpd(void)
 
 	PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
 
-	status = PmUserHookPowerDownFpd();
+	status = XpbrPwrDnFpdHandler();
 	if (XST_SUCCESS != status) {
 		goto err;
 	}
@@ -218,26 +176,13 @@ err:
 }
 
 /**
- * PmUserHookPowerDownLpd - Power down LPD
- *
- * This function powers down the LP supply.
- *
- * @return	XST_SUCCESS or an error code.
- */
-#pragma weak PmUserHookPowerDownLpd
-int PmUserHookPowerDownLpd(void)
-{
-	return XST_SUCCESS;
-}
-
-/**
  * PmPowerDownLpd() - Power down LPD domain
  *
- * @return      Status of the pmu-rom operations
+ * @return      XST_SUCCESS always (not implemented)
  */
 static int PmPowerDownLpd(void)
 {
-	return PmUserHookPowerDownLpd();
+	return XST_SUCCESS;
 }
 
 /**
@@ -292,35 +237,13 @@ done:
 }
 
 /**
- * PmUserHookPowerUpFpd - Power up FPD
- *
- * This function powers up the FP supply.
- *
- * @return	XST_SUCCESS or an error code.
- */
-#pragma weak PmUserHookPowerUpFpd
-int PmUserHookPowerUpFpd(void)
-{
-	int status = XpbrPwrUpFpdHandler();
-
-	if (XST_SUCCESS != status) {
-		goto err;
-	}
-
-	status = PmUserHookPowerGood(NODE_FPD, 1);
-
-err:
-	return status;
-}
-
-/**
  * PmPowerUpFpd() - Power up FPD domain
  *
  * @return      Status of the pmu-rom operations
  */
 static int PmPowerUpFpd(void)
 {
-	int status = PmUserHookPowerUpFpd();
+	int status = XpbrPwrUpFpdHandler();
 	if (XST_SUCCESS != status) {
 		goto err;
 	}
