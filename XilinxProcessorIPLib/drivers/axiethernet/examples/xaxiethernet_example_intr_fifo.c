@@ -72,6 +72,9 @@
 *			Modified FifoHandler() logic to reflect the bit
 *			changes in the Interrupt Status Register as per
 *			the latest AXI FIFO stream IP.
+* 5.4   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings are
+*                     available in all examples. This is a fix for CR-965028.
 *
 * </pre>
 *
@@ -257,10 +260,9 @@ int main(void)
 					AXIETHERNET_IRPT_INTR, FIFO_IRPT_INTR);
 
 	if (Status != XST_SUCCESS) {
-		AxiEthernetUtilErrorTrap("Failed test intr fifo");
+		AxiEthernetUtilErrorTrap("Axiethernet intr fifo Example Failed\r\n");
 	} else {
-		AxiEthernetUtilErrorTrap("Test passed");
-	}
+		AxiEthernetUtilErrorTrap("Successfully ran Axiethernet intr fifo Example\r\n");
 
 	AxiEthernetUtilErrorTrap("--- Exiting main() ---");
 

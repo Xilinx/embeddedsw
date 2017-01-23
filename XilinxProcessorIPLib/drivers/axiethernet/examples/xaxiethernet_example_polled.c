@@ -70,6 +70,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a asa  4/30/10 First release based on the ll temac driver
+* 5.4   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings are
+*                     available in all examples. This is a fix for CR-965028.
 *
 * </pre>
 *
@@ -157,11 +160,11 @@ int main(void)
 	 */
 	Status = AxiEthernetPolledExample(AXIETHERNET_DEVICE_ID, FIFO_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		AxiEthernetUtilErrorTrap("Failed test poll mode fifo");
+		AxiEthernetUtilErrorTrap("Axiethernet poll mode fifo Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	AxiEthernetUtilErrorTrap("Test passed");
+	AxiEthernetUtilErrorTrap("Successfully ran Axiethernet poll mode fifo Example\r\n");
 	AxiEthernetUtilErrorTrap("--- Exiting main() ---");
 	return XST_SUCCESS;
 

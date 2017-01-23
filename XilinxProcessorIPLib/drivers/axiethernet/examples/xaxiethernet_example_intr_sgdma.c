@@ -82,6 +82,9 @@
 *		      		  AxiDMA version.
 * 3.00a bss  10/22/12 Added support for Fast Interrupt Handlers.
 * 3.01a srt  02/14/13 Added support for Zynq (CR 681136).
+* 5.4   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings are
+*                     available in all examples. This is a fix for CR-965028.
 *
 * </pre>
 *
@@ -365,12 +368,12 @@ int main(void)
 						DMA_RX_IRPT_INTR,
 						DMA_TX_IRPT_INTR);
 	if (Status != XST_SUCCESS) {
-		AxiEthernetUtilErrorTrap("Failed test intr sgdma");
+		AxiEthernetUtilErrorTrap("Axiethernet intr sgdma Example Failed\r\n");
 		AxiEthernetUtilErrorTrap("--- Exiting main() ---");
 		return XST_FAILURE;
 	}
 
-	AxiEthernetUtilErrorTrap("Test passed");
+	AxiEthernetUtilErrorTrap("Successfully ran Axiethernet intr sgdma Example\r\n");
 	AxiEthernetUtilErrorTrap("--- Exiting main() ---");
 
 	return XST_SUCCESS;

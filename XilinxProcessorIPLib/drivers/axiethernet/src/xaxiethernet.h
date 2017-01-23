@@ -476,6 +476,9 @@
 * 		     ZynqMP AXI-Ethernet designs.
 * 5.4  adk 07/12/16  Added Support for TI PHY DP83867 changes are made in the
 * 		     examples xaxiethernet_example_util.c file.
+*       ms 01/23/17 Modified xil_printf statement in main function for all
+*            examples to ensure that "Successfully ran" and "Failed" strings
+*            are available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 ******************************************************************************/
