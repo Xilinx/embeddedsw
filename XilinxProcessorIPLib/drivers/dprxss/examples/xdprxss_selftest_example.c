@@ -46,6 +46,10 @@
 * Ver  Who Date     Changes
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 07/29/15 Initial release.
+* 4.00 ms  01/23/17 Modified xil_printf statement in main function to
+*                   ensure that "Successfully ran" and "Failed" strings
+*                   are available in all examples. This is a fix for
+*                   CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -107,12 +111,11 @@ int main()
 
 	Status = DpRxSs_SelfTestExample(XDPRXSS_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("DisplayPort RX Subsystem self test example "
-			"failed\n\r");
+		xil_printf("DisplayPort RX Subsystem self test example failed\n\r");
 		return XST_FAILURE;
 	}
 
-	xil_printf("DisplayPort RX Subsystem self test example passed\n\r");
+	xil_printf("Successfully ran DisplayPort RX Subsystem self test example\n\r");
 
 	return XST_SUCCESS;
 }

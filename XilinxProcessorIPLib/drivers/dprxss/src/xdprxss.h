@@ -104,6 +104,10 @@
 * 3.1  als 08/08/16 Added HDCP timeout functionality.
 * 3.1  aad 09/07/16 Updates to support 64-bit base addresses.
 * 4.0  aad 12/01/16 Added interrupt handler for HDCP authentication
+*      ms  01/23/17 Modified xil_printf statement in main function for all
+*                   examples to ensure that "Successfully ran" and "Failed"
+*                   strings are available in all examples. This is a fix
+*                   for CR-965028.
 * </pre>
 *
 ******************************************************************************/
