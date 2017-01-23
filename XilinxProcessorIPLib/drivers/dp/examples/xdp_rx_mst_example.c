@@ -54,6 +54,10 @@
  * 2.0   als  06/07/15 Initial creation.
  * 4.0   als  02/07/16 Added end of line reset for reduced blanking.
  *                     Allocate payload ISR to call XDp_RxAllocatePayloadStream.
+ * 5.1   ms   01/23/17 Added xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings
+ *                     are available in all examples. This is a fix for
+ *                     CR-965028.
  * </pre>
  *
 *******************************************************************************/
@@ -62,6 +66,7 @@
 
 #include "xdp.h"
 #include "xparameters.h"
+#include "xil_printf.h"
 #ifdef XPAR_INTC_0_DEVICE_ID
 /* For MicroBlaze systems. */
 #include "xintc.h"
@@ -195,9 +200,11 @@ int main(void)
 				&IntcInstance, INTC_DEVICE_ID, DP_INTERRUPT_ID,
 				&TimerCounterInst, TMRC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("dp_rx_mst Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran dp_rx_mst Example\r\n");
 	return XST_SUCCESS;
 }
 

@@ -46,6 +46,10 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial creation.
+ * 5.1   ms   01/23/17 Added xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings
+ *                     are available in all examples. This is a fix for
+ *                     CR-965028.
  * </pre>
  *
 *******************************************************************************/
@@ -54,6 +58,7 @@
 
 #include "xdp.h"
 #include "xparameters.h"
+#include "xil_printf.h"
 
 /**************************** Constant Definitions ****************************/
 
@@ -93,7 +98,7 @@ int main(void)
 		xil_printf("XDp_SelfTest failed, check register values.\n");
 		return XST_FAILURE;
 	}
-	xil_printf("XDp_SelfTest passed.\n");
+	xil_printf("Successfully ran XDp_SelfTest\n");
 	return Status;
 }
 

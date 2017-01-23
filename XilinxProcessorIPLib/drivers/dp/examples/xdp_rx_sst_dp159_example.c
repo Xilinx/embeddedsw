@@ -72,6 +72,10 @@
  * 1.0   als  01/20/15 Initial creation.
  * 2.0   als  07/07/15 Added DP159 programming.
  * 4.0   als  02/07/16 Added end of line reset for reduced blanking.
+ * 5.1   ms   01/23/17 Added xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings
+ *                     are available in all examples. This is a fix for
+ *                     CR-965028.
  * </pre>
  *
 *******************************************************************************/
@@ -80,6 +84,7 @@
 
 #include "xdp.h"
 #include "xparameters.h"
+#include "xil_printf.h"
 #ifdef XPAR_IIC_0_DEVICE_ID
 /* Default behavior: If an I2C controller exists use the first instance to
  * control a DP159 retimer. This is system-specific. */
@@ -200,9 +205,11 @@ int main(void)
 				&IntcInstance, INTC_DEVICE_ID, DP_INTERRUPT_ID,
 				&TimerCounterInst, TMRC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("dp_rx_sst_dp159 Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran dp_rx_sst_dp159 Example\r\n");
 	return XST_SUCCESS;
 }
 

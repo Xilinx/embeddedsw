@@ -55,6 +55,10 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial creation.
+ * 5.1   ms   01/23/17 Added xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings
+ *                     are available in all examples. This is a fix for
+ *                     CR-965028.
  * </pre>
  *
 *******************************************************************************/
@@ -62,6 +66,7 @@
 /******************************* Include Files ********************************/
 
 #include "xdp_tx_example_common.h"
+#include "xil_printf.h"
 
 /**************************** Function Prototypes *****************************/
 
@@ -90,6 +95,7 @@ int main(void)
 	/* Run the XDp polling example. */
 	Dptx_PollExample(&DpInstance, DPTX_DEVICE_ID);
 
+	xil_printf("dp_tx_poll Example Failed\r\n");
 	return XST_FAILURE;
 }
 
