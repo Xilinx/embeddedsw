@@ -47,6 +47,10 @@
 * 2.00a ktn  10/20/09 Updated to use HAL processor APIs, minor modifications
 *		      as per coding guidelines and macros have been renamed to
 *		      remove _m from the name.
+* 3.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -55,6 +59,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xuartns550_l.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -115,9 +120,11 @@ int main(void)
 	 */
 	Status = XUartNs550_LowLevelExample(UART_BASEADDR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Uartns550 lowlevel Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Uartns550 lowlevel Example\r\n");
 	return XST_SUCCESS;
 }
 

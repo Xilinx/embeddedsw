@@ -47,6 +47,10 @@
 * 1.00a sv   06/08/05 Minor changes to comply to Doxygen and coding guidelines
 * 2.00a ktn  10/20/09 Updated to use HAL processor APIs and minor modifications
 *		      as per coding guidelines.
+* 3.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -54,7 +58,7 @@
 
 #include "xparameters.h"
 #include "xuartns550.h"
-
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -104,6 +108,12 @@ int main(void)
 	 */
 	Status = UartNs550HelloWorldExample(UART_DEVICE_ID);
 
+	if (Status == XST_FAILURE) {
+		xil_printf("Uartns550 hello world Example Failed\r\n");
+		return XST_FAILURE;
+	}
+
+	xil_printf("Successfully ran Uartns550 hello world Example\r\n");
 	return Status;
 }
 

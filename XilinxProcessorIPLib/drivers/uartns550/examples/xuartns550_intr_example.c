@@ -55,6 +55,10 @@
 *		      present in the h/w design without clearing these counters
 *		      will result undefined behaviour for the second ip
 * 		      instance while running the peripheral tests.
+* 3.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -172,9 +176,11 @@ int main(void)
 					UART_DEVICE_ID,
 					UART_IRPT_INTR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Uartns550 interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Uartns550 interrupt Example\r\n");
 	return XST_SUCCESS;
 }
 #endif
