@@ -38,7 +38,26 @@
 * AT ALL TIMES.
 *
 ******************************************************************************/
-
+/*****************************************************************************/
+/**
+*
+* @file xdsi_example_selftest.c
+*
+*
+* @note		None.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver  Who Date     Changes
+* ---- --- -------- --------------------------------------------------
+* 1.1  ms  01/23/17 Modified xil_printf statement in main function to
+*                   ensure that "Successfully ran" and "Failed" strings
+*                   are available in all examples. This is a fix for
+*                   CR-965028.
+* </pre>
+*
+******************************************************************************/
 /***************************** Include Files *********************************/
 
 #include "xdsi.h"
@@ -94,11 +113,11 @@ int main()
 
 	if (Status != XST_SUCCESS) {
 
-		xil_printf("DsiSelfTestExample: Failed\r\n");
+		xil_printf("DsiSelfTest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("DsiSelfTestExample: Passed\r\n");
+	xil_printf("Successfully ran DsiSelfTest Example\r\n");
 
 	xil_printf("--- Exiting main() --- \r\n");
 
