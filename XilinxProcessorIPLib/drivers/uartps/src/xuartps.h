@@ -162,6 +162,10 @@
 * 3.1   adk   14/03/16  Include interrupt examples in the peripheral test when
 *			uart is connected to a valid interrupt controller CR#946803.
 * 3.2   rk     07/20/16 Modified the logic for transmission break bit set
+* 3.4   ms     01/23/17 Added xil_printf statement in main function for all
+*                       examples to ensure that "Successfully ran" and "Failed"
+*                       strings are available in all examples. This is a fix
+*                       for CR-965028.
 *
 * </pre>
 *

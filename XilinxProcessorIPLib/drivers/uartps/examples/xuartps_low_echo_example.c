@@ -56,6 +56,10 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------------
 * 1.00a drg/jz 01/13/10 First release
+* 3.4   ms     01/23/17 Added xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings
+*                       are available in all examples. This is a fix for
+*                       CR-965028.
 * </pre>
 ****************************************************************************/
 
@@ -66,6 +70,7 @@
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xuartps_hw.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions ***************************/
 
@@ -124,9 +129,11 @@ int main(void)
 	 */
 	Status = UartPsEchoExample(UART_BASEADDR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Uartps low echo Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Uartps low echo Example\r\n");
 	return XST_SUCCESS;
 }
 
