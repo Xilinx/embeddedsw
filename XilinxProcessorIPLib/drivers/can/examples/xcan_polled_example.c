@@ -54,6 +54,9 @@
 * 1.00a xd     04/12/05 First release
 * 2.00a ktn    10/22/09 Updated driver to use the HAL APIs/macros.
 *		        The macros have been renamed to remove _m from the name.
+* 3.2   ms     01/23/17 Added xil_printf statement in main function to
+*               ensure that "Successfully ran" and "Failed" strings are
+*               available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -146,9 +149,11 @@ int main(void)
 	 * in xparameters.h .
 	 */
 	if (XCanPolledExample(CAN_DEVICE_ID)) {
+		xil_printf("Can polled Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Can polled Example\r\n");
 	return XST_SUCCESS;
 
 }

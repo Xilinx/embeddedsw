@@ -62,6 +62,9 @@
 *			 Zynq.
 * 2.00a bss	01/16/12 Updated the example to fix CR 694533,
 *			 replaced INTC_DEVID with INTC_DEVICE_ID.
+* 3.2   ms  01/23/17 Added xil_printf statement in main function to
+*                    ensure that "Successfully ran" and "Failed" strings are
+*                    available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -192,9 +195,11 @@ int main()
 	 * Run the Can interrupt example.
 	 */
 	if (XCanIntrExample(CAN_DEVICE_ID)) {
+		xil_printf("Can Interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Can Interrupt Example\r\n");
 	return XST_SUCCESS;
 }
 
