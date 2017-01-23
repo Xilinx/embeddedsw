@@ -56,6 +56,9 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 08/02/16 Initial release
+*     ms  01/23/17 Modified xil_printf statement in main function to
+*                  ensure that "Successfully ran" and "Failed" strings are
+*                  available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -117,11 +120,11 @@ int main()
 	Status = Csi2TxSelfTestExample(CSI2TX_DEV_ID);
 	if (Status != XST_SUCCESS) {
 
-		xil_printf("Csi2TxSelfTestExample: Failed\n\r");
+		xil_printf("Csi2TxSelfTest Example Failed\n\r");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Csi2TxSelfTestExample: Passed\n\r");
+	xil_printf("Successfully ran Csi2TxSelfTest Example\n\r");
 
 	xil_printf("--- Exiting main() --- \n\r");
 
