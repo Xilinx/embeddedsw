@@ -29,12 +29,28 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
-
+/*****************************************************************************/
+/**
+*
+* @file xaxivdma_example_selftest.c
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date     Changes
+* ----- ---- -------- -------------------------------------------------------
+* 6.2   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
+* </pre>
+*
+*****************************************************************************/
 /***************************** Include Files *********************************/
 #include "xaxivdma.h"
 #include "xparameters.h"
 #include "xdebug.h"
+#include "xil_printf.h"
 
 /******************** Constant Definitions **********************************/
 
@@ -90,11 +106,11 @@ int main()
 
 	if (Status != XST_SUCCESS) {
 
-		xil_printf("AxiVDMASelfTestExample: Failed\r\n");
+		xil_printf("AxiVDMASelfTest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("AxiVDMASelfTestExample: Passed\r\n");
+	xil_printf("Successfully ran AxiVDMASelfTest Example\r\n");
 
 	xil_printf("--- Exiting main() --- \r\n");
 

@@ -65,6 +65,10 @@
  *		       Description - Arguments misused in function
  *                     XAxiVdma_IntrEnable().
  * 4.03a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656).
+ * 6.2   ms   01/23/17 Modified xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings
+ *                     are available in all examples. This is a fix for
+ *                     CR-965028.
  * </pre>
  *
  * ***************************************************************************
@@ -73,6 +77,7 @@
 #include "xaxivdma.h"
 #include "xparameters.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -461,13 +466,13 @@ int main(void)
 	}
 
 	if (ReadError || WriteError) {
-		xil_printf("Test has transfer error %d/%d\r\n",
+		xil_printf("Test has transfer error %d/%d, Failed\r\n",
 		    ReadError, WriteError);
 
 		Status = XST_FAILURE;
 	}
 	else {
-		xil_printf("Test passed\r\n");
+		xil_printf("Successfully ran axivdma intr Example\r\n");
 	}
 
 	xil_printf("--- Exiting main() --- \r\n");
