@@ -47,7 +47,20 @@
 * - Interrupt handler receives IPI and sends back response
 * - Read the received response and do a sanity check
 * - Print PASS or FAIL based on sanity check of response message
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver  Who Date     Changes
+* ---- --- -------- --------------------------------------------------
+* 2.2  ms  01/23/17 Modified xil_printf statement in main function to
+*                   ensure that "Successfully ran" and "Failed" strings
+*                   are available in all examples. This is a fix for
+*                   CR-965028.
+* </pre>
+*
 ******************************************************************************/
+/*****************************************************************************/
 #include "stdlib.h"
 #include "xil_types.h"
 
@@ -296,9 +309,9 @@ int main() {
 
 	/* Print the test result */
 	if (XST_SUCCESS == Status) {
-		xil_printf("\r\n --PASS-- \r\n");
+		xil_printf("Successfully ran Ipipsu selftest Example\r\n");
 	} else {
-		xil_printf("\r\n --FAIL-- \r\n");
+		xil_printf("Ipipsu selftest Example Failed\r\n");
 	}
 
 	do {
