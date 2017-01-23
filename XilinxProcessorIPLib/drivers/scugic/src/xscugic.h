@@ -157,6 +157,10 @@
 *            the distributor is enabled or not and if not, it does the
 *            standard Distributor initialization.
 *            This fixes the CR#952962.
+* 3.6   ms   01/23/17 Modified xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 *
 * </pre>
 *

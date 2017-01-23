@@ -54,6 +54,10 @@
 * Ver   Who  Date	Changes
 * ----- ---- -------- 	--------------------------------------------------------
 * 1.00a sdm  05/29/11	Created for Test App Integration
+* 3.6   ms   01/23/17   Modified xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings
+*                       are available in all examples. This is a fix for
+*                       CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -123,7 +127,7 @@ int main(void)
 		xil_printf("Scugic self test Example failed \n!");
 		return XST_FAILURE;
 	}
-	xil_printf("Scugic self test Example passed \n!");
+	xil_printf("Successfully ran Scugic self test Example\n!");
 	return XST_SUCCESS;
 
 }
