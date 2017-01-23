@@ -51,6 +51,10 @@
 *		      for coding guidelnes.
 * 2.01a ssb  01/11/01 Updated the example to be used with the SCUGIC in
 *		      Zynq.
+* 3.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -179,9 +183,11 @@ int main(void)
 				 UARTLITE_DEVICE_ID,
 				 UARTLITE_IRPT_INTR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Uartlite interrupt tapp Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Uartlite interrupt tapp Example\r\n");
 	return XST_SUCCESS;
 }
 #endif

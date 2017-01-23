@@ -51,6 +51,10 @@
 * 2.00a ktn  10/20/09 Updated this example to wait for valid data in receive
 *		      fifo instead of Tx fifo empty to update receive buffer
 *		      and minor changes as per coding guidelines.
+* 3.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -59,6 +63,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xuartlite.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -120,9 +125,11 @@ int main(void)
 	 */
 	Status = UartLitePolledExample(UARTLITE_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Uartlite polled Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Uartlite polled Example\r\n");
 	return XST_SUCCESS;
 
 }
