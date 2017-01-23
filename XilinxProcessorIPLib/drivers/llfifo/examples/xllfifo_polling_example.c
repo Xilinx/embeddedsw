@@ -52,6 +52,10 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 3.00a adk 08/10/2013 initial release CR:727787
+ * 5.1   ms  01/23/17   Modified xil_printf statement in main function to
+ *                      ensure that "Successfully ran" and "Failed" strings
+ *                      are available in all examples. This is a fix for
+ *                      CR-965028.
  *
  * </pre>
  *
@@ -127,12 +131,12 @@ int main()
 
 	Status = XLlFifoPollingExample(&FifoInstance, FIFO_DEV_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Axi Streaming FIFO Polling Example TestFailed\n\r");
+		xil_printf("Axi Streaming FIFO Polling Example Test Failed\n\r");
 		xil_printf("--- Exiting main() ---\n\r");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Axi Streaming FIFO Polling Example Test passed\n\r");
+	xil_printf("Successfully ran Axi Streaming FIFO Polling Example\n\r");
 	xil_printf("--- Exiting main() ---\n\r");
 
 	return XST_SUCCESS;

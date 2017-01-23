@@ -53,6 +53,10 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 3.00a adk 08/10/2013 initial release CR:727787
+ * 5.1   ms  01/23/17   Modified xil_printf statement in main function to
+ *                      ensure that "Successfully ran" and "Failed" strings
+ *                      are available in all examples. This is a fix for
+ *                      CR-965028.
  *
  * </pre>
  *
@@ -174,7 +178,7 @@ int main()
 		return XST_FAILURE;
 	}
 
-	xil_printf("Axi Streaming FIFO Interrupt Example Test passed\n\r");
+	xil_printf("Successfully ran Axi Streaming FIFO Interrupt Example\n\r");
 	xil_printf("--- Exiting main() ---\n\r");
 
 	return XST_SUCCESS;
