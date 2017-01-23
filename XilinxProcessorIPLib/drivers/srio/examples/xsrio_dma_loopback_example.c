@@ -63,6 +63,10 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.0   adk  16/04/14	Initial release
+ * 1.1   ms   01/23/17  Modified xil_printf statement in main function to
+ *                      ensure that "Successfully ran" and "Failed" strings
+ *                      are available in all examples. This is a fix for
+ *                      CR-965028.
  *
  * </pre>
  *
@@ -121,7 +125,7 @@ int main()
 		return XST_FAILURE;
 	}
 
-	xil_printf("SRIO DMA Loopback Test passed\n\r");
+	xil_printf("Successfully ran SRIO DMA Loopback Test\n\r");
 	xil_printf("--- Exiting main() ---\n\r");
 
 	return XST_SUCCESS;

@@ -99,6 +99,10 @@
 * 1.0   adk  16/04/14 Initial release.
 * 1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XSrio_CfgInitialize API.
+*       ms   01/23/17 Modified xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 * 
 * </pre>
 ******************************************************************************/
