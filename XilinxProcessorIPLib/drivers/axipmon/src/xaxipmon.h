@@ -253,6 +253,10 @@
 * 6.3	kvn  07/02/15	Modified code according to MISRA-C:2012 guidelines.
 * 6.4   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XAxiPmon_CfgInitialize API.
+* 6.5   ms   01/23/17 Modified xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 * </pre>
 *
 *****************************************************************************/

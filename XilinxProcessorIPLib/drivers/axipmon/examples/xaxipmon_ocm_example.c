@@ -50,6 +50,9 @@
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a bss    04/01/15 First release
 * 6.5   sg     11/02/16 Updated device ID to OCM PSU APM ID
+*       ms     01/23/17 Modified xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings are
+*                       available in all examples. This is a fix for CR-965028.
 *
 * </pre>
 *
@@ -139,10 +142,11 @@ int main(void)
 
 	XAxiPmon_DisableMetricsCounter(&AxiPmonInst);
 	if (Status == XST_SUCCESS) {
-		xil_printf("Example passed\r\n");
+		xil_printf("Successfully ran AXI Performance Monitor OCM \
+						Example\r\n");
 		return XST_SUCCESS;
 	} else {
-		xil_printf("Example failed\r\n");
+		xil_printf("AXI Performance Monitor OCM example Failed\r\n");
 		return XST_FAILURE;
 	}
 

@@ -61,6 +61,9 @@
 * 5.00a bss	10/25/12 Modified call to XAxiPmon_SetSampleInterval as per
 *			 new driver API.
 * 6.4 mus    01/07/16 Added support for ZynqMP interrupt controller
+* 6.5 ms     01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings are
+*                     available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -157,7 +160,8 @@ int main(void)
 							failed\r\n");
 		return XST_FAILURE;
 	}
-	xil_printf("AXI Performance Monitor Interrupt example passed\r\n");
+	xil_printf("Successfully ran AXI Performance Monitor Interrupt \
+						Example\r\n");
 	return XST_SUCCESS;
 }
 

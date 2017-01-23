@@ -57,6 +57,9 @@
 *						v2_01a version of IP.
 * 3.01a bss	   10/25/12 Deleted XAxiPmon_EnableCountersData API to support
 *						new version of IP.
+* 6.5   ms    01/23/17 Modified xil_printf statement in main function to
+*                      ensure that "Successfully ran" and "Failed" strings are
+*                      available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -127,7 +130,7 @@ int main(void)
 	}
 
 
-	xil_printf("AXI Performance Monitor Polled example passed\r\n");
+	xil_printf("Successfully ran AXI Performance Monitor Polled Example\r\n");
 	return XST_SUCCESS;
 }
 
