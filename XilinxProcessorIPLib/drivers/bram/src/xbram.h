@@ -113,6 +113,10 @@
 * 4.0   adk  19/12/13 Updated as per the New Tcl API's
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XBram_CfgInitialize API.
+*       ms  01/23/17 Modified xil_printf statement in main function for all
+*                    examples to ensure that "Successfully ran" and "Failed"
+*                    strings are available in all examples. This is a fix
+*                    for CR-965028.
 * </pre>
 *****************************************************************************/
 #ifndef XBRAM_H		/* prevent circular inclusions */

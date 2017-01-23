@@ -45,6 +45,9 @@
 * 3.01a sa   13/01/12 Changed XBram_SelfTest(InstancePtr) to
 * 			 XBram_SelfTest(InstancePtr,0) as per
 *			 new API (CR 639274)
+* 4.1   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings are
+*                     available in all examples. This is a fix for CR-965028.
 *</pre>
 *
 ******************************************************************************/
@@ -101,11 +104,11 @@ int main(void)
 
 	Status = BramExample(BRAM_DEVICE_ID);
 	if (Status != XST_SUCCESS ) {
-		xil_printf("Bram Example Test FAILED.\r\n");
+		xil_printf("Bram Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Bram Example Test PASSED.\r\n");
+	xil_printf("Successfully ran Bram Example\r\n");
 	return XST_SUCCESS;
 }
 #endif

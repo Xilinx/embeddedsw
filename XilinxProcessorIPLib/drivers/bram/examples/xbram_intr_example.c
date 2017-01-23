@@ -48,6 +48,9 @@
 * 3.01a sa   13/01/12 Changed XBram_SelfTest(InstancePtr) to
 * 			 XBram_SelfTest(InstancePtr, XBRAM_IR_ALL_MASK)
 * 			 as per new API (CR 639274)
+* 4.1   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings are
+*                     available in all examples. This is a fix for CR-965028.
 *</pre>
 *
 ******************************************************************************/
@@ -123,11 +126,11 @@ int main(void)
 	Status = BramIntrExample(&Intc, &Bram, BRAM_DEVICE_ID,
 				 INTC_BRAM_INTERRUPT_ID);
 	if (Status != XST_SUCCESS ) {
-		xil_printf("Bram Interrupt Example FAILED.\r\n");
+		xil_printf("Bram Interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Bram Interrupt Example PASSED.\r\n");
+	xil_printf("Successfully ran Bram Interrupt Example\r\n");
 	return XST_SUCCESS;
 }
 #endif
