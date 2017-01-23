@@ -44,6 +44,10 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   09/11/15   Initial Release
 * 1.10  rco   10/05/15   Update to support multiple PPC configurations
+* 8.0   ms    01/23/17   Modified xil_printf statement in main function to
+*                        ensure that "Successfully ran" and "Failed" strings
+*                        are available in all examples. This is a fix for
+*                        CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -227,12 +231,12 @@ int videoClockConfig(XVidC_VideoMode videoMode)
 			--timeout;
 			if(!timeout)
 			{
-				print("ERR:: Video Clock Generator failed lock\r\n");
+				xil_printf("ERR:: Video Clock Generator failed lock\r\n");
 				return(XST_FAILURE);
 			}
 		}
 	}
-	print("Video Clock Generator locked\r\n");
+	xil_printf("Video Clock Generator locked\r\n");
 
 	return(XST_SUCCESS);
 
@@ -255,7 +259,7 @@ int main()
 	int status;
 	XVidC_VideoMode TestMode;
 
-	print("Start test\r\n");
+	xil_printf("Start test\r\n");
 
 	gpio_hlsIpReset = (u32*)XPAR_HLS_IP_RESET_BASEADDR;
 	gpio_videoLockMonitor = (u32*)XPAR_VIDEO_LOCK_MONITOR_BASEADDR;
@@ -268,7 +272,7 @@ int main()
 	resetIp();
 
 	if(*gpio_videoLockMonitor) {
-		print("ERR:: Video should not be locked\r\n");
+		xil_printf("ERR:: Video should not be locked\r\n");
 		return(XST_FAILURE);
 	}
 
@@ -284,11 +288,11 @@ int main()
 	usleep(300000);
 
 	if(!(*gpio_videoLockMonitor)) {
-		print("ERR:: Video Lock failed for 1080P60\r\n");
+		xil_printf("ERR:: Video Lock failed for 1080P60\r\n");
 		return(XST_FAILURE);
 	}
 	else {
-		print("1080P60 passed\r\n");
+		xil_printf("1080P60 passed\r\n");
 	}
 
 	resetIp();
@@ -304,11 +308,11 @@ int main()
 	usleep(300000);
 
 	if(!(*gpio_videoLockMonitor)) {
-		print("ERR:: Video Lock failed for 4KP30\r\n");
+		xil_printf("ERR:: Video Lock failed for 4KP30\r\n");
 		return(XST_FAILURE);
 	}
 	else {
-		print("4KP30 passed\r\n\r\n");
+		xil_printf("4KP30 passed\r\n\r\n");
 	}
 
     /* Run 4k60 Test if supported by HW
@@ -332,14 +336,14 @@ int main()
 	  usleep(300000);
 
 	  if(!(*gpio_videoLockMonitor)) {
-		print("ERR:: Video Lock failed for 4KP60\r\n");
+		xil_printf("ERR:: Video Lock failed for 4KP60\r\n");
 		return(XST_FAILURE);
 	  }
 	  else {
-		print("4KP60 passed\r\n\r\n");
+		xil_printf("4KP60 passed\r\n\r\n");
 	  }
     }
-	print("TEST PASS\r\n");
+	xil_printf("Successfully ran Example\r\n");
 
 	return 0;
 }
