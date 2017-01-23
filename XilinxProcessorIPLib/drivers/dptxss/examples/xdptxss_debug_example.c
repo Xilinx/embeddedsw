@@ -53,6 +53,10 @@
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 07/01/15 Initial release.
 * 2.00 sha 09/28/15 Added HDCP debug info function call.
+* 4.1  ms  01/23/17 Modified xil_printf statement in main function to
+*                   ensure that "Successfully ran" and "Failed" strings
+*                   are available in all examples. This is a fix for
+*                   CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -160,7 +164,7 @@ int main()
 		return XST_FAILURE;
 	}
 
-	xil_printf("DisplayPort TX Subsystem debug example passed\n\r");
+	xil_printf("Successfully ran DisplayPort TX Subsystem debug example\n\r");
 
 	return XST_SUCCESS;
 }

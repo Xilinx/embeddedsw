@@ -110,6 +110,10 @@
 * 4.0  aad 05/13/16 Expose API to set (a)synchronous clock mode from DP driver.
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
 *      aad 09/06/16 Updates to support 64-bit base addresses.
+*      ms  01/23/17 Modified xil_printf statement in main function for all
+*                   examples to ensure that "Successfully ran" and "Failed"
+*                   strings are available in all examples. This is a fix
+*                   for CR-965028.
 * </pre>
 *
 ******************************************************************************/
