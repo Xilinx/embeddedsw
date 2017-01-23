@@ -46,6 +46,8 @@
 * 1.0   sg    06/06/16 First release
 * 1.1   sg    10/24/16 Update for backward compatability
 *                      Added XUsbPsu_IsSuperSpeed function in xusbpsu.c
+* 1.2   mn    01/20/17 removed unnecessary declaration of
+*                      XUsbPsu_SetConfiguration in xusbpsu.h
 *
 * </pre>
 *

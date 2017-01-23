@@ -41,6 +41,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
 * 1.1	vak 30/11/16 updated for adding ch9 function callbacks
+* 1.2   mn  01/20/17 fix to assign EP number and direction from wIndex field
 *
 * </pre>
 *
