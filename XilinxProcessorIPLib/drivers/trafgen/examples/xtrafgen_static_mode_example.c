@@ -51,6 +51,10 @@
  * ----- ---- -------- -------------------------------------------------------
  * 1.01a adk  03/09/13 First release
  * 2.00a adk  16/09/13 Fixed CR:737291
+ * 4.1   ms   01/23/17 Modified xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings
+ *                     are available in all examples. This is a fix for
+ *                     CR-965028.
  *
  * </pre>
  *
@@ -117,7 +121,7 @@ int main()
 		return XST_FAILURE;
 	}
 
-	xil_printf("TrafficGen Static mode Example Test passed\n\r");
+	xil_printf("Successfully ran TrafficGen Static mode Example\n\r");
 	xil_printf("--- Exiting main() ---\n\r");
 
 	return XST_SUCCESS;

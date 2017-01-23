@@ -61,6 +61,10 @@
  * 1.01a adk  03/09/13 First release
  * 2.00a adk  16/09/13 Fixed CR:737291
  * 2.01a adk  15/11/13 Fixed CR:760808
+ * 4.1   ms   01/23/17 Modified xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings
+ *                     are available in all examples. This is a fix for
+ *                     CR-965028.
  *
  * </pre>
  *
@@ -148,7 +152,7 @@ int main()
 		return XST_FAILURE;
 	}
 
-	xil_printf("Traffic Gen Streaming Example Test passed\n\r");
+	xil_printf("Successfully ran Traffic Gen Streaming Example\n\r");
 	xil_printf("--- Exiting main() ---\n\r");
 
 	return XST_SUCCESS;

@@ -193,6 +193,10 @@
 * 		      Some incorrect parameter in axi traffic generator driver.
 * 4.0   sd  19/08/15 Fixed CR:876564 Added 64-bit Support to axi traffic generator
 *		     driver.
+* 4.1   ms  01/23/17 Modified xil_printf statement in main function for all
+*                    examples to ensure that "Successfully ran" and "Failed"
+*                    strings are available in all examples. This is a fix
+*                    for CR-965028.
 * </pre>
 ******************************************************************************/
 
