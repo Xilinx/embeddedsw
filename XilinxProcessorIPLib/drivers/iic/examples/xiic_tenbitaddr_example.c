@@ -62,6 +62,10 @@
 *		      XIic_Initialize API with XIic_LookupConfig and
 *		      XIic_CfgInitialize. Made minor modifications as
 *		      per coding guidelines.
+* 3.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -72,6 +76,7 @@
 #include "xiic.h"
 #include "xintc.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -145,9 +150,11 @@ int main(void)
 	 */
 	Status = IicTenBitAddrExample();
 	if (Status != XST_SUCCESS) {
+		xil_printf("IIC tenbitaddr Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran IIC tenbitaddr Example\r\n");
 	return XST_SUCCESS;
 }
 

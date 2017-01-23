@@ -119,6 +119,10 @@
 * 2.02a bss  01/30/13 Updated for using the GIC in case of Zynq
 * 2.06a bss  02/14/13 Added MuxInit API to support Zynq and KC705 boards and
 *		      modified to use ScuGic in case of Zynq CR# 683509
+* 3.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 * </pre>
 *
@@ -129,6 +133,7 @@
 #include "xparameters.h"
 #include "xiic.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
  #include "xintc.h"
@@ -275,8 +280,10 @@ int main(void)
 	 */
 	Status = IicEepromExample();
 	if (Status != XST_SUCCESS) {
+		xil_printf("IIC eeprom Example Failed\r\n");
 		return XST_FAILURE;
 	}
+	xil_printf("Successfully ran IIC eeprom Example\r\n");
 	return XST_SUCCESS;
 }
 

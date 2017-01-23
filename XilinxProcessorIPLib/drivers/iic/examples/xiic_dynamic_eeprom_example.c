@@ -97,6 +97,10 @@
 *		      like M24C04/M24C08 that use LSB bits of the IIC device
 *		      select code (IIC slave address) to specify the higher
 *		      address bits of the EEPROM internal address.
+* 3.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -107,6 +111,7 @@
 #include "xiic.h"
 #include "xintc.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -211,9 +216,11 @@ int main(void)
 	 */
 	Status = IicDynEepromExample();
 	if (Status != XST_SUCCESS) {
+		xil_printf("IIC dynamic eeprom Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran IIC dynamic eeprom Example\r\n");
 	return XST_SUCCESS;
 }
 

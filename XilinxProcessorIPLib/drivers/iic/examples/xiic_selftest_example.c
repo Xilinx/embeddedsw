@@ -50,12 +50,17 @@
 *		      XIic_Initialize API with XIic_LookupConfig and
 *		      XIic_CfgInitialize. Minor changes made as per
 *		      coding guidelines.
+* 3.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 *******************************************************************************/
 
 #include "xparameters.h"
 #include "xiic.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions ******************************/
 
@@ -110,9 +115,11 @@ int main(void)
 	 */
 	Status = IicSelfTestExample(IIC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("IIC selftest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran IIC selftest Example\r\n");
 	return XST_SUCCESS;
 
 }

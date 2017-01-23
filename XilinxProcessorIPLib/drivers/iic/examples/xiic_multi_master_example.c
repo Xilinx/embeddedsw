@@ -95,6 +95,10 @@
 *		      XIic_CfgInitialize.
 * 2.01a ktn  03/17/10 Updated the information about the EEPROM's used on
 *		      ML605/SP601/SP605 boards.
+* 3.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 * </pre>
 *
@@ -106,6 +110,7 @@
 #include "xiic.h"
 #include "xintc.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -200,9 +205,11 @@ int main(void)
 	 */
 	Status = IicMultiMasterExample();
 	if (Status != XST_SUCCESS) {
+		xil_printf("IIC multi master Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran IIC multi master Example\r\n");
 	return XST_SUCCESS;
 }
 

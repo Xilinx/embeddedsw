@@ -301,6 +301,10 @@
 * 3.3   sk   06/17/16 Added bus busy checks for slave send/recv and master
 *                     send/recv.
 * 3.3   als  06/27/16 XIic_IsIicBusy now a wrapper for XIic_CheckIsBusBusy.
+* 3.4   ms   01/23/17 Added xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 * </pre>
 *
 ******************************************************************************/
