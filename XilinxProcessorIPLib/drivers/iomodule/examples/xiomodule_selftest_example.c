@@ -53,6 +53,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- --------------------------------------------------------
 * 1.00a sa   07/15/11 First release
+* 2.4   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -62,7 +66,7 @@
 #include "xstatus.h"
 #include "xiomodule.h"
 #include "mb_interface.h"
-
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -115,9 +119,11 @@ int main(void)
     Status = IOModuleSelfTestExample(IOMODULE_DEVICE_ID);
     if (Status != XST_SUCCESS)
     {
+		xil_printf("Iomodule selftest Example Failed\r\n");
         return XST_FAILURE;
     }
 
+	xil_printf("Successfully ran Iomodule selftest Example\r\n");
     return XST_SUCCESS;
 }
 #endif
