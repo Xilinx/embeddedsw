@@ -55,6 +55,9 @@
 * Ver   Who	Date	 Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   nsk    06/04/15 First release
+* 1.2   ms     01/23/17 Modified xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings are
+*                       available in all examples. This is a fix for CR-965028.
 *
 * </pre>
 *
@@ -193,7 +196,7 @@ int main()
 		xil_printf("XCanFd Interrupt Mode example Failed\n\r");
 		return XST_FAILURE;
 	}
-	xil_printf("XCanFd Interrupt Mode example Passed\n\r");
+	xil_printf("Successfully ran XCanFd Interrupt Mode example\n\r");
 	return XST_SUCCESS;
 }
 
