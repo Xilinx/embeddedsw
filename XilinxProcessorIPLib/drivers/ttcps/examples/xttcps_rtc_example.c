@@ -50,6 +50,10 @@
 *					   XTtcPs_CfgInitialize
 * 3.2  mus    10/28/16 Updated TmrCntrSetup as per prototype of
 *                      XTtcPs_CalcIntervalFromFreq
+*      ms     01/23/17 Modified xil_printf statement in main function to
+*                      ensure that "Successfully ran" and "Failed" strings
+*                      are available in all examples. This is a fix for
+*                      CR-965028.
 *</pre>
 ******************************************************************************/
 
@@ -147,11 +151,11 @@ int main(void)
 	xil_printf("Starting Timer RTC Example");
 	Status = TmrRtcInterruptExample();
 	if (Status != XST_SUCCESS) {
-		xil_printf("FAIL!");
+		xil_printf("ttcps rtc Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Success!");
+	xil_printf("Successfully ran ttcps rtc Example\r\n");
 	return XST_SUCCESS;
 }
 

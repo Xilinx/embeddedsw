@@ -93,6 +93,10 @@
 *			modified for MISRA-C:2012 compliance.
 * 3.2   mus    10/28/16 Modified XTtcPs_GetCounterValue and XTtcPs_SetInterval
 *                       macros to return 32 bit values for zynq ultrascale+mpsoc
+*       ms   01/23/17 Modified xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 * </pre>
 *
 ******************************************************************************/

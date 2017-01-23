@@ -53,6 +53,10 @@
 *					   TmrInterruptExample
 * 3.2  mus    10/28/16 Updated TmrCntrSetup as per prototype of
 *                      XTtcPs_CalcIntervalFromFreq
+*      ms     01/23/17 Modified xil_printf statement in main function to
+*                      ensure that "Successfully ran" and "Failed" strings
+*                      are available in all examples. This is a fix for
+*                      CR-965028.
 *</pre>
 ******************************************************************************/
 
@@ -144,11 +148,11 @@ int main(void)
 	Status = TmrInterruptExample(&TtcPsInst, TTC_TICK_DEVICE_ID,
 								TTC_TICK_INTR_ID, &InterruptController);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Timer interrupt Example failed \n!");
+		xil_printf("ttcps tapp Example Failed\r\n!");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Timer interrupt Example passed \n!");
+	xil_printf("Successfully ran ttcps tapp Example\r\n");
 	return XST_SUCCESS;
 }
 #endif
