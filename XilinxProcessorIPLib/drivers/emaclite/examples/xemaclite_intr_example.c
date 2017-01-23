@@ -63,6 +63,10 @@
 *		      in the driver to remove _m from the name of the macro.
 * 3.01a ktn  07/08/10 Updated example to support Little Endian MicroBlaze.
 * 4.2  adk   29/02/16 Updated example to support Zynq and ZynqMP.
+* 4.3   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 * </pre>
 *
@@ -73,6 +77,7 @@
 #include "xemaclite_example.h"
 #include "xil_exception.h"
 #include "xil_io.h"
+#include "xil_printf.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -172,9 +177,11 @@ int main()
 				 EMAC_DEVICE_ID,
 				 INTC_EMACLITE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Emaclite interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Emaclite interrupt Example\r\n");
 	return XST_SUCCESS;
 
 }

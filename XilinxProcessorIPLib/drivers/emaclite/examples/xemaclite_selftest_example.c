@@ -47,12 +47,17 @@
 * 1.00a ecm  01/25/05 Initial release for TestApp integration.
 * 1.00a sv   06/06/05 Minor changes to comply to Doxygen and coding guidelines
 * 2.00a ktn  04/14/09 Removed support for TestApp
+* 4.3   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 ******************************************************************************/
 /***************************** Include Files *********************************/
 
 #include "xparameters.h"
 #include "xemaclite.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -100,9 +105,11 @@ int main(void)
 	 */
 	Status = EMACLiteSelfTestExample(EMAC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Emaclite selftest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Emaclite selftest Example\r\n");
 	return XST_SUCCESS;
 
 }

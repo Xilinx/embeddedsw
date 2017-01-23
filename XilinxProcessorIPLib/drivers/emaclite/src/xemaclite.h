@@ -203,6 +203,10 @@
 * 4.2	adk  29/02/16 Updated interrupt example to support Zynq and ZynqMP
 *		      CR#938244.
 * 4.3   asa  08/27/16 Fix compilation warning by making change xemaclite_l.c
+*       ms   01/23/17 Added xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 *
 * </pre>
 *

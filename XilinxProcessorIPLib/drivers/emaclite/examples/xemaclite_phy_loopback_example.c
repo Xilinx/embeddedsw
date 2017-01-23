@@ -58,6 +58,10 @@
 *		      Updated example to use the macros that have been changed
 *		      in the driver to remove _m from the name of the macro.
 * 3.01a ktn  07/08/10 Updated example to support Little Endian MicroBlaze.
+* 4.3   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -68,6 +72,7 @@
 #include "xintc.h"
 #include "xil_exception.h"
 #include "xil_io.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -132,9 +137,11 @@ int main()
 	 */
 	Status = EmacLitePhyLoopbackExample(EMAC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Emaclite phy loopback Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Emaclite phy loopback Example\r\n");
 	return XST_SUCCESS;
 
 }
