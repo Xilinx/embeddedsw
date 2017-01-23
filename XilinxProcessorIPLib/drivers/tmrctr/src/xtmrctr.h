@@ -152,6 +152,10 @@
 *                     Changed the prototype of XTmrCtr_CfgInitialize API.
 * 4.2   nsk  15/09/16 Updated tcl, to get correct device id for canonical defines,
 *                     when there exist more than one timer perepheral
+*       ms   01/23/17 Added xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 *
 * </pre>
 *

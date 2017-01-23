@@ -50,6 +50,10 @@
 * 2.00a ktn  10/30/09 Updated the example as the macros in the driver are
 *                     renamed by removing _m in the definition.
 *                     Minor changes as per coding guidelines are done.
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *</pre>
 ******************************************************************************/
 
@@ -58,6 +62,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xtmrctr_l.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -109,9 +114,11 @@ int main(void)
 	 */
 	Status = TmrCtrLowLevelExample(TMRCTR_BASEADDR, TIMER_COUNTER_0);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Tmrctr lowlevel Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Tmrctr lowlevel Example\r\n");
 	return XST_SUCCESS;
 
 }

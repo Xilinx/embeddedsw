@@ -47,6 +47,10 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sv   04/25/05 Initial release for TestApp integration.
 * 2.00a ktn  11/26/09 Minor changes as per coding guidelines.
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -55,7 +59,7 @@
 
 #include "xparameters.h"
 #include "xtmrctr.h"
-
+#include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -107,9 +111,11 @@ int main(void)
 
 	Status = TmrCtrSelfTestExample(TMRCTR_DEVICE_ID, TIMER_COUNTER_0);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Tmrctr selftest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Tmrctr selftest Example\r\n");
 	return XST_SUCCESS;
 }
 #endif

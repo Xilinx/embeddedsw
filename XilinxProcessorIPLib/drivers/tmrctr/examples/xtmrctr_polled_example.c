@@ -48,6 +48,10 @@
 * 1.00b jhl  02/13/02 First release
 * 1.00b sv   04/26/05 Minor changes to comply to Doxygen and coding guidelines.
 * 2.00a ktn  11/26/09 Minor changes as per coding guidelines.
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 *</pre>
 ******************************************************************************/
@@ -56,6 +60,7 @@
 
 #include "xparameters.h"
 #include "xtmrctr.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -111,9 +116,11 @@ int main(void)
 	 */
 	Status = TmrCtrPolledExample(TMRCTR_DEVICE_ID, TIMER_COUNTER_0);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Tmrctr polled Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Tmrctr polled Example\r\n");
 	return XST_SUCCESS;
 
 }

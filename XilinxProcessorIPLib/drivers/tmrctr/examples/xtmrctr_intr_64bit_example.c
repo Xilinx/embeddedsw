@@ -53,6 +53,10 @@
 * Ver   Who  Date	 Changes
 * ----- ---- -------- -----------------------------------------------
 * 2.04a sdm  07/15/11 Created based on the xtmrctr_intr_example
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 *</pre>
 ******************************************************************************/
@@ -63,6 +67,7 @@
 #include "xtmrctr.h"
 #include "xintc.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 /*
@@ -154,9 +159,11 @@ int main(void)
 				  TMRCTR_DEVICE_ID,
 				  TMRCTR_INTERRUPT_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Tmrctr interrupt 64bit Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Tmrctr interrupt 64bit Example\r\n");
 	return XST_SUCCESS;
 
 }
