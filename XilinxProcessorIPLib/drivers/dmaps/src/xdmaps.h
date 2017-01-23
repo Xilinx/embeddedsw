@@ -77,6 +77,10 @@
 * 2.01  kpc    08/23/14  Fixed the IAR compiler reported errors
 * 2.2   mus    08/12/16  Declared all inline functions in xdmaps.c as extern, to avoid
 *                        linker error for IAR compiler
+* 2.3   ms     01/23/17 Modified xil_printf statement in main function for all
+*                       examples to ensure that "Successfully ran" and "Failed"
+*                       strings are available in all examples. This is a fix
+*                       for CR-965028.
 * </pre>
 *
 *****************************************************************************/

@@ -49,6 +49,9 @@
 * 1.06a kpc    04/24/2012 Modified the APIs to make this file compatible with 
 *                         peripheral test suite.							 
 * 2.1   kpc    08/23/2014 Fixed IAR compiler reported error.
+* 2.3   ms     01/23/17  Modified xil_printf statement in main function to
+*                        ensure that "Successfully ran" and "Failed" strings are
+*                        available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -146,7 +149,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	xil_printf("XDMaPs_Example_W_Intr passed\r\n");
+	xil_printf("Successfully ran XDMaPs_Example_W_Intr\r\n");
 	return XST_SUCCESS;
 
 }
