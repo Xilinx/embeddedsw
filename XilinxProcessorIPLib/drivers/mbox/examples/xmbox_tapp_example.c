@@ -71,6 +71,10 @@
 *		      integration.
 * 2.00a hm   04/09/09 Added receiving data from the other processor.
 * 3.01a sdm  05/06/10 Cleanup for coding guidelines and removed printfs
+* 4.1   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *</pre>
 *****************************************************************************/
 
@@ -148,12 +152,12 @@ int main(void)
 	printf ("MailboxExample :\tStarts for CPU %d.\r\n", MY_CPU_ID);
 
 	if (MailboxExample(MBOX_DEVICE_ID) != XST_SUCCESS) {
-		printf("MailboxExample :\tFailed.\r\n");
+		printf("MailboxExample :\t mbox tapp Example Failed.\r\n");
 		printf("MailboxExample :\tEnds.\r\n");
 		return XST_FAILURE;
 	}
 
-	printf("MailboxExample :\tSucceeded.\r\n");
+	printf("MailboxExample :\tSuccessfully ran mbox tapp Example \r\n");
 	printf("MailboxExample :\tEnds for CPU %d.\r\n", MY_CPU_ID);
 
 	return XST_SUCCESS;

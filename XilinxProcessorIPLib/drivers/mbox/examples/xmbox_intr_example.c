@@ -65,6 +65,10 @@
 * 2.00a hm		Example that sends and receives and uses interrupts
 * 3.01a sdm  05/06/10	Cleanup for coding guidelines, removed printfs from all
 *			the functions except the main function
+* 4.1   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *</pre>
 *******************************************************************************/
 
@@ -171,11 +175,11 @@ int main(void)
 
 	if (MailboxExample(&IntcInst, MBOX_DEVICE_ID, MBOX_INTR_ID)
 				!= XST_SUCCESS) {
-		printf("MailboxExample :\tFailed.\r\n");
+		printf("MailboxExample :\t mbox intr Example Failed.\r\n");
 		return XST_FAILURE;
 	}
 
-	printf("MailboxExample :\tSucceeded.\r\n");
+	printf("MailboxExample :\tSuccessfully ran mbox intr Example\r\n");
 	printf("MailboxExample :\tEnds for CPU %d.\r\n", MY_CPU_ID);
 
 	return XST_SUCCESS;
