@@ -48,6 +48,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------
 * 3.04a bss  03/21/12 First Release
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 *</pre>
 ******************************************************************************/
@@ -56,7 +60,7 @@
 
 #include "xparameters.h"	/* XPAR parameters */
 #include "xspi.h"		/* SPI device driver */
-
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -107,9 +111,11 @@ int main(void)
 	 */
 	Status = SpiXipExample(&SpiInstance, SPI_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Spi winbond flash xip Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Spi winbond flash xip Example\r\n");
 	return XST_SUCCESS;
 }
 

@@ -52,6 +52,10 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a bss  08/08/12 First release
 * 3.04a bss  02/11/13 Modified to use ScuGic in case of Zynq (CR#683510)
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -533,6 +537,7 @@ int main(void)
 		}
 	}
 
+	xil_printf("Successfully ran Spi numonyx flash quad Example\r\n");
 	return XST_SUCCESS;
 }
 

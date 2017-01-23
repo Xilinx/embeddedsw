@@ -58,6 +58,10 @@
 *		      XSpi_CfgInitialize.
 * 3.02a sdm  05/04/11 Updated to run the loopback test only in standard spi
 *		      mode.
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *</pre>
 ******************************************************************************/
 
@@ -66,6 +70,7 @@
 #include "xparameters.h"	/* XPAR parameters */
 #include "xspi.h"		/* SPI device driver */
 #include "xspi_l.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -135,9 +140,11 @@ int main(void)
 	 */
 	Status = SpiPolledExample(&SpiInstance, SPI_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Spi polled Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Spi polled Example\r\n");
 	return XST_SUCCESS;
 }
 

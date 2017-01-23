@@ -62,6 +62,10 @@
 * 1.00b sv   05/16/05 Minor changes to comply to Doxygen and coding guidelines
 * 3.00a ktn  10/28/09 Converted all register accesses to 32 bit access.
 * 3.02a sdm  05/04/11 Added a note about dual/quad modes in axi_qspi.
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 *</pre>
 *******************************************************************************/
@@ -71,6 +75,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xspi_l.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions ******************************/
 
@@ -126,9 +131,11 @@ int main(void)
 	 */
 	Status = XSpi_LowLevelExample(SPI_BASEADDR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Spi lowlevel Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Spi lowlevel Example\r\n");
 	return XST_SUCCESS;
 }
 

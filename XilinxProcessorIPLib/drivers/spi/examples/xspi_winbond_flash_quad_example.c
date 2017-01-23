@@ -51,6 +51,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sdm  04/01/11 First release
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 * </pre>
 *
@@ -62,6 +66,7 @@
 #include "xintc.h"		/* Interrupt controller device driver */
 #include "xspi.h"		/* SPI device driver */
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -524,6 +529,7 @@ int main(void)
 		}
 	}
 
+	xil_printf("Successfully ran Spi winbond flash quad Example\r\n");
 	return XST_SUCCESS;
 }
 

@@ -68,6 +68,10 @@
 *		      XSpi_CfgInitialize.
 * 3.01a sdm  04/23/10 Enabled DTR Half_empty interrupt so that Tx FIFO is
 *		      not empty during a transfer in slave mode.
+* 4.2   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 *</pre>
 ******************************************************************************/
@@ -79,6 +83,7 @@
 #include "xintc.h"		/* Interrupt controller devive driver */
 #include "stdio.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -161,9 +166,11 @@ int main(void)
 	 */
 	Status = SpiSlaveIntrExample(&SpiInstance, SPI_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Spi slave interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Spi slave interrupt Example\r\n");
 	return XST_SUCCESS;
 }
 
