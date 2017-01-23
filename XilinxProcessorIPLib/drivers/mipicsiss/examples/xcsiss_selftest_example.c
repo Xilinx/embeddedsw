@@ -46,6 +46,10 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/29/15 Initial release
+* 1.1 ms  01/23/17 Modified xil_printf statement in main function to
+*                  ensure that "Successfully ran" and "Failed" strings
+*                  are available in all examples. This is a fix for
+*                  CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -105,12 +109,11 @@ int main()
 
 	Status = CsiSs_SelfTestExample(XCSISS_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("MIPI CSI RX Subsystem self test example "
-			"failed\n\r");
+		xil_printf("MIPI CSI RX Subsystem self test example failed\n\r");
 		return XST_FAILURE;
 	}
 
-	xil_printf("MIPI CSI RX Subsystem self test example passed\n\r");
+	xil_printf("Successfully ran MIPI CSI RX Subsystem self test example\n\r");
 
 	return XST_SUCCESS;
 }
