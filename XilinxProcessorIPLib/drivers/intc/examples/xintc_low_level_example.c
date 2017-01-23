@@ -76,6 +76,10 @@
 * 2.00a ktn  10/20/09 Updated to use HAL Processor APIs and _m is removed from
 *		      all the macro names/definitions. Minor changes done as per
 *		      coding guidelines.
+* 3.6   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -85,6 +89,7 @@
 #include "xstatus.h"
 #include "xintc_l.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -144,9 +149,11 @@ int main(void)
 	 */
 	Status = IntcLowLevelExample(INTC_BASEADDR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Intc lowlevel Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Intc lowlevel Example\r\n");
 	return XST_SUCCESS;
 
 }

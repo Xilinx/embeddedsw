@@ -59,6 +59,10 @@
 * 1.00c sn   05/09/06  Added Interrupt Setup Function
 * 2.00a ktn  10/20/09  Updated to use HAL Processor APIs and minor changes as
 *		       per coding guidelines.
+* 3.6   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -68,6 +72,7 @@
 #include "xstatus.h"
 #include "xintc.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 
 /************************** Constant Definitions *****************************/
@@ -123,9 +128,11 @@ int main(void)
 	 */
 	Status = IntcSelfTestExample(INTC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Intc tapp Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Intc tapp Example\r\n");
 	return XST_SUCCESS;
 
 }
