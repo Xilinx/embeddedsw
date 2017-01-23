@@ -62,6 +62,9 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 08/02/16 Initial release
+*     ms  01/23/17 Modified xil_printf statement in main function to
+*                  ensure that "Successfully ran" and "Failed" strings are
+*                  available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -204,7 +207,7 @@ int main()
 		return XST_FAILURE;
 	}
 
-	xil_printf("MIPI CSI2Tx Subsystem interrupt example passed\n\r");
+	xil_printf("Successfully ran MIPI CSI2Tx Subsystem interrupt example\n\r");
 
 	return XST_SUCCESS;
 }
