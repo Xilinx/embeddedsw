@@ -183,6 +183,10 @@
 *                      Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
 *                      CR# 909615.
 * 10.2   mi   09/22/16 Fixed compilation warnings.
+* 11.0  ms    01/23/17 Added xil_printf statement in main function for all
+*                      examples to ensure that "Successfully ran" and "Failed"
+*                      strings are available in all examples. This is a fix
+*                      for CR-965028.
 *
 * </pre>
 *

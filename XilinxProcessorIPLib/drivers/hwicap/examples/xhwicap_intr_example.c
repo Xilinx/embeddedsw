@@ -57,6 +57,10 @@
 * 4.00a hvm  12/1/09  Updated with HAL phase 1 changes
 * 5.00a hvm  2/25/10  Updated with S6 support
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
+* 11.0  ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 *</pre>
 ******************************************************************************/
@@ -67,6 +71,7 @@
 #include "xhwicap.h"		/* HwIcap device driver */
 #include "xintc.h"		/* Interrupt controller device driver */
 #include "xil_exception.h"      /* Exceptions */
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -161,9 +166,11 @@ int main(void)
 			    HWICAP_DEVICE_ID,
 			    HWICAP_IRPT_INTR);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Hwicap interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Hwicap interrupt Example\r\n");
 	return XST_SUCCESS;
 }
 

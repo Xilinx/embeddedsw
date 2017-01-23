@@ -77,6 +77,10 @@
 *			only for S6 devices
 * 6.00a hvm  08/05/11 Added support for K7 family
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
+* 11.0  ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 * </pre>
 *
@@ -91,6 +95,7 @@
 #include <xhwicap_i.h>
 #include <xhwicap_l.h>
 #include <stdio.h>
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -159,11 +164,12 @@ int main(void)
 	 */
 	Status = HwIcapLowLevelExample(HWICAP_BASEADDR, &IdCode);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Hwicap lowlevel Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
 	printf("The IDCODE is %x \r\n", IdCode);
-	printf("\r\nHwIcapLowLevelExample Passed Successfully. \r\n\r\n");
+	printf("\r\nSuccessfully ran HwIcapLowLevel Example\r\n\r\n");
 
 	return XST_SUCCESS;
 

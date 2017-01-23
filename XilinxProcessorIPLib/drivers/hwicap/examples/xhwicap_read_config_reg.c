@@ -69,6 +69,10 @@
 * 6.00a hvm  08/05/11 Added support for K7 family
 * 8.01a bss  05/14/12 Replaced the define XHI_C0R_1 with XHI_COR_1 for CR718042
 * 10.0  bss  6/24/14  Removed support for families older than 7 series
+* 11.0  ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -80,6 +84,7 @@
 #include <xil_assert.h>
 #include <xhwicap.h>
 #include <stdio.h>
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -127,9 +132,11 @@ int main(void)
 	 */
 	Status = HwIcapReadConfigRegExample(HWICAP_DEVICEID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Hwicap read config reg Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
+	xil_printf("Successfully ran Hwicap read config reg Example\r\n");
 	return XST_SUCCESS;
 }
 
