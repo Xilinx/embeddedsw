@@ -61,6 +61,10 @@
 * 4.00a  bss   01/22/13  Updated the example to use DDR_HIGH_ADDR to support
 *			 for some AXI memory controllers, User needs to define
 *			 it with a valid address.
+* 6.00   ms    01/23/17 Added xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings
+*                       are available in all examples. This is a fix for
+*                       CR-965028.
 *
 * </pre>
 *
@@ -70,6 +74,7 @@
 
 #include "xtft.h"
 #include "xparameters.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
 /**
@@ -152,8 +157,10 @@ int main()
 
 	Status = TftExample(TFT_DEVICE_ID);
 	if ( Status != XST_SUCCESS) {
+		xil_printf("Tft Example Failed\r\n");
 		return XST_FAILURE;
 	}
+	xil_printf("Successfully ran Tft Example\r\n");
 	return XST_SUCCESS;
 }
 

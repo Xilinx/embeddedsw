@@ -124,6 +124,10 @@
 *			 definitions to the xtft_hw.h file, these offsets
 *			 are valid only when the Address Width is greater
 *			 than 32 bits.
+*       ms   01/23/17 Added xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 *</pre>
 *
 ****************************************************************************/
