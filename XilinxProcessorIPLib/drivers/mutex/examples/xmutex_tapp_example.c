@@ -65,7 +65,11 @@
 * 1.00a ecm  06/04/07   Cleanup, new coding standard, check into XCS
 * 1.00a ecm  08/28/08   Converted to testapp example
 * 3.01a sdm  05/04/10   Removed printfs from the MutexExample
-
+* 4.2   ms   01/23/17   Modified xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings
+*                       are available in all examples. This is a fix for
+*                       CR-965028.
+*
 *</pre>
 *******************************************************************************/
 
@@ -126,12 +130,12 @@ int main(void)
 	printf ("MutexExample :\tStarts.\r\n");
 
 	if (MutexExample (MUTEX_DEVICE_ID) != XST_SUCCESS) {
-		printf ("MutexExample :\tFailed.\r\n");
+		printf ("MutexExample :\tMutex tapp Example Failed.\r\n");
 		printf ("MutexExample :\tEnds.\r\n");
 		return XST_FAILURE;
 	}
 
-	printf ("MutexExample :\tSucceeded.\r\n");
+	printf ("MutexExample :\tSuccessfully ran Mutex tapp Example\r\n");
 	printf ("MutexExample :\tEnds.\r\n");
 
 	return XST_SUCCESS;
