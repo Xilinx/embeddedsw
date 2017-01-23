@@ -56,6 +56,10 @@
 *			set Sequencer Mode as Safe mode instead of Single
 *			channel mode before configuring Sequencer registers.
 *			CR #703729
+* 7.3   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -66,6 +70,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "stdio.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -118,8 +123,11 @@ int main(void)
 	 */
 	Status = SysMonPolledPrintfExample(SYSMON_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Sysmon polled printf Example Failed\r\n");
 		return XST_FAILURE;
 	}
+
+	xil_printf("Successfully ran Sysmon polled printf Example\r\n");
 	return XST_SUCCESS;
 }
 

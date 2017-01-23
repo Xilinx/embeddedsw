@@ -58,6 +58,10 @@
 *		        Updated the example to use macros that have been
 *		        renamed to remove _m from the name of the macro.
 * 7.3   vns    15/04/16 Updated example to support ZynqMP
+*       ms     01/23/17 Added xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings
+*                       are available in all examples. This is a fix for
+*                       CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -68,6 +72,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -163,8 +168,10 @@ int main(void)
 				   SYSMON_DEVICE_ID,
 				   INTR_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Sysmon single ch interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
+	xil_printf("Successfully ran Sysmon single ch interrupt Example\r\n");
 	return XST_SUCCESS;
 
 }

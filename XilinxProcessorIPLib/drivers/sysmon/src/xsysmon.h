@@ -213,6 +213,10 @@
 * 7.2  adk  14/03/16 Fix compilation issues when sysmon is configured
 *                    with streaming interface CR#940976.
 * 7.3  vns  15/04/16 Corrected Ultrascale conversion formulae CR#949949
+*      ms   01/23/17 Added xil_printf statement in main function for all
+*                    examples to ensure that "Successfully ran" and "Failed"
+*                    strings are available in all examples. This is a fix
+*                    for CR-965028.
 * </pre>
 *
 *****************************************************************************/

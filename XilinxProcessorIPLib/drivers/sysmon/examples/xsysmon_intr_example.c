@@ -67,6 +67,10 @@
 *			channel mode before configuring Sequencer registers.
 *			CR #703729
 * 7.2   adk    29/02/16 Updated example to support Zynq and ZynqMP.
+* 7.3   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -77,6 +81,7 @@
 #include "xparameters.h"
 #include "xstatus.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #include "xintc.h"
@@ -172,9 +177,10 @@ int main(void)
 				   INTR_ID,
 				   &Temp);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Sysmon interrupt Example Failed\r\n");
 		return XST_FAILURE;
 	}
-
+	xil_printf("Successfully ran Sysmon interrupt Example\r\n");
 	return XST_SUCCESS;
 
 }
