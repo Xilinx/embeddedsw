@@ -38,7 +38,24 @@
 * AT ALL TIMES.
 *
 ******************************************************************************/
-
+/****************************************************************************/
+/**
+*
+* @file xdphy_example_selftest.c
+*
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  	Date     Changes
+* ----- ------ -------- ----------------------------------------------
+* 1.1   ms     01/23/17  Modified xil_printf statement in main function to
+*                        ensure that "Successfully ran" and "Failed" strings
+*                        are available in all examples. This is a fix for
+*                        CR-965028.
+* </pre>
+*
+*****************************************************************************/
 /***************************** Include Files *********************************/
 
 #include "xdphy.h"
@@ -98,11 +115,11 @@ int main()
 	Status = DphySelfTestExample(DPHY_DEV_ID);
 	if (Status != XST_SUCCESS) {
 
-		xil_printf("DphySelfTestExample: Failed\r\n");
+		xil_printf("DphySelfTest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("DphySelfTestExample: Passed\r\n");
+	xil_printf("Successfully ran DphySelfTest Example\r\n");
 
 	xil_printf("--- Exiting main() --- \r\n");
 
