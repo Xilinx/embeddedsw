@@ -71,6 +71,9 @@
  * 9.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
  *		       removed the defines for S6/V6.
  * 9.2   vak  15/04/16 Fixed compilation warnings in the example
+ * 9.3   ms   01/23/17 Modified xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings are
+ *                     available in all examples. This is a fix for CR-965028.
  * </pre>
  *
  * ***************************************************************************
@@ -368,7 +371,7 @@ int main(void)
 	}
 
 
-	xil_printf("AXI DMA interrupt example test passed\r\n");
+	xil_printf("Successfully ran AXI DMA interrupt Example\r\n");
 
 
 	/* Disable TX and RX Ring interrupts and return success */

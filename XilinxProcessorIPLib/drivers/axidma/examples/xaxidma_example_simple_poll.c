@@ -68,6 +68,9 @@
  * 7.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656).
  * 9.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
  *		       removed the defines for S6/V6.
+ * 9.3   ms   01/23/17 Modified xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings are
+ *                     available in all examples. This is a fix for CR-965028.
  *
  * </pre>
  *
@@ -165,12 +168,11 @@ int main()
 	Status = XAxiDma_SimplePollExample(DMA_DEV_ID);
 
 	if (Status != XST_SUCCESS) {
-
-		xil_printf("XAxiDma_SimplePollExample: Failed\r\n");
+		xil_printf("XAxiDma_SimplePoll Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("XAxiDma_SimplePollExample: Passed\r\n");
+	xil_printf("Successfully ran XAxiDma_SimplePoll Example\r\n");
 
 	xil_printf("--- Exiting main() --- \r\n");
 

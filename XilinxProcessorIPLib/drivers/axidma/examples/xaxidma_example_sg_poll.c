@@ -73,6 +73,9 @@
  * 9.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
  *		       removed the defines for S6/V6.
  * 9.2   vak  15/04/16 Fixed compilation warnings in th example
+ * 9.3   ms   01/23/17 Modified xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings are
+ *                     available in all examples. This is a fix for CR-965028.
  * </pre>
  *
  * ***************************************************************************
@@ -238,9 +241,12 @@ int main(void)
 	/* Check DMA transfer result */
 	Status = CheckDmaResult(&AxiDma);
 
-	xil_printf("AXI DMA SG Polling Test %s\r\n",
-		(Status == XST_SUCCESS)? "passed":"failed");
+	if (Status != XST_SUCCESS) {
+		xil_printf("AXI DMA SG Polling Example Failed\r\n");
+		return XST_FAILURE;
+	}
 
+	xil_printf("Successfully ran AXI DMA SG Polling Example\r\n");
 	xil_printf("--- Exiting main() --- \r\n");
 
 	if (Status != XST_SUCCESS) {

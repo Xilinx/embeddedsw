@@ -456,6 +456,9 @@
 *		       HW in 2015.3.
 * 9.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 * 9.3   adk  26/07/16 Reduce the size of the buffer descriptor to 64 bytes.
+*       ms   01/23/17 Modified xil_printf statement in main function for all
+*            examples to ensure that "Successfully ran" and "Failed" strings
+*            are available in all examples. This is a fix for CR-965028.
 *
 * </pre>
 *

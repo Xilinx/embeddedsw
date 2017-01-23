@@ -71,6 +71,9 @@
  * 7.02a srt  03/01/13 Updated DDR base address for IPI designs (CR 703656).
  * 9.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
  *		       removed the defines for S6/V6.
+ * 9.3   ms   01/23/17 Modified xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings are
+ *                     available in all examples. This is a fix for CR-965028.
  *
  * </pre>
  *
@@ -421,7 +424,7 @@ int main(void)
 
 	xil_printf("Sent Packet with Tdest 1 Successfully\n\r");
 
-	xil_printf("AXI DMA SG interrupt Test passed\r\n");
+	xil_printf("Successfully ran AXI DMA SG interrupt Example\r\n");
 
 Done:
 

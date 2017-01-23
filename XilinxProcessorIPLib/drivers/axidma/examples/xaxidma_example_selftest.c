@@ -29,6 +29,25 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+/*****************************************************************************/
+/**
+ *
+ * @file xaxidma_example_selftest.c
+ *
+ * This file demonstrates the example to do selftest on the device.
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver   Who  Date     Changes
+ * ----- ---- -------- -------------------------------------------------------
+ * 9.3   ms   01/23/17 Modified xil_printf statement in main function to
+ *                     ensure that "Successfully ran" and "Failed" strings are
+ *                     available in all examples. This is a fix for CR-965028.
+ * </pre>
+ *
+ * ***************************************************************************
+ */
 
 /***************************** Include Files *********************************/
 #include "xaxidma.h"
@@ -87,13 +106,11 @@ int main()
 	Status = AxiDMASelfTestExample(DMA_DEV_ID);
 
 	if (Status != XST_SUCCESS) {
-
-		xil_printf("AxiDMASelfTestExample: Failed\r\n");
+		xil_printf("AxiDMASelfTest Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("AxiDMASelfTestExample: Passed\r\n");
-
+	xil_printf("Successfully ran AxiDMASelfTest Example\r\n");
 	xil_printf("--- Exiting main() --- \r\n");
 
 	return XST_SUCCESS;
