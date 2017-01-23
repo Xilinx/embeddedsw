@@ -114,7 +114,10 @@
 *                    Added support to access zynq emacps interrupt from
 *                    microblaze.
 * 3.3 kpc   12/09/16 Fixed issue when -O2 is enabled
-*
+* 3.4 ms    01/23/17 Modified xil_printf statement in main function to
+*                   ensure that "Successfully ran" and "Failed" strings
+*                   are available in all examples. This is a fix for
+*                   CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -305,11 +308,11 @@ int main(void)
 				       EMACPS_IRPT_INTR);
 
 	if (Status != XST_SUCCESS) {
-		EmacPsUtilErrorTrap("Failure in examples");
+		EmacPsUtilErrorTrap("Emacps intr dma Example Failed\r\n");
 		return XST_FAILURE;
 	}
 
-	xil_printf("Success in examples\r\n");
+	xil_printf("Successfully ran Emacps intr dma Example\r\n");
 	return XST_SUCCESS;
 }
 #endif
