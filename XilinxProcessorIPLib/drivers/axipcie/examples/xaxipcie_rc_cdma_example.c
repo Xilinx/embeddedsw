@@ -71,6 +71,10 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 2.00a nm   10/19/11 Initial version of AXI PCIe Root Port example
+* 3.1   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 *</pre>
 *****************************************************************************/
@@ -81,6 +85,7 @@
 #include "xaxipcie.h"		/* XAxiPcie level 1 interface */
 #include "xaxicdma.h"		/* AXICDMA interface */
 #include "stdio.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -194,9 +199,11 @@ int main(void)
 	/* Use AXICDMA to transfer data to/from root complex to end point. */
 	Status = DmaDataTransfer(AXIDMA_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Axipcie rc cdma Example Failed\r\n");
 		return (XST_FAILURE);
 	}
 
+	xil_printf("Successfully ran Axipcie rc cdma Example\r\n");
 	return XST_SUCCESS;
 }
 
