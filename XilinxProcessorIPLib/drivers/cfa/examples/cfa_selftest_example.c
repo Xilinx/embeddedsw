@@ -62,6 +62,9 @@
 *			 functions.
 *			 Adherence to MISRA C 2012
 *			 standard guidelines.
+* 7.1   ms  01/23/17 Added xil_printf statement in main function to
+*                    ensure that "Successfully ran" and "Failed" strings are
+*                    available in all examples. This is a fix for CR-965028.
 * </pre>
 ******************************************************************************/
 
@@ -114,6 +117,7 @@ int main(void)
 	 */
 	Status = XCfaSelfTestExample((u16)CFA_DEVICE_ID);
 	if (Status != (u32)XST_SUCCESS) {
+		xil_printf("CFA Selftest Example Failed\r\n");
 		return (int)XST_FAILURE;
 	}
 
