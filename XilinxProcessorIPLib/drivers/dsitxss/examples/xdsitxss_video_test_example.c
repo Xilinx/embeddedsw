@@ -53,6 +53,10 @@
 * Ver Who Date    Changes
 * --- --- ------- -------------------------------------------------------
 * 1.0 ram 11/2/16 Initial Release for MIPI DSI TX subsystem
+* 1.1 ms  01/23/17 Modified xil_printf statement in main function to
+*                  ensure that "Successfully ran" and "Failed" strings
+*                  are available in all examples. This is a fix for
+*                  CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -349,11 +353,10 @@ s32 main()
 
 	Status = DsiTxSs_VideoTestExample(XDSITXSS_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("MIPI DSI TX Subsystem Video test example "
-			"failed\n\r");
+		xil_printf("MIPI DSI TX Subsystem Video test example failed\n\r");
 		return XST_FAILURE;
 	}
-	xil_printf("MIPI DSI TX Subsystem Video test example passed\n\r");
+	xil_printf("Successfully ran MIPI DSI TX Subsystem Video test example\n\r");
 
 	return XST_SUCCESS;
 }
