@@ -52,6 +52,10 @@
 *		      clean up of the comments and code for CR 900381
 * 4.3   sk   09/29/16 Modified the example to make it work when LED_bits are
 *                     configured as an output. CR# 958644
+*       ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 *
 * </pre>
 ******************************************************************************/
@@ -60,7 +64,7 @@
 
 #include "xparameters.h"
 #include "xgpio.h"
-
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -146,6 +150,7 @@ int main(void)
 	/* Initialize the GPIO driver */
 	Status = XGpio_Initialize(&Gpio, GPIO_EXAMPLE_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Gpio Initialization Failed\r\n");
 		return XST_FAILURE;
 	}
 
@@ -168,5 +173,6 @@ int main(void)
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 	}
 
+	xil_printf("Successfully ran Gpio Example\r\n");
 	return XST_SUCCESS;
 }

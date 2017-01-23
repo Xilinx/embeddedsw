@@ -56,7 +56,11 @@
 * 3.00a sdm  02/16/11 Updated to support ARM Generic Interrupt Controller
 * 4.1   lks  11/18/15 Updated to use canonical xparameters and
 *		      clean up of the comments and code for CR 900381
-
+* 4.3   ms   01/23/17 Modified xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
+*
 *</pre>
 *
 ******************************************************************************/
@@ -196,9 +200,9 @@ int main(void)
 		if(DataRead == 0)
 			print("No button pressed. \r\n");
 		else
-			print("Gpio Interrupt Test PASSED. \r\n");
+			print("Successfully ran Gpio Interrupt Tapp Example\r\n");
 	} else {
-		 print("Gpio Interrupt Test FAILED.\r\n");
+		 print("Gpio Interrupt Tapp Example Failed.\r\n");
 		 return XST_FAILURE;
 	}
 

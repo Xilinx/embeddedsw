@@ -50,6 +50,10 @@
 *		      same functionality.
 * 4.1   lks  11/18/15 Updated to use canonical xparameters and
 *		      clean up of the comments and code for CR 900381
+* 4.3   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -58,6 +62,7 @@
 
 #include "xparameters.h"
 #include "xgpio_l.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -153,6 +158,7 @@ int main()
 		for (Delay = 0; Delay < LED_DELAY; Delay++);
 	}
 
+	xil_printf("Successfully ran Gpio lowlevel Example\r\n");
 	return 0;
 }
 

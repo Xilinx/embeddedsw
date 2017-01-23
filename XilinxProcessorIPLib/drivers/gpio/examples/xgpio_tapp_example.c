@@ -51,6 +51,10 @@
 * 3.01a bss  04/18/13 Removed incorrect Documentation lines.(CR #701641)
 * 4.1   lks  11/18/15 Updated to use canonical xparameters and
 *		      clean up of the comments and code for CR 900381
+* 4.3   ms   01/23/17 Added xil_printf statement in main function to
+*                     ensure that "Successfully ran" and "Failed" strings
+*                     are available in all examples. This is a fix for
+*                     CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -61,6 +65,7 @@
 #include "xgpio.h"
 #include "stdio.h"
 #include "xstatus.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -138,16 +143,19 @@ int main(void)
 
 	Status = GpioOutputExample(GPIO_OUTPUT_DEVICE_ID, GPIO_BITWIDTH);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Gpio tapp Example Failed\r\n");
 		  return XST_FAILURE;
 	}
 
 	Status = GpioInputExample(GPIO_INPUT_DEVICE_ID, &InputData);
 	if (Status != XST_SUCCESS) {
+		xil_printf("Gpio tapp Example Failed\r\n");
 		  return XST_FAILURE;
 	}
 
 	printf("Data read from GPIO Input is  0x%x \n\r", (int)InputData);
 
+	xil_printf("Successfully ran Gpio tapp Example\r\n");
 	return XST_SUCCESS;
 }
 #endif

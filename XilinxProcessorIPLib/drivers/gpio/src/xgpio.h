@@ -111,6 +111,10 @@
 *                     Changed the prototype of XGpio_CfgInitialize API.
 * 4.3   sk   09/29/16 Modified the example to make it work when LED_bits are
 *                     configured as an output. CR# 958644
+*       ms   01/23/17 Added xil_printf statement in main function for all
+*                     examples to ensure that "Successfully ran" and "Failed"
+*                     strings are available in all examples. This is a fix
+*                     for CR-965028.
 *
 * </pre>
 *****************************************************************************/
