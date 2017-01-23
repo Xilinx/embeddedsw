@@ -49,6 +49,10 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a ssb    12/22/11 First release based on the XPS/AXI SysMon driver
+* 2.2   ms     01/23/17 Added xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings
+*                       are available in all examples. This is a fix for
+*                       CR-965028.
 *
 * </pre>
 *
@@ -60,6 +64,7 @@
 #include "xadcps.h"
 #include "xstatus.h"
 #include "stdio.h"
+#include "xil_printf.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -112,8 +117,10 @@ int main(void)
 	 */
 	Status = XAdcPolledPrintfExample(XADC_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
+		xil_printf("adcps polled printf Example Failed\r\n");
 		return XST_FAILURE;
 	}
+	xil_printf("Successfully ran adcps polled printf Example\r\n");
 	return XST_SUCCESS;
 }
 

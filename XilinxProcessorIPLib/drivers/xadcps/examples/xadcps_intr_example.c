@@ -54,6 +54,10 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.00a bss    01/20/12 First release
+* 2.2   ms     01/23/17 Modified xil_printf statement in main function to
+*                       ensure that "Successfully ran" and "Failed" strings
+*                       are available in all examples. This is a fix for
+*                       CR-965028.
 * </pre>
 *
 *****************************************************************************/
@@ -64,7 +68,6 @@
 #include "xadcps.h"
 #include "xscugic.h"
 #include "xil_exception.h"
-
 
 /************************** Constant Definitions ****************************/
 
@@ -145,7 +148,7 @@ int main(void)
 		printf("Interrupt example Failed\r\n");
 		return XST_FAILURE;
 	}
-	printf("Interrupt example Passed\r\n");
+	printf("Successfully ran Interrupt example\r\n");
 	return XST_SUCCESS;
 
 }
