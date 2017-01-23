@@ -50,6 +50,9 @@
 * Ver Who Date   Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0 ram 2/12/16 Initial version for Clock Wizard
+* 1.1 ms  01/23/17 Modified xil_printf statement in main function to
+*                  ensure that "Successfully ran" and "Failed" strings are
+*                  available in all examples. This is a fix for CR-965028.
 * </pre>
 *
 ******************************************************************************/
@@ -405,12 +408,11 @@ int main()
 
 	Status = ClkWiz_IntrExample(&Intc, XCLK_WIZ_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
-		xil_printf("CLK_WIZ Monitor interrupt example "
-			"failed.");
+		xil_printf("CLK_WIZ Monitor interrupt example Failed");
 		return XST_FAILURE;
 	}
 
-	xil_printf("CLK_WIZ Monitor interrupt example passed\n\r");
+	xil_printf("Successfully ran CLK_WIZ Monitor interrupt example\n\r");
 
 	return XST_SUCCESS;
 }

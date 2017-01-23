@@ -96,6 +96,10 @@
 * Ver Who Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0 ram 02/12/16 Initial version for Clock Wizard
+* 1.1 ms  01/23/17 Modified xil_printf statement in main function for all
+*                  examples to ensure that "Successfully ran" and "Failed"
+*              	   strings are available in all examples. This is a fix
+*                  for CR-965028.
 * </pre>
 *
 ******************************************************************************/
