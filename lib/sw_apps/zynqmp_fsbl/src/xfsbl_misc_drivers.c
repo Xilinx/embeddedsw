@@ -69,6 +69,12 @@
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
 #include "xipipsu.h"
 #endif
+
+#ifdef XPAR_XILPM_ENABLED
+#include "pm_defs.h"
+#include "pm_cfg_obj.h"
+#endif
+
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -283,13 +289,20 @@ void XFsbl_StopWdt(void)
 *******************************************************************************/
 u32 XFsbl_PmInit(void)
 {
-	s32 Status ;
 	u32 UStatus;
+/* Proceed only if SYSCFG is enabled */
+#ifdef XPAR_XILPM_ENABLED
 #ifdef XPAR_XIPIPSU_0_DEVICE_ID
+	s32 Status ;
 	XIpiPsu IpiInstance;
 	XIpiPsu_Config *Config;
-	u32 Response=0U;
-	u32 Buffer = PM_INIT;
+	u32 Response = 0U;
+
+	#ifdef __aarch64__
+	u32 CfgCmd[2U] = {PM_SET_CONFIGURATION, (u32)((u64)&XPm_ConfigObject[0])};
+	#else
+	u32 CfgCmd[2U] = {PM_SET_CONFIGURATION, (u32)&XPm_ConfigObject[0]};
+	#endif
 #endif
 
 	/**
@@ -332,10 +345,9 @@ u32 XFsbl_PmInit(void)
 		UStatus = XFSBL_ERROR_PM_INIT;
 		goto END;
 	}
-
-	/* Send PM_INIT API to the PMU */
+	/* Send PM_SET_CONFIGURATION API to the PMU */
 	Status = XIpiPsu_WriteMessage(&IpiInstance, IPI_PMU_PM_INT_MASK,
-					&Buffer, 1, XIPIPSU_BUF_TYPE_MSG);
+					&CfgCmd[0], 2U, XIPIPSU_BUF_TYPE_MSG);
 	if (XFSBL_SUCCESS != Status) {
 		UStatus = XFSBL_ERROR_PM_INIT;
 		goto END;
@@ -363,7 +375,7 @@ u32 XFsbl_PmInit(void)
 		goto END;
 	}
 #endif /** end of IPI related code */
-
+#endif /* End of XPAR_XILPM_ENABLED */
 	XFsbl_Printf(DEBUG_DETAILED,"PM Init Success\r\n");
 	UStatus = XFSBL_SUCCESS;
 END:
