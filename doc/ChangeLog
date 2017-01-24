@@ -19,17 +19,21 @@ Updated makefile with "clean" target
 Updated tcl to check each extra compiler flag individually
 for linaro toolchain and if any default flags are missing,
 it adds the required flags. It fixes CR#965023.
+Added "-Wall -Wextra" to the extra compiler flags.
 
 cpu_cortexa53_v1_3:
 Updated makefile with "clean" target
+Added "-Wall -Wextra" to the extra compiler flags.
 
 cpu_cortexr5_v1_2:
 Updated makefile with "clean" target
+Added "-Wall -Wextra" to the extra compiler flags.
 
 cpu_v2_6:
 Added "ffunction-sections" and  "fdata-sections"
 to the deafult extra complier flags, and remove "-g" from
 the same.It fixes CR#965574.
+Added "-Wall -Wextra" to the extra compiler flags.
 
 cresample_v4_1:
 Modified num instances parameter as XPAR_XCRESAMPLE_NUM_INSTANCES
