@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00 	pkp  05/29/14 First release
+* 6.02  pkp	 01/22/17 Added support for EL1 non-secure
 * </pre>
 *
 * @note
@@ -112,7 +113,10 @@ void Xil_SetTlbAttributes(UINTPTR Addr, u64 attrib)
 
 	Xil_DCacheFlush();
 
-	mtcptlbi(ALLE3);
+	if (EL3 == 1)
+		mtcptlbi(ALLE3);
+	else if (EL1_NONSECURE == 1)
+		mtcptlbi(VMALLE1);
 
 	dsb(); /* ensure completion of the BP and TLB invalidation */
     isb(); /* synchronize context on this processor */

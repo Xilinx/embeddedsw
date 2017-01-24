@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -53,5 +53,7 @@ BEGIN CATEGORY microblaze_exceptions
     PARAM name = microblaze_exceptions, type = bool, default = false, desc = "Enable MicroBlaze Exceptions", permit = user;
     PARAM name = predecode_fpu_exceptions, desc = "(MicroBlaze) Predecode FPU exceptions and save operand info before invoking user registered exception handler.", type = bool, default = false, permit = user;
 END CATEGORY
+
+PARAM name = hypervisor_guest, type = bool, default = false, desc = "Enable hypervisor guest support for A53 64bit EL1 Non-Secure. If hypervisor_guest is not selected, BSP will be built for EL3.", permit = user;
 
 END OS

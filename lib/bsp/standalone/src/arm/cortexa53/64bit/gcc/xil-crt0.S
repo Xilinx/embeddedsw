@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,7 @@
 * 5.04  pkp  12/18/15 Initialized global constructor for C++ applications
 * 5.04	pkp  01/05/16 Set the reset vector register RVBAR equivalent to
 *		      vector table base address
+* 6.02  pkp  01/22/17 Added support for EL1 non-secure
 * </pre>
 *
 * @note
@@ -49,7 +50,7 @@
 * None.
 *
 ******************************************************************************/
-
+#include "bspconfig.h"
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
 	.align	2
@@ -74,7 +75,7 @@
 _startup:
 
 	mov	x0, #0
-
+.if (EL3 == 1)
 	/* Check whether the clearing of bss sections shall be skipped */
 	ldr	x10, =APU_PWRCTL	/* Load PWRCTRL address */
 	ldr	w11, [x10]		/* Read PWRCTRL register */
@@ -84,7 +85,7 @@ _startup:
 	lsl	w2, w1, w2		/* Shift CPU ID to get one-hot ID */
 	ands	w11, w11, w2		/* Get PWRCTRL bit for this core */
 	bne	.Lenclbss		/* Skip BSS and SBSS clearing */
-
+.endif
 	/* clear sbss */
 	ldr 	x1,.Lsbss_start		/* calculate beginning of the SBSS */
 	ldr	x2,.Lsbss_end		/* calculate end of the SBSS */

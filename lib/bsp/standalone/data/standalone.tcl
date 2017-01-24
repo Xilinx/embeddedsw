@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
+# Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -376,6 +376,20 @@ proc generate {os_handle} {
         puts $bspcfg_fh "#define MICROBLAZE_PVR_NONE"
     }
 
+    if { $proctype == "psu_cortexa53" } {
+	if {[string compare -nocase $compiler "arm-none-eabi-gcc"] != 0} {
+		set hypervisor_guest [common::get_property CONFIG.hypervisor_guest $os_handle ]
+		if { $hypervisor_guest == "true" } {
+			puts $bspcfg_fh "#define EL3 0"
+			puts $bspcfg_fh "#define EL1_NONSECURE 1"
+			puts $bspcfg_fh "#define HYP_GUEST 1"
+		} else {
+			puts $bspcfg_fh "#define EL3 1"
+			puts $bspcfg_fh "#define EL1_NONSECURE 0"
+			puts $bspcfg_fh "#define HYP_GUEST 0"
+		}
+	}
+    }
     close $bspcfg_fh
 }
 # --------------------------------------

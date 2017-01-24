@@ -415,4 +415,8 @@
  *		       registers are restored back after servicing IRQ during normal context restoring.
  * 6.2 mus   01/01/17  Updated makefiles of R5 and a53 64 bit/32 bit processors to fix error in clean
  *                     target.It fixes the CR#966900
+ * 6.2 pkp   01/22/17  Added support for EL1 non-secure execution and Hypervisor Baremetal for Cortex-A53
+ *		       64bit Mode. If Hypervisor_guest is selected as true in BSP settings, BSP will be built
+ *		       for EL1 Non-secure, else BSP will be built for EL3. By default hypervisor_guest is
+ *		       as false i.e. default bsp is EL3.
  *****************************************************************************************/
