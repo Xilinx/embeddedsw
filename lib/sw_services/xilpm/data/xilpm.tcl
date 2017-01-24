@@ -29,7 +29,7 @@
 #* this Software without prior written authorization from Xilinx.
 #*
 #******************************************************************************/
-
+source [file join [file dirname [info script]] cfg_gen.tcl]
 proc generate {libhandle} {
 	# Copy over the right set of files as src based on processor type
 	set sw_proc_handle [hsi::get_sw_processor]
@@ -66,6 +66,7 @@ proc generate {libhandle} {
 	file delete -force $cortexr5srcdir
 	file delete -force $cortexa53srcdir
 	file delete -force $commonsrcdir
+	pmufw::gen_cfg_data [file join src pm_cfg_obj.c]
 
 }
 
@@ -85,6 +86,10 @@ proc execs_generate {libhandle} {
 }
 
 proc xgen_opts_file {libhandle} {
+
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+	puts $file_handle "\#define XPAR_XILPM_ENABLED"
+	close $file_handle
 
 	# Copy the include files to the include directory
 	set srcdir src
