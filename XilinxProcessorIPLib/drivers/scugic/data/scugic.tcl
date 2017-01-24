@@ -51,6 +51,9 @@
 # 3.5	mus  14/10/16 Modified xdefine_gic_params and get_psu_interrupt_id
 #		      functions to get correct PL-PS interrupt IDs.Fix for the
 #                     CR#961257
+# 3.6	pkp  01/22/17 Modified xdefine_zynq_canonical_xpars and
+#		      xdefine_zynq_include_file to add hypervisor guest
+#		      application support for cortex-a53 64bit mode
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -128,6 +131,9 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
     set args $newargs
     # Print all parameters for all peripherals
     set device_id 0
+    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [get_os] ]
+    set procdrv [hsi::get_sw_processor]
+    set compiler [get_property CONFIG.compiler $procdrv]
     foreach periph $periphs {
 	puts $file_handle ""
 	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
@@ -141,7 +147,11 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [common::get_property CONFIG.$arg $periph]
 			} else {
-				set value 0xF9020000
+				if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
+                                     set value 0x03002000
+                                } else {
+                                     set value 0xF9020000
+                                }
 			}
 		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
 			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
@@ -149,7 +159,11 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value [common::get_property CONFIG.$arg $periph]
 			} else {
-				set value 0xF9020FFF
+                                if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
+				   set value 0x03002FFF
+                                } else {
+                                     set value 0xF9020FFF
+                                }
 			}
 		   } elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
 			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
@@ -157,7 +171,11 @@ proc xdefine_zynq_include_file {drv_handle file_name drv_string args} {
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set value 0xf8f01000
 			} else {
-				set value 0xF9010000
+                                if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
+				   set value 0x03001000
+                                } else {
+                                     set value 0xF9010000
+                                }
 			}
 		} else {
 			set value [common::get_property CONFIG.$arg $periph]
@@ -237,6 +255,9 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
     }
 
     set i 0
+    set hypervisor_guest [common::get_property CONFIG.hypervisor_guest [get_os] ]
+    set procdrv [hsi::get_sw_processor]
+    set compiler [get_property CONFIG.compiler $procdrv]
     foreach periph $periphs {
         set periph_name [string toupper [common::get_property NAME $periph]]
 
@@ -261,7 +282,11 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [common::get_property CONFIG.$arg $periph]
 			} else {
-				set rvalue 0xF9020000
+                                if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
+                                     set rvalue 0x03002000
+                                } else {
+                                     set rvalue 0xF9020000
+                                }
 			}
 		} elseif {[string compare -nocase "C_S_AXI_HIGHADDR" $arg] == 0} {
 			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
@@ -269,7 +294,11 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue [common::get_property CONFIG.$arg $periph]
 			} else {
-				set rvalue 0xF9020FFF
+                                if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
+				   set rvalue 0x03002FFF
+                                } else {
+                                     set rvalue 0xF9020FFF
+                                }
 			}
 		} elseif {[string compare -nocase "C_DIST_BASEADDR" $arg] == 0} {
 			if {[string compare -nocase $proctype "psu_cortexr5"] == 0} {
@@ -277,7 +306,11 @@ proc xdefine_zynq_canonical_xpars {drv_handle file_name drv_string args} {
 			} elseif {[string compare -nocase $proctype "ps7_cortexa9"] == 0} {
 				set rvalue 0xf8f01000
 			} else {
-				set rvalue 0xF9010000
+                                if { ($hypervisor_guest == "true") && ([string compare -nocase $compiler "arm-none-eabi-gcc"] != 0) } {
+				   set rvalue 0x03001000
+                                } else {
+                                     set rvalue 0xF9010000
+                                }
 			}
 		} else {
 			set rvalue [common::get_property CONFIG.$arg $periph]
