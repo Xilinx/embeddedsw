@@ -289,7 +289,13 @@ proc generate {os_handle} {
 	puts $bspcfg_fh " * distinguish between standalone BSP and FreeRTOS BSP."
 	puts $bspcfg_fh " */"
 	puts $bspcfg_fh "#define FREERTOS_BSP"
-
+	if { $proctype == "psu_cortexa53" } {
+		if {[string compare -nocase $compiler "arm-none-eabi-gcc"] != 0} {
+			puts $bspcfg_fh "#define EL3 1"
+			puts $bspcfg_fh "#define EL1_NONSECURE 0"
+			puts $bspcfg_fh "#define HYP_GUEST 0"
+		}
+	}
 	close $bspcfg_fh
 
 	set headers [glob -join ./src/Source/include *.\[h\]]
