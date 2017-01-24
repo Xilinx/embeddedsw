@@ -105,6 +105,10 @@ Fixed Compilation warnings - CR#957004
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
 Added support for Floating point access for Cortex-A53 64bit mode standalone BSP
+Added support for Cortex-A53 64bit EL1 Non-secure execution on hypervisor.
+If hypervisor_guest is set true in bsp settings, it will be compiled for
+EL1 Non-secure, else it will be compiled for EL3. By default Cortex A53 64bit
+BSP is built for EL3 Secure Monitor.
 Modified Cortex-A53 translation table for upper ps DDR. The 0x800000000 -
 0xFFFFFFFFF range is marked normal memory for the DDR size defined in hdf
 and rest of the memory in that 32GB region is marked as reserved to avoid
