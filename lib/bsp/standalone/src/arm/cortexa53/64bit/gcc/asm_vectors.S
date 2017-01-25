@@ -64,7 +64,7 @@
 .globl IRQInterrupt
 .globl SErrorInterrupt
 .globl SynchronousInterrupt
-
+.globl FPUStatus
 
 /*
  * FPUContextSize is the size of the array where floating point registers are

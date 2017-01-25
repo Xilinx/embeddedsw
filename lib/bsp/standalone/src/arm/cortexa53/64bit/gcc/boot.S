@@ -49,6 +49,8 @@
 * 5.00  pkp	05/21/14 Initial version
 * 6.00	pkp     07/25/16 Program the counter frequency
 * 6.02  pkp	01/22/17 Added support for EL1 non-secure
+* 6.02	pkp	01/24/17 Clearing status of FPUStatus variable to ensure it
+*			 holds correct value.
 *
 * @note
 *
@@ -177,6 +179,16 @@ InitEL3:
 #endif
 	msr      CPTR_EL3, x0
 
+	/*
+	 * Clear FPUStatus variable to make sure that it contains current
+	 * status of FPU i.e. disabled. In case of a warm restart execution
+	 * when bss sections are not cleared, it may contain previously updated
+	 * value which does not hold true now.
+	 */
+#ifndef FREERTOS_BSP
+	 ldr x0,=FPUStatus
+	 str xzr, [x0]
+#endif
 	/* Configure SCR_EL3 */
 	mov      w1, #0              	//; Initial value of register is unknown
 	orr      w1, w1, #(1 << 11)  	//; Set ST bit (Secure EL1 can access CNTPS_TVAL_EL1, CNTPS_CTL_EL1 & CNTPS_CVAL_EL1)
@@ -265,6 +277,16 @@ InitEL1:
 	bic	x0, x0, #(0x3 << 0x20)
 	msr	CPACR_EL1, x0
 
+	/*
+	 * Clear FPUStatus variable to make sure that it contains current
+	 * status of FPU i.e. disabled. In case of a warm restart execution
+	 * when bss sections are not cleared, it may contain previously updated
+	 * value which does not hold true now.
+	 */
+#ifndef FREERTOS_BSP
+	 ldr x0,=FPUStatus
+	 str xzr, [x0]
+#endif
 	/*Define stack pointer for current exception level*/
 	ldr	 x2,=EL1_stack
 	mov	 sp,x2

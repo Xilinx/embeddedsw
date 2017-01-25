@@ -419,4 +419,8 @@
  *		       64bit Mode. If Hypervisor_guest is selected as true in BSP settings, BSP will be built
  *		       for EL1 Non-secure, else BSP will be built for EL3. By default hypervisor_guest is
  *		       as false i.e. default bsp is EL3.
+ * 6.2 pkp   01/24/17  Updated cortexa53/64bit/boot.S to clear FPUStatus variable to make sure that it
+ *		       contains initial status of FPU i.e. disabled. In case of a warm restart execution
+ *		       when bss sections are not cleared, it may contain previously updated value which
+ *		       does not hold true once processor resumes. This fixes CR#966826.
  *****************************************************************************************/
