@@ -229,6 +229,10 @@ intc_v3_6:
 Updated xredefine_intc function in tcl to avoid errors,
 for design in which number of interrupt sources connected
 to AXI INTC is 0.It fixes CR#966295
+Updated xredefine_intc and intc_define_vector_table functions
+to generate separate canonical definitions and constants
+definitions for interrupt IDs/Masks, if interrupt pin of
+same IP is connected to two axi intc pins
 
 ipipsu_v2_2:
 Modified the ipipsu.tcl script to have array size in config table. Fixes
@@ -293,6 +297,10 @@ Add safe Xil_Out32 implementation.
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
+
+tmrctr_v4_3:
+Updated tmrctr_tapp tcl to avoid errors, if axi timer interrupt is connected
+to more than one pins of interrupt controller.
 
 uartlite_v3_2:
 Added supported peripheral tmr_sem
