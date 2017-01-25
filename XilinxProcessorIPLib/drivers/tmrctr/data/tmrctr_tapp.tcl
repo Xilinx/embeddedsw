@@ -135,6 +135,9 @@ proc gen_testfunc_call {swproj mhsinst} {
     if {$iftmrintr == 1} {
        set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname]  -filter "TYPE==INTERRUPT"]
        set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
+        if {[llength $intcname] > 1} {
+              set intcname [lindex $intcname 1]
+        }
        set intcvar intc
        set proc [common::get_property IP_NAME [hsi::get_cells -hier [hsi::get_sw_processor]]]
     }
