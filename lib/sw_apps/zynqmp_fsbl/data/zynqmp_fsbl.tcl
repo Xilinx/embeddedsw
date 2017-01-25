@@ -81,6 +81,13 @@ proc swapp_is_supported_sw {} {
 
 proc swapp_is_supported_hw {} {
 
+    set ip_list_iso ""
+    set ip_list_nodsgn ""
+    set str_iso ""
+    set str_nodsgn ""
+    set has_iso_ips 0
+    set has_nodsgn_ips 0
+
     # check processor type
     set proc_instance [hsi::get_sw_processor];
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
@@ -93,6 +100,62 @@ proc swapp_is_supported_hw {} {
 
     if { $proc_instance != "psu_cortexr5_0" && $proc_instance != "psu_cortexa53_0" } {
                 error "This application is supported only for CortexA53_0 and CortexR5_0.";
+    }
+
+    # csudma, amda_0 and any one instance of ipi are required IPs for FSBL.
+    # In addition, for ZCU102 and ZCU106, i2c0 is needed for board-specific
+    #  configuration done in FSBL. Hence, print the required (for FSBL) IPs
+    # which are in design but are isolated from the selected processor.
+    # Also, print the IPs which are required but are not present in design.
+
+    set boardname [common::get_property BOARD [hsi::current_hw_design]]
+
+    if { [string length $boardname] != 0 } {
+        set fields [split $boardname ":"]
+        lassign $fields prefix board suffix
+
+        if { $board == "zcu102" || $board == "zcu106" } {
+            set ip_list "psu_csudma psu_adma_0 psu_ipi_* psu_i2c_0"
+        } else {
+            set ip_list "psu_csudma psu_adma_0 psu_ipi_*"
+        }
+    } else {
+        set ip_list "psu_csudma psu_adma_0 psu_ipi_*"
+    }
+
+    foreach ips ${ip_list} {
+        set ip_iso [::common::get_property SLAVES [::hsi::get_cells $proc_instance -hier]]
+        set ip_nodsgn [::hsi::get_cells -hier]
+
+        # create a list of IPs that are in design but isolated for this processor
+        if {[lsearch -nocase $ip_iso $ips] < 0 } {
+            if {[lsearch -nocase $ip_nodsgn $ips] >= 0} {
+            lappend ip_list_iso $ips
+            set ip_list_iso [join $ip_list_iso ", "]
+            set has_iso_ips [expr $has_iso_ips + 1]
+            }
+        }
+
+        # create a list of IPs that are not in design
+        if {[lsearch -nocase $ip_nodsgn $ips] < 0 } {
+            lappend ip_list_nodsgn $ips
+            set ip_list_nodsgn [join $ip_list_nodsgn ", "]
+            set has_nodsgn_ips [expr $has_nodsgn_ips + 1]
+        }
+    }
+
+    if {$has_iso_ips > 0} {
+        set str_iso "FSBL uses these IPs but are isolated from the selected processor: $ip_list_iso."
+    }
+
+    if {$has_nodsgn_ips > 0} {
+        set str_nodsgn " FSBL uses these IPs but are missing in the design: $ip_list_nodsgn"
+    }
+
+    append str_iso $str_nodsgn
+
+    if { [llength $str_iso] != 0 } {
+        error $str_iso
     }
 
     return 1;
