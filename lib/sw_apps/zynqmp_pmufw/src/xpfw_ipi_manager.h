@@ -35,6 +35,7 @@
 #include "xpfw_default.h"
 #include "xpfw_module.h"
 #include "xipipsu.h"
+#include "xpfw_crc.h"
 #include "xparameters.h"
 
 #define XPFW_IPI_MASK_COUNT XIPIPSU_MAX_TARGETS
