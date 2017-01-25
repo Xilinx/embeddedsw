@@ -1107,8 +1107,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	    &FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 #ifdef XFSBL_SECURE
 	Length = PartitionHeader->TotalDataWordLength * 4U;
-#else
-	Length = 0U;
 #endif
 
 	/**
@@ -1208,8 +1206,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			goto END;
 		}
 	}
-#else
-	 Length = 0U;
 #endif
 
 #ifdef XFSBL_BS
@@ -1361,15 +1357,10 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 		}
 #else
-		UnenCryptedLength=0U;
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
 		Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
 		goto END;
 #endif
-	}
-	else
-	{
-		UnencryptedLength = 0U;
 	}
 
 #ifdef XFSBL_BS
