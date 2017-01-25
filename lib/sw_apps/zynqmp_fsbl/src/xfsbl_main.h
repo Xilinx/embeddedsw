@@ -176,6 +176,10 @@ typedef struct {
 #define XFSBL_R50_TCM_ECC_INIT_STATUS 0x00000001U
 #define XFSBL_R51_TCM_ECC_INIT_STATUS 0x00000002U
 
+/* R5 vectors value*/
+#define XFSBL_R5_LOVEC_VALUE 	0xEAFEFFFEU
+#define XFSBL_R5_HIVEC_VALUE    0xEAFF3FFEU
+
 /************************** Function Prototypes ******************************/
 /**
  * Functions defined in xfsbl_main.c

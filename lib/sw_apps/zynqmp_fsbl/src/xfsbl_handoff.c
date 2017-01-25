@@ -101,12 +101,13 @@ static u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId);
 extern void XFsbl_Exit(PTRSIZE HandoffAddress, u32 Flags);
 
 /************************** Variable Definitions *****************************/
-/**
- * Variabled defined in xfsbl_partition_load.c
- */
-extern u8 TcmVectorArray[32];
+
+#ifdef ARMR5
+/* Variables defined in xfsbl_partition_load.c */
+extern u8 R5LovecBuffer[32];
 extern u32 TcmSkipLength;
 extern PTRSIZE TcmSkipAddress;
+#endif
 
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings)
 {
@@ -991,15 +992,24 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	}
 
 
+
+#ifdef ARMR5
+
 	/**
 	 * Remove the R5 vectors from TCM and load APP data
 	 * if present
 	 */
-	if (TcmSkipLength != 0U)
-	{
-		(void)XFsbl_MemCpy((u8 *)TcmSkipAddress, TcmVectorArray,
-				TcmSkipLength);
+
+	if (TcmSkipLength != 0U) {
+		/* Restore R5LovecBuffer to LOVEC
+		 * This will store partitions vectors to LOVEC
+		 * TcmSkipAddress is always 0x0,TcmSkipLength is 32.
+		 */
+		(void)XFsbl_MemCpy((u8*)TcmSkipAddress,(u8*)R5LovecBuffer,TcmSkipLength);
+		XFsbl_Printf(DEBUG_DETAILED,"XFsbl_Handoff:Restored R5LovecBuffer to LOVEC for R5.\n\r");
+
 	}
+#endif
 
 
 	/**

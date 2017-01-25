@@ -64,7 +64,10 @@
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#define XFSBL_IVT_LENGTH	(u32)(0x8U)
+#define XFSBL_IVT_LENGTH	(u32)(0x20U)
+#define XFSBL_R5_HIVEC    	(u32)(0xffff0000U)
+#define XFSBL_R5_LOVEC		(u32)(0x0U)
+#define XFSBL_SET_R5_SCTLR_VECTOR_BIT   (u32)(1<<13)
 
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_PartitionHeaderValidation(XFsblPs * FsblInstancePtr,
@@ -82,10 +85,20 @@ static void XFsbl_CheckPmuFw(const XFsblPs * FsblInstancePtr, u32 PartitionNum);
 static u32 XFsbl_CalcualteCheckSum(XFsblPs* FsblInstancePtr, PTRSIZE LoadAddress, u32 PartitionNum);
 static u32 XFsbl_CalcualteSHA(const XFsblPs* FsblInstancePtr, PTRSIZE LoadAddress,
 		u32 PartitionNum, u32 ShaType);
+
+#ifdef ARMR5
+static void XFsbl_SetR5ExcepVectorHiVec(void);
+static void XFsbl_SetR5ExcepVectorLoVec(void);
+#endif
 /************************** Variable Definitions *****************************/
-u8 TcmVectorArray[32] = {0};
-u32 TcmSkipLength=0U;
-PTRSIZE TcmSkipAddress=0U;
+#ifdef ARMR5
+	u8 R5LovecBuffer[32] = {0U};
+	u8 R5HivecBuffer[32] = {0U};
+	u32 TcmSkipLength = 0U;
+	PTRSIZE TcmSkipAddress = 0U;
+	u8 IsR5IvtBackup = FALSE;
+#endif
+
 #ifdef XFSBL_SECURE
 static u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]={0};
 #endif
@@ -108,6 +121,9 @@ extern u8 ReadBuffer[READ_BUFFER_SIZE];
 u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 {
 	u32 Status;
+#ifdef ARMR5
+	u32 Index;
+#endif
 
 #ifdef XFSBL_WDT_PRESENT
 	/* Restart WDT as partition copy can take more time */
@@ -156,6 +172,43 @@ u32 XFsbl_PartitionLoad(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	{
 		goto END;
 	}
+
+#ifdef ARMR5
+	if(IsR5IvtBackup == TRUE) {
+		XFsbl_Printf(DEBUG_DETAILED,"XFsbl_PartitionLoad:After Partition Validation\n\r"
+				"Going for LOVEC HIGHVEC Mechanism for R5.\n\r");
+
+		/*Store LOVEC 32 bytes data to R5LovecBuffer
+		 * This will copy Partition vectors into R5LovecBuffer.
+		 */
+		(void)XFsbl_MemCpy((u8*)R5LovecBuffer,(u8*)XFSBL_R5_LOVEC,XFSBL_IVT_LENGTH);
+
+		/**
+		 * Update the Low Vector locations in R5 TCM.
+		 * It will make sure after partition authentication and decryption
+		 * R5 will look for exception vectors at LOVEC only.
+		 */
+
+		Index = XFSBL_R5_LOVEC;
+		while (Index<32U) {
+			XFsbl_Out32(Index, XFSBL_R5_LOVEC_VALUE);
+			Index += 4U;
+		}
+
+		/**
+		 * Make sure that Low Vector locations are written Properly.
+		 * Flush the cache*/
+		Xil_DCacheFlush();
+
+		/*Set exception vector to LOVEC */
+		XFsbl_SetR5ExcepVectorLoVec();
+
+		/* Restore R5HivecBuffer to HIVEC
+		 * It will make sure that we are not corrupting HIVEC area.
+		 */
+		(void)XFsbl_MemCpy((u8*)XFSBL_R5_HIVEC,(u8*)R5HivecBuffer,XFSBL_IVT_LENGTH);
+	}
+#endif
 
 	/* Check if PMU FW load is done and handoff it to Microblaze */
 	XFsbl_CheckPmuFw(FsblInstancePtr, PartitionNum);
@@ -742,6 +795,10 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	u32 RunningCpu;
 	u32 RegVal;
 
+#ifdef ARMR5
+	u32 Index;
+#endif
+
 	/**
 	 * Assign the partition header to local variable
 	 */
@@ -886,27 +943,34 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		goto END;
 	}
 
+
+#ifdef ARMR5
+
+	/*Disable IsR5IvtBackup */
+	IsR5IvtBackup = FALSE;
+
 	/**
 	 *
-	 * Skip copy to IVT area if FSBL is running in R5-0/R5-L at 0x0 TCM
-	 * and the partition is neither authenticated nor encrypted.
-	 * This ensures authenticating/decrypting is done on actual partition,
-	 * but leads to overwriting of the R5 vectors of FSBL with partition data.
-	 * Update the SrcAddress, LoadAddress and Len based on the
-	 * above condition
+	 * Enable IsR5IvtBackup,if FSBL is running in R5-0/R5-L at 0x0 TCM
+	 * Store HIVEC 32 byte data to R5HivecBuffer,
+	 * Update the High Vector locations for R5,
+	 * set Exception Vector to HIVEC,based on above condition.
 	 */
 	if (((FsblInstancePtr->ProcessorID ==
 			XIH_PH_ATTRB_DEST_CPU_R5_0) ||
 		(FsblInstancePtr->ProcessorID ==
-				XIH_PH_ATTRB_DEST_CPU_R5_L)) &&
-		(XFsbl_IsRsaSignaturePresent(PartitionHeader) !=
-			XIH_PH_ATTRB_RSA_SIGNATURE ) &&
-		(XFsbl_IsEncrypted(PartitionHeader) !=
-			XIH_PH_ATTRB_ENCRYPTION ) &&
+				XIH_PH_ATTRB_DEST_CPU_R5_L))  &&
 		((LoadAddress >= XFSBL_R50_HIGH_ATCM_START_ADDRESS) &&
 		(LoadAddress <
 			(XFSBL_R50_HIGH_ATCM_START_ADDRESS + XFSBL_IVT_LENGTH))))
 	{
+
+
+		/**
+		 * Enable IsR5IvtBackup,this will used in
+		 * XFsbl_PartitionLoad for restoring R5 vectors
+		 */
+		IsR5IvtBackup = TRUE;
 
 		/**
 		 * Get the length of the IVT area to be
@@ -914,29 +978,37 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		 */
 		TcmSkipAddress = LoadAddress%XFSBL_IVT_LENGTH;
 		TcmSkipLength = XFSBL_IVT_LENGTH - TcmSkipAddress;
+		XFsbl_Printf(DEBUG_DETAILED,"XFsbl_PartitionCopy:Going for LOVEC HIGHVEC Mechanism for R5.\n\r");
 
 		/**
 		 * Check if Length is less than SkipLength
 		 */
-		if (TcmSkipLength > Length)
-		{
+		if (TcmSkipLength > Length) {
 			TcmSkipLength = Length;
 		}
 
-		/**
-		 * Copy the Skip length to a local array
-		 */
-		Status = FsblInstancePtr->DeviceOps.DeviceCopy(SrcAddress,
-				(PTRSIZE )TcmVectorArray, TcmSkipLength);
-		if (XFSBL_SUCCESS != Status)
-		{
-			goto END;
+		/*Store HIVEC 32 bytes data to R5HivecBuffer*/
+		(void)XFsbl_MemCpy((u8*)R5HivecBuffer,(u8*)XFSBL_R5_HIVEC,XFSBL_IVT_LENGTH);
+
+
+		 /* Update the High Vector locations for R5.*/
+
+		Index = XFSBL_R5_HIVEC;
+		while (Index < (XFSBL_R5_HIVEC + 32U)) {
+			XFsbl_Out32(Index, XFSBL_R5_HIVEC_VALUE);
+			Index += 4U;
 		}
 
-		SrcAddress += TcmSkipLength;
-		LoadAddress +=  TcmSkipLength;
-		Length -= TcmSkipLength;
+		/**
+		 * Make sure that Low Vector locations are written Properly
+		 * Flush the cache
+		 */
+		Xil_DCacheFlush();
+
+		/*set exception vector to HIVEC */
+		XFsbl_SetR5ExcepVectorHiVec();
 	}
+#endif
 
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PMU)
 	{
@@ -1720,4 +1792,49 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	}
 	return Status;
 }
+
+#ifdef ARMR5
+
+/*****************************************************************************/
+/**
+ * This function set the vector bit of SCTLR.
+ * It will configure R5,so that R5 will jump to
+ * HIVEC when exeption arise.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+
+static void XFsbl_SetR5ExcepVectorHiVec(void)
+{
+		u32 RegVal;
+		RegVal = mfcp(XREG_CP15_SYS_CONTROL);
+		RegVal |= XFSBL_SET_R5_SCTLR_VECTOR_BIT;
+		mtcp(XREG_CP15_SYS_CONTROL,RegVal);
+}
+
+/*****************************************************************************/
+/**
+ * This function reset the vector bit of SCTLR.
+ * It will configure R5,so that R5 will jump to
+ * LOVEC when exeption arise.
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ *****************************************************************************/
+
+static void XFsbl_SetR5ExcepVectorLoVec(void)
+{
+		u32 RegVal;
+		RegVal = mfcp(XREG_CP15_SYS_CONTROL);
+		RegVal &= (~(XFSBL_SET_R5_SCTLR_VECTOR_BIT));
+		mtcp(XREG_CP15_SYS_CONTROL,RegVal);
+}
+
+#endif
+
 #endif  /* end of XFSBL_SECURE */

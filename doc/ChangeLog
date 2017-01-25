@@ -191,6 +191,7 @@ zynqmp_fsbl:
 - Added support for micron QSPI 2G part.
 - Added PL clearing based on the user configuration
 - Added HIVEC support
+- Fixed Vector regions overwritten in R5 FSBL with secure partitions CR#953663
 
 Change Log for 2016.4
 =================================

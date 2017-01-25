@@ -64,7 +64,6 @@
 #include "xfsbl_bs.h"
 
 /************************** Constant Definitions *****************************/
-#define XFSBL_R5_VECTOR_VALUE 	0xEAFEFFFEU
 #define PART_NAME_LEN_MAX		20U
 
 /**************************** Type Definitions *******************************/
@@ -342,13 +341,18 @@ static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr)
 				XIH_PH_ATTRB_DEST_CPU_R5_0;
 		}
 
-		/**
-		 * Update the Vector locations in R5 TCM
-		 */
+
+		/* Update the Low Vector locations in R5 TCM */
 		while (Index<32U) {
-			XFsbl_Out32(Index, XFSBL_R5_VECTOR_VALUE);
+			XFsbl_Out32(Index, XFSBL_R5_LOVEC_VALUE);
 			Index += 4U;
 		}
+
+		/**
+		 * Make sure that Low Vector locations are written Properly.
+		 * Flush the cache
+		 */
+		Xil_DCacheFlush();
 
 	} else {
 		Status = XFSBL_ERROR_UNSUPPORTED_CLUSTER_ID;
@@ -1112,17 +1116,38 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 	u32 ATcmAddr;
 	u32 BTcmAddr;
 	u32 EccInitStatus;
+	u8 FlagReduceAtcmLength = FALSE;
 
 	XFsbl_Printf(DEBUG_GENERAL,"Initializing TCM ECC\n\r");
 
 	/**
 	 * If for A53, TCM ECC need to be initialized, do it for all banks
-	 * of TCM as with R5-L
-	 */
-	if ((CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L) ||
-			(CpuId == XIH_PH_ATTRB_DEST_CPU_A53_0)) {
+	 * of TCM.for R5-L,R5-0 processor don't initialize initial 32 bytes of TCM.
+	 * For R5-0,R5-1 initialize corresponding banks of TCM.*/
+
+	 /**
+	  * For R5-L,R5-0 don't initialize initial 32 bytes of TCM,
+	  * because inital 32 bytes are holding R5 vectors.
+	  */
+
+	if(CpuId == XIH_PH_ATTRB_DEST_CPU_A53_0) {
+
 		ATcmAddr = XFSBL_R50_HIGH_ATCM_START_ADDRESS;
 		LengthBytes = XFSBL_R5_TCM_BANK_LENGTH * 4U;
+		Status = XFsbl_EccInit(ATcmAddr, LengthBytes);
+		EccInitStatus = XFSBL_R50_TCM_ECC_INIT_STATUS |
+				XFSBL_R51_TCM_ECC_INIT_STATUS;
+
+	}
+	else if (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_L) {
+
+		if(FsblInstancePtr->ProcessorID != XIH_PH_ATTRB_DEST_CPU_A53_0) {
+			ATcmAddr = XFSBL_R50_HIGH_ATCM_START_ADDRESS + 32U; /* Not to overwrite R5 vectors */
+			LengthBytes = (XFSBL_R5_TCM_BANK_LENGTH * 4U) - 32U;
+		} else {
+			ATcmAddr = XFSBL_R50_HIGH_ATCM_START_ADDRESS;
+			LengthBytes = XFSBL_R5_TCM_BANK_LENGTH * 4U;
+		}
 		Status = XFsbl_EccInit(ATcmAddr, LengthBytes);
 		EccInitStatus = XFSBL_R50_TCM_ECC_INIT_STATUS |
 				XFSBL_R51_TCM_ECC_INIT_STATUS;
@@ -1130,25 +1155,40 @@ u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId)
 	else
 	{
 		if (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_0) {
-			ATcmAddr = XFSBL_R50_HIGH_ATCM_START_ADDRESS;
-			BTcmAddr = XFSBL_R50_HIGH_BTCM_START_ADDRESS;
+
+			if(FsblInstancePtr->ProcessorID != XIH_PH_ATTRB_DEST_CPU_A53_0) {
+				ATcmAddr = XFSBL_R50_HIGH_ATCM_START_ADDRESS + 32U;/* Not to overwrite R5 vectors */
+				BTcmAddr = XFSBL_R50_HIGH_BTCM_START_ADDRESS;
+				LengthBytes = XFSBL_R5_TCM_BANK_LENGTH;
+				FlagReduceAtcmLength = TRUE;
+			} else {
+
+				ATcmAddr = XFSBL_R50_HIGH_ATCM_START_ADDRESS;
+				BTcmAddr = XFSBL_R50_HIGH_BTCM_START_ADDRESS;
+				LengthBytes = XFSBL_R5_TCM_BANK_LENGTH;
+			}
 			EccInitStatus = XFSBL_R50_TCM_ECC_INIT_STATUS;
-		}
-		else if (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) {
+
+		} else if (CpuId == XIH_PH_ATTRB_DEST_CPU_R5_1) {
 			ATcmAddr = XFSBL_R51_HIGH_ATCM_START_ADDRESS;
 			BTcmAddr = XFSBL_R51_HIGH_BTCM_START_ADDRESS;
 			EccInitStatus = XFSBL_R51_TCM_ECC_INIT_STATUS;
+			LengthBytes = XFSBL_R5_TCM_BANK_LENGTH;
 		}
 		else {
 			/* for MISRA-C */
 			ATcmAddr=0U;
 			BTcmAddr=0U;
 			EccInitStatus=0U;
+			LengthBytes = 0U;
 		}
 
-		LengthBytes = XFSBL_R5_TCM_BANK_LENGTH;
+		if(FlagReduceAtcmLength == TRUE) {
+			Status = XFsbl_EccInit(ATcmAddr, LengthBytes - 32U);
+		} else {
+			Status = XFsbl_EccInit(ATcmAddr, LengthBytes);
+		}
 
-		Status = XFsbl_EccInit(ATcmAddr, LengthBytes);
 		if (XFSBL_SUCCESS == Status) {
 			Status = XFsbl_EccInit(BTcmAddr, LengthBytes);
 		}
