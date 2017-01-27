@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,32 +28,11 @@
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
 
-#include "xpfw_config.h"
+#ifndef XPFW_MOD_WDT_H_
+#define XPFW_MOD_WDT_H_
 
-#include "xpfw_core.h"
-#include "xpfw_events.h"
-#include "xpfw_module.h"
+#include "xwdtps.h"
 
-#include "xpfw_user_startup.h"
+void ModWdtInit(void);
 
-#include "xpfw_mod_dap.h"
-#include "xpfw_mod_legacy.h"
-#include "xpfw_mod_em.h"
-#include "xpfw_mod_pm.h"
-#include "xpfw_mod_rtc.h"
-#include "xpfw_mod_sched.h"
-#include "xpfw_mod_stl.h"
-#include "xpfw_mod_wdt.h"
-
-
-void XPfw_UserStartUp(void)
-{
-	ModStlInit();
-	ModRtcInit();
-	ModEmInit();
-	ModPmInit();
-	(void)ModSchInit();
-	ModDapInit();
-	ModLegacyInit();
-	ModWdtInit();
-}
+#endif /* XPFW_MOD_WDT_H_ */
