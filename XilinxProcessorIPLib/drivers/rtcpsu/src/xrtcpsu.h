@@ -101,6 +101,8 @@
 * 1.1   kvn    09/25/15 Modify control register to enable battery
 *                       switching when vcc_psaux is not available.
 * 1.3   vak    04/25/16 Corrected the RTC read and write time logic(cr#948833).
+* 1.4 	MNK    01/27/17 Corrected calibration and frequency macros based on
+* 			rtc input oscillator frequency ( 32.768Khz).
 * </pre>
 *
 ******************************************************************************/
@@ -203,8 +205,8 @@ typedef struct {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XRTC_CALIBRATION_VALUE 0x00198231U
-#define XRTC_TYPICAL_OSC_FREQ 33330U
+#define XRTC_CALIBRATION_VALUE 0x8000U
+#define XRTC_TYPICAL_OSC_FREQ 32768U
 
 /****************************************************************************/
 /**
