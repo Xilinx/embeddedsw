@@ -250,7 +250,7 @@ Fixed Compilation warnings - CR#957004
 
 rtcpsu_v1_4:
 Fixed Compilation warnings - CR#957004
-
+Correct  the calibration and frequency macros to generate the accurate time.
 
 rgb2ycrcb_v7_1:
 Modified num instances parameter as XPAR_XRGB2YCRCB_NUM_INSTANCES
