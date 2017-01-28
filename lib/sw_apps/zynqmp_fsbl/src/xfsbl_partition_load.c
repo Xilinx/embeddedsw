@@ -59,6 +59,7 @@
 #include "xfsbl_authentication.h"
 #include "xfsbl_bs.h"
 #include "psu_init.h"
+#include "xfsbl_plpartition_valid.h"
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -100,7 +101,7 @@ static void XFsbl_SetR5ExcepVectorLoVec(void);
 #endif
 
 #ifdef XFSBL_SECURE
-static u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]={0};
+u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]={0};
 #endif
 
 /* buffer for storing chunks for bitstream */
@@ -866,14 +867,17 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	 */
 	Length  = (PartitionHeader->TotalDataWordLength) *
 					XIH_PARTITION_WORD_LENGTH;
+	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 
 	/**
 	 * Copy the authentication certificate to auth. buffer
 	 * Update Partition length to be copied.
+	 * For bitstream it will be taken care saperately
 	 */
 #ifdef XFSBL_SECURE
-	if (XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
-			XIH_PH_ATTRB_RSA_SIGNATURE ) {
+	if ((XFsbl_IsRsaSignaturePresent(PartitionHeader) ==
+			XIH_PH_ATTRB_RSA_SIGNATURE) &&
+		(DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL)) {
 
 		Length = Length - XFSBL_AUTH_CERT_MIN_SIZE;
 
@@ -886,7 +890,6 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	}
 #endif
 
-	DestinationDevice = XFsbl_GetDestinationDevice(PartitionHeader);
 	LoadAddress = (PTRSIZE)PartitionHeader->DestinationLoadAddress;
 	/**
 	 * Copy the PL to temporary DDR Address
@@ -1090,6 +1093,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 IvLocation;
 	u32 Length;
 	static XSecure_Aes SecureAes;
+#ifdef XFSBL_BS
+	XFsblPs_PlPartition PlParams = {0};
+#endif
 #endif
 	PTRSIZE LoadAddress;
 #if defined(XFSBL_BS) && defined(XFSBL_PS_DDR)
@@ -1221,6 +1227,59 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	}
 #endif
 
+	if (IsEncryptionEnabled == TRUE) {
+#ifdef XFSBL_SECURE
+		/* AES expects IV in big endian form */
+		FsblIv[0] = Xil_Htonl(FsblIv[0]);
+		FsblIv[1] = Xil_Htonl(FsblIv[1]);
+		FsblIv[2] = Xil_Htonl(FsblIv[2]);
+
+		/* Initialize the Aes Instance so that it's ready to use */
+		SStatus = XSecure_AesInitialize(&SecureAes, &CsuDma,
+		 XSECURE_CSU_AES_KEY_SRC_DEV, FsblIv, NULL);
+		if (SStatus != XFSBL_SUCCESS)
+		{
+			Status = XFSBL_ERROR_AES_INITIALIZE;
+			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_AES_INITIALIZE_FAIL\r\n");
+			goto END;
+		}
+
+		XFsbl_Printf(DEBUG_INFO, " Aes initialized \r\n");
+
+		UnencryptedLength =
+			PartitionHeader->UnEncryptedDataWordLength * 4U;
+#endif
+	}
+#if !defined(XFSBL_PS_DDR) &&  defined(XFSBL_BS)
+	SrcAddress = FsblInstancePtr->ImageOffsetAddress +
+					((PartitionHeader->DataWordOffset) *
+						XIH_PARTITION_WORD_LENGTH);
+#endif
+
+	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) {
+		/**
+		 * Fsbl hook before bit stream download
+		 */
+		Status = XFsbl_HookBeforeBSDownload();
+		if (Status != XFSBL_SUCCESS)
+		{
+			Status = XFSBL_ERROR_HOOK_BEFORE_BITSTREAM_DOWNLOAD;
+			XFsbl_Printf(DEBUG_GENERAL,
+			 "XFSBL_ERROR_HOOK_BEFORE_BITSTREAM_DOWNLOAD\r\n");
+			goto END;
+		}
+		/**
+		 * PCAP init will be skipped here if it is already done at
+		 * FSBL initialization
+		 */
+#ifndef XFSBL_PL_CLEAR
+		Status = XFsbl_PcapInit();
+		if (Status != XFSBL_SUCCESS) {
+			goto END;
+		}
+#endif
+	}
+
 	/* Checksum verification */
 	if (IsChecksumEnabled == TRUE)
 	{
@@ -1253,31 +1312,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		XTime_GetTime(&tCur);
 #endif
 
-#ifdef	XFSBL_PS_DDR
-		/**
-		 * Do the authentication validation
-		 */
-		Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
-				Length, (PTRSIZE)AuthBuffer, PartitionNum);
-
-#else
-		if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
-		{
-#ifdef XFSBL_BS
-			/**
-			 * In case of bitstream in DDR less system, pass the
-			 * partition source address from Flash device.
-			 */
-			SrcAddress = FsblInstancePtr->ImageOffsetAddress +
-					((PartitionHeader->DataWordOffset) *
-					XIH_PARTITION_WORD_LENGTH);
-
-			Status = XFsbl_Authentication(FsblInstancePtr, SrcAddress,
-					Length, (PTRSIZE)AuthBuffer, PartitionNum);
-#endif
-		}
-		else
-		{
+		if (DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL) {
 			/**
 			 * Authentication for non bitstream partition in DDR
 			 * less system
@@ -1285,6 +1320,74 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			Status = XFsbl_Authentication(FsblInstancePtr, LoadAddress,
 					Length, (PTRSIZE)AuthBuffer,
 					PartitionNum);
+			if (Status != XFSBL_SUCCESS) {
+				goto END;
+			}
+		}
+		else {
+#ifdef XFSBL_BS
+			if ((FsblInstancePtr->BootHdrAttributes &
+					XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
+					XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
+				PlParams.PlAuth.AuthType = XFSBL_HASH_TYPE_SHA2;
+				PlParams.PlAuth.NoOfHashs =
+					HASH_BUFFER_SIZE/XFSBL_HASH_TYPE_SHA2;
+			}
+			else {
+				PlParams.PlAuth.AuthType = XFSBL_HASH_TYPE_SHA3;
+				PlParams.PlAuth.NoOfHashs =
+					HASH_BUFFER_SIZE/XFSBL_HASH_TYPE_SHA3;
+			}
+			PlParams.PlAuth.BlockSize =
+				XFsbl_GetBlockSize(PartitionHeader);
+			PlParams.PlAuth.AuthCertBuf = AuthBuffer;
+			PlParams.PlAuth.HashsOfChunks = HashsOfChunks;
+
+			PlParams.ChunkBuffer = ReadBuffer;
+			PlParams.ChunkSize = READ_BUFFER_SIZE;
+			PlParams.CsuDmaPtr = &CsuDma;
+			PlParams.IsAuthenticated = IsAuthenticationEnabled;
+
+			PlParams.IsEncrypted = IsEncryptionEnabled;
+			if (IsEncryptionEnabled == TRUE) {
+				PlParams.PlEncrypt.SecureAes = &SecureAes;
+			}
+			else {
+				PlParams.PlEncrypt.SecureAes = NULL;
+			}
+
+			PlParams.TotalLen =
+				(PartitionHeader->TotalDataWordLength * 4U);
+			PlParams.UnEncryptLen =
+				(PartitionHeader->UnEncryptedDataWordLength
+					* 4U);
+
+#ifdef XFSBL_PS_DDR
+			PlParams.DeviceCopy = NULL;
+			PlParams.StartAddress = LoadAddress;
+			PlParams.PlAuth.AcOfset = LoadAddress +
+				((PartitionHeader->AuthCertificateOffset * 4) -
+				(FsblInstancePtr->ImageOffsetAddress +
+					((PartitionHeader->DataWordOffset) *
+						XIH_PARTITION_WORD_LENGTH)));
+#else
+			PlParams.DeviceCopy =
+				FsblInstancePtr->DeviceOps.DeviceCopy;
+			PlParams.StartAddress = SrcAddress;
+			PlParams.PlAuth.AcOfset =
+				PartitionHeader->AuthCertificateOffset * 4;
+
+#endif
+			XFsbl_Printf(DEBUG_GENERAL,
+			"Authenticated Bitstream download to start now\r\n");
+			Status = XFsbl_SecPlPartition(&PlParams);
+			if (Status != XFSBL_SUCCESS) {
+				XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_BITSTREAM_AUTHENTICATION\r\n");
+				/* Reset PL */
+				XFsbl_Out32(CSU_PCAP_PROG, 0x0);
+				goto END;
+			}
 		}
 #endif
 
@@ -1293,11 +1396,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": P%d Auth. Time \r\n",
 					PartitionNum);
 #endif
-
-		if (Status != XFSBL_SUCCESS)
-		{
-			goto END;
-		}
 
 #else
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED \r\n");
@@ -1312,27 +1410,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	if (IsEncryptionEnabled == TRUE) {
 		XFsbl_Printf(DEBUG_INFO, "Decryption Enabled\r\n");
 #ifdef XFSBL_SECURE
-
-		/* AES expects IV in big endian form */
-		FsblIv[0] = Xil_Htonl(FsblIv[0]);
-		FsblIv[1] = Xil_Htonl(FsblIv[1]);
-		FsblIv[2] = Xil_Htonl(FsblIv[2]);
-
-		/* Initialize the Aes Instance so that it's ready to use */
-		SStatus = XSecure_AesInitialize(&SecureAes, &CsuDma,
-		 XSECURE_CSU_AES_KEY_SRC_DEV, FsblIv, NULL);
-		if (SStatus != XFSBL_SUCCESS)
-		{
-			Status = XFSBL_ERROR_AES_INITIALIZE;
-			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_AES_INITIALIZE_FAIL\r\n");
-			goto END;
-		}
-
-		XFsbl_Printf(DEBUG_INFO, " Aes initialized \r\n");
-
-		UnencryptedLength =
-			PartitionHeader->UnEncryptedDataWordLength * 4U;
-
 
 		if (DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL) {
 #ifdef XFSBL_PERF
@@ -1369,33 +1446,14 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #ifdef XFSBL_BS
 	/**
 	 * for PL image use CSU DMA to route to PL
+	 * When Authentication is not enabled
 	 */
-	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL)
+	if ((DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) &&
+			(IsAuthenticationEnabled == FALSE))
 	{
-		/**
-		 * Fsbl hook before bit stream download
-		 */
-		Status = XFsbl_HookBeforeBSDownload();
-		if (Status != XFSBL_SUCCESS)
-		{
-			Status = XFSBL_ERROR_HOOK_BEFORE_BITSTREAM_DOWNLOAD;
-			XFsbl_Printf(DEBUG_GENERAL,
-			 "XFSBL_ERROR_HOOK_BEFORE_BITSTREAM_DOWNLOAD\r\n");
-			goto END;
-		}
 
-		XFsbl_Printf(DEBUG_GENERAL, "Bitstream download to start now\r\n");
-
-		/**
-		 * PCAP init will be skipped here if it is already done at
-		 * FSBL initialization
-		 */
-#ifndef XFSBL_PL_CLEAR
-		Status = XFsbl_PcapInit();
-		if (XFSBL_SUCCESS != Status) {
-			goto END;
-		}
-#endif
+		XFsbl_Printf(DEBUG_GENERAL,
+		"Non authenticated Bitstream download to start now\r\n");
 
 		if (IsEncryptionEnabled == TRUE) {
 #ifdef XFSBL_SECURE
@@ -1485,7 +1543,11 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 					"(nsec. bitstream) dwnld Time \r\n", PartitionNum);
 #endif
 		}
+	}
+#endif
 
+#ifdef XFSBL_BS
+	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) {
 		Status = XFsbl_PLWaitForDone();
 		if (Status != XFSBL_SUCCESS) {
 			goto END;
