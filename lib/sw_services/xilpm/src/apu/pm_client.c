@@ -161,9 +161,15 @@ void XPm_ClientSuspendFinalize(void)
 	u32 ctrlReg;
 
 	/* Flush the data cache only if it is enabled */
+#ifdef __aarch64__
 	ctrlReg = mfcp(SCTLR_EL3);
 	if (XREG_CONTROL_DCACHE_BIT & ctrlReg)
 		Xil_DCacheFlush();
+#else
+	ctrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+	if (XREG_CP15_CONTROL_C_BIT & ctrlReg)
+		Xil_DCacheFlush();
+#endif
 
 	pm_dbg("Going to WFI...\n");
 	__asm__("wfi");
