@@ -232,6 +232,24 @@ done:
 	return status;
 }
 
+/**
+ * PmPllForceDown() - Force down a PLL node
+ * @node	PLL node
+ *
+ * @return	XST_SUCCESS always (operation cannot fail)
+ */
+static int PmPllForceDown(PmNode* const node)
+{
+	PmPll* pll = (PmPll*)node->derived;
+
+	if (PM_PLL_STATE_LOCKED == node->currState) {
+		pll->useCount = 0U;
+		PmPllSuspend(pll);
+	}
+
+	return XST_SUCCESS;
+}
+
 /* Collection of PLL nodes */
 static PmNode* pmNodePllBucket[] = {
 	&pmApll_g.node,
@@ -248,7 +266,7 @@ PmNodeClass pmNodeClassPll_g = {
 	.construct = NULL,
 	.getWakeUpLatency = PmPllGetWakeUpLatency,
 	.getPowerData = NULL,
-	.forceDown = NULL,
+	.forceDown = PmPllForceDown,
 	.init = NULL,
 };
 
