@@ -152,3 +152,47 @@ PmSlaveGpp pmSlaveGpuPP1_g = {
 	.PwrDn = XpbrPwrDnPp1Handler,
 	.PwrUp = XpbrPwrUpPp1Handler,
 };
+
+#pragma weak pmUserHookVcuPwrDn
+u32 pmUserHookVcuPwrDn(void)
+{
+	return XST_SUCCESS;
+}
+
+#pragma weak pmUserHookVcuPwrUp
+u32 pmUserHookVcuPwrUp(void)
+{
+	return XST_SUCCESS;
+}
+
+static u32 pmSlvVcuPwrDn(void)
+{
+	return pmUserHookVcuPwrDn();
+}
+
+static u32 pmSlvVcuPwrUp(void)
+{
+	return pmUserHookVcuPwrUp();
+}
+
+PmSlaveGpp pmSlaveVcu_g = {
+	.slv = {
+		.node = {
+			.derived = &pmSlaveVcu_g,
+			.nodeId = NODE_VCU,
+			.class = &pmNodeClassSlave_g,
+			.parent = &pmPowerDomainPld_g.power,
+			.clocks = NULL,
+			.currState = PM_GPP_SLAVE_STATE_ON,
+			.latencyMarg = MAX_LATENCY,
+			DEFINE_PM_POWER_INFO(pmGppSlavePowers),
+		},
+		.class = NULL,
+		.reqs = NULL,
+		.wake = NULL,
+		.slvFsm = &pmSlaveGppFsm,
+		.flags = 0U,
+	},
+	.PwrDn = pmSlvVcuPwrDn,
+	.PwrUp = pmSlvVcuPwrUp,
+};

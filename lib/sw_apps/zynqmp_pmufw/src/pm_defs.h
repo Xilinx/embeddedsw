@@ -178,9 +178,10 @@
 #define NODE_PCAP       60U
 #define NODE_RTC        61U
 #define NODE_LPD        62U
+#define NODE_VCU        63U
 
 #define NODE_MIN        NODE_APU
-#define NODE_MAX        NODE_LPD
+#define NODE_MAX        NODE_VCU
 
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U

@@ -545,6 +545,10 @@ static PmNode* pmLpdChildren[] = {
 	&pmSlavePcap_g.node,
 };
 
+static PmNode* pmPldChildren[] = {
+	&pmSlaveVcu_g.slv.node,
+};
+
 /* Dummy consumption for the power domains/islands */
 static u32 PmDomainPowers[] = {
 	DEFAULT_POWER_OFF,
@@ -685,9 +689,8 @@ PmPowerDomain pmPowerDomainPld_g = {
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmDomainPowers),
 		},
+		DEFINE_PM_POWER_CHILDREN(pmPldChildren),
 		.class = &pmPowerClassDomain_g,
-		.children = NULL,
-		.childCnt = 0U,
 		.powerUp = PmPowerUpPld,
 		.powerDown = PmPowerDownPld,
 		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,

@@ -57,5 +57,6 @@ typedef struct PmSlaveGpp {
  ********************************************************************/
 extern PmSlaveGpp pmSlaveGpuPP0_g;
 extern PmSlaveGpp pmSlaveGpuPP1_g;
+extern PmSlaveGpp pmSlaveVcu_g;
 
 #endif

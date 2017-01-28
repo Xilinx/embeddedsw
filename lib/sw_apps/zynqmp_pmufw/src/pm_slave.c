@@ -781,6 +781,7 @@ static PmNode* pmNodeSlaveBucket[] = {
 	&pmSlavePcie_g.node,
 	&pmSlavePcap_g.node,
 	&pmSlaveRtc_g.node,
+	&pmSlaveVcu_g.slv.node,
 };
 
 PmNodeClass pmNodeClassSlave_g = {
