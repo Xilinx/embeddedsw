@@ -121,6 +121,8 @@ static void PmPllSuspend(PmPll* const pll)
 	if (0U == (val & PM_PLL_CTRL_RESET_MASK)) {
 		PmPllBypassAndReset(pll);
 	}
+
+	PmNodeUpdateCurrState(&pll->node, PM_PLL_STATE_RESET);
 }
 
 /**
@@ -166,6 +168,7 @@ static int PmPllResume(PmPll* const pll)
 			   PM_PLL_CTRL_BYPASS_MASK,
 			  ~PM_PLL_CTRL_BYPASS_MASK);
 	}
+	PmNodeUpdateCurrState(&pll->node, PM_PLL_STATE_LOCKED);
 
 done:
 	return status;
@@ -314,9 +317,6 @@ int PmPllRequest(PmPll* const pll)
 	/* If the PLL is suspended it needs to be resumed first */
 	if (true == pll->context.saved) {
 		status = PmPllResume(pll);
-		if (XST_SUCCESS == status) {
-			PmNodeUpdateCurrState(&pll->node, PM_PLL_STATE_LOCKED);
-		}
 	}
 
 	pll->useCount++;
@@ -337,6 +337,5 @@ void PmPllRelease(PmPll* const pll)
 #endif
 	if (0U == pll->useCount) {
 		PmPllSuspend(pll);
-		PmNodeUpdateCurrState(&pll->node, PM_PLL_STATE_RESET);
 	}
 }
