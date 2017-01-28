@@ -106,7 +106,6 @@ extern PmPll pmIOpll_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void PmPllClearUseCount(void);
 int PmPllRequest(PmPll* const pll);
 void PmPllRelease(PmPll* const pll);
 

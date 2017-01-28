@@ -276,15 +276,6 @@ static PmPll* const pmPlls[] = {
 	&pmSlaveIOpll_g,
 };
 
-void PmPllClearUseCount(void)
-{
-	u32 i;
-
-	for (i = 0U; i < ARRAY_SIZE(pmPlls); i++) {
-		pmPlls[i]->useCount = 0U;
-	}
-}
-
 /**
  * PmPllRequest() - Request the PLL
  * @pll		The requested PLL
