@@ -46,6 +46,5 @@
  * Function declarations
  ********************************************************************/
 void PmProcessRequest(const PmMaster *const master, const u32 *payload);
-int PmForcePowerDownInt(u32 node, u32 *oppoint);
 
 #endif

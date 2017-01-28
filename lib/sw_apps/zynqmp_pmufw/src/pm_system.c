@@ -32,7 +32,6 @@
  * Contains system-level PM functions and state
  ********************************************************************/
 
-#include "pm_core.h"
 #include "pm_system.h"
 #include "pm_common.h"
 #include "crl_apb.h"
