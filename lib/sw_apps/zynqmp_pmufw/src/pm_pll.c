@@ -250,6 +250,30 @@ static int PmPllForceDown(PmNode* const node)
 	return XST_SUCCESS;
 }
 
+/**
+ * PmPllInit() - Initialize the PLL
+ * @node	PLL node
+ *
+ * @note	This function does not affect the PLL configuration in hardware.
+ */
+static int PmPllInit(PmNode* const node)
+{
+	PmPll* pll = (PmPll*)node->derived;
+	u32 ctrl = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
+	int status = XST_SUCCESS;
+
+	if (0U == (ctrl & PM_PLL_CTRL_RESET_MASK)) {
+		node->currState = PM_PLL_STATE_LOCKED;
+		if (NULL != node->parent) {
+			status = PmPowerRequestParent(node);
+		}
+	} else {
+		node->currState = PM_PLL_STATE_RESET;
+	}
+
+	return status;
+}
+
 /* Collection of PLL nodes */
 static PmNode* pmNodePllBucket[] = {
 	&pmApll_g.node,
@@ -267,7 +291,7 @@ PmNodeClass pmNodeClassPll_g = {
 	.getWakeUpLatency = PmPllGetWakeUpLatency,
 	.getPowerData = NULL,
 	.forceDown = PmPllForceDown,
-	.init = NULL,
+	.init = PmPllInit,
 };
 
 static u32 PmStdPllPowers[] = {
