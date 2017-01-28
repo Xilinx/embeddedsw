@@ -103,6 +103,8 @@ extern PmPll pmVpll_g;
 extern PmPll pmRpll_g;
 extern PmPll pmIOpll_g;
 
+extern PmNodeClass pmNodeClassPll_g;
+
 /*********************************************************************
  * Function declarations
  ********************************************************************/

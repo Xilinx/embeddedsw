@@ -43,6 +43,7 @@ static PmNodeClass* pmNodeClasses[] = {
 	&pmNodeClassProc_g,
 	&pmNodeClassPower_g,
 	&pmNodeClassSlave_g,
+	&pmNodeClassPll_g,
 };
 
 /**

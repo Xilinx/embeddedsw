@@ -61,6 +61,7 @@ typedef int (*const PmNodeTranHandler)(PmNode* const nodePtr);
 #define NODE_CLASS_PROC		1U
 #define NODE_CLASS_POWER	2U
 #define NODE_CLASS_SLAVE	3U
+#define NODE_CLASS_PLL		4U
 
 #define NODE_IS_PROC(nodePtr)	(NODE_CLASS_PROC == (nodePtr)->class->id)
 #define NODE_IS_POWER(nodePtr)	(NODE_CLASS_POWER == (nodePtr)->class->id)

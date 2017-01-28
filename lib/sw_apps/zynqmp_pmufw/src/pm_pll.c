@@ -182,6 +182,37 @@ done:
 	return status;
 }
 
+/**
+ * PmPllClearConfig() - Clear configuration of the PLL
+ * @node	PLL node
+ */
+static void PmPllClearConfig(PmNode* const node)
+{
+	PmPll* pll = (PmPll*)node->derived;
+
+	pll->useCount = 0U;
+}
+
+/* Collection of PLL nodes */
+static PmNode* pmNodePllBucket[] = {
+	&pmApll_g.node,
+	&pmVpll_g.node,
+	&pmDpll_g.node,
+	&pmRpll_g.node,
+	&pmIOpll_g.node,
+};
+
+PmNodeClass pmNodeClassPll_g = {
+	DEFINE_NODE_BUCKET(pmNodePllBucket),
+	.id = NODE_CLASS_PLL,
+	.clearConfig = PmPllClearConfig,
+	.construct = NULL,
+	.getWakeUpLatency = NULL,
+	.getPowerData = NULL,
+	.forceDown = NULL,
+	.init = NULL,
+};
+
 static u32 PmStdPllPowers[] = {
 	DEFAULT_PLL_POWER_RESET,
 	DEFAULT_PLL_POWER_LOCKED,
@@ -295,14 +326,6 @@ PmPll pmIOpll_g = {
 	.statusAddr = CRL_APB_PLL_STATUS,
 	.lockMask = CRL_APB_PLL_STATUS_IOPLL_LOCK_MASK,
 	.useCount = 0U,
-};
-
-static PmPll* const pmPlls[] = {
-	&pmSlaveApll_g,
-	&pmSlaveVpll_g,
-	&pmSlaveDpll_g,
-	&pmSlaveRpll_g,
-	&pmSlaveIOpll_g,
 };
 
 /**
