@@ -982,6 +982,7 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 	/* If the object is not loaded only APIs below can be processed */
 	if (false == PmConfigObjectIsLoaded()) {
 		if ((PM_GET_API_VERSION != pload[0]) &&
+		    (PM_GET_CHIPID != pload[0]) &&
 		    (PM_SET_CONFIGURATION != pload[0])) {
 			goto done;
 		}
