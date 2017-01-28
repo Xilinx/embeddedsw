@@ -108,9 +108,6 @@ extern "C" {
 #define FSBL_DEBUG_DETAILED
 #endif
 
-/* Size of OCM buffer to store data chunks in case of DDR less system */
-#define READ_BUFFER_SIZE			(4*1024U)
-
 /**
  * @name FSBL code include options
  *

@@ -64,10 +64,9 @@
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-#ifndef XFSBL_PS_DDR
-/* global OCM buffer to store data chunks in case of DDR less system */
-u8 ReadBuffer[READ_BUFFER_SIZE];
-#endif
+/* Global OCM buffer to store data chunks */
+u8 ReadBuffer[READ_BUFFER_SIZE]__attribute__ ((aligned (64)))
+				__attribute__((section (".bitstream_buffer")));
 
 /*****************************************************************************/
 /** This function does the necessary initialization of PCAP interface

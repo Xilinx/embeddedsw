@@ -103,8 +103,11 @@ static void XFsbl_SetR5ExcepVectorLoVec(void);
 static u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]={0};
 #endif
 
-#if !defined(XFSBL_PS_DDR) && defined(XFSBL_BS)
+/* buffer for storing chunks for bitstream */
+#if defined(XFSBL_BS)
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
+u8 HashsOfChunks[HASH_BUFFER_SIZE]
+				 __attribute__((section (".bitstream_buffer")));
 #endif
 /*****************************************************************************/
 /**

@@ -72,6 +72,14 @@ extern "C" {
 /* Dummy address to indicate that destination is PCAP */
 #define XFSBL_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 
+/* Buffer sizes required for bitstream */
+#define READ_BUFFER_SIZE			(32*1024)
+					/**< Buffer Size to store chunk
+					of data */
+#define HASH_BUFFER_SIZE			(13*1024)
+					 /**< Buffer to store chunk's
+						hashs of each block. */
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
