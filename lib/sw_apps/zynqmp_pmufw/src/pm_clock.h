@@ -52,7 +52,7 @@ typedef struct PmClockDeps PmClockDeps;
  * @pll		Pointer to the PLL that is selected with the 'select' value
  */
 typedef struct {
-	PmSlavePll* const pll;
+	PmPll* const pll;
 	const u8 select;
 } PmClockSel2Pll;
 
@@ -75,7 +75,7 @@ typedef struct {
  */
 typedef struct PmClock {
 	const PmClockMux* const mux;
-	PmSlavePll* pll;
+	PmPll* pll;
 	PmClockHandle* users;
 	const u32 ctrlAddr;
 } PmClock;

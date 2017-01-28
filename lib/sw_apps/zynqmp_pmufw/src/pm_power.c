@@ -187,7 +187,8 @@ done:
 
 /*
  * Note: PLL registers will never be saved/restored as part of CRF_APB module
- * context. PLLs have separate logic, which is part of PmSlavePll (pm_pll.h/c)
+ * context. PLLs have separate logic, which is part of the PLL management
+ * (see pm_pll.h/c)
  */
 static PmRegisterContext pmFpdContext[] = {
 	{ .addr = CRF_APB_ERR_CTRL },
@@ -487,11 +488,11 @@ static PmNode* pmRpuChildren[] = {
 
 static PmNode* pmFpdChildren[] = {
 	&pmPowerIslandApu_g.node,
+	&pmApll_g.node,
+	&pmVpll_g.node,
+	&pmDpll_g.node,
 	&pmSlaveL2_g.slv.node,
 	&pmSlaveSata_g.node,
-	&pmSlaveApll_g.slv.node,
-	&pmSlaveVpll_g.slv.node,
-	&pmSlaveDpll_g.slv.node,
 	&pmSlaveGpu_g.node,
 	&pmSlaveGpuPP0_g.slv.node,
 	&pmSlaveGpuPP1_g.slv.node,
@@ -503,6 +504,8 @@ static PmNode* pmFpdChildren[] = {
 
 static PmNode* pmLpdChildren[] = {
 	&pmPowerIslandRpu_g.node,
+	&pmRpll_g.node,
+	&pmIOpll_g.node,
 	&pmSlaveOcm0_g.slv.node,
 	&pmSlaveOcm1_g.slv.node,
 	&pmSlaveOcm2_g.slv.node,
@@ -518,8 +521,6 @@ static PmNode* pmLpdChildren[] = {
 	&pmSlaveTtc2_g.node,
 	&pmSlaveTtc3_g.node,
 	&pmSlaveSata_g.node,
-	&pmSlaveRpll_g.slv.node,
-	&pmSlaveIOpll_g.slv.node,
 	&pmSlaveUart0_g.node,
 	&pmSlaveUart1_g.node,
 	&pmSlaveSpi0_g.node,

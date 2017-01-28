@@ -38,13 +38,13 @@
 
 static const PmClockSel2Pll advSel2Pll[] = {
 	{
-		.pll = &pmSlaveApll_g,
+		.pll = &pmApll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveVpll_g,
+		.pll = &pmVpll_g,
 		.select = 3U,
 	},
 };
@@ -56,13 +56,13 @@ static PmClockMux advMux = {
 
 static const PmClockSel2Pll avdSel2Pll[] = {
 	{
-		.pll = &pmSlaveApll_g,
+		.pll = &pmApll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveVpll_g,
+		.pll = &pmVpll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 3U,
 	},
 };
@@ -74,13 +74,13 @@ static PmClockMux avdMux = {
 
 static const PmClockSel2Pll vdrSel2Pll[] = {
 	{
-		.pll = &pmSlaveVpll_g,
+		.pll = &pmVpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveRpll_g,
+		.pll = &pmRpll_g,
 		.select = 3U,
 	},
 };
@@ -92,10 +92,10 @@ static PmClockMux vdrMux = {
 
 static const PmClockSel2Pll dvSel2Pll[] = {
 	{
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveVpll_g,
+		.pll = &pmVpll_g,
 		.select = 1U,
 	},
 };
@@ -107,13 +107,13 @@ static PmClockMux dvMux = {
 
 static const PmClockSel2Pll iovdSel2Pll[] = {
 	{
-		.pll = &pmSlaveIOpll_g,
+		.pll = &pmIOpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveVpll_g,
+		.pll = &pmVpll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 3U,
 	},
 };
@@ -125,13 +125,13 @@ static PmClockMux iovdMux = {
 
 static const PmClockSel2Pll ioadSel2Pll[] = {
 	{
-		.pll = &pmSlaveIOpll_g,
+		.pll = &pmIOpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveApll_g,
+		.pll = &pmApll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 3U,
 	},
 };
@@ -143,13 +143,13 @@ static PmClockMux ioadMux = {
 
 static const PmClockSel2Pll iodaSel2Pll[] = {
 	{
-		.pll = &pmSlaveIOpll_g,
+		.pll = &pmIOpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveApll_g,
+		.pll = &pmApll_g,
 		.select = 3U,
 	},
 };
@@ -161,10 +161,10 @@ static PmClockMux iodaMux = {
 
 static const PmClockSel2Pll iorSel2Pll[] = {
 	{
-		.pll = &pmSlaveIOpll_g,
+		.pll = &pmIOpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveRpll_g,
+		.pll = &pmRpll_g,
 		.select = 2U,
 	},
 };
@@ -176,13 +176,13 @@ static PmClockMux iorMux = {
 
 static const PmClockSel2Pll iordSel2Pll[] = {
 	{
-		.pll = &pmSlaveIOpll_g,
+		.pll = &pmIOpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveRpll_g,
+		.pll = &pmRpll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 3U,
 	},
 };
@@ -194,13 +194,13 @@ static PmClockMux iordMux = {
 
 static const PmClockSel2Pll iorvSel2Pll[] = {
 	{
-		.pll = &pmSlaveIOpll_g,
+		.pll = &pmIOpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveRpll_g,
+		.pll = &pmRpll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveVpll_g,
+		.pll = &pmVpll_g,
 		.select = 3U,
 	},
 };
@@ -212,13 +212,13 @@ static PmClockMux iorvMux = {
 
 static const PmClockSel2Pll riodSel2Pll[] = {
 	{
-		.pll = &pmSlaveRpll_g,
+		.pll = &pmRpll_g,
 		.select = 0U,
 	}, {
-		.pll = &pmSlaveIOpll_g,
+		.pll = &pmIOpll_g,
 		.select = 2U,
 	}, {
-		.pll = &pmSlaveDpll_g,
+		.pll = &pmDpll_g,
 		.select = 3U,
 	},
 };
@@ -1001,11 +1001,11 @@ void PmClockDump(const PmClock* const clk)
 	fw_printf(" }\r\n");
 }
 
-void PmClockDumpChildren(const PmSlavePll* const pll)
+void PmClockDumpChildren(const PmPll* const pll)
 {
 	u32 i;
 
-	fw_printf("%s #%ld:\r\n", PmStrNode(pll->slv.node.nodeId), pll->useCount);
+	fw_printf("%s #%ld:\r\n", PmStrNode(pll->node.nodeId), pll->useCount);
 
 	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
 		if (pll != pmClocks[i]->pll) {
@@ -1017,11 +1017,11 @@ void PmClockDumpChildren(const PmSlavePll* const pll)
 
 void PmClockDumpTree(void)
 {
-	PmClockDumpChildren(&pmSlaveApll_g);
-	PmClockDumpChildren(&pmSlaveVpll_g);
-	PmClockDumpChildren(&pmSlaveDpll_g);
-	PmClockDumpChildren(&pmSlaveRpll_g);
-	PmClockDumpChildren(&pmSlaveIOpll_g);
+	PmClockDumpChildren(&pmApll_g);
+	PmClockDumpChildren(&pmVpll_g);
+	PmClockDumpChildren(&pmDpll_g);
+	PmClockDumpChildren(&pmRpll_g);
+	PmClockDumpChildren(&pmIOpll_g);
 }
 #endif
 
@@ -1032,10 +1032,10 @@ void PmClockDumpTree(void)
  *
  * @return	Pointer to the PLL parent of the clock
  */
-static PmSlavePll* PmClockGetParent(PmClock* const clock, const u32 sel)
+static PmPll* PmClockGetParent(PmClock* const clock, const u32 sel)
 {
 	u32 i;
-	PmSlavePll* parent = NULL;
+	PmPll* parent = NULL;
 
 	for (i = 0U; i < clock->mux->size; i++) {
 		if (sel == clock->mux->inputs[i].select) {
@@ -1164,7 +1164,7 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
 	/* Find if a clock multiplexer is changed */
 	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
 		PmClock* const clk = pmClocks[i];
-		PmSlavePll* const prevPll = clk->pll;
+		PmPll* const prevPll = clk->pll;
 		const u32 sel = val & PM_CLOCK_MUX_SELECT_MASK;
 
 		if (addr != clk->ctrlAddr) {

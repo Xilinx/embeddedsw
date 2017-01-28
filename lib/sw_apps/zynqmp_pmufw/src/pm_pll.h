@@ -42,7 +42,7 @@
 #ifndef PM_PLL_H_
 #define PM_PLL_H_
 
-#include "pm_slave.h"
+#include "pm_node.h"
 
 /*********************************************************************
  * Structure definitions
@@ -57,13 +57,10 @@
  * @saved       Flag stating are variables of this structure containing values
  *              to be restored or not
  *
- * Note: context of the PLL is saved just before power-parent of PLL gets
- * powered down (FPD for example) and then the 'saved' flag is set to true.
- * In order to enter PM_PLL_STATE_USED state, PLL must have valid context,
- * meaning the 'saved' flag must be false. Upon initialization (as long as
- * power-parent does not get powered down), all data except 'saved' is
- * invalid/not-initialized (basically 'saved' flag also states do fields of
- * this structure have valid values or not).
+ * Note: context of the PLL is saved when PM framework suspends a PLL (when
+ * no node requires PLL to be locked). It is assumed that all used PLLs get
+ * initially configured/locked by the FSBL and no user code would unlock a PLL
+ * afterwards.
  */
 typedef struct PmPllContext {
 	u32 ctrl;
@@ -74,8 +71,8 @@ typedef struct PmPllContext {
 } PmPllContext;
 
 /**
- * PmSlavePll - Structure used for Pll slave
- * @slv         Base slave structure
+ * PmPll - Structure used to model PLL
+ * @node        Node structure
  * @context     Data to store context of the PLL - if after boot PLL has no
  *              context, it should not be initially locked by PMU, but by a
  *              master. To inform PMU that initially PLL has no context, this
@@ -87,30 +84,30 @@ typedef struct PmPllContext {
  * @lockMask    Mask of the lock in status register
  * @useCount    The number of clocks currently driven by this PLL
  */
-typedef struct PmSlavePll {
-	PmSlave slv;
+typedef struct PmPll {
+	PmNode node;
 	PmPllContext context;
 	const u32 addr;
 	const u32 toCtrlAddr;
 	const u32 statusAddr;
 	const u32 lockMask;
 	u32 useCount;
-} PmSlavePll;
+} PmPll;
 
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
-extern PmSlavePll pmSlaveApll_g;
-extern PmSlavePll pmSlaveDpll_g;
-extern PmSlavePll pmSlaveVpll_g;
-extern PmSlavePll pmSlaveRpll_g;
-extern PmSlavePll pmSlaveIOpll_g;
+extern PmPll pmApll_g;
+extern PmPll pmDpll_g;
+extern PmPll pmVpll_g;
+extern PmPll pmRpll_g;
+extern PmPll pmIOpll_g;
 
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-int PmPllRequest(PmSlavePll* const pll);
-void PmPllRelease(PmSlavePll* const pll);
 void PmPllClearUseCount(void);
+int PmPllRequest(PmPll* const pll);
+void PmPllRelease(PmPll* const pll);
 
 #endif
