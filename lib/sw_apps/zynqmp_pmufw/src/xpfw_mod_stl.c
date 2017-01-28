@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,30 +28,19 @@
 * this Software without prior written authorization from Xilinx.
 ******************************************************************************/
 
-#include "xpfw_config.h"
-
-#include "xpfw_core.h"
-#include "xpfw_events.h"
-#include "xpfw_module.h"
-
-#include "xpfw_user_startup.h"
-
-#include "xpfw_mod_dap.h"
-#include "xpfw_mod_legacy.h"
-#include "xpfw_mod_em.h"
-#include "xpfw_mod_pm.h"
-#include "xpfw_mod_rtc.h"
-#include "xpfw_mod_sched.h"
 #include "xpfw_mod_stl.h"
 
+#ifdef ENABLE_STL
+#include "xstl_topmb.h"
 
-void XPfw_UserStartUp(void)
+void ModStlInit(void)
 {
-	ModStlInit();
-	ModRtcInit();
-	ModEmInit();
-	ModPmInit();
-	(void)ModSchInit();
-	ModDapInit();
-	ModLegacyInit();
+	/* This STL function is implemented in STL source
+	 * and this has Module creation, Setting up IPI handlers,etc
+	 * in its definition.
+	 */
+	XStl_PmuStlInit();
 }
+#else /* ENABLE_STL */
+void ModStlInit(void) { }
+#endif /* ENABLE_STL */
