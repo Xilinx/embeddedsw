@@ -60,6 +60,9 @@
 #define DEFAULT_PLL_POWER_LOCKED	100U
 #define DEFAULT_PLL_POWER_RESET		0U
 
+/* Period of time needed to lock the PLL (to measure) */
+#define PM_PLL_LOCKING_TIME	1U
+
 /**
  * PmPllBypassAndReset() - Bypass and reset/power down a PLL
  * @pll Pointer to a Pll to be bypassed/reset
@@ -193,6 +196,42 @@ static void PmPllClearConfig(PmNode* const node)
 	pll->useCount = 0U;
 }
 
+/**
+ * PmPllGetWakeUpLatency() - Get wake-up latency of a PLL
+ * @node	PLL node
+ * @lat		Pointer to the location where the latency value should be stored
+ *
+ * @return	XST_SUCCESS if latency value is stored in *lat, XST_NO_FEATURE
+ *		if the latency depends on power parent which has no method
+ *		(getWakeUpLatency) to provide latency information.
+ */
+static int PmPllGetWakeUpLatency(const PmNode* const node, u32* const lat)
+{
+	int status = XST_SUCCESS;
+	PmPll* pll = (PmPll*)node->derived;
+	PmNode* const powerNode = &node->parent->node;
+	u32 latency;
+
+	*lat = 0U;
+	if (PM_PLL_STATE_LOCKED == pll->node.currState) {
+		goto done;
+	}
+
+	*lat += PM_PLL_LOCKING_TIME;
+	if (NULL == powerNode->class->getWakeUpLatency) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+
+	status = powerNode->class->getWakeUpLatency(powerNode, &latency);
+	if (XST_SUCCESS == status) {
+		*lat += latency;
+	}
+
+done:
+	return status;
+}
+
 /* Collection of PLL nodes */
 static PmNode* pmNodePllBucket[] = {
 	&pmApll_g.node,
@@ -207,7 +246,7 @@ PmNodeClass pmNodeClassPll_g = {
 	.id = NODE_CLASS_PLL,
 	.clearConfig = PmPllClearConfig,
 	.construct = NULL,
-	.getWakeUpLatency = NULL,
+	.getWakeUpLatency = PmPllGetWakeUpLatency,
 	.getPowerData = NULL,
 	.forceDown = NULL,
 	.init = NULL,
