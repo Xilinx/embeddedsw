@@ -59,39 +59,35 @@ static u32 PmSlaveAonPowers[] = {
 	DEFAULT_POWER_ON,
 };
 
-/* Definitions for the typical LPD slave with gateable clock */
+#define PM_GENERIC_SLAVE_STATE_UNUSED	0U
+#define PM_GENERIC_SLAVE_STATE_RUNNING	1U
 
-#define PM_LPD_SLAVE_STATE_IDLE	0U
-#define PM_LPD_SLAVE_STATE_RUN	1U
-
-static const u32 pmLpdSlaveStates[] = {
-	[PM_LPD_SLAVE_STATE_IDLE] = PM_CAP_CONTEXT,
-	[PM_LPD_SLAVE_STATE_RUN] = PM_CAP_CONTEXT | PM_CAP_WAKEUP |
-				   PM_CAP_ACCESS | PM_CAP_CLOCK,
+static const u32 pmGenericSlaveStates[] = {
+	[PM_GENERIC_SLAVE_STATE_UNUSED] = 0U,
+	[PM_GENERIC_SLAVE_STATE_RUNNING] = PM_CAP_CONTEXT | PM_CAP_WAKEUP |
+			PM_CAP_ACCESS | PM_CAP_CLOCK | PM_CAP_POWER,
 };
 
-static const PmStateTran pmLpdSlaveTransitions[] = {
+static const PmStateTran pmGenericSlaveTransitions[] = {
 	{
-		.fromState = PM_LPD_SLAVE_STATE_RUN,
-		.toState = PM_LPD_SLAVE_STATE_IDLE,
+		.fromState = PM_GENERIC_SLAVE_STATE_RUNNING,
+		.toState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latency = PM_DEFAULT_LATENCY,
 	}, {
-		.fromState = PM_LPD_SLAVE_STATE_IDLE,
-		.toState = PM_LPD_SLAVE_STATE_RUN,
+		.fromState = PM_GENERIC_SLAVE_STATE_UNUSED,
+		.toState = PM_GENERIC_SLAVE_STATE_RUNNING,
 		.latency = PM_DEFAULT_LATENCY,
 	},
 };
 
-static u32 pmLpdSlavePowers[] = {
+static u32 pmGenericSlavePowers[] = {
 	DEFAULT_POWER_OFF,
 	DEFAULT_POWER_ON,
 };
 
-static const PmSlaveFsm pmLpdSlaveFsm = {
-	.states = pmLpdSlaveStates,
-	.statesCnt = ARRAY_SIZE(pmLpdSlaveStates),
-	.trans = pmLpdSlaveTransitions,
-	.transCnt = ARRAY_SIZE(pmLpdSlaveTransitions),
+static const PmSlaveFsm pmGenericSlaveFsm = {
+	DEFINE_SLAVE_STATES(pmGenericSlaveStates),
+	DEFINE_SLAVE_TRANS(pmGenericSlaveTransitions),
 	.enterState = NULL,
 };
 
@@ -133,14 +129,14 @@ PmSlave pmSlaveTtc0_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_AON_SLAVE_STATE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmSlaveAonPowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmTtc0Wake,
-	.slvFsm = &slaveAonFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -158,14 +154,14 @@ PmSlave pmSlaveTtc1_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_AON_SLAVE_STATE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmSlaveAonPowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmTtc1Wake,
-	.slvFsm = &slaveAonFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -183,14 +179,14 @@ PmSlave pmSlaveTtc2_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_AON_SLAVE_STATE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmSlaveAonPowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmTtc2Wake,
-	.slvFsm = &slaveAonFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -208,14 +204,14 @@ PmSlave pmSlaveTtc3_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_AON_SLAVE_STATE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmSlaveAonPowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmTtc3Wake,
-	.slvFsm = &slaveAonFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -231,14 +227,14 @@ PmSlave pmSlaveUart0_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmUart0Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -254,14 +250,14 @@ PmSlave pmSlaveUart1_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmUart1Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -277,14 +273,14 @@ PmSlave pmSlaveSpi0_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmSpi0Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -300,14 +296,14 @@ PmSlave pmSlaveSpi1_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmSpi1Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -323,14 +319,14 @@ PmSlave pmSlaveI2C0_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmI2C0Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -346,14 +342,14 @@ PmSlave pmSlaveI2C1_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmI2C1Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -370,14 +366,14 @@ PmSlave pmSlaveSD0_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmSD0Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -394,14 +390,14 @@ PmSlave pmSlaveSD1_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmSD1Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -417,14 +413,14 @@ PmSlave pmSlaveCan0_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmCan0Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -440,14 +436,14 @@ PmSlave pmSlaveCan1_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmCan1Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -464,14 +460,14 @@ PmSlave pmSlaveEth0_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmEth0Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -488,14 +484,14 @@ PmSlave pmSlaveEth1_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmEth1Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -512,14 +508,14 @@ PmSlave pmSlaveEth2_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmEth2Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -536,14 +532,14 @@ PmSlave pmSlaveEth3_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmEth3Wake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -566,14 +562,14 @@ PmSlave pmSlaveAdma_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmAdmaWake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -589,14 +585,14 @@ PmSlave pmSlaveNand_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmNandWake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -612,14 +608,14 @@ PmSlave pmSlaveQSpi_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmQSpiWake,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -635,50 +631,15 @@ PmSlave pmSlaveGpio_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_AON_SLAVE_STATE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmSlaveAonPowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmGpioWake,
-	.slvFsm = &slaveAonFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
-};
-
-/* Definitions for typical FPD slave with controllable clock */
-#define PM_FPD_SLAVE_STATE_OFF	0U
-#define PM_FPD_SLAVE_STATE_RUN	1U
-
-static const u32 pmFpdSlaveStates[] = {
-	[PM_FPD_SLAVE_STATE_OFF] = 0U,
-	[PM_FPD_SLAVE_STATE_RUN] = PM_CAP_CONTEXT | PM_CAP_POWER |
-				   PM_CAP_ACCESS | PM_CAP_WAKEUP | PM_CAP_CLOCK,
-};
-
-static const PmStateTran pmFpdSlaveTransitions[] = {
-	{
-		.fromState = PM_FPD_SLAVE_STATE_RUN,
-		.toState = PM_FPD_SLAVE_STATE_OFF,
-		.latency = PM_DEFAULT_LATENCY,
-	}, {
-		.fromState = PM_FPD_SLAVE_STATE_OFF,
-		.toState = PM_FPD_SLAVE_STATE_RUN,
-		.latency = PM_DEFAULT_LATENCY,
-	},
-};
-
-static u32 pmFpdSlavePowers[] = {
-	DEFAULT_POWER_OFF,
-	DEFAULT_POWER_ON,
-};
-
-static const PmSlaveFsm pmFpdSlaveFsm = {
-	.states = pmFpdSlaveStates,
-	.statesCnt = ARRAY_SIZE(pmFpdSlaveStates),
-	.trans = pmFpdSlaveTransitions,
-	.transCnt = ARRAY_SIZE(pmFpdSlaveTransitions),
-	.enterState = NULL,
 };
 
 static PmGicProxyWake pmSataWake = {
@@ -693,14 +654,14 @@ PmSlave pmSlaveSata_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainFpd_g.power,
 		.clocks = NULL,
-		.currState = PM_FPD_SLAVE_STATE_OFF,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmFpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmSataWake,
-	.slvFsm = &pmFpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -711,14 +672,14 @@ PmSlave pmSlaveGpu_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainFpd_g.power,
 		.clocks = NULL,
-		.currState = PM_FPD_SLAVE_STATE_OFF,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmFpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &pmFpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -729,14 +690,14 @@ PmSlave pmSlavePcie_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainFpd_g.power,
 		.clocks = NULL,
-		.currState = PM_FPD_SLAVE_STATE_OFF,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmFpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &pmFpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -747,14 +708,14 @@ PmSlave pmSlavePcap_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_LPD_SLAVE_STATE_IDLE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmLpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &pmLpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -765,14 +726,14 @@ PmSlave pmSlaveGdma_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainFpd_g.power,
 		.clocks = NULL,
-		.currState = PM_FPD_SLAVE_STATE_OFF,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmFpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &pmFpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -783,14 +744,14 @@ PmSlave pmSlaveDP_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainFpd_g.power,
 		.clocks = NULL,
-		.currState = PM_FPD_SLAVE_STATE_OFF,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmFpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &pmFpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -801,14 +762,14 @@ PmSlave pmSlaveAFI_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_FPD_SLAVE_STATE_OFF,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmFpdSlavePowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &pmFpdSlaveFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -824,14 +785,14 @@ PmSlave pmSlaveIpiApu_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_AON_SLAVE_STATE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmSlaveAonPowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = &pmIpiApuWake,
-	.slvFsm = &slaveAonFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
@@ -842,13 +803,13 @@ PmSlave pmSlaveIpiRpu0_g = {
 		.class = &pmNodeClassSlave_g,
 		.parent = &pmPowerDomainLpd_g.power,
 		.clocks = NULL,
-		.currState = PM_AON_SLAVE_STATE,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmSlaveAonPowers),
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
 	},
 	.reqs = NULL,
 	.wake = NULL,
-	.slvFsm = &slaveAonFsm,
+	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
