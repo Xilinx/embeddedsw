@@ -182,10 +182,6 @@
 #define NODE_MIN        NODE_APU
 #define NODE_MAX        NODE_LPD
 
-/* System init synchronization */
-#define PM_INIT_COMPLETED_KEY    0x5A5A5A5AU
-#define PM_INIT_SYNC_REGISTER    PMU_GLOBAL_PERS_GLOB_GEN_STORAGE5
-
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U
 #define REQUEST_ACK_BLOCKING    2U

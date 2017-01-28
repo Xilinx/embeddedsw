@@ -56,27 +56,17 @@
 /**
  * XPfw_PmInit() - initializes PM firmware
  *
- * @note    Call on startup after XPfw_PmSetConfiguration to initialize PM
- *          firmware. It is assumed that PMU firmware enables GPI1, GPI2, and
- *          IPI0 interrupts at the processor level, so PMU only masks/unmasks
- *          specific events.
+ * @note	Call on startup to initialize PM firmware. It is assumed that
+ * PFW enables GPI1, GPI2, and IPI0 interrupts, PM firmware only masks/unmasks
+ * specific events.
  */
 void XPfw_PmInit(void)
 {
-	u32 val;
-
 	PmDbg("Power Management Init\r\n");
 
 	PmMasterInit();
 
 	PmNodeConstruct();
-
-	val = XPfw_Read32(PM_INIT_SYNC_REGISTER);
-	if (PM_INIT_COMPLETED_KEY == val) {
-		/* System init is completed, no one will call PmInit later */
-		XPfw_Write32(PM_INIT_SYNC_REGISTER, 0U);
-		PmInit(NULL);
-	}
 }
 
 /**
