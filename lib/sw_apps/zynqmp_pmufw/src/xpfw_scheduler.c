@@ -45,6 +45,41 @@
 #define PIT_COUNTER_OFFSET	4U
 #define PIT_CONTROL_OFFSET	8U
 
+static u32 is_task_active(XPfw_Scheduler_t *SchedPtr, u32 TaskListIndex)
+{
+	u32 ReturnVal;
+
+	/* Periodic */
+	if ((0U != SchedPtr->TaskList[TaskListIndex].Interval)
+		&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)
+		&& (0U == (SchedPtr->Tick
+				% SchedPtr->TaskList[TaskListIndex].Interval))) {
+		ReturnVal = TRUE;
+	} else if ((0U == SchedPtr->TaskList[TaskListIndex].Interval)
+			&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)) {
+		/* Non-Periodic */
+		ReturnVal = TRUE;
+	} else {
+		ReturnVal = FALSE;
+	}
+
+	return ReturnVal;
+}
+
+static u32 is_task_non_periodic(XPfw_Scheduler_t *SchedPtr, u32 TaskListIndex)
+{
+	u32 ReturnVal;
+
+	if ((0U == SchedPtr->TaskList[TaskListIndex].Interval)
+		&& (NULL != SchedPtr->TaskList[TaskListIndex].Callback)) {
+		ReturnVal = TRUE;
+	} else {
+		ReturnVal = FALSE;
+	}
+
+	return ReturnVal;
+}
+
 XStatus XPfw_SchedulerInit(XPfw_Scheduler_t *SchedPtr, u32 PitBaseAddr)
 {
 	u32 Idx;
@@ -111,9 +146,7 @@ void XPfw_SchedulerTickHandler(XPfw_Scheduler_t *SchedPtr)
 	SchedPtr->Tick++;
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
 		/* Check if it this task can be triggered */
-		if ((0U != SchedPtr->TaskList[Idx].Interval) &&
-			(NULL != SchedPtr->TaskList[Idx].Callback) &&
-			(0U == (SchedPtr->Tick % SchedPtr->TaskList[Idx].Interval))) {
+		if (TRUE == is_task_active(SchedPtr, Idx)) {
 			/* Mark the Task as TRIGGERED */
 			SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_TRIGGERED;
 		}
@@ -136,6 +169,10 @@ XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 			SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_DISABLED;
 			CallCount++;
 		}
+		/* Remove the Non-Periodic Task */
+		if (TRUE == is_task_non_periodic(SchedPtr, Idx)) {
+			SchedPtr->TaskList[Idx].Callback = NULL;
+		}
 	}
 
 	if (CallCount > 0U) {
@@ -155,7 +192,7 @@ XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliS
 
 	/* Get the Next Free Task Index */
 	for (Idx=0U;Idx < XPFW_SCHED_MAX_TASK;Idx++) {
-		if (0U == SchedPtr->TaskList[Idx].Interval) {
+		if (NULL == SchedPtr->TaskList[Idx].Callback){
 			break;
 		}
 	}
