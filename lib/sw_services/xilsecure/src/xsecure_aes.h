@@ -80,6 +80,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ba   10/10/14 Initial release
 * 1.1   ba   11/10/15 Modified Key loading logic in AES encryption
+* 2.0   vns  01/28/17 Added APIs for decryption which can be used for decrypting
+*                     data rather than a boot image.
 *
 * </pre>
 *
@@ -175,6 +177,7 @@ typedef struct {
 	XCsuDma *CsuDmaPtr; /**< CSUDMA Instance Pointer */
 	u32* Iv; /**< Initialization Vector */
 	u32* Key; /**< AES Key */
+	u32* GcmTagAddr; /**< GCM tag address for decryption */
 	u32  KeySel; /**< Key Source selection */
 	u8 IsChunkingEnabled; /**< Data Chunking enabled/disabled */
 	u8* ReadBuffer; /**< Data Buffer to be used in case of chunking */
@@ -187,6 +190,8 @@ typedef struct {
 		 * Length: Length of data in bytes.
 		 * Return value should be 0 in case of success and 1 for failure.
 		 */
+	u32 SizeofData; /**< Size of Data to be encrypted or decrypted */
+	u8  *Destination; /**< Destination for decrypted/encrypted data */
 } XSecure_Aes;
 
 /************************** Function Prototypes ******************************/
@@ -203,7 +208,15 @@ void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking);
 void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
 				u32 ChunkSize, u32(*DeviceCopy)(u32, UINTPTR, u32));
 
-/* Decryption */
+/* Decryption of data */
+void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
+		u32 Size, u8 * GcmTagAddr);
+s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size);
+
+s32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u8 * DecData, u8 *EncData,
+		u32 Size, u8 * GcmTagAddr);
+
+/* Decryption of boot image created by using bootgen */
 s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				u32 Length);
 
@@ -213,5 +226,10 @@ void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 /* Reset */
 void XSecure_AesReset(XSecure_Aes  *InstancePtr);
+
+void XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr);
+void XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
+s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
+			const u8 *Src, const u8 *Tag, u32 Len, u32 Flag);
 
 #endif /* XSECURE_AES_H_ */

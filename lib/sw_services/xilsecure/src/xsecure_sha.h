@@ -69,6 +69,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ba   11/05/14 Initial release
+* 2.0   vns  01/28/17 Added API to read SHA3 hash.
 *
 * </pre>
 *
@@ -128,6 +129,7 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash);
 /* Complete SHA digest calculation */
 void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In,
 						const u32 Size, u8 *Out);
+void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash);
 
 #ifdef __cplusplus
 extern "C" }

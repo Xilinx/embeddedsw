@@ -51,6 +51,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ba   08/10/14 Initial release
+* 2.0   vns  01/28/17 Added API to read SHA3 hash.
 *
 * </pre>
 *
@@ -302,4 +303,31 @@ void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 	XSecure_Sha3Start(InstancePtr);
 	XSecure_Sha3Update(InstancePtr, In, Size);
 	XSecure_Sha3Finish(InstancePtr, Out);
+}
+
+/*****************************************************************************/
+/**
+ * Reads the SHA3 hash of the data. It can be called intermediately of updates
+ * also to read hashs.
+ *
+ * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
+ * @param	Hash is the pointer in which read hash will be stored.
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ******************************************************************************/
+void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
+{
+	u32 Index = 0U;
+	u32 Val = 0U;
+	u32 *HashPtr = (u32 *)Hash;
+
+	for (Index=0U; Index < 12U; Index++)
+	{
+		Val = XSecure_ReadReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_SHA3_DIGEST_0_OFFSET + (Index * 4));
+		HashPtr[11U - Index] = Val;
+	}
 }
