@@ -148,6 +148,13 @@ static int PmTcmFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	int status;
 	PmSlaveTcm* tcm = (PmSlaveTcm*)slave->node.derived;
 
+	if (PM_SRAM_STATE_ON == nextState) {
+		status = PmPowerRequest(&pmPowerIslandRpu_g);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
+
 	status = PmSramFsmHandler(slave, nextState);
 	if (XST_SUCCESS != status) {
 		goto done;
@@ -156,6 +163,10 @@ static int PmTcmFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	if ((PM_SRAM_STATE_OFF == slave->node.currState) &&
 	    (PM_SRAM_STATE_ON == nextState)) {
 		tcm->eccInit(tcm);
+	}
+
+	if (PM_SRAM_STATE_ON != nextState) {
+		PmPowerRelease(&pmPowerIslandRpu_g);
 	}
 
 done:
