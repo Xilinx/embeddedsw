@@ -123,6 +123,9 @@ static void PmPllSuspend(PmPll* const pll)
 	}
 
 	PmNodeUpdateCurrState(&pll->node, PM_PLL_STATE_RESET);
+	if (NULL != pll->node.parent) {
+		PmPowerReleaseParent(&pll->node);
+	}
 }
 
 /**
@@ -147,7 +150,12 @@ static int PmPllResume(PmPll* const pll)
 		/* By saved/init configuration PLL is in reset, leave it as is */
 		goto done;
 	}
-
+	if (NULL != pll->node.parent) {
+		status = PmPowerRequestParent(&pll->node);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+	}
 	/* Release reset */
 	XPfw_RMW32(pll->addr + PM_PLL_CTRL_OFFSET, PM_PLL_CTRL_RESET_MASK,
 		   ~PM_PLL_CTRL_RESET_MASK);
