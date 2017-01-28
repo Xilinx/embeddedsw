@@ -120,6 +120,7 @@ typedef struct PmNode {
  * @getPowerData	Get power consumption of the node
  * @forceDown		Put node in the lowest power state
  * @init		Initialize the node
+ * @isUsable		Check if the node is usable by current configuration
  * @bucket		Pointer to the array of nodes from the class
  * @bucketSize		Number of nodes in the bucket
  * @id			Nodes' class/type ID
@@ -131,6 +132,7 @@ typedef struct PmNodeClass {
 	int (*const getPowerData)(const PmNode* const node, u32* const data);
 	int (*const forceDown)(PmNode* const node);
 	int (*const init)(PmNode* const node);
+	bool (*const isUsable)(PmNode* const node);
 	PmNode** const bucket;
 	const u32 bucketSize;
 	const u8 id;
@@ -147,6 +149,7 @@ PmProc* PmNodeGetProc(const u32 nodeId);
 void PmNodeUpdateCurrState(PmNode* const node, const PmStateId newState);
 void PmNodeClearConfig(void);
 void PmNodeConstruct(void);
+void PmNodeForceDownUnusable(void);
 
 int PmNodeGetPowerInfo(const PmNode* const node, u32* const data);
 int PmNodeForceDown(PmNode* const node);

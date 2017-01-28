@@ -714,6 +714,25 @@ done:
 	return status;
 }
 
+/**
+ * PmSlaveIsUsable() - Check if slave is usable according to the configuration
+ * @node	Slave node to check
+ *
+ * @return	True if slave can be used, false otherwise
+ */
+static bool PmSlaveIsUsable(PmNode* const node)
+{
+	bool usable = false;
+	PmSlave* const slave = (PmSlave*)node->derived;
+
+	/* Slave is usable if it has allocated requirements */
+	if (NULL != slave->reqs) {
+		usable = true;
+	}
+
+	return usable;
+}
+
 /* Collection of slave nodes */
 static PmNode* pmNodeSlaveBucket[] = {
 	&pmSlaveL2_g.slv.node,
@@ -773,4 +792,5 @@ PmNodeClass pmNodeClassSlave_g = {
 	.getPowerData = PmNodeGetPowerInfo,
 	.forceDown = PmSlaveForceDown,
 	.init = PmSlaveInit,
+	.isUsable = PmSlaveIsUsable,
 };

@@ -1128,6 +1128,40 @@ done:
 	return status;
 }
 
+/**
+ * PmPowerIsUsable() - Check if power node could be used by current config
+ * @powerNode	Power node to check
+ *
+ * @return	True if power node is usable, false otherwise
+ */
+static bool PmPowerIsUsable(PmNode* const powerNode)
+{
+	PmNode* node;
+	bool usable = false;
+
+	PmPowerDfsBegin((PmPower*)powerNode->derived);
+	node = PmPowerDfsGetNext();
+	while (NULL != node) {
+		if (NODE_IS_POWER(node)) {
+			if (0U != ((PmPower*)node->derived)->reqPerms) {
+				usable = true;
+				goto done;
+			}
+		} else {
+			if (NULL != node->class->isUsable) {
+				usable = node->class->isUsable(node);
+				if (true == usable) {
+					goto done;
+				}
+			}
+		}
+		node = PmPowerDfsGetNext();
+	}
+
+done:
+	return usable;
+}
+
 /* Collection of power nodes */
 static PmNode* pmNodePowerBucket[] = {
 	&pmPowerIslandRpu_g.node,
@@ -1146,4 +1180,5 @@ PmNodeClass pmNodeClassPower_g = {
 	.getPowerData = PmPowerGetPowerData,
 	.forceDown = PmPowerForceDown,
 	.init = PmPowerInit,
+	.isUsable = PmPowerIsUsable,
 };

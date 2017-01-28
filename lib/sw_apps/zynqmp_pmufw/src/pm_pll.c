@@ -271,6 +271,19 @@ static int PmPllInit(PmNode* const node)
 	return status;
 }
 
+/**
+ * PmPllIsUsable() - Check if the PLL is used according to the set configuration
+ * @node	PLL node
+ *
+ * @return	True if PLL is used, false otherwise
+ */
+static bool PmPllIsUsable(PmNode* const node)
+{
+	PmPll* pll = (PmPll*)node->derived;
+
+	return 0U != pll->useCount;
+}
+
 /* Collection of PLL nodes */
 static PmNode* pmNodePllBucket[] = {
 	&pmApll_g.node,
@@ -289,6 +302,7 @@ PmNodeClass pmNodeClassPll_g = {
 	.getPowerData = NULL,
 	.forceDown = PmPllForceDown,
 	.init = PmPllInit,
+	.isUsable = PmPllIsUsable,
 };
 
 static u32 PmStdPllPowers[] = {

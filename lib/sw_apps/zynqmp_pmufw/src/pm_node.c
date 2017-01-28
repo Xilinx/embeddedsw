@@ -299,3 +299,31 @@ int PmNodeForceDown(PmNode* const node)
 
 	return status;
 }
+
+/**
+ * PmNodeForceDownUnusable() - Force down nodes that are unusable
+ *
+ * @note	Function puts in the lowest power states the nodes which have no
+ *		provision to be used by currently set configuration.
+ */
+void PmNodeForceDownUnusable(void)
+{
+	u32 i, n;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNodeClasses); i++) {
+		for (n = 0U; n < pmNodeClasses[i]->bucketSize; n++) {
+			PmNode* node = pmNodeClasses[i]->bucket[n];
+			bool usable = true;
+
+			if (NULL != pmNodeClasses[i]->isUsable) {
+				usable = pmNodeClasses[i]->isUsable(node);
+			}
+			if (true == usable) {
+				continue;
+			}
+			if (NULL != pmNodeClasses[i]->forceDown) {
+				pmNodeClasses[i]->forceDown(node);
+			}
+		}
+	}
+}

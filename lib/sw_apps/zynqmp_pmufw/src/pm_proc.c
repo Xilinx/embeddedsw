@@ -818,7 +818,25 @@ static int PmProcInit(PmNode* const node)
 
 done:
 	return status;
+}
 
+/**
+ * PmProcIsUsable() - Check if processor is usable by the currently set config
+ * @node	Processor node
+ *
+ * @return	True if processor is usable, false otherwise
+ */
+static bool PmProcIsUsable(PmNode* const node)
+{
+	bool usable = false;
+	PmProc* const proc = (PmProc*)node->derived;
+
+	/* Processor is usable if it has an associated master */
+	if (NULL != proc->master) {
+		usable = true;
+	}
+
+	return usable;
 }
 
 /* Power consumptions for the APU for specific states */
@@ -1026,4 +1044,5 @@ PmNodeClass pmNodeClassProc_g = {
 	.getPowerData = PmNodeGetPowerInfo,
 	.forceDown = PmProcForceDown,
 	.init = PmProcInit,
+	.isUsable = PmProcIsUsable,
 };
