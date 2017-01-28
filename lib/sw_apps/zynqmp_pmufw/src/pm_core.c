@@ -967,6 +967,35 @@ void PmInit(const PmMaster* const master)
 }
 
 /**
+ * PmApiApprovalCheck() - Check if the API ID can be processed at the moment
+ * @apiId	PM API ID
+ *
+ * @return	True if API can be processed, false otherwise
+ */
+static bool PmApiApprovalCheck(const u32 apiId)
+{
+	bool approved = PmConfigObjectIsLoaded();
+
+	if (true == approved) {
+		goto done;
+	}
+
+	/* If the object is not loaded only APIs below can be processed */
+	switch (apiId) {
+	case PM_GET_API_VERSION:
+	case PM_GET_CHIPID:
+	case PM_SET_CONFIGURATION:
+		approved = true;
+		break;
+	default:
+		approved = false;
+	}
+
+done:
+	return approved;
+}
+
+/**
  * PmProcessApiCall() - Called to process PM API call
  * @master  Pointer to a requesting master structure
  * @pload   Pointer to array of integers with the information about the pm call
@@ -978,16 +1007,11 @@ static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
 {
 	u32 setAddress;
 	u64 address;
+	bool approved = PmApiApprovalCheck(pload[0]);
 
-	/* If the object is not loaded only APIs below can be processed */
-	if (false == PmConfigObjectIsLoaded()) {
-		if ((PM_GET_API_VERSION != pload[0]) &&
-		    (PM_GET_CHIPID != pload[0]) &&
-		    (PM_SET_CONFIGURATION != pload[0])) {
-			goto done;
-		}
+	if (false == approved) {
+		goto done;
 	}
-
 	switch (pload[0]) {
 	case PM_SELF_SUSPEND:
 		address = ((u64) pload[5]) << 32ULL;
