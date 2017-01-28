@@ -67,13 +67,13 @@
 /* Power consumptions for the APU for specific states */
 #define DEFAULT_APU_POWER_ACTIVE	200
 #define DEFAULT_APU_POWER_SUSPENDING	100
-#define DEFAULT_APU_POWER_SLEEP		50
+#define DEFAULT_APU_POWER_SLEEP		0
 #define DEFAULT_APU_POWER_OFF		0
 
 /* Power consumptions for the RPU for specific states */
 #define DEFAULT_RPU_POWER_ACTIVE	200
 #define DEFAULT_RPU_POWER_SUSPENDING	100
-#define DEFAULT_RPU_POWER_SLEEP		50
+#define DEFAULT_RPU_POWER_SLEEP		0
 #define DEFAULT_RPU_POWER_OFF		0
 
 /**

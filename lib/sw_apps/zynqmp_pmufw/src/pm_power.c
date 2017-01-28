@@ -547,7 +547,7 @@ static PmNode* pmLpdChildren[] = {
 /* Dummy consumption for the power domains/islands */
 static u32 PmDomainPowers[] = {
 	DEFAULT_POWER_OFF,
-	DEFAULT_POWER_OFF,
+	DEFAULT_POWER_ON,
 };
 
 /*
