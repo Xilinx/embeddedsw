@@ -113,15 +113,12 @@ static void PmPllRestoreContext(PmPll* const pll)
  */
 static void PmPllSuspend(PmPll* const pll)
 {
-	u32 val;
-
 	PmDbg("%s\r\n", PmStrNode(pll->node.nodeId));
 
 	PmPllSaveContext(pll);
 
-	val = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
 	/* If PLL is not already in reset, bypass it and put in reset/pwrdn */
-	if (0U == (val & PM_PLL_CTRL_RESET_MASK)) {
+	if (0U == (pll->context.ctrl & PM_PLL_CTRL_RESET_MASK)) {
 		PmPllBypassAndReset(pll);
 	}
 
