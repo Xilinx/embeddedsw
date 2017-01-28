@@ -35,27 +35,21 @@
 #include "xpfw_rom_interface.h"
 #include "lpd_slcr.h"
 
-/* Always-on slaves, have only one state */
+/* Always-on slave has only one state */
 #define PM_AON_SLAVE_STATE	0U
 
-/*
- * Without clock/reset control, from PM perspective ttc has only one state.
- * It is in LPD, which is never turned off, does not sit in power island,
- * therefore has no off state.
- */
 static const u32 pmAonFsmStates[] = {
 	[PM_AON_SLAVE_STATE] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT,
 };
 
-static const PmSlaveFsm slaveAonFsm = {
-	.states = pmAonFsmStates,
-	.statesCnt = ARRAY_SIZE(pmAonFsmStates),
+static const PmSlaveFsm pmSlaveAonFsm = {
+	DEFINE_SLAVE_STATES(pmAonFsmStates),
 	.trans = NULL,
 	.transCnt = 0U,
 	.enterState = NULL,
 };
 
-static u32 PmSlaveAonPowers[] = {
+static u32 pmSlaveAonPowers[] = {
 	DEFAULT_POWER_ON,
 };
 
@@ -107,11 +101,11 @@ PmSlave pmSlaveRtc_g = {
 		.currState = PM_AON_SLAVE_STATE,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmSlaveAonPowers),
+		DEFINE_PM_POWER_INFO(pmSlaveAonPowers),
 	},
 	.reqs = NULL,
 	.wake = &pmRtcWake,
-	.slvFsm = &slaveAonFsm,
+	.slvFsm = &pmSlaveAonFsm,
 	.flags = 0U,
 };
 
