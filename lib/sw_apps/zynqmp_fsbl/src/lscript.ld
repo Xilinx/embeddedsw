@@ -51,6 +51,7 @@ MEMORY
 {
    psu_ram_0_S_AXI_BASEADDR : ORIGIN = 0xFFFC0000, LENGTH = 0x00029D00
    psu_ram_1_S_AXI_BASEADDR : ORIGIN = 0xFFFE9E00, LENGTH = 0x00000200
+   psu_ram_2_S_AXI_BASEADDR : ORIGIN = 0xFFFF0040, LENGTH = 0x0000FDC0
 }
 
 /* Specify the default entry point to the program */
@@ -312,6 +313,11 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    . = ALIGN(512);
    *(.handoff_params)
 } > psu_ram_1_S_AXI_BASEADDR
+
+.bitstream_buffer (NOLOAD) : {
+	. = ALIGN(32);
+	*(.bitstream_buffer)
+} > psu_ram_2_S_AXI_BASEADDR
 
 _end = .;
 }
