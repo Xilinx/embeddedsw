@@ -40,31 +40,49 @@
 #include "lpd_slcr.h"
 
 /* Power states of USB */
-#define PM_USB_STATE_OFF   0U
-#define PM_USB_STATE_ON    1U
-#define PM_USB_STATE_MAX   2U
+#define PM_USB_STATE_UNUSED	0U
+#define PM_USB_STATE_OFF	1U
+#define PM_USB_STATE_ON		2U
 
 /* Power consumptions for USB defined by its states */
 #define DEFAULT_USB_POWER_ON	100U
 #define DEFAULT_USB_POWER_OFF	0U
 
 /* USB states */
-static const u32 pmUsbStates[PM_USB_STATE_MAX] = {
-	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP,
+static const u32 pmUsbStates[] = {
+	[PM_USB_STATE_UNUSED] = 0U,
+	[PM_USB_STATE_OFF] = PM_CAP_WAKEUP | PM_CAP_POWER,
 	[PM_USB_STATE_ON] = PM_CAP_WAKEUP | PM_CAP_ACCESS | PM_CAP_CONTEXT |
-			    PM_CAP_CLOCK,
+				PM_CAP_CLOCK | PM_CAP_POWER,
 };
 
 /* USB transition table (from which to which state USB can transit) */
 static const PmStateTran pmUsbTransitions[] = {
 	{
+		.fromState = PM_USB_STATE_OFF,
+		.toState = PM_USB_STATE_ON,
+		.latency = PM_DEFAULT_LATENCY,
+	}, {
+		.fromState = PM_USB_STATE_UNUSED,
+		.toState = PM_USB_STATE_ON,
+		.latency = PM_DEFAULT_LATENCY,
+	}, {
 		.fromState = PM_USB_STATE_ON,
 		.toState = PM_USB_STATE_OFF,
 		.latency = PM_DEFAULT_LATENCY,
 	}, {
-		.fromState = PM_USB_STATE_OFF,
-		.toState = PM_USB_STATE_ON,
+		.fromState = PM_USB_STATE_UNUSED,
+		.toState = PM_USB_STATE_OFF,
+		.latency = 0U,
+	}, {
+		.fromState = PM_USB_STATE_ON,
+		.toState = PM_USB_STATE_UNUSED,
 		.latency = PM_DEFAULT_LATENCY,
+
+	}, {
+		.fromState = PM_USB_STATE_OFF,
+		.toState = PM_USB_STATE_UNUSED,
+		.latency = 0U,
 	},
 };
 
@@ -82,7 +100,8 @@ static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 
 	switch (slave->node.currState) {
 	case PM_USB_STATE_ON:
-		if (PM_USB_STATE_OFF == nextState) {
+		if ((PM_USB_STATE_OFF == nextState) ||
+		    (PM_USB_STATE_UNUSED == nextState)) {
 			/* ON -> OFF*/
 			status = usb->PwrDn();
 		} else {
@@ -90,6 +109,7 @@ static int PmUsbFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		}
 		break;
 	case PM_USB_STATE_OFF:
+	case PM_USB_STATE_UNUSED:
 		if (PM_USB_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = usb->PwrUp();
@@ -130,8 +150,9 @@ static PmGicProxyWake pmUsb0Wake = {
 };
 
 static u32 PmUsbPowers[] = {
-	DEFAULT_USB_POWER_OFF,
-	DEFAULT_USB_POWER_ON,
+	[PM_USB_STATE_UNUSED] = DEFAULT_USB_POWER_OFF,
+	[PM_USB_STATE_OFF] = DEFAULT_USB_POWER_OFF,
+	[PM_USB_STATE_ON] = DEFAULT_USB_POWER_ON,
 };
 
 PmSlaveUsb pmSlaveUsb0_g = {
