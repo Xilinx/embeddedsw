@@ -51,6 +51,7 @@
 #include "rpu.h"
 #include "xpfw_util.h"
 #include "pm_gpp.h"
+#include "xpfw_aib.h"
 
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
@@ -321,7 +322,8 @@ static int PmPowerDownLpd(void)
 }
 
 /**
- * PmPowerUpRpu() - Power up RPU island
+ * PmPowerUpRpu() - Power up RPU island, disable AIBs, put R5s in HALT
+ *                  and relase RPU isalnd reset
  *
  * @return      Status returned by the PMU-ROM handler
  */
@@ -338,6 +340,11 @@ static int PmPowerUpRpu(void)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+
+	XPfw_AibDisable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
 
 	/* Put both the R5s in HALT */
 	XPfw_RMW32(RPU_RPU_0_CFG,
@@ -379,10 +386,18 @@ err:
 
 /**
  * PmPowerDownRpu() - Wrapper for powering down RPU (due to the return cast)
+ *                    Enables AIBs at RPU interfaces to gracefully respond to
+ *                    AXI transactions when RPU is powered down
  * @return      Return value of PMU-ROM handler
  */
 static int PmPowerDownRpu(void)
 {
+	XPfw_AibEnable(XPFW_AIB_RPU0_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
+	PmDbg("Enabled AIB\r\n");
+
 	return XpbrPwrDnRpuHandler();
 }
 
