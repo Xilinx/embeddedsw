@@ -259,11 +259,6 @@ dict set node_map NODE_GPIO { label NODE_GPIO periph psu_gpio_0 type slave }
 dict set node_map NODE_CAN_0 { label NODE_CAN_0 periph psu_can_0 type slave }
 dict set node_map NODE_CAN_1 { label NODE_CAN_1 periph psu_can_1 type slave }
 dict set node_map NODE_AFI { label NODE_AFI periph psu_afi_0 type others }
-dict set node_map NODE_APLL { label NODE_APLL periph psu_apll type pll }
-dict set node_map NODE_VPLL { label NODE_VPLL periph psu_vpll type pll }
-dict set node_map NODE_DPLL { label NODE_DPLL periph psu_dpll type pll }
-dict set node_map NODE_RPLL { label NODE_RPLL periph psu_rpll type pll }
-dict set node_map NODE_IOPLL { label NODE_IOPLL periph psu_iopll type pll }
 dict set node_map NODE_DDR { label NODE_DDR periph psu_ddr type memory }
 dict set node_map NODE_IPI_APU { label NODE_IPI_APU periph NA type ipi }
 dict set node_map NODE_IPI_RPU_0 { label NODE_IPI_RPU_0 periph NA type ipi }
@@ -320,23 +315,6 @@ proc get_slave_section { } {
 			append  slave_text "\t[dict get [dict get $pmufw::node_map $node] perms], /* IPI Mask */\n\n"
 		}
 
-		# Process nodes of type "PLL"
-		if { ($periph_type == "pll") && ($periph_name != "NA") } {
-
-			#Increment the slave count
-			incr slave_count
-
-			#set the perms(ipi mask) value for this node
-			dict set pmufw::node_map $node perms [get_all_masters_mask_txt]
-			#print out for debug purpose
-			#puts "$periph_name \t: [dict get [dict get $pmufw::node_map $node] perms] "
-
-			#concat to the slave data text
-			#append  slave_text "\t/**********************************************************************/\n"
-			append  slave_text "\t[dict get [dict get $pmufw::node_map $node] label],\n"
-			append  slave_text "\tPM_SLAVE_FLAG_IS_SHAREABLE,\n"
-			append  slave_text "\t[dict get [dict get $pmufw::node_map $node] perms], /* IPI Mask */\n\n"
-		}
 		# Process nodes of type "others"
 		if { ($periph_type == "others") } {
 
