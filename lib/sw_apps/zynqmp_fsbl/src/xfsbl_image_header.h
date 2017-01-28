@@ -132,6 +132,7 @@ extern "C" {
  * Partition Attribute fields
  */
 #define XIH_PH_ATTRB_VEC_LOCATION_MASK		(0x800000U)
+#define XIH_PH_ATTR_BLOCK_SIZE_MASK		(0x700000U)
 #define XIH_PH_ATTRB_ENDIAN_MASK		(0x40000U)
 #define XIH_PH_ATTRB_PART_OWNER_MASK		(0x30000U)
 #define XIH_PH_ATTRB_RSA_SIGNATURE_MASK		(0x8000U)
@@ -189,6 +190,7 @@ extern "C" {
  *	CPU_A53               5:6                8:10
  */
 #define XIH_ATTRB_VECTOR_LOCATION_SHIFT		(23U)
+#define XIH_ATTRB_BLOCK_SIZE_SHIFT			(20U)
 #define XIH_ATTRB_A53_EXEC_ST_SHIFT_DIFF    (3U)
 #define XIH_ATTRB_ENDIAN_SHIFT_DIFF         (17U)
 #define XIH_ATTRB_TR_SECURE_SHIFT_DIFF      (2U)
@@ -203,6 +205,9 @@ extern "C" {
 
 /* Number of entries possible in ATF: 4 cores * 2 (secure, nonsecure) */
 #define XFSBL_MAX_ENTRIES_FOR_ATF	8U
+
+/* BLOCK SIZE multiplier */
+#define XFSBL_MUL_MEGABYTES			(1024U * 1024U)
 
 /**************************** Type Definitions *******************************/
 
@@ -287,6 +292,7 @@ u32 XFsbl_IsEncrypted(const XFsblPs_PartitionHeader * PartitionHeader);
 u32 XFsbl_GetDestinationDevice(const XFsblPs_PartitionHeader * PartitionHeader);
 u32 XFsbl_GetA53ExecState(const XFsblPs_PartitionHeader * PartitionHeader);
 u32 XFsbl_GetVectorLocation(const XFsblPs_PartitionHeader * PartitionHeader);
+u32 XFsbl_GetBlockSize(const XFsblPs_PartitionHeader * PartitionHeader);
 
 u32 XFsbl_ValidateChecksum(u32 Buffer[], u32 Length);
 u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,

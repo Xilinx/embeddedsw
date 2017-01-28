@@ -41,13 +41,14 @@
 
 /***************************** Include Files *********************************/
 #include "xfsbl_hw.h"
+#include "xfsbl_bs.h"
 
 #ifdef XFSBL_SECURE
 
 #include "xfsbl_authentication.h"
 #include "xfsbl_csu_dma.h"
 
-static u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
+u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
 /*****************************************************************************/
 
 static const u8 XFsbl_TPadSha3[] = {0x30, 0x41, 0x30, 0x0D, 0x06, 0x09, 0x60,
@@ -77,7 +78,7 @@ extern u8 ReadBuffer[READ_BUFFER_SIZE];
  * @return
  *
  ******************************************************************************/
-static u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
+u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen)
 {
 	u8 SpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)))={0};
 	u8* PpkModular;

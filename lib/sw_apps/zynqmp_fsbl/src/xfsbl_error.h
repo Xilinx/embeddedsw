@@ -185,6 +185,8 @@ extern "C" {
 #define XFSBL_ERROR_QSPI_MANUAL_START     			(0x57U)
 #define XFSBL_ERROR_QSPI_PRESCALER_CLK              (0x58U)
 #define XFSBL_ERROR_RSA_INITIALIZE                  (0x59U)
+#define XFSBL_ERROR_CHUNK_HASH_COMPARISON			(0x60U)
+#define XFSBL_ERROR_PROVIDED_BUF_HASH_STORE			(0x61U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/

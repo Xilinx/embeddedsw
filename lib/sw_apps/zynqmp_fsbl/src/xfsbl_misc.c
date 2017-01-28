@@ -736,3 +736,87 @@ u32 XFsbl_CheckSupportedCpu(u32 CpuId)
 END:
 	return Status;
 }
+
+/******************************************************************************
+*
+* This function copies data memory to memory using ADMA.
+*
+* @param	DestPtr is a pointer to destination buffer to which data needs
+*		to be copied.
+* @param	SrcPtr is a pointer to the source buffer.
+* @param	size holds the size of the data to be transfered.
+*
+* @return
+*		Success on successful copy
+*		Error on failure.
+*
+* @note		Cache invalidation and flushing should be taken care by user
+*		Before calling this API ADMA also should be configured to
+*		simple DMA.
+*
+******************************************************************************/
+u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u64 Size)
+{
+	u32 RegVal;
+	u64 SrcAddr = (UINTPTR)SrcPtr;
+	u64 DstAddr = (UINTPTR)DestPtr;
+	u32 Status = XFSBL_SUCCESS;
+
+	/* Wait until the DMA is in idle state */
+	do {
+		RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_STATUS);
+		RegVal &= ADMA_CH0_ZDMA_CH_STATUS_STATE_MASK;
+	} while ((RegVal != ADMA_CH0_ZDMA_CH_STATUS_STATE_DONE) &&
+			(RegVal != ADMA_CH0_ZDMA_CH_STATUS_STATE_ERR));
+
+	/* Write source Address */
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD0,
+			(SrcAddr & ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0_LSB_MASK));
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD1,
+		(((u64)SrcAddr >> 32U) &
+				ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1_MSB_MASK));
+
+	/* Write Destination Address */
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0,
+		(u32)(DstAddr & ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0_LSB_MASK));
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1,
+			(u32)((DstAddr >> 32U) &
+			ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1_MSB_MASK));
+
+	/* Size to be Transferred. Recommended to set both src and dest sizes */
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2, Size);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, Size);
+
+
+	/* coherence enable */
+	RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD3);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD3, RegVal | 0x1U);
+
+	RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD3);
+		XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD3, RegVal | 0x1U);
+
+	/* DMA Enable */
+	RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_CTRL2);
+	RegVal |= ADMA_CH0_ZDMA_CH_CTRL2_EN_MASK;
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL2, RegVal);
+
+	/* Check the status of the transfer by polling on DMA Done */
+	do {
+		RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_ISR);
+		RegVal &= ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK;
+	} while (RegVal != ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK);
+
+	/* Clear DMA status */
+	RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_ISR);
+	RegVal |= ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK;
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_ISR, ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK);
+
+	/* Read the channel status for errors */
+	RegVal = XFsbl_In32(ADMA_CH0_ZDMA_CH_STATUS);
+	if (RegVal == ADMA_CH0_ZDMA_CH_STATUS_STATE_ERR) {
+		Status = XFSBL_FAILURE;
+	}
+
+	return Status;
+
+}

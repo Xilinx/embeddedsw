@@ -111,6 +111,18 @@ u32 XFsbl_GetVectorLocation(const XFsblPs_PartitionHeader * PartitionHeader)
            XIH_PH_ATTRB_VEC_LOCATION_MASK);
 }
 
+u32 XFsbl_GetBlockSize(const XFsblPs_PartitionHeader * PartitionHeader)
+{
+	u32 Size = ((PartitionHeader->PartitionAttributes) &
+		XIH_PH_ATTR_BLOCK_SIZE_MASK) >> XIH_ATTRB_BLOCK_SIZE_SHIFT;
+
+	if (Size != 0x00U) {
+		Size = ((u32)2 << Size) * XFSBL_MUL_MEGABYTES;
+	}
+
+	return Size;
+}
+
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_ValidateImageHeaderTable(
 		XFsblPs_ImageHeaderTable * ImageHeaderTable);

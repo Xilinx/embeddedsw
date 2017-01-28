@@ -156,7 +156,7 @@ END:
  * @return	error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-static u32 XFsbl_PcapWaitForDone(void) {
+u32 XFsbl_PcapWaitForDone(void) {
 	u32 RegVal;
 	u32 Status = XFSBL_SUCCESS;
 
