@@ -483,10 +483,6 @@ static PmNode* pmApuChildren[] = {
 static PmNode* pmRpuChildren[] = {
 	&pmProcRpu0_g.node,
 	&pmProcRpu1_g.node,
-	&pmSlaveTcm0A_g.sram.slv.node,
-	&pmSlaveTcm0B_g.sram.slv.node,
-	&pmSlaveTcm1A_g.sram.slv.node,
-	&pmSlaveTcm1B_g.sram.slv.node,
 };
 
 static PmNode* pmFpdChildren[] = {
@@ -511,6 +507,10 @@ static PmNode* pmLpdChildren[] = {
 	&pmSlaveOcm1_g.slv.node,
 	&pmSlaveOcm2_g.slv.node,
 	&pmSlaveOcm3_g.slv.node,
+	&pmSlaveTcm0A_g.sram.slv.node,
+	&pmSlaveTcm0B_g.sram.slv.node,
+	&pmSlaveTcm1A_g.sram.slv.node,
+	&pmSlaveTcm1B_g.sram.slv.node,
 	&pmSlaveUsb0_g.slv.node,
 	&pmSlaveUsb1_g.slv.node,
 	&pmSlaveTtc0_g.node,
