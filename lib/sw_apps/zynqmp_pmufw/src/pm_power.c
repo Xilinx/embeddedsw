@@ -550,6 +550,11 @@ static u32 PmDomainPowers[] = {
 	DEFAULT_POWER_ON,
 };
 
+static u32 PmApuDomainPowers[] = {
+	DEFAULT_POWER_OFF,
+	DEFAULT_POWER_OFF,
+};
+
 /*
  * Power Island and Power Domain definitions
  *
@@ -597,7 +602,7 @@ PmPower pmPowerIslandApu_g = {
 		.currState = PM_PWR_STATE_ON,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmDomainPowers),
+		DEFINE_PM_POWER_INFO(PmApuDomainPowers),
 	},
 	DEFINE_PM_POWER_CHILDREN(pmApuChildren),
 	.class = NULL,
