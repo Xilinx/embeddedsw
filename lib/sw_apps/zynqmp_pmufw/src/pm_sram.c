@@ -57,13 +57,6 @@ static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 	[PM_SRAM_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
 };
 
-/* TCMs in retention do not require power parent to be ON */
-static const u32 pmTcmStates[PM_SRAM_STATE_MAX] = {
-	[PM_SRAM_STATE_OFF] = 0U,
-	[PM_SRAM_STATE_RET] = PM_CAP_CONTEXT,
-	[PM_SRAM_STATE_ON] = PM_CAP_ACCESS | PM_CAP_CONTEXT | PM_CAP_POWER,
-};
-
 /* Sram transition table (from which to which state sram can transit) */
 static const PmStateTran pmSramTransitions[] = {
 	{
@@ -130,9 +123,6 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_SRAM_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = sram->PwrUp();
-			if (NULL != sram->eccInit) {
-				sram->eccInit(sram);
-			}
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -146,28 +136,54 @@ static int PmSramFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	return status;
 }
 
-static void eccInit(uintptr_t base, size_t sz)
+/**
+ * PmTcmFsmHandler() - TCM FSM handler, performs transition actions
+ * @slave	TCM slave whose state should be changed
+ * @nextState	State the TCM slave should enter
+ *
+ * @return	Status of performing transition action
+ */
+static int PmTcmFsmHandler(PmSlave* const slave, const PmStateId nextState)
 {
-	size_t i;
+	int status;
+	PmSlaveTcm* tcm = (PmSlaveTcm*)slave->node.derived;
 
-	for (i = 0U; i < sz; i += 4U) {
-		Xil_Out32(base + i, 0U);
+	status = PmSramFsmHandler(slave, nextState);
+	if (XST_SUCCESS != status) {
+		goto done;
 	}
+
+	if ((PM_SRAM_STATE_OFF == slave->node.currState) &&
+	    (PM_SRAM_STATE_ON == nextState)) {
+		tcm->eccInit(tcm);
+	}
+
+done:
+	return status;
 }
 
-static void tcm0EccInit(PmSlaveSram *sram)
+/**
+ * PmTcm0EccInit() - ECC initialization for TCM bank 0
+ * @tcm		TCM slave node to initialize
+ */
+static void PmTcm0EccInit(const PmSlaveTcm* const tcm)
 {
-	eccInit(sram->base, sram->size);
+	(void)memset((void*)tcm->base, 0U, tcm->size);
 }
 
-static void tcm1EccInit(PmSlaveSram *sram)
+/**
+ * PmTcm1EccInit() - ECC initialization for TCM bank 1
+ * @tcm		TCM slave node to initialize
+ */
+static void PmTcm1EccInit(const PmSlaveTcm* const tcm)
 {
-	uintptr_t base = sram->base;
+	u32 base = tcm->base;
+	u32 ctrl = XPfw_Read32(RPU_RPU_GLBL_CNTL);
 
-	if (0U != (Xil_In32(RPU_RPU_GLBL_CNTL) & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK)) {
-		base -= 0x80000;
+	if (0U != (ctrl & RPU_RPU_GLBL_CNTL_TCM_COMB_MASK)) {
+		base -= 0x80000U;
 	}
-	eccInit(base, sram->size);
+	(void)memset((void*)base, 0U, tcm->size);
 }
 
 /* Sram FSM */
@@ -179,16 +195,11 @@ static const PmSlaveFsm slaveSramFsm = {
 	.enterState = PmSramFsmHandler,
 };
 
-/*
- * TCM FSM (states are the same as for SRAM, but the encoding in the retention
- * state is not)
- */
-static const PmSlaveFsm slaveTcmFsm = {
-	.states = pmTcmStates,
-	.statesCnt = PM_SRAM_STATE_MAX,
-	.trans = pmSramTransitions,
-	.transCnt = ARRAY_SIZE(pmSramTransitions),
-	.enterState = PmSramFsmHandler,
+/* TCM FSM */
+static const PmSlaveFsm pmSlaveTcmFsm = {
+	DEFINE_SLAVE_STATES(pmSramStates),
+	DEFINE_SLAVE_TRANS(pmSramTransitions),
+	.enterState = PmTcmFsmHandler,
 };
 
 static u32 PmSramPowers[] = {
@@ -340,110 +351,118 @@ PmSlaveSram pmSlaveOcm3_g = {
 	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_OCM_BANK3_MASK,
 };
 
-PmSlaveSram pmSlaveTcm0A_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveTcm0A_g,
-			.nodeId = NODE_TCM_0_A,
-			.class = &pmNodeClassSlave_g,
-			.parent = &pmPowerIslandRpu_g,
-			.clocks = NULL,
-			.currState = PM_SRAM_STATE_ON,
-			.latencyMarg = MAX_LATENCY,
+PmSlaveTcm pmSlaveTcm0A_g = {
+	.sram = {
+		.slv = {
+			.node = {
+				.derived = &pmSlaveTcm0A_g,
+				.nodeId = NODE_TCM_0_A,
+				.class = &pmNodeClassSlave_g,
+				.parent = &pmPowerIslandRpu_g.power,
+				.clocks = NULL,
+				.currState = PM_SRAM_STATE_ON,
+				.latencyMarg = MAX_LATENCY,
+				.flags = 0U,
+				DEFINE_PM_POWER_INFO(PmSramPowers),
+			},
+			.reqs = NULL,
+			.wake = NULL,
+			.slvFsm = &pmSlaveTcmFsm,
 			.flags = 0U,
-			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
-		.reqs = NULL,
-		.wake = NULL,
-		.slvFsm = &slaveTcmFsm,
-		.flags = 0U,
+		.PwrDn = XpbrPwrDnTcm0AHandler,
+		.PwrUp = XpbrPwrUpTcm0AHandler,
+		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0A_MASK,
 	},
-	.PwrDn = XpbrPwrDnTcm0AHandler,
-	.PwrUp = XpbrPwrUpTcm0AHandler,
-	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
-	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0A_MASK,
 	.size = 0x10000U,
 	.base = 0xffe00000U,
-	.eccInit = tcm0EccInit,
+	.eccInit = PmTcm0EccInit,
 };
 
-PmSlaveSram pmSlaveTcm0B_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveTcm0B_g,
-			.nodeId = NODE_TCM_0_B,
-			.class = &pmNodeClassSlave_g,
-			.parent = &pmPowerIslandRpu_g,
-			.clocks = NULL,
-			.currState = PM_SRAM_STATE_ON,
-			.latencyMarg = MAX_LATENCY,
+PmSlaveTcm pmSlaveTcm0B_g = {
+	.sram = {
+		.slv = {
+			.node = {
+				.derived = &pmSlaveTcm0B_g,
+				.nodeId = NODE_TCM_0_B,
+				.class = &pmNodeClassSlave_g,
+				.parent = &pmPowerIslandRpu_g.power,
+				.clocks = NULL,
+				.currState = PM_SRAM_STATE_ON,
+				.latencyMarg = MAX_LATENCY,
+				.flags = 0U,
+				DEFINE_PM_POWER_INFO(PmSramPowers),
+			},
+			.reqs = NULL,
+			.wake = NULL,
+			.slvFsm = &pmSlaveTcmFsm,
 			.flags = 0U,
-			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
-		.reqs = NULL,
-		.wake = NULL,
-		.slvFsm = &slaveTcmFsm,
-		.flags = 0U,
+		.PwrDn = XpbrPwrDnTcm0BHandler,
+		.PwrUp = XpbrPwrUpTcm0BHandler,
+		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0B_MASK,
 	},
-	.PwrDn = XpbrPwrDnTcm0BHandler,
-	.PwrUp = XpbrPwrUpTcm0BHandler,
-	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
-	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM0B_MASK,
 	.size = 0x10000U,
 	.base = 0xffe20000U,
-	.eccInit = tcm0EccInit,
+	.eccInit = PmTcm0EccInit,
 };
 
-PmSlaveSram pmSlaveTcm1A_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveTcm1A_g,
-			.nodeId = NODE_TCM_1_A,
-			.class = &pmNodeClassSlave_g,
-			.parent = &pmPowerIslandRpu_g,
-			.clocks = NULL,
-			.currState = PM_SRAM_STATE_ON,
-			.latencyMarg = MAX_LATENCY,
+PmSlaveTcm pmSlaveTcm1A_g = {
+	.sram = {
+		.slv = {
+			.node = {
+				.derived = &pmSlaveTcm1A_g,
+				.nodeId = NODE_TCM_1_A,
+				.class = &pmNodeClassSlave_g,
+				.parent = &pmPowerIslandRpu_g.power,
+				.clocks = NULL,
+				.currState = PM_SRAM_STATE_ON,
+				.latencyMarg = MAX_LATENCY,
+				.flags = 0U,
+				DEFINE_PM_POWER_INFO(PmSramPowers),
+			},
+			.reqs = NULL,
+			.wake = NULL,
+			.slvFsm = &pmSlaveTcmFsm,
 			.flags = 0U,
-			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
-		.reqs = NULL,
-		.wake = NULL,
-		.slvFsm = &slaveTcmFsm,
-		.flags = 0U,
+		.PwrDn = XpbrPwrDnTcm1AHandler,
+		.PwrUp = XpbrPwrUpTcm1AHandler,
+		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1A_MASK,
 	},
-	.PwrDn = XpbrPwrDnTcm1AHandler,
-	.PwrUp = XpbrPwrUpTcm1AHandler,
-	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
-	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1A_MASK,
 	.size = 0x10000U,
 	.base = 0xffe90000U,
-	.eccInit = tcm1EccInit,
+	.eccInit = PmTcm1EccInit,
 };
 
-PmSlaveSram pmSlaveTcm1B_g = {
-	.slv = {
-		.node = {
-			.derived = &pmSlaveTcm1B_g,
-			.nodeId = NODE_TCM_1_B,
-			.class = &pmNodeClassSlave_g,
-			.parent = &pmPowerIslandRpu_g,
-			.clocks = NULL,
-			.currState = PM_SRAM_STATE_ON,
-			.latencyMarg = MAX_LATENCY,
+PmSlaveTcm pmSlaveTcm1B_g = {
+	.sram = {
+		.slv = {
+			.node = {
+				.derived = &pmSlaveTcm1B_g,
+				.nodeId = NODE_TCM_1_B,
+				.class = &pmNodeClassSlave_g,
+				.parent = &pmPowerIslandRpu_g.power,
+				.clocks = NULL,
+				.currState = PM_SRAM_STATE_ON,
+				.latencyMarg = MAX_LATENCY,
+				.flags = 0U,
+				DEFINE_PM_POWER_INFO(PmSramPowers),
+			},
+			.reqs = NULL,
+			.wake = NULL,
+			.slvFsm = &pmSlaveTcmFsm,
 			.flags = 0U,
-			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
-		.reqs = NULL,
-		.wake = NULL,
-		.slvFsm = &slaveTcmFsm,
-		.flags = 0U,
+		.PwrDn = XpbrPwrDnTcm1BHandler,
+		.PwrUp = XpbrPwrUpTcm1BHandler,
+		.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
+		.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1B_MASK,
 	},
-	.PwrDn = XpbrPwrDnTcm1BHandler,
-	.PwrUp = XpbrPwrUpTcm1BHandler,
-	.retCtrlAddr = PMU_GLOBAL_RAM_RET_CNTRL,
-	.retCtrlMask = PMU_GLOBAL_RAM_RET_CNTRL_TCM1B_MASK,
 	.size = 0x10000U,
 	.base = 0xffeb0000U,
-	.eccInit = tcm1EccInit,
+	.eccInit = PmTcm1EccInit,
 };

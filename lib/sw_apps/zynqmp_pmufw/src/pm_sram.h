@@ -37,6 +37,8 @@
 
 #include "pm_slave.h"
 
+typedef struct PmSlaveTcm PmSlaveTcm;
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -54,10 +56,21 @@ typedef struct PmSlaveSram {
 	PmTranHandler PwrUp;
 	const u32 retCtrlAddr;
 	const u32 retCtrlMask;
-	uintptr_t base;
-	size_t size;
-	void (*eccInit)(struct PmSlaveSram *);
 } PmSlaveSram;
+
+/**
+ * PmSlaveTcm - TCM structure derived from SRAM slave
+ * @sram	Base SRAM slave structure
+ * @eccInit	ECC initialization handler (to call on OFF->ON transition)
+ * @base	Base address of the memory bank
+ * @size	Size of the memory bank
+ */
+typedef struct PmSlaveTcm {
+	PmSlaveSram sram;
+	void (*const eccInit)(const PmSlaveTcm* const tcm);
+	u32 base;
+	u32 size;
+} PmSlaveTcm;
 
 /*********************************************************************
  * Global data declarations
@@ -67,9 +80,9 @@ extern PmSlaveSram pmSlaveOcm1_g;
 extern PmSlaveSram pmSlaveOcm2_g;
 extern PmSlaveSram pmSlaveOcm3_g;
 extern PmSlaveSram pmSlaveL2_g;
-extern PmSlaveSram pmSlaveTcm0A_g;
-extern PmSlaveSram pmSlaveTcm0B_g;
-extern PmSlaveSram pmSlaveTcm1A_g;
-extern PmSlaveSram pmSlaveTcm1B_g;
+extern PmSlaveTcm pmSlaveTcm0A_g;
+extern PmSlaveTcm pmSlaveTcm0B_g;
+extern PmSlaveTcm pmSlaveTcm1A_g;
+extern PmSlaveTcm pmSlaveTcm1B_g;
 
 #endif
