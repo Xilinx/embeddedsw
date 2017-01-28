@@ -1169,6 +1169,7 @@ PmSlave pmSlaveDdr_g = {
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmDdrPowerConsumptions),
 	},
+	.class = NULL,
 	.reqs = NULL,
 	.wake = NULL,
 	.slvFsm = &pmSlaveDdrFsm,

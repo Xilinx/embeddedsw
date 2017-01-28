@@ -45,6 +45,7 @@
 typedef struct PmMaster PmMaster;
 typedef struct PmRequirement PmRequirement;
 typedef struct PmSlave PmSlave;
+typedef struct PmSlaveClass PmSlaveClass;
 
 typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 					   const PmStateId nextState);
@@ -98,6 +99,8 @@ typedef struct {
 /**
  * PmSlave - Slave structure used for managing slave's states
  * @node        Pointer to the node structure of this slave
+ * @class       Slave class (NULL if derived slave has no specific methods to be
+ *              called in addition to methods of PmNodeClass)
  * @reqs        Pointer to the list of masters' requirements for the slave
  * @wake        Wake event this slave can generate
  * @slvFsm      Slave finite state machine
@@ -106,11 +109,20 @@ typedef struct {
  */
 typedef struct PmSlave {
 	PmNode node;
+	PmSlaveClass* const class;
 	PmRequirement* reqs;
 	const PmGicProxyWake* const wake;
 	const PmSlaveFsm* slvFsm;
 	u8 flags;
 } PmSlave;
+
+/**
+ * PmSlaveClass - Slave class to model properties of PmSlave derived objects
+ * @init	Initialize the slave
+ */
+typedef struct PmSlaveClass {
+	int (*const init)(PmSlave* const slave);
+} PmSlaveClass;
 
 /*********************************************************************
  * Global data declarations

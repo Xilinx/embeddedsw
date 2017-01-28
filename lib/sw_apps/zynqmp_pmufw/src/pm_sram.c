@@ -197,6 +197,25 @@ static void PmTcm1EccInit(const PmSlaveTcm* const tcm)
 	(void)memset((void*)base, 0U, tcm->size);
 }
 
+/**
+ * PmSlaveTcmInit() - Initialize the TCM slave
+ * @slave	TCM slave node
+ */
+static int PmSlaveTcmInit(PmSlave* const slave)
+{
+	int status = XST_SUCCESS;
+
+	if (PM_SRAM_STATE_ON == slave->node.currState) {
+		status = PmPowerRequest(&pmPowerIslandRpu_g);
+	}
+
+	return status;
+}
+
+static PmSlaveClass pmSlaveClassTcm = {
+	.init = PmSlaveTcmInit,
+};
+
 /* Sram FSM */
 static const PmSlaveFsm slaveSramFsm = {
 	.states = pmSramStates,
@@ -255,6 +274,7 @@ PmSlaveSram pmSlaveL2_g = {
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
+		.class = NULL,
 		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
@@ -279,6 +299,7 @@ PmSlaveSram pmSlaveOcm0_g = {
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
+		.class = NULL,
 		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
@@ -303,6 +324,7 @@ PmSlaveSram pmSlaveOcm1_g = {
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
+		.class = NULL,
 		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
@@ -327,6 +349,7 @@ PmSlaveSram pmSlaveOcm2_g = {
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
+		.class = NULL,
 		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
@@ -351,6 +374,7 @@ PmSlaveSram pmSlaveOcm3_g = {
 			.flags = 0U,
 			DEFINE_PM_POWER_INFO(PmSramPowers),
 		},
+		.class = NULL,
 		.reqs = NULL,
 		.wake = NULL,
 		.slvFsm = &slaveSramFsm,
@@ -376,6 +400,7 @@ PmSlaveTcm pmSlaveTcm0A_g = {
 				.flags = 0U,
 				DEFINE_PM_POWER_INFO(PmSramPowers),
 			},
+			.class = &pmSlaveClassTcm,
 			.reqs = NULL,
 			.wake = NULL,
 			.slvFsm = &pmSlaveTcmFsm,
@@ -405,6 +430,7 @@ PmSlaveTcm pmSlaveTcm0B_g = {
 				.flags = 0U,
 				DEFINE_PM_POWER_INFO(PmSramPowers),
 			},
+			.class = &pmSlaveClassTcm,
 			.reqs = NULL,
 			.wake = NULL,
 			.slvFsm = &pmSlaveTcmFsm,
@@ -434,6 +460,7 @@ PmSlaveTcm pmSlaveTcm1A_g = {
 				.flags = 0U,
 				DEFINE_PM_POWER_INFO(PmSramPowers),
 			},
+			.class = &pmSlaveClassTcm,
 			.reqs = NULL,
 			.wake = NULL,
 			.slvFsm = &pmSlaveTcmFsm,
@@ -463,6 +490,7 @@ PmSlaveTcm pmSlaveTcm1B_g = {
 				.flags = 0U,
 				DEFINE_PM_POWER_INFO(PmSramPowers),
 			},
+			.class = &pmSlaveClassTcm,
 			.reqs = NULL,
 			.wake = NULL,
 			.slvFsm = &pmSlaveTcmFsm,

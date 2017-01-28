@@ -706,6 +706,10 @@ static int PmSlaveInit(PmNode* const node)
 		}
 	}
 
+	if ((NULL != slave->class) && (NULL != slave->class->init)) {
+		slave->class->init(slave);
+	}
+
 done:
 	return status;
 }
