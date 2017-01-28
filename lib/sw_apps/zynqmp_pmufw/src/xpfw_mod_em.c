@@ -35,6 +35,7 @@
 #include "xpfw_events.h"
 #include "xpfw_core.h"
 #include "xpfw_rom_interface.h"
+#include "xpfw_xpu.h"
 
 #ifdef ENABLE_EM
 /**
@@ -102,6 +103,10 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	XPfw_EmSetAction(EM_ERR_ID_RPU_LS, EM_ACTION_CUSTOM, RpuLsHandler);
 	XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_CUSTOM, LpdSwdtHandler);
 	XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM, FpdSwdtHandler);
+	XPfw_EmSetAction(EM_ERR_ID_XMPU, EM_ACTION_CUSTOM, XPfw_XpuIntrHandler);
+
+	/* Enable the interrupts at XMPU/XPPU block level */
+	XPfw_XpuIntrInit();
 
 	fw_printf("EM Module (MOD-%d): Initialized.\r\n",
 			ModPtr->ModId);
