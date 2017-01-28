@@ -76,6 +76,35 @@ static void PmPllBypassAndReset(PmPll* const pll)
 }
 
 /**
+ * PmPllSaveContext() - Save the context of the PLL
+ * @pll		PLL whose context should be saved
+ */
+static void PmPllSaveContext(PmPll* const pll)
+{
+	/* Save register setting */
+	pll->context.ctrl = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
+	pll->context.cfg = XPfw_Read32(pll->addr + PM_PLL_CFG_OFFSET);
+	pll->context.frac = XPfw_Read32(pll->addr + PM_PLL_FRAC_OFFSET);
+	pll->context.toCtrl = XPfw_Read32(pll->toCtrlAddr);
+	pll->context.saved = true;
+}
+
+/**
+ * PmPllRestoreContext() - Restore the context of the PLL
+ * @pll		PLL whose context should be restored
+ */
+static void PmPllRestoreContext(PmPll* const pll)
+{
+	/* Restore register values with reset and bypass asserted */
+	XPfw_Write32(pll->addr + PM_PLL_CTRL_OFFSET, pll->context.ctrl |
+		     PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
+	XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
+	XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
+	XPfw_Write32(pll->toCtrlAddr, pll->context.toCtrl);
+	pll->context.saved = false;
+}
+
+/**
  * PmPllSuspend() - Save context of PLL and power it down (reset)
  * @pll Pointer to a Pll to be suspended
  */
@@ -85,12 +114,7 @@ static void PmPllSuspend(PmPll* const pll)
 
 	PmDbg("%s\r\n", PmStrNode(pll->node.nodeId));
 
-	/* Save register setting */
-	pll->context.ctrl = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
-	pll->context.cfg = XPfw_Read32(pll->addr + PM_PLL_CFG_OFFSET);
-	pll->context.frac = XPfw_Read32(pll->addr + PM_PLL_FRAC_OFFSET);
-	pll->context.toCtrl = XPfw_Read32(pll->toCtrlAddr);
-	pll->context.saved = true;
+	PmPllSaveContext(pll);
 
 	val = XPfw_Read32(pll->addr + PM_PLL_CTRL_OFFSET);
 	/* If PLL is not already in reset, bypass it and put in reset/pwrdn */
@@ -114,13 +138,7 @@ static int PmPllResume(PmPll* const pll)
 	PmDbg("%s\r\n", PmStrNode(pll->node.nodeId));
 
 	if (true == pll->context.saved) {
-		/* Restore register values with reset and bypass asserted */
-		XPfw_Write32(pll->addr + PM_PLL_CTRL_OFFSET, pll->context.ctrl |
-			     PM_PLL_CTRL_RESET_MASK | PM_PLL_CTRL_BYPASS_MASK);
-		XPfw_Write32(pll->addr + PM_PLL_CFG_OFFSET, pll->context.cfg);
-		XPfw_Write32(pll->addr + PM_PLL_FRAC_OFFSET, pll->context.frac);
-		XPfw_Write32(pll->toCtrlAddr, pll->context.toCtrl);
-		pll->context.saved = false;
+		PmPllRestoreContext(pll);
 	}
 
 	if (0U != (PM_PLL_CTRL_RESET_MASK & pll->context.ctrl)) {
