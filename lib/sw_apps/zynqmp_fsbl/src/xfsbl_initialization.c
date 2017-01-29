@@ -838,7 +838,7 @@ END:
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 {
 	u32 Status;
-	u32 MultiBootOffset=0U;
+	u32 MultiBootOffset;
 	u32 BootHdrAttrb=0U;
 	u32 FlashImageOffsetAddress;
 	u32 EfuseCtrl;
@@ -846,6 +846,8 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	/**
 	 * Read the Multiboot Register
 	 */
+	MultiBootOffset = XFsbl_In32(CSU_CSU_MULTI_BOOT);
+	XFsbl_Printf(DEBUG_INFO,"Multiboot Reg : 0x%0lx \n\r", MultiBootOffset);
 
 	/**
 	 *  Calculate the Flash Offset Address
