@@ -63,6 +63,9 @@ extern "C" {
 /* This is the address in DDR where bitstream will be copied temporarily */
 #define XFSBL_DDR_TEMP_ADDRESS			(0x100000U)
 
+/* This is the address in DDR where boot.bin will be copied in USB boot mode */
+#define XFSBL_DDR_TEMP_BUFFER_ADDRESS			(0x4000000U)
+
 /**************************** Type Definitions *******************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -139,6 +142,7 @@ extern "C" {
 #define FSBL_PERF_EXCLUDE_VAL			(1U)
 #define FSBL_A53_TCM_ECC_EXCLUDE_VAL	(1U)
 #define FSBL_PL_CLEAR_EXCLUDE_VAL		(1U)
+#define FSBL_USB_EXCLUDE_VAL			(1U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -182,6 +186,10 @@ extern "C" {
 
 #if FSBL_PL_CLEAR_EXCLUDE_VAL
 #define FSBL_PL_CLEAR_EXCLUDE
+#endif
+
+#if FSBL_USB_EXCLUDE_VAL
+#define FSBL_USB_EXCLUDE
 #endif
 
 /************************** Function Prototypes ******************************/

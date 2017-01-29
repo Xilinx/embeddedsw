@@ -65,6 +65,8 @@ extern "C" {
 
 /**************************** Macros Definitions *****************************/
 #define XFSBL_CSU_SSS_SRC_SRC_DMA    0x5U
+#define XFSBL_CSU_SSS_SRC_DEST_DMA	 0x50U
+#define XFSBL_CSU_SSS_DMA_MASK		 0XF000U
 
 /************************** Function Prototypes ******************************/
 u32 XFsbl_CsuDmaInit(void);

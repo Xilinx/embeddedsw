@@ -62,6 +62,7 @@
 #include "xil_cache.h"
 #include "xfsbl_hooks.h"
 #include "xfsbl_bs.h"
+#include "xfsbl_usb.h"
 
 /************************** Constant Definitions *****************************/
 #define PART_NAME_LEN_MAX		20U
@@ -612,7 +613,8 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			(BootMode == XFSBL_SD0_BOOT_MODE) ||
 			(BootMode == XFSBL_EMMC_BOOT_MODE) ||
 			(BootMode == XFSBL_SD1_BOOT_MODE) ||
-			(BootMode == XFSBL_SD1_LS_BOOT_MODE)) {
+			(BootMode == XFSBL_SD1_LS_BOOT_MODE) ||
+			(BootMode == XFSBL_USB_BOOT_MODE)) {
 		/**
 		 * Initialize the WDT and CSU drivers
 		 */
@@ -636,6 +638,24 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		/**
 		 * For JTAG boot mode, it will be in while loop
 		 */
+		case XFSBL_USB_BOOT_MODE:
+		{
+#ifdef XFSBL_USB
+			FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_UsbInit;
+			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_UsbCopy;
+			FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_UsbRelease;
+			Status = XFSBL_SUCCESS;
+#else
+			/**
+			 * This bootmode is not supported in this release
+			 */
+			XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_UNSUPPORTED_BOOT_MODE\n\r");
+			Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+
+#endif
+		}
+		break;
 		case XFSBL_JTAG_BOOT_MODE:
 		{
 			XFsbl_Printf(DEBUG_GENERAL,"In JTAG Boot Mode \n\r");
@@ -856,7 +876,8 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	if (!((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD0_BOOT_MODE) ||
 			(FsblInstancePtr->PrimaryBootDevice == XFSBL_EMMC_BOOT_MODE) ||
 			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_BOOT_MODE) ||
-			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_LS_BOOT_MODE)))
+			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_LS_BOOT_MODE) ||
+			(FsblInstancePtr->PrimaryBootDevice ==  XFSBL_USB_BOOT_MODE)))
 	{
 		FsblInstancePtr->ImageOffsetAddress =
 				MultiBootOffset * XFSBL_IMAGE_SEARCH_OFFSET;

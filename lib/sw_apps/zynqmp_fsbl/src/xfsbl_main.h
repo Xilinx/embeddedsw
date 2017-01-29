@@ -138,6 +138,7 @@ typedef struct {
 #define XFSBL_NAND_BOOT_MODE		(0x4U)
 #define XFSBL_SD1_BOOT_MODE	        (0x5U)
 #define XFSBL_EMMC_BOOT_MODE		(0x6U)
+#define XFSBL_USB_BOOT_MODE			(0x7U)
 #define XFSBL_SD1_LS_BOOT_MODE	    (0xEU)
 
 /**

@@ -85,6 +85,7 @@ extern "C" {
 #define CSU_CSU_SSS_CFG    ( ( CSU_BASEADDR ) + 0X00000008U )
 #define CSU_CSU_SSS_CFG_PCAP_SSS_MASK    0X0000000FU
 #define CSU_CSU_SSS_CFG_PCAP_SSS_SHIFT   0U
+#define CSU_CSU_SSS_CFG_DMA_SSS_SHIFT	 1U
 
 /**
  * Register: CSU_PCAP_STATUS
@@ -746,6 +747,10 @@ extern "C" {
 /* Definition for PL clear include irrespective of boot image has bitstream or not */
 #if !defined(FSBL_PL_CLEAR_EXCLUDE)
 #define XFSBL_PL_CLEAR
+#endif
+
+#if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_PSU_USB_0_DEVICE_ID))
+#define XFSBL_USB
 #endif
 
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_START		(0xC0000000U)
