@@ -10,7 +10,7 @@ INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 OUTS = *.o 
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 LIBSOURCES=*.c
 INCLUDEFILES=*.h
 
@@ -24,5 +24,5 @@ include:
 	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
 
