@@ -44,7 +44,7 @@
 * The configuration table for devices
 */
 
-XV_frmbufrd_Config XV_frmbufrd_ConfigTable[] =
+XV_frmbufrd_Config XV_frmbufrd_ConfigTable[XPAR_XV_FRMBUFRD_NUM_INSTANCES] =
 {
     {
         XPAR_V_FRMBUF_RD_0_DEVICE_ID,
