@@ -34,6 +34,7 @@
 #include "pm_master.h"
 #include "xpfw_rom_interface.h"
 #include "lpd_slcr.h"
+#include "pm_gic_proxy.h"
 
 /* Always-on slave has only one state */
 #define PM_AON_SLAVE_STATE	0U
@@ -85,7 +86,11 @@ static const PmSlaveFsm pmGenericSlaveFsm = {
 	.enterState = NULL,
 };
 
-static PmGicProxyWake pmRtcWake = {
+static PmWakeEventGicProxy pmRtcWake = {
+	.wake = {
+		.derived = &pmRtcWake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC27_MASK |
 		LPD_SLCR_GICP0_IRQ_MASK_SRC26_MASK,
 	.group = 0U,
@@ -105,12 +110,16 @@ PmSlave pmSlaveRtc_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmRtcWake,
+	.wake = &pmRtcWake.wake,
 	.slvFsm = &pmSlaveAonFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmTtc0Wake = {
+static PmWakeEventGicProxy pmTtc0Wake = {
+	.wake = {
+		.derived = &pmTtc0Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC6_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC5_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC4_MASK,
@@ -131,12 +140,16 @@ PmSlave pmSlaveTtc0_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmTtc0Wake,
+	.wake = &pmTtc0Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmTtc1Wake = {
+static PmWakeEventGicProxy pmTtc1Wake = {
+	.wake = {
+		.derived = &pmTtc1Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC9_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC8_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC7_MASK,
@@ -157,12 +170,16 @@ PmSlave pmSlaveTtc1_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmTtc1Wake,
+	.wake = &pmTtc1Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmTtc2Wake = {
+static PmWakeEventGicProxy pmTtc2Wake = {
+	.wake = {
+		.derived = &pmTtc2Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC12_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC11_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC10_MASK,
@@ -183,12 +200,16 @@ PmSlave pmSlaveTtc2_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmTtc2Wake,
+	.wake = &pmTtc2Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmTtc3Wake = {
+static PmWakeEventGicProxy pmTtc3Wake = {
+	.wake = {
+		.derived = &pmTtc3Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC15_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC14_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC13_MASK,
@@ -209,12 +230,16 @@ PmSlave pmSlaveTtc3_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmTtc3Wake,
+	.wake = &pmTtc3Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmUart0Wake = {
+static PmWakeEventGicProxy pmUart0Wake = {
+	.wake = {
+		.derived = &pmUart0Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC21_MASK,
 	.group = 0U,
 };
@@ -233,12 +258,16 @@ PmSlave pmSlaveUart0_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmUart0Wake,
+	.wake = &pmUart0Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmUart1Wake = {
+static PmWakeEventGicProxy pmUart1Wake = {
+	.wake = {
+		.derived = &pmUart1Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC22_MASK,
 	.group = 0U,
 };
@@ -257,12 +286,16 @@ PmSlave pmSlaveUart1_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmUart1Wake,
+	.wake = &pmUart1Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmSpi0Wake = {
+static PmWakeEventGicProxy pmSpi0Wake = {
+	.wake = {
+		.derived = &pmSpi0Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC19_MASK,
 	.group = 0U,
 };
@@ -281,12 +314,16 @@ PmSlave pmSlaveSpi0_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmSpi0Wake,
+	.wake = &pmSpi0Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmSpi1Wake = {
+static PmWakeEventGicProxy pmSpi1Wake = {
+	.wake = {
+		.derived = &pmSpi1Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC20_MASK,
 	.group = 0U,
 };
@@ -305,12 +342,16 @@ PmSlave pmSlaveSpi1_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmSpi1Wake,
+	.wake = &pmSpi1Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmI2C0Wake = {
+static PmWakeEventGicProxy pmI2C0Wake = {
+	.wake = {
+		.derived = &pmI2C0Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC17_MASK,
 	.group = 0U,
 };
@@ -329,12 +370,16 @@ PmSlave pmSlaveI2C0_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmI2C0Wake,
+	.wake = &pmI2C0Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmI2C1Wake = {
+static PmWakeEventGicProxy pmI2C1Wake = {
+	.wake = {
+		.derived = &pmI2C1Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC18_MASK,
 	.group = 0U,
 };
@@ -353,12 +398,16 @@ PmSlave pmSlaveI2C1_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmI2C1Wake,
+	.wake = &pmI2C1Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmSD0Wake = {
+static PmWakeEventGicProxy pmSD0Wake = {
+	.wake = {
+		.derived = &pmSD0Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC18_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC16_MASK,
 	.group = 1U,
@@ -378,12 +427,16 @@ PmSlave pmSlaveSD0_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmSD0Wake,
+	.wake = &pmSD0Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmSD1Wake = {
+static PmWakeEventGicProxy pmSD1Wake = {
+	.wake = {
+		.derived = &pmSD1Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC19_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC17_MASK,
 	.group = 1U,
@@ -403,12 +456,16 @@ PmSlave pmSlaveSD1_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmSD1Wake,
+	.wake = &pmSD1Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmCan0Wake = {
+static PmWakeEventGicProxy pmCan0Wake = {
+	.wake = {
+		.derived = &pmCan0Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC23_MASK,
 	.group = 0U,
 };
@@ -427,12 +484,16 @@ PmSlave pmSlaveCan0_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmCan0Wake,
+	.wake = &pmCan0Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmCan1Wake = {
+static PmWakeEventGicProxy pmCan1Wake = {
+	.wake = {
+		.derived = &pmCan1Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC24_MASK,
 	.group = 0U,
 };
@@ -451,12 +512,16 @@ PmSlave pmSlaveCan1_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmCan1Wake,
+	.wake = &pmCan1Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmEth0Wake = {
+static PmWakeEventGicProxy pmEth0Wake = {
+	.wake = {
+		.derived = &pmEth0Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC25_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC24_MASK,
 	.group = 1U,
@@ -476,12 +541,16 @@ PmSlave pmSlaveEth0_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmEth0Wake,
+	.wake = &pmEth0Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmEth1Wake = {
+static PmWakeEventGicProxy pmEth1Wake = {
+	.wake = {
+		.derived = &pmEth1Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC27_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC26_MASK,
 	.group = 1U,
@@ -501,12 +570,16 @@ PmSlave pmSlaveEth1_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmEth1Wake,
+	.wake = &pmEth1Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmEth2Wake = {
+static PmWakeEventGicProxy pmEth2Wake = {
+	.wake = {
+		.derived = &pmEth2Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC29_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC28_MASK,
 	.group = 1U,
@@ -526,12 +599,16 @@ PmSlave pmSlaveEth2_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmEth2Wake,
+	.wake = &pmEth2Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmEth3Wake = {
+static PmWakeEventGicProxy pmEth3Wake = {
+	.wake = {
+		.derived = &pmEth3Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC31_MASK |
 		LPD_SLCR_GICP1_IRQ_MASK_SRC30_MASK,
 	.group = 1U,
@@ -551,12 +628,16 @@ PmSlave pmSlaveEth3_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmEth3Wake,
+	.wake = &pmEth3Wake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmAdmaWake = {
+static PmWakeEventGicProxy pmAdmaWake = {
+	.wake = {
+		.derived = &pmAdmaWake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC19_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC18_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC17_MASK |
@@ -582,12 +663,16 @@ PmSlave pmSlaveAdma_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmAdmaWake,
+	.wake = &pmAdmaWake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmNandWake = {
+static PmWakeEventGicProxy pmNandWake = {
+	.wake = {
+		.derived = &pmNandWake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC14_MASK,
 	.group = 0U,
 };
@@ -606,12 +691,16 @@ PmSlave pmSlaveNand_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmNandWake,
+	.wake = &pmNandWake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmQSpiWake = {
+static PmWakeEventGicProxy pmQSpiWake = {
+	.wake = {
+		.derived = &pmQSpiWake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC15_MASK,
 	.group = 0U,
 };
@@ -630,12 +719,16 @@ PmSlave pmSlaveQSpi_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmQSpiWake,
+	.wake = &pmQSpiWake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmGpioWake = {
+static PmWakeEventGicProxy pmGpioWake = {
+	.wake = {
+		.derived = &pmGpioWake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP0_IRQ_MASK_SRC16_MASK,
 	.group = 0U,
 };
@@ -654,7 +747,7 @@ PmSlave pmSlaveGpio_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmGpioWake,
+	.wake = &pmGpioWake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
@@ -773,7 +866,11 @@ PmSlave pmSlaveDP_g = {
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmIpiApuWake = {
+static PmWakeEventGicProxy pmIpiApuWake = {
+	.wake = {
+		.derived = &pmIpiApuWake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC3_MASK,
 	.group = 1U,
 };
@@ -792,7 +889,7 @@ PmSlave pmSlaveIpiApu_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmIpiApuWake,
+	.wake = &pmIpiApuWake.wake,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };

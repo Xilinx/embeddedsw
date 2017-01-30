@@ -32,6 +32,7 @@
 #include "pm_slave.h"
 #include "lpd_slcr.h"
 #include "pm_periph.h"
+#include "pm_master.h"
 
 /* GIC Proxy base address */
 #define GIC_PROXY_BASE_ADDR		LPD_SLCR_GICP0_IRQ_STATUS
@@ -45,44 +46,37 @@
 #define PM_GIC_PROXY_IS_ENABLED		0x1U
 
 /**
- * PmGicProxySetWake() - Set/clear GIC Proxy wake
- * @slv		Pointer to the slave whose interrupt needs to be set/cleared
- * @enable	Flag stating that the slave's interrupt shall be enabled (!0)
- *		or disabled. The value of this flag is forwarded from the
- *		PmSetWakeupSource API.
- *
- * @return	XST_SUCCESS if processed correctly, XST_FAILURE if interrupt
- *		for the given slave is not found
+ * PmWakeEventGicProxySet() - Set GIC Proxy wake event as the wake source
+ * @wake	Wake event
+ * @ipiMask	IPI mask of the master which sets the wake source
+ * @enable	Flag: for enable non-zero value, for disable value zero
  */
-static int PmGicProxySetWake(const PmSlave* const slv, const u32 enable)
+static void PmWakeEventGicProxySet(PmWakeEvent* const wake, const u32 ipiMask,
+				   const u32 enable)
 {
-	int status = XST_FAILURE;
-	u32 addr;
+	PmWakeEventGicProxy* gicWake = (PmWakeEventGicProxy*)wake->derived;
 
-	if ((NULL == slv->wake) || (slv->wake->group >= pmGicProxy.groupsCnt)) {
+	/* Only APU's interrupts are routed through GIC Proxy */
+	if (ipiMask != pmMasterApu_g.ipiMask) {
 		goto done;
 	}
 
-	if (0U != enable) {
-		/* Calculate address of the status register */
-		addr = GIC_PROXY_BASE_ADDR +
-		       GIC_PROXY_GROUP_OFFSET(slv->wake->group) +
-		       GIC_PROXY_IRQ_STATUS_OFFSET;
+	if (0U == enable) {
+		pmGicProxy.groups[gicWake->group].setMask &= ~gicWake->mask;
+	} else {
+		u32 addr = GIC_PROXY_BASE_ADDR +
+			   GIC_PROXY_GROUP_OFFSET(gicWake->group) +
+			   GIC_PROXY_IRQ_STATUS_OFFSET;
 
 		/* Write 1 into status register to clear interrupt */
-		XPfw_Write32(addr, slv->wake->mask);
+		XPfw_Write32(addr, gicWake->mask);
 
 		/* Remember which interrupt in the group needs to be enabled */
-		pmGicProxy.groups[slv->wake->group].setMask |= slv->wake->mask;
-	} else {
-		/* Clear remembered flag, interrupt shall not be enabled */
-		pmGicProxy.groups[slv->wake->group].setMask &= ~slv->wake->mask;
+		pmGicProxy.groups[gicWake->group].setMask |= gicWake->mask;
 	}
 
-	status = XST_SUCCESS;
-
 done:
-	return status;
+	return;
 }
 
 /**
@@ -93,7 +87,7 @@ static void PmGicProxyEnable(void)
 	u32 g;
 
 	/* Always enable APU's IPI as the wake-up source (callback wake-up) */
-	PmGicProxySetWake(&pmSlaveIpiApu_g, 1U);
+	PmWakeEventGicProxySet(pmSlaveIpiApu_g.wake, pmMasterApu_g.ipiMask, 1U);
 
 	for (g = 0U; g < pmGicProxy.groupsCnt; g++) {
 		u32 addr = GIC_PROXY_BASE_ADDR +
@@ -169,8 +163,11 @@ static PmGicProxyGroup pmGicProxyGroups[5];
 PmGicProxy pmGicProxy = {
 	.groups = pmGicProxyGroups,
 	.groupsCnt = ARRAY_SIZE(pmGicProxyGroups),
-	.setWake = PmGicProxySetWake,
 	.clear = PmGicProxyClear,
 	.enable = PmGicProxyEnable,
 	.flags = 0U,
+};
+
+PmWakeEventClass pmWakeEventClassGicProxy_g = {
+	.set = PmWakeEventGicProxySet,
 };

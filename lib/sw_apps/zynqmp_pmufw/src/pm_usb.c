@@ -139,7 +139,11 @@ static const PmSlaveFsm slaveUsbFsm = {
 	.enterState = PmUsbFsmHandler,
 };
 
-static PmGicProxyWake pmUsb0Wake = {
+static PmWakeEventGicProxy pmUsb0Wake = {
+	.wake = {
+		.derived = &pmUsb0Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC10_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC4_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC3_MASK |
@@ -170,7 +174,7 @@ PmSlaveUsb pmSlaveUsb0_g = {
 		},
 		.class = NULL,
 		.reqs = NULL,
-		.wake = &pmUsb0Wake,
+		.wake = &pmUsb0Wake.wake,
 		.slvFsm = &slaveUsbFsm,
 		.flags = 0U,
 	},
@@ -179,7 +183,11 @@ PmSlaveUsb pmSlaveUsb0_g = {
 	.rstId = PM_RESET_USB0_CORERESET,
 };
 
-static PmGicProxyWake pmUsb1Wake = {
+static PmWakeEventGicProxy pmUsb1Wake = {
+	.wake = {
+		.derived = &pmUsb1Wake,
+		.class = &pmWakeEventClassGicProxy_g,
+	},
 	.mask = LPD_SLCR_GICP2_IRQ_MASK_SRC11_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC9_MASK |
 		LPD_SLCR_GICP2_IRQ_MASK_SRC8_MASK |
@@ -204,7 +212,7 @@ PmSlaveUsb pmSlaveUsb1_g = {
 		},
 		.class = NULL,
 		.reqs = NULL,
-		.wake = &pmUsb1Wake,
+		.wake = &pmUsb1Wake.wake,
 		.slvFsm = &slaveUsbFsm,
 		.flags = 0U,
 	},

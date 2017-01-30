@@ -39,13 +39,13 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 #include "pm_node.h"
-#include "pm_gic_proxy.h"
 
 /* Forward declarations */
 typedef struct PmMaster PmMaster;
 typedef struct PmRequirement PmRequirement;
 typedef struct PmSlave PmSlave;
 typedef struct PmSlaveClass PmSlaveClass;
+typedef struct PmWakeEvent PmWakeEvent;
 
 typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 					   const PmStateId nextState);
@@ -66,6 +66,24 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
+/**
+ * PmWakeEventClass - Class of the wake event
+ * @set		Set event as the wake source (must be defined by each class)
+ */
+typedef struct PmWakeEventClass {
+	void (*const set)(PmWakeEvent* const wake, const u32 ipi, const u32 en);
+} PmWakeEventClass;
+
+/**
+ * PmWakeEvent - Structure to model wake event that can be triggered by slave
+ * @derived	Pointer to the derived structure
+ * @class	Pointer to the class specific to the derived structure
+ */
+typedef struct PmWakeEvent {
+	void* const derived;
+	PmWakeEventClass* const class;
+} PmWakeEvent;
+
 /**
  * PmStateTran - Transition for a state in finite state machine
  * @latency     Transition latency in microseconds
@@ -111,7 +129,7 @@ typedef struct PmSlave {
 	PmNode node;
 	PmSlaveClass* const class;
 	PmRequirement* reqs;
-	const PmGicProxyWake* const wake;
+	PmWakeEvent* const wake;
 	const PmSlaveFsm* slvFsm;
 	u8 flags;
 } PmSlave;

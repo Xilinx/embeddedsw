@@ -32,19 +32,20 @@
 #define PM_GIC_H_
 
 #include "pm_common.h"
-
-typedef struct PmSlave PmSlave;
+#include "pm_slave.h"
 
 /**
- * PmGicProxyWake - Properties of the GIC Proxy wake event
+ * PmWakeEventGicProxy - GIC Proxy wake event, derived from PmWakeEvent
+ * @wake	Basic PmWakeEvent structure
  * @mask	Interrupt mask associated with the slave's wake event in the
  *		GIC Proxy group
  * @group	Index of the group containing the interrupt in the GIC Proxy
  */
-typedef struct {
+typedef struct PmWakeEventGicProxy {
+	PmWakeEvent wake;
 	const u32 mask;
 	const u8 group;
-} PmGicProxyWake;
+} PmWakeEventGicProxy;
 
 /**
  * GicProxyGroup - Properties of a GIC Proxy group
@@ -59,8 +60,6 @@ typedef struct {
  * PmGicProxy - Structure containing GIC Proxy properties
  * @groups	Pointer to the array of GIC Proxy groups
  * @groupsCnt	Number of elements in the array of GIC Proxy groups
- * @setWake	Function to be called in order to inform the GIC Proxy about
- *		the set wake source being enabled/disabled for a slave
  * @clear	Clear all set wake-up sources (flags for all groups)
  * @enable	Function that enables GIC Proxy and all interrupts that are set
  *		as wake sources
@@ -68,7 +67,6 @@ typedef struct {
  */
 typedef struct {
 	PmGicProxyGroup* const groups;
-	int (*const setWake)(const PmSlave* const slv, const u32 enable);
 	void (*const clear)(void);
 	void (*const enable)(void);
 	const u8 groupsCnt;
@@ -79,5 +77,7 @@ typedef struct {
  * Global data declarations
  ********************************************************************/
 extern PmGicProxy pmGicProxy;
+
+extern PmWakeEventClass pmWakeEventClassGicProxy_g;
 
 #endif
