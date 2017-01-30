@@ -19,7 +19,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 INCLUDEFILES=*.h
 LIBSOURCES=*.c
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling v_axi4s_remap"
@@ -31,4 +31,4 @@ include:
 	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
