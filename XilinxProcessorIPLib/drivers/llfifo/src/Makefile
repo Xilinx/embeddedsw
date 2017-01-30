@@ -12,7 +12,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 INCLUDEFILES:=xllfifo.h xllfifo_hw.h xstreamer.h
 LIBSOURCES:=*.c
 OUTS := *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling llfifo"
@@ -24,4 +24,4 @@ include:
 	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
