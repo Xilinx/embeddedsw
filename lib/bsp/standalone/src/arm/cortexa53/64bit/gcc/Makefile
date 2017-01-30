@@ -48,7 +48,7 @@ INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 INCLUDEFILES=*.h
 INCLUDEFILES+=includes_ps/*.h
 libs: $(LIBS)
@@ -65,4 +65,4 @@ standalone_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
