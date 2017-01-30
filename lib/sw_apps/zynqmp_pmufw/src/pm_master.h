@@ -173,6 +173,7 @@ extern PmMaster pmMasterRpu1_g;
  ********************************************************************/
 /* Get functions */
 PmMaster* PmGetMasterByIpiMask(const u32 mask);
+PmMaster* PmMasterGetNextFromIpiMask(u32* const mask);
 
 PmProc* PmGetProcByWfiStatus(const u32 mask);
 PmProc* PmGetProcByWakeStatus(const u32 mask);

@@ -574,24 +574,15 @@ int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 {
 	int status = XST_SUCCESS;
 	u32 masterIpiMasks = perms;
-	u32 i, masterCnt;
 
 	if (0U != (policy & PM_SLAVE_FLAG_IS_SHAREABLE)) {
 		slave->flags |= PM_SLAVE_FLAG_IS_SHAREABLE;
 	}
 
-	/*
-	 * Number of masters allowed to use the slave is equal to the number of
-	 * set bits. By extracting one-hot mask we get IPI mask associated with
-	 * the master, then by IPI mask we get the pointer to master.
-	 */
-	masterCnt = __builtin_popcount(perms);
-	for (i = 0U; i < masterCnt; i++) {
-		u32 ipiMask;
-		PmMaster* master;
+	/* Extract and process one by one master from the encoded perms */
+	while (0U != masterIpiMasks) {
+		PmMaster* master = PmMasterGetNextFromIpiMask(&masterIpiMasks);
 
-		ipiMask = 1U << __builtin_ctz(masterIpiMasks);
-		master = PmGetMasterByIpiMask(ipiMask);
 		if (NULL == master) {
 			status = XST_FAILURE;
 			goto done;
@@ -601,9 +592,6 @@ int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
-
-		/* Done with this master, clear the bit */
-		masterIpiMasks &= ~ipiMask;
 	}
 
 done:

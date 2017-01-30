@@ -401,6 +401,35 @@ PmMaster* PmGetMasterByIpiMask(const u32 mask)
 }
 
 /**
+ * PmMasterGetNextFromIpiMask() - Get next master from ORed masters' IPI mask
+ * @mask	Mask from which we need to extract a master
+ *
+ * @return	Pointer to a master of NULL if mask does not encode a master
+ *
+ * @note	The argument represents ORed IPI masks of multiple (or none)
+ *		masters, where each master is encoded by a set bit. If a pointer
+ *		to the master is found, the associated bitfield in the mask is
+ *		cleared.
+ */
+PmMaster* PmMasterGetNextFromIpiMask(u32* const mask)
+{
+	PmMaster* master = NULL;
+	u32 masterCnt = __builtin_popcount(*mask);
+	u32 ipiMask;
+
+	if (0U == masterCnt) {
+		goto done;
+	}
+
+	ipiMask = 1U << __builtin_ctz(*mask);
+	master = PmGetMasterByIpiMask(ipiMask);
+	*mask &= ~ipiMask;
+
+done:
+	return master;
+}
+
+/**
  * PmGetProcOfThisMaster() - Get processor pointer with given node id, if
  *          such processor exist within the master
  * @master  Master within which the search is performed
