@@ -42,6 +42,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
+* 6.2   mus  01/27/17 Updated to support IAR compiler
 * </pre>
 *
 * @note
@@ -141,7 +142,11 @@ void Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 
 	Xil_DCacheFlush();
 	Xil_ICacheInvalidate();
+#if defined (__GNUC__)
 	NextAvailableMemRegion = mfcp(XREG_CP15_MPU_MEMORY_REG_NUMBER);
+#elif defined (__ICCARM__)
+	 mfcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,NextAvailableMemRegion);
+#endif
 	NextAvailableMemRegion++;
 	if (NextAvailableMemRegion > 16) {
 		xdbg_printf(DEBUG, "No regions available\r\n");
@@ -184,7 +189,11 @@ void Xil_EnableMPU(void)
 	u32 CtrlReg, Reg;
 	s32 DCacheStatus=0, ICacheStatus=0;
 	/* enable caches only if they are disabled */
+#if defined (__GNUC__)
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL,CtrlReg);
+#endif
 	if ((CtrlReg & XREG_CP15_CONTROL_C_BIT) != 0x00000000U) {
 		DCacheStatus=1;
 	}
@@ -198,7 +207,11 @@ void Xil_EnableMPU(void)
 	if(ICacheStatus != 0){
 		Xil_ICacheDisable();
 	}
+#if defined (__GNUC__)
 	Reg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	 mfcp(XREG_CP15_SYS_CONTROL,Reg);
+#endif
 	Reg |= 0x00000001U;
 	dsb();
 	mtcp(XREG_CP15_SYS_CONTROL, Reg);
@@ -227,7 +240,12 @@ void Xil_DisableMPU(void)
 	u32 CtrlReg, Reg;
 	s32 DCacheStatus=0, ICacheStatus=0;
 	/* enable caches only if they are disabled */
+
+#if defined (__GNUC__)
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL,CtrlReg);
+#endif
 	if ((CtrlReg & XREG_CP15_CONTROL_C_BIT) != 0x00000000U) {
 		DCacheStatus=1;
 	}
@@ -243,7 +261,11 @@ void Xil_DisableMPU(void)
 	}
 
 	mtcp(XREG_CP15_INVAL_BRANCH_ARRAY, 0);
+#if defined (__GNUC__)
 	Reg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL,Reg);
+#endif
 	Reg &= ~(0x00000001U);
 	dsb();
 	mtcp(XREG_CP15_SYS_CONTROL, Reg);

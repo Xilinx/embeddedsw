@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,6 +44,7 @@
 * 5.04	pkp  12/18/15 Updated MPU initialization as per the proper address map
 * 6.00  pkp  06/27/16 moving the Init_MPU code to .boot section since it is a
 *                     part of processor boot process
+* 6.2   mus  01/27/17 Updated to support IAR compiler
 * </pre>
 *
 * @note
@@ -102,10 +103,16 @@ static const struct {
 };
 
 /************************** Function Prototypes ******************************/
+#if defined (__GNUC__)
 void Init_MPU(void) __attribute__((__section__(".boot")));
 static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib) __attribute__((__section__(".boot")));
 static void Xil_DisableMPURegions(void) __attribute__((__section__(".boot")));
-
+#elif defined (__ICCARM__)
+#pragma default_function_attributes = @ ".boot"
+void Init_MPU(void);
+static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib);
+static void Xil_DisableMPURegions(void);
+#endif
 /*****************************************************************************
 *
 * Initialize MPU for a given address map and Enabled the background Region in
@@ -274,7 +281,11 @@ static void Xil_DisableMPURegions(void)
 	u32 Index;
 	for (Index = 0; Index <= 15; Index++) {
 		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
+#if defined (__GNUC__)
 		Temp = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
+#elif defined (__ICCARM__)
+		mfcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
+#endif
 		Temp &= (~REGION_EN);
 		dsb();
 		mtcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
@@ -283,3 +294,7 @@ static void Xil_DisableMPURegions(void)
 	}
 
 }
+
+#if defined (__ICCARM__)
+#pragma default_function_attributes =
+#endif

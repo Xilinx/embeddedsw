@@ -82,13 +82,20 @@ proc generate {os_handle} {
         foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
             file copy -force $entry "./src"
             file delete -force "./src/gcc"
+            file delete -force "./src/iccarm"
         }
         if {[string compare -nocase $compiler "armcc"] != 0 && [string compare -nocase $compiler "iccarm"] != 0} {
             set commonccdir "./src/arm/common/gcc"
             foreach entry [glob -nocomplain [file join $commonccdir *]] {
 	         file copy -force $entry "./src/"
             }
+        } elseif {[string compare -nocase $compiler "iccarm"] == 0} {
+            set commonccdir "./src/arm/common/iccarm"
+            foreach entry [glob -nocomplain [file join $commonccdir *]] {
+                 file copy -force $entry "./src/"
+            }
         }
+
     }
 
     # Only processor specific file should be copied to specified standalone folder
@@ -187,7 +194,11 @@ proc generate {os_handle} {
         "psu_cortexr5"  {
 	    set procdrv [hsi::get_sw_processor]
 	    set includedir "./src/arm/cortexa53/includes_ps"
-	    set ccdir "./src/arm/cortexr5/gcc"
+	    if {[string compare -nocase $compiler "iccarm"] == 0} {
+	           set ccdir "./src/arm/cortexr5/iccarm"
+            } else {
+	           set ccdir "./src/arm/cortexr5/gcc"
+	   }
 	    foreach entry [glob -nocomplain [file join $cortexr5srcdir *]] {
 		file copy -force $entry "./src/"
 	    }
@@ -196,6 +207,7 @@ proc generate {os_handle} {
 	    }
 	    file copy -force $includedir "./src/"
 	    file delete -force "./src/gcc"
+	    file delete -force "./src/iccarm"
 	    file delete -force "./src/profile"
             if { $enable_sw_profile == "true" } {
                 error "ERROR: Profiling is not supported for R5"

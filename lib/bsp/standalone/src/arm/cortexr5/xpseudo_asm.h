@@ -42,6 +42,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
+* 6.2   mus  01/27/17 Updated to support IAR compiler
 * </pre>
 *
 ******************************************************************************/
@@ -49,6 +50,9 @@
 #define XPSEUDO_ASM_H /* by using protection macros */
 
 #include "xreg_cortexr5.h"
+#if defined (__GNUC__)
 #include "xpseudo_asm_gcc.h"
-
+#elif defined (__ICCARM__)
+#include "xpseudo_asm_iccarm.h"
+#endif
 #endif /* XPSEUDO_ASM_H */

@@ -42,6 +42,7 @@
 * Ver    Who Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 5.00 	pkp  02/20/14 First release
+* 6.2   mus  01/27/17 Updated to support IAR compiler
 * </pre>
 *
 ******************************************************************************/
@@ -60,10 +61,10 @@
 
 #define IRQ_FIQ_MASK 0xC0	/* Mask IRQ and FIQ interrupts in cpsr */
 
-
+#if defined (__GNUC__)
 extern s32  _stack_end;
 extern s32  __undef_stack;
-
+#endif
 /****************************************************************************/
 /************************** Function Prototypes ******************************/
 
@@ -83,8 +84,11 @@ void Xil_DCacheEnable(void)
 	register u32 CtrlReg;
 
 	/* enable caches only if they are disabled */
+#if defined (__GNUC__)
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-
+#elif defined (__ICCARM__)
+	 mfcp(XREG_CP15_SYS_CONTROL,CtrlReg);
+#endif
 	if ((CtrlReg & XREG_CP15_CONTROL_C_BIT)==0x00000000U) {
 		/* invalidate the Data cache */
 		Xil_DCacheInvalidate();
@@ -115,7 +119,11 @@ void Xil_DCacheDisable(void)
 	Xil_DCacheFlush();
 
 	/* disable the Data cache */
+#if defined (__GNUC__)
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	 mfcp(XREG_CP15_SYS_CONTROL,CtrlReg);
+#endif
 
 	CtrlReg &= ~(XREG_CP15_CONTROL_C_BIT);
 
@@ -141,14 +149,14 @@ void Xil_DCacheInvalidate(void)
 	currmask = mfcpsr();
 	mtcpsr(currmask | IRQ_FIQ_MASK);
 
-
+#if defined (__GNUC__)
 	stack_end = (u32 )&_stack_end;
 	stack_start = (u32 )&__undef_stack;
 	stack_size = stack_start-stack_end;
 
 	/* Flush stack memory to save return address */
 	Xil_DCacheFlushRange(stack_end, stack_size);
-
+#endif
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
 
 	/*invalidate all D cache*/
@@ -269,8 +277,11 @@ void Xil_DCacheFlush(void)
 	/* Select cache level 0 and D cache in CSSR */
 	mtcp(XREG_CP15_CACHE_SIZE_SEL, 0);
 
+#if defined (__GNUC__)
 	CsidReg = mfcp(XREG_CP15_CACHE_SIZE_ID);
-
+#elif defined (__ICCARM__)
+	 mfcp(XREG_CP15_CACHE_SIZE_ID,CsidReg);
+#endif
 	/* Determine Cache Size */
 
 	CacheSize = (CsidReg >> 13U) & 0x000001FFU;
@@ -431,9 +442,11 @@ void Xil_ICacheEnable(void)
 	register u32 CtrlReg;
 
 	/* enable caches only if they are disabled */
-
+#if defined (__GNUC__)
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
-
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL, CtrlReg);
+#endif
 	if ((CtrlReg & XREG_CP15_CONTROL_I_BIT)==0x00000000U) {
 		/* invalidate the instruction cache */
 		mtcp(XREG_CP15_INVAL_IC_POU, 0);
@@ -466,8 +479,11 @@ void Xil_ICacheDisable(void)
 	mtcp(XREG_CP15_INVAL_IC_POU, 0);
 
 		/* disable the instruction cache */
-
+#if defined (__GNUC__)
 	CtrlReg = mfcp(XREG_CP15_SYS_CONTROL);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_SYS_CONTROL,CtrlReg);
+#endif
 
 	CtrlReg &= ~(XREG_CP15_CONTROL_I_BIT);
 
