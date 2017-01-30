@@ -60,6 +60,8 @@
 *2.10   rco   11/15/16   Add a check for logo layer enable before loading logo
 *                        pixel alpha. IP confguration can have logo feature
 *                        disabled but logo pixel alpha enabled
+*             01/26/16   Bug fix - Read power on default video stream
+*                        properties from IP configuration
 * </pre>
 *
 ******************************************************************************/
@@ -142,7 +144,6 @@ static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
 {
   u32 index;
   XVidC_VideoStream VidStrm = {0};
-  XVidC_VideoTiming const *ResTiming;
   XV_mix *MixPtr;
 
   MixPtr = &InstancePtr->Mix;
@@ -151,16 +152,14 @@ static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
   XVMix_LayerDisable(InstancePtr, XVMIX_LAYER_ALL);
 
   /* Set Default Stream In and Out */
-  VidStrm.VmId          = XVIDC_VM_1920x1080_60_P;
-  VidStrm.ColorFormatId = XVIDC_CSF_RGB;
-  VidStrm.FrameRate     = XVIDC_FR_60HZ;
-  VidStrm.IsInterlaced  = FALSE;
-  VidStrm.ColorDepth    = MixPtr->Config.MaxDataWidth;
-  VidStrm.PixPerClk     = MixPtr->Config.PixPerClk;
-
-  ResTiming = XVidC_GetTimingInfo(VidStrm.VmId);
-
-  VidStrm.Timing = *ResTiming;
+  VidStrm.VmId           = XVIDC_VM_CUSTOM;
+  VidStrm.ColorFormatId  = MixPtr->Config.ColorFormat;
+  VidStrm.FrameRate      = XVIDC_FR_60HZ;
+  VidStrm.IsInterlaced   = FALSE;
+  VidStrm.ColorDepth     = MixPtr->Config.MaxDataWidth;
+  VidStrm.PixPerClk      = MixPtr->Config.PixPerClk;
+  VidStrm.Timing.HActive = MixPtr->Config.MaxWidth;
+  VidStrm.Timing.VActive = MixPtr->Config.MaxHeight;
 
   XVMix_SetVidStream(InstancePtr, &VidStrm);
 
