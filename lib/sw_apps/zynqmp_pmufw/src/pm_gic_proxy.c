@@ -168,6 +168,12 @@ PmGicProxy pmGicProxy = {
 	.flags = 0U,
 };
 
+/*
+ * This event class doesn't have config method because the wake events are not
+ * individually controlled. Instead, all GIC Proxy events are enabled when FPD
+ * gets powered down and disabled when APU wakes, using the PmGicProxy methods.
+ */
 PmWakeEventClass pmWakeEventClassGicProxy_g = {
 	.set = PmWakeEventGicProxySet,
+	.config = NULL,
 };

@@ -514,6 +514,30 @@ done:
 }
 
 /**
+ * PmMasterConfigWakeEvents() - Configure wake events for the master
+ * @master	Master for which wake events should be configured
+ * @enable	Flag (true to enable event propagation, false otherwise)
+ *
+ * @note	Config method of the wake event class must ensure that only set
+ *		wake gets enabled/disabled.
+ */
+static void PmMasterConfigWakeEvents(PmMaster* const master, const bool enable)
+{
+	PmRequirement* req = master->reqs;
+
+	while (NULL != req) {
+		PmWakeEvent* we = req->slave->wake;
+
+		if ((NULL != we) && (NULL != we->class)) {
+			if (NULL != we->class->config) {
+				we->class->config(we, master->ipiMask, enable);
+			}
+		}
+		req = req->nextSlave;
+	}
+}
+
+/**
  * PmWakeUpCancelScheduled() - Cancel scheduled wake-up sources of the master
  * @master  Pointer to a master whose scheduled wake-up sources should be
  *          cancelled
@@ -533,6 +557,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 	if (NULL != master->gic) {
 		master->gic->clear();
 	}
+	PmMasterConfigWakeEvents(master, 0U);
 }
 
 /**
@@ -679,6 +704,7 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 			if (true == PmIsRequestedToSuspend(master)) {
 				status = PmMasterSuspendAck(master, XST_SUCCESS);
 			}
+			PmMasterConfigWakeEvents(master, 1U);
 		}
 		break;
 	case PM_PROC_EVENT_ABORT_SUSPEND:
@@ -697,6 +723,7 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 		} else {
 			/* Must have else branch due to MISRA */
 		}
+		PmMasterConfigWakeEvents(master, 0U);
 		master->state = PM_MASTER_STATE_ACTIVE;
 		break;
 	case PM_PROC_EVENT_FORCE_PWRDN:

@@ -69,9 +69,11 @@ typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
 /**
  * PmWakeEventClass - Class of the wake event
  * @set		Set event as the wake source (must be defined by each class)
+ * @config	Configure the propagation of wake event (master requested)
  */
 typedef struct PmWakeEventClass {
 	void (*const set)(PmWakeEvent* const wake, const u32 ipi, const u32 en);
+	void (*const config)(PmWakeEvent* const wake, const u32 ipi, const u32 en);
 } PmWakeEventClass;
 
 /**

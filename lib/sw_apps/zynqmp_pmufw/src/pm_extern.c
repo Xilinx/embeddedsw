@@ -35,10 +35,12 @@
  * PmWakeEventExtern - External wake event, derived from PmWakeEvent
  * @wake	Basic PmWakeEvent structure
  * @set		ORed IPI masks of masters that have set wake enabled
+ * @enabled	ORed IPI masks of masters that are waiting to be woken up
  */
 typedef struct PmWakeEventExtern {
 	PmWakeEvent wake;
 	u32 set;
+	u32 enabled;
 } PmWakeEventExtern;
 
 /**
@@ -59,8 +61,78 @@ static void PmWakeEventExternSet(PmWakeEvent* const wake, const u32 ipiMask,
 	}
 }
 
+/**
+ * PmWakeEventExternEnable() - Enable external wake event for a master
+ * @ext		External wake event
+ * @ipiMask	IPI mask of the master which enables the wake source
+ */
+static void PmWakeEventExternEnable(PmWakeEventExtern* const ext,
+				    const u32 ipiMask)
+{
+	/* If the propagation of wake event is already enabled we're done */
+	if (0U != ext->enabled) {
+		goto done;
+	}
+
+done:
+	ext->enabled |= ipiMask;
+	return;
+}
+
+/**
+ * PmWakeEventExternDisable() - Disable the propagation of external wake event
+ * @ext		External wake event
+ * @ipiMask	IPI mask of the master which disables the wake source
+ */
+static void PmWakeEventExternDisable(PmWakeEventExtern* const ext,
+				     const u32 ipiMask)
+{
+	ext->set &= ~ipiMask;
+
+	/* If the propagation of wake event is not enabled we're done */
+	if (0U == ext->enabled) {
+		goto done;
+	}
+	ext->enabled &= ~ipiMask;
+
+	/* If there are still masters waiting for this wake we're done */
+	if (0U != ext->enabled) {
+		goto done;
+	}
+
+done:
+	return;
+}
+
+/**
+ * PmWakeEventExternConfig() - Configure propagation of external wake event
+ * @wake	Wake event
+ * @ipiMask	IPI mask of the master which configures the wake
+ * @enable	Flag: for enable non-zero value, for disable value zero
+ */
+static void PmWakeEventExternConfig(PmWakeEvent* const wake, const u32 ipiMask,
+				    const u32 enable)
+{
+	PmWakeEventExtern* ext = (PmWakeEventExtern*)wake->derived;
+
+	/* If wake event was not set by the master there is nothing to do */
+	if (0U == (ipiMask & ext->set)) {
+		goto done;
+	}
+
+	if (0U != enable) {
+		PmWakeEventExternEnable(ext, ipiMask);
+	} else {
+		PmWakeEventExternDisable(ext, ipiMask);
+	}
+
+done:
+	return;
+}
+
 static PmWakeEventClass pmWakeEventClassExtern = {
 	.set = PmWakeEventExternSet,
+	.config = PmWakeEventExternConfig,
 };
 
 static PmWakeEventExtern pmExternWake = {
@@ -69,6 +141,7 @@ static PmWakeEventExtern pmExternWake = {
 		.class = &pmWakeEventClassExtern,
 	},
 	.set = 0U,
+	.enabled = 0U,
 };
 
 static const u32 pmExternDeviceFsmStates[] = {
