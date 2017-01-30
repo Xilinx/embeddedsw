@@ -52,7 +52,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 FATFS_DIR = .
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 FATFS_SRCS := $(wildcard *.c)
 FATFS_OBJS = $(addprefix $(FATFS_DIR)/, $(FATFS_SRCS:%.c=%.o))
 
@@ -76,7 +76,7 @@ libxilffs_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(FATFS_DIR)/${OUTS}
+	rm -rf $(FATFS_DIR)/${OBJECTS}
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(FATFS_DIR)/%.o: $(FATFS_DIR)/%.c $(INCLUDEFILES)
