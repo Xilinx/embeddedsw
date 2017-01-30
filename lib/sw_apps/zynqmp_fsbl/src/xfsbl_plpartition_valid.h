@@ -38,6 +38,14 @@
 *
 *
 ******************************************************************************/
+#ifndef XFSBL_PLPARTITION_VALID_H_
+#define XFSBL_PLPARTITION_VALID_H_	/**< Prevent circular inclusions
+					  *  by using protection macros */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /***************************** Include Files *********************************/
 
 #include "xfsbl_authentication.h"
@@ -47,6 +55,7 @@
 #define XFSBL_CSU_SSS_SRC_SRC_DMA    0x5U
 
 /**************************** Type Definitions *******************************/
+#if defined(XFSBL_SECURE) && defined(XFSBL_BS)
 /** @name XFsblPs_PlAuthentication
  * @{
  */
@@ -92,3 +101,12 @@ typedef struct {
 
 /***************************** Function Prototypes ***************************/
 u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams);
+
+#endif
+/******************************************************************************/
+#ifdef __cplusplus
+}
+
+#endif
+
+#endif /* End of protection macro */

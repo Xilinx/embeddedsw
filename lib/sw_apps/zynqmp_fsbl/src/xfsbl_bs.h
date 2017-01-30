@@ -72,7 +72,12 @@ extern "C" {
 /* Dummy address to indicate that destination is PCAP */
 #define XFSBL_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 
-/* Buffer sizes required for bitstream */
+/*
+ * Buffer sizes required for bitstream
+ * if block size is 8MB and taking chunk size as 32KB(READ_BUFFER_SIZE)
+ * we may require a buffer to store hashs of the chunks is:
+ * HASH_BUFFER_SIZE = (8MB/32KB)* (Sha3/2 hash length)
+ */
 #define READ_BUFFER_SIZE			(32*1024)
 					/**< Buffer Size to store chunk
 					of data */

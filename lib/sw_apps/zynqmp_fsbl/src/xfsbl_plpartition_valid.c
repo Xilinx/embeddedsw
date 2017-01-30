@@ -57,9 +57,9 @@
 /************************** Constant Definitions ****************************/
 
 /************************** Function Prototypes ******************************/
-
+#if defined (XFSBL_BS) && defined (XFSBL_SECURE)
 extern u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
-extern u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u64 Size);
+extern u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size);
 extern void XFsbl_MeasurePerfTime(XTime tCur);
 extern u32 XFsbl_PcapWaitForDone(void);
 static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
@@ -1009,3 +1009,5 @@ END:
 	return Status;
 
 }
+
+#endif

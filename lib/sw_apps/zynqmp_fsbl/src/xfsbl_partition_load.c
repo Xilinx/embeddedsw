@@ -1256,6 +1256,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 						XIH_PARTITION_WORD_LENGTH);
 #endif
 
+#ifdef XFSBL_BS
 	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PL) {
 		/**
 		 * Fsbl hook before bit stream download
@@ -1279,6 +1280,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 #endif
 	}
+#endif
 
 	/* Checksum verification */
 	if (IsChecksumEnabled == TRUE)
@@ -1388,8 +1390,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 				XFsbl_Out32(CSU_PCAP_PROG, 0x0);
 				goto END;
 			}
-		}
 #endif
+		}
 
 #ifdef XFSBL_PERF
 		XFsbl_MeasurePerfTime(tCur);

@@ -86,6 +86,7 @@ void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib);
 const char *XFsbl_GetSiliconIdName(void);
 const char *XFsbl_GetProcEng(void);
 u32 XFsbl_CheckSupportedCpu(u32 CpuId);
+u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size);
 
 #ifndef ARMA53_64
 void XFsbl_RegisterHandlers(void);

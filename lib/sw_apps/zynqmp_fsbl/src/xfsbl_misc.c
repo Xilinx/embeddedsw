@@ -755,7 +755,7 @@ END:
 *		simple DMA.
 *
 ******************************************************************************/
-u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u64 Size)
+u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size)
 {
 	u32 RegVal;
 	u64 SrcAddr = (UINTPTR)SrcPtr;
