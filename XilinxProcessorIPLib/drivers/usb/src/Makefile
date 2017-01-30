@@ -12,7 +12,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 INCLUDEFILES=xusb.h xusb_l.h
 LIBSOURCES=*.c
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling usb"
@@ -24,6 +24,6 @@ include:
 	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
 
 
