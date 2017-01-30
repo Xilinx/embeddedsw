@@ -238,7 +238,7 @@ int XHdcp1x_TxSetCallback(XHdcp1x *InstancePtr,
 	Xil_AssertNonvoid(CallbackFunc != NULL);
 	Xil_AssertNonvoid(CallbackRef != NULL);
 
-	u32 Status;
+	u32 Status = XST_NO_DATA;
 
 	/* Check for handler type */
 	switch (HandlerType)
@@ -1506,6 +1506,9 @@ static void XHdcp1x_TxStartComputations(XHdcp1x *InstancePtr,
 
 	/* Initiate the block cipher */
 	XHdcp1x_CipherDoRequest(InstancePtr, XHDCP1X_CIPHER_REQUEST_BLOCK);
+
+	/* Update NextStatePtr */
+	*NextStatePtr = XHDCP1X_STATE_COMPUTATIONS;
 }
 
 /*****************************************************************************/
@@ -1816,9 +1819,12 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 	u8 Buf[24];
 	u8 KsvList[24];
 	int NumToRead = 0;
-	int NumOfKsvsToRead = 0;
 	int KsvCount = 0;
 	int IsValid = FALSE;
+#if !(defined(XPAR_XV_HDMITX_NUM_INSTANCES) && \
+		(XPAR_XV_HDMITX_NUM_INSTANCES > 0))
+	int NumOfKsvsToRead = 0;
+#endif
 
 	/* Initialize Buf */
 	memset(Buf, 0, 24);
@@ -1831,8 +1837,6 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 
 	/* Determine theNumToRead */
 	NumToRead = (((RepeaterInfo & 0x7Fu) * 5));
-
-	NumOfKsvsToRead = (NumToRead / 5);
 
 #if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
 	/* Read the ksv list */
@@ -1880,6 +1884,9 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 	}
 
 #else
+
+	NumOfKsvsToRead = (NumToRead / 5);
+
 	/* Read the ksv list */
 	do {
 		/* Read 15 bytes at a go */
@@ -2264,8 +2271,9 @@ u32 XHdcp1x_TxGetTopologyMaxDevsExceeded(XHdcp1x *InstancePtr)
 ******************************************************************************/
 XHdcp1x_RepeaterExchange *XHdcp1x_TxGetTopology(XHdcp1x *InstancePtr)
 {
-	u16 RepeaterInfo = 0;
-	int Status = XST_SUCCESS;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if (InstancePtr->IsRepeater) {
 		if (InstancePtr->Rx.CurrentState == XHDCP1X_STATE_AUTHENTICATED) {
@@ -2298,7 +2306,6 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 	/* Check for repeater */
 	if (XHdcp1x_PortIsRepeater(InstancePtr)) {
 		u32 Buf;
-		int totalKsvs;
 
 		/* Set the SHA1 Hash value */
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_VH0,
@@ -2365,8 +2372,6 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 		InstancePtr->RepeaterValues.DeviceCount++;
 #endif
 
-		/* Assemble the ksv list */
-		totalKsvs = InstancePtr->RepeaterValues.DeviceCount;
 	}/* end of (if (downstream is a Repeater)) */
 	else {
 		/* The downstream is not Repeater and we need to
@@ -2398,6 +2403,8 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 
 		InstancePtr->RepeaterValues.KsvList[KsvCount++] = RemoteKsv;
 	}/* end of (else (downstream is a Repeater)) */
+
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/

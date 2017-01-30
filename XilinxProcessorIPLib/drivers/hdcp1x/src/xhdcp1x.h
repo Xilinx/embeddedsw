@@ -718,6 +718,7 @@
 *                       Extended support for Repeater functionality.
 * 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XHdcp1x_CfgInitialize
+* 4.1   yas    11/10/16 Added function XHdcp1x_SetHdmiMode.
 * </pre>
 *
 ******************************************************************************/
@@ -768,7 +769,7 @@ enum XHdcp1x_Rx_StateType {
 	XHDCP1X_RX_STATE_AUTHENTICATED,
 	XHDCP1X_RX_STATE_LINKINTEGRITYFAILED,
 	XHDCP1X_RX_STATE_PHYDOWN,
-} ;
+};
 
 /**
  * This enumerates the Event Types for HDCP Transmitter state machine.
@@ -1245,6 +1246,7 @@ void XHdcp1x_SetTopology(XHdcp1x *InstancePtr,
 void XHdcp1x_SetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
 		u32 ListSize);
 void XHdcp1x_SetTopologyUpdate(XHdcp1x *InstancePtr);
+void XHdcp1x_SetHdmiMode(XHdcp1x *InstancePtr, u8 Value);
 
 #ifdef __cplusplus
 }

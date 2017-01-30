@@ -73,6 +73,7 @@
 *                       XHdcp1x_RxSetTopologyMaxCascadeExceeded,
 *                       XHdcp1x_RxSetTopologyMaxDevsExceeded,
 *                       XHdcp1x_RxCheckEncryptionChange.
+* 4.1   yas    11/10/16 Added function XHdcp1x_RxSetHdmiMode.
 * </pre>
 *
 *****************************************************************************/
@@ -230,6 +231,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Rx.IsDdcSetAddressCallbackSet = (TRUE);
 			Status = XST_SUCCESS;
 			break;
+
 		case (XHDCP1X_HANDLER_DDC_SETREGDATA):
 			InstancePtr->Rx.DdcSetDataCallback
 				= (XHdcp1x_SetDdcHandler)CallbackFunc;
@@ -238,6 +240,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Rx.IsDdcSetDataCallbackSet = (TRUE);
 			Status = XST_SUCCESS;
 			break;
+
 		case (XHDCP1X_HANDLER_DDC_GETREGDATA):
 			InstancePtr->Rx.DdcGetDataCallback
 				= (XHdcp1x_GetDdcHandler)CallbackFunc;
@@ -246,6 +249,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Rx.IsDdcGetDataCallbackSet = (TRUE);
 			Status = XST_SUCCESS;
 			break;
+
 		/* Repeater - trigger Downstream Authentication */
 		/* Eqilvalent of case
 		 * (XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH):
@@ -257,6 +261,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 				= CallbackRef;
 			InstancePtr->Rx.IsRepeaterDownstreamAuthCallbackSet
 				= (TRUE);
+			Status = XST_SUCCESS;
 			break;
 
 		// authenticated
@@ -266,6 +271,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Rx.AuthenticatedCallbackRef
 				= CallbackRef;
 			InstancePtr->Rx.IsAuthenticatedCallbackSet = (TRUE);
+			Status = XST_SUCCESS;
 			break;
 
 		// unauthenticated
@@ -275,6 +281,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Rx.UnauthenticatedCallbackRef
 				= CallbackRef;
 			InstancePtr->Rx.IsUnauthenticatedCallbackSet = (TRUE);
+			Status = XST_SUCCESS;
 			break;
 
 		// topology updated
@@ -284,6 +291,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Rx.TopologyUpdateCallbackRef
 				= CallbackRef;
 			InstancePtr->Rx.IsTopologyUpdateCallbackSet = (TRUE);
+			Status = XST_SUCCESS;
 			break;
 
 		// encryption updated
@@ -293,6 +301,7 @@ int XHdcp1x_RxSetCallback(XHdcp1x *InstancePtr,
 			InstancePtr->Rx.EncryptionUpdateCallbackRef
 				= CallbackRef;
 			InstancePtr->Rx.IsEncryptionUpdateCallbackSet = (TRUE);
+			Status = XST_SUCCESS;
 			break;
 
 		default:
@@ -1579,6 +1588,40 @@ void XHdcp1x_RxSetTopologyMaxDevsExceeded(XHdcp1x *InstancePtr, u8 Value)
 	XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BINFO,
 		&BInfo, XHDCP1X_PORT_SIZE_BINFO);
 
+#endif
+}
+
+/*****************************************************************************/
+/**
+* This function set the HDMI_MODE in the BStatus register of the HDMI RX DDC
+* space.
+*
+* @param	InstancePtr is a pointer to the Hdcp1x core instance.
+* @param	Value is the truth-value.
+*
+* @return	None.
+*
+* @note		None.
+******************************************************************************/
+void XHdcp1x_RxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Value != NULL);
+
+	u32 BStatus;
+
+#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+	/* Update the value of HDMI_MODE bit in the BStatus Register */
+	XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+		&BStatus, XHDCP1X_PORT_SIZE_BSTATUS);
+	if (Value == TRUE) {
+		BStatus |= XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE;
+	} else {
+		BStatus &= ~XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE;
+	}
+	XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+		&BStatus, XHDCP1X_PORT_SIZE_BSTATUS);
 #endif
 }
 

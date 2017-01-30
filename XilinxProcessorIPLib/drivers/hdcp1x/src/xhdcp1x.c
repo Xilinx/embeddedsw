@@ -65,6 +65,7 @@
 *                       XHdcp1x_SetTopologyUpdate.
 * 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XHdcp1x_CfgInitialize
+* 4.1   yas    11/10/16 Added function XHdcp1x_SetHdmiMode.
 * </pre>
 *
 ******************************************************************************/
@@ -1672,6 +1673,40 @@ void XHdcp1x_SetTopologyUpdate(XHdcp1x *InstancePtr)
 		XHdcp1x_RxSetTopologyUpdate(InstancePtr);
 	}
 	else
+#endif
+	{
+		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");
+	}
+}
+
+/*****************************************************************************/
+/**
+* This function set the HDMI_MODE in the BStatus register of the HDMI DDC
+* space.
+*
+* @param    InstancePtr is a pointer to the Hdcp1x core instance.
+* @param	Value is the truth-value.
+*
+* @return   None.
+*
+* @note     None.
+******************************************************************************/
+void XHdcp1x_SetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
+{
+	/* Verify argument. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_TX)
+	/* Check for TX */
+	if (!InstancePtr->Config.IsRx) {
+		//Nothing to be done.
+	} else
+#endif
+#if defined(INCLUDE_RX)
+	/* Check for RX */
+	if (InstancePtr->Config.IsRx) {
+		XHdcp1x_RxSetHdmiMode(InstancePtr, Value);
+	} else
 #endif
 	{
 		XHDCP1X_DEBUG_PRINTF("unknown interface type\r\n");

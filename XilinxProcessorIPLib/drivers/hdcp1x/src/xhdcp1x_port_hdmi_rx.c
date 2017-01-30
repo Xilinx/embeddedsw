@@ -119,7 +119,7 @@ static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 
 	/* Initialize the Bstatus register */
 	memset(Buf, 0, 4);
-	Buf[1] |= (XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE >> 8);
+	/* Not setting the HDMI_MODE bit, it needs to be set from the top */
 	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
 			Buf, 2);
 

@@ -65,6 +65,7 @@
 *                       XHdcp1x_RxSetTopologyMaxCascadeExceeded,
 *                       XHdcp1x_RxSetTopologyMaxDevsExceeded,
 *                       XHdcp1x_RxCheckEncryptionChange.
+* 4.1   yas    11/10/16 Added function XHdcp1x_RxSetHdmiMode.
 * </pre>
 *
 ******************************************************************************/
@@ -130,7 +131,7 @@ void XHdcp1x_RxSetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
 void XHdcp1x_RxSetTopologyUpdate(XHdcp1x *InstancePtr);
 void XHdcp1x_RxSetTopology(XHdcp1x *InstancePtr,
 		const XHdcp1x_RepeaterExchange *TopologyPtr);
-
+void XHdcp1x_RxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value);
 
 #ifdef __cplusplus
 }
