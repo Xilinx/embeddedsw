@@ -13,7 +13,7 @@ INCLUDEFILES=xgpio_l.h xgpio.h
 
 LIBSOURCES=*.c
 OUTS = *.o 
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling gpio"
@@ -25,4 +25,4 @@ include:
 	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR} 
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
