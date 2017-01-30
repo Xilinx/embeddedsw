@@ -38,4 +38,9 @@ typedef struct PmSlave PmSlave;
  ********************************************************************/
 extern PmSlave pmSlaveExternDevice_g;
 
+/*********************************************************************
+ * Function declarations
+ ********************************************************************/
+int PmExternWakeMasters(void);
+
 #endif

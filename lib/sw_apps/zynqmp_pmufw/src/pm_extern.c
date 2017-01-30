@@ -30,6 +30,7 @@
 
 #include "pm_extern.h"
 #include "pm_slave.h"
+#include "pm_master.h"
 
 /**
  * PmWakeEventExtern - External wake event, derived from PmWakeEvent
@@ -174,3 +175,32 @@ PmSlave pmSlaveExternDevice_g = {
 	.slvFsm = &pmExternDeviceFsm,
 	.flags = 0U,
 };
+
+/**
+ * PmExternWakeMasters() - Wake masters that enabled external wake source
+ * @return	Status of performing wake-up
+ */
+int PmExternWakeMasters(void)
+{
+	u32 masters = pmExternWake.enabled;
+	int totalStatus = XST_SUCCESS;
+	int status;
+
+	while (0U != masters) {
+		PmMaster* master;
+
+		master = PmMasterGetNextFromIpiMask(&masters);
+		if (NULL == master) {
+			totalStatus = XST_FAILURE;
+			continue;
+		}
+
+		status = PmMasterWake(master);
+		if (XST_SUCCESS != status) {
+			totalStatus = XST_FAILURE;
+			continue;
+		}
+	}
+
+	return totalStatus;
+}
