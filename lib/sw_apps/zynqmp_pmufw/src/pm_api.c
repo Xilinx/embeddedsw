@@ -305,12 +305,12 @@ done:
  *
  * @return  Extracted acknowledge argument from payload, if payload does not
  *          contain acknowledge argument (because of APIs call declaration),
- *          return REQUEST_ACK_NO
+ *          return REQUEST_ACK_BLOCKING
  */
 u32 PmRequestAcknowledge(const u32 *args)
 {
 	u32 i;
-	u32 ack = REQUEST_ACK_NO;
+	u32 ack = REQUEST_ACK_BLOCKING;
 	const PmApiEntry* entry = NULL;
 
 	for (i = 0U; i < ARRAY_SIZE(pmApiTable); i++) {
