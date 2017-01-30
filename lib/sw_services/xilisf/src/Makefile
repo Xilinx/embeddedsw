@@ -44,7 +44,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 XILISF_DIR = .
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 XILISF_SRCS := $(wildcard *.c)
 XILISF_OBJS = $(addprefix $(XILISF_DIR)/, $(XILISF_SRCS:%.c=%.o))
 
@@ -67,7 +67,7 @@ libxilisf_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(XILISF_DIR)/${OUTS}
+	rm -rf $(XILISF_DIR)/${OBJECTS}
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(XILISF_DIR)/%.o: $(XILISF_DIR)/%.c $(INCLUDEFILES)
