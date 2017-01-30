@@ -69,6 +69,8 @@ proc generate {os_handle} {
 	        foreach entry [glob -nocomplain [file join $armcommonsrcdir *]] {
 	       file copy -force $entry [file join ".." "${standalone_version}" "src"]
 	       file delete -force "../${standalone_version}/src/gcc"
+               file delete -force "../${standalone_version}/src/iccarm"
+
 	     }
 	     set commonccdir "../${standalone_version}/src/arm/common/gcc"
 	     foreach entry [glob -nocomplain [file join $commonccdir *]] {
@@ -92,6 +94,7 @@ proc generate {os_handle} {
 
 				file copy -force $includedir "../${standalone_version}/src/"
 				file delete -force "../${standalone_version}/src/gcc"
+                                file delete -force "../${standalone_version}/src/iccarm"
 				file delete -force "../${standalone_version}/src/profile"
 				if { $enable_sw_profile == "true" } {
 					error "ERROR: Profiling is not supported for R5"
