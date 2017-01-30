@@ -360,6 +360,7 @@ zynqmp_fsbl:
 - Added PL clearing based on the user configuration
 - Added HIVEC support
 - Fixed Vector regions overwritten in R5 FSBL with secure partitions CR#953663
+- Enhanced secure bitstream authentication to more security.
 
 Change Log for 2016.4
 =================================
