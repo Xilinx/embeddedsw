@@ -44,7 +44,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 SECURE_DIR = .
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 SECURE_SRCS := $(wildcard *.c)
 SECURE_OBJS = $(addprefix $(SECURE_DIR)/, $(SECURE_SRCS:%.c=%.o))
 
@@ -70,7 +70,7 @@ libxilsecure_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(SECURE_DIR)/${OUTS}
+	rm -rf $(SECURE_DIR)/${OBJECTS}
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(SECURE_DIR)/%.o: $(SECURE_DIR)/%.c $(INCLUDEFILES)
