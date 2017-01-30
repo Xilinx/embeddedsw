@@ -28,7 +28,7 @@ cpu_cortexa53_v1_0
 cpu_cortexr5_v1_0
 cpu_v2_4
 csudma_v1_0
-devcfg_v3_4
+devcfg_v3_3
 dp_v1_0
 dp_v2_0
 dp_v3_0
