@@ -778,25 +778,6 @@ PmSlave pmSlaveDP_g = {
 	.flags = 0U,
 };
 
-PmSlave pmSlaveAFI_g = {
-	.node = {
-		.derived = &pmSlaveAFI_g,
-		.nodeId = NODE_AFI,
-		.class = &pmNodeClassSlave_g,
-		.parent = &pmPowerDomainLpd_g.power,
-		.clocks = NULL,
-		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
-		.latencyMarg = MAX_LATENCY,
-		.flags = 0U,
-		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
-	},
-	.class = NULL,
-	.reqs = NULL,
-	.wake = NULL,
-	.slvFsm = &pmGenericSlaveFsm,
-	.flags = 0U,
-};
-
 static PmGicProxyWake pmIpiApuWake = {
 	.mask = LPD_SLCR_GICP1_IRQ_MASK_SRC3_MASK,
 	.group = 1U,

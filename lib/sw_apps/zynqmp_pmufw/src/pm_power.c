@@ -554,7 +554,6 @@ static PmNode* pmLpdChildren[] = {
 	&pmSlaveNand_g.node,
 	&pmSlaveQSpi_g.node,
 	&pmSlaveGpio_g.node,
-	&pmSlaveAFI_g.node,
 	&pmSlaveIpiApu_g.node,
 	&pmSlaveIpiRpu0_g.node,
 	&pmSlavePcap_g.node,

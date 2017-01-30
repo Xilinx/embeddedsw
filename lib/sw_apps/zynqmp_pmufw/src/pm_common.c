@@ -155,8 +155,6 @@ const char* PmStrNode(const u32 node)
 		return "NODE_QSPI";
 	case NODE_GPIO:
 		return "NODE_GPIO";
-	case NODE_AFI:
-		return "NODE_AFI";
 	case NODE_DDR:
 		return "NODE_DDR";
 	case NODE_IPI_APU:
