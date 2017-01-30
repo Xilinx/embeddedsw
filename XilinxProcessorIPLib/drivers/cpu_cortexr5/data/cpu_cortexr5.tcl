@@ -90,6 +90,29 @@ proc xdefine_cortexr5_params {drvhandle} {
     }
 
     close $config_inc
+
+    set procdrv [hsi::get_sw_processor]
+    set compiler [common::get_property CONFIG.compiler $procdrv]
+    set compiler_name [file tail $compiler]
+    set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
+    if {[string compare -nocase $compiler_name "iccarm"] == 0} {
+	set temp_flag $extra_flags
+	if {[string compare -nocase $temp_flag "--debug -DARMR5"] != 0} {
+		regsub -- {-g -DARMR5 -Wall -Wextra} $temp_flag "" temp_flag
+		regsub -- {--debug} $temp_flag "" temp_flag
+		set extra_flags "--debug -DARMR5 $temp_flag"
+		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+	}
+
+	set compiler_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == compiler_flags } ] ]
+	if {[string compare -nocase $compiler_flags "-Om --cpu=Cortex-R5"] != 0} {
+		regsub -- {-O2 -c} $compiler_flags "" compiler_flags
+		regsub -- {-mcpu=cortex-r5} $compiler_flags "" compiler_flags
+		regsub -- {-Om --cpu=Cortex-R5 } $compiler_flags "" compiler_flags
+		set compiler_flags "-Om --cpu=Cortex-R5 $compiler_flags"
+		common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
+	}
+   }
 }
 
 proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
