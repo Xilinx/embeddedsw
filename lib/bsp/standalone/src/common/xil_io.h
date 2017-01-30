@@ -71,6 +71,9 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 u16 Xil_EndianSwap16(u16 Data);
 u32 Xil_EndianSwap32(u32 Data);
+#ifdef ENABLE_SAFETY
+extern u32 XStl_RegUpdate(u32 RegAddr, u32 RegVal);
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #if defined __GNUC__
@@ -232,8 +235,12 @@ static INLINE void Xil_Out16(UINTPTR Addr, u16 Value)
 ******************************************************************************/
 static INLINE void Xil_Out32(UINTPTR Addr, u32 Value)
 {
+#ifndef ENABLE_SAFETY
 	volatile u32 *LocalAddr = (volatile u32 *)Addr;
 	*LocalAddr = Value;
+#else
+	XStl_RegUpdate(Addr, Value);
+#endif
 }
 
 /*****************************************************************************/
