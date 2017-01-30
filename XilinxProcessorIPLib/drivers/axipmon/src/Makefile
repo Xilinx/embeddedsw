@@ -15,6 +15,7 @@ OUTS = *.o
 
 
 libs:
+%.o: %.c
 	echo "Compiling axipmon"
 	$(COMPILER) $(COMPILER_FLAGS) $(EXTRA_COMPILER_FLAGS) $(INCLUDES) $(LIBSOURCES)
 	$(ARCHIVER) -r ${RELEASEDIR}/${LIB} ${OUTS}
