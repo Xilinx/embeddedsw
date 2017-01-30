@@ -47,12 +47,14 @@
 * </pre>
 *
 *****************************************************************************/
-#ifndef SRC_XFSBL_USB_H_
-#define SRC_XFSBL_USB_H_
-#include "xusbpsu.h"
+#ifndef XFSBL_USB_H
+#define XFSBL_USB_H
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+#ifdef XFSBL_USB
+#include "xusbpsu.h"
 
 /************************** TypeDef Definitions *****************************/
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -122,6 +124,7 @@ u32 XFsbl_UsbCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length);
 u32 XFsbl_UsbRelease(void);
 u32 XFsbl_CheckTempDfuMemory(u32 Offset);
 
+#endif/*XFSBL_USB*/
 #ifdef __cplusplus
 extern "C" }
 #endif

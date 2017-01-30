@@ -49,14 +49,15 @@
 *****************************************************************************/
 
 
-#ifndef SRC_XFSBL_DFU_UTIL_H_
-#define SRC_XFSBL_DFU_UTIL_H_
+#ifndef XFSBL_DFU_UTIL_H_
+#define XFSBL_DFU_UTIL_H_
 #include "xfsbl_usb.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#ifdef XFSBL_USB
 /**************************** Type Definitions *******************************/
 
 #define USB_DEVICE_DESC				0x01U
@@ -235,6 +236,8 @@ struct XFsblPs_DfuIf {
 #define STATE_DFU_DOWNLOAD_IDLE     0x05U
 #define STATE_DFU_ERROR             0x0AU
 /************************** Function Prototypes ******************************/
+
+#endif/*XFSBL_USB*/
 
 #ifdef __cplusplus
 }
