@@ -44,7 +44,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 xilfpga_DIR = .
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 xilfpga_SRCS := $(wildcard *.c)
 xilfpga_OBJS = $(addprefix $(xilfpga_DIR)/, $(xilfpga_SRCS:%.c=%.o))
 
@@ -66,7 +66,7 @@ libxilfpga_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(xilfpga_DIR)/${OUTS}
+	rm -rf $(xilfpga_DIR)/${OBJECTS}
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(xilfpga_DIR)/%.o: $(xilfpga_DIR)/%.c $(INCLUDEFILES)
