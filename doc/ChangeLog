@@ -2279,3 +2279,8 @@ Added PM node IDs for all remaining devices
 Added capability CAP_WAKEUP
 Updated example to as per API changes
 
+v_frmbuf_rd_v1_0
+CR: 966099 size of ConfigTable array needs to be defined
+
+v_frmbuf_wr_v1_0
+CR: 966099 size of ConfigTable array needs to be defined
