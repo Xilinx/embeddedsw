@@ -12,7 +12,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 INCLUDEFILES=xuartns550.h xuartns550_l.h
 LIBSOURCES=*.c
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling uartns550"
@@ -24,4 +24,4 @@ include:
 	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
