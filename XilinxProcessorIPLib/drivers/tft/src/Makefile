@@ -30,7 +30,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 INCLUDEFILES=xtft.h xtft_hw.h
 LIBSOURCES=*.c
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling tft"
@@ -42,5 +42,5 @@ include:
 	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
 
