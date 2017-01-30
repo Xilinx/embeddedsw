@@ -258,7 +258,7 @@ dict set node_map NODE_QSPI { label NODE_QSPI periph psu_qspi_0 type slave }
 dict set node_map NODE_GPIO { label NODE_GPIO periph psu_gpio_0 type slave }
 dict set node_map NODE_CAN_0 { label NODE_CAN_0 periph psu_can_0 type slave }
 dict set node_map NODE_CAN_1 { label NODE_CAN_1 periph psu_can_1 type slave }
-dict set node_map NODE_AFI { label NODE_AFI periph psu_afi_0 type others }
+dict set node_map NODE_EXTERN { label NODE_EXTERN periph NA type others }
 dict set node_map NODE_DDR { label NODE_DDR periph psu_ddr type memory }
 dict set node_map NODE_IPI_APU { label NODE_IPI_APU periph NA type ipi }
 dict set node_map NODE_IPI_RPU_0 { label NODE_IPI_RPU_0 periph NA type ipi }
