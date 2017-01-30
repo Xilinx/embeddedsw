@@ -47,6 +47,7 @@
 #include "pm_clock.h"
 #include <unistd.h>
 #include "pm_gpp.h"
+#include "pm_extern.h"
 
 
 #define HAS_CAPABILITIES(slavePtr, state, caps)	\
@@ -781,6 +782,7 @@ static PmNode* pmNodeSlaveBucket[] = {
 	&pmSlavePcap_g.node,
 	&pmSlaveRtc_g.node,
 	&pmSlaveVcu_g.slv.node,
+	&pmSlaveExternDevice_g.node,
 };
 
 PmNodeClass pmNodeClassSlave_g = {

@@ -171,6 +171,8 @@ const char* PmStrNode(const u32 node)
 		return "NODE_LPD";
 	case NODE_VCU:
 		return "NODE_VCU";
+	case NODE_EXTERN:
+		return "NODE_EXTERN";
 	default:
 		return "ERROR_NODE";
 	}

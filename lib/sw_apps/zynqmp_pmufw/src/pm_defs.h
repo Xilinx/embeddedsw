@@ -164,6 +164,7 @@
 #define NODE_GPIO       46U
 #define NODE_CAN_0      47U
 #define NODE_CAN_1      48U
+#define NODE_EXTERN     49U
 #define NODE_APLL       50U
 #define NODE_VPLL       51U
 #define NODE_DPLL       52U
