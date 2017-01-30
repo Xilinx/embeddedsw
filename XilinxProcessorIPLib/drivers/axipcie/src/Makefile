@@ -13,7 +13,7 @@ INCLUDEFILES=xaxipcie_hw.h xaxipcie.h
 
 LIBSOURCES=*.c
 OUTS = *.o 
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 
 libs:
 	echo "Compiling axipcie"
@@ -25,4 +25,4 @@ include:
 	${CP} $(INCLUDEFILES) $(INCLUDEDIR)
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf ${OBJECTS}
