@@ -44,7 +44,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 SKEY_DIR = .
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 SKEY_SRCS := $(wildcard *.c)
 SKEY_OBJS = $(addprefix $(SKEY_DIR)/, $(SKEY_SRCS:%.c=%.o))
 
@@ -70,7 +70,7 @@ libxilskey_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(SKEY_DIR)/${OUTS}
+	rm -rf $(SKEY_DIR)/${OBJECTS}
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(SKEY_DIR)/%.o: $(SKEY_DIR)/%.c $(INCLUDEFILES)
