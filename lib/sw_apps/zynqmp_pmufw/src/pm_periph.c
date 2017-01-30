@@ -659,11 +659,6 @@ PmSlave pmSlaveGpio_g = {
 	.flags = 0U,
 };
 
-static PmGicProxyWake pmSataWake = {
-	.mask = LPD_SLCR_GICP4_IRQ_MASK_SRC5_MASK,
-	.group = 4U,
-};
-
 PmSlave pmSlaveSata_g = {
 	.node = {
 		.derived = &pmSlaveSata_g,
@@ -678,7 +673,7 @@ PmSlave pmSlaveSata_g = {
 	},
 	.class = NULL,
 	.reqs = NULL,
-	.wake = &pmSataWake,
+	.wake = NULL,
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
