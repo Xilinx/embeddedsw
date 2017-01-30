@@ -5,7 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2016 Xilinx, Inc. All Rights Reserved.*
+* Copyright (C) 2010-2017 Xilinx, Inc. All Rights Reserved.*
 *Permission is hereby granted, free of charge, to any person obtaining a copy
 *of this software and associated documentation files (the Software), to deal
 *in the Software without restriction, including without limitation the rights
@@ -44,7 +44,7 @@
 * The configuration table for devices
 */
 
-XV_mix_Config XV_mix_ConfigTable[] =
+XV_mix_Config XV_mix_ConfigTable[XPAR_XV_MIX_NUM_INSTANCES] =
 {
 	{
 		XPAR_V_MIX_0_DEVICE_ID,
@@ -60,34 +60,43 @@ XV_mix_Config XV_mix_ConfigTable[] =
 		XPAR_V_MIX_0_MAX_LOGO_ROWS,
 		XPAR_V_MIX_0_LOGO_TRANSPARENCY_COLOR,
 		XPAR_V_MIX_0_LOGO_PIXEL_ALPHA,
+		{{
 		XPAR_V_MIX_0_LAYER1_ALPHA,
 		XPAR_V_MIX_0_LAYER2_ALPHA,
 		XPAR_V_MIX_0_LAYER3_ALPHA,
 		XPAR_V_MIX_0_LAYER4_ALPHA,
 		XPAR_V_MIX_0_LAYER5_ALPHA,
 		XPAR_V_MIX_0_LAYER6_ALPHA,
-		XPAR_V_MIX_0_LAYER7_ALPHA,
+		XPAR_V_MIX_0_LAYER7_ALPHA
+		}},
+		{{
 		XPAR_V_MIX_0_LAYER1_UPSAMPLE,
 		XPAR_V_MIX_0_LAYER2_UPSAMPLE,
 		XPAR_V_MIX_0_LAYER3_UPSAMPLE,
 		XPAR_V_MIX_0_LAYER4_UPSAMPLE,
 		XPAR_V_MIX_0_LAYER5_UPSAMPLE,
 		XPAR_V_MIX_0_LAYER6_UPSAMPLE,
-		XPAR_V_MIX_0_LAYER7_UPSAMPLE,
+		XPAR_V_MIX_0_LAYER7_UPSAMPLE
+		}},
+		{{
 		XPAR_V_MIX_0_LAYER1_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER2_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER3_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER4_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER5_MAX_WIDTH,
 		XPAR_V_MIX_0_LAYER6_MAX_WIDTH,
-		XPAR_V_MIX_0_LAYER7_MAX_WIDTH,
+		XPAR_V_MIX_0_LAYER7_MAX_WIDTH
+		}},
+		{{
 		XPAR_V_MIX_0_LAYER1_INTF_TYPE,
 		XPAR_V_MIX_0_LAYER2_INTF_TYPE,
 		XPAR_V_MIX_0_LAYER3_INTF_TYPE,
 		XPAR_V_MIX_0_LAYER4_INTF_TYPE,
 		XPAR_V_MIX_0_LAYER5_INTF_TYPE,
 		XPAR_V_MIX_0_LAYER6_INTF_TYPE,
-		XPAR_V_MIX_0_LAYER7_INTF_TYPE,
+		XPAR_V_MIX_0_LAYER7_INTF_TYPE
+		}},
+		{{
 		XPAR_V_MIX_0_LAYER1_VIDEO_FORMAT,
 		XPAR_V_MIX_0_LAYER2_VIDEO_FORMAT,
 		XPAR_V_MIX_0_LAYER3_VIDEO_FORMAT,
@@ -95,5 +104,7 @@ XV_mix_Config XV_mix_ConfigTable[] =
 		XPAR_V_MIX_0_LAYER5_VIDEO_FORMAT,
 		XPAR_V_MIX_0_LAYER6_VIDEO_FORMAT,
 		XPAR_V_MIX_0_LAYER7_VIDEO_FORMAT
+		}}
+
 	}
 };
