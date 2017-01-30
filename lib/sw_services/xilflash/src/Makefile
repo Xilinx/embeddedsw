@@ -44,7 +44,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 XILFLASH_DIR = .
 OUTS = *.o
-
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 XILFLASH_SRCS := $(wildcard *.c)
 XILFLASH_OBJS = $(addprefix $(XILFLASH_DIR)/, $(XILFLASH_SRCS:%.c=%.o))
 
@@ -69,7 +69,7 @@ libxilflash_includes:
 	${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf $(XILFLASH_DIR)/${OUTS}
+	rm -rf $(XILFLASH_DIR)/${OBJECTS}
 	rm -rf ${RELEASEDIR}/${LIB}
 
 $(XILFLASH_DIR)/%.o: $(XILFLASH_DIR)/%.c $(INCLUDEFILES)
