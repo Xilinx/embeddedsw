@@ -191,6 +191,7 @@ Added "-Wall -Wextra" to the extra compiler flags.
 cpu_cortexr5_v1_2:
 Updated makefile with "clean" target
 Added "-Wall -Wextra" to the extra compiler flags.
+Updated tcl to support IAR compiler.
 
 cpu_v2_6:
 Added "ffunction-sections" and  "fdata-sections"
@@ -207,6 +208,9 @@ emacps_v3_4:
 Updated emacps tcl to export PCS definitions for newer version of
 Xilinx PCS PMA core where PHY address is not a parameter.
 Fixed Compilation warnings - CR#957004
+
+freertos823_xilinx_v1_4:
+Updated tcl as per standalone directory structure.
 
 gpiops_v3_2:
 Fixed Compilation warnings - CR#957004.
@@ -283,6 +287,7 @@ any speculative access
 Fixed Compilation warnings - CR#957004
 Updated makefiles of R5 and a53 64 bit/32 bit processors to fix error in clean 
 target.It fixes the CR#966900.
+Added IAR compiler support for Cortex R5 BSP.
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
