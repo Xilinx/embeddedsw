@@ -35,7 +35,7 @@ BEGIN driver enhance
   OPTION supported_peripherals = (v_enhance_v[8]_[0-9]);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-    OPTION VERSION = 7.0;
+    OPTION VERSION = 7.1;
  OPTION NAME = enhance;
 
 END driver
