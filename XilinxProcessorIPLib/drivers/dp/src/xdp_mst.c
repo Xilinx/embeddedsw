@@ -50,6 +50,8 @@
  *                     argument (StartTs, the starting timeslot).
  *                     Exposed RX MST API to application:
  *                         XDp_RxAllocatePayloadStream
+ * 5.2  aad  01/24/16 XDp_RxAllocatePayloadStream now adjusts to timeslot
+ *			   rearragement
  * </pre>
  *
 *******************************************************************************/
@@ -3095,44 +3097,63 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr)
 {
 	u8 Index;
-	u8 *PayloadTable;
-	u32 RegVal;
-	u8 StreamId;
-	u8 StartTs;
-	u8 NumTs;
-
-	PayloadTable = &InstancePtr->RxInstance.Topology.PayloadTable[0];
-
-	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_ALLOC);
-	StreamId = (RegVal & XDP_RX_MST_ALLOC_VCP_ID_MASK);
-	StartTs = (RegVal & XDP_RX_MST_ALLOC_START_TS_MASK) >>
-						XDP_RX_MST_ALLOC_START_TS_SHIFT;
-	NumTs = (RegVal & XDP_RX_MST_ALLOC_COUNT_TS_MASK) >>
-						XDP_RX_MST_ALLOC_COUNT_TS_SHIFT;
-	/* Set the virtual channel payload table in software using the MST
-	 * allocation values. */
+        u8 IndexTsEnd;
+        u8 *PayloadTable;
+        u32 RegVal;
+        u8 StreamId;
+        u8 StartTs;
+        u8 NumTs;
+        PayloadTable = &InstancePtr->RxInstance.Topology.PayloadTable[0];
+        RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_ALLOC);
+        StreamId = (RegVal & XDP_RX_MST_ALLOC_VCP_ID_MASK);
+        StartTs = (RegVal & XDP_RX_MST_ALLOC_START_TS_MASK) >>
+		XDP_RX_MST_ALLOC_START_TS_SHIFT;
+        NumTs = (RegVal & XDP_RX_MST_ALLOC_COUNT_TS_MASK) >>
+		XDP_RX_MST_ALLOC_COUNT_TS_SHIFT;
+        /* Set the virtual channel payload table in software using the
+	 * MST allocation values. */
 	memset(&PayloadTable[StartTs], StreamId, NumTs);
-	if ((StreamId == 0) && (NumTs == 63)) {
+        if ((StreamId == 0) && (NumTs == 63)) {
 		/* CLEAR_PAYLOAD request. */
-		PayloadTable[63] = 0;
-	}
-
-	for (Index = 0; Index < 64; Index++) {
+                PayloadTable[63] = 0;
+        }
+        for (Index = 0; Index < 64; Index++) {
 		if ((NumTs == 0) && (PayloadTable[Index] == StreamId)) {
 			/* ALLOCATE_PAYLOAD, stream deletion. */
-			PayloadTable[Index] = 0;
-		}
-
-		/* Write payload table as configured in software to hardware. */
-		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+                        PayloadTable[Index] = 0;
+                        IndexTsEnd = Index-1;
+                }
+                /* Write payload table as configured in software
+		 to hardware. */
+                XDp_WriteReg(InstancePtr->Config.BaseAddr,
+                XDP_RX_VC_PAYLOAD_TABLE + (Index * 4), PayloadTable[Index]);
+        }
+        /* Adjust timeslots after initial streams are deallocated*/
+        if(NumTs == 0) {
+		for (Index = StartTs; Index < 64; Index++) {
+			if(Index+StartTs+IndexTsEnd+2 < 64) {
+				/* ALLOCATE_PAYLOAD, stream deletion. */
+                                PayloadTable[Index] =
+					PayloadTable[Index-StartTs+IndexTsEnd+2];
+                               /* Write payload table as configured in
+				* software to hardware. */
+                               XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_VC_PAYLOAD_TABLE + (Index * 4),
+				 PayloadTable[(Index-StartTs)+IndexTsEnd+2]);
+                        }
+                        else {
+				PayloadTable[Index] = 0x00;
+                                /* Clear up end timeslots */
+                                XDp_WriteReg(InstancePtr->Config.BaseAddr,
 					XDP_RX_VC_PAYLOAD_TABLE + (Index * 4),
-					PayloadTable[Index]);
-	}
-
-	/* Indicate that the virtual channel payload table has been updated. */
-	RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP);
-	RegVal |= XDP_RX_MST_CAP_VCP_UPDATE_MASK;
-	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP, RegVal);
+					0x00);
+                        }
+		}
+       }
+       /* Indicate that the virtual channel payload table has been updated. */
+       RegVal = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP);
+       RegVal |= XDP_RX_MST_CAP_VCP_UPDATE_MASK;
+       XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_MST_CAP, RegVal);
 }
 
 /******************************************************************************/
