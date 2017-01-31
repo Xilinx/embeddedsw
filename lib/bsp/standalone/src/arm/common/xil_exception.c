@@ -128,13 +128,13 @@ DieLoop: goto DieLoop;
 
 /****************************************************************************/
 /**
-* The function is a common API used to initialize exception handlers across all
-* processors supported. For ARM CortexA53,R5,A9, the exception handlers are being
-* initialized statically and hence this function does not do anything.
-* However, it is still present to avoid any compilation issues in case an
-* application uses this API and also to take care of backward compatibility
-* issues (in earlier versions of BSPs, this API was being used to initialize
-* exception handlers).
+* @brief	The function is a common API used to initialize exception handlers
+*			across all supported arm processors. For ARM Cortex-A53, Cortex-R5,
+*			and Cortex-A9, the exception handlers are being initialized
+*			statically and this function does not do anything.
+* 			However, it is still present to take care of backward compatibility
+*			issues (in earlier versions of BSPs, this API was being used to
+*			initialize exception handlers).
 *
 * @param	None.
 *
@@ -150,18 +150,15 @@ void Xil_ExceptionInit(void)
 
 /*****************************************************************************/
 /**
-*
-* Makes the connection between the Id of the exception source and the
-* associated Handler that is to run when the exception is recognized. The
-* argument provided in this call as the Data is used as the argument
-* for the Handler when it is called.
+* @brief	Register a handler for a specific exception. This handler is being
+*			called when the processor encounters the specified exception.
 *
 * @param	exception_id contains the ID of the exception source and should
-*		be in the range of 0 to XIL_EXCEPTION_ID_LAST.
-		See xil_exception_l.h for further information.
+*			be in the range of 0 to XIL_EXCEPTION_ID_LAST.
+*			See xil_exception.h for further information.
 * @param	Handler to the Handler for that exception.
 * @param	Data is a reference to Data that will be passed to the
-*		Handler when it gets called.
+*			Handler when it gets called.
 *
 * @return	None.
 *
@@ -179,13 +176,13 @@ void Xil_ExceptionRegisterHandler(u32 Exception_id,
 /*****************************************************************************/
 /**
 *
-* Removes the Handler for a specific exception Id. The stub Handler is then
-* registered for this exception Id.
+* @brief	Removes the Handler for a specific exception Id. The stub Handler
+*			is then registered for this exception Id.
 *
 * @param	exception_id contains the ID of the exception source and should
-*		be in the range of 0 to XIL_EXCEPTION_ID_LAST.
-*		See xil_exception_l.h for further information.
-
+*			be in the range of 0 to XIL_EXCEPTION_ID_LAST.
+*			See xil_exception.h for further information.
+*
 * @return	None.
 *
 * @note		None.
@@ -243,7 +240,7 @@ void Xil_SErrorAbortHandler(void *CallBackRef){
 }
 #else
 /*****************************************************************************/
-/**
+/*
 *
 * Default Data abort handler which prints data fault status register through
 * which information about data fault can be acquired
@@ -279,7 +276,7 @@ void Xil_DataAbortHandler(void *CallBackRef){
 }
 
 /*****************************************************************************/
-/**
+/*
 *
 * Default Prefetch abort handler which prints prefetch fault status register through
 * which information about instruction prefetch fault can be acquired
@@ -313,7 +310,7 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 	}
 }
 /*****************************************************************************/
-/**
+/*
 *
 * Default undefined exception handler which prints address of the undefined
 * instruction if debug prints are enabled

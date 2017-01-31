@@ -38,6 +38,12 @@
 * For exception related functions that can be used across all Xilinx supported
 * processors, please use xil_exception.h.
 *
+* @addtogroup arm_exception_apis ARM Processor Exception Handling
+* @{
+* ARM processors specific exception related APIs for cortex A53,A9 and R5 can
+* utilized for enabling/disabling IRQ, registering/removing handler for
+* exceptions or initializing exception vector table with null handler.
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -102,14 +108,14 @@ typedef void (*Xil_InterruptHandler)(void *data);
 
 /****************************************************************************/
 /**
-* Enable Exceptions.
+* @brief	Enable Exceptions.
 *
-* @param	Mask for exceptions to be enabled.
+* @param	Mask: Value for enabling the exceptions.
 *
 * @return	None.
 *
 * @note		If bit is 0, exception is enabled.
-*		C-Style signature: void Xil_ExceptionEnableMask(Mask)
+*			C-Style signature: void Xil_ExceptionEnableMask(Mask)
 *
 ******************************************************************************/
 #if defined (__GNUC__) || defined (__ICCARM__)
@@ -124,7 +130,7 @@ typedef void (*Xil_InterruptHandler)(void *data);
 #endif
 /****************************************************************************/
 /**
-* Enable the IRQ exception.
+* @brief	Enable the IRQ exception.
 *
 * @return   None.
 *
@@ -136,14 +142,14 @@ typedef void (*Xil_InterruptHandler)(void *data);
 
 /****************************************************************************/
 /**
-* Disable Exceptions.
+* @brief	Disable Exceptions.
 *
-* @param	Mask for exceptions to be enabled.
+* @param	Mask: Value for disabling the exceptions.
 *
 * @return	None.
 *
 * @note		If bit is 1, exception is disabled.
-*		C-Style signature: Xil_ExceptionDisableMask(Mask)
+*			C-Style signature: Xil_ExceptionDisableMask(Mask)
 *
 ******************************************************************************/
 #if defined (__GNUC__) || defined (__ICCARM__)
@@ -171,7 +177,8 @@ typedef void (*Xil_InterruptHandler)(void *data);
 #if !defined (__aarch64__) && !defined (ARMA53_32)
 /****************************************************************************/
 /**
-* Enable nested interrupts by clearing the I and F bits it CPSR
+* @brief	Enable nested interrupts by clearing the I and F bits in CPSR. This
+* 			API is defined for cortex-a9 and cortex-r5.
 *
 * @return   None.
 *
@@ -197,7 +204,8 @@ typedef void (*Xil_InterruptHandler)(void *data);
 
 /****************************************************************************/
 /**
-* Disable the nested interrupts by setting the I and F bits.
+* @brief	Disable the nested interrupts by setting the I and F bits. This API
+*			is defined for cortex-a9 and cortex-r5.
 *
 * @return   None.
 *
@@ -243,3 +251,6 @@ extern void Xil_UndefinedExceptionHandler(void *CallBackRef);
 #endif /* __cplusplus */
 
 #endif /* XIL_EXCEPTION_H */
+/**
+* @} End of "addtogroup arm_exception_apis".
+*/
