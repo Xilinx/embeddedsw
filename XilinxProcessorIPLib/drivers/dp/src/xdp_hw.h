@@ -52,6 +52,7 @@
  *                     Added HDCP registers and masks.
  * 5.0   als  05/16/16 Added MISC0 and MISC1 definitions.
  * 5.1   aad  08/16/16 Updated MISC0 definitions.
+ * 5.2   aad  01/21/17 Added timeout macro for training timeout
  * </pre>
  *
 *******************************************************************************/
@@ -2036,6 +2037,8 @@
 							value using DP159. */
 #define XDP_RX_CDR_CONTROL_CONFIG_DFE_CTRL_MASK \
 				0x80000000	/**< Use DFE control. */
+#define XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT \
+				0X40000000	/**< Timeout for MST mode. */
 /* @} */
 
 /******************************************************************************/

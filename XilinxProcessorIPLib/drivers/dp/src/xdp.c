@@ -54,6 +54,8 @@
  * 5.1   als  08/09/16 Replaced deprecated MB_Sleep with consolidated usleep.
  *            08/11/16 RX to support maximum pre-emphasis level of 1.
  *            08/12/16 Updates to support 64-bit base addresses.
+ * 5.2	 aad  01/21/17 Added training timeout disable for RX MST mode for
+ *		       soft-disconnect to work.
  * </pre>
  *
 *******************************************************************************/
@@ -1958,6 +1960,7 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 *******************************************************************************/
 static u32 XDp_RxInitialize(XDp *InstancePtr)
 {
+	u32 Regval;
 	/* Disable the main link. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_LINK_ENABLE, 0x0);
 
@@ -1996,6 +1999,14 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 						XDP_RX_INTERRUPT_MASK_1, 0x0);
 		XDp_WriteReg(InstancePtr->Config.BaseAddr,
 						XDP_RX_LOCAL_EDID_VIDEO, 0x0);
+
+		Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_CDR_CONTROL_CONFIG);
+
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_CDR_CONTROL_CONFIG,
+				Regval |
+				XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT);
 		/* Sink count is set when exposing ports. */
 	}
 	else {
@@ -2005,6 +2016,13 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 						XDP_RX_LOCAL_EDID_VIDEO, 0x1);
 		XDp_WriteReg(InstancePtr->Config.BaseAddr,
 						XDP_RX_SINK_COUNT, 0x1);
+		Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr,
+						XDP_RX_CDR_CONTROL_CONFIG);
+
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+				XDP_RX_CDR_CONTROL_CONFIG,
+				Regval &
+				~(XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT));
 	}
 
 	/* Set other link training parameters parameters.
