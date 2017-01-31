@@ -211,6 +211,7 @@ Fixed Compilation warnings - CR#957004
 
 freertos823_xilinx_v1_4:
 Updated tcl as per standalone directory structure.
+Updated makefiles to fix build issue on windows.
 
 gpiops_v3_2:
 Fixed Compilation warnings - CR#957004.
