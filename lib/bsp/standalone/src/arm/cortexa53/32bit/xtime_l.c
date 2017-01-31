@@ -68,15 +68,16 @@
 
 /************************** Function Prototypes ******************************/
 
-/****************************************************************************
-*
-* Start the Global Timer Counter.
+/****************************************************************************/
+/**
+* @brief	Start the 64-bit physical timer counter.
 *
 * @param	None.
 *
 * @return	None.
 *
-* @note		None.
+* @note		The timer is initialized only if it is disabled. If the timer is
+*			already running this function does not perform any operation.
 *
 ****************************************************************************/
 void XTime_StartTimer(void)
@@ -94,16 +95,19 @@ void XTime_StartTimer(void)
 					XIOU_SCNTRS_CNT_CNTRL_REG_EN);
 	}
 }
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief	Timer of A53 runs continuously and the time can not be set as
+*			desired. This API doesn't contain anything. It is defined to have
+*			uniformity across platforms.
 *
-* Set the time in the Generic Timer Counter Register.
-*
-* @param	Value to be written to the Global Timer Counter Register.
+* @param	Xtime_Global: 64bit Value to be written to the Global Timer Counter
+*			Register. But since the function does not contain anything, the
+*			value is not used for anything.
 *
 * @return	None.
 *
-* @note		In multiprocessor environment reference time will reset/lost for
-*		all processors, when this function called by any one processor.
+* @note		None.
 *
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
@@ -113,11 +117,12 @@ void XTime_SetTime(XTime Xtime_Global)
 so the API is left unimplemented*/
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief	Get the time from the physical timer counter register.
 *
-* Get the time from the Generic Timer Counter Register.
-*
-* @param	Pointer to the location to be updated with the time.
+* @param	Xtime_Global: Pointer to the 64-bit location to be updated with
+*			the current value in physical timer counter.
 *
 * @return	None.
 *

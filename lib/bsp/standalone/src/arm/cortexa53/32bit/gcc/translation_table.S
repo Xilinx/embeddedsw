@@ -33,8 +33,36 @@
 /**
 * @file translation_table.s
 *
-* This file contains the initialization for the MMU table in RAM
-* needed by the Cortex A53 processor
+* @addtogroup a53_32_boot_code
+* @{
+* <h2> translation_table.S </h2>
+* translation_table.S contains a static page table required by MMU for
+* cortex-A53. This translation table is flat mapped (input address = output
+* address) with default memory attributes defined for zynq ultrascale+
+* architecture. It utilizes short descriptor translation table format with each
+* section defining 1MB of memory.
+* The overview of translation table memory attributes is described below.
+*
+*|                 | Memory Range            | Definition in Translation Table |
+*|-----------------|-------------------------|---------------------------------|
+*| DDR             | 0x00000000 - 0x7FFFFFFF | Normal write-back Cacheable     |
+*| PL              | 0x80000000 - 0xBFFFFFFF | Strongly Ordered                |
+*| QSPI, lower PCIe| 0xC0000000 - 0xEFFFFFFF | Device Memory                   |
+*| Reserved        | 0xF0000000 - 0xF7FFFFFF | Unassigned                      |
+*| STM Coresight   | 0xF8000000 - 0xF8FFFFFF | Device Memory                   |
+*| GIC             | 0xF9000000 - 0xF90FFFFF | Device memory                   |
+*| Reserved        | 0xF9100000 - 0xFCFFFFFF | Unassigned		       |
+*| FPS, LPS slaves | 0xFD000000 - 0xFFBFFFFF | Device memory                   |
+*| CSU, PMU        | 0xFFC00000 - 0xFFDFFFFF | Device Memory                   |
+*| TCM, OCM        | 0xFFE00000 - 0xFFFFFFFF | Normal write-back cacheable     |
+*
+* @note
+*
+* For DDR in region 0x00000000 - 0x7FFFFFFF, a system where DDR is less than
+* 2GB, region after DDR and before PL is marked as undefined/reserved in
+* translation table. In region 0xFFC00000 - 0xFFDFFFFF, it contains CSU
+* and PMU memory which are marked as Device since it is less than 1MB and
+* falls in a region with device memory.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -46,9 +74,6 @@
 * 6.0   mus  20/07/16 Added warning for ddrless HW design CR-954977
 * </pre>
 *
-* @note
-*
-* None.
 *
 ******************************************************************************/
 #include "xparameters.h"
@@ -152,3 +177,6 @@ MMUTable:
 .set	SECT, SECT+0x100000
 .endr
 .end
+/**
+* @} End of "addtogroup a53_32_boot_code".
+*/

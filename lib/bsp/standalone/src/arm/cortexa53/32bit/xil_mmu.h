@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,11 @@
 /*****************************************************************************/
 /**
 * @file xil_mmu.h
+*
+* @addtogroup a53_32_mmu_apis Cortex A53 32bit Processor MMU Handling
+* @{
+* MMU functions equip users to enable MMU, disable MMU and modify default
+* memory attributes of MMU table as per the need.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -77,3 +82,6 @@ void Xil_DisableMMU(void);
 #endif /* __cplusplus */
 
 #endif /* XIL_MMU_H */
+/**
+* @} End of "addtogroup a53_32_mmu_apis".
+*/

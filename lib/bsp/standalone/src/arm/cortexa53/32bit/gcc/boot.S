@@ -33,8 +33,24 @@
 /**
 * @file boot.S
 *
-* This file contains the initial startup code for the Cortex A53 processor
-* in 32-bit mode
+* @addtogroup a53_32_boot_code Cortex A53 32bit Processor Boot Code
+* @{
+* <h2> boot.S </h2>
+* The boot code performs minimum configuration which is required for an
+* application to run starting from processor's reset state. Below is a
+* sequence illustrating what all configuration is performed before control
+* reaches to main function.
+*
+* 1. Program vector table base for exception handling
+* 2. Invalidate instruction cache, data cache and TLBs
+* 3. Program stack pointer for various modes (IRQ, FIQ, supervisor, undefine,
+*    abort, system)
+* 4. Program counter frequency
+* 5. Configure MMU with short descriptor translation table format and program
+*    base address of translation table
+* 6. Enable data cache, instruction cache and MMU
+* 7. Transfer control to _start which clears BSS sections and runs global
+*    constructor before jumping to main application
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -46,9 +62,6 @@
 * 6.0	pkp	07/25/16 Program the counter frequency
 * </pre>
 *
-* @note
-*
-* None.
 *
 ******************************************************************************/
 
@@ -273,3 +286,6 @@ finished:
 	bx	lr
 
 .end
+/**
+* @} End of "addtogroup a53_32_boot_code".
+*/
