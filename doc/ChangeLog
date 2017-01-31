@@ -209,6 +209,11 @@ Updated emacps tcl to export PCS definitions for newer version of
 Xilinx PCS PMA core where PHY address is not a parameter.
 Fixed Compilation warnings - CR#957004
 
+enhance_v7_1:
+Updated num instances parameter as XPAR_XENHANCE_NUM_INSTANCES
+by modifying tcl and _sinit.c files to avoid compilation error. Fix
+for CR-967548.
+
 freertos823_xilinx_v1_4:
 Updated tcl as per standalone directory structure.
 Updated makefiles to fix build issue on windows.
@@ -362,6 +367,11 @@ Updated makefile to add clean rule.Fix for CR#962551.
 xilsecure_v2_0:
 Added support for PMU
 Added comments with .nky fields for aes encryption example.
+
+ycrcb2rgb_v7_1:
+Updated num instances parameter as XPAR_XYCRCB2RGB_NUM_INSTANCES
+by modifying tcl and _sinit.c files to avoid compilation error. Fix
+for CR-967548.
 
 zynqmp_fsbl:
 - Added support for micron QSPI 2G part.
