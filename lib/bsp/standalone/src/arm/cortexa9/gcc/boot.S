@@ -33,7 +33,25 @@
 /**
 * @file boot.S
 *
-* This file contains the initial startup code for the Cortex A9 processor
+* @addtogroup a9_boot_code Cortex A9 Processor Boot Code
+* @{
+* <h2> boot.S </h2>
+* The boot code performs minimum configuration which is required for an
+* application to run starting from processor's reset state. Below is a
+* sequence illustrating what all configuration is performed before control
+* reaches to main function.
+*
+* 1. Program vector table base for exception handling
+* 2. Invalidate instruction cache, data cache and TLBs
+* 3. Program stack pointer for various modes (IRQ, FIQ, supervisor, undefine,
+*    abort, system)
+* 4. Configure MMU with short descriptor translation table format and program
+*    base address of translation table
+* 5. Enable data cache, instruction cache and MMU
+* 6. Enable Floating point unit
+* 7. Transfer control to _start which clears BSS sections, initializes
+*    global timer and runs global constructor before jumping to main
+*    application
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -473,3 +491,6 @@ finished:
 	bx	lr
 
 .end
+/**
+* @} End of "addtogroup a9_boot_code".
+*/

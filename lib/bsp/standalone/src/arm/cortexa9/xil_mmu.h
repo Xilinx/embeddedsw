@@ -33,7 +33,12 @@
 /**
 * @file xil_mmu.h
 *
+* @addtogroup a9_mmu_apis Cortex A9 Processor MMU Functions
 *
+* MMU functions equip users to enable MMU, disable MMU and modify default
+* memory attributes of MMU table as per the need.
+*
+* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -46,9 +51,6 @@
 * 5.4	pkp	 23/11/15 Added attribute definitions for Xil_SetTlbAttributes API
 * </pre>
 *
-* @note
-*
-* None.
 *
 ******************************************************************************/
 
@@ -101,3 +103,6 @@ void Xil_DisableMMU(void);
 #endif /* __cplusplus */
 
 #endif /* XIL_MMU_H */
+/**
+* @} End of "addtogroup a9_mmu_apis".
+*/

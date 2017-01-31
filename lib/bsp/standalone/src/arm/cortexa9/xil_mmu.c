@@ -83,18 +83,21 @@ extern u32 MMUTable;
 
 /************************** Function Prototypes ******************************/
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
+* @brief	This function sets the memory attributes for a section covering 1MB
+*			of memory in the translation table.
 *
-* Set the memory attributes for a section, in the translation table. Each
-* section covers 1MB of memory.
+* @param	Addr: 32-bit address for which memory attributes need to be set.
+* @param	attrib: Attribute for the given memory region. xil_mmu.h contains
+*			definitions of commonly used memory attributes which can be
+*			utilized for this function.
 *
-* @param	Addr is the address for which attributes are to be set.
-* @param	attrib specifies the attributes for that memory region.
 *
 * @return	None.
 *
-* @note		The MMU and D-cache need not be disabled before changing an
-*		translation table attribute.
+* @note		The MMU or D-cache does not need to be disabled before changing a
+*			translation table entry.
 *
 ******************************************************************************/
 void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
@@ -119,9 +122,10 @@ void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib)
     isb(); /* synchronize context on this processor */
 }
 
-/*****************************************************************************
-*
-* Invalidate the caches, enable MMU and D Caches for Cortex A9 processor.
+/*****************************************************************************/
+/**
+* @brief	Enable MMU for cortex A9 processor. This function invalidates the
+*			instruction and data caches, and then enables MMU.
 *
 * @param	None.
 * @return	None.
@@ -148,16 +152,18 @@ void Xil_EnableMMU(void)
 	isb();
 }
 
-/*****************************************************************************
-*
-* Disable MMU for Cortex A9 processors. This function invalidates the TLBs,
-* Branch Predictor Array and flushed the D Caches before disabling
-* the MMU and D cache.
+/*****************************************************************************/
+/**
+* @brief	Disable MMU for Cortex A9 processors. This function invalidates
+*			the TLBs, Branch Predictor Array and flushed the D Caches before
+*			disabling the MMU.
 *
 * @param	None.
 *
 * @return	None.
 *
+* @note		When the MMU is disabled, all the memory accesses are treated as
+*			strongly ordered.
 ******************************************************************************/
 void Xil_DisableMMU(void)
 {

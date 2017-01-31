@@ -38,6 +38,8 @@
 * used by xcache.c. This functionality is being made available here for
 * more sophisticated users.
 *
+* @addtogroup a9_cache_apis
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -93,3 +95,6 @@ void Xil_L2CacheStoreLine(u32 adr);
 #endif
 
 #endif
+/**
+* @} End of "addtogroup a9_cache_apis".
+*/

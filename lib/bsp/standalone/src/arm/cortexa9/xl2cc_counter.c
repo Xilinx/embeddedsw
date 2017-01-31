@@ -74,16 +74,16 @@ void XL2cc_EventCtrReset(void);
 /****************************************************************************/
 /**
 *
-* This function initializes the event counters in L2 Cache controller with a
-* set of event codes specified by the user.
+* @brief	This function initializes the event counters in L2 Cache controller
+*			with a set of event codes specified by the user.
 *
-* @param	Event0 is the event code for counter 0.
-* @param	Event1 is the event code for counter 1.
-*		Use the event codes defined by XL2CC_* in xl2cc_counter.h.
+* @param	Event0: Event code for counter 0.
+* @param	Event1: Event code for counter 1.
 *
 * @return	None.
 *
-* @note		None.
+* @note		The definitions for event codes XL2CC_* can be found in
+*			xl2cc_counter.h.
 *
 *****************************************************************************/
 void XL2cc_EventCtrInit(s32 Event0, s32 Event1)
@@ -99,10 +99,11 @@ void XL2cc_EventCtrInit(s32 Event0, s32 Event1)
 	XL2cc_EventCtrReset();
 }
 
+
 /****************************************************************************/
 /**
 *
-* This function starts the event counters in L2 Cache controller.
+* @brief	This function starts the event counters in L2 Cache controller.
 *
 * @param	None.
 *
@@ -125,13 +126,13 @@ void XL2cc_EventCtrStart(void)
 /****************************************************************************/
 /**
 *
-* This function disables the event counters in L2 Cache controller, saves the
-* counter values and resets the counters.
+* @brief	This function disables the event counters in L2 Cache controller,
+*			saves the counter values and resets the counters.
 *
-* @param	EveCtr0 is an output parameter which is used to return the value
-*		in event counter 0.
-*		EveCtr1 is an output parameter which is used to return the value
-*		in event counter 1.
+* @param	EveCtr0: Output parameter which is used to return the value
+*			in event counter 0.
+*			EveCtr1: Output parameter which is used to return the value
+*			in event counter 1.
 *
 * @return	None.
 *
@@ -153,7 +154,7 @@ void XL2cc_EventCtrStop(u32 *EveCtr0, u32 *EveCtr1)
 /****************************************************************************/
 /**
 *
-* This function resets the event counters in L2 Cache controller.
+* @brief	This function resets the event counters in L2 Cache controller.
 *
 * @param	None.
 *

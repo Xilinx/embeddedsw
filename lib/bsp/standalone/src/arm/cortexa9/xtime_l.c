@@ -66,16 +66,18 @@
 
 /************************** Function Prototypes ******************************/
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief	Set the time in the Global Timer Counter Register.
 *
-* Set the time in the Global Timer Counter Register.
-*
-* @param	Value to be written to the Global Timer Counter Register.
+* @param	Xtime_Global: 64-bit Value to be written to the Global Timer
+*			Counter Register.
 *
 * @return	None.
 *
-* @note		In multiprocessor environment reference time will reset/lost for
-*		all processors, when this function called by any one processor.
+* @note		When this function is called by any one processor in a multi-
+*			processor environment, reference time will reset/lost for all
+*			processors.
 *
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
@@ -92,11 +94,12 @@ void XTime_SetTime(XTime Xtime_Global)
 	Xil_Out32((u32)GLOBAL_TMR_BASEADDR + (u32)GTIMER_CONTROL_OFFSET, (u32)0x1);
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief	Get the time from the Global Timer Counter Register.
 *
-* Get the time from the Global Timer Counter Register.
-*
-* @param	Pointer to the location to be updated with the time.
+* @param	Xtime_Global: Pointer to the 64-bit location which will be
+*			updated with the current timer value.
 *
 * @return	None.
 *

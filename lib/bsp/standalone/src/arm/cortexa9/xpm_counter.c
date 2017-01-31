@@ -75,7 +75,7 @@ void Xpm_ResetEventCounters (void);
 /****************************************************************************/
 /**
 *
-* This function disables the Cortex A9 event counters.
+* @brief	This function disables the Cortex A9 event counters.
 *
 * @param	None.
 *
@@ -93,7 +93,7 @@ void Xpm_DisableEventCounters(void)
 /****************************************************************************/
 /**
 *
-* This function enables the Cortex A9 event counters.
+* @brief	This function enables the Cortex A9 event counters.
 *
 * @param	None.
 *
@@ -111,7 +111,7 @@ void Xpm_EnableEventCounters(void)
 /****************************************************************************/
 /**
 *
-* This function resets the Cortex A9 event counters.
+* @brief	This function resets the Cortex A9 event counters.
 *
 * @param	None.
 *
@@ -138,13 +138,13 @@ void Xpm_ResetEventCounters(void)
 
 /****************************************************************************/
 /**
+* @brief	This function configures the Cortex A9 event counters controller,
+*			with the event codes, in a configuration selected by the user and
+*			enables the counters.
 *
-* This function configures the Cortex A9 event counters controller, with the
-* event codes, in a configuration selected by the user and enables the counters.
-*
-* @param	PmcrCfg is configuration value based on which the event counters
-*		are configured.
-*		Use XPM_CNTRCFG* values defined in xpm_counter.h.
+* @param	PmcrCfg: Configuration value based on which the event counters
+*			are configured. XPM_CNTRCFG* values defined in xpm_counter.h can
+*			be utilized for setting configuration.
 *
 * @return	None.
 *
@@ -264,11 +264,12 @@ void Xpm_SetEvents(s32 PmcrCfg)
 /****************************************************************************/
 /**
 *
-* This function disables the event counters and returns the counter values.
+* @brief	This function disables the event counters and returns the counter
+*			values.
 *
-* @param	PmCtrValue is a pointer to an array of type u32 PmCtrValue[6].
-*		It is an output parameter which is used to return the PM
-*		counter values.
+* @param	PmCtrValue: Pointer to an array of type u32 PmCtrValue[6].
+*			It is an output parameter which is used to return the PM
+*			counter values.
 *
 * @return	None.
 *

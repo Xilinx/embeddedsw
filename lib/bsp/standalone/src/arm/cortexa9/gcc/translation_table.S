@@ -33,8 +33,42 @@
 /**
 * @file translation_table.s
 *
-* This file contains the initialization for the MMU table in RAM
-* needed by the Cortex A9 processor
+* @addtogroup a9_boot_code
+* @{
+* <h2> translation_table.S </h2>
+* translation_table.S contains a static page table required by MMU for
+* cortex-A9. This translation table is flat mapped (input address = output
+* address) with default memory attributes defined for zynq architecture. It
+* utilizes short descriptor translation table format with each section defining
+* 1MB of memory.
+*
+* The overview of translation table memory attributes is described below.
+*
+*|                       | Memory Range            | Definition in Translation Table   |
+*|-----------------------|-------------------------|-----------------------------------|
+*| DDR                   | 0x00000000 - 0x3FFFFFFF | Normal write-back Cacheable       |
+*| PL                    | 0x40000000 - 0xBFFFFFFF | Strongly Ordered                  |
+*| Reserved              | 0xC0000000 - 0xDFFFFFFF | Unassigned                        |
+*| Memory mapped devices | 0xE0000000 - 0xE02FFFFF | Device Memory                     |
+*| Reserved              | 0xE0300000 - 0xE0FFFFFF | Unassigned                        |
+*| NAND, NOR             | 0xE1000000 - 0xE3FFFFFF | Device memory                     |
+*| SRAM                  | 0xE4000000 - 0xE5FFFFFF | Normal write-back Cacheable       |
+*| Reserved              | 0xE6000000 - 0xF7FFFFFF | Unassigned                        |
+*| AMBA APB Peripherals  | 0xF8000000 - 0xF8FFFFFF | Device Memory                     |
+*| Reserved              | 0xF9000000 - 0xFBFFFFFF | Unassigned                        |
+*| Linear QSPI - XIP     | 0xFC000000 - 0xFDFFFFFF | Normal write-through cacheable    |
+*| Reserved              | 0xFE000000 - 0xFFEFFFFF | Unassigned                        |
+*| OCM                   | 0xFFF00000 - 0xFFFFFFFF | Normal inner write-back cacheable |
+*
+* @note
+*
+* For region 0x00000000 - 0x3FFFFFFF, a system where DDR is less than 1GB,
+* region after DDR and before PL is marked as undefined/reserved in translation
+* table. In 0xF8000000 - 0xF8FFFFFF, 0xF8000C00 - 0xF8000FFF, 0xF8010000 -
+* 0xF88FFFFF and 0xF8F03000 to 0xF8FFFFFF are reserved  but due to granual size
+* of 1MB, it is not possible to define separate regions for them. For region
+* 0xFFF00000 - 0xFFFFFFFF, 0xFFF00000 to 0xFFFB0000 is reserved but due to 1MB
+* granual size, it is not possible to define separate region for it
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -57,9 +91,6 @@
 * 6.1	pkp  07/11/2016 Corrected comments for memory attributes
 * </pre>
 *
-* @note
-*
-* None.
 *
 ******************************************************************************/
 #include "xparameters.h"
@@ -187,3 +218,6 @@ MMUTable:
 .set	SECT, SECT+0x100000
 
 .end
+/**
+* @} End of "addtogroup a9_boot_code".
+*/

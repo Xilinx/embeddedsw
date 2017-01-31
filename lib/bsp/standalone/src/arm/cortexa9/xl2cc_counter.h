@@ -34,15 +34,17 @@
 *
 * @file xl2cc_counter.h
 *
-* This header file contains APIs for configuring and controlling the event
-* counters in PL310 L2 cache controller.
-* PL310 has 2 event counters which can be used to count a variety of events
-* like DRHIT, DRREQ, DWHIT, DWREQ, etc. This file defines configurations,
-* where value configures the event counters to count a set of events.
+* @addtogroup l2_event_counter_apis PL310 L2 Event Counters Functions
 *
-* XL2cc_EventCtrInit API can be used to select a set of events and
-* XL2cc_EventCtrStart configures the event counters and starts the counters.
-* XL2cc_EventCtrStop diables the event counters and returns the counter values.
+* xl2cc_counter.h contains APIs for configuring and controlling the event
+* counters in PL310 L2 cache controller.
+* PL310 has two event counters which can be used to count variety of events
+* like DRHIT, DRREQ, DWHIT, DWREQ, etc. xl2cc_counter.h contains definitions
+* for different configurations which can be used for the event counters to
+* count a set of events.
+*
+*
+* @{
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -106,3 +108,6 @@ void XL2cc_EventCtrStop(u32 *EveCtr0, u32 *EveCtr1);
 #endif /* __cplusplus */
 
 #endif /* L2CCCOUNTER_H */
+/**
+* @} End of "addtogroup l2_event_counter_apis".
+*/
