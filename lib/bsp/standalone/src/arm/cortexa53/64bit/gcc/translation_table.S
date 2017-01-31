@@ -33,8 +33,43 @@
 /**
 * @file translation_table.s
 *
-* This file contains the initialization for the MMU table in RAM
-* needed by the Cortex A53 processor
+* @addtogroup a53_64_boot_code
+* @{
+* <h2> translation_table.S </h2>
+* translation_table.S contains a static page table required by MMU for
+* cortex-A53. This translation table is flat mapped (input address = output
+* address) with default memory attributes defined for zynq ultrascale+
+* architecture. It utilizes translation granual size of 4KB with 2MB section
+* size for initial 4GB memory and 1GB section size for memory after 4GB.
+* The overview of translation table memory attributes is described below.
+*
+*|                       | Memory Range                | Definition in Translation Table   |
+*|-----------------------|-----------------------------|-----------------------------------|
+*| DDR                   | 0x0000000000 - 0x007FFFFFFF | Normal write-back Cacheable       |
+*| PL                    | 0x0080000000 - 0x00BFFFFFFF | Strongly Ordered                  |
+*| QSPI, lower PCIe      | 0x00C0000000 - 0x00EFFFFFFF | Strongly Ordere                   |
+*| Reserved              | 0x00F0000000 - 0x00F7FFFFFF | Unassigned                        |
+*| STM Coresight         | 0x00F8000000 - 0x00F8FFFFFF | Strongly Ordered                  |
+*| GIC                   | 0x00F9000000 - 0x00F91FFFFF | Strongly Ordered                  |
+*| Reserved              | 0x00F9200000 - 0x00FCFFFFFF | Unassigned			   |
+*| FPS, LPS slaves       | 0x00FD000000 - 0x00FFBFFFFF | Strongly Ordered                  |
+*| CSU, PMU              | 0x00FFC00000 - 0x00FFDFFFFF | Strongly Ordered                  |
+*| TCM, OCM              | 0x00FFE00000 - 0x00FFFFFFFF | Normal inner write-back cacheable |
+*| Reserved              | 0x0100000000 - 0x03FFFFFFFF | Unassigned                        |
+*| PL, PCIe              | 0x0400000000 - 0x07FFFFFFFF | Strongly Ordered                  |
+*| DDR                   | 0x0800000000 - 0x0FFFFFFFFF | Normal inner write-back cacheable |
+*| PL, PCIe              | 0x1000000000 - 0xBFFFFFFFFF | Strongly Ordered                  |
+*| Reserved              | 0xC000000000 - 0xFFFFFFFFFF | Unassigned                        |
+*
+* @note
+*
+* For DDR region 0x0000000000 - 0x007FFFFFFF, a system where DDR is less than
+* 2GB, region after DDR and before PL is marked as undefined/reserved in
+* translation table. Region 0xF9100000 - 0xF91FFFFF is reserved memory in
+* 0x00F9000000 - 0x00F91FFFFF range, but it is marked as strongly ordered
+* because minimum section size in translation table section is 2MB. Region
+* 0x00FFC00000 - 0x00FFDFFFFF contains CSU and PMU memory which are marked as
+* Device since it is less than 1MB and falls in a region with device memory.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -48,9 +83,7 @@
 *		      as normal writeback for the size defined in hdf and rest
 *		      of the memory in that 32GB range is marked as reserved.
 *
-* @note
 *
-* None.
 *
 ******************************************************************************/
 #include "xparameters.h"
@@ -229,3 +262,6 @@ MMUTableL2:
 .8byte  SECT + Memory		/*2MB OCM/TCM*/
 
 .end
+/**
+* @} End of "addtogroup a53_64_boot_code".
+*/

@@ -34,8 +34,7 @@
 *
 * @file xil_cache.c
 *
-* Contains required functions for the ARM cache functionality. Cache APIs are
-* yet to be implemented. They are left blank to avoid any compilation error
+* Contains required functions for the ARM cache functionality.
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -81,9 +80,9 @@
 /************************** Variable Definitions *****************************/
 #define IRQ_FIQ_MASK 0xC0U	/* Mask IRQ and FIQ interrupts in cpsr */
 
-/****************************************************************************
-*
-* Enable the Data cache.
+/****************************************************************************/
+/**
+* @brief	Enable the Data cache.
 *
 * @param	None.
 *
@@ -92,7 +91,6 @@
 * @note		None.
 *
 ****************************************************************************/
-
 void Xil_DCacheEnable(void)
 {
 	u32 CtrlReg;
@@ -121,9 +119,9 @@ void Xil_DCacheEnable(void)
 	}
 }
 
-/****************************************************************************
-*
-* Disable the Data cache.
+/****************************************************************************/
+/**
+* @brief	Disable the Data cache.
 *
 * @param	None.
 *
@@ -246,10 +244,10 @@ void Xil_DCacheDisable(void)
 	);
 }
 
-/****************************************************************************
-*
-* Invalidate the Data cache. The contents present in the cache are cleaned and
-* invalidated.
+/****************************************************************************/
+/**
+* @brief	Invalidate the Data cache. The contents present in the cache are
+* 			cleaned and invalidated.
 *
 * @param	None.
 *
@@ -258,9 +256,10 @@ void Xil_DCacheDisable(void)
 * @note		In Cortex-A53, functionality to simply invalide the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
-* 			a line belonging to another OS which could lead to that OS crashing
-* 			because of the loss of essential data. Hence, such operations are
-* 			promoted to clean and invalidate which avoids such corruption.
+* 			a line belonging to another OS. This could lead to the other OS
+* 			crashing because of the loss of essential data. Hence, such
+* 			operations are promoted to clean and invalidate which avoids such
+*			corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidate(void)
@@ -352,20 +351,22 @@ void Xil_DCacheInvalidate(void)
 	mtcpsr(currmask);
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief	Invalidate a Data cache line. The cacheline is cleaned and
+*			invalidated.
 *
-* Invalidate a Data cache line. The cacheline is cleaned and invalidated
-*
-* @param	Address to be flushed.
+* @param	adr: 64bit address of the data to be flushed.
 *
 * @return	None.
 *
 * @note		In Cortex-A53, functionality to simply invalide the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
-* 			a line belonging to another OS which could lead to that OS crashing
-* 			because of the loss of essential data. Hence, such operations are
-* 			promoted to clean and invalidate which avoids such corruption.
+* 			a line belonging to another OS. This could lead to the other OS
+* 			crashing because of the loss of essential data. Hence, such
+* 			operations are promoted to clean and invalidate which avoids such
+*			corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidateLine(INTPTR adr)
@@ -388,22 +389,24 @@ void Xil_DCacheInvalidateLine(INTPTR adr)
 	mtcpsr(currmask);
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief	Invalidate the Data cache for the given address range.
+* 			The cachelines present in the adderss range are cleaned and
+*			invalidated
 *
-* Invalidate the Data cache for the given address range.
-* The cachelines present in the adderss range are cleaned and invalidated
-*
-* @param	Start address of range to be invalidated.
-* @param	Length of range to be invalidated in bytes.
+* @param	adr: 64bit start address of the range to be invalidated.
+* @param	len: Length of the range to be invalidated in bytes.
 *
 * @return	None.
 *
 * @note		In Cortex-A53, functionality to simply invalide the cachelines
 *  			is not present. Such operations are a problem for an environment
 * 			that supports virtualisation. It would allow one OS to invalidate
-* 			a line belonging to another OS which could lead to that OS crashing
-* 			because of the loss of essential data. Hence, such operations are
-* 			promoted to clean and invalidate which avoids such corruption.
+* 			a line belonging to another OS. This could lead to the other OS
+* 			crashing because of the loss of essential data. Hence, such
+* 			operations are promoted to clean and invalidate which avoids such
+*			corruption.
 *
 ****************************************************************************/
 void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
@@ -448,9 +451,9 @@ void Xil_DCacheInvalidateRange(INTPTR  adr, INTPTR len)
 	mtcpsr(currmask);
 }
 
-/****************************************************************************
-*
-* Flush the Data cache.
+/****************************************************************************/
+/**
+* @brief	Flush the Data cache.
 *
 * @param	None.
 *
@@ -548,15 +551,15 @@ void Xil_DCacheFlush(void)
 	mtcpsr(currmask);
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief	Flush a Data cache line. If the byte specified by the address (adr)
+* 			is cached by the Data cache, the cacheline containing that byte is
+*			invalidated. If the cacheline is modified (dirty), the entire
+*			contents of the cacheline are written to system memory before the
+* 			line is invalidated.
 *
-* Flush a Data cache line. If the byte specified by the address (adr)
-* is cached by the Data cache, the cacheline containing that byte is
-* invalidated.	If the cacheline is modified (dirty), the entire
-* contents of the cacheline are written to system memory before the
-* line is invalidated.
-*
-* @param	Address to be flushed.
+* @param	adr: 64bit address of the data to be flushed.
 *
 * @return	None.
 *
@@ -580,22 +583,22 @@ void Xil_DCacheFlushLine(INTPTR  adr)
 	dsb();
 	mtcpsr(currmask);
 }
-/****************************************************************************
-* Flush the Data cache for the given address range.
-* If the bytes specified by the address (adr) are cached by the Data cache,
-* the cacheline containing that byte is invalidated. If the cacheline
-* is modified (dirty), the written to system memory first before the
-* before the line is invalidated.
+/****************************************************************************/
+/*
+* @brief	Flush the Data cache for the given address range.
+* 			If the bytes specified by the address range are cached by the Data
+* 			cache, the cachelines containing those bytes are invalidated. If
+* 			the cachelines are modified (dirty), they are written to system
+* 			memory before the lines are invalidated.
 *
-* @param	Start address of range to be flushed.
-* @param	Length of range to be flushed in bytes.
+* @param	adr: 64bit start address of the range to be flushed.
+* @param	len: Length of the range to be flushed in bytes.
 *
 * @return	None.
 *
 * @note		None.
 *
 ****************************************************************************/
-
 void Xil_DCacheFlushRange(INTPTR  adr, INTPTR len)
 {
 	const u32 cacheline = 64U;
@@ -638,10 +641,9 @@ void Xil_DCacheFlushRange(INTPTR  adr, INTPTR len)
 	mtcpsr(currmask);
 }
 
-
-/****************************************************************************
-*
-* Enable the instruction cache.
+/****************************************************************************/
+/**
+* @brief	Enable the instruction cache.
 *
 * @param	None.
 *
@@ -650,8 +652,6 @@ void Xil_DCacheFlushRange(INTPTR  adr, INTPTR len)
 * @note		None.
 *
 ****************************************************************************/
-
-
 void Xil_ICacheEnable(void)
 {
 	u32 CtrlReg;
@@ -679,9 +679,9 @@ void Xil_ICacheEnable(void)
 	}
 }
 
-/****************************************************************************
-*
-* Disable the instruction cache.
+/****************************************************************************/
+/**
+* @brief	Disable the instruction cache.
 *
 * @param	None.
 *
@@ -714,9 +714,9 @@ void Xil_ICacheDisable(void)
 
 }
 
-/****************************************************************************
-*
-* Invalidate the entire instruction cache.
+/****************************************************************************/
+/**
+* @brief	Invalidate the entire instruction cache.
 *
 * @param	None.
 *
@@ -738,20 +738,20 @@ void Xil_ICacheInvalidate(void)
 	dsb();
 	mtcpsr(currmask);
 }
-/****************************************************************************
+
+/****************************************************************************/
+/**
+* @brief	Invalidate an instruction cache line. If the instruction specified
+*			by the parameter adr is cached by the instruction cache, the
+*			cacheline containing that instruction is invalidated.
 *
-* Invalidate an instruction cache line.	If the instruction specified by the
-* parameter adr is cached by the instruction cache, the cacheline containing
-* that instruction is invalidated.
-*
-* @param	None.
+* @param	adr: 64bit address of the instruction to be invalidated.
 *
 * @return	None.
 *
 * @note		The bottom 6 bits are set to 0, forced by architecture.
 *
 ****************************************************************************/
-
 void Xil_ICacheInvalidateLine(INTPTR  adr)
 {
 	u32 currmask;
@@ -766,16 +766,15 @@ void Xil_ICacheInvalidateLine(INTPTR  adr)
 	mtcpsr(currmask);
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief	Invalidate the instruction cache for the given address range.
+* 			If the instructions specified by the address range are cached by
+* 			the instrunction cache, the cachelines containing those
+*			instructions are invalidated.
 *
-* Invalidate the instruction cache for the given address range.
-* If the bytes specified by the address (adr) are cached by the Data cache,
-* the cacheline containing that byte is invalidated. If the cacheline
-* is modified (dirty), the modified contents are lost and are NOT
-* written to system memory before the line is invalidated.
-*
-* @param	Start address of range to be invalidated.
-* @param	Length of range to be invalidated in bytes.
+* @param	adr: 64bit start address of the range to be invalidated.
+* @param	len: Length of the range to be invalidated in bytes.
 *
 * @return	None.
 *

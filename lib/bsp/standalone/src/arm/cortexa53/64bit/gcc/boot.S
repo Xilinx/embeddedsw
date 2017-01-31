@@ -33,13 +33,40 @@
 /**
 * @file boot.S
 *
-* This file contains the initial startup code for the Cortex A53 processor
-* If hypervisor_guest is selected as false in BSP setting, BSP is built for
-* EL3 and if it is selected as true in BSP setting, BSP is built for EL1
-* Non-secure. It checks the current exception level and if it matches with
-* the BSP exception level (defined as per Hypervisor_guest settings), then
-* only it initializes the required system registers and executes the code
-* further, otherwise it will loop busy loop around error.
+* @addtogroup a53_64_boot_code Cortex A53 64bit Processor Boot Code
+* @{
+* <h2> boot.S </h2>
+*
+* The boot code performs minimum configuration which is required for an
+* application. Cortex-A53 starts by checking current exception level. If the
+* current exception level is EL3 and BSP is built for EL3, it will do
+* initialization required for application execution at EL3. Below is a
+* sequence illustrating what all configuration is performed before control
+* reaches to main function for EL3 execution.
+*
+* 1. Program vector table base for exception handling
+* 2. Set reset vector table base address
+* 3. Program stack pointer for EL3
+* 4. Routing of interrupts to EL3
+* 5. Enable ECC protection
+* 6. Program generic counter frequency
+* 7. Invalidate instruction cache, data cache and TLBs
+* 8. Configure MMU registers and program base address of translation table
+* 9. Transfer control to _start which clears BSS sections and runs global
+*    constructor before jumping to main application
+*
+* If the current exception level is EL1 and BSP is also built for EL1_NONSECURE
+* it will perform initialization required for application execution at EL1
+* non-secure. For all other combination, the execution will go into infinite
+* loop. Below is a sequence illustrating what all configuration is performed
+* before control reaches to main function for EL1 execution.
+*
+* 1. Program vector table base for exception handling
+* 2. Program stack pointer for EL1
+* 3. Invalidate instruction cache, data cache and TLBs
+* 4. Configure MMU registers and program base address of translation table
+* 5. Transfer control to _start which clears BSS sections and runs global
+*    constructor before jumping to main application
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -52,9 +79,6 @@
 * 6.02	pkp	01/24/17 Clearing status of FPUStatus variable to ensure it
 *			 holds correct value.
 *
-* @note
-*
-* None.
 *
 ******************************************************************************/
 
@@ -401,3 +425,6 @@ invalidateCaches_end:
 	ret
 
 .end
+/**
+* @} End of "addtogroup a53_64_boot_code".
+*/

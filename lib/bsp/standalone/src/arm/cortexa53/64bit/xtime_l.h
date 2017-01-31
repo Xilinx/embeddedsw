@@ -33,6 +33,11 @@
 /**
 * @file xtime_l.h
 *
+* @addtogroup a53_64_time_apis Cortex A53 64bit Mode Time Functions
+* xtime_l.h provides access to the 64-bit physical timer counter.
+*
+* @{
+*
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -41,7 +46,6 @@
 * 5.00 	pkp	   05/29/14 First release
 * </pre>
 *
-* @note		None.
 *
 ******************************************************************************/
 
@@ -85,3 +89,6 @@ void XTime_GetTime(XTime *Xtime_Global);
 #endif /* __cplusplus */
 
 #endif /* XTIME_H */
+/**
+* @} End of "addtogroup a53_64_time_apis".
+*/
