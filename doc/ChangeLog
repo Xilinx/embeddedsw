@@ -299,6 +299,7 @@ Updated makefiles of R5 and a53 64 bit/32 bit processors to fix error in clean
 target.It fixes the CR#966900.
 Added IAR compiler support for Cortex R5 BSP.
 Add safe Xil_Out32 implementation.
+Fixed issues with Xil_DCacheDisable API. This is for CR#966220.
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
