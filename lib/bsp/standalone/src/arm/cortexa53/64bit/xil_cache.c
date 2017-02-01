@@ -42,11 +42,25 @@
 *
 * Ver    Who Date     Changes
 * ----- ---- -------- -----------------------------------------------
-* 5.00 	pkp  05/29/14 First release
-* 5.05	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
+* 5.0 	pkp  05/29/14 First release
+* 5.5	pkp	 04/15/16 Updated the Xil_DCacheInvalidate,
 *					  Xil_DCacheInvalidateLine and Xil_DCacheInvalidateRange
 *					  functions description for proper explaination
-* 6.02  pkp	 01/22/17 Added support for EL1 non-secure
+* 6.2   pkp	 01/22/17 Added support for EL1 non-secure
+* 6.2   asa  01/31/17 The existing Xil_DCacheDisable API first flushes the
+*					  D caches and then disables it. The problem with that is,
+*					  potentially there will be a small window after the cache
+*					  flush operation and before the we disable D caches where
+*					  we might have valid data in cache lines. In such a
+*					  scenario disabling the D cache can lead to unknown behavior.
+*					  The ideal solution to this is to use assembly code for
+*					  the complete API and avoid any memory accesses. But with
+*					  that we will end up having a huge amount on assembly code
+*					  which is not maintainable. Changes are done to use a mix
+*					  of assembly and C code. All local variables are put in
+*					  registers. Also function calls are avoided in the API to
+*					  avoid using stack memory.
+*					  These changes fix CR#966220.
 *
 * </pre>
 *
@@ -120,24 +134,116 @@ void Xil_DCacheEnable(void)
 ****************************************************************************/
 void Xil_DCacheDisable(void)
 {
-	u32 CtrlReg;
-	/* clean and invalidate the Data cache */
-	Xil_DCacheFlush();
+	register u32 CsidReg;
+	register u32 C7Reg;
+	register u32 LineSize;
+	register u32 NumWays;
+	register u32 Way;
+	register u32 WayIndex;
+	register u32 WayAdjust;
+	register u32 Set;
+	register u32 SetIndex;
+	register u32 NumSet;
+	register u32 CacheLevel;
 
-	if (EL3 == 1) {
-		CtrlReg = mfcp(SCTLR_EL3);
-	} else if (EL1_NONSECURE == 1) {
-		CtrlReg = mfcp(SCTLR_EL1);
-	}
-	CtrlReg &= ~(XREG_CONTROL_DCACHE_BIT);
+	dsb();
+	asm(
+	"mov 	x0, #0\n\t"
+#if EL3==1
+	"mrs	x0, sctlr_el3 \n\t"
+	"and	w0, w0, #0xfffffffb\n\t"
+	"msr	sctlr_el3, x0\n\t"
+#elif EL1_NONSECURE==1
+	"mrs	x0, sctlr_el1 \n\t"
+	"and	w0, w0, #0xfffffffb\n\t"
+	"msr	sctlr_el1, x0\n\t"
+#endif
+	"dsb sy\n\t"
+	);
 
-	if (EL3 == 1) {
-		/* disable the Data cache for el3*/
-		mtcp(SCTLR_EL3,CtrlReg);
-	} else if (EL1_NONSECURE == 1) {
-		/* disable the Data cache for el1*/
-		mtcp(SCTLR_EL1,CtrlReg);
+	/* Number of level of cache*/
+	CacheLevel = 0U;
+	/* Select cache level 0 and D cache in CSSR */
+	mtcp(CSSELR_EL1,CacheLevel);
+	isb();
+
+	CsidReg = mfcp(CCSIDR_EL1);
+
+	/* Get the cacheline size, way size, index size from csidr */
+	LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
+
+	/* Number of Ways */
+	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
+	NumWays += 0x00000001U;
+
+	/*Number of Set*/
+	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
+	NumSet += 0x00000001U;
+
+	WayAdjust = clz(NumWays) - (u32)0x0000001FU;
+
+	Way = 0U;
+	Set = 0U;
+
+	/* Flush all the cachelines */
+	for (WayIndex = 0U; WayIndex < NumWays; WayIndex++) {
+		for (SetIndex = 0U; SetIndex < NumSet; SetIndex++) {
+			C7Reg = Way | Set | CacheLevel;
+			mtcpdc(CISW,C7Reg);
+			Set += (0x00000001U << LineSize);
+		}
+		Set = 0U;
+		Way += (0x00000001U << WayAdjust);
 	}
+
+	/* Wait for Flush to complete */
+	dsb();
+
+	/* Select cache level 1 and D cache in CSSR */
+	CacheLevel += (0x00000001U << 1U);
+	mtcp(CSSELR_EL1,CacheLevel);
+	isb();
+
+	CsidReg = mfcp(CCSIDR_EL1);
+
+	/* Get the cacheline size, way size, index size from csidr */
+	LineSize = (CsidReg & 0x00000007U) + 0x00000004U;
+
+	/* Number of Ways */
+	NumWays = (CsidReg & 0x00001FFFU) >> 3U;
+	NumWays += 0x00000001U;
+
+	/* Number of Sets */
+	NumSet = (CsidReg >> 13U) & 0x00007FFFU;
+	NumSet += 0x00000001U;
+
+	WayAdjust=clz(NumWays) - (u32)0x0000001FU;
+
+	Way = 0U;
+	Set = 0U;
+
+	/* Flush all the cachelines */
+	for (WayIndex =0U; WayIndex < NumWays; WayIndex++) {
+		for (SetIndex =0U; SetIndex < NumSet; SetIndex++) {
+			C7Reg = Way | Set | CacheLevel;
+			mtcpdc(CISW,C7Reg);
+			Set += (0x00000001U << LineSize);
+		}
+		Set=0U;
+		Way += (0x00000001U<<WayAdjust);
+	}
+	/* Wait for Flush to complete */
+	dsb();
+
+	asm(
+#if EL3==1
+		"tlbi 	ALLE3\n\t"
+#elif EL1_NONSECURE==1
+		"tlbi 	VMALLE1\n\t"
+#endif
+		"dsb sy\r\n"
+		"isb\n\t"
+	);
 }
 
 /****************************************************************************

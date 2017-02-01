@@ -423,4 +423,17 @@
  *		       contains initial status of FPU i.e. disabled. In case of a warm restart execution
  *		       when bss sections are not cleared, it may contain previously updated value which
  *		       does not hold true once processor resumes. This fixes CR#966826.
+ * 6.2 asa   01/31/17  The existing Xil_DCacheDisable API first flushes the
+ *		       D caches and then disables it. The problem with that is,
+ *		       potentially there will be a small window after the cache
+ *		       flush operation and before the we disable D caches where
+ *		       we might have valid data in cache lines. In such a
+ *		       scenario disabling the D cache can lead to unknown behavior.
+ *		       The ideal solution to this is to use assembly code for
+ *		       the complete API and avoid any memory accesses. But with
+ *		       that we will end up having a huge amount on assembly code
+ *		       which is not maintainable. Changes are done to use a mix
+ *		       of assembly and C code. All local variables are put in
+ *		       registers. Also function calls are avoided in the API to
+ *		       avoid using stack memory.
  *****************************************************************************************/
