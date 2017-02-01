@@ -141,6 +141,24 @@ static const PmAccessRegion pmAccessTable[] = {
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
+
+	/* RO access to CRL_APB required for Linux CCF */
+	{
+		.startAddr = CRL_APB_BASEADDR,
+		.endAddr = CRL_APB_BASEADDR + 0x288,
+		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+
+	/* RO access to CRF_APB required for Linux CCF */
+	{
+		.startAddr = CRF_APB_BASEADDR,
+		.endAddr = CRF_APB_BASEADDR + 0x108,
+		.access = MMIO_ACCESS_RO(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
 };
 
 /**
