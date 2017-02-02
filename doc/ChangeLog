@@ -216,7 +216,8 @@ Updated num instances parameter as XPAR_XENHANCE_NUM_INSTANCES
 by modifying tcl and _sinit.c files to avoid compilation error. Fix
 for CR-967548.
 
-freertos823_xilinx_v1_4:
+freertos901_xilinx_v1_0:
+Added latest freertos version freertos901_xilinx.
 Updated tcl as per standalone directory structure.
 Updated makefiles to fix build issue on windows.
 
