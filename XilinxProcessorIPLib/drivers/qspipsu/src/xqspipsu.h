@@ -112,6 +112,8 @@
 *	             configuration. Updated XQspiPsu_PollData() and
 *	             XQspiPsu_Create_PollConfigData() functions in xqspipsu.c
 *                    and also modified the polldata example
+* 1.4   ms  01/24/17 Enabled CCI support for A53 by adding cache coherency
+*                    information.
 *
 * </pre>
 *
@@ -175,6 +177,7 @@ typedef struct {
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8  ConnectionMode; /**< Single, Stacked and Parallel mode */
 	u8  BusWidth; 	/**< Bus width available on board */
+	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not */
 } XQspiPsu_Config;
 
 /**
