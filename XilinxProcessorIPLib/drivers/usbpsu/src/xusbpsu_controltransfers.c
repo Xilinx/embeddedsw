@@ -627,7 +627,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	 */
 	if (!IS_ALIGNED(Length, Ept->MaxSize)) {
 		Size = (u32)roundup(Length, Ept->MaxSize);
-		InstancePtr->UnalignedTx = 1U;
+		Ept->UnalignedTx = 1U;
 	}
 
 	TrbPtr = &InstancePtr->Ep0_Trb;

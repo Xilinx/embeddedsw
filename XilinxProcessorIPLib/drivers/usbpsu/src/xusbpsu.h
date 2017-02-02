@@ -48,6 +48,8 @@
 *                      Added XUsbPsu_IsSuperSpeed function in xusbpsu.c
 * 1.2   mn    01/20/17 removed unnecessary declaration of
 *                      XUsbPsu_SetConfiguration in xusbpsu.h
+* 1.2   mn    01/30/17 Corrected InstancePtr->UnalignedTx with
+*                      Ept->UnalignedTx in xusbpsu_controltransfers.c
 *
 * </pre>
 *
