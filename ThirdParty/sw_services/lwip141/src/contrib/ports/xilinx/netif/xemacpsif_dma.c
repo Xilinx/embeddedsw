@@ -310,7 +310,10 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 		/* Send the data from the pbuf to the interface, one pbuf at a
 		   time. The size of the data in each pbuf is kept in the ->len
 		   variable. */
-		Xil_DCacheFlushRange((UINTPTR)q->payload, (UINTPTR)q->len);
+		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+			Xil_DCacheFlushRange((UINTPTR)q->payload, (UINTPTR)q->len);
+		}
+
 		XEmacPs_BdSetAddressTx(txbd, (UINTPTR)q->payload);
 		if (q->len > (XEMACPS_MAX_FRAME_SIZE - 18))
 			XEmacPs_BdSetLength(txbd, (XEMACPS_MAX_FRAME_SIZE - 18) & 0x3FFF);
@@ -401,7 +404,9 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 			XEmacPs_BdRingUnAlloc(rxring, 1, rxbd);
 			return;
 		}
-		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
+		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
+		}
 		bdindex = XEMACPS_BD_TO_INDEX(rxring, rxbd);
 		temp = (u32 *)rxbd;
 		if (bdindex == (XLWIP_CONFIG_N_RX_DESC - 1)) {
@@ -670,7 +675,9 @@ XStatus init_dma(struct xemac_s *xemac)
 		temp++;
 		*temp = 0;
 		dsb();
-		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
+		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
+			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
+		}
 		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
 
 		rx_pbufs_storage[index + bdindex] = (UINTPTR)p;
