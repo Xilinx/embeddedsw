@@ -107,7 +107,7 @@ void i2c_dp159_dump(void)
   r = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 1, XII_REPEATED_START_OPTION);
 
   r = XIic_Recv(XPAR_IIC_0_BASEADDR, I2C_DP159_ES_ADDR, (u8 *)&buf, 32, XIIC_STOP);
-  for (i = 0; i<= 0x20; i++) {
+  for (i = 0; i< 0x20; i++) {
 	  xil_printf("(%d) ADDR: %0x DATA: %0x\n", r, i, buf[i]);
   }
  }

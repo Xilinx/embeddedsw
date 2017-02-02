@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,13 @@
 * 2.11  YH     04/08/16 Added two level validation routines
 *                       Basic_validation will only check the received VmId
 *                       PRBS_validation will check both video & audio contents
+* 2.12  YH     03/01/16 Fixed a system hang issue by clearing TxBusy flag when a
+*                            non-supportedvideo resolution is set
+*                            during enable colorbar API
+* 2.13  GM     23/01/17 Replace the Extraction Value of VPhy line rate with,
+*                            XVphy_GetLineRateHz Rate API return value.
+*                       Removed CPU Clock Frequence on XVphy_HdmiInitialize
+*                            Initialization.
 * </pre>
 *
 ******************************************************************************/
@@ -867,12 +874,12 @@ void VphyHdmiRxReadyCallback(void *CallbackRef)
 											XVPHY_CHANNEL_ID_CH1);
 	if (!(RxPllType == XVPHY_PLL_TYPE_CPLL)) {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs, VphyPtr->HdmiRxRefClkHz,
-				(VphyPtr->Quads[0].Plls[XVPHY_CHANNEL_ID_CMN0 -
-			     XVPHY_CHANNEL_ID_CH1].LineRateHz / 1000000));
+				(XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN0)/1000000));
+
 	}
 	else {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs, VphyPtr->HdmiRxRefClkHz,
-				(VphyPtr->Quads[0].Plls[0].LineRateHz/1000000));
+				(XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)/1000000));
 	}
 }
 #endif
@@ -1254,17 +1261,15 @@ void TxStreamUpCallback(void *CallbackRef)
 
   TxPllType = XVphy_GetPllType(&Vphy, 0, XVPHY_DIR_TX, XVPHY_CHANNEL_ID_CH1);
   if ((TxPllType == XVPHY_PLL_TYPE_CPLL)) {
-	  TxLineRate = Vphy.Quads[0].Plls[0].LineRateHz;
+	  TxLineRate = XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
   }
   else if((TxPllType == XVPHY_PLL_TYPE_QPLL) ||
 	  (TxPllType == XVPHY_PLL_TYPE_QPLL0) ||
 	  (TxPllType == XVPHY_PLL_TYPE_PLL0)) {
-	  TxLineRate = Vphy.Quads[0].Plls[XVPHY_CHANNEL_ID_CMN0 -
-		  XVPHY_CHANNEL_ID_CH1].LineRateHz;
+	  TxLineRate = XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN0);
   }
   else {
-	  TxLineRate = Vphy.Quads[0].Plls[XVPHY_CHANNEL_ID_CMN1 -
-		  XVPHY_CHANNEL_ID_CH1].LineRateHz;
+	  TxLineRate = XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN1);
   }
 
   i2c_dp159(&Vphy, 0, TxLineRate);
@@ -1725,6 +1730,7 @@ void EnableColorBar(XVphy                *VphyPtr,
       if (Result == (XST_FAILURE)) {
           xil_printf("Unable to set requested TX video resolution.\n\r");
           xil_printf("Returning to previously TX video resolution.\n\r");
+		  TxBusy = (FALSE);
       }
 
       /* Disable RX clock forwarding */
@@ -1950,14 +1956,14 @@ int main()
 #ifdef XPAR_XHDCP_NUM_INSTANCES
   // HDCP 1.4 Cipher interrupt
   Status |= XScuGic_Connect(&Intc,
-		      XPAR_FABRIC_V_HDMI_RX_SS_HDCP14_IRQ_INTR,
+		      XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_IRQ_INTR,
 			  (XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
 			  (void *)&HdmiTxSs);
 
   // HDCP 1.4 Timer interrupt
   Status |= XScuGic_Connect(&Intc,
 			  XPAR_FABRIC_V_HDMI_TX_SS_HDCP14_TIMER_IRQ_INTR,
-			  (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+			  (XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
 			  (void *)&HdmiTxSs);
 #endif
 
@@ -2292,7 +2298,7 @@ int main()
 
     /* Initialize HDMI VPHY */
     Status = XVphy_HdmiInitialize(&Vphy, 0,
-			XVphyCfgPtr, XPAR_CPU_CORE_CLOCK_FREQ_HZ);
+			XVphyCfgPtr);
     if (Status != XST_SUCCESS) {
       print("HDMI VPHY initialization error\n\r");
       return XST_FAILURE;

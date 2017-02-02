@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,12 @@
 * 1.3   MG   05-08-2015 Added Audio menu
 * 1.4   MG   03-02-2016 Added HDCP menu
 * 1.5   MH   06-24-2016 Added HDCP repeater support.
+* 1.6   YH   03-01-2017 Remove Video Pattern from UART menu when it is not
+*                             enabled in TPG XGUI (CR-961051)
+*                       Remove XV_HdmiRxSs_LoadDefaultEdid from UART menu
+*                       Added 480i and 576i Support in the UART
+* 1.7   GM   01-02-2017 Change PLL Layout menu access to GTX only in
+*                              XHdmi_GtPllLayoutMenu API
 * </pre>
 *
 ******************************************************************************/
@@ -522,6 +528,7 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 ******************************************************************************/
 void XHdmi_DisplayResolutionMenu(void)
 {
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	print("\r\n");
 	print("---------------------------\r\n");
 	print("---   RESOLUTION MENU   ---\r\n");
@@ -544,8 +551,13 @@ void XHdmi_DisplayResolutionMenu(void)
 	print("16 - 1680 x 1050p (WSXGA+ / CVT1660D)\r\n");
 	print("17 - 1600 x 1200p (UXGA / DMT1660)\r\n");
 	print("18 - 1920 x 1200p (WUXGA / CVT1960D)\r\n");
+    print("19 -  720 x 480i (NTSC)\r\n");
+    print("20 -  720 x 576i (PAL)\r\n");
 	print("99 - Exit\n\r");
 	print("Enter Selection -> ");
+#else
+    xil_printf("No HDMI_TX_SS in design\r\n");
+#endif
 }
 
 /*****************************************************************************/
@@ -562,6 +574,7 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input)
 {
 	// Variables
 	XHdmi_MenuType 	Menu;
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	XVidC_VideoMode	VideoMode;
 
 	// Default
@@ -602,12 +615,20 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 		// 3840 x 2160p
 		case 7 :
-			VideoMode = XVIDC_VM_3840x2160_60_P;
-			break;
+#if (XPAR_XV_HDMITXSS_0_INPUT_PIXELS_PER_CLOCK != 1)
+            VideoMode = XVIDC_VM_3840x2160_60_P;
+#else
+            VideoMode = XVIDC_VM_3840x2160_30_P;
+#endif
+            break;
 
-		// 4096 x 2160p
-		case 8 :
-			VideoMode = XVIDC_VM_4096x2160_60_P;
+        // 4096 x 2160p
+        case 8 :
+#if (XPAR_XV_HDMITXSS_0_INPUT_PIXELS_PER_CLOCK != 1)
+            VideoMode = XVIDC_VM_4096x2160_60_P;
+#else
+            VideoMode = XVIDC_VM_4096x2160_30_P;
+#endif
 			break;
 
 		// 1920 x 1080i
@@ -660,6 +681,16 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			VideoMode = XVIDC_VM_1920x1200_60_P;
 			break;
 
+        // 720 x 480i (NTSC)
+        case 19 :
+            VideoMode = XVIDC_VM_1440x480_60_I;
+            break;
+
+        // 720 x 576i (PAL)
+        case 20 :
+            VideoMode = XVIDC_VM_1440x576_50_I;
+            break;
+
 		// Exit
 		case 99 :
 			print("Returning to main menu.\n\r");
@@ -678,7 +709,10 @@ static XHdmi_MenuType XHdmi_ResolutionMenu(XHdmi_Menu *InstancePtr, u8 Input)
 #endif
 		InstancePtr->WaitForColorbar = (TRUE);
 	}
-
+#else
+        xil_printf("Returning to main menu.\r\n");
+        Menu = XHDMI_MAIN_MENU;
+#endif
 	return Menu;
 }
 
@@ -1059,8 +1093,8 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	XVphy_SysClkDataSelType RxSysPllSelect;
 	u8 IsValid = FALSE;
 
-	if (Vphy.Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
-		printf("Returning to main menu.\n\r");
+    if (Vphy.Config.XcvrType != XVPHY_GT_TYPE_GTXE2) {
+		xil_printf("Returning to main menu.\n\r");
 		Menu = XHDMI_MAIN_MENU;
 	}
 	else{ //GTXe2
@@ -1071,7 +1105,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 			// RX => QPLL / TX => CPLL
 			case 1 :
-				printf("Setting RX => QPLL / TX => CPLL\n\r\n\r");
+				xil_printf("Setting RX => QPLL / TX => CPLL\n\r\n\r");
 				TxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK;
 				RxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK;
 				IsValid = TRUE;
@@ -1079,7 +1113,7 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 			// RX => CPLL / TX => QPLL
 			case 2 :
-				printf("Setting RX => CPLL / TX => QPLL\n\r\n\r");
+				xil_printf("Setting RX => CPLL / TX => QPLL\n\r\n\r");
 				TxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK;
 				RxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK;
 				IsValid = TRUE;
@@ -1087,8 +1121,8 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 			// RX => CPLL / TX => CPLL
 			case 3 :
-				printf("Setting RX => CPLL / TX => CPLL\n\r\n\r");
-				printf("Please connect a HDMI source to start video in pass-through mode.\n\r");
+				xil_printf("Setting RX => CPLL / TX => CPLL\n\r\n\r");
+				xil_printf("Please connect a HDMI source to start video in pass-through mode.\n\r");
 				TxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK;
 				RxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK;
 				IsValid = TRUE;
@@ -1096,8 +1130,8 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 			// RX => QPLL / TX => QPLL
 			case 4 :
-				printf("Setting RX => QPLL / TX => QPLL\n\r\n\r");
-				printf("Please connect a HDMI source to start video in pass-through mode.\n\r");
+				xil_printf("Setting RX => QPLL / TX => QPLL\n\r\n\r");
+				xil_printf("Please connect a HDMI source to start video in pass-through mode.\n\r");
 				TxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK;
 				RxSysPllSelect = XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK;
 				IsValid = TRUE;
@@ -1105,13 +1139,13 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 
 			// Exit
 			case 99 :
-				printf("Returning to main menu.\n\r");
+				xil_printf("Returning to main menu.\n\r");
 				Menu = XHDMI_MAIN_MENU;
 				IsValid = FALSE;
 				break;
 
 			default :
-				printf("Unknown option\n\r");
+				xil_printf("Unknown option\n\r");
 				XHdmi_DisplayGtPllLayoutMenu();
 				IsValid = FALSE;
 				break;
@@ -1264,24 +1298,36 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input)
 ******************************************************************************/
 void XHdmi_DisplayVideoMenu(void)
 {
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 	print("\r\n");
 	print("----------------------\r\n");
 	print("---   VIDEO MENU   ---\r\n");
 	print("----------------------\r\n");
+#ifdef XPAR_XV_TPG_0_COLOR_BAR
 	print("  1 - Color bars\r\n");
+#endif
+#ifdef XPAR_XV_TPG_0_SOLID_COLOR
 	print("  2 - Solid red\r\n");
 	print("  3 - Solid green\r\n");
 	print("  4 - Solid blue\r\n");
 	print("  5 - Solid black\r\n");
 	print("  6 - Solid white\r\n");
+#endif
+#ifdef XPAR_XV_TPG_0_RAMP
 	print("  7 - Horizontal ramp\r\n");
 	print("  8 - Vertical ramp\r\n");
+#endif
+#ifdef XPAR_XV_TPG_0_COLOR_SWEEP
 	print("  9 - Rainbow color\r\n");
+#endif
 	print(" 10 - Checker board\r\n");
 	print(" 11 - Cross hatch\r\n");
 	print(" 12 - Noise\r\n");
 	print(" 99 - Exit\n\r");
 	print("Enter Selection -> ");
+#else
+    xil_printf("No HDMI TX SS in design\r\n");
+#endif
 }
 
 /*****************************************************************************/
