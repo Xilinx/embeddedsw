@@ -43,7 +43,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilfpga
   OPTION drc = fpga_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone freertos823_xilinx);
+  OPTION REQUIRES_OS = (standalone freertos901_xilinx);
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx fpga Library ";

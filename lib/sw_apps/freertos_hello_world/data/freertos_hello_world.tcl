@@ -46,8 +46,8 @@ proc check_freertos_os {} {
     }
     set os [lindex $oslist 0];
 
-    if { $os != "freertos823_xilinx" } {
-        error "This application is supported only on the freertos823_xilinx.";
+    if { $os != "freertos901_xilinx" } {
+        error "This application is supported only on the freertos901_xilinx.";
     }
 }
 
@@ -101,5 +101,5 @@ proc swapp_get_supported_processors {} {
 }
 
 proc swapp_get_supported_os {} {
-    return "freertos823_xilinx";
+    return "freertos901_xilinx";
 }

@@ -48,7 +48,7 @@ OPTION psf_version = 2.1;
 BEGIN LIBRARY xilisf
   OPTION drc = isf_drc;
   OPTION copyfiles = all;
-  OPTION REQUIRES_OS = (standalone xilkernel freertos823_xilinx);
+  OPTION REQUIRES_OS = (standalone xilkernel freertos901_xilinx);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilisf,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx In-system and Serial Flash Library";
   OPTION VERSION = 5.7;

@@ -145,5 +145,5 @@ proc swapp_get_supported_processors {} {
 }
 
 proc swapp_get_supported_os {} {
-    return "freertos823_xilinx standalone"
+    return "freertos901_xilinx standalone"
 }
