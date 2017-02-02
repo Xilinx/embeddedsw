@@ -60,7 +60,6 @@
 #if defined (XFSBL_BS) && defined (XFSBL_SECURE)
 extern u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
 extern u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size);
-extern void XFsbl_MeasurePerfTime(XTime tCur);
 extern u32 XFsbl_PcapWaitForDone(void);
 static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 				u64 ChunkAdrs, u32 ChunkSize);
@@ -110,10 +109,6 @@ u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams)
 	u64 CurrentAcOffset = PartitionParams->PlAuth.AcOfset;
 	u8 IsLastBlock = FALSE;
 	u32 RegVal;
-#ifdef XFSBL_PERF
-	XTime tCur;
-#endif
-
 
 	if (PartitionParams->IsAuthenticated != TRUE) {
 		XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED"
@@ -149,13 +144,10 @@ u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams)
 			ADMA_CH0_ZDMA_CH_CTRL0_MODE_MASK);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0, RegVal);
 
+	Xil_DCacheDisable();
 	/* Loop for traversing all blocks */
 	for (Len = PartitionParams->PlAuth.BlockSize, Index = 1;
 			SrcAddress < PartitionParams->PlAuth.AcOfset; Index++) {
-#ifdef XFSBL_PERF
-		tCur = 0;
-		XTime_GetTime(&tCur);
-#endif
 		Status = XFsbl_CopyData(PartitionParams,
 			PartitionParams->PlAuth.AuthCertBuf,
 			(u8 *)CurrentAcOffset, XFSBL_AUTH_CERT_MIN_SIZE);
@@ -199,13 +191,20 @@ u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams)
 			/* Completed last block of bitstream */
 			break;
 		}
-#ifdef XFSBL_PERF
-	XFsbl_MeasurePerfTime(tCur);
-	XFsbl_Printf(DEBUG_PRINT_ALWAYS, ": For bitstream block-%d process\r\n",
-						Index);
-#endif
-
 	}
+	Xil_DCacheEnable();
+#ifdef XFSBL_PS_DDR
+	/* Restore reset values for the DMA registers used */
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0, 0x00000080U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD3, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD0, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD1, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD3, 0x00000000U);
+#endif
 
 END:
 
@@ -610,8 +609,6 @@ static u32 XFsbl_CopyData(XFsblPs_PlPartition *PartitionPtr,
 	u32 Status;
 
 	if (PartitionPtr->DeviceCopy == NULL) {
-		Xil_DCacheFlushRange((INTPTR)Src, Size);
-		Xil_DCacheInvalidateRange((INTPTR)Dst, Size);
 		Status = XFsbl_AdmaCopy(Dst, Src, Size);
 		if (Status != XFSBL_SUCCESS) {
 			goto END;
@@ -646,9 +643,11 @@ END:
 static u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2)
 {
 	u8 Index;
+	u32 *HashOne = (u32 *)Hash1;
+	u32 *HashTwo = (u32 *)Hash2;
 
-	for (Index = 0; Index < 48; Index++) {
-		if (Hash1[Index] != Hash2[Index]) {
+	for (Index = 0; Index < XFSBL_HASH_TYPE_SHA3/4; Index++) {
+		if (HashOne[Index] != HashTwo[Index]) {
 			return XFSBL_FAILURE;
 		}
 	}
@@ -993,18 +992,6 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 	}
 
 END:
-#ifdef XFSBL_PS_DDR
-	/* Restore reset values for the DMA registers used */
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0, 0x00000080U);
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0, 0x00000000U);
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1, 0x00000000U);
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, 0x00000000U);
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD3, 0x00000000U);
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD0, 0x00000000U);
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD1, 0x00000000U);
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2, 0x00000000U);
-	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD3, 0x00000000U);
-#endif
 
 	return Status;
 
