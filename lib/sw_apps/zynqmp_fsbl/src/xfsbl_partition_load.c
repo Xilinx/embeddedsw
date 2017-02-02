@@ -1089,7 +1089,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #if defined(XFSBL_SECURE)
 	u32 ImageOffset = 0U;
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U] = { 0 };
-	u32 UnencryptedLength;
+	u32 UnencryptedLength = 0U;
 	u32 IvLocation;
 	u32 Length;
 	static XSecure_Aes SecureAes;

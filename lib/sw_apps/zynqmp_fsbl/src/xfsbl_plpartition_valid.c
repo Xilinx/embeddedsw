@@ -66,7 +66,7 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 				u64 ChunkAdrs, u32 ChunkSize);
 static u32 XFsbl_PlBlockAuthentication(XFsblPs_PlPartition *PartitionParams,
-			u64 *SrcAddress, u32 Length, u8 *AuthCer);
+			UINTPTR SrcAddress, u32 Length, u8 *AuthCer);
 static void XFsbl_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src,
 		u32 Size, u8 EnLast);
 static u32 XFsbl_CopyData(XFsblPs_PlPartition *PartitionPtr,
@@ -75,11 +75,11 @@ static u32 XFsbl_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr,
 		u32 Size);
 static u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2);
 static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
-				u64 *Address, u32 BlockLen, u32 NoOfChunks);
+				UINTPTR Address, u32 BlockLen, u32 NoOfChunks);
 static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
-		u64 *BlockAdrs, u32 BlockSize, u8 *AcOffset, u32 NoOfChunks);
+		UINTPTR BlockAdrs, u32 BlockSize, u8 *AcOffset, u32 NoOfChunks);
 static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
-		u64 *ChunkAdrs, u32 ChunkSize);
+		UINTPTR ChunkAdrs, u32 ChunkSize);
 
 /************************** Function Definitions *****************************/
 
@@ -105,8 +105,8 @@ u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams)
 	u32 Status = XFSBL_SUCCESS;
 	u8 Index;
 	u32 Len;
-	u64 SrcAddress = (u64)PartitionParams->StartAddress;
-	u64 CurrentAcOffset = PartitionParams->PlAuth.AcOfset;
+	UINTPTR SrcAddress = (u64)PartitionParams->StartAddress;
+	UINTPTR CurrentAcOffset = PartitionParams->PlAuth.AcOfset;
 	u8 IsLastBlock = FALSE;
 	u32 RegVal;
 
@@ -175,7 +175,7 @@ u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams)
 		}
 
 		Status = XFsbl_PlBlockAuthentication(PartitionParams,
-				(u64 *)SrcAddress, Len,
+					SrcAddress, Len,
 				(u8 *)PartitionParams->PlAuth.AuthCertBuf);
 		if (Status != XFSBL_SUCCESS) {
 			return Status;
@@ -229,7 +229,7 @@ END:
 *
 ******************************************************************************/
 static u32 XFsbl_PlBlockAuthentication(XFsblPs_PlPartition *PartitionParams,
-		u64 *SrcAddress, u32 Length, u8 *AuthCer)
+		UINTPTR SrcAddress, u32 Length, u8 *AuthCer)
 {
 	u32 Status;
 	u32 NoOfChunks;
@@ -256,7 +256,7 @@ static u32 XFsbl_PlBlockAuthentication(XFsblPs_PlPartition *PartitionParams,
 	}
 
 	/* Do SPK Signature verification using PPK */
-	Status = XFsbl_SpkVer((u64)AuthCer, PartitionParams->PlAuth.AuthType);
+	Status = XFsbl_SpkVer((UINTPTR)AuthCer, PartitionParams->PlAuth.AuthType);
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
 	}
@@ -309,12 +309,12 @@ END:
 *
 ******************************************************************************/
 static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
-				u64 *Address, u32 BlockLen, u32 NoOfChunks)
+				UINTPTR Address, u32 BlockLen, u32 NoOfChunks)
 {
 	u32 Status;
 	u32 Index;
 	u32 Len = PartitionParams->ChunkSize;;
-	u64 Offset;
+	UINTPTR Offset;
 	u8 ChunksHash[48];
 	XSecure_Sha3 SecureSha3;
 	u32 HashDataLen = BlockLen;
@@ -333,7 +333,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 			if (Index == NoOfChunks -1) {
 				Len = HashDataLen;
 			}
-			Offset = (u64)Address +
+			Offset = (UINTPTR)Address +
 				(u64)(PartitionParams->ChunkSize * Index);
 
 			/* Copy from DDR or flash to Buffer */
@@ -392,7 +392,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 			/* If image is encrypted */
 			else {
 				Status = XFsbl_DecrptPlChunks(PartitionParams,
-					(u64)PartitionParams->ChunkBuffer, Len);
+					(UINTPTR)PartitionParams->ChunkBuffer, Len);
 				if (Status != XFSBL_SUCCESS) {
 					goto END;
 				}
@@ -423,7 +423,7 @@ END:
 *
 ******************************************************************************/
 static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
-		u64 *BlockAdrs, u32 BlockSize, u8 *AcOffset, u32 NoOfChunks)
+		UINTPTR BlockAdrs, u32 BlockSize, u8 *AcOffset, u32 NoOfChunks)
 {
 
 	u8 PartitionHash[XFSBL_HASH_TYPE_SHA3];
@@ -473,7 +473,7 @@ static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
 			(u64)(PartitionParams->ChunkSize * Index);
 
 		Status = XFsbl_CopyData(PartitionParams,
-			PartitionParams->ChunkBuffer, (u8 *)Offset, Len);
+			PartitionParams->ChunkBuffer, (u8 *)(UINTPTR)Offset, Len);
 		if (Status != XFSBL_SUCCESS) {
 			return Status;
 		}
@@ -617,7 +617,7 @@ static u32 XFsbl_CopyData(XFsblPs_PlPartition *PartitionPtr,
 	}
 	else {
 		Status = PartitionPtr->DeviceCopy((UINTPTR)Src,
-				(UINTPTR)(DstPtr), Size);
+				(UINTPTR)(Dst), Size);
 		if (Status != XFSBL_SUCCESS) {
 			goto END;
 		}
@@ -745,7 +745,7 @@ static u32 XFsbl_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr,
 *
 ******************************************************************************/
 static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
-		u64 *ChunkAdrs, u32 ChunkSize)
+		UINTPTR ChunkAdrs, u32 ChunkSize)
 {
 	u32 Status = XFSBL_SUCCESS;
 	u32 SssAes;
@@ -782,10 +782,10 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0);
 
 	/* the Address and size of the data to be decrypted */
-	if ((ChunkAdrs != NULL) &&
+	if ((ChunkAdrs != 0x00U) &&
 		(PartitionParams->PlEncrypt.SecureAes->SizeofData != 0)) {
 		Status = XFsbl_DecrptPl(PartitionParams,
-				(u64)ChunkAdrs, ChunkSize);
+				(UINTPTR)ChunkAdrs, ChunkSize);
 		if (Status != XFSBL_SUCCESS) {
 			return Status;
 		}
@@ -820,7 +820,7 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 	u64 SrcAddr = (u64)ChunkAdrs;
 	XCsuDma_Configure ConfigurValues = {0};
 	u64 SecHrAddr = SrcAddr;
-	u64 NextBlkAddr = 0;
+	UINTPTR NextBlkAddr = 0;
 	u32 SssAes;
 	u32 SssCfg;
 
@@ -897,14 +897,14 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 
 		if (NextBlkAddr != 0x0) {
 			Status = XFsbl_DecrptSetUpNextBlk(PartitionParams,
-					(u64 *)(NextBlkAddr), Size);
+					NextBlkAddr, Size);
 			if (Status != XFSBL_SUCCESS) {
 				return Status;
 			}
 		}
 		else {
 			Status = XFsbl_DecrptSetUpNextBlk(
-				PartitionParams, NULL, Size);
+				PartitionParams, 0U, Size);
 			if (Status != XFSBL_SUCCESS) {
 				return Status;
 			}
@@ -935,7 +935,7 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 		u64 ChunkAdrs, u32 ChunkSize)
 {
 	u32 Status = XFSBL_SUCCESS;
-	u64 SrcAddr = (u64)ChunkAdrs;
+	UINTPTR SrcAddr = (u64)ChunkAdrs;
 	u32 Size = ChunkSize;
 
 	/* If this is the first block to be decrypted it is the secure header */
@@ -978,7 +978,7 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 		 * update the required fields
 		 */
 		Status = XFsbl_DecrptSetUpNextBlk(PartitionParams,
-						(u64 *)SrcAddr, Size);
+						SrcAddr, Size);
 		/*
 		 * If status is true or false also goto END
 		 * As remaining data also processed in above API

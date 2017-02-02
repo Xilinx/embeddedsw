@@ -208,7 +208,7 @@ static s32 XFsbl_Strcmp( const char* Str1Ptr, const char* Str2Ptr)
 		Str2Ptr++;
 	}
 
-	if( *Str1Ptr < *Str1Ptr) {
+	if( *Str1Ptr < *Str2Ptr) {
 		retVal = -1;
 	}
 	else {
