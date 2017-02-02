@@ -74,7 +74,8 @@
 * The application needs to do following steps in order for preparing the
 * HDMI TX core to be ready.
 *
-* - Call XV_HdmiTx_LookupConfig using a device ID to find the core configuration.
+* - Call XV_HdmiTx_LookupConfig using a device ID to find the core
+*   configuration.
 * - Call XV_HdmiTx_CfgInitialize to initialize the device and the driver
 *   instance associated with it.
 *
@@ -128,6 +129,8 @@
 *                       XV_HdmiTx_Config
 *                       XV_HdmiTx_CfgInitialize
 * 1.4   YH     17/08/16 Added XV_HdmiTx_SetAxiClkFreq
+* 1.5   YH     14/11/16 Added XV_HdmiTx_Bridge_yuv420 & XV_HdmiTx_Bridge_pixel
+*                       mode macros
 * </pre>
 *
 ******************************************************************************/
@@ -392,6 +395,64 @@ typedef struct {
         (XV_HDMITX_PIO_OUT_CLR_OFFSET), (XV_HDMITX_PIO_OUT_SCRM_MASK)); \
         (InstancePtr)->Stream.IsScrambled = (FALSE); \
     } \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro controls the YUV420 mode for video bridge.
+*
+* @param	InstancePtr is a pointer to the XHdmi_Tx core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable the
+*		YUV 420 Support.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx_Bridge_yuv420(XV_HdmiTx *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx_Bridge_yuv420(InstancePtr, SetClr) \
+{ \
+	if (SetClr) { \
+		XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+		                   (XV_HDMITX_PIO_OUT_SET_OFFSET), \
+						   (XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK)); \
+	} \
+	else { \
+		XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+		                   (XV_HDMITX_PIO_OUT_CLR_OFFSET), \
+						   (XV_HDMITX_PIO_OUT_BRIDGE_YUV420_MASK)); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro controls the Pixel Repeat mode for video bridge.
+*
+* @param	InstancePtr is a pointer to the XHdmi_Tx core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable the
+*		Pixel Repitition Support.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiTx_Bridge_pixel(XV_HdmiTx *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiTx_Bridge_pixel(InstancePtr, SetClr) \
+{ \
+	if (SetClr) { \
+		XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+		                   (XV_HDMITX_PIO_OUT_SET_OFFSET), \
+						   (XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK)); \
+	} \
+	else { \
+		XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+		                   (XV_HDMITX_PIO_OUT_CLR_OFFSET), \
+						   (XV_HDMITX_PIO_OUT_BRIDGE_PIXEL_MASK)); \
+	} \
 }
 
 /*****************************************************************************/
@@ -858,7 +919,8 @@ int XV_HdmiTx_SetCallback(XV_HdmiTx *InstancePtr, u32 HandlerType,
 
 
 /* Vendor Specific Infomation related functions in xv_hdmitx_vsif.c */
-int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr, XV_HdmiTx_Aux *AuxPtr);
+int XV_HdmiTx_VSIF_GeneratePacket(XV_HdmiTx_VSIF  *VSIFPtr,
+                                  XV_HdmiTx_Aux *AuxPtr);
 void XV_HdmiTx_VSIF_DisplayInfo(XV_HdmiTx_VSIF  *VSIFPtr);
 char* XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_3D_Struct_Field Item);
 char* XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_3D_Sampling_Method Item);

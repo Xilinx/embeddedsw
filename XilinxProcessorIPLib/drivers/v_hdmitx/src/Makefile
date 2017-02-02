@@ -13,7 +13,7 @@ INCLUDEFILES=*.h
 
 LIBSOURCES=*.c
 OUTS = *.o
-OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+
 
 libs:
 	echo "Compiling v_hdmitx"
@@ -25,4 +25,4 @@ include:
 	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${OBJECTS}
+	rm -rf ${OUTS}
