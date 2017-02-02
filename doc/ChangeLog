@@ -300,6 +300,8 @@ target.It fixes the CR#966900.
 Added IAR compiler support for Cortex R5 BSP.
 Add safe Xil_Out32 implementation.
 Fixed issues with Xil_DCacheDisable API. This is for CR#966220.
+Updated arm/common, arm/cortexa9, arm/cortexa53 files for doxygen
+compliant comments
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
