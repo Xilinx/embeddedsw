@@ -48,6 +48,8 @@
  * 1.0   als  10/19/15 Initial release.
  * 1.1   gm   02/01/16 Additional events for event log printout
  * 1.2   gm            Added log events for debugging
+ * 1.4   gm   11/24/16 Made debug log optional (can be disabled via makefile)
+ *                     Added XVPHY_LOG_EVT_TX_ALIGN_TMOUT log event
  * </pre>
  *
 *******************************************************************************/
@@ -55,6 +57,7 @@
 /******************************* Include Files ********************************/
 
 #include "xvphy.h"
+#include "xvphy_i.h"
 
 /**************************** Function Prototypes *****************************/
 
@@ -73,13 +76,16 @@
 ******************************************************************************/
 void XVphy_LogReset(XVphy *InstancePtr)
 {
+#ifdef XV_VPHY_LOG_ENABLE
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->Log.HeadIndex = 0;
 	InstancePtr->Log.TailIndex = 0;
+#endif
 }
 
+#ifdef XV_VPHY_LOG_ENABLE
 /*****************************************************************************/
 /**
 * This function will insert an event in the driver's logginc mechanism.
@@ -128,6 +134,7 @@ void XVphy_LogWrite(XVphy *InstancePtr, XVphy_LogEvent Evt, u8 Data)
 		}
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -142,6 +149,7 @@ void XVphy_LogWrite(XVphy *InstancePtr, XVphy_LogEvent Evt, u8 Data)
 ******************************************************************************/
 u16 XVphy_LogRead(XVphy *InstancePtr)
 {
+#ifdef XV_VPHY_LOG_ENABLE
 	u16 Log;
 
 	/* Verify argument. */
@@ -165,6 +173,7 @@ u16 XVphy_LogRead(XVphy *InstancePtr)
 	}
 
 	return Log;
+#endif
 }
 
 /*****************************************************************************/
@@ -180,6 +189,7 @@ u16 XVphy_LogRead(XVphy *InstancePtr)
 ******************************************************************************/
 void XVphy_LogDisplay(XVphy *InstancePtr)
 {
+#ifdef XV_VPHY_LOG_ENABLE
 	u16 Log;
 	u8 Evt;
 	u8 Data;
@@ -247,6 +257,9 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 			else {
 				xil_printf("TX alignment start.\r\n.");
 			}
+			break;
+		case (XVPHY_LOG_EVT_TX_ALIGN_TMOUT):
+				xil_printf("TX alignment watchdog timed out.\r\n");
 			break;
 		case (XVPHY_LOG_EVT_TX_TMR):
 			if (Data == 1) {
@@ -453,6 +466,9 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 				xil_printf("         "
 								"Change to another format\r\n");
 			break;
+		case (XVPHY_LOG_EVT_MMCM_ERR):
+				xil_printf("MMCM config not found!\r\n");
+			break;
 		default:
 			xil_printf("Unknown event\r\n");
 			break;
@@ -461,4 +477,7 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 		/* Read log data */
 		Log = XVphy_LogRead(InstancePtr);
 	}
+#else
+    xil_printf("\r\nINFO:: VPHY Log Feature is Disabled \r\n");
+#endif
 }

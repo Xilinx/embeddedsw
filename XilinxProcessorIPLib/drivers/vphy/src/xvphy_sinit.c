@@ -52,6 +52,7 @@
 
 #include "xparameters.h"
 #include "xvphy.h"
+#include "xvphy_i.h"
 
 /*************************** Variable Declarations ****************************/
 

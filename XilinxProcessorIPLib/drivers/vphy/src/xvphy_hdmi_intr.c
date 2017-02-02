@@ -52,6 +52,11 @@
  *                     Fixed race condition in
  *                       XVphy_HdmiRxClkDetFreqChangeHandler when  storing
  *                       RxRefClkHz value
+ * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
+ *                     Incorporated AXIlite Freq auto extraction
+ *                     Added logging and register access for ERR_IRQ impl
+ *                     Added mechanism to re-trigger GT TX reset when TX align
+ *                       get stuck
  * </pre>
  *
 *******************************************************************************/
@@ -59,8 +64,10 @@
 /******************************* Include Files ********************************/
 
 #include "xparameters.h"
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRXSS_0_DEVICE_ID)
 #include "xstatus.h"
 #include "xvphy.h"
+#include "xvphy_i.h"
 #include "xvphy_hdmi.h"
 #include "xvphy_gt.h"
 
@@ -186,6 +193,7 @@ void XVphy_HdmiIntrHandlerCallbackInit(XVphy *InstancePtr)
 			(XVphy_IntrHandler)XVphy_ClkDetHandler, InstancePtr);
 }
 
+#if (XPAR_VPHY_0_TRANSCEIVER != XVPHY_GTPE2)
 /*****************************************************************************/
 /**
 * This function is the handler for events triggered by QPLL lock done.
@@ -284,7 +292,9 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 		}
 	}
 }
+#endif
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)
 /*****************************************************************************/
 /**
 * This function is the handler for events triggered by GTP PLL0/1 lock done.
@@ -388,7 +398,9 @@ void XVphy_HdmiGtpPllLockHandler(XVphy *InstancePtr, u8 Pll)
 		}
 	}
 }
+#endif
 
+#if (XPAR_VPHY_0_TRANSCEIVER != XVPHY_GTPE2)
 /*****************************************************************************/
 /**
 * This function is the handler for events triggered by CPLL lock done.
@@ -423,7 +435,6 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_CPLL_LOCK, 1);
-
 			/* GT RX reset. */
 			XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 					XVPHY_DIR_RX, FALSE);
@@ -462,7 +473,6 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_CPLL_LOCK, 1);
-
 			/* GT TX reset. */
 			XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 					XVPHY_DIR_TX, FALSE);
@@ -478,6 +488,7 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 		}
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -518,6 +529,11 @@ void XVphy_HdmiGtTxResetDoneLockHandler(XVphy *InstancePtr)
 						InstancePtr->HdmiTxReadyRef);
 			}
 		} else {
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+			XVphy_ClkDetTimerLoad(InstancePtr, 0, XVPHY_DIR_TX,
+							InstancePtr->Config.AxiLiteClkFreq/100);
+#endif
+
 			InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].TxState =
 				XVPHY_GT_STATE_ALIGN;
 		}
@@ -540,6 +556,12 @@ void XVphy_HdmiGtTxAlignDoneLockHandler(XVphy *InstancePtr)
 	u8 Id, Id0, Id1;
 
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_TX_ALIGN, 1);
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	/* Clear TX timer. */
+	XVphy_ClkDetTimerClear(InstancePtr, 0, XVPHY_DIR_TX);
+#endif
+
 
 	XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
@@ -670,7 +692,8 @@ void XVphy_HdmiTxClkDetFreqChangeHandler(XVphy *InstancePtr)
 
 	/* If there is no reference clock, load TX timer in usec. */
 	if (XVphy_ClkDetGetRefClkFreqHz(InstancePtr, XVPHY_DIR_TX)) {
-		XVphy_ClkDetTimerLoad(InstancePtr, 0, XVPHY_DIR_TX, 100000);
+		XVphy_ClkDetTimerLoad(InstancePtr, 0, XVPHY_DIR_TX,
+						InstancePtr->Config.AxiLiteClkFreq/1000);
 	}
 
 	/* Callback to re-initialize. */
@@ -739,6 +762,11 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 			XVPHY_CHANNEL_ID_CMNA : XVPHY_CHANNEL_ID_CHA, TRUE);
 		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_TX, 1);
+//		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
+//			XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
+//					XVPHY_DIR_TX, TRUE);
+//		}
+
 	}
 
 	/* Disable RX MMCM */
@@ -768,7 +796,8 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 	 * The reference clock should be larger than 25Mhz. We are using a 20Mhz
 	 * instead to keep some margin for errors. */
 	if (RxRefClkHz > 20000000) {
-		XVphy_ClkDetTimerLoad(InstancePtr, 0, XVPHY_DIR_RX, 100000);
+		XVphy_ClkDetTimerLoad(InstancePtr, 0, XVPHY_DIR_RX,
+						InstancePtr->Config.AxiLiteClkFreq/1000);
 
 		/* Callback to re-initialize. */
 		if (InstancePtr->HdmiRxInitCallback) {
@@ -793,6 +822,28 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	XVphy_ChannelId ChId;
 	XVphy_PllType PllType;
 	u8 Id, Id0, Id1;
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	/* Check if timer timed out while waiting for TX Alignment
+	 * If yes, reset the GT TX
+	 */
+	XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0, &Id1);
+	if (InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id0)].TxState ==
+			XVPHY_GT_STATE_ALIGN) {
+		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_TX_ALIGN_TMOUT, 1);
+		/* GT TX reset. */
+		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
+				XVPHY_DIR_TX, FALSE);
+
+		XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0,
+				&Id1);
+		for (Id = Id0; Id <= Id1; Id++) {
+			InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].
+				TxState = XVPHY_GT_STATE_RESET;
+		}
+		return;
+	}
+#endif
 
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_TX_TMR, 1);
 
@@ -890,6 +941,7 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	if (Status != XST_SUCCESS) {
 		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_PLL_LAYOUT, 1);
+			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERRIRQ_PLL_LAYOUT, 1);
 		}
 
 		for (Id = Id0; Id <= Id1; Id++) {
@@ -903,6 +955,9 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 		}
 
 		return;
+	}
+	else {
+		XVphy_CfgErrIntr(InstancePtr, XVPHY_ERRIRQ_PLL_LAYOUT, 0);
 	}
 
 	/* Enable PLL. */
@@ -982,6 +1037,10 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
 		if (InstancePtr->HdmiRxDruIsEnabled) {
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_UNBONDED, 1);
+			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERRIRQ_PLL_LAYOUT, 1);
+		}
+		else {
+			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERRIRQ_PLL_LAYOUT, 0);
 		}
 		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_TX, 0);
@@ -1029,21 +1088,22 @@ void XVphy_HdmiGtHandler(XVphy *InstancePtr)
 
 	if ((Event & XVPHY_INTR_QPLL0_LOCK_MASK) ||
 	    (Event & XVPHY_INTR_QPLL1_LOCK_MASK)) {
-		if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
-			XVphy_HdmiQpllLockHandler(InstancePtr);
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)
+		if (Event & XVPHY_INTR_QPLL0_LOCK_MASK) { /* PLL0. */
+			XVphy_HdmiGtpPllLockHandler(InstancePtr, 0);
 		}
-		else { /* GTP. */
-			if (Event & XVPHY_INTR_QPLL0_LOCK_MASK) { /* PLL0. */
-				XVphy_HdmiGtpPllLockHandler(InstancePtr, 0);
-			}
-			if (Event & XVPHY_INTR_QPLL1_LOCK_MASK) { /* PLL1. */
-				XVphy_HdmiGtpPllLockHandler(InstancePtr, 1);
-			}
+		if (Event & XVPHY_INTR_QPLL1_LOCK_MASK) { /* PLL1. */
+			XVphy_HdmiGtpPllLockHandler(InstancePtr, 1);
 		}
+#else
+		XVphy_HdmiQpllLockHandler(InstancePtr);
+#endif
 	}
+#if (XPAR_VPHY_0_TRANSCEIVER != XVPHY_GTPE2)
 	if (Event & XVPHY_INTR_CPLL_LOCK_MASK) {
 		XVphy_HdmiCpllLockHandler(InstancePtr);
 	}
+#endif
 	if ((Event & XVPHY_INTR_TXRESETDONE_MASK)
 			&& (*TxStatePtr == XVPHY_GT_STATE_RESET)) {
 		XVphy_HdmiGtTxResetDoneLockHandler(InstancePtr);
@@ -1106,3 +1166,4 @@ void XVphy_ClkDetHandler(XVphy *InstancePtr)
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_INTR_STS_REG,
 			EventAck);
 }
+#endif

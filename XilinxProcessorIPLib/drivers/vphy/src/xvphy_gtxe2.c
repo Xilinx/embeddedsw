@@ -48,13 +48,19 @@
  * 1.0   als  10/19/15 Initial release.
  * 1.1   gm   12/07/15 Corrected PllParams.Cdr[1] values for DP and HDMI
  *       gm   03/18/16 Added XVphy_Gtxe2RxPllRefClkDiv1Reconfig function
+ * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
+ *                     Changed TX reconfig hook from TxPllRefClkDiv1Reconfig to
+ *                       TxChReconfig
+ *                     Added TX datawidth dynamic reconfiguration
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
+#include "xparameters.h"
 #include "xvphy_gt.h"
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 #include "xstatus.h"
 
 /**************************** Function Prototypes *****************************/
@@ -80,6 +86,8 @@ u32 XVphy_Gtxe2ClkChReconfig(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId);
 u32 XVphy_Gtxe2ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId CmnId);
+u32 XVphy_Gtxe2TxChReconfig(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId);
 u32 XVphy_Gtxe2RxChReconfig(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId);
 u32 XVphy_Gtxe2TxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
@@ -100,6 +108,7 @@ u32 XVphy_Gtxe2RxPllRefClkDiv1Reconfig(XVphy *InstancePtr, u8 QuadId,
 #define XVPHY_DRP_QPLL_FBDIV_PROG        	0x36
 #define XVPHY_DRP_QPLL_FBDIV_RATIO_PROG  	0x37
 #define XVPHY_DRP_TXCLK25        	        0x6A
+#define XVPHY_DRP_TXDATAWIDTH               0x6B
 #define XVPHY_DRP_RXCDR_CFG_WORD0        	0xA8
 #define XVPHY_DRP_RXCDR_CFG_WORD1        	0xA9
 #define XVPHY_DRP_RXCDR_CFG_WORD2        	0xAA
@@ -131,7 +140,7 @@ const XVphy_GtConfig Gtxe2Config = {
 	.ClkChReconfig = XVphy_Gtxe2ClkChReconfig,
 	.ClkCmnReconfig = XVphy_Gtxe2ClkCmnReconfig,
 	.RxChReconfig = XVphy_Gtxe2RxChReconfig,
-	.TxPllRefClkDiv1Reconfig = XVphy_Gtxe2TxPllRefClkDiv1Reconfig,
+	.TxChReconfig = XVphy_Gtxe2TxChReconfig,
 
 	.CpllDivs = {
 		.M = Gtxe2CpllDivsM,
@@ -445,7 +454,8 @@ u32 XVphy_Gtxe2RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId,
 				XVPHY_DRP_RXDATAWIDTH);
 		DrpVal &= ~(0x7800);
-		if (InstancePtr->HdmiRxDruIsEnabled) {
+		if ((InstancePtr->HdmiRxDruIsEnabled) ||
+			(InstancePtr->Config.TransceiverWidth == 2)) {
 			/* Set internal Data width of the RX GT to 2-byte */
 			DrpVal |= (0 << 14);
 
@@ -471,6 +481,52 @@ u32 XVphy_Gtxe2RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	XVphy_Gtxe2RxPllRefClkDiv1Reconfig(InstancePtr, QuadId, ChId);
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+* This function will configure the channel's TX settings.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_Gtxe2TxChReconfig(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId)
+{
+	u16 DrpVal;
+
+	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+        DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId,
+                XVPHY_DRP_TXDATAWIDTH);
+        DrpVal &= ~(0x0017);
+
+		if (InstancePtr->Config.TransceiverWidth == 2) {
+			/* Set internal Data width of the RX GT to 2-byte */
+			DrpVal |= (0 << 4);
+
+			/* Set TX Data width of the TX GT to 20 bits */
+			DrpVal |= 3;
+		}
+		else {
+			/* Set internal Data width of the TX GT to 4-byte */
+			DrpVal |= (1 << 4);
+
+			/* Set TX Data width of the TX GT to 40 bits */
+			DrpVal |= 5;
+		}
+		XVphy_DrpWrite(InstancePtr, QuadId, ChId, XVPHY_DRP_TXDATAWIDTH,
+				DrpVal);
+	}
+
+	return XVphy_Gtxe2TxPllRefClkDiv1Reconfig(InstancePtr, QuadId, ChId);
 }
 
 /*****************************************************************************/
@@ -821,3 +877,4 @@ static u16 XVphy_DrpEncodeClk25(u32 RefClkFreqHz)
 
 	return DrpEncode;
 }
+#endif

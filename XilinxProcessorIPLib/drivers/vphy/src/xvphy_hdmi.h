@@ -47,9 +47,14 @@
  * 1.0   gm   10/19/15 Initial release.
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 constants
  * 1.2   gm            Added XVphy_HdmiMmcmStart function
+ * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
+ *                     Removed XVphy_HdmiMmcmStart API
+ *                     Corrected GTPE2 DRU REFCLK range
  * </pre>
  *
 *******************************************************************************/
+#include "xparameters.h"
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRXSS_0_DEVICE_ID)
 
 #ifndef XVPHY_HDMI_H_
 /* Prevent circular inclusions by using protection macros. */
@@ -116,9 +121,9 @@
 #define XVPHY_HDMI_GTXE2_RX_MMCM_FVCO_MAX	1200000000U
 
 #define XVPHY_HDMI_GTPE2_DRU_LRATE		2500000000U
-#define XVPHY_HDMI_GTPE2_DRU_REFCLK		125000000LL
-#define XVPHY_HDMI_GTPE2_DRU_REFCLK_MIN	124990000LL
-#define XVPHY_HDMI_GTPE2_DRU_REFCLK_MAX	125010000LL
+#define XVPHY_HDMI_GTPE2_DRU_REFCLK		100000000LL
+#define XVPHY_HDMI_GTPE2_DRU_REFCLK_MIN	 99990000LL
+#define XVPHY_HDMI_GTPE2_DRU_REFCLK_MAX	100010000LL
 #define XVPHY_HDMI_GTPE2_PLL_SCALE		1000
 #define XVPHY_HDMI_GTPE2_QPLL_REFCLK_MIN	80000000LL
 #define XVPHY_HDMI_GTPE2_CPLL_REFCLK_MIN	80000000LL
@@ -156,7 +161,6 @@ u64 XVphy_DruCalcCenterFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId);
 void XVphy_HdmiGtDruModeEnable(XVphy *InstancePtr, u8 Enable);
 void XVphy_HdmiIntrHandlerCallbackInit(XVphy *InstancePtr);
-void XVphy_HdmiMmcmStart(XVphy *InstancePtr, u8 QuadId,
-		XVphy_DirectionType Dir);
 
 #endif /* XVPHY_HDMI_H_ */
+#endif

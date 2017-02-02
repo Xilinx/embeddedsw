@@ -58,6 +58,14 @@
  *                     Changed EffectiveAddr datatype in XVphy_CfgInitialize
  *                       to UINTPTR
  *                     Added log events for debugging
+ * 1.2   gm   11/11/19 Added TransceiverWidth in XVphy_Config
+ * 1.4   gm   29/11/16 Moved internally used APIs to xvphy_i.c/h
+ *                     Added preprocessor directives for sw footprint reduction
+ *                     Made debug log optional (can be disabled via makefile)
+ *                     Added ERR_IRQ type_defs (not for official use for
+ *                       Xilinx debugging)
+ *                     Added transceiver width, AXIlite clk frequency and
+ *                       err_irq in XVphy_Config
  * </pre>
  *
 *******************************************************************************/
@@ -65,6 +73,10 @@
 #ifndef XVPHY_H_
 /* Prevent circular inclusions by using protection macros. */
 #define XVPHY_H_
+
+#if !defined(XV_CONFIG_LOG_VPHY_DISABLE) && !defined(XV_CONFIG_LOG_DISABLE_ALL)
+#define XV_VPHY_LOG_ENABLE
+#endif
 
 /******************************* Include Files ********************************/
 
@@ -245,6 +257,7 @@ typedef enum {
 	XVPHY_GT_STATE_READY,		/**< Ready state. */
 } XVphy_GtState;
 
+#ifdef XV_VPHY_LOG_ENABLE
 typedef enum {
 	XVPHY_LOG_EVT_NONE = 1,		/**< Log event none. */
 	XVPHY_LOG_EVT_QPLL_EN,		/**< Log event QPLL enable. */
@@ -280,6 +293,7 @@ typedef enum {
 	XVPHY_LOG_EVT_VID_TX_RST,	/**< Log event Vid TX reset. */
 	XVPHY_LOG_EVT_VID_RX_RST,	/**< Log event Vid RX reset. */
 	XVPHY_LOG_EVT_TX_ALIGN,		/**< Log event TX align. */
+	XVPHY_LOG_EVT_TX_ALIGN_TMOUT,	/**< Log event TX align Timeout. */
 	XVPHY_LOG_EVT_TX_TMR,		/**< Log event TX timer. */
 	XVPHY_LOG_EVT_RX_TMR,		/**< Log event RX timer. */
 	XVPHY_LOG_EVT_GT_RECONFIG,	/**< Log event GT reconfig. */
@@ -304,8 +318,20 @@ typedef enum {
 	XVPHY_LOG_EVT_GT_QPLL_CFG_ERR,/**< Log event QPLL Config not found. */
 	XVPHY_LOG_EVT_GT_CPLL_CFG_ERR,/**< Log event QPLL Config not found. */
 	XVPHY_LOG_EVT_VD_NOT_SPRTD_ERR,/**< Log event Vid format not supported. */
+	XVPHY_LOG_EVT_MMCM_ERR,		/**< Log event MMCM Config not found. */
 	XVPHY_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
 } XVphy_LogEvent;
+#endif
+
+/* This typedef enumerates the possible error conditions. */
+typedef enum {
+	XVPHY_ERRIRQ_QPLL_CFG    = 0x1,	/**< QPLL CFG not found. */
+	XVPHY_ERRIRQ_CPLL_CFG    = 0x2,	/**< CPLL CFG not found. */
+	XVPHY_ERRIRQ_NO_DRU      = 0x4,	/**< No DRU in design. */
+	XVPHY_ERRIRQ_VD_NOT_SPRTD= 0x8,	/**< Video Not Supported. */
+	XVPHY_ERRIRQ_MMCM_CFG    = 0x10,/**< MMCM CFG not found. */
+	XVPHY_ERRIRQ_PLL_LAYOUT  = 0x20,/**< PLL Error. */
+} XVphy_ErrIrqType;
 
 /******************************************************************************/
 /**
@@ -465,6 +491,8 @@ typedef struct {
 	};
 	u8 RxDataWidth;				/**< In bits. */
 	u8 RxIntDataWidth;			/**< In bytes. */
+	u8 TxDataWidth;				/**< In bits. */
+	u8 TxIntDataWidth;			/**< In bytes. */
 } XVphy_Channel;
 
 /**
@@ -518,6 +546,7 @@ typedef struct {
 	};
 } XVphy_Quad;
 
+#ifdef XV_VPHY_LOG_ENABLE
 /**
  * This typedef contains the logging mechanism for debug.
  */
@@ -528,6 +557,7 @@ typedef struct {
 	u8 TailIndex;			/**< Index of the tail entry of the
 						Event/DataBuffer. */
 } XVphy_Log;
+#endif
 
 /**
  * This typedef contains configuration information for the Video PHY core.
@@ -554,6 +584,9 @@ typedef struct {
 						design. */
 	u8  HdmiFastSwitch;		/**< HDMI fast switching is enabled in the
 						design. */
+	u8  TransceiverWidth;	/**< Transceiver Width seeting in the design */
+	u32 ErrIrq;	            /**< Error IRQ is enalbed in design */
+	u32 AxiLiteClkFreq;	    /**< AXI Lite Clock Frequency in Hz */
 } XVphy_Config;
 
 /* Forward declaration. */
@@ -570,7 +603,9 @@ typedef struct {
 	XVphy_Config Config;			/**< Configuration structure for
 							the Video PHY core. */
 	const struct XVphy_GtConfigS *GtAdaptor;
+#ifdef XV_VPHY_LOG_ENABLE
 	XVphy_Log Log;				/**< A log of events. */
+#endif
 	XVphy_Quad Quads[2];			/**< The quads available to the
 							Video PHY core.*/
 	u32 HdmiRxRefClkHz;			/**< HDMI RX refclk. */
@@ -675,89 +710,48 @@ u32 XVphy_PllInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_PllRefClkSelType QpllRefClkSel,
 		XVphy_PllRefClkSelType CpllxRefClkSel,
 		XVphy_PllType TxPllSelect, XVphy_PllType RxPllSelect);
+#if defined (XPAR_XDP_0_DEVICE_ID)
 u32 XVphy_ClkInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir);
+#endif
 void XVphy_WaitUs(XVphy *InstancePtr, u32 MicroSeconds);
 void XVphy_SetUserTimerHandler(XVphy *InstancePtr,
 		XVphy_TimerHandler CallbackFunc, void *CallbackRef);
 
-/* xvphy.c: GT attributes update function. */
-u32 XVphy_UpdateGtProtocolParameters(XVphy *InstancePtr, u8 QuadId,
-		XVphy_ChannelId ChId, XVphy_ProtocolType Protocol);
-
-/* xvphy.c: Voltage swing and preemphasis. */
-void XVphy_SetRxLpm(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		XVphy_DirectionType Dir, u8 Enable);
-void XVphy_SetTxVoltageSwing(XVphy *InstancePtr, u8 QuadId,
-		XVphy_ChannelId ChId, u8 Vs);
-void XVphy_SetTxPreEmphasis(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u8 Pe);
-
 /* xvphy.c: Channel configuration functions - setters. */
-u32 XVphy_WriteCfgRefClkSelReg(XVphy *InstancePtr, u8 QuadId);
 u32 XVphy_CfgLineRate(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u64 LineRateHz);
+#if defined (XPAR_XDP_0_DEVICE_ID)
 u32 XVphy_CfgQuadRefClkFreq(XVphy *InstancePtr, u8 QuadId,
 	XVphy_PllRefClkSelType RefClkType, u32 FreqHz);
-void XVphy_CfgPllRefClkSel(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		XVphy_PllRefClkSelType RefClkSel);
-void XVphy_CfgSysClkDataSel(XVphy *InstancePtr, u8 QuadId,
-		XVphy_DirectionType Dir, XVphy_SysClkDataSelType SysClkDataSel);
-void XVphy_CfgSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
-		XVphy_DirectionType Dir, XVphy_SysClkOutSelType SysClkOutSel);
-
-u32 XVphy_ClkCalcParams(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		XVphy_DirectionType Dir, u32 PllClkInFreqHz);
-u32 XVphy_OutDivReconfig(XVphy *InstancePtr, u8 QuadId,
-				XVphy_ChannelId ChId, XVphy_DirectionType Dir);
-u32 XVphy_DirReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		XVphy_DirectionType Dir);
-u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
+#endif
 
 /* xvphy.c: Channel configuration functions - getters. */
 XVphy_PllType XVphy_GetPllType(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, XVphy_ChannelId ChId);
-XVphy_ChannelId XVphy_GetRcfgChId(XVphy *InstancePtr, u8 QuadId,
-		XVphy_DirectionType Dir, XVphy_PllType PllType);
-u32 XVphy_GetQuadRefClkFreq(XVphy *InstancePtr, u8 QuadId,
-		XVphy_PllRefClkSelType RefClkType);
-XVphy_PllRefClkSelType XVphy_GetPllRefClkSel(XVphy *InstancePtr, u8 QuadId,
-		XVphy_ChannelId ChId);
-XVphy_SysClkDataSelType XVphy_GetSysClkDataSel(XVphy *InstancePtr, u8 QuadId,
-		XVphy_DirectionType Dir, XVphy_ChannelId ChId);
-XVphy_SysClkOutSelType XVphy_GetSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
-		XVphy_DirectionType Dir, XVphy_ChannelId ChId);
 u64 XVphy_GetLineRateHz(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 
 /* xvphy.c: Reset functions. */
+#if defined (XPAR_XDP_0_DEVICE_ID)
 u32 XVphy_WaitForPmaResetDone(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
 u32 XVphy_WaitForResetDone(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir);
 u32 XVphy_WaitForPllLock(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
-u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
+#endif
 u32 XVphy_ResetGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Hold);
 u32 XVphy_ResetGtTxRx(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Hold);
-u32 XVphy_GtUserRdyEnable(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		XVphy_DirectionType Dir, u8 Hold);
-u32 XVphy_ResetGt(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir);
 
 /* xvphy.c: GT/MMCM DRP access. */
 u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u16 Addr, u16 Val);
 u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u16 Addr);
-void XVphy_MmcmReset(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
-		u8 Hold);
 void XVphy_MmcmPowerDown(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Hold);
 void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir);
-void XVphy_MmcmLockedMaskEnable(XVphy *InstancePtr, u8 QuadId,
-		XVphy_DirectionType Dir, u8 Enable);
-void XVphy_BufgGtReset(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Reset);
-void XVphy_SetBufgGtDiv(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Div);
 void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Enable);
 void XVphy_Clkout1OBufTdsEnable(XVphy *InstancePtr, XVphy_DirectionType Dir,
@@ -765,24 +759,24 @@ void XVphy_Clkout1OBufTdsEnable(XVphy *InstancePtr, XVphy_DirectionType Dir,
 
 /* xvphy.c Miscellaneous control. */
 u32 XVphy_GetVersion(XVphy *InstancePtr);
+#if defined (XPAR_XDP_0_DEVICE_ID)
 void XVphy_Set8b10b(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Enable);
-u32 XVphy_PowerDownGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u8 Hold);
+#endif
 u32 XVphy_IsBonded(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 
 /* xvphy_log.c: Logging functions. */
-void XVphy_LogReset(XVphy *InstancePtr);
-void XVphy_LogWrite(XVphy *InstancePtr, XVphy_LogEvent Evt, u8 Data);
-u16 XVphy_LogRead(XVphy *InstancePtr);
 void XVphy_LogDisplay(XVphy *InstancePtr);
+void XVphy_LogReset(XVphy *InstancePtr);
+u16 XVphy_LogRead(XVphy *InstancePtr);
+#ifdef XV_VPHY_LOG_ENABLE
+void XVphy_LogWrite(XVphy *InstancePtr, XVphy_LogEvent Evt, u8 Data);
+#else
+#define XVphy_LogWrite(...)
+#endif
 
 /* xvphy_intr.c: Interrupt handling functions. */
-void XVphy_SetIntrHandler(XVphy *InstancePtr, XVphy_IntrHandlerType HandlerType,
-		XVphy_IntrHandler CallbackFunc, void *CallbackRef);
 void XVphy_InterruptHandler(XVphy *InstancePtr);
-void XVphy_IntrEnable(XVphy *InstancePtr, XVphy_IntrHandlerType Intr);
-void XVphy_IntrDisable(XVphy *InstancePtr, XVphy_IntrHandlerType Intr);
 
 /* xvphy_selftest.c: Self test function. */
 u32 XVphy_SelfTest(XVphy *InstancePtr);
@@ -796,8 +790,7 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 		XVphy_PllRefClkSelType QpllRefClkSel,
 		XVphy_PllType TxPllSelect, XVphy_PllType RxPllSelect,
 		u8 LinkRate);
-u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
-		u32 SystemFrequency);
+u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr);
 u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVidC_PixelsPerClock Ppc, XVidC_ColorDepth Bpc,
 		XVidC_ColorFormat ColorFormat);
@@ -819,10 +812,6 @@ void XVphy_DpDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 void XVphy_SetHdmiCallback(XVphy *InstancePtr,
 		XVphy_HdmiHandlerType HandlerType,
 		void *CallbackFunc, void *CallbackRef);
-void XVphy_SetDefaultPpc(XVphy *InstancePtr, u8 QuadId);
-void XVphy_SetPpc(XVphy *InstancePtr, u8 QuadId, u8 Ppc);
-u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
-		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
@@ -860,5 +849,11 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 #define XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId) \
         (XVPHY_PLL_TYPE_CPLL == \
 		XVphy_GetPllType(InstancePtr, QuadId, XVPHY_DIR_RX, ChId))
+
+#define XVPHY_GTXE2 1
+#define XVPHY_GTHE2 2
+#define XVPHY_GTPE2 3
+#define XVPHY_GTHE3 4
+#define XVPHY_GTHE4 5
 
 #endif /* XVPHY_H_ */

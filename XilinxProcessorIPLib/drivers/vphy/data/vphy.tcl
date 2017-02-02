@@ -31,9 +31,9 @@
 ##*****************************************************************************/
 
 proc generate {drv_handle} {
-    xdefine_include_file $drv_handle "xparameters.h" "XVPHY" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch"
-    ::hsi::utils::define_config_file $drv_handle "xvphy_g.c" "XVphy" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch"
-    xdefine_canonical_xpars $drv_handle "xparameters.h" "VPHY" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch"
+    xdefine_include_file $drv_handle "xparameters.h" "XVPHY" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ"
+    ::hsi::utils::define_config_file $drv_handle "xvphy_g.c" "XVphy" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ"
+    xdefine_canonical_xpars $drv_handle "xparameters.h" "VPHY" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ"
 }
 
 #
@@ -81,6 +81,15 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
                 set value $device_id
                 incr device_id
+            } elseif {[string compare -nocase "AXI_LITE_FREQ_HZ" $arg] == 0} {
+                set freq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
+                if {[llength $freq] == 0} {
+                    set freq "100000000"
+                    puts "WARNING: Clock frequency information is not available in the design, \
+                          for peripheral $periph_name. Assuming a default frequency of 100MHz. \
+                          If this is incorrect, the peripheral $periph_name will be non-functional"
+                }
+                set value $freq
             } else {
                 set value [common::get_property CONFIG.$arg $periph]
             }
@@ -90,21 +99,21 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             set value [::hsi::utils::format_addr_string $value $arg]
             if {[string compare -nocase "HW_VER" $arg] == 0} {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] \"$value\""
-	    } elseif {[string compare -nocase "TRANSCEIVER" $arg] == 0} {
-                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg]_STR \"$value\""
-                if {[string compare -nocase "GTXE2" "$value"] == 0} {
-                    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 1"
-		} elseif {[string compare -nocase "GTHE2" "$value"] == 0} {
-                    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 2"
-		} elseif {[string compare -nocase "GTPE2" "$value"] == 0} {
-                    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 3"
-		} elseif {[string compare -nocase "GTHE3" "$value"] == 0} {
-                    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 4"
-		} elseif {[string compare -nocase "GTHE4" "$value"] == 0} {
-                    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 5"
-		} else {
-		    puts $file_handle "#error \"Video PHY currently supports only GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $value not supported\""
-		}
+            } elseif {[string compare -nocase "TRANSCEIVER" $arg] == 0} {
+                    puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg]_STR \"$value\""
+                    if {[string compare -nocase "GTXE2" "$value"] == 0} {
+                        puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 1"
+                    } elseif {[string compare -nocase "GTHE2" "$value"] == 0} {
+                                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 2"
+                    } elseif {[string compare -nocase "GTPE2" "$value"] == 0} {
+                                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 3"
+                    } elseif {[string compare -nocase "GTHE3" "$value"] == 0} {
+                                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 4"
+                    } elseif {[string compare -nocase "GTHE4" "$value"] == 0} {
+                                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] 5"
+                    } else {
+                        puts $file_handle "#error \"Video PHY currently supports only GTHE4, GTHE3, GTHE2, GTPE2 and GTXE2; $value not supported\""
+                    }
             } else {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
             }
@@ -172,24 +181,34 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                }
                set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
 
-	       if {[string compare -nocase "TRANSCEIVER" $arg] == 0} {
+            if {[string compare -nocase "TRANSCEIVER" $arg] == 0} {
                    puts $file_handle "#define [string toupper $lvalue]_STR \"$rvalue\""
                    if {[string compare -nocase "GTXE2" "$rvalue"] == 0} {
                        puts $file_handle "#define [string toupper $lvalue] 1"
-		   } elseif {[string compare -nocase "GTHE2" "$rvalue"] == 0} {
-                       puts $file_handle "#define [string toupper $lvalue] 2"
-		   } elseif {[string compare -nocase "GTPE2" "$rvalue"] == 0} {
-                       puts $file_handle "#define [string toupper $lvalue] 3"
-		   } elseif {[string compare -nocase "GTHE3" "$rvalue"] == 0} {
-                       puts $file_handle "#define [string toupper $lvalue] 4"
-		   } elseif {[string compare -nocase "GTHE4" "$rvalue"] == 0} {
-                       puts $file_handle "#define [string toupper $lvalue] 5"
-		   } else {
-		       puts $file_handle "#error \"Video PHY currently supports only GTHE4, GTHE3, GTHE2, GTEP2 and GTXE2; $rvalue not supported\""
-		   }
-               } else {
-                   puts $file_handle "#define [string toupper $lvalue] $rvalue"
-               }
+                   } elseif {[string compare -nocase "GTHE2" "$rvalue"] == 0} {
+                               puts $file_handle "#define [string toupper $lvalue] 2"
+                   } elseif {[string compare -nocase "GTPE2" "$rvalue"] == 0} {
+                               puts $file_handle "#define [string toupper $lvalue] 3"
+                   } elseif {[string compare -nocase "GTHE3" "$rvalue"] == 0} {
+                               puts $file_handle "#define [string toupper $lvalue] 4"
+                   } elseif {[string compare -nocase "GTHE4" "$rvalue"] == 0} {
+                               puts $file_handle "#define [string toupper $lvalue] 5"
+                   } else {
+                       puts $file_handle "#error \"Video PHY currently supports only GTHE4, GTHE3, GTHE2, GTEP2 and GTXE2; $rvalue not supported\""
+                   }
+            } elseif {[string compare -nocase "AXI_LITE_FREQ_HZ" $arg] == 0} {
+                set rfreq [::hsi::utils::get_clk_pin_freq  $periph "vid_phy_axi4lite_aclk"]
+                if {[llength $rfreq] == 0} {
+                    set rfreq "100000000"
+                    puts "WARNING: Clock frequency information is not available in the design, \
+                          for peripheral $periph_name. Assuming a default frequency of 100MHz. \
+                          If this is incorrect, the peripheral $periph_name will be non-functional"
+                }
+                set rvalue $rfreq
+                puts $file_handle "#define [string toupper $lvalue] $rvalue"
+            } else {
+               puts $file_handle "#define [string toupper $lvalue] $rvalue"
+            }
 
            }
            puts $file_handle ""

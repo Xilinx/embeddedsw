@@ -1671,6 +1671,18 @@ Added error message in XVphy_HdmiCpllParam when DRU is enabled and RX TMDS ratio
 Fixed rounding of DRU and RX refclk frequencies
 Fixed race condition in XVphy_HdmiRxClkDetFreqChangeHandler when storing RxRefClkHz value
 
+vphy_v1_4:
+Reorganized the vphy.c/.h files reduce the number of APIs exposed to users
+Created xvphy_i.c/h to contain APIs from vphy.c/.h which are shared by HDMI and DP
+Added preprocessor directives for SW footprint reduction
+Made debug log optional (can be disabled via makefile)
+Added type_defs and APIs to implement the optional err_irq port (xilinx internal)
+Added mechanism to re-trigger GT TX reset when TX align get stuck in xvphy_hdmi_intr.c
+Added N2=8 divider for GTHE3 & GTHE4 CPLL for DP only
+Implemented 2/4 byte GT mode switching HDMI
+Removed SystemFrequency argument from XVphy_HdmiInitialize API in xvphy_hdmi.c.
+  -This is now auto extracted in xvphy_g.c file.
+
 vprocss_v2_1:
 Added new version 2.1
 Added optional color format conversion handling in scaler only topology

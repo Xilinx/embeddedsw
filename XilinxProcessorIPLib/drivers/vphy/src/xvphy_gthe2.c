@@ -47,13 +47,18 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
  * 1.2   gm   08/26/16 Suppressed warning messages due to unused arguments
+ * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
+ *                     Changed TX reconfig hook from TxPllRefClkDiv1Reconfig to
+ *                       TxChReconfig
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
+#include "xparameters.h"
 #include "xvphy_gt.h"
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE2)
 #include "xstatus.h"
 
 /**************************** Function Prototypes *****************************/
@@ -133,7 +138,7 @@ const XVphy_GtConfig Gthe2Config = {
 	.ClkChReconfig = XVphy_Gthe2ClkChReconfig,
 	.ClkCmnReconfig = XVphy_Gthe2ClkCmnReconfig,
 	.RxChReconfig = XVphy_Gthe2RxChReconfig,
-	.TxPllRefClkDiv1Reconfig = NULL,
+	.TxChReconfig = NULL,
 
 	.CpllDivs = {
 		.M = Gthe2CpllDivsM,
@@ -688,3 +693,4 @@ static u16 XVphy_DrpEncodeQpllN(u8 AttrEncode)
 
 	return DrpEncode;
 }
+#endif

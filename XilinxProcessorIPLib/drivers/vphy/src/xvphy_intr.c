@@ -44,6 +44,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
+ * 1.4   gm   29/11/16 Added XVphy_CfgErrIntr for ERR_IRQ impl
  * </pre>
  *
 *******************************************************************************/
@@ -51,6 +52,7 @@
 /******************************* Include Files ********************************/
 
 #include "xvphy.h"
+#include "xvphy_i.h"
 
 /**************************** Function Definitions ****************************/
 
@@ -250,4 +252,39 @@ void XVphy_InterruptHandler(XVphy *InstancePtr)
 		InstancePtr->IntrRxTmrTimeoutHandler(
 				InstancePtr->IntrRxTmrTimeoutCallbackRef);
 	}
+}
+
+/******************************************************************************/
+/**
+ * This function configures the error IRQ register based on the condition
+ * to generate an ERR_IRQ event
+ *
+ * @param	InstancePtr is a pointer to the XVphy instance.
+ *          ErrIrq is the IRQ type as define in XVphy_ErrIrqType
+ *          Set is the flag to set or clear the ErrIrq param
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrIrqType ErrIrq, u8 Set)
+{
+	u32 ErrIrqVal;
+	u32 WriteVal;
+
+	ErrIrqVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
+			XVPHY_ERR_IRQ);
+
+	WriteVal = (u32)ErrIrq;
+
+	if (Set) {
+		ErrIrqVal |= WriteVal;
+	}
+	else {
+		ErrIrqVal &= ~WriteVal;
+	}
+
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr,
+				XVPHY_ERR_IRQ, ErrIrqVal);
 }
