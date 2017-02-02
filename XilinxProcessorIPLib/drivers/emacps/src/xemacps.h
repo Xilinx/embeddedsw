@@ -320,6 +320,9 @@
  *                     examples to ensure that "Successfully ran" and "Failed"
  *                     strings are available in all examples. This is a fix
  *                     for CR-965028.
+ *       hk   01/23/17 Update cache coherency information of the interface in
+ *                     its config structure.
+ *
  * </pre>
  *
  ****************************************************************************/
@@ -517,6 +520,7 @@ typedef void (*XEmacPs_ErrHandler) (void *CallBackRef, u8 Direction,
 typedef struct {
 	u16 DeviceId;	/**< Unique ID  of device */
 	UINTPTR BaseAddress;/**< Physical base address of IPIF registers */
+	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not */
 } XEmacPs_Config;
 
 

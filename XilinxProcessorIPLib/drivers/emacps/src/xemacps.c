@@ -52,6 +52,8 @@
 *                    Disable extended mode. Perform all 64 bit changes under
 *                    check for arch64.
 * 3.1  hk   08/10/15 Update upper 32 bit tx and rx queue ptr registers
+* 3.4  hk   01/23/17 Update cache coherency information of the interface in
+*                    its config structure.
 *
 * </pre>
 ******************************************************************************/
@@ -107,6 +109,7 @@ LONG XEmacPs_CfgInitialize(XEmacPs *InstancePtr, XEmacPs_Config * CfgPtr,
 	/* Set device base address and ID */
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddress;
+	InstancePtr->Config.IsCacheCoherent = CfgPtr->IsCacheCoherent;
 
 	/* Set callbacks to an initial stub routine */
 	InstancePtr->SendHandler = ((XEmacPs_Handler)((void*)XEmacPs_StubHandler));
