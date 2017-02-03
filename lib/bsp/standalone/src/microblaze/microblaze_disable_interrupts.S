@@ -30,7 +30,18 @@
 *
 ******************************************************************************/
 /******************************************************************************
+* @file microblaze_disable_interrupts.S
 *
+* @addtogroup microblaze_pseudo_asm_macro
+* @{
+* <h2> microblaze_disable_interrupts.S </h2>
+*  - API to disable Interrupts: void microblaze_disable_interrupts(void)
+*
+* This API Disables interrupts on the MicroBlaze processor. It can be
+* called when entering a critical section of code where a context switch is
+* undesirable.
+*
+* <pre>
 * File   : microblaze_disable_interrupts.s
 * Date   : 2002, March 20.
 * Company: Xilinx
@@ -38,7 +49,7 @@
 *
 * Summary:
 * Disable interrupts on the microblaze.
-*
+* </pre>
 *
 ******************************************************************************/
 
@@ -64,3 +75,6 @@ microblaze_disable_interrupts:
 	nop
 #endif /*XPAR_MICROBLAZE_USE_MSR_INSTR == 1*/
 	.end	microblaze_disable_interrupts
+/**
+* @} End of "addtogroup microblaze_pseudo_asm_macro".
+*/

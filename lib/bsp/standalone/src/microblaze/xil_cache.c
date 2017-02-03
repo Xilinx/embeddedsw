@@ -60,7 +60,7 @@
 /****************************************************************************/
 /**
 *
-* Disable the data cache.
+* @brief    Disable the data cache.
 *
 * @param    None
 *
@@ -77,13 +77,11 @@ void Xil_DCacheDisable(void)
 /****************************************************************************/
 /**
 *
-* Disable the instruction cache.
+* @brief    Disable the instruction cache.
 *
 * @param    None
 *
 * @return   None.
-*
-* @note
 *
 *
 ****************************************************************************/

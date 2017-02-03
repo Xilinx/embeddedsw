@@ -29,7 +29,23 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-
+/*****************************************************************************/
+/**
+*
+* @file mb_interface.h
+*
+* @addtogroup microblaze_pseudo_asm_macro Microblaze Pseudo-asm Macros and Interrupt Handling APIs
+*
+* Microblaze BSP includes macros to provide convenient access to various registers
+* in the MicroBlaze processor. Some of these macros are very useful within
+* exception handlers for retrieving information about the exception.Also,
+* the interrupt handling functions help manage interrupt handling on MicroBlaze
+* processor devices.To use these functions, include the header file
+* mb_interface.h in your source code
+*
+* @{
+*
+******************************************************************************/
 #ifndef _MICROBLAZE_INTERFACE_H_
 #define _MICROBLAZE_INTERFACE_H_
 
@@ -144,6 +160,16 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
 							 _rval;                      \
 						})
 
+/** @name Microblaze pseudo-asm macros
+ *
+ * The following is a summary of the MicroBlaze processor pseudo-asm macros.
+ * @{
+ */
+
+ /**
+ Return value from the general purpose register (GPR) rn.
+ @param rn     General purpose register to be read.
+*/
 #define mfgpr(rn)       ({  u32 _rval;         \
                             __asm__ __volatile__ (      \
                                 "or\t%0,r0," stringify(rn) "\n" : "=d"(_rval) \
@@ -151,6 +177,10 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                             _rval;                      \
                         })
 
+ /**
+ Return the current value of the MSR.
+ @param  None
+*/
 #define mfmsr()         ({  u32 _rval;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,rmsr\n" : "=d"(_rval) \
@@ -158,6 +188,10 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                             _rval;                      \
                         })
 
+ /**
+ Return the current value of the Exception Address Register (EAR).
+ @param  None
+*/
 #define mfear()         ({  u32 _rval;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,rear\n" : "=d"(_rval) \
@@ -171,7 +205,10 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                             ); \
                             _rval; \
                           })
-
+ /**
+ Return the current value of the Exception Status Register (ESR).
+ @param  None
+*/
 #define mfesr()         ({  u32 _rval;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,resr\n" : "=d"(_rval) \
@@ -179,13 +216,17 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
                             _rval;                      \
                         })
 
+ /**
+ Return the current value of the Floating Point Status (FPS).
+ @param  None
+*/
 #define mffsr()         ({  u32 _rval;         \
                             __asm__ __volatile__ (      \
                                 "mfs\t%0,rfsr\n" : "=d"(_rval) \
                             );                          \
                             _rval;                      \
                         })
-
+/*@}*/
 #define mfpvr(rn)       ({  u32 _rval;         \
                             __asm__ __volatile__ (                          \
                                 "mfs\t%0,rpvr" stringify(rn) "\n" : "=d"(_rval) \
@@ -428,3 +469,6 @@ extern void microblaze_init_dcache_range (s32 , s32 )  __attribute__((deprecated
 }
 #endif
 #endif // _MICROBLAZE_INTERFACE_H_
+/**
+* @} End of "addtogroup microblaze_pseudo_asm_macro".
+*/

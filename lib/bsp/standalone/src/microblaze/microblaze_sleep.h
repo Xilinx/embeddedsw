@@ -34,8 +34,12 @@
 *
 * @file microblaze_sleep.h
 *
-* Contains microblaze sleep function API.
+* @addtogroup microblaze_sleep_routines Sleep Routines for Microblaze
 *
+* The microblaze_sleep.h file contains microblaze sleep APIs. These APIs
+* provides delay for requested duration.
+*
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -46,8 +50,7 @@
 * </pre>
 *
 * @note
-*
-* This file may contain architecture-dependent items.
+* The microblaze_sleep.h file may contain architecture-dependent items.
 *
 ******************************************************************************/
 
@@ -78,3 +81,6 @@ void MB_Sleep(u32 MilliSeconds) __attribute__((__deprecated__));
 #endif
 
 #endif /* end of protection macro */
+/**
+* @} End of "addtogroup microblaze_sleep_routines".
+*/

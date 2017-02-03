@@ -96,7 +96,7 @@ void __interrupt_handler(void)
 	/* The compiler restores all volatiles and MSR, and returns from interrupt */
 }
 
-/****************************************************************************/
+
 /*****************************************************************************/
 /**
 *
@@ -104,15 +104,12 @@ void __interrupt_handler(void)
 * argument provided in this call as the DataPtr is used as the argument
 * for the handler when it is called.
 *
-* @param    Top level handler.
-* @param    DataPtr is a reference to data that will be passed to the handler
+* @param    Handler: Top level handler.
+* @param    DataPtr: a reference to data that will be passed to the handler
 *           when it gets called.
 
 * @return   None.
 *
-* @note
-*
-* None.
 *
 ****************************************************************************/
 void microblaze_register_handler(XInterruptHandler Handler, void *DataPtr)

@@ -43,6 +43,18 @@
 #include <string.h>
 
 /* Definitions */
+
+/****************************************************************************/
+/**
+* @brief   Populate the PVR data structure to which pvr points, with the
+*          values of the hardware PVR registers.
+*
+* @param	pvr- address of PVR data structure to be populated
+*
+* @return	0 - SUCCESS
+*          -1 - FAILURE
+*
+****************************************************************************/
 int microblaze_get_pvr (pvr_t *pvr)
 {
   if (!pvr)

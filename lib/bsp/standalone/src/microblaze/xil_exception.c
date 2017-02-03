@@ -36,6 +36,8 @@
 *
 * This file contains implementation of exception related driver functions.
 *
+* @addtogroup microblaze_exception_apis Microblaze exception APIs
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -85,22 +87,14 @@ typedef struct {
 extern MB_ExceptionVectorTableEntry MB_ExceptionVectorTable[XIL_EXCEPTION_ID_INT];
 extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_TABLE_ENTRIES];
 
+/****************************************************************************/
 /**
+ * @brief   This function is a stub handler that is the default handler that gets
+ *          called if the application has not setup a handler for a specific
+ *          exception. The function interface has to match the interface
+ *          specified for a handler even though none of the arguments are used.
  *
- * This function is a stub handler that is the default handler that gets called
- * if the application has not setup a handler for a specific  exception. The
- * function interface has to match the interface specified for a handler even
- * though none of the arguments are used.
- *
- * @param	Data is unused by this function.
- *
- * @return
- *
- * None.
- *
- * @note
- *
- * None.
+ * @param	Data: unused by this function.
  *
  *****************************************************************************/
 static void Xil_ExceptionNullHandler(void *Data)
@@ -110,17 +104,12 @@ static void Xil_ExceptionNullHandler(void *Data)
 
 /****************************************************************************/
 /**
-*
-* Initialize exception handling for the processor. The exception vector table
-* is setup with the stub handler for all exceptions.
+* @brief   Initialize exception handling for the processor. The exception
+*          vector table is setup with the stub handler for all exceptions.
 *
 * @param    None.
 *
 * @return   None.
-*
-* @note
-*
-* None.
 *
 *****************************************************************************/
 void Xil_ExceptionInit(void)
@@ -133,11 +122,9 @@ void Xil_ExceptionInit(void)
 
 /****************************************************************************/
 /**
-* Enable Exceptions.
+* @brief    Enable Exceptions.
 *
 * @return   None.
-*
-* @note     None.
 *
 ******************************************************************************/
 void Xil_ExceptionEnable(void)
@@ -150,13 +137,11 @@ void Xil_ExceptionEnable(void)
 
 /****************************************************************************/
 /**
-* Disable Exceptions.
+* @brief    Disable Exceptions.
 *
 * @param    None.
 *
 * @return   None.
-*
-* @note     None.
 *
 ******************************************************************************/
 void Xil_ExceptionDisable(void)
@@ -169,24 +154,17 @@ void Xil_ExceptionDisable(void)
 
 /*****************************************************************************/
 /**
+*@brief     Makes the connection between the Id of the exception source and the
+*           associated handler that is to run when the exception is recognized.
+*           The argument provided in this call as the DataPtr is used as the
+*           argument for the handler when it is called.
 *
-* Makes the connection between the Id of the exception source and the
-* associated handler that is to run when the exception is recognized. The
-* argument provided in this call as the DataPtr is used as the argument
-* for the handler when it is called.
-*
-* @param    Id contains the ID of the exception source and should
+* @param    Id: contains the 32 bit ID of the exception source and should
 *           be XIL_EXCEPTION_INT or be in the range of 0 to XIL_EXCEPTION_LAST.
-*	    See xil_mach_exception.h for further information.
-* @param    Handler to the handler for that exception.
-* @param    Data is a reference to data that will be passed to the handler
+*	        See xil_mach_exception.h for further information.
+* @param    Handler: handler function to be registered for exception
+* @param    Data: a reference to data that will be passed to the handler
 *           when it gets called.
-*
-* @return   None.
-*
-* @note
-*
-* None.
 *
 ****************************************************************************/
 void Xil_ExceptionRegisterHandler(u32 Id, Xil_ExceptionHandler Handler,
@@ -207,19 +185,12 @@ void Xil_ExceptionRegisterHandler(u32 Id, Xil_ExceptionHandler Handler,
 
 /*****************************************************************************/
 /**
+* @brief    Removes the handler for a specific exception Id. The stub handler
+*           is then registered for this exception Id.
 *
-* Removes the handler for a specific exception Id. The stub handler is then
-* registered for this exception Id.
-*
-* @param    Id contains the ID of the exception source and should
+* @param    Id: contains the 32 bit ID of the exception source and should
 *           be XIL_EXCEPTION_INT or in the range of 0 to XIL_EXCEPTION_LAST.
-*	    See xexception_l.h for further information.
-*
-* @return   None.
-*
-* @note
-*
-* None.
+*	        See xexception_l.h for further information.
 *
 ****************************************************************************/
 void Xil_ExceptionRemoveHandler(u32 Id)
@@ -237,3 +208,6 @@ void Xil_ExceptionRemoveHandler(u32 Id)
 #endif
 	}
 }
+/**
+* @} End of "addtogroup microblaze_exception_apis".
+*/

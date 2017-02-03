@@ -82,8 +82,8 @@ static void sleep_common(u32 n, u32 iters)
 
 /*****************************************************************************/
 /**
-* Provides delay for requested duration.
-* @param	seconds time in useconds.
+* @brief    Provides delay for requested duration.
+* @param	useconds- time in useconds.
 * @return	0
 *
 * @note		Instruction cache should be enabled for this to work.
@@ -98,8 +98,8 @@ int usleep(unsigned long useconds)
 
 /*****************************************************************************/
 /**
-* Provides delay for requested duration.
-* @param	seconds time in seconds.
+* @brief    Provides delay for requested duration.
+* @param	seconds- time in useconds.
 * @return	0
 *
 * @note		Instruction cache should be enabled for this to work.
@@ -115,9 +115,9 @@ unsigned sleep(unsigned int seconds)
 /*****************************************************************************/
 /**
 *
-* Provides delay for requested duration.
+* @brief    Provides delay for requested duration..
 *
-* @param	Delay time in milliseconds.
+* @param	MilliSeconds- Delay time in milliseconds.
 *
 * @return	None.
 *
