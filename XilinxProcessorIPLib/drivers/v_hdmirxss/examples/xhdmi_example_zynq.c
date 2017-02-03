@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,13 @@
 *                       PRBS_validation will check both video & audio contents
 * 2.12  GM     07/10/16 Added onboard SI5324 Initialization API to enable
 *                       125Mhz as NI-DRU reference clock
+* 2.13  YH     03/01/16 Fixed a system hang issue by clearing TxBusy flag when a
+*                            non-supportedvideo resolution is set
+*                            during enable colorbar API
+* 2.14  GM     23/01/17 Replace the Extraction Value of VPhy line rate with,
+*                            XVphy_GetLineRateHz Rate API return value.
+*                       Removed CPU Clock Frequence on XVphy_HdmiInitialize
+*                            Initialization.
 * </pre>
 *
 ******************************************************************************/
@@ -97,6 +104,8 @@
 #endif
 #include "xhdmi_hdcp_keys.h"
 #include "xhdcp.h"
+
+#define LOOPBACK_MODE_EN 0
 
 #if defined (__arm__)
 #define XPAR_CPU_CORE_CLOCK_FREQ_HZ 100000000
@@ -334,7 +343,6 @@ u8 Hdcp14KeyB[] = {
 /************************** Function Prototypes ******************************/
 int I2cMux(void);
 int I2cClk(u32 InFreq, u32 OutFreq);
-int OnBoardSi5324Init(void);
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 void EnableColorBar(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
 						XVidC_VideoMode VideoMode,
@@ -623,7 +631,7 @@ int OnBoardSi5324Init(void)
 			   (SI5324_CLKSRC_XTAL), (SI5324_XTAL_FREQ), (u32)125000000);
 
 if (Status != (SI5324_SUCCESS)) {
-	print("Error programming On-Board SI5324\n\r");
+	xil_printf("Error programming On-Board SI5324\r\n");
 	return 0;
 }
 
@@ -905,12 +913,12 @@ void VphyHdmiRxReadyCallback(void *CallbackRef)
 											XVPHY_CHANNEL_ID_CH1);
 	if (!(RxPllType == XVPHY_PLL_TYPE_CPLL)) {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs, VphyPtr->HdmiRxRefClkHz,
-				(VphyPtr->Quads[0].Plls[XVPHY_CHANNEL_ID_CMN0 -
-			     XVPHY_CHANNEL_ID_CH1].LineRateHz / 1000000));
+				(XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN0)/1000000));
+
 	}
 	else {
 		XV_HdmiRxSs_SetStream(&HdmiRxSs, VphyPtr->HdmiRxRefClkHz,
-				(VphyPtr->Quads[0].Plls[0].LineRateHz/1000000));
+				(XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CH1)/1000000));
 	}
 }
 #endif
@@ -1292,17 +1300,15 @@ void TxStreamUpCallback(void *CallbackRef)
 
   TxPllType = XVphy_GetPllType(&Vphy, 0, XVPHY_DIR_TX, XVPHY_CHANNEL_ID_CH1);
   if ((TxPllType == XVPHY_PLL_TYPE_CPLL)) {
-	  TxLineRate = Vphy.Quads[0].Plls[0].LineRateHz;
+	  TxLineRate = XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
   }
   else if((TxPllType == XVPHY_PLL_TYPE_QPLL) ||
 	  (TxPllType == XVPHY_PLL_TYPE_QPLL0) ||
 	  (TxPllType == XVPHY_PLL_TYPE_PLL0)) {
-	  TxLineRate = Vphy.Quads[0].Plls[XVPHY_CHANNEL_ID_CMN0 -
-		  XVPHY_CHANNEL_ID_CH1].LineRateHz;
+	  TxLineRate = XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN0);
   }
   else {
-	  TxLineRate = Vphy.Quads[0].Plls[XVPHY_CHANNEL_ID_CMN1 -
-		  XVPHY_CHANNEL_ID_CH1].LineRateHz;
+	  TxLineRate = XVphy_GetLineRateHz(&Vphy, 0, XVPHY_CHANNEL_ID_CMN1);
   }
 
   i2c_dp159(&Vphy, 0, TxLineRate);
@@ -1763,6 +1769,7 @@ void EnableColorBar(XVphy                *VphyPtr,
       if (Result == (XST_FAILURE)) {
           xil_printf("Unable to set requested TX video resolution.\n\r");
           xil_printf("Returning to previously TX video resolution.\n\r");
+		  TxBusy = (FALSE);
       }
 
       /* Disable RX clock forwarding */
@@ -2333,7 +2340,7 @@ int main()
 
     /* Initialize HDMI VPHY */
     Status = XVphy_HdmiInitialize(&Vphy, 0,
-			XVphyCfgPtr, XPAR_CPU_CORE_CLOCK_FREQ_HZ);
+			XVphyCfgPtr);
     if (Status != XST_SUCCESS) {
       print("HDMI VPHY initialization error\n\r");
       return XST_FAILURE;

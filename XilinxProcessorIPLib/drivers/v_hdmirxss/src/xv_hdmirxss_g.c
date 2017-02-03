@@ -5,7 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2016 Xilinx, Inc. All Rights Reserved.*
+* Copyright (C) 2010-2017 Xilinx, Inc. All Rights Reserved.*
 *Permission is hereby granted, free of charge, to any person obtaining a copy
 *of this software and associated documentation files (the Software), to deal
 *in the Software without restriction, including without limitation the rights
@@ -41,86 +41,59 @@
 #include "xv_hdmirxss.h"
 
 /*
-* List of Sub-cores included in the subsystem
+* List of Sub-cores included in the Subsystem for Device ID 0
 * Sub-core device id will be set by its driver in xparameters.h
-* Excluded sub-core device id is set to 255
-* Excluded sub-core baseaddr is set to 0xFFFFFFFF
 */
 
-#ifndef XPAR_V_HDMI_RX_SS_0_AXI_TIMER_DEVICE_ID
-#define XPAR_V_HDMI_RX_SS_0_AXI_TIMER_PRESENT   0
-#define XPAR_V_HDMI_RX_SS_0_AXI_TIMER_DEVICE_ID 255
-#define XPAR_V_HDMI_RX_SS_0_AXI_TIMER_BASEADDR  0xFFFFFFFF
-#endif
+#define XPAR_V_HDMI_RX_SS_AXI_TIMER_PRESENT	 1
+#define XPAR_V_HDMI_RX_SS_AXI_TIMER_ABSOLUTE_BASEADDR	 (XPAR_V_HDMI_RX_SS_BASEADDR + XPAR_V_HDMI_RX_SS_AXI_TIMER_BASEADDR)
 
-#ifndef XPAR_V_HDMI_RX_SS_0_HDCP_1_4_DEVICE_ID
-#define XPAR_V_HDMI_RX_SS_0_HDCP_1_4_PRESENT    0
-#define XPAR_V_HDMI_RX_SS_0_HDCP_1_4_DEVICE_ID  255
-#define XPAR_V_HDMI_RX_SS_0_HDCP_1_4_BASEADDR   0xFFFFFFFF
-#endif
+#define XPAR_V_HDMI_RX_SS_HDCP22_RX_SS_PRESENT	 1
+#define XPAR_V_HDMI_RX_SS_HDCP22_RX_SS_ABSOLUTE_BASEADDR	 (XPAR_V_HDMI_RX_SS_BASEADDR + XPAR_V_HDMI_RX_SS_HDCP22_RX_SS_BASEADDR)
 
-#ifndef XPAR_V_HDMI_RX_SS_0_HDCP22_RX_SS_DEVICE_ID
-#define XPAR_V_HDMI_RX_SS_0_HDCP22_PRESENT    0
-#define XPAR_V_HDMI_RX_SS_0_HDCP22_DEVICE_ID  255
-#define XPAR_V_HDMI_RX_SS_0_HDCP22_BASEADDR   0xFFFFFFFF
-#endif
+#define XPAR_V_HDMI_RX_SS_HDCP_1_4_PRESENT	 1
+#define XPAR_V_HDMI_RX_SS_HDCP_1_4_ABSOLUTE_BASEADDR	 (XPAR_V_HDMI_RX_SS_BASEADDR + XPAR_V_HDMI_RX_SS_HDCP_1_4_BASEADDR)
 
-#ifndef XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_DEVICE_ID
-#define XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_PRESENT   0
-#define XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_DEVICE_ID 255
-#define XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_BASEADDR  0xFFFFFFFF
-#endif
+#define XPAR_V_HDMI_RX_SS_V_HDMI_RX_PRESENT	 1
+#define XPAR_V_HDMI_RX_SS_V_HDMI_RX_ABSOLUTE_BASEADDR	 (XPAR_V_HDMI_RX_SS_BASEADDR + XPAR_V_HDMI_RX_SS_V_HDMI_RX_BASEADDR)
 
-#ifndef XPAR_V_HDMI_RX_SS_0_AXI_GPIO_DEVICE_ID
-#define XPAR_V_HDMI_RX_SS_0_AXI_GPIO_PRESENT    0
-#define XPAR_V_HDMI_RX_SS_0_AXI_GPIO_DEVICE_ID  255
-#define XPAR_V_HDMI_RX_SS_0_AXI_GPIO_BASEADDR   0xFFFFFFFF
-#endif
 
-#ifndef XPAR_V_HDMI_RX_SS_0_V_AXI4S_REMAP_DEVICE_ID
-#define XPAR_V_HDMI_RX_SS_0_V_AXI4S_REMAP_PRESENT    0
-#define XPAR_V_HDMI_RX_SS_0_V_AXI4S_REMAP_DEVICE_ID  255
-#define XPAR_V_HDMI_RX_SS_0_V_AXI4S_REMAP_S_AXI_CTRL_BASEADDR   0xFFFFFFFF
-#endif
+/*
+* List of Sub-cores excluded from the subsystem for Device ID 0
+*   - Excluded sub-core device id is set to 255
+*   - Excluded sub-core baseaddr is set to 0
+*/
+
+
 
 XV_HdmiRxSs_Config XV_HdmiRxSs_ConfigTable[] =
 {
-    {
-        XPAR_V_HDMI_RX_SS_0_DEVICE_ID,
-        XPAR_V_HDMI_RX_SS_0_BASEADDR,
-        XPAR_V_HDMI_RX_SS_0_HIGHADDR,
-        XPAR_V_HDMI_RX_SS_0_INPUT_PIXELS_PER_CLOCK,
-        XPAR_V_HDMI_RX_SS_0_MAX_BITS_PER_COMPONENT,
+	{
+		XPAR_V_HDMI_RX_SS_DEVICE_ID,
+		XPAR_V_HDMI_RX_SS_BASEADDR,
+		XPAR_V_HDMI_RX_SS_HIGHADDR,
+		XPAR_V_HDMI_RX_SS_INPUT_PIXELS_PER_CLOCK,
+		XPAR_V_HDMI_RX_SS_MAX_BITS_PER_COMPONENT,
 
-        {
-            XPAR_V_HDMI_RX_SS_0_AXI_TIMER_PRESENT,
-            XPAR_V_HDMI_RX_SS_0_AXI_TIMER_DEVICE_ID,
-            XPAR_V_HDMI_RX_SS_0_AXI_TIMER_BASEADDR
-        },
-        {
-            XPAR_V_HDMI_RX_SS_0_HDCP_1_4_PRESENT,
-            XPAR_V_HDMI_RX_SS_0_HDCP_1_4_DEVICE_ID,
-            XPAR_V_HDMI_RX_SS_0_HDCP_1_4_BASEADDR
-        },
-        {
-            XPAR_V_HDMI_RX_SS_0_HDCP22_PRESENT,
-            XPAR_V_HDMI_RX_SS_0_HDCP22_DEVICE_ID,
-            XPAR_V_HDMI_RX_SS_0_HDCP22_BASEADDR
-        },
-        {
-            XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_PRESENT,
-            XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_DEVICE_ID,
-            XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_BASEADDR
-        },
-        {
-            XPAR_V_HDMI_RX_SS_0_AXI_GPIO_PRESENT,
-            XPAR_V_HDMI_RX_SS_0_AXI_GPIO_DEVICE_ID,
-            XPAR_V_HDMI_RX_SS_0_AXI_GPIO_BASEADDR
-        },
-        {
-            XPAR_V_HDMI_RX_SS_0_V_AXI4S_REMAP_PRESENT,
-            XPAR_V_HDMI_RX_SS_0_V_AXI4S_REMAP_DEVICE_ID,
-            XPAR_V_HDMI_RX_SS_0_V_AXI4S_REMAP_S_AXI_CTRL_BASEADDR
-        },
-    }
+		{
+			XPAR_V_HDMI_RX_SS_AXI_TIMER_PRESENT,
+			XPAR_V_HDMI_RX_SS_AXI_TIMER_DEVICE_ID,
+			XPAR_V_HDMI_RX_SS_AXI_TIMER_ABSOLUTE_BASEADDR
+		},
+		{
+			XPAR_V_HDMI_RX_SS_HDCP_1_4_PRESENT,
+			XPAR_V_HDMI_RX_SS_HDCP_1_4_DEVICE_ID,
+			XPAR_V_HDMI_RX_SS_HDCP_1_4_ABSOLUTE_BASEADDR
+		},
+		{
+			XPAR_V_HDMI_RX_SS_HDCP22_RX_SS_PRESENT,
+			XPAR_V_HDMI_RX_SS_HDCP22_RX_SS_DEVICE_ID,
+			XPAR_V_HDMI_RX_SS_HDCP22_RX_SS_ABSOLUTE_BASEADDR
+		},
+		{
+			XPAR_V_HDMI_RX_SS_V_HDMI_RX_PRESENT,
+			XPAR_V_HDMI_RX_SS_V_HDMI_RX_DEVICE_ID,
+			XPAR_V_HDMI_RX_SS_V_HDMI_RX_ABSOLUTE_BASEADDR
+		},
+	}
 };

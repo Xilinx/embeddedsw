@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -37,8 +37,8 @@ BEGIN driver v_hdmirxss
   OPTION supported_peripherals = (v_hdmi_rx_ss_v2_0);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.0;
-  OPTION DEPENDS = (v_hdmirx_v1_2 gpio_v4_2 v_axi4s_remap_v1_1);
+  OPTION VERSION = 3.1;
+  OPTION DEPENDS = (v_hdmirx);
   OPTION NAME = v_hdmirxss;
 
 END driver
