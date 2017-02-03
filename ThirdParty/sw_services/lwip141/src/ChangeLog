@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2017-02-03
+	* Add jumbo frame support for ZynqMP ethernet
 2017-01-23
 	* Dont perform data cache related operations when CCI is
 	  enabled.

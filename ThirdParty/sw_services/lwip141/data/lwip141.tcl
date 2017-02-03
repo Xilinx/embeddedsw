@@ -707,6 +707,10 @@ proc generate_lwip_opts {libhandle} {
 	if {$jumbo_frames} {
 		puts $lwipopts_fd "\#define USE_JUMBO_FRAMES 1"
 		puts $lwipopts_fd ""
+
+		if {$proctype == "ps7_cortexa9"} {
+			puts "WARNING: Zynq Ethernet MAC does not support jumbo frames \n"
+		}
 	}
 
 	# DHCP options

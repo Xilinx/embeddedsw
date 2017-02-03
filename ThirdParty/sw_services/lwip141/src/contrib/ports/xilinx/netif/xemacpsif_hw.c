@@ -70,6 +70,10 @@ void init_emacps(xemacpsif_s *xemacps, struct netif *netif)
 
 	xemacpsp = &xemacps->emacps;
 
+#ifdef ZYNQMP_USE_JUMBO
+	XEmacPs_SetOptions(xemacpsp, XEMACPS_JUMBO_ENABLE_OPTION);
+#endif
+
 	/* set mac address */
 	status = XEmacPs_SetMacAddress(xemacpsp, (void*)(netif->hwaddr), 1);
 	if (status != XST_SUCCESS) {
