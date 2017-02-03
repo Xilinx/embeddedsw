@@ -69,13 +69,11 @@
 /*****************************************************************************/
 /**
 *
-* This API is used to provide information about platform
+* @brief    This API is used to provide information about platform
 *
 * @param    None.
 *
 * @return   The information about platform defined in xplatform_info.h
-*
-* @note     None.
 *
 ******************************************************************************/
 u32 XGetPlatform_Info()
@@ -93,14 +91,12 @@ u32 XGetPlatform_Info()
 /*****************************************************************************/
 /**
 *
-* This API is used to provide information about zynq ultrascale MP platform
+* @brief    This API is used to provide information about zynq ultrascale MP platform
 *
 * @param    None.
 *
 * @return   The information about zynq ultrascale MP platform defined in
 *			xplatform_info.h
-*
-* @note     None.
 *
 ******************************************************************************/
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
@@ -115,13 +111,11 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 /*****************************************************************************/
 /**
 *
-* This API is used to provide information about PS Silicon version
+* @brief    This API is used to provide information about PS Silicon version
 *
 * @param    None.
 *
 * @return   The information about PS Silicon version.
-*
-* @note     None.
 *
 ******************************************************************************/
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32)

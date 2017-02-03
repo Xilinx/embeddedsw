@@ -35,8 +35,7 @@
 * @file xil_io.c
 *
 * Contains I/O functions for memory-mapped or non-memory-mapped I/O
-* architectures.  These functions encapsulate Cortex A53 architecture-specific
-* I/O requirements.
+* architectures.
 *
 * @note
 *
@@ -60,13 +59,11 @@
 /*****************************************************************************/
 /**
 *
-* Perform a 16-bit endian converion.
+* @brief    Perform a 16-bit endian converion.
 *
-* @param	Data contains the value to be converted.
+* @param	Data: 16 bit value to be converted
 *
-* @return	converted value.
-*
-* @note		None.
+* @return	16 bit Data with converted endianess
 *
 ******************************************************************************/
 u16 Xil_EndianSwap16(u16 Data)
@@ -77,13 +74,11 @@ u16 Xil_EndianSwap16(u16 Data)
 /*****************************************************************************/
 /**
 *
-* Perform a 32-bit endian converion.
+* @brief    Perform a 32-bit endian converion.
 *
-* @param	Data contains the value to be converted.
+* @param	Data: 32 bit value to be converted
 *
-* @return	converted value.
-*
-* @note		None.
+* @return	32 bit data with converted endianess
 *
 ******************************************************************************/
 u32 Xil_EndianSwap32(u32 Data)

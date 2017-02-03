@@ -34,8 +34,13 @@
 *
 * @file xplatform_info.h
 *
-* This file contains definitions for various platforms available
+* @addtogroup common_platform_info APIs to Get Platform Information
 *
+* The xplatform_info.h file contains definitions for various available Xilinx&reg;
+* platforms. Also, it contains prototype of APIs, which can be used to get the
+* platform information.
+*
+* @{
 ******************************************************************************/
 
 #ifndef XPLATFORM_INFO_H		/* prevent circular inclusions */
@@ -89,3 +94,6 @@ u32 XGet_Zynq_UltraMp_Platform_info();
 #endif
 
 #endif /* end of protection macro */
+/**
+* @} End of "addtogroup common_platform_info".
+*/

@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xil_testmemend.c
+* @file xil_testio.c
 *
 * Contains the memory test utility functions.
 *
@@ -95,18 +95,17 @@ static u32 Swap32(u32 Data)
 /*****************************************************************************/
 /**
 *
-* Perform a destructive 8-bit wide register IO test where the register is
-* accessed using Xil_Out8 and Xil_In8, and comparing the reading and writing
-* values.
+* @brief    Perform a destructive 8-bit wide register IO test where the
+*           register is accessed using Xil_Out8 and Xil_In8, and comparing
+*           the written values by reading them back.
 *
-* @param	Addr is a pointer to the region of memory to be tested.
-* @param	Length is the Length of the block.
-* @param	Value is the constant used for writting the memory.
+* @param	Addr: a pointer to the region of memory to be tested.
+* @param	Length: Length of the block.
+* @param	Value: constant used for writting the memory.
 *
 * @return
-*
-* - -1 is returned for a failure
-* - 0 is returned for a pass
+*           - -1 is returned for a failure
+*           - 0 is returned for a pass
 *
 *****************************************************************************/
 
@@ -133,24 +132,24 @@ s32 Xil_TestIO8(u8 *Addr, s32 Length, u8 Value)
 /*****************************************************************************/
 /**
 *
-* Perform a destructive 16-bit wide register IO test. Each location is tested
-* by sequentially writing a 16-bit wide register, reading the register, and
-* comparing value. This function tests three kinds of register IO functions,
-* normal register IO, little-endian register IO, and big-endian register IO.
-* When testing little/big-endian IO, the function performs the following
-* sequence, Xil_Out16LE/Xil_Out16BE, Xil_In16, Compare In-Out values,
-* Xil_Out16, Xil_In16LE/Xil_In16BE, Compare In-Out values. Whether to swap the
-* read-in value before comparing is controlled by the 5th argument.
+* @brief   Perform a destructive 16-bit wide register IO test. Each location
+*          is tested by sequentially writing a 16-bit wide register, reading
+*          the register, and comparing value. This function tests three kinds
+*          of register IO functions, normal register IO, little-endian register
+*          IO, and big-endian register IO. When testing little/big-endian IO,
+*          the function performs the following sequence, Xil_Out16LE/Xil_Out16BE,
+*          Xil_In16, Compare In-Out values, Xil_Out16, Xil_In16LE/Xil_In16BE,
+*          Compare In-Out values. Whether to swap the read-in value before
+*          comparing is controlled by the 5th argument.
 *
-* @param	Addr is a pointer to the region of memory to be tested.
-* @param	Length is the Length of the block.
-* @param	Value is the constant used for writting the memory.
-* @param	Kind is the test kind. Acceptable values are:
-*		XIL_TESTIO_DEFAULT, XIL_TESTIO_LE, XIL_TESTIO_BE.
-* @param	Swap indicates whether to byte swap the read-in value.
+* @param	Addr: a pointer to the region of memory to be tested.
+* @param	Length: Length of the block.
+* @param	Value: constant used for writting the memory.
+* @param	Kind: Type of test. Acceptable values are:
+*		    XIL_TESTIO_DEFAULT, XIL_TESTIO_LE, XIL_TESTIO_BE.
+* @param	Swap: indicates whether to byte swap the read-in value.
 *
 * @return
-*
 * - -1 is returned for a failure
 * - 0 is returned for a pass
 *
@@ -219,26 +218,25 @@ s32 Xil_TestIO16(u16 *Addr, s32 Length, u16 Value, s32 Kind, s32 Swap)
 /*****************************************************************************/
 /**
 *
-* Perform a destructive 32-bit wide register IO test. Each location is tested
-* by sequentially writing a 32-bit wide regsiter, reading the register, and
-* comparing value. This function tests three kinds of register IO functions,
-* normal register IO, little-endian register IO, and big-endian register IO.
-* When testing little/big-endian IO, the function perform the following
-* sequence, Xil_Out32LE/Xil_Out32BE, Xil_In32, Compare,
-* Xil_Out32, Xil_In32LE/Xil_In32BE, Compare. Whether to swap the read-in value
-* before comparing is controlled by the 5th argument.
-*
-* @param	Addr is a pointer to the region of memory to be tested.
-* @param	Length is the Length of the block.
-* @param	Value is the constant used for writting the memory.
-* @param	Kind is the test kind. Acceptable values are:
-*		XIL_TESTIO_DEFAULT, XIL_TESTIO_LE, XIL_TESTIO_BE.
-* @param	Swap indicates whether to byte swap the read-in value.
+* @brief    Perform a destructive 32-bit wide register IO test. Each location
+*           is tested by sequentially writing a 32-bit wide regsiter, reading
+*           the register, and comparing value. This function tests three kinds
+*           of register IO functions, normal register IO, little-endian register IO,
+*           and big-endian register IO. When testing little/big-endian IO,
+*           the function perform the following sequence, Xil_Out32LE/
+*           Xil_Out32BE, Xil_In32, Compare, Xil_Out32, Xil_In32LE/Xil_In32BE, Compare.
+*           Whether to swap the read-in value *before comparing is controlled
+*           by the 5th argument.
+* @param	Addr: a pointer to the region of memory to be tested.
+* @param	Length: Length of the block.
+* @param	Value: constant used for writting the memory.
+* @param	Kind: type of test. Acceptable values are:
+*		    XIL_TESTIO_DEFAULT, XIL_TESTIO_LE, XIL_TESTIO_BE.
+* @param	Swap: indicates whether to byte swap the read-in value.
 *
 * @return
-*
-* - -1 is returned for a failure
-* - 0 is returned for a pass
+*           - -1 is returned for a failure
+*           - 0 is returned for a pass
 *
 *****************************************************************************/
 s32 Xil_TestIO32(u32 *Addr, s32 Length, u32 Value, s32 Kind, s32 Swap)

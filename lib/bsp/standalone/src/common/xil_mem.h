@@ -33,8 +33,13 @@
 /**
 * @file xil_mem.h
 *
-* This header file contains xil memory related functions.
+* @addtogroup common_mem_operation_api Customized APIs for Memory Operations
 *
+* The xil_mem.h file contains prototype for functions related
+* to memory operations. These APIs are applicable for all processors supported
+* by Xilinx.
+*
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -49,3 +54,6 @@
 /************************** Function Prototypes *****************************/
 
 void Xil_MemCpy(void* dst, const void* src, u32 cnt);
+/**
+* @} End of "addtogroup common_mem_operation_api".
+*/

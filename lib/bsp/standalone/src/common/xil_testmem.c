@@ -66,22 +66,20 @@ static u32 RotateRight(u32 Input, u8 Width);
 /*****************************************************************************/
 /**
 *
-* Perform a destructive 32-bit wide memory test.
+* @brief    Perform a destructive 32-bit wide memory test.
 *
-* @param    Addr is a pointer to the region of memory to be tested.
-* @param    Words is the length of the block.
-* @param    Pattern is the constant used for the constant pattern test, if 0,
+* @param    Addr: pointer to the region of memory to be tested.
+* @param    Words: length of the block.
+* @param    Pattern: constant used for the constant pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest is the test selected. See xil_testmem.h for possible
-*	    values.
+* @param    Subtest: test type selected. See xil_testmem.h for possible
+*	        values.
 *
 * @return
-*
-* - 0 is returned for a pass
-* - -1 is returned for a failure
+*           - 0 is returned for a pass
+*           - 1 is returned for a failure
 *
 * @note
-*
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** Width,
 * the patterns used in XIL_TESTMEM_WALKONES and XIL_TESTMEM_WALKZEROS will
@@ -315,22 +313,21 @@ End_Label:
 /*****************************************************************************/
 /**
 *
-* Perform a destructive 16-bit wide memory test.
+* @brief    Perform a destructive 16-bit wide memory test.
 *
-* @param    Addr is a pointer to the region of memory to be tested.
-* @param    Words is the length of the block.
-* @param    Pattern is the constant used for the constant Pattern test, if 0,
+* @param    Addr: pointer to the region of memory to be tested.
+* @param    Words: length of the block.
+* @param    Pattern: constant used for the constant Pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest is the test selected. See xil_testmem.h for possible
-*	    values.
+* @param    Subtest: type of test selected. See xil_testmem.h for possible
+*	        values.
 *
 * @return
 *
-* - -1 is returned for a failure
-* - 0 is returned for a pass
+*           - -1 is returned for a failure
+*           - 0 is returned for a pass
 *
 * @note
-*
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** Width,
 * the patterns used in XIL_TESTMEM_WALKONES and XIL_TESTMEM_WALKZEROS will
@@ -549,22 +546,20 @@ End_Label:
 /*****************************************************************************/
 /**
 *
-* Perform a destructive 8-bit wide memory test.
+* @brief    Perform a destructive 8-bit wide memory test.
 *
-* @param    Addr is a pointer to the region of memory to be tested.
-* @param    Words is the length of the block.
-* @param    Pattern is the constant used for the constant pattern test, if 0,
+* @param    Addr: pointer to the region of memory to be tested.
+* @param    Words: length of the block.
+* @param    Pattern: constant used for the constant pattern test, if 0,
 *           0xDEADBEEF is used.
-* @param    Subtest is the test selected. See xil_testmem.h for possible
-*	    values.
+* @param    Subtest: type of test selected. See xil_testmem.h for possible
+*	        values.
 *
 * @return
-*
-* - -1 is returned for a failure
-* - 0 is returned for a pass
+*           - -1 is returned for a failure
+*           - 0 is returned for a pass
 *
 * @note
-*
 * Used for spaces where the address range of the region is smaller than
 * the data width. If the memory range is greater than 2 ** Width,
 * the patterns used in XIL_TESTMEM_WALKONES and XIL_TESTMEM_WALKZEROS will
@@ -777,18 +772,14 @@ End_Label:
 /*****************************************************************************/
 /**
 *
-* Rotates the provided value to the left one bit position
+* @brief   Rotates the provided value to the left one bit position
 *
 * @param    Input is value to be rotated to the left
 * @param    Width is the number of bits in the input data
 *
 * @return
+*           The resulting unsigned long value of the rotate left
 *
-* The resulting unsigned long value of the rotate left
-*
-* @note
-*
-* None.
 *
 *****************************************************************************/
 static u32 RotateLeft(u32 Input, u8 Width)
@@ -831,18 +822,13 @@ static u32 RotateLeft(u32 Input, u8 Width)
 /*****************************************************************************/
 /**
 *
-* Rotates the provided value to the right one bit position
+* @brief    Rotates the provided value to the right one bit position
 *
-* @param    Input is value to be rotated to the right
-* @param    Width is the number of bits in the input data
+* @param    Input: value to be rotated to the right
+* @param    Width: number of bits in the input data
 *
 * @return
-*
-* The resulting u32 value of the rotate right
-*
-* @note
-*
-* None.
+*           The resulting u32 value of the rotate right
 *
 *****************************************************************************/
 static u32 RotateRight(u32 Input, u8 Width)

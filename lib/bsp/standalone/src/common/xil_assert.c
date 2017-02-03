@@ -82,12 +82,13 @@ static Xil_AssertCallback Xil_AssertCallbackRoutine = NULL;
 /*****************************************************************************/
 /**
 *
-* Implement assert. Currently, it calls a user-defined callback function
-* if one has been set.  Then, it potentially enters an infinite loop depending
-* on the value of the Xil_AssertWait variable.
+* @brief    Implement assert. Currently, it calls a user-defined callback
+*           function if one has been set.  Then, it potentially enters an
+*           infinite loop depending on the value of the Xil_AssertWait
+*           variable.
 *
-* @param    file is the name of the filename of the source
-* @param    line is the linenumber within File
+* @param    file: filename of the source
+* @param    line: linenumber within File
 *
 * @return   None.
 *
@@ -111,10 +112,10 @@ void Xil_Assert(const char8 *File, s32 Line)
 /*****************************************************************************/
 /**
 *
-* Set up a callback function to be invoked when an assert occurs. If there
-* was already a callback installed, then it is replaced.
+* @brief    Set up a callback function to be invoked when an assert occurs.
+*           If a callback is already installed, then it will be replaced.
 *
-* @param    routine is the callback to be invoked when an assert is taken
+* @param    routine: callback to be invoked when an assert is taken
 *
 * @return   None.
 *
@@ -129,11 +130,11 @@ void Xil_AssertSetCallback(Xil_AssertCallback Routine)
 /*****************************************************************************/
 /**
 *
-* Null handler function. This follows the XInterruptHandler signature for
-* interrupt handlers. It can be used to assign a null handler (a stub) to an
-* interrupt controller vector table.
+* @brief    Null handler function. This follows the XInterruptHandler
+*           signature for interrupt handlers. It can be used to assign a null
+*           handler (a stub) to an interrupt controller vector table.
 *
-* @param    NullParameter is an arbitrary void pointer and not used.
+* @param    NullParameter: arbitrary void pointer and not used.
 *
 * @return   None.
 *

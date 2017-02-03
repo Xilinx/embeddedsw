@@ -47,7 +47,6 @@
 * </pre>
 *
 * @note
-*
 * This file contain functions that all operate on HAL.
 *
 ******************************************************************************/
@@ -74,17 +73,21 @@ static INTPTR Data[DATA_LENGTH] __attribute__ ((aligned(64)));
 static INTPTR Data[DATA_LENGTH] __attribute__ ((aligned(32)));
 #endif
 
+
+/*****************************************************************************/
 /**
-* Perform DCache range related API test such as Xil_DCacheFlushRange and
-* Xil_DCacheInvalidateRange. This test function writes a constant value
-* to the Data array, flushes the range, writes a new value, then invalidates
-* the corresponding range.
+*
+* @brief    Perform DCache range related API test such as Xil_DCacheFlushRange
+*           and Xil_DCacheInvalidateRange. This test function writes a constant
+*           value to the Data array, flushes the range, writes a new value, then
+*           invalidates the corresponding range.
+* @param	None
 *
 * @return
+*      - -1 is returned for a failure
+*      - 0 is returned for a pass
 *
-*     - 0 is returned for a pass
-*     - -1 is returned for a failure
-*/
+*****************************************************************************/
 s32 Xil_TestDCacheRange(void)
 {
 	s32 Index;
@@ -204,16 +207,17 @@ s32 Xil_TestDCacheRange(void)
 
 }
 
+/*****************************************************************************/
 /**
-* Perform DCache all related API test such as Xil_DCacheFlush and
-* Xil_DCacheInvalidate. This test function writes a constant value
-* to the Data array, flushes the DCache, writes a new value, then invalidates
-* the DCache.
+* @brief    Perform DCache all related API test such as Xil_DCacheFlush and
+*           Xil_DCacheInvalidate. This test function writes a constant value
+*           to the Data array, flushes the DCache, writes a new value,
+*           then invalidates the DCache.
 *
 * @return
-*     - 0 is returned for a pass
-*     - -1 is returned for a failure
-*/
+*          - 0 is returned for a pass
+*          - -1 is returned for a failure
+*****************************************************************************/
 s32 Xil_TestDCacheAll(void)
 {
 	s32 Index;
@@ -328,15 +332,15 @@ s32 Xil_TestDCacheAll(void)
 	return Status;
 }
 
-
+/*****************************************************************************/
 /**
-* Perform Xil_ICacheInvalidateRange() on a few function pointers.
+* @brief   Perform Xil_ICacheInvalidateRange() on a few function pointers.
 *
 * @return
-*
 *     - 0 is returned for a pass
+* @note
 *     The function will hang if it fails.
-*/
+*****************************************************************************/
 s32 Xil_TestICacheRange(void)
 {
 
@@ -349,14 +353,15 @@ s32 Xil_TestICacheRange(void)
 	return 0;
 }
 
+/*****************************************************************************/
 /**
-* Perform Xil_ICacheInvalidate().
+* @brief     Perform Xil_ICacheInvalidate() on a few function pointers.
 *
 * @return
-*
-*     - 0 is returned for a pass
-*     The function will hang if it fails.
-*/
+*           - 0 is returned for a pass
+* @note
+* The function will hang if it fails.
+*****************************************************************************/
 s32 Xil_TestICacheAll(void)
 {
 	Xil_ICacheInvalidate();

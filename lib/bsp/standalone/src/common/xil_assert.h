@@ -34,8 +34,15 @@
 *
 * @file xil_assert.h
 *
-* This file contains assert related functions.
+* @addtogroup common_assert_apis Assert APIs and Macros
 *
+* The xil_assert.h file contains assert related functions and macros.
+* Assert APIs/Macros specifies that a application program satisfies certain
+* conditions at particular points in its execution. These function can be
+* used by application programs to ensure that, application code is satisfying
+* certain conditions.
+*
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -83,17 +90,16 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 
 /*****************************************************************************/
 /**
-* This assert macro is to be used for functions that do not return anything
-* (void). This in conjunction with the Xil_AssertWait boolean can be used to
-* accomodate tests so that asserts which fail allow execution to continue.
+* @brief    This assert macro is to be used for void functions. This in
+*           conjunction with the Xil_AssertWait boolean can be used to
+*           accomodate tests so that asserts which fail allow execution to
+*           continue.
 *
-* @param    Expression is the expression to evaluate. If it evaluates to
+* @param    Expression: expression to be evaluated. If it evaluates to
 *           false, the assert occurs.
 *
 * @return   Returns void unless the Xil_AssertWait variable is true, in which
 *           case no return is made and an infinite loop is entered.
-*
-* @note     None.
 *
 ******************************************************************************/
 #define Xil_AssertVoid(Expression)                \
@@ -109,17 +115,16 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 
 /*****************************************************************************/
 /**
-* This assert macro is to be used for functions that do return a value. This in
-* conjunction with the Xil_AssertWait boolean can be used to accomodate tests
-* so that asserts which fail allow execution to continue.
+* @brief    This assert macro is to be used for functions that do return a
+*           value. This in conjunction with the Xil_AssertWait boolean can be
+*           used to accomodate tests so that asserts which fail allow execution
+*           to continue.
 *
-* @param    Expression is the expression to evaluate. If it evaluates to false,
+* @param    Expression: expression to be evaluated. If it evaluates to false,
 *           the assert occurs.
 *
 * @return   Returns 0 unless the Xil_AssertWait variable is true, in which
-* 	    case no return is made and an infinite loop is entered.
-*
-* @note     None.
+* 	        case no return is made and an infinite loop is entered.
 *
 ******************************************************************************/
 #define Xil_AssertNonvoid(Expression)             \
@@ -135,14 +140,11 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 
 /*****************************************************************************/
 /**
-* Always assert. This assert macro is to be used for functions that do not
-* return anything (void). Use for instances where an assert should always
-* occur.
+* @brief     Always assert. This assert macro is to be used for void functions.
+*            Use for instances where an assert should always occur.
 *
-* @return Returns void unless the Xil_AssertWait variable is true, in which
-*	  case no return is made and an infinite loop is entered.
-*
-* @note   None.
+* @return    Returns void unless the Xil_AssertWait variable is true, in which
+*	         case no return is made and an infinite loop is entered.
 *
 ******************************************************************************/
 #define Xil_AssertVoidAlways()                   \
@@ -154,13 +156,12 @@ typedef void (*Xil_AssertCallback) (const char8 *File, s32 Line);
 
 /*****************************************************************************/
 /**
-* Always assert. This assert macro is to be used for functions that do return
-* a value. Use for instances where an assert should always occur.
+* @brief   Always assert. This assert macro is to be used for functions that
+*          do return a value. Use for instances where an assert should always
+*          occur.
 *
 * @return Returns void unless the Xil_AssertWait variable is true, in which
-*	  case no return is made and an infinite loop is entered.
-*
-* @note   None.
+*	      case no return is made and an infinite loop is entered.
 *
 ******************************************************************************/
 #define Xil_AssertNonvoidAlways()                \
@@ -189,3 +190,6 @@ void Xil_AssertSetCallback(Xil_AssertCallback Routine);
 #endif
 
 #endif	/* end of protection macro */
+/**
+* @} End of "addtogroup common_assert_apis".
+*/

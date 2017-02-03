@@ -54,15 +54,13 @@
 /***************** Inline Functions Definitions ********************/
 /*****************************************************************************/
 /**
-* This  function copies memory from once location to other.
+* @brief       This  function copies memory from once location to other.
 *
-* @param       dst is the pointer pointing to  destination memory
+* @param       dst: pointer pointing to destination memory
 *
-* @param       src is the pointer pointing to source memory
+* @param       src: pointer pointing to source memory
 *
-* @param       cnt is the length of bytes to copy
-*
-* @note        none.
+* @param       cnt: 32 bit length of bytes to be copied
 *
 *****************************************************************************/
 void Xil_MemCpy(void* dst, const void* src, u32 cnt)
