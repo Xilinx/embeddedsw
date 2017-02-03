@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2017  Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -55,6 +55,7 @@
 * 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiRx_WriteReg
 *                       XV_HdmiRx_ReadReg
+* 1.8   YH     14/11/16 Added BRIDGE_YUV420 and BRIDGE_PIXEL mask to PIO Out
 * </pre>
 *
 ******************************************************************************/
@@ -116,6 +117,8 @@ extern "C" {
 #define XV_HDMIRX_PIO_OUT_SAMPLE_RATE_SHIFT         8       /**< PIO Out Sample Rate shift */
 #define XV_HDMIRX_PIO_OUT_COLOR_SPACE_SHIFT         10      /**< PIO Out Color Space shift */
 #define XV_HDMIRX_PIO_OUT_SCRM_MASK                 (1<<12) /**< PIO Out Scrambler mask */
+#define XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK        (1<<29) /**< PIO Out Bridge_YUV420 mask */
+#define XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK         (1<<30) /**< PIO Out Bridge_Pixel drop mask */
 
 // PIO peripheral PIO In register masks
 #define XV_HDMIRX_PIO_IN_DET_MASK                   (1<<0) /**< PIO In cable detect mask */

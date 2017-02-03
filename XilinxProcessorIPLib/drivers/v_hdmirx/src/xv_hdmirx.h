@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2017  Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -121,11 +121,14 @@
 * 1.2   yh     15/01/16 Added 3D Video support
 * 1.3   MG     18/02/16 Added link error callback.
 * 1.4   MG     08/03/16 Added RefClk to structure XV_HdmiRx_Stream
-* 1.5   MG     13/05/16 Added XV_HdmiRx_DdcHdcp22Mode and XV_HdmiRx_DdcHdcp14Mode macros
+* 1.5   MG     13/05/16 Added XV_HdmiRx_DdcHdcp22Mode and XV_HdmiRx_DdcHdcp14
+*                       Mode macros
 * 1.6   MG     27/05/16 Added VTD timebase macro
 * 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiRx_Config
 *                       XV_HdmiRx_CfgInitialize
+* 1.8   YH     14/11/16 Added XV_HdmiRx_Bridge_yuv420 & XV_HdmiRx_Bridge_pixel
+*                       mode macros
 * </pre>
 *
 ******************************************************************************/
@@ -454,6 +457,55 @@ typedef struct {
 	} \
 }
 
+/*****************************************************************************/
+/**
+*
+* This macro controls the YUV420 mode for video bridge.
+*
+* @param	InstancePtr is a pointer to the XHdmi_Rx core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable the
+*		YUV 420 Support.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx_Bridge_yuv420(XV_HdmiRx *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiRx_Bridge_yuv420(InstancePtr, SetClr) \
+{ \
+	if (SetClr) { \
+		XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK)); \
+	} \
+	else { \
+		XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_BRIDGE_YUV420_MASK)); \
+	} \
+}
+
+/*****************************************************************************/
+/**
+*
+* This macro controls the Pixel Drop mode for video bridge.
+*
+* @param	InstancePtr is a pointer to the XHdmi_Rx core instance.
+* @param	SetClr specifies TRUE/FALSE value to either enable or disable the
+*		Pixel Repitition.
+*
+* @return	None.
+*
+* @note		C-style signature:
+*		void XV_HdmiRx_Bridge_pixel(XV_HdmiRx *InstancePtr, u8 SetClr)
+*
+******************************************************************************/
+#define XV_HdmiRx_Bridge_pixel(InstancePtr, SetClr) \
+{ \
+	if (SetClr) { \
+		XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_SET_OFFSET), (XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK)); \
+	} \
+	else { \
+		XV_HdmiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_HDMIRX_PIO_OUT_CLR_OFFSET), (XV_HDMIRX_PIO_OUT_BRIDGE_PIXEL_MASK)); \
+	} \
+}
 
 /*****************************************************************************/
 /**
