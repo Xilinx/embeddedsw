@@ -52,6 +52,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 INCLUDEFILES=*.h
 
 libs: $(LIBS)
@@ -74,4 +75,5 @@ profile_includes:
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf ${ASSEMBLY_OBJECTS}
 	$(MAKE) -C profile COMPILER_FLAGS="$(COMPILER_FLAGS)" EXTRA_COMPILER_FLAGS="$(EXTRA_COMPILER_FLAGS)" COMPILER="$(CC)" ARCHIVER="$(AR)" AS="$(AS)" clean

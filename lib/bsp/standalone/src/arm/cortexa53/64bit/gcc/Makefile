@@ -49,6 +49,7 @@ INCLUDES=-I./. -I${INCLUDEDIR}
 
 OUTS = *.o
 OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
+ASSEMBLY_OBJECTS  = $(addsuffix .o, $(basename $(wildcard *.S)))
 INCLUDEFILES=*.h
 INCLUDEFILES+=includes_ps/*.h
 libs: $(LIBS)
@@ -66,3 +67,4 @@ standalone_includes:
 
 clean:
 	rm -rf ${OBJECTS}
+	rm -rf ${ASSEMBLY_OBJECTS}
