@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2016 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -73,6 +73,13 @@
 * 1.12  YH     18/08/16 Combine Report function into one ReportInfo
 *                       Add Event Log
 * 1.13  YH     27/08/16 Remove unused function XV_HdmiTxSs_SetUserTimerHandler
+* 1.14  YH     14/11/16 Added API to enable/disable YUV420/Pixel Repeat Mode
+*                       for video bridge
+* 1.15  YH     14/11/16 Remove Remapper APIs as remapper feature is moved to
+*                       video bridge and controlled by HDMI core
+* 1.16  MMO    03/01/17 Add compiler option(XV_HDMITXSS_LOG_ENABLE) to enable
+*                            Log
+*                       Re-order the enumation and data structure
 * </pre>
 *
 ******************************************************************************/
@@ -90,49 +97,54 @@ extern "C" {
 #include "xvidc_edid.h"
 #include "xv_hdmitx.h"
 #include "xvtc.h"
+
+#if !defined(XV_CONFIG_LOG_VHDMITXSS_DISABLE) && \
+                                             !defined(XV_CONFIG_LOG_DISABLE_ALL)
+#define XV_HDMITXSS_LOG_ENABLE
+#endif
+
+#if defined(XPAR_XHDCP_NUM_INSTANCES) || defined(XPAR_XHDCP22_TX_NUM_INSTANCES)
+#define USE_HDCP_TX
+#define XV_HDMITXSS_HDCP_KEYSEL 0x00u
+#define XV_HDMITXSS_HDCP_MAX_QUEUE_SIZE 16
+#endif
+
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 #include "xtmrctr.h"
 #include "xhdcp1x.h"
 #endif
+
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
 #include "xhdcp22_tx.h"
 #endif
-#include "xgpio.h"
-#include "xv_axi4s_remap.h"
 
-#define XV_HDMITXSS_HDCP_KEYSEL 0x00u
-#define XV_HDMITXSS_HDCP_MAX_QUEUE_SIZE 16
-#if defined(XPAR_XHDCP_NUM_INSTANCES) || defined(XPAR_XHDCP22_TX_NUM_INSTANCES)
-#define USE_HDCP
-#endif
+
 
 /****************************** Type Definitions ******************************/
 /** @name Handler Types
 * @{
 */
-
+#ifdef XV_HDMITXSS_LOG_ENABLE
 typedef enum {
-	XV_HDMITXSS_LOG_EVT_NONE = 1,		/**< Log event none. */
-	XV_HDMITXSS_LOG_EVT_HDMITX_INIT,	/**< Log event HDMITX Init. */
-	XV_HDMITXSS_LOG_EVT_VTC_INIT,	/**< Log event VTC Init. */
-	XV_HDMITXSS_LOG_EVT_HDCPTIMER_INIT,	/**< Log event HDCP Timer Init */
-	XV_HDMITXSS_LOG_EVT_HDCP14_INIT,	/**< Log event HDCP 14 Init. */
-	XV_HDMITXSS_LOG_EVT_HDCP22_INIT,	/**< Log event HDCP 22 Init. */
-	XV_HDMITXSS_LOG_EVT_REMAP_HWRESET_INIT,	/**< Log event Remap reset Init. */
-	XV_HDMITXSS_LOG_EVT_REMAP_INIT,		/**< Log event Remapper Init. */
-	XV_HDMITXSS_LOG_EVT_START,	/**< Log event HDMITXSS Start. */
-	XV_HDMITXSS_LOG_EVT_STOP,	/**< Log event HDMITXSS Stop. */
-	XV_HDMITXSS_LOG_EVT_RESET,	/**< Log event HDMITXSS Reset. */
-	XV_HDMITXSS_LOG_EVT_CONNECT, /**< Log event Cable connect. */
-	XV_HDMITXSS_LOG_EVT_DISCONNECT,	/**< Log event Cable disconnect. */
-	XV_HDMITXSS_LOG_EVT_STREAMUP,	/**< Log event Stream Up. */
-	XV_HDMITXSS_LOG_EVT_STREAMDOWN,	/**< Log event Stream Down. */
-	XV_HDMITXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
+	XV_HDMITXSS_LOG_EVT_NONE = 1,		  /**< Log event none. */
+	XV_HDMITXSS_LOG_EVT_HDMITX_INIT,	  /**< Log event HDMITX Init. */
+	XV_HDMITXSS_LOG_EVT_VTC_INIT,	      /**< Log event VTC Init. */
+	XV_HDMITXSS_LOG_EVT_HDCPTIMER_INIT,	  /**< Log event HDCP Timer Init */
+	XV_HDMITXSS_LOG_EVT_HDCP14_INIT,	  /**< Log event HDCP 14 Init. */
+	XV_HDMITXSS_LOG_EVT_HDCP22_INIT,	  /**< Log event HDCP 22 Init. */
+	XV_HDMITXSS_LOG_EVT_START,	          /**< Log event HDMITXSS Start. */
+	XV_HDMITXSS_LOG_EVT_STOP,	          /**< Log event HDMITXSS Stop. */
+	XV_HDMITXSS_LOG_EVT_RESET,	          /**< Log event HDMITXSS Reset. */
+	XV_HDMITXSS_LOG_EVT_CONNECT,          /**< Log event Cable connect. */
+	XV_HDMITXSS_LOG_EVT_DISCONNECT,	      /**< Log event Cable disconnect. */
+	XV_HDMITXSS_LOG_EVT_STREAMUP,	      /**< Log event Stream Up. */
+	XV_HDMITXSS_LOG_EVT_STREAMDOWN,	      /**< Log event Stream Down. */
+	XV_HDMITXSS_LOG_EVT_STREAMSTART,      /**< Log event Stream Start. */
 	XV_HDMITXSS_LOG_EVT_SETAUDIOCHANNELS, /**< Log event Set Audio Channels. */
-	XV_HDMITXSS_LOG_EVT_AUDIOMUTE,		/**< Log event Audio Mute */
-	XV_HDMITXSS_LOG_EVT_AUDIOUNMUTE,	/**< Log event Audio Unmute. */
-	XV_HDMITXSS_LOG_EVT_SETSTREAM,   /**< Log event HDMITXSS Setstream. */
-	XV_HDMITXSS_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
+	XV_HDMITXSS_LOG_EVT_AUDIOMUTE,		  /**< Log event Audio Mute */
+	XV_HDMITXSS_LOG_EVT_AUDIOUNMUTE,	  /**< Log event Audio Unmute. */
+	XV_HDMITXSS_LOG_EVT_SETSTREAM,        /**< Log event HDMITXSS Setstream. */
+	XV_HDMITXSS_LOG_EVT_DUMMY,		      /**< Dummy Event should be last */
 } XV_HdmiTxSs_LogEvent;
 
 /**
@@ -140,27 +152,12 @@ typedef enum {
  */
 typedef struct {
 	u16 DataBuffer[256];		/**< Log buffer with event data. */
-	u8 HeadIndex;			/**< Index of the head entry of the
-						Event/DataBuffer. */
-	u8 TailIndex;			/**< Index of the tail entry of the
-						Event/DataBuffer. */
+	u8 HeadIndex;			    /**< Index of the head entry of the
+						             Event/DataBuffer. */
+	u8 TailIndex;			    /**< Index of the tail entry of the
+						             Event/DataBuffer. */
 } XV_HdmiTxSs_Log;
-
-/**
-* These constants specify different types of handler and used to differentiate
-* interrupt requests from peripheral.
-*/
-typedef enum {
-    XV_HDMITXSS_HANDLER_CONNECT = 1,                         /**< Handler for connect event */
-    XV_HDMITXSS_HANDLER_TOGGLE,                              /**< Handler for toggle event */
-    XV_HDMITXSS_HANDLER_VS,                                  /**< Handler for vsync event */
-    XV_HDMITXSS_HANDLER_STREAM_DOWN,                         /**< Handler for stream down event */
-    XV_HDMITXSS_HANDLER_STREAM_UP,                           /**< Handler for stream up event */
-    XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED,                  /**< Handler for HDCP authenticated event */
-    XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE,  /**< Handler for HDCP downstream topology available event */
-    XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED                 /**< Handler for HDCP unauthenticated event */
-} XV_HdmiTxSs_HandlerType;
-/*@}*/
+#endif
 
 /**
 * These constants specify the HDCP protection schemes
@@ -172,15 +169,7 @@ typedef enum
     XV_HDMITXSS_HDCP_22      /**< HDCP 2.2 */
 } XV_HdmiTxSs_HdcpProtocol;
 
-/**
-* These constants specify HDCP repeater content stream management type
-*/
-typedef enum
-{
-    XV_HDMITXSS_HDCP_STREAMTYPE_0, /**< HDCP Stream Type 0 */
-    XV_HDMITXSS_HDCP_STREAMTYPE_1  /**< HDCP Stream Type 1 */
-} XV_HdmiTxSs_HdcpContentStreamType;
-
+#ifdef USE_HDCP_TX
 /**
 * These constants specify the HDCP key types
 */
@@ -192,6 +181,15 @@ typedef enum
     XV_HDMITXSS_KEY_HDCP14_SRM,     /**< HDCP 1.4 SRM */
     XV_HDMITXSS_KEY_INVALID         /**< Invalid Key */
 } XV_HdmiTxSs_HdcpKeyType;
+
+/**
+* These constants specify HDCP repeater content stream management type
+*/
+typedef enum
+{
+    XV_HDMITXSS_HDCP_STREAMTYPE_0, /**< HDCP Stream Type 0 */
+    XV_HDMITXSS_HDCP_STREAMTYPE_1  /**< HDCP Stream Type 1 */
+} XV_HdmiTxSs_HdcpContentStreamType;
 
 typedef enum
 {
@@ -223,7 +221,35 @@ typedef struct
     u8                      Tail;      /**< Tail pointer */
     u8                      Head;      /**< Head pointer */
 } XV_HdmiTxSs_HdcpEventQueue;
+#endif
 
+/**
+* These constants specify different types of handler and used to differentiate
+* interrupt requests from peripheral.
+*/
+typedef enum {
+    XV_HDMITXSS_HANDLER_CONNECT = 1,                       /**< Handler for
+                                                            connect event */
+    XV_HDMITXSS_HANDLER_TOGGLE,                            /**< Handler for
+                                                            toggle event */
+    XV_HDMITXSS_HANDLER_VS,                                /**< Handler for
+                                                            vsync event */
+    XV_HDMITXSS_HANDLER_STREAM_DOWN,                       /**< Handler for
+                                                            stream down event */
+    XV_HDMITXSS_HANDLER_STREAM_UP,                         /**< Handler for
+                                                            stream up event */
+    XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED,                /**< Handler for
+                                                            HDCP authenticated
+                                                            event */
+    XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE,/**< Handler for
+                                                            HDCP downstream
+                                                            topology available
+                                                            event */
+    XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED               /**< Handler for
+                                                            HDCP unauthenticated
+                                                            event */
+} XV_HdmiTxSs_HandlerType;
+/*@}*/
 
 /**
  * Sub-Core Configuration Table
@@ -232,7 +258,7 @@ typedef struct
 {
   u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
   u16 DeviceId;   /**< Device ID of the sub-core */
-  UINTPTR AddrOffset; /**< sub-core offset from subsystem base address */
+  UINTPTR AbsAddr; /**< Sub-core Absolute Base Address */
 }XV_HdmiTxSs_SubCore;
 
 /**
@@ -243,19 +269,20 @@ typedef struct
 
 typedef struct
 {
-    u16 DeviceId;               /**< DeviceId is the unique ID  of the device */
-    UINTPTR BaseAddress;          /**< BaseAddress is the physical base address of the
-                                subsystem address range */
-    UINTPTR HighAddress;          /**< HighAddress is the physical MAX address of the
-                                subsystem address range */
+    u16 DeviceId;                     /**< DeviceId is the unique ID  of the
+                                           device */
+    UINTPTR BaseAddress;              /**< BaseAddress is the physical base
+                                           address of the subsystem address
+                                           range */
+    UINTPTR HighAddress;              /**< HighAddress is the physical MAX
+                                           address of the subsystem address
+                                           range */
     XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
     u8 MaxBitsPerPixel;               /**< Maximum  Supported Color Depth */
-	u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
-    XV_HdmiTxSs_SubCore RemapperReset;/**< Sub-core instance configuration */
+    u32 AxiLiteClkFreq;               /**< AXI Lite Clock Frequency in Hz */
     XV_HdmiTxSs_SubCore HdcpTimer;    /**< Sub-core instance configuration */
     XV_HdmiTxSs_SubCore Hdcp14;       /**< Sub-core instance configuration */
     XV_HdmiTxSs_SubCore Hdcp22;       /**< Sub-core instance configuration */
-    XV_HdmiTxSs_SubCore Remapper;     /**< Sub-core instance configuration */
     XV_HdmiTxSs_SubCore HdmiTx;       /**< Sub-core instance configuration */
     XV_HdmiTxSs_SubCore Vtc;          /**< Sub-core instance configuration */
 } XV_HdmiTxSs_Config;
@@ -283,8 +310,10 @@ typedef struct
 {
     XV_HdmiTxSs_Config Config;  /**< Hardware configuration */
     u32 IsReady;         /**< Device and the driver instance are initialized */
-	XV_HdmiTxSs_Log Log;				/**< A log of events. */
-    XGpio *RemapperResetPtr;        /**< handle to sub-core driver instance */
+
+#ifdef XV_HDMITXSS_LOG_ENABLE
+    XV_HdmiTxSs_Log Log;                /**< A log of events. */
+#endif
 #ifdef XPAR_XHDCP_NUM_INSTANCES
     XTmrCtr *HdcpTimerPtr;          /**< handle to sub-core driver instance */
     XHdcp1x *Hdcp14Ptr;             /**< handle to sub-core driver instance */
@@ -292,16 +321,17 @@ typedef struct
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
     XHdcp22_Tx  *Hdcp22Ptr;         /**< handle to sub-core driver instance */
 #endif
-    XV_axi4s_remap *RemapperPtr;    /**< handle to sub-core driver instance */
     XV_HdmiTx *HdmiTxPtr;           /**< handle to sub-core driver instance */
     XVtc *VtcPtr;                   /**< handle to sub-core driver instance */
 
     /* Callbacks */
     XV_HdmiTxSs_Callback ConnectCallback; /**< Callback for connect event */
-    void *ConnectRef;              /**< To be passed to the connect callback */
+    void *ConnectRef;                     /**< To be passed to the connect
+                                               callback */
 
     XV_HdmiTxSs_Callback ToggleCallback; /**< Callback for toggle event */
-    void *ToggleRef;                     /**< To be passed to the toggle callback */
+    void *ToggleRef;                     /**< To be passed to the toggle
+                                              callback */
 
     XV_HdmiTxSs_Callback VsCallback; /**< Callback for Vsync event */
     void *VsRef;                   /**< To be passed to the Vsync callback */
@@ -321,25 +351,28 @@ typedef struct
     u8 AudioMute;                 /**< HDMI TX Audio Mute */
     u8 AudioChannels;             /**< Number of Audio Channels */
 
-    XVidC_DelayHandler UserTimerWaitUs; /**< Custom user function for
-                            delay/sleep. */
-    void *UserTimerPtr;           /**< Pointer to a timer instance
-                            used by the custom user
-                            delay/sleep function. */
-                                /**< HDCP specific */
-    u32                         HdcpIsReady;        /**< HDCP ready flag */
-    XV_HdmiTxSs_HdcpEventQueue  HdcpEventQueue;     /**< HDCP event queue */
-    XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;       /**< HDCP protect scheme */
-    u8                          *Hdcp22Lc128Ptr;    /**< Pointer to HDCP 2.2 LC128 */
-    u8                          *Hdcp22SrmPtr;      /**< Pointer to HDCP 2.2 SRM */
-    u8                          *Hdcp14KeyPtr;      /**< Pointer to HDCP 1.4 key */
-    u8                          *Hdcp14SrmPtr;      /**< Pointer to HDCP 1.4 SRM */
+    XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protect scheme */
+#ifdef USE_HDCP_TX
+    /**< HDCP specific */
+    u32                         HdcpIsReady;     /**< HDCP ready flag */
+    XV_HdmiTxSs_HdcpEventQueue  HdcpEventQueue;  /**< HDCP event queue */
+#ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
+    u8                          *Hdcp22Lc128Ptr; /**< Pointer to HDCP 2.2
+                                                      LC128 */
+    u8                          *Hdcp22SrmPtr;   /**< Pointer to HDCP 2.2 SRM */
+#endif
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+    u8                          *Hdcp14KeyPtr;   /**< Pointer to HDCP 1.4 key */
+    u8                          *Hdcp14SrmPtr;   /**< Pointer to HDCP 1.4 SRM */
+#endif
+#endif
 } XV_HdmiTxSs;
 
 /************************** Macros Definitions *******************************/
+#ifdef USE_HDCP_TX
 #define XV_HdmiTxSs_HdcpIsReady(InstancePtr) \
   (InstancePtr)->HdcpIsReady
-
+#endif
 /************************** Function Prototypes ******************************/
 XV_HdmiTxSs_Config *XV_HdmiTxSs_LookupConfig(u32 DeviceId);
 void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr);
@@ -389,14 +422,15 @@ u8 XV_HdmiTxSs_IsSinkHdcp22Capable(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_SetDefaultPpc(XV_HdmiTxSs *InstancePtr, u8 Id);
 void XV_HdmiTxSs_SetPpc(XV_HdmiTxSs *InstancePtr, u8 Id, u8 Ppc);
 
-/* XV_HdmiTxSs_log.c: Logging functions. */
+#ifdef XV_HDMITXSS_LOG_ENABLE
 void XV_HdmiTxSs_LogReset(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_LogWrite(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_LogEvent Evt, u8 Data);
 u16 XV_HdmiTxSs_LogRead(XV_HdmiTxSs *InstancePtr);
+#endif
 void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr);
 
-#ifdef USE_HDCP
-// HDCP
+
+#ifdef USE_HDCP_TX
 void XV_HdmiTxSs_HdcpSetKey(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpKeyType KeyType, u8 *KeyPtr);
 int XV_HdmiTxSs_HdcpPoll(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpSetProtocol(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpProtocol Protocol);
@@ -414,29 +448,36 @@ int XV_HdmiTxSs_HdcpIsEnabled(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpIsAuthenticated(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpIsEncrypted(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpIsInProgress(XV_HdmiTxSs *InstancePtr);
+
 void XV_HdmiTxSs_HdcpInfo(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_HdcpSetInfoDetail(XV_HdmiTxSs *InstancePtr, u8 Verbose);
+
 void *XV_HdmiTxSs_HdcpGetTopology(XV_HdmiTxSs *InstancePtr);
 u8 *XV_HdmiTxSs_HdcpGetTopologyReceiverIdList(XV_HdmiTxSs *InstancePtr);
 u32 XV_HdmiTxSs_HdcpGetTopologyField(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpTopologyField Field);
+
 void XV_HdmiTxSs_HdcpSetContentStreamType(XV_HdmiTxSs *InstancePtr,
        XV_HdmiTxSs_HdcpContentStreamType StreamType);
 int XV_HdmiTxSs_HdcpIsRepeater(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpSetRepeater(XV_HdmiTxSs *InstancePtr, u8 Set);
 int XV_HdmiTxSs_HdcpIsInComputations(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpIsInWaitforready(XV_HdmiTxSs *InstancePtr);
+
+#endif
+
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 int XV_HdmiTxSs_HdcpTimerStart(void *InstancePtr, u16 TimeoutInMs);
 int XV_HdmiTxSs_HdcpTimerStop(void *InstancePtr);
 int XV_HdmiTxSs_HdcpTimerBusyDelay(void *InstancePtr, u16 DelayInMs);
+
 void XV_HdmiTxSS_HdcpIntrHandler(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_HdcpTimerIntrHandler(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_HdcpTimerCallback(void *CallBackRef, u8 TimerChannel);
 #endif
+
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
 void XV_HdmiTxSS_Hdcp22TimerIntrHandler(XV_HdmiTxSs *InstancePtr);
 #endif
-#endif // USE_HDCP
 
 #ifdef __cplusplus
 }

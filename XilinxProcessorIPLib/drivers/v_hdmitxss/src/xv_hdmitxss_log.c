@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2015 - 2017 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   YH   17/08/16 Initial release.
+ * 1.01  MMO  03/01/17 Add compiler option(XV_HDMITXSS_LOG_ENABLE) to enable Log
  * </pre>
  *
 *******************************************************************************/
@@ -66,6 +67,7 @@
 * @note		None.
 *
 ******************************************************************************/
+#ifdef XV_HDMITXSS_LOG_ENABLE
 void XV_HdmiTxSs_LogReset(XV_HdmiTxSs *InstancePtr)
 {
 	/* Verify arguments. */
@@ -161,7 +163,7 @@ u16 XV_HdmiTxSs_LogRead(XV_HdmiTxSs *InstancePtr)
 
 	return Log;
 }
-
+#endif
 /*****************************************************************************/
 /**
 * This function will print the entire log.
@@ -175,6 +177,7 @@ u16 XV_HdmiTxSs_LogRead(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr)
 {
+#ifdef XV_HDMITXSS_LOG_ENABLE
 	u16 Log;
 	u8 Evt;
 	u8 Data;
@@ -214,12 +217,6 @@ void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr)
 			break;
 	    case (XV_HDMITXSS_LOG_EVT_HDCP22_INIT):
 		    xil_printf("Initializing HDCP 2.2 core....\r\n");
-			break;
-	    case (XV_HDMITXSS_LOG_EVT_REMAP_HWRESET_INIT):
-		    xil_printf("Initializing HW Reset core for Remapper....\r\n");
-			break;
-	    case (XV_HDMITXSS_LOG_EVT_REMAP_INIT):
-		    xil_printf("Initializing Remapper core....\r\n");
 			break;
 	    case (XV_HDMITXSS_LOG_EVT_START):
 		    xil_printf("Start HDMI TX Subsystem....\r\n");
@@ -265,4 +262,7 @@ void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr)
 		/* Read log data */
 		Log = XV_HdmiTxSs_LogRead(InstancePtr);
 	}
+#else
+    xil_printf("\r\n INFO:: HDMITXSS Log Feature is Disabled \r\n");
+#endif
 }
