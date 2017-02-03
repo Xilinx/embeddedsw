@@ -140,6 +140,7 @@
 *       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 *       sk     11/16/16 Issue DLL reset at 31 iteration to load new zero value.
 * 3.2   sk     11/30/16 Modified the voltage switching sequence as per spec.
+*       sk     02/01/17 Added HSD and DDR mode support for eMMC.
 *
 * </pre>
 *
@@ -246,6 +247,7 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg);
 #if defined (ARMR5) || defined (__aarch64__)
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
+void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_sdr104_hs200_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 #endif

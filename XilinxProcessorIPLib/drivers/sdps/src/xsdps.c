@@ -75,6 +75,7 @@
 *       sk     10/19/16 Used emmc_hwreset pin to reset eMMC.
 *       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 * 3.2   sk     11/30/16 Modified the voltage switching sequence as per spec.
+*       sk     02/01/17 Added HSD and DDR mode support for eMMC.
 * </pre>
 *
 ******************************************************************************/
@@ -744,6 +745,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE2] << 8;
 		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE1];
 
+		/* Check for card supported speed */
 		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				(EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
 				EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) {
@@ -751,6 +753,23 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 #if defined (ARMR5) || defined (__aarch64__)
 			InstancePtr->Config_TapDelay = XSdPs_sdr104_hs200_tapdelay;
 #endif
+		} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
+				(EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED |
+				EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) {
+			InstancePtr->Mode = XSDPS_DDR52_MODE;
+#if defined (ARMR5) || defined (__aarch64__)
+			InstancePtr->Config_TapDelay = XSdPs_ddr50_tapdelay;
+#endif
+		} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
+				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
+			InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
+#if defined (ARMR5) || defined (__aarch64__)
+			InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
+#endif
+		} else
+			InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
+
+		if (InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) {
 			Status = XSdPs_Change_BusSpeed(InstancePtr);
 			if (Status != XST_SUCCESS) {
 				Status = XST_FAILURE;
@@ -763,9 +782,27 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 				goto RETURN_PATH;
 			}
 
-			if (ExtCsd[EXT_CSD_HS_TIMING_BYTE] != EXT_CSD_HS_TIMING_HS200) {
-				Status = XST_FAILURE;
-				goto RETURN_PATH;
+			if (InstancePtr->Mode == XSDPS_HS200_MODE) {
+				if (ExtCsd[EXT_CSD_HS_TIMING_BYTE] != EXT_CSD_HS_TIMING_HS200) {
+					Status = XST_FAILURE;
+					goto RETURN_PATH;
+				}
+			}
+
+			if ((InstancePtr->Mode == XSDPS_HIGH_SPEED_MODE) ||
+					InstancePtr->Mode == XSDPS_DDR52_MODE) {
+				if (ExtCsd[EXT_CSD_HS_TIMING_BYTE] != EXT_CSD_HS_TIMING_HIGH) {
+					Status = XST_FAILURE;
+					goto RETURN_PATH;
+				}
+
+				if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
+					Status = XSdPs_Change_BusWidth(InstancePtr);
+					if (Status != XST_SUCCESS) {
+						Status = XST_FAILURE;
+						goto RETURN_PATH;
+					}
+				}
 			}
 		}
 
@@ -779,11 +816,13 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			}
 		}
 	}
-
-	Status = XSdPs_SetBlkSize(InstancePtr, XSDPS_BLK_SIZE_512_MASK);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+	if ((InstancePtr->Mode != XSDPS_DDR52_MODE) ||
+			(InstancePtr->CardType == XSDPS_CARD_SD)) {
+		Status = XSdPs_SetBlkSize(InstancePtr, XSDPS_BLK_SIZE_512_MASK);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 RETURN_PATH:

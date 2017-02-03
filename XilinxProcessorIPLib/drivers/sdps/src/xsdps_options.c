@@ -63,6 +63,7 @@
 * 3.1   mi     09/07/16 Removed compilation warnings with extra compiler flags.
 *       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 *       sk     11/16/16 Issue DLL reset at 31 iteration to load new zero value.
+* 3.2   sk     02/01/17 Added HSD and DDR mode support for eMMC.
 *
 * </pre>
 *
@@ -89,7 +90,6 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
 #if defined (ARMR5) || defined (__aarch64__)
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
-static void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_SetTapDelay(XSdPs *InstancePtr);
 static void XSdPs_DllReset(XSdPs *InstancePtr);
 #endif
@@ -290,9 +290,15 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 		}
 
 		if (InstancePtr->BusWidth == XSDPS_8_BIT_WIDTH) {
-			Arg = XSDPS_MMC_8_BIT_BUS_ARG;
+			if (InstancePtr->Mode == XSDPS_DDR52_MODE)
+				Arg = XSDPS_MMC_DDR_8_BIT_BUS_ARG;
+			else
+				Arg = XSDPS_MMC_8_BIT_BUS_ARG;
 		} else {
-			Arg = XSDPS_MMC_4_BIT_BUS_ARG;
+			if (InstancePtr->Mode == XSDPS_DDR52_MODE)
+				Arg = XSDPS_MMC_DDR_4_BIT_BUS_ARG;
+			else
+				Arg = XSDPS_MMC_4_BIT_BUS_ARG;
 		}
 
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 0U);
@@ -335,6 +341,15 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL1_OFFSET,
 			(u8)StatusReg);
+
+	if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
+		StatusReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_HOST_CTRL2_OFFSET);
+		StatusReg &= (u16)(~XSDPS_HC2_UHS_MODE_MASK);
+		StatusReg |= InstancePtr->Mode;
+		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+				XSDPS_HOST_CTRL2_OFFSET, StatusReg);
+	}
 
 	Status = (s32)XSdPs_ReadReg(InstancePtr->Config.BaseAddress,
 			XSDPS_RESP0_OFFSET);
@@ -553,7 +568,16 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 			goto RETURN_PATH;
 		}
 	} else {
-		Arg = XSDPS_MMC_HS200_ARG;
+		if (InstancePtr->Mode == XSDPS_HS200_MODE) {
+			Arg = XSDPS_MMC_HS200_ARG;
+			InstancePtr->BusSpeed = XSDPS_MMC_HS200_MAX_CLK;
+		} else if (InstancePtr->Mode == XSDPS_DDR52_MODE) {
+			Arg = XSDPS_MMC_HIGH_SPEED_ARG;
+			InstancePtr->BusSpeed = XSDPS_MMC_DDR_MAX_CLK;
+		} else {
+			Arg = XSDPS_MMC_HIGH_SPEED_ARG;
+			InstancePtr->BusSpeed = XSDPS_MMC_HSD_MAX_CLK;
+		}
 
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 0U);
 		if (Status != XST_SUCCESS) {
@@ -585,18 +609,18 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 				XSDPS_NORM_INTR_STS_OFFSET, XSDPS_INTR_TC_MASK);
 
-		/* Change the clock frequency to 200 MHz */
-		InstancePtr->BusSpeed = XSDPS_MMC_HS200_MAX_CLK;
-
 		Status = XSdPs_Change_ClkFreq(InstancePtr, InstancePtr->BusSpeed);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
-		Status = XSdPs_Execute_Tuning(InstancePtr);
-		if (Status != XST_SUCCESS) {
-			Status = XST_FAILURE;
-			goto RETURN_PATH;
+
+		if (InstancePtr->Mode == XSDPS_HS200_MODE) {
+			Status = XSdPs_Execute_Tuning(InstancePtr);
+			if (Status != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
 		}
 	}
 
