@@ -118,6 +118,7 @@ u32 XFsbl_UsbInit(u32 DeviceFlags)
 		goto END;
 	}
 
+	XUsbPsu_SetSpeed(&UsbInstance, XUSBPSU_DCFG_HIGHSPEED);
 	/* hook up chapter9 handler */
 	UsbInstance.Chapter9 = XFsbl_Ch9Handler;
 
