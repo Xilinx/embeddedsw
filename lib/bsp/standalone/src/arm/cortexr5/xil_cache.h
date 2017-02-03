@@ -34,8 +34,14 @@
 *
 * @file xil_cache.h
 *
-* Contains required functions for the ARM cache functionality
+* @addtogroup r5_cache_apis Cortex R5 Processor Cache Functions
 *
+* Cache functions provide access to cache related operations such as flush
+*  and invalidate for instruction and data caches. It gives option to perform
+* the cache operations on a single cacheline, a range of memory and an entire
+* cache.
+*
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -102,3 +108,6 @@ void Xil_ICacheInvalidateLine(INTPTR adr);
 #endif
 
 #endif
+/**
+* @} End of "addtogroup r5_cache_apis".
+*/

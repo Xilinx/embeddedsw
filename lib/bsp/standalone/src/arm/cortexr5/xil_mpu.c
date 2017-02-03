@@ -45,9 +45,6 @@
 * 6.2   mus  01/27/17 Updated to support IAR compiler
 * </pre>
 *
-* @note
-*
-* None.
 *
 ******************************************************************************/
 
@@ -102,13 +99,13 @@ static const struct {
 
 /************************** Function Prototypes ******************************/
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
+* @brief    This function sets the memory attributes for a section covering
+*           1MB, of memory in the translation table.
 *
-* Set the memory attributes for a section of memory with starting address addr
-* of the region size 1MB having attributes attrib
-*
-* @param	addr is the address for which attributes are to be set.
-* @param	attrib specifies the attributes for that memory region.
+* @param	Addr: 32-bit address for which memory attributes need to be set.
+* @param	attrib: Attribute for the given memory region.
 * @return	None.
 *
 *
@@ -121,14 +118,14 @@ void Xil_SetTlbAttributes(INTPTR addr, u32 attrib)
 	Xil_SetMPURegion(Localaddr, 0x100000, attrib);
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
+* @brief    Set the memory attributes for a section of memory in the
+*           translation table.
 *
-* Set the memory attributes for a section of memory with starting address addr
-* of the region size size and having attributes attrib
-*
-* @param	addr is the address for which attributes are to be set.
-* @param	size is the size of the region.
-* @param	attrib specifies the attributes for that memory region.
+* @param	Addr: 32-bit address for which memory attributes need to be set..
+* @param	size: size is the size of the region.
+* @param	attrib: Attribute for the given memory region.
 * @return	None.
 *
 *
@@ -174,10 +171,10 @@ void Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	dsb();
 	isb();
 }
-/*****************************************************************************
-*
-* Enable MPU for Cortex R5 processor. This function invalidates I cache and
-* flush the D Caches before enabling the MPU.
+/*****************************************************************************/
+/**
+* @brief    Enable MPU for Cortex R5 processor. This function invalidates I
+*           cache and flush the D Caches, and then enables the MPU.
 *
 *
 * @param	None.
@@ -225,10 +222,10 @@ void Xil_EnableMPU(void)
 	}
 }
 
-/*****************************************************************************
-*
-* Disable MPU for Cortex R5 processors. This function invalidates I cache and
-* flush the D Caches before disabling the MPU.
+/*****************************************************************************/
+/**
+* @brief    Disable MPU for Cortex R5 processors. This function invalidates I
+*           cache and flush the D Caches, and then disabes the MPU.
 *
 * @param	None.
 *

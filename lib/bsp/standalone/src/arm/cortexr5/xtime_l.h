@@ -33,6 +33,11 @@
 /**
 * @file xtime_l.h
 *
+* @addtogroup r5_time_apis Cortex R5 Time Functions
+* The xtime_l.h provides access to 32-bit TTC timer counter. These functions
+* can be used by applications to track the time.
+*
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -43,8 +48,6 @@
 * 5.04	pkp	   03/11/16 Removed definitions for overflow interrupt register
 *						and mask
 * </pre>
-*
-* @note		None.
 *
 ******************************************************************************/
 
@@ -97,3 +100,6 @@ void XTime_GetTime(XTime *Xtime_Global);
 #endif /* __cplusplus */
 
 #endif /* XTIME_H */
+/**
+* @} End of "@addtogroup r5_time_apis".
+*/

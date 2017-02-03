@@ -33,8 +33,34 @@
 /**
 * @file xil_mmu.h
 *
+* @addtogroup r5_mpu_apis Cortex R5 Processor MPU specific APIs
+*
+* MPU functions provides access to MPU operations such as enable MPU, disable
+* MPU and set attribute for section of memory.
+* Boot code invokes Init_MPU function to configure the MPU. A total of 10 MPU
+* regions are allocated with another 6 being free for users. Overview of the
+* memory attributes for different MPU regions is as given below,
+*
+*|                       | Memory Range            | Attributes of MPURegion     |
+*|-----------------------|-------------------------|-----------------------------|
+*| DDR                   | 0x00000000 - 0x7FFFFFFF | Normal write-back Cacheable |
+*| PL                    | 0x80000000 - 0xBFFFFFFF | Strongly Ordered            |
+*| QSPI                  | 0xC0000000 - 0xDFFFFFFF | Device Memory               |
+*| PCIe                  | 0xE0000000 - 0xEFFFFFFF | Device Memory               |
+*| STM_CORESIGHT         | 0xF8000000 - 0xF8FFFFFF | Device Memory               |
+*| RPU_R5_GIC            | 0xF9000000 - 0xF90FFFFF | Device memory               |
+*| FPS                   | 0xFD000000 - 0xFDFFFFFF | Device Memory               |
+*| LPS                   | 0xFE000000 - 0xFFFFFFFF | Device Memory               |
+*| OCM                   | 0xFFFC0000 - 0xFFFFFFFF | Normal write-back Cacheable |
 *
 *
+* @note
+* For a system where DDR is less than 2GB, region after DDR and before PL is
+* marked as undefined in translation table. Memory range 0xFE000000-0xFEFFFFFF is
+* allocated for upper LPS slaves, where as memory region 0xFF000000-0xFFFFFFFF is
+* allocated for lower LPS slaves.
+*
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -43,9 +69,8 @@
 * 5.00  pkp  02/10/14 Initial version
 * </pre>
 *
-* @note
+
 *
-* None.
 *
 ******************************************************************************/
 
@@ -78,3 +103,6 @@ void Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib);
 #endif /* __cplusplus */
 
 #endif /* XIL_MPU_H */
+/**
+* @} End of "addtogroup r5_mpu_apis".
+*/

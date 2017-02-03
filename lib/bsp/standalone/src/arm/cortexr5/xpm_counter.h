@@ -34,21 +34,20 @@
 *
 * @file xpm_counter.h
 *
-* This header file contains APIs for configuring and controlling the Cortex-R5
-* Performance Monitor Events.
-* Cortex-R5 Performance Monitor has 6 event counters which can be used to
-* count a variety of events described in Coretx-R5 TRM. This file defines
-* configurations, where value configures the event counters to count a
-* set of events.
+* @addtogroup r5_event_counter_apis Cortex R5 Event Counters Functions
 *
-* Xpm_SetEvents can be used to set the event counters to count a set of events
-* and Xpm_GetEventCounters can be used to read the counter values.
+* Cortex R5 event counter functions can be utilized to configure and control
+* the Cortex-R5 performance monitor events.
+* Cortex-R5 Performance Monitor has 6 event counters which can be used to
+* count a variety of events described in Coretx-R5 TRM. The xpm_counter.h file
+* defines configurations XPM_CNTRCFGx which can be used to program the event
+* counters to count a set of events.
 *
 * @note
-*
-* This file doesn't handle the Cortex-R5 cycle counter, as the cycle counter is
+* It doesn't handle the Cortex-R5 cycle counter, as the cycle counter is
 * being used for time keeping.
 *
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -569,3 +568,6 @@ void Xpm_GetEventCounters(u32 *PmCtrValue);
 #endif
 
 #endif
+/**
+* @} End of "addtogroup r5_event_counter_apis".
+*/

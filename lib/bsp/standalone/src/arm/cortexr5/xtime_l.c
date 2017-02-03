@@ -81,16 +81,17 @@
 
 /* Function definitions are applicable only when TTC3 is present*/
 #ifdef SLEEP_TIMER_BASEADDR
-/****************************************************************************
-*
-* Start the TTC timer.
+/****************************************************************************/
+/**
+* @brief    Start the TTC timer.
 *
 * @param	None.
 *
 * @return	None.
 *
-* @note		In multiprocessor environment reference time will reset/lost for
-*		all processors, when this function called by any one processor.
+* @note		When this function is called by any one processor in a multi-
+*		    processor environment, reference time will reset/lost for all
+*           processors.
 *
 ****************************************************************************/
 void XTime_StartTimer(void)
@@ -138,16 +139,19 @@ void XTime_StartTimer(void)
 				TimerCntrl);
 
 }
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief    TTC Timer runs continuously and the time can not be set as
+*			desired. This API doesn't contain anything. It is defined to have
+*			uniformity across platforms.
 *
-* Set the time in the Timer Counter Register.
-*
-* @param	Value to be written to the Timer Counter Register.
+* @param	Xtime_Global: 32 bit value to be written to the timer counter
+*           register.
 *
 * @return	None.
 *
 * @note		In multiprocessor environment reference time will reset/lost for
-*		all processors, when this function called by any one processor.
+*		    all processors, when this function called by any one processor.
 *
 ****************************************************************************/
 void XTime_SetTime(XTime Xtime_Global)
@@ -158,15 +162,14 @@ void XTime_SetTime(XTime Xtime_Global)
                 "XTime_SetTime:Timer cannot be set to desired value,so API is not implemented\n");
 }
 
-/****************************************************************************
+/****************************************************************************/
+/**
+* @brief    Get the time from the timer counter register.
 *
-* Get the time from the Timer Counter Register.
-*
-* @param	Pointer to the location to be updated with the time.
+* @param	Xtime_Global: Pointer to the 32 bit location to be updated with
+*           the time current value of timer counter register.
 *
 * @return	None.
-*
-* @note		None.
 *
 ****************************************************************************/
 void XTime_GetTime(XTime *Xtime_Global)
