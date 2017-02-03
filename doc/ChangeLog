@@ -252,6 +252,7 @@ Xilinx PCS PMA core is used.
 Add Support for TI PHY DP83867 SGMII Mode configuration.
 Fixed Compilation warnings - CR#957004
 Dont perform data cache operations when CCI is enabled.
+Add jumbo frame support for ZynqMP GEM.
 
 nandpsu_v1_2:
 change memcpy to Xil_MemCpy. fixes CR#960462
