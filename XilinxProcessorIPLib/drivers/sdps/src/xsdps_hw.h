@@ -1013,6 +1013,10 @@ extern "C" {
 #define XSDPS_SLOT_REM			0U
 #define XSDPS_SLOT_EMB			1U
 
+#define XSDPS_WIDTH_8		8U
+#define XSDPS_WIDTH_4		4U
+
+
 #if defined (ARMR5) || defined (__aarch64__)
 #define SD_DLL_CTRL 				0x00000358U
 #define SD_ITAPDLY					0x00000314U

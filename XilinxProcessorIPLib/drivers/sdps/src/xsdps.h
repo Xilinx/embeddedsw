@@ -141,6 +141,7 @@
 *       sk     11/16/16 Issue DLL reset at 31 iteration to load new zero value.
 * 3.2   sk     11/30/16 Modified the voltage switching sequence as per spec.
 *       sk     02/01/17 Added HSD and DDR mode support for eMMC.
+*       sk     02/01/17 Consider bus width parameter from design for switching
 *
 * </pre>
 *

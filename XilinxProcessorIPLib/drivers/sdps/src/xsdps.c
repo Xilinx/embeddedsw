@@ -426,7 +426,8 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 
 	/* There is no support to switch to 1.8V and use UHS mode on 1.0 silicon */
 #ifndef UHS_BROKEN
-    if ((RespOCR & XSDPS_OCR_S18) != 0U) {
+    if (((RespOCR & XSDPS_OCR_S18) != 0U) &&
+		(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
 		InstancePtr->Switch1v8 = 1U;
 		Status = XSdPs_Switch_Voltage(InstancePtr);
 		if (Status != XST_SUCCESS) {
@@ -647,8 +648,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		}
 
 #if defined (ARMR5) || defined (__aarch64__)
-		if ((InstancePtr->Switch1v8 != 0U) &&
-				(InstancePtr->BusWidth == XSDPS_4_BIT_WIDTH)) {
+		if (InstancePtr->Switch1v8 != 0U) {
 
 			/* Identify the UHS mode supported by card */
 			XSdPs_Identify_UhsMode(InstancePtr, ReadBuff);
@@ -668,7 +668,8 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			 */
 			if (SCR[0] != 0U) {
 				/* Check for high speed support */
-				if ((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) {
+				if (((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) &&
+						(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 					InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 #if defined (ARMR5) || defined (__aarch64__)
 					InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
@@ -705,8 +706,9 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE2] << 8;
 		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE1];
 
-		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
-				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
+		if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
+				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) &&
+				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 			Status = XSdPs_Change_BusSpeed(InstancePtr);
 			if (Status != XST_SUCCESS) {
@@ -746,22 +748,25 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		InstancePtr->SectorCount |= (u32)ExtCsd[EXT_CSD_SEC_COUNT_BYTE1];
 
 		/* Check for card supported speed */
-		if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
+		if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				(EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200 |
-				EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) {
+				EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) &&
+				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HS200_MODE;
 #if defined (ARMR5) || defined (__aarch64__)
 			InstancePtr->Config_TapDelay = XSdPs_sdr104_hs200_tapdelay;
 #endif
-		} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
+		} else if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				(EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED |
-				EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) {
+				EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) &&
+				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_DDR52_MODE;
 #if defined (ARMR5) || defined (__aarch64__)
 			InstancePtr->Config_TapDelay = XSdPs_ddr50_tapdelay;
 #endif
-		} else if ((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
-				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) {
+		} else if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
+				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) &&
+				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
 #if defined (ARMR5) || defined (__aarch64__)
 			InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;

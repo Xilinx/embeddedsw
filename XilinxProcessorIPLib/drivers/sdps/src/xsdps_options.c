@@ -64,6 +64,7 @@
 *       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 *       sk     11/16/16 Issue DLL reset at 31 iteration to load new zero value.
 * 3.2   sk     02/01/17 Added HSD and DDR mode support for eMMC.
+*       sk     02/01/17 Consider bus width parameter from design for switching
 *
 * </pre>
 *
@@ -261,6 +262,16 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
 
+	/*
+	 * check for bus width for 3.0 controller and return if
+	 * bus width is <4
+	 */
+	if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) &&
+			(InstancePtr->Config.BusWidth < XSDPS_WIDTH_4)) {
+		Status = XST_SUCCESS;
+		goto RETURN_PATH;
+	}
+
 	if (InstancePtr->CardType == XSDPS_CARD_SD) {
 
 		Status = XSdPs_CmdTransfer(InstancePtr, CMD55, InstancePtr->RelCardAddr,
@@ -282,7 +293,8 @@ s32 XSdPs_Change_BusWidth(XSdPs *InstancePtr)
 	} else {
 
 		if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3)
-				&& (InstancePtr->CardType == XSDPS_CHIP_EMMC)) {
+				&& (InstancePtr->CardType == XSDPS_CHIP_EMMC) &&
+				(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
 			/* in case of eMMC data width 8-bit */
 			InstancePtr->BusWidth = XSDPS_8_BIT_WIDTH;
 		} else {
