@@ -147,12 +147,11 @@ extern XDcfg *DcfgInstPtr;
 /*****************************************************************************/
 /**
 *
-* This function
+* This function loads the next valid boot image from the selected boot mode
 *
-* @param
+* @param	None
 *
-* @return
-*
+* @return	Returns ExecAddress, the execution address of the first PS partition
 *
 * @note		None
 *
