@@ -151,7 +151,7 @@ extern XDcfg *DcfgInstPtr;
 *
 * @param	None
 *
-* @return	Returns ExecAddress, the execution address in the partition
+* @return	Returns ExecAddress, the execution address of the first PS partition
 *
 * @note		None
 *
