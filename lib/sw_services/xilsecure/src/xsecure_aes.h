@@ -82,6 +82,10 @@
 * 1.1   ba   11/10/15 Modified Key loading logic in AES encryption
 * 2.0   vns  01/28/17 Added APIs for decryption which can be used for decrypting
 *                     data rather than a boot image.
+*       vns  02/03/17 Added APIs for encryption in generic way.
+*                     Modified existing XSecure_AesEncrypt to
+*                     XSecure_AesEncryptData, and added XSecure_AesEncryptInit
+*                     and XSecure_AesEncryptUpdate APIs for generic usage.
 *
 * </pre>
 *
@@ -221,7 +225,10 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				u32 Length);
 
 /* Encryption */
-void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
+void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size);
+void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data,
+							u32 Size);
+void XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 				u32 Len);
 
 /* Reset */

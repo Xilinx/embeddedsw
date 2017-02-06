@@ -57,6 +57,8 @@
 * 1.1	ba  12/22/15 Added Chunking support in decryption
 * 2.0   vns 01/28/17 Added APIs for decryption which can be used for
 *                    generic decryption.
+*       vns 02/03/17 Added APIs for encryption in generic way.
+*                    Removed existing XSecure_AesEncrypt API
 *
 * </pre>
 *
@@ -110,6 +112,201 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 	InstancePtr->IsChunkingEnabled = XSECURE_CSU_AES_CHUNKING_DISABLED;
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This funcion is used to initialize the AES engine for encryption.
+ *
+ * @param	InstancePtr is a pointer to the XSecure_Aes instance.
+ * @param	EncData is a pointer of a buffer in which encrypted data will
+ *		be stored.
+ * @param	Size is a 32 bit variable, which holds the size of the input
+ *		data to be encrypted.
+ *
+ * @return	None
+ *
+ * @note	EncData should be pointer to a buffer of length Size + 16Bytes
+ *		as it will have both encrypted data and GCM tag.
+ *
+ ******************************************************************************/
+void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
+{
+	u32 SssCfg = 0U;
+	u32 SssDma;
+	u32 SssAes;
+	u32 Count=0U;
+	u32 Value=0U;
+	u32 Addr=0U;
+	XCsuDma_Configure ConfigurValues = {0};
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(EncData != NULL);
+	Xil_AssertVoid(Size != (u32)0x0);
+
+	/* Configure the SSS for AES.*/
+	SssDma = XSecure_SssInputDstDma(XSECURE_CSU_SSS_SRC_AES);
+	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
+	SssCfg = SssDma |SssAes ;
+	XSecure_SssSetup(SssCfg);
+
+	/* Clear AES contents by reseting it. */
+	XSecure_AesReset(InstancePtr);
+
+	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
+
+	if(InstancePtr->KeySel == XSECURE_CSU_AES_KEY_SRC_DEV) {
+		XSecure_AesKeySelNLoad(InstancePtr);
+	}
+	else {
+		for(Count = 0U; Count < 8U; Count++) {
+			/* Helion AES block expects the key in big-endian. */
+			Value = Xil_Htonl(InstancePtr->Key[Count]);
+			Addr = InstancePtr->BaseAddress +
+				XSECURE_CSU_AES_KUP_0_OFFSET
+					+ (Count * 4);
+			XSecure_Out32(Addr, Value);
+		}
+		XSecure_AesKeySelNLoad(InstancePtr);
+	}
+
+	/* Configure the AES for Encryption.*/
+	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_AES_CFG_OFFSET,
+					XSECURE_CSU_AES_CFG_ENC);
+	/* Start the message.*/
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+		XSECURE_CSU_AES_START_MSG_OFFSET, XSECURE_CSU_AES_START_MSG);
+
+	/* Enable CSU DMA Src channel for byte swapping.*/
+	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+					&ConfigurValues);
+	ConfigurValues.EndianType = 1U;
+	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+					&ConfigurValues);
+
+	/* Enable CSU DMA Dst channel for byte swapping.*/
+	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			&ConfigurValues);
+	ConfigurValues.EndianType = 1U;
+	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			&ConfigurValues);
+
+	/* Push IV into the AES engine.*/
+	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
+
+	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+
+	/* Configure the CSU DMA Tx/Rx.*/
+	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+			(UINTPTR)EncData,
+			(Size + XSECURE_SECURE_GCM_TAG_SIZE)/4U, 0);
+
+	/* Update the size of data */
+	InstancePtr->SizeofData = Size;
+
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to update the AES engine with provided data to
+ * encrypt the provided data.
+ *
+ * @param	InstancePtr is a pointer to the XSecure_Aes instance.
+ * @param	Data is a pointer to the data for which encryption should be
+ * 		performed.
+ * @param	Size is a 32 bit variable, which holds the size of the input
+ *		data in bytes.
+ *
+ * @return	None
+ *
+ * @note	When Size of the data equals to size of the remaining data
+ *		that data will be treated as final data.
+ *		This API can be called multpile times but sum of all Sizes
+ *		should be equal to Size mention in XSecure_AesEncryptInit.
+ *
+ ******************************************************************************/
+void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
+{
+
+	XCsuDma_Configure ConfigurValues = {0};
+	u8 IsFinal = FALSE;
+
+	/* Assert validates the input arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Data != NULL);
+	Xil_AssertVoid(Size <= InstancePtr->SizeofData);
+
+	if (Size == InstancePtr->SizeofData) {
+		IsFinal = TRUE;
+	}
+	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+				(UINTPTR) Data,	Size/4U, IsFinal);
+
+	/* Wait for Src DMA done. */
+	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+						XCSUDMA_IXR_DONE_MASK);
+
+
+	if (IsFinal == TRUE) {
+		/* Wait for Dst DMA done. */
+		XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr,
+					XCSUDMA_DST_CHANNEL);
+
+		/* Acknowledge the transfer has completed */
+		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+						XCSUDMA_IXR_DONE_MASK);
+		/* Disble CSU DMA Dst channel for byte swapping. */
+		XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+				&ConfigurValues);
+		ConfigurValues.EndianType = 0U;
+		XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
+				&ConfigurValues);
+
+		/* Disable CSU DMA Src channel for byte swapping. */
+		XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+							&ConfigurValues);
+		ConfigurValues.EndianType = 0U;
+		XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+							&ConfigurValues);
+
+		/* Wait for AES encryption completion.*/
+		XSecure_AesWaitForDone(InstancePtr);
+	}
+	/* Update the size of instance */
+	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
+
+}
+
+/*****************************************************************************/
+/**
+ *
+ * Function for doing encryption using h/w AES engine.
+ *
+ * @param	InstancePtr is a pointer to the XSecure_Aes instance.
+ * @param	Dst is pointer to location where encrypted output will
+ *			be written.
+ * @param	Src is pointer to input data for encryption.
+ * @param	Len is the size of input data in bytes
+ *
+ * @return	None
+ *
+ * @note	None
+ *
+ ******************************************************************************/
+void XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
+			u32 Len)
+{
+	XSecure_AesEncryptInit(InstancePtr, Dst, Len);
+	XSecure_AesEncryptUpdate(InstancePtr, Src, Len);
+
 }
 
 /*****************************************************************************/
@@ -570,147 +767,6 @@ void XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
 
 	/* Wait for AES key loading.*/
 	XSecure_AesWaitKeyLoad(InstancePtr);
-}
-
-/*****************************************************************************/
-/**
- *
- * Function for doing encryption using h/w AES engine.
- *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	Dst is pointer to location where encrypted output will
- *			be written.
- * @param	Src is pointer to input data for encryption.
- * @param	Len is the size of input data in bytes
- *
- * @return	None
- *
- * @note	None
- *
- ******************************************************************************/
-void XSecure_AesEncrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
-			u32 Len)
-{
-	/* Assert validates the input arguments */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Len != (u32)0x0);
-
-	u32 SssCfg = 0U;
-
-	/* Configure the SSS for AES.*/
-	u32 SssDma = XSecure_SssInputDstDma(XSECURE_CSU_SSS_SRC_AES);
-	u32 SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-
-	SssCfg = SssDma|SssAes ;
-
-	XSecure_SssSetup(SssCfg);
-	/* Clear AES contents by reseting it. */
-	XSecure_AesReset(InstancePtr);
-
-	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
-
-	if(InstancePtr->KeySel == XSECURE_CSU_AES_KEY_SRC_DEV)
-	{
-		XSecure_AesKeySelNLoad(InstancePtr);
-	}
-	else
-	{
-		u32 Count=0U, Value=0U;
-		u32 Addr=0U;
-		for(Count = 0U; Count < 8U; Count++)
-		{
-			/* Helion AES block expects the key in big-endian. */
-			Value = Xil_Htonl(InstancePtr->Key[Count]);
-
-			Addr = InstancePtr->BaseAddress +
-				XSECURE_CSU_AES_KUP_0_OFFSET
-				+ (Count * 4);
-
-			XSecure_Out32(Addr, Value);
-		}
-		XSecure_AesKeySelNLoad(InstancePtr);
-	}
-
-	/* Configure the AES for Encryption.*/
-	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_AES_CFG_OFFSET,
-					XSECURE_CSU_AES_CFG_ENC);
-
-	/* Start the message.*/
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-					XSECURE_CSU_AES_START_MSG_OFFSET,
-					XSECURE_CSU_AES_START_MSG);
-
-	/* Push IV into the AES engine.*/
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-					(UINTPTR)InstancePtr->Iv,
-					XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
-
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
-
-	/* Enable CSU DMA Src channel for byte swapping.*/
-	XCsuDma_Configure ConfigurValues = {0};
-
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						&ConfigurValues);
-
-	ConfigurValues.EndianType = 1U;
-
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-							&ConfigurValues);
-
-	/* Enable CSU DMA Dst channel for byte swapping.*/
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-			&ConfigurValues);
-	ConfigurValues.EndianType = 1U;
-
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-			&ConfigurValues);
-
-	/* Configure the CSU DMA Tx/Rx.*/
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-				(UINTPTR) Dst,
-				(Len + XSECURE_SECURE_GCM_TAG_SIZE)/4U, 0);
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				(UINTPTR) Src,
-				Len/4U, 1);
-
-	/* Wait for Src DMA done. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
-
-	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-						XCSUDMA_IXR_DONE_MASK);
-
-	/* Wait for Dst DMA done. */
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL);
-
-	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-						XCSUDMA_IXR_DONE_MASK);
-
-	/* Disble CSU DMA Dst channel for byte swapping. */
-
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-			&ConfigurValues);
-
-	ConfigurValues.EndianType = 0U;
-
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
-			&ConfigurValues);
-
-	/* Disable CSU DMA Src channel for byte swapping. */
-
-	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-							&ConfigurValues);
-	ConfigurValues.EndianType = 0U;
-
-	XCsuDma_SetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-							&ConfigurValues);
-
-	/* Wait for AES encryption completion.*/
-	XSecure_AesWaitForDone(InstancePtr);
 }
 
 /*****************************************************************************/
