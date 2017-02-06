@@ -59,6 +59,9 @@
 *                    generic decryption.
 *       vns 02/03/17 Added APIs for encryption in generic way.
 *                    Removed existing XSecure_AesEncrypt API
+*                    Modified encryption and decryption APIs such that all
+*                    inputs will be accepted in little endian format(KEY, IV
+*                    and Data).
 *
 * </pre>
 *
@@ -88,7 +91,9 @@
  *
  * @return	XST_SUCCESS if initialization was successful.
  *
- * @note	None
+ * @note	All the inputs are accepted in little endian format, but AES
+ *		engine accepts the data in big endianess, this will be taken
+ *		while passing data to AES engine.
  *
  ******************************************************************************/
 s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
@@ -102,12 +107,6 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 	InstancePtr->CsuDmaPtr = CsuDmaPtr;
 	InstancePtr->KeySel = KeySel;
 	InstancePtr->Iv = Iv;
-
-	/*
-	 * Clarify if Aes block expects IV in big or small endian, swap
-	 * endianness of Iv likewise
-	 */
-
 	InstancePtr->Key = Key;
 	InstancePtr->IsChunkingEnabled = XSECURE_CSU_AES_CHUNKING_DISABLED;
 
@@ -383,20 +382,7 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		}
 		XSecure_AesKeySelNLoad(InstancePtr);
 	}
-	/* Start the message. */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
-				XSECURE_CSU_AES_START_MSG_OFFSET,
-				XSECURE_CSU_AES_START_MSG);
 
-	/* Push IV into the AES engine. */
-	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
-
-	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
-
-	/* Acknowledge the transfer has completed */
-	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
-				XCSUDMA_IXR_DONE_MASK);
 	/* Enable CSU DMA Src channel for byte swapping.*/
 	XCsuDma_GetConfig(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 						&ConfigurValues);
@@ -418,6 +404,21 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 					XCSUDMA_DST_CHANNEL,
 					(UINTPTR)DecData, Size/4U, 0);
 	}
+	/* Start the message. */
+	XSecure_WriteReg(InstancePtr->BaseAddress,
+				XSECURE_CSU_AES_START_MSG_OFFSET,
+				XSECURE_CSU_AES_START_MSG);
+
+	/* Push IV into the AES engine. */
+	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
+
+	XCsuDma_WaitForDone(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
+				XCSUDMA_IXR_DONE_MASK);
+
 	InstancePtr->GcmTagAddr = (u32 *)GcmTagAddr;
 	InstancePtr->SizeofData = Size;
 	InstancePtr->Destination = DecData;
@@ -1170,6 +1171,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u32 SssPcap = 0x0U;
 	u32 SssDma = 0x0U;
 	u32 SssAes = 0x0U;
+	XCsuDma_Configure ConfigurValues = {0};
 
 	/* Configure the SSS for AES. */
 	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
@@ -1229,6 +1231,14 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	do
 	{
 		PrevBlkLen = NextBlkLen;
+		if (BlockCnt == 0) {
+			/* Enable CSU DMA Src channel for byte swapping.*/
+			XCsuDma_GetConfig(InstancePtr->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
+			ConfigurValues.EndianType = 1U;
+			XCsuDma_SetConfig(InstancePtr->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
+		}
 
 		/* Start decryption of Secure-Header/Block/Footer. */
 
