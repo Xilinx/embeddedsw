@@ -60,74 +60,7 @@ const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 <<SLAVE_SECTION_DATA>>
 	/**********************************************************************/
 	/* PREALLOC SECTION */
-	PM_CONFIG_PREALLOC_SECTION_ID,	/* Section ID */
-	2,				/* Number of masters */
-					/* Master #1 */
-	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK,		/* IPI mask of the master */
-	7,				/* Number of preallocated slaves */
-					/* Slave #1 */
-	NODE_IPI_APU,			/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS,			/* Current requirements */
-	PM_CAP_ACCESS,			/* Default requirements */
-					/* Slave #2 */
-	NODE_DDR,			/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	0,				/* Default requirements */
-					/* Slave #3 */
-	NODE_L2,			/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Default requirements */
-					/* Slave #4 */
-	NODE_OCM_BANK_0,		/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	0,				/* Default requirements */
-					/* Slave #5 */
-	NODE_OCM_BANK_1,		/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	0,				/* Default requirements */
-					/* Slave #6 */
-	NODE_OCM_BANK_2,		/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	0,				/* Default requirements */
-					/* Slave #7 */
-	NODE_OCM_BANK_3,		/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	0,				/* Default requirements */
-					/* Master #2 */
-	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,	/* IPI mask of the master */
-	5,				/* Number of preallocated slaves */
-					/* Slave #1 */
-	NODE_IPI_RPU_0,			/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS,			/* Current requirements */
-	PM_CAP_ACCESS,			/* Default requirements */
-					/* Slave #2 */
-	NODE_TCM_0_A,			/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Default requirements */
-					/* Slave #3 */
-	NODE_TCM_0_B,			/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Default requirements */
-					/* Slave #4 */
-	NODE_TCM_1_A,			/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Default requirements */
-					/* Slave #5 */
-	NODE_TCM_1_B,			/* Node ID of the slave */
-	PM_MASTER_USING_SLAVE_MASK,	/* Flag (is the slave currently used) */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Current requirements */
-	PM_CAP_ACCESS | PM_CAP_CONTEXT,	/* Default requirements */
+<<PREALLOC_SECTION_DATA>>
 	/**********************************************************************/
 	/* POWER SECTION */
 	PM_CONFIG_POWER_SECTION_ID,	/* Section ID */

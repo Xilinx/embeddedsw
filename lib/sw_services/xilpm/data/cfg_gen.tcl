@@ -426,6 +426,50 @@ proc get_master_section { } {
 	return $master_text
 }
 
+proc get_prealloc_for_master_txt { master_name prealloc_list } {
+	set node_count 0
+	set master_prealloc_txt ""
+
+	set master_mask [get_ipi_mask_txt $master_name]
+	foreach node $prealloc_list {
+		set periph_perms [dict get [dict get $pmufw::node_map $node] perms]
+		set periph_name [dict get [dict get $pmufw::node_map $node] periph]
+		set periph_type [dict get [dict get $pmufw::node_map $node] type]
+		set periph_label [dict get [dict get $pmufw::node_map $node] label]
+
+		if { [string first $master_mask $periph_perms ] >= 0 } {
+			append master_prealloc_txt "\t$periph_label," "\n"
+			append master_prealloc_txt "\tPM_MASTER_USING_SLAVE_MASK, /* Master is using Slave */" "\n"
+			append master_prealloc_txt "\tPM_CAP_ACCESS | PM_CAP_CONTEXT, /* Current Requirements */" "\n"
+			append master_prealloc_txt "\tPM_CAP_ACCESS | PM_CAP_CONTEXT, /* Default Requirements */" "\n"
+			append master_prealloc_txt "\n"
+			incr node_count
+		}
+	}
+
+	set master_prealloc_txt "/* Prealloc for $master_name */
+	$master_mask,
+	$node_count,
+$master_prealloc_txt
+	"
+	return $master_prealloc_txt
+}
+
+proc get_prealloc_section { } {
+	set prealloc_text "\n"
+	set apu_prealloc_list {NODE_IPI_APU NODE_DDR NODE_L2 NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3}
+	set rpu_prealloc_list {NODE_IPI_RPU_0 NODE_TCM_0_A NODE_TCM_0_B NODE_TCM_1_A NODE_TCM_1_B}
+
+	append prealloc_text "\tPM_CONFIG_PREALLOC_SECTION_ID, /* Preallaoc SectionID */" "\n"
+	append prealloc_text "\t2U, /* No. of Masters*/" "\n"
+	append prealloc_text "\n"
+
+	append prealloc_text [get_prealloc_for_master_txt psu_cortexa53_0 $apu_prealloc_list]
+	append prealloc_text [get_prealloc_for_master_txt psu_cortexr5_0 $rpu_prealloc_list]
+
+	return $prealloc_text
+}
+
 proc gen_cfg_data { cfg_fname } {
 # Open file and dump the data
 set cfg_fid [open $cfg_fname w]
@@ -433,6 +477,7 @@ set cfg_fid [open $cfg_fname w]
 set pmufw::cfg_template [string map [list "<<MASTER_IPI_MASK_DEF>>" "[get_master_ipidef]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<MASTER_SECTION_DATA>>" "[get_master_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<SLAVE_SECTION_DATA>>" "[get_slave_section]"] $pmufw::cfg_template]
+set pmufw::cfg_template [string map [list "<<PREALLOC_SECTION_DATA>>" "[get_prealloc_section]"] $pmufw::cfg_template]
 
 puts $cfg_fid "$pmufw::cfg_template"
 close $cfg_fid
