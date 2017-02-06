@@ -1229,11 +1229,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 	if (IsEncryptionEnabled == TRUE) {
 #ifdef XFSBL_SECURE
-		/* AES expects IV in big endian form */
-		FsblIv[0] = Xil_Htonl(FsblIv[0]);
-		FsblIv[1] = Xil_Htonl(FsblIv[1]);
-		FsblIv[2] = Xil_Htonl(FsblIv[2]);
-
 		/* Initialize the Aes Instance so that it's ready to use */
 		SStatus = XSecure_AesInitialize(&SecureAes, &CsuDma,
 		 XSECURE_CSU_AES_KEY_SRC_DEV, FsblIv, NULL);
