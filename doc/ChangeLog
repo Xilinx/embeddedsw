@@ -392,6 +392,7 @@ Updated makefile to add clean rule.Fix for CR#962551.
 xilsecure_v2_0:
 Added support for PMU
 Added comments with .nky fields for aes encryption example.
+Provided genric APIs for encryption and decryption of data.
 
 ycrcb2rgb_v7_1:
 Updated num instances parameter as XPAR_XYCRCB2RGB_NUM_INSTANCES
