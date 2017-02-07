@@ -312,6 +312,8 @@ that it contains initial status of FPU i.e. disabled. In case of a warm
 restart execution when bss sections are not cleared, it may contain
 previously updated value which does not hold true once processor resumes.
 This fixes CR#966826.
+Updated common,microblaze and arm/cortexr5 files with doxygen compliant
+comments.
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
