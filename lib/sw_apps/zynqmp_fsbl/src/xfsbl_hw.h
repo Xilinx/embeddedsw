@@ -749,10 +749,6 @@ extern "C" {
 #define XFSBL_PL_CLEAR
 #endif
 
-#if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_PSU_USB_0_DEVICE_ID))
-#define XFSBL_USB
-#endif
-
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_START		(0xC0000000U)
 #define XFSBL_QSPI_LINEAR_BASE_ADDRESS_END		(0xDFFFFFFFU)
 
@@ -763,6 +759,10 @@ extern "C" {
 
 #define XFSBL_PS_DDR_START_ADDRESS		(0x0U)
 #define XFSBL_PS_DDR_START_ADDRESS_R5	(0x100000U)
+
+#if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_PSU_USB_0_DEVICE_ID) && defined(XFSBL_PS_DDR))
+#define XFSBL_USB
+#endif
 
 #ifdef ARMR5
 #define XFSBL_PS_DDR_INIT_START_ADDRESS	XFSBL_PS_DDR_START_ADDRESS_R5

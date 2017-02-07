@@ -645,6 +645,11 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 			FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_UsbCopy;
 			FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_UsbRelease;
 			Status = XFSBL_SUCCESS;
+#elif !(defined(XFSBL_PS_DDR))
+			/**USB boot mode is not supported for DDR less systems*/
+			XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_USB_BOOT_WITH_NO_DDR\n\r");
+			Status = XFSBL_ERROR_USB_BOOT_WITH_NO_DDR;
 #else
 			/**
 			 * This bootmode is not supported in this release
