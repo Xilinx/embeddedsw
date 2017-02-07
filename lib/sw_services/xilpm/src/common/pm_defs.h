@@ -47,7 +47,7 @@
  * @{
  */
 #define PM_VERSION_MAJOR	0
-#define PM_VERSION_MINOR	2
+#define PM_VERSION_MINOR	3
 
 #define PM_VERSION	((PM_VERSION_MAJOR << 16) | PM_VERSION_MINOR)
 /*@}*/
