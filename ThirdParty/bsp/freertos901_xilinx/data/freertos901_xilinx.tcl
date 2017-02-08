@@ -468,7 +468,7 @@ proc generate {os_handle} {
 	if {$val == "false"} {
 		xput_define $config_file "configTIMER_QUEUE_LENGTH"  "0"
 	} else {
-		xput_define $config_file "configTIMER_QUEUE_LENGTH"  "10"
+		xput_define $config_file "configTIMER_QUEUE_LENGTH"  $val
 	}
 
 	set val [common::get_property CONFIG.timer_task_stack_depth $os_handle]
