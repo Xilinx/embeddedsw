@@ -220,6 +220,8 @@ freertos901_xilinx_v1_0:
 Added latest freertos version freertos901_xilinx.
 Updated tcl as per standalone directory structure.
 Updated makefiles to fix build issue on windows.
+Updated the tcl to set value of configTIMER_QUEUE_LENGTH  properly.
+It fixes CR#968541
 
 gpiops_v3_2:
 Fixed Compilation warnings - CR#957004.
