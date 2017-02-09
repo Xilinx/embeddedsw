@@ -142,6 +142,8 @@
 * 3.2   sk     11/30/16 Modified the voltage switching sequence as per spec.
 *       sk     02/01/17 Added HSD and DDR mode support for eMMC.
 *       sk     02/01/17 Consider bus width parameter from design for switching
+*       ms     01/24/17 Enabled CCI support for A53 by adding cache coherency
+*                       information.
 *
 * </pre>
 *
@@ -182,6 +184,7 @@ typedef struct {
 	u32 BusWidth;			/**< Bus Width */
 	u32 BankNumber;			/**< MIO Bank selection for SD */
 	u32 HasEMIO;			/**< If SD is connected to EMIO */
+	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not */
 } XSdPs_Config;
 
 /* ADMA2 descriptor table */
