@@ -258,6 +258,8 @@ nandpsu_v1_2:
 change memcpy to Xil_MemCpy. fixes CR#960462
 fix for the failure of reading nand first redundant paramter page
 CR#966603
+Added CCI support for A53 by updating cache coherency information and
+disabling data cache related operations when CCI is enabled.
 
 prd_v1_1:
 Modified num instances parameter as XPAR_XPRD_NUM_INSTANCES in xparameters.h,
@@ -266,6 +268,8 @@ XPAR_PR_DECOUPLER_NUM_INSTANCES in both files. Fix for CR#966099
 
 qspipsu_v1_4:
 Fixed Compilation warnings - CR#957004
+Added CCI support for A53 by updating cache coherency information and
+disabling data cache related operations when CCI is enabled.
 
 rtcpsu_v1_4:
 Fixed Compilation warnings - CR#957004
@@ -289,6 +293,8 @@ Corrected voltage switching sequence
 Fixed Compilation warnings - CR#957004
 Add DDR and HSD support for eMMC
 Support for bus width switching based on hdf
+Added CCI support for A53 by updating cache coherency information and
+disabling data cache related operations when CCI is enabled.
 
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
