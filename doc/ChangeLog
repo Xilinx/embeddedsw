@@ -398,6 +398,9 @@ Updated num instances parameter as XPAR_XYCRCB2RGB_NUM_INSTANCES
 by modifying tcl and _sinit.c files to avoid compilation error. Fix
 for CR-967548.
 
+zdma_1_2:
+Updated driver to fix compilation errors for IAR compiler.
+
 zynqmp_fsbl:
 - Added support for micron QSPI 2G part.
 - Added PL clearing based on the user configuration
