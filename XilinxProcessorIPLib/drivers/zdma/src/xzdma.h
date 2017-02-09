@@ -202,24 +202,38 @@ typedef struct {
 /**
 * This typedef contains scatter gather descriptor fields for ZDMA core.
 */
+#if defined (__ICCARM__)
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u64 Address;	/**< Address */
 	u32 Size;	/**< Word2, Size of data */
 	u32 Cntl;	/**< Word3 Control data */
 	u64 NextDscr; 	/**< Address of next descriptor */
 	u64 Reserved;	/**< Reserved address */
+#if defined (__ICCARM__)
+}  XZDma_LlDscr ;
+#pragma pack(pop)
+#else
 } __attribute__ ((packed)) XZDma_LlDscr;
-
+#endif
 /******************************************************************************/
 /**
 * This typedef contains Linear descriptor fields for ZDMA core.
 */
+#if defined (__ICCARM__)
+#pragma pack(push, 1)
+#endif
 typedef struct {
 	u64 Address;	/**< Address */
 	u32 Size;	/**< Word3, Size of data */
 	u32 Cntl;	/**< Word4, control data */
+#if defined (__ICCARM__)
+}XZDma_LiDscr;
+#pragma pack(pop)
+#else
 }  __attribute__ ((packed)) XZDma_LiDscr;
-
+#endif
 /******************************************************************************/
 /**
 *
