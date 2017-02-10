@@ -49,6 +49,7 @@
 * 1.00  rco   07/21/15  Initial Release
 * 2.00  dmc   03/03/16  Remove xil_print's and report errors via event log
 * 2.10  rco   07/21/16  Used UINTPTR instead of u32 for Address
+* 2.3   rco   02/09/17  Fix c++ warnings
 * </pre>
 *
 ******************************************************************************/
@@ -158,7 +159,7 @@ int XVprocSs_VdmaWriteSetup(XVprocSs *XVprocSsPtr,
                             u32 PixelWidthInBits)
 {
   XAxiVdma *XVdmaPtr = XVprocSsPtr->VdmaPtr;
-  XAxiVdma_DmaSetup WriteCfg = {0};
+  XAxiVdma_DmaSetup WriteCfg;
   int Index;
   UINTPTR Addr;
   int Status;
@@ -170,6 +171,7 @@ int XVprocSs_VdmaWriteSetup(XVprocSs *XVprocSsPtr,
 
   if(XVdmaPtr)
   {
+	memset(&WriteCfg, 0, sizeof(XAxiVdma_DmaSetup));
     HSizeInBytes   = (window->Width  * PixelWidthInBits)/8;
     StrideInBytes  = (FrameWidth     * PixelWidthInBits)/8;
     StartHPosBytes = (window->StartX * PixelWidthInBits)/8;

@@ -58,6 +58,7 @@
 *       rco  07/20/16   Replace deprecated MB_Sleep with usleep
 *                       Maintain user defined PIP color between pipe reset
 * 2.30  rco  12/15/16   Added HasMADI configuration option check
+*            02/08/17   Fix C++ compilation warnings
 *
 * </pre>
 *
@@ -533,19 +534,22 @@ int XVprocSs_CfgInitialize(XVprocSs *InstancePtr, XVprocSs_Config *CfgPtr,
 ******************************************************************************/
 static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
 {
-  XVidC_VideoStream vidStrmIn = {0};
-  XVidC_VideoStream vidStrmOut = {0};
+  XVidC_VideoStream vidStrmIn;
+  XVidC_VideoStream vidStrmOut;
   XVidC_VideoWindow win;
   u16 PixPrecisionIndex;
   XVidC_VideoTiming const *TimingPtr;
+
+  memset(&vidStrmIn,  0, sizeof(XVidC_VideoStream));
+  memset(&vidStrmOut, 0, sizeof(XVidC_VideoStream));
 
   /* Setup Default Output Stream configuration */
   vidStrmOut.VmId          = XVIDC_VM_1920x1080_60_P;
   vidStrmOut.ColorFormatId = XVIDC_CSF_RGB;
   vidStrmOut.FrameRate     = XVIDC_FR_60HZ;
   vidStrmOut.IsInterlaced  = FALSE;
-  vidStrmOut.ColorDepth    = XVprocSsPtr->Config.ColorDepth;
-  vidStrmOut.PixPerClk     = XVprocSsPtr->Config.PixPerClock;
+  vidStrmOut.ColorDepth    = (XVidC_ColorDepth)XVprocSsPtr->Config.ColorDepth;
+  vidStrmOut.PixPerClk     = (XVidC_PixelsPerClock)XVprocSsPtr->Config.PixPerClock;
 
   TimingPtr = XVidC_GetTimingInfo(vidStrmOut.VmId);
   vidStrmOut.Timing = *TimingPtr;
@@ -555,8 +559,8 @@ static void SetPowerOnDefaultState(XVprocSs *XVprocSsPtr)
   vidStrmIn.ColorFormatId = XVIDC_CSF_RGB;
   vidStrmIn.FrameRate     = XVIDC_FR_60HZ;
   vidStrmIn.IsInterlaced  = FALSE;
-  vidStrmIn.ColorDepth    = XVprocSsPtr->Config.ColorDepth;
-  vidStrmIn.PixPerClk     = XVprocSsPtr->Config.PixPerClock;
+  vidStrmIn.ColorDepth    = (XVidC_ColorDepth)XVprocSsPtr->Config.ColorDepth;
+  vidStrmIn.PixPerClk     = (XVidC_PixelsPerClock)XVprocSsPtr->Config.PixPerClock;
 
   TimingPtr = XVidC_GetTimingInfo(vidStrmIn.VmId);
   vidStrmIn.Timing = *TimingPtr;
@@ -1446,7 +1450,7 @@ static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
     XV_CscSetPowerOnDefaultState(XVprocSsPtr->CscPtr);
 
 	// set the proper color depth: get it from the vprocss config
-	ColorDepth = XVprocSs_GetColorDepth(XVprocSsPtr);
+	ColorDepth = (XVidC_ColorDepth)XVprocSs_GetColorDepth(XVprocSsPtr);
 	XV_CscSetColorDepth(XVprocSsPtr->CscPtr, ColorDepth);
 
 	// all other picture settings are filled in by XV_CscSetColorspace
@@ -1689,14 +1693,14 @@ static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
   /* Runtime Color Depth conversion not supported
    * Always overwrite input/output stream color depth with subsystem setting
    */
-  StrmIn->ColorDepth  = InstancePtr->Config.ColorDepth;
-  StrmOut->ColorDepth = InstancePtr->Config.ColorDepth;
+  StrmIn->ColorDepth  = (XVidC_ColorDepth)InstancePtr->Config.ColorDepth;
+  StrmOut->ColorDepth = (XVidC_ColorDepth)InstancePtr->Config.ColorDepth;
 
   /* Runtime Pixel/Clock conversion not supported
    * Always overwrite input/output stream pixel/clk with subsystem setting
    */
-  StrmIn->PixPerClk  = InstancePtr->Config.PixPerClock;
-  StrmOut->PixPerClk = InstancePtr->Config.PixPerClock;
+  StrmIn->PixPerClk  = (XVidC_PixelsPerClock)InstancePtr->Config.PixPerClock;
+  StrmOut->PixPerClk = (XVidC_PixelsPerClock)InstancePtr->Config.PixPerClock;
 
   /* Frame rate conversion is possible only in FULL topology */
   if((XVprocSs_GetSubsystemTopology(InstancePtr)
@@ -2113,10 +2117,6 @@ XVidC_ColorStd XVprocSs_GetPictureColorStdIn(XVprocSs *InstancePtr)
 {
   XVidC_ColorStd Retval = XVIDC_BT_UNKNOWN;
 
-  /* Verify arguments */
-  Xil_AssertNonvoid(InstancePtr != NULL);
-  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
-
   if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetColorStdIn(InstancePtr->CscPtr);
   }
@@ -2140,10 +2140,6 @@ XVidC_ColorStd XVprocSs_GetPictureColorStdIn(XVprocSs *InstancePtr)
 XVidC_ColorStd XVprocSs_GetPictureColorStdOut(XVprocSs *InstancePtr)
 {
   XVidC_ColorStd Retval = XVIDC_BT_UNKNOWN;
-
-  /* Verify arguments */
-  Xil_AssertNonvoid(InstancePtr != NULL);
-  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
 
   if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetColorStdOut(InstancePtr->CscPtr);
@@ -2240,10 +2236,6 @@ void XVprocSs_SetPictureColorStdOut(XVprocSs *InstancePtr,
 XVidC_ColorRange XVprocSs_GetPictureColorRange(XVprocSs *InstancePtr)
 {
   XVidC_ColorRange Retval = XVIDC_CR_UNKNOWN_RANGE;
-
-  /* Verify arguments */
-  Xil_AssertNonvoid(InstancePtr != NULL);
-  Xil_AssertNonvoid(InstancePtr->CscPtr != NULL);
 
   if(InstancePtr->CscPtr) {
 	Retval = XV_CscGetOutputRange(InstancePtr->CscPtr);
