@@ -487,7 +487,7 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
 
 	ENABLE_WFI(proc->wfiEnableMask);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SUSPENDING);
-	status = PmMasterNotify(proc->master, PM_PROC_EVENT_SELF_SUSPEND);
+	status = PmMasterFsm(proc->master, PM_MASTER_EVENT_SELF_SUSPEND);
 
 	return status;
 }
@@ -519,7 +519,7 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	PmProcDisableEvents(proc);
 
 	if ((XST_SUCCESS == status) && (NULL != proc->master)) {
-		status = PmMasterNotify(proc->master, PM_PROC_EVENT_FORCE_PWRDN);
+		status = PmMasterFsm(proc->master, PM_MASTER_EVENT_FORCED_PROC);
 	}
 
 	return status;
@@ -542,7 +542,7 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 	DISABLE_WFI(proc->wfiEnableMask);
 
 	/* Notify master to cancel scheduled requests */
-	status = PmMasterNotify(proc->master, PM_PROC_EVENT_ABORT_SUSPEND);
+	status = PmMasterFsm(proc->master, PM_MASTER_EVENT_ABORT_SUSPEND);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_ACTIVE);
 
 	return status;
@@ -570,7 +570,7 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 		PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SLEEP);
 
 		/* Notify the master that the processor completed suspend */
-		status = PmMasterNotify(proc->master, PM_PROC_EVENT_SLEEP);
+		status = PmMasterFsm(proc->master, PM_MASTER_EVENT_SLEEP);
 
 		/* If suspended, remember which processor to wake-up first */
 		if (true == PmMasterIsSuspended(proc->master)) {

@@ -46,6 +46,17 @@
 
 typedef struct PmMaster PmMaster;
 typedef struct PmRequirement PmRequirement;
+/*********************************************************************
+ * Enum definitions
+ ********************************************************************/
+
+typedef enum {
+	PM_MASTER_EVENT_WAKE,
+	PM_MASTER_EVENT_SLEEP,
+	PM_MASTER_EVENT_SELF_SUSPEND,
+	PM_MASTER_EVENT_ABORT_SUSPEND,
+	PM_MASTER_EVENT_FORCED_PROC,
+} PmMasterEvent;
 
 /*********************************************************************
  * Macros
@@ -181,9 +192,8 @@ PmProc* PmGetProcOfThisMaster(const PmMaster* const master,
 PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 			       const PmNodeId nodeId);
 
-/* Notify master about its processor state change */
-int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
 int PmMasterWakeProc(PmProc* const proc);
+int PmMasterFsm(PmMaster* const master, const PmMasterEvent event);
 
 void PmMasterInit(void);
 void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg);

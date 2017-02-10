@@ -697,7 +697,7 @@ int PmMasterWakeProc(PmProc* const proc)
 		goto done;
 	}
 
-	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
+	status = PmMasterFsm(proc->master, PM_MASTER_EVENT_WAKE);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
@@ -708,44 +708,47 @@ done:
 }
 
 /**
- * PmMasterNotify() - Notify master of a state change of its processor
- * @master      Pointer to master object which needs to be notified
- * @event       Processor Event to notify the master about
+ * PmMasterFsm() - Implements finite state machine (FSM) for a master
+ * @master	Master whose state machine is triggered
+ * @event	Event to which the master's state machine need to react
  *
- * @return      Status of potential changing of slave states or success.
+ * @return	Status of changing state
  */
-int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
+int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 {
 	int status = XST_SUCCESS;
+	bool condition;
 
 	switch (event) {
-	case PM_PROC_EVENT_SELF_SUSPEND:
-		if ((true == PmMasterIsActive(master)) &&
-		    (true == PmMasterLastProcSuspending(master))) {
+	case PM_MASTER_EVENT_SELF_SUSPEND:
+		condition = PmMasterLastProcSuspending(master);
+		if ((PM_MASTER_STATE_ACTIVE == master->state) &&
+		    (true == condition)) {
 			master->state = PM_MASTER_STATE_SUSPENDING;
 		}
 		break;
-	case PM_PROC_EVENT_SLEEP:
-		if (true == PmMasterIsSuspending(master)) {
+	case PM_MASTER_EVENT_SLEEP:
+		if (PM_MASTER_STATE_SUSPENDING == master->state) {
 			status = PmRequirementUpdateScheduled(master, true);
 			master->state = PM_MASTER_STATE_SUSPENDED;
-			if (true == PmIsRequestedToSuspend(master)) {
+			condition = PmIsRequestedToSuspend(master);
+			if (true == condition) {
 				status = PmMasterSuspendAck(master, XST_SUCCESS);
 			}
 			PmMasterConfigWakeEvents(master, 1U);
 		}
 		break;
-	case PM_PROC_EVENT_ABORT_SUSPEND:
-		if (true == PmMasterIsSuspending(master)) {
+	case PM_MASTER_EVENT_ABORT_SUSPEND:
+		if (PM_MASTER_STATE_SUSPENDING == master->state) {
 			PmRequirementCancelScheduled(master);
 			PmWakeUpCancelScheduled(master);
 			master->state = PM_MASTER_STATE_ACTIVE;
 		}
 		break;
-	case PM_PROC_EVENT_WAKE:
-		if (true == PmMasterIsSuspended(master)) {
+	case PM_MASTER_EVENT_WAKE:
+		if (PM_MASTER_STATE_SUSPENDED == master->state) {
 			status = PmRequirementUpdateScheduled(master, false);
-		} else if (true == PmMasterIsKilled(master)) {
+		} else if (PM_MASTER_STATE_KILLED == master->state) {
 			PmRequirementRequestDefault(master);
 			status = PmRequirementUpdateScheduled(master, false);
 		} else {
@@ -754,8 +757,9 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 		PmMasterConfigWakeEvents(master, 0U);
 		master->state = PM_MASTER_STATE_ACTIVE;
 		break;
-	case PM_PROC_EVENT_FORCE_PWRDN:
-		if (true == PmMasterAllProcsDown(master)) {
+	case PM_MASTER_EVENT_FORCED_PROC:
+		condition = PmMasterAllProcsDown(master);
+		if (true == condition) {
 			status = PmRequirementReleaseAll(master);
 			PmWakeUpCancelScheduled(master);
 			PmNotifierUnregisterAll(master);
