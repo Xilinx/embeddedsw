@@ -144,6 +144,7 @@
 *       sk     02/01/17 Consider bus width parameter from design for switching
 *       ms     01/24/17 Enabled CCI support for A53 by adding cache coherency
 *                       information.
+*       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
 *
 * </pre>
 *
@@ -249,7 +250,7 @@ s32 XSdPs_MmcCardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_CardInitialize(XSdPs *InstancePtr);
 s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff);
 s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg);
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 void XSdPs_Identify_UhsMode(XSdPs *InstancePtr, u8 *ReadBuff);
 void XSdPs_ddr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_hsd_sdr25_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);

@@ -1017,7 +1017,7 @@ extern "C" {
 #define XSDPS_WIDTH_4		4U
 
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 #define SD_DLL_CTRL 				0x00000358U
 #define SD_ITAPDLY					0x00000314U
 #define SD_OTAPDLY					0x00000318U

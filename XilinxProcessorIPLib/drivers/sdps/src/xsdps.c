@@ -78,6 +78,7 @@
 *       sk     02/01/17 Added HSD and DDR mode support for eMMC.
 *       ms     01/24/17 Added CCI support for A53 and disabled data cache
 *                       operations when it is enabled.
+*       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
 * </pre>
 *
 ******************************************************************************/
@@ -650,7 +651,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 			goto RETURN_PATH;
 		}
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 		if (InstancePtr->Switch1v8 != 0U) {
 
 			/* Identify the UHS mode supported by card */
@@ -674,7 +675,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 				if (((ReadBuff[13] & HIGH_SPEED_SUPPORT) != 0U) &&
 						(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 					InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 					InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
 #endif
 					Status = XSdPs_Change_BusSpeed(InstancePtr);
@@ -684,7 +685,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 					}
 				}
 			}
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 		}
 #endif
 
@@ -756,7 +757,7 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 				EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200)) != 0U) &&
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HS200_MODE;
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 			InstancePtr->Config_TapDelay = XSdPs_sdr104_hs200_tapdelay;
 #endif
 		} else if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
@@ -764,14 +765,14 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 				EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED)) != 0U) &&
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_DDR52_MODE;
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 			InstancePtr->Config_TapDelay = XSdPs_ddr50_tapdelay;
 #endif
 		} else if (((ExtCsd[EXT_CSD_DEVICE_TYPE_BYTE] &
 				EXT_CSD_DEVICE_TYPE_HIGH_SPEED) != 0U) &&
 				(InstancePtr->BusWidth >= XSDPS_4_BIT_WIDTH)) {
 			InstancePtr->Mode = XSDPS_HIGH_SPEED_MODE;
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 			InstancePtr->Config_TapDelay = XSdPs_hsd_sdr25_tapdelay;
 #endif
 		} else

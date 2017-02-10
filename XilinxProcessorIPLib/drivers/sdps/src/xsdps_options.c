@@ -67,6 +67,7 @@
 *       sk     02/01/17 Consider bus width parameter from design for switching
 *       ms     01/20/17 Added CCI support for A53 and disabled data cache
 *                       operations when it is enabled.
+*       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
 *
 * </pre>
 *
@@ -90,7 +91,7 @@
 s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
 static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr);
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static void XSdPs_sdr50_tapdelay(u32 Bank, u32 DeviceId, u32 CardType);
 void XSdPs_SetTapDelay(XSdPs *InstancePtr);
@@ -698,7 +699,7 @@ s32 XSdPs_Change_ClkFreq(XSdPs *InstancePtr, u32 SelFreq)
 			XSDPS_CLK_CTRL_OFFSET, ClockReg);
 
 	if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 	if ((InstancePtr->Mode != XSDPS_DEFAULT_SPEED_MODE) &&
 			(InstancePtr->Mode != XSDPS_UHS_SPEED_MODE_SDR12))
 		/* Program the Tap delays */
@@ -973,7 +974,7 @@ s32 XSdPs_Set_Mmc_ExtCsd(XSdPs *InstancePtr, u32 Arg)
 
 }
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 /*****************************************************************************/
 /**
 *
@@ -1189,7 +1190,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	/* Wait for ~60 clock cycles to reset the tap values */
 	(void)usleep(1U);
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	XSdPs_DllReset(InstancePtr);
 #endif
@@ -1213,7 +1214,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 		}
 
 		if (TuningCount == 31) {
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 			/* Issue DLL Reset to load new SDHC tuned tap values */
 			XSdPs_DllReset(InstancePtr);
 #endif
@@ -1229,7 +1230,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	/* Wait for ~12 clock cycles to synchronize the new tap values */
 	(void)usleep(1U);
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 	/* Issue DLL Reset to load new SDHC tuned tap values */
 	XSdPs_DllReset(InstancePtr);
 #endif
@@ -1240,7 +1241,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 
 }
 
-#if defined (ARMR5) || defined (__aarch64__)
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 /*****************************************************************************/
 /**
 *
