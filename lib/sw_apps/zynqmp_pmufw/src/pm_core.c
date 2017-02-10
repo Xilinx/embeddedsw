@@ -298,7 +298,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 
 	PmDbg("(%s, %s)\r\n", PmStrNode(node), PmStrAck(ack));
 
-	if (NULL == proc) {
+	if ((NULL == proc) || (NULL == proc->master)) {
 		status = XST_PM_INVALID_NODE;
 		goto done;
 	}
