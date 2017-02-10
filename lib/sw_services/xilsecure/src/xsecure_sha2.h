@@ -83,6 +83,7 @@ void sha_256(const unsigned char *in, const unsigned int size, unsigned char *ou
 void sha2_starts(sha2_context *ctx);
 void sha2_update(sha2_context *ctx, unsigned char* input, unsigned int ilen);
 void sha2_finish(sha2_context *ctx, unsigned char* output);
+void sha2_hash(sha2_context *ctx, unsigned char *output);
 
 
 #ifdef __cplusplus
