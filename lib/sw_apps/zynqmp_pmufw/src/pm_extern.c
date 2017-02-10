@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 #include "pm_extern.h"
 #include "pm_slave.h"
@@ -222,3 +224,5 @@ int PmExternWakeMasters(void)
 
 	return totalStatus;
 }
+
+#endif

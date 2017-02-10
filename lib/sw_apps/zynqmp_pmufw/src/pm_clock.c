@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 #include "pm_clock.h"
 #include "pm_power.h"
@@ -1190,3 +1192,5 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
 done:
 	return;
 }
+
+#endif

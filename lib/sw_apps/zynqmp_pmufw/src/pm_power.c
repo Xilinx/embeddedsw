@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 /*********************************************************************
  * Power nodes (power islands and power domains) related structures,
@@ -1199,3 +1201,5 @@ PmNodeClass pmNodeClassPower_g = {
 	.init = PmPowerInit,
 	.isUsable = PmPowerIsUsable,
 };
+
+#endif
