@@ -509,6 +509,7 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
 static int PmProcTrToForcedOff(PmProc* const proc)
 {
 	int status;
+	bool killed;
 
 	PmDbg("ACTIVE->FORCED_PWRDN %s\r\n", PmStrNode(proc->node.nodeId));
 
@@ -518,10 +519,17 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
 	PmProcDisableEvents(proc);
 
-	if ((XST_SUCCESS == status) && (NULL != proc->master)) {
+	if ((XST_SUCCESS != status) || (NULL == proc->master)) {
+		goto done;
+	}
+
+	/* If master is also forced down we do not need to notify it */
+	killed = PmMasterIsKilled(proc->master);
+	if (false == killed) {
 		status = PmMasterFsm(proc->master, PM_MASTER_EVENT_FORCED_PROC);
 	}
 
+done:
 	return status;
 }
 

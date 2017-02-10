@@ -56,6 +56,7 @@ typedef enum {
 	PM_MASTER_EVENT_SELF_SUSPEND,
 	PM_MASTER_EVENT_ABORT_SUSPEND,
 	PM_MASTER_EVENT_FORCED_PROC,
+	PM_MASTER_EVENT_FORCE_DOWN,
 } PmMasterEvent;
 
 /*********************************************************************

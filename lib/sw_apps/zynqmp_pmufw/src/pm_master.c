@@ -708,6 +708,47 @@ done:
 }
 
 /**
+ * PmMasterForceDownProcs() - Force down processors of this master
+ * @master	Master whose processors need to be forced down
+ *
+ * @return	Status of forcing down
+ */
+static int PmMasterForceDownProcs(const PmMaster* const master)
+{
+	u32 i;
+	int status = XST_SUCCESS;
+
+	for (i = 0U; i < master->procsCnt; i++) {
+		int ret = PmNodeForceDown(&master->procs[i]->node);
+
+		if (XST_SUCCESS != ret) {
+			status = ret;
+		}
+	}
+
+	return status;
+}
+
+/**
+ * PmMasterForceDownCleanup() - Cleanup due to the force down
+ * @master	Master being forced down
+ *
+ * @return	Status of performing cleanup (releasing resources)
+ */
+static int PmMasterForceDownCleanup(PmMaster* const master)
+{
+	int status;
+
+	status = PmRequirementReleaseAll(master);
+	PmWakeUpCancelScheduled(master);
+	PmNotifierUnregisterAll(master);
+	master->wakeProc = NULL;
+	master->suspendRequest.initiator = NULL;
+
+	return status;
+}
+
+/**
  * PmMasterFsm() - Implements finite state machine (FSM) for a master
  * @master	Master whose state machine is triggered
  * @event	Event to which the master's state machine need to react
@@ -760,11 +801,15 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 	case PM_MASTER_EVENT_FORCED_PROC:
 		condition = PmMasterAllProcsDown(master);
 		if (true == condition) {
-			status = PmRequirementReleaseAll(master);
-			PmWakeUpCancelScheduled(master);
-			PmNotifierUnregisterAll(master);
+			status = PmMasterForceDownCleanup(master);
 			master->state = PM_MASTER_STATE_KILLED;
-			master->wakeProc = NULL;
+		}
+		break;
+	case PM_MASTER_EVENT_FORCE_DOWN:
+		master->state = PM_MASTER_STATE_KILLED;
+		status = PmMasterForceDownProcs(master);
+		if (XST_SUCCESS == status) {
+			status = PmMasterForceDownCleanup(master);
 		}
 		break;
 	default:
