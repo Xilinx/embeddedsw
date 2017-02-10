@@ -117,12 +117,6 @@ static int XHdcp1x_PortHdmiRxEnable(XHdcp1x *InstancePtr)
 	/* Determine HdmiRx */
 	HdmiRx = InstancePtr->Port.PhyIfPtr;
 
-	/* Initialize the Bstatus register */
-	memset(Buf, 0, 4);
-	/* Not setting the HDMI_MODE bit, it needs to be set from the top */
-	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
-			Buf, 2);
-
 	/* Initialize the Bcaps register */
 	memset(Buf, 0, 4);
 	Buf[0] |= XHDCP1X_PORT_BIT_BCAPS_HDMI;
@@ -187,12 +181,24 @@ static int XHdcp1x_PortHdmiRxDisable(XHdcp1x *InstancePtr)
 	while (NumLeft-- > 0) {
 		XHdcp1x_PortHdmiRxWrite(InstancePtr, Offset++, &Value, 1);
 	}
-	/* Clear HDCP register space from BCaps (0x40) to KSV FIFO (0x43) */
-	Offset = 64;
-	NumLeft = 68;
-	while (NumLeft-- > 64) {
-		XHdcp1x_PortHdmiRxWrite(InstancePtr, Offset++, &Value, 1);
-	}
+	/* Clear HDCP register space for Bcaps (0x40) */
+	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
+					&Value, 1);
+
+	/* Clear HDCP register space for Bstatus (0x41 and 0x42).
+	 * Do not clear HDMI_MODE field. */
+	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
+					&Value, 1);
+	XHdcp1x_PortHdmiRxRead(InstancePtr, (XHDCP1X_PORT_OFFSET_BSTATUS + 1),
+					&Value, 1);
+	Value &= (XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE >> 8);
+	XHdcp1x_PortHdmiRxWrite(InstancePtr, (XHDCP1X_PORT_OFFSET_BSTATUS + 1),
+					&Value, 1);
+
+	/* Clear HDCP register space for KSV FIFO (0x43) */
+	Value = 0;
+	XHdcp1x_PortHdmiRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
+					&Value, 1);
 
 	return (Status);
 }

@@ -187,18 +187,33 @@ static int XHdcp1x_PortHdmiTxInit(XHdcp1x *InstancePtr)
 ******************************************************************************/
 static int XHdcp1x_PortHdmiTxIsCapable(const XHdcp1x *InstancePtr)
 {
-	u8 Value = 0;
+	u8 Value[2] = {0, 0};
+	u16 Bstatus = 0;
 	int IsCapable = FALSE;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Check for hdcp capable */
-	if (XHdcp1x_PortHdmiTxRead(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
-			&Value, 1) > 0) {
-		if ((Value & XHDCP1X_PORT_BIT_BCAPS_HDMI) != 0) {
-			IsCapable = TRUE;
+	/* Check if connected device is DVI or HDMI capable in Bcaps.
+        If it is HDMI capable, check if HDMI_MODE in Bstatus is true. */
+	if (XHdcp1x_PortHdmiTxRead(InstancePtr,
+		XHDCP1X_PORT_OFFSET_BCAPS, Value, 1)) {
+		/* HDMI */
+		if ((Value[0] & XHDCP1X_PORT_BIT_BCAPS_HDMI)) {
+			if (XHdcp1x_PortHdmiTxRead(InstancePtr,
+				XHDCP1X_PORT_OFFSET_BSTATUS, Value, 2)) {
+			Bstatus = Value[0];
+			Bstatus |= Value[1] << 8;
+
+			if ((Bstatus & XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE)) {
+					IsCapable = TRUE;
+				}
+			}
 		}
+		/* DVI */
+		else {
+			IsCapable = TRUE;
+        }
 	}
 
 	return (IsCapable);
