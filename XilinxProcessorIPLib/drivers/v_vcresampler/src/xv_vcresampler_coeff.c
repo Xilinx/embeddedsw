@@ -44,14 +44,17 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   07/31/15   Initial Release
-
+* 1.0   rco   07/31/15   Initial Release
+* 3.0   rco   02/09/17   Fix c++ compilation warnings
 * </pre>
 *
 ******************************************************************************/
 #include "xv_vcresampler_l2.h"
 
 // 4 tap filter
+#ifdef __cplusplus
+extern "C"
+#endif
 const short XV_vcrsmplrcoeff_taps4[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4] =
 {
   //422->420
@@ -65,6 +68,9 @@ const short XV_vcrsmplrcoeff_taps4[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_
 };
 
 // 6 tap filter
+#ifdef __cplusplus
+extern "C"
+#endif
 const short XV_vcrsmplrcoeff_taps6[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6] =
 {
   //422->420
@@ -78,6 +84,9 @@ const short XV_vcrsmplrcoeff_taps6[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_
 };
 
 // 8 tap filter
+#ifdef __cplusplus
+extern "C"
+#endif
 const short XV_vcrsmplrcoeff_taps8[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8] =
 {
   //422->420
@@ -91,6 +100,9 @@ const short XV_vcrsmplrcoeff_taps8[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_
 };
 
 // 10 tap filter
+#ifdef __cplusplus
+extern "C"
+#endif
 const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10] =
 {
   //422->420

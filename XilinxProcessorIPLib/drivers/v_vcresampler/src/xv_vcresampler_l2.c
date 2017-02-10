@@ -50,6 +50,7 @@
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
 * 2.10  rco   07/20/16   Add passthrough mode support
+*       rco   02/09/17   Fix c++ compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -63,10 +64,10 @@
 /**************************** Type Definitions *******************************/
 
 /**************************** Local Global *******************************/
-const short XV_vcrsmplrcoeff_taps4[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4];
-const short XV_vcrsmplrcoeff_taps6[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6];
-const short XV_vcrsmplrcoeff_taps8[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8];
-const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10];
+extern const short XV_vcrsmplrcoeff_taps4[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4];
+extern const short XV_vcrsmplrcoeff_taps6[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6];
+extern const short XV_vcrsmplrcoeff_taps8[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8];
+extern const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10];
 
 
 /************************** Function Prototypes ******************************/
@@ -411,8 +412,10 @@ void XV_VCrsmplDbgReportStatus(XV_Vcresampler_l2 *InstancePtr)
   {
 	xil_printf("Resampling Type:  Unknown\r\n");
   }
-  xil_printf("Video Format In:  %s\r\n", XVidC_GetColorFormatStr(vidfmtIn));
-  xil_printf("Video Format Out: %s\r\n", XVidC_GetColorFormatStr(vidfmtOut));
+  xil_printf("Video Format In:  %s\r\n",
+		  XVidC_GetColorFormatStr((XVidC_ColorFormat)vidfmtIn));
+  xil_printf("Video Format Out: %s\r\n",
+		  XVidC_GetColorFormatStr((XVidC_ColorFormat)vidfmtOut));
   xil_printf("Width:            %d\r\n", width);
   xil_printf("Height:           %d\r\n", height);
 
