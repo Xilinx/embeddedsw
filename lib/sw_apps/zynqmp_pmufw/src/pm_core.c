@@ -49,6 +49,7 @@
 #include "pm_clock.h"
 #include "pm_requirement.h"
 #include "pm_config.h"
+#include "xpfw_resets.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -739,33 +740,36 @@ done:
  * @type    Shutdown type
  * @subtype Shutdown subtype
  */
-static void PmSystemShutdown(const PmMaster *const master, const u32 type,
+static void PmSystemShutdown(PmMaster* const master, const u32 type,
 			     const u32 subtype)
 {
-	int status;
+	int status = XST_SUCCESS;
 
 	PmDbg("(%lu, %lu)\r\n", type, subtype);
 
+	/* For shutdown type the subtype is irrelevant: shut the caller down */
+	if (PMF_SHUTDOWN_TYPE_SHUTDOWN == type) {
+		status = PmMasterFsm(master, PM_MASTER_EVENT_FORCE_DOWN);
+		goto done;
+	}
+
+	if (PMF_SHUTDOWN_TYPE_RESET != type) {
+		status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	/* Now distinguish the restart scope depending on the subtype */
 	switch (subtype) {
 	case PMF_SHUTDOWN_SUBTYPE_SUBSYSTEM:
-		status = XST_NO_FEATURE;
+		status = PmMasterRestart(master);
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_PS_ONLY:
+		XPfw_ResetPsOnly();
+		break;
 	case PMF_SHUTDOWN_SUBTYPE_SYSTEM:
-		/* Check whether the master is allowed to trigger system level action */
-		if (true == PmSystemRequestNotAllowed(master)) {
-			status = XST_PM_NO_ACCESS;
-			goto done;
-		}
-
-		/* Check whether given arguments are ok */
-		if ((PMF_SHUTDOWN_TYPE_SHUTDOWN != type) &&
-		    (PMF_SHUTDOWN_TYPE_RESET != type)) {
-			status = XST_INVALID_PARAM;
-			goto done;
-		}
-
-		PmSystemProcessShutdown(master, type, subtype);
+		XPfw_RMW32(CRL_APB_RESET_CTRL,
+			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
+			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
 		break;
 	default:
 		PmDbg("invalid subtype (%lx)\n", subtype);
