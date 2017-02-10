@@ -59,6 +59,7 @@
  * 4.1   rco  11/23/16 Added new memory formats
  *                     Added new API to get video mode id that matches exactly
  *                     with provided timing information
+ *                     Fix c++ warnings
  * </pre>
  *
 *******************************************************************************/
@@ -483,7 +484,7 @@ XVidC_VideoMode XVidC_GetVideoModeIdRb(u32 Width, u32 Height,
 		if (Found) {
 			break;
 		}
-		VmId++;
+		VmId = (XVidC_VideoMode)((int)VmId + 1);
 	}
 
 	return VmId;
@@ -549,7 +550,7 @@ const char *XVidC_GetVideoModeStr(XVidC_VideoMode VmId)
  * @note	None.
  *
 *******************************************************************************/
-char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
+const char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 {
 	const XVidC_VideoTimingMode *VmPtr;
 
@@ -567,13 +568,13 @@ char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 		case (XVIDC_FR_60HZ):   return ("60Hz");
 		case (XVIDC_FR_65HZ):   return ("65Hz");
 		case (XVIDC_FR_67HZ):   return ("67Hz");
-		case (XVIDC_FR_70HZ):   return("70Hz");
+		case (XVIDC_FR_70HZ):   return ("70Hz");
 		case (XVIDC_FR_72HZ):   return ("72Hz");
 		case (XVIDC_FR_75HZ):   return ("75Hz");
 		case (XVIDC_FR_85HZ):   return ("85Hz");
 		case (XVIDC_FR_87HZ):   return ("87Hz");
 		case (XVIDC_FR_88HZ):   return ("88Hz");
-		case (XVIDC_FR_100HZ):  return("100Hz");
+		case (XVIDC_FR_100HZ):  return ("100Hz");
 		case (XVIDC_FR_120HZ):  return ("120Hz");
 
 		default:
@@ -593,7 +594,7 @@ char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
  * @note	None.
  *
 *******************************************************************************/
-char *XVidC_Get3DFormatStr(XVidC_3DFormat Format)
+const char *XVidC_Get3DFormatStr(XVidC_3DFormat Format)
 {
 	switch (Format) {
 		case XVIDC_3D_FRAME_PACKING:
@@ -630,7 +631,7 @@ char *XVidC_Get3DFormatStr(XVidC_3DFormat Format)
  * @note	None.
  *
 *******************************************************************************/
-char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
+const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 {
 	switch (ColorFormatId) {
 		case XVIDC_CSF_RGB:            return ("RGB");
@@ -654,6 +655,7 @@ char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_MEM_Y_UV10_420: return ("Y_UV10_420");
 		case XVIDC_CSF_MEM_Y8:         return ("Y8");
 		case XVIDC_CSF_MEM_Y10:        return ("Y10");
+		case XVIDC_CSF_MEM_BGRA8:      return ("BGRA8");
 
 		default:
 			return ("Color space format not supported");

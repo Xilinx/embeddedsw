@@ -64,6 +64,7 @@
  * 4.1   rco  11/23/17 Added new memory formats
  *                     Added xil_printf include statement
  *                     Added new API XVidC_GetVideoModeIdWBlanking
+ *                     Fix C++ warnings
  * </pre>
  *
 *******************************************************************************/
@@ -344,6 +345,7 @@ typedef enum {
 	XVIDC_CSF_MEM_Y_UV10_420,   // [31:0] x:Y:Y:Y 2:10:10:10 [31:0] x:U:V:U 2:10:10:10
 	XVIDC_CSF_MEM_Y8,           // [31:0] Y:Y:Y:Y 8:8:8:8
 	XVIDC_CSF_MEM_Y10,          // [31:0] x:Y:Y:Y 2:10:10:10
+	XVIDC_CSF_MEM_BGRA8,        // [31:0] A:R:G:B 8:8:8:8
 
 	XVIDC_CSF_NUM_SUPPORTED,    // includes the reserved slots
 	XVIDC_CSF_UNKNOWN,
@@ -510,13 +512,13 @@ XVidC_VideoFormat XVidC_GetVideoFormat(XVidC_VideoMode VmId);
 u8 XVidC_IsInterlaced(XVidC_VideoMode VmId);
 const XVidC_VideoTimingMode* XVidC_GetVideoModeData(XVidC_VideoMode VmId);
 const char *XVidC_GetVideoModeStr(XVidC_VideoMode VmId);
-char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId);
-char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId);
+const char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId);
+const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId);
 XVidC_FrameRate XVidC_GetFrameRate(XVidC_VideoMode VmId);
 const XVidC_VideoTiming* XVidC_GetTimingInfo(XVidC_VideoMode VmId);
 void XVidC_ReportStreamInfo(const XVidC_VideoStream *Stream);
 void XVidC_ReportTiming(const XVidC_VideoTiming *Timing, u8 IsInterlaced);
-char *XVidC_Get3DFormatStr(XVidC_3DFormat Format);
+const char *XVidC_Get3DFormatStr(XVidC_3DFormat Format);
 u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 			             XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc,
 			             XVidC_PixelsPerClock Ppc);
