@@ -311,6 +311,11 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 
 	if (1U == setAddress) {
 		proc->saveResumeAddr(proc, address);
+	} else {
+		if (false == PmProcHasResumeAddr(proc)) {
+			status = XST_INVALID_PARAM;
+			goto done;
+		}
 	}
 
 	status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);

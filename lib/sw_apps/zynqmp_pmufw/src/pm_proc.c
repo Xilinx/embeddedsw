@@ -77,6 +77,15 @@
 #define DEFAULT_RPU_POWER_OFF		0
 
 /**
+ * PmProcHasResumeAddr() - Check whether the processor has the resume address
+ * @proc       Processor to check
+ */
+bool PmProcHasResumeAddr(const PmProc* const proc)
+{
+	return 0ULL != (proc->resumeAddress & 1ULL);
+}
+
+/**
  * RPUSaveResumeAddr() - Saved address from which RPU core should resume
  * @proc        Processor to which the address should be restored upon wake-up
  * @address     Resume address (64-bit)

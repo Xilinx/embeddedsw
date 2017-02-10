@@ -147,6 +147,8 @@ extern PmNodeClass pmNodeClassProc_g;
  ********************************************************************/
 int PmProcFsm(PmProc* const proc, const PmProcEvent event);
 
+bool PmProcHasResumeAddr(const PmProc* const proc);
+
 /**
  * PmProcIsForcedOff() - Check whether given processor is in forced off state
  */
