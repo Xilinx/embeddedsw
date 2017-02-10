@@ -53,6 +53,7 @@
 * 3.0   mpe   04/28/16   Added optional color format conversion handling
 * 3.1   rco   11/01/16   Fixed bug in config validation API, wherein hi/lo
 *                        check should be made only if input is not RGB
+*       rco   02/09/17   Fix c++ compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -72,13 +73,13 @@
 /**************************** Type Definitions *******************************/
 
 /**************************** Local Global *******************************/
-const int STEP_PRECISION_SHIFT = 16;
-const u64 XHSC_MASK_LOW_32BITS = ((u64)1<<32)-1;
+static const int STEP_PRECISION_SHIFT = 16;
+static const u64 XHSC_MASK_LOW_32BITS = ((u64)1<<32)-1;
 
-const short XV_hscaler_fixedcoeff_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
-const short XV_hscaler_fixedcoeff_taps8[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
-const short XV_hscaler_fixedcoeff_taps10[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10];
-const short XV_hscaler_fixedcoeff_taps12[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12];
+extern const short XV_hscaler_fixedcoeff_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6];
+extern const short XV_hscaler_fixedcoeff_taps8[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8];
+extern const short XV_hscaler_fixedcoeff_taps10[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10];
+extern const short XV_hscaler_fixedcoeff_taps12[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12];
 
 /************************** Function Prototypes ******************************/
 static void XV_HScalerSelectCoeff(XV_Hscaler_l2 *InstancePtr,
@@ -663,8 +664,10 @@ void XV_HScalerDbgReportStatus(XV_Hscaler_l2 *InstancePtr)
   xil_printf("4:2:2 processing:       %s\r\n", allow422?"Enabled":"Disabled");
   xil_printf("4:2:0 processing:       %s\r\n", allow420?"Enabled":"Disabled");
   xil_printf("Color space conversion: %s\r\n", allowCsc?"Enabled":"Disabled");
-  xil_printf("Input Color Format:     %s\r\n", XVidC_GetColorFormatStr(cformatin));
-  xil_printf("Output Color Format:    %s\r\n", XVidC_GetColorFormatStr(cformatOut));
+  xil_printf("Input Color Format:     %s\r\n",
+		  XVidC_GetColorFormatStr((XVidC_ColorFormat)cformatin));
+  xil_printf("Output Color Format:    %s\r\n",
+		  XVidC_GetColorFormatStr((XVidC_ColorFormat)cformatOut));
   xil_printf("Pixel Rate:             %d\r\n\r\n",pixrate);
 
   xil_printf("Num Phases:          %d\r\n",phases);
