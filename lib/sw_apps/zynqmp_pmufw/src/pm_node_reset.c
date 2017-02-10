@@ -37,6 +37,7 @@
 #include "pm_common.h"
 #include "pm_reset.h"
 #include "pm_node_reset.h"
+#include "pm_node_idle.h"
 
 #define MAX_RST_ACTION	5
 
@@ -130,10 +131,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_TTC_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = NULL,
+		.IdleHook = NodeTtcIdle,
+		.IdleHookArgs = XPAR_PSU_TTC_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_TTC_1,
@@ -144,10 +152,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_TTC_1_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = NULL,
+		.IdleHook = NodeTtcIdle,
+		.IdleHookArgs = XPAR_PSU_TTC_1_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_TTC_2,
@@ -158,10 +173,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_TTC_2_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = NULL,
+		.IdleHook = NodeTtcIdle,
+		.IdleHookArgs = XPAR_PSU_TTC_2_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_TTC_3,
@@ -172,10 +194,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_TTC_3_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = NULL,
+		.IdleHook = NodeTtcIdle,
+		.IdleHookArgs = XPAR_PSU_TTC_3_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_SATA,
@@ -201,10 +230,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_ETHERNET_0_DEVICE_ID
+		.SoftRst = XEmacPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_ETHERNET_0_BASEADDR,
+		.IdleHook = NodeGemIdle,
+		.IdleHookArgs = XPAR_PSU_ETHERNET_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_ETH_1,
@@ -215,10 +251,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_ETHERNET_1_DEVICE_ID
+		.SoftRst = XEmacPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_ETHERNET_1_BASEADDR,
+		.IdleHook = NodeGemIdle,
+		.IdleHookArgs = XPAR_PSU_ETHERNET_1_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_ETH_2,
@@ -229,10 +272,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_ETHERNET_2_DEVICE_ID
+		.SoftRst = XEmacPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_ETHERNET_2_BASEADDR,
+		.IdleHook = NodeGemIdle,
+		.IdleHookArgs = XPAR_PSU_ETHERNET_2_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_ETH_3,
@@ -243,10 +293,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_ETHERNET_3_DEVICE_ID
+		.SoftRst = XEmacPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_ETHERNET_3_BASEADDR,
+		.IdleHook = NodeGemIdle,
+		.IdleHookArgs = XPAR_PSU_ETHERNET_3_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_UART_0,
@@ -257,10 +314,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_UART_0_DEVICE_ID
+		.SoftRst = XUartPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_UART_0_BASEADDR,
+		.IdleHook = NULL,
+		.IdleHookArgs = NULL
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_UART_1,
@@ -271,10 +335,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_UART_1_DEVICE_ID
+		.SoftRst = XUartPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_UART_1_BASEADDR,
+		.IdleHook = NULL,
+		.IdleHookArgs = NULL
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_SPI_0,
@@ -285,10 +356,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_SPI_0_DEVICE_ID
+		.SoftRst = XSpiPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_SPI_0_BASEADDR,
+		.IdleHook = NULL,
+		.IdleHookArgs = NULL
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_SPI_1,
@@ -299,11 +377,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_SPI_1_DEVICE_ID
+		.SoftRst = XSpiPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_SPI_1_BASEADDR,
+		.IdleHook = NULL,
+		.IdleHookArgs = NULL
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
-
+#endif
 	},
 	{
 		.NodeId = NODE_I2C_0,
@@ -314,10 +398,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_I2C_0_DEVICE_ID
+		.SoftRst = XIicPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_I2C_0_BASEADDR,
+		.IdleHook = NodeI2cIdle,
+		.IdleHookArgs = XPAR_PSU_I2C_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_I2C_1,
@@ -328,10 +419,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_I2C_1_DEVICE_ID
+		.SoftRst = XIicPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_I2C_1_BASEADDR,
+		.IdleHook = NodeI2cIdle,
+		.IdleHookArgs = XPAR_PSU_I2C_1_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_SD_0,
@@ -342,10 +440,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_SD_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = NULL,
+		.IdleHook = NodeSdioIdle,
+		.IdleHookArgs = XPAR_PSU_SD_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_SD_1,
@@ -356,10 +461,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_SD_1_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = NULL,
+		.IdleHook = NodeSdioIdle,
+		.IdleHookArgs = XPAR_PSU_SD_1_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_QSPI,
@@ -370,10 +482,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_QSPI_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = NULL,
+		.IdleHook = NodeQspiIdle,
+		.IdleHookArgs = XPAR_PSU_QSPI_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_GPIO,
@@ -384,10 +503,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_PSU_GPIO_0_DEVICE_ID
+		.SoftRst = XGpioPs_ResetHw,
+		.SoftRstArgs = XPAR_PSU_GPIO_0_BASEADDR,
+		.IdleHook = NULL,
+		.IdleHookArgs = NULL
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = NULL,
 		.IdleHook = NULL,
 		.IdleHookArgs = NULL
+#endif
 	},
 	{
 		.NodeId = NODE_PCIE,
