@@ -52,6 +52,7 @@
 *       dmc   12/17/15 IsDemoWindowEnabled prevents access to absent HW regs
 *                      Corrected typo in XV_CscSetColorspace setting K31 FW reg
 *                      Updated the XV_CscDbgReportStatus routine
+* 2.1   rco   02/09/17 Fix c++ warnings
 * </pre>
 *
 ******************************************************************************/
@@ -1279,6 +1280,7 @@ void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr)
   u32 minclamp,maxclamp;
   u32 height, width, i, j;
   u16 allow422, allowWindow;
+  u32 CfmtIn,CfmtOut;
 
   done  = XV_csc_IsDone(pCsc);
   idle  = XV_csc_IsIdle(pCsc);
@@ -1289,6 +1291,8 @@ void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr)
   width    = XV_csc_Get_HwReg_width(pCsc);
   allow422 = XV_CscIs422Enabled(InstancePtr);
   allowWindow = XV_CscIsDemoWindowEnabled(InstancePtr);
+  CfmtIn   = XV_csc_Get_HwReg_InVideoFormat(pCsc);
+  CfmtOut  = XV_csc_Get_HwReg_OutVideoFormat(pCsc);
 
   colstart = allowWindow? XV_csc_Get_HwReg_ColStart(pCsc) : 0;
   colend   = allowWindow? XV_csc_Get_HwReg_ColEnd(pCsc)   : width-1;
@@ -1303,9 +1307,9 @@ void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr)
 
   xil_printf("4:2:2 processing: %s\r\n", allow422?"Enabled":"Disabled");
   xil_printf("Color Format In:  %s\r\n",
-               XVidC_GetColorFormatStr(XV_csc_Get_HwReg_InVideoFormat(pCsc)));
+		  XVidC_GetColorFormatStr((XVidC_ColorFormat)CfmtIn));
   xil_printf("Color Format Out: %s\r\n",
-               XVidC_GetColorFormatStr(XV_csc_Get_HwReg_OutVideoFormat(pCsc)));
+		  XVidC_GetColorFormatStr((XVidC_ColorFormat)CfmtOut));
   xil_printf("Active Width:     %d\r\n",width);
   xil_printf("Active Height:    %d\r\n\r\n",height);
 
