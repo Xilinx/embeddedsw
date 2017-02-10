@@ -845,6 +845,36 @@ int PmMasterWake(const PmMaster* const mst)
 }
 
 /**
+ * PmMasterRestart() - Restart the master
+ * @master	Master to restart
+ *
+ * @return	Status of performing the operation
+ */
+int PmMasterRestart(PmMaster* const master)
+{
+	int status;
+	u64 address = 0xFFFC0000ULL;
+
+	status = PmMasterFsm(master, PM_MASTER_EVENT_FORCE_DOWN);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	status = PmMasterFsm(master, PM_MASTER_EVENT_WAKE);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	/* TODO - signal here to the FSBL who do we want to restart */
+	status = master->procs[0]->saveResumeAddr(master->procs[0], address);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	status = PmProcFsm(master->procs[0], PM_PROC_EVENT_WAKE);
+
+done:
+	return status;
+}
+
+/**
  * PmMasterGetPlaceholder() - Check whether there is a master which holds nodeId
  * @nodeId      Id of the node whose placeholder should be found
  *
