@@ -89,7 +89,7 @@ void XPfw_PmInit(void)
 int XPfw_PmIpiHandler(const u32 IsrMask, const u32* Payload, u8 Len)
 {
 	int status = XST_SUCCESS;
-	const PmMaster* master = PmGetMasterByIpiMask(IsrMask);
+	PmMaster* master = PmGetMasterByIpiMask(IsrMask);
 
 	if ((NULL == Payload) || (NULL == master) || (Len < PAYLOAD_ELEM_CNT)) {
 		/* Never happens if IPI irq handler is implemented correctly */

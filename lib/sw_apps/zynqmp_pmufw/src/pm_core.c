@@ -1007,7 +1007,7 @@ done:
  *
  * @note    Payload arguments are checked and validated before calling this.
  */
-static void PmProcessApiCall(const PmMaster *const master, const u32 *pload)
+static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 {
 	u32 setAddress;
 	u64 address;
@@ -1115,7 +1115,7 @@ done:
  * @note    Called to process PM API call. If specific PM API receives less
  *          than 4 arguments, extra arguments are ignored.
  */
-void PmProcessRequest(const PmMaster *const master, const u32 *pload)
+void PmProcessRequest(PmMaster *const master, const u32 *pload)
 {
 	PmPayloadStatus status = PmCheckPayload(pload);
 
