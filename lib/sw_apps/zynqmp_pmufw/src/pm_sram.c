@@ -212,8 +212,22 @@ static int PmSlaveTcmInit(PmSlave* const slave)
 	return status;
 }
 
+/**
+ * PmSlaveTcmForceDown() - Force down the TCM slave
+ * @slave	TCM slave node
+ */
+static int PmSlaveTcmForceDown(PmSlave* const slave)
+{
+	if (PM_SRAM_STATE_ON == slave->node.currState) {
+		PmPowerRelease(&pmPowerIslandRpu_g);
+	}
+
+	return XST_SUCCESS;
+}
+
 static PmSlaveClass pmSlaveClassTcm = {
 	.init = PmSlaveTcmInit,
+	.forceDown = PmSlaveTcmForceDown,
 };
 
 /* Sram FSM */

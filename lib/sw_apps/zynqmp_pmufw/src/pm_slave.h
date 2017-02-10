@@ -139,9 +139,11 @@ typedef struct PmSlave {
 /**
  * PmSlaveClass - Slave class to model properties of PmSlave derived objects
  * @init	Initialize the slave
+ * @forceDown	Force down specific to the slave
  */
 typedef struct PmSlaveClass {
 	int (*const init)(PmSlave* const slave);
+	int (*const forceDown)(PmSlave* const slave);
 } PmSlaveClass;
 
 /*********************************************************************
