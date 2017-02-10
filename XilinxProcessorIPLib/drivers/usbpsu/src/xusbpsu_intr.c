@@ -377,7 +377,7 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
                               (u32)XUSBPSU_EVENT_BUFFERS_SIZE);
 
 	while (Evt->Count > 0) {
-		Event.Raw = *(UINTPTR *)(Evt->BuffAddr + Evt->Offset);
+		Event.Raw = (*(UINTPTR *)Evt->BuffAddr + Evt->Offset);
 
 		/*
          * Process the event received
