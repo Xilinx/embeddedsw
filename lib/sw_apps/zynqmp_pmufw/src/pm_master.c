@@ -682,6 +682,32 @@ static bool PmMasterAllProcsDown(const PmMaster* const master)
 }
 
 /**
+ * PmMasterWakeProc() - Master prepares for wake and wakes the processor
+ * @proc	Processor to wake up
+ *
+ * @return	Status of performing wake
+ */
+int PmMasterWakeProc(PmProc* const proc)
+{
+	int status;
+	bool hasResumeAddr = PmProcHasResumeAddr(proc);
+
+	if (false == hasResumeAddr) {
+		status = XST_FAILURE;
+		goto done;
+	}
+
+	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+	status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);
+
+done:
+	return status;
+}
+
+/**
  * PmMasterNotify() - Notify master of a state change of its processor
  * @master      Pointer to master object which needs to be notified
  * @event       Processor Event to notify the master about
@@ -764,7 +790,7 @@ int PmMasterWake(const PmMaster* const mst)
 	if (NULL == proc) {
 		proc = mst->procs[0];
 	}
-	status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);
+	status = PmMasterWakeProc(proc);
 
 	return status;
 }

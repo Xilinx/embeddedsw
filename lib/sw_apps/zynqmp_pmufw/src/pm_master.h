@@ -183,6 +183,7 @@ PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 
 /* Notify master about its processor state change */
 int PmMasterNotify(PmMaster* const master, const PmProcEvent event);
+int PmMasterWakeProc(PmProc* const proc);
 
 void PmMasterInit(void);
 void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg);

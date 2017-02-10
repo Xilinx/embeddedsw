@@ -155,8 +155,8 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 	if (0U != (PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK & srcMask))  {
 		/* Processor GIC wake */
 		PmProc* proc = PmProcGetByWakeMask(srcMask);
-		if (NULL != proc) {
-			status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);
+		if ((NULL != proc) && (NULL != proc->master)) {
+			status = PmMasterWakeProc(proc);
 		} else {
 			status = XST_INVALID_PARAM;
 		}

@@ -318,7 +318,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 		}
 	}
 
-	status = PmProcFsm(proc, PM_PROC_EVENT_WAKE);
+	status = PmMasterWakeProc(proc);
 	oppoint = proc->node.currState;
 
 done:

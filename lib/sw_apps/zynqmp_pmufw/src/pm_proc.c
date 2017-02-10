@@ -598,14 +598,9 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 {
 	int status;
 
-	/* Notify master (it will setup everything (if) needed for the wake) */
-	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
-
-	if (XST_SUCCESS == status) {
-		PmDbg("SLEEP->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
-		status = PmProcWake(proc);
-		DISABLE_WAKE(proc->wakeEnableMask);
-	}
+	PmDbg("SLEEP->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
+	status = PmProcWake(proc);
+	DISABLE_WAKE(proc->wakeEnableMask);
 
 	return status;
 }
@@ -625,14 +620,9 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
 	int status;
+
 	PmDbg("FORCED_PWRDN->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
-
-	/* Notify master, it will know if resources need to be updated */
-	status = PmMasterNotify(proc->master, PM_PROC_EVENT_WAKE);
-
-	if (XST_SUCCESS == status) {
-		status = PmProcWake(proc);
-	}
+	status = PmProcWake(proc);
 
 	return status;
 }
