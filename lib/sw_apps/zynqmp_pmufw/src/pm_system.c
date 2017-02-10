@@ -45,14 +45,12 @@
  ********************************************************************/
 /**
  * PmSystem - System level information
- * @masters             ORed ipi masks of masters available in the system (to be
- *                      updated based on specific configuration)
- * @permissions         ORed ipi masks of masters which are allowed to request
- *                      system shutdown/restart
+ * @psRestartPerms	ORed IPI masks of masters allowed to restart PS
+ * @systemRestartPerms	ORed IPI masks of masters allowed to restart system
  */
 typedef struct {
-	u32 masters;
-	u32 permissions;
+	u32 psRestartPerms;
+	u32 systemRestartPerms;
 } PmSystem;
 
 /**
@@ -69,13 +67,7 @@ typedef struct PmSystemRequirement {
  * Data initialization
  ********************************************************************/
 
-/* By default all masters are allowed to request shutdown. */
-PmSystem pmSystem = {
-	.masters = IPI_PMU_0_IER_APU_MASK |
-		   IPI_PMU_0_IER_RPU_0_MASK,
-	.permissions = IPI_PMU_0_IER_APU_MASK |
-		       IPI_PMU_0_IER_RPU_0_MASK,
-};
+PmSystem pmSystem;
 
 /*
  * These requirements are needed for the system to operate:
@@ -98,52 +90,6 @@ PmSystemRequirement pmSystemReqs[] = {
 /*********************************************************************
  * Function definitions
  ********************************************************************/
-/**
- * PmSystemProcessShutdown() - Process shutdown by initiating suspend requests
- * @master      Master which requested system shutdown
- * @type        Shutdown type
- * @subtype     Shutdown subtype
- */
-void PmSystemProcessShutdown(const PmMaster *master, u32 type, u32 subtype)
-{
-	PmDbg("\r\n");
-
-	if (PMF_SHUTDOWN_TYPE_SHUTDOWN == type) {
-
-		if (PMF_SHUTDOWN_SUBTYPE_SYSTEM == subtype) {
-			(void)PmNodeForceDown(&pmPowerDomainPld_g.power.node);
-		}
-		(void)PmNodeForceDown(&pmPowerDomainFpd_g.power.node);
-		(void)PmNodeForceDown(&pmPowerDomainLpd_g.power.node);
-	}
-
-	if (PMF_SHUTDOWN_TYPE_RESET == type) {
-		if (PMF_SHUTDOWN_SUBTYPE_SYSTEM == subtype) {
-			/* assert soft reset */
-			XPfw_RMW32(CRL_APB_RESET_CTRL,
-				   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
-				   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
-		}
-
-		if (PMF_SHUTDOWN_SUBTYPE_PS_ONLY == subtype) {
-			XPfw_ResetPsOnly();
-		}
-	}
-
-	while (true) {
-		mb_sleep();
-	}
-}
-
-/**
- * PmSystemRequestNotAllowed() - Check whether the master is allowed to request
- *                               system level transition
- * @master      Pointer to the master whose permissions are to be checked
- */
-inline bool PmSystemRequestNotAllowed(const PmMaster* const master)
-{
-	return 0U == (master->ipiMask & pmSystem.permissions);
-}
 
 /**
  * PmSystemRequirementAdd() - Add requirements of the system
