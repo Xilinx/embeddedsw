@@ -297,6 +297,7 @@ Add DDR and HSD support for eMMC
 Support for bus width switching based on hdf
 Added CCI support for A53 by updating cache coherency information and
 disabling data cache related operations when CCI is enabled.
+Added support for A53-32bit on ZynqMP.
 
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
