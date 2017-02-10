@@ -42,9 +42,11 @@
 #include "pm_sram.h"
 #include "pm_ddr.h"
 #include "pm_requirement.h"
+#include "pmu_global.h"
 
 #include "xpfw_ipi_manager.h"
 
+#define SUBSYSTEM_RESTART_MASK	BIT(16U)
 #define PM_REQUESTED_SUSPEND        0x1U
 #define TO_ACK_CB(ack, status) (REQUEST_ACK_NON_BLOCKING == (ack))
 
@@ -863,7 +865,7 @@ int PmMasterRestart(PmMaster* const master)
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
-	/* TODO - signal here to the FSBL who do we want to restart */
+	XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE4, SUBSYSTEM_RESTART_MASK);
 	status = master->procs[0]->saveResumeAddr(master->procs[0], address);
 	if (XST_SUCCESS != status) {
 		goto done;
