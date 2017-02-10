@@ -1018,6 +1018,7 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 	bool approved = PmApiApprovalCheck(pload[0]);
 
 	if (false == approved) {
+		IPI_RESPONSE1(master->ipiMask, XST_PM_NO_ACCESS);
 		goto done;
 	}
 	switch (pload[0]) {
