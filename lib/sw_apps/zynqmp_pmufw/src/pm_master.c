@@ -42,6 +42,8 @@
 #include "pm_sram.h"
 #include "pm_ddr.h"
 #include "pm_requirement.h"
+#include "pm_periph.h"
+#include "pm_clock.h"
 #include "pmu_global.h"
 
 #include "xpfw_ipi_manager.h"
@@ -856,11 +858,26 @@ int PmMasterRestart(PmMaster* const master)
 {
 	int status;
 	u64 address = 0xFFFC0000ULL;
+	u32 idx;
+	/* Slaves used by FSBL/uboot for which clocks should be enabled at restart */
+	PmSlave *RestartDepSlavePtr[]={
+		&pmSlaveI2C0_g,
+		&pmSlaveI2C1_g,
+		&pmSlaveSD1_g,
+		&pmSlaveQSpi_g,
+	};
 
 	status = PmMasterFsm(master, PM_MASTER_EVENT_FORCE_DOWN);
 	if (XST_SUCCESS != status) {
 		goto done;
 	}
+
+	for(idx=0;idx<ARRAY_SIZE(RestartDepSlavePtr);idx++) {
+		if(NULL != PmRequirementGet(master, RestartDepSlavePtr[idx])) {
+			PmClockRestore(&RestartDepSlavePtr[idx]->node);
+		}
+	}
+
 	status = PmMasterFsm(master, PM_MASTER_EVENT_WAKE);
 	if (XST_SUCCESS != status) {
 		goto done;
