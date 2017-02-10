@@ -761,6 +761,7 @@ int PmMasterNotify(PmMaster* const master, const PmProcEvent event)
 			PmWakeUpCancelScheduled(master);
 			PmNotifierUnregisterAll(master);
 			master->state = PM_MASTER_STATE_KILLED;
+			master->wakeProc = NULL;
 		}
 		break;
 	default:
