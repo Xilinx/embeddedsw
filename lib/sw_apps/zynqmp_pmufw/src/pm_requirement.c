@@ -269,24 +269,24 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
 }
 
 /**
- * PmRequirementRequestDefault() - Request default requirements for master
- * @master      Master whose default requirements are requested
+ * PmRequirementPreRequest() - Request requirements for master which it will not
+ *			request for itself
+ * @master	Master whose requirements are requested
  *
- * When waking up from forced power down, master might have some default
- * requirements to be configured before it enters active state (example TCM for
- * RPU). This function loops all slaves, find those for which this master has
- * default requirements and updates next requirements in master/slave
- * requirement structure.
+ * When waking up from forced power down, master may have some requirements to
+ * be configured before it enters active state (example TCM for RPU). Loop
+ * through all slaves, find such requirements and update next requirements data
+ * in master/slave requirement structure that will be configured.
  */
-void PmRequirementRequestDefault(const PmMaster* const master)
+void PmRequirementPreRequest(const PmMaster* const master)
 {
 	PmRequirement* req = master->reqs;
 
 	while (NULL != req) {
-		if (0U != req->defaultReq) {
+		if (0U != req->preReq) {
 			/* Set flag to state that master is using slave */
 			req->info |= PM_MASTER_USING_SLAVE_MASK;
-			req->nextReq = req->defaultReq;
+			req->nextReq = req->preReq;
 		}
 		req = req->nextSlave;
 	}
@@ -390,10 +390,11 @@ int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 
 	if (0U != (PM_MASTER_USING_SLAVE_MASK & flags)) {
 		req->info |= PM_MASTER_USING_SLAVE_MASK;
+		req->currReq = currReq;
+		req->nextReq = currReq;
 	}
+	req->preReq = currReq;
 	req->defaultReq = defaultReq;
-	req->currReq = currReq;
-	req->nextReq = currReq;
 	req->latencyReq = MAX_LATENCY;
 	goto done;
 

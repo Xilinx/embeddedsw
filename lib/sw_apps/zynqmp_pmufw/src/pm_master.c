@@ -790,7 +790,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		if (PM_MASTER_STATE_SUSPENDED == master->state) {
 			status = PmRequirementUpdateScheduled(master, false);
 		} else if (PM_MASTER_STATE_KILLED == master->state) {
-			PmRequirementRequestDefault(master);
+			PmRequirementPreRequest(master);
 			status = PmRequirementUpdateScheduled(master, false);
 		} else {
 			/* Must have else branch due to MISRA */

@@ -68,6 +68,9 @@ typedef struct PmRequirement PmRequirement;
  * @master      Pointer to the master structure
  * @nextSlave   Pointer to the master's requirement for a next slave in the list
  * @nextMaster  Pointer to the requirement of a next master that uses the slave
+ * @preReq      Requirements of a master that it cannot request for itself (when
+ *              a master starts the cold boot there are some resources it will
+ *              use before it is capable of requesting them, like memories)
  * @defaultReq  Default requirements of a master - requirements for slave
  *              capabilities without which the master cannot run
  * @currReq     Currently holding requirements of a master for this slave
@@ -84,6 +87,7 @@ typedef struct PmRequirement {
 	PmMaster* master;
 	PmRequirement* nextSlave;
 	PmRequirement* nextMaster;
+	u32 preReq;
 	u32 defaultReq;
 	u32 currReq;
 	u32 nextReq;
@@ -96,7 +100,7 @@ typedef struct PmRequirement {
  ********************************************************************/
 
 void PmRequirementCancelScheduled(const PmMaster* const master);
-void PmRequirementRequestDefault(const PmMaster* const master);
+void PmRequirementPreRequest(const PmMaster* const master);
 void PmRequirementFreeAll(void);
 void PmRequirementClear(PmRequirement* const req);
 
