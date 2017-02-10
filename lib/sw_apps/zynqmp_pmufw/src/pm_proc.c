@@ -504,6 +504,7 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	PmDbg("ACTIVE->FORCED_PWRDN %s\r\n", PmStrNode(proc->node.nodeId));
 
 	proc->node.latencyMarg = MAX_LATENCY;
+	proc->resumeAddress = 0ULL;
 	status = PmProcSleep(proc);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
 	PmProcDisableEvents(proc);
