@@ -329,7 +329,8 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
     }
 
 	puts $config_file "\n\n"
-    puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+	set num_insts [::hsi::utils::get_driver_param_name $drv_string "NUM_INSTANCES"]
+	puts $config_file [format "%s_Config %s_ConfigTable\[%s\] =" $drv_string $drv_string $num_insts]
     puts $config_file "\{"
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set start_comma ""
