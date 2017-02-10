@@ -44,14 +44,17 @@
 *
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00  rco   07/31/15   Initial Release
-
+* 1.0   rco   07/31/15   Initial Release
+* 3.0   rco   02/09/17   Fix c++ compilation warnings
 * </pre>
 *
 ******************************************************************************/
 #include "xv_vscaler_l2.h"
 
 // Fixed 64 phase, 6 tap filter
+#ifdef __cplusplus
+extern "C"
+#endif
 const short XV_vscaler_fixedcoeff_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6] =
 {
 	{  -132,   236,  3824,   236,  -132,    64, },
@@ -121,6 +124,9 @@ const short XV_vscaler_fixedcoeff_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS
 };
 
 // Fixed 64 phase, 8 tap filter
+#ifdef __cplusplus
+extern "C"
+#endif
 const short XV_vscaler_fixedcoeff_taps8[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8] =
 {
     {-5, 309, 1023, 1445, 1034, 317, -3, -24, },
@@ -190,6 +196,9 @@ const short XV_vscaler_fixedcoeff_taps8[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS
 };
 
 // Fixed 64 phase, 10 tap filter
+#ifdef __cplusplus
+extern "C"
+#endif
 const short XV_vscaler_fixedcoeff_taps10[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10] =
 {
     {59, 224, 507, 790, 911, 793, 512, 227, 61, 13, },
@@ -259,6 +268,9 @@ const short XV_vscaler_fixedcoeff_taps10[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAP
 };
 
 // Fixed 64 phase, 12 tap filter
+#ifdef __cplusplus
+extern "C"
+#endif
 const short XV_vscaler_fixedcoeff_taps12[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12] =
 {
     {48, 143, 307, 504, 667, 730, 669, 507, 310, 145, 49, 18, },

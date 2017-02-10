@@ -50,7 +50,7 @@
 * 1.00  rco   07/21/15   Initial Release
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
 * 3.0   mpe   04/28/16   Added optional color format conversion handling
-*
+*       rco   02/09/17   Fix c++ compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -69,10 +69,10 @@
 /**************************** Type Definitions *******************************/
 
 /**************************** Local Global *******************************/
-const short XV_vscaler_fixedcoeff_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
-const short XV_vscaler_fixedcoeff_taps8[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8];
-const short XV_vscaler_fixedcoeff_taps10[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10];
-const short XV_vscaler_fixedcoeff_taps12[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12];
+extern const short XV_vscaler_fixedcoeff_taps6[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_6];
+extern const short XV_vscaler_fixedcoeff_taps8[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_8];
+extern const short XV_vscaler_fixedcoeff_taps10[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_10];
+extern const short XV_vscaler_fixedcoeff_taps12[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_TAPS_12];
 
 /************************** Function Prototypes ******************************/
 static void XV_VScalerSelectCoeff(XV_Vscaler_l2 *InstancePtr,
@@ -466,7 +466,8 @@ void XV_VScalerDbgReportStatus(XV_Vscaler_l2 *InstancePtr)
   xil_printf("Input Height:     %d\r\n",heightin);
   xil_printf("Output Height:    %d\r\n",heightout);
   xil_printf("4:2:0 processing: %s\r\n", allow420?"Enabled":"Disabled");
-  xil_printf("Color Format:     %s\r\n", XVidC_GetColorFormatStr(cformat));
+  xil_printf("Color Format:     %s\r\n",
+		  XVidC_GetColorFormatStr((XVidC_ColorFormat)cformat));
   xil_printf("Line Rate:        %d\r\n",linerate);
   xil_printf("Num Phases:       %d\r\n",phases);
 
