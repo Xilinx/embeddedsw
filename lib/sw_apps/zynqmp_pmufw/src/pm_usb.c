@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 /*********************************************************************
  * Definitions of PM slave USB structures and state transitions.
@@ -222,5 +220,3 @@ PmSlaveUsb pmSlaveUsb1_g = {
 	.PwrUp = XpbrPwrUpUsb1Handler,
 	.rstId = PM_RESET_USB1_CORERESET,
 };
-
-#endif

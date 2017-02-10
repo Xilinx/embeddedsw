@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 #include "pm_master.h"
 #include "pm_mmio_access.h"
@@ -210,5 +208,3 @@ bool PmGetMmioAccessWrite(const PmMaster *const master, const u32 address)
 {
 	return PmGetMmioAccess(master, address, MMIO_ACCESS_TYPE_WRITE);
 }
-
-#endif

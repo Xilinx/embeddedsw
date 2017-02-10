@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 /*********************************************************************
  * Definitions of processors and finite state machine
@@ -1058,5 +1056,3 @@ PmNodeClass pmNodeClassProc_g = {
 	.init = PmProcInit,
 	.isUsable = PmProcIsUsable,
 };
-
-#endif

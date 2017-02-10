@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 /*********************************************************************
  * This file contains PM master related data structures and
@@ -834,5 +832,3 @@ inline bool PmMasterCanForceDown(const PmMaster* const master,
 {
 	return 0U != (power->forcePerms & master->ipiMask);
 }
-
-#endif

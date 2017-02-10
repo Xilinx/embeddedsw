@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 /*********************************************************************
  * DDR slave definition
@@ -1188,5 +1186,3 @@ void ddr_io_retention_set(bool en)
 	}
 	Xil_Out32(PMU_GLOBAL_DDR_CNTRL, r);
 }
-
-#endif

@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 /*********************************************************************
  * Implementation of notifications and event handling within
@@ -238,5 +236,3 @@ void PmNotifierEvent(const PmNode* const nd, const u32 event)
 		PmNotifierProcessEvent(&pmNotifiers[i], event);
 	}
 }
-
-#endif

@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 #include "pm_periph.h"
 #include "pm_common.h"
@@ -914,5 +912,3 @@ PmSlave pmSlaveIpiRpu0_g = {
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
-
-#endif

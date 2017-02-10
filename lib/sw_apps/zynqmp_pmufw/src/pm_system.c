@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 /*********************************************************************
  * Contains system-level PM functions and state
@@ -116,5 +114,3 @@ inline bool PmSystemRequestNotAllowed(const PmMaster* const master)
 {
 	return 0U == (master->ipiMask & pmSystem.permissions);
 }
-
-#endif

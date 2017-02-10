@@ -27,8 +27,6 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
-#include "xpfw_config.h"
-#ifdef ENABLE_PM
 
 /*********************************************************************
  * Definitions of commonly used functions for debugging PMU Power
@@ -223,5 +221,3 @@ const char* PmStrReason(const u32 reason)
 }
 
 #endif /* DEBUG_PM */
-
-#endif
