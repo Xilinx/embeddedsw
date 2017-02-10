@@ -31,8 +31,6 @@
 #ifndef XPFW_MOD_WDT_H_
 #define XPFW_MOD_WDT_H_
 
-#include "xwdtps.h"
-
 void ModWdtInit(void);
 
 #endif /* XPFW_MOD_WDT_H_ */

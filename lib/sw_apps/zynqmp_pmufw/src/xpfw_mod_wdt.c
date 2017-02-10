@@ -36,6 +36,7 @@
 #include "xpfw_mod_wdt.h"
 
 #ifdef ENABLE_WDT
+#include "xwdtps.h"
 
 /* Instance of WDT Driver */
 static XWdtPs WdtInst;
