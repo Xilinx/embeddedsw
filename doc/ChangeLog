@@ -344,6 +344,7 @@ Fixed Compilation warnings - CR#957004
 video_common_v4_1
 Added new memory formats
 Added API to get video mode id with matching blanking information
+Fixed c++ compilation warnings
 
 v_frmbuf_rd_v1_0
 added initial version
@@ -362,6 +363,7 @@ Updated example design FULL topology test cases
 Updated makefile to add compiler flags to seggregate dat and text sections
 Updated mdd to remove sub-core version dependency
 Added HasMADI flag to subsystem configuration and fix for CR#964829
+Fixed c++ compilation warnings
 
 xilfpga_v2_0:
 Added Encrypted BitStream Loading support to the xilfpga library.
