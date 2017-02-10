@@ -149,6 +149,8 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event);
 
 bool PmProcHasResumeAddr(const PmProc* const proc);
 
+PmProc* PmProcGetByWakeMask(const u32 wake);
+
 /**
  * PmProcIsForcedOff() - Check whether given processor is in forced off state
  */

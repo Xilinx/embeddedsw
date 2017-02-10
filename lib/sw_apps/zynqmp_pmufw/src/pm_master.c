@@ -516,33 +516,6 @@ done:
 }
 
 /**
- * PmGetProcByWakeStatus() - Get proc struct by wake interrupt status
- * @mask    GIC wake mask read from GPI1 register
- *
- * @return  Pointer to a processor structure whose wake mask is provided
- */
-PmProc* PmGetProcByWakeStatus(const u32 mask)
-{
-	PmProc *proc = NULL;
-	PmMaster* mst = pmMasterHead;
-
-	while (NULL != mst) {
-		u32 p;
-
-		for (p = 0U; p < mst->procsCnt; p++) {
-			if (0U != (mask & mst->procs[p]->wakeStatusMask)) {
-				proc = mst->procs[p];
-				goto done;
-			}
-		}
-		mst = mst->nextMaster;
-	}
-
-done:
-	return proc;
-}
-
-/**
  * PmMasterConfigWakeEvents() - Configure wake events for the master
  * @master	Master for which wake events should be configured
  * @enable	Flag (true to enable event propagation, false otherwise)

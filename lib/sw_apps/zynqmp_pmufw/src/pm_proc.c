@@ -715,6 +715,29 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 }
 
 /**
+ * PmProcGetByWakeMask() - Get processor struct by wake interrupt status mask
+ * @wake	GIC wake mask read from GPI1 register
+ *
+ * @return	Processor whose wake mask is provided as the argument
+ */
+PmProc* PmProcGetByWakeMask(const u32 wake)
+{
+	PmProc* found = NULL;
+	u32 i;
+
+	for (i = 0U; i < pmNodeClassProc_g.bucketSize; i++) {
+		PmProc* proc = (PmProc*)pmNodeClassProc_g.bucket[i];
+
+		if (0U != (proc->wakeStatusMask & wake)) {
+			found = proc;
+			break;
+		}
+	}
+
+	return found;
+}
+
+/**
  * PmProcClearConfig() - Clear configuration of the processor node
  * @procNode	Processor node
  */
