@@ -62,6 +62,7 @@
 *                        disabled but logo pixel alpha enabled
 *             01/26/16   Bug fix - Read power on default video stream
 *                        properties from IP configuration
+*             02/09/17   Fix c++ compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -143,21 +144,23 @@ int XVMix_Initialize(XV_Mix_l2 *InstancePtr, u16 DeviceId)
 static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
 {
   u32 index;
-  XVidC_VideoStream VidStrm = {0};
+  XVidC_VideoStream VidStrm;
   XV_mix *MixPtr;
 
   MixPtr = &InstancePtr->Mix;
+
+  memset(&VidStrm, 0, sizeof(XVidC_VideoStream));
 
   /* Disable All layers */
   XVMix_LayerDisable(InstancePtr, XVMIX_LAYER_ALL);
 
   /* Set Default Stream In and Out */
   VidStrm.VmId           = XVIDC_VM_CUSTOM;
-  VidStrm.ColorFormatId  = MixPtr->Config.ColorFormat;
+  VidStrm.ColorFormatId  = (XVidC_ColorFormat)MixPtr->Config.ColorFormat;
   VidStrm.FrameRate      = XVIDC_FR_60HZ;
   VidStrm.IsInterlaced   = FALSE;
-  VidStrm.ColorDepth     = MixPtr->Config.MaxDataWidth;
-  VidStrm.PixPerClk      = MixPtr->Config.PixPerClk;
+  VidStrm.ColorDepth     = (XVidC_ColorDepth)MixPtr->Config.MaxDataWidth;
+  VidStrm.PixPerClk      = (XVidC_PixelsPerClock)MixPtr->Config.PixPerClk;
   VidStrm.Timing.HActive = MixPtr->Config.MaxWidth;
   VidStrm.Timing.VActive = MixPtr->Config.MaxHeight;
 
@@ -169,7 +172,7 @@ static void SetPowerOnDefaultState(XV_Mix_l2 *InstancePtr)
   /* Set default background color */
   XVMix_SetBackgndColor(InstancePtr,
                         XVMIX_BKGND_BLUE,
-                        MixPtr->Config.MaxDataWidth);
+                        (XVidC_ColorDepth)MixPtr->Config.MaxDataWidth);
 
   /* Check each layers scaling feature configuration
    *  - Disabled: Update Layer config MaxWidth with IP MaxWidth
@@ -465,7 +468,7 @@ void XVMix_SetBackgndColor(XV_Mix_l2 *InstancePtr,
   Xil_AssertVoid((bpc >= XVIDC_BPC_8) &&
                  (bpc <= InstancePtr->Mix.Config.MaxDataWidth))
 
-  cfmt = XV_mix_Get_HwReg_video_format(&InstancePtr->Mix);
+  cfmt = (XVidC_ColorFormat)XV_mix_Get_HwReg_video_format(&InstancePtr->Mix);
 
   if(cfmt == XVIDC_CSF_RGB) {
     scale = ((1<<bpc)-1);
@@ -521,7 +524,7 @@ int XVMix_SetLayerWindow(XV_Mix_l2 *InstancePtr,
   Xil_AssertNonvoid((Win->Width  % InstancePtr->Mix.Config.PixPerClk) == 0);
 
   /* Check window coordinates */
-  Scale = XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
+  Scale = (XVMix_Scalefactor)XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
   if(!IsWindowValid(&InstancePtr->Stream, Win, Scale)) {
 	  return(XVMIX_ERR_LAYER_WINDOW_INVALID);
   }
@@ -734,7 +737,7 @@ int XVMix_MoveLayerWindow(XV_Mix_l2 *InstancePtr,
   CurrWin.StartX = StartX;
   CurrWin.StartY = StartY;
   /* Get scale factor */
-  Scale = XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
+  Scale = (XVMix_Scalefactor)XVMix_GetLayerScaleFactor(InstancePtr, LayerId);
   /* Validate new start position will not cause the layer window
    * to go out of scope
    */
@@ -1075,9 +1078,9 @@ int XVMix_GetLayerColorFormat(XV_Mix_l2 *InstancePtr,
       }
 #endif
       if (LayerId == XVMIX_LAYER_MASTER) {
-          *Cfmt = MixPtr->Config.ColorFormat;
+          *Cfmt = (XVidC_ColorFormat)MixPtr->Config.ColorFormat;
       } else { //Layer 1-7
-          *Cfmt = MixPtr->Config.LayerColorFmt[LayerId-1];
+          *Cfmt = (XVidC_ColorFormat)(MixPtr->Config.LayerColorFmt[LayerId-1]);
       }
       Status = XST_SUCCESS;
   }
@@ -1412,7 +1415,7 @@ void XVMix_DbgReportStatus(XV_Mix_l2 *InstancePtr)
   xil_printf("Layer Master: %s\r\n", Status[IsEnabled]);
   for(index = XVMIX_LAYER_1; index<XVMIX_LAYER_LOGO; ++index) {
       xil_printf("Layer %d     : %s\r\n" ,index,
-              Status[(XVMix_IsLayerEnabled(InstancePtr, index))]);
+              Status[(XVMix_IsLayerEnabled(InstancePtr, (XVMix_LayerId)index))]);
   }
   IsEnabled = XVMix_IsLayerEnabled(InstancePtr, XVMIX_LAYER_LOGO);
   xil_printf("Layer Logo  : %s\r\n\r\n", Status[IsEnabled]);
@@ -1442,9 +1445,9 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
   XVidC_VideoWindow Win;
   XVidC_ColorFormat ColFormat;
   XVMix_LayerType LayerType;
-  char *Status[2] = {"Disabled", "Enabled"};
-  char *ScaleFactor[3] = {"1x", "2x", "4x"};
-  char *IntfType[2] = {"Memory", "Stream"};
+  const char *Status[2] = {"Disabled", "Enabled"};
+  const char *ScaleFactor[3] = {"1x", "2x", "4x"};
+  const char *IntfType[2] = {"Memory", "Stream"};
 
   Xil_AssertVoid(InstancePtr != NULL);
   Xil_AssertVoid((LayerId >= XVMIX_LAYER_MASTER) &&
@@ -1507,7 +1510,7 @@ void XVMix_DbgLayerInfo(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId)
 	    break;
 
     default: //Layer1-7
-        LayerType = XVMix_GetLayerInterfaceType(InstancePtr, LayerId);
+        LayerType = (XVMix_LayerType)XVMix_GetLayerInterfaceType(InstancePtr, LayerId);
         xil_printf("\r\n\r\n----->Layer %d Status<----\r\n", LayerId);
         xil_printf("State: %s\r\n", Status[IsEnabled]);
         xil_printf("Type : %s\r\n", IntfType[LayerType]);
