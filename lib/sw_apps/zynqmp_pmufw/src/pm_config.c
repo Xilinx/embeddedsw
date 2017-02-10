@@ -38,6 +38,7 @@
 #include "pm_reset.h"
 #include "pm_requirement.h"
 #include "pm_node.h"
+#include "pm_system.h"
 
 typedef int (*const PmConfigSectionHandler)(u32* const addr);
 
@@ -481,6 +482,10 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 	}
 
 	PmConfigClear();
+	status = PmSystemRequirementAdd();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
 
 	/* Read number of remaining words in header */
 	remWords = PmConfigReadNext(&currAddr);

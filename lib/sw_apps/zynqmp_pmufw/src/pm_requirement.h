@@ -112,6 +112,7 @@ int PmRequirementReleaseAll(const PmMaster* const master);
 
 PmRequirement* PmRequirementGet(const PmMaster* const master,
 				const PmSlave* const slave);
+PmRequirement* PmRequirementGetNoMaster(const PmSlave* const slave);
 
 int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 			   const u32 currReq, const u32 defaultReq);

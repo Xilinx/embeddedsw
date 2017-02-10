@@ -37,6 +37,8 @@
 #include "crl_apb.h"
 #include "pm_callbacks.h"
 #include "xpfw_resets.h"
+#include "pm_requirement.h"
+#include "pm_sram.h"
 
 /*********************************************************************
  * Structure definitions
@@ -53,6 +55,16 @@ typedef struct {
 	u32 permissions;
 } PmSystem;
 
+/**
+ * PmSystemRequirement - System level requirements (not assigned to any master)
+ * @slave	Slave for which the requirements are set
+ * @caps	Capabilities of the slave that are required by the system
+ */
+typedef struct PmSystemRequirement {
+	PmSlave* const slave;
+	u32 caps;
+} PmSystemRequirement;
+
 /*********************************************************************
  * Data initialization
  ********************************************************************/
@@ -63,6 +75,24 @@ PmSystem pmSystem = {
 		   IPI_PMU_0_IER_RPU_0_MASK,
 	.permissions = IPI_PMU_0_IER_APU_MASK |
 		       IPI_PMU_0_IER_RPU_0_MASK,
+};
+
+/*
+ * These requirements are needed for the system to operate:
+ * - OCM bank(s) store FSBL which is needed to restart APU, and should never be
+ *   powered down unless the whole system goes down.
+ */
+PmSystemRequirement pmSystemReqs[] = {
+	{
+		.slave = &pmSlaveOcm0_g.slv,
+		.caps = PM_CAP_CONTEXT,
+	}, {
+		.slave = &pmSlaveOcm1_g.slv,
+		.caps = PM_CAP_CONTEXT,
+	}, {
+		.slave = &pmSlaveOcm2_g.slv,
+		.caps = PM_CAP_CONTEXT,
+	},
 };
 
 /*********************************************************************
@@ -113,4 +143,45 @@ void PmSystemProcessShutdown(const PmMaster *master, u32 type, u32 subtype)
 inline bool PmSystemRequestNotAllowed(const PmMaster* const master)
 {
 	return 0U == (master->ipiMask & pmSystem.permissions);
+}
+
+/**
+ * PmSystemRequirementAdd() - Add requirements of the system
+ * @return	XST_SUCCESS if requirements are added, XST_FAILURE otherwise
+ */
+int PmSystemRequirementAdd(void)
+{
+	int status;
+	u32 i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
+		PmRequirement* req;
+
+		status = PmRequirementAdd(NULL, pmSystemReqs[i].slave);
+		if (XST_SUCCESS != status) {
+			goto done;
+		}
+
+		req = PmRequirementGetNoMaster(pmSystemReqs[i].slave);
+		if (NULL == req) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		status = PmCheckCapabilities(req->slave, pmSystemReqs[i].caps);
+		if (XST_SUCCESS != status) {
+			status = XST_FAILURE;
+			goto done;
+		}
+
+		req->info |= PM_MASTER_USING_SLAVE_MASK;
+		req->preReq = pmSystemReqs[i].caps;
+		req->currReq = pmSystemReqs[i].caps;
+		req->nextReq = pmSystemReqs[i].caps;
+		req->defaultReq = pmSystemReqs[i].caps;
+		req->latencyReq = MAX_LATENCY;
+	}
+
+done:
+	return status;
 }

@@ -45,4 +45,6 @@ void PmSystemProcessShutdown(const PmMaster *master, u32 type, u32 subtype)
 	__attribute__((noreturn));
 bool PmSystemRequestNotAllowed(const PmMaster* const master);
 
+int PmSystemRequirementAdd(void);
+
 #endif

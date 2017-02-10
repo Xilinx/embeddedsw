@@ -53,9 +53,11 @@ static u32 pmReqTop;
  */
 static void PmRequirementLink(PmRequirement* const req)
 {
-	/* The req structure is becoming master's head of requirements list */
-	req->nextSlave = req->master->reqs;
-	req->master->reqs = req;
+	if (NULL != req->master) {
+		/* The req structure is becoming master's head of requirements list */
+		req->nextSlave = req->master->reqs;
+		req->master->reqs = req;
+	}
 
 	/* The req is becoming the head of slave's requirements list as well */
 	req->nextMaster = req->slave->reqs;
@@ -356,6 +358,26 @@ PmRequirement* PmRequirementGet(const PmMaster* const master,
 			break;
 		}
 		req = req->nextSlave;
+	}
+
+	return req;
+}
+
+/**
+ * PmRequirementGetNoMaster() - Get system requirement for a slave
+ * @slave	Slave in question
+ *
+ * @return	Pointer to the requirement or NULL if not found.
+ */
+PmRequirement* PmRequirementGetNoMaster(const PmSlave* const slave)
+{
+	PmRequirement* req = slave->reqs;
+
+	while (NULL != req) {
+		if (NULL == req->master) {
+			break;
+		}
+		req = req->nextMaster;
 	}
 
 	return req;
