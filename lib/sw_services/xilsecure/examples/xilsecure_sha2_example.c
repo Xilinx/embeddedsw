@@ -152,6 +152,7 @@ u32 XSecure_Sha2_Hash_Gn()
 {
 	sha2_context Sha2;
 	u8 Output_Hash[32];
+	u8 IntermediateHash[32];
 	u8 Cal_Hash[32];
 	u32 Index;
 	u32 Size = XSECURE_DATA_SIZE;
@@ -160,6 +161,15 @@ u32 XSecure_Sha2_Hash_Gn()
 	/* Generating SHA2 hash */
 	sha2_starts(&Sha2);
 	sha2_update(&Sha2, (u8 *)Data, Size - 1);
+
+	/* If required we can read intermediate hash */
+	sha2_hash(&Sha2, IntermediateHash);
+	xil_printf("Intermediate SHA2 Hash is: ");
+	for (Index = 0; Index < 32; Index++) {
+		xil_printf("%02x", IntermediateHash[Index]);
+	}
+	xil_printf("\n");
+
 	sha2_finish(&Sha2, Output_Hash);
 
 	xil_printf("Generated SHA2 Hash is: ");
