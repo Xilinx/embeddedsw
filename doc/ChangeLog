@@ -341,6 +341,9 @@ sync UART_CLK_FREQ_HZ parameter with xparameters.h file uart frequency
 parameter macro
 Fixed Compilation warnings - CR#957004
 
+usbpsu_1_2:
+Updated source code to fix compilation errors for IAR compiler.
+
 video_common_v4_1
 Added new memory formats
 Added API to get video mode id with matching blanking information
