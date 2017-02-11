@@ -440,6 +440,7 @@ static void PmRequestNode(const PmMaster *master,
 
 	if (0U != (PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
 		status = XST_PM_DOUBLE_REQ;
+		PmDbg("Warning %d: slave already requested\r\n", status);
 		goto done;
 	}
 
