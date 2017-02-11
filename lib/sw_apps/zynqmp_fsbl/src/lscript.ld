@@ -309,6 +309,12 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    __undef_stack = .;
 } > psu_ram_0_S_AXI_BASEADDR
 
+.dup_data (ALIGN(64)): {
+   __dup_data_start = .;
+   . += __data_end - __data_start ;
+   __dup_data_end = .;
+} > psu_ocm_ram_0_S_AXI_BASEADDR
+
 .handoff_params (NOLOAD) : {
    . = ALIGN(512);
    *(.handoff_params)

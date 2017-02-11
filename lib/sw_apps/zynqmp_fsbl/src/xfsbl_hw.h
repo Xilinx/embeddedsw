@@ -323,7 +323,7 @@ extern "C" {
 
 /* pmu_global */
 #define PMU_GLOBAL_GLOB_GEN_STORAGE6    ( ( PMU_GLOBAL_BASEADDR ) + 0X48U )
-
+#define PMU_GLOBAL_GLOB_GEN_STORAGE4 	( ( PMU_GLOBAL_BASEADDR ) + 0X40U )
 /**
  * Register: PMU_GLOBAL_PERS_GLOB_GEN_STORAGE4
  */
@@ -796,6 +796,9 @@ extern "C" {
 #define PTRSIZE		u32
 #endif
 
+/* Warm Reset Macros */
+#define XFSBL_SYSTEM_RESET		0U
+#define XFSBL_APU_ONLY_RESET	1U
 
 /****************************************************************************/
 /**

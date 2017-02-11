@@ -68,6 +68,7 @@ static void XFsbl_FallBack(void);
 
 /************************** Variable Definitions *****************************/
 XFsblPs FsblInstance={0x3U, XFSBL_SUCCESS, 0U, 0U, 0U};
+extern u32 WarmReset;
 /*****************************************************************************/
 /** This is the FSBL main function and is implemented stage wise.
  *
@@ -502,6 +503,8 @@ static void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
 	dsb();
 	isb();
 
+	if(WarmReset == XFSBL_SYSTEM_RESET) {
+
 	/* Soft reset the system */
 	XFsbl_Printf(DEBUG_GENERAL,"Performing System Soft Reset\n\r");
 	RegValue = XFsbl_In32(CRL_APB_RESET_CTRL);
@@ -511,6 +514,13 @@ static void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
 	/* wait here until reset happens */
 	while(1) {
 	;
+	}
+	}
+	else
+	{
+		for(;;){
+			/*We should not be here*/
+		}
 	}
 
 	return;

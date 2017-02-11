@@ -66,6 +66,8 @@
 
 /************************** Constant Definitions *****************************/
 #define PART_NAME_LEN_MAX		20U
+#define XFSBL_APU_RESET_MASK			(1U<<16U)
+#define XFSBL_APU_RESET_BIT			16U
 
 /**************************** Type Definitions *******************************/
 
@@ -96,6 +98,56 @@ void XFsbl_RegisterHandlers(void);
 
 
 /************************** Variable Definitions *****************************/
+u32 WarmReset;
+extern XFsblPs FsblInstance;
+
+extern  u8 __data_start;
+extern  u8 __data_end;
+
+extern  u8 __dup_data_start;
+extern  u8 __dup_data_end;
+
+/****************************************************************************/
+/**
+ * This function is used to save the data section into duplicate data section
+ * so that it can be restored from incase of subsequent warm restarts
+ *
+ * @param  None
+ *
+ * @return None
+ *
+ * @note
+ *
+ *****************************************************************************/
+void XFsbl_SaveData(void)
+{
+	const u8 *MemPtr;
+    u8 *ContextMemPtr = (u8 *)&__dup_data_start;
+    for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
+	*ContextMemPtr = *MemPtr;
+    }
+}
+
+/****************************************************************************/
+/**
+ * This function is used to restore the data section from duplicate data section
+ * in case of warm restart.
+ *
+ * @param  None
+ *
+ * @return None
+ *
+ * @note
+ *
+ *****************************************************************************/
+void XFsbl_RestoreData(void)
+{
+	u8 *MemPtr;
+    u8 *ContextMemPtr = (u8 *)&__dup_data_start;
+    for (MemPtr = &__data_start; MemPtr < &__data_end; MemPtr++, ContextMemPtr++) {
+	*MemPtr = *ContextMemPtr;
+    }
+}
 
 /****************************************************************************/
 /**
@@ -126,6 +178,16 @@ static u32 XFsbl_GetResetReason (void)
 		Ret=0U;
 	}
 
+	WarmReset = (XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE4) & XFSBL_APU_RESET_MASK)>>(XFSBL_APU_RESET_BIT);
+
+	if(WarmReset == XFSBL_SYSTEM_RESET) {
+		XFsbl_SaveData();
+	}
+	else
+	{
+		XFsbl_RestoreData();
+	}
+
 	return Ret;
 }
 
@@ -153,9 +215,11 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	/**
 	 * Configure the system as in PSU
 	 */
-	Status = XFsbl_SystemInit(FsblInstancePtr);
-	if (XFSBL_SUCCESS != Status) {
-		goto END;
+	if(WarmReset ==  XFSBL_SYSTEM_RESET){
+		Status = XFsbl_SystemInit(FsblInstancePtr);
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
+		}
 	}
 
 	/**
@@ -169,11 +233,12 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-	/* Do ECC Initialization of TCM if required */
-	Status = XFsbl_TcmInit(FsblInstancePtr);
-	if (XFSBL_SUCCESS != Status) {
-		goto END;
-	}
+	if(WarmReset == XFSBL_SYSTEM_RESET) {
+		/* Do ECC Initialization of TCM if required */
+		Status = XFsbl_TcmInit(FsblInstancePtr);
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
+		}
 
 	/* Do ECC Initialization of DDR if required */
 	Status = XFsbl_DdrEccInit();
@@ -202,6 +267,7 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 	Status = XFsbl_ResetValidation();
 	if (XFSBL_SUCCESS != Status) {
 		goto END;
+		}
 	}
 
 	XFsbl_Printf(DEBUG_INFO,"Processor Initialization Done \n\r");

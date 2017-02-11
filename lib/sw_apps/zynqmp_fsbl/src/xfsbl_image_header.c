@@ -59,7 +59,7 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-
+extern u32 WarmReset;
 /***************** Macros (Inline Functions) Definitions *********************/
 u32 XFsbl_GetPartitionOwner(const XFsblPs_PartitionHeader * PartitionHeader)
 {
@@ -603,6 +603,21 @@ u32 XFsbl_ValidatePartitionHeader(
 
 
 	DestinationCpu = XFsbl_GetDestinationCpu(PartitionHeader);
+		if(WarmReset == XFSBL_APU_ONLY_RESET){
+		if((DestinationCpu <= XIH_PH_ATTRB_DEST_CPU_A53_3) && (DestinationCpu >= XIH_PH_ATTRB_DEST_CPU_A53_0)){
+			/* Do Nothing*/
+		}
+		else
+		{
+			Status = XFSBL_SUCCESS_NOT_PARTITION_OWNER;
+			goto END;
+		}
+
+	}
+	else
+	{
+		/*Do Nothing*/
+	}
 
 	/* if destination cpu is not present, it means it is for same cpu */
 	if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_NONE)

@@ -108,6 +108,7 @@ extern u8 R5LovecBuffer[32];
 extern u32 TcmSkipLength;
 extern PTRSIZE TcmSkipAddress;
 #endif
+extern u32 WarmReset;
 
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings)
 {
@@ -735,6 +736,8 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	PartitionHeader =
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 
+	if(WarmReset == XFSBL_SYSTEM_RESET){
+
 	Status = XFsbl_PmInit();
 	if (Status != XFSBL_SUCCESS) {
 		Status = XFSBL_ERROR_PM_INIT;
@@ -759,6 +762,8 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	}
 
 	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
+
+	}
 
 	/**
 	 * if JTAG bootmode, be in while loop as of now
