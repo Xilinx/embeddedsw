@@ -36,6 +36,7 @@
 #include "pm_pll.h"
 #include "pm_periph.h"
 #include "pm_ddr.h"
+#include "pm_clock.h"
 
 /*
  * The array below is used as the heap, because dynamic memory allocation is
@@ -414,6 +415,7 @@ int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 		req->info |= PM_MASTER_USING_SLAVE_MASK;
 		req->currReq = currReq;
 		req->nextReq = currReq;
+		PmClockSave(&req->slave->node);
 	}
 	req->preReq = currReq;
 	req->defaultReq = defaultReq;

@@ -1117,6 +1117,21 @@ void PmClockConstructList(void)
 }
 
 /**
+ * @PmClockSave() - Save control register values for clocks used by the node
+ * @node	Node whose clock control regs need to be saved
+ */
+void PmClockSave(PmNode* const node)
+{
+	PmClockHandle* ch = node->clocks;
+	PmDbg("%s\r\n", PmStrNode(node->nodeId));
+
+	while (NULL != ch) {
+		ch->clock->ctrlVal = XPfw_Read32(ch->clock->ctrlAddr);
+		ch = ch->nextClock;
+	}
+}
+
+/**
  * PmClockRequest() - Request clocks used by the given node
  * @node	Node whose clocks need to be requested
  * @return	XST_SUCCESS if the request is processed correctly, or error code
@@ -1149,6 +1164,11 @@ int PmClockRequest(PmNode* const node)
 		status = PmPllRequest(ch->clock->pll);
 		if (XST_SUCCESS != status) {
 			goto done;
+		}
+
+		/* Restore the clock configuration if needed */
+		if (0U != ch->clock->ctrlVal) {
+			XPfw_Write32(ch->clock->ctrlAddr, ch->clock->ctrlVal);
 		}
 
 		ch = ch->nextClock;
