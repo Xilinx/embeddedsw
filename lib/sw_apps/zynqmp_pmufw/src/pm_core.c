@@ -65,11 +65,6 @@ static void PmProcessAckRequest(const u32 ack,
 				const u32 status,
 				const u32 oppoint)
 {
-#ifdef DEBUG_PM
-	if (status != XST_SUCCESS) {
-		PmDbg("ERROR PM operation failed - code %lu\r\n", status);
-	}
-#endif
 	if (REQUEST_ACK_BLOCKING == ack) {
 		/* Return status immediately */
 		IPI_RESPONSE1(master->ipiMask, status);
