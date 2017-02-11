@@ -39,6 +39,7 @@
 #include "xpfw_resets.h"
 #include "pm_requirement.h"
 #include "pm_sram.h"
+#include "pm_ddr.h"
 
 /*********************************************************************
  * Structure definitions
@@ -83,6 +84,12 @@ PmSystemRequirement pmSystemReqs[] = {
 		.caps = PM_CAP_CONTEXT,
 	}, {
 		.slave = &pmSlaveOcm2_g.slv,
+		.caps = PM_CAP_CONTEXT,
+	},{
+		.slave = &pmSlaveOcm3_g.slv,
+		.caps = PM_CAP_CONTEXT,
+	},{
+		.slave = &pmSlaveDdr_g,
 		.caps = PM_CAP_CONTEXT,
 	},
 };
