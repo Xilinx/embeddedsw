@@ -315,32 +315,31 @@ proc intc_define_vector_table {periph config_inc config_file} {
         if {[llength $source_name($i)] == 0} {
             puts $config_file "\t\t\t\t(void *)XNULL"
         } else {
-            set drv [hsi::get_drivers -filter "HW_INSTANCE==$source_name($i)"]
-            set drvname [common::get_property NAME $drv]
+            set source_name_port_name $source_name($i)$source_port_name($i)
             set sname [string toupper $source_name($i)]
 	    set source_xparam_name [::hsi::utils::format_xparam_name $sname]
 	    set pname [string toupper $periph_name]
 	    set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
-	    if {[lcount $instance_list $source_name($i)] != 0 && [string compare -nocase $drvname "axidma"] != 0 && [string compare -nocase $drvname "axivdma"] != 0} {
+	    if {[lcount $instance_list $source_name_port_name] != 0} {
 	        puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
 	    } else {
 	        puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
 	    }
 	    if {$cascade ==1} {
-	       if {[lcount $instance_list $source_name($i)] == 0 || [string compare -nocase $drvname "axidma"] == 0 || [string compare -nocase $drvname "axivdma"] == 0 } {
+	       if {[lcount $instance_list $source_name_port_name] == 0} {
                 puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
 	       } else {
 	           puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
 	       }
             } else {
-                 if {[lcount $instance_list $source_name($i)] == 0  || [string compare -nocase $drvname "axidma"] == 0 || [string compare -nocase $drvname "axivdma"] == 0 } {
+                 if {[lcount $instance_list $source_name_port_name] == 0} {
                      puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
                  } else {
                      puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
                  }
 
             }
-	    lappend instance_list $source_name($i)
+	    lappend instance_list $source_name_port_name
             if {[string compare -nocase "global" $source_port_type($i) ] != 0 && \
                 [string compare $source_interrupt_handler($i) $default_interrupt_handler ] != 0} {
                 puts $config_file [format "\t\t\t\t(void *) %s" $source_handler_arg($i)]
@@ -525,6 +524,7 @@ proc xredefine_intc {drvhandle config_inc} {
                 #
                 if { [lcount $source_list $source_name($i)] > 1} {
                     set port_name [string toupper $source_port_name($i)]
+                    set source_name_port_name $source_name($i)$source_port_name($i)
 		    #
 		    # If IP is interrupting through two axi intc pins
 		    # then add "LOW_PRIORITY" string to canonical definition and constant
@@ -544,7 +544,7 @@ proc xredefine_intc {drvhandle config_inc} {
                     if {[string compare -nocase $drvname "axiethernet"] == 0} {
                         if {[string compare -nocase $port_name "INTERRUPT"] == 0} {
 
-                            if {[lcount $instance_list $source_name($i)] == 0 } {
+                            if {[lcount $instance_list $source_name_port_name] == 0 } {
                                 set first_part [format "#define XPAR_%s_%s_%s_%s_VEC_ID" $periph_name $device_id $drvname $instance]
                                 set second_part [format "XPAR_%s_%s_%s_INTR" [string toupper $periph_ip_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] ]
                              } else {
@@ -552,7 +552,7 @@ proc xredefine_intc {drvhandle config_inc} {
                                 set second_part [format "XPAR_%s_%s_%s_LOW_PRIORITY_INTR" [string toupper $periph_ip_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] ]
                              }
                         } else {
-                            if {[lcount $instance_list $source_name($i)] == 0 } {
+                            if {[lcount $instance_list $source_name_port_name] == 0 } {
                                 set first_part [format "#define XPAR_%s_%s_%s_%s_%s_VEC_ID" $periph_name $device_id $drvname $instance $port_name]
                                 set second_part [format "XPAR_%s_%s_%s_INTR" [string toupper $periph_ip_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] ]
                             } else {
@@ -561,14 +561,14 @@ proc xredefine_intc {drvhandle config_inc} {
                             }
                         }
 
-                    } elseif {[lcount $instance_list $source_name($i)] != 0 && [string compare -nocase $drvname "axidma"] != 0 && [string compare -nocase $drvname "axivdma"] != 0 }  {
+                    } elseif {[lcount $instance_list $source_name_port_name] != 0}  {
                             set first_part [format "#define XPAR_%s_%s_%s_%s_%s_LOW_PRIORITY_VEC_ID" $periph_name $device_id $drvname $instance $port_name]
                             set second_part [format "XPAR_%s_%s_%s_LOW_PRIORITY_INTR" [string toupper $periph_ip_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] ]
                     } else {
 		            set first_part [format "#define XPAR_%s_%s_%s_%s_%s_VEC_ID" $periph_name $device_id $drvname $instance $port_name]
 			    set second_part [format "XPAR_%s_%s_%s_INTR" [string toupper $periph_ip_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] ]
 		    }
-		    lappend instance_list $source_name($i)
+		    lappend instance_list $source_name_port_name
                 } else {
                     set first_part [format "#define XPAR_%s_%s_%s_%s_VEC_ID" $periph_name $device_id $drvname $instance]
                     set second_part [format "XPAR_%s_%s_%s_INTR" [string toupper $periph_ip_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] ]
