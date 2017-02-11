@@ -243,6 +243,10 @@ Updated xredefine_intc and intc_define_vector_table functions
 to generate separate canonical definitions and constants
 definitions for interrupt IDs/Masks, if interrupt pin of
 same IP is connected to two axi intc pins
+Updated xredefine_intc and intc_define_vector_table functions in
+tcl, to add "LOW_PRIORITY" string in canonical/constant names of
+interrupts connected to higher pin number of INTC, only if specific interrupt
+port of IP is interrupting through more than one INTC pins.
 
 ipipsu_v2_2:
 Modified the ipipsu.tcl script to have array size in config table. Fixes
