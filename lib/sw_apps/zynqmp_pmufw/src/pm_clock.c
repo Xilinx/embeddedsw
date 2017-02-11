@@ -235,6 +235,7 @@ static PmClock pmClockAcpu = {
 	.ctrlAddr = CRF_APB_ACPU_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -243,6 +244,7 @@ static PmClock pmClockDbgTrace = {
 	.ctrlAddr = CRF_APB_DBG_TRACE_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -251,6 +253,7 @@ static PmClock pmClockDbgFpd = {
 	.ctrlAddr = CRF_APB_DBG_FPD_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockDpVideo = {
@@ -258,6 +261,7 @@ static PmClock pmClockDpVideo = {
 	.ctrlAddr = CRF_APB_DP_VIDEO_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockDpAudio = {
@@ -265,6 +269,7 @@ static PmClock pmClockDpAudio = {
 	.ctrlAddr = CRF_APB_DP_AUDIO_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockDpStc = {
@@ -272,6 +277,7 @@ static PmClock pmClockDpStc = {
 	.ctrlAddr = CRF_APB_DP_STC_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockDdr = {
@@ -279,6 +285,7 @@ static PmClock pmClockDdr = {
 	.ctrlAddr = CRF_APB_DDR_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockGpu = {
@@ -286,6 +293,7 @@ static PmClock pmClockGpu = {
 	.ctrlAddr = CRF_APB_GPU_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockSata = {
@@ -293,6 +301,7 @@ static PmClock pmClockSata = {
 	.ctrlAddr = CRF_APB_SATA_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockPcie = {
@@ -300,6 +309,7 @@ static PmClock pmClockPcie = {
 	.pll = NULL,
 	.users = NULL,
 	.ctrlAddr = CRF_APB_PCIE_REF_CTRL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockGdma = {
@@ -307,6 +317,7 @@ static PmClock pmClockGdma = {
 	.ctrlAddr = CRF_APB_GDMA_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockDpDma = {
@@ -314,6 +325,7 @@ static PmClock pmClockDpDma = {
 	.ctrlAddr = CRF_APB_DPDMA_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -322,6 +334,7 @@ static PmClock pmClockGtgRef0 = {
 	.ctrlAddr = CRF_APB_GTGREF0_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -330,6 +343,7 @@ static PmClock pmClockDbgTstmp = {
 	.ctrlAddr = CRF_APB_DBG_TSTMP_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* CRL_APB clocks */
@@ -340,6 +354,7 @@ static PmClock pmClockUsb3Dual = {
 	.ctrlAddr = CRL_APB_USB3_DUAL_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockGem0 = {
@@ -347,6 +362,7 @@ static PmClock pmClockGem0 = {
 	.ctrlAddr = CRL_APB_GEM0_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockGem1 = {
@@ -354,6 +370,7 @@ static PmClock pmClockGem1 = {
 	.ctrlAddr = CRL_APB_GEM1_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockGem2 = {
@@ -361,6 +378,7 @@ static PmClock pmClockGem2 = {
 	.ctrlAddr = CRL_APB_GEM2_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockGem3 = {
@@ -368,6 +386,7 @@ static PmClock pmClockGem3 = {
 	.ctrlAddr = CRL_APB_GEM3_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockUsb0Bus = {
@@ -375,6 +394,7 @@ static PmClock pmClockUsb0Bus = {
 	.ctrlAddr = CRL_APB_USB0_BUS_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockUsb1Bus = {
@@ -382,6 +402,7 @@ static PmClock pmClockUsb1Bus = {
 	.ctrlAddr = CRL_APB_USB1_BUS_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockQSpi = {
@@ -389,6 +410,7 @@ static PmClock pmClockQSpi = {
 	.ctrlAddr = CRL_APB_QSPI_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockSdio0 = {
@@ -396,6 +418,7 @@ static PmClock pmClockSdio0 = {
 	.ctrlAddr = CRL_APB_SDIO0_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockSdio1 = {
@@ -403,6 +426,7 @@ static PmClock pmClockSdio1 = {
 	.ctrlAddr = CRL_APB_SDIO1_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockUart0 = {
@@ -410,6 +434,7 @@ static PmClock pmClockUart0 = {
 	.ctrlAddr = CRL_APB_UART0_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockUart1 = {
@@ -417,6 +442,7 @@ static PmClock pmClockUart1 = {
 	.ctrlAddr = CRL_APB_UART1_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockSpi0 = {
@@ -424,6 +450,7 @@ static PmClock pmClockSpi0 = {
 	.ctrlAddr = CRL_APB_SPI0_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockSpi1 = {
@@ -431,6 +458,7 @@ static PmClock pmClockSpi1 = {
 	.ctrlAddr = CRL_APB_SPI1_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockCan0 = {
@@ -438,6 +466,7 @@ static PmClock pmClockCan0 = {
 	.ctrlAddr = CRL_APB_CAN0_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockCan1 = {
@@ -445,6 +474,7 @@ static PmClock pmClockCan1 = {
 	.ctrlAddr = CRL_APB_CAN1_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockCpuR5 = {
@@ -452,6 +482,7 @@ static PmClock pmClockCpuR5 = {
 	.ctrlAddr = CRL_APB_CPU_R5_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -460,6 +491,7 @@ static PmClock pmClockIouSwitch = {
 	.ctrlAddr = CRL_APB_IOU_SWITCH_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockCsuPll = {
@@ -467,6 +499,7 @@ static PmClock pmClockCsuPll = {
 	.ctrlAddr = CRL_APB_CSU_PLL_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockPcap = {
@@ -474,6 +507,7 @@ static PmClock pmClockPcap = {
 	.ctrlAddr = CRL_APB_PCAP_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -482,6 +516,7 @@ static PmClock pmClockLpdSwitch = {
 	.ctrlAddr = CRL_APB_LPD_SWITCH_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -490,6 +525,7 @@ static PmClock pmClockLpdLsBus = {
 	.ctrlAddr = CRL_APB_LPD_LSBUS_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -498,6 +534,7 @@ static PmClock pmClockDbgLpd = {
 	.ctrlAddr = CRL_APB_DBG_LPD_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockNand = {
@@ -505,6 +542,7 @@ static PmClock pmClockNand = {
 	.ctrlAddr = CRL_APB_NAND_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockAdma = {
@@ -512,6 +550,7 @@ static PmClock pmClockAdma = {
 	.ctrlAddr = CRL_APB_ADMA_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockPl0 = {
@@ -519,6 +558,7 @@ static PmClock pmClockPl0 = {
 	.ctrlAddr = CRL_APB_PL0_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockPl1 = {
@@ -526,6 +566,7 @@ static PmClock pmClockPl1 = {
 	.ctrlAddr = CRL_APB_PL1_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockPl2 = {
@@ -533,6 +574,7 @@ static PmClock pmClockPl2 = {
 	.ctrlAddr = CRL_APB_PL2_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockPl3 = {
@@ -540,6 +582,7 @@ static PmClock pmClockPl3 = {
 	.ctrlAddr = CRL_APB_PL3_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockGemTsu = {
@@ -547,6 +590,7 @@ static PmClock pmClockGemTsu = {
 	.ctrlAddr = CRL_APB_GEM_TSU_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockDll = {
@@ -554,6 +598,7 @@ static PmClock pmClockDll = {
 	.ctrlAddr = CRL_APB_DLL_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -562,6 +607,7 @@ static PmClock pmClockAms = {
 	.ctrlAddr = CRL_APB_AMS_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockI2C0 = {
@@ -569,6 +615,7 @@ static PmClock pmClockI2C0 = {
 	.ctrlAddr = CRL_APB_I2C0_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock pmClockI2C1 = {
@@ -576,6 +623,7 @@ static PmClock pmClockI2C1 = {
 	.ctrlAddr = CRL_APB_I2C1_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 /* Floating clock */
@@ -584,6 +632,7 @@ static PmClock pmClockTimeStamp = {
 	.ctrlAddr = CRL_APB_TIMESTAMP_REF_CTRL,
 	.pll = NULL,
 	.users = NULL,
+	.ctrlVal = 0U,
 };
 
 static PmClock* pmClocks[] = {

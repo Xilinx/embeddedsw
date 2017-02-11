@@ -78,6 +78,7 @@ typedef struct PmClock {
 	PmPll* pll;
 	PmClockHandle* users;
 	const u32 ctrlAddr;
+	u32 ctrlVal;
 } PmClock;
 
 /**
