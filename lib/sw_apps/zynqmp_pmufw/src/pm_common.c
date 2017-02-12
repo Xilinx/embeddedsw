@@ -159,8 +159,6 @@ const char* PmStrNode(const u32 node)
 		return "NODE_DDR";
 	case NODE_IPI_APU:
 		return "NODE_IPI_APU";
-	case NODE_IPI_RPU_0:
-		return "NODE_IPI_RPU_0";
 	case NODE_GPU:
 		return "NODE_GPU";
 	case NODE_PCIE:

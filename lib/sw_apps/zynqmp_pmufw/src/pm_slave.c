@@ -575,7 +575,6 @@ int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 	int status = XST_SUCCESS;
 	u32 masterIpiMasks = perms;
 
-	PmClockSave(&slave->node);
 	if (0U != (policy & PM_SLAVE_FLAG_IS_SHAREABLE)) {
 		slave->flags |= PM_SLAVE_FLAG_IS_SHAREABLE;
 	}
