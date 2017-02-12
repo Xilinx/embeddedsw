@@ -38,6 +38,7 @@
 # 1.00a nm   05/06/14 Created
 # 1.2   ms   01/24/17 Enabled CCI support for A53 by adding cache coherency
 #                     information.
+#       ms   02/12/17 Fix for compilation warning.
 #
 ##############################################################################
 
@@ -47,7 +48,7 @@ proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XNandPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
 	generate_cci_params $drv_handle "xparameters.h"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xnandps_g.c" "XNandPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xnandpsu_g.c" "XNandPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XNandPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR"
 }

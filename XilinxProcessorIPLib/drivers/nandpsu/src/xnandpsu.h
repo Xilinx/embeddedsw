@@ -163,7 +163,7 @@
 *                          parameter page. CR#966603
 *       ms     01/24/17    Enabled CCI support for A53 by adding cache coherency
 *                          information.
-*
+*       ms     02/12/17    Fix for the compilation warning in _g.c file.
 * </pre>
 *
 ******************************************************************************/
