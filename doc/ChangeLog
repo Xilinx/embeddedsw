@@ -267,6 +267,7 @@ fix for the failure of reading nand first redundant paramter page
 CR#966603
 Added CCI support for A53 by updating cache coherency information and
 disabling data cache related operations when CCI is enabled.
+Fixed compilation warning in _g.c
 
 prd_v1_1:
 Modified num instances parameter as XPAR_XPRD_NUM_INSTANCES in xparameters.h,
