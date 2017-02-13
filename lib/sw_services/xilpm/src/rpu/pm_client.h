@@ -50,6 +50,9 @@
 #define IPI_TRIG_OFFSET		0x0
 #define IPI_OBS_OFFSET		0x4
 
-#define pm_print(MSG, ...)	xil_printf("RPU: "MSG,##__VA_ARGS__)
+char* XPm_GetMasterName(void);
+
+#define pm_print(MSG, ...)	xil_printf("%s: "MSG, \
+					   XPm_GetMasterName(), ##__VA_ARGS__)
 
 #endif /* _PM_CLIENT_H_ */

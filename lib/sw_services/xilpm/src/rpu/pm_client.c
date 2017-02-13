@@ -181,6 +181,32 @@ void XPm_ClientSuspendFinalize(void)
 }
 
 /**
+ * XPm_GetMasterName() - Get name of the master
+ *
+ * This function determines name of the master based on current configuration.
+ *
+ * @return     Name of the master
+ */
+char* XPm_GetMasterName(void)
+{
+	bool lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
+		     RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
+
+	if (lockstep) {
+		return "RPU";
+	} else {
+		switch (primary_master->node_id) {
+		case NODE_RPU_0:
+			return "RPU0";
+		case NODE_RPU_1:
+			return "RPU1";
+		default:
+			return "ERROR";
+		};
+	};
+}
+
+/**
  * XPm_ClientSetPrimaryMaster() -Set primary master
  *
  * This function determines the RPU configuration (split or lock-step mode)
