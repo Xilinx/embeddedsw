@@ -580,7 +580,7 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster)
 {
-	return 0U != (reqMaster->suspendPerms & respMaster->ipiMask);
+	return 0U != (reqMaster->ipiMask & respMaster->suspendPerms);
 }
 
 /**
