@@ -5,7 +5,7 @@
 * Version:
 * DO NOT EDIT.
 *
-* Copyright (C) 2010-2016 Xilinx, Inc. All Rights Reserved.*
+* Copyright (C) 2010-2017 Xilinx, Inc. All Rights Reserved.*
 *Permission is hereby granted, free of charge, to any person obtaining a copy
 *of this software and associated documentation files (the Software), to deal
 *in the Software without restriction, including without limitation the rights
@@ -44,10 +44,10 @@
 * The configuration table for devices
 */
 
-XV_HdmiRx_Config XV_HdmiRx_ConfigTable[] =
+XV_HdmiRx_Config XV_HdmiRx_ConfigTable[XPAR_XV_HDMIRX_NUM_INSTANCES] =
 {
-    {
-        XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_DEVICE_ID,
-        XPAR_V_HDMI_RX_SS_0_V_HDMI_RX_BASEADDR
-    }
+	{
+		XPAR_V_HDMI_RX_SS_V_HDMI_RX_DEVICE_ID,
+		XPAR_V_HDMI_RX_SS_V_HDMI_RX_BASEADDR
+	}
 };

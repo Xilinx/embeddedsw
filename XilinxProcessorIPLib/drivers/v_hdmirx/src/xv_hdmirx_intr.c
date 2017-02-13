@@ -297,6 +297,23 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr, u32 HandlerType, void *Callbac
 			InstancePtr->IsLinkErrorCallbackSet = (TRUE);
 			Status = (XST_SUCCESS);
 			break;
+
+        // Sync Loss
+        case (XV_HDMIRX_HANDLER_SYNC_LOSS):
+            InstancePtr->SyncLossCallback = (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->SyncLossRef = CallbackRef;
+            InstancePtr->IsSyncLossCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
+        // Mode
+        case (XV_HDMIRX_HANDLER_MODE):
+            InstancePtr->ModeCallback = (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->ModeRef = CallbackRef;
+            InstancePtr->IsModeCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
         default:
             Status = (XST_INVALID_PARAM);
             break;
@@ -345,6 +362,10 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
                 // Set stream status to up
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_UP;          // The stream is up
 
+                // Enable sync loss
+                XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
+                  (XV_HDMIRX_VTD_CTRL_SET_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
+
                 // Call stream up callback
                 if (InstancePtr->IsStreamUpCallbackSet) {
                     InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
@@ -360,11 +381,27 @@ static void HdmiRx_VtdIntrHandler(XV_HdmiRx *InstancePtr)
 
             if (Status != XST_SUCCESS) {
 
+                // Disable sync loss
+                XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
+                  (XV_HDMIRX_VTD_CTRL_CLR_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
+
                 // Set stream status to up
                 InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_LOCK;
             }
         }
 
+    }
+
+    /* Check for sync loss event */
+    else if ((Status) & (XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK)) {
+
+        // Clear event flag
+        XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET), (XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK));
+
+        // Call sync lost callback
+        if (InstancePtr->IsSyncLossCallbackSet) {
+            InstancePtr->SyncLossCallback(InstancePtr->SyncLossRef);
+        }
     }
 }
 
@@ -569,8 +606,11 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             XV_HdmiRx_AxisEnable(InstancePtr, (FALSE));
 
             // Set stream status to down
-            InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_DOWN;            // The stream is down
+            InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_DOWN;
 
+            // Disable sync loss
+            XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress,
+                (XV_HDMIRX_VTD_CTRL_CLR_OFFSET), (XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK));
 
             // Call stream down callback
             if (InstancePtr->IsStreamDownCallbackSet) {
@@ -592,6 +632,27 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             XV_HdmiRx_SetScrambler(InstancePtr, (FALSE));
         }
     }
+
+    // Mode
+    if ((Event) & (XV_HDMIRX_PIO_IN_MODE_MASK)) {
+
+        // HDMI Mode
+        if ((Data) & (XV_HDMIRX_PIO_IN_MODE_MASK)) {
+            InstancePtr->Stream.IsHdmi = (TRUE);
+        }
+
+        // DVI Mode
+        else {
+            InstancePtr->Stream.IsHdmi = (FALSE);
+        }
+
+        // Call mode callback
+        if (InstancePtr->IsModeCallbackSet) {
+            InstancePtr->ModeCallback(InstancePtr->ModeRef);
+        }
+    }
+
+
 }
 
 /*****************************************************************************/

@@ -170,6 +170,7 @@ extern "C" {
 #define XV_HDMIRX_VTD_CTRL_RUN_MASK                 (1<<0)  	/**< VTD Control Run mask */
 #define XV_HDMIRX_VTD_CTRL_IE_MASK                  (1<<1)  	/**< VTD Control Interrupt Enable mask */
 #define XV_HDMIRX_VTD_CTRL_FIELD_POL_MASK           (1<<2)  	/**< VTD Control field polarity mask */
+#define XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK           (1<<3)    /**< VTD Control field polarity mask */
 #define XV_HDMIRX_VTD_CTRL_TIMEBASE_SHIFT          	8      		/**< VTD Control timebase shift */
 #define XV_HDMIRX_VTD_CTRL_TIMERBASE_MASK          	0xffffff    /**< VTD Control timebase mask */
 
@@ -179,7 +180,7 @@ extern "C" {
 #define XV_HDMIRX_VTD_STA_VS_POL_MASK               (1<<3)  /**< VTD Status Vsync Polarity mask */
 #define XV_HDMIRX_VTD_STA_HS_POL_MASK               (1<<4)  /**< VTD Status Hsync Polarity mask */
 #define XV_HDMIRX_VTD_STA_FMT_MASK                  (1<<5)  /**< VTD Status Format mask */
-
+#define XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK        (1<<6)  /**< VTD Status Sync Loss mask */
 
 // DDC (Display Data Channel) peripheral register offsets.
 #define XV_HDMIRX_DDC_BASE                          (4*64)

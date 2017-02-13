@@ -168,7 +168,9 @@ typedef enum {
 	XV_HDMIRX_HANDLER_STREAM_INIT,	/**< Interrupt type for stream init */
 	XV_HDMIRX_HANDLER_STREAM_UP,	/**< Interrupt type for stream up */
 	XV_HDMIRX_HANDLER_HDCP,			/**< Interrupt type for hdcp */
-	XV_HDMIRX_HANDLER_LINK_ERROR	/**< Interrupt type for link error */
+	XV_HDMIRX_HANDLER_LINK_ERROR,		/**< Interrupt type for link error */
+	XV_HDMIRX_HANDLER_SYNC_LOSS,       /**< Interrupt type for sync loss */
+	XV_HDMIRX_HANDLER_MODE             /**< Interrupt type for mode */
 } XV_HdmiRx_HandlerType;
 /*@}*/
 
@@ -318,6 +320,14 @@ typedef struct {
 	XV_HdmiRx_Callback LinkErrorCallback;	/**< Callback for link error callback */
 	void *LinkErrorRef;						/**< To be passed to the link error callback */
 	u32 IsLinkErrorCallbackSet;				/**< Set flag. This flag is set to true when the callback has been registered */
+
+	XV_HdmiRx_Callback SyncLossCallback;		/**< Callback for sync loss callback */
+	void *SyncLossRef;						/**< To be passed to the link error callback */
+	u32 IsSyncLossCallbackSet;				/**< Set flag. This flag is set to true when the callback has been registered */
+
+	XV_HdmiRx_Callback ModeCallback;			/**< Callback for sync loss callback */
+	void *ModeRef;							/**< To be passed to the link error callback */
+	u32 IsModeCallbackSet;					/**< Set flag. This flag is set to true when the callback has been registered */
 
 	/* HDMI RX stream */
 	XV_HdmiRx_Stream Stream;				/**< HDMI RX stream information */

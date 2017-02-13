@@ -213,8 +213,15 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     InstancePtr->HdcpCallback = (XV_HdmiRx_HdcpCallback)((void *)StubCallback);
     InstancePtr->IsHdcpCallbackSet = (FALSE);
 
-	InstancePtr->LinkErrorCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsLinkErrorCallbackSet = (FALSE);
+    InstancePtr->LinkErrorCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
+    InstancePtr->IsLinkErrorCallbackSet = (FALSE);
+
+    InstancePtr->SyncLossCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
+    InstancePtr->IsSyncLossCallbackSet = (FALSE);
+
+    InstancePtr->ModeCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
+    InstancePtr->IsModeCallbackSet = (FALSE);
+
     /* Clear HDMI variables */
     XV_HdmiRx_Clear(InstancePtr);
 
@@ -244,6 +251,7 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
             (XV_HDMIRX_PIO_IN_DET_MASK) |
             (XV_HDMIRX_PIO_IN_LNK_RDY_MASK) |
             (XV_HDMIRX_PIO_IN_VID_RDY_MASK) |
+            (XV_HDMIRX_PIO_IN_MODE_MASK) |
             (XV_HDMIRX_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK) |
             (XV_HDMIRX_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK)
         );
@@ -252,6 +260,7 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     XV_HdmiRx_WriteReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_PIO_IN_EVT_FE_OFFSET),
             (XV_HDMIRX_PIO_IN_DET_MASK) |
             (XV_HDMIRX_PIO_IN_VID_RDY_MASK) |
+            (XV_HDMIRX_PIO_IN_MODE_MASK) |
             (XV_HDMIRX_PIO_IN_SCDC_SCRAMBLER_ENABLE_MASK) |
             (XV_HDMIRX_PIO_IN_SCDC_TMDS_CLOCK_RATIO_MASK)
         );
@@ -1556,11 +1565,13 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
             }
 
             // Calculate and set the frame rate field
-            InstancePtr->Stream.Video.FrameRate = XV_HdmiRx_Divide(InstancePtr->Stream.PixelClk, (InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal));
+            InstancePtr->Stream.Video.FrameRate =
+                       (XVidC_FrameRate) (XV_HdmiRx_Divide(InstancePtr->Stream.PixelClk,
+                                                           (InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal)));
 
             // If the colorspace is YUV420, then the horizontal parameters must be doubled (and the frame rate)
             if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
-                InstancePtr->Stream.Video.FrameRate = InstancePtr->Stream.Video.FrameRate * 2;
+                InstancePtr->Stream.Video.FrameRate = (XVidC_FrameRate) (InstancePtr->Stream.Video.FrameRate * 2);
                 InstancePtr->Stream.Video.Timing.HTotal = InstancePtr->Stream.Video.Timing.HTotal * 2;
                 InstancePtr->Stream.Video.Timing.HActive = InstancePtr->Stream.Video.Timing.HActive * 2;
                 InstancePtr->Stream.Video.Timing.HSyncWidth = InstancePtr->Stream.Video.Timing.HSyncWidth * 2;
