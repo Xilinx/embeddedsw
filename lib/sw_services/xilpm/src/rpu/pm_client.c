@@ -52,20 +52,16 @@ static struct XPm_Master pm_rpu_0_master = {
 	.ipi = NULL,
 };
 
-#if 0
-static const struct XPm_Master pm_rpu_1_master = {
-	.node_id = NODE_APU_1,
-	.pwrdn_mask = RPU_RPU_0_PWRDWN_EN_MASK,
-	.ipi = &rpu_0_ipi,
+static struct XPm_Master pm_rpu_1_master = {
+	.node_id = NODE_RPU_1,
+	.pwrdn_mask = RPU_RPU_1_PWRDWN_EN_MASK,
+	.ipi = NULL,
 };
-#endif
 
 /* Order in pm_master_all array must match cpu ids */
 static struct XPm_Master *const pm_masters_all[] = {
 	&pm_rpu_0_master,
-#if 0
 	&pm_rpu_1_master,
-#endif
 };
 
 /**
