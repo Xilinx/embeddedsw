@@ -104,6 +104,8 @@ static const u8 XSecure_Silicon2_TPadSha2[] = {0x30U, 0x31U, 0x30U, 0x0DU,
  * @param	Mod is the pointer to Modulus used for authentication
  * @param	ModExt is the pointer to precalculated R^2 Mod N value used for
  * 			authentication
+ *		Pass NULL - if user doesn't have pre-calculated R^2 Mod N value,
+ *		control will take care of this calculation internally.
  * @param	ModExpo is the pointer to the exponent(public key) used for
  * 			authentication
  *
@@ -119,7 +121,6 @@ s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 	/* Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Mod != NULL);
-	Xil_AssertNonvoid(ModExt != NULL);
 	Xil_AssertNonvoid(ModExpo != NULL);
 
 	InstancePtr->BaseAddress = XSECURE_CSU_RSA_BASE;
@@ -321,9 +322,11 @@ static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
 	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->Mod,
 					XSECURE_CSU_RSA_RAM_MOD);
 
+	if (InstancePtr->ModExt != NULL) {
 	/* Initialize Modular extension (R*R Mod M) */
-	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExt,
+		XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExt,
 					XSECURE_CSU_RSA_RAM_RES_Y);
+	}
 
 }
 
@@ -361,9 +364,16 @@ s32 XSecure_RsaDecrypt(XSecure_Rsa *InstancePtr, u8 *EncText, u8 *Result)
 	XSecure_RsaMod32Inverse(InstancePtr);
 
 	/* Start the RSA operation. */
-	XSecure_WriteReg(InstancePtr->BaseAddress,
+	if (InstancePtr->ModExt != NULL) {
+		XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_RSA_CONTROL_OFFSET,
 			XSECURE_CSU_RSA_CONTROL_MASK);
+	}
+	else {
+		XSecure_WriteReg(InstancePtr->BaseAddress,
+				XSECURE_CSU_RSA_CONTROL_OFFSET,
+		XSECURE_CSU_RSA_CONTROL_4096 + XSECURE_CSU_RSA_CONTROL_EXP);
+	}
 
 	/* Check and wait for status */
 	do
