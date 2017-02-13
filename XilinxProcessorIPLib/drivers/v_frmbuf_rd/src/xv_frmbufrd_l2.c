@@ -119,7 +119,7 @@ XVidC_ColorFormat RdMemory2Live(XVidC_ColorFormat MemFmt)
             break;
 
         default:
-            StrmFmt = ~0;
+            StrmFmt = (XVidC_ColorFormat)~0;
             break;
     }
     return(StrmFmt);
@@ -162,16 +162,18 @@ int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, u16 DeviceId)
 ******************************************************************************/
 static void SetPowerOnDefaultState(XV_FrmbufRd_l2 *InstancePtr)
 {
-  XVidC_VideoStream VidStrm = {0};
+  XVidC_VideoStream VidStrm;
   XVidC_VideoTiming const *ResTiming;
+
+  memset(&VidStrm, 0, sizeof(XVidC_VideoStream));
 
   /* Set Default Stream Out */
   VidStrm.VmId          = XVIDC_VM_1920x1080_60_P;
   VidStrm.ColorFormatId = XVIDC_CSF_RGB;
   VidStrm.FrameRate     = XVIDC_FR_60HZ;
   VidStrm.IsInterlaced  = FALSE;
-  VidStrm.ColorDepth    = InstancePtr->FrmbufRd.Config.MaxDataWidth;
-  VidStrm.PixPerClk     = InstancePtr->FrmbufRd.Config.PixPerClk;
+  VidStrm.ColorDepth    = (XVidC_ColorDepth)InstancePtr->FrmbufRd.Config.MaxDataWidth;
+  VidStrm.PixPerClk     = (XVidC_PixelsPerClock)InstancePtr->FrmbufRd.Config.PixPerClk;
 
   ResTiming = XVidC_GetTimingInfo(VidStrm.VmId);
 
