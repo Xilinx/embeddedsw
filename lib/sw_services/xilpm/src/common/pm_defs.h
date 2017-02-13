@@ -217,6 +217,7 @@ enum XPmNodeId {
 	NODE_PCAP,
 	NODE_RTC,
 	NODE_LPD,
+	NODE_VCU,
 	NODE_ID_MAX
 };
 
