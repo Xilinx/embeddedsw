@@ -1035,7 +1035,7 @@ PmProc pmProcRpu1_g = {
 		.class = &pmNodeClassProc_g,
 		.parent = &pmPowerIslandRpu_g,
 		.clocks = NULL,
-		.currState = PM_PROC_STATE_SLEEP,
+		.currState = PM_PROC_STATE_ACTIVE,
 		.latencyMarg = MAX_LATENCY,
 		.flags = 0U,
 		DEFINE_PM_POWER_INFO(PmProcPowerRPU_X),
