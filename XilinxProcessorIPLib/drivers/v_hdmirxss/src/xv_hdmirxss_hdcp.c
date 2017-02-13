@@ -189,7 +189,7 @@ static u32 XV_HdmiRxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
 ******************************************************************************/
 static void XV_HdmiRxSs_HdcpTimerCallback(void* CallBackRef, u8 TimerChannel)
 {
-  XHdcp1x* HdcpPtr = CallBackRef;
+  XHdcp1x* HdcpPtr = (XHdcp1x*) CallBackRef;
 
   TimerChannel = TimerChannel;
   XHdcp1x_HandleTimeout(HdcpPtr);
@@ -487,6 +487,11 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
 
     // Stream down
     case XV_HDMIRXSS_HDCP_STREAMDOWN_EVT :
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+      if (InstancePtr->Hdcp14Ptr) {
+        XHdcp1x_SetHdmiMode(InstancePtr->Hdcp14Ptr, FALSE);
+      }
+#endif
       break;
 
     // Connect
@@ -506,6 +511,9 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
     case XV_HDMIRXSS_HDCP_DISCONNECT_EVT :
 #ifdef XPAR_XHDCP_NUM_INSTANCES
       if (InstancePtr->Hdcp14Ptr) {
+        // Clear HDMI mode
+        XHdcp1x_SetHdmiMode(InstancePtr->Hdcp14Ptr, FALSE);
+
         // Set physical state
         XHdcp1x_SetPhysicalState(InstancePtr->Hdcp14Ptr, FALSE);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
@@ -525,6 +533,33 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
     case XV_HDMIRXSS_HDCP_2_PROT_EVT :
       if(XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_22) != XST_SUCCESS)
         XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_14);
+      break;
+
+    // DVI mode event
+    case XV_HDMIRXSS_HDCP_DVI_MODE_EVT:
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+      if (InstancePtr->Hdcp14Ptr) {
+        XHdcp1x_SetHdmiMode(InstancePtr->Hdcp14Ptr, FALSE);
+      }
+#endif
+      break;
+
+    // HDMI mode event
+    case XV_HDMIRXSS_HDCP_HDMI_MODE_EVT:
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+      if (InstancePtr->Hdcp14Ptr) {
+        XHdcp1x_SetHdmiMode(InstancePtr->Hdcp14Ptr, TRUE);
+      }
+#endif
+      break;
+
+    // Sync loss event
+    case XV_HDMIRXSS_HDCP_SYNC_LOSS_EVT:
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+      if (InstancePtr->Hdcp14Ptr) {
+        XHdcp1x_SetHdmiMode(InstancePtr->Hdcp14Ptr, FALSE);
+      }
+#endif
       break;
 
     default :
@@ -692,11 +727,17 @@ int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr)
       if (InstancePtr->Hdcp14Ptr) {
         Status1 = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+        XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_HDCP14, 0);
+#endif
       }
 #endif
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
       if (InstancePtr->Hdcp22Ptr) {
         Status2 = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+        XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_HDCP22, 0);
+#endif
       }
 #endif
       break;
@@ -707,6 +748,9 @@ int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr)
       if (InstancePtr->Hdcp14Ptr) {
         Status1 = XHdcp1x_Enable(InstancePtr->Hdcp14Ptr);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+        XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_HDCP14, 1);
+#endif
       }
       else {
         Status1 = XST_FAILURE;
@@ -720,6 +764,9 @@ int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr)
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
       if (InstancePtr->Hdcp22Ptr) {
         Status2 = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+        XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_HDCP22, 0);
+#endif
       }
 #endif
       break;
@@ -730,11 +777,17 @@ int XV_HdmiRxSs_HdcpEnable(XV_HdmiRxSs *InstancePtr)
       if (InstancePtr->Hdcp14Ptr) {
         Status1 = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
         XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+        XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_HDCP14, 0);
+#endif
       }
 #endif
 #ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
       if (InstancePtr->Hdcp22Ptr) {
         Status2 = XHdcp22Rx_Enable(InstancePtr->Hdcp22Ptr);
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+        XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_HDCP22, 1);
+#endif
       }
       else {
         Status2 = XST_FAILURE;
@@ -1896,7 +1949,7 @@ XV_HdmiRxSs_HdcpContentStreamType XV_HdmiRxSs_HdcpGetContentStreamType(XV_HdmiRx
       StreamType = XV_HDMIRXSS_HDCP_STREAMTYPE_0;
   }
 
-  return StreamType;
+  return (XV_HdmiRxSs_HdcpContentStreamType) StreamType;
 }
 #endif
 

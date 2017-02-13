@@ -251,6 +251,27 @@ void XV_HdmiRxSs_LogDisplay(XV_HdmiRxSs *InstancePtr)
 	    case (XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE):
 		    xil_printf("RX TMDS reference clock change\r\n");
 			break;
+         case (XV_HDMIRXSS_LOG_EVT_HDCP14):
+              if (Data)
+		        xil_printf("RX HDCP 1.4 Enabled\r\n");
+              else
+		        xil_printf("RX HDCP 1.4 Disabled\r\n");
+			break;
+         case (XV_HDMIRXSS_LOG_EVT_HDCP22):
+              if (Data)
+		        xil_printf("RX HDCP 2.2 Enabled\r\n");
+              else
+		        xil_printf("RX HDCP 2.2 Disabled\r\n");
+			break;
+	    case (XV_HDMIRXSS_LOG_EVT_DVIMODE):
+		    xil_printf("RX mode changed to DVI\r\n");
+			break;
+	    case (XV_HDMIRXSS_LOG_EVT_HDMIMODE):
+		    xil_printf("RX mode changed to HDMI\r\n");
+			break;
+	    case (XV_HDMIRXSS_LOG_EVT_SYNCLOSS):
+		    xil_printf("RX Sync Loss detected\r\n");
+			break;
 		default:
 			xil_printf("Unknown event\r\n");
 			break;

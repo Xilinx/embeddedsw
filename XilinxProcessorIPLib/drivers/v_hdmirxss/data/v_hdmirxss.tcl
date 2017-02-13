@@ -40,6 +40,9 @@
 ##  1.3     YH      30/07/16 No HDCP22_SS sub-cores included in _g.c generation
 ##  1.4     YH      16/11/16 Remove subcore remapper & axi_gpio
 ##  1.5     MMO     03/01/16 Added sub-core base address computation in TCL
+##  1.6     MMO      3/01/17 Fix the TCL to support multiple instance and sync
+##                           with XV_HdmiTxSs_Config Data Structure
+##  1.7     MM0     13/02/17 Fix by adding typecasting for C++ Fix
 #
 ################################################################################
 
@@ -155,7 +158,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
 
                     # create dictionary for ip name and it's instance names "ip_name {inst1_name inst2_name}"
                     dict lappend ss_ip_list $ip_name $child_cell_name_g
-                    #puts $config_file "\n//ss_ip_list = ${ss_ip_list}\n"
                 }
             }
         }
@@ -196,7 +198,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
                     }
 
                 }
-                #puts -nonewline $config_file "#define [string toupper $final_child_cell_instance_name_g] 1\n"
             } else {
                 set count 0
                 while {$count<$sub_core_inst($sub_core)} {
@@ -224,7 +225,8 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
     }
 
     puts $config_file "\n"
-    puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+	set num_insts [::hsi::utils::get_driver_param_name $drv_string "NUM_INSTANCES"]
+    puts $config_file [format "%s_Config %s_ConfigTable\[%s\] =" $drv_string $drv_string $num_insts]
     puts $config_file "\{"
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set start_comma ""
@@ -265,12 +267,16 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
             }
         }
 
-        #puts $config_file "//$periph $periphs"
         puts $config_file [format "%s\t\{" $start_comma]
         set comma ""
         foreach arg $args {
             if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
                 puts -nonewline $config_file [format "%s\t\t%s,\n" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+                continue
+            }
+
+            if {[string compare -nocase "C_INPUT_PIXELS_PER_CLOCK" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVidC_PixelsPerClock) " [::hsi::utils::get_ip_param_name $periph $arg]]
                 continue
             }
 
@@ -327,11 +333,6 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
                         set str_name "unknown"
                         #puts "IP Inst. Name: $ip_inst_name"
                         while {$count < $max_instances} {
-                            if {[string compare -nocase "axi_gpio" $sub_core] == 0} {
-                                set str_name [expr {$count == 0 ? "RESET_SEL_AXI_MM" : "RESET_SEL_AXIS"}]
-                            } elseif {[string compare -nocase "v_vcresampler" $sub_core]} {
-                                set str_name [expr {$count == 0 ? "V_VCRESAMPLER_IN" : "V_VCRESAMPLER_OUT"}]
-                            }
                             #write the ip instance entry to the table
                             set final_child_cell_instance_name_present "XPAR_${periph}_${str_name}_PRESENT"
                             set final_child_cell_instance_devid "XPAR_${periph}_${str_name}_DEVICE_ID"

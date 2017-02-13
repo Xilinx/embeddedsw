@@ -135,7 +135,12 @@ typedef enum {
 	XV_HDMIRXSS_LOG_EVT_STREAMINIT,	    /**< Log event Stream Init. */
 	XV_HDMIRXSS_LOG_EVT_SETSTREAM,      /**< Log event HDMIRXSS Setstream. */
 	XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE, /**< Log event TMDS Ref clock change. */
-	XV_HDMIRXSS_LOG_EVT_DUMMY,		    /**< Dummy Event should be last */
+	XV_HDMIRXSS_LOG_EVT_HDCP14,             /**< Log event Enable HDCP 1.4. */
+	XV_HDMIRXSS_LOG_EVT_HDCP22,             /**< Log event Enable HDCP 2.2. */
+	XV_HDMIRXSS_LOG_EVT_HDMIMODE,           /**< Log event HDMI Mode change. */
+	XV_HDMIRXSS_LOG_EVT_DVIMODE,            /**< Log event HDMI Mode change. */
+	XV_HDMIRXSS_LOG_EVT_SYNCLOSS,           /**< Log event Sync Loss detected. */
+	XV_HDMIRXSS_LOG_EVT_DUMMY               /**< Dummy Event should be last */
 } XV_HdmiRxSs_LogEvent;
 
 /**
@@ -176,6 +181,9 @@ typedef enum
   XV_HDMIRXSS_HDCP_DISCONNECT_EVT,
   XV_HDMIRXSS_HDCP_1_PROT_EVT,
   XV_HDMIRXSS_HDCP_2_PROT_EVT,
+  XV_HDMIRXSS_HDCP_DVI_MODE_EVT,
+  XV_HDMIRXSS_HDCP_HDMI_MODE_EVT,
+  XV_HDMIRXSS_HDCP_SYNC_LOSS_EVT,
   XV_HDMIRXSS_HDCP_INVALID_EVT
 } XV_HdmiRxSs_HdcpEvent;
 

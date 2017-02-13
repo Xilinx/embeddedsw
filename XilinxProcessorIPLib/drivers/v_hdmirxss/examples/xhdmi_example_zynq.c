@@ -343,6 +343,7 @@ u8 Hdcp14KeyB[] = {
 /************************** Function Prototypes ******************************/
 int I2cMux(void);
 int I2cClk(u32 InFreq, u32 OutFreq);
+int OnBoardSi5324Init(void);
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 void EnableColorBar(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
 						XVidC_VideoMode VideoMode,
@@ -2339,8 +2340,10 @@ int main()
     }
 
     /* Initialize HDMI VPHY */
-    Status = XVphy_HdmiInitialize(&Vphy, 0,
-			XVphyCfgPtr);
+    Status = XVphy_HdmiInitialize(&Vphy,
+                                  0,
+                                  XVphyCfgPtr,
+                                  XPAR_CPU_CORE_CLOCK_FREQ_HZ);
     if (Status != XST_SUCCESS) {
       print("HDMI VPHY initialization error\n\r");
       return XST_FAILURE;

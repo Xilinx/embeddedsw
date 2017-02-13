@@ -91,6 +91,7 @@
 *                       Move global variable XV_HdmiRx_VSIF VSIF to local
 *                           XV_HdmiRxSs_RetrieveVSInfoframe API
 *                       Move HDCP related API's to hdmirxss_hdcp.c
+* 1.23  MMO    10/02/17 Added Sync Loss and HDMI/DVI Interrupt Support
 *
 ******************************************************************************/
 
@@ -135,6 +136,8 @@ static void XV_HdmiRxSs_DdcCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamDownCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamInitCallback(void *CallbackRef);
 static void XV_HdmiRxSs_StreamUpCallback(void *CallbackRef);
+static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef);
+static void XV_HdmiRxSs_ModeCallback(void *CallbackRef);
 
 static void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ReportTiming(XV_HdmiRxSs *InstancePtr);
@@ -176,10 +179,10 @@ void XV_HdmiRxSs_ReportInfo(XV_HdmiRxSs *InstancePtr)
 {
     xil_printf("------------\r\n");
     xil_printf("HDMI RX SubSystem\r\n");
-	xil_printf("------------\r\n");
+    xil_printf("------------\r\n");
     XV_HdmiRxSs_ReportCoreInfo(InstancePtr);
     XV_HdmiRxSs_ReportSubcoreVersion(InstancePtr);
-	xil_printf("\r\n");
+    xil_printf("\r\n");
     xil_printf("HDMI RX timing\r\n");
     xil_printf("------------\r\n");
     XV_HdmiRxSs_ReportTiming(InstancePtr);
@@ -372,6 +375,16 @@ static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr)
                           XV_HDMIRX_HANDLER_STREAM_UP,
                           XV_HdmiRxSs_StreamUpCallback,
                           InstancePtr);
+
+    XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+                          XV_HDMIRX_HANDLER_SYNC_LOSS,
+                          XV_HdmiRxSs_SyncLossCallback,
+                          InstancePtr);
+
+    XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+                          XV_HDMIRX_HANDLER_MODE,
+                          XV_HdmiRxSs_ModeCallback,
+                          InstancePtr);
   }
 
   return(XST_SUCCESS);
@@ -494,7 +507,7 @@ int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
      loaded */
   if (HdmiRxSsPtr->Hdcp14Ptr && HdmiRxSsPtr->Hdcp22Ptr &&
       HdmiRxSsPtr->Hdcp22Lc128Ptr && HdmiRxSsPtr->Hdcp14KeyPtr &&
-	  HdmiRxSsPtr->Hdcp22PrivateKeyPtr) {
+      HdmiRxSsPtr->Hdcp22PrivateKeyPtr) {
     HdmiRxSsPtr->HdcpIsReady = (TRUE);
 
     /* Set default HDCP content protection scheme */
@@ -552,7 +565,9 @@ void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
 
+#ifdef XV_HDMIRXSS_LOG_ENABLE
   XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_START, 0);
+#endif
   /* Set RX hot plug detect */
   XV_HdmiRx_SetHpd(InstancePtr->HdmiRxPtr, TRUE);
 
@@ -574,8 +589,9 @@ void XV_HdmiRxSs_Start(XV_HdmiRxSs *InstancePtr)
 void XV_HdmiRxSs_Stop(XV_HdmiRxSs *InstancePtr)
 {
   Xil_AssertVoid(InstancePtr != NULL);
-
+#ifdef XV_HDMIRXSS_LOG_ENABLE
   XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_STOP, 0);
+#endif
 }
 
 /*****************************************************************************/
@@ -682,9 +698,80 @@ static void XV_HdmiRxSs_AuxCallback(void *CallbackRef)
   // Retrieve Vendor Specific Info Frame
   XV_HdmiRxSs_RetrieveVSInfoframe(HdmiRxSsPtr->HdmiRxPtr);
 
+  // HDMI mode
+  if (XV_HdmiRxSs_GetVideoStreamType(HdmiRxSsPtr )) {
+#ifdef USE_HDCP_RX
+    XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_HDMI_MODE_EVT);
+#endif
+  }
+
   // Check if user callback has been registered
   if (HdmiRxSsPtr->AuxCallback) {
       HdmiRxSsPtr->AuxCallback(HdmiRxSsPtr->AuxRef);
+  }
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when a RX Sync Loss IRQ has occurred.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
+
+  // Push sync loss event to HDCP event queue
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+  XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_SYNCLOSS, 0);
+#endif
+
+#ifdef USE_HDCP_RX
+  XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_SYNC_LOSS_EVT);
+#endif
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the mode has transitioned from DVI to HDMI or
+* vice versa.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiRxSs_ModeCallback(void *CallbackRef)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
+
+  // HDMI mode
+  if (XV_HdmiRxSs_GetVideoStreamType(HdmiRxSsPtr )) {
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+    XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_HDMIMODE, 0);
+#endif
+#ifdef USE_HDCP_RX
+    XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_HDMI_MODE_EVT);
+#endif
+  }
+
+  // DVI mode
+  else {
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+    XV_HdmiRxSs_LogWrite(HdmiRxSsPtr, XV_HDMIRXSS_LOG_EVT_DVIMODE, 0);
+#endif
+#ifdef USE_HDCP_RX
+    XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_DVI_MODE_EVT);
+#endif
   }
 }
 
@@ -1080,10 +1167,11 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
 #ifdef XPAR_XHDCP_NUM_INSTANCES
             // Register HDCP 1.4 callbacks
             if (InstancePtr->Hdcp14Ptr) {
-		//Register the hdcp trigger downstream authentication callback
+        //Register the hdcp trigger downstream authentication callback
                XHdcp1x_SetCallBack(InstancePtr->Hdcp14Ptr,
-                                 XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
-                                 CallbackFunc, CallbackRef);
+                                   XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
+                                   CallbackFunc,
+                                   CallbackRef);
             }
 #endif
 
@@ -1142,7 +1230,7 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
 #ifdef XPAR_XHDCP_NUM_INSTANCES
             // Register HDCP 1.4 callbacks
             if (InstancePtr->Hdcp14Ptr) {
-		XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
+        XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
                                  XHDCP1X_HANDLER_ENCRYPTION_UPDATE,
                                  (XHdcp1x_Callback)CallbackFunc,
                                  CallbackRef);
@@ -1309,7 +1397,7 @@ u32 XV_HdmiRxSs_SetStream(XV_HdmiRxSs *InstancePtr,
         u32 Clock, u32 LineRate)
 {
 
-	LineRate = LineRate;
+    LineRate = LineRate;
 
 #ifdef XV_HDMIRXSS_LOG_ENABLE
   /* Write log */
@@ -1321,8 +1409,8 @@ u32 XV_HdmiRxSs_SetStream(XV_HdmiRxSs *InstancePtr,
   /* In case the TMDS clock ratio is 1/40 */
   /* The reference clock must be compensated */
   if (XV_HdmiRx_GetTmdsClockRatio(InstancePtr->HdmiRxPtr)) {
-	  InstancePtr->HdmiRxPtr->Stream.RefClk =
-	               InstancePtr->HdmiRxPtr->Stream.RefClk * 4;
+      InstancePtr->HdmiRxPtr->Stream.RefClk =
+                   InstancePtr->HdmiRxPtr->Stream.RefClk * 4;
   }
 
   return (XST_SUCCESS);
@@ -1648,8 +1736,8 @@ static void XV_HdmiRxSs_ConfigBridgeMode(XV_HdmiRxSs *InstancePtr) {
         /*********************************************************
          * 420 Support
          *********************************************************/
-		 XV_HdmiRxSs_BridgePixelDrop(InstancePtr,FALSE);
-	 XV_HdmiRxSs_BridgeYuv420(InstancePtr,TRUE);
+         XV_HdmiRxSs_BridgePixelDrop(InstancePtr,FALSE);
+         XV_HdmiRxSs_BridgeYuv420(InstancePtr,TRUE);
     }
     else {
         if ((VideoMode == XVIDC_VM_1440x480_60_I) ||
@@ -1658,12 +1746,12 @@ static void XV_HdmiRxSs_ConfigBridgeMode(XV_HdmiRxSs *InstancePtr) {
             /*********************************************************
              * NTSC/PAL Support
              *********************************************************/
-			 XV_HdmiRxSs_BridgeYuv420(InstancePtr,FALSE);
-		 XV_HdmiRxSs_BridgePixelDrop(InstancePtr,TRUE);
+             XV_HdmiRxSs_BridgeYuv420(InstancePtr,FALSE);
+             XV_HdmiRxSs_BridgePixelDrop(InstancePtr,TRUE);
         }
         else {
-			XV_HdmiRxSs_BridgeYuv420(InstancePtr,FALSE);
-			XV_HdmiRxSs_BridgePixelDrop(InstancePtr,FALSE);
+            XV_HdmiRxSs_BridgeYuv420(InstancePtr,FALSE);
+            XV_HdmiRxSs_BridgePixelDrop(InstancePtr,FALSE);
         }
     }
 }
@@ -1699,6 +1787,6 @@ void XV_HdmiRxSs_SetDefaultPpc(XV_HdmiRxSs *InstancePtr, u8 Id) {
 *
 ******************************************************************************/
 void XV_HdmiRxSs_SetPpc(XV_HdmiRxSs *InstancePtr, u8 Id, u8 Ppc) {
-    InstancePtr->Config.Ppc = Ppc;
+    InstancePtr->Config.Ppc = (XVidC_PixelsPerClock) Ppc;
     Id = Id; //squash unused variable compiler warning
 }
