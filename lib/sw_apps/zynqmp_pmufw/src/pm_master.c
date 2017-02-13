@@ -43,6 +43,8 @@
 #include "pm_ddr.h"
 #include "pm_requirement.h"
 #include "pmu_global.h"
+#include "pm_node_reset.h"
+#include "pm_clock.h"
 
 #include "xpfw_ipi_manager.h"
 
@@ -751,6 +753,33 @@ static int PmMasterForceDownCleanup(PmMaster* const master)
 }
 
 /**
+ * PmMasterIdleSlaves() - Idle and reset active slaves of a master
+ * @master	Master whose slaves need to be idled and reset
+ *
+ * @note	Only slaves that are exclusively used by this master and
+ *          with a active clock are idled and reset
+ */
+static void PmMasterIdleSlaves(PmMaster* const master)
+{
+#ifdef ENABLE_NODE_IDLING
+	PmRequirement* req = master->reqs;
+	PmNode* Node;
+
+	PmDbg("%s\r\n", PmStrNode(master->nid));
+
+	while (NULL != req) {
+		Node = &req->slave->node;
+		/* If master is using a slave and it has active clock then idle it */
+		if((PmSlaveGetUsageStatus(req->slave, master) == PM_USAGE_CURRENT_MASTER) &&
+				(PmClockIsActive(Node) == XST_SUCCESS)) {
+			PmNodeReset(master, Node->nodeId, NODE_IDLE_REQ);
+		}
+		req = req->nextSlave;
+	}
+#endif
+}
+
+/**
  * PmMasterFsm() - Implements finite state machine (FSM) for a master
  * @master	Master whose state machine is triggered
  * @event	Event to which the master's state machine need to react
@@ -811,6 +840,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		master->state = PM_MASTER_STATE_KILLED;
 		status = PmMasterForceDownProcs(master);
 		if (XST_SUCCESS == status) {
+			PmMasterIdleSlaves(master);
 			status = PmMasterForceDownCleanup(master);
 		}
 		break;
