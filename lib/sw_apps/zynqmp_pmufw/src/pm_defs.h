@@ -179,9 +179,14 @@
 #define NODE_RTC        61U
 #define NODE_LPD        62U
 #define NODE_VCU        63U
+#define NODE_IPI_RPU_1  64U
+#define NODE_IPI_PL_0   65U
+#define NODE_IPI_PL_1   66U
+#define NODE_IPI_PL_2   67U
+#define NODE_IPI_PL_3   68U
 
 #define NODE_MIN        NODE_APU
-#define NODE_MAX        NODE_VCU
+#define NODE_MAX        NODE_IPI_PL_3
 
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U

@@ -912,3 +912,98 @@ PmSlave pmSlaveIpiRpu0_g = {
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
+
+PmSlave pmSlaveIpiRpu1_g = {
+	.node = {
+		.derived = &pmSlaveIpiRpu1_g,
+		.nodeId = NODE_IPI_RPU_1,
+		.class = &pmNodeClassSlave_g,
+		.parent = &pmPowerDomainLpd_g.power,
+		.clocks = NULL,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
+		.latencyMarg = MAX_LATENCY,
+		.flags = 0U,
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
+	},
+	.class = NULL,
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &pmGenericSlaveFsm,
+	.flags = 0U,
+};
+
+PmSlave pmSlaveIpiPl0_g = {
+	.node = {
+		.derived = &pmSlaveIpiPl0_g,
+		.nodeId = NODE_IPI_PL_0,
+		.class = &pmNodeClassSlave_g,
+		.parent = &pmPowerDomainLpd_g.power,
+		.clocks = NULL,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
+		.latencyMarg = MAX_LATENCY,
+		.flags = 0U,
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
+	},
+	.class = NULL,
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &pmGenericSlaveFsm,
+	.flags = 0U,
+};
+
+PmSlave pmSlaveIpiPl1_g = {
+	.node = {
+		.derived = &pmSlaveIpiPl1_g,
+		.nodeId = NODE_IPI_PL_1,
+		.class = &pmNodeClassSlave_g,
+		.parent = &pmPowerDomainLpd_g.power,
+		.clocks = NULL,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
+		.latencyMarg = MAX_LATENCY,
+		.flags = 0U,
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
+	},
+	.class = NULL,
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &pmGenericSlaveFsm,
+	.flags = 0U,
+};
+
+PmSlave pmSlaveIpiPl2_g = {
+	.node = {
+		.derived = &pmSlaveIpiPl2_g,
+		.nodeId = NODE_IPI_PL_2,
+		.class = &pmNodeClassSlave_g,
+		.parent = &pmPowerDomainLpd_g.power,
+		.clocks = NULL,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
+		.latencyMarg = MAX_LATENCY,
+		.flags = 0U,
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
+	},
+	.class = NULL,
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &pmGenericSlaveFsm,
+	.flags = 0U,
+};
+
+PmSlave pmSlaveIpiPl3_g = {
+	.node = {
+		.derived = &pmSlaveIpiPl3_g,
+		.nodeId = NODE_IPI_PL_3,
+		.class = &pmNodeClassSlave_g,
+		.parent = &pmPowerDomainLpd_g.power,
+		.clocks = NULL,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
+		.latencyMarg = MAX_LATENCY,
+		.flags = 0U,
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
+	},
+	.class = NULL,
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &pmGenericSlaveFsm,
+	.flags = 0U,
+};

@@ -161,6 +161,16 @@ const char* PmStrNode(const u32 node)
 		return "NODE_IPI_APU";
 	case NODE_IPI_RPU_0:
 		return "NODE_IPI_RPU_0";
+	case NODE_IPI_RPU_1:
+		return "NODE_IPI_RPU_1";
+	case NODE_IPI_PL_0:
+		return "NODE_IPI_PL_0";
+	case NODE_IPI_PL_1:
+		return "NODE_IPI_PL_1";
+	case NODE_IPI_PL_2:
+		return "NODE_IPI_PL_2";
+	case NODE_IPI_PL_3:
+		return "NODE_IPI_PL_3";
 	case NODE_GPU:
 		return "NODE_GPU";
 	case NODE_PCIE:
