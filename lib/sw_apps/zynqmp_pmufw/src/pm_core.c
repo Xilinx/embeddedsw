@@ -296,12 +296,14 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 			setAddress, address, ack);
 
 	if ((NULL == proc) || (NULL == proc->master)) {
+		PmDbg("ERROR: Invalid node argument %s\r\n", PmStrNode(node));
 		status = XST_PM_INVALID_NODE;
 		goto done;
 	}
 
 	if ((false == PmMasterCanRequestWake(master, proc->master)) &&
 	    (master != proc->master)) {
+		PmDbg("ERROR: No permission to wake-up %s\r\n", PmStrNode(node));
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -310,6 +312,7 @@ static void PmRequestWakeup(const PmMaster *const master, const u32 node,
 		proc->saveResumeAddr(proc, address);
 	} else {
 		if (false == PmProcHasResumeAddr(proc)) {
+			PmDbg("ERROR: missing address argument\r\n");
 			status = XST_INVALID_PARAM;
 			goto done;
 		}
