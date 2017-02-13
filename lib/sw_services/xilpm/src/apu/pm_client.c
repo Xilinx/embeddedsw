@@ -43,6 +43,9 @@
 #include <xreg_cortexa53.h>
 #include <xpseudo_asm.h>
 
+/* Mask to get affinity level 0 */
+#define PM_AFL0_MASK   0xFF
+
 static struct XPm_Master pm_apu_0_master = {
 	.node_id = NODE_APU_0,
 	.pwrctl = APU_PWRCTL,
@@ -185,4 +188,15 @@ void XPm_ClientSuspendFinalize(void)
 	pm_dbg("Going to WFI...\n");
 	__asm__("wfi");
 	pm_dbg("WFI exit...\n");
+}
+
+/**
+ *  XPm_ClientSetPrimaryMaster() - Set primary master based on master ID
+ */
+void XPm_ClientSetPrimaryMaster(void)
+{
+	u32 master_id = mfcp(MPIDR_EL1);
+
+	master_id &= PM_AFL0_MASK;
+	primary_master = pm_masters_all[master_id];
 }

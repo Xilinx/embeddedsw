@@ -42,9 +42,13 @@
 #include <xil_cache.h>
 #include <xreg_cortexr5.h>
 #include <xpseudo_asm.h>
+#include "xreg_cortexr5.h"
 
 #define PM_CLIENT_RPU_ERR_INJ            0xFF9A0020U
 #define PM_CLIENT_RPU_FAULT_LOG_EN_MASK  0x00000101U
+
+/* Mask to get affinity level 0 */
+#define PM_CLIENT_AFL0_MASK              0xFF
 
 static struct XPm_Master pm_rpu_0_master = {
 	.node_id = NODE_RPU_0,
@@ -113,6 +117,7 @@ static u32 pm_get_cpuid(const enum XPmNodeId node)
 }
 
 const enum XPmNodeId subsystem_node = NODE_RPU;
+/* By default, lock-step mode is assumed */
 struct XPm_Master *primary_master = &pm_rpu_0_master;
 
 void XPm_ClientSuspend(const struct XPm_Master *const master)
@@ -173,4 +178,29 @@ void XPm_ClientSuspendFinalize(void)
 	pm_dbg("Going to WFI...\n");
 	__asm__("wfi");
 	pm_dbg("WFI exit...\n");
+}
+
+/**
+ * XPm_ClientSetPrimaryMaster() -Set primary master
+ *
+ * This function determines the RPU configuration (split or lock-step mode)
+ * and sets the primary master accordingly.
+ *
+ * If this function is not called, the default configuration is assumed
+ * (i.e. lock-step)
+ */
+void XPm_ClientSetPrimaryMaster(void)
+{
+	u32 master_id;
+	bool lockstep;
+
+	master_id = mfcp(XREG_CP15_MULTI_PROC_AFFINITY) & PM_CLIENT_AFL0_MASK;
+	lockstep = !(pm_read(RPU_RPU_GLBL_CNTL) &
+		     RPU_RPU_GLBL_CNTL_SLSPLIT_MASK);
+	if (lockstep) {
+		primary_master = &pm_rpu_0_master;
+	} else {
+		primary_master = pm_masters_all[master_id];
+	}
+	pm_print("Running in %s mode\n", lockstep ? "Lock-Step" : "Split");
 }

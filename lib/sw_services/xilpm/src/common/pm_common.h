@@ -103,6 +103,7 @@ void XPm_ClientSuspend(const struct XPm_Master *const master);
 void XPm_ClientAbortSuspend(void);
 void XPm_ClientWakeup(const struct XPm_Master *const master);
 void XPm_ClientSuspendFinalize(void);
+void XPm_ClientSetPrimaryMaster(void);
 
 /* Do not modify below this line */
 extern const enum XPmNodeId subsystem_node;

@@ -87,6 +87,8 @@ XStatus XPm_InitXilpm(XIpiPsu *IpiInst)
 		goto done;
 	}
 
+	XPm_ClientSetPrimaryMaster();
+
 	primary_master->ipi = IpiInst;
 done:
 	return status;
@@ -107,7 +109,11 @@ done:
  ****************************************************************************/
 enum XPmBootStatus XPm_GetBootStatus(void)
 {
-	u32 pwrdn_req = pm_read(primary_master->pwrctl);
+	u32 pwrdn_req;
+
+	XPm_ClientSetPrimaryMaster();
+
+	pwrdn_req = pm_read(primary_master->pwrctl);
 	if (0 != (pwrdn_req & primary_master->pwrdn_mask)) {
 		pwrdn_req &= ~primary_master->pwrdn_mask;
 		pm_write(primary_master->pwrctl, pwrdn_req);
