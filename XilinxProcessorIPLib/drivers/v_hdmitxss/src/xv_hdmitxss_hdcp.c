@@ -192,7 +192,7 @@ static u32 XV_HdmiTxSs_HdcpTimerConvUsToTicks(u32 TimeoutInUs,
 ******************************************************************************/
 void XV_HdmiTxSs_HdcpTimerCallback(void* CallBackRef, u8 TimerChannel)
 {
-    XHdcp1x* HdcpPtr = CallBackRef;
+    XHdcp1x* HdcpPtr = (XHdcp1x*) CallBackRef;
 
     TimerChannel = TimerChannel;
     XHdcp1x_HandleTimeout(HdcpPtr);
@@ -910,7 +910,10 @@ int XV_HdmiTxSs_HdcpAuthRequest(XV_HdmiTxSs *InstancePtr)
   if (InstancePtr->Hdcp22Ptr) {
     if (XV_HdmiTxSs_IsSinkHdcp22Capable(InstancePtr)) {
       xdbg_printf(XDBG_DEBUG_GENERAL, "Starting HDCP 2.2 authentication\r\n");
-      Status = XV_HdmiTxSs_HdcpSetProtocol(InstancePtr, XV_HDMITXSS_HDCP_22);
+#ifdef XV_HDMITXSS_LOG_ENABLE
+      XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_HDCP22_AUTHREQ, 0);
+#endif
+	  Status = XV_HdmiTxSs_HdcpSetProtocol(InstancePtr, XV_HDMITXSS_HDCP_22);
       Status |= XHdcp22Tx_Authenticate(InstancePtr->Hdcp22Ptr);
     }
     else {
@@ -925,6 +928,9 @@ int XV_HdmiTxSs_HdcpAuthRequest(XV_HdmiTxSs *InstancePtr)
   if ((InstancePtr->Hdcp14Ptr) && (Status == XST_FAILURE)) {
     if (XV_HdmiTxSs_IsSinkHdcp14Capable(InstancePtr)) {
       xdbg_printf(XDBG_DEBUG_GENERAL, "Starting HDCP 1.4 authentication\r\n");
+#ifdef XV_HDMITXSS_LOG_ENABLE
+      XV_HdmiTxSs_LogWrite(InstancePtr, XV_HDMITXSS_LOG_EVT_HDCP14_AUTHREQ, 0);
+#endif
       Status = XV_HdmiTxSs_HdcpSetProtocol(InstancePtr, XV_HDMITXSS_HDCP_14);
       Status |= XHdcp1x_Authenticate(InstancePtr->Hdcp14Ptr);
     }
@@ -1145,12 +1151,17 @@ int XV_HdmiTxSs_HdcpDisableBlank(XV_HdmiTxSs *InstancePtr)
 /**
 *
 * This function determines if the connected HDMI sink has HDCP 1.4 capabilities.
+* The sink is determined to be HDCP 1.4 capable the BKSV indicates 20 ones and
+* 20 zeros. If the sink is capable of HDCP 1.4, then this function checks if
+* the Bcaps register indicates that the connected device a DVI or HDMI receiver.
+* If the receiver is determined to be HDMI, then the function will return FALSE
+* until the receiver has set the HDMI_MODE in the Bstatus register.
 *
 * @param InstancePtr is a pointer to the XV_HdmiTxSs instance.
 *
 * @return
-*  - TRUE if sink is HDCP 1.4 capable
-*  - FALSE if sink does not support HDCP 1.4 or HDCP 1.4 is not available.
+*  - TRUE if sink is HDCP 1.4 capable and ready to authenticate.
+*  - FALSE if sink does not support HDCP 1.4 or is not ready.
 *
 ******************************************************************************/
 u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr)
@@ -1176,7 +1187,8 @@ u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr)
     if (status != XST_SUCCESS)
       return FALSE;
 
-    /* Read the receiver KSV */
+    /* Read the receiver KSV and count the number of ones and zeros.
+       A valid KSV has 20 ones and 20 zeros. */
     status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr,
                                0x3A,
                                5,
@@ -1188,7 +1200,6 @@ u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr)
     for(i = 0; i < 5; i++) {
       temp = buffer[i];
 
-      /* Count the amount of ones and zeros */
       for(j = 0; j < 8; j++) {
         if(temp & 0x1)
           one_count++;
@@ -1199,11 +1210,13 @@ u8 XV_HdmiTxSs_IsSinkHdcp14Capable(XV_HdmiTxSs *InstancePtr)
       }
     }
 
-    /* A valid KSV contains 20 ones and 20 zeros */
-    if (one_count == 20 && zero_count == 20)
-      return TRUE;
-    else
+    if (one_count != 20 || zero_count != 20)
       return FALSE;
+
+    /* Check if the sink device is ready to authenticate */
+    if (XHdcp1x_IsDwnstrmCapable(InstancePtr->Hdcp14Ptr)) {
+      return TRUE;
+    }
   }
   else {
     return FALSE;
@@ -2146,7 +2159,8 @@ void XV_HdmiTxSs_HdcpSetContentStreamType(XV_HdmiTxSs *InstancePtr,
     // HDCP 2.2
     case XV_HDMITXSS_HDCP_22:
       if (InstancePtr->Hdcp22Ptr) {
-        XHdcp22Tx_SetContentStreamType(InstancePtr->Hdcp22Ptr, StreamType);
+        XHdcp22Tx_SetContentStreamType(InstancePtr->Hdcp22Ptr,
+                                       (XHdcp22_Tx_ContentStreamType) StreamType);
       }
       break;
 #endif

@@ -105,7 +105,7 @@ int XV_HdmiTxSs_SubcoreInitHdmiTx(XV_HdmiTxSs *HdmiTxSsPtr)
     ConfigPtr  = XV_HdmiTx_LookupConfig(HdmiTxSsPtr->Config.HdmiTx.DeviceId);
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,
-	              "HDMITXSS ERR:: HDMI TX device not found\r\n");
+                  "HDMITXSS ERR:: HDMI TX device not found\r\n");
       return(XST_FAILURE);
     }
 
@@ -116,7 +116,7 @@ int XV_HdmiTxSs_SubcoreInitHdmiTx(XV_HdmiTxSs *HdmiTxSsPtr)
 
     if (Status != XST_SUCCESS) {
       xdbg_printf(XDBG_DEBUG_GENERAL,
-	              "HDMITXSS ERR:: HDMI TX Initialization failed\r\n");
+                  "HDMITXSS ERR:: HDMI TX Initialization failed\r\n");
       return(XST_FAILURE);
     }
   }
@@ -155,7 +155,7 @@ int XV_HdmiTxSs_SubcoreInitVtc(XV_HdmiTxSs *HdmiTxSsPtr)
 
     if (Status != XST_SUCCESS) {
       xdbg_printf(XDBG_DEBUG_GENERAL,
-	              "HDMITXSS ERR:: VTC Initialization failed\r\n");
+                  "HDMITXSS ERR:: VTC Initialization failed\r\n");
       return(XST_FAILURE);
     }
   }
@@ -185,7 +185,7 @@ int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr)
     ConfigPtr  = XTmrCtr_LookupConfig(HdmiTxSsPtr->Config.HdcpTimer.DeviceId);
     if (ConfigPtr == NULL) {
       xdbg_printf(XDBG_DEBUG_GENERAL,
-	              "HDMITXSS ERR:: AXIS Timer device not found\r\n");
+                  "HDMITXSS ERR:: AXIS Timer device not found\r\n");
       return(XST_FAILURE);
     }
 
@@ -213,7 +213,7 @@ int XV_HdmiTxSs_SubcoreInitHdcpTimer(XV_HdmiTxSs *HdmiTxSsPtr)
 
     if (Status != XST_SUCCESS) {
       xdbg_printf(XDBG_DEBUG_GENERAL,
-	              "HDMITXSS ERR:: AXI Timer Initialization failed\r\n");
+                  "HDMITXSS ERR:: AXI Timer Initialization failed\r\n");
       return(XST_FAILURE);
     }
   }
@@ -247,7 +247,7 @@ int XV_HdmiTxSs_SubcoreInitHdcp14(XV_HdmiTxSs *HdmiTxSsPtr)
       ConfigPtr  = XHdcp1x_LookupConfig(HdmiTxSsPtr->Config.Hdcp14.DeviceId);
       if (ConfigPtr == NULL){
         xdbg_printf(XDBG_DEBUG_GENERAL,
-		            "HDMITXSS ERR:: HDCP 1.4 device not found\r\n");
+                    "HDMITXSS ERR:: HDCP 1.4 device not found\r\n");
         return(XST_FAILURE);
       }
 
@@ -265,14 +265,19 @@ int XV_HdmiTxSs_SubcoreInitHdcp14(XV_HdmiTxSs *HdmiTxSsPtr)
       }
 
       /* Set-up the DDC Handlers */
-      XHdcp1x_SetCallback(HdmiTxSsPtr->Hdcp14Ptr, XHDCP1X_HANDLER_DDC_WRITE,
-        XV_HdmiTxSs_DdcWriteHandler, HdmiTxSsPtr->HdmiTxPtr);
-      XHdcp1x_SetCallback(HdmiTxSsPtr->Hdcp14Ptr, XHDCP1X_HANDLER_DDC_READ,
-        XV_HdmiTxSs_DdcReadHandler, HdmiTxSsPtr->HdmiTxPtr);
+      XHdcp1x_SetCallback(HdmiTxSsPtr->Hdcp14Ptr,
+                          XHDCP1X_HANDLER_DDC_WRITE,
+                          XV_HdmiTxSs_DdcWriteHandler,
+                          HdmiTxSsPtr->HdmiTxPtr);
+
+      XHdcp1x_SetCallback(HdmiTxSsPtr->Hdcp14Ptr,
+                          XHDCP1X_HANDLER_DDC_READ,
+                          XV_HdmiTxSs_DdcReadHandler,
+                          HdmiTxSsPtr->HdmiTxPtr);
 
       if (Status != XST_SUCCESS) {
         xdbg_printf(XDBG_DEBUG_GENERAL,
-		            "HDMITXSS ERR:: HDCP 1.4 Initialization failed\r\n");
+                    "HDMITXSS ERR:: HDCP 1.4 Initialization failed\r\n");
         return(XST_FAILURE);
       }
 

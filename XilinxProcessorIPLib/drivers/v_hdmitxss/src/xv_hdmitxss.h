@@ -132,19 +132,24 @@ typedef enum {
 	XV_HDMITXSS_LOG_EVT_HDCPTIMER_INIT,	  /**< Log event HDCP Timer Init */
 	XV_HDMITXSS_LOG_EVT_HDCP14_INIT,	  /**< Log event HDCP 14 Init. */
 	XV_HDMITXSS_LOG_EVT_HDCP22_INIT,	  /**< Log event HDCP 22 Init. */
-	XV_HDMITXSS_LOG_EVT_START,	          /**< Log event HDMITXSS Start. */
-	XV_HDMITXSS_LOG_EVT_STOP,	          /**< Log event HDMITXSS Stop. */
-	XV_HDMITXSS_LOG_EVT_RESET,	          /**< Log event HDMITXSS Reset. */
-	XV_HDMITXSS_LOG_EVT_CONNECT,          /**< Log event Cable connect. */
-	XV_HDMITXSS_LOG_EVT_DISCONNECT,	      /**< Log event Cable disconnect. */
-	XV_HDMITXSS_LOG_EVT_STREAMUP,	      /**< Log event Stream Up. */
-	XV_HDMITXSS_LOG_EVT_STREAMDOWN,	      /**< Log event Stream Down. */
-	XV_HDMITXSS_LOG_EVT_STREAMSTART,      /**< Log event Stream Start. */
+	XV_HDMITXSS_LOG_EVT_REMAP_HWRESET_INIT,	/**< Log event Remap reset Init. */
+	XV_HDMITXSS_LOG_EVT_REMAP_INIT,		/**< Log event Remapper Init. */
+	XV_HDMITXSS_LOG_EVT_START,	/**< Log event HDMITXSS Start. */
+	XV_HDMITXSS_LOG_EVT_STOP,	/**< Log event HDMITXSS Stop. */
+	XV_HDMITXSS_LOG_EVT_RESET,	/**< Log event HDMITXSS Reset. */
+	XV_HDMITXSS_LOG_EVT_CONNECT, /**< Log event Cable connect. */
+	XV_HDMITXSS_LOG_EVT_TOGGLE, /**< Log event HPD toggle. */
+	XV_HDMITXSS_LOG_EVT_DISCONNECT,	/**< Log event Cable disconnect. */
+	XV_HDMITXSS_LOG_EVT_STREAMUP,	/**< Log event Stream Up. */
+	XV_HDMITXSS_LOG_EVT_STREAMDOWN,	/**< Log event Stream Down. */
+	XV_HDMITXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
 	XV_HDMITXSS_LOG_EVT_SETAUDIOCHANNELS, /**< Log event Set Audio Channels. */
-	XV_HDMITXSS_LOG_EVT_AUDIOMUTE,		  /**< Log event Audio Mute */
-	XV_HDMITXSS_LOG_EVT_AUDIOUNMUTE,	  /**< Log event Audio Unmute. */
-	XV_HDMITXSS_LOG_EVT_SETSTREAM,        /**< Log event HDMITXSS Setstream. */
-	XV_HDMITXSS_LOG_EVT_DUMMY,		      /**< Dummy Event should be last */
+	XV_HDMITXSS_LOG_EVT_AUDIOMUTE,		/**< Log event Audio Mute */
+	XV_HDMITXSS_LOG_EVT_AUDIOUNMUTE,	/**< Log event Audio Unmute. */
+	XV_HDMITXSS_LOG_EVT_SETSTREAM,   /**< Log event HDMITXSS Setstream. */
+	XV_HDMITXSS_LOG_EVT_HDCP14_AUTHREQ,   /**< Log event HDCP 1.4 AuthReq. */
+	XV_HDMITXSS_LOG_EVT_HDCP22_AUTHREQ,   /**< Log event HDCP 2.2 AuthReq. */
+	XV_HDMITXSS_LOG_EVT_DUMMY		/**< Dummy Event should be last */
 } XV_HdmiTxSs_LogEvent;
 
 /**

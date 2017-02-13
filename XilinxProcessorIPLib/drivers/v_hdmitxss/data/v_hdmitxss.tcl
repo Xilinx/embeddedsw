@@ -37,8 +37,10 @@
 ##  1.1     MG      03/03/16 Added HDCP 2.2
 ##  1.2     YH      30/07/16 No HDCP22_SS sub-cores included in _g.c generation
 ##  1.3     YH      16/11/16 Remove Remapper & axi_gpio
-##  1.4     MMO      3/01/17 Fix the TCL to support multiple instance and sync
+##  1.4     MMO     03/01/16 Added sub-core base address computation in TCL
+##  1.5     MMO      3/01/17 Fix the TCL to support multiple instance and sync
 ##                           with XV_HdmiTxSs_Config Data Structure
+##  1.6     MM0     13/02/17 Fix by adding typecasting for C++ Fix
 #
 ################################################################################
 
@@ -50,7 +52,7 @@ proc generate {drv_handle} {
                     "DEVICE_ID" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
-					"AXI_LITE_FREQ_HZ"
+                    "AXI_LITE_FREQ_HZ"
 
   hier_ip_define_config_file $drv_handle "xv_hdmitxss_g.c" "XV_HdmiTxSs" \
                     "DEVICE_ID" \
@@ -58,7 +60,7 @@ proc generate {drv_handle} {
                     "C_HIGHADDR" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
-					"AXI_LITE_FREQ_HZ"
+                    "AXI_LITE_FREQ_HZ"
 
   hier_ip_define_canonical_xpars $drv_handle "xparameters.h" \
                     "XV_HdmiTxSs" \
@@ -67,7 +69,7 @@ proc generate {drv_handle} {
                     "DEVICE_ID" \
                     "C_INPUT_PIXELS_PER_CLOCK" \
                     "C_MAX_BITS_PER_COMPONENT" \
-					"AXI_LITE_FREQ_HZ"
+                    "AXI_LITE_FREQ_HZ"
 }
 
 
@@ -359,7 +361,8 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
     }
 
     puts $config_file "\n"
-    puts $config_file [format "%s_Config %s_ConfigTable\[\] =" $drv_string $drv_string]
+    set num_insts [::hsi::utils::get_driver_param_name $drv_string "NUM_INSTANCES"]
+    puts $config_file [format "%s_Config %s_ConfigTable\[%s\] =" $drv_string $drv_string $num_insts]
     puts $config_file "\{"
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set start_comma ""
@@ -400,12 +403,16 @@ proc hier_ip_define_config_file {drv_handle file_name drv_string args} {
             }
         }
 
-        #puts $config_file "//$periph $periphs"
         puts $config_file [format "%s\t\{" $start_comma]
         set comma ""
         foreach arg $args {
             if {[string compare -nocase "DEVICE_ID" $arg] == 0} {
                 puts -nonewline $config_file [format "%s\t\t%s,\n" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+                continue
+            }
+
+            if {[string compare -nocase "C_INPUT_PIXELS_PER_CLOCK" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVidC_PixelsPerClock) " [::hsi::utils::get_ip_param_name $periph $arg]]
                 continue
             }
 

@@ -233,6 +233,9 @@ void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr)
 	    case (XV_HDMITXSS_LOG_EVT_DISCONNECT):
 		    xil_printf("TX cable is disconnected....\r\n");
 			break;
+	    case (XV_HDMITXSS_LOG_EVT_TOGGLE):
+		    xil_printf("TX cable is toggled....\r\n");
+			break;
 	    case (XV_HDMITXSS_LOG_EVT_STREAMUP):
 		    xil_printf("TX Stream is Up\r\n");
 			break;
@@ -253,6 +256,12 @@ void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr)
 			break;
 	    case (XV_HDMITXSS_LOG_EVT_SETSTREAM):
 		    xil_printf("TX Set Stream, with TMDS (%0d)\r\n", Data);
+			break;
+	    case (XV_HDMITXSS_LOG_EVT_HDCP14_AUTHREQ):
+		    xil_printf("TX HDCP 1.4 authentication request\r\n");
+			break;
+	    case (XV_HDMITXSS_LOG_EVT_HDCP22_AUTHREQ):
+		    xil_printf("TX HDCP 2.2 authentication request\r\n");
 			break;
 		default:
 			xil_printf("Unknown event\r\n");
