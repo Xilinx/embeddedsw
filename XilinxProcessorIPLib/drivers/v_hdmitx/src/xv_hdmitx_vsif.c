@@ -625,31 +625,31 @@ char* XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_3D_Struct_Field Item)
 {
     switch(Item) {
         case XV_HDMITX_3D_STRUCT_FRAME_PACKING :
-            return "Frame Packing";
+            return (char*) "Frame Packing";
 
         case XV_HDMITX_3D_STRUCT_FIELD_ALTERNATIVE :
-            return "Field Alternative";
+            return (char*) "Field Alternative";
 
         case XV_HDMITX_3D_STRUCT_LINE_ALTERNATIVE :
-            return "Line Alternative";
+            return (char*) "Line Alternative";
 
         case XV_HDMITX_3D_STRUCT_SIDE_BY_SIDE_FULL :
-            return "Side-by-Side(Full)";
+            return (char*) "Side-by-Side(Full)";
 
         case XV_HDMITX_3D_STRUCT_L_DEPTH :
-            return "L + Depth";
+            return (char*) "L + Depth";
 
         case XV_HDMITX_3D_STRUCT_L_DEPTH_GRAPH_GDEPTH :
-            return "L + Depth + Graphics + Graphics-depth";
+            return (char*) "L + Depth + Graphics + Graphics-depth";
 
         case XV_HDMITX_3D_STRUCT_TOP_AND_BOTTOM :
-            return "Top-and-Bottom";
+            return (char*) "Top-and-Bottom";
 
         case XV_HDMITX_3D_STRUCT_SIDE_BY_SIDE_HALF :
-            return "Side-by-Side(Half)";
+            return (char*) "Side-by-Side(Half)";
 
         default :
-            return "Unknown";
+            return (char*) "Unknown";
     }
 }
 
@@ -668,13 +668,13 @@ char* XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_3D_Sampling_Method Item)
 {
     switch(Item) {
         case XV_HDMITX_3D_SAMPLING_HORIZONTAL :
-            return "Horizontal Sub-Sampling";
+            return (char*) "Horizontal Sub-Sampling";
 
         case XV_HDMITX_3D_SAMPLING_QUINCUNX :
-            return "Quincunx Matrix";
+            return (char*) "Quincunx Matrix";
 
         default :
-            return "Unknown";
+            return (char*) "Unknown";
     }
 }
 
@@ -693,18 +693,18 @@ char* XV_HdmiTx_VSIF_3DSampPosToString(XV_HdmiTx_3D_Sampling_Position Item)
 {
     switch(Item) {
         case XV_HDMITX_3D_SAMPPOS_OLOR :
-            return "Odd/Left, Odd/Right";
+            return (char*) "Odd/Left, Odd/Right";
 
         case XV_HDMITX_3D_SAMPPOS_OLER :
-            return "Odd/Left, Even/Right";
+            return (char*) "Odd/Left, Even/Right";
 
         case XV_HDMITX_3D_SAMPPOS_ELOR :
-            return "Even/Left, Odd/Right";
+            return (char*) "Even/Left, Odd/Right";
 
         case XV_HDMITX_3D_SAMPPOS_ELER :
-            return "Even/Left, Even/Right";
+            return (char*) "Even/Left, Even/Right";
 
         default :
-            return "Unknown";
+            return (char*) "Unknown";
     }
 }
