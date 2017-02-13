@@ -126,8 +126,7 @@ int PmSystemRequirementAdd(void)
 			status = XST_FAILURE;
 			goto done;
 		}
-
-		req->info |= PM_MASTER_USING_SLAVE_MASK;
+		req->info |= PM_SYSTEM_USING_SLAVE_MASK;
 		req->preReq = pmSystemReqs[i].caps;
 		req->currReq = pmSystemReqs[i].caps;
 		req->nextReq = pmSystemReqs[i].caps;
@@ -137,4 +136,25 @@ int PmSystemRequirementAdd(void)
 
 done:
 	return status;
+}
+
+/**
+ * PmSystemGetRequirement() - Get system-level requirement for given slave
+ * @slave	Slave in question
+ *
+ * @return	Capabilities of the slave the are required for the system
+ */
+u32 PmSystemGetRequirement(const PmSlave* const slave)
+{
+	u32 i;
+	u32 caps = 0U;
+
+	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
+		if (slave == pmSystemReqs[i].slave) {
+			caps = pmSystemReqs[i].caps;
+			break;
+		}
+	}
+
+	return caps;
 }

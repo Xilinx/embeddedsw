@@ -37,10 +37,13 @@
 
 #include "xil_types.h"
 #include "pm_master.h"
+#include "pm_slave.h"
 
 /*********************************************************************
  * Function declarations
  ********************************************************************/
 int PmSystemRequirementAdd(void);
+
+u32 PmSystemGetRequirement(const PmSlave* const slave);
 
 #endif

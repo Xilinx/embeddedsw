@@ -48,7 +48,7 @@
 #include <unistd.h>
 #include "pm_gpp.h"
 #include "pm_extern.h"
-
+#include "pm_system.h"
 
 #define HAS_CAPABILITIES(slavePtr, state, caps)	\
 	((caps) == ((caps) & (slavePtr)->slvFsm->states[state]))
@@ -67,6 +67,9 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
 	while (NULL != req) {
 		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
 			maxCaps |= req->currReq;
+		}
+		if (0U != (PM_SYSTEM_USING_SLAVE_MASK & req->info)) {
+			maxCaps |= PmSystemGetRequirement(slave);
 		}
 		req = req->nextMaster;
 	}
@@ -662,9 +665,7 @@ static int PmSlaveForceDown(PmNode* const node)
 		}
 		req = req->nextMaster;
 	}
-	if (0U != slave->node.currState) {
-		status = PmSlaveChangeState(slave, 0U);
-	}
+	status = PmUpdateSlave(slave);
 
 	return status;
 }
