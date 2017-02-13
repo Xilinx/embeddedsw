@@ -107,5 +107,6 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val);
 void PmClockConstructList(void);
 
 void PmClockSave(PmNode* const node);
+s32 PmClockIsActive(PmNode* const node);
 
 #endif

@@ -36,6 +36,8 @@
 #include "crf_apb.h"
 #include "crl_apb.h"
 
+#define PM_CLOCK_ACTIVE_MASK BIT(24)
+
 static const PmClockSel2Pll advSel2Pll[] = {
 	{
 		.pll = &pmApll_g,
@@ -1114,6 +1116,31 @@ void PmClockConstructList(void)
 		ch->nextNode = ch->clock->users;
 		ch->clock->users = ch;
 	}
+}
+
+/**
+ * @PmClockIsActive() Check if all clocks for a given node are active
+ * @node	Node whose clocks need to be checked
+ *
+ * @return XST_SUCCESS if all clocks are active
+ *         XST_FAILURE if any one of the clocks is not active
+ */
+s32 PmClockIsActive(PmNode* const node)
+{
+	s32 Status = XST_SUCCESS;
+	PmClockHandle* ch = node->clocks;
+	PmDbg("%s\r\n", PmStrNode(node->nodeId));
+
+	while (NULL != ch) {
+		if ((XPfw_Read32(ch->clock->ctrlAddr) & PM_CLOCK_ACTIVE_MASK) !=
+				PM_CLOCK_ACTIVE_MASK) {
+			Status = XST_FAILURE;
+			break;
+		}
+		ch = ch->nextClock;
+	}
+
+	return Status;
 }
 
 /**
