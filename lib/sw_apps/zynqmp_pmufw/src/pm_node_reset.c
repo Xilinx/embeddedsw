@@ -518,17 +518,9 @@ static const PmNodeResetInfo NodeRstData[] = {
 	{
 		.NodeId = NODE_PCIE,
 		.RstActionList= {
-			{	.ResetId = PM_RESET_PCIE_CFG,
-				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
-			},
 			{	.ResetId = PM_RESET_PCIE_CTRL,
 				.ResetAction = PM_RESET_ACTION_PULSE,
 				.ResetPulseWait = 0,
-			},
-			{	.ResetId = PM_RESET_PCIE_BRIDGE,
-				.ResetAction = PM_RESET_ACTION_ASSERT,
-				.ResetPulseWait = 10,
 			},
 			{0,0,0}
 		},
