@@ -61,6 +61,7 @@
  */
 struct XPm_Master {
 	const enum XPmNodeId node_id; /**< Node ID */
+	const u32 pwrctl;             /** < Power Control Register Address */
 	const u32 pwrdn_mask;         /**< Power Down Mask */
 	XIpiPsu *ipi;                 /**< IPI Instance */
 };

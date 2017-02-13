@@ -48,12 +48,14 @@
 
 static struct XPm_Master pm_rpu_0_master = {
 	.node_id = NODE_RPU_0,
+	.pwrctl = RPU_RPU_0_PWRDWN,
 	.pwrdn_mask = RPU_RPU_0_PWRDWN_EN_MASK,
 	.ipi = NULL,
 };
 
 static struct XPm_Master pm_rpu_1_master = {
 	.node_id = NODE_RPU_1,
+	.pwrctl = RPU_RPU_1_PWRDWN,
 	.pwrdn_mask = RPU_RPU_1_PWRDWN_EN_MASK,
 	.ipi = NULL,
 };
@@ -115,16 +117,23 @@ struct XPm_Master *primary_master = &pm_rpu_0_master;
 
 void XPm_ClientSuspend(const struct XPm_Master *const master)
 {
+	u32 pwrdn_req;
+
 	/* Disable interrupts at processor level */
 	pm_disable_int();
 	/* Set powerdown request */
-	pm_write(MASTER_PWRCTL, pm_read(MASTER_PWRCTL) | master->pwrdn_mask);
+	pwrdn_req = pm_read(master->pwrctl);
+	pwrdn_req |= master->pwrdn_mask;
+	pm_write(master->pwrctl, pm_read(master->pwrctl) | master->pwrdn_mask);
 }
 
 void XPm_ClientAbortSuspend(void)
 {
+	u32 pwrdn_req = pm_read(primary_master->pwrctl);
+
 	/* Clear powerdown request */
-	pm_write(MASTER_PWRCTL, pm_read(MASTER_PWRCTL) & ~primary_master->pwrdn_mask);
+	pwrdn_req &= ~primary_master->pwrdn_mask;
+	pm_write(primary_master->pwrctl, pwrdn_req);
 	/* Enable interrupts at processor level */
 	pm_enable_int();
 }
@@ -134,9 +143,9 @@ void XPm_ClientWakeup(const struct XPm_Master *const master)
 	u32 cpuid = pm_get_cpuid(master->node_id);
 
 	if (UNDEFINED_CPUID != cpuid) {
-		u32 val = pm_read(MASTER_PWRCTL);
+		u32 val = pm_read(master->pwrctl);
 		val &= ~(master->pwrdn_mask);
-		pm_write(MASTER_PWRCTL, val);
+		pm_write(master->pwrctl, val);
 	}
 }
 

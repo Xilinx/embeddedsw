@@ -47,8 +47,6 @@
 #include "pm_defs.h"
 #include "pm_common.h"
 
-#define MASTER_PWRCTL		APU_PWRCTL
-
 #define IPI_APU_MASK		0x00000001U
 
 #define IPI_TRIG_OFFSET		0x00000000
