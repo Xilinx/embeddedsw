@@ -170,9 +170,11 @@
 #define PHY_RGMIIDCTL	0x86
 #define PHY_RGMIICTL	0x32
 #define PHY_STS			0x11
+#define PHY_TI_CR		0x10
 
 #define PHY_REGCR_ADDR	0x001F
 #define PHY_REGCR_DATA	0x401F
+#define PHY_TI_CRVAL	0x5048
 
 /* Frequency setting */
 #define SLCR_LOCK_ADDR			(XPS_SYS_CTRL_BASEADDR + 0x4)
@@ -439,9 +441,8 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 	}
 
 	/* FIFO depth */
-	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0x10, 0x5048);
-	XEmacPs_PhyWrite(xemacpsp, phy_addr, 0x10, phyregtemp);
-	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, 0x10, (u16_t *)&phyregtemp);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_TI_CR, PHY_TI_CRVAL);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_TI_CR, (u16_t *)&phyregtemp);
 	if (RetStatus != XST_SUCCESS) {
 		xil_printf("Error writing to 0x10 \n\r");
 		return XST_FAILURE;
