@@ -53,6 +53,11 @@
 * 1.04  MH     03/14/16 Updated StateA5 to check re-authentication request
 *                       before enabling the cipher.
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
+* 2.01  MH     02/13/17 1. Fixed function XHdcp22Tx_IsInProgress to correctly
+*                          TRUE while state machine is executing.
+*                       2. Fixed checking of seq_num_V for topology propagation.
+*                       3. Updated state A0 to set 100ms timer before sending
+*                          AKE_Init message to ensure encryption is disabled.
 * </pre>
 *
 ******************************************************************************/
@@ -366,7 +371,6 @@ int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
 	InstancePtr->Info.ContentStreamType = XHDCP22_STREAMTYPE_0; // Default
 	InstancePtr->Info.IsContentStreamTypeSet = (TRUE);
 
-
 	/* Clear pairing info */
 	XHdcp22Tx_ClearPairingInfo(InstancePtr);
 
@@ -382,7 +386,7 @@ int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
 		return Result;
 	}
 
-	/* Initialize random number generator */
+	/* Initialize cipher */
 	Result = XHdcp22Tx_InitializeCipher(InstancePtr);
 	if (Result != XST_SUCCESS) {
 		return Result;
@@ -478,6 +482,13 @@ static int XHdcp22Tx_InitializeCipher(XHdcp22_Tx *InstancePtr)
 
 	/* Set cipher to TX mode */
 	XHdcp22Cipher_SetTxMode(&InstancePtr->Cipher);
+
+	/* Disable encryption */
+	XHdcp22Tx_DisableEncryption(InstancePtr);
+
+	/* Disable cipher */
+	XHdcp22Cipher_Disable(&InstancePtr->Cipher);
+
 	return Result;
 }
 
@@ -1016,12 +1027,6 @@ XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 		                (u8)InstancePtr->Info.AuthenticationStatus);
 	}
 
-	/* Enable only if the attached receiver is authenticated. */
-	if (InstancePtr->Info.AuthenticationStatus == XHDCP22_TX_AUTHENTICATED) {
-		XHdcp22Cipher_Enable(&InstancePtr->Cipher);
-	} else {
-		XHdcp22Cipher_Disable(&InstancePtr->Cipher);
-	}
 	return InstancePtr->Info.AuthenticationStatus;
 }
 
@@ -1062,8 +1067,12 @@ int XHdcp22Tx_Reset(XHdcp22_Tx *InstancePtr)
 	/* Clear Topology Available flag */
 	InstancePtr->Info.IsTopologyAvailable = (FALSE);
 
-	/* Disable the Cipher */
+	/* Disable encryption */
+	XHdcp22Tx_DisableEncryption(InstancePtr);
+
+     /* Reset Cipher */
 	XHdcp22Cipher_Disable(&InstancePtr->Cipher);
+
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_RESET, 0);
 
 	return XST_SUCCESS;
@@ -1084,9 +1093,12 @@ int XHdcp22Tx_Reset(XHdcp22_Tx *InstancePtr)
 int XHdcp22Tx_Enable(XHdcp22_Tx *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
+
 	InstancePtr->Info.IsEnabled = (TRUE);
 	XTmrCtr_Stop(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_0);
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_ENABLED, 1);
+	XHdcp22Cipher_Enable(&InstancePtr->Cipher);
+
 	return XST_SUCCESS;
 }
 
@@ -1105,9 +1117,11 @@ int XHdcp22Tx_Enable(XHdcp22_Tx *InstancePtr)
 int XHdcp22Tx_Disable(XHdcp22_Tx *InstancePtr)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	InstancePtr->Info.IsEnabled = (FALSE);
 
+	InstancePtr->Info.IsEnabled = (FALSE);
+	XHdcp22Cipher_Disable(&InstancePtr->Cipher);
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_ENABLED, 0);
+
 	return XST_SUCCESS;
 }
 
@@ -1290,8 +1304,8 @@ u8 XHdcp22Tx_IsEncryptionEnabled (XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 u8 XHdcp22Tx_IsInProgress (XHdcp22_Tx *InstancePtr)
 {
-	return (InstancePtr->Info.AuthenticationStatus ==
-	       XHDCP22_TX_AUTHENTICATION_BUSY) ? (TRUE) : (FALSE);
+	return (InstancePtr->Info.AuthenticationStatus !=
+	       XHDCP22_TX_UNAUTHENTICATED) ? (TRUE) : (FALSE);
 }
 
 /*****************************************************************************/
@@ -1528,10 +1542,14 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA0(XHdcp22_Tx *InstancePtr)
 	/* Authentication starts, set status as BUSY */
 	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_AUTHENTICATION_BUSY;
 
-	/* Before doing any actions, make sure to initialize the timer */
-	InstancePtr->Timer.TimerExpired = (TRUE);
-	InstancePtr->Timer.ReasonId = XHDCP22_TX_TS_UNDEFINED;
-	InstancePtr->Info.MsgAvailable = (FALSE);
+	/* Disable encryption */
+	XHdcp22Tx_DisableEncryption(InstancePtr);
+
+	/* Start the timer for authentication.
+        This is required to ensure that encryption is disabled before
+        authentication is requested */
+	XHdcp22Tx_StartTimer(InstancePtr, 100, XHDCP22_TX_AKE_INIT);
+
 	return XHDCP22_TX_STATE_A1;
 }
 
@@ -1552,9 +1570,13 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA1(XHdcp22_Tx *InstancePtr)
 {
 	int Result = XST_SUCCESS;
 
-	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE, (u16)XHDCP22_TX_STATE_A1);
+	if (InstancePtr->Timer.TimerExpired == (FALSE)) {
+		return XHDCP22_TX_STATE_A1;
+	}
 
+	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE, (u16)XHDCP22_TX_STATE_A1);
 	Result = XHdcp22Tx_WriteAKEInit(InstancePtr);
+
 	if (Result != XST_SUCCESS) {
 		return XHDCP22_TX_STATE_A0;
 	}
@@ -2347,9 +2369,9 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA6_A7_A8(XHdcp22_Tx *InstancePtr)
 	}
 
 	/* Get the seq_num_V. Value is in big endian format */
-	SeqNum_V  = *MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V << 16; // MSB
-	SeqNum_V |= *MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V << 8;
-	SeqNum_V |= *MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V;       // LSB
+	SeqNum_V  = MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V[0] << 16; // MSB
+	SeqNum_V |= MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V[1] << 8;
+	SeqNum_V |= MsgPtr->Message.RepeatAuthSendRecvIDList.SeqNum_V[2];       // LSB
 
 	/* Verify the seq_num_V value */
 	if (InstancePtr->Info.ReceivedFirstSeqNum_V == FALSE) {
@@ -3268,7 +3290,9 @@ static void XHdcp22Tx_ReadRxStatus(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static void XHdcp22Tx_HandleAuthenticationFailed(XHdcp22_Tx * InstancePtr)
 {
-	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_UNAUTHENTICATED;
+	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_AUTHENTICATION_BUSY;
+
+     /* Run user callback */
 	if (InstancePtr->IsUnauthenticatedCallbackSet)
 		InstancePtr->UnauthenticatedCallback(InstancePtr->UnauthenticatedCallbackRef);
 }

@@ -49,6 +49,8 @@
 * 1.01  MH     03/14/15 Changed maximum locality check count
 *                       from 1024 to 128.
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
+* 2.01  MH     02/13/17 Updated maximum locality check count
+*                       from 128 to 8 to avoid delays in re-auth.
 * </pre>
 *
 ******************************************************************************/
@@ -65,7 +67,7 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /** Maximum allowed re-checking locality, prescribed by LLC. */
-#define XHDCP22_TX_MAX_ALLOWED_LOCALITY_CHECKS  128
+#define XHDCP22_TX_MAX_ALLOWED_LOCALITY_CHECKS  8
 /** Maximum allowed re-checking content stream management */
 #define XHDCP22_TX_MAX_ALLOWED_STREAM_MANAGE_CHECKS 128
 

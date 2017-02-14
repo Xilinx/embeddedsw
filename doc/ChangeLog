@@ -1331,6 +1331,7 @@ hdcp22_tx_v2_0:
 Add repeater downstream support.
 Added 64 bit address support.
 Fixes for warnings reductions.
+Fixes for transmitter compliance.
 
 hwicap_v10_1:
 Updated driver, to read 7 Series FPGA frame data correctly.
