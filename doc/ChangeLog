@@ -248,6 +248,9 @@ tcl, to add "LOW_PRIORITY" string in canonical/constant names of
 interrupts connected to higher pin number of INTC, only if specific interrupt
 port of IP is interrupting through more than one INTC pins.
 
+iomodule_v2_4:
+Fixed compilation warnings
+
 ipipsu_v2_2:
 Modified the ipipsu.tcl script to have array size in config table. Fixes
 CR#963134

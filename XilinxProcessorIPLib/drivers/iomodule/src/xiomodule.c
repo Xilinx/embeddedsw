@@ -765,7 +765,7 @@ u32 XIOModule_DiscreteRead(XIOModule * InstancePtr, unsigned Channel)
 {
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertVoid((Channel >= 1) && (Channel <= XGPI_DEVICE_COUNT));
+	Xil_AssertNonvoid((Channel >= 1) && (Channel <= XGPI_DEVICE_COUNT));
 
 	return XIOModule_ReadReg(InstancePtr->BaseAddress,
 			((Channel - 1) * XGPI_CHAN_OFFSET) + XGPI_DATA_OFFSET);
