@@ -259,7 +259,7 @@ enum XPmSuspendReason {
  *  @name PM RAM States Enum
  */
 enum XPmRamState {
-	PM_RAM_STATE_OFF = 1,
+	PM_RAM_STATE_OFF = 0,
 	PM_RAM_STATE_RETENTION,
 	PM_RAM_STATE_ON,
 };
