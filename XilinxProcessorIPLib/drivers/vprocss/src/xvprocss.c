@@ -59,6 +59,7 @@
 *                       Maintain user defined PIP color between pipe reset
 * 2.30  rco  12/15/16   Added HasMADI configuration option check
 *            02/08/17   Fix C++ compilation warnings
+*            02/15/17   Fix custom resolution support for 1 PPC configuration
 *
 * </pre>
 *
@@ -1736,14 +1737,6 @@ static int ValidateSubsystemConfig(XVprocSs *InstancePtr)
 	return(XST_FAILURE);
   }
 
-  /* Check if Subsystem HW Configuration can process requested resolution*/
-  if(((StrmIn->PixPerClk == XVIDC_PPC_1) &&
-	  (StrmIn->VmId > XVIDC_VM_3840x2160_30_P)) ||
-	  ((StrmOut->PixPerClk == XVIDC_PPC_1) &&
-	  (StrmOut->VmId > XVIDC_VM_3840x2160_30_P) )) {
-    XVprocSs_LogWrite(InstancePtr, XVPROCSS_EVT_CFG_VPSS, XVPROCSS_EDAT_VPSS_RESBAD);
-	return(XST_FAILURE);
-  }
 
   /* Check for HCResamp required, but not present */
   if(XVprocSs_IsConfigModeMax(InstancePtr) &&
