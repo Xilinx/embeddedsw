@@ -342,6 +342,12 @@ tmrctr_v4_3:
 Updated tmrctr_tapp tcl to avoid errors, if axi timer interrupt is connected
 to more than one pins of interrupt controller.
 
+tmr_inject_v1_0:
+Initial version of tmr_inject driver
+
+tmr_manager_v1_0:
+Initial version of tmr_manager driver
+
 uartlite_v3_2:
 Added supported peripheral tmr_sem
 
