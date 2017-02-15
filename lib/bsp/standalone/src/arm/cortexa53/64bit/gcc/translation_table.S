@@ -82,6 +82,8 @@
 * 6.2	pkp  12/14/16 DDR memory in 0x800000000 - 0xFFFFFFFFF range is marked
 *		      as normal writeback for the size defined in hdf and rest
 *		      of the memory in that 32GB range is marked as reserved.
+* 6.2   mus  02/14/17 Marked memory as a outer shreable to make CCI work for
+*                     the devices which uses DMA
 *
 *
 *
@@ -93,7 +95,7 @@
 	.globl  MMUTableL2
 
 	.set reserved,	0x0 					/* Fault*/
-	.set Memory,	0x405 | (3 << 8) | (0x0)		/* normal writeback write allocate inner shared read write */
+	.set Memory,	0x405 | (2 << 8) | (0x0)		/* normal writeback write allocate outer shared read write */
 	.set Device,	0x409 | (1 << 53)| (1 << 54) |(0x0)	/* strongly ordered read write non executable*/
 	.section .mmu_tbl0,"a"
 
