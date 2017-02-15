@@ -147,6 +147,11 @@ u32 XTMR_Inject_InjectBit(XTMR_Inject *InstancePtr, u32 Value, u8 Bit);
 
 u32 XTMR_Inject_InjectMask(XTMR_Inject *InstancePtr, u32 Value, u32 Mask);
 
+/*
+ * Functions for self-test, in file xtmr_inject_selftest.c
+ */
+int XTMR_Inject_SelfTest(XTMR_Inject *InstancePtr);
+
 #ifdef __cplusplus
 }
 #endif

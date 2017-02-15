@@ -36,6 +36,6 @@
 #include "xil_assert.h"
 #include "xstatus.h"
 
-int TMRInjectSelfTestExample(u16 DeviceId);
+int TMR_InjectSelfTestExample(u16 DeviceId);
 
 #endif

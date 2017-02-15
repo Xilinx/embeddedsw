@@ -34,8 +34,8 @@
 *
 * @file xtmr_inject_selftest_example.c
 *
-* This file contains a design example using the TMRInject driver (XTMRInject) and
-* hardware device.
+* This file contains a design example using the TMR_Inject driver (XTMR_Inject)
+* and hardware device.
 *
 * @note
 *
@@ -61,7 +61,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define TMRINJECT_DEVICE_ID		XPAR_TMRINJECT_0_DEVICE_ID
+#define TMR_INJECT_DEVICE_ID		XPAR_TMR_INJECT_0_DEVICE_ID
 
 
 /**************************** Type Definitions *******************************/
@@ -72,11 +72,11 @@
 
 /************************** Function Prototypes ******************************/
 
-int TMRInjectSelfTestExample(u16 DeviceId);
+int TMR_InjectSelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
-XTMRInject TMRInject;		 /* Instance of the TMRInject device */
+XTMR_Inject TMR_Inject;	/* Instance of the TMR_Inject device */
 
 /*****************************************************************************/
 /**
@@ -97,10 +97,10 @@ int main(void)
 	int Status;
 
 	/*
-	 * Run the TMRInject self test example, specify the Device ID that is
+	 * Run the TMR_Inject self test example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	Status = TMRInjectSelfTestExample(TMRINJECT_DEVICE_ID);
+	Status = TMR_InjectSelfTestExample(TMR_INJECT_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -113,9 +113,9 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the TMRInject device and driver as a
+* This function does a minimal test on the TMR_Inject device and driver as a
 * design example. The purpose of this function is to illustrate
-* how to use the XTMRInject component.
+* how to use the XTMR_Inject component.
 *
 *
 * @param	DeviceId is the XPAR_<tmr_inject_instance>_DEVICE_ID value from
@@ -126,14 +126,14 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
-int TMRInjectSelfTestExample(u16 DeviceId)
+int TMR_InjectSelfTestExample(u16 DeviceId)
 {
 	int Status;
 
 	/*
-	 * Initialize the TMRInject driver so that it is ready to use.
+	 * Initialize the TMR_Inject driver so that it is ready to use.
 	 */
-	Status = XTMRInject_Initialize(&TMRInject, DeviceId);
+	Status = XTMR_Inject_Initialize(&TMR_Inject, DeviceId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -141,7 +141,7 @@ int TMRInjectSelfTestExample(u16 DeviceId)
 	/*
 	 * Perform a self-test to ensure that the hardware was built correctly.
 	 */
-	Status = XTMRInject_SelfTest(&TMRInject);
+	Status = XTMR_Inject_SelfTest(&TMR_Inject);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

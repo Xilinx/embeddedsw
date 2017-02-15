@@ -53,7 +53,7 @@ proc gen_include_files {swproj mhsinst} {
     return ""
   }
   if {$swproj == 1} {
-    set inc_file_lines {tmr_inject_header.h}
+    set inc_file_lines {xtmr_inject.h tmr_inject_header.h}
     return $inc_file_lines
   }
 }
@@ -75,15 +75,6 @@ proc gen_testfunc_def {swproj mhsinst} {
 }
 
 proc gen_init_code {swproj mhsinst} {
-     if {$swproj == 0} {
-        return ""
-    }
-    if {$swproj == 1} {
-	set ipname [common::get_property IP_NAME $mhsinst]
-	set decl "   static XTMRInject ${ipname}_TMRInject;"
-	set inc_file_lines $decl
-	return $inc_file_lines
-    }
     return ""
 }
 
@@ -103,13 +94,13 @@ proc gen_testfunc_call {swproj mhsinst} {
    {
       int status;
 
-      print(\"\\r\\nRunning TMRInjectSelfTestExample() for ${ipname}...\\r\\n\");
-      status = TMRInjectSelfTestExample(${deviceid});
+      print(\"\\r\\nRunning TMR_InjectSelfTestExample() for ${ipname}...\\r\\n\");
+      status = TMR_InjectSelfTestExample(${deviceid});
       if (status == 0) {
-         print(\"TMRInjectSelfTestExample PASSED\\r\\n\");
+         print(\"TMR_InjectSelfTestExample PASSED\\r\\n\");
       }
       else {
-         print(\"TMRInjectSelfTestExample FAILED\\r\\n\");
+         print(\"TMR_InjectSelfTestExample FAILED\\r\\n\");
       }
    }"
 
