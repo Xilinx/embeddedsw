@@ -34,7 +34,7 @@
 *
 * @file xtmr_manager_intr_tapp_example.c
 *
-* This file contains a design example using the TMRManager driver and
+* This file contains a design example using the TMR_Manager driver and
 * hardware device using the interrupt mode for transmission of data.
 *
 * @note
@@ -72,8 +72,8 @@
  * change all the needed parameters in one place.
  */
 #ifndef TESTAPP_GEN
-#define TMRMANAGER_DEVICE_ID	  XPAR_TMRMANAGER_0_DEVICE_ID
-#define TMRMANAGER_IRPT_INTR	  XPAR_INTC_0_TMRMANAGER_0_VEC_ID
+#define TMR_MANAGER_DEVICE_ID	  XPAR_TMR_MANAGER_0_DEVICE_ID
+#define TMR_MANAGER_IRPT_INTR	  XPAR_INTC_0_TMR_MANAGER_0_VEC_ID
 
 #ifdef XPAR_INTC_0_DEVICE_ID
 #define INTC_DEVICE_ID		XPAR_INTC_0_DEVICE_ID
@@ -84,7 +84,7 @@
 
 /*
  * The following constant controls the length of the buffers to be sent
- * and received with the TMRManager device.
+ * and received with the TMR_Manager device.
  */
 #define TEST_BUFFER_SIZE		100
 
@@ -104,21 +104,21 @@
 
 /************************** Function Prototypes ******************************/
 
-int TMRManagerIntrExample(INTC *IntcInstancePtr,
-			XTMRManager *TMRManagerInstancePtr,
-			u16 TMRManagerDeviceId,
-			u16 TMRManagerIntrId);
+int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
+			XTMR_Manager *TMR_ManagerInstancePtr,
+			u16 TMR_ManagerDeviceId,
+			u16 TMR_ManagerIntrId);
 
-static void TMRManagerSendHandler(void *CallBackRef, unsigned int EventData);
+static void TMR_ManagerSendHandler(void *CallBackRef, unsigned int EventData);
 
-static void TMRManagerRecvHandler(void *CallBackRef, unsigned int EventData);
+static void TMR_ManagerRecvHandler(void *CallBackRef, unsigned int EventData);
 
-static int TMRManagerSetupIntrSystem(INTC *IntcInstancePtr,
-				XTMRManager *TMRManagerInstancePtr,
-				u16 TMRManagerIntrId);
+static int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
+				XTMR_Manager *TMR_ManagerInstancePtr,
+				u16 TMR_ManagerIntrId);
 
-static void TMRManagerDisableIntrSystem(INTC *IntrInstancePtr,
-				u16 TMRManagerIntrId);
+static void TMR_ManagerDisableIntrSystem(INTC *IntrInstancePtr,
+				u16 TMR_ManagerIntrId);
 
 
 /************************** Variable Definitions *****************************/
@@ -129,7 +129,7 @@ static void TMRManagerDisableIntrSystem(INTC *IntrInstancePtr,
  */
 #ifndef TESTAPP_GEN
 static INTC IntcInstance;	/* The instance of the Interrupt Controller */
-static XTMRManager TMRManagerInst;  /* The instance of the TMRManager Device */
+static XTMR_Manager TMR_ManagerInst;  /* The instance of the TMR_Manager Device */
 #endif
 
 /*
@@ -138,7 +138,7 @@ static XTMRManager TMRManagerInst;  /* The instance of the TMRManager Device */
  */
 
 /*
- * The following buffer is used in this example to send data  with the TMRManager.
+ * The following buffer is used in this example to send data  with the TMR_Manager.
  */
 u8 SendBuffer[TEST_BUFFER_SIZE];
 
@@ -152,7 +152,7 @@ static volatile int TotalSentCount;
 /******************************************************************************/
 /**
 *
-* Main function to call the TMRManager interrupt example.
+* Main function to call the TMR_Manager interrupt example.
 *
 * @param	None.
 *
@@ -167,13 +167,13 @@ int main(void)
 	int Status;
 
 	/*
-	 * Run the TMRManager Interrupt example , specify the Device ID that is
+	 * Run the TMR_Manager Interrupt example , specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
-	Status = TMRManagerIntrExample(&IntcInstance,
-				 &TMRManagerInst,
-				 TMRMANAGER_DEVICE_ID,
-				 TMRMANAGER_IRPT_INTR);
+	Status = TMR_ManagerIntrExample(&IntcInstance,
+				 &TMR_ManagerInst,
+				 TMR_MANAGER_DEVICE_ID,
+				 TMR_MANAGER_IRPT_INTR);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -185,23 +185,24 @@ int main(void)
 /****************************************************************************/
 /**
 *
-* This function does a minimal test on the TMRManager device and driver as a
+* This function does a minimal test on the TMR_Manager device and driver as a
 * design example. The purpose of this function is to illustrate how to use
-* the XTMRManager component.
+* the XTMR_Manager component.
 *
-* This function sends data through the TMRManager.
+* This function sends data through the TMR_Manager.
 *
-* This function uses the interrupt driver mode of the TMRManager.  The calls to
-* the  TMRManager driver in the interrupt handlers, should only use the
+* This function uses the interrupt driver mode of the TMR_Manager.  The calls
+* to the TMR_Manager driver in the interrupt handlers, should only use the
 * non-blocking calls.
 *
 * @param	IntcInstancePtr is a pointer to the instance of INTC driver.
-* @param	TMRManagerInstPtr is a pointer to the instance of TMRManager driver.
-* @param	TMRManagerDeviceId is the Device ID of the TMRManager Device and
-*		is the XPAR_<TMRMANAGER_instance>_DEVICE_ID value from
+* @param	TMR_ManagerInstPtr is a pointer to the instance of TMR_Manager
+*               driver.
+* @param	TMR_ManagerDeviceId is the Device ID of the TMR_Manager Device
+*		and is the XPAR_<TMR_MANAGER_instance>_DEVICE_ID value from
 *		xparameters.h.
-* @param	TMRManagerIntrId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<TMRMANAGER_instance>_VEC_ID value from
+* @param	TMR_ManagerIntrId is the Interrupt ID and is typically
+*		XPAR_<INTC_instance>_<TMR_MANAGER_instance>_VEC_ID value from
 *		xparameters.h.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
@@ -212,19 +213,19 @@ int main(void)
 * working it may never return.
 *
 ****************************************************************************/
-int TMRManagerIntrExample(INTC *IntcInstancePtr,
-			XTMRManager *TMRManagerInstPtr,
-			u16 TMRManagerDeviceId,
-			u16 TMRManagerIntrId)
+int TMR_ManagerIntrExample(INTC *IntcInstancePtr,
+			XTMR_Manager *TMR_ManagerInstPtr,
+			u16 TMR_ManagerDeviceId,
+			u16 TMR_ManagerIntrId)
 
 {
 	int Status;
 	u32 Index;
 
 	/*
-	 * Initialize the TMRManager driver so that it's ready to use.
+	 * Initialize the TMR_Manager driver so that it's ready to use.
 	 */
-	Status = XTMRManager_Initialize(TMRManagerInstPtr, TMRManagerDeviceId);
+	Status = XTMR_Manager_Initialize(TMR_ManagerInstPtr, TMR_ManagerDeviceId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -232,38 +233,38 @@ int TMRManagerIntrExample(INTC *IntcInstancePtr,
 	/*
 	 * Perform a self-test to ensure that the hardware was built correctly.
 	 */
-	Status = XTMRManager_SelfTest(TMRManagerInstPtr);
+	Status = XTMR_Manager_SelfTest(TMR_ManagerInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/*
-	 * Connect the TMRManager to the interrupt subsystem such that interrupts
+	 * Connect the TMR_Manager to the interrupt subsystem such that interrupts
 	 * can occur. This function is application specific.
 	 */
-	Status = TMRManagerSetupIntrSystem(IntcInstancePtr,
-					 TMRManagerInstPtr,
-					 TMRManagerIntrId);
+	Status = TMR_ManagerSetupIntrSystem(IntcInstancePtr,
+					 TMR_ManagerInstPtr,
+					 TMR_ManagerIntrId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/*
-	 * Setup the handlers for the TMRManager that will be called from the
+	 * Setup the handlers for the TMR_Manager that will be called from the
 	 * interrupt context when data has been sent and received,
-	 * specify a pointer to the TMRManager driver instance as the callback
+	 * specify a pointer to the TMR_Manager driver instance as the callback
 	 * reference so the handlers are able to access the instance data.
 	 */
-	XTMRManager_SetSendHandler(TMRManagerInstPtr, TMRManagerSendHandler,
-							 TMRManagerInstPtr);
-	XTMRManager_SetRecvHandler(TMRManagerInstPtr, TMRManagerRecvHandler,
-							 TMRManagerInstPtr);
+	XTMR_Manager_SetSendHandler(TMR_ManagerInstPtr, TMR_ManagerSendHandler,
+							 TMR_ManagerInstPtr);
+	XTMR_Manager_SetRecvHandler(TMR_ManagerInstPtr, TMR_ManagerRecvHandler,
+							 TMR_ManagerInstPtr);
 
 	/*
-	 * Enable the interrupt of the TMRManager so that the interrupts
+	 * Enable the interrupt of the TMR_Manager so that the interrupts
 	 * will occur.
 	 */
-	XTMRManager_EnableInterrupt(TMRManagerInstPtr);
+	XTMR_Manager_EnableInterrupt(TMR_ManagerInstPtr);
 
 	/*
 	 * Initialize the send buffer bytes with a pattern to send.
@@ -273,9 +274,9 @@ int TMRManagerIntrExample(INTC *IntcInstancePtr,
 	}
 
 	/*
-	 * Send the buffer using the TMRManager.
+	 * Send the buffer using the TMR_Manager.
 	 */
-	XTMRManager_Send(TMRManagerInstPtr, SendBuffer, TEST_BUFFER_SIZE);
+	XTMR_Manager_Send(TMR_ManagerInstPtr, SendBuffer, TEST_BUFFER_SIZE);
 
 	/*
 	 * Wait for the entire buffer to be transmitted,  the function may get
@@ -284,61 +285,32 @@ int TMRManagerIntrExample(INTC *IntcInstancePtr,
 	while ((TotalSentCount != TEST_BUFFER_SIZE)) {
 	}
 
-	TMRManagerDisableIntrSystem(IntcInstancePtr, TMRManagerIntrId);
+	TMR_ManagerDisableIntrSystem(IntcInstancePtr, TMR_ManagerIntrId);
 
 	return XST_SUCCESS;
-}
-
-/*****************************************************************************/
-/**
-*
-* This function is the handler which performs processing to send data to the
-* TMRManager. It is called from an interrupt context such that the amount of
-* processing performed should be minimized. It is called when the transmit
-* FIFO of the TMRManager is empty and more data can be sent through the TMRManager.
-*
-* This handler provides an example of how to handle data for the TMRManager, but
-* is application specific.
-*
-* @param	CallBackRef contains a callback reference from the driver.
-*		In this case it is the instance pointer for the TMRManager driver.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
-*
-* @return	None.
-*
-* @note		None.
-*
-****************************************************************************/
-static void TMRManagerSendHandler(void *CallBackRef, unsigned int EventData)
-{
-	TotalSentCount = EventData;
 }
 
 /****************************************************************************/
 /**
 *
-* This function is the handler which performs processing to receive data from
-* the TMRManager. It is called from an interrupt context such that the amount of
-* processing performed should be minimized. It is called when any data is
-* present in the receive FIFO of the TMRManager such that the data can be
-* retrieved from the TMRManager. The amount of data present in the FIFO is not
-* known when this function is called.
+* This function is the handler which performs processing of the TMR_Manager
+* events. It is called from an interrupt context such that the amount of
+* processing performed should be minimized. It is called when any event that
+* is not masked occurs.
 *
-* This handler provides an example of how to handle data for the TMRManager, but
-* is application specific.
+* This handler provides an example of how to handle data for the TMR_Manager,
+* but is application specific.
 *
 * @param	CallBackRef contains a callback reference from the driver,
-*		in this case it is the instance pointer for the TMRManager driver.
-* @param	EventData contains the number of bytes sent or received for sent
-*		and receive events.
+*		in this case it is the instance pointer for the TMR_Manager
+*               driver.
 *
 * @return	None.
 *
 * @note		None.
 *
 ****************************************************************************/
-static void TMRManagerRecvHandler(void *CallBackRef, unsigned int EventData)
+static void TMR_ManagerHandler(void *CallBackRef)
 {
 
 }
@@ -347,16 +319,17 @@ static void TMRManagerRecvHandler(void *CallBackRef, unsigned int EventData)
 /**
 *
 * This function setups the interrupt system such that interrupts can occur
-* for the TMRManager. This function is application specific since the actual
-* system may or may not have an interrupt controller. The TMRManager could be
+* for the TMR_Manager. This function is application specific since the actual
+* system may or may not have an interrupt controller. The TMR_Manager could be
 * directly connected to a processor without an interrupt controller. The
 * user should modify this function to fit the application.
 *
 * @param	IntcInstancePtr is a pointer to the instance of INTC driver.
-* @param	TMRManagerInstPtr is a pointer to the instance of TMRManager driver.
-*		XPAR_<TMRMANAGER_instance>_DEVICE_ID value from xparameters.h.
-* @param	TMRManagerIntrId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<TMRMANAGER_instance>_VEC_ID
+* @param	TMR_ManagerInstPtr is a pointer to the instance of TMR_Manager
+*               driver.
+*		XPAR_<TMR_MANAGER_instance>_DEVICE_ID value from xparameters.h.
+* @param	TMR_ManagerIntrId is the Interrupt ID and is typically
+*		XPAR_<INTC_instance>_<TMR_MANAGER_instance>_VEC_ID
 *		value from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, otherwise XST_FAILURE.
@@ -364,9 +337,9 @@ static void TMRManagerRecvHandler(void *CallBackRef, unsigned int EventData)
 * @note		None.
 *
 ****************************************************************************/
-int TMRManagerSetupIntrSystem(INTC *IntcInstancePtr,
-				XTMRManager *TMRManagerInstPtr,
-				u16 TMRManagerIntrId)
+int TMR_ManagerSetupIntrSystem(INTC *IntcInstancePtr,
+				XTMR_Manager *TMR_ManagerInstPtr,
+				u16 TMR_ManagerIntrId)
 {
 	int Status;
 
@@ -388,9 +361,9 @@ int TMRManagerSetupIntrSystem(INTC *IntcInstancePtr,
 	 * for the device occurs, the device driver handler performs the specific
 	 * interrupt processing for the device.
 	 */
-	Status = XIntc_Connect(IntcInstancePtr, TMRManagerIntrId,
-			(XInterruptHandler)XTMRManager_InterruptHandler,
-			(void *)TMRManagerInstPtr);
+	Status = XIntc_Connect(IntcInstancePtr, TMR_ManagerIntrId,
+			(XInterruptHandler)XTMR_Manager_InterruptHandler,
+			(void *)TMR_ManagerInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -408,9 +381,9 @@ int TMRManagerSetupIntrSystem(INTC *IntcInstancePtr,
 #endif
 
 	/*
-	 * Enable the interrupt for the TMRManager.
+	 * Enable the interrupt for the TMR_Manager.
 	 */
-	XIntc_Enable(IntcInstancePtr, TMRManagerIntrId);
+	XIntc_Enable(IntcInstancePtr, TMR_ManagerIntrId);
 #else
 
 #ifndef TESTAPP_GEN
@@ -432,16 +405,16 @@ int TMRManagerSetupIntrSystem(INTC *IntcInstancePtr,
 	}
 #endif /* TESTAPP_GEN */
 
-	XScuGic_SetPriorityTriggerType(IntcInstancePtr, TMRManagerIntrId,
+	XScuGic_SetPriorityTriggerType(IntcInstancePtr, TMR_ManagerIntrId,
 					0xA0, 0x3);
 
 	/*
 	 * Connect the interrupt handler that will be called when an
 	 * interrupt occurs for the device.
 	 */
-	Status = XScuGic_Connect(IntcInstancePtr, TMRManagerIntrId,
-				 (Xil_ExceptionHandler)XTMRManager_InterruptHandler,
-				 TMRManagerInstPtr);
+	Status = XScuGic_Connect(IntcInstancePtr, TMR_ManagerIntrId,
+		 (Xil_ExceptionHandler)XTMR_Manager_InterruptHandler,
+		 TMR_ManagerInstPtr);
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
@@ -449,7 +422,7 @@ int TMRManagerSetupIntrSystem(INTC *IntcInstancePtr,
 	/*
 	 * Enable the interrupt for the Timer device.
 	 */
-	XScuGic_Enable(IntcInstancePtr, TMRManagerIntrId);
+	XScuGic_Enable(IntcInstancePtr, TMR_ManagerIntrId);
 #endif /* XPAR_INTC_0_DEVICE_ID */
 
 
@@ -481,11 +454,12 @@ int TMRManagerSetupIntrSystem(INTC *IntcInstancePtr,
 /*****************************************************************************/
 /**
 *
-* This function disables the interrupts that occur for the TMRManager.
+* This function disables the interrupts that occur for the TMR_Manager.
 *
-* @param	IntcInstancePtr is a pointer to the instance of the INTC driver.
-* @param	TMRManagerIntrId is the Interrupt ID and is typically
-*		XPAR_<INTC_instance>_<TMRMANAGER_instance>_VEC_ID
+* @param	IntcInstancePtr is a pointer to the instance of the INTC
+*               driver.
+* @param	TMR_ManagerIntrId is the Interrupt ID and is typically
+*		XPAR_<INTC_instance>_<TMR_MANAGER_instance>_VEC_ID
 *		value from xparameters.h.
 *
 * @return	None.
@@ -493,19 +467,16 @@ int TMRManagerSetupIntrSystem(INTC *IntcInstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-static void TMRManagerDisableIntrSystem(INTC *IntcInstancePtr,
-					  u16 TMRManagerIntrId)
+static void TMR_ManagerDisableIntrSystem(INTC *IntcInstancePtr,
+					  u16 TMR_ManagerIntrId)
 {
-
 	/*
-	 * Disconnect and disable the interrupt for the TMRManager.
+	 * Disconnect and disable the interrupt for the TMR_Manager.
 	 */
 #ifdef XPAR_INTC_0_DEVICE_ID
-	XIntc_Disconnect(IntcInstancePtr, TMRManagerIntrId);
+	XIntc_Disconnect(IntcInstancePtr, TMR_ManagerIntrId);
 #else
-	XScuGic_Disable(IntcInstancePtr, TMRManagerIntrId);
-	XScuGic_Disconnect(IntcInstancePtr, TMRManagerIntrId);
-
+	XScuGic_Disable(IntcInstancePtr, TMR_ManagerIntrId);
+	XScuGic_Disconnect(IntcInstancePtr, TMR_ManagerIntrId);
 #endif
-
 }

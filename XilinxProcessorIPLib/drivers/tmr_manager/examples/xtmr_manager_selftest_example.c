@@ -34,8 +34,8 @@
 *
 * @file xtmr_manager_selftest_example.c
 *
-* This file contains a design example using the TMRManager driver (XTMRManager) and
-* hardware device.
+* This file contains a design example using the TMR_Manager driver
+* (XTMR_Manager) and hardware device.
 *
 * @note
 *
@@ -61,7 +61,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define TMRMANAGER_DEVICE_ID		XPAR_TMRMANAGER_0_DEVICE_ID
+#define TMR_MANAGER_DEVICE_ID		XPAR_TMR_MANAGER_0_DEVICE_ID
 
 
 /**************************** Type Definitions *******************************/
@@ -72,11 +72,11 @@
 
 /************************** Function Prototypes ******************************/
 
-int TMRManagerSelfTestExample(u16 DeviceId);
+int TMR_ManagerSelfTestExample(u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
-XTMRManager TMRManager;		 /* Instance of the TMRManager device */
+XTMR_Manager TMR_Manager;	/* Instance of the TMR_Manager device */
 
 /*****************************************************************************/
 /**
@@ -97,10 +97,10 @@ int main(void)
 	int Status;
 
 	/*
-	 * Run the TMRManager self test example, specify the Device ID that is
-	 * generated in xparameters.h
+	 * Run the TMR_Manager self test example, specify the Device ID that
+	 * is generated in xparameters.h
 	 */
-	Status = TMRManagerSelfTestExample(TMRMANAGER_DEVICE_ID);
+	Status = TMR_ManagerSelfTestExample(TMR_MANAGER_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -113,9 +113,9 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the TMRManager device and driver as a
+* This function does a minimal test on the TMR_Manager device and driver as a
 * design example. The purpose of this function is to illustrate
-* how to use the XTMRManager component.
+* how to use the XTMR_Manager component.
 *
 *
 * @param	DeviceId is the XPAR_<tmr_manager_instance>_DEVICE_ID value from
@@ -126,14 +126,14 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
-int TMRManagerSelfTestExample(u16 DeviceId)
+int TMR_ManagerSelfTestExample(u16 DeviceId)
 {
 	int Status;
 
 	/*
-	 * Initialize the TMRManager driver so that it is ready to use.
+	 * Initialize the TMR_Manager driver so that it is ready to use.
 	 */
-	Status = XTMRManager_Initialize(&TMRManager, DeviceId);
+	Status = XTMR_Manager_Initialize(&TMR_Manager, DeviceId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -141,7 +141,7 @@ int TMRManagerSelfTestExample(u16 DeviceId)
 	/*
 	 * Perform a self-test to ensure that the hardware was built correctly.
 	 */
-	Status = XTMRManager_SelfTest(&TMRManager);
+	Status = XTMR_Manager_SelfTest(&TMR_Manager);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}

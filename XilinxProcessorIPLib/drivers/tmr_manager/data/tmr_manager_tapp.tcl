@@ -53,23 +53,13 @@ proc gen_include_files {swproj mhsinst} {
 	return ""
     }
     if {$swproj == 1} {
-	set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
-	set isStdout [string match $stdout $mhsinst]
-	set ipname [common::get_property IP_NAME $mhsinst]
-	if {${isStdout} == 0} {
-	    set iftmr_managerintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
-	    if {$iftmr_managerintr == 1} {
-		if {$ipname == "mdm"} {
-		    set inc_file_lines {tmr_manager_header.h}
-		} else {
-		    set inc_file_lines {xtmr_manager.h \
-					tmr_manager_header.h \
-					tmr_manager_intr_header.h}
-		}
-	    } else {
-		set inc_file_lines {tmr_manager_header.h}
-	    }
-	    return $inc_file_lines
+	set iftmr_managerintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+	if {$iftmr_managerintr == 1} {
+	    set inc_file_lines {xtmr_manager.h \
+				tmr_manager_header.h \
+				tmr_manager_intr_header.h}
+	} else {
+	    set inc_file_lines {xtmr_manager.h tmr_manager_header.h}
 	}
 	return $inc_file_lines
     }
@@ -81,27 +71,17 @@ proc gen_src_files {swproj mhsinst} {
     }
 
     if {$swproj == 1} {
-	set ipname [common::get_property IP_NAME $mhsinst]
-	set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
-	set isStdout [string match $stdout $mhsinst]
-	if {${isStdout} == 0} {
-	    set iftmr_managerintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
-	    if {$iftmr_managerintr == 1} {
-		if {$ipname == "mdm"} {
-		    set inc_file_lines {examples/xtmr_manager_selftest_example.c \
-					data/tmr_manager_header.h}
-		} else {
-		    set inc_file_lines {examples/xtmr_manager_selftest_example.c \
-					examples/xtmr_manager_intr_tapp_example.c \
-					data/tmr_manager_header.h data/tmr_manager_intr_header.h}
-		}
-	    } else {
-		set inc_file_lines {examples/xtmr_manager_selftest_example.c data/tmr_manager_header.h}
-	    }
-	    return $inc_file_lines
+	set iftmr_managerintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+	if {$iftmr_managerintr == 1} {
+	    set inc_file_lines {examples/xtmr_manager_selftest_example.c \
+				examples/xtmr_manager_intr_tapp_example.c \
+				data/tmr_manager_header.h data/tmr_manager_intr_header.h}
+	} else {
+	    set inc_file_lines {examples/xtmr_manager_selftest_example.c \
+				data/tmr_manager_header.h}
 	}
+	return $inc_file_lines
     }
-    return ""
 }
 
 proc gen_testfunc_def {swproj mhsinst} {
@@ -113,25 +93,15 @@ proc gen_init_code {swproj mhsinst} {
         return ""
     }
     if {$swproj == 1} {
-	set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
-	set isStdout [string match $stdout $mhsinst]
-	if {${isStdout} == 0} {
-	    set ipname [common::get_property NAME $mhsinst]
-	    set iftmr_managerintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
-	    set mdm_name [common::get_property IP_NAME $mhsinst]
-	    if {$iftmr_managerintr == 1} {
-		if {$mdm_name == "mdm"} {
-		    return ""
-		}
-		set decl "   static XTMRManager ${ipname}_TMRManager;"
-		set inc_file_lines $decl
-		return $inc_file_lines
-	    } else {
-		return ""
-	    }
+	set iftmr_managerintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+	if {$iftmr_managerintr == 1} {
+	    set decl "   static XTMR_Manager ${ipname}_TMR_Manager;"
+	    set inc_file_lines $decl
+	    return $inc_file_lines
+	} else {
+	    return ""
 	}
     }
-    return ""
 }
 
 proc gen_testfunc_call {swproj mhsinst} {
@@ -143,94 +113,30 @@ proc gen_testfunc_call {swproj mhsinst} {
       return $testfunc_call
     }
 
-    # Don't generate test code if this is the STDOUT device
-    # We will be using this to generate print stmts for other tests
-    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
-    set isStdout [string match $stdout $mhsinst]
-    if {${isStdout} == 1} {
-	append testfunc_call "
-     /*
-      * Peripheral SelfTest will not be run for ${ipname}
-      * because it has been selected as the STDOUT device
-      */
-  "
-       return $testfunc_call
-    }
-
     set deviceid [::hsi::utils::get_ip_param_name $mhsinst "DEVICE_ID"]
-    set stdout [common::get_property CONFIG.STDOUT [hsi::get_os]]
-    if { $stdout == "" || $stdout == "none" } {
-	 set hasStdout 0
-    } else {
-	 set hasStdout 1
-    }
     if {$iftmr_managerintr == 1} {
 	set intr_pin_name [hsi::get_pins -of_objects [hsi::get_cells -hier $ipname] \
 					 -filter "TYPE==INTERRUPT"]
 	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname $intr_pin_name]
-	set intcvar intc
-	set proc [common::get_property IP_NAME [hsi::get_cells -hier [hsi::get_sw_processor]]]
-	set mdm_name [common::get_property IP_NAME $mhsinst]
     }
 
-    if {${hasStdout} == 0} {
-	append testfunc_call "
+    append testfunc_call "
 
    {
       int status;
 
-      status = TMRManagerSelfTestExample(${deviceid});
-   }"
-
-    if {$iftmr_managerintr == 1} {
-	if {$mdm_name == "mdm"} {
-	    return $testfunc_call
-	}
-	if {
-            $proc == "microblaze"
-	} then {
-	    set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
-	} else {
-	    set intr_id "XPAR_FABRIC_${ipname}_${intr_pin_name}_INTR"
-	}
-	set intr_id [string toupper $intr_id]
-        append testfunc_call "
-
-   {
-      int Status;
-      Status = TMRManagerIntrExample(&${intcvar}, &${ipname}_TMRManager, \\
-                                  ${deviceid}, \\
-                                  ${intr_id});
-   }"
-
-	}
-    } else {
-	append testfunc_call "
-
-   {
-      int status;
-
-      print(\"\\r\\nRunning TMRManagerSelfTestExample() for ${ipname}...\\r\\n\");
-      status = TMRManagerSelfTestExample(${deviceid});
+      print(\"\\r\\nRunning TMR_ManagerSelfTestExample() for ${ipname}...\\r\\n\");
+      status = TMR_ManagerSelfTestExample(${deviceid});
       if (status == 0) {
-         print(\"TMRManagerSelfTestExample PASSED\\r\\n\");
+         print(\"TMR_ManagerSelfTestExample PASSED\\r\\n\");
       }
       else {
-         print(\"TMRManagerSelfTestExample FAILED\\r\\n\");
+         print(\"TMR_ManagerSelfTestExample FAILED\\r\\n\");
       }
 
    }"
     if {$iftmr_managerintr == 1} {
-	if {$mdm_name == "mdm"} {
-	    return $testfunc_call
-	}
-	if {
-	    $proc == "microblaze"
-	} then {
-	    set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
-	} else {
-	    set intr_id "XPAR_FABRIC_${ipname}_${intr_pin_name}_INTR"
-	}
+	set intr_id "XPAR_${intcname}_${ipname}_${intr_pin_name}_INTR"
 	set intr_id [string toupper $intr_id]
 	append testfunc_call "
    {
@@ -238,20 +144,19 @@ proc gen_testfunc_call {swproj mhsinst} {
 
       print(\"\\r\\n Running Interrupt Test  for ${ipname}...\\r\\n\");
 
-      Status = TMRManagerIntrExample(&${intcvar}, &${ipname}_TMRManager, \\
+      Status = TMR_ManagerIntrExample(&${intcvar}, &${ipname}_TMR_Manager, \\
                                   ${deviceid}, \\
                                   ${intr_id});
 
       if (Status == 0) {
-         print(\"TMRManager Interrupt Test PASSED\\r\\n\");
+         print(\"TMR_Manager Interrupt Test PASSED\\r\\n\");
       }
       else {
-         print(\"TMRManager Interrupt Test FAILED\\r\\n\");
+         print(\"TMR_Manager Interrupt Test FAILED\\r\\n\");
       }
 
    }"
 
-	}
     }
 
     return $testfunc_call

@@ -34,8 +34,8 @@
 *
 * @file xtmr_manager_polled_example.c
 *
-* This file contains a design example using the TMRManager driver (XTMRManager) and
-* hardware device using the polled mode.
+* This file contains a design example using the TMR_Manager driver (XTMR_Manager)
+* and hardware device using the polled mode.
 *
 * @note
 *
@@ -63,15 +63,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define TMRMANAGER_DEVICE_ID	XPAR_TMRMANAGER_0_DEVICE_ID
-
-/*
- * The following constant controls the length of the buffers to be sent
- * and received with the TMRManager, this constant must be 16 bytes or less since
- * this is a single threaded non-interrupt driven example such that the
- * entire buffer will fit into the transmit and receive FIFOs of the TMRManager.
- */
-#define TEST_BUFFER_SIZE 16
+#define TMR_MANAGER_DEVICE_ID	XPAR_TMR_MANAGER_0_DEVICE_ID
 
 /**************************** Type Definitions *******************************/
 
@@ -81,18 +73,12 @@
 
 /************************** Function Prototypes ******************************/
 
-int TMRManagerPolledExample(u16 DeviceId);
+int TMR_ManagerPolledExample(u16 DeviceId);
 
 /************************** Variable Definitions *****************************/
 
-XTMRManager TMRManager;		/* Instance of the TMRManager Device */
+XTMR_Manager TMR_Manager;	/* Instance of the TMR_Manager Device */
 
-/*
- * The following buffers are used in this example to send and receive data
- * with the TMRManager.
- */
-u8 SendBuffer[TEST_BUFFER_SIZE];	/* Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE];	/* Buffer for Receiving Data */
 
 /*****************************************************************************/
 /**
@@ -111,10 +97,10 @@ int main(void)
 	int Status;
 
 	/*
-	 * Run the TMRManager polled example, specify the Device ID that is
+	 * Run the TMR_Manager polled example, specify the Device ID that is
 	 * generated in xparameters.h
 	 */
-	Status = TMRManagerPolledExample(TMRMANAGER_DEVICE_ID);
+	Status = TMR_ManagerPolledExample(TMR_MANAGER_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -126,30 +112,23 @@ int main(void)
 
 /****************************************************************************/
 /**
-* This function does a minimal test on the TMRManager device and driver as a
+* This function does a minimal test on the TMR_Manager device and driver as a
 * design example. The purpose of this function is to illustrate
-* how to use the XTMRManager component.
+* how to use the XTMR_Manager component.
 *
-* This function sends data and expects to receive the data thru the TMRManager
-* such that a  physical loopback must be done with the transmit and receive
-* signals of the TMRManager.
+* This function polls the TMR_Manager and does not require the use of
+* interrupts.
 *
-* This function polls the TMRManager and does not require the use of interrupts.
-*
-* @param	DeviceId is the Device ID of the TMRManager and is the
+* @param	DeviceId is the Device ID of the TMR_Manager and is the
 *		XPAR_<tmr_manager_instance>_DEVICE_ID value from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 *
-* @note
-*
-* This function calls the TMRManager driver functions in a blocking mode such that
-* if the transmit data does not loopback to the receive, this function may
-* not return.
+* @note		None
 *
 ****************************************************************************/
-int TMRManagerPolledExample(u16 DeviceId)
+int TMR_ManagerPolledExample(u16 DeviceId)
 {
 	int Status;
 	unsigned int SentCount;
@@ -157,9 +136,9 @@ int TMRManagerPolledExample(u16 DeviceId)
 	int Index;
 
 	/*
-	 * Initialize the TMRManager driver so that it is ready to use.
+	 * Initialize the TMR_Manager driver so that it is ready to use.
 	 */
-	Status = XTMRManager_Initialize(&TMRManager, DeviceId);
+	Status = XTMR_Manager_Initialize(&TMR_Manager, DeviceId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -167,53 +146,9 @@ int TMRManagerPolledExample(u16 DeviceId)
 	/*
 	 * Perform a self-test to ensure that the hardware was built correctly.
 	 */
-	Status = XTMRManager_SelfTest(&TMRManager);
+	Status = XTMR_Manager_SelfTest(&TMR_Manager);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
-	}
-
-	/*
-	 * Initialize the send buffer bytes with a pattern to send and the
-	 * the receive buffer bytes to zero.
-	 */
-	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		SendBuffer[Index] = Index;
-		RecvBuffer[Index] = 0;
-	}
-
-	/*
-	 * Send the buffer through the TMRManager waiting til the data can be sent
-	 * (block), if the specified number of bytes was not sent successfully,
-	 * then an error occurred.
-	 */
-	SentCount = XTMRManager_Send(&TMRManager, SendBuffer, TEST_BUFFER_SIZE);
-	if (SentCount != TEST_BUFFER_SIZE) {
-		return XST_FAILURE;
-	}
-
-	/*
-	 * Receive the number of bytes which is transfered.
-	 * Data may be received in fifo with some delay hence we continuously
-	 * check the receive fifo for valid data and update the receive buffer
-	 * accordingly.
-	 */
-	while (1) {
-		ReceivedCount += XTMRManager_Recv(&TMRManager,
-					   RecvBuffer + ReceivedCount,
-					   TEST_BUFFER_SIZE - ReceivedCount);
-		if (ReceivedCount == TEST_BUFFER_SIZE) {
-			break;
-		}
-	}
-
-	/*
-	 * Check the receive buffer data against the send buffer and verify the
-	 * data was correctly received.
-	 */
-	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		if (SendBuffer[Index] != RecvBuffer[Index]) {
-			return XST_FAILURE;
-		}
 	}
 
 	return XST_SUCCESS;

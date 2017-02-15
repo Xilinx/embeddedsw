@@ -45,10 +45,10 @@
 #define POP_REG(regnum)    lwi NUM_TO_REG(regnum), r1, REG_OFFSET(regnum)
 
 #define PUSH_SREG(name, regnum) \
-        mfs     r2, name        \
+        mfs     r2, name; \
         swi     r2, r1, REG_OFFSET(regnum)
 #define POP_SREG(name, regnum) \
-        lwi     r2, r1, REG_OFFSET(regnum) \
+        lwi     r2, r1, REG_OFFSET(regnum); \
         mts     name, r2
 
 #define MSR_REGNUM  32
@@ -147,7 +147,7 @@ _xtmr_manager_break:
 utlb_clear_loop:
 	mts rtlbx, r2
 	mts rtlbhi, r0
-	bgtid utlb_clear_loop
+	bgtid r2, utlb_clear_loop
 	addik r2, r2, -1
 #endif
 #if XPAR_MICROBLAZE_USE_STACK_PROTECTION > 0
@@ -166,19 +166,19 @@ utlb_clear_loop:
 #if XPAR_MICROBLAZE_USE_DCACHE > 0
 	/* Flush or invalidate the instruction cache */
 #if XPAR_MICROBLAZE_DCACHE_USE_WRITEBACK > 0
-	bralid microblaze_flush_dcache
+	bralid r15, microblaze_flush_dcache
 #else
-	bralid microblaze_invalidate_dcache
+	bralid r15, microblaze_invalidate_dcache
 #endif
 	nop
 #endif
 #if XPAR_MICROBLAZE_USE_ICACHE > 0
 	/* Invalidate the instruction cache */
-	bralid microblaze_invalidate_icache
+	bralid r15, microblaze_invalidate_icache
 	nop
 #endif
 	/* Call Break Handler in C code */
-	lwi r5, XTMR_Manager_InstancePtr
+	lwi r5, r0, XTMR_Manager_InstancePtr
 	bralid r15, XTMR_Manager_BreakHandler
 	nop
 
@@ -210,14 +210,15 @@ utlb_clear_loop:
 .type _xtmr_manager_reset, @function
 _xtmr_manager_reset:
 	/* Restore stack pointer */
-	lwi r1, r0, XTMRMmanager_StackPointer
+	lwi r1, r0, XTMR_Manager_StackPointer
 
 	/* Turn on caches if they are used */
 	POP_SREG(rmsr, MSR_REGNUM)
+	bri 4
 
 	/* Call C-level reset handler */
 	lwi r5, r0, XTMR_Manager_InstancePtr
-	bralid XTMR_Manager_ResetHandler
+	bralid r15, XTMR_Manager_ResetHandler
 	nop
 
 	/* Jump to cold reset vector */
@@ -238,6 +239,7 @@ _xtmr_manager_reset:
 	POP_SREG(rfsr, FSR_REGNUM)
 #endif
 	POP_SREG(rmsr, MSR_REGNUM)
+	bri 4
         POP_REG(2)
 	POP_REG(3)
 	POP_REG(4)
@@ -285,7 +287,7 @@ _xtmr_manager_reset:
  *
  */
 
-.global _xtmr_manager_reset
+.global _xtmr_manager_initialize
 .section .text
 .align 2
 .ent _xtmr_manager_initialize
@@ -303,18 +305,26 @@ _xtmr_manager_initialize:
 	addik r8, r0, XPAR_MICROBLAZE_BASE_VECTORS
 	lwi r6, r8, 0
 	lwi r7, r8, 4
-	swi r6, XTMR_Manager_ColdResetVector, 0
-	swi r7, XTMR_Manager_ColdResetVector, 4
+	swi r6, r0, XTMR_Manager_ColdResetVector+0
+	swi r7, r0, XTMR_Manager_ColdResetVector+4
 
 	/* Change reset vector */
-	ori r6, 0xb0000000 + (_xtmr_manager_reset >> 16)
-	ori r7, 0xb8080000 + (_xtmr_manager_reset & 0xFFFF)
+	ori r6, r0, _xtmr_manager_reset
+	bsrli r6, r6, 16
+	ori r6, r6, 0xb0000000
+	ori r7, r0, _xtmr_manager_reset
+	andi r7, r7, 0xffff
+	ori r7, r7, 0xb8080000
 	swi r6, r8, 0
 	swi r7, r8, 4
 
 	/* Initialize break vector */
-	ori r6, 0xb0000000 + (_xtmr_manager_break >> 16)
-	ori r7, 0xb8080000 + (_xtmr_manager_break & 0xFFFF)
+	ori r6, r0, _xtmr_manager_break
+	bsrli r6, r6, 16
+	ori r6, r6, 0xb0000000
+	ori r7, r0, _xtmr_manager_break
+	andi r7, r7, 0xffff
+	ori r7, r7, 0xb8080000
 	swi r6, r8, 0x14
 	swi r7, r8, 0x18
 
@@ -332,12 +342,12 @@ _xtmr_manager_initialize:
 .section .data
 .align 2
 .global XTMR_Manager_ColdResetVector
-.global XTMRMmanager_StackPointe
+.global XTMR_Manager_StackPointer
 .global XTMR_Manager_InstancePtr
 XTMR_Manager_ColdResetVector:
 	.long 0
 	.long 0
-XTMRMmanager_StackPointer:
+XTMR_Manager_StackPointer:
 	.long 0
 XTMR_Manager_InstancePtr:
 	.long 0

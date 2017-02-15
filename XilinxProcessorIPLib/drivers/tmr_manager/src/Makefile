@@ -11,7 +11,7 @@ INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
 INCLUDEFILES=*.h
-LIBSOURCES=*.c
+LIBSOURCES=*.c *.S
 
 OUTS = *.o
 

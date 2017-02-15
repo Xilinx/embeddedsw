@@ -35,7 +35,7 @@
 * @file xtmr_manager_low_level_example.c
 *
 * This file contains a design example using the low-level driver functions
-* and macros of the TMRManager driver (XTMRManager).
+* and macros of the TMR_Manager driver (XTMR_Manager).
 *
 * @note
 *
@@ -64,14 +64,7 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define TMRMANAGER_BASEADDR	   XPAR_TMRMANAGER_0_BASEADDR
-
-/*
- * The following constant controls the length of the buffers to be sent
- * and received with the TMRManager, this constant must be 16 bytes or less so the
- * entire buffer will fit into the transmit and receive FIFOs of the TMRManager.
- */
-#define TEST_BUFFER_SIZE 16
+#define TMR_MANAGER_BASEADDR	   XPAR_TMR_MANAGER_0_BASEADDR
 
 
 /**************************** Type Definitions *******************************/
@@ -82,16 +75,9 @@
 
 /************************** Function Prototypes ******************************/
 
-int TMRManagerLowLevelExample(u32 TMRManagerBaseAddress);
+int TMR_ManagerLowLevelExample(u32 TMR_ManagerBaseAddress);
 
 /************************** Variable Definitions *****************************/
-
-/*
- * The following buffers are used in this example to send and receive data
- * with the TMRManager.
- */
-u8 SendBuffer[TEST_BUFFER_SIZE]; /* Buffer for Transmitting Data */
-u8 RecvBuffer[TEST_BUFFER_SIZE]; /* Buffer for Receiving Data */
 
 
 /*****************************************************************************/
@@ -111,10 +97,10 @@ int main(void)
 	int Status;
 
 	/*
-	 * Run the TMRManager Low level example, specify the BaseAddress that is
-	 * generated in xparameters.h.
+	 * Run the TMR_Manager Low level example, specify the BaseAddress that
+	 * is generated in xparameters.h.
 	 */
-	Status = TMRManagerLowLevelExample(TMRMANAGER_BASEADDR);
+	Status = TMR_ManagerLowLevelExample(TMR_MANAGER_BASEADDR);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -126,58 +112,19 @@ int main(void)
 /*****************************************************************************/
 /**
 *
-* This function does a minimal test on the TMRManager device using the low-level
-* driver macros and functions. This function sends data and expects to receive
-* the data through the TMRManager. A physical loopback must be done by the user
-* with the transmit and receive signals of the TMRManager.
+* This function does a minimal test on the TMR_Manager device using low-level
+* driver macros and functions.
 *
-* @param	TMRManagerBaseAddress is the base address of the TMRManager
-*		device and is the XPAR_<TMRMANAGER_instance>_BASEADDR value from
-*		xparameters.h.
+* @param	TMR_ManagerBaseAddress is the base address of the TMR_Manager
+*		device and is the XPAR_<TMRMANAGER_instance>_BASEADDR value
+*		from xparameters.h.
 *
 * @return	XST_SUCCESS if successful, XST_FAILURE if unsuccessful.
 *
 * @note		None.
 *
 ******************************************************************************/
-int TMRManagerLowLevelExample(u32 TMRManagerBaseAddress)
+int TMR_ManagerLowLevelExample(u32 TMR_ManagerBaseAddress)
 {
-	int Index;
-
-	/*
-	 * Initialize the send buffer bytes with a pattern to send and the
-	 * the receive buffer bytes to zero.
-	 */
-	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		SendBuffer[Index] = Index + 'B';
-		RecvBuffer[Index] = 0;
-	}
-
-
-	/*
-	 * Send the entire transmit buffer.
-	 */
-	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		XTMRManager_SendByte(TMRManagerBaseAddress, SendBuffer[Index]);
-	}
-
-	/*
-	 * Receive the entire buffer's worth. Note that the RecvByte function
-	 * blocks waiting for a character.
-	 */
-	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		RecvBuffer[Index] = XTMRManager_RecvByte(TMRManagerBaseAddress);
-	}
-
-	/*
-	 * Check the receive buffer data against the send buffer and verify the
-	 * data was correctly received.
-	 */
-	for (Index = 0; Index < TEST_BUFFER_SIZE; Index++) {
-		if (SendBuffer[Index] != RecvBuffer[Index]) {
-			return XST_FAILURE;
-		}
-	}
-
 	return XST_SUCCESS;
 }
