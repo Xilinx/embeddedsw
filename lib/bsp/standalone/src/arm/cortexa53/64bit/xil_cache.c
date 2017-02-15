@@ -60,6 +60,9 @@
 *					  registers. Also function calls are avoided in the API to
 *					  avoid using stack memory.
 *					  These changes fix CR#966220.
+* 6.2  mus  02/13/17  The new api Xil_ConfigureL1Prefetch is added to disable pre-fetching/configure
+*                     the maximum number of outstanding data prefetches allowed in
+*                     L1 cache system.It fixes CR#967864.
 *
 * </pre>
 *
@@ -808,4 +811,27 @@ void Xil_ICacheInvalidateRange(INTPTR  adr, INTPTR len)
 /* Wait for invalidate to complete */
 	dsb();
 	mtcpsr(currmask);
+}
+
+/****************************************************************************/
+/**
+* @brief	Configure the maximum number of outstanding data prefetches
+*               allowed in L1 cache.
+*
+* @param	num: maximum number of outstanding data prefetches allowed,
+*                    valid values are 0-7.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void Xil_ConfigureL1Prefetch (u8 num) {
+
+       u64 val=0;
+
+       val= mfcp(S3_1_C15_C2_0 );
+       val &= ~(L1_DATA_PREFETCH_CONTROL_MASK);
+       val |=  (num << L1_DATA_PREFETCH_CONTROL_SHIFT);
+       mtcp(S3_1_C15_C2_0,val);
 }
