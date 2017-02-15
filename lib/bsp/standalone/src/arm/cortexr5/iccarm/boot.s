@@ -65,6 +65,7 @@
 	PUBLIC __iar_program_start
 	IMPORT _vector_table
         IMPORT Init_MPU
+	IMPORT XTime_StartTimer
 	IMPORT __cmain
 vector_base     EQU     _vector_table
 RPU_GLBL_CNTL   EQU     0xFF9A0000
@@ -278,6 +279,34 @@ init
 	mrs	r0, cpsr
 	bic	r0, r0, #0x100
 	msr	cpsr_xsf, r0
+
+        ; Clear cp15 regs with unknown reset values
+	mov	r0, #0x0
+	mcr	p15, 0, r0, c5, c0, 0	; DFSR
+	mcr	p15, 0, r0, c5, c0, 1	; IFSR
+	mcr	p15, 0, r0, c6, c0, 0	; DFAR
+	mcr	p15, 0, r0, c6, c0, 2	; IFAR
+	mcr	p15, 0, r0, c9, c13, 2	; PMXEVCNTR
+	mcr	p15, 0, r0, c13, c0, 2	; TPIDRURW
+	mcr	p15, 0, r0, c13, c0, 3	; TPIDRURO
+
+
+        ; Reset and start Cycle Counter
+	mov	r2, #0x80000000		; clear overflow
+	mcr	p15, 0, r2, c9, c12, 3
+	mov	r2, #0xd		; D, C, E
+	mcr	p15, 0, r2, c9, c12, 0
+	mov	r2, #0x80000000		; enable cycle counter
+	mcr	p15, 0, r2, c9, c12, 1
+
+	; configure the timer if TTC3 is present
+        #ifdef SLEEP_TIMER_BASEADDR
+	    bl XTime_StartTimer
+        #endif
+
+        ; make sure argc and argv are valid
+	mov	r0, #0
+	mov	r1, #0
 
         b 	__cmain                        ; jump to C startup code
 
