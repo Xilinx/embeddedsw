@@ -66,16 +66,23 @@ proc swapp_is_supported_sw {} {
     # make sure we are using standalone OS
     check_standalone_os;
 
-    # make sure xilffs and xilrsa are available
-    set librarylist_1 [hsi::get_libs -filter "NAME==xilffs"];
-    set librarylist_2 [hsi::get_libs -filter "NAME==xilsecure"];
+    set lib_list_missing ""
+    set has_missing_libs 0
 
-    if { [llength $librarylist_1] == 0 && [llength $librarylist_2] == 0 } {
-        error "This application requires xilffs and xilsecure libraries in the Board Support Package.";
-    } elseif { [llength $librarylist_1] == 0 } {
-        error "This application requires xilffs library in the Board Support Package.";
-    } elseif { [llength $librarylist_2] == 0 } {
-        error "This application requires xilsecure library in the Board Support Package.";
+    # make sure xilffs, xilrsa and xilpm are available
+    set lib_needed "xilffs xilsecure xilpm"
+    set lib_list [hsi::get_libs];
+
+    foreach libs ${lib_needed} {
+        # create a list of required libs that are not in BSP
+        if {[lsearch $lib_list $libs] < 0 } {
+            lappend lib_list_missing $libs
+            set has_missing_libs [expr $has_missing_libs + 1]
+        }
+    }
+
+    if {$has_missing_libs > 0} {
+        error "These libraries which FSBL requires are missing in Board Support Package: $lib_list_missing"
     }
 }
 
@@ -123,23 +130,21 @@ proc swapp_is_supported_hw {} {
         set ip_list "psu_csudma psu_adma_0 psu_ipi_*"
     }
 
-    foreach ips ${ip_list} {
-        set ip_iso [::common::get_property SLAVES [::hsi::get_cells $proc_instance -hier]]
-        set ip_nodsgn [::hsi::get_cells -hier]
+    set ip_iso [::common::get_property SLAVES [::hsi::get_cells $proc_instance -hier]]
+    set ip_nodsgn [::hsi::get_cells -hier]
 
+    foreach ips ${ip_list} {
         # create a list of IPs that are in design but isolated for this processor
-        if {[lsearch -nocase $ip_iso $ips] < 0 } {
-            if {[lsearch -nocase $ip_nodsgn $ips] >= 0} {
+        if {[lsearch $ip_iso $ips] < 0 } {
+            if {[lsearch $ip_nodsgn $ips] >= 0} {
             lappend ip_list_iso $ips
-            set ip_list_iso [join $ip_list_iso ", "]
             set has_iso_ips [expr $has_iso_ips + 1]
             }
         }
 
         # create a list of IPs that are not in design
-        if {[lsearch -nocase $ip_nodsgn $ips] < 0 } {
+        if {[lsearch $ip_nodsgn $ips] < 0 } {
             lappend ip_list_nodsgn $ips
-            set ip_list_nodsgn [join $ip_list_nodsgn ", "]
             set has_nodsgn_ips [expr $has_nodsgn_ips + 1]
         }
     }
