@@ -278,28 +278,28 @@ static int XV_HdmiTxSs_RegisterSubsysCallbacks(XV_HdmiTxSs *InstancePtr)
      */
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
                           XV_HDMITX_HANDLER_CONNECT,
-                          XV_HdmiTxSs_ConnectCallback,
-                          InstancePtr);
+						  (void *)XV_HdmiTxSs_ConnectCallback,
+						  (void *)InstancePtr);
 
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
                           XV_HDMITX_HANDLER_TOGGLE,
-                          XV_HdmiTxSs_ToggleCallback,
-                          InstancePtr);
+						  (void *)XV_HdmiTxSs_ToggleCallback,
+						  (void *)InstancePtr);
 
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
                           XV_HDMITX_HANDLER_VS,
-                          XV_HdmiTxSs_VsCallback,
-                          InstancePtr);
+						  (void *)XV_HdmiTxSs_VsCallback,
+						  (void *)InstancePtr);
 
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
                           XV_HDMITX_HANDLER_STREAM_UP,
-                          XV_HdmiTxSs_StreamUpCallback,
-                          InstancePtr);
+						  (void *)XV_HdmiTxSs_StreamUpCallback,
+						  (void *)InstancePtr);
 
     XV_HdmiTx_SetCallback(HdmiTxSsPtr->HdmiTxPtr,
                           XV_HDMITX_HANDLER_STREAM_DOWN,
-                          XV_HdmiTxSs_StreamDownCallback,
-                          InstancePtr);
+						  (void *)XV_HdmiTxSs_StreamDownCallback,
+						  (void *)InstancePtr);
   }
 
   return(XST_SUCCESS);
@@ -1287,8 +1287,8 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             if (InstancePtr->Hdcp14Ptr) {
               XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
                                   XHDCP1X_HANDLER_AUTHENTICATED,
-                                  (XHdcp1x_Callback) CallbackFunc,
-                                  CallbackRef);
+								  (void *)(XHdcp1x_Callback) CallbackFunc,
+								  (void *)CallbackRef);
             }
 #endif
 
@@ -1297,8 +1297,8 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Tx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_TX_HANDLER_AUTHENTICATED,
-                                    (XHdcp22_Tx_Callback)CallbackFunc,
-                                    CallbackRef);
+									(void *)(XHdcp22_Tx_Callback)CallbackFunc,
+									(void *)CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);
@@ -1310,9 +1310,9 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             /** Register HDCP 1.4 callbacks */
             if (InstancePtr->Hdcp14Ptr) {
         XHdcp1x_SetCallBack(InstancePtr->Hdcp14Ptr,
-                            XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
-                            (XHdcp1x_Callback) CallbackFunc,
-                            CallbackRef);
+                            (XHdcp1x_HandlerType) XHDCP1X_RPTR_HDLR_REPEATER_EXCHANGE,
+							(void *) (XHdcp1x_Callback)CallbackFunc,
+							(void *) CallbackRef);
             }
 #endif
 
@@ -1321,8 +1321,8 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Tx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_TX_HANDLER_DOWNSTREAM_TOPOLOGY_AVAILABLE,
-                                    (XHdcp22_Tx_Callback)CallbackFunc,
-                                    CallbackRef);
+									(void *)(XHdcp22_Tx_Callback)CallbackFunc,
+									(void *)CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);
@@ -1335,8 +1335,8 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             if (InstancePtr->Hdcp14Ptr) {
         XHdcp1x_SetCallBack(InstancePtr->Hdcp14Ptr,
                             XHDCP1X_HANDLER_UNAUTHENTICATED,
-                            (XHdcp1x_Callback) CallbackFunc,
-                            CallbackRef);
+							(void *) (XHdcp1x_Callback)CallbackFunc,
+							(void *) CallbackRef);
             }
 #endif
 
@@ -1345,8 +1345,8 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Tx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_TX_HANDLER_UNAUTHENTICATED,
-                                    (XHdcp22_Tx_Callback)CallbackFunc,
-                                    CallbackRef);
+                                    (void *) (XHdcp22_Tx_Callback)CallbackFunc,
+									(void *) CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);

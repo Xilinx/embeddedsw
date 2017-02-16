@@ -267,13 +267,13 @@ int XV_HdmiTxSs_SubcoreInitHdcp14(XV_HdmiTxSs *HdmiTxSsPtr)
       /* Set-up the DDC Handlers */
       XHdcp1x_SetCallback(HdmiTxSsPtr->Hdcp14Ptr,
                           XHDCP1X_HANDLER_DDC_WRITE,
-                          XV_HdmiTxSs_DdcWriteHandler,
-                          HdmiTxSsPtr->HdmiTxPtr);
+                          (void *)XV_HdmiTxSs_DdcWriteHandler,
+						  (void *)HdmiTxSsPtr->HdmiTxPtr);
 
       XHdcp1x_SetCallback(HdmiTxSsPtr->Hdcp14Ptr,
                           XHDCP1X_HANDLER_DDC_READ,
-                          XV_HdmiTxSs_DdcReadHandler,
-                          HdmiTxSsPtr->HdmiTxPtr);
+						  (void *)XV_HdmiTxSs_DdcReadHandler,
+						  (void *)HdmiTxSsPtr->HdmiTxPtr);
 
       if (Status != XST_SUCCESS) {
         xdbg_printf(XDBG_DEBUG_GENERAL,
@@ -342,13 +342,13 @@ int XV_HdmiTxSs_SubcoreInitHdcp22(XV_HdmiTxSs *HdmiTxSsPtr)
       /* Set-up the DDC Handlers */
       XHdcp22Tx_SetCallback(HdmiTxSsPtr->Hdcp22Ptr,
                             XHDCP22_TX_HANDLER_DDC_WRITE,
-                            XV_HdmiTxSs_DdcWriteHandler,
-                            HdmiTxSsPtr->HdmiTxPtr);
+							(void *)XV_HdmiTxSs_DdcWriteHandler,
+							(void *)HdmiTxSsPtr->HdmiTxPtr);
 
       XHdcp22Tx_SetCallback(HdmiTxSsPtr->Hdcp22Ptr,
                             XHDCP22_TX_HANDLER_DDC_READ,
-                            XV_HdmiTxSs_DdcReadHandler,
-                            HdmiTxSsPtr->HdmiTxPtr);
+							(void *)XV_HdmiTxSs_DdcReadHandler,
+							(void *)HdmiTxSsPtr->HdmiTxPtr);
 
       /* Set polling value */
       XHdcp22Tx_SetMessagePollingValue(HdmiTxSsPtr->Hdcp22Ptr, 2);
