@@ -63,9 +63,7 @@
  *                     Added extra routine for 2/4 byte tranceiver modes
  *                     Added logging and register access for ERR_IRQ impl
  *                     Removed XVphy_HdmiMmcmStart API
- *                     Removed SystemFrequency argument from
- *                        XVphy_HdmiInitialize API. This is now auto extracted
- *                        in xvphy_g.c file.
+ *                     Fixed c++ compiler warnings
  * </pre>
  *
 *******************************************************************************/
@@ -73,7 +71,7 @@
 /******************************* Include Files ********************************/
 
 #include "xparameters.h"
-#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRXSS_0_DEVICE_ID)
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_i.h"
@@ -111,13 +109,16 @@ static void XVphy_HdmiSetSystemClockSelection(XVphy *InstancePtr, u8 QuadId);
  * @param	InstancePtr is a pointer to the XVphy instance.
  * @param	CfgPtr is a pointer to the configuration structure that will
  *		be used to copy the settings from.
+ * @param	SystemFrequency is the system frequency for the HDMI logic
+ *		to be based on.
  *
  * @return	None.
  *
  * @note	None.
  *
 *******************************************************************************/
-u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr)
+u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
+		u32 SystemFrequency)
 {
 	u8 Id, Id0, Id1;
 
@@ -161,15 +162,25 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr)
 
 	}
 	/* Interrupt Disable. */
-	XVphy_IntrDisable(InstancePtr, XVPHY_INTR_HANDLER_TYPE_TXRESET_DONE |
-			XVPHY_INTR_HANDLER_TYPE_RXRESET_DONE |
-			XVPHY_INTR_HANDLER_TYPE_CPLL_LOCK |
-			XVPHY_INTR_HANDLER_TYPE_QPLL0_LOCK |
-			XVPHY_INTR_HANDLER_TYPE_TXALIGN_DONE |
-			XVPHY_INTR_HANDLER_TYPE_QPLL1_LOCK |
-			XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE |
-			XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE |
-			XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT |
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TXRESET_DONE);
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_RXRESET_DONE);
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_CPLL_LOCK);
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_QPLL0_LOCK);
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TXALIGN_DONE);
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_QPLL1_LOCK);
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE);
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE);
+	XVphy_IntrDisable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT);
+	XVphy_IntrDisable(InstancePtr,
 			XVPHY_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT);
 
 	/* Setup HDMI interrupt handler callback*/
@@ -177,8 +188,7 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr)
 
 	/* Configure clock detector. */
 	XVphy_ClkDetEnable(InstancePtr, FALSE);
-	XVphy_ClkDetSetFreqTimeout(InstancePtr, InstancePtr->
-		Config.AxiLiteClkFreq);
+	XVphy_ClkDetSetFreqTimeout(InstancePtr, SystemFrequency);
 	XVphy_ClkDetSetFreqLockThreshold(InstancePtr, 40);
 
 	/* Start capturing logs. */
@@ -236,8 +246,8 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr)
 
 	XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
-		XVphy_SetTxVoltageSwing(InstancePtr, QuadId, Id, 0x1);
-		XVphy_SetTxPreEmphasis(InstancePtr, QuadId, Id, 0x1);
+		XVphy_SetTxVoltageSwing(InstancePtr, QuadId, (XVphy_ChannelId)Id, 0x1);
+		XVphy_SetTxPreEmphasis(InstancePtr, QuadId, (XVphy_ChannelId)Id, 0x1);
 	}
 
 	/* Clear Interrupt Register */
@@ -245,15 +255,25 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr)
 			0xFFFFFFFF);
 
 	/* Interrupt Enable. */
-	XVphy_IntrEnable(InstancePtr, XVPHY_INTR_HANDLER_TYPE_TXRESET_DONE |
-			XVPHY_INTR_HANDLER_TYPE_RXRESET_DONE |
-			XVPHY_INTR_HANDLER_TYPE_CPLL_LOCK |
-			XVPHY_INTR_HANDLER_TYPE_QPLL0_LOCK |
-			XVPHY_INTR_HANDLER_TYPE_TXALIGN_DONE |
-			XVPHY_INTR_HANDLER_TYPE_QPLL1_LOCK |
-			XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE |
-			XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE |
-			XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT |
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TXRESET_DONE);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_RXRESET_DONE);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_CPLL_LOCK);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_QPLL0_LOCK);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TXALIGN_DONE);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_QPLL1_LOCK);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE);
+	XVphy_IntrEnable(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT);
+	XVphy_IntrEnable(InstancePtr,
 			XVPHY_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT);
 	XVphy_ClkDetEnable(InstancePtr, TRUE);
 
@@ -1386,8 +1406,8 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	/* Suppress Warning Messages */
 	ChId = ChId;
 
-	XVphy_SysClkDataSelType SysClkDataSel = 0;
-	XVphy_SysClkOutSelType SysClkOutSel = 0;
+	XVphy_SysClkDataSelType SysClkDataSel = (XVphy_SysClkDataSelType) 0;
+	XVphy_SysClkOutSelType SysClkOutSel = (XVphy_SysClkOutSelType) 0;
 	XVphy_ChannelId ActiveCmnId = XVPHY_CHANNEL_ID_CMN0;
 
 	u32 QpllRefClk;

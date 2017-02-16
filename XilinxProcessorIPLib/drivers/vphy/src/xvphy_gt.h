@@ -49,6 +49,8 @@
  * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
  *                     Changed TX reconfig hook from TxPllRefClkDiv1Reconfig to
  *                       TxChReconfig
+ *                     Fixed c++ compiler warnings
+ *                     Added xcvr adaptor functions for C++ compilations
  * </pre>
  *
 *******************************************************************************/
@@ -87,7 +89,17 @@ typedef struct XVphy_GtConfigS {
 } XVphy_GtConfig;
 
 /******************* Macros (Inline Functions) Definitions ********************/
-
+#ifdef __cplusplus
+u32 XVphy_CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
+u32 XVphy_CheckPllOpRange(XVphy *InstancePtr, u8 QuadId,
+							XVphy_ChannelId ChId, u64 PllClkOutFreqHz);
+u32 XVphy_OutDivChReconfig(XVphy *InstancePtr, u8 QuadId,
+							XVphy_ChannelId ChId, XVphy_DirectionType Dir);
+u32 XVphy_ClkChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
+u32 XVphy_ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
+u32 XVphy_RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
+u32 XVphy_TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
+#else
 #define XVphy_CfgSetCdr(Ip, ...) \
 		((Ip)->GtAdaptor->CfgSetCdr(Ip, __VA_ARGS__))
 #define XVphy_CheckPllOpRange(Ip, ...) \
@@ -102,6 +114,7 @@ typedef struct XVphy_GtConfigS {
 		((Ip)->GtAdaptor->RxChReconfig(Ip, __VA_ARGS__))
 #define XVphy_TxChReconfig(Ip, ...) \
 		((Ip)->GtAdaptor->TxChReconfig(Ip, __VA_ARGS__))
+#endif
 
 /*************************** Variable Declarations ****************************/
 

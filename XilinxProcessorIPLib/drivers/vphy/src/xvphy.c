@@ -62,6 +62,7 @@
  *                     Suppressed warning messages due to unused arguments
  * 1.4   gm   29/11/16 Moved internally used APIs to xvphy_i.c/h
  *                     Added preprocessor directives for sw footprint reduction
+ *                     Fixed c++ compiler warnings
  * </pre>
  *
 *******************************************************************************/
@@ -131,13 +132,13 @@ void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
 #endif
 
 	const XVphy_SysClkDataSelType SysClkCfg[7][2] = {
-		{0, XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK},
-		{1, XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
-		{2, XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK},
-		{3, XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK},
-		{4, XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK},
-		{5, XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK},
-		{6, XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
+		{(XVphy_SysClkDataSelType)0, XVPHY_SYSCLKSELDATA_TYPE_CPLL_OUTCLK},
+		{(XVphy_SysClkDataSelType)1, XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
+		{(XVphy_SysClkDataSelType)2, XVPHY_SYSCLKSELDATA_TYPE_QPLL1_OUTCLK},
+		{(XVphy_SysClkDataSelType)3, XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK},
+		{(XVphy_SysClkDataSelType)4, XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK},
+		{(XVphy_SysClkDataSelType)5, XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK},
+		{(XVphy_SysClkDataSelType)6, XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK},
 	};
 	for (Sel = 0; Sel < 7; Sel++) {
 		if (InstancePtr->Config.TxSysPllClkSel == SysClkCfg[Sel][0]) {
@@ -148,20 +149,29 @@ void XVphy_CfgInitialize(XVphy *InstancePtr, XVphy_Config *ConfigPtr,
 		}
 	}
 
-	InstancePtr->Config.TxRefClkSel += XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0;
-	InstancePtr->Config.RxRefClkSel += XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0;
-	InstancePtr->Config.DruRefClkSel += XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0;
+	InstancePtr->Config.TxRefClkSel = (XVphy_PllRefClkSelType)
+			(InstancePtr->Config.TxRefClkSel +
+					XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0);
+	InstancePtr->Config.RxRefClkSel = (XVphy_PllRefClkSelType)
+			(InstancePtr->Config.RxRefClkSel +
+					XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0);
+	InstancePtr->Config.DruRefClkSel = (XVphy_PllRefClkSelType)
+			(InstancePtr->Config.DruRefClkSel +
+					XVPHY_PLL_REFCLKSEL_TYPE_GTREFCLK0);
 
 	/* Correct RefClkSel offsets for GTPE2 EAST and WEST RefClks */
 	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
 		if (InstancePtr->Config.TxRefClkSel > 6) {
-			InstancePtr->Config.TxRefClkSel -= 4;
+			InstancePtr->Config.TxRefClkSel = (XVphy_PllRefClkSelType)
+					(InstancePtr->Config.TxRefClkSel - 4);
 		}
 		if (InstancePtr->Config.RxRefClkSel > 6) {
-			InstancePtr->Config.RxRefClkSel -= 4;
+			InstancePtr->Config.RxRefClkSel = (XVphy_PllRefClkSelType)
+					(InstancePtr->Config.RxRefClkSel - 4);
 		}
 		if (InstancePtr->Config.DruRefClkSel > 6) {
-			InstancePtr->Config.DruRefClkSel -= 4;
+			InstancePtr->Config.DruRefClkSel = (XVphy_PllRefClkSelType)
+					(InstancePtr->Config.DruRefClkSel - 4);
 		}
 	}
 

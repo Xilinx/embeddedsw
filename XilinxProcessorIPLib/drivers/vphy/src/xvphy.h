@@ -790,7 +790,8 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 		XVphy_PllRefClkSelType QpllRefClkSel,
 		XVphy_PllType TxPllSelect, XVphy_PllType RxPllSelect,
 		u8 LinkRate);
-u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr);
+u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
+		u32 SystemFrequency);
 u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVidC_PixelsPerClock Ppc, XVidC_ColorDepth Bpc,
 		XVidC_ColorFormat ColorFormat);

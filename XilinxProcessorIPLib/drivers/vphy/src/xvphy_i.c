@@ -45,6 +45,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   gm,  11/09/16 Initial release.
+ * 1.4   gm   29/11/16 Fixed c++ compiler warnings
+ *                     Added xcvr adaptor functions for C++ compilations
  * </pre>
  *
 *******************************************************************************/
@@ -452,7 +454,7 @@ XVphy_SysClkDataSelType XVphy_GetSysClkDataSel(XVphy *InstancePtr, u8 QuadId,
 				InstancePtr->Config.XcvrType);
 	}
 
-	return Sel;
+	return (XVphy_SysClkDataSelType) Sel;
 }
 
 /*****************************************************************************/
@@ -497,7 +499,7 @@ XVphy_SysClkOutSelType XVphy_GetSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
 				InstancePtr->Config.XcvrType);
 	}
 
-	return Sel;
+	return (XVphy_SysClkOutSelType)Sel;
 }
 
 /*****************************************************************************/
@@ -896,8 +898,8 @@ u32 XVphy_ClkCalcParams(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
-		Status = XVphy_PllCalculator(InstancePtr, QuadId, Id, Dir,
-				PllClkInFreqHz);
+		Status = XVphy_PllCalculator(InstancePtr, QuadId,
+					(XVphy_ChannelId)Id, Dir, PllClkInFreqHz);
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -939,7 +941,8 @@ u32 XVphy_OutDivReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
-		Status = XVphy_OutDivChReconfig(InstancePtr, QuadId, Id, Dir);
+		Status = XVphy_OutDivChReconfig(InstancePtr, QuadId,
+					(XVphy_ChannelId)Id, Dir);
 		if (Status != XST_SUCCESS) {
 			break;
 		}
@@ -984,10 +987,12 @@ u32 XVphy_DirReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		if (Dir == XVPHY_DIR_TX) {
-			Status = XVphy_TxChReconfig(InstancePtr, QuadId, Id);
+			Status = XVphy_TxChReconfig(InstancePtr, QuadId,
+											(XVphy_ChannelId)Id);
 		}
 		else {
-			Status = XVphy_RxChReconfig(InstancePtr, QuadId, Id);
+			Status = XVphy_RxChReconfig(InstancePtr, QuadId,
+											(XVphy_ChannelId)Id);
 		}
 		if (Status != XST_SUCCESS) {
 			break;
@@ -1026,10 +1031,12 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	XVphy_Ch2Ids(InstancePtr, ChId, &Id0, &Id1);
 	for (Id = Id0; Id <= Id1; Id++) {
 		if (XVPHY_ISCH(Id)) {
-			Status = XVphy_ClkChReconfig(InstancePtr, QuadId, Id);
+			Status = XVphy_ClkChReconfig(InstancePtr, QuadId,
+											(XVphy_ChannelId)Id);
 		}
 		else if (XVPHY_ISCMN(ChId)) {
-			Status = XVphy_ClkCmnReconfig(InstancePtr, QuadId, Id);
+			Status = XVphy_ClkCmnReconfig(InstancePtr, QuadId,
+											(XVphy_ChannelId)Id);
 		}
 		if (Status != XST_SUCCESS) {
 			return Status;
@@ -1264,7 +1271,7 @@ calc_done:
 		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].OutDiv[Dir] =
 			*D;
 		if (Dir == XVPHY_DIR_RX) {
-			XVphy_CfgSetCdr(InstancePtr, QuadId, Id);
+			XVphy_CfgSetCdr(InstancePtr, QuadId, (XVphy_ChannelId)Id);
 		}
 	}
 
@@ -1303,13 +1310,15 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 	}
 	else {
 		if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
-#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRXSS_0_DEVICE_ID)
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
 			if (InstancePtr->HdmiRxDruIsEnabled) {
 				PllRefClkHz = XVphy_DruGetRefClkFreqHz(InstancePtr);
 			}
 			else {
 				PllRefClkHz = InstancePtr->HdmiRxRefClkHz;
 			}
+#else
+			PllRefClkHz = 0;
 #endif
 		}
 		else {
@@ -1328,3 +1337,158 @@ u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 
 	return PllxVcoRateHz;
 }
+
+#ifdef __cplusplus
+/*****************************************************************************/
+/**
+* This function is a transceiver adaptor to set the clock and data recovery
+* (CDR) values for a given channel.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_CfgSetCdr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
+{
+	return InstancePtr->GtAdaptor->CfgSetCdr(InstancePtr, QuadId, ChId);
+}
+
+/*****************************************************************************/
+/**
+* This function is a transceiver adaptor to check if a given PLL output
+* frequency is within the operating range of the PLL for the GT type.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	PllClkOutFreqHz is the frequency to check.
+*
+* @return
+*		- XST_SUCCESS if the frequency resides within the PLL's range.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_CheckPllOpRange(XVphy *InstancePtr, u8 QuadId,
+							XVphy_ChannelId ChId, u64 PllClkOutFreqHz)
+{
+	return InstancePtr->GtAdaptor->CheckPllOpRange(InstancePtr, QuadId, ChId,
+							PllClkOutFreqHz);
+}
+
+/*****************************************************************************/
+/**
+* This function is a transceiver adaptor to set the output divider logic for
+* a given channel.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for RX or TX.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_OutDivChReconfig(XVphy *InstancePtr, u8 QuadId,
+							XVphy_ChannelId ChId, XVphy_DirectionType Dir)
+{
+	return InstancePtr->GtAdaptor->OutDivChReconfig(InstancePtr, QuadId,
+							ChId, Dir);
+}
+
+/*****************************************************************************/
+/**
+* This function is a transceiver adaptor to configure the channel
+* clock settings.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_ClkChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
+{
+	return InstancePtr->GtAdaptor->ClkChReconfig(InstancePtr, QuadId, ChId);
+}
+
+/*****************************************************************************/
+/**
+* This function is a transceiver adaptor to configure the common channel
+* clock settings.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	CmnId is the common channel ID to operate on.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
+{
+	return InstancePtr->GtAdaptor->ClkCmnReconfig(InstancePtr, QuadId, ChId);
+}
+
+/*****************************************************************************/
+/**
+* This function is a transceiver adaptor to configure the channel's
+* RX settings.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
+{
+	return InstancePtr->GtAdaptor->RxChReconfig(InstancePtr, QuadId, ChId);
+}
+
+/*****************************************************************************/
+/**
+* This function is a transceiver adaptor to configure the channel's
+* TX settings.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+*
+* @return
+*		- XST_SUCCESS if the configuration was successful.
+*		- XST_FAILURE otherwise.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
+{
+	return InstancePtr->GtAdaptor->TxChReconfig(InstancePtr, QuadId, ChId);
+}
+#endif

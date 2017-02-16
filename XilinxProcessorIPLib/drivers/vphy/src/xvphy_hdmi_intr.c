@@ -57,6 +57,7 @@
  *                     Added logging and register access for ERR_IRQ impl
  *                     Added mechanism to re-trigger GT TX reset when TX align
  *                       get stuck
+ *                     Fixed c++ compiler warnings
  * </pre>
  *
 *******************************************************************************/
@@ -64,7 +65,7 @@
 /******************************* Include Files ********************************/
 
 #include "xparameters.h"
-#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRXSS_0_DEVICE_ID)
+#if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_i.h"
@@ -113,22 +114,22 @@ void XVphy_SetHdmiCallback(XVphy *InstancePtr,
 
 	switch (HandlerType) {
 	case XVPHY_HDMI_HANDLER_TXINIT:
-		InstancePtr->HdmiTxInitCallback = CallbackFunc;
+		InstancePtr->HdmiTxInitCallback = (XVphy_Callback)CallbackFunc;
 		InstancePtr->HdmiTxInitRef = CallbackRef;
 		break;
 
 	case XVPHY_HDMI_HANDLER_TXREADY:
-		InstancePtr->HdmiTxReadyCallback = CallbackFunc;
+		InstancePtr->HdmiTxReadyCallback = (XVphy_Callback)CallbackFunc;
 		InstancePtr->HdmiTxReadyRef = CallbackRef;
 		break;
 
 	case XVPHY_HDMI_HANDLER_RXINIT:
-		InstancePtr->HdmiRxInitCallback = CallbackFunc;
+		InstancePtr->HdmiRxInitCallback = (XVphy_Callback)CallbackFunc;
 		InstancePtr->HdmiRxInitRef = CallbackRef;
 		break;
 
 	case XVPHY_HDMI_HANDLER_RXREADY:
-		InstancePtr->HdmiRxReadyCallback = CallbackFunc;
+		InstancePtr->HdmiRxReadyCallback = (XVphy_Callback)CallbackFunc;
 		InstancePtr->HdmiRxReadyRef = CallbackRef;
 		break;
 

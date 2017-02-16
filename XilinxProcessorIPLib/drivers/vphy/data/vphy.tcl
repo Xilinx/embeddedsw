@@ -28,12 +28,80 @@
 ## in advertising or otherwise to promote the sale, use or other dealings in
 ## this Software without prior written authorization from Xilinx.
 ##
-##*****************************************************************************/
+###############################################################################
+#
+# MODIFICATION HISTORY:
+# Ver      Who    Date     Changes
+# -------- ------ -------- ----------------------------------------------------
+# 1.0      als    10/19/15 Initial release.
+# 1.4      gm     29/11/16 Added Transceiver_Width, C_Err_Irq_En,
+#                            AXI_LITE_FREQ_HZ Parameters
+#                          Fixed c++ compiler warnings/errors
+#                            Added xdefine_config_file for _g.c generation
+###############################################################################
 
 proc generate {drv_handle} {
     xdefine_include_file $drv_handle "xparameters.h" "XVPHY" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ"
-    ::hsi::utils::define_config_file $drv_handle "xvphy_g.c" "XVphy" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ"
+    xdefine_config_file $drv_handle "xvphy_g.c" "XVphy" "DEVICE_ID" "C_BASEADDR" "TRANSCEIVER" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ"
     xdefine_canonical_xpars $drv_handle "xparameters.h" "VPHY" "DEVICE_ID" "C_BASEADDR" "Transceiver" "C_Tx_No_Of_Channels" "C_Rx_No_Of_Channels" "C_Tx_Protocol" "C_Rx_Protocol" "C_TX_REFCLK_SEL" "C_RX_REFCLK_SEL" "C_TX_PLL_SELECTION" "C_RX_PLL_SELECTION" "C_NIDRU" "C_NIDRU_REFCLK_SEL" "C_INPUT_PIXELS_PER_CLOCK" "Tx_Buffer_Bypass" "C_Hdmi_Fast_Switch" "Transceiver_Width" "C_Err_Irq_En" "AXI_LITE_FREQ_HZ"
+}
+
+# -----------------------------------------------------------------------------
+# Create configuration C file as required by Xilinx drivers
+# Use the config field list technique.
+# -----------------------------------------------------------------------------
+proc xdefine_config_file {drv_handle file_name drv_string args} {
+	global periph_ninstances
+    set args [::hsi::utils::get_exact_arg_list $args]
+    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
+
+	set filename [file join "src" $file_name]
+	set config_file [open $filename w]
+	::hsi::utils::write_c_header $config_file "Driver configuration"
+	set num_insts [::hsi::utils::get_driver_param_name $drv_string "NUM_INSTANCES"]
+	puts $config_file "\#include \"xparameters.h\""
+	puts $config_file "\#include \"[string tolower $drv_string].h\""
+	puts $config_file "\n/*"
+	puts $config_file "* The configuration table for devices"
+	puts $config_file "*/\n"
+	puts $config_file [format "%s_Config %s_ConfigTable\[%s\] =" $drv_string $drv_string $num_insts]
+	puts $config_file "\{"
+
+	set start_comma ""
+	foreach periph $periphs {
+
+		puts $config_file [format "%s\t\{" $start_comma]
+		set comma ""
+		foreach arg $args {
+            if {[string compare -nocase "TRANSCEIVER" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVphy_GtType)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_Tx_Protocol" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVphy_ProtocolType)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_Rx_Protocol" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVphy_ProtocolType)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_TX_PLL_SELECTION" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVphy_SysClkDataSelType)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_RX_PLL_SELECTION" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVphy_SysClkDataSelType)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_TX_REFCLK_SEL" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVphy_PllRefClkSelType)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_RX_REFCLK_SEL" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVphy_PllRefClkSelType)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_NIDRU_REFCLK_SEL" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVphy_PllRefClkSelType)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } elseif {[string compare -nocase "C_INPUT_PIXELS_PER_CLOCK" $arg] == 0} {
+                puts -nonewline $config_file [format "%s\t\t%s%s" $comma "(XVidC_PixelsPerClock)" [::hsi::utils::get_ip_param_name $periph $arg]]
+            } else {
+				puts -nonewline $config_file [format "%s\t\t%s" $comma [::hsi::utils::get_ip_param_name $periph $arg]]
+			}
+			set comma ",\n"
+		}
+
+		puts -nonewline $config_file "\n\t\}"
+		set start_comma ",\n"
+	}
+	puts $config_file "\n\};\n"
+	close $config_file
 }
 
 #
