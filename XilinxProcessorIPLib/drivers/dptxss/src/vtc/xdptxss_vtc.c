@@ -93,6 +93,9 @@
 u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
 {
 	u32 UserPixelWidth;
+#ifdef VTC_ADJUST_FOR_BS_TIMING
+	u32 tmp;
+#endif
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -139,6 +142,15 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
 			MsaConfig->Vtm.Timing.HSyncWidth / UserPixelWidth;
 	VideoTiming.HBackPorch =
 			MsaConfig->Vtm.Timing.HBackPorch / UserPixelWidth;
+	/* adjust bs timing */
+#ifdef VTC_ADJUST_FOR_BS_TIMING
+	tmp = VideoTiming.HFrontPorch;
+	VideoTiming.HFrontPorch = 1;
+	VideoTiming.HBackPorch += (tmp - 1);
+	tmp = VideoTiming.HSyncWidth;
+	VideoTiming.HSyncWidth = 1;
+	VideoTiming.HBackPorch += (tmp - 1);
+#endif
 	VideoTiming.HSyncPolarity =
 			MsaConfig->Vtm.Timing.HSyncPolarity;
 
