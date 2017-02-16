@@ -195,7 +195,12 @@ void XPm_ClientSuspendFinalize(void)
  */
 void XPm_ClientSetPrimaryMaster(void)
 {
-	u32 master_id = mfcp(MPIDR_EL1);
+	u32 master_id;
+#ifdef __aarch64__
+	master_id = mfcp(MPIDR_EL1);
+#else
+	master_id = mfcp(XREG_CP15_MULTI_PROC_AFFINITY);
+#endif
 
 	master_id &= PM_AFL0_MASK;
 	primary_master = pm_masters_all[master_id];
