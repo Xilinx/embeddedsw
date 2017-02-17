@@ -393,6 +393,12 @@ static u32 XFpga_WriteEncryptToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow) {
 	Xilfpga_ConvertStringToHex((char *)(UINTPTR)WrAddr  + KEY_LEN + WrSize,
 								iv, IV_LEN);
 
+	/* Xilsecure expects Key in big endian form */
+	for (u8 i = 0; i < ARRAY_LENGTH(key); i++)
+		key[i] = Xil_Htonl(key[i]);
+	for (u8 i = 0; i < ARRAY_LENGTH(iv); i++)
+		iv[i] = Xil_Htonl(iv[i]);
+
 	/* Initialize the Aes driver so that it's ready to use */
 	XSecure_AesInitialize(&Secure_Aes, &CsuDma, XSECURE_CSU_AES_KEY_SRC_KUP,
 			                           (u32 *)iv, (u32 *)key);
