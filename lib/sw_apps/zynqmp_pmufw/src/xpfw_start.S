@@ -49,7 +49,7 @@ _vector_interrupt:
 		.section .vectors.hw_exception, "ax"
 		.align 2
 _vector_hw_exception:
-		brai	XPfw_Exception
+		brai	_hw_exception_handler
 
 /* FW StartUP Begins Here: Initialization of the Stack and Stack Protection. */
 		.section .text
