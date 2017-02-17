@@ -1323,6 +1323,13 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		}
 		else {
 #ifdef XFSBL_BS
+			/* Check whether secure bitstream is in blocks */
+			if (XFsbl_GetBlockSize(PartitionHeader) == 0x00U) {
+				Status = XFSBL_ERROR_BLOCK_SIZE_SEC_BS;
+				XFsbl_Printf(DEBUG_INFO,"Use latest BOOTGEN"
+						" to program secure bitsream\r\n");
+				goto END;
+			}
 			if ((FsblInstancePtr->BootHdrAttributes &
 					XIH_BH_IMAGE_ATTRB_SHA2_MASK) ==
 					XIH_BH_IMAGE_ATTRB_SHA2_MASK) {
@@ -1377,7 +1384,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 #endif
 			XFsbl_Printf(DEBUG_GENERAL,
 			"Authenticated Bitstream download to start now\r\n");
-			Status = XFsbl_SecPlPartition(&PlParams);
+			Status = XFsbl_SecPlPartition(FsblInstancePtr, &PlParams);
 			if (Status != XFSBL_SUCCESS) {
 				XFsbl_Printf(DEBUG_GENERAL,
 				"XFSBL_ERROR_BITSTREAM_AUTHENTICATION\r\n");

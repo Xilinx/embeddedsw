@@ -65,7 +65,8 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 				u64 ChunkAdrs, u32 ChunkSize);
 static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 				u64 ChunkAdrs, u32 ChunkSize);
-static u32 XFsbl_PlBlockAuthentication(XFsblPs_PlPartition *PartitionParams,
+static u32 XFsbl_PlBlockAuthentication(XFsblPs * FsblInstancePtr,
+			XFsblPs_PlPartition *PartitionParams,
 			UINTPTR SrcAddress, u32 Length, u8 *AuthCer);
 static void XFsbl_DmaPlCopy(XCsuDma *InstancePtr, UINTPTR Src,
 		u32 Size, u8 EnLast);
@@ -100,7 +101,8 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 * 		structure and will be used later
 *
 ******************************************************************************/
-u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams)
+u32 XFsbl_SecPlPartition(XFsblPs * FsblInstancePtr,
+			XFsblPs_PlPartition *PartitionParams)
 {
 	u32 Status = XFSBL_SUCCESS;
 	u8 Index;
@@ -174,8 +176,8 @@ u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams)
 			IsLastBlock = TRUE;
 		}
 
-		Status = XFsbl_PlBlockAuthentication(PartitionParams,
-					SrcAddress, Len,
+		Status = XFsbl_PlBlockAuthentication(FsblInstancePtr,
+				PartitionParams, SrcAddress, Len,
 				(u8 *)PartitionParams->PlAuth.AuthCertBuf);
 		if (Status != XFSBL_SUCCESS) {
 			return Status;
@@ -228,7 +230,8 @@ END:
 * @note		None.
 *
 ******************************************************************************/
-static u32 XFsbl_PlBlockAuthentication(XFsblPs_PlPartition *PartitionParams,
+static u32 XFsbl_PlBlockAuthentication(XFsblPs * FsblInstancePtr,
+		XFsblPs_PlPartition *PartitionParams,
 		UINTPTR SrcAddress, u32 Length, u8 *AuthCer)
 {
 	u32 Status;

@@ -49,6 +49,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "xfsbl_authentication.h"
+#include "xfsbl_main.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -100,7 +101,8 @@ typedef struct {
 /*@}*/
 
 /***************************** Function Prototypes ***************************/
-u32 XFsbl_SecPlPartition(XFsblPs_PlPartition *PartitionParams);
+u32 XFsbl_SecPlPartition(XFsblPs * FsblInstancePtr,
+			XFsblPs_PlPartition *PartitionParams);
 
 #endif
 /******************************************************************************/

@@ -188,6 +188,10 @@ extern "C" {
 #define XFSBL_ERROR_CHUNK_HASH_COMPARISON			(0x60U)
 #define XFSBL_ERROR_PROVIDED_BUF_HASH_STORE			(0x61U)
 #define XFSBL_ERROR_USB_BOOT_WITH_NO_DDR			(0x62U)
+#define XFSBL_ERROR_BLOCK_SIZE_SEC_BS				(0x63U)
+#define XFSBL_ERROR_IMAGE_HEADER_ACOFFSET			(0x64U)
+#define XFSBL_ERROR_PPK_VERIFICATION				(0x65U)
+#define XFSBL_ERROR_SPKID_VERIFICATION				(0x66U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/
