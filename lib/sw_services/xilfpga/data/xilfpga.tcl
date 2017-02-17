@@ -70,6 +70,8 @@ proc generate {lib_handle} {
 
     puts $conffile "#ifndef _XFPGA_CONFIG_H"
     puts $conffile "#define _XFPGA_CONFIG_H"
+    set value  [common::get_property CONFIG.ocm_address $lib_handle]
+    puts  $conffile "#define XFPGA_OCM_ADDRESS $value"
     set value  [common::get_property CONFIG.size $lib_handle]
     puts  $conffile "#define XFPGA_NUMBYTES  $value"
     set value  [common::get_property CONFIG.base_address $lib_handle]
