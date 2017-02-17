@@ -296,7 +296,7 @@ static u32 XFpga_PcapInit(void) {
 		PollCount--;
 	}
 	Status = XFpga_CsuDmaInit();
-END:
+
 	return Status;
 }
 /*****************************************************************************/
@@ -923,7 +923,6 @@ static u32 XFpga_IsolationRestore()
 	u32 Status = XFPGA_SUCCESS;
 
 #ifdef __MICROBLAZE__
-	u32 Reg;
 	Status = XpbrServHndlrTbl[XPBR_SERV_EXT_PLNONPCAPISO]();
 #else
 
@@ -967,23 +966,23 @@ static u32 XFpga_PsPlGpioReset(u32 TotalResets) {
 
 	/* Set EMIO Direction */
 	RegVal = Xil_In32(GPIO_DIRM_5_EMIO) |
-		~(~0 << TotalResets) << (MAX_REG_BITS + 1 - TotalResets);
+		~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets);
 	Xil_Out32(GPIO_DIRM_5_EMIO, RegVal);
 
 	/*Assert the EMIO with the required Mask */
-	MaskVal = ~(~0 << TotalResets) << (MAX_REG_BITS/2 + 1 - TotalResets) | 0xFFFF0000;
-	RegVal = MaskVal & ~(~(~0 << TotalResets) << (MAX_REG_BITS + 1 - TotalResets));
+	MaskVal = ~(~0U << TotalResets) << (MAX_REG_BITS/2 + 1 - TotalResets) | 0xFFFF0000;
+	RegVal = MaskVal & ~(~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets));
 	Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
 	usleep(1000);
 
 	/*De-assert the EMIO with the required Mask */
-	RegVal = ~(~(~0 << TotalResets) << (MAX_REG_BITS + 1 - TotalResets)) & 0xFFFF0000;
+	RegVal = ~(~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets)) & 0xFFFF0000;
 	Xil_Out32(GPIO_MASK_DATA_5_MSW, RegVal);
 	usleep(1000);
 
 	/*Assert the EMIO with the required Mask */
-	MaskVal = ~(~0 << TotalResets) << (MAX_REG_BITS/2 + 1 - TotalResets) | 0xFFFF0000;
-	RegVal = MaskVal & ~(~(~0 << TotalResets) << (MAX_REG_BITS + 1 - TotalResets));
+	MaskVal = ~(~0U << TotalResets) << (MAX_REG_BITS/2 + 1 - TotalResets) | 0xFFFF0000;
+	RegVal = MaskVal & ~(~(~0U << TotalResets) << (MAX_REG_BITS + 1 - TotalResets));
 	Xil_Out32(GPIO_MASK_DATA_5_MSW,RegVal);
 	usleep(1000);
 
