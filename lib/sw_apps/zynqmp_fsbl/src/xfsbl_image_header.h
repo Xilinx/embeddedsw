@@ -95,6 +95,7 @@ extern "C" {
 #define XIH_IHT_VERSION_OFFSET				(0x0U)
 #define XIH_IHT_NO_OF_PARTITONS_OFFSET			(0x4U)
 #define XIH_IHT_PH_ADDR_OFFSET	        		(0x8U)
+#define XIH_IHT_AC_OFFSET				(0x10U)
 #define XIH_IHT_PPD_OFFSET			        (0x14U)
 #define XIH_IHT_CHECKSUM_OFFSET				(0x3CU)
 
@@ -174,6 +175,9 @@ extern "C" {
 #define XIH_PH_ATTRB_A53_EXEC_ST_AA32	(u32)(0x0008U)
 #define XIH_PH_ATTRB_A53_EXEC_ST_AA64	(u32)(0x0000U)
 
+#define XIH_AC_ATTRB_PPK_SELECT_MASK	(u32)(0x30000U)
+#define XIH_AC_SPKID_OFFSET		(u32)(0x04U)
+
 #define XIH_INVALID_EXEC_ST	(u32)(0xFFFFU)
 /**
  * Below is the bit mapping of fields in the ATF Handoff parameters
@@ -209,6 +213,9 @@ extern "C" {
 /* BLOCK SIZE multiplier */
 #define XFSBL_MUL_MEGABYTES			(1024U * 1024U)
 
+/* Size of Image Header */
+#define XFSBL_SIZE_IMAGE_HDR		(0x1080)
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -220,7 +227,7 @@ typedef struct {
 	u32 NoOfPartitions; /**< No of partition present  */
 	u32 PartitionHeaderAddress; /**< Address to start of partition header*/
 	u32 Reserved_0xC; /**< Reserved */
-	u32 Reserved_0x10; /**< Reserved */
+	u32 AuthCertificateOffset; /** Authentication certificate address */
 	u32 PartitionPresentDevice;
 		/**< Partition present device for secondary boot modes*/
 	u32 Reserved[9]; /**< Reserved */
@@ -297,7 +304,7 @@ u32 XFsbl_GetBlockSize(const XFsblPs_PartitionHeader * PartitionHeader);
 u32 XFsbl_ValidateChecksum(u32 Buffer[], u32 Length);
 u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
                   const XFsblPs_DeviceOps * DeviceOps, u32 FlashImageOffsetAddress,
-                  u32 RunningCpu);
+				u32 RunningCpu, u32 ImageHeaderAddress);
 u32 XFsbl_ValidateImageHeader(const XFsblPs_ImageHeaderTable * ImageHeaderTable);
 u32 XFsbl_ValidatePartitionHeader(XFsblPs_PartitionHeader * PartitionHeader,
 			u32 RunningCpu);

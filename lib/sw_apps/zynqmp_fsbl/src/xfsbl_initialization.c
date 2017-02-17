@@ -63,6 +63,7 @@
 #include "xfsbl_hooks.h"
 #include "xfsbl_bs.h"
 #include "xfsbl_usb.h"
+#include "xfsbl_authentication.h"
 
 /************************** Constant Definitions *****************************/
 #define PART_NAME_LEN_MAX		20U
@@ -106,6 +107,17 @@ extern  u8 __data_end;
 
 extern  u8 __dup_data_start;
 extern  u8 __dup_data_end;
+
+#ifdef XFSBL_SECURE
+#ifndef XFSBL_BS
+u8 ReadBuffer[XFSBL_SIZE_IMAGE_HDR]
+		__attribute__((section (".bitstream_buffer")));
+#else
+extern u8 ReadBuffer[READ_BUFFER_SIZE];
+#endif
+u8 *ImageHdr = ReadBuffer;
+extern u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE];
+#endif
 
 /****************************************************************************/
 /**
@@ -933,6 +945,9 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	u32 BootHdrAttrb=0U;
 	u32 FlashImageOffsetAddress;
 	u32 EfuseCtrl;
+	u32 Size;
+	u32 ImageHeaderTableAddressOffset=0U;
+	u32 AcOffset;
 
 	/**
 	 * Read the Multiboot Register
@@ -969,16 +984,18 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	FsblInstancePtr->BootHdrAttributes = BootHdrAttrb;
 
 	/**
-	 * Read Image Header and validate Image Header Table
+	 * Read the Image Header Table offset from
+	 * Boot Header
 	 */
-	Status = XFsbl_ReadImageHeader(&FsblInstancePtr->ImageHeader,
-					&FsblInstancePtr->DeviceOps,
-					FlashImageOffsetAddress,
-					FsblInstancePtr->ProcessorID);
+	Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress
+				+ XIH_BH_IH_TABLE_OFFSET,
+		   (PTRSIZE ) &ImageHeaderTableAddressOffset, XIH_FIELD_LEN);
 	if (XFSBL_SUCCESS != Status) {
+		XFsbl_Printf(DEBUG_GENERAL,"Device Copy Failed \n\r");
 		goto END;
 	}
-
+	XFsbl_Printf(DEBUG_INFO,"Image Header Table Offset 0x%0lx \n\r",
+			ImageHeaderTableAddressOffset);
 
 	/**
 	 * Read Efuse bit and check Boot Header for Authentication
@@ -993,12 +1010,83 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 		/**
 		 * Authenticate the image header
 		 */
+		 /* Read AC offset from Image header table */
+		Status = FsblInstancePtr->DeviceOps.DeviceCopy(FlashImageOffsetAddress
+		            + ImageHeaderTableAddressOffset + XIH_IHT_AC_OFFSET,
+			   (PTRSIZE ) &AcOffset, XIH_FIELD_LEN);
+		if (XFSBL_SUCCESS != Status) {
+			XFsbl_Printf(DEBUG_GENERAL,"Device Copy Failed \n\r");
+			goto END;
+		}
+		if (AcOffset != 0x00U) {
+			/* Authentication exists copy AC to OCM */
+			Status = FsblInstancePtr->DeviceOps.DeviceCopy(
+				(FsblInstancePtr->ImageOffsetAddress +
+				(AcOffset * XIH_PARTITION_WORD_LENGTH)),
+				(INTPTR)AuthBuffer, XFSBL_AUTH_CERT_MIN_SIZE);
+			if (XFSBL_SUCCESS != Status) {
+				goto END;
+			}
+			/*
+			 * Total size of Image header may vary
+			 * depending on padding so
+			 * size = AC address - Start address;
+			 */
+			Size = (AcOffset * XIH_PARTITION_WORD_LENGTH) -
+				(FsblInstancePtr->ImageOffsetAddress +
+					ImageHeaderTableAddressOffset);
 
+			/* Copy the Image header to OCM */
+			Status = FsblInstancePtr->DeviceOps.DeviceCopy(
+					FsblInstancePtr->ImageOffsetAddress +
+					ImageHeaderTableAddressOffset,
+					(INTPTR)ImageHdr, Size);
+
+			/* Authenticate the image header */
+			Status = XFsbl_Authentication(FsblInstancePtr,
+					(PTRSIZE)ImageHdr,
+					Size + XFSBL_AUTH_CERT_MIN_SIZE,
+					(PTRSIZE)(AuthBuffer), 0x00U);
+			if (Status != XFSBL_SUCCESS) {
+				goto END;
+
+			}
+		}
+		else {
+			XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_IMAGE_HEADER_ACOFFSET\r\n");
+			Status = XFSBL_ERROR_IMAGE_HEADER_ACOFFSET;
+			goto END;
+		}
+		/*
+		 * Read Image Header and validate Image Header Table
+		 * Here we need to use memcpy to copy partition headers
+		 * from OCM which we already copied.
+		 */
+		Status = XFsbl_ReadImageHeader(&FsblInstancePtr->ImageHeader,
+				NULL, FlashImageOffsetAddress,
+				FsblInstancePtr->ProcessorID,
+				ImageHeaderTableAddressOffset);
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
+		}
 #else
-                XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_SECURE_NOT_ENABLED\r\n");
+                XFsbl_Printf(DEBUG_GENERAL,
+			"XFSBL_ERROR_SECURE_NOT_ENABLED\r\n");
                 Status = XFSBL_ERROR_SECURE_NOT_ENABLED;
                 goto END;
 #endif
+	}
+	else {
+		/* Read Image Header and validate Image Header Table */
+		Status = XFsbl_ReadImageHeader(&FsblInstancePtr->ImageHeader,
+						&FsblInstancePtr->DeviceOps,
+						FlashImageOffsetAddress,
+						FsblInstancePtr->ProcessorID,
+						ImageHeaderTableAddressOffset);
+		if (XFSBL_SUCCESS != Status) {
+			goto END;
+		}
 	}
 END:
 	return Status;
