@@ -54,5 +54,6 @@ BEGIN LIBRARY xilffs
   PARAM name = use_mkfs, desc = "Disable(0) or Enable(1) f_mkfs function. ZynqMP fsbl will set this to false", type = bool, default = true;
   PARAM name = enable_multi_partition, desc = "0:Single partition, 1:Enable multiple partition", type = bool, default = false;
   PARAM name = num_logical_vol, desc = "Number of volumes (logical drives, from 1 to 10) to be used.", type = int, default = 2;
+  PARAM name = use_strfunc, desc = "Enables the string functions (valid values 0 to 2).", type = int, default = 0;
 
 END LIBRARY

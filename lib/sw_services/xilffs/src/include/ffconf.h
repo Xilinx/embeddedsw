@@ -40,8 +40,13 @@ extern "C" {
 /   2: f_opendir(), f_readdir() and f_closedir() are removed in addition to 1.
 /   3: f_lseek() function is removed in addition to 2. */
 
-
-#define	_USE_STRFUNC	0	/* 0:Disable or 1-2:Enable */
+#if FILE_SYSTEM_USE_STRFUNC == 0
+#define	_USE_STRFUNC	0	/* 0:Disable */
+#elif FILE_SYSTEM_USE_STRFUNC == 1
+#define	_USE_STRFUNC	1	/* 1:Enable */
+#elif FILE_SYSTEM_USE_STRFUNC == 2
+#define	_USE_STRFUNC	2	/* 2:Enable */
+#endif
 /* To enable string functions, set _USE_STRFUNC to 1 or 2. */
 
 #ifdef FILE_SYSTEM_USE_MKFS
