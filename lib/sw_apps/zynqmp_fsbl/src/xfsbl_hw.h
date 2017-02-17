@@ -179,6 +179,15 @@ extern "C" {
 #define EFUSE_IPDISABLE_APU3_DIS_MASK    0X00000008U
 #define EFUSE_IPDISABLE_APU2_DIS_MASK    0X00000004U
 
+/* Register PPK0_0 */
+#define EFUSE_PPK0	(EFUSE_BASEADDR + 0x000010A0U)
+
+/* Register PPK1_0 */
+#define EFUSE_PPK1	(EFUSE_BASEADDR + 0x000010D0U)
+
+/* Register SPK ID */
+#define EFUSE_SPKID	(EFUSE_BASEADDR + 0x0000105CU)
+
 /* csudma */
 
 /**

@@ -49,6 +49,8 @@
 #include "xfsbl_csu_dma.h"
 
 u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
+u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen);
+void XFsbl_ReadPpkHashSpkID(u32 *PpkHash, u8 PpkSelect, u32 *SpkId);
 /*****************************************************************************/
 
 static XSecure_Rsa SecureRsa;
@@ -56,6 +58,9 @@ static XSecure_Rsa SecureRsa;
 #if defined(XFSBL_BS)
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
+
+u8 EfusePpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)));
+u8 EfuseSpkID[XFSBL_SPKID_AC_ALIGN];
 
 /*****************************************************************************/
 /**
@@ -451,4 +456,137 @@ END:
 }
 #endif
 #endif
+
+/*****************************************************************************/
+/*
+* This function is used to read PPK0/PPK1 hash from efuse based on PPK
+* selection.
+*
+* @param	PpkHash is a pointer to an array which holds the readback
+*		PPK hash in.
+* @param	PpkSelect is a u8 variable which has to be provided by user
+*		based on this input reading is happens from efuse PPK0 or PPK1
+* @param	SpKId is a pointer to an array in which SPKID from eFUSE will
+*			stored.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XFsbl_ReadPpkHashSpkID(u32 *PpkHash, u8 PpkSelect, u32 *SpkId)
+{
+	s32 RegNum;
+	u32 *DataRead = PpkHash;
+
+	if (PpkSelect == 0) {
+		for (RegNum = 0; RegNum < 12; RegNum++) {
+			*DataRead = Xil_In32(EFUSE_PPK0 + (RegNum * 4));
+			DataRead++;
+		}
+	}
+	else {
+		for (RegNum = 0; RegNum < 12; RegNum++) {
+			*DataRead = Xil_In32(EFUSE_PPK1 + (RegNum * 4));
+			DataRead++;
+		}
+	}
+
+	/* Reading SPK ID */
+	*SpkId = Xil_In32(EFUSE_SPKID);
+
+}
+
+/*****************************************************************************/
+/*
+* This function is used to verify PPK hash and SPK ID of the partition with
+* the values stored on eFUSE.
+*
+* @param	AcOffset is the Authentication certificate offset which has
+*		AC.
+* @param	HashLen holds the type of authentication enabled.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen)
+{
+	u8 PpkHash[XFSBL_HASH_TYPE_SHA3]
+			   __attribute__ ((aligned (4)))={0};
+	void * ShaCtx = (void * )NULL;
+	u8 * AcPtr = (u8*) (PTRSIZE) AcOffset;
+	u32 Status = XFSBL_SUCCESS;
+	u8 *SpkId = (u8 *)(AcPtr + XFSBL_SPKID_AC_ALIGN);
+	u32 *SpkIdEfuse = (u32 *)EfuseSpkID;
+
+	/* Hash calculation on PPK */
+	(void)XFsbl_ShaStart(ShaCtx, HashLen);
+
+	/* Hash the PPK  choice */
+	XFsbl_ShaUpdate(ShaCtx, AcPtr + XFSBL_RSA_AC_ALIGN,
+					XFSBL_PPK_SIZE, HashLen);
+	XFsbl_ShaFinish(ShaCtx, (u8 *)PpkHash, HashLen);
+
+	/* Compare hashs */
+	Status = XFsbl_CompareHashs(PpkHash, EfusePpkHash);
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PPK_VERIFICATION;
+		XFsbl_PrintArray(DEBUG_INFO, PpkHash,
+				HashLen, "Image PPK Hash");
+		XFsbl_PrintArray(DEBUG_INFO, EfusePpkHash,
+				HashLen, "eFUSE PPK Hash");
+		XFsbl_Printf(DEBUG_GENERAL,
+			"XFsbl_PartVer: XFSBL_ERROR_PPK_VERIFICATION\r\n");
+		goto END;
+
+	}
+	/* Compare SPK ID */
+	if (*SpkIdEfuse !=  *(u32 *)SpkId) {
+		Status = XFSBL_ERROR_SPKID_VERIFICATION;
+		XFsbl_PrintArray(DEBUG_INFO, SpkId,
+			XFSBL_SPKID_AC_ALIGN, "Image's SPK ID");
+		XFsbl_PrintArray(DEBUG_INFO, EfuseSpkID,
+			XFSBL_SPKID_AC_ALIGN, "eFUSE SPK ID");
+		XFsbl_Printf(DEBUG_GENERAL,
+			"XFsbl_PartVer: XFSBL_ERROR_SPKID_VERIFICATION\r\n");
+		goto END;
+	}
+
+END:
+
+	return Status;
+
+}
+
+/******************************************************************************
+*
+* This function compares the hashs
+*
+* @param	Hash1 stores the hash to be compared.
+* @param	Hash2 stores the hash to be compared.
+*
+* @return
+* 		Error code on failure
+* 		XFSBL_SUCESS on success
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2)
+{
+	u8 Index;
+	u32 *HashOne = (u32 *)Hash1;
+	u32 *HashTwo = (u32 *)Hash2;
+
+	for (Index = 0; Index < XFSBL_HASH_TYPE_SHA3/4; Index++) {
+		if (HashOne[Index] != HashTwo[Index]) {
+			return XFSBL_FAILURE;
+		}
+	}
+
+	return XFSBL_SUCCESS;
+}
+
 #endif /* end of XFSBL_SECURE */

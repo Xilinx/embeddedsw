@@ -75,6 +75,7 @@ extern "C" {
 #define XFSBL_BHDR_SIG_SIZE					(512U)
 #define XFSBL_FSBL_SIG_SIZE					(512U)
 #define XFSBL_RSA_AC_ALIGN					(64U)
+#define XFSBL_SPKID_AC_ALIGN					(4U)
 
 #define XFSBL_AUTH_HEADER_SIZE				(u32)(8U)
 
@@ -104,6 +105,7 @@ void XFsbl_ShaDigest(const u8 *In, const u32 Size, u8 *Out, u32 HashLen);
 void XFsbl_ShaStart(void * Ctx, u32 HashLen);
 void XFsbl_ShaUpdate(void * Ctx, u8 * Data, u32 Size, u32 HashLen);
 void XFsbl_ShaFinish(void * Ctx, u8 * Hash, u32 HashLen);
+u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2);
 #endif
 
 

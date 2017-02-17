@@ -58,6 +58,7 @@
 
 /************************** Function Prototypes ******************************/
 #if defined (XFSBL_BS) && defined (XFSBL_SECURE)
+extern u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen);
 extern u32 XFsbl_SpkVer(u64 AcOffset, u32 HashLen);
 extern u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size);
 extern u32 XFsbl_PcapWaitForDone(void);
@@ -74,7 +75,6 @@ static u32 XFsbl_CopyData(XFsblPs_PlPartition *PartitionPtr,
 		u8 *DstPtr, u8 *SrcPtr, u32 Size);
 static u32 XFsbl_DecrypSecureHdr(XSecure_Aes *InstancePtr, u64 SrcAddr,
 		u32 Size);
-static u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2);
 static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 				UINTPTR Address, u32 BlockLen, u32 NoOfChunks);
 static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
@@ -627,35 +627,6 @@ static u32 XFsbl_CopyData(XFsblPs_PlPartition *PartitionPtr,
 	}
 END:
 	return Status;
-}
-
-/******************************************************************************
-*
-* This function compares the hashs
-*
-* @param	Hash1 stores the hash to be compared.
-* @param	Hash2 stores the hash to be compared.
-*
-* @return
-* 		Error code on failure
-* 		XFSBL_SUCESS on success
-*
-* @note		None.
-*
-******************************************************************************/
-static u32 XFsbl_CompareHashs(u8 *Hash1, u8 *Hash2)
-{
-	u8 Index;
-	u32 *HashOne = (u32 *)Hash1;
-	u32 *HashTwo = (u32 *)Hash2;
-
-	for (Index = 0; Index < XFSBL_HASH_TYPE_SHA3/4; Index++) {
-		if (HashOne[Index] != HashTwo[Index]) {
-			return XFSBL_FAILURE;
-		}
-	}
-
-	return XFSBL_SUCCESS;
 }
 
 /******************************************************************************
