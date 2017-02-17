@@ -388,6 +388,7 @@ Fixed c++ compilation warnings
 
 xilfpga_v2_0:
 Added Encrypted BitStream Loading support to the xilfpga library.
+Added Authenticated BitStream Loading support to the xilfpga library.
 
 wdttb_v4_1:
 Fixed race condition in the driver CR#966068
