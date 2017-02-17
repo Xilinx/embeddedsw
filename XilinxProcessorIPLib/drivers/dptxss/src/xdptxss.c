@@ -736,11 +736,11 @@ u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate)
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((LinkRate == XDPTXSS_LINK_BW_SET_162GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_270GBPS) ||
-			(LinkRate == XDPTXSS_LINK_BW_SET_540GBPS));
 
-	/* Check for maximum supported link rate */
+	/* Application should set Display Core maximum supported rate.
+	Here we should check weather sink device rate is higher than
+	display Core maximum rate, and if it is higher we should train sink
+	device at Display core's maximum supported rate */
 	if (LinkRate > InstancePtr->DpPtr->Config.MaxLinkRate) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS info: This link rate is "
 			"not supported by Source/Sink.\n\rMax Supported link "
@@ -748,6 +748,12 @@ u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate)
 			"rate.\n\r", InstancePtr->DpPtr->Config.MaxLinkRate);
 		LinkRate = InstancePtr->DpPtr->Config.MaxLinkRate;
 	}
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid((LinkRate == XDPTXSS_LINK_BW_SET_162GBPS) ||
+			(LinkRate == XDPTXSS_LINK_BW_SET_270GBPS) ||
+			(LinkRate == XDPTXSS_LINK_BW_SET_540GBPS));
+
 
 	/* Set link rate */
 	Status = XDp_TxSetLinkRate(InstancePtr->DpPtr, LinkRate);
