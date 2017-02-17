@@ -1707,14 +1707,7 @@ static u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
 	/**
 	 * Checksum Validation
 	 */
-	if (ChecksumType == XIH_PH_ATTRB_CHECKSUM_MD5)
-	{
-		/**
-		 * Do the checksum validation
-		 */
-		Status = XFSBL_SUCCESS;
-	}
-	else if (ChecksumType == XIH_PH_ATTRB_HASH_SHA3)
+	if (ChecksumType == XIH_PH_ATTRB_HASH_SHA3)
 	{
 		XFsbl_Printf(DEBUG_INFO,"CheckSum Type - SHA3\r\n");
 	#ifndef XFSBL_PS_DDR
@@ -1786,8 +1779,8 @@ static u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
 	}
 	else
 	{
-		/* MISRA C*/
-		Status = XFSBL_SUCCESS;
+		/* Check sum type is other than SHA3 */
+		Status = XFSBL_ERROR_INVALID_CHECKSUM_TYPE;
 	}
 	return Status;
 }
