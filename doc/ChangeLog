@@ -395,6 +395,7 @@ Fixed race condition in the driver CR#966068
 
 xilffs_v3_6:
 Fixed Compilation warnings - CR#957004
+Added configurable option for USE_STRFUNC
 
 xilflash_v4_3:
 Fixed Compilation warnings - CR#957004
