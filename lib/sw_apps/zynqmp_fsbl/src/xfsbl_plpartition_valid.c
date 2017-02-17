@@ -82,6 +82,11 @@ static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
 static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 		UINTPTR ChunkAdrs, u32 ChunkSize);
 
+/************************** Variable Definitions *****************************/
+
+extern u8 EfusePpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)));
+extern u8 EfuseSpkID[4];
+
 /************************** Function Definitions *****************************/
 
 /*****************************************************************************/
@@ -236,6 +241,8 @@ static u32 XFsbl_PlBlockAuthentication(XFsblPs * FsblInstancePtr,
 {
 	u32 Status;
 	u32 NoOfChunks;
+	u32 EfuseRsaEn = XFsbl_In32(EFUSE_SEC_CTRL) &
+			EFUSE_SEC_CTRL_RSA_EN_MASK;
 
 	if (Length > PartitionParams->ChunkSize) {
 		NoOfChunks = Length/PartitionParams->ChunkSize;
@@ -256,6 +263,14 @@ static u32 XFsbl_PlBlockAuthentication(XFsblPs * FsblInstancePtr,
 			"hashs = %d \t provided = %d\r\n", NoOfChunks,
 			PartitionParams->PlAuth.NoOfHashs);
 		return XFSBL_ERROR_PROVIDED_BUF_HASH_STORE;
+	}
+	/* PPK hash and SPK ID verification when eFSUE RSA bit is programmed */
+	if (EfuseRsaEn != 0x00U) {
+		Status = XFsbl_PpkSpkIdVer((UINTPTR)AuthCer,
+			PartitionParams->PlAuth.AuthType);
+		if (Status != XFSBL_SUCCESS) {
+			goto END;
+		}
 	}
 
 	/* Do SPK Signature verification using PPK */

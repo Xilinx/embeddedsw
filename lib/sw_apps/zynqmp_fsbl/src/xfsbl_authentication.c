@@ -336,6 +336,9 @@ u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 {
         u32 Status;
         u32 HashLen;
+        u8 *AcPtr = (u8*)(PTRSIZE)AcOffset;
+        u32 EfuseRsaEn = XFsbl_In32(EFUSE_SEC_CTRL) &
+				EFUSE_SEC_CTRL_RSA_EN_MASK;
 
 	/* Get the Sha type to be used from boot header attributes */
 	if ((FsblInstancePtr->BootHdrAttributes &
@@ -353,6 +356,33 @@ u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 		" AcOffset %0x, HashLen %0x\r\n",
 		(PTRSIZE )PartitionOffset, PartitionLen,
 		(PTRSIZE )AcOffset, HashLen);
+
+	/*
+	 * Partition zero represents the secure header
+	 * when authentication is enabled, PPK hash
+	 * and SPK ID programmed on eFUSE will be read
+	 * and stored in buffer when RSA bit is burn
+	 */
+	if ((PartitionNum == 0x00U) && (EfuseRsaEn != 0x00U)) {
+		if ((*(u32 *)(AcPtr)
+			& XIH_AC_ATTRB_PPK_SELECT_MASK) == 0x00U) {
+			/* PPK 0 */
+			XFsbl_ReadPpkHashSpkID((u32 *)EfusePpkHash,
+					0U, (u32 *)EfuseSpkID);
+		}
+		else {
+			/* PPK 1 */
+			XFsbl_ReadPpkHashSpkID((u32 *)EfusePpkHash,
+					1U, (u32 *)EfuseSpkID);
+		}
+	}
+	/* PPK hash and SPK ID verification when eFUSE RSA bit is programmed */
+	if (EfuseRsaEn != 0x00U) {
+		Status = XFsbl_PpkSpkIdVer(AcOffset, HashLen);
+		if (Status != XFSBL_SUCCESS) {
+			goto END;
+		}
+	}
 
         /* Do SPK Signature verification using PPK */
         Status = XFsbl_SpkVer(AcOffset, HashLen);
