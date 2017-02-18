@@ -349,6 +349,8 @@ Updated common,microblaze and arm/cortexr5 files with doxygen compliant
 comments.
 Updated Cortex R5 IAR boot code to clear c15 registers and configure the
 timer.
+Added arm/cortexa53/64bit/xil_smc.c, xil_smc.h files to provide a C wrapper for
+smc calling which can be used by cortex-A53 64bit EL1 Non-secure application
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
