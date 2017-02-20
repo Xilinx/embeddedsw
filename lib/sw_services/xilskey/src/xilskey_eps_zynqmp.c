@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -57,6 +57,10 @@
 *                      returns.
 *       vns   08/24/16 Fixed eFUSE ZynqMP programming by adding unlocking
 *                      before eFUSE PS initialization.
+* 6.2   vns   02/18/17 Added margin reads for verifying, added CRC check,
+*                      Removed temperature checks for each bit. Added
+*                      temperature checks in all read APIs.
+*
 * </pre>
 *
 *****************************************************************************/
@@ -382,6 +386,12 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 
 END:
 	XilSKey_ZynqMp_EfusePS_PrgrmDisable();
+	/* Check the temperature and voltage(VCC_AUX and VCC_PINT_LP) */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != XST_SUCCESS) {
+		return (Status | XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR);
+	}
+
 UNLOCK:
 	/* Lock the controller back */
 	XilSKey_ZynqMp_EfusePs_CtrlrLock();
@@ -427,6 +437,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits(
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+		/* Vol and temperature checks */
+		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -867,14 +882,6 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 	u8 MarginRead = 0;
 	u32 ReadReg;
 
-	/**
-	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
-	 */
-	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
-
 	/* Programming bit */
 	Status = XilSKey_ZynqMp_EfusePs_WriteBit(Row, Column, EfuseType);
 	if (Status != XST_SUCCESS) {
@@ -945,15 +952,6 @@ u32 XilSKey_ZynqMp_EfusePs_ReadRow(u8 Row, XskEfusePs_Type EfuseType,
 {
 	u32 WriteValue;
 	u32 ReadValue;
-	u32 Status;
-
-	/**
-	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
-	 */
-	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
 
 	WriteValue = ((EfuseType << XSK_ZYNQMP_EFUSEPS_RD_ADDR_SHIFT) &
 					XSK_ZYNQMP_EFUSEPS_RD_ADDR_MASK) |
@@ -1594,6 +1592,11 @@ u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(u32 CrcValue)
 	if (Status != XST_SUCCESS) {
 		return Status;
 	}
+	/* Vol and temperature checks */
+	Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
 
 	/* writing CRC value to check AES key's CRC */
 	XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
@@ -1656,6 +1659,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse(u32 *UseFusePtr, u8 UserFuse_Num,
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+		/* Vol and temperature checks */
+		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -1722,6 +1730,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash(u32 *Ppk0Hash, u8 ReadOption)
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+		/* Vol and temperature checks */
+		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
@@ -1796,6 +1809,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash(u32 *Ppk1Hash, u8 ReadOption)
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
+		/* Vol and temperature checks */
+		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
 
 		for (Row = XSK_ZYNQMP_EFUSEPS_PPK1_SHA3_HASH_END_ROW;
 		Row >= XSK_ZYNQMP_EFUSEPS_PPK1_START_ROW; Row--) {
@@ -1852,6 +1870,11 @@ u32 XilSKey_ZynqMp_EfusePs_ReadSpkId(u32 *SpkId, u8 ReadOption)
 			return (XSK_EFUSEPS_ERROR_CONTROLLER_LOCK);
 		}
 		Status = XilSKey_ZynqMp_EfusePs_Init();
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+		/* Vol and temperature checks */
+		Status = XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks();
 		if (Status != XST_SUCCESS) {
 			return Status;
 		}
