@@ -167,6 +167,9 @@ xilopenamp_v1_0
 axiethernet_v5_4:
 Add Support for TI PHY DP83867 SGMII Mode configuration in the examples.
 
+axivdma_v6_3:
+Fixed compilation errors. CR-969129
+
 ccm_v6_1:
 Modified num instances parameter as XPAR_XCCM_NUM_INSTANCES
 in xparameters.h, xccm_sinit.c to avoid compilation errors because it
