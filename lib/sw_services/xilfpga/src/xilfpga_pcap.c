@@ -339,18 +339,15 @@ static u32 XFpga_PcapWaitForDone() {
  *
  *****************************************************************************/
 static u32 XFpga_WriteToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow) {
-	u32 RegVal;
 	u32 Status = XFPGA_SUCCESS;
 	u64 WrAddr;
 
 	WrAddr = ((u64)WrAddrHigh << 32)|WrAddrLow;
+
 	/*
 	 * Setup the  SSS, setup the PCAP to receive from DMA source
 	 */
-	RegVal = Xil_In32(CSU_CSU_SSS_CFG) & CSU_CSU_SSS_CFG_PCAP_SSS_MASK;
-	RegVal = RegVal
-			| (XFPGA_CSU_SSS_SRC_SRC_DMA << CSU_CSU_SSS_CFG_PCAP_SSS_SHIFT);
-	Xil_Out32(CSU_CSU_SSS_CFG, RegVal);
+	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_SRC_DMA);
 
 	/* Setup the source DMA channel */
 	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, WrAddr, WrSize, 0);
