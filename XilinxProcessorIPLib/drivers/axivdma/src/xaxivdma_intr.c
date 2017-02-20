@@ -51,6 +51,7 @@
 * 4.06a srt  04/09/13 Added API XAxiVdma_MaskS2MMErrIntr which will mask
 *		      the S2MM interrupt for the error mask provided.
 *		      (CR 734741)
+* 6.3   ms   02/20/17 Fixed compilation error. CR-969129.
 * </pre>
 *
 ******************************************************************************/
@@ -392,12 +393,12 @@ int XAxiVdma_SetCallBack(XAxiVdma * InstancePtr, u32 HandlerType,
 
 	switch (HandlerType) {
 	case XAXIVDMA_HANDLER_GENERAL:
-		CallBack->CompletionCallBack = CallBackFunc;
+		CallBack->CompletionCallBack = (XAxiVdma_CallBack)CallBackFunc;
 		CallBack->CompletionRef = CallBackRef;
 		break;
 
 	case XAXIVDMA_HANDLER_ERROR:
-		CallBack->ErrCallBack = CallBackFunc;
+		CallBack->ErrCallBack = (XAxiVdma_ErrorCallBack)CallBackFunc;
 		CallBack->ErrRef = CallBackRef;
 		break;
 

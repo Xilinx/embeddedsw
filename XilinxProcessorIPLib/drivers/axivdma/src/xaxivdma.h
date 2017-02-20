@@ -292,6 +292,7 @@
 *                     examples to ensure that "Successfully ran" and "Failed"
 *                     strings are available in all examples. This is a fix
 *                     for CR-965028.
+* 6.3   ms   02/20/17 Fixed compilation error in xaxivdma_intr.c. CR-969129.
 *
 * </pre>
 *
