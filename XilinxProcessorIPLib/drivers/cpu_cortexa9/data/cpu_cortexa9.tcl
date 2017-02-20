@@ -56,6 +56,7 @@
 #		      to modify default flag value. This change fixes CR#965023.
 # 2.4   mus  01/24/17 Updated tcl to add "-Wall -Wextra" flags to extra compiler
 #                     flags for gcc.
+# 2.4   mus  02/20/17 Updated tcl to guard xparameters.h by protection macros
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -157,6 +158,9 @@ proc xdefine_cortexa9_params {drvhandle} {
     set lprocs [lsort $lprocs]
 
     set config_inc [::hsi::utils::open_include_file "xparameters.h"]
+    puts $config_inc "#ifndef XPARAMETERS_H   /* prevent circular inclusions */"
+    puts $config_inc "#define XPARAMETERS_H   /* by using protection macros */"
+    puts $config_inc ""
     puts $config_inc "/* Definition for CPU ID */"
 
     foreach periph $periphs {
@@ -241,3 +245,14 @@ proc xdefine_addr_params_for_ext_intf {drvhandle file_name} {
     close $file_handle
 }
 
+proc post_generate_final {drv_handle} {
+
+	set type [get_property CLASS $drv_handle]
+	if {[string equal $type "driver"]} {
+	   return
+	}
+
+	set file_handle [::hsi::utils::open_include_file "xparameters.h"]
+	puts $file_handle "#endif  /* end of protection macro */"
+	close $file_handle
+}
