@@ -143,6 +143,7 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 	u8 Ppk1InBits[XSK_ZYNQMP_EFUSEPS_PPK_SHA3HASH_LEN_IN_BITS] = {0};
 	u8 SpkIdInBits[XSK_ZYNQMP_EFUSEPS_SPKID_LEN_IN_BITS] = {0};
 	XilSKey_UsrFuses UsrFuses_ToPrgm[8] = {0};
+	u32 AesCrc;
 
 	/* Unlock the controller */
 	XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
@@ -196,6 +197,13 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			Status = (Status + XSK_EFUSEPS_ERROR_WRITE_AES_KEY);
 			goto END;
+		}
+		/* Calculates AES key's CRC */
+		AesCrc = XilSkey_CrcCalculation_AesKey(&InstancePtr->AESKey[0]);
+		/* Verifies the Aes key programmed with CRC */
+		Status = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
+		if (Status != XST_SUCCESS) {
+			return Status;
 		}
 	}
 
@@ -856,6 +864,8 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 {
 	u32 RowData;
 	u32 Status;
+	u8 MarginRead = 0;
+	u32 ReadReg;
 
 	/**
 	 * Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)
@@ -886,14 +896,28 @@ u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(u8 Row, u8 Column,
 	}
 
 	/* verifying the programmed bit */
-	Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row, EfuseType, &RowData);
+	for (MarginRead = XSK_ZYNQMP_EFUSEPS_CFG_NORMAL_RD;
+			MarginRead <= XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_2_RD;
+				MarginRead++) {
 
-	if (Status != XST_SUCCESS) {
-		return Status;
-	}
+		ReadReg = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+				XSK_ZYNQMP_EFUSEPS_CFG_OFFSET) &
+				(~XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_RD_MASK);
+		ReadReg = ReadReg |
+				(MarginRead << XSK_ZYNQMP_EFUSEPS_CFG_MARGIN_RD_SHIFT);
 
-	if (((RowData >> Column) & 0x01) == 0x00) {
-		return XSK_EFUSEPS_ERROR_VERIFICATION;
+		XilSKey_WriteReg(XSK_ZYNQMP_EFUSEPS_BASEADDR, \
+				XSK_ZYNQMP_EFUSEPS_CFG_OFFSET, ReadReg);
+
+		Status = XilSKey_ZynqMp_EfusePs_ReadRow(Row, EfuseType, &RowData);
+
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
+
+		if (((RowData >> Column) & 0x01) == 0x00) {
+			return XSK_EFUSEPS_ERROR_VERIFICATION;
+		}
 	}
 
 	return XST_SUCCESS;

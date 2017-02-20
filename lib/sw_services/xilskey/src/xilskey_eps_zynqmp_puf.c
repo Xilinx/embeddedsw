@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * 6.1   vns  10/17/16 First release.
 *       vns  11/07/16 Fixed shutter value to 0x0100005e, as sysosc selection
 *                     is fixed for PUF registration.
+* 6.2   vns  02/18/17 Added masking for PUF auxilary read.
 * </pre>
 *
 *****************************************************************************/
@@ -503,6 +504,7 @@ u32 XilSKey_ZynqMp_EfusePs_ReadPufAux(u32 *Address, u8 ReadOption)
 		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
 				XSK_ZYNQMP_EFUSEPS_PUF_AUX_ROW,
 				XSK_ZYNQMP_EFUSEPS_EFUSE_0, &Data);
+		Data = Data & XSK_ZYNQMP_EFUSEPS_PUF_MISC_AUX_MASK;
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
