@@ -183,15 +183,21 @@ Updated tcl to check each extra compiler flag individually
 for linaro toolchain and if any default flags are missing,
 it adds the required flags. It fixes CR#965023.
 Added "-Wall -Wextra" to the extra compiler flags.
+Updated cpu_cortexa9.tcl to guard xparameters.h by protection macros.
+It fixes CR#963130.
 
 cpu_cortexa53_v1_3:
 Updated makefile with "clean" target
 Added "-Wall -Wextra" to the extra compiler flags.
+Updated cpu_cortexa53.tcl to guard xparameters.h by protection macros.
+It fixes CR#963130.
 
 cpu_cortexr5_v1_2:
 Updated makefile with "clean" target
 Added "-Wall -Wextra" to the extra compiler flags.
 Updated tcl to support IAR compiler.
+Updated cpu_cortexr5.tcl to guard xparameters.h by protection macros.
+It fixes CR#963130.
 
 cpu_v2_6:
 Added "ffunction-sections" and  "fdata-sections"
