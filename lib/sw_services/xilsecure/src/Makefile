@@ -52,7 +52,8 @@ INCLUDEFILES=$(SECURE_DIR)/xsecure_sha.h \
 		$(SECURE_DIR)/xsecure_aes.h \
 		$(SECURE_DIR)/xsecure_rsa.h \
 		$(SECURE_DIR)/xsecure_hw.h \
-		$(SECURE_DIR)/xsecure_sha2.h
+		$(SECURE_DIR)/xsecure_sha2.h \
+		$(SECURE_DIR)/xsecure.h
 
 libs: libxilsecure.a
 
