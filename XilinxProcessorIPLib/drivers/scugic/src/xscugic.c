@@ -111,6 +111,7 @@
 *					  interrupts in case they are being used only by current cpu.
 *					  It also removes current cpu from interrupt target registers
 *					  for all interrupts.
+*       kvn  02/17/17 Add support for changing GIC CPU master at run time.
 *
 * </pre>
 *
@@ -130,6 +131,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
+u32 CpuId = XPAR_CPU_ID; /**< CPU Core identifier */
 
 /************************** Function Prototypes ******************************/
 
@@ -356,7 +358,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 				u32 EffectiveAddr)
 {
 	u32 Int_Id;
-	u32 Cpu_Id = (u32)XPAR_CPU_ID + (u32)1;
+	u32 Cpu_Id = CpuId + (u32)1;
 	(void) EffectiveAddr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -851,7 +853,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	u32 RegValue;
 	u32 Target_Cpu;
 	u32 DistDisable = 1; /* To track if distributor need to be disabled or not */
-	u32 LocalCpuID = ((u32)0x1 << ((u32)XPAR_CPU_ID));
+	u32 LocalCpuID = ((u32)0x1 << CpuId);
 
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -904,6 +906,24 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 		}
 		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
 	}
+}
+
+/****************************************************************************/
+/**
+* This updates the CpuId global variable.
+*
+* @param	CpuCoreId is the CPU core number.
+*
+* @return	None.
+*
+* @note		None
+*
+*****************************************************************************/
+void XScuGic_SetCpuID(u32 CpuCoreId)
+{
+	Xil_AssertVoid(CpuCoreId <= 1U);
+
+	CpuId = CpuCoreId;
 }
 
 /** @} */

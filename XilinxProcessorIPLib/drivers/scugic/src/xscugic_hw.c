@@ -62,6 +62,7 @@
 *			  XScuGic_SetPriTrigTypeByDistAddr and
 *             XScuGic_GetPriTrigTypeByDistAddr here from xscugic.c
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.6   kvn  02/17/17 Add support for changing GIC CPU master at run time.
 *
 * </pre>
 *
@@ -90,6 +91,7 @@ static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 /************************** Variable Definitions *****************************/
 
 extern XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES];
+extern u32 CpuId;
 
 /*****************************************************************************/
 /**
@@ -274,7 +276,7 @@ static void CPUInit(XScuGic_Config *Config)
 s32 XScuGic_DeviceInitialize(u32 DeviceId)
 {
 	XScuGic_Config *Config;
-	u32 Cpu_Id = (u32)XPAR_CPU_ID + (u32)1;
+	u32 Cpu_Id = CpuId + (u32)1;
 
 	Config = &XScuGic_ConfigTable[(u32 )DeviceId];
 
