@@ -233,5 +233,5 @@ XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 Mi
 
 	fw_printf("%s: Removed %lu tasks\r\n", __func__, TaskCount);
 
-	return ((TaskCount > 0) ? XST_SUCCESS : XST_FAILURE);
+	return ((TaskCount > 0U) ? XST_SUCCESS : XST_FAILURE);
 }
