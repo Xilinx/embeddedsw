@@ -2066,27 +2066,27 @@ int main()
   /* HDMI TX SS callback setup */
   XV_HdmiTxSs_SetCallback(&HdmiTxSs,
 							  XV_HDMITXSS_HANDLER_CONNECT,
-							  TxConnectCallback,
+							  (void *)TxConnectCallback,
 							  (void *)&HdmiTxSs);
 
   XV_HdmiTxSs_SetCallback(&HdmiTxSs,
 							  XV_HDMITXSS_HANDLER_TOGGLE,
-							  TxToggleCallback,
+							  (void *)TxToggleCallback,
 							  (void *)&HdmiTxSs);
 
   XV_HdmiTxSs_SetCallback(&HdmiTxSs,
 							  XV_HDMITXSS_HANDLER_VS,
-							  TxVsCallback,
+							  (void *)TxVsCallback,
 							  (void *)&HdmiTxSs);
 
   XV_HdmiTxSs_SetCallback(&HdmiTxSs,
 							  XV_HDMITXSS_HANDLER_STREAM_UP,
-							  TxStreamUpCallback,
+							  (void *)TxStreamUpCallback,
 							  (void *)&HdmiTxSs);
 
   XV_HdmiTxSs_SetCallback(&HdmiTxSs,
 							  XV_HDMITXSS_HANDLER_STREAM_DOWN,
-							  TxStreamDownCallback,
+							  (void *)TxStreamDownCallback,
 							  (void *)&HdmiTxSs);
 
 #ifdef USE_HDCP
@@ -2229,19 +2229,19 @@ int main()
   /* RX callback setup */
   XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 							  XV_HDMIRXSS_HANDLER_CONNECT,
-							  RxConnectCallback,
+							  (void *)RxConnectCallback,
 							  (void *)&HdmiRxSs);
   XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 							  XV_HDMIRXSS_HANDLER_AUX,
-							  RxAuxCallback,
+							  (void *)RxAuxCallback,
 							  (void *)&HdmiRxSs);
   XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 							  XV_HDMIRXSS_HANDLER_AUD,
-							  RxAudCallback,
+							  (void *)RxAudCallback,
 							  (void *)&HdmiRxSs);
   XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 							  XV_HDMIRXSS_HANDLER_LNKSTA,
-							  RxLnkStaCallback,
+							  (void *)RxLnkStaCallback,
 							  (void *)&HdmiRxSs);
   //XV_HdmiRxSs_SetCallback(&HdmiRxSs,
   //	  	  	  	  	  	  	  XV_HDMIRXSS_HANDLER_DDC,
@@ -2249,15 +2249,15 @@ int main()
   //	  	  	  	  	  	  	  (void *)&HdmiRxSs);
   XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 							  XV_HDMIRXSS_HANDLER_STREAM_DOWN,
-							  RxStreamDownCallback,
+							  (void *)RxStreamDownCallback,
 							  (void *)&HdmiRxSs);
   XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 							  XV_HDMIRXSS_HANDLER_STREAM_INIT,
-							  RxStreamInitCallback,
+							  (void *)RxStreamInitCallback,
 							  (void *)&HdmiRxSs);
   XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 							  XV_HDMIRXSS_HANDLER_STREAM_UP,
-							  RxStreamUpCallback,
+							  (void *)RxStreamUpCallback,
 							  (void *)&HdmiRxSs);
 
 #ifdef USE_HDCP
@@ -2319,21 +2319,21 @@ int main()
     /* VPHY callback setup */
     XVphy_SetHdmiCallback(&Vphy,
 						XVPHY_HDMI_HANDLER_TXINIT,
-						VphyHdmiTxInitCallback,
+						(void *)VphyHdmiTxInitCallback,
 						(void *)&Vphy);
     XVphy_SetHdmiCallback(&Vphy,
 						XVPHY_HDMI_HANDLER_TXREADY,
-						VphyHdmiTxReadyCallback,
+						(void *)VphyHdmiTxReadyCallback,
 						(void *)&Vphy);
 #endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
     XVphy_SetHdmiCallback(&Vphy,
 						XVPHY_HDMI_HANDLER_RXINIT,
-						VphyHdmiRxInitCallback,
+						(void *)VphyHdmiRxInitCallback,
 						(void *)&Vphy);
     XVphy_SetHdmiCallback(&Vphy,
 						XVPHY_HDMI_HANDLER_RXREADY,
-						VphyHdmiRxReadyCallback,
+						(void *)VphyHdmiRxReadyCallback,
 						(void *)&Vphy);
 #endif
 

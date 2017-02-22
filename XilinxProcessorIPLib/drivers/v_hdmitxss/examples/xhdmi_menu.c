@@ -1299,32 +1299,32 @@ static XHdmi_MenuType XHdmi_EdidMenu(XHdmi_Menu *InstancePtr, u8 Input)
 void XHdmi_DisplayVideoMenu(void)
 {
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-	print("\r\n");
-	print("----------------------\r\n");
-	print("---   VIDEO MENU   ---\r\n");
-	print("----------------------\r\n");
-#ifdef XPAR_XV_TPG_0_COLOR_BAR
-	print("  1 - Color bars\r\n");
+	xil_printf("\r\n");
+	xil_printf("----------------------\r\n");
+	xil_printf("---   VIDEO MENU   ---\r\n");
+	xil_printf("----------------------\r\n");
+#if (XPAR_XV_TPG_0_COLOR_BAR == 1)
+	xil_printf("  1 - Color bars\r\n");
 #endif
-#ifdef XPAR_XV_TPG_0_SOLID_COLOR
-	print("  2 - Solid red\r\n");
-	print("  3 - Solid green\r\n");
-	print("  4 - Solid blue\r\n");
-	print("  5 - Solid black\r\n");
-	print("  6 - Solid white\r\n");
+#if (XPAR_XV_TPG_0_SOLID_COLOR == 1)
+	xil_printf("  2 - Solid red\r\n");
+	xil_printf("  3 - Solid green\r\n");
+	xil_printf("  4 - Solid blue\r\n");
+	xil_printf("  5 - Solid black\r\n");
+	xil_printf("  6 - Solid white\r\n");
 #endif
-#ifdef XPAR_XV_TPG_0_RAMP
-	print("  7 - Horizontal ramp\r\n");
-	print("  8 - Vertical ramp\r\n");
+#if (XPAR_XV_TPG_0_RAMP == 1)
+	xil_printf("  7 - Horizontal ramp\r\n");
+	xil_printf("  8 - Vertical ramp\r\n");
 #endif
-#ifdef XPAR_XV_TPG_0_COLOR_SWEEP
-	print("  9 - Rainbow color\r\n");
+#if (XPAR_XV_TPG_0_COLOR_SWEEP == 1)
+	xil_printf("  9 - Rainbow color\r\n");
 #endif
-	print(" 10 - Checker board\r\n");
-	print(" 11 - Cross hatch\r\n");
-	print(" 12 - Noise\r\n");
-	print(" 99 - Exit\n\r");
-	print("Enter Selection -> ");
+	xil_printf(" 10 - Checker board\r\n");
+	xil_printf(" 11 - Cross hatch\r\n");
+	xil_printf(" 12 - Noise\r\n");
+	xil_printf(" 99 - Exit\n\r");
+	xil_printf("Enter Selection -> ");
 #else
     xil_printf("No HDMI TX SS in design\r\n");
 #endif

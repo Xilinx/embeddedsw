@@ -80,7 +80,8 @@ u8 SI5324_DEFAULTS[] = {
     // other bits are default
      19, 0x23,//0x2f  // 0x29
 #else
-	// Set lock time to 53ms as recommended (bits 2:0 LOCKT=001)
+	// Set lock time to 0.833ms (bits 2:0 LOCKT=111)
+	// and set valid time to 100ms (bits 4:3 VALTIME=01)
 	// other bits are default
 	19, 0x2f,//0x2f  // 0x29
 #endif
