@@ -1275,7 +1275,9 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
 		}
 
 		/* Release previously used PLL */
-		PmPllRelease(prevPll);
+		if (NULL != prevPll) {
+			PmPllRelease(prevPll);
+		}
 
 		/* If parent is not a known pll it's the oscillator clock */
 		if (NULL != clk->pll) {
