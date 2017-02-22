@@ -257,18 +257,18 @@ int XV_HdmiRxSs_SubcoreInitHdcp14(XV_HdmiRxSs *HdmiRxSsPtr)
       /* Set-up the DDC Handlers */
       XHdcp1x_SetCallback(HdmiRxSsPtr->Hdcp14Ptr,
                           XHDCP1X_HANDLER_DDC_SETREGADDR,
-                          (XHdcp1x_SetDdcHandler)XV_HdmiRxSs_DdcSetRegAddrHandler,
-                          HdmiRxSsPtr->HdmiRxPtr);
+						  (void *)(XHdcp1x_SetDdcHandler)XV_HdmiRxSs_DdcSetRegAddrHandler,
+						  (void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp1x_SetCallback(HdmiRxSsPtr->Hdcp14Ptr,
                           XHDCP1X_HANDLER_DDC_SETREGDATA,
-                          (XHdcp1x_SetDdcHandler)XV_HdmiRxSs_DdcSetRegDataHandler,
-                          HdmiRxSsPtr->HdmiRxPtr);
+						  (void *)(XHdcp1x_SetDdcHandler)XV_HdmiRxSs_DdcSetRegDataHandler,
+						  (void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp1x_SetCallback(HdmiRxSsPtr->Hdcp14Ptr,
                           XHDCP1X_HANDLER_DDC_GETREGDATA,
-                          (XHdcp1x_GetDdcHandler)XV_HdmiRxSs_DdcGetRegDataHandler,
-                          HdmiRxSsPtr->HdmiRxPtr);
+						  (void *)(XHdcp1x_GetDdcHandler)XV_HdmiRxSs_DdcGetRegDataHandler,
+						  (void *)HdmiRxSsPtr->HdmiRxPtr);
 
       /* Select key */
       XHdcp1x_SetKeySelect(HdmiRxSsPtr->Hdcp14Ptr, XV_HDMIRXSS_HDCP_KEYSEL);
@@ -279,7 +279,7 @@ int XV_HdmiRxSs_SubcoreInitHdcp14(XV_HdmiRxSs *HdmiRxSsPtr)
       /* Set-up the HDMI RX HDCP Callback Handler */
       XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                 XV_HDMIRX_HANDLER_HDCP,
-                XV_HdmiRxSs_DdcHdcpCallback,
+				(void *)XV_HdmiRxSs_DdcHdcpCallback,
                 (void *)HdmiRxSsPtr);
 
       /* Enable HDMI-RX DDC interrupts */
@@ -344,60 +344,60 @@ int XV_HdmiRxSs_SubcoreInitHdcp22(XV_HdmiRxSs *HdmiRxSsPtr)
       /* Set-up the DDC Handlers */
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_SETREGADDR,
-                            (XHdcp22_Rx_SetHandler)XV_HdmiRxSs_DdcSetRegAddrHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_SetHandler)XV_HdmiRxSs_DdcSetRegAddrHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_SETREGDATA,
-                            (XHdcp22_Rx_SetHandler)XV_HdmiRxSs_DdcSetRegDataHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_SetHandler)XV_HdmiRxSs_DdcSetRegDataHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_GETREGDATA,
-                            (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetRegDataHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetRegDataHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_GETWBUFSIZE,
-                            (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetWriteMessageBufferWordsHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetWriteMessageBufferWordsHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_GETRBUFSIZE,
-                            (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetReadMessageBufferWordsHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcGetReadMessageBufferWordsHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_ISWBUFEMPTY,
-                            (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcIsWriteMessageBufferEmptyHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcIsWriteMessageBufferEmptyHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_ISRBUFEMPTY,
-                            (XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcIsReadMessageBufferEmptyHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_GetHandler)XV_HdmiRxSs_DdcIsReadMessageBufferEmptyHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_CLEARRBUF,
-                            (XHdcp22_Rx_RunHandler)XV_HdmiRxSs_DdcClearReadMessageBufferHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_RunHandler)XV_HdmiRxSs_DdcClearReadMessageBufferHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
       XHdcp22Rx_SetCallback(HdmiRxSsPtr->Hdcp22Ptr,
                             XHDCP22_RX_HANDLER_DDC_CLEARWBUF,
-                            (XHdcp22_Rx_RunHandler)XV_HdmiRxSs_DdcClearWriteMessageBufferHandler,
-                            HdmiRxSsPtr->HdmiRxPtr);
+							(void *)(XHdcp22_Rx_RunHandler)XV_HdmiRxSs_DdcClearWriteMessageBufferHandler,
+							(void *)HdmiRxSsPtr->HdmiRxPtr);
 
 
       /* Set-up the HDMI RX HDCP Callback Handler */
       XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                 XV_HDMIRX_HANDLER_HDCP,
-                XV_HdmiRxSs_DdcHdcpCallback,
+				(void *)XV_HdmiRxSs_DdcHdcpCallback,
                 (void *)HdmiRxSsPtr);
 
       /* Set-up the HDMI RX Link error Callback Handler */
       XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                 XV_HDMIRX_HANDLER_LINK_ERROR,
-                XV_HdmiRxSs_LinkErrorCallback,
+				(void *)XV_HdmiRxSs_LinkErrorCallback,
                 (void *)HdmiRxSsPtr);
 
       /* Load Production Keys */

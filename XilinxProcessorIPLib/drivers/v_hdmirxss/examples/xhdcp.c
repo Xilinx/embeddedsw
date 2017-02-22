@@ -155,7 +155,7 @@ int XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
   /* Set callback functions */
   Status = XV_HdmiRxSs_SetCallback(UpstreamInstancePtr,
     XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATION_REQUEST,
-    XHdcp_AuthenticationRequestCallback,
+	(void *)XHdcp_AuthenticationRequestCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
@@ -164,7 +164,7 @@ int XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
 
   Status = XV_HdmiRxSs_SetCallback(UpstreamInstancePtr,
     XV_HDMIRXSS_HANDLER_HDCP_STREAM_MANAGE_REQUEST,
-    XHdcp_StreamManageRequestCallback,
+	(void *)XHdcp_StreamManageRequestCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
@@ -173,7 +173,7 @@ int XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
 
   Status = XV_HdmiRxSs_SetCallback(UpstreamInstancePtr,
     XV_HDMIRXSS_HANDLER_HDCP_TOPOLOGY_UPDATE,
-    XHdcp_TopologyUpdateCallback,
+	(void *)XHdcp_TopologyUpdateCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
@@ -182,7 +182,7 @@ int XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
 
   Status = XV_HdmiRxSs_SetCallback(UpstreamInstancePtr,
     XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATED,
-    XHdcp_UpstreamAuthenticatedCallback,
+	(void *)XHdcp_UpstreamAuthenticatedCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
@@ -191,7 +191,7 @@ int XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
 
   Status = XV_HdmiRxSs_SetCallback(UpstreamInstancePtr,
     XV_HDMIRXSS_HANDLER_HDCP_UNAUTHENTICATED,
-    XHdcp_UpstreamUnauthenticatedCallback,
+	(void *)XHdcp_UpstreamUnauthenticatedCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
@@ -200,7 +200,7 @@ int XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
 
   Status = XV_HdmiRxSs_SetCallback(UpstreamInstancePtr,
     XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE,
-    XHdcp_UpstreamEncryptionUpdateCallback,
+	(void *)XHdcp_UpstreamEncryptionUpdateCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
@@ -255,7 +255,7 @@ int XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
   /* Set callback functions */
   Status = XV_HdmiTxSs_SetCallback(DownstreamInstancePtr,
     XV_HDMITXSS_HANDLER_HDCP_DOWNSTREAM_TOPOLOGY_AVAILABLE,
-    XHdcp_TopologyAvailableCallback,
+	(void *)XHdcp_TopologyAvailableCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
@@ -264,7 +264,7 @@ int XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
 
   Status = XV_HdmiTxSs_SetCallback(DownstreamInstancePtr,
     XV_HDMITXSS_HANDLER_HDCP_UNAUTHENTICATED,
-    XHdcp_DownstreamUnauthenticatedCallback,
+	(void *)XHdcp_DownstreamUnauthenticatedCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
@@ -273,7 +273,7 @@ int XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
 
   Status = XV_HdmiTxSs_SetCallback(DownstreamInstancePtr,
     XV_HDMITXSS_HANDLER_HDCP_AUTHENTICATED,
-    XHdcp_DownstreamAuthenticatedCallback,
+	(void *)XHdcp_DownstreamAuthenticatedCallback,
     (void *)InstancePtr);
 
   if (Status != XST_SUCCESS) {
