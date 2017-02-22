@@ -271,6 +271,7 @@ s32 XPfw_EmProcessError(u8 ErrorType)
 
 	default:
 		Status = XST_FAILURE;
+		break;
 	}
 
 	/* Proceed only if ErrorType is Valid */
