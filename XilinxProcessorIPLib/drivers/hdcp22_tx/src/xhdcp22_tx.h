@@ -316,6 +316,7 @@ typedef struct {
 	u8 Rrx[8];           /**< Random nonce for Rx (m: Rtx || Rrx). */
 	u8 Km[16];           /**< Km. */
 	u8 Ekh_Km[16];       /**< Ekh(Km). */
+     u8 Ready;            /**< Indicates a valid entry */
 } XHdcp22_Tx_PairingInfo;
 /**
 * This typedef contains information about the HDCP22 transmitter.

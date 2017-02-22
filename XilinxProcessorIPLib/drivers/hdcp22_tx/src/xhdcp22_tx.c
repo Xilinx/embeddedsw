@@ -54,10 +54,14 @@
 *                       before enabling the cipher.
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
 * 2.01  MH     02/13/17 1. Fixed function XHdcp22Tx_IsInProgress to correctly
-*                          TRUE while state machine is executing.
+*                          return TRUE while state machine is executing.
 *                       2. Fixed checking of seq_num_V for topology propagation.
 *                       3. Updated state A0 to set 100ms timer before sending
 *                          AKE_Init message to ensure encryption is disabled.
+*                       4. Fixed function XHdcp22Tx_UpdatePairingInfo to check
+*                          for empty slots before overriding entry.
+*                       5. Fixed problem with pairing table update that was
+*                          causing corrupted entries.
 * </pre>
 *
 ******************************************************************************/
@@ -177,7 +181,7 @@ static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(XHdcp22_Tx *InstancePtr,
 static void XHdcp22Tx_InvalidatePairingInfo(XHdcp22_Tx *InstancePtr,
                                              const u8* ReceiverId);
 static XHdcp22_Tx_PairingInfo *XHdcp22Tx_UpdatePairingInfo(XHdcp22_Tx *InstancePtr,
-                              const XHdcp22_Tx_PairingInfo *PairingInfo);
+                              const XHdcp22_Tx_PairingInfo *PairingInfo, u8 Ready);
 
 /* Timer functions */
 static void XHdcp22Tx_TimerHandler(void *CallbackRef, u8 TmrCntNumber);
@@ -1027,6 +1031,13 @@ XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 		                (u8)InstancePtr->Info.AuthenticationStatus);
 	}
 
+	/* Enable only if the attached receiver is authenticated. */
+	if (InstancePtr->Info.AuthenticationStatus == XHDCP22_TX_AUTHENTICATED) {
+		XHdcp22Cipher_Enable(&InstancePtr->Cipher);
+	} else {
+		XHdcp22Cipher_Disable(&InstancePtr->Cipher);
+	}
+
 	return InstancePtr->Info.AuthenticationStatus;
 }
 
@@ -1097,7 +1108,6 @@ int XHdcp22Tx_Enable(XHdcp22_Tx *InstancePtr)
 	InstancePtr->Info.IsEnabled = (TRUE);
 	XTmrCtr_Stop(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_0);
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_ENABLED, 1);
-	XHdcp22Cipher_Enable(&InstancePtr->Cipher);
 
 	return XST_SUCCESS;
 }
@@ -1717,16 +1727,18 @@ XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx *InstancePtr)
 	/* If already existing handle Stored Km sequence: Write AKE_Stored_Km
 	 * and wait for H Prime */
 	if (PairingInfoPtr != NULL) {
-		/* Update RxCaps in pairing info */
-		memcpy(PairingInfoPtr->RxCaps, MsgPtr->Message.AKESendCert.RxCaps, sizeof(PairingInfoPtr->RxCaps));
+		if (PairingInfoPtr->Ready == TRUE) {
+		  /* Update RxCaps in pairing info */
+		  memcpy(PairingInfoPtr->RxCaps, MsgPtr->Message.AKESendCert.RxCaps, sizeof(PairingInfoPtr->RxCaps));
 
-		/* Write encrypted Km */
-		XHdcp22Tx_WriteAKEStoredKm(InstancePtr, PairingInfoPtr);
-		InstancePtr->Info.StateContext = PairingInfoPtr;
+		  /* Write encrypted Km */
+		  XHdcp22Tx_WriteAKEStoredKm(InstancePtr, PairingInfoPtr);
+		  InstancePtr->Info.StateContext = PairingInfoPtr;
 
-		/* Start the timer for receiving XHDCP22_TX_AKE_SEND_HPRIME */
-		XHdcp22Tx_StartTimer(InstancePtr, 200, XHDCP22_TX_AKE_SEND_H_PRIME);
-		return XHDCP22_TX_STATE_A1_SK0;
+		  /* Start the timer for receiving XHDCP22_TX_AKE_SEND_HPRIME */
+		  XHdcp22Tx_StartTimer(InstancePtr, 200, XHDCP22_TX_AKE_SEND_H_PRIME);
+		  return XHDCP22_TX_STATE_A1_SK0;
+		}
 	}
 
 	/********************* Handle No Stored Km *******************************/
@@ -1745,7 +1757,7 @@ XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_1(XHdcp22_Tx *InstancePtr)
 
 	/* Done with first step, update pairing info and goto the next
 	 * step in the No Stored Km sequence: waiting for H Prime*/
-	PairingInfoPtr = XHdcp22Tx_UpdatePairingInfo(InstancePtr, &NewPairingInfo);
+	PairingInfoPtr = XHdcp22Tx_UpdatePairingInfo(InstancePtr, &NewPairingInfo, FALSE);
 	if (PairingInfoPtr == NULL) {
 		return XHDCP22_TX_STATE_A0;
 	}
@@ -1889,7 +1901,7 @@ static XHdcp22_Tx_StateType Xhdcp22Tx_StateA1_Nsk1(XHdcp22_Tx *InstancePtr)
 	memcpy(PairingInfoPtr->Ekh_Km, MsgPtr->Message.AKESendPairingInfo.EKhKm,
 	       sizeof(PairingInfoPtr->Ekh_Km));
 
-	XHdcp22Tx_UpdatePairingInfo(InstancePtr, PairingInfoPtr);
+	XHdcp22Tx_UpdatePairingInfo(InstancePtr, PairingInfoPtr, TRUE);
 
 	/* Authentication done, goto the next state (exchange Ks) */
 	return XHDCP22_TX_STATE_A2;
@@ -3721,7 +3733,7 @@ static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(XHdcp22_Tx *InstancePtr,
 
 	for (i=0; i<XHDCP22_TX_MAX_STORED_PAIRINGINFO; i++) {
 		PairingInfoPtr = &InstancePtr->Info.PairingInfo[i];
-		if (memcmp(ReceiverId, PairingInfoPtr,
+		if (memcmp(ReceiverId, PairingInfoPtr->ReceiverId,
 		           XHDCP22_TX_CERT_RCVID_SIZE) == 0) {
 			return PairingInfoPtr;
 		}
@@ -3745,28 +3757,41 @@ static XHdcp22_Tx_PairingInfo *XHdcp22Tx_GetPairingInfo(XHdcp22_Tx *InstancePtr,
 ******************************************************************************/
 static XHdcp22_Tx_PairingInfo *XHdcp22Tx_UpdatePairingInfo(
 	                          XHdcp22_Tx *InstancePtr,
-                              const XHdcp22_Tx_PairingInfo *PairingInfo)
+                              const XHdcp22_Tx_PairingInfo *PairingInfo,
+                              u8 Ready)
 {
 	int i = 0;
+	int i_match = 0;
+	u8 Match = (FALSE);
 	XHdcp22_Tx_PairingInfo * PairingInfoPtr = NULL;
 
-	/* find the id or an empty slot */
+	/* Find slot */
 	for (i=0; i<XHDCP22_TX_MAX_STORED_PAIRINGINFO; i++) {
 
 		PairingInfoPtr = &InstancePtr->Info.PairingInfo[i];
-		if (memcmp(PairingInfo->ReceiverId, PairingInfoPtr,
+
+		/* Look for empty slot */
+		if ((PairingInfoPtr->Ready == FALSE) && (Match == FALSE)) {
+			i_match = i;
+			Match = (TRUE);
+		}
+
+		/* Look for match, match overrides empty slot */
+		if (memcmp(PairingInfo->ReceiverId, PairingInfoPtr->ReceiverId,
 		           XHDCP22_TX_CERT_RCVID_SIZE) == 0) {
+			i_match = i;
 			break;
 		}
 	}
 
-	/* If no slot available, use the first one */
-	if (i==XHDCP22_TX_MAX_STORED_PAIRINGINFO) {
-		PairingInfoPtr = &InstancePtr->Info.PairingInfo[0];
-	}
+	PairingInfoPtr = &InstancePtr->Info.PairingInfo[i_match];
 
-	/* Set new pairing info*/
+	/* Copy pairing info*/
 	memcpy(PairingInfoPtr, PairingInfo, sizeof(XHdcp22_Tx_PairingInfo));
+
+	/* Set table ready */
+	PairingInfoPtr->Ready = Ready;
+
 	return PairingInfoPtr;
 }
 
