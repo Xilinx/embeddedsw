@@ -430,14 +430,10 @@ PmPll pmIOpll_g = {
  *		related aspects are not handled by the PM framework. The PM
  *		framework only saves/restores the context of PLLs.
  */
-s32 PmPllRequest(PmPll* const pll)
+int PmPllRequest(PmPll* const pll)
 {
-	s32 status = XST_SUCCESS;
+	int status = XST_SUCCESS;
 
-	if(NULL == pll) {
-		status = XST_FAILURE;
-		goto Done;
-	}
 #ifdef DEBUG_CLK
 	PmDbg("%s #%lu\r\n", PmStrNode(pll->node.nodeId), 1 + pll->useCount);
 #endif
@@ -448,22 +444,15 @@ s32 PmPllRequest(PmPll* const pll)
 
 	pll->useCount++;
 
-Done:
 	return status;
 }
 
 /**
- * PmPllRelease() - Release the PLL (if PLL becomes unused, it will be reset)
+ * PmPllRequest() - Release the PLL (if PLL becomes unused, it will be reset)
  * @pll		The released PLL
- * @return	XST_SUCCESS if the request is processed ok, else XST_FAILURE
  */
-s32 PmPllRelease(PmPll* const pll)
+void PmPllRelease(PmPll* const pll)
 {
-	s32 Status = XST_SUCCESS;
-	if(NULL == pll) {
-		Status = XST_FAILURE;
-		goto Done;
-	}
 	pll->useCount--;
 
 #ifdef DEBUG_CLK
@@ -472,6 +461,4 @@ s32 PmPllRelease(PmPll* const pll)
 	if (0U == pll->useCount) {
 		PmPllSuspend(pll);
 	}
-Done:
-	return Status;
 }

@@ -108,7 +108,7 @@ extern PmNodeClass pmNodeClassPll_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-s32 PmPllRequest(PmPll* const pll);
-s32 PmPllRelease(PmPll* const pll);
+int PmPllRequest(PmPll* const pll);
+void PmPllRelease(PmPll* const pll);
 
 #endif
