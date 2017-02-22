@@ -1046,26 +1046,37 @@ int XV_HdmiTx_DdcWaitForDone(XV_HdmiTx *InstancePtr)
     Status = XST_FAILURE;
 
     do {
-        // Read status register
+        // Read control register
         Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
-            (XV_HDMITX_DDC_STA_OFFSET));
+            (XV_HDMITX_DDC_CTRL_OFFSET));
 
-        // Done
-        if (Data & (XV_HDMITX_DDC_STA_DONE_MASK)) {
-            // Clear done flag
-            XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
-                (XV_HDMITX_DDC_STA_OFFSET), (XV_HDMITX_DDC_STA_DONE_MASK));
-            Exit = (TRUE);
-            Status = XST_SUCCESS;
+        if (Data & (XV_HDMITX_DDC_CTRL_RUN_MASK)) {
+
+            // Read status register
+            Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+                (XV_HDMITX_DDC_STA_OFFSET));
+
+            // Done
+            if (Data & (XV_HDMITX_DDC_STA_DONE_MASK)) {
+                // Clear done flag
+                XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
+                    (XV_HDMITX_DDC_STA_OFFSET), (XV_HDMITX_DDC_STA_DONE_MASK));
+                Exit = (TRUE);
+                Status = XST_SUCCESS;
+            }
+
+            // Time out
+            else if (Data & (XV_HDMITX_DDC_STA_TIMEOUT_MASK)) {
+                // Clear time out flag
+                XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
+                    (XV_HDMITX_DDC_STA_OFFSET), (XV_HDMITX_DDC_STA_TIMEOUT_MASK));
+                Exit = (TRUE);
+                Status = XST_FAILURE;
+            }
         }
-
-        // Time out
-        else if (Data & (XV_HDMITX_DDC_STA_TIMEOUT_MASK)) {
-            // Clear time out flag
-            XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
-                (XV_HDMITX_DDC_STA_OFFSET), (XV_HDMITX_DDC_STA_TIMEOUT_MASK));
+        else {
+            Status = (XST_FAILURE);
             Exit = (TRUE);
-            Status = XST_FAILURE;
         }
 
     } while (!Exit);
@@ -1091,17 +1102,27 @@ void XV_HdmiTx_DdcWriteCommand(XV_HdmiTx *InstancePtr, u32 Cmd)
     Exit = (FALSE);
 
     do {
-        // Read status register
+        // Read control register
         Status = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
-            (XV_HDMITX_DDC_STA_OFFSET));
+            (XV_HDMITX_DDC_CTRL_OFFSET));
 
-        // Mask command fifo full flag
-        Status &= XV_HDMITX_DDC_STA_CMD_FULL;
+        if (Status & (XV_HDMITX_DDC_CTRL_RUN_MASK)) {
+            // Read status register
+            Status = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+                (XV_HDMITX_DDC_STA_OFFSET));
 
-        // Check if the command fifo isn't full
-        if (!Status) {
-            XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
-                (XV_HDMITX_DDC_CMD_OFFSET), (Cmd));
+            // Mask command fifo full flag
+            Status &= XV_HDMITX_DDC_STA_CMD_FULL;
+
+            // Check if the command fifo isn't full
+            if (!Status) {
+                XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
+                    (XV_HDMITX_DDC_CMD_OFFSET), (Cmd));
+                Exit = (TRUE);
+            }
+        }
+        else {
+            Status = (XST_FAILURE);
             Exit = (TRUE);
         }
     } while (!Exit);
@@ -1126,18 +1147,28 @@ u8 XV_HdmiTx_DdcReadData(XV_HdmiTx *InstancePtr)
     Exit = (FALSE);
 
     do {
-        // Read status register
-        Status = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
-            (XV_HDMITX_DDC_STA_OFFSET));
+        // Read control register
+        Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+            (XV_HDMITX_DDC_CTRL_OFFSET));
 
-        // Mask data fifo empty flag
-        Status &= XV_HDMITX_DDC_STA_DAT_EMPTY;
+        if (Data & (XV_HDMITX_DDC_CTRL_RUN_MASK)) {
+            // Read status register
+            Status = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+                (XV_HDMITX_DDC_STA_OFFSET));
 
-        // Check if the data fifo has data
-        if (!Status) {
-            Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
-                (XV_HDMITX_DDC_DAT_OFFSET));
+            // Mask data fifo empty flag
+            Status &= XV_HDMITX_DDC_STA_DAT_EMPTY;
+
+            // Check if the data fifo has data
+            if (!Status) {
+                Data = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+                    (XV_HDMITX_DDC_DAT_OFFSET));
+                Exit = (TRUE);
+            }
+        }
+        else {
             Exit = (TRUE);
+            Data = 0;
         }
     } while (!Exit);
 
