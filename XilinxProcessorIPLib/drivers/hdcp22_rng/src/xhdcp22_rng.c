@@ -47,6 +47,8 @@
 * ----- ------ -------- --------------------------------------------------
 * 1.00  JO     10/01/15 Initial release.
 * 1.01  MH     08/04/16 Added 64 bit address support.
+* 1.02  MH     02/17/16 Fixed pointer alignment problem in function
+*                       XHdcp22Rng_GetRandom
 * </pre>
 *
 ******************************************************************************/
@@ -139,9 +141,10 @@ int XHdcp22Rng_CfgInitialize(XHdcp22_Rng *InstancePtr,
 ******************************************************************************/
 void XHdcp22Rng_GetRandom(XHdcp22_Rng *InstancePtr, u8 *BufferPtr, u16 BufferLength, u16 RandomLength)
 {
-	u32 i= 0;
-	u32* U32Ptr = NULL;
+	u32 i, j;
 	u32 Offset = 0;
+	u32 RandomWord;
+	u8 *RandomPtr = (u8 *)&RandomWord;
 
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(BufferPtr != NULL);
@@ -150,9 +153,11 @@ void XHdcp22Rng_GetRandom(XHdcp22_Rng *InstancePtr, u8 *BufferPtr, u16 BufferLen
 
 	for (i=0; i<RandomLength; i+=4)
 	{
-		U32Ptr = (u32 *)&BufferPtr[i];
-		*U32Ptr = XHdcp22Rng_ReadReg(InstancePtr->Config.BaseAddress,
-		                             XHDCP22_RNG_REG_RN_1_OFFSET + Offset);
+		RandomWord = XHdcp22Rng_ReadReg(InstancePtr->Config.BaseAddress,
+					XHDCP22_RNG_REG_RN_1_OFFSET + Offset);
+		for (j=0; j<4; j++) {
+			BufferPtr[i + j] = RandomPtr[j];
+		}
 
 		/* Increase offset to the next register and wrap after the last register
 		   (RNG length is 16 bytes) */
