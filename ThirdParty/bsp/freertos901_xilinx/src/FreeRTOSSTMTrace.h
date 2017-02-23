@@ -429,8 +429,9 @@ enum stm_trace_events {
 #endif
 
 #ifndef traceTASK_DELAY_UNTIL
-    #define traceTASK_DELAY_UNTIL() {                               \
+    #define traceTASK_DELAY_UNTIL( xTimeToWake ) {                               \
         FREERTOS_EMIT_EVENT(FREERTOS_TASK_DELAY_UNTIL);             \
+        FREERTOS_EMIT_DATA(xTimeToWake);                            \
     }
 #endif
 
