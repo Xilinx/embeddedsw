@@ -231,6 +231,9 @@ Updated tcl as per standalone directory structure.
 Updated makefiles to fix build issue on windows.
 Updated the tcl to set value of configTIMER_QUEUE_LENGTH  properly.
 It fixes CR#968541
+Updated traceTASK_DELAY_UNTIL macro in FreeRTOSSTMTrace.h to
+fix errors in BSP, built with the stm event trace enabled. It
+fixes CR#969576
 
 gpiops_v3_2:
 Fixed Compilation warnings - CR#957004.
