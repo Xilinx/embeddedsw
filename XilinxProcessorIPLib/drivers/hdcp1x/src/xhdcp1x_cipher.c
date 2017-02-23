@@ -606,7 +606,9 @@ int XHdcp1x_CipherEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 
 	/* Check if XORInProgress bit is set in the status register*/
 	if (!XHdcp1x_CipherXorInProgress(InstancePtr)) {
-		XHDCP1X_DEBUG_PRINTF("HDCP Cipher XOR Not In Progress !!\r\n");
+		/* Do nothing for now. We can depend on the Cipher
+		 * to set the XorInProgress in status register when
+		 * we receive protected content. */
 	}
 
 	return (XST_SUCCESS);

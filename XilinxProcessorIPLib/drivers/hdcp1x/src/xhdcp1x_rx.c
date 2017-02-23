@@ -1607,7 +1607,6 @@ void XHdcp1x_RxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(Value != NULL);
 
 	u32 BStatus;
 
