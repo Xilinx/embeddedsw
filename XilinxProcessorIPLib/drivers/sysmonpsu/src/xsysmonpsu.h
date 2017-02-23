@@ -447,7 +447,8 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts System Monitor Raw Data to Voltage(volts).
+* This macro converts System Monitor Raw Data to Voltage(volts) other than
+* VCCO_PSIO supply.
 *
 * @param	AdcData is the System Monitor ADC Raw Data.
 *
@@ -459,6 +460,23 @@ typedef struct {
 *****************************************************************************/
 #define XSysMonPsu_RawToVoltage(AdcData) 					\
 	((((float)(AdcData))* (3.0f))/65536.0f)
+
+/****************************************************************************/
+/**
+*
+* This macro converts System Monitor Raw Data to Voltage(volts) for
+* VCCO_PSIO supply.
+*
+* @param	AdcData is the System Monitor ADC Raw Data.
+*
+* @return 	The Voltage in volts.
+*
+* @note		C-Style signature:
+*		float XSysMon_RawToVoltage(u32 AdcData)
+*
+*****************************************************************************/
+#define XSysMonPsu_VccopsioRawToVoltage(AdcData) 					\
+	((((float)(AdcData))* (6.0f))/65536.0f)
 
 /****************************************************************************/
 /**
@@ -499,7 +517,8 @@ typedef struct {
 /****************************************************************************/
 /**
 *
-* This macro converts Voltage in Volts to System Monitor Raw Data.
+* This macro converts Voltage in Volts to System Monitor Raw Data other than
+* VCCO_PSIO supply
 *
 * @param	Voltage is the Voltage in volts to be converted to
 *		System Monitor/ADC Raw Data.
@@ -512,6 +531,24 @@ typedef struct {
 *****************************************************************************/
 #define XSysMonPsu_VoltageToRaw(Voltage)			 		\
 	((s32)((Voltage)*65536.0f/3.0f))
+
+/****************************************************************************/
+/**
+*
+* This macro converts Voltage in Volts to System Monitor Raw Data for
+* VCCO_PSIO supply
+*
+* @param	Voltage is the Voltage in volts to be converted to
+*		System Monitor/ADC Raw Data.
+*
+* @return 	The System Monitor ADC Raw Data.
+*
+* @note		C-Style signature:
+*		int XSysMon_VoltageToRaw(float Voltage)
+*
+*****************************************************************************/
+#define XSysMonPsu_VccopsioVoltageToRaw(Voltage)			 		\
+	((s32)((Voltage)*65536.0f/6.0f))
 
 /****************************************************************************/
 /**
