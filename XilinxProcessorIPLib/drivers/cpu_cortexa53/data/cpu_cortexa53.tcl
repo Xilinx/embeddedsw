@@ -63,6 +63,18 @@ proc xdefine_cortexa53_params {drvhandle} {
 	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $new_flags -objects [hsi::get_sw_processor]
 
     }
+
+    #Append LTO flag in EXTRA_COMPILER_FLAGS for zynqmp_fsbl_bsp
+    set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
+    if {$is_zynqmp_fsbl_bsp == TRUE} {
+		set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
+		#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previoulsy.
+		if {[string first "-flto" $extra_flags] == -1 } {
+			append extra_flags " -Os -flto -ffat-lto-objects"
+			common::set_property -name {EXTRA_COMPILER_FLAGS} -value $extra_flags -objects [hsi::get_sw_processor]
+		}
+    }
+
     set archiver [common::get_property CONFIG.archiver $procdrv]
     if {[string first "iarchive" $archiver] < 0 } {
     } else {
