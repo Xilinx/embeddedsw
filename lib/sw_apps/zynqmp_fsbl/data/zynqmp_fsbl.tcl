@@ -217,7 +217,7 @@ proc swapp_generate {} {
         file delete -force $trans_tbl_a53_64
         file delete -force $trans_tbl_a53_32
 
-        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=soft -DARMR5 $def_flags"
+        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=soft -DARMR5 -Os -flto -ffat-lto-objects $def_flags"
     } else {
         set compiler [common::get_property CONFIG.compiler $proc_instance]
 
@@ -229,7 +229,7 @@ proc swapp_generate {} {
             file delete -force $trans_tbl_a53_64
             file rename -force $trans_tbl_a53_32 $trans_tbl_a53
 
-            set new_flags "-Wall -fmessage-length=0 -march=armv7-a -DARMA53_32 $def_flags"
+            set new_flags "-Wall -fmessage-length=0 -march=armv7-a -DARMA53_32 -Os -flto -ffat-lto-objects $def_flags"
         } else {
             #A53 64-bit
             set ld_file "lscript.ld"
@@ -242,7 +242,7 @@ proc swapp_generate {} {
             file delete -force $trans_tbl_a53_32
             file rename -force $trans_tbl_a53_64 $trans_tbl_a53
 
-            set new_flags "-Wall -fmessage-length=0 -DARMA53_64 $def_flags"
+            set new_flags "-Wall -fmessage-length=0 -DARMA53_64 -Os -flto -ffat-lto-objects $def_flags"
         }
     }
     # Update compiler flags
