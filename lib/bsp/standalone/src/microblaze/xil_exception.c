@@ -44,6 +44,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  hbm  07/28/09 Initial release
+* 6.2   ms   02/20/17 Fixed compilation warning. This is a fix for CR-969126.
 *
 * </pre>
 *
@@ -99,7 +100,7 @@ extern MB_InterruptVectorTableEntry MB_InterruptVectorTable[MB_INTERRUPT_VECTOR_
  *****************************************************************************/
 static void Xil_ExceptionNullHandler(void *Data)
 {
-	(void *) Data;
+	(void) Data;
 }
 
 /****************************************************************************/
