@@ -46,6 +46,9 @@ ECC_FLAGS	+= -nostartfiles\
 		  -mfloat-abi=soft\
 		  -mfpu=vfpv3-d16
 endif
+ECC_FLAGS_NO_FLTO1 = $(subst -flto,,$(ECC_FLAGS))
+ECC_FLAGS_NO_FLTO = $(subst -ffat-lto-objects,,$(ECC_FLAGS_NO_FLTO1))
+
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
@@ -61,7 +64,8 @@ libs: $(LIBS)
 
 standalone_libs: $(LIBSOURCES)
 	echo "Compiling standalone R5"
-	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $^
+	$(CC) $(CC_FLAGS) $(ECC_FLAGS) $(INCLUDES) $(filter-out _exit.c, $^)
+	$(CC) $(CC_FLAGS) $(ECC_FLAGS_NO_FLTO) $(INCLUDES) _exit.c
 	$(AR) -r ${RELEASEDIR}/${LIB} ${OUTS}
 
 .PHONY: include
