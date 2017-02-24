@@ -47,6 +47,8 @@
 * 1.00  sha 01/28/15 Initial release.
 * 1.00  sha 07/15/15 Defined macro XPAR_XAXIS_SWITCH_NUM_INSTANCES if not
 *                    defined in xparameters.h
+* 1.2   ms  02/20/17 Fixed compilation warning. This is a fix for CR-969126.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -98,10 +100,10 @@ XAxis_Switch_Config *XAxisScr_LookupConfig(u16 DeviceId)
 	extern XAxis_Switch_Config
 		XAxis_Switch_ConfigTable[XPAR_XAXIS_SWITCH_NUM_INSTANCES];
 	XAxis_Switch_Config *CfgPtr = NULL;
-	u32 Index;
+	int Index;
 
 	/* Checking for device id for which instance it is matching */
-	for (Index = (u32)0x0; Index < (u32)XPAR_XAXIS_SWITCH_NUM_INSTANCES;
+	for (Index = 0x0; Index < XPAR_XAXIS_SWITCH_NUM_INSTANCES;
 								Index++) {
 
 		/* Assigning address of config table if both device ids

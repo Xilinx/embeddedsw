@@ -92,6 +92,8 @@
 * 1.1   sk  08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
 *                    adding 64 bit support. CR# 867425.
 *                    Changed the prototype of XAxisScr_CfgInitialize API.
+* 1.2   ms  02/20/17 Fixed compilation warning in _sinit.c file. This is a
+*                    fix for CR-969126.
 * </pre>
 *
 ******************************************************************************/
