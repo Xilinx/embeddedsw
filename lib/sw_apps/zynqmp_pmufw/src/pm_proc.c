@@ -333,6 +333,20 @@ done:
 }
 
 /**
+ * PmProcRpu1Init() - Initialize RPU_1
+ * @proc	RPU_1 processor
+ */
+static void PmProcRpu1Init(PmProc* const proc)
+{
+	u32 mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+
+	/* For RPU lockstep mode RPU_1 is assumed to be always down */
+	if (0U == (mode & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+		proc->node.currState = PM_PROC_STATE_FORCEDOFF;
+	}
+}
+
+/**
  * PmProcDisableEvents() - Disable wake and sleep events for the processor
  * @proc	Processor node
  */
@@ -765,6 +779,9 @@ static int PmProcInit(PmNode* const node)
 	int status = XST_SUCCESS;
 
 	PmProcDisableEvents(proc);
+	if (NULL != proc->init) {
+		proc->init(proc);
+	}
 
 	if (PM_PROC_STATE_ACTIVE != node->currState) {
 		goto done;
@@ -840,6 +857,7 @@ PmProc pmProcApu0_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.init = NULL,
 	.sleep = PmProcApu0Sleep,
 	.wake = PmProcApu0Wake,
 	.latencyReq = MAX_LATENCY,
@@ -868,6 +886,7 @@ PmProc pmProcApu1_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.init = NULL,
 	.sleep = PmProcApu1Sleep,
 	.wake = PmProcApu1Wake,
 	.latencyReq = MAX_LATENCY,
@@ -896,6 +915,7 @@ PmProc pmProcApu2_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.init = NULL,
 	.sleep = PmProcApu2Sleep,
 	.wake = PmProcApu2Wake,
 	.latencyReq = MAX_LATENCY,
@@ -924,6 +944,7 @@ PmProc pmProcApu3_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.init = NULL,
 	.sleep = PmProcApu3Sleep,
 	.wake = PmProcApu3Wake,
 	.latencyReq = MAX_LATENCY,
@@ -953,6 +974,7 @@ PmProc pmProcRpu0_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
+	.init = NULL,
 	.sleep = PmProcRpu0Sleep,
 	.wake = PmProcRpu0Wake,
 	.latencyReq = MAX_LATENCY,
@@ -981,6 +1003,7 @@ PmProc pmProcRpu1_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
+	.init = PmProcRpu1Init,
 	.sleep = PmProcRpu1Sleep,
 	.wake = PmProcRpu1Wake,
 	.latencyReq = MAX_LATENCY,
