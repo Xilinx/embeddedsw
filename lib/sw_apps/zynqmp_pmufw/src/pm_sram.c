@@ -39,6 +39,12 @@
 #include "crf_apb.h"
 #include "rpu.h"
 
+/* TCM banks IDs (one hot encoded) */
+#define PM_TCM_0A_BANK_ID	0x1U
+#define PM_TCM_0B_BANK_ID	0x2U
+#define PM_TCM_1A_BANK_ID	0x4U
+#define PM_TCM_1B_BANK_ID	0x8U
+
 /* Power states of SRAM */
 #define PM_SRAM_STATE_OFF	0U
 #define PM_SRAM_STATE_RET	1U
@@ -149,7 +155,7 @@ static int PmTcmFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	PmSlaveTcm* tcm = (PmSlaveTcm*)slave->node.derived;
 
 	if (PM_SRAM_STATE_ON == nextState) {
-		status = PmPowerRequest(&pmPowerIslandRpu_g);
+		status = PmPowerRequestRpu(tcm);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -166,7 +172,7 @@ static int PmTcmFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	}
 
 	if (PM_SRAM_STATE_ON != nextState) {
-		PmPowerRelease(&pmPowerIslandRpu_g);
+		PmPowerReleaseRpu(tcm);
 	}
 
 done:
@@ -204,9 +210,10 @@ static void PmTcm1EccInit(const PmSlaveTcm* const tcm)
 static int PmSlaveTcmInit(PmSlave* const slave)
 {
 	int status = XST_SUCCESS;
+	PmSlaveTcm* tcm = (PmSlaveTcm*)slave->node.derived;
 
 	if (PM_SRAM_STATE_ON == slave->node.currState) {
-		status = PmPowerRequest(&pmPowerIslandRpu_g);
+		status = PmPowerRequestRpu(tcm);
 	}
 
 	return status;
@@ -218,8 +225,10 @@ static int PmSlaveTcmInit(PmSlave* const slave)
  */
 static int PmSlaveTcmForceDown(PmSlave* const slave)
 {
+	PmSlaveTcm* tcm = (PmSlaveTcm*)slave->node.derived;
+
 	if (PM_SRAM_STATE_ON == slave->node.currState) {
-		PmPowerRelease(&pmPowerIslandRpu_g);
+		PmPowerReleaseRpu(tcm);
 	}
 
 	return XST_SUCCESS;
@@ -428,6 +437,7 @@ PmSlaveTcm pmSlaveTcm0A_g = {
 	.size = 0x10000U,
 	.base = 0xffe00000U,
 	.eccInit = PmTcm0EccInit,
+	.id = PM_TCM_0A_BANK_ID,
 };
 
 PmSlaveTcm pmSlaveTcm0B_g = {
@@ -458,6 +468,7 @@ PmSlaveTcm pmSlaveTcm0B_g = {
 	.size = 0x10000U,
 	.base = 0xffe20000U,
 	.eccInit = PmTcm0EccInit,
+	.id = PM_TCM_0B_BANK_ID,
 };
 
 PmSlaveTcm pmSlaveTcm1A_g = {
@@ -488,6 +499,7 @@ PmSlaveTcm pmSlaveTcm1A_g = {
 	.size = 0x10000U,
 	.base = 0xffe90000U,
 	.eccInit = PmTcm1EccInit,
+	.id = PM_TCM_1A_BANK_ID,
 };
 
 PmSlaveTcm pmSlaveTcm1B_g = {
@@ -518,4 +530,5 @@ PmSlaveTcm pmSlaveTcm1B_g = {
 	.size = 0x10000U,
 	.base = 0xffeb0000U,
 	.eccInit = PmTcm1EccInit,
+	.id = PM_TCM_1B_BANK_ID,
 };

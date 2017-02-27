@@ -817,7 +817,7 @@ static PmClockHandle pmClockHandles[] = {
 		.nextNode = NULL,
 	}, {
 		.clock = &pmClockCpuR5,
-		.node = &pmPowerIslandRpu_g.node,
+		.node = &pmPowerIslandRpu_g.power.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {

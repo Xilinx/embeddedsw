@@ -64,12 +64,14 @@ typedef struct PmSlaveSram {
  * @eccInit	ECC initialization handler (to call on OFF->ON transition)
  * @base	Base address of the memory bank
  * @size	Size of the memory bank
+ * @id		ID of the TCM bank
  */
 typedef struct PmSlaveTcm {
 	PmSlaveSram sram;
 	void (*const eccInit)(const PmSlaveTcm* const tcm);
 	u32 base;
 	u32 size;
+	u8 id;
 } PmSlaveTcm;
 
 /*********************************************************************

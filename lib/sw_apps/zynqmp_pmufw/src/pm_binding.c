@@ -221,5 +221,5 @@ void XPfw_DapFpdWakeEvent(void)
  */
 void XPfw_DapRpuWakeEvent(void)
 {
-	pmPowerIslandRpu_g.node.currState = PM_PWR_STATE_ON;
+	pmPowerIslandRpu_g.power.node.currState = PM_PWR_STATE_ON;
 }

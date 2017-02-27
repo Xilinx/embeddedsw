@@ -330,10 +330,6 @@ static int PmPowerDownLpd(void)
 static int PmPowerUpRpu(void)
 {
 	int status;
-	u32 resetMask = CRL_APB_RST_LPD_TOP_RPU_PGE_RESET_MASK |
-			CRL_APB_RST_LPD_TOP_RPU_AMBA_RESET_MASK |
-			CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK |
-			CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK;
 
 	status = XpbrPwrUpRpuHandler();
 
@@ -345,17 +341,6 @@ static int PmPowerUpRpu(void)
 	XPfw_AibDisable(XPFW_AIB_RPU1_TO_LPD);
 	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU0);
 	XPfw_AibDisable(XPFW_AIB_LPD_TO_RPU1);
-
-	/* Put both the R5s in HALT */
-	XPfw_RMW32(RPU_RPU_0_CFG,
-		   RPU_RPU_0_CFG_NCPUHALT_MASK,
-		  ~RPU_RPU_0_CFG_NCPUHALT_MASK);
-	XPfw_RMW32(RPU_RPU_1_CFG,
-		   RPU_RPU_1_CFG_NCPUHALT_MASK,
-		  ~RPU_RPU_1_CFG_NCPUHALT_MASK);
-
-	/* Release RPU island reset */
-	XPfw_RMW32(CRL_APB_RST_LPD_TOP, resetMask, ~resetMask);
 
 done:
 	return status;
@@ -518,7 +503,7 @@ static PmNode* pmFpdChildren[] = {
 };
 
 static PmNode* pmLpdChildren[] = {
-	&pmPowerIslandRpu_g.node,
+	&pmPowerIslandRpu_g.power.node,
 	&pmRpll_g.node,
 	&pmIOpll_g.node,
 	&pmSlaveOcm0_g.slv.node,
@@ -587,27 +572,30 @@ static u32 PmApuDomainPowers[] = {
  * USB0-island are modeled as a feature of the node itself and are therefore
  * not described here.
  */
-PmPower pmPowerIslandRpu_g = {
-	.node = {
-		.derived = &pmPowerIslandRpu_g,
-		.nodeId = NODE_RPU,
-		.class = &pmNodeClassPower_g,
-		.parent = &pmPowerDomainLpd_g.power,
-		.clocks = NULL,
-		.currState = PM_PWR_STATE_ON,
-		.latencyMarg = MAX_LATENCY,
-		.flags = 0U,
-		DEFINE_PM_POWER_INFO(PmDomainPowers),
+PmPowerIslandRpu pmPowerIslandRpu_g = {
+	.power = {
+		.node = {
+			.derived = &pmPowerIslandRpu_g,
+			.nodeId = NODE_RPU,
+			.class = &pmNodeClassPower_g,
+			.parent = &pmPowerDomainLpd_g.power,
+			.clocks = NULL,
+			.currState = PM_PWR_STATE_ON,
+			.latencyMarg = MAX_LATENCY,
+			.flags = 0U,
+			DEFINE_PM_POWER_INFO(PmDomainPowers),
+		},
+		DEFINE_PM_POWER_CHILDREN(pmRpuChildren),
+		.class = NULL,
+		.powerUp = PmPowerUpRpu,
+		.powerDown = PmPowerDownRpu,
+		.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
+		.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
+		.forcePerms = 0U,
+		.reqPerms = 0U,
+		.requests = 0U,
 	},
-	DEFINE_PM_POWER_CHILDREN(pmRpuChildren),
-	.class = NULL,
-	.powerUp = PmPowerUpRpu,
-	.powerDown = PmPowerDownRpu,
-	.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
-	.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
-	.forcePerms = 0U,
-	.reqPerms = 0U,
-	.requests = 0U,
+	.deps = 0U,
 };
 
 /*
@@ -996,6 +984,72 @@ void PmPowerReleaseParent(PmNode* const node)
 }
 
 /**
+ * PmPowerReleaseRpu() - Release RPU (TCM doesn't depend on RPU anymore)
+ * @tcm		TCM which releases RPU
+ */
+void PmPowerReleaseRpu(PmSlaveTcm* const tcm)
+{
+	pmPowerIslandRpu_g.deps &= ~tcm->id;
+
+	/* If no other TCM depends on RPU release it */
+	if (0U == pmPowerIslandRpu_g.deps) {
+		PmPowerRelease(&pmPowerIslandRpu_g.power);
+	}
+}
+
+/**
+ * PmPowerRequestRpu() - Request RPU (TCM now depends on RPU)
+ * @tcm		TCM which requests RPU
+ *
+ * @return	XST_SUCCESS or error code if powering up of RPU failed
+ */
+int PmPowerRequestRpu(PmSlaveTcm* const tcm)
+{
+	int status = XST_SUCCESS;
+	u32 resetMask = CRL_APB_RST_LPD_TOP_RPU_PGE_RESET_MASK |
+			CRL_APB_RST_LPD_TOP_RPU_AMBA_RESET_MASK;
+	u32 reset;
+
+	if (0U != pmPowerIslandRpu_g.deps) {
+		goto done;
+	}
+
+	/* Ensure that the RPU island is ON */
+	status = PmPowerRequest(&pmPowerIslandRpu_g.power);
+	if (XST_SUCCESS != status) {
+		goto ret;
+	}
+
+	reset = XPfw_Read32(CRL_APB_RST_LPD_TOP);
+	/* If PGE and AMBA resets are asserted, deassert them now */
+	if (0U != (reset & resetMask)) {
+		XPfw_Write32(CRL_APB_RST_LPD_TOP, reset & ~resetMask);
+	}
+	/* If RPU0 reset is asserted, halt the core and deassert its reset */
+	if (0U != (reset & CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK)) {
+		XPfw_RMW32(RPU_RPU_0_CFG,
+			   RPU_RPU_0_CFG_NCPUHALT_MASK,
+			  ~RPU_RPU_0_CFG_NCPUHALT_MASK);
+		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+			   CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK,
+			  ~CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK);
+	}
+	/* If RPU1 reset is asserted, halt the core and deassert its reset */
+	if (0U != (reset & CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK)) {
+		XPfw_RMW32(RPU_RPU_1_CFG,
+			   RPU_RPU_1_CFG_NCPUHALT_MASK,
+			  ~RPU_RPU_1_CFG_NCPUHALT_MASK);
+		XPfw_RMW32(CRL_APB_RST_LPD_TOP,
+			   CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK,
+			  ~CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK);
+	}
+done:
+	pmPowerIslandRpu_g.deps |= tcm->id;
+ret:
+	return status;
+}
+
+/**
  * PmPowerClearConfig() - Clear configuration of the power node
  * @powerNode	Pointer to the power node
  */
@@ -1186,8 +1240,8 @@ done:
 
 /* Collection of power nodes */
 static PmNode* pmNodePowerBucket[] = {
-	&pmPowerIslandRpu_g.node,
 	&pmPowerIslandApu_g.node,
+	&pmPowerIslandRpu_g.power.node,
 	&pmPowerDomainFpd_g.power.node,
 	&pmPowerDomainPld_g.power.node,
 	&pmPowerDomainLpd_g.power.node,
