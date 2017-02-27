@@ -111,6 +111,11 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM, FpdSwdtHandler);
 	XPfw_EmSetAction(EM_ERR_ID_XMPU, EM_ACTION_CUSTOM, XPfw_XpuIntrHandler);
 
+#ifdef ENABLE_SAFETY
+	/* For uncorrectable ECC errors, Set error action as SRST */
+	XPfw_EmSetAction(EM_ERR_ID_OCM_ECC, EM_ACTION_SRST, NULL);
+	XPfw_EmSetAction(EM_ERR_ID_DDR_ECC, EM_ACTION_SRST, NULL);
+#endif
 	/* Enable the interrupts at XMPU/XPPU block level */
 	XPfw_XpuIntrInit();
 
