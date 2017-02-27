@@ -265,7 +265,7 @@ static u32 PmL2PwrDn(void)
 	status = XpbrPwrDnL2Bank0Handler();
 
 	/*
-	 * Assert L2 reset before the power down. Reset will be released by the
+	 * Assert L2 reset after the power down. Reset will be released by the
 	 * PMU-ROM when the first APU core is woken-up.
 	 */
 	XPfw_RMW32(CRF_APB_RST_FPD_APU,
