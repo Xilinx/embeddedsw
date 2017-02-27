@@ -47,9 +47,6 @@ typedef struct PmSlave PmSlave;
 typedef struct PmSlaveClass PmSlaveClass;
 typedef struct PmWakeEvent PmWakeEvent;
 
-typedef int (*const PmSlaveFsmHandler)(PmSlave* const slave,
-					   const PmStateId nextState);
-
 /*********************************************************************
  * Macros
  ********************************************************************/
@@ -110,7 +107,7 @@ typedef struct {
  */
 typedef struct {
 	const u32* const states;
-	PmSlaveFsmHandler enterState;
+	int (*const enterState)(PmSlave* const slave, const PmStateId nextState);
 	const PmStateTran* const trans;
 	const u8 statesCnt;
 	const u8 transCnt;
