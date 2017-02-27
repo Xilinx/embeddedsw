@@ -667,6 +667,10 @@ static int PmSlaveForceDown(PmNode* const node)
 	}
 	status = PmUpdateSlave(slave);
 
+	if ((NULL != slave->class) && (NULL != slave->class->forceDown)) {
+		slave->class->forceDown(slave);
+	}
+
 	return status;
 }
 
