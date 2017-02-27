@@ -338,7 +338,7 @@ void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg)
 	u32 i;
 
 	mst->ipiMask = cfg->ipiMask;
-	mst->suspendTimeout = cfg->ipiMask;
+	mst->suspendTimeout = cfg->suspendTimeout;
 	mst->suspendPerms = cfg->suspendPerms;
 	mst->wakePerms = cfg->wakePerms;
 	PmMasterAdd(mst);
