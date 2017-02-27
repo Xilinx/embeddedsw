@@ -447,9 +447,9 @@ static int PmPowerDown(PmPower* const power)
 	if (NULL != power->node.clocks) {
 		PmClockRelease(&power->node);
 	}
+	PmDbg("%s\r\n", PmStrNode(power->node.nodeId));
 
 done:
-	PmDbg("%s\r\n", PmStrNode(power->node.nodeId));
 	return status;
 }
 
