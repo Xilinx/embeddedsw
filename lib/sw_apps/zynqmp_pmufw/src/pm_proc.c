@@ -190,14 +190,7 @@ done:
  */
 static int PmProcApu0Sleep(void)
 {
-	int status;
-
-	XPfw_RMW32(CRF_APB_RST_FPD_APU,
-		   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK,
-		   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK);
-	status = XpbrACPU0SleepHandler();
-
-	return status;
+	return XpbrACPU0SleepHandler();
 }
 
 /**
@@ -206,14 +199,7 @@ static int PmProcApu0Sleep(void)
  */
 static int PmProcApu1Sleep(void)
 {
-	int status;
-
-	XPfw_RMW32(CRF_APB_RST_FPD_APU,
-		   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK,
-		   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK);
-	status = XpbrACPU1SleepHandler();
-
-	return status;
+	return XpbrACPU1SleepHandler();
 }
 
 /**
@@ -222,14 +208,7 @@ static int PmProcApu1Sleep(void)
  */
 static int PmProcApu2Sleep(void)
 {
-	int status;
-
-	XPfw_RMW32(CRF_APB_RST_FPD_APU,
-		   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK,
-		   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK);
-	status = XpbrACPU2SleepHandler();
-
-	return status;
+	return XpbrACPU2SleepHandler();
 }
 
 /**
@@ -238,14 +217,7 @@ static int PmProcApu2Sleep(void)
  */
 static int PmProcApu3Sleep(void)
 {
-	int status;
-
-	XPfw_RMW32(CRF_APB_RST_FPD_APU,
-		   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK,
-		   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK);
-	status = XpbrACPU3SleepHandler();
-
-	return status;
+	return XpbrACPU3SleepHandler();
 }
 
 /**
@@ -292,17 +264,7 @@ static int PmProcRpu1Sleep(void)
  */
 static int PmProcApu0Wake(void)
 {
-	int status;
-
-	status = XpbrACPU0WakeHandler();
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-	XPfw_RMW32(CRF_APB_RST_FPD_APU,
-		   CRF_APB_RST_FPD_APU_ACPU0_PWRON_RESET_MASK,
-		   0U);
-done:
-	return status;
+	return XpbrACPU0WakeHandler();
 }
 
 /**
@@ -311,17 +273,7 @@ done:
  */
 static int PmProcApu1Wake(void)
 {
-	int status;
-
-	status = XpbrACPU1WakeHandler();
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-	XPfw_RMW32(CRF_APB_RST_FPD_APU,
-		   CRF_APB_RST_FPD_APU_ACPU1_PWRON_RESET_MASK,
-		   0U);
-done:
-	return status;
+	return XpbrACPU1WakeHandler();
 }
 
 /**
@@ -330,17 +282,7 @@ done:
  */
 static int PmProcApu2Wake(void)
 {
-	int status;
-
-	status = XpbrACPU2WakeHandler();
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-	XPfw_RMW32(CRF_APB_RST_FPD_APU,
-		   CRF_APB_RST_FPD_APU_ACPU2_PWRON_RESET_MASK,
-		   0U);
-done:
-	return status;
+	return XpbrACPU2WakeHandler();
 }
 
 /**
@@ -349,17 +291,7 @@ done:
  */
 static int PmProcApu3Wake(void)
 {
-	int status;
-
-	status = XpbrACPU3WakeHandler();
-	if (XST_SUCCESS != status) {
-		goto done;
-	}
-	XPfw_RMW32(CRF_APB_RST_FPD_APU,
-		   CRF_APB_RST_FPD_APU_ACPU3_PWRON_RESET_MASK,
-		   0U);
-done:
-	return status;
+	return XpbrACPU3WakeHandler();
 }
 
 /**
