@@ -42,6 +42,7 @@
 #include "xpfw_rom_interface.h"
 
 typedef struct PmPowerClass PmPowerClass;
+typedef struct PmSlaveTcm PmSlaveTcm;
 
 /*********************************************************************
  * Macros
@@ -104,6 +105,16 @@ typedef struct PmPowerDomain {
 } PmPowerDomain;
 
 /**
+ * PmPowerIslandRpu - Structure for RPU power island
+ * @power	Basic power structure
+ * @deps	ORed IDs of TCMs which currently depend on the island's state
+ */
+typedef struct PmPowerIslandRpu {
+	PmPower power;
+	u8 deps;
+} PmPowerIslandRpu;
+
+/**
  * PmPowerClass - Power class to model properties of PmPower derived objects
  * @construct	Constructor for the power node, call only once on startup
  */
@@ -114,8 +125,8 @@ typedef struct PmPowerClass {
 /*********************************************************************
  * Global data declarations
  ********************************************************************/
-extern PmPower pmPowerIslandRpu_g;
 extern PmPower pmPowerIslandApu_g;
+extern PmPowerIslandRpu pmPowerIslandRpu_g;
 extern PmPowerDomain pmPowerDomainFpd_g;
 extern PmPowerDomain pmPowerDomainLpd_g;
 extern PmPowerDomain pmPowerDomainPld_g;
@@ -127,7 +138,9 @@ extern PmNodeClass pmNodeClassPower_g;
  ********************************************************************/
 void PmPowerReleaseParent(PmNode* const node);
 void PmPowerRelease(PmPower* const power);
+void PmPowerReleaseRpu(PmSlaveTcm* const tcm);
 
+int PmPowerRequestRpu(PmSlaveTcm* const tcm);
 int PmPowerRequest(PmPower* const power);
 int PmPowerRequestParent(PmNode* const node);
 int PmPowerMasterRequest(const PmMaster* const master, PmPower* const power);
