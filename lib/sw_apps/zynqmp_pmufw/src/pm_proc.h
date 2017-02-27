@@ -103,6 +103,7 @@ typedef struct PmProc PmProc;
  * @master          Master channel used by this processor
  * @saveResumeAddr  Pointer to function for saving the resume address
  * @restoreResumeAddr Pointer to function for restoring resume address
+ * @init            Init handler specific to the processor
  * @sleep           Pointer to the processor's sleep handler
  * @wake            Pointer to the processor's wake handler
  * @wfiStatusMask   Mask in PM_IOMODULE_GPI2 register (WFI interrupt)
@@ -120,6 +121,7 @@ typedef struct PmProc {
 	PmMaster* master;
 	int (*const saveResumeAddr)(PmProc* const, u64);
 	void (*const restoreResumeAddr)(PmProc* const);
+	void (*const init)(PmProc* const proc);
 	int (*const sleep)(void);
 	int (*const wake)(void);
 	const u32 wfiStatusMask;
