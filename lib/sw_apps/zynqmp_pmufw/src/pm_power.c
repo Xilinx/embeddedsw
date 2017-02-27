@@ -253,6 +253,7 @@ static void PmPowerDomainConstruct(PmPower* const power)
 
 static PmPowerClass pmPowerClassDomain_g = {
 	.construct = PmPowerDomainConstruct,
+	.forceDown = NULL,
 };
 
 /**
@@ -384,6 +385,18 @@ static int PmPowerDownRpu(void)
 	PmDbg("Enabled AIB\r\n");
 
 	return XpbrPwrDnRpuHandler();
+}
+
+/**
+ * PmPowerForceDownRpu() - Force down RPU island
+ * @power	RPU power island
+ */
+static void PmPowerForceDownRpu(PmPower* const power)
+{
+	PmPowerIslandRpu* const rpu = (PmPowerIslandRpu*)power->node.derived;
+
+	/* Clear the dependency flags */
+	rpu->deps = 0U;
 }
 
 /**
@@ -564,6 +577,11 @@ static u32 PmApuDomainPowers[] = {
 	DEFAULT_POWER_OFF,
 };
 
+static PmPowerClass pmPowerClassRpuIsland_g = {
+	.construct = NULL,
+	.forceDown = PmPowerForceDownRpu,
+};
+
 /*
  * Power Island and Power Domain definitions
  *
@@ -586,7 +604,7 @@ PmPowerIslandRpu pmPowerIslandRpu_g = {
 			DEFINE_PM_POWER_INFO(PmDomainPowers),
 		},
 		DEFINE_PM_POWER_CHILDREN(pmRpuChildren),
-		.class = NULL,
+		.class = &pmPowerClassRpuIsland_g,
 		.powerUp = PmPowerUpRpu,
 		.powerDown = PmPowerDownRpu,
 		.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
@@ -1157,9 +1175,10 @@ done:
 static int PmPowerForceDown(PmNode* const powerNode)
 {
 	PmNode* node;
+	PmPower* const power = (PmPower*)powerNode->derived;
 	int status = XST_FAILURE;
 
-	PmPowerDfsBegin((PmPower*)powerNode->derived);
+	PmPowerDfsBegin(power);
 	node = PmPowerDfsGetNext();
 	while (NULL != node) {
 		if (NODE_IS_POWER(node)) {
@@ -1171,6 +1190,9 @@ static int PmPowerForceDown(PmNode* const powerNode)
 			goto done;
 		}
 		node = PmPowerDfsGetNext();
+	}
+	if ((NULL != power->class) && (NULL != power->class->forceDown)) {
+		power->class->forceDown(power);
 	}
 
 done:

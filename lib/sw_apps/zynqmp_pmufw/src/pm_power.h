@@ -117,9 +117,11 @@ typedef struct PmPowerIslandRpu {
 /**
  * PmPowerClass - Power class to model properties of PmPower derived objects
  * @construct	Constructor for the power node, call only once on startup
+ * @forceDown	Puts power node in the lowest power state
  */
 typedef struct PmPowerClass {
 	void (*const construct)(PmPower* const power);
+	void (*const forceDown)(PmPower* const power);
 } PmPowerClass;
 
 /*********************************************************************
