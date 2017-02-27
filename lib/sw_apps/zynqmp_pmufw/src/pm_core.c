@@ -50,6 +50,7 @@
 #include "pm_requirement.h"
 #include "pm_config.h"
 #include "xpfw_resets.h"
+#include "rpu.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -849,6 +850,76 @@ static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 }
 
 /**
+ * PmProcRpuForceDownFix() - Fix the state of RPU processor to be forced down
+ * @proc	RPU processor
+ */
+static void PmProcRpuForceDownFix(PmProc* const proc)
+{
+	if (NULL != proc->node.parent) {
+		if (0U != (NODE_LOCKED_POWER_FLAG & proc->node.flags)) {
+			PmPowerReleaseParent(&proc->node);
+		}
+	}
+	if (NULL != proc->node.clocks) {
+		if (0U != (NODE_LOCKED_CLOCK_FLAG & proc->node.flags)) {
+			PmClockRelease(&proc->node);
+		}
+	}
+	proc->node.currState = PM_PROC_STATE_FORCEDOFF;
+	proc->master->state = PM_MASTER_STATE_KILLED;
+}
+
+/**
+ * PmProbeRpuState() - Probe and update the state of RPU
+ *
+ * @note	The probe is performed only once
+ */
+static void PmProbeRpuState(void)
+{
+	static bool probed = false;
+	u32 halt0 = XPfw_Read32(RPU_RPU_0_CFG);
+	u32 reset = XPfw_Read32(CRL_APB_RST_LPD_TOP);
+	u32 mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+
+	if (true == probed) {
+		goto done;
+	}
+
+	/* If reset is asserted or (deasserted and RPU_0 is halted) */
+	if ((0U != (reset & CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK)) ||
+	   ((0U == (reset & CRL_APB_RST_LPD_TOP_RPU_R50_RESET_MASK)) &&
+	    (0U == (halt0 & RPU_RPU_0_CFG_NCPUHALT_MASK)))) {
+		PmProcRpuForceDownFix(&pmProcRpu0_g);
+	}
+
+	/* If RPU lockstep mode is configured in hardware */
+	if (0U == (mode & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+		if (NULL != pmProcRpu1_g.master) {
+			PmDbg("ERROR: expected split mode, found lockstep\r\n");
+			goto done;
+		}
+		pmProcRpu1_g.node.currState = PM_PROC_STATE_FORCEDOFF;
+	} else {
+		u32 halt1 = XPfw_Read32(RPU_RPU_1_CFG);
+
+		/* If reset is asserted or (deasserted and RPU_1 is halted) */
+		if ((0U != (reset & CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK)) ||
+		   ((0U == (reset & CRL_APB_RST_LPD_TOP_RPU_R51_RESET_MASK)) &&
+		    (0U == (halt1 & RPU_RPU_1_CFG_NCPUHALT_MASK)))) {
+			if (NULL == pmProcRpu1_g.master) {
+				PmDbg("ERROR: expected lockstep, found split mode\r\n");
+				goto done;
+			}
+			PmProcRpuForceDownFix(&pmProcRpu1_g);
+		}
+	}
+	probed = true;
+
+done:
+	return;
+}
+
+/**
  * PmGetNodeStatus() - Get the status of the node
  * @master  Initiator of the request
  * @node    Node whose status should be returned
@@ -866,6 +937,10 @@ static void PmGetNodeStatus(const PmMaster *const master, const u32 node)
 	if (NULL == nodePtr) {
 		status = XST_INVALID_PARAM;
 		goto done;
+	}
+
+	if ((NODE_RPU == node) || (NODE_RPU_0 == node) || (NODE_RPU_1 == node)) {
+		PmProbeRpuState();
 	}
 
 	oppoint = nodePtr->currState;
