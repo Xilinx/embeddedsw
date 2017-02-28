@@ -311,6 +311,8 @@ current cpu from interrupt target registers for all interrupts.
 Modified the scugic.tcl script to have array size in config table. Fixes
 CR#963134
 Add support for changing GIC CPU master at run time.CR#969386
+Make the CpuId as static variable and Added new XScugiC_GetCpuId to access
+CpuId.
 
 sdps_v3_2:
 Corrected voltage switching sequence
