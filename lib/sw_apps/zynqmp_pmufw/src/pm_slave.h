@@ -101,6 +101,7 @@ typedef struct {
  *              of array are power values in that state. For power island values
  *              are 0 and 1, for power domains values are in mV
  * @enterState  Pointer to a function that executes FSM actions to enter a state
+ * @probe       Function to probe the state of the slave
  * @trans       Pointer to array of transitions of the FSM
  * @transCnt    Number of elements in transition array
  * @statesCnt   Number of states in state array
@@ -108,6 +109,7 @@ typedef struct {
 typedef struct {
 	const u32* const states;
 	int (*const enterState)(PmSlave* const slave, const PmStateId nextState);
+	int (*const probe)(PmSlave* const slave);
 	const PmStateTran* const trans;
 	const u8 statesCnt;
 	const u8 transCnt;
@@ -158,6 +160,8 @@ int PmSlaveHasWakeUpCap(const PmSlave* const slv);
 int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms);
 
 int PmSlaveVerifyRequest(const PmSlave* const slave);
+int PmSlaveGetStateWithCaps(const PmSlave* const slave, const u32 caps,
+			    PmStateId* const state);
 
 u32 PmSlaveGetUsersMask(const PmSlave* const slave);
 
@@ -165,5 +169,7 @@ u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
 			  const PmMaster* const master);
 u32 PmSlaveGetRequirements(const PmSlave* const slave,
 			   const PmMaster* const master);
+
+u32 PmSlaveGetMaxCaps(const PmSlave* const slave);
 
 #endif

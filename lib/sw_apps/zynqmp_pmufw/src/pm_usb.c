@@ -137,6 +137,7 @@ static const PmSlaveFsm slaveUsbFsm = {
 	.trans = pmUsbTransitions,
 	.transCnt = ARRAY_SIZE(pmUsbTransitions),
 	.enterState = PmUsbFsmHandler,
+	.probe = NULL,
 };
 
 static PmWakeEventGicProxy pmUsb0Wake = {
