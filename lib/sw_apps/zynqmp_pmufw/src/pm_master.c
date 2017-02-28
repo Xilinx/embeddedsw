@@ -45,6 +45,7 @@
 #include "pmu_global.h"
 #include "pm_node_reset.h"
 #include "pm_clock.h"
+#include "xpfw_restart.h"
 
 #include "xpfw_ipi_manager.h"
 
@@ -887,6 +888,7 @@ int PmMasterRestart(PmMaster* const master)
 	int status;
 	u64 address = 0xFFFC0000ULL;
 
+	XPfw_RecoveryAck(master);
 	status = PmMasterFsm(master, PM_MASTER_EVENT_FORCE_DOWN);
 	if (XST_SUCCESS != status) {
 		goto done;
