@@ -67,6 +67,8 @@ const char* PmStrNode(const u32 node)
 		return "NODE_RPU_1";
 	case NODE_PL:
 		return "NODE_PL";
+	case NODE_PLD:
+		return "NODE_PLD";
 	case NODE_FPD:
 		return "NODE_FPD";
 	case NODE_OCM_BANK_0:
