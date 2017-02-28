@@ -112,6 +112,8 @@
 *					  It also removes current cpu from interrupt target registers
 *					  for all interrupts.
 *       kvn  02/17/17 Add support for changing GIC CPU master at run time.
+*       kvn  02/28/17 Make the CpuId as static variable and Added new
+*                     XScugiC_GetCpuId to access CpuId.
 *
 * </pre>
 *
@@ -131,7 +133,7 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Variable Definitions *****************************/
-u32 CpuId = XPAR_CPU_ID; /**< CPU Core identifier */
+static u32 CpuId = XPAR_CPU_ID; /**< CPU Core identifier */
 
 /************************** Function Prototypes ******************************/
 
@@ -926,4 +928,19 @@ void XScuGic_SetCpuID(u32 CpuCoreId)
 	CpuId = CpuCoreId;
 }
 
+/****************************************************************************/
+/**
+* This function returns the CpuId variable.
+*
+* @param	None.
+*
+* @return	The CPU core number.
+*
+* @note        None.
+*
+*****************************************************************************/
+u32 XScuGic_GetCpuID(void)
+{
+	return CpuId;
+}
 /** @} */
