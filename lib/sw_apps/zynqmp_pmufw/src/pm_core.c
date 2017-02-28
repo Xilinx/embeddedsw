@@ -340,14 +340,6 @@ static void PmReleaseNode(const PmMaster *master,
 	u32 usage;
 	PmRequirement* masterReq;
 	PmSlave* slave;
-	PmPower* power;
-
-	/* Check if node is power. If it is, call power specific release */
-	power = PmNodeGetPower(node);
-	if (NULL != power) {
-		status = PmPowerMasterRelease(master, power);
-		goto done;
-	}
 
 	/* Check if node is slave. If it is, handle request via requirements */
 	slave = PmNodeGetSlave(node);
@@ -410,17 +402,9 @@ static void PmRequestNode(const PmMaster *master,
 	u32 oppoint = 0U;
 	PmRequirement* masterReq;
 	PmSlave* slave;
-	PmPower* power;
 
 	PmDbg("(%s, %lu, %lu, %s)\r\n", PmStrNode(node), capabilities,
 	      qos, PmStrAck(ack));
-
-	/* Check if node is power. If it is, call power specific request */
-	power = PmNodeGetPower(node);
-	if (NULL != power) {
-		status = PmPowerMasterRequest(master, power);
-		goto done;
-	}
 
 	/* Check if node is slave. If it is, handle request via requirements */
 	slave = PmNodeGetSlave(node);

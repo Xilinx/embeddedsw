@@ -72,9 +72,6 @@ typedef struct PmSlaveTcm PmSlaveTcm;
  * @childCnt Number of childs in children array
  * @forcePerms  ORed masks of masters which are allowed to force power down this
  *              power node
- * @reqPerms    ORed flags of masters which are allowed to directly control
- *              the state (request/release) of the power node
- * @requests ORed flags of masters which have requested the power node
  * @useCount    How many nodes currently use this power node
  */
 typedef struct PmPower {
@@ -86,8 +83,6 @@ typedef struct PmPower {
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;
 	u32 forcePerms;
-	u32 reqPerms;
-	u32 requests;
 	const u8 childCnt;
 	u8 useCount;
 } PmPower;
@@ -145,8 +140,6 @@ void PmPowerReleaseRpu(PmSlaveTcm* const tcm);
 int PmPowerRequestRpu(PmSlaveTcm* const tcm);
 int PmPowerRequest(PmPower* const power);
 int PmPowerRequestParent(PmNode* const node);
-int PmPowerMasterRequest(const PmMaster* const master, PmPower* const power);
-int PmPowerMasterRelease(const PmMaster* const master, PmPower* const power);
 int PmPowerUpdateLatencyReq(const PmNode* const node);
 
 #endif

@@ -611,8 +611,6 @@ PmPowerIslandRpu pmPowerIslandRpu_g = {
 		.pwrDnLatency = PM_POWER_ISLAND_LATENCY,
 		.pwrUpLatency = PM_POWER_ISLAND_LATENCY,
 		.forcePerms = 0U,
-		.reqPerms = 0U,
-		.requests = 0U,
 	},
 	.deps = 0U,
 };
@@ -642,8 +640,6 @@ PmPower pmPowerIslandApu_g = {
 	.pwrDnLatency = 0,
 	.pwrUpLatency = 0,
 	.forcePerms = 0U,
-	.reqPerms = 0U,
-	.requests = 0U,
 };
 
 PmPowerDomain pmPowerDomainFpd_g = {
@@ -666,8 +662,6 @@ PmPowerDomain pmPowerDomainFpd_g = {
 		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 		.forcePerms = 0U,
-		.reqPerms = 0U,
-		.requests = 0U,
 		.useCount = 0U,
 	},
 	.supplyCheckHook = PmPowerSupplyCheck,
@@ -694,8 +688,6 @@ PmPowerDomain pmPowerDomainLpd_g = {
 		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 		.forcePerms = 0U,
-		.reqPerms = 0U,
-		.requests = 0U,
 		.useCount = 0U,
 	},
 	.supplyCheckHook = NULL,
@@ -722,8 +714,6 @@ PmPowerDomain pmPowerDomainPld_g = {
 		.pwrDnLatency = PM_POWER_DOMAIN_LATENCY,
 		.pwrUpLatency = PM_POWER_DOMAIN_LATENCY,
 		.forcePerms = 0U,
-		.reqPerms = 0U,
-		.requests = 0U,
 		.useCount = 0U,
 	},
 	.supplyCheckHook = PmPowerSupplyCheck,
@@ -736,7 +726,6 @@ PmPowerDomain pmPowerDomainPld_g = {
  */
 static void PmPowerClearLocks(PmPower* const power)
 {
-	power->requests = 0U;
 	power->useCount = 0U;
 }
 
@@ -896,76 +885,6 @@ void PmPowerRelease(PmPower* const power)
 }
 
 /**
- * PmPowerMasterRequest() - Explicit request for power node (power up)
- * @master	Master which has requested power node
- * @power	The requested node
- * @return	Status of processing request
- * @note	If the request is processed successfully the power node ON
- *		state is granted to the caller
- */
-int PmPowerMasterRequest(const PmMaster* const master, PmPower* const power)
-{
-	int status = XST_SUCCESS;
-
-	/* Check whether the master is allowed to request the power node */
-	if (0U == (master->ipiMask & power->reqPerms)) {
-		status = XST_PM_NO_ACCESS;
-		goto done;
-	}
-
-	/* Check whether the master has already requested the power node */
-	if (0U != (master->ipiMask & power->requests)) {
-		status = XST_PM_DOUBLE_REQ;
-		goto done;
-	}
-
-	status = PmPowerRequest(power);
-
-	/* Remember master's mask if request is processed successfully */
-	if (XST_SUCCESS == status) {
-		power->requests |= master->ipiMask;
-	}
-
-done:
-	return status;
-}
-
-/**
- * PmPowerMasterRelease() - Explicit release for power node
- * @master	Master which has requested power node
- * @power	The requested node
- * @return	Status of processing request
- * @note	If the master has previously had the grant for the power node
- *		state, after this call is performed the power node may be
- *		turned off. Whether it will be turned off depends on other
- *		requests (related to slaves, latencies, etc.)
- */
-int PmPowerMasterRelease(const PmMaster* const master, PmPower* const power)
-{
-	int status = XST_SUCCESS;
-
-	/* Check whether the master has permissions for the power node ops */
-	if (0U == (master->ipiMask & power->reqPerms)) {
-		status = XST_PM_NO_ACCESS;
-		goto done;
-	}
-
-	/* Check whether the master has previously requested the power node */
-	if (0U == (master->ipiMask & power->requests)) {
-		status = XST_FAILURE;
-		goto done;
-	}
-
-	/* Clear the request flag */
-	power->requests &= ~master->ipiMask;
-
-	PmPowerRelease(power);
-
-done:
-	return status;
-}
-
-/**
  * PmPowerRequestParent() - Request power parent to be powered up
  * @node	Node which requests its power parent
  *
@@ -1076,7 +995,6 @@ static void PmPowerClearConfig(PmNode* const powerNode)
 {
 	PmPower* const power = (PmPower*)powerNode->derived;
 
-	power->reqPerms = 0U;
 	power->forcePerms = 0U;
 	PmPowerClearLocks(power);
 }
@@ -1241,12 +1159,7 @@ static bool PmPowerIsUsable(PmNode* const powerNode)
 	PmPowerDfsBegin((PmPower*)powerNode->derived);
 	node = PmPowerDfsGetNext();
 	while (NULL != node) {
-		if (NODE_IS_POWER(node)) {
-			if (0U != ((PmPower*)node->derived)->reqPerms) {
-				usable = true;
-				goto done;
-			}
-		} else {
+		if (!NODE_IS_POWER(node)) {
 			if (NULL != node->class->isUsable) {
 				usable = node->class->isUsable(node);
 				if (true == usable) {

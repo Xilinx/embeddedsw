@@ -361,8 +361,6 @@ static int PmConfigPowerSectionHandler(u32* const addr)
 			status = XST_FAILURE;
 			goto done;
 		}
-
-		power->reqPerms = PmConfigReadNext(addr);
 		power->forcePerms = PmConfigReadNext(addr);
 	}
 
