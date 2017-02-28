@@ -67,21 +67,16 @@ const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 	4,				/* Number of power nodes */
 					/* Power #1 */
 	NODE_APU,			/* Power node ID */
-	0,				/* Request/release permissions */
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,	/* Force power down permissions */
 					/* Power #2 */
 	NODE_RPU,			/* Power node ID */
-	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK,		/* Request/release permissions */
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK,		/* Force power down permissions */
 					/* Power #3 */
 	NODE_FPD,			/* Power node ID */
-	0,				/* Request/release permissions */
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK |
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,	/* Force power down permissions */
 					/* Power #4 */
 	NODE_PLD,			/* Power node ID */
-	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK |
-	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,	/* Request/release permissions */
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK |
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,	/* Force power down permissions */
 	/**********************************************************************/
