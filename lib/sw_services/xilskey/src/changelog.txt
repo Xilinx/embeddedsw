@@ -101,5 +101,13 @@
 *                      PL instance as they are not actually programming any
 *                      control bit. These are already exists in Zynq eFUSE PL
 *                      instance.
+* 6.2    vns  02/28/17 Fixed compilation warnings.
+*                      On ZynqMP:
+*                      Added CRC check after programming whole AES key.
+*                      Modified temperature and voltage checks at each eFUSE
+*                      bit programming, only checking before eFUSE programming
+*                      and after finishing programming of all the user requested
+*                      bits.Verifying each eFUSE programmed bit with all 3
+*                      margin reads
 *
  ********************************************************************************/
