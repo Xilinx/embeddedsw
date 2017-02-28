@@ -246,6 +246,7 @@ static const PmSlaveFsm slaveSramFsm = {
 	.trans = pmSramTransitions,
 	.transCnt = ARRAY_SIZE(pmSramTransitions),
 	.enterState = PmSramFsmHandler,
+	.probe = NULL,
 };
 
 /* TCM FSM */

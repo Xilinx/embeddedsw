@@ -1149,6 +1149,7 @@ static const PmSlaveFsm pmSlaveDdrFsm = {
 	.trans = pmDdrTransitions,
 	.transCnt = ARRAY_SIZE(pmDdrTransitions),
 	.enterState = PmDdrFsmHandler,
+	.probe = NULL,
 };
 
 static u32 PmDdrPowerConsumptions[] = {
