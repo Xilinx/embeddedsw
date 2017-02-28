@@ -202,12 +202,21 @@ u32 XilSKey_ZynqMp_EfusePs_Write(XilSKey_ZynqMpEPs *InstancePtr)
 			Status = (Status + XSK_EFUSEPS_ERROR_WRITE_AES_KEY);
 			goto END;
 		}
+		/* Reload cache to verify CRC of programmed AES key */
+		Status = XilSKey_ZynqMp_EfusePs_CacheLoad();
+		if (Status != XST_SUCCESS) {
+			Status = Status + XSK_EFUSEPS_ERROR_VERIFICATION +
+					XSK_EFUSEPS_ERROR_WRITE_AES_KEY;
+			goto END;
+		}
 		/* Calculates AES key's CRC */
 		AesCrc = XilSkey_CrcCalculation_AesKey(&InstancePtr->AESKey[0]);
 		/* Verifies the Aes key programmed with CRC */
 		Status = XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc(AesCrc);
 		if (Status != XST_SUCCESS) {
-			return Status;
+			Status = XSK_EFUSEPS_ERROR_VERIFICATION +
+					XSK_EFUSEPS_ERROR_WRITE_AES_KEY;
+			goto END;
 		}
 	}
 
