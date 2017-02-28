@@ -723,12 +723,12 @@ done:
  */
 static bool PmSlaveIsUsable(PmNode* const node)
 {
-	bool usable = false;
+	bool usable = true;
 	PmSlave* const slave = (PmSlave*)node->derived;
 
-	/* Slave is usable if it has allocated requirements */
-	if (NULL != slave->reqs) {
-		usable = true;
+	/* Slave is not usable if it has no allocated requirements */
+	if (NULL == slave->reqs) {
+		usable = false;
 	}
 
 	return usable;
