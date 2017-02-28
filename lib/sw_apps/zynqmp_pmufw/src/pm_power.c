@@ -721,15 +721,6 @@ PmPowerDomain pmPowerDomainPld_g = {
 };
 
 /**
- * PmPowerClearLocks() - Clear data used for locking the power
- * @power	Power node
- */
-static void PmPowerClearLocks(PmPower* const power)
-{
-	power->useCount = 0U;
-}
-
-/**
  * PmPowerUpdateLatencyMargin() - Update latency margin for the power node
  * @power	Power node to update
  */
@@ -996,7 +987,7 @@ static void PmPowerClearConfig(PmNode* const powerNode)
 	PmPower* const power = (PmPower*)powerNode->derived;
 
 	power->forcePerms = 0U;
-	PmPowerClearLocks(power);
+	power->useCount = 0U;
 }
 
 static void PmPowerConstruct(PmNode* const powerNode)
