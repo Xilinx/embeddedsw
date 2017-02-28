@@ -37,7 +37,7 @@
 
 /* PMU clock frequency in Hz */
 #ifndef XPFW_CFG_PMU_CLK_FREQ
-#define XPFW_CFG_PMU_CLK_FREQ XPAR_PSU_PSS_REF_CLK_FREQ_HZ
+#define XPFW_CFG_PMU_CLK_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ
 #endif
 
 /* Let the MB sleep when it is Idle in Main Loop */
