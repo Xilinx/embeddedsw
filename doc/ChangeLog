@@ -438,6 +438,14 @@ Added support for PMU
 Added comments with .nky fields for aes encryption example.
 Provided genric APIs for encryption and decryption of data.
 Provided separate example for encryption and decryption of data.
+Support for Calculation of exponential value can also be done internally
+Modified AES APIs such that, data passed to APIs should be in little endian
+format.
+
+xilskey_v6_2:
+On ZynqMP Added CRC check after programming whole AES key.
+For each ZynqMP eFUSE bit programming added verification with all 3 margin reads
+Removed temperaure and voltage checks for every eFUSE bit programming for ZynqMP
 
 ycrcb2rgb_v7_1:
 Updated num instances parameter as XPAR_XYCRCB2RGB_NUM_INSTANCES
@@ -453,6 +461,7 @@ zynqmp_fsbl:
 - Added HIVEC support
 - Fixed Vector regions overwritten in R5 FSBL with secure partitions CR#953663
 - Enhanced secure bitstream authentication to more security.
+- Added PPK hash and SPKI ID verification for eFUSE RSA authentication
 
 Change Log for 2016.4
 =================================
