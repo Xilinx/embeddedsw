@@ -124,7 +124,7 @@
 #define NODE_RPU        6U
 #define NODE_RPU_0      7U
 #define NODE_RPU_1      8U
-#define NODE_PL         9U
+#define NODE_PLD        9U
 #define NODE_FPD        10U
 #define NODE_OCM_BANK_0 11U
 #define NODE_OCM_BANK_1 12U
@@ -184,9 +184,10 @@
 #define NODE_IPI_PL_1   66U
 #define NODE_IPI_PL_2   67U
 #define NODE_IPI_PL_3   68U
+#define NODE_PL         69U
 
 #define NODE_MIN        NODE_APU
-#define NODE_MAX        NODE_IPI_PL_3
+#define NODE_MAX        NODE_PL
 
 /* Request acknowledge argument values */
 #define REQUEST_ACK_NO          1U

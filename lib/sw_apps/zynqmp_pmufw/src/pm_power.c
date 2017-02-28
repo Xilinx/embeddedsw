@@ -564,6 +564,7 @@ static PmNode* pmLpdChildren[] = {
 
 static PmNode* pmPldChildren[] = {
 	&pmSlaveVcu_g.slv.node,
+	&pmSlavePl_g.node,
 };
 
 /* Dummy consumption for the power domains/islands */
@@ -705,7 +706,7 @@ PmPowerDomain pmPowerDomainPld_g = {
 	.power = {
 		.node = {
 			.derived = &pmPowerDomainPld_g,
-			.nodeId = NODE_PL,
+			.nodeId = NODE_PLD,
 			.class = &pmNodeClassPower_g,
 			.parent = NULL,
 			.clocks = NULL,

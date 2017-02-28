@@ -1034,3 +1034,22 @@ PmSlave pmSlaveIpiPl3_g = {
 	.slvFsm = &pmGenericSlaveFsm,
 	.flags = 0U,
 };
+
+PmSlave pmSlavePl_g = {
+	.node = {
+		.derived = &pmSlavePl_g,
+		.nodeId = NODE_PL,
+		.class = &pmNodeClassSlave_g,
+		.parent = &pmPowerDomainPld_g.power,
+		.clocks = NULL,
+		.currState = PM_GENERIC_SLAVE_STATE_UNUSED,
+		.latencyMarg = MAX_LATENCY,
+		.flags = 0U,
+		DEFINE_PM_POWER_INFO(pmGenericSlavePowers),
+	},
+	.class = NULL,
+	.reqs = NULL,
+	.wake = NULL,
+	.slvFsm = &pmGenericSlaveFsm,
+	.flags = 0U,
+};
