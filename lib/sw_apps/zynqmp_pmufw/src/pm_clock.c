@@ -521,7 +521,6 @@ static PmClock pmClockLpdSwitch = {
 	.ctrlVal = 0U,
 };
 
-/* Floating clock */
 static PmClock pmClockLpdLsBus = {
 	.mux = &riodMux,
 	.ctrlAddr = CRL_APB_LPD_LSBUS_CTRL,
@@ -828,6 +827,26 @@ static PmClockHandle pmClockHandles[] = {
 	}, {
 		.clock = &pmClockPcap,
 		.node = &pmSlavePcap_g.node,
+		.nextClock = NULL,
+		.nextNode = NULL,
+	}, {
+		.clock = &pmClockLpdLsBus,
+		.node = &pmSlaveTtc0_g.node,
+		.nextClock = NULL,
+		.nextNode = NULL,
+	}, {
+		.clock = &pmClockLpdLsBus,
+		.node = &pmSlaveTtc1_g.node,
+		.nextClock = NULL,
+		.nextNode = NULL,
+	}, {
+		.clock = &pmClockLpdLsBus,
+		.node = &pmSlaveTtc2_g.node,
+		.nextClock = NULL,
+		.nextNode = NULL,
+	}, {
+		.clock = &pmClockLpdLsBus,
+		.node = &pmSlaveTtc3_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {
