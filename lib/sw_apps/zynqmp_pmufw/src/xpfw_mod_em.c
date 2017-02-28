@@ -36,6 +36,7 @@
 #include "xpfw_core.h"
 #include "xpfw_rom_interface.h"
 #include "xpfw_xpu.h"
+#include "xpfw_restart.h"
 
 #ifdef ENABLE_EM
 /**
@@ -78,17 +79,8 @@ static void LpdSwdtHandler(u8 ErrorId)
  */
 static void FpdSwdtHandler(u8 ErrorId)
 {
-	u32 status;
-
 	fw_printf("EM: FPD Watchdog Timer Error (Error ID: %d)\r\n", ErrorId);
-	fw_printf("EM: Initiating FPD Reset \r\n");
-	(void)XPfw_ResetFpd();
-
-	fw_printf("EM: Initiating ACPU0 Reset \r\n");
-	status = XpbrRstACPU0Handler();
-	if (XST_SUCCESS != status) {
-		fw_printf("EM: ROM Rst Handler Error #%lu", status);
-	}
+	XPfw_RecoveryHandler(ErrorId);
 }
 
 /* CfgInit Handler */
@@ -108,7 +100,9 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 #else
 	XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_CUSTOM, LpdSwdtHandler);
 #endif
-	XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM, FpdSwdtHandler);
+	if(XPfw_RecoveryInit() == XST_SUCCESS) {
+		XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM, FpdSwdtHandler);
+	}
 	XPfw_EmSetAction(EM_ERR_ID_XMPU, EM_ACTION_CUSTOM, XPfw_XpuIntrHandler);
 
 #ifdef ENABLE_SAFETY
