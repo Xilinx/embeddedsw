@@ -838,7 +838,7 @@ static int PmPowerRequestInt(PmPower* const power)
  * @return	XST_SUCCESS if power is already powered up, otherwise status
  *		of powering up.
  */
-int PmPowerRequest(PmPower* const power)
+static int PmPowerRequest(PmPower* const power)
 {
 	int status = XST_SUCCESS;
 
@@ -873,7 +873,7 @@ static void PmPowerReleaseInt(PmPower* const power)
  * PmPowerRelease() - Release the power
  * @power	Released power
  */
-void PmPowerRelease(PmPower* const power)
+static void PmPowerRelease(PmPower* const power)
 {
 	PmPowerReleaseInt(power);
 	if (NULL != power->node.parent) {
