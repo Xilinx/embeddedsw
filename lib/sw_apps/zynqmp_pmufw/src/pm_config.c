@@ -516,9 +516,7 @@ done:
 	if (XST_SUCCESS == status) {
 		pmConfig.flags |= PM_CONFIG_OBJECT_LOADED;
 		status = PmNodeInit();
-#ifdef PM_POWERDOWN_UNUSABLE
 		PmNodeForceDownUnusable();
-#endif
 	} else {
 		pmConfig.flags &= ~PM_CONFIG_OBJECT_LOADED;
 	}
