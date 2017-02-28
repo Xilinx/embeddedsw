@@ -79,7 +79,7 @@ const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK |
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,	/* Force power down permissions */
 					/* Power #4 */
-	NODE_PL,			/* Power node ID */
+	NODE_PLD,			/* Power node ID */
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK |
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK,	/* Request/release permissions */
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK |

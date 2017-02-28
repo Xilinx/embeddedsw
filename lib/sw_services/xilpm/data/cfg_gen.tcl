@@ -287,7 +287,7 @@ dict set node_map NODE_APU_3 { label NODE_APU_3 periph psu_cortexa53_3 type proc
 dict set node_map NODE_RPU { label NODE_RPU periph psu_cortexr5_0 type processor }
 dict set node_map NODE_RPU_0 { label NODE_RPU_0 periph psu_cortexr5_0 type processor }
 dict set node_map NODE_RPU_1 { label NODE_RPU_1 periph psu_cortexr5_1 type processor }
-dict set node_map NODE_PL { label NODE_PL periph NA type power }
+dict set node_map NODE_PLD { label NODE_PLD periph NA type power }
 dict set node_map NODE_FPD { label NODE_FPD periph NA type power }
 dict set node_map NODE_OCM_BANK_0 { label NODE_OCM_BANK_0 periph psu_ocm_0 type memory }
 dict set node_map NODE_OCM_BANK_1 { label NODE_OCM_BANK_1 periph psu_ocm_1 type memory }
