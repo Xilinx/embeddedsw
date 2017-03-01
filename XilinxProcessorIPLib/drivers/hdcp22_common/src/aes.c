@@ -50,6 +50,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   10/30/15 First Release
+* 1.01  MH   01/28/17 Fixed warnings and errors.
 *</pre>
 *
 *****************************************************************************/
@@ -254,14 +255,16 @@ static void AesShiftRows(u8 State[][4]);
 static void AesInvShiftRows(u8 State[][4]);
 static void AesMixColumns(u8 State[][4]);
 static void AesInvMixColumns(u8 State[][4]);
-static void AesIncrementIv(u8 Iv[], int CounterSize);
 static void AesEncrypt(const u8 In[], u8 Out[], const u32 Key[], int KeySize);
 static void AesDecrypt(const u8 In[], u8 Out[], const u32 Key[], int KeySize);
+#ifdef AES_CIPHER_CTR_MODE
+static void Xor(u8 *C, const u8 *A, const u8 *B, u32 Size);
+static void AesIncrementIv(u8 Iv[], int CounterSize);
 static void AesEncryptCtr(const u8 In[], size_t InLen, u8 Out[],
 								  const u32 Key[], int KeySize, const u8 Iv[]);
 static void AesDecryptCtr(const u8 In[], size_t InLen, u8 Out[],
 								 const u32 Key[], int KeySize, const u8 Iv[]);
-static void Xor(u8 *C, const u8 *A, const u8 *B, u32 Size);
+#endif
 
 /************************** Variable Definitions *****************************/
 
@@ -313,6 +316,7 @@ void XHdcp22Cmn_Aes128Decrypt(const u8 *Data, const u8 *Key, u8 *Output)
 	AesDecrypt(Data, Output, KeySchedule, 128);
 }
 
+#ifdef AES_CIPHER_CTR_MODE
 /****************************************************************************/
 /**
 *
@@ -338,6 +342,7 @@ static void Xor(u8 *C, const u8 *A, const u8 *B, u32 Size)
 		C[Size] = A[Size] ^ B[Size];
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -513,22 +518,22 @@ static void AesSubBytes(u8 State[][4])
 ******************************************************************************/
 static void AesInvSubBytes(u8 State[][4])
 {
-	State[0][0] = Aes_Sbox[State[0][0] >> 4][State[0][0] & 0x0F];
-	State[0][1] = Aes_Sbox[State[0][1] >> 4][State[0][1] & 0x0F];
-	State[0][2] = Aes_Sbox[State[0][2] >> 4][State[0][2] & 0x0F];
-	State[0][3] = Aes_Sbox[State[0][3] >> 4][State[0][3] & 0x0F];
-	State[1][0] = Aes_Sbox[State[1][0] >> 4][State[1][0] & 0x0F];
-	State[1][1] = Aes_Sbox[State[1][1] >> 4][State[1][1] & 0x0F];
-	State[1][2] = Aes_Sbox[State[1][2] >> 4][State[1][2] & 0x0F];
-	State[1][3] = Aes_Sbox[State[1][3] >> 4][State[1][3] & 0x0F];
-	State[2][0] = Aes_Sbox[State[2][0] >> 4][State[2][0] & 0x0F];
-	State[2][1] = Aes_Sbox[State[2][1] >> 4][State[2][1] & 0x0F];
-	State[2][2] = Aes_Sbox[State[2][2] >> 4][State[2][2] & 0x0F];
-	State[2][3] = Aes_Sbox[State[2][3] >> 4][State[2][3] & 0x0F];
-	State[3][0] = Aes_Sbox[State[3][0] >> 4][State[3][0] & 0x0F];
-	State[3][1] = Aes_Sbox[State[3][1] >> 4][State[3][1] & 0x0F];
-	State[3][2] = Aes_Sbox[State[3][2] >> 4][State[3][2] & 0x0F];
-	State[3][3] = Aes_Sbox[State[3][3] >> 4][State[3][3] & 0x0F];
+	State[0][0] = Aes_Invsbox[State[0][0] >> 4][State[0][0] & 0x0F];
+	State[0][1] = Aes_Invsbox[State[0][1] >> 4][State[0][1] & 0x0F];
+	State[0][2] = Aes_Invsbox[State[0][2] >> 4][State[0][2] & 0x0F];
+	State[0][3] = Aes_Invsbox[State[0][3] >> 4][State[0][3] & 0x0F];
+	State[1][0] = Aes_Invsbox[State[1][0] >> 4][State[1][0] & 0x0F];
+	State[1][1] = Aes_Invsbox[State[1][1] >> 4][State[1][1] & 0x0F];
+	State[1][2] = Aes_Invsbox[State[1][2] >> 4][State[1][2] & 0x0F];
+	State[1][3] = Aes_Invsbox[State[1][3] >> 4][State[1][3] & 0x0F];
+	State[2][0] = Aes_Invsbox[State[2][0] >> 4][State[2][0] & 0x0F];
+	State[2][1] = Aes_Invsbox[State[2][1] >> 4][State[2][1] & 0x0F];
+	State[2][2] = Aes_Invsbox[State[2][2] >> 4][State[2][2] & 0x0F];
+	State[2][3] = Aes_Invsbox[State[2][3] >> 4][State[2][3] & 0x0F];
+	State[3][0] = Aes_Invsbox[State[3][0] >> 4][State[3][0] & 0x0F];
+	State[3][1] = Aes_Invsbox[State[3][1] >> 4][State[3][1] & 0x0F];
+	State[3][2] = Aes_Invsbox[State[3][2] >> 4][State[3][2] & 0x0F];
+	State[3][3] = Aes_Invsbox[State[3][3] >> 4][State[3][3] & 0x0F];
 }
 
 /*****************************************************************************/
@@ -814,6 +819,7 @@ static void AesInvMixColumns(u8 State[][4])
 	State[3][3] ^= Aes_GfMul[Col[3]][5];
 }
 
+#ifdef AES_CIPHER_CTR_MODE
 /*****************************************************************************/
 /**
 *
@@ -839,6 +845,7 @@ static void AesIncrementIv(u8 Iv[], int CounterSize)
 			break;
 	}
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1045,6 +1052,7 @@ static void AesDecrypt(const u8 In[], u8 Out[], const u32 Key[], int KeySize)
 }
 
 
+#ifdef AES_CIPHER_CTR_MODE
 /*****************************************************************************/
 /**
 *
@@ -1086,7 +1094,9 @@ static void AesEncryptCtr(const u8 In[], size_t InLen, u8 Out[],
 	/* Use the Most Significant bytes. */
 	Xor(&Out[Idx], out_buf, &Out[Idx], InLen - Idx);
 }
+#endif
 
+#ifdef AES_CIPHER_CTR_MODE
 /*****************************************************************************/
 /**
 *
@@ -1110,3 +1120,4 @@ static void AesDecryptCtr(const u8 In[], size_t InLen, u8 Out[],
 	// CTR encryption is its own inverse function.
 	AesEncryptCtr(In, InLen, Out, Key, KeySize, Iv);
 }
+#endif
