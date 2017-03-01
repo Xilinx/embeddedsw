@@ -48,7 +48,7 @@ BEGIN LIBRARY openamp
   OPTION DEPENDS = (libmetal_v1_1);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lopen_amp,-lgcc,-lc,--end-group";
   OPTION DESC = "OpenAmp Library";
-  OPTION VERSION = 1.2;
+  OPTION VERSION = 1.3;
   OPTION NAME = openamp;
 
   PARAM NAME = WITH_PROXY, type = bool, default = true, desc = "Add support for proxy", permit = all_users;
