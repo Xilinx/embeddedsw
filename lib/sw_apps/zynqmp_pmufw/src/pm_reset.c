@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 /*********************************************************************
  * Reset lines definitions: information needed to configure reset
@@ -1898,3 +1900,5 @@ void PmResetClearConfig(void)
 		pmAllResets[i]->access = 0U;
 	}
 }
+
+#endif

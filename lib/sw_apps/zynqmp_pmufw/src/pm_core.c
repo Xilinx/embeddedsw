@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 /*********************************************************************
  * This file contains implementation of the PM API functions, which
@@ -1196,3 +1198,5 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 		}
 	}
 }
+
+#endif

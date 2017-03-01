@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 /*********************************************************************
  * PM API calls definitions: api ids, arguments and functions used for
@@ -334,3 +336,5 @@ u32 PmRequestAcknowledge(const u32 *args)
 done:
 	return ack;
 }
+
+#endif

@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 /*********************************************************************
  * Implementations of the functions to be used for integrating power
@@ -223,3 +225,5 @@ void XPfw_DapRpuWakeEvent(void)
 {
 	pmPowerIslandRpu_g.power.node.currState = PM_PWR_STATE_ON;
 }
+
+#endif
