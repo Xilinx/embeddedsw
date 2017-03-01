@@ -279,7 +279,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 				 * Read the ISR again to handle architectures
 				 * with posted write bus access issues.
 				 */
-				 XIntc_GetIntrStatus(CfgPtr->BaseAddress);
+				 (void) XIntc_GetIntrStatus(CfgPtr->BaseAddress);
 
 				/*
 				 * If only the highest priority interrupt is to
