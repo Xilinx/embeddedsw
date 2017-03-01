@@ -259,6 +259,7 @@ Updated xredefine_intc and intc_define_vector_table functions in
 tcl, to add "LOW_PRIORITY" string in canonical/constant names of
 interrupts connected to higher pin number of INTC, only if specific interrupt
 port of IP is interrupting through more than one INTC pins.
+Fixed compilation warnings in driver source code.It fixes CR#970483.
 
 iomodule_v2_4:
 Fixed compilation warnings
