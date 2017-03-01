@@ -48,6 +48,8 @@ int handle_carve_out_rsc(struct remote_proc *rproc, void *rsc);
 int handle_trace_rsc(struct remote_proc *rproc, void *rsc);
 int handle_dev_mem_rsc(struct remote_proc *rproc, void *rsc);
 int handle_vdev_rsc(struct remote_proc *rproc, void *rsc);
+int handle_rproc_mem_rsc(struct remote_proc *rproc, void *rsc);
+int handle_fw_chksum_rsc(struct remote_proc *rproc, void *rsc);
 int handle_mmu_rsc(struct remote_proc *rproc, void *rsc);
 
 #endif				/* RSC_TABLE_PARSER_H */

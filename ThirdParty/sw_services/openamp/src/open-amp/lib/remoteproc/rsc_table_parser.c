@@ -36,6 +36,8 @@ rsc_handler rsc_handler_table[] = {
 	handle_dev_mem_rsc,
 	handle_trace_rsc,
 	handle_vdev_rsc,
+	handle_rproc_mem_rsc,
+	handle_fw_chksum_rsc,
 	handle_mmu_rsc
 };
 
@@ -201,10 +203,7 @@ int handle_vdev_rsc(struct remote_proc *rproc, void *rsc)
 {
 
 	struct fw_rsc_vdev *vdev_rsc = (struct fw_rsc_vdev *)rsc;
-	struct fw_rsc_vdev_vring *vring;
 	struct proc_vdev *vdev;
-	struct proc_vring *vring_table;
-	int idx;
 
 	if (!vdev_rsc) {
 		return RPROC_ERR_RSC_TAB_NP;
@@ -227,22 +226,53 @@ int handle_vdev_rsc(struct remote_proc *rproc, void *rsc)
 	vdev->num_vrings = vdev_rsc->num_of_vrings;
 	vdev->dfeatures = vdev_rsc->dfeatures;
 	vdev->gfeatures = vdev_rsc->gfeatures;
-	vring_table = &vdev->vring_info[0];
+	vdev->vdev_info = vdev_rsc;
 
-	for (idx = 0; idx < vdev_rsc->num_of_vrings; idx++) {
-		vring = &vdev_rsc->vring[idx];
+	return RPROC_SUCCESS;
+}
 
-		/* Initialize HIL vring resources */
-		vring_table[idx].num_descs = vring->num;
-		vring_table[idx].align = vring->align;
+/**
+ * handle_rproc_mem_rsc
+ *
+ * This function parses rproc_mem resource.
+ * This is the resource for the remote processor
+ * to tell the host the memory can be used as
+ * shared memory.
+ *
+ * @param rproc - pointer to remote remote_proc
+ * @param rsc   - pointer to mmu resource
+ *
+ * @returns - execution status
+ *
+ */
+int handle_rproc_mem_rsc(struct remote_proc *rproc, void *rsc)
+{
+	(void)rproc;
+	(void)rsc;
 
-		/* Enable access to vring memory regions */
-		vring_table[idx].vaddr =
-			metal_io_mem_map((metal_phys_addr_t)vring->da,
-				vring_table->io,
-				vring_size(vring->num, vring->align));
-	}
+	/* TODO: the firmware side should handle this resource properly
+	 * when it is the master or when it is the remote. */
+	return RPROC_SUCCESS;
+}
 
+/*
+ * handle_fw_chksum_rsc
+ *
+ * This function parses firmware checksum resource.
+ *
+ * @param rproc - pointer to remote remote_proc
+ * @param rsc   - pointer to mmu resource
+ *
+ * @returns - execution status
+ *
+ */
+int handle_fw_chksum_rsc(struct remote_proc *rproc, void *rsc)
+{
+	(void)rproc;
+	(void)rsc;
+
+	/* TODO: the firmware side should handle this resource properly
+	 * when it is the master or when it is the remote. */
 	return RPROC_SUCCESS;
 }
 

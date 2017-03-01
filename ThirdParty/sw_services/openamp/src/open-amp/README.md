@@ -176,9 +176,11 @@ The OpenAMP library will be generated to `build/usr/local/lib` directory,
 headers will be generated to `build/usr/local/include` directory, and the
 applications executable will be generated to `build/usr/local/bin`
 directory.
+
 * `-DWITH_APPS=ON` is to build the demonstration applications.
   If you have used `-DWITH_APPS=ON` to build the demos, you can try them on
   your Linux host as follows:
+
     ```
     # Start echo test server to wait for message to echo
     $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
@@ -190,42 +192,19 @@ directory.
 
 ### Example to compile OpenAMP Linux Userspace for Zynq UltraScale+ MPSoC
 We can use yocto to build the OpenAMP Linux userspace library and application.
-* Put the libmetal yocto recipe to your yocto layer. Here is the example of
-  libmetal recipe:
-  https://github.com/Xilinx/meta-petalinux/blob/master/recipes-support/libmetal/libmetal_0.1.0.bb
-* Put the OpenAMP yocto recipe to your yocto layer. Here is the example of
-  OpenAMP recipe:
-        ```
-        SUMMARY = "Libopen_amp : Libmetal implements an abstraction layer across user-space Linux, baremetal, and RTOS environments"
+open-amp and libmetal recipes are in this yocto layer:
+https://github.com/OpenAMP/meta-openamp
+* Add the `meta-openamp` layer to your layers in your yocto build project's `bblayers.conf` file.
+* Add `libmetal` and `open-amp` to your packages list. E.g. add `libmetal` and `open-amp` to the
+  `IMAGE_INSTALL_append` in the `local.conf` file.
+* You can also add OpenAMP demos Linux applications packages to your yocto packages list. OpenAMP
+  demo examples recipes are also in `meta-openamp`:
+  https://github.com/OpenAMP/meta-openamp/tree/master/recipes-openamp/openamp-examples
 
-        HOMEPAGE = "https://github.com/OpenAMP/open-amp/"
-
-        SECTION = "libs"
-
-        LICENSE = "BSD"
-        LIC_FILES_CHKSUM = "file://LICENSE;md5=b30cbe0b980e98bfd9759b1e6ba3d107"
-
-        # Initial tag of open-amp xilinx-v2016.3-rc2
-        SRCREV ?= "bd62dee2399aa7f2e45761f289675dade34190fc"
-        SRC_URI = "git://github.com/Xilinx/open-amp.git;protocol=https;branch=xlnx-2016.3"
-
-        S = "${WORKDIR}/git"
-
-        DEPENDS = "libmetal"
-
-        inherit pkgconfig cmake
-
-        EXTRA_OECMAKE = " \
-		-DLIB_INSTALL_DIR=${libdir} \
-		-DLIBEXEC_INSTALL_DIR=${libexecdir} \
-		-DMACHINE=${SOC_FAMILY} \
-		-DWITH_PROXY=OFF \
-		"
-
-        # Only builds the library but not the applications
-        EXTRA_OECMAKE_append_zynqmp = "-DWITH_APPS=ON"
-        ```
-* You can use yocto to build OpenAMP demo applications into your root file system.
+In order to user OpenAMP(RPMsg) in Linux userspace, you will need to have put the IPI device,
+  vring memory and shared buffer memory to your Linux kernel device tree. The device tree example
+  can be found here:
+  https://github.com/OpenAMP/open-amp/blob/master/apps/machine/zynqmp/openamp-linux-userspace.dtsi
 
 ## Supported System and Machines
 For now, it supports:

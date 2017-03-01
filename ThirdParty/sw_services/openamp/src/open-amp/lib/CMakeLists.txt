@@ -17,6 +17,10 @@ endif (WITH_PROXY)
 
 set (OPENAMP_LIB open_amp)
 
+if (NOT CMAKE_INSTALL_LIBDIR)
+	set (CMAKE_INSTALL_LIBDIR "lib")
+endif (NOT CMAKE_INSTALL_LIBDIR)
+
 collector_list (_include PROJECT_INC_DIRS)
 include_directories (${_include})
 
@@ -33,7 +37,7 @@ if (WITH_SHARED_LIB)
   set (_lib ${OPENAMP_LIB}-shared)
   add_library (${_lib} SHARED ${_sources})
   target_link_libraries (${_lib} ${_deps})
-  install (TARGETS ${_lib} LIBRARY DESTINATION lib)
+  install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
   set_target_properties (${_lib} PROPERTIES
     OUTPUT_NAME       "${OPENAMP_LIB}"
     VERSION           "${PROJECT_VER}"
@@ -44,7 +48,7 @@ endif (WITH_SHARED_LIB)
 if (WITH_STATIC_LIB)
   set (_lib ${OPENAMP_LIB}-static)
   add_library (${_lib} STATIC ${_sources})
-  install (TARGETS ${_lib} ARCHIVE DESTINATION lib)
+  install (TARGETS ${_lib} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
   set_target_properties (${_lib} PROPERTIES
     OUTPUT_NAME       "${OPENAMP_LIB}"
   )

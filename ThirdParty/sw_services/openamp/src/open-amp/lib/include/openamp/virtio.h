@@ -45,10 +45,10 @@
 #define VIRTIO_ID_9P         0x09
 
 /* Status byte for guest to report progress. */
-#define VIRTIO_CONFIG_STATUS_RESET     0x00
 #define VIRTIO_CONFIG_STATUS_ACK       0x01
 #define VIRTIO_CONFIG_STATUS_DRIVER    0x02
 #define VIRTIO_CONFIG_STATUS_DRIVER_OK 0x04
+#define VIRTIO_CONFIG_STATUS_NEEDS_RESET 0x40
 #define VIRTIO_CONFIG_STATUS_FAILED    0x80
 
 /*

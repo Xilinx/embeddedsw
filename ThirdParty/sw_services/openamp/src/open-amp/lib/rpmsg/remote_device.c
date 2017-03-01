@@ -48,8 +48,11 @@
 
 #include <string.h>
 #include "openamp/rpmsg.h"
+#include "openamp/remoteproc.h"
 #include "metal/utilities.h"
 #include "metal/alloc.h"
+#include "metal/atomic.h"
+#include "metal/cpu.h"
 
 /* Macro to initialize vring HW info */
 #define INIT_VRING_ALLOC_INFO(ring_info,vring_hw)                             \
@@ -148,6 +151,9 @@ int rpmsg_rdev_init(struct hil_proc *proc,
 		}
 	}
 
+	if (!rpmsg_rdev_remote_ready(rdev_loc))
+		return RPMSG_ERR_DEV_INIT;
+
 	/* Initialize endpoints list */
 	metal_list_init(&rdev_loc->rp_endpoints);
 
@@ -208,20 +214,17 @@ void rpmsg_rdev_deinit(struct remote_device *rdev)
 		_destroy_endpoint(rdev, rp_ept);
 	}
 
-	if (rdev->rvq) {
-		virtqueue_free(rdev->rvq);
-	}
-	if (rdev->tvq) {
-		virtqueue_free(rdev->tvq);
-	}
+	metal_mutex_acquire(&rdev->lock);
+	rdev->rvq = 0;
+	rdev->tvq = 0;
 	if (rdev->mem_pool) {
 		sh_mem_delete_pool(rdev->mem_pool);
+		rdev->mem_pool = 0;
 	}
+	metal_mutex_release(&rdev->lock);
+	hil_free_vqs(&rdev->virt_dev);
+
 	metal_mutex_deinit(&rdev->lock);
-	if (rdev->proc) {
-		hil_delete_proc(rdev->proc);
-		rdev->proc = 0;
-	}
 
 	metal_free_memory(rdev);
 }
@@ -298,27 +301,11 @@ struct rpmsg_endpoint *rpmsg_rdev_get_endpoint_from_addr(struct remote_device *r
  */
 int rpmsg_rdev_notify(struct remote_device *rdev)
 {
-	int status = RPMSG_SUCCESS;
+	struct virtio_device *vdev = &rdev->virt_dev;
 
-	if (rdev->role == RPMSG_REMOTE) {
-		status = hil_get_status(rdev->proc);
+	hil_vdev_notify(vdev);
 
-		/*
-		 * Let the remote device know that Master is ready for
-		 * communication.
-		 */
-		if (!status)
-			virtqueue_kick(rdev->rvq);
-
-	} else {
-		status = hil_set_status(rdev->proc);
-	}
-
-	if (status == RPMSG_SUCCESS) {
-		rdev->state = RPMSG_DEV_STATE_ACTIVE;
-	}
-
-	return status;
+	return RPMSG_SUCCESS;
 }
 
 /**
@@ -364,6 +351,32 @@ int rpmsg_rdev_init_channels(struct remote_device *rdev)
 	}
 
 	return RPMSG_SUCCESS;
+}
+
+/**
+ * check if the remote is ready to start RPMsg communication
+ */
+int rpmsg_rdev_remote_ready(struct remote_device *rdev)
+{
+	struct virtio_device *vdev = &rdev->virt_dev;
+	uint8_t status;
+	if (rdev->role == RPMSG_MASTER) {
+		while (1) {
+			status = vdev->func->get_status(vdev);
+			/* Busy wait until the remote is ready */
+			if (status & VIRTIO_CONFIG_STATUS_NEEDS_RESET) {
+				rpmsg_rdev_set_status(vdev, 0);
+				hil_vdev_notify(vdev);
+			} else if (status & VIRTIO_CONFIG_STATUS_DRIVER_OK) {
+				return true;
+			}
+			metal_cpu_yield();
+		}
+	} else {
+		return true;
+	}
+	/* Never come here */
+	return false;
 }
 
 static void rpmsg_memset_io(struct metal_io_region *io, void *dst, int c, size_t count)
@@ -467,14 +480,28 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 
 unsigned char rpmsg_rdev_get_status(struct virtio_device *dev)
 {
-	(void)dev;
-	return 0;
+	struct hil_proc *proc = dev->device;
+	struct proc_vdev *pvdev = &proc->vdev;
+	struct fw_rsc_vdev *vdev_rsc = pvdev->vdev_info;
+
+	if (!vdev_rsc)
+		return -1;
+
+	return vdev_rsc->status;
 }
 
 void rpmsg_rdev_set_status(struct virtio_device *dev, unsigned char status)
 {
-	(void)dev;
-	(void)status;
+	struct hil_proc *proc = dev->device;
+	struct proc_vdev *pvdev = &proc->vdev;
+	struct fw_rsc_vdev *vdev_rsc = pvdev->vdev_info;
+
+	if (!vdev_rsc)
+		return;
+
+	vdev_rsc->status = status;
+
+	atomic_thread_fence(memory_order_seq_cst);
 }
 
 uint32_t rpmsg_rdev_get_feature(struct virtio_device *dev)

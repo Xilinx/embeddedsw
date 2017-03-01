@@ -45,6 +45,7 @@
  **************************************************************************/
 
 #include "openamp/hil.h"
+#include "openamp/remoteproc.h"
 #include <metal/io.h>
 #include <metal/alloc.h>
 #include <metal/device.h>
@@ -107,6 +108,7 @@ struct hil_proc *hil_create_proc(struct hil_platform_ops *ops,
 	for (i = 0; i < HIL_MAX_NUM_VRINGS; i++)
 		proc->vdev.vring_info[i].io = &hil_devmem_generic_io;
 
+	metal_mutex_init(&proc->lock);
 	metal_list_add_tail(&procs, &proc->node);
 
 	return proc;
@@ -132,6 +134,7 @@ void hil_delete_proc(struct hil_proc *proc)
 		if (proc ==
 			metal_container_of(node, struct hil_proc, node)) {
 			metal_list_del(&proc->node);
+			metal_mutex_acquire(&proc->lock);
 			proc->ops->release(proc);
 			/* Close shmem device */
 			dev = proc->sh_buff.dev;
@@ -154,6 +157,8 @@ void hil_delete_proc(struct hil_proc *proc)
 				}
 			}
 
+			metal_mutex_release(&proc->lock);
+			metal_mutex_deinit(&proc->lock);
 			metal_free_memory(proc);
 			return;
 		}
@@ -172,20 +177,6 @@ int hil_init_proc(struct hil_proc *proc)
 	}
 	return 0;
 }
-/**
- * hil_isr()
- *
- * This function is called when interrupt is received for the vring.
- * This function gets the corresponding virtqueue and generates
- * call back for it.
- *
- * @param vring_hw   - pointer to vring control block
- *
- */
-void hil_isr(struct proc_vring *vring_hw)
-{
-	virtqueue_notification(vring_hw->vq);
-}
 
 /**
  * hil_get_chnl_info
@@ -203,6 +194,26 @@ struct proc_chnl *hil_get_chnl_info(struct hil_proc *proc, int *num_chnls)
 {
 	*num_chnls = proc->num_chnls;
 	return (proc->chnls);
+}
+
+void hil_notified(struct hil_proc *proc, uint32_t notifyid)
+{
+	struct proc_vdev *pvdev = &proc->vdev;
+	struct fw_rsc_vdev *vdev_rsc = pvdev->vdev_info;
+	int i;
+	if (vdev_rsc->status & VIRTIO_CONFIG_STATUS_NEEDS_RESET) {
+		if (pvdev->rst_cb)
+			pvdev->rst_cb(proc, 0);
+	} else {
+		for(i = 0; i < (int)pvdev->num_vrings; i++) {
+			struct fw_rsc_vdev_vring *vring_rsc;
+			vring_rsc = &vdev_rsc->vring[i];
+			if (notifyid == (uint32_t)(-1) ||
+				notifyid == vring_rsc->notifyid)
+				virtqueue_notification(
+					pvdev->vring_info[i].vq);
+		}
+	}
 }
 
 /**
@@ -236,7 +247,28 @@ struct proc_vdev *hil_get_vdev_info(struct hil_proc *proc)
  */
 struct proc_vring *hil_get_vring_info(struct proc_vdev *vdev, int *num_vrings)
 {
+	struct fw_rsc_vdev *vdev_rsc;
+	struct fw_rsc_vdev_vring *vring_rsc;
+	struct proc_vring *vring;
+	int i;
 
+	vdev_rsc = vdev->vdev_info;
+	if (vdev_rsc) {
+		vring = &vdev->vring_info[0];
+		for (i = 0; i < vdev_rsc->num_of_vrings; i++) {
+			/* Initialize vring with vring resource */
+			vring_rsc = &vdev_rsc->vring[i];
+			vring[i].num_descs = vring_rsc->num;
+			vring[i].align = vring_rsc->align;
+			/* Enable acccess to vring memory region */
+			vring[i].vaddr =
+				metal_io_mem_map(
+					(metal_phys_addr_t)vring_rsc->da,
+					vring[i].io,
+					vring_size(vring_rsc->num,
+					vring_rsc->align));
+		}
+	}
 	*num_vrings = vdev->num_vrings;
 	return (vdev->vring_info);
 
@@ -257,6 +289,36 @@ struct proc_vring *hil_get_vring_info(struct proc_vdev *vdev, int *num_vrings)
 struct proc_shm *hil_get_shm_info(struct hil_proc *proc)
 {
 	return (&proc->sh_buff);
+}
+
+void hil_free_vqs(struct virtio_device *vdev)
+{
+	struct hil_proc *proc = vdev->device;
+	struct proc_vdev *pvdev = &proc->vdev;
+	int num_vrings = (int)pvdev->num_vrings;
+	int i;
+
+	metal_mutex_acquire(&proc->lock);
+	for(i = 0; i < num_vrings; i++) {
+		struct proc_vring *pvring = &pvdev->vring_info[i];
+		struct virtqueue *vq = pvring->vq;
+		if (vq) {
+			virtqueue_free(vq);
+			pvring->vq = 0;
+		}
+	}
+	metal_mutex_release(&proc->lock);
+}
+
+int hil_enable_vdev_notification(struct hil_proc *proc, int id)
+{
+	/* We only support single vdev in hil_proc */
+	(void)id;
+	if (!proc)
+		return -1;
+	if (proc->ops->enable_interrupt)
+		proc->ops->enable_interrupt(&proc->vdev.intr_info);
+	return 0;
 }
 
 /**
@@ -280,10 +342,29 @@ int hil_enable_vring_notifications(int vring_index, struct virtqueue *vq)
 	vring_hw->vq = vq;
 
 	if (proc_hw->ops->enable_interrupt) {
-		proc_hw->ops->enable_interrupt(vring_hw);
+		proc_hw->ops->enable_interrupt(&vring_hw->intr_info);
 	}
 
 	return 0;
+}
+
+/**
+ * hil_vdev_notify()
+ *
+ * This function generates IPI to let the other side know that there is
+ * update in the vritio dev configs
+ *
+ * @param vdev - pointer to the viritio device
+ *
+ */
+void hil_vdev_notify(struct virtio_device *vdev)
+{
+	struct hil_proc *proc = vdev->device;
+	struct proc_vdev *pvdev = &proc->vdev;
+
+	if (proc->ops->notify) {
+		proc->ops->notify(proc, &pvdev->intr_info);
+	}
 }
 
 /**
@@ -481,7 +562,23 @@ int hil_set_vring (struct hil_proc *proc, int index,
 	return 0;
 }
 
-int hil_set_ipi (struct hil_proc *proc, int index,
+int hil_set_vdev_ipi (struct hil_proc *proc, int index,
+		 unsigned int irq, void *data)
+{
+	struct proc_intr *vring_intr;
+
+	/* As we support only one vdev for now */
+	(void)index;
+
+	if (!proc)
+		return -1;
+	vring_intr = &proc->vdev.intr_info;
+	vring_intr->vect_id = irq;
+	vring_intr->data = data;
+	return 0;
+}
+
+int hil_set_vring_ipi (struct hil_proc *proc, int index,
 		 unsigned int irq, void *data)
 {
 	struct proc_intr *vring_intr;
@@ -502,5 +599,13 @@ int hil_set_rpmsg_channel (struct hil_proc *proc, int index,
 	if (index >= HIL_MAX_NUM_CHANNELS)
 		return -1;
 	strcpy(proc->chnls[index].name, name);
+	return 0;
+}
+
+int hil_set_vdev_rst_cb (struct hil_proc *proc, int index,
+		hil_proc_vdev_rst_cb_t cb)
+{
+	(void)index;
+	proc->vdev.rst_cb = cb;
 	return 0;
 }

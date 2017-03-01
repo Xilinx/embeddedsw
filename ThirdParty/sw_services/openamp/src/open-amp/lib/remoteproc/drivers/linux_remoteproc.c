@@ -73,7 +73,7 @@ struct vring_ipi_info {
 
 /*--------------------------- Declare Functions ------------------------ */
 static int _ipi_handler(int vect_id, void *data);
-static int _enable_interrupt(struct proc_vring *vring_hw);
+static int _enable_interrupt(struct proc_intr *intr);
 static void _notify(struct hil_proc *proc, struct proc_intr *intr_info);
 static int _boot_cpu(struct hil_proc *proc, unsigned int load_addr);
 static void _shutdown_cpu(struct hil_proc *proc);
@@ -165,20 +165,20 @@ static int event_open(const char *descr)
 
 static int _ipi_handler(int vect_id, void *data)
 {
-	(void) vect_id;
-	(void) data;
 	char dummy_buf[32];
-	struct proc_vring *vring_hw = (struct proc_vring *)(data);
-	struct vring_ipi_info *ipi =
-		(struct vring_ipi_info *)(vring_hw->intr_info.data);
+	struct proc_intr *intr = data;
+	struct vring_ipi_info *ipi = intr->data;
+
+	(void) vect_id;
+
 	read(vect_id, dummy_buf, sizeof(dummy_buf));
 	atomic_flag_clear(&ipi->sync);
 	return 0;
 }
 
-static int _enable_interrupt(struct proc_vring *vring_hw)
+static int _enable_interrupt(struct proc_intr *intr)
 {
-	struct vring_ipi_info *ipi = vring_hw->intr_info.data;
+	struct vring_ipi_info *ipi = intr->data;
 
 	ipi->fd = event_open(ipi->path);
 	if (ipi->fd < 0) {
@@ -187,11 +187,11 @@ static int _enable_interrupt(struct proc_vring *vring_hw)
 		return -1;
 	}
 
-	vring_hw->intr_info.vect_id = ipi->fd;
+	intr->vect_id = ipi->fd;
 
 	/* Register ISR */
 	metal_irq_register(ipi->fd, _ipi_handler,
-				NULL, vring_hw);
+				NULL, intr);
 	return 0;
 }
 

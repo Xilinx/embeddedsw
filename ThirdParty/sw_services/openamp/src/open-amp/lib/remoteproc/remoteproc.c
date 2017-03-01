@@ -131,6 +131,10 @@ int remoteproc_resource_deinit(struct remote_proc *rproc)
 		if (rproc->rdev) {
 			rpmsg_deinit(rproc->rdev);
 		}
+		if (rproc->proc) {
+			hil_delete_proc(rproc->proc);
+			rproc->proc = NULL;
+		}
 		metal_free_memory(rproc);
 	}
 
