@@ -101,6 +101,7 @@
 * 1.02  MH   03/02/16 Updated to change NPrimeP and NPrimeQ from pointer
 *                     to array. Added function XHDCP22Rx_GetVersion.
 * 2.00  MH   04/14/16 Updated for repeater upstream support.
+* 2.01  MH   02/28/17 Fixed compiler warnings.
 *</pre>
 *
 *****************************************************************************/
@@ -556,9 +557,9 @@ typedef struct
 	/** Base address of subsystem */
 	UINTPTR BaseAddress;
 	/** HDCP22 over specified protocol (i.e. hdmi) */
-	XHdcp22_Rx_Protocol Protocol;
+	int Protocol;
 	/** HDCP22 mode (i.e. receiver, repeater, or converter) */
-	XHdcp22_Rx_Mode Mode;
+	int Mode;
 	/** Timer device instance ID */
 	u32 TimerDeviceId;
 	/** Cipher device instance ID */
@@ -631,7 +632,7 @@ int  XHdcp22Rx_CfgInitialize(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_Config *ConfigP
 int  XHdcp22Rx_Enable(XHdcp22_Rx *InstancePtr);
 int  XHdcp22Rx_Disable(XHdcp22_Rx *InstancePtr);
 int  XHdcp22Rx_Reset(XHdcp22_Rx *InstancePtr);
-XHdcp22_Rx_AuthenticationType XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr);
+int  XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr);
 int  XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr,
        XHdcp22_Rx_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef);
 u32  XHdcp22Rx_GetVersion(XHdcp22_Rx *InstancePtr);

@@ -55,6 +55,7 @@
 * 1.03  MH   03/15/16 Fixed XHdcp22Rx_SetLinkError and XHdcp22Rx_SetDdcError
 *                     functions to update error flag.
 * 2.00  MH   04/14/16 Updated for repeater upstream support.
+* 2.01  MH   02/28/17 Fixed compiler warnings.
 *</pre>
 *
 *****************************************************************************/
@@ -664,7 +665,7 @@ int XHdcp22Rx_SetCallback(XHdcp22_Rx *InstancePtr, XHdcp22_Rx_HandlerType Handle
 *
 * @note		State transitions are logged.
 ******************************************************************************/
-XHdcp22_Rx_AuthenticationType XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr)
+int XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr)
 {
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -681,7 +682,7 @@ XHdcp22_Rx_AuthenticationType XHdcp22Rx_Poll(XHdcp22_Rx *InstancePtr)
 	    XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_INFO_STATE, InstancePtr->Info.NextState);
 	}
 
-	return (InstancePtr->Info.AuthenticationStatus);
+	return (int)(InstancePtr->Info.AuthenticationStatus);
 }
 
 /*****************************************************************************/
@@ -1835,7 +1836,7 @@ static void *XHdcp22Rx_StateB0(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 
 	/* Check if message is available */
@@ -1851,18 +1852,18 @@ static void *XHdcp22Rx_StateB0(XHdcp22_Rx *InstancePtr)
 			if(Status == XST_SUCCESS)
 			{
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
-			    return XHdcp22Rx_StateB1;
+			    return (void *)XHdcp22Rx_StateB1;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
-	return XHdcp22Rx_StateB0;
+	return (void *)XHdcp22Rx_StateB0;
 }
 
 /*****************************************************************************/
@@ -1904,7 +1905,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 
 	/* Check if message is available */
@@ -1924,7 +1925,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_AKENOSTOREDKM:
 			if(InstancePtr->Info.CurrentState == XHDCP22_RX_STATE_B1_WAIT_AKEKM)
 			{
@@ -1938,7 +1939,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKENOSTOREDKM);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_AKESTOREDKM:
 			if(InstancePtr->Info.CurrentState == XHDCP22_RX_STATE_B1_WAIT_AKEKM)
 			{
@@ -1952,10 +1953,10 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKESTOREDKM);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
@@ -1980,7 +1981,7 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 			else
 			{
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_WAIT_LCINIT;
-				return XHdcp22Rx_StateB2; /* Transition B1->B2 */
+				return (void *)XHdcp22Rx_StateB2; /* Transition B1->B2 */
 			}
 		}
 		break;
@@ -1989,14 +1990,14 @@ static void *XHdcp22Rx_StateB1(XHdcp22_Rx *InstancePtr)
 		{
 			Status = XHdcp22Rx_SendMessageAKESendPairingInfo(InstancePtr);
 			InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_WAIT_LCINIT;
-			return XHdcp22Rx_StateB2;
+			return (void *)XHdcp22Rx_StateB2;
 		}
 		break;
 	default:
 		break;
 	}
 
-	return XHdcp22Rx_StateB1;
+	return (void *)XHdcp22Rx_StateB1;
 }
 
 /*****************************************************************************/
@@ -2030,7 +2031,7 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 
 	/* Check if message is available */
@@ -2046,11 +2047,11 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 			if(Status == XST_SUCCESS)
 			{
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
-				return XHdcp22Rx_StateB1;
+				return (void *)XHdcp22Rx_StateB1;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_LCINIT:
 			/* Maximum of 1024 locality check attempts allowed */
 			if(InstancePtr->Info.CurrentState == XHDCP22_RX_STATE_B1_WAIT_LCINIT ||
@@ -2072,19 +2073,19 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_LCINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_SKESENDEKS: /* Transition B2->B3 */
 			if(InstancePtr->Info.CurrentState == XHDCP22_RX_STATE_B2_WAIT_SKESENDEKS)
 			{
 			InstancePtr->Info.NextState = XHDCP22_RX_STATE_B3_COMPUTE_KS;
-			return XHdcp22Rx_StateB3;
+			return (void *)XHdcp22Rx_StateB3;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_SKESENDEKS);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
@@ -2102,7 +2103,7 @@ static void *XHdcp22Rx_StateB2(XHdcp22_Rx *InstancePtr)
 		break;
 	}
 
-	return XHdcp22Rx_StateB2; /* Transition B2->B2 */
+	return (void *)XHdcp22Rx_StateB2; /* Transition B2->B2 */
 }
 
 /*****************************************************************************/
@@ -2134,7 +2135,7 @@ static void *XHdcp22Rx_StateB3(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 
 	/* Compute Ks */
@@ -2144,12 +2145,12 @@ static void *XHdcp22Rx_StateB3(XHdcp22_Rx *InstancePtr)
 	if(InstancePtr->Config.Mode == XHDCP22_RX_RECEIVER)
 	{
 		InstancePtr->Info.NextState = XHDCP22_RX_STATE_B4_AUTHENTICATED;
-		return XHdcp22Rx_StateB4; /* Transition B3->B4, Receiver */
+		return (void *)XHdcp22Rx_StateB4; /* Transition B3->B4, Receiver */
 	}
 	else
 	{
 		InstancePtr->Info.NextState = XHDCP22_RX_STATE_C4_WAIT_FOR_DOWNSTREAM;
-		return XHdcp22Rx_StateC4; /* Transition B3->C4, Repeater */
+		return (void *)XHdcp22Rx_StateC4; /* Transition B3->C4, Repeater */
 	}
 }
 
@@ -2220,7 +2221,7 @@ static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 	else if(InstancePtr->Info.ErrorFlag & XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY)
 	{
@@ -2242,18 +2243,18 @@ static void *XHdcp22Rx_StateB4(XHdcp22_Rx *InstancePtr)
 			if(Status == XST_SUCCESS)
 			{
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
-				return XHdcp22Rx_StateB1;
+				return (void *)XHdcp22Rx_StateB1;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
-	return XHdcp22Rx_StateB4; /* Transition B4->B4 */
+	return (void *)XHdcp22Rx_StateB4; /* Transition B4->B4 */
 }
 
 /*****************************************************************************/
@@ -2300,7 +2301,7 @@ static void *XHdcp22Rx_StateC4(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 	else if(InstancePtr->Info.ErrorFlag & XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY)
 	{
@@ -2321,20 +2322,20 @@ static void *XHdcp22Rx_StateC4(XHdcp22_Rx *InstancePtr)
 			if(Status == XST_SUCCESS)
 			{
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
-			    return XHdcp22Rx_StateB1;
+			    return (void *)XHdcp22Rx_StateB1;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMMANAGE: /* Transition C4->C7 */
 			InstancePtr->Info.NextState = XHDCP22_RX_STATE_C7_WAIT_STREAM_MANAGEMENT;
 			InstancePtr->Info.ReturnState = InstancePtr->Info.CurrentState;
 			InstancePtr->Info.SkipRead = TRUE;
-			return XHdcp22Rx_StateC7;
+			return (void *)XHdcp22Rx_StateC7;
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
@@ -2343,10 +2344,10 @@ static void *XHdcp22Rx_StateC4(XHdcp22_Rx *InstancePtr)
 	{
 		InstancePtr->Info.IsTopologyValid = FALSE;
 		InstancePtr->Info.NextState = XHDCP22_RX_STATE_C5_SEND_RECEIVERIDLIST;
-		return XHdcp22Rx_StateC5; /* Transition C4->C5 */
+		return (void *)XHdcp22Rx_StateC5; /* Transition C4->C5 */
 	}
 
-	return XHdcp22Rx_StateC4; /* Transition C4->C4 */
+	return (void *)XHdcp22Rx_StateC4; /* Transition C4->C4 */
 }
 
 /*****************************************************************************/
@@ -2394,7 +2395,7 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 	else if(InstancePtr->Info.ErrorFlag & XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY)
 	{
@@ -2415,20 +2416,20 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 			if(Status == XST_SUCCESS)
 			{
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
-			    return XHdcp22Rx_StateB1;
+			    return (void *)XHdcp22Rx_StateB1;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMMANAGE: /* Transition C5->C7 */
 			InstancePtr->Info.NextState = XHDCP22_RX_STATE_C7_WAIT_STREAM_MANAGEMENT;
 			InstancePtr->Info.ReturnState = InstancePtr->Info.CurrentState;
 			InstancePtr->Info.SkipRead = TRUE;
-			return XHdcp22Rx_StateC7;
+			return (void *)XHdcp22Rx_StateC7;
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
@@ -2449,7 +2450,7 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 					XHDCP22_RX_ERROR_FLAG_EMPTY_REPEATER_TOPOLOGY);
 				XHdcp22Rx_ResetAfterError(InstancePtr);
 				XHdcp22Rx_SetDdcReauthReq(InstancePtr);
-				return XHdcp22Rx_StateB0; /* Transition C5->B0 */
+				return (void *)XHdcp22Rx_StateB0; /* Transition C5->B0 */
 			}
 		}
 		break;
@@ -2465,12 +2466,12 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 					XHDCP22_RX_ERROR_FLAG_MAX_REPEATER_TOPOLOGY);
 				XHdcp22Rx_ResetAfterError(InstancePtr);
 				XHdcp22Rx_SetDdcReauthReq(InstancePtr);
-				return XHdcp22Rx_StateB0; /* Transition C5->B0 */
+				return (void *)XHdcp22Rx_StateB0; /* Transition C5->B0 */
 			}
 			else
 			{
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_C6_VERIFY_RECEIVERIDLISTACK;
-				return XHdcp22Rx_StateC6; /* Transition C5->C6 */
+				return (void *)XHdcp22Rx_StateC6; /* Transition C5->C6 */
 			}
 		}
 		break;
@@ -2478,7 +2479,7 @@ static void *XHdcp22Rx_StateC5(XHdcp22_Rx *InstancePtr)
 		break;
 	}
 
-	return XHdcp22Rx_StateC5; /* Transition C5->C5 */
+	return (void *)XHdcp22Rx_StateC5; /* Transition C5->C5 */
 }
 
 /*****************************************************************************/
@@ -2521,7 +2522,7 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 	else if(InstancePtr->Info.ErrorFlag & XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY)
 	{
@@ -2534,7 +2535,7 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetAfterError(InstancePtr);
 		XHdcp22Rx_SetDdcReauthReq(InstancePtr);
-		return XHdcp22Rx_StateB0; /* Transition C6->B0 */
+		return (void *)XHdcp22Rx_StateB0; /* Transition C6->B0 */
 	}
 
 	/* Check if message is available.
@@ -2558,17 +2559,17 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 			if(Status == XST_SUCCESS)
 			{
 			    InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
-			    return XHdcp22Rx_StateB1;
+			    return (void *)XHdcp22Rx_StateB1;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMMANAGE: /* Transition C6->C7 */
 			InstancePtr->Info.NextState = XHDCP22_RX_STATE_C7_WAIT_STREAM_MANAGEMENT;
 			InstancePtr->Info.ReturnState = InstancePtr->Info.CurrentState;
 			InstancePtr->Info.SkipRead = TRUE;
-			return XHdcp22Rx_StateC7;
+			return (void *)XHdcp22Rx_StateC7;
 		case XHDCP22_RX_MSG_ID_REPEATERAUTHSENDACK:
 			Status = XHdcp22Rx_ProcessMessageRepeaterAuthSendAck(InstancePtr);
 			if(Status == XST_SUCCESS)
@@ -2576,14 +2577,14 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 				if(InstancePtr->Info.HasStreamManagementInfo == TRUE) /* Transition C6->C8 */
 				{
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_C8_AUTHENTICATED;
-				return XHdcp22Rx_StateC8;
+				return (void *)XHdcp22Rx_StateC8;
 				}
 				else /* Transition C6->C7 */
 				{
 					if(InstancePtr->Info.ReturnState == XHDCP22_RX_STATE_UNDEFINED)
 					{
 					InstancePtr->Info.NextState = XHDCP22_RX_STATE_C7_WAIT_STREAM_MANAGEMENT;
-					return XHdcp22Rx_StateC7;
+					return (void *)XHdcp22Rx_StateC7;
 					}
 					else
 					{
@@ -2592,7 +2593,7 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 						{
 						case XHDCP22_RX_STATE_C7_SEND_STREAM_READY:
 							InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
-							return XHdcp22Rx_StateC7;
+							return (void *)XHdcp22Rx_StateC7;
 						default:
 							break;
 						}
@@ -2603,14 +2604,14 @@ static void *XHdcp22Rx_StateC6(XHdcp22_Rx *InstancePtr)
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_REPEATERAUTHSENDACK);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			XHdcp22Rx_SetDdcReauthReq(InstancePtr);
-			return XHdcp22Rx_StateB0; /* Transition C6->B0 */
+			return (void *)XHdcp22Rx_StateB0; /* Transition C6->B0 */
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
-	return XHdcp22Rx_StateC6; /* Transition C6->C6 */
+	return (void *)XHdcp22Rx_StateC6; /* Transition C6->C6 */
 }
 
 /*****************************************************************************/
@@ -2652,7 +2653,7 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 	else if(InstancePtr->Info.ErrorFlag & XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY)
 	{
@@ -2680,17 +2681,17 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 			if(Status == XST_SUCCESS)
 			{
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
-				return XHdcp22Rx_StateB1;
+				return (void *)XHdcp22Rx_StateB1;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR,
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_REPEATERAUTHSENDACK:
 			InstancePtr->Info.NextState = InstancePtr->Info.ReturnState;
 			InstancePtr->Info.ReturnState = InstancePtr->Info.CurrentState;
 			InstancePtr->Info.SkipRead = TRUE;
-			return XHdcp22Rx_StateC6; /* Transition C7->C6 */
+			return (void *)XHdcp22Rx_StateC6; /* Transition C7->C6 */
 		case XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMMANAGE:
 			Status = XHdcp22Rx_ProcessMessageRepeaterAuthStreamManage(InstancePtr);
 			if(Status == XST_SUCCESS)
@@ -2702,10 +2703,10 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 				XHDCP22_RX_ERROR_FLAG_PROCESSING_REPEATERAUTHSTREAMMANAGE);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
 			XHdcp22Rx_SetDdcReauthReq(InstancePtr);
-			return XHdcp22Rx_StateB0; /* Transition C7->B0 */
+			return (void *)XHdcp22Rx_StateB0; /* Transition C7->B0 */
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
@@ -2726,7 +2727,7 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 			if(InstancePtr->Info.ReturnState == XHDCP22_RX_STATE_UNDEFINED)
 			{
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_C8_AUTHENTICATED;
-				return XHdcp22Rx_StateC8; /* Transition C7->C8 */
+				return (void *)XHdcp22Rx_StateC8; /* Transition C7->C8 */
 			}
 			else
 			{
@@ -2735,19 +2736,19 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 				{
 				case XHDCP22_RX_STATE_C4_WAIT_FOR_DOWNSTREAM:
 					InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
-					return XHdcp22Rx_StateC4; /* Transition C7->C4 */
+					return (void *)XHdcp22Rx_StateC4; /* Transition C7->C4 */
 				case XHDCP22_RX_STATE_C5_SEND_RECEIVERIDLIST:
 					InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
-					return XHdcp22Rx_StateC5; /* Transition C7->C5 */
+					return (void *)XHdcp22Rx_StateC5; /* Transition C7->C5 */
 				case XHDCP22_RX_STATE_C5_SEND_RECEIVERIDLIST_DONE:
 					InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
-					return XHdcp22Rx_StateC5; /* Transition C7->C5 */
+					return (void *)XHdcp22Rx_StateC5; /* Transition C7->C5 */
 				case XHDCP22_RX_STATE_C6_VERIFY_RECEIVERIDLISTACK:
 					InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
-					return XHdcp22Rx_StateC6; /* Transition C7->C6 */
+					return (void *)XHdcp22Rx_StateC6; /* Transition C7->C6 */
 				case XHDCP22_RX_STATE_C8_AUTHENTICATED:
 					InstancePtr->Info.ReturnState = XHDCP22_RX_STATE_UNDEFINED;
-					return XHdcp22Rx_StateC8; /* Transition C7->C8 */
+					return (void *)XHdcp22Rx_StateC8; /* Transition C7->C8 */
 				default:
 					break;
 				}
@@ -2758,7 +2759,7 @@ static void *XHdcp22Rx_StateC7(XHdcp22_Rx *InstancePtr)
 		break;
 	}
 
-	return XHdcp22Rx_StateC7; /* Transition C7->C7 */
+	return (void *)XHdcp22Rx_StateC7; /* Transition C7->C7 */
 }
 
 /*****************************************************************************/
@@ -2833,7 +2834,7 @@ static void *XHdcp22Rx_StateC8(XHdcp22_Rx *InstancePtr)
 	{
 		XHdcp22Rx_ResetDdc(InstancePtr, FALSE, TRUE, TRUE, TRUE);
 		XHdcp22Rx_ResetAfterError(InstancePtr);
-		return XHdcp22Rx_StateB0;
+		return (void *)XHdcp22Rx_StateB0;
 	}
 	else if(InstancePtr->Info.ErrorFlag & XHDCP22_RX_ERROR_FLAG_LINK_INTEGRITY)
 	{
@@ -2854,19 +2855,19 @@ static void *XHdcp22Rx_StateC8(XHdcp22_Rx *InstancePtr)
 			if(Status == XST_SUCCESS)
 			{
 				InstancePtr->Info.NextState = XHDCP22_RX_STATE_B1_SEND_AKESENDCERT;
-				return XHdcp22Rx_StateB1;
+				return (void *)XHdcp22Rx_StateB1;
 			}
 			XHdcp22Rx_LogWr(InstancePtr, XHDCP22_RX_LOG_EVT_ERROR, XHDCP22_RX_ERROR_FLAG_PROCESSING_AKEINIT);
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		case XHDCP22_RX_MSG_ID_REPEATERAUTHSTREAMMANAGE:
 			InstancePtr->Info.NextState = XHDCP22_RX_STATE_C7_WAIT_STREAM_MANAGEMENT;
 			InstancePtr->Info.ReturnState = InstancePtr->Info.CurrentState;
 			InstancePtr->Info.SkipRead = TRUE;
-			return XHdcp22Rx_StateC7;
+			return (void *)XHdcp22Rx_StateC7;
 		default:
 			XHdcp22Rx_ResetAfterError(InstancePtr);
-			return XHdcp22Rx_StateB0;
+			return (void *)XHdcp22Rx_StateB0;
 		}
 	}
 
@@ -2875,10 +2876,10 @@ static void *XHdcp22Rx_StateC8(XHdcp22_Rx *InstancePtr)
 	{
 		InstancePtr->Info.IsTopologyValid = FALSE;
 		InstancePtr->Info.NextState = XHDCP22_RX_STATE_C5_SEND_RECEIVERIDLIST;
-		return XHdcp22Rx_StateC5; /* Transition C8->C5 */
+		return (void *)XHdcp22Rx_StateC5; /* Transition C8->C5 */
 	}
 
-	return XHdcp22Rx_StateC8; /* Transition C8->C8 */
+	return (void *)XHdcp22Rx_StateC8; /* Transition C8->C8 */
 }
 
 /*****************************************************************************/
