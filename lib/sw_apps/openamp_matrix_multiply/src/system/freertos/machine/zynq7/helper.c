@@ -28,6 +28,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 #include "xparameters.h"
 #include "xil_exception.h"
 #include "xscugic.h"
@@ -36,27 +37,28 @@
 #include "metal/irq.h"
 #include "platform_info.h"
 
-#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
+#define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
 
 extern XScuGic xInterruptController;
 
 /* Complete Interrupt Controller setup, FreeRTOS is doing pre-init */
 static int app_gic_initialize(void)
 {
-	/* Connect Interrupt ID with ISR */
+	/* Connect IPI0 Interrupt ID with ISR */
 	XScuGic_Connect(&xInterruptController, VRING0_IPI_INTR_VECT,
-			   (Xil_ExceptionHandler)metal_irq_isr,
-			   (void *)VRING0_IPI_INTR_VECT);
+			(Xil_ExceptionHandler)metal_irq_isr,
+			(void *)VRING0_IPI_INTR_VECT);
 
+	/* Connect IPI1 Interrupt ID with ISR */
 	XScuGic_Connect(&xInterruptController, VRING1_IPI_INTR_VECT,
-				   (Xil_ExceptionHandler)metal_irq_isr,
-				   (void *)VRING1_IPI_INTR_VECT);
+			(Xil_ExceptionHandler)metal_irq_isr,
+			(void *)VRING1_IPI_INTR_VECT);
 
 	return 0;
 }
 
-/* initialization entry point called from main()*/
+/* Main hw machinery initialization entry point, called from main()*/
 /* return 0 on success */
 int init_system(void)
 {
@@ -68,7 +70,7 @@ int init_system(void)
 	/* configure the global interrupt controller */
 	app_gic_initialize();
 
-    return 0;
+	return 0;
 }
 
 void cleanup_system()
