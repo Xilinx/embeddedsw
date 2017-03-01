@@ -458,7 +458,7 @@ static u32 XFsbl_CheckValidMemoryAddress(u64 Address, u32 CpuId, u32 DevId)
 	u32 Status;
 
 	/* Check if Address is in the range of PMU RAM for PMU FW */
-	if (DevId == XIH_PH_ATTRB_DEST_DEVICE_PMU)
+	if (CpuId == XIH_PH_ATTRB_DEST_CPU_PMU)
 	{
 		if ((Address >= XFSBL_PMU_RAM_START_ADDRESS) &&
 			(Address < XFSBL_PMU_RAM_END_ADDRESS) )
@@ -794,7 +794,7 @@ u32 XFsbl_ValidatePartitionHeader(
 	/**
 	 * check for invalid cpu
 	 */
-	if (DestinationCpu > XIH_PH_ATTRB_DEST_CPU_R5_L)
+	if (DestinationCpu > XIH_PH_ATTRB_DEST_CPU_PMU)
 	{
 		Status = XFSBL_ERROR_INVALID_CPU_TYPE;
 		XFsbl_Printf(DEBUG_GENERAL,
