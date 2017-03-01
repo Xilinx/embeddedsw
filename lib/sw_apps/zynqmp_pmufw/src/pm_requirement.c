@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 #include "pm_requirement.h"
 #include "pm_master.h"
@@ -429,3 +431,5 @@ error:
 done:
 	return status;
 }
+
+#endif

@@ -27,6 +27,8 @@
  * in advertising or otherwise to promote the sale, use or other dealings in
  * this Software without prior written authorization from Xilinx.
  */
+#include "xpfw_config.h"
+#ifdef ENABLE_PM
 
 /*********************************************************************
  * Definitions of PM slave SRAM structures and state transitions.
@@ -533,3 +535,5 @@ PmSlaveTcm pmSlaveTcm1B_g = {
 	.eccInit = PmTcm1EccInit,
 	.id = PM_TCM_1B_BANK_ID,
 };
+
+#endif
