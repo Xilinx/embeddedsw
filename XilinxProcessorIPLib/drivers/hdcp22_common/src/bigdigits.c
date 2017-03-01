@@ -119,7 +119,7 @@ void mpFree(DIGIT_T **p)
 #endif /* NO_ALLOCS */
 
 /* Added in [v2.4] for ALLOC_BYTES and FREE_BYTES */
-volatile uint8_t zeroise_bytes(volatile void *v, size_t n)
+uint8_t zeroise_bytes(volatile void *v, size_t n)
 {	/* Zeroise byte array b and make sure optimiser does not ignore this */
 	volatile uint8_t optdummy;
 	volatile uint8_t *b = (uint8_t*)v;
@@ -140,7 +140,7 @@ volatile uint8_t zeroise_bytes(volatile void *v, size_t n)
 
 
 /* Force linker to include copyright notice in executable object image */
-volatile char *copyright_notice(void)
+volatile const char *copyright_notice(void)
 {
 	return
 "Contains multiple-precision arithmetic code originally written by David Ireland,"
@@ -1097,12 +1097,12 @@ void mpSetEqual(DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 	}
 }
 
-volatile DIGIT_T mpSetZero(volatile DIGIT_T a[], size_t ndigits)
+DIGIT_T mpSetZero(DIGIT_T a[], size_t ndigits)
 {	/* Sets a = 0 */
 
 	/* Prevent optimiser ignoring this */
-	volatile DIGIT_T optdummy;
-	volatile DIGIT_T *p = a;
+	DIGIT_T optdummy;
+	DIGIT_T *p = a;
 
 	while (ndigits--)
 		a[ndigits] = 0;
@@ -1271,7 +1271,7 @@ void mpModPowerOf2(DIGIT_T a[], size_t ndigits, size_t L)
 		a[i] = 0;
 	/* Low bits to keep */
 	bits = L % BITS_PER_DIGIT;
-	mask = ~(~0 << bits);
+	mask = ~(~((DIGIT_T)0) << bits);
 	if (ndigits > nw)
 		a[nw] &= mask;
 }
@@ -2676,7 +2676,7 @@ static DIGIT_T rand_between(DIGIT_T lower, DIGIT_T upper)
 {
 	DIGIT_T d, range;
 	unsigned char *bp;
-	int i, nbits;
+	unsigned int i, nbits;
 	DIGIT_T mask;
 
 	if (upper <= lower) return lower;
@@ -2737,8 +2737,11 @@ DIGIT_T spSimpleRand(DIGIT_T lower, DIGIT_T upper)
 	mpModExp_1 is the earlier version [<2.2] now using macros for modular squaring & mult
 */
 
+#ifdef NO_ALLOCS
 static int mpModExp_1(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T n[], DIGIT_T d[], size_t ndigits);
+#else
 static int mpModExp_windowed(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T n[], DIGIT_T d[], size_t ndigits);
+#endif
 
 int mpModExp(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T n[], DIGIT_T d[], size_t ndigits)
 	/* Computes y = x^n mod d */

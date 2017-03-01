@@ -82,7 +82,7 @@ typedef uint16_t HALF_DIGIT_T;
 extern "C" {
 #endif
 
-volatile char *copyright_notice(void);
+volatile const char *copyright_notice(void);
 	/* Forces linker to include copyright notice in executable */
 /** @endcond */
 
@@ -261,7 +261,7 @@ int mpGetBit(DIGIT_T a[], size_t ndigits, size_t n);
 /*************************/
 
 /** Sets a = 0 */
-volatile DIGIT_T mpSetZero(volatile DIGIT_T a[], size_t ndigits);
+DIGIT_T mpSetZero(DIGIT_T a[], size_t ndigits);
 
 /** Sets a = d where d is a single digit */
 void mpSetDigit(DIGIT_T a[], DIGIT_T d, size_t ndigits);
@@ -498,9 +498,9 @@ void mpFail(char *msg);
 
 /* Clean up by zeroising and freeing allocated memory */
 #ifdef NO_ALLOCS
-#define mpDESTROY(b, n) do{if(b)mpSetZero(b,n);}while(0)
+#define mpDESTROY(b, n) do{if(b != NULL)mpSetZero(b,n);}while(0)
 #else
-#define mpDESTROY(b, n) do{if(b)mpSetZero(b,n);mpFree(&b);}while(0)
+#define mpDESTROY(b, n) do{if(b != NULL)mpSetZero(b,n);mpFree(&b);}while(0)
 #endif
 /** @endcond */
 
