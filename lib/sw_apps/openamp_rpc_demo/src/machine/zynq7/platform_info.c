@@ -44,7 +44,7 @@
 #include "metal/atomic.h"
 #include "platform_info.h"
 
-#define APU_CPU_ID                     0
+#define APU_CPU_ID     0
 
 extern struct hil_platform_ops zynq_a9_proc_ops;
 
@@ -65,8 +65,8 @@ struct hil_proc *platform_create_proc(int proc_index)
 	if (!proc)
 		return NULL;
 
-	hil_set_ipi(proc, 0, VRING0_IPI_INTR_VECT, NULL);
-	hil_set_ipi(proc, 1, VRING1_IPI_INTR_VECT, NULL);
+	hil_set_vring_ipi(proc, 0, VRING0_IPI_INTR_VECT, NULL);
+	hil_set_vring_ipi(proc, 1, VRING1_IPI_INTR_VECT, NULL);
 
 	hil_set_rpmsg_channel(proc, 0, RPMSG_CHAN_NAME);
 	return proc;

@@ -57,7 +57,7 @@ struct ipi_info {
 	struct metal_io_region *io;
 	metal_phys_addr_t paddr;
 	uint32_t ipi_chn_mask;
-	int need_reg;
+	int registered;
 	atomic_int sync;
 };
 
@@ -65,7 +65,6 @@ extern struct hil_platform_ops zynqmp_r5_a53_proc_ops;
 
 static struct ipi_info chn_ipi_info[] = {
 	{NULL, NULL, NULL, NULL, IPI_BASE_ADDR, IPI_CHN_BITMASK, 0, 0},
-	{NULL, NULL, NULL, NULL, IPI_BASE_ADDR, IPI_CHN_BITMASK, 1, 0},
 };
 
 const struct firmware_info fw_table[] =
@@ -86,8 +85,12 @@ struct hil_proc *platform_create_proc(int proc_index)
 		return NULL;
 
 	/* Setup IPI info */
-	hil_set_ipi(proc, 0, (unsigned int)(-1), (void *)&chn_ipi_info[0]);
-	hil_set_ipi(proc, 1, IPI_IRQ_VECT_ID, (void *)&chn_ipi_info[1]);
+	hil_set_vdev_ipi(proc, 0,
+		IPI_IRQ_VECT_ID, (void *)&chn_ipi_info[0]);
+	hil_set_vring_ipi(proc, 0,
+		IPI_IRQ_VECT_ID, (void *)&chn_ipi_info[0]);
+	hil_set_vring_ipi(proc, 1,
+		IPI_IRQ_VECT_ID, (void *)&chn_ipi_info[0]);
 
 	hil_set_rpmsg_channel(proc, 0, RPMSG_CHAN_NAME);
 	return proc;
