@@ -4,6 +4,11 @@ include_directories (${_list} ${CMAKE_CURRENT_SOURCE_DIR})
 collector_list  (_list PROJECT_LIB_DIRS)
 link_directories (${_list})
 
+collect(PROJECT_LIB_DEPS metal)
+collect(PROJECT_LIB_DEPS xil)
+collect(PROJECT_LIB_DEPS c)
+collect(PROJECT_LIB_DEPS m)
+
 collector_list (_deps PROJECT_LIB_DEPS)
 
 set (_linker_script ${CMAKE_CURRENT_SOURCE_DIR}/lscript.ld)

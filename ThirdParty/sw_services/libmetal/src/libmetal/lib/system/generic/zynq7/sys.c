@@ -74,7 +74,7 @@
                                                      ARM_AR_MEM_TTB_DESC_SECT)
 
 
-static unsigned int int_old_val = 0;
+static unsigned int int_old_val = XIL_EXCEPTION_ALL;
 
 void sys_irq_restore_enable(void)
 {
