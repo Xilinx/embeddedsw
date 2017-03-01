@@ -1016,7 +1016,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	}
 #endif
 
-	if (DestinationDevice == XIH_PH_ATTRB_DEST_DEVICE_PMU)
+	if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_PMU)
 	{
 		/* Trigger IPI only for first PMUFW partition */
 		if(PartitionHeader->DestinationExecutionAddress != 0U) {
@@ -1584,7 +1584,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	 * Update the handoff details
 	 */
 	if ((DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PL) &&
-			(DestinationDevice != XIH_PH_ATTRB_DEST_DEVICE_PMU))
+			(DestinationCpu != XIH_PH_ATTRB_DEST_CPU_PMU))
 	{
 		CpuNo = FsblInstancePtr->HandoffCpuNo;
 		if (XFsbl_CheckHandoffCpu(FsblInstancePtr,
@@ -1618,22 +1618,22 @@ END:
 static void XFsbl_CheckPmuFw(const XFsblPs* FsblInstancePtr, u32 PartitionNum)
 {
 
-	u32 DestinationDev;
-	u32 DestinationDevNxt;
+	u32 DestinationCpu;
+	u32 DestinationCpuNxt;
 	u32 PmuFwLoadDone;
 	u32 RegVal;
 
-	DestinationDev = XFsbl_GetDestinationDevice(
+	DestinationCpu =XFsbl_GetDestinationCpu(
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum]);
 
-	if (DestinationDev == XIH_PH_ATTRB_DEST_DEVICE_PMU) {
+	if (DestinationCpu == XIH_PH_ATTRB_DEST_CPU_PMU) {
 		if ((PartitionNum + 1U) <=
 				(FsblInstancePtr->
 						ImageHeader.ImageHeaderTable.NoOfPartitions-1U)) {
-			DestinationDevNxt = XFsbl_GetDestinationDevice(
+			DestinationCpuNxt = XFsbl_GetDestinationCpu(
 					&FsblInstancePtr->
 					ImageHeader.PartitionHeader[PartitionNum + 1U]);
-			if (DestinationDevNxt != XIH_PH_ATTRB_DEST_DEVICE_PMU) {
+			if (DestinationCpuNxt != XIH_PH_ATTRB_DEST_CPU_PMU) {
 				/* there is a partition after this but that is not PMU FW */
 				PmuFwLoadDone = TRUE;
 			}
