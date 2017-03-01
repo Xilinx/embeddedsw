@@ -134,7 +134,7 @@ SECTIONS
    *(.got)
    *(.got.plt)
    __data_end = .;
-} > psu_ddr_S_AXI_BASEADDR
+} > psu_r5_tcm_ram_0_S_AXI_BASEADDR
 
 .data1 : {
    __data1_start = .;
