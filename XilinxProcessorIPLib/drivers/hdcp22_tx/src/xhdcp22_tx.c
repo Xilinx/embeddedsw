@@ -62,6 +62,7 @@
 *                          for empty slots before overriding entry.
 *                       5. Fixed problem with pairing table update that was
 *                          causing corrupted entries.
+*                       6. Fixed compiler warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -997,7 +998,7 @@ int XHdcp22Tx_Authenticate(XHdcp22_Tx *InstancePtr)
 * @note    None.
 *
 ******************************************************************************/
-XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
+int XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 {
 	XHdcp22_Tx_StateType NewState;
 	XHdcp22_Tx_TransitionFuncType *Transition;
@@ -1007,7 +1008,7 @@ XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 
 	/* return immediately if not enabled */
 	if (InstancePtr->Info.IsEnabled == (FALSE))
-		return InstancePtr->Info.AuthenticationStatus;
+		return (int)(InstancePtr->Info.AuthenticationStatus);
 
 	/* Store the authentication status before executing the next state */
 	PrvAuthenticationStatus = InstancePtr->Info.AuthenticationStatus;
@@ -1038,7 +1039,7 @@ XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 		XHdcp22Cipher_Disable(&InstancePtr->Cipher);
 	}
 
-	return InstancePtr->Info.AuthenticationStatus;
+	return (int)(InstancePtr->Info.AuthenticationStatus);
 }
 
 /*****************************************************************************/
