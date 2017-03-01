@@ -1,8 +1,7 @@
 /*
  * Copyright (c) 2014, Mentor Graphics Corporation
  * All rights reserved.
- *
- * Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2015 Xilinx, Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -47,19 +46,6 @@
 /* Remote supports Name Service announcement */
 #define VIRTIO_RPMSG_F_NS           0
 
-#define OCM_0_START                 0xFFFC0000
-#define OCM_0_LEN                   0x20000
-#define OCM_1_START                 0xFFFF0000
-#define OCM_1_LEN                   0x10000
-#define TCM_0_START_DA              0x00000000
-#define TCM_0_LEN                   0x10000
-#define TCM_0_START_PA              0xFFE00000
-#define TCM_1_START_DA              0x00020000
-#define TCM_1_LEN                   0x10000
-#define TCM_1_START_PA              0xFFE20000
-#define DDR_ELF_START               0x3ED00000
-#define DDR_ELF_LEN                 0x40000
-
 #define NUM_VRINGS                  0x02
 #define VRING_ALIGN                 0x1000
 #define RING_TX                     0x3ED40000
@@ -67,12 +53,6 @@
 #define VRING_SIZE                  256
 
 #define NUM_TABLE_ENTRIES           3
-
-#define CARVEOUT_SRC_OFFSETS        offsetof(struct remote_resource_table, tcm_0_cout), \
-                                    offsetof(struct remote_resource_table, ddr_cout), \
-
-#define CARVEOUT_SRC                {RSC_CARVEOUT, TCM_0_START_DA, TCM_0_START_PA, TCM_0_LEN, 0, 0, "TCM0_COUT",}, \
-                                    {RSC_CARVEOUT, DDR_ELF_START, DDR_ELF_START, DDR_ELF_LEN, 0, 0, "DDR_COUT",}, \
 
 struct remote_resource_table __resource resources = {
 	/* Version */
@@ -85,16 +65,21 @@ struct remote_resource_table __resource resources = {
 
 	/* Offsets of rsc entries */
 	{
-	 CARVEOUT_SRC_OFFSETS
+	 offsetof(struct remote_resource_table, rproc_mem),
+	 offsetof(struct remote_resource_table, fw_chksum),
 	 offsetof(struct remote_resource_table, rpmsg_vdev),
 	 },
 
-	/* End of ELF file */
-	CARVEOUT_SRC
+	{RSC_RPROC_MEM, 0x3ed40000, 0x3ed40000, 0x100000, 0},
+
+	/* firmware checksum */
+	{RSC_FW_CHKSUM, "sha256", {0}},
+
 	/* Virtio device entry */
-	{RSC_VDEV, VIRTIO_ID_RPMSG_, 0, RPMSG_IPU_C0_FEATURES, 0, 0, 0,
+	{
+	 RSC_VDEV, VIRTIO_ID_RPMSG_, 0, RPMSG_IPU_C0_FEATURES, 0, 0, 0,
 	 NUM_VRINGS, {0, 0},
-	},
+	 },
 
 	/* Vring rsc entry - part of vdev rsc entry */
 	{RING_TX, VRING_ALIGN, VRING_SIZE, 1, 0},
