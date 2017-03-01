@@ -82,7 +82,7 @@
 #define _rproc_wait() asm volatile("wfi")
 
 /*--------------------------- Declare Functions ------------------------ */
-static int _enable_interrupt(struct proc_vring *vring_hw);
+static int _enable_interrupt(struct proc_intr *intr);
 static void _notify(struct hil_proc *proc, struct proc_intr *intr_info);
 static int _boot_cpu(struct hil_proc *proc, unsigned int load_addr);
 static void _shutdown_cpu(struct hil_proc *proc);
@@ -118,27 +118,30 @@ static struct metal_io_region gic_dist_io = {
 
 int _ipi_handler(int vect_id, void *data)
 {
-	(void) vect_id;
-	struct proc_vring *vring_hw = (struct proc_vring *)(data);
-	struct proc_intr *intr_info;
+	struct proc_intr *intr_info = data;
 
-	intr_info = &(vring_hw->intr_info);
+	(void) vect_id;
+
 	atomic_flag_clear((atomic_uint *)&(intr_info->data));
 
 	//ipi_counter++;
 	return 0;
 }
 
-static int _enable_interrupt(struct proc_vring *vring_hw)
+static int _enable_interrupt(struct proc_intr *intr)
 {
 	//enableirq_counter++;
 	/* Register ISR */
-	metal_irq_register(vring_hw->intr_info.vect_id, _ipi_handler,
-				vring_hw->intr_info.dev, vring_hw);
+	metal_irq_register(intr->vect_id, _ipi_handler,
+			intr->dev, intr);
 
 	/* Enable the interrupts */
-	metal_irq_enable(vring_hw->intr_info.vect_id);
+	metal_irq_enable(intr->vect_id);
 
+	/* FIXME: This is a workaround for Zynq. As Linux is possible
+	 * to have already generate the soft IRQ
+	 */
+	atomic_flag_clear((atomic_uint *)&(intr->data));
 	return 0;
 }
 

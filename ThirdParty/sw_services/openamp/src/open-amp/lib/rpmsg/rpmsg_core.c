@@ -52,6 +52,7 @@
 #include "metal/io.h"
 #include "metal/cache.h"
 #include "metal/alloc.h"
+#include "metal/cpu.h"
 
 /* Internal functions */
 static void rpmsg_rx_callback(struct virtqueue *vq);
@@ -133,7 +134,13 @@ int rpmsg_start_ipc(struct remote_device *rdev)
 		}
 	}
 
-	status = rpmsg_rdev_notify(rdev);
+	if (rdev->role == RPMSG_MASTER) {
+		virt_dev->func->set_status(virt_dev,
+			VIRTIO_CONFIG_STATUS_DRIVER_OK);
+		status = rpmsg_rdev_notify(rdev);
+	}
+	if (status == RPMSG_SUCCESS)
+		rdev->state = RPMSG_DEV_STATE_ACTIVE;
 
 	return status;
 }
@@ -291,7 +298,7 @@ void _destroy_endpoint(struct remote_device *rdev,
  * @param flags   - Channel creation/deletion flags
  *
  */
-void rpmsg_send_ns_message(struct remote_device *rdev,
+int rpmsg_send_ns_message(struct remote_device *rdev,
 			   struct rpmsg_channel *rp_chnl, unsigned long flags)
 {
 
@@ -306,7 +313,7 @@ void rpmsg_send_ns_message(struct remote_device *rdev,
 	rp_hdr = (struct rpmsg_hdr *)rpmsg_get_tx_buffer(rdev, &len, &idx);
 	if (!rp_hdr) {
 		metal_mutex_release(&rdev->lock);
-		return;
+		return -RPMSG_ERR_NO_BUFF;
 	}
 
 	/* Fill out name service data. */
@@ -324,6 +331,7 @@ void rpmsg_send_ns_message(struct remote_device *rdev,
 	virtqueue_kick(rdev->tvq);
 
 	metal_mutex_release(&rdev->lock);
+	return RPMSG_SUCCESS;
 }
 
 /**
@@ -513,16 +521,16 @@ static void rpmsg_tx_callback(struct virtqueue *vq)
 			if (rp_chnl->state == RPMSG_CHNL_STATE_IDLE) {
 
 				if (rdev->support_ns) {
-					rp_chnl->state = RPMSG_CHNL_STATE_NS;
+					if (rpmsg_send_ns_message(rdev, rp_chnl,
+						      RPMSG_NS_CREATE) ==
+						RPMSG_SUCCESS)
+						rp_chnl->state =
+							RPMSG_CHNL_STATE_NS;
 				} else {
 					rp_chnl->state =
 					    RPMSG_CHNL_STATE_ACTIVE;
 				}
 
-				if (rp_chnl->state == RPMSG_CHNL_STATE_NS) {
-					rpmsg_send_ns_message(rdev, rp_chnl,
-							      RPMSG_NS_CREATE);
-				}
 			}
 
 		}
@@ -545,29 +553,11 @@ void rpmsg_rx_callback(struct virtqueue *vq)
 	struct rpmsg_endpoint *rp_ept;
 	struct rpmsg_hdr *rp_hdr;
 	struct rpmsg_hdr_reserved *reserved;
-	struct metal_list *node;
 	unsigned long len;
 	unsigned short idx;
 
 	vdev = (struct virtio_device *)vq->vq_dev;
 	rdev = (struct remote_device *)vdev;
-
-	if (rdev->role == RPMSG_MASTER) {
-		metal_list_for_each(&rdev->rp_channels, node) {
-			rp_chnl = metal_container_of(node,
-				struct rpmsg_channel, node);
-			if (rp_chnl->state == RPMSG_CHNL_STATE_IDLE) {
-				if (rdev->support_ns) {
-					rp_chnl->state = RPMSG_CHNL_STATE_NS;
-					rpmsg_send_ns_message(rdev, rp_chnl,
-						      RPMSG_NS_CREATE);
-				} else {
-					rp_chnl->state = RPMSG_CHNL_STATE_ACTIVE;
-				}
-				return;
-			}
-		}
-	}
 
 	metal_mutex_acquire(&rdev->lock);
 

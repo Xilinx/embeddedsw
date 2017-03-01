@@ -47,6 +47,7 @@
 #include "metal/list.h"
 #include "metal/io.h"
 #include "metal/device.h"
+#include "metal/mutex.h"
 
 /* Configurable parameters */
 #define HIL_MAX_CORES                   2
@@ -54,6 +55,10 @@
 #define HIL_MAX_NUM_CHANNELS            1
 /* Reserved CPU id */
 #define HIL_RSVD_CPU_ID                 0xffffffff
+
+struct hil_proc;
+
+typedef void (*hil_proc_vdev_rst_cb_t)(struct hil_proc *proc, int id);
 
 /**
  * struct proc_shm
@@ -134,6 +139,12 @@ struct proc_vring {
  *
  */
 struct proc_vdev {
+	/* Address for the vdev info */
+	void *vdev_info;
+	/* Vdev interrupt control block */
+	struct proc_intr intr_info;
+	/* Vdev reset callback */
+	hil_proc_vdev_rst_cb_t rst_cb;
 	/* Number of vrings */
 	unsigned int num_vrings;
 	/* Virtio device features */
@@ -179,16 +190,8 @@ struct hil_proc {
 	struct proc_chnl chnls[HIL_MAX_NUM_CHANNELS];
 	/* Initialized status */
 	int is_initialized;
-	/* Attrbites to represent processor role, master or remote . This field is for
-	 * future use. */
-	unsigned long attr;
-	/*
-	 * CPU bitmask - shared variable updated by each core
-	 * after it has been initialized. This field is for future use.
-	 */
-	unsigned long cpu_bitmask;
-	/* Spin lock - This field is for future use. */
-	volatile unsigned int *slock;
+	/* hil_proc lock */
+	metal_mutex_t lock;
 	/* private data */
 	void *pdata;
 	/* List node */
@@ -234,16 +237,17 @@ void hil_delete_proc(struct hil_proc *proc);
 int hil_init_proc(struct hil_proc *proc);
 
 /**
- * hil_isr()
+ * hil_notified()
  *
- * This function is called when interrupt is received for the vring.
+ * This function is called when notification is received.
  * This function gets the corresponding virtqueue and generates
  * call back for it.
  *
- * @param vring_hw   - pointer to vring control block
+ * @param proc   - pointer to hil_proc
+ * @param notifyid - notifyid
  *
  */
-void hil_isr(struct proc_vring *vring_hw);
+void hil_notified(struct hil_proc *proc, uint32_t notifyid);
 
 /**
  * hil_get_vdev_info
@@ -300,6 +304,27 @@ struct proc_vring *hil_get_vring_info(struct proc_vdev *vdev, int *num_vrings);
 struct proc_shm *hil_get_shm_info(struct hil_proc *proc);
 
 /**
+ * hil_free_virtqueues
+ *
+ * This function remove virt queues of the vdev.
+
+ * @param vdev - pointer to the vdev which needs to remove vqs
+ */
+void hil_free_vqs(struct virtio_device *vdev);
+
+/**
+ * hil_enable_vdev_notification()
+ *
+ * This function enable handler for vdev notification.
+ *
+ * @param proc - pointer to hil_proc
+ * @param id   - vdev index
+ *
+ * @return - execution status
+ */
+int hil_enable_vdev_notification(struct hil_proc *proc, int id);
+
+/**
  * hil_enable_vring_notifications()
  *
  * This function is called after successful creation of virtqueues.
@@ -313,6 +338,17 @@ struct proc_shm *hil_get_shm_info(struct hil_proc *proc);
  * @return            - execution status
  */
 int hil_enable_vring_notifications(int vring_index, struct virtqueue *vq);
+
+/**
+ * hil_vdev_notify()
+ *
+ * This function generates IPI to let the other side know that there is
+ * change to virtio device configs.
+ *
+ * @param vdev - pointer to virtio device
+ *
+ */
+void hil_vdev_notify(struct virtio_device *vdev);
 
 /**
  * hil_vring_notify()
@@ -453,9 +489,9 @@ int hil_set_vring (struct hil_proc *proc, int index,
 		   const char *bus_name, const char *name);
 
 /**
- * hil_set_ipi
+ * hil_set_vdev_ipi
  *
- * This function set HIL proc IPI
+ * This function set HIL proc vdev IPI
  *
  * @param proc     - hil_proc to set
  * @param index    - vring index for the IPI
@@ -464,7 +500,22 @@ int hil_set_vring (struct hil_proc *proc, int index,
  *
  * @return - 0 for no errors, non-0 for errors.
  */
-int hil_set_ipi (struct hil_proc *proc, int index,
+int hil_set_vdev_ipi (struct hil_proc *proc, int index,
+		 unsigned int irq, void *data);
+
+/**
+ * hil_set_vring_ipi
+ *
+ * This function set HIL proc vring IPI
+ *
+ * @param proc     - hil_proc to set
+ * @param index    - vring index for the IPI
+ * @param irq      - IPI irq vector ID
+ * @param data     - IPI data
+ *
+ * @return - 0 for no errors, non-0 for errors.
+ */
+int hil_set_vring_ipi (struct hil_proc *proc, int index,
 		 unsigned int irq, void *data);
 
 /**
@@ -482,6 +533,20 @@ int hil_set_rpmsg_channel (struct hil_proc *proc, int index,
 		char *name);
 
 /**
+ * hil_set_vdev_rst_cb
+ *
+ * This function set HIL proc vdev reset callback
+ *
+ * @param proc     - hil_proc to set
+ * @param index    - vdev index
+ * @param cb       - reset callback
+ *
+ * @return - 0 for no errors, non-0 for errors.
+ */
+int hil_set_vdev_rst_cb (struct hil_proc *proc, int index,
+		hil_proc_vdev_rst_cb_t cb);
+
+/**
  *
  * This structure is an interface between HIL and platform porting
  * component. It is required for the user to provide definitions of
@@ -489,82 +554,82 @@ int hil_set_rpmsg_channel (struct hil_proc *proc, int index,
  *
  */
 struct hil_platform_ops {
-    /**
-     * enable_interrupt()
-     *
-     * This function enables interrupt(IPI) for given vring.
-     *
-     * @param vring_hw - pointer to vring control block
-     *
-     * @return  - execution status
-     */
-	int (*enable_interrupt) (struct proc_vring * vring_hw);
+	/**
+	 * enable_interrupt()
+	 *
+	 * This function enables interrupt(IPI)
+	 *
+	 * @param intr - pointer to intr information
+	 *
+	 * @return  - execution status
+	 */
+	int (*enable_interrupt) (struct proc_intr *intr);
 
-    /**
-     * notify()
-     *
-     * This function generates IPI to let the other side know that there is
-     * job available for it.
-     *
-     * @param proc - pointer to the hil_proc
-     * @param intr_info - pointer to interrupt info control block
-     */
+	/**
+	 * notify()
+	 *
+	 * This function generates IPI to let the other side know that there is
+	 * job available for it.
+	 *
+	 * @param proc - pointer to the hil_proc
+	 * @param intr_info - pointer to interrupt info control block
+	 */
 	void (*notify) (struct hil_proc *proc, struct proc_intr * intr_info);
 
-    /**
-     * boot_cpu
-     *
-     * This unction boots the remote processor.
-     *
-     * @param proc - pointer to the hil_proc
-     * @param start_addr - start address of remote cpu
-     *
-     * @return - execution status
-     */
+	/**
+	 * boot_cpu
+	 *
+	 * This unction boots the remote processor.
+	 *
+	 * @param proc - pointer to the hil_proc
+	 * @param start_addr - start address of remote cpu
+	 *
+	 * @return - execution status
+	 */
 	int (*boot_cpu) (struct hil_proc *proc, unsigned int start_addr);
 
-    /**
-     * shutdown_cpu
-     *
-     *  This function shutdowns the remote processor.
-     *
-     * @param proc - pointer to the hil_proc
-     *
-     */
+	/**
+	 * shutdown_cpu
+	 *
+	 *  This function shutdowns the remote processor.
+	 *
+	 * @param proc - pointer to the hil_proc
+	 *
+	 */
 	void (*shutdown_cpu) (struct hil_proc *proc);
 
-    /**
-     * poll
-     *
-     * This function polls the remote processor.
-     *
-     * @param proc     - hil_proc to poll
-     * @param nonblock - 0 for blocking, non-0 for non-blocking.
-     *
-     * @return - 0 for no errors, non-0 for errors.
-     */
+	/**
+	 * poll
+	 *
+	 * This function polls the remote processor.
+	 *
+	 * @param proc	 - hil_proc to poll
+	 * @param nonblock - 0 for blocking, non-0 for non-blocking.
+	 *
+	 * @return - 0 for no errors, non-0 for errors.
+	 */
 	int (*poll) (struct hil_proc *proc, int nonblock);
 
-    /**
-     * initialize
-     *
-     *  This function initialize remote processor with platform data.
-     *
-     * @param proc     - hil_proc to poll
-     *
-     * @return NULL on failure, hil_proc pointer otherwise
-     *
-     */
+	/**
+	 * initialize
+	 *
+	 *  This function initialize remote processor with platform data.
+	 *
+	 * @param proc	 - hil_proc to poll
+	 *
+	 * @return NULL on failure, hil_proc pointer otherwise
+	 *
+	 */
 	int (*initialize) (struct hil_proc *proc);
 
-    /**
-     * release
-     *
-     *  This function is to release remote processor resource
-     *
-     * @param[in] proc - pointer to the remote processor
-     *
-     */
+	/**
+	 * release
+	 *
+	 *  This function is to release remote processor resource
+	 *
+	 * @param[in] proc - pointer to the remote processor
+	 *
+	 */
 	void (*release) (struct hil_proc *proc);
 };
 
