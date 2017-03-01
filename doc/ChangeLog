@@ -1336,6 +1336,9 @@ Updated the driver for nested HIP support.
 Updated to BigDigits v2.5
 Removed floating point operations.
 
+hdcp22_common_v1_1:
+Fixed warnings and errors for gcc and g++ compilers.
+
 hdcp22_mmult_v1_0:
 Added the initial version of the driver that can be used to access the Xilinx HDCP22
 Montogmery Multiplier(Mmult) core.
@@ -1367,6 +1370,9 @@ Added repeater upstream support.
 Added 64 bit address support.
 Fixes for warnings reductions.
 
+hdcp22_rx_v2_1:
+Fixed warnings and errors for gcc and g++ compilers.
+
 hdcp22_tx_v1_0:
 Added the initial version of the Xilinx HDCP 2.2 Tx core driver.
 Updated the driver for nested HIP support.
@@ -1380,7 +1386,8 @@ Fixes for warnings reductions.
 Fixes for transmitter compliance.
 
 hdcp22_tx_v2_1:
-Fix for pairing table update
+Fixed pairing table update
+Fixed warnings and errors for gcc and g++ compilers.
 
 hwicap_v10_1:
 Updated driver, to read 7 Series FPGA frame data correctly.
