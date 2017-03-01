@@ -468,6 +468,21 @@ zynqmp_fsbl:
 - Enhanced secure bitstream authentication to more security.
 - Added PPK hash and SPKI ID verification for eFUSE RSA authentication
 
+libmetal_v1_2:
+- Sync libmetal OSS project with upstream
+
+openamp_v1.3:
+- Sync libmetal OSS project with upstream, i.e:
+- Allow APU to restart independently from RPU
+- Keep working with latest kernel
+
+openamp_rpc_demo:
+openamp_matrix_multiply_demo:
+openamp_echo_test:
+- Update to work with updated openamp and libmetal libs
+- Added reconnection to echo_test
+
+
 Change Log for 2016.4
 =================================
 axiethernet_v5_3:
