@@ -1,7 +1,7 @@
 COMPILER=
 ARCHIVER=
 CP=cp
-COMPILER_FLAGS=
+COMPILER_FLAGS=-ffunction-sections -fdata-sections
 EXTRA_COMPILER_FLAGS= -Wall -Wextra
 LIB=libxil.a
 
