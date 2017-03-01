@@ -58,7 +58,7 @@ static int app_gic_initialize(void)
 	}
 
 	Status = XScuGic_CfgInitialize(&xInterruptController, IntcConfig,
-					IntcConfig->CpuBaseAddress);
+				       IntcConfig->CpuBaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
