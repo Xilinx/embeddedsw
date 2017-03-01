@@ -72,17 +72,10 @@ static void PmWakeEventExternSet(PmWakeEvent* const wake, const u32 ipiMask,
 static void PmWakeEventExternEnable(PmWakeEventExtern* const ext,
 				    const u32 ipiMask)
 {
-	u32 reg;
-
 	/* If the propagation of wake event is already enabled we're done */
 	if (0U != ext->enabled) {
 		goto done;
 	}
-
-	/* Drive GPO1_MIO_5 (MIO37) to 1 to enable external wake */
-	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
-	reg |= PMU_IOMODULE_GPO1_MIO_5_MASK;
-	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
 
 	ENABLE_WAKE(PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK);
 
@@ -99,8 +92,6 @@ done:
 static void PmWakeEventExternDisable(PmWakeEventExtern* const ext,
 				     const u32 ipiMask)
 {
-	u32 reg;
-
 	ext->set &= ~ipiMask;
 
 	/* If the propagation of wake event is not enabled we're done */
@@ -115,11 +106,6 @@ static void PmWakeEventExternDisable(PmWakeEventExtern* const ext,
 	}
 
 	DISABLE_WAKE(PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK);
-
-	/* Drive GPO1_MIO_5 (MIO37) to 0 to disable external wake */
-	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
-	reg &= ~PMU_IOMODULE_GPO1_MIO_5_MASK;
-	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
 
 done:
 	return;
