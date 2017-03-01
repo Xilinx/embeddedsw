@@ -83,6 +83,7 @@
 * 1.00  JO     06/24/15 Initial release.
 * 1.01  MG     02/25/16 Added authenticated callback and GetVersion.
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
+* 2.01  MH     02/28/17 Fixed compiler warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -280,9 +281,9 @@ typedef struct
 	/** Base Address is the physical base address of the device's registers. */
 	UINTPTR BaseAddress;
 	/** HDMI or DP (Always HDCP22_TX_HDMI: Currently DP is not supported). */
-	XHdcp22_Tx_Protocol Protocol;
+	int Protocol;
 	/** Future expansion. */
-	XHdcp22_Tx_Mode Mode;
+	int Mode;
 	/** DeviceId of the internal used timer. */
 	u16 TimerDeviceId;
 	/** DeviceId of the used cipher. */
@@ -587,7 +588,7 @@ int XHdcp22Tx_CfgInitialize(XHdcp22_Tx *InstancePtr, XHdcp22_Tx_Config *CfgPtr,
 int XHdcp22Tx_Reset(XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_ClearPairingInfo(XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_Authenticate (XHdcp22_Tx *InstancePtr);
-XHdcp22_Tx_AuthenticationType XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr);
+int XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_Enable (XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_Disable (XHdcp22_Tx *InstancePtr);
 int XHdcp22Tx_EnableEncryption (XHdcp22_Tx *InstancePtr);
