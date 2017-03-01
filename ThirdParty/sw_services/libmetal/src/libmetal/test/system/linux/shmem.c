@@ -35,7 +35,6 @@
 #include "metal/sys.h"
 
 static const int shmem_threads = 10;
-static const int shmem_count = 10;
 static void *shmem_child(void *arg)
 {
 	const char *name = arg;

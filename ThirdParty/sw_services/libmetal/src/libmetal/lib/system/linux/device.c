@@ -214,6 +214,18 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 		return -ENODEV;
 	}
 
+	i = 0;
+	do {
+		if (!access(ldev->dev_path, F_OK))
+			break;
+		usleep(10);
+		i++;
+	} while (i < 1000);
+	if (i >= 1000) {
+		metal_log(LOG_ERROR, "failed to open file %s, timeout.\n",
+			  ldev->dev_path);
+		return -ENODEV;
+	}
 	result = metal_open(ldev->dev_path, 0);
 	if (result < 0) {
 		metal_log(LOG_ERROR, "failed to open device %s\n",

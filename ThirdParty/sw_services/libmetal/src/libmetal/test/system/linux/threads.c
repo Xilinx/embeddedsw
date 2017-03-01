@@ -55,6 +55,7 @@ int metal_run_noblock(int threads, metal_thread_t child,
 		return -EINVAL;
 	}
 
+	error = 0;
 	for (i = 0; i < threads; i++) {
 		error = -pthread_create(&tid_p[i], NULL, child, arg);
 		if (error) {

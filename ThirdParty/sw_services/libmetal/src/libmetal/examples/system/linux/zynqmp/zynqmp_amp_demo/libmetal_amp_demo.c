@@ -342,6 +342,7 @@ static void *ipi_task_echo(void *arg)
 	msg_hdr->len = sizeof(d0);
 	shm0_addr_array[i] = (uint64_t)metal_io_virt_to_phys(
 				ch->shm_io, msg_hdr);
+	shm0_mg->avails++;
 	atomic_thread_fence(memory_order_acq_rel);
 	LPRINTF("Sending shutdown message...\n");
 	metal_io_write32(ch->ipi_io, IPI_TRIG_OFFSET, ch->ipi_mask);
