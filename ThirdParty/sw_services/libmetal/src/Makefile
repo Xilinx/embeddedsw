@@ -4,7 +4,7 @@ LIBDIR=../../../lib
 .PHONY: libs include clean
 
 include:
-	cp -R -f ../build_libmetal/lib/metal $(INCLUDEDIR)/.
+	cp -R -f ../build_libmetal/lib/include/metal $(INCLUDEDIR)/.
 libs:
 	make -C ../build_libmetal DESTDIR=../../../ install 2>&1
 clean:
