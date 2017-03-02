@@ -1268,6 +1268,7 @@ Removed soft reset when enabling RX DTG.
 
 dphy_v1_0:
 Added the initial version of MIPI DPHY Controller driver.
+Added support for HS_SETTLE register
 
 dprxss_v3_0:
 Added support for multiple subsystems in a design.
