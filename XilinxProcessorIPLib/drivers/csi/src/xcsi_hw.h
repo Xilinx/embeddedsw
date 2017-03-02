@@ -44,6 +44,7 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 06/15/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
+* 1.2 vsa 03/02/17 Add Word Count corruption interrupt bit support
 * </pre>
 *
 *****************************************************************************/
@@ -190,6 +191,7 @@ extern "C" {
  * @{
  */
 #define XCSI_ISR_FR_MASK	0x80000000	/**< Frame Received */
+#define XCSI_ISR_WC_MASK	0x00400000	/**< Word count corruption */
 #define XCSI_ISR_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
 #define XCSI_ISR_SPFIFOF_MASK	0x00100000	/**< Short Packet FIFO FULL */
@@ -230,11 +232,13 @@ extern "C" {
 							  *  on Virtual
 							  *  Channel 0 */
 
-#define XCSI_ISR_ALLINTR_MASK		0x803FFFFF	/**< All interrupts
+#define XCSI_ISR_ALLINTR_MASK		0x807FFFFF	/**< All interrupts
 							  *  mask */
 
 #define XCSI_ISR_FR_SHIFT	31	/**< Shift bits for
 					  *  Frame received interrupt */
+#define XCSI_ISR_WC_SHIFT	22	/**< Shift bits for Word Count
+					  *  corruption */
 #define XCSI_ISR_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
 					  *  configured */
 #define XCSI_ISR_SPFIFOF_SHIFT	20	/**< Shift bits for Short Packet
@@ -309,8 +313,9 @@ extern "C" {
 
 #define XCSI_INTR_FRAMERCVD_MASK 	(XCSI_ISR_FR_MASK)
 
-#define XCSI_INTR_ERR_MASK 	(XCSI_ISR_ILC_MASK |	\
-				 XCSI_ISR_SLBF_MASK |	\
+#define XCSI_INTR_ERR_MASK 	(XCSI_ISR_WC_MASK	|\
+				 XCSI_ISR_ILC_MASK 	|\
+				 XCSI_ISR_SLBF_MASK 	|\
 				 XCSI_ISR_STOP_MASK)
 
 /*@}*/
@@ -321,6 +326,7 @@ extern "C" {
  * @{
  */
 #define XCSI_IER_FR_MASK	0x80000000	/**< Frame Received */
+#define XCSI_IER_WC_MASK	0x00400000	/**< Word Count Corruption */
 #define XCSI_IER_ILC_MASK	0x00200000	/**< Incorrect Lanes
 						  *  Configured */
 #define XCSI_IER_SPFIFOF_MASK	0x00100000	/**< Short Packet FIFO FULL */
@@ -360,10 +366,12 @@ extern "C" {
 							  *  Virtual
 							  *  Channel 0 */
 
-#define XCSI_IER_ALLINTR_MASK		0x803FFFFF /**< All interrupts mask */
+#define XCSI_IER_ALLINTR_MASK		0x807FFFFF /**< All interrupts mask */
 
 #define XCSI_IER_FR_SHIFT	31	/**< Shift bits for Frame received
 					  *  interrupt*/
+#define XCSI_IER_WC_SHIFT	22	/**< Shift bits for Word count
+					 *  corruption */
 #define XCSI_IER_ILC_SHIFT	21	/**< Shift bits for Incorrect Lanes
 					  *  configured */
 #define XCSI_IER_SPFIFOF_SHIFT	20	/**< Shift bits for Short Packet
