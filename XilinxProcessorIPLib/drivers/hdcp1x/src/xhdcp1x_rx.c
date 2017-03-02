@@ -1232,7 +1232,6 @@ static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
 	if (XHdcp1x_CipherIsRequestComplete(InstancePtr)) {
 		u8 Buf[4];
 		u16 Ro = 0;
-		u32 KSVPtrReset = 0;
 
 		/* Log */
 		XHdcp1x_RxDebugLog(InstancePtr, "computations complete");
@@ -1253,6 +1252,8 @@ static void XHdcp1x_RxPollForComputations(XHdcp1x *InstancePtr,
 		 * pointer reset is implemented in the hardware. */
 
 #else
+		u32 KSVPtrReset = 0;
+
 		/* Reset the KSV FIFO read pointer to ox6802C */
 		XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_HDCP_RESET_KSV,
 				&KSVPtrReset, 4);
@@ -1318,7 +1319,6 @@ static int XHdcp1x_RxCalculateSHA1Value(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 {
 	SHA1Context Sha1Context;
 	u8 Buf[24];
-	u8 Ksv[5];
 	int NumToRead = 0;
 	int IsValid = FALSE;
 	u32 KsvCount;
@@ -1380,7 +1380,6 @@ static int XHdcp1x_RxCalculateSHA1Value(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 			/* Iterate through the SHA-1 chunks */
 			do {
 				u32 CalcValue = 0;
-				u32 ReadValue = 0;
 
 				/* Determine CalcValue */
 				CalcValue = *Sha1Buf++;
@@ -1520,7 +1519,6 @@ void XHdcp1x_RxSetTopologyDeviceCnt(XHdcp1x *InstancePtr, u32 Value)
 ******************************************************************************/
 void XHdcp1x_RxSetTopologyMaxCascadeExceeded(XHdcp1x *InstancePtr, u8 Value)
 {
-	u16 CascadeErr = (Value & 0xFFFF);
 #if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
 
 	u32 BStatus;
@@ -1662,10 +1660,8 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		u32 BCaps;
 		u32 KSVPtrReset;
 		u8 Buf[5];
-		u8 KsvFifo[15];
 		u32 sha1value;
 		u32 ksvCount, ksvsToWrite;
-		u32 ksvCountThisTime;
 		u16 RepeaterInfo = 0;
 
 #if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)

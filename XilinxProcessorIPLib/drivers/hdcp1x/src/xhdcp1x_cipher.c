@@ -171,7 +171,6 @@ int XHdcp1x_CipherIsLinkUp(const XHdcp1x *InstancePtr)
 int XHdcp1x_CipherEnable(XHdcp1x *InstancePtr)
 {
 	u32 Value = 0;
-	int Status = XST_SUCCESS;
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
