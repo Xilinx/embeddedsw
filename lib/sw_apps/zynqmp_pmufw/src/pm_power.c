@@ -325,8 +325,7 @@ static int PmPowerDownLpd(void)
 }
 
 /**
- * PmPowerUpRpu() - Power up RPU island, disable AIBs, put R5s in HALT
- *                  and relase RPU isalnd reset
+ * PmPowerUpRpu() - Power up RPU island and disable AIBs
  *
  * @return      Status returned by the PMU-ROM handler
  */
