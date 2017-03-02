@@ -77,9 +77,11 @@
 *                       for video bridge
 * 1.15  YH     14/11/16 Remove Remapper APIs as remapper feature is moved to
 *                       video bridge and controlled by HDMI core
-* 1.16  MMO    03/01/17 Add compiler option(XV_HDMITXSS_LOG_ENABLE) to enable
+* 1.16  mmo    03/01/17 Add compiler option(XV_HDMITXSS_LOG_ENABLE) to enable
 *                            Log
 *                       Re-order the enumation and data structure
+* 1.17  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
+*                             Segment Support and HDMI Compliance Test
 * </pre>
 *
 ******************************************************************************/
@@ -394,6 +396,7 @@ int XV_HdmiTxSs_SetCallback(XV_HdmiTxSs *InstancePtr,
     void *CallbackFuncPtr,
     void *CallbackRef);
 int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *BufferPtr);
+int XV_HdmiTxSs_ReadEdidSegment(XV_HdmiTxSs *InstancePtr, u8 *Buffer, u8 segment);
 void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_StreamStart(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);

@@ -104,6 +104,10 @@
 *                       Replaced "print" with "xil_printf"
 *                       Replace Carriage Return (\r) and Line Feed (\n) order,\
 *                           where the Carriage Return + Line Feed order is used.
+* 1.24  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
+*                             Segment Support and HDMI Compliance Test
+*                       Updated the XV_HdmiTxSs_ShowEdid API to have support
+*                             multiple EDID.
 * </pre>
 *
 ******************************************************************************/
@@ -1397,6 +1401,76 @@ int XV_HdmiTxSs_ReadEdid(XV_HdmiTxSs *InstancePtr, u8 *Buffer)
 /*****************************************************************************/
 /**
 *
+* This function reads one block from the HDMI Sink EDID.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+int XV_HdmiTxSs_ReadEdidSegment(XV_HdmiTxSs *InstancePtr, u8 *Buffer, u8 segment)
+{
+    u32 Status;
+
+    u8 dummy = 0;
+
+    // Default
+    Status = (XST_FAILURE);
+
+    // Check if a sink is connected
+    if (InstancePtr->IsStreamConnected == (TRUE)) {
+
+	  // For multiple segment EDID read
+	  // First, read the first block, then read address 0x7e to know how many
+	  // blocks, if more than 2 blocks, then select segment after first 2 blocks
+	  // Use the following code to select segment
+
+	  if(segment != 0) {
+        // Segment Pointer
+        Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x30, 1, &segment,
+        (FALSE));
+	  }
+
+      // Read blocks
+      dummy = 0x00;   // Offset zero
+      Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x50, 1, &dummy,
+        (FALSE));
+
+      // Check if write was successful
+      if (Status == (XST_SUCCESS)) {
+        // Read edid
+        Status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr, 0x50, 128, Buffer,
+            (TRUE));
+      }
+
+	  if(segment != 0) {
+        // Segment Pointer
+        Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x30, 1, &segment,
+        (FALSE));
+	  }
+
+      // Read blocks
+      dummy = 0x80;   // Offset 128
+      Status = XV_HdmiTx_DdcWrite(InstancePtr->HdmiTxPtr, 0x50, 1, &dummy,
+        (FALSE));
+
+      // Check if write was successful
+      if (Status == (XST_SUCCESS)) {
+        // Read edid
+        Status = XV_HdmiTx_DdcRead(InstancePtr->HdmiTxPtr, 0x50, 128, &Buffer[128],
+            (TRUE));
+      }
+    }
+    else {
+      xil_printf("No sink is connected.\n\r");
+      xil_printf("Please connect a HDMI sink.\n\r");
+    }
+  return Status;
+}
+
+/*****************************************************************************/
+/**
+*
 * This function shows the HDMI source edid.
 *
 * @return None.
@@ -1412,6 +1486,8 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
     u8 Valid;
     u32 Status;
     u8 EdidManName[4];
+	u8 segment = 0;
+    u8 ExtensionFlag = 0;
 
     // Check if a sink is connected
     if (InstancePtr->IsStreamConnected == (TRUE)) {
@@ -1419,25 +1495,43 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
       // Default
       Valid = (FALSE);
 
-      // Read TX edid
-      Status = XV_HdmiTxSs_ReadEdid(InstancePtr, (u8*)&Buffer);
+      // Read Sink Edid Segment 0
+      Status = XV_HdmiTxSs_ReadEdidSegment(InstancePtr, (u8*)&Buffer, segment);
 
       // Check if read was successful
       if (Status == (XST_SUCCESS)) {
         XVidC_EdidGetManName(&Buffer[0], (char *) EdidManName);
         xil_printf("\r\nMFG name : %S\r\n", EdidManName);
 
+		ExtensionFlag = Buffer[126];
+		ExtensionFlag = ExtensionFlag >> 1;
+        xil_printf("Number of Segment : %d\n\r", ExtensionFlag+1);
         xil_printf("\r\nRaw data\r\n");
         xil_printf("----------------------------------------------------\r\n");
-        for (Row = 0; Row < 16; Row++) {
-          xil_printf("%02X : ", (Row*16));
-          for (Column = 0; Column < 16; Column++) {
-            xil_printf("%02X ", Buffer[(Row*16)+Column]);
-          }
+	  }
+
+      segment = 0;
+	  while (segment <= ExtensionFlag)
+	  {
+        // Check if read was successful
+        if (Status == (XST_SUCCESS)) {
+          xil_printf("\n\r---- Segment %d ----\n\r", segment);
+          xil_printf("----------------------------------------------------\n\r");
+          for (Row = 0; Row < 16; Row++) {
+            xil_printf("%02X : ", (Row*16));
+            for (Column = 0; Column < 16; Column++) {
+              xil_printf("%02X ", Buffer[(Row*16)+Column]);
+            }
         xil_printf("\r\n");
+          }
+          Valid = (TRUE);
+
+          segment++;
+		  if(segment <= ExtensionFlag) {
+            Status = XV_HdmiTxSs_ReadEdidSegment(InstancePtr, (u8*)&Buffer, segment);
+		  }
         }
-        Valid = (TRUE);
-      }
+	  }
 
       if (!Valid) {
         xil_printf("Error reading EDID\r\n");
