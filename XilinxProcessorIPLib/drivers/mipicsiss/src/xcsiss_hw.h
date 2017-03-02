@@ -50,6 +50,7 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/25/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
+* 1.2 vsa 03/12/17 Add Word Count corruption interrupt support
 * </pre>
 *
 ******************************************************************************/
@@ -75,6 +76,7 @@ extern "C" {
  * @{
  */
 #define XCSISS_ISR_FR_MASK		XCSI_ISR_FR_MASK
+#define XCSISS_ISR_WC_MASK		XCSI_ISR_WC_MASK
 #define XCSISS_ISR_ILC_MASK		XCSI_ISR_ILC_MASK
 #define XCSISS_ISR_SPFIFOF_MASK		XCSI_ISR_SPFIFOF_MASK
 #define XCSISS_ISR_SPFIFONE_MASK	XCSI_ISR_SPFIFONE_MASK

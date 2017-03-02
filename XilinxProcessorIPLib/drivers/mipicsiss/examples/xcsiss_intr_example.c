@@ -64,6 +64,7 @@
 *                  ensure that "Successfully ran" and "Failed" strings
 *                  are available in all examples. This is a fix for
 *                  CR-965028.
+* 1.2 vsa 03/02/17 Added Word Count corruption interrupt
 * </pre>
 *
 ******************************************************************************/
@@ -636,6 +637,10 @@ void CsiSs_ErrEventHandler(void *InstancePtr, u32 Mask)
 
 	xil_printf("+===> Other Errors detected.\n\r");
 	interrupt_counts++;
+
+	if (Mask & XCSISS_ISR_WC_MASK) {
+		xil_printf("Word count corruption Error\n\r");
+	}
 
 	if (Mask & XCSISS_ISR_ILC_MASK) {
 		xil_printf("Incorrect Lane Count Error \n\r");
