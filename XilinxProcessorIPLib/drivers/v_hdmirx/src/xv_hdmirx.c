@@ -42,17 +42,19 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.0   gm, mg 11/03/15 Initial release.
-* 1.1   MG     30/12/15 Added DDC HDCP 2.2 calls
-* 1.2   yh     15/01/16 Added 3D Video support
-* 1.3   MG     19/02/16 Added link error callback
-* 1.4   MG     08/03/16 Updated XV_HdmiRx_SetStream to use RefClk
-* 1.5   MG     27/05/16 Updated XV_HdmiRx_CfgInitialize
-* 1.6   YH     18/07/16 Replace xil_printf with xdbg_printf
-* 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
-*                       XV_HdmiRx_CfgInitialize
-* 1.8   YH     18/08/16 squash unused variable compiler warning
-* 1.9   YH     29/08/16 Set Match to FALSE when HTotal = 0
+* 1.00  gm, mg 11/03/15 Initial release.
+* 1.01  MG     30/12/15 Added DDC HDCP 2.2 calls
+* 1.02  yh     15/01/16 Added 3D Video support
+* 1.03  MG     19/02/16 Added link error callback
+* 1.04  MG     08/03/16 Updated XV_HdmiRx_SetStream to use RefClk
+* 1.05  MG     27/05/16 Updated XV_HdmiRx_CfgInitialize
+* 1.06  YH     18/07/16 Replace xil_printf with xdbg_printf
+* 1.07  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+*                          XV_HdmiRx_CfgInitialize
+* 1.08  YH     18/08/16 squash unused variable compiler warning
+* 1.09  YH     29/08/16 Set Match to FALSE when HTotal = 0
+* 1.10  MG     02/03/17 Fixed YUV420 reading in function
+*                          XV_HdmiRx_GetVideoTiming
 * </pre>
 *
 ******************************************************************************/
@@ -1331,6 +1333,7 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
     u16 F1VBackPorch;
     u16 F1VTotal;
     u8 Match;
+    u8 YUV420_Correction;
 
     // Lookup the videomode based on the vic
     InstancePtr->Stream.Video.VmId = XV_HdmiRx_LookupVmId(InstancePtr->Stream.Vic);
@@ -1363,22 +1366,27 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
 
     // No, then read the timing parameters from the video timing detector
     else {
-
+        // If the colorspace is YUV420, then the horizontal parameters must be doubled
+        if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
+            YUV420_Correction = 2;
+        } else {
+            YUV420_Correction = 1;
+        }
         // First we read the video parameters from the VTD and store them in a local variable
         /* Read Total Pixels */
-        HTotal =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_PIX_OFFSET));
+        HTotal =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_PIX_OFFSET)) * YUV420_Correction;
 
         /* Read Active Pixels */
-        HActive =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_ACT_PIX_OFFSET));
+        HActive =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_ACT_PIX_OFFSET)) * YUV420_Correction;
 
         /* Read Hsync Width */
-        HSyncWidth =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HSW_OFFSET));
+        HSyncWidth =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HSW_OFFSET)) * YUV420_Correction;
 
         /* Read HFront Porch */
-        HFrontPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HFP_OFFSET));
+        HFrontPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HFP_OFFSET)) * YUV420_Correction;
 
         /* Read HBack Porch */
-        HBackPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HBP_OFFSET));
+        HBackPorch =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_HBP_OFFSET)) * YUV420_Correction;
 
         /* Total lines field 1 */
         F0PVTotal =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_TOT_LIN_OFFSET)) & (0xFFFF);
@@ -1416,9 +1424,9 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
             Match = FALSE;
         }
 
-		if (!HTotal) {
-			Match = FALSE;
-		}
+        if (!HTotal) {
+            Match = FALSE;
+        }
 
         // HActive
         if (HActive != InstancePtr->Stream.Video.Timing.HActive) {
@@ -1531,6 +1539,7 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
         // Do we have a match?
         // Yes, then continue processing
         if (Match) {
+
             /* Read Status register */
             Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET));
 
@@ -1566,24 +1575,19 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
 
             // Calculate and set the frame rate field
             InstancePtr->Stream.Video.FrameRate =
-                       (XVidC_FrameRate) (XV_HdmiRx_Divide(InstancePtr->Stream.PixelClk,
-                                                           (InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal)));
+               (XVidC_FrameRate) (XV_HdmiRx_Divide(InstancePtr->Stream.PixelClk,
+                                                   (InstancePtr->Stream.Video.Timing.F0PVTotal * InstancePtr->Stream.Video.Timing.HTotal)));
 
-            // If the colorspace is YUV420, then the horizontal parameters must be doubled (and the frame rate)
+            // If the colorspace is YUV420, then the frame rate must be doubled
             if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_420) {
                 InstancePtr->Stream.Video.FrameRate = (XVidC_FrameRate) (InstancePtr->Stream.Video.FrameRate * 2);
-                InstancePtr->Stream.Video.Timing.HTotal = InstancePtr->Stream.Video.Timing.HTotal * 2;
-                InstancePtr->Stream.Video.Timing.HActive = InstancePtr->Stream.Video.Timing.HActive * 2;
-                InstancePtr->Stream.Video.Timing.HSyncWidth = InstancePtr->Stream.Video.Timing.HSyncWidth * 2;
-                InstancePtr->Stream.Video.Timing.HFrontPorch = InstancePtr->Stream.Video.Timing.HFrontPorch * 2;
-                InstancePtr->Stream.Video.Timing.HBackPorch = InstancePtr->Stream.Video.Timing.HBackPorch * 2;
             }
 
             // Lookup the video mode id
-            InstancePtr->Stream.Video.VmId = XVidC_GetVideoModeId(InstancePtr->Stream.Video.Timing.HActive,
-            InstancePtr->Stream.Video.Timing.VActive,
-            InstancePtr->Stream.Video.FrameRate,
-            InstancePtr->Stream.Video.IsInterlaced);
+            InstancePtr->Stream.Video.VmId =
+               XVidC_GetVideoModeIdWBlanking(&InstancePtr->Stream.Video.Timing,
+                                             InstancePtr->Stream.Video.FrameRate,
+                                             InstancePtr->Stream.Video.IsInterlaced);
 
             //If video mode not found in the table tag it as custom
             if (InstancePtr->Stream.Video.VmId == XVIDC_VM_NOT_SUPPORTED) {

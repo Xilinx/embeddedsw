@@ -116,19 +116,21 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.0   gm, mg 10/07/15 Initial release.
-* 1.1   yh     14/01/16 Added Marco for AxisEnable PIO
-* 1.2   yh     15/01/16 Added 3D Video support
-* 1.3   MG     18/02/16 Added link error callback.
-* 1.4   MG     08/03/16 Added RefClk to structure XV_HdmiRx_Stream
-* 1.5   MG     13/05/16 Added XV_HdmiRx_DdcHdcp22Mode and XV_HdmiRx_DdcHdcp14
+* 1.00  gm, mg 10/07/15 Initial release.
+* 1.01  yh     14/01/16 Added Marco for AxisEnable PIO
+* 1.02  yh     15/01/16 Added 3D Video support
+* 1.03  MG     18/02/16 Added link error callback.
+* 1.04  MG     08/03/16 Added RefClk to structure XV_HdmiRx_Stream
+* 1.05  MG     13/05/16 Added XV_HdmiRx_DdcHdcp22Mode and XV_HdmiRx_DdcHdcp14
 *                       Mode macros
-* 1.6   MG     27/05/16 Added VTD timebase macro
-* 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
-*                       XV_HdmiRx_Config
-*                       XV_HdmiRx_CfgInitialize
-* 1.8   YH     14/11/16 Added XV_HdmiRx_Bridge_yuv420 & XV_HdmiRx_Bridge_pixel
-*                       mode macros
+* 1.06  MG     27/05/16 Added VTD timebase macro
+* 1.07  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+*                          XV_HdmiRx_Config
+*                          XV_HdmiRx_CfgInitialize
+* 1.08  YH     14/11/16 Added XV_HdmiRx_Bridge_yuv420 & XV_HdmiRx_Bridge_pixel
+*                          mode macros
+* 1.09  MMO    02/03/17 Added Sync Loss and IsMode Handler for HDCP
+*                          compliance test.
 * </pre>
 *
 ******************************************************************************/

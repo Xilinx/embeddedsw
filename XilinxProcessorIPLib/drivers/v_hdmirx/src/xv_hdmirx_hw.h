@@ -45,17 +45,20 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.0   gm, mg 11/03/15 Initial release.
-* 1.1   MG     30/12/15 Added DDC peripheral HDCP 2.2 masks
-* 1.2   yh     14/01/16 Added Bit Masking for AxisEnable PIO
-* 1.3   MG     18/02/16 Added AUX peripheral error event mask
-* 1.4   MG     13/05/16 Added DDC HDCP mode mask
-* 1.5   MG     27/05/16 Added VTD timebase
-* 1.6   MH     26/07/16 Added DDC HDCP protocol event.
-* 1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+* 1.00  gm, mg 11/03/15 Initial release.
+* 1.01  MG     30/12/15 Added DDC peripheral HDCP 2.2 masks
+* 1.02  yh     14/01/16 Added Bit Masking for AxisEnable PIO
+* 1.03  MG     18/02/16 Added AUX peripheral error event mask
+* 1.04  MG     13/05/16 Added DDC HDCP mode mask
+* 1.05  MG     27/05/16 Added VTD timebase
+* 1.06  MH     26/07/16 Added DDC HDCP protocol event.
+* 1.07  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiRx_WriteReg
 *                       XV_HdmiRx_ReadReg
-* 1.8   YH     14/11/16 Added BRIDGE_YUV420 and BRIDGE_PIXEL mask to PIO Out
+* 1.08  YH     14/11/16 Added BRIDGE_YUV420 and BRIDGE_PIXEL mask to PIO Out
+* 1.09  MMO    02/03/17 Added XV_HDMIRX_VTD_CTRL_SYNC_LOSS_MASK and
+*                          XV_HDMIRX_VTD_STA_SYNC_LOSS_EVT_MASK for HDCP
+*                          compliance
 * </pre>
 *
 ******************************************************************************/
