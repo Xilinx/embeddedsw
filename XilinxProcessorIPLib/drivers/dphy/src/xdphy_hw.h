@@ -44,6 +44,7 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/07/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
+* 1.2 vsa 03/02/17 Add support for HS_SETTLE register
 * </pre>
 *
 *****************************************************************************/
@@ -90,6 +91,7 @@ extern "C" {
 						      *  Status Register */
 #define XDPHY_DL3STATUS_REG_OFFSET 	0x00000028  /**< Data lane 3 PHY error
 						      *  Status Register */
+#define XDPHY_HSSETTLE_REG_OFFSET	0x00000030  /**< HS Settle Register */
 /*@}*/
 
 /** @name Bitmasks and offsets of XDPHY_CTRL_REG_OFFSET register
@@ -228,6 +230,18 @@ extern "C" {
 #define XDPHY_DLXSTATUS_REG_ULPS_OFFSET 2 /**< Bit offset for ULPS */
 #define XDPHY_DLXSTATUS_REG_MODE_OFFSET 0 /**< Bit offset for Modes */
 /*@}*/
+
+/** @name Bitmask and offset of XDPHY_HSSETTLE_REG_OFFSET register
+ *
+ * This register is used to program the HS SETTLE register.
+ * Default value is 135 + 10UI.
+ *
+ * @{
+ */
+#define XDPHY_HSSETTLE_REG_TIMEOUT_MASK	0x1FF	/**< HS_SETTLE value */
+#define XDPHY_HSSETTLE_REG_TIMEOUT_OFFSET 0 /**< Bit offset for HS_SETTLE */
+/*@}*/
+
 
 /**************************** Type Definitions *******************************/
 
