@@ -55,6 +55,8 @@
 *                       Added 480i and 576i Support in the UART
 * 1.7   GM   01-02-2017 Change PLL Layout menu access to GTX only in
 *                              XHdmi_GtPllLayoutMenu API
+* 1.8   mmo  02-03-2017 Added Support to Set HDMI TX to be on HDMI or
+*                               DVI Mode.
 * </pre>
 *
 ******************************************************************************/
@@ -245,6 +247,8 @@ void XHdmi_DisplayMainMenu(void)
 	print("       => Audio options.\n\r");
 	print("v - Video\n\r");
 	print("       => Video pattern options.\n\r");
+	print("m - Set HDMI Mode\n\r");
+	print("n - Set DVI Mode\n\r");
 
 #if defined(USE_HDCP)
 	/* Show HDCP menu option when HDCP is ready */
@@ -469,6 +473,24 @@ static XHdmi_MenuType XHdmi_MainMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			XVphy_LogDisplay(&Vphy);
 			XV_HdmiTxSs_LogDisplay(&HdmiTxSs);
 			XV_HdmiRxSs_LogDisplay(&HdmiRxSs);
+			Menu = XHDMI_MAIN_MENU;
+		break;
+
+		// HDMI Mode
+		case ('m') :
+		case ('M') :
+		    print("\n\rEnable HDMI Mode.\n\r");
+		    XV_HdmiTxSS_SetHdmiMode(&HdmiTxSs);
+		    XV_HdmiTxSs_AudioMute(&HdmiTxSs, FALSE);
+			Menu = XHDMI_MAIN_MENU;
+		break;
+
+		// DVI Mode
+		case ('n') :
+		case ('N') :
+	    print("\n\rEnable DVI Mode.\n\r");
+	        XV_HdmiTxSS_SetDviMode(&HdmiTxSs);
+	        XV_HdmiTxSs_AudioMute(&HdmiTxSs, TRUE);
 			Menu = XHDMI_MAIN_MENU;
 		break;
 
