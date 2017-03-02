@@ -991,6 +991,10 @@ static void PmPowerClearConfig(PmNode* const powerNode)
 	power->useCount = 0U;
 }
 
+/**
+ * PmPowerConstruct() - Constructor method for the power node
+ * @powerNode	Power node to construct
+ */
 static void PmPowerConstruct(PmNode* const powerNode)
 {
 	PmPower* const power = (PmPower*)powerNode->derived;
