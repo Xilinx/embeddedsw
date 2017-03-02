@@ -122,6 +122,7 @@
 *                  examples to ensure that "Successfully ran" and "Failed"
 *                  strings are available in all examples. This is a fix
 *                  for CR-965028.
+* 1.2 vsa 03/02/17 Add support for HS_SETTLE register
 * </pre>
 *
 ******************************************************************************/
@@ -165,7 +166,8 @@ extern "C" {
 #define XDPHY_HANDLE_DLANE1	7 /**< Handle for Data Lane 1 */
 #define XDPHY_HANDLE_DLANE2	8 /**< Handle for Data Lane 2 */
 #define XDPHY_HANDLE_DLANE3	9 /**< Handle for Data Lane 3 */
-#define XDPHY_HANDLE_MAX 	9 /**< Upper Bound for XDPHY_HANDLE */
+#define XDPHY_HANDLE_HSSETTLE	10 /**< Handle for HS SETTLE */
+#define XDPHY_HANDLE_MAX 	10 /**< Upper Bound for XDPHY_HANDLE */
 /*@}*/
 
 /**************************** Macros Definitions *****************************/
@@ -174,6 +176,12 @@ extern "C" {
 */
 #define XDPHY_HS_TIMEOUT_MIN_VALUE	10000UL
 #define XDPHY_HS_TIMEOUT_MAX_VALUE	65541UL
+/*@}*/
+
+/** @name DPHY HSSETTLE range
+ * @{
+*/
+#define XDPHY_HS_SETTLE_MAX_VALUE	0x1FF
 /*@}*/
 
 /** @name DPHY Flags to Enable or Disable core
@@ -298,6 +306,7 @@ typedef struct {
 	u32 TxPllClkinPeriod;
 	u32 Wakeup; /**< Time to exit ULPS mode */
 	u32 EnableTimeOutRegs;	/**< Enable HS and Esc Timeout Regs */
+	u32 HSSettle;
 } XDphy_Config;
 
 /**

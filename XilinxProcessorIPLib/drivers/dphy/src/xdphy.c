@@ -44,6 +44,7 @@
 * --- --- -------- ------------------------------------------------------------
 * 1.0 vsa 07/08/15 Initial release
 * 1.1 sss 08/17/16 Added 64 bit support
+* 1.2 vsa 03/02/17 Add support for HS_SETTLE register
 * </pre>
 ******************************************************************************/
 
@@ -178,7 +179,15 @@ u32 XDphy_Configure(XDphy *InstancePtr, u8 Handle, u32 Value)
 		case XDPHY_HANDLE_DLANE3:
 			Status = XST_FAILURE;
 			break;
+		case XDPHY_HANDLE_HSSETTLE:
+			Xil_AssertNonvoid(Value <= XDPHY_HS_SETTLE_MAX_VALUE);
+			Xil_AssertNonvoid(InstancePtr->Config.IsRx == 0);
 
+			XDphy_WriteReg((InstancePtr)->Config.BaseAddr,
+					XDPHY_HSSETTLE_REG_OFFSET,
+					Value);
+
+			break;
 		default:
 			break;
 	}
@@ -282,6 +291,12 @@ u32 XDphy_GetInfo(XDphy *InstancePtr, u8 Handle)
 		case XDPHY_HANDLE_DLANE3:
 			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
 						 XDPHY_DL3STATUS_REG_OFFSET);
+			break;
+		case XDPHY_HANDLE_HSSETTLE:
+			Xil_AssertNonvoid(InstancePtr->Config.IsRx == 0);
+
+			RegVal = XDphy_ReadReg((InstancePtr)->Config.BaseAddr,
+						XDPHY_HSSETTLE_REG_OFFSET);
 			break;
 		default:
 			break;
