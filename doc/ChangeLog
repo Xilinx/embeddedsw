@@ -1470,6 +1470,7 @@ and to populate xparameters.h with memory range constants.
 
 mipicsiss_v1_0:
 Added initial version of Xilinx MIPI CSI Rx Subsystem driver.
+Add Word Count Corruption interrupt feature
 
 mutex_v4_1:
 Used UINTPTR instead of u32 for Baseaddress to fix CR# 867425.
