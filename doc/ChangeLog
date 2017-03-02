@@ -1248,6 +1248,7 @@ connected as one of the streaming slaves to itself. This is for CR#876604.
 
 csi_v1_0:
 Added the initial version of MIPI CSI2 RX Controller driver.
+Add Word Count Corruption interrupt feature
 
 devcfg_v3_4:
 Fix for CR#784758. Changes in driver tcl to delete filename statement.
