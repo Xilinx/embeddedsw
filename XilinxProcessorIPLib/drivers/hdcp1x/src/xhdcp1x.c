@@ -1509,7 +1509,7 @@ void XHdcp1x_SetTopologyField(XHdcp1x *InstancePtr,
 ******************************************************************************/
 u32 XHdcp1x_GetTopologyField(XHdcp1x *InstancePtr, XHdcp1x_TopologyField Field)
 {
-	u32 Value;
+	u32 Value = 0;
 
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);

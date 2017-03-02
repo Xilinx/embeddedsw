@@ -376,7 +376,6 @@ static int XHdcp1x_PortHdmiTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 static int XHdcp1x_PortHdmiTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		const void *Buf, u32 BufSize)
 {
-	XV_HdmiTx *HdmiTx = InstancePtr->Port.PhyIfPtr;
 	u8 Slave = 0x3Au;
 	u8 TxBuf[XHDCP1X_WRITE_CHUNK_SZ + 1];
 	int NumWritten = 0;
