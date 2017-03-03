@@ -161,4 +161,49 @@ u32 PmSystemGetRequirement(const PmSlave* const slave)
 	return caps;
 }
 
+/**
+ * PmSystemPrepareForRestart() - Prepare for restarting the master
+ * @master	Master to be restarted
+ */
+void PmSystemPrepareForRestart(const PmMaster* const master)
+{
+	PmRequirement* req;
+
+	if (master != &pmMasterApu_g) {
+		goto done;
+	}
+
+	/* Change system requirement for DDR to hold it ON while restarting */
+	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
+	if ((NULL != req) && (0U == (PM_CAP_ACCESS & req->currReq))) {
+		req->currReq |= PM_CAP_ACCESS;
+	}
+
+done:
+	return;
+}
+
+/**
+ * PmSystemRestartDone() - Done restarting the master
+ * @master	Master which is restarted
+ */
+void PmSystemRestartDone(const PmMaster* const master)
+{
+	PmRequirement* req;
+	u32 caps;
+
+	if (master != &pmMasterApu_g) {
+		goto done;
+	}
+
+	/* Change system requirement for DDR to hold it ON while restarting */
+	req = PmRequirementGetNoMaster(&pmSlaveDdr_g);
+	caps = PmSystemGetRequirement(&pmSlaveDdr_g);
+	if ((NULL != req) && (0U == (PM_CAP_ACCESS & caps))) {
+		req->currReq &= ~PM_CAP_ACCESS;
+	}
+
+done:
+	return;
+}
 #endif
