@@ -773,6 +773,10 @@ extern "C" {
 #define XFSBL_USB
 #endif
 
+#if !defined(FSBL_PROT_BYPASS_EXCLUDE)
+#define XFSBL_PROT_BYPASS
+#endif
+
 #ifdef ARMR5
 #define XFSBL_PS_DDR_INIT_START_ADDRESS	XFSBL_PS_DDR_START_ADDRESS_R5
 #else
