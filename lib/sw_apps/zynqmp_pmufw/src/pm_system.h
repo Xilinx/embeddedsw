@@ -46,4 +46,7 @@ int PmSystemRequirementAdd(void);
 
 u32 PmSystemGetRequirement(const PmSlave* const slave);
 
+void PmSystemPrepareForRestart(const PmMaster* const master);
+void PmSystemRestartDone(const PmMaster* const master);
+
 #endif

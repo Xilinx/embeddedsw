@@ -891,6 +891,7 @@ int PmMasterRestart(PmMaster* const master)
 	u64 address = 0xFFFC0000ULL;
 
 	XPfw_RecoveryAck(master);
+	PmSystemPrepareForRestart(master);
 	status = PmMasterFsm(master, PM_MASTER_EVENT_FORCE_DOWN);
 	if (XST_SUCCESS != status) {
 		goto done;
@@ -905,6 +906,7 @@ int PmMasterRestart(PmMaster* const master)
 		goto done;
 	}
 	status = PmProcFsm(master->procs[0], PM_PROC_EVENT_WAKE);
+	PmSystemRestartDone(master);
 
 done:
 	return status;
