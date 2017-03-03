@@ -146,7 +146,7 @@ done:
  *
  * @return	Capabilities of the slave the are required for the system
  */
-u32 PmSystemGetRequirement(const PmSlave* const slave)
+static u32 PmSystemGetRequirement(const PmSlave* const slave)
 {
 	u32 i;
 	u32 caps = 0U;
