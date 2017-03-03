@@ -180,6 +180,9 @@ Modified num instances parameter as XPAR_XCFA_NUM_INSTANCES
 in xparameters.h, xcfa_sinit.c to avoid compilation errors because it
 was updated as XPAR_CFA_NUM_INSTANCES in both files. Fix for CR#966099
 
+clk_wiz_v1_2:
+Fixed compilation errors and warnings. CR-970507.
+
 cpu_cortexa9_v2_4:
 Updated makefile with "clean" target
 Updated tcl to check each extra compiler flag individually
