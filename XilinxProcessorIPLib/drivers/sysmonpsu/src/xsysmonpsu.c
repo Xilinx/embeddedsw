@@ -61,6 +61,7 @@
 *                       XSysMonPsu_SetSeqAcqTime
 *                       and XSysMonPsu_GetSeqAcqTime to provide support for
 *                       set/get 64 bit value.
+* 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
 *
 * </pre>
 *
@@ -189,6 +190,7 @@ static void XSysMonPsu_StubHandler(void *CallBackRef)
 ******************************************************************************/
 void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
 {
+	u8 IsPlReset;
 	/* Assert the arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
@@ -196,9 +198,14 @@ void XSysMonPsu_Reset(XSysMonPsu *InstancePtr)
 	XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XPS_BA_OFFSET +
 			XSYSMONPSU_VP_VN_OFFSET, XSYSMONPSU_VP_VN_MASK);
 
-	/* RESET the PL SYSMON */
-	XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XPL_BA_OFFSET +
-			XSYSMONPSU_VP_VN_OFFSET, XSYSMONPSU_VP_VN_MASK);
+	/* Check for PL is under reset or not */
+	IsPlReset = (XSysmonPsu_ReadReg(CSU_BASEADDR + PCAP_STATUS_OFFSET) &
+						PL_CFG_RESET_MASK) >> PL_CFG_RESET_SHIFT;
+	if (IsPlReset != 0U) {
+		/* RESET the PL SYSMON */
+		XSysmonPsu_WriteReg(InstancePtr->Config.BaseAddress + XPL_BA_OFFSET +
+				XSYSMONPSU_VP_VN_OFFSET, XSYSMONPSU_VP_VN_MASK);
+	}
 
 }
 

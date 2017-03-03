@@ -46,6 +46,7 @@
 * 1.0   kvn	  12/15/15 First release
 * 2.0   vns    08/14/16  Added CFG_REG3, SEQ_INPUT_MODE2, SEQ_ACQ2,
 *                        SEQ_CH2 and SEQ_AVG2 offsets and bit masks
+* 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
 *
 * </pre>
 *
@@ -2280,6 +2281,11 @@ extern "C" {
 #define XSYSMONPSU_MIN_TEMP_REMTE_SHIFT   0U
 #define XSYSMONPSU_MIN_TEMP_REMTE_WIDTH   16U
 #define XSYSMONPSU_MIN_TEMP_REMTE_MASK    0x0000ffffU
+
+#define CSU_BASEADDR			0xFFCA0000U
+#define PCAP_STATUS_OFFSET		0x00003010U
+#define PL_CFG_RESET_MASK		0x00000040U
+#define PL_CFG_RESET_SHIFT		6U
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
