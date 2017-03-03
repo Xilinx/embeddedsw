@@ -94,6 +94,9 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 		u32 HandoffType, u32 Vector);
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings);
 static u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId);
+#ifdef XFSBL_PROT_BYPASS
+static void XFsbl_ProtectionConfig(void);
+#endif
 
 /**
  * Functions defined in xfsbl_handoff.S
@@ -745,6 +748,13 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 		goto END;
 	}
 
+	/* FSBL shall bypass XPPU and FPD XMPU configuration BY DEFAULT.
+	*  This means though the Isolation configuration through hdf is used throughout the
+	*  software flow, for the hardware, isolation will only be limited to just OCM and DDR.
+	*/
+#ifdef XFSBL_PROT_BYPASS
+	XFsbl_ProtectionConfig();
+#else
 	/* Apply protection configuration */
 	Status = (u32)psu_protection();
 	if (Status != XFSBL_SUCCESS) {
@@ -760,7 +770,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
 		goto END;
 	}
-
+#endif
 	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
 
 	}
@@ -1141,3 +1151,23 @@ u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 #endif
 	return Status;
 }
+
+#ifdef XFSBL_PROT_BYPASS
+/****************************************************************************/
+/**
+*
+* @param
+*
+* @return
+*
+* @note
+*
+*
+*****************************************************************************/
+static void XFsbl_ProtectionConfig(void)
+{
+	psu_apply_master_tz();
+	psu_ddr_protection();
+	psu_ocm_protection();
+}
+#endif
