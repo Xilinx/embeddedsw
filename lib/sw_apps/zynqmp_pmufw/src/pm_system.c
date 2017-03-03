@@ -42,6 +42,7 @@
 #include "pm_requirement.h"
 #include "pm_sram.h"
 #include "pm_ddr.h"
+#include "pm_periph.h"
 
 /*********************************************************************
  * Structure definitions
@@ -94,6 +95,20 @@ PmSystemRequirement pmSystemReqs[] = {
 		.slave = &pmSlaveDdr_g,
 		.caps = PM_CAP_CONTEXT,
 	},
+#ifdef DEBUG_MODE
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+	{
+		.slave = &pmSlaveUart0_g,
+		.caps = PM_CAP_ACCESS,
+	},
+#endif
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+	{
+		.slave = &pmSlaveUart1_g,
+		.caps = PM_CAP_ACCESS,
+	},
+#endif
+#endif
 };
 
 /*********************************************************************
