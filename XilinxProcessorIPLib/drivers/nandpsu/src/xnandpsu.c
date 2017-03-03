@@ -314,7 +314,7 @@ static s32 XNandPsu_FlashInit(XNandPsu *InstancePtr)
 	u32 Crc;
 	u32 PrmPgOff;
 	u32 PrmPgLen;
-	OnfiExtPrmPage ExtParam __attribute__ ((aligned(64)));
+	OnfiExtPrmPage ExtParam __attribute__ ((aligned(64))) = {0U};
 
 	/* Assert the input arguments. */
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
@@ -2793,7 +2793,7 @@ static void XNandPsu_Update_DmaAddr(XNandPsu *InstancePtr, u8* Buf)
 static s32 XNandPsu_Device_Ready(XNandPsu *InstancePtr, u32 Target)
 {
 s32 Status = XST_SUCCESS;
-u16 OnfiStatus;
+u16 OnfiStatus = 0U;
 
 	do {
 		Status = XNandPsu_OnfiReadStatus(InstancePtr, Target,
