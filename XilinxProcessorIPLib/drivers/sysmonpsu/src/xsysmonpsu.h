@@ -163,6 +163,7 @@
 *                       set/get 64 bit value.
 *                       Added constants XSM_CFR_ALM_SUPPLY*(8-31)_MASKs to
 *                       provide support for enabling extra PS alarams.
+* 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
 *
 * </pre>
 *
