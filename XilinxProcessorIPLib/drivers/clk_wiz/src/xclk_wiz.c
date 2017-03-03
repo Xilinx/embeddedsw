@@ -47,6 +47,7 @@
 * 1.0 ram 2/12/16 Initial version for Clock Wizard
 * 1.1 siv 8/17/16 Used UINTPTR instead of u32 for Baseaddress
 * 	Changed the prototype of XClk_Wiz_CfgInitialize
+* 1.2 ms  3/02/17 Fixed compilation warnings. Fix for CR-970507.
 * </pre>
 ******************************************************************************/
 
@@ -167,6 +168,8 @@ void XClk_Wiz_GetInterruptSettings(XClk_Wiz  *InstancePtr)
 ******************************************************************************/
 static void StubErrCallBack(void *CallBackRef, u32 ErrorMask)
 {
+	(void) ((void *)CallBackRef);
+	(void) ErrorMask;
 	Xil_AssertVoidAlways();
 }
 /** @} */
