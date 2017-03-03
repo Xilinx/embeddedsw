@@ -449,4 +449,5 @@
  *                    prefetches allowed in L1 cache system.This fixes CR#967864.
  * 6.2 pkp   02/16/17 Added xil_smc.c file to provide a C wrapper for smc calling which can be
  *		      used by cortex-A53 64bit EL1 Non-secure application.
+ * 6.2 kvn   03/03/17 Added support thumb mode
  *****************************************************************************************/
