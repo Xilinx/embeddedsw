@@ -488,7 +488,7 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 	u32 Arg;
 	u16 BlkCnt;
 	u16 BlkSize;
-	u8 ReadBuff[64];
+	u8 ReadBuff[64] = {0U};
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
