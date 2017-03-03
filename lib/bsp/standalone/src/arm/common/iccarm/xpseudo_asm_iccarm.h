@@ -47,6 +47,7 @@
 * 5.3	pkp		 10/09/15 Modified dsb, dmb and isb definitions
 * 5.4	pkp		 03/02/16 Included header file instrinsic.h for assembly
 *						  instructions definitions
+* 6.2   kvn      03/03/17 Added support thumb mode
 * </pre>
 *
 ******************************************************************************/
@@ -75,7 +76,7 @@ extern "C" {
 /* pseudo assembler instructions */
 
 #define mtcpsr(v)	__asm volatile(\
-			  "msr	cpsr,%0\n"\
+			  "msr	cpsr_cf,%0\n"\
 			  : : "r" (v)\
 			)
 
