@@ -291,6 +291,7 @@ CR#966603
 Added CCI support for A53 by updating cache coherency information and
 disabling data cache related operations when CCI is enabled.
 Fixed compilation warning in _g.c
+Fixed MISRAC mandatory violation - CR#970533
 
 prd_v1_1:
 Modified num instances parameter as XPAR_XPRD_NUM_INSTANCES in xparameters.h,
@@ -330,6 +331,7 @@ Support for bus width switching based on hdf
 Added CCI support for A53 by updating cache coherency information and
 disabling data cache related operations when CCI is enabled.
 Added support for A53-32bit on ZynqMP.
+Fixed MISRAC mandatory violation - CR#970531
 
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
