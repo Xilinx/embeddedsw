@@ -100,6 +100,8 @@
 *                  examples to ensure that "Successfully ran" and "Failed"
 *              	   strings are available in all examples. This is a fix
 *                  for CR-965028.
+* 1.2 ms  03/02/17 Fixed compilation errors in xclk_wiz_intr.c, xclk_wiz_g.c
+*                  and warnings in xclk_wiz.c files. Fix for CR-970507.
 * </pre>
 *
 ******************************************************************************/
@@ -147,12 +149,12 @@ typedef struct {
 	u32 EnableUserClkWiz1;   /**< Enable user clk 1 */
 	u32 EnableUserClkWiz2;   /**< Enable user clk 2 */
 	u32 EnableUserClkWiz3;   /**< Enable user clk 3 */
-	u32 RefClkFreq;       /**< Frequency of Reference Clock */
-	u32 UserClkFreq0;   /**< Hold the  user clock frequency0 */
-	u32 UserClkFreq1;   /**< Hold the  user clock frequency1 */
-	u32 UserClkFreq2;   /**< Hold the  user clock frequency2 */
-	u32 UserClkFreq3;   /**< Hold the  user clock frequency3 */
-	u32 Precision;      /**< Holds the value of precision */
+	double RefClkFreq;       /**< Frequency of Reference Clock */
+	double UserClkFreq0;   /**< Hold the  user clock frequency0 */
+	double UserClkFreq1;   /**< Hold the  user clock frequency1 */
+	double UserClkFreq2;   /**< Hold the  user clock frequency2 */
+	double UserClkFreq3;   /**< Hold the  user clock frequency3 */
+	double Precision;      /**< Holds the value of precision */
 	u8  EnablePll0;        /**< specify if this user clock is
 				going as input to the PLL/MMCM */
 	u8  EnablePll1;        /**< specify if this user clock is

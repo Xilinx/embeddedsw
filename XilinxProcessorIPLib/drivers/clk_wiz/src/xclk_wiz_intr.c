@@ -45,6 +45,7 @@
 * Ver Who Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0 ram 02/12/16 Initial version for Clock Wizard
+* 1.2 ms  03/02/17 Fixed compilation errors. Fix for CR-970507.
 * </pre>
 ******************************************************************************/
 
@@ -233,18 +234,18 @@ int XClk_Wiz_SetCallBack(XClk_Wiz *InstancePtr, u32 HandleType,
 
 	switch (HandleType) {
 		case XCLK_WIZ_HANDLER_CLK_OUTOF_RANGE:
-			InstancePtr->ClkOutOfRangeCallBack = CallBackFunc;
+			InstancePtr->ClkOutOfRangeCallBack = (XClk_Wiz_CallBack)CallBackFunc;
 			InstancePtr->ClkOutOfRangeRef = CallBackRef;
 			break;
 		case XCLK_WIZ_HANDLER_CLK_GLITCH:
-			InstancePtr->ClkGlitchCallBack= CallBackFunc;
+			InstancePtr->ClkGlitchCallBack= (XClk_Wiz_CallBack)CallBackFunc;
 			InstancePtr->ClkGlitchRef = CallBackRef;
 			break;
 		case XCLK_WIZ_HANDLER_CLK_STOP:
-			InstancePtr->ClkStopCallBack = CallBackFunc;
+			InstancePtr->ClkStopCallBack = (XClk_Wiz_CallBack)CallBackFunc;
 			InstancePtr->ClkStopRef = CallBackRef;
 		case XCLK_WIZ_HANDLER_CLK_OTHER_ERROR:
-			InstancePtr->ErrorCallBack = CallBackFunc;
+			InstancePtr->ErrorCallBack = (XClk_Wiz_CallBack)CallBackFunc;
 			InstancePtr->ErrRef = CallBackRef;
 			break;
 		default:
