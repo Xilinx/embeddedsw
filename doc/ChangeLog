@@ -361,6 +361,7 @@ smc calling which can be used by cortex-A53 64bit EL1 Non-secure application
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
 Added voltage conversion macro for Vcco_psio
+Add PL reset check before PL sysmon reset
 
 tmrctr_v4_3:
 Updated tmrctr_tapp tcl to avoid errors, if axi timer interrupt is connected
