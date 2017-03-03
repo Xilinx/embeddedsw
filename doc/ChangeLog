@@ -1658,6 +1658,7 @@ for CR-967548.
 
 zdma_1_2:
 Updated driver to fix compilation errors for IAR compiler.
+Added support for CCI.
 
 zynqmp_fsbl:
 - Added support for micron QSPI 2G part.
