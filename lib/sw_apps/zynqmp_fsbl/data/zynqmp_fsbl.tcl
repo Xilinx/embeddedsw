@@ -62,6 +62,112 @@ proc check_standalone_os {} {
     }
 }
 
+proc get_ip_sub_type { ip_inst_object} {
+    if { [string compare -nocase cell [common::get_property CLASS $ip_inst_object]] != 0 } {
+        error "get_mem_type API expect only mem_range type object whereas $class type object is passed"
+    }
+
+    set ip_type [common::get_property CONFIG.EDK_SPECIAL $ip_inst_object]
+    if { [llength $ip_type] != 0 } {
+        return $ip_type
+    }
+
+    set ip_name [common::get_property IP_NAME $ip_inst_object]
+    if { [string compare -nocase "$ip_name"  "lmb_bram_if_cntlr"] == 0
+        || [string compare -nocase "$ip_name" "isbram_if_cntlr"] == 0
+        || [string compare -nocase "$ip_name" "axi_bram_ctrl"] == 0
+        || [string compare -nocase "$ip_name" "dsbram_if_cntlr"] == 0
+        || [string compare -nocase "$ip_name" "ps7_ram"] == 0 } {
+            set ip_type "BRAM_CTRL"
+    } elseif { [string match -nocase *ddr* "$ip_name" ] == 1 } {
+         set ip_type "DDR_CTRL"
+     } elseif { [string compare -nocase "$ip_name" "mpmc"] == 0 } {
+         set ip_type "DRAM_CTRL"
+     } elseif { [string compare -nocase "$ip_name" "axi_emc"] == 0 } {
+         set ip_type "SRAM_FLASH_CTRL"
+     } elseif { [string compare -nocase "$ip_name" "psu_ocm_ram_0"] == 0
+                || [string compare -nocase "$ip_name" "psu_ocm_ram_1"] == 0
+                || [string compare -nocase "$ip_name" "psu_ocm_ram"] == 0 } {
+         set ip_type "OCM_CTRL"
+     } else {
+         set ip_type [common::get_property IP_TYPE $ip_inst_object]
+     }
+     #puts "$ip_inst_object: $ip_type"; flush stdout
+     return $ip_type
+}
+
+proc get_mem_type { mem } {
+    set mem_type [get_ip_sub_type [hsi::get_cells $mem]]
+    if { $mem_type == "BRAM_CTRL" } {
+        return "BRAM"
+    }
+    if { $mem_type == "OCM_CTRL" } {
+	return "OCM"
+    }
+    return "OTHER"
+}
+
+proc check_program_memory {} {
+    # Obtain a list of "ID" memories
+    set proc_instance [hsi::get_sw_processor]
+    set idmemlist [hsi::get_mem_ranges -of_objects [hsi::get_cells $proc_instance] -filter { IS_INSTRUCTION == true && IS_DATA == true && MEM_TYPE == "MEMORY" }]
+    set security [common::get_property CONFIG.security_state [::hsi::get_os]]
+
+    set required_mem_size 0x2A000
+    set ocm_ranges {}
+    # Get a list of OCM regions
+    foreach mem $idmemlist {
+	# Skip memory regions if,
+	# a. ACCESS_TYPE != RW
+	# b. BSP security settings != TZ settings of the region
+	# c. MEM TYPE != OCM
+	set access [common::get_property ACCESS_TYPE $mem]
+	if { $access != "Read/Write" } continue
+	set tz [common::get_property TRUSTZONE $mem]
+	if { $security == "secure" && $tz == "Strict-NonSecure" } continue
+	if { $security == "non-secure" && $tz == "Secure" } continue
+	if { [get_mem_type $mem] != "OCM" } continue
+	set base [common::get_property BASE_VALUE $mem]
+	set high [common::get_property HIGH_VALUE $mem]
+	set size [expr $high - $base +1]
+	if { $base == 0xfffc0000 && $size >= $required_mem_size } return
+	lappend ocm_ranges [list $base $size]
+    }
+    if { [llength $ocm_ranges] == 0 } {
+	error "This application requires atleast [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
+    }
+
+    # Sort the regions and contatenate sequential regions
+    set ocm_ranges [lsort -integer -index 0 $ocm_ranges]
+    set base0 [lindex $ocm_ranges 0 0]
+    set size0 [lindex $ocm_ranges 0 1]
+    set ocm_ranges [lrange $ocm_ranges 1 end]
+    set concatenated_ranges {}
+    foreach range $ocm_ranges {
+	set base [lindex $range 0]
+	set size [lindex $range 1]
+	if { $base == [expr $base0 + $size0] } {
+	    set size0 [expr $size0 + $size]
+	    if { $base0 == 0xfffc0000 && $size0 >= $required_mem_size } return
+	} else {
+	    lappend concatenated_ranges [list $base0 $size0]
+	    set base0 $base
+	    set size0 $size
+	}
+    }
+
+    # Check if any region is of required size
+    lappend concatenated_ranges [list $base0 $size0]
+    set concatenated_ranges [lsort -integer -index 0 $concatenated_ranges]
+    foreach range $concatenated_ranges {
+	set base [lindex $range 0]
+	set size [lindex $range 1]
+	if { $base == 0xfffc0000 && $size >= $required_mem_size } return
+    }
+
+    error "This application requires atleast [expr $required_mem_size/1024] KB of OCM memory at 0xfffc0000 to run"
+}
+
 proc swapp_is_supported_sw {} {
     # make sure we are using standalone OS
     check_standalone_os;
@@ -162,6 +268,9 @@ proc swapp_is_supported_hw {} {
     if { [llength $str_iso] != 0 } {
         error $str_iso
     }
+
+    #check if the design has minimum memory for the program to run
+    check_program_memory
 
     return 1;
 }
