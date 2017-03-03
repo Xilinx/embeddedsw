@@ -890,6 +890,12 @@ int PmMasterRestart(PmMaster* const master)
 	int status;
 	u64 address = 0xFFFC0000ULL;
 
+	/* Master restart is currently supported only for APU */
+	if (master != &pmMasterApu_g) {
+		status = XST_NO_FEATURE;
+		goto done;
+	}
+
 	XPfw_RecoveryAck(master);
 	PmSystemPrepareForRestart(master);
 	status = PmMasterFsm(master, PM_MASTER_EVENT_FORCE_DOWN);
