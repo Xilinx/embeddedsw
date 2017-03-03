@@ -55,6 +55,9 @@
 #define HAS_CAPABILITIES(slavePtr, state, caps)	\
 	((caps) == ((caps) & (slavePtr)->slvFsm->states[state]))
 
+#define PM_SLAVE_IS_USED	(PM_MASTER_USING_SLAVE_MASK | \
+				PM_SYSTEM_USING_SLAVE_MASK)
+
 /**
  * PmSlaveGetMaxCaps()- Get maximum of all requested capabilities of slave
  * @slave   Slave whose maximum required capabilities should be determined
@@ -67,11 +70,8 @@ u32 PmSlaveGetMaxCaps(const PmSlave* const slave)
 	u32 maxCaps = 0U;
 
 	while (NULL != req) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
+		if (0U != (PM_SLAVE_IS_USED & req->info)) {
 			maxCaps |= req->currReq;
-		}
-		if (0U != (PM_SYSTEM_USING_SLAVE_MASK & req->info)) {
-			maxCaps |= PmSystemGetRequirement(slave);
 		}
 		req = req->nextMaster;
 	}
