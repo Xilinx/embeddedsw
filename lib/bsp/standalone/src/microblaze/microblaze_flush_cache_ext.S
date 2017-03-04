@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2008 - 2014 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2008 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,9 @@
 
 #define XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN	16
 
+#define CACHEABLE_REGION_SIZE (XPAR_MICROBLAZE_DCACHE_HIGHADDR - XPAR_MICROBLAZE_DCACHE_BASEADDR)
+
+
 	.text
 	.globl	microblaze_flush_cache_ext
 	.ent	microblaze_flush_cache_ext
@@ -52,7 +55,7 @@ microblaze_flush_cache_ext:
 #if ((XPAR_MICROBLAZE_INTERCONNECT==3) && (XPAR_MICROBLAZE_USE_DCACHE==1))
 	addik	r5, r0, XPAR_MICROBLAZE_DCACHE_BASEADDR & (-(4 * XPAR_MICROBLAZE_DCACHE_LINE_LEN))
 
-	addik	r6, r0, XPAR_MICROBLAZE_DCACHE_BYTE_SIZE-(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
+	addik	r6, r0, CACHEABLE_REGION_SIZE-(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
 	andi	r6, r6, -(4 * XPAR_MICROBLAZE_EXT_CACHE_LINE_LEN)
 
 Loop_start:
