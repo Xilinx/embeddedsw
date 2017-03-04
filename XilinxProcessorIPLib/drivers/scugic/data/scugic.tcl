@@ -658,6 +658,27 @@ proc xget_port_type {port} {
         return "local"
     }
 }
+
+###################################################################
+#
+# Get the port width of concat block pin
+#
+###################################################################
+proc get_port_width {periph number} {
+    set def 0
+    set pins [get_pins -of_objects $periph]
+    for {set i 0 } { $i < 32 } { incr i } {
+        if {$number == 0} {
+            return 0
+        }
+        if {$i < $number} {
+            set pin [lindex $pins $number]
+            set width [::hsi::utils::get_port_width $pin]
+            set def [expr $width + $def]
+        }
+    }
+    return $def
+}
 ###################################################################
 #
 # Get interrupt ID for zynqmpsoc
@@ -799,6 +820,7 @@ proc get_psu_interrupt_id { ip_name port_name } {
 	# check for direct connection or concat block connected
         if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
             set number [regexp -all -inline -- {[0-9]+} $sink_pin]
+            set number [get_port_width $sink_periph $number]
             set dout "dout"
 	    set concat_block 1
 	    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
