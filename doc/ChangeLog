@@ -423,6 +423,9 @@ Added configurable option for USE_STRFUNC
 xilflash_v4_3:
 Fixed Compilation warnings - CR#957004
 
+xilisf_v5_8:
+Fixed FastReadData bug - CR#968476
+
 xilmfs_v2_3:
 Fixed Compilation warnings - CR#957004
 
