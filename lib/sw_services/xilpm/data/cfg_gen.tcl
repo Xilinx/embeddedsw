@@ -336,6 +336,7 @@ dict set node_map NODE_GPU { label NODE_GPU periph psu_gpu type slave }
 dict set node_map NODE_PCIE { label NODE_PCIE periph psu_pcie type slave }
 dict set node_map NODE_PCAP { label NODE_PCAP periph NA type slave }
 dict set node_map NODE_RTC { label NODE_RTC periph psu_rtc type slave }
+dict set node_map NODE_PL { label NODE_PL periph NA type others }
 
 
 
@@ -543,7 +544,7 @@ $master_prealloc_txt
 
 proc get_prealloc_section { } {
 	set prealloc_text "\n"
-	set apu_prealloc_list {NODE_IPI_APU NODE_DDR NODE_L2 NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI}
+	set apu_prealloc_list {NODE_IPI_APU NODE_DDR NODE_L2 NODE_OCM_BANK_0 NODE_OCM_BANK_1 NODE_OCM_BANK_2 NODE_OCM_BANK_3 NODE_I2C_0 NODE_I2C_1 NODE_SD_1 NODE_QSPI NODE_PL}
 	set r5_0_prealloc_list {NODE_IPI_RPU_0 NODE_TCM_0_A NODE_TCM_0_B NODE_TCM_1_A NODE_TCM_1_B}
 	set r5_1_prealloc_list {NODE_IPI_RPU_1 NODE_TCM_1_A NODE_TCM_1_B}
 
