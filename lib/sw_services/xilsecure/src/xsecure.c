@@ -55,8 +55,11 @@
 #include "xcsudma.h"
 #include "xsecure_aes.h"
 #include "xsecure.h"
+#include "xsecure_rsa.h"
+#include "xsecure_sha2.h"
 
 XSecure_Aes SecureAes;
+XSecure_Rsa Secure_Rsa;
 u32 Iv[XSECURE_IV_LEN];
 u32 Key[XSECURE_KEY_LEN];
 
@@ -221,6 +224,93 @@ static u32 XSecure_Decrypt(u32 WrSize, u32 SrcAddrHigh, u32 SrcAddrLow)
 	return Status;
 }
 
+/****************************************************************************/
+/**
+*
+* This function generates RSA hash on data provided by using XilSecure library
+*
+* @return
+*		- XST_FAILURE if the authentication failed.
+*
+* @note		None.
+*
+****************************************************************************/
+static u32 XSecure_RsaHashGn(u8 *Mod, u8 *Exp, u8 *Sig, u8 *RsaHash)
+{
+	u8 RsaSha3Array[XSECURE_FSBL_SIG_SIZE];
+	u32 Status = XST_SUCCESS;
+
+	/*
+	 * Initialize the Rsa driver so that it's ready to use
+	 * Look up the configuration in the config table and then initialize it.
+	 */
+
+	XSecure_RsaInitialize(&Secure_Rsa, Mod, NULL, Exp);
+
+	Status = XSecure_RsaDecrypt(&Secure_Rsa, (u8 *)Sig, RsaSha3Array);
+	if (Status != XST_SUCCESS)
+		goto END;
+
+	memcpy(RsaHash, RsaSha3Array +
+		   XSECURE_ARRAY_LENGTH(RsaSha3Array) - XSECURE_HASH_TYPE_SHA2,
+		   XSECURE_HASH_TYPE_SHA2);
+
+END:
+	return Status;
+}
+
+
+/*****************************************************************************/
+/** This is the function to authenticate an images.
+ *
+ * @param	WrSize: Number of bytes of the image to be authenticated
+ *
+ * @param       WrAddrHigh: Higher 32-bit Linear memory space where image
+ *              exits
+ *
+ * @param       WrAddrLow: Lower 32-bit Linear memory space where authenticated
+ *              image exists
+ *
+ * @return	error status based on implemented functionality
+ *		(SUCCESS by default).
+ *
+ *****************************************************************************/
+static u32 XSecure_Auth(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow) {
+	u32 Status = XST_SUCCESS;
+	u8 Sha2Hash[32];
+	u64 WrAddr;
+	u8 RsaHash[32];
+	u8 *SigAddr;
+	u8 *PubKeyAddr;
+	u32 Offset;
+
+	if (WrSize % XSECURE_WORD_LEN)
+		Offset = (WrSize/XSECURE_WORD_LEN + 1) * XSECURE_WORD_LEN;
+	else
+		Offset = WrSize;
+
+	WrAddr = ((u64)WrAddrHigh << 32) | WrAddrLow;
+	SigAddr = (u8 *)(UINTPTR)(WrAddr +  Offset);
+	PubKeyAddr = (u8 *)(UINTPTR)(WrAddr + Offset + XSECURE_FSBL_SIG_SIZE);
+
+	/* Calculate Hash on the given signature */
+	Status = XSecure_RsaHashGn(PubKeyAddr,
+				   PubKeyAddr + XSECURE_MOD_LEN,
+				   SigAddr, RsaHash);
+
+	if(Status != XST_SUCCESS)
+		goto END;
+
+	sha_256((u8 *)(UINTPTR)WrAddr, WrSize, Sha2Hash);
+
+	/* Compare Sha2 Hash with RSA Hash */
+	if (memcmp(Sha2Hash, RsaHash, XSECURE_ARRAY_LENGTH(RsaHash)))
+		Status = XSECURE_AUTH_FAIL;
+
+END:
+	return Status;
+}
+
 /*****************************************************************************/
 /** This is the function to authenticate or decrypt or both for secure images
   * based on flags
@@ -255,6 +345,7 @@ u32 XSecure_RsaAes(u32 SrcAddrHigh, u32 SrcAddrLow, u32 WrSize, u32 Flags)
 		Status = XSecure_Decrypt(WrSize, SrcAddrHigh, SrcAddrLow);
 		break;
 	case XSECURE_RSA:
+		Status = XSecure_Auth(WrSize, SrcAddrHigh, SrcAddrLow);
 		break;
 	case XSECURE_RSA_AES:
 		break;

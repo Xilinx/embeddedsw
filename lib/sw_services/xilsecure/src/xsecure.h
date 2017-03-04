@@ -76,8 +76,11 @@
 #define XSECURE_ERROR_CSUDMA_INIT_FAIL	0x1
 #define XSECURE_STRING_INVALID_ERROR	0x2
 #define XSECURE_INVALID_FLAG		0x3
+#define XSECURE_AUTH_FAIL		0x4
 
 #define XSECURE_CSUDMA_DEVICEID		0
+
+#define XSECURE_MOD_LEN			512
 
 /**************************** Type Definitions *******************************/
 
