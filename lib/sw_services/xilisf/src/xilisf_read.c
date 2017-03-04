@@ -59,6 +59,7 @@
 *                         Real Byte count in parallel mode. CR# 859979.
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * 5.5  sk   01/14/16 Used 4byte Fast read command in 4 byte addressing mode.
+* 5.8  nsk  03/02/17 Update WriteBuffer index to 10 in FastReadData, CR#968476
 * </pre>
 *
 ******************************************************************************/
@@ -613,7 +614,7 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	u32 LocalByteCnt = ByteCount;
 	u32 LocalAddress = Address;
 	u32 TempByteCnt = LocalByteCnt;
-	u8 WriteBuffer[5]= {0};
+	u8 WriteBuffer[10]= {0};
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
 	u32 DieSize, BusWidth, DieTempData;
 	u32 FlashMsgCnt;
