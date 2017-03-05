@@ -99,6 +99,7 @@
 #define XFSBL_DESTINATION_PCAP_ADDR		(0XFFFFFFFFU)
 #define XFPGA_ENCRYPTION_EN				(0x00000008U)
 #define XFPGA_AUTHENTICATION_EN			(0x00000004U)
+#define XFPGA_PARTIAL_EN				(0x00000001U)
 
 /**************************** Type Definitions *******************************/
 #ifdef __MICROBLAZE__
@@ -112,7 +113,7 @@ typedef u32 (*XpbrServHndlr_t) (void);
 /************************** Function Prototypes ******************************/
 static u32 XFpga_PcapWaitForDone();
 static u32 XFpga_WriteToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow);
-static u32 XFpga_PcapInit(void);
+static u32 XFpga_PcapInit(u32 flags);
 static u32 XFpga_CsuDmaInit();
 static u32 XFpga_PLWaitForDone(void);
 static u32 XFpga_PowerUpPl(void);
@@ -197,13 +198,13 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 		goto END;
 	}
 
-	Status = XFpga_PcapInit();
+	Status = XFpga_PcapInit(flags);
 	if(Status != XFPGA_SUCCESS) {
 		xil_printf("FPGA Init fail\n");
 		goto END;
 	}
 
-	if (flags)
+	if ((flags & XFPGA_ENCRYPTION_EN ) || (flags & XFPGA_ENCRYPTION_EN))
 #ifdef XFPGA_SECURE_MODE
 	{
 		if (flags & XFPGA_ENCRYPTION_EN)
@@ -261,7 +262,7 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
  * @return	error status based on implemented functionality (SUCCESS by default)
  *
  *****************************************************************************/
-static u32 XFpga_PcapInit(void) {
+static u32 XFpga_PcapInit(u32 flags) {
 	u32 RegVal;
 	u32 PollCount;
 	u32 Status = XFPGA_SUCCESS;
@@ -278,11 +279,12 @@ static u32 XFpga_PcapInit(void) {
 	Xil_Out32(CSU_PCAP_RDWR, 0x0);
 
 	/* Reset PL */
-	Xil_Out32(CSU_PCAP_PROG, 0x0U);
+	if (!(flags & XFPGA_PARTIAL_EN)) {
+		Xil_Out32(CSU_PCAP_PROG, 0x0U);
+		usleep(PL_RESET_PERIOD_IN_US);
+		Xil_Out32(CSU_PCAP_PROG, CSU_PCAP_PROG_PCFG_PROG_B_MASK);
+	}
 
-	usleep(PL_RESET_PERIOD_IN_US);
-
-	Xil_Out32(CSU_PCAP_PROG, CSU_PCAP_PROG_PCFG_PROG_B_MASK);
 	/*
 	 *  Wait for PL_init completion
 	 */
