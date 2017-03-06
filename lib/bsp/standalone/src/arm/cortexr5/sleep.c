@@ -86,8 +86,8 @@ unsigned sleep(unsigned int seconds)
 	u64 tEnd;
 	u64 tCur;
 	u32 TimeHighVal;
-	XTime TimeLowVal1;
-	XTime TimeLowVal2;
+	XTime TimeLowVal1 = 0U;
+	XTime TimeLowVal2 = 0U;
 
 	TimeHighVal = 0;
 

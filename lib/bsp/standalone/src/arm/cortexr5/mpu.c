@@ -129,7 +129,7 @@ static void Xil_DisableMPURegions(void);
 void Init_MPU(void)
 {
 	u32 Addr;
-	u32 RegSize;
+	u32 RegSize = 0U;
 	u32 Attrib;
 	u32 RegNum = 0, i;
 	u64 size;
@@ -277,8 +277,8 @@ static void Xil_SetAttribute(u32 addr, u32 reg_size,s32 reg_num, u32 attrib)
 ******************************************************************************/
 static void Xil_DisableMPURegions(void)
 {
-	u32 Temp;
-	u32 Index;
+	u32 Temp = 0U;
+	u32 Index = 0U;
 	for (Index = 0; Index <= 15; Index++) {
 		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
 #if defined (__GNUC__)
