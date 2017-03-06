@@ -43,6 +43,7 @@
 #include "metal/io.h"
 #include "metal/sys.h"
 
+#define MPU_REGION_SIZE_MIN 0x20
 
 static unsigned int int_old_val = 0;
 
@@ -91,6 +92,8 @@ void metal_machine_io_mem_map(metal_phys_addr_t pa,
 			       size_t size, unsigned int flags)
 {
 	unsigned int r5_flags;
+	size_t rsize = MPU_REGION_SIZE_MIN;
+	metal_phys_addr_t base_pa;
 
 	/* Assume DEVICE_SHARED if nothing indicates this is memory.  */
 	r5_flags = DEVICE_SHARED;
@@ -110,6 +113,19 @@ void metal_machine_io_mem_map(metal_phys_addr_t pa,
 		}
 	}
 
-	Xil_SetMPURegion(pa, size, r5_flags | PRIV_RW_USER_RW);
+	while(1) {
+		if (rsize < size) {
+			rsize <<= 1;
+			continue;
+		} else {
+			base_pa = pa & ~(rsize - 1);
+			if ((base_pa + rsize) < (pa + size)) {
+				rsize <<= 1;
+				continue;
+			}
+			break;
+		}
+	}
+	Xil_SetMPURegion(base_pa, rsize, r5_flags | PRIV_RW_USER_RW);
 	return;
 }
