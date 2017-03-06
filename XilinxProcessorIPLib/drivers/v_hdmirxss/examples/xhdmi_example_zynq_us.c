@@ -1865,7 +1865,7 @@ int main()
 #if XPAR_XHDCP_NUM_INSTANCES
     XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs, XV_HDMITXSS_KEY_HDCP14, Hdcp14KeyA);
     XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP14, Hdcp14KeyB);
-    /* TODO: Set pointer to HDCP 1.4 SRM */
+
 
     /* Initialize key manager */
     Status = XHdcp_KeyManagerInit(XPAR_HDCP_KEYMNGMT_BLK_0_BASEADDR, HdmiTxSs.Hdcp14KeyPtr);
@@ -1903,7 +1903,7 @@ int main()
     /* Set pointer to NULL */
     XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP14, (NULL));
 
-    /* TODO: Set pointer to HDCP 1.4 SRM to NULL */
+
   }
 #endif
 
