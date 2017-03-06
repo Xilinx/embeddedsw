@@ -35,7 +35,7 @@ BEGIN driver coresightps_dcc
 OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (ps7_coresight_comp psu_coresight_0);
-OPTION VERSION = 1.3;
+OPTION VERSION = 1.4;
 OPTION NAME = coresightps_dcc;
 
 
