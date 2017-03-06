@@ -145,7 +145,7 @@ typedef enum {
     XV_HDMIRX_3D_META_UNKNOWN
 } XV_HdmiRx_3D_MetaData_Type;
 
-// TODO: set theoretical maximum for future support.
+
 // 8 is the maximum size for currently defined meta types (HDMI 1.4a)
 #define XV_HDMIRX_3D_META_MAX_SIZE 8 /**<Maximum 3D Metadata size in bytes */
 
@@ -180,7 +180,7 @@ typedef struct {
         u8            HDMI_VIC; /**<XV_HDMIRX_VSIF_VF_EXTRES: HDMI Video Format Identification Code */
         XV_HdmiRx_3D_Info Info_3D;  /**<XV_HDMIRX_VSIF_VF_3D: 3D Information */
     };
-    // TODO - Make sure the mutual exclusive doesn't cause issue, otherwise, recommend just to remove the union
+
 } XV_HdmiRx_VSIF;
 
 /***************** Macros (Inline Functions) Definitions *********************/

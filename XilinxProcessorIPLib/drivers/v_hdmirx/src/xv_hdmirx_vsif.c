@@ -332,7 +332,7 @@ int XV_HdmiRx_VSIF_ParsePacket(XV_HdmiRx_Aux *AuxPtr, XV_HdmiRx_VSIF  *VSIFPtr)
             break;
 
         default :
-            // TODO: do something?
+
             break;
     }
 
@@ -374,7 +374,7 @@ int XV_HdmiRx_VSIF_Extract3DInfo(u8 *VSIFRaw, XV_HdmiRx_3D_Info *InstancePtr)
     InstancePtr->Stream.Sampling.Position = XV_HdmiRx_VSIF_Conv3DSampPosTo3DSampPos(XV_HDMIRX_3D_SAMPPOS_UNKNOWN);
 
     /* Detect 3D Metadata presence */
-    if (*pData & XV_HDMIRX_3D_META_PRESENT_MASK) // TODO - keep the format consistant
+    if (*pData & XV_HDMIRX_3D_META_PRESENT_MASK)
         InstancePtr->MetaData.IsPresent = TRUE;
     else
         InstancePtr->MetaData.IsPresent = FALSE;
@@ -418,7 +418,7 @@ int XV_HdmiRx_VSIF_Extract3DInfo(u8 *VSIFRaw, XV_HdmiRx_3D_Info *InstancePtr)
         if (temp >= XV_HDMIRX_3D_META_UNKNOWN)
             InstancePtr->MetaData.Type = XV_HDMIRX_3D_META_UNKNOWN;
         else
-            InstancePtr->MetaData.Type = (XV_HdmiRx_3D_MetaData_Type)temp; // TODO - Make sure the types are the same
+            InstancePtr->MetaData.Type = (XV_HdmiRx_3D_MetaData_Type)temp;
 
         /* Extract the 3D Metadata length */
         InstancePtr->MetaData.Length = (*pData & XV_HDMIRX_3D_META_LENGTH_MASK) >> XV_HDMIRX_3D_META_LENGTH_SHIFT;
@@ -471,7 +471,7 @@ void XV_HdmiRx_VSIF_DisplayInfo(XV_HdmiRx_VSIF  *VSIFPtr)
             if (VSIFPtr->Info_3D.MetaData.IsPresent) {
                 /* 3D_Metadata_type */
 
-                // Todo - Check with Adeas why this function is empty
+
                 /* 3D_Metadata */
             }
 
