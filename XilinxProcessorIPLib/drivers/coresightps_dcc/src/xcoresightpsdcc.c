@@ -132,7 +132,7 @@ void XCoresightPs_DccSendByte(u32 BaseAddress, u8 Data)
 ******************************************************************************/
 u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 {
-	u8 Data;
+	u8 Data = 0U;
 	(void) BaseAddress;
 
 	while (!(XCoresightPs_DccGetStatus() & XCORESIGHTPS_DCC_STATUS_RX))
@@ -169,7 +169,7 @@ u8 XCoresightPs_DccRecvByte(u32 BaseAddress)
 ******************************************************************************/
 static INLINE u32 XCoresightPs_DccGetStatus(void)
 {
-	u32 Status;
+	u32 Status = 0U;
 
 #ifdef __aarch64__
 	asm volatile ("mrs %0, mdccsr_el0" : "=r" (Status));
