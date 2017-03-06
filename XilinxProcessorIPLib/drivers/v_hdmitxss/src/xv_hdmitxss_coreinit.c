@@ -285,7 +285,7 @@ int XV_HdmiTxSs_SubcoreInitHdcp14(XV_HdmiTxSs *HdmiTxSsPtr)
       XHdcp1x_SetKeySelect(HdmiTxSsPtr->Hdcp14Ptr, XV_HDMITXSS_HDCP_KEYSEL);
 
       /* Load SRM */
-      // TODO: Load HDCP 1.4 SRM
+
 
       /* Disable HDCP 1.4 repeater */
       HdmiTxSsPtr->Hdcp14Ptr->IsRepeater = 0;
