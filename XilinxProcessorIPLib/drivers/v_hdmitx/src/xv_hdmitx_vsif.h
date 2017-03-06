@@ -144,7 +144,7 @@ typedef enum {
     XV_HDMITX_3D_META_UNKNOWN
 } XV_HdmiTx_3D_MetaData_Type;
 
-// TODO: set theoretical maximum for future support.
+
 // 8 is the maximum size for currently defined meta types (HDMI 1.4a)
 #define XV_HDMITX_3D_META_MAX_SIZE 8 /**<Maximum 3D Metadata size in bytes */
 

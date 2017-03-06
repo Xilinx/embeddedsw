@@ -353,7 +353,7 @@ int XV_HdmiTx_VSIF_ParsePacket(XV_HdmiTx_Aux *AuxPtr, XV_HdmiTx_VSIF  *VSIFPtr)
             break;
 
         default :
-            // TODO: do something?
+
             break;
     }
 
