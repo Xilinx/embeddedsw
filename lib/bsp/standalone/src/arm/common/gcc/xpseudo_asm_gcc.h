@@ -215,7 +215,7 @@ extern "C" {
 #define mtcptlbi(reg)	__asm__ __volatile__("tlbi " #reg)
 #define mtcpat(reg,val)	__asm__ __volatile__("at " #reg ",%0"  : : "r" (val))
 /* CP15 operations */
-#define mfcp(reg)	({u64 rval;\
+#define mfcp(reg)	({u64 rval = 0U;\
 			__asm__ __volatile__("mrs	%0, " #reg : "=r" (rval));\
 			rval;\
 			})
@@ -229,7 +229,7 @@ extern "C" {
 			 : : "r" (v)\
 			);
 
-#define mfcp(rn)	({u32 rval; \
+#define mfcp(rn)	({u32 rval = 0U; \
 			 __asm__ __volatile__(\
 			   "mrc " rn "\n"\
 			   : "=r" (rval)\
