@@ -282,6 +282,7 @@ Fixed Compilation warnings - CR#957004
 Dont perform data cache operations when CCI is enabled.
 Add jumbo frame support for ZynqMP GEM.
 Correct TI PHYCR initialization in xemacpsif_physpeed.c
+Add SW workaround for TI DP83867 PHY link instability.
 
 nandpsu_v1_2:
 change memcpy to Xil_MemCpy. fixes CR#960462
