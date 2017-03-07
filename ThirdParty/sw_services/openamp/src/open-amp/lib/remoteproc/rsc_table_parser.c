@@ -228,6 +228,16 @@ int handle_vdev_rsc(struct remote_proc *rproc, void *rsc)
 	vdev->gfeatures = vdev_rsc->gfeatures;
 	vdev->vdev_info = vdev_rsc;
 
+	/* Map virtio memory as I/O memory */
+	if (vdev->io) {
+		metal_phys_addr_t vdev_pa =
+			metal_io_virt_to_phys(vdev->io, vdev_rsc);
+		vdev->vdev_info = metal_io_mem_map(vdev_pa,
+			vdev->io, sizeof(*vdev_rsc));
+	} else {
+		vdev->vdev_info = vdev_rsc;
+	}
+
 	return RPROC_SUCCESS;
 }
 

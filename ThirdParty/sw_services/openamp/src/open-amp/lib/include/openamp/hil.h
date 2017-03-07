@@ -141,6 +141,10 @@ struct proc_vring {
 struct proc_vdev {
 	/* Address for the vdev info */
 	void *vdev_info;
+	/* vdev device */
+	struct metal_device *dev;
+	/* vdev I/O region */
+	struct metal_io_region *io;
 	/* Vdev interrupt control block */
 	struct proc_intr intr_info;
 	/* Vdev reset callback */
@@ -468,6 +472,24 @@ int hil_set_shm (struct hil_proc *proc,
 		 const char *bus_name, const char *name,
 		 metal_phys_addr_t paddr, size_t size);
 
+/**
+ * hil_set_vdev
+ *
+ * This function set HIL proc RSC io
+ *
+ * @param proc     - hil_proc to set vdev io regsion
+ * @param bus_name - bus name of the vdev device
+ * @param name     - name of the shared memory, or platform device
+ *                   mandatory for Linux system.
+ *
+ * If name argument exists, it will open the specified libmetal
+ * shared memory or the specified device if bus name is specified
+ * to get the I/O region of the vring.
+ *
+ * @return - 0 for no errors, non-0 for errors.
+ */
+int hil_set_vdev (struct hil_proc *proc,
+		const char *bus_name, const char *name);
 /**
  * hil_set_vring
  *

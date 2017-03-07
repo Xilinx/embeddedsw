@@ -104,6 +104,8 @@ struct hil_proc *hil_create_proc(struct hil_platform_ops *ops,
 
 	/* Setup generic shared memory I/O region */
 	proc->sh_buff.io = &hil_shm_generic_io;
+	/* Setup generic vdev I/O region */
+	proc->vdev.io = &hil_devmem_generic_io;
 	/* Setup generic vrings I/O region */
 	for (i = 0; i < HIL_MAX_NUM_VRINGS; i++)
 		proc->vdev.vring_info[i].io = &hil_devmem_generic_io;
@@ -139,6 +141,15 @@ void hil_delete_proc(struct hil_proc *proc)
 			/* Close shmem device */
 			dev = proc->sh_buff.dev;
 			io = proc->sh_buff.io;
+			if (dev) {
+				metal_device_close(dev);
+			} else if (io && io->ops.close) {
+				io->ops.close(io);
+			}
+
+			/* Close Vdev device */
+			dev = proc->vdev.dev;
+			io = proc->vdev.io;
 			if (dev) {
 				metal_device_close(dev);
 			} else if (io && io->ops.close) {
@@ -527,6 +538,37 @@ int hil_set_shm (struct hil_proc *proc,
 
 	metal_io_mem_map(proc->sh_buff.start_paddr, proc->sh_buff.io,
 			 proc->sh_buff.size);
+	return 0;
+}
+
+int hil_set_vdev (struct hil_proc *proc,
+		const char *bus_name, const char *name)
+{
+	struct metal_device *dev;
+	struct metal_io_region *io;
+	int ret;
+
+	if (!proc)
+		return -1;
+
+	if (name && bus_name) {
+		ret = metal_device_open(bus_name, name, &dev);
+		if (ret)
+			return ret;
+		io = metal_device_io_region(dev, 0);
+		if (!io)
+			return -1;
+		proc->vdev.io = io;
+		proc->vdev.dev = dev;
+	} else if (name) {
+		ret = metal_shmem_open(name, DEFAULT_VRING_MEM_SIZE, &io);
+		if (ret)
+			return ret;
+		proc->vdev.io = io;
+	} else {
+		proc->vdev.io = NULL;
+	}
+
 	return 0;
 }
 
