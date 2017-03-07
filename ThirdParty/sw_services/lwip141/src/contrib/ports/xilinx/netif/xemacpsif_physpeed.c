@@ -171,10 +171,12 @@
 #define PHY_RGMIICTL	0x32
 #define PHY_STS			0x11
 #define PHY_TI_CR		0x10
+#define PHY_TI_CFG4		0x31
 
 #define PHY_REGCR_ADDR	0x001F
 #define PHY_REGCR_DATA	0x401F
 #define PHY_TI_CRVAL	0x5048
+#define PHY_TI_CFG4RESVDBIT7	0x80
 
 /* Frequency setting */
 #define SLCR_LOCK_ADDR			(XPS_SYS_CTRL_BASEADDR + 0x4)
@@ -488,6 +490,17 @@ static u32_t get_TI_phy_speed(XEmacPs *xemacpsp, u32_t phy_addr)
 		xil_printf("Error in tuning");
 		return XST_FAILURE;
 	}
+
+	/* SW workaround for unstable link when RX_CTRL is not STRAP MODE 3 or 4 */
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, PHY_TI_CFG4);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
+	RetStatus = XEmacPs_PhyRead(xemacpsp, phy_addr, PHY_ADDAR, (u16_t *)&phyregtemp);
+	phyregtemp &= ~(PHY_TI_CFG4RESVDBIT7);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_ADDR);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, PHY_TI_CFG4);
+	XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_REGCR, PHY_REGCR_DATA);
+	RetStatus = XEmacPs_PhyWrite(xemacpsp, phy_addr, PHY_ADDAR, phyregtemp);
 
 	XEmacPs_PhyRead(xemacpsp, phy_addr, IEEE_AUTONEGO_ADVERTISE_REG, &control);
 	control |= IEEE_ASYMMETRIC_PAUSE_MASK;
