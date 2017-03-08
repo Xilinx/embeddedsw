@@ -140,26 +140,26 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].RxState =
 			XVPHY_GT_STATE_IDLE;
 		//Initialize Transceiver Width values
-#if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER_WIDTH == 2)
-		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
-			TxDataWidth = 20;
-		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
-			TxIntDataWidth = 2;
-		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
-			RxDataWidth = 20;
-		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
-			RxIntDataWidth = 2;
-#else
-		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
-			TxDataWidth = 40;
-		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
-			TxIntDataWidth = 4;
-		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
-			RxDataWidth = 40;
-		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
-			RxIntDataWidth = 4;
-#endif
-
+		if (InstancePtr->Config.TransceiverWidth == 2) {
+			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
+				TxDataWidth = 20;
+			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
+				TxIntDataWidth = 2;
+			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
+				RxDataWidth = 20;
+			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
+				RxIntDataWidth = 2;
+		}
+		else {
+			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
+				TxDataWidth = 40;
+			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
+				TxIntDataWidth = 4;
+			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
+				RxDataWidth = 40;
+			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(Id)].
+				RxIntDataWidth = 4;
+		}
 	}
 	/* Interrupt Disable. */
 	XVphy_IntrDisable(InstancePtr,
@@ -1170,25 +1170,26 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 		MmcmPtr->ClkFbOutMult = Mult;
 		MmcmPtr->DivClkDivide = Div;
 
-#if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER_WIDTH == 4)
-		/* Link clock: TMDS clock ratio 1/40. */
-		if ((LineRate / 1000000) >= 3400) {
-			MmcmPtr->ClkOut0Div = Mult;
+		if (InstancePtr->Config.TransceiverWidth == 4) {
+			/* Link clock: TMDS clock ratio 1/40. */
+			if ((LineRate / 1000000) >= 3400) {
+				MmcmPtr->ClkOut0Div = Mult;
+			}
+			/* Link clock: TMDS clock ratio 1/10. */
+			else {
+				MmcmPtr->ClkOut0Div = Mult * 4;
+			}
 		}
-		/* Link clock: TMDS clock ratio 1/10. */
-		else {
-			MmcmPtr->ClkOut0Div = Mult * 4;
+		else {//2 Byte Mode
+			/* Link clock: TMDS clock ratio 1/40. */
+			if ((LineRate / 1000000) >= 3400) {
+				MmcmPtr->ClkOut0Div = Mult / 2;
+			}
+			/* Link clock: TMDS clock ratio 1/10. */
+			else {
+				MmcmPtr->ClkOut0Div = Mult * 2;
+			}
 		}
-#else //2 Byte Mode
-		/* Link clock: TMDS clock ratio 1/40. */
-		if ((LineRate / 1000000) >= 3400) {
-			MmcmPtr->ClkOut0Div = Mult / 2;
-		}
-		/* Link clock: TMDS clock ratio 1/10. */
-		else {
-			MmcmPtr->ClkOut0Div = Mult * 2;
-		}
-#endif
 
 		/* TMDS Clock */
 		MmcmPtr->ClkOut1Div = Mult * ((Dir == XVPHY_DIR_TX) ?
