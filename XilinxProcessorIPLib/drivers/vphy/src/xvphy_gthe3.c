@@ -601,13 +601,8 @@ u32 XVphy_Gthe3TxChReconfig(XVphy *InstancePtr, u8 QuadId,
 		DrpVal |= WriteVal;
 		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x7A, DrpVal);
 
-#if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER_WIDTH == 2)
 		/* TX_PROGDIV_CFG */
-		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x3E, 0xE1A2);
-#else
-		/* TX_PROGDIV_CFG */
-		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x3E, 0xE1A6);
-#endif
+		/* XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x3E, 0xE1A2); */
 
 	}
 	return XVphy_Gthe3TxPllRefClkDiv1Reconfig(InstancePtr, QuadId, ChId);

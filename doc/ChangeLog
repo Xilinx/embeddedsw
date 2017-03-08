@@ -1794,6 +1794,8 @@ Added type_defs and APIs to implement the optional err_irq port (xilinx internal
 Added mechanism to re-trigger GT TX reset when TX align get stuck in xvphy_hdmi_intr.c
 Added N2=8 divider for GTHE3 & GTHE4 CPLL for DP only
 Implemented 2/4 byte GT mode switching HDMI
+   - Removed the TX_PROGDIV_CFG DRP writes in GTHE3/4 HDMI switches
+   - Removed non-canonical TRANSCEIVER_WIDTH preprocessor directives
 Fixed c++ compiler warnings
 Added Transceiver_Width, C_Err_Irq_En, AXI_LITE_FREQ_HZ Parameters in xvphy_g.c and in vphy main data structure
 

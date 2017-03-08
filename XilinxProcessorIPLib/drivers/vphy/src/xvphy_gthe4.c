@@ -812,13 +812,8 @@ u32 XVphy_Gthe4TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		DrpVal |= WriteVal;
 		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x7A, DrpVal);
 
-#if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER_WIDTH == 2)
 		/* TX_PROGDIV_CFG */
-		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x3E, 0xE062);
-#else
-		/* TX_PROGDIV_CFG */
-		XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x3E, 0xE047);
-#endif
+		/* XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x3E, 0xE062); */
 
 		PllxVcoRateMHz = XVphy_GetPllVcoFreqHz(InstancePtr, QuadId, ChIdPll,
 				XVPHY_DIR_TX) / 1000000;
