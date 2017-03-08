@@ -49,8 +49,9 @@
 * 1.01  MH     03/14/15 Changed maximum locality check count
 *                       from 1024 to 128.
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
-* 2.01  MH     02/13/17 Updated maximum locality check count
+* 2.01  MH     02/13/17 1. Updated maximum locality check count
 *                       from 128 to 8 to avoid delays in re-auth.
+*                       2. Added log events for failures.
 * </pre>
 *
 ******************************************************************************/
@@ -261,16 +262,19 @@ typedef enum
 	XHDCP22_TX_LOG_DBG_RX_EKHKM,
 	XHDCP22_TX_LOG_DBG_COMPUTE_H,
 	XHDCP22_TX_LOG_DBG_COMPUTE_H_DONE,
+	XHDCP22_TX_LOG_DBG_COMPARE_H_FAIL,
 	XHDCP22_TX_LOG_DBG_TX_LCINIT,
 	XHDCP22_TX_LOG_DBG_RX_L1,
 	XHDCP22_TX_LOG_DBG_COMPUTE_L,
 	XHDCP22_TX_LOG_DBG_COMPUTE_L_DONE,
+	XHDCP22_TX_LOG_DBG_COMPARE_L_FAIL,
 	XHDCP22_TX_LOG_DBG_TX_EKS,
 	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS,
 	XHDCP22_TX_LOG_DBG_COMPUTE_EDKEYKS_DONE,
 	XHDCP22_TX_LOG_DBG_RX_RCVIDLIST,
 	XHDCP22_TX_LOG_DBG_COMPUTE_V,
 	XHDCP22_TX_LOG_DBG_COMPUTE_V_DONE,
+	XHDCP22_TX_LOG_DBG_COMPARE_V_FAIL,
 	XHDCP22_TX_LOG_DBG_RX_M1,
 	XHDCP22_TX_LOG_DBG_COMPUTE_M,
 	XHDCP22_TX_LOG_DBG_COMPUTE_M_DONE,
@@ -284,7 +288,9 @@ typedef enum
 	XHDCP22_TX_LOG_DBG_OEAPENC,
 	XHDCP22_TX_LOG_DBG_OEAPENC_DONE,
 	XHDCP22_TX_LOG_DBG_RSAENC,
-	XHDCP22_TX_LOG_DBG_RSAENC_DONE
+	XHDCP22_TX_LOG_DBG_RSAENC_DONE,
+	XHDCP22_TX_LOG_DBG_MSG_WRITE_FAIL,
+	XHDCP22_TX_LOG_DBG_MSG_READ_FAIL
 } XHdcp22_Tx_LogDebugValue;
 
 /**
