@@ -321,6 +321,51 @@ proc lwip_drc {libhandle} {
 	set emac_periphs_list [get_emac_periphs $processor]
 
 	if { [llength $emac_periphs_list] == 0 } {
+		#Retain correct compiler and processor details
+		set makeconfig "src/Makefile.config"
+		file delete $makeconfig
+		set fd [open $makeconfig w]
+
+		# determine the processor type so that we know the compiler to use
+		switch -regexp $processor_type {
+		    "microblaze" {
+			puts $fd "GCC_COMPILER=mb-gcc"
+
+			# AXI systems are Little Endian
+			# 0 = BE, 1 = LE
+			set endian [common::get_property CONFIG.C_ENDIANNESS $processor]
+			if {$endian != 0} {
+			    #puts "Little Endian system"
+			    puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+			} else {
+			    #puts "Big Endian system"
+			    puts $fd "CONFIG_PROCESSOR_BIG_ENDIAN=y"
+			}
+		    }
+		    ppc* {
+			puts $fd "GCC_COMPILER=powerpc-eabi-gcc"
+		    }
+		    "ps7_cortexa9" {
+			puts $fd "GCC_COMPILER=arm-xilinx-eabi-gcc"
+			#puts "Little Endian system"
+			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+		    }
+		    "psu_cortexr5" {
+			puts $fd "GCC_COMPILER=arm-none-eabi-gcc"
+			#puts "Little Endian system"
+			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+		    }
+		    "psu_cortexa53" {
+			puts $fd "GCC_COMPILER=aarch64-none-elf-gcc"
+			#puts "Little Endian system"
+			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
+		    }
+		    default {
+			puts "unknown processor type $proctype\n"
+		    }
+		    close $fd
+		}
+
 		set cpuname [common::get_property NAME $processor]
 		error "ERROR: No Ethernet MAC cores are addressable from processor $cpuname. \
 			lwIP requires atleast one EMAC (xps_ethernetlite | xps_ll_temac | axi_ethernet | axi_ethernet_buffer | axi_ethernetlite | ps7_ethernet | psu_ethernet ) core \
