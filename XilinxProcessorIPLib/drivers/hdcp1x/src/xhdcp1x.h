@@ -1008,6 +1008,8 @@ typedef struct {
 	u16 Flags;		/**< The interface flags */
 	u16 PendingEvents;	/**< The bit map of pending events */
 	u64 EncryptionMap;	/**< The configured encryption map */
+	u16 WaitForReadyPollCntFlag; /**< Count of the times we have
+				  * polled the BCaps every 100ms interval. */
 	XHdcp1x_TxStats Stats;	/**< The interface's statistics */
 	XHdcp1x_Callback AuthenticatedCallback;	/**< Authentication callback */
 	void *AuthenticatedCallbackRef;	/**< Authentication reference */

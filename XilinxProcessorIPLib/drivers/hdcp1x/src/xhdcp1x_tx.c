@@ -202,7 +202,8 @@ static void XHdcp1x_TxRunPhysicalLayerDownState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr);
 static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		XHdcp1x_StateType *NextStatePtr);
-static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State);
+static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
+		XHdcp1x_StateType *NextStatePtr);
 static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event);
 static void XHdcp1x_TxProcessPending(XHdcp1x *InstancePtr);
 static const char *XHdcp1x_TxStateToString(XHdcp1x_StateType State);
@@ -1424,6 +1425,7 @@ static void XHdcp1x_TxExchangeKsvs(XHdcp1x *InstancePtr,
 		else {
 			u64 LocalKsv = 0;
 			u64 An = 0;
+			u8 Buf[XHDCP1X_PORT_SIZE_AINFO];
 
 			/* Check for repeater and update InstancePtr */
 			if (XHdcp1x_PortIsRepeater(InstancePtr)) {
@@ -1445,6 +1447,11 @@ static void XHdcp1x_TxExchangeKsvs(XHdcp1x *InstancePtr,
 
 			/* Load the cipher with the remote ksv */
 			XHdcp1x_CipherSetRemoteKsv(InstancePtr, RemoteKsv);
+
+			/* Clear AINFO */
+			memset(Buf, 0, XHDCP1X_PORT_SIZE_AINFO);
+			XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
+					Buf, XHDCP1X_PORT_SIZE_AINFO);
 
 			/* Send An to remote */
 			XHDCP1X_PORT_UINT_TO_BUF(Buf, An,
@@ -1707,15 +1714,9 @@ static void XHdcp1x_TxTestForRepeater(XHdcp1x *InstancePtr,
 {
 	/* Check for repeater */
 	if (XHdcp1x_PortIsRepeater(InstancePtr)) {
-		u8 Buf[XHDCP1X_PORT_SIZE_AINFO];
 
 		/* Update InstancePtr */
 		InstancePtr->Tx.Flags |= XVPHY_FLAG_IS_REPEATER;
-
-		/* Clear AINFO */
-		memset(Buf, 0, XHDCP1X_PORT_SIZE_AINFO);
-		XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
-				Buf, XHDCP1X_PORT_SIZE_AINFO);
 
 		/* Update NextStatePtr */
 		*NextStatePtr = XHDCP1X_STATE_WAITFORREADY;
@@ -1822,7 +1823,6 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 {
 	SHA1Context Sha1Context;
 	u8 Buf[24];
-	u8 KsvList[24];
 	int NumToRead = 0;
 	int KsvCount = 0;
 	int IsValid = FALSE;
@@ -1858,45 +1858,50 @@ static int XHdcp1x_TxValidateKsvList(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 	/* Read the ksv list */
 	/* Read the entire KSV fifo list in one go */
 	int ByteCount = 0;
-	while (ByteCount < NumToRead) {
-		if(XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_KSVFIFO,
-				Buf, XHDCP1X_PORT_SIZE_KSVFIFO)) {
 
-			KsvList[ByteCount] = *Buf;
+	if(XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_KSVFIFO,
+			ksvListHolder, NumToRead) ) {
 
-			/* Update the sha-1 calculation */
-			SHA1Input(&Sha1Context, Buf, XHDCP1X_PORT_SIZE_KSVFIFO);
+		/* Update the calculation of V */
+		SHA1Input(&Sha1Context, ksvListHolder, NumToRead);
 
-			/* Update this value in the RepeaterExchange
-			 * structure to be read later by RX
-			 */
-			u64 Value = 0;
+		/* Update this value in the RepeaterExchange
+		 * structure to be read later by RX */
 
+		u64 Value = 0;
+		u32 Index;
+		while (ByteCount < NumToRead) {
 			if((ByteCount + 1) % 5 == 0) {
+
+				Index = (((ByteCount+1) / XHDCP1X_PORT_SIZE_BKSV) - 1) * XHDCP1X_PORT_SIZE_BKSV;
+
 				XHDCP1X_PORT_BUF_TO_UINT(Value ,
-					(KsvList + ( (((ByteCount+1)
-					/ XHDCP1X_PORT_SIZE_BKSV) - 1)
-					* XHDCP1X_PORT_SIZE_BKSV)) ,
+						(ksvListHolder + ( (((ByteCount+1)
+						/ XHDCP1X_PORT_SIZE_BKSV) - 1)
+						* XHDCP1X_PORT_SIZE_BKSV)),
 					XHDCP1X_PORT_SIZE_BKSV * 8);
 				if (!(Value)) {
 					XHdcp1x_TxDebugLog(InstancePtr ,
 						"Error: Null KSV read "
 						"from downstream KSV List");
 				}
-			InstancePtr->RepeaterValues.KsvList[KsvCount++] =
+				InstancePtr->RepeaterValues.KsvList[KsvCount++] =
 					(Value & 0xFFFFFFFFFFul);
 				Value = 0;
 			}
-		}
-		else {
-			/* Update the statistics */
-			InstancePtr->Tx.Stats.ReadFailures++;
 
-			/* Update IsValid */
-			IsValid = FALSE;
+			ByteCount++;
+
 		}
 
-		ByteCount++;
+		UNUSED(Index);
+	}
+	else {
+		/* Update the statistics */
+		InstancePtr->Tx.Stats.ReadFailures++;
+
+		/* Update IsValid */
+		IsValid = FALSE;
 	}
 
 #else
@@ -2473,7 +2478,7 @@ static void XHdcp1x_TxReadKsvList(XHdcp1x *InstancePtr,
 	u16 RepeaterInfo = 0;
 
 	/* Determine RepeaterInfo */
-	RepeaterInfo = (u16)(InstancePtr->Tx.StateHelper & 0x0FFFu);
+	RepeaterInfo = (u16)(InstancePtr->Tx.StateHelper & 0x1FFFu);
 
 	/* Iterate through the attempts */
 	do {
@@ -2903,9 +2908,14 @@ static void XHdcp1x_TxRunWaitForReadyState(XHdcp1x *InstancePtr,
 
 		/* For poll */
 		case XHDCP1X_EVENT_POLL:
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
+			/* Don't read the Repeater info for HDMI from a
+			 * poll from application. We'll poll every 100ms. */
+#else
 			/* Attempt to read the repeater info */
 			XHdcp1x_TxPollForWaitForReady(InstancePtr,
 				NextStatePtr);
+#endif
 			break;
 
 		/* For reading the READY bit in BStatus register of the
@@ -2920,11 +2930,29 @@ static void XHdcp1x_TxRunWaitForReadyState(XHdcp1x *InstancePtr,
 		case XHDCP1X_EVENT_TIMEOUT:
 			XHdcp1x_TxDebugLog(InstancePtr,
 					"wait-for-ready timeout");
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
+			InstancePtr->Tx.WaitForReadyPollCntFlag++;
+			XHdcp1x_TxStopTimer(InstancePtr);
+			XHdcp1x_TxPollForWaitForReady(InstancePtr,
+								NextStatePtr);
+			if (InstancePtr->Tx.WaitForReadyPollCntFlag > 46) {
+				*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
+				InstancePtr->Tx.WaitForReadyPollCntFlag = 0;
+			} else {
+				if (*NextStatePtr == XHDCP1X_STATE_READKSVLIST) {
+					/* Do nothing, timer is already stopped */
+				} else {
+					XHdcp1x_TxStartTimer(InstancePtr, XVPHY_TMO_100MS);
+				}
+			}
+#else
+			/* Poll on DisplayPort to check if the READY bit is set. */
 			XHdcp1x_TxPollForWaitForReady(InstancePtr,
 					NextStatePtr);
 			if (*NextStatePtr == XHDCP1X_STATE_WAITFORREADY) {
 				*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
 			}
+#endif
 			break;
 
 		/* Otherwise */
@@ -3131,8 +3159,16 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		/* For the wait for ready state */
 		case XHDCP1X_STATE_WAITFORREADY:
 			InstancePtr->Tx.StateHelper = 0;
+
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
+			InstancePtr->Tx.WaitForReadyPollCntFlag = 0;
+			/* Post the timeout */
+			XHdcp1x_TxPostEvent(InstancePtr, XHDCP1X_EVENT_TIMEOUT);
+#else
 			XHdcp1x_TxStartTimer(InstancePtr,
-					(5 * XVPHY_TMO_1SECOND));
+							(5 * XVPHY_TMO_1SECOND));
+#endif
+
 			break;
 
 		/* For the read ksv list state */
@@ -3226,7 +3262,8 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 * @note		None.
 *
 ******************************************************************************/
-static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State)
+static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
+		XHdcp1x_StateType *NextStatePtr)
 {
 	/* Case-wise process the kind of state called */
 	switch (State) {
@@ -3247,7 +3284,11 @@ static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State)
 
 		/* For the wait for ready state */
 		case XHDCP1X_STATE_WAITFORREADY:
-			XHdcp1x_TxStopTimer(InstancePtr);
+			if (*NextStatePtr == XHDCP1X_STATE_READKSVLIST) {
+				/* Timer already stopped. */
+			} else {
+				XHdcp1x_TxStopTimer(InstancePtr);
+			}
 			break;
 
 		/* For the read ksv list state */
@@ -3366,7 +3407,7 @@ static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 	while (InstancePtr->Tx.CurrentState != NextState) {
 		/* Perform the state transition */
 		XHdcp1x_TxExitState(InstancePtr,
-				InstancePtr->Tx.CurrentState);
+				InstancePtr->Tx.CurrentState, &NextState);
 		InstancePtr->Tx.PreviousState = InstancePtr->Tx.CurrentState;
 		InstancePtr->Tx.CurrentState = NextState;
 		XHdcp1x_TxEnterState(InstancePtr, InstancePtr->Tx.CurrentState,

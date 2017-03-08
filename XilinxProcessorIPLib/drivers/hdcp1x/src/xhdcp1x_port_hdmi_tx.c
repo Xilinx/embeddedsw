@@ -295,7 +295,8 @@ static int XHdcp1x_PortHdmiTxGetRepeaterInfo(const XHdcp1x *InstancePtr,
 			XHDCP1X_PORT_BUF_TO_UINT(U16Value, Buf, 16);
 
 			/* Update Info */
-			*Info = (U16Value & 0x0FFFu);
+			*Info = (U16Value & 0x1FFFu);
+
 		}
 		else {
 			Status = XST_DEVICE_BUSY;
