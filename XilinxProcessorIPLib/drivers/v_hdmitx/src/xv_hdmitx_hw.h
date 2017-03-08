@@ -50,6 +50,7 @@
 *                       XV_HdmiTx_WriteReg
 *                       XV_HdmiTx_ReadReg
 * 1.02  YH     14/11/16 Added BRIDGE_YUV420 and BRIDGE_PIXEL mask to PIO Out
+* 1.03  MG     06/03/17 Added XV_HDMITX_AUX_STA_PKT_RDY_MASK
 * </pre>
 *
 ******************************************************************************/
@@ -231,6 +232,8 @@ extern "C" {
 #define XV_HDMITX_AUX_STA_FIFO_EMT_MASK     (1<<1)  /**< AUX Status FIFO Empty
                                                     *  mask */
 #define XV_HDMITX_AUX_STA_FIFO_FUL_MASK     (1<<2)  /**< AUX Status FIFO Full
+                                                    *  mask */
+#define XV_HDMITX_AUX_STA_PKT_RDY_MASK     (1<<3)  /**< AUX Status FIFO Ready
                                                     *  mask */
 #define XV_HDMITX_AUX_STA_FREE_PKTS_MASK    0x0F    /**< AUX Status Free Packets
                                                     *  mask */

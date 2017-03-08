@@ -901,7 +901,7 @@ int XV_HdmiTx_DdcWrite(XV_HdmiTx *InstancePtr, u8 Slave, u16 Length,
     u8 *Buffer, u8 Stop);
 int XV_HdmiTx_DdcRead(XV_HdmiTx *InstancePtr, u8 Slave, u16 Length,
     u8 *Buffer, u8 Stop);
-int XV_HdmiTx_AuxSend(XV_HdmiTx *InstancePtr);
+u32 XV_HdmiTx_AuxSend(XV_HdmiTx *InstancePtr);
 int XV_HdmiTx_Scrambler(XV_HdmiTx *InstancePtr);
 int XV_HdmiTx_ClockRatio(XV_HdmiTx *InstancePtr);
 int XV_HdmiTx_DetectHdmi20(XV_HdmiTx *InstancePtr);

@@ -43,14 +43,15 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
-* 1.1   yh     15/01/16 Add 3D Support
-* 1.2   MG     09/03/16 Added XV_HdmiTx_SetHdmiMode and XV_HdmiTx_SetDviMode
-* 1.3   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
+* 1.01  yh     15/01/16 Add 3D Support
+* 1.02  MG     09/03/16 Added XV_HdmiTx_SetHdmiMode and XV_HdmiTx_SetDviMode
+* 1.03  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XV_HdmiTx_CfgInitialize
-* 1.4   YH     27/07/16 Remove checking VideoMode < (XVIDC_VM_NUM_SUPPORTED));
-* 1.5   YH     17/08/16 Add XV_HdmiTx_SetAxiClkFreq
+* 1.04  YH     27/07/16 Remove checking VideoMode<(XVIDC_VM_NUM_SUPPORTED));
+* 1.05  YH     17/08/16 Add XV_HdmiTx_SetAxiClkFreq
 *                       Move XV_HdmiTx_DdcInit to XV_HdmiTx_SetAxiClkFreq
 *                       squash unused variable compiler warning
+* 1.06  MG     07/03/17 Updated XV_HdmiTx_Auxsend with packet ready check
 * </pre>
 *
 ******************************************************************************/
@@ -1425,7 +1426,7 @@ int XV_HdmiTx_DdcRead(XV_HdmiTx *InstancePtr, u8 Slave, u16 Length,
 * @note     None.
 *
 ******************************************************************************/
-int XV_HdmiTx_AuxSend(XV_HdmiTx *InstancePtr)
+u32 XV_HdmiTx_AuxSend(XV_HdmiTx *InstancePtr)
 {
     u32 Index;
     u32 Status;
@@ -1434,28 +1435,37 @@ int XV_HdmiTx_AuxSend(XV_HdmiTx *InstancePtr)
     /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
-    /* Check if AUX FIFO has room */
+    // Default
+	Status = (XST_FAILURE);
+
+    /* Read the AUX status register */
     RegValue = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
-        (XV_HDMITX_AUX_STA_OFFSET)) & (XV_HDMITX_AUX_STA_FIFO_FUL_MASK);
+        (XV_HDMITX_AUX_STA_OFFSET));
 
-    if (RegValue) {
-        xdbg_printf((XDBG_DEBUG_GENERAL), "HDMI TX AUX FIFO full\r\n");
-        Status = (XST_FAILURE);
+    // First check if the AUX packet is ready
+    if (RegValue & (XV_HDMITX_AUX_STA_PKT_RDY_MASK)) {
+
+	// Check if the fifo is full
+		if (RegValue & (XV_HDMITX_AUX_STA_FIFO_FUL_MASK)) {
+			RegValue = XV_HdmiTx_ReadReg(InstancePtr->Config.BaseAddress,
+			        (XV_HDMITX_AUX_STA_OFFSET));
+
+			xdbg_printf((XDBG_DEBUG_GENERAL), "HDMI TX AUX FIFO full\r\n");
+		}
+		else {
+			/* Update AUX with header data */
+			XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
+				(XV_HDMITX_AUX_DAT_OFFSET), InstancePtr->Aux.Header.Data);
+
+			/* Update AUX with actual data */
+			for (Index = 0x0; Index < 8; Index++) {
+				XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
+					(XV_HDMITX_AUX_DAT_OFFSET), InstancePtr->Aux.Data.Data[Index]);
+			}
+
+			Status = (XST_SUCCESS);
+		}
     }
-    else {
-        /* Update AUX with header data */
-        XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
-            (XV_HDMITX_AUX_DAT_OFFSET), InstancePtr->Aux.Header.Data);
-
-        /* Update AUX with actual data */
-        for (Index = 0x0; Index < 8; Index++) {
-            XV_HdmiTx_WriteReg(InstancePtr->Config.BaseAddress,
-                (XV_HDMITX_AUX_DAT_OFFSET), InstancePtr->Aux.Data.Data[Index]);
-        }
-
-        Status = (XST_SUCCESS);
-    }
-
     return Status;
 }
 
