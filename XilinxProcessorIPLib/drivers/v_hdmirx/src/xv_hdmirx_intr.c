@@ -42,16 +42,18 @@
 *
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
-* 1.0   gm, mg 11/03/15 Initial release.
-* 1.1   yh     14/01/16 Set AxisEnable PIO to high when RX stream locked
-* 1.3   MG     18/02/16 Added Link Check callback
-* 1.4   MG     08/03/16 Added pixel clock calculation to HdmiRx_TmrIntrHandler
-* 1.5   MH     08/03/16 Added support for read not complete DDC event
-* 1.6   MG     27/05/16 Updated HdmiRx_VtdIntrHandler
-* 1.7   MG     27/05/16 Updated HdmiRx_TmrIntrHandler
-* 1.8   MG     30/05/16 Fixed issue with pixel clock adjustment for YUV422 colorspace
-* 1.9   MH     26/07/16 Added DDC HDCP protocol event.
-* 2.0   YH     18/08/16 squash unused variable compiler warning
+* 1.00  gm, mg 11/03/15 Initial release.
+* 1.01  yh     14/01/16 Set AxisEnable PIO to high when RX stream locked
+* 1.03  MG     18/02/16 Added Link Check callback
+* 1.04  MG     08/03/16 Added pixel clock calculation to HdmiRx_TmrIntrHandler
+* 1.05  MH     08/03/16 Added support for read not complete DDC event
+* 1.06  MG     27/05/16 Updated HdmiRx_VtdIntrHandler
+* 1.07  MG     27/05/16 Updated HdmiRx_TmrIntrHandler
+* 1.08  MG     30/05/16 Fixed issue with pixel clock adjustment for YUV422 colorspace
+* 1.09  MH     26/07/16 Added DDC HDCP protocol event.
+* 1.10  YH     18/08/16 squash unused variable compiler warning
+* 1.11  MG     03/03/17 Updated function HdmiRx_TmrIntrHandler with
+*                           GetVideoPropertiesTries
 * </pre>
 *
 ******************************************************************************/
@@ -697,6 +699,9 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
             // Set stream status to init
             InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_INIT;    // The stream init
 
+            // Clear GetVideoPropertiesTries
+            InstancePtr->Stream.GetVideoPropertiesTries = 0;
+
             // Load timer
             XV_HdmiRx_TmrStart(InstancePtr, 20000000);          // 200 ms @ 100 MHz (one UHD frame is 40 ms, 5 frames)
         }
@@ -705,7 +710,7 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
         else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_INIT) {
 
             // Read video properties
-            XV_HdmiRx_GetVideoProperties(InstancePtr);
+            if (XV_HdmiRx_GetVideoProperties(InstancePtr) == XST_SUCCESS) {
 
             // Now we know the reference clock and color depth,
             // the pixel clock can be calculated
@@ -736,9 +741,15 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
                 }
             }
 
-            // Call stream init callback
-            if (InstancePtr->IsStreamInitCallbackSet) {
-                InstancePtr->StreamInitCallback(InstancePtr->StreamInitRef);
+				// Call stream init callback
+				if (InstancePtr->IsStreamInitCallbackSet) {
+					InstancePtr->StreamInitCallback(InstancePtr->StreamInitRef);
+				}
+			}
+
+            else {
+		// Load timer
+                XV_HdmiRx_TmrStart(InstancePtr, 20000000);          // 200 ms @ 100 MHz (one UHD frame is 40 ms, 5 frames)
             }
         }
 

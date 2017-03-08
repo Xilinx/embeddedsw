@@ -384,6 +384,7 @@ void XV_HdmiRx_Clear(XV_HdmiRx *InstancePtr)
     InstancePtr->Stream.Vic = 0;
     InstancePtr->Stream.Audio.Active = (FALSE);                             // Idle stream
     InstancePtr->Stream.Audio.Channels = 2;                             // 2 channels
+    InstancePtr->Stream.GetVideoPropertiesTries = 0;
 
     /* AUX */
     InstancePtr->Aux.Header.Data = 0;
@@ -1277,25 +1278,62 @@ XVidC_VideoMode XV_HdmiRx_LookupVmId(u8 Vic)
 * @note     None.
 *
 ******************************************************************************/
-void XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr)
+int XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr)
 {
-    // Get AVI colorspace
-    InstancePtr->Stream.Video.ColorFormatId = XV_HdmiRx_GetAviColorSpace(InstancePtr);
+	u32 Status;
 
-    // Get AVI Vic
-    InstancePtr->Stream.Vic = XV_HdmiRx_GetAviVic(InstancePtr);
+	// Read AUX peripheral status register
+	Status =  XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_AUX_STA_OFFSET));
 
-    // Get GCP colordepth
-    // In HDMI the colordepth in YUV422 is always 12 bits (although on the link itself it is being transmitted as 8-bits.
-    // Therefore if the colorspace is YUV422, then force the colordepth to 12 bits.
-    if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
-        InstancePtr->Stream.Video.ColorDepth = XVIDC_BPC_12;
-    }
+	// Check if AVI ready flag has been set
+	if ((Status) & (XV_HDMIRX_AUX_STA_AVI_MASK)) {
 
-    // Else read the colordepth from the general control packet
-    else {
-        InstancePtr->Stream.Video.ColorDepth = XV_HdmiRx_GetGcpColorDepth(InstancePtr);
-    }
+		// Get AVI colorspace
+		InstancePtr->Stream.Video.ColorFormatId = XV_HdmiRx_GetAviColorSpace(InstancePtr);
+
+		// Get AVI Vic
+		InstancePtr->Stream.Vic = XV_HdmiRx_GetAviVic(InstancePtr);
+
+		// Get GCP colordepth
+		// In HDMI the colordepth in YUV422 is always 12 bits (although on the link itself it is being transmitted as 8-bits.
+		// Therefore if the colorspace is YUV422, then force the colordepth to 12 bits.
+		if (InstancePtr->Stream.Video.ColorFormatId == XVIDC_CSF_YCRCB_422) {
+			InstancePtr->Stream.Video.ColorDepth = XVIDC_BPC_12;
+		}
+
+		// Else read the colordepth from the general control packet
+		else {
+			InstancePtr->Stream.Video.ColorDepth = XV_HdmiRx_GetGcpColorDepth(InstancePtr);
+		}
+		return (XST_SUCCESS);
+	}
+
+	else {
+
+		// If we tried more than 8 times and still haven't received any AVI infoframes,
+		// then the source is DVI.
+		// In this case the video properties are forced to RGB and 8 bpc.
+		if (InstancePtr->Stream.GetVideoPropertiesTries > 7) {
+
+			// Force AVI colorspace to RGB
+			InstancePtr->Stream.Video.ColorFormatId = XVIDC_CSF_RGB;
+
+			// Set AVI vic to zero
+			InstancePtr->Stream.Vic = 0;
+
+			// Force color depth to 8 bpc
+			InstancePtr->Stream.Video.ColorDepth = XVIDC_BPC_8;
+
+			return (XST_SUCCESS);
+		}
+
+		// Return
+		else {
+			// Increment tries
+			InstancePtr->Stream.GetVideoPropertiesTries++;
+			return (XST_FAILURE);
+		}
+	}
 }
 
 /*****************************************************************************/

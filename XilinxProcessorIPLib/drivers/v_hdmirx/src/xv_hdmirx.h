@@ -233,6 +233,7 @@ typedef struct {
 	XV_HdmiRx_State	State;				/**< State */
 	u8 	IsConnected;					/**< Connected flag. This flag is set when
 										* the cable is connected */
+	u8 GetVideoPropertiesTries;			/** This value is used  in the GetVideoProperties API*/
 } XV_HdmiRx_Stream;
 
 
@@ -1214,7 +1215,7 @@ int XV_HdmiRx_GetTmdsClockRatio(XV_HdmiRx *InstancePtr);
 u8 XV_HdmiRx_GetAviVic(XV_HdmiRx *InstancePtr);
 XVidC_ColorFormat XV_HdmiRx_GetAviColorSpace(XV_HdmiRx *InstancePtr);
 XVidC_ColorDepth XV_HdmiRx_GetGcpColorDepth(XV_HdmiRx *InstancePtr);
-void XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr);
+int XV_HdmiRx_GetVideoProperties(XV_HdmiRx *InstancePtr);
 int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr);
 u32 XV_HdmiRx_Divide(u32 Dividend, u32 Divisor);
 
