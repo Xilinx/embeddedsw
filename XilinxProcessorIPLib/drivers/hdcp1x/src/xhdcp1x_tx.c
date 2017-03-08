@@ -2955,7 +2955,7 @@ static void XHdcp1x_TxRunUnauthenticatedState(XHdcp1x *InstancePtr,
 	switch (Event) {
 		/* For authenticate */
 		case XHDCP1X_EVENT_AUTHENTICATE:
-			*NextStatePtr = XHDCP1X_STATE_DETERMINERXCAPABLE;
+			XHdcp1x_TxStartTimer(InstancePtr, XVPHY_TMO_100MS);
 			break;
 
 		/* For disable */
@@ -2966,6 +2966,11 @@ static void XHdcp1x_TxRunUnauthenticatedState(XHdcp1x *InstancePtr,
 		/* For physical layer down */
 		case XHDCP1X_EVENT_PHYDOWN:
 			*NextStatePtr = XHDCP1X_STATE_PHYDOWN;
+			break;
+
+		case XHDCP1X_EVENT_TIMEOUT:
+			*NextStatePtr = XHDCP1X_STATE_DETERMINERXCAPABLE;
+			XHdcp1x_TxStopTimer(InstancePtr);
 			break;
 
 		/* Otherwise */
