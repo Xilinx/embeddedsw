@@ -755,6 +755,11 @@ extern "C" {
 							  *  for HDCP
 							  *  functions */
 
+#define UNUSED(x)  ((void)x) /**< Used to remove warnings for
+			       *  unused variables. */
+#define XHDCP1X_ADDITIONAL_DEBUG  0 /**< Adds extra functions for
+				      *  additional debugging. */
+
 /**************************** Type Definitions *******************************/
 
 /**

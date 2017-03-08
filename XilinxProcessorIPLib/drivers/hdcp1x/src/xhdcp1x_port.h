@@ -118,7 +118,7 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 #define XHDCP1X_PORT_UINT_TO_BUF(buf, uint, numbits)			\
 	if ((numbits) > 0) {						\
 		int byte;						\
-		for (byte = 0; byte <= (((numbits) - 1) >> 3); byte++) { \
+		for (byte = 0; byte <= (int)(((numbits) - 1) >> 3); byte++) { \
 			buf[byte] = (uint8_t) (uint & 0xFFu);		\
 			uint >>= 8;					\
 		}							\
