@@ -1493,6 +1493,9 @@ void XHdcp1x_SetTopologyField(XHdcp1x *InstancePtr,
 	case XHDCP1X_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
 		/* Not currently applicable */
 		break;
+	case XHDCP1X_TOPOLOGY_INVALID :
+		/* Not currently applicable */
+		break;
 	}
 }
 
@@ -1533,6 +1536,9 @@ u32 XHdcp1x_GetTopologyField(XHdcp1x *InstancePtr, XHdcp1x_TopologyField Field)
 		/* Not currently applicable */
 		break;
 	case XHDCP1X_TOPOLOGY_HDCP1DEVICEDOWNSTREAM :
+		/* Not currently applicable */
+		break;
+	case XHDCP1X_TOPOLOGY_INVALID :
 		/* Not currently applicable */
 		break;
 	}

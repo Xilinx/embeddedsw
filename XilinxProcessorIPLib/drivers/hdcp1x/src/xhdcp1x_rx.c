@@ -147,7 +147,9 @@ static void XHdcp1x_RxDebugLog(const XHdcp1x *InstancePtr, const char *LogMsg);
 static void XHdcp1x_RxPostEvent(XHdcp1x *InstancePtr, XHdcp1x_EventType Event);
 static void XHdcp1x_RxStartTimer(XHdcp1x *InstancePtr, u16 TimeoutInMs);
 static void XHdcp1x_RxStopTimer(XHdcp1x *InstancePtr);
+#if XHDCP1X_ADDITIONAL_DEBUG
 static void XHdcp1x_RxBusyDelay(XHdcp1x *InstancePtr, u16 DelayInMs);
+#endif
 static void XHdcp1x_RxAuthCallback(void *Parameter);
 static void XHdcp1x_RxLinkFailCallback(void *Parameter);
 static void XHdcp1x_RxRiUpdateCallback(void *Parameter);
@@ -186,7 +188,9 @@ static void XHdcp1x_RxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State);
 static void XHdcp1x_RxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event);
 static void XHdcp1x_RxProcessPending(XHdcp1x *InstancePtr);
 static const char *XHdcp1x_RxStateToString(XHdcp1x_StateType State);
+#if XHDCP1X_ADDITIONAL_DEBUG
 static const char *XHdcp1x_RxEventToString(XHdcp1x_EventType Event);
+#endif
 
 /************************** Function Definitions *****************************/
 /*****************************************************************************/
@@ -846,7 +850,7 @@ int XHdcp1x_RxGetRepeaterInfo(XHdcp1x *InstancePtr,
 		XHdcp1x_RepeaterExchange *RepeaterInfoPtr)
 {
 	int Status = XST_SUCCESS;
-	int ksvCount=0;
+	u32 ksvCount=0;
 	u32 ksvsToCopy;
 
 	/* Verify arguments. */
@@ -976,6 +980,7 @@ static void XHdcp1x_RxStopTimer(XHdcp1x *InstancePtr)
 	XHdcp1x_PlatformTimerStop(InstancePtr);
 }
 
+#if XHDCP1X_ADDITIONAL_DEBUG
 /*****************************************************************************/
 /**
 * This function busy delays a state machine.
@@ -993,6 +998,7 @@ static void XHdcp1x_RxBusyDelay(XHdcp1x *InstancePtr, u16 DelayInMs)
 	/* Busy wait */
 	XHdcp1x_PlatformTimerBusy(InstancePtr, DelayInMs);
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -1169,6 +1175,9 @@ static void XHdcp1x_RxDisableState(XHdcp1x *InstancePtr)
 static void XHdcp1x_RxStartComputations(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr)
 {
+	/* NextStatePtr not being used */
+	UNUSED(NextStatePtr);
+
 	u8 Buf[8];
 	u64 Value = 0;
 	u32 X = 0;
@@ -1319,7 +1328,7 @@ static int XHdcp1x_RxCalculateSHA1Value(XHdcp1x *InstancePtr, u16 RepeaterInfo)
 {
 	SHA1Context Sha1Context;
 	u8 Buf[24];
-	int NumToRead = 0;
+	u32 NumToRead = 0;
 	int IsValid = FALSE;
 	u32 KsvCount;
 	u64 tempKsv;
@@ -1655,10 +1664,15 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
 	}
 	else {
+#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+		/* No other variables used for HDMI. */
+#else
 		u32 BInfo;
+		u32 KSVPtrReset;
+#endif
+
 		u32 BStatus;
 		u32 BCaps;
-		u32 KSVPtrReset;
 		u8 Buf[5];
 		u32 sha1value;
 		u32 ksvCount, ksvsToWrite;
@@ -1865,6 +1879,9 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr)
 {
+	/* NextStatePtr not being used */
+	UNUSED(NextStatePtr);
+
 	char LogBuf[20];
 	u8 Buf[4];
 	u16 Ri = 0;
@@ -1975,6 +1992,9 @@ static void XHdcp1x_RxCheckEncryptionChange(XHdcp1x *InstancePtr)
 static void XHdcp1x_RxReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr)
 {
+	/* NextStatePtr not being used */
+	UNUSED(NextStatePtr);
+
 #if defined(XHDCP1X_PORT_BIT_BSTATUS_LINK_FAILURE)
 	u8 Buf[XHDCP1X_PORT_SIZE_BSTATUS];
 
@@ -2049,6 +2069,9 @@ static void XHdcp1x_RxRunDisabledState(XHdcp1x *InstancePtr,
 static void XHdcp1x_RxRunUnauthenticatedState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
+	/* InstancePtr not being used */
+	UNUSED(InstancePtr);
+
 	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
@@ -2136,6 +2159,9 @@ static void XHdcp1x_RxRunComputationsState(XHdcp1x *InstancePtr,
 static void XHdcp1x_RxRunWaitForDownstreamState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
+	/* InstancePtr not being used */
+	UNUSED(InstancePtr);
+
 	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
@@ -2161,6 +2187,31 @@ static void XHdcp1x_RxRunWaitForDownstreamState(XHdcp1x *InstancePtr,
 		case XHDCP1X_EVENT_DOWNSTREAMREADY:
 			*NextStatePtr = XHDCP1X_STATE_ASSEMBLEKSVLIST;
 			break;
+
+		case XHDCP1X_EVENT_NULL:
+			/*Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_CHECK:
+			/*Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_ENABLE:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_PHYUP:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_POLL:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_UPDATERi:
+			/* Do nothing */
+			break;
+
 	}
 }
 
@@ -2180,6 +2231,9 @@ static void XHdcp1x_RxRunWaitForDownstreamState(XHdcp1x *InstancePtr,
 static void XHdcp1x_RxRunAssembleKsvListState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
+	/* InstancePtr not being used */
+	UNUSED(InstancePtr);
+
 	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For disable */
@@ -2190,6 +2244,42 @@ static void XHdcp1x_RxRunAssembleKsvListState(XHdcp1x *InstancePtr,
 		/* For physical layer down */
 		case XHDCP1X_EVENT_PHYDOWN:
 			*NextStatePtr = XHDCP1X_STATE_PHYDOWN;
+			break;
+
+		case XHDCP1X_EVENT_NULL:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_AUTHENTICATE:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_CHECK:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_ENABLE:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_PHYUP:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_POLL:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_UPDATERi:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_TIMEOUT:
+			/* Do nothing */
+			break;
+
+		case XHDCP1X_EVENT_DOWNSTREAMREADY:
+			/* Do nothing */
 			break;
 	}
 }
@@ -2314,6 +2404,9 @@ static void XHdcp1x_RxRunLinkIntegrityFailedState(XHdcp1x *InstancePtr,
 static void XHdcp1x_RxRunPhysicalLayerDownState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
+	/* InstancePtr not being used */
+	UNUSED(InstancePtr);
+
 	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For disable */
@@ -2637,6 +2730,7 @@ static const char *XHdcp1x_RxStateToString(XHdcp1x_StateType State)
 	return (String);
 }
 
+#if XHDCP1X_ADDITIONAL_DEBUG
 /*****************************************************************************/
 /**
 * This function converts from a event to a display string.
@@ -2701,4 +2795,6 @@ static const char *XHdcp1x_RxEventToString(XHdcp1x_EventType Event)
 
 	return (String);
 }
+#endif
+
 /** @} */

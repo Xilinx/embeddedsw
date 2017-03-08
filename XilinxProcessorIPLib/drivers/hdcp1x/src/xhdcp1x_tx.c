@@ -205,7 +205,9 @@ static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State);
 static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event);
 static void XHdcp1x_TxProcessPending(XHdcp1x *InstancePtr);
 static const char *XHdcp1x_TxStateToString(XHdcp1x_StateType State);
+#if XHDCP1X_ADDITIONAL_DEBUG
 static const char *XHdcp1x_TxEventToString(XHdcp1x_EventType Event);
+#endif
 
 /************************** Function Definitions *****************************/
 
@@ -2526,6 +2528,9 @@ static void XHdcp1x_TxRunDisabledState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunDetermineRxCapableState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
+	/* InstancePtr not being used */
+	UNUSED(InstancePtr);
+
 	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For disable */
@@ -2561,6 +2566,9 @@ static void XHdcp1x_TxRunDetermineRxCapableState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunExchangeKsvsState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
+	/* InstancePtr not being used */
+	UNUSED(InstancePtr);
+
 	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For disable */
@@ -2688,6 +2696,9 @@ static void XHdcp1x_TxRunValidateRxState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunAuthenticatedState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
+	/* InstancePtr not being used */
+	UNUSED(InstancePtr);
+
 	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
@@ -2892,6 +2903,9 @@ static void XHdcp1x_TxRunWaitForReadyState(XHdcp1x *InstancePtr,
 static void XHdcp1x_TxRunReadKsvListState(XHdcp1x *InstancePtr,
 		XHdcp1x_EventType Event, XHdcp1x_StateType *NextStatePtr)
 {
+	/* InstancePtr not being used */
+	UNUSED(InstancePtr);
+
 	/* Case-wise process the kind of event called */
 	switch (Event) {
 		/* For authenticate */
@@ -2907,6 +2921,11 @@ static void XHdcp1x_TxRunReadKsvListState(XHdcp1x *InstancePtr,
 		/* For physical layer down */
 		case XHDCP1X_EVENT_PHYDOWN:
 			*NextStatePtr = XHDCP1X_STATE_PHYDOWN;
+			break;
+
+		/* For timeout event */
+		case XHDCP1X_EVENT_TIMEOUT:
+			/* Do nothing */
 			break;
 
 		/* Otherwise */
@@ -3395,6 +3414,7 @@ static const char *XHdcp1x_TxStateToString(XHdcp1x_StateType State)
 	return (String);
 }
 
+#if XHDCP1X_ADDITIONAL_DEBUG
 /*****************************************************************************/
 /**
 * This function converts from a state to a display string.
@@ -3463,4 +3483,6 @@ static const char *XHdcp1x_TxEventToString(XHdcp1x_EventType Event)
 
 	return (String);
 }
+#endif
+
 /** @} */

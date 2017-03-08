@@ -325,7 +325,6 @@ static int XHdcp1x_PortHdmiTxGetRepeaterInfo(const XHdcp1x *InstancePtr,
 static int XHdcp1x_PortHdmiTxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		void *Buf, u32 BufSize)
 {
-	XV_HdmiTx *HdmiTx = InstancePtr->Port.PhyIfPtr;
 	u8 Slave = 0x3Au;
 	int NumRead = 0;
 	u8 *ReadBuf = Buf;
@@ -379,7 +378,7 @@ static int XHdcp1x_PortHdmiTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 	u8 Slave = 0x3Au;
 	u8 TxBuf[XHDCP1X_WRITE_CHUNK_SZ + 1];
 	int NumWritten = 0;
-	int ThisTime = 0;
+	u32 ThisTime = 0;
 	const u8 *WriteBuf = Buf;
 
 	/* Verify arguments. */
