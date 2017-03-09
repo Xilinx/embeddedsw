@@ -714,6 +714,7 @@ u32 XVphy_PllInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 u32 XVphy_ClkInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir);
 #endif
+u32 XVphy_GetVersion(XVphy *InstancePtr);
 void XVphy_WaitUs(XVphy *InstancePtr, u32 MicroSeconds);
 void XVphy_SetUserTimerHandler(XVphy *InstancePtr,
 		XVphy_TimerHandler CallbackFunc, void *CallbackRef);
@@ -756,10 +757,10 @@ void XVphy_IBufDsEnable(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Enable);
 void XVphy_Clkout1OBufTdsEnable(XVphy *InstancePtr, XVphy_DirectionType Dir,
 		u8 Enable);
+#if defined (XPAR_XDP_0_DEVICE_ID)
+void XVphy_BufgGtReset(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Reset);
 
 /* xvphy.c Miscellaneous control. */
-u32 XVphy_GetVersion(XVphy *InstancePtr);
-#if defined (XPAR_XDP_0_DEVICE_ID)
 void XVphy_Set8b10b(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Enable);
 #endif

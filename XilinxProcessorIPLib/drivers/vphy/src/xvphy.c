@@ -1038,6 +1038,43 @@ void XVphy_Clkout1OBufTdsEnable(XVphy *InstancePtr, XVphy_DirectionType Dir,
 #if defined (XPAR_XDP_0_DEVICE_ID)
 /*****************************************************************************/
 /**
+* This function resets the BUFG_GT peripheral.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	Dir is an indicator for TX or RX
+* @param	Reset specifies TRUE/FALSE value to either assert or deassert
+*		reset on the BUFG_GT, respectively.
+*
+* @return	None.
+*
+******************************************************************************/
+void XVphy_BufgGtReset(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Reset)
+{
+	u32 RegVal;
+	u32 RegOffset;
+
+	if (Dir == XVPHY_DIR_TX) {
+		RegOffset = XVPHY_BUFGGT_TXUSRCLK_REG;
+	}
+	else {
+		RegOffset = XVPHY_BUFGGT_RXUSRCLK_REG;
+	}
+
+	/* Read BUFG_GT register. */
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset);
+
+	/* Write new value to BUFG_GT register. */
+	if (Reset) {
+		RegVal |= XVPHY_BUFGGT_XXUSRCLK_CLR_MASK;
+	}
+	else {
+		RegVal &= ~XVPHY_BUFGGT_XXUSRCLK_CLR_MASK;
+	}
+	XVphy_WriteReg(InstancePtr->Config.BaseAddr, RegOffset, RegVal);
+}
+
+/*****************************************************************************/
+/**
 * This function will set 8b10b encoding for the specified GT PLL.
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
