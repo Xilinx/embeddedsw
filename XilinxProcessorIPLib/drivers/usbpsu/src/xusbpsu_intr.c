@@ -133,8 +133,9 @@ void XUsbPsu_DisconnectIntr(struct XUsbPsu *InstancePtr)
 	InstancePtr->Speed = XUSBPSU_SPEED_UNKNOWN;
 
 	/* Call the handler if necessary */
-	if (InstancePtr->DisconnectIntrHandler != NULL)
+	if (InstancePtr->DisconnectIntrHandler != NULL) {
 		InstancePtr->DisconnectIntrHandler(InstancePtr);
+	}
 }
 
 /****************************************************************************/
@@ -174,8 +175,9 @@ void XUsbPsu_ResetIntr(struct XUsbPsu *InstancePtr)
 	XUsbPsu_WriteReg(InstancePtr, XUSBPSU_DCFG, RegVal);
 
 	/* Call the handler if necessary */
-	if (InstancePtr->ResetIntrHandler != NULL)
+	if (InstancePtr->ResetIntrHandler != NULL) {
 		InstancePtr->ResetIntrHandler(InstancePtr);
+	}
 }
 
 /****************************************************************************/
