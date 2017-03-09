@@ -121,7 +121,6 @@ void XVphy_MmcmReset(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Hold);
 void XVphy_MmcmLockedMaskEnable(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, u8 Enable);
-//void XVphy_BufgGtReset(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Reset);
 void XVphy_SetBufgGtDiv(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Div);
 /* xvphy.c Miscellaneous control. */
 u32 XVphy_PowerDownGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
