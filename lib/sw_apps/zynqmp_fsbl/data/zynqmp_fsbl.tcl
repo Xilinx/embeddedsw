@@ -311,6 +311,7 @@ proc swapp_generate {} {
 
     # get the compiler flags, if set already
     set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
+    set def_link_flags [common::get_property APP_LINKER_FLAGS [hsi::current_sw_design]]
 
     # based on the CPU (A53 64-bit, A53 32-bit or R5),
     # remove unnecesary linker script and retain just one: lscript.ld
@@ -354,8 +355,11 @@ proc swapp_generate {} {
             set new_flags "-Wall -fmessage-length=0 -DARMA53_64 -Os -flto -ffat-lto-objects $def_flags"
         }
     }
-    # Update compiler flags
+
+    set new_link_flags "-n $def_link_flags"
+    # Update compiler and linker flags
     common::set_property -name {APP_COMPILER_FLAGS} -value $new_flags -objects [hsi::current_sw_design]
+    common::set_property -name {APP_LINKER_FLAGS} -value $new_link_flags -objects [hsi::current_sw_design]
 }
 
 proc swapp_get_linker_constraints {} {
