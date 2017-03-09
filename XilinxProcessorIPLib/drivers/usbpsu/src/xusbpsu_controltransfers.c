@@ -51,7 +51,6 @@
 
 #include "xusbpsu.h"
 #include "xusbpsu_endpoint.h"
-#include "sleep.h"
 /************************** Constant Definitions *****************************/
 
 #define USB_DIR_OUT				0U		/* to device */
@@ -93,7 +92,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 	/* Setup packet always on EP0 */
 	Ept = &InstancePtr->eps[0];
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != 0U) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	TrbPtr = &InstancePtr->Ep0_Trb;
@@ -118,7 +117,7 @@ s32 XUsbPsu_RecvSetup(struct XUsbPsu *InstancePtr)
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT,
 				XUSBPSU_DEPCMD_STARTTRANSFER, Params);
 	if (Ret != XST_SUCCESS) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
@@ -202,10 +201,10 @@ void XUsbPsu_Ep0DataDone(struct XUsbPsu *InstancePtr,
 	} else {
 		if (Dir == XUSBPSU_EP_DIR_IN) {
 			Ept->BytesTxed = Ept->RequestedBytes - Length;
-		} else {
-			if ((Dir == XUSBPSU_EP_DIR_OUT) && (Ept->UnalignedTx == 1U)) {
-					Ept->BytesTxed = Ept->RequestedBytes;
-					Ept->UnalignedTx = 0U;
+		} else if (Dir == XUSBPSU_EP_DIR_OUT) {
+			if (Ept->UnalignedTx == 1U) {
+				Ept->BytesTxed = Ept->RequestedBytes;
+				Ept->UnalignedTx = 0U;
 			}
 		}
 	}
@@ -348,7 +347,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != 0U) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Type = (InstancePtr->IsThreeStage != 0U) ? XUSBPSU_TRBCTL_CONTROL_STATUS3
@@ -381,7 +380,7 @@ s32 XUsbPsu_Ep0StartStatus(struct XUsbPsu *InstancePtr,
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, 0U, Dir,
 							XUSBPSU_DEPCMD_STARTTRANSFER, Params);
 	if (Ret != XST_SUCCESS) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
@@ -544,7 +543,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	Xil_AssertNonvoid(Params != NULL);
 
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != 0U) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Ept->RequestedBytes = BufferLen;
@@ -574,7 +573,7 @@ s32 XUsbPsu_Ep0Send(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 BufferLen)
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, 0U, XUSBPSU_EP_DIR_IN,
 							XUSBPSU_DEPCMD_STARTTRANSFER, Params);
 	if (Ret != XST_SUCCESS) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
@@ -613,7 +612,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	Xil_AssertNonvoid(Params != NULL);
 
 	if ((Ept->EpStatus & XUSBPSU_EP_BUSY) != 0U) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Ept->RequestedBytes = Length;
@@ -654,7 +653,7 @@ s32 XUsbPsu_Ep0Recv(struct XUsbPsu *InstancePtr, u8 *BufferPtr, u32 Length)
 	Ret = XUsbPsu_SendEpCmd(InstancePtr, 0U, XUSBPSU_EP_DIR_OUT,
 				XUSBPSU_DEPCMD_STARTTRANSFER, Params);
 	if (Ret != XST_SUCCESS) {
-		return (s32)XST_FAILURE;
+		return XST_FAILURE;
 	}
 
 	Ept->EpStatus |= XUSBPSU_EP_BUSY;
