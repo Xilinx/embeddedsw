@@ -472,6 +472,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpTxAdaptor =
 	NULL,
 	&XHdcp1x_PortDpTxGetRepeaterInfo,
 	&XHdcp1x_PortDpTxIntrHandler,
+	NULL,
 };
 
 #endif

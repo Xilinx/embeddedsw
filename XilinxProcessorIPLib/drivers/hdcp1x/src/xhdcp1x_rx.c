@@ -1572,9 +1572,9 @@ void XHdcp1x_RxSetTopologyMaxDevsExceeded(XHdcp1x *InstancePtr, u8 Value)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(Value == FALSE || Value == TRUE);
 
-	u16 DevCntErr = (Value & 0xFFFF);
 #if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
 
+	u16 DevCntErr = (Value & 0xFFFF);
 	u32 BStatus;
 
 	/* Update the value of Max Devices exceeded in BStatus */
@@ -1615,9 +1615,9 @@ void XHdcp1x_RxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
+#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
 	u32 BStatus;
 
-#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
 	/* Update the value of HDMI_MODE bit in the BStatus Register */
 	XHdcp1x_PortRead(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
 		&BStatus, XHDCP1X_PORT_SIZE_BSTATUS);
@@ -1628,6 +1628,8 @@ void XHdcp1x_RxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
 	}
 	XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BSTATUS,
 		&BStatus, XHDCP1X_PORT_SIZE_BSTATUS);
+#else
+	UNUSED(Value);
 #endif
 }
 
@@ -1665,14 +1667,13 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 	}
 	else {
 #if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
-		/* No other variables used for HDMI. */
+		u32 BCaps;
 #else
 		u32 BInfo;
 		u32 KSVPtrReset;
 #endif
 
 		u32 BStatus;
-		u32 BCaps;
 		u8 Buf[5];
 		u32 sha1value;
 		u32 ksvCount, ksvsToWrite;
