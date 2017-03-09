@@ -286,7 +286,7 @@ static int XHdcp1x_PortDpRxRead(const XHdcp1x *InstancePtr, u8 Offset,
 		u32 Value = 0;
 		u32 Alignment = 0;
 		u32 NumThisTime = 0;
-		int Idx = 0;
+		u32 Idx = 0;
 
 		/* Determine Alignment */
 		Alignment = (RegOffset & 0x03ul);
@@ -364,7 +364,7 @@ static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 	do {
 		u32 Value = 0;
 		u32 Alignment = 0;
-		u32 NumThisTime = 0;
+		int NumThisTime = 0;
 		int Idx = 0;
 
 		/* Determine Alignment */
@@ -375,7 +375,7 @@ static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 		if (Alignment) {
 			NumThisTime = (4 - Alignment);
 		}
-		if (NumThisTime > BufSize) {
+		if (NumThisTime > (int)BufSize) {
 			NumThisTime = BufSize;
 		}
 
@@ -431,7 +431,7 @@ static int XHdcp1x_PortDpRxWrite(XHdcp1x *InstancePtr, u8 Offset,
 * @param	InstancePtr is the device to write to.
 * @param	RptrConf is the repeater capability for the device.
 *
-* @return	None.
+* @return	XST_SUCCESS.
 *
 * @note		This function sets the REPEATER bit in the BCaps register for the
 * 		upstream device to read. This can be used to update the device
@@ -454,6 +454,7 @@ static int XHdcp1x_PortDpRxSetRepeater(XHdcp1x *InstancePtr, u8 RptrConf)
 	XHdcp1x_PortDpRxWrite(InstancePtr, XHDCP1X_PORT_OFFSET_BCAPS,
 			&Value, XHDCP1X_PORT_SIZE_BCAPS);
 
+	return(XST_SUCCESS);
 }
 
 /*****************************************************************************/
@@ -580,6 +581,7 @@ const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpRxAdaptor =
 	NULL,
 	NULL,
 	&XHdcp1x_PortDpRxSetRepeater,
+	NULL,
 	NULL,
 	NULL,
 };

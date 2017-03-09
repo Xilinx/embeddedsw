@@ -1425,7 +1425,7 @@ static void XHdcp1x_TxExchangeKsvs(XHdcp1x *InstancePtr,
 		else {
 			u64 LocalKsv = 0;
 			u64 An = 0;
-			u8 Buf[XHDCP1X_PORT_SIZE_AINFO];
+			u8 Buf_AInfo[XHDCP1X_PORT_SIZE_AINFO];
 
 			/* Check for repeater and update InstancePtr */
 			if (XHdcp1x_PortIsRepeater(InstancePtr)) {
@@ -1449,9 +1449,9 @@ static void XHdcp1x_TxExchangeKsvs(XHdcp1x *InstancePtr,
 			XHdcp1x_CipherSetRemoteKsv(InstancePtr, RemoteKsv);
 
 			/* Clear AINFO */
-			memset(Buf, 0, XHDCP1X_PORT_SIZE_AINFO);
+			memset(Buf_AInfo, 0, XHDCP1X_PORT_SIZE_AINFO);
 			XHdcp1x_PortWrite(InstancePtr, XHDCP1X_PORT_OFFSET_AINFO,
-					Buf, XHDCP1X_PORT_SIZE_AINFO);
+					Buf_AInfo, XHDCP1X_PORT_SIZE_AINFO);
 
 			/* Send An to remote */
 			XHDCP1X_PORT_UINT_TO_BUF(Buf, An,
@@ -2344,9 +2344,8 @@ static int XHdcp1x_TxSetRepeaterInfo(XHdcp1x *InstancePtr)
 
 	/* Check for repeater */
 	if (XHdcp1x_PortIsRepeater(InstancePtr)) {
-		u32 Buf;
 #if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
-		/* Do nothing */
+		u32 Buf;
 #else
 		u16 RepeaterInfo;
 #endif
