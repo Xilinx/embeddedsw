@@ -60,8 +60,6 @@
 * 1.3	nsk 09/16/16 Update PollData and PollTimeout support for dual
 *	             parallel configurations, modified XQspiPsu_PollData()
 *	             and XQspiPsu_Create_PollConfigData()
-* 1.4   ms  01/24/17 Added CCI support for A53 and disabled data
-*                    cache operations when it is enabled.
 *
 * </pre>
 *
@@ -152,7 +150,6 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		InstancePtr->StatusHandler = StubStatusHandler;
 		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
-		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
@@ -1155,10 +1152,7 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 		Msg->ByteCount = (u32)DmaRxBytes;
 	}
 
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheInvalidateRange((INTPTR)InstancePtr->RecvBufferPtr,
-			Msg->ByteCount);
-	}
+	Xil_DCacheInvalidateRange((INTPTR)InstancePtr->RecvBufferPtr, Msg->ByteCount);
 
 	/* Write no. of words to DMA DST SIZE */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
