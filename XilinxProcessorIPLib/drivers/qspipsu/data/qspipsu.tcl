@@ -37,8 +37,6 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   hk  08/21/14 First release
 #       sk  05/06/15 Imported Bus Width Parameter.
-# 1.4   ms  01/24/17 Enabled CCI support for A53 by adding cache coherency
-#                    information.
 #
 ##############################################################################
 
@@ -46,29 +44,9 @@
 
 proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XQspiPsu" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH"
-	generate_cci_params $drv_handle "xparameters.h"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xqspipsu_g.c" "XQspiPsu"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH" "IS_CACHE_COHERENT"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xqspipsu_g.c" "XQspiPsu"  "DEVICE_ID" "C_S_AXI_BASEADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XQspiPsu" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_QSPI_CLK_FREQ_HZ" "C_QSPI_MODE" "C_QSPI_BUS_WIDTH"
 
-}
-
-proc generate_cci_params {drv_handle file_name} {
-	set file_handle [::hsi::utils::open_include_file $file_name]
-	# Get all peripherals connected to this driver
-	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
-
-	set sw_processor [hsi::get_sw_processor]
-	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
-	set processor_type [common::get_property IP_NAME $processor]
-
-	foreach ip $ips {
-		if {$processor_type == "psu_cortexa53"} {
-			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] [common::get_property CONFIG.IS_CACHE_COHERENT $ip]"
-		} else {
-			puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] 0"
-		}
-	}
-	close $file_handle
 }
