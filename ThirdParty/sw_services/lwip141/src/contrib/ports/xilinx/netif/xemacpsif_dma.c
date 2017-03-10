@@ -311,10 +311,7 @@ XStatus emacps_sgsend(xemacpsif_s *xemacpsif, struct pbuf *p)
 		/* Send the data from the pbuf to the interface, one pbuf at a
 		   time. The size of the data in each pbuf is kept in the ->len
 		   variable. */
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
-			Xil_DCacheFlushRange((UINTPTR)q->payload, (UINTPTR)q->len);
-		}
-
+		Xil_DCacheFlushRange((UINTPTR)q->payload, (UINTPTR)q->len);
 		XEmacPs_BdSetAddressTx(txbd, (UINTPTR)q->payload);
 
 #ifdef ZYNQMP_USE_JUMBO
@@ -416,13 +413,9 @@ void setup_rx_bds(xemacpsif_s *xemacpsif, XEmacPs_BdRing *rxring)
 			return;
 		}
 #ifdef ZYNQMP_USE_JUMBO
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
-			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)MAX_FRAME_SIZE_JUMBO);
-		}
+		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)MAX_FRAME_SIZE_JUMBO);
 #else
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
-			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
-		}
+		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
 #endif
 		bdindex = XEMACPS_BD_TO_INDEX(rxring, rxbd);
 		temp = (u32 *)rxbd;
@@ -701,13 +694,9 @@ XStatus init_dma(struct xemac_s *xemac)
 		*temp = 0;
 		dsb();
 #ifdef ZYNQMP_USE_JUMBO
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
-			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)MAX_FRAME_SIZE_JUMBO);
-		}
+		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)MAX_FRAME_SIZE_JUMBO);
 #else
-		if (xemacpsif->emacps.Config.IsCacheCoherent == 0) {
-			Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
-		}
+		Xil_DCacheInvalidateRange((UINTPTR)p->payload, (UINTPTR)XEMACPS_MAX_FRAME_SIZE);
 #endif
 		XEmacPs_BdSetAddressRx(rxbd, (UINTPTR)p->payload);
 
