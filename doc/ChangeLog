@@ -223,8 +223,6 @@ emacps_v3_4:
 Updated emacps tcl to export PCS definitions for newer version of
 Xilinx PCS PMA core where PHY address is not a parameter.
 Fixed Compilation warnings - CR#957004
-Export CCI enablement information and use it to skip data cache
-operations when CCI is enabled.
 
 enhance_v7_1:
 Updated num instances parameter as XPAR_XENHANCE_NUM_INSTANCES
@@ -279,7 +277,6 @@ Updated xemacpsif_physpeed.c to scan for phy addr when newer version of
 Xilinx PCS PMA core is used.
 Add Support for TI PHY DP83867 SGMII Mode configuration.
 Fixed Compilation warnings - CR#957004
-Dont perform data cache operations when CCI is enabled.
 Add jumbo frame support for ZynqMP GEM.
 Correct TI PHYCR initialization in xemacpsif_physpeed.c
 Add SW workaround for TI DP83867 PHY link instability.
