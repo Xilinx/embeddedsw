@@ -76,8 +76,6 @@
 *       sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 * 3.2   sk     11/30/16 Modified the voltage switching sequence as per spec.
 *       sk     02/01/17 Added HSD and DDR mode support for eMMC.
-*       ms     01/24/17 Added CCI support for A53 and disabled data cache
-*                       operations when it is enabled.
 *       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
 * </pre>
 *
@@ -180,7 +178,6 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 	InstancePtr->Config.BankNumber = ConfigPtr->BankNumber;
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
-	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 	InstancePtr->SectorCount = 0;
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
 	InstancePtr->Config_TapDelay = NULL;
@@ -1267,10 +1264,7 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 			XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DAT_DIR_SEL_MASK |
 			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK);
 
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheInvalidateRange((INTPTR)Buff,
-			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
-	}
+	Xil_DCacheInvalidateRange((INTPTR)Buff, BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 
 	/* Send block read command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
@@ -1354,10 +1348,7 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 	}
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheFlushRange((INTPTR)Buff,
-			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
-	}
+	Xil_DCacheFlushRange((INTPTR)Buff, BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_XFER_MODE_OFFSET,
@@ -1493,10 +1484,9 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
 			(u32)(UINTPTR)&(InstancePtr->Adma2_DescrTbl[0]));
 
-	if (InstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl[0]),
+	Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl[0]),
 			sizeof(XSdPs_Adma2Descriptor) * 32U);
-	}
+
 }
 
 /*****************************************************************************/
