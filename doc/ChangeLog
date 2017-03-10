@@ -407,6 +407,7 @@ vmix_v2_1
 Added check to make sure logo layer is enabled before loading logo pixel alpha
 Define size of configtable array in tcl and update generated g.c
 Updated PowerOnDefault API to read video stream property from IP configuration
+Updated processor name in example to reflect change in hardware example design
 
 vprocss_v2_3
 Make log feature optional
