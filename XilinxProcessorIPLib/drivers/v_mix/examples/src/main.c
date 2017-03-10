@@ -128,7 +128,7 @@ static int SetupInterrupts(void)
   XIntc *IntcPtr = &intc;
 
   /* Initialize the Interrupt controller */
-  Status = XIntc_Initialize(IntcPtr, XPAR_MICROBLAZE_SS_AXI_INTC_0_DEVICE_ID);
+  Status = XIntc_Initialize(IntcPtr, XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_DEVICE_ID);
   if(Status != XST_SUCCESS) {
     xil_printf("ERR:: Interrupt controller device not found\r\n");
     return(XST_FAILURE);
@@ -136,7 +136,7 @@ static int SetupInterrupts(void)
 
   /* Hook up interrupt service routine */
   Status = XIntc_Connect(IntcPtr,
-                         XPAR_MICROBLAZE_SS_AXI_INTC_0_V_MIX_0_INTERRUPT_INTR,
+		                 XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR,
                          (XInterruptHandler)XVMix_InterruptHandler, &mix);
   if (Status != XST_SUCCESS) {
     xil_printf("ERR:: Mixer interrupt connect failed!\r\n");
@@ -144,7 +144,7 @@ static int SetupInterrupts(void)
   }
 
   /* Enable the interrupt vector at the interrupt controller */
-  XIntc_Enable(IntcPtr, XPAR_MICROBLAZE_SS_AXI_INTC_0_V_MIX_0_INTERRUPT_INTR);
+  XIntc_Enable(IntcPtr, XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR);
 
   /*
    * Start the interrupt controller such that interrupts are recognized
