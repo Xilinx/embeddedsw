@@ -227,7 +227,8 @@ proc xdefine_axi_target_params {periphs file_handle} {
 			set intc_periph_type [::hsi::utils::get_connected_intr_cntrl $tartget_per_name $int_pin]
                         if { $intc_periph_type == ""} {
                                 puts "Info: FIFO interrupt not connected to intc\n"
-                                return
+				incr device_id
+                                continue
                         }
 			set intc_name [get_property IP_NAME $intc_periph_type]
 		       if { $intc_name != [format "ps7_scugic"] } {
