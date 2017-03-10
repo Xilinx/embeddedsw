@@ -1803,6 +1803,7 @@ Added N2=8 divider for GTHE3 & GTHE4 CPLL for DP only
 Implemented 2/4 byte GT mode switching HDMI
 Fixed c++ compiler warnings
 Added Transceiver_Width, C_Err_Irq_En, AXI_LITE_FREQ_HZ Parameters in xvphy_g.c and in vphy main data structure
+Added XVphy_GtUserRdyEnable for TX and RX in XVphy_DpInitialize API
 
 vprocss_v2_1:
 Added new version 2.1
