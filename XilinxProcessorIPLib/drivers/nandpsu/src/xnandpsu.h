@@ -161,8 +161,6 @@
 * 1.1	nsk    11/07/16    Change memcpy to Xil_MemCpy, CR#960462
 * 1.2   nsk    01/19/17    Fix for the failure of reading nand first redundant
 *                          parameter page. CR#966603
-*       ms     01/24/17    Enabled CCI support for A53 by adding cache coherency
-*                          information.
 *       ms     02/12/17    Fix for the compilation warning in _g.c file.
 * </pre>
 *
@@ -223,7 +221,6 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;		/**< Instance ID of NAND flash controller */
 	u32 BaseAddress;	/**< Base address of NAND flash controller */
-	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not */
 } XNandPsu_Config;
 
 /**
