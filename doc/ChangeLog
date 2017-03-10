@@ -166,6 +166,8 @@ xilopenamp_v1_0
 
 axiethernet_v5_4:
 Add Support for TI PHY DP83867 SGMII Mode configuration in the examples.
+Fixed CR#971367 fix race condition in the tcl for a multi mac design
+(AXI_CONNECTED_TYPE defined only for one instance).
 
 axivdma_v6_3:
 Fixed compilation errors. CR-969129
