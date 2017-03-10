@@ -118,9 +118,6 @@
 *                   ensure that "Successfully ran" and "Failed" strings
 *                   are available in all examples. This is a fix for
 *                   CR-965028.
-*     hk    01/23/17 Dont perform data cache operations when CCI is enabled
-*                    on ZynqMP.
-*
 * </pre>
 *
 *****************************************************************************/
@@ -517,9 +514,7 @@ LONG EmacPsDmaIntrExample(INTC * IntcInstancePtr,
 						XEMACPS_TXBUF_WRAP_MASK));
 		XEmacPs_Out32((Config->BaseAddress + XEMACPS_TXQBASE_OFFSET),
 			       (UINTPTR)&BdTxTerminate);
-		if (Config->IsCacheCoherent == 0) {
-			Xil_DCacheFlushRange((UINTPTR)(&BdTxTerminate), 64);
-		}
+		Xil_DCacheFlushRange((UINTPTR)(&BdTxTerminate), 64);
 	}
 
 	/*
@@ -619,18 +614,14 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	EmacPsUtilFrameHdrFormatType(&TxFrame, PayloadSize);
 	EmacPsUtilFrameSetPayloadData(&TxFrame, PayloadSize);
 
-	if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheFlushRange((UINTPTR)&TxFrame, sizeof(EthernetFrame));
-	}
+	Xil_DCacheFlushRange((UINTPTR)&TxFrame, sizeof(EthernetFrame));
 
 	/*
 	 * Clear out receive packet memory area
 	 */
 	EmacPsUtilFrameMemClear(&RxFrame);
 
-	if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheFlushRange((UINTPTR)&RxFrame, sizeof(EthernetFrame));
-	}
+	Xil_DCacheFlushRange((UINTPTR)&RxFrame, sizeof(EthernetFrame));
 
 	/*
 	 * Allocate RxBDs since we do not know how many BDs will be used
@@ -667,9 +658,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 	 */
 	if (GemVersion > 2)
 	{
-		if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-			Xil_DCacheFlushRange((UINTPTR)BdRxPtr, 64);
-		}
+	Xil_DCacheFlushRange((UINTPTR)BdRxPtr, 64);
 	}
 	/*
 	 * Allocate, setup, and enqueue 1 TxBDs. The first BD will
@@ -703,9 +692,7 @@ LONG EmacPsDmaSingleFrameIntrExample(XEmacPs *EmacPsInstancePtr)
 		EmacPsUtilErrorTrap("Error committing TxBD to HW");
 		return XST_FAILURE;
 	}
-	if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheFlushRange((UINTPTR)Bd1Ptr, 64);
-	}
+	Xil_DCacheFlushRange((UINTPTR)Bd1Ptr, 64);
 	/*
 	 * Set the Queue pointers
 	 */
@@ -1199,13 +1186,9 @@ static void XEmacPsRecvHandler(void *Callback)
 	 * happened.
 	 */
 	FramesRx++;
-	if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-		Xil_DCacheInvalidateRange((UINTPTR)&RxFrame, sizeof(EthernetFrame));
-	}
+	Xil_DCacheInvalidateRange((UINTPTR)&RxFrame, sizeof(EthernetFrame));
 	if (GemVersion > 2) {
-		if (EmacPsInstancePtr->Config.IsCacheCoherent == 0) {
-			Xil_DCacheInvalidateRange((UINTPTR)RX_BD_LIST_START_ADDRESS, 64);
-		}
+		Xil_DCacheInvalidateRange((UINTPTR)RX_BD_LIST_START_ADDRESS, 64);
 	}
 }
 
