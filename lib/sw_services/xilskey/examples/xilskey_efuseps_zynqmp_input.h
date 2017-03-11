@@ -50,17 +50,17 @@
 *	TRUE will permanently disables the writing to FUSE_AES block.
 *	FALSE will not modify this control bit of eFuse.
 *
-*	#define XSK_EFUSEPs_FORCE_USE_AES_ONLY		FALSE
+*	#define XSK_EFUSEPS_ENC_ONLY		FALSE
 *	TRUE will permanently enables encrypted booting only using the Fuse
-*	key.
+*	key. It forces to use AES key from eFUSE.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_BBRAM_DISABLE		FALSE
 *	TRUE will permanently disables the BBRAM key.
 *	FALSE will not modify this control bit of eFuse.
 *
-*	#define XSK_EFUSEPS_ERR_OUTOF_PMU_DISABLE	FALSE
-*	TRUE will permanently disables the error output from the PMU.
+*	#define XSK_EFUSEPS_ERR_DISABLE	FALSE
+*	TRUE will permanently disables the error messages in JTAG status register.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_JTAG_DISABLE		FALSE
@@ -91,7 +91,7 @@
 *	TRUE will permanently disables writing to PPK0 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
-*	#define XSK_EFUSEPS_PPK0_REVOKE			FALSE
+*	#define XSK_EFUSEPS_PPK0_INVLD			FALSE
 *	TRUE will permanently revokes PPK0.
 *	FALSE will not modify this control bit of eFuse.
 *
@@ -99,7 +99,7 @@
 *	TRUE will permanently disables writing PPK1 efuses.
 *	FALSE will not modify this control bit of eFuse.
 *
-*	#define XSK_EFUSEPS_PPK1_REVOKE			FALSE
+*	#define XSK_EFUSEPS_PPK1_INVLD			FALSE
 *	TRUE will permanently revokes PPK1.
 *	FALSE will not modify this control bit of eFuse.
 *
@@ -384,18 +384,18 @@ extern "C" {
  */
 #define XSK_EFUSEPS_AES_RD_LOCK			FALSE
 #define XSK_EFUSEPS_AES_WR_LOCK			FALSE
-#define XSK_EFUSEPs_FORCE_USE_AES_ONLY		FALSE
+#define XSK_EFUSEPS_ENC_ONLY		FALSE
 #define XSK_EFUSEPS_BBRAM_DISABLE		FALSE
-#define XSK_EFUSEPS_ERR_OUTOF_PMU_DISABLE	FALSE
+#define XSK_EFUSEPS_ERR_DISABLE			FALSE
 #define XSK_EFUSEPS_JTAG_DISABLE		FALSE
 #define XSK_EFUSEPS_DFT_DISABLE			FALSE
 #define XSK_EFUSEPS_PROG_GATE_DISABLE		FALSE
 #define XSK_EFUSEPS_SECURE_LOCK			FALSE
 #define XSK_EFUSEPS_RSA_ENABLE			FALSE
 #define XSK_EFUSEPS_PPK0_WR_LOCK		FALSE
-#define XSK_EFUSEPS_PPK0_REVOKE			FALSE
+#define XSK_EFUSEPS_PPK0_INVLD			FALSE
 #define XSK_EFUSEPS_PPK1_WR_LOCK		FALSE
-#define XSK_EFUSEPS_PPK1_REVOKE			FALSE
+#define XSK_EFUSEPS_PPK1_INVLD			FALSE
 #define XSK_EFUSEPS_LBIST_EN			FALSE
 #define XSK_EFUSEPS_LPD_SC_EN			FALSE
 #define XSK_EFUSEPS_FPD_SC_EN			FALSE

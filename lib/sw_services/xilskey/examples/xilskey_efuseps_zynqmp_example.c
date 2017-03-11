@@ -239,12 +239,10 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	/* Secure and control bits for programming */
 	PsInstancePtr->PrgrmgSecCtrlBits.AesKeyRead = XSK_EFUSEPS_AES_RD_LOCK;
 	PsInstancePtr->PrgrmgSecCtrlBits.AesKeyWrite = XSK_EFUSEPS_AES_WR_LOCK;
-	PsInstancePtr->PrgrmgSecCtrlBits.UseAESOnly =
-						XSK_EFUSEPs_FORCE_USE_AES_ONLY;
+	PsInstancePtr->PrgrmgSecCtrlBits.EncOnly = XSK_EFUSEPS_ENC_ONLY;
 	PsInstancePtr->PrgrmgSecCtrlBits.BbramDisable =
 						XSK_EFUSEPS_BBRAM_DISABLE;
-	PsInstancePtr->PrgrmgSecCtrlBits.PMUError =
-					XSK_EFUSEPS_ERR_OUTOF_PMU_DISABLE;
+	PsInstancePtr->PrgrmgSecCtrlBits.ErrorDisable =	XSK_EFUSEPS_ERR_DISABLE;
 	PsInstancePtr->PrgrmgSecCtrlBits.JtagDisable = XSK_EFUSEPS_JTAG_DISABLE;
 	PsInstancePtr->PrgrmgSecCtrlBits.DFTDisable = XSK_EFUSEPS_DFT_DISABLE;
 	PsInstancePtr->PrgrmgSecCtrlBits.ProgGate =
@@ -252,9 +250,9 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	PsInstancePtr->PrgrmgSecCtrlBits.SecureLock = XSK_EFUSEPS_SECURE_LOCK;
 	PsInstancePtr->PrgrmgSecCtrlBits.RSAEnable = XSK_EFUSEPS_RSA_ENABLE;
 	PsInstancePtr->PrgrmgSecCtrlBits.PPK0WrLock = XSK_EFUSEPS_PPK0_WR_LOCK;
-	PsInstancePtr->PrgrmgSecCtrlBits.PPK0Revoke = XSK_EFUSEPS_PPK0_REVOKE;
+	PsInstancePtr->PrgrmgSecCtrlBits.PPK0InVld = XSK_EFUSEPS_PPK0_INVLD;
 	PsInstancePtr->PrgrmgSecCtrlBits.PPK1WrLock = XSK_EFUSEPS_PPK1_WR_LOCK;
-	PsInstancePtr->PrgrmgSecCtrlBits.PPK1Revoke = XSK_EFUSEPS_PPK1_REVOKE;
+	PsInstancePtr->PrgrmgSecCtrlBits.PPK1InVld = XSK_EFUSEPS_PPK1_INVLD;
 	PsInstancePtr->PrgrmgSecCtrlBits.LBistEn = XSK_EFUSEPS_LBIST_EN;
 	PsInstancePtr->PrgrmgSecCtrlBits.LpdScEn = XSK_EFUSEPS_LPD_SC_EN;
 	PsInstancePtr->PrgrmgSecCtrlBits.FpdScEn = XSK_EFUSEPS_FPD_SC_EN;
@@ -555,7 +553,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 	else {
 		xil_printf("Programming AES key is enabled\n\r");
 	}
-	if (ReadSecCtrlBits.UseAESOnly == TRUE) {
+	if (ReadSecCtrlBits.EncOnly == TRUE) {
 		xil_printf("All boots must be encrypted with eFuse"
 					"AES key is enabled\n\r");
 	}
@@ -569,7 +567,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 	else {
 		xil_printf("BBRAM key is not disabled\n\r");
 	}
-	if (ReadSecCtrlBits.PMUError == TRUE) {
+	if (ReadSecCtrlBits.ErrorDisable == TRUE) {
 		xil_printf("Error output from PMU is disabled\n\r");
 	}
 	else {
@@ -616,7 +614,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 		xil_printf("writing to PPK0 efuse is not locked\n\r");
 	}
 
-	if (ReadSecCtrlBits.PPK0Revoke == XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET) {
+	if (ReadSecCtrlBits.PPK0InVld == XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET) {
 		xil_printf("Revoking PPK0 is enabled \n\r");
 	}
 	else {
@@ -630,7 +628,7 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 		xil_printf("writing to PPK1 efuses is not locked\n\r");
 	}
 
-	if (ReadSecCtrlBits.PPK1Revoke == XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET) {
+	if (ReadSecCtrlBits.PPK1InVld == XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET) {
 		xil_printf("Revoking PPK1 is enabled \n\r");
 	}
 	else {
