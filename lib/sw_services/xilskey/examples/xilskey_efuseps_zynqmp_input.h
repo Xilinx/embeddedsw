@@ -355,6 +355,16 @@
 *                        library accepts separate requests for programming
 *                        and reading USER FUSES(0 to 7). Provided single bit
 *                        programming feature for USER FUSEs.
+* 6.2   vns     03/10/17 Modified XSK_EFUSEPs_FORCE_USE_AES_ONLY->
+*                        XSK_EFUSEPS_ENC_ONLY,
+*                        XSK_EFUSEPS_ERR_OUTOF_PMU_DISABLE ->
+*                        XSK_EFUSEPS_ERR_DISABLE,
+*                        XSK_EFUSEPS_PPK0_REVOKE->XSK_EFUSEPS_PPK0_INVLD
+*                        XSK_EFUSEPS_PPK1_REVOKE->XSK_EFUSEPS_PPK1_INVLD
+*                        Added support for programming LBIST, LPD and FPD
+*                        SC enable bits by providing corresponding macros
+*                        Removed 3 macros for PROG GATE disable, now it can
+*                        programmed by setting only one macro.
 *
 * </pre>
 *
