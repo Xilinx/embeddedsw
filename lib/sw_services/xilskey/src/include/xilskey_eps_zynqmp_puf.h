@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -92,7 +92,8 @@ extern "C" {
  * @{
  */
 typedef enum {
-	XSK_ZYNQMP_EFUSEPS_PUF_SYN_INVALID = 29,
+	XSK_ZYNQMP_EFUSEPS_PUF_RESERVED = 28,
+	XSK_ZYNQMP_EFUSEPS_PUF_SYN_INVALID,
 	XSK_ZYNQMP_EFUSEPS_PUF_SYN_LOCK,
 	XSK_ZYNQMP_EFUSEPS_PUF_REG_DIS
 }XskEfusePS_Puf_SecureBits;
@@ -105,6 +106,7 @@ typedef struct {
 	u8 SynInvalid;
 	u8 SynWrLk;
 	u8 RegisterDis;
+	u8 Reserved;
 }XilSKey_Puf_Secure;
 /*@}*/
 
