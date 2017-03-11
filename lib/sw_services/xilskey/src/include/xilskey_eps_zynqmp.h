@@ -55,7 +55,9 @@
 *                        enable bits to enum. Modified RSAenable variable type
 *                        to u16.
 * 6.2   vns     03/10/17 Added support for LBIST, LPD and FPD sc enable,
-*                       PBR_BOOT_ERROR.
+*                        PBR_BOOT_ERROR. Modified names of secure control
+*                        bits UseAESOnly -> EncOnly, PMUError->ErrorDisable,
+*                        PPK0Revoke->PPK0InVld and PPK1Revoke->PPK1InVld
 * </pre>
 *
 *****************************************************************************/
@@ -267,18 +269,18 @@ typedef struct {
 	/* Secure and control bits */
 	u8 AesKeyRead;
 	u8 AesKeyWrite;
-	u8 UseAESOnly;
+	u8 EncOnly;
 	u8 BbramDisable;
-	u8 PMUError;
+	u8 ErrorDisable;
 	u8 JtagDisable;
 	u8 DFTDisable;
 	u8 ProgGate;
 	u8 SecureLock;
 	u16 RSAEnable;
 	u8 PPK0WrLock;
-	u8 PPK0Revoke;
+	u8 PPK0InVld;
 	u8 PPK1WrLock;
-	u8 PPK1Revoke;
+	u8 PPK1InVld;
 	u8 PbrBootErr;
 
 	/* User control bits */
