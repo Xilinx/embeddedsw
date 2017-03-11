@@ -59,6 +59,10 @@
 *                        bits of RSA authentication bits are set, for 1.0 and
 *                        2.0 versions only 2 bits are needed, for PPK0 REVOKE
 *                        check added new macro XSK_ZYNQMP_SEC_PPK_INVLD_BITS_SET
+* 6.2   vns      03/10/17 Added support for programming and reading
+*                         LDP SC EN, FPD SC EN, LBIST, reading some of
+*                         reserved bits, modified names of secure control bits
+*                         Provided DNA read API call in example.
 * </pre>
 *
 ******************************************************************************/
@@ -105,6 +109,7 @@ int main()
 	u32 SpkId;
 	s8 Row;
 	u32 AesCrc;
+	u32 Dna[3];
 
 #if defined (XSK_XPLAT_ZYNQ) || (XSK_MICROBLAZE_PLATFORM)
 	xil_printf("This example will not work for this platform\n\r");
@@ -120,6 +125,9 @@ int main()
 	if (PsStatus != XST_SUCCESS) {
 		goto EFUSE_ERROR;
 	}
+	/* Read DNA */
+	XilSKey_ZynqMp_EfusePs_ReadDna(Dna);
+	xil_printf("DNA:%08x%08x%08x", Dna[2], Dna[1], Dna[0]);
 
 	/* Read keys from cache */
 	PsStatus = XilSKey_ZynqMp_EfusePs_CacheLoad();

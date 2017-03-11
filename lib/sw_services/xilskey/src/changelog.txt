@@ -109,5 +109,12 @@
 *                      and after finishing programming of all the user requested
 *                      bits.Verifying each eFUSE programmed bit with all 3
 *                      margin reads
+*        vns  03/10/17 CR #971154 - efuse PS of ZynqMP
+*                      Modified PROG_GATE feature support, if user requests
+*                      programming library programs all 3 bits of PROG_GATE.
+*                      Modified secure control bits of efuse.
+*                      Modified macros in header file for secure control bits
+*                      Provided support for programming LBIST, LPD and FPD SC
+*                      enable bits and some of the reserved bits.
 *
  ********************************************************************************/
