@@ -54,6 +54,8 @@
 *                        XSK_ZYNQMP_SEC_RSA_2BITS_SET macros. Added all RSA
 *                        enable bits to enum. Modified RSAenable variable type
 *                        to u16.
+* 6.2   vns     03/10/17 Added support for LBIST, LPD and FPD sc enable,
+*                       PBR_BOOT_ERROR.
 * </pre>
 *
 *****************************************************************************/
@@ -100,6 +102,7 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_USR_KEY_END_ROW			(15)
 #define XSK_ZYNQMP_EFUSEPS_MISC_USR_CTRL_ROW			(16)
 #define XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_ROW			(17)
+#define XSK_ZYNQMP_EFUSEPS_RESERVED_ROW				(19)
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW				(22)
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW				(23)
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_START_ROW			(24)
@@ -167,6 +170,9 @@ extern "C" {
 
 /* For any of secure control bits which has 3 bits */
 #define XSK_ZYNQMP_SEC_ALL_3BITS_SET		(0x7)
+
+/* For any of secure control bits which has 3 bits */
+#define XSK_ZYNQMP_SEC_ALL_16BITS_SET   (0xFFFF)
 
 #define XSK_ZYNQMP_EFUSEPS_SECTRL_BIT_SHIFT	0x1
 								/**< Shift macro for SEC_CTRL
@@ -288,6 +294,10 @@ typedef struct {
 	u8 LBistEn;
 	u8 FpdScEn;
 	u8 LpdScEn;
+
+	/* Reserved for Xilinx internal use */
+	u16 Reserved1;
+	u16 Reserved2;
 
 } XilSKey_SecCtrlBits;
 /*@}*/
