@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2013 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2013 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,8 @@
 *               07/18/16 Added error codes for eFUSE PS User FUSEs programming
 *                        Added sysmonpsu driver for temperature and voltage
 *                        checks.
+* 6.2   vns     03/10/17 Added error codes for LBist, LPD/FPD SC enable bits
+*                        programming.
 *
  *****************************************************************************/
 
@@ -639,6 +641,12 @@ typedef enum {
 	XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD = 0xD800,
 	XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK = 0xD900,
 	XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS = 0xDA00,
+	XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT = 0xDB00,
+	XSK_EFUSEPS_ERROR_WRITE_LBIST_EN_BIT = 0xDC00,
+	XSK_EFUSEPS_ERROR_WRITE_LPD_SC_EN_BIT = 0xDD00,
+	XSK_EFUSEPS_ERROR_WRITE_FPD_SC_EN_BIT = 0xDE00,
+
+	XSK_EFUSEPS_ERROR_WRITE_PBR_BOOT_ERR_BIT = 0xDF00,
 	/* Error codes related to PUF */
 	XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE = 0xE000,
 	XSK_EFUSEPS_ERROR_PUF_REG_WO_AUTH = 0xE100,

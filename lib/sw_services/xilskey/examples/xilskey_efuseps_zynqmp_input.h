@@ -103,6 +103,24 @@
 *	TRUE will permanently revokes PPK1.
 *	FALSE will not modify this control bit of eFuse.
 *
+*	#define XSK_EFUSEPS_LBIST_EN			FALSE
+*	TRUE will permanently enables logic BIST to be run during boot.
+*	FALSE will not modify this control bit of eFUSE.
+*
+*	#define XSK_EFUSEPS_LPD_SC_EN			FALSE
+*	TRUE will permanently enables zeroization of registers in Low Power
+*	Domain(LPD) during boot.
+*	FALSE will not modify this control bit of eFUSE.
+*
+*	#define XSK_EFUSEPS_FPD_SC_EN			FALSE
+*	TRUE will permanently enables zeroization of registers in Full Power
+*	Domain(FPD) during boot.
+*	FALSE will not modify this control bit of eFUSE.
+*
+*	#define XSK_EFUSEPS_PBR_BOOT_ERR		FALSE
+*	TRUE will permanently enables the boot halt when there is any PMU error.
+*	FALSE will not modify this control bit of eFUSE.
+*
 *	#define XSK_EFUSEPS_USER_WRLK_0			FALSE
 *	TRUE will permanently disables writing to USER_0 efuses.
 *	FALSE will not modify this control bit of eFuse.
@@ -378,6 +396,10 @@ extern "C" {
 #define XSK_EFUSEPS_PPK0_REVOKE			FALSE
 #define XSK_EFUSEPS_PPK1_WR_LOCK		FALSE
 #define XSK_EFUSEPS_PPK1_REVOKE			FALSE
+#define XSK_EFUSEPS_LBIST_EN			FALSE
+#define XSK_EFUSEPS_LPD_SC_EN			FALSE
+#define XSK_EFUSEPS_FPD_SC_EN			FALSE
+#define XSK_EFUSEPS_PBR_BOOT_ERR		FALSE
 
 /**
  * Following is the define to select if the user wants to program

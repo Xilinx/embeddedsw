@@ -255,6 +255,10 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 	PsInstancePtr->PrgrmgSecCtrlBits.PPK0Revoke = XSK_EFUSEPS_PPK0_REVOKE;
 	PsInstancePtr->PrgrmgSecCtrlBits.PPK1WrLock = XSK_EFUSEPS_PPK1_WR_LOCK;
 	PsInstancePtr->PrgrmgSecCtrlBits.PPK1Revoke = XSK_EFUSEPS_PPK1_REVOKE;
+	PsInstancePtr->PrgrmgSecCtrlBits.LBistEn = XSK_EFUSEPS_LBIST_EN;
+	PsInstancePtr->PrgrmgSecCtrlBits.LpdScEn = XSK_EFUSEPS_LPD_SC_EN;
+	PsInstancePtr->PrgrmgSecCtrlBits.FpdScEn = XSK_EFUSEPS_FPD_SC_EN;
+	PsInstancePtr->PrgrmgSecCtrlBits.PbrBootErr = XSK_EFUSEPS_PBR_BOOT_ERR;
 
 	/* User control bits */
 	PsInstancePtr->PrgrmgSecCtrlBits.UserWrLk0 = XSK_EFUSEPS_USER_WRLK_0;
@@ -631,6 +635,35 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 	}
 	else {
 		xil_printf("Revoking PPK1 is disabled\n\r");
+	}
+	if (ReadSecCtrlBits.LBistEn == TRUE) {
+		xil_printf("LBIST is been enabled\n\r");
+	}
+	else {
+		xil_printf("LBIST is in disabled state\n\r");
+	}
+	if (ReadSecCtrlBits.PbrBootErr == XSK_ZYNQMP_SEC_ALL_3BITS_SET) {
+		xil_printf("PBR boot error is programmed and boot is"
+				" halted on any PMU error\n\r");
+	}
+	else {
+		xil_printf("PBR boot error halt is disabled \n\r");
+	}
+	if (ReadSecCtrlBits.LpdScEn == XSK_ZYNQMP_SEC_ALL_3BITS_SET) {
+		xil_printf("Zeroization of registers in Low Power Domain (LPD)"
+				" during boot is enabled\n\r");
+	}
+	else {
+		xil_printf("Zeroization of registers in Low Power Domain (LPD)"
+				" during boot is disabled\n\r");
+	}
+	if (ReadSecCtrlBits.FpdScEn == XSK_ZYNQMP_SEC_ALL_3BITS_SET) {
+		xil_printf("Zeroization of registers in Full Power Domain (FPD)"
+				" during boot is enabled\n\r");
+	}
+	else {
+		xil_printf("Zeroization of registers in Full Power Domain (FPD)"
+				" during boot is disabled\n\r");
 	}
 
 	xil_printf("\r\nUser control bits of eFuse:\n\r");
