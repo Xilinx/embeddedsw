@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -715,6 +715,18 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 	}
 	else {
 		xil_printf("Programming USER_7 fuses is enabled\n\r");
+	}
+	if (ReadSecCtrlBits.Reserved1 == XSK_ZYNQMP_SEC_ALL_16BITS_SET) {
+		xil_printf("Reserved 1 bits are programmed on eFUSE\n\r");
+	}
+	else {
+		xil_printf("Reserved 1 bits are not programmed on eFUSE\n\r");
+	}
+	if (ReadSecCtrlBits.Reserved2 == XSK_ZYNQMP_SEC_ALL_16BITS_SET) {
+		xil_printf("Reserved 2 bits are programmed on eFUSE\n\r");
+	}
+	else {
+		xil_printf("Reserved 2 bits are not programmed on eFUSE\n\r");
 	}
 
 	return XST_SUCCESS;

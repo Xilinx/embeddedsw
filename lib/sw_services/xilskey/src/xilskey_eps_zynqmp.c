@@ -618,6 +618,25 @@ static inline u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits_Regs(
 	ReadBackSecCtrlBits->PbrBootErr = (RegData &
 			XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_MASK);
 
+	/* Read Reserved bits */
+	if (ReadOption == 0) {
+		RegData = XilSKey_ReadReg(XSK_ZYNQMP_EFUSEPS_BASEADDR,
+				XSK_ZYNQMP_EFUSEPS_RESERVED_OFFSET);
+	}
+	else {
+		Status = XilSKey_ZynqMp_EfusePs_ReadRow(
+				XSK_ZYNQMP_EFUSEPS_RESERVED_ROW,
+			XSK_ZYNQMP_EFUSEPS_EFUSE_0, &RegData);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+	ReadBackSecCtrlBits->Reserved1 = (RegData &
+			XSK_ZYNQMP_EFUSEPS_RESERVED1_MASK);
+	ReadBackSecCtrlBits->Reserved2 = (RegData &
+			XSK_ZYNQMP_EFUSEPS_RESERVED2_MASK) >>
+				XSK_ZYNQMP_EFUSEPS_RESERVED_SHIFT;
+
 END:
 
 	return Status;
