@@ -247,12 +247,8 @@ static inline u32 XilSKey_EfusePs_ZynqMp_InitData(
 					XSK_EFUSEPS_ERR_OUTOF_PMU_DISABLE;
 	PsInstancePtr->PrgrmgSecCtrlBits.JtagDisable = XSK_EFUSEPS_JTAG_DISABLE;
 	PsInstancePtr->PrgrmgSecCtrlBits.DFTDisable = XSK_EFUSEPS_DFT_DISABLE;
-	PsInstancePtr->PrgrmgSecCtrlBits.ProgGate0 =
-					XSK_EFUSEPS_PROG_GATE_0_DISABLE;
-	PsInstancePtr->PrgrmgSecCtrlBits.ProgGate1 =
-					XSK_EFUSEPS_PROG_GATE_1_DISABLE;
-	PsInstancePtr->PrgrmgSecCtrlBits.ProgGate2 =
-					XSK_EFUSEPS_PROG_GATE_2_DISABLE;
+	PsInstancePtr->PrgrmgSecCtrlBits.ProgGate =
+								XSK_EFUSEPS_PROG_GATE_DISABLE;
 	PsInstancePtr->PrgrmgSecCtrlBits.SecureLock = XSK_EFUSEPS_SECURE_LOCK;
 	PsInstancePtr->PrgrmgSecCtrlBits.RSAEnable = XSK_EFUSEPS_RSA_ENABLE;
 	PsInstancePtr->PrgrmgSecCtrlBits.PPK0WrLock = XSK_EFUSEPS_PPK0_WR_LOCK;
@@ -587,23 +583,11 @@ static inline u32 XilSKey_EfusePs_Example_ReadSecCtrlBits()
 	else {
 		xil_printf("DFT is enabled\n\r");
 	}
-	if (ReadSecCtrlBits.ProgGate0 == TRUE) {
-		xil_printf("PROG_GATE 0 feature is disabled\n\r");
+	if (ReadSecCtrlBits.ProgGate == XSK_ZYNQMP_SEC_ALL_3BITS_SET) {
+		xil_printf("PROG_GATE feature is disabled\n\r");
 	}
 	else {
-		xil_printf("PROG_GATE 0 feature is enabled\n\r");
-	}
-	if (ReadSecCtrlBits.ProgGate1 == TRUE) {
-		xil_printf("PROG_GATE 1 feature is disabled\n\r");
-	}
-	else {
-		xil_printf("PROG_GATE 1 feature is enabled\n\r");
-	}
-	if (ReadSecCtrlBits.ProgGate2 == TRUE) {
-		xil_printf("PROG_GATE 2 feature is disabled\n\r");
-	}
-	else {
-		xil_printf("PROG_GATE 2 feature is enabled\n\r");
+		xil_printf("PROG_GATE feature is enabled\n\r");
 	}
 	if (ReadSecCtrlBits.SecureLock == TRUE) {
 		xil_printf("Reboot from JTAG mode is disabled when"

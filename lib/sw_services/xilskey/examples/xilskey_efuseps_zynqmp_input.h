@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -71,16 +71,11 @@
 *	TRUE will permanently disables DFT boot mode.
 *	FALSE will not modify this control bit of eFuse.
 *
-*	#define XSK_EFUSEPS_PROG_GATE_0_DISABLE		FALSE
+*	#define XSK_EFUSEPS_PROG_GATE_DISABLE		FALSE
 *	TRUE will permanently disables PROG_GATE feature in PPD.
-*	FALSE will not modify this control bit of eFuse.
-*
-*	#define XSK_EFUSEPS_PROG_GATE_1_DISABLE		FALSE
-*	TRUE will permanently disables PROG_GATE feature in PPD.
-*	FALSE will not modify this control bit of eFuse.
-*
-*	#define XSK_EFUSEPS_PROG_GATE_2_DISABLE		FALSE
-*	TRUE will permanently disables PROG_GATE feature in PPD.
+*	If you set this then the PROG_GATE can never be activated
+*	and the PL will always be reset when the PS goes down.
+*	Also prevents reboot into JTAG mode after a secure lock down.
 *	FALSE will not modify this control bit of eFuse.
 *
 *	#define XSK_EFUSEPS_SECURE_LOCK			FALSE
@@ -376,9 +371,7 @@ extern "C" {
 #define XSK_EFUSEPS_ERR_OUTOF_PMU_DISABLE	FALSE
 #define XSK_EFUSEPS_JTAG_DISABLE		FALSE
 #define XSK_EFUSEPS_DFT_DISABLE			FALSE
-#define XSK_EFUSEPS_PROG_GATE_0_DISABLE		FALSE
-#define XSK_EFUSEPS_PROG_GATE_1_DISABLE		FALSE
-#define XSK_EFUSEPS_PROG_GATE_2_DISABLE		FALSE
+#define XSK_EFUSEPS_PROG_GATE_DISABLE		FALSE
 #define XSK_EFUSEPS_SECURE_LOCK			FALSE
 #define XSK_EFUSEPS_RSA_ENABLE			FALSE
 #define XSK_EFUSEPS_PPK0_WR_LOCK		FALSE
