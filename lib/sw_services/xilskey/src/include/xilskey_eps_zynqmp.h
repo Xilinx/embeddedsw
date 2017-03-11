@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -163,6 +163,10 @@ extern "C" {
 			/**< If RSA authentication bits are set */
 /* For Silicon before 3.0 version */
 #define XSK_ZYNQMP_SEC_RSA_2BITS_SET		(0x3)
+
+/* For any of secure control bits which has 3 bits */
+#define XSK_ZYNQMP_SEC_ALL_3BITS_SET		(0x7)
+
 #define XSK_ZYNQMP_EFUSEPS_SECTRL_BIT_SHIFT	0x1
 								/**< Shift macro for SEC_CTRL
 								 *   if it has 2 bits */
@@ -244,9 +248,7 @@ typedef struct {
 	u8 PMUError;
 	u8 JtagDisable;
 	u8 DFTDisable;
-	u8 ProgGate0;
-	u8 ProgGate1;
-	u8 ProgGate2;
+	u8 ProgGate;
 	u8 SecureLock;
 	u16 RSAEnable;
 	u8 PPK0WrLock;

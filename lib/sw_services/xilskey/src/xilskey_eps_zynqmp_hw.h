@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -728,6 +728,11 @@ extern "C" {
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_WIDTH		1U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_MASK		0x00000080U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_DEFVAL		0x0U
+
+#define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_MASK			( \
+				XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_0_MASK | \
+				XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_1_MASK | \
+				XSK_ZYNQMP_EFUSEPS_SEC_CTRL_PROG_GATE_2_MASK)
 
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_DFT_DIS_SHIFT		6U
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_DFT_DIS_WIDTH		1U
