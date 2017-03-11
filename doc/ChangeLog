@@ -462,6 +462,8 @@ xilskey_v6_2:
 On ZynqMP Added CRC check after programming whole AES key.
 For each ZynqMP eFUSE bit programming added verification with all 3 margin reads
 Removed temperaure and voltage checks for every eFUSE bit programming for ZynqMP
+Added support for programming more secure control bits-Lbist,LPD/FPD SC enable
+Modified PROG_GATE programming from three inputs to one.
 
 ycrcb2rgb_v7_1:
 Updated num instances parameter as XPAR_XYCRCB2RGB_NUM_INSTANCES
