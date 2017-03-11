@@ -99,6 +99,7 @@ extern "C" {
 /* Row numbers of Efuse PS of Zynq MP */
 #define XSK_ZYNQMP_EFUSEPS_USR_KEY_END_ROW			(15)
 #define XSK_ZYNQMP_EFUSEPS_MISC_USR_CTRL_ROW			(16)
+#define XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_ROW			(17)
 #define XSK_ZYNQMP_EFUSEPS_SEC_CTRL_ROW				(22)
 #define XSK_ZYNQMP_EFUSEPS_SPK_ID_ROW				(23)
 #define XSK_ZYNQMP_EFUSEPS_AES_KEY_START_ROW			(24)
@@ -232,7 +233,24 @@ typedef enum {
 	XSK_ZYNQMP_EFUSEPS_USR_WRLK_5,
 	XSK_ZYNQMP_EFUSEPS_USR_WRLK_6,
 	XSK_ZYNQMP_EFUSEPS_USR_WRLK_7,
+	XSK_ZYNQMP_EFUSEPS_LBIST_EN = 10,
+	XSK_ZYNQMP_EFUSEPS_LPD_SC_EN_0,
+	XSK_ZYNQMP_EFUSEPS_LPD_SC_EN_1,
+	XSK_ZYNQMP_EFUSEPS_LPD_SC_EN_2,
+	XSK_ZYNQMP_EFUSEPS_FPD_SC_EN_0,
+	XSK_ZYNQMP_EFUSEPS_FPD_SC_EN_1,
+	XSK_ZYNQMP_EFUSEPS_FPD_SC_EN_2,
 }XskEfusePS_MiscUserBits;
+/*@}*/
+
+/** @name efuse PBR boot error bits
+ * @{
+ */
+typedef enum {
+	XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_0,
+	XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_1,
+	XSK_ZYNQMP_EFUSEPS_PBR_BOOT_ERR_2
+}XskEfusePS_PbrBootErrBits;
 /*@}*/
 
 /**
@@ -255,6 +273,7 @@ typedef struct {
 	u8 PPK0Revoke;
 	u8 PPK1WrLock;
 	u8 PPK1Revoke;
+	u8 PbrBootErr;
 
 	/* User control bits */
 	u8 UserWrLk0;
@@ -265,6 +284,11 @@ typedef struct {
 	u8 UserWrLk5;
 	u8 UserWrLk6;
 	u8 UserWrLk7;
+
+	u8 LBistEn;
+	u8 FpdScEn;
+	u8 LpdScEn;
+
 } XilSKey_SecCtrlBits;
 /*@}*/
 
