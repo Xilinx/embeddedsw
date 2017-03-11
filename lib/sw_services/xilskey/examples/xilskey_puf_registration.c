@@ -49,6 +49,8 @@
  * ----- ---  -------- -------------------------------------------------------
  * 6.1   rp   17/10/16 First release.
  * 6.2   vns  02/18/17 Modified Encrypt API call due to change in Xilsecure
+ *            03/10/17 Added Support for programming and reading PUF reserved
+ *                     bit
  * </pre>
  *
  * @note
@@ -321,6 +323,7 @@ int main() {
 		PgmPufSecureBits.SynInvalid = XSK_PUF_SYN_INVALID;
 		PgmPufSecureBits.SynWrLk = XSK_PUF_SYN_WRLK;
 		PgmPufSecureBits.RegisterDis = XSK_PUF_REGISTER_DISABLE;
+		PgmPufSecureBits.Reserved = XSK_PUF_RESERVED;
 		Status = XilSKey_Write_Puf_EfusePs_SecureBits(
 					&(PgmPufSecureBits));
 		if (Status != XST_SUCCESS) {
@@ -361,6 +364,12 @@ int main() {
 	else {
 		xil_printf("Writing to the PUF syndrome eFuses is not"
 						" locked\n\r");
+	}
+	if (PufSecureBits.Reserved == TRUE) {
+		xil_printf("Reserved bit is programmed\n\r");
+	}
+	else {
+		xil_printf("Reserved bit is not programmed\n\r");
 	}
 
 #endif

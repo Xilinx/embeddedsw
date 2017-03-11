@@ -711,7 +711,8 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 	/* If user requests any of the secure bit to be programmed */
 	if ((WriteSecureBits->SynInvalid != 0x00) ||
 		(WriteSecureBits->SynWrLk != 0x00) ||
-		(WriteSecureBits->RegisterDis != 0x00)) {
+		(WriteSecureBits->RegisterDis != 0x00) ||
+		(WriteSecureBits->Reserved != 0x00)) {
 		/* Unlock the controller */
 		XilSKey_ZynqMp_EfusePs_CtrlrUnLock();
 
@@ -771,6 +772,19 @@ u32 XilSKey_Write_Puf_EfusePs_SecureBits(XilSKey_Puf_Secure *WriteSecureBits)
 							" disable bit\r\n");
 			Status = (Status +
 				XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS);
+			goto END;
+		}
+	}
+
+	if ((WriteSecureBits->Reserved != 0x00) &&
+		(DataInBits[XSK_ZYNQMP_EFUSEPS_PUF_RESERVED] == 0x00)) {
+		Status = XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit(Row,
+				XSK_ZYNQMP_EFUSEPS_PUF_RESERVED, EfuseType);
+		if (Status != XST_SUCCESS) {
+			xPuf_printf(Debug,"API: Failed programming reserved"
+							" bit\r\n");
+			Status = (Status +
+					XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT);
 			goto END;
 		}
 	}
@@ -878,6 +892,9 @@ static inline u32 XilSKey_Read_Puf_EfusePs_SecureBits_Regs(
 	SecureBits->RegisterDis =
 		(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_MASK) >>
 			XSK_ZYNQMP_EFUSEPS_PUF_MISC_REG_DIS_SHIFT;
+	SecureBits->Reserved =
+			(RegData & XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_MASK) >>
+				XSK_ZYNQMP_EFUSEPS_PUF_MISC_RESERVED_SHIFT;
 END:
 
 	return Status;
