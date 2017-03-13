@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v2_6
+* @addtogroup ipipsu_v2_7
 * @{
 * @details
  *
@@ -69,6 +69,7 @@
  * 2.5  sdd 12/17/18  Add the cpp extern macro.
  * 2.6  sdd 04/09/20  Restructure the code for modularity and readability
  * 		      Added file  xipipsu_buf.c and xipipsu_buf.h as part of it.
+ * 2.7  sdd 09/03/20  Makefile update for parallel execution.
  * </pre>
  *
  *****************************************************************************/
