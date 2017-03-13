@@ -68,6 +68,7 @@
 *       ms     01/20/17 Added CCI support for A53 and disabled data cache
 *                       operations when it is enabled.
 *       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
+*       vns    03/13/17 Fixed MISRAC mandatory violation
 *
 * </pre>
 *
@@ -1044,7 +1045,7 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 	u32 Arg;
 	u16 BlkCnt;
 	u16 BlkSize;
-	u8 ReadBuff[64];
+	u8 ReadBuff[64] = {0U};
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
