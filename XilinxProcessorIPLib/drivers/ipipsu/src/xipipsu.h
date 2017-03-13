@@ -85,8 +85,9 @@
  *                    examples to ensure that "Successfully ran" and "Failed"
  *                    strings are available in all examples. This is a fix
  *                    for CR-965028.
- *      ms  03/17/17 Added readme.txt file in examples folder for doxygen
- *                   generation.
+ *      kvn 02/17/17  Add support for updating ConfigTable at run time
+ *      ms  03/17/17  Added readme.txt file in examples folder for doxygen
+ *                    generation.
  * </pre>
  *
  *****************************************************************************/
@@ -289,6 +290,7 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 
 XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType);
+void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr);
 
 #endif /* XIPIPSU_H_ */
 /** @} */

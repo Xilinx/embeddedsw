@@ -48,6 +48,7 @@
 * 2.0	mjr	01/22/16	Fixed response buffer address
 *                               calculation. CR# 932582.
 * 2.1	kvn	05/05/16	Modified code for MISRA-C:2012 Compliance
+* 2.2	kvn	02/17/17	Add support for updating ConfigTable at run time
 * </pre>
 *
 *****************************************************************************/
@@ -55,6 +56,9 @@
 /***************************** Include Files ********************************/
 #include "xipipsu.h"
 #include "xipipsu_hw.h"
+
+/************************** Variable Definitions *****************************/
+extern XIpiPsu_Config XIpiPsu_ConfigTable[XPAR_XIPIPSU_NUM_INSTANCES];
 
 /****************************************************************************/
 /**
@@ -349,5 +353,40 @@ XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 	}
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Set up the device configuration based on the unique device ID. A table
+* contains the configuration info for each device in the system.
+*
+* @param	DeviceId contains the ID of the device to set up the
+*			configuration for.
+*
+* @return	A pointer to the device configuration for the specified
+*			device ID. See xipipsu.h for the definition of
+*			XIpiPsu_Config.
+*
+* @note		This is for safety use case where in this function has to
+* 			be called before CfgInitialize. So that driver will be
+* 			initialized with the provided configuration. For non-safe
+* 			use cases, this is not needed.
+*
+******************************************************************************/
+void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr)
+{
+	u32 Index;
+
+	Xil_AssertVoid(ConfigTblPtr != NULL);
+
+	for (Index = 0U; Index < XPAR_XIPIPSU_NUM_INSTANCES; Index++) {
+		if (XIpiPsu_ConfigTable[Index].DeviceId == DeviceId) {
+			XIpiPsu_ConfigTable[Index].BaseAddress = ConfigTblPtr->BaseAddress;
+			XIpiPsu_ConfigTable[Index].BitMask = ConfigTblPtr->BitMask;
+			XIpiPsu_ConfigTable[Index].BufferIndex = ConfigTblPtr->BufferIndex;
+			XIpiPsu_ConfigTable[Index].IntId = ConfigTblPtr->IntId;
+		}
+	}
 }
 /** @} */
