@@ -236,12 +236,12 @@ OKToRun:
         orr     r0, r0, #(0x1 << 17)        	/* Enable RSDIS bit 17 to disable the return stack */
         orr     r0, r0, #(0x1 << 16)        	/* Clear BP bit 15 and set BP bit 16:*/
         bic     r0, r0, #(0x1 << 15)        	/* Branch always not taken and history table updates disabled*/
-        bic     r0, r0, #(0x1 << 27)		/* Disable B1TCM ECC check */
-        bic     r0, r0, #(0x1 << 26)		/* Disable B0TCM ECC check */
-        bic     r0, r0, #(0x1 << 25)		/* Disable ATCM ECC check */
-	orr	r0, r0, #(0x1 << 5)		/* Enable ECC with no forced write through with [5:3]=b'101*/
+        orr     r0, r0, #(0x1 << 27)		/* Enable B1TCM ECC check */
+        orr     r0, r0, #(0x1 << 26)		/* Enable B0TCM ECC check */
+        orr     r0, r0, #(0x1 << 25)		/* Enable ATCM ECC check */
+	bic	r0, r0, #(0x1 << 5)		/* Generate abort on parity errors, with [5:3]=b 000*/
 	bic 	r0, r0, #(0x1 << 4)
-	orr	r0, r0, #(0x1 << 3)
+	bic	r0, r0, #(0x1 << 3)
         mcr     p15, 0, r0, c1, c0, 1       	/* Write ACTLR*/
 	dsb				    	/* Complete all outstanding explicit memory operations*/
 
