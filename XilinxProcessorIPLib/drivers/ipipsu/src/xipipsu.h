@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v2_5
+* @addtogroup ipipsu_v2_6
 * @{
 * @details
  *
@@ -87,6 +67,8 @@
  *      ms  03/28/17  Add index.html to provide support for importing
  *                    examples in SDK.
  * 2.5  sdd 12/17/18  Add the cpp extern macro.
+ * 2.6  sdd 04/09/20  Restructure the code for modularity and readability
+ * 		      Added file  xipipsu_buf.c and xipipsu_buf.h as part of it.
  * </pre>
  *
  *****************************************************************************/
@@ -104,8 +86,8 @@ extern "C" {
 #include "xipipsu_hw.h"
 
 /************************** Constant Definitions *****************************/
-#define XIPIPSU_BUF_TYPE_MSG	(0x00000001U)
-#define XIPIPSU_BUF_TYPE_RESP	(0x00000002U)
+#define XIPIPSU_BUF_TYPE_MSG	(0x001U)
+#define XIPIPSU_BUF_TYPE_RESP	(0x002U)
 #define XIPIPSU_MAX_MSG_LEN		XIPIPSU_MSG_BUF_SIZE
 /**************************** Type Definitions *******************************/
 /**
@@ -292,6 +274,10 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 
 XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType);
+u32* XIpiPsu_GetBufferAddress(XIpiPsu *InstancePtr, u32 SrcCpuMask,
+		u32 DestCpuMask, u32 BufferType);
+
+u32 XIpiPsu_GetBufferIndex(const XIpiPsu *InstancePtr, u32 CpuMask);
 void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr);
 
 #ifdef __cplusplus
