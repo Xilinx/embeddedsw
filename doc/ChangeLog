@@ -329,6 +329,7 @@ Added CCI support for A53 by updating cache coherency information and
 disabling data cache related operations when CCI is enabled.
 Added support for A53-32bit on ZynqMP.
 Fixed MISRAC mandatory violation - CR#970531
+Fixed UR data flow anomalies
 
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
