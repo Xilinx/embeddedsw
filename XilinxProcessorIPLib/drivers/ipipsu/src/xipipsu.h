@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v1_0
+* @addtogroup ipipsu_v2_3
 * @{
 * @details
  *
@@ -85,7 +85,7 @@
  *                    examples to ensure that "Successfully ran" and "Failed"
  *                    strings are available in all examples. This is a fix
  *                    for CR-965028.
- *      kvn 02/17/17  Add support for updating ConfigTable at run time
+ *  	kvn 02/17/17  Add support for updating ConfigTable at run time
  *      ms  03/17/17  Added readme.txt file in examples folder for doxygen
  *                    generation.
  * 2.3  ms  04/11/17  Modified tcl file to add suffix U for all macro
