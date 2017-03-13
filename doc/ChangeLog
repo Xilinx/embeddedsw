@@ -376,6 +376,12 @@ Initial version of tmr_inject driver
 tmr_manager_v1_0:
 Initial version of tmr_manager driver
 
+ttcps_v3_3:
+Updated ttcps_tapp.tcl to check whether ttc device is interrupting current
+processor or not.If device is not interrupting the current processor then,
+do not include ttc driver instance and interrupt example source/header files to
+peripheral test. It fixes CR#970569.
+
 uartlite_v3_2:
 Added supported peripheral tmr_sem
 
