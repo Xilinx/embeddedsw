@@ -85,6 +85,7 @@
  *                    examples to ensure that "Successfully ran" and "Failed"
  *                    strings are available in all examples. This is a fix
  *                    for CR-965028.
+ *  	kvn 02/17/17  Add support for updating ConfigTable at run time
  * </pre>
  *
  *****************************************************************************/
@@ -287,6 +288,7 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 
 XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType);
+void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr);
 
 #endif /* XIPIPSU_H_ */
 /** @} */
