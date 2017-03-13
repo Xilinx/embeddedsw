@@ -28,7 +28,7 @@
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v2_3
+* @addtogroup ipipsu_v2_5
 * @{
 * @details
  *
@@ -88,6 +88,7 @@
  *                    definitions of ipipsu in xparameters.h
  *      ms  03/28/17  Add index.html to provide support for importing
  *                    examples in SDK.
+ * 2.5  sdd 12/17/18  Add the cpp extern macro.
  * </pre>
  *
  *****************************************************************************/
@@ -95,6 +96,9 @@
 #ifndef XIPIPSU_H_
 #define XIPIPSU_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /***************************** Include Files *********************************/
 #include "xil_io.h"
@@ -291,6 +295,10 @@ XStatus XIpiPsu_ReadMessage(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr,
 XStatus XIpiPsu_WriteMessage(XIpiPsu *InstancePtr, u32 DestCpuMask, u32 *MsgPtr,
 		u32 MsgLength, u8 BufferType);
 void XIpiPsu_SetConfigTable(u32 DeviceId, XIpiPsu_Config *ConfigTblPtr);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XIPIPSU_H_ */
 /** @} */
