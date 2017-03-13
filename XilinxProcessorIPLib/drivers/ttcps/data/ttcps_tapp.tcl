@@ -64,7 +64,8 @@ proc gen_include_files {swproj mhsinst} {
 			set periph_include 0
 		}
 	}
-	if {$periph_include} {
+        set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+	if {$periph_include && $isintr} {
 		set inc_file_lines {xttcps.h ttcps_header.h}
 		return $inc_file_lines
 	} else {
@@ -86,7 +87,8 @@ proc gen_src_files {swproj mhsinst} {
 			set periph_include 0
 		}
 	}
-	if {$periph_include} {
+        set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+	if {$periph_include && $isintr} {
 		set inc_file_lines {examples/xttcps_tapp_example.c data/ttcps_header.h}
 		return $inc_file_lines
 	} else {
@@ -113,7 +115,8 @@ proc gen_init_code {swproj mhsinst} {
 			set periph_include 0
 		}
 	}
-	if {$periph_include} {
+        set isintr [::hsi::utils::is_ip_interrupting_current_proc $mhsinst]
+	if {$periph_include && $isintr} {
 		set ipname [get_property NAME $mhsinst]
 		set decl "   static XTtcPs ${ipname};"
 		set inc_file_lines $decl
