@@ -273,6 +273,7 @@ Fixed compilation warnings
 ipipsu_v2_2:
 Modified the ipipsu.tcl script to have array size in config table. Fixes
 CR#963134
+Add support for updating ConfigTable at run time.CR#969385
 
 lwip141_v1_8:
 Updated xemacpsif_physpeed.c to scan for phy addr when newer version of
