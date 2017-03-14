@@ -79,8 +79,9 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set args $newargs
 
     # Print all parameters for all peripherals
-    set device_id 0
     foreach periph $periphs {
+        # Set device_id to ttc instance number
+        set device_id [string index $periph end]
 	puts $file_handle ""
 	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 	for {set x 0} {$x<3} {incr x} {
@@ -136,8 +137,9 @@ proc xdefine_config_file {drv_handle file_name drv_string args} {
     puts $config_file "\{"
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
     set start_comma ""
-    set device_id 0
     foreach periph $periphs {
+        # Set device_id to ttc instance number
+        set device_id [string index $periph end]
 	for {set x 0} {$x<3} {incr x} {
 	    puts $config_file [format "%s\t\{" $start_comma]
 	    set comma ""
@@ -230,8 +232,10 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     }
 
     set i 0
-    set device_id 0
+    set device_id_l 0
     foreach periph $periphs {
+        # Set device_id to ttc instance number
+        set device_id [string index $periph end]
         set periph_name [string toupper [common::get_property NAME $periph]]
 
         # Generate canonical definitions only for the peripherals whose
@@ -247,7 +251,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                     } else {
                         set arg_name $arg
                     }
-                    set lvalue [format "XPAR_%s_%d_%s" [string toupper $drv_string] [expr $device_id * 3 + $x] $arg_name]
+                    set lvalue [format "XPAR_%s_%d_%s" [string toupper $drv_string] [expr $device_id_l * 3 + $x] $arg_name]
                     regsub "S_AXI_" $lvalue "" lvalue
 
                     # The commented out rvalue is the name of the instance-specific constant
@@ -280,6 +284,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
             }
         }
         incr device_id
+	incr device_id_l
     }
 
     puts $file_handle "\n/******************************************************************/\n"
