@@ -1756,6 +1756,8 @@ static int XV_HdmiRxSs_HdcpSetTopologyHdcp20RepeaterDownstream(XV_HdmiRxSs *Inst
 
   int Status = XST_SUCCESS;
 
+  Value = Value;
+
   switch (InstancePtr->HdcpProtocol)
   {
     // None
@@ -1810,6 +1812,8 @@ static int XV_HdmiRxSs_HdcpSetTopologyHdcp1DeviceDownstream(XV_HdmiRxSs *Instanc
   Xil_AssertNonvoid(InstancePtr != NULL);
 
   int Status = XST_SUCCESS;
+
+  Value = Value;
 
   switch (InstancePtr->HdcpProtocol)
   {
