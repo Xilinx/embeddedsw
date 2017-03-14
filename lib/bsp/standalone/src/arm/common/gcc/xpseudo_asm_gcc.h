@@ -71,7 +71,7 @@ extern "C" {
 
 #if defined (__aarch64__)
 /* pseudo assembler instructions */
-#define mfcpsr()	({u32 rval; \
+#define mfcpsr()	({u32 rval = 0U; \
 			   asm volatile("mrs %0,  DAIF" : "=r" (rval));\
 			  rval;\
 			 })
@@ -123,7 +123,7 @@ extern "C" {
 #else
 
 /* pseudo assembler instructions */
-#define mfcpsr()	({u32 rval; \
+#define mfcpsr()	({u32 rval = 0U; \
 			  __asm__ __volatile__(\
 			    "mrs	%0, cpsr\n"\
 			    : "=r" (rval)\
