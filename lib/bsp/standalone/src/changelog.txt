@@ -450,4 +450,6 @@
  * 6.2 pkp   02/16/17 Added xil_smc.c file to provide a C wrapper for smc calling which can be
  *		      used by cortex-A53 64bit EL1 Non-secure application.
  * 6.2 kvn   03/03/17 Added support thumb mode
+ * 6.2 mus   03/13/17 Fixed MISRA C mandatory standard violations in ARM cortexr5 and cortexa53 BSP.
+ *                    It fixes CR#970543
  *****************************************************************************************/
