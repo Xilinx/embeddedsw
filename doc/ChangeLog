@@ -362,6 +362,8 @@ timer.
 Added arm/cortexa53/64bit/xil_smc.c, xil_smc.h files to provide a C wrapper for
 smc calling which can be used by cortex-A53 64bit EL1 Non-secure application
 Added support thumb mode. CR-970805
+Fixed MISRA C mandatory standard violations in ARM cortexr5 and cortexa53 BSP.
+It fixes CR#970543
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
