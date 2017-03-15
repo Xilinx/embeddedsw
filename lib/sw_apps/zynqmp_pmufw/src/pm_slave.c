@@ -59,12 +59,12 @@
 				PM_SYSTEM_USING_SLAVE_MASK)
 
 /**
- * PmSlaveGetMaxCaps()- Get maximum of all requested capabilities of slave
+ * PmGetMaxCapabilities()- Get maximum of all requested capabilities of slave
  * @slave   Slave whose maximum required capabilities should be determined
  *
  * @return  32bit value encoding the capabilities
  */
-u32 PmSlaveGetMaxCaps(const PmSlave* const slave)
+static u32 PmGetMaxCapabilities(const PmSlave* const slave)
 {
 	PmRequirement* req = slave->reqs;
 	u32 maxCaps = 0U;
@@ -257,7 +257,7 @@ done:
 }
 
 /**
- * PmSlaveGetStateWithCaps() - Get id of the state with provided capabilities
+ * PmGetStateWithCaps() - Get id of the state with provided capabilities
  * @slave       Slave whose states are searched
  * @caps        Capabilities the state must have
  * @state       Pointer to a PmStateId variable where the result is put if
@@ -276,8 +276,8 @@ done:
  * has capabilities requested by all masters. This conflict has to be resolved
  * between the masters, so PM returns an error.
  */
-int PmSlaveGetStateWithCaps(const PmSlave* const slave, const u32 caps,
-			    PmStateId* const state)
+static int PmGetStateWithCaps(const PmSlave* const slave, const u32 caps,
+				  PmStateId* const state)
 {
 	PmStateId i;
 	int status = XST_PM_CONFLICT;
@@ -405,11 +405,11 @@ int PmUpdateSlave(PmSlave* const slave)
 	PmStateId state = 0U;
 	int status = XST_SUCCESS;
 	u32 wkupLat, minLat;
-	u32 caps = PmSlaveGetMaxCaps(slave);
+	u32 caps = PmGetMaxCapabilities(slave);
 
 	if (0U != caps) {
 		/* Find which state has the requested capabilities */
-		status = PmSlaveGetStateWithCaps(slave, caps, &state);
+		status = PmGetStateWithCaps(slave, caps, &state);
 		if (XST_SUCCESS != status) {
 			goto done;
 		}
@@ -686,13 +686,6 @@ static int PmSlaveInit(PmNode* const node)
 {
 	PmSlave* const slave = (PmSlave*)node->derived;
 	int status = XST_SUCCESS;
-
-	if (NULL != slave->slvFsm->probe) {
-		status = slave->slvFsm->probe(slave);
-		if (XST_SUCCESS != status) {
-			goto done;
-		}
-	}
 
 	if (NULL != node->parent) {
 		if (HAS_CAPABILITIES(slave, node->currState, PM_CAP_POWER)) {
