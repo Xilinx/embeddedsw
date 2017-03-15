@@ -97,9 +97,7 @@ typedef struct {
 
 /**
  * PmSlaveFsm - Finite state machine data for slaves
- * @state       Pointer to states array. Index in array is a state id, elements
- *              of array are power values in that state. For power island values
- *              are 0 and 1, for power domains values are in mV
+ * @states      Pointer to states array. Index in array is a state id.
  * @enterState  Pointer to a function that executes FSM actions to enter a state
  * @probe       Function to probe the state of the slave
  * @trans       Pointer to array of transitions of the FSM
