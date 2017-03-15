@@ -99,7 +99,7 @@
 #define PM_MMIO_WRITE               19U
 #define PM_MMIO_READ                20U
 
-#define PM_INIT                     21U
+#define PM_INIT_FINALIZE            21U
 
 #define PM_FPGA_LOAD                22U
 #define PM_FPGA_GET_STATUS          23U

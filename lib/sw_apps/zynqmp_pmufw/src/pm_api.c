@@ -129,7 +129,7 @@ static const PmApiEntry pmApiTable[] = {
 		.argTypes = { ARG_UINT32, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
 			      ARG_UNDEF }
 	}, {
-		.apiId = PM_INIT,
+		.apiId = PM_INIT_FINALIZE,
 		.argTypes = { ARG_UNDEF, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
 			      ARG_UNDEF }
 	}, {
