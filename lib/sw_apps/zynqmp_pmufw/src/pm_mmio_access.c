@@ -90,7 +90,34 @@ static const PmAccessRegion pmAccessTable[] = {
 	/* Module clock controller low power domain (CRL_APB) */
 	{
 		.startAddr = CRL_APB_BASEADDR + 0x20,
-		.endAddr = CRL_APB_BASEADDR + 0x8c,
+		.endAddr = CRL_APB_BASEADDR + 0x73,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+
+#if !((STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR) && defined(DEBUG_MODE))
+	{
+		.startAddr = CRL_APB_BASEADDR + 0x74,
+		.endAddr = CRL_APB_BASEADDR + 0x77,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+#endif
+
+#if !((STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR) && defined(DEBUG_MODE))
+	{
+		.startAddr = CRL_APB_BASEADDR + 0x78,
+		.endAddr = CRL_APB_BASEADDR + 0x7B,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
+#endif
+	{
+		.startAddr = CRL_APB_BASEADDR + 0x7C,
+		.endAddr = CRL_APB_BASEADDR + 0x8C,
 		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
