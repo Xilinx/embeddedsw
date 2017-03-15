@@ -50,6 +50,12 @@
 #define DEFAULT_USB_POWER_ON	100U
 #define DEFAULT_USB_POWER_OFF	0U
 
+/* USB state transition latency values */
+#define PM_USB_UNUSED_TO_ON_LATENCY	152
+#define PM_USB_ON_TO_UNUSED_LATENCY	3
+#define PM_USB_ON_TO_OFF_LATENCY	3
+#define PM_USB_OFF_TO_ON_LATENCY	152
+
 /* USB states */
 static const u32 pmUsbStates[] = {
 	[PM_USB_STATE_UNUSED] = 0U,
@@ -63,15 +69,15 @@ static const PmStateTran pmUsbTransitions[] = {
 	{
 		.fromState = PM_USB_STATE_OFF,
 		.toState = PM_USB_STATE_ON,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_USB_OFF_TO_ON_LATENCY,
 	}, {
 		.fromState = PM_USB_STATE_UNUSED,
 		.toState = PM_USB_STATE_ON,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_USB_UNUSED_TO_ON_LATENCY,
 	}, {
 		.fromState = PM_USB_STATE_ON,
 		.toState = PM_USB_STATE_OFF,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_USB_ON_TO_OFF_LATENCY,
 	}, {
 		.fromState = PM_USB_STATE_UNUSED,
 		.toState = PM_USB_STATE_OFF,
@@ -79,7 +85,7 @@ static const PmStateTran pmUsbTransitions[] = {
 	}, {
 		.fromState = PM_USB_STATE_ON,
 		.toState = PM_USB_STATE_UNUSED,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_USB_ON_TO_UNUSED_LATENCY,
 
 	}, {
 		.fromState = PM_USB_STATE_OFF,

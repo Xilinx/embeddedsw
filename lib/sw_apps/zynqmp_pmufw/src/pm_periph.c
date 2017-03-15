@@ -60,6 +60,9 @@ static u32 pmSlaveAonPowers[] = {
 #define PM_GENERIC_SLAVE_STATE_UNUSED	0U
 #define PM_GENERIC_SLAVE_STATE_RUNNING	1U
 
+/* Generic slaves state transition latency values */
+#define PM_GENERIC_SLAVE_UNUSED_TO_RUNNING_LATENCY	304
+#define PM_GENERIC_SLAVE_RUNNING_TO_UNUSED_LATENCY	6
 static const u32 pmGenericSlaveStates[] = {
 	[PM_GENERIC_SLAVE_STATE_UNUSED] = 0U,
 	[PM_GENERIC_SLAVE_STATE_RUNNING] = PM_CAP_CONTEXT | PM_CAP_WAKEUP |
@@ -70,11 +73,11 @@ static const PmStateTran pmGenericSlaveTransitions[] = {
 	{
 		.fromState = PM_GENERIC_SLAVE_STATE_RUNNING,
 		.toState = PM_GENERIC_SLAVE_STATE_UNUSED,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_GENERIC_SLAVE_RUNNING_TO_UNUSED_LATENCY,
 	}, {
 		.fromState = PM_GENERIC_SLAVE_STATE_UNUSED,
 		.toState = PM_GENERIC_SLAVE_STATE_RUNNING,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_GENERIC_SLAVE_UNUSED_TO_RUNNING_LATENCY,
 	},
 };
 
