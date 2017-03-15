@@ -1178,7 +1178,7 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 	case PM_MMIO_READ:
 		PmMmioRead(master, pload[1]);
 		break;
-	case PM_INIT:
+	case PM_INIT_FINALIZE:
 		PmInitFinalize(master);
 		break;
 	case PM_FPGA_LOAD:
