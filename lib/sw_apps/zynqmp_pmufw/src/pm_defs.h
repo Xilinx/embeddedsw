@@ -106,8 +106,10 @@
 
 #define PM_GET_CHIPID               24U
 
+#define PM_SECURE_RSA_AES           25U
+
 #define PM_API_MIN	PM_GET_API_VERSION
-#define PM_API_MAX	PM_GET_CHIPID
+#define PM_API_MAX	PM_SECURE_RSA_AES
 
 /* PM API callback ids */
 #define PM_INIT_SUSPEND_CB      30U
