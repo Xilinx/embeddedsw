@@ -718,29 +718,6 @@ done:
 }
 
 /**
- * PmSlaveIsCurrentlyUsed() - Check if the slave is currently used
- * @slave	Slave whose usage should be checked
- *
- * @return	True if used, false otherwise
- */
-static bool PmSlaveIsCurrentlyUsed(const PmSlave* const slave)
-{
-	PmRequirement* req = slave->reqs;
-	bool used = false;
-
-	while (NULL != req) {
-		if ((0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) ||
-		    (0U != (PM_SYSTEM_USING_SLAVE_MASK & req->info))) {
-			used = true;
-			goto done;
-		}
-		req = req->nextMaster;
-	}
-done:
-	return used;
-}
-
-/**
  * PmSlaveIsUsable() - Check if slave is usable according to the configuration
  * @node	Slave node to check
  *
@@ -754,25 +731,8 @@ static bool PmSlaveIsUsable(PmNode* const node)
 	/* Slave is not usable if it has no allocated requirements */
 	if (NULL == slave->reqs) {
 		usable = false;
-		goto done;
 	}
 
-	/* If these nodes are currently not requested we want them down */
-	switch (node->nodeId) {
-	case NODE_GPU_PP_0:
-	case NODE_GPU_PP_1:
-	case NODE_USB_0:
-	case NODE_USB_1: {
-		bool used = PmSlaveIsCurrentlyUsed(slave);
-		if (false == used) {
-			usable = false;
-		}
-	}
-	default:
-		goto done;
-	}
-
-done:
 	return usable;
 }
 
