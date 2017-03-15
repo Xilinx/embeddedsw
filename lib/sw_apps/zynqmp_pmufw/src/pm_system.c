@@ -127,12 +127,7 @@ int PmSystemRequirementAdd(void)
 	for (i = 0U; i < ARRAY_SIZE(pmSystemReqs); i++) {
 		PmRequirement* req;
 
-		status = PmRequirementAdd(NULL, pmSystemReqs[i].slave);
-		if (XST_SUCCESS != status) {
-			goto done;
-		}
-
-		req = PmRequirementGetNoMaster(pmSystemReqs[i].slave);
+		req = PmRequirementAdd(NULL, pmSystemReqs[i].slave);
 		if (NULL == req) {
 			status = XST_FAILURE;
 			goto done;
