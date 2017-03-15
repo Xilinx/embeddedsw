@@ -292,6 +292,13 @@ static int PmPowerDownFpd(void)
 {
 	int status;
 
+/* Block FPD power down if any of the LPD peripherals uses CCI path which is in FPD */
+#ifdef XPAR_LPD_IS_CACHE_COHERENT
+	PmDbg("Blocking FPD power down since CCI is used by LPD\r\n");
+	status = XST_FAILURE;
+	goto err;
+#endif /* XPAR_LPD_IS_CACHE_COHERENT */
+
 	PmFpdSaveContext();
 
 	ddr_io_retention_set(true);
