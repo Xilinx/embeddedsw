@@ -104,12 +104,12 @@ void PmRequirementPreRequest(const PmMaster* const master);
 void PmRequirementFreeAll(void);
 void PmRequirementClear(PmRequirement* const req);
 
-int PmRequirementAdd(PmMaster* const master, PmSlave* const slave);
 int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
 int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
 int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap);
 int PmRequirementReleaseAll(const PmMaster* const master);
 
+PmRequirement* PmRequirementAdd(PmMaster* const master, PmSlave* const slave);
 PmRequirement* PmRequirementGet(const PmMaster* const master,
 				const PmSlave* const slave);
 PmRequirement* PmRequirementGetNoMaster(const PmSlave* const slave);

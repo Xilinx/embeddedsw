@@ -587,14 +587,16 @@ int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 	/* Extract and process one by one master from the encoded perms */
 	while (0U != masterIpiMasks) {
 		PmMaster* master = PmMasterGetNextFromIpiMask(&masterIpiMasks);
+		PmRequirement* req;
 
 		if (NULL == master) {
 			status = XST_FAILURE;
 			goto done;
 		}
 
-		status = PmRequirementAdd(master, slave);
-		if (XST_SUCCESS != status) {
+		req = PmRequirementAdd(master, slave);
+		if (NULL == req) {
+			status = XST_FAILURE;
 			goto done;
 		}
 	}

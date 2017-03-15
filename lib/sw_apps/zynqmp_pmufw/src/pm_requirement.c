@@ -104,16 +104,14 @@ void PmRequirementFreeAll(void)
  * @master      Master that can use the slave
  * @slave       Slave that can be used by the master
  *
- * @return      XST_SUCCESS if requirement is added, XST_FAILURE if there is no
+ * @return      Pointer to the requirement if added, NULL if there is no
  *              free memory to add new requirement
  */
-int PmRequirementAdd(PmMaster* const master, PmSlave* const slave)
+PmRequirement* PmRequirementAdd(PmMaster* const master, PmSlave* const slave)
 {
-	int status = XST_SUCCESS;
 	PmRequirement* req = PmRequirementMalloc();
 
 	if (NULL == req) {
-		status = XST_FAILURE;
 		goto done;
 	}
 
@@ -122,7 +120,7 @@ int PmRequirementAdd(PmMaster* const master, PmSlave* const slave)
 	PmRequirementLink(req);
 
 done:
-	return status;
+	return req;
 }
 
 /**
