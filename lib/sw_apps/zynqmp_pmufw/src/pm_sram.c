@@ -58,6 +58,12 @@
 #define DEFAULT_SRAM_POWER_RETENTION	50U
 #define DEFAULT_SRAM_POWER_OFF		0U
 
+/* SRAM state transition latency values */
+#define PM_SRAM_ON_TO_RET_LATENCY	3
+#define PM_SRAM_RET_TO_ON_LATENCY	130
+#define PM_SRAM_ON_TO_OFF_LATENCY	3
+#define PM_SRAM_OFF_TO_ON_LATENCY	3100
+
 /* Sram states */
 static const u32 pmSramStates[PM_SRAM_STATE_MAX] = {
 	[PM_SRAM_STATE_OFF] = 0U,
@@ -70,19 +76,19 @@ static const PmStateTran pmSramTransitions[] = {
 	{
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_RET,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_SRAM_ON_TO_RET_LATENCY,
 	}, {
 		.fromState = PM_SRAM_STATE_RET,
 		.toState = PM_SRAM_STATE_ON,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_SRAM_RET_TO_ON_LATENCY,
 	}, {
 		.fromState = PM_SRAM_STATE_ON,
 		.toState = PM_SRAM_STATE_OFF,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_SRAM_ON_TO_OFF_LATENCY,
 	}, {
 		.fromState = PM_SRAM_STATE_OFF,
 		.toState = PM_SRAM_STATE_ON,
-		.latency = PM_DEFAULT_LATENCY,
+		.latency = PM_SRAM_OFF_TO_ON_LATENCY,
 	},
 };
 
