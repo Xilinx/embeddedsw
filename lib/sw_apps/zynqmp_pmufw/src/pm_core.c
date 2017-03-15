@@ -53,6 +53,7 @@
 #include "pm_config.h"
 #include "xpfw_resets.h"
 #include "rpu.h"
+#include "xsecure.h"
 
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
@@ -635,6 +636,33 @@ static void PmFpgaLoad(const PmMaster *const master,
 }
 
 /**
+ * PmSecureRsaAes() - Load secure image.
+ * This function loads the secure images back to memory, it supports
+ * loading of authenticated, encrypted or both encrypted and
+ * authenticated images back to memory.
+ *
+ * AddrHigh: Higher 32-bit Linear memory space from where CSUDMA
+ *         will read the data
+ *
+ * AddrLow: Lower 32-bit Linear memory space from where CSUDMA
+ *         will read the data
+ *
+ * WrSize: Number of 32bit words that the DMA should write
+ *
+ * @return  error status based on implemented functionality(SUCCESS by default)
+ */
+static void PmSecureRsaAes(const PmMaster *const master,
+			const u32 AddrHigh, const u32 AddrLow,
+			const u32 size, const u32 flags)
+{
+	u32 Status;
+
+	Status = XSecure_RsaAes(AddrHigh, AddrLow, size, flags);
+
+	IPI_RESPONSE1(master->ipiMask, Status);
+}
+
+/**
  * PmFpgaGetStatus() - Get status of the PL-block
  * @master  Initiator of the request
  */
@@ -1161,6 +1189,9 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_GET_CHIPID:
 		PmGetChipid(master);
+		break;
+	case PM_SECURE_RSA_AES:
+		PmSecureRsaAes(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
 	default:
 		PmDbg("ERROR unsupported PM API #%lu\r\n", pload[0]);

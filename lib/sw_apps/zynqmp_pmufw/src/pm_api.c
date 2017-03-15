@@ -144,6 +144,10 @@ static const PmApiEntry pmApiTable[] = {
 		.apiId = PM_GET_CHIPID,
 		.argTypes = { ARG_UNDEF, ARG_UNDEF, ARG_UNDEF, ARG_UNDEF,
 			      ARG_UNDEF },
+	}, {
+			.apiId = PM_SECURE_RSA_AES,
+			.argTypes = { ARG_UINT32, ARG_UINT32, ARG_UINT32, ARG_UINT32,
+				      ARG_UNDEF }
 	},
 };
 
