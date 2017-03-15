@@ -321,9 +321,9 @@ static void PmMasterAdd(PmMaster* const newMaster)
 }
 
 /**
- * PmMasterInit() - Initialize masters (to be called only upon PM init)
+ * PmMasterDefaultConfig() - Add default masters (call only upon PM init)
  */
-void PmMasterInit(void)
+void PmMasterDefaultConfig(void)
 {
 	PmMasterAdd(&pmMasterApu_g);
 	PmMasterAdd(&pmMasterRpu_g);
