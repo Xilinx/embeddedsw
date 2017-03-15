@@ -47,6 +47,29 @@ set scugic_dist_base	0xF8F01000
 proc standalone_drc {os_handle} {
 }
 
+# -------------------------------------------------------------------------
+# Tcl procedure lpd_is_coherent
+# Returns true(1) if any one of LPD masters has CCI enabled, else false(0)
+# -------------------------------------------------------------------------
+proc lpd_is_coherent {} {
+	#List of all LPD masters that can have cache coherency enabled
+	set lpd_master_names {psu_adma psu_qspi psu_nand psu_sd psu_ethernet psu_cortexr5 psu_usb}
+	foreach master_name $lpd_master_names {
+		# Get all the enabled instances of each IP
+		set filter_txt [list IP_NAME == $master_name]
+		set mlist [hsi::get_cells -filter $filter_txt]
+		# Iterate through each instance and check for CONFIG.IS_CACHE_COHERENT
+		foreach master $mlist {
+			if { [common::get_property CONFIG.IS_CACHE_COHERENT $master] == "1" } {
+				# We found a master thats cache coherent, so return true
+				return 1
+			}
+		}
+	}
+	# None of the masters were cache coherent, so return false
+	return 0
+}
+
 # --------------------------------------
 # Tcl procedure generate
 # -------------------------------------
@@ -137,6 +160,13 @@ proc generate {os_handle} {
                     puts $file_handle ""
                 }
             }
+
+            if {[lpd_is_coherent]} {
+                set def "#define XPAR_LPD_IS_CACHE_COHERENT"
+                puts $file_handle $def
+                puts $file_handle ""
+            }
+
             xdefine_fabric_reset $file_handle
             close $file_handle
 
