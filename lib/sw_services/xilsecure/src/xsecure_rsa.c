@@ -44,6 +44,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   ba   10/13/14 Initial release
 * 1.1   ba   12/11/15 Added support for NIST approved SHA-3 in 2.0 silicon
+* 2.0   vns  03/15/17 Fixed compilation warning, and corrected SHA2 padding
+*                     verfication for silicon version other than 1.0
 *
 * </pre>
 *
@@ -61,7 +63,7 @@ static const u8 XSecure_Silicon1_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
 			0x02U, 0x02U, 0x05U, 0x00U, 0x04U, 0x30U };
 
-/* PKCS padding scheme for SHA-2 in 1.0 Silicon */
+/* PKCS padding scheme for SHA-2 */
 static const u8 XSecure_Silicon1_TPadSha2[] = {0x30U, 0x31U, 0x30U, 0x0DU,
 			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
 			0x02U, 0x01U, 0x05U, 0x00U, 0x04U, 0x20U };
@@ -70,11 +72,6 @@ static const u8 XSecure_Silicon1_TPadSha2[] = {0x30U, 0x31U, 0x30U, 0x0DU,
 static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
 			0x02U, 0x09U, 0x05U, 0x00U, 0x04U, 0x30U };
-
-/* PKCS padding scheme for SHA-2 in 2.0 Silicon and onwards */
-static const u8 XSecure_Silicon2_TPadSha2[] = {0x30U, 0x31U, 0x30U, 0x0DU,
-			0x06U, 0x09U, 0x60U, 0x86U, 0x48U, 0x01U, 0x65U, 0x03U, 0x04U,
-			0x02U, 0x01U, 0x05U, 0x00U, 0x04U, 0x20U };
 
 /**************************** Type Definitions *******************************/
 
@@ -427,7 +424,7 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 		}
 		else
 		{
-			Tpadding = (u8 *)XSecure_Silicon2_TPadSha3;
+			Tpadding = (u8 *)XSecure_Silicon1_TPadSha2;
 		}
 	}
 	else
