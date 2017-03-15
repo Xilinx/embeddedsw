@@ -160,7 +160,6 @@ static const PmSlaveFsm pmExternDeviceFsm = {
 	.trans = NULL,
 	.transCnt = 0U,
 	.enterState = NULL,
-	.probe = NULL,
 };
 
 PmSlave pmSlaveExternDevice_g = {

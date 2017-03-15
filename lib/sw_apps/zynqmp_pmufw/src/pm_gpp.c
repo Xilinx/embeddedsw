@@ -102,7 +102,6 @@ static const PmSlaveFsm pmSlaveGppFsm = {
 	DEFINE_SLAVE_STATES(pmGppStates),
 	DEFINE_SLAVE_TRANS(pmGppTransitions),
 	.enterState = PmGppFsmHandler,
-	.probe = NULL,
 };
 
 static u32 pmGppSlavePowers[] = {

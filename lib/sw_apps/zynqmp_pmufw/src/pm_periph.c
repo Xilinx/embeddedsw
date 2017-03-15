@@ -50,7 +50,6 @@ static const PmSlaveFsm pmSlaveAonFsm = {
 	.trans = NULL,
 	.transCnt = 0U,
 	.enterState = NULL,
-	.probe = NULL,
 };
 
 static u32 pmSlaveAonPowers[] = {
@@ -86,36 +85,10 @@ static u32 pmGenericSlavePowers[] = {
 	DEFAULT_POWER_ON,
 };
 
-/**
- * PmGenericSlaveProbe() - Find what the slave state should be
- * @slave	Slave to probe
- *
- * @return	XST_SUCCESS if probe succeeded, error otherwise
- */
-static int PmGenericSlaveProbe(PmSlave* const slave)
-{
-	int status = XST_SUCCESS;
-	PmStateId state = 0U;
-	u32 caps = PmSlaveGetMaxCaps(slave);
-
-	if (0U != caps) {
-		status = PmSlaveGetStateWithCaps(slave, caps, &state);
-		if (XST_SUCCESS != status) {
-			goto done;
-		}
-	}
-	slave->node.currState = state;
-
-done:
-	return status;
-}
-
-
 static const PmSlaveFsm pmGenericSlaveFsm = {
 	DEFINE_SLAVE_STATES(pmGenericSlaveStates),
 	DEFINE_SLAVE_TRANS(pmGenericSlaveTransitions),
 	.enterState = NULL,
-	.probe = PmGenericSlaveProbe,
 };
 
 static PmWakeEventGicProxy pmRtcWake = {
