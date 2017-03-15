@@ -218,7 +218,7 @@ PmMaster pmMasterApu_g = {
 		.initiator = NULL,
 		.acknowledge = 0U,
 	},
-	.state = PM_MASTER_STATE_ACTIVE,
+	.state = PM_MASTER_STATE_UNINITIALIZED,
 	.gic = &pmGicProxy,
 	.memories = pmApuMemories,
 	.evalState = PmApuEvaluateState,
@@ -244,7 +244,7 @@ PmMaster pmMasterRpu_g = {
 		.initiator = NULL,
 		.acknowledge = 0U,
 	},
-	.state = PM_MASTER_STATE_ACTIVE,
+	.state = PM_MASTER_STATE_UNINITIALIZED,
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
@@ -270,7 +270,7 @@ PmMaster pmMasterRpu0_g = {
 		.initiator = NULL,
 		.acknowledge = 0U,
 	},
-	.state = PM_MASTER_STATE_ACTIVE,
+	.state = PM_MASTER_STATE_UNINITIALIZED,
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
@@ -295,7 +295,7 @@ PmMaster pmMasterRpu1_g = {
 		.initiator = NULL,
 		.acknowledge = 0U,
 	},
-	.state = PM_MASTER_STATE_ACTIVE,
+	.state = PM_MASTER_STATE_UNINITIALIZED,
 	.gic = NULL,
 	.memories = NULL,
 	.evalState = NULL,
@@ -953,6 +953,17 @@ inline bool PmMasterCanForceDown(const PmMaster* const master,
 				 const PmPower* const power)
 {
 	return 0U != (power->forcePerms & master->ipiMask);
+}
+
+/**
+ * PmMasterInitFinalize() - Master has completed initialization, finalize init
+ * @master	Master which has finalized initialization
+ */
+int PmMasterInitFinalize(PmMaster* const master)
+{
+	master->state = PM_MASTER_STATE_ACTIVE;
+
+	return XST_SUCCESS;
 }
 
 #endif

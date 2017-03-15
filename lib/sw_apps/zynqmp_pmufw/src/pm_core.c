@@ -1051,16 +1051,16 @@ done:
 }
 
 /**
- * PmInit() - Initialization of the power management data
+ * PmInitFinalize() - Notification from a master that it has initialized PM
  * @master  Initiator of the request
  */
-void PmInit(const PmMaster* const master)
+void PmInitFinalize(PmMaster* const master)
 {
-	PmDbg("\r\n");
+	int status;
 
-	if (NULL != master) {
-		IPI_RESPONSE1(master->ipiMask, XST_SUCCESS);
-	}
+	PmDbg("(%s)\r\n", PmStrNode(master->nid));
+	status = PmMasterInitFinalize(master);
+	IPI_RESPONSE1(master->ipiMask, status);
 }
 
 /**
@@ -1179,7 +1179,7 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 		PmMmioRead(master, pload[1]);
 		break;
 	case PM_INIT:
-		PmInit(master);
+		PmInitFinalize(master);
 		break;
 	case PM_FPGA_LOAD:
 		PmFpgaLoad(master, pload[1], pload[2], pload[3], pload[4]);
