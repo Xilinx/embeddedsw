@@ -65,18 +65,11 @@
  */
 void XPfw_PmInit(void)
 {
-	u32 reg;
-
 	PmDbg("Power Management Init\r\n");
 
 	PmMasterInit();
 
 	PmNodeConstruct();
-
-	/* Set MIO34 (LPD power down request pin) to 1 */
-	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
-	reg |= PMU_IOMODULE_GPO1_MIO_2_MASK;
-	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
 }
 
 /**
