@@ -13,7 +13,13 @@ set cfg_template [get_template [file join [file dirname [info script]] cfg_data.
 proc is_rpu_lockstep {} {
 
 	# Get the property that describes sub-system in design
-	set subsys_str [get_property CONFIG.PSU__PROTECTION__SUBSYSTEMS [ get_cells zynq_ultra_ps_e_0]]
+	set zusp [get_cells -filter "IP_NAME == zynq_ultra_ps_e"]
+	#if we dont find a valid ZU+ IP
+	if { [llength $zusp] == 0 } {
+		#defualt to split mode
+		return 0
+	}
+	set subsys_str [get_property CONFIG.PSU__PROTECTION__SUBSYSTEMS [lindex $zusp 0]]
 	set found_rpu0 0
 	set found_rpu1 0
 
