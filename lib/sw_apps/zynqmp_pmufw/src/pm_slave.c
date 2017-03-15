@@ -55,9 +55,6 @@
 #define HAS_CAPABILITIES(slavePtr, state, caps)	\
 	((caps) == ((caps) & (slavePtr)->slvFsm->states[state]))
 
-#define PM_SLAVE_IS_USED	(PM_MASTER_USING_SLAVE_MASK | \
-				PM_SYSTEM_USING_SLAVE_MASK)
-
 /**
  * PmGetMaxCapabilities()- Get maximum of all requested capabilities of slave
  * @slave   Slave whose maximum required capabilities should be determined
@@ -70,9 +67,7 @@ static u32 PmGetMaxCapabilities(const PmSlave* const slave)
 	u32 maxCaps = 0U;
 
 	while (NULL != req) {
-		if (0U != (PM_SLAVE_IS_USED & req->info)) {
-			maxCaps |= req->currReq;
-		}
+		maxCaps |= req->currReq;
 		req = req->nextMaster;
 	}
 
@@ -579,6 +574,7 @@ int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 {
 	int status = XST_SUCCESS;
 	u32 masterIpiMasks = perms;
+	u32 caps = slave->slvFsm->states[slave->slvFsm->statesCnt - 1U];
 
 	if (0U != (policy & PM_SLAVE_FLAG_IS_SHAREABLE)) {
 		slave->flags |= PM_SLAVE_FLAG_IS_SHAREABLE;
@@ -599,6 +595,7 @@ int PmSlaveSetConfig(PmSlave* const slave, const u32 policy, const u32 perms)
 			status = XST_FAILURE;
 			goto done;
 		}
+		req->currReq = caps;
 	}
 
 done:
