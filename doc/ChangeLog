@@ -455,6 +455,7 @@ Provided separate example for encryption and decryption of data.
 Support for Calculation of exponential value can also be done internally
 Modified AES APIs such that, data passed to APIs should be in little endian
 format.
+Fixed compilation warning CR#971971
 
 xilskey_v6_2:
 On ZynqMP Added CRC check after programming whole AES key.
