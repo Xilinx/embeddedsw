@@ -67,7 +67,7 @@ void XPfw_PmInit(void)
 {
 	PmDbg("Power Management Init\r\n");
 
-	PmMasterInit();
+	PmMasterDefaultConfig();
 
 	PmNodeConstruct();
 }

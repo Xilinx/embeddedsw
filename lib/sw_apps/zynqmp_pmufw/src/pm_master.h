@@ -195,7 +195,7 @@ int PmMasterWakeProc(PmProc* const proc);
 int PmMasterFsm(PmMaster* const master, const PmMasterEvent event);
 int PmMasterRestart(PmMaster* const master);
 
-void PmMasterInit(void);
+void PmMasterDefaultConfig(void);
 void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg);
 void PmMasterClearConfig(void);
 
