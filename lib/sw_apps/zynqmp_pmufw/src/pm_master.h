@@ -86,6 +86,9 @@ typedef enum {
  */
 #define PM_MASTER_STATE_KILLED      4U
 
+/* Master has not sent notification that it has initialized PM */
+#define PM_MASTER_STATE_UNINITIALIZED	5U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
@@ -194,6 +197,7 @@ PmProc* PmGetProcOfOtherMaster(const PmMaster* const master,
 int PmMasterWakeProc(PmProc* const proc);
 int PmMasterFsm(PmMaster* const master, const PmMasterEvent event);
 int PmMasterRestart(PmMaster* const master);
+int PmMasterInitFinalize(PmMaster* const master);
 
 void PmMasterDefaultConfig(void);
 void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg);
