@@ -961,9 +961,13 @@ inline bool PmMasterCanForceDown(const PmMaster* const master,
  */
 int PmMasterInitFinalize(PmMaster* const master)
 {
+	int status;
+
 	master->state = PM_MASTER_STATE_ACTIVE;
 
-	return XST_SUCCESS;
+	status = PmRequirementRelease(master->reqs, RELEASE_UNREQUESTED);
+
+	return status;
 }
 
 #endif
