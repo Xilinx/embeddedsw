@@ -361,7 +361,7 @@ static void PmReleaseNode(const PmMaster *master,
 		goto done;
 	}
 
-	if (0U == (masterReq->info & PM_MASTER_USING_SLAVE_MASK)) {
+	if (!MASTER_REQUESTED_SLAVE(masterReq)) {
 		status = XST_FAILURE;
 		PmDbg("WARNING %s attempt to release %s without previous "
 		      "request\r\n", PmStrNode(master->nid), PmStrNode(node));
@@ -429,7 +429,7 @@ static void PmRequestNode(const PmMaster *master,
 		goto done;
 	}
 
-	if (0U != (PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
+	if (MASTER_REQUESTED_SLAVE(masterReq)) {
 		status = XST_PM_DOUBLE_REQ;
 		PmDbg("Warning %d: slave already requested\r\n", status);
 		goto done;
@@ -489,7 +489,7 @@ static void PmSetRequirement(const PmMaster *master,
 	}
 
 	/* Check if master has previously requested the node */
-	if (0U == (PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
+	if (!MASTER_REQUESTED_SLAVE(masterReq)) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -823,7 +823,7 @@ static void PmSetMaxLatency(const PmMaster *const master, const u32 node,
 	}
 
 	/* Check if master has previously requested the node */
-	if (0U == (PM_MASTER_USING_SLAVE_MASK & masterReq->info)) {
+	if (!MASTER_REQUESTED_SLAVE(masterReq)) {
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
