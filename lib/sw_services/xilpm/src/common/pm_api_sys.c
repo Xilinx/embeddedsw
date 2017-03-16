@@ -338,6 +338,33 @@ XStatus XPm_SetConfiguration(const u32 address)
 
 /****************************************************************************/
 /**
+ * @brief  This function is called to notify the power management controller
+ * about the completed power management initialization.
+ *
+ * @return XST_SUCCESS if successful, otherwise an error code
+ *
+ * @note   It is assumed that all used nodes are requested when this call is
+ * made. The power management controller may power down the nodes which are
+ * not requested after this call is processed.
+ *
+ ****************************************************************************/
+XStatus XPm_InitFinalize(void)
+{
+	XStatus status;
+	u32 payload[PAYLOAD_ARG_CNT];
+
+	/* Send request to the PMU */
+	PACK_PAYLOAD0(payload, PM_INIT_FINALIZE);
+	status = pm_ipi_send(primary_master, payload);
+
+	if (XST_SUCCESS != status)
+		return status;
+
+	return pm_ipi_buff_read32(primary_master, NULL, NULL, NULL);
+}
+
+/****************************************************************************/
+/**
  * @brief  This function is used by a PU to request suspend of another PU.
  * This call triggers the power management controller to notify the PU
  * identified by 'nodeID' that a suspend has been requested. This will
