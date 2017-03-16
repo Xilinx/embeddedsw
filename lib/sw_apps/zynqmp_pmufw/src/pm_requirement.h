@@ -64,12 +64,12 @@ typedef enum {
 
 /* Requirement flags */
 #define PM_MASTER_WAKEUP_REQ_MASK	0x1U
-#define PM_MASTER_USING_SLAVE_MASK	0x2U
+#define PM_MASTER_REQUESTED_SLAVE_MASK	0x2U
 #define PM_MASTER_SET_LATENCY_REQ	0x4U
 #define PM_SYSTEM_USING_SLAVE_MASK	0x8U
 
 #define MASTER_REQUESTED_SLAVE(reqPtr)	\
-	(0U != (PM_MASTER_USING_SLAVE_MASK & (reqPtr)->info))
+	(0U != (PM_MASTER_REQUESTED_SLAVE_MASK & (reqPtr)->info))
 
 /*********************************************************************
  * Structure definitions

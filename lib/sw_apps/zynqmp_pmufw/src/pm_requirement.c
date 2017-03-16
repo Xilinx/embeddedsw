@@ -202,7 +202,7 @@ int PmRequirementRequest(PmRequirement* const req, const u32 caps)
 {
 	int status;
 
-	req->info |= PM_MASTER_USING_SLAVE_MASK;
+	req->info |= PM_MASTER_REQUESTED_SLAVE_MASK;
 	status = PmRequirementUpdate(req, caps);
 
 	return status;
@@ -339,7 +339,7 @@ void PmRequirementPreRequest(const PmMaster* const master)
 	while (NULL != req) {
 		if (0U != req->preReq) {
 			/* Set flag to state that master is using slave */
-			req->info |= PM_MASTER_USING_SLAVE_MASK;
+			req->info |= PM_MASTER_REQUESTED_SLAVE_MASK;
 			req->nextReq = req->preReq;
 		}
 		req = req->nextSlave;
@@ -355,7 +355,7 @@ void PmRequirementPreRequest(const PmMaster* const master)
 void PmRequirementClear(PmRequirement* const req)
 {
 	/* Clear flag - master is not using slave anymore */
-	req->info &= ~PM_MASTER_USING_SLAVE_MASK;
+	req->info &= ~PM_MASTER_REQUESTED_SLAVE_MASK;
 
 	/* Release current and next requirements */
 	req->currReq = 0U;
@@ -432,8 +432,8 @@ int PmRequirementSetConfig(PmRequirement* const req, const u32 flags,
 		goto error;
 	}
 
-	if (0U != (PM_MASTER_USING_SLAVE_MASK & flags)) {
-		req->info |= PM_MASTER_USING_SLAVE_MASK;
+	if (0U != (PM_MASTER_REQUESTED_SLAVE_MASK & flags)) {
+		req->info |= PM_MASTER_REQUESTED_SLAVE_MASK;
 		req->currReq = currReq;
 		req->nextReq = currReq;
 		PmClockSave(&req->slave->node);
