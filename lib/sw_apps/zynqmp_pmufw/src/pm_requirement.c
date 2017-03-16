@@ -192,6 +192,56 @@ done:
 }
 
 /**
+ * PmRequirementRequest() - Process request for new requirements
+ * @req		Requirements determining master/slave pair
+ * @caps	Requested capabilities
+ *
+ * @return	Status of processing the request
+ */
+int PmRequirementRequest(PmRequirement* const req, const u32 caps)
+{
+	int status;
+
+	req->info |= PM_MASTER_USING_SLAVE_MASK;
+	status = PmRequirementUpdate(req, caps);
+
+	return status;
+}
+
+/**
+ * PmRequirementRelease() - Process release of requirements
+ * @first	Pointer to the requirement structure
+ * @scope	Scope of the release
+ *
+ * @return	Status of processing the release
+ */
+int PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope)
+{
+	int status = XST_FAILURE;
+	PmRequirement* req = first;
+
+	if (RELEASE_ONE == scope) {
+		PmRequirementClear(req);
+		status = PmUpdateSlave(req->slave);
+		goto done;
+	}
+
+	while (NULL != req) {
+		if (RELEASE_ALL == scope) {
+			PmRequirementClear(req);
+			status = PmUpdateSlave(req->slave);
+			if (XST_SUCCESS != status) {
+				break;
+			}
+		}
+		req = req->nextSlave;
+	}
+
+done:
+	return status;
+}
+
+/**
  * PmRequirementUpdateScheduled() - Triggers the setting for scheduled
  *                                  requirements
  * @master  Master which changed the state and whose scheduled requirements are
@@ -309,36 +359,6 @@ void PmRequirementClear(PmRequirement* const req)
 	/* Release current and next requirements */
 	req->currReq = 0U;
 	req->nextReq = 0U;
-}
-
-/**
- * PmRequirementReleaseAll() - Called when a processor is forced to power down
- * @master  Master whose processor was forced to power down
- *
- * @return  Status of the operation of releasing all slaves used by the master
- *          and changing their state to the lowest possible.
- */
-int PmRequirementReleaseAll(const PmMaster* const master)
-{
-	int status = XST_SUCCESS;
-	PmRequirement* req = master->reqs;
-
-	while (NULL != req) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
-			PmRequirementClear(req);
-			/* Update slave setting */
-			status = PmUpdateSlave(req->slave);
-			/* if pmu rom works correctly, status should be always ok */
-			if (XST_SUCCESS != status) {
-				PmDbg("ERROR setting slave node %s\r\n",
-				      PmStrNode(req->slave->node.nodeId));
-				break;
-			}
-		}
-		req = req->nextSlave;
-	}
-
-	return status;
 }
 
 /**

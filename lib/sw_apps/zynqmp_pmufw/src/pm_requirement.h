@@ -46,6 +46,11 @@ typedef struct PmMaster PmMaster;
 typedef struct PmSlave PmSlave;
 typedef struct PmRequirement PmRequirement;
 
+typedef enum {
+	RELEASE_ONE,
+	RELEASE_ALL,
+} PmReleaseScope;
+
 /*********************************************************************
  * Macros
  ********************************************************************/
@@ -61,6 +66,9 @@ typedef struct PmRequirement PmRequirement;
 #define PM_MASTER_USING_SLAVE_MASK	0x2U
 #define PM_MASTER_SET_LATENCY_REQ	0x4U
 #define PM_SYSTEM_USING_SLAVE_MASK	0x8U
+
+#define MASTER_REQUESTED_SLAVE(reqPtr)	\
+	(0U != (PM_MASTER_USING_SLAVE_MASK & (reqPtr)->info))
 
 /*********************************************************************
  * Structure definitions
@@ -113,7 +121,8 @@ void PmRequirementClear(PmRequirement* const req);
 int PmRequirementSchedule(PmRequirement* const masterReq, const u32 caps);
 int PmRequirementUpdate(PmRequirement* const masterReq, const u32 caps);
 int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap);
-int PmRequirementReleaseAll(const PmMaster* const master);
+int PmRequirementRequest(PmRequirement* const req, const u32 caps);
+int PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope);
 
 PmRequirement* PmRequirementAdd(PmMaster* const master, PmSlave* const slave);
 PmRequirement* PmRequirementGet(const PmMaster* const master,

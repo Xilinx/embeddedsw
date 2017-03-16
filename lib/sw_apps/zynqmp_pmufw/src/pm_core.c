@@ -369,8 +369,7 @@ static void PmReleaseNode(const PmMaster *master,
 	}
 
 	/* Release requirements */
-	status = PmRequirementUpdate(masterReq, 0U);
-	masterReq->info = 0U;
+	status = PmRequirementRelease(masterReq, RELEASE_ONE);
 
 	usage = PmSlaveGetUsersMask(masterReq->slave);
 	if (0U == usage) {
@@ -442,8 +441,7 @@ static void PmRequestNode(const PmMaster *master,
 	}
 
 	/* Set requested capabilities if they are valid */
-	masterReq->info |= PM_MASTER_USING_SLAVE_MASK;
-	status = PmRequirementUpdate(masterReq, capabilities);
+	status = PmRequirementRequest(masterReq, capabilities);
 
 done:
 	PmProcessAckRequest(ack, master, node, status, oppoint);
