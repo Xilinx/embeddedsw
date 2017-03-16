@@ -227,7 +227,8 @@ int PmRequirementRelease(PmRequirement* const first, const PmReleaseScope scope)
 	}
 
 	while (NULL != req) {
-		if (RELEASE_ALL == scope) {
+		if ((RELEASE_ALL == scope) ||
+		   ((RELEASE_UNREQUESTED == scope) && !MASTER_REQUESTED_SLAVE(req))) {
 			PmRequirementClear(req);
 			status = PmUpdateSlave(req->slave);
 			if (XST_SUCCESS != status) {

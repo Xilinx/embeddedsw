@@ -49,6 +49,7 @@ typedef struct PmRequirement PmRequirement;
 typedef enum {
 	RELEASE_ONE,
 	RELEASE_ALL,
+	RELEASE_UNREQUESTED,
 } PmReleaseScope;
 
 /*********************************************************************
