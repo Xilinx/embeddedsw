@@ -746,7 +746,7 @@ static int PmMasterForceDownCleanup(PmMaster* const master)
 {
 	int status;
 
-	status = PmRequirementReleaseAll(master);
+	status = PmRequirementRelease(master->reqs, RELEASE_ALL);
 	PmWakeUpCancelScheduled(master);
 	PmNotifierUnregisterAll(master);
 	master->wakeProc = NULL;
