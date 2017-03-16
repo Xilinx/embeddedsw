@@ -452,7 +452,7 @@ u32 PmSlaveGetUsersMask(const PmSlave* const slave)
 	u32 usage = 0U;
 
 	while (NULL != req) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
+		if (MASTER_REQUESTED_SLAVE(req)) {
 			/* Found master which is using slave */
 			usage |= req->master->ipiMask;
 		}
@@ -482,7 +482,7 @@ u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
 
 	while (NULL != req) {
 
-		if (0U != (req->info & PM_MASTER_USING_SLAVE_MASK)) {
+		if (MASTER_REQUESTED_SLAVE(req)) {
 			/* This master is currently using this slave */
 			if (master == req->master) {
 				usageStatus |= PM_USAGE_CURRENT_MASTER;
@@ -514,7 +514,7 @@ u32 PmSlaveGetRequirements(const PmSlave* const slave,
 		goto done;
 	}
 
-	if (0U == (masterReq->info & PM_MASTER_USING_SLAVE_MASK)) {
+	if (!MASTER_REQUESTED_SLAVE(masterReq)) {
 		/* This master is currently not using this slave */
 		goto done;
 	}
@@ -661,7 +661,7 @@ static int PmSlaveForceDown(PmNode* const node)
 	PmRequirement* req = slave->reqs;
 
 	while (NULL != req) {
-		if (0U != (PM_MASTER_USING_SLAVE_MASK & req->info)) {
+		if (MASTER_REQUESTED_SLAVE(req)) {
 			PmRequirementClear(req);
 		}
 		req = req->nextMaster;
