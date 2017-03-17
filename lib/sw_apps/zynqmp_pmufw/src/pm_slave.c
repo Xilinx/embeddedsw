@@ -428,7 +428,8 @@ int PmUpdateSlave(PmSlave* const slave)
 			goto done;
 		}
 	} else {
-		if (!HAS_CAPABILITIES(slave, state, PM_CAP_POWER)) {
+		if (!HAS_CAPABILITIES(slave, state, PM_CAP_POWER) &&
+		    (NULL != slave->node.parent)) {
 			/* Notify power parent (changed latency requirement) */
 			status = PmPowerUpdateLatencyReq(&slave->node);
 		}
