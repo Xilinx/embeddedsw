@@ -119,7 +119,7 @@ proc xdefine_cortexr5_params {drvhandle} {
    } else {
 		#Append LTO flag in EXTRA_COMPILER_FLAGS for zynqmp_fsbl_bsp
 		set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
-		if {$is_zynqmp_fsbl_bsp == TRUE} {
+		if {$is_zynqmp_fsbl_bsp == true} {
 			set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
 			#Append LTO flag in EXTRA_COMPILER_FLAGS if not exist previoulsy.
 			if {[string first "-flto" $extra_flags] == -1 } {
