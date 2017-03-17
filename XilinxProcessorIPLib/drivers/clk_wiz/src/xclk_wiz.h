@@ -102,6 +102,8 @@
 *                  for CR-965028.
 * 1.2 ms  03/02/17 Fixed compilation errors in xclk_wiz_intr.c, xclk_wiz_g.c
 *                  and warnings in xclk_wiz.c files. Fix for CR-970507.
+*     ms  03/17/17 Added readme.txt file in examples folder for doxygen
+*                  generation.
 * </pre>
 *
 ******************************************************************************/
