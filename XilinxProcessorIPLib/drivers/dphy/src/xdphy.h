@@ -123,6 +123,8 @@
 *                  strings are available in all examples. This is a fix
 *                  for CR-965028.
 * 1.2 vsa 03/02/17 Add support for HS_SETTLE register
+*     ms  03/17/17 Added readme.txt file in examples folder for doxygen
+*                  generation.
 * </pre>
 *
 ******************************************************************************/
