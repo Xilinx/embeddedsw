@@ -744,6 +744,20 @@ static void ddr_enable_rd_drift(void)
 	Xil_Out32(DDRPHY_DQSDR(0U), r);
 }
 
+static void ddr_enable_drift(void)
+{
+	u32 readVal = Xil_In32(DDRC_MSTR);
+	if (0U != (readVal & DDRC_MSTR_LPDDR3)) {
+		/* enable read drift only for LPDDR3 */
+		ddr_enable_rd_drift();
+	} else if (0U != (readVal & DDRC_MSTR_LPDDR4)) {
+		/* enable read and write drift for LPDDR4 */
+		ddr_enable_rd_drift();
+		ddr_enable_wr_drift();
+	}
+	/* do not enable drift for DDR3/4, and LPDDR2 is not supported */
+}
+
 static bool ddrc_opmode_is(u32 m)
 {
 	u32 r = Xil_In32(DDRC_STAT);
@@ -926,17 +940,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
 			;
 
-		/* enable drift */
-		readVal = Xil_In32(DDRC_MSTR);
-		if (0U != (readVal & DDRC_MSTR_LPDDR3)) {
-			/* enable read drift only for LPDDR3 */
-			ddr_enable_rd_drift();
-		} else if (0U != (readVal & DDRC_MSTR_LPDDR4)) {
-			/* enable read and write drift for LPDDR4 */
-			ddr_enable_rd_drift();
-			ddr_enable_wr_drift();
-		}
-		/* do not enable drift for DDR3/4, and LPDDR2 is not supported */
+		ddr_enable_drift();
 
 		/* FIFO reset */
 		readVal = Xil_In32(DDRPHY_PGCR(0U));
@@ -951,6 +955,8 @@ static void DDR_reinit(bool ddrss_is_reset)
 
 		Xil_Out32(DDRC_DFIMISC, DDRC_DFIMISC_DFI_INIT_COMP_EN);
 		Xil_Out32(DDRC_SWCTL, DDRC_SWCTL_SW_DONE);
+	} else {
+		ddr_enable_drift();
 	}
 
 	Xil_Out32(DDRC_PWRCTL, 0U);
