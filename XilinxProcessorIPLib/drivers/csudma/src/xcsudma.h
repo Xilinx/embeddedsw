@@ -99,6 +99,8 @@
 * 1.0   vnsld   22/10/14 First release
 * 1.1   adk     10/05/16 Fixed CR#951040 race condition in the recv path when
 *                        source and destination points to the same buffer.
+*       ms      03/17/17 Added readme.txt file in examples folder for doxygen
+*                        generation.
 * </pre>
 *
 ******************************************************************************/
