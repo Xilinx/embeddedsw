@@ -483,6 +483,21 @@ zynqmp_fsbl:
 - Fixed Vector regions overwritten in R5 FSBL with secure partitions CR#953663
 - Enhanced secure bitstream authentication to more security.
 - Added PPK hash and SPKI ID verification for eFUSE RSA authentication
+- Locks XMPU/XPPU from further access after applying protection configuration,
+but bypasses this configuration by default.
+- Enabled ZCU106 board specific code.
+- Replaced PM_INIT with SET_CONFIGURATION call.
+- Restricts the FSBL creation if any mandatory IP for FSBL is either isolated for
+the given processor or not exists in the design, or if OCM is not sufficient
+- Added USB boot mode support in FSBL.
+- Added APU ONLY reset.
+- Made Xilpm library as mandatory for FSBL.
+- Added authentication of image header prior to use.
+- Modified Destination CPU check to check PMUFW CPU.
+- Added LTO flags for FSBL
+- Fix for multiple program sections in FSBL.
+- Modified code for MISRA-C:2012 Compliance
+- Fix to access BRAM in PS only reset.
 
 libmetal_v1_2:
 - Sync libmetal OSS project with upstream
