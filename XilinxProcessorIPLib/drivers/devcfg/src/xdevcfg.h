@@ -152,6 +152,8 @@
 *		     configuration registers from the PL region.
 *		     xdevcfg_reg_readback_example.c
 * 3.3   sk  04/06/15 Modified XDcfg_ReadMultiBootConfig Macro CR# 851335.
+*       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+*                    generation.
 *
 * </pre>
 *
