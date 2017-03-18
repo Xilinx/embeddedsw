@@ -352,6 +352,9 @@ extern "C" {
 #define PMU_GLOBAL_GLOBAL_CNTRL_MB_SLEEP_MASK    0X00010000U
 #define PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK    0X00000010U
 
+#define PMU_GLOBAL_AIB_CNTRL           ( ( PMU_GLOBAL_BASEADDR ) + 0X600U )
+#define PMU_GLOBAL_AIB_STATUS          ( ( PMU_GLOBAL_BASEADDR ) + 0X604U )
+
 /* Register: PMU_GLOBAL_REQ_PWRUP_INT_EN */
 #define PMU_GLOBAL_REQ_PWRUP_INT_EN    ( ( PMU_GLOBAL_BASEADDR ) + 0X00000118U )
 #define PMU_GLOBAL_REQ_PWRUP_INT_EN_PL_MASK    0X00800000U
@@ -809,9 +812,10 @@ extern "C" {
 #define PTRSIZE		u32
 #endif
 
-/* Warm Reset Macros */
+/* Reset Reason */
 #define XFSBL_SYSTEM_RESET		0U
-#define XFSBL_APU_ONLY_RESET	1U
+#define XFSBL_PS_ONLY_RESET		1U
+#define XFSBL_APU_ONLY_RESET	2U
 
 /****************************************************************************/
 /**

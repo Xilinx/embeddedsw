@@ -167,10 +167,6 @@ typedef struct {
 #define ATTRIB_MEMORY_A53_32 0x15DE6U
 #define ATTRIB_RESERVED_A53  0x0U
 
-/* Reset Reason */
-
-#define PS_ONLY_RESET		0x1U
-
 /* Pattern to be filled for DDR ECC Initialization */
 #define XFSBL_ECC_INIT_VAL_WORD 0xDEADBEEFU
 

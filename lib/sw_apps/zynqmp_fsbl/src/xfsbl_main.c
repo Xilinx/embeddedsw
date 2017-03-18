@@ -68,7 +68,6 @@ static void XFsbl_FallBack(void);
 
 /************************** Variable Definitions *****************************/
 XFsblPs FsblInstance={0x3U, XFSBL_SUCCESS, 0U, 0U, 0U};
-extern u32 WarmReset;
 /*****************************************************************************/
 /** This is the FSBL main function and is implemented stage wise.
  *
@@ -340,6 +339,22 @@ void XFsbl_PrintFsblBanner(void )
 	XFsbl_Printf(DEBUG_PRINT_ALWAYS,
                  "Release %d.%d   %s  -  %s\r\n",
                  SDK_RELEASE_YEAR, SDK_RELEASE_QUARTER,__DATE__,__TIME__);
+
+	if(FsblInstance.ResetReason == XFSBL_PS_ONLY_RESET) {
+		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	PS Only Reset\r\n");
+	}
+	else if(FsblInstance.ResetReason == XFSBL_APU_ONLY_RESET)
+	{
+		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	APU Only Reset\r\n");
+	}
+	else if(FsblInstance.ResetReason == XFSBL_SYSTEM_RESET)
+	{
+		XFsbl_Printf(DEBUG_GENERAL,"Reset Mode	:	System Reset\r\n");
+	}
+	else
+	{
+		/*MISRAC compliance*/
+	}
 #endif
 
 	/**
@@ -503,7 +518,7 @@ static void XFsbl_UpdateMultiBoot(u32 MultiBootValue)
 	dsb();
 	isb();
 
-	if(WarmReset == XFSBL_SYSTEM_RESET) {
+	if(FsblInstance.ResetReason != XFSBL_APU_ONLY_RESET) {
 
 	/* Soft reset the system */
 	XFsbl_Printf(DEBUG_GENERAL,"Performing System Soft Reset\n\r");
