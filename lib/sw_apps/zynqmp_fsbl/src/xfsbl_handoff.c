@@ -111,7 +111,6 @@ extern u8 R5LovecBuffer[32];
 extern u32 TcmSkipLength;
 extern PTRSIZE TcmSkipAddress;
 #endif
-extern u32 WarmReset;
 
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings)
 {
@@ -739,7 +738,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	PartitionHeader =
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 
-	if(WarmReset == XFSBL_SYSTEM_RESET){
+	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET){
 
 	Status = XFsbl_PmInit();
 	if (Status != XFSBL_SUCCESS) {

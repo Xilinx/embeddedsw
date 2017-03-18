@@ -308,7 +308,7 @@ u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 				u32 RunningCpu, u32 ImageHeaderAddress);
 u32 XFsbl_ValidateImageHeader(const XFsblPs_ImageHeaderTable * ImageHeaderTable);
 u32 XFsbl_ValidatePartitionHeader(XFsblPs_PartitionHeader * PartitionHeader,
-			u32 RunningCpu);
+			u32 RunningCpu, u32 ResetType);
 
 #ifdef __cplusplus
 }

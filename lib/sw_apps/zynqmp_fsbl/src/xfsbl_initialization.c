@@ -99,7 +99,6 @@ void XFsbl_RegisterHandlers(void);
 
 
 /************************** Variable Definitions *****************************/
-u32 WarmReset;
 extern XFsblPs FsblInstance;
 
 extern  u8 __data_start;
@@ -183,21 +182,21 @@ static u32 XFsbl_GetResetReason (void)
 		/* Clear the PS Only reset bit as it is sticky */
 		Val = CRL_APB_RESET_REASON_PSONLY_RESET_REQ_MASK;
 		XFsbl_Out32(CRL_APB_RESET_REASON, Val);
-		Ret = PS_ONLY_RESET;
-	}
-	else
-	{
-		Ret=0U;
-	}
-
-	WarmReset = (XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE4) & XFSBL_APU_RESET_MASK)>>(XFSBL_APU_RESET_BIT);
-
-	if(WarmReset == XFSBL_SYSTEM_RESET) {
+		Ret = XFSBL_PS_ONLY_RESET;
 		XFsbl_SaveData();
 	}
 	else
 	{
-		XFsbl_RestoreData();
+		Ret = (XFsbl_In32(PMU_GLOBAL_GLOB_GEN_STORAGE4) & XFSBL_APU_RESET_MASK)>>(XFSBL_APU_RESET_BIT);
+
+		if(Ret == XFSBL_SYSTEM_RESET){
+			XFsbl_SaveData();
+		}
+		else
+		{
+			Ret = XFSBL_APU_ONLY_RESET;
+			XFsbl_RestoreData();
+		}
 	}
 
 	return Ret;
@@ -217,17 +216,13 @@ static u32 XFsbl_GetResetReason (void)
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 {
 	u32 Status;
-	u32 ResetReason;
 
-	ResetReason = XFsbl_GetResetReason();
-	if (ResetReason == PS_ONLY_RESET) {
-		FsblInstancePtr->ResetReason = PS_ONLY_RESET;
-	}
+	FsblInstancePtr->ResetReason = XFsbl_GetResetReason();
 
 	/**
 	 * Configure the system as in PSU
 	 */
-	if(WarmReset ==  XFSBL_SYSTEM_RESET){
+	if(FsblInstancePtr->ResetReason !=  XFSBL_APU_ONLY_RESET){
 		Status = XFsbl_SystemInit(FsblInstancePtr);
 		if (XFSBL_SUCCESS != Status) {
 			goto END;
@@ -245,7 +240,7 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 
-	if(WarmReset == XFSBL_SYSTEM_RESET) {
+	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET) {
 		/* Do ECC Initialization of TCM if required */
 		Status = XFsbl_TcmInit(FsblInstancePtr);
 		if (XFSBL_SUCCESS != Status) {
@@ -258,13 +253,14 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		goto END;
 	}
 #if defined(XFSBL_PL_CLEAR) && defined(XFSBL_BS)
-	/* In case of PS only reset skipping PCAP initialization*/
-	if (FsblInstancePtr->ResetReason != PS_ONLY_RESET) {
-		Status = XFsbl_PcapInit();
-		if (XFSBL_SUCCESS != Status) {
-			goto END;
+		/* In case of PS only reset and APU only reset skipping PCAP initialization*/
+		if ((FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET)&&
+			(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET)) {
+			Status = XFsbl_PcapInit();
+			if (XFSBL_SUCCESS != Status) {
+				goto END;
+			}
 		}
-	}
 #endif
 
 	/* Do board specific initialization if any */
@@ -567,23 +563,25 @@ static u32 XFsbl_SystemInit(const XFsblPs * FsblInstancePtr)
 	u32 BlockNum;
 #endif
 
-	/**
-	 * MIO33 can be used to control power to PL through PMU.
-	 * For 1.0 and 2.0 Silicon, a workaround is needed to Powerup PL
-	 * before MIO33 is configured. Hence, before MIO configuration,
-	 * Powerup PL (but restore isolation).
-	 */
-	if (XGetPSVersion_Info() <= (u32)XPS_VERSION_2) {
-		Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_PL_MASK);
+	if (FsblInstancePtr->ResetReason != XFSBL_PS_ONLY_RESET) {
+		/**
+		* MIO33 can be used to control power to PL through PMU.
+		* For 1.0 and 2.0 Silicon, a workaround is needed to Powerup PL
+		* before MIO33 is configured. Hence, before MIO configuration,
+		* Powerup PL (but restore isolation).
+		*/
+		if (XGetPSVersion_Info() <= (u32)XPS_VERSION_2) {
 
-		if (Status != XFSBL_SUCCESS) {
-			Status = XFSBL_ERROR_PL_POWER_UP;
-			XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PL_POWER_UP\r\n");
-			goto END;
-		}
+			Status = XFsbl_PowerUpIsland(PMU_GLOBAL_PWR_STATE_PL_MASK);
 
-		/* For PS only reset, make sure FSBL exits with isolation removed */
-		if (FsblInstancePtr->ResetReason != PS_ONLY_RESET) {
+			if (Status != XFSBL_SUCCESS) {
+				Status = XFSBL_ERROR_PL_POWER_UP;
+				XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PL_POWER_UP\r\n");
+				goto END;
+			}
+
+			/* For PS only reset, make sure FSBL exits with isolation removed */
+
 			Status  = XFsbl_IsolationRestore(PMU_GLOBAL_REQ_ISO_INT_EN_PL_NONPCAP_MASK);
 			if (Status != XFSBL_SUCCESS) {
 				Status = XFSBL_ERROR_PMU_GLOBAL_REQ_ISO;
@@ -592,6 +590,23 @@ static u32 XFsbl_SystemInit(const XFsblPs * FsblInstancePtr)
 			}
 		}
 	}
+	else if(FsblInstancePtr->ResetReason == XFSBL_APU_ONLY_RESET)
+	{
+		/*Do nothing*/
+	}
+	else
+	{
+        /**
+        * PMU-fw applied AIB between ps and pl only while ps only reset.
+        * Remove the isolation so as to access pl again
+        */
+         u32 reg = XFsbl_In32(PMU_GLOBAL_AIB_STATUS);
+         while (reg) {
+		 /* Unblock the FPD and LPD AIB for PS only reset*/
+             XFsbl_Out32(PMU_GLOBAL_AIB_CNTRL, 0U);
+             reg = XFsbl_In32(PMU_GLOBAL_AIB_STATUS);
+         }
+     }
 
 	/**
 	 * psu initialization

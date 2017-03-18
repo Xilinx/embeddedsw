@@ -275,7 +275,7 @@ static u32 XFsbl_PartitionHeaderValidation(XFsblPs * FsblInstancePtr,
 	 * Validate the fields of partition
 	 */
 	Status = XFsbl_ValidatePartitionHeader(
-			PartitionHeader, FsblInstancePtr->ProcessorID);
+			PartitionHeader, FsblInstancePtr->ProcessorID, FsblInstancePtr->ResetReason);
 	if (XFSBL_SUCCESS != Status)
 	{
 		goto END;
@@ -904,7 +904,7 @@ static u32 XFsbl_PartitionCopy(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 		 * In case of PS Only Reset, skip copying
 		 * the PL bitstream
 		 */
-		if (FsblInstancePtr->ResetReason == PS_ONLY_RESET)
+		if (FsblInstancePtr->ResetReason == XFSBL_PS_ONLY_RESET)
 		{
 			Status = XFSBL_SUCCESS;
 			goto END;
@@ -1183,10 +1183,12 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		 * In case of PS Only Reset, skip configuring
 		 * the PL bitstream
 		 */
-		if (FsblInstancePtr->ResetReason == PS_ONLY_RESET)
+		if (FsblInstancePtr->ResetReason == XFSBL_PS_ONLY_RESET)
 		{
 			XFsbl_Printf(DEBUG_INFO,
 			"PS Only Reset. Skipping PL configuration\r\n");
+			(void)psu_ps_pl_isolation_removal_data();
+			(void)psu_ps_pl_reset_config_data();
 			goto END;
 		}
 	}
