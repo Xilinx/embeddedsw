@@ -112,6 +112,8 @@
 *	             configuration. Updated XQspiPsu_PollData() and
 *	             XQspiPsu_Create_PollConfigData() functions in xqspipsu.c
 *                    and also modified the polldata example
+*       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+*                    generation.
 *
 * </pre>
 *
