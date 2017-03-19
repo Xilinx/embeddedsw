@@ -82,6 +82,8 @@
 *                       Re-order the enumation and data structure
 * 1.17  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
 *                             Segment Support and HDMI Compliance Test
+*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
+*                       generation.
 * </pre>
 *
 ******************************************************************************/
