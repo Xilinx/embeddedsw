@@ -183,6 +183,8 @@
  *                    moving of dTD Head/Tail Pointers. Invalidate the cache
  *                    after buffer receive in Endpoint Buffer Handler.
  * 2.4   sg  04/26/16 Fixed CR#949693, Corrected the logic for EP flush
+ *       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+ *                    generation.
  * </pre>
  *
  ******************************************************************************/
