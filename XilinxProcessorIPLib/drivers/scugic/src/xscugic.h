@@ -164,6 +164,8 @@
 *       kvn  02/17/17 Add support for changing GIC CPU master at run time.
 *       kvn  02/28/17 Make the CpuId as static variable and Added new
 *                     XScugiC_GetCpuId to access CpuId.
+*       ms   03/17/17 Added readme.txt file in examples folder for doxygen
+*                     generation.
 *
 * </pre>
 *
