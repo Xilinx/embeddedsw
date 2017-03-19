@@ -482,6 +482,8 @@
 *	adk 03/09/17 Fixed CR#971367 fix race condition in the tcl
 *		     for a multi mac design(AXI_CONNECTED_TYPE defined for
 *		     only one instance)
+*       ms 03/17/17 Modified text file in examples folder for doxygen
+*                   generation.
 * </pre>
 *
 ******************************************************************************/
