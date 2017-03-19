@@ -77,6 +77,8 @@
 *                         Log
 *						Re-order the enumaration and data structure
 *                       Move HDCP local API into _hdcp.h
+*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
+*                       generation.
 * </pre>
 *
 ******************************************************************************/
