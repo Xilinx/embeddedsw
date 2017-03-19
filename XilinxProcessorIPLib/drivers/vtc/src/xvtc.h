@@ -297,6 +297,8 @@
 * 7.2   sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
 *                       adding 64 bit support. CR# 867425.
 *                       Changed the prototype of XVtc_CfgInitialize API.
+*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
+*                       generation.
 * </pre>
 *
 ******************************************************************************/
