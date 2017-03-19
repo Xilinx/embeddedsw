@@ -273,6 +273,8 @@
 * 					 when thresholds are used.
 * 3.3   sk  11/07/15 Modified the API prototypes according to MISRAC standards
 *                    to remove compilation warnings. CR# 868893.
+*       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+*                    generation.
 *
 * </pre>
 *
