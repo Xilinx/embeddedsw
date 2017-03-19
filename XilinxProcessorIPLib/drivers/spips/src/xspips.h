@@ -243,6 +243,8 @@
 *                       Added check for MODF in polled transfer function.
 * 3.0   vm    12/09/14	Modified driver source code for MISRA-C:2012 compliance.
 *			Support for Zynq Ultrascale Mp added.
+*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
+*                       generation.
 *
 * </pre>
 *
