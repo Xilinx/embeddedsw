@@ -65,6 +65,8 @@
  *                     Added xil_printf include statement
  *                     Added new API XVidC_GetVideoModeIdWBlanking
  *                     Fix C++ warnings
+ *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
+ *                     generation.
  * </pre>
  *
 *******************************************************************************/
