@@ -52,6 +52,8 @@
 *                      Ept->UnalignedTx in xusbpsu_controltransfers.c
 * 1.2   mus   02/10/17 Updated data structures to fix compilation errors for IAR
 *                      compiler
+*       ms    03/17/17 Added readme.txt file in examples folder for doxygen
+*                      generation.
 *
 * </pre>
 *
