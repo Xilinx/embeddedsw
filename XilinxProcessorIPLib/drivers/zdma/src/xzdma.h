@@ -115,7 +115,8 @@
 *                        scatter gather mode data transfer and corrected
 *                        XZDma_SetChDataConfig API to set over fetch and
 *                        src issue parameters correctly.
-
+*       ms     03/17/17  Added readme.txt file in examples folder for doxygen
+*                        generation.
 * </pre>
 *
 ******************************************************************************/
