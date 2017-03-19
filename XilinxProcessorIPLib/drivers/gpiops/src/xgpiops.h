@@ -97,6 +97,8 @@
 * 					  passed to APIs. CR# 822636
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
 * 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
+*       ms   03/17/17 Added readme.txt file in examples folder for doxygen
+*                     generation.
 *
 * </pre>
 *
