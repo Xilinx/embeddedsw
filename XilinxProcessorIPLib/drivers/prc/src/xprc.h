@@ -123,6 +123,8 @@
 * Ver   Who      Date        Changes
 * ---- -----  ------------  ----------------------------------------------
 * 1.0   ms     07/18/2016   First release
+*       ms     03/17/17     Added readme.txt file in examples folder for
+*                           doxygen generation.
 *
 * </pre>
 *
