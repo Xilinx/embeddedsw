@@ -154,6 +154,8 @@
 * 4.0   sha  02/17/16 Removed 3.1 version and added CR# 867425 change in
 *                     4.0 version.
 * 4.1   adk  23/12/16 Fix race conition in the tcl CR#966068
+*       ms   03/17/17 Added readme.txt file in examples folder for doxygen
+*                     generation.
 * </pre>
 *
 ******************************************************************************/
