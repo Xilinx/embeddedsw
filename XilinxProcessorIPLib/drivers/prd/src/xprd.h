@@ -94,6 +94,8 @@
 *                            in the generated xprd_g.c for fixing MISRA-C
 *                            files. This is a fix for CR-966099 based on the
 *                            update in the tools.
+*       ms     03/17/17      Added readme.txt file in examples folder for
+*                            doxygen generation.
 *
 * </pre>
 *
