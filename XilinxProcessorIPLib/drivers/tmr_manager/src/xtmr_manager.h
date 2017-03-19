@@ -83,6 +83,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.0   sa   04/05/17 First release
+*       ms   03/17/17 Added readme.txt file in examples folder for doxygen
+*                     generation.
 * </pre>
 *
 *****************************************************************************/
