@@ -182,6 +182,8 @@
 *                       XPAR_XYCRCB2RGB_NUM_INSTANCES in the generated
 *                       xycrcb2rgb_g.c for fixing MISRA-C files. This is a
 *                       fix for CR-967548 based on the update in the tools.
+*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
+*                       generation.
 *</pre>
 *
 ******************************************************************************/
