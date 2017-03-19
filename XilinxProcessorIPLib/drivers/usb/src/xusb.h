@@ -195,6 +195,8 @@
 * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototype of XUsb_CfgInitialize API.
 * 5.2  MNK   29/03/15 Added 64bit changes for ZYNQMP.
+*      ms    03/17/17 Modified text file in examples folder for doxygen
+*                     generation.
 *
 * </pre>
 *
