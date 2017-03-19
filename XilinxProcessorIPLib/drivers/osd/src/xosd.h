@@ -202,6 +202,8 @@
 *
 *                       Removed the following function implementation:
 *                       XOSD_SetBlankPolarity.
+*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
+*                       generation.
 * </pre>
 *
 ******************************************************************************/
