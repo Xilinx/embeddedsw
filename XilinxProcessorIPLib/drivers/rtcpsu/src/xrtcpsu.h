@@ -103,6 +103,8 @@
 * 1.3   vak    04/25/16 Corrected the RTC read and write time logic(cr#948833).
 * 1.4 	MNK    01/27/17 Corrected calibration and frequency macros based on
 * 			rtc input oscillator frequency ( 32.768Khz).
+*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
+*                       generation.
 * </pre>
 *
 ******************************************************************************/
