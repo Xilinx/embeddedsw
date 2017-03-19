@@ -94,6 +94,8 @@
 *                    Changed the prototype of XAxisScr_CfgInitialize API.
 * 1.2   ms  02/20/17 Fixed compilation warning in _sinit.c file. This is a
 *                    fix for CR-969126.
+*       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+*                    generation.
 * </pre>
 *
 ******************************************************************************/
