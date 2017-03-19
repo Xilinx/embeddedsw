@@ -184,6 +184,8 @@
 *			02/18/15 Implemented larger data transfer using repeated start
 *					  in Zynq UltraScale MP.
 * 3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
+*       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+*                    generation.
 *
 * </pre>
 *
