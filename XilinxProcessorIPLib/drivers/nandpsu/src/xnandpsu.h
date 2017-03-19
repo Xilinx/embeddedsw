@@ -162,6 +162,8 @@
 * 1.2   nsk    01/19/17    Fix for the failure of reading nand first redundant
 *                          parameter page. CR#966603
 *       ms     02/12/17    Fix for the compilation warning in _g.c file.
+*       ms     03/17/17    Added readme.txt file in examples folder for doxygen
+*                          generation.
 * </pre>
 *
 ******************************************************************************/
