@@ -91,6 +91,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- --------------------------------------------------
 * 1.00  sha 07/21/14 Initial release.
+*       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+*                    generation.
 * </pre>
 *
 ******************************************************************************/
