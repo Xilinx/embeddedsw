@@ -53,6 +53,8 @@
 * 3.00a jo   07/20/10  Updated for GAMMA V3.0
 * 3.00a gs   07/27/10  Updated for gamma registers and functionality
 * 6.0   adk  19/12/13 Updated as per the New Tcl API's
+*       ms   03/17/17 Added readme.txt file in examples folder for doxygen
+*                     generation.
 *
 ******************************************************************************/
 
