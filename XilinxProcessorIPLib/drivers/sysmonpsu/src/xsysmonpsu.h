@@ -164,6 +164,8 @@
 *                       Added constants XSM_CFR_ALM_SUPPLY*(8-31)_MASKs to
 *                       provide support for enabling extra PS alarams.
 * 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
+*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
+*                       generation.
 *
 * </pre>
 *
