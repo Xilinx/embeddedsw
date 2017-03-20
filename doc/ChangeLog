@@ -360,6 +360,8 @@ smc calling which can be used by cortex-A53 64bit EL1 Non-secure application
 Added support thumb mode. CR-970805
 Fixed MISRA C mandatory standard violations in ARM cortexr5 and cortexa53 BSP.
 It fixes CR#970543
+Fixed the CR#970859. The MB intrusive profiling when enabled was causing a crash
+because of invalid HSI command being used. This change fixes it.
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
