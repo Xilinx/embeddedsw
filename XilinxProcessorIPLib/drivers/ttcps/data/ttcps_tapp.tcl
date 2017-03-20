@@ -142,15 +142,8 @@ proc gen_testfunc_call {swproj mhsinst} {
     } else {
        set hasStdout 1
     }
-    set periphs [hsi::get_cells]
 
-    foreach periph $periphs {
-	if {[string match "*_ttc_*" $periph]} {
-		lappend ttc_periph $periph
-	}
-    }
-    set ttc_periph [lsort -dictionary $ttc_periph]
-    set intsnum [lsearch -all $ttc_periph $mhsinst]
+    set intsnum [string index $mhsinst end]
     set device_id [expr {$intsnum * 3}]
     set deviceidname $deviceid
     set deviceid [format %s%d%s [string range $deviceidname 0 12] $device_id [string range $deviceidname 14 end]]
