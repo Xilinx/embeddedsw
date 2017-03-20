@@ -1,3 +1,9 @@
+## \file vtpg_example.tcl
+#Automates the process of generating the downloadable bit & elf files from the provided example hdf file.
+## Documented procedure \c vtpg_example .
+# The code is inserted here:
+#\code
+
 proc vtpg_example args {
 
 	if {[llength $args] != 1} {
@@ -33,3 +39,6 @@ proc vtpg_example args {
 		sdk projects -build -type all
 	}
 }
+
+#\endcode
+# endoffile
