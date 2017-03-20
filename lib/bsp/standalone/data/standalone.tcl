@@ -906,7 +906,7 @@ proc handle_profile_opbtimer { config_file timer_inst } {
 	     [string compare -nocase $ipsptype "INTR_CTRL"] == 0 } {
 	    # Timer connected to Interrupt controller
 	    puts $config_file "#define TIMER_CONNECT_INTC 1"
-	    puts $config_file "#define INTC_BASEADDR [xget_value $intc_handle "PARAMETER" "C_BASEADDR"]"
+	    puts $config_file "#define INTC_BASEADDR [common::get_property CONFIG.C_BASEADDR $intc_handle]"
 	    set num_intr_inputs [common::get_property CONFIG.C_NUM_INTR_INPUTS $intc_handle]
 	    # if { $num_intr_inputs == 1 } {  ## Always enable system interrupt CR 472288
 		 puts $config_file "#define ENABLE_SYS_INTR 1"
