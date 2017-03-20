@@ -1,3 +1,9 @@
+## \file vmix_example.tcl
+#Automates the process of generating the downloadable bit & elf files from the provided example hdf file.
+## Documented procedure \c vmix_example .
+# The code is inserted here:
+#\code
+
 proc vmix_example args {
 
 	if {[llength $args] != 1} {
@@ -33,3 +39,6 @@ proc vmix_example args {
 		sdk project -build -type all
 	}
 }
+
+#\endcode
+# endoffile
