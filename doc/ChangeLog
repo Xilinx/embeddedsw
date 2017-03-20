@@ -381,6 +381,8 @@ Updated ttcps_tapp.tcl to check whether ttc device is interrupting current
 processor or not.If device is not interrupting the current processor then,
 do not include ttc driver instance and interrupt example source/header files to
 peripheral test. It fixes CR#970569.
+Updated gen_testfunc_call proc in ttcps_tapp.tclto fix bug in
+instance number calculation.It fixes the CR#972418.
 
 uartlite_v3_2:
 Added supported peripheral tmr_sem
