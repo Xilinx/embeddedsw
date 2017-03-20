@@ -194,6 +194,12 @@ static void PmRequestSuspend(const PmMaster *const master,
 		goto done;
 	}
 
+	/* If target master cannot receive callback return failure */
+	if (false == PmMasterCanReceiveCb(target)) {
+		status = XST_FAILURE;
+		goto done;
+	}
+
 	/* Remember request info and init suspend */
 	target->suspendRequest.initiator = master;
 	target->suspendRequest.acknowledge = ack;
