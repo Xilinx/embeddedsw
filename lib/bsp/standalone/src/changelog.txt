@@ -452,4 +452,8 @@
  * 6.2 kvn   03/03/17 Added support thumb mode
  * 6.2 mus   03/13/17 Fixed MISRA C mandatory standard violations in ARM cortexr5 and cortexa53 BSP.
  *                    It fixes CR#970543
+ * 6.2 asa   03/16/17 Fix for CR#970859. For Mcroblaze BSP, when we enable intrusive
+ *                    profiling we see a crash. That is because the the tcl uses invalid
+ *                    HSI command. This change fixes it.
+ *
  *****************************************************************************************/
