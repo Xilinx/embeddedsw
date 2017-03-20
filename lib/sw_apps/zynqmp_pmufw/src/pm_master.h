@@ -229,6 +229,12 @@ static inline bool PmMasterIsActive(const PmMaster* const master)
 	return PM_MASTER_STATE_ACTIVE == master->state;
 }
 
+static inline bool PmMasterCanReceiveCb(const PmMaster* const master)
+{
+	return (PM_MASTER_STATE_KILLED != master->state) &&
+		(PM_MASTER_STATE_UNINITIALIZED != master->state);
+}
+
 /**
  * PmMasterCanRequestWake() - Check if master has permissions to request wake
  * @requestor   Master which requested wake
