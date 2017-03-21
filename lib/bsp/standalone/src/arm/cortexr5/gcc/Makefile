@@ -42,9 +42,7 @@ CC_FLAGS = $(subst -pg, -DPROFILING, $(COMPILER_FLAGS))
 ECC_FLAGS = $(subst -pg, -DPROFILING, $(EXTRA_COMPILER_FLAGS))
 
 ifeq ($(notdir $(CC)), armr5-none-eabi-gcc)
-ECC_FLAGS	+= -nostartfiles\
-		  -mfloat-abi=soft\
-		  -mfpu=vfpv3-d16
+ECC_FLAGS	+= -nostartfiles
 endif
 ECC_FLAGS_NO_FLTO1 = $(subst -flto,,$(ECC_FLAGS))
 ECC_FLAGS_NO_FLTO = $(subst -ffat-lto-objects,,$(ECC_FLAGS_NO_FLTO1))

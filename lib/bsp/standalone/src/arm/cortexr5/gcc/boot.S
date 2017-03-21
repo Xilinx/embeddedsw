@@ -71,6 +71,7 @@
 *		      to avoid intervention for lock-step mode
 * 5.05 pkp   04/11/16 Enable the comparators for non-JTAG boot mode for
 *		      lock-step to avoid putting debug logic to reset
+* 6.02 pkp   02/13/17 Added support for hard float
 * </pre>
 *
 ******************************************************************************/
@@ -217,8 +218,10 @@ OKToRun:
 	vmov	d14,r1,r1
 	vmov	d15,r1,r1
 
-/* restore previous value for fpu access */
+#ifdef __SOFTFP__
+/* Disable the FPU if SOFTFP is defined*/
 	vmsr	FPEXC,r3
+#endif
 
 /* Disable MPU and caches */
         mrc     p15, 0, r0, c1, c0, 0       	/* Read CP15 Control Register*/
