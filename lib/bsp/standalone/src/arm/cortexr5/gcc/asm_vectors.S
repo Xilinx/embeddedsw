@@ -42,6 +42,7 @@
 * ----- ------- -------- ---------------------------------------------------
 * 5.00  pkp	02/10/14 Initial version
 * 6.0   mus     27/07/16 Added UndefinedException handler
+* 6.3	pkp	02/13/17 Added support for hard float
 * </pre>
 *
 * @note
@@ -78,10 +79,25 @@ _vector_table:
 .text
 IRQHandler:					/* IRQ vector handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code*/
+#ifndef __SOFTFP__
+
+	vpush {d0-d7}				/* Store floating point registers */
+	vmrs r1, FPSCR
+	push {r1}
+	vmrs r1, FPEXC
+	push {r1}
+#endif
 	bl	IRQInterrupt			/* IRQ vector */
+#ifndef __SOFTFP__
+
+	pop 	{r1}				/* Restore floating point registers */
+	vmsr    FPEXC, r1
+	pop 	{r1}
+	vmsr    FPSCR, r1
+	vpop    {d0-d7}
+#endif
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 	subs	pc, lr, #4			/* adjust return */
-
 FIQHandler:					/* FIQ vector handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
 FIQLoop:
