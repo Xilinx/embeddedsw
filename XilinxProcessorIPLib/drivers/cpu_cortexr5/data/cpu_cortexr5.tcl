@@ -95,6 +95,17 @@ proc xdefine_cortexr5_params {drvhandle} {
 
     close $config_inc
 
+    set oslist [hsi::get_os];
+    if { [llength $oslist] != 1 } {
+        return 0;
+    }
+    set os [lindex $oslist 0];
+
+    if { $os == "freertos901_xilinx" } {
+        set extra_flags [::common::get_property VALUE [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ] ]
+        regsub -- {-mfloat-abi=hard} $extra_flags "" extra_flags
+        common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
+    }
     set procdrv [hsi::get_sw_processor]
     set compiler [common::get_property CONFIG.compiler $procdrv]
     set compiler_name [file tail $compiler]
@@ -104,6 +115,8 @@ proc xdefine_cortexr5_params {drvhandle} {
 	if {[string compare -nocase $temp_flag "--debug -DARMR5"] != 0} {
 		regsub -- {-g -DARMR5 -Wall -Wextra} $temp_flag "" temp_flag
 		regsub -- {--debug} $temp_flag "" temp_flag
+		regsub -- {-mfloat-abi=hard} $temp_flag "" temp_flag
+                regsub -- {-mfpu=vfpv3-d16} $temp_flag "" temp_flag
 		set extra_flags "--debug -DARMR5 $temp_flag"
 		common::set_property -name VALUE -value $extra_flags -objects  [hsi::get_comp_params -filter { NAME == extra_compiler_flags } ]
 	}
