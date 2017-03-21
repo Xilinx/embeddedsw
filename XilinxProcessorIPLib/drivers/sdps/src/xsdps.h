@@ -143,6 +143,7 @@
 *       sk     02/01/17 Added HSD and DDR mode support for eMMC.
 *       sk     02/01/17 Consider bus width parameter from design for switching
 *       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
+*       sk     03/20/17 Add support for EL1 non-secure mode.
 *
 * </pre>
 *

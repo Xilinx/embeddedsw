@@ -56,6 +56,7 @@
 *       sk     07/16/16 Added Tap delays accordingly to different SD/eMMC
 *                       operating modes.
 * 3.1   sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
+* 3.2   sk     03/20/17 Add support for EL1 non-secure mode.
 * </pre>
 *
 ******************************************************************************/
@@ -1018,6 +1019,10 @@ extern "C" {
 
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#define SD0_ITAPDLY_SEL_MASK		0x000000FFU
+#define SD0_OTAPDLY_SEL_MASK		0x0000003FU
+#define SD1_ITAPDLY_SEL_MASK		0x00FF0000U
+#define SD1_OTAPDLY_SEL_MASK		0x003F0000U
 #define SD_DLL_CTRL 				0x00000358U
 #define SD_ITAPDLY					0x00000314U
 #define SD_OTAPDLY					0x00000318U
