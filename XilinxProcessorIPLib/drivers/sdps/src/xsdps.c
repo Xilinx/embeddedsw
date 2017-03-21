@@ -77,6 +77,7 @@
 * 3.2   sk     11/30/16 Modified the voltage switching sequence as per spec.
 *       sk     02/01/17 Added HSD and DDR mode support for eMMC.
 *       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
+*       sk     03/20/17 Add support for EL1 non-secure mode.
 * </pre>
 *
 ******************************************************************************/
