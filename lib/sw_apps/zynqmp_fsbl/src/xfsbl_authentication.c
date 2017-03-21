@@ -59,8 +59,8 @@ static XSecure_Rsa SecureRsa;
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
 #endif
 
-u8 EfusePpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)));
-u8 EfuseSpkID[XFSBL_SPKID_AC_ALIGN];
+u8 EfusePpkHash[XFSBL_HASH_TYPE_SHA3] __attribute__ ((aligned (4)))={0U};
+u8 EfuseSpkID[XFSBL_SPKID_AC_ALIGN]={0U};
 
 /*****************************************************************************/
 /**
@@ -544,12 +544,14 @@ void XFsbl_ReadPpkHashSpkID(u32 *PpkHash, u8 PpkSelect, u32 *SpkId)
 u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen)
 {
 	u8 PpkHash[XFSBL_HASH_TYPE_SHA3]
-			   __attribute__ ((aligned (4)))={0};
+			   __attribute__ ((aligned (4)));
 	void * ShaCtx = (void * )NULL;
 	u8 * AcPtr = (u8*) (PTRSIZE) AcOffset;
 	u32 Status = XFSBL_SUCCESS;
 	u8 *SpkId = (u8 *)(AcPtr + XFSBL_SPKID_AC_ALIGN);
 	u32 *SpkIdEfuse = (u32 *)EfuseSpkID;
+
+	(void)memset(PpkHash,0U,sizeof(PpkHash));
 
 	/* Hash calculation on PPK */
 	(void)XFsbl_ShaStart(ShaCtx, HashLen);

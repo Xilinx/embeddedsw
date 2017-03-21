@@ -337,6 +337,7 @@ static u32 XFsbl_ReAuthenticationBlock(XFsblPs_PlPartition *PartitionParams,
 	XSecure_Sha3 SecureSha3;
 	u32 HashDataLen = BlockLen;
 	u8 *HashStored = PartitionParams->PlAuth.HashsOfChunks;
+	(void)memset(ChunksHash,0U,sizeof(ChunksHash));
 
 	Status = XSecure_Sha3Initialize(&SecureSha3,
 			PartitionParams->CsuDmaPtr);
@@ -444,18 +445,18 @@ static u32 XFsbl_PlSignVer(XFsblPs_PlPartition *PartitionParams,
 		UINTPTR BlockAdrs, u32 BlockSize, u8 *AcOffset, u32 NoOfChunks)
 {
 
-	u8 PartitionHash[XFSBL_HASH_TYPE_SHA3];
+	u8 PartitionHash[XFSBL_HASH_TYPE_SHA3]={0U};
 	u8 * SpkModular;
 	u8* SpkModularEx;
 	u32 SpkExp;
 	u8 * AcPtr = (u8*)AcOffset;
 	u32 Status;
 	u32 HashDataLen = BlockSize;
-	u8 XFsbl_RsaSha3Array[512] = {0};
+	u8 XFsbl_RsaSha3Array[512] = {0U};
 	s32 SStatus;
 	u8 *ChunksHash = PartitionParams->PlAuth.HashsOfChunks;
-	XSecure_Sha3 SecureSha3;
-	XSecure_Rsa SecureRsa;
+	XSecure_Sha3 SecureSha3={0U};
+	XSecure_Rsa SecureRsa={0U};
 	u32 Index;
 	u32 Len = PartitionParams->ChunkSize;
 	u64 Offset;

@@ -83,9 +83,13 @@ static u32 XFsbl_ConfigureMemory(XFsblPs * FsblInstancePtr, u32 RunningCpu,
 static u32 XFsbl_GetLoadAddress(u32 DestinationCpu, PTRSIZE * LoadAddressPtr,
 		u32 Length);
 static void XFsbl_CheckPmuFw(const XFsblPs * FsblInstancePtr, u32 PartitionNum);
-static u32 XFsbl_CalcualteCheckSum(XFsblPs* FsblInstancePtr, PTRSIZE LoadAddress, u32 PartitionNum);
-static u32 XFsbl_CalcualteSHA(const XFsblPs* FsblInstancePtr, PTRSIZE LoadAddress,
-		u32 PartitionNum, u32 ShaType);
+
+#ifdef XFSBL_SECURE
+static u32 XFsbl_CalcualteCheckSum(XFsblPs* FsblInstancePtr,
+		PTRSIZE LoadAddress, u32 PartitionNum);
+static u32 XFsbl_CalcualteSHA(const XFsblPs* FsblInstancePtr,
+		PTRSIZE LoadAddress, u32 PartitionNum, u32 ShaType);
+#endif
 
 #ifdef ARMR5
 static void XFsbl_SetR5ExcepVectorHiVec(void);
@@ -102,13 +106,14 @@ static void XFsbl_SetR5ExcepVectorLoVec(void);
 
 #ifdef XFSBL_SECURE
 u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]={0};
+#ifdef XFSBL_BS
+u8 HashsOfChunks[HASH_BUFFER_SIZE] __attribute__((section (".bitstream_buffer")));
+#endif
 #endif
 
 /* buffer for storing chunks for bitstream */
 #if defined(XFSBL_BS)
 extern u8 ReadBuffer[READ_BUFFER_SIZE];
-u8 HashsOfChunks[HASH_BUFFER_SIZE]
-				 __attribute__((section (".bitstream_buffer")));
 #endif
 /*****************************************************************************/
 /**
@@ -1085,8 +1090,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	u32 ExecState;
 	u32 CpuNo;
 	XFsblPs_PartitionHeader * PartitionHeader;
-	s32 SStatus;
+
 #if defined(XFSBL_SECURE)
+	s32 SStatus;
 	u32 ImageOffset = 0U;
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U] = { 0 };
 	u32 UnencryptedLength = 0U;
@@ -1097,7 +1103,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	XFsblPs_PlPartition PlParams = {0};
 #endif
 #endif
+#if defined(XFSBL_SECURE) ||  defined(XFSBL_BS)
 	PTRSIZE LoadAddress;
+#endif
 #if defined(XFSBL_BS) && defined(XFSBL_PS_DDR)
 	u32 BitstreamWordSize;
 #endif
@@ -1202,8 +1210,9 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 	{
 		DestinationCpu = FsblInstancePtr->ProcessorID;
 	}
-
+#if defined(XFSBL_SECURE) ||  defined(XFSBL_BS)
 	LoadAddress = (PTRSIZE) PartitionHeader->DestinationLoadAddress;
+#endif
 
 #ifdef XFSBL_SECURE
 	if ((IsAuthenticationEnabled == TRUE) || (IsEncryptionEnabled == TRUE) ||
@@ -1347,6 +1356,7 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			PlParams.PlAuth.BlockSize =
 				XFsbl_GetBlockSize(PartitionHeader);
 			PlParams.PlAuth.AuthCertBuf = AuthBuffer;
+			(void) memset(HashsOfChunks, 0U, sizeof(HashsOfChunks));
 			PlParams.PlAuth.HashsOfChunks = HashsOfChunks;
 
 			PlParams.ChunkBuffer = ReadBuffer;
@@ -1847,6 +1857,7 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	}
 	return Status;
 }
+#endif  /* end of XFSBL_SECURE */
 
 #ifdef ARMR5
 
@@ -1891,5 +1902,3 @@ static void XFsbl_SetR5ExcepVectorLoVec(void)
 }
 
 #endif
-
-#endif  /* end of XFSBL_SECURE */

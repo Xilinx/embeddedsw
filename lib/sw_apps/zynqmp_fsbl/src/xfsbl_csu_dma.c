@@ -79,6 +79,8 @@ u32 XFsbl_CsuDmaInit(void)
 	s32 SStatus;
 	XCsuDma_Config * CsuDmaConfig;
 
+	(void)memset(&CsuDma, 0, sizeof(CsuDma));
+
 	CsuDmaConfig = XCsuDma_LookupConfig(0);
 	if (NULL == CsuDmaConfig) {
 		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_CSUDMA_INIT_FAIL \n\r");
