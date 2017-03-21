@@ -749,7 +749,7 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 
 	/* FSBL shall bypass XPPU and FPD XMPU configuration BY DEFAULT.
 	*  This means though the Isolation configuration through hdf is used throughout the
-	*  software flow, for the hardware, isolation will only be limited to just OCM and DDR.
+	*  software flow, for the hardware, isolation will only be limited to just OCM.
 	*/
 #ifdef XFSBL_PROT_BYPASS
 	XFsbl_ProtectionConfig();
@@ -1166,7 +1166,6 @@ u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 static void XFsbl_ProtectionConfig(void)
 {
 	psu_apply_master_tz();
-	psu_ddr_protection();
 	psu_ocm_protection();
 }
 #endif
