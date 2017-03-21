@@ -327,7 +327,7 @@ proc swapp_generate {} {
         file delete -force $trans_tbl_a53_64
         file delete -force $trans_tbl_a53_32
 
-        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=soft -DARMR5 -Os -flto -ffat-lto-objects $def_flags"
+        set new_flags "-Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=hard -mfpu=vfpv3-d16 -DARMR5 -Os -flto -ffat-lto-objects $def_flags"
     } else {
         set compiler [common::get_property CONFIG.compiler $proc_instance]
 
