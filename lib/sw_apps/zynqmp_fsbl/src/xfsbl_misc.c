@@ -84,10 +84,10 @@ static s32 XFsbl_Strcmp(const char* Str1Ptr,  const char* Str2Ptr);
 /************************** Variable Definitions *****************************/
 #if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
 #ifdef ARMA53_64
-extern INTPTR MMUTableL1;
-extern INTPTR MMUTableL2;
+extern void MMUTableL1(void);
+extern void MMUTableL2(void);
 #else
-extern u32 MMUTable;
+extern void MMUTable(void);
 #endif
 #endif
 
@@ -598,6 +598,7 @@ u32 XFsbl_IsolationRestore(u32 IsolationMask)
 ******************************************************************************/
 void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib)
 {
+	void (*Funcptr)(void);
 #ifdef ARMA53_64
 	INTPTR *ptr;
 	INTPTR section;
@@ -607,14 +608,16 @@ void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib)
 		/* block size is 2MB for addressed < 4GB*/
 		block_size = BLOCK_SIZE_2MB;
 		section = Addr / block_size;
-		ptr = &MMUTableL2 + section;
+		Funcptr = &MMUTableL2;
+		ptr = (INTPTR*)Funcptr + section;
 	}
 	/* if region is greater than 4GB MMUTable level 1 need to be modified */
 	else{
 		/* block size is 1GB for addressed > 4GB */
 		block_size = BLOCK_SIZE_1GB;
 		section = Addr / block_size;
-		ptr = &MMUTableL1 + section;
+		Funcptr = &MMUTableL1;
+		ptr = (INTPTR*)Funcptr + section;
 	}
 	*ptr = (Addr & (~(block_size-1))) | attrib;
 
@@ -627,8 +630,9 @@ void XFsbl_SetTlbAttributes(INTPTR Addr, UINTPTR attrib)
 	u32 section;
 
 	section = Addr / 0x100000U;
-	ptr = &MMUTable;
-	ptr += section;
+	Funcptr = &MMUTable;
+	ptr = (u32*)Funcptr + section;
+
 	if(ptr != NULL) {
 		*ptr = (Addr & 0xFFF00000U) | attrib;
 	}

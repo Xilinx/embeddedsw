@@ -77,7 +77,7 @@
 /************************** Function Prototypes ******************************/
 static u32 XFsbl_ProcessorInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_ResetValidation(void);
-static u32 XFsbl_SystemInit(const XFsblPs * FsblInstancePtr);
+static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
@@ -103,9 +103,7 @@ extern XFsblPs FsblInstance;
 
 extern  u8 __data_start;
 extern  u8 __data_end;
-
 extern  u8 __dup_data_start;
-extern  u8 __dup_data_end;
 
 #ifdef XFSBL_SECURE
 #ifndef XFSBL_BS
@@ -556,7 +554,7 @@ END:
  * 			returns XFSBL_SUCCESS on success
  *
  ******************************************************************************/
-static u32 XFsbl_SystemInit(const XFsblPs * FsblInstancePtr)
+static u32 XFsbl_SystemInit(XFsblPs * FsblInstancePtr)
 {
 	u32 Status;
 #if defined (XPAR_PSU_DDR_0_S_AXI_BASEADDR) && !defined (ARMR5)
@@ -960,10 +958,11 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	u32 BootHdrAttrb=0U;
 	u32 FlashImageOffsetAddress;
 	u32 EfuseCtrl;
-	u32 Size;
 	u32 ImageHeaderTableAddressOffset=0U;
-	u32 AcOffset;
-
+#ifdef XFSBL_SECURE
+	u32 Size;
+	u32 AcOffset=0U;
+#endif
 	/**
 	 * Read the Multiboot Register
 	 */

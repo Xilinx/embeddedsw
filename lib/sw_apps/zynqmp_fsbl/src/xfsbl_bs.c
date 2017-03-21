@@ -80,6 +80,7 @@ u32 XFsbl_PcapInit(void) {
 	u32 RegVal;
 	u32 Status;
 	u32 PlatInfo;
+	(void)memset(ReadBuffer, 0U, sizeof(ReadBuffer));
 
 	/* Take PCAP out of Reset */
 	RegVal = XFsbl_In32(CSU_PCAP_RESET);
