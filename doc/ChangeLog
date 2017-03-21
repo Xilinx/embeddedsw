@@ -326,6 +326,7 @@ Support for bus width switching based on hdf
 Added support for A53-32bit on ZynqMP.
 Fixed MISRAC mandatory violation - CR#970531
 Fixed UR data flow anomalies
+Add support in EL1 non secure mode
 
 standlone_v6_2:
 Added Xil_MemCpy for word alinged data access
