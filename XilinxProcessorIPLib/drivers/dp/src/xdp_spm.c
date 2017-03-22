@@ -1275,6 +1275,14 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 	else {
 		RegVal &= ~XDP_TX_LINE_RESET_DISABLE_MASK(Stream);
 	}
-	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE, 0);
+
+	/* Toggle Reset */
+	if(RegVal) {
+		XDp_WaitUs(InstancePtr, 100);
+		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE, 0);
+		XDp_WaitUs(InstancePtr, 100);
+		XDp_WriteReg(ConfigPtr->BaseAddr,
+			     XDP_TX_LINE_RESET_DISABLE, RegVal);
+	}
 }
 /** @} */
