@@ -60,6 +60,8 @@
 * 3.1  aad 09/06/16 Updates to support 64-bit base addresses.
 * 3.1  aad 10/17/16 Updated timer initialization
 * 4.0  aad 11/15/16 Modified to use DP159 from dprxss driver
+* 4.0  aad 01/20/17 Added HDCP FIFO reset for correct initialization of the
+*		    FIFO
 * </pre>
 *
 ******************************************************************************/
@@ -1533,6 +1535,7 @@ static void StubTp1Callback(void *InstancePtr)
 ******************************************************************************/
 static void StubTp2Callback(void *InstancePtr)
 {
+	u8 Index;
 	XDpRxSs *DpRxSsPtr = (XDpRxSs *)InstancePtr;
 
 	/* Verify argument.*/
@@ -1542,6 +1545,13 @@ static void StubTp2Callback(void *InstancePtr)
 	XDpRxSs_Dp159Config(DpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_TP2,
 			DpRxSsPtr->UsrOpt.LinkRate,
 				DpRxSsPtr->UsrOpt.LaneCount);
+	/*Reset HDCP FIFOs*/
+	for(Index = 0; Index < 2; Index++) {
+		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+			     XDP_RX_SOFT_RESET, 0x100);
+		XDp_WriteReg(DpRxSsPtr->DpPtr->Config.BaseAddr,
+			     XDP_RX_SOFT_RESET, 0x000);
+	}
 }
 
 /*****************************************************************************/
