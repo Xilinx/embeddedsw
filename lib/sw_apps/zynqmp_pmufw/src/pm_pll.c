@@ -140,6 +140,7 @@ static void PmPllSuspend(PmPll* const pll)
  */
 static int PmPllResume(PmPll* const pll)
 {
+	u32 var = 0;
 	int status = XST_SUCCESS;
 
 	PmDbg("%s\r\n", PmStrNode(pll->node.nodeId));
@@ -179,6 +180,9 @@ static int PmPllResume(PmPll* const pll)
 			  ~PM_PLL_CTRL_BYPASS_MASK);
 	}
 	PmNodeUpdateCurrState(&pll->node, PM_PLL_STATE_LOCKED);
+
+	/* Force a delay by counting to timeout */
+	XPfw_UtilPollForMask((u32)&var, ~var, PM_PLL_LOCK_TIMEOUT);
 
 done:
 	return status;
