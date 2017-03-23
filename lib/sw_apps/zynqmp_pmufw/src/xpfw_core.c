@@ -65,12 +65,8 @@ XStatus XPfw_CoreInit(u32 Options)
 		Status = XPfw_ModuleInit(&CorePtr->ModList[Index], (u8) 0U);
 		/* If there was an error, then just get out of here */
 		if (XST_SUCCESS != Status) {
-			break;
+			goto Done;
 		}
-	}
-
-	if (XST_SUCCESS != Status) {
-		goto Done;
 	}
 
 	Status = XPfw_SchedulerInit(&CorePtr->Scheduler,
