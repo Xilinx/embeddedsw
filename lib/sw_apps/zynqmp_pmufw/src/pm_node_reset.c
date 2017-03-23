@@ -531,6 +531,21 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
 	},
+	{
+		.NodeId = NODE_DP,
+		.RstActionList= {
+			{	.ResetId = PM_RESET_DP,
+				.ResetAction = PM_RESET_ACTION_ASSERT,
+				.ResetPulseWait = 10,
+			},
+			{0,0,0}
+		},
+
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NULL,
+		.IdleHookArgs = 0U
+	},
 };
 
 /**
