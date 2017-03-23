@@ -800,24 +800,11 @@ static int ddrc_enable_sr(void)
 	return XST_SUCCESS;
 }
 
-static void ddr_clock_set(bool en)
-{
-	u32 r = Xil_In32(DDRQOS_DDR_CLK_CTRL);
-	if (true == en)
-		r |= DDRQOS_DDR_CLK_CTRL_CLKACT;
-	else
-		r &= ~DDRQOS_DDR_CLK_CTRL_CLKACT;
-	Xil_Out32(DDRQOS_DDR_CLK_CTRL, r);
-}
-
 static void ddr_clock_enable(void)
 {
-	ddr_clock_set(true);
-}
-
-static void ddr_clock_disable(void)
-{
-	ddr_clock_set(false);
+	u32 r = Xil_In32(DDRQOS_DDR_CLK_CTRL);
+	r |= DDRQOS_DDR_CLK_CTRL_CLKACT;
+	Xil_Out32(DDRQOS_DDR_CLK_CTRL, r);
 }
 
 static void store_state(PmRegisterContext *context)
@@ -1068,18 +1055,17 @@ static int pm_ddr_sr_enter(void)
 		goto err;
 	}
 
-	ddr_clock_disable();
-
 err:
 	return ret;
 }
 
 static int pm_ddr_sr_exit(bool ddrss_is_reset)
 {
-	ddr_clock_enable();
-
 	if (true == ddrss_is_reset) {
 		u32 readVal;
+
+		// re-enable clock only if FPD was off
+		ddr_clock_enable();
 
 		Xil_Out32(DDRC_SWCTL, 0U);
 		restore_state(ctx_ddrc);
