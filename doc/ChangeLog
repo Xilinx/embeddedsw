@@ -364,6 +364,9 @@ Fixed MISRA C mandatory standard violations in ARM cortexr5 and cortexa53 BSP.
 It fixes CR#970543
 Fixed the CR#970859. The MB intrusive profiling when enabled was causing a crash
 because of invalid HSI command being used. This change fixes it.
+Updated standalone tcl to generate xparameter XPAR_FPD_IS_CACHE_COHERENT, if
+any FPD peripheral is configured to use CCI.This change is applicable only for
+psu_pmu processor bsp.It fixes CR#972638
 
 sysmonpsu_v2_1:
 Fixed Compilation warnings - CR#957004
@@ -634,6 +637,9 @@ zynqmp_pmufw:
 - Error Management module is disabled by default and should be enabled by adding ENABLE_EM to build flags
 - MISRA C related fixes have been applied
 - Migrated to a new shutdown interface to support passing shutdown type and sub-type arguments
+- Updated XPfw_UserStartUp function to enable broadcasting of inner shareable transaction, if
+  any LPD/FPD peripheral is configured to use CCI.This change is required to support CCI enabled
+  peripherals in linux.
 
 zynqmp_fsbl:
 - PS PL isolation is now removed by calling psu_ps_pl_isolation_removal_data() from psu_init.c
