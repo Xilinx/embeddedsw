@@ -307,6 +307,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+#if !((STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR) && defined(DEBUG_MODE))
 	{
 		.NodeId = NODE_UART_0,
 		.RstActionList= {
@@ -328,6 +329,8 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+#endif
+#if !((STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR) && defined(DEBUG_MODE))
 	{
 		.NodeId = NODE_UART_1,
 		.RstActionList= {
@@ -349,6 +352,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+#endif
 	{
 		.NodeId = NODE_SPI_0,
 		.RstActionList= {
