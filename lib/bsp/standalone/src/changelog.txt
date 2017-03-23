@@ -455,5 +455,7 @@
  * 6.2 asa   03/16/17 Fix for CR#970859. For Mcroblaze BSP, when we enable intrusive
  *                    profiling we see a crash. That is because the the tcl uses invalid
  *                    HSI command. This change fixes it.
+ * 6.2 mus   03/22/17 Updated standalone tcl to generate xparameter XPAR_FPD_IS_CACHE_COHERENT, if
+ *                    any FPD peripheral is configured to use CCI.It fixes CR#972638
  *
  *****************************************************************************************/
