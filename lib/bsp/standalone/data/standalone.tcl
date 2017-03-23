@@ -70,6 +70,29 @@ proc lpd_is_coherent {} {
 	return 0
 }
 
+# -------------------------------------------------------------------------
+# Tcl procedure fpd_is_coherent
+# Returns true(1) if any one of the FPD masters has CCI enabled, else false(0)
+# -------------------------------------------------------------------------
+proc fpd_is_coherent {} {
+    #List of all FPD masters that can have cache coherency enabled
+    set fpd_master_names {psu_sata psu_pcie}
+    foreach master_name $fpd_master_names {
+        # Get all the enabled instances of each IP
+        set filter_txt [list IP_NAME == $master_name]
+        set mlist [hsi::get_cells -filter $filter_txt]
+        # Iterate through each instance and check for CONFIG.IS_CACHE_COHERENT
+        foreach master $mlist {
+            if { [common::get_property CONFIG.IS_CACHE_COHERENT $master] == "1" } {
+                # We found a FPD master that is cache coherent, so return true
+                return 1
+            }
+        }
+    }
+    # None of the masters were cache coherent, so return false
+    return 0
+}
+
 # --------------------------------------
 # Tcl procedure generate
 # -------------------------------------
@@ -163,6 +186,12 @@ proc generate {os_handle} {
 
             if {[lpd_is_coherent]} {
                 set def "#define XPAR_LPD_IS_CACHE_COHERENT"
+                puts $file_handle $def
+                puts $file_handle ""
+            }
+
+            if {[fpd_is_coherent]} {
+                set def "#define XPAR_FPD_IS_CACHE_COHERENT"
                 puts $file_handle $def
                 puts $file_handle ""
             }
