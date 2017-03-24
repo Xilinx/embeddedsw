@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,13 @@
  * Ver   Who  Date        Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00  kc   10/21/13 Initial release
- *
+ * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
+ *       vns           Added support for HIVEC.
+ *       bo   01/25/17 During handoff again R5 is restored to LOVEC.
+ *       sc   02/04/17 Lock XMPU/XPPU for further access but by default
+ *                     it is by passed.
+ *       bv   03/17/17 Modified such that XFsbl_PmInit is done only duing
+ *                     system reset
  * </pre>
  *
  * @note

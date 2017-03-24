@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,18 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
 * 2.00  sg   13/03/15 Added QSPI 32Bit bootmode
-*
+* 3.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
+*            12/08/16 Added PL clear at initialization based on user
+*                     configuration
+*            01/25/17 Updated R5 TCM with lovec value in XFsbl_ProcessorInit
+*                     and XFsbl_TcmEccInit is been updated such that R5_L and
+*                     R5_0 don't initialize initial 32 bytes of TCM as they
+*                     are holding R5 vectors
+*       bv   01/29/17 Added USB boot mode initializations
+*            02/11/17 Add APU only reset code.
+*       vns  02/17/17 Added image header authentication
+*       bv   03/17/17 Based on reset reason initializations of system, tcm etc
+*                     is done.
 * </pre>
 *
 * @note

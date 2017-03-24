@@ -36,6 +36,13 @@
 *
 * Contains constant definitions for bitstream authentication.
 *
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who     Date     Changes
+* ----- ------  -------- -----------------------------------------------------
+* 1.0   vns     01/28/17 First release
+* </pre>
 *
 ******************************************************************************/
 #ifndef XFSBL_PLPARTITION_VALID_H_
