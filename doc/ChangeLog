@@ -318,6 +318,7 @@ CR#963134
 Add support for changing GIC CPU master at run time.CR#969386
 Make the CpuId as static variable and Added new XScugiC_GetCpuId to access
 CpuId.
+Revert the changes made for CR#964552
 
 sdps_v3_2:
 Corrected voltage switching sequence
