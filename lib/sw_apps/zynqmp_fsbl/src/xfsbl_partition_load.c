@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,15 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
+* 2.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
+*       bo   01/25/17 Fixed Vector regions overwritten in R5 FSBL
+*       vns  03/01/17 Enhanced security of bitstream authentication
+*                     Modified endianess of IV as APIs are modified in Xilsecure
+*                     While loading bitstream clearing of PL is skipped
+*                     when PL is already cleared at initialize.
+*                     Updated destination cpu for PMUFW.
+*       bv   03/20/17 Removed isolation in PS - PL AXI bus thus allowing
+*                     access to BRAM in PS only reset
 *
 * </pre>
 *

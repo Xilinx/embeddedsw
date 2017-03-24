@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,15 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
+* 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
+*       vns  01/20/17 Added XIH_PH_ATTRB_VEC_LOCATION_MASK,
+*                     XIH_PH_ATTRB_DEST_CPU_PMU
+*                     XIH_PH_ATTRB_VEC_LOCATION_SHIFT masks and APIs
+*                     XFsbl_GetVectorLocation(), XFsbl_GetBlockSize()
+*                     Added Offsets of image header's Partition header,
+*                     AC, and SPKID and PPK select masks.
+*       bv   03/17/17 Modified XFsbl_ValidatePartitionHeader API to have
+*                     parameter for ResetType
 *
 * </pre>
 *

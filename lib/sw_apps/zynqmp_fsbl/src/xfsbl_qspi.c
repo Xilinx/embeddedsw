@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,8 @@
 * 1.00  kc   10/21/13 Initial release
 * 2.00  sg   12/03/15 Added GQSPI driver support
 *                     32Bit boot mode support
+* 3.0   bv   12/02/16 Made compliance to MISRAC 2012 guidelines
+*       ds   01/03/17 Add support for Micron QSPI 2G part
 *
 * </pre>
 *

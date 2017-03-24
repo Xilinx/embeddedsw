@@ -47,6 +47,14 @@
 * if decryption exists or to PCAP throught CSUDMA.
 * The above process will be repeated for all the blocks of bitstream.
 *
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who     Date     Changes
+* ----- ------  -------- -----------------------------------------------------
+* 1.0   vns     01/28/17 First release
+* </pre>
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/

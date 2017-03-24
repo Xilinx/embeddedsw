@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,14 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
-*
+* 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
+*       vns  01/28/17 Added API for XFsbl_GetVectorLocation and
+*                     XFsbl_GetBlockSize
+*       bv   02/11/17 Added warmrestart support, based on which partition
+*                     header is validated.
+*       vns  02/17/17 If authentication is enabled whole image header
+*                     is been validated by copying to OCM.
+*                     Updated destination CPU for PMUFW.
 * </pre>
 *
 * @note

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,16 @@
 * Contains the function prototypes, defines and macros for
 * the RSA DSA functionality.
 *
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who  Date        Changes
+* ----- ---- -------- -------------------------------------------------------
+* 1.0   ssc  01/20/16 Initial release
+* 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines.
+*       vns  02/17/17 Added API prototype to compare hashs
+*
+* </pre>
 *
 ******************************************************************************/
 
