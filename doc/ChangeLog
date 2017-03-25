@@ -508,6 +508,7 @@ the given processor or not exists in the design, or if OCM is not sufficient
 - Fix for multiple program sections in FSBL.
 - Modified code for MISRA-C:2012 Compliance
 - Fix to access BRAM in PS only reset.
+- Fix to write correct value to ANALOG_BUS register
 
 libmetal_v1_2:
 - Sync libmetal OSS project with upstream
