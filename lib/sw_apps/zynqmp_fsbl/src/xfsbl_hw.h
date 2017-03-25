@@ -629,6 +629,12 @@ extern "C" {
 #define ADMA_CH0_ZDMA_CH_ISR    ( ( ADMA_CH0_BASEADDR ) + 0X00000100U )
 #define ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK    0X00000400U
 
+/* AMS_PS_SYSMON Base Address */
+#define AMS_PS_SYSMON_BASEADDR      0XFFA50800U
+
+/* Register: AMS_PS_SYSMON_ANALOG_BUS */
+#define AMS_PS_SYSMON_ANALOG_BUS    ( ( AMS_PS_SYSMON_BASEADDR ) + 0X00000114U )
+
 
 /**************************** Type Definitions *******************************/
 
@@ -817,6 +823,9 @@ extern "C" {
 #define XFSBL_SYSTEM_RESET		0U
 #define XFSBL_PS_ONLY_RESET		1U
 #define XFSBL_APU_ONLY_RESET	2U
+
+/* AMS PS Sysmon ANALOG_BUS value */
+#define PS_SYSMON_ANALOG_BUS_VAL 0X00003210U
 
 /****************************************************************************/
 /**
