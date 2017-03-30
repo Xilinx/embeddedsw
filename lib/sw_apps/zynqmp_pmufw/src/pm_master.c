@@ -826,6 +826,9 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		} else if (PM_MASTER_STATE_KILLED == master->state) {
 			PmRequirementPreRequest(master);
 			status = PmRequirementUpdateScheduled(master, false);
+			if (XST_SUCCESS == status) {
+				PmRequirementClockRestore(master);
+			}
 		} else {
 			/* Must have else branch due to MISRA */
 		}
