@@ -50,6 +50,7 @@ typedef struct PmSlaveGpp {
 	PmSlave slv;
 	PmTranHandler PwrDn;
 	PmTranHandler PwrUp;
+	u32 (*const reset)(void);
 } PmSlaveGpp;
 
 /*********************************************************************
