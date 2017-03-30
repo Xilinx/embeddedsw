@@ -86,6 +86,9 @@ static int PmGppFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_GPP_SLAVE_STATE_ON == nextState) {
 			/* OFF -> ON */
 			status = gpp->PwrUp();
+			if ((XST_SUCCESS == status) && (NULL != gpp->reset)) {
+				status = gpp->reset();
+			}
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -130,6 +133,7 @@ PmSlaveGpp pmSlaveGpuPP0_g = {
 	},
 	.PwrDn = XpbrPwrDnPp0Handler,
 	.PwrUp = XpbrPwrUpPp0Handler,
+	.reset = XpbrRstPp0Handler,
 };
 
 PmSlaveGpp pmSlaveGpuPP1_g = {
@@ -153,6 +157,7 @@ PmSlaveGpp pmSlaveGpuPP1_g = {
 	},
 	.PwrDn = XpbrPwrDnPp1Handler,
 	.PwrUp = XpbrPwrUpPp1Handler,
+	.reset = XpbrRstPp1Handler,
 };
 
 #pragma weak pmUserHookVcuPwrDn
@@ -197,6 +202,7 @@ PmSlaveGpp pmSlaveVcu_g = {
 	},
 	.PwrDn = pmSlvVcuPwrDn,
 	.PwrUp = pmSlvVcuPwrUp,
+	.reset = NULL,
 };
 
 #endif
