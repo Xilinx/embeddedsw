@@ -116,6 +116,7 @@ typedef struct PmRequirement {
 
 void PmRequirementCancelScheduled(const PmMaster* const master);
 void PmRequirementPreRequest(const PmMaster* const master);
+void PmRequirementClockRestore(const PmMaster* const master);
 void PmRequirementFreeAll(void);
 void PmRequirementClear(PmRequirement* const req);
 

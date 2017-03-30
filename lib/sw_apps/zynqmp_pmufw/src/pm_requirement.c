@@ -347,6 +347,27 @@ void PmRequirementPreRequest(const PmMaster* const master)
 }
 
 /**
+ * PmRequirementClockRestore() - Restore clock configuration for the master's
+ *				preallocated requirements
+ * @master	Master for whom clock restoration is done
+ *
+ * When waking up from forced power down, clocks for the preallocated
+ * requirements must be restored. Loop through all slaves, find such
+ * requirements and restore their clock configuration.
+ */
+void PmRequirementClockRestore(const PmMaster* const master)
+{
+	PmRequirement* req = master->reqs;
+
+	while (NULL != req) {
+		if (0U != req->preReq) {
+			PmClockRestore(&req->slave->node);
+		}
+		req = req->nextSlave;
+	}
+}
+
+/**
  * PmRequirementClear() - Clear requirements
  * @req         Requirements to clear
  *
