@@ -56,6 +56,7 @@
 *       vns  02/17/17 Added image header authentication
 *       bv   03/17/17 Based on reset reason initializations of system, tcm etc
 *                     is done.
+*       vns  04/04/17 Corrected image header size.
 * </pre>
 *
 * @note
@@ -1058,14 +1059,16 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 			 * size = AC address - Start address;
 			 */
 			Size = (AcOffset * XIH_PARTITION_WORD_LENGTH) -
-				(FsblInstancePtr->ImageOffsetAddress +
-					ImageHeaderTableAddressOffset);
+				(ImageHeaderTableAddressOffset);
 
 			/* Copy the Image header to OCM */
 			Status = FsblInstancePtr->DeviceOps.DeviceCopy(
 					FsblInstancePtr->ImageOffsetAddress +
 					ImageHeaderTableAddressOffset,
 					(INTPTR)ImageHdr, Size);
+			if (Status != XFSBL_SUCCESS) {
+				goto END;
+			}
 
 			/* Authenticate the image header */
 			Status = XFsbl_Authentication(FsblInstancePtr,
