@@ -111,6 +111,8 @@ typedef struct PmProc PmProc;
  * @wfiEnableMask   Mask in PM_LOCAL_GPI2_ENABLE register (WFI interrupt)
  * @wakeEnableMask  mask in PM_LOCAL_GPI1_ENABLE register (GIC wake interrupt)
  * @resumeCfg       Address of register configuring processor's resume address
+ * @pwrDnReqAddr    Address of the power down request register
+ * @pwrDnReqMask    Mask in the power down request register
  * @latencyReq      Latenct requirement as passed in by self_suspend argument
  * @pwrDnLatency    Latency (in us) for transition to OFF state
  * @pwrUpLatency    Latency (in us) for transition to ON state
@@ -129,6 +131,8 @@ typedef struct PmProc {
 	const u32 wfiEnableMask;
 	const u32 wakeEnableMask;
 	const u32 resumeCfg;
+	const u32 pwrDnReqAddr;
+	const u32 pwrDnReqMask;
 	u32 latencyReq;
 	const u32 pwrDnLatency;
 	const u32 pwrUpLatency;

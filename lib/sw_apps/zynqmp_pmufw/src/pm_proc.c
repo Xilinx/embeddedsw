@@ -453,11 +453,18 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
  *          therefore PMU does not wait for it to execute wfi. If processor has
  *          no implemented sleep function it will continue executing
  *          instructions.
+ *          If the power down request bit is set when the processor is forced
+ *          off, the bit must be cleared to ensure that
+ *          1. Processor correctly concludes on the future boot that it is not
+ *             resuming
+ *          2. No wfi propagates to the PMU on the future boot (before processor
+ *             clears the bit on its own)
  */
 static int PmProcTrToForcedOff(PmProc* const proc)
 {
 	int status;
 	bool killed;
+	u32 pwrReq;
 
 	PmDbg("ACTIVE->FORCED_PWRDN %s\r\n", PmStrNode(proc->node.nodeId));
 
@@ -466,6 +473,12 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	status = PmProcSleep(proc);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_FORCEDOFF);
 	PmProcDisableEvents(proc);
+
+	pwrReq = XPfw_Read32(proc->pwrDnReqAddr);
+	if (0U != (proc->pwrDnReqMask & pwrReq)) {
+		pwrReq &= ~proc->pwrDnReqMask;
+		XPfw_Write32(proc->pwrDnReqAddr, pwrReq);
+	}
 
 	if ((XST_SUCCESS != status) || (NULL == proc->master)) {
 		goto done;
@@ -859,6 +872,8 @@ PmProc pmProcApu0_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x1U,
 	.init = NULL,
 	.sleep = PmProcApu0Sleep,
 	.wake = PmProcApu0Wake,
@@ -888,6 +903,8 @@ PmProc pmProcApu1_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x2U,
 	.init = NULL,
 	.sleep = PmProcApu1Sleep,
 	.wake = PmProcApu1Wake,
@@ -917,6 +934,8 @@ PmProc pmProcApu2_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x4U,
 	.init = NULL,
 	.sleep = PmProcApu2Sleep,
 	.wake = PmProcApu2Wake,
@@ -946,6 +965,8 @@ PmProc pmProcApu3_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = APUSaveResumeAddr,
 	.restoreResumeAddr = APURestoreResumeAddr,
+	.pwrDnReqAddr = APU_PWRCTL,
+	.pwrDnReqMask = 0x8U,
 	.init = NULL,
 	.sleep = PmProcApu3Sleep,
 	.wake = PmProcApu3Wake,
@@ -976,6 +997,8 @@ PmProc pmProcRpu0_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
+	.pwrDnReqAddr = RPU_RPU_0_PWRDWN,
+	.pwrDnReqMask = RPU_RPU_0_PWRDWN_EN_MASK,
 	.init = NULL,
 	.sleep = PmProcRpu0Sleep,
 	.wake = PmProcRpu0Wake,
@@ -1005,6 +1028,8 @@ PmProc pmProcRpu1_g = {
 	.resumeAddress = 0ULL,
 	.saveResumeAddr = RPUSaveResumeAddr,
 	.restoreResumeAddr = RPURestoreResumeAddr,
+	.pwrDnReqAddr = RPU_RPU_1_PWRDWN,
+	.pwrDnReqMask = RPU_RPU_1_PWRDWN_EN_MASK,
 	.init = PmProcRpu1Init,
 	.sleep = PmProcRpu1Sleep,
 	.wake = PmProcRpu1Wake,
