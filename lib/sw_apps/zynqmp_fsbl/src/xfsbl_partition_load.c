@@ -52,6 +52,7 @@
 *                     Updated destination cpu for PMUFW.
 *       bv   03/20/17 Removed isolation in PS - PL AXI bus thus allowing
 *                     access to BRAM in PS only reset
+*       vns  04/04/17 Corrected IV location w.r.t Image offset.
 *
 * </pre>
 *
@@ -1102,7 +1103,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 #if defined(XFSBL_SECURE)
 	s32 SStatus;
-	u32 ImageOffset = 0U;
 	u32 FsblIv[XIH_BH_IV_LENGTH / 4U] = { 0 };
 	u32 UnencryptedLength = 0U;
 	u32 IvLocation;
@@ -1145,7 +1145,8 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 
 #ifdef XFSBL_SECURE
 		/* Copy the Iv from Flash into local memory */
-		IvLocation = ImageOffset + XIH_BH_IV_OFFSET;
+		IvLocation = FsblInstancePtr->ImageOffsetAddress +
+						XIH_BH_IV_OFFSET;
 
 		Status = FsblInstancePtr->DeviceOps.DeviceCopy(IvLocation,
 				(PTRSIZE) FsblIv, XIH_BH_IV_LENGTH);
@@ -1392,14 +1393,13 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 			PlParams.StartAddress = LoadAddress;
 			PlParams.PlAuth.AcOfset = LoadAddress +
 				((PartitionHeader->AuthCertificateOffset * 4) -
-				(FsblInstancePtr->ImageOffsetAddress +
-					((PartitionHeader->DataWordOffset) *
-						XIH_PARTITION_WORD_LENGTH)));
+				(PartitionHeader->DataWordOffset *
+						XIH_PARTITION_WORD_LENGTH));
 #else
 			PlParams.DeviceCopy =
 				FsblInstancePtr->DeviceOps.DeviceCopy;
 			PlParams.StartAddress = SrcAddress;
-			PlParams.PlAuth.AcOfset =
+			PlParams.PlAuth.AcOfset = FsblInstancePtr->ImageOffsetAddress +
 				PartitionHeader->AuthCertificateOffset * 4;
 
 #endif
