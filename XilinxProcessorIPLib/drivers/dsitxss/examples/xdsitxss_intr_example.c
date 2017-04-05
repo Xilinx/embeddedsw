@@ -48,6 +48,8 @@
 *                  ensure that "Successfully ran" and "Failed" strings
 *                  are available in all examples. This is a fix for
 *                  CR-965028.
+*     ms  04/05/17 Added tabspace for return statements in functions for
+*                  proper documentation while generating doxygen.
 * </pre>
 *
 ******************************************************************************/
@@ -195,7 +197,8 @@ void Delay(u32 Seconds)
 *		component which is going to be connected to the interrupt
 *		controller.
 *
-* @return	- XST_SUCCESS if successfully setup the interrupt
+* @return
+*		- XST_SUCCESS if successfully setup the interrupt
 *		- XST_FAILURE.failure to setup the interrupt
 *
 * @note		None.
