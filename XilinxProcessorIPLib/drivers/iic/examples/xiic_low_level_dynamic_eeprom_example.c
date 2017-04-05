@@ -97,6 +97,9 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+*       ms   04/05/17 Comment lines begin with /** in functions to
+*                     recognize it as documentation block for doxygen
+*                     generation.
 * </pre>
 *
 ******************************************************************************/
@@ -198,6 +201,7 @@ int main(void)
 }
 
 /******************************************************************************
+/**
 *
 * The function uses the low level driver of IIC to read from the IIC EEPROM on
 * the ML300/ML310 board. The addresses tested starts from 128.
@@ -333,6 +337,7 @@ u8 EepromWriteByte(u8 *BufferPtr, u8 ByteCount)
 }
 
 /******************************************************************************
+/**
 *
 * This function reads a number of bytes from the IIC serial EEPROM into a
 * specified buffer.
