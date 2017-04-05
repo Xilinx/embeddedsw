@@ -59,7 +59,9 @@
 * ----- --- -------- -----------------------------------------------
 * 2.02a hk  05/07/13 First release
 *       raw 12/10/15 Added support for Macronix 256Mb and 1Gb flash parts
-*
+*       ms  04/05/17 Comment lines begin with /** in functions to
+*                    recognize it as documentation block for doxygen
+*                    generation.
 *</pre>
 *
 ******************************************************************************/
@@ -458,7 +460,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XQspiPs
 * device driver in single, parallel and stacked modes using
@@ -651,7 +654,8 @@ int QspiG128FlashExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 *
 * This function writes to the  serial Flash connected to the QSPI interface.
@@ -769,7 +773,8 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
 
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 *
 * This function erases the sectors in the  serial Flash connected to the
@@ -1008,7 +1013,8 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr)
 	}
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function reads serial Flash ID connected to the SPI interface.
 * It then deduces the make and size of the flash and obtains the
@@ -1164,7 +1170,8 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function performs an I/O read.
 *
@@ -1282,7 +1289,8 @@ void FlashRead(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command,
 
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This functions selects the current bank
 *
@@ -1338,7 +1346,8 @@ int SendBankSelect(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u32 BankSel)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This functions performs a bulk erase operation when the
 * flash device has a single die. Works for both Spansion and Micron
@@ -1403,7 +1412,8 @@ void BulkErase(XQspiPs *QspiPtr, u8 *WriteBfrPtr)
 	}
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This functions performs a die erase operation on all the die in
 * the flash device. This function uses the die erase command for
@@ -1488,7 +1498,8 @@ void DieErase(XQspiPs *QspiPtr, u8 *WriteBfrPtr)
 	}
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This functions translates the address based on the type of interconnection.
 * In case of stacked, this function asserts the corresponding slave select.

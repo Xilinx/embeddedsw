@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xqspips_dual_flash_lqspi_example.c
+* @file xqspips_dual_flash_stack_lqspi_example.c
 *
 * This file contains a design example using the QSPI driver (XQspiPs) in
 * Linear QSPI mode, with two serial Flash devices in stacked mode.
@@ -55,7 +55,9 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 2.02a hk  05/07/13 First release
-*
+*       ms  04/05/17 Comment lines begin with /** in functions to
+*                    recognize it as documentation block and modified
+*                    filename tag to include the file in doxygen examples.
 *</pre>
 *
 ******************************************************************************/
@@ -253,7 +255,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XQspiPs
 * device driver with two Flash devices in Stacked mode.
@@ -461,8 +464,8 @@ int DualStackExample(XQspiPs *QspiInstancePtr, u16 QspiDeviceId)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 *
 * This function writes to the  serial Flash connected to the QSPI interface.
 * All the data put into the buffer must be in the same page of the device with
@@ -574,8 +577,8 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 	}
 }
 
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 *
 * This function erases the sectors in the  serial Flash connected to the
 * QSPI interface.
