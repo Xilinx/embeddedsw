@@ -55,6 +55,9 @@
 *                   ensure that "Successfully ran" and "Failed" strings
 *                   are available in all examples. This is a fix for
 *                   CR-965028.
+*      ms  04/05/17 Comment lines begins with /** in functions to
+*                   recognize it as documentation block for doxygen
+*                   generation of examples.
 * </pre>
 *
 ******************************************************************************/
@@ -88,7 +91,7 @@ u32 DsiSelfTestExample(u32 DeviceId);
 XDsi Dsi;
 
 /*****************************************************************************/
-/*
+/**
 * The entry point for this example. It invokes the example function,
 * and reports the execution status.
 *
@@ -126,7 +129,7 @@ int main()
 #endif
 
 /*****************************************************************************/
-/*
+/**
 * This function will perform DSI self test prints GUI parameters
 *
 * @param	DeviceId is the DSI Controller Device id.
