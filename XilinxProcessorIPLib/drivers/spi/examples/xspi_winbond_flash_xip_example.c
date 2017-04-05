@@ -31,7 +31,7 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file xspi_polled_example.c
+* @file xspi_winbond_flash_xip_example.c
 *
 *
 * This file contains a design example using the Spi driver (XSpi) and the Spi
@@ -52,7 +52,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
-*
+*       ms   04/10/17 Modified filename tag to include the file in doxygen
+*                     examples.
 *</pre>
 ******************************************************************************/
 

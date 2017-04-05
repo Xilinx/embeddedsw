@@ -29,8 +29,8 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 * @file xspi_intel_flash_example.c
 *
 * This file contains a design example using the SPI driver (XSpi) and hardware
@@ -62,6 +62,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+*       ms   04/05/17 Comment lines begin with /** to include the file
+*                     in doxygen examples.
 * </pre>
 *
 ******************************************************************************/
