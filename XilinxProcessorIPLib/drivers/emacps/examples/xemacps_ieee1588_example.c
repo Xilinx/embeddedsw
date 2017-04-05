@@ -79,6 +79,8 @@
 *                     - Changes made not to disable and enable back the MMU
 *                       when we change the attribute of BD space to make it
 *                       strongly ordered.
+*       ms   04/05/17   Added tabspace for return statements in functions for
+*                       proper documentation while generating doxygen.
 * </pre>
 *
 ******************************************************************************/
@@ -207,7 +209,8 @@ void XEmacPs_PtpErrorInterruptHandler (XEmacPs_Ieee1588 *InstancePtr,
 *
 * @param	None.
 *
-* @return	- XST_SUCCESS to indicate success.
+* @return
+*		- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
 * @note		None.
@@ -329,7 +332,8 @@ int main(void)
 *
 * @param	None.
 *
-* @return	- XST_SUCCESS to indicate success.
+* @return
+*		- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
 * @note		None.
@@ -371,7 +375,8 @@ int XEmacPs_InitScuTimer(void)
 *
 * @param	- Freq
 *
-* @return	- XST_SUCCESS to indicate success.
+* @return
+*		- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
 * @note		None.
@@ -401,7 +406,8 @@ unsigned int XEmacPs_TsuCalcClk(u32 Freq)
 * @param	TimerIntrId is the Interrupt ID for SCUTimer and the value
 *		used is taken from xparameters_ps.h.
 *
-* @return	- XST_SUCCESS to indicate success.
+* @return
+*		- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
 * @note		None.
@@ -483,7 +489,8 @@ int XEmacPs_SetupIntrSystem(XScuGic *IntcInstancePtr,
 *
 * @param	EmacPsInstancePtr is a pointer to the instance of the EmacPs.
 *
-* @return	- Detected PHY address if successful.
+* @return
+*		- Detected PHY address if successful.
 *		- 0 if no PHY is connected.
 *
 * @note		None.
@@ -2135,7 +2142,8 @@ void XEmacPs_SetDfltTxFrms(XEmacPs_Ieee1588 *InstancePtr)
 * @param	Identity1 is the first sourcePortIdentity to be compared
 * @param	Identity2 is the second sourcePortIdentity to be compared
 *
-* @return	- 1 if the two values are equal
+* @return
+*		- 1 if the two values are equal
 *		- 0 if not equal
 *
 * @note 	None.
@@ -2168,7 +2176,8 @@ u32 XEmacPs_ComparePortIdentity(XEmacPs_PortIdentity Identity1,
 * @param	Identity1 is the first ClockIdentity to be compared
 * @param	Identity2 is the second ClockIdentity to be compared
 *
-* @return	- 1 if the two values are equal
+* @return
+*		- 1 if the two values are equal
 *		- 0 if not equal
 *
 * @note 	None.
