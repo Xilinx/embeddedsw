@@ -322,6 +322,9 @@
  *                     for CR-965028.
  *       ms   03/17/17 Modified text file in examples folder for doxygen
  *                     generation.
+ *       ms   04/05/17 Added tabspace for return statements in functions of
+ *                     xemacps_ieee1588_example.c for proper documentation
+ *                     while generating doxygen.
  * </pre>
  *
  ****************************************************************************/
