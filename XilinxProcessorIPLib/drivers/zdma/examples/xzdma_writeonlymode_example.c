@@ -45,6 +45,9 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 1.0   vns     2/27/15  First release
+*       ms      04/05/17 Modified comment lines notation in functions to
+*                        avoid unnecessary description to get displayed
+*                        while generating doxygen.
 * </pre>
 *
 ******************************************************************************/
@@ -134,7 +137,7 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 {
 	int Status;
 	XZDma_Config *Config;
-	XZDma_DataConfig Configur; /**< Configuration values */
+	XZDma_DataConfig Configur; /* Configuration values */
 	XZDma_Transfer Data;
 	u32 *Buf = (u32 *)DstBuf;
 	u32 Index;
