@@ -31,7 +31,7 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file xspi_eeprom_intr_example.c
+* @file xspips_eeprom_intr_example.c
 *
 *
 * This file contains a design example using the SPI driver (XSpiPs) in
@@ -50,7 +50,10 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  sdm  02/27/10 First release
 * 1.00  sdm  10/25/11 Updated the chip select to be used to second chip select
-*
+*       ms   04/05/17 Comment lines begin with /** in functions to
+*                     recognize it as documentation block for doxygen
+*                     generation and also modified filename tag to include
+*                     the file in doxygen examples.
 *</pre>
 *
 ******************************************************************************/
@@ -228,7 +231,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XSpiPs
 * device driver in interrupt mode . This test writes and reads data from a
@@ -359,7 +363,8 @@ int SpiPsEepromIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function is the handler which performs processing for the SPI driver.
 * It is called from an interrupt context such that the amount of processing
@@ -395,7 +400,8 @@ void SpiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 	}
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function reads from the serial EEPROM connected to the SPI interface.
 *
@@ -436,8 +442,8 @@ void EepromRead(XSpiPs *SpiPtr, u16 Address, int ByteCount,
 	while (TransferInProgress);
 }
 
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 *
 * This function writes to the serial EEPROM connected to the SPI interface.
 * This function is not designed to be a driver to handle all

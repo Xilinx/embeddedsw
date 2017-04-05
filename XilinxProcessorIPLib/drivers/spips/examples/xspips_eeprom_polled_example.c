@@ -31,8 +31,8 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file xspi_eeprom_polled_example.c
-**
+* @file xspips_eeprom_polled_example.c
+*
 * This file contains a design example using the SPI driver (XSpiPs) in
 * polled mode and hardware device with a serial EEPROM device.  The
 * hardware which this example runs on must have a serial EEPROM (Microchip
@@ -50,7 +50,10 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  sdm  03/09/10 First release
 * 1.00  sdm  10/25/11 Updated the chip select to be used to second chip select
-*
+*       ms   04/05/17 Comment lines begin with /** in functions to
+*                     recognize it as documentation block for doxygen
+*                     generation and also modified filename tag to include
+*                     the file in doxygen examples.
 *</pre>
 *
 ******************************************************************************/
@@ -202,7 +205,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XSpiPs
 * device driver in polled mode. This test writes and reads data from a
@@ -301,7 +305,8 @@ int SpiPsEepromPolledExample(XSpiPs *SpiInstancePtr, u16 SpiDeviceId)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function reads from the serial EEPROM connected to the SPI interface.
 *
@@ -335,8 +340,8 @@ void EepromRead(XSpiPs *SpiPtr, u16 Address, int ByteCount,
 				ByteCount + OVERHEAD_SIZE);
 }
 
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 *
 * This function writes to the serial EEPROM connected to the SPI interface.
 * This function is not designed to be a driver to handle all

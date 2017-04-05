@@ -51,7 +51,9 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.00  sg  1/30/13  First release
-*
+*       ms  04/05/17 Comment lines begin with /** in functions to
+*                    recognize it as documentation block for doxygen
+*                    generation.
 *</pre>
 *
 ******************************************************************************/
@@ -239,7 +241,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 #endif
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XSpiPs
 * device driver in interrupt mode. This function writes and reads data
@@ -455,7 +458,8 @@ int SpiPsFlashIntrExample(XScuGic *IntcInstancePtr, XSpiPs *SpiInstancePtr,
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function is the handler which performs processing for the SPI driver.
 * It is called from an interrupt context such that the amount of processing

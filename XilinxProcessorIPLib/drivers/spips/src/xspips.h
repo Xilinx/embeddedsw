@@ -245,7 +245,11 @@
 *			Support for Zynq Ultrascale Mp added.
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
-*
+*       ms     04/05/17 Comment lines begin with /** in functions of spips
+*                       examples to recognize it as documentation block
+*                       for doxygen generation and also modified filename tag
+*                       in eeprom interrupt, eeprom polled and flash polled
+*                       files to include them in doxygen examples.
 * </pre>
 *
 ******************************************************************************/

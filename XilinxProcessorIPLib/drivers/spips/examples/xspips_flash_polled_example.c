@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xspips_polled_example.c
+* @file xspips_flash_polled_example.c
 *
 *
 * This file contains a design example using the SPI driver (XSpiPs) in
@@ -51,7 +51,10 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.00  sg  1/30/13  First release
-*
+*       ms  04/05/17 Comment lines begin with /** in functions to
+*                    recognize it as documentation block for doxygen
+*                    generation and also modified filename tag to include
+*                    the file in doxygen examples.
 *</pre>
 *
 ******************************************************************************/
@@ -213,7 +216,8 @@ int main(void)
 }
 #endif
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XSpiPs
 * device driver in polled mode. This function writes and reads data
