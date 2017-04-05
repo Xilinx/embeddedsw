@@ -31,7 +31,7 @@
 ******************************************************************************/
 /******************************************************************************/
 /**
-* @file mbox_example.c
+* @file xmbox_example.c
 *
 * This file contains a design example for using the Mailbox hardware and driver
 * XMbox
@@ -60,6 +60,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+*       ms   04/10/17 Modified filename tag to include the file in doxygen
+*                     examples.
 *</pre>
 *******************************************************************************/
 
