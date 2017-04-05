@@ -59,7 +59,9 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 2.0   sb  08/22/14  First release
-*
+*       ms   04/05/17 Comment lines begin with /** in functions to
+*                     recognize it as documentation block for doxygen
+*                     generation.
 *</pre>
 *
 ******************************************************************************/
@@ -151,7 +153,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XSpiPs
 * device driver in Slave mode. This function reads data from a SPI Master
@@ -237,7 +240,8 @@ int SpiPsSlavePolledExample(u16 SpiDeviceId)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function reads from the Rx buffer
 *
@@ -274,7 +278,8 @@ void SpiSlaveRead(int ByteCount)
 
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function writes Data into the Tx buffer
 *
