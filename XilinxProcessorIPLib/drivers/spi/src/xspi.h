@@ -292,8 +292,9 @@
 *                     fix for CR-965028.
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
-* 
-*
+*       ms   04/05/17 Comment lines begin with /** in functions of spi
+*                     examples to recognize it as documentation block
+*                     and to include them in doxygen examples.
 * </pre>
 *
 ******************************************************************************/
