@@ -59,7 +59,8 @@
  *                     ensure that "Successfully ran" and "Failed" strings
  *                     are available in all examples. This is a fix for
  *                     CR-965028.
- *
+ *       ms   04/05/17 Added tabspace for return statements in functions for
+ *                     proper documentation while generating doxygen.
  * </pre>
  *
  * ***************************************************************************
@@ -189,7 +190,8 @@ volatile int Error;
 *
 * @param	None
 *
-* @return	- XST_SUCCESS if tests pass
+* @return
+*		- XST_SUCCESS if tests pass
 * 		- XST_FAILURE if fails.
 *
 * @note		None
@@ -236,7 +238,8 @@ int main()
 *		typically XPAR_<TRAFGEN_instance>_DEVICE_ID value from
 *		xparameters.h.
 *
-* @return	-XST_SUCCESS to indicate success
+* @return
+*		-XST_SUCCESS to indicate success
 *		-XST_FAILURE to indicate failure
 *
 ******************************************************************************/
