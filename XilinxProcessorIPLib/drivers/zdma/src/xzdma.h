@@ -117,6 +117,11 @@
 *                        src issue parameters correctly.
 *       ms     03/17/17  Added readme.txt file in examples folder for doxygen
 *                        generation.
+*       ms     04/05/17  Modified comment lines notation in functions of zdma
+*                        examples to avoid unnecessary description to get
+*                        displayed while generating doxygen and also changed
+*                        filename tag to include the readonly mode example file
+*                        in doxygen.
 * </pre>
 *
 ******************************************************************************/
