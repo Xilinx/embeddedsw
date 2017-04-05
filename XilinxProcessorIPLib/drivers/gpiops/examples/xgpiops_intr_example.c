@@ -51,6 +51,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sv   01/18/10 First Release
+*       ms   04/05/17 Added tabspace for return statements in functions for
+*                     proper documentation while generating doxygen.
 *</pre>
 *
 ******************************************************************************/
@@ -153,7 +155,8 @@ int main(void)
 * @param	GpioIntrId is XPAR_<GIC>_<GPIO_Instance>_VEC_ID value
 *		from xparameters.h
 *
-* @return	- XST_SUCCESS if the example has completed successfully.
+* @return
+*		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
 * @note		None

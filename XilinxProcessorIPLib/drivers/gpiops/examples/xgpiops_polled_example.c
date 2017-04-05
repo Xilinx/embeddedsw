@@ -64,7 +64,8 @@
 * 1.01a sv   04/15/12 Removed the calling of some unnecessary APIs.
 *		      Updated the examples for a ZC702 board .
 *		      Updated the example to use only pin APIs.
-*
+*       ms   04/05/17 Added tabspace for return statements in functions for
+*                     proper documentation while generating doxygen.
 * </pre>
 *
 *****************************************************************************/
@@ -124,7 +125,8 @@ XGpioPs Gpio;	/* The driver instance for GPIO Device. */
 *
 * @param	None
 *
-* @return	- XST_SUCCESS if the example has completed successfully.
+* @return
+*		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
 * @note		None
@@ -158,7 +160,8 @@ int main(void)
 * @param	DataRead is the pointer where the data read from GPIO Input is
 *		returned.
 *
-* @return	- XST_SUCCESS if the example has completed successfully.
+* @return
+*		- XST_SUCCESS if the example has completed successfully.
 *		- XST_FAILURE if the example has failed.
 *
 * @note		This function will not return if the test is running.

@@ -99,7 +99,9 @@
 * 3.1	kvn  04/13/15 Add support for Zynq Ultrascale+ MP. CR# 856980.
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
-*
+*       ms   04/05/17 Added tabspace for return statements in functions of
+*                     gpiops examples for proper documentation while
+*                     generating doxygen.
 * </pre>
 *
 ******************************************************************************/
