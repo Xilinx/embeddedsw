@@ -68,7 +68,9 @@
 *		     line. See http://www.xilinx.com/support/answers/47596.htm
 * 2.01a sg  02/03/13 Created a function FlashReadID. Removed multiple
 *		     initialization using SetOptions.
-*
+*       ms  04/05/17 Comment lines begin with /** in functions to
+*                    recognize it as documentation block for doxygen
+*                    generation.
 *</pre>
 *
 ******************************************************************************/
@@ -255,7 +257,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XQspiPs
 * device driver in interrupt mode. This function writes and reads data
@@ -565,7 +568,8 @@ int QspiFlashIntrExample(XScuGic *IntcInstancePtr, XQspiPs *QspiInstancePtr,
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function is the handler which performs processing for the QSPI driver.
 * It is called from an interrupt context such that the amount of processing
@@ -600,8 +604,8 @@ void QspiHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount)
 	}
 }
 
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 *
 * This function writes to the  serial FLASH connected to the QSPI interface.
 * All the data put into the buffer must be in the same page of the device with
@@ -695,7 +699,8 @@ void FlashWrite(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 	}
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function reads from the  serial FLASH connected to the
 * QSPI interface.
@@ -744,8 +749,8 @@ void FlashRead(XQspiPs *QspiPtr, u32 Address, u32 ByteCount, u8 Command)
 	while (TransferInProgress);
 }
 
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 *
 * This function erases the sectors in the  serial FLASH connected to the
 * QSPI interface.
@@ -914,7 +919,8 @@ void FlashErase(XQspiPs *QspiPtr, u32 Address, u32 ByteCount)
 	}
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function reads serial FLASH ID connected to the SPI interface.
 *
