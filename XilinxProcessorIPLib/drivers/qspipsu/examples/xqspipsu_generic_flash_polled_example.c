@@ -73,7 +73,9 @@
 * 1.0   hk  08/21/14 First release
 *       sk  06/17/15 Used Tx/Rx flags for Transmitting/Receiving.
 *		sk  11/23/15 Added Support for Macronix 1Gb part.
-*
+*       ms  04/05/17 Comment lines begin with /** in functions to
+*                    recognize it as documentation block for doxygen
+*                    generation.
 *</pre>
 *
 ******************************************************************************/
@@ -451,7 +453,8 @@ int main(void)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * The purpose of this function is to illustrate how to use the XQspiPsu
 * device driver in single, parallel and stacked modes using
@@ -606,7 +609,8 @@ int QspiPsuPolledFlashExample(XQspiPsu *QspiPsuInstancePtr, u16 QspiPsuDeviceId)
 	return XST_SUCCESS;
 }
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
 *
 * Reads the flash ID and identifies the flash in FCT table.
 *
@@ -779,8 +783,8 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	return XST_SUCCESS;
 }
 
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 *
 * This function writes to the  serial Flash connected to the QSPIPSU interface.
 * All the data put into the buffer must be in the same page of the device with
@@ -921,8 +925,8 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	return 0;
 }
 
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 *
 * This function erases the sectors in the  serial Flash connected to the
 * QSPIPSU interface.
@@ -1129,7 +1133,8 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount,
 }
 
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This function performs read. DMA is the default setting.
 *
@@ -1247,7 +1252,8 @@ int FlashRead(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 }
 
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This API can be used to write to a flash register.
 *
@@ -1343,7 +1349,8 @@ int FlashRegisterWrite(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command,
 	return 0;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This API can be used to write to a flash register.
 *
@@ -1386,7 +1393,8 @@ int FlashRegisterRead(XQspiPsu *QspiPsuPtr, u32 ByteCount, u8 Command, u8 *ReadB
 	return 0;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This functions performs a bulk erase operation when the
 * flash device has a single die. Works for both Spansion and Micron
@@ -1483,7 +1491,8 @@ int BulkErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	return 0;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This functions performs a die erase operation on all the die in
 * the flash device. This function uses the die erase command for
@@ -1588,7 +1597,8 @@ int DieErase(XQspiPsu *QspiPsuPtr, u8 *WriteBfrPtr)
 	return 0;
 }
 
-/******************************************************************************
+/*****************************************************************************/
+/**
 *
 * This functions translates the address based on the type of interconnection.
 * In case of stacked, this function asserts the corresponding slave select.
