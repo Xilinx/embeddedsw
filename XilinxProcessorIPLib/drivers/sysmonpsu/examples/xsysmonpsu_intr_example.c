@@ -62,7 +62,9 @@
 * 1.0   kvn    12/15/15 First release
 *              02/15/16 Corrected order of Enabling / Disabling of
 *                       interrupts.
-*
+*       ms     04/05/17 Comment lines begin with /** in functions to
+*                       recognize it as documentation block for doxygen
+*                       generation.
 * </pre>
 *
 *****************************************************************************/
@@ -702,7 +704,7 @@ static int SysMonPsuSetupInterruptSystem(XScuGic* XScuGicInstPtr, XSysMonPsu *Sy
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * This function converts the fraction part of the given floating point number
 * (after the decimal point)to an integer.
