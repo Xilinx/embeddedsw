@@ -60,6 +60,9 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+*       ms   04/05/17 Comment lines begin with /** in functions to
+*                     recognize it as documentation block for doxygen
+*                     generation.
 * </pre>
 *
 *****************************************************************************/
@@ -361,7 +364,7 @@ int SysMonPolledPrintfExample(u16 SysMonDeviceId)
 
 
 /****************************************************************************/
-/*
+/**
 *
 * This function converts the fraction part of the given floating point number
 * (after the decimal point)to an integer.
