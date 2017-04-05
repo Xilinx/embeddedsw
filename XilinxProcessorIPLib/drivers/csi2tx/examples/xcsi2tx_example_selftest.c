@@ -59,6 +59,8 @@
 *     ms  01/23/17 Modified xil_printf statement in main function to
 *                  ensure that "Successfully ran" and "Failed" strings are
 *                  available in all examples. This is a fix for CR-965028.
+*     ms  04/05/17 Comment lines begins with /** in functions to recognize it
+*                  as documentation block for doxygen generation of examples.
 * </pre>
 *
 ******************************************************************************/
@@ -96,7 +98,7 @@ u32 Csi2TxSelfTestExample(u32 DeviceId);
 XCsi2Tx Csi;
 
 /*****************************************************************************/
-/*
+/**
 * The entry point for this example. It invokes the example function,
 * and reports the execution status.
 *
@@ -134,7 +136,7 @@ int main()
 #endif
 
 /*****************************************************************************/
-/*
+/**
 * This function checks if the Max Lane count from the generated file matches
 * the value present in the protocol configuration register
 *
