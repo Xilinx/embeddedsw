@@ -75,6 +75,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+*       ms   04/05/17 Added tabspace for return statements in functions for
+*                     proper documentation while generating doxygen.
 *</pre>
 *****************************************************************************/
 
@@ -172,7 +174,8 @@ int main(void)
 *
 * @param	MboxDeviceID is the device Id of the MailBox.
 *
-* @return	- XST_SUCCESS if the test passes.
+* @return
+*		- XST_SUCCESS if the test passes.
 *		- XST_FAILURE if the test fails.
 *
 * @note		None.

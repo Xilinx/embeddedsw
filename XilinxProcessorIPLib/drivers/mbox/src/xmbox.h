@@ -154,6 +154,10 @@
 *                     for CR-965028.
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
+*       ms   04/05/17 Added tabspace for return statements in functions of
+*                     mbox examples for proper documentation while
+*                     generating doxygen and modified filename tag to
+*                     include them in doxygen examples.
 *</pre>
 *
 ******************************************************************************/
