@@ -44,6 +44,9 @@
 * Ver	 Who   Date	      Changes
 * ---- ----- ------------  ----------------------------------------------
 * 1.0   ms    07/14/2016     First Release
+*       ms    04/05/2017     Modified comment lines notation in functions to
+*                            avoid unnecessary description displayed
+*                            while generating doxygen.
 *
 * </pre>
 *
@@ -128,10 +131,10 @@ u32 XPrd_Example(u16 DeviceId)
 	u32 Status;
 	XPrd_Config *XPrdCfgPtr;
 	XGpio_Config *XDecouplerGpioCfgPtr;
-	XGpio DecouplerGpio;	/**< Instance of the GPIO that's connected to
-				  *  the USR_ACCESS primitive */
+	XGpio DecouplerGpio;
+		/* Instance of the GPIO that's connected to the USR_ACCESS primitive */
 
-	/**
+	/*
 	 * Initialize the PR Decoupler driver so that it's ready to use.
 	 * Look up the configuration in the config table, then initialize it.
 	 */
@@ -158,7 +161,7 @@ u32 XPrd_Example(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/**
+	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
 	 */
@@ -199,10 +202,9 @@ u32 XPrd_TestDecouplerState(XGpio DecouplerGpio)
 	u32 Expected_Value_out;
 	u32 DecouplerState;
 
-	/**
+	/*
 	 * Decoupling OFF
 	 * REPEAT: Write to GPIO 2 and make sure GPIO 1 takes the same value
-
 	 * Decoupling ON
 	 * REPEAT: Write to GPIO 2 and make sure GPIO 1 takes the decoupled
 	 * value
