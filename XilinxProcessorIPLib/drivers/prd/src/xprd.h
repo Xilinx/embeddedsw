@@ -96,6 +96,9 @@
 *                            update in the tools.
 *       ms     03/17/17      Added readme.txt file in examples folder for
 *                            doxygen generation.
+*       ms     04/05/2017    Modified comment lines notation in functions
+*                            of prd examples to avoid unnecessary description
+*                            which was displayed while generating doxygen.
 *
 * </pre>
 *

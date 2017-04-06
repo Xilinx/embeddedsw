@@ -44,6 +44,9 @@
 * Ver   Who    Date	     Changes
 * ---- ---- ------------   -----------------------------------------------
 * 1.00  ms   7/14/2016      First release
+*       ms    04/05/2017    Modified comment lines notation in functions to
+*                           avoid unnecessary description displayed
+*                           while generating doxygen.
 *
 * </pre>
 *
@@ -93,7 +96,7 @@ int main(void)
 {
 	u32 Status;
 
-	/**
+	/*
 	 * Run the PR Decoupler self test example, specify the Device ID
 	 * that is generated in xparameters.h
 	 */
@@ -129,7 +132,7 @@ u32 XPrd_SelfTestExample(u16 DeviceId)
 	u32 Status;
 	XPrd_Config *CfgPtr;
 
-	/**
+	/*
 	 * Initialize the PR Decoupler driver so that it's ready to use.
 	 * Look up the configuration in the config table, then initialize it.
 	 */
@@ -143,7 +146,7 @@ u32 XPrd_SelfTestExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/**
+	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
 	 */
