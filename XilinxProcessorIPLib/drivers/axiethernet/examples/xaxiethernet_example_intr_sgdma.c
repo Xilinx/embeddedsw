@@ -85,7 +85,8 @@
 * 5.4   ms   01/23/17 Modified xil_printf statement in main function to
 *                     ensure that "Successfully ran" and "Failed" strings are
 *                     available in all examples. This is a fix for CR-965028.
-*
+*       ms   04/05/17 Added tabspace for return statements in functions
+*                     for proper documentation while generating doxygen.
 * </pre>
 *
 ******************************************************************************/
@@ -328,7 +329,8 @@ void AxiEthernetPHYRegistersDump(XAxiEthernet * AxiEthernetInstancePtr);
 *
 * @param	None.
 *
-* @return	- XST_SUCCESS to indicate success.
+* @return
+*		- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
 * @note		None.
