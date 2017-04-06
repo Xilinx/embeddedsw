@@ -40,14 +40,14 @@ simple mode.
 
 For details, see xaxidma_example_simple_poll.c.
 
-@section ex6 xaximcdma_example_sg_intr.c
+@section ex6 xaxidma_multichan_sg_intr.c
 Contains an example on how to use the XAxidma driver directly.
 This example shows the usage of the driver to transfer
 packets in interrupt mode for multichannel capability and works
 only when the axidma core is configured in scatter gather mode
 and multichannel mode.
 
-For details, see xaximcdma_example_sg_intr.c.
+For details, see xaxidma_multichan_sg_intr.c.
 
 @section ex7 xaxidma_poll_multi_pkts.c
 Contains an example on how to use the XAxidma driver directly.

@@ -74,7 +74,8 @@
  * 9.3   ms   01/23/17 Modified xil_printf statement in main function to
  *                     ensure that "Successfully ran" and "Failed" strings are
  *                     available in all examples. This is a fix for CR-965028.
- *
+ *       ms   04/05/17 Added tabspace for return statements in functions
+ *                     for proper documentation while generating doxygen.
  * </pre>
  *
  * ***************************************************************************
@@ -285,7 +286,8 @@ u8 *RxPacket1 = (u8 *) (RX_BUFFER_BASE + MAX_BD_COUNT
 *
 * @param	None
 *
-* @return	- XST_SUCCESS if tests pass
+* @return
+*		- XST_SUCCESS if tests pass
 *		- XST_FAILURE if fails.
 *
 * @note		None.
