@@ -72,6 +72,8 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+*       ms   04/05/17 Added tabspace for return statements in functions
+*                     for proper documentation while generating doxygen.
 *
 *</pre>
 *****************************************************************************/
@@ -156,7 +158,8 @@ XAxiPcie AxiPcieInstance;
 *
 * @param 	None
 *
-* @return 	- XST_SUCCESS if successful
+* @return
+*		- XST_SUCCESS if successful
 *		- XST_FAILURE if unsuccessful.
 *
 * @note 	None.
@@ -190,7 +193,8 @@ int main(void)
 *		structure represents a root complex IP.
 * @param 	DeviceId is AXI PCIe IP unique ID
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+*		- XST_SUCCESS if successful.
 *		- XST_FAILURE if unsuccessful.
 *
 * @note 	None.
