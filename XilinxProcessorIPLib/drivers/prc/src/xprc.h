@@ -125,6 +125,9 @@
 * 1.0   ms     07/18/2016   First release
 *       ms     03/17/17     Added readme.txt file in examples folder for
 *                           doxygen generation.
+*       ms     04/05/2017   Modified comment lines notation in functions
+*                           of prc examples to avoid unnecessary description
+*                           which was displayed while generating doxygen.
 *
 * </pre>
 *

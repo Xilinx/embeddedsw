@@ -44,6 +44,9 @@
 * Ver	 Who   Date	      Changes
 * ---- ----- ------------  -----------------------------------------------
 * 1.0   ms    07/18/2016     First Release
+*       ms    04/05/2017     Modified comment lines notation in functions to
+*                            avoid unnecessary description displayed
+*                            while generating doxygen.
 *
 * </pre>
 *
@@ -141,22 +144,18 @@ u32 XPrc_Example(u16 DeviceId)
 	u32 Status;
 	XPrc_Config *XPrcCfgPtr;
 	XGpio_Config *XUsrAccessGpioCfgPtr;
-	XGpio UsrAccessGpio;	/**< Instance of the GPIO that's
-				  *  connected to the USR_ACCESS
-				  *  primitive */
+	XGpio UsrAccessGpio;
+		/* Instance of the GPIO that's connected to the USR_ACCESS primitive */
 	XGpio_Config *XShiftVsmGpioCfgPtr;
-	XGpio ShiftVsmGpio;	/**< Instance of the GPIO attached to the
-				  *  PRC's Shift VSM's outputs */
+	XGpio ShiftVsmGpio;
+		/* Instance of the GPIO attached to the PRC's Shift VSM's outputs */
 	XGpio_Config *XCountVsmGpioCfgPtr;
-	XGpio CountVsmGpio;	/**< Instance of the GPIO attached to the PRC's
-				  *  Count VSM's outputs */
+	XGpio CountVsmGpio;
+		/* Instance of the GPIO attached to the PRC's Count VSM's outputs */
+	u16 VsmId;	/* A loop variable used to iterate round VSMs in the PRC */
+	u16 RmId;	/* A loop variable used to iterate round RMs in the PRC */
 
-	u16 VsmId;	/**< A loop variable used to iterate round VSMs in the
-			  *  PRC */
-	u16 RmId;	/**< A loop variable used to iterate round RMs in the
-			  *  PRC */
-
-	/**
+	/*
 	 * Initialize the PRC driver so that it's ready to use.
 	 * Look up the configuration in the config table, then initialize it.
 	 */
@@ -170,7 +169,7 @@ u32 XPrc_Example(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/**
+	/*
 	 * Perform a self-test to ensure that the hardware was built
 	 * correctly
 	 */
@@ -218,7 +217,7 @@ u32 XPrc_Example(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	/**
+	/*
 	 * Print the PRC's status when the program starts
 	 * This should only print anything if debug is turned on
 	 */
@@ -227,7 +226,7 @@ u32 XPrc_Example(u16 DeviceId)
 	}
 
 
-	/**
+	/*
 	 * We can only reprogram VSMs when they are in shutdown, so shutdown
 	 * any active VSMs
 	 */
@@ -253,7 +252,7 @@ u32 XPrc_Example(u16 DeviceId)
 	Xprc_Restart_VSMs(VsmId);
 
 
-	/**
+	/*
 	 * The ICAP has lower priority than JTAG and SDK and Vivado HW
 	 * Debugger both use JTAG to control the device and get status. This
 	 * can occasionally mean that the first partial bitstream load will
@@ -272,7 +271,7 @@ u32 XPrc_Example(u16 DeviceId)
 		XPrc_SendSwTrigger (&Prc, 0, 0);
 	}
 
-	/**
+	/*
 	 * Send triggers and check that each one loaded the correct
 	 * bitstream
 	 */
@@ -281,7 +280,7 @@ u32 XPrc_Example(u16 DeviceId)
 			u32 ExpectedId = 0;
 			u32 ActualId = 0;
 
-			/**
+			/*
 			 * Send a software trigger to the PRC to get it to load
 			 * the partial bitstream for VsmID, RmId.
 			 */
@@ -292,7 +291,7 @@ u32 XPrc_Example(u16 DeviceId)
 			/* Read the status register once */
 			u32 Status = XPrc_ReadStatusReg(&Prc, VsmId);
 
-			/**
+			/*
 			 * Use the value twice.  This ensures that both
 			 * the RmId and State fields come from the same read.
 			 * If only one field is required, pass &Prc instead of
@@ -360,11 +359,11 @@ u32 Xprc_Check_User_Command(u16 VsmId, XGpio ShiftVsmGpio, XGpio CountVsmGpio)
 	u32 gpio_value;
 	u8  i;
 
-	XGpio *pGpio;		/**< A pointer to a GPIO */
+	XGpio *pGpio;		/* A pointer to a GPIO */
 
 	for (VsmId = 0; VsmId < XPrc_GetNumberOfVsms(&Prc); VsmId++) {
 
-		/**
+		/*
 		 * Work out which VSM this is and select the correct GPIO
 		 * instance to use
 		 */
@@ -412,7 +411,7 @@ u32 Xprc_Check_User_Command(u16 VsmId, XGpio ShiftVsmGpio, XGpio CountVsmGpio)
 				XPRC_CR_USER_CONTROL_RM_RESET_BIT)) >>
 				XPRC_CR_USER_CONTROL_RM_RESET_BIT;
 
-			/**
+			/*
 			 * What signals will be enabled?
 			 * RM_SHUTOWN, RM_DECOUPLE and RM_RESET are alwas
 			 * enabled SW_SHUTDOWN and SW_STARTUP are only enabled
@@ -479,7 +478,7 @@ u32 Xprc_Check_RestartWithStatus_Command(u16 VsmId)
 
 	for (VsmId = 0; VsmId < XPrc_GetNumberOfVsms(&Prc); VsmId++) {
 
-		/**
+		/*
 		 * Make sure the VSM is active so I can read the empty/full
 		 * state
 		 */
@@ -495,7 +494,7 @@ u32 Xprc_Check_RestartWithStatus_Command(u16 VsmId)
 		XPrc_SendShutdownCommand(&Prc, VsmId);
 		while(XPrc_IsVsmInShutdown(&Prc, VsmId) == 0);
 
-		/**
+		/*
 		 * Get the currently loaded RM and make sure it's the same as
 		 * it was when the VSM was active. Shutting it down shouldn't
 		 * have changed that.
@@ -585,16 +584,11 @@ u32 Xprc_Check_RestartWithStatus_Command(u16 VsmId)
 ******************************************************************************/
 u32 Xprc_Check_TriggerRmMapping(u16 VsmId)
 {
-	u16 TriggerId;	/**< A loop variable used to iterate round triggers in
-			  *  the PRC */
-	u16 RmId;	/**< A loop variable used to iterate round RMs in the
-			  *  PRC */
-	u16 VsmId_tmp;	/**< A loop variable used to iterate round VSMs in the
-			  *  PRC
-			  */
-	u16 TriggerId_tmp;	/**< A loop variable used to iterate round
-				  *  triggers in the PRC
-				  */
+	u16 TriggerId;	/* A loop variable used to iterate round triggers in PRC */
+	u16 RmId;		/* A loop variable used to iterate round RMs in the PRC */
+	u16 VsmId_tmp;	/* A loop variable used to iterate round VSMs in the PRC */
+	u16 TriggerId_tmp;
+					/* A loop variable used to iterate round triggers in PRC */
 	u16 MaxRmId;
 
 
@@ -618,7 +612,7 @@ u32 Xprc_Check_TriggerRmMapping(u16 VsmId)
 		}
 	}
 
-	/**
+	/*
 	 * Now check each trigger register can be updated without changing
 	 * any other trigger register
 	 */
@@ -677,14 +671,13 @@ u32 Xprc_Check_TriggerRmMapping(u16 VsmId)
 ******************************************************************************/
 u32 Xprc_Check_BsIndex_Reg(u16 VsmId)
 {
-	u16 RmId;	/**< A loop variable used to iterate round RMs in the
-			  *  PRC */
+	u16 RmId;	/* A loop variable used to iterate round RMs in the PRC */
 	u16 VsmId_tmp;
 	u16 RmId_tmp;
 	u16 BsIndex;
 	u16 MaxRmId;
 
-	/**
+	/*
 	 * The maximum value for a BsIndex register is the number of RMs
 	 * allocated -1.
 	 * We can't use any number greater than that or else it will alias.
@@ -709,7 +702,7 @@ u32 Xprc_Check_BsIndex_Reg(u16 VsmId)
 		}
 	}
 
-	/**
+	/*
 	 * Now check each BsIndex can be updated without changing any
 	 * other BsIndex register
 	 */
@@ -769,8 +762,7 @@ u32 Xprc_Check_BsIndex_Reg(u16 VsmId)
 ******************************************************************************/
 u32 Xprc_Check_RmControl_Reg(u16 VsmId)
 {
-	u16 RmId;	/**< A loop variable used to iterate round RMs in the
-			  *  PRC */
+	u16 RmId;	/* A loop variable used to iterate round RMs in the PRC */
 	u16 VsmId_tmp;
 	u16 RmId_tmp;
 	u8 ShutdownRequired;
@@ -778,7 +770,7 @@ u32 Xprc_Check_RmControl_Reg(u16 VsmId)
 	u8 ResetRequired;
 	u8 ResetDuration;
 
-	/**
+	/*
 	 * Start by setting all of the Rm Control registers in all VSms
 	 * to zero
 	 */
@@ -814,7 +806,7 @@ u32 Xprc_Check_RmControl_Reg(u16 VsmId)
 		}
 	}
 
-	/**
+	/*
 	 * Now check each RM Control register can be updated without changing
 	 * any other RM Control register
 	 */
@@ -897,8 +889,7 @@ u32 Xprc_Check_RmControl_Reg(u16 VsmId)
 ******************************************************************************/
 u32 Xprc_Check_BsSize_Reg(u16 VsmId)
 {
-	u16 RmId;	/**< A loop variable used to iterate round RMs in the
-			  *  PRC */
+	u16 RmId;	/* A loop variable used to iterate round RMs in the PRC */
 	u16 VsmId_tmp;
 	u16 RmId_tmp;
 	u32 BsSize;
@@ -923,7 +914,7 @@ u32 Xprc_Check_BsSize_Reg(u16 VsmId)
 		}
 	}
 
-	/**
+	/*
 	 * Now check each BsSize can be updated without changing any other
 	 * BsSize register
 	 */
@@ -978,14 +969,13 @@ u32 Xprc_Check_BsSize_Reg(u16 VsmId)
 ******************************************************************************/
 u32 Xprc_Check_BsAddress_Reg(u16 VsmId)
 {
-	u16 RmId;	/**< A loop variable used to iterate round RMs in the
-			  *  PRC */
+	u16 RmId;	/* A loop variable used to iterate round RMs in the PRC */
 	u16 VsmId_tmp;
 	u16 RmId_tmp;
 	u32 BsAddress;
 	u32 MaxBsAddress = -1;
 
-	/**
+	/*
 	 * Start by setting all of the BS Address registers in all VSms to
 	 * zero
 	 */
@@ -1007,7 +997,7 @@ u32 Xprc_Check_BsAddress_Reg(u16 VsmId)
 		}
 	}
 
-	/**
+	/*
 	 * Now check each BsAddress can be updated without changing any other
 	 * BsAddress register
 	 */
@@ -1063,8 +1053,7 @@ u32 Xprc_Check_BsAddress_Reg(u16 VsmId)
 ******************************************************************************/
 u32 Xprc_Program_PRC(u16 VsmId)
 {
-	u16 RmId;	/**< A loop variable used to iterate round RMs in the
-			  *  PRC */
+	u16 RmId;	/* A loop variable used to iterate round RMs in the PRC */
 	u32 Bitstream_Dummy[28];
 	u32 *ptr;
 
@@ -1080,7 +1069,7 @@ u32 Xprc_Program_PRC(u16 VsmId)
 
 			id = (VsmId << 16 ) | RmId;
 
-			/**
+			/*
 			 * A bitstream looks like this
 			 *   ffff ffff   : Dummy word
 			 *   0000 00bb   : Bus Width Sync Word
@@ -1128,7 +1117,7 @@ u32 Xprc_Program_PRC(u16 VsmId)
 
 			XPrc_SetRmControl(&Prc, VsmId, RmId, 0, 0, 0, 0);
 
-			/**
+			/*
 			 * This is a 7 series project so BsIndex is always
 			 * the RmId.  It will have been set correctly when
 			 * the core was configured, but we'll set it here
