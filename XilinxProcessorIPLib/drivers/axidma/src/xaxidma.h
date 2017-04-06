@@ -461,6 +461,11 @@
 *            are available in all examples. This is a fix for CR-965028.
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
+*       ms   04/05/17 Comment lines begins with /** in functions to recognize
+*                     it as documentation block and added tabspace at return
+*                     statements in functions of axidma examples for proper
+*                     documentation while generating doxygen.
+*                     Modified readme file in examples folder.
 * </pre>
 *
 ******************************************************************************/
