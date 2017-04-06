@@ -43,6 +43,9 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
+*       ms   04/05/17 Comment lines begins with /** in functions to
+*                     recognize it as documentation block for doxygen
+*                     generation of examples.
 * </pre>
 *
 *****************************************************************************/
@@ -81,7 +84,7 @@ XAxiVdma AxiVdma;
 
 
 /*****************************************************************************/
-/*
+/**
 * The entry point for this example. It invokes the example function,
 * and reports the execution status.
 *
@@ -120,13 +123,14 @@ int main()
 #endif
 
 /*****************************************************************************/
-/*
+/**
 * This function performance a reset of the VDMA device and checks the device is
 * coming out of reset or not.
 *
 * @param	DeviceId is the DMA device id.
 *
-* @return	- XST_SUCCESS if channel reset is successful
+* @return
+*		- XST_SUCCESS if channel reset is successful
 *		- XST_FAILURE if channel reset fails.
 *
 * @note		None.
