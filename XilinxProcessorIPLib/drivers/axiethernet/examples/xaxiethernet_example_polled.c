@@ -73,7 +73,8 @@
 * 5.4   ms   01/23/17 Modified xil_printf statement in main function to
 *                     ensure that "Successfully ran" and "Failed" strings are
 *                     available in all examples. This is a fix for CR-965028.
-*
+*       ms   04/05/17 Added tabspace for return statements in functions
+*                     for proper documentation while generating doxygen.
 * </pre>
 *
 ******************************************************************************/
@@ -622,7 +623,8 @@ int AxiEthernetMultipleFramesPolledExample(void)
 *
 * @param	None.
 *
-* @return	- XST_SUCCESS, Tx has completed
+* @return
+*		- XST_SUCCESS, Tx has completed
 *		- XST_NO_DATA, Timeout. Tx failure.
 *		- XST_FIFO_ERROR, Error in the FIFO.
 *
@@ -683,7 +685,8 @@ int AxiEthernetPollForTxStatus(void)
 *
 * @param	None.
 *
-* @return	- XST_SUCCESS, a frame has been received
+* @return
+*		- XST_SUCCESS, a frame has been received
 *		- XST_NO_DATA, Timeout. Rx failure.
 *		- XST_FIFO_ERROR, Error in the FIFO.
 *		- XST_DATA_LOST, a frame has been dropped

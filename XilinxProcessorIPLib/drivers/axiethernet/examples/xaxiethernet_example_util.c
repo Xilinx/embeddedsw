@@ -55,7 +55,8 @@
 *			operate in specific interface mode without changing
 *			jumpers on the Microblaze board.
 * 5.4	adk  07/12/16  Added Support for TI PHY DP83867.
-*
+*       ms   04/05/17  Added tabspace for return statements in functions
+*                      for proper documentation while generating doxygen.
 * </pre>
 *
 ******************************************************************************/
@@ -324,7 +325,8 @@ void AxiEthernetUtilFrameSetVlanPayloadData(EthernetFrame *FramePtr,
 *		that should be present in the ActualFrame parameter.
 * @param	ActualFrame is a pointer to a frame to validate.
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+*		- XST_SUCCESS if successful.
 *		- XST_FAILURE in case of failure.
 *
 * @note		None.
@@ -550,7 +552,8 @@ u32 AxiEthernetDetectPHY(XAxiEthernet * AxiEthernetInstancePtr)
 *		AxiEthernet component.
 * @param	Speed is the loopback speed 10, 100, or 1000 Mbit.
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+*		- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
 *
 * @note		None.
@@ -768,7 +771,8 @@ void AxiEthernetUtilPhyDelay(unsigned int Seconds)
 *		AxiEthernet component.
 * @param	Speed is the loopback speed 10, 100, or 1000 Mbit.
 *
-* @return	- XST_SUCCESS if successful.
+* @return
+*		- XST_SUCCESS if successful.
 *		- XST_FAILURE, in case of failure..
 *
 * @note		None.

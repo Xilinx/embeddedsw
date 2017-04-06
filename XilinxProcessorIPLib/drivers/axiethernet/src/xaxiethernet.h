@@ -484,6 +484,9 @@
 *		     only one instance)
 *       ms 03/17/17 Modified text file in examples folder for doxygen
 *                   generation.
+*       ms 04/05/17 Added tabspace for return statements in functions
+*                   of axiethernet examples for proper documentation while
+*                   generating doxygen.
 * </pre>
 *
 ******************************************************************************/

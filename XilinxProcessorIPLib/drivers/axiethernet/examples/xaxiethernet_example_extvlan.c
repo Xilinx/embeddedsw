@@ -63,7 +63,8 @@
 * 5.4   ms   01/23/17 Modified xil_printf statement in main function to
 *                     ensure that "Successfully ran" and "Failed" strings are
 *                     available in all examples. This is a fix for CR-965028.
-*
+*       ms   04/05/17 Added tabspace for return statements in functions
+*                     for proper documentation while generating doxygen.
 * </pre>
 *
 ******************************************************************************/
@@ -230,7 +231,8 @@ static void AxiEthernetDisableIntrSystem(INTC *IntcInstancePtr,
 *
 * @param	None.
 *
-* @return	- XST_SUCCESS to indicate success.
+* @return
+*		- XST_SUCCESS to indicate success.
 *		- XST_FAILURE to indicate failure
 *
 * @note		None.
@@ -311,7 +313,8 @@ int main(void)
 * @param	DmaTxIntrId is the interrupt id for DMA Tx and is typically
 *		taken from XPAR_<AXIETHERNET_instance>_CONNECTED_DMATX_INTR
 *
-* @return	-XST_SUCCESS to indicate success.
+* @return
+*		-XST_SUCCESS to indicate success.
 *		-XST_FAILURE to indicate failure.
 *
 * @note		AxiDma hardware must be initialized before initializing
@@ -529,7 +532,8 @@ int AxiEthernetExtVlanExample(INTC *IntcInstancePtr,
 * @param	DmaInstancePtr   is a pointer to the instance of the Dma
 *		component.
 *
-* @return	-XST_SUCCESS to indicate success.
+* @return
+*		-XST_SUCCESS to indicate success.
 *		-XST_FAILURE to indicate failure.
 *
 * @note		Summary of VLAN tags handling in this example
