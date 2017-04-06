@@ -67,6 +67,9 @@
  * 4.3   ms   01/22/17 Modified xil_printf statement in main function to
  *            ensure that "Successfully ran" and "Failed" strings are
  *            available in all examples. This is a fix for CR-965028.
+ *       ms   04/05/17 Comment lines begins with /** in functions to
+ *                     recognize it as documentation block for doxygen
+ *                     generation of examples.
  * </pre>
  *
  ****************************************************************************/
@@ -157,7 +160,7 @@ volatile static int Done = 0;	/* Dma transfer is done */
 volatile static int Error = 0;	/* Dma Bus Error occurs */
 
 /*****************************************************************************/
-/*
+/**
 * The entry point for this example. It sets up uart16550 if one is available,
 * invokes the example function, and reports the execution status.
 *
