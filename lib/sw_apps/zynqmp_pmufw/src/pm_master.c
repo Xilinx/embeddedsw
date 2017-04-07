@@ -831,8 +831,10 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		} else {
 			/* Must have else branch due to MISRA */
 		}
-		PmMasterConfigWakeEvents(master, 0U);
-		master->state = PM_MASTER_STATE_ACTIVE;
+		if (PM_MASTER_STATE_UNINITIALIZED != master->state) {
+			PmMasterConfigWakeEvents(master, 0U);
+			master->state = PM_MASTER_STATE_ACTIVE;
+		}
 		break;
 	case PM_MASTER_EVENT_FORCED_PROC:
 		condition = PmMasterAllProcsDown(master);
