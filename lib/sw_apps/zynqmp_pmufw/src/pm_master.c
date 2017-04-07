@@ -799,6 +799,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 {
 	int status = XST_SUCCESS;
 	bool condition;
+	u8 prevState = master->state;
 
 	switch (event) {
 	case PM_MASTER_EVENT_SELF_SUSPEND:
@@ -854,8 +855,13 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		master->state = PM_MASTER_STATE_KILLED;
 		status = PmMasterForceDownProcs(master);
 		if (XST_SUCCESS == status) {
+			if (PM_MASTER_STATE_UNINITIALIZED == prevState) {
+				master->state = PM_MASTER_STATE_UNINITIALIZED;
+			}
 			PmMasterIdleSlaves(master);
-			status = PmMasterForceDownCleanup(master);
+			if (PM_MASTER_STATE_UNINITIALIZED != prevState) {
+				status = PmMasterForceDownCleanup(master);
+			}
 		}
 		break;
 	default:
