@@ -33,7 +33,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xcsudma_seltest_example.c
+* @file xcsudma_selftest_example.c
 *
 * This file contains an example using the XCsudma driver to do self test
 * on the device.
@@ -44,6 +44,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vnsld  22/10/14 First release
+*       ms     04/10/17 Modified filename tag to include the file in doxygen
+*                       examples.
 * </pre>
 *
 ******************************************************************************/
