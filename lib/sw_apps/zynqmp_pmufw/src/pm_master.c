@@ -367,7 +367,6 @@ void PmMasterClearConfig(void)
 		mst->suspendTimeout = 0U;
 		mst->suspendRequest.initiator = NULL;
 		mst->suspendRequest.acknowledge = 0U;
-		mst->state = PM_MASTER_STATE_ACTIVE;
 
 		/* Clear requirements of the master */
 		mst->reqs = NULL;
