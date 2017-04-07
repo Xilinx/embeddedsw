@@ -101,6 +101,8 @@
 *                        source and destination points to the same buffer.
 *       ms      03/17/17 Added readme.txt file in examples folder for doxygen
 *                        generation.
+*       ms      04/10/17 Modified filename tag in xcsudma_selftest_example.c to
+*                        include the file in doxygen examples.
 * </pre>
 *
 ******************************************************************************/
