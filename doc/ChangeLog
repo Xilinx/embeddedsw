@@ -810,6 +810,9 @@ Add HDCP 1.4 & 2.2 auto switching support
 Add Import Example Design support
 Update to optimize out HDCP when excluded
 
+v_hdmirxss_v3_2:
+Fix to prevent HDCP protocol switching when only one protocol is in the design
+
 v_hdmitxss_v3_0:
 Up version to 3.0 with the following updates:
 Add HDCP repeater support

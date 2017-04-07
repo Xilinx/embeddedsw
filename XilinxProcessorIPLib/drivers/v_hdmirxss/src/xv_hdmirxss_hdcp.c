@@ -43,6 +43,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00   MMO 19/12/16 Move HDCP Code from xv_hdmirxss.c to xv_hdmirxss_hdcp.c
+* 3.2    MH  04/07/17 Fixed issue to prevent HDCP protocol switching when only
+*                     one protocol is in the design.
 *
 * </pre>
 *
@@ -86,7 +88,7 @@ static void XV_HdmiRxSs_HdcpTimerCallback(void *CallBackRef, u8 TimerChannel);
  *****************************************************************************/
 void XV_HdmiRxSS_HdcpIntrHandler(XV_HdmiRxSs *InstancePtr)
 {
-    XHdcp1x_CipherIntrHandler(InstancePtr->Hdcp14Ptr);
+  XHdcp1x_CipherIntrHandler(InstancePtr->Hdcp14Ptr);
 }
 #endif
 
@@ -100,7 +102,7 @@ void XV_HdmiRxSS_HdcpIntrHandler(XV_HdmiRxSs *InstancePtr)
  *****************************************************************************/
 void XV_HdmiRxSS_HdcpTimerIntrHandler(XV_HdmiRxSs *InstancePtr)
 {
-    XTmrCtr_InterruptHandler(InstancePtr->HdcpTimerPtr);
+  XTmrCtr_InterruptHandler(InstancePtr->HdcpTimerPtr);
 }
 #endif
 
@@ -524,15 +526,25 @@ static int XV_HdmiRxSs_HdcpProcessEvents(XV_HdmiRxSs *InstancePtr)
     // HDCP 1.4 protocol event
     // Enable HDCP 1.4
     case XV_HDMIRXSS_HDCP_1_PROT_EVT :
-      if(XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_14) != XST_SUCCESS)
-        XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_22);
+#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
+      if (InstancePtr->Hdcp14Ptr && InstancePtr->Hdcp22Ptr) {
+        if(XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_14) != XST_SUCCESS) {
+          XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_22);
+        }
+      }
+#endif
       break;
 
     // HDCP 2.2 protocol event
     // Enable HDCP 2.2
     case XV_HDMIRXSS_HDCP_2_PROT_EVT :
-      if(XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_22) != XST_SUCCESS)
-        XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_14);
+#if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
+      if (InstancePtr->Hdcp14Ptr && InstancePtr->Hdcp22Ptr) {
+        if(XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_22) != XST_SUCCESS) {
+          XV_HdmiRxSs_HdcpSetProtocol(InstancePtr, XV_HDMIRXSS_HDCP_14);
+        }
+      }
+#endif
       break;
 
     // DVI mode event
