@@ -758,8 +758,10 @@ static int PmMasterForceDownCleanup(PmMaster* const master)
  * PmMasterIdleSlaves() - Idle and reset active slaves of a master
  * @master	Master whose slaves need to be idled and reset
  *
- * @note	Only slaves that are exclusively used by this master and
- *          with a active clock are idled and reset
+ * @note	Idle and reset slaves which have an active clock and
+ * 		- Are not requested by any other master and this master is
+		uninitialized, or
+		- Are exclusively used by this master
  */
 static void PmMasterIdleSlaves(PmMaster* const master)
 {
@@ -770,11 +772,16 @@ static void PmMasterIdleSlaves(PmMaster* const master)
 	PmDbg("%s\r\n", PmStrNode(master->nid));
 
 	while (NULL != req) {
+		u32 usage = PmSlaveGetUsageStatus(req->slave, master);
 		Node = &req->slave->node;
-		/* If master is using a slave and it has active clock then idle it */
-		if((PmSlaveGetUsageStatus(req->slave, master) == PM_USAGE_CURRENT_MASTER) &&
-				(PmClockIsActive(Node) == XST_SUCCESS)) {
-			PmNodeReset(master, Node->nodeId, NODE_IDLE_REQ);
+
+		if (((PM_MASTER_STATE_UNINITIALIZED == master->state) &&
+				(0U == (usage & PM_USAGE_OTHER_MASTER))) ||
+				(usage == PM_USAGE_CURRENT_MASTER)) {
+			if (XST_SUCCESS == PmClockIsActive(Node)) {
+				PmNodeReset(master, Node->nodeId,
+					NODE_IDLE_REQ);
+			}
 		}
 		req = req->nextSlave;
 	}
