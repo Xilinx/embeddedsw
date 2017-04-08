@@ -20,8 +20,9 @@
 
 #include "xparameters_ps.h"
 
+#ifndef XPS_BOARD_ZCU102
 #define XPS_BOARD_ZCU102
-
+#endif
 
 /* Number of Fabric Resets */
 #define XPAR_NUM_FABRIC_RESETS 1
