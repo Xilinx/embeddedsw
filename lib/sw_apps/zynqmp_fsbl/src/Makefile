@@ -33,8 +33,11 @@ BOARD := zcu102
 PROC ?= a53
 A53_STATE ?= 64
 
+MISC_DIR := ../misc/
+PSU_INIT_DIR := $(MISC_DIR)/$(BOARD)
+
 c_SOURCES := $(wildcard *.c)
-c_SOURCES += psu_init.c
+c_SOURCES += $(PSU_INIT_DIR)/psu_init.c
 S_SOURCES := $(wildcard *.S)
 #remove unnecessary translation table files
 ifeq "${PROC}" "a53"
@@ -56,7 +59,6 @@ OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
 
-MISC_DIR := ../misc/
 BSP_DIR	:= $(MISC_DIR)/zynqmp_fsbl_bsp/
 
 ifeq "${PROC}" "a53"
@@ -71,7 +73,7 @@ CC_FLAGS := -MMD -MP -Wall -fmessage-length=0 -march=armv7-a -DARMA53_32
 #linker script for a53_32 and r5 is same.
 LSCRIPT := -Tlscript.ld
 endif
-INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I.
+INCLUDEPATH := -I$(BSP_DIR)/psu_cortexa53_0/include -I. -I$(PSU_INIT_DIR)
 LIBPATH := -L$(BSP_DIR)/psu_cortexa53_0/lib
 LIBS := $(BSP_DIR)/psu_cortexa53_0/lib/libxil.a
 endif
@@ -97,10 +99,8 @@ all: $(EXEC)
 
 $(EXEC): $(LIBS) $(OBJS) $(INCLUDES)
 	$(CC) -o $@ $(OBJS) $(CFLAGS) $(CC_FLAGS) $(LDFLAGS) $(LIBPATH) $(LSCRIPT)
-	rm -rf $(OBJS) *.d
 
 $(LIBS):
-	cp $(MISC_DIR)/$(BOARD)/psu_init.* .
 	@echo "Copying BSP files"
 	$(MISC_DIR)/copy_bsp.sh "$(BOARD)" "$(PROC)" "$(A53_STATE)"
 	@echo "Compiling bsp"
@@ -111,7 +111,7 @@ ifeq "${PROC}" "r5"
 	make -C $(MISC_DIR) "PROC=$(PROC)"
 endif
 
-$(OBJS): $(LIBS) $(INCLUDES) psu_init.c
+$(OBJS): $(LIBS) $(INCLUDES)
 
 %.o:%.c
 		$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
@@ -123,4 +123,4 @@ $(OBJS): $(LIBS) $(INCLUDES) psu_init.c
 		$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
-	rm -rf $(OBJS) $(BSP_DIR) $(LIBS) $(EXEC) *.d psu_init*
+	rm -rf $(OBJS) $(BSP_DIR) $(LIBS) $(EXEC) *.d $(PSU_INIT_DIR)/psu_init.o $(PSU_INIT_DIR)/psu_init.d

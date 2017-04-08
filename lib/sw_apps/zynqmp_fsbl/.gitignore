@@ -1,0 +1,4 @@
+*.o
+*.d
+src/fsbl.elf
+misc/zynqmp_fsbl_bsp
