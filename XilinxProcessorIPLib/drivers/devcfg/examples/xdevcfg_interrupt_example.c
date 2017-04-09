@@ -31,7 +31,7 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file  xdcfg_interrupt_example.c
+* @file  xdevcfg_interrupt_example.c
 *
 * This file contains a interrupt mode design example for the Device
 * Configuration Interface. This example downloads a given bitstream to the FPGA
@@ -68,6 +68,9 @@
 *		      Added support for partial reconfiguration.
 * 3.00a kpc  02/10/14 Fixed the compilation error
 * 3.1   kpc  04/22/14 Fixed CR#780203. Enable the pcap clock if it is not set.
+*       ms   04/10/17 Modified filename tag to include the file in doxygen
+*       ms   04/10/17 Modified filename tag to include the file in doxygen
+*                     examples.
 *</pre>
 ******************************************************************************/
 
