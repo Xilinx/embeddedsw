@@ -29,10 +29,10 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 * @file xnandps_skip_example.c
-**
+*
 * This file contains a design example using the NAND driver (XNandPs).
 * This example tests the skip block method of erase/read/write operations.
 * The skip block method is useful while reading/writing images on to the flash.
@@ -50,7 +50,8 @@
 * ----- ---- ----------   -----------------------------------------------
 * 1.00  nm   12/10/2010   First release
 * 1.01a nm   28/02/2012   Modified the test offsets.
-*
+*       ms   04/10/17     Comment lines notation begin with /** to include
+*                         the file in doxygen examples.
 *</pre>
 *
 ******************************************************************************/

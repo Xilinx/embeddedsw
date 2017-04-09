@@ -29,10 +29,10 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 * @file xnandps_example.c
-**
+*
 * This file contains a design example using the NAND driver (XNandPs).
 * This example tests the block erase, block read and block write features.
 * The flash blocks are erased and written. The data is read back and compared
@@ -49,7 +49,8 @@
 * ----- ---- ----------  -----------------------------------------------
 * 1.00  nm   12/10/2010  First release.
 * 1.01a nm   28/02/2012  Modified the test offsets.
-*
+*       ms   04/10/17    Comment lines notation begin with /** to include
+*                        the file in doxygen examples.
 *</pre>
 *
 ******************************************************************************/
