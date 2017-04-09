@@ -164,6 +164,8 @@
 *       ms     02/12/17    Fix for the compilation warning in _g.c file.
 *       ms     03/17/17    Added readme.txt file in examples folder for doxygen
 *                          generation.
+*       ms     04/10/17    Comment lines notation begin with /** in
+*                          xnandpsu_example.c to include it in doxygen examples
 * </pre>
 *
 ******************************************************************************/
