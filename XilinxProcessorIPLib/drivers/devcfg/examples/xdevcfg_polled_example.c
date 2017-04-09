@@ -31,7 +31,7 @@
 ******************************************************************************/
 /*****************************************************************************/
 /**
-* @file  xdcfg_polled_example.c
+* @file  xdevcfg_polled_example.c
 *
 * This file contains a polled mode design example for the Device Configuration
 * Interface. This example downloads a given bitstream to the FPGA fabric.
@@ -65,6 +65,8 @@
 *		      Added support for partial reconfiguration.
 * 3.00a kpc  02/20/14 Renamed the DcfgInstance variable name to DcfgInstPtr
 * 3.1   kpc  04/22/14 Fixed CR#780203. Enable the pcap clock if it is not set.
+*       ms   04/10/17 Modified filename tag to include the file in doxygen
+*                     examples.
 *</pre>
 ******************************************************************************/
 
