@@ -29,10 +29,10 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/******************************************************************************
-*
+/*****************************************************************************/
+/**
 * @file xnandps_cache_example.c
-**
+*
 * This file contains a design example using the NAND driver (XNandPs).
 * This example tests NAND page cache read and write commands. The page cache
 * commands are not supported by OnDie ECC flash since ECC is enabled by
@@ -52,7 +52,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- ----------  -----------------------------------------------
 * 1.00  nm   04/25/2013  First release.
-*
+*       ms   04/10/17    Comment lines notation begin with /** to include
+*                        the file in doxygen examples.
 *</pre>
 *
 ******************************************************************************/
