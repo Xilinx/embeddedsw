@@ -33,7 +33,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xtpg_selftest_example.c
+* @file tpg_selftest_example.c
 *
 * This file contains an example using the XTpg driver to do self test
 * on the device.
@@ -47,7 +47,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -----------------------------------------------
 * 3.0   adk    01/15/14  First release
-*
+*       ms     04/10/17  Modified filename tag to include the file in doxygen
+*                        examples.
 * </pre>
 ******************************************************************************/
 
