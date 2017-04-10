@@ -32,7 +32,7 @@
 /****************************************************************************/
 /**
 *
-* @file		xrtcpsu_periodic_alarm_intr_example.c
+* @file xrtcpsu_periodic_alarm_interrupt_example.c
 *
 * This file contains an periodic alarm example using the XRtcPsu driver in interrupt
 * mode. It sets periodical alarm for specified times from the current time. For
@@ -50,7 +50,8 @@
 * 1.00  kvn 05/12/15 First Release
 * 1.3   kvn 05/26/16 Added volatile keyword for PeriodicAlarms
 *                    variable.
-*
+*       ms  04/10/17 Modified filename tag to include the file in doxygen
+*                    examples.
 * </pre>
 ****************************************************************************/
 
