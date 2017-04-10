@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xhdmi_example.c
+* @file xhdmi_example_zynq.c
 *
 * This file demonstrates how to use Xilinx HDMI TX Subsystem, HDMI RX Subsystem
 * and Video PHY Controller drivers.
@@ -58,6 +58,8 @@
 *                            XVphy_GetLineRateHz Rate API return value.
 *                       Removed CPU Clock Frequence on XVphy_HdmiInitialize
 *                            Initialization.
+*       ms     04/10/17 Modified filename tag to include the file in doxygen
+*                       examples.
 * </pre>
 *
 ******************************************************************************/
