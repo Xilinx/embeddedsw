@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xusbps_ch9_storage.h
+ * @file xusbps_class_storage.h
  *
  * This file contains definitions used in the chapter 9 code.
  *
@@ -43,6 +43,8 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -------------------------------------------------------
  * 1.00a wgr  10/10/10 First release
+ *       ms   04/10/17 Modified filename tag to include the file in doxygen
+ *                     examples.
  * </pre>
  *
  ******************************************************************************/

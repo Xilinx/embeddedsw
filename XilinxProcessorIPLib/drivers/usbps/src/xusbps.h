@@ -185,6 +185,8 @@
  * 2.4   sg  04/26/16 Fixed CR#949693, Corrected the logic for EP flush
  *       ms  03/17/17 Added readme.txt file in examples folder for doxygen
  *                    generation.
+ *       ms  04/10/17 Modified filename tag to include the file in doxygen
+ *                    examples.
  * </pre>
  *
  ******************************************************************************/
