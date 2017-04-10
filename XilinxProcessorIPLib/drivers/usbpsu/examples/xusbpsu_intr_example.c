@@ -32,7 +32,7 @@
 /****************************************************************************/
 /**
 *
-* @file xusbpsu_mass_storage.c
+* @file xusbpsu_intr_example.c
 *
 * This file implements the Reduced Block Commands set of mass storage class.
 * Please refer to Mass storage class specification for details.
@@ -43,7 +43,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
-*
+*       ms  04/10/17 Modified filename tag to include the file in doxygen
+*                    examples.
 * </pre>
 *
 *****************************************************************************/
