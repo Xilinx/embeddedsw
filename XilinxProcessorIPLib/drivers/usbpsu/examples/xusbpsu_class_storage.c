@@ -32,7 +32,7 @@
 /****************************************************************************/
 /**
 *
-* @file xusbpsu_class_storage.h
+* @file xusbpsu_class_storage.c
 *
 *
 * <pre>
@@ -41,7 +41,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16  First release
-*
+*       ms  04/10/17  Modified filename tag to include the file in doxygen
+*                     examples.
 * </pre>
 *
 *****************************************************************************/
