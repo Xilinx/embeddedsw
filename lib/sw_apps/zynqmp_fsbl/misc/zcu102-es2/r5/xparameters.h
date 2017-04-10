@@ -18,7 +18,9 @@
 
 #include "xparameters_ps.h"
 
+#ifndef XPS_BOARD_ZCU102
 #define XPS_BOARD_ZCU102
+#endif
 
 /******************************************************************/
 
