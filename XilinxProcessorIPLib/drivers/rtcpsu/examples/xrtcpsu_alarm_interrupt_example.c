@@ -32,7 +32,7 @@
 /****************************************************************************/
 /**
 *
-* @file		xrtcpsu_alarm_intr_example.c
+* @file xrtcpsu_alarm_interrupt_example.c
 *
 * This file contains an alarm example using the XRtcPsu driver in interrupt
 * mode. It sets alarm for a specified time from the current time.
@@ -47,7 +47,8 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- ----------------------------------------------
 * 1.00  kvn 05/12/15 First Release
-*
+*       ms  04/10/17 Modified filename tag to include the file in doxygen
+*                    examples.
 * </pre>
 ****************************************************************************/
 
