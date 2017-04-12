@@ -35,9 +35,11 @@ Every driver/lib/apps/services has these sub-directories
 |		|- standalone
 |			|- data
 |			|- src
-|				|- cortexa9
-|				|- cortexa53
-|				|- cortexr5
+|                               |- arm
+|                                     |- common
+|				      |- cortexa9
+|				      |- cortexa53
+|				      |- cortexr5
 |				|- microblaze
 |				|- common
 |				|- profile
@@ -49,6 +51,7 @@ Every driver/lib/apps/services has these sub-directories
 |	|- sw_apps
 |		|- zynq_fsbl [described below]
 		|- zynqmp_fsbl [described below]
+		|- zynqmp_pmufw [described below]
 |	|- sw_services
 |		|- xilffs
 |		|- xilskey
@@ -127,3 +130,20 @@ How to compile FSBL:
 			i.make "BOARD=zcu102-es2" "PROC=r5" "CFLAGS+=-DFSBL_DEBUG_INFO"
 		f.To generate A53 32 bit Fsbl for zcu102-es2 board.
 			i.make "BOARD=zcu102-es2" "PROC=a53" "A53_STATE=32"
+
+Building PMUFW from git:
+
+PMUFW(zynqmp_pmufw) has 3 directories.
+	1. data - It contains files for SDK
+	2. src  - It contains the PMUFW source files
+	3. misc - It contains miscellaneous files required to
+		  compile PMUFW.
+
+
+How to compile PMUFW:
+
+	ZynqMP
+	1.Go to the PMUFW src directory "lib/sw_apps/zynqmp_pmufw/src/"
+	2.If executables and other artifacts from previous PMUFW build are present, run
+	  make clean to delete them.
+	3.Give "make" to compile the PMUFW with BSP.
