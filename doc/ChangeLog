@@ -454,9 +454,12 @@ obsoleted lib (was replaced in 2016.1 release by openamp lib)
 This is mainly a name change to better match the github project library name.
 
 xilpm_v2_1:
-Modified clean rule in makefile to remove libxilpm.a. Fix for
+- Modified clean rule in makefile to remove libxilpm.a. Fix for
 CR#962551.
-Fixed Compilation warnings - CR#957004
+- Fixed Compilation warnings - CR#957004
+- Added PM_INIT_FINALIZE API
+- Added SET_CONFIGURATION API to load the config object
+- Added config object generator tcl to generate the config data from HDF
 
 xilrsa_v1_3:
 Updated makefile to add clean rule.Fix for CR#962551.
@@ -524,6 +527,22 @@ openamp_echo_test:
 - Update to work with updated openamp and libmetal libs
 - Added reconnection to echo_test
 
+zynqmp_pmufw:
+- Added support for APU sub-system restart
+- Added support for WDT triggered APU restart and escalation
+- Fixes for DDR Self-Refresh issues
+- Added SET_CONFIGURATION API implementation to enable config object loading
+- PM operations now depend on the config object loaded by FSBL
+- Added PM_INIT_FINALIZE API call
+- Added support for handling masters without PM enabled
+- Debug prints are disabled by default. Can be enabled by defining DEBUG_MODE
+- Fixes for mandatory MISRA C 2012 violations
+- PMUFW now enables broadcasting of inner shareable transaction, if any LPD/FPD
+  peripheral is configured to use CCI.This change is required to support CCI enabled
+  peripherals in linux.
+- Fixed build issues when ENABLE_PM is not defined
+- Added PM_SECURE_RSA_AES API call to support secure image handling
+- xilsecure is used by PMUFW to support encryption/decryption features
 
 Change Log for 2016.4
 =================================
