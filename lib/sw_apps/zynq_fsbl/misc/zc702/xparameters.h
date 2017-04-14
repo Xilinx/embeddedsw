@@ -1,3 +1,6 @@
+#ifndef XPARAMETERS_H   /* prevent circular inclusions */
+#define XPARAMETERS_H   /* by using protection macros */
+
 /* Definition for CPU ID */
 #define XPAR_CPU_ID 0
 
@@ -483,3 +486,5 @@
 #define FILE_SYSTEM_INTERFACE_SD
 #define FILE_SYSTEM_USE_MKFS
 #define FILE_SYSTEM_NUM_LOGIC_VOL 2
+#define FILE_SYSTEM_USE_STRFUNC 0
+#endif  /* end of protection macro */
