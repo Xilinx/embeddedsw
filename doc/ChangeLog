@@ -546,6 +546,11 @@ zynqmp_pmufw:
 - Fixed build issues when ENABLE_PM is not defined
 - Added PM_SECURE_RSA_AES API call to support secure image handling
 - xilsecure is used by PMUFW to support encryption/decryption features
+- Restore clocks config when APU reboots regardless of nodes state.
+- Clear power down request bit when processor is forced down.
+- Release reset after powering up a GPU pixel processor
+- PmInitFinalize PM API call is added, which is used to inform the PFW that the caller master has initialized its own power management. Until a master calls PmInitFinalize, PFW will keep running/On all slaves which the master can use (this is defined with permissions provided in the configuration object). If a master doesn't have PM support, it will never call PmInitFinalize, so PFW will always ensure that all slaves that the master can use remain running.
+- New 'uninitialized' state is used to capture that a master has not called PmInitFinalize. All masters are initially 'uninitialized'.
 
 Change Log for 2016.4
 =================================
