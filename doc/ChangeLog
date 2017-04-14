@@ -169,6 +169,10 @@ Add Support for TI PHY DP83867 SGMII Mode configuration in the examples.
 Fixed CR#971367 fix race condition in the tcl for a multi mac design
 (AXI_CONNECTED_TYPE defined only for one instance).
 
+axipmon_v6_5:
+Updated the makefile to fix the bug, to avoid the compilation failure
+of the axipmon applications.It fixes the CR#974412
+
 axivdma_v6_3:
 Fixed compilation errors. CR-969129
 
