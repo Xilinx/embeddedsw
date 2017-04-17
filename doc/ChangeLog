@@ -1,3 +1,15 @@
+Changes for 2017.2
+================================
+
+ipipsu_v2_3:
+Added suffix U for all macros of ipipsu in xparameters.h
+Fix for CR-963131.
+
+scugic_v3_7:
+Added suffix U for all macros of scugic in xparameters.h
+Fix for CR-963131.
+
+
 Change Log for 2017.1
 =================================
 
