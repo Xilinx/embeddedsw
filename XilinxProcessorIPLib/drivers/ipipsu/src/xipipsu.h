@@ -88,6 +88,8 @@
  *      kvn 02/17/17  Add support for updating ConfigTable at run time
  *      ms  03/17/17  Added readme.txt file in examples folder for doxygen
  *                    generation.
+ * 2.3  ms  04/11/17  Modified tcl file to add suffix U for all macro
+ *                    definitions of ipipsu in xparameters.h
  * </pre>
  *
  *****************************************************************************/
