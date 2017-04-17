@@ -36,7 +36,8 @@
 # Ver   Who  Date     Changes
 # ----- ---- -------- -----------------------------------------------
 # 1.00 mjr  02/03/15  Created
-#
+# 2.3  ms   04/11/17  Modified tcl file to add U suffix for all macros
+#                     of ipipsu in xparameters.h
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -45,6 +46,7 @@ proc ipi_format_hexmask {bitpos} {
 	return [format "0x%08X" [expr 1<<$bitpos]]
 }
 proc ipi_define_xpar {inst param} {
+	set uSuffix "U"
 	set param_name [string range $param [string length "CONFIG."] [string length $param]]
 	set name [string range $param_name 2 end]
 	set param_value [common::get_property $param [hsi::get_cells -hier $inst]]
@@ -52,7 +54,7 @@ proc ipi_define_xpar {inst param} {
 		set name "BIT_MASK"
 		set param_value [ipi_format_hexmask $param_value]
 	}
-	return  [format "#define  XPAR_%s_%s  %s" [string toupper $inst] $name $param_value]
+	return  [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $inst] $name $param_value]
 }
 
 #Generate Config file with data structures describing the HW
@@ -123,6 +125,7 @@ proc ipi_generate_config {drv_handle file_name} {
 proc ipi_generate_params {file_name} {
 	#Driver Prefix String
 	set drv_string "XIpiPsu"
+	set uSuffix "U"
 
 	# open the xparameters.h file
 	set file_handle [::hsi::utils::open_include_file $file_name]
@@ -142,7 +145,7 @@ proc ipi_generate_params {file_name} {
 	set proc_ipi_list [lsearch -all -inline [get_property SLAVES $hw_proc_handle] psu_ipi_*]
 
 	#Total number of IPIs assigned to this proc
-	puts $file_handle [format "#define  XPAR_XIPIPSU_NUM_INSTANCES  %s" [llength $proc_ipi_list]]
+	puts $file_handle [format "#define  XPAR_XIPIPSU_NUM_INSTANCES  %s$uSuffix" [llength $proc_ipi_list]]
 	puts $file_handle ""
 
 	# Generate all params for IPIs owned by this proc
@@ -151,7 +154,7 @@ proc ipi_generate_params {file_name} {
 
 	foreach ipi_inst $proc_ipi_list {
 		puts $file_handle [format "/* Parameter definitions for peripheral %s */" $ipi_inst]
-		puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $ipi_inst] "DEVICE_ID" $idx]
+		puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $ipi_inst] "DEVICE_ID" $idx]
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BASE_ADDRESS]
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BIT_POSITION]
 		puts $file_handle [ipi_define_xpar $ipi_inst CONFIG.C_BUFFER_INDEX]
@@ -173,7 +176,7 @@ proc ipi_generate_params {file_name} {
 	}
 
 	#Total number of IPIs assigned to this proc
-	puts $file_handle [format "#define  XPAR_XIPIPSU_NUM_TARGETS  %s" [llength $ipi_list]]
+	puts $file_handle [format "#define  XPAR_XIPIPSU_NUM_TARGETS  %s$uSuffix" [llength $ipi_list]]
 	puts $file_handle ""
 
 	foreach ipi_inst $ipi_list {
@@ -191,7 +194,7 @@ proc ipi_generate_params {file_name} {
 		set idx 0
 		foreach ipi_slave $proc_slave_list {
 			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_MASK  XPAR_%s_BIT_MASK" [string toupper $proc] $idx [string toupper $ipi_slave]]
-			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_INDEX  %s" [string toupper $proc] $idx [lsearch $ipi_list $ipi_slave]]
+			puts $file_handle [format "#define  XPAR_XIPIPS_TARGET_%s_CH%s_INDEX  %s$uSuffix" [string toupper $proc] $idx [lsearch $ipi_list $ipi_slave]]
 			puts ""
 			incr idx
 		}
