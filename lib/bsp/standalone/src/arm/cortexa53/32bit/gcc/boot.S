@@ -180,6 +180,17 @@ OKToRun:
 	mov	r0,#0
 	mcr 	15,0,r0,c2,c0,2			/* N = 0 to use ttbr0 */
 
+        /* Write to ACTLR */
+	mrc p15, 0, r0, c1, c0, 1 /* Read ACTLR */
+	orr r0, r0, #(1 << 0)     /* Enable access to CPUECTLR */
+	orr r0, r0, #(1 << 1)
+	mcr p15, 0, r0, c1, c0, 1 /* Write ACTLR */
+
+       /* Write to CPUECTLR */
+	mrrc p15, 1, r0, r1, c15  /* Read CPUECTLR */
+	orr r0, r0, #(0x01 << 6)  /* Set SMPEN bit */
+	mcrr p15, 1, r0, r1, c15  /* Write CPUECTLR */
+
 	/* enable MMU and cache */
 	ldr	r0,=TblBase			/* Load MMU translation table base */
 	orr	r0, r0, #0x5B			/* Outer-cacheable, WB */
@@ -198,12 +209,6 @@ OKToRun:
 	dsb					/* dsb	allow the MMU to start up */
 	mcr	p15,0,r0,c1,c0,0		/* Enable cache and MMU */
 	isb					/* isb	flush prefetch buffer */
-
-	/* Write to ACTLR */
-	mrc	p15, 0, r0, c1, c0, 1		/* Read ACTLR*/
-	orr	r0, r0, #(0x01 << 6)		/* set SMP bit */
-	orr	r0, r0, #(0x01 )		/* */
-	mcr	p15, 0, r0, c1, c0, 1		/* Write ACTLR*/
 
 	mov	r0, r0
 	mrc	p15, 0, r1, c1, c0, 2		/* read cp access control register (CACR) into r1 */
