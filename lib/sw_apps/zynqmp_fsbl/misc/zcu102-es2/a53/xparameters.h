@@ -1,3 +1,6 @@
+#ifndef XPARAMETERS_H   /* prevent circular inclusions */
+#define XPARAMETERS_H   /* by using protection macros */
+
 /* Definition for CPU ID */
 #define XPAR_CPU_ID 0
 
@@ -19,8 +22,6 @@
 #define XPAR_PSU_PSS_REF_CLK_FREQ_HZ 33333000U
 
 #include "xparameters_ps.h"
-
-#define XPS_BOARD_ZCU102
 
 
 /* Number of Fabric Resets */
@@ -377,9 +378,14 @@
 #define XPAR_PSU_CRL_APB_S_AXI_HIGHADDR 0xFF85FFFF
 
 
+/* Definitions for peripheral PSU_CTRL_IPI */
+#define XPAR_PSU_CTRL_IPI_S_AXI_BASEADDR 0xFF380000
+#define XPAR_PSU_CTRL_IPI_S_AXI_HIGHADDR 0xFF3FFFFF
+
+
 /* Definitions for peripheral PSU_DDR_0 */
 #define XPAR_PSU_DDR_0_S_AXI_BASEADDR 0x00000000
-#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0xFFFFFFFF
+#define XPAR_PSU_DDR_0_S_AXI_HIGHADDR 0x7FFFFFFF
 
 
 /* Definitions for peripheral PSU_DDR_1 */
@@ -517,6 +523,11 @@
 #define XPAR_PSU_MBISTJTAG_S_AXI_HIGHADDR 0xFFCFFFFF
 
 
+/* Definitions for peripheral PSU_MESSAGE_BUFFERS */
+#define XPAR_PSU_MESSAGE_BUFFERS_S_AXI_BASEADDR 0xFF990000
+#define XPAR_PSU_MESSAGE_BUFFERS_S_AXI_HIGHADDR 0xFF99FFFF
+
+
 /* Definitions for peripheral PSU_OCM */
 #define XPAR_PSU_OCM_S_AXI_BASEADDR 0xFF960000
 #define XPAR_PSU_OCM_S_AXI_HIGHADDR 0xFF96FFFF
@@ -524,7 +535,7 @@
 
 /* Definitions for peripheral PSU_OCM_RAM_0 */
 #define XPAR_PSU_OCM_RAM_0_S_AXI_BASEADDR 0xFFFC0000
-#define XPAR_PSU_OCM_RAM_0_S_AXI_HIGHADDR 0xFFFEFFFF
+#define XPAR_PSU_OCM_RAM_0_S_AXI_HIGHADDR 0xFFFFFFFF
 
 
 /* Definitions for peripheral PSU_OCM_XMPU_CFG */
@@ -547,9 +558,14 @@
 #define XPAR_PSU_PCIE_DMA_S_AXI_HIGHADDR 0xFD0FFFFF
 
 
-/* Definitions for peripheral PSU_PCIE_HIGH */
-#define XPAR_PSU_PCIE_HIGH_S_AXI_BASEADDR 0x600000000
-#define XPAR_PSU_PCIE_HIGH_S_AXI_HIGHADDR 0x7FFFFFFFF
+/* Definitions for peripheral PSU_PCIE_HIGH1 */
+#define XPAR_PSU_PCIE_HIGH1_S_AXI_BASEADDR 0x600000000
+#define XPAR_PSU_PCIE_HIGH1_S_AXI_HIGHADDR 0x7FFFFFFFF
+
+
+/* Definitions for peripheral PSU_PCIE_HIGH2 */
+#define XPAR_PSU_PCIE_HIGH2_S_AXI_BASEADDR 0x8000000000
+#define XPAR_PSU_PCIE_HIGH2_S_AXI_HIGHADDR 0xBFFFFFFFFF
 
 
 /* Definitions for peripheral PSU_PCIE_LOW */
@@ -560,11 +576,6 @@
 /* Definitions for peripheral PSU_PMU_GLOBAL_0 */
 #define XPAR_PSU_PMU_GLOBAL_0_S_AXI_BASEADDR 0xFFD80000
 #define XPAR_PSU_PMU_GLOBAL_0_S_AXI_HIGHADDR 0xFFDBFFFF
-
-
-/* Definitions for peripheral PSU_PMU_IOMODULE */
-#define XPAR_PSU_PMU_IOMODULE_S_AXI_BASEADDR 0xFFD40000
-#define XPAR_PSU_PMU_IOMODULE_S_AXI_HIGHADDR 0xFFD5FFFF
 
 
 /* Definitions for peripheral PSU_QSPI_LINEAR_0 */
@@ -630,6 +641,11 @@
 /* Definitions for peripheral PSU_SMMU_REG */
 #define XPAR_PSU_SMMU_REG_S_AXI_BASEADDR 0xFD5F0000
 #define XPAR_PSU_SMMU_REG_S_AXI_HIGHADDR 0xFD5FFFFF
+
+
+/* Definitions for peripheral PSU_USB_0 */
+#define XPAR_PSU_USB_0_S_AXI_BASEADDR 0xFF9D0000
+#define XPAR_PSU_USB_0_S_AXI_HIGHADDR 0xFF9DFFFF
 
 
 /******************************************************************/
@@ -703,7 +719,7 @@
 #define  XPAR_XIPIPSU_0_BUFFER_INDEX	XPAR_PSU_IPI_0_BUFFER_INDEX
 #define  XPAR_XIPIPSU_0_INT_ID	XPAR_PSU_IPI_0_INT_ID
 
-#define  XPAR_XIPIPSU_NUM_TARGETS  11
+#define  XPAR_XIPIPSU_NUM_TARGETS  7
 
 #define  XPAR_PSU_IPI_0_BIT_MASK  0x00000001
 #define  XPAR_PSU_IPI_0_BUFFER_INDEX  2
@@ -1044,16 +1060,16 @@
 /* Definitions for driver USBPSU */
 #define XPAR_XUSBPSU_NUM_INSTANCES 1
 
-/* Definitions for peripheral PSU_USB_0 */
-#define XPAR_PSU_USB_0_DEVICE_ID 0
-#define XPAR_PSU_USB_0_BASEADDR 0xFE200000
-#define XPAR_PSU_USB_0_HIGHADDR 0xFE20FFFF
+/* Definitions for peripheral PSU_USB_XHCI_0 */
+#define XPAR_PSU_USB_XHCI_0_DEVICE_ID 0
+#define XPAR_PSU_USB_XHCI_0_BASEADDR 0xFE200000
+#define XPAR_PSU_USB_XHCI_0_HIGHADDR 0xFE20FFFF
 
 
 /******************************************************************/
 
-/* Canonical definitions for peripheral PSU_USB_0 */
-#define XPAR_XUSBPSU_0_DEVICE_ID XPAR_PSU_USB_0_DEVICE_ID
+/* Canonical definitions for peripheral PSU_USB_XHCI_0 */
+#define XPAR_XUSBPSU_0_DEVICE_ID XPAR_PSU_USB_XHCI_0_DEVICE_ID
 #define XPAR_XUSBPSU_0_BASEADDR 0xFE200000
 #define XPAR_XUSBPSU_0_HIGHADDR 0xFE20FFFF
 
@@ -1346,3 +1362,6 @@
 #define FILE_SYSTEM_INTERFACE_SD
 #define FILE_SYSTEM_READ_ONLY
 #define FILE_SYSTEM_NUM_LOGIC_VOL 2
+#define FILE_SYSTEM_USE_STRFUNC 0
+#define XPAR_XILPM_ENABLED
+#endif  /* end of protection macro */
