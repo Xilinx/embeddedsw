@@ -2,8 +2,8 @@
 
 CC := mb-gcc
 CC_FLAGS := -MMD -MP    -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul
-CFLAGS :=
-LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group -nostartfiles -Wl,--gc-sections
+CFLAGS := -Os
+LN_FLAGS := -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxilfpga,-lxilsecure,-lxil,-lgcc,-lc,--end-group -nostartfiles -Wl,--gc-sections
 
 c_SOURCES := $(wildcard *.c)
 S_SOURCES := $(wildcard *.S)
@@ -43,7 +43,7 @@ $(LIBS):
 	$(CC) $(CC_FLAGS) $(CFLAGS) -c $< -o $@ $(INCLUDEPATH)
 
 clean:
-	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o
+	rm -rf $(OBJS) $(LIBS) $(EXEC) *.o *.d
 	rm -rf ../misc/zynqmp_pmufw_bsp
 
 -include $(DEPFILES)
