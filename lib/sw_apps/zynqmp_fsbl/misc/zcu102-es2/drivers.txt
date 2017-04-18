@@ -14,3 +14,4 @@ ttcps
 uartps
 wdtps
 ipipsu
+usbpsu
