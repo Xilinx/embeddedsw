@@ -33,9 +33,14 @@
 /**
 * @file xparameters_ps.h
 *
-* This file contains the address definitions for the hard peripherals
-* attached to the ARM Cortex R5 core.
+* @addtogroup r5_peripheral_definitions Cortex R5 peripheral definitions
 *
+* The xparameters_ps.h file contains the canonical definitions and constant
+* declarations for peripherals within hardblock, attached to the ARM Cortex R5
+* core. These definitions can be used by drivers or applications to access the
+* peripherals.
+*
+* @{
 * <pre>
 * MODIFICATION HISTORY:
 *
@@ -44,10 +49,6 @@
 * 5.00  pkp  	02/29/14 Initial version
 * 6.0   mus     08/18/16 Defined ARMR5 flag
 * </pre>
-*
-* @note
-*
-* None.
 *
 ******************************************************************************/
 
@@ -318,3 +319,6 @@ extern "C" {
 #endif
 
 #endif /* protection macro */
+/**
+* @} End of "addtogroup r5_peripheral_definitions".
+*/
