@@ -78,6 +78,10 @@
 * 6.02  pkp	01/22/17 Added support for EL1 non-secure
 * 6.02	pkp	01/24/17 Clearing status of FPUStatus variable to ensure it
 *			 holds correct value.
+* 6.3   mus 04/20/17 CPU Cache protection bit in the L2CTLR_EL1 will be in
+*                    set state on reset. So, setting that bit through boot
+*                    code is redundant, hence removed the code which sets
+*                    CPU cache protection bit.
 *
 *
 ******************************************************************************/
@@ -222,10 +226,6 @@ InitEL3:
 	orr      w1, w1, #(1 << 1)   	//; Set IRQ bit (IRQs routed to EL3)
 	msr      SCR_EL3, x1
 
-	/*Enable ECC protection*/
-	mrs	x0, S3_1_C11_C0_2  	// register L2CTLR_EL1
-	orr	x0, x0, #(1<<22)
-	msr	S3_1_C11_C0_2, x0
 	/*configure cpu auxiliary control register EL1 */
 	ldr	x0,=0x80CA000 		// L1 Data prefetch control - 5, Enable device split throttle, 2 independent data prefetch streams
 	msr	S3_1_C15_C2_0, x0 	//CPUACTLR_EL1
