@@ -3,25 +3,25 @@
 # this script will copy the required bsp directories
 
 # present working dir
-WORKING_DIR=../misc/
+WORKING_DIR=../misc
 
 #bsp dir where files will be copied
 BSP_DIR=$WORKING_DIR/zynqmp_pmufw_bsp/psu_pmu_0
 
 # Embedded Sw dir relaive path from pmufw src
-EMBEDDED_SW_DIR=$WORKING_DIR/../../../../
+EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 
 # selection of drivers is based on the board selected
 DRIVERS_LIST="$WORKING_DIR/drivers.txt"
 
 # drivers directory
-DRIVERS_DIR=$EMBEDDED_SW_DIR/XilinxProcessorIPLib/drivers/
+DRIVERS_DIR=$EMBEDDED_SW_DIR/XilinxProcessorIPLib/drivers
 
 # standalone dir, source of standalone files
-STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src/
+STANDALONE_DIR=$EMBEDDED_SW_DIR/lib/bsp/standalone/src
 
 # libraries dir
-SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services/
+SERVICES_DIR=$EMBEDDED_SW_DIR/lib/sw_services
 
 # creation of BSP folders required
 if [ -d $BSP_DIR ]; then
@@ -43,6 +43,8 @@ fi
 # copy the libraries required
 cp -r $SERVICES_DIR/xilfpga/ $BSP_DIR/libsrc/
 cp -r $SERVICES_DIR/xilfpga/src/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilsecure/ $BSP_DIR/libsrc/
+cp -r $SERVICES_DIR/xilsecure/src/*.h $BSP_DIR/include/
 
 # copy bsp standalone code
 cp  $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
@@ -50,6 +52,7 @@ cp  $STANDALONE_DIR/microblaze/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/profile  $BSP_DIR/libsrc/standalone/src/
 cp  $WORKING_DIR/bspconfig.h  $BSP_DIR/include
 cp  $WORKING_DIR/Makefile $BSP_DIR/../
+cp  $WORKING_DIR/xfpga_config.h $BSP_DIR/include
 
 #remove _g.c files
 #rm $BSP_DIR/libsrc/standalone/src/microblaze_interrupts_g.c
@@ -67,7 +70,7 @@ do
     #copy the driver include files
     cp -r $DRIVERS_DIR/$line/src/*.h $BSP_DIR/include/
 # copy all the HSM generated driver files DRIVER_g.c
-#    cp $BOARD_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
+	cp $WORKING_DIR/x"$line"_g.c $BSP_DIR/libsrc/$line/src/
 done < $DRIVERS_LIST
 
 #copy the processor code.
@@ -80,6 +83,7 @@ cp -r $DRIVERS_DIR/$PROC_DIRNAME/src $BSP_DIR/libsrc/$PROC_DIRNAME/src
 
 #copy the xparameters.h
 cp $WORKING_DIR/xparameters*.h $BSP_DIR/include/
+mv $BSP_DIR/libsrc/xilsecure/src/xsecure_sha2_pmu.a $BSP_DIR/libsrc/xilsecure/src/libxilsecure.a
 
 # other dependencies which are required
 cp $WORKING_DIR/config.make $BSP_DIR/libsrc/standalone/src/
