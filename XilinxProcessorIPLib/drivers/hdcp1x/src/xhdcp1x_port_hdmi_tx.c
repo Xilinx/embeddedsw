@@ -194,27 +194,54 @@ static int XHdcp1x_PortHdmiTxIsCapable(const XHdcp1x *InstancePtr)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Check if connected device is DVI or HDMI capable in Bcaps.
-        If it is HDMI capable, check if HDMI_MODE in Bstatus is true. */
-	if (XHdcp1x_PortHdmiTxRead(InstancePtr,
-		XHDCP1X_PORT_OFFSET_BCAPS, Value, 1)) {
-		/* HDMI */
-		if ((Value[0] & XHDCP1X_PORT_BIT_BCAPS_HDMI)) {
-			if (XHdcp1x_PortHdmiTxRead(InstancePtr,
-				XHDCP1X_PORT_OFFSET_BSTATUS, Value, 2)) {
-			Bstatus = Value[0];
-			Bstatus |= Value[1] << 8;
+	/* Check if the transmitter device is HDMI or DVI. */
+	if(InstancePtr->Tx.TxIsHdmi == TRUE) {
 
-			if ((Bstatus & XHDCP1X_PORT_BIT_BSTATUS_HDMI_MODE)) {
-					IsCapable = TRUE;
+		/* If an HDCP 1.x register is successfully read, then the
+	        downstream device is ready to authenticate. */
+		if (XHdcp1x_PortHdmiTxRead(InstancePtr,
+			XHDCP1X_PORT_OFFSET_BCAPS, Value, 1)) {
+
+			/* Check if connected device is DVI or HDMI
+			 * capable in Bcaps. */
+			if (Value[0] & 0x80) {
+
+				if (XHdcp1x_PortHdmiTxRead(InstancePtr,
+				     XHDCP1X_PORT_OFFSET_BSTATUS, Value, 2)) {
+					/* If it is HDMI capable, check if
+					 * HDMI_MODE in BStatus is true. */
+					Bstatus = Value[0];
+					Bstatus |= Value[1] << 8;
+
+					/* Downstream receiver has
+					 * transitioned to HDMI mode and is
+					 * ready to authenticate. */
+					if (Bstatus & 0x1000) {
+						IsCapable = TRUE;
+					}
+					/* If the downstream receiver has
+					 * not yet set the HDMI_MODE in
+					 * BStatus it isn't ready yet. */
 				}
 			}
+			/* The downstream device is DVI, but the transmitter is
+			 * configured in HDMI mode. This is an error. In this
+			 * case we keep the IsCapable value set to FALSE. */
+			else {
+				IsCapable = FALSE;
+			}
 		}
-		/* DVI */
-		else {
-			IsCapable = TRUE;
-        }
 	}
+	/* DVI */
+	else if (InstancePtr->Tx.TxIsHdmi == FALSE) {
+		/* If an HDCP 1.x register is successfully read, then the
+	        downstream device is ready to authenticate. */
+		if (XHdcp1x_PortHdmiTxRead(InstancePtr,
+			XHDCP1X_PORT_OFFSET_BCAPS, Value, 1)) {
+			IsCapable = TRUE;
+		}
+	}
+
 
 	return (IsCapable);
 }

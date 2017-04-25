@@ -164,8 +164,7 @@ static int XHdcp1x_RxCalculateSHA1Value(XHdcp1x *InstancePtr,
 		u16 RepeaterInfo);
 static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr);
-static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr,
-		XHdcp1x_StateType *NextStatePtr);
+static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr);
 static void XHdcp1x_RxCheckLinkIntegrity(XHdcp1x *InstancePtr,
 		XHdcp1x_StateType *NextStatePtr);
 static void XHdcp1x_RxReportLinkIntegrityFailure(XHdcp1x *InstancePtr,
@@ -1053,8 +1052,13 @@ static void XHdcp1x_RxRiUpdateCallback(void *Parameter)
 {
 	XHdcp1x *InstancePtr = (XHdcp1x *)Parameter;
 
-	/* Post the update Ri request */
-	XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_UPDATERi);
+	if(InstancePtr->Rx.CurrentState == XHDCP1X_STATE_AUTHENTICATED) {
+		/* Update the Ri value. */
+		XHdcp1x_RxUpdateRi(InstancePtr);
+	} else {
+		/* Post the update Ri request. */
+		XHdcp1x_RxPostEvent(InstancePtr, XHDCP1X_EVENT_UPDATERi);
+	}
 }
 
 /*****************************************************************************/
@@ -1877,12 +1881,8 @@ static void XHdcp1x_RxAssembleKSVList(XHdcp1x *InstancePtr,
 *		destroys the original value.
 *
 ******************************************************************************/
-static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr,
-		XHdcp1x_StateType *NextStatePtr)
+static void XHdcp1x_RxUpdateRi(XHdcp1x *InstancePtr)
 {
-	/* NextStatePtr not being used */
-	UNUSED(NextStatePtr);
-
 	char LogBuf[20];
 	u8 Buf[4];
 	u16 Ri = 0;
@@ -2326,7 +2326,7 @@ static void XHdcp1x_RxRunAuthenticatedState(XHdcp1x *InstancePtr,
 
 		/* For update Ri */
 		case XHDCP1X_EVENT_UPDATERi:
-			XHdcp1x_RxUpdateRi(InstancePtr, NextStatePtr);
+			XHdcp1x_RxUpdateRi(InstancePtr);
 			break;
 
 		/* In every 2 second priodically checks encryption status */

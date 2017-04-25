@@ -62,6 +62,7 @@
 *                       XHdcp1x_TxGetTopologyBKSV,
 *                       XHdcp1x_TxGetTopologyMaxDevsExceeded,
 *                       XHdcp1x_TxGetTopology
+* 4.1   yas    22/04/16 Added function XHdcp1x_TxSetHdmiMode.
 * </pre>
 *
 ******************************************************************************/
@@ -104,6 +105,7 @@ int XHdcp1x_TxIsDownstrmCapable(const XHdcp1x *InstancePtr);
 u64 XHdcp1x_TxGetEncryption(const XHdcp1x *InstancePtr);
 int XHdcp1x_TxEnableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
 int XHdcp1x_TxDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap);
+void XHdcp1x_TxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value);
 
 int XHdcp1x_TxSetPhysicalState(XHdcp1x *InstancePtr, int IsUp);
 int XHdcp1x_TxSetLaneCount(XHdcp1x *InstancePtr, int LaneCount);
