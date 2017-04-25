@@ -1705,7 +1705,7 @@ void XHdcp1x_SetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
 #if defined(INCLUDE_TX)
 	/* Check for TX */
 	if (!InstancePtr->Config.IsRx) {
-		//Nothing to be done.
+		XHdcp1x_TxSetHdmiMode(InstancePtr, Value);
 	} else
 #endif
 #if defined(INCLUDE_RX)

@@ -68,6 +68,7 @@
 *                       XHdcp1x_TxGetTopologyMaxDevsExceeded,
 *                       XHdcp1x_TxGetTopology
 * 4.1   yas    03/07/17 Updated to remove compliance failures.
+* 4.1   yas    22/04/16 Added function XHdcp1x_TxSetHdmiMode.
 * </pre>
 *
 *****************************************************************************/
@@ -800,6 +801,31 @@ int XHdcp1x_TxDisableEncryption(XHdcp1x *InstancePtr, u64 StreamMap)
 		}
 	}
 	return (Status);
+}
+
+/*****************************************************************************/
+/**
+* This set a flag that allows the hdcp1x drivers to determine if the
+* transmitter is HDMI or DVI.
+*
+* @param	InstancePtr is the transmitter instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XHdcp1x_TxSetHdmiMode(XHdcp1x *InstancePtr, u8 Value)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(Value == FALSE || Value == TRUE);
+
+#if defined(XPAR_XV_HDMIRX_NUM_INSTANCES) && (XPAR_XV_HDMIRX_NUM_INSTANCES > 0)
+	InstancePtr->Tx.TxIsHdmi = Value;
+#else
+	UNUSED(Value);
+#endif
 }
 
 /*****************************************************************************/
