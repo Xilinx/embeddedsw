@@ -102,6 +102,10 @@
 *       ms   04/05/17 Added tabspace for return statements in functions of
 *                     gpiops examples for proper documentation while
 *                     generating doxygen.
+* 3.3   ms   04/17/17 Added notes about gpio input and output pin description
+*                     for zcu102 and zc702 boards in polled and interrupt
+*                     example, configured Interrupt pin to input pin for
+*                     proper functioning of interrupt example.
 * </pre>
 *
 ******************************************************************************/

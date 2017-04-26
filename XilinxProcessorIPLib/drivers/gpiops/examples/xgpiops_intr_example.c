@@ -37,13 +37,18 @@
 * interrupt driven mode of operation.
 *
 * The example uses the interrupt capability of the GPIO to detect push button
-* events and set the output LEDs based on the input . The user needs to press
-* all the switches SW1-SW5 on the evaluation board to exit from this example.
+* events and set the output LEDs based on the input.
 *
 * @note
 * This example assumes that there is a Uart device in the HW design.
 * This example is to provide support only for zcu102 on ZynqMp Platform and
 * only for zc702 on Zynq Platform.
+* For ZynqMP Platform, Input pin is 22(sw19 on zcu102 board) and Output Pin is
+* 23(DS50 on zcu102 board).
+* For Zynq Platform, Input Pins are 12(sw14 on zc702 board), 14(sw13 on
+* zc702 board) and Output Pin is 10(DS23 on zc702 board). SW15 on zc702 board
+* is a combination of sw13 and sw14. To operate either of the input
+* pins, keep SW15 low(both should be 00).
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -51,8 +56,9 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00a sv   01/18/10 First Release
-*       ms   04/05/17 Added tabspace for return statements in functions for
-*                     proper documentation while generating doxygen.
+* 3.3   ms   04/17/17 Added notes about gpio input and output pin description
+*                     for zcu102 and zc702 boards, configured Interrupt pin
+*                     to input pin for proper working of interrupt example.
 *</pre>
 *
 ******************************************************************************/
@@ -78,8 +84,7 @@
 #define GPIO_INTERRUPT_ID	XPAR_XGPIOPS_0_INTR
 
 /* The following constants define the GPIO banks that are used. */
-#define INPUT_BANK	XGPIOPS_BANK0  /* Bank 0 of the GPIO Device */
-#define OUTPUT_BANK	XGPIOPS_BANK1  /* Bank 1 of the GPIO Device */
+#define GPIO_BANK	XGPIOPS_BANK0  /* Bank 0 of the GPIO Device */
 
 /**************************** Type Definitions *******************************/
 
@@ -318,14 +323,14 @@ static int SetupInterruptSystem(XScuGic *GicInstancePtr, XGpioPs *Gpio,
 	}
 
 	/* Enable falling edge interrupts for all the pins in bank 0. */
-	XGpioPs_SetIntrType(Gpio, INPUT_BANK, 0x00, 0x00, 0x00);
+	XGpioPs_SetIntrType(Gpio, GPIO_BANK, 0x00, 0xFFFFFFFF, 0x00);
 
 	/* Set the handler for gpio interrupts. */
 	XGpioPs_SetCallbackHandler(Gpio, (void *)Gpio, IntrHandler);
 
 
 	/* Enable the GPIO interrupts of Bank 0. */
-	XGpioPs_IntrEnable(Gpio, INPUT_BANK, (1 << Output_Pin));
+	XGpioPs_IntrEnable(Gpio, GPIO_BANK, (1 << Input_Pin));
 
 
 	/* Enable the interrupt for the GPIO device. */
