@@ -57,6 +57,8 @@
 *                              XHdmi_GtPllLayoutMenu API
 * 1.8   mmo  02-03-2017 Added Support to Set HDMI TX to be on HDMI or
 *                               DVI Mode.
+* 1.9   mmo  26-04-2017 Change PLL Layout menu access to GTX only in
+*                              XHdmi_DisplayGtPllLayoutMenu API
 * </pre>
 *
 ******************************************************************************/
@@ -1042,7 +1044,7 @@ void XHdmi_DisplayGtPllLayoutMenu(void)
 	print("------------------------------\r\n");
 	print("\n\r");
 
-	if (Vphy.Config.XcvrType == XVPHY_GT_TYPE_GTHE3) {
+	if (Vphy.Config.XcvrType != XVPHY_GT_TYPE_GTXE2) {
 		print("GT PLL Layout is fixed for this reference design\n\r");
 		print("\n\r");
 	}

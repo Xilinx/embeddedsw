@@ -56,8 +56,8 @@
 *                            XVphy_GetLineRateHz Rate API return value.
 *                       Removed CPU Clock Frequence on XVphy_HdmiInitialize
 *                            Initialization.
-*       ms     04/10/17 Modified filename tag to include the file in doxygen
-*                       examples.
+* 2.14  ms     04/10/17 Modified filename tag to include the file in doxygen
+*                            examples.
 * </pre>
 *
 ******************************************************************************/
