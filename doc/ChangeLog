@@ -1,6 +1,10 @@
 Changes for 2017.2
 ================================
 
+gpiops_v3_3:
+Added notes about gpio pin description for zcu102 and zc702
+boards. Fix for cr-955076
+
 ipipsu_v2_3:
 Added suffix U for all macros of ipipsu in xparameters.h
 Fix for CR-963131.
