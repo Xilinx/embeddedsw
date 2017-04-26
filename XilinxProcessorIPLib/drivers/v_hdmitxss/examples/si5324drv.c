@@ -77,13 +77,14 @@ u8 SI5324_DEFAULTS[] = {
 
 #if	(XPAR_VID_PHY_CONTROLLER_HDMI_FAST_SWITCH)
     // Set lock time to 13.3ms (bits 2:0 LOCKT=011)
+    // and set valid time to 2ms (bits 4:3 VALTIME=00)
     // other bits are default
-     19, 0x23,//0x2f  // 0x29
+     19, 0x23,
 #else
 	// Set lock time to 0.833ms (bits 2:0 LOCKT=111)
 	// and set valid time to 100ms (bits 4:3 VALTIME=01)
 	// other bits are default
-	19, 0x2f,//0x2f  // 0x29
+	19, 0x2f,
 #endif
     // Enable fast locking (bit 0 FASTLOCK=1)
     137, 0x01   // FASTLOCK=1 (enable fast locking)
