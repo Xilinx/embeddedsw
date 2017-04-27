@@ -89,7 +89,6 @@
 *                       XV_HdmiTxSs_WaitUs
 * 1.20   MH    08/10/16 Update function call sequence in
 *                       XV_HdmiTxSs_StreamUpCallback
-*
 * 1.1x   mmo   04/11/16 Updated the XV_HdmiTxSs_SetAudioChannels API which
 *                       currently calls XV_HdmiTx_SetAudioChannels driver,
 *                       which sets the Audio Channels
@@ -108,6 +107,8 @@
 *                             Segment Support and HDMI Compliance Test
 *                       Updated the XV_HdmiTxSs_ShowEdid API to have support
 *                             multiple EDID.
+* 3.2   MH     04/21/17 Updated to set HDMI mode in functions
+*                       XV_HdmiTxSS_SetHdmiMode and XV_HdmiTxSS_SetDviMode.
 * </pre>
 *
 ******************************************************************************/
@@ -196,6 +197,12 @@ static void XV_HdmiTxSs_ConfigBridgeMode(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr)
 {
     XV_HdmiTx_SetHdmiMode(InstancePtr->HdmiTxPtr);
+
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+    if (InstancePtr->Hdcp14Ptr) {
+        XHdcp1x_SetHdmiMode(InstancePtr->Hdcp14Ptr, TRUE);
+    }
+#endif
 }
 
 /*****************************************************************************/
@@ -208,6 +215,12 @@ void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr)
 void XV_HdmiTxSS_SetDviMode(XV_HdmiTxSs *InstancePtr)
 {
     XV_HdmiTx_SetDviMode(InstancePtr->HdmiTxPtr);
+
+#ifdef XPAR_XHDCP_NUM_INSTANCES
+    if (InstancePtr->Hdcp14Ptr) {
+        XHdcp1x_SetHdmiMode(InstancePtr->Hdcp14Ptr, FALSE);
+    }
+#endif
 }
 
 /*****************************************************************************/
