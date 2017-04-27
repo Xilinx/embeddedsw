@@ -64,6 +64,7 @@
 *                          causing corrupted entries.
 *                       6. Update to check return status of DDC read/write.
 *                       7. Fixed compiler warnings.
+* 2.20  MH     04/12/17 Added function XHdcp22Tx_IsDwnstrmCapable.
 * </pre>
 *
 ******************************************************************************/
@@ -1341,6 +1342,49 @@ u8 XHdcp22Tx_IsAuthenticated (XHdcp22_Tx *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function checks if the downstream device HDCP2Version register is set.
+*
+* @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
+*
+* @return - TRUE if downstream device is HDCP 2.2 capable.
+*         - FALSE if downstream device is not HDCP 2.2 capable.
+*
+* @note   None.
+*
+******************************************************************************/
+u8 XHdcp22Tx_IsDwnstrmCapable (XHdcp22_Tx *InstancePtr)
+{
+	u8 DdcBuf[1];
+	int Status = XST_SUCCESS;
+
+	/* Read HDCP2Version register */
+	InstancePtr->IsReceiverHDCP2Capable = (FALSE);
+	DdcBuf[0] = XHDCP22_TX_HDCPPORT_VERSION_OFFSET;
+	Status = InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS, 1, DdcBuf,
+	                              (FALSE), InstancePtr->DdcHandlerRef);
+	if (Status == (XST_SUCCESS)) {
+		Status = InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS,
+		                              sizeof(DdcBuf), DdcBuf, (TRUE),
+		                              InstancePtr->DdcHandlerRef);
+	}
+
+	/* Check expected value */
+	if (Status == (XST_SUCCESS)) {
+		if (DdcBuf[0]  == 0x04) {
+			return TRUE;
+		}
+		else {
+			return FALSE;
+          }
+	}
+	else {
+		return FALSE;
+	}
+}
+
+/*****************************************************************************/
+/**
+*
 * This function installs callback functions for the given
 * HandlerType:
 *
@@ -1491,9 +1535,6 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateH0(XHdcp22_Tx *InstancePtr)
 ******************************************************************************/
 static XHdcp22_Tx_StateType XHdcp22Tx_StateH1(XHdcp22_Tx *InstancePtr)
 {
-	u8 DdcBuf[1];
-	int Status = XST_SUCCESS;
-
 	/* Avoid polluting */
 	if (InstancePtr->Info.PrvState != InstancePtr->Info.CurrentState) {
 		XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE, (u16)XHDCP22_TX_STATE_H1);
@@ -1506,21 +1547,10 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateH1(XHdcp22_Tx *InstancePtr)
 	}
 
 	/* HDCP2Version */
-	InstancePtr->IsReceiverHDCP2Capable = (FALSE);
-	DdcBuf[0] = XHDCP22_TX_HDCPPORT_VERSION_OFFSET;
-	Status = InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS, 1, DdcBuf,
-	                              (FALSE), InstancePtr->DdcHandlerRef);
-	if (Status == (XST_SUCCESS)) {
-		Status = InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS,
-		                              sizeof(DdcBuf), DdcBuf, (TRUE),
-		                              InstancePtr->DdcHandlerRef);
-	}
+	InstancePtr->IsReceiverHDCP2Capable = XHdcp22Tx_IsDwnstrmCapable(InstancePtr);
 
-	if (Status == (XST_SUCCESS)) {
-		if ((DdcBuf[0] & 0x04) == 0x04) {
-			InstancePtr->IsReceiverHDCP2Capable = (TRUE);
-			return XHDCP22_TX_STATE_A0;
-		}
+	if (InstancePtr->IsReceiverHDCP2Capable) {
+		return XHDCP22_TX_STATE_A0;
 	}
 
 	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_INCOMPATIBLE_RX;

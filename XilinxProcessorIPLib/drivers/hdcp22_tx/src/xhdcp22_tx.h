@@ -84,6 +84,7 @@
 * 1.01  MG     02/25/16 Added authenticated callback and GetVersion.
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
 * 2.01  MH     02/28/17 Fixed compiler warnings.
+* 2.20  MH     04/12/17 Added function XHdcp22Tx_IsDwnstrmCapable.
 * </pre>
 *
 ******************************************************************************/
@@ -599,6 +600,7 @@ u8  XHdcp22Tx_IsEnabled (XHdcp22_Tx *InstancePtr);
 u8  XHdcp22Tx_IsEncryptionEnabled (XHdcp22_Tx *InstancePtr);
 u8  XHdcp22Tx_IsInProgress (XHdcp22_Tx *InstancePtr);
 u8  XHdcp22Tx_IsAuthenticated (XHdcp22_Tx *InstancePtr);
+u8  XHdcp22Tx_IsDwnstrmCapable (XHdcp22_Tx *InstancePtr);
 u32 XHdcp22Tx_GetVersion(XHdcp22_Tx *InstancePtr);
 
 /* Set DDC handler function pointers. */
