@@ -298,7 +298,7 @@ extern "C" {
 * @return   The 32-bit value of the register.
 *
 * @note     C-style signature:
-*       u32 XV_HdmiTx_ReadReg(u32 BaseAddress, u32 RegOffset)
+*           u32 XV_HdmiTx_ReadReg(UINTPTR BaseAddress, u32 RegOffset)
 *
 ******************************************************************************/
 #define XV_HdmiTx_ReadReg(BaseAddress, RegOffset) \
@@ -319,7 +319,7 @@ extern "C" {
 * @return   None.
 *
 * @note     C-style signature:
-*       void XV_HdmiTx_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)
+*           void XV_HdmiTx_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)
 *
 ******************************************************************************/
 #define XV_HdmiTx_WriteReg(BaseAddress, RegOffset, Data) \
