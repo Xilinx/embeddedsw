@@ -13,6 +13,9 @@ scugic_v3_7:
 Added suffix U for all macros of scugic in xparameters.h
 Fix for CR-963131.
 
+sysmonpsu_v2_2:
+Corrected temperature conversion formulas
+
 
 Change Log for 2017.1
 =================================
