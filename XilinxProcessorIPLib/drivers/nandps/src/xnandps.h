@@ -174,8 +174,8 @@
 *			   write operations.
 *       ms     03/17/17    Added readme.txt file in examples folder for doxygen
 *                          generation.
-*       ms     04/10/17    Comment lines notation begin with /** to include
-*                          the example files in doxygen.
+*       ms     04/10/17    Modified Comment lines in examples to follow doxygen
+*                          rules.
 * </pre>
 *
 ******************************************************************************/
