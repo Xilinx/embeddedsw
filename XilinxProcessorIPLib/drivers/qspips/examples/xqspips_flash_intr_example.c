@@ -68,7 +68,7 @@
 *		     line. See http://www.xilinx.com/support/answers/47596.htm
 * 2.01a sg  02/03/13 Created a function FlashReadID. Removed multiple
 *		     initialization using SetOptions.
-*       ms  04/05/17 Comment lines begin with /** in functions to
+*       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block for doxygen
 *                    generation.
 *</pre>
