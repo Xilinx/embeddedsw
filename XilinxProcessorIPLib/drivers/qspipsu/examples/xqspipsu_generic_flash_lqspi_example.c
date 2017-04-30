@@ -76,7 +76,7 @@
 *		sk  11/23/15 Added Support for Macronix 1Gb part.
 * 1.2	nsk 07/01/16 Add LQSPI support
 * 1.3	nsk 09/19/16 Update documentation
-*       ms  04/05/17 Comment lines begin with /** in functions to
+*       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block and modified filename
 *                    tag to include the file in doxygen examples.
 *</pre>

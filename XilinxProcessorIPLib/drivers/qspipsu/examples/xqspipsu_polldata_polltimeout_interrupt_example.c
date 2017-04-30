@@ -75,7 +75,7 @@
 * 1.2   nsk  08/05/16 First release
 * 1.3   nsk  09/16/16 Update for dual parallel configuration
 * 1.3	nsk  09/19/16 Update documentation
-*       ms  04/05/17 Comment lines begin with /** in functions to
+*       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block and modified filename
 *                    tag to include the file in doxygen examples.
 *</pre>
