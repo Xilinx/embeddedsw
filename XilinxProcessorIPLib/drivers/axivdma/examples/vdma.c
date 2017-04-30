@@ -44,7 +44,7 @@
  * 4.0   adk  11/26/15 First release
  * 4.1   adk  01/07/16 Updated DDR base address for Ultrascale (CR 799532) and
  *		       removed the defines for S6/V6.
- *       ms   04/05/17 Comment lines begins with /** in functions to
+ *       ms   04/05/17 Modified Comment lines in functions to
  *                     recognize it as documentation block for doxygen
  *                     generation of examples.
  ****************************************************************************/

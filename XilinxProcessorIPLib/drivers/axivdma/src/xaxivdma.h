@@ -295,7 +295,7 @@
 * 6.3   ms   02/20/17 Fixed compilation error in xaxivdma_intr.c. CR-969129.
 *       ms   03/17/17 Modified the text file in examples folder for doxygen
 *                     generation.
-*       ms   04/05/17 Comment lines begins with /** in functions of axivdma
+*       ms   04/05/17 Modified Comment lines in functions of axivdma
 *                     examples to recognize it as documentation block
 *                     for doxygen generation of examples.
 * </pre>
