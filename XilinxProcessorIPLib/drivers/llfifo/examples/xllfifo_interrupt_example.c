@@ -58,7 +58,7 @@
  *                      are available in all examples. This is a fix for
  *                      CR-965028.
  *       ms  04/05/17   Added tabspace for return statements in functions for
- *                      proper documentation and comment lines begin with /**
+ *                      proper documentation and Modified Comment lines
  *                      to consider it as a documentation block while
  *                      generating doxygen.
  * </pre>
