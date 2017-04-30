@@ -50,7 +50,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  sdm  03/09/10 First release
 * 1.00  sdm  10/25/11 Updated the chip select to be used to second chip select
-*       ms   04/05/17 Comment lines begin with /** in functions to
+*       ms   04/05/17 Modified Comment lines in functions to
 *                     recognize it as documentation block for doxygen
 *                     generation and also modified filename tag to include
 *                     the file in doxygen examples.
