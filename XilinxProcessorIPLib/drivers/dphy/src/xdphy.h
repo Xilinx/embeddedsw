@@ -125,7 +125,7 @@
 * 1.2 vsa 03/02/17 Add support for HS_SETTLE register
 *     ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                  generation.
-*     ms  04/05/17 Comment lines begins with /** in functions of dphy
+*     ms  04/05/17 Modified Comment lines in functions of dphy
 *                  examples to recognize it as documentation block
 *                  for doxygen generation of examples.
 * </pre>
