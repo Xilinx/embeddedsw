@@ -114,7 +114,7 @@
 *                  for CR-965028.
 *     ms  03/17/17 Added readme.txt file in examples folder for doxygen
 *                  generation.
-*     ms  04/05/17 Comment lines begins with /** in functions of csi2tx
+*     ms  04/05/17 Modified Comment lines in functions of csi2tx
 *                  examples to recognize it as documentation block
 *                  for doxygen generation of examples.
 * </pre>
