@@ -59,7 +59,7 @@
 * ----- --- -------- -----------------------------------------------
 * 2.02a hk  05/07/13 First release
 *       raw 12/10/15 Added support for Macronix 256Mb and 1Gb flash parts
-*       ms  04/05/17 Comment lines begin with /** in functions to
+*       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block for doxygen
 *                    generation.
 *</pre>

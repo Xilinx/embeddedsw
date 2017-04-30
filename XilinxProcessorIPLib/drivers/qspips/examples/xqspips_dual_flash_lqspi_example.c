@@ -67,7 +67,7 @@
 *		     This is required for QSPI to be used in Non QSPI boot
 *		     mode else there needs to be an external pullup on this
 *		     line.
-*       ms  04/05/17 Comment lines begin with /** in functions to
+*       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block for doxygen
 *                    generation.
 *</pre>

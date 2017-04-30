@@ -55,7 +55,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 2.02a hk  05/07/13 First release
-*       ms  04/05/17 Comment lines begin with /** in functions to
+*       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block and modified
 *                    filename tag to include the file in doxygen examples.
 *</pre>
