@@ -53,7 +53,7 @@
 *                        ensure that "Successfully ran" and "Failed" strings
 *                        are available in all examples. This is a fix for
 *                        CR-965028.
-*       ms     04/05/17  Comment lines begins with /** in functions to
+*       ms     04/05/17  Modified Comment lines in functions to
 *                        recognize it as documentation block for doxygen
 *                        generation of examples.
 * </pre>
