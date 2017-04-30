@@ -80,8 +80,7 @@
 *                     ensure that "Successfully ran" and "Failed" strings
 *                     are available in all examples. This is a fix for
 *                     CR-965028.
-*       ms   04/05/17 Comment lines begin with /** to include the file
-*                     in doxygen examples.
+*       ms   04/05/17 Modified Comment lines to follow doxygen rules.
 * </pre>
 *
 ******************************************************************************/
