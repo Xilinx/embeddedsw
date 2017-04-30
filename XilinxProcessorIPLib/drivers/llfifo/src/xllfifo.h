@@ -179,7 +179,7 @@
  *      ms    03/17/17 Added readme.txt file in examples folder for doxygen
  *                     generation.
  *      ms    04/05/17  Added tabspace for return statements in functions for
- *                      proper documentation and comment lines begin with /**
+ *                      proper documentation and Modified Comment lines
  *                      to consider it as a documentation block while
  *                      generating doxygen for llfifo examples.
  * </pre>
