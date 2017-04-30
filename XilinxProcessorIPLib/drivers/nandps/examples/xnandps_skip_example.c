@@ -50,8 +50,7 @@
 * ----- ---- ----------   -----------------------------------------------
 * 1.00  nm   12/10/2010   First release
 * 1.01a nm   28/02/2012   Modified the test offsets.
-*       ms   04/10/17     Comment lines notation begin with /** to include
-*                         the file in doxygen examples.
+*       ms   04/10/17     Modified Comment lines to follow doxygen rules
 *</pre>
 *
 ******************************************************************************/

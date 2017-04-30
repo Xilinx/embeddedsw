@@ -52,8 +52,7 @@
 * Ver   Who  Date        Changes
 * ----- ---- ----------  -----------------------------------------------
 * 1.00  nm   04/25/2013  First release.
-*       ms   04/10/17    Comment lines notation begin with /** to include
-*                        the file in doxygen examples.
+*       ms   04/10/17    Modified Comment lines to follow doxygen rules
 *</pre>
 *
 ******************************************************************************/
