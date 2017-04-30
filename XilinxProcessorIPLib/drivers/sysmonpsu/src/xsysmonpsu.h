@@ -166,7 +166,7 @@
 * 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
 *       ms     03/17/17 Added readme.txt file in examples folder for doxygen
 *                       generation.
-*       ms     04/05/17 Comment lines begin with /** in functions of sysmonpsu
+*       ms     04/05/17 Modified Comment lines in functions of sysmonpsu
 *                       examples to recognize it as documentation block
 *                       for doxygen generation.
 * 2.2   sk     04/14/17 Corrected temperature conversion formulas.
