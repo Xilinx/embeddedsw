@@ -73,7 +73,7 @@
 * 1.0   hk  08/21/14 First release
 *       sk  06/17/15 Used Tx/Rx flags for Transmitting/Receiving.
 *		sk  11/23/15 Added Support for Macronix 1Gb part.
-*       ms  04/05/17 Comment lines begin with /** in functions to
+*       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block for doxygen
 *                    generation.
 *</pre>
