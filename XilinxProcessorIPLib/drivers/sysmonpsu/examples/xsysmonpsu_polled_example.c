@@ -49,7 +49,7 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   kvn    12/15/15 First release
-*       ms     04/05/17 Comment lines begin with /** in functions to
+*       ms     04/05/17 Modified Comment lines in functions to
 *                       recognize it as documentation block for doxygen
 *                       generation.
 * </pre>
