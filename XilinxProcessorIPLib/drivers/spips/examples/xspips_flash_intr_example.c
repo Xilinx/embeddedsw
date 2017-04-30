@@ -51,7 +51,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -----------------------------------------------
 * 1.00  sg  1/30/13  First release
-*       ms  04/05/17 Comment lines begin with /** in functions to
+*       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block for doxygen
 *                    generation.
 *</pre>
