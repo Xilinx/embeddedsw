@@ -457,6 +457,7 @@
  *                    HSI command. This change fixes it.
  * 6.2 mus   03/22/17 Updated standalone tcl to generate xparameter XPAR_FPD_IS_CACHE_COHERENT, if
  *                    any FPD peripheral is configured to use CCI.It fixes CR#972638
+ * 6.3 mus   03/20/17 Updated cortex-r5 BSP, to add hard floating point support.
  * 6.3 mus   04/17/17 Updated Cortex-a53 32 bit BSP boot code to fix bug in
  *                    the HW coherency enablement. It fixes the CR#973287
  * 6.3 mus   04/20/17 Updated Cortex-A53 64 bit BSP boot code, to remove redundant write to the
