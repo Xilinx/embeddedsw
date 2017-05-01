@@ -1,6 +1,10 @@
 Changes for 2017.2
 ================================
 
+cpu_cortexr5_v1_3
+Added -mfloat-abi=hard and -mfpu=vfpv3-d16 in extra compiler flags,
+to support hard flaoting point for cortex-r5 standalone BSP.
+
 gpiops_v3_3:
 Added notes about gpio pin description for zcu102 and zc702
 boards. Fix for cr-955076
@@ -12,6 +16,9 @@ Fix for CR-963131.
 scugic_v3_7:
 Added suffix U for all macros of scugic in xparameters.h
 Fix for CR-963131.
+
+standlone_v6_3:
+Added hard floating point support in the cortex-r5 BSP.
 
 sysmonpsu_v2_2:
 Corrected temperature conversion formulas
