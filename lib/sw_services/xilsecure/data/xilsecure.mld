@@ -48,6 +48,6 @@ BEGIN LIBRARY xilsecure
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilsecure,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx Secure Library ";
-  OPTION VERSION = 2.0;
+  OPTION VERSION = 2.1;
   OPTION NAME = xilsecure;
 END LIBRARY
