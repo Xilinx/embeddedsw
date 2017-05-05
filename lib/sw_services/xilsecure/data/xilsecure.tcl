@@ -48,6 +48,7 @@ proc secure_drc {libhandle} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set compiler [common::get_property CONFIG.compiler $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
+	set os_type [hsi::get_os];
 
 	if { $proc_type != "psu_cortexa53" && $proc_type != "psu_cortexr5" && $proc_type != "psu_pmu" } {
 				error "ERROR: XilSecure library is supported only for PMU, CortexA53 and CortexR5 processors.";
@@ -59,21 +60,33 @@ proc secure_drc {libhandle} {
 		file delete -force ./src/xsecure_sha2_pmu.a
 		file delete -force ./src/xsecure_sha2_r5.a
 		file delete -force ./src/xsecure_sha2_a53_64b.a
+		file delete -force ./src/xsecure_sha2_r5_freertos.a
 		file rename -force ./src/xsecure_sha2_a53_32b.a ./src/libxilsecure.a
 	} elseif {[string compare -nocase $compiler "aarch64-none-elf-gcc"] == 0} {
 		file delete -force ./src/xsecure_sha2_pmu.a
 		file delete -force ./src/xsecure_sha2_r5.a
 		file delete -force ./src/xsecure_sha2_a53_32b.a
+		file delete -force ./src/xsecure_sha2_r5_freertos.a
 		file rename -force ./src/xsecure_sha2_a53_64b.a ./src/libxilsecure.a
-	} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0} {
+	} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0 &&
+		      [string compare -nocase $os_type "standalone"] == 0} {
 		file delete -force ./src/xsecure_sha2_pmu.a
 		file delete -force ./src/xsecure_sha2_a53_32b.a
 		file delete -force ./src/xsecure_sha2_a53_64b.a
+		file delete -force ./src/xsecure_sha2_r5_freertos.a
 		file rename -force ./src/xsecure_sha2_r5.a ./src/libxilsecure.a
+	} elseif {[string compare -nocase $compiler "armr5-none-eabi-gcc"] == 0 &&
+			 [string compare -nocase $os_type "freertos901_xilinx"] == 0} {
+		file delete -force ./src/xsecure_sha2_pmu.a
+		file delete -force ./src/xsecure_sha2_a53_32b.a
+		file delete -force ./src/xsecure_sha2_a53_64b.a
+		file delete -force ./src/xsecure_sha2_r5.a
+		file rename -force ./src/xsecure_sha2_r5_freertos.a ./src/libxilsecure.a
 	} elseif {[string compare -nocase $compiler "mb-gcc"] == 0} {
 		file delete -force ./src/xsecure_sha2_r5.a
 		file delete -force ./src/xsecure_sha2_a53_32b.a
 		file delete -force ./src/xsecure_sha2_a53_64b.a
+		file delete -force ./src/xsecure_sha2_r5_freertos.a
 		file rename -force ./src/xsecure_sha2_pmu.a ./src/libxilsecure.a
 	}
 
