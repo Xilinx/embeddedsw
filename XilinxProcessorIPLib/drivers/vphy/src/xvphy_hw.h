@@ -48,6 +48,7 @@
  * 1.0   als  10/19/15 Initial release.
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
  * 1.4   gm   29/11/16 Added ERR_IRQ register offset
+ * 1.5   gm   02/05/17 Added CPLL CAL reg and masks
  * </pre>
  *
 *******************************************************************************/
@@ -98,6 +99,13 @@
 #define XVPHY_DRP_STATUS_CH4_REG	0x05C
 #define XVPHY_DRP_CONTROL_COMMON_REG	0x060
 #define XVPHY_DRP_STATUS_COMMON_REG	0x064
+/* @} */
+
+/** @name VPHY core registers: CPLL Calibration registers.
+  * @{
+  */
+#define XVPHY_CPLL_CAL_PERIOD_REG	0x068
+#define XVPHY_CPLL_CAL_TOL_REG		0x06C
 /* @} */
 
 /** @name VPHY core registers: Transmitter function registers.
@@ -356,6 +364,10 @@
 #define XVPHY_DRP_STATUS_DRPO_MASK	0x0FFFF
 #define XVPHY_DRP_STATUS_DRPRDY_MASK	0x10000
 #define XVPHY_DRP_STATUS_DRPBUSY_MASK	0x20000
+/* 0x068: CPLL CAL PERIOD */
+#define XVPHY_CPLL_CAL_PERIOD_MASK      0x3FFFF
+/* 0x06C: CPLL CAL TOLERANCE */
+#define XVPHY_CPLL_CAL_TOL_MASK         0x3FFFF
 /* 0x070: TX_CONTROL */
 #define XVPHY_TX_CONTROL_TX8B10BEN_MASK(Ch) \
 		(0x01 << (8 * (Ch - 1)))

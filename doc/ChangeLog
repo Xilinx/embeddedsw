@@ -1899,6 +1899,12 @@ Fixed c++ compiler warnings
 Added Transceiver_Width, C_Err_Irq_En, AXI_LITE_FREQ_HZ Parameters in xvphy_g.c and in vphy main data structure
 Added XVphy_GtUserRdyEnable for TX and RX in XVphy_DpInitialize API
 
+vphy_v1_5:
+Updated the Updated the RXPI_CFG0 calculation in xvphy_gthe4.c
+Corrected RXCDR_CFG values for DP in xvphy_gthe4.c
+Added XVphy_CfgCpllCalPeriodandTol API in xvphy_gthe4.c adn vphy_i.h
+Added Div in HdmiCfgCalcMmcmParam search algorithm in xvphy_hdmi.c
+
 vprocss_v2_1:
 Added new version 2.1
 Added optional color format conversion handling in scaler only topology
