@@ -46,8 +46,9 @@
  * ----- ---- -------- -----------------------------------------------
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
- * 1.0   gm,  11/09/16 Initial release.
+ * 1.0   gm   11/09/16 Initial release.
  * 1.4   gm   11/24/16 Made debug log optional (can be disabled via makefile)
+ * 1.5   gm   02/05/17 Added XVphy_CfgCpllCalPeriodandTol API for US+ devices
  * </pre>
  *
 *******************************************************************************/
@@ -115,6 +116,9 @@ XVphy_SysClkOutSelType XVphy_GetSysClkOutSel(XVphy *InstancePtr, u8 QuadId,
 u32 XVphy_IsPllLocked(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 u32 XVphy_GtUserRdyEnable(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Hold);
+u32 XVphy_CfgCpllCalPeriodandTol(XVphy *InstancePtr, u8 QuadId,
+		XVphy_ChannelId ChId, XVphy_DirectionType Dir, u32 FreeRunClkFreq);
+
 
 /* xvphy.c: GT/MMCM DRP access. */
 void XVphy_MmcmReset(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
