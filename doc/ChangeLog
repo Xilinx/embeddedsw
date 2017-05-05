@@ -27,6 +27,9 @@ the L2CTLR_EL1 register. It fixes the CR#974698
 sysmonpsu_v2_2:
 Corrected temperature conversion formulas
 
+xilsecure_v2_1
+Added SHA2 binary for freertos R5 with soft floating point and
+standalone R5 binary with hard floating point.
 
 Change Log for 2017.1
 =================================
