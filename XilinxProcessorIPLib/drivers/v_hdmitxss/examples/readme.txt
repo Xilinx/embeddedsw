@@ -106,6 +106,6 @@ For details, see audio_prbs_genchk_drv.h.
 
 @subsection IMPORTANT NOTES
  - Platform source file(platform.c), header file(platform.h), lscript and
-   config files(platform_config.h) are available separately in example folder
+   config header file(platform_config.h) are available separately in example folder
    for zynq, zynq ultrascale and microblaze platforms.
 */
