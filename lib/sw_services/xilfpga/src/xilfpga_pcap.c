@@ -45,7 +45,9 @@
  * 1.1   Nava  16/11/16 Added PL power-up sequence.
  * 2.0	 Nava  10/1/17  Added Encrypted bitstream loading support.
  * 2.0   Nava  16/02/17 Added Authenticated bitstream loading support.
- *
+ * 2.1	 Nava  06/05/17	Correct the check logic issues in
+ * 			XFpga_PL_BitStream_Load()
+ * 			to avoid the unwanted blocking conditions.
  * </pre>
  *
  * @note
@@ -204,7 +206,7 @@ u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 		goto END;
 	}
 
-	if ((flags & XFPGA_ENCRYPTION_EN ) || (flags & XFPGA_ENCRYPTION_EN))
+	if ((flags & XFPGA_ENCRYPTION_EN ) || (flags & XFPGA_AUTHENTICATION_EN))
 #ifdef XFPGA_SECURE_MODE
 	{
 		if (flags & XFPGA_ENCRYPTION_EN)
