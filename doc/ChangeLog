@@ -31,6 +31,9 @@ xilsecure_v2_1
 Added SHA2 binary for freertos R5 with soft floating point and
 standalone R5 binary with hard floating point.
 
+xilfpga_v2_1:
+Fixed the check logic issue in Xfpga_PL_BitStream_Load().
+
 Change Log for 2017.1
 =================================
 
