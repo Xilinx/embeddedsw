@@ -204,6 +204,8 @@
 *                    generating doxygen and also modified filename tag in
 *                    master streaming example file to include it in doxygen
 *                    examples.
+* 4.2   ms  04/18/17 Modified tcl file to add suffix U for all macros
+*                    definitions of trafgen in xparameters.h
 * </pre>
 ******************************************************************************/
 
