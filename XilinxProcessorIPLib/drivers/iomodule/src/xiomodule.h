@@ -243,7 +243,8 @@
 *                     for CR-965028.
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
-*
+* 2.5   ms   04/18/17 Modified tcl file to add suffix U for all macros
+*                     definitions of iomodule in xparameters.h
 * </pre>
 *
 ******************************************************************************/
