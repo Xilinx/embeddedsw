@@ -298,6 +298,8 @@
 *       ms   04/05/17 Modified Comment lines in functions of axivdma
 *                     examples to recognize it as documentation block
 *                     for doxygen generation of examples.
+* 6.4   ms   04/18/17 Modified tcl file to add suffix U for all macro
+*                     definitions of axivdma in xparameters.h
 * </pre>
 *
 ******************************************************************************/
