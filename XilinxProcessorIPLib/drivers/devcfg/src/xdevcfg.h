@@ -156,6 +156,8 @@
 *                    generation.
 *       ms  04/10/17 Modified filename tag in interrupt and polled examples
 *                    to include them in doxygen examples.
+* 3.5   ms  04/18/17 Modified tcl file to add suffix U for all macros
+*                    definitions of devcfg in xparameters.h
 * </pre>
 *
 ******************************************************************************/
