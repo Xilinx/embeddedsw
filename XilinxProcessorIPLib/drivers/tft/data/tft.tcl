@@ -33,6 +33,8 @@
 # Ver      Who    Date     Changes
 # -------- ------ -------- ------------------------------------
 # 5.0      adk    12/10/13 Updated as per the New Tcl API's
+# 6.1      ms     04/18/17 Modified tcl file to add suffix U for all macros
+#                          definitions of tft in xparameters.h
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_LS3
 ##   Updated to handle the corner cases described in CR no. 518193 while
@@ -66,6 +68,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     # Get all the peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips  $drv_handle]
 
+    set uSuffix "U"
     # Get the names of all the peripherals connected to this driver
     foreach periph $periphs {
         set peripheral_name [string toupper [common::get_property NAME $periph]]
@@ -116,7 +119,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                 }
                 set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
     
-                puts $file_handle "#define $lvalue $rvalue"
+                puts $file_handle "#define $lvalue $rvalue$uSuffix"
 
             }
             puts $file_handle ""
