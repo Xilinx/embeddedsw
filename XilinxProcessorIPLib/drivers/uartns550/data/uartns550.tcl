@@ -39,6 +39,8 @@
 # 3.2 	   adk    15/10/14 Fixed CR:826435 external clock speed is not
 #			   being updated with proper value in xparametrs.h file.
 # 3.4      sk     11/09/15 Removed delete filename statement CR# 784758.
+# 3.5      ms     04/18/17 Modified tcl file to add suffix U for all macros
+#                          definitions of uartns550 in xparameters.h
 ##############################################################################
 ## @BEGIN_CHANGELOG EDK_L
 ##    Deprecated the CLOCK_HZ parameter in mdd and updated the Tcl to obtain the
@@ -74,13 +76,14 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Get all peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
+    set uSuffix "U"
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]$uSuffix"
         set args [lreplace $args $posn $posn]
     }
 
@@ -95,7 +98,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             set freq "100000000"
         }
     }
-    puts $file_handle "#define [format "%s" [::hsi::utils::get_driver_param_name $drv_string $arg]] $freq"
+    puts $file_handle "#define [format "%s" [::hsi::utils::get_driver_param_name $drv_string $arg]] $freq$uSuffix"
 
     # Print all parameters for all peripherals
     set device_id 0
@@ -129,7 +132,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 set value 0
             }
             set value [::hsi::utils::format_addr_string $value $arg]
-            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
+            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value$uSuffix"
         }
         puts $file_handle ""
     }
@@ -236,7 +239,8 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                     set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
                 }
 
-                puts $file_handle "#define $lvalue $rvalue"
+		set uSuffix [xdefine_getSuffix $lvalue $rvalue]
+                puts $file_handle "#define $lvalue $rvalue$uSuffix"
             }
 
             puts $file_handle ""
@@ -268,4 +272,11 @@ proc xget_freq {periph} {
             set freq [common::get_property CONFIG.C_EXTERNAL_XIN_CLK_HZ $periph]
         }
         return $freq
+}
+proc xdefine_getSuffix {arg_name value} {
+		set uSuffix ""
+		if { [string match "*CLOCK_FREQ_HZ" $value] == 0 } {
+			set uSuffix "U"
+		}
+		return $uSuffix
 }
