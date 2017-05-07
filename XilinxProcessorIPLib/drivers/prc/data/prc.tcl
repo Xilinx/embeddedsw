@@ -36,7 +36,8 @@
 # Ver  Who     Date         Changes
 # --- ---- ------------  ---------------------------------------------------
 # 1.0  ms   07/18/2016     First release
-#
+# 1.1  ms   04/18/17       Modified tcl file to add suffix U for all macros
+#                          definitions of prc in xparameters.h
 ###############################################################################
 
 #uses "xillib.tcl"
@@ -54,6 +55,7 @@ proc prc_generate_params {drv_handle file_name} {
 	# open the xparameters.h file
 	set file_handle [::hsi::utils::open_include_file $file_name]
 
+	set uSuffix "U"
 	# Get the ALL_PARAMS property
 	# I've only managed to do this by looping through all instances of the PRC in the design.
 	# Does generate get called for all instances, or for a specific instance?  If it's a specific
@@ -91,7 +93,7 @@ proc prc_generate_params {drv_handle file_name} {
 		init_periph_config_struct_prc $periph_ninstances
 		incr periph_ninstances 1
 	    }
-		 puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
+		 puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances$uSuffix"
 		puts $file_handle ""
 
 	# Now print all useful parameters for all peripherals
@@ -101,17 +103,17 @@ proc prc_generate_params {drv_handle file_name} {
 
 		foreach periph $periphs {
 			puts $file_handle [format "/* Definitions for peripheral PRC */ "]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "DEVICE_ID"  $device_id]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "BASEADDR"  $baseaddr]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "NUM_OF_VSMS" $num_vs]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "CLEARING_BITSTREAM" $clearing_bitstream]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "CP_ARBITRATION_PROTOCOL" $cp_arbitration_protocol]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "HAS_AXI_LITE_IF" $has_axi_lite_if]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "RESET_ACTIVE_LEVEL" $reset_active_level]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "CP_FIFO_DEPTH" $cp_fifo_depth]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "CP_FIFO_TYPE" $cp_fifo_type]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "CP_FAMILY" $cp_family]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "CDC_STAGES" $cdc_stages]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "DEVICE_ID"  $device_id]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "BASEADDR"  $baseaddr]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "NUM_OF_VSMS" $num_vs]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "CLEARING_BITSTREAM" $clearing_bitstream]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "CP_ARBITRATION_PROTOCOL" $cp_arbitration_protocol]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "HAS_AXI_LITE_IF" $has_axi_lite_if]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "RESET_ACTIVE_LEVEL" $reset_active_level]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "CP_FIFO_DEPTH" $cp_fifo_depth]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "CP_FIFO_TYPE" $cp_fifo_type]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "CP_FAMILY" $cp_family]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "CDC_STAGES" $cdc_stages]
 
 			for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 				set vs_name		[prc_v1_1::priv::get_vs_name	configuration $vs_id]
@@ -128,33 +130,33 @@ proc prc_generate_params {drv_handle file_name} {
 				set skp_rm_strtup_aft_rst	[prc_v1_1::priv::get_vs_skip_rm_startup_after_reset	configuration $vs_name]
 				set num_hw_trgers	[prc_v1_1::priv::get_vs_num_hw_triggers	configuration $vs_name]
 
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "NUM_RMS" [string toupper $vs_name] $num_rms]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "NUM_RMS_ALLOC" [string toupper $vs_name] $num_rms_alloc]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "STRT_IN_SHTDOWN" [string toupper $vs_name] $strt_in_shtdwn]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "NUM_TRGRS_ALLOC" [string toupper $vs_name] $num_trger_alloc]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "SHUTDOWN_ON_ERR" [string toupper $vs_name] $shtdwn_on_err]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "HAS_POR_RM" [string toupper $vs_name] $has_por_rm]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "POR_RM" [string toupper $vs_name] $rm_id]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "HAS_AXIS_STATUS" [string toupper $vs_name] $has_axs_status]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "HAS_AXIS_CONTROL" [string toupper $vs_name] $has_axs_control]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "SKIP_RM_STARTUP_AFTER_RESET" [string toupper $vs_name] $skp_rm_strtup_aft_rst]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] "NUM_HW_TRIGGERS" [string toupper $vs_name] $vs_id $num_hw_trgers]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "NUM_RMS" [string toupper $vs_name] $num_rms]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "NUM_RMS_ALLOC" [string toupper $vs_name] $num_rms_alloc]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "STRT_IN_SHTDOWN" [string toupper $vs_name] $strt_in_shtdwn]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "NUM_TRGRS_ALLOC" [string toupper $vs_name] $num_trger_alloc]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "SHUTDOWN_ON_ERR" [string toupper $vs_name] $shtdwn_on_err]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "HAS_POR_RM" [string toupper $vs_name] $has_por_rm]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "POR_RM" [string toupper $vs_name] $rm_id]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "HAS_AXIS_STATUS" [string toupper $vs_name] $has_axs_status]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "HAS_AXIS_CONTROL" [string toupper $vs_name] $has_axs_control]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "SKIP_RM_STARTUP_AFTER_RESET" [string toupper $vs_name] $skp_rm_strtup_aft_rst]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] "NUM_HW_TRIGGERS" [string toupper $vs_name] $vs_id $num_hw_trgers]
 			}
 
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "VSM_SELECT_MSB" $C_VSM_SELECT_MSB]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "VSM_SELECT_LSB" $C_VSM_SELECT_LSB]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "TABLE_SELECT_MSB" $C_TABLE_SELECT_MSB]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "TABLE_SELECT_LSB" $C_TABLE_SELECT_LSB]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "REG_SELECT_MSB" $C_REG_SELECT_MSB]
-			puts $file_handle [format "#define  XPAR_%s_%s  %s" [string toupper $periphs] "REG_SELECT_LSB" $C_REG_SELECT_LSB]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "VSM_SELECT_MSB" $C_VSM_SELECT_MSB]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "VSM_SELECT_LSB" $C_VSM_SELECT_LSB]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "TABLE_SELECT_MSB" $C_TABLE_SELECT_MSB]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "TABLE_SELECT_LSB" $C_TABLE_SELECT_LSB]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "REG_SELECT_MSB" $C_REG_SELECT_MSB]
+			puts $file_handle [format "#define  XPAR_%s_%s  %s$uSuffix" [string toupper $periphs] "REG_SELECT_LSB" $C_REG_SELECT_LSB]
 		}
 		for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 			set vs_name	[prc_v1_1::priv::get_vs_name	configuration $vs_id]
-			puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] [string toupper $vs_name] "ID" $vs_id]
+			puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] [string toupper $vs_name] "ID" $vs_id]
 
 			for {set rm_id 0} {$rm_id < $num_rms} {incr rm_id} {
 				set rm_name	[prc_v1_1::priv::get_rm_name	configuration $vs_name $rm_id]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] [string toupper $vs_name] [string toupper $rm_name] "ID" $rm_id]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] [string toupper $vs_name] [string toupper $rm_name] "ID" $rm_id]
 			}
 		}
 
@@ -178,6 +180,8 @@ proc prc_generate_canonical {drv_handle file_name} {
 	set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 	foreach periph $periphs {
 		set configuration	[common::get_property CONFIG.ALL_PARAMS $periph]
+
+		set uSuffix "U"
 
 		# Use the PRC's API to get the number of VSMs that the user configured in this instance of the PRC
 		set num_vs  [prc_v1_1::priv::get_num_vs configuration]
@@ -208,16 +212,16 @@ proc prc_generate_canonical {drv_handle file_name} {
 			foreach periph $periphs {
 			puts $file_handle [format "/* Canonical definitions for peripheral PRC */ "]
 				puts $file_handle [format "#define  XPAR_%s_%s_%s  XPAR_%s_%s" [string toupper $periphs] $idx "DEVICE_ID"  [string toupper $periphs] "DEVICE_ID"]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "BASEADDR"  $baseaddr]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "NUM_OF_VSMS" $num_vs]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "CLEARING_BITSTREAM" $clearing_bitstream]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "CP_ARBITRATION_PROTOCOL" $cp_arbitration_protocol]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "HAS_AXI_LITE_IF" $has_axi_lite_if]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "RESET_ACTIVE_LEVEL" $reset_active_level]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "CP_FIFO_DEPTH" $cp_fifo_depth]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "CP_FIFO_TYPE" $cp_fifo_type]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "CP_FAMILY" $cp_family]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "CDC_STAGES" $cdc_stages]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "BASEADDR"  $baseaddr]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "NUM_OF_VSMS" $num_vs]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "CLEARING_BITSTREAM" $clearing_bitstream]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "CP_ARBITRATION_PROTOCOL" $cp_arbitration_protocol]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "HAS_AXI_LITE_IF" $has_axi_lite_if]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "RESET_ACTIVE_LEVEL" $reset_active_level]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "CP_FIFO_DEPTH" $cp_fifo_depth]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "CP_FIFO_TYPE" $cp_fifo_type]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "CP_FAMILY" $cp_family]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "CDC_STAGES" $cdc_stages]
 
 				for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 					set vs_name	[prc_v1_1::priv::get_vs_name	configuration $vs_id]
@@ -234,33 +238,33 @@ proc prc_generate_canonical {drv_handle file_name} {
 					set skp_rm_strtup_aft_rst	[prc_v1_1::priv::get_vs_skip_rm_startup_after_reset	configuration $vs_name]
 					set num_hw_trgers	[prc_v1_1::priv::get_vs_num_hw_triggers	configuration $vs_name]
 
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "NUM_RMS" [string toupper $vs_name] $num_rms]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "NUM_RMS_ALLOC" [string toupper $vs_name] $num_rms_alloc]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "STRT_IN_SHTDOWN" [string toupper $vs_name] $strt_in_shtdwn]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "NUM_TRGRS_ALLOC" [string toupper $vs_name] $num_trgers_alloc]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "SHUTDOWN_ON_ERR" [string toupper $vs_name] $shtdwn_on_err]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "HAS_POR_RM" [string toupper $vs_name] $has_por_rm]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "POR_RM" [string toupper $vs_name] $rm_id]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "HAS_AXIS_STATUS" [string toupper $vs_name] $has_axs_status]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "HAS_AXIS_CONTROL" [string toupper $vs_name] $has_axs_control]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "SKIP_RM_STARTUP_AFTER_RESET" [string toupper $vs_name] $skp_rm_strtup_aft_rst]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx "NUM_HW_TRIGGERS" [string toupper $vs_name] $num_hw_trgers]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "NUM_RMS" [string toupper $vs_name] $num_rms]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "NUM_RMS_ALLOC" [string toupper $vs_name] $num_rms_alloc]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "STRT_IN_SHTDOWN" [string toupper $vs_name] $strt_in_shtdwn]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "NUM_TRGRS_ALLOC" [string toupper $vs_name] $num_trgers_alloc]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "SHUTDOWN_ON_ERR" [string toupper $vs_name] $shtdwn_on_err]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "HAS_POR_RM" [string toupper $vs_name] $has_por_rm]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "POR_RM" [string toupper $vs_name] $rm_id]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "HAS_AXIS_STATUS" [string toupper $vs_name] $has_axs_status]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "HAS_AXIS_CONTROL" [string toupper $vs_name] $has_axs_control]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "SKIP_RM_STARTUP_AFTER_RESET" [string toupper $vs_name] $skp_rm_strtup_aft_rst]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "NUM_HW_TRIGGERS" [string toupper $vs_name] $num_hw_trgers]
 				}
 
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "VSM_SELECT_MSB" $C_VSM_SELECT_MSB]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "VSM_SELECT_LSB" $C_VSM_SELECT_LSB]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "TABLE_SELECT_MSB" $C_TABLE_SELECT_MSB]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "TABLE_SELECT_LSB" $C_TABLE_SELECT_LSB]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "REG_SELECT_MSB" $C_REG_SELECT_MSB]
-				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s" [string toupper $periphs] $idx "REG_SELECT_LSB" $C_REG_SELECT_LSB]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "VSM_SELECT_MSB" $C_VSM_SELECT_MSB]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "VSM_SELECT_LSB" $C_VSM_SELECT_LSB]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "TABLE_SELECT_MSB" $C_TABLE_SELECT_MSB]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "TABLE_SELECT_LSB" $C_TABLE_SELECT_LSB]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "REG_SELECT_MSB" $C_REG_SELECT_MSB]
+				puts $file_handle [format "#define  XPAR_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx "REG_SELECT_LSB" $C_REG_SELECT_LSB]
 
 				for {set vs_id 0} {$vs_id < $num_vs} { incr vs_id} {
 					set vs_name	[prc_v1_1::priv::get_vs_name	configuration $vs_id]
-					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s" [string toupper $periphs] $idx [string toupper $vs_name] "ID" $vs_id]
+					puts $file_handle [format "#define  XPAR_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx [string toupper $vs_name] "ID" $vs_id]
 
 					for {set rm_id 0} {$rm_id < $num_rms} {incr rm_id} {
 						set rm_name	[prc_v1_1::priv::get_rm_name	configuration $vs_name $rm_id]
-						puts $file_handle [format "#define  XPAR_%s_%s_%s_%s_%s  %s" [string toupper $periphs] $idx [string toupper $vs_name] [string toupper $rm_name] "ID" $rm_id]
+						puts $file_handle [format "#define  XPAR_%s_%s_%s_%s_%s  %s$uSuffix" [string toupper $periphs] $idx [string toupper $vs_name] [string toupper $rm_name] "ID" $rm_id]
 					}
 				}
 				incr device_id
