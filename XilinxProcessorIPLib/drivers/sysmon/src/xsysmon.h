@@ -222,6 +222,8 @@
 *      ms   04/05/17 Modified Comment lines in functions of sysmon
 *                    examples to recognize it as documentation block
 *                    for doxygen generation.
+* 7.4  ms   04/18/17 Modified tcl file to add suffix U for all macros
+*                    definitions of sysmon in xparameters.h
 * </pre>
 *
 *****************************************************************************/
