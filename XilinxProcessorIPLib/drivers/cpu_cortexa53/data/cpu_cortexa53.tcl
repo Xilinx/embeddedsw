@@ -36,7 +36,8 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0	pkp  07/21/14 Initial common::version
 # 1.3   mus  02/20/17 Updated tcl to guard xparameters.h by protection macros
-#
+# 1.4   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
+#                     parameter of cpu_cortexa53 in xparameters.h
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -104,9 +105,10 @@ proc xdefine_cortexa53_params {drvhandle} {
 	# Set CPU ID
 	#-----------
 	set id 0
+	set uSuffix "U"
 	foreach processor $lprocs {
 	    if {[string compare -nocase $processor $iname] == 0} {
-		puts $config_inc "#define XPAR_CPU_ID $id"
+		puts $config_inc "#define XPAR_CPU_ID $id$uSuffix"
 	    }
 	    incr id
 	}
