@@ -44,7 +44,8 @@
 #		      Traffic Genrator.
 # 3.0   adk  12/10/13 Updated as per the New Tcl API's
 # 4.1   sk   11/09/15 Removed delete filename statement CR# 784758.
-#
+# 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
+#                     definitions of trafgen in xparameters.h
 # </pre>
 #
 ##############################################################################
@@ -87,12 +88,13 @@ proc xdefine_trafgen_include_file {drv_handle file_name drv_string} {
 	
 	    # Handle NUM_INSTANCES
 	    set periph_ninstances 0
+	    set uSuffix "U"
 	    puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
 	    foreach periph $periphs {
 	    	init_periph_config_struct_atg $periph_ninstances
 	    	incr periph_ninstances 1
 	    }
-	    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
+	    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances$uSuffix"
 	
 	
 	    # Now print all useful parameters for all peripherals
@@ -188,23 +190,25 @@ proc xdfeine_trafgen_params_constants { periph } {
 }
 
 proc xdefine_trafgen_params_instance {file_handle periph device_id} { 
+    set uSuffix "U"
     xdfeine_trafgen_params_constants   $periph
     global atg_mode_value
     global atg_mode_value_l2
     global axi_mode_value
     puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
     
-    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "DEVICE_ID"] $device_id"
-    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "BASEADDR"] [::hsi::utils::get_param_value $periph C_BASEADDR]"
-    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "HIGHADDR"] [::hsi::utils::get_param_value $periph C_HIGHADDR]"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "BASEADDR"] [::hsi::utils::get_param_value $periph C_BASEADDR]$uSuffix"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "HIGHADDR"] [::hsi::utils::get_param_value $periph C_HIGHADDR]$uSuffix"
     
-    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_ATG_MODE"] $atg_mode_value"
-    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_ATG_MODE_L2"] $atg_mode_value_l2"
-    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_AXIS_MODE"] $axi_mode_value"
-    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_EXTENDED_ADDRESS_WIDTH"] [::hsi::utils::get_param_value $periph C_EXTENDED_ADDRESS_WIDTH]"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_ATG_MODE"] $atg_mode_value$uSuffix"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_ATG_MODE_L2"] $atg_mode_value_l2$uSuffix"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_AXIS_MODE"] $axi_mode_value$uSuffix"
+    puts $file_handle "\#define [::hsi::utils::get_ip_param_name $periph "C_EXTENDED_ADDRESS_WIDTH"] [::hsi::utils::get_param_value $periph C_EXTENDED_ADDRESS_WIDTH]$uSuffix"
 }
 
 proc xdefine_trafgen_params_canonical {file_handle periph device_id} {
+    set uSuffix "U"
     xdfeine_trafgen_params_constants  $periph 
     global atg_mode_value	     
     global atg_mode_value_l2        
@@ -218,30 +222,30 @@ proc xdefine_trafgen_params_canonical {file_handle periph device_id} {
     
      # Handle device ID
     set canonical_name  [format "%s_DEVICE_ID" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $device_id"
+    puts $file_handle "\#define $canonical_name $device_id$uSuffix"
     add_field_to_periph_config_struct_atg $device_id $canonical_name
     
     set canonical_name  [format "%s_BASEADDR" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $baseaddr_value"
+    puts $file_handle "\#define $canonical_name $baseaddr_value$uSuffix"
     add_field_to_periph_config_struct_atg $device_id $canonical_name
      
     set canonical_name  [format "%s_HIGHADDR" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $highaddr_value"
+    puts $file_handle "\#define $canonical_name $highaddr_value$uSuffix"
     
     set canonical_name  [format "%s_ATG_MODE" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $atg_mode_value"
+    puts $file_handle "\#define $canonical_name $atg_mode_value$uSuffix"
     add_field_to_periph_config_struct_atg $device_id $canonical_name
     
     set canonical_name  [format "%s_ATG_MODE_L2" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $atg_mode_value_l2"
+    puts $file_handle "\#define $canonical_name $atg_mode_value_l2$uSuffix"
     add_field_to_periph_config_struct_atg $device_id $canonical_name
     
     set canonical_name  [format "%s_AXIS_MODE" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $axi_mode_value"
+    puts $file_handle "\#define $canonical_name $axi_mode_value$uSuffix"
     add_field_to_periph_config_struct_atg $device_id $canonical_name
 
     set canonical_name  [format "%s_EXTENDED_ADDRESS_WIDTH" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $address_width_value"
+    puts $file_handle "\#define $canonical_name $address_width_value$uSuffix"
     add_field_to_periph_config_struct_atg $device_id $canonical_name
 }
 
