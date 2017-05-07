@@ -259,6 +259,8 @@
 *                     for CR-965028.
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
+* 6.6   ms   04/18/17 Modified tcl file to add suffix U for all macro
+*                     definitions of axipmon in xparameters.h
 * </pre>
 *
 *****************************************************************************/
