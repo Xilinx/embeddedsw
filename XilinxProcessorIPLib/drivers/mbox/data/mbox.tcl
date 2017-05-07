@@ -40,6 +40,8 @@
 # 		      Added check for C_USE_EXTENDED_FSL_INSTR for AXI Stream.
 # 3.02a bss  12/03/12 Updated the script to fix CR#687103 and CR#688715
 # 4.1   sk   11/09/15 Removed delete filename statement CR# 784758.
+# 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
+#                     definitions of mbox in xparameters.h
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -60,6 +62,7 @@ proc xdefine_mbox_config_if {periph hfile_handle cfile_handle bus_if if_num dev_
 	set mbox_recv_fsl	0
 	set if_isaxi		0
 	set use_fsl 		0
+	set uSuffix "U"
 
 	# Copy over the right set of files as src based on processor type
 	# sw_proc_handle contains driver handle for processor for which libgen is running. Name of the sw_proc_handle will be driver name for processor[Ex:cpu for microblaze]
@@ -96,16 +99,16 @@ proc xdefine_mbox_config_if {periph hfile_handle cfile_handle bus_if if_num dev_
 	    # The XPAR_INSTANCE_NAME_DEVICE_ID does not apply to Mailbox
 	    # because the mailbox has two sides
 	    # Unfortunately, this is used by TestApp
-	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_DEVICE_ID %s" $periph_name $if_num $device_id]
-	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_BASEADDR 0x%X" $periph_name $if_num $mbox_baseaddr]
-	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_USE_FSL %d" $periph_name $if_num $mbox_use_fsl]
-	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_SEND_FSL %d" $periph_name $if_num $mbox_send_fsl]
-	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_RECV_FSL %d" $periph_name $if_num $mbox_recv_fsl]
+	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_DEVICE_ID %s$uSuffix" $periph_name $if_num $device_id]
+	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_BASEADDR 0x%X$uSuffix" $periph_name $if_num $mbox_baseaddr]
+	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_USE_FSL %d$uSuffix" $periph_name $if_num $mbox_use_fsl]
+	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_SEND_FSL %d$uSuffix" $periph_name $if_num $mbox_send_fsl]
+	    puts $hfile_handle [format "#define XPAR_%s_IF_%d_RECV_FSL %d$uSuffix" $periph_name $if_num $mbox_recv_fsl]
 
 	    if {!$has_if0_device_id} {
 		puts $hfile_handle ""
 		puts $hfile_handle "/* Definition for TestApp ID */"		
-		puts $hfile_handle [format "#define XPAR_%s_TESTAPP_ID %s" $periph_name $device_id]
+		puts $hfile_handle [format "#define XPAR_%s_TESTAPP_ID %s$uSuffix" $periph_name $device_id]
 	    }
 
 	    puts $cfile_handle "\t\{"
@@ -131,6 +134,7 @@ proc xdefine_mbox_config_files {drv_handle hfile_name cfile_name drv_string} {
     set hfile_handle [::hsi::utils::open_include_file $hfile_name]
     set cfile_name [file join "src" $cfile_name] 
     set cfile_handle [open $cfile_name w]
+    set uSuffix "U"
 
     ::hsi::utils::write_c_header $cfile_handle "Driver configuration"
     puts $cfile_handle "#include \"xparameters.h\""
@@ -159,7 +163,7 @@ proc xdefine_mbox_config_files {drv_handle hfile_name cfile_name drv_string} {
 
     puts $hfile_handle ""
     puts $hfile_handle "/* Definitions for driver MAILBOX */"
-    puts $hfile_handle [format "#define XPAR_XMBOX_NUM_INSTANCES %d" $device_id]
+    puts $hfile_handle [format "#define XPAR_XMBOX_NUM_INSTANCES %d$uSuffix" $device_id]
     puts $hfile_handle "\n/******************************************************************/\n"
     close $hfile_handle
 }
@@ -206,6 +210,7 @@ proc gen_canonical_device_id {file_handle canonical_name periph_name if_num} {
 
 # Generate canonical definitions for parameters
 proc gen_canonical_param_def {file_handle canonical_name periph param_prefix params} {
+    set uSuffix "U"
     foreach arg $params {
 	if {$param_prefix == ""} {
 	    set actual_arg "${arg}"
@@ -221,7 +226,7 @@ proc gen_canonical_param_def {file_handle canonical_name periph param_prefix par
 	}
 	set rvalue [::hsi::utils::format_addr_string $rvalue $actual_arg]
 
-	puts $file_handle "#define $lvalue $rvalue"
+	puts $file_handle "#define $lvalue $rvalue$uSuffix"
     }
 }
 
