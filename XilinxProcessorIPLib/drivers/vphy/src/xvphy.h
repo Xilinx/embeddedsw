@@ -66,6 +66,7 @@
  *                       Xilinx debugging)
  *                     Added transceiver width, AXIlite clk frequency and
  *                       err_irq in XVphy_Config
+ * 1.5   gm   08/05/17 Added DrpClkFreq in XVphy_Config
  * </pre>
  *
 *******************************************************************************/
@@ -587,6 +588,7 @@ typedef struct {
 	u8  TransceiverWidth;	/**< Transceiver Width seeting in the design */
 	u32 ErrIrq;	            /**< Error IRQ is enalbed in design */
 	u32 AxiLiteClkFreq;	    /**< AXI Lite Clock Frequency in Hz */
+	u32 DrpClkFreq;	        /**< DRP Clock Frequency in Hz */
 } XVphy_Config;
 
 /* Forward declaration. */

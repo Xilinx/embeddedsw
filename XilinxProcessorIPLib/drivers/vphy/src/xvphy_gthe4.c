@@ -423,7 +423,7 @@ u32 XVphy_Gthe4ClkChReconfig(XVphy *InstancePtr, u8 QuadId,
 	XVphy_CfgCpllCalPeriodandTol(InstancePtr, QuadId, ChId,
 			(XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId) ?
 								XVPHY_DIR_TX : XVPHY_DIR_RX),
-			InstancePtr->Config.AxiLiteClkFreq);
+			InstancePtr->Config.DrpClkFreq);
 
 	return XST_SUCCESS;
 }
