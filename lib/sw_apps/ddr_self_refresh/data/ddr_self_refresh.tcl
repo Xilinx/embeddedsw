@@ -53,11 +53,8 @@ proc check_stdout_hw {} {
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 
-	if {($proc_type == "psu_microblaze")} {
-		error "This application is not supported for PMU Microblaze processor (psu_microblaze).";
-	}
-	if {($proc_type == "psu_cortexa53")} {
-		error "This application is not supported for Cortex-A53 processor.";
+	if { ( $proc_type != "psu_cortexr5" ) } {
+                error "This application is supported only for CortexR5 processor.";
 	}
 
 	set slaves [common::get_property SLAVES [hsi::get_cells -hier [hsi::get_sw_processor]]]
