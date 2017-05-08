@@ -115,7 +115,7 @@ static void XFsbl_SetR5ExcepVectorLoVec(void);
 #endif
 
 #ifdef XFSBL_SECURE
-u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]={0};
+u8 AuthBuffer[XFSBL_AUTH_BUFFER_SIZE]__attribute__ ((aligned (4))) = {0};
 #ifdef XFSBL_BS
 u8 HashsOfChunks[HASH_BUFFER_SIZE] __attribute__((section (".bitstream_buffer")));
 #endif
