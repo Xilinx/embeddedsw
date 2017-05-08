@@ -75,8 +75,8 @@ static void outs(const charptr lp, struct params_s *par)
 		(par->num2)--;
 #ifdef STDOUT_BASEADDRESS
         outbyte(*LocalPtr);
-		LocalPtr += 1;
 #endif
+		LocalPtr += 1;
 }
 
     /* Pad on right if needed                        */
@@ -135,8 +135,8 @@ static void outnum( const s32 n, const s32 base, struct params_s *par)
     while (&outbuf[i] >= outbuf) {
 #ifdef STDOUT_BASEADDRESS
 	outbyte( outbuf[i] );
-		i--;
 #endif
+		i--;
 }
     padding( par->left_flag, par);
 }
@@ -262,8 +262,8 @@ void xil_printf( const char8 *ctrl1, ...)
         if (*ctrl != '%') {
 #ifdef STDOUT_BASEADDRESS
             outbyte(*ctrl);
-			ctrl += 1;
 #endif
+			ctrl += 1;
             continue;
         }
 
