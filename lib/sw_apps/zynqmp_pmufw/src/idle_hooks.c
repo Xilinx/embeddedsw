@@ -120,7 +120,7 @@ void NodeSdioIdle(u32 BaseAddress)
 		} while ((StatusReg & SdpsActive) && Timeout--);
 	}
 	if (Timeout == 0) {
-		PmDbg("SD was still not idle\n");
+		PmDbg(DEBUG_DETAILED,"SD was still not idle\n");
 	}
 
 	/* Reset the eMMC card */
@@ -165,7 +165,7 @@ void NodeSdioIdle(u32 BaseAddress)
 		Val = XSdPs_ReadReg8(BaseAddress, XSDPS_SW_RST_OFFSET);
 	}
 	if (Timeout == 0) {
-		PmDbg("SD was still not reset\n");
+		PmDbg(DEBUG_DETAILED,"SD was still not reset\n");
 	}
 }
 
@@ -192,7 +192,7 @@ void NodeI2cIdle(u32 BaseAddress)
 					   XIICPS_SR_OFFSET);
 	} while (((StatusReg & XIICPS_SR_BA_MASK) != 0x0U) && Timeout--);
 	if (Timeout == 0) {
-		PmDbg("i2c was still not idle\n");
+		PmDbg(DEBUG_DETAILED,"i2c was still not idle\n");
 	}
 }
 #endif
@@ -220,7 +220,7 @@ void NodeGemIdle(u32 BaseAddress)
 	} while ((!(Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && Timeout--);
 
 	if (Timeout == 0) {
-		PmDbg("gem was still not idle\n");
+		PmDbg(DEBUG_DETAILED,"gem was still not idle\n");
 	}
 
 	/* stop all transactions of the Ethernet */
@@ -258,7 +258,7 @@ void NodeQspiIdle(u32 BaseAddress)
 	} while ((StatusReg != 0) && Timeout--);
 
 	if (Timeout == 0) {
-		PmDbg("QSPI was still not idle\n");
+		PmDbg(DEBUG_DETAILED,"QSPI was still not idle\n");
 	}
 }
 

@@ -45,7 +45,8 @@ static void DapCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_DAP_RPU_WAKE);
 	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_DAP_FPD_WAKE);
 
-	fw_printf("DAP_WAKE (MOD-%d): Initialized.\r\n", ModPtr->ModId);
+	XPfw_Printf(DEBUG_DETAILED,"DAP_WAKE (MOD-%d): Initialized.\r\n",
+			ModPtr->ModId);
 }
 
 /* Event Handler */
@@ -54,7 +55,7 @@ static void DapEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 	if (XPFW_EV_DAP_RPU_WAKE == EventId) {
 		/* Call ROM Handler for RPU Wake */
 		XpbrServHndlrTbl[XPBR_SERV_EXT_DAPRPUWAKE]();
-		fw_printf("XPFW: DAP RPU WAKE.. Done\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"XPFW: DAP RPU WAKE.. Done\r\n");
 #ifdef ENABLE_PM
 		XPfw_DapRpuWakeEvent();
 #endif
@@ -62,7 +63,7 @@ static void DapEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 	if (XPFW_EV_DAP_FPD_WAKE == EventId) {
 		/* Call ROM Handler for FPD Wake */
 		XpbrServHndlrTbl[XPBR_SERV_EXT_DAPFPDWAKE]();
-		fw_printf("XPFW: DAP FPD WAKE.. Done\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"XPFW: DAP FPD WAKE.. Done\r\n");
 #ifdef ENABLE_PM
 		XPfw_DapFpdWakeEvent();
 #endif

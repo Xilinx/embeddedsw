@@ -431,7 +431,8 @@ static int PmProcTrActiveToSuspend(PmProc* const proc)
 {
 	int status;
 
-	PmDbg("ACTIVE->SUSPENDING %s\r\n", PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"ACTIVE->SUSPENDING %s\r\n",
+			PmStrNode(proc->node.nodeId));
 
 	ENABLE_WFI(proc->wfiEnableMask);
 	PmNodeUpdateCurrState(&proc->node, PM_PROC_STATE_SUSPENDING);
@@ -466,7 +467,8 @@ static int PmProcTrToForcedOff(PmProc* const proc)
 	bool killed;
 	u32 pwrReq;
 
-	PmDbg("ACTIVE->FORCED_PWRDN %s\r\n", PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"ACTIVE->FORCED_PWRDN %s\r\n",
+			PmStrNode(proc->node.nodeId));
 
 	proc->node.latencyMarg = MAX_LATENCY;
 	proc->resumeAddress = 0ULL;
@@ -506,7 +508,8 @@ static int PmProcTrSuspendToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg("SUSPENDING->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"SUSPENDING->ACTIVE %s\r\n",
+			PmStrNode(proc->node.nodeId));
 
 	DISABLE_WFI(proc->wfiEnableMask);
 
@@ -531,7 +534,8 @@ static int PmProcTrSuspendToSleep(PmProc* const proc)
 	int status;
 	u32 worstCaseLatency = proc->pwrDnLatency + proc->pwrUpLatency;
 
-	PmDbg("SUSPENDING->SLEEP %s\r\n", PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"SUSPENDING->SLEEP %s\r\n",
+			PmStrNode(proc->node.nodeId));
 	proc->node.latencyMarg = proc->latencyReq - worstCaseLatency;
 
 	status = PmProcSleep(proc);
@@ -567,7 +571,8 @@ static int PmProcTrSleepToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg("SLEEP->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"SLEEP->ACTIVE %s\r\n",
+			PmStrNode(proc->node.nodeId));
 	status = PmProcWake(proc);
 	DISABLE_WAKE(proc->wakeEnableMask);
 
@@ -590,7 +595,8 @@ static int PmProcTrForcePwrdnToActive(PmProc* const proc)
 {
 	int status;
 
-	PmDbg("FORCED_PWRDN->ACTIVE %s\r\n", PmStrNode(proc->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"FORCED_PWRDN->ACTIVE %s\r\n",
+			PmStrNode(proc->node.nodeId));
 	status = PmProcWake(proc);
 
 	return status;
@@ -661,12 +667,13 @@ int PmProcFsm(PmProc* const proc, const PmProcEvent event)
 		proc->latencyReq = MAX_LATENCY;
 		break;
 	default:
-		PmDbg("ERROR: unrecognized event %d\r\n", event);
+		PmDbg(DEBUG_DETAILED,"ERROR: unrecognized event %d\r\n", event);
 		break;
 	}
 #ifdef DEBUG_PM
 	if (status == XST_PM_INTERNAL) {
-		PmDbg("ERROR: state #%d event #%d\r\n", currState, event);
+		PmDbg(DEBUG_DETAILED,"ERROR: state #%d event #%d\r\n",
+				currState, event);
 	}
 #endif
 

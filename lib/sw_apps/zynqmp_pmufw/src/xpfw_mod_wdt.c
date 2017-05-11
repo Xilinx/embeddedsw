@@ -81,7 +81,8 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 
 	if (NULL == WdtConfigPtr) {
 		Status = XST_FAILURE;
-		fw_printf("WDT (MOD-%d): WDT LookupConfig failed.\r\n", ModPtr->ModId);
+		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d): WDT LookupConfig failed.\r\n",
+				ModPtr->ModId);
 		goto Done;
 	}
 
@@ -90,7 +91,8 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 			WdtConfigPtr->BaseAddress);
 
 	if (XST_FAILURE == Status) {
-		fw_printf("WDT (MOD-%d): Initialization failed.\r\n", ModPtr->ModId);
+		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d): Initialization failed.\r\n",
+				ModPtr->ModId);
 		goto Done;
 	}
 
@@ -117,10 +119,11 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 
 	Status = XPfw_CoreScheduleTask(ModPtr, XPFW_WDT_RESTART_TIME, XPfw_WdtRestart);
 	if (XST_FAILURE == Status) {
-		fw_printf("WDT (MOD-%d):Scheduling WDT restart failed.",ModPtr->ModId);
+		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Scheduling WDT restart failed.",
+				ModPtr->ModId);
 	}
 
-	fw_printf("WDT (MOD-%d): Initialized.\r\n", ModPtr->ModId);
+	XPfw_Printf(DEBUG_DETAILED,"WDT (MOD-%d): Initialized.\r\n", ModPtr->ModId);
 Done:
 	return;
 }

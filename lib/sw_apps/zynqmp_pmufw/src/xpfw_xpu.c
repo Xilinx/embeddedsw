@@ -96,7 +96,7 @@ struct XpuReg XpuRegList[] =
 void XPfw_XpuIntrInit(void)
 {
 	u32 Idx;
-	fw_printf("EM: Enabling XMPU/XPPU interrupts\r\n");
+	XPfw_Printf(DEBUG_DETAILED,"EM: Enabling XMPU/XPPU interrupts\r\n");
 	for(Idx=0; Idx < ARRAYSIZE(XpuRegList);Idx++) {
 		/* Enable all the Interrupts for this XMPU/XPPU Instance */
 		XPfw_Write32(XpuRegList[Idx].BaseAddress + XPU_IER_OFFSET,
@@ -127,6 +127,7 @@ void XPfw_XpuIntrAck(void)
  */
 void XPfw_XpuIntrHandler(u8 ErrorId)
 {
-	fw_printf("EM: XMPU/XPPU violation occured (ErrorId: %d)\r\n", ErrorId);
+	XPfw_Printf(DEBUG_DETAILED,"EM: XMPU/XPPU violation occurred "
+			"(ErrorId: %d)\r\n", ErrorId);
 	XPfw_XpuIntrAck();
 }

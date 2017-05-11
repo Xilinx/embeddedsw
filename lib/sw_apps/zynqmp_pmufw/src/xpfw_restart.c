@@ -45,7 +45,8 @@
 #define LPD_XPPU_CTRL_ADDRESS	0xFF980000U
 #define LPD_XPPU_CTRL_EN_MASK	BIT(0)
 
-#define RestartDebug(MSG, ...)	fw_printf("PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
+#define RestartDebug(DebugType, MSG, ...)	\
+	XPfw_Printf(DebugType, "%s" MSG, __func__, ##__VA_ARGS__)
 
 #ifdef ENABLE_RECOVERY
 
@@ -172,12 +173,12 @@ void XPfw_RestartSystemLevel(void)
 {
 	bool IsPlUp = XPfw_RestartIsPlDone();
 	if(IsPlUp) {
-		RestartDebug("Ps Only Reset\r\n");
+		RestartDebug(DEBUG_DETAILED,"Ps Only Reset\r\n");
 		XPfw_ResetPsOnly();
 	}
 	else {
 		/* TODO: Req and wait for Ack from PL */
-		RestartDebug("SRST\r\n");
+		RestartDebug(DEBUG_DETAILED,"SRST\r\n");
 		/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
 		if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {
 			XPfw_UtilRMW(CRL_APB_RPLL_CTRL, CRL_APB_RPLL_CTRL_BYPASS_MASK,
@@ -234,14 +235,14 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 		if(ErrorId == EM_ERR_ID_FPD_SWDT &&
 				RstTrackerList[RstIdx].Master->nid == NODE_APU) {
 			if(RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS ) {
-				RestartDebug("Initiating APU sub-system restart\r\n");
+				RestartDebug(DEBUG_DETAILED,"Initiating APU sub-system restart\r\n");
 				RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_INPROGRESS;
 				RstTrackerList[RstIdx].RestartCount++;
 				WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
 				MasterIdle(RstTrackerList[RstIdx].Master);
 			}
 			else{
-				RestartDebug("Escalating to system level reset\r\n");
+				RestartDebug(DEBUG_DETAILED,"Escalating to system level reset\r\n");
 				#ifdef ENABLE_ESCALATION
 					XPfw_RestartSystemLevel();
 				#else

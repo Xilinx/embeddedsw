@@ -100,7 +100,7 @@ void PmPowerStackPush(PmPower* const power, const u8 index)
 {
 	/* Stack overflow should never happen */
 	if (ARRAY_SIZE(pmPowerStack) == pmDfs.sp) {
-		PmDbg("ERROR: stack overflow!\r\n");
+		PmDbg(DEBUG_DETAILED,"ERROR: stack overflow!\r\n");
 		goto done;
 	}
 	pmPowerStack[pmDfs.sp].power = power;
@@ -119,7 +119,7 @@ void PmPowerStackPop(PmPower** const power, u8* const index)
 {
 	if (0U == pmDfs.sp) {
 		/* This should never happen */
-		PmDbg("ERROR: empty stack!\r\n");
+		PmDbg(DEBUG_DETAILED,"ERROR: empty stack!\r\n");
 		goto done;
 	}
 	pmDfs.sp--;
@@ -294,7 +294,8 @@ static int PmPowerDownFpd(void)
 
 /* Block FPD power down if any of the LPD peripherals uses CCI path which is in FPD */
 #ifdef XPAR_LPD_IS_CACHE_COHERENT
-	PmDbg("Blocking FPD power down since CCI is used by LPD\r\n");
+	PmDbg(DEBUG_DETAILED,"Blocking FPD power down since CCI is "
+			"used by LPD\r\n");
 	status = XST_FAILURE;
 	goto err;
 #endif /* XPAR_LPD_IS_CACHE_COHERENT */
@@ -390,7 +391,7 @@ static int PmPowerDownRpu(void)
 	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
-	PmDbg("Enabled AIB\r\n");
+	PmDbg(DEBUG_DETAILED,"Enabled AIB\r\n");
 
 	return XpbrPwrDnRpuHandler();
 }
@@ -453,7 +454,7 @@ static int PmPowerDown(PmPower* const power)
 	if (NULL != power->node.clocks) {
 		PmClockRelease(&power->node);
 	}
-	PmDbg("%s\r\n", PmStrNode(power->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
 
 done:
 	return status;
@@ -470,7 +471,7 @@ static int PmPowerUp(PmPower* const power)
 {
 	int status = XST_SUCCESS;
 
-	PmDbg("%s\r\n", PmStrNode(power->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
 
 	if (PM_PWR_STATE_ON == power->node.currState) {
 		goto done;
@@ -896,7 +897,7 @@ int PmPowerRequestParent(PmNode* const node)
 
 	if (0U == (NODE_LOCKED_POWER_FLAG & node->flags)) {
 #ifdef DEBUG_PWR
-		PmDbg("%s->%s\r\n", PmStrNode(node->nodeId),
+		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", PmStrNode(node->nodeId),
 			PmStrNode(node->parent->node.nodeId));
 #endif
 		status = PmPowerRequest(node->parent);
@@ -916,7 +917,7 @@ void PmPowerReleaseParent(PmNode* const node)
 {
 	if (0U != (NODE_LOCKED_POWER_FLAG & node->flags)) {
 #ifdef DEBUG_PWR
-		PmDbg("%s->%s\r\n", PmStrNode(node->nodeId),
+		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", PmStrNode(node->nodeId),
 			PmStrNode(node->parent->node.nodeId));
 #endif
 		node->flags &= ~NODE_LOCKED_POWER_FLAG;

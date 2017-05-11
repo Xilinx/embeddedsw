@@ -30,73 +30,63 @@
 *
 ******************************************************************************/
 
+/******************************************************************************/
+/**
+ *
+ * @file xpfw_debug.h
+ *
+ * This file contains the debug verbose information for PMUFW print
+ * functionality
+ *
+ * <pre>
+ * MODIFICATION HISTORY:
+ *
+ * Ver	Who		Date		Changes
+ * ---- ---- -------- ------------------------------
+ *
+ *
+ * </pre>
+ *
+ * @note
+ *
+ ******************************************************************************/
 
-#ifndef XPFW_DEFAULT_H_
-#define XPFW_DEFAULT_H_
 
+#ifndef XPFW_DEBUG_H
+#define XPFW_DEBUG_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/**************************Include Files**************************/
+#include "xil_printf.h"
 #include "xpfw_config.h"
-#include "xpfw_codes.h"
-#include "xpfw_util.h"
-#include "xpfw_debug.h"
-
-/* BSP Headers */
-#include "xil_io.h"
 #include "xil_types.h"
-#include "mb_interface.h"
-#include "xstatus.h"
-/* REGDB Headers */
-#include "pmu_local.h"
-#include "pmu_iomodule.h"
-#include "pmu_global.h"
-#include "ipi.h"
-#include "uart0.h"
-#include "uart1.h"
-#include "crl_apb.h"
-#include "lpd_slcr.h"
-#include "rtc.h"
 
+/**
+ * Debug levels for PMUFW
+ */
+#define DEBUG_PRINT_ALWAYS (0x00000001U) /* Unconditional messages */
+#define DEBUG_ERROR (0x00000002U) /* Error messages */
+#define DEBUG_DETAILED (0x00000004U) /* More debug information */
 
-/* RAM address used for scrubbing */
-#define PARAM_RAM_LOW_ADDRESS		0Xffdc0000U
-#define PARAM_RAM_HIGH_ADDRESS		0Xffdcff00U
+#if defined(XPFW_DEBUG_DETAILED)
+#define XPfwDbgCurrentTypes ((DEBUG_DETAILED) | (DEBUG_ERROR) |\
+		(DEBUG_PRINT_ALWAYS))
+#elif defined(XPFW_DEBUG_ERROR)
+#define XPfwDbgCurrentTypes ((DEBUG_ERROR) | (DEBUG_PRINT_ALWAYS))
+#elif defined(XPFW_PRINT)
+#define XPfwDbgCurrentTypes (DEBUG_PRINT_ALWAYS)
+#else
+#define XPfwDbgCurrentTypes (0U)
+#endif
 
-/* RAM base address for general usage */
-#define PMU_RAM_BASE_ADDR		0Xffdc0000U
+#define XPfw_Printf(DebugType,...)\
+	if(((DebugType) & XPfwDbgCurrentTypes)!=XST_SUCCESS){xil_printf(__VA_ARGS__);}
 
-/* Register Access Macros */
+#ifdef __cplusplus
+}
+#endif
 
-#define XPfw_Write32(Addr, Value)  Xil_Out32((Addr), (Value))
-
-#define XPfw_Read32(Addr)  Xil_In32((Addr))
-
-#define XPfw_RMW32  XPfw_UtilRMW
-
-#define ARRAYSIZE(x)	(u32)(sizeof(x)/sizeof(x[0]))
-/* Custom Flags */
-
-#define MASK_ALL 	0XffffffffU
-#define ENABLE_ALL	0XffffffffU
-#define ALL_HIGH	0XffffffffU
-#define FLAG_ALL	0XffffffffU
-
-
-#define MASK32_ALL_HIGH	((u32)0xFFFFFFFFU)
-#define MASK32_ALL_LOW	((u32)0x0U)
-
-
-#define YES 0x01U
-#define NO 0x00U
-
-
-#define XPFW_ACCESS_ALLOWED 0x01U
-#define XPFW_ACCESS_DENIED	0x00U
-
-/* Handler Table Structure */
-typedef void (*VoidFunction_t)(void);
-struct HandlerTable{
-	u32 Mask;
-	VoidFunction_t Handler;
-};
-
-#endif /* XPFW_DEFAULT_H_ */
+#endif /* XPFW_DEBUG_H_ */

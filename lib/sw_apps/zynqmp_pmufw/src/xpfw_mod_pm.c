@@ -59,7 +59,8 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 			/* Power management API processing */
 			XPfw_PmIpiHandler(SrcMask, &Payload[0], Len);
 		} else {
-			fw_printf("MOD-%d: Non-PM IPI-%lu call received\r\n", ModPtr->ModId, IpiNum);
+			XPfw_Printf(DEBUG_DETAILED,"MOD-%d: Non-PM IPI-%lu call received"
+					"\r\n", ModPtr->ModId, IpiNum);
 		}
 		break;
 
@@ -79,7 +80,7 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 		break;
 
 	default:
-		fw_printf("ERROR: Invalid IPI Number: %lu\r\n", IpiNum);
+		XPfw_Printf(DEBUG_ERROR,"ERROR: Invalid IPI Number: %lu\r\n", IpiNum);
 		break;
 	}
 }
@@ -99,7 +100,7 @@ static void PmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		XPfw_PmWfiHandler(RegValue);
 		break;
 	default:
-		fw_printf("Unhandled PM Event: %lu\r\n", EventId);
+		XPfw_Printf(DEBUG_ERROR,"Unhandled PM Event: %lu\r\n", EventId);
 		break;
 	}
 }

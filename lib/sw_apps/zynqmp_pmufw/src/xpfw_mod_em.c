@@ -48,8 +48,9 @@
 
 static void RpuLsHandler(u8 ErrorId)
 {
-	fw_printf("EM: RPU Lock-Step Error Occurred (Error ID: %d)\r\n", ErrorId);
-	fw_printf("EM: Initiating RPU Reset \r\n");
+	XPfw_Printf(DEBUG_ERROR,"EM: RPU Lock-Step Error Occurred "
+			"(Error ID: %d)\r\n", ErrorId);
+	XPfw_Printf(DEBUG_ERROR,"EM: Initiating RPU Reset \r\n");
 	XPfw_ResetRpu();
 }
 
@@ -64,8 +65,9 @@ static void RpuLsHandler(u8 ErrorId)
 */
 static void LpdSwdtHandler(u8 ErrorId)
 {
-	fw_printf("EM: LPD Watchdog Timer Error (Error ID: %d)\r\n", ErrorId);
-	fw_printf("EM: Initiating PS Only Reset \r\n");
+	XPfw_Printf(DEBUG_ERROR,"EM: LPD Watchdog Timer Error (Error ID: %d)\r\n",
+			ErrorId);
+	XPfw_Printf(DEBUG_ERROR,"EM: Initiating PS Only Reset \r\n");
 	XPfw_ResetPsOnly();
 }
 #endif
@@ -79,7 +81,8 @@ static void LpdSwdtHandler(u8 ErrorId)
  */
 static void FpdSwdtHandler(u8 ErrorId)
 {
-	fw_printf("EM: FPD Watchdog Timer Error (Error ID: %d)\r\n", ErrorId);
+	XPfw_Printf(DEBUG_ERROR,"EM: FPD Watchdog Timer Error (Error ID: %d)\r\n",
+			ErrorId);
 	XPfw_RecoveryHandler(ErrorId);
 }
 
@@ -113,7 +116,7 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	/* Enable the interrupts at XMPU/XPPU block level */
 	XPfw_XpuIntrInit();
 
-	fw_printf("EM Module (MOD-%d): Initialized.\r\n",
+	XPfw_Printf(DEBUG_DETAILED,"EM Module (MOD-%d): Initialized.\r\n",
 			ModPtr->ModId);
 }
 
@@ -131,7 +134,7 @@ static void EmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 		XPfw_EmProcessError(EM_ERR_TYPE_2);
 		break;
 	default:
-		fw_printf("EM:Unhandled Event(ID:%lu)\r\n", EventId);
+		XPfw_Printf(DEBUG_ERROR,"EM:Unhandled Event(ID:%lu)\r\n", EventId);
 		break;
 	}
 }

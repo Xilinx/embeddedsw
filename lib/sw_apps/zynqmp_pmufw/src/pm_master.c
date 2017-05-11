@@ -767,7 +767,7 @@ static void PmMasterIdleSlaves(PmMaster* const master)
 	PmRequirement* req = master->reqs;
 	PmNode* Node;
 
-	PmDbg("%s\r\n", PmStrNode(master->nid));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(master->nid));
 
 	while (NULL != req) {
 		u32 usage = PmSlaveGetUsageStatus(req->slave, master);
@@ -864,7 +864,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		break;
 	default:
 		status = XST_PM_INTERNAL;
-		PmDbg("ERROR: undefined event #%d\r\n", event);
+		PmDbg(DEBUG_DETAILED,"ERROR: undefined event #%d\r\n", event);
 		break;
 	}
 
