@@ -66,7 +66,7 @@ typedef u32 (*const PmTranHandler)(void);
  */
 #ifdef DEBUG_MODE
 	#define DEBUG_PM
-	#define DEBUG_CLK
+/*	#define DEBUG_CLK	*/
 /*	#define DEBUG_PWR	*/
 	#define DEBUG_SET_CONFIG
 #endif

@@ -1171,7 +1171,9 @@ s32 PmClockIsActive(PmNode* const node)
 void PmClockSave(PmNode* const node)
 {
 	PmClockHandle* ch = node->clocks;
+#ifdef DEBUG_CLK
 	PmDbg("%s\r\n", PmStrNode(node->nodeId));
+#endif
 
 	while (NULL != ch) {
 		ch->clock->ctrlVal = XPfw_Read32(ch->clock->ctrlAddr);
