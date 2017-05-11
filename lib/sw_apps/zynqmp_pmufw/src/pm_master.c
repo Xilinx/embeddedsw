@@ -554,8 +554,6 @@ static void PmWakeUpCancelScheduled(PmMaster* const master)
 {
 	PmRequirement* req = master->reqs;
 
-	PmDbg("%s\r\n", PmStrNode(master->nid));
-
 	while (NULL != req) {
 		req->info &= ~PM_MASTER_WAKEUP_REQ_MASK;
 		req = req->nextSlave;
