@@ -267,8 +267,6 @@ int PmRequirementUpdateScheduled(const PmMaster* const master, const bool swap)
 	int status = XST_SUCCESS;
 	PmRequirement* req = master->reqs;
 
-	PmDbg("%s\r\n", PmStrNode(master->nid));
-
 	while (NULL != req) {
 		if (req->currReq != req->nextReq) {
 			u32 tmpReq = req->nextReq;
@@ -315,7 +313,6 @@ void PmRequirementCancelScheduled(const PmMaster* const master)
 	while (NULL != req) {
 		if (req->currReq != req->nextReq) {
 			/* Drop the scheduled request by making it constant */
-			PmDbg("%s\r\n", PmStrNode(req->slave->node.nodeId));
 			req->nextReq = req->currReq;
 		}
 		req = req->nextSlave;
