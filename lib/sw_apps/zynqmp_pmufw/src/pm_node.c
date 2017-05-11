@@ -275,7 +275,7 @@ int PmNodeInit(void)
 			status = pmNodeClasses[i]->init(node);
 			if (XST_SUCCESS != status) {
 				ret = XST_FAILURE;
-				PmDbg("%s failed\r\n", PmStrNode(node->nodeId));
+				PmDbg(DEBUG_DETAILED,"%s failed\r\n", PmStrNode(node->nodeId));
 			}
 
 		}

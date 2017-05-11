@@ -1128,7 +1128,8 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		break;
 	default:
 		status = XST_PM_INTERNAL;
-		PmDbg("ERROR: Unknown DDR state #%d\r\n", slave->node.currState);
+		PmDbg(DEBUG_DETAILED,"ERROR: Unknown DDR state #%d\r\n",
+				slave->node.currState);
 		break;
 	}
 

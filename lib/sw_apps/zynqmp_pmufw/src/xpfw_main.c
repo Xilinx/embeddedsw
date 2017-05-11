@@ -46,15 +46,15 @@ XStatus XPfw_Main(void)
 	XStatus Status;
 
 	/* Start the Init Routine */
-	fw_printf("PMU Firmware %s\t%s   %s\r\n",
-	ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
+	XPfw_Printf(DEBUG_PRINT_ALWAYS,"PMU Firmware %s\t%s   %s\r\n",
+			ZYNQMP_XPFW_VERSION, __DATE__, __TIME__);
 	/* TODO: Print ROM version */
 
 	/* Initialize the FW Core Object */
 	Status = XPfw_CoreInit(0U);
 
 	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Init failed\r\n", __func__);
+		XPfw_Printf(DEBUG_ERROR,"%s: Error! Core Init failed\r\n", __func__);
 		goto Done;
 	}
 
@@ -65,7 +65,7 @@ XStatus XPfw_Main(void)
 	Status = XPfw_CoreConfigure();
 
 	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Core Cfg failed\r\n", __func__);
+		XPfw_Printf(DEBUG_ERROR,"%s: Error! Core Cfg failed\r\n", __func__);
 		goto Done;
 	}
 
@@ -73,7 +73,8 @@ XStatus XPfw_Main(void)
 	Status = XPfw_CoreLoop();
 
 	if (Status != XST_SUCCESS) {
-		fw_printf("%s: Error! Unexpected exit from CoreLoop\r\n", __func__);
+		XPfw_Printf(DEBUG_ERROR,"%s: Error! Unexpected exit from CoreLoop\r\n",
+				__func__);
 		goto Done;
 	}
 	Done:

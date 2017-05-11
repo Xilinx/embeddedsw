@@ -75,7 +75,7 @@ void XPfw_ResetPsOnly(void)
 	 *
 	 */
 
-	fw_printf("Isolating Interfaces.....");
+	XPfw_Printf(DEBUG_DETAILED,"Isolating Interfaces.....");
 	/*
 	 * Block FPD=>PL and LPD=>PL interfaces with the help of AIB (in PS)
 	 */
@@ -105,11 +105,11 @@ void XPfw_ResetPsOnly(void)
 	}
 
 	if(l_Status == XST_SUCCESS){
-		fw_printf("Done\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"Done\r\n");
 	}
 	else
 	{
-		fw_printf("Time Out\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"Time Out\r\n");
 	}
 
 	/**
@@ -133,7 +133,7 @@ void XPfw_ResetPsOnly(void)
 	/**
 	 *  Initiate PS-only reset by writing to PMU-local register
 	 */
-	fw_printf("Asserting Reset\r\n");
+	XPfw_Printf(DEBUG_DETAILED,"Asserting Reset\r\n");
 	XPfw_UtilRMW(PMU_GLOBAL_GLOBAL_RESET,
 			PMU_GLOBAL_GLOBAL_RESET_PS_ONLY_RST_MASK,
 			PMU_GLOBAL_GLOBAL_RESET_PS_ONLY_RST_MASK);
@@ -214,15 +214,15 @@ XStatus XPfw_ResetRpu(void)
 	/**
 	 * - Wait for AIB ack, TimeOut If not received
 	 */
-	fw_printf("Waiting for AIB Ack (M).....");
+	XPfw_Printf(DEBUG_DETAILED,"Waiting for AIB Ack (M).....");
 	l_Status = XPfw_UtilPollForMask(LPD_SLCR_ISO_AIBAXI_ACK,
 					RPU_AIB_MASTER_MASK,
 					XPFW_TO_AIB_PS_PL);
 
 	if (l_Status == XST_SUCCESS) {
-		fw_printf("Done\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"Done\r\n");
 	} else {
-		fw_printf("Time Out\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"Time Out\r\n");
 	}
 
 	/**
@@ -234,13 +234,13 @@ XStatus XPfw_ResetRpu(void)
 	/**
 	 * - Wait for AIB ack, Timeout if not received
 	 */
-	fw_printf("Waiting for AIB Ack (S).....");
+	XPfw_Printf(DEBUG_DETAILED,"Waiting for AIB Ack (S).....");
 	l_Status = XPfw_UtilPollForMask(LPD_SLCR_ISO_AIBAXI_ACK, RPU_AIB_SLAVE_MASK,
 					XPFW_TO_AIB_PS_PL);
 	if (l_Status == XST_SUCCESS) {
-		fw_printf("Done\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"Done\r\n");
 	} else {
-		fw_printf("Time Out\r\n");
+		XPfw_Printf(DEBUG_DETAILED,"Time Out\r\n");
 	}
 
 	/**
@@ -260,7 +260,7 @@ XStatus XPfw_ResetRpu(void)
 	 */
 	XPfw_UtilWait(XPFW_RST_PROP_DELAY);
 
-	fw_printf("Releasing RPU out of Reset\r\n");
+	XPfw_Printf(DEBUG_DETAILED,"Releasing RPU out of Reset\r\n");
 
 	/**
 	 * Release from Reset and wait till it propagates

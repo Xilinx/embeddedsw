@@ -115,7 +115,7 @@ static void PmPllRestoreContext(PmPll* const pll)
  */
 static void PmPllSuspend(PmPll* const pll)
 {
-	PmDbg("%s\r\n", PmStrNode(pll->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(pll->node.nodeId));
 
 	PmPllSaveContext(pll);
 
@@ -143,7 +143,7 @@ static int PmPllResume(PmPll* const pll)
 	u32 var = 0;
 	int status = XST_SUCCESS;
 
-	PmDbg("%s\r\n", PmStrNode(pll->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(pll->node.nodeId));
 
 	if (true == pll->context.saved) {
 		PmPllRestoreContext(pll);
@@ -441,7 +441,8 @@ int PmPllRequest(PmPll* const pll)
 	int status = XST_SUCCESS;
 
 #ifdef DEBUG_CLK
-	PmDbg("%s #%lu\r\n", PmStrNode(pll->node.nodeId), 1 + pll->useCount);
+	PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
+			1 + pll->useCount);
 #endif
 	/* If the PLL is suspended it needs to be resumed first */
 	if (true == pll->context.saved) {
@@ -462,7 +463,8 @@ void PmPllRelease(PmPll* const pll)
 	pll->useCount--;
 
 #ifdef DEBUG_CLK
-	PmDbg("%s #%lu\r\n", PmStrNode(pll->node.nodeId), pll->useCount);
+	PmDbg(DEBUG_DETAILED,"%s #%lu\r\n", PmStrNode(pll->node.nodeId),
+			pll->useCount);
 #endif
 	if (0U == pll->useCount) {
 		PmPllSuspend(pll);

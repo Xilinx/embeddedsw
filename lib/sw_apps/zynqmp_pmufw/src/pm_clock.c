@@ -1102,28 +1102,29 @@ void PmClockDump(const PmClock* const clk)
 	const PmClockHandle* ch = clk->users;
 	u32 clkUseCnt = PmClockGetUseCount(clk);
 
-	fw_printf("\t%s #%lu { ", PmStrClk(clk), clkUseCnt);
+	XPfw_Printf(DEBUG_DETAILED,"\t%s #%lu { ", PmStrClk(clk), clkUseCnt);
 
 	while (NULL != ch) {
 		bool used = 0U != (NODE_LOCKED_CLOCK_FLAG & ch->node->flags);
 
 		if (true == used) {
 			if (clk->users != ch) {
-				fw_printf(", ");
+				XPfw_Printf(DEBUG_DETAILED,", ");
 			}
-			fw_printf("%s", PmStrNode(ch->node->nodeId));
+			XPfw_Printf(DEBUG_DETAILED,"%s", PmStrNode(ch->node->nodeId));
 		}
 
 		ch = ch->nextNode;
 	}
-	fw_printf(" }\r\n");
+	XPfw_Printf(DEBUG_DETAILED," }\r\n");
 }
 
 void PmClockDumpChildren(const PmPll* const pll)
 {
 	u32 i;
 
-	fw_printf("%s #%ld:\r\n", PmStrNode(pll->node.nodeId), pll->useCount);
+	XPfw_Printf(DEBUG_DETAILED,"%s #%ld:\r\n", PmStrNode(pll->node.nodeId),
+			pll->useCount);
 
 	for (i = 0U; i < ARRAY_SIZE(pmClocks); i++) {
 		if (pll != pmClocks[i]->pll) {
@@ -1196,7 +1197,7 @@ s32 PmClockIsActive(PmNode* const node)
 {
 	s32 Status = XST_SUCCESS;
 	PmClockHandle* ch = node->clocks;
-	PmDbg("%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
 
 	while (NULL != ch) {
 		if ((XPfw_Read32(ch->clock->ctrlAddr) & PM_CLOCK_ACTIVE_MASK) !=
@@ -1218,7 +1219,7 @@ void PmClockSave(PmNode* const node)
 {
 	PmClockHandle* ch = node->clocks;
 #ifdef DEBUG_CLK
-	PmDbg("%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
 #endif
 
 	while (NULL != ch) {
@@ -1236,7 +1237,7 @@ void PmClockRestore(PmNode* const node)
 	PmClockHandle* ch = node->clocks;
 
 #ifdef DEBUG_CLK
-	PmDbg("%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
 #endif
 	while (NULL != ch) {
 		/* Restore the clock configuration if needed */
@@ -1260,11 +1261,12 @@ int PmClockRequest(PmNode* const node)
 	int status = XST_SUCCESS;
 
 	if (0U != (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
-		PmDbg("Warning %s double request\r\n", PmStrNode(node->nodeId));
+		PmDbg(DEBUG_DETAILED,"Warning %s double request\r\n",
+				PmStrNode(node->nodeId));
 		goto done;
 	}
 #ifdef DEBUG_CLK
-	PmDbg("%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
 #endif
 	while (NULL != ch) {
 		const u32 val = XPfw_Read32(ch->clock->ctrlAddr);
@@ -1302,11 +1304,12 @@ void PmClockRelease(PmNode* const node)
 	PmClockHandle* ch = node->clocks;
 
 	if (0U == (NODE_LOCKED_CLOCK_FLAG & node->flags)) {
-		PmDbg("Warning %s double release\r\n", PmStrNode(node->nodeId));
+		PmDbg(DEBUG_DETAILED,"Warning %s double release\r\n",
+				PmStrNode(node->nodeId));
 		goto done;
 	}
 #ifdef DEBUG_CLK
-	PmDbg("%s\r\n", PmStrNode(node->nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(node->nodeId));
 #endif
 	while (NULL != ch) {
 		if (NULL != ch->clock->pll) {

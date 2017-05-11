@@ -132,7 +132,8 @@ XStatus XPfw_CoreDispatchEvent(u32 EventId)
 			}
 		}
 	}
-	/* fw_printf("%s: Event(%d) dispatched to  %d Mods\r\n", __func__, EventId,CallCount); */
+	/* XPfw_Printf(DEBUG_INFO,"%s: Event(%d) dispatched to  %d Mods\r\n",
+	 * __func__, EventId,CallCount); */
 	if (CallCount > 0U) {
 		Status = XST_SUCCESS;
 	} else {
@@ -247,7 +248,7 @@ void XPfw_CoreTickHandler(void)
 		XPfw_SchedulerTickHandler(&CorePtr->Scheduler);
 	}
 	else {
-		fw_printf("ERROR: NULL pointer to Core\r\n");
+		XPfw_Printf(DEBUG_ERROR,"ERROR: NULL pointer to Core\r\n");
 	}
 }
 
@@ -302,11 +303,16 @@ XStatus XPfw_CoreLoop(void)
 void XPfw_CorePrintStats(void)
 {
 	if(CorePtr != NULL) {
-	fw_printf("######################################################\r\n");
-	fw_printf("Module Count: %d (%d)\r\n", CorePtr->ModCount, XPFW_MAX_MOD_COUNT);
-	fw_printf("Scheduler State: %s\r\n",((CorePtr->Scheduler.Enabled == TRUE)?"ENABLED":"DISABLED"));
-	fw_printf("Scheduler Ticks: %lu\r\n",CorePtr->Scheduler.Tick);
-	fw_printf("######################################################\r\n");
+	XPfw_Printf(DEBUG_DETAILED,
+			"######################################################\r\n");
+	XPfw_Printf(DEBUG_DETAILED,"Module Count: %d (%d)\r\n", CorePtr->ModCount,
+			XPFW_MAX_MOD_COUNT);
+	XPfw_Printf(DEBUG_DETAILED,"Scheduler State: %s\r\n",
+			((CorePtr->Scheduler.Enabled == TRUE)?"ENABLED":"DISABLED"));
+	XPfw_Printf(DEBUG_DETAILED,"Scheduler Ticks: %lu\r\n",
+			CorePtr->Scheduler.Tick);
+	XPfw_Printf(DEBUG_DETAILED,
+			"######################################################\r\n");
 	}
 }
 
