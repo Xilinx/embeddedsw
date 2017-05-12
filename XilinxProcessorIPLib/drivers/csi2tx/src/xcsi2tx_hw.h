@@ -43,6 +43,7 @@
 * Ver Who Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/15/16 Initial release
+*     vsa 05/12/17 Add support for Clock Mode
 * </pre>
 *
 *****************************************************************************/
@@ -110,10 +111,12 @@ extern "C" {
 #define XCSI2TX_CCR_SOFTRESET_MASK	0x00000002 /* Soft Reset the core */
 #define XCSI2TX_CSR_RIPCD_MASK		0x00000004 /* Core ready */
 #define XCSI2TX_CCR_ULPS_MASK		0x00000008 /* ULPS */
+#define XCSI2TX_CCR_CLKMODE_MASK	0x00000010 /* Clock Mode */
 #define XCSI2TX_CCR_COREENB_SHIFT	0 	/* Shift bit for Core Enable*/
 #define XCSI2TX_CCR_SOFTRESET_SHIFT	1 	/* Shift bit for Soft reset */
 #define XCSI2TX_CSR_RIPCD_SHIFT		2 	/* Bit Shift for Core Ready */
 #define XCSI2TX_CCR_ULPS_SHIFT 		3 	/* Shift bits for ulps */
+#define XCSI2TX_CCR_CLKMODE_SHIFT	4 	/* Shift bits for clock mode */
 /*@}*/
 
 /** @name Bitmasks and offset of XCSI2TX_PCR_OFFSET register
