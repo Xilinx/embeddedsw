@@ -117,6 +117,7 @@
 *     ms  04/05/17 Modified Comment lines in functions of csi2tx
 *                  examples to recognize it as documentation block
 *                  for doxygen generation of examples.
+*     vsa 15/12/17 Add support for Clock Mode
 * </pre>
 *
 ******************************************************************************/
@@ -719,6 +720,51 @@ static inline void XCsi2Tx_SetGSPEntry(XCsi2Tx *InstancePtr, u32 Value)
 									Value);
 }
 
+/****************************************************************************/
+/**
+*
+* This function is used to set the clock mode
+*
+* @param	InstancePtr is a pointer to the CSI Instance to be
+*		worked on.
+*
+* @param	Value
+* 		- 0 - continuous clock mode
+*		- 1 - non-continuous clock mode
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XCsi2Tx_SetClkMode(XCsi2Tx *InstancePtr, u8 Value)
+{
+	XCsi2Tx_SetBitField(InstancePtr->Config.BaseAddr,
+		XCSI2TX_CCR_OFFSET, XCSI2TX_CCR_CLKMODE_MASK,
+		XCSI2TX_CCR_CLKMODE_SHIFT, Value);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to get the clock mode
+*
+* @param	InstancePtr is a pointer to the CSI Instance to be
+*		worked on.
+*
+* @return
+* 		- 0 - Continuous Clock Mode
+* 		- 1 - Non-continuous Clock Mode
+*
+* @note		None
+*
+****************************************************************************/
+static inline u32 XCsi2Tx_GetClkMode(XCsi2Tx *InstancePtr)
+{
+	return XCsi2Tx_GetBitField(InstancePtr->Config.BaseAddr,
+			XCSI2TX_CCR_OFFSET, XCSI2TX_CCR_CLKMODE_MASK,
+			XCSI2TX_CCR_CLKMODE_SHIFT);
+}
 /************************** Function Prototypes ******************************/
 
 /* Initialization function in xcsi2tx_sinit.c */
