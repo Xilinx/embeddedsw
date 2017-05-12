@@ -57,6 +57,7 @@
 *       bv   03/17/17 Based on reset reason initializations of system, tcm etc
 *                     is done.
 *       vns  04/04/17 Corrected image header size.
+*       ma   05/10/17 Enable PROG to PL when reset reason is ps-only reset
 * </pre>
 *
 * @note
@@ -96,6 +97,7 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_DdrEccInit(void);
 static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes);
 static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr);
+static void XFsbl_EnableProgToPL(void);
 
 /* Functions from xfsbl_misc.c */
 
@@ -229,6 +231,14 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 
 	FsblInstancePtr->ResetReason = XFsbl_GetResetReason();
 
+	/*
+	 * Enables the propagation of the PROG signal to PL
+	 */
+	if(FsblInstancePtr->ResetReason == XFSBL_PS_ONLY_RESET)
+	{
+		XFsbl_EnableProgToPL();
+	}
+
 	/**
 	 * Configure the system as in PSU
 	 */
@@ -343,6 +353,31 @@ u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function enables the propagation of the PROG signal to PL after
+ * PS-only reset
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XFsbl_EnableProgToPL(void)
+{
+	u32 RegVal = 0x0U;
+
+	/*
+	 * Enable the propagation of the PROG signal to the PL after PS-only reset
+	 * */
+	RegVal = XFsbl_In32(PMU_GLOBAL_PS_CNTRL);
+
+	RegVal &= ~(PMU_GLOBAL_PS_CNTRL_PROG_GATE_MASK);
+	RegVal |= (PMU_GLOBAL_PS_CNTRL_PROG_ENABLE_MASK);
+
+	Xil_Out32 (PMU_GLOBAL_PS_CNTRL, RegVal);
 }
 
 /*****************************************************************************/
