@@ -56,8 +56,11 @@
 *                            XVphy_GetLineRateHz Rate API return value.
 *                       Removed CPU Clock Frequence on XVphy_HdmiInitialize
 *                            Initialization.
-* 2.15  MMO    05/05/17 Replace pre-processed interrupt vector ID with the
-*                            pre-processed canonical interrupt vector ID
+* 2.14  ms     04/10/17 Modified filename tag to include the file in doxygen
+*                            examples.
+* 2.15  mmo    05/05/17 Replace pre-processed interrupt vector ID with the
+*                            pre-processed canonical interrupt vector ID for
+*                            microblaze processor
 * </pre>
 *
 ******************************************************************************/
@@ -1980,7 +1983,11 @@ int main()
 #else
   //Register HDMI TX SS Interrupt Handler with Interrupt Controller
   Status |= XIntc_Connect(&Intc,
+#if defined(USE_HDCP)
                           XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID,
+#else
+						  XPAR_INTC_0_V_HDMITXSS_0_VEC_ID,
+#endif
                           (XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
                           (void *)&HdmiTxSs);
 
@@ -2033,7 +2040,12 @@ int main()
 
 #else
 	  XIntc_Enable(&Intc,
-                   XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID);
+#if defined(USE_HDCP)
+                   XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID
+#else
+			       XPAR_INTC_0_V_HDMITXSS_0_VEC_ID
+#endif
+				   );
 
 // HDCP 1.4
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -2150,7 +2162,11 @@ int main()
 
 #else
   Status |= XIntc_Connect(&Intc,
-		                  XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
+#if defined(USE_HDCP)
+                          XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
+#else
+						  XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID,
+#endif
                           (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
                           (void *)&HdmiRxSs);
 
@@ -2195,7 +2211,12 @@ int main()
 
 #else
 	  XIntc_Enable(&Intc,
-                   XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID);
+#if defined(USE_HDCP)
+                   XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID
+#else
+			       XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID
+#endif
+				   );
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	  // HDCP 1.4 Cipher interrupt

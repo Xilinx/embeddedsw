@@ -60,6 +60,9 @@
 *                            Initialization.
 * 2.15  ms     04/10/17 Modified filename tag to include the file in doxygen
 *                       examples.
+* 2.16  mmo    05/05/17 Replace pre-processed interrupt vector ID with the
+*                            pre-processed canonical interrupt vector ID for
+*                            microblaze processor
 * </pre>
 *
 ******************************************************************************/
@@ -2023,31 +2026,33 @@ int main()
 #else
   //Register HDMI TX SS Interrupt Handler with Interrupt Controller
   Status |= XIntc_Connect(&Intc,
-			  XPAR_MB_SS_0_AXI_INTC_V_HDMI_TX_SS_IRQ_INTR,
-			  (XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
-			  (void *)&HdmiTxSs);
+#if defined(USE_HDCP)
+                          XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID,
+#else
+						  XPAR_INTC_0_V_HDMITXSS_0_VEC_ID,
+#endif
+                          (XInterruptHandler)XV_HdmiTxSS_HdmiTxIntrHandler,
+                          (void *)&HdmiTxSs);
 
 // HDCP 1.4
 #ifdef XPAR_XHDCP_NUM_INSTANCES
   // HDCP 1.4 Cipher interrupt
   Status |= XIntc_Connect(&Intc,
-			  //XPAR_MB_SS_0_AXI_INTC_0_V_HDMI_TX_SS_0_HDCP_IRQ_INTR,
-			  XPAR_MB_SS_0_AXI_INTC_V_HDMI_TX_SS_HDCP14_IRQ_INTR,
-			  (XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
-			  (void *)&HdmiTxSs);
+                          XPAR_INTC_0_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID,
+                          (XInterruptHandler)XV_HdmiTxSS_HdcpIntrHandler,
+                          (void *)&HdmiTxSs);
 
   // HDCP 1.4 Timer interrupt
   Status |= XIntc_Connect(&Intc,
-			  //XPAR_MB_SS_0_AXI_INTC_0_V_HDMI_TX_SS_0_HDCP_INTERRUPT_INTR,
-			  XPAR_MB_SS_0_AXI_INTC_V_HDMI_TX_SS_HDCP14_TIMER_IRQ_INTR,
-			  (XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
-			  (void *)&HdmiTxSs);
+                          XPAR_INTC_0_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
+                          (XInterruptHandler)XV_HdmiTxSS_HdcpTimerIntrHandler,
+                          (void *)&HdmiTxSs);
 #endif
 
 // HDCP 2.2
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
   Status |= XIntc_Connect(&Intc,
-          XPAR_MB_SS_0_AXI_INTC_V_HDMI_TX_SS_HDCP22_TIMER_IRQ_INTR,
+		  XPAR_INTC_0_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
           (XInterruptHandler)XV_HdmiTxSS_Hdcp22TimerIntrHandler,
           (void *)&HdmiTxSs);
 #endif
@@ -2078,26 +2083,28 @@ int main()
 
 #else
 	  XIntc_Enable(&Intc,
-			  XPAR_MB_SS_0_AXI_INTC_V_HDMI_TX_SS_IRQ_INTR);
+#if defined(USE_HDCP)
+                   XPAR_INTC_0_V_HDMITXSS_0_IRQ_VEC_ID
+#else
+			       XPAR_INTC_0_V_HDMITXSS_0_VEC_ID
+#endif
+				   );
 
 // HDCP 1.4
 #ifdef XPAR_XHDCP_NUM_INSTANCES
     // HDCP 1.4 Cipher interrupt
-	  XIntc_Enable(&Intc,
-			  //XPAR_MB_SS_0_AXI_INTC_0_V_HDMI_TX_SS_0_HDCP_IRQ_INTR
-      XPAR_MB_SS_0_AXI_INTC_V_HDMI_TX_SS_HDCP14_IRQ_INTR);
+	XIntc_Enable(&Intc,
+                 XPAR_INTC_0_V_HDMITXSS_0_HDCP14_IRQ_VEC_ID);
 
     // HDCP 1.4 Timer interrupt
     XIntc_Enable(&Intc,
-			  //XPAR_MB_SS_0_AXI_INTC_0_V_HDMI_TX_SS_0_HDCP_INTERRUPT_INTR
-      XPAR_MB_SS_0_AXI_INTC_V_HDMI_TX_SS_HDCP14_TIMER_IRQ_INTR);
+		     XPAR_INTC_0_V_HDMITXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
 #endif
 
 // HDCP 2.2
 #if (XPAR_XHDCP22_TX_NUM_INSTANCES)
     XIntc_Enable(&Intc,
-        XPAR_MB_SS_0_AXI_INTC_V_HDMI_TX_SS_HDCP22_TIMER_IRQ_INTR
-        );
+                 XPAR_INTC_0_V_HDMITXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
 
 #endif
@@ -2198,31 +2205,34 @@ int main()
 
 #else
   Status |= XIntc_Connect(&Intc,
-			  XPAR_MB_SS_0_AXI_INTC_V_HDMI_RX_SS_IRQ_INTR,
-			  (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
-			  (void *)&HdmiRxSs);
+#if defined(USE_HDCP)
+                          XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID,
+#else
+						  XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID,
+#endif
+                          (XInterruptHandler)XV_HdmiRxSS_HdmiRxIntrHandler,
+                          (void *)&HdmiRxSs);
+
 #ifdef XPAR_XHDCP_NUM_INSTANCES
   // HDCP 1.4 Cipher interrupt
   Status |= XIntc_Connect(&Intc,
-			  //XPAR_MB_SS_0_AXI_INTC_0_V_HDMI_RX_SS_0_HDCP_IRQ_INTR,
-          XPAR_MB_SS_0_AXI_INTC_V_HDMI_RX_SS_HDCP14_IRQ_INTR,
-			  (XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
-			  (void *)&HdmiRxSs);
+		                  XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID,
+                          (XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
+                          (void *)&HdmiRxSs);
 
   // HDCP 1.4 Timer interrupt
   Status |= XIntc_Connect(&Intc,
-			  //XPAR_MB_SS_0_AXI_INTC_0_V_HDMI_RX_SS_0_HDCP_INTERRUPT_INTR,
-          XPAR_MB_SS_0_AXI_INTC_V_HDMI_RX_SS_HDCP14_TIMER_IRQ_INTR,
-			  (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
-			  (void *)&HdmiRxSs);
+		                  XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
+                          (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+                          (void *)&HdmiRxSs);
 #endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
   // HDCP 2.2 Timer interrupt
   Status |= XIntc_Connect(&Intc,
-               XPAR_MB_SS_0_AXI_INTC_V_HDMI_RX_SS_HDCP22_TIMER_IRQ_INTR,
-               (XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
-               (void *)&HdmiRxSs);
+                          XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID,
+                          (XInterruptHandler)XV_HdmiRxSS_Hdcp22TimerIntrHandler,
+                          (void *)&HdmiRxSs);
 #endif
 
 #endif
@@ -2244,23 +2254,27 @@ int main()
 
 #else
 	  XIntc_Enable(&Intc,
-			  XPAR_MB_SS_0_AXI_INTC_V_HDMI_RX_SS_IRQ_INTR);
+#if defined(USE_HDCP)
+                   XPAR_INTC_0_V_HDMIRXSS_0_IRQ_VEC_ID
+#else
+			       XPAR_INTC_0_V_HDMIRXSS_0_VEC_ID
+#endif
+				   );
+
 #ifdef XPAR_XHDCP_NUM_INSTANCES
 	  // HDCP 1.4 Cipher interrupt
     XIntc_Enable(&Intc,
-			  //XPAR_MB_SS_0_AXI_INTC_0_V_HDMI_RX_SS_0_HDCP_IRQ_INTR
-        XPAR_MB_SS_0_AXI_INTC_V_HDMI_RX_SS_HDCP14_IRQ_INTR);
+                 XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_IRQ_VEC_ID);
 
     // HDCP 1.4 Timer interrupt
     XIntc_Enable(&Intc,
-			  //XPAR_MB_SS_0_AXI_INTC_0_V_HDMI_RX_SS_0_HDCP_INTERRUPT_INTR
-        XPAR_MB_SS_0_AXI_INTC_V_HDMI_RX_SS_HDCP14_TIMER_IRQ_INTR);
+		     XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID);
 #endif
 
 #if (XPAR_XHDCP22_RX_NUM_INSTANCES)
     // HDCP 2.2 Timer interrupt
     XIntc_Enable(&Intc,
-      XPAR_MB_SS_0_AXI_INTC_V_HDMI_RX_SS_HDCP22_TIMER_IRQ_INTR);
+                 XPAR_INTC_0_V_HDMIRXSS_0_HDCP22_TIMER_IRQ_VEC_ID);
 #endif
 
 #endif
@@ -2332,7 +2346,7 @@ int main()
 			(void *)&Vphy);
 #else
   Status = XIntc_Connect(&Intc,
-		                 XPAR_MB_SS_0_AXI_INTC_VID_PHY_CONTROLLER_IRQ_INTR,
+		                 XPAR_INTC_0_VPHY_0_VEC_ID,
 			             (XInterruptHandler)XVphy_InterruptHandler,
 			             (void *)&Vphy);
 #endif
@@ -2357,7 +2371,7 @@ int main()
 		XPAR_FABRIC_VID_PHY_CONTROLLER_IRQ_INTR);
 #else
     XIntc_Enable(&Intc,
-		XPAR_MB_SS_0_AXI_INTC_VID_PHY_CONTROLLER_IRQ_INTR);
+                 XPAR_INTC_0_VPHY_0_VEC_ID);
 #endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
