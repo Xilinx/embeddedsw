@@ -45,6 +45,7 @@
 * Ver Who   Date     Changes
 * --- --- -------- ------------------------------------------------------------
 * 1.0 sss 07/14/16 Initial release
+*     vsa 15/12/17 Add support for Clock Mode
 * </pre>
 *
 ******************************************************************************/
@@ -581,5 +582,52 @@ u32 XCsi2TxSs_GetPixelMode(XCsi2TxSs *InstancePtr) {
 ****************************************************************************/
 u32 XCsi2TxSs_GetMaxLaneCount(XCsi2TxSs *InstancePtr) {
 	return XCsi2Tx_GetMaxLaneCount(InstancePtr->CsiPtr);
+}
+
+/*****************************************************************************/
+/**
+* This function is used to set the CSI2 Tx Subsystem Clock Mode as either
+* Continuous (0) or Non-Continuous (1) mode
+*
+* @param	InstancePtr is a pointer to the Subsystem instance to be
+*		worked on.
+*
+* @param	Mode for Continuous Mode (0) or Non-continuous Mode (1)
+*
+* @return	None
+*
+* @note		None
+*
+******************************************************************************/
+void XCsi2TxSs_SetClkMode(XCsi2TxSs *InstancePtr, u8 Mode)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr);
+	Xil_AssertVoid(InstancePtr->CsiPtr);
+
+	return (XCsi2Tx_SetClkMode(InstancePtr->CsiPtr, Mode));
+}
+
+/*****************************************************************************/
+/**
+* This function is used to get the CSI2 Tx Subsystem Clock Mode as either
+* Continuous (0) or Non-Continuous (1) mode
+*
+* @param	InstancePtr is a pointer to the Subsystem instance to be
+*		worked on.
+*
+* @return	0 - Continuous Clock Mode
+* 		1 - Non-continuous Clock Mode
+*
+* @note		None
+*
+******************************************************************************/
+u32 XCsi2TxSs_GetClkMode(XCsi2TxSs *InstancePtr)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr);
+	Xil_AssertNonvoid(InstancePtr->CsiPtr);
+
+	return (XCsi2Tx_GetClkMode(InstancePtr->CsiPtr));
 }
 /** @} */
