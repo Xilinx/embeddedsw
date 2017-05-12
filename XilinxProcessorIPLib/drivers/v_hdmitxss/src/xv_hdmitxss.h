@@ -86,7 +86,6 @@
 *                             generation.
 *       ms     04/10/17 Modified filename tag in examples to include them in
 *                              doxygen.
-* 1.18  mmo    05/05/17 Introduced Video Mask Functions
 * </pre>
 *
 ******************************************************************************/
@@ -387,12 +386,6 @@ typedef struct
 #endif
 /************************** Function Prototypes ******************************/
 XV_HdmiTxSs_Config *XV_HdmiTxSs_LookupConfig(u32 DeviceId);
-void XV_HdmiTxSS_MaskEnable(XV_HdmiTxSs *InstancePtr);
-void XV_HdmiTxSS_MaskDisable(XV_HdmiTxSs *InstancePtr);
-void XV_HdmiTxSS_MaskNoise(XV_HdmiTxSs *InstancePtr, u8 Enable);
-void XV_HdmiTxSS_MaskSetRed(XV_HdmiTxSs *InstancePtr, u16 Value);
-void XV_HdmiTxSS_MaskSetGreen(XV_HdmiTxSs *InstancePtr, u16 Value);
-void XV_HdmiTxSS_MaskSetBlue(XV_HdmiTxSs *InstancePtr, u16 Value);
 void XV_HdmiTxSS_SetHdmiMode(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_SetDviMode(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSS_HdmiTxIntrHandler(XV_HdmiTxSs *InstancePtr);
