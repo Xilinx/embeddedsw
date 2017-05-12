@@ -823,6 +823,11 @@ u32 XFsbl_AdmaCopy(void * DestPtr, void * SrcPtr, u32 Size)
 		Status = XFSBL_FAILURE;
 	}
 
+	/* Clear the TOTAL BYTE COUNT register to avoid the BYTE_CNT_OVRFLW
+	*interupt from being set
+	*/
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0_TOTAL_BYTE_COUNT,0x00000000U);
+
 	return Status;
 
 }
