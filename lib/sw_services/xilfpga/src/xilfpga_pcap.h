@@ -90,6 +90,13 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   Nava   08/06/16 Initial release
+* 1.1   Nava  16/11/16 Added PL power-up sequence.
+* 2.0   Nava  10/1/17  Added Encrypted bitstream loading support.
+* 2.0   Nava  16/02/17 Added Authenticated bitstream loading support.
+* 2.1   Nava  06/05/17 Correct the check logic issues in
+*                      XFpga_PL_BitStream_Load()
+*                      to avoid the unwanted blocking conditions.
+* 3.0   Nava  12/05/17 Added PL configuration registers readback support.
 *
 * </pre>
 *
@@ -113,6 +120,7 @@
 /* Dummy address to indicate that destination is PCAP */
 #define XFPGA_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 #define XFPGA_CSU_SSS_SRC_SRC_DMA    0x5U
+#define XFPGA_CSU_SSS_SRC_DST_DMA	0x30U
 
 /**
  * CSU Base Address
@@ -256,6 +264,7 @@
 u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 				u32 WrSize, u32 flags);
 u32 XFpga_PcapStatus(void);
+u32 Xfpga_GetConfigReg(u32 ConfigReg, u32 *RegData);
 /************************** Variable Definitions *****************************/
 
 extern XCsuDma CsuDma;  /* CSU DMA instance */

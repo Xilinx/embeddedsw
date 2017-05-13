@@ -48,6 +48,8 @@
  * 2.1	 Nava  06/05/17	Correct the check logic issues in
  * 			XFpga_PL_BitStream_Load()
  * 			to avoid the unwanted blocking conditions.
+ * 3.0   Nava  12/05/17 Added PL configuration registers readback support.
+ *
  * </pre>
  *
  * @note
@@ -98,6 +100,15 @@
 #define OCM_PL_ADDR		XFPGA_OCM_ADDRESS
 #endif
 
+/**
+ * Name Configuration Type1 packet headers masks
+ */
+#define XDC_TYPE_SHIFT                  29
+#define XDC_REGISTER_SHIFT              13
+#define XDC_OP_SHIFT                    27
+#define XDC_TYPE_1                      1
+#define OPCODE_READ                     1
+
 #define XFSBL_DESTINATION_PCAP_ADDR		(0XFFFFFFFFU)
 #define XFPGA_ENCRYPTION_EN				(0x00000008U)
 #define XFPGA_AUTHENTICATION_EN			(0x00000004U)
@@ -121,6 +132,7 @@ static u32 XFpga_PLWaitForDone(void);
 static u32 XFpga_PowerUpPl(void);
 static u32 XFpga_IsolationRestore(void);
 static u32 XFpga_PsPlGpioReset(u32 TotalResets);
+static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u8 Size);
 #ifdef XFPGA_SECURE_MODE
 static u32 XFpga_WriteEncryptToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow);
 static u32 XFpga_WriteAuthToPcap(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow);
@@ -1079,3 +1091,155 @@ static u32 Xilfpga_ConvertStringToHex(const char * Str, u32 * buf, u8 Len)
 }
 
 #endif
+
+/*****************************************************************************/
+/**
+*
+* This function returns the value of the specified configuration register.
+*
+* @param        InstancePtr is a pointer to the XHwIcap instance.
+* @param        ConfigReg  is a constant which represents the configuration
+*                       register value to be returned.
+* @param        RegData is the value of the specified configuration
+*                       register.
+*
+* @return
+*               - XST_SUCCESS if successful
+*               - XST_FAILURE if unsuccessful
+*
+* @note None.
+*
+****************************************************************************/
+u32 Xfpga_GetConfigReg(u32 ConfigReg, u32 *RegData)
+{
+	u32 Status;
+	u32 RegVal;
+	unsigned int CmdIndex;
+	unsigned int CmdBuf[18];
+
+	/* Initialize the CSU DMA */
+	Status = XFpga_CsuDmaInit();
+	if (Status != XFPGA_SUCCESS)
+		return Status;
+	/*
+	 * Register Readback in non secure mode
+	 * Create the data to be written to read back the
+	 * Configuration Registers from PL Region.
+	 */
+
+	CmdIndex = 0;
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0x000000BB; 	/* Bus Width Sync Word */
+	CmdBuf[CmdIndex++] = 0x11220044; 	/* Bus Width Detect */
+	CmdBuf[CmdIndex++] = 0xFFFFFFFF; 	/* Dummy Word */
+	CmdBuf[CmdIndex++] = 0xAA995566; 	/* Sync Word */
+	CmdBuf[CmdIndex++] = 0x20000000; 	/* Type 1 NOOP Word 0 */
+	CmdBuf[CmdIndex++] = Xfpga_RegAddr(ConfigReg,OPCODE_READ,0x1);
+	CmdBuf[CmdIndex++] = 0x20000000; 	/* Type 1 NOOP Word 0 */
+	CmdBuf[CmdIndex++] = 0x20000000; 	/* Type 1 NOOP Word 0 */
+
+	/* Take PCAP out of Reset */
+	RegVal = Xil_In32(CSU_PCAP_RESET);
+	RegVal &= (~CSU_PCAP_RESET_RESET_MASK);
+	Xil_Out32(CSU_PCAP_RESET, RegVal);
+
+	/*
+	 * Setup the  SSS, setup the PCAP to receive from DMA source
+	 */
+	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_SRC_DMA);
+	Xil_Out32(CSU_PCAP_RDWR, 0x0);
+
+	/* Set up the Destination DMA Channel*/
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_DST_CHANNEL, (UINTPTR)RegData, 1, 0);
+
+	/* Setup the source DMA channel */
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, (UINTPTR)CmdBuf,
+								CmdIndex, 0);
+
+	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
+	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_SRC_CHANNEL);
+
+	/*
+	 * Setup the  SSS, setup the DMA to receive from PCAP source
+	 */
+	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_DST_DMA);
+	Xil_Out32(CSU_PCAP_RDWR, 0x1);
+
+	/* wait for the DST_DMA to complete and the pcap to be IDLE */
+	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_DST_CHANNEL);
+
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+
+	CmdIndex = 0;
+	CmdBuf[CmdIndex++] = 0x30008001;        /* Dummy Word */
+	CmdBuf[CmdIndex++] = 0x0000000D;        /* Bus Width Sync Word */
+	CmdBuf[CmdIndex++] = 0x20000000;        /* Bus Width Detect */
+	CmdBuf[CmdIndex++] = 0x20000000;        /* Dummy Word */
+	CmdBuf[CmdIndex++] = 0x20000000;        /* Bus Width Detect */
+	CmdBuf[CmdIndex++] = 0x20000000;        /* Dummy Word */
+
+	/*
+	 * Setup the  SSS, setup the PCAP to receive from DMA source
+	 */
+	Xil_Out32(CSU_CSU_SSS_CFG, XFPGA_CSU_SSS_SRC_SRC_DMA);
+	Xil_Out32(CSU_PCAP_RDWR, 0x0);
+
+	/* Setup the source DMA channel */
+	XCsuDma_Transfer(&CsuDma, XCSUDMA_SRC_CHANNEL, (UINTPTR)CmdBuf, CmdIndex, 0);
+
+	/* wait for the SRC_DMA to complete and the pcap to be IDLE */
+	XCsuDma_WaitForDone(&CsuDma, XCSUDMA_SRC_CHANNEL);
+	/* Acknowledge the transfer has completed */
+	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* Generates a Type 1 packet header that reads back the requested Configuration
+* register.
+*
+* @param        Register is the address of the register to be read back.
+* @param        OpCode is the read/write operation code.
+* @param        Size is the size of the word to be read.
+*
+* @return       Type 1 packet header to read the specified register
+*
+* @note         None.
+*
+*****************************************************************************/
+static u32 Xfpga_RegAddr(u8 Register, u8 OpCode, u8 Size)
+{
+
+        /*
+         * Type 1 Packet Header Format
+         * The header section is always a 32-bit word.
+         *
+         * HeaderType | Opcode | Register Address | Reserved | Word Count
+         * [31:29]      [28:27]         [26:13]      [12:11]     [10:0]
+         * --------------------------------------------------------------
+         *   001          xx      RRRRRRRRRxxxxx        RR      xxxxxxxxxxx
+         *
+         * �R� means the bit is not used and reserved for future use.
+         * The reserved bits should be written as 0s.
+         *
+         * Generating the Type 1 packet header which involves sifting of Type 1
+         * Header Mask, Register value and the OpCode which is 01 in this case
+         * as only read operation is to be carried out and then performing OR
+         * operation with the Word Length.
+         */
+        return ( ((XDC_TYPE_1 << XDC_TYPE_SHIFT) |
+		(Register << XDC_REGISTER_SHIFT) |
+		(OpCode << XDC_OP_SHIFT)) | Size);
+}

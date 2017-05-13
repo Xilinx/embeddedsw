@@ -41,6 +41,7 @@
 # 2.1   Nava  06/05/17 Correct the check logic issues in
 # 		       XFpga_PL_BitStream_Load()
 # 		       to avoid the unwanted blocking conditions.
+# 3.0   Nava  12/05/17 Added PL configuration registers readback support.
 #
 #
 ##############################################################################
@@ -54,7 +55,7 @@ BEGIN LIBRARY xilfpga
   OPTION SUPPORTED_PERIPHERALS = (psu_cortexa53 psu_cortexr5 psu_pmu);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxilfpga,-lxil,-lgcc,-lc,--end-group";
   OPTION desc = "Xilinx fpga Library ";
-  OPTION VERSION = 2.1;
+  OPTION VERSION = 3.0;
   OPTION NAME = xilfpga;
 PARAM name = secure_mode, desc = "Enable secure Bitstream loading support", type = bool, default = false;
 PARAM name = size, desc = "Number of Bytes", type = int, default = 100000, drc = drc_numbytes ;
