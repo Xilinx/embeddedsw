@@ -53,6 +53,7 @@
  * 5.0   als  05/16/16 Added MISC0 and MISC1 definitions.
  * 5.1   aad  08/16/16 Updated MISC0 definitions.
  * 5.2   aad  01/21/17 Added timeout macro for training timeout
+ * 5.2   tu   05/14/17 Added AUX defer shift mask
  * </pre>
  *
 *******************************************************************************/
@@ -824,6 +825,7 @@
 #define XDP_RX_AUX_CLK_DIVIDER		0x004	/**< Clock divider value for
 							generating the internal
 							1MHz clock. */
+#define XDP_RX_AUX_DEFER_SHIFT		24	/**< Aux defer. */
 #define XDP_RX_LINE_RESET_DISABLE	0x008	/**< RX line reset disable. */
 #define XDP_RX_DTG_ENABLE		0x00C	/**< Enables the display timing
 							generator (DTG). */
