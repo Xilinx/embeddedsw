@@ -38,8 +38,7 @@
 # 3.02a bss  01/31/13 Updated script to fix CR #679127
 # 4.0   bss  12/10/13 Updated as per the New Tcl API's
 # 4.1   sk   11/09/15 Removed delete filename statement CR# 784758.
-# 4.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
-#                     definitions of mutex in xparameters.h
+#
 ###############################################################################
 #uses "xillib.tcl"
 
@@ -59,7 +58,6 @@ proc xdefine_mutex_config_if {periph hfile_handle cfile_handle num_ifs dev_id ha
 	set mutex_enableuser  0
 	set mutex_num     0
 	set if_connected  0
-	set uSuffix "U"
 
 	set periph_name [string toupper [common::get_property NAME $periph]]
 
@@ -75,15 +73,15 @@ proc xdefine_mutex_config_if {periph hfile_handle cfile_handle num_ifs dev_id ha
 
 		puts $hfile_handle ""
 		puts $hfile_handle "/* Definitions for peripheral $periph_name IF ${x} */"
-		puts $hfile_handle [format "#define XPAR_%s_IF_%d_DEVICE_ID %s$uSuffix" $periph_name $x $device_id]
+		puts $hfile_handle [format "#define XPAR_%s_IF_%d_DEVICE_ID %s" $periph_name $x $device_id]
 
 		if {!$if0_connected} {
-		    puts $hfile_handle [format "#define XPAR_%s_TESTAPP_ID %s$uSuffix" $periph_name $device_id]
+		    puts $hfile_handle [format "#define XPAR_%s_TESTAPP_ID %s" $periph_name $device_id]
 		}
 
-		puts $hfile_handle [format "#define XPAR_%s_IF_%d_BASEADDR 0x%X$uSuffix" $periph_name $x $mutex_baseaddr]
-		puts $hfile_handle [format "#define XPAR_%s_IF_%d_NUM_MUTEX %s$uSuffix" $periph_name $x $mutex_num]
-		puts $hfile_handle [format "#define XPAR_%s_IF_%d_ENABLE_USER %s$uSuffix" $periph_name $x $mutex_enableuser]
+		puts $hfile_handle [format "#define XPAR_%s_IF_%d_BASEADDR 0x%X" $periph_name $x $mutex_baseaddr]
+		puts $hfile_handle [format "#define XPAR_%s_IF_%d_NUM_MUTEX %s" $periph_name $x $mutex_num]
+		puts $hfile_handle [format "#define XPAR_%s_IF_%d_ENABLE_USER %s" $periph_name $x $mutex_enableuser]
 
 		puts $cfile_handle "\t\{"
 		puts $cfile_handle [format "\t\t XPAR_%s_IF_%d_DEVICE_ID, " $periph_name $x]
@@ -107,7 +105,6 @@ proc xdefine_mutex_config_files {drv_handle hfile_name cfile_name drv_string} {
     set hfile_handle [::hsi::utils::open_include_file $hfile_name]
     set cfile_name [file join "src" $cfile_name] 
     set cfile_handle [open $cfile_name w]
-    set uSuffix "U"
 
     ::hsi::utils::write_c_header $cfile_handle "Driver configuration"
     puts $cfile_handle "#include \"xparameters.h\""
@@ -134,7 +131,7 @@ proc xdefine_mutex_config_files {drv_handle hfile_name cfile_name drv_string} {
 
     puts $hfile_handle ""
     puts $hfile_handle "/* Definitions for driver MUTEX */"
-    puts $hfile_handle [format "#define XPAR_XMUTEX_NUM_INSTANCES %d$uSuffix" $device_id]
+    puts $hfile_handle [format "#define XPAR_XMUTEX_NUM_INSTANCES %d" $device_id]
     puts $hfile_handle "\n/******************************************************************/\n"
     close $hfile_handle
 }
@@ -173,7 +170,6 @@ proc gen_canonical_device_id {file_handle canonical_name periph_name if_num} {
 }
 
 proc gen_canonical_param_def {file_handle canonical_name periph param_prefix params} {
-    set uSuffix "U"
     foreach arg $params {
 	if {$param_prefix == ""} {
 	    set actual_arg "${arg}"
@@ -190,7 +186,7 @@ proc gen_canonical_param_def {file_handle canonical_name periph param_prefix par
 	}
 	set rvalue [::hsi::utils::format_addr_string $rvalue $actual_arg]
 	
-	puts $file_handle "#define $lvalue $rvalue$uSuffix"
+	puts $file_handle "#define $lvalue $rvalue"
     }
 }
 

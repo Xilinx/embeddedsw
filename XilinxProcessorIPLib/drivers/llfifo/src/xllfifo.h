@@ -182,8 +182,6 @@
  *                      proper documentation and Modified Comment lines
  *                      to consider it as a documentation block while
  *                      generating doxygen for llfifo examples.
- * 5.2  ms    04/18/17 Modified tcl file to add suffix U for all macros
- *                     definitions of llfifo in xparameters.h
  * </pre>
  *
  *****************************************************************************/

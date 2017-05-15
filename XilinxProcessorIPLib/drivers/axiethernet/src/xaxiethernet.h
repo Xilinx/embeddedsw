@@ -487,8 +487,6 @@
 *       ms 04/05/17 Added tabspace for return statements in functions
 *                   of axiethernet examples for proper documentation while
 *                   generating doxygen.
-* 5.5  ms  04/18/17 Modified tcl file to add suffix U for all macro
-*                   definitions of axiethernet in xparameters.h
 * </pre>
 *
 ******************************************************************************/

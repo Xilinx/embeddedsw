@@ -34,8 +34,6 @@
 # 7.0      bss    7/25/14  Added support for Ultrascale.
 # 7.2      adk    14/03/16 Fix compilation issues when sysmon is configured
 #			   with streaming interface CR#940976
-# 7.4      ms     04/18/17 Modified tcl file to add suffix U for all macros
-#                          definitions of sysmon in xparameters.h
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -57,12 +55,11 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 
     # Handle special cases
     set arg "NUM_INSTANCES"
-    set uSuffix "U"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [common::get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]$uSuffix"
+        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
 
@@ -73,7 +70,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]$uSuffix"
+            puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]"
         }
     }
     set args $newargs
@@ -86,9 +83,9 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 
         set ipname [string tolower [common::get_property IP_NAME $periph]]
         if {[string compare -nocase "system_management_wiz" $ipname] == 0} {
-		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph "IP_TYPE"] 1$uSuffix"
+		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph "IP_TYPE"] 1"
         } else {
-		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph "IP_TYPE"] 0$uSuffix"
+		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph "IP_TYPE"] 0"
         }
 
         foreach arg $args {
@@ -105,7 +102,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             if {[string compare -nocase "HW_VER" $arg] == 0} {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
-                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value$uSuffix"
+                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
             }
         }
         puts $file_handle ""
@@ -156,7 +153,6 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
    # Get all the peripherals connected to this driver
    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
-   set uSuffix "U"
    # Get the names of all the peripherals connected to this driver
    foreach periph $periphs {
        set peripheral_name [string toupper [common::get_property NAME $periph]]
@@ -191,9 +187,9 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
 	   set ipname [string tolower [common::get_property IP_NAME $periph]]
 	   if {[string compare -nocase "system_management_wiz" $ipname] == 0} {
-		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "IP_TYPE"] 1$uSuffix"
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "IP_TYPE"] 1"
 	   } else {
-		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "IP_TYPE"] 0$uSuffix"
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "IP_TYPE"] 0"
            }
 
            foreach arg $args {
@@ -208,8 +204,7 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                }
                set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
 
-	       set uSuffix [xdefine_getSuffix $lvalue $rvalue]
-               puts $file_handle "#define $lvalue $rvalue$uSuffix"
+               puts $file_handle "#define $lvalue $rvalue"
 
            }
            puts $file_handle ""
@@ -219,12 +214,4 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
    puts $file_handle "\n/******************************************************************/\n"
    close $file_handle
-}
-
-proc xdefine_getSuffix {arg_name value} {
-	set uSuffix ""
-	if { [string match "*DEVICE_ID" $value] == 0 } {
-		set uSuffix "U"
-	}
-	return $uSuffix
 }

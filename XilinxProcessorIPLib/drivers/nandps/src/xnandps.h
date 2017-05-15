@@ -176,8 +176,6 @@
 *                          generation.
 *       ms     04/10/17    Modified Comment lines in examples to follow doxygen
 *                          rules.
-* 2.3   ms     04/18/17    Modified tcl file to add suffix U for all macros
-*                          definitions of nandps in xparameters.h
 * </pre>
 *
 ******************************************************************************/

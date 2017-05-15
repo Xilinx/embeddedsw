@@ -37,7 +37,7 @@ BEGIN driver bram
   OPTION supported_peripherals = (lmb_bram_if_cntlr axi_bram_ctrl);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 4.2;
+  OPTION VERSION = 4.1;
   OPTION NAME = bram;
 
 

@@ -294,8 +294,6 @@
 *                     generation.
 *       ms   04/05/17 Modified Comment lines in functions of spi
 *                     examples to follow doxygen rules.
-* 4.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
-*                     definitions of spi in xparameters.h
 * </pre>
 *
 ******************************************************************************/

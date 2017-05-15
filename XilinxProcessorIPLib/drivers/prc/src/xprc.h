@@ -128,8 +128,7 @@
 *       ms     04/05/2017   Modified comment lines notation in functions
 *                           of prc examples to avoid unnecessary description
 *                           which was displayed while generating doxygen.
-* 1.1   ms     04/18/17     Modified tcl file to add suffix U for all macros
-*                           definitions of prc in xparameters.h
+*
 * </pre>
 *
 ******************************************************************************/

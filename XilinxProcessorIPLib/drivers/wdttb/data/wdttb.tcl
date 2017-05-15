@@ -36,8 +36,6 @@
 # 2.0      adk    12/10/13 Updated as per the New Tcl API's
 # 4.0      sha    12/17/15 Updated the driver tcl to support parameters for
 #                          legacy and window WDT.
-# 4.2      ms     04/18/17 Modified tcl file to add suffix U for all macros
-#                          definitions of wdttb in xparameters.h
 ###############################################################################
 
 #uses "xillib.tcl"
@@ -85,7 +83,6 @@ proc xdefine_wdttb_include_file {drv_handle file_name drv_string} {
 	# Get all peripherals connected to this driver
 	set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
-	set uSuffix "U"
 	# Handle NUM_INSTANCES
 	set periph_ninstances 0
 	puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
@@ -93,7 +90,7 @@ proc xdefine_wdttb_include_file {drv_handle file_name drv_string} {
 		init_periph_config_struct $periph_ninstances
 		incr periph_ninstances 1
 	}
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
 
 	# Close include file
 	close $file_handle
@@ -155,22 +152,21 @@ proc xdefine_wdttb_config_file {file_name drv_string} {
 }
 
 proc xdefine_params_include_file {file_handle periph device_id} {
-	set uSuffix "U"
 	puts $file_handle "\n/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
 
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]$uSuffix"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]"
 
 	set enable_wdt [common::get_property CONFIG.C_ENABLE_WINDOW_WDT $periph]
 	if {[llength $enable_wdt] == 1 } {
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] $enable_wdt$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] [common::get_property CONFIG.C_MAX_COUNT_WIDTH $periph]$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] [common::get_property CONFIG.C_SST_COUNT_WIDTH $periph]$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] $enable_wdt"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] [common::get_property CONFIG.C_MAX_COUNT_WIDTH $periph]"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] [common::get_property CONFIG.C_SST_COUNT_WIDTH $periph]"
 	} else {
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] 0$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] 0$uSuffix"
-		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] 0$uSuffix"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "ENABLE_WINDOW_WDT"] 0"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MAX_COUNT_WIDTH"] 0"
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SST_COUNT_WIDTH"] 0"
 	}
 }
 
@@ -179,55 +175,54 @@ proc xdefine_params_include_file {file_handle periph device_id} {
 # design parameters.
 # -----------------------------------------------------------------------------
 proc xdefine_params_canonical {file_handle periph device_id} {
-	set uSuffix "U"
 	puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [get_property NAME $periph]] */"
 
 	set canonical_tag [string toupper [format "XPAR_WDTTB_%d" $device_id]]
 
 	# Handle device ID argument
 	set canonical_name [format "%s_DEVICE_ID" $canonical_tag]
-	puts $file_handle "\#define $canonical_name $device_id$uSuffix"
+	puts $file_handle "\#define $canonical_name $device_id"
 	add_field_to_periph_config_struct $device_id $canonical_name
 
 	# Handle BASEADDR argument
 	set canonical_name [format "%s_BASEADDR" $canonical_tag]
-	puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_BASEADDR]$uSuffix"
+	puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_BASEADDR]"
 	add_field_to_periph_config_struct $device_id $canonical_name
 
 	# Handle HIGHADDR argument
 	set canonical_name [format "%s_HIGHADDR" $canonical_tag]
-	puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_HIGHADDR]$uSuffix"
+	puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_HIGHADDR]"
 
 	set enable_wdt [::hsi::utils::get_param_value $periph C_ENABLE_WINDOW_WDT]
 	if {[llength $enable_wdt] == 1 } {
 		# Handle ENABLE_WINDOW_WDT argument
 		set canonical_name [format "%s_ENABLE_WINDOW_WDT" $canonical_tag]
-		puts $file_handle "\#define $canonical_name $enable_wdt$uSuffix"
+		puts $file_handle "\#define $canonical_name $enable_wdt"
 		add_field_to_periph_config_struct $device_id $canonical_name
 
 		# Handle MAX_COUNT_WIDTH argument
 		set canonical_name [format "%s_MAX_COUNT_WIDTH" $canonical_tag]
-		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_MAX_COUNT_WIDTH]$uSuffix"
+		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_MAX_COUNT_WIDTH]"
 		add_field_to_periph_config_struct $device_id $canonical_name
 
 		# Handle SST_COUNT_WIDTH argument
 		set canonical_name [format "%s_SST_COUNT_WIDTH" $canonical_tag]
-		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_SST_COUNT_WIDTH]$uSuffix"
+		puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_SST_COUNT_WIDTH]"
 		add_field_to_periph_config_struct $device_id $canonical_name
 	} else {
 		# Handle ENABLE_WINDOW_WDT argument
 		set canonical_name [format "%s_ENABLE_WINDOW_WDT" $canonical_tag]
-		puts $file_handle "\#define $canonical_name 0$uSuffix"
+		puts $file_handle "\#define $canonical_name 0"
 		add_field_to_periph_config_struct $device_id $canonical_name
 
 		# Handle MAX_COUNT_WIDTH argument
 		set canonical_name [format "%s_MAX_COUNT_WIDTH" $canonical_tag]
-		puts $file_handle "\#define $canonical_name 0$uSuffix"
+		puts $file_handle "\#define $canonical_name 0"
 		add_field_to_periph_config_struct $device_id $canonical_name
 
 		# Handle SST_COUNT_WIDTH argument
 		set canonical_name [format "%s_SST_COUNT_WIDTH" $canonical_tag]
-		puts $file_handle "\#define $canonical_name 0$uSuffix"
+		puts $file_handle "\#define $canonical_name 0"
 		add_field_to_periph_config_struct $device_id $canonical_name
 	}
 }

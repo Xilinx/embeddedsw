@@ -51,8 +51,6 @@
 #		      for older versions of IP (XPS) and added this logic in
 #		      this file.
 #  5.0     adk    10/12/13 Updated as per the New Tcl API's
-#  6.4     ms     04/17/17 Modified tcl file to add suffix U for all macros
-#                          definitions of axivdma in xparameters.h
 # </pre>
 #
 ##############################################################################
@@ -74,15 +72,13 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
     # Get all peripherals connected to this driver
     set periphs [hsi::utils::get_common_driver_ips $drv_handle]
 
-    set uSuffix "U"
-
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]$uSuffix"
+        puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
         set args [lreplace $args $posn $posn]
     }
     # Check if it is a driver parameter
@@ -93,7 +89,7 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]$uSuffix"
+            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [get_property CONFIG.$arg $drv_handle]"
         }
     }
     set args $newargs
@@ -126,7 +122,7 @@ proc xdefine_vdma_include_file {drv_handle file_name drv_string args} {
             if {[string compare -nocase "HW_VER" $arg] == 0} {
                 puts $file_handle "#define [hsi::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
-                puts $file_handle "#define [hsi::utils::get_ip_param_name $periph $arg] $value$uSuffix"
+                puts $file_handle "#define [hsi::utils::get_ip_param_name $periph $arg] $value"
             }
         }
         puts $file_handle ""
@@ -195,8 +191,7 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
 	        }
                 set rvalue [hsi::utils::format_addr_string $rvalue $arg]
 
-		set uSuffix [xdefine_getSuffix $lvalue $rvalue]
-                puts $file_handle "#define $lvalue $rvalue$uSuffix"
+                puts $file_handle "#define $lvalue $rvalue"
 
             }
             puts $file_handle ""
@@ -206,12 +201,4 @@ proc xdefine_vdma_canonical_xpars {drv_handle file_name drv_string args} {
 
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
-}
-
-proc xdefine_getSuffix {arg_name value} {
-	set uSuffix ""
-	if { [string match "*DEVICE_ID" $value] == 0 } {
-		set uSuffix "U"
-	}
-	return $uSuffix
 }

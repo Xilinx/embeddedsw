@@ -47,8 +47,7 @@
 #	       Axi stream fifo (CR 835605).
 # 13/06/15 adk Updated the driver tcl for Hier IP(To support User parameters).
 # 11/09/15 sk  Removed delete filename statement CR# 784758.
-# 04/18/17 ms  Modified tcl file to add suffix U for all macros definitions
-#              of axietherent in xparameters.h
+#
 ###############################################################################
 #uses "xillib.tcl"
 
@@ -107,13 +106,12 @@ proc xdefine_axiethernet_include_file {drv_handle file_name drv_string} {
 
     # Handle NUM_INSTANCES
     set periph_ninstances 0
-	set uSuffix "U"
     puts $file_handle "/* Definitions for driver [string toupper [get_property NAME $drv_handle]] */"
     foreach periph $periphs {
 	init_periph_config_struct $periph_ninstances
 	incr periph_ninstances 1
     }
-    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances$uSuffix"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
 
     close $file_handle
     # Now print all useful parameters for all peripherals
@@ -164,15 +162,15 @@ proc generate {drv_handle} {
 #       the global device config params structure accordingly.
 # ---------------------------------------------------------------------------
 proc xdefine_axi_target_params {periphs file_handle} {
-    set uSuffix "U"
+
     global periph_ninstances
 
      #
     # First dump some enumerations on AXI_TYPE
     #
     puts $file_handle "/* AxiEthernet TYPE Enumerations */"
-    puts $file_handle "#define XPAR_AXI_FIFO    1$uSuffix"
-    puts $file_handle "#define XPAR_AXI_DMA     2$uSuffix"
+    puts $file_handle "#define XPAR_AXI_FIFO    1"
+    puts $file_handle "#define XPAR_AXI_DMA     2"
     puts $file_handle ""
 
     set device_id 0
@@ -222,7 +220,7 @@ proc xdefine_axi_target_params {periphs file_handle} {
 
                     set axi_fifo_baseaddr [get_property  CONFIG.C_BASEADDR $target_periph]
                     set canonical_name [format "XPAR_%s_CONNECTED_BASEADDR" $canonical_tag]
-                     puts $file_handle [format "#define $canonical_name %s$uSuffix" $axi_fifo_baseaddr]
+                     puts $file_handle [format "#define $canonical_name %s" $axi_fifo_baseaddr]
                     add_field_to_periph_config_struct $device_id $canonical_name
 		    # FIFO Interrupts Handling
 			set int_pin [get_pins -of_objects [get_cells -hier $tartget_per_name] INTERRUPT]
@@ -236,10 +234,10 @@ proc xdefine_axi_target_params {periphs file_handle} {
 		       if { $intc_name != [format "ps7_scugic"] } {
 				set int_id [::hsi::utils::get_port_intr_id [get_cells -hier $tartget_per_name] $int_pin]
 				set canonical_name [format "XPAR_%s_CONNECTED_FIFO_INTR" $canonical_tag]
-				puts $file_handle [format "#define $canonical_name %d$uSuffix" $int_id]
+				puts $file_handle [format "#define $canonical_name %d" $int_id]
 				add_field_to_periph_config_struct $device_id $canonical_name
-				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF$uSuffix" $canonical_tag]
-				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF$uSuffix" $canonical_tag]
+				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF" $canonical_tag]
+				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF" $canonical_tag]
 				add_field_to_periph_config_struct $device_id 0xFF
 				add_field_to_periph_config_struct $device_id 0xFF
 			} else {
@@ -247,8 +245,8 @@ proc xdefine_axi_target_params {periphs file_handle} {
 				set temp [string toupper $int_pin]
 				puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_%s_INTR" $target_periph_name $temp]
 				add_field_to_periph_config_struct $device_id $canonical_name
-				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF$uSuffix" $canonical_tag]
-				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF$uSuffix" $canonical_tag]
+				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF" $canonical_tag]
+				puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF" $canonical_tag]
 				add_field_to_periph_config_struct $device_id 0xFF
 				add_field_to_periph_config_struct $device_id 0xFF
 			}
@@ -260,10 +258,10 @@ proc xdefine_axi_target_params {periphs file_handle} {
                     puts $file_handle "#define $canonical_name XPAR_AXI_DMA"
                     add_field_to_periph_config_struct $device_id $canonical_name
                     set canonical_name [format "XPAR_%s_CONNECTED_BASEADDR" $canonical_tag]
-                    puts $file_handle [format "#define $canonical_name %s$uSuffix" $axi_dma_baseaddr]
+                    puts $file_handle [format "#define $canonical_name %s" $axi_dma_baseaddr]
                     add_field_to_periph_config_struct $device_id $canonical_name
 
-		    puts $file_handle [format "#define XPAR_%s_CONNECTED_FIFO_INTR 0xFF$uSuffix" $canonical_tag]
+		    puts $file_handle [format "#define XPAR_%s_CONNECTED_FIFO_INTR 0xFF" $canonical_tag]
                     add_field_to_periph_config_struct $device_id 0xFF
 		    set dmarx_signal [format "s2mm_introut"]
                     set dmatx_signal [format "mm2s_introut"]
@@ -283,69 +281,69 @@ proc xdefine_axi_target_params {periphs file_handle} {
 
 proc xdefine_temac_params_include_file {file_handle periph device_id} {
 	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
-	set uSuffix "U"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]$uSuffix"
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]$uSuffix"
+
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] [common::get_property CONFIG.C_BASEADDR $periph]"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] [common::get_property CONFIG.C_HIGHADDR $periph]"
 
 	set value [common::get_property CONFIG.PHY_TYPE $periph]
 	set value [get_mactype $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TYPE"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TYPE"] $value"
 
 	set value [common::get_property CONFIG.TXCSUM $periph]
 	set value [get_checksum $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXCSUM"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXCSUM"] $value"
 
 	set value [common::get_property CONFIG.RXCSUM $periph]
 	set value [get_checksum $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXCSUM"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXCSUM"] $value"
 
 	set value [common::get_property CONFIG.PHY_TYPE $periph]
 	set value [get_phytype $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "PHY_TYPE"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "PHY_TYPE"] $value"
 
 	set value [common::get_property CONFIG.TXVLAN_TRAN $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_TRAN"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_TRAN"] $value"
 
 	set value [common::get_property CONFIG.RXVLAN_TRAN $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_TRAN"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_TRAN"] $value"
 
 	set value [common::get_property CONFIG.TXVLAN_TAG $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_TAG"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_TAG"] $value"
 
 	set value [common::get_property CONFIG.RXVLAN_TAG $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_TAG"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_TAG"] $value"
 
 	set value [common::get_property CONFIG.TXVLAN_STRP $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_STRP"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "TXVLAN_STRP"] $value"
 
 	set value [common::get_property CONFIG.RXVLAN_STRP $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_STRP"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "RXVLAN_STRP"] $value"
 
 	set value [common::get_property CONFIG.MCAST_EXTEND $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MCAST_EXTEND"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "MCAST_EXTEND"] $value"
 
 	set value [common::get_property CONFIG.Statistics_Counters $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "STATS"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "STATS"] $value"
 
 	set value [common::get_property CONFIG.AVB $periph]
 	set value [is_property_set $value]
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AVB"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AVB"] $value"
 
 	set phyaddr [common::get_property CONFIG.PHYADDR $periph]
 	set value [::hsi::utils::convert_binary_to_decimal $phyaddr]
 	if {[llength $value] == 0} {
 		set value 0
 	}
-	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "PHYADDR"] $value$uSuffix"
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "PHYADDR"] $value"
 }
 
 # ------------------------------------------------------------------
@@ -353,107 +351,107 @@ proc xdefine_temac_params_include_file {file_handle periph device_id} {
 # hardware design parameters.  It also adds these to the Config table.
 # ------------------------------------------------------------------
 proc xdefine_temac_params_canonical {file_handle periph device_id} {
-    set uSuffix "U"
+
     puts $file_handle "\n/* Canonical definitions for peripheral [string toupper [get_property NAME $periph]] */"
 
     set canonical_tag [string toupper [format "XPAR_AXIETHERNET_%d" $device_id]]
 
     # Handle device ID
     set canonical_name  [format "%s_DEVICE_ID" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $device_id$uSuffix"
+    puts $file_handle "\#define $canonical_name $device_id"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     # Handle BASEADDR specially
     set canonical_name  [format "%s_BASEADDR" $canonical_tag]
-    puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_BASEADDR]$uSuffix"
+    puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_BASEADDR]"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     # Handle HIGHADDR specially
     set canonical_name  [format "%s_HIGHADDR" $canonical_tag]
-    puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_HIGHADDR]$uSuffix"
+    puts $file_handle "\#define $canonical_name [::hsi::utils::get_param_value $periph C_HIGHADDR]"
 
     set canonical_name  [format "%s_TEMAC_TYPE" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph PHY_TYPE]
     set value [get_mactype $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXCSUM" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph TXCSUM]
     set value [get_checksum $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXCSUM" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph RXCSUM]
     set value [get_checksum $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_PHY_TYPE" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph PHY_TYPE]
     set value [get_phytype $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_TRAN" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph TXVLAN_TRAN]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_TRAN" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph RXVLAN_TRAN]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_TAG" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph TXVLAN_TAG]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_TAG" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph RXVLAN_TAG]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_TXVLAN_STRP" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph TXVLAN_STRP]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_RXVLAN_STRP" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph RXVLAN_STRP]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_MCAST_EXTEND" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph MCAST_EXTEND]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_STATS" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph Statistics_Counters]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_AVB" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph ENABLE_AVB]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_ENABLE_SGMII_OVER_LVDS" $canonical_tag]
     set value [::hsi::utils::get_param_value $periph ENABLE_LVDS]
     set value [is_property_set $value]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct $device_id $canonical_name
 
     set canonical_name  [format "%s_PHYADDR" $canonical_tag]
@@ -462,7 +460,7 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     if {[llength $value] == 0} {
         set value 0
     }
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
 
 }
 
@@ -506,16 +504,16 @@ proc xdefine_axiethernet_config_file {file_name drv_string} {
 # the canonical constants in xparameters.h and the config table
 # ------------------------------------------------------------------
 proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dmarx_signal dmatx_signal} {
-    set uSuffix "U"
+
     set target_periph_name [string toupper [get_property NAME $target_periph]]
 
     # First get the interrupt ports on this AXI peripheral
     set interrupt_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
     if {$interrupt_port == ""} {
 	puts "Info: There are no AXIDMA Interrupt ports"
-        puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF$uSuffix" $canonical_tag]
+        puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF" $canonical_tag]
         add_field_to_periph_config_struct $deviceid 0xFF
-        puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF$uSuffix" $canonical_tag]
+        puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF" $canonical_tag]
         add_field_to_periph_config_struct $deviceid 0xFF
         return
    }
@@ -549,9 +547,9 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
             if {$found_intc == ""} {
                 puts "Info: DMA interrupt not connected to intc\n"
                 puts "Info: There are no AXIDMA Interrupt ports"
-		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF$uSuffix" $canonical_tag]
+		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF" $canonical_tag]
 		add_field_to_periph_config_struct $deviceid 0xFF
-		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF$uSuffix" $canonical_tag]
+		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF" $canonical_tag]
 		add_field_to_periph_config_struct $deviceid 0xFF
 		return
             }
@@ -574,11 +572,11 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
         if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"]} {
 		set rx_int_id [::hsi::utils::get_port_intr_id $target_periph $dmarx_signal]
 		set canonical_name [format "XPAR_%s_CONNECTED_DMARX_INTR" $canonical_tag]
-                puts $file_handle [format "#define $canonical_name %d$uSuffix" $rx_int_id]
+                puts $file_handle [format "#define $canonical_name %d" $rx_int_id]
 		add_field_to_periph_config_struct $deviceid $canonical_name
 		set tx_int_id [::hsi::utils::get_port_intr_id $target_periph $dmatx_signal]
 		set canonical_name [format "XPAR_%s_CONNECTED_DMATX_INTR" $canonical_tag]
-                puts $file_handle [format "#define $canonical_name %d$uSuffix" $tx_int_id]
+                puts $file_handle [format "#define $canonical_name %d" $tx_int_id]
 		add_field_to_periph_config_struct $deviceid $canonical_name
 	} else {
 		set addentry 2
@@ -612,7 +610,6 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
 # ------------------------------------------------------------------------------------
 proc xdefine_temac_interrupt {file_handle periph device_id} {
 
-    set uSuffix "U"
     #set mhs_handle [xget_hw_parent_handle $periph]
     set periph_name [string toupper [get_property NAME $periph]]
 
@@ -628,7 +625,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
     if {$interrupt_port == ""} {
 	puts "Info: There are no AXI Ethernet Interrupt ports"
 	# No interrupts were connected, so add dummy entry to the config structure
-	puts $file_handle [format "#define $canonical_name 0xFF$uSuffix"]
+	puts $file_handle [format "#define $canonical_name 0xFF"]
         add_field_to_periph_config_struct $device_id 0xFF
     }
 
@@ -646,7 +643,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
         if {$intc_periph == ""} {
                 puts "Info: Axi Ethernet interrupt not connected to intc\n"
                 # No interrupts were connected, so add dummy entry to the config structure
-                puts $file_handle [format "#define $canonical_name 0xFF$uSuffix"]
+                puts $file_handle [format "#define $canonical_name 0xFF"]
                 add_field_to_periph_config_struct $device_id 0xFF
                 return
         }
@@ -660,7 +657,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
     } else {
          puts "Info: $periph_name interrupt signal $interrupt_signal_name not connected"
          # No interrupts were connected, so add dummy entry to the config structure
-         puts $file_handle [format "#define $canonical_name 0xFF$uSuffix"]
+         puts $file_handle [format "#define $canonical_name 0xFF"]
          add_field_to_periph_config_struct $device_id 0xFF
          return
     }
@@ -673,7 +670,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
     if { $intc_periph_type != [format "ps7_scugic"]  && $intc_periph_type != [format "psu_acpu_gic"] && $proc_type != "psu_pmu"} {
 	 set ethernet_int_signal_name [get_pins -of_objects $periph INTERRUPT]
 	 set int_id [::hsi::utils::get_port_intr_id $periph $ethernet_int_signal_name]
-	 puts $file_handle "\#define $canonical_name $int_id$uSuffix"
+	 puts $file_handle "\#define $canonical_name $int_id"
          add_field_to_periph_config_struct $device_id $canonical_name
 	 set addentry 1
     } elseif { $proc_type != "psu_pmu"} {
@@ -684,13 +681,12 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
 
     if { $addentry == 0 } {
         # No interrupts were connected, so add dummy entry to the config structure
-        puts $file_handle [format "#define $canonical_name 0xFF$uSuffix"]
+        puts $file_handle [format "#define $canonical_name 0xFF"]
         add_field_to_periph_config_struct $device_id 0xFF
     }
 }
 
 proc generate_sgmii_params {drv_handle file_name} {
-	set uSuffix "U"
 	set file_handle [::hsi::utils::open_include_file $file_name]
 	set phy_type [common::get_property CONFIG.PHY_TYPE [get_cells -hier $drv_handle]]
 	set phyaddr [common::get_property CONFIG.PHYADDR [get_cells -hier $drv_handle]]
@@ -702,13 +698,13 @@ proc generate_sgmii_params {drv_handle file_name} {
 	set phya [::hsi::utils::convert_binary_to_decimal $phyaddr]
 	if {[string compare -nocase $phy_type "SGMII"] == 0} {
 		puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
-		puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1$uSuffix"
-		puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya$uSuffix"
+		puts $file_handle "\#define XPAR_GIGE_PCS_PMA_SGMII_CORE_PRESENT 1"
+		puts $file_handle "\#define XPAR_PCSPMA_SGMII_PHYADDR $phya"
 		puts $file_handle "\n/******************************************************************/\n"
 	} elseif {[string compare -nocase $phy_type "1000BaseX"] == 0} {
 		puts $file_handle "/* Definitions related to PCS PMA PL IP*/"
-		puts $file_handle "\#define XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT 1$uSuffix"
-		puts $file_handle "\#define XPAR_PCSPMA_1000BASEX_PHYADDR $phya$uSuffix"
+		puts $file_handle "\#define XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT 1"
+		puts $file_handle "\#define XPAR_PCSPMA_1000BASEX_PHYADDR $phya"
 		puts $file_handle "\n/******************************************************************/\n"
 	}
 	close $file_handle

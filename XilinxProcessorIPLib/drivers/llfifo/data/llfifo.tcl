@@ -42,8 +42,7 @@
 # 4.0      adk    12/10/13 Updated as per the New Tcl API's
 # 5.1  adk   01/02/15 CR#885653 Fix Incorrect AXI4 Base address being
 #		      Exported to the xparameters.h file.
-# 5.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
-#                     definitions of llfifo in xparameters.h
+#
 ##############################################################################
 
 set periph_config_params_fifo 0
@@ -73,7 +72,6 @@ proc xdefine_axififo_include_file {drv_handle file_name drv_string} {
 	    # Get all peripherals connected to this driver
 	    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
-	    set uSuffix "U"
 	    # Handle NUM_INSTANCES
 	    set periph_ninstances 0
 	    puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
@@ -81,7 +79,7 @@ proc xdefine_axififo_include_file {drv_handle file_name drv_string} {
 		init_periph_config_struct_fifo $periph_ninstances
 		incr periph_ninstances 1
 	    }
-	    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances$uSuffix"
+	    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $drv_string NUM_INSTANCES] $periph_ninstances"
 
 
 	    # Now print all useful parameters for all peripherals
@@ -100,7 +98,6 @@ proc xdefine_axififo_include_file {drv_handle file_name drv_string} {
 }
 
 proc xdefine_axififo_params_instance {file_handle periph device_id} {
-    set uSuffix "U"
     set ip [hsi::get_cells -hier $periph]
 
     set axi_baseaddr  [common::get_property CONFIG.C_BASEADDR $periph]
@@ -114,16 +111,15 @@ proc xdefine_axififo_params_instance {file_handle periph device_id} {
     }
 
     puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
-    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id$uSuffix"
-    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] $axi_baseaddr$uSuffix"
-    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] $axi_highaddr$uSuffix"
-    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AXI4_BASEADDR"] $axi4_baseaddr$uSuffix"
-    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AXI4_HIGHADDR"] $axi4_highaddr$uSuffix"
-    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DATA_INTERFACE_TYPE"] $datainterface$uSuffix"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DEVICE_ID"] $device_id"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "BASEADDR"] $axi_baseaddr"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "HIGHADDR"] $axi_highaddr"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AXI4_BASEADDR"] $axi4_baseaddr"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AXI4_HIGHADDR"] $axi4_highaddr"
+    puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "DATA_INTERFACE_TYPE"] $datainterface"
 }
 
 proc xdefine_axififo_params_canonical {file_handle periph device_id} {
-    set uSuffix "U"
     set axi4_baseaddr [common::get_property CONFIG.C_AXI4_BASEADDR $periph]
     set axi4_highaddr [common::get_property CONFIG.C_AXI4_HIGHADDR $periph]
     set datainterface [common::get_property CONFIG.C_DATA_INTERFACE_TYPE $periph]
@@ -137,27 +133,27 @@ proc xdefine_axififo_params_canonical {file_handle periph device_id} {
 
     # Handle device ID
     set canonical_name  [format "%s_DEVICE_ID" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $device_id$uSuffix"
+    puts $file_handle "\#define $canonical_name $device_id"
     add_field_to_periph_config_struct_fifo $device_id $canonical_name
 
     set canonical_name  [format "%s_BASEADDR" $canonical_tag]
     set value [common::get_property CONFIG.C_BASEADDR $periph]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
     add_field_to_periph_config_struct_fifo $device_id $canonical_name
 
     set canonical_name  [format "%s_HIGHADDR" $canonical_tag]
     set value [common::get_property CONFIG.C_HIGHADDR $periph]
-    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    puts $file_handle "\#define $canonical_name $value"
 
     set canonical_name  [format "%s_AXI4_BASEADDR" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $axi4_baseaddr$uSuffix"
+    puts $file_handle "\#define $canonical_name $axi4_baseaddr"
     add_field_to_periph_config_struct_fifo $device_id $canonical_name
 
     set canonical_name  [format "%s_AXI4_HIGHADDR" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $axi4_highaddr$uSuffix"
+    puts $file_handle "\#define $canonical_name $axi4_highaddr"
 
     set canonical_name  [format "%s_DATA_INTERFACE_TYPE" $canonical_tag]
-    puts $file_handle "\#define $canonical_name $datainterface$uSuffix"
+    puts $file_handle "\#define $canonical_name $datainterface"
     add_field_to_periph_config_struct_fifo $device_id $canonical_name
 }
 

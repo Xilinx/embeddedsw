@@ -41,7 +41,6 @@
 * There is no source code.
 * VER   WHO   DATE    Changes
 * 2.0   adk  19/12/13 Updated as per the New Tcl API's
-* 2.1   ms   04/18/17 Modified tcl file to add suffix U for all macros
-*                     definitions of mig_7series in xparameters.h
+*
 ******************************************************************************/
 /** @} */

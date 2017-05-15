@@ -37,8 +37,6 @@
 # 1.00a sdm  01/20/12 Initialize release
 # 2.0   adk  12/10/13 Updated as per the New Tcl API's
 # 3.1   sk   11/09/15 Removed delete filename statement CR# 784758.
-# 3.4   ms   04/18/17 Modified tcl file to add suffix U for all macros
-#                     definitions of ttcps in xparameters.h
 #
 ##############################################################################
 #uses "xillib.tcl"
@@ -54,7 +52,7 @@ proc generate {drv_handle} {
 proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Open include file
     set file_handle [::hsi::utils::open_include_file $file_name]
-    set uSuffix "U"
+
     # Get all peripherals connected to this driver
     set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
 
@@ -64,7 +62,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     if {$posn > -1} {
 	puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
 	# Define NUM_INSTANCES
-	puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [expr [llength $periphs] * 3]$uSuffix"
+	puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [expr [llength $periphs] * 3]"
 	set args [lreplace $args $posn $posn]
     }
     # Check if it is a driver parameter
@@ -75,7 +73,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 	if {[llength $value] == 0} {
 	    lappend newargs $arg
 	} else {
-	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]$uSuffix"
+	    puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property CONFIG.$arg $drv_handle]"
 	}
     }
     set args $newargs
@@ -109,9 +107,9 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 		set arg_name [format "XPAR_%s_%d_%s" [string toupper [string range [common::get_property NAME $periph] 0 end-2]] [expr $device_id * 3 + $x] $arg_name]
 		regsub "S_AXI_" $arg_name "" arg_name
 		if {[string compare -nocase "C_S_AXI_BASEADDR" $arg] == 0} {
-		    puts $file_handle "#define $arg_name [string toupper [format 0x%08x [expr $value + $x * 4]]]$uSuffix"
+		    puts $file_handle "#define $arg_name [string toupper [format 0x%08x [expr $value + $x * 4]]]"
 		} else {
-		    puts $file_handle "#define $arg_name $value$uSuffix"
+		    puts $file_handle "#define $arg_name $value"
 		}
 	    }
 	}
@@ -277,8 +275,9 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                         }
                         set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
                     }
-	            set uSuffix [xdefine_getSuffix $lvalue $rvalue]
-                    puts $file_handle "#define $lvalue $rvalue$uSuffix"
+
+                    puts $file_handle "#define $lvalue $rvalue"
+
                 }
                 puts $file_handle ""
                 incr i
@@ -290,12 +289,4 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
     puts $file_handle "\n/******************************************************************/\n"
     close $file_handle
-}
-
-proc xdefine_getSuffix {arg_name value} {
-		set uSuffix ""
-		if { [string match "*DEVICE_ID" $value] == 0} {
-			set uSuffix "U"
-		}
-		return $uSuffix
 }

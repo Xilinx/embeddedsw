@@ -158,8 +158,6 @@
 *                     mbox examples for proper documentation while
 *                     generating doxygen and modified filename tag to
 *                     include them in doxygen examples.
-* 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
-*                     definitions of mbox in xparameters.h
 *</pre>
 *
 ******************************************************************************/

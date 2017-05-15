@@ -38,11 +38,6 @@
 * @details
 *
 * dummy file
-* MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- ---------------------------------------------------------
-* 1.3   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
-*                     parameter of cpu_cortexr5 in xparameters.h
 ******************************************************************************/
 /** @} */
