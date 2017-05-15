@@ -168,10 +168,10 @@ XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 			/* Disable the executed Task */
 			SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_DISABLED;
 			CallCount++;
-		}
-		/* Remove the Non-Periodic Task */
-		if (TRUE == is_task_non_periodic(SchedPtr, Idx)) {
-			SchedPtr->TaskList[Idx].Callback = NULL;
+	                /* Remove the Non-Periodic Task */
+		        if (TRUE == is_task_non_periodic(SchedPtr, Idx)) {
+			        SchedPtr->TaskList[Idx].Callback = NULL;
+			}
 		}
 	}
 
