@@ -568,11 +568,11 @@ int XCan_Send(XCan *InstancePtr, u32 *FramePtr)
 
 	/* Write Data Word 1 */
 	XCan_WriteReg(InstancePtr->BaseAddress, XCAN_TXFIFO_DW1_OFFSET,
-			FramePtr[2]);
+			Xil_EndianSwap32(FramePtr[2]));
 
 	/* Write Data Word 2 */
 	XCan_WriteReg(InstancePtr->BaseAddress, XCAN_TXFIFO_DW2_OFFSET,
-			FramePtr[3]);
+			Xil_EndianSwap32(FramePtr[3]));
 
 	return XST_SUCCESS;
 }
@@ -620,11 +620,11 @@ int XCan_Recv(XCan *InstancePtr, u32 *FramePtr)
 
 	/* Read Data Word 1 */
 	FramePtr[2] =
-		XCan_ReadReg(InstancePtr->BaseAddress, XCAN_RXFIFO_DW1_OFFSET);
+			Xil_EndianSwap32(XCan_ReadReg(InstancePtr->BaseAddress, XCAN_RXFIFO_DW1_OFFSET));
 
 	/* Read Data Word 2 */
 	FramePtr[3] =
-		XCan_ReadReg(InstancePtr->BaseAddress, XCAN_RXFIFO_DW2_OFFSET);
+			Xil_EndianSwap32(XCan_ReadReg(InstancePtr->BaseAddress, XCAN_RXFIFO_DW2_OFFSET));
 
 	/*
 	 * Clear RXNEMP bit in ISR. This allows future XCan_IsRxEmpty() call
