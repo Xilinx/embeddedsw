@@ -51,6 +51,7 @@
 #include "pm_clock.h"
 #include "pm_requirement.h"
 #include "pm_config.h"
+#include "xpfw_platform.h"
 #include "xpfw_resets.h"
 #include "rpu.h"
 #include "xsecure.h"
@@ -794,6 +795,12 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 		XPfw_ResetPsOnly();
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_SYSTEM:
+		/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
+		if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {
+			XPfw_UtilRMW(CRL_APB_RPLL_CTRL, CRL_APB_RPLL_CTRL_BYPASS_MASK,
+					 CRL_APB_RPLL_CTRL_BYPASS_MASK);
+		}
+
 		XPfw_RMW32(CRL_APB_RESET_CTRL,
 			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
 			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
