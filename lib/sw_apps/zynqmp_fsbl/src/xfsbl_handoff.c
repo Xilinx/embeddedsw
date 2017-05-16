@@ -744,6 +744,12 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	PartitionHeader =
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 
+	if (FsblInstancePtr->ResetReason == XFSBL_PS_ONLY_RESET)
+		{
+		/**Remove PS-PL isolation to allow u-boot and linux to access PL*/
+			(void)psu_ps_pl_isolation_removal_data();
+			(void)psu_ps_pl_reset_config_data();
+		}
 	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET){
 
 	Status = XFsbl_PmInit();

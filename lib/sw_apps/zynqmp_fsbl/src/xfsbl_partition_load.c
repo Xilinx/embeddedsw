@@ -1205,8 +1205,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		{
 			XFsbl_Printf(DEBUG_INFO,
 			"PS Only Reset. Skipping PL configuration\r\n");
-			(void)psu_ps_pl_isolation_removal_data();
-			(void)psu_ps_pl_reset_config_data();
 			goto END;
 		}
 	}
