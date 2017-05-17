@@ -76,6 +76,24 @@ static PmClockMux avdMux = {
 	.size = ARRAY_SIZE(avdSel2Pll),
 };
 
+static const PmClockSel2Pll aiodSel2Pll[] = {
+	{
+		.pll = &pmApll_g,
+		.select = 0U,
+	}, {
+		.pll = &pmIOpll_g,
+		.select = 2U,
+	}, {
+		.pll = &pmDpll_g,
+		.select = 3U,
+	},
+};
+
+static PmClockMux aiodMux = {
+	.inputs = aiodSel2Pll,
+	.size = ARRAY_SIZE(aiodSel2Pll),
+};
+
 static const PmClockSel2Pll vdrSel2Pll[] = {
 	{
 		.pll = &pmVpll_g,
@@ -327,6 +345,22 @@ static PmClock pmClockGdma = {
 static PmClock pmClockDpDma = {
 	.mux = &avdMux,
 	.ctrlAddr = CRF_APB_DPDMA_REF_CTRL,
+	.pll = NULL,
+	.users = NULL,
+	.ctrlVal = 0U,
+};
+
+static PmClock pmClockTopSwMain = {
+	.mux = &avdMux,
+	.ctrlAddr = CRF_APB_TOPSW_MAIN_CTRL,
+	.pll = NULL,
+	.users = NULL,
+	.ctrlVal = 0U,
+};
+
+static PmClock pmClockTopSwLsBus = {
+	.mux = &aiodMux,
+	.ctrlAddr = CRF_APB_TOPSW_LSBUS_CTRL,
 	.pll = NULL,
 	.users = NULL,
 	.ctrlVal = 0U,
@@ -651,6 +685,8 @@ static PmClock* pmClocks[] = {
 	&pmClockPcie,
 	&pmClockGdma,
 	&pmClockDpDma,
+	&pmClockTopSwMain,
+	&pmClockTopSwLsBus,
 	&pmClockGtgRef0,
 	&pmClockDbgTstmp,
 	&pmClockUsb3Dual,
@@ -739,6 +775,16 @@ static PmClockHandle pmClockHandles[] = {
 	}, {
 		.clock = &pmClockDpDma,
 		.node = &pmSlaveDP_g.node,
+		.nextClock = NULL,
+		.nextNode = NULL,
+	}, {
+		.clock = &pmClockTopSwMain,
+		.node = &pmSlaveDdr_g.node,
+		.nextClock = NULL,
+		.nextNode = NULL,
+	}, {
+		.clock = &pmClockTopSwLsBus,
+		.node = &pmSlaveDdr_g.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {
