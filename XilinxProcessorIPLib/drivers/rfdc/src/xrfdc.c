@@ -816,13 +816,13 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG0_OFFSET);
 				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
-				ReadReg |= XRFDC_CRSE_MIX_I_Q_OFF;
+				ReadReg |= XRFDC_CRSE_MIX_BYPASS;
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET);
 				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
-				ReadReg |= XRFDC_CRSE_MIX_I_Q_OFF;
+				ReadReg |= XRFDC_CRSE_MIX_OFF;
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
 			} else if (Mixer_Settings->CoarseMixFreq ==
@@ -1045,8 +1045,8 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		ReadReg_Mix1 = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 							XRFDC_ADC_MXR_CFG1_OFFSET);
 		ReadReg_Mix1 &= XRFDC_MIX_CFG1_MASK;
-		if ((ReadReg == XRFDC_CRSE_MIX_I_Q_OFF) && (ReadReg_Mix1 ==
-								XRFDC_CRSE_MIX_I_Q_OFF))
+		if ((ReadReg == XRFDC_CRSE_MIX_BYPASS) && (ReadReg_Mix1 ==
+								XRFDC_CRSE_MIX_OFF))
 			Mixer_Settings->CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
 		else if ((ReadReg == XRFDC_CRSE_MIX_I_Q_FSBYTWO) && (ReadReg_Mix1 ==
 								XRFDC_CRSE_MIX_I_Q_FSBYTWO))
