@@ -4,6 +4,10 @@ tpg_v3_1:
 Updated NUM_INSTANCES parameter in xparameters.h and
 xtpg_sinit.c to avoid errors. Fix for cr-976944.
 
+xilfpga_v3_0:
+Added PL configuration registers readback support.
+Added Device-key Encrypted BitStream Loading support to the xilfpga library.
+
 Changes for 2017.2
 ================================
 
