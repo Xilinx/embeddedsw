@@ -1355,17 +1355,19 @@ u8 XHdcp22Tx_IsAuthenticated (XHdcp22_Tx *InstancePtr)
 u8 XHdcp22Tx_IsDwnstrmCapable (XHdcp22_Tx *InstancePtr)
 {
 	u8 DdcBuf[1];
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 
-	/* Read HDCP2Version register */
-	InstancePtr->IsReceiverHDCP2Capable = (FALSE);
-	DdcBuf[0] = XHDCP22_TX_HDCPPORT_VERSION_OFFSET;
-	Status = InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS, 1, DdcBuf,
-	                              (FALSE), InstancePtr->DdcHandlerRef);
-	if (Status == (XST_SUCCESS)) {
-		Status = InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS,
-		                              sizeof(DdcBuf), DdcBuf, (TRUE),
-		                              InstancePtr->DdcHandlerRef);
+	if (InstancePtr->DdcHandlerRef) {
+		/* Read HDCP2Version register */
+		InstancePtr->IsReceiverHDCP2Capable = (FALSE);
+		DdcBuf[0] = XHDCP22_TX_HDCPPORT_VERSION_OFFSET;
+		Status = InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS, 1, DdcBuf,
+		                              (FALSE), InstancePtr->DdcHandlerRef);
+		if (Status == (XST_SUCCESS)) {
+			Status = InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS,
+			                              sizeof(DdcBuf), DdcBuf, (TRUE),
+			                              InstancePtr->DdcHandlerRef);
+		}
 	}
 
 	/* Check expected value */
