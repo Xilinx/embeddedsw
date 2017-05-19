@@ -342,6 +342,7 @@ dict set node_map NODE_GPU { label NODE_GPU periph psu_gpu type slave }
 dict set node_map NODE_PCIE { label NODE_PCIE periph psu_pcie type slave }
 dict set node_map NODE_PCAP { label NODE_PCAP periph NA type slave }
 dict set node_map NODE_RTC { label NODE_RTC periph psu_rtc type slave }
+dict set node_map NODE_VCU { label NODE_VCU periph vcu_0 type slave }
 dict set node_map NODE_PL { label NODE_PL periph NA type others }
 
 
