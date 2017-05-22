@@ -524,11 +524,18 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 {
 	s32 Status;
 	u32 IsBlockAvail;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 #endif
+
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+			(Type == XRFDC_ADC_TILE)) {
+		Block_Id = 2U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
@@ -548,8 +555,8 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-			(Block_Id == 3U))) {
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
 		Status = XRFDC_FAILURE;
 #ifdef __BAREMETAL__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
@@ -981,12 +988,19 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	float SamplingRate;
 	u64 Freq;
 	u32 PhaseOffset;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Mixer_Settings != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
+
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+				(Type == XRFDC_ADC_TILE)) {
+		Block_Id = 2U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
@@ -1027,8 +1041,8 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-			(Block_Id == 3U))) {
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
 		Status = XRFDC_FAILURE;
 #ifdef __BAREMETAL__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
@@ -1138,7 +1152,7 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u16 ReadReg;
 	XRFdc_QMC_Settings *QMC_Config;
 	u32 BaseAddr;
-	u32 PhaseCorrectionFactor;
+	s32 PhaseCorrectionFactor;
 	u32 GainCorrectionFactor;
 	u16 Index;
 	u16 NoOfBlocks;
@@ -1153,16 +1167,15 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	Index = Block_Id;
 	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 			(Type == XRFDC_ADC_TILE)) {
-		NoOfBlocks = 2U;
+		NoOfBlocks = 3U;
 		if (Block_Id == 1U) {
-			Index = 2U;
 			NoOfBlocks = 4U;
 		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
 	}
 
-	for (; Index < NoOfBlocks; Index++) {
+	for (; Index < NoOfBlocks; Index += 2U) {
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
 			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
@@ -1363,8 +1376,9 @@ int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u32 IsBlockAvail;
 	u32 BaseAddr;
 	u16 ReadReg;
-	u32 PhaseCorrectionFactor;
+	s32 PhaseCorrectionFactor;
 	u32 GainCorrectionFactor;
+	s32 OffsetCorrectionFactor;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1418,6 +1432,9 @@ int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_QMC_PHASE_OFFSET);
 				PhaseCorrectionFactor = ReadReg & XRFDC_QMC_PHASE_CRCTN_MASK;
+				PhaseCorrectionFactor = (PhaseCorrectionFactor >> 11) == 0 ?
+										PhaseCorrectionFactor :
+										((-1 ^ 0xFFF) | PhaseCorrectionFactor);
 				QMC_Settings->PhaseCorrectionFactor = ((PhaseCorrectionFactor *
 								26.5) / XRFDC_QMC_PHASE_MULT);
 			} else {
@@ -1430,6 +1447,9 @@ int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_QMC_PHASE_OFFSET);
 				PhaseCorrectionFactor = ReadReg & XRFDC_QMC_PHASE_CRCTN_MASK;
+				PhaseCorrectionFactor = (PhaseCorrectionFactor >> 11) == 0 ?
+										PhaseCorrectionFactor :
+										((-1 ^ 0xFFF) | PhaseCorrectionFactor);
 				QMC_Settings->PhaseCorrectionFactor = ((PhaseCorrectionFactor *
 										26.5) / XRFDC_QMC_PHASE_MULT);
 			} else {
@@ -1443,8 +1463,10 @@ int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_QMC_GAIN_MULT);
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_QMC_OFF_OFFSET);
-		QMC_Settings->OffsetCorrectionFactor = ReadReg &
-										XRFDC_QMC_OFFST_CRCTN_MASK;
+		OffsetCorrectionFactor = ReadReg & XRFDC_QMC_OFFST_CRCTN_MASK;
+		QMC_Settings->OffsetCorrectionFactor =
+				(OffsetCorrectionFactor >> 11) == 0 ? OffsetCorrectionFactor :
+				((-1 ^ 0xFFF) | OffsetCorrectionFactor);
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 										XRFDC_QMC_UPDT_OFFSET);
 		QMC_Settings->EventSource = ReadReg & XRFDC_QMC_UPDT_MODE_MASK;
@@ -1663,12 +1685,19 @@ int XRFdc_GetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u32 IsBlockAvail;
 	u32 BaseAddr;
 	u16 ReadReg;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CoarseDelay_Settings != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
+
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+				(Type == XRFDC_ADC_TILE)) {
+		Block_Id = 2U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
@@ -1692,8 +1721,8 @@ int XRFdc_GetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-			(Block_Id == 3U))) {
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
 		Status = XRFDC_FAILURE;
 #ifdef __BAREMETAL__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
@@ -1945,12 +1974,18 @@ int XRFdc_GetDecimationFactor(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 	s32 Status;
 	u32 IsBlockAvail;
 	u32 BaseAddr;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DecimationFactor != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
+
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U)) {
+		Block_Id = 2U;
+	}
 
 	IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
 	BaseAddr = InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
@@ -1966,7 +2001,7 @@ int XRFdc_GetDecimationFactor(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			((Block_Id == 2U) || (Block_Id == 3U))) {
+			((Block == 2U) || (Block == 3U))) {
 		Status = XRFDC_FAILURE;
 #ifdef __BAREMETAL__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
@@ -2193,6 +2228,7 @@ int XRFdc_GetFabWrVldWords(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	s32 Status;
 	u32 IsBlockAvail;
 	u32 BaseAddr;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -2200,6 +2236,11 @@ int XRFdc_GetFabWrVldWords(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
 
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+				(Type == XRFDC_ADC_TILE)) {
+		Block_Id = 2U;
+	}
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
 		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
@@ -2222,8 +2263,8 @@ int XRFdc_GetFabWrVldWords(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-			(Block_Id == 3U))) {
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
 		Status = XRFDC_FAILURE;
 #ifdef __BAREMETAL__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
@@ -2275,12 +2316,19 @@ int XRFdc_GetFabRdVldWords(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	s32 Status;
 	u32 IsBlockAvail;
 	u32 BaseAddr;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(FabricRdVldWords != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
+
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+				(Type == XRFDC_ADC_TILE)) {
+		Block_Id = 2U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
@@ -2304,8 +2352,8 @@ int XRFdc_GetFabRdVldWords(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-			(Block_Id == 3U))) {
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
 		Status = XRFDC_FAILURE;
 #ifdef __BAREMETAL__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
@@ -2752,12 +2800,18 @@ int XRFdc_GetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 	u32 IsBlockAvail;
 	u32 BaseAddr;
 	u16 ReadReg;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Threshold_Settings != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
+
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U)) {
+		Block_Id = 2U;
+	}
 
 	IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
 	BaseAddr = InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
@@ -2773,7 +2827,7 @@ int XRFdc_GetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			((Block_Id == 2U) || (Block_Id == 3U))) {
+			((Block == 2U) || (Block == 3U))) {
 		Status = XRFDC_FAILURE;
 #ifdef __BAREMETAL__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
