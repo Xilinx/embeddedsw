@@ -177,6 +177,11 @@
 *                       generation.
 *       ms     04/10/17 Modified filename tag in examples to include them in
 *                       doxygen examples.
+* 3.1   ms     05/22/17 Updated the parameter naming from
+*                       XPAR_TPG_NUM_INSTANCES to XPAR_XTPG_NUM_INSTANCES
+*                       to avoid  compilation failure as the tools are
+*                       generating XPAR_XTPG_NUM_INSTANCES in the xtpg_g.c
+*                       for fixing MISRA-C files.
 * </pre>
 *
 ******************************************************************************/

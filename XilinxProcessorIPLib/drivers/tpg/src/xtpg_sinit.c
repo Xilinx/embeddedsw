@@ -47,6 +47,11 @@
 * 3.0   adk    02/19/14 First release.
 *                       Implemented the following functions:
 *                       XTpg_LookupConfig.
+* 3.1   ms     05/22/17 Updated the parameter naming from
+*                       XPAR_TPG_NUM_INSTANCES to XPAR_XTPG_NUM_INSTANCES
+*                       to avoid  compilation failure as the tools are
+*                       generating XPAR_XTPG_NUM_INSTANCES in the xtpg_g.c
+*                       for fixing MISRA-C files.
 * </pre>
 *
 ******************************************************************************/
@@ -91,12 +96,12 @@
 ******************************************************************************/
 XTpg_Config *XTpg_LookupConfig(u16 DeviceId)
 {
-	extern XTpg_Config XTpg_ConfigTable[XPAR_TPG_NUM_INSTANCES];
+	extern XTpg_Config XTpg_ConfigTable[XPAR_XTPG_NUM_INSTANCES];
 	XTpg_Config *CfgPtr = NULL;
 	u32 Index;
 
 	/* To get the reference pointer to XTpg_Config structure */
-	for (Index = (u32)0x0; Index < (u32)(XPAR_TPG_NUM_INSTANCES);
+	for (Index = (u32)0x0; Index < (u32)(XPAR_XTPG_NUM_INSTANCES);
 					 Index++) {
 
 		/* Compare device Id with configTable's device Id*/
