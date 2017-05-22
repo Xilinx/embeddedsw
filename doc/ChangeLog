@@ -1,3 +1,9 @@
+Changes for 2017.3
+===============================
+tpg_v3_1:
+Updated NUM_INSTANCES parameter in xparameters.h and
+xtpg_sinit.c to avoid errors. Fix for cr-976944.
+
 Changes for 2017.2
 ================================
 
