@@ -59,12 +59,9 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
-#ifdef __BAREMETAL__
 #include "xil_io.h"
 #include "xparameters.h"
-#else
 #include "metal/io.h"
-#endif
 /************************** Constant Definitions *****************************/
 
 /** @name Register Map
@@ -1775,19 +1772,6 @@ extern "C" {
 #define XRFDC_BLOCK_ADDR_OFFSET(X)	(X * 0x400)
 
 /***************** Macros (Inline Functions) Definitions *********************/
-#ifdef __BAREMETAL__
-#define XRFdc_In64 Xil_In64
-#define XRFdc_Out64 Xil_Out64
-
-#define XRFdc_In32 Xil_In32
-#define XRFdc_Out32 Xil_Out32
-
-#define XRFdc_In16 Xil_In16
-#define XRFdc_Out16 Xil_Out16
-
-#define XRFdc_In8 Xil_In8
-#define XRFdc_Out8 Xil_Out8
-#else
 #define XRFdc_In64 metal_io_read64
 #define XRFdc_Out64 metal_io_write64
 
@@ -1799,7 +1783,6 @@ extern "C" {
 
 #define XRFdc_In8 metal_io_read8
 #define XRFdc_Out8 metal_io_write8
-#endif
 
 /****************************************************************************/
 /**
@@ -1816,13 +1799,8 @@ extern "C" {
 *		u32 XRFdc_ReadReg(XRFdc *InstancePtr. u32 BaseAddress, s32 RegOffset)
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
 #define XRFdc_ReadReg64(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In64(BaseAddress + RegOffset)
-#else
-#define XRFdc_ReadReg64(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In64(InstancePtr->io, RegOffset)
-#endif
+	XRFdc_In64(InstancePtr->io, (RegOffset + BaseAddress))
 
 /***************************************************************************/
 /**
@@ -1841,15 +1819,9 @@ extern "C" {
 *		u64 RegisterValue)
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
 #define XRFdc_WriteReg64(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out64((BaseAddress) + (RegOffset), \
+	XRFdc_Out64((InstancePtr->io), (RegOffset + BaseAddress), \
 		(RegisterValue))
-#else
-#define XRFdc_WriteReg64(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out64((InstancePtr->io), (RegOffset), \
-		(RegisterValue))
-#endif
 
 /****************************************************************************/
 /**
@@ -1866,13 +1838,8 @@ extern "C" {
 *		u32 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
 #define XRFdc_ReadReg(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In32((BaseAddress) + (RegOffset))
-#else
-#define XRFdc_ReadReg(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In32((InstancePtr->io), (RegOffset))
-#endif
+	XRFdc_In32((InstancePtr->io), (BaseAddress + RegOffset))
 
 /***************************************************************************/
 /**
@@ -1891,13 +1858,8 @@ extern "C" {
 *		u32 RegisterValue)
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
 #define XRFdc_WriteReg(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out32((BaseAddress) + (RegOffset), (RegisterValue))
-#else
-#define XRFdc_WriteReg(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out32((InstancePtr->io), (RegOffset), (RegisterValue))
-#endif
+	XRFdc_Out32((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -1914,13 +1876,8 @@ extern "C" {
 *		u16 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
 #define XRFdc_ReadReg16(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In16((BaseAddress) + (RegOffset))
-#else
-#define XRFdc_ReadReg16(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In16((InstancePtr->io), (RegOffset))
-#endif
+	XRFdc_In16((InstancePtr->io), (RegOffset + BaseAddress))
 
 /***************************************************************************/
 /**
@@ -1939,13 +1896,8 @@ extern "C" {
 *		u16 RegisterValue)
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
 #define XRFdc_WriteReg16(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out16((BaseAddress) + (RegOffset), (RegisterValue))
-#else
-#define XRFdc_WriteReg16(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out16((InstancePtr->io), (RegOffset), (RegisterValue))
-#endif
+	XRFdc_Out16((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
 
 /****************************************************************************/
 /**
@@ -1962,13 +1914,8 @@ extern "C" {
 *		u8 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
 #define XRFdc_ReadReg8(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In8((BaseAddress) + (RegOffset))
-#else
-#define XRFdc_ReadReg8(InstancePtr, BaseAddress, RegOffset) \
-	XRFdc_In8((InstancePtr->io), (RegOffset))
-#endif
+	XRFdc_In8((InstancePtr->io), (RegOffset + BaseAddress))
 
 /***************************************************************************/
 /**
@@ -1987,13 +1934,8 @@ extern "C" {
 *		u8 RegisterValue)
 *
 ******************************************************************************/
-#ifdef __BAREMETAL__
 #define XRFdc_WriteReg8(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out8((BaseAddress) + (RegOffset), (RegisterValue))
-#else
-#define XRFdc_WriteReg8(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
-	XRFdc_Out8((InstancePtr->io), (RegOffset), (RegisterValue))
-#endif
+	XRFdc_Out8((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
 
 #ifdef __cplusplus
 }
