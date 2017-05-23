@@ -1167,15 +1167,25 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	Index = Block_Id;
 	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 			(Type == XRFDC_ADC_TILE)) {
-		NoOfBlocks = 3U;
+		NoOfBlocks = 2U;
 		if (Block_Id == 1U) {
+			Index = 2;
 			NoOfBlocks = 4U;
+		}
+		if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) {
+			Index = Block_Id;
+			NoOfBlocks = 3U;
+			if (Block_Id == 1U) {
+				NoOfBlocks = 4U;
+			}
 		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
 	}
 
-	for (; Index < NoOfBlocks; Index += 2U) {
+	for (; Index < NoOfBlocks;) {
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
 			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
@@ -1341,6 +1351,15 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			QMC_Config->EnablePhase = QMC_Settings->EnablePhase;
 			QMC_Config->EnableGain = QMC_Settings->EnableGain;
 		}
+		if ((Type == XRFDC_ADC_TILE) &&
+				(InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
+				XRFDC_ADC_4GSPS)) {
+			Index += 2U;
+		} else {
+			Index += 1U;
+		}
 	}
 	(void)BaseAddr;
 
@@ -1379,12 +1398,22 @@ int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	s32 PhaseCorrectionFactor;
 	u32 GainCorrectionFactor;
 	s32 OffsetCorrectionFactor;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(QMC_Settings != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
+
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+				(Type == XRFDC_ADC_TILE) &&
+				(InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Block_Id].DataType !=
+						XRFDC_DATA_TYPE_IQ)) {
+		Block_Id = 2U;
+	}
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
@@ -1408,8 +1437,8 @@ int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-			(Block_Id == 3U))) {
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
 		Status = XRFDC_FAILURE;
 #ifdef __BAREMETAL__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
@@ -2414,11 +2443,20 @@ int XRFdc_ThresholdStickyClear(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 			Index = 2U;
 			NoOfBlocks = 4U;
 		}
+		if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) {
+			Index = Block_Id;
+			NoOfBlocks = 3U;
+			if (Block_Id == 1U) {
+				NoOfBlocks = 4U;
+			}
+		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
 	}
 
-	for (; Index < NoOfBlocks; Index++) {
+	for (; Index < NoOfBlocks;) {
 		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Index);
 		BaseAddr = InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 									XRFDC_BLOCK_ADDR_OFFSET(Index);
@@ -2461,6 +2499,14 @@ int XRFdc_ThresholdStickyClear(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 										XRFDC_ADC_TRSHD1_CFG_OFFSET, ReadReg);
 			}
 
+		}
+		if ((InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
+				XRFDC_ADC_4GSPS)) {
+			Index += 2U;
+		} else {
+			Index += 1U;
 		}
 	}
 	(void)BaseAddr;
@@ -2510,11 +2556,20 @@ int XRFdc_SetThresholdClrMode(XRFdc* InstancePtr, int Tile_Id,
 			Index = 2U;
 			NoOfBlocks = 4U;
 		}
+		if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) {
+			Index = Block_Id;
+			NoOfBlocks = 3U;
+			if (Block_Id == 1U) {
+				NoOfBlocks = 4U;
+			}
+		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
 	}
 
-	for (; Index < NoOfBlocks; Index++) {
+	for (; Index < NoOfBlocks;) {
 		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Index);
 		BaseAddr = InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 									XRFDC_BLOCK_ADDR_OFFSET(Index);
@@ -2564,6 +2619,14 @@ int XRFdc_SetThresholdClrMode(XRFdc* InstancePtr, int Tile_Id,
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_ADC_TRSHD1_CFG_OFFSET, ReadReg);
 			}
+		}
+		if ((InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
+				XRFDC_ADC_4GSPS)) {
+			Index += 2U;
+		} else {
+			Index += 1U;
 		}
 	}
 	(void)BaseAddr;
@@ -2620,11 +2683,20 @@ int XRFdc_SetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 			Index = 2U;
 			NoOfBlocks = 4U;
 		}
+		if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) {
+			Index = Block_Id;
+			NoOfBlocks = 3U;
+			if (Block_Id == 1U) {
+				NoOfBlocks = 4U;
+			}
+		}
 	} else {
 		NoOfBlocks = Block_Id + 1U;
 	}
 
-	for (; Index < NoOfBlocks; Index++) {
+	for (; Index < NoOfBlocks;) {
 		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Index);
 		Threshold_Config = &InstancePtr->ADC_Tile[Tile_Id].
 						ADCBlock_Analog_Datapath[Index].Threshold_Settings;
@@ -2762,6 +2834,14 @@ int XRFdc_SetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 								Threshold_Settings->ThresholdOverVal[1];
 			}
 		}
+		if ((InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Index].DataType ==
+				XRFDC_DATA_TYPE_IQ) && (InstancePtr->ADC4GSPS ==
+				XRFDC_ADC_4GSPS)) {
+			Index += 2U;
+		} else {
+			Index += 1U;
+		}
 	}
 	(void)BaseAddr;
 
@@ -2809,7 +2889,10 @@ int XRFdc_GetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 #endif
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U)) {
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+				(InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Digital_Config[Block_Id].DataType !=
+						XRFDC_DATA_TYPE_IQ)) {
 		Block_Id = 2U;
 	}
 
