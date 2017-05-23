@@ -779,7 +779,7 @@ extern "C" {
 #define XFSBL_PS_DDR_START_ADDRESS		(0x0U)
 #define XFSBL_PS_DDR_START_ADDRESS_R5	(0x100000U)
 
-#if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_PSU_USB_0_DEVICE_ID) && defined(XFSBL_PS_DDR))
+#if (!defined(FSBL_USB_EXCLUDE) && defined(XPAR_XUSBPSU_0_DEVICE_ID) && (XPAR_XUSBPSU_0_BASEADDR == 0xFE200000) && defined(XFSBL_PS_DDR))
 #define XFSBL_USB
 #endif
 
