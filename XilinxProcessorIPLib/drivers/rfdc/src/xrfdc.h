@@ -95,16 +95,14 @@ extern "C" {
 
 #define __BAREMETAL__
 
-#ifdef __BAREMETAL__
 #include "xil_assert.h"
 #include "xdebug.h"
-#else
 #include <metal/sys.h>
 #include <metal/device.h>
 #include <metal/irq.h>
 #include <metal/atomic.h>
 #include <metal/io.h>
-#endif
+#include "metal/alloc.h"
 #include "xrfdc_hw.h"
 
 /**************************** Type Definitions *******************************/
@@ -250,7 +248,7 @@ typedef struct {
 
 typedef struct {
 	u32 DeviceId;
-	u32 BaseAddr;
+	metal_phys_addr_t BaseAddr;
 	u32 ADCType;	/* ADC Type 4GSPS or 2GSPS*/
 	u32 MasterADCTile;	/* ADC master Tile */
 	u32 MasterDACTile;	/* DAC Master Tile */
@@ -317,13 +315,9 @@ typedef struct {
 	XRFdc_Config RFdc_Config;	/* Config Structure */
 	u32 IsReady;
 	u32 ADC4GSPS;
-#ifdef __BAREMETAL__
-	u32 BaseAddr;	/* BaseAddress */
-#else
 	metal_phys_addr_t BaseAddr;	/* BaseAddress */
 	struct metal_io_region *io;	/* Libmetal IO structure */
 	struct metal_device *device;	/* Libmetal device structure */
-#endif
 	XRFdc_DAC_Tile DAC_Tile[4];
 	XRFdc_ADC_Tile ADC_Tile[4];
 } XRFdc;
