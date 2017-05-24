@@ -727,12 +727,12 @@ extern "C" {
 #define XAE_PHY_REG_NUM_LIMIT		31	/**< Max register limit in PHY
 						  * as mandated by the spec.
 						  */
-#define XAE_LOOPS_TO_COME_OUT_OF_RST	10000	/**< Number of loops in the driver
-						 *   API to wait for before
-						 *   returning a failure case.
-						 */
+#define XAE_LOOPS_TO_COME_OUT_OF_RST	10000000 /**< Number of loops in the driver
+						  *   API to wait for before
+						  *   returning a failure case.
+						  */
 
-#define XAE_RST_DELAY_LOOPCNT_VAL	10000	/**< Timeout in ticks used
+#define XAE_RST_DELAY_LOOPCNT_VAL	10000000 /**< Timeout in ticks used
 						  *  while checking if the core
 						  *  had come out of reset. The
 						  *  exact tick time is defined
