@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet.h
-* @addtogroup axiethernet_v5_0
+* @addtogroup axiethernet_v5_6
 * @{
 * @details
 *
@@ -490,6 +490,20 @@
 * 5.5	adk 19/05/17 Increase Timeout value in the driver as per new h/w update
 * 		     i.e. Increase of transceiver initialization times in
 * 		     ultrascale+ devices (CR#976244).
+* 5.6  adk 03/07/17 Fixed issue lwip stops working as soon as something is
+*		    plugged to it`s AXI stream bus (CR#979634). Changes
+*		    are made in the driver tcl and test app tcl.
+* 5.6  adk 03/07/17 Fixed CR#979023 Intr fifo example failed to compile.
+*      ms  04/18/17 Modified tcl file to add suffix U for all macro
+*                   definitions of axiethernet in xparameters.h
+*      adk 08/08/17 Fixed CR#981893 Fix bsp compilation error for axiethernet
+*		    mcdma chiscope based designs.
+*      ms  08/16/17 Fixed compilation warnings in xaxiethernet_sinit.c
+*      adk 08/22/17 Fixed CR#983008 app generation errors for Specific IPI design.
+*      adk 08/28/17 Fixed CR#982877 couple of dsv_ced tests are failing in peripheral
+*		    app generation.
+*      adk 09/21/17 Fixed CR#985686 bsp generation error with specific design.
+*		    Changes are made in the driver tcl.
 * </pre>
 *
 ******************************************************************************/
@@ -763,6 +777,8 @@ typedef struct XAxiEthernet_Config {
 	u8 Stats;	/**< Statistics gathering option */
 	u8 Avb;		/**< Avb option */
 	u8 EnableSgmiiOverLvds;	/**< Enable LVDS option */
+	u8 Enable_1588;	/**< Enable 1588 option */
+	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G */
 
 	u8 TemacIntr;	/**< Axi Ethernet interrupt ID */
 
@@ -776,6 +792,9 @@ typedef struct XAxiEthernet_Config {
 	u8 AxiFifoIntr;	/**< AxiFifoIntr interrupt ID (unused if DMA) */
 	u8 AxiDmaRxIntr;/**< Axi DMA RX interrupt ID (unused if FIFO) */
 	u8 AxiDmaTxIntr;/**< Axi DMA TX interrupt ID (unused if FIFO) */
+	u8 AxiMcDmaChan_Cnt;  /**< Axi MCDMA Channel Count */
+	u8 AxiMcDmaRxIntr[16]; /**< Axi MCDMA Rx interrupt ID (unused if AXI DMA or FIFO) */
+	u8 AxiMcDmaTxIntr[16]; /**< AXI MCDMA TX interrupt ID (unused if AXIX DMA or FIFO) */
 } XAxiEthernet_Config;
 
 
@@ -856,6 +875,24 @@ typedef struct XAxiEthernet {
 ******************************************************************************/
 #define XAxiEthernet_IsFifo(InstancePtr) \
 	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_FIFO) ? TRUE: FALSE)
+
+/*****************************************************************************/
+/**
+*
+* XAxiEthernet_IsMcDma reports if the device is currently connected to MCDMA.
+*
+* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+*		worked on.
+* @return
+*		- TRUE if the Axi Ethernet device is connected MCDMA.
+*		- FALSE.if the Axi Ethernet device is NOT connected to MCDMA
+*
+* @note 	C-style signature:
+* 		u32 XAxiEthernet_IsMcDma(XAxiEthernet *InstancePtr)
+*
+******************************************************************************/
+#define XAxiEthernet_IsMcDma(InstancePtr) \
+	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_MCDMA) ? TRUE: FALSE)
 
 /*****************************************************************************/
 /**
@@ -1426,6 +1463,8 @@ typedef struct XAxiEthernet {
  */
 int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
 			XAxiEthernet_Config *CfgPtr,UINTPTR VirtualAddress);
+int XAxiEthernet_Initialize(XAxiEthernet *InstancePtr,
+			    XAxiEthernet_Config *CfgPtr, UINTPTR VirtualAddress);
 void XAxiEthernet_Start(XAxiEthernet *InstancePtr);
 void XAxiEthernet_Stop(XAxiEthernet *InstancePtr);
 void XAxiEthernet_Reset(XAxiEthernet *InstancePtr);
