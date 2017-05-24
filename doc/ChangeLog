@@ -41,6 +41,9 @@ zynqmp_pmufw:
 Bypass RPLL in system reset for Silicon 1.0. This is a workaround for a bug in Silicon 1.0 which was fixed in other versions of Silicon
 Binding main and lsbus top switch clocks to the DDR node to ensure that PLLs which drive these clocks do not get reset/bypassed as long as the DDR being accessed.
 
+axiethernet_v5_5:
+Increase Timeout value in the driver as per new h/w update CR#976244.
+
 Change Log for 2017.1
 =================================
 
