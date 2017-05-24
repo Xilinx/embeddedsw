@@ -134,11 +134,11 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			goto RETURN_PATH;
 		} else {
 
-			ReadReg = XRFdc_ReadReg16(InstancePtr, InstancePtr->BaseAddr,
+			ReadReg = XRFdc_ReadReg16(InstancePtr, 0x0,
 									XRFDC_COMMON_INTR_ENABLE);
 			if (Type == XRFDC_ADC_TILE) {
 				ReadReg |= (1 << (Tile_Id + 4));
-				XRFdc_WriteReg16(InstancePtr, InstancePtr->BaseAddr,
+				XRFdc_WriteReg16(InstancePtr, 0x0,
 							XRFDC_COMMON_INTR_ENABLE, ReadReg);
 				BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -173,7 +173,7 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				}
 			} else {
 				ReadReg |= (1 << Tile_Id);
-				XRFdc_WriteReg16(InstancePtr, InstancePtr->BaseAddr,
+				XRFdc_WriteReg16(InstancePtr, 0x0,
 									XRFDC_COMMON_INTR_ENABLE, ReadReg);
 				BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -439,7 +439,7 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 	 * Read the interrupt ID register to determine which
 	 * interrupt is active
 	 */
-	ReadReg = XRFdc_ReadReg16(InstancePtr, InstancePtr->BaseAddr,
+	ReadReg = XRFdc_ReadReg16(InstancePtr, 0x0,
 								XRFDC_COMMON_INTR_STS);
 	if ((ReadReg & XRFDC_EN_INTR_DAC_TILE0_MASK) != 0U) {
 		Type = 1U;
