@@ -45,6 +45,8 @@
 * 5.04  pkp  01/12/16 Added platform information support for Cortex-A53 32bit
 *					  mode
 * 6.00  mus  17/08/16 Removed unused variable from XGetPlatform_Info
+* 6.4   ms   05/23/17 Added PSU_PMU macro to support XGetPSVersion_Info
+*                     function for PMUFW.
 * </pre>
 *
 ******************************************************************************/
@@ -118,7 +120,7 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 * @return   The information about PS Silicon version.
 *
 ******************************************************************************/
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 u32 XGetPSVersion_Info()
 {
 	u32 reg;
