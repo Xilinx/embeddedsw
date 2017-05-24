@@ -432,7 +432,6 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 
 #ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
 
 	/*
