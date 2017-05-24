@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /**
@@ -35,7 +33,7 @@
 * The Xilinx AXI Ethernet MAC driver component. This driver supports hard
 * Ethernet core for Virtex-6(TM) devices and soft Ethernet core for
 * Spartan-6(TM) and other supported devices. The supported speed can be
-* 10/100/1000 Mbps and can reach upto 2000/2500 Mbps (1000Base-X versions).
+* 10/100/1000 Mbps and can reach up to 2000/2500 Mbps (1000Base-X versions).
 *
 * For a full description of AXI Ethernet features, please see the hardware
 * spec.
@@ -96,7 +94,7 @@
 * the appropriate value for the <i>EffectiveAddress</i> parameter to the
 * XAxiEthernet_CfgInitialize() routine.
 *
-* <h2>Transfering Data</h2>
+* <h2>Transferring Data</h2>
 *
 * The Axi Ethernet core by itself is not capable of transmitting or receiving
 * data in any meaningful way. Instead the Axi Ethernet device need to be
@@ -390,7 +388,7 @@
 *		      10000 in file xaxiethernet_hw.h.
 *
 * 2.00a asa  8/29/11  A new major version of AxiEthernet driver is being
-*		      released to accomodate the change in avb software. The
+*		      released to accommodate the change in avb software. The
 *		      AxiEthernet hardware v3_00_a has the latest avb
 *		      hardware which needs a corresponding change in avb
 *		      software (released in examples/avb folder). This change
@@ -404,7 +402,7 @@
 *		      Changed define for TEMAC RGMII/SGMII Config (PHYC) Reg.
 *
 * 3.00a asa  4/10/12  A new major version of AxiEthernet is being released to
-*		      accomodate the change in AVB example. From AxiEthernet
+*		      accommodate the change in AVB example. From AxiEthernet
 *		      core version 3.01a onwards the AVB implementation has
 *		      changed. The AVB module is now a part of AxiEthernet IP.
 *		      Because of this change, the AVB example works only
