@@ -34,6 +34,9 @@ standalone R5 binary with hard floating point.
 xilfpga_v2_1:
 Fixed the check logic issue in Xfpga_PL_BitStream_Load().
 
+zynqmp_fsbl:
+Added word alignement to AuthBuffer, by adding attribute.
+
 Change Log for 2017.1
 =================================
 
