@@ -140,7 +140,7 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg |= (1 << (Tile_Id + 4));
 				XRFdc_WriteReg16(InstancePtr, 0x0,
 							XRFDC_COMMON_INTR_ENABLE, ReadReg);
-				BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
+				BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_INTR_ENABLE);
 				ReadReg |= (1 << Index);
@@ -175,7 +175,7 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg |= (1 << Tile_Id);
 				XRFdc_WriteReg16(InstancePtr, 0x0,
 									XRFDC_COMMON_INTR_ENABLE, ReadReg);
-				BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
+				BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_INTR_ENABLE);
 				ReadReg |= (1 << Index);
@@ -469,7 +469,7 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
+		BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_INTR_STS);
 		if ((ReadReg & XRFDC_EN_INTR_SLICE0_MASK) != 0U) {
 			Block_Id = 0;
@@ -507,7 +507,7 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 		}
 	} else {
 		/* DAC */
-		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
+		BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_INTR_STS);
 		if ((ReadReg & XRFDC_EN_INTR_SLICE0_MASK) != 0U) {
 			Block_Id = 0;
