@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet_hw.h
-* @addtogroup axiethernet_v5_6
+* @addtogroup axiethernet_v5_7
 * @{
 *
 * This header file contains identifiers and macros that can be used to access
@@ -52,6 +52,7 @@
 * 2.00a asa  8/29/11 Added defines for Ability Reg, Identification Reg, Rx max
 *		     Frame and Tx Max Frame registers.
 *		     Changed define for TEMAC RGMII/SGMII Config (PHYC) Reg.
+* 5.70  srm  01/16/18 Added a new macro to support poll timeout implementation
 * </pre>
 
 ******************************************************************************/
@@ -728,17 +729,11 @@ extern "C" {
 #define XAE_PHY_REG_NUM_LIMIT		31	/**< Max register limit in PHY
 						  * as mandated by the spec.
 						  */
-#define XAE_LOOPS_TO_COME_OUT_OF_RST	10000000 /**< Number of loops in the driver
+#define XAE_RST_DEFAULT_TIMEOUT_VAL 1000000 /**< Timeout in us used
+						  *  while checking if the core
+						  *  had come out of reset or for the driver
 						  *   API to wait for before
 						  *   returning a failure case.
-						  */
-
-#define XAE_RST_DELAY_LOOPCNT_VAL	10000000 /**< Timeout in ticks used
-						  *  while checking if the core
-						  *  had come out of reset. The
-						  *  exact tick time is defined
-						  *  in each case/loop where it
-						  *  will be used
 						  */
 #define XAE_VLAN_TABL_STRP_FLD_LEN	1	/**< Strip field length in vlan
 						 *   table used for extended
