@@ -68,7 +68,9 @@
 *                       XHdcp1x_TxGetTopologyMaxDevsExceeded,
 *                       XHdcp1x_TxGetTopology
 * 4.1   yas    03/07/17 Updated to remove compliance failures.
-* 4.1   yas    22/04/16 Added function XHdcp1x_TxSetHdmiMode.
+* 4.1   yas    22/04/17 Added function XHdcp1x_TxSetHdmiMode.
+* 4.1   MH     11/05/17 Update to enable encryption immediately after Ro' check.
+*                       Increase timeout for topology propagation.
 * </pre>
 *
 *****************************************************************************/
@@ -101,6 +103,9 @@
 #define XVPHY_TMO_5MS		(5u)    /**< Timeout value for 5ms */
 #define XVPHY_TMO_100MS		(100u)    /**< Timeout value for 100ms */
 #define XVPHY_TMO_1SECOND	(1000u)    /**< Timeout value for 1s */
+
+#define XHDCP1X_MAX_BCAPS_RDY_POLL_CNT	(55) /**< Max times to poll on BCaps
+					  *  Ready bit at 100ms interval */
 
 /**************************** Type Definitions *******************************/
 
@@ -1220,6 +1225,7 @@ static void XHdcp1x_TxEnableEncryptionState(XHdcp1x *InstancePtr)
 			/* Enable it */
 			XHdcp1x_CipherEnableEncryption(InstancePtr,
 					InstancePtr->Tx.EncryptionMap);
+
 		}
 	}
 }
@@ -1750,10 +1756,6 @@ static void XHdcp1x_TxTestForRepeater(XHdcp1x *InstancePtr,
 		/* Log */
 		XHdcp1x_TxDebugLog(InstancePtr, "repeater detected");
 
-#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
-		/* Enable authentication if needed */
-		XHdcp1x_TxEnableEncryptionState(InstancePtr);
-#endif
 	}
 	else {
 		/* Update InstancePtr */
@@ -1807,7 +1809,6 @@ static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 			/* Otherwise */
 			else {
 				/* Update NextStatePtr */
-//				*NextStatePtr = XHDCP1X_STATE_AUTHENTICATED;
 				*NextStatePtr = XHDCP1X_STATE_DETERMINERXCAPABLE;
 
 				/* Log */
@@ -1817,6 +1818,12 @@ static void XHdcp1x_TxPollForWaitForReady(XHdcp1x *InstancePtr,
 		}
 		/* Check for cascade exceeded */
 		else {
+#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
+			/* Disable the hdcp encryption for both HDMI and DP.
+			 * But currently only doing it for HDMI. */
+			XHdcp1x_TxDisableEncryptionState(InstancePtr);
+#endif
+
 			/* Update NextStatePtr */
 			*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
 
@@ -2959,21 +2966,25 @@ static void XHdcp1x_TxRunWaitForReadyState(XHdcp1x *InstancePtr,
 			InstancePtr->Tx.WaitForReadyPollCntFlag++;
 			XHdcp1x_TxStopTimer(InstancePtr);
 			XHdcp1x_TxPollForWaitForReady(InstancePtr,
-								NextStatePtr);
-			if (InstancePtr->Tx.WaitForReadyPollCntFlag > 46) {
+						      NextStatePtr);
+			if (InstancePtr->Tx.WaitForReadyPollCntFlag >
+					XHDCP1X_MAX_BCAPS_RDY_POLL_CNT) {
 				*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
 				InstancePtr->Tx.WaitForReadyPollCntFlag = 0;
 			} else {
-				if (*NextStatePtr == XHDCP1X_STATE_READKSVLIST) {
-					/* Do nothing, timer is already stopped */
+				if (*NextStatePtr == XHDCP1X_STATE_READKSVLIST ||
+				    *NextStatePtr == XHDCP1X_STATE_UNAUTHENTICATED) {
+					/* Do nothing, timer
+					 * is already stopped */
 				} else {
 					XHdcp1x_TxStartTimer(InstancePtr, XVPHY_TMO_100MS);
 				}
 			}
 #else
-			/* Poll on DisplayPort to check if the READY bit is set. */
+			/* Poll on DisplayPort to check
+			 * if the READY bit is set. */
 			XHdcp1x_TxPollForWaitForReady(InstancePtr,
-					NextStatePtr);
+						      NextStatePtr);
 			if (*NextStatePtr == XHDCP1X_STATE_WAITFORREADY) {
 				*NextStatePtr = XHDCP1X_STATE_UNAUTHENTICATED;
 			}
@@ -3160,7 +3171,7 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		/* For the computations state */
 		case XHDCP1X_STATE_COMPUTATIONS:
 			XHdcp1x_TxStartComputations(InstancePtr,
-						NextStatePtr);
+						    NextStatePtr);
 			break;
 
 		/* For the validate rx state */
@@ -3172,8 +3183,10 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		/* For the validate rx state */
 		case XHDCP1X_STATE_TESTFORREPEATER:
 #if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
-			/* Don't enable encryption here for HDMI.
-			 * Enable it when authentication is complete. */
+			/* Enable encryption for HDMI (this will come immediately
+			 * after Ro' has been read and successfully compared). */
+			InstancePtr->Tx.EncryptionMap = 0x1;
+			XHdcp1x_TxEnableEncryptionState(InstancePtr);
 #else
 			/* Enable encryption for DP (this will come immediately
 			 * after Ro' has been read and successfully compared). */
@@ -3191,7 +3204,7 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 			XHdcp1x_TxPostEvent(InstancePtr, XHDCP1X_EVENT_TIMEOUT);
 #else
 			XHdcp1x_TxStartTimer(InstancePtr,
-							(5 * XVPHY_TMO_1SECOND));
+					     (5 * XVPHY_TMO_1SECOND));
 #endif
 
 			break;
@@ -3204,12 +3217,7 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 		/* For the authenticated state */
 		case XHDCP1X_STATE_AUTHENTICATED:
 			InstancePtr->Tx.StateHelper = 0;
-#if defined(XPAR_XV_HDMITX_NUM_INSTANCES) && (XPAR_XV_HDMITX_NUM_INSTANCES > 0)
-			/* Enable encryption here for HDMI. */
-			XHdcp1x_TxEnableEncryptionState(InstancePtr);
-#else
-			/* Already enabled encryption for DP. */
-#endif
+
 			if (InstancePtr->Tx.PreviousState !=
 					XHDCP1X_STATE_LINKINTEGRITYCHECK) {
 				InstancePtr->Tx.Stats.AuthPassed++;
@@ -3220,8 +3228,8 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 				/* Authenticated callback */
 				if (InstancePtr->Tx.IsAuthenticatedCallbackSet)
 				{
-				InstancePtr->Tx.AuthenticatedCallback
-				(InstancePtr->Tx.AuthenticatedCallbackRef);
+					InstancePtr->Tx.AuthenticatedCallback
+					(InstancePtr->Tx.AuthenticatedCallbackRef);
 				}
 			}
 
@@ -3309,7 +3317,8 @@ static void XHdcp1x_TxExitState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 
 		/* For the wait for ready state */
 		case XHDCP1X_STATE_WAITFORREADY:
-			if (*NextStatePtr == XHDCP1X_STATE_READKSVLIST) {
+			if (*NextStatePtr == XHDCP1X_STATE_READKSVLIST ||
+			    *NextStatePtr == XHDCP1X_STATE_UNAUTHENTICATED) {
 				/* Timer already stopped. */
 			} else {
 				XHdcp1x_TxStopTimer(InstancePtr);
