@@ -311,6 +311,9 @@ static int PmPowerDownFpd(void)
 		goto err;
 	}
 
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD);
+
 	/*
 	 * When FPD is powered off, the APU-GIC will be affected too.
 	 * GIC Proxy has to take over for all wake-up sources for
@@ -372,6 +375,9 @@ static int PmPowerUpFpd(void)
 	if (XST_SUCCESS != status) {
 		goto err;
 	}
+
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_FPD);
 
 	PmFpdRestoreContext();
 
