@@ -31,22 +31,88 @@
 #include "xpfw_default.h"
 #include "xpfw_xpu.h"
 
+/* XMPU/XPPU configiguration register addresses */
 #define    XMPU_DDR_0_BASE_ADDR    0xFD000000U
 #define    XMPU_DDR_1_BASE_ADDR    0xFD010000U
 #define    XMPU_DDR_2_BASE_ADDR    0xFD020000U
 #define    XMPU_DDR_3_BASE_ADDR    0xFD030000U
 #define    XMPU_DDR_4_BASE_ADDR    0xFD040000U
 #define    XMPU_DDR_5_BASE_ADDR    0xFD050000U
-#define    XMPU_FPD_BASE_ADDR    0xFD5D0000U
-#define    XMPU_OCM_BASE_ADDR    0xFFA70000U
-#define    XPPU_BASE_ADDR    0xFF980000U
+#define    XMPU_FPD_BASE_ADDR      0xFD5D0000U
+#define    XMPU_OCM_BASE_ADDR      0xFFA70000U
+#define    XPPU_BASE_ADDR          0xFF980000U
+#define    XPPU_POISON_OFFSET_ADDR 0xFF9CFF00U
 
-#define XPU_ISR_OFFSET	0x10U
-#define XPU_IER_OFFSET	0x18U
+/* XPU status register offsets */
+#define    XPU_ISR_OFFSET             0x10U
+#define    XPU_IER_OFFSET             0x18U
+#define    XPU_ERR_STATUS_1_OFFSET    0x04U
+#define    XPU_ERR_STATUS_2_OFFSET    0x08U
+#define    XPU_POISON_OFFSET          0x0CU
+
+/* XMPU error IDs to identify each error */
+#define    XMPU_REG_ACC_ERR_ON_APB            0x1U
+#define    XMPU_READ_PERMISSION_VIOLATION     0x2U
+#define    XMPU_WRITE_PERMISSION_VIOLATION    0x4U
+#define    XMPU_SECURITY_VIOLATION_ERR        0x8U
+
+/* XPPU error IDs to identify each error */
+#define    XPPU_REG_ACC_ERR_ON_APB            0x1U
+#define    XPPU_MID_NOT_FOUND                 0x2U
+#define    XPPU_MWRITE_PERMISSON_VIOLATION    0x4U
+#define    XPPU_MID_PARITY_ERROR              0x8U
+#define    XPPU_MID_ACCESS_VIOLATION          0x20U
+#define    XPPU_TRUSTZONE_VIOLATION           0x40U
+#define    XPPU_APPER_PARITY_ERROR            0x80U
+
+#ifdef XPU_INTR_DEBUG_PRINT_ENABLE
+struct XpuMasterID {
+	u32 MasterID;
+	u32 MasterIDLimit;
+	char MasterName[10];
+};
+
+/* XPU master ID LUT to identify master which caused the violation */
+struct XpuMasterID XpuMasterIDLUT[] =
+{
+		{ 0x00,  0x0F,  "RPU0" },
+		{ 0x10,  0x1F,  "RPU1" },
+		{ 0x40,  0x40,  "PMU MB" },
+		{ 0x50,  0x50,  "CSU MB" },
+		{ 0x51,  0x51,  "CSU DMA" },
+		{ 0x60,  0x60,  "USB0" },
+		{ 0x61,  0x61,  "USB1" },
+		{ 0x62,  0x62,  "DAP" },
+		{ 0x68,  0x6F,  "ADMA" },
+		{ 0x70,  0x70,  "SD0" },
+		{ 0x71,  0x71,  "SD1" },
+		{ 0x72,  0x72,  "NAND" },
+		{ 0x73,  0x73,  "QSPI" },
+		{ 0x74,  0x74,  "GEM0" },
+		{ 0x75,  0x75,  "GEM1" },
+		{ 0x76,  0x76,  "GEM2" },
+		{ 0x77,  0x77,  "GEM3" },
+		{ 0x80,  0xBF,  "APU" },
+		{ 0xC0,  0xC3,  "SATA" },
+		{ 0xC4,  0xC4,  "GPU" },
+		{ 0xC5,  0xC5,  "CoreSight" },
+		{ 0xD0,  0xD0,  "PCIe" },
+		{ 0xE0,  0xE7,  "DPDMA" },
+		{ 0xE8,  0xEF,  "GDMA" },
+		{ 0x200, 0x23F, "AFI FM0" },
+		{ 0x240, 0x27F, "AFI FM1" },
+		{ 0x280, 0x2BF, "AFI FM2" },
+		{ 0x2C0, 0x2FF, "AFI FM3" },
+		{ 0x300, 0x33F, "AFI FM4" },
+		{ 0x340, 0x37F, "AFI FM5" },
+		{ 0x380, 0x3BF, "AFI FM LPD" },
+};
+#endif
 
 struct XpuReg {
 	u32 BaseAddress;
 	u32 MaskAll;
+	char CfgName[5];
 };
 
 struct XpuReg XpuRegList[] =
@@ -54,38 +120,47 @@ struct XpuReg XpuRegList[] =
 	{
 		.BaseAddress = XMPU_DDR_0_BASE_ADDR,
 		.MaskAll = 0xFU,
+		.CfgName = "DDR0",
 	},
 	{
 		.BaseAddress = XMPU_DDR_1_BASE_ADDR,
 		.MaskAll = 0xFU,
+		.CfgName = "DDR1",
 	},
 	{
 		.BaseAddress = XMPU_DDR_2_BASE_ADDR,
 		.MaskAll = 0xFU,
+		.CfgName = "DDR2",
 	},
 	{
 		.BaseAddress = XMPU_DDR_3_BASE_ADDR,
 		.MaskAll = 0xFU,
+		.CfgName = "DDR3",
 	},
 	{
 		.BaseAddress = XMPU_DDR_4_BASE_ADDR,
 		.MaskAll = 0xFU,
+		.CfgName = "DDR4",
 	},
 	{
 		.BaseAddress = XMPU_DDR_5_BASE_ADDR,
 		.MaskAll = 0xFU,
+		.CfgName = "DDR5",
 	},
 	{
 		.BaseAddress = XMPU_FPD_BASE_ADDR,
 		.MaskAll = 0xFU,
+		.CfgName = "FPD",
 	},
 	{
 		.BaseAddress = XMPU_OCM_BASE_ADDR,
 		.MaskAll = 0xFU,
+		.CfgName = "OCM",
 	},
 	{
 		.BaseAddress = XPPU_BASE_ADDR,
 		.MaskAll = 0xEFU,
+		.CfgName = "XPPU",
 	},
 };
 
@@ -111,7 +186,160 @@ void XPfw_XpuIntrInit(void)
 void XPfw_XpuIntrAck(void)
 {
 	u32 Idx;
-	for(Idx=0; Idx < ARRAYSIZE(XpuRegList);Idx++) {
+	u32 XpuIntSts = 0;
+
+#ifdef XPU_INTR_DEBUG_PRINT_ENABLE
+	u32 Addr = 0;
+	u32 MasterID = 0;
+	u32 PoisonReg = 0;
+	u32 Offset = 0;
+	u32 MasterIdx;
+#endif
+
+	for (Idx = 0; (Idx < ARRAYSIZE(XpuRegList)) && (XpuIntSts == 0); Idx++) {
+		XpuIntSts = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_ISR_OFFSET);
+
+#ifdef XPU_INTR_DEBUG_PRINT_ENABLE
+		Addr = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_ERR_STATUS_1_OFFSET);
+		MasterID = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_ERR_STATUS_2_OFFSET);
+		PoisonReg = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_POISON_OFFSET);
+		if ((Idx < (ARRAYSIZE(XpuRegList) - 1)) && (XpuIntSts != 0)) {
+
+			switch (XpuIntSts) {
+
+				case XMPU_REG_ACC_ERR_ON_APB:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XMPU %s Register Access "
+							"Error on APB\r\n", XpuRegList[Idx].CfgName);
+				}
+				break;
+
+				case XMPU_READ_PERMISSION_VIOLATION:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XMPU %s Read permission "
+							"violation occurred\r\n", XpuRegList[Idx].CfgName);
+				}
+				break;
+
+				case XMPU_WRITE_PERMISSION_VIOLATION:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XMPU %s Write permission "
+							"violation occurred\r\n", XpuRegList[Idx].CfgName);
+				}
+				break;
+
+				case XMPU_SECURITY_VIOLATION_ERR:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XMPU %s Security violation"
+							" occurred\r\n", XpuRegList[Idx].CfgName);
+				}
+				break;
+
+				default:
+				break;
+			}
+
+			XPfw_Printf(DEBUG_DETAILED,"EM: Address of poisoned operation: "
+					"0x%x%s\r\n",Addr,"XXX");
+
+			for(MasterIdx = 0; MasterIdx < ARRAYSIZE(XpuMasterIDLUT);
+					++MasterIdx) {
+
+				if ((MasterID >= XpuMasterIDLUT[MasterIdx].MasterID) &&
+					  (MasterID <= XpuMasterIDLUT[MasterIdx].MasterIDLimit)) {
+
+					XPfw_Printf(DEBUG_DETAILED,"EM: Master Device of poisoned "
+							"operation: %s\r\n",
+							XpuMasterIDLUT[MasterIdx].MasterName);
+					break;
+				}
+			}
+
+			XPfw_Printf(DEBUG_DETAILED,"EM: Poison register: 0x%x\r\n",
+					PoisonReg);
+		} else if ((Idx == (ARRAYSIZE(XpuRegList) - 1)) && (XpuIntSts != 0)) {
+
+			Offset = XPfw_Read32(XPPU_POISON_OFFSET_ADDR);
+
+			switch (XpuIntSts) {
+
+				case XPPU_REG_ACC_ERR_ON_APB:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Register access error"
+						" on APB. A register access was requested to an "
+						"unimplemented register location\r\n");
+				}
+				break;
+
+				case XPPU_MID_NOT_FOUND:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Master ID "
+						"not found\r\n");
+				}
+				break;
+
+				case XPPU_MWRITE_PERMISSON_VIOLATION:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Read permission "
+						"violation. Master attempted a write, but the master "
+						"has read-only permission\r\n");
+				}
+				break;
+
+				case XPPU_MID_PARITY_ERROR:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Master ID parity "
+							"error\r\n");
+				}
+				break;
+
+				case XPPU_MID_ACCESS_VIOLATION:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Master ID access "
+							"violation\r\n");
+				}
+				break;
+
+				case XPPU_TRUSTZONE_VIOLATION:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU TrustZone Violation. "
+						"A non-secure master attempted to access a secure "
+						"memory location\r\n");
+				}
+				break;
+
+				case XPPU_APPER_PARITY_ERROR:
+				{
+					XPfw_Printf(DEBUG_DETAILED,"EM: XPPU Aperture parity "
+							"Error\r\n");
+				}
+				break;
+
+				default:
+				break;
+			}
+
+			Addr = (Addr << 12) | Offset;
+			XPfw_Printf(DEBUG_DETAILED,"EM: Address of poisoned operation: "
+					"0x%x\r\n",Addr);
+			for(MasterIdx = 0; MasterIdx < ARRAYSIZE(XpuMasterIDLUT);
+					++MasterIdx) {
+
+				if ((MasterID >= XpuMasterIDLUT[MasterIdx].MasterID) &&
+					  (MasterID <= XpuMasterIDLUT[MasterIdx].MasterIDLimit)) {
+
+					XPfw_Printf(DEBUG_DETAILED,"EM: Master Device of poisoned "
+						"operation: %s\r\n",
+						XpuMasterIDLUT[MasterIdx].MasterName);
+					break;
+				}
+			}
+			XPfw_Printf(DEBUG_DETAILED,"EM: Poison register : 0x%x\r\n",
+					PoisonReg);
+		} else {
+			/* For MISRA C compliance */
+		}
+#endif
 		/* Ack the Interrupts */
 		XPfw_Write32(XpuRegList[Idx].BaseAddress + XPU_ISR_OFFSET,
 						XpuRegList[Idx].MaskAll);
@@ -127,7 +355,11 @@ void XPfw_XpuIntrAck(void)
  */
 void XPfw_XpuIntrHandler(u8 ErrorId)
 {
+	XPfw_Printf(DEBUG_DETAILED,
+		"============================================================\r\n");
 	XPfw_Printf(DEBUG_DETAILED,"EM: XMPU/XPPU violation occurred "
 			"(ErrorId: %d)\r\n", ErrorId);
 	XPfw_XpuIntrAck();
+	XPfw_Printf(DEBUG_DETAILED,
+		"============================================================\r\n");
 }
