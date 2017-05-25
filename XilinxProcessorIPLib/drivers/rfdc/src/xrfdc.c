@@ -60,6 +60,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 static void XRFdc_RestartIPSM(XRFdc* InstancePtr, u32 BaseAddress, u32 Start,
 								u32 End);
+static void StubHandler(void *CallBackRef, u32 Type, int Tile_Id,
+								u32 Block_Id, u32 StatusEvent);
 /************************** Function Prototypes ******************************/
 
 /*****************************************************************************/
@@ -101,6 +103,7 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 	InstancePtr->BaseAddr = Config->BaseAddr;
 	InstancePtr->RFdc_Config = *Config;
 	InstancePtr->ADC4GSPS = Config->ADCType;
+	InstancePtr->StatusHandler = StubHandler;
 
 	for (Tile_Id = 0; Tile_Id < 4U; Tile_Id++) {
 		InstancePtr->ADC_Tile[Tile_Id].NumOfADCBlocks = 0;
@@ -3143,6 +3146,34 @@ void XRFdc_DumpRegs(XRFdc* InstancePtr, u32 Type, int Tile_Id)
 	}
 	(void)BaseAddr;
 	(void)ReadReg;
+}
+
+/*****************************************************************************/
+/**
+*
+* This is a stub for the status callback. The stub is here in case the upper
+* layers forget to set the handler.
+*
+* @param	CallBackRef is a pointer to the upper layer callback reference.
+* @param	Type indicates ADC/DAC.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param	Block_Id indicates Block number (0-3).
+* @param	StatusEvent indicates one or more interrupt occurred.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void StubHandler(void *CallBackRef, u32 Type, int Tile_Id,
+								u32 Block_Id, u32 StatusEvent)
+{
+	(void) ((void *)CallBackRef);
+	(void) Type;
+	(void) Tile_Id;
+	(void) Block_Id;
+	(void) StatusEvent;
+	Xil_AssertVoidAlways();
 }
 
 /** @} */

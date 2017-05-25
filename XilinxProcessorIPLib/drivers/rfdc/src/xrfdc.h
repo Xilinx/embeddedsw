@@ -116,6 +116,23 @@ typedef __u64 u64;
 #endif
 
 /**
+* The handler data type allows the user to define a callback function to
+* respond to interrupt events in the system. This function is executed
+* in interrupt context, so amount of processing should be minimized.
+*
+* @param	CallBackRef is the callback reference passed in by the upper
+*		layer when setting the callback functions, and passed back to
+*		the upper layer when the callback is invoked. Its type is
+*		not important to the driver, so it is a void pointer.
+* @param	Type indicates ADC/DAC.
+* @param	Tile_Id indicates Tile number (0-3).
+* @param	Block_Id indicates Block number (0-3).
+* @param	StatusEvent indicates one or more interrupt occurred.
+*/
+typedef void (*XRFdc_StatusHandler) (void *CallBackRef, u32 Type, int Tile_Id,
+				u32 Block_Id, u32 StatusEvent);
+
+/**
  * PLL settings.
  */
 typedef struct {
@@ -320,6 +337,8 @@ typedef struct {
 	struct metal_device *device;	/* Libmetal device structure */
 	XRFdc_DAC_Tile DAC_Tile[4];
 	XRFdc_ADC_Tile ADC_Tile[4];
+	XRFdc_StatusHandler StatusHandler;	/* Event handler function */
+	void *CallBackRef;			/* Callback reference for event handler */
 } XRFdc;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -835,7 +854,7 @@ void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 void XRFdc_GetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				u32 AnalogDataPath, u32 * ConnectedIData,
 				u32 * ConnectedQData);
-void XRFdc_IntrHandler(void * XRFdcPtr);
+void XRFdc_IntrHandler(int Vector, void * XRFdcPtr);
 u32 XRFdc_GetIntrStatus (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id);
 void XRFdc_IntrDisable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
@@ -845,6 +864,8 @@ void XRFdc_IntrEnable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 int XRFdc_StickyClear(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id);
 int XRFdc_SetOutputCurrent(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 								u32 OutputCurrent);
+void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
+				XRFdc_StatusHandler FunctionPtr);
 
 #ifdef __cplusplus
 }
