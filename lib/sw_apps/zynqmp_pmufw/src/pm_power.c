@@ -420,6 +420,10 @@ static void PmPowerForceDownRpu(PmPower* const power)
  */
 static int PmPowerDownPld(void)
 {
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1);
+
 	return XpbrPwrDnPldHandler();
 }
 
@@ -429,7 +433,17 @@ static int PmPowerDownPld(void)
  */
 static int PmPowerUpPld(void)
 {
-	return XpbrPwrUpPldHandler();
+	u32 status;
+	status = XpbrPwrUpPldHandler();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_AFI_FS2);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS1);
+done:
+	return status;
 }
 
 /**
