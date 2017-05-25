@@ -413,6 +413,7 @@ RETURN_PATH:
 * It must be connected to an interrupt system by the application such that it
 * can be called when an interrupt occurs.
 *
+* @param	Vector is interrupt vector number
 * @param	XRFdcPtr contains a pointer to the driver instance
 *
 * @return	None.
@@ -420,7 +421,7 @@ RETURN_PATH:
 * @note		None.
 *
 ******************************************************************************/
-void XRFdc_IntrHandler(void * XRFdcPtr)
+void XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 {
 	XRFdc *InstancePtr = (XRFdc *)XRFdcPtr;
 	u32 Intrsts;
@@ -429,11 +430,13 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 	u32 ReadReg;
 	u16 Type = 0U;
 	u32 BaseAddr;
+	u32 IntrMask = 0x0U;
 
 #ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
 #endif
 
+	(void) Vector;
 	/*
 	 * Read the interrupt ID register to determine which
 	 * interrupt is active
@@ -484,6 +487,7 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id)
 							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
+			IntrMask = Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
 			metal_log(LOG_DEBUG, "\n ADC FIFO interface interrupt \r\n");
 			/* Clear the interrupt */
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
@@ -491,6 +495,7 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 					(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK));
 		}
 		if ((Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
+			IntrMask = Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK;
 			metal_log(LOG_DEBUG, "\n ADC Decoder interface interrupt \r\n");
 			/* Clear the interrupt */
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
@@ -498,6 +503,7 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) >> 16);
 		}
 		if ((Intrsts & XRFDC_ADC_IXR_INTP_STG_MASK) != 0U) {
+			IntrMask = Intrsts & XRFDC_ADC_IXR_INTP_STG_MASK;
 			metal_log(LOG_DEBUG, "\n ADC Data Path interface interrupt \r\n");
 			/* Clear the interrupt */
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
@@ -521,6 +527,7 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id)
 							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
+			IntrMask = Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
 			metal_log(LOG_DEBUG, "\n DAC FIFO interface interrupt \r\n");
 			/* Clear the interrupt */
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
@@ -528,6 +535,7 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK));
 		}
 		if ((Intrsts & XRFDC_DAC_IXR_INTP_STG_MASK) != 0U) {
+			IntrMask = Intrsts & XRFDC_DAC_IXR_INTP_STG_MASK;
 			metal_log(LOG_DEBUG, "\n DAC Data Path interface interrupt \r\n");
 			/* Clear the interrupt */
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
@@ -536,5 +544,45 @@ void XRFdc_IntrHandler(void * XRFdcPtr)
 		}
 	}
 	(void)BaseAddr;
+
+	/* Disable the interrupt */
+	XRFdc_IntrDisable(InstancePtr, Type, Tile_Id, Block_Id, IntrMask);
+
+	InstancePtr->StatusHandler(InstancePtr->CallBackRef, Type, Tile_Id,
+								Block_Id, IntrMask);
 }
+
+/*****************************************************************************/
+/**
+*
+* This function sets the status callback function, the status handler, which the
+* driver calls when it encounters conditions that should be reported to the
+* higher layer software. The handler executes in an interrupt context, so
+* the amount of processing should be minimized
+*
+*
+* @param	InstancePtr is a pointer to the XRFdc instance.
+* @param	CallBackRef is the upper layer callback reference passed back
+*		when the callback function is invoked.
+* @param	FunctionPtr is the pointer to the callback function.
+*
+* @return	None.
+*
+* @note
+*
+* The handler is called within interrupt context, so it should finish its
+* work quickly.
+*
+******************************************************************************/
+void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
+				XRFdc_StatusHandler FunctionPtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(FunctionPtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+
+	InstancePtr->StatusHandler = FunctionPtr;
+	InstancePtr->CallBackRef = CallBackRef;
+}
+
 /** @} */
