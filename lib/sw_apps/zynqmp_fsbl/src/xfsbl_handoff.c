@@ -759,29 +759,9 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 		goto END;
 	}
 
-	/* FSBL shall bypass XPPU and FPD XMPU configuration BY DEFAULT.
-	*  This means though the Isolation configuration through hdf is used throughout the
-	*  software flow, for the hardware, isolation will only be limited to just OCM.
-	*/
-#ifdef XFSBL_PROT_BYPASS
-	XFsbl_ProtectionConfig();
-#else
-	/* Apply protection configuration */
-	Status = (u32)psu_protection();
-	if (Status != XFSBL_SUCCESS) {
-		Status = XFSBL_ERROR_PROTECTION_CFG;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
-		goto END;
-	}
 
-	/* Lock XMPU/XPPU for further access */
-	Status = (u32)psu_protection_lock();
-	if (Status != XFSBL_SUCCESS) {
-		Status = XFSBL_ERROR_PROTECTION_CFG;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
-		goto END;
-	}
-#endif
+	XFsbl_ProtectionConfig();
+
 	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
 
 	}
@@ -1177,7 +1157,44 @@ u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 *****************************************************************************/
 static void XFsbl_ProtectionConfig(void)
 {
+	u32 CfgRegVal1;
+	u32 CfgRegVal3;
+
+	/* Disable Tamper responses*/
+	CfgRegVal1 = XFsbl_In32(XFSBL_PS_SYSMON_CONFIGREG1);
+	CfgRegVal3 = XFsbl_In32(XFSBL_PS_SYSMON_CONFIGREG3);
+
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG1,CfgRegVal1 | XFSBL_PS_SYSMON_CFGREG1_ALRM_DISBL_MASK);
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG3, CfgRegVal3 | XFSBL_PS_SYSMON_CFGREG3_ALRM_DISBL_MASK);
+
+	/* FSBL shall bypass XPPU and FPD XMPU configuration BY DEFAULT.
+	*  This means though the Isolation configuration through hdf is used throughout the
+	*  software flow, for the hardware, isolation will only be limited to just OCM.
+	*/
+#ifdef XFSBL_PROT_BYPASS
 	psu_apply_master_tz();
 	psu_ocm_protection();
+#else
+	/* Apply protection configuration */
+	Status = (u32)psu_protection();
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PROTECTION_CFG;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
+		goto END;
+	}
+
+	/* Lock XMPU/XPPU for further access */
+	Status = (u32)psu_protection_lock();
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PROTECTION_CFG;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
+		goto END;
+	}
+#endif
+
+	/*Enable Tamper responses*/
+
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG1, CfgRegVal1);
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG3, CfgRegVal3);
 }
 #endif
