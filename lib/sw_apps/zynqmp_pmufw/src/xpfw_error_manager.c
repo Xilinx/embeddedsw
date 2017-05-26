@@ -325,3 +325,20 @@ s32 XPfw_EmEnablePSError(u8 ErrorId)
 Done:
 	return Status;
 }
+
+void XPfw_PulseErrorInt(void)
+{
+	u32 IntMaskReg1;
+	u32 IntMaskReg2;
+
+	IntMaskReg1 = ~(XPfw_Read32(PMU_GLOBAL_ERROR_INT_MASK_1));
+	IntMaskReg2 = ~(XPfw_Read32(PMU_GLOBAL_ERROR_INT_MASK_2));
+
+	/* Disable PMU interrupts in PMU Global register */
+	XPfw_Write32(PMU_GLOBAL_ERROR_INT_DIS_1, IntMaskReg1);
+	XPfw_Write32(PMU_GLOBAL_ERROR_INT_DIS_2, IntMaskReg2);
+
+	/* Enable PMU interrupts in PMU Global register */
+	XPfw_Write32(PMU_GLOBAL_ERROR_INT_EN_1, IntMaskReg1);
+	XPfw_Write32(PMU_GLOBAL_ERROR_INT_EN_2, IntMaskReg2);
+}

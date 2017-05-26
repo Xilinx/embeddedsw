@@ -32,7 +32,7 @@
 #include "xpfw_events.h"
 #include "xpfw_core.h"
 #include "xil_exception.h"
-
+#include "xpfw_error_manager.h"
 /**
  * InterruptRegister holds the state of the IRQ Enable Register
  *
@@ -377,6 +377,12 @@ void XPfw_InterruptHandler(void)
 						g_TopLevelInterruptTable[l_index].Mask);
 			}
 		}
+
+		/* Disable and Enable PMU interrupts in PMU Global register.
+		 * This will re-generated any interrupt which is generated while
+		 * serving the other interrupt
+		 */
+		XPfw_PulseErrorInt();
 	} else {
 		/* We shouldnt be here before Init, but we are.. So disable the Interrupts */
 		/* Init will enable only the required interrupts */

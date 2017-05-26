@@ -120,4 +120,9 @@ s32 XPfw_EmProcessError(u8 ErrorType);
  */
 s32 XPfw_EmEnablePSError(u8 ErrorId);
 
+/**
+ * Disable and re-enable PMU interrupts in PMU Global register
+ */
+void XPfw_PulseErrorInt(void);
+
 #endif /* XPFW_ERROR_MANAGER_H_ */
