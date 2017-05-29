@@ -23,6 +23,10 @@ ipipsu_v2_3:
 Added suffix U for all macros of ipipsu in xparameters.h
 Fix for CR-963131.
 
+qspispu_v1_5:
+Added support for accessing upper DDR in qspi boot mode and example.
+Fix for CR-972531
+
 scugic_v3_7:
 Added suffix U for all macros of scugic in xparameters.h
 Fix for CR-963131.
