@@ -118,6 +118,8 @@
 *                    examples to recognize it as documentation block
 *                    and modified filename tag to include them in
 *                    doxygen examples.
+* 1.4	tjs 05/26/17 Added support for accessing upper DDR (0x800000000)
+*		     while booting images from QSPI
 * </pre>
 *
 ******************************************************************************/
