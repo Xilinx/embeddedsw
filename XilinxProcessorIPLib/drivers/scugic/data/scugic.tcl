@@ -56,6 +56,10 @@
 #		      application support for cortex-a53 64bit mode
 # 3.7   ms   04/11/17 Modified tcl file to add U suffix for all macros
 #                     in xparameters.h
+# 3.8   mus  05/25/17 Updated proc xdefine_gic_params to declare "valid_periph"
+#                     variable at start of the proc, to avoid the tcl errors
+#                     in case of unsupported processor.It fixes CR#976861
+#
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -434,6 +438,7 @@ proc xdefine_gic_params {drvhandle} {
     # Next define interrupt IDs for each connected peripheral
 
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
+    set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
