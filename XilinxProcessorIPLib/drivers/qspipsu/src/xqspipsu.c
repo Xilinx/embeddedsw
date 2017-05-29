@@ -1136,13 +1136,15 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 			XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET,
 			(u32)AddrTemp);
 
-	AddrTemp = AddrTemp >> 32;
+#ifdef __aarch64__
+	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
 	if ((AddrTemp & 0xFFFU) != FALSE) {
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
 				(u32)AddrTemp &
 				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
 	}
+#endif
 
 	Remainder = InstancePtr->RxBytes % 4;
 	DmaRxBytes = InstancePtr->RxBytes;
