@@ -8,6 +8,9 @@ xilfpga_v3_0:
 Added PL configuration registers readback support.
 Added Device-key Encrypted BitStream Loading support to the xilfpga library.
 
+sdps_v3_3:
+Add support for 64bit DMA addressing
+
 Changes for 2017.2
 ================================
 
