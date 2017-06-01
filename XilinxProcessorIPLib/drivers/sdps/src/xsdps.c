@@ -78,6 +78,7 @@
 *       sk     02/01/17 Added HSD and DDR mode support for eMMC.
 *       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
 *       sk     03/20/17 Add support for EL1 non-secure mode.
+* 3.3   mn     05/17/17 Add support for 64bit DMA addressing
 * </pre>
 *
 ******************************************************************************/
@@ -257,10 +258,18 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_POWER_CTRL_OFFSET,
 			PowerLevel | XSDPS_PC_BUS_PWR_MASK);
+
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 	/* Enable ADMA2 in 64bit mode. */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL1_OFFSET,
+			XSDPS_HC_DMA_ADMA2_64_MASK);
+#else
+	/* Enable ADMA2 in 32bit mode. */
+	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+			XSDPS_HOST_CTRL1_OFFSET,
 			XSDPS_HC_DMA_ADMA2_32_MASK);
+#endif
 
 	/* Enable all interrupt status except card interrupt initially */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
@@ -541,7 +550,7 @@ static u8 ExtCsd[512];
 #else
 static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 #endif
-	u8 SCR[8] = { 0U };
+	u8 SCR[8] __attribute__ ((aligned(32))) = { 0U };
 	u8 ReadBuff[64] = { 0U };
 	s32 Status;
 	u32 Arg;
@@ -1463,8 +1472,13 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	}
 
 	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+		InstancePtr->Adma2_DescrTbl[DescNum].Address =
+				(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+#else
 		InstancePtr->Adma2_DescrTbl[DescNum].Address =
 				(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+#endif
 		InstancePtr->Adma2_DescrTbl[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
 		/* This will write '0' to length field which indicates 65536 */
@@ -1472,8 +1486,13 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 				(u16)XSDPS_DESC_MAX_LENGTH;
 	}
 
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
+			(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+#else
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
 			(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+#endif
 
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
@@ -1481,6 +1500,10 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
 			(u16)((BlkCnt*BlkSize) - (DescNum*XSDPS_DESC_MAX_LENGTH));
 
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
+			(u32)((u64)&(InstancePtr->Adma2_DescrTbl[0]))>>32);
+#endif
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
 			(u32)(UINTPTR)&(InstancePtr->Adma2_DescrTbl[0]));
