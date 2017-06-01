@@ -144,6 +144,7 @@
 *       sk     02/01/17 Consider bus width parameter from design for switching
 *       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
 *       sk     03/20/17 Add support for EL1 non-secure mode.
+* 3.3   mn     05/17/17 Add support for 64bit DMA addressing
 *
 * </pre>
 *
@@ -190,8 +191,12 @@ typedef struct {
 typedef struct {
 	u16 Attribute;		/**< Attributes of descriptor */
 	u16 Length;		/**< Length of current dma transfer */
+#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+	u64 Address;		/**< Address of current dma transfer */
+#else
 	u32 Address;		/**< Address of current dma transfer */
-} XSdPs_Adma2Descriptor;
+#endif
+}  __attribute__((__packed__))XSdPs_Adma2Descriptor;
 
 /**
  * The XSdPs driver instance data. The user is required to allocate a
