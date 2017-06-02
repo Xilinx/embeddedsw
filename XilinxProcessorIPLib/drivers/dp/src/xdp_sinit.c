@@ -46,6 +46,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
+ * 5.3   tu   02/06/17 Initialize CfgPtr to NULL.
  * </pre>
  *
 *******************************************************************************/
@@ -81,7 +82,7 @@ extern XDp_Config XDp_ConfigTable[XPAR_XDP_NUM_INSTANCES];
 *******************************************************************************/
 XDp_Config *XDp_LookupConfig(u16 DeviceId)
 {
-	XDp_Config *CfgPtr;
+	XDp_Config *CfgPtr = NULL;
 	u32 Index;
 
 	for (Index = 0; Index < XPAR_XDP_NUM_INSTANCES; Index++) {
