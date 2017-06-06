@@ -35261,6 +35261,16 @@
 #define USB3_0_XHCI_GUCTL1_RESUME_TERMSEL_XCVRSEL_UNIFY_MASK   0x00000400U
 
 /*
+* Reserved
+*/
+#undef USB3_0_XHCI_GUCTL1_RESERVED_9_DEFVAL
+#undef USB3_0_XHCI_GUCTL1_RESERVED_9_SHIFT
+#undef USB3_0_XHCI_GUCTL1_RESERVED_9_MASK
+#define USB3_0_XHCI_GUCTL1_RESERVED_9_DEFVAL                   0x00000000
+#define USB3_0_XHCI_GUCTL1_RESERVED_9_SHIFT                    9
+#define USB3_0_XHCI_GUCTL1_RESERVED_9_MASK                     0x00000200U
+
+/*
 * Host IN Auto Retry (USBHstInAutoRetryEn) When set, this field enables th
     * e Auto Retry feature. For IN transfers (non-isochronous) that encounter
     * data packets with CRC errors or internal overrun scenarios, the auto ret
@@ -35277,18 +35287,6 @@
 #define USB3_0_XHCI_GUCTL_USBHSTINAUTORETRYEN_DEFVAL           0x00000000
 #define USB3_0_XHCI_GUCTL_USBHSTINAUTORETRYEN_SHIFT            14
 #define USB3_0_XHCI_GUCTL_USBHSTINAUTORETRYEN_MASK             0x00004000U
-
-/*
-* Disable U1/U2 timer Scaledown (U1U2TimerScale). If set to '1' along with
-    *  GCTL[5:4] (ScaleDown) = 2'bX1, disables the scale down of U1/U2 inactiv
-    * e timer values. This is for simulation mode only.
-*/
-#undef USB3_0_XHCI_GCTL_U1U2TIMERSCALE_DEFVAL
-#undef USB3_0_XHCI_GCTL_U1U2TIMERSCALE_SHIFT
-#undef USB3_0_XHCI_GCTL_U1U2TIMERSCALE_MASK
-#define USB3_0_XHCI_GCTL_U1U2TIMERSCALE_DEFVAL                 0x00693004
-#define USB3_0_XHCI_GCTL_U1U2TIMERSCALE_SHIFT                  9
-#define USB3_0_XHCI_GCTL_U1U2TIMERSCALE_MASK                   0x00000200U
 
 /*
 * If TRUE Completion Timeout Disable is supported. This is required to be
