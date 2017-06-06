@@ -21,6 +21,11 @@
 #include <xil_io.h>
 #include <sleep.h>
 #include "psu_init_gpl.h"
+#define    DPLL_CFG_LOCK_DLY        63
+#define    DPLL_CFG_LOCK_CNT        625
+#define    DPLL_CFG_LFHF            3
+#define    DPLL_CFG_CP              3
+#define    DPLL_CFG_RES             2
 
 static int mask_pollOnValue(u32 add, u32 mask, u32 value);
 
@@ -29,6 +34,9 @@ static int mask_poll(u32 add, u32 mask);
 static void mask_delay(u32 delay);
 
 static u32 mask_read(u32 add, u32 mask);
+
+static void dpll_prog(int ddr_pll_fbdiv, int d_lock_dly,
+	int d_lock_cnt, int d_lfhf, int d_cp, int d_res);
 
 static
 void PSU_Mask_Write(unsigned long offset, unsigned long mask,
@@ -10665,6 +10673,9 @@ unsigned long psu_ddr_init_data(void)
 /*##################################################################### */
 
     /*
+    * PHY_PIR
+    */
+    /*
     * Register : PIR @ 0XFD080004
 
     * Reserved. Return zeroes on reads.
@@ -15876,16 +15887,16 @@ unsigned long psu_peripherals_init_data(void)
 
     * Frequency in number of ticks per second. Valid range from 10 MHz to 100
     * MHz.
-    *  PSU_IOU_SCNTRS_BASE_FREQUENCY_ID_REGISTER_FREQ              0x5f5e100
+    *  PSU_IOU_SCNTRS_BASE_FREQUENCY_ID_REGISTER_FREQ              0x5f5dd18
 
     * Program this register to match the clock frequency of the timestamp gene
     * rator, in ticks per second. For example, for a 50 MHz clock, program 0x0
     * 2FAF080. This register is not accessible to the read-only programming in
     * terface.
-    * (OFFSET, MASK, VALUE)      (0XFF260020, 0xFFFFFFFFU ,0x05F5E100U)
+    * (OFFSET, MASK, VALUE)      (0XFF260020, 0xFFFFFFFFU ,0x05F5DD18U)
     */
 	PSU_Mask_Write(IOU_SCNTRS_BASE_FREQUENCY_ID_REGISTER_OFFSET,
-		0xFFFFFFFFU, 0x05F5E100U);
+		0xFFFFFFFFU, 0x05F5DD18U);
 /*##################################################################### */
 
     /*
@@ -19866,10 +19877,13 @@ unsigned long psu_resetout_init_data(void)
     * end of resume itself (only 1 command will be issued)
     *  PSU_USB3_0_XHCI_GUCTL1_RESUME_TERMSEL_XCVRSEL_UNIFY         0x1
 
+    * Reserved
+    *  PSU_USB3_0_XHCI_GUCTL1_RESERVED_9                           0x1
+
     * Global User Control Register 1
-    * (OFFSET, MASK, VALUE)      (0XFE20C11C, 0x00000400U ,0x00000400U)
+    * (OFFSET, MASK, VALUE)      (0XFE20C11C, 0x00000600U ,0x00000600U)
     */
-	PSU_Mask_Write(USB3_0_XHCI_GUCTL1_OFFSET, 0x00000400U, 0x00000400U);
+	PSU_Mask_Write(USB3_0_XHCI_GUCTL1_OFFSET, 0x00000600U, 0x00000600U);
 /*##################################################################### */
 
     /*
@@ -21425,6 +21439,49 @@ return 1;
 #define CRF_APB_RST_DDR_SS    ((CRF_APB_BASEADDR) + 0X00000108U)
 #define PSU_MASK_POLL_TIME 1100000
 
+/**
+ *  * Register: CRF_APB_DPLL_CTRL
+ *   */
+#define CRF_APB_DPLL_CTRL    ( ( CRF_APB_BASEADDR ) + 0X0000002C )
+
+
+#define CRF_APB_DPLL_CTRL_DIV2_SHIFT   16
+#define CRF_APB_DPLL_CTRL_DIV2_WIDTH   1
+
+#define CRF_APB_DPLL_CTRL_FBDIV_SHIFT   8
+#define CRF_APB_DPLL_CTRL_FBDIV_WIDTH   7
+
+#define CRF_APB_DPLL_CTRL_BYPASS_SHIFT   3
+#define CRF_APB_DPLL_CTRL_BYPASS_WIDTH   1
+
+#define CRF_APB_DPLL_CTRL_RESET_SHIFT   0
+#define CRF_APB_DPLL_CTRL_RESET_WIDTH   1
+
+/**
+ *  * Register: CRF_APB_DPLL_CFG
+ *   */
+#define CRF_APB_DPLL_CFG    ( ( CRF_APB_BASEADDR ) + 0X00000030 )
+
+#define CRF_APB_DPLL_CFG_LOCK_DLY_SHIFT   25
+#define CRF_APB_DPLL_CFG_LOCK_DLY_WIDTH   7
+
+#define CRF_APB_DPLL_CFG_LOCK_CNT_SHIFT   13
+#define CRF_APB_DPLL_CFG_LOCK_CNT_WIDTH   10
+
+#define CRF_APB_DPLL_CFG_LFHF_SHIFT   10
+#define CRF_APB_DPLL_CFG_LFHF_WIDTH   2
+
+#define CRF_APB_DPLL_CFG_CP_SHIFT   5
+#define CRF_APB_DPLL_CFG_CP_WIDTH   4
+
+#define CRF_APB_DPLL_CFG_RES_SHIFT   0
+#define CRF_APB_DPLL_CFG_RES_WIDTH   4
+
+/**
+ * Register: CRF_APB_PLL_STATUS
+ */
+#define CRF_APB_PLL_STATUS    ( ( CRF_APB_BASEADDR ) + 0X00000044 )
+
 
 static int mask_pollOnValue(u32 add, u32 mask, u32 value)
 {
@@ -21462,6 +21519,82 @@ static u32 mask_read(u32 add, u32 mask)
 	volatile u32 *addr = (volatile u32 *)(unsigned long) add;
 	u32 val = (*addr & mask);
 	return val;
+}
+
+static void dpll_prog(int ddr_pll_fbdiv, int d_lock_dly, int d_lock_cnt,
+	int d_lfhf, int d_cp, int d_res) {
+
+  unsigned int pll_ctrl_regval;
+  unsigned int pll_status_regval;
+
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_DIV2_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (1 << CRF_APB_DPLL_CTRL_DIV2_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LOCK_DLY_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (d_lock_dly << CRF_APB_DPLL_CFG_LOCK_DLY_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LOCK_CNT_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (d_lock_cnt << CRF_APB_DPLL_CFG_LOCK_CNT_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_LFHF_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (d_lfhf << CRF_APB_DPLL_CFG_LFHF_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_CP_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (d_cp << CRF_APB_DPLL_CFG_CP_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CFG);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CFG_RES_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (d_res << CRF_APB_DPLL_CFG_RES_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CFG, pll_ctrl_regval);
+
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_FBDIV_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (ddr_pll_fbdiv << CRF_APB_DPLL_CTRL_FBDIV_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+
+  //Setting PLL BYPASS
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_BYPASS_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (1 << CRF_APB_DPLL_CTRL_BYPASS_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+
+  //Setting PLL RESET
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_RESET_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (1 << CRF_APB_DPLL_CTRL_RESET_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+
+  //Clearing PLL RESET
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_RESET_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (0 << CRF_APB_DPLL_CTRL_RESET_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+
+  //Checking PLL lock
+  pll_status_regval = 0x00000000;
+  while((pll_status_regval & CRF_APB_PLL_STATUS_DPLL_LOCK_MASK) != CRF_APB_PLL_STATUS_DPLL_LOCK_MASK) {
+    pll_status_regval = Xil_In32(CRF_APB_PLL_STATUS);
+  }
+
+
+
+
+  //Clearing PLL BYPASS
+  pll_ctrl_regval = Xil_In32(CRF_APB_DPLL_CTRL);
+  pll_ctrl_regval = pll_ctrl_regval & (~CRF_APB_DPLL_CTRL_BYPASS_MASK);
+  pll_ctrl_regval = pll_ctrl_regval | (0 << CRF_APB_DPLL_CTRL_BYPASS_SHIFT);
+  Xil_Out32(CRF_APB_DPLL_CTRL, pll_ctrl_regval);
+
 }
 
 /*Following SERDES programming sequences that a user need to follow to work
