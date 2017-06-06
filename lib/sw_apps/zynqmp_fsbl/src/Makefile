@@ -56,8 +56,8 @@ OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
 
-MISC_DIR := ../misc/
-BSP_DIR	:= $(MISC_DIR)/zynqmp_fsbl_bsp/
+MISC_DIR := ../misc
+BSP_DIR	:= $(MISC_DIR)/zynqmp_fsbl_bsp
 
 ifeq "${PROC}" "a53"
 ifeq "${A53_STATE}" "64"
@@ -78,7 +78,7 @@ endif
 ifeq "${PROC}" "r5"
 A53_STATE :=
 CC := armr5-none-eabi-gcc
-CC_FLAGS := -MMD -MP -Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=soft -DARMR5 -Wall -Wextra -Os -flto -ffat-lto-objects
+CC_FLAGS := -MMD -MP -Wall -fmessage-length=0 -mcpu=cortex-r5 -mfloat-abi=hard -DARMR5 -Wall -Wextra -mfpu=vfpv3-d16 -Os -flto -ffat-lto-objects
 LSCRIPT := -Tlscript.ld
 INCLUDEPATH := -I$(BSP_DIR)/psu_cortexr5_0/include -I. -I$(MISC_DIR)/$(BOARD)
 LIBPATH := -L$(BSP_DIR)/psu_cortexr5_0/lib
