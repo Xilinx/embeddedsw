@@ -274,19 +274,30 @@ enum XPmOpCharType {
 	PM_OPCHAR_TYPE_LATENCY,
 };
 
-/** @name PM Specific Status macros
- *
- * Power management specific return error statuses - to be moved in xstatus.h
+ /* Power management specific return error statuses */
+/** @defgroup pmstatmacro
  * @{
  */
-#define XST_PM_INTERNAL		2000L
-#define XST_PM_CONFLICT		2001L
-#define XST_PM_NO_ACCESS	2002L
-#define XST_PM_INVALID_NODE	2003L
-#define XST_PM_DOUBLE_REQ	2004L
-#define XST_PM_ABORT_SUSPEND	2005L
-#define XST_PM_TIMEOUT		2006L
-/*@}*/
+/** An internal error occurred while performing the requested operation */
+#define XST_PM_INTERNAL  2000L
+/** Conflicting requirements have been asserted when more than one processing
+ * cluster is using the same PM slave */
+#define XST_PM_CONFLICT  2001L
+/** The processing cluster does not have access to the requested node or
+ * operation */
+#define XST_PM_NO_ACCESS  2002L
+/** The API function does not apply to the node passed as argument */
+#define XST_PM_INVALID_NODE  2003L
+/**  A processing cluster has already been assigned access to a PM slave and
+ * has issued a duplicate request for that PM slave */
+#define XST_PM_DOUBLE_REQ  2004L
+/** The target processing cluster has aborted suspend */
+#define XST_PM_ABORT_SUSPEND  2005L
+/** A timeout occurred while performing the requested operation*/
+#define XST_PM_TIMEOUT   2006L
+/**  Slave request cannot be granted since node is non-shareable and used */
+#define XST_PM_NODE_USED  2007L
+/**@}*/
 
 /**
  *  @name Boot Status Enum
