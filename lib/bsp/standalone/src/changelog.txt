@@ -462,5 +462,7 @@
  *                    the HW coherency enablement. It fixes the CR#973287
  * 6.3 mus   04/20/17 Updated Cortex-A53 64 bit BSP boot code, to remove redundant write to the
  *                    L2CTLR_EL1 register. It fixes the CR#974698
+ * 6.4 mus   06/08/17 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
+ *                    of ARM 32 bit processor's.
  *
  *****************************************************************************************/

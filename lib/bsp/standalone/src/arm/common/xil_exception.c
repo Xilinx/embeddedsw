@@ -46,6 +46,8 @@
 * 6.0   mus      27/07/16 Consolidated exceptions for a53,a9 and r5
 *                         processors and added Xil_UndefinedExceptionHandler
 *                         for a53 32 bit and r5 as well.
+* 6.4   mus      08/06/17 Updated debug prints to replace %x with the %lx, to
+*                         fix the warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -267,8 +269,8 @@ void Xil_DataAbortHandler(void *CallBackRef){
 	        { volatile register u32 Reg __asm(XREG_CP15_DATA_FAULT_STATUS);
 	        FaultStatus = Reg; }
 	    #endif
-	xdbg_printf(XDBG_DEBUG_GENERAL, "Data abort with Data Fault Status Register  %x\n",FaultStatus);
-	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instrcution causing Data abort %x\n",DataAbortAddr);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Data abort with Data Fault Status Register  %lx\n",FaultStatus);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instruction causing Data abort %lx\n",DataAbortAddr);
 #endif
 	while(1) {
 		;
@@ -302,8 +304,8 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 			{ volatile register u32 Reg __asm(XREG_CP15_INST_FAULT_STATUS);
 			FaultStatus = Reg; }
 		#endif
-	xdbg_printf(XDBG_DEBUG_GENERAL, "Prefetch abort with Instruction Fault Status Register  %x\n",FaultStatus);
-	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instrcution causing Prefetch abort %x\n",PrefetchAbortAddr);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Prefetch abort with Instruction Fault Status Register  %lx\n",FaultStatus);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of Instruction causing Prefetch abort %lx\n",PrefetchAbortAddr);
 #endif
 	while(1) {
 		;
@@ -324,7 +326,7 @@ void Xil_PrefetchAbortHandler(void *CallBackRef){
 ****************************************************************************/
 void Xil_UndefinedExceptionHandler(void *CallBackRef){
 	(void) CallBackRef;
-	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of the undefined instruction %x\n",UndefinedExceptionAddr);
+	xdbg_printf(XDBG_DEBUG_GENERAL, "Address of the undefined instruction %lx\n",UndefinedExceptionAddr);
 	while(1) {
 		;
 	}
