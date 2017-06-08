@@ -1,5 +1,10 @@
 Changes for 2017.3
 ===============================
+
+standalone_v6_4:
+Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
+of ARM 32 bit processors.
+
 tpg_v3_1:
 Updated NUM_INSTANCES parameter in xparameters.h and
 xtpg_sinit.c to avoid errors. Fix for cr-976944.
