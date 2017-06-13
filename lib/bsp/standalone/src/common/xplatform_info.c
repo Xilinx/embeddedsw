@@ -47,6 +47,8 @@
 * 6.00  mus  17/08/16 Removed unused variable from XGetPlatform_Info
 * 6.4   ms   05/23/17 Added PSU_PMU macro to support XGetPSVersion_Info
 *                     function for PMUFW.
+*       ms   06/13/17 Added PSU_PMU macro to provide support of
+*                     XGetPlatform_Info function for PMUFW.
 * </pre>
 *
 ******************************************************************************/
@@ -81,7 +83,7 @@
 u32 XGetPlatform_Info()
 {
 
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
 	return XPLAT_MICROBLAZE;
