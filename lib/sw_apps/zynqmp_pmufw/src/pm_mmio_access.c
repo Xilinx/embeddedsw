@@ -188,6 +188,15 @@ static const PmAccessRegion pmAccessTable[] = {
 					 IPI_PMU_0_IER_RPU_0_MASK |
 					 IPI_PMU_0_IER_RPU_1_MASK),
 	},
+
+	/* Boot pin control register */
+	{
+		.startAddr = CRL_APB_BASEADDR + 0x250,
+		.endAddr = CRL_APB_BASEADDR + 0x250,
+		.access = MMIO_ACCESS_RW(IPI_PMU_0_IER_APU_MASK |
+					 IPI_PMU_0_IER_RPU_0_MASK |
+					 IPI_PMU_0_IER_RPU_1_MASK),
+	},
 };
 
 /**
