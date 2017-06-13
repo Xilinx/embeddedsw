@@ -9,7 +9,13 @@ standalone_v6_4:
 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
 of ARM 32 bit processors.
 Updated cortexa53/64bit/gcc/asm_vectors.S to fix bug in  IRQInterruptHandler code
+
 snippet, which checks for the FPEN bit of CPACR_EL1 register.
+standalone_v6_4:
+Supports XGetPSVersion_Info function for PMUFW - Fix for CR-967248
+Supports XGetPlatform_Info function for PMUFW. Fix for CR-978237
+
+Changelog: Updated for standalone
 
 tpg_v3_1:
 Updated NUM_INSTANCES parameter in xparameters.h and
