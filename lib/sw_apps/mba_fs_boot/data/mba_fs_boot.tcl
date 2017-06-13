@@ -135,13 +135,36 @@ proc get_flash_config { fp } {
 	}
 }
 proc get_uart_config { fp } {
-	set uart_baseaddr [common::get_property CONFIG.C_BASEADDR \
-	[hsi::get_cells -hier -filter {IP_NAME =~ "axi_uart*"}]];
-        puts $fp "#define CONFIG_STDINOUT_BASEADDR      $uart_baseaddr";
-	set ip_name [common::get_property IP_NAME [hsi::get_cells -hier \
-	-filter {IP_NAME =~ "axi_uart*"}]];
-	set ip_name [string toupper [string replace $ip_name 0 3]];
-	puts $fp "#define CONFIG_$ip_name	1";
+	set ip_name ""
+	foreach ip {axi_uart16550 axi_uartlite} {
+		if {[llength [hsi::get_cells -hier -filter " IP_NAME == $ip "]] > 0} {
+			set ip_name $ip;
+			break;
+		}
+	}
+	if {$ip_name eq ""} {
+		if {[llength [hsi::get_cells -hier -filter " IP_NAME == mdm "]] > 0 } {
+			if {[common::get_property CONFIG.C_USE_UART \
+				[hsi::get_cells -hier -filter " IP_NAME == mdm " ]] > 0 } {
+				set ip_name "mdm";
+			}
+		}
+	}
+	if {$ip_name ne ""} {
+		set uart_baseaddr [common::get_property CONFIG.C_BASEADDR \
+			[hsi::get_cells -hier -filter " IP_NAME == $ip_name "]];
+		switch -exact $ip_name {
+			"axi_uart16550" {
+					set uart_type "UART16550";
+				}
+			"axi_uartlite" -
+			"mdm" {
+				set uart_type "UARTLITE";
+			}
+		}
+	        puts $fp "#define CONFIG_STDINOUT_BASEADDR      $uart_baseaddr";
+		puts $fp "#define CONFIG_$uart_type	1";
+	}
 }
 
 proc get_mem_name { memlist } {
