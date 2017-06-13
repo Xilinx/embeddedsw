@@ -466,5 +466,10 @@
  *                    of ARM 32 bit processor's.
  * 6.4 mus   06/14/17 Updated cortexa53/64bit/gcc/asm_vectors.S to fix bug in  IRQInterruptHandler code
  *                    snippet, which checks for the FPEN bit of CPACR_EL1 register.
+ * 6.4 ms    05/23/17 Added PSU_PMU macro in xplatform_info.c, xparameters.h to support
+ *                    XGetPSVersion_Info function for PMUFW.
+ *     ms    06/13/17 Added PSU_PMU macro in xplatform_info.c to support XGetPlatform_Info
+ *                    function for PMUFW.
+ * BSP: Supports XGetPlatform_Info function for PMUFW
  *
  *****************************************************************************************/
