@@ -108,6 +108,8 @@ u32 XFsbl_PcapInit(void) {
 			goto END;
 		}
 
+		usleep(XFSBL_PL_PWRUP_WAIT_MICROSEC);
+
 		Status = XFsbl_IsolationRestore(PMU_GLOBAL_REQ_ISO_INT_EN_PL_NONPCAP_MASK);
 
 		if (Status != XFSBL_SUCCESS) {
