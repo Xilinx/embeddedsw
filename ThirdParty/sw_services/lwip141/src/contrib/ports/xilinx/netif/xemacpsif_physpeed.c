@@ -111,6 +111,11 @@
 #include "xparameters_ps.h"
 #include "xparameters.h"
 
+#if defined (__aarch64__)
+#include "bspconfig.h"
+#include "xil_smc.h"
+#endif
+
 /* Advertisement control register. */
 #define ADVERTISE_10HALF		0x0020  /* Try for 10mbps half-duplex  */
 #define ADVERTISE_10FULL		0x0040  /* Try for 10mbps full-duplex  */
@@ -904,12 +909,28 @@ static void SetUpSLCRDivisors(u32_t mac_baseaddr, s32_t speed)
 		}
 
 		if (CrlApbDiv0 != 0 && CrlApbDiv1 != 0) {
+		#if EL1_NONSECURE
+			XSmc_OutVar RegRead;
+			RegRead = Xil_Smc(MMIO_READ_SMC_FID, (u64)(CrlApbBaseAddr),
+								0, 0, 0, 0, 0, 0);
+			CrlApbGemCtrl = RegRead.Arg0 >> 32;
+		#else
 			CrlApbGemCtrl = *(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr);
+        #endif
 			CrlApbGemCtrl &= ~CRL_APB_GEM_DIV0_MASK;
 			CrlApbGemCtrl |= CrlApbDiv0 << CRL_APB_GEM_DIV0_SHIFT;
 			CrlApbGemCtrl &= ~CRL_APB_GEM_DIV1_MASK;
 			CrlApbGemCtrl |= CrlApbDiv1 << CRL_APB_GEM_DIV1_SHIFT;
+		#if EL1_NONSECURE
+			Xil_Smc(MMIO_WRITE_SMC_FID, (u64)(CrlApbBaseAddr) | ((u64)(0xFFFFFFFF) << 32),
+				(u64)CrlApbGemCtrl, 0, 0, 0, 0, 0);
+			do {
+			RegRead = Xil_Smc(MMIO_READ_SMC_FID, (u64)(CrlApbBaseAddr),
+				0, 0, 0, 0, 0, 0);
+			} while((RegRead.Arg0 >> 32) != CrlApbGemCtrl);
+		#else
 			*(volatile u32_t *)(UINTPTR)(CrlApbBaseAddr) = CrlApbGemCtrl;
+        #endif
 		} else {
 			xil_printf("Clock Divisors incorrect - Please check\r\n");
 		}
