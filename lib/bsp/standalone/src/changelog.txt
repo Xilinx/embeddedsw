@@ -464,5 +464,7 @@
  *                    L2CTLR_EL1 register. It fixes the CR#974698
  * 6.4 mus   06/08/17 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
  *                    of ARM 32 bit processor's.
+ * 6.4 mus   06/14/17 Updated cortexa53/64bit/gcc/asm_vectors.S to fix bug in  IRQInterruptHandler code
+ *                    snippet, which checks for the FPEN bit of CPACR_EL1 register.
  *
  *****************************************************************************************/
