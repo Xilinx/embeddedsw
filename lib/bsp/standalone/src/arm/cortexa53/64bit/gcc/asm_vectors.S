@@ -44,6 +44,9 @@
 * 6.02  pkp	12/21/16 Added support for floating point access
 * 6.02  pkp	01/22/17 Added support for EL1 non-secure and hypervisor
 *			 baremetal guest
+* 6.4   mus     06/14/17 Fixed bug in IRQInterruptHandler code snippet,
+*                        which checks for the FPEN bit of CPACR_EL1
+*
 * </pre>
 *
 * @note
@@ -310,7 +313,7 @@ IRQInterruptHandler:
 	ands	x0, x0, #(0x1<<10)
 	bne	RestorePrevState
 .else
-	mrs	x1,CPACR_EL1
+	mrs	x0,CPACR_EL1
 	ands	x0, x0, #(0x1<<20)
 	beq	RestorePrevState
 .endif
