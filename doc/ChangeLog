@@ -1,9 +1,15 @@
 Changes for 2017.3
 ===============================
 
+lwip141_v1_9:
+Updated xemacpsif_physpeed.c to use smc calls to access thr CRL_APB,
+this is done to support the applications running over EL1 NS mode.
+
 standalone_v6_4:
 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
 of ARM 32 bit processors.
+Updated cortexa53/64bit/gcc/asm_vectors.S to fix bug in  IRQInterruptHandler code
+snippet, which checks for the FPEN bit of CPACR_EL1 register.
 
 tpg_v3_1:
 Updated NUM_INSTANCES parameter in xparameters.h and
