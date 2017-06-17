@@ -3,6 +3,7 @@ var struct_x_vphy___config =
     [ "AxiLiteClkFreq", "struct_x_vphy___config.html#acadf4c6ceb71207c48f45410893c8bc8", null ],
     [ "BaseAddr", "struct_x_vphy___config.html#a37ebb950e78d0d9bedc29b27ad6619d3", null ],
     [ "DeviceId", "struct_x_vphy___config.html#af67997d79423c53a6f6e6246f003a489", null ],
+    [ "DrpClkFreq", "struct_x_vphy___config.html#aa12a0c97877837147de3e9f6343645f5", null ],
     [ "DruIsPresent", "struct_x_vphy___config.html#af548321a00c7220627ee6a34d930f103", null ],
     [ "DruRefClkSel", "struct_x_vphy___config.html#ae27a9635e2070126c83f132e3c885dd9", null ],
     [ "ErrIrq", "struct_x_vphy___config.html#aba647d9d8866bf36cf10387377e34f9a", null ],

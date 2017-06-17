@@ -116,6 +116,8 @@ var NAVTREEINDEX0 =
 "xdphy_8c.html":[2,0],
 "xdphy_8h.html":[2,1],
 "xdphy__example__selftest_8c.html":[2,2],
+"xdphy__example__selftest_8c.html#a238975c776a9aeeea1049a2071f28b7b":[2,2,0],
+"xdphy__example__selftest_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4":[2,2,1],
 "xdphy__hw_8h.html":[2,3],
 "xdphy__selftest_8c.html":[2,4],
 "xdphy__sinit_8c.html":[2,5]

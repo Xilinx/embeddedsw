@@ -91,7 +91,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.00a asa  4/30/10 First release based on the ll temac driver
 5.4   ms   01/23/17 Modified xil_printf statement in main function to
                     ensure that "Successfully ran" and "Failed" strings are
-                    available in all examples. This is a fix for CR-965028.</pre><pre></pre> </div><table class="memberdecls">
+                    available in all examples. This is a fix for CR-965028.
+      ms   04/05/17 Added tabspace for return statements in functions
+                    for proper documentation while generating doxygen.
+</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a827aa292a20f9a15e68bfe60e82cfc13"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__polled_8c.html#a827aa292a20f9a15e68bfe60e82cfc13">AxiEthernetPolledExample</a> (u16 AxiEthernetDeviceId, u16 FifoDeviceId)</td></tr>
@@ -215,7 +218,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS, a frame has been received<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, a frame has been received</li>
 <li>XST_NO_DATA, Timeout. Rx failure.</li>
 <li>XST_FIFO_ERROR, Error in the FIFO.</li>
 <li>XST_DATA_LOST, a frame has been dropped</li>
@@ -249,7 +253,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS, Tx has completed<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS, Tx has completed</li>
 <li>XST_NO_DATA, Timeout. Tx failure.</li>
 <li>XST_FIFO_ERROR, Error in the FIFO.</li>
 </ul>

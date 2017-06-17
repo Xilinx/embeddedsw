@@ -97,7 +97,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                 the latest AXI FIFO stream IP.
 5.4   ms   01/23/17 Modified xil_printf statement in main function to
                     ensure that "Successfully ran" and "Failed" strings are
-                    available in all examples. This is a fix for CR-965028.</pre><pre></pre> </div><table class="memberdecls">
+                    available in all examples. This is a fix for CR-965028.
+      ms   04/05/17 Added return tags in functions for proper documentation
+                    while generating doxygen.
+</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__fifo_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
@@ -125,12 +128,15 @@ Functions</h2></td></tr>
 <p>This function is not included if the example is generated from the TestAppGen test tool.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">None.</td><td><pre class="fragment">    - XST_SUCCESS to indicate success.
-    - XST_FAILURE.to indicate failure.
-</pre> </td></tr>
+    <tr><td class="paramname">None.</td><td></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS to indicate success.</li>
+<li>XST_FAILURE.to indicate failure. </li>
+</ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 <p>This function demonstrates the usage usage of the Axi Ethernet by sending and receiving frames in interrupt driven fifo mode.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -141,12 +147,15 @@ Functions</h2></td></tr>
     <tr><td class="paramname">AxiEthernetDeviceId</td><td>is Device ID of the Axi Ethernet Device , typically XPAR_&lt;AXIETHERNET_instance&gt;_DEVICE_ID value from xparameters.h. </td></tr>
     <tr><td class="paramname">FifoDeviceId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;AXIETHERNET_instance&gt;_VEC_ID value from xparameters.h. </td></tr>
     <tr><td class="paramname">AxiEthernetIntrId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;AXIETHERNET_instance&gt;_VEC_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">FifoIntrId</td><td>is the interrupt id for fifo. <pre class="fragment">    - XST_SUCCESS to indicate success.
-    - XST_FAILURE.to indicate failure.
-</pre></td></tr>
+    <tr><td class="paramname">FifoIntrId</td><td>is the interrupt id for fifo.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS to indicate success.</li>
+<li>XST_FAILURE.to indicate failure.</li>
+</ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>AxiFifo hardware must be initialized before initializing AxiEthernet. Since AxiFifo reset line is connected to the AxiEthernet reset line, a reset of AxiFifo hardware during its initialization would reset AxiEthernet.</dd></dl>
 <p>This function demonstrates the usage of the Axi Ethernet by sending and receiving a single frame in interrupt mode.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -156,10 +165,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS to indicate success.</li>
 <li>XST_FAILURE.to indicate failure.</li>
 </ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <p>This example sends a packet from non-contiguous memory locations. The header is stored in one area. The payload data is calculated and written to the packet FIFO one byte at a time.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -169,10 +179,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS to indicate success.</li>
 <li>XST_FAILURE.to indicate failure.</li>
 </ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <p>This example sends and receives a batch of frames. Frame reception is handled in this function and not in the callback function.</p>
 <p>Use this method of reception when interrupt latency is important.</p>
@@ -183,10 +194,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_SUCCESS to indicate success.</li>
 <li>XST_FAILURE.to indicate failure.</li>
 </ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <p>This is the Receive handler callback function for examples 1 and 2. It will increment a shared counter, receive and validate the frame.</p>
 <dl class="params"><dt>Parameters</dt><dd>

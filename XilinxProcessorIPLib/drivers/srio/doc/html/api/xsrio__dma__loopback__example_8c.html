@@ -81,7 +81,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.1   ms   01/23/17  Modified xil_printf statement in main function to
                      ensure that "Successfully ran" and "Failed" strings
                      are available in all examples. This is a fix for
-                     CR-965028.</pre><pre></pre><hr/>
+                     CR-965028.
+      ms   04/05/17  Added tabspace for return statements in functions for
+                     proper documentation while generating doxygen.
+</pre><hr/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -116,8 +119,11 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if tests pass<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if tests pass<ul>
 <li>XST_FAILURE if fails.</li>
+</ul>
+</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
@@ -177,9 +183,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure </dd></dl>
-<p>&lt; Lower word of the HELLO Packet</p>
-<p>&lt; Upper word of the HELLO packet</p>
-<p>&lt; Configure the DMA Rx Side MEM_ADDR+0x5000 is the address where Rx packet is formed</p>
 
 <p class="reference">References <a class="el" href="struct_x_srio___config.html#a79e384b5dc276c5479f6c17852b5886f">XSrio_Config::BaseAddress</a>, <a class="el" href="group__srio__v1__0.html#gae4e21d1e48b45bc2694bb9a62845d01a">XSrio_CfgInitialize()</a>, <a class="el" href="group__srio__v1__0.html#ga753aded6db30e1c042e7c7ee43b2a483">XSrio_GetPEType()</a>, <a class="el" href="group__srio__v1__0.html#gabea6ccdc70412fa41b6d45785ff2d287">XSRIO_IS_MEMORY</a>, and <a class="el" href="group__srio__v1__0.html#ga76df4ab1f25c693e6a16050b31756c3d">XSrio_LookupConfig()</a>.</p>
 

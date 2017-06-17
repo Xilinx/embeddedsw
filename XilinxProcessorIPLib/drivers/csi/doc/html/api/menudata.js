@@ -33,6 +33,8 @@ var menudata={children:[
 {text:"v",url:"functions_vars.html#index_v"}]}]}]},
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
+{text:"c",url:"globals.html#index_c"},
+{text:"m",url:"globals.html#index_m"},
 {text:"x",url:"globals.html#index_x"}]},
 {text:"Functions",url:"globals_func.html"},
 {text:"Typedefs",url:"globals_type.html"},

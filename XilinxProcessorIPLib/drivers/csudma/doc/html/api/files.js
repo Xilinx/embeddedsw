@@ -7,5 +7,6 @@ var files =
     [ "xcsudma_intr_example.c", "xcsudma__intr__example_8c.html", "xcsudma__intr__example_8c" ],
     [ "xcsudma_polled_example.c", "xcsudma__polled__example_8c.html", "xcsudma__polled__example_8c" ],
     [ "xcsudma_selftest.c", "xcsudma__selftest_8c.html", "xcsudma__selftest_8c" ],
+    [ "xcsudma_selftest_example.c", "xcsudma__selftest__example_8c.html", "xcsudma__selftest__example_8c" ],
     [ "xcsudma_sinit.c", "xcsudma__sinit_8c.html", "xcsudma__sinit_8c" ]
 ];

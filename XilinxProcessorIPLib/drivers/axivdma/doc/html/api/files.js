@@ -6,7 +6,7 @@ var files =
     [ "xaxivdma.h", "xaxivdma_8h.html", "xaxivdma_8h" ],
     [ "xaxivdma_channel.c", "xaxivdma__channel_8c.html", "xaxivdma__channel_8c" ],
     [ "xaxivdma_example_intr.c", "xaxivdma__example__intr_8c.html", "xaxivdma__example__intr_8c" ],
-    [ "xaxivdma_example_selftest.c", "xaxivdma__example__selftest_8c.html", null ],
+    [ "xaxivdma_example_selftest.c", "xaxivdma__example__selftest_8c.html", "xaxivdma__example__selftest_8c" ],
     [ "xaxivdma_g.c", "xaxivdma__g_8c.html", null ],
     [ "xaxivdma_hw.h", "xaxivdma__hw_8h.html", "xaxivdma__hw_8h" ],
     [ "xaxivdma_i.h", "xaxivdma__i_8h.html", "xaxivdma__i_8h" ],

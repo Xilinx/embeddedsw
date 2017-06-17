@@ -7,10 +7,15 @@ var menudata={children:[
 {text:"Variables",url:"functions_vars.html"}]}]},
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
+{text:"h",url:"globals.html#index_h"},
 {text:"m",url:"globals.html#index_m"},
 {text:"r",url:"globals.html#index_r"},
 {text:"x",url:"globals.html#index_x"}]},
-{text:"Functions",url:"globals_func.html"},
+{text:"Functions",url:"globals_func.html",children:[
+{text:"h",url:"globals_func.html#index_h"},
+{text:"m",url:"globals_func.html#index_m"},
+{text:"r",url:"globals_func.html#index_r"},
+{text:"x",url:"globals_func.html#index_x"}]},
 {text:"Variables",url:"globals_vars.html"},
 {text:"Typedefs",url:"globals_type.html"},
 {text:"Macros",url:"globals_defs.html",children:[

@@ -136,7 +136,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date       Changes
                       provide support for enabling extra PS alarams.
 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
       ms     03/17/17 Added readme.txt file in examples folder for doxygen
-                      generation.</pre><pre></pre> </div><table class="memberdecls">
+                      generation.
+      ms     04/05/17 Modified Comment lines in functions of sysmonpsu
+                      examples to recognize it as documentation block
+                      for doxygen generation.
+2.2   sk     04/14/17 Corrected temperature conversion formulas.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_sys_mon_psu___config.html">XSysMonPsu_Config</a></td></tr>
@@ -148,10 +152,10 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a380d87507652a19d453b20e6d7655d65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a380d87507652a19d453b20e6d7655d65">XSysMonPsu_RawToTemperature_OnChip</a>(AdcData)&#160;&#160;&#160;((((float)(AdcData)/65536.0f)/0.00199451786f ) - 273.6777f)</td></tr>
+<tr class="memitem:a380d87507652a19d453b20e6d7655d65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a380d87507652a19d453b20e6d7655d65">XSysMonPsu_RawToTemperature_OnChip</a>(AdcData)&#160;&#160;&#160;((((float)(AdcData)/65536.0f)/0.00196342531f ) - 280.2309f)</td></tr>
 <tr class="memdesc:a380d87507652a19d453b20e6d7655d65"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro converts System Monitor Raw Data to Temperature(centigrades) for On-Chip Sensors.  <a href="#a380d87507652a19d453b20e6d7655d65">More...</a><br /></td></tr>
 <tr class="separator:a380d87507652a19d453b20e6d7655d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ab3e135004e7d5995a827caa045883e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a9ab3e135004e7d5995a827caa045883e">XSysMonPsu_RawToTemperature_ExternalRef</a>(AdcData)&#160;&#160;&#160;((((float)(AdcData)/65536.0f)/0.00198842814f ) - 273.8195f)</td></tr>
+<tr class="memitem:a9ab3e135004e7d5995a827caa045883e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a9ab3e135004e7d5995a827caa045883e">XSysMonPsu_RawToTemperature_ExternalRef</a>(AdcData)&#160;&#160;&#160;((((float)(AdcData)/65536.0f)/0.00197008621f ) - 279.4266f)</td></tr>
 <tr class="memdesc:a9ab3e135004e7d5995a827caa045883e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro converts System Monitor Raw Data to Temperature(centigrades) for external reference.  <a href="#a9ab3e135004e7d5995a827caa045883e">More...</a><br /></td></tr>
 <tr class="separator:a9ab3e135004e7d5995a827caa045883e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6667f0fcc65dda4a7af897b2924143c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#af6667f0fcc65dda4a7af897b2924143c">XSysMonPsu_RawToVoltage</a>(AdcData)&#160;&#160;&#160;((((float)(AdcData))* (3.0f))/65536.0f)</td></tr>
@@ -160,10 +164,10 @@ Macros</h2></td></tr>
 <tr class="memitem:ad74fd43c8a038933bc2580837b95cee4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#ad74fd43c8a038933bc2580837b95cee4">XSysMonPsu_VccopsioRawToVoltage</a>(AdcData)&#160;&#160;&#160;((((float)(AdcData))* (6.0f))/65536.0f)</td></tr>
 <tr class="memdesc:ad74fd43c8a038933bc2580837b95cee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro converts System Monitor Raw Data to Voltage(volts) for VCCO_PSIO supply.  <a href="#ad74fd43c8a038933bc2580837b95cee4">More...</a><br /></td></tr>
 <tr class="separator:ad74fd43c8a038933bc2580837b95cee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a977b419288fae23364d46bc87d6976ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a977b419288fae23364d46bc87d6976ce">XSysMonPsu_TemperatureToRaw_OnChip</a>(Temperature)&#160;&#160;&#160;((s32)(((Temperature) + 273.6777f)*65536.0f*0.00199451786f))</td></tr>
+<tr class="memitem:a977b419288fae23364d46bc87d6976ce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a977b419288fae23364d46bc87d6976ce">XSysMonPsu_TemperatureToRaw_OnChip</a>(Temperature)&#160;&#160;&#160;((s32)(((Temperature) + 280.2309f)*65536.0f*0.00196342531f))</td></tr>
 <tr class="memdesc:a977b419288fae23364d46bc87d6976ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro converts Temperature in centigrades to System Monitor Raw Data for On-Chip Sensors.  <a href="#a977b419288fae23364d46bc87d6976ce">More...</a><br /></td></tr>
 <tr class="separator:a977b419288fae23364d46bc87d6976ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50b32ba6617a306fd1f12c7d34151722"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a50b32ba6617a306fd1f12c7d34151722">XSysMonPsu_TemperatureToRaw_ExternalRef</a>(Temperature)&#160;&#160;&#160;((s32)(((Temperature) + 273.8195f)*65536.0f*0.00198842814f))</td></tr>
+<tr class="memitem:a50b32ba6617a306fd1f12c7d34151722"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a50b32ba6617a306fd1f12c7d34151722">XSysMonPsu_TemperatureToRaw_ExternalRef</a>(Temperature)&#160;&#160;&#160;((s32)(((Temperature) + 279.4266f)*65536.0f*0.00197008621f))</td></tr>
 <tr class="memdesc:a50b32ba6617a306fd1f12c7d34151722"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro converts Temperature in centigrades to System Monitor Raw Data for external reference.  <a href="#a50b32ba6617a306fd1f12c7d34151722">More...</a><br /></td></tr>
 <tr class="separator:a50b32ba6617a306fd1f12c7d34151722"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a986f164c3c1f811ea27713adf9dace4c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xsysmonpsu_8h.html#a986f164c3c1f811ea27713adf9dace4c">XSysMonPsu_VoltageToRaw</a>(Voltage)&#160;&#160;&#160;((s32)((Voltage)*65536.0f/3.0f))</td></tr>
@@ -2628,7 +2632,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">AdcData</td><td>)</td>
-          <td>&#160;&#160;&#160;((((float)(AdcData)/65536.0f)/0.00198842814f ) - 273.8195f)</td>
+          <td>&#160;&#160;&#160;((((float)(AdcData)/65536.0f)/0.00197008621f ) - 279.4266f)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2656,7 +2660,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">AdcData</td><td>)</td>
-          <td>&#160;&#160;&#160;((((float)(AdcData)/65536.0f)/0.00199451786f ) - 273.6777f)</td>
+          <td>&#160;&#160;&#160;((((float)(AdcData)/65536.0f)/0.00196342531f ) - 280.2309f)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2712,7 +2716,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">Temperature</td><td>)</td>
-          <td>&#160;&#160;&#160;((s32)(((Temperature) + 273.8195f)*65536.0f*0.00198842814f))</td>
+          <td>&#160;&#160;&#160;((s32)(((Temperature) + 279.4266f)*65536.0f*0.00197008621f))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2740,7 +2744,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">Temperature</td><td>)</td>
-          <td>&#160;&#160;&#160;((s32)(((Temperature) + 273.6777f)*65536.0f*0.00199451786f))</td>
+          <td>&#160;&#160;&#160;((s32)(((Temperature) + 280.2309f)*65536.0f*0.00196342531f))</td>
         </tr>
       </table>
 </div><div class="memdoc">

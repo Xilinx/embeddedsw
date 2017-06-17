@@ -1098,10 +1098,10 @@ Other Constant definitions used in the driver</h2></td></tr>
 <tr class="memitem:gac844ea52e18aff493fb04c8a225a90be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet__v5__0.html#gac844ea52e18aff493fb04c8a225a90be">XAE_PHY_REG_NUM_LIMIT</a>&#160;&#160;&#160;31</td></tr>
 <tr class="memdesc:gac844ea52e18aff493fb04c8a225a90be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max register limit in PHY as mandated by the spec.  <a href="#gac844ea52e18aff493fb04c8a225a90be">More...</a><br /></td></tr>
 <tr class="separator:gac844ea52e18aff493fb04c8a225a90be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gafe1d4522233aae49418bf7e450c8e18a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet__v5__0.html#gafe1d4522233aae49418bf7e450c8e18a">XAE_LOOPS_TO_COME_OUT_OF_RST</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="memitem:gafe1d4522233aae49418bf7e450c8e18a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet__v5__0.html#gafe1d4522233aae49418bf7e450c8e18a">XAE_LOOPS_TO_COME_OUT_OF_RST</a>&#160;&#160;&#160;10000000</td></tr>
 <tr class="memdesc:gafe1d4522233aae49418bf7e450c8e18a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of loops in the driver API to wait for before returning a failure case.  <a href="#gafe1d4522233aae49418bf7e450c8e18a">More...</a><br /></td></tr>
 <tr class="separator:gafe1d4522233aae49418bf7e450c8e18a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9c879203604f0d99effc88d231fd3709"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet__v5__0.html#ga9c879203604f0d99effc88d231fd3709">XAE_RST_DELAY_LOOPCNT_VAL</a>&#160;&#160;&#160;10000</td></tr>
+<tr class="memitem:ga9c879203604f0d99effc88d231fd3709"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet__v5__0.html#ga9c879203604f0d99effc88d231fd3709">XAE_RST_DELAY_LOOPCNT_VAL</a>&#160;&#160;&#160;10000000</td></tr>
 <tr class="memdesc:ga9c879203604f0d99effc88d231fd3709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout in ticks used while checking if the core had come out of reset.  <a href="#ga9c879203604f0d99effc88d231fd3709">More...</a><br /></td></tr>
 <tr class="separator:ga9c879203604f0d99effc88d231fd3709"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga260908a359375c7325d6a8d86309fdff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axiethernet__v5__0.html#ga260908a359375c7325d6a8d86309fdff">XAE_VLAN_TABL_STRP_FLD_LEN</a>&#160;&#160;&#160;1</td></tr>
@@ -1217,7 +1217,7 @@ Other Constant definitions used in the driver</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xaxiethernet_8h.html">xaxiethernet.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="group__axiethernet__v5__0.html#gace9786d16960daabfdb803388b4ff0f3">XAE_FLOW_CONTROL_OPTION</a> |              \</div><div class="line">                 XAE_BROADCAST_OPTION |                 \</div><div class="line">                 XAE_FCS_INSERT_OPTION |                \</div><div class="line">                 XAE_FCS_STRIP_OPTION |                 \</div><div class="line">                 XAE_LENTYPE_ERR_OPTION |               \</div><div class="line">                 XAE_TRANSMITTER_ENABLE_OPTION |        \</div><div class="line">                 XAE_RECEIVER_ENABLE_OPTION)</div><div class="ttc" id="group__axiethernet__v5__0_html_gace9786d16960daabfdb803388b4ff0f3"><div class="ttname"><a href="group__axiethernet__v5__0.html#gace9786d16960daabfdb803388b4ff0f3">XAE_FLOW_CONTROL_OPTION</a></div><div class="ttdeci">#define XAE_FLOW_CONTROL_OPTION</div><div class="ttdoc">XAE_FCS_STRIP_OPTION specifies the Axi Ethernet device to strip FCS and PAD from received frames...</div><div class="ttdef"><b>Definition:</b> xaxiethernet.h:541</div></div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="group__axiethernet__v5__0.html#gace9786d16960daabfdb803388b4ff0f3">XAE_FLOW_CONTROL_OPTION</a> |              \</div><div class="line">                 XAE_BROADCAST_OPTION |                 \</div><div class="line">                 XAE_FCS_INSERT_OPTION |                \</div><div class="line">                 XAE_FCS_STRIP_OPTION |                 \</div><div class="line">                 XAE_LENTYPE_ERR_OPTION |               \</div><div class="line">                 XAE_TRANSMITTER_ENABLE_OPTION |        \</div><div class="line">                 XAE_RECEIVER_ENABLE_OPTION)</div><div class="ttc" id="group__axiethernet__v5__0_html_gace9786d16960daabfdb803388b4ff0f3"><div class="ttname"><a href="group__axiethernet__v5__0.html#gace9786d16960daabfdb803388b4ff0f3">XAE_FLOW_CONTROL_OPTION</a></div><div class="ttdeci">#define XAE_FLOW_CONTROL_OPTION</div><div class="ttdoc">XAE_FCS_STRIP_OPTION specifies the Axi Ethernet device to strip FCS and PAD from received frames...</div><div class="ttdef"><b>Definition:</b> xaxiethernet.h:547</div></div>
 </div><!-- fragment -->
 <p>XAE_DEFAULT_OPTIONS specify the options set in <a class="el" href="group__axiethernet__v5__0.html#ga091a291d11f394e3eaf0b79195666d9f" title="XAxiEthernet_Reset does not perform a soft reset of the AxiEthernet core. ">XAxiEthernet_Reset()</a> and <a class="el" href="group__axiethernet__v5__0.html#gabe257efe600df43d8148c772ea3878f9" title="XAxiEthernet_CfgInitialize initializes an AXI Ethernet device along with the InstancePtr that referen...">XAxiEthernet_CfgInitialize()</a> </p>
 
@@ -2075,7 +2075,7 @@ Other Constant definitions used in the driver</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XAE_LOOPS_TO_COME_OUT_OF_RST&#160;&#160;&#160;10000</td>
+          <td class="memname">#define XAE_LOOPS_TO_COME_OUT_OF_RST&#160;&#160;&#160;10000000</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -3404,7 +3404,7 @@ Other Constant definitions used in the driver</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XAE_RST_DELAY_LOOPCNT_VAL&#160;&#160;&#160;10000</td>
+          <td class="memname">#define XAE_RST_DELAY_LOOPCNT_VAL&#160;&#160;&#160;10000000</td>
         </tr>
       </table>
 </div><div class="memdoc">

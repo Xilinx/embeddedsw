@@ -7,9 +7,11 @@ var menudata={children:[
 {text:"Variables",url:"functions_vars.html"}]}]},
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
+{text:"a",url:"globals.html#index_a"},
 {text:"m",url:"globals.html#index_m"},
 {text:"x",url:"globals.html#index_x"}]},
 {text:"Functions",url:"globals_func.html",children:[
+{text:"a",url:"globals_func.html#index_a"},
 {text:"m",url:"globals_func.html#index_m"},
 {text:"x",url:"globals_func.html#index_x"}]},
 {text:"Typedefs",url:"globals_type.html"},

@@ -40,7 +40,10 @@ var menudata={children:[
 {text:"t",url:"globals.html#index_t"},
 {text:"x",url:"globals.html#index_x"},
 {text:"z",url:"globals.html#index_z"}]},
-{text:"Functions",url:"globals_func.html"},
+{text:"Functions",url:"globals_func.html",children:[
+{text:"_",url:"globals_func.html#index__"},
+{text:"m",url:"globals_func.html#index_m"},
+{text:"x",url:"globals_func.html#index_x"}]},
 {text:"Variables",url:"globals_vars.html"},
 {text:"Typedefs",url:"globals_type.html"},
 {text:"Enumerations",url:"globals_enum.html"},

@@ -88,14 +88,53 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 4.3   ms   01/22/17 Modified xil_printf statement in main function to
            ensure that "Successfully ran" and "Failed" strings are
            available in all examples. This is a fix for CR-965028.
+      ms   04/05/17 Modified Comment lines in functions to
+                    recognize it as documentation block for doxygen
+                    generation of examples.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:adc19e153eed7cb5c21fdd4df1f1f3464"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxicdma__example__sg__poll_8c.html#adc19e153eed7cb5c21fdd4df1f1f3464">XAxiCdma_SgPollExample</a> (u16 DeviceId)</td></tr>
 <tr class="memdesc:adc19e153eed7cb5c21fdd4df1f1f3464"><td class="mdescLeft">&#160;</td><td class="mdescRight">The example to do the scatter gather transfer through polling.  <a href="#adc19e153eed7cb5c21fdd4df1f1f3464">More...</a><br /></td></tr>
 <tr class="separator:adc19e153eed7cb5c21fdd4df1f1f3464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxicdma__example__sg__poll_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entry point for this example.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br /></td></tr>
+<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&nbsp;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The entry point for this example. </p>
+<p>It sets up uart16550 if one is available, invokes the example function, and reports the execution status.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if example finishes successfully</li>
+<li>XST_FAILURE if example fails.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 <a id="adc19e153eed7cb5c21fdd4df1f1f3464"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc19e153eed7cb5c21fdd4df1f1f3464">&#9670;&nbsp;</a></span>XAxiCdma_SgPollExample()</h2>
 

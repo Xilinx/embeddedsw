@@ -79,6 +79,8 @@ MODIFICATION HISTORY:</pre><pre>Ver Who Date    Changes
                  ensure that "Successfully ran" and "Failed" strings
                  are available in all examples. This is a fix for
                  CR-965028.
+    ms  04/05/17 Added tabspace for return statements in functions for
+                 proper documentation while generating doxygen.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -359,7 +361,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if successfully setup the interrupt<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if successfully setup the interrupt</li>
 <li>XST_FAILURE.failure to setup the interrupt</li>
 </ul>
 </dd></dl>

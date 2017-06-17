@@ -79,7 +79,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 4.1   ms   01/23/17 Modified xil_printf statement in main function to
                     ensure that "Successfully ran" and "Failed" strings
                     are available in all examples. This is a fix for
-                    CR-965028.</pre><pre></pre><hr/>
+                    CR-965028.
+      ms   04/05/17 Added tabspace for return statements in functions for
+                    proper documentation while generating doxygen.
+</pre><hr/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -114,10 +117,13 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if tests pass<ul>
-<li>XST_FAILURE if fails.</li>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if tests pass</li>
 </ul>
 </dd></dl>
+<ul>
+<li>XST_FAILURE if fails.</li>
+</ul>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="xtrafgen__static__mode__example_8c.html#a0f889ceb44c23528b088a74afeccdf2d">XTrafGenStaticModeExample()</a>.</p>

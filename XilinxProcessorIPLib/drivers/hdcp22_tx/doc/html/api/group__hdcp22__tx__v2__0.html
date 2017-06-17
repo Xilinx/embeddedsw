@@ -650,6 +650,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gac378a52e489c09e7cd3108f8ad0dc079"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#gac378a52e489c09e7cd3108f8ad0dc079">XHdcp22Tx_IsAuthenticated</a> (<a class="el" href="struct_x_hdcp22___tx.html">XHdcp22_Tx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gac378a52e489c09e7cd3108f8ad0dc079"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the current authenticated state.  <a href="#gac378a52e489c09e7cd3108f8ad0dc079">More...</a><br /></td></tr>
 <tr class="separator:gac378a52e489c09e7cd3108f8ad0dc079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga444e0ba5255b0c52f6cde5d406f4e7ae"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga444e0ba5255b0c52f6cde5d406f4e7ae">XHdcp22Tx_IsDwnstrmCapable</a> (<a class="el" href="struct_x_hdcp22___tx.html">XHdcp22_Tx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga444e0ba5255b0c52f6cde5d406f4e7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if the downstream device HDCP2Version register is set.  <a href="#ga444e0ba5255b0c52f6cde5d406f4e7ae">More...</a><br /></td></tr>
+<tr class="separator:ga444e0ba5255b0c52f6cde5d406f4e7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9cb19e51fda89c401121edafbda166da"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga9cb19e51fda89c401121edafbda166da">XHdcp22Tx_SetCallback</a> (<a class="el" href="struct_x_hdcp22___tx.html">XHdcp22_Tx</a> *InstancePtr, <a class="el" href="group__hdcp22__tx__v2__0.html#ga1a28671454f81eebec5cacaf06fba7a7">XHdcp22_Tx_HandlerType</a> HandlerType, void *CallbackFunc, void *CallbackRef)</td></tr>
 <tr class="memdesc:ga9cb19e51fda89c401121edafbda166da"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function installs callback functions for the given HandlerType:  <a href="#ga9cb19e51fda89c401121edafbda166da">More...</a><br /></td></tr>
 <tr class="separator:ga9cb19e51fda89c401121edafbda166da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1139,6 +1142,8 @@ Variables</h2></td></tr>
 
 <p>DDC base address (0x74 &gt;&gt; 1) </p>
 
+<p class="reference">Referenced by <a class="el" href="group__hdcp22__tx__v2__0.html#ga444e0ba5255b0c52f6cde5d406f4e7ae">XHdcp22Tx_IsDwnstrmCapable()</a>.</p>
+
 </div>
 </div>
 <a id="ga1e77d64752ebdc3c57a6bf5804271714"></a>
@@ -1307,6 +1312,8 @@ Variables</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xhdcp22__tx__i_8h.html">xhdcp22_tx_i.h</a>&gt;</code></p>
 
 <p>DDC version offset. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__hdcp22__tx__v2__0.html#ga444e0ba5255b0c52f6cde5d406f4e7ae">XHdcp22Tx_IsDwnstrmCapable()</a>.</p>
 
 </div>
 </div>
@@ -4125,6 +4132,41 @@ Variables</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="group__hdcp22__tx__v2__0.html#gab03339c57ff5fc86a5c622b316c43af2">XHDCP22_TX_SRM_RCVID_SIZE</a>, and <a class="el" href="group__hdcp22__tx__v2__0.html#ga821b6b2b13e8e7959bdb6ed57fcf26c9">XHdcp22Tx_GetRevocationReceiverIdList()</a>.</p>
+
+</div>
+</div>
+<a id="ga444e0ba5255b0c52f6cde5d406f4e7ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga444e0ba5255b0c52f6cde5d406f4e7ae">&#9670;&nbsp;</a></span>XHdcp22Tx_IsDwnstrmCapable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XHdcp22Tx_IsDwnstrmCapable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdcp22___tx.html">XHdcp22_Tx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xhdcp22__tx_8c.html">xhdcp22_tx.c</a>&gt;</code></p>
+
+<p>This function checks if the downstream device HDCP2Version register is set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XHdcp22Tx core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>- TRUE if downstream device is HDCP 2.2 capable.<ul>
+<li>FALSE if downstream device is not HDCP 2.2 capable.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_hdcp22___tx.html#a5df98da5c6f15c15f02201fde65db0f6">XHdcp22_Tx::DdcHandlerRef</a>, <a class="el" href="struct_x_hdcp22___tx.html#ab0efb75bdae539644b546b11269c76cc">XHdcp22_Tx::DdcRead</a>, <a class="el" href="struct_x_hdcp22___tx.html#a296b6355455b787816a864939d171c6c">XHdcp22_Tx::DdcWrite</a>, <a class="el" href="struct_x_hdcp22___tx.html#a21a3a0b90851644375ae5388dc440cfa">XHdcp22_Tx::IsReceiverHDCP2Capable</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gae346d118a4754329911411e6d64a67dc">XHDCP22_TX_DDC_BASE_ADDRESS</a>, and <a class="el" href="group__hdcp22__tx__v2__0.html#ga25659515f90eaee364b63d10fd115571">XHDCP22_TX_HDCPPORT_VERSION_OFFSET</a>.</p>
 
 </div>
 </div>

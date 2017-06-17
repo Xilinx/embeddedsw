@@ -30,6 +30,7 @@ var xhdcp1x__tx_8h =
     [ "XHdcp1x_TxReadDownstream", "group__hdcp1x__v4__0.html#gaf52273c741319df900b9fe2bb51b78d6", null ],
     [ "XHdcp1x_TxReset", "group__hdcp1x__v4__0.html#ga1f96aea1f54189b92719510de767b768", null ],
     [ "XHdcp1x_TxSetCallback", "group__hdcp1x__v4__0.html#ga67f8a82df784bef00e7532a43b495d85", null ],
+    [ "XHdcp1x_TxSetHdmiMode", "group__hdcp1x__v4__0.html#ga43144123acbfd9840bc356d14ff2ccdc", null ],
     [ "XHdcp1x_TxSetLaneCount", "group__hdcp1x__v4__0.html#gaf4099beda2b952aa7f9ce574cbbc7646", null ],
     [ "XHdcp1x_TxSetPhysicalState", "group__hdcp1x__v4__0.html#ga5540f73bc84858385b40eb85c2471cdc", null ],
     [ "XHdcp1x_TxTriggerDownstreamAuth", "group__hdcp1x__v4__0.html#gab797b1cff481d823174db2e3fdec666a", null ]

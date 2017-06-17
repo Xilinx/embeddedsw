@@ -70,25 +70,6 @@ $(document).ready(function(){initNavTree('xmbox__tapp__example_8c.html','');});
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a design example for using the Mailbox hardware and driver <a class="el" href="struct_x_mbox.html" title="The XMbox driver instance data. ">XMbox</a>. </p>
 <p>This example attempts to send a known message through the mailbox from the processor identified as 0 (XPAR_CPU_ID=0) to the other processor. The message is received by the receiver and the test passes. Since the application is running on two seperate processors, the initiator declares success when the message is sent and the receiver declares success when the message is received. There is no feedback to the initiator so a terminal is required for each processor to verify that the test passed for both sides.</p>
-<p>The example assumes there are two processors availabile in the system that are expected to inter-communicate.</p>
-<p>This example has been tested on ML505 Hardware Evaluation board.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>These code fragments will illustrate how the <a class="el" href="struct_x_mbox.html" title="The XMbox driver instance data. ">XMbox</a> component can be used to:</p><ul>
-<li>Initialize the Mailbox core.</li>
-<li>pass data between two processors.</li>
-</ul>
-<pre>
-  MODIFICATION HISTORY:</pre><pre>  Ver   Who  Date        Changes
-<hr/>
-
-  2.00a hm              Example that sends and receives and uses interrupts
-  3.01a sdm  05/06/10   Cleanup for coding guidelines, removed printfs from all
-                        the functions except the main function
-  4.1   ms   01/23/17 Modified xil_printf statement in main function to
-                      ensure that "Successfully ran" and "Failed" strings
-                      are available in all examples. This is a fix for
-                      CR-965028.
-*</pre><p>This example attempts to send a known message through the mailbox from the processor identified as 0 (XPAR_CPU_ID=0) to the other processor. The message is received by the receiver and the test passes. Since the application is running on two seperate processors, the initiator declares success when the message is sent and the receiver declares success when the message is received. There is no feedback to the initiator so a terminal is required for each processor to verify that the test passed for both sides.</p>
 <p>The example assumes there are two processors availabile in the system that are expected to inter-communicate. If Mailbox is connected to only one Processor then Data has to be sent from one port and should be received from another port.</p>
 <p>This example has been tested on ML505 Hardware Evaluation board.</p>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
@@ -111,6 +92,8 @@ $(document).ready(function(){initNavTree('xmbox__tapp__example_8c.html','');});
                       ensure that "Successfully ran" and "Failed" strings
                       are available in all examples. This is a fix for
                       CR-965028.
+        ms   04/05/17 Added tabspace for return statements in functions for
+                      proper documentation while generating doxygen.
 *</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -145,7 +128,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if the test passes.<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the test passes.</li>
 <li>XST_FAILURE if the test fails.</li>
 </ul>
 </dd></dl>

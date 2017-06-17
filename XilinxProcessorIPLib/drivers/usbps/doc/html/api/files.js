@@ -7,6 +7,7 @@ var files =
     [ "xusbps_ch9_storage.c", "xusbps__ch9__storage_8c.html", "xusbps__ch9__storage_8c" ],
     [ "xusbps_ch9_storage.h", "xusbps__ch9__storage_8h.html", "xusbps__ch9__storage_8h" ],
     [ "xusbps_class_storage.c", "xusbps__class__storage_8c.html", "xusbps__class__storage_8c" ],
+    [ "xusbps_class_storage.h", "xusbps__class__storage_8h.html", "xusbps__class__storage_8h" ],
     [ "xusbps_endpoint.c", "xusbps__endpoint_8c.html", "xusbps__endpoint_8c" ],
     [ "xusbps_endpoint.h", "xusbps__endpoint_8h.html", "xusbps__endpoint_8h" ],
     [ "xusbps_g.c", "xusbps__g_8c.html", "xusbps__g_8c" ],

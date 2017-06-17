@@ -31,13 +31,21 @@ var menudata={children:[
 {text:"x",url:"functions_vars.html#index_x"}]}]}]},
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
+{text:"e",url:"globals.html#index_e"},
 {text:"m",url:"globals.html#index_m"},
+{text:"r",url:"globals.html#index_r"},
 {text:"s",url:"globals.html#index_s"},
 {text:"x",url:"globals.html#index_x"}]},
-{text:"Functions",url:"globals_func.html"},
+{text:"Functions",url:"globals_func.html",children:[
+{text:"e",url:"globals_func.html#index_e"},
+{text:"m",url:"globals_func.html#index_m"},
+{text:"s",url:"globals_func.html#index_s"},
+{text:"x",url:"globals_func.html#index_x"}]},
 {text:"Variables",url:"globals_vars.html"},
 {text:"Typedefs",url:"globals_type.html"},
 {text:"Macros",url:"globals_defs.html",children:[
+{text:"r",url:"globals_defs.html#index_r"},
+{text:"s",url:"globals_defs.html#index_s"},
 {text:"x",url:"globals_defs.html#index_x"}]}]},
 {text:"File List",url:"files.html"},
 {text:"Examples",url:"pages.html"}]}

@@ -3,6 +3,7 @@ var files =
     [ "xqspips.c", "xqspips_8c.html", "xqspips_8c" ],
     [ "xqspips.h", "xqspips_8h.html", "xqspips_8h" ],
     [ "xqspips_dual_flash_lqspi_example.c", "xqspips__dual__flash__lqspi__example_8c.html", "xqspips__dual__flash__lqspi__example_8c" ],
+    [ "xqspips_dual_flash_stack_lqspi_example.c", "xqspips__dual__flash__stack__lqspi__example_8c.html", "xqspips__dual__flash__stack__lqspi__example_8c" ],
     [ "xqspips_flash_intr_example.c", "xqspips__flash__intr__example_8c.html", "xqspips__flash__intr__example_8c" ],
     [ "xqspips_flash_lqspi_example.c", "xqspips__flash__lqspi__example_8c.html", "xqspips__flash__lqspi__example_8c" ],
     [ "xqspips_flash_polled_example.c", "xqspips__flash__polled__example_8c.html", "xqspips__flash__polled__example_8c" ],

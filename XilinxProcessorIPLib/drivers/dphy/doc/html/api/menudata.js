@@ -7,6 +7,8 @@ var menudata={children:[
 {text:"Variables",url:"functions_vars.html"}]}]},
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
+{text:"d",url:"globals.html#index_d"},
+{text:"m",url:"globals.html#index_m"},
 {text:"x",url:"globals.html#index_x"}]},
 {text:"Functions",url:"globals_func.html"},
 {text:"Macros",url:"globals_defs.html",children:[

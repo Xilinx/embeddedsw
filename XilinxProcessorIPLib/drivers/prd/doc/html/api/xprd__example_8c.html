@@ -75,7 +75,10 @@ $(document).ready(function(){initNavTree('xprd__example_8c.html','');});
 Ver      Who   Date           Changes
 <hr/>
 
-1.0   ms    07/14/2016     First Release</pre><pre></pre> </div><table class="memberdecls">
+1.0   ms    07/14/2016     First Release
+      ms    04/05/2017     Modified comment lines notation in functions to
+                           avoid unnecessary description displayed
+                           while generating doxygen.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a3d9140c35fd5787425c30bde913ebe47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xprd__example_8c.html#a3d9140c35fd5787425c30bde913ebe47">XPRD_DEVICE_ID</a>&#160;&#160;&#160;XPAR_PR_DECOUPLER_0_DEVICE_ID</td></tr>
@@ -178,9 +181,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>&lt; Instance of the GPIO that's connected to the USR_ACCESS primitive</p>
-<p>Initialize the PR Decoupler driver so that it's ready to use. Look up the configuration in the config table, then initialize it.</p>
-<p>Perform a self-test to ensure that the hardware was built correctly</p>
 
 <p class="reference">References <a class="el" href="group__prd__v1__0.html#ga424f5c8b2cad657a5aea953ba959be55">XPrd_CfgInitialize()</a>, and <a class="el" href="group__prd__v1__0.html#ga7a83aa6940de765c091dfd07df308ac2">XPrd_LookupConfig()</a>.</p>
 
@@ -217,8 +217,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>Decoupling OFF REPEAT: Write to GPIO 2 and make sure GPIO 1 takes the same value</p>
-<p>Decoupling ON REPEAT: Write to GPIO 2 and make sure GPIO 1 takes the decoupled value</p>
 
 <p class="reference">References <a class="el" href="group__prd__v1__0.html#gad37688cbdb9d0b50c481132f6f05cee0">XPrd_GetDecouplerState()</a>, and <a class="el" href="group__prd__v1__0.html#gacb64d55940567d71186233e1e230c0d0">XPrd_SetDecouplerState()</a>.</p>
 

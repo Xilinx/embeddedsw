@@ -78,6 +78,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.0   als  10/19/15 Initial release.
 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
 1.4   gm   29/11/16 Added ERR_IRQ register offset
+1.5   gm   02/05/17 Added CPLL CAL reg and masks
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -157,6 +158,13 @@ Macros</h2></td></tr>
 <tr class="memitem:a9e9b0e6b169b719d9e37920636da0289"><td class="memItemLeft" align="right" valign="top"><a id="a9e9b0e6b169b719d9e37920636da0289"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRP_STATUS_COMMON_REG</b>&#160;&#160;&#160;0x064</td></tr>
 <tr class="separator:a9e9b0e6b169b719d9e37920636da0289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">VPHY core registers: CPLL Calibration registers.</div></td></tr>
+<tr class="memitem:a8204c3fc1e7ecdd22f462e44bf21af5f"><td class="memItemLeft" align="right" valign="top"><a id="a8204c3fc1e7ecdd22f462e44bf21af5f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_CPLL_CAL_PERIOD_REG</b>&#160;&#160;&#160;0x068</td></tr>
+<tr class="separator:a8204c3fc1e7ecdd22f462e44bf21af5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e2005ad722785eaa941fcb08362631c"><td class="memItemLeft" align="right" valign="top"><a id="a0e2005ad722785eaa941fcb08362631c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_CPLL_CAL_TOL_REG</b>&#160;&#160;&#160;0x06C</td></tr>
+<tr class="separator:a0e2005ad722785eaa941fcb08362631c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">VPHY core registers: Transmitter function registers.</div></td></tr>
 <tr class="memitem:a052755dd1d5a33d0631255f9c13f6ae8"><td class="memItemLeft" align="right" valign="top"><a id="a052755dd1d5a33d0631255f9c13f6ae8"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_REG</b>&#160;&#160;&#160;0x070</td></tr>
@@ -560,6 +568,12 @@ Macros</h2></td></tr>
 <tr class="memitem:ad7d29e34fa135868f2490f9bd0dc52ff"><td class="memItemLeft" align="right" valign="top"><a id="ad7d29e34fa135868f2490f9bd0dc52ff"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_DRP_STATUS_DRPBUSY_MASK</b>&#160;&#160;&#160;0x20000</td></tr>
 <tr class="separator:ad7d29e34fa135868f2490f9bd0dc52ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55192360d1419f6be098987a8969a585"><td class="memItemLeft" align="right" valign="top"><a id="a55192360d1419f6be098987a8969a585"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_CPLL_CAL_PERIOD_MASK</b>&#160;&#160;&#160;0x3FFFF</td></tr>
+<tr class="separator:a55192360d1419f6be098987a8969a585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af77b4fc8989b2b26686f2c229b1dc5a3"><td class="memItemLeft" align="right" valign="top"><a id="af77b4fc8989b2b26686f2c229b1dc5a3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_CPLL_CAL_TOL_MASK</b>&#160;&#160;&#160;0x3FFFF</td></tr>
+<tr class="separator:af77b4fc8989b2b26686f2c229b1dc5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9bdd4283e0668c7b1db842dd6bb1412"><td class="memItemLeft" align="right" valign="top"><a id="ac9bdd4283e0668c7b1db842dd6bb1412"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>XVPHY_TX_CONTROL_TX8B10BEN_MASK</b>(Ch)&#160;&#160;&#160;(0x01 &lt;&lt; (8 * (Ch - 1)))</td></tr>
 <tr class="separator:ac9bdd4283e0668c7b1db842dd6bb1412"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -21,6 +21,7 @@ var xhdcp22__tx_8c =
     [ "XHdcp22Tx_Info", "group__hdcp22__tx__v2__0.html#ga650f737e06ddfa38fa76d28d758039df", null ],
     [ "XHdcp22Tx_IsAuthenticated", "group__hdcp22__tx__v2__0.html#gac378a52e489c09e7cd3108f8ad0dc079", null ],
     [ "XHdcp22Tx_IsDeviceRevoked", "group__hdcp22__tx__v2__0.html#gac4ce58d66df32403a9f1963048cdbdd3", null ],
+    [ "XHdcp22Tx_IsDwnstrmCapable", "group__hdcp22__tx__v2__0.html#ga444e0ba5255b0c52f6cde5d406f4e7ae", null ],
     [ "XHdcp22Tx_IsEnabled", "group__hdcp22__tx__v2__0.html#ga1581bf2eb6845e55ea14ee3a60eb30b0", null ],
     [ "XHdcp22Tx_IsEncryptionEnabled", "group__hdcp22__tx__v2__0.html#ga7ca5567441ff4e74a0e386e22ecffb75", null ],
     [ "XHdcp22Tx_IsInProgress", "group__hdcp22__tx__v2__0.html#ga624b718cbf5906dac17f554bdfb438e1", null ],

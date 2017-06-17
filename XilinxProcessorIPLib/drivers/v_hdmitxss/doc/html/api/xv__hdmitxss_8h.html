@@ -88,16 +88,16 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.00         10/07/15 Initial release.
-1.1   yh     15/01/16 Add 3D Support
-1.2   yh     20/01/16 Added remapper support
-1.3   yh     01/02/16 Added set_ppc api
-1.4   MG     03/02/16 Added HDCP support
-1.5   MG     09/03/16 Removed reduced blanking support and
+1.01  yh     15/01/16 Add 3D Support
+1.02  yh     20/01/16 Added remapper support
+1.03  yh     01/02/16 Added set_ppc api
+1.04  MG     03/02/16 Added HDCP support
+1.05  MG     09/03/16 Removed reduced blanking support and
                       added XV_HdmiTxSS_SetHdmiMode and XV_HdmiTxSS_SetDviMode
-1.6   MH     03/15/16 Added HDCP connect event
-1.7   YH     17/03/16 Remove xintc.h as it is processor dependent
-1.8   YH     18/03/16 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
-1.9   MH     23/06/16 Added HDCP repeater support.
+1.06  MH     03/15/16 Added HDCP connect event
+1.07  YH     17/03/16 Remove xintc.h as it is processor dependent
+1.08  YH     18/03/16 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
+1.09  MH     23/06/16 Added HDCP repeater support.
 1.10  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 1.11  MH     08/08/16 Updates to optimize out HDCP when excluded.
 1.12  YH     18/08/16 Combine Report function into one ReportInfo
@@ -113,7 +113,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 1.17  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
                             Segment Support and HDMI Compliance Test
       ms     03/17/17 Added readme.txt file in examples folder for doxygen
-                      generation.
+                            generation.
+      ms     04/10/17 Modified filename tag in examples to include them in
+                             doxygen.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -298,10 +300,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2c3f44e0cb505a187b39fd42d5397c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks if the interface has toggled.  <a href="#a2c3f44e0cb505a187b39fd42d5397c00">More...</a><br /></td></tr>
 <tr class="separator:a2c3f44e0cb505a187b39fd42d5397c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46f90d2469c5ccfe6fc28de9d0aa7bea"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a46f90d2469c5ccfe6fc28de9d0aa7bea">XV_HdmiTxSs_IsSinkHdcp14Capable</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a46f90d2469c5ccfe6fc28de9d0aa7bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the connected HDMI sink has HDCP 1.4 capabilities.  <a href="#a46f90d2469c5ccfe6fc28de9d0aa7bea">More...</a><br /></td></tr>
+<tr class="memdesc:a46f90d2469c5ccfe6fc28de9d0aa7bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the connected HDMI sink is HDCP 1.4 capable.  <a href="#a46f90d2469c5ccfe6fc28de9d0aa7bea">More...</a><br /></td></tr>
 <tr class="separator:a46f90d2469c5ccfe6fc28de9d0aa7bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23a1a2544ef4bc3ff8e1fde04bcc6f56"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a23a1a2544ef4bc3ff8e1fde04bcc6f56">XV_HdmiTxSs_IsSinkHdcp22Capable</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a23a1a2544ef4bc3ff8e1fde04bcc6f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the connected HDMI sink has HDCP 2.2 capabilities.  <a href="#a23a1a2544ef4bc3ff8e1fde04bcc6f56">More...</a><br /></td></tr>
+<tr class="memdesc:a23a1a2544ef4bc3ff8e1fde04bcc6f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the connected HDMI sink is HDCP 2.2 capable.  <a href="#a23a1a2544ef4bc3ff8e1fde04bcc6f56">More...</a><br /></td></tr>
 <tr class="separator:a23a1a2544ef4bc3ff8e1fde04bcc6f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6a551d06d519bdc50552ac8a3479bd5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#ac6a551d06d519bdc50552ac8a3479bd5">XV_HdmiTxSs_SetDefaultPpc</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u8 Id)</td></tr>
 <tr class="memdesc:ac6a551d06d519bdc50552ac8a3479bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the default in HDF.  <a href="#ac6a551d06d519bdc50552ac8a3479bd5">More...</a><br /></td></tr>
@@ -667,7 +669,7 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="xhdmi__example_8c.html#a13f636ef2d93d7ee10e421e5f604a510">I2cClk()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xhdmi__example_8c.html#a13f636ef2d93d7ee10e421e5f604a510">I2cClk()</a>, and <a class="el" href="xhdmi__example__zynq_8c.html#a53c0bcc2a14ea2b1df871350499e641f">OnBoardSi5324Init()</a>.</p>
 
 </div>
 </div>
@@ -715,8 +717,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function determines if the connected HDMI sink has HDCP 1.4 capabilities. </p>
-<p>The sink is determined to be HDCP 1.4 capable the BKSV indicates 20 ones and 20 zeros. If the sink is capable of HDCP 1.4, then this function checks if the Bcaps register indicates that the connected device a DVI or HDMI receiver. If the receiver is determined to be HDMI, then the function will return FALSE until the receiver has set the HDMI_MODE in the Bstatus register.</p>
+<p>This function determines if the connected HDMI sink is HDCP 1.4 capable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> instance.</td></tr>
@@ -728,8 +729,6 @@ Functions</h2></td></tr>
 <li>FALSE if sink does not support HDCP 1.4 or is not ready. </li>
 </ul>
 </dd></dl>
-
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
 
 </div>
 </div>
@@ -749,7 +748,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function determines if the connected HDMI sink has HDCP 2.2 capabilities. </p>
+<p>This function determines if the connected HDMI sink is HDCP 2.2 capable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> instance.</td></tr>
@@ -757,12 +756,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>TRUE if sink is HDCP 2.2 capable</li>
-<li>FALSE if sink does not support HDCP 2.2 or HDCP 2.2 is not available. </li>
+<li>TRUE if sink is HDCP 2.2 capable and ready to authenticate.</li>
+<li>FALSE if sink does not support HDCP 2.2 or is not ready. </li>
 </ul>
 </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab003c64bbf63c1cc119c0a074f442967">XV_HdmiTxSs::HdcpProtocol</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da0ac9cbdc7d8cb2851d920930a376b0a3">XV_HDMITXSS_HDCP_14</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da1a1b397d94a578680e4ea043d82b82f2">XV_HDMITXSS_HDCP_22</a>, and <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715daac8020e5cbc2a02efd15877b22572965">XV_HDMITXSS_HDCP_NONE</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab003c64bbf63c1cc119c0a074f442967">XV_HdmiTxSs::HdcpProtocol</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da0ac9cbdc7d8cb2851d920930a376b0a3">XV_HDMITXSS_HDCP_14</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da1a1b397d94a578680e4ea043d82b82f2">XV_HDMITXSS_HDCP_22</a>, and <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715daac8020e5cbc2a02efd15877b22572965">XV_HDMITXSS_HDCP_NONE</a>.</p>
 
 </div>
 </div>
@@ -1457,6 +1456,8 @@ HandlerType                     Callback Function Type
 </dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="group__v__hdmitxss.html#ga23588544c59439321e952b7b4a2c6445">XV_HdmiTxSs_SubcoreInitHdmiTx()</a>.</p>
 
 </div>
 </div>

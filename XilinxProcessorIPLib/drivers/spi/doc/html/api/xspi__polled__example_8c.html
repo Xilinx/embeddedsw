@@ -69,7 +69,6 @@ $(document).ready(function(){initNavTree('xspi__polled__example_8c.html','');});
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>This file contains a design example using the Spi driver (<a class="el" href="struct_x_spi.html" title="The XSpi driver instance data. ">XSpi</a>) and the Spi device using the polled mode. </p>
-<p>This file contains a design example using the Spi driver (<a class="el" href="struct_x_spi.html" title="The XSpi driver instance data. ">XSpi</a>) and the Spi device configured in XIP Mode.</p>
 <p>To put the driver in polled mode the Global Interrupt must be disabled after the Spi is Initialized and Spi driver is started.</p>
 <p>This example works with a PPC/MicroBlaze processor.</p>
 <dl class="section note"><dt>Note</dt><dd></dd></dl>
@@ -89,18 +88,7 @@ $(document).ready(function(){initNavTree('xspi__polled__example_8c.html','');});
                       ensure that "Successfully ran" and "Failed" strings
                       are available in all examples. This is a fix for
                       CR-965028.
-*</pre><p>This example reads data from the Flash Memory in the way RAM is accessed.</p>
-<dl class="section note"><dt>Note</dt><dd></dd></dl>
-<p>None.</p>
-<pre>
-  MODIFICATION HISTORY:</pre><pre>  Ver   Who  Date     Changes
-<hr/>
-
-  3.04a bss  03/21/12 First Release
-  4.2   ms   01/23/17 Added xil_printf statement in main function to
-                      ensure that "Successfully ran" and "Failed" strings
-                      are available in all examples. This is a fix for
-                      CR-965028.</pre><pre>*</pre> </div><table class="memberdecls">
+*</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0dd02b93ca6a7d528f41113065a1e3cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspi__polled__example_8c.html#a0dd02b93ca6a7d528f41113065a1e3cb">SpiPolledExample</a> (<a class="el" href="struct_x_spi.html">XSpi</a> *SpiInstancePtr, u16 SpiDeviceId)</td></tr>

@@ -8,6 +8,7 @@ var menudata={children:[
 {text:"APIs",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
 {text:"m",url:"globals.html#index_m"},
+{text:"p",url:"globals.html#index_p"},
 {text:"x",url:"globals.html#index_x"}]},
 {text:"Functions",url:"globals_func.html"},
 {text:"Macros",url:"globals_defs.html"}]},

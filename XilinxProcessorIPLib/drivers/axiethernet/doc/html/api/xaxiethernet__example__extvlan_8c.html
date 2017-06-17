@@ -92,7 +92,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 3.01a srt  02/14/13 Added support for Zynq (CR 681136)
 5.4   ms   01/23/17 Modified xil_printf statement in main function to
                     ensure that "Successfully ran" and "Failed" strings are
-                    available in all examples. This is a fix for CR-965028.</pre><pre></pre> </div><table class="memberdecls">
+                    available in all examples. This is a fix for CR-965028.
+      ms   04/05/17 Added tabspace for return statements in functions
+                    for proper documentation while generating doxygen.
+</pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac09b8617f3bb5e65bea8863449c90a9f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__extvlan_8c.html#ac09b8617f3bb5e65bea8863449c90a9f">AxiEthernetExtVlanExample</a> (INTC *IntcInstancePtr, <a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XAxiDma *DmaInstancePtr, u16 AxiEthernetDeviceId, u16 AxiDmaDeviceId, u16 AxiEthernetIntrId, u16 DmaRxIntrId, u16 DmaTxIntrId)</td></tr>
@@ -256,7 +259,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS to indicate success.<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS to indicate success.</li>
 <li>XST_FAILURE to indicate failure</li>
 </ul>
 </dd></dl>

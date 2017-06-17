@@ -21,6 +21,7 @@ var struct_x_hdcp1x___tx =
     [ "RepeaterExchangeRef", "struct_x_hdcp1x___tx.html#aa8ceb4d9918e409bc97d98f679c5b627", null ],
     [ "StateHelper", "struct_x_hdcp1x___tx.html#a6320853e7f69b7b6e7f7b961edde3700", null ],
     [ "Stats", "struct_x_hdcp1x___tx.html#a083ec7c93276ad42fbbefb7bc52f7e2a", null ],
+    [ "TxIsHdmi", "struct_x_hdcp1x___tx.html#a34ad3751d939a0be2b379e434535916e", null ],
     [ "UnauthenticatedCallback", "struct_x_hdcp1x___tx.html#a67bc52721c7f0780e6a2e9cc80b82340", null ],
     [ "UnauthenticatedCallbackRef", "struct_x_hdcp1x___tx.html#ac1b72fd9c0405f4aedc6dcdc6baa66eb", null ],
     [ "WaitForReadyPollCntFlag", "struct_x_hdcp1x___tx.html#abbcf2e01252d579d60b1342dafd81ed9", null ]

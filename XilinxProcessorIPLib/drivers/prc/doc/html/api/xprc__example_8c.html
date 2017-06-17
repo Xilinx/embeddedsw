@@ -75,7 +75,10 @@ $(document).ready(function(){initNavTree('xprc__example_8c.html','');});
 Ver      Who   Date           Changes
 <hr/>
 
-1.0   ms    07/18/2016     First Release</pre><pre></pre> </div><table class="memberdecls">
+1.0   ms    07/18/2016     First Release
+      ms    04/05/2017     Modified comment lines notation in functions to
+                           avoid unnecessary description displayed
+                           while generating doxygen.</pre><pre></pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:abe6791e387b3717786af2eed5ab74b8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xprc__example_8c.html#abe6791e387b3717786af2eed5ab74b8a">XPRC_DEVICE_ID</a>&#160;&#160;&#160;XPAR_PRC_0_DEVICE_ID</td></tr>
@@ -202,9 +205,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>&lt; A loop variable used to iterate round RMs in the PRC</p>
-<p>Start by setting all of the BS Address registers in all VSms to zero</p>
-<p>Now check each BsAddress can be updated without changing any other BsAddress register</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#ga74079c4b27f1c4dc1a7947911b7682d1">XPrc_GetBsAddress()</a>, <a class="el" href="group__prc__v1__0.html#gaf28b7a33ca4cf58e128c968df5e54ecf">XPrc_GetNumberOfVsms</a>, <a class="el" href="group__prc__v1__0.html#ga4775c570e83214c75ca9203731b42da0">XPrc_GetNumRmsAllocated</a>, and <a class="el" href="group__prc__v1__0.html#ga66ef8c25b6a68047e74a6d30d215ebf9">XPrc_SetBsAddress()</a>.</p>
 
@@ -239,10 +239,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>&lt; A loop variable used to iterate round RMs in the PRC</p>
-<p>The maximum value for a BsIndex register is the number of RMs allocated -1. We can't use any number greater than that or else it will alias.</p>
-<p>Start by setting all of the BS Index registers in all VSms to zero</p>
-<p>Now check each BsIndex can be updated without changing any other BsIndex register</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#gaf28b7a33ca4cf58e128c968df5e54ecf">XPrc_GetNumberOfVsms</a>, <a class="el" href="group__prc__v1__0.html#ga4775c570e83214c75ca9203731b42da0">XPrc_GetNumRmsAllocated</a>, <a class="el" href="group__prc__v1__0.html#ga4328f5b970ea41269486688d36c71330">XPrc_GetRmBsIndex()</a>, and <a class="el" href="group__prc__v1__0.html#gafa73a0de6152ced50f55b50533135d0d">XPrc_SetRmBsIndex()</a>.</p>
 
@@ -277,8 +273,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>&lt; A loop variable used to iterate round RMs in the PRC</p>
-<p>Now check each BsSize can be updated without changing any other BsSize register</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#ga23ab1e4290b46abb79a99627c2f85d41">XPrc_GetBsSize()</a>, <a class="el" href="group__prc__v1__0.html#gaf28b7a33ca4cf58e128c968df5e54ecf">XPrc_GetNumberOfVsms</a>, <a class="el" href="group__prc__v1__0.html#ga4775c570e83214c75ca9203731b42da0">XPrc_GetNumRmsAllocated</a>, and <a class="el" href="group__prc__v1__0.html#ga77ae77f041ca0822956e93f2c4841384">XPrc_SetBsSize()</a>.</p>
 
@@ -314,8 +308,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>Make sure the VSM is active so I can read the empty/full state</p>
-<p>Get the currently loaded RM and make sure it's the same as it was when the VSM was active. Shutting it down shouldn't have changed that.</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#gaf221d2761b3cb2f71b51c4029711e83e">XPRC_CR_VS_EMPTY</a>, <a class="el" href="group__prc__v1__0.html#gada47152f33eac349c3fc17734b31ded8">XPRC_CR_VS_FULL</a>, <a class="el" href="group__prc__v1__0.html#gaf28b7a33ca4cf58e128c968df5e54ecf">XPrc_GetNumberOfVsms</a>, <a class="el" href="group__prc__v1__0.html#ga9d39e24052e6887d4e0e7ed776d9cd67">XPrc_GetNumRms</a>, <a class="el" href="group__prc__v1__0.html#ga90981b900ba7f2e8db1eae4f5d1a8eae">XPrc_GetRmIdFromStatus()</a>, <a class="el" href="group__prc__v1__0.html#ga16cd7447ee658a590b4e84fbcdd655fd">XPrc_GetVsmState()</a>, <a class="el" href="group__prc__v1__0.html#ga169cd249e2ebac1ec7aaa31c6be22ec0">XPrc_IsVsmInShutdown()</a>, <a class="el" href="group__prc__v1__0.html#ga1352d5c7fa50ff03c099da95d1f6d368">XPrc_ReadStatusReg()</a>, <a class="el" href="group__prc__v1__0.html#gabf496a0a03c16a90c4579f5eb9346289">XPrc_SendRestartWithNoStatusCommand()</a>, <a class="el" href="group__prc__v1__0.html#gaf1aadeb2cbc8b0ea416b86f6a722112d">XPrc_SendRestartWithStatusCommand()</a>, <a class="el" href="group__prc__v1__0.html#ga8ae7427d46695146ebd8bb1cae333ad7">XPrc_SendShutdownCommand()</a>, <a class="el" href="group__prc__v1__0.html#ga210d1f8df780c04c34d97f12c5248c16">XPRC_SR_STATE_EMPTY</a>, and <a class="el" href="group__prc__v1__0.html#ga8c5e23d32e70feaa633f2947fc072c16">XPRC_SR_STATE_FULL</a>.</p>
 
@@ -350,9 +342,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The RM Control register contains the following fields: Name | Min value | Max value | Shutdown Required | 0 | 3 | Startup Required | 0 | 1 | Reset Required | 0 | 3 | Reset Duration | 0 | 255 | </dd></dl>
-<p>&lt; A loop variable used to iterate round RMs in the PRC</p>
-<p>Start by setting all of the Rm Control registers in all VSms to zero</p>
-<p>Now check each RM Control register can be updated without changing any other RM Control register</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#gaf28b7a33ca4cf58e128c968df5e54ecf">XPrc_GetNumberOfVsms</a>, <a class="el" href="group__prc__v1__0.html#ga4775c570e83214c75ca9203731b42da0">XPrc_GetNumRmsAllocated</a>, <a class="el" href="group__prc__v1__0.html#ga4ae04635e1799c1fff8a1bf0acd7f10e">XPrc_GetRmControl()</a>, and <a class="el" href="group__prc__v1__0.html#gaa3c36e7ac22439e68a49baf08a07cfc8">XPrc_SetRmControl()</a>.</p>
 
@@ -388,11 +377,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The width of this register is set by the number of allocated RMs, so we can't use any number greater than that or else it will alias. </dd></dl>
-<p>&lt; A loop variable used to iterate round triggers in the PRC</p>
-<p>&lt; A loop variable used to iterate round RMs in the PRC</p>
-<p>&lt; A loop variable used to iterate round VSMs in the PRC</p>
-<p>&lt; A loop variable used to iterate round triggers in the PRC</p>
-<p>Now check each trigger register can be updated without changing any other trigger register</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#gaf28b7a33ca4cf58e128c968df5e54ecf">XPrc_GetNumberOfVsms</a>, <a class="el" href="group__prc__v1__0.html#ga4775c570e83214c75ca9203731b42da0">XPrc_GetNumRmsAllocated</a>, <a class="el" href="group__prc__v1__0.html#gad21071ccece439ee68cb2874f99983d8">XPrc_GetNumTriggersAllocated</a>, <a class="el" href="group__prc__v1__0.html#ga715f096ec7bc1c5eaac8395444fcd03f">XPrc_GetTriggerToRmMapping()</a>, and <a class="el" href="group__prc__v1__0.html#gabc3b273ffd5f67fbdfc7f57d7929b45b">XPrc_SetTriggerToRmMapping()</a>.</p>
 
@@ -445,9 +429,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is only valid for this particular configuration of the PRC so it cannot be used in a general PRC test case. This is configuration dependent because each VSM has its own GPIO. </dd></dl>
-<p>&lt; A pointer to a GPIO</p>
-<p>Work out which VSM this is and select the correct GPIO instance to use</p>
-<p>What signals will be enabled? RM_SHUTOWN, RM_DECOUPLE and RM_RESET are alwas enabled SW_SHUTDOWN and SW_STARTUP are only enabled if there's some kind of control interface. Of course, there will be or else we'd never be able to test it in this program :-)</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#gae563b82b291ba26d8b6c5baaa8144b73">XPRC_CR_USER_CONTROL_RM_DECOUPLE_BIT</a>, <a class="el" href="group__prc__v1__0.html#ga6e35414473fc5e26c96db54d6dc44bae">XPRC_CR_USER_CONTROL_RM_RESET_BIT</a>, <a class="el" href="group__prc__v1__0.html#ga3ed8dfec1197fb072d20d942de4aa90f">XPRC_CR_USER_CONTROL_RM_SHUTDOWN_REQ_BIT</a>, <a class="el" href="group__prc__v1__0.html#ga9f5efab7321c347477127e3179f509cf">XPRC_CR_USER_CONTROL_SW_SHUTDOWN_REQ_BIT</a>, <a class="el" href="group__prc__v1__0.html#ga46d6b311b4ead348bb4b28de8c6836d2">XPRC_CR_USER_CONTROL_SW_STARTUP_REQ_BIT</a>, <a class="el" href="group__prc__v1__0.html#gaf28b7a33ca4cf58e128c968df5e54ecf">XPrc_GetNumberOfVsms</a>, and <a class="el" href="group__prc__v1__0.html#gad837665803c2971d369e832f4d4bd764">XPrc_SendUserControlCommand()</a>.</p>
 
@@ -482,21 +463,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>&lt; Instance of the GPIO that's connected to the USR_ACCESS primitive</p>
-<p>&lt; Instance of the GPIO attached to the PRC's Shift VSM's outputs</p>
-<p>&lt; Instance of the GPIO attached to the PRC's Count VSM's outputs</p>
-<p>&lt; A loop variable used to iterate round VSMs in the PRC</p>
-<p>&lt; A loop variable used to iterate round RMs in the PRC</p>
-<p>Initialize the PRC driver so that it's ready to use. Look up the configuration in the config table, then initialize it.</p>
-<p>Perform a self-test to ensure that the hardware was built correctly</p>
-<p>Print the PRC's status when the program starts This should only print anything if debug is turned on</p>
-<p>We can only reprogram VSMs when they are in shutdown, so shutdown any active VSMs</p>
-<p>The ICAP has lower priority than JTAG and SDK and Vivado HW Debugger both use JTAG to control the device and get status. This can occasionally mean that the first partial bitstream load will fail if the SDK program is reloaded without reconfiguring the entire device.</p>
-<p>This code attempts to detect that case and flush it before we enter the actual test phase.</p>
-<p>NOTE: If you press F11 in SDK to reload the program this can cause error messages to appear. These can be ignored.</p>
-<p>Send triggers and check that each one loaded the correct bitstream</p>
-<p>Send a software trigger to the PRC to get it to load the partial bitstream for VsmID, RmId.</p>
-<p>Use the value twice. This ensures that both the RmId and State fields come from the same read. If only one field is required, pass &amp;Prc instead of NULL, and VsmId instead of Status to these functions and they will read the register rather than parse the pre-read data</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#ga860a4c5ba01881e1547b8150affa7c0d">XPrc_CfgInitialize()</a>, <a class="el" href="group__prc__v1__0.html#ga61ee29cca9dae9f18fb9a635f5c0a4b2">XPrc_LookupConfig()</a>, and <a class="el" href="group__prc__v1__0.html#gaf15c985cf911548b53252824dc933313">XPrc_SelfTest()</a>.</p>
 
@@ -533,9 +499,6 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>For each allocated RM in each VSM, generate a partial bitstream and store it in memory. Program the PRC to point at it. </dd></dl>
-<p>&lt; A loop variable used to iterate round RMs in the PRC</p>
-<p>A bitstream looks like this ffff ffff : Dummy word 0000 00bb : Bus Width Sync Word 1122 0044 : Bus Width Detect ffff ffff : Dummy word ffff ffff : Dummy word aa99 5566 : Sync Word 2000 0000 : NOOP 3001 a001 : Write 1 word to user access &lt; id &gt; : 2000 0000 : NOOP 3000 8001 : Desync command 0000 000d : Desync command 2000 0000 : NOOP</p>
-<p>This is a 7 series project so BsIndex is always the RmId. It will have been set correctly when the core was configured, but we'll set it here because we distrubed it above in the register test</p>
 
 <p class="reference">References <a class="el" href="group__prc__v1__0.html#gaf28b7a33ca4cf58e128c968df5e54ecf">XPrc_GetNumberOfVsms</a>, <a class="el" href="group__prc__v1__0.html#ga9d39e24052e6887d4e0e7ed776d9cd67">XPrc_GetNumRms</a>, <a class="el" href="group__prc__v1__0.html#ga66ef8c25b6a68047e74a6d30d215ebf9">XPrc_SetBsAddress()</a>, <a class="el" href="group__prc__v1__0.html#ga77ae77f041ca0822956e93f2c4841384">XPrc_SetBsSize()</a>, <a class="el" href="group__prc__v1__0.html#gafa73a0de6152ced50f55b50533135d0d">XPrc_SetRmBsIndex()</a>, and <a class="el" href="group__prc__v1__0.html#gaa3c36e7ac22439e68a49baf08a07cfc8">XPrc_SetRmControl()</a>.</p>
 

@@ -130,6 +130,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9f75eac00e365efaa38c8c3b9f98ec0e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga9f75eac00e365efaa38c8c3b9f98ec0e">XCsi2TxSs_GetMaxLaneCount</a> (<a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga9f75eac00e365efaa38c8c3b9f98ec0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to get the number of lanes configured in the IP.  <a href="#ga9f75eac00e365efaa38c8c3b9f98ec0e">More...</a><br /></td></tr>
 <tr class="separator:ga9f75eac00e365efaa38c8c3b9f98ec0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2da520a569957fe9fde9177404ee574f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga2da520a569957fe9fde9177404ee574f">XCsi2TxSs_SetClkMode</a> (<a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *InstancePtr, u8 Mode)</td></tr>
+<tr class="memdesc:ga2da520a569957fe9fde9177404ee574f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to set the CSI2 Tx Subsystem Clock Mode as either Continuous (0) or Non-Continuous (1) mode.  <a href="#ga2da520a569957fe9fde9177404ee574f">More...</a><br /></td></tr>
+<tr class="separator:ga2da520a569957fe9fde9177404ee574f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9322b8aa53d1f0f7ba52a8ddea493942"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga9322b8aa53d1f0f7ba52a8ddea493942">XCsi2TxSs_GetClkMode</a> (<a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga9322b8aa53d1f0f7ba52a8ddea493942"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to get the CSI2 Tx Subsystem Clock Mode as either Continuous (0) or Non-Continuous (1) mode.  <a href="#ga9322b8aa53d1f0f7ba52a8ddea493942">More...</a><br /></td></tr>
+<tr class="separator:ga9322b8aa53d1f0f7ba52a8ddea493942"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga011ccc31eea54a9b72e6ece5efed6853"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_csi2_tx_ss___config.html">XCsi2TxSs_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga011ccc31eea54a9b72e6ece5efed6853">XCsi2TxSs_LookupConfig</a> (u32 DeviceId)</td></tr>
 <tr class="memdesc:ga011ccc31eea54a9b72e6ece5efed6853"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function looks for the device configuration based on the unique device ID.  <a href="#ga011ccc31eea54a9b72e6ece5efed6853">More...</a><br /></td></tr>
 <tr class="separator:ga011ccc31eea54a9b72e6ece5efed6853"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,6 +184,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ga1e0a474f9469d041cee3f863c5a6de97"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga1e0a474f9469d041cee3f863c5a6de97">Csi2TxSs_SelfTestExample</a> (u32 DeviceId)</td></tr>
 <tr class="memdesc:ga1e0a474f9469d041cee3f863c5a6de97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> self test example.  <a href="#ga1e0a474f9469d041cee3f863c5a6de97">More...</a><br /></td></tr>
 <tr class="separator:ga1e0a474f9469d041cee3f863c5a6de97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Clock Modes for CSI2 Tx</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p><a class="anchor" id="amgrp3cac65d05a021d317daaa3c1a6a7ef61"></a>These macros are used to set/get the clock mode in CSI2 Tx.</p>
+<p>CCM - continuous clock mode. NCCM - non-continuous clock mode. </p>
+</td></tr>
+<tr class="memitem:gad57b90667b7dffdf8110c6cc3a359ea6"><td class="memItemLeft" align="right" valign="top"><a id="gad57b90667b7dffdf8110c6cc3a359ea6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TXSS_CCM</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:gad57b90667b7dffdf8110c6cc3a359ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd9530ef696f11d578ee0b2f4472988b"><td class="memItemLeft" align="right" valign="top"><a id="gacd9530ef696f11d578ee0b2f4472988b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TXSS_NCCM</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:gacd9530ef696f11d578ee0b2f4472988b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Interrupt Types for setting Callbacks</h2></td></tr>
@@ -864,6 +882,36 @@ Interrupt Types for setting Callbacks</h2></td></tr>
 
 </div>
 </div>
+<a id="ga9322b8aa53d1f0f7ba52a8ddea493942"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9322b8aa53d1f0f7ba52a8ddea493942">&#9670;&nbsp;</a></span>XCsi2TxSs_GetClkMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XCsi2TxSs_GetClkMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xcsi2txss_8c.html">xcsi2txss.c</a>&gt;</code></p>
+
+<p>This function is used to get the CSI2 Tx Subsystem Clock Mode as either Continuous (0) or Non-Continuous (1) mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 - Continuous Clock Mode 1 - Non-continuous Clock Mode</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+</div>
+</div>
 <a id="ga9f75eac00e365efaa38c8c3b9f98ec0e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga9f75eac00e365efaa38c8c3b9f98ec0e">&#9670;&nbsp;</a></span>XCsi2TxSs_GetMaxLaneCount()</h2>
 
@@ -1272,6 +1320,47 @@ HandlerType                                     Invoked by this driver when:
 <dl class="section note"><dt>Note</dt><dd>Invoking this function for a handler that already has been installed replaces it with the new handler. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_csi2_tx_ss.html#af575bf5693648774b6b55c36dc2acc25">XCsi2TxSs::IsReady</a>.</p>
+
+</div>
+</div>
+<a id="ga2da520a569957fe9fde9177404ee574f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2da520a569957fe9fde9177404ee574f">&#9670;&nbsp;</a></span>XCsi2TxSs_SetClkMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XCsi2TxSs_SetClkMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xcsi2txss_8c.html">xcsi2txss.c</a>&gt;</code></p>
+
+<p>This function is used to set the CSI2 Tx Subsystem Clock Mode as either Continuous (0) or Non-Continuous (1) mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Subsystem instance to be worked on.</td></tr>
+    <tr><td class="paramname">Mode</td><td>for Continuous Mode (0) or Non-continuous Mode (1)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 </div>
 </div>

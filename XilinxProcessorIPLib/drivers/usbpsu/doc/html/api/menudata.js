@@ -9,10 +9,14 @@ var menudata={children:[
 {text:"All",url:"globals.html",children:[
 {text:"d",url:"globals.html#index_d"},
 {text:"m",url:"globals.html#index_m"},
+{text:"p",url:"globals.html#index_p"},
+{text:"s",url:"globals.html#index_s"},
 {text:"x",url:"globals.html#index_x"}]},
 {text:"Functions",url:"globals_func.html",children:[
 {text:"d",url:"globals_func.html#index_d"},
 {text:"m",url:"globals_func.html#index_m"},
+{text:"p",url:"globals_func.html#index_p"},
+{text:"s",url:"globals_func.html#index_s"},
 {text:"x",url:"globals_func.html#index_x"}]},
 {text:"Enumerations",url:"globals_enum.html"},
 {text:"Enumerator",url:"globals_eval.html"},

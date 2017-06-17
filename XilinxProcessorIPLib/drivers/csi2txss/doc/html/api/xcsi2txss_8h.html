@@ -88,6 +88,16 @@ Macros</h2></td></tr>
 <tr class="memitem:ga0358e0b4a1ea75cf0460cd4653a9c76e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga0358e0b4a1ea75cf0460cd4653a9c76e">XCSI2TXSS_H_</a></td></tr>
 <tr class="memdesc:ga0358e0b4a1ea75cf0460cd4653a9c76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prevent circular inclusions by using protection macros.  <a href="group__csi2txss__v1__0.html#ga0358e0b4a1ea75cf0460cd4653a9c76e">More...</a><br /></td></tr>
 <tr class="separator:ga0358e0b4a1ea75cf0460cd4653a9c76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Clock Modes for CSI2 Tx</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>These macros are used to set/get the clock mode in CSI2 Tx.</p>
+<p>CCM - continuous clock mode. NCCM - non-continuous clock mode. </p>
+</div></td></tr>
+<tr class="memitem:gad57b90667b7dffdf8110c6cc3a359ea6"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TXSS_CCM</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:gad57b90667b7dffdf8110c6cc3a359ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd9530ef696f11d578ee0b2f4472988b"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>XCSI2TXSS_NCCM</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:gacd9530ef696f11d578ee0b2f4472988b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Interrupt Types for setting Callbacks</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>These handlers are used to determine the type of the interrupt handler being registered with the MIPI CSI2 Tx Subsystem.</p>
 <p>Since the subsystem is tightly coupled with the CSI2 Tx Controller driver, the handlers from the sub core are promoted to the subsystem level so that the application can use them. </p>
@@ -152,6 +162,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9f75eac00e365efaa38c8c3b9f98ec0e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga9f75eac00e365efaa38c8c3b9f98ec0e">XCsi2TxSs_GetMaxLaneCount</a> (<a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga9f75eac00e365efaa38c8c3b9f98ec0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to get the number of lanes configured in the IP.  <a href="group__csi2txss__v1__0.html#ga9f75eac00e365efaa38c8c3b9f98ec0e">More...</a><br /></td></tr>
 <tr class="separator:ga9f75eac00e365efaa38c8c3b9f98ec0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2da520a569957fe9fde9177404ee574f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga2da520a569957fe9fde9177404ee574f">XCsi2TxSs_SetClkMode</a> (<a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *InstancePtr, u8 Mode)</td></tr>
+<tr class="memdesc:ga2da520a569957fe9fde9177404ee574f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to set the CSI2 Tx Subsystem Clock Mode as either Continuous (0) or Non-Continuous (1) mode.  <a href="group__csi2txss__v1__0.html#ga2da520a569957fe9fde9177404ee574f">More...</a><br /></td></tr>
+<tr class="separator:ga2da520a569957fe9fde9177404ee574f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9322b8aa53d1f0f7ba52a8ddea493942"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga9322b8aa53d1f0f7ba52a8ddea493942">XCsi2TxSs_GetClkMode</a> (<a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga9322b8aa53d1f0f7ba52a8ddea493942"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to get the CSI2 Tx Subsystem Clock Mode as either Continuous (0) or Non-Continuous (1) mode.  <a href="group__csi2txss__v1__0.html#ga9322b8aa53d1f0f7ba52a8ddea493942">More...</a><br /></td></tr>
+<tr class="separator:ga9322b8aa53d1f0f7ba52a8ddea493942"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga55777b4afc7abf235debe2d797969577"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga55777b4afc7abf235debe2d797969577">XCsi2TxSs_SelfTest</a> (<a class="el" href="struct_x_csi2_tx_ss.html">XCsi2TxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga55777b4afc7abf235debe2d797969577"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function performs self test on MIPI CSI Tx Subsystem sub-cores.  <a href="group__csi2txss__v1__0.html#ga55777b4afc7abf235debe2d797969577">More...</a><br /></td></tr>
 <tr class="separator:ga55777b4afc7abf235debe2d797969577"><td class="memSeparator" colspan="2">&#160;</td></tr>

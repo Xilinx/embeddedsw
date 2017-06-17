@@ -79,13 +79,24 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 5.1   ms  01/23/17   Modified xil_printf statement in main function to
                      ensure that "Successfully ran" and "Failed" strings
                      are available in all examples. This is a fix for
-                     CR-965028.</pre><pre></pre><hr/>
+                     CR-965028.
+      ms  04/05/17   Added tabspace for return statements in functions for
+                     proper documentation and Modified Comment lines
+                     to consider it as a documentation block while
+                     generating doxygen.
+</pre><hr/>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a9b186f96c85a9de36244d2ec0f4833e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xllfifo__polling__example_8c.html#a9b186f96c85a9de36244d2ec0f4833e6">XLlFifoPollingExample</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, u16 DeviceId)</td></tr>
 <tr class="memdesc:a9b186f96c85a9de36244d2ec0f4833e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage AXI FIFO It does the following:  <a href="#a9b186f96c85a9de36244d2ec0f4833e6">More...</a><br /></td></tr>
 <tr class="separator:a9b186f96c85a9de36244d2ec0f4833e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38cd37c9e86c6d514d731db7bc520a0b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xllfifo__polling__example_8c.html#a38cd37c9e86c6d514d731db7bc520a0b">TxSend</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, u32 *SourceAddr)</td></tr>
+<tr class="memdesc:a38cd37c9e86c6d514d731db7bc520a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">TxSend routine, It will send the requested amount of data at the specified addr.  <a href="#a38cd37c9e86c6d514d731db7bc520a0b">More...</a><br /></td></tr>
+<tr class="separator:a38cd37c9e86c6d514d731db7bc520a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adec078eff87ae9f74e6bbe52d29db16e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xllfifo__polling__example_8c.html#adec078eff87ae9f74e6bbe52d29db16e">RxReceive</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, u32 *DestinationAddr)</td></tr>
+<tr class="memdesc:adec078eff87ae9f74e6bbe52d29db16e"><td class="mdescLeft">&#160;</td><td class="mdescRight">RxReceive routine.It will receive the data from the FIFO.  <a href="#adec078eff87ae9f74e6bbe52d29db16e">More...</a><br /></td></tr>
+<tr class="separator:adec078eff87ae9f74e6bbe52d29db16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xllfifo__polling__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 <tr class="memdesc:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main function.  <a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br /></td></tr>
 <tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,13 +125,94 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS if tests pass<ul>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if tests pass<ul>
 <li>XST_FAILURE if fails.</li>
+</ul>
+</li>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 <p class="reference">References <a class="el" href="xllfifo__polling__example_8c.html#a9b186f96c85a9de36244d2ec0f4833e6">XLlFifoPollingExample()</a>.</p>
+
+</div>
+</div>
+<a id="adec078eff87ae9f74e6bbe52d29db16e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adec078eff87ae9f74e6bbe52d29db16e">&#9670;&nbsp;</a></span>RxReceive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int RxReceive </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>DestinationAddr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>RxReceive routine.It will receive the data from the FIFO. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the instance of the <a class="el" href="struct_x_ll_fifo.html" title="This typedef defines a run-time instance of an XLlFifo device. ">XLlFifo</a> instance.</td></tr>
+    <tr><td class="paramname">DestinationAddr</td><td>is the address where to copy the received data.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+
+</div>
+</div>
+<a id="a38cd37c9e86c6d514d731db7bc520a0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38cd37c9e86c6d514d731db7bc520a0b">&#9670;&nbsp;</a></span>TxSend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TxSend </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32 *&#160;</td>
+          <td class="paramname"><em>SourceAddr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>TxSend routine, It will send the requested amount of data at the specified addr. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the instance of the <a class="el" href="struct_x_ll_fifo.html" title="This typedef defines a run-time instance of an XLlFifo device. ">XLlFifo</a> component.</td></tr>
+    <tr><td class="paramname">SourceAddr</td><td>is the address where the FIFO stars writing</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>-XST_SUCCESS to indicate success -XST_FAILURE to indicate failure</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 </div>
 </div>

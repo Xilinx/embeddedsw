@@ -75,14 +75,16 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.00   MMO 19/12/16 Move HDCP Code from <a class="el" href="xv__hdmitxss_8c.html" title="This is main code of Xilinx HDMI Transmitter Subsystem device driver. ">xv_hdmitxss.c</a> to <a class="el" href="xv__hdmitxss__hdcp_8c.html" title="This is main code of Xilinx HDMI Transmitter Subsystem device driver. ">xv_hdmitxss_hdcp.c</a>
+3.20   MH  04/12/17 Updated function XV_HdmiTxSs_IsSinkHdcp14Capable and
+                    XV_HdmiTxSs_IsSinkHdcp22Capable.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a46f90d2469c5ccfe6fc28de9d0aa7bea"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss__hdcp_8c.html#a46f90d2469c5ccfe6fc28de9d0aa7bea">XV_HdmiTxSs_IsSinkHdcp14Capable</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a46f90d2469c5ccfe6fc28de9d0aa7bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the connected HDMI sink has HDCP 1.4 capabilities.  <a href="#a46f90d2469c5ccfe6fc28de9d0aa7bea">More...</a><br /></td></tr>
+<tr class="memdesc:a46f90d2469c5ccfe6fc28de9d0aa7bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the connected HDMI sink is HDCP 1.4 capable.  <a href="#a46f90d2469c5ccfe6fc28de9d0aa7bea">More...</a><br /></td></tr>
 <tr class="separator:a46f90d2469c5ccfe6fc28de9d0aa7bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23a1a2544ef4bc3ff8e1fde04bcc6f56"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss__hdcp_8c.html#a23a1a2544ef4bc3ff8e1fde04bcc6f56">XV_HdmiTxSs_IsSinkHdcp22Capable</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a23a1a2544ef4bc3ff8e1fde04bcc6f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the connected HDMI sink has HDCP 2.2 capabilities.  <a href="#a23a1a2544ef4bc3ff8e1fde04bcc6f56">More...</a><br /></td></tr>
+<tr class="memdesc:a23a1a2544ef4bc3ff8e1fde04bcc6f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function determines if the connected HDMI sink is HDCP 2.2 capable.  <a href="#a23a1a2544ef4bc3ff8e1fde04bcc6f56">More...</a><br /></td></tr>
 <tr class="separator:a23a1a2544ef4bc3ff8e1fde04bcc6f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -102,8 +104,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function determines if the connected HDMI sink has HDCP 1.4 capabilities. </p>
-<p>The sink is determined to be HDCP 1.4 capable the BKSV indicates 20 ones and 20 zeros. If the sink is capable of HDCP 1.4, then this function checks if the Bcaps register indicates that the connected device a DVI or HDMI receiver. If the receiver is determined to be HDMI, then the function will return FALSE until the receiver has set the HDMI_MODE in the Bstatus register.</p>
+<p>This function determines if the connected HDMI sink is HDCP 1.4 capable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> instance.</td></tr>
@@ -115,8 +116,6 @@ Functions</h2></td></tr>
 <li>FALSE if sink does not support HDCP 1.4 or is not ready. </li>
 </ul>
 </dd></dl>
-
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
 
 </div>
 </div>
@@ -136,7 +135,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>This function determines if the connected HDMI sink has HDCP 2.2 capabilities. </p>
+<p>This function determines if the connected HDMI sink is HDCP 2.2 capable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> instance.</td></tr>
@@ -144,12 +143,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
-<li>TRUE if sink is HDCP 2.2 capable</li>
-<li>FALSE if sink does not support HDCP 2.2 or HDCP 2.2 is not available. </li>
+<li>TRUE if sink is HDCP 2.2 capable and ready to authenticate.</li>
+<li>FALSE if sink does not support HDCP 2.2 or is not ready. </li>
 </ul>
 </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab003c64bbf63c1cc119c0a074f442967">XV_HdmiTxSs::HdcpProtocol</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da0ac9cbdc7d8cb2851d920930a376b0a3">XV_HDMITXSS_HDCP_14</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da1a1b397d94a578680e4ea043d82b82f2">XV_HDMITXSS_HDCP_22</a>, and <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715daac8020e5cbc2a02efd15877b22572965">XV_HDMITXSS_HDCP_NONE</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#ab003c64bbf63c1cc119c0a074f442967">XV_HdmiTxSs::HdcpProtocol</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da0ac9cbdc7d8cb2851d920930a376b0a3">XV_HDMITXSS_HDCP_14</a>, <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da1a1b397d94a578680e4ea043d82b82f2">XV_HDMITXSS_HDCP_22</a>, and <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715daac8020e5cbc2a02efd15877b22572965">XV_HDMITXSS_HDCP_NONE</a>.</p>
 
 </div>
 </div>

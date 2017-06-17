@@ -726,6 +726,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga1166cc4f5ef31f3764bdc10408cfd2b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp1x__v4__0.html#ga1166cc4f5ef31f3764bdc10408cfd2b2">XVPHY_TMO_1SECOND</a>&#160;&#160;&#160;(1000u)</td></tr>
 <tr class="memdesc:ga1166cc4f5ef31f3764bdc10408cfd2b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout value for 1s.  <a href="#ga1166cc4f5ef31f3764bdc10408cfd2b2">More...</a><br /></td></tr>
 <tr class="separator:ga1166cc4f5ef31f3764bdc10408cfd2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga828733c703d592c74e8becd60b5c7ecb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp1x__v4__0.html#ga828733c703d592c74e8becd60b5c7ecb">XHDCP1X_MAX_BCAPS_RDY_POLL_CNT</a>&#160;&#160;&#160;(55)</td></tr>
+<tr class="memdesc:ga828733c703d592c74e8becd60b5c7ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max times to poll on BCaps Ready bit at 100ms interval.  <a href="#ga828733c703d592c74e8becd60b5c7ecb">More...</a><br /></td></tr>
+<tr class="separator:ga828733c703d592c74e8becd60b5c7ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga88e26cb09f1d931e500cdc461b97db45"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp1x__v4__0.html#ga88e26cb09f1d931e500cdc461b97db45">XHDCP1X_TX_H</a></td></tr>
 <tr class="memdesc:ga88e26cb09f1d931e500cdc461b97db45"><td class="mdescLeft">&#160;</td><td class="mdescRight">&lt; Prevent circular inclusions by using protection macros  <a href="#ga88e26cb09f1d931e500cdc461b97db45">More...</a><br /></td></tr>
 <tr class="separator:ga88e26cb09f1d931e500cdc461b97db45"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1237,6 +1240,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gad8b45d2c6a594bdb5210c443d1d0020d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp1x__v4__0.html#gad8b45d2c6a594bdb5210c443d1d0020d">XHdcp1x_TxDisableEncryption</a> (<a class="el" href="struct_x_hdcp1x.html">XHdcp1x</a> *InstancePtr, u64 StreamMap)</td></tr>
 <tr class="memdesc:gad8b45d2c6a594bdb5210c443d1d0020d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables encryption on set of streams on an HDCP interface.  <a href="#gad8b45d2c6a594bdb5210c443d1d0020d">More...</a><br /></td></tr>
 <tr class="separator:gad8b45d2c6a594bdb5210c443d1d0020d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43144123acbfd9840bc356d14ff2ccdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp1x__v4__0.html#ga43144123acbfd9840bc356d14ff2ccdc">XHdcp1x_TxSetHdmiMode</a> (<a class="el" href="struct_x_hdcp1x.html">XHdcp1x</a> *InstancePtr, u8 Value)</td></tr>
+<tr class="memdesc:ga43144123acbfd9840bc356d14ff2ccdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">This set a flag that allows the hdcp1x drivers to determine if the transmitter is HDMI or DVI.  <a href="#ga43144123acbfd9840bc356d14ff2ccdc">More...</a><br /></td></tr>
+<tr class="separator:ga43144123acbfd9840bc356d14ff2ccdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga79bb13897f9893f9ffbecd6247aea442"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp1x__v4__0.html#ga79bb13897f9893f9ffbecd6247aea442">XHdcp1x_TxHandleTimeout</a> (<a class="el" href="struct_x_hdcp1x.html">XHdcp1x</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga79bb13897f9893f9ffbecd6247aea442"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function handles a timeout on an HDCP interface.  <a href="#ga79bb13897f9893f9ffbecd6247aea442">More...</a><br /></td></tr>
 <tr class="separator:ga79bb13897f9893f9ffbecd6247aea442"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1372,7 +1378,7 @@ Request Types</h2></td></tr>
 
 <p>Used to remove warnings for unused variables. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gadc55a06b412b97147efb33690e6b1a81">XHdcp1x_RxSetHdmiMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gadc55a06b412b97147efb33690e6b1a81">XHdcp1x_RxSetHdmiMode()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga43144123acbfd9840bc356d14ff2ccdc">XHdcp1x_TxSetHdmiMode()</a>.</p>
 
 </div>
 </div>
@@ -2991,6 +2997,24 @@ Request Types</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xhdcp1x_8h.html">xhdcp1x.h</a>&gt;</code></p>
 
 <p>Size of each hdcp 1.4 Public Key in bytes. </p>
+
+</div>
+</div>
+<a id="ga828733c703d592c74e8becd60b5c7ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga828733c703d592c74e8becd60b5c7ecb">&#9670;&nbsp;</a></span>XHDCP1X_MAX_BCAPS_RDY_POLL_CNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XHDCP1X_MAX_BCAPS_RDY_POLL_CNT&#160;&#160;&#160;(55)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xhdcp1x__tx_8c.html">xhdcp1x_tx.c</a>&gt;</code></p>
+
+<p>Max times to poll on BCaps Ready bit at 100ms interval. </p>
 
 </div>
 </div>
@@ -5757,9 +5781,9 @@ Request Types</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhdcp1x__tx_8c.html">xhdcp1x_tx.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhdcp1x__rx_8c.html">xhdcp1x_rx.c</a>&gt;</code></p>
 
-<p>This enumerates the Event Types for HDCP Transmitter state machine. </p>
+<p>This enumerates the Event Types for HDCP Receiver state machine. </p>
 
 </div>
 </div>
@@ -5775,9 +5799,9 @@ Request Types</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhdcp1x__rx_8c.html">xhdcp1x_rx.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhdcp1x__tx_8c.html">xhdcp1x_tx.c</a>&gt;</code></p>
 
-<p>This enumerates the Event Types for HDCP Receiver state machine. </p>
+<p>This enumerates the Event Types for HDCP Transmitter state machine. </p>
 
 </div>
 </div>
@@ -5869,9 +5893,9 @@ Request Types</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhdcp1x__tx_8c.html">xhdcp1x_tx.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhdcp1x__rx_8c.html">xhdcp1x_rx.c</a>&gt;</code></p>
 
-<p>This enumerates the Event Types for HDCP Transmitter state machine. </p>
+<p>This enumerates the State Types for HDCP Receiver state machine. </p>
 
 </div>
 </div>
@@ -5887,9 +5911,9 @@ Request Types</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhdcp1x__rx_8c.html">xhdcp1x_rx.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhdcp1x__tx_8c.html">xhdcp1x_tx.c</a>&gt;</code></p>
 
-<p>This enumerates the State Types for HDCP Receiver state machine. </p>
+<p>This enumerates the Event Types for HDCP Transmitter state machine. </p>
 
 </div>
 </div>
@@ -10386,7 +10410,7 @@ HandlerType                           Callback Function Type
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_hdcp1x.html#a4fd777f9a8a407ed4b2d6d02fab202ea">XHdcp1x::Config</a>, <a class="el" href="struct_x_hdcp1x___config.html#a2bd303115c93ce720649a9d59a291893">XHdcp1x_Config::IsRx</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga66e1b425725213dd4d5231bf5710e04f">XHDCP1X_DEBUG_PRINTF</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gadc55a06b412b97147efb33690e6b1a81">XHdcp1x_RxSetHdmiMode()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_hdcp1x.html#a4fd777f9a8a407ed4b2d6d02fab202ea">XHdcp1x::Config</a>, <a class="el" href="struct_x_hdcp1x___config.html#a2bd303115c93ce720649a9d59a291893">XHdcp1x_Config::IsRx</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga66e1b425725213dd4d5231bf5710e04f">XHDCP1X_DEBUG_PRINTF</a>, <a class="el" href="group__hdcp1x__v4__0.html#gadc55a06b412b97147efb33690e6b1a81">XHdcp1x_RxSetHdmiMode()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga43144123acbfd9840bc356d14ff2ccdc">XHdcp1x_TxSetHdmiMode()</a>.</p>
 
 </div>
 </div>
@@ -10943,7 +10967,7 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga103ae62cd1207e7566bf4f39ce946f67">XHdcp1x_Authenticate()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga103ae62cd1207e7566bf4f39ce946f67">XHdcp1x_Authenticate()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gaf4099beda2b952aa7f9ce574cbbc7646">XHdcp1x_TxSetLaneCount()</a>.</p>
 
 </div>
 </div>
@@ -11012,7 +11036,7 @@ HandlerType                           Callback Function Type
 
 <p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#gaa2bcbd719e1f2f9b0b5fe6757b5a14b2">XHdcp1x_CipherDisableBlank()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga3bcdf20c5176355adb31bf0477bcaaca">XHdcp1x_DisableBlank()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga3bcdf20c5176355adb31bf0477bcaaca">XHdcp1x_DisableBlank()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga610b320cce6d9ee99a4f8c2380f2c852">XHdcp1x_TxEnableBlank()</a>.</p>
 
 </div>
 </div>
@@ -11058,7 +11082,7 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_hdcp1x___tx.html#ad09bb07585db661f7cabd6e9919f0cbc">XHdcp1x_Tx::EncryptionMap</a>, <a class="el" href="struct_x_hdcp1x.html#af50e04f7bdf73163fb7632b0ab004d8a">XHdcp1x::Tx</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga49cf0f72f0d918e33d66ff40c91d3073">XHdcp1x_CipherDisableEncryption()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga74a97f4a831692ea2465eb39935ffdcf">XHdcp1x_TxIsEnabled()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_hdcp1x___tx.html#ad09bb07585db661f7cabd6e9919f0cbc">XHdcp1x_Tx::EncryptionMap</a>, <a class="el" href="struct_x_hdcp1x.html#af50e04f7bdf73163fb7632b0ab004d8a">XHdcp1x::Tx</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga49cf0f72f0d918e33d66ff40c91d3073">XHdcp1x_CipherDisableEncryption()</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga74a97f4a831692ea2465eb39935ffdcf">XHdcp1x_TxIsEnabled()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga43144123acbfd9840bc356d14ff2ccdc">XHdcp1x_TxSetHdmiMode()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gaad9f3acb0f7df366481d4261542ba2c8">XHdcp1x_DisableEncryption()</a>.</p>
 
@@ -11127,7 +11151,7 @@ HandlerType                           Callback Function Type
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga1075068f7db6bf3b0ae31818534f93e8">XHdcp1x_CipherEnableBlank()</a>.</p>
+<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga1075068f7db6bf3b0ae31818534f93e8">XHdcp1x_CipherEnableBlank()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga5345387226f345c288ee244f369d8ed5">XHdcp1x_TxDisableBlank()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga78468655ea2782da93ae20bab2e9a680">XHdcp1x_EnableBlank()</a>.</p>
 
@@ -11177,7 +11201,7 @@ HandlerType                           Callback Function Type
 
 <p class="reference">References <a class="el" href="struct_x_hdcp1x___tx.html#ad09bb07585db661f7cabd6e9919f0cbc">XHdcp1x_Tx::EncryptionMap</a>, <a class="el" href="struct_x_hdcp1x.html#af50e04f7bdf73163fb7632b0ab004d8a">XHdcp1x::Tx</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga3c42675e40aba8024237fee77155fce4">XHdcp1x_TxIsAuthenticated()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga7ace40ed3ad14f22e3cce4bc8bf6249c">XHdcp1x_EnableEncryption()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga7ace40ed3ad14f22e3cce4bc8bf6249c">XHdcp1x_EnableEncryption()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga86e8fd4e72f7d913bc7f13ea15f37af7">XHdcp1x_TxGetEncryption()</a>.</p>
 
 </div>
 </div>
@@ -11209,9 +11233,9 @@ HandlerType                           Callback Function Type
 <dl class="section return"><dt>Returns</dt><dd>The current encryption stream map.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_hdcp1x___tx.html#ad09bb07585db661f7cabd6e9919f0cbc">XHdcp1x_Tx::EncryptionMap</a>, and <a class="el" href="struct_x_hdcp1x.html#af50e04f7bdf73163fb7632b0ab004d8a">XHdcp1x::Tx</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_hdcp1x___tx.html#ad09bb07585db661f7cabd6e9919f0cbc">XHdcp1x_Tx::EncryptionMap</a>, <a class="el" href="struct_x_hdcp1x.html#af50e04f7bdf73163fb7632b0ab004d8a">XHdcp1x::Tx</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga49660982a4772c7bc0091f7c88c68e19">XHdcp1x_TxEnableEncryption()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga60f6a284a49f0e381c353180ec5bebdc">XHdcp1x_GetEncryption()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga60f6a284a49f0e381c353180ec5bebdc">XHdcp1x_GetEncryption()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gad30b097e8f3ff909c1ad5bd4c6a7d7c8">XHdcp1x_TxIsDownstrmCapable()</a>.</p>
 
 </div>
 </div>
@@ -11245,7 +11269,7 @@ HandlerType                           Callback Function Type
 
 <p class="reference">References <a class="el" href="struct_x_hdcp1x___rx.html#a45dfdf65ea2c69d3bb5f6f2573d1830a">XHdcp1x_Rx::CurrentState</a>, <a class="el" href="struct_x_hdcp1x.html#ac977d9a53ad6777e4c4bcae29d58c4c4">XHdcp1x::IsRepeater</a>, and <a class="el" href="struct_x_hdcp1x.html#a0a37ba675983dce379385f3f84db9172">XHdcp1x::Rx</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga1030400c6c423608ffd155b9cb4d12ef">XHdcp1x_GetTopology()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga1030400c6c423608ffd155b9cb4d12ef">XHdcp1x_GetTopology()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga029629390d42624ba18930e5d73a948e">XHdcp1x_TxGetTopologyMaxDevsExceeded()</a>.</p>
 
 </div>
 </div>
@@ -11281,9 +11305,9 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga0b4d815c1d172e921b83f3685d54012b">XHDCP1X_PORT_BUF_TO_UINT</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga1865cffebcba3167ab0867e3a276fe12">XHDCP1X_PORT_OFFSET_BKSV</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga8f589bb54a9c7295aa522dcf5f25fbf7">XHDCP1X_PORT_SIZE_BKSV</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga6e36b9c8a021600e2c9e3766f94b6dc7">XHdcp1x_PortRead()</a>.</p>
+<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga0b4d815c1d172e921b83f3685d54012b">XHDCP1X_PORT_BUF_TO_UINT</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga1865cffebcba3167ab0867e3a276fe12">XHDCP1X_PORT_OFFSET_BKSV</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga8f589bb54a9c7295aa522dcf5f25fbf7">XHDCP1X_PORT_SIZE_BKSV</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga6e36b9c8a021600e2c9e3766f94b6dc7">XHdcp1x_PortRead()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga029629390d42624ba18930e5d73a948e">XHdcp1x_TxGetTopologyMaxDevsExceeded()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gaa0dc57eed89ceb400350f9d78551946e">XHdcp1x_GetTopologyBKSV()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gaa0dc57eed89ceb400350f9d78551946e">XHdcp1x_GetTopologyBKSV()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gaf854c758691f491c5f80e89a795f2a24">XHdcp1x_TxGetTopologyMaxCascadeExceeded()</a>.</p>
 
 </div>
 </div>
@@ -11315,7 +11339,9 @@ HandlerType                           Callback Function Type
 <dl class="section return"><dt>Returns</dt><dd>Value of Depth.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_hdcp1x___repeater_exchange.html#a40144408f1bb58cf5a97b3a50ba792b6">XHdcp1x_RepeaterExchange::Depth</a>, and <a class="el" href="struct_x_hdcp1x.html#addd3478685d4cb9f7ce30ef286a1b371">XHdcp1x::RepeaterValues</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_hdcp1x___repeater_exchange.html#a40144408f1bb58cf5a97b3a50ba792b6">XHdcp1x_RepeaterExchange::Depth</a>, <a class="el" href="struct_x_hdcp1x.html#addd3478685d4cb9f7ce30ef286a1b371">XHdcp1x::RepeaterValues</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gad4fca1a785fdb5e58b98c8f6619614e9">XHdcp1x_TxGetTopologyDeviceCnt()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gad633915b955c6b56fa317e44bf26593a">XHdcp1x_TxGetTopologyKSVList()</a>.</p>
 
 </div>
 </div>
@@ -11351,7 +11377,9 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_hdcp1x___repeater_exchange.html#af6d1681d45b9be94629caf1e8ecdfdc2">XHdcp1x_RepeaterExchange::DeviceCount</a>, and <a class="el" href="struct_x_hdcp1x.html#addd3478685d4cb9f7ce30ef286a1b371">XHdcp1x::RepeaterValues</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_hdcp1x___repeater_exchange.html#af6d1681d45b9be94629caf1e8ecdfdc2">XHdcp1x_RepeaterExchange::DeviceCount</a>, <a class="el" href="struct_x_hdcp1x.html#addd3478685d4cb9f7ce30ef286a1b371">XHdcp1x::RepeaterValues</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gaf854c758691f491c5f80e89a795f2a24">XHdcp1x_TxGetTopologyMaxCascadeExceeded()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga11572e1f3d8c314380b5442a2edfb4bc">XHdcp1x_TxGetTopologyDepth()</a>.</p>
 
 </div>
 </div>
@@ -11387,7 +11415,7 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_hdcp1x___repeater_exchange.html#af6d1681d45b9be94629caf1e8ecdfdc2">XHdcp1x_RepeaterExchange::DeviceCount</a>, <a class="el" href="struct_x_hdcp1x___repeater_exchange.html#a020414febebe00bdd191ee44c5aca495">XHdcp1x_RepeaterExchange::KsvList</a>, and <a class="el" href="struct_x_hdcp1x.html#addd3478685d4cb9f7ce30ef286a1b371">XHdcp1x::RepeaterValues</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_hdcp1x___repeater_exchange.html#af6d1681d45b9be94629caf1e8ecdfdc2">XHdcp1x_RepeaterExchange::DeviceCount</a>, <a class="el" href="struct_x_hdcp1x___repeater_exchange.html#a020414febebe00bdd191ee44c5aca495">XHdcp1x_RepeaterExchange::KsvList</a>, <a class="el" href="struct_x_hdcp1x.html#addd3478685d4cb9f7ce30ef286a1b371">XHdcp1x::RepeaterValues</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga11572e1f3d8c314380b5442a2edfb4bc">XHdcp1x_TxGetTopologyDepth()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gaf9abe5fb8d1b7663035ceb0250368699">XHdcp1x_GetTopologyKSVList()</a>.</p>
 
@@ -11425,7 +11453,9 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga3e0e68475a7bc3c4c23dd0eee76f242a">XHDCP1X_PORT_BINFO_BIT_DEPTH_ERR</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga1f61304755f675caa5adfa5dfaa7d766">XHDCP1X_PORT_BSTATUS_BIT_DEPTH_ERR</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga340474589062fb395d755c3df36b03f8">XHDCP1X_PORT_OFFSET_BINFO</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga735d88629a20a22d8edc3527877160f8">XHDCP1X_PORT_OFFSET_BSTATUS</a>, <a class="el" href="group__hdcp1x__v4__0.html#gab06658de2c710ab133093ac51411f77a">XHDCP1X_PORT_SIZE_BINFO</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga1f5c58db160f9afd130570f0111d094d">XHDCP1X_PORT_SIZE_BSTATUS</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga6e36b9c8a021600e2c9e3766f94b6dc7">XHdcp1x_PortRead()</a>.</p>
+<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga3e0e68475a7bc3c4c23dd0eee76f242a">XHDCP1X_PORT_BINFO_BIT_DEPTH_ERR</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga1f61304755f675caa5adfa5dfaa7d766">XHDCP1X_PORT_BSTATUS_BIT_DEPTH_ERR</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga340474589062fb395d755c3df36b03f8">XHDCP1X_PORT_OFFSET_BINFO</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga735d88629a20a22d8edc3527877160f8">XHDCP1X_PORT_OFFSET_BSTATUS</a>, <a class="el" href="group__hdcp1x__v4__0.html#gab06658de2c710ab133093ac51411f77a">XHDCP1X_PORT_SIZE_BINFO</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga1f5c58db160f9afd130570f0111d094d">XHDCP1X_PORT_SIZE_BSTATUS</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga6e36b9c8a021600e2c9e3766f94b6dc7">XHdcp1x_PortRead()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gaacbe196b64bd19fe98db62e552b89788">XHdcp1x_TxGetTopologyBKSV()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gad4fca1a785fdb5e58b98c8f6619614e9">XHdcp1x_TxGetTopologyDeviceCnt()</a>.</p>
 
 </div>
 </div>
@@ -11461,7 +11491,9 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga6aff792c7dfb910015f1ebced29ce96f">XHDCP1X_PORT_BINFO_BIT_DEV_CNT_ERR</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga9760b101a94e3f360a0c37b3622d8084">XHDCP1X_PORT_BSTATUS_BIT_DEV_CNT_ERR</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga340474589062fb395d755c3df36b03f8">XHDCP1X_PORT_OFFSET_BINFO</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga735d88629a20a22d8edc3527877160f8">XHDCP1X_PORT_OFFSET_BSTATUS</a>, <a class="el" href="group__hdcp1x__v4__0.html#gab06658de2c710ab133093ac51411f77a">XHDCP1X_PORT_SIZE_BINFO</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga1f5c58db160f9afd130570f0111d094d">XHDCP1X_PORT_SIZE_BSTATUS</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga6e36b9c8a021600e2c9e3766f94b6dc7">XHdcp1x_PortRead()</a>.</p>
+<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga6aff792c7dfb910015f1ebced29ce96f">XHDCP1X_PORT_BINFO_BIT_DEV_CNT_ERR</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga9760b101a94e3f360a0c37b3622d8084">XHDCP1X_PORT_BSTATUS_BIT_DEV_CNT_ERR</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga340474589062fb395d755c3df36b03f8">XHDCP1X_PORT_OFFSET_BINFO</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga735d88629a20a22d8edc3527877160f8">XHDCP1X_PORT_OFFSET_BSTATUS</a>, <a class="el" href="group__hdcp1x__v4__0.html#gab06658de2c710ab133093ac51411f77a">XHDCP1X_PORT_SIZE_BINFO</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga1f5c58db160f9afd130570f0111d094d">XHDCP1X_PORT_SIZE_BSTATUS</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga6e36b9c8a021600e2c9e3766f94b6dc7">XHdcp1x_PortRead()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gab22ac8a26a4b60bdeda3be59baacbf39">XHdcp1x_TxGetTopology()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gaacbe196b64bd19fe98db62e552b89788">XHdcp1x_TxGetTopologyBKSV()</a>.</p>
 
 </div>
 </div>
@@ -11493,7 +11525,7 @@ HandlerType                           Callback Function Type
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gadefd696ca95f00b16f9af353a0f7d2e8">XHdcp1x_HandleTimeout()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gadefd696ca95f00b16f9af353a0f7d2e8">XHdcp1x_HandleTimeout()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga43144123acbfd9840bc356d14ff2ccdc">XHdcp1x_TxSetHdmiMode()</a>.</p>
 
 </div>
 </div>
@@ -11530,7 +11562,7 @@ HandlerType                           Callback Function Type
 
 <p class="reference">References <a class="el" href="struct_x_hdcp1x.html#a4fd777f9a8a407ed4b2d6d02fab202ea">XHdcp1x::Config</a>, <a class="el" href="struct_x_hdcp1x___config.html#a737c4d0a7a9ceb9297a7383bf87a00c9">XHdcp1x_Config::IsHDMI</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga66e1b425725213dd4d5231bf5710e04f">XHDCP1X_DEBUG_PRINTF</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga7f8a11ce5614a2541b378f034b3198cb">XHdcp1x_Info()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga7f8a11ce5614a2541b378f034b3198cb">XHdcp1x_Info()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gaee964dc4d6fc103705d6358fc2db9480">XHdcp1x_TxIsRepeater()</a>.</p>
 
 </div>
 </div>
@@ -11628,7 +11660,7 @@ HandlerType                           Callback Function Type
 <dl class="section return"><dt>Returns</dt><dd>Truth value indicating HDCP capability (true) or not (false).</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#gaf1e24817724b0410a9b272343a0ef745">XHdcp1x_PortIsCapable()</a>.</p>
+<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#gaf1e24817724b0410a9b272343a0ef745">XHdcp1x_PortIsCapable()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga86e8fd4e72f7d913bc7f13ea15f37af7">XHdcp1x_TxGetEncryption()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gae8389541cb1c23695221b17789eb945c">XHdcp1x_IsDwnstrmCapable()</a>.</p>
 
@@ -11802,7 +11834,7 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga41b5285a790690159dece6baa5afadf9">XHdcp1x_PortIsRepeater()</a>.</p>
+<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#ga41b5285a790690159dece6baa5afadf9">XHdcp1x_PortIsRepeater()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gaa503ece3533fb6055289ad2dd01ba80b">XHdcp1x_TxInfo()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gac0c5947639623f7b97d9ec1cc712e75f">XHdcp1x_IsRepeater()</a>.</p>
 
@@ -11972,6 +12004,50 @@ HandlerType                           Callback Function Type
 
 </div>
 </div>
+<a id="ga43144123acbfd9840bc356d14ff2ccdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43144123acbfd9840bc356d14ff2ccdc">&#9670;&nbsp;</a></span>XHdcp1x_TxSetHdmiMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XHdcp1x_TxSetHdmiMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_hdcp1x.html">XHdcp1x</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xhdcp1x__tx_8c.html">xhdcp1x_tx.c</a>&gt;</code></p>
+
+<p>This set a flag that allows the hdcp1x drivers to determine if the transmitter is HDMI or DVI. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is the transmitter instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_hdcp1x.html#af50e04f7bdf73163fb7632b0ab004d8a">XHdcp1x::Tx</a>, <a class="el" href="struct_x_hdcp1x___tx.html#a34ad3751d939a0be2b379e434535916e">XHdcp1x_Tx::TxIsHdmi</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga86d500a34c624c2cae56bc25a31b12f3">UNUSED</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga79bb13897f9893f9ffbecd6247aea442">XHdcp1x_TxHandleTimeout()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gae607ce47975decbc6e4e45d51889dc19">XHdcp1x_SetHdmiMode()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gad8b45d2c6a594bdb5210c443d1d0020d">XHdcp1x_TxDisableEncryption()</a>.</p>
+
+</div>
+</div>
 <a id="gaf4099beda2b952aa7f9ce574cbbc7646"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaf4099beda2b952aa7f9ce574cbbc7646">&#9670;&nbsp;</a></span>XHdcp1x_TxSetLaneCount()</h2>
 
@@ -12014,7 +12090,7 @@ HandlerType                           Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#gad104aebb80bb03cb66c31eaabf21247a">XHdcp1x_CipherSetNumLanes()</a>.</p>
+<p class="reference">References <a class="el" href="group__hdcp1x__v4__0.html#gad104aebb80bb03cb66c31eaabf21247a">XHdcp1x_CipherSetNumLanes()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gaec7dcf7e211da3d42dc621cb7d062f6c">XHdcp1x_TxAuthenticate()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga230854e10d59500a41137b4f5951042b">XHdcp1x_SetLaneCount()</a>.</p>
 

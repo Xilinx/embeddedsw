@@ -11,6 +11,8 @@ var files =
     [ "xhdcp.c", "xhdcp_8c.html", null ],
     [ "xhdcp.h", "xhdcp_8h.html", "xhdcp_8h" ],
     [ "xhdmi_example.c", "xhdmi__example_8c.html", "xhdmi__example_8c" ],
+    [ "xhdmi_example_zynq.c", "xhdmi__example__zynq_8c.html", "xhdmi__example__zynq_8c" ],
+    [ "xhdmi_example_zynq_us.c", "xhdmi__example__zynq__us_8c.html", "xhdmi__example__zynq__us_8c" ],
     [ "xhdmi_hdcp_keys.c", "xhdmi__hdcp__keys_8c.html", "xhdmi__hdcp__keys_8c" ],
     [ "xhdmi_hdcp_keys.h", "xhdmi__hdcp__keys_8h.html", "xhdmi__hdcp__keys_8h" ],
     [ "xhdmi_menu.c", "xhdmi__menu_8c.html", "xhdmi__menu_8c" ],

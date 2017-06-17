@@ -126,6 +126,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga21edd11331c715ee4b2c7a34471eac0d"><td class="memItemLeft" align="right" valign="top">XStatus&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__v1__0.html#ga21edd11331c715ee4b2c7a34471eac0d">XIpiPsu_WriteMessage</a> (<a class="el" href="struct_x_ipi_psu.html">XIpiPsu</a> *InstancePtr, u32 DestCpuMask, u32 *MsgPtr, u32 MsgLength, u8 BufferType)</td></tr>
 <tr class="memdesc:ga21edd11331c715ee4b2c7a34471eac0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a Message to Destination.  <a href="#ga21edd11331c715ee4b2c7a34471eac0d">More...</a><br /></td></tr>
 <tr class="separator:ga21edd11331c715ee4b2c7a34471eac0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4466706c8ede1b9b6e5b592a075afa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__v1__0.html#gab4466706c8ede1b9b6e5b592a075afa7">XIpiPsu_SetConfigTable</a> (u32 DeviceId, <a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a> *ConfigTblPtr)</td></tr>
+<tr class="memdesc:gab4466706c8ede1b9b6e5b592a075afa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up the device configuration based on the unique device ID.  <a href="#gab4466706c8ede1b9b6e5b592a075afa7">More...</a><br /></td></tr>
+<tr class="separator:gab4466706c8ede1b9b6e5b592a075afa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaaafe5e7a11e3d1fdd01a255521332272"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ipipsu__v1__0.html#gaaafe5e7a11e3d1fdd01a255521332272">XIpiPsu_LookupConfig</a> (u32 DeviceId)</td></tr>
 <tr class="memdesc:gaaafe5e7a11e3d1fdd01a255521332272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the device configuration based on the unique device ID.  <a href="#gaaafe5e7a11e3d1fdd01a255521332272">More...</a><br /></td></tr>
 <tr class="separator:gaaafe5e7a11e3d1fdd01a255521332272"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,7 +161,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xipipsu_8h.html">xipipsu.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_ISR_OFFSET, \</div><div class="line">                ((Mask) &amp; XIPIPSU_ALL_MASK));</div><div class="ttc" id="group__ipipsu__v1__0_html_ga72bcaac2f32ad480f79204f868309c31"><div class="ttname"><a href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a></div><div class="ttdeci">#define XIpiPsu_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write a value into a register specified by base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:173</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_ISR_OFFSET, \</div><div class="line">                ((Mask) &amp; XIPIPSU_ALL_MASK));</div><div class="ttc" id="group__ipipsu__v1__0_html_ga72bcaac2f32ad480f79204f868309c31"><div class="ttname"><a href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a></div><div class="ttdeci">#define XIpiPsu_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write a value into a register specified by base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:176</div></div>
 </div><!-- fragment -->
 <p>Clear the <em>STATUS REGISTER</em> of the current IPI instance. </p>
 <p>The corresponding interrupt status for each bit set to 1 in <em>Mask</em>, will be cleared</p>
@@ -190,7 +193,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xipipsu_8h.html">xipipsu.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_ISR_OFFSET)</div><div class="ttc" id="group__ipipsu__v1__0_html_gac400a6861c1d0ee565ad5fac914a7220"><div class="ttname"><a href="group__ipipsu__v1__0.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a></div><div class="ttdeci">#define XIpiPsu_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Read the register specified by the base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:155</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_ISR_OFFSET)</div><div class="ttc" id="group__ipipsu__v1__0_html_gac400a6861c1d0ee565ad5fac914a7220"><div class="ttname"><a href="group__ipipsu__v1__0.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a></div><div class="ttdeci">#define XIpiPsu_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Read the register specified by the base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:158</div></div>
 </div><!-- fragment -->
 <p>Get the <em>STATUS REGISTER</em> of the current IPI instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -221,7 +224,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xipipsu_8h.html">xipipsu.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_OBS_OFFSET)</div><div class="ttc" id="group__ipipsu__v1__0_html_gac400a6861c1d0ee565ad5fac914a7220"><div class="ttname"><a href="group__ipipsu__v1__0.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a></div><div class="ttdeci">#define XIpiPsu_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Read the register specified by the base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:155</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_OBS_OFFSET)</div><div class="ttc" id="group__ipipsu__v1__0_html_gac400a6861c1d0ee565ad5fac914a7220"><div class="ttname"><a href="group__ipipsu__v1__0.html#gac400a6861c1d0ee565ad5fac914a7220">XIpiPsu_ReadReg</a></div><div class="ttdeci">#define XIpiPsu_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Read the register specified by the base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:158</div></div>
 </div><!-- fragment -->
 <p>Get the <em>OBSERVATION REGISTER</em> of the current IPI instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -262,7 +265,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xipipsu_8h.html">xipipsu.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_IDR_OFFSET, \</div><div class="line">                ((Mask) &amp; XIPIPSU_ALL_MASK));</div><div class="ttc" id="group__ipipsu__v1__0_html_ga72bcaac2f32ad480f79204f868309c31"><div class="ttname"><a href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a></div><div class="ttdeci">#define XIpiPsu_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write a value into a register specified by base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:173</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_IDR_OFFSET, \</div><div class="line">                ((Mask) &amp; XIPIPSU_ALL_MASK));</div><div class="ttc" id="group__ipipsu__v1__0_html_ga72bcaac2f32ad480f79204f868309c31"><div class="ttname"><a href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a></div><div class="ttdeci">#define XIpiPsu_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write a value into a register specified by base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:176</div></div>
 </div><!-- fragment -->
 <p>Disable interrupts specified in <em>Mask</em>. </p>
 <p>The corresponding interrupt for each bit set to 1 in <em>Mask</em>, will be disabled.</p>
@@ -304,7 +307,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xipipsu_8h.html">xipipsu.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_IER_OFFSET, \</div><div class="line">                ((Mask) &amp; XIPIPSU_ALL_MASK));</div><div class="ttc" id="group__ipipsu__v1__0_html_ga72bcaac2f32ad480f79204f868309c31"><div class="ttname"><a href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a></div><div class="ttdeci">#define XIpiPsu_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write a value into a register specified by base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:173</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a>((InstancePtr)-&gt;Config.BaseAddress, \</div><div class="line">                XIPIPSU_IER_OFFSET, \</div><div class="line">                ((Mask) &amp; XIPIPSU_ALL_MASK));</div><div class="ttc" id="group__ipipsu__v1__0_html_ga72bcaac2f32ad480f79204f868309c31"><div class="ttname"><a href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a></div><div class="ttdeci">#define XIpiPsu_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write a value into a register specified by base address and offset. </div><div class="ttdef"><b>Definition:</b> xipipsu.h:176</div></div>
 </div><!-- fragment -->
 <p>Enable interrupts specified in <em>Mask</em>. </p>
 <p>The corresponding interrupt for each bit set to 1 in <em>Mask</em>, will be enabled.</p>
@@ -634,6 +637,49 @@ Functions</h2></td></tr>
 </dl>
 
 <p class="reference">References <a class="el" href="struct_x_ipi_psu___config.html#aaca08e14d9bc9e6ca2fe327e87a963dc">XIpiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_ipi_psu.html#ad9074c920ef0af4db9ea831e463d65ad">XIpiPsu::Config</a>, <a class="el" href="struct_x_ipi_psu.html#adefbfd74e9c2ee38710b9ed805504a68">XIpiPsu::IsReady</a>, and <a class="el" href="group__ipipsu__v1__0.html#ga72bcaac2f32ad480f79204f868309c31">XIpiPsu_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="gab4466706c8ede1b9b6e5b592a075afa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab4466706c8ede1b9b6e5b592a075afa7">&#9670;&nbsp;</a></span>XIpiPsu_SetConfigTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XIpiPsu_SetConfigTable </td>
+          <td>(</td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>DeviceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_x_ipi_psu___config.html">XIpiPsu_Config</a> *&#160;</td>
+          <td class="paramname"><em>ConfigTblPtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xipipsu_8c.html">xipipsu.c</a>&gt;</code></p>
+
+<p>Set up the device configuration based on the unique device ID. </p>
+<p>A table contains the configuration info for each device in the system.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">DeviceId</td><td>contains the ID of the device to set up the configuration for.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the device configuration for the specified device ID. See <a class="el" href="xipipsu_8h.html">xipipsu.h</a> for the definition of <a class="el" href="struct_x_ipi_psu___config.html" title="This typedef contains configuration information for the device. ">XIpiPsu_Config</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is for safety use case where in this function has to be called before CfgInitialize. So that driver will be initialized with the provided configuration. For non-safe use cases, this is not needed. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_ipi_psu___config.html#aaca08e14d9bc9e6ca2fe327e87a963dc">XIpiPsu_Config::BaseAddress</a>, <a class="el" href="struct_x_ipi_psu___config.html#a2057231c9bccf22dadbb50ae9ef93222">XIpiPsu_Config::BitMask</a>, <a class="el" href="struct_x_ipi_psu___config.html#a05cc5c627e65d8e37754913d0fc90470">XIpiPsu_Config::BufferIndex</a>, and <a class="el" href="struct_x_ipi_psu___config.html#a3382d79fc242c571c9649aa91629689f">XIpiPsu_Config::IntId</a>.</p>
 
 </div>
 </div>
