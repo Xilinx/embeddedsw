@@ -476,12 +476,12 @@ void XUsbPsu_InitializeEps(struct XUsbPsu *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	for (i = 0U; i < InstancePtr->NumOutEps; i++) {
-		Epnum = (i << 1U) | XUSBPSU_EP_DIR_OUT;
+		Epnum = PhysicalEp(i, XUSBPSU_EP_DIR_OUT);
 		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
 		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_OUT;
 	}
 	for (i = 0U; i < InstancePtr->NumInEps; i++) {
-		Epnum = (i << 1U) | XUSBPSU_EP_DIR_IN;
+		Epnum = PhysicalEp(i, XUSBPSU_EP_DIR_IN);
 		InstancePtr->eps[Epnum].PhyEpNum = Epnum;
 		InstancePtr->eps[Epnum].Direction = XUSBPSU_EP_DIR_IN;
 	}
@@ -528,7 +528,7 @@ void XUsbPsu_StopTransfer(struct XUsbPsu *InstancePtr, u8 UsbEpNum, u8 Dir)
 	Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
 	Cmd |= XUSBPSU_DEPCMD_CMDIOC;
 	Cmd |= XUSBPSU_DEPCMD_PARAM(Ept->ResourceIndex);
-	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->PhyEpNum, Ept->Direction,
+	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							Cmd, Params);
 	Ept->ResourceIndex = 0U;
 	Ept->EpStatus &= ~XUSBPSU_EP_BUSY;
@@ -570,7 +570,7 @@ void XUsbPsu_ClearStalls(struct XUsbPsu *InstancePtr)
 
 		Ept->EpStatus &= ~XUSBPSU_EP_STALL;
 
-		(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->PhyEpNum,
+		(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum,
 						  Ept->Direction, XUSBPSU_DEPCMD_CLEARSTALL,
 						  Params);
 	}
@@ -768,7 +768,7 @@ void XUsbPsu_EpSetStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertVoid(Params != NULL);
 
-	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->PhyEpNum, Ept->Direction,
+	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							XUSBPSU_DEPCMD_SETSTALL, Params);
 
 	Ept->EpStatus |= XUSBPSU_EP_STALL;
@@ -803,7 +803,7 @@ void XUsbPsu_EpClearStall(struct XUsbPsu *InstancePtr, u8 Epnum, u8 Dir)
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertVoid(Params != NULL);
 
-	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->PhyEpNum, Ept->Direction,
+	(void)XUsbPsu_SendEpCmd(InstancePtr, Ept->UsbEpNum, Ept->Direction,
 							XUSBPSU_DEPCMD_CLEARSTALL, Params);
 
 	Ept->EpStatus &= ~XUSBPSU_EP_STALL;
