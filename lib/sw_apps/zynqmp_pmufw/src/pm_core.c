@@ -868,7 +868,6 @@ static void PmSetConfiguration(const PmMaster *const master, const u32 address)
 	u32 configAddr = address;
 	u32 callerIpiMask = master->ipiMask;
 
-	xil_printf("\r\n");
 	PmDbg(DEBUG_DETAILED,"(0x%lx) %s\r\n", address, PmStrNode(master->nid));
 
 	if (NULL != master->remapAddr) {
