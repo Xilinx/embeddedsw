@@ -49,6 +49,7 @@
 * 1.00  MH   05/24/16 First Release
 * 1.10  MG   10/21/16 Updated the Hdcp_Poll function
 * 1.20  MG   10/26/16 Added interval in Hdcp_Poll function
+* 1.30  MH   06/16/17 Removed authentication request flag.
 *</pre>
 *
 *****************************************************************************/
@@ -114,7 +115,6 @@ int XHdcp_Initialize(XHdcp_Repeater *InstancePtr)
   InstancePtr->UpstreamInstanceStreamUp = 0;
 
   InstancePtr->StreamType = XV_HDMITXSS_HDCP_STREAMTYPE_0;
-  InstancePtr->AuthenticationRequestEvent = 0;
   memset(&InstancePtr->Topology, 0, sizeof(XHdcp_Topology));
 
   /* Instance is ready only after upstream and at least one downstream
@@ -300,8 +300,7 @@ int XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
 * upstream interface and each connected downstream interface. The
 * state machines are executed using round robin scheduling. Interface
 * poll functions are non-blocking, so starvation should not occur, but
-* fairness is not guaranteed. Authentication requests are serviced
-* in this function for each downstream interface.
+* fairness is not guaranteed.
 *
 * @param    InstancePtr is a pointer to the XHdcp_Repeater instance.
 *
@@ -315,13 +314,14 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr)
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
-  /* This counter is used as an interval timer */
-  /* Some HDCP source devices might not delay the HDPC capabilities after the video stream has started */
-  /* As a result the link isn't authenticated at stream up */
-  /* When there is a authentication request and the HDMI TX SS driver doesn't detect a HDCP capable sink, */
-  /* then the authentication request remains pending the interval counter is set. */
-  /* When the interval counter expires the sink is checked again for HDCP capabilities */
-  static u32 IntervalCounter = 0;
+  /*
+    The stream-up even pushes an authenticaiton request, but
+    some sinks are not immediately HDCP capable; therefore,
+    we must periodically attempt to authenticate. We delay the
+    authentication using a interval count to avoid stalling
+    the processor with excessive I2C transactions.
+  */
+  static int IntervalCounter = 0;
 
   if (InstancePtr->IsReady) {
     /* Call the upstream interface Poll function */
@@ -330,38 +330,20 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr)
     /* Call each downstream interface Poll function */
     for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
       XV_HdmiTxSs_HdcpPoll(InstancePtr->DownstreamInstancePtr[i]);
+    }
 
-      /* Initiate authentication when request flag has been set */
-      if (InstancePtr->AuthenticationRequestEvent & (0x1 << i)) {
+    /* Trigger authentication */
+    if (IntervalCounter == 0) {
+      XHdcp_Authenticate(InstancePtr);
+      XHdcp_EnforceBlank(InstancePtr);
+      IntervalCounter = 100000;
+    } else  {
+      IntervalCounter--;
+    }
 
-        /* Delay until downstream interface stream is up and the counter has expired */
-        if ((InstancePtr->DownstreamInstanceStreamUp & (0x1 << i)) &&
-            (InstancePtr->DownstreamInstanceConnected & (0x1 << i)) &&
-			(IntervalCounter == 0)) {
-
-          /* Authenticate when HDCP is support for connected device, otherwise enforce blank */
-          if (XV_HdmiTxSs_IsSinkHdcp14Capable(InstancePtr->DownstreamInstancePtr[i]) ||
-              XV_HdmiTxSs_IsSinkHdcp22Capable(InstancePtr->DownstreamInstancePtr[i])) {
-		  XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i],
-              XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
-
-		  /* Clear the authentication request */
-		  InstancePtr->AuthenticationRequestEvent &= ~(0x1 << i);
-
-          } else {
-		  /* Force blank, but leave the authentication request pending */
-		  XHdcp_EnforceBlank(InstancePtr);
-		  /* Load counter */
-		  /* With the processor running at 100 MHz, this counter value will give roughly a 500 ms interval */
-		  IntervalCounter = 100000;
-          }
-        } else {
-		/* Decrement counter */
-		if (IntervalCounter > 0) {
-			IntervalCounter--;
-		}
-        }
-      }
+    /* HDCP 1.4 Only */
+    if(XV_HdmiRxSs_HdcpIsInWaitforready(InstancePtr->UpstreamInstancePtr)) {
+      XHdcp_AssembleTopology(InstancePtr);
     }
   }
 }
@@ -381,50 +363,27 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr)
 ******************************************************************************/
 void XHdcp_Authenticate(XHdcp_Repeater *InstancePtr)
 {
-  int HdcpProtocol;
-
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
 
   if (InstancePtr->IsReady) {
-    /* Check the upstream protocol */
-    HdcpProtocol = XV_HdmiRxSs_HdcpGetProtocol(InstancePtr->UpstreamInstancePtr);
 
-    /* Set authentication request flag for each connected downstream interface */
-    for (int i = 0; (i < InstancePtr->DownstreamInstanceBinded); i++) {
+    /* Downstream interface stream up */
+    for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
 
-      if (InstancePtr->DownstreamInstanceConnected & (0x1 << i)) {
+      if (InstancePtr->DownstreamInstanceStreamUp & (0x1 << i)) {
 
-        /* If downstream is already authenticated or busy then don't trigger authentication */
+        /* Trigger authentication on Idle */
         if (!(XV_HdmiTxSs_HdcpIsAuthenticated(InstancePtr->DownstreamInstancePtr[i])) &&
             !(XV_HdmiTxSs_HdcpIsInProgress(InstancePtr->DownstreamInstancePtr[i]))) {
 
-          InstancePtr->AuthenticationRequestEvent |= (0x1 << i);
+          XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i], XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
         }
 
-        /* Toggle */
-        else if (XV_HdmiTxSs_IsStreamToggled(InstancePtr->DownstreamInstancePtr[i])) {
-          InstancePtr->AuthenticationRequestEvent |= (0x1 << i);
+        /* Trigger authentication on Toggle */
+        else if(XV_HdmiTxSs_IsStreamToggled(InstancePtr->DownstreamInstancePtr[i])) {
+          XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i], XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
         }
-
-        /* HDCP 1.4 only */
-        else if(XV_HdmiTxSs_HdcpIsAuthenticated(InstancePtr->DownstreamInstancePtr[i]) &&
-                (XV_HdmiRxSs_HdcpIsInComputations(InstancePtr->UpstreamInstancePtr) ||
-                XV_HdmiRxSs_HdcpIsInWaitforready(InstancePtr->UpstreamInstancePtr))) {
-
-          if (HdcpProtocol == XV_HDMIRXSS_HDCP_14) {
-            InstancePtr->AuthenticationRequestEvent |= (0x1 << i);
-          }
-        }
-      }
-
-      /* When the upstream protocol is HDCP 1.4 set the default stream
-         type to zero for all downstream interfaces */
-      if (HdcpProtocol == XV_HDMIRXSS_HDCP_14) {
-
-        InstancePtr->StreamType = XV_HDMITXSS_HDCP_STREAMTYPE_0;
-        XV_HdmiTxSs_HdcpSetContentStreamType(InstancePtr->DownstreamInstancePtr[i],
-          XV_HDMITXSS_HDCP_STREAMTYPE_0);
       }
     }
   }
@@ -455,7 +414,6 @@ void XHdcp_DisplayInfo(XHdcp_Repeater *InstancePtr, u8 Verbose)
   xil_printf("Downstream Binded: %d\n\r", InstancePtr->DownstreamInstanceBinded);
   xil_printf("Downstream Connected: 0x%08x\n\r", InstancePtr->DownstreamInstanceConnected);
   xil_printf("Downstream Stream-Up: 0x%08x\n\r", InstancePtr->DownstreamInstanceStreamUp);
-  xil_printf("Downstream Authentication Request: 0x%08x\n\r", InstancePtr->AuthenticationRequestEvent);
   if (XV_HdmiRxSs_HdcpIsRepeater(InstancePtr->UpstreamInstancePtr))
     xil_printf("StreamType: %d\n\r", InstancePtr->StreamType);
   XHdcp_DisplayTopology(InstancePtr, Verbose);
@@ -551,15 +509,14 @@ void XHdcp_SetRepeater(XHdcp_Repeater *InstancePtr, u8 Set)
 * This function is called by the stream up event for an
 * interface. The function initiates authentication with each
 * connected downstream interface that is not in the authenticated
-* state. The function is registered with the connect event.
-* This function also sets the default content stream management
+* state. This function also sets the default content stream management
 * type to zero when the upstream interface is HDCP 1.4.
 *
 * @param    HdcpInstancePtr is a pointer to the XHdcp_Repeater instance.
 *
 * @return   None.
 *
-* @note	    None.
+* @note     None.
 *
 ******************************************************************************/
 void XHdcp_StreamUpCallback(void *HdcpInstancePtr)
@@ -571,6 +528,7 @@ void XHdcp_StreamUpCallback(void *HdcpInstancePtr)
 
   /* Upstream interface stream up */
   if (XV_HdmiRxSs_IsStreamUp(InstancePtr->UpstreamInstancePtr)) {
+
     /* Clear topology */
     if (!InstancePtr->UpstreamInstanceStreamUp) {
       memset(&InstancePtr->Topology, 0, sizeof(XHdcp_Topology));
@@ -581,17 +539,18 @@ void XHdcp_StreamUpCallback(void *HdcpInstancePtr)
 
   /* Downstream interface stream up */
   for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
+
     if (XV_HdmiTxSs_IsStreamUp(InstancePtr->DownstreamInstancePtr[i])) {
+
       /* Trigger authentication */
       if (!(InstancePtr->DownstreamInstanceStreamUp & (0x1 << i))) {
-        XHdcp_Authenticate(InstancePtr);
+        XV_HdmiTxSs_HdcpPushEvent(InstancePtr->DownstreamInstancePtr[i], XV_HDMITXSS_HDCP_AUTHENTICATE_EVT);
       }
 
       InstancePtr->DownstreamInstanceStreamUp |= (0x1 << i);
     }
   }
 
-  /* Enforce blanking */
   XHdcp_EnforceBlank(InstancePtr);
 }
 
@@ -800,6 +759,7 @@ static void XHdcp_UpstreamAuthenticatedCallback(void *HdcpInstancePtr)
     case XV_HDMIRXSS_HDCP_14:
       xdbg_printf(XDBG_DEBUG_GENERAL, "HDCP 1.4 upstream authenticated\n\r");
       break;
+    default : ;
   }
 
   /* Enforce blanking */
@@ -901,46 +861,9 @@ static void XHdcp_UpstreamUnauthenticatedCallback(void *HdcpInstancePtr)
 static void XHdcp_DownstreamUnauthenticatedCallback(void *HdcpInstancePtr)
 {
   XHdcp_Repeater *InstancePtr =  (XHdcp_Repeater *)HdcpInstancePtr;
-  int HdcpProtocol;
 
   /* Verify arguments */
   Xil_AssertVoid(InstancePtr != NULL);
-
-  HdcpProtocol = XV_HdmiRxSs_HdcpGetProtocol(InstancePtr->UpstreamInstancePtr);
-
-  /* HDCP 1.4 Only.
-     When the upstream interface is HDCP 1.4 repeater, unauthenticate the upstream interface when
-     the downstream transitions to unauthenticated. */
-  if (HdcpProtocol == XV_HDMIRXSS_HDCP_14 &&
-      XV_HdmiRxSs_HdcpIsRepeater(InstancePtr->UpstreamInstancePtr)) {
-
-    /* If hdcp rx is enabled, then push disconnect event */
-    if(XV_HdmiRxSs_HdcpIsEnabled(InstancePtr->UpstreamInstancePtr)) {
-
-      for (int i = 0; i < InstancePtr->DownstreamInstanceBinded; i++) {
-
-        if (InstancePtr->DownstreamInstanceConnected & (0x1 << i)) {
-
-          if (!XV_HdmiTxSs_HdcpIsAuthenticated(InstancePtr->DownstreamInstancePtr[i])) {
-
-		  /* The disconnect event calls a reset wrapper on hdcp state
-		   * machine, which in turn calls reset (disable then enable)
-		   * and then disable on the hdcp rx state machine */
-		  XV_HdmiRxSs_HdcpPushEvent(InstancePtr->UpstreamInstancePtr,
-                XV_HDMIRXSS_HDCP_DISCONNECT_EVT);
-              break;
-          }
-        }
-      }
-    }
-  }
-  /* HDCP 1.4 Only.
-     Trigger re-authentication for HDCP 1.4 downstream interfaces.
-     This is required because the HDCP 1.4 state machine does not automatically
-     re-authenticate upon failure. */
-  else if (!XV_HdmiRxSs_HdcpIsRepeater(InstancePtr->UpstreamInstancePtr)) {
-    XHdcp_Authenticate(InstancePtr);
-  }
 
   /* Enforce blanking */
   XHdcp_EnforceBlank(InstancePtr);
@@ -996,9 +919,6 @@ static void XHdcp_AuthenticationRequestCallback(void *HdcpInstancePtr)
 
   /* Clear topology */
   memset(&InstancePtr->Topology, 0, sizeof(XHdcp_Topology));
-
-  /* Trigger authentication */
-  XHdcp_Authenticate(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -1062,9 +982,7 @@ static void XHdcp_TopologyUpdateCallback(void *HdcpInstancePtr)
   Xil_AssertVoid(HdcpInstancePtr != NULL);
 
   /* Assemble topology */
-  if (InstancePtr->DownstreamInstanceStreamUp) {
-    XHdcp_AssembleTopology(InstancePtr);
-  }
+  XHdcp_AssembleTopology(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -1251,10 +1169,17 @@ static void XHdcp_AssembleTopology(XHdcp_Repeater *InstancePtr)
           XV_HdmiRxSs_HdcpSetTopologyUpdate(InstancePtr->UpstreamInstancePtr);
 #ifdef DEBUG
           /* Display topology */
-          XHdcp_DisplayTopology(InstancePtr, FALSE);
+          XHdcp_DisplayTopology(InstancePtr, TRUE);
 #endif
         }
       }
+    }
+
+    /* When the upstream protocol is HDCP 1.4 set the default stream
+       type to zero for all downstream interfaces */
+    if (HdcpProtocol == XV_HDMIRXSS_HDCP_14) {
+      InstancePtr->StreamType = XV_HDMITXSS_HDCP_STREAMTYPE_0;
+      XHdcp_SetContentStreamType(InstancePtr, InstancePtr->StreamType);
     }
   }
 }
