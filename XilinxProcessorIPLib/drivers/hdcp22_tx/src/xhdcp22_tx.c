@@ -65,6 +65,7 @@
 *                       6. Update to check return status of DDC read/write.
 *                       7. Fixed compiler warnings.
 * 2.20  MH     04/12/17 Added function XHdcp22Tx_IsDwnstrmCapable.
+* 2.20  MH     06/08/17 Updated for 64 bit support.
 * </pre>
 *
 ******************************************************************************/
@@ -112,7 +113,7 @@ typedef void XHdcp22_Tx_TransitionFuncType(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_InitializeTimer(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_InitializeCipher(XHdcp22_Tx *InstancePtr);
 static int XHdcp22Tx_InitializeRng(XHdcp22_Tx *InstancePtr);
-static int XHdcp22Tx_ComputeBaseAddress(u32 BaseAddress, u32 SubcoreOffset, u32 *SubcoreAddressPtr);
+static int XHdcp22Tx_ComputeBaseAddress(UINTPTR BaseAddress, UINTPTR SubcoreOffset, UINTPTR *SubcoreAddressPtr);
 
 /* Stubs for callbacks */
 static int XHdcp22Tx_StubDdc(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
@@ -426,7 +427,7 @@ static int XHdcp22Tx_InitializeTimer(XHdcp22_Tx *InstancePtr)
 	/* Verify arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	u32 SubcoreBaseAddr;
+	UINTPTR SubcoreBaseAddr;
 
 	int Result = XST_SUCCESS;
 
@@ -474,7 +475,7 @@ static int XHdcp22Tx_InitializeCipher(XHdcp22_Tx *InstancePtr)
 	int Result = XST_SUCCESS;
 
 	XHdcp22_Cipher_Config *ConfigPtr = NULL;
-	u32 SubcoreBaseAddr;
+	UINTPTR SubcoreBaseAddr;
 
 	ConfigPtr = XHdcp22Cipher_LookupConfig(InstancePtr->Config.CipherId);
 	if (ConfigPtr == NULL) {
@@ -519,7 +520,7 @@ static int XHdcp22Tx_InitializeRng(XHdcp22_Tx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	int Result = XST_SUCCESS;
-	u32 SubcoreBaseAddr;
+	UINTPTR SubcoreBaseAddr;
 
 	XHdcp22_Rng_Config *ConfigPtr = NULL;
 
@@ -925,10 +926,10 @@ u32 XHdcp22Tx_GetVersion(XHdcp22_Tx *InstancePtr)
 *         subsystem address range else XST_FAILURE
 *
 ******************************************************************************/
-static int XHdcp22Tx_ComputeBaseAddress(u32 BaseAddress, u32 SubcoreOffset, u32 *SubcoreAddressPtr)
+static int XHdcp22Tx_ComputeBaseAddress(UINTPTR BaseAddress, UINTPTR SubcoreOffset, UINTPTR *SubcoreAddressPtr)
 {
 	int Status;
-	u32 Address;
+	UINTPTR Address;
 
 	Address = BaseAddress | SubcoreOffset;
 	if((Address >= BaseAddress))
@@ -1614,9 +1615,14 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA1(XHdcp22_Tx *InstancePtr)
 {
 	int Result = XST_SUCCESS;
 
+#ifndef _XHDCP22_TX_DISABLE_TIMEOUT_CHECKING_
+     /* Wait for 100ms timer to expire
+        This timeout ensures that encryption is disabled
+        before authentication is requested */
 	if (InstancePtr->Timer.TimerExpired == (FALSE)) {
 		return XHDCP22_TX_STATE_A1;
 	}
+#endif
 
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE, (u16)XHDCP22_TX_STATE_A1);
 
@@ -2261,11 +2267,13 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA4(XHdcp22_Tx *InstancePtr)
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA5(XHdcp22_Tx *InstancePtr)
 {
 
+#ifndef _XHDCP22_TX_DISABLE_TIMEOUT_CHECKING_
 	/* wait for a timer to expire, either it is the 200 ms mandatory time
 	 * before cipher enabling, or the re-authentication check timer */
 	if (InstancePtr->Timer.TimerExpired == (FALSE)) {
 		return XHDCP22_TX_STATE_A5;
 	}
+#endif
 
 	/* Do not pollute the logging on polling log authenticated only once */
 	if (InstancePtr->Info.AuthenticationStatus != XHDCP22_TX_AUTHENTICATED) {
@@ -2575,10 +2583,12 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateA9(XHdcp22_Tx *InstancePtr)
 {
 	int Result;
 
+#ifndef _XHDCP22_TX_DISABLE_TIMEOUT_CHECKING_
 	/* Wait for the stream manage timer to expire */
 	if (InstancePtr->Timer.TimerExpired == (FALSE)) {
 		return XHDCP22_TX_STATE_A9;
 	}
+#endif
 
 	/* Timer has expired, handle it */
 
@@ -2884,6 +2894,8 @@ static int XHdcp22Tx_StubDdc(u8 DeviceAddress, u16 ByteCount, u8* BufferPtr,
 	Xil_AssertNonvoid(BufferPtr != NULL);
 	Xil_AssertNonvoid(Stop);
 	Xil_AssertNonvoid(RefPtr != NULL);
+
+	return XST_FAILURE;
 }
 
 /*****************************************************************************/
@@ -3133,7 +3145,6 @@ static int XHdcp22Tx_StartTimer(XHdcp22_Tx *InstancePtr, u32 TimeOut_mSec,
 	}
 
 #ifndef _XHDCP22_TX_DISABLE_TIMEOUT_CHECKING_
-#ifndef _XHDCP22_TOP_SIM_ENAB_
 #ifdef _XHDCP22_TX_TEST_
 	if (InstancePtr->Test.TestMode == XHDCP22_TX_TESTMODE_UNIT) {
 		XHdcp22Tx_TimerHandler(InstancePtr, XHDCP22_TX_TIMER_CNTR_0);
@@ -3149,12 +3160,7 @@ static int XHdcp22Tx_StartTimer(XHdcp22_Tx *InstancePtr, u32 TimeOut_mSec,
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG,
 	                XHDCP22_TX_LOG_DBG_STARTIMER);
 #endif /* _XHDCP22_TX_TEST_ */
-#endif /* _XHDCP22_TOP_SIM_ENAB_ */
 #endif /* _XHDCP22_TX_DISABLE_TIMEOUT_CHECKING_ */
-
-#ifdef _XHDCP22_TOP_SIM_ENAB_
-	XHdcp22Tx_TimerHandler(InstancePtr, XHDCP22_TX_TIMER_CNTR_0);
-#endif /* _XHDCP22_TOP_SIM_ENAB_ */
 
 	return XST_SUCCESS;
 }
@@ -3208,12 +3214,8 @@ static void XHdcp22Tx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 	/* Set timer expired signaling flag */
 	InstancePtr->Timer.TimerExpired = (TRUE);
 
-/* Do not read the status here. In the simulator all Tx components use the
- * same timer. So reading the status should not be done here. */
-#ifndef _XHDCP22_TOP_SIM_ENAB_
 	if (InstancePtr->Info.IsEnabled)
 		XHdcp22Tx_ReadRxStatus(InstancePtr);
-#endif
 }
 
 
@@ -3322,9 +3324,6 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, 
 		return XST_SUCCESS;
 	}
 
-#ifdef _XHDCP22_TOP_SIM_ENAB_
-	XHdcp22Tx_ReadRxStatus(InstancePtr);
-#endif
 	/* timer expired: waiting done...check size in the status */
 	if (((ReadyBit == FALSE) && ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) == ExpectedSize)) ||
 		((ReadyBit == TRUE) && (InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_READY_MASK))) {
@@ -3332,9 +3331,7 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, 
 		InstancePtr->Info.MsgAvailable = (TRUE);
 		return XST_SUCCESS;
 	}
-#ifdef _XHDCP22_TOP_SIM_ENAB_
-		return XST_SUCCESS;
-#endif
+
 	/* The receiver has timed out...and the data size does not match
 	 * the expected size! */
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_DBG, XHDCP22_TX_LOG_DBG_TIMEOUT);
@@ -4089,10 +4086,6 @@ void XHdcp22Tx_LogReset(XHdcp22_Tx *InstancePtr, u8 Verbose)
 ******************************************************************************/
 u32 XHdcp22Tx_LogGetTimeUSecs(XHdcp22_Tx *InstancePtr)
 {
-#ifdef _XHDCP22_TOP_SIM_ENAB_
-	return 0;
-#endif
-
 	if (InstancePtr->Timer.TmrCtr.IsReady != XIL_COMPONENT_IS_READY)
 		return 0;
 
@@ -4218,7 +4211,7 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 {
 	XHdcp22_Tx_LogItem* LogPtr;
 	char str[255];
-	u64 TimeStampPrev = 0;
+	u32 TimeStampPrev = 0;
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -4241,8 +4234,8 @@ void XHdcp22Tx_LogDisplay(XHdcp22_Tx *InstancePtr)
 		if(LogPtr->LogEvent != XHDCP22_TX_LOG_EVT_NONE)
 		{
 			if(LogPtr->TimeStamp < TimeStampPrev) TimeStampPrev = 0;
-			xil_printf("[%8ld:", LogPtr->TimeStamp);
-			xil_printf("%8ld] ", (LogPtr->TimeStamp - TimeStampPrev));
+			xil_printf("[%8u:", LogPtr->TimeStamp);
+			xil_printf("%8u] ", (LogPtr->TimeStamp - TimeStampPrev));
 			TimeStampPrev = LogPtr->TimeStamp;
 		}
 
