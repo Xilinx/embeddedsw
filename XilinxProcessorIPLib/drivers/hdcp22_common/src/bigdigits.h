@@ -56,7 +56,7 @@ typedef uint16_t HALF_DIGIT_T;
 /* Specify the maximum number of digits allowed in a temp mp array
    -- ignored unless NO_ALLOCS is defined */
 #ifdef NO_ALLOCS
-#define MAX_FIXED_BIT_LENGTH 8192
+#define MAX_FIXED_BIT_LENGTH 4096
 #define MAX_FIXED_DIGITS (MAX_FIXED_BIT_LENGTH / BITS_PER_DIGIT)
 #endif
 
@@ -97,10 +97,10 @@ volatile const char *copyright_notice(void);
 /*************************/
 
 /** Computes w = u + v, returns carry */
-DIGIT_T mpAdd(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits);
+u32 mpAdd(u32 w[], const u32 u[], const u32 v[], size_t ndigits);
 
 /** Computes w = u - v, returns borrow */
-DIGIT_T mpSubtract(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits);
+u32 mpSubtract(u32 w[], const u32 u[], const u32 v[], size_t ndigits);
 
 /** Computes product w = u * v
 @param[out] w To receive the product, an array of size 2 x `ndigits`
@@ -109,7 +109,7 @@ DIGIT_T mpSubtract(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndi
 @param[in] ndigits size of arrays `u` and `v`
 @warning The product must be of size 2 x `ndigits`
 */
-int mpMultiply(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits);
+int mpMultiply(u32 w[], const u32 u[], const u32 v[], size_t ndigits);
 
 /** Computes integer division of u by v such that u=qv+r
 @param[out] q to receive quotient = u div v, an array of size `udigits`
@@ -120,8 +120,8 @@ int mpMultiply(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits
 @param[in] vdigits size of array `v`
 @warning Trashes q and r first
 */
-int mpDivide(DIGIT_T q[], DIGIT_T r[], const DIGIT_T u[],
-	size_t udigits, DIGIT_T v[], size_t vdigits);
+int mpDivide(u32 q[], u32 r[], const u32 u[],
+	size_t udigits, u32 v[], size_t vdigits);
 
 /** Computes remainder r = u mod v
 @param[out] r to receive divisor = u mod v, an array of size `vdigits`
@@ -131,7 +131,7 @@ int mpDivide(DIGIT_T q[], DIGIT_T r[], const DIGIT_T u[],
 @param[in] vdigits size of array `v`
 @remark Note that `r` is `vdigits` long here, but is `udigits` long in mpDivide().
 */
-int mpModulo(DIGIT_T r[], const DIGIT_T u[], size_t udigits, DIGIT_T v[], size_t vdigits);
+int mpModulo(u32 r[], const u32 u[], size_t udigits, u32 v[], size_t vdigits);
 
 /** Computes square w = x^2
 @param[out] w array of size 2 x `ndigits` to receive square
@@ -139,13 +139,13 @@ int mpModulo(DIGIT_T r[], const DIGIT_T u[], size_t udigits, DIGIT_T v[], size_t
 @param[in] ndigits size of array `x`
 @warning The product `w` must be of size 2 x `ndigits`
 */
-int mpSquare(DIGIT_T w[], const DIGIT_T x[], size_t ndigits);
+int mpSquare(u32 w[], const u32 x[], size_t ndigits);
 
 /** Computes integer square root s = floor(sqrt(x)) */
-int mpSqrt(DIGIT_T s[], const DIGIT_T x[], size_t ndigits);
+int mpSqrt(u32 s[], const u32 x[], size_t ndigits);
 
 /** Computes integer cube root s = floor(cuberoot(x)) */
-int mpCubeRoot(DIGIT_T s[], const DIGIT_T x[], size_t ndigits);
+int mpCubeRoot(u32 s[], const u32 x[], size_t ndigits);
 
 /*************************/
 /* COMPARISON OPERATIONS */
@@ -155,17 +155,17 @@ int mpCubeRoot(DIGIT_T s[], const DIGIT_T x[], size_t ndigits);
 /** Returns true if a == b, else false, using constant-time algorithm
  *  @remark Constant-time with respect to `ndigits`
  */
-int mpEqual(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits);
+int mpEqual(const u32 a[], const u32 b[], size_t ndigits);
 
 /** Returns sign of `(a-b)` as `{-1,0,+1}` using constant-time algorithm
  *  @remark Constant-time with respect to `ndigits`
  */
-int mpCompare(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits);
+int mpCompare(const u32 a[], const u32 b[], size_t ndigits);
 
 /** Returns true if a is zero, else false, using constant-time algorithm
  *  @remark Constant-time with respect to `ndigits`
  */
-int mpIsZero(const DIGIT_T a[], size_t ndigits);
+int mpIsZero(const u32 a[], size_t ndigits);
 
 /* OLDER, QUICKER VERSIONS */
 /* Renamed in [v2.5] */
@@ -173,17 +173,17 @@ int mpIsZero(const DIGIT_T a[], size_t ndigits);
 /** Returns true if a == b, else false (quick)
  *  @remark Not constant-time.
  */
-int mpEqual_q(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits);
+int mpEqual_q(const u32 a[], const u32 b[], size_t ndigits);
 
 /** Returns sign of `(a-b)` as `{-1,0,+1}` (quick)
  *  @remark Not constant-time.
  */
-int mpCompare_q(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits);
+int mpCompare_q(const u32 a[], const u32 b[], size_t ndigits);
 
 /** Returns true if a is zero, else false (quick)
  *  @remark Not constant-time.
  */
-int mpIsZero_q(const DIGIT_T a[], size_t ndigits);
+int mpIsZero_q(const u32 a[], size_t ndigits);
 
 
 /****************************/
@@ -195,22 +195,22 @@ int mpIsZero_q(const DIGIT_T a[], size_t ndigits);
  */
 
 /** Computes y = x^e mod m */
-int mpModExp(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T e[], DIGIT_T m[], size_t ndigits);
+int mpModExp(u32 y[], const u32 x[], const u32 e[], u32 m[], size_t ndigits);
 
 /**	Computes y = x^e mod m in constant time
  *  @remark Resistant to simple power analysis attack on private exponent.
  *  Slower than mpModExp().
  */
-int mpModExp_ct(DIGIT_T yout[], const DIGIT_T x[], const DIGIT_T e[], DIGIT_T m[], size_t ndigits);
+int mpModExp_ct(u32 yout[], const u32 x[], const u32 e[], u32 m[], size_t ndigits);
 
 /** Computes a = (x * y) mod m */
-int mpModMult(DIGIT_T a[], const DIGIT_T x[], const DIGIT_T y[], DIGIT_T m[], size_t ndigits);
+int mpModMult(u32 a[], const u32 x[], const u32 y[], u32 m[], size_t ndigits);
 
 /** Computes the inverse of `u` modulo `m`, inv = u^{-1} mod m */
-int mpModInv(DIGIT_T inv[], const DIGIT_T u[], const DIGIT_T m[], size_t ndigits);
+int mpModInv(u32 inv[], const u32 u[], const u32 m[], size_t ndigits);
 
 /** Computes g = gcd(x, y), the greatest common divisor of x and y */
-int mpGcd(DIGIT_T g[], const DIGIT_T x[], const DIGIT_T y[], size_t ndigits);
+int mpGcd(u32 g[], const u32 x[], const u32 y[], size_t ndigits);
 
 /** Returns the Jacobi symbol (a/n) in {-1, 0, +1}
 @remark If n is prime then the Jacobi symbol becomes the Legendre symbol (a/p) defined to be
@@ -218,7 +218,7 @@ int mpGcd(DIGIT_T g[], const DIGIT_T x[], const DIGIT_T y[], size_t ndigits);
 - (a/p) = -1 if a is a quadratic non-residue modulo p
 - (a/p) = 0 if a is divisible by p
 */
-int mpJacobi(const DIGIT_T a[], const DIGIT_T n[], size_t ndigits);
+int mpJacobi(const u32 a[], const u32 n[], size_t ndigits);
 
 
 /**********************/
@@ -226,34 +226,34 @@ int mpJacobi(const DIGIT_T a[], const DIGIT_T n[], size_t ndigits);
 /**********************/
 
 /** Returns number of significant bits in a */
-size_t mpBitLength(const DIGIT_T a[], size_t ndigits);
+size_t mpBitLength(const u32 a[], size_t ndigits);
 
 /** Computes a = b << x */
-DIGIT_T mpShiftLeft(DIGIT_T a[], const DIGIT_T b[], size_t x, size_t ndigits);
+u32 mpShiftLeft(u32 a[], const u32 b[], size_t x, size_t ndigits);
 
 /** Computes a = b >> x */
-DIGIT_T mpShiftRight(DIGIT_T a[], const DIGIT_T b[], size_t x, size_t ndigits);
+u32 mpShiftRight(u32 a[], const u32 b[], size_t x, size_t ndigits);
 
 /** Computes bitwise a = b XOR c */
-void mpXorBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits);
+void mpXorBits(u32 a[], const u32 b[], const u32 c[], size_t ndigits);
 
 /** Computes bitwise a = b OR c */
-void mpOrBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits);
+void mpOrBits(u32 a[], const u32 b[], const u32 c[], size_t ndigits);
 
 /** Computes bitwise a = b AND c */
-void mpAndBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits);
+void mpAndBits(u32 a[], const u32 b[], const u32 c[], size_t ndigits);
 
 /** Computes bitwise a = NOT b */
-void mpNotBits(DIGIT_T a[], const DIGIT_T b[], size_t ndigits);
+void mpNotBits(u32 a[], const u32 b[], size_t ndigits);
 
 /** Computes a = a mod 2^L, ie clears all bits greater than L */
-void mpModPowerOf2(DIGIT_T a[], size_t ndigits, size_t L);
+void mpModPowerOf2(u32 a[], size_t ndigits, size_t L);
 
 /** Sets bit n of a (0..nbits-1) with value 1 or 0 */
-int mpSetBit(DIGIT_T a[], size_t ndigits, size_t n, int value);
+int mpSetBit(u32 a[], size_t ndigits, size_t n, int value);
 
 /** Returns value 1 or 0 of bit n (0..nbits-1) */
-int mpGetBit(DIGIT_T a[], size_t ndigits, size_t n);
+int mpGetBit(u32 a[], size_t ndigits, size_t n);
 
 
 /*************************/
@@ -261,13 +261,13 @@ int mpGetBit(DIGIT_T a[], size_t ndigits, size_t n);
 /*************************/
 
 /** Sets a = 0 */
-DIGIT_T mpSetZero(DIGIT_T a[], size_t ndigits);
+u32 mpSetZero(u32 a[], size_t ndigits);
 
 /** Sets a = d where d is a single digit */
-void mpSetDigit(DIGIT_T a[], DIGIT_T d, size_t ndigits);
+void mpSetDigit(u32 a[], u32 d, size_t ndigits);
 
 /** Sets a = b */
-void mpSetEqual(DIGIT_T a[], const DIGIT_T b[], size_t ndigits);
+void mpSetEqual(u32 a[], const u32 b[], size_t ndigits);
 
 
 /**********************/
@@ -275,7 +275,7 @@ void mpSetEqual(DIGIT_T a[], const DIGIT_T b[], size_t ndigits);
 /**********************/
 
 /** Returns number of significant non-zero digits in a */
-size_t mpSizeof(const DIGIT_T a[], size_t ndigits);
+size_t mpSizeof(const u32 a[], size_t ndigits);
 
 /** Returns true (1) if `w` is probably prime
 @param[in] w Number to test
@@ -286,34 +286,34 @@ size_t mpSizeof(const DIGIT_T a[], size_t ndigits);
 which is faster in most cases than mpRabinMiller().
 @see mpRabinMiller().
 */
-int mpIsPrime(DIGIT_T w[], size_t ndigits, size_t t);
+int mpIsPrime(u32 w[], size_t ndigits, size_t t);
 
 /** Returns true (1) if `w` is probably prime using just the Rabin-Miller test
 @see mpIsPrime() is preferred.
 */
-int mpRabinMiller(DIGIT_T w[], size_t ndigits, size_t t);
+int mpRabinMiller(u32 w[], size_t ndigits, size_t t);
 
 /**********************************************/
 /* FUNCTIONS THAT OPERATE WITH A SINGLE DIGIT */
 /**********************************************/
 
 /** Computes w = u + d, returns carry */
-DIGIT_T mpShortAdd(DIGIT_T w[], const DIGIT_T u[], DIGIT_T d, size_t ndigits);
+u32 mpShortAdd(u32 w[], const u32 u[], u32 d, size_t ndigits);
 
 /** Computes w = u - d, returns borrow */
-DIGIT_T mpShortSub(DIGIT_T w[], const DIGIT_T u[], DIGIT_T d, size_t ndigits);
+u32 mpShortSub(u32 w[], const u32 u[], u32 d, size_t ndigits);
 
 /** Computes product p = x * d */
-DIGIT_T mpShortMult(DIGIT_T p[], const DIGIT_T x[], DIGIT_T d, size_t ndigits);
+u32 mpShortMult(u32 p[], const u32 x[], u32 d, size_t ndigits);
 
 /** Computes quotient q = u div d, returns remainder */
-DIGIT_T mpShortDiv(DIGIT_T q[], const DIGIT_T u[], DIGIT_T d, size_t ndigits);
+u32 mpShortDiv(u32 q[], const u32 u[], u32 d, size_t ndigits);
 
 /** Computes remainder r = a mod d */
-DIGIT_T mpShortMod(const DIGIT_T a[], DIGIT_T d, size_t ndigits);
+u32 mpShortMod(const u32 a[], u32 d, size_t ndigits);
 
 /** Returns sign of (a - d) where d is a single digit */
-int mpShortCmp(const DIGIT_T a[], DIGIT_T d, size_t ndigits);
+int mpShortCmp(const u32 a[], u32 d, size_t ndigits);
 
 /**************************************/
 /* CORE SINGLE PRECISION CALCULATIONS */
@@ -327,10 +327,10 @@ int mpShortCmp(const DIGIT_T a[], DIGIT_T d, size_t ndigits);
 */
 
 /** Computes p = x * y, where x and y are single digits */
-int spMultiply(DIGIT_T p[2], DIGIT_T x, DIGIT_T y);
+int spMultiply(u32 p[2], u32 x, u32 y);
 
 /** Computes quotient q = u div v, remainder r = u mod v, where q, r and v are single digits */
-DIGIT_T spDivide(DIGIT_T *q, DIGIT_T *r, const DIGIT_T u[2], DIGIT_T v);
+u32 spDivide(u32 *q, u32 *r, const u32 u[2], u32 v);
 
 /****************************/
 /* RANDOM NUMBER FUNCTIONS  */
@@ -341,13 +341,13 @@ DIGIT_T spDivide(DIGIT_T *q, DIGIT_T *r, const DIGIT_T u[2], DIGIT_T v);
 @remark Not crypto secure.
 @see spBetterRand()
 */
-DIGIT_T spSimpleRand(DIGIT_T lower, DIGIT_T upper);
+u32 spSimpleRand(u32 lower, u32 upper);
 
 /** Generate a quick-and-dirty random mp number a of bit length at most `nbits` using plain-old-rand
 @remark Not crypto secure.
 @see mpRandomBits()
 */
-size_t mpQuickRandBits(DIGIT_T a[], size_t ndigits, size_t nbits);
+size_t mpQuickRandBits(u32 a[], size_t ndigits, size_t nbits);
 
 /* [Version 2.1: spBetterRand moved to spRandom.h] */
 
@@ -358,25 +358,25 @@ size_t mpQuickRandBits(DIGIT_T a[], size_t ndigits, size_t nbits);
 /* [v2.3] Added these more convenient print functions */
 
 /** Print in hex format with optional prefix and suffix strings */
-void mpPrintHex(const char *prefix, const DIGIT_T *p, size_t ndigits, const char *suffix);
+void mpPrintHex(const char *prefix, const u32 *p, size_t ndigits, const char *suffix);
 /** Print in decimal format with optional prefix and suffix strings */
-// void mpPrintDecimal(const char *prefix, const DIGIT_T *p, size_t ndigits, const char *suffix);
+// void mpPrintDecimal(const char *prefix, const u32 *p, size_t ndigits, const char *suffix);
 
 /* See also mpPrintDecimalSigned() - new in [v2.5] */
 
 /* Older print functions, all printing in hex */
 /** Print all digits in hex incl leading zero digits */
-void mpPrint(const DIGIT_T *p, size_t ndigits);
+void mpPrint(const u32 *p, size_t ndigits);
 /** Print all digits in hex with newlines */
-void mpPrintNL(const DIGIT_T *p, size_t ndigits);
+void mpPrintNL(const u32 *p, size_t ndigits);
 /** Print in hex but trim leading zero digits
 @deprecated Use mpPrintHex()
 */
-void mpPrintTrim(const DIGIT_T *p, size_t ndigits);
+void mpPrintTrim(const u32 *p, size_t ndigits);
 /** Print in hex, trim leading zeroes, add newlines
 @deprecated Use mpPrintHex()
 */
-void mpPrintTrimNL(const DIGIT_T *p, size_t ndigits);
+void mpPrintTrimNL(const u32 *p, size_t ndigits);
 
 /************************/
 /* CONVERSION UTILITIES */
@@ -384,24 +384,10 @@ void mpPrintTrimNL(const DIGIT_T *p, size_t ndigits);
 
 /** Converts nbytes octets into big digit a of max size ndigits
 @returns actual number of digits set */
-size_t mpConvFromOctets(DIGIT_T a[], size_t ndigits, const unsigned char *c, size_t nbytes);
+size_t mpConvFromOctets(u32 a[], size_t ndigits, const unsigned char *c, size_t nbytes);
 /** Converts big digit a into string of octets, in big-endian order, padding to nbytes or truncating if necessary.
 @returns number of non-zero octets required. */
-size_t mpConvToOctets(const DIGIT_T a[], size_t ndigits, unsigned char *c, size_t nbytes);
-/** Converts a string in decimal format to a big digit.
-@returns actual number of (possibly zero) digits set. */
-//size_t mpConvFromDecimal(DIGIT_T a[], size_t ndigits, const char *s);
-/** Converts big digit a into a string in decimal format, where s has size smax including the terminating zero.
-@returns number of chars required excluding leading zeroes. */
-//size_t mpConvToDecimal(const DIGIT_T a[], size_t ndigits, char *s, size_t smax);
-/** Converts a string in hexadecimal format to a big digit.
-@return actual number of (possibly zero) digits set. */
-//size_t mpConvFromHex(DIGIT_T a[], size_t ndigits, const char *s);
-/** Converts big digit a into a string in hexadecimal format,
-   where s has size smax including the terminating zero.
-@return number of chars required excluding leading zeroes. */
-//size_t mpConvToHex(const DIGIT_T a[], size_t ndigits, char *s, size_t smax);
-
+size_t mpConvToOctets(const u32 a[], size_t ndigits, unsigned char *c, size_t nbytes);
 
 /****************************/
 /* SIGNED INTEGER FUNCTIONS */
@@ -444,25 +430,17 @@ To set a small negative number do:
 /** Returns true (1) if x < 0, else false (0)
  *  @remark Expects a negative number to be stored in two's-complement representation.
  */
-int mpIsNegative(const DIGIT_T x[], size_t ndigits);
+int mpIsNegative(const u32 x[], size_t ndigits);
 
 /** Sets x = -y
  *  @remark Expects a negative number to be stored in two's-complement representation.
  */
-int mpChs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits);
+int mpChs(u32 x[], const u32 y[], size_t ndigits);
 
 /** Sets x = |y|, the absolute value of y
  *  @remark Expects a negative number to be stored in two's-complement representation.
  */
-int mpAbs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits);
-
-/* New in [v2.5] - note that `p` is not `const` */
-
-/** Print a signed integer in decimal format with optional prefix and suffix strings
- *  @remark Expects a negative number to be stored in two's-complement representation.
- */
-//void mpPrintDecimalSigned(const char *prefix, DIGIT_T *p, size_t ndigits, const char *suffix);
-
+int mpAbs(u32 x[], const u32 y[], size_t ndigits);
 
 /****************/
 /* VERSION INFO */
@@ -491,8 +469,8 @@ int mpVersion(void);
 /*************************************************************/
 /* [v2.2] added option to avoid memory allocation if NO_ALLOCS is defined */
 #ifndef NO_ALLOCS
-DIGIT_T *mpAlloc(size_t ndigits);
-void mpFree(DIGIT_T **p);
+u32 *mpAlloc(size_t ndigits);
+void mpFree(u32 **p);
 #endif
 void mpFail(char *msg);
 
