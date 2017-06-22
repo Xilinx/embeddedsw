@@ -35,8 +35,7 @@
  # 1.0	    nsk	   08/06/15 First Release.
  # 1.0	    nsk	   08/20/15 Updated define_addr_params to support
  #			    PBD Designs (CR#876857).
- # 1.1      ms     04/18/17 Modified tcl file to add suffix U for all macros
- #                          definitions of ddrps in xparameters.h
+ #
  ################################################################################
 
 proc generate {drv_handle} {
@@ -50,7 +49,6 @@ proc define_addr_params {drv_handle file_name} {
 
    set sw_proc [hsi::get_sw_processor]
    set periphs [::hsi::utils::get_common_driver_ips $drv_handle]
-   set uSuffix "U"
    foreach periph $periphs {
 	puts $file_handle ""
 	puts $file_handle "/* Definitions for peripheral [string toupper [common::get_property NAME $periph]] */"
@@ -75,8 +73,8 @@ proc define_addr_params {drv_handle file_name} {
 			continue
 		}
 
-		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $base_name] $base_value$uSuffix"
-		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $high_name] $high_value$uSuffix"
+		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $base_name] $base_value"
+		puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $high_name] $high_value"
 		puts $file_handle ""
 		incr i
 		lappend addr_params $base_name
