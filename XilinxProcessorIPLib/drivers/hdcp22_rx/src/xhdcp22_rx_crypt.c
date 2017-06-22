@@ -47,6 +47,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   10/30/15 First Release
 * 2.00  MH   04/14/16 Updated for repeater upstream support.
+* 2.20  MH   06/21/17 Updated for 64 bit support.
 *</pre>
 *
 *****************************************************************************/
@@ -65,7 +66,7 @@
 /**************************** Type Definitions ******************************/
 
 /***************** Macros (Inline Functions) Definitions ********************/
-#define XHdcp22Rx_MpSizeof(A) (sizeof(A)/sizeof(DIGIT_T))
+#define XHdcp22Rx_MpSizeof(A) (sizeof(A)/sizeof(u32))
 
 /************************** Variable Definitions ****************************/
 
@@ -79,18 +80,18 @@ static int  XHdcp22Rx_Pkcs1Mgf1(const u8 *seed, const u32 seedlen, u8  *mask, u3
 static int  XHdcp22Rx_Pkcs1EmeOaepEncode(const u8 *Message, const u32 MessageLen,
 	            const u8 *MaskingSeed, u8 *EncodedMessage);
 static int  XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *MessageLen);
-static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N,
-	            const DIGIT_T *NPrime, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, u32 *N,
+	            const u32 *NPrime, int NDigits);
 #ifndef _XHDCP22_RX_SW_MMULT_
-static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U, DIGIT_T *A,
-	            DIGIT_T *B, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, u32 *U, u32 *A,
+	            u32 *B, int NDigits);
 #else
-static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B, DIGIT_T *N,
-	            const DIGIT_T *NPrime, int NDigits);
-static void XHdcp22Rx_Pkcs1MontMultAdd(DIGIT_T *A, DIGIT_T C, int SDigit, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMultFiosStub(u32 *U, u32 *A, u32 *B, u32 *N,
+	            const u32 *NPrime, int NDigits);
+static void XHdcp22Rx_Pkcs1MontMultAdd(u32 *A, u32 C, int SDigit, int NDigits);
 #endif
-static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *A, DIGIT_T *E,
-	            DIGIT_T *N, const DIGIT_T *NPrime, int NDigits);
+static int  XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, u32 *C, u32 *A, u32 *E,
+	            u32 *N, const u32 *NPrime, int NDigits);
 
 /* Functions for implementing other cryptographic tasks */
 static void XHdcp22Rx_ComputeDKey(const u8* Rrx, const u8* Rtx, const u8 *Km,
@@ -126,12 +127,12 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 	Xil_AssertNonvoid(N != NULL);
 	Xil_AssertNonvoid(NDigits == 16);
 
-	DIGIT_T N_i[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T NPrime_i[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T R[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T RInv[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T T1[XHDCP22_RX_N_SIZE/2];
-	DIGIT_T T2[XHDCP22_RX_N_SIZE/2];
+	u32 N_i[XHDCP22_RX_N_SIZE/4];
+	u32 NPrime_i[XHDCP22_RX_N_SIZE/4];
+	u32 R[XHDCP22_RX_N_SIZE/4];
+	u32 RInv[XHDCP22_RX_N_SIZE/4];
+	u32 T1[XHDCP22_RX_N_SIZE/2];
+	u32 T2[XHDCP22_RX_N_SIZE/2];
 
 	/* Clear variables */
 	memset(N_i, 0, sizeof(N_i));
@@ -162,11 +163,11 @@ int XHdcp22Rx_CalcMontNPrime(u8 *NPrime, const u8 *N, int NDigits)
 	memset(T2, 0, sizeof(T2));
 	T2[0] = 1;
 	mpSubtract(T1, T1, T2, XHdcp22Rx_MpSizeof(T1));
-	mpDivide(NPrime_i, T2, T1, XHdcp22Rx_MpSizeof(NPrime_i), (DIGIT_T *)N_i, NDigits);
+	mpDivide(NPrime_i, T2, T1, XHdcp22Rx_MpSizeof(NPrime_i), (u32 *)N_i, NDigits);
 
 	/* Step 4: Sanity Check, R*Rinv - N*NPrime == 1 */
 	mpMultiply(T1, R, RInv, 2*NDigits);
-	mpMultiply(T2, (DIGIT_T *)N_i, NPrime_i, XHdcp22Rx_MpSizeof(NPrime_i));
+	mpMultiply(T2, (u32 *)N_i, NPrime_i, XHdcp22Rx_MpSizeof(NPrime_i));
 	mpSubtract(T1, T1, T2, XHdcp22Rx_MpSizeof(T1));
 	memset(T2, 0, sizeof(T2));
 	T2[0] = 1;
@@ -328,10 +329,10 @@ static int XHdcp22Rx_Pkcs1Rsaep(const XHdcp22_Rx_KpubRx *KpubRx, u8 *Message, u8
 	Xil_AssertNonvoid(Message != NULL);
 	Xil_AssertNonvoid(EncryptedMessage != NULL);
 
-	DIGIT_T N[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T E[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T M[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T C[XHDCP22_RX_N_SIZE/4];
+	u32 N[XHDCP22_RX_N_SIZE/4];
+	u32 E[XHDCP22_RX_N_SIZE/4];
+	u32 M[XHDCP22_RX_N_SIZE/4];
+	u32 C[XHDCP22_RX_N_SIZE/4];
 
 	/* Convert octet string to integer */
 	mpConvFromOctets(N, XHDCP22_RX_N_SIZE/4, KpubRx->N, XHDCP22_RX_N_SIZE);
@@ -372,12 +373,12 @@ static int XHdcp22Rx_Pkcs1Rsadp(XHdcp22_Rx *InstancePtr, const XHdcp22_Rx_KprivR
 	Xil_AssertNonvoid(EncryptedMessage != NULL);
 	Xil_AssertNonvoid(Message != NULL);
 
-	DIGIT_T A[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T B[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T C[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T D[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T M1[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T M2[XHDCP22_RX_N_SIZE/4];
+	u32 A[XHDCP22_RX_N_SIZE/4];
+	u32 B[XHDCP22_RX_N_SIZE/4];
+	u32 C[XHDCP22_RX_N_SIZE/4];
+	u32 D[XHDCP22_RX_N_SIZE/4];
+	u32 M1[XHDCP22_RX_N_SIZE/4];
+	u32 M2[XHDCP22_RX_N_SIZE/4];
 	u32 Status;
 
 	/* Clear variables */
@@ -691,7 +692,7 @@ static int XHdcp22Rx_Pkcs1EmeOaepDecode(u8 *EncodedMessage, u8 *Message, int *Me
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultAdd(DIGIT_T *A, DIGIT_T C, int SDigit, int NDigits)
+static void XHdcp22Rx_Pkcs1MontMultAdd(u32 *A, u32 C, int SDigit, int NDigits)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(A != NULL);
@@ -737,8 +738,8 @@ static void XHdcp22Rx_Pkcs1MontMultAdd(DIGIT_T *A, DIGIT_T C, int SDigit, int ND
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B,
-	DIGIT_T *N, const DIGIT_T *NPrime, int NDigits)
+static void XHdcp22Rx_Pkcs1MontMultFiosStub(u32 *U, u32 *A, u32 *B,
+	u32 *N, const u32 *NPrime, int NDigits)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(U != NULL);
@@ -749,8 +750,8 @@ static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B,
 	Xil_AssertVoid(NDigits == 16);
 
 	int i, j;
-	DIGIT_T S, C, C1, C2, M[2], X[2];
-	DIGIT_T T[XHDCP22_RX_N_SIZE];
+	u32 S, C, C1, C2, M[2], X[2];
+	u32 T[XHDCP22_RX_N_SIZE];
 
 	memset(T, 0, 4*(NDigits+3));
 
@@ -835,8 +836,8 @@ static void XHdcp22Rx_Pkcs1MontMultFiosStub(DIGIT_T *U, DIGIT_T *A, DIGIT_T *B,
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N,
-	const DIGIT_T *NPrime, int NDigits)
+static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, u32 *N,
+	const u32 *NPrime, int NDigits)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -872,8 +873,8 @@ static void XHdcp22Rx_Pkcs1MontMultFiosInit(XHdcp22_Rx *InstancePtr, DIGIT_T *N,
 *
 * @note		None.
 *****************************************************************************/
-static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U,
-	DIGIT_T *A, DIGIT_T *B, int NDigits)
+static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, u32 *U,
+	u32 *A, u32 *B, int NDigits)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -921,13 +922,13 @@ static void XHdcp22Rx_Pkcs1MontMultFios(XHdcp22_Rx *InstancePtr, DIGIT_T *U,
 *
 * @note		None.
 *****************************************************************************/
-static int XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, DIGIT_T *C, DIGIT_T *A,
-	DIGIT_T *E, DIGIT_T *N, const DIGIT_T *NPrime, int NDigits)
+static int XHdcp22Rx_Pkcs1MontExp(XHdcp22_Rx *InstancePtr, u32 *C, u32 *A,
+	u32 *E, u32 *N, const u32 *NPrime, int NDigits)
 {
 	int Offset;
-	DIGIT_T R[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T Abar[XHDCP22_RX_N_SIZE/4];
-	DIGIT_T Xbar[XHDCP22_RX_N_SIZE/4];
+	u32 R[XHDCP22_RX_N_SIZE/4];
+	u32 Abar[XHDCP22_RX_N_SIZE/4];
+	u32 Xbar[XHDCP22_RX_N_SIZE/4];
 
 	memset(R, 0, sizeof(R));
 	memset(Abar, 0, sizeof(Abar));
