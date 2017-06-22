@@ -48,7 +48,7 @@ You can override by defining HAVE_C99INCLUDES or HAVE_SYS_TYPES.
 #elif defined(HAVE_SYS_TYPES)
 	#include <sys/types.h>
 #else
-	#define uint32_t unsigned long
+	#define uint32_t unsigned int
 	#define uint16_t unsigned short
 	#define uint8_t unsigned char
 #endif	/* HAVE_C99INCLUDES */

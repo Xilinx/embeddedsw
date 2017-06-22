@@ -61,9 +61,9 @@ static const int kUseNoAllocs = 0;
 /* Internal macros */
 #define BITS_PER_HALF_DIGIT (BITS_PER_DIGIT / 2)
 #define BYTES_PER_DIGIT (BITS_PER_DIGIT / 8)
-#define LOHALF(x) ((DIGIT_T)((x) & MAX_HALF_DIGIT))
-#define HIHALF(x) ((DIGIT_T)((x) >> BITS_PER_HALF_DIGIT & MAX_HALF_DIGIT))
-#define TOHIGH(x) ((DIGIT_T)((x) << BITS_PER_HALF_DIGIT))
+#define LOHALF(x) ((u32)((x) & MAX_HALF_DIGIT))
+#define HIHALF(x) ((u32)((x) >> BITS_PER_HALF_DIGIT & MAX_HALF_DIGIT))
+#define TOHIGH(x) ((u32)((x) << BITS_PER_HALF_DIGIT))
 #define mpNEXTBITMASK(mask, n) do{if(mask==1){mask=HIBITMASK;n--;}else{mask>>=1;}}while(0)
 
 /****************************/
@@ -94,21 +94,21 @@ void mpFail(char *msg)
 /* MEMORY ALLOCATION FUNCTIONS */
 /*******************************/
 #ifndef NO_ALLOCS
-DIGIT_T *mpAlloc(size_t ndigits)
+u32 *mpAlloc(size_t ndigits)
 {
-	DIGIT_T *ptr;
+	u32 *ptr;
 
 	/* [v2.3] added check for zero digits. Thanks to "Radistao" */
 	if (ndigits < 1) ndigits = 1;
 
-	ptr = (DIGIT_T *)calloc(ndigits, sizeof(DIGIT_T));
+	ptr = (u32 *)calloc(ndigits, sizeof(u32));
 	if (!ptr)
 		mpFail("mpAlloc: Unable to allocate memory.");
 
 	return ptr;
 }
 
-void mpFree(DIGIT_T **p)
+void mpFree(u32 **p)
 {
 	if (*p)
 	{
@@ -268,7 +268,7 @@ no_overflow:
 #else
 /* Default routines the "long" way */
 
-int spMultiply(DIGIT_T p[2], DIGIT_T x, DIGIT_T y)
+int spMultiply(u32 p[2], u32 x, u32 y)
 {	/*	Computes p = x * y */
 	/*	Ref: Arbitrary Precision Computation
 	http://numbers.computation.free.fr/Constants/constants.html
@@ -285,8 +285,8 @@ int spMultiply(DIGIT_T p[2], DIGIT_T x, DIGIT_T y)
                         |1|< carry from adding LOHALF t
                         +-+  to high half of p0
 	*/
-	DIGIT_T x0, y0, x1, y1;
-	DIGIT_T t, u, carry;
+	u32 x0, y0, x1, y1;
+	u32 t, u, carry;
 
 	/*	Split each x,y into two halves
 		x = x0 + B*x1
@@ -334,14 +334,14 @@ int spMultiply(DIGIT_T p[2], DIGIT_T x, DIGIT_T y)
 
 #define B (MAX_HALF_DIGIT + 1)
 
-static void spMultSub(DIGIT_T uu[2], DIGIT_T qhat, DIGIT_T v1, DIGIT_T v0)
+static void spMultSub(u32 uu[2], u32 qhat, u32 v1, u32 v0)
 {
 	/*	Compute uu = uu - q(v1v0)
 		where uu = u3u2u1u0, u3 = 0
 		and u_n, v_n are all half-digits
 		even though v1, v2 are passed as full digits.
 	*/
-	DIGIT_T p0, p1, t;
+	u32 p0, p1, t;
 
 	p0 = qhat * v0;
 	p1 = qhat * v1;
@@ -352,7 +352,7 @@ static void spMultSub(DIGIT_T uu[2], DIGIT_T qhat, DIGIT_T v1, DIGIT_T v0)
 	uu[1] -= HIHALF(p1);
 }
 
-DIGIT_T spDivide(DIGIT_T *q, DIGIT_T *r, const DIGIT_T u[2], DIGIT_T v)
+u32 spDivide(u32 *q, u32 *r, const u32 u[2], u32 v)
 {	/*	Computes quotient q = u / v, remainder r = u mod v
 		where u is a double digit
 		and q, v, r are single precision digits.
@@ -368,8 +368,8 @@ DIGIT_T spDivide(DIGIT_T *q, DIGIT_T *r, const DIGIT_T u[2], DIGIT_T v)
 		q2 is either 0 or 1.
 		We set q = (q1q0) and return q2 as "overflow"
 	*/
-	DIGIT_T qhat, rhat, t, v0, v1, u0, u1, u2, u3;
-	DIGIT_T uu[2], q2;
+	u32 qhat, rhat, t, v0, v1, u0, u1, u2, u3;
+	u32 uu[2], q2;
 
 	/* Check for normalisation */
 	if (!(v & HIBITMASK))
@@ -507,7 +507,7 @@ DIGIT_T spDivide(DIGIT_T *q, DIGIT_T *r, const DIGIT_T u[2], DIGIT_T v)
 /************************/
 /* ARITHMETIC FUNCTIONS */
 /************************/
-DIGIT_T mpAdd(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits)
+u32 mpAdd(u32 w[], const u32 u[], const u32 v[], size_t ndigits)
 {
 	/*	Calculates w = u + v
 		where w, u, v are multiprecision integers of ndigits each
@@ -516,7 +516,7 @@ DIGIT_T mpAdd(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits)
 		Ref: Knuth Vol 2 Ch 4.3.1 p 266 Algorithm A.
 	*/
 
-	DIGIT_T k;
+	u32 k;
 	size_t j;
 
 	assert(w != v);
@@ -544,7 +544,7 @@ DIGIT_T mpAdd(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits)
 	return k;	/* w_n = k */
 }
 
-DIGIT_T mpSubtract(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits)
+u32 mpSubtract(u32 w[], const u32 u[], const u32 v[], size_t ndigits)
 {
 	/*	Calculates w = u - v where u >= v
 		w, u, v are multiprecision integers of ndigits each
@@ -553,7 +553,7 @@ DIGIT_T mpSubtract(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndi
 		Ref: Knuth Vol 2 Ch 4.3.1 p 267 Algorithm S.
 	*/
 
-	DIGIT_T k;
+	u32 k;
 	size_t j;
 
 	assert(w != v);
@@ -581,7 +581,7 @@ DIGIT_T mpSubtract(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndi
 	return k;	/* Should be zero if u >= v */
 }
 
-int mpMultiply(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits)
+int mpMultiply(u32 w[], const u32 u[], const u32 v[], size_t ndigits)
 {
 	/*	Computes product w = u * v
 		where u, v are multiprecision integers of ndigits each
@@ -590,7 +590,7 @@ int mpMultiply(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits
 		Ref: Knuth Vol 2 Ch 4.3.1 p 268 Algorithm M.
 	*/
 
-	DIGIT_T k, t[2];
+	u32 k, t[2];
 	size_t i, j, m, n;
 
 	assert(w != u && w != v);
@@ -638,13 +638,13 @@ int mpMultiply(DIGIT_T w[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits
 
 /* mpDivide */
 
-static DIGIT_T mpMultSub(DIGIT_T wn, DIGIT_T w[], const DIGIT_T v[],
-					   DIGIT_T q, size_t n)
+static u32 mpMultSub(u32 wn, u32 w[], const u32 v[],
+					   u32 q, size_t n)
 {	/*	Compute w = w - qv
 		where w = (WnW[n-1]...W[0])
 		return modified Wn.
 	*/
-	DIGIT_T k, t[2];
+	u32 k, t[2];
 	size_t i;
 
 	if (q == 0)	/* No change */
@@ -672,12 +672,12 @@ static DIGIT_T mpMultSub(DIGIT_T wn, DIGIT_T w[], const DIGIT_T v[],
 	return wn;
 }
 
-static int QhatTooBig(DIGIT_T qhat, DIGIT_T rhat,
-					  DIGIT_T vn2, DIGIT_T ujn2)
+static int QhatTooBig(u32 qhat, u32 rhat,
+					  u32 vn2, u32 ujn2)
 {	/*	Returns true if Qhat is too big
 		i.e. if (Qhat * Vn-2) > (b.Rhat + Uj+n-2)
 	*/
-	DIGIT_T t[2];
+	u32 t[2];
 
 	spMultiply(t, qhat, vn2);
 	if (t[1] < rhat)
@@ -690,8 +690,8 @@ static int QhatTooBig(DIGIT_T qhat, DIGIT_T rhat,
 	return 0;
 }
 
-int mpDivide(DIGIT_T q[], DIGIT_T r[], const DIGIT_T u[],
-	size_t udigits, DIGIT_T v[], size_t vdigits)
+int mpDivide(u32 q[], u32 r[], const u32 u[],
+	size_t udigits, u32 v[], size_t vdigits)
 {	/*	Computes quotient q = u / v and remainder r = u mod v
 		where q, r, u are multiple precision digits
 		all of udigits and the divisor v is vdigits.
@@ -708,9 +708,9 @@ int mpDivide(DIGIT_T q[], DIGIT_T r[], const DIGIT_T u[],
 	*/
 	size_t shift;
 	int n, m, j;
-	DIGIT_T bitmask, overflow;
-	DIGIT_T qhat, rhat, t[2];
-	DIGIT_T *uu, *ww;
+	u32 bitmask, overflow;
+	u32 qhat, rhat, t[2];
+	u32 *uu, *ww;
 	int qhatOK, cmp;
 
 	/* Clear q and r */
@@ -846,7 +846,7 @@ int mpDivide(DIGIT_T q[], DIGIT_T r[], const DIGIT_T u[],
 }
 
 
-int mpSquare(DIGIT_T w[], const DIGIT_T x[], size_t ndigits)
+int mpSquare(u32 w[], const u32 x[], size_t ndigits)
 /* New in Version 2.0 */
 {
 	/*	Computes square w = x * x
@@ -856,7 +856,7 @@ int mpSquare(DIGIT_T w[], const DIGIT_T x[], size_t ndigits)
 		Ref: Menezes p596 Algorithm 14.16 with errata.
 	*/
 
-	DIGIT_T k, p[2], u[2], cbit, carry;
+	u32 k, p[2], u[2], cbit, carry;
 	size_t i, j, t, i2, cpos;
 
 	assert(w != x);
@@ -956,7 +956,7 @@ int mpSquare(DIGIT_T w[], const DIGIT_T x[], size_t ndigits)
 }
 
 /** Returns true if a == b, else false. Not constant-time. */
-int mpEqual_q(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+int mpEqual_q(const u32 a[], const u32 b[], size_t ndigits)
 {
 
 	/* if (ndigits == 0) return -1; // deleted [v2.5] */
@@ -971,7 +971,7 @@ int mpEqual_q(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 }
 
 /** Returns sign of (a - b) as 0, +1 or -1. Not constant-time. */
-int mpCompare_q(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+int mpCompare_q(const u32 a[], const u32 b[], size_t ndigits)
 {
 	/* if (ndigits == 0) return 0; // deleted [v2.5] */
 
@@ -987,7 +987,7 @@ int mpCompare_q(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 }
 
 /** Returns true if a == 0, else false. Not constant-time. */
-int mpIsZero_q(const DIGIT_T a[], size_t ndigits)
+int mpIsZero_q(const u32 a[], size_t ndigits)
 {
 	size_t i;
 
@@ -1005,14 +1005,14 @@ int mpIsZero_q(const DIGIT_T a[], size_t ndigits)
 /* CONSTANT-TIME COMPARISONS */
 /* New and renamed in [v2.5] */
 
-/* Constant-time comparisons of unsigned DIGIT_T's */
+/* Constant-time comparisons of unsigned u32's */
 #define IS_NONZERO_DIGIT(x) (((x)|(~(x)+1)) >> (BITS_PER_DIGIT-1))
 #define IS_ZER0_DIGIT(x) (1 ^ IS_NONZERO_DIGIT((x)))
 
 /** Returns 1 if a == b, else 0 (constant-time) */
-int mpEqual(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+int mpEqual(const u32 a[], const u32 b[], size_t ndigits)
 {
-	DIGIT_T dif = 0;
+	u32 dif = 0;
 
 	while (ndigits--) {
 		dif |= a[ndigits] ^ b[ndigits];
@@ -1022,10 +1022,10 @@ int mpEqual(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 }
 
 /** Returns 1 if a == 0, else 0 (constant-time) */
-int mpIsZero(const DIGIT_T a[], size_t ndigits)
+int mpIsZero(const u32 a[], size_t ndigits)
 {
-	DIGIT_T dif = 0;
-	const DIGIT_T ZERO = 0;
+	u32 dif = 0;
+	const u32 ZERO = 0;
 
 	while (ndigits--) {
 		dif |= a[ndigits] ^ ZERO;
@@ -1035,7 +1035,7 @@ int mpIsZero(const DIGIT_T a[], size_t ndigits)
 }
 
 /** Returns sign of (a - b) as 0, +1 or -1 (constant-time) */
-int mpCompare(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+int mpCompare(const u32 a[], const u32 b[], size_t ndigits)
 {
 	/* All these vars are either 0 or 1 */
 	unsigned int gt = 0;
@@ -1054,7 +1054,7 @@ int mpCompare(const DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 }
 
 /** Returns number of significant digits in a */
-size_t mpSizeof(const DIGIT_T a[], size_t ndigits)
+size_t mpSizeof(const u32 a[], size_t ndigits)
 {
 	while(ndigits--)
 	{
@@ -1064,11 +1064,11 @@ size_t mpSizeof(const DIGIT_T a[], size_t ndigits)
 	return 0;
 }
 
-size_t mpBitLength(const DIGIT_T d[], size_t ndigits)
+size_t mpBitLength(const u32 d[], size_t ndigits)
 /* Returns no of significant bits in d */
 {
 	size_t n, i, bits;
-	DIGIT_T mask;
+	u32 mask;
 
 	if (!d || ndigits == 0)
 		return 0;
@@ -1087,7 +1087,7 @@ size_t mpBitLength(const DIGIT_T d[], size_t ndigits)
 	return bits;
 }
 
-void mpSetEqual(DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+void mpSetEqual(u32 a[], const u32 b[], size_t ndigits)
 {	/* Sets a = b */
 	size_t i;
 
@@ -1097,12 +1097,12 @@ void mpSetEqual(DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 	}
 }
 
-DIGIT_T mpSetZero(DIGIT_T a[], size_t ndigits)
+u32 mpSetZero(u32 a[], size_t ndigits)
 {	/* Sets a = 0 */
 
 	/* Prevent optimiser ignoring this */
-	DIGIT_T optdummy;
-	DIGIT_T *p = a;
+	u32 optdummy;
+	u32 *p = a;
 
 	while (ndigits--)
 		a[ndigits] = 0;
@@ -1111,7 +1111,7 @@ DIGIT_T mpSetZero(DIGIT_T a[], size_t ndigits)
 	return optdummy;
 }
 
-void mpSetDigit(DIGIT_T a[], DIGIT_T d, size_t ndigits)
+void mpSetDigit(u32 a[], u32 d, size_t ndigits)
 {	/* Sets a = d where d is a single digit */
 	size_t i;
 
@@ -1125,12 +1125,12 @@ void mpSetDigit(DIGIT_T a[], DIGIT_T d, size_t ndigits)
 /**********************/
 /* BIT-WISE FUNCTIONS */
 /**********************/
-DIGIT_T mpShiftLeft(DIGIT_T a[], const DIGIT_T *b,
+u32 mpShiftLeft(u32 a[], const u32 *b,
 	size_t shift, size_t ndigits)
 {	/* Computes a = b << shift */
 	/* [v2.1] Modified to cope with shift > BITS_PERDIGIT */
 	size_t i, y, nw, bits;
-	DIGIT_T mask, carry, nextcarry;
+	u32 mask, carry, nextcarry;
 
 	/* Do we shift whole digits? */
 	if (shift >= BITS_PER_DIGIT)
@@ -1157,7 +1157,7 @@ DIGIT_T mpShiftLeft(DIGIT_T a[], const DIGIT_T *b,
 	}
 
 	/* Construct mask = high bits set */
-	mask = ~(~(DIGIT_T)0 >> bits);
+	mask = ~(~(u32)0 >> bits);
 
 	y = BITS_PER_DIGIT - bits;
 	carry = 0;
@@ -1171,11 +1171,11 @@ DIGIT_T mpShiftLeft(DIGIT_T a[], const DIGIT_T *b,
 	return carry;
 }
 
-DIGIT_T mpShiftRight(DIGIT_T a[], const DIGIT_T b[], size_t shift, size_t ndigits)
+u32 mpShiftRight(u32 a[], const u32 b[], size_t shift, size_t ndigits)
 {	/* Computes a = b >> shift */
 	/* [v2.1] Modified to cope with shift > BITS_PERDIGIT */
 	size_t i, y, nw, bits;
-	DIGIT_T mask, carry, nextcarry;
+	u32 mask, carry, nextcarry;
 
 	/* Do we shift whole digits? */
 	if (shift >= BITS_PER_DIGIT)
@@ -1202,7 +1202,7 @@ DIGIT_T mpShiftRight(DIGIT_T a[], const DIGIT_T b[], size_t shift, size_t ndigit
 
 	/* Construct mask to set low bits */
 	/* (thanks to Jesse Chisholm for suggesting this improved technique) */
-	mask = ~(~(DIGIT_T)0 << bits);
+	mask = ~(~(u32)0 << bits);
 
 	y = BITS_PER_DIGIT - bits;
 	carry = 0;
@@ -1217,11 +1217,11 @@ DIGIT_T mpShiftRight(DIGIT_T a[], const DIGIT_T b[], size_t shift, size_t ndigit
 	return carry;
 }
 
-int mpSetBit(DIGIT_T a[], size_t ndigits, size_t ibit, int value)
+int mpSetBit(u32 a[], size_t ndigits, size_t ibit, int value)
 	/* Set bit n (0..nbits-1) with value 1 or 0 */
 {
 	size_t idigit, bit_to_set;
-	DIGIT_T mask;
+	u32 mask;
 
 	/* Which digit? (0-based) */
 	idigit = ibit / BITS_PER_DIGIT;
@@ -1240,11 +1240,11 @@ int mpSetBit(DIGIT_T a[], size_t ndigits, size_t ibit, int value)
 	return 0;
 }
 
-int mpGetBit(DIGIT_T a[], size_t ndigits, size_t ibit)
+int mpGetBit(u32 a[], size_t ndigits, size_t ibit)
 	/* Returns value 1 or 0 of bit n (0..nbits-1); or -1 if out of range */
 {
 	size_t idigit, bit_to_get;
-	DIGIT_T mask;
+	u32 mask;
 
 	/* Which digit? (0-based) */
 	idigit = ibit / BITS_PER_DIGIT;
@@ -1258,12 +1258,12 @@ int mpGetBit(DIGIT_T a[], size_t ndigits, size_t ibit)
 	return ((a[idigit] & mask) ? 1 : 0);
 }
 
-void mpModPowerOf2(DIGIT_T a[], size_t ndigits, size_t L)
+void mpModPowerOf2(u32 a[], size_t ndigits, size_t L)
 	/* Computes a = a mod 2^L */
 	/* i.e. clears all bits >= L */
 {
 	size_t i, nw, bits;
-	DIGIT_T mask;
+	u32 mask;
 
 	/* High digits to clear */
 	nw = L / BITS_PER_DIGIT;
@@ -1271,12 +1271,12 @@ void mpModPowerOf2(DIGIT_T a[], size_t ndigits, size_t L)
 		a[i] = 0;
 	/* Low bits to keep */
 	bits = L % BITS_PER_DIGIT;
-	mask = ~(~((DIGIT_T)0) << bits);
+	mask = ~(~((u32)0) << bits);
 	if (ndigits > nw)
 		a[nw] &= mask;
 }
 
-void mpXorBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits)
+void mpXorBits(u32 a[], const u32 b[], const u32 c[], size_t ndigits)
 	/* Computes bitwise a = b XOR c */
 {
 	size_t i;
@@ -1284,7 +1284,7 @@ void mpXorBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits
 		a[i] = b[i] ^ c[i];
 }
 
-void mpOrBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits)
+void mpOrBits(u32 a[], const u32 b[], const u32 c[], size_t ndigits)
 	/* Computes bitwise a = b OR c */
 {
 	size_t i;
@@ -1292,7 +1292,7 @@ void mpOrBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits)
 		a[i] = b[i] | c[i];
 }
 
-void mpAndBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits)
+void mpAndBits(u32 a[], const u32 b[], const u32 c[], size_t ndigits)
 	/* Computes bitwise a = b AND c */
 {
 	size_t i;
@@ -1300,7 +1300,7 @@ void mpAndBits(DIGIT_T a[], const DIGIT_T b[], const DIGIT_T c[], size_t ndigits
 		a[i] = b[i] & c[i];
 }
 
-void mpNotBits(DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
+void mpNotBits(u32 a[], const u32 b[], size_t ndigits)
 	/* Computes bitwise a = NOT b */
 {
 	size_t i;
@@ -1311,7 +1311,7 @@ void mpNotBits(DIGIT_T a[], const DIGIT_T b[], size_t ndigits)
 /*****************************************/
 /* FUNCTIONS WITH A SINGLE (SHORT) DIGIT */
 /*****************************************/
-DIGIT_T mpShortAdd(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
+u32 mpShortAdd(u32 w[], const u32 u[], u32 v,
 			   size_t ndigits)
 {
 	/*	Calculates w = u + v
@@ -1322,7 +1322,7 @@ DIGIT_T mpShortAdd(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
 		Ref: Derived from Knuth Algorithm A.
 	*/
 
-	DIGIT_T k;
+	u32 k;
 	size_t j;
 
 	k = 0;
@@ -1347,7 +1347,7 @@ DIGIT_T mpShortAdd(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
 	return k;
 }
 
-DIGIT_T mpShortSub(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
+u32 mpShortSub(u32 w[], const u32 u[], u32 v,
 			   size_t ndigits)
 {
 	/*	Calculates w = u - v
@@ -1358,7 +1358,7 @@ DIGIT_T mpShortSub(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
 		Ref: Derived from Knuth Algorithm S.
 	*/
 
-	DIGIT_T k;
+	u32 k;
 	size_t j;
 
 	k = 0;
@@ -1383,7 +1383,7 @@ DIGIT_T mpShortSub(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
 	return k;
 }
 
-DIGIT_T mpShortMult(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
+u32 mpShortMult(u32 w[], const u32 u[], u32 v,
 					size_t ndigits)
 {
 	/*	Computes product w = u * v
@@ -1394,7 +1394,7 @@ DIGIT_T mpShortMult(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
 		Ref: Knuth Algorithm M.
 	*/
 
-	DIGIT_T k, t[2];
+	u32 k, t[2];
 	size_t j;
 
 	if (v == 0)
@@ -1421,7 +1421,7 @@ DIGIT_T mpShortMult(DIGIT_T w[], const DIGIT_T u[], DIGIT_T v,
 	return k;
 }
 
-DIGIT_T mpShortDiv(DIGIT_T q[], const DIGIT_T u[], DIGIT_T v,
+u32 mpShortDiv(u32 q[], const u32 u[], u32 v,
 				   size_t ndigits)
 {
 	/*	Calculates quotient q = u div v
@@ -1434,9 +1434,9 @@ DIGIT_T mpShortDiv(DIGIT_T q[], const DIGIT_T u[], DIGIT_T v,
 		Ref: Knuth Vol 2 Ch 4.3.1 Exercise 16 p625
 	*/
 	size_t j;
-	DIGIT_T t[2], r;
+	u32 t[2], r;
 	size_t shift;
-	DIGIT_T bitmask, overflow, *uu;
+	u32 bitmask, overflow, *uu;
 
 	if (ndigits == 0) return 0;
 	if (v == 0)	return 0;	/* Divide by zero error */
@@ -1475,7 +1475,7 @@ DIGIT_T mpShortDiv(DIGIT_T q[], const DIGIT_T u[], DIGIT_T v,
 	return r;
 }
 
-DIGIT_T mpShortMod(const DIGIT_T a[], DIGIT_T d, size_t ndigits)
+u32 mpShortMod(const u32 a[], u32 d, size_t ndigits)
 {
 	/*	Calculates r = a mod d
 		where a is a multiprecision integer of ndigits
@@ -1483,13 +1483,13 @@ DIGIT_T mpShortMod(const DIGIT_T a[], DIGIT_T d, size_t ndigits)
 		Use remainder from divide function.
 	*/
 
-	DIGIT_T r = 0;
+	u32 r = 0;
 /* Allocate temp storage */
 #ifdef NO_ALLOCS
-	DIGIT_T q[MAX_FIXED_DIGITS * 2];
+	u32 q[MAX_FIXED_DIGITS * 2];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *q;
+	u32 *q;
 	q = mpAlloc(ndigits * 2);
 #endif
 
@@ -1501,7 +1501,7 @@ DIGIT_T mpShortMod(const DIGIT_T a[], DIGIT_T d, size_t ndigits)
 }
 
 /** Returns sign of (a - d) where d is a single digit */
-int mpShortCmp(const DIGIT_T a[], DIGIT_T d, size_t ndigits)
+int mpShortCmp(const u32 a[], u32 d, size_t ndigits)
 {
 	size_t i;
 	int gt = 0;
@@ -1528,13 +1528,13 @@ int mpShortCmp(const DIGIT_T a[], DIGIT_T d, size_t ndigits)
 /* Added [v2.2] */
 
 /** Returns TRUE (1) if x < 0, else FALSE (0) */
-int mpIsNegative(const DIGIT_T x[], size_t ndigits)
+int mpIsNegative(const u32 x[], size_t ndigits)
 {
 	return ((x[ndigits-1] & HIBITMASK) != 0);
 }
 
 /** Sets x = -y */
-int mpChs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits)
+int mpChs(u32 x[], const u32 y[], size_t ndigits)
 {
 	int isneg = mpIsNegative(y, ndigits);
 
@@ -1554,7 +1554,7 @@ int mpChs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits)
 }
 
 /** Sets x = |y| */
-int mpAbs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits)
+int mpAbs(u32 x[], const u32 y[], size_t ndigits)
 {
 	int isneg = mpIsNegative(y, ndigits);
 
@@ -1570,7 +1570,7 @@ int mpAbs(DIGIT_T x[], const DIGIT_T y[], size_t ndigits)
 /* PRINT FUNCTIONS */
 /*******************/
 /* [v2.1] changed to use C99 format types */
-void mpPrint(const DIGIT_T *p, size_t len)
+void mpPrint(const u32 *p, size_t len)
 {
 	while (len--)
 	{
@@ -1578,7 +1578,7 @@ void mpPrint(const DIGIT_T *p, size_t len)
 	}
 }
 
-void mpPrintNL(const DIGIT_T *p, size_t len)
+void mpPrintNL(const u32 *p, size_t len)
 {
 	size_t i = 0;
 
@@ -1592,7 +1592,7 @@ void mpPrintNL(const DIGIT_T *p, size_t len)
 	xil_printf("\n");
 }
 
-void mpPrintTrim(const DIGIT_T *p, size_t len)
+void mpPrintTrim(const u32 *p, size_t len)
 {
 	/* Trim leading digits which are zero */
 	while (len--)
@@ -1607,7 +1607,7 @@ void mpPrintTrim(const DIGIT_T *p, size_t len)
 	mpPrint(p, len);
 }
 
-void mpPrintTrimNL(const DIGIT_T *p, size_t len)
+void mpPrintTrimNL(const u32 *p, size_t len)
 {
 	/* Trim leading zeroes */
 	while (len--)
@@ -1622,7 +1622,7 @@ void mpPrintTrimNL(const DIGIT_T *p, size_t len)
 	mpPrintNL(p, len);
 }
 
-void mpPrintHex(const char *prefix, const DIGIT_T *p, size_t len, const char *suffix)
+void mpPrintHex(const char *prefix, const u32 *p, size_t len, const char *suffix)
 {
 	if (prefix) xil_printf("%s", prefix);
 	/* Trim leading digits which are zero */
@@ -1642,64 +1642,17 @@ void mpPrintHex(const char *prefix, const DIGIT_T *p, size_t len, const char *su
 	if (suffix) xil_printf("%s", suffix);
 }
 
-//void mpPrintDecimal(const char *prefix, const DIGIT_T *p, size_t len, const char *suffix)
-//{
-//#ifdef NO_ALLOCS
-//	char s[MAX_ALLOC_SIZE];
-//#else
-//	char *s;
-//#endif
-//	size_t nc;
-//	/* Put big digit into a string of decimal chars */
-//	nc = mpConvToDecimal(p, len, NULL, 0);
-//	ALLOC_BYTES(s, nc + 1);
-//	nc = mpConvToDecimal(p, len, s, nc + 1);
-//	if (prefix) xil_printf("%s", prefix);
-//	xil_printf("%s", s);
-//	if (suffix) xil_printf("%s", suffix);
-//	FREE_BYTES(s, nc + 1);
-//}
-
-///* ADDED [v2.5] */
-//void mpPrintDecimalSigned(const char *prefix, DIGIT_T *p, size_t len, const char *suffix)
-//{
-//#ifdef NO_ALLOCS
-//	char s[MAX_ALLOC_SIZE];
-//#else
-//	char *s;
-//#endif
-//	size_t nc;
-//	int isneg = 0;
-//	if (prefix) xil_printf("%s", prefix);
-//	if (mpIsNegative(p, len)) {
-//		/* NB changes p in situ temporarily */
-//		mpChs(p, p, len);
-//		xil_printf("-");
-//		isneg = 1;
-//	}
-//	/* Put big digit into a string of decimal chars */
-//	nc = mpConvToDecimal(p, len, NULL, 0);
-//	ALLOC_BYTES(s, nc + 1);
-//	nc = mpConvToDecimal(p, len, s, nc + 1);
-//	xil_printf("%s", s);
-//	if (suffix) xil_printf("%s", suffix);
-//	if (isneg) {
-//		mpChs(p, p, len);
-//	}
-//	FREE_BYTES(s, nc + 1);
-//}
-
 /************************/
 /* CONVERSION FUNCTIONS */
 /************************/
-size_t mpConvFromOctets(DIGIT_T a[], size_t ndigits, const unsigned char *c, size_t nbytes)
+size_t mpConvFromOctets(u32 a[], size_t ndigits, const unsigned char *c, size_t nbytes)
 /* Converts nbytes octets into big digit a of max size ndigits
    Returns actual number of digits set (may be larger than mpSizeof)
 */
 {
 	size_t i;
 	int j, k;
-	DIGIT_T t;
+	u32 t;
 
 	mpSetZero(a, ndigits);
 
@@ -1709,21 +1662,21 @@ size_t mpConvFromOctets(DIGIT_T a[], size_t ndigits, const unsigned char *c, siz
 	{
 		t = 0;
 		for (k = 0; j >= 0 && k < BITS_PER_DIGIT; j--, k += 8)
-			t |= ((DIGIT_T)c[j]) << k;
+			t |= ((u32)c[j]) << k;
 		a[i] = t;
 	}
 
 	return i;
 }
 
-size_t mpConvToOctets(const DIGIT_T a[], size_t ndigits, unsigned char *c, size_t nbytes)
+size_t mpConvToOctets(const u32 a[], size_t ndigits, unsigned char *c, size_t nbytes)
 /* Convert big digit a into string of octets, in big-endian order,
    padding on the left to nbytes or truncating if necessary.
    Return number of octets required excluding leading zero bytes.
 */
 {
 	int j, k, len;
-	DIGIT_T t;
+	u32 t;
 	size_t i, noctets, nbits;
 
 	nbits = mpBitLength(a, ndigits);
@@ -1744,234 +1697,11 @@ size_t mpConvToOctets(const DIGIT_T a[], size_t ndigits, unsigned char *c, size_
 	return (size_t)noctets;
 }
 
-//static size_t uiceil(double x)
-///* Returns ceil(x) as a non-negative integer or 0 if x < 0 */
-//{
-//	size_t c;
-//
-//	if (x < 0) return 0;
-//	c = (size_t)x;
-//	if ((x - c) > 0.0)
-//		c++;
-//
-//	return c;
-//}
-
-//static size_t conv_to_base(const DIGIT_T a[], size_t ndigits, char *s, size_t smax, int base)
-///* Convert big digit a into a string in given base format,
-//   where s has max size smax.
-//   Return number of chars set excluding leading zeroes.
-//   smax can be 0 to find out the required length.
-//*/
-//{
-//#ifdef NO_ALLOCS
-//	uint8_t bytes[MAX_ALLOC_SIZE], newdigits[MAX_ALLOC_SIZE];
-//#else
-//	uint8_t *bytes, *newdigits;
-//#endif
-//	const char DEC_DIGITS[] = "0123456789";
-//	const char HEX_DIGITS[] = "0123456789abcdef";
-//	size_t newlen, nbytes, nchars;
-//	size_t n;
-//	unsigned long t;
-//	size_t i, j, isig;
-//	const char *digits;
-//	double factor;
-//
-//	switch (base)
-//	{
-//	case 10:
-//		digits = DEC_DIGITS;
-//		factor = 2.40824;	/* log(256)/log(10)=2.40824 */
-//		break;
-//	case 16:
-//		digits = HEX_DIGITS;
-//		factor = 2.0;	/* log(256)/log(16)=2.0 */
-//		break;
-//	default:
-//		assert (10 == base || 16 == base);
-//		return 0;
-//	}
-//
-//	/* Set up output string with null chars */
-//	if (smax > 0 && s)
-//	{
-//		memset(s, '0', smax-1);
-//		s[smax-1] = '\0';
-//	}
-//
-//	/* Catch zero input value (return 1 not zero) */
-//	if (mpIsZero(a, ndigits))
-//	{
-//		if (smax > 0 && s)
-//			s[1] = '\0';
-//		return 1;
-//	}
-//
-//	/* First, we convert to 8-bit octets (bytes), which are easier to handle */
-//	nbytes = ndigits * BITS_PER_DIGIT / 8;
-//	ALLOC_BYTES(bytes, nbytes);
-//
-//	n = mpConvToOctets(a, ndigits, bytes, nbytes);
-//
-//	/* Create some temp storage for int values */
-//	newlen = uiceil(n * factor);
-//	ALLOC_BYTES(newdigits, newlen);
-//
-//	for (i = 0; i < nbytes; i++)
-//	{
-//		t = bytes[i];
-//		for (j = newlen; j > 0; j--)
-//		{
-//			t += (unsigned long)newdigits[j-1] * 256;
-//			newdigits[j-1] = (unsigned char)(t % base);
-//			t /= base;
-//		}
-//	}
-//
-//	/* Find index of leading significant digit */
-//	for (isig = 0; isig < newlen; isig++)
-//		if (newdigits[isig])
-//			break;
-//
-//	nchars = newlen - isig;
-//
-//	/* Convert to a null-terminated string of decimal chars */
-//	/* up to limit, unless user has specified null or size == 0 */
-//	if (smax > 0 && s)
-//	{
-//		for (i = 0; i < nchars && i < smax-1; i++)
-//		{
-//			s[i] = digits[newdigits[isig+i]];
-//		}
-//		s[i] = '\0';
-//	}
-//
-//	FREE_BYTES(bytes, nbytes);
-//	FREE_BYTES(newdigits, newlen);
-//
-//	return nchars;
-//}
-
-//size_t mpConvToDecimal(const DIGIT_T a[], size_t ndigits, char *s, size_t smax)
-///* Convert big digit a into a string in decimal format,
-//   where s has max size smax.
-//   Return number of chars set excluding leading zeroes.
-//*/
-//{
-//	return conv_to_base(a, ndigits, s, smax, 10);
-//}
-
-//size_t mpConvToHex(const DIGIT_T a[], size_t ndigits, char *s, size_t smax)
-///* Convert big digit a into a string in hexadecimal format,
-//   where s has max size smax.
-//   Return number of chars set excluding leading zeroes.
-//*/
-//{
-//	return conv_to_base(a, ndigits, s, smax, 16);
-//}
-
-//size_t mpConvFromDecimal(DIGIT_T a[], size_t ndigits, const char *s)
-///* Convert a string in decimal format to a big digit.
-//   Return actual number of digits set (may be larger than mpSizeof).
-//   Just ignores invalid characters in s.
-//*/
-//{
-//#ifdef NO_ALLOCS
-//	uint8_t newdigits[MAX_ALLOC_SIZE];
-//#else
-//	uint8_t *newdigits;
-//#endif
-//	size_t newlen;
-//	size_t n;
-//	unsigned long t;
-//	size_t i, j;
-//	const int base = 10;
-//
-//	mpSetZero(a, ndigits);
-//
-//	/* Create some temp storage for int values */
-//	n = strlen(s);
-//	if (0 == n) return 0;
-//	newlen = uiceil(n * 0.41524);	/* log(10)/log(256)=0.41524 */
-//	ALLOC_BYTES(newdigits, newlen);
-//
-//	/* Work through zero-terminated string */
-//	for (i = 0; s[i]; i++)
-//	{
-//		t = s[i] - '0';
-//		if (t > 9 || t < 0) continue;
-//		for (j = newlen; j > 0; j--)
-//		{
-//			t += (unsigned long)newdigits[j-1] * base;
-//			newdigits[j-1] = (unsigned char)(t & 0xFF);
-//			t >>= 8;
-//		}
-//	}
-//
-//	/* Convert bytes to big digits */
-//	n = mpConvFromOctets(a, ndigits, newdigits, newlen);
-//
-//	/* Clean up */
-//	FREE_BYTES(newdigits, newlen);
-//
-//	return n;
-//}
-
-//size_t mpConvFromHex(DIGIT_T a[], size_t ndigits, const char *s)
-///* Convert a string in hexadecimal format to a big digit.
-//   Return actual number of digits set (may be larger than mpSizeof).
-//   Just ignores invalid characters in s.
-//*/
-//{
-//#ifdef NO_ALLOCS
-//	uint8_t newdigits[MAX_ALLOC_SIZE];
-//#else
-//	uint8_t *newdigits;
-//#endif
-//	size_t newlen;
-//	size_t n;
-//	unsigned long t;
-//	size_t i, j;
-//
-//	mpSetZero(a, ndigits);
-//
-//	/* Create some temp storage for int values */
-//	n = strlen(s);
-//	if (0 == n) return 0;
-//	newlen = uiceil(n * 0.5);	/* log(16)/log(256)=0.5 */
-//	ALLOC_BYTES(newdigits, newlen);
-//
-//	/* Work through zero-terminated string */
-//	for (i = 0; s[i]; i++)
-//	{
-//		t = s[i];
-//		if ((t >= '0') && (t <= '9')) t = (t - '0');
-//		else if ((t >= 'a') && (t <= 'f')) t = (t - 'a' + 10);
-//		else if ((t >= 'A') && (t <= 'F')) t = (t - 'A' + 10);
-//		else continue;
-//		for (j = newlen; j > 0; j--)
-//		{
-//			t += (unsigned long)newdigits[j-1] << 4;
-//			newdigits[j-1] = (unsigned char)(t & 0xFF);
-//			t >>= 8;
-//		}
-//	}
-//
-//	/* Convert bytes to big digits */
-//	n = mpConvFromOctets(a, ndigits, newdigits, newlen);
-//
-//	/* Clean up */
-//	FREE_BYTES(newdigits, newlen);
-//
-//	return n;
-//}
-
 /***************************/
 /* NUMBER THEORY FUNCTIONS */
 /***************************/
-int mpModulo(DIGIT_T r[], const DIGIT_T u[], size_t udigits,
-			 DIGIT_T v[], size_t vdigits)
+int mpModulo(u32 r[], const u32 u[], size_t udigits,
+			 u32 v[], size_t vdigits)
 {
 	/*	Computes r = u mod v
 		where r, v are multiprecision integers of length vdigits
@@ -1987,11 +1717,11 @@ int mpModulo(DIGIT_T r[], const DIGIT_T u[], size_t udigits,
 	size_t nn = max(udigits, vdigits);
 /* Allocate temp storage */
 #ifdef NO_ALLOCS
-	DIGIT_T qq[MAX_FIXED_DIGITS];
-	DIGIT_T rr[MAX_FIXED_DIGITS];
+	u32 qq[MAX_FIXED_DIGITS];
+	u32 rr[MAX_FIXED_DIGITS];
 	assert(nn <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *qq, *rr;
+	u32 *qq, *rr;
 	qq = mpAlloc(udigits);
 	rr = mpAlloc(nn);
 #endif
@@ -2009,16 +1739,16 @@ int mpModulo(DIGIT_T r[], const DIGIT_T u[], size_t udigits,
 	return 0;
 }
 
-int mpModMult(DIGIT_T a[], const DIGIT_T x[], const DIGIT_T y[],
-			  DIGIT_T m[], size_t ndigits)
+int mpModMult(u32 a[], const u32 x[], const u32 y[],
+			  u32 m[], size_t ndigits)
 {	/*	Computes a = (x * y) mod m */
 
 /* Double-length temp variable p */
 #ifdef NO_ALLOCS
-	DIGIT_T p[MAX_FIXED_DIGITS * 2];
+	u32 p[MAX_FIXED_DIGITS * 2];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *p;
+	u32 *p;
 	p = mpAlloc(ndigits * 2);
 #endif
 
@@ -2033,7 +1763,7 @@ int mpModMult(DIGIT_T a[], const DIGIT_T x[], const DIGIT_T y[],
 	return 0;
 }
 
-int mpModInv(DIGIT_T inv[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits)
+int mpModInv(u32 inv[], const u32 u[], const u32 v[], size_t ndigits)
 {	/*	Computes inv = u^(-1) mod v */
 	/*	Ref: Knuth Algorithm X Vol 2 p 342
 		ignoring u2, v2, t2
@@ -2044,17 +1774,17 @@ int mpModInv(DIGIT_T inv[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits
 	int result;
 /* Allocate temp storage */
 #ifdef NO_ALLOCS
-	DIGIT_T u1[MAX_FIXED_DIGITS];
-	DIGIT_T u3[MAX_FIXED_DIGITS];
-	DIGIT_T v1[MAX_FIXED_DIGITS];
-	DIGIT_T v3[MAX_FIXED_DIGITS];
-	DIGIT_T t1[MAX_FIXED_DIGITS];
-	DIGIT_T t3[MAX_FIXED_DIGITS];
-	DIGIT_T q[MAX_FIXED_DIGITS];
-	DIGIT_T w[2*MAX_FIXED_DIGITS];
+	u32 u1[MAX_FIXED_DIGITS];
+	u32 u3[MAX_FIXED_DIGITS];
+	u32 v1[MAX_FIXED_DIGITS];
+	u32 v3[MAX_FIXED_DIGITS];
+	u32 t1[MAX_FIXED_DIGITS];
+	u32 t3[MAX_FIXED_DIGITS];
+	u32 q[MAX_FIXED_DIGITS];
+	u32 w[2*MAX_FIXED_DIGITS];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *u1, *u3, *v1, *v3, *t1, *t3, *q, *w;
+	u32 *u1, *u3, *v1, *v3, *t1, *t3, *q, *w;
 	u1 = mpAlloc(ndigits);
 	u3 = mpAlloc(ndigits);
 	v1 = mpAlloc(ndigits);
@@ -2115,7 +1845,7 @@ int mpModInv(DIGIT_T inv[], const DIGIT_T u[], const DIGIT_T v[], size_t ndigits
 	return result;
 }
 
-int mpGcd(DIGIT_T d[], const DIGIT_T aa[], const DIGIT_T bb[], size_t ndigits)
+int mpGcd(u32 d[], const u32 aa[], const u32 bb[], size_t ndigits)
 {
 	/* Computes d = gcd(a, b) */
 	/* Changed to Binary GCD in [v2.3]
@@ -2126,13 +1856,13 @@ int mpGcd(DIGIT_T d[], const DIGIT_T aa[], const DIGIT_T bb[], size_t ndigits)
 
 /*	Allocate temp storage */
 #ifdef NO_ALLOCS
-	DIGIT_T a[MAX_FIXED_DIGITS];
-	DIGIT_T b[MAX_FIXED_DIGITS];
-	DIGIT_T r[MAX_FIXED_DIGITS];
-	DIGIT_T t[MAX_FIXED_DIGITS];
+	u32 a[MAX_FIXED_DIGITS];
+	u32 b[MAX_FIXED_DIGITS];
+	u32 r[MAX_FIXED_DIGITS];
+	u32 t[MAX_FIXED_DIGITS];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *a, *b, *r, *t;
+	u32 *a, *b, *r, *t;
 	a = mpAlloc(ndigits);
 	b = mpAlloc(ndigits);
 	r = mpAlloc(ndigits);
@@ -2208,20 +1938,20 @@ done:
 	return 0;	/* gcd is in d */
 }
 
-int mpSqrt(DIGIT_T s[], const DIGIT_T n[], size_t ndigits)
+int mpSqrt(u32 s[], const u32 n[], size_t ndigits)
 	/* Computes integer square root s = floor(sqrt(n)) i.e.
 	the largest integer whose square is less than or equal to n */
 	/* [Added v2.1, updated v2.3] Ref: H. Cohen Alg 1.7.1 */
 {
 /*	Allocate temp storage */
 #ifdef NO_ALLOCS
-	DIGIT_T x[MAX_FIXED_DIGITS];
-	DIGIT_T y[MAX_FIXED_DIGITS];
-	DIGIT_T q[MAX_FIXED_DIGITS];
-	DIGIT_T r[MAX_FIXED_DIGITS];
+	u32 x[MAX_FIXED_DIGITS];
+	u32 y[MAX_FIXED_DIGITS];
+	u32 q[MAX_FIXED_DIGITS];
+	u32 r[MAX_FIXED_DIGITS];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *x, *y, *q, *r;
+	u32 *x, *y, *q, *r;
 	x = mpAlloc(ndigits);
 	y = mpAlloc(ndigits);
 	q = mpAlloc(ndigits);
@@ -2264,20 +1994,20 @@ done:
 	return 0;
 }
 
-int mpCubeRoot(DIGIT_T s[], const DIGIT_T n[], size_t ndigits)
+int mpCubeRoot(u32 s[], const u32 n[], size_t ndigits)
 	/* Computes integer cube root s = floor(cuberoot(n)) i.e.
 	the largest integer whose cube is less than or equal to n */
 	/* [Added v2.3] */
 {
 /*	Allocate temp storage */
 #ifdef NO_ALLOCS
-	DIGIT_T x[MAX_FIXED_DIGITS];
-	DIGIT_T y[MAX_FIXED_DIGITS];
-	DIGIT_T q[MAX_FIXED_DIGITS];
-	DIGIT_T r[MAX_FIXED_DIGITS];
+	u32 x[MAX_FIXED_DIGITS];
+	u32 y[MAX_FIXED_DIGITS];
+	u32 q[MAX_FIXED_DIGITS];
+	u32 r[MAX_FIXED_DIGITS];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *x, *y, *q, *r;
+	u32 *x, *y, *q, *r;
 	x = mpAlloc(ndigits);
 	y = mpAlloc(ndigits);
 	q = mpAlloc(ndigits);
@@ -2322,7 +2052,7 @@ done:
 	return 0;
 }
 
-int mpJacobi(const DIGIT_T a[], const DIGIT_T n[], size_t ndigits)
+int mpJacobi(const u32 a[], const u32 n[], size_t ndigits)
 	/* Returns Jacobi(a, n) = {0, +1, -1} */
 	/* [Added v2.2] */
 {
@@ -2342,16 +2072,16 @@ or set s <-- -1 if n \equiv 3 or 5 (mod 8).
 */
 
 	int s;
-	DIGIT_T nmod8;
+	u32 nmod8;
 	unsigned e;
 
 /*	Allocate temp storage */
 #ifdef NO_ALLOCS
-	DIGIT_T a1[MAX_FIXED_DIGITS];
-	DIGIT_T n1[MAX_FIXED_DIGITS];
+	u32 a1[MAX_FIXED_DIGITS];
+	u32 n1[MAX_FIXED_DIGITS];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *a1, *n1;
+	u32 *a1, *n1;
 	a1 = mpAlloc(ndigits);
 	n1 = mpAlloc(ndigits);
 #endif
@@ -2416,7 +2146,7 @@ done:
    Broke out mpRabinMiller() as a separate function
 */
 
-static DIGIT_T SMALL_PRIMES[] = {
+static u32 SMALL_PRIMES[] = {
 	3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
 	47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,
 	103, 107, 109, 113,
@@ -2437,7 +2167,7 @@ static DIGIT_T SMALL_PRIMES[] = {
 };
 #define N_SMALL_PRIMES (sizeof(SMALL_PRIMES)/sizeof(SMALL_PRIMES[0]))
 
-int mpIsPrime(DIGIT_T w[], size_t ndigits, size_t t)
+int mpIsPrime(u32 w[], size_t ndigits, size_t t)
 {	/*	Returns true if w is a probable prime */
 	/*	Version 2: split out mpRabinMiller. */
 
@@ -2478,9 +2208,9 @@ int mpIsPrime(DIGIT_T w[], size_t ndigits, size_t t)
 
 /* Local, simple rng functions used in Rabin-Miller */
 static void rand_seed(void);
-static DIGIT_T rand_between(DIGIT_T lower, DIGIT_T upper);
+static u32 rand_between(u32 lower, u32 upper);
 
-int mpRabinMiller(DIGIT_T w[], size_t ndigits, size_t t)
+int mpRabinMiller(u32 w[], size_t ndigits, size_t t)
 {
 /*	Returns true (1) if w is a probable prime using the
 	Rabin-Miller Probabilistic Primality Test.
@@ -2503,20 +2233,20 @@ int mpRabinMiller(DIGIT_T w[], size_t ndigits, size_t t)
 */
 
 	/* Temp big digits */
-	DIGIT_T maxrand;
+	u32 maxrand;
 	int failed, isprime;
 	size_t i;
 /*	Allocate temp storage */
 #ifdef NO_ALLOCS
-	DIGIT_T m[MAX_FIXED_DIGITS];
-	DIGIT_T a[MAX_FIXED_DIGITS];
-	DIGIT_T b[MAX_FIXED_DIGITS];
-	DIGIT_T z[MAX_FIXED_DIGITS];
-	DIGIT_T w1[MAX_FIXED_DIGITS];
-	DIGIT_T j[MAX_FIXED_DIGITS];
+	u32 m[MAX_FIXED_DIGITS];
+	u32 a[MAX_FIXED_DIGITS];
+	u32 b[MAX_FIXED_DIGITS];
+	u32 z[MAX_FIXED_DIGITS];
+	u32 w1[MAX_FIXED_DIGITS];
+	u32 j[MAX_FIXED_DIGITS];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *m, *a, *b, *z, *w1, *j;
+	u32 *m, *a, *b, *z, *w1, *j;
 	m = mpAlloc(ndigits);
 	a = mpAlloc(ndigits);
 	b = mpAlloc(ndigits);
@@ -2627,10 +2357,10 @@ done:
 
 /* New in [v2.4] */
 /** Generate a quick-and-dirty random mp number a <= 2^{nbits}-1 using plain-old-rand */
-size_t mpQuickRandBits(DIGIT_T a[], size_t ndigits, size_t nbits)
+size_t mpQuickRandBits(u32 a[], size_t ndigits, size_t nbits)
 {
 	size_t ndig, nodd, i;
-	DIGIT_T r;
+	u32 r;
 
 	mpSetZero(a, ndigits);
 
@@ -2670,14 +2400,14 @@ static void rand_seed()
 	//srand(seed);
 }
 
-static DIGIT_T rand_between(DIGIT_T lower, DIGIT_T upper)
+static u32 rand_between(u32 lower, u32 upper)
 /* Returns a single pseudo-random digit between lower and upper.
    Uses rand(). Assumes srand() already called. */
 {
-	DIGIT_T d, range;
+	u32 d, range;
 	unsigned char *bp;
 	unsigned int i, nbits;
-	DIGIT_T mask;
+	u32 mask;
 
 	if (upper <= lower) return lower;
 	range = upper - lower;
@@ -2686,7 +2416,7 @@ static DIGIT_T rand_between(DIGIT_T lower, DIGIT_T upper)
 	{
 		/* Generate a random DIGIT byte-by-byte using rand() */
 		bp = (unsigned char *)&d;
-		for (i = 0; i < sizeof(DIGIT_T); i++)
+		for (i = 0; i < sizeof(u32); i++)
 		{
 			bp[i] = (unsigned char)(rand() & 0xFF);
 		}
@@ -2713,7 +2443,7 @@ static DIGIT_T rand_between(DIGIT_T lower, DIGIT_T upper)
 	return (lower + d);
 }
 
-DIGIT_T spSimpleRand(DIGIT_T lower, DIGIT_T upper)
+u32 spSimpleRand(u32 lower, u32 upper)
 {	/*	Returns a pseudo-random digit.
 		Handles own seeding using time.
 		NOT for cryptographically-secure random numbers.
@@ -2738,12 +2468,12 @@ DIGIT_T spSimpleRand(DIGIT_T lower, DIGIT_T upper)
 */
 
 #ifdef NO_ALLOCS
-static int mpModExp_1(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T n[], DIGIT_T d[], size_t ndigits);
+static int mpModExp_1(u32 y[], const u32 x[], const u32 n[], u32 d[], size_t ndigits);
 #else
-static int mpModExp_windowed(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T n[], DIGIT_T d[], size_t ndigits);
+static int mpModExp_windowed(u32 y[], const u32 x[], const u32 n[], u32 d[], size_t ndigits);
 #endif
 
-int mpModExp(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T n[], DIGIT_T d[], size_t ndigits)
+int mpModExp(u32 y[], const u32 x[], const u32 n[], u32 d[], size_t ndigits)
 	/* Computes y = x^n mod d */
 {
 #ifdef NO_ALLOCS
@@ -2762,22 +2492,22 @@ int mpModExp(DIGIT_T y[], const DIGIT_T x[], const DIGIT_T n[], DIGIT_T d[], siz
 /* Mult:   w = (y * x) mod m */
 #define mpMODMULTXYTEMP(w,y,x,m,n,t1,t2) do{mpMultiply(t1,x,y,(n));mpDivide(t2,w,t1,(n)*2,m,(n));}while(0)
 
-static int mpModExp_1(DIGIT_T yout[], const DIGIT_T x[], const DIGIT_T e[], DIGIT_T m[], size_t ndigits)
+static int mpModExp_1(u32 yout[], const u32 x[], const u32 e[], u32 m[], size_t ndigits)
 {	/*	Computes y = x^e mod m */
 	/*	"Classic" binary left-to-right method */
 	/*  [v2.2] removed const restriction on m[] to avoid using an extra alloc'd var
 		(m is changed in-situ during the divide operation then restored) */
-	DIGIT_T mask;
+	u32 mask;
 	size_t n;
 	size_t nn = ndigits * 2;
 	/* Create some double-length temps */
 #ifdef NO_ALLOCS
-	DIGIT_T t1[MAX_FIXED_DIGITS * 2];
-	DIGIT_T t2[MAX_FIXED_DIGITS * 2];
-	DIGIT_T y[MAX_FIXED_DIGITS * 2];
+	u32 t1[MAX_FIXED_DIGITS * 2];
+	u32 t2[MAX_FIXED_DIGITS * 2];
+	u32 y[MAX_FIXED_DIGITS * 2];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *t1, *t2, *y;
+	u32 *t1, *t2, *y;
 	t1 = mpAlloc(nn);
 	t2 = mpAlloc(nn);
 	y  = mpAlloc(nn);
@@ -2830,7 +2560,7 @@ done:
 }
 
 /**	Computes y = x^e mod m in constant time using Coron's algorithm */
-int mpModExp_ct(DIGIT_T yout[], const DIGIT_T x[], const DIGIT_T e[], DIGIT_T m[], size_t ndigits)
+int mpModExp_ct(u32 yout[], const u32 x[], const u32 e[], u32 m[], size_t ndigits)
 {
 	/* Algorithm: Corons exponentiation (left-to-right)
 	 * Square-and-multiply resistant against simple power attacks (SPA)
@@ -2848,20 +2578,20 @@ int mpModExp_ct(DIGIT_T yout[], const DIGIT_T x[], const DIGIT_T e[], DIGIT_T m[
 	 * 5.    c[0] = c[d_i]
 	 * 6. Return c[0]
 	 */
-	DIGIT_T mask;
+	u32 mask;
 	size_t n;
 	size_t nn = ndigits * 2;
 	unsigned int ej;
 
 	/* Create some double-length temps */
 #ifdef NO_ALLOCS
-	DIGIT_T t1[MAX_FIXED_DIGITS * 2];
-	DIGIT_T t2[MAX_FIXED_DIGITS * 2];
-	DIGIT_T c[2][MAX_FIXED_DIGITS * 2];
+	u32 t1[MAX_FIXED_DIGITS * 2];
+	u32 t2[MAX_FIXED_DIGITS * 2];
+	u32 c[2][MAX_FIXED_DIGITS * 2];
 	assert(ndigits <= MAX_FIXED_DIGITS);
 #else
-	DIGIT_T *t1, *t2;
-	DIGIT_T *c[2];
+	u32 *t1, *t2;
+	u32 *c[2];
 	t1 = mpAlloc(nn);
 	t2 = mpAlloc(nn);
 	c[0] = mpAlloc(nn);
@@ -2960,25 +2690,25 @@ static size_t WindowLenTable[] =
 	adding more complexity for marginal benefit.
 */
 
-static int mpModExp_windowed(DIGIT_T yout[], const DIGIT_T g[],
-			const DIGIT_T e[], DIGIT_T m[], size_t ndigits)
+static int mpModExp_windowed(u32 yout[], const u32 g[],
+			const u32 e[], u32 m[], size_t ndigits)
 /* Computes y = g^e mod m using sliding-window exponentiation */
 {
 	size_t nbits;	/* Number of significant bits in e */
 	size_t winlen;	/* Window size */
-	DIGIT_T mask;	/* Bit mask used for main loop */
+	u32 mask;	/* Bit mask used for main loop */
 	size_t nwd;		/* Digit counter for main loop */
-	DIGIT_T lkamask;	/* Bit mask for lookahead */
+	u32 lkamask;	/* Bit mask for lookahead */
 	size_t lkanwd;		/* Digit counter for lookahead */
-	DIGIT_T lkabuf;	/* One-digit lookahead buffer */
+	u32 lkabuf;	/* One-digit lookahead buffer */
 	size_t lkalen;	/* Actual size of window for current lookahead buffer */
 	int in_window;	/* Flag for in-window state */
-	DIGIT_T *gtable[(1 << (WINLENTBLMAX-1))];	/* Table of ptrs to g1, g3, g5,... */
+	u32 *gtable[(1 << (WINLENTBLMAX-1))];	/* Table of ptrs to g1, g3, g5,... */
 	size_t ngt;		/* No of elements in gtable */
 	size_t idxmult;	/* Index (in gtable) of next multiplier to use: 0=g1, 1=g3, 2=g5,... */
-	DIGIT_T *g2;	/* g2 = g^2 */
-	DIGIT_T *temp1, *temp2;		/* Temp big digits, needed for MULT and SQUARE macros */
-	DIGIT_T *a;		/* A */
+	u32 *g2;	/* g2 = g^2 */
+	u32 *temp1, *temp2;		/* Temp big digits, needed for MULT and SQUARE macros */
+	u32 *a;		/* A */
 	int aisone;		/* Flag that A == 1 */
 	size_t nn;		/* 2 * ndigits */
 	size_t i;		/* Temp counter */
@@ -3020,7 +2750,7 @@ static int mpModExp_windowed(DIGIT_T yout[], const DIGIT_T g[],
 
 	/* 1. PRECOMPUTATION */
 	/* 1.1 g1 <-- g, (we already have g in the input, so just point to it) */
-	gtable[0] = (DIGIT_T *)g;
+	gtable[0] = (u32 *)g;
 	/* g2 <-- g^2 */
 	mpModMult(g2, gtable[0], gtable[0], m, ndigits);
 
