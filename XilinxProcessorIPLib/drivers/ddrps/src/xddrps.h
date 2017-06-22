@@ -50,8 +50,7 @@
  * 1.0	 nsk  08/06/15 First Release
  * 1.0	 nsk  08/20/15 Updated define_addr_params in ddrps.tcl
  *		       to support PBD Designs (CR #876857)
- * 1.1   ms   04/18/17 Modified tcl file to add suffix U for all macro
- *                     definitions of ddrps in xparameters.h
+ *
  * </pre>
  *
 *******************************************************************************/
