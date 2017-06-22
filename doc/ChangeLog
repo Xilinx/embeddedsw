@@ -1520,6 +1520,9 @@ Removed floating point operations.
 hdcp22_common_v1_1:
 Fixed warnings and errors for gcc and g++ compilers.
 
+hdcp22_common_v2_0:
+Changed DIGIT_T type to u32 for 64-bit support
+
 hdcp22_mmult_v1_0:
 Added the initial version of the driver that can be used to access the Xilinx HDCP22
 Montogmery Multiplier(Mmult) core.
@@ -1554,6 +1557,9 @@ Fixes for warnings reductions.
 hdcp22_rx_v2_1:
 Fixed warnings and errors for gcc and g++ compilers.
 
+hdcp22_rx_v2_2:
+Updated for 64-bit support.
+
 hdcp22_tx_v1_0:
 Added the initial version of the Xilinx HDCP 2.2 Tx core driver.
 Updated the driver for nested HIP support.
@@ -1569,6 +1575,9 @@ Fixes for transmitter compliance.
 hdcp22_tx_v2_1:
 Fixed pairing table update
 Fixed warnings and errors for gcc and g++ compilers.
+
+hdcp22_tx_v2_3:
+Updated for 64-bit support.
 
 hwicap_v10_1:
 Updated driver, to read 7 Series FPGA frame data correctly.
@@ -1780,12 +1789,18 @@ Added HDCP authenticated callback support
 Remove xintc.h from xv_hdmirxss.h as it is processor dependent
 Updated for Zync ARM support. CR#949087
 
+v_hdmirxss_v3_2 :
+Removed authentication request flag from xhdcp.c/h
+
 v_hdmitxss_v2_0 :
 Added XV_HdmiTxSs_SetHdmiMode and XV_HdmiTxSs_SetDviMode
 Removed reduced blanking support
 Moved HDCP 2.2 reset from stream up/down callback to connect callback
 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
 Updated for Zync ARM support. CR#949087
+
+v_hdmitxss_v3_2 :
+Removed authentication request flag from xhdcp.c/h
 
 v_hdmirx_v1_1:
 Added Link Check callback
