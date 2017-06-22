@@ -104,8 +104,6 @@ typedef struct
   XHdcp_Topology Topology;
   /** Content stream type */
   u8 StreamType;
-  /** Flag indicates that downstream authentication request is desired */
-  u32 AuthenticationRequestEvent;
   /** Flag indicates that HDCP repeater is ready */
   u32 IsReady;
 } XHdcp_Repeater;
