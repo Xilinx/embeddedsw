@@ -47,6 +47,8 @@
 * 1.00  JO     10/06/15 Initial release.
 * 1.01  MH     01/15/16 Replaced mallocs with fixed size arrays.
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
+* 2.30  MH     05/16/16 1. Reduced BD_MAX_MOD_SIZE to optimize stack size.
+*                       2. Updated for 64 bit support.
 * </pre>
 *
 ******************************************************************************/
@@ -60,8 +62,8 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-/** Bigdigits for RSA allow 512 octets, 4096 bits. */
-#define BD_MAX_MOD_SIZE  512
+/** Size RSA encryption parameters to support 384 byte maximum modulus size */
+#define BD_MAX_MOD_SIZE  (384/sizeof(u32))
 
 /**************************** Type Definitions *******************************/
 
@@ -247,9 +249,9 @@ static int XHdcp22Tx_RsaEncryptMsg(const u8 *KeyPubNPtr, int KeyPubNSize,
 								   const u8 *KeyPubEPtr, int KeyPubESize,
 								   const u8 *MsgPtr, int MsgSize, u8 *EncryptedMsgPtr)
 {
-	DIGIT_T n[BD_MAX_MOD_SIZE], e[BD_MAX_MOD_SIZE],
+	u32 n[BD_MAX_MOD_SIZE], e[BD_MAX_MOD_SIZE],
 	        m[BD_MAX_MOD_SIZE], s[BD_MAX_MOD_SIZE];
-	unsigned int ModSize = KeyPubNSize / sizeof(DIGIT_T);
+	unsigned int ModSize = KeyPubNSize / sizeof(u32);
 
 
 	/* Check if the length of the data is not equal to the key length. */
