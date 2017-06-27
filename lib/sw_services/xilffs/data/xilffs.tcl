@@ -113,6 +113,7 @@ proc xgen_opts_file {libhandle} {
 	set enable_multi_partition [common::get_property CONFIG.enable_multi_partition $libhandle]
 	set num_logical_vol [common::get_property CONFIG.num_logical_vol $libhandle]
 	set use_strfunc [common::get_property CONFIG.use_strfunc $libhandle]
+	set set_fs_rpath [common::get_property CONFIG.set_fs_rpath $libhandle]
 
 	# Checking if SD with FATFS is enabled.
 	# This can be expanded to add more interfaces.
@@ -147,6 +148,12 @@ proc xgen_opts_file {libhandle} {
 					set use_strfunc 1
 				}
 				puts $file_handle "\#define FILE_SYSTEM_USE_STRFUNC $use_strfunc"
+				if {$set_fs_rpath > 2} {
+					puts "WARNING : Invalid FS_RPATH option, setting \
+							back to 0\n"
+					set set_fs_rpath 0
+				}
+				puts $file_handle "\#define FILE_SYSTEM_SET_FS_RPATH $set_fs_rpath"
 			} else {
 				error  "ERROR: Invalid interface selected \n"
 			}
