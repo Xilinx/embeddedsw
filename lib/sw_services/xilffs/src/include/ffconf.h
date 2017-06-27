@@ -138,7 +138,13 @@ extern "C" {
 /  FatFs supports only BMP. */
 
 
-#define _FS_RPATH		0U	/* 0 to 2 */
+#if FILE_SYSTEM_SET_FS_RPATH == 0
+#define _FS_RPATH		0U
+#elif FILE_SYSTEM_SET_FS_RPATH == 1
+#define _FS_RPATH		1U
+#elif FILE_SYSTEM_SET_FS_RPATH == 2
+#define _FS_RPATH		2U
+#endif
 /* The _FS_RPATH option configures relative path feature.
 /
 /   0: Disable relative path feature and remove related functions.
