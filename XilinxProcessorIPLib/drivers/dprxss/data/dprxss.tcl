@@ -34,12 +34,13 @@
 # 2.00 sha 10/05/15 Added Timer Counter support.
 # 3.0  sha 02/05/16 Added support to generate XPAR_* parameters for multiple
 #                   subsystems in a design.
+# 4.0  tu  27/06/17 Updated parameter AUDIO_CHANNELS name
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpRxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "NUM_AUD_CH" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE"
-	hier_ip_define_config_file $drv_handle "xdprxss_g.c" "XDpRxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "NUM_AUD_CH" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpRxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "NUM_AUD_CH" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XDpRxSs" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE"
+	hier_ip_define_config_file $drv_handle "xdprxss_g.c" "XDpRxSs" "DEVICE_ID" "C_BASEADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "DpRxSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "AUDIO_ENABLE" "AUDIO_CHANNELS" "BITS_PER_COLOR" "HDCP_ENABLE" "LANE_COUNT" "MODE" "NUM_STREAMS" "COLOR_FORMAT" "SIM_MODE"
 }
 
 ##
