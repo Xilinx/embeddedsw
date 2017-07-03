@@ -7,7 +7,7 @@
 /**
  *
  * @file xllfifo.c
-* @addtogroup llfifo_v5_4
+* @addtogroup llfifo_v5_5
 * @{
  *
  * The Xilinx local link FIFO driver component. This driver supports the
@@ -31,6 +31,8 @@
  * 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
  *                     Changed the prototypes of XLlFifo_CfgInitialize,
  *                     XLlFifo_Initialize APIs.
+ * 5.5   sk   06/15/20 In XLlFifo_iRead_Aligned and XLlFifo_iWrite_Aligned add
+ *		       type casting to fix gcc warnings.
  * </pre>
  ******************************************************************************/
 
@@ -161,7 +163,7 @@ int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 	Xil_AssertNonvoid(InstancePtr);
 	Xil_AssertNonvoid(BufPtr);
 	/* assert buffer is 32 bit aligned */
-	Xil_AssertNonvoid(((unsigned)BufPtr & 0x3) == 0x0);
+	Xil_AssertNonvoid(((UINTPTR)BufPtr & 0x3) == 0x0);
 	xdbg_printf(XDBG_DEBUG_FIFO_RX, "XLlFifo_iRead_Aligned: after asserts\n");
 
 	while (WordsRemaining) {
@@ -269,7 +271,7 @@ int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 	Xil_AssertNonvoid(InstancePtr);
 	Xil_AssertNonvoid(BufPtr);
 	/* assert buffer is 32 bit aligned */
-	Xil_AssertNonvoid(((unsigned)BufPtr & 0x3) == 0x0);
+	Xil_AssertNonvoid(((UINTPTR)BufPtr & 0x3) == 0x0);
 
 	xdbg_printf(XDBG_DEBUG_FIFO_TX,
 		    "XLlFifo_iWrite_Aligned: WordsRemaining: %d\n",

@@ -7,7 +7,7 @@
 /**
  *
  * @file xllfifo.h
-* @addtogroup llfifo_v5_4
+* @addtogroup llfifo_v5_5
 * @{
 * @details
  *
@@ -161,6 +161,7 @@
  * 5.2 adk    03/07/17 CR#978769 Fix doxygen issues in the driver.
  *		       Updated comments in the usage section as per example code.
  *		       Fix doxygen warnings in the driver.
+ * 5.5 sd     09/04/20  Makefile update for parallel execution.
  * </pre>
  *
  *****************************************************************************/
