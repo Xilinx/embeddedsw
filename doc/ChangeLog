@@ -5,6 +5,9 @@ lwip141_v1_9:
 Updated xemacpsif_physpeed.c to use smc calls to access thr CRL_APB,
 this is done to support the applications running over EL1 NS mode.
 
+llfifo_v5_2:
+CR#978769 Fix doxygen issues in the driver.
+
 standalone_v6_4:
 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
 of ARM 32 bit processors.
