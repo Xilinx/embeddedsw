@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -116,7 +114,7 @@
  *
  * This FIFO hardware core does <b>not</b> support a sequence where the
  * calling code writes the data for two frames and then calls iTxSetLen()
- * twice in a row. Each frame must be written by writting the data for one
+ * twice in a row. Each frame must be written by writing the data for one
  * frame and then calling iTxSetLen().
  *
  * <h2>Interrupts</h2>
@@ -156,8 +154,8 @@
  * 		      In XLlfifo.h file updated XLlfifo structure for
  * 		      Axi4BaseAddress and for Datainterface type provided
  *		      polling and interrupt examples. XLlfifo_IsRxDone Macro
- *		      Is added in the XLlfifo.h file for polledmode exmaple.
- *		      Added Static initialzation for the driver.
+ *		      Is added in the XLlfifo.h file for polledmode example.
+ *		      Added Static initialization for the driver.
  *		      XLlFifo_Initialize is still used to make the driver
  *		      backward compatible.
  * 4.0   adk  19/12/13 Updated as per the New Tcl API's

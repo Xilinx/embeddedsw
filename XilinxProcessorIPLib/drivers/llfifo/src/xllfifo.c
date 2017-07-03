@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -91,7 +89,7 @@
  * Once the streamer objects are set up, the API routines in this driver, just
  * call through to the streamer driver to perform the read/write operations.
  * The streamer driver will eventually make calls back into the routines (which
- * reside in this driver) given at initialization to peform the actual I/O.
+ * reside in this driver) given at initialization to perform the actual I/O.
  *
  * Interrupts
  * Interrupts are handled in the OS/Application layer above this driver.
@@ -182,7 +180,7 @@ int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 	xdbg_printf(XDBG_DEBUG_FIFO_RX, "XLlFifo_iRead_Aligned: start\n");
 	Xil_AssertNonvoid(InstancePtr);
 	Xil_AssertNonvoid(BufPtr);
-	/* assert bufer is 32 bit aligned */
+	/* assert buffer is 32 bit aligned */
 	Xil_AssertNonvoid(((unsigned)BufPtr & 0x3) == 0x0);
 	xdbg_printf(XDBG_DEBUG_FIFO_RX, "XLlFifo_iRead_Aligned: after asserts\n");
 
@@ -290,7 +288,7 @@ int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 		    InstancePtr, BufPtr, WordCount);
 	Xil_AssertNonvoid(InstancePtr);
 	Xil_AssertNonvoid(BufPtr);
-	/* assert bufer is 32 bit aligned */
+	/* assert buffer is 32 bit aligned */
 	Xil_AssertNonvoid(((unsigned)BufPtr & 0x3) == 0x0);
 
 	xdbg_printf(XDBG_DEBUG_FIFO_TX,
