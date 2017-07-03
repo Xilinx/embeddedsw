@@ -106,7 +106,7 @@ xdbg_stmnt(u32 _xllfifo_ipie_value;)
 xdbg_stmnt(u32 _xllfifo_ipis_value;)
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iRxOccupancy returns the number of 32-bit words available (occupancy)
 * to be read from the receive channel of the FIFO, specified by
@@ -127,7 +127,7 @@ u32 XLlFifo_iRxOccupancy(XLlFifo *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the
 * next frame from the receive channel of the FIFO specified by <i>InstancePtr</i>.
@@ -150,7 +150,7 @@ u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iRead_Aligned reads, <i>WordCount</i>, words from the FIFO referenced by
 * <i>InstancePtr</i> to the block of memory, referenced by <i>BufPtr</i>.
@@ -182,7 +182,7 @@ u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr)
 *                      void *BufPtr, unsigned WordCount);
 *
 ******************************************************************************/
-/* static */ int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
+int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 			     unsigned WordCount)
 {
 	unsigned WordsRemaining = WordCount;
@@ -256,7 +256,7 @@ void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iWrite_Aligned writes, <i>WordCount</i>, words to the FIFO referenced by
 * <i>InstancePtr</i> from the block of memory, referenced by <i>BufPtr</i>.
@@ -288,7 +288,7 @@ void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 *                      void *BufPtr, unsigned WordCount);
 *
 ******************************************************************************/
-/* static */ int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
+int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 			      unsigned WordCount)
 {
 	unsigned WordsRemaining = WordCount;
@@ -390,7 +390,7 @@ int XLlFifo_CfgInitialize(XLlFifo *InstancePtr,
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by
 * <i>InstancePtr</i>.
@@ -419,7 +419,7 @@ u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * XLlFifo_TxPutWord writes the 32 bit word, <i>Word</i> to the FIFO specified by
 * <i>InstancePtr</i>.

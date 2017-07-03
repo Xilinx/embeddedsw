@@ -184,6 +184,7 @@
  *                      generating doxygen for llfifo examples.
  * 5.2  ms    04/18/17 Modified tcl file to add suffix U for all macros
  *                     definitions of llfifo in xparameters.h
+ * 5.2 adk    03/07/17 CR#978769 Fix doxygen issues in the driver.
  * </pre>
  *
  *****************************************************************************/
