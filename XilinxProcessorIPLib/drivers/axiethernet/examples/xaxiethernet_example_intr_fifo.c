@@ -77,6 +77,7 @@
 *                     available in all examples. This is a fix for CR-965028.
 *       ms   04/05/17 Added return tags in functions for proper documentation
 *                     while generating doxygen.
+* 5.6	adk  03/07/17 Fixed CR#979023 Example failed to compile.
 * </pre>
 *
 ******************************************************************************/
@@ -265,6 +266,7 @@ int main(void)
 		AxiEthernetUtilErrorTrap("Axiethernet intr fifo Example Failed\r\n");
 	} else {
 		AxiEthernetUtilErrorTrap("Successfully ran Axiethernet intr fifo Example\r\n");
+	}
 
 	AxiEthernetUtilErrorTrap("--- Exiting main() ---");
 
