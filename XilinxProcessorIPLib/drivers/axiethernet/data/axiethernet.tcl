@@ -31,6 +31,10 @@
 # 09/01/18 rsp Fixed interrupt ID generation for ZynqMP designs.
 # 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
 # 02/18/20 rsp Switch to ::hsi::utils::get_connected_intf API.
+# 05/22/20 rsp Fix bsp generation error for multiple axieth instances design in
+#              which dma is not connected to one of the axieth instance.
+# 08/18/20 rsp Add versal support.
+# 10/08/20 rsp In versal for PMC and PSM processor generate dummy interrupt IDs.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -160,10 +164,10 @@ proc xdefine_axi_target_params {periphs file_handle} {
     puts $file_handle ""
 
     set device_id 0
-    set validentry 0
 
     # Get unique list of p2p peripherals
     foreach periph $periphs {
+        set validentry 0
 		set periph_name [string toupper [get_property NAME $periph]]
         puts $file_handle ""
         puts $file_handle "/* Canonical Axi parameters for $periph_name */"
@@ -607,7 +611,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
+                set intc_periph_type [lindex $intc_periph_type [lsearch -regexp $intc_periph_type "ps\[u,v\]_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -619,7 +623,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
         # iterate over the interrupt lines again and see if a particular signal
         # matches the original interrupt signal we were tracking.
         # If it does, put out the XPAR
-        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"]} {
+        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psv_acpu_gic"]} {
 		set rx_int_id [::hsi::utils::get_port_intr_id $target_periph $dmarx_signal]
 		set canonical_name [format "XPAR_%s_CONNECTED_DMARX_INTR" $canonical_tag]
                 puts $file_handle [format "#define $canonical_name %d$uSuffix" $rx_int_id]
@@ -636,9 +640,9 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
     # Now add to the config table in the proper order (RX first, then TX
     set proc  [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
-
-    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"]} {
-	if {$proc_type == "psu_pmu"} {
+    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] ||
+	$intc_periph_type == [format "psv_acpu_gic"] } {
+	if {$proc_type == "psu_pmu" || $proc_type == "psv_pmc" || $proc_type == "psv_psm"} {
 		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF$uSuffix" $canonical_tag]
 		add_field_to_periph_config_struct $deviceid 0xFF
 		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF$uSuffix" $canonical_tag]
@@ -715,7 +719,7 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
+                set intc_periph_type [lindex $intc_periph_type [lsearch -regexp $intc_periph_type "ps\[u,v\]_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -727,7 +731,8 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
         # iterate over the interrupt lines again and see if a particular signal
         # matches the original interrupt signal we were tracking.
         # If it does, put out the XPAR
-        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"]} {
+        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"]
+            && $intc_periph_type != [format "psv_acpu_gic"] } {
 		set rx_int_id [::hsi::utils::get_port_intr_id $target_periph $dma_signal]
 		set canonical_name [format "XPAR_%s_CONNECTED_MCDMARX%s_INTR" $canonical_tag $chan_id]
                 puts $file_handle [format "#define $canonical_name %d" $rx_int_id]
@@ -740,8 +745,9 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
     # Now add to the config table in the proper order (RX first, then TX
     set proc  [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
-
-    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] && $proc_type != "psu_pmu"} {
+    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] ||
+	$intc_periph_type == [format "psv_acpu_gic"] && $proc_type != "psu_pmu"
+	&& $proc_type != "psv_pmc" && $proc_type != "psv_psm"} {
 	set canonical_name [format "XPAR_%s_CONNECTED_MCDMARX%s_INTR" $canonical_tag $chan_id]
 	set chan_cnt [get_property CONFIG.c_num_s2mm_channels $target_periph]
 	if { $chan_cnt >= $chan_id } {
@@ -816,7 +822,7 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
+                set intc_periph_type [lindex $intc_periph_type [lsearch -regexp $intc_periph_type "ps\[u,v\]_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -828,7 +834,7 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
         # iterate over the interrupt lines again and see if a particular signal
         # matches the original interrupt signal we were tracking.
         # If it does, put out the XPAR
-        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"]} {
+        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psv_acpu_gic"] } {
 		set rx_int_id [::hsi::utils::get_port_intr_id $target_periph $dma_signal]
 		set canonical_name [format "XPAR_%s_CONNECTED_MCDMATX%s_INTR" $canonical_tag $chan_id]
                 puts $file_handle [format "#define $canonical_name %d" $rx_int_id]
@@ -842,7 +848,9 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
     set proc  [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
 
-    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] && $proc_type != "psu_pmu"} {
+    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] ||
+	$intc_periph_type == [format "psv_acpu_gic"] && $proc_type != "psu_pmu"
+	&& $proc_type != "psv_pmc" && $proc_type != "psv_psm"} {
 	set canonical_name [format "XPAR_%s_CONNECTED_MCDMATX%s_INTR" $canonical_tag $chan_id]
 	set chan_cnt [get_property CONFIG.c_num_mm2s_channels $target_periph]
 	if { $chan_cnt >= $chan_id } {
@@ -912,7 +920,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
         set intc_name [string toupper [get_property NAME $intc_periph]]
 	#Handling for ZYNQMP
 	if { [llength $intc_periph_type] > 1 } {
-		set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
+		set intc_periph_type [lindex $intc_periph_type [lsearch -regexp $intc_periph_type "ps\[u,v\]_acpu_gic"]]
 	}
     } else {
          puts "Info: $periph_name interrupt signal $interrupt_signal_name not connected"
@@ -927,13 +935,14 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
     # matches the original interrupt signal we were tracking.
     set proc  [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
-    if { $intc_periph_type != [format "ps7_scugic"]  && $intc_periph_type != [format "psu_acpu_gic"] && $proc_type != "psu_pmu"} {
+    if { $intc_periph_type != [format "ps7_scugic"]  && $intc_periph_type != [format "psu_acpu_gic"] && $intc_periph_type != [format "psv_acpu_gic"] && $proc_type != "psu_pmu" &&
+$proc_type != "psv_pmc" && $proc_type != "psv_psm"} {
 	 set ethernet_int_signal_name [get_pins -of_objects $periph INTERRUPT]
 	 set int_id [::hsi::utils::get_port_intr_id $periph $ethernet_int_signal_name]
 	 puts $file_handle "\#define $canonical_name $int_id$uSuffix"
          add_field_to_periph_config_struct $device_id $canonical_name
 	 set addentry 1
-    } elseif { $proc_type != "psu_pmu"} {
+    } elseif { $proc_type != "psu_pmu" && $proc_type != "psv_pmc" && $proc_type !="psv_psm"} {
         puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_INTERRUPT_INTR" $periph_name]
         add_field_to_periph_config_struct $device_id $canonical_name
 	set addentry 1
@@ -1072,10 +1081,12 @@ proc get_connected_ip {periph} {
 
     if { [llength $intf] } {
         set connectd_intf_handle [::hsi::utils::get_connected_intf $periph $intf]
-        set connected_ip [get_cells -of_objects $connectd_intf_handle ]
-        set target_ip [is_ethsupported_target $connected_ip]
-        if { $target_ip == "true"} {
+        if {$connectd_intf_handle != ""} {
+           set connected_ip [get_cells -of_objects $connectd_intf_handle ]
+           set target_ip [is_ethsupported_target $connected_ip]
+           if { $target_ip == "true"} {
 	      return $connected_ip
+           }
         }
     }
 }
