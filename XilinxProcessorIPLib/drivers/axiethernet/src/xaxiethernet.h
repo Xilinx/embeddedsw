@@ -495,6 +495,7 @@
 * 5.6  adk 03/07/17 Fixed issue lwip stops working as soon as something is
 *		    plugged to it`s AXI stream bus (CR#979634). Changes
 *		    are made in the driver tcl and test app tcl.
+* 5.6  adk 03/07/17 Fixed CR#979023 Intr fifo example failed to compile.
 * </pre>
 *
 ******************************************************************************/
