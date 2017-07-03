@@ -49,6 +49,8 @@
 # 11/09/15 sk  Removed delete filename statement CR# 784758.
 # 04/18/17 ms  Modified tcl file to add suffix U for all macros definitions
 #              of axietherent in xparameters.h
+# 03/07/17 adk Fixed issue lwip stops working as soon as something is plugged
+#	       to it's AXI stream buf(CR#979634).
 ###############################################################################
 #uses "xillib.tcl"
 
@@ -180,37 +182,18 @@ proc xdefine_axi_target_params {periphs file_handle} {
 
     # Get unique list of p2p peripherals
     foreach periph $periphs {
-        set p2p_periphs [list]
-        set periph_name [string toupper [get_property NAME $periph]]
-	# Get all point2point buses for periph
-	set p2p_busifs_i [get_intf_pins -of_objects $periph -filter "TYPE==INITIATOR"]
-
+		set periph_name [string toupper [get_property NAME $periph]]
         puts $file_handle ""
         puts $file_handle "/* Canonical Axi parameters for $periph_name */"
-
-        # Add p2p periphs
-        foreach p2p_busif $p2p_busifs_i {
-
-            set busif_name [string toupper [get_property NAME  $p2p_busif]]
-            set conn_busif_handle [::hsi::utils::get_connected_intf $periph $busif_name]
-	    if { [string compare -nocase $conn_busif_handle ""] == 0} {
-                continue
-            } else {
-		# if there is a single match, we know if it is FIFO or DMA
-		# no need for further iterations
-		set conn_busif_name [get_property NAME  $conn_busif_handle]
-		set target_periph [get_cells -of_objects $conn_busif_handle]
+		set target_periph [get_connected_ip $periph]
+		puts [format "target_periph is %s" $target_periph]
 		set target_periph_type [get_property IP_NAME $target_periph]
-                if { [string compare -nocase $target_periph_type "tri_mode_ethernet_mac"] == 0 } {
-			continue
-		}
 		set tartget_per_name [get_property NAME $target_periph]
-		set target_periph_name [string toupper [get_property NAME $target_periph]]
-		set canonical_tag [string toupper [format "AXIETHERNET_%d" $device_id ]]
-		set validentry 1
-		break
-            }
-      }
+		if {$target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_dma"} {
+			set validentry 1
+			set canonical_tag [string toupper [format "AXIETHERNET_%d" $device_id ]]
+		}
+
 	if {$validentry == 1} {
 		if {$target_periph_type == "axi_fifo_mm_s"} {
 		    #
@@ -760,4 +743,78 @@ proc get_mactype {value} {
 	}
 
 	return $value
+}
+
+proc is_ethsupported_target {connected_ip} {
+   set connected_ipname [get_property IP_NAME $connected_ip]
+   if {$connected_ipname == "axi_dma" || $connected_ipname == "axi_fifo_mm_s"} {
+      return "true"
+   } else {
+      return "false"
+   }
+}
+
+proc get_targetip {ip} {
+   set p2p_busifs_i [get_intf_pins -of_objects $ip -filter "TYPE==INITIATOR || TYPE==MASTER"]
+   foreach p2p_busif $p2p_busifs_i {
+      set busif_name [string toupper [get_property NAME  $p2p_busif]]
+      set conn_busif_handle [::hsi::utils::get_connected_intf $ip $busif_name]
+      set target_periph [get_cells -of_objects $conn_busif_handle]
+   }
+   return $target_periph
+}
+
+proc get_connected_ip {periph} {
+    set eth_ip [get_cells -hier $periph]
+    foreach n "AXI_STR_RXD m_axis_rxd" {
+        set intf [get_intf_pins -of_objects $eth_ip ${n}]
+        if {[string_is_empty ${intf}] != 1} {
+            break
+        }
+    }
+
+    if { [llength $intf] } {
+        set connected_ip [get_connected_intf $intf]
+    }
+}
+
+proc get_connected_intf {intf} {
+   if { [llength $intf]} {
+      set intf_net [get_intf_nets -of_objects $intf ]
+      if { [llength $intf_net]  } {
+         set target_intf [lindex [get_intf_pins -of_objects $intf_net -filter "TYPE==TARGET" ] 0]
+         if { [llength $target_intf] } {
+            set connected_ip [get_cells -of_objects $target_intf]
+         }
+         set target_ip [is_ethsupported_target $connected_ip]
+         if { $target_ip == "true"} {
+            return $connected_ip
+         } else {
+			set i 0
+             set retries 5
+             # When AXI Ethernet Configured in Non-Buf mode or In case of 10G MAC
+             # The Ethernet MAC won't directly got connected to fifo or dma
+             # We need to traverse through stream data fifo's and axi interconnects
+             # Inorder to find the target IP(AXI DMA or AXI FIFO)
+             while {$i < $retries} {
+                set target_periph [get_targetip $connected_ip]
+                set target_ip [is_ethsupported_target $target_periph]
+                if { $target_ip == "true"} {
+                  return $target_periph
+                }
+                set connected_ip $target_periph
+                incr i
+             }
+             set error "Couldn't find a valid target_ip Please cross check hw design"
+             return $error
+         }
+      }
+   }
+}
+
+proc string_is_empty {input} {
+        if {[string compare -nocase $input ""] != 0} {
+                return 0
+        }
+        return 1
 }

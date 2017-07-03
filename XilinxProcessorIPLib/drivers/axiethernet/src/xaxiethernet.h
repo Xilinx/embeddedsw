@@ -492,6 +492,9 @@
 * 5.5	adk 19/05/17 Increase Timeout value in the driver as per new h/w update
 * 		     i.e. Increase of transceiver initialization times in
 * 		     ultrascale+ devices (CR#976244).
+* 5.6  adk 03/07/17 Fixed issue lwip stops working as soon as something is
+*		    plugged to it`s AXI stream bus (CR#979634). Changes
+*		    are made in the driver tcl and test app tcl.
 * </pre>
 *
 ******************************************************************************/
