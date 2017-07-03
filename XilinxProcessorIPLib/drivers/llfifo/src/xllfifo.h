@@ -72,56 +72,56 @@
  * <h3>Receive</h3>
  *
  * A frame is received by using the following sequence:<br>
- * 1) call XLlFifo_RxOccupancy() to check the occupancy count<br>
- * 2) call XLlFifo_RxGetLen() to get the length of the next incoming frame<br>
- * 3) call XLlFifo_Read() one or more times to read the number of bytes
- *    reported by XLlFifo_RxGetLen().<br>
+ * 1) call XLlFifo_iRxGetLen() to get the length of the incoming frame<br>
+ * 2) call XLlFifo_RxGetWord() one or more times to read the number of
+ *    bytes reported by the hardware<br>
+ * 3) call XLlFifo_iRxOccupancy() to know the availability of the data
+ *    in the FIFO.<br>
  *
  * For example:
  * <pre>
- * 	while (XLlFifo_RxOccupancy(&RxInstance)) {
- * 		frame_len = XLlFifo_RxGetLen(&RxInstance);
- *		while (frame_len) {
- * 			unsigned bytes = min(sizeof(buffer), frame_len);
- * 			XLlFifo_Read(&RxInstance, buffer, bytes);
- * 			// ********
- * 			// do something with buffer here
- * 			// ********
- * 			frame_len -= bytes;
+ * 	ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
+ *	for ( i=0; i < ReceiveLength; i++){
+ *		RxWord = XLlFifo_RxGetWord(InstancePtr);
+ * 		// ********
+ * 		// do something here with the data
+ * 		// ********
+ *		if(XLlFifo_iRxOccupancy(InstancePtr)){
+ *			RxWord = XLlFifo_RxGetWord(InstancePtr);
  *		}
- * 	}
+ *	}
+ *
  * </pre>
  *
  * This FIFO hardware core does <b>not</b> support a sequence where the
- * calling code calls RxGetLen() twice in a row and then receive the data
- * for two frames. Each frame must be read in by calling RxGetLen() just
+ * calling code calls iRxGetLen() twice in a row and then receive the data
+ * for two frames. Each frame must be read in by calling iRxGetLen() just
  * prior to reading the data.
  *
  * <h3>Transmit</h3>
  * A frame is transmittted by using the following sequence:<br>
- * 1) call XLlFifo_Write() one or more times to write all the of bytes in
+ * 1) XLlFifo_iTxVacancy() one or more times to know the availability of
+ *    unused 32-bit words in the FIFO channel.<br>
+ * 2) call XLlFifo_TxPutWord() one or more times to write all the of bytes in
  *    the next frame.<br>
- * 2) call XLlFifo_TxSetLen() to begin the transmission of frame just
+ * 3) call XLlFifo_iTxSetLen() to begin the transmission of frame just
  *    written.<br>
  *
  * For example:
  * <pre>
- * 	frame_left = frame_len;
- * 	while (frame_left) {
- * 		unsigned bytes = min(sizeof(buffer), frame_left);
- * 		XLlFifo_Write(&TxInstance, buffer, bytes);
- * 		// ********
- * 		// do something here to refill buffer
- * 		// ********
- * 		frame_left -= bytes;
- * 	}
- * 	XLlFifo_TxSetLen(&RxInstance, frame_len);
+ *	for (j=0 ; j < MAX_PACKET_LEN ; j++){
+ *		if( XLlFifo_iTxVacancy(InstancePtr) ){
+ *			XLlFifo_TxPutWord(InstancePtr,
+ *				*(SourceAddr+(i*MAX_PACKET_LEN)+j));
+ *		}
+ *	}
+ * 	XLlFifo_iTxSetLen(InstancePtr, (MAX_DATA_BUFFER_SIZE * WORD_SIZE));
  * </pre>
  *
  * This FIFO hardware core does <b>not</b> support a sequence where the
- * calling code writes the data for two frames and then calls TxSetLen()
+ * calling code writes the data for two frames and then calls iTxSetLen()
  * twice in a row. Each frame must be written by writting the data for one
- * frame and then calling TxSetLen().
+ * frame and then calling iTxSetLen().
  *
  * <h2>Interrupts</h2>
  * This driver does not handle interrupts from the FIFO hardware. The
@@ -182,6 +182,11 @@
  *                      proper documentation and Modified Comment lines
  *                      to consider it as a documentation block while
  *                      generating doxygen for llfifo examples.
+ * 5.2  ms    04/18/17 Modified tcl file to add suffix U for all macros
+ *                     definitions of llfifo in xparameters.h
+ * 5.2 adk    03/07/17 CR#978769 Fix doxygen issues in the driver.
+ *		       Updated comments in the usage section as per example code.
+ *		       Fix doxygen warnings in the driver.
  * </pre>
  *
  *****************************************************************************/
@@ -727,3 +732,4 @@ void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word);
 #endif
 #endif				/* XLLFIFO_H  end of preprocessor protection symbols */
 /** @} */
+
