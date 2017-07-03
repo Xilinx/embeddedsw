@@ -390,6 +390,23 @@ proc get_dma_info {mhsinst type} {
 		}
 		set target_periph_name [string toupper [get_property NAME $target_periph]]
 		set instName [get_property NAME  $target_periph]
+		## If Chiscope is connected b/w DMA/FIFO and Ethernet
+                if {[llength $target_periph] > 1} {
+                        foreach peri_name $target_periph {
+                                set target_periph_type [get_property IP_NAME $peri_name]
+				set instName [get_property NAME  $peri_name]
+                                if {[string compare -nocase $target_periph_type "axi_dma"] == 0} {
+                                        if {[string compare -nocase $type "id"] == 0} {
+                                                set deviceid [::hsi::utils::get_ip_param_name $peri_name "DEVICE_ID"]
+                                                return $deviceid
+                                        }
+                                        if {[string compare -nocase $type "name"] == 0} {
+                                                return $instName
+                                        }
+                                }
+                        }
+
+                }
 		if {[string compare -nocase $target_periph_type "axi_dma"] == 0} {
 			if {[string compare -nocase $type "id"] == 0} {
 				set deviceid [::hsi::utils::get_ip_param_name $target_periph "DEVICE_ID"]
