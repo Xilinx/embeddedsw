@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 #
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-#
-# Use of the Software is limited solely to applications:
-# (a) running on a Xilinx device, or
-# (b) that interact with a Xilinx device through a bus or interconnect.
 #
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -52,6 +48,9 @@
 # 03/07/17 adk Fixed issue lwip stops working as soon as something is plugged
 #	       to it's AXI stream buf(CR#979634).
 # 01/09/18 rsp Added support for C_Number_of_Table_Entries parameter.
+# 08/31/18 rsp Improve error message when ethernet AXI4-Stream is connected
+#              to non-supported IP.
+# 09/01/18 rsp Fixed interrupt ID generation for ZynqMP designs.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -307,7 +306,7 @@ proc xdefine_axi_target_params {periphs file_handle} {
 
        if {$validentry !=1} {
 		 puts "*******************************************************************************\r\n"
-		 puts "The target Peripheral(Axi DMA or AXI MCDMA or AXI FIFO) is not connected properly to the AXI Ethernet core."
+		 puts "ERROR: The target Peripheral(Axi DMA or AXI MCDMA or AXI FIFO) is not connected properly to the AXI Ethernet core."
 		 puts "*******************************************************************************\r\n"
       }
    }
@@ -628,7 +627,7 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type 1]
+                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -736,7 +735,7 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type 1]
+                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -837,7 +836,7 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
             set intc_periph_type [get_property IP_NAME $pname_type]
             set intc_name [string toupper [get_property NAME $pname_type]]
 	    if { [llength $intc_periph_type] > 1 } {
-                set intc_periph_type [lindex $intc_periph_type 1]
+                set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
             }
         } else {
             puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
@@ -933,7 +932,7 @@ proc xdefine_temac_interrupt {file_handle periph device_id} {
         set intc_name [string toupper [get_property NAME $intc_periph]]
 	#Handling for ZYNQMP
 	if { [llength $intc_periph_type] > 1 } {
-		set intc_periph_type [lindex $intc_periph_type 1]
+		set intc_periph_type [lindex $intc_periph_type [lsearch $intc_periph_type "psu_acpu_gic"]]
 	}
     } else {
          puts "Info: $periph_name interrupt signal $interrupt_signal_name not connected"
@@ -1051,7 +1050,14 @@ proc get_mactype {value} {
 }
 
 proc is_ethsupported_target {connected_ip} {
-   set connected_ipname [get_property IP_NAME [get_cells -hier $connected_ip]]
+   set connected_ipname ""
+   if {$connected_ip == ""} {
+      return "false"
+   }
+   set ipname [get_cells -hier $connected_ip]
+   if {$ipname != ""} {
+      set connected_ipname [get_property IP_NAME $ipname]
+   }
    if {$connected_ipname == "axi_dma" || $connected_ipname == "axi_fifo_mm_s" || $connected_ipname == "axi_mcdma"} {
       return "true"
    } else {
@@ -1060,11 +1066,17 @@ proc is_ethsupported_target {connected_ip} {
 }
 
 proc get_targetip {ip} {
+   set target_periph ""
+   if {$ip == ""} {
+      return $target_periph
+   }
    set p2p_busifs_i [get_intf_pins -of_objects $ip -filter "TYPE==INITIATOR || TYPE==MASTER"]
    foreach p2p_busif $p2p_busifs_i {
       set busif_name [string toupper [get_property NAME  $p2p_busif]]
       set conn_busif_handle [::hsi::utils::get_connected_intf $ip $busif_name]
-      set target_periph [get_cells -of_objects $conn_busif_handle]
+      if {$conn_busif_handle != ""} {
+         set target_periph [get_cells -of_objects $conn_busif_handle]
+      }
    }
    return $target_periph
 }
