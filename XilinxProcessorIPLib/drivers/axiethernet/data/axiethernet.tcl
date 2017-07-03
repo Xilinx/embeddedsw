@@ -1,26 +1,6 @@
 ###############################################################################
-#
-# Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-#
-#
+# Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
 #
 # MODIFICATION HISTORY:
 #
@@ -50,6 +30,7 @@
 #              to non-supported IP.
 # 09/01/18 rsp Fixed interrupt ID generation for ZynqMP designs.
 # 10/31/18 rsp Use identifiable suffix for global variables to avoid conflicts.
+# 02/18/20 rsp Switch to ::hsi::utils::get_connected_intf API.
 #
 ###############################################################################
 #uses "xillib.tcl"
@@ -1090,7 +1071,8 @@ proc get_connected_ip {periph} {
     }
 
     if { [llength $intf] } {
-        set connected_ip [get_connected_intf $intf]
+        set connectd_intf_handle [::hsi::utils::get_connected_intf $periph $intf]
+        set connected_ip [get_cells -of_objects $connectd_intf_handle ]
         set target_ip [is_ethsupported_target $connected_ip]
         if { $target_ip == "true"} {
 	      return $connected_ip
