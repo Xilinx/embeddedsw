@@ -370,6 +370,11 @@ void XFsbl_EnableProgToPL(void)
 	u32 RegVal = 0x0U;
 
 	/*
+	 * PROG control to PL.
+	 */
+	Xil_Out32(CSU_PCAP_PROG, CSU_PCAP_PROG_PCFG_PROG_B_MASK);
+
+	/*
 	 * Enable the propagation of the PROG signal to the PL after PS-only reset
 	 * */
 	RegVal = XFsbl_In32(PMU_GLOBAL_PS_CNTRL);
