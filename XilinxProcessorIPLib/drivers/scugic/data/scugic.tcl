@@ -61,6 +61,9 @@
 #                     in case of unsupported processor.It fixes CR#976861
 # 3.8   mus  07/05/17 Added support for intrrupts connected through
 #                     util_reduced_vector IP(OR gate).
+# 3.8   mus  07/05/17 Updated xdefine_zynq_canonical_xpars proc to initialize
+#                     the HandlerTable in XScuGic_ConfigTable to 0, it removes
+#                     the compilation warning in xscugic_g.c. Fix for CR#978736.
 #
 ##############################################################################
 
@@ -423,6 +426,7 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
            }
            set comma ",\n"
        }
+       puts -nonewline $config_file [format "%s\t\t{{0}}\t\t/**< Initialize the HandlerTable to 0 */" $comma]
        puts -nonewline $config_file "\n\t\}"
        set start_comma ",\n"
    }
