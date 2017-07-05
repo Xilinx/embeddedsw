@@ -59,6 +59,8 @@
 # 3.8   mus  05/25/17 Updated proc xdefine_gic_params to declare "valid_periph"
 #                     variable at start of the proc, to avoid the tcl errors
 #                     in case of unsupported processor.It fixes CR#976861
+# 3.8   mus  07/05/17 Added support for intrrupts connected through
+#                     util_reduced_vector IP(OR gate).
 #
 ##############################################################################
 
@@ -69,6 +71,10 @@
 ############################################################
 proc generate {drv_handle} {
     global pl_ps_irq1 pl_ps_irq0
+    global or_id
+    global or_cnt
+    set or_id 0
+    set or_cnt 0
     set pl_ps_irq1 0
     set pl_ps_irq0 0
 
@@ -668,6 +674,28 @@ proc xget_port_type {port} {
         return "local"
     }
 }
+
+proc is_orgate { intc_src_port ip_name} {
+	set ret -1
+
+	set intr_sink_pins [::hsi::utils::get_sink_pins $intc_src_port]
+	set sink_periph [::hsi::get_cells -of_objects $intr_sink_pins]
+	set ipname [get_property IP_NAME $sink_periph]
+	if { $ipname == "xlconcat" } {
+		set intf "dout"
+		set intr1_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$intf"]
+		set intr_sink_pins [::hsi::utils::get_sink_pins $intr1_pin]
+		set sink_periph [::hsi::get_cells -of_objects $intr_sink_pins]
+		set ipname [get_property IP_NAME $sink_periph]
+	        if {$ipname == "util_reduced_logic"} {
+			set width [get_property CONFIG.C_SIZE $sink_periph]
+			return $width
+		}
+	}
+
+	return $ret
+}
+
 ###################################################################
 #
 # Get interrupt ID for zynqmpsoc
@@ -679,6 +707,9 @@ proc get_psu_interrupt_id { ip_name port_name } {
     set intr_pin ""
     global pl_ps_irq1
     global pl_ps_irq0
+    global or_id
+    global or_cnt
+
     if { [llength $port_name] == 0 } {
         return $ret
     }
@@ -782,14 +813,30 @@ proc get_psu_interrupt_id { ip_name port_name } {
                 continue
             }
         }
+        set width [is_orgate $intc_src_port $ip_name]
         if { [string compare -nocase "$port_name"  "$intc_src_port" ] == 0 } {
-            if { [string compare -nocase "$intr_periph" "$periph"] == 0 } {
+            if { [string compare -nocase "$intr_periph" "$periph"] == 0 && $width != -1} {
+                 set or_cnt [expr $or_cnt + 1]
+	         if { $or_cnt == $width} {
+	                set or_cnt 0
+			set or_id [expr $or_id + 1]
+		}
                 set ret $i
                 set found 1
                 break
-            }
+            } elseif { [string compare -nocase "$intr_periph" "$periph"] == 0 } {
+		set ret $i
+		set found 1
+		break
+	    }
+
         }
-        set i [expr $i + $intr_width]
+        if { $width != -1} {
+	    set i [expr $or_id]
+	} else {
+	    set i [expr $i + $intr_width]
+	}
+
     }
 
     set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
@@ -817,6 +864,31 @@ proc get_psu_interrupt_id { ip_name port_name } {
                 set sink_pin $pin
             }
         }
+
+        # check for ORgate
+	if { [string compare -nocase "$sink_pin" "Op1"] == 0 } {
+	    set dout "Res"
+	    set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+	    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+	    set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+	    foreach pin $sink_pins {
+	        set sink_pin $pin
+	    }
+	    set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+	    set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
+	    if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
+	        set number [regexp -all -inline -- {[0-9]+} $sink_pin]
+	        set dout "dout"
+	        set concat_block 1
+                set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+	        set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+	        foreach pin $sink_pins {
+	            set sink_pin $pin
+	        }
+	    }
+	 }
+
+
 	# generate irq id for IRQ1_F2P
         if { [string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
             if {$found == 1} {
