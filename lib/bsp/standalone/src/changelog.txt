@@ -470,6 +470,6 @@
  *                    XGetPSVersion_Info function for PMUFW.
  *     ms    06/13/17 Added PSU_PMU macro in xplatform_info.c to support XGetPlatform_Info
  *                    function for PMUFW.
- * BSP: Supports XGetPlatform_Info function for PMUFW
+ * 6.4 mus   07/05/17 Updated Xil_In32BE function in xil_io.h to fix bug.It fixes CR#979740.
  *
  *****************************************************************************************/
