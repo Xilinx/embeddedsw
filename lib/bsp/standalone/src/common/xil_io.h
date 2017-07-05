@@ -303,7 +303,7 @@ static INLINE u32 Xil_In32LE(UINTPTR Addr)
 static INLINE u32 Xil_In32BE(UINTPTR Addr)
 #endif
 {
-	u16 value = Xil_In32(Addr);
+	u32 value = Xil_In32(Addr);
 	return Xil_EndianSwap32(value);
 }
 
