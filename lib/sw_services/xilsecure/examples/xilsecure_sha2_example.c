@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016 - 17 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,8 @@
 /**
 *
 * @file xilsecure_sha2_example.c
+* @addtogroup xsecure_apis XilSecure SHA2 APIs
+* @{
 *
 * This file contains the example which generates SHA2 hash on provided
 * data and compares with expected SHA2 hash.
@@ -43,6 +45,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.2   vns     25/08/16 First release
+* 2.2   vns     07/06/16 Added doxygen tags
 * </pre>
 *
 ******************************************************************************/
@@ -148,6 +151,7 @@ int main(void)
 * @note		Here we are generating hash on 1KB data.
 *
 ******************************************************************************/
+/** //! [SHA2 example] */
 u32 XSecure_Sha2_Hash_Gn()
 {
 	sha2_context Sha2;
@@ -199,6 +203,7 @@ u32 XSecure_Sha2_Hash_Gn()
 
 	return XST_SUCCESS;
 }
+/** //! [SHA2 example] */
 
 /****************************************************************************/
 /**
@@ -290,3 +295,4 @@ static u32 XSecure_ConvertCharToNibble (char InChar, u8 *Num)
 
 	return XST_SUCCESS;
 }
+/** @} */

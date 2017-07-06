@@ -32,7 +32,10 @@
 /*****************************************************************************/
 /**
 *
-* @file		 secure_example_aes.c
+* @file		 xilsecure_aes_example.c
+* @addtogroup xsecure_apis XilSecure AES APIs
+* @{
+* This example illustrates AES usage for decryption of a boot image.
 *
 * @note
 * This example requires downloading an encrypted boot image without PMU
@@ -49,6 +52,7 @@
 * 1.00a ba     01/13/14 First Release
 * 2.0   vns    01/17/17 For CR-964195 added required .nky fields
 *                       in the comments, also print for decryption failure.
+* 2.2   vns    07/06/16 Added doxygen tags
 *
 * </pre>
 ******************************************************************************/
@@ -140,6 +144,7 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+/** //! [AES example] */
 int SecureAesExample(void)
 {
 	u8 *Dst = (u8 *)0x04100000;
@@ -187,3 +192,5 @@ int SecureAesExample(void)
 
 	return XST_SUCCESS;
 }
+/** //! [AES example] */
+/** @} */

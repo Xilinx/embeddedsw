@@ -33,6 +33,8 @@
 /**
 *
 * @file	xilsecure_simple_aes_example.c
+* @addtogroup xsecure_aes_example	XilSecure AES API Example Generic Usage
+* @{
 *
 * @note
 * This example illustrates the usage of AES APIs, by encrypting the data
@@ -44,6 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 2.0   vns    02/10/17 First Release
+* 2.2   vns    07/06/16 Added doxygen tags
 *
 * </pre>
 ******************************************************************************/
@@ -151,6 +154,7 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+/** //! [Generic AES example] */
 static s32 SecureAesExample(void)
 {
 	XCsuDma_Config *Config;
@@ -233,7 +237,8 @@ static s32 SecureAesExample(void)
 
 	return XST_SUCCESS;
 }
-
+/** //! [Generic AES example] */
+/** @} */
 
 /****************************************************************************/
 /**

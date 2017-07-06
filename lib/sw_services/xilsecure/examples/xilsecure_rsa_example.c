@@ -32,7 +32,9 @@
 /*****************************************************************************/
 /**
 *
-* @file		secure_example_rsa.c
+* @file		xilsecure_rsa_example.c
+* @addtogroup xsecure_apis XilSecure RSA APIs
+* @{
 *
 * @note
 * This example requires downloading an RSA authenticated(SHA-3) boot image
@@ -43,6 +45,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.00a bameta 11/04/14 First Release
+* 2.2   vns    07/06/16 Added doxygen tags
 *
 * </pre>
 ******************************************************************************/
@@ -147,6 +150,7 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+/** //! [RSA example] */
 u32 SecureRsaExample(void)
 {
 	u32 Status;
@@ -282,3 +286,5 @@ u32 SecureRsaExample(void)
 ENDF:
 	return ErrorCode;
 }
+/** //! [RSA example] */
+/** @} */
