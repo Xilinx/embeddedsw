@@ -32,15 +32,17 @@
 /*****************************************************************************/
 /**
 *
-* @file		secure_example_sha.c
-*
-* @note     None
+* @file	xilsecure_sha_example.c
+* @addtogroup xsecure_sha3_example_apis XilSecure SHA3 API Example Usage
+* @{
+* This example illustrates the SHA3 hash calculation.
 *
 * MODIFICATION HISTORY:
 * <pre>
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.00a bameta 11/05/14 First Release
+* 2.2   vns    07/06/16 Added doxygen tags
 *
 * </pre>
 ******************************************************************************/
@@ -107,6 +109,7 @@ int main(void)
 * @note		None.
 *
 ****************************************************************************/
+/** //! [SHA3 example] */
 int SecureHelloWorldExample()
 {
 	u8 HelloWorld[4] = {'h','e','l','l'};
@@ -144,3 +147,5 @@ int SecureHelloWorldExample()
 
 	return XST_SUCCESS;
 }
+/** //! [SHA3 example] */
+/** @} */

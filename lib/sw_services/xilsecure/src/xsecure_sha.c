@@ -43,6 +43,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ba   08/10/14 Initial release
 * 2.0   vns  01/28/17 Added API to read SHA3 hash.
+* 2.2   vns  07/06/16 Added doxygen tags
 *
 * </pre>
 *
@@ -66,16 +67,17 @@
 
 /****************************************************************************/
 /**
+* @brief
+* This function initializes a specific Xsecure_Sha3 instance so that it is
+* ready to be used.
 *
-* Initializes a specific Xsecure_Sha3 instance so that it is ready to be used.
-*
-* @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
-* @param	CsuDmaPtr is the pointer to the XCsuDma instance.
+* @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
+* @param	CsuDmaPtr 	Pointer to the XCsuDma instance.
 *
 * @return	XST_SUCCESS if initialization was successful
 *
 * @note		The base address is initialized directly with value from
-* 			xsecure_hw.h
+* 		xsecure_hw.h
 *
 *****************************************************************************/
 
@@ -93,15 +95,14 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 
 /*****************************************************************************/
 /**
- * Generate padding for the SHA-3 engine
+ * @brief
+ * This function generates padding for the SHA-3 engine.
  *
- * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
- * @param	Dst is the pointer to location where padding is to be applied
- * @param	MsgLen is the length of padding in bytes
+ * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
+ * @param	Dst 	Pointer to location where padding is to be applied.
+ * @param	MsgLen	Length of padding in bytes.
  *
  * @return	None
- *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
@@ -115,14 +116,13 @@ void XSecure_Sha3Padd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 }
 /*****************************************************************************/
 /**
+ * @brief
+ * This function configures the SSS and starts the SHA-3 engine.
  *
- * Configure SSS and start the SHA-3 engine
- *
- * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
+ * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  *
  * @return	None
  *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
@@ -151,16 +151,15 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function updates hash for new input data block.
  *
- * Update hash for new input data block
- *
- * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
- * @param	Data is the pointer to the input data for hashing
- * @param	Size of the input data in bytes
+ * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
+ * @param	Data 		Pointer to the input data for hashing.
+ * @param	Size 		Size of the input data in bytes.
  *
  * @return	None
  *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
@@ -184,13 +183,15 @@ void XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 }
 
 
-/*****************************************************************************
+/*****************************************************************************/
+/**
+ * @brief
+ * This function waits till SHA3 completes its action.
  *
- * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
+ * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  *
  * @return	None
  *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
@@ -211,17 +212,16 @@ void XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr)
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function sends the last data and padding when blocksize is not
+ * multiple of 104 bytes.
  *
- * Sending the last data and padding when blocksize is not multiple of 104
- * bytes
- *
- * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
- * @param	Hash is the pointer to location where resulting hash will be
- *			written
+ * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
+ * @param	Hash		Pointer to location where resulting hash will
+ *		be written
  *
  * @return	None
  *
- * @note	None
  *
  *****************************************************************************/
 void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
@@ -269,18 +269,17 @@ void XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function calculates the SHA-3 digest on the given input data.
  *
- * Calculate SHA-3 Digest on the given input data
- *
- * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
- * @param   	In is the pointer to the input data for hashing
- * @param	Size of the input data
- * @param	Out is the pointer to location where resulting hash will be
- *		written.
+ * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
+ * @param	In		Pointer to the input data for hashing
+ * @param	Size		Size of the input data
+ * @param	Out		Pointer to location where resulting hash will
+ *		be written.
  *
  * @return	None
  *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
@@ -298,11 +297,13 @@ void XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 
 /*****************************************************************************/
 /**
+ * @brief
  * Reads the SHA3 hash of the data. It can be called intermediately of updates
  * also to read hashs.
  *
- * @param	InstancePtr is a pointer to the XSecure_Sha3 instance.
- * @param	Hash is the pointer in which read hash will be stored.
+ * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
+ * @param	Hash		Pointer to a buffer in which read hash will be
+ *		stored.
  *
  * @return	None
  *

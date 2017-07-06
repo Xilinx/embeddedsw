@@ -33,7 +33,9 @@
 /**
 *
 * @file xsecure_rsa.h
-*
+* @addtogroup xsecure_rsa_apis XilSecure RSA APIs
+* @{
+* @cond xsecure_internal
 * This file contains hardware interface related information for RSA device
 *
 * This driver supports the following features:
@@ -66,10 +68,11 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   ba   10/10/14 Initial release
+* 2.2   vns  07/06/16 Added doxygen tags
 *
 * </pre>
 *
-*
+* @endcond
 ******************************************************************************/
 
 #ifndef XSECURE_RSA_H_
@@ -86,6 +89,9 @@ extern "C" {
 #include "xstatus.h"
 #include "xplatform_info.h"
 /************************** Constant Definitions ****************************/
+/** @cond xsecure_internal
+@{
+*/
 
 /** @name Control Register
  *
@@ -144,7 +150,9 @@ typedef struct {
 	u8* ModExt; /**< Precalc. R sq. mod N */
 	u8* ModExpo; /**< Exponent */
 } XSecure_Rsa;
-
+/**
+@}
+@endcond */
 /***************************** Function Prototypes ***************************/
 
 /* Initialization */
@@ -162,3 +170,4 @@ extern "C" }
 #endif
 
 #endif /* XSECURE_RSA_H_ */
+/* @} */

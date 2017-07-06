@@ -53,6 +53,7 @@
 *                    Modified encryption and decryption APIs such that all
 *                    inputs will be accepted in little endian format(KEY, IV
 *                    and Data).
+* 2.2   vns 07/06/16 Added doxygen tags
 *
 * </pre>
 *
@@ -71,20 +72,25 @@
 /*****************************************************************************/
 /**
  *
- * Waits for AES completion for keyload.
+ * @brief
+ * This function initializes the instance pointer.
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	CsuDmaPtr is the pointer to the XCsuDma instance.
- * @param	KeySel is the key source for decryption, can be KUP/device key
- * @param	Iv is pointer to the Initialization Vector for decryption
- * @param	Key is the pointer to Aes decryption key in case KUP key is used
- * 			Pass Null if device key is to be used
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	CsuDmaPtr	Pointer to the XCsuDma instance.
+ * @param	KeySel		Key source for decryption, can be KUP/device key
+ *		- XSECURE_CSU_AES_KEY_SRC_KUP :For KUP key
+ *		- XSECURE_CSU_AES_KEY_SRC_DEV :For Device Key
+ * @param	Iv		Pointer to the Initialization Vector
+ *		for decryption
+ * @param	Key		Pointer to Aes decryption key in case KUP
+ *		key is used.
+ * 		Passes `Null` if device key is to be used.
  *
  * @return	XST_SUCCESS if initialization was successful.
  *
  * @note	All the inputs are accepted in little endian format, but AES
  *		engine accepts the data in big endianess, this will be taken
- *		while passing data to AES engine.
+ *		care while passing data to AES engine.
  *
  ******************************************************************************/
 s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
@@ -107,18 +113,20 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 /*****************************************************************************/
 /**
  *
+ * @brief
  * This funcion is used to initialize the AES engine for encryption.
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	EncData is a pointer of a buffer in which encrypted data will
- *		be stored.
- * @param	Size is a 32 bit variable, which holds the size of the input
- *		data to be encrypted.
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	EncData		Pointer of a buffer in which encrypted data
+ *		along with GCM TAG will be stored. Buffer size should be
+ *		Size of data plus 16 bytes.
+ * @param	Size		A 32 bit variable, which holds the size of
+ *		the input data to be encrypted.
  *
  * @return	None
  *
- * @note	EncData should be pointer to a buffer of length Size + 16Bytes
- *		as it will have both encrypted data and GCM tag.
+ * @note	If all the data to be encrypted is available at single location
+ *		One can use XSecure_AesEncryptData() directly.
  *
  ******************************************************************************/
 void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
@@ -203,21 +211,25 @@ void XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 
 /*****************************************************************************/
 /**
- * This function is used to update the AES engine with provided data to
- * encrypt the provided data.
+ * @brief
+ * This function is used to update the AES engine with provided data for
+ * encryption.
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	Data is a pointer to the data for which encryption should be
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	Data	Pointer to the data for which encryption should be
  * 		performed.
- * @param	Size is a 32 bit variable, which holds the size of the input
+ * @param	Size	A 32 bit variable, which holds the size of the input
  *		data in bytes.
  *
  * @return	None
  *
  * @note	When Size of the data equals to size of the remaining data
- *		that data will be treated as final data.
+ *		to be processed that data will be treated as final data.
  *		This API can be called multpile times but sum of all Sizes
- *		should be equal to Size mention in XSecure_AesEncryptInit.
+ *		should be equal to Size mentioned at encryption initialization
+ *		(XSecure_AesEncryptInit()).
+ *		If all the data to be encrypted is available at single location
+ *		Please call XSecure_AesEncryptData() directly.
  *
  ******************************************************************************/
 void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
@@ -277,18 +289,22 @@ void XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This Function encrypts the data provided by using hardware AES engine.
  *
- * Function for doing encryption using h/w AES engine.
- *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	Dst is pointer to location where encrypted output will
- *			be written.
- * @param	Src is pointer to input data for encryption.
- * @param	Len is the size of input data in bytes
+ * @param	InstancePtr	A pointer to the XSecure_Aes instance.
+ * @param	Dst	A pointer to a buffer where encrypted data along with
+ *		GCM tag will be stored. The Size of buffer provided should be
+ *		Size of the data plus 16 bytes
+ * @param	Src	A pointer to input data for encryption.
+ * @param	Len	Size of input data in bytes
  *
  * @return	None
  *
- * @note	None
+ * @note	If data to be encrypted is not available at one place one can
+ *		call XSecure_AesEncryptInit() and update the AES engine with
+ *		data to be encrypted by calling XSecure_AesEncryptUpdate()
+ *		API multiple times as required.
  *
  ******************************************************************************/
 void XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
@@ -301,21 +317,21 @@ void XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 
 /*****************************************************************************/
 /**
- *
+ * @brief
  * This function initializes the AES engine for decryption.
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	DecData is a pointer in which decrypted data will be stored.
- * @param	Size is a 32 bit variable, which holds the size data in bytes.
- * @param	GcmTagAddr is a pointer to the GCM tag which needs to be
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	DecData		Pointer in which decrypted data will be stored.
+ * @param	Size		Expected size of the data in bytes.
+ * @param	GcmTagAddr	Pointer to the GCM tag which needs to be
  *		verified during decryption of the data.
  *
  * @return	None
  *
  * @note	If data is encrypted using XSecure_AesEncrypt API then GCM tag
- *		address will be at the end of encrypted data EncData + Size will
+ *		address will be at the end of encrypted data. EncData + Size will
  *		be the GCM tag address.
- *		Chunking will not be handled 0ver here.
+ *		Chunking will not be handled over here.
  *
  ******************************************************************************/
 void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
@@ -418,22 +434,24 @@ void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 
 /*****************************************************************************/
 /**
- *
+ * @brief
  * This function is used to update the AES engine for decryption with provided
  * data
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	EncData is a pointer to the encrypted data which needs to be
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	EncData		Pointer to the encrypted data which needs to be
  *		decrypted.
- * @param	Size is a 32 bit variable, which holds the size of data to be
- *		processed in bytes.
+ * @param	Size		Expected size of data to be decrypted in bytes.
  *
- * @return	None
+ * @return	Final call of this API returns the status of GCM tag matching.
+ *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag is mismatched
+ *		- XST_SUCCESS: If GCM tag is matching.
  *
  * @note	When Size of the data equals to size of the remaining data
  *		that data will be treated as final data.
  *		This API can be called multpile times but sum of all Sizes
- *		should be equal to Size mention in init.
+ *		should be equal to Size mention in init. Return of the final
+ *		call of this API tells whether GCM tag is matching or not.
  *
  ******************************************************************************/
 s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
@@ -523,21 +541,24 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 
 /*****************************************************************************/
 /**
+ * @brief
  * This function decrypts the encrypted data provided and updates the
  * DecData buffer with decrypted data
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	DecData is a pointer to a buffer in which decrypted data will
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	DecData		Pointer to a buffer in which decrypted data will
  *		be stored.
- * @param	EncData is a pointer to the encrypted data which needs to be
+ * @param	EncData		Pointer to the encrypted data which needs to be
  *		decrypted.
- * @param	Size is a 32 bit variable, which holds the size of data to be
- *		decrypted in bytes.
+ * @param	Size		Size of data to be	decrypted in bytes.
  *
- * @return	None
+ * @return	This API returns the status of GCM tag matching.
+ *		- XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag was mismatched
+ *		- XST_SUCCESS: If GCM tag was matched.
  *
- * @note	EncData buffer might be holding the encrypted data + GCM tag
- *		but Size should be mentioned only for data.
+ * @note	When XSecure_AesEncryptData() API is used for encryption
+ *		In same buffer GCM tag also be stored, but Size should be
+ *		mentioned only for data.
  *
  ******************************************************************************/
 s32 XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u8 * DecData, u8 *EncData,
@@ -559,17 +580,18 @@ END:
 
 /*****************************************************************************/
 /**
- *
+ * @brief
  * This API enables/disables data chunking. Chunking will be used when complete
  * encrypted data is not present at a single contiguous location (for eg. DDR
  * less systems.) or the data source is not directly reachable through CSU DMA.
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * 			Chunking is used to enable/disable data chunking.
+ * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
+ * @param	Chunking 	Used to enable or disable data chunking.
  *
  * @return	None
  *
- * @note	None
+ * @note	Chunking enable will be taken account only for
+ *		XSecure_AesDecrypt() API usage.
  *
  ******************************************************************************/
 void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking)
@@ -582,20 +604,30 @@ void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking)
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function sets the configuration for Data Chunking.
  *
- * Setting the configuration for Data Chunking.
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
+ * @param	ReadBuffer	Buffer where the data will be written
+ *		after copying.
+ * @param	ChunkSize	Length of the buffer in bytes.
+ * @param	DeviceCopy 	Function pointer to copy data from FLASH
+ *		to buffer.
+ *		Arguments are:
+ *		 - SrcAddress: Address of data in device
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * 		ReadBuffer is the buffer where the data will be written after copy.
- *		DeviceCopy is the function pointer to copy data from device to
- *		buffer. (Arguments are: SrcAddress: Address of data in device,
- * 		DestAddress: Address where data will be copied and Length:
- * 		Length of data in bytes. Return value should be 0 in case of
- * 		success and 1 in case of failure.)
+ *		 - DestAddress: Address where data will be copied
+ *
+ *		 - Length: Length of data in bytes.
+ *		Return value should be 0 in case of success and 1
+ *		in case of failure.
  *
  * @return	None
  *
- * @note	None
+ * @note	This function should be used along with
+ *		XSecure_AesSetChunkConfig() API, this feature is taken into
+ *		account only for XSecure_AesDecrypt() API while decrypting
+ *		the boot image's partition which is generated using bootgen.
  *
  ******************************************************************************/
 void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
@@ -615,14 +647,13 @@ void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function waits for AES completion for keyload.
  *
- * Waits for AES completion for keyload.
- *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
+ * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
  *
  * @return	None
  *
- * @note	None
  *
  ******************************************************************************/
 static void XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
@@ -640,14 +671,13 @@ static void XSecure_AesWaitKeyLoad(XSecure_Aes *InstancePtr)
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function waits for AES completion.
  *
- * Waits for AES completion.
- *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
+ * @param	InstancePtr Pointer to the XSecure_Aes instance.
  *
  * @return	None
  *
- * @note	None
  ******************************************************************************/
 void XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
 {
@@ -664,14 +694,13 @@ void XSecure_AesWaitForDone(XSecure_Aes *InstancePtr)
 
 /*****************************************************************************/
 /**
- *
- * Reset the AES engine.
+ * @brief
+ * This function resets the AES engine.
  *
  * @param	InstancePtr is a pointer to the XSecure_Aes instance.
  *
  * @return	None
  *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_AesReset(XSecure_Aes *InstancePtr)
@@ -688,14 +717,13 @@ void XSecure_AesReset(XSecure_Aes *InstancePtr)
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function resets the AES key storage registers.
  *
- * Reset the AES key storage registers.
- *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  *
  * @return	None
  *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
@@ -725,14 +753,13 @@ void XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function configures and load AES key from selected key source.
  *
- * Configures and load AES key from selected key source.
- *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  *
  * @return	None
  *
- * @note	None
  *
  ******************************************************************************/
 void XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
@@ -764,15 +791,16 @@ void XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
 /*****************************************************************************/
 /**
  *
- * Helper function to decrypt chunked bitstream block and route to PCAP.
+ * @brief
+ * This is a helper function to decrypt chunked bitstream block and route to
+ * PCAP.
  *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * 			Src is the pointer to the encrypted bitstream block start.
- * 			Len is the length of bitstream data block in bytes.
+ * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
+ * @param	Src 	Pointer to the encrypted bitstream block start.
+ * @param	Len 	Length of bitstream data block in bytes.
  *
  * @return	returns XST_SUCCESS if bitstream block is decrypted by AES.
  *
- * @note	None
  *
  ******************************************************************************/
 static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
@@ -854,19 +882,18 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 
 /*****************************************************************************/
 /**
+ * @brief
+ * This function handles decryption using the AES engine.
  *
- * Function for doing decryption using h/w AES engine.
- *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	Dst is pointer to location where encrypted data will be written
- * @param	Src is pointer to input data for encryption.
- * @param	Tag is pointer to the GCM tag used for authentication
- * @param	Len is the length of the output data expected after decryption.
- * @param	Flag denotes whether the block is Secure header or data block
+ * @param	InstancePtr Pointer to the XSecure_Aes instance.
+ * @param	Dst 	Pointer to location where encrypted data will be written
+ * @param	Src 	Pointer to input data for encryption.
+ * @param	Tag 	Pointer to the GCM tag used for authentication
+ * @param	Len 	Length of the output data expected after decryption.
+ * @param	Flag 	Denotes whether the block is Secure header or data block
  *
  * @return	returns XST_SUCCESS if GCM tag matching was successful
  *
- * @note	None
  *
  ******************************************************************************/
 s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
@@ -1092,8 +1119,10 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 /*****************************************************************************/
 /**
  *
+ * @brief
  * This function will handle the AES-GCM Decryption.
- *
+ * @cond xsecure_internal
+ @{
  *	The Multiple key(a.k.a Key Rolling) or Single key
  *	Encrypted images will have the same format,
  *	such that it will have the following:
@@ -1125,18 +1154,19 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
  *		go to next step 8. Else go back to step 5
  *	6> If there are failures, return error code
  *	7> If we have reached this step means the decryption is SUCCESS.
+ ** @}
+ * @endcond
  *
- *
- *
- * @param	InstancePtr is a pointer to the XSecure_Aes instance.
- * @param	Src is the pointer to encrypted data source location
- * @param	Dst is the pointer to location where decrypted data will be
+ * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
+ * @param	Src 	Pointer to encrypted data source location
+ * @param	Dst 	Pointer to location where decrypted data will be
  *			written.
- * @param	Length is the expected total length of decrypted image expected.
+ * @param	Length	Expected total length of decrypted image expected.
  *
  * @return	returns XST_SUCCESS if successful, or the relevant errorcode.
  *
- * @note	None
+ * @note	This function is used for decrypting the Image's partition
+ *		encrypted by Bootgen
  *
  ******************************************************************************/
 s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
