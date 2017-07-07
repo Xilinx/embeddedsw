@@ -63,13 +63,14 @@
  * 1.4   gm   29/11/16 Moved internally used APIs to xvphy_i.c/h
  *                     Added preprocessor directives for sw footprint reduction
  *                     Fixed c++ compiler warnings
+ * 1.6   gm   12/06/17 Changed FAILURE return value of XVphy_DrpRead to 0xDEAD
+ *                     Added XVphy_DrpRd and XVphy_SetErrorCallback APIs
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
-#include <string.h>
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_i.h"
@@ -790,6 +791,10 @@ u32 XVphy_ResetGtTxRx(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 *
 * @note		None.
 *
+* @deprecated   XVphy_DrpWrite will be deprecated in 2018.3 and replaced by
+*                XVphy_DrpWr to align with new naming of XVphy_DrpRd API.
+*                No functional change between XVphy_DrpWrite & XVphy_DrpWr.
+*
 ******************************************************************************/
 u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u16 Addr, u16 Val)
@@ -817,6 +822,12 @@ u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 *
 * @note		None.
 *
+* @deprecated   XVphy_DrpRead will be deprecated in 2018.3 and replaced by
+*                XVphy_DrpRd to separate the return value of DRP register
+*                content and XST_SUCCESS/XST_FAILURE.
+*               A new argument (*RetVal) was added in XVphy_DrpRd to hold the
+*                DRP register content
+*
 ******************************************************************************/
 u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, u16 Addr)
 {
@@ -827,7 +838,68 @@ u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, u16 Addr)
 			XVPHY_DIR_RX, /* Read. */
 			Addr, &Val);
 
-	return (Status == XST_SUCCESS) ? Val : 0;
+	return (Status == XST_SUCCESS) ? Val : 0xDEAD;
+}
+
+/*****************************************************************************/
+/**
+* This function will initiate a write DRP transaction. It is a wrapper around
+* XVphy_DrpAccess.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID on which to direct the DRP access.
+* @param	Addr is the DRP address to issue the DRP access to.
+* @param	Val is the value to write to the DRP address.
+*
+* @return
+*		- XST_SUCCESS if the DRP access was successful.
+*		- XST_FAILURE otherwise, if the busy bit did not go low, or if
+*		  the ready bit did not go high.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_DrpWr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		u16 Addr, u16 Val)
+{
+	return XVphy_DrpAccess(InstancePtr, QuadId, ChId,
+			XVPHY_DIR_TX, /* Write. */
+			Addr, &Val);
+}
+
+/*****************************************************************************/
+/**
+* This function will initiate a read DRP transaction. It is a wrapper around
+* XVphy_DrpAccess.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID on which to direct the DRP access.
+* @param	Addr is the DRP address to issue the DRP access to.
+* @param	RetVal is the DRP read_value returned implicitly.
+*
+* @return
+*		- XST_SUCCESS if the DRP access was successful.
+*		- XST_FAILURE otherwise, if the busy bit did not go low, or if
+*		  the ready bit did not go high.
+*
+* @note		None.
+*
+******************************************************************************/
+u16 XVphy_DrpRd(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+        u16 Addr, u16 *RetVal)
+{
+	u32 Status;
+	u16 Val;
+
+	Status = XVphy_DrpAccess(InstancePtr, QuadId, ChId,
+			XVPHY_DIR_RX, /* Read. */
+			Addr, &Val);
+
+    *RetVal = Val;
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -1356,3 +1428,33 @@ static u32 XVphy_DrpAccess(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+* This function installs a callback function for the VPHY error conditions
+*
+* @param	InstancePtr is a pointer to the XVPhy instance.
+* @param	CallbackFunc is the address to the callback function.
+* @param	CallbackRef is the user data item that will be passed to the
+*		callback function when it is invoked.
+*
+* @return	None.
+*
+* @note		The XVphy_ErrorHandler API calls the registered function in
+* 			  ErrorCallback and passes two arguments: 1) CallbackRef
+* 			  2) Error Type as defined by XVphy_ErrType.
+*
+* 			Sample Function Call:
+* 				CallbackFunc(CallbackRef, XVphy_ErrType);
+*
+*******************************************************************************/
+void XVphy_SetErrorCallback(XVphy *InstancePtr,
+		void *CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->ErrorCallback = (XVphy_ErrorCallback)CallbackFunc;
+	InstancePtr->ErrorRef = CallbackRef;
+}

@@ -45,6 +45,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  10/19/15 Initial release.
  * 1.4   gm   29/11/16 Added XVphy_CfgErrIntr for ERR_IRQ impl
+ * 1.6   gm   06/08/17 Added TX and RX MMCM locked handlers
  * </pre>
  *
 *******************************************************************************/
@@ -132,6 +133,8 @@ void XVphy_SetIntrHandler(XVphy *InstancePtr, XVphy_IntrHandlerType HandlerType,
 			XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE) ||
 		(HandlerType ==
 			XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE) ||
+		(HandlerType == XVPHY_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE) ||
+		(HandlerType == XVPHY_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE) ||
 		(HandlerType == XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT) ||
 		(HandlerType == XVPHY_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT));
 	Xil_AssertVoid(CallbackFunc != NULL);
@@ -173,6 +176,14 @@ void XVphy_SetIntrHandler(XVphy *InstancePtr, XVphy_IntrHandlerType HandlerType,
 							CallbackFunc;
 		InstancePtr->IntrRxClkDetFreqChangeCallbackRef =
 							CallbackRef;
+		break;
+	case XVPHY_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE:
+		InstancePtr->IntrTxMmcmLockHandler = CallbackFunc;
+		InstancePtr->IntrTxMmcmLockCallbackRef = CallbackRef;
+		break;
+	case XVPHY_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE:
+		InstancePtr->IntrRxMmcmLockHandler = CallbackFunc;
+		InstancePtr->IntrRxMmcmLockCallbackRef = CallbackRef;
 		break;
 	case XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT:
 		InstancePtr->IntrTxTmrTimeoutHandler = CallbackFunc;
@@ -244,6 +255,14 @@ void XVphy_InterruptHandler(XVphy *InstancePtr)
 		InstancePtr->IntrRxClkDetFreqChangeHandler(
 				InstancePtr->IntrRxClkDetFreqChangeCallbackRef);
 	}
+	if (IntrStatus & XVPHY_INTR_TXMMCMUSRCLK_LOCK_MASK) {
+		InstancePtr->IntrTxMmcmLockHandler(
+				InstancePtr->IntrTxMmcmLockCallbackRef);
+	}
+	if (IntrStatus & XVPHY_INTR_RXMMCMUSRCLK_LOCK_MASK) {
+		InstancePtr->IntrRxMmcmLockHandler(
+				InstancePtr->IntrRxMmcmLockCallbackRef);
+	}
 	if (IntrStatus & XVPHY_INTR_TXTMRTIMEOUT_MASK) {
 		InstancePtr->IntrTxTmrTimeoutHandler(
 				InstancePtr->IntrTxTmrTimeoutCallbackRef);
@@ -260,7 +279,7 @@ void XVphy_InterruptHandler(XVphy *InstancePtr)
  * to generate an ERR_IRQ event
  *
  * @param	InstancePtr is a pointer to the XVphy instance.
- *          ErrIrq is the IRQ type as define in XVphy_ErrIrqType
+ *          ErrIrq is the IRQ type as define in XVphy_ErrType
  *          Set is the flag to set or clear the ErrIrq param
  *
  * @return	None.
@@ -268,7 +287,7 @@ void XVphy_InterruptHandler(XVphy *InstancePtr)
  * @note	None.
  *
 *******************************************************************************/
-void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrIrqType ErrIrq, u8 Set)
+void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrType ErrIrq, u8 Set)
 {
 	u32 ErrIrqVal;
 	u32 WriteVal;

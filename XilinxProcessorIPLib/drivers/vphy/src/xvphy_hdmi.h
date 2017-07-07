@@ -50,6 +50,7 @@
  * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
  *                     Removed XVphy_HdmiMmcmStart API
  *                     Corrected GTPE2 DRU REFCLK range
+ * 1.6   gm   03/07/17 Added XVPHY_HDMI_GTXE2_DRU_LRATE_Q/CPLL definitions
  * </pre>
  *
 *******************************************************************************/
@@ -106,7 +107,9 @@
 #define XVPHY_HDMI_GTHE2_RX_MMCM_FVCO_MIN	600000000U
 #define XVPHY_HDMI_GTHE2_RX_MMCM_FVCO_MAX	1200000000U
 
-#define XVPHY_HDMI_GTXE2_DRU_LRATE		2000000000U
+#define XVPHY_HDMI_GTXE2_DRU_LRATE_QPLL	2000000000U
+#define XVPHY_HDMI_GTXE2_DRU_LRATE_CPLL	2500000000U
+#define XVPHY_HDMI_GTXE2_DRU_LRATE		2500000000U
 #define XVPHY_HDMI_GTXE2_DRU_REFCLK		125000000LL
 #define XVPHY_HDMI_GTXE2_DRU_REFCLK_MIN	124990000LL
 #define XVPHY_HDMI_GTXE2_DRU_REFCLK_MAX	125010000LL

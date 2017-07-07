@@ -1987,6 +1987,13 @@ Added XVphy_CfgCpllCalPeriodandTol API in xvphy_gthe4.c adn vphy_i.h
 Added Div in HdmiCfgCalcMmcmParam search algorithm in xvphy_hdmi.c
 Added DrpClkFreq in XVphy_Config
 
+vphy_v1_6:
+Marked XVphy_DrpRead & XVphy_DrpWrite as deprecated APIs
+Added XVphy_DrpRd & XVphy_DrpWr to replace the deprecated equivalent APIs
+Added XVphy_SetErrorCallback & XVphy_ErrorHandler APIs
+Adjusted GTXE2 CPLL DRU linerate to 2.5 Gbps
+
+
 vprocss_v2_1:
 Added new version 2.1
 Added optional color format conversion handling in scaler only topology
