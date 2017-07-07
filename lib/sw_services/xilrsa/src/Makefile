@@ -40,7 +40,6 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./include/ -I${INCLUDEDIR} 
 LIBRSA_DIR = .
-OUTS = *.o
 
 EXPORT_INCLUDE_DIR = $(LIBRSA_DIR)/include
 			
@@ -54,5 +53,4 @@ xilrsa_includes:
 	cp -r ${EXPORT_INCLUDE_DIR}/xilrsa.h ${INCLUDEDIR}
 
 clean:
-	rm -rf $(LIBRSA_DIR)/$(OUTS)
 	rm -rf $(RELEASEDIR)/$(LIB)
