@@ -58,6 +58,11 @@
  *                     Added mechanism to re-trigger GT TX reset when TX align
  *                       get stuck
  *                     Fixed c++ compiler warnings
+ * 1.6   gm   06/08/17 Prevented TX reset on bonded mode and when DRU is active
+ *                       in XVphy_HdmiGtRxResetDoneLockHandler API
+ *                     Added TX and RX MMCM Lock handling
+ *                     Improved TX initialization flow in bonded mode to
+ *                       reset GT TX only when PLL and MMCM are locked
  * </pre>
  *
 *******************************************************************************/
@@ -176,6 +181,14 @@ void XVphy_HdmiIntrHandlerCallbackInit(XVphy *InstancePtr)
 			XVPHY_INTR_HANDLER_TYPE_QPLL1_LOCK,
 			(XVphy_IntrHandler)XVphy_HdmiGtHandler, InstancePtr);
 
+	XVphy_SetIntrHandler(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE,
+			(XVphy_IntrHandler)XVphy_HdmiGtHandler, InstancePtr);
+
+	XVphy_SetIntrHandler(InstancePtr,
+			XVPHY_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE,
+			(XVphy_IntrHandler)XVphy_HdmiGtHandler, InstancePtr);
+
 	/* Clock Detector Interrupts */
 	XVphy_SetIntrHandler(InstancePtr,
 			XVPHY_INTR_HANDLER_TYPE_TX_CLKDET_FREQ_CHANGE,
@@ -248,6 +261,9 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 			 * TX state as well. */
 			if (XVphy_IsBonded(InstancePtr, 0,
 						XVPHY_CHANNEL_ID_CH1)) {
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+				if (XVphy_MmcmLocked(InstancePtr, 0, XVPHY_DIR_TX)) {
+#endif
 				/* GT TX reset. */
 				XVphy_ResetGtTxRx(InstancePtr, 0,
 						XVPHY_CHANNEL_ID_CHA,
@@ -260,6 +276,9 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 						XVPHY_CH2IDX(Id)].
 						TxState = XVPHY_GT_STATE_RESET;
 				}
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+				}
+#endif
 			}
 		}
 		else {
@@ -275,6 +294,9 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_QPLL_LOCK, 1);
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+			if (XVphy_MmcmLocked(InstancePtr, 0, XVPHY_DIR_TX)) {
+#endif
 
 			/* GT TX reset. */
 			XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
@@ -286,6 +308,9 @@ void XVphy_HdmiQpllLockHandler(XVphy *InstancePtr)
 				InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].
 					TxState = XVPHY_GT_STATE_RESET;
 			}
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+			}
+#endif
 		}
 		else {
 			/* Log, Lost lock */
@@ -449,16 +474,20 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 			 * TX state as well. */
 			if (XVphy_IsBonded(InstancePtr, 0,
 						XVPHY_CHANNEL_ID_CH1)) {
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+				if (XVphy_MmcmLocked(InstancePtr, 0, XVPHY_DIR_TX)) {
+#endif
 				/* GT TX reset. */
-				XVphy_ResetGtTxRx(InstancePtr, 0,
-						XVPHY_CHANNEL_ID_CHA,
+				XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 						XVPHY_DIR_TX, TRUE);
 
 				for (Id = Id0; Id <= Id1; Id++) {
-					InstancePtr->Quads[0].Plls[
-						XVPHY_CH2IDX(Id)].
+					InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].
 						TxState = XVPHY_GT_STATE_RESET;
 				}
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+				}
+#endif
 			}
 		}
 		else {
@@ -474,6 +503,9 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 		if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
 			/* Log, lock */
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_CPLL_LOCK, 1);
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+			if (XVphy_MmcmLocked(InstancePtr, 0, XVPHY_DIR_TX)) {
+#endif
 			/* GT TX reset. */
 			XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 					XVPHY_DIR_TX, FALSE);
@@ -482,6 +514,9 @@ void XVphy_HdmiCpllLockHandler(XVphy *InstancePtr)
 				InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].
 					TxState = XVPHY_GT_STATE_RESET;
 			}
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+			}
+#endif
 		}
 		else {
 			/* Log, Lost lock */
@@ -609,9 +644,10 @@ void XVphy_HdmiGtRxResetDoneLockHandler(XVphy *InstancePtr)
 		InstancePtr->HdmiRxReadyCallback(InstancePtr->HdmiRxReadyRef);
 	}
 
-	/* If the GT TX and RX are coupled, then update the GT TX state
-	 * as well. */
-	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
+	/* If the GT TX and RX are coupled and DRU is inactive, then update
+     * the GT TX state as well. */
+	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1) &&
+			!InstancePtr->HdmiRxDruIsEnabled) {
 		/* GT TX reset. */
 		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_TX, FALSE);
@@ -639,6 +675,13 @@ void XVphy_HdmiTxClkDetFreqChangeHandler(XVphy *InstancePtr)
 {
 	XVphy_PllType PllType;
 	u8 Id, Id0, Id1;
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	/* Ignore TX freq change when on bonded mode. */
+	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
+		return;
+	}
+#endif
 
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_TX_FREQ, 0);
 
@@ -758,24 +801,14 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 
 	/* When the GT TX and RX are coupled, then disable the QPLL. */
 	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
+		/* Mask the MMCM Lock */
+		XVphy_MmcmLockedMaskEnable(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
 		XVphy_PowerDownGtPll(InstancePtr, 0,
 			(PllType == XVPHY_PLL_TYPE_CPLL) ?
 			XVPHY_CHANNEL_ID_CMNA : XVPHY_CHANNEL_ID_CHA, TRUE);
 		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_TX, 1);
-//		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
-//			XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
-//					XVPHY_DIR_TX, TRUE);
-//		}
-
 	}
-
-	/* Disable RX MMCM */
-	//XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_RX, TRUE);
-	/* When the GT TX and RX are coupled, then disable the TX MMCM. */
-	//if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
-	//	XVphy_MmcmPowerDown(InstancePtr, 0, XVPHY_DIR_TX, TRUE);
-	//}
 
 	/* Assert GT RX reset */
 	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) ||
@@ -854,8 +887,14 @@ void XVphy_HdmiTxTimerTimeoutHandler(XVphy *InstancePtr)
 	/* Determine which channel(s) to operate on. */
 	ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_TX, PllType);
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	if (!XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
+#endif
 	/* Start TX MMCM. */
 	XVphy_MmcmStart(InstancePtr, 0, XVPHY_DIR_TX);
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	}
+#endif
 
 	/* Enable PLL. */
 	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
@@ -940,11 +979,6 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	/* Set RX parameters. */
 	Status = XVphy_SetHdmiRxParam(InstancePtr, 0, ChId);
 	if (Status != XST_SUCCESS) {
-		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTXE2) {
-			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_PLL_LAYOUT, 1);
-			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERRIRQ_PLL_LAYOUT, 1);
-		}
-
 		for (Id = Id0; Id <= Id1; Id++) {
 			InstancePtr->Quads[0].Plls[XVPHY_CH2IDX(Id)].RxState =
 				XVPHY_GT_STATE_IDLE;
@@ -956,9 +990,6 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 		}
 
 		return;
-	}
-	else {
-		XVphy_CfgErrIntr(InstancePtr, XVPHY_ERRIRQ_PLL_LAYOUT, 0);
 	}
 
 	/* Enable PLL. */
@@ -1038,10 +1069,14 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 	if (XVphy_IsBonded(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1)) {
 		if (InstancePtr->HdmiRxDruIsEnabled) {
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_UNBONDED, 1);
-			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERRIRQ_PLL_LAYOUT, 1);
+			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_BONDED_DRU, 1);
+			XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_BONDED_DRU);
+			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_PLL_LAYOUT, 1);
+			XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_PLL_LAYOUT);
 		}
 		else {
-			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERRIRQ_PLL_LAYOUT, 0);
+			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_BONDED_DRU, 0);
+			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_PLL_LAYOUT, 0);
 		}
 		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 				XVPHY_DIR_TX, 0);
@@ -1052,6 +1087,53 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 			XVPHY_GT_STATE_LOCK;
 	}
 }
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+/*****************************************************************************/
+/**
+* This function is the handler for TX MMCM Lock events.
+*
+* @param	InstancePtr is a pointer to the VPHY instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_HdmiTxMmcmLockHandler(XVphy *InstancePtr)
+{
+	XVphy_ChannelId ChId;
+	XVphy_PllType TxPllType;
+	u8 Id, Id0, Id1;
+
+	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_TXPLL_LOCK, 1);
+
+	/* Determine PLL type. */
+	TxPllType = XVphy_GetPllType(InstancePtr, 0, XVPHY_DIR_TX,
+		XVPHY_CHANNEL_ID_CH1);
+	/* Determine which channel(s) to operate on. */
+	ChId = XVphy_GetRcfgChId(InstancePtr, 0, XVPHY_DIR_TX, TxPllType);
+
+	/* Reset GT TX when associated PLL is Locked */
+	if (XVphy_IsPllLocked(InstancePtr, 0, ChId) == XST_SUCCESS) {
+
+		if (!XVphy_IsBonded(InstancePtr, 0,
+					XVPHY_CHANNEL_ID_CH1)) {
+			/* GT TX reset. */
+			XVphy_ResetGtTxRx(InstancePtr, 0,
+					XVPHY_CHANNEL_ID_CHA,
+					XVPHY_DIR_TX, FALSE);
+		}
+		XVphy_Ch2Ids(InstancePtr, XVPHY_CHANNEL_ID_CHA,
+				&Id0, &Id1);
+		for (Id = Id0; Id <= Id1; Id++) {
+			InstancePtr->Quads[0].Plls[
+				XVPHY_CH2IDX(Id)].
+				TxState = XVPHY_GT_STATE_RESET;
+		}
+	}
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -1074,7 +1156,8 @@ void XVphy_HdmiGtHandler(XVphy *InstancePtr)
 
 	EventMask = XVPHY_INTR_QPLL0_LOCK_MASK | XVPHY_INTR_CPLL_LOCK_MASK |
 		XVPHY_INTR_QPLL1_LOCK_MASK | XVPHY_INTR_TXRESETDONE_MASK |
-		XVPHY_INTR_TXALIGNDONE_MASK | XVPHY_INTR_RXRESETDONE_MASK;
+		XVPHY_INTR_TXALIGNDONE_MASK | XVPHY_INTR_RXRESETDONE_MASK |
+		XVPHY_INTR_TXMMCMUSRCLK_LOCK_MASK | XVPHY_INTR_RXMMCMUSRCLK_LOCK_MASK;
 
 	u8 QuadId = 0;
 
@@ -1087,6 +1170,11 @@ void XVphy_HdmiGtHandler(XVphy *InstancePtr)
 	TxStatePtr = &InstancePtr->Quads[QuadId].Ch1.TxState;
 	RxStatePtr = &InstancePtr->Quads[QuadId].Ch1.RxState;
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	if (Event & XVPHY_INTR_TXMMCMUSRCLK_LOCK_MASK) {
+		XVphy_HdmiTxMmcmLockHandler(InstancePtr);
+	}
+#endif
 	if ((Event & XVPHY_INTR_QPLL0_LOCK_MASK) ||
 	    (Event & XVPHY_INTR_QPLL1_LOCK_MASK)) {
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)

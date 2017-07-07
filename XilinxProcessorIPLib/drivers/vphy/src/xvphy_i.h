@@ -49,6 +49,7 @@
  * 1.0   gm   11/09/16 Initial release.
  * 1.4   gm   11/24/16 Made debug log optional (can be disabled via makefile)
  * 1.5   gm   02/05/17 Added XVphy_CfgCpllCalPeriodandTol API for US+ devices
+ * 1.6   gm   06/08/17 Added XVphy_MmcmLocked and XVphy_ErrorHandler APIs
  * </pre>
  *
 *******************************************************************************/
@@ -125,6 +126,7 @@ void XVphy_MmcmReset(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Hold);
 void XVphy_MmcmLockedMaskEnable(XVphy *InstancePtr, u8 QuadId,
 		XVphy_DirectionType Dir, u8 Enable);
+u8 XVphy_MmcmLocked(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir);
 void XVphy_SetBufgGtDiv(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Div);
 /* xvphy.c Miscellaneous control. */
 u32 XVphy_PowerDownGtPll(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
@@ -136,10 +138,12 @@ void XVphy_SetIntrHandler(XVphy *InstancePtr, XVphy_IntrHandlerType HandlerType,
 		XVphy_IntrHandler CallbackFunc, void *CallbackRef);
 void XVphy_IntrEnable(XVphy *InstancePtr, XVphy_IntrHandlerType Intr);
 void XVphy_IntrDisable(XVphy *InstancePtr, XVphy_IntrHandlerType Intr);
-void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrIrqType ErrIrq, u8 Set);
+void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrType ErrIrq, u8 Set);
 
 u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
+
+void XVphy_ErrorHandler(XVphy *InstancePtr, XVphy_ErrType ErrIrqType);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
