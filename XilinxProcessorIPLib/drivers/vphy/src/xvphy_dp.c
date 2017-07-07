@@ -49,6 +49,8 @@
  * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
  *                     Added XVphy_GtUserRdyEnable for TX and RX in
  *                        XVphy_DpInitialize API
+ * 1.6   gm   30/06/17 Disable intelligent refclk selection for GTHE3 in
+ *                        XVphy_DpInitialize
  * </pre>
  *
 *******************************************************************************/
@@ -101,6 +103,11 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 
 	/* Suppress Warning Messages */
 	LinkRate = LinkRate;
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
+	u16 DrpVal;
+#endif
+    u32 Status = XST_SUCCESS;
 
 	/* Setup the instance */
 	(void)memset((void *)InstancePtr, 0, sizeof(XVphy));
@@ -212,11 +219,19 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 	XVphy_PllInitialize(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
 			QpllRefClkSel, CpllRefClkSel, TxPllSelect, RxPllSelect);
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
+	/* Disable Intelligent Reference Clock Selection */
+	Status = XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+				0x98, &DrpVal);
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+				0x98, (DrpVal | 1<<6));
+#endif
+
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
 	XVphy_LogWrite(InstancePtr, (XVPHY_LOG_EVT_INIT), 1);
 
-	return (XST_SUCCESS);
+	return (Status);
 
 }
 

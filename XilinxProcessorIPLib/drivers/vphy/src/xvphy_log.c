@@ -50,6 +50,8 @@
  * 1.2   gm            Added log events for debugging
  * 1.4   gm   11/24/16 Made debug log optional (can be disabled via makefile)
  *                     Added XVPHY_LOG_EVT_TX_ALIGN_TMOUT log event
+ * 1.6   gm   06/08/17 Added XVPHY_LOG_EVT_HDMI20_ERR log event
+ *                     Added Red & Yellow printing for errors and warnings
  * </pre>
  *
 *******************************************************************************/
@@ -58,6 +60,11 @@
 
 #include "xvphy.h"
 #include "xvphy_i.h"
+
+/************************** Constant Definitions *****************************/
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 /**************************** Function Prototypes *****************************/
 
@@ -419,55 +426,68 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 			break;
 		case (XVPHY_LOG_EVT_DRU_EN):
 			if (Data == 1) {
-				xil_printf("DRU enable\r\n");
+				xil_printf("RX DRU enable\r\n");
 			}
 			else {
-				xil_printf("DRU disable\r\n");
+				xil_printf("RX DRU disable\r\n");
 			}
 			break;
 		case (XVPHY_LOG_EVT_GT_PLL_LAYOUT):
-				xil_printf("Error! Couldn't find the correct GT "
-						"parameters for this video resolution.\n\r");
-				xil_printf("Try another GT PLL layout.\n\r");
+				xil_printf(ANSI_COLOR_RED "Error! "
+						"Couldn't find the correct GT "
+						"parameters for this video resolution. "
+						"Try another GT PLL layout."
+						ANSI_COLOR_RESET "\n\r");
 			break;
 		case (XVPHY_LOG_EVT_GT_UNBONDED):
-				xil_printf("WARNING: "
-						"Transmitter cannot be used on\r\n");
-				xil_printf("         "
-						"bonded mode when DRU is enabled\r\n");
-				xil_printf("Switch to unbonded PLL layout\r\n");
+				xil_printf(ANSI_COLOR_RED "Error! "
+						"Transmitter cannot be used on "
+						"bonded mode when DRU is enabled. "
+						"Switch to unbonded PLL layout"
+						ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_1PPC_ERR):
-				xil_printf("Error! The Video PHY cannot support this video ");
-				xil_printf("format at PPC = 1\r\n");
+				xil_printf(ANSI_COLOR_RED "Error! The VPHY "
+						"cannot support this video "
+						"format at PPC = 1" ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_PPC_MSMTCH_ERR):
-				xil_printf("Warning: HDMI TX SS PPC value, doesn't match with"
-					" VPhy PPC value\r\n");
+				xil_printf(ANSI_COLOR_RED "Error! HDMI TX SS PPC "
+						"value, doesn't match with VPhy PPC value"
+						ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_VDCLK_HIGH_ERR):
-				xil_printf("Error! GTPE2 Video PHY cannot"
-								"support resolutions");
-				xil_printf("\r\n\twith video clock > 148.5 MHz.\r\n");
+				xil_printf(ANSI_COLOR_RED "Error! GTPE2 Video PHY "
+						"cannot support resolutions with video clock "
+						"> 148.5 MHz." ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_NO_DRU):
-				xil_printf("Low resolution video isn't supported in "
-						"this version.\r\n No DRU instance found.\r\n");
+				xil_printf(ANSI_COLOR_YELLOW "Warning: No DRU instance. "
+						"Low resolution video isn't supported in this "
+						"design." ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_GT_QPLL_CFG_ERR):
-				xil_printf("QPLL config not found!\r\n");
+				xil_printf(ANSI_COLOR_RED "Error! QPLL config not found!"
+						ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_GT_CPLL_CFG_ERR):
-				xil_printf("CPLL config not found!\r\n");
+				xil_printf(ANSI_COLOR_RED "Error! CPLL config not found!"
+						ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_VD_NOT_SPRTD_ERR):
-				xil_printf("Warning: This video format is not "
-								"supported by this device\r\n");
-				xil_printf("         "
-								"Change to another format\r\n");
+				xil_printf(ANSI_COLOR_YELLOW "Warning: This video format "
+						"is not supported by this device. "
+						"Change to another format"
+						ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_MMCM_ERR):
-				xil_printf("MMCM config not found!\r\n");
+				xil_printf(ANSI_COLOR_RED "Error! MMCM config not found!"
+						ANSI_COLOR_RESET "\r\n");
+			break;
+		case (XVPHY_LOG_EVT_HDMI20_ERR):
+				xil_printf(ANSI_COLOR_RED "Error!  The Video PHY doesn't "
+						"support HDMI 2.0 line rates"
+						ANSI_COLOR_RESET "\r\n");
 			break;
 		default:
 			xil_printf("Unknown event\r\n");
