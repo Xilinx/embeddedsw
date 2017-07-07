@@ -49,6 +49,7 @@
 *                   Removed DP159 bit error count code. Used DP159 bit error
 *                   count function from Video Common library.
 * 4.00 aad 11/14/16 Modified to use DP159 from dprxss
+* 4.01 aad 07/06/17 Added MAUD and NAUD to MSA prints.
 * </pre>
 *
 ******************************************************************************/
@@ -234,6 +235,8 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 			"\tUser Pixel Width               (0x010) : %d\n\r"
 			"\tM Vid                          (0x530) : %d\n\r"
 			"\tN Vid                          (0x534) : %d\n\r"
+			"\tM Aud			  (0x324) : %d\n\r"
+			"\tN Aud			  (0x328) : %d\n\r"
 			"\tVB-ID                          (0x538) : %d\n\r",
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_HTOTAL),
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VTOTAL),
@@ -250,6 +253,8 @@ void XDpRxSs_ReportMsaInfo(XDpRxSs *InstancePtr)
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_USER_PIXEL_WIDTH),
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_MVID),
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_NVID),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_MAUD),
+		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_AUDIO_NAUD),
 		XDp_ReadReg(RxConfig->BaseAddr, XDP_RX_MSA_VBID));
 
 	xil_printf("\n\r");
