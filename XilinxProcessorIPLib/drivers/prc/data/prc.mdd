@@ -36,7 +36,7 @@ BEGIN driver prc
   OPTION supported_peripherals = (prc);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.1;
+  OPTION VERSION = 1.2;
   OPTION NAME = prc;
 
 END driver

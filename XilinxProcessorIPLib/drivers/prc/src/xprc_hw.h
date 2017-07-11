@@ -46,6 +46,10 @@
 * Ver  Who    Date        Changes
 * --- ---- ------------  ------------------------------------------------
 * 1.0  ms   07/18/2016   First release
+* 1.2  ms   07/11/17     Defined "XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR" and
+*                        "XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR" status error
+*                        macros and modified the value of macro
+*                        "XPRC_SR_BS_COMPATIBLE_ERROR".
 *
 * </pre>
 *
@@ -215,8 +219,12 @@ extern "C" {
  */
 #define XPRC_SR_ERROR_MASK		(0x78)	/**< Error Codes Mask */
 #define XPRC_SR_UNKNOWN_ERROR		(15)	/**< Unknown Error */
-#define XPRC_SR_BS_COMPATIBLE_ERROR	(7)	/**< Bitstream Compatible
+#define XPRC_SR_BS_COMPATIBLE_ERROR	(14)	/**< Bitstream Compatible
 						  *  Error */
+#define XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR	(8) /**< Bad compression
+						  *  format error */
+#define XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR	(7) /**< Bad compression
+						  *  size error */
 #define XPRC_SR_FETCH_AND_CP_LOST_ERROR	(6)	/**< Fetch and Lost Error */
 #define XPRC_SR_FETCH_AND_BS_ERROR	(5)	/**< Fetch and Bitstream
 						  *  Error */
