@@ -62,6 +62,8 @@
 * 5.5  sk   01/14/16 Used 4byte erase command in 4 byte addressing mode.
 *      sk   03/02/16 Used 3byte command with 4 byte addressing for Micron.
 * 5.7  rk	27/07/16 Added the subsector erase command.
+* 5.9  nsk  07/11/17 Add Micron 4Byte addressing support in SectorErase, CR#980169
+*
 * </pre>
 *
 ******************************************************************************/
@@ -369,7 +371,8 @@ static int SectorErase(XIsf *InstancePtr, u32 Address)
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 	if (InstancePtr->FourByteAddrMode == TRUE) {
-		if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)
+		if (InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_SPANSION ||
+		    InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON)
 			InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_4BYTE_SECTOR_ERASE;
 		else
 			InstancePtr->WriteBufPtr[BYTE1] = XISF_CMD_SECTOR_ERASE;

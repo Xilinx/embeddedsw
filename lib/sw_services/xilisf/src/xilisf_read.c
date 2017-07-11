@@ -60,6 +60,8 @@
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * 5.5  sk   01/14/16 Used 4byte Fast read command in 4 byte addressing mode.
 * 5.8  nsk  03/02/17 Update WriteBuffer index to 10 in FastReadData, CR#968476
+* 5.9  nsk  97/11/17 Add Micron 4Byte addressing support in Xisf_Read, CR#980169
+*
 * </pre>
 *
 ******************************************************************************/
@@ -312,12 +314,26 @@ int XIsf_Read(XIsf *InstancePtr, XIsf_ReadOperation Operation,
 		case XISF_QUAD_OP_FAST_READ:
 			ReadParamPtr = (XIsf_ReadParam*)(void *) OpParamPtr;
 			Xil_AssertNonvoid(ReadParamPtr != NULL);
+#if (!defined(XPAR_XISF_INTERFACE_PSQSPI))
+			if (InstancePtr->FourByteAddrMode == TRUE) {
+				Status = FastReadData(InstancePtr,
+							XISF_CMD_FAST_READ_4BYTE,
+							ReadParamPtr->Address,
+							ReadParamPtr->ReadPtr,
+							ReadParamPtr->NumBytes,
+							ReadParamPtr->NumDummyBytes);
+			} else {
+#endif
 				Status = FastReadData(InstancePtr,
 					XISF_CMD_QUAD_OP_FAST_READ,
 					ReadParamPtr->Address,
 					ReadParamPtr->ReadPtr,
 					ReadParamPtr->NumBytes,
 					ReadParamPtr->NumDummyBytes);
+#if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
+	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
+			}
+#endif
 			break;
 
 		case XISF_QUAD_IO_FAST_READ:
