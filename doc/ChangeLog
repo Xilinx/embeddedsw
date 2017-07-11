@@ -13,6 +13,10 @@ CR#979636 lwip stop's working as soon as something is plugged to it's
 AXI stream bus.
 CR#979023 Intr fifo example failed to compile.
 
+prc_v1_2:
+Added a new parameter "Cp_Compression" and status error flags
+Updated api.tcl. Fix for CR-978747.
+
 standalone_v6_4:
 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
 of ARM 32 bit processors.
