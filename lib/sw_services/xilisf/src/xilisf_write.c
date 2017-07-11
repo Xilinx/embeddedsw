@@ -59,6 +59,8 @@
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * 5.5  sk   01/14/16 Used 4byte program command in 4 byte addressing mode.
 *      sk   03/02/16 Used 3byte command with 4 byte addressing for Micron.
+* 5.9  nsk  07/11/17 Add Micron 4Byte addressing support in Xisf_Write, CR#980169
+*
 * </pre>
 *
 ******************************************************************************/
@@ -243,7 +245,8 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 			if ((InstancePtr->FourByteAddrMode == TRUE) &&
-				(InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)){
+				(InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_SPANSION ||
+				 InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON)){
 				Status = WriteData(InstancePtr,
 					XISF_CMD_PAGEPROG_WRITE_4BYTE,
 					WriteParamPtr->Address,

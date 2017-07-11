@@ -503,6 +503,7 @@
 *                    CR# 868893.
 * 5.7  rk   27/07/16 Added the SubSector erase option.
 * 5.8  nsk  03/02/17 Update WriteBuffer index to 10 in FastReadData, CR#968476
+* 5.9  nsk  07/11/17 Add 4Byte addressing support for Micron, CR#980169
 *
 * </pre>
 *
