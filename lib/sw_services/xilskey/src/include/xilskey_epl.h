@@ -74,6 +74,9 @@ extern "C" {
  *  CRC of AES key with all zeros
  */
 #define XSK_EFUSEPL_CRC_FOR_AES_ZEROS					(0x621C42AA)
+
+/* CRC of AES key with all zeros for Ultrascale plus */
+#define XSK_EFUSEPL_CRC_FOR_AES_ZEROS_ULTRA_PLUS			(0x3117503A)
 /**
  * AES key String length
  */
