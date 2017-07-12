@@ -447,6 +447,7 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xparameters.h"
 /************************** Constant Definitions *****************************/
 /**************************** Type Definitions ******************************/
 /***************** Macros (Inline Functions) Definitions ********************/
@@ -553,6 +554,13 @@ extern "C" {
  * ---------------------------------------------
  */
 #else
+
+/* Definition of CRC of all zeros AES key */
+#ifdef XPAR_XSK_MICROBLAZE_KINTEX_ULTRA_PLUS
+#define XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS	XSK_EFUSEPL_CRC_FOR_AES_ZEROS_ULTRA_PLUS
+#else
+#define XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS	XSK_EFUSEPL_CRC_FOR_AES_ZEROS
+#endif
 
 /**
  * Following is the define to select if the user wants to program control bits
@@ -715,7 +723,7 @@ extern "C" {
 /**
  * Following define is CRC value of expected AES key
  */
-#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY	0x621C42AA
+#define	XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY		XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
 
 #endif
 
