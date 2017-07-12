@@ -830,8 +830,14 @@ u8 XilSKey_EfusePl_ProgramControlRegister(u8 *CtrlData)
 		}
 	}
 	/* Programming for Ultrascale Series */
-	else {
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
 		if (XilSKey_EfusePl_ProgramControlReg_Ultra(CtrlData) != XST_SUCCESS) {
+			return XST_FAILURE;
+		}
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		if (XilSKey_EfusePl_ProgramControlReg_Ultra_Plus(CtrlData) !=
+						XST_SUCCESS) {
 			return XST_FAILURE;
 		}
 	}
@@ -3301,4 +3307,95 @@ static inline u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
 	}
 
 	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+*
+* Programs PL eFUSE Control Register of Ultrascale.
+*
+*
+*
+* @param	CtrlData - Control data pointer
+*
+* @return
+*
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note		Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra_Plus(u8 *CtrlData)
+{
+	u32 Index;
+	u32 BitPos;
+	u8 Row;
+
+	/**
+	 * check if FUSE_CNTRL allows us to write FUSE_CNTRL eFUSE
+	 * array for Ultrascale series.
+	 */
+	if (CtrlBitsUltra[XSK_EFUSEPL_CNTRL_DISABLE_CNTRL_WR_ULTRA]
+							== TRUE) {
+		/**
+		 * This means we cannot program FUSE_CNTRL register
+		 */
+		ErrorCode = XSK_EFUSEPL_ERROR_FUSE_CNTRL_WRITE_DISABLED;
+		return XST_FAILURE;
+	}
+
+	for(Index = 0; Index < XSK_EFUSEPL_CNTRL_MAX_BITS_ULTRA;
+							Index++) {
+		if (Index >= XSK_EFUSEPL_ARRAY_MAX_COL_ULTRA_PLUS) {
+			BitPos = Index - XSK_EFUSEPL_ARRAY_MAX_COL_ULTRA_PLUS;
+			Row = XSK_EFUSEPL_CNTRL_ROW_END_ULTRA_PLUS;
+		}
+		else {
+			BitPos = Index;
+			Row = XSK_EFUSEPL_CNTRL_ROW_START_ULTRA_PLUS;
+		}
+
+		if((Index == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
+		(Index == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
+		((Index >= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA)
+		&& (Index <
+			XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA))) {
+			continue;
+		}
+
+		if((CtrlData[Index] == TRUE) &&
+			(CtrlBitsUltra[Index] == FALSE)) {
+			if(XilSKey_EfusePl_ProgramBit_Ultra(
+				Row,
+				BitPos, XSK_EFUSEPL_NORMAL_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (XilSkey_EfusePl_VerifyBit_Ultra(
+				Row,
+				BitPos, XSK_EFUSEPL_NORMAL_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			if(XilSKey_EfusePl_ProgramBit_Ultra(
+				Row,
+				BitPos, XSK_EFUSEPL_REDUNDANT_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+			if (XilSkey_EfusePl_VerifyBit_Ultra(
+				Row,
+				BitPos, XSK_EFUSEPL_REDUNDANT_ULTRA,
+				XSK_EFUSEPL_PAGE_0_ULTRA) != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+		}
+	}
+
+	return XST_SUCCESS;
+
 }
