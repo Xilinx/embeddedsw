@@ -116,5 +116,7 @@
 *                      Modified macros in header file for secure control bits
 *                      Provided support for programming LBIST, LPD and FPD SC
 *                      enable bits and some of the reserved bits.
+* 6.3    vns  07/12/17 Added support for programming eFUSE and BBRAM of kintex
+*                      Ultrascale plus.
 *
  ********************************************************************************/
