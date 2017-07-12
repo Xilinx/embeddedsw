@@ -2088,7 +2088,16 @@ int JtagWrite_Ultrascale(u8 Row, u8 Bit, u8 Page, u8 Redundant)
 
 	/* Prepare FUSE_CTS data */
 	wrBuffer [0] = (((Bit & 0x1) << 7) | ((Row << 2)| 0x3));
-	wrBuffer [1] = ((Bit >> 1) & 0xF) | ((0x20 << Redundant) | (Page << 4));
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+		wrBuffer [1] = ((Bit >> 1) & 0xF) | ((0x20 << Redundant) |
+				(Page << 4));
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		wrBuffer [1] = ((Bit >> 1) & 0xF) | (Page << 4);
+		if (Redundant == 0x1U) {
+			wrBuffer [1] = wrBuffer[1] | (0x8);
+		}
+	}
 	wrBuffer [2] = 0x00;
 	wrBuffer [3] = 0x00;
 	/* Magic word */
@@ -2151,6 +2160,8 @@ SKIP_HARDWARE:
 *		Normal bit or Redundant bit.
 *		- Redundant	- XSK_EFUSEPL_REDUNDANT_ULTRA
 *		- Normal	- XSK_EFUSEPL_NORMAL_ULTRA
+*		This variable is not valid for Ultrascale plus as each row
+*		contains both redundant and normal bits upper 16 are redundant.
 *
 * @return	None.
 *
@@ -2180,7 +2191,12 @@ void JtagRead_Ultrascale(u8 Row, u32 *RowData, u8 MarginOption,
 
 	/*prepare FUSE_CTS data. */
 	WrBuffer [0] = ((Row << 2)| 0x1);	/* Select the row number */
-	WrBuffer [1] = (0x20 << Redundant) | (Page << 4);
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+		WrBuffer [1] = (0x20 << Redundant) | (Page << 4);
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		WrBuffer [1] = (Page << 4);
+	}
 				/* Page and Redundant/normal bit selection */
 	WrBuffer [2] = MarginOption;
 	WrBuffer [3] = 0x00;
@@ -2338,6 +2354,8 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 	u32 Row;
 	u32 Index;
 	u8 WrBuf[8];
+	u8 AesRowStart;
+	u8 AesRowEnd;
 
 	/* Go to TLR to clear FUSE_CTS */
 	jtag_navigate (g_port, JS_RESET);
@@ -2348,10 +2366,18 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
 
 	/* Prepare FUSE_CTS data. */
-	WrBuffer [0] = 0x00;
-	WrBuffer [1] = 0x80;
-	WrBuffer [2] = MarginOption;
-	WrBuffer [3] = 0x01;
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+		WrBuffer [0] = 0x00;
+		WrBuffer [1] = 0x80;
+		WrBuffer [2] = MarginOption;
+		WrBuffer [3] = 0x01;
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		WrBuffer [0] = 0x00;
+		WrBuffer [1] = 0x00;
+		WrBuffer [2] = 0x01 | (MarginOption << 1);
+		WrBuffer [3] = 0x80;
+	}
 	/* Magic word. */
 	WrBuffer [4] = 0xAC;
 	WrBuffer [5] = 0x28;
@@ -2379,10 +2405,23 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 	WrBuffer [0] = 0x30; /* FUSE_CTS instruction */
 	jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuffer, NULL, JS_DRSELECT);
 
-	WrBuffer [0] = 0x01;
-	WrBuffer [1] = 0x00;
-	WrBuffer [2] = MarginOption;
-	WrBuffer [3] = 0x01;
+
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+		WrBuffer [0] = 0x01;
+		WrBuffer [1] = 0x00;
+		WrBuffer [2] = MarginOption;
+		WrBuffer [3] = 0x01;
+		AesRowStart = 20;
+		AesRowEnd = 29;
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		WrBuffer [0] = 0x01;
+		WrBuffer [1] = 0x00;
+		WrBuffer [2] = 0x01 | (MarginOption << 1);
+		WrBuffer [3] = 0x80;
+		AesRowStart = 5;
+		AesRowEnd = 22;
+	}
 	/* Magic word. */
 	WrBuffer [4] = 0xAC;
 	WrBuffer [5] = 0x28;
@@ -2395,16 +2434,24 @@ u32 JtagAES_Check_Ultrascale(u32 *Crc, u8 MarginOption)
 	 * Repeat for all AES key Rows 20-27 and repeat one extra read
 	 * for getting CRC back.
 	 */
-	for (Row = 20; Row < 29; Row++) {
+	for (Row = AesRowStart; Row < AesRowEnd; Row++) {
 		WrBuf[0] = 0x30;
 		Bits = 6;
 		jtag_shift (g_port, ATOMIC_IR_SCAN, Bits, WrBuf, NULL,
 							JS_DRSELECT);
 
-		WrBuffer [0] = (Row << 2) | 0x1;	/* Select row number */
-		WrBuffer [1] = 0x00;
-		WrBuffer [2] = MarginOption;
-		WrBuffer [3] = 0x01;
+		if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+			WrBuffer [0] = (Row << 2) | 0x1;/* Select row number */
+			WrBuffer [1] = 0x00;
+			WrBuffer [2] = MarginOption;
+			WrBuffer [3] = 0x01;
+		}
+		if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+			WrBuffer [0] = (Row << 2) | 0x1;/* Select row number */
+			WrBuffer [1] = 0x00;
+			WrBuffer [2] = 0x01 | (MarginOption << 1);
+			WrBuffer [3] = 0x80;
+		}
 		/* Magic word */
 		WrBuffer [4] = 0xAC;
 		WrBuffer [5] = 0x28;
