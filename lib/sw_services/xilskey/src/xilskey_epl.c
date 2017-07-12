@@ -412,6 +412,11 @@ static inline u8 XilSkey_EfusePl_VerifyBit_Ultra(u8 Row, u8 Bit, u8 Redundant,
 								u8 Page);
 static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(u8 *UserFuses_Write,
 					u8 *UserFuses_TobePrgrmd, u8 Size);
+static inline u8 XilSKey_EfusePl_ProgramControlReg_Ultra_Plus(u8 *CtrlData);
+static inline u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
+		u8 Bit, u8 Redundant, u8 Page);
+static inline u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
+						u8 *RowData, u8 Page);
 /**
  * 	JTAG Server Initialization routine
  */
@@ -1771,6 +1776,7 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 {
 	u8 RowData[XSK_EFUSEPL_ARRAY_MAX_COL]={0};
 	u8 RowDataBits[XSK_EFUSEPL_ARRAY_MAX_COL] = {0};
+	u32 Status;
 
 	/**
 	 * check if row_data is not NULL
@@ -1782,75 +1788,55 @@ static inline u8 XilSKey_EfusePl_ReadBit_Ultra(u8 Row, u8 Bit, u8 MarginOption,
 	/**
 	 *Check if the row position is valid.
 	 */
-	 /* If Row is AES can't read directly need to calculate CRC */
-	 if ((Page == XSK_EFUSEPL_PAGE_0_ULTRA) &&
-		((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
-		(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA))) {
-		return XST_FAILURE;
-	}
-	if(((Row > XSK_EFUSEPL_USER_ROW_ULTRA) ||
-		((Row < XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
-		 (Row > XSK_EFUSEPL_SEC_ROW_ULTRA)) ||
-		((Row < XSK_EFUSEPL_SEC_ROW_ULTRA) &&
-		 (Row > XSK_EFUSEPL_DNA_ROW_ULTRA)) ||
-		 ((Row < XSK_EFUSEPL_DNA_ROW_ULTRA) &&
-		 (Row > XSK_EFUSEPL_CNTRL_ROW_ULTRA))) &&
-		 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
-		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
-		return XST_FAILURE;
-	}
-
-	if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
-		((Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA) &&
-		 (Row > XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA))) &&
-			(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
-		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
-		return XST_FAILURE;
-	}
-
-	/**
-	 * Check if the bit position is valid.
-	 */
-	if (Bit > XSK_EFUSEPL_END_BIT_IN_A_ROW_ULTRA) {
-		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
-		return XST_FAILURE;
-	}
-
-	/**
-	 * If row=1 then bit should be either 0 to 2 and 5 to 9 and 15 to 17
-	 * rest all are not supported
-	 */
-	if((Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) &&
-		(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
-		if((Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
-		(Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
-		((Bit >=
-		 XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA) &&
-		 (Bit <=
-		 XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA)) ||
-		(Bit > XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA)) {
-			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+		 /* If Row is AES can't read directly need to calculate CRC */
+		 if ((Page == XSK_EFUSEPL_PAGE_0_ULTRA) &&
+			((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+			(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA))) {
 			return XST_FAILURE;
 		}
+		Status = XilSKey_EfusePl_Ultra_Check(Row, Bit,
+						Redundant, Page);
+		if (Status != XST_SUCCESS) {
+			return Status;
+		}
 	}
-	/**
-	 * If row = 10 then bits should be supported from 0 to 5
-	 */
-	 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA) &&
-		 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) &&
-		 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
-		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
-			return XST_FAILURE;
-	 }
+
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		 /* If Row is AES can't read directly need to calculate CRC */
+		 if ((Page == XSK_EFUSEPL_PAGE_0_ULTRA) &&
+			((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA_PLUS) &&
+			(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA_PLUS))) {
+			 return XST_FAILURE;
+		}
+		Status = XilSKey_EfusePl_Ultra_Check(Row, Bit,
+								Redundant, Page);
+		if (Status != XST_SUCCESS) {
+				return Status;
+		}
+	}
+
 
 
 	if(XilSKey_EfusePl_ReadRow_Ultra(Row, MarginOption,RowData,
 					Redundant, Page) != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
+
 	XilSKey_Efuse_ConvertBitsToBytes(RowData, RowDataBits, 32);
 
-	*BitData = RowDataBits[Bit];
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+		*BitData = RowDataBits[Bit];
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		if (Redundant == 1) {
+			*BitData = RowDataBits[
+			   XSK_EFUSEPL_ARRAY_MAX_COL_ULTRA_PLUS + Bit];
+		}
+		else {
+			*BitData = RowDataBits[Bit];
+		}
+	}
 
 	return XST_SUCCESS;
 }
@@ -1881,61 +1867,10 @@ static inline u8 XilSKey_EfusePl_ProgramBit_Ultra(u8 Row, u8 Bit, u8 Redundant, 
 
 	u8 Status;
 
-	/**
-	 *Check if the row position is valid.
-	 */
-	if (((Row > XSK_EFUSEPL_USER_ROW_ULTRA) ||
-		((Row < XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
-		(Row > XSK_EFUSEPL_SEC_ROW_ULTRA)) ||
-		((Row < XSK_EFUSEPL_SEC_ROW_ULTRA) &&
-		 (Row > XSK_EFUSEPL_DNA_ROW_ULTRA)) ||
-		 ((Row < XSK_EFUSEPL_DNA_ROW_ULTRA) &&
-		 (Row > XSK_EFUSEPL_CNTRL_ROW_ULTRA))) &&
-			 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
-		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
-		return XST_FAILURE;
+	Status = XilSKey_EfusePl_Ultra_Check(Row, Bit, Redundant, Page);
+	if (Status != XST_SUCCESS) {
+		return Status;
 	}
-
-	if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
-		((Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA) &&
-		 (Row > XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA))) &&
-				(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
-		ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
-		return XST_FAILURE;
-	}
-
-	/**
-	 * Check if the bit position is valid.
-	 */
-	if (Bit > XSK_EFUSEPL_END_BIT_IN_A_ROW_ULTRA) {
-		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
-		return XST_FAILURE;
-	}
-
-	/**
-	 * If row = 1 then bit should be either 0 to 2 and 5 to 9 and 15
-	 * rest all are not supported
-	 */
-	if((Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) &&
-			(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
-		if((Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
-		(Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
-		((Bit >= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA) &&
-		(Bit <= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA)) ||
-		(Bit > XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA)) {
-			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
-			return XST_FAILURE;
-		}
-	}
-	/**
-	 * If row = 10 then bits should be supported from 0 to 5
-	 */
-	 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA) &&
-		 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) &&
-		 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
-		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
-			return XST_FAILURE;
-	 }
 #ifdef XSK_MICROBLAZE_PLATFORM
 	 XSKEfusePs_XAdc PL_XAdc = {0};
 	/**
@@ -3217,6 +3152,152 @@ static inline u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 			(UserFuses_Read[UserFuseColumn] == 0)) {
 			UserFuses_TobePrgrmd[UserFuseColumn] = 1;
 		}
+	}
+
+	return XST_SUCCESS;
+}
+
+/****************************************************************************/
+/**
+* This API checks whether the parameters passed for programming or reading
+* is correct.
+*
+* @param	Row is the row number of Fuse array.
+* @param	Bit is the bit position to be read.
+* @param	Redundant is the option to be selected either redundant row
+*		or normal row.
+* @param	Page is the page of Fuse array in which row has to be read
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u8 XilSKey_EfusePl_Ultra_Check(u8 Row,
+		u8 Bit, u8 Redundant, u8 Page)
+{
+	if (Redundant > XSK_EFUSEPL_REDUNDANT_ULTRA) {
+		return XST_FAILURE;
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+		/**
+		 *Check if the row position is valid.
+		 */
+		if (((Row > XSK_EFUSEPL_USER_ROW_ULTRA) ||
+			((Row < XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
+			(Row > XSK_EFUSEPL_SEC_ROW_ULTRA)) ||
+			((Row < XSK_EFUSEPL_SEC_ROW_ULTRA) &&
+			 (Row > XSK_EFUSEPL_DNA_ROW_ULTRA)) ||
+			 ((Row < XSK_EFUSEPL_DNA_ROW_ULTRA) &&
+			 (Row > XSK_EFUSEPL_CNTRL_ROW_ULTRA))) &&
+				 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+			return XST_FAILURE;
+		}
+
+		if (((Row > XSK_EFUSEPL_RSA_ROW_END_ULTRA) ||
+			((Row < XSK_EFUSEPL_RSA_ROW_START_ULTRA) &&
+			 (Row > XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA))) &&
+					(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+			return XST_FAILURE;
+		}
+
+		/**
+		 * Check if the bit position is valid.
+		 */
+		if (Bit > XSK_EFUSEPL_END_BIT_IN_A_ROW_ULTRA) {
+			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+			return XST_FAILURE;
+		}
+
+		/**
+		 * If row = 1 then bit should be either 0 to 2 and 5 to 9 and 15
+		 * rest all are not supported
+		 */
+		if((Row == XSK_EFUSEPL_CNTRL_ROW_ULTRA) &&
+				(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+			if((Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
+			(Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
+			((Bit >= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA) &&
+			(Bit <= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA)) ||
+			(Bit > XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA)) {
+				ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+				return XST_FAILURE;
+			}
+		}
+		/**
+		 * If row = 10 then bits should be supported from 0 to 5
+		 */
+		 if ((Row == XSK_EFUSEPL_SEC_ROW_ULTRA) &&
+			 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) &&
+			 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+				return XST_FAILURE;
+		 }
+	}
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		/**
+		 *Check if the row position is valid.
+		 */
+		if (((Row > XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA_PLUS) ||
+			(Row < XSK_EFUSEPL_CNTRL_ROW_START_ULTRA_PLUS)) &&
+				 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+			return XST_FAILURE;
+		}
+
+		if ((Row > XSK_EFUSEPL_USER_ROW_END_ULTRA_PLUS) &&
+					(Page == XSK_EFUSEPL_PAGE_1_ULTRA)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_READ_ROW_OUT_OF_RANGE;
+			return XST_FAILURE;
+		}
+
+		/**
+		 * Check if the bit position is valid.
+		 */
+		if (Bit > XSK_EFUSEPL_ARRAY_MAX_COL_ULTRA_PLUS) {
+			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+			return XST_FAILURE;
+		}
+
+		/**
+		 * If row = 2 or 3 then bit should be either 0 to 2 and 5 to 9 and 15
+		 * rest all are not supported
+		 */
+		if((Row == XSK_EFUSEPL_CNTRL_ROW_START_ULTRA_PLUS) &&
+				(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+			if((Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT3_ULTRA) ||
+			(Bit == XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT4_ULTRA) ||
+			((Bit >= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_START_ULTRA) &&
+			(Bit <= XSK_EFUSEPL_CTRL_ROW_UNSUPPORT_BIT_RANGE_END_ULTRA)) ||
+			(Bit >= XSK_EFUSEPL_CTRL_ROW_END_BIT_ULTRA)) {
+				ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+				return XST_FAILURE;
+			}
+		}
+		if((Row == XSK_EFUSEPL_CNTRL_ROW_END_ULTRA_PLUS) &&
+			(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+			if(Bit != 0) {
+				ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+				return XST_FAILURE;
+			}
+		}
+		/**
+		 * If row = 4 then bits should be supported from 0 to 5
+		 */
+		 if (((Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS) ||
+				 (Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS)) &&
+			 (Bit > XSK_EFUSEPL_SEC_ROW_END_BIT_ULTRA) &&
+			 (Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_BIT_OUT_OF_RANGE;
+			return XST_FAILURE;
+		 }
+
 	}
 
 	return XST_SUCCESS;
