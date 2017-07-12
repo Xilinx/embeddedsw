@@ -86,6 +86,8 @@
 #define XSK_EFUSEPL_ARRAY_AES_DATA_BITS_IN_30th_ROW	(16) /**< AES Data bits
 															* count in 30th Row
 															*/
+#define XSK_EFUSEPL_ARRAY_MAX_COL_ULTRA_PLUS	(16) /**< Ultrascale plus
+						       *  max bits in a row */
 #define XSK_EFUSEPL_ARRAY_USER_DATA_BITS_IN_30th_ROW (8) /**< User Data bits
 															* count in 30th Row
 															*/
@@ -190,6 +192,49 @@
 						/**< Secure
 						  * row end bit
 						  * of Ultrascale series */
+/*
+ * Definitions for Ultrascale Plus
+ */
+#define XSK_EFUSEPL_CNTRL_ROW_START_ULTRA_PLUS	(2)	/**< Control row of
+						  * FUSE for Ultrascale plus
+						  * series */
+#define XSK_EFUSEPL_CNTRL_ROW_END_ULTRA_PLUS	(3)	/**< Control row of
+						  * FUSE for Ultrascale plus
+						  * series */
+#define XSK_EFUSEPL_DNA_ROW_START_ULTRA_PLUS	(0)	/**< DNA row of
+						  * FUSE for Ultrascale plus
+						  * series */
+#define XSK_EFUSEPL_DNA_ROW_END_ULTRA_PLUS	(5)	/**< DNA row of
+						  * FUSE for Ultrascale plus
+						  * series */
+#define XSK_EFUSEPL_AES_ROW_START_ULTRA_PLUS	(5)	/**< AES key start
+						  * row of FUSE for
+						  * Ultrascale plus series */
+#define XSK_EFUSEPL_AES_ROW_END_ULTRA_PLUS	(20)	/**< AES key end
+						  * row of FUSE for
+						  * Ultrascale series */
+#define XSK_EFUSEPL_USER_ROW_START_ULTRA_PLUS	(30)	/**< USER key start
+						  * row of FUSE for
+						  * Ultrascale plus series */
+#define XSK_EFUSEPL_USER_ROW_END_ULTRA_PLUS	(31)	/**< USER key start
+						  * row of FUSE for
+						  * Ultrascale plus series */
+#define XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS	(4)	/**< Secure row of
+						  * FUSE for Ultrascale
+						  * series */
+#define XSK_EFUSEPL_RSA_ROW_START_ULTRA_PLUS	(6)	/**< RSA start row of
+						  * FUSE for Ultrascale
+						  * plus series */
+#define XSK_EFUSEPL_RSA_ROW_END_ULTRA_PLUS	(29)	/**< RSA end row of
+						  * FUSE for Ultrascale
+						  * plus series */
+#define XSK_EFUSEPL_USER_128BIT_ROW_START_ULTRA_PLUS	(21)/**< 128 bit USER key
+						     * start row of FUSE for
+						     * Ultrascale plus series */
+#define XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA_PLUS	(28)/**< 128 bit USER key
+						     * end row of FUSE for
+						     * Ultrascale plus series */
+
 /*
  * Unsupported bits of Control register
  */
@@ -2798,6 +2843,70 @@ static inline u32 XilSKey_EfusePl_Program_AesKey_ultra()
 /****************************************************************************/
 /**
 *
+* This function gets the row data of Ored Normal and Redundant rows for EFUSE
+* of Ultrascale and ultrascale plus.
+* For ultrascale plus, read row contains both redundant and normal bits
+* upper 16 bits contains redundant bits and lower 16 bits contain normal
+* bits, each row wil have only 16 valid bits.
+*
+* @param	Row is the row number.
+* @param	RowData is the ORed result of both rows.
+* @param	Page indicates row belongs to which page.
+*
+* @return
+*	- XST_FAILURE - In case of failure
+*	- XST_SUCCESS - In case of Success
+*
+*
+* @note
+*	Updates the global variable ErrorCode with error code(if any).
+*
+*****************************************************************************/
+static inline u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
+						u8 *RowData, u8 Page)
+{
+	u32 Column;
+	u8 RowDataRedundant[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA] = {0};
+
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
+		if (XilSKey_EfusePl_ReadRow_Ultra(Row,
+			XSK_EFUSEPL_READ_NORMAL, RowData,
+			XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
+					XST_SUCCESS) {
+			return ErrorCode;
+		}
+
+		if (XilSKey_EfusePl_ReadRow_Ultra(Row,
+			XSK_EFUSEPL_READ_NORMAL, RowDataRedundant,
+			XSK_EFUSEPL_REDUNDANT_ULTRA, Page) !=
+					XST_SUCCESS) {
+			return ErrorCode;
+		}
+
+		for (Column = 0;
+			Column < XSK_EFUSEPL_ARRAY_MAX_COL;
+						Column++) {
+			RowData[Column] = RowData[Column] |
+					RowDataRedundant[Column];
+		}
+	}
+
+	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		if (XilSKey_EfusePl_ReadRow_Ultra(Row,
+			XSK_EFUSEPL_READ_NORMAL, RowData,
+			XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
+					XST_SUCCESS) {
+			return ErrorCode;
+		}
+	}
+
+	return XST_SUCCESS;
+
+}
+
+/****************************************************************************/
+/**
+*
 * This API gets the row data of Ored Normal and Redundant rows for EFUSE of
 * Ultrascale.
 *
@@ -2816,15 +2925,24 @@ static inline u32 XilSKey_EfusePl_Program_AesKey_ultra()
 *****************************************************************************/
 static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 {
-	u8 RowDataRedundant[XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA] = {0};
-	u32 Column;
+	u32 ErrorCode;
 
 	if (((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA) &&
 		(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA)) &&
-			(Page == XSK_EFUSEPL_PAGE_0_ULTRA)) {
+			(Page == XSK_EFUSEPL_PAGE_0_ULTRA) &&
+			(PlFpgaFlag == XSK_FPGA_SERIES_ULTRA)) {
 		ErrorCode = XSK_EFUSEPL_ERROR_WRITE_ROW_OUT_OF_RANGE;
 		return ErrorCode;
 	}
+
+	if (((Row >= XSK_EFUSEPL_AES_ROW_START_ULTRA_PLUS) &&
+			(Row <= XSK_EFUSEPL_AES_ROW_END_ULTRA_PLUS)) &&
+				(Page == XSK_EFUSEPL_PAGE_0_ULTRA) &&
+				(PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS)) {
+			ErrorCode = XSK_EFUSEPL_ERROR_WRITE_ROW_OUT_OF_RANGE;
+			return ErrorCode;
+		}
+
 	/**
 	 * check if RowData is not NULL
 	 */
@@ -2838,25 +2956,9 @@ static inline u32 XilSKey_EfusePl_GetRowData_Ultra(u8 Row, u8 *RowData, u8 Page)
 		return ErrorCode;
 	}
 
-	if (XilSKey_EfusePl_ReadRow_Ultra(Row,
-		XSK_EFUSEPL_READ_NORMAL, RowData,
-		XSK_EFUSEPL_NORMAL_ULTRA, Page) !=
-				XST_SUCCESS) {
+	ErrorCode = XilSKey_EfusePl_ReadRowData_Ultra(Row, RowData, Page);
+	if (ErrorCode != XST_SUCCESS) {
 		return ErrorCode;
-	}
-
-	if (XilSKey_EfusePl_ReadRow_Ultra(Row,
-		XSK_EFUSEPL_READ_NORMAL, RowDataRedundant,
-		XSK_EFUSEPL_REDUNDANT_ULTRA, Page) !=
-				XST_SUCCESS) {
-		return ErrorCode;
-	}
-
-	for (Column = 0;
-		Column < XSK_EFUSEPL_ARRAY_MAX_COL;
-					Column++) {
-		RowData[Column] = RowData[Column] |
-				RowDataRedundant[Column];
 	}
 
 	return XST_SUCCESS;
