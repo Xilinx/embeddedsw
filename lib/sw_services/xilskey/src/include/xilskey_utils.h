@@ -103,6 +103,19 @@ extern "C" {
 #endif
 
 #endif
+
+/* Definitions for Ultrascale and Ultrascale plus */
+#ifdef XSK_MICROBLAZE_PLATFORM
+
+#ifdef XPAR_XSK_MICROBLAZE_KINTEX_ULTRA_PLUS
+#define XSK_MICROBLAZE_ULTRA_PLUS
+#endif
+
+#ifdef XPAR_XSK_MICROBLAZE_KINTEX_ULTRA
+#define XSK_MICROBLAZE_ULTRA
+#endif
+
+#endif
 /**
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -133,7 +146,8 @@ extern "C" {
  */
 typedef enum {
 	XSK_FPGA_SERIES_ULTRA,	/**< Ultrascale series */
-	XSK_FPGA_SERIES_ZYNQ	/**< Zynq series */
+	XSK_FPGA_SERIES_ZYNQ,	/**< Zynq series */
+	XSK_FPGA_SERIES_ULTRA_PLUS /**< Ultrascale plus series */
 }XSKEfusePl_Fpga;
 /*@}*/
 

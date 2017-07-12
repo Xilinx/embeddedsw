@@ -120,6 +120,7 @@ void dummy_printf(const char *ctrl1, ...);
 #define MAX_FREQUENCY 30000000
 #define ZYNQ_DAP_ID 0x4ba00477
 #define ULTRA_MB_DAP_ID 0x13822093 /**< Ultrascale microblaze TAP ID */
+#define ULTRAPLUS_DAP_ID 0x4A62093 /**< Ultrascale plus microblaze TAP ID */
 
 #define set_last_error(JS, ...) js_set_last_error(&(JS)->js.base, __VA_ARGS__)
 
@@ -133,6 +134,7 @@ static js_port_descr_t *g_useport = NULL;
 extern u32 TimerTicksfor100ns;
 extern u32 TimerTicksfor1000ns;
 u32 GpoOutValue = 0;
+extern XSKEfusePl_Fpga PlFpgaFlag;
 
 static inline int JtagValidateMioPins_Efuse_Ultra();
 static inline int JtagValidateMioPins_Bbram_Ultra();
@@ -1363,6 +1365,10 @@ int JtagServerInit(XilSKey_EPl *InstancePtr)
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA;
 			break;
 		}
+		if (tap_codes[i] == ULTRAPLUS_DAP_ID) {
+			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA_PLUS;
+			break;
+		}
     }
 
 	if(i == num_taps)
@@ -1478,6 +1484,10 @@ int JtagServerInitBbram(XilSKey_Bbram *InstancePtr)
 		}
 		if (tap_codes[i] == ULTRA_MB_DAP_ID) {
 			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA;
+			break;
+		}
+		if (tap_codes[i] == ULTRAPLUS_DAP_ID) {
+			InstancePtr->FpgaFlag = XSK_FPGA_SERIES_ULTRA_PLUS;
 			break;
 		}
     }
