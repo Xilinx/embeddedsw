@@ -51,6 +51,7 @@
 * 3.0  aad 05/13/16 Added bus busy check before I2C reads and writes.
 * 3.1  als 08/03/16 Reordered wait for PLL lock.
 * 4.0  aad 11/15/16 Moved to dprxss driver from video_common
+* 4.0  aad 07/13/17 Updated DP159 read lock status
 * </pre>
 *
 ******************************************************************************/
@@ -518,12 +519,15 @@ void XDpRxSs_Dp159BitErrCount(const XIic *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Select page 0 */
-	XDpRxSs_Dp159Write(InstancePtr, XDPRXSS_DP159_IIC_SLAVE, 0xFF, 0x00);
+	/* Select page 1 */
+	XDpRxSs_Dp159Write(InstancePtr, XDPRXSS_DP159_IIC_SLAVE, 0xFF, 0x01);
 
 	/* Read LOCK_STATUS */
 	XDpRxSs_Dp159Read(InstancePtr, XDPRXSS_DP159_IIC_SLAVE, 0x00, &Data);
 	xil_printf("LOCK_STATUS         : %d\n\r", Data & 0x40);
+
+	/* Select page 0 */
+	XDpRxSs_Dp159Write(InstancePtr, XDPRXSS_DP159_IIC_SLAVE, 0xFF, 0x00);
 
 	/* Read TST_INT/Q */
 	XDpRxSs_Dp159Read(InstancePtr, XDPRXSS_DP159_IIC_SLAVE, 0x17, &Data);
