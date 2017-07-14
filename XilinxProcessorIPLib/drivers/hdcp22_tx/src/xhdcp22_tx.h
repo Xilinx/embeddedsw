@@ -85,6 +85,7 @@
 * 2.00  MH     06/28/16 Updated for repeater downstream support.
 * 2.01  MH     02/28/17 Fixed compiler warnings.
 * 2.20  MH     04/12/17 Added function XHdcp22Tx_IsDwnstrmCapable.
+* 2.30  MH     07/06/17 Changed default polling value to 10 ms.
 * </pre>
 *
 ******************************************************************************/
@@ -110,13 +111,12 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/** Start polling if the timer is at (timeout - (timeout/DEFAULT_RX_STATUS_POLLVALUE)):
-* - 0 : No polling
-* - 1 : Always poll
-* - 2 : 50% - start polling if 50% of timeout value has expired
-* - 3 : 66%
-* - 4 : 75% etc. */
-#define XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE  4
+/**
+* This value is the default polling interval defined in millseconds.
+* The polling interval defines the amount of time to wait between
+* successive reads of the RxStatus register.
+*/
+#define XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE  10
 
 /**
 * Needed storage to transmit/receive messages to the HDCP2.2 receiver
