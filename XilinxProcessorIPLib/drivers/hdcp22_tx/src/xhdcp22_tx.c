@@ -65,7 +65,14 @@
 *                       6. Update to check return status of DDC read/write.
 *                       7. Fixed compiler warnings.
 * 2.20  MH     04/12/17 Added function XHdcp22Tx_IsDwnstrmCapable.
-* 2.20  MH     06/08/17 Updated for 64 bit support.
+* 2.30  MH     07/06/17 1. Updated for 64 bit ARM support.
+*                       2. Added HDCP2Capable check for re-authentication
+*                       3. Update cipher enablement
+*                       4. Fix in XHdcp22Tx_WaitForReceiver to poll RxStatus
+*                          based on fixed interval.
+*                       5. Fix in XHdcp22Tx_WaitForReceiver to wait for READY
+*                          and non-zero Message_Size before reading message
+*                          buffer.
 * </pre>
 *
 ******************************************************************************/
@@ -1035,13 +1042,6 @@ int XHdcp22Tx_Poll(XHdcp22_Tx *InstancePtr)
 		                (u8)InstancePtr->Info.AuthenticationStatus);
 	}
 
-	/* Enable only if the attached receiver is authenticated. */
-	if (InstancePtr->Info.AuthenticationStatus == XHDCP22_TX_AUTHENTICATED) {
-		XHdcp22Cipher_Enable(&InstancePtr->Cipher);
-	} else {
-		XHdcp22Cipher_Disable(&InstancePtr->Cipher);
-	}
-
 	return (int)(InstancePtr->Info.AuthenticationStatus);
 }
 
@@ -1110,6 +1110,7 @@ int XHdcp22Tx_Enable(XHdcp22_Tx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	InstancePtr->Info.IsEnabled = (TRUE);
+	XHdcp22Cipher_Enable(&InstancePtr->Cipher);
 	XTmrCtr_Stop(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_0);
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_ENABLED, 1);
 
@@ -1579,6 +1580,12 @@ static XHdcp22_Tx_StateType XHdcp22Tx_StateH1(XHdcp22_Tx *InstancePtr)
 static XHdcp22_Tx_StateType XHdcp22Tx_StateA0(XHdcp22_Tx *InstancePtr)
 {
 	XHdcp22Tx_LogWr(InstancePtr, XHDCP22_TX_LOG_EVT_STATE, (u16)XHDCP22_TX_STATE_A0);
+
+	/* Check if HDCP2Capable flag is true */
+	if (!InstancePtr->IsReceiverHDCP2Capable) {
+		InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_INCOMPATIBLE_RX;
+		return XHDCP22_TX_STATE_H1;
+	}
 
 	/* Content protection not desired; go back to H1 state */
 	if (InstancePtr->Info.IsEnabled == (FALSE))
@@ -3222,15 +3229,21 @@ static void XHdcp22Tx_TimerHandler(void *CallbackRef, u8 TmrCntNumber)
 /*****************************************************************************/
 /**
 *
-* This function can be used to change the polling value.
+* This function can be used to change the polling value. The polling value
+* is the amount of time in milliseconds to wait between successive reads
+* of the RxStatus register. The RxStatus register is polled to determine
+* when a message is available for reading during authentication or during
+* the link integrity check phase to determine when to issue re-authentication.
+* The polling value needs to be at most 20ms to account for the locality
+* check.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
-* @param  PollingValue is the value used for the polling algorithm.
-*         - 0 : No polling
-*         - 1 : Always poll
-*         - 2 : 50% - start polling if 50% of timeout value has expired
-*         - 3 : 66%
-*         - 4 : 75% etc.
+* @param  PollingValue is the polling interval defined in milliseconds
+*         - 0 : Always Poll
+*         - 1 : Poll after 1ms
+*         - 2 : Poll after 2ms
+*         - 3 : Poll after 3ms etc...
+*
 * @return None.
 *
 * @note   None.
@@ -3248,6 +3261,9 @@ void XHdcp22Tx_SetMessagePollingValue(XHdcp22_Tx *InstancePtr, u32 PollingValue)
 * If the timer is not started, it will be started.
 * This has to be used to avoid blocking waits, and allows polling to return
 * to allow the main thread to continue handling other requests.
+* Some receivers require to read status as soon as possible otherwise the
+* receiver may request for a re-authentication so we must poll!
+*
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 * @param  ExpectedSize indicates the expected message size in bytes.
 * @param  ReadyBit indicates if the repeater ready bit from RxStatus register
@@ -3264,16 +3280,22 @@ void XHdcp22Tx_SetMessagePollingValue(XHdcp22_Tx *InstancePtr, u32 PollingValue)
 ******************************************************************************/
 static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, u8 ReadyBit)
 {
+	/*
+	 * Timer is counting down.
+	 * The interval count is the number of clock ticks for a polling interval.
+	 * The RxStatus register is read each time the difference between the
+	 * previous poll count and the current timer count is greater than
+	 * or equal to the interval count.
+	 */
+	u32 TimerCount = 0;
+	u32 IntervalCount = InstancePtr->Info.PollingValue *
+		((u32)InstancePtr->Timer.TmrCtr.Config.SysClockFreqHz / 1000);
+
 #ifdef _XHDCP22_TX_TEST_
 	if (XHdcp22Tx_TestSimulateTimeout(InstancePtr) == TRUE) {
 		return XST_FAILURE;
 	}
 #endif
-
-/* Some receivers require to read status as soon as possible otherwise the
- * receiver may request for a re-authentication so we must poll! */
-
-	u32 TimerCount = 0; /* Timer is counting down */
 
 #ifdef _XHDCP22_TX_TEST_
 	/* If the timeout flag is disabled, we disable the timer and keep on polling */
@@ -3296,22 +3318,24 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, 
 
 	/* busy waiting...*/
 	if (InstancePtr->Timer.TimerExpired == (FALSE)) {
-		/* Return immediately if polling is not required */
-		if (InstancePtr->Info.PollingValue == 0) {
-			return XST_SUCCESS;
-		}
 
 		/* Poll if requested */
 		/* Read current timer count */
 		TimerCount = XHdcp22Tx_GetTimerCount(InstancePtr);
 
-		/* Apply polling value: 1=poll always, 2=poll at 50% etc. */
-		if (TimerCount <= (InstancePtr->Timer.InitialTicks/InstancePtr->Info.PollingValue))
+		/* Apply polling value: 0=poll always, 1=poll after 1ms, etc... */
+		if ((InstancePtr->Info.PollingValue == 0) ||
+			((InstancePtr->Timer.InitialTicks - TimerCount) >= IntervalCount))
 		{
+			/* Update InitialTicks to the current counter value */
+			InstancePtr->Timer.InitialTicks = TimerCount;
+
 			/* Read Rx status. */
 			XHdcp22Tx_ReadRxStatus(InstancePtr);
 			if (((ReadyBit == FALSE) && ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) == ExpectedSize)) ||
-				((ReadyBit == TRUE) && (InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_READY_MASK))) {
+				(((ReadyBit == TRUE) && (InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_READY_MASK)) &&
+				((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) > 0))) {
+
 				/* Stop the hardware timer */
 				XTmrCtr_Stop(&InstancePtr->Timer.TmrCtr, XHDCP22_TX_TIMER_CNTR_0);
 
@@ -3389,6 +3413,9 @@ static void XHdcp22Tx_HandleAuthenticationFailed(XHdcp22_Tx * InstancePtr)
      /* Run user callback */
 	if (InstancePtr->IsUnauthenticatedCallbackSet)
 		InstancePtr->UnauthenticatedCallback(InstancePtr->UnauthenticatedCallbackRef);
+
+	/* HDCP2Version */
+	InstancePtr->IsReceiverHDCP2Capable = XHdcp22Tx_IsDwnstrmCapable(InstancePtr);
 }
 
 /*****************************************************************************/
@@ -3407,6 +3434,11 @@ static void XHdcp22Tx_HandleReauthenticationRequest(XHdcp22_Tx * InstancePtr)
 {
 	InstancePtr->Info.ReAuthenticationRequested = (TRUE);
 	InstancePtr->Info.AuthenticationStatus = XHDCP22_TX_REAUTHENTICATE_REQUESTED;
+
+	/* Reset cipher */
+	XHdcp22Tx_DisableEncryption(InstancePtr);
+	XHdcp22Cipher_Disable(&InstancePtr->Cipher);
+	XHdcp22Cipher_Enable(&InstancePtr->Cipher);
 
 	/* Increment re-authentication request count */
 	InstancePtr->Info.ReauthRequestCnt++;
@@ -4462,7 +4494,7 @@ void XHdcp22Tx_Info(XHdcp22_Tx *InstancePtr)
 
 	xil_printf("Auth Requests: %d\n\r", InstancePtr->Info.AuthRequestCnt);
 	xil_printf("Reauth Requests: %d\n\r", InstancePtr->Info.ReauthRequestCnt);
-
+	xil_printf("Polling Interval: %d ms\n\r", InstancePtr->Info.PollingValue);
 }
 
 /** @} */
