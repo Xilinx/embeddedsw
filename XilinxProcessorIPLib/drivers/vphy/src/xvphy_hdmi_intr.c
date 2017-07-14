@@ -808,6 +808,8 @@ void XVphy_HdmiRxClkDetFreqChangeHandler(XVphy *InstancePtr)
 			XVPHY_CHANNEL_ID_CMNA : XVPHY_CHANNEL_ID_CHA, TRUE);
 		XVphy_ResetGtPll(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
 			XVPHY_DIR_TX, 1);
+		XVphy_ResetGtTxRx(InstancePtr, 0, XVPHY_CHANNEL_ID_CHA,
+				XVPHY_DIR_TX, TRUE);
 	}
 
 	/* Assert GT RX reset */
