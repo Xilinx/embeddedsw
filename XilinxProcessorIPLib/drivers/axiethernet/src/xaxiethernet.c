@@ -1,32 +1,12 @@
 /******************************************************************************
-*
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
-*
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
-*
-* The above copyright notice and this permission notice shall be included in
-* all copies or substantial portions of the Software.
-*
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-* THE SOFTWARE.
-*
-*
-*
+* Copyright (C) 2010 - 2020 Xilinx, Inc.  All rights reserved.
+* SPDX-License-Identifier: MIT
 ******************************************************************************/
+
 /**
 *
 * @file xaxiethernet.c
-* @addtogroup axiethernet_v5_8
+* @addtogroup axiethernet_v5_10
 * @{
 *
 * The APIs in this file takes care of the primary functionalities of the driver.
@@ -51,6 +31,7 @@
 * 5.7   srm  01/16/18 Implemented poll timeout API which replaces while loops
 *                     to ensure a deterministic time delay.
 * 5.8   rsp  07/20/18 Fix cppcheck warning in Aptr assignment.
+* 5.10  aru  08/16/19 Fix coverity warning
 *
 * </pre>
 ******************************************************************************/
@@ -1418,11 +1399,6 @@ int XAxiEthernet_SetOperatingSpeed(XAxiEthernet *InstancePtr, u16 Speed)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid((Speed == XAE_SPEED_10_MBPS) ||
-			(Speed == XAE_SPEED_100_MBPS) ||
-			(Speed == XAE_SPEED_1000_MBPS) ||
-			(Speed == XAE_SPEED_2500_MBPS));
-
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_SetOperatingSpeed\n");
 	xdbg_printf(XDBG_DEBUG_GENERAL,
