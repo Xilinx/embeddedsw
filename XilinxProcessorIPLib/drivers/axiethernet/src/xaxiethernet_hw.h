@@ -710,6 +710,7 @@ extern "C" {
 #define XAE_SPEED_10_MBPS		10	/**< Speed of 10 Mbps */
 #define XAE_SPEED_100_MBPS		100	/**< Speed of 100 Mbps */
 #define XAE_SPEED_1000_MBPS		1000	/**< Speed of 1000 Mbps */
+#define XAE_SPEED_2500_MBPS		2500	/**< Speed of 2500 Mbps */
 
 #define XAE_SOFT_TEMAC_LOW_SPEED	0	/**< For soft cores with 10/100
 						 *   Mbps speed.

@@ -769,6 +769,8 @@ typedef struct XAxiEthernet_Config {
 	u8 Stats;	/**< Statistics gathering option */
 	u8 Avb;		/**< Avb option */
 	u8 EnableSgmiiOverLvds;	/**< Enable LVDS option */
+	u8 Enable_1588;	/**< Enable 1588 option */
+	u32 Speed;	/**< Tells whether MAC is 1G or 2p5G */
 
 	u8 TemacIntr;	/**< Axi Ethernet interrupt ID */
 
@@ -782,6 +784,9 @@ typedef struct XAxiEthernet_Config {
 	u8 AxiFifoIntr;	/**< AxiFifoIntr interrupt ID (unused if DMA) */
 	u8 AxiDmaRxIntr;/**< Axi DMA RX interrupt ID (unused if FIFO) */
 	u8 AxiDmaTxIntr;/**< Axi DMA TX interrupt ID (unused if FIFO) */
+	u8 AxiMcDmaChan_Cnt;  /**< Axi MCDMA Channel Count */
+	u8 AxiMcDmaRxIntr[16]; /**< Axi MCDMA Rx interrupt ID (unused if AXI DMA or FIFO) */
+	u8 AxiMcDmaTxIntr[16]; /**< AXI MCDMA TX interrupt ID (unused if AXIX DMA or FIFO) */
 } XAxiEthernet_Config;
 
 
@@ -862,6 +867,24 @@ typedef struct XAxiEthernet {
 ******************************************************************************/
 #define XAxiEthernet_IsFifo(InstancePtr) \
 	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_FIFO) ? TRUE: FALSE)
+
+/*****************************************************************************/
+/**
+*
+* XAxiEthernet_IsMcDma reports if the device is currently connected to MCDMA.
+*
+* @param	InstancePtr is a pointer to the Axi Ethernet instance to be
+*		worked on.
+* @return
+*		- TRUE if the Axi Ethernet device is connected MCDMA.
+*		- FALSE.if the Axi Ethernet device is NOT connected to MCDMA
+*
+* @note 	C-style signature:
+* 		u32 XAxiEthernet_IsMcDma(XAxiEthernet *InstancePtr)
+*
+******************************************************************************/
+#define XAxiEthernet_IsMcDma(InstancePtr) \
+	(((InstancePtr)->Config.AxiDevType == XPAR_AXI_MCDMA) ? TRUE: FALSE)
 
 /*****************************************************************************/
 /**
@@ -1432,6 +1455,8 @@ typedef struct XAxiEthernet {
  */
 int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
 			XAxiEthernet_Config *CfgPtr,UINTPTR VirtualAddress);
+int XAxiEthernet_Initialize(XAxiEthernet *InstancePtr,
+			    XAxiEthernet_Config *CfgPtr, UINTPTR VirtualAddress);
 void XAxiEthernet_Start(XAxiEthernet *InstancePtr);
 void XAxiEthernet_Stop(XAxiEthernet *InstancePtr);
 void XAxiEthernet_Reset(XAxiEthernet *InstancePtr);
