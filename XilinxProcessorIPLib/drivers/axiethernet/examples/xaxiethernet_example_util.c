@@ -94,6 +94,12 @@ void AxiEthernetUtilFrameHdrFormatMAC(EthernetFrame *FramePtr, char *DestAddr)
 	char *SourceAddress = AxiEthernetMAC;
 	int Index;
 
+	if (Padding) {
+		for (Index = 0; Index < 8; Index++) {
+			*Frame++ = 0;
+		}
+	}
+
 	/*
 	 * Destination address
 	 */
@@ -129,7 +135,7 @@ void AxiEthernetUtilFrameHdrFormatType(EthernetFrame *FramePtr, u16 FrameType)
 	/*
 	 * Increment to type field
 	 */
-	Frame = Frame + 12;
+	Frame = Frame + 12 + Padding;
 
 	FrameType = Xil_Htons(FrameType);
 	/*
@@ -167,7 +173,7 @@ void AxiEthernetUtilFrameSetPayloadData(EthernetFrame *FramePtr,
 	/*
 	 * Set the frame pointer to the start of the payload area
 	 */
-	Frame = (u8 *) FramePtr + XAE_HDR_SIZE;
+	Frame = (u8 *) FramePtr + XAE_HDR_SIZE + Padding;
 
 	/*
 	 * Insert 8 bit incrementing pattern
@@ -341,6 +347,8 @@ int AxiEthernetUtilFrameVerify(EthernetFrame * CheckFrame,
 	u16 Counter;
 	int Index;
 
+	CheckPtr = CheckPtr + Padding;
+	ActualPtr = ActualPtr + Padding;
 
 	/*
 	 * Compare the headers
@@ -499,6 +507,7 @@ u32 AxiEthernetDetectPHY(XAxiEthernet * AxiEthernetInstancePtr)
 #define PHY_R0_DFT_SPD_10    0x0000
 #define PHY_R0_DFT_SPD_100   0x2000
 #define PHY_R0_DFT_SPD_1000  0x0040
+#define PHY_R0_DFT_SPD_2500  0x0040
 #define PHY_R0_ISOLATE       0x0400
 
 /* Marvel PHY 88E1111 Specific definitions */
@@ -607,6 +616,12 @@ int AxiEthernetUtilEnterLoopback(XAxiEthernet *AxiEthernetInstancePtr,
 		PhyReg21 |= PHY_REG21_1000;
 		break;
 
+	case XAE_SPEED_2500_MBPS:
+		PhyReg0 |= PHY_R0_DFT_SPD_2500;
+		PhyReg20 |= PHY_R20_DFT_SPD_1000;
+		PhyReg21 |= PHY_REG21_1000;
+		break;
+
 	default:
 		AxiEthernetUtilErrorTrap("Intg_LinkSpeed not 10, 100, or 1000 mbps");
 		return XST_FAILURE;
@@ -672,9 +687,11 @@ int AxiEthernetUtilEnterLoopback(XAxiEthernet *AxiEthernetInstancePtr,
 	AxiEthernetUtilPhyDelay(AXIETHERNET_PHY_DELAY_SEC);
 	XAxiEthernet_PhyRead(AxiEthernetInstancePtr,PhyAddr,
 				PHY_R0_CTRL_REG, &PhyReg0);
-	XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr,
-				PHY_R0_CTRL_REG,
-				PhyReg0 | PHY_R0_LOOPBACK);
+	if (!ExternalLoopback) {
+		XAxiEthernet_PhyWrite(AxiEthernetInstancePtr, PhyAddr,
+					PHY_R0_CTRL_REG,
+					PhyReg0 | PHY_R0_LOOPBACK);
+	}
 
 	if ((PhyModel == TI_PHY_MODEL) && (PhyType == XAE_PHY_TYPE_SGMII)) {
 		XAxiEthernet_PhyRead(AxiEthernetInstancePtr,PhyAddr,
@@ -803,6 +820,9 @@ int AxiEthernetUtilConfigureInternalPhy(XAxiEthernet *AxiEthernetInstancePtr,
 			break;
 		case XAE_SPEED_1000_MBPS:
 			PhyReg0 |= PHY_R0_DFT_SPD_1000;
+			break;
+		case XAE_SPEED_2500_MBPS:
+			PhyReg0 |= PHY_R0_DFT_SPD_2500;
 			break;
 		default:
 			AxiEthernetUtilErrorTrap(
