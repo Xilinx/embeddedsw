@@ -175,6 +175,7 @@ proc xdefine_axi_target_params {periphs file_handle} {
     puts $file_handle "/* AxiEthernet TYPE Enumerations */"
     puts $file_handle "#define XPAR_AXI_FIFO    1$uSuffix"
     puts $file_handle "#define XPAR_AXI_DMA     2$uSuffix"
+    puts $file_handle "#define XPAR_AXI_MCDMA   3$uSuffix"
     puts $file_handle ""
 
     set device_id 0
@@ -189,7 +190,7 @@ proc xdefine_axi_target_params {periphs file_handle} {
 		puts [format "target_periph is %s" $target_periph]
 		set target_periph_type [get_property IP_NAME $target_periph]
 		set tartget_per_name [get_property NAME $target_periph]
-		if {$target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_dma"} {
+		if {$target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_dma" || $target_periph_type == "axi_mcdma"} {
 			set validentry 1
 			set canonical_tag [string toupper [format "AXIETHERNET_%d" $device_id ]]
 		}
@@ -251,6 +252,50 @@ proc xdefine_axi_target_params {periphs file_handle} {
 		    set dmarx_signal [format "s2mm_introut"]
                     set dmatx_signal [format "mm2s_introut"]
                     xdefine_dma_interrupts $file_handle $target_periph $device_id $canonical_tag $dmarx_signal $dmatx_signal
+		    set axi_mcdma_chancnt 0
+		    set canonical_name [format "XPAR_%s_MCDMA_CHAN_CNT" $canonical_tag]
+		    puts $file_handle [format "#define $canonical_name %s" $axi_mcdma_chancnt]
+		    add_field_to_periph_config_struct $device_id $canonical_name
+		    for {set k 1} {$k <= 16} {incr k} {
+			    puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMARX%s_INTR 0xFF" $canonical_tag $k]
+			    add_field_to_periph_config_struct $device_id 0xFF
+		    }
+		    for {set k 1} {$k <= 16} {incr k} {
+			    puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMATX%s_INTR 0xFF" $canonical_tag $k]
+			    add_field_to_periph_config_struct $device_id 0xFF
+		    }
+		}
+
+		if {$target_periph_type == "axi_mcdma"} {
+		    set axi_dma_baseaddr [get_property  CONFIG.C_BASEADDR $target_periph]
+		    # Handle base address and connection type
+		    set canonical_name [format "XPAR_%s_CONNECTED_TYPE" $canonical_tag]
+                    puts $file_handle "#define $canonical_name XPAR_AXI_MCDMA"
+		    add_field_to_periph_config_struct $device_id $canonical_name
+		    set canonical_name [format "XPAR_%s_CONNECTED_BASEADDR" $canonical_tag]
+		    puts $file_handle [format "#define $canonical_name %s" $axi_dma_baseaddr]
+		    add_field_to_periph_config_struct $device_id $canonical_name
+
+		    puts $file_handle [format "#define XPAR_%s_CONNECTED_FIFO_INTR 0xFF" $canonical_tag]
+		    add_field_to_periph_config_struct $device_id 0xFF
+		    puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF" $canonical_tag]
+		    puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF" $canonical_tag]
+		    add_field_to_periph_config_struct $device_id 0xFF
+		    add_field_to_periph_config_struct $device_id 0xFF
+
+		    set axi_mcdma_chancnt [get_property CONFIG.C_NUM_MM2S_CHANNELS $target_periph]
+		    set canonical_name [format "XPAR_%s_MCDMA_CHAN_CNT" $canonical_tag]
+		    puts $file_handle [format "#define $canonical_name %s" $axi_mcdma_chancnt]
+		    add_field_to_periph_config_struct $device_id $canonical_name
+
+		    for {set k 1} {$k <= 16} {incr k} {
+			    set dmarx_signal [format "s2mm_ch%s_introut" $k]
+			    xdefine_mcdma_rx_interrupts $file_handle $target_periph $device_id $canonical_tag $dmarx_signal $k
+		    }
+		    for {set k 1} {$k <= 16} {incr k} {
+			    set dmatx_signal [format "mm2s_ch%s_introut" $k]
+			    xdefine_mcdma_tx_interrupts $file_handle $target_periph $device_id $canonical_tag $dmatx_signal $k
+		    }
 		}
 		incr device_id
 
@@ -322,6 +367,15 @@ proc xdefine_temac_params_include_file {file_handle periph device_id} {
 	set value [common::get_property CONFIG.AVB $periph]
 	set value [is_property_set $value]
 	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "AVB"] $value$uSuffix"
+
+	set value [common::get_property CONFIG.Enable_1588 $periph]
+	set value [is_property_set $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "Enable_1588"] $value$uSuffix"
+
+	set value [common::get_property CONFIG.speed_1_2p5 $periph]
+	set value [get_speed $value]
+	#set value [::hsi::utils::format_address_string $value]
+	puts $file_handle "\#define [::hsi::utils::get_driver_param_name $periph "SPEED"] $value$uSuffix"
 
 	set phyaddr [common::get_property CONFIG.PHYADDR $periph]
 	set value [::hsi::utils::convert_binary_to_decimal $phyaddr]
@@ -439,6 +493,19 @@ proc xdefine_temac_params_canonical {file_handle periph device_id} {
     puts $file_handle "\#define $canonical_name $value$uSuffix"
     add_field_to_periph_config_struct $device_id $canonical_name
 
+    set canonical_name  [format "%s_ENABLE_1588" $canonical_tag]
+    set value [::hsi::utils::get_param_value $periph Enable_1588]
+    set value [is_property_set $value]
+    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    add_field_to_periph_config_struct $device_id $canonical_name
+
+    set canonical_name  [format "%s_SPEED" $canonical_tag]
+    set value [::hsi::utils::get_param_value $periph speed_1_2p5]
+    set value [get_speed $value]
+    #set value [::hsi::utils::format_address_string $value]
+    puts $file_handle "\#define $canonical_name $value$uSuffix"
+    add_field_to_periph_config_struct $device_id $canonical_name
+
     set canonical_name  [format "%s_PHYADDR" $canonical_tag]
     set phyaddr [::hsi::utils::get_param_value $periph PHYADDR]
     set value [::hsi::utils::convert_binary_to_decimal $phyaddr]
@@ -470,11 +537,21 @@ proc xdefine_axiethernet_config_file {file_name drv_string} {
     set start_comma ""
     for {set i 0} {$i < $periph_ninstances} {incr i} {
 
+        set k 1
         puts $config_file [format "%s\t\{" $start_comma]
         set comma ""
         foreach field [get_periph_config_struct_fields $i] {
-            puts -nonewline $config_file [format "%s\t\t%s" $comma $field]
+	    if { $k == 26  || $k == 42} {
+		puts $config_file [format "%s\t\t\{" $comma]
+		puts -nonewline $config_file [format "\t\t%s" $field]
+	    } else {
+		puts -nonewline $config_file [format "%s\t\t%s" $comma $field]
+	    }
+	    if { $k == 41 || $k == 57} {
+		puts -nonewline $config_file "\t\t\}"
+	    }
             set comma ",\n"
+	    incr k
         }
 
         puts -nonewline $config_file "\n\t\}"
@@ -579,6 +656,204 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
 	set canonical_name [format "XPAR_%s_CONNECTED_DMATX_INTR" $canonical_tag]
 	puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_MM2S_INTROUT_INTR" $target_periph_name]
 	add_field_to_periph_config_struct $deviceid $canonical_name
+    }
+
+    if { $addentry == 1} {
+        # for some reason, only one DMA interrupt was connected (probably a bug),
+        # but fill in a dummy entry for the other (may be the wrong direction!)
+        puts "WARNING: only one SDMA interrupt line connected for $target_periph_name"
+    }
+}
+
+# ------------------------------------------------------------------
+# Find the two LocalLink DMA interrupts (RX and TX), and define
+# the canonical constants in xparameters.h and the config table
+# ------------------------------------------------------------------
+proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_tag dma_signal chan_id} {
+
+    set target_periph_name [string toupper [get_property NAME $target_periph]]
+
+    # First get the interrupt ports on this AXI peripheral
+    set interrupt_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
+    if {$interrupt_port == ""} {
+	puts "Info: There are no AXI MCDMA Interrupt ports"
+        puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMARX%s_INTR 0xFF" $canonical_tag $chan_id]
+        add_field_to_periph_config_struct $deviceid 0xFF
+        return
+   }
+    # For each interrupt port, find out the ordinal of the interrupt line
+    # as connected to an interrupt controller
+    set addentry 0
+    set dmarx "null"
+    foreach intr_port $interrupt_port {
+        set interrupt_signal_name [get_property NAME $intr_port]
+        set intc_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
+
+        # Make sure the interrupt signal was connected in this design. We assume
+        # at least one is. (could be a bug if user just wants polled mode)
+        if { $intc_port != "" } {
+            set found_intc ""
+            foreach intr_sink $intc_port {
+		set pname_type [::hsi::utils::get_connected_intr_cntrl $target_periph $intr_sink]
+                if {$pname_type != "chipscope_ila" && $pname_type != ""} {
+			set special [get_property IP_TYPE $pname_type]
+			#Handling for zynqmp
+                        if { [llength $special] > 1 } {
+                             set special [lindex $special 1]
+                        }
+			if {[string compare -nocase $special "INTERRUPT_CNTLR"] == 0} {
+				set found_intc $intr_sink
+			}
+                }
+            }
+
+            if {$found_intc == ""} {
+                puts "Info: DMA interrupt not connected to intc\n"
+                puts "Info: There are no AXI MCDMA Interrupt ports"
+		puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMARX%s_INTR 0xFF" $canonical_tag $chan_id]
+		add_field_to_periph_config_struct $deviceid 0xFF
+		return
+            }
+	    set intc_periph [get_cells -of_objects $found_intc]
+            set intc_periph_type [get_property IP_NAME $pname_type]
+            set intc_name [string toupper [get_property NAME $pname_type]]
+	    if { [llength $intc_periph_type] > 1 } {
+                set intc_periph_type [lindex $intc_periph_type 1]
+            }
+        } else {
+            puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
+            continue
+        }
+    }
+
+        # A bit of ugliness here. The only way to figure the ordinal is to
+        # iterate over the interrupt lines again and see if a particular signal
+        # matches the original interrupt signal we were tracking.
+        # If it does, put out the XPAR
+        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"]} {
+		set rx_int_id [::hsi::utils::get_port_intr_id $target_periph $dma_signal]
+		set canonical_name [format "XPAR_%s_CONNECTED_MCDMARX%s_INTR" $canonical_tag $chan_id]
+                puts $file_handle [format "#define $canonical_name %d" $rx_int_id]
+		add_field_to_periph_config_struct $deviceid $canonical_name
+	} else {
+		set addentry 2
+	}
+
+
+    # Now add to the config table in the proper order (RX first, then TX
+    set proc  [hsi::get_sw_processor];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
+
+    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] && $proc_type != "psu_pmu"} {
+	set canonical_name [format "XPAR_%s_CONNECTED_MCDMARX%s_INTR" $canonical_tag $chan_id]
+	set chan_cnt [get_property CONFIG.c_num_s2mm_channels $target_periph]
+	if { $chan_cnt >= $chan_id } {
+		puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_S2MM_CH%s_INTROUT_INTR" $target_periph_name $chan_id]
+		add_field_to_periph_config_struct $deviceid $canonical_name
+	} else {
+		add_field_to_periph_config_struct $deviceid 0xFF
+		#puts $file_handle [format "#define $canonical_name 0xFF" $target_periph_name]
+	}
+	#add_field_to_periph_config_struct $deviceid $canonical_name
+    }
+
+    if { $addentry == 1} {
+        # for some reason, only one DMA interrupt was connected (probably a bug),
+        # but fill in a dummy entry for the other (may be the wrong direction!)
+        puts "WARNING: only one SDMA interrupt line connected for $target_periph_name"
+    }
+}
+
+# ------------------------------------------------------------------
+# Find the two LocalLink DMA interrupts (RX and TX), and define
+# the canonical constants in xparameters.h and the config table
+# ------------------------------------------------------------------
+proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_tag dma_signal chan_id} {
+
+    set target_periph_name [string toupper [get_property NAME $target_periph]]
+
+    # First get the interrupt ports on this AXI peripheral
+    set interrupt_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
+    if {$interrupt_port == ""} {
+	puts "Info: There are no AXI MCDMA Interrupt ports"
+        puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMATX%s_INTR 0xFF" $canonical_tag $chan_id]
+        add_field_to_periph_config_struct $deviceid 0xFF
+        return
+   }
+    # For each interrupt port, find out the ordinal of the interrupt line
+    # as connected to an interrupt controller
+    set addentry 0
+    set dmarx "null"
+    foreach intr_port $interrupt_port {
+        set interrupt_signal_name [get_property NAME $intr_port]
+        set intc_port [get_pins -of_objects $target_periph -filter {TYPE==INTERRUPT&&DIRECTION==O}]
+
+        # Make sure the interrupt signal was connected in this design. We assume
+        # at least one is. (could be a bug if user just wants polled mode)
+        if { $intc_port != "" } {
+            set found_intc ""
+            foreach intr_sink $intc_port {
+		set pname_type [::hsi::utils::get_connected_intr_cntrl $target_periph $intr_sink]
+                if {$pname_type != "chipscope_ila" && $pname_type != ""} {
+			set special [get_property IP_TYPE $pname_type]
+			#Handling for zynqmp
+                        if { [llength $special] > 1 } {
+                             set special [lindex $special 1]
+                        }
+			if {[string compare -nocase $special "INTERRUPT_CNTLR"] == 0} {
+				set found_intc $intr_sink
+			}
+                }
+            }
+
+            if {$found_intc == ""} {
+                puts "Info: DMA interrupt not connected to intc\n"
+                puts "Info: There are no AXI MCDMA Interrupt ports"
+		puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMATX%s_INTR 0xFF" $canonical_tag $chan_id]
+		add_field_to_periph_config_struct $deviceid 0xFF
+		return
+            }
+	    set intc_periph [get_cells -of_objects $found_intc]
+            set intc_periph_type [get_property IP_NAME $pname_type]
+            set intc_name [string toupper [get_property NAME $pname_type]]
+	    if { [llength $intc_periph_type] > 1 } {
+                set intc_periph_type [lindex $intc_periph_type 1]
+            }
+        } else {
+            puts "Info: $target_periph_name interrupt signal $interrupt_signal_name not connected"
+            continue
+        }
+    }
+
+        # A bit of ugliness here. The only way to figure the ordinal is to
+        # iterate over the interrupt lines again and see if a particular signal
+        # matches the original interrupt signal we were tracking.
+        # If it does, put out the XPAR
+        if { $intc_periph_type != [format "ps7_scugic"] && $intc_periph_type != [format "psu_acpu_gic"]} {
+		set rx_int_id [::hsi::utils::get_port_intr_id $target_periph $dma_signal]
+		set canonical_name [format "XPAR_%s_CONNECTED_MCDMATX%s_INTR" $canonical_tag $chan_id]
+                puts $file_handle [format "#define $canonical_name %d" $rx_int_id]
+		add_field_to_periph_config_struct $deviceid $canonical_name
+	} else {
+		set addentry 2
+	}
+
+
+    # Now add to the config table in the proper order (RX first, then TX
+    set proc  [hsi::get_sw_processor];
+    set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
+
+    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] && $proc_type != "psu_pmu"} {
+	set canonical_name [format "XPAR_%s_CONNECTED_MCDMATX%s_INTR" $canonical_tag $chan_id]
+	set chan_cnt [get_property CONFIG.c_num_mm2s_channels $target_periph]
+	if { $chan_cnt >= $chan_id } {
+		puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_MM2S_CH%s_INTROUT_INTR" $target_periph_name $chan_id]
+		add_field_to_periph_config_struct $deviceid $canonical_name
+	} else {
+		add_field_to_periph_config_struct $deviceid 0xFF
+		#puts $file_handle [format "#define $canonical_name 0xFF" $target_periph_name]
+	}
+	#add_field_to_periph_config_struct $deviceid $canonical_name
     }
 
     if { $addentry == 1} {
@@ -697,6 +972,16 @@ proc generate_sgmii_params {drv_handle file_name} {
 	close $file_handle
 }
 
+proc get_speed {value} {
+	if { [string compare -nocase $value "2p5G"] == 0} {
+		set value 2500
+	} else {
+		set value 1000
+	}
+
+	return $value
+}
+
 proc is_property_set {value} {
 	if {[string compare -nocase $value "true"] == 0} {
 		set value 1
@@ -747,7 +1032,7 @@ proc get_mactype {value} {
 
 proc is_ethsupported_target {connected_ip} {
    set connected_ipname [get_property IP_NAME $connected_ip]
-   if {$connected_ipname == "axi_dma" || $connected_ipname == "axi_fifo_mm_s"} {
+   if {$connected_ipname == "axi_dma" || $connected_ipname == "axi_fifo_mm_s" || $connected_ipname == "axi_mcdma"} {
       return "true"
    } else {
       return "false"
