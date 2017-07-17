@@ -55,7 +55,28 @@ frame construction.
 
 For details, see xaxiethernet_example_util.c.
 
-@section ex7 xaxiethernet_example.h
+@section ex7 xaxiethernet_example_mcdma_poll.c
+Contains an example on how to use the XAxietherent driver directly.
+This example shows how to use Axi Ethernet with MCDMA in polled mode
+to send and receive frames.
+
+For details, see xaxiethernet_example_mcdma_poll.c.
+
+@section ex8 xaxiethernet_example_intr_mcdma.c
+Contains an example on how to use the XAxietherent driver directly.
+This example shows how to use Axi Ethernet with MCDMA in interrupt mode
+to send and receive frames.
+
+For details, see xaxiethernet_example_intr_mcdma.c.
+
+@section ex9 xaxiethernet_mcdma_ping_req_example.c
+Contains an example on how to use the XAxietherent driver directly.
+This example shows how to use Axi Ethernet with MCDMA in polled mode
+to send ping request's.
+
+For details, see xaxiethernet_mcdma_ping_req_example.c.
+
+@section ex10 xaxiethernet_example.h
 This headerfile defines common data types, prototypes, and includes the proper
 headers for use with the Axi Ethernet examples.
 
@@ -70,10 +91,10 @@ For details, see xaxiethernet_example.h.
 
 @subsection IMPORTANT NOTES:
  - Included HW features are critical as to which examples will run properly.
- - The device connected to the AXI4-Stream interface (AXIFIFO or AXIDMA)
+ - The device connected to the AXI4-Stream interface (AXIFIFO or AXIDMA or AXI MCDMA)
    of the AxiEthernet must be initialized before AxiEthernet initialization.
-   Since the reset line of AXIFIFO or AXIDMA is connected to the reset line
-   of AxiEthernet, AXIDMA/AXIFIFO initialization would reset AxiEthernet.
+   Since the reset line of AXIFIFO or AXIDMA or AXI MCDMA is connected to the reset line
+   of AxiEthernet, AXIDMA/AXIFIFO/AXI MCDMA initialization would reset AxiEthernet.
    AxiEthernet hardware initialization routines in the AxiEthernet driver do
    not reset the AxiEthernet hardware.
 */

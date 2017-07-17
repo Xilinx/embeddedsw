@@ -140,6 +140,8 @@ static volatile int DeviceErrors;	/* Num of errors detected in
 static volatile int FrameDataErrors;	/* Num of times frame data check
 					 * failed
 					 */
+volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp value */
+volatile int ExternalLoopback; /* Variable for External loopback */
 XAxiEthernet AxiEthernetInstance;
 XLlFifo FifoInstance;
 

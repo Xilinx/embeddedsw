@@ -103,6 +103,8 @@
 
 /************************** Variable Definitions ****************************/
 
+volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp value */
+volatile int ExternalLoopback; /* Variable for External loopback */
 EthernetFrame TxFrame;		/* Transmit frame buffer */
 EthernetFrame RxFrame;		/* Receive frame buffer */
 
