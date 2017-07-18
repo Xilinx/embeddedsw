@@ -71,6 +71,7 @@
  *                     Added intr events for TX and RX MMCM lock
  *                     Marked XVphy_DrpWrite and XVphy_DrpRead as deprecated
  *                     Added XVphy_SetErrorCallback API
+ *                     Changed ClkOutxDiv declaration to u16
  * </pre>
  *
 *******************************************************************************/
@@ -525,10 +526,10 @@ typedef struct {
 	u8 DivClkDivide;
 	u8 ClkFbOutMult;
 	u16 ClkFbOutFrac;
-	u8 ClkOut0Div;
+	u16 ClkOut0Div;
 	u16 ClkOut0Frac;
-	u8 ClkOut1Div;
-	u8 ClkOut2Div;
+	u16 ClkOut1Div;
+	u16 ClkOut2Div;
 } XVphy_Mmcm;
 
 /**
