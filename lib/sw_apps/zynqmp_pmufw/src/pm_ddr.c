@@ -163,6 +163,7 @@
 
 #define DDRPHY_PIR_INIT			BIT(0U)
 #define DDRPHY_PIR_ZCAL			BIT(1U)
+#define DDRPHY_PIR_CA			BIT(2U)
 #define DDRPHY_PIR_PLLINIT		BIT(4U)
 #define DDRPHY_PIR_DCAL			BIT(5U)
 #define DDRPHY_PIR_PHYRST		BIT(6U)
@@ -176,6 +177,7 @@
 #define DDRPHY_PIR_VREF			BIT(17U)
 #define DDRPHY_PIR_CTLDINIT		BIT(18U)
 #define DDRPHY_PIR_RDIMMINIT		BIT(19U)
+#define DDRPHY_PIR_DQS2DQ		BIT(20U)
 #define DDRPHY_PIR_ZCALBYP		BIT(30U)
 
 #define DDRPHY_PGCR0_PHYFRST	BIT(26U)
@@ -236,6 +238,10 @@
 #define DDRPHY_DX8SLBOSC_PHYFRST	BIT(15U)
 
 #define DDRPHY_DTCR0_INCWEYE		BIT(4U)
+#define DDRPHY_DTCR0_RFSHDT_SHIFT	28U
+#define DDRPHY_DTCR0_RFSHDT_MASK	((u32)0xF0000000U)
+#define DDRPHY_DTCR0_RFSHEN_SHIFT	8U
+#define DDRPHY_DTCR0_RFSHEN_MASK	((u32)0x00000F00U)
 
 #define DDRPHY_DSGCR_CTLZUEN		BIT(2U)
 
@@ -1056,42 +1062,81 @@ static void DDR_reinit(bool ddrss_is_reset)
 	} while (readVal != DDRC_STAT_OPMODE_NORMAL);
 
 	if (true == ddrss_is_reset) {
-		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-				      DDRPHY_PIR_WREYE |
-				      DDRPHY_PIR_RDEYE |
-				      DDRPHY_PIR_WRDSKW |
-				      DDRPHY_PIR_RDDSKW |
-				      DDRPHY_PIR_WLADJ |
-				      DDRPHY_PIR_QSGATE |
-				      DDRPHY_PIR_WL |
-				      DDRPHY_PIR_INIT);
-		do {
-			readVal = Xil_In32(DDRPHY_PGSR(0U));
-		} while (!(readVal & DDRPHY_PGSR0_IDONE));
-		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-			;
+		readVal = Xil_In32(DDRC_MSTR) & DDRC_MSTR_DDR_TYPE;
+		if (readVal == DDRC_MSTR_LPDDR3 ) {
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_WREYE |
+					      DDRPHY_PIR_RDEYE |
+					      DDRPHY_PIR_WRDSKW |
+					      DDRPHY_PIR_RDDSKW |
+					      DDRPHY_PIR_WLADJ |
+					      DDRPHY_PIR_QSGATE |
+					      DDRPHY_PIR_WL |
+					      DDRPHY_PIR_CA |
+					      DDRPHY_PIR_INIT);
+			do {
+				readVal = Xil_In32(DDRPHY_PGSR(0U));
+			} while (!(readVal & DDRPHY_PGSR0_IDONE));
+			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+				;
+		} else if (readVal == DDRC_MSTR_LPDDR4) {
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_QSGATE |
+					      DDRPHY_PIR_WL |
+					      DDRPHY_PIR_INIT);
+			do {
+				readVal = Xil_In32(DDRPHY_PGSR(0U));
+			} while (!(readVal & DDRPHY_PGSR0_IDONE));
+			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+				;
 
-		/* enable static read mode for VREF training */
-		for (i = 0U; i < 5U; i++) {
-			readVal = Xil_In32(DDRPHY_DX8SLDXCTL2(i));
-			readVal |= 3U << 4U;
-			Xil_Out32(DDRPHY_DX8SLDXCTL2(i), readVal);
-		}
+			readVal = Xil_In32(DDRPHY_DTCR(0));
+			readVal &= ~(DDRPHY_DTCR0_RFSHEN_MASK |
+				     DDRPHY_DTCR0_RFSHDT_MASK);
+			Xil_Out32(DDRPHY_DTCR(0), readVal);
 
-		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
-				      DDRPHY_PIR_VREF |
-				      DDRPHY_PIR_INIT);
-		do {
-			readVal = Xil_In32(DDRPHY_PGSR(0U));
-		} while (!(readVal & DDRPHY_PGSR0_IDONE));
-		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-			;
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_DQS2DQ |
+					      DDRPHY_PIR_INIT);
+			do {
+				readVal = Xil_In32(DDRPHY_PGSR(0U));
+			} while (!(readVal & DDRPHY_PGSR0_IDONE));
+			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+				;
 
-		/* disable static read mode */
-		for (i = 0U; i < 5U; i++) {
-			readVal = Xil_In32(DDRPHY_DX8SLDXCTL2(i));
-			readVal &= ~(3U << 4U);
-			Xil_Out32(DDRPHY_DX8SLDXCTL2(i), readVal);
+			readVal = Xil_In32(DDRPHY_DTCR(0));
+			readVal &= ~(DDRPHY_DTCR0_RFSHEN_MASK |
+				     DDRPHY_DTCR0_RFSHDT_MASK);
+			readVal |= ((0x8U << DDRPHY_DTCR0_RFSHDT_SHIFT) |
+				    (0x1U << DDRPHY_DTCR0_RFSHEN_SHIFT));
+			Xil_Out32(DDRPHY_DTCR(0), readVal);
+
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_WREYE |
+					      DDRPHY_PIR_RDEYE |
+					      DDRPHY_PIR_WRDSKW |
+					      DDRPHY_PIR_RDDSKW |
+					      DDRPHY_PIR_INIT);
+			do {
+				readVal = Xil_In32(DDRPHY_PGSR(0U));
+			} while (!(readVal & DDRPHY_PGSR0_IDONE));
+			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+				;
+		} else {
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_WREYE |
+					      DDRPHY_PIR_RDEYE |
+					      DDRPHY_PIR_WRDSKW |
+					      DDRPHY_PIR_RDDSKW |
+					      DDRPHY_PIR_WLADJ |
+					      DDRPHY_PIR_QSGATE |
+					      DDRPHY_PIR_WL |
+					      DDRPHY_PIR_INIT);
+			do {
+				readVal = Xil_In32(DDRPHY_PGSR(0U));
+			} while (!(readVal & DDRPHY_PGSR0_IDONE));
+			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
+				;
 		}
 
 		readVal = DDRPHY_PIR_CTLDINIT | DDRPHY_PIR_INIT;
