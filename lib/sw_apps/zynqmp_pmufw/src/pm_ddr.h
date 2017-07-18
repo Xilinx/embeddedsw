@@ -48,6 +48,6 @@ extern PmSlave pmSlaveDdr_g;
 /*********************************************************************
  * Function declarations
  ********************************************************************/
-void ddr_io_retention_set(bool en);
+void ddr_io_prepare(void);
 
 #endif

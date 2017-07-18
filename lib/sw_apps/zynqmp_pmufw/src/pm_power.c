@@ -302,7 +302,7 @@ static int PmPowerDownFpd(void)
 
 	PmFpdSaveContext();
 
-	ddr_io_retention_set(true);
+	ddr_io_prepare();
 
 	PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
 
