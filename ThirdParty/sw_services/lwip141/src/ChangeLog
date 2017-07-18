@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2017-07-18
+	* Add freertos support for axiethernet fifo configuration.
+	* SW workaround for TI DP83867 PHY Data integrity issues on KCU116/VCU118 Boards.
 2017-06-14
         * Add support for EL1 non secure mode.
 2017-03-07
