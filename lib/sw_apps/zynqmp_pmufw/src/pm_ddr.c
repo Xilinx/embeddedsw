@@ -918,10 +918,9 @@ static void DDR_reinit(bool ddrss_is_reset)
 {
 	size_t i;
 	u32 readVal;
+	XStatus status = XST_FAILURE;
 
 	if (true == ddrss_is_reset) {
-		XStatus status = XST_FAILURE;
-
 		/* PHY init */
 		do {
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
@@ -1004,11 +1003,15 @@ static void DDR_reinit(bool ddrss_is_reset)
 
 		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 				      DDRPHY_PIR_INIT);
-		do {
-			readVal = Xil_In32(DDRPHY_PGSR(0U));
-		} while (!(readVal & DDRPHY_PGSR0_IDONE));
-		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-			;
+		status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_IDONE,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
+
+		status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_TRAIN_ERRS,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
 
 		ddr_io_retention_set(false);
 
@@ -1024,11 +1027,15 @@ static void DDR_reinit(bool ddrss_is_reset)
 		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 				      DDRPHY_PIR_ZCAL |
 				      DDRPHY_PIR_INIT);
-		do {
-			readVal = Xil_In32(DDRPHY_PGSR(0U));
-		} while (!(readVal & DDRPHY_PGSR0_IDONE));
-		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-			;
+		status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_IDONE,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
+
+		status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_TRAIN_ERRS,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
 
 		ddr_enable_drift();
 
@@ -1074,21 +1081,29 @@ static void DDR_reinit(bool ddrss_is_reset)
 					      DDRPHY_PIR_WL |
 					      DDRPHY_PIR_CA |
 					      DDRPHY_PIR_INIT);
-			do {
-				readVal = Xil_In32(DDRPHY_PGSR(0U));
-			} while (!(readVal & DDRPHY_PGSR0_IDONE));
-			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-				;
+			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_IDONE,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
+
+			status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_TRAIN_ERRS,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
 		} else if (readVal == DDRC_MSTR_LPDDR4) {
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 					      DDRPHY_PIR_QSGATE |
 					      DDRPHY_PIR_WL |
 					      DDRPHY_PIR_INIT);
-			do {
-				readVal = Xil_In32(DDRPHY_PGSR(0U));
-			} while (!(readVal & DDRPHY_PGSR0_IDONE));
-			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-				;
+			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_IDONE,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
+
+			status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_TRAIN_ERRS,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
 
 			readVal = Xil_In32(DDRPHY_DTCR(0));
 			readVal &= ~(DDRPHY_DTCR0_RFSHEN_MASK |
@@ -1098,11 +1113,15 @@ static void DDR_reinit(bool ddrss_is_reset)
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 					      DDRPHY_PIR_DQS2DQ |
 					      DDRPHY_PIR_INIT);
-			do {
-				readVal = Xil_In32(DDRPHY_PGSR(0U));
-			} while (!(readVal & DDRPHY_PGSR0_IDONE));
-			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-				;
+			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_IDONE,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
+
+			status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_TRAIN_ERRS,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
 
 			readVal = Xil_In32(DDRPHY_DTCR(0));
 			readVal &= ~(DDRPHY_DTCR0_RFSHEN_MASK |
@@ -1117,11 +1136,15 @@ static void DDR_reinit(bool ddrss_is_reset)
 					      DDRPHY_PIR_WRDSKW |
 					      DDRPHY_PIR_RDDSKW |
 					      DDRPHY_PIR_INIT);
-			do {
-				readVal = Xil_In32(DDRPHY_PGSR(0U));
-			} while (!(readVal & DDRPHY_PGSR0_IDONE));
-			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-				;
+			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_IDONE,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
+
+			status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_TRAIN_ERRS,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
 		} else {
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 					      DDRPHY_PIR_WREYE |
@@ -1132,11 +1155,15 @@ static void DDR_reinit(bool ddrss_is_reset)
 					      DDRPHY_PIR_QSGATE |
 					      DDRPHY_PIR_WL |
 					      DDRPHY_PIR_INIT);
-			do {
-				readVal = Xil_In32(DDRPHY_PGSR(0U));
-			} while (!(readVal & DDRPHY_PGSR0_IDONE));
-			while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-				;
+			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_IDONE,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
+
+			status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_TRAIN_ERRS,
+						      PM_DDR_POLL_PERIOD);
+			REPORT_IF_ERROR(status);
 		}
 
 		readVal = DDRPHY_PIR_CTLDINIT | DDRPHY_PIR_INIT;
@@ -1145,11 +1172,15 @@ static void DDR_reinit(bool ddrss_is_reset)
 		}
 
 		Xil_Out32(DDRPHY_PIR, readVal);
-		do {
-			readVal = Xil_In32(DDRPHY_PGSR(0U));
-		} while (!(readVal & DDRPHY_PGSR0_IDONE));
-		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-			;
+		status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_IDONE,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
+
+		status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_TRAIN_ERRS,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
 
 		readVal = Xil_In32(DDRC_RFSHCTL3);
 		readVal &= ~DDRC_RFSHCTL3_AUTORF_DIS;
@@ -1163,11 +1194,15 @@ static void DDR_reinit(bool ddrss_is_reset)
 				      DDRPHY_PIR_RDEYE |
 				      DDRPHY_PIR_WRDSKW |
 				      DDRPHY_PIR_RDDSKW);
-		do {
-			readVal = Xil_In32(DDRPHY_PGSR(0U));
-		} while (!(readVal & DDRPHY_PGSR0_IDONE));
-		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-			;
+		status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_IDONE,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
+
+		status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_TRAIN_ERRS,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
 
 		/* enable AXI ports */
 		for (i = 0U; i < 6U; i++) {
