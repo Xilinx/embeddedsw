@@ -95,14 +95,25 @@
 
 #define DDRC_PWRCTL_SR_SW	BIT(5U)
 
-#define DDRC_MSTR_LPDDR3		BIT(3U)
-#define DDRC_MSTR_LPDDR4		BIT(5U)
+#define DDRC_MSTR_DDR3		BIT(0U)
+#define DDRC_MSTR_LPDDR3	BIT(3U)
+#define DDRC_MSTR_DDR4		BIT(4U)
+#define DDRC_MSTR_LPDDR4	BIT(5U)
+#define DDRC_MSTR_DDR_TYPE	(DDRC_MSTR_DDR3 | \
+				 DDRC_MSTR_LPDDR3 | \
+				 DDRC_MSTR_DDR4 | \
+				 DDRC_MSTR_LPDDR4)
 
 #define DDRC_STAT_OPMODE_MASK	7U
 #define DDRC_STAT_OPMODE_SHIFT	0U
 #define DDRC_STAT_OPMODE_INIT	0U
 #define DDRC_STAT_OPMODE_NORMAL	1U
 #define DDRC_STAT_OPMODE_SR	3U
+
+#define DDRC_ADDRMAP0_ADDRMAP_CS_BIT0		((u32)0x0000001FU)
+#define DDRC_ADDRMAP2_ADDRMAP_COL_B4		((u32)0x000F0000U)
+#define DDRC_ADDRMAP2_ADDRMAP_COL_B4_SHIFT	16U
+#define DDRC_ADDRMAP8_ADDRMAP_BG_B0		((u32)0x0000001FU)
 
 #define DDRC_SWSTAT_SWDONE	BIT(0U)
 
@@ -237,6 +248,21 @@
 #define DEFAULT_DDR_POWER_ON		100U
 #define DEFAULT_DDR_POWER_SR		50U
 #define DEFAULT_DDR_POWER_OFF		0U
+
+/* Memory for backup of locations used during ddr data training */
+#define NUM_TRAIN_BYTES 0x400U
+#define NUM_TRAIN_WORDS NUM_TRAIN_BYTES >> 2
+static u32 training_data[NUM_TRAIN_WORDS];
+
+/* Number of memory locations used for ddr data training */
+#define DDR3_SIZE	0X100U >> 2
+#define DDR4_SIZE	0x200U >> 2
+#define DDR4_SIZE_OLD	0x100U >> 2
+#define LPDDR3_SIZE	0x100U >> 2
+#define LPDDR4_SIZE	0x80U >> 2
+
+/* DDR4 old mapping ddr data training location offset */
+#define OLD_MAP_OFFSET	0x2000U
 
 /* DDR states */
 static const u32 pmDdrStates[PM_DDR_STATE_MAX] = {
@@ -1030,9 +1056,148 @@ static void DDR_reinit(bool ddrss_is_reset)
 	}
 }
 
+static bool ddr4_is_old_mapping()
+{
+	u32 bg_b0, col_b4;
+	bool old_mapping = false;
+
+	bg_b0 = Xil_In32(DDRC_ADDRMAP(8U)) & DDRC_ADDRMAP8_ADDRMAP_BG_B0;
+	col_b4 = (Xil_In32(DDRC_ADDRMAP(2U)) & DDRC_ADDRMAP2_ADDRMAP_COL_B4) >>
+		  DDRC_ADDRMAP2_ADDRMAP_COL_B4_SHIFT;
+	if ((bg_b0 + 2U) > (col_b4 + 4U)) {
+		old_mapping = true;
+	}
+
+	return old_mapping;
+}
+
+static u32 ddr_axi_cs()
+{
+	u32 reg, axi_cs;
+
+	reg = Xil_In32(DDRC_ADDRMAP(0U)) & DDRC_ADDRMAP0_ADDRMAP_CS_BIT0;
+	if (31U != reg) {
+		if (reg > 21U) {
+			axi_cs = reg + 13U;
+		} else {
+			axi_cs = reg + 9U;
+		}
+	} else {
+		axi_cs = 0U;
+	}
+
+	return axi_cs;
+}
+
+static u32 ddr_training_size()
+{
+	u32 reg, size;
+
+	reg = Xil_In32(DDRC_MSTR) & DDRC_MSTR_DDR_TYPE;
+	switch (reg) {
+	case DDRC_MSTR_LPDDR4:
+		size = LPDDR4_SIZE;
+		break;
+	case DDRC_MSTR_DDR4:
+		if (0 != ddr4_is_old_mapping()) {
+			size = DDR4_SIZE_OLD;
+		} else {
+			size = DDR4_SIZE;
+		}
+		break;
+	case DDRC_MSTR_LPDDR3:
+		size = LPDDR3_SIZE;
+		break;
+	case DDRC_MSTR_DDR3:
+		size = DDR3_SIZE;
+		break;
+	default:
+		size = 0;
+		break;
+	}
+
+	return size;
+}
+
+static void store_training_data()
+{
+	u32 axi_cs, size, i, j, step;
+	bool old_mapping;
+
+	axi_cs = ddr_axi_cs();
+	size = ddr_training_size();
+	old_mapping = ddr4_is_old_mapping();
+
+	if (axi_cs && old_mapping) {
+		step = 4;
+	} else if (axi_cs || old_mapping) {
+		step = 2;
+	} else {
+		step = 1;
+	}
+
+	for (i = 0U, j = 0U; i < size; i++, j += step) {
+		training_data[j] = Xil_In32(i << 2U);
+		if ((0 != old_mapping) && (0 != axi_cs)) {
+			training_data[j + 1U] = Xil_In32(OLD_MAP_OFFSET +
+							(i << 2U));
+			training_data[j + 2U] = Xil_In32((1U << axi_cs) +
+							(i << 2U));
+			training_data[j + 3U] = Xil_In32(OLD_MAP_OFFSET +
+						(1U << axi_cs) + (i << 2U));
+		} else if (0 != old_mapping) {
+			training_data[j + 1U] = Xil_In32(OLD_MAP_OFFSET +
+							(i << 2U));
+		} else if (0 != axi_cs) {
+			training_data[j + 1U] = Xil_In32((1U << axi_cs) +
+							(i << 2U));
+		} else {
+		}
+	}
+}
+
+static void restore_training_data()
+{
+	u32 axi_cs, size, i, j, step;
+	bool old_mapping;
+
+	axi_cs = ddr_axi_cs();
+	size = ddr_training_size();
+	old_mapping = ddr4_is_old_mapping();
+
+	if (axi_cs && old_mapping) {
+		step = 4;
+	} else if (axi_cs || old_mapping) {
+		step = 2;
+	} else {
+		step = 1;
+	}
+
+	for (i = 0U, j = 0U; i < size; i++, j += step) {
+		Xil_Out32((i << 2U), training_data[j]);
+		if ((0 != old_mapping) && (0 != axi_cs)) {
+			Xil_Out32(OLD_MAP_OFFSET + (i << 2U),
+				  training_data[j + 1U]);
+			Xil_Out32((1U << axi_cs) + (i << 2U),
+				  training_data[j + 2U]);
+			Xil_Out32(OLD_MAP_OFFSET + (1U << axi_cs) + (i << 2U),
+				  training_data[j + 3U]);
+		} else if (0 != old_mapping) {
+			Xil_Out32(OLD_MAP_OFFSET + (i << 2U),
+				  training_data[j + 1U]);
+		} else if (0 != axi_cs) {
+			Xil_Out32((1U << axi_cs) + (i << 2U),
+				  training_data[j + 1U]);
+		} else {
+		}
+	}
+}
+
 static int pm_ddr_sr_enter(void)
 {
 	int ret;
+
+	store_training_data();
 
 	/* disable read and write drift */
 	ddr_disable_rd_drift();
@@ -1070,6 +1235,8 @@ static int pm_ddr_sr_exit(bool ddrss_is_reset)
 	}
 
 	DDR_reinit(ddrss_is_reset);
+
+	restore_training_data();
 
 	return XST_SUCCESS;
 }
