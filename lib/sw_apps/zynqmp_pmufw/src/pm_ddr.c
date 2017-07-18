@@ -228,6 +228,11 @@
 #define DDRPHY_DQSDR1_DFTRDIDLF		0x000F0000U
 #define DDRPHY_DQSDR1_DFTRDIDLF_SHIFT	16U
 
+#define DDRPHY_ZQnPR0_ZDEN_SHIFT	28U
+#define DDRPHY_ZQnPR0_ZDEN_MASK		((u32)0xF0000000U)
+#define DDRPHY_ZQnPR0_ZSEGBYP		BIT(27U)
+#define DDRPHY_ZQnOR_OFFSET		8U
+
 #define DDRPHY_DX8SLBOSC_PHYFRST	BIT(15U)
 
 #define DDRPHY_DTCR0_INCWEYE		BIT(4U)
@@ -898,7 +903,7 @@ static void restore_ddrphy_zqdata(PmRegisterContext *context)
 			      __func__, context->addr + 8U, context->value);
 #endif
 		/* write result data back to override register */
-		Xil_Out32(context->addr + 8U, context->value);
+		Xil_Out32(context->addr + DDRPHY_ZQnOR_OFFSET, context->value);
 		context++;
 	}
 }
@@ -983,9 +988,10 @@ static void DDR_reinit(bool ddrss_is_reset)
 					      PM_DDR_POLL_PERIOD);
 		REPORT_IF_ERROR(status);
 
-		for (i = 0U; i < 4U; i++) {
+		for (i = 0U; i < 2U; i++) {
 			readVal = Xil_In32(DDRPHY_ZQPR(i, 0U));
-			readVal |= 0xfU << 28U;
+			readVal |= (DDRPHY_ZQnPR0_ZSEGBYP |
+				    DDRPHY_ZQnPR0_ZDEN_MASK);
 			Xil_Out32(DDRPHY_ZQPR(i, 0U), readVal);
 		}
 		restore_ddrphy_zqdata(ctx_ddrphy_zqdata);
@@ -1001,9 +1007,10 @@ static void DDR_reinit(bool ddrss_is_reset)
 		ddr_io_retention_set(false);
 
 		/* remove ZQ override */
-		for (i = 0U; i < 4U; i++) {
+		for (i = 0U; i < 2U; i++) {
 			readVal = Xil_In32(DDRPHY_ZQPR(i, 0U));
-			readVal &= ~(0xfU << 28U);
+			readVal &= ~(DDRPHY_ZQnPR0_ZSEGBYP |
+				     DDRPHY_ZQnPR0_ZDEN_MASK);
 			Xil_Out32(DDRPHY_ZQPR(i, 0U), readVal);
 		}
 
