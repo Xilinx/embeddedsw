@@ -909,17 +909,10 @@ static void DDR_reinit(bool ddrss_is_reset)
 	u32 readVal;
 
 	if (true == ddrss_is_reset) {
-		XStatus total, status;
-		u32 iteration = 0U;
+		XStatus status = XST_FAILURE;
 
 		/* PHY init */
 		do {
-			total = XST_SUCCESS;
-			if (0U != iteration) {
-				PmDbg("Attempt #%lu failed. Trying again...\r\n",
-					iteration);
-			}
-
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
 					      DDRPHY_PIR_CTLDINIT |
 					      DDRPHY_PIR_PLLINIT);
@@ -931,29 +924,40 @@ static void DDR_reinit(bool ddrss_is_reset)
 						      DDRPHY_PGSR0_IDONE |
 						      DDRPHY_PGSR0_APLOCK,
 						      PM_DDR_POLL_PERIOD);
-			total |= status;
+			if (XST_SUCCESS != status) {
+				continue;
+			}
 			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(0U),
 						      DDRPHY_DXGSR0_DPLOCK,
 						      PM_DDR_POLL_PERIOD);
-			total |= status;
+			if (XST_SUCCESS != status) {
+				continue;
+			}
 			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(2U),
 						      DDRPHY_DXGSR0_DPLOCK,
 						      PM_DDR_POLL_PERIOD);
-			total |= status;
+			if (XST_SUCCESS != status) {
+				continue;
+			}
 			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(4U),
 						      DDRPHY_DXGSR0_DPLOCK,
 						      PM_DDR_POLL_PERIOD);
-			total |= status;
+			if (XST_SUCCESS != status) {
+				continue;
+			}
 			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(6U),
 						      DDRPHY_DXGSR0_DPLOCK,
 						      PM_DDR_POLL_PERIOD);
-			total |= status;
+			if (XST_SUCCESS != status) {
+				continue;
+			}
 			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(8U),
 						      DDRPHY_DXGSR0_DPLOCK,
 						      PM_DDR_POLL_PERIOD);
-			total |= status;
-			iteration++;
-		} while (XST_SUCCESS != total);
+			if (XST_SUCCESS != status) {
+				continue;
+			}
+		} while (XST_SUCCESS != status);
 
 		status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
 					      DDRPHY_PGSR0_TRAIN_ERRS,
