@@ -1995,6 +1995,7 @@ Added XVphy_DrpRd & XVphy_DrpWr to replace the deprecated equivalent APIs
 Added XVphy_SetErrorCallback & XVphy_ErrorHandler APIs
 Adjusted GTXE2 CPLL DRU linerate to 2.5 Gbps
 Improved stability and robustness during GTXE2 bonded mode
+Changed ClkOutxDiv declaration to u16 in vphy.h
 
 
 vprocss_v2_1:
