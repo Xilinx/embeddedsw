@@ -53,6 +53,7 @@
 #define DDRC_PWRCTL		(DDRC_BASE + 0x30U)
 #define DDRC_PWRTMG		(DDRC_BASE + 0X34U)
 #define DDRC_RFSHCTL0		(DDRC_BASE + 0X50U)
+#define DDRC_RFSHCTL1		(DDRC_BASE + 0X54U)
 #define DDRC_RFSHCTL3		(DDRC_BASE + 0x60U)
 #define DDRC_RFSHTMG		(DDRC_BASE + 0x64U)
 #define DDRC_ECCCFG0		(DDRC_BASE + 0X70U)
@@ -67,6 +68,7 @@
 #define DDRC_DFITMG0		(DDRC_BASE + 0X190U)
 #define DDRC_DFITMG1		(DDRC_BASE + 0X194U)
 #define DDRC_DFILPCFG(n)	(DDRC_BASE + 0X198U + (4U * (n)))
+#define DDRC_DFIUPD0		(DDRC_BASE + 0X1A0U)
 #define DDRC_DFIUPD1		(DDRC_BASE + 0X1A4U)
 #define DDRC_DFIMISC		(DDRC_BASE + 0x1b0U)
 #define DDRC_DFITMG2		(DDRC_BASE + 0X1B4U)
@@ -134,7 +136,9 @@
 #define DDRPHY_PGCR(n)		(DDRPHY_BASE + 0x10U + (4U * (n)))
 #define DDRPHY_PGSR(n)		(DDRPHY_BASE + 0x30U + (4U * (n)))
 #define DDRPHY_PTR(n)		(DDRPHY_BASE + 0X40U + (4U * (n)))
+#define DDRPHY_PLLCR(n)		(DDRPHY_BASE + 0X68U + (4U * (n)))
 #define DDRPHY_DSGCR		(DDRPHY_BASE + 0X90U)
+#define DDRPHY_GPR(n)		(DDRPHY_BASE + 0XC0U + (4U * (n)))
 #define DDRPHY_DCR		(DDRPHY_BASE + 0X100U)
 #define DDRPHY_DTPR(n)		(DDRPHY_BASE + 0X110U + (4U * (n)))
 #define DDRPHY_RDIMMGCR(n)	(DDRPHY_BASE + 0x140U + (4U * (n)))
@@ -154,8 +158,8 @@
 #define DDRPHY_ZQDR1(n)		(DDRPHY_BASE + 0x690U + (0x20U * (n)))
 #define DDRPHY_DXGCR(n, m)	(DDRPHY_BASE + 0X700U + (0x100U * (n)) + (4U * (m)))
 #define DDRPHY_DXGSR0(n)	(DDRPHY_BASE + 0X7e0U + (0x100U * (n)))
-#define DDRPHY_DXGTR0(n)	(DDRPHY_BASE + 0X7c0U + (0x100U * (n)))
 #define DDRPHY_DX8SLNOSC(n)	(DDRPHY_BASE + 0x1400U + (0x40U * (n)))
+#define DDRPHY_DX8SLPLLCR(n, m)	(DDRPHY_BASE + 0X1404U + (0x40U * (n)) + (4U * (m)))
 #define DDRPHY_DX8SLDQSCTL(n)	(DDRPHY_BASE + 0x141cU + (0x40U * (n)))
 #define DDRPHY_DX8SLDXCTL2(n)	(DDRPHY_BASE + 0x142cU + (0x40U * (n)))
 #define DDRPHY_DX8SLIOCR(n)	(DDRPHY_BASE + 0x1430U + (0x40U * (n)))
@@ -357,6 +361,7 @@ static PmRegisterContext ctx_ddrc[] = {
 	{ .addr = DDRC_PWRCTL, },
 	{ .addr = DDRC_PWRTMG, },
 	{ .addr = DDRC_RFSHCTL0, },
+	{ .addr = DDRC_RFSHCTL1, },
 	{ .addr = DDRC_RFSHCTL3, },
 	{ .addr = DDRC_RFSHTMG, },
 	{ .addr = DDRC_ECCCFG0, },
@@ -385,12 +390,15 @@ static PmRegisterContext ctx_ddrc[] = {
 	{ .addr = DDRC_DRAMTMG(9U), },
 	{ .addr = DDRC_DRAMTMG(11U), },
 	{ .addr = DDRC_DRAMTMG(12U), },
+	{ .addr = DDRC_DRAMTMG(13U), },
+	{ .addr = DDRC_DRAMTMG(14U), },
 	{ .addr = DDRC_ZQCTL(0U), },
 	{ .addr = DDRC_ZQCTL(1U), },
 	{ .addr = DDRC_DFITMG0, },
 	{ .addr = DDRC_DFITMG1, },
 	{ .addr = DDRC_DFILPCFG(0U), },
 	{ .addr = DDRC_DFILPCFG(1U), },
+	{ .addr = DDRC_DFIUPD0, },
 	{ .addr = DDRC_DFIUPD1, },
 	{ .addr = DDRC_DFIMISC, },
 	{ .addr = DDRC_DFITMG2, },
@@ -466,7 +474,9 @@ static PmRegisterContext ctx_ddrphy[] = {
 	{ .addr = DDRPHY_PGCR(5U), },
 	{ .addr = DDRPHY_PTR(0U), },
 	{ .addr = DDRPHY_PTR(1U), },
+	{ .addr = DDRPHY_PLLCR(0U), },
 	{ .addr = DDRPHY_DSGCR, },
+	{ .addr = DDRPHY_GPR(0U), },
 	{ .addr = DDRPHY_DCR, },
 	{ .addr = DDRPHY_DTPR(0U), },
 	{ .addr = DDRPHY_DTPR(1U), },
@@ -499,6 +509,7 @@ static PmRegisterContext ctx_ddrphy[] = {
 	{ .addr = DDRPHY_ACIOCR(2U), },
 	{ .addr = DDRPHY_ACIOCR(3U), },
 	{ .addr = DDRPHY_ACIOCR(4U), },
+	{ .addr = DDRPHY_ACIOCR(5U), },
 	{ .addr = DDRPHY_IOVCR(0U), },
 	{ .addr = DDRPHY_VTCR(0U), },
 	{ .addr = DDRPHY_VTCR(1U), },
@@ -514,83 +525,90 @@ static PmRegisterContext ctx_ddrphy[] = {
 	{ .addr = DDRPHY_ZQPR(0U, 0U), },
 	{ .addr = DDRPHY_ZQPR(1U, 0U), },
 	{ .addr = DDRPHY_DXGCR(0U, 0U), },
+	{ .addr = DDRPHY_DXGCR(0U, 1U), },
+	{ .addr = DDRPHY_DXGCR(0U, 2U), },
 	{ .addr = DDRPHY_DXGCR(0U, 3U), },
 	{ .addr = DDRPHY_DXGCR(0U, 4U), },
 	{ .addr = DDRPHY_DXGCR(0U, 5U), },
 	{ .addr = DDRPHY_DXGCR(0U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(0U), },
 	{ .addr = DDRPHY_DXGCR(1U, 0U), },
+	{ .addr = DDRPHY_DXGCR(1U, 1U), },
+	{ .addr = DDRPHY_DXGCR(1U, 2U), },
 	{ .addr = DDRPHY_DXGCR(1U, 3U), },
 	{ .addr = DDRPHY_DXGCR(1U, 4U), },
 	{ .addr = DDRPHY_DXGCR(1U, 5U), },
 	{ .addr = DDRPHY_DXGCR(1U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(1U), },
 	{ .addr = DDRPHY_DXGCR(2U, 0U), },
 	{ .addr = DDRPHY_DXGCR(2U, 1U), },
+	{ .addr = DDRPHY_DXGCR(2U, 2U), },
 	{ .addr = DDRPHY_DXGCR(2U, 3U), },
 	{ .addr = DDRPHY_DXGCR(2U, 4U), },
 	{ .addr = DDRPHY_DXGCR(2U, 5U), },
 	{ .addr = DDRPHY_DXGCR(2U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(2U), },
 	{ .addr = DDRPHY_DXGCR(3U, 0U), },
 	{ .addr = DDRPHY_DXGCR(3U, 1U), },
+	{ .addr = DDRPHY_DXGCR(3U, 2U), },
 	{ .addr = DDRPHY_DXGCR(3U, 3U), },
 	{ .addr = DDRPHY_DXGCR(3U, 4U), },
 	{ .addr = DDRPHY_DXGCR(3U, 5U), },
 	{ .addr = DDRPHY_DXGCR(3U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(3U), },
 	{ .addr = DDRPHY_DXGCR(4U, 0U), },
 	{ .addr = DDRPHY_DXGCR(4U, 1U), },
+	{ .addr = DDRPHY_DXGCR(4U, 2U), },
 	{ .addr = DDRPHY_DXGCR(4U, 3U), },
 	{ .addr = DDRPHY_DXGCR(4U, 4U), },
 	{ .addr = DDRPHY_DXGCR(4U, 5U), },
 	{ .addr = DDRPHY_DXGCR(4U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(4U), },
 	{ .addr = DDRPHY_DXGCR(5U, 0U), },
 	{ .addr = DDRPHY_DXGCR(5U, 1U), },
+	{ .addr = DDRPHY_DXGCR(5U, 2U), },
 	{ .addr = DDRPHY_DXGCR(5U, 3U), },
 	{ .addr = DDRPHY_DXGCR(5U, 4U), },
 	{ .addr = DDRPHY_DXGCR(5U, 5U), },
 	{ .addr = DDRPHY_DXGCR(5U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(5U), },
 	{ .addr = DDRPHY_DXGCR(6U, 0U), },
 	{ .addr = DDRPHY_DXGCR(6U, 1U), },
+	{ .addr = DDRPHY_DXGCR(6U, 2U), },
 	{ .addr = DDRPHY_DXGCR(6U, 3U), },
 	{ .addr = DDRPHY_DXGCR(6U, 4U), },
 	{ .addr = DDRPHY_DXGCR(6U, 5U), },
 	{ .addr = DDRPHY_DXGCR(6U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(6U), },
 	{ .addr = DDRPHY_DXGCR(7U, 0U), },
 	{ .addr = DDRPHY_DXGCR(7U, 1U), },
+	{ .addr = DDRPHY_DXGCR(7U, 2U), },
 	{ .addr = DDRPHY_DXGCR(7U, 3U), },
 	{ .addr = DDRPHY_DXGCR(7U, 4U), },
 	{ .addr = DDRPHY_DXGCR(7U, 5U), },
 	{ .addr = DDRPHY_DXGCR(7U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(7U), },
 	{ .addr = DDRPHY_DXGCR(8U, 0U), },
 	{ .addr = DDRPHY_DXGCR(8U, 1U), },
+	{ .addr = DDRPHY_DXGCR(8U, 2U), },
 	{ .addr = DDRPHY_DXGCR(8U, 3U), },
 	{ .addr = DDRPHY_DXGCR(8U, 4U), },
 	{ .addr = DDRPHY_DXGCR(8U, 5U), },
 	{ .addr = DDRPHY_DXGCR(8U, 6U), },
-	{ .addr = DDRPHY_DXGTR0(8U), },
 	{ .addr = DDRPHY_DX8SLNOSC(0U), },
+	{ .addr = DDRPHY_DX8SLPLLCR(0U, 0U), },
 	{ .addr = DDRPHY_DX8SLDQSCTL(0U), },
 	{ .addr = DDRPHY_DX8SLDXCTL2(0U), },
 	{ .addr = DDRPHY_DX8SLIOCR(0U), },
 	{ .addr = DDRPHY_DX8SLNOSC(1U), },
+	{ .addr = DDRPHY_DX8SLPLLCR(1U, 0U), },
 	{ .addr = DDRPHY_DX8SLDQSCTL(1U), },
 	{ .addr = DDRPHY_DX8SLDXCTL2(1U), },
 	{ .addr = DDRPHY_DX8SLIOCR(1U), },
 	{ .addr = DDRPHY_DX8SLNOSC(2U), },
+	{ .addr = DDRPHY_DX8SLPLLCR(2U, 0U), },
 	{ .addr = DDRPHY_DX8SLDQSCTL(2U), },
 	{ .addr = DDRPHY_DX8SLDXCTL2(2U), },
 	{ .addr = DDRPHY_DX8SLIOCR(2U), },
 	{ .addr = DDRPHY_DX8SLNOSC(3U), },
+	{ .addr = DDRPHY_DX8SLPLLCR(3U, 0U), },
 	{ .addr = DDRPHY_DX8SLDQSCTL(3U), },
 	{ .addr = DDRPHY_DX8SLDXCTL2(3U), },
 	{ .addr = DDRPHY_DX8SLIOCR(3U), },
 	{ .addr = DDRPHY_DX8SLNOSC(4U), },
+	{ .addr = DDRPHY_DX8SLPLLCR(4U, 0U), },
 	{ .addr = DDRPHY_DX8SLDQSCTL(4U), },
 	{ .addr = DDRPHY_DX8SLDXCTL2(4U), },
 	{ .addr = DDRPHY_DX8SLIOCR(4U), },
