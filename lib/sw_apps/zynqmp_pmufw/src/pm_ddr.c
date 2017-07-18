@@ -153,6 +153,7 @@
 #define DDRPHY_ZQDR0(n)		(DDRPHY_BASE + 0x68cU + (0x20U * (n)))
 #define DDRPHY_ZQDR1(n)		(DDRPHY_BASE + 0x690U + (0x20U * (n)))
 #define DDRPHY_DXGCR(n, m)	(DDRPHY_BASE + 0X700U + (0x100U * (n)) + (4U * (m)))
+#define DDRPHY_DXGSR0(n)	(DDRPHY_BASE + 0X7e0U + (0x100U * (n)))
 #define DDRPHY_DXGTR0(n)	(DDRPHY_BASE + 0X7c0U + (0x100U * (n)))
 #define DDRPHY_DX8SLNOSC(n)	(DDRPHY_BASE + 0x1400U + (0x40U * (n)))
 #define DDRPHY_DX8SLDQSCTL(n)	(DDRPHY_BASE + 0x141cU + (0x40U * (n)))
@@ -179,6 +180,9 @@
 
 #define DDRPHY_PGCR0_PHYFRST	BIT(26U)
 
+#define DDRPHY_DXGSR0_DPLOCK	BIT(16U)
+
+#define DDRPHY_PGSR0_APLOCK	BIT(31U)
 #define DDRPHY_PGSR0_SRDERR	BIT(30U)
 #define DDRPHY_PGSR0_CAWRN	BIT(29U)
 #define DDRPHY_PGSR0_CAERR	BIT(28U)
@@ -237,6 +241,13 @@
 #define DDRQOS_DDR_CLK_CTRL	(DDRQOS_BASE + 0x700U)
 
 #define DDRQOS_DDR_CLK_CTRL_CLKACT	BIT(0U)
+
+#define PM_DDR_POLL_PERIOD		3200U	/* ~100us @220MHz */
+
+#define REPORT_IF_ERROR(status) \
+		if (XST_SUCCESS != status) { \
+			PmDbg("ERROR @line %d\r\n", __LINE__); \
+		}
 
 /* Power states of DDR */
 #define PM_DDR_STATE_OFF	0U
@@ -898,18 +909,75 @@ static void DDR_reinit(bool ddrss_is_reset)
 	u32 readVal;
 
 	if (true == ddrss_is_reset) {
+		XStatus total, status;
+		u32 iteration = 0U;
+
 		/* PHY init */
+		do {
+			total = XST_SUCCESS;
+			if (0U != iteration) {
+				PmDbg("Attempt #%lu failed. Trying again...\r\n",
+					iteration);
+			}
+
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
+					      DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_PLLINIT);
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
+					      DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_PLLINIT |
+					      DDRPHY_PIR_INIT);
+			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+						      DDRPHY_PGSR0_IDONE |
+						      DDRPHY_PGSR0_APLOCK,
+						      PM_DDR_POLL_PERIOD);
+			total |= status;
+			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(0U),
+						      DDRPHY_DXGSR0_DPLOCK,
+						      PM_DDR_POLL_PERIOD);
+			total |= status;
+			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(2U),
+						      DDRPHY_DXGSR0_DPLOCK,
+						      PM_DDR_POLL_PERIOD);
+			total |= status;
+			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(4U),
+						      DDRPHY_DXGSR0_DPLOCK,
+						      PM_DDR_POLL_PERIOD);
+			total |= status;
+			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(6U),
+						      DDRPHY_DXGSR0_DPLOCK,
+						      PM_DDR_POLL_PERIOD);
+			total |= status;
+			status = XPfw_UtilPollForMask(DDRPHY_DXGSR0(8U),
+						      DDRPHY_DXGSR0_DPLOCK,
+						      PM_DDR_POLL_PERIOD);
+			total |= status;
+			iteration++;
+		} while (XST_SUCCESS != total);
+
+		status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_TRAIN_ERRS,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
+
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
+				      DDRPHY_PIR_CTLDINIT |
+				      DDRPHY_PIR_PHYRST |
+				      DDRPHY_PIR_DCAL);
 		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_ZCALBYP |
 				      DDRPHY_PIR_CTLDINIT |
 				      DDRPHY_PIR_PHYRST |
 				      DDRPHY_PIR_DCAL |
-				      DDRPHY_PIR_PLLINIT |
 				      DDRPHY_PIR_INIT);
-		do {
-			readVal = Xil_In32(DDRPHY_PGSR(0U));
-		} while (!(readVal & DDRPHY_PGSR0_IDONE));
-		while (readVal & DDRPHY_PGSR0_TRAIN_ERRS)
-			;
+		status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_IDONE,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
+
+		status = XPfw_UtilPollForZero(DDRPHY_PGSR(0U),
+					      DDRPHY_PGSR0_TRAIN_ERRS,
+					      PM_DDR_POLL_PERIOD);
+		REPORT_IF_ERROR(status);
 
 		for (i = 0U; i < 4U; i++) {
 			readVal = Xil_In32(DDRPHY_ZQPR(i, 0U));
