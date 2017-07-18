@@ -520,10 +520,6 @@ static PmRegisterContext ctx_ddrphy_zqdata[] = {
 	{ .addr = DDRPHY_ZQDR1(0U), },
 	{ .addr = DDRPHY_ZQDR0(1U), },
 	{ .addr = DDRPHY_ZQDR1(1U), },
-	{ .addr = DDRPHY_ZQDR0(2U), },
-	{ .addr = DDRPHY_ZQDR1(2U), },
-	{ .addr = DDRPHY_ZQDR0(3U), },
-	{ .addr = DDRPHY_ZQDR1(3U), },
 	{ },
 };
 
@@ -833,11 +829,7 @@ static void store_state(PmRegisterContext *context)
 			   context->addr == DDRPHY_DX8SLNOSC(1U) ||
 			   context->addr == DDRPHY_DX8SLNOSC(2U) ||
 			   context->addr == DDRPHY_DX8SLNOSC(3U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(4U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(5U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(6U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(7U) ||
-			   context->addr == DDRPHY_DX8SLNOSC(8U)) {
+			   context->addr == DDRPHY_DX8SLNOSC(4U)) {
 			/* assert FIFO reset */
 			context->value &= ~DDRPHY_DX8SLBOSC_PHYFRST;
 		}
@@ -934,7 +926,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 		readVal |= DDRPHY_PGCR0_PHYFRST;
 		Xil_Out32(DDRPHY_PGCR(0U), readVal);
 
-		for (i = 0U; i < 9U; i++) {
+		for (i = 0U; i < 5U; i++) {
 			readVal = Xil_In32(DDRPHY_DX8SLNOSC(i));
 			readVal |= DDRPHY_DX8SLBOSC_PHYFRST;
 			Xil_Out32(DDRPHY_DX8SLNOSC(i), readVal);
