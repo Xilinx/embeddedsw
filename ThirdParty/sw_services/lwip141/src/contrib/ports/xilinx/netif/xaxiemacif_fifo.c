@@ -33,8 +33,15 @@
 #include "lwipopts.h"
 
 #if !NO_SYS
+#ifdef OS_IS_XILKERNEL
 #include "xmk.h"
 #include "sys/intr.h"
+#endif
+#ifdef OS_IS_FREERTOS
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "timers.h"
+#endif
 #include "lwip/sys.h"
 #endif
 
@@ -76,6 +83,10 @@ static void xaxiemac_fasterror_handler(void) __attribute__ ((fast_interrupt));
 /** Variables for Fast Interrupt handlers ***/
 struct xemac_s *xemac_fast;
 xaxiemacif_s *xaxiemacif_fast;
+#endif
+
+#ifdef OS_IS_FREERTOS
+unsigned int xInsideISR = 0;
 #endif
 
 int is_tx_space_available(xaxiemacif_s *emac)
@@ -178,6 +189,10 @@ xllfifo_intr_handler(struct xemac_s *xemac)
 
 	u32_t pending_fifo_intr = XLlFifo_IntPending(llfifo);
 
+#ifdef OS_IS_FREERTOS
+	xInsideISR++;
+#endif
+
 	while (pending_fifo_intr) {
 		if (pending_fifo_intr & XLLF_INT_RC_MASK) {
 			/* receive interrupt */
@@ -194,6 +209,11 @@ xllfifo_intr_handler(struct xemac_s *xemac)
 		}
 		pending_fifo_intr = XLlFifo_IntPending(llfifo);
 	}
+
+#ifdef OS_IS_FREERTOS
+	xInsideISR--;
+#endif
+
 }
 
 XStatus init_axi_fifo(struct xemac_s *xemac)
@@ -204,6 +224,9 @@ XStatus init_axi_fifo(struct xemac_s *xemac)
 	xemac_fast = xemac;
 #endif
 #if NO_SYS
+	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
+#endif
+#ifdef OS_IS_FREERTOS
 	struct xtopology_t *xtopologyp = &xtopology[xemac->topology_index];
 #endif
 
@@ -279,6 +302,7 @@ XStatus init_axi_fifo(struct xemac_s *xemac)
 		XIntc_EnableIntr(xtopologyp->intc_baseaddr, cur_mask);
 	} while (0);
 #else
+#ifdef OS_IS_XILKERNEL
 	/* connect & enable TEMAC interrupts */
 	register_int_handler(xaxiemacif->axi_ethernet.Config.TemacIntr,
 			(XInterruptHandler)xaxiemac_error_handler,
@@ -290,6 +314,45 @@ XStatus init_axi_fifo(struct xemac_s *xemac)
 			(XInterruptHandler)xllfifo_intr_handler,
 			xemac);
 	enable_interrupt(xaxiemacif->axi_ethernet.Config.AxiFifoIntr);
+#else
+#if XPAR_INTC_0_HAS_FAST == 1
+	/* Register temac interrupt with interrupt controller */
+	XIntc_RegisterFastHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.TemacIntr,
+			(XFastInterruptHandler)xaxiemac_fasterror_handler);
+
+	/* connect & enable FIFO interrupt */
+	XIntc_RegisterFastHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.AxiFifoIntr,
+			(XFastInterruptHandler)xllfifo_fastintr_handler);
+#else
+	/* Register temac interrupt with interrupt controller */
+	XIntc_RegisterHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.TemacIntr,
+			(XInterruptHandler)xaxiemac_error_handler,
+			&xaxiemacif->axi_ethernet);
+
+	/* connect & enable FIFO interrupt */
+	XIntc_RegisterHandler(xtopologyp->intc_baseaddr,
+			xaxiemacif->axi_ethernet.Config.AxiFifoIntr,
+			(XInterruptHandler)xllfifo_intr_handler,
+			xemac);
+
+#endif
+	/* Enable EMAC interrupts in the interrupt controller */
+	do {
+		/* read current interrupt enable mask */
+		unsigned int cur_mask = XIntc_In32(xtopologyp->intc_baseaddr + XIN_IER_OFFSET);
+
+		/* form new mask enabling SDMA & ll_temac interrupts */
+		cur_mask = cur_mask
+				| (1 << xaxiemacif->axi_ethernet.Config.AxiFifoIntr)
+				| (1 << xaxiemacif->axi_ethernet.Config.TemacIntr);
+
+		/* set new mask */
+		XIntc_EnableIntr(xtopologyp->intc_baseaddr, cur_mask);
+	} while (0);
+#endif
 #endif
 #endif
 
