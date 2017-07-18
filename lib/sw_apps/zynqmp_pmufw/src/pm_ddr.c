@@ -1001,6 +1001,7 @@ static void DDR_reinit(bool ddrss_is_reset)
 		}
 		restore_ddrphy_zqdata(ctx_ddrphy_zqdata);
 
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT);
 		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 				      DDRPHY_PIR_INIT);
 		status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
@@ -1024,6 +1025,8 @@ static void DDR_reinit(bool ddrss_is_reset)
 		}
 
 		/* zcal */
+		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+				      DDRPHY_PIR_ZCAL);
 		Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 				      DDRPHY_PIR_ZCAL |
 				      DDRPHY_PIR_INIT);
@@ -1079,6 +1082,15 @@ static void DDR_reinit(bool ddrss_is_reset)
 					      DDRPHY_PIR_WLADJ |
 					      DDRPHY_PIR_QSGATE |
 					      DDRPHY_PIR_WL |
+					      DDRPHY_PIR_CA);
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_WREYE |
+					      DDRPHY_PIR_RDEYE |
+					      DDRPHY_PIR_WRDSKW |
+					      DDRPHY_PIR_RDDSKW |
+					      DDRPHY_PIR_WLADJ |
+					      DDRPHY_PIR_QSGATE |
+					      DDRPHY_PIR_WL |
 					      DDRPHY_PIR_CA |
 					      DDRPHY_PIR_INIT);
 			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
@@ -1091,6 +1103,9 @@ static void DDR_reinit(bool ddrss_is_reset)
 						      PM_DDR_POLL_PERIOD);
 			REPORT_IF_ERROR(status);
 		} else if (readVal == DDRC_MSTR_LPDDR4) {
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_QSGATE |
+					      DDRPHY_PIR_WL);
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 					      DDRPHY_PIR_QSGATE |
 					      DDRPHY_PIR_WL |
@@ -1110,6 +1125,8 @@ static void DDR_reinit(bool ddrss_is_reset)
 				     DDRPHY_DTCR0_RFSHDT_MASK);
 			Xil_Out32(DDRPHY_DTCR(0), readVal);
 
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_DQS2DQ);
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 					      DDRPHY_PIR_DQS2DQ |
 					      DDRPHY_PIR_INIT);
@@ -1134,6 +1151,11 @@ static void DDR_reinit(bool ddrss_is_reset)
 					      DDRPHY_PIR_WREYE |
 					      DDRPHY_PIR_RDEYE |
 					      DDRPHY_PIR_WRDSKW |
+					      DDRPHY_PIR_RDDSKW);
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_WREYE |
+					      DDRPHY_PIR_RDEYE |
+					      DDRPHY_PIR_WRDSKW |
 					      DDRPHY_PIR_RDDSKW |
 					      DDRPHY_PIR_INIT);
 			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
@@ -1146,6 +1168,14 @@ static void DDR_reinit(bool ddrss_is_reset)
 						      PM_DDR_POLL_PERIOD);
 			REPORT_IF_ERROR(status);
 		} else {
+			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
+					      DDRPHY_PIR_WREYE |
+					      DDRPHY_PIR_RDEYE |
+					      DDRPHY_PIR_WRDSKW |
+					      DDRPHY_PIR_RDDSKW |
+					      DDRPHY_PIR_WLADJ |
+					      DDRPHY_PIR_QSGATE |
+					      DDRPHY_PIR_WL);
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 					      DDRPHY_PIR_WREYE |
 					      DDRPHY_PIR_RDEYE |
@@ -1166,12 +1196,13 @@ static void DDR_reinit(bool ddrss_is_reset)
 			REPORT_IF_ERROR(status);
 		}
 
-		readVal = DDRPHY_PIR_CTLDINIT | DDRPHY_PIR_INIT;
+		readVal = DDRPHY_PIR_CTLDINIT;
 		if (0U != (Xil_In32(DDRPHY_RDIMMGCR(0U)) & DDRPHY_RDIMMGCR0_RDIMM)) {
 			readVal |= DDRPHY_PIR_RDIMMINIT;
 		}
 
 		Xil_Out32(DDRPHY_PIR, readVal);
+		Xil_Out32(DDRPHY_PIR, readVal | DDRPHY_PIR_INIT);
 		status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
 					      DDRPHY_PGSR0_IDONE,
 					      PM_DDR_POLL_PERIOD);
