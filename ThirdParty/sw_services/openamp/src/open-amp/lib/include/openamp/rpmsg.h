@@ -179,7 +179,7 @@ void rpmsg_destroy_ept(struct rpmsg_endpoint *rp_ept);
 
 int
 rpmsg_send_offchannel_raw(struct rpmsg_channel *, uint32_t, uint32_t,
-			  char *, int, int);
+			  const void *, int, int);
 
 /**
  * rpmsg_send() - send a message across to the remote processor
@@ -198,10 +198,11 @@ rpmsg_send_offchannel_raw(struct rpmsg_channel *, uint32_t, uint32_t,
  *
  * Returns 0 on success and an appropriate error value on failure.
  */
-static inline int rpmsg_send(struct rpmsg_channel *rpdev, void *data, int len)
+static inline int rpmsg_send(struct rpmsg_channel *rpdev, const void *data,
+			int len)
 {
 	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, rpdev->dst,
-					 (char *)data, len, RPMSG_TRUE);
+					 data, len, RPMSG_TRUE);
 }
 
 /**
@@ -222,10 +223,10 @@ static inline int rpmsg_send(struct rpmsg_channel *rpdev, void *data, int len)
  *
  * Returns 0 on success and an appropriate error value on failure.
  */
-static inline int rpmsg_sendto(struct rpmsg_channel *rpdev, void *data,
+static inline int rpmsg_sendto(struct rpmsg_channel *rpdev, const void *data,
 			       int len, uint32_t dst)
 {
-	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, dst, (char *)data,
+	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, dst, data,
 					 len, RPMSG_TRUE);
 }
 
@@ -251,9 +252,9 @@ static inline int rpmsg_sendto(struct rpmsg_channel *rpdev, void *data,
  */
 static inline int rpmsg_send_offchannel(struct rpmsg_channel *rpdev,
 					uint32_t src, uint32_t dst,
-					void *data, int len)
+					const void *data, int len)
 {
-	return rpmsg_send_offchannel_raw(rpdev, src, dst, (char *)data, len,
+	return rpmsg_send_offchannel_raw(rpdev, src, dst, data, len,
 					 RPMSG_TRUE);
 }
 
@@ -273,11 +274,11 @@ static inline int rpmsg_send_offchannel(struct rpmsg_channel *rpdev,
  *
  * Returns 0 on success and an appropriate error value on failure.
  */
-static inline int rpmsg_trysend(struct rpmsg_channel *rpdev, void *data,
+static inline int rpmsg_trysend(struct rpmsg_channel *rpdev, const void *data,
 				int len)
 {
 	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, rpdev->dst,
-					 (char *)data, len, RPMSG_FALSE);
+					 data, len, RPMSG_FALSE);
 }
 
 /**
@@ -297,10 +298,10 @@ static inline int rpmsg_trysend(struct rpmsg_channel *rpdev, void *data,
  *
  * Returns 0 on success and an appropriate error value on failure.
  */
-static inline int rpmsg_trysendto(struct rpmsg_channel *rpdev, void *data,
+static inline int rpmsg_trysendto(struct rpmsg_channel *rpdev, const void *data,
 				  int len, uint32_t dst)
 {
-	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, dst, (char *)data, len,
+	return rpmsg_send_offchannel_raw(rpdev, rpdev->src, dst, data, len,
 					 RPMSG_FALSE);
 }
 
@@ -325,9 +326,9 @@ static inline int rpmsg_trysendto(struct rpmsg_channel *rpdev, void *data,
  */
 static inline int rpmsg_trysend_offchannel(struct rpmsg_channel *rpdev,
 					   uint32_t src, uint32_t dst,
-					   void *data, int len)
+					   const void *data, int len)
 {
-	return rpmsg_send_offchannel_raw(rpdev, src, dst, (char *)data, len,
+	return rpmsg_send_offchannel_raw(rpdev, src, dst, data, len,
 					 RPMSG_FALSE);
 }
 

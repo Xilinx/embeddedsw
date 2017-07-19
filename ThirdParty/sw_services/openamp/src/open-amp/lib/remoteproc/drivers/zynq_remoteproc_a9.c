@@ -79,6 +79,14 @@
 #define         HIL_CACHE_UNLOCK_ALL_WAYS   0xFFFF0000
 #define         HIL_CACHE_CLEAR_INT         0x1FF
 
+/* Memory attributes */
+#define NORM_NONCACHE 0x11DE2 	/* Normal Non-cacheable */
+#define STRONG_ORDERED 0xC02	/* Strongly ordered */
+#define DEVICE_MEMORY 0xC06	/* Device memory */
+#define RESERVED 0x0		/* reserved memory */
+
+#define HIL_DEV_NAME_PREFIX "hil-dev."
+
 #define _rproc_wait() asm volatile("wfi")
 
 /*--------------------------- Declare Functions ------------------------ */
@@ -90,6 +98,13 @@ static int _poll(struct hil_proc *proc, int nonblock);
 static int _initialize(struct hil_proc *proc);
 static void _release(struct hil_proc *proc);
 static int _ipi_handler(int vect_id, void *data);
+static struct metal_io_region* _alloc_shm(struct hil_proc *proc,
+			metal_phys_addr_t pa,
+			size_t size,
+			struct metal_device **dev);
+static void _release_shm(struct hil_proc *proc,
+			struct metal_device *dev,
+			struct metal_io_region *io);
 
 /*--------------------------- Globals ---------------------------------- */
 struct hil_platform_ops zynq_a9_proc_ops = {
@@ -98,8 +113,16 @@ struct hil_platform_ops zynq_a9_proc_ops = {
 	.boot_cpu         = _boot_cpu,
 	.shutdown_cpu     = _shutdown_cpu,
 	.poll             = _poll,
+	.alloc_shm = _alloc_shm,
+	.release_shm = _release_shm,
 	.initialize = _initialize,
 	.release = _release,
+};
+
+struct hil_mem_device {
+	struct metal_device device;
+	char name[64];
+	metal_phys_addr_t pa;
 };
 
 static metal_phys_addr_t git_dist_base_addr = SCUGIC_DIST_BASE;
@@ -109,7 +132,7 @@ static struct metal_io_region gic_dist_io = {
 	0x1000,
 	(sizeof(metal_phys_addr_t) << 3),
 	(metal_phys_addr_t)(-1),
-	METAL_UNCACHED,
+	0,
 	{NULL},
 };
 
@@ -263,6 +286,31 @@ static void _shutdown_cpu(struct hil_proc *proc)
 #else
 	(void)proc;
 #endif
+}
+
+static struct metal_io_region* _alloc_shm(struct hil_proc *proc,
+			metal_phys_addr_t pa,
+			size_t size,
+			struct metal_device **dev)
+{
+	(void)proc;
+
+	*dev = hil_create_generic_mem_dev(pa, size,
+				NORM_NONCACHE | STRONG_ORDERED);
+	if ((*dev))
+		return &((*dev)->regions[0]);
+
+	return NULL;
+
+}
+
+static void _release_shm(struct hil_proc *proc,
+			struct metal_device *dev,
+			struct metal_io_region *io)
+{
+	(void)proc;
+	(void)io;
+	hil_close_generic_mem_dev(dev);
 }
 
 static int _initialize(struct hil_proc *proc)
