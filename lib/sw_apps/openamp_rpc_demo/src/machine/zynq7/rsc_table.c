@@ -72,7 +72,7 @@ struct remote_resource_table __resource resources = {
 	 offsetof(struct remote_resource_table, rpmsg_vdev),
 	 },
 
-	{RSC_RPROC_MEM, 0x200000, 0x200000, 0x100000, 0},
+	{RSC_RPROC_MEM, 0x800000, 0x800000, 0x100000, 0},
 
 	/* Virtio device entry */
 	{
