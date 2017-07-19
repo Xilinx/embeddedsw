@@ -31,11 +31,11 @@
 #******************************************************************************/
 
 proc swapp_get_name {} {
-    return "Libmetal Echo Demo"
+    return "Libmetal AMP Demo"
 }
 
 proc swapp_get_description {} {
-    return "Libmetal Echo Application"
+    return "Libmetal AMP Application"
 }
 
 proc check_oamp_supported_os {} {
