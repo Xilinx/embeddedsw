@@ -46,7 +46,7 @@ proc libmetal_drc {libhandle} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
-    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) } {
+    if { ( $proc_type != "psu_cortexr5" ) && ( $proc_type != "ps7_cortexa9" ) && ( $proc_type != "psu_cortexa53" )} {
                 error "ERROR: This library is supported only for CortexR5 and CortexA9 processors.";
                 return;
     }
@@ -80,6 +80,9 @@ proc generate {libhandle} {
 	if { "${proc_type}" == "psu_cortexr5" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynqmp_r5\")"
+	} elseif { "${proc_type}" == "psu_cortexa53" } {
+		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
+		puts $fd "set (MACHINE \"zynqmp_a53\")"
 	} elseif { "${proc_type}" == "ps7_cortexa9" } {
 		puts $fd "set (CMAKE_SYSTEM_PROCESSOR \"arm\" CACHE STRING \"\")"
 		puts $fd "set (MACHINE \"zynq7\")"
