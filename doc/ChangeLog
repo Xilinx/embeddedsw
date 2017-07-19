@@ -51,6 +51,17 @@ Added 4Byte addressing support for Micron devices. CR-980169
 xilffs_v3_7:
 Added configurable option for _FS_RPATH
 
+libmetal_v1_3:
+- Sync libmetal OSS project with upstream
+
+openamp_v1.4:
+- Sync openamp OSS project with upstream
+
+openamp_rpc_demo:
+openamp_matrix_multiply_demo:
+openamp_echo_test:
+- Update to work with updated openamp and libmetal libs
+
 Changes for 2017.2
 ================================
 
