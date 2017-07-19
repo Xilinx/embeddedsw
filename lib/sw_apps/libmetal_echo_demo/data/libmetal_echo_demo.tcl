@@ -46,8 +46,8 @@ proc check_oamp_supported_os {} {
     }
     set os [lindex $oslist 0]
 
-    if {  $os != "standalone" } {
-        error "This application is supported only on the Standalone Board Support Packages"
+    if { ( $os != "standalone" ) && ( [string match -nocase "freertos*" "$os"] == 0 ) } {
+        error "This application is supported only on the Standalone and FreeRTOS Board Support Packages"
     }
 }
 
@@ -83,14 +83,14 @@ proc check_stdout_hw {} {
 proc check_stdout_sw {} {
     set stdout [get_stdout];
     if { $stdout == "none" } {
-        error "The STDOUT parameter is not set on the OS. Hello World requires stdout to be set."
+        error "The STDOUT parameter is not set on the OS. This application requires stdout to be set."
     }
 }
 proc swapp_is_supported_sw {} {
     # make sure we are using a supported OS
     check_oamp_supported_os
 
-    # make sure xilffs is available
+    # make sure libmetal is available
     set librarylist [hsi::get_libs -filter "NAME==libmetal"]
 
     if { [llength $librarylist] == 0 } {
@@ -161,6 +161,24 @@ proc swapp_generate {} {
     set hw_processor [common::get_property HW_INSTANCE $proc_instance]
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]]
 
+    if { $os == "standalone" } {
+        set osdir "generic"
+    } elseif { [string match -nocase "freertos*" "$os"] > 0 } {
+        set osdir "freertos"
+    } else {
+        error "Invalid OS: $os"
+    }
+
+    if { $proc_type == "psu_cortexr5" } {
+        set procdir "zynqmp_r5"
+    } else {
+        error "Invalid processor type: $proc_type"
+    }
+
+    foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
+	file copy -force $entry "."
+    }
+
     # cleanup this file for writing
     set fid [open "platform_config.h" "w+"];
     puts $fid "#ifndef __PLATFORM_CONFIG_H_";
@@ -172,7 +190,10 @@ proc swapp_generate {} {
     puts $fid "#endif";
     close $fid;
 
-    return 1
+    file delete -force "machine"
+    file delete -force "system"
+
+    return
 }
 
 proc swapp_get_linker_constraints {} {
@@ -185,5 +206,5 @@ proc swapp_get_supported_processors {} {
 }
 
 proc swapp_get_supported_os {} {
-    return "standalone"
+    return "freertos901_xilinx standalone"
 }
