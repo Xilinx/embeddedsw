@@ -167,7 +167,7 @@ struct rpmsg_channel *_rpmsg_create_channel(struct remote_device *rdev,
 	rp_chnl = metal_allocate_memory(sizeof(struct rpmsg_channel));
 	if (rp_chnl) {
 		memset(rp_chnl, 0x00, sizeof(struct rpmsg_channel));
-		strncpy(rp_chnl->name, name, sizeof(rp_chnl->name));
+		strncpy(rp_chnl->name, name, sizeof(rp_chnl->name)-1);
 		rp_chnl->src = src;
 		rp_chnl->dst = dst;
 		rp_chnl->rdev = rdev;
@@ -302,30 +302,38 @@ int rpmsg_send_ns_message(struct remote_device *rdev,
 			   struct rpmsg_channel *rp_chnl, unsigned long flags)
 {
 
-	struct rpmsg_hdr *rp_hdr;
-	struct rpmsg_ns_msg *ns_msg;
+	struct rpmsg_hdr rp_hdr;
+	struct rpmsg_ns_msg ns_msg;
 	unsigned short idx;
 	unsigned long len;
+	struct metal_io_region *io;
+	void *shbuf;
 
 	metal_mutex_acquire(&rdev->lock);
 
 	/* Get Tx buffer. */
-	rp_hdr = (struct rpmsg_hdr *)rpmsg_get_tx_buffer(rdev, &len, &idx);
-	if (!rp_hdr) {
+	shbuf = rpmsg_get_tx_buffer(rdev, &len, &idx);
+	if (!shbuf) {
 		metal_mutex_release(&rdev->lock);
 		return -RPMSG_ERR_NO_BUFF;
 	}
 
 	/* Fill out name service data. */
-	rp_hdr->dst = RPMSG_NS_EPT_ADDR;
-	rp_hdr->len = sizeof(struct rpmsg_ns_msg);
-	ns_msg = (struct rpmsg_ns_msg *) RPMSG_LOCATE_DATA(rp_hdr);
-	strncpy(ns_msg->name, rp_chnl->name, sizeof(rp_chnl->name));
-	ns_msg->flags = flags;
-	ns_msg->addr = rp_chnl->src;
+	rp_hdr.dst = RPMSG_NS_EPT_ADDR;
+	rp_hdr.len = sizeof(ns_msg);
+	ns_msg.flags = flags;
+	ns_msg.addr = rp_chnl->src;
+	strncpy(ns_msg.name, rp_chnl->name, sizeof(ns_msg.name));
+
+	io = rdev->proc->sh_buff.io;
+	metal_io_block_write(io, metal_io_virt_to_offset(io, shbuf),
+			&rp_hdr, sizeof(rp_hdr));
+	metal_io_block_write(io,
+			metal_io_virt_to_offset(io, RPMSG_LOCATE_DATA(shbuf)),
+			&ns_msg, rp_hdr.len);
 
 	/* Place the buffer on virtqueue. */
-	rpmsg_enqueue_buffer(rdev, rp_hdr, len, idx);
+	rpmsg_enqueue_buffer(rdev, shbuf, len, idx);
 
 	/* Notify the other side that it has data to process. */
 	virtqueue_kick(rdev->tvq);
@@ -355,10 +363,6 @@ int rpmsg_enqueue_buffer(struct remote_device *rdev, void *buffer,
 	struct metal_io_region *io;
 
 	io = rdev->proc->sh_buff.io;
-	if (io) {
-		if (! (io->mem_flags & METAL_UNCACHED))
-			metal_cache_flush(buffer, (unsigned int)len);
-	}
 	if (rdev->role == RPMSG_REMOTE) {
 		/* Initialize buffer node */
 		sg.virt = buffer;
@@ -456,13 +460,12 @@ void *rpmsg_get_rx_buffer(struct remote_device *rdev, unsigned long *len,
 						   (uint32_t *) len);
 	}
 	if (data) {
-		struct metal_io_region *io;
-		io = rdev->proc->sh_buff.io;
-		if (io) {
-			if (! (io->mem_flags & METAL_UNCACHED))
-				metal_cache_invalidate(data,
-					(unsigned int)(*len));
-		}
+		/* FIX ME: library should not worry about if it needs
+		 * to flush/invalidate cache, it is shared memory.
+		 * The shared memory should be mapped properly before
+		 * using it.
+		 */
+		metal_cache_invalidate(data, (unsigned int)(*len));
 	}
 
 	return data;
@@ -567,7 +570,6 @@ void rpmsg_rx_callback(struct virtqueue *vq)
 	metal_mutex_release(&rdev->lock);
 
 	while (rp_hdr) {
-
 		/* Get the channel node from the remote device channels list. */
 		metal_mutex_acquire(&rdev->lock);
 		rp_ept = rpmsg_rdev_get_endpoint_from_addr(rdev, rp_hdr->dst);
@@ -645,7 +647,6 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl, void *data, int len,
 	//message contents.
 
 	ns_msg = (struct rpmsg_ns_msg *)data;
-	ns_msg->name[len - 1] = '\0';
 
 	if (ns_msg->flags & RPMSG_NS_DESTROY) {
 		metal_mutex_acquire(&rdev->lock);
@@ -659,9 +660,16 @@ void rpmsg_ns_callback(struct rpmsg_channel *server_chnl, void *data, int len,
 			_rpmsg_delete_channel(rp_chnl);
 		}
 	} else {
+		struct metal_io_region *io = rdev->proc->sh_buff.io;
+		char *name = malloc(len);
+
+		openamp_assert(name);
+		metal_io_block_read(io,
+				metal_io_virt_to_offset(io, ns_msg->name),
+				name, len);
 		rp_chnl =
-		    _rpmsg_create_channel(rdev, ns_msg->name, 0x00,
-					  ns_msg->addr);
+		    _rpmsg_create_channel(rdev, name, 0x00, ns_msg->addr);
+		free(name);
 		if (rp_chnl) {
 			rp_chnl->state = RPMSG_CHNL_STATE_ACTIVE;
 			/* Create default endpoint for channel */

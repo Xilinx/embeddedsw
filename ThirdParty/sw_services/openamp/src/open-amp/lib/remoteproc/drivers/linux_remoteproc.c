@@ -80,6 +80,14 @@ static void _shutdown_cpu(struct hil_proc *proc);
 static int _poll(struct hil_proc *proc, int nonblock);
 static int _initialize(struct hil_proc *proc);
 static void _release(struct hil_proc *proc);
+static struct metal_io_region* _alloc_shm(struct hil_proc *proc,
+			metal_phys_addr_t pa,
+			size_t size,
+			struct metal_device **dev);
+static void _release_shm(struct hil_proc *proc,
+			struct metal_device *dev,
+			struct metal_io_region *io);
+
 
 /*--------------------------- Globals ---------------------------------- */
 struct hil_platform_ops linux_proc_ops = {
@@ -88,6 +96,8 @@ struct hil_platform_ops linux_proc_ops = {
 	.boot_cpu             = _boot_cpu,
 	.shutdown_cpu         = _shutdown_cpu,
 	.poll                 = _poll,
+	.alloc_shm = _alloc_shm,
+	.release_shm = _release_shm,
 	.initialize    = _initialize,
 	.release    = _release,
 };
@@ -221,6 +231,29 @@ static void _shutdown_cpu(struct hil_proc *proc)
 	return;
 }
 
+static struct metal_io_region* _alloc_shm(struct hil_proc *proc,
+			metal_phys_addr_t pa,
+			size_t size,
+			struct metal_device **dev)
+{
+	(void)proc;
+	(void)pa;
+	(void)size;
+
+	*dev = NULL;
+	return NULL;
+
+}
+
+static void _release_shm(struct hil_proc *proc,
+			struct metal_device *dev,
+			struct metal_io_region *io)
+{
+	(void)proc;
+	(void)io;
+	hil_close_generic_mem_dev(dev);
+}
+
 static int _poll(struct hil_proc *proc, int nonblock)
 {
 	(void) nonblock;
@@ -236,8 +269,8 @@ static int _poll(struct hil_proc *proc, int nonblock)
 	//int r;
 	int i;
 
-	assert(proc);
-	//assert(num_vrings <= (int)(sizeof(fds)/sizeof(fds[0])));
+	openamp_assert(proc);
+	//openamp_assert(num_vrings <= (int)(sizeof(fds)/sizeof(fds[0])));
 
 	notified = 0;
 	while (1) {

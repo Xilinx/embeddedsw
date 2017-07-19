@@ -79,8 +79,6 @@ struct proc_shm {
 	struct metal_device *dev;
 	/* Size of shared memory. */
 	unsigned long size;
-	/* Attributes for shared memory - cached or uncached. */
-	unsigned long flags;
 };
 
 /**
@@ -141,10 +139,6 @@ struct proc_vring {
 struct proc_vdev {
 	/* Address for the vdev info */
 	void *vdev_info;
-	/* vdev device */
-	struct metal_device *dev;
-	/* vdev I/O region */
-	struct metal_io_region *io;
 	/* Vdev interrupt control block */
 	struct proc_intr intr_info;
 	/* Vdev reset callback */
@@ -184,6 +178,10 @@ struct hil_proc {
 	unsigned long cpu_id;
 	/* HIL platform ops table */
 	struct hil_platform_ops *ops;
+	/* Resource table metal device */
+	struct metal_device *rsc_dev;
+	/* Resource table I/O region */
+	struct metal_io_region *rsc_io;
 	/* Shared memory info */
 	struct proc_shm sh_buff;
 	/* Virtio device hardware info */
@@ -392,6 +390,28 @@ int hil_get_status(struct hil_proc *proc);
 
 int hil_set_status(struct hil_proc *proc);
 
+/** hil_create_generic_mem_dev
+ *
+ * This function creates generic memory device.
+ * This is a helper function.
+ *
+ * @param pa - physical base address
+ * @param size - size of the memory
+ * @param flags - flags of the memory region
+ *
+ * @return - pointer to the memory device
+ */
+struct metal_device *hil_create_generic_mem_dev( metal_phys_addr_t pa,
+		size_t size, unsigned int flags);
+
+/** hil_close_generic_mem_dev
+ *
+ * This function closes the generic memory device.
+ *
+ * @param dev - pointer to the memory device.
+ */
+void hil_close_generic_mem_dev(struct metal_device *dev);
+
 /**
  * hil_boot_cpu
  *
@@ -455,16 +475,14 @@ int hil_poll (struct hil_proc *proc, int nonblock);
  * @param bus_name - bus name of the shared memory device
  * @param name     - name of the shared memory, or platform device
  *                   mandatory for Linux system.
- * @param paddr    - physical address of the memory for baremetal/RTOS only
+ * @param paddr    - physical address of the memory
  * @param size     - size of the shared memory
  *
  * If name argument exists, it will open the specified libmetal
  * shared memory or the specified libmetal device if bus_name
- * is specified to get the I/O region of the shared memory. Otherwise, it
- * will use a generic normal I/O region for the shared memory.
- * paddr argument is for baremetal/RTOS system only. Linux system
- * will not take this paddr, for Linux system, you have to specify
- * the name, otherwise, you will get segfault later.
+ * is specified to get the I/O region of the shared memory.
+ * If memory name doesn't exist, it will create a metal device
+ * for teh shared memory.
  *
  * @return - 0 for no errors, non-0 for errors.
  */
@@ -473,23 +491,28 @@ int hil_set_shm (struct hil_proc *proc,
 		 metal_phys_addr_t paddr, size_t size);
 
 /**
- * hil_set_vdev
+ * hil_set_rsc
  *
- * This function set HIL proc RSC io
+ * This function set HIL proc RSC I/O
  *
  * @param proc     - hil_proc to set vdev io regsion
  * @param bus_name - bus name of the vdev device
  * @param name     - name of the shared memory, or platform device
  *                   mandatory for Linux system.
+ * @param paddr    - physical address of the memory
+ * @param size     - size of the shared memory
  *
  * If name argument exists, it will open the specified libmetal
- * shared memory or the specified device if bus name is specified
- * to get the I/O region of the vring.
+ * shared memory or the specified libmetal device if bus_name
+ * is specified to get the I/O region of the shared memory.
+ * If memory name doesn't exist, it will create a metal device
+ * for teh shared memory.
  *
  * @return - 0 for no errors, non-0 for errors.
  */
-int hil_set_vdev (struct hil_proc *proc,
-		const char *bus_name, const char *name);
+int hil_set_rsc (struct hil_proc *proc,
+		const char *bus_name, const char *name,
+		metal_phys_addr_t paddr, size_t size);
 /**
  * hil_set_vring
  *
@@ -500,15 +523,20 @@ int hil_set_vdev (struct hil_proc *proc,
  * @param bus_name - bus name of the vring device
  * @param name     - name of the shared memory, or platform device
  *                   mandatory for Linux system.
+ * @param paddr    - physical address of the memory
+ * @param size     - size of the shared memory
  *
  * If name argument exists, it will open the specified libmetal
- * shared memory or the specified device if bus name is specified
- * to get the I/O region of the vring.
+ * shared memory or the specified libmetal device if bus_name
+ * is specified to get the I/O region of the shared memory.
+ * If memory name doesn't exist, it will create a metal device
+ * for teh shared memory.
  *
  * @return - 0 for no errors, non-0 for errors.
  */
 int hil_set_vring (struct hil_proc *proc, int index,
-		   const char *bus_name, const char *name);
+		   const char *bus_name, const char *name,
+		metal_phys_addr_t paddr, size_t size);
 
 /**
  * hil_set_vdev_ipi
@@ -631,6 +659,38 @@ struct hil_platform_ops {
 	 * @return - 0 for no errors, non-0 for errors.
 	 */
 	int (*poll) (struct hil_proc *proc, int nonblock);
+
+	/**
+	 * alloc_shm
+	 *
+	 *  This function is to allocate shared memory
+	 *
+	 * @param[in] proc - pointer to the remote processor
+	 * @param[in] pa - physical address
+	 * @param[in] size - size of the shared memory
+	 * @param[out] dev - pointer to the mem dev pointer
+	 *
+	 * @return - NULL, pointer to the I/O region
+	 *
+	 */
+	struct metal_io_region *(*alloc_shm) (struct hil_proc *proc,
+				metal_phys_addr_t pa,
+				size_t size,
+				struct metal_device **dev);
+
+	/**
+	 * release_shm
+	 *
+	 *  This function is to release shared memory
+	 *
+	 * @param[in] proc - pointer to the remote processor
+	 * @param[in] dev - pointer to the mem dev
+	 * @param[in] io - pointer to the I/O region
+	 *
+	 */
+	void (*release_shm) (struct hil_proc *proc,
+				struct metal_device *dev,
+				struct metal_io_region *io);
 
 	/**
 	 * initialize
