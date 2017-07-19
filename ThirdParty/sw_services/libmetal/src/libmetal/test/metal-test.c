@@ -51,7 +51,7 @@ int metal_tests_run(void)
 	const char *dots = "..................................";
 	const char *pad;
 
-	params.log_level = LOG_DEBUG;
+	params.log_level = METAL_LOG_DEBUG;
 	error = metal_init(&params);
 	if (error)
 		return error;

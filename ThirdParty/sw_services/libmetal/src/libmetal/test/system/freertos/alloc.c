@@ -52,7 +52,7 @@ static void *alloc_thread(void *arg)
 		/* expecting the implementation to be thread safe */
 		ptr = metal_allocate_memory(256 /*10*i*/);
 		if (!ptr) {
-			metal_log(LOG_DEBUG, "failed to allocate memmory\n");
+			metal_log(METAL_LOG_DEBUG, "failed to allocate memmory\n");
 		        rv = (void *)-ENOMEM;
 			break;
 		}

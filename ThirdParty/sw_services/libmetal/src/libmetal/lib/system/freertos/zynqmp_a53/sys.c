@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -35,15 +35,16 @@
 
 #include <stdint.h>
 #include "xil_cache.h"
-#include "xreg_cortexr5.h"
+#include "xreg_cortexa53.h"
 #include "xil_mmu.h"
-#include "xil_mpu.h"
 #include "xscugic.h"
 #include "xil_exception.h"
 #include "metal/io.h"
 #include "metal/sys.h"
 
-#define MPU_REGION_SIZE_MIN 0x20
+#define MB (1024 * 1024UL)
+#define GB (1024 * 1024 * 1024UL)
+
 
 /* application code would have enabled IRQ initially */
 static unsigned int int_old_val = XIL_EXCEPTION_ALL;
@@ -92,24 +93,37 @@ void __attribute__((weak)) metal_generic_default_poll(void)
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 			       size_t size, unsigned int flags)
 {
-	size_t rsize = MPU_REGION_SIZE_MIN;
-	metal_phys_addr_t base_pa;
+	unsigned long section_offset;
+	unsigned long ttb_addr;
+#if defined (__aarch64__)
+	unsigned long ttb_size = (pa < 4*GB) ? 2*MB : 1*GB;
+#else
+	unsigned long ttb_size = 1*MB;
+#endif
 
 	if (!flags)
 		return va;
-	while(1) {
-		if (rsize < size) {
-			rsize <<= 1;
-			continue;
-		} else {
-			base_pa = pa & ~(rsize - 1);
-			if ((base_pa + rsize) < (pa + size)) {
-				rsize <<= 1;
-				continue;
-			}
-			break;
+
+	/* Ensure alignement on a section boundary */
+	pa &= ~(ttb_size-1UL);
+
+	/* Loop through entire region of memory (one MMU section at a time).
+	   Each section requires a TTB entry. */
+	for (section_offset = 0; section_offset < size; ) {
+		/* Calculate translation table entry for this memory section */
+		ttb_addr = (pa + section_offset);
+
+		/* Write translation table entry value to entry address */
+		Xil_SetTlbAttributes(ttb_addr, flags);
+
+#if defined (__aarch64__)
+		/* recalculate if we started below 4GB and going above in 64bit mode */
+		if ( ttb_addr >= 4*GB ) {
+			ttb_size = 1*GB;
 		}
+#endif
+		section_offset += ttb_size;
 	}
-	Xil_SetMPURegion(base_pa, rsize, flags);
+
 	return va;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,19 +29,35 @@
  */
 
 /*
- * @file	freertos/io.c
- * @brief	FreeRTOS libmetal I/O handling.
+ * @file	linux/bus.c
+ * @brief	Linux libmetal bus definitions.
  */
 
-#include "metal/io.h"
+#include "metal/device.h"
+#include "metal/sys.h"
+#include "metal/utilities.h"
 
-extern void metal_machine_io_mem_map(metal_phys_addr_t pa,
-				      size_t size, unsigned int flags);
-
-void *metal_io_mem_map(metal_phys_addr_t pa,
-		       struct metal_io_region *io, size_t size)
+int metal_generic_dev_sys_open(struct metal_device *dev)
 {
-	unsigned int flags = io->mem_flags;
-	metal_machine_io_mem_map(pa, size, flags);
-	return metal_io_phys_to_virt(io, pa);
+	struct metal_io_region *io;
+	unsigned long p;
+	size_t size;
+	void *va;
+	unsigned i;
+
+	/* map I/O memory regions */
+	for (i = 0; i < dev->num_regions; i++) {
+		io = &dev->regions[i];
+		va = io->virt;
+		size = io->size;
+		if (size >> io->page_shift)
+			size = (size_t)1 << io->page_shift;
+		for (p = 0; p <= (io->size >> io->page_shift); p++) {
+			metal_machine_io_mem_map(va, io->physmap[p],
+					size, io->mem_flags);
+			va += size;
+		}
+	}
+
+	return 0;
 }

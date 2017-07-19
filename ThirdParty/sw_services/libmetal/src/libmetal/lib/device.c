@@ -46,7 +46,7 @@ int metal_bus_register(struct metal_bus *bus)
 		return -EEXIST;
 	metal_list_init(&bus->devices);
 	metal_list_add_tail(&_metal.common.bus_list, &bus->node);
-	metal_log(LOG_DEBUG, "registered %s bus\n", bus->name);
+	metal_log(METAL_LOG_DEBUG, "registered %s bus\n", bus->name);
 	return 0;
 }
 
@@ -63,7 +63,7 @@ int metal_bus_unregister(struct metal_bus *bus)
 	metal_list_del(&bus->node);
 	if (bus->ops.bus_close)
 		bus->ops.bus_close(bus);
-	metal_log(LOG_DEBUG, "unregistered %s bus\n", bus->name);
+	metal_log(METAL_LOG_DEBUG, "unregistered %s bus\n", bus->name);
 	return 0;
 }
 
@@ -145,7 +145,7 @@ static int metal_generic_dev_open(struct metal_bus *bus, const char *dev_name,
 		if (strcmp(dev->name, dev_name) != 0)
 			continue;
 		*device = dev;
-		return 0;
+		return metal_generic_dev_sys_open(dev);
 	}
 
 	return -ENODEV;

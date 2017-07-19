@@ -1,6 +1,5 @@
-
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2015, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,24 +28,44 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdio.h>
-#include <signal.h>
-#include <unistd.h>
-#include <pthread.h>
-#include "metal/sys.h"
+/*
+ * @file	generic/zynqmp_a53/sys.h
+ * @brief	generic zynqmp_a53 system primitives for libmetal.
+ */
 
-typedef void *(*task_to_run)(void *arg);
-int run_comm_task(task_to_run task, void *arg)
+#ifndef __METAL_GENERIC_SYS__H__
+#error "Include metal/sys.h instead of metal/generic/@PROJECT_MACHINE@/sys.h"
+#endif
+
+#include "xscugic.h"
+
+#ifndef __METAL_GENERIC_ZYNQMP_A53_SYS__H__
+#define __METAL_GENERIC_ZYNQMP_A53_SYS__H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef METAL_INTERNAL
+
+#if !defined(MAX_IRQS)
+#define MAX_IRQS	((int)XSCUGIC_MAX_NUM_INTR_INPUTS)          /**< maximum number of irqs */
+#endif
+
+static inline void sys_irq_enable(unsigned int vector)
 {
-	task(arg);
-	return 0;
+        XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
 }
 
-int system_init()
+static inline void sys_irq_disable(unsigned int vector)
 {
-	return 0;
+        XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
 }
 
-void wait_for_interrupt(void) {
-	return;
+#endif /* METAL_INTERNAL */
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* __METAL_GENERIC_ZYNQMP_A53_SYS__H__ */

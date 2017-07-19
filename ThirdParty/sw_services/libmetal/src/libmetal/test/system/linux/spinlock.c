@@ -63,7 +63,7 @@ static int spinlock(void)
 		value = total;
 		value -= spinlock_test_count * threads;
 		if (value) {
-			metal_log(LOG_DEBUG, "counter mismatch, delta = %d\n",
+			metal_log(METAL_LOG_DEBUG, "counter mismatch, delta = %d\n",
 				  value);
 			error = -EINVAL;
 		}

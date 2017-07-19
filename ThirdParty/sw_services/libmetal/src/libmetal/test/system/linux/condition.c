@@ -81,7 +81,7 @@ static int condition(void)
 	ret = metal_run_noblock(THREADS, consumer_thread, NULL, tids,
 				&ts_created);
 	if (ret < 0) {
-		metal_log(LOG_ERROR, "Failed to create consumer thread: %d.\n",
+		metal_log(METAL_LOG_ERROR, "Failed to create consumer thread: %d.\n",
 			  ret);
 		goto out;
 	}
@@ -89,7 +89,7 @@ static int condition(void)
 	/** create 10 producer threads next */
 	ret = metal_run(THREADS, producer_thread, NULL);
 	if (ret < 0) {
-		metal_log(LOG_ERROR, "Failed to create producer thread: %d.\n",
+		metal_log(METAL_LOG_ERROR, "Failed to create producer thread: %d.\n",
 			  ret);
 		goto out;
 	}
@@ -102,7 +102,7 @@ static int condition(void)
 	ret = metal_run_noblock(THREADS, producer_thread, NULL, tids,
 				&ts_created);
 	if (ret < 0) {
-		metal_log(LOG_ERROR, "Failed to create consumer thread: %d.\n",
+		metal_log(METAL_LOG_ERROR, "Failed to create consumer thread: %d.\n",
 			  ret);
 		goto out;
 	}
@@ -110,7 +110,7 @@ static int condition(void)
 	/** create 10 consumer threads next */
 	ret = metal_run(THREADS, consumer_thread, NULL);
 	if (ret < 0) {
-		metal_log(LOG_ERROR, "Failed to create producer thread: %d.\n",
+		metal_log(METAL_LOG_ERROR, "Failed to create producer thread: %d.\n",
 			  ret);
 		goto out;
 	}
