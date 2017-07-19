@@ -44,9 +44,9 @@ BEGIN LIBRARY libmetal
   OPTION DRC = libmetal_drc;
   OPTION COPYFILES = all;
   OPTION REQUIRES_OS = (standalone freertos901_xilinx);
-  OPTION supported_peripherals = (ps7_cortexa9 psu_cortexr5);
+  OPTION supported_peripherals = (ps7_cortexa9 psu_cortexr5 psu_cortexa53);
   OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lmetal,-lgcc,-lc,--end-group";
   OPTION DESC = "Libmetal Library";
-  OPTION VERSION = 1.2;
+  OPTION VERSION = 1.3;
   OPTION NAME = libmetal;
 END LIBRARY
