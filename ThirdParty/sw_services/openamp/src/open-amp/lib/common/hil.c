@@ -52,8 +52,10 @@
 #include <metal/shmem.h>
 #include <metal/utilities.h>
 #include <metal/time.h>
+#include <metal/cache.h>
 
 #define DEFAULT_VRING_MEM_SIZE 0x10000
+#define HIL_DEV_NAME_PREFIX "hil-dev."
 
 /*--------------------------- Globals ---------------------------------- */
 static METAL_DECLARE_LIST (procs);
@@ -65,32 +67,127 @@ unsigned long long shutdown_time_stamp;
 
 #endif
 
-metal_phys_addr_t hil_generic_start_paddr = 0;
-struct metal_io_region hil_shm_generic_io = {
-	0,
-	&hil_generic_start_paddr,
-	(size_t)(-1),
-	(sizeof(metal_phys_addr_t) << 3),
-	(metal_phys_addr_t)(-1),
-	0,
-	{NULL},
+struct hil_mem_device {
+	struct metal_device device;
+	char name[64];
+	metal_phys_addr_t pa;
 };
 
-struct metal_io_region hil_devmem_generic_io = {
+metal_phys_addr_t hil_generic_start_paddr = 0;
+
+static int hil_shm_block_write(struct metal_io_region *io,
+		unsigned long offset,
+		const void *restrict src,
+		memory_order order,
+		int len)
+{
+	void *va = metal_io_virt(io, offset);
+
+	(void)order;
+	memcpy(va, src, len);
+	metal_cache_flush(va, (unsigned int)len);
+	return len;
+}
+
+static void hil_shm_block_set(struct metal_io_region *io,
+		unsigned long offset,
+		unsigned char value,
+		memory_order order,
+		int len)
+{
+	void *va = metal_io_virt(io, offset);
+
+	(void)order;
+	memset(va, (int)value, len);
+	metal_cache_flush(va, (unsigned int)len);
+}
+
+static struct metal_io_region hil_shm_generic_io = {
 	0,
 	&hil_generic_start_paddr,
 	(size_t)(-1),
 	(sizeof(metal_phys_addr_t) << 3),
 	(metal_phys_addr_t)(-1),
-	METAL_UNCACHED | METAL_SHARED_MEM,
-	{NULL},
+	0,
+	{NULL, NULL,
+	 NULL, hil_shm_block_write, hil_shm_block_set, NULL},
 };
+
+struct metal_device *hil_create_generic_mem_dev(
+		metal_phys_addr_t pa,
+		size_t size, unsigned int flags)
+{
+	struct hil_mem_device *dev;
+	struct metal_device *mdev;
+	int ret;
+
+	/* If no generic bus is found in libmetal
+	 * there is no need to create the generic device
+	 */
+	ret = metal_bus_find("generic", NULL);
+	if (ret)
+		return NULL;
+	dev = malloc(sizeof(*dev));
+	openamp_assert(dev);
+	memset(dev, 0, sizeof(*dev));
+	sprintf(dev->name, "%s%lx.%lx", HIL_DEV_NAME_PREFIX, pa,
+			(unsigned long)size);
+	dev->pa = pa;
+	mdev = &dev->device;
+	mdev->name = dev->name;
+	mdev->num_regions = 1;
+	metal_io_init(&mdev->regions[0], (void *)pa, &dev->pa, size,
+			sizeof(pa) << 3, flags, NULL);
+
+	ret = metal_register_generic_device(mdev);
+	openamp_assert(!ret);
+	ret = metal_device_open("generic", dev->name, &mdev);
+	openamp_assert(!ret);
+
+	return mdev;
+}
+
+void hil_close_generic_mem_dev(struct metal_device *dev)
+{
+	struct hil_mem_device *mdev;
+
+	if (strncmp(HIL_DEV_NAME_PREFIX, dev->name,
+		strlen(HIL_DEV_NAME_PREFIX))) {
+		metal_device_close(dev);
+	} else {
+		metal_list_del(&dev->node);
+		mdev = metal_container_of(dev, struct hil_mem_device, device);
+		free(mdev);
+	}
+}
+
+static struct metal_io_region *hil_get_mem_io(
+	struct metal_device *dev,
+	metal_phys_addr_t pa,
+	size_t size)
+{
+	struct metal_io_region *io;
+	unsigned int i;
+
+	for (i = 0; i < dev->num_regions; i++) {
+		io = &dev->regions[i];
+		if (!pa && io->size >= size)
+			return io;
+		if (metal_io_phys_to_offset(io, pa) == METAL_BAD_OFFSET)
+			continue;
+		if (metal_io_phys_to_offset(io, (pa + size)) ==
+					METAL_BAD_OFFSET)
+			continue;
+		return io;
+	}
+
+	return NULL;
+}
 
 struct hil_proc *hil_create_proc(struct hil_platform_ops *ops,
 			unsigned long cpu_id, void *pdata)
 {
 	struct hil_proc *proc = 0;
-	int i;
 
 	proc = metal_allocate_memory(sizeof(struct hil_proc));
 	if (!proc)
@@ -104,11 +201,6 @@ struct hil_proc *hil_create_proc(struct hil_platform_ops *ops,
 
 	/* Setup generic shared memory I/O region */
 	proc->sh_buff.io = &hil_shm_generic_io;
-	/* Setup generic vdev I/O region */
-	proc->vdev.io = &hil_devmem_generic_io;
-	/* Setup generic vrings I/O region */
-	for (i = 0; i < HIL_MAX_NUM_VRINGS; i++)
-		proc->vdev.vring_info[i].io = &hil_devmem_generic_io;
 
 	metal_mutex_init(&proc->lock);
 	metal_list_add_tail(&procs, &proc->node);
@@ -132,6 +224,7 @@ void hil_delete_proc(struct hil_proc *proc)
 	struct metal_io_region *io;
 	struct proc_vring *vring;
 	int i;
+
 	metal_list_for_each(&procs, node) {
 		if (proc ==
 			metal_container_of(node, struct hil_proc, node)) {
@@ -141,31 +234,28 @@ void hil_delete_proc(struct hil_proc *proc)
 			/* Close shmem device */
 			dev = proc->sh_buff.dev;
 			io = proc->sh_buff.io;
-			if (dev) {
-				metal_device_close(dev);
-			} else if (io && io->ops.close) {
+			if (dev)
+				proc->ops->release_shm(proc, dev, io);
+			else if (io && io->ops.close)
 				io->ops.close(io);
-			}
 
-			/* Close Vdev device */
-			dev = proc->vdev.dev;
-			io = proc->vdev.io;
-			if (dev) {
-				metal_device_close(dev);
-			} else if (io && io->ops.close) {
+			/* Close resource table device */
+			dev = proc->rsc_dev;
+			io = proc->rsc_io;
+			if (dev)
+				proc->ops->release_shm(proc, dev, io);
+			else if (io && io->ops.close)
 				io->ops.close(io);
-			}
 
 			/* Close vring device */
 			for (i = 0; i < HIL_MAX_NUM_VRINGS; i++) {
 				vring = &proc->vdev.vring_info[i];
 				dev = vring->dev;
 				io = vring->io;
-				if (dev) {
-					metal_device_close(dev);
-				} if (io && io->ops.close) {
+				if (dev)
+					proc->ops->release_shm(proc, dev, io);
+				else if (io && io->ops.close)
 					io->ops.close(io);
-				}
 			}
 
 			metal_mutex_release(&proc->lock);
@@ -261,26 +351,31 @@ struct proc_vring *hil_get_vring_info(struct proc_vdev *vdev, int *num_vrings)
 	struct fw_rsc_vdev *vdev_rsc;
 	struct fw_rsc_vdev_vring *vring_rsc;
 	struct proc_vring *vring;
-	int i;
+	int i, ret;
 
 	vdev_rsc = vdev->vdev_info;
+	*num_vrings = vdev->num_vrings;
 	if (vdev_rsc) {
 		vring = &vdev->vring_info[0];
 		for (i = 0; i < vdev_rsc->num_of_vrings; i++) {
+			struct hil_proc *proc = metal_container_of(
+					vdev, struct hil_proc, vdev);
+
 			/* Initialize vring with vring resource */
 			vring_rsc = &vdev_rsc->vring[i];
 			vring[i].num_descs = vring_rsc->num;
 			vring[i].align = vring_rsc->align;
-			/* Enable acccess to vring memory region */
-			vring[i].vaddr =
-				metal_io_mem_map(
+			ret = hil_set_vring(proc, i, NULL, NULL,
 					(metal_phys_addr_t)vring_rsc->da,
-					vring[i].io,
 					vring_size(vring_rsc->num,
 					vring_rsc->align));
+			if (ret)
+				return NULL;
+			vring[i].vaddr = metal_io_phys_to_virt(
+					vring[i].io,
+					(metal_phys_addr_t)vring_rsc->da);
 		}
 	}
-	*num_vrings = vdev->num_vrings;
 	return (vdev->vring_info);
 
 }
@@ -508,41 +603,82 @@ int hil_set_shm (struct hil_proc *proc,
 	struct metal_device *dev;
 	struct metal_io_region *io;
 	int ret;
+
 	if (!proc)
 		return -1;
 	if (name && bus_name) {
 		ret = metal_device_open(bus_name, name, &dev);
 		if (ret)
 			return ret;
-		io = metal_device_io_region(dev, 0);
-		if (!io)
-			return -1;
-		proc->sh_buff.io = io;
 		proc->sh_buff.dev = dev;
+		proc->sh_buff.io = NULL;
 	} else if (name) {
 		ret = metal_shmem_open(name, size, &io);
 		if (ret)
 			return ret;
 		proc->sh_buff.io = io;
 	}
-	if (!paddr && io) {
-		proc->sh_buff.start_paddr = io->physmap[0];
-		proc->sh_buff.start_addr = io->virt;
+	if (!size) {
+		if (proc->sh_buff.io) {
+			io = proc->sh_buff.io;
+			proc->sh_buff.start_paddr = metal_io_phys(io, 0);
+			proc->sh_buff.size = io->size;
+		} else if (proc->sh_buff.dev) {
+			dev = proc->sh_buff.dev;
+			io = &dev->regions[0];
+			proc->sh_buff.io = io;
+			proc->sh_buff.start_paddr = metal_io_phys(io, 0);
+			proc->sh_buff.size = io->size;
+		}
+	} else if (!paddr) {
+		if (proc->sh_buff.io) {
+			io = proc->sh_buff.io;
+			if (io->size != size)
+				return -1;
+			proc->sh_buff.start_paddr = metal_io_phys(io, 0);
+			proc->sh_buff.size = io->size;
+		} else if (proc->sh_buff.dev) {
+			dev = proc->sh_buff.dev;
+			io = &dev->regions[0];
+			proc->sh_buff.io = io;
+			proc->sh_buff.start_paddr = metal_io_phys(io, 0);
+			proc->sh_buff.size = size;
+		}
 	} else {
-		proc->sh_buff.start_paddr = paddr;
+		if (proc->sh_buff.io) {
+			io = proc->sh_buff.io;
+			if (io->size > size)
+				return -1;
+			if (metal_io_phys_to_offset(io, paddr) ==
+					METAL_BAD_OFFSET)
+				return -1;
+			proc->sh_buff.start_paddr = paddr;
+			proc->sh_buff.size = size;
+		} else if (proc->sh_buff.dev) {
+			dev = proc->sh_buff.dev;
+			io = hil_get_mem_io(dev, paddr, size);
+			if (!io)
+				return -1;
+			proc->sh_buff.io = io;
+			proc->sh_buff.start_paddr = metal_io_phys(io, 0);
+			proc->sh_buff.size = size;
+		} else {
+			io = proc->ops->alloc_shm(proc, paddr, size, &dev);
+			openamp_assert(dev);
+			proc->sh_buff.dev = dev;
+			proc->sh_buff.io = io;
+			proc->sh_buff.start_paddr = paddr;
+			proc->sh_buff.size = size;
+		}
 	}
-	if (!size && io)
-		proc->sh_buff.size = io->size;
-	else
-		proc->sh_buff.size = size;
-
-	metal_io_mem_map(proc->sh_buff.start_paddr, proc->sh_buff.io,
-			 proc->sh_buff.size);
+	proc->sh_buff.start_addr = metal_io_phys_to_virt(proc->sh_buff.io,
+						proc->sh_buff.start_paddr);
 	return 0;
 }
 
-int hil_set_vdev (struct hil_proc *proc,
-		const char *bus_name, const char *name)
+int hil_set_rsc (struct hil_proc *proc,
+		const char *bus_name, const char *name,
+		metal_phys_addr_t paddr, size_t size)
 {
 	struct metal_device *dev;
 	struct metal_io_region *io;
@@ -555,25 +691,32 @@ int hil_set_vdev (struct hil_proc *proc,
 		ret = metal_device_open(bus_name, name, &dev);
 		if (ret)
 			return ret;
-		io = metal_device_io_region(dev, 0);
+		proc->rsc_dev = dev;
+		io = hil_get_mem_io(dev, 0, size);
 		if (!io)
 			return -1;
-		proc->vdev.io = io;
-		proc->vdev.dev = dev;
+		proc->rsc_io = io;
 	} else if (name) {
-		ret = metal_shmem_open(name, DEFAULT_VRING_MEM_SIZE, &io);
+		ret = metal_shmem_open(name, size, &io);
 		if (ret)
 			return ret;
-		proc->vdev.io = io;
+		proc->rsc_io = io;
 	} else {
-		proc->vdev.io = NULL;
+		if (proc->rsc_dev || proc->rsc_io)
+			return 0;
+		io = proc->ops->alloc_shm(proc, paddr, size, &dev);
+		if (dev) {
+			proc->rsc_dev = dev;
+			proc->rsc_io = io;
+		}
 	}
 
 	return 0;
 }
 
 int hil_set_vring (struct hil_proc *proc, int index,
-		 const char *bus_name, const char *name)
+		 const char *bus_name, const char *name,
+		metal_phys_addr_t paddr, size_t size)
 {
 	struct metal_device *dev;
 	struct metal_io_region *io;
@@ -589,16 +732,32 @@ int hil_set_vring (struct hil_proc *proc, int index,
 		ret = metal_device_open(bus_name, name, &dev);
 		if (ret)
 			return ret;
-		io = metal_device_io_region(dev, 0);
-		if (!io)
-			return -1;
-		vring->io = io;
 		vring->dev = dev;
 	} else if (name) {
 		ret = metal_shmem_open(name, DEFAULT_VRING_MEM_SIZE, &io);
 		if (ret)
 			return ret;
 		vring->io = io;
+	} else {
+		if (vring->dev) {
+			dev = vring->dev;
+			io = hil_get_mem_io(dev, paddr, size);
+			if (io) {
+				vring->io = io;
+				return 0;
+			}
+			proc->ops->release_shm(proc, dev, NULL);
+		} else if (vring->io) {
+			io = vring->io;
+			if (size <= io->size &&
+				metal_io_phys_to_offset(io, paddr) !=
+					METAL_BAD_OFFSET)
+				return 0;
+		}
+		io = proc->ops->alloc_shm(proc, paddr, size, &dev);
+		openamp_assert(dev);
+		vring->dev = dev;
+		vring->io = io;;
 	}
 
 	return 0;

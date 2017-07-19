@@ -59,6 +59,13 @@
 #define IPI_IER_OFFSET           0x00000018    /* IPI interrupt enable register offset */
 #define IPI_IDR_OFFSET           0x0000001C    /* IPI interrupt disable register offset */
 
+/* memory attributes */
+#define DEVICE_SHARED		0x00000001U /*device, shareable*/
+#define DEVICE_NONSHARED	0x00000010U /*device, non shareable*/
+#define NORM_NSHARED_NCACHE	0x00000008U /* Non cacheable  non shareable */
+#define NORM_SHARED_NCACHE	0x0000000CU /* Non cacheable shareable */
+#define	PRIV_RW_USER_RW		(0x00000003U<<8U) /*Full Access*/
+
 #define _rproc_wait() asm volatile("wfi")
 
 /* -- FIX ME: ipi info is to be defined -- */
@@ -83,6 +90,13 @@ static int _initialize(struct hil_proc *proc);
 static void _release(struct hil_proc *proc);
 
 static int _ipi_handler(int vect_id, void *data);
+static struct metal_io_region* _alloc_shm(struct hil_proc *proc,
+			metal_phys_addr_t pa,
+			size_t size,
+			struct metal_device **dev);
+static void _release_shm(struct hil_proc *proc,
+			struct metal_device *dev,
+			struct metal_io_region *io);
 
 /*--------------------------- Globals ---------------------------------- */
 struct hil_platform_ops zynqmp_r5_a53_proc_ops = {
@@ -91,6 +105,8 @@ struct hil_platform_ops zynqmp_r5_a53_proc_ops = {
 	.boot_cpu             = _boot_cpu,
 	.shutdown_cpu         = _shutdown_cpu,
 	.poll                 = _poll,
+	.alloc_shm = _alloc_shm,
+	.release_shm = _release_shm,
 	.initialize    = _initialize,
 	.release    = _release,
 };
@@ -131,6 +147,7 @@ static int _enable_interrupt(struct proc_intr *intr)
 	metal_irq_enable(intr->vect_id);
 	metal_io_write32(io, IPI_IER_OFFSET, ipi->ipi_chn_mask);
 	ipi->registered = 1;
+
 	return 0;
 }
 
@@ -183,6 +200,31 @@ static int _poll(struct hil_proc *proc, int nonblock)
 	}
 }
 
+static struct metal_io_region* _alloc_shm(struct hil_proc *proc,
+			metal_phys_addr_t pa,
+			size_t size,
+			struct metal_device **dev)
+{
+	(void)proc;
+
+	*dev = hil_create_generic_mem_dev(pa, size,
+				NORM_SHARED_NCACHE | PRIV_RW_USER_RW);
+	if ((*dev))
+		return &((*dev)->regions[0]);
+
+	return NULL;
+
+}
+
+static void _release_shm(struct hil_proc *proc,
+			struct metal_device *dev,
+			struct metal_io_region *io)
+{
+	(void)proc;
+	(void)io;
+	hil_close_generic_mem_dev(dev);
+}
+
 static int _initialize(struct hil_proc *proc)
 {
 	int ret;
@@ -208,8 +250,8 @@ static int _initialize(struct hil_proc *proc)
 			goto error;
 		metal_io_init(ipi->io, (void *)ipi->paddr,
 			&ipi->paddr, 0x1000,
-			(unsigned)(-1),
-			METAL_UNCACHED | METAL_IO_MAPPED,
+			sizeof(metal_phys_addr_t) << 3,
+			0,
 			NULL);
 	}
 

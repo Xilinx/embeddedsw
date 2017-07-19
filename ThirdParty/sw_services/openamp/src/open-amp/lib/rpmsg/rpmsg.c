@@ -135,15 +135,17 @@ void rpmsg_deinit(struct remote_device *rdev)
  */
 
 int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, uint32_t src,
-			      uint32_t dst, char *data, int size, int wait)
+			      uint32_t dst, const void *data,
+			      int size, int wait)
 {
 	struct remote_device *rdev;
-	struct rpmsg_hdr *rp_hdr;
+	struct rpmsg_hdr rp_hdr;
 	void *buffer;
 	unsigned short idx;
 	int tick_count = 0;
 	unsigned long buff_len;
 	int ret;
+	struct metal_io_region *io;
 
 	if (!rp_chnl || !data) {
 		return RPMSG_ERR_PARAM;
@@ -189,20 +191,20 @@ int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, uint32_t src,
 		}
 	}
 
-	rp_hdr = (struct rpmsg_hdr *)buffer;
-
 	/* Initialize RPMSG header. */
-	rp_hdr->dst = dst;
-	rp_hdr->src = src;
-	rp_hdr->len = size;
-	rp_hdr->reserved = 0;
+	rp_hdr.dst = dst;
+	rp_hdr.src = src;
+	rp_hdr.len = size;
+	rp_hdr.reserved = 0;
 
 	/* Copy data to rpmsg buffer. */
-	if (rdev->proc->sh_buff.io->mem_flags & METAL_IO_MAPPED)
-		metal_memcpy_io((void *)RPMSG_LOCATE_DATA(rp_hdr), data, size);
-	else
-		memcpy((void *)RPMSG_LOCATE_DATA(rp_hdr), data, size);
-
+	io = rdev->proc->sh_buff.io;
+	metal_io_block_write(io,
+			metal_io_virt_to_offset(io, buffer),
+			&rp_hdr, sizeof(rp_hdr));
+	metal_io_block_write(io,
+			metal_io_virt_to_offset(io, RPMSG_LOCATE_DATA(buffer)),
+			data, size);
 	metal_mutex_acquire(&rdev->lock);
 
 	/* Enqueue buffer on virtqueue. */
@@ -274,7 +276,6 @@ void rpmsg_release_rx_buffer(struct rpmsg_channel *rpdev, void *rxbuf)
 	struct rpmsg_hdr *hdr;
 	struct remote_device *rdev;
 	struct rpmsg_hdr_reserved * reserved = NULL;
-	struct metal_io_region *io;
 	unsigned int len;
 
 	if (!rpdev || !rxbuf)
@@ -289,12 +290,6 @@ void rpmsg_release_rx_buffer(struct rpmsg_channel *rpdev, void *rxbuf)
 	hdr->reserved &= (~RPMSG_BUF_HELD);
 	len = (unsigned int)virtqueue_get_buffer_length(rdev->rvq,
 						reserved->idx);
-
-	io = rdev->proc->sh_buff.io;
-	if (io) {
-		if (! (io->mem_flags & METAL_UNCACHED))
-			metal_cache_flush(rxbuf, len);
-	}
 
 	metal_mutex_acquire(&rdev->lock);
 

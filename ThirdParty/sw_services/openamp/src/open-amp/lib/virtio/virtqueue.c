@@ -351,6 +351,7 @@ void *virtqueue_get_available_buffer(struct virtqueue *vq, uint16_t * avail_idx,
 	uint16_t head_idx = 0;
 	void *buffer;
 
+	atomic_thread_fence(memory_order_seq_cst);
 	if (vq->vq_available_idx == vq->vq_ring.avail->idx) {
 		return (VQ_NULL);
 	}
@@ -359,8 +360,6 @@ void *virtqueue_get_available_buffer(struct virtqueue *vq, uint16_t * avail_idx,
 
 	head_idx = vq->vq_available_idx++ & (vq->vq_nentries - 1);
 	*avail_idx = vq->vq_ring.avail->ring[head_idx];
-
-	atomic_thread_fence(memory_order_seq_cst);
 
 	buffer = metal_io_phys_to_virt(vq->shm_io, vq->vq_ring.desc[*avail_idx].addr);
 	*len = vq->vq_ring.desc[*avail_idx].len;
@@ -684,6 +683,7 @@ static int vq_ring_enable_interrupt(struct virtqueue *vq, uint16_t ndesc)
 void virtqueue_notification(struct virtqueue *vq)
 {
 
+	atomic_thread_fence(memory_order_seq_cst);
 	if (vq->callback != VQ_NULL)
 		vq->callback(vq);
 }
