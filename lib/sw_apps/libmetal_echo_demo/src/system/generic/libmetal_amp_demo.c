@@ -34,11 +34,11 @@
   * This application shows how to use IPI to trigger interrupt and how to
   * setup shared memory with libmetal API for communication between processors.
   *
-  * This application does the following:
+  * This app does the following:
   * 1.  Initialize the platform hardware such as UART, GIC.
   * 2.  Connect the IPI interrupt.
   * 3.  Register IPI device, shared memory descriptor device and shared memory
-  *     device with libmetal in the initialization.
+  *     device with libmetal in the intialization.
   * 4.  In the main application it does the following,
   *     * open the registered libmetal devices: IPI device, shared memory
   *       descriptor device and shared memory device.
@@ -51,7 +51,7 @@
   *     * Wait for the IPI interrupt from the remote.
   *     * Once it receives the interrupt, it does atomic add by 1 to the
   *       first 32bit of the shared memory descriptor location by 1000 times.
-  *     * It will then notify the remote after the calculation.
+  *     * It will then notify the remote after the calucation.
   *     * As the remote side also does 1000 times add after it has notified
   *       this end. The remote side will check if the result is 2000, if not,
   *       it will error.
@@ -63,17 +63,18 @@
   *     * If "shutdown" message is received, cleanup the libmetal source.
   */
 #include <unistd.h>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
 
 #include <metal/sys.h>
 #include <metal/device.h>
 #include <metal/irq.h>
 #include <metal/atomic.h>
 #include <metal/cpu.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
+
 #include "sys_init.h"
 
 #define IPI_TRIG_OFFSET 0x0
@@ -93,6 +94,7 @@
 #define D0_SHM_OFFSET   0x00000
 #define D1_SHM_OFFSET   0x20000
 
+#define BUF_SIZE_MAX 512
 #define SHUTDOWN "shutdown"
 
 #define LPRINTF(format, ...) \
@@ -140,7 +142,7 @@ extern void wait_for_interrupt(void);
  *
  * @return - If the IPI interrupt is triggered by its remote, it returns
  *          METAL_IRQ_HANDLED. It returns METAL_IRQ_NOT_HANDLED, if it is
- *          not the interrupt it expected.
+ *          not the interupt it expected.
  */
 static int ipi_irq_isr (int vect_id, void *priv)
 {
@@ -212,7 +214,7 @@ static void *ipi_task_shm_atomicd(void *arg)
  *            the ping buffer to the pong buffer.
  *          * Update the shared memory descriptor for the new available
  *            pong buffer.
- *          * Trigger IPI to notify the remote.
+ *          * Trigger IPI to notifty the remote.
  *
  * @param[in] arg - channel information
  */
@@ -223,14 +225,20 @@ static void *ipi_task_echod(void *arg)
 	shm_addr_t *shm0_addr_array, *shm1_addr_array;
 	struct msg_hdr_s *msg_hdr;
 	unsigned int flags;
-	void *d0, *d1;
+	void *d0, *d1, *lbuf;
 	metal_phys_addr_t d0_pa;
+	int len;
 
 	shm0_mg = (struct shm_mg_s *)metal_io_virt(ch->shm0_desc_io, 0);
 	shm1_mg = (struct shm_mg_s *)metal_io_virt(ch->shm1_desc_io, 0);
 	shm0_addr_array = (void *)shm0_mg + sizeof(struct shm_mg_s);
 	shm1_addr_array = (void *)shm1_mg + sizeof(struct shm_mg_s);
 	d1 = metal_io_virt(ch->shm_io, ch->d1_start_offset);
+	lbuf = malloc(BUF_SIZE_MAX);
+	if (!lbuf) {
+		LPRINTF("ERROR: Failed to allocate local buffer for msg.\n");
+		return NULL;
+	}
 
 	LPRINTF("Wait for echo test to start.\n");
 	while (1) {
@@ -245,36 +253,55 @@ static void *ipi_task_echod(void *arg)
 		} while(1);
 		atomic_thread_fence(memory_order_acq_rel);
 		while(shm0_mg->used != shm0_mg->avails) {
-			d0_pa = (metal_phys_addr_t)shm0_addr_array[shm0_mg->used];
+			d0_pa = (metal_phys_addr_t)
+				shm0_addr_array[shm0_mg->used];
 			d0 = metal_io_phys_to_virt(ch->shm_io, d0_pa);
 			if (!d0) {
-				LPRINTF("ERROR: failed to get rx address: 0x%lx.\n",
+				LPRINTF("ERROR: failed to get rx addr:0x%lx.\n",
 					d0_pa);
-				return NULL;
+				goto out;
 			}
-			msg_hdr = (struct msg_hdr_s *)d0;
+			/* Copy msg header from shared buf to local mem */
+			len = metal_io_block_read(ch->shm_io,
+				metal_io_virt_to_offset(ch->shm_io, d0),
+				lbuf, sizeof(struct msg_hdr_s));
+			if (len < (int)sizeof(struct msg_hdr_s)) {
+				LPRINTF("ERROR: Failed to get msg header.\n");
+				goto out;
+			}
+			msg_hdr = lbuf;
 			if (msg_hdr->len < 0) {
 				LPRINTF("ERROR: wrong msg length: %d.\n",
 					(int)msg_hdr->len);
-				return NULL;
-#if DEBUG
+				goto out;
 			} else {
+				/* Copy msg data from shared buf to local mem */
+				d0 += sizeof(struct msg_hdr_s);
+				len = metal_io_block_read(ch->shm_io,
+					metal_io_virt_to_offset(ch->shm_io, d0),
+					lbuf + sizeof(struct msg_hdr_s),
+					msg_hdr->len);
+#if DEBUG
 				LPRINTF("received: %d, %d\n",
 					(int)msg_hdr->index, (int)msg_hdr->len);
 #endif
-			}
-			if (msg_hdr->len) {
-				if (!strncmp((d0 + sizeof(struct msg_hdr_s)),
+				/* Check if the it is the shutdown message */
+				if (!strncmp((lbuf + sizeof(struct msg_hdr_s)),
 					 SHUTDOWN, sizeof(SHUTDOWN))) {
 					LPRINTF("Received shutdown message\n");
-					return NULL;
+					goto out;
 				}
 			}
-			memcpy(d1, d0, sizeof(struct msg_hdr_s) + msg_hdr->len);
+			/* Copy the message back to the other end */
+			metal_io_block_write(ch->shm_io,
+				metal_io_virt_to_offset(ch->shm_io, d1),
+				lbuf,
+				sizeof(struct msg_hdr_s) + msg_hdr->len);
 
 			/* Update the d1 address */
-			shm1_addr_array[shm1_mg->avails] = (uint64_t)metal_io_virt_to_phys(
-					ch->shm_io, d1);
+			shm1_addr_array[shm1_mg->avails] =
+					(uint64_t)metal_io_virt_to_phys(
+						ch->shm_io, d1);
 			d1 += (sizeof(struct msg_hdr_s) + msg_hdr->len);
 			shm0_mg->used++;
 			shm1_mg->avails++;
@@ -282,16 +309,19 @@ static void *ipi_task_echod(void *arg)
 			atomic_thread_fence(memory_order_acq_rel);
 
 			/* Send the message */
-			metal_io_write32(ch->ipi_io, IPI_TRIG_OFFSET, ch->ipi_mask);
+			metal_io_write32(ch->ipi_io, IPI_TRIG_OFFSET,
+					ch->ipi_mask);
 		}
 	}
 
+out:
+	free(lbuf);
 	return NULL;
 }
 
 /**
  * @brief    cleanup - cleanup the application
- *           The cleanup function will disable the IPI interrupt
+ *           The cleanup funciton will disable the IPI interrupt
  *           close the metal devices and clean the system.
  */
 void cleanup(void)
@@ -355,7 +385,7 @@ int main(void)
 	/* Map IPI device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		LPRINTF("ERROR: Failed to map io region for %s.\n",
+		LPRINTF("ERROR: Failed to map io regio for %s.\n",
 			  device->name);
 		metal_device_close(device);
 		ret = -ENODEV;
@@ -377,14 +407,8 @@ int main(void)
 	/* Map shared memory0 descriptor device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		LPRINTF("ERROR: Failed to map io region for %s.\n",
+		LPRINTF("ERROR: Failed to map io regio for %s.\n",
 			  device->name);
-		metal_device_close(device);
-		ret = -ENODEV;
-		goto out;
-	}
-	if (!metal_io_mem_map(metal_io_phys(io, 0), io, io->size)) {
-		LPRINTF("ERROR: Failed to memory map shmem.\n");
 		metal_device_close(device);
 		ret = -ENODEV;
 		goto out;
@@ -405,19 +429,12 @@ int main(void)
 	/* Map shared memory1 descriptor device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		LPRINTF("ERROR: Failed to map io region for %s.\n",
+		LPRINTF("ERROR: Failed to map io regio for %s.\n",
 			  device->name);
 		metal_device_close(device);
 		ret = -ENODEV;
 		goto out;
 	}
-	if (!metal_io_mem_map(metal_io_phys(io, 0), io, io->size)) {
-		LPRINTF("ERROR: Failed to memory map shmem.\n");
-		metal_device_close(device);
-		ret = -ENODEV;
-		goto out;
-	}
-
 	/* Store the shared memory1 descriptor device and I/O region */
 	ch0.shm1_desc_dev = device;
 	ch0.shm1_desc_io = io;
@@ -432,14 +449,8 @@ int main(void)
 	/* Map shared memory device IO region */
 	io = metal_device_io_region(device, 0);
 	if (!io) {
-		LPRINTF("ERROR: Failed to map io region for %s.\n",
+		LPRINTF("ERROR: Failed to map io regio for %s.\n",
 			  device->name);
-		metal_device_close(device);
-		ret = -ENODEV;
-		goto out;
-	}
-	if (!metal_io_mem_map(metal_io_phys(io, 0), io, io->size)) {
-		LPRINTF("ERROR: Failed to memory map shmem.\n");
 		metal_device_close(device);
 		ret = -ENODEV;
 		goto out;
