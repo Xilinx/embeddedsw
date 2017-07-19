@@ -51,7 +51,7 @@ int metal_run_noblock(int threads, metal_thread_t child,
 	pthread_t *tid_p = (pthread_t *)tids;
 
 	if (!tids) {
-		metal_log(LOG_ERROR, "invalid arguement, tids is NULL.\n");
+		metal_log(METAL_LOG_ERROR, "invalid arguement, tids is NULL.\n");
 		return -EINVAL;
 	}
 
@@ -59,7 +59,7 @@ int metal_run_noblock(int threads, metal_thread_t child,
 	for (i = 0; i < threads; i++) {
 		error = -pthread_create(&tid_p[i], NULL, child, arg);
 		if (error) {
-			metal_log(LOG_ERROR, "failed to create thread - %s\n",
+			metal_log(METAL_LOG_ERROR, "failed to create thread - %s\n",
 				  strerror(error));
 			break;
 		}
@@ -75,7 +75,7 @@ void metal_finish_threads(int threads, void *tids)
 	pthread_t *tid_p = (pthread_t *)tids;
 
 	if (!tids) {
-		metal_log(LOG_ERROR, "invalid argument, tids is NULL.\n");
+		metal_log(METAL_LOG_ERROR, "invalid argument, tids is NULL.\n");
 		return;
 	}
 

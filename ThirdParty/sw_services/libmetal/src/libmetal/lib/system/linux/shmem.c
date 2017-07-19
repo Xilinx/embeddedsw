@@ -49,7 +49,7 @@ static void metal_shmem_io_close(struct metal_io_region *io)
 }
 
 static const struct metal_io_ops metal_shmem_io_ops = {
-	NULL, NULL, metal_shmem_io_close
+	NULL, NULL, NULL, NULL, NULL, metal_shmem_io_close
 };
 
 static int metal_shmem_try_map(struct metal_page_size *ps, int fd, size_t size,
@@ -67,14 +67,14 @@ static int metal_shmem_try_map(struct metal_page_size *ps, int fd, size_t size,
 
 	error = metal_map(fd, 0, size, 1, ps->mmap_flags, &mem);
 	if (error) {
-		metal_log(LOG_ERROR, "failed to mmap shmem - %s\n",
+		metal_log(METAL_LOG_ERROR, "failed to mmap shmem - %s\n",
 			  strerror(-error));
 		return error;
 	}
 
 	error = metal_mlock(mem, size);
 	if (error) {
-		metal_log(LOG_WARNING, "failed to mlock shmem - %s\n",
+		metal_log(METAL_LOG_WARNING, "failed to mlock shmem - %s\n",
 			  strerror(-error));
 	}
 
@@ -94,7 +94,7 @@ static int metal_shmem_try_map(struct metal_page_size *ps, int fd, size_t size,
 
 	if (_metal.pagemap_fd < 0) {
 		phys[0] = 0;
-		metal_log(LOG_WARNING,
+		metal_log(METAL_LOG_WARNING,
 		"shmem - failed to get va2pa mapping. use offset as pa.\n");
 		metal_io_init(io, mem, phys, size, -1, 0, &metal_shmem_io_ops);
 	} else {
@@ -124,7 +124,7 @@ int metal_shmem_open(const char *name, size_t size,
 
 	error = metal_open(name, 1);
 	if (error < 0) {
-		metal_log(LOG_ERROR, "Failed to open shmem file :%s\n", name);
+		metal_log(METAL_LOG_ERROR, "Failed to open shmem file :%s\n", name);
 		return error;
 	}
 	fd = error;

@@ -3,6 +3,6 @@ set (MACHINE                "zynqmp_a53"        CACHE STRING "")
 set (CROSS_PREFIX           "aarch64-none-elf-" CACHE STRING "")
 set (CMAKE_C_FLAGS          ""                  CACHE STRING "")
 
-include (cross-generic-gcc)
+include (cross-freertos-gcc)
 
 # vim: expandtab:ts=2:sw=2:smartindent

@@ -8,6 +8,50 @@ and request memory across the following operating environments:
   * RTOS (with and without virtual memory)
   * Bare-metal environments
 
+## Build Steps
+
+### Building for Linux Host
+```
+ $ git clone https://github.com/OpenAMP/libmetal.git
+ $ mkdir -p libmetal/<build directory>
+ $ cd libmetal/<build directory>
+ $ cmake ..
+ $ make VERBOSE=1 DESTDIR=<libmetal install location> install
+```
+
+### Cross Compiling for Linux Target
+Use [meta-openamp](https://github.com/openamp/meta-openamp) to build
+libmetal library.
+Use package `libmetal` in your yocto config file.
+
+### Building for Baremetal
+
+To build on baremetal, you will need to provide a toolchain file. Here is an
+example toolchain file:
+```
+    set (CMAKE_SYSTEM_PROCESSOR "arm"              CACHE STRING "")
+    set (MACHINE "zynqmp_r5" CACHE STRING "")
+
+    set (CROSS_PREFIX           "armr5-none-eabi-" CACHE STRING "")
+    set (CMAKE_C_FLAGS          "-mfloat-abi=soft -mcpu=cortex-r5 -Wall -Werror -Wextra \
+       -flto -Os -I/ws/xsdk/r5_0_bsp/psu_cortexr5_0/include" CACHE STRING "")
+
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -flto")
+    SET(CMAKE_AR  "gcc-ar" CACHE STRING "")
+    SET(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
+    SET(CMAKE_C_ARCHIVE_FINISH   true)
+
+    include (cross-generic-gcc)
+```
+* Note: other toolchain files can be found in the  `cmake/platforms/` directory.
+* Compile with your toolchain file.
+```
+    $ mkdir -p build-libmetal
+    $ cd build-libmetal
+    $ cmake <libmetal_source> -DCMAKE_TOOLCHAIN_FILE=<toolchain_file>
+    $ make VERBOSE=1 DESTDIR=<libmetal_install> install
+```
+
 ## Interfaces
 
 The following subsections give an overview of interfaces provided by libmetal.

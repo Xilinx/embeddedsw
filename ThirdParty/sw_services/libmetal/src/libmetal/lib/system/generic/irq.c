@@ -72,18 +72,18 @@ int metal_irq_register(int irq,
 	(void)dev;
 
 	if (irq < 0) {
-		metal_log(LOG_ERROR, "%s: irq %d is less than 0.\n", __func__, irq);
+		metal_log(METAL_LOG_ERROR, "%s: irq %d is less than 0.\n", __func__, irq);
 		return -EINVAL;
 	}
 	if (irq >= MAX_IRQS) {
-		metal_log(LOG_ERROR,
+		metal_log(METAL_LOG_ERROR,
 				"%s: irq %d is larger than the max supported %d.\n", __func__,
 				irq, MAX_IRQS);
 		return -EINVAL;
 	}
 
 	if (hd && !drv_id) {
-		metal_log(LOG_ERROR, "%s: irq %d drv id cannot be 0.\n", __func__, irq);
+		metal_log(METAL_LOG_ERROR, "%s: irq %d drv id cannot be 0.\n", __func__, irq);
 		return -EINVAL;
 	}
 
@@ -92,7 +92,7 @@ int metal_irq_register(int irq,
 		hd_desc = &_irqs.hds[irq][i];
 		if ((hd_desc->drv_id == drv_id) || (!drv_id && !hd)) {
 			if (hd) {
-				metal_log(LOG_ERROR, "%s: irq %d has already registered."
+				metal_log(METAL_LOG_ERROR, "%s: irq %d has already registered."
 						"Will not register again.\n", __func__, irq);
 				metal_mutex_release(&_irqs.irq_lock);
 				return -EINVAL;
@@ -127,7 +127,7 @@ int metal_irq_register(int irq,
 			metal_irq_restore_enable(irq_flags_save);
 			break;
 		} else if (!hd_desc->drv_id) {
-			metal_log(LOG_ERROR, "%s: irq %d drv id not found.\n", __func__, irq);
+			metal_log(METAL_LOG_ERROR, "%s: irq %d drv id not found.\n", __func__, irq);
 			metal_mutex_release(&_irqs.irq_lock);
 			return -EINVAL;
 		}
@@ -136,12 +136,12 @@ int metal_irq_register(int irq,
 	metal_mutex_release(&_irqs.irq_lock);
 
 	if (i >= MAX_HDS) {
-		metal_log(LOG_ERROR, "%s: exceed maximum handlers per IRQ.\n",
+		metal_log(METAL_LOG_ERROR, "%s: exceed maximum handlers per IRQ.\n",
 				__func__);
 		return -EINVAL;
 	}
 
-	metal_log(LOG_DEBUG, "%s: %sregistered IRQ %d\n", __func__,
+	metal_log(METAL_LOG_DEBUG, "%s: %sregistered IRQ %d\n", __func__,
 			  hd ? "" : "de",	irq);
 
 	return 0;

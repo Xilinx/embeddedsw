@@ -40,9 +40,4 @@
 #ifndef __METAL_LINUX_IRQ__H__
 #define __METAL_LINUX_IRQ__H__
 
-
-#ifdef __cplusplus
-}
-#endif
-
 #endif /* __METAL_LINUX_IRQ__H__ */

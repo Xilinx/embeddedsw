@@ -1,2 +1,15 @@
-.cscope
-.cscope/**
+*.o
+*~
+!libs/system/zc702evk/linux/lib/*/*.a
+*.bin
+*.map
+*.out
+*.log
+*.d
+
+/tags
+/TAGS
+
+# cscope files
+cscope.*
+ncscope.*
