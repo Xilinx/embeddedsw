@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,8 +65,6 @@
  *                     Added xil_printf include statement
  *                     Added new API XVidC_GetVideoModeIdWBlanking
  *                     Fix C++ warnings
- *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
- *                     generation.
  * </pre>
  *
 *******************************************************************************/
@@ -99,8 +97,19 @@ typedef enum {
 	XVIDC_VM_720x576_50_I,
 	XVIDC_VM_1440x480_60_I,
 	XVIDC_VM_1440x576_50_I,
+	XVIDC_VM_1920x1080_48_I,
 	XVIDC_VM_1920x1080_50_I,
 	XVIDC_VM_1920x1080_60_I,
+	XVIDC_VM_2048x1080_48_I,
+	XVIDC_VM_2048x1080_50_I,
+	XVIDC_VM_2048x1080_60_I,
+	XVIDC_VM_1920x1080_96_I,
+	XVIDC_VM_1920x1080_100_I,
+	XVIDC_VM_1920x1080_120_I,
+	XVIDC_VM_2048x1080_96_I,
+	XVIDC_VM_2048x1080_100_I,
+	XVIDC_VM_2048x1080_120_I,
+
 
 	/* Progressive modes. */
 	XVIDC_VM_640x350_85_P,
@@ -124,6 +133,9 @@ typedef enum {
 	XVIDC_VM_1024x768_85_P,
 	XVIDC_VM_1024x768_120_P_RB,
 	XVIDC_VM_1152x864_75_P,
+	XVIDC_VM_1280x720_24_P,
+	XVIDC_VM_1280x720_25_P,
+	XVIDC_VM_1280x720_30_P,
 	XVIDC_VM_1280x720_50_P,
 	XVIDC_VM_1280x720_60_P,
 	XVIDC_VM_1280x768_60_P,
@@ -182,6 +194,7 @@ typedef enum {
 	XVIDC_VM_1920x1080_24_P,
 	XVIDC_VM_1920x1080_25_P,
 	XVIDC_VM_1920x1080_30_P,
+	XVIDC_VM_1920x1080_48_P,
 	XVIDC_VM_1920x1080_50_P,
 	XVIDC_VM_1920x1080_60_P,
 	XVIDC_VM_1920x1080_100_P,
@@ -195,6 +208,14 @@ typedef enum {
 	XVIDC_VM_1920x1440_75_P,
 	XVIDC_VM_1920x1440_120_P_RB,
 	XVIDC_VM_1920x2160_60_P,
+	XVIDC_VM_2048x1080_24_P,
+	XVIDC_VM_2048x1080_25_P,
+	XVIDC_VM_2048x1080_30_P,
+	XVIDC_VM_2048x1080_48_P,
+	XVIDC_VM_2048x1080_50_P,
+	XVIDC_VM_2048x1080_60_P,
+	XVIDC_VM_2048x1080_100_P,
+	XVIDC_VM_2048x1080_120_P,
 	XVIDC_VM_2560x1080_50_P,
 	XVIDC_VM_2560x1080_60_P,
 	XVIDC_VM_2560x1080_100_P,
@@ -207,11 +228,13 @@ typedef enum {
 	XVIDC_VM_3840x2160_24_P,
 	XVIDC_VM_3840x2160_25_P,
 	XVIDC_VM_3840x2160_30_P,
+	XVIDC_VM_3840x2160_48_P,
 	XVIDC_VM_3840x2160_50_P,
 	XVIDC_VM_3840x2160_60_P,
 	XVIDC_VM_4096x2160_24_P,
 	XVIDC_VM_4096x2160_25_P,
 	XVIDC_VM_4096x2160_30_P,
+	XVIDC_VM_4096x2160_48_P,
 	XVIDC_VM_4096x2160_50_P,
 	XVIDC_VM_4096x2160_60_P,
 	XVIDC_VM_4096x2160_60_P_RB,
@@ -273,6 +296,7 @@ typedef enum {
 	XVIDC_FR_24HZ = 24,
 	XVIDC_FR_25HZ = 25,
 	XVIDC_FR_30HZ = 30,
+	XVIDC_FR_48HZ = 48,
 	XVIDC_FR_50HZ = 50,
 	XVIDC_FR_56HZ = 56,
 	XVIDC_FR_60HZ = 60,
@@ -284,9 +308,10 @@ typedef enum {
 	XVIDC_FR_85HZ = 85,
 	XVIDC_FR_87HZ = 87,
 	XVIDC_FR_88HZ = 88,
+	XVIDC_FR_96HZ = 96,
 	XVIDC_FR_100HZ = 100,
 	XVIDC_FR_120HZ = 120,
-	XVIDC_FR_NUM_SUPPORTED = 16,
+	XVIDC_FR_NUM_SUPPORTED = 18,
 	XVIDC_FR_UNKNOWN
 } XVidC_FrameRate;
 
@@ -349,15 +374,36 @@ typedef enum {
 	XVIDC_CSF_MEM_Y10,          // [31:0] x:Y:Y:Y 2:10:10:10
 	XVIDC_CSF_MEM_BGRA8,        // [31:0] A:R:G:B 8:8:8:8
 
+	XVIDC_CSF_YCBCR_422 = 50,
+	XVIDC_CSF_YCBCR_444,
+	XVIDC_CSF_GBR_444,
+	XVIDC_CSF_420,
+	XVIDC_CSF_YCBCRA_4224,
+	XVIDC_CSF_YCBCRA_4444,
+	XVIDC_CSF_GBRA_4444,
+	XVIDC_CSF_YCBCRD_4224,
+	XVIDC_CSF_YCBCRD_4444,
+	XVIDC_CSF_GBRD_4444,
+	XVIDC_CSF_XYZ_444,
+
 	XVIDC_CSF_NUM_SUPPORTED,    // includes the reserved slots
 	XVIDC_CSF_UNKNOWN,
 	XVIDC_CSF_STRM_START = XVIDC_CSF_RGB,
 	XVIDC_CSF_STRM_END   = XVIDC_CSF_YONLY,
 	XVIDC_CSF_MEM_START  = XVIDC_CSF_MEM_RGBX8,
-	XVIDC_CSF_MEM_END    = (XVIDC_CSF_NUM_SUPPORTED - 1),
+	XVIDC_CSF_MEM_END    = (XVIDC_CSF_YCBCR_422 - 1),
 	XVIDC_CSF_NUM_STRM   = (XVIDC_CSF_STRM_END - XVIDC_CSF_STRM_START + 1),
 	XVIDC_CSF_NUM_MEM    = (XVIDC_CSF_MEM_END - XVIDC_CSF_MEM_START + 1)
 } XVidC_ColorFormat;
+
+
+/**
+ * Image Aspect Ratio.
+ */
+typedef enum {
+	XVIDC_AR_4_3 = 0,
+	XVIDC_AR_16_9 = 1
+} XVidC_AspectRatio;
 
 /**
  * Color space conversion standard.
@@ -462,6 +508,7 @@ typedef struct {
 	XVidC_ColorDepth	ColorDepth;
 	XVidC_PixelsPerClock	PixPerClk;
 	XVidC_FrameRate		FrameRate;
+	XVidC_AspectRatio	AspectRatio;
 	u8			IsInterlaced;
 	u8			Is3D;
 	XVidC_3DInfo		Info_3D;

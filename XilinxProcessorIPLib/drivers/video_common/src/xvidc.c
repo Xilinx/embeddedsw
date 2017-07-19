@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -563,6 +563,7 @@ const char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 		case (XVIDC_FR_24HZ):   return ("24Hz");
 		case (XVIDC_FR_25HZ):   return ("25Hz");
 		case (XVIDC_FR_30HZ):   return ("30Hz");
+		case (XVIDC_FR_48HZ):   return ("48Hz");
 		case (XVIDC_FR_50HZ):   return ("50Hz");
 		case (XVIDC_FR_56HZ):   return ("56Hz");
 		case (XVIDC_FR_60HZ):   return ("60Hz");
@@ -574,6 +575,7 @@ const char *XVidC_GetFrameRateStr(XVidC_VideoMode VmId)
 		case (XVIDC_FR_85HZ):   return ("85Hz");
 		case (XVIDC_FR_87HZ):   return ("87Hz");
 		case (XVIDC_FR_88HZ):   return ("88Hz");
+		case (XVIDC_FR_96HZ):   return ("96Hz");
 		case (XVIDC_FR_100HZ):  return ("100Hz");
 		case (XVIDC_FR_120HZ):  return ("120Hz");
 
@@ -641,24 +643,34 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_YONLY:          return ("Y_ONLY");
 		case XVIDC_CSF_MEM_RGBX8:      return ("RGBX8");
 		case XVIDC_CSF_MEM_YUVX8:      return ("YUVX8");
-	    case XVIDC_CSF_MEM_YUYV8:      return ("YUYV8");
-	    case XVIDC_CSF_MEM_RGBA8:      return ("RGBA8");
-	    case XVIDC_CSF_MEM_YUVA8:      return ("YUVA8");
-	    case XVIDC_CSF_MEM_RGBX10:     return ("RGBX10");
-	    case XVIDC_CSF_MEM_YUVX10:     return ("YUVX10");
-	    case XVIDC_CSF_MEM_RGB565:     return ("RGB565");
-	    case XVIDC_CSF_MEM_Y_UV8:      return ("Y_UV8");
-	    case XVIDC_CSF_MEM_Y_UV8_420:  return ("Y_UV8_420");
-	    case XVIDC_CSF_MEM_RGB8:       return ("RGB8");
-	    case XVIDC_CSF_MEM_YUV8:       return ("YUV8");
+		case XVIDC_CSF_MEM_YUYV8:      return ("YUYV8");
+		case XVIDC_CSF_MEM_RGBA8:      return ("RGBA8");
+		case XVIDC_CSF_MEM_YUVA8:      return ("YUVA8");
+		case XVIDC_CSF_MEM_RGBX10:     return ("RGBX10");
+		case XVIDC_CSF_MEM_YUVX10:     return ("YUVX10");
+		case XVIDC_CSF_MEM_RGB565:     return ("RGB565");
+		case XVIDC_CSF_MEM_Y_UV8:      return ("Y_UV8");
+		case XVIDC_CSF_MEM_Y_UV8_420:  return ("Y_UV8_420");
+		case XVIDC_CSF_MEM_RGB8:       return ("RGB8");
+		case XVIDC_CSF_MEM_YUV8:       return ("YUV8");
 		case XVIDC_CSF_MEM_Y_UV10:     return ("Y_UV10");
 		case XVIDC_CSF_MEM_Y_UV10_420: return ("Y_UV10_420");
 		case XVIDC_CSF_MEM_Y8:         return ("Y8");
 		case XVIDC_CSF_MEM_Y10:        return ("Y10");
 		case XVIDC_CSF_MEM_BGRA8:      return ("BGRA8");
-
+		case XVIDC_CSF_YCBCR_422:      return ("YCBCR_422");
+		case XVIDC_CSF_YCBCR_444:      return ("YCBCR_444");
+		case XVIDC_CSF_GBR_444:	       return ("GBR_444");
+		case XVIDC_CSF_420:	       return ("420");
+		case XVIDC_CSF_YCBCRA_4224:    return ("YCBCRA_4224");
+		case XVIDC_CSF_YCBCRA_4444:    return ("YCBCRA_4444");
+		case XVIDC_CSF_GBRA_4444:      return ("GBRA_4444");
+		case XVIDC_CSF_YCBCRD_4224:    return ("YCBCRD_4224");
+		case XVIDC_CSF_YCBCRD_4444:    return ("YCBCRD_4444");
+		case XVIDC_CSF_GBRD_4444:      return ("GBRD_4444");
+		case XVIDC_CSF_XYZ_444:	       return ("XYZ_444");
 		default:
-			return ("Color space format not supported");
+					       return ("Color space format not supported");
 	}
 }
 
@@ -734,11 +746,7 @@ u32 XVidC_SetVideoStream(XVidC_VideoStream *VidStrmPtr, XVidC_VideoMode VmId,
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(VidStrmPtr != NULL);
-	Xil_AssertNonvoid((ColorFormat == XVIDC_CSF_RGB)       ||
-			  (ColorFormat == XVIDC_CSF_YCRCB_444) ||
-			  (ColorFormat == XVIDC_CSF_YCRCB_422) ||
-			  (ColorFormat == XVIDC_CSF_YCRCB_420) ||
-			  (ColorFormat == XVIDC_CSF_UNKNOWN));
+	Xil_AssertNonvoid(ColorFormat < XVIDC_CSF_NUM_SUPPORTED);
 	Xil_AssertNonvoid((Bpc == XVIDC_BPC_6)  ||
 			  (Bpc == XVIDC_BPC_8)  ||
 			  (Bpc == XVIDC_BPC_10) ||
