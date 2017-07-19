@@ -171,6 +171,10 @@ metal_device_io_region(struct metal_device *device, unsigned index)
 
 /** @} */
 
+#ifdef METAL_INTERNAL
+extern int metal_generic_dev_sys_open(struct metal_device *dev);
+#endif /* METAL_INTERNAL */
+
 #ifdef __cplusplus
 }
 #endif

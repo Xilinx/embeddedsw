@@ -51,7 +51,7 @@ static int device(void)
 	}
 
 	idcode = metal_io_read32(io, 0x530);
-	metal_log(LOG_DEBUG, "Read id code %x\n", idcode);
+	metal_log(METAL_LOG_DEBUG, "Read id code %x\n", idcode);
 
 	metal_device_close(device);
 

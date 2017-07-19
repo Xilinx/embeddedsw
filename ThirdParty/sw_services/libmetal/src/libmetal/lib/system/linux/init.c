@@ -57,13 +57,13 @@ static int metal_add_page_size(const char *path, int shift, int mmap_flags)
 	unsigned long size = 1UL << shift;
 
 	if (index >= MAX_PAGE_SIZES) {
-		metal_log(LOG_WARNING, "skipped page size %ld - overflow\n",
+		metal_log(METAL_LOG_WARNING, "skipped page size %ld - overflow\n",
 			  size);
 		return -EOVERFLOW;
 	}
 
 	if (!path || shift <= 0) {
-		metal_log(LOG_WARNING, "skipped page size %ld - invalid args\n",
+		metal_log(METAL_LOG_WARNING, "skipped page size %ld - invalid args\n",
 			  size);
 		return -EINVAL;
 	}
@@ -74,7 +74,7 @@ static int metal_add_page_size(const char *path, int shift, int mmap_flags)
 	strncpy(_metal.page_sizes[index].path, path, PATH_MAX);
 	_metal.num_page_sizes ++;
 
-	metal_log(LOG_DEBUG, "added page size %ld @%s\n", size, path);
+	metal_log(METAL_LOG_DEBUG, "added page size %ld @%s\n", size, path);
 
 	return 0;
 }
@@ -88,7 +88,7 @@ static int metal_init_page_sizes(void)
 	/* Determine system page size. */
 	sizes[0] = getpagesize();
 	if (sizes[0] <= 0) {
-		metal_log(LOG_ERROR, "failed to get page size\n");
+		metal_log(METAL_LOG_ERROR, "failed to get page size\n");
 		return -ENOSYS;
 	}
 	_metal.page_size  = sizes[0];
@@ -137,7 +137,7 @@ int metal_sys_init(const struct metal_init_params *params)
 	/* Determine sysfs mount point. */
 	result = sysfs_get_mnt_path(sysfs_path, sizeof(sysfs_path));
 	if (result) {
-		metal_log(LOG_ERROR, "failed to get sysfs path (%s)\n",
+		metal_log(METAL_LOG_ERROR, "failed to get sysfs path (%s)\n",
 			  strerror(-result));
 		return result;
 	}
@@ -152,11 +152,13 @@ int metal_sys_init(const struct metal_init_params *params)
 	/* Initialize the pseudo-random number generator. */
 	urandom = fopen("/dev/urandom", "r");
 	if (!urandom) {
-		metal_log(LOG_ERROR, "failed to open /dev/urandom (%s)\n",
+		metal_log(METAL_LOG_ERROR, "failed to open /dev/urandom (%s)\n",
 			  strerror(errno));
 		return -errno;
 	}
-	fread(&seed, sizeof(int), 1, urandom);
+	if (sizeof(int) != fread(&seed, sizeof(int), 1, urandom)) {
+		metal_log(METAL_LOG_DEBUG, "Failed fread /dev/urandom\n");
+	}
 	fclose(urandom);
 	srand(seed);
 
@@ -170,7 +172,7 @@ int metal_sys_init(const struct metal_init_params *params)
 
 	result = open("/proc/self/pagemap", O_RDONLY | O_CLOEXEC);
 	if (result < 0) {
-		metal_log(LOG_DEBUG, "Failed pagemap open - %s\n",
+		metal_log(METAL_LOG_DEBUG, "Failed pagemap open - %s\n",
 			  strerror(errno));
 	}
 	_metal.pagemap_fd = result;

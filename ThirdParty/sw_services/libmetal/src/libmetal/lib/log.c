@@ -55,8 +55,8 @@ void metal_default_log_handler(enum metal_log_level level,
 	vsnprintf(msg, sizeof(msg), format, args);
 	va_end(args);
 
-	if (level <= LOG_EMERGENCY || level > LOG_DEBUG)
-		level = LOG_EMERGENCY;
+	if (level <= METAL_LOG_EMERGENCY || level > METAL_LOG_DEBUG)
+		level = METAL_LOG_EMERGENCY;
 
 	fprintf(stderr, "%s%s", level_strs[level], msg);
 #else

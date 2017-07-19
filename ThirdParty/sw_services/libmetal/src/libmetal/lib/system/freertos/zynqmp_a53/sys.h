@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Xilinx Inc. and Contributors. All rights reserved.
+ * Copyright (c) 2017, Xilinx Inc. and Contributors. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,15 +29,43 @@
  */
 
 /*
- * @file	linux/io.c
- * @brief	Linux libmetal I/O handling.
+ * @file	freertos/zynqmp_a53/sys.h
+ * @brief	freertos zynqmp_a53 system primitives for libmetal.
  */
 
-#include "metal/io.h"
+#ifndef __METAL_FREERTOS_SYS__H__
+#error "Include metal/sys.h instead of metal/freertos/@PROJECT_MACHINE@/sys.h"
+#endif
 
-void *metal_io_mem_map(metal_phys_addr_t pa,
-		       struct metal_io_region *io, size_t size)
+#include "xscugic.h"
+
+#ifndef __METAL_FREERTOS_ZYNQMP_A53_SYS__H__
+#define __METAL_FREERTOS_ZYNQMP_A53_SYS__H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef METAL_INTERNAL
+
+#if !defined(MAX_IRQS)
+#define MAX_IRQS	((int)XSCUGIC_MAX_NUM_INTR_INPUTS)          /**< maximum number of irqs */
+#endif
+
+static inline void sys_irq_enable(unsigned int vector)
 {
-	(void)size;
-	return metal_io_phys_to_virt(io, pa);
+        XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
 }
+
+static inline void sys_irq_disable(unsigned int vector)
+{
+        XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+}
+
+#endif /* METAL_INTERNAL */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __METAL_FREERTOS_ZYNQMP_A53_SYS__H__ */

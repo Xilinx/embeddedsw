@@ -33,8 +33,8 @@
  * @brief	Logging support for libmetal.
  */
 
-#ifndef __METAL_LOG__H__
-#define __METAL_LOG__H__
+#ifndef __METAL_METAL_LOG__H__
+#define __METAL_METAL_LOG__H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,14 +45,14 @@ extern "C" {
 
 /** Log message priority levels for libmetal. */
 enum metal_log_level {
-	LOG_EMERGENCY,	/**< system is unusable.               */
-	LOG_ALERT,	/**< action must be taken immediately. */
-	LOG_CRITICAL,	/**< critical conditions.              */
-	LOG_ERROR,	/**< error conditions.                 */
-	LOG_WARNING,	/**< warning conditions.               */
-	LOG_NOTICE,	/**< normal but significant condition. */
-	LOG_INFO,	/**< informational messages.           */
-	LOG_DEBUG,	/**< debug-level messages.             */
+	METAL_LOG_EMERGENCY,	/**< system is unusable.               */
+	METAL_LOG_ALERT,	/**< action must be taken immediately. */
+	METAL_LOG_CRITICAL,	/**< critical conditions.              */
+	METAL_LOG_ERROR,	/**< error conditions.                 */
+	METAL_LOG_WARNING,	/**< warning conditions.               */
+	METAL_LOG_NOTICE,	/**< normal but significant condition. */
+	METAL_LOG_INFO,		/**< informational messages.           */
+	METAL_LOG_DEBUG,	/**< debug-level messages.             */
 };
 
 /** Log message handler type. */
@@ -112,4 +112,4 @@ extern void metal_default_log_handler(enum metal_log_level level,
 }
 #endif
 
-#endif /* __METAL_LOG__H__ */
+#endif /* __METAL_METAL_LOG__H__ */

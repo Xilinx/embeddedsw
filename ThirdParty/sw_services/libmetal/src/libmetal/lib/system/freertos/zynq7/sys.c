@@ -51,34 +51,11 @@
 /* Mask off lower bits of addr */
 #define     ARM_AR_MEM_TTB_SECT_SIZE_MASK          (~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
 
-/* Define shift to convert memory address to index of translation table entry (descriptor).
- Shift 20 bits (for a 1MB section) - 2 bits (for a 4 byte TTB descriptor) */
-#define     ARM_AR_MEM_TTB_SECT_TO_DESC_SHIFT      (20-2)
-
-/* Macro used to make a 32-bit value with the specified bit set */
-#define             ESAL_GE_MEM_32BIT_SET(bit_num)      (1UL<<(bit_num))
-
-#define     ARM_AR_MEM_TTB_DESC_BACKWARDS          ESAL_GE_MEM_32BIT_SET(4)
-#define     ARM_AR_MEM_TTB_DESC_AP_MANAGER        (ESAL_GE_MEM_32BIT_SET(10)        |          \
-                                                    ESAL_GE_MEM_32BIT_SET(11))
-#define     ARM_AR_MEM_TTB_DESC_SECT               ESAL_GE_MEM_32BIT_SET(1)
-
-/* Define translation table descriptor bits */
-#define     ARM_AR_MEM_TTB_DESC_B                  ESAL_GE_MEM_32BIT_SET(2)
-#define     ARM_AR_MEM_TTB_DESC_C                  ESAL_GE_MEM_32BIT_SET(3)
-#define     ARM_AR_MEM_TTB_DESC_TEX                ESAL_GE_MEM_32BIT_SET(12)
-#define     ARM_AR_MEM_TTB_DESC_S                  ESAL_GE_MEM_32BIT_SET(16)
-
-/* Define all access  (manager access permission / not cachable / not bufferd)  */
-#define     ARM_AR_MEM_TTB_DESC_ALL_ACCESS         (ARM_AR_MEM_TTB_DESC_AP_MANAGER |          \
-                                                     ARM_AR_MEM_TTB_DESC_SECT)
-
-
-static unsigned int int_old_val = 0;
+static unsigned int int_old_val = XIL_EXCEPTION_ALL;
 
 void sys_irq_restore_enable(void)
 {
-	Xil_ExceptionEnableMask(int_old_val);
+	Xil_ExceptionEnableMask(~int_old_val);
 }
 
 void sys_irq_save_disable(void)
@@ -117,17 +94,17 @@ void __attribute__((weak)) metal_generic_default_poll(void)
 	asm volatile("wfi");
 }
 
-void metal_machine_io_mem_map(metal_phys_addr_t pa,
+void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 				      size_t size, unsigned int flags)
 {
 	unsigned int section_offset;
 	unsigned int ttb_addr;
-	unsigned int ttb_value;
 
+	if (!flags)
+		return va;
 	/* Ensure the virtual and physical addresses are aligned on a
 	   section boundary */
 	pa &= ARM_AR_MEM_TTB_SECT_SIZE_MASK;
-	ttb_value = ARM_AR_MEM_TTB_DESC_ALL_ACCESS;
 
 	/* Loop through entire region of memory (one MMU section at a time).
 	   Each section requires a TTB entry. */
@@ -137,27 +114,9 @@ void metal_machine_io_mem_map(metal_phys_addr_t pa,
 		/* Calculate translation table entry for this memory section */
 		ttb_addr = (pa + section_offset);
 
-		/* Build translation table entry value */
-
-		/* Set cache related bits in translation table entry.
-		   NOTE: Default is uncached instruction and data. */
-		if ((flags & METAL_CACHE_WB)) {
-			/* Update translation table entry value */
-			ttb_value |=
-			    (ARM_AR_MEM_TTB_DESC_B |
-			     ARM_AR_MEM_TTB_DESC_C);
-		} else if ((flags & METAL_CACHE_WT)) {
-			/* Update translation table entry value */
-			ttb_value |= ARM_AR_MEM_TTB_DESC_C;
-		}
-		/* In case of un-cached memory, set TEX 0 bit to set memory
-		   attribute to normal. */
-		else if ((flags & METAL_UNCACHED)) {
-			ttb_value |= ARM_AR_MEM_TTB_DESC_TEX;
-		}
-
 		/* Write translation table entry value to entry address */
-		Xil_SetTlbAttributes(ttb_addr, ttb_value);
-
+		Xil_SetTlbAttributes(ttb_addr, flags);
 	}
+
+	return va;
 }
