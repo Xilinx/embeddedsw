@@ -57,6 +57,8 @@
  *                     checking for interlaced mode.
  *       als  08/12/16 Updates to support 64-bit base addresses.
  * 5.2   aad  01/24/17 Disable end of line reset for reduced blanking
+ * 5.3   tu   07/20/17 Allowing Custom VTM in XDp_TxCfgMsaUseStandardVideoMode
+ *                     function.
  * </pre>
  *
 *******************************************************************************/
@@ -302,7 +304,8 @@ void XDp_TxCfgMsaUseStandardVideoMode(XDp *InstancePtr, u8 Stream,
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(VideoMode < XVIDC_VM_NUM_SUPPORTED);
+	Xil_AssertVoid((VideoMode < XVIDC_VM_NUM_SUPPORTED) ||
+			(VideoMode == XVIDC_VM_CUSTOM));
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
 		(Stream == XDP_TX_STREAM_ID4));
