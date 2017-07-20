@@ -59,6 +59,7 @@
 *		    image stability
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
 *      aad 09/06/16 Updates to support 64-bit base address
+* 4.1  tu  07/20/17 Allowing Custom VTM in XDpTxSs_SetVidMode function.
 * </pre>
 *
 ******************************************************************************/
@@ -696,7 +697,8 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((VidMode < XVIDC_VM_NUM_SUPPORTED) ||
-			(VidMode == XVIDC_VM_USE_EDID_PREFERRED));
+			(VidMode == XVIDC_VM_USE_EDID_PREFERRED) ||
+			(VidMode == XVIDC_VM_CUSTOM));
 
 	if ((VidMode == XVIDC_VM_UHD_60_P) &&
 				(InstancePtr->UsrOpt.MstSupport)) {
