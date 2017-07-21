@@ -196,6 +196,9 @@ int PmMasterInitFinalize(PmMaster* const master);
 void PmMasterDefaultConfig(void);
 void PmMasterSetConfig(PmMaster* const mst, const PmMasterConfig* const cfg);
 void PmMasterClearConfig(void);
+#ifdef IDLE_PERIPHERALS
+void PmMasterIdleSystem(void);
+#endif
 
 bool PmCanRequestSuspend(const PmMaster* const reqMaster,
 			 const PmMaster* const respMaster);
