@@ -79,6 +79,7 @@
 *       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
 *       sk     03/20/17 Add support for EL1 non-secure mode.
 * 3.3   mn     05/17/17 Add support for 64bit DMA addressing
+* 	mn     07/17/17 Add support for running SD at 200MHz
 * </pre>
 *
 ******************************************************************************/
@@ -95,6 +96,7 @@
 #define XSDPS_CMD1_HIGH_VOL	0x00FF8000U
 #define XSDPS_CMD1_DUAL_VOL	0x00FF8010U
 #define HIGH_SPEED_SUPPORT	0x2U
+#define UHS_SDR50_SUPPORT	0x4U
 #define WIDTH_4_BIT_SUPPORT	0x4U
 #define SD_CLK_25_MHZ		25000000U
 #define SD_CLK_19_MHZ		19000000U
@@ -110,9 +112,7 @@
 #define EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200		0x10U
 #define EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200		0x20U
 #define CSD_SPEC_VER_3		0x3U
-
-/* Note: Remove this once fixed */
-#define UHS_BROKEN
+#define SCR_SPEC_VER_3		0x80U
 
 /**************************** Type Definitions *******************************/
 
@@ -124,9 +124,7 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
 extern s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static s32 XSdPs_IdentifyCard(XSdPs *InstancePtr);
-#ifndef UHS_BROKEN
 static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr);
-#endif
 
 /*****************************************************************************/
 /**
@@ -411,9 +409,17 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 			goto RETURN_PATH;
 		}
 
-        Arg = XSDPS_ACMD41_HCS | XSDPS_ACMD41_3V3 | (0x1FFU << 15U);
-		if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
-		    Arg |= XSDPS_OCR_S18;
+		Arg = XSDPS_ACMD41_HCS | XSDPS_ACMD41_3V3 | (0x1FFU << 15U);
+		/*
+		 * There is no support to switch to 1.8V and use UHS mode on
+		 * 1.0 silicon
+		 */
+		if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) &&
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+			(XGetPSVersion_Info() > XPS_VERSION_1) &&
+#endif
+			(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
+			Arg |= XSDPS_OCR_S18;
 		}
 
 		/* 0x40300000 - Host High Capacity support & 3.3V window */
@@ -435,19 +441,14 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 		InstancePtr->HCS = 1U;
 	}
 
-	/* There is no support to switch to 1.8V and use UHS mode on 1.0 silicon */
-#ifndef UHS_BROKEN
-    if (((RespOCR & XSDPS_OCR_S18) != 0U) &&
-		(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
+	if ((RespOCR & XSDPS_OCR_S18) != 0U) {
 		InstancePtr->Switch1v8 = 1U;
 		Status = XSdPs_Switch_Voltage(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
-
 	}
-#endif
 
 	/* CMD2 for Card ID */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD2, 0U, 0U);
@@ -656,6 +657,66 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
 		if (Status != XST_SUCCESS) {
 			goto RETURN_PATH;
+		}
+
+		if (((SCR[2] & SCR_SPEC_VER_3) != 0U) &&
+			(ReadBuff[13] >= UHS_SDR50_SUPPORT) &&
+			(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8) &&
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+			(XGetPSVersion_Info() > XPS_VERSION_1) &&
+#endif
+			(InstancePtr->Switch1v8 == 0U)) {
+			u16 CtrlReg, ClockReg;
+
+			/* Stop the clock */
+			CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_CLK_CTRL_OFFSET);
+			CtrlReg &= ~(XSDPS_CC_SD_CLK_EN_MASK | XSDPS_CC_INT_CLK_EN_MASK);
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CLK_CTRL_OFFSET,
+					CtrlReg);
+
+			/* Enabling 1.8V in controller */
+			CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_HOST_CTRL2_OFFSET);
+			CtrlReg |= XSDPS_HC2_1V8_EN_MASK;
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_HOST_CTRL2_OFFSET,
+					CtrlReg);
+
+			/* Wait minimum 5mSec */
+			(void)usleep(5000U);
+
+			/* Check for 1.8V signal enable bit is cleared by Host */
+			CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_HOST_CTRL2_OFFSET);
+			if ((CtrlReg & XSDPS_HC2_1V8_EN_MASK) == 0U) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+
+			/* Wait for internal clock to stabilize */
+			ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_CLK_CTRL_OFFSET);
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_CLK_CTRL_OFFSET,
+						ClockReg | XSDPS_CC_INT_CLK_EN_MASK);
+			ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+								XSDPS_CLK_CTRL_OFFSET);
+			while((ClockReg & XSDPS_CC_INT_CLK_STABLE_MASK) == 0U) {
+				ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+							XSDPS_CLK_CTRL_OFFSET);
+			}
+
+			/* Enable SD clock */
+			ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_CLK_CTRL_OFFSET);
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_CLK_CTRL_OFFSET,
+					ClockReg | XSDPS_CC_SD_CLK_EN_MASK);
+
+			/* Wait for 1mSec */
+			(void)usleep(1000U);
+
+			InstancePtr->Switch1v8 = 1U;
 		}
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
@@ -904,7 +965,6 @@ RETURN_PATH:
 	return Status;
 }
 
-#ifndef UHS_BROKEN
 /*****************************************************************************/
 /**
 *
@@ -995,7 +1055,6 @@ static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
 RETURN_PATH:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
