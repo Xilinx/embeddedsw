@@ -995,7 +995,12 @@ extern "C" {
 #define XSDPS_SD_SDR50_MAX_CLK	100000000U
 #define XSDPS_SD_DDR50_MAX_CLK	50000000U
 #define XSDPS_SD_SDR104_MAX_CLK	208000000U
-#define XSDPS_MMC_HS200_MAX_CLK	200000000U
+/*
+ * XSDPS_MMC_HS200_MAX_CLK is set to 150000000 in order to keep it smaller
+ * than the clock value coming from the core. This value is kept to safely
+ * switch to SDR104 mode if the SD card supports it.
+ */
+#define XSDPS_MMC_HS200_MAX_CLK	150000000U
 #define XSDPS_MMC_HSD_MAX_CLK	52000000U
 #define XSDPS_MMC_DDR_MAX_CLK	52000000U
 
