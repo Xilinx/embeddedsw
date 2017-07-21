@@ -32,6 +32,10 @@ Supports XGetPSVersion_Info function for PMUFW - Fix for CR-967248
 Supports XGetPlatform_Info function for PMUFW. Fix for CR-978237
 Updated Xil_In32BE function in xil_io.h to fix bug.It fixes CR#979740.
 
+tmrctr_v4_4:
+Updated XTmrCtr_DisableIntr macro to not to clear T0INT flag.It fixes
+CR#980512.
+
 tpg_v3_1:
 Updated NUM_INSTANCES parameter in xparameters.h and
 xtpg_sinit.c to avoid errors. Fix for cr-976944.
