@@ -50,6 +50,12 @@
 
 #ifdef ENABLE_RECOVERY
 
+#ifdef CHECK_HEALTHY_BOOT
+
+#define XPFW_BOOT_HEALTH_STS		PMU_GLOBAL_GLOBAL_GEN_STORAGE0
+#define XPFW_BOOT_HEALTH_GOOD		(0x1U << 29U)
+
+#endif
 /* Macros used to track the pahses in restart */
 #define XPFW_RESTART_STATE_BOOT 0U
 #define	XPFW_RESTART_STATE_INPROGRESS 1U
@@ -146,6 +152,25 @@ static void WdtRestart(XWdtPs* WdtInstPtr, u32 Timeout)
 	XWdtPs_EnableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
 }
 
+#ifdef CHECK_HEALTHY_BOOT
+
+/**
+ * Get the healthy bit state.
+ */
+u32 XPfw_GetBootHealthStatus(void)
+{
+	return !(!(XPfw_Read32(XPFW_BOOT_HEALTH_STS) & XPFW_BOOT_HEALTH_GOOD));
+}
+
+/**
+ * Clear APU healthy bit
+ */
+void XPfw_ClearBootHealthStatus(void)
+{
+	XPfw_RMW32(XPFW_BOOT_HEALTH_STS, XPFW_BOOT_HEALTH_GOOD, 0);
+}
+
+#endif
 /**
  * XPfw_RestartIsPlDone - check the status of PL DONE bit
  *
@@ -229,12 +254,28 @@ int XPfw_RecoveryInit(void)
 void XPfw_RecoveryHandler(u8 ErrorId)
 {
 	u32 RstIdx;
+#ifdef CHECK_HEALTHY_BOOT
+	u32 DoSubSystemRestart = 0;
+
+	if(XPfw_GetBootHealthStatus())
+	{
+		/*
+		 * Do subsystem restart only if last boot was healthy
+		 */
+		DoSubSystemRestart=1;
+	}
+#endif
 
 	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
 		/* Currently we support only APU restart for FPD WDT timeout */
 		if(ErrorId == EM_ERR_ID_FPD_SWDT &&
 				RstTrackerList[RstIdx].Master->nid == NODE_APU) {
+#ifdef CHECK_HEALTHY_BOOT
+			if (RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS &&
+					DoSubSystemRestart) {
+#else
 			if(RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS ) {
+#endif
 				RestartDebug(DEBUG_DETAILED,"Initiating APU sub-system restart\r\n");
 				RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_INPROGRESS;
 				RstTrackerList[RstIdx].RestartCount++;
@@ -268,6 +309,13 @@ void XPfw_RecoveryAck(PmMaster *Master)
 		if(RstTrackerList[RstIdx].Master == Master) {
 			RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_DONE;
 			WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
+#ifdef CHECK_HEALTHY_BOOT
+			/*
+			 * clear the healthy status of the boot.
+			 * This has to be set by the targeted application on boot.
+			 */
+			XPfw_ClearBootHealthStatus();
+#endif
 		}
 	}
 }
