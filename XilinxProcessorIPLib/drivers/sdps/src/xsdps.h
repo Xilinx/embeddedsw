@@ -162,6 +162,7 @@ extern "C" {
 #include "xil_cache.h"
 #include "xstatus.h"
 #include "xsdps_hw.h"
+#include "xplatform_info.h"
 #include <string.h>
 
 /************************** Constant Definitions *****************************/
