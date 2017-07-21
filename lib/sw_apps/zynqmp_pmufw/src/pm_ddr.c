@@ -295,7 +295,7 @@
 
 #define REPORT_IF_ERROR(status) \
 		if (XST_SUCCESS != status) { \
-			PmDbg("ERROR @line %d\r\n", __LINE__); \
+			PmDbg(DEBUG_DETAILED, "ERROR @line %d\r\n", __LINE__); \
 		}
 
 /* Power states of DDR */
