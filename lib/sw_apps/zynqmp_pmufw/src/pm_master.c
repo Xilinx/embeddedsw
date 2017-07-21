@@ -970,6 +970,18 @@ inline bool PmMasterCanForceDown(const PmMaster* const master,
 	return 0U != (power->forcePerms & master->ipiMask);
 }
 
+#ifdef IDLE_PERIPHERALS
+void PmMasterIdleSystem(void)
+{
+	PmMaster* mst = pmMasterHead;
+
+	while (NULL != mst) {
+		PmMasterIdleSlaves(mst);
+		mst = mst->nextMaster;
+	}
+}
+#endif
+
 /**
  * PmMasterInitFinalize() - Master has completed initialization, finalize init
  * @master	Master which has finalized initialization

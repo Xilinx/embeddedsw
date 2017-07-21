@@ -792,6 +792,9 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 		status = PmMasterRestart(master);
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_PS_ONLY:
+#ifdef IDLE_PERIPHERALS
+		PmMasterIdleSystem();
+#endif
 		XPfw_ResetPsOnly();
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_SYSTEM:
@@ -800,7 +803,9 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 			XPfw_UtilRMW(CRL_APB_RPLL_CTRL, CRL_APB_RPLL_CTRL_BYPASS_MASK,
 					 CRL_APB_RPLL_CTRL_BYPASS_MASK);
 		}
-
+#ifdef IDLE_PERIPHERALS
+		PmMasterIdleSystem();
+#endif
 		XPfw_RMW32(CRL_APB_RESET_CTRL,
 			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
 			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
