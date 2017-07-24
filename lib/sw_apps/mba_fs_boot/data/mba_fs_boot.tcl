@@ -52,6 +52,11 @@ proc get_stdout {} {
 	return $stdout;
 }
 
+proc get_stdout_ipname { stdout } {
+	set ipname [common::get_property IP_NAME [get_cells $stdout]];
+	return $ipname;
+}
+
 proc get_main_mem {} {
 	set os [hsi::get_os];
 	set mem [common::get_property CONFIG.MAIN_MEMORY $os];
@@ -136,23 +141,21 @@ proc get_flash_config { fp } {
 }
 proc get_uart_config { fp } {
 	set ip_name ""
-	foreach ip {axi_uart16550 axi_uartlite} {
-		if {[llength [hsi::get_cells -hier -filter " IP_NAME == $ip "]] > 0} {
-			set ip_name $ip;
-			break;
-		}
+	set stdout [get_stdout];
+	if {$stdout ne ""} {
+		set ip_name [get_stdout_ipname $stdout];
 	}
-	if {$ip_name eq ""} {
-		if {[llength [hsi::get_cells -hier -filter " IP_NAME == mdm "]] > 0 } {
-			if {[common::get_property CONFIG.C_USE_UART \
-				[hsi::get_cells -hier -filter " IP_NAME == mdm " ]] > 0 } {
-				set ip_name "mdm";
-			}
+	if {$ip_name eq "mdm"} {
+		if {[common::get_property CONFIG.C_USE_UART \
+			[hsi::get_cells $stdout ]] > 0 } {
+			#DO NOTHING
+		} else {
+			return;
 		}
 	}
 	if {$ip_name ne ""} {
 		set uart_baseaddr [common::get_property CONFIG.C_BASEADDR \
-			[hsi::get_cells -hier -filter " IP_NAME == $ip_name "]];
+			[hsi::get_cells $stdout ]];
 		switch -exact $ip_name {
 			"axi_uart16550" {
 					set uart_type "UART16550";
@@ -162,7 +165,7 @@ proc get_uart_config { fp } {
 				set uart_type "UARTLITE";
 			}
 		}
-	        puts $fp "#define CONFIG_STDINOUT_BASEADDR      $uart_baseaddr";
+		puts $fp "#define CONFIG_STDINOUT_BASEADDR      $uart_baseaddr";
 		puts $fp "#define CONFIG_$uart_type	1";
 	}
 }
