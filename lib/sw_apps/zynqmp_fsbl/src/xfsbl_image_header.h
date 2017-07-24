@@ -129,14 +129,17 @@ extern "C" {
  * Partition Present Devices(PPD) in IHT
  */
 #define XIH_IHT_PPD_SAME	        (0x0U)
-#define XIH_IHT_PPD_QSPI	        (0x1U)
-#define XIH_IHT_PPD_NAND	        (0x2U)
-#define XIH_IHT_PPD_SD			(0x3U)
-#define XIH_IHT_PPD_MMC		        (0x4U)
-#define XIH_IHT_PPD_USB	        	(0x5U)
-#define XIH_IHT_PPD_ETHERNET		(0x6U)
-#define XIH_IHT_PPD_PCIE	        (0x7U)
-#define XIH_IHT_PPD_SATA	        (0x8U)
+#define XIH_IHT_PPD_QSPI32	        (0x1U)
+#define XIH_IHT_PPD_QSPI24	        (0x2U)
+#define XIH_IHT_PPD_NAND	        (0x3U)
+#define XIH_IHT_PPD_SD_0			(0x4U)
+#define XIH_IHT_PPD_SD_1			(0x5U)
+#define XIH_IHT_PPD_SD_LS			(0x6U)
+#define XIH_IHT_PPD_MMC		        (0x7U)
+#define XIH_IHT_PPD_USB	        	(0x8U)
+#define XIH_IHT_PPD_ETHERNET		(0x9U)
+#define XIH_IHT_PPD_PCIE	        (0xAU)
+#define XIH_IHT_PPD_SATA	        (0xBU)
 
 /**
  * Partition Attribute fields
