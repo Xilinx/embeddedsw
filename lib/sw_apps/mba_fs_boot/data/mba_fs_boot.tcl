@@ -63,6 +63,17 @@ proc get_main_mem {} {
 	return $mem;
 }
 
+proc get_flash_mem {} {
+	set os [hsi::get_os];
+	set mem [common::get_property CONFIG.FLASH_MEMORY $os];
+	return $mem;
+}
+
+proc get_flash_ipname { mem } {
+	set ipname [common::get_property IP_NAME [get_cells $mem]];
+	return $ipname;
+}
+
 proc swapp_is_supported_hw {} {
 
     # check processor type
@@ -116,27 +127,31 @@ proc get_eram_config { fp } {
 
 
 proc get_flash_config { fp } {
-	if { [llength [hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]] > 0 } {
-		set flash_start [common::get_property CONFIG.C_BASEADDR \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
-                puts $fp "#define CONFIG_PRIMARY_FLASH_SPI_BASEADDR	 $flash_start";
-                puts $fp "#define CONFIG_PRIMARY_FLASH_SPI";
-		set spi_mode [common::get_property CONFIG.C_SPI_MODE \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
-		set spi_fifo_depth [common::get_property CONFIG.C_FIFO_DEPTH \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
-		puts $fp "#define CONFIG_FLASH_SPI_MODE		$spi_mode";
-		puts $fp "#define CONFIG_FLASH_SPI_FIFO_DEPTH	$spi_fifo_depth";
-	} elseif {[llength [hsi::get_cells -hier -filter {IP_NAME == "axi_emc"}]] > 0} {
-		set flash_start [common::get_property CONFIG.C_S_AXI_MEM0_BASEADDR \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_emc"}]];
-		set flash_end [format 0x%x [expr \
-		[common::get_property CONFIG.C_S_AXI_MEM0_HIGHADDR \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_emc"}]] + 1]];
-		set flash_size [ format 0x%x [expr $flash_end - $flash_start ] ];
-		puts $fp "#define CONFIG_XILINX_FLASH_START	$flash_start";
-		puts $fp "#define CONFIG_XILINX_FLASH_END	$flash_end";
-		puts $fp "#define CONFIG_XILINX_FLASH_SIZE	$flash_size";
+	set ipname "";
+	set flash [get_flash_mem];
+	if {$flash ne ""} {
+		set ipname [get_flash_ipname $flash];
+	}
+	switch -exact $ipname {
+		"axi_quad_spi"  {
+			set flash_start [common::get_property CONFIG.C_BASEADDR [get_cells $flash]];
+			puts $fp "#define CONFIG_PRIMARY_FLASH_SPI_BASEADDR      $flash_start";
+			puts $fp "#define CONFIG_PRIMARY_FLASH_SPI";
+			set spi_mode [common::get_property CONFIG.C_SPI_MODE [get_cells $flash]];
+			set spi_fifo_depth [common::get_property CONFIG.C_FIFO_DEPTH [get_cells $flash]];
+			puts $fp "#define CONFIG_FLASH_SPI_MODE         $spi_mode";
+			puts $fp "#define CONFIG_FLASH_SPI_FIFO_DEPTH   $spi_fifo_depth";
+			}
+		"axi_emc" {
+			set flash_start [common::get_property CONFIG.C_S_AXI_MEM0_BASEADDR [get_cells $flash]];
+			set flash_end [format 0x%x [expr \
+			[common::get_property CONFIG.C_S_AXI_MEM0_HIGHADDR \
+			[hsi::get_cells $flash]] + 1]];
+			set flash_size [ format 0x%x [expr $flash_end - $flash_start ] ];
+			puts $fp "#define CONFIG_XILINX_FLASH_START     $flash_start";
+			puts $fp "#define CONFIG_XILINX_FLASH_END       $flash_end";
+			puts $fp "#define CONFIG_XILINX_FLASH_SIZE      $flash_size";
+		}
 	}
 }
 proc get_uart_config { fp } {
