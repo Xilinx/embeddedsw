@@ -247,6 +247,31 @@ static u32 XFsbl_ValidateImageHeaderTable(
 		goto END;
 	}
 
+
+		/**
+		 * check for the partition present device
+		 */
+
+		PartitionPresentDevice = ImageHeaderTable->PartitionPresentDevice;
+		if ((PartitionPresentDevice < XIH_IHT_PPD_SAME) &&
+		(PartitionPresentDevice > XIH_IHT_PPD_SATA) )
+		{
+			Status = XFSBL_ERROR_PPD;
+			XFsbl_Printf(DEBUG_GENERAL,
+					"XFSBL_ERROR_PPD\n\r");
+			goto END;
+		}
+		else if (PartitionPresentDevice != XIH_IHT_PPD_SAME)
+		{
+			Status = XFSBL_STATUS_SECONDARY_BOOT_MODE;
+			goto END;
+		}
+		else
+		{
+			/*MISRAC compliance */
+		}
+
+
 	/**
 	 * check for no of partitions
 	 */
@@ -258,20 +283,6 @@ static u32 XFsbl_ValidateImageHeaderTable(
 		goto END;
 	}
 
-	/**
-	 * check for the partition present device
-	 */
-	PartitionPresentDevice = ImageHeaderTable->PartitionPresentDevice;
-	if ((PartitionPresentDevice != XIH_IHT_PPD_SAME) &&
-		(PartitionPresentDevice != XIH_IHT_PPD_PCIE) &&
-		(PartitionPresentDevice != XIH_IHT_PPD_ETHERNET) &&
-		(PartitionPresentDevice != XIH_IHT_PPD_SATA) )
-	{
-		Status = XFSBL_ERROR_PPD;
-		XFsbl_Printf(DEBUG_GENERAL,
-		    "XFSBL_ERROR_PPD\n\r");
-		goto END;
-	}
 
 
 	/**
@@ -353,6 +364,10 @@ u32 XFsbl_ReadImageHeader(XFsblPs_ImageHeader * ImageHeader,
 	 */
 	Status = XFsbl_ValidateImageHeaderTable(
 	          &(ImageHeader->ImageHeaderTable));
+	if (Status == XFSBL_STATUS_SECONDARY_BOOT_MODE) {
+		Status = XFSBL_SUCCESS;
+		goto END;
+	}
 	if (XFSBL_SUCCESS != Status)
 	{
 		XFsbl_Printf(DEBUG_GENERAL,"Image Header Table "
