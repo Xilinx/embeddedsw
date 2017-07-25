@@ -64,6 +64,8 @@
 # 3.8   mus  07/05/17 Updated xdefine_zynq_canonical_xpars proc to initialize
 #                     the HandlerTable in XScuGic_ConfigTable to 0, it removes
 #                     the compilation warning in xscugic_g.c. Fix for CR#978736.
+# 3.8   mus  07/25/17 Updated xdefine_gic_params proc to export correct canonical
+#                     definitions for pl to ps interrupts.Fix for CR#980534
 #
 ##############################################################################
 
@@ -570,7 +572,7 @@ proc xdefine_gic_params {drvhandle} {
 
             # Skip global (external) ports
 			if {[string compare -nocase $source_periph($i) ""] != 0} {
-            set drv [::hsi::get_drivers -filter "HW_INSTANCE==$$source_name($i)"]
+            set drv [::hsi::get_drivers -filter "HW_INSTANCE==$source_name($i)"]
 
             if {[llength $source_name($i)] != 0 && [llength $drv] != 0} {
 
