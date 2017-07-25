@@ -363,6 +363,7 @@ u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
 	RingPtr->HwCnt = 0;
 	RingPtr->PreCnt = 0;
 	RingPtr->PostCnt = 0;
+	RingPtr->Cyclic = 0;
 
 	/* Make sure Alignment parameter meets minimum requirements */
 	if (Alignment < XAXIDMA_BD_MINIMUM_ALIGNMENT) {
@@ -468,6 +469,7 @@ u32 XAxiDma_BdRingCreate(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr,
 	RingPtr->HwTail = (XAxiDma_Bd *) VirtAddr;
 	RingPtr->PostHead = (XAxiDma_Bd *) VirtAddr;
 	RingPtr->BdaRestart = (XAxiDma_Bd *) PhysAddr;
+	RingPtr->CyclicBd = (XAxiDma_Bd *) malloc(sizeof(XAxiDma_Bd));
 
 	return XST_SUCCESS;
 }
@@ -594,6 +596,16 @@ int XAxiDma_StartBdRingHw(XAxiDma_BdRing * RingPtr)
 		if (RingPtr->HwCnt > 0) {
 
 			XAXIDMA_CACHE_INVALIDATE(RingPtr->HwTail);
+			if (RingPtr->Cyclic) {
+				XAxiDma_WriteReg(RingPtr->ChanBase,
+						 XAXIDMA_TDESC_OFFSET,
+						 (u32)XAXIDMA_VIRT_TO_PHYS(RingPtr->CyclicBd));
+				if (RingPtr->Addr_ext)
+					XAxiDma_WriteReg(RingPtr->ChanBase,
+							 XAXIDMA_TDESC_MSB_OFFSET,
+							 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->CyclicBd)));
+				return XST_SUCCESS;
+			}
 
 			if ((XAxiDma_BdRead(RingPtr->HwTail,
 				    XAXIDMA_BD_STS_OFFSET) &
@@ -1109,6 +1121,17 @@ int XAxiDma_BdRingToHw(XAxiDma_BdRing * RingPtr, int NumBd,
 
 	/* If it is running, signal the engine to begin processing */
 	if (RingPtr->RunState == AXIDMA_CHANNEL_NOT_HALTED) {
+			if (RingPtr->Cyclic) {
+				XAxiDma_WriteReg(RingPtr->ChanBase,
+						 XAXIDMA_TDESC_OFFSET,
+						 (u32)XAXIDMA_VIRT_TO_PHYS(RingPtr->CyclicBd));
+				if (RingPtr->Addr_ext)
+					XAxiDma_WriteReg(RingPtr->ChanBase,
+							 XAXIDMA_TDESC_MSB_OFFSET,
+							 UPPER_32_BITS(XAXIDMA_VIRT_TO_PHYS(RingPtr->CyclicBd)));
+				return XST_SUCCESS;
+			}
+
 			if (RingPtr->IsRxChannel) {
 				if (!RingIndex) {
 					XAxiDma_WriteReg(RingPtr->ChanBase,
@@ -1297,8 +1320,10 @@ int XAxiDma_BdRingFromHw(XAxiDma_BdRing * RingPtr, int BdLimit,
 	 */
 	if (BdCount) {
 		*BdSetPtr = RingPtr->HwHead;
-		RingPtr->HwCnt -= BdCount;
-		RingPtr->PostCnt += BdCount;
+		if (!RingPtr->Cyclic) {
+			RingPtr->HwCnt -= BdCount;
+			RingPtr->PostCnt += BdCount;
+		}
 		XAXIDMA_RING_SEEKAHEAD(RingPtr, RingPtr->HwHead, BdCount);
 
 		return BdCount;
