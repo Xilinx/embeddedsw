@@ -1621,7 +1621,12 @@ Fixed pairing table update
 Fixed warnings and errors for gcc and g++ compilers.
 
 hdcp22_tx_v2_3:
-Updated for 64-bit support.
+Updated for 64-bit ARM support.
+Enhancement to perform HDCP2 Capable check for re-authentication attempts.
+Enhancement to cipher enablement to avoid unessary AXI bus transactions.
+Fix in XHdcp22Tx_WaitForReceiver to poll RxStatus based on fixed interval.
+Fix in XHdcp22Tx_WaitForReceiver to wait for READY and non-zero Message_Size before reading message buffer.
+Fix to check return status of DDC write/read when polling RxStatus register.
 
 hwicap_v10_1:
 Updated driver, to read 7 Series FPGA frame data correctly.
