@@ -697,6 +697,9 @@ CR#974218 Add support for cyclic DMA mode.
 axidma_v9_4:
 CR#974218 Add support for cyclic DMA mode.
 
+axidma_v9_4:
+CR#974218 Add support for cyclic DMA mode.
+
 axiethernet_v5_6:
 CR#979636 lwip stop's working as soon as something is plugged to it's
 AXI stream bus.
