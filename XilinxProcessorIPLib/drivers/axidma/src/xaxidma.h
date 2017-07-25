@@ -466,6 +466,7 @@
 *                     statements in functions of axidma examples for proper
 *                     documentation while generating doxygen.
 *                     Modified readme file in examples folder.
+* 9.4  adk   25/07/17 Added example for cyclic dma mode CR#974218.
 * </pre>
 *
 ******************************************************************************/
