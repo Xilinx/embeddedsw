@@ -73,6 +73,8 @@
 *                       5. Fix in XHdcp22Tx_WaitForReceiver to wait for READY
 *                          and non-zero Message_Size before reading message
 *                          buffer.
+*                       6. Check return status of DDC write/read when polling
+*                          RxStatus register.
 * </pre>
 *
 ******************************************************************************/
@@ -82,6 +84,9 @@
 #include "xhdcp22_tx_i.h"
 
 /************************** Constant Definitions *****************************/
+
+/** RxStatus value used to force re-authentication */
+#define XHDCP22_TX_INVALID_RXSTATUS 0xFFFF
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -203,7 +208,6 @@ static u32 XHdcp22Tx_GetTimerCount(XHdcp22_Tx *InstancePtr);
 
 /* RxStatus handling */
 static void XHdcp22Tx_ReadRxStatus(XHdcp22_Tx *InstancePtr);
-static u8 XHdcp22_Tx_RxStatusMutex = FALSE;
 
 /* Status handling */
 static void XHdcp22Tx_HandleAuthenticationFailed(XHdcp22_Tx *InstancePtr);
@@ -3312,6 +3316,7 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, 
 			InstancePtr->Timer.TimerExpired = (TRUE);
 			InstancePtr->Info.MsgAvailable = (TRUE);
 		}
+
 		return XST_SUCCESS;
 	}
 #endif
@@ -3332,6 +3337,7 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, 
 
 			/* Read Rx status. */
 			XHdcp22Tx_ReadRxStatus(InstancePtr);
+
 			if (((ReadyBit == FALSE) && ((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) == ExpectedSize)) ||
 				(((ReadyBit == TRUE) && (InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_READY_MASK)) &&
 				((InstancePtr->Info.RxStatus & XHDCP22_TX_RXSTATUS_AVAIL_BYTES_MASK) > 0))) {
@@ -3366,7 +3372,9 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, 
 /*****************************************************************************/
 /**
 *
-* This function read RX status from the DDC channel.
+* This function reads RxStatus from the DDC channel. If the read
+* is not successful it will default to an RxStatus value of 0xFFFF
+* to initiate re-authentication.
 *
 * @param  InstancePtr is a pointer to the XHdcp22Tx core instance.
 * @param  MsgBufferPtr the buffer to use for messaging.
@@ -3379,19 +3387,30 @@ static int XHdcp22Tx_WaitForReceiver(XHdcp22_Tx *InstancePtr, int ExpectedSize, 
 static void XHdcp22Tx_ReadRxStatus(XHdcp22_Tx *InstancePtr)
 {
 	u8 DdcBuf[2];
+	int Status = XST_FAILURE;
 
-	if (XHdcp22_Tx_RxStatusMutex == TRUE) {
+	/* Set the RxStatus register address */
+	DdcBuf[0] = XHDCP22_TX_HDCPPORT_RXSTATUS_OFFSET;
+
+	Status = InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS, 1, DdcBuf, (FALSE),
+	                      InstancePtr->DdcHandlerRef);
+
+	/* If write fails, request re-authentication */
+	if (Status != XST_SUCCESS) {
+		InstancePtr->Info.RxStatus = XHDCP22_TX_INVALID_RXSTATUS;
 		return;
 	}
 
-	XHdcp22_Tx_RxStatusMutex = TRUE;
-	DdcBuf[0] = XHDCP22_TX_HDCPPORT_RXSTATUS_OFFSET; /* Status address */
-	InstancePtr->DdcWrite(XHDCP22_TX_DDC_BASE_ADDRESS, 1, DdcBuf, (FALSE),
-	                      InstancePtr->DdcHandlerRef);
-	InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS, sizeof(DdcBuf), DdcBuf, (TRUE),
-	                     InstancePtr->DdcHandlerRef);
+	Status = InstancePtr->DdcRead(XHDCP22_TX_DDC_BASE_ADDRESS, sizeof(DdcBuf),
+					DdcBuf, (TRUE), InstancePtr->DdcHandlerRef);
+
+	/* If read fails, request re-authentication */
+	if (Status != XST_SUCCESS) {
+		InstancePtr->Info.RxStatus = XHDCP22_TX_INVALID_RXSTATUS;
+		return;
+	}
+
 	InstancePtr->Info.RxStatus = DdcBuf[0] | (DdcBuf[1] << 8);
-	XHdcp22_Tx_RxStatusMutex = FALSE;
 }
 
 /*****************************************************************************/
