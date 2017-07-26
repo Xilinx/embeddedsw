@@ -160,6 +160,7 @@
 *                     include them in doxygen examples.
 * 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of mbox in xparameters.h
+* 4.3   sd   07/26/17 Modified tcl file to prevent false unconnected flagging.
 *</pre>
 *
 ******************************************************************************/

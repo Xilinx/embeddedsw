@@ -42,6 +42,8 @@
 # 4.1   sk   11/09/15 Removed delete filename statement CR# 784758.
 # 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
 #                     definitions of mbox in xparameters.h
+# 4.3   sd   07/26/17 Modified tcl file to prevent false unconnected flagging.
+#
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -306,7 +308,7 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 	set periph_name [string toupper [common::get_property NAME $periph]]
 	
 	set initiator_handle [::hsi::utils::get_connected_intf $periph S${if_num}_AXIS]
-	if { [llength $initiator_handle] != 1 } {
+	if { [llength $initiator_handle] == 0 } {
 		incr not_connected
 	} else {
 		set maxis_initiator_handle [hsi::get_cells -of_objects $initiator_handle]
@@ -323,7 +325,7 @@ proc handle_stream {periph bus_if if_num usefsl sendfsl recfsl} {
 	}
 			
 	set target_handle [::hsi::utils::get_connected_intf $periph M${if_num}_AXIS]
-	if { [llength $target_handle] != 1 } {
+	if { [llength $target_handle] == 0 } {
 		incr not_connected
 	} else {
 		set saxis_target_handle [hsi::get_cells -of_objects $target_handle]
