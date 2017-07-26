@@ -43,6 +43,7 @@
 #include "pm_defs.h"
 #include "pm_master.h"
 #include "xpfw_util.h"
+#include "xpfw_aib.h"
 
 #define DDRC_BASE		0xFD070000U
 #define DDRC_MSTR		(DDRC_BASE + 0U)
@@ -1659,14 +1660,18 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	if ((PM_DDR_STATE_OFF != slave->node.currState) &&
 	    (PM_DDR_STATE_OFF == nextState)) {
 		/* TODO : power down DDR here */
-		status = XST_SUCCESS;
+		status = XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
 		goto done;
 	}
 
 	switch (slave->node.currState) {
 	case PM_DDR_STATE_ON:
 		if (PM_DDR_STATE_SR == nextState) {
-			status = pm_ddr_sr_enter();
+			if (XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR) == XST_SUCCESS) {
+				status = pm_ddr_sr_enter();
+			} else {
+				status = XST_FAILURE;
+			}
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -1675,7 +1680,11 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 		if (PM_DDR_STATE_ON == nextState) {
 			bool ddrss_is_reset = !Xil_In32(DDRC_STAT);
 
-			status = pm_ddr_sr_exit(ddrss_is_reset);
+			if (pm_ddr_sr_exit(ddrss_is_reset) == XST_SUCCESS) {
+				status = XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
+			} else {
+				status = XST_FAILURE;
+			}
 		} else {
 			status = XST_NO_FEATURE;
 		}
@@ -1683,7 +1692,7 @@ static int PmDdrFsmHandler(PmSlave* const slave, const PmStateId nextState)
 	case PM_DDR_STATE_OFF:
 		if (PM_DDR_STATE_ON == nextState) {
 			/* TODO : power up DDR here */
-			status = XST_SUCCESS;
+			status = XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
 		} else {
 			status = XST_NO_FEATURE;
 		}
