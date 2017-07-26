@@ -60,6 +60,8 @@
 * 5.2	pkp  	28/05/15 First release
 * 5.4	pkp	09/11/15 Enable I-Cache and D-Cache in the initialization
 * 6.0	pkp	07/25/16 Program the counter frequency
+* 6.4   mus     07/25/17 Set VFP enable bit in FPEXC register, to support
+*                        hard floating point in BSP
 * </pre>
 *
 *
@@ -214,6 +216,11 @@ OKToRun:
 	mrc	p15, 0, r1, c1, c0, 2		/* read cp access control register (CACR) into r1 */
 	orr	r1, r1, #(0xf << 20)		/* enable full access for p10 & p11 */
 	mcr	p15, 0, r1, c1, c0, 2		/* write back into CACR */
+
+	/* enable vfp */
+	vmrs	r1, FPEXC			/* read the exception register */
+	orr	r1,r1, #FPEXC_EN		/* set VFP enable bit, leave the others in orig state */
+	vmsr	FPEXC, r1			/* write back the exception register */
 
 	mrc	p15,0,r0,c1,c0,0		/* flow prediction enable */
 	orr	r0, r0, #(0x01 << 11)		/* #0x8000 */
