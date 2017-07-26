@@ -80,6 +80,7 @@
 *       sk     03/20/17 Add support for EL1 non-secure mode.
 * 3.3   mn     05/17/17 Add support for 64bit DMA addressing
 * 	mn     07/17/17 Add support for running SD at 200MHz
+* 	mn     07/26/17 Fixed compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -1561,7 +1562,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
-			(u32)((u64)&(InstancePtr->Adma2_DescrTbl[0]))>>32);
+			(u32)(((u64)&(InstancePtr->Adma2_DescrTbl[0]))>>32));
 #endif
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
