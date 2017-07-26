@@ -59,7 +59,7 @@ proc xdefine_cortexa53_params {drvhandle} {
     set compiler [common::get_property CONFIG.compiler $procdrv]
     if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-	set new_flags "-DARMA53_32 $extra_flags"
+	set new_flags "-DARMA53_32  -mfpu=vfpv3 -mfloat-abi=hard $extra_flags"
 	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $new_flags -objects [hsi::get_sw_processor]
 
     }
