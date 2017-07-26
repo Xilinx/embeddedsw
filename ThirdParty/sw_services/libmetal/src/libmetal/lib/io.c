@@ -46,6 +46,7 @@ int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
 		retlen = (*io->ops.block_read)(
 			io, offset, dst, memory_order_seq_cst, len);
 	} else {
+		atomic_thread_fence(memory_order_seq_cst);
 		while ( len && (
 			((uintptr_t)dst % sizeof(int)) ||
 			((uintptr_t)ptr % sizeof(int)))) {
@@ -62,7 +63,6 @@ int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
 		for (; len != 0; dst++, ptr++, len--)
 			*(unsigned char *)dst =
 				*(const unsigned char *)ptr;
-		atomic_thread_fence(memory_order_seq_cst);
 	}
 	return retlen;
 }
@@ -131,6 +131,7 @@ int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
 			*(unsigned int *)ptr = cint;
 		for (; len != 0; ptr++, len--)
 			*(unsigned char *)ptr = (unsigned char) value;
+		atomic_thread_fence(memory_order_seq_cst);
 	}
 	return retlen;
 }
