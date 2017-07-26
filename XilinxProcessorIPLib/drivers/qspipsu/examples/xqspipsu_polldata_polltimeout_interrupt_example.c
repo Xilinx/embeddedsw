@@ -79,6 +79,7 @@
 *                    recognize it as documentation block and modified filename
 *                    tag to include the file in doxygen examples.
 * 1.4	tjs	06/16/17 Added support for IS25LP256D flash part (PR-4650)
+* 1.5	tjs	07/20/17 Added extended read support for MT25Q series flash (CR-980491)
 *</pre>
 *
 ******************************************************************************/
@@ -414,6 +415,12 @@ FlashInfo Flash_Config_Table[28] = {
 u32 FlashMake;
 u32 FCTIndex;	/* Flash configuration table index */
 
+/*
+ * For Micron flash with 128Mb, 256Mb size the 6th bit of the
+ * 5th byte from READID command has to be 1 to run this examples
+ */
+u32 ExtendedID;
+
 
 /*
  * The instances to support the device drivers are global such that they
@@ -620,8 +627,14 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 		StatusCmd = READ_FLAG_STATUS_CMD;
 		FSRFlag = 1;
 	} else {
-		StatusCmd = READ_STATUS_CMD;
-		FSRFlag = 0;
+		if((FlashMake == MICRON_ID_BYTE0) &&
+				((ExtendedID & 0x44) == 0x44)){
+			StatusCmd = READ_FLAG_STATUS_CMD;
+			FSRFlag = 1;
+		} else {
+			StatusCmd = READ_STATUS_CMD;
+			FSRFlag = 0;
+		}
 	}
 
 	xil_printf("ReadCmd: 0x%x, WriteCmd: 0x%x, StatusCmd: 0x%x, FSRFlag: %d \n\r",
@@ -763,6 +776,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 {
 	int Status;
 	int StartIndex;
+	u8 ExtendedRead[5] = {0};
 
 	/*
 	 * Read ID
@@ -790,6 +804,26 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	xil_printf("FlashID=0x%x 0x%x 0x%x\n\r", ReadBfrPtr[0], ReadBfrPtr[1],
 		   ReadBfrPtr[2]);
 
+	TxBfrPtr = READ_ID;
+	FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+	FlashMsg[0].RxBfrPtr = NULL;
+	FlashMsg[0].ByteCount = 1;
+	FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+	FlashMsg[1].TxBfrPtr = NULL;
+	FlashMsg[1].RxBfrPtr = ExtendedRead;
+	FlashMsg[1].ByteCount = 5;
+	FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+	FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+	TransferInProgress = TRUE;
+	Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+	if (Status != XST_SUCCESS) {
+		return XST_FAILURE;
+	}
+	while(TransferInProgress);
+
 	/* In case of dual, read both and ensure they are same make/size */
 
 	/*
@@ -798,6 +832,7 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	if(ReadBfrPtr[0] == MICRON_ID_BYTE0) {
 		FlashMake = MICRON_ID_BYTE0;
 		StartIndex = MICRON_INDEX_START;
+		ExtendedID = ExtendedRead[4];
 	}else if(ReadBfrPtr[0] == SPANSION_ID_BYTE0) {
 		FlashMake = SPANSION_ID_BYTE0;
 		StartIndex = SPANSION_INDEX_START;
