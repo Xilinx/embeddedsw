@@ -7,7 +7,7 @@
 /**
 *
 * @file xmbox.h
-* @addtogroup mbox_v4_4
+* @addtogroup mbox_v4_5
 * @{
 * @details
 *
@@ -137,6 +137,7 @@
 *       ms   08/07/17 Fixed compilation warnings in xmbox_sinit.c
 * 4.3   sa   04/20/17 Support for FIFO reset using hardware control register.
 *       sd   07/26/17 Modified tcl file to prevent false unconnected flagging.
+* 4.5   sd   09/03/20 Updated makefile for parallel execution.
 *
 *</pre>
 *
