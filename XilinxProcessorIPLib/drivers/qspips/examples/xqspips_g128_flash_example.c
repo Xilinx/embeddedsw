@@ -62,6 +62,7 @@
 *       ms  04/05/17 Modified Comment lines in functions to
 *                    recognize it as documentation block for doxygen
 *                    generation.
+* 		tjs	06/16/17 Added support for IS25LP256D flash part (PR-4650)
 *</pre>
 *
 ******************************************************************************/
@@ -186,6 +187,8 @@
 #define MACRONIX_ID_BYTE2_512	0x1A
 #define MACRONIX_ID_BYTE2_1G	0x1B
 
+#define ISSI_ID_BYTE0			0x9D
+#define ISSI_ID_BYTE2_256		0x19
 /*
  * The index for Flash config table
  */
@@ -233,7 +236,11 @@
 #define FLASH_CFG_TBL_SINGLE_1G_MX		(MACRONIX_INDEX_START + 6)
 #define FLASH_CFG_TBL_STACKED_1G_MX		(MACRONIX_INDEX_START + 7)
 #define FLASH_CFG_TBL_PARALLEL_1G_MX	(MACRONIX_INDEX_START + 8)
-
+/* ISSI */
+#define ISSI_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1G_MX + 1)
+#define FLASH_CFG_TBL_SINGLE_256_ISSI	ISSI_INDEX_START
+#define FLASH_CFG_TBL_STACKED_256_ISSI	(ISSI_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_256_ISSI	(ISSI_INDEX_START + 2)
 /*
  * The following constants map to the XPAR parameters created in the
  * xparameters.h file. They are defined here such that a user can easily
@@ -320,7 +327,7 @@ u32 GetRealAddr(XQspiPs *QspiPtr, u32 Address);
 
 /************************** Variable Definitions *****************************/
 
-FlashInfo Flash_Config_Table[33] = {
+FlashInfo Flash_Config_Table[34] = {
 		/* Spansion */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
@@ -391,7 +398,10 @@ FlashInfo Flash_Config_Table[33] = {
 		{0x2000, 0x8000, 256, 0x100000, 0x8000000,
 				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFF0000, 1},
 		{0x4000, 0x4000, 512, 0x80000, 0x8000000,
-				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFE0000, 1}
+				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFE0000, 1},
+		/* ISSI */
+		{0x10000, 0x200, 256, 0x20000, 0x2000000,
+				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1}
 };				/**< Flash Config Table */
 
 u32 FlashMake;
@@ -1067,6 +1077,9 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 	} else if(ReadBfrPtr[1] == MACRONIX_ID_BYTE0) {
 		FlashMake = MACRONIX_ID_BYTE0;
 		StartIndex = MACRONIX_INDEX_START;
+	} else if(ReadBfrPtr[0] == ISSI_ID_BYTE0) {
+		FlashMake = ISSI_ID_BYTE0;
+		StartIndex = ISSI_INDEX_START;
 	}
 
 
@@ -1109,6 +1122,24 @@ int FlashReadID(XQspiPs *QspiPtr, u8 *WriteBfrPtr, u8 *ReadBfrPtr)
 				break;
 			case XQSPIPS_CONNECTION_MODE_STACKED:
 				FCTIndex = FLASH_CFG_TBL_STACKED_256_SP + StartIndex;
+				break;
+			default:
+				FCTIndex = 0;
+				break;
+		}
+	}
+	if((FlashMake == ISSI_ID_BYTE0) &&
+			(ReadBfrPtr[2] == MICRON_ID_BYTE2_256)) {
+		switch(QspiPtr->Config.ConnectionMode)
+		{
+			case XQSPIPS_CONNECTION_MODE_SINGLE:
+				FCTIndex = FLASH_CFG_TBL_SINGLE_256_ISSI;
+				break;
+			case XQSPIPS_CONNECTION_MODE_PARALLEL:
+				FCTIndex = FLASH_CFG_TBL_PARALLEL_256_ISSI;
+				break;
+			case XQSPIPS_CONNECTION_MODE_STACKED:
+				FCTIndex = FLASH_CFG_TBL_STACKED_256_ISSI;
 				break;
 			default:
 				FCTIndex = 0;
