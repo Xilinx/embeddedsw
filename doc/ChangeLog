@@ -49,6 +49,11 @@ prc_v1_2:
 Added a new parameter "Cp_Compression" and status error flags
 Updated api.tcl. Fix for CR-978747.
 
+qspipsu_v1_5:
+Added support for readind ID till 5th byte as MT25Q series flash supports FSRFlag
+but 128Mb and 256Mb parts are single die only. If the 6th bit of 5th ID byte
+is 1 then we can set the FSRFlag.
+
 standalone_v6_4:
 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
 of ARM 32 bit processors.
