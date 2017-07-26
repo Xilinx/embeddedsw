@@ -471,5 +471,8 @@
  *     ms    06/13/17 Added PSU_PMU macro in xplatform_info.c to support XGetPlatform_Info
  *                    function for PMUFW.
  * 6.4 mus   07/05/17 Updated Xil_In32BE function in xil_io.h to fix bug.It fixes CR#979740.
+ * 6.4 mus   07/25/17 Updated a53 32 bit boot code and vectors to support hard floating point
+ *                    operations.Now,VFP is being enabled in FPEXC register, through boot code
+ *                    and FPU registers are being saved/restored when irq/fiq vector is invoked.
  *
  *****************************************************************************************/
