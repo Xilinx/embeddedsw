@@ -51,6 +51,7 @@ static int PmConfigPowerSectionHandler(u32* const addr);
 static int PmConfigResetSectionHandler(u32* const addr);
 static int PmConfigShutdownSectionHandler(u32* const addr);
 static int PmConfigSetConfigSectionHandler(u32* const addr);
+static int PmConfigGpoSectionHandler(u32* const addr);
 
 /*********************************************************************
  * Macros
@@ -64,11 +65,17 @@ static int PmConfigSetConfigSectionHandler(u32* const addr);
 #define PM_CONFIG_RESET_SECTION_ID	0x105U
 #define PM_CONFIG_SHUTDOWN_SECTION_ID	0x106U
 #define PM_CONFIG_SET_CONFIG_SECTION_ID	0x107U
+#define PM_CONFIG_GPO_SECTION_ID	0x108U
 
 /* Size in bytes of one data field in configuration object */
 #define PM_CONFIG_WORD_SIZE	4U
 
 #define PM_CONFIG_OBJECT_LOADED	0x1U
+
+#define PM_CONFIG_GPO_MASK	(BIT(5U) | BIT(4U) | BIT(3U) | BIT(2U))
+
+/* Default number of sections in configuration object */
+#define DEFAULT_SECTIONS_NUM	7U
 
 /*********************************************************************
  * Structure definitions
@@ -105,6 +112,9 @@ static PmConfigSection pmConfigSections[] = {
 	}, {
 		.id = PM_CONFIG_SET_CONFIG_SECTION_ID,
 		.handler = PmConfigSetConfigSectionHandler,
+	}, {
+		.id = PM_CONFIG_GPO_SECTION_ID,
+		.handler = PmConfigGpoSectionHandler,
 	},
 };
 
@@ -112,10 +122,12 @@ static PmConfigSection pmConfigSections[] = {
  * PmConfig - Configuration object data
  * @configPerms ORed masks of masters which are allowed to load the object
  * @flags       Flags: bit(0) - set if the configuration object is loaded
+ * @secNumber   Number of sections in configuration object
  */
 typedef struct {
 	u32 configPerms;
 	u8 flags;
+	u32 secNumber;
 } PmConfig;
 
 /*
@@ -127,6 +139,7 @@ typedef struct {
 static PmConfig pmConfig = {
 	.configPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.flags = 0U,
+	.secNumber = DEFAULT_SECTIONS_NUM,
 };
 
 /**
@@ -432,6 +445,47 @@ static int PmConfigSetConfigSectionHandler(u32* const addr)
 }
 
 /**
+ * PmConfigHeaderHandler() - Read and process header of config object
+ * @addr        Start address of the header in configuration object
+ */
+static void PmConfigHeaderHandler(u32* const addr)
+{
+	int status = XST_SUCCESS;
+	u32 remWords;
+
+	/* Read number of remaining words in header */
+	remWords = PmConfigReadNext(addr);
+
+	/* If there is words in header, get number of sections in object */
+	if (remWords > 0) {
+		pmConfig.secNumber = PmConfigReadNext(addr);
+		remWords--;
+	}
+
+	/* Skip the remaining words in header */
+	PmConfigSkipWords(addr, remWords);
+}
+
+/**
+ * PmConfigGpoSectionHandler() - Read and process GPO section
+ * @addr        Start address of the section in configuration object
+ *
+ * @return      XST_SUCCESS always
+ */
+static int PmConfigGpoSectionHandler(u32* const addr)
+{
+	u32 gpoState, reg;
+
+	gpoState = PmConfigReadNext(addr);
+	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+	reg &= ~PM_CONFIG_GPO_MASK;
+	reg |= (gpoState & PM_CONFIG_GPO_MASK);
+	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+
+	return XST_SUCCESS;
+}
+
+/**
  * PmConfigClear() - Clear previous PFW configuration
  */
 static void PmConfigClear(void)
@@ -440,6 +494,7 @@ static void PmConfigClear(void)
 	PmResetClearConfig();
 	PmNodeClearConfig();
 	pmConfig.configPerms = 0U;
+	pmConfig.secNumber = DEFAULT_SECTIONS_NUM;
 }
 
 /**
@@ -489,14 +544,11 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 		goto done;
 	}
 
-	/* Read number of remaining words in header */
-	remWords = PmConfigReadNext(&currAddr);
-
-	/* Skip the remaining words in header */
-	PmConfigSkipWords(&currAddr, remWords);
+	/* Read and process header from the object */
+	PmConfigHeaderHandler(&currAddr);
 
 	/* Read and process each section from the object */
-	for (i = 0U; i < ARRAY_SIZE(pmConfigSections); i++) {
+	for (i = 0U; i < pmConfig.secNumber; i++) {
 		PmConfigSection* section;
 		u32 sectionId;
 
