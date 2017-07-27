@@ -427,6 +427,9 @@ static int PmConfigShutdownSectionHandler(u32* const addr)
 {
 	int status = XST_SUCCESS;
 
+	/* Shutdown section doesn't have shutdown types information */
+	PmConfigSkipWords(addr, 1);
+
 	return status;
 }
 
