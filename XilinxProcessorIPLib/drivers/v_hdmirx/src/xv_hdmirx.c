@@ -55,6 +55,7 @@
 * 1.09  YH     29/08/16 Set Match to FALSE when HTotal = 0
 * 1.10  MG     02/03/17 Fixed YUV420 reading in function
 *                          XV_HdmiRx_GetVideoTiming
+* 1.40  YH     19/07/17 Clean up Print Statement line ending to "\r\n"
 * </pre>
 *
 ******************************************************************************/
@@ -780,7 +781,7 @@ int XV_HdmiRx_DdcLoadEdid(XV_HdmiRx *InstancePtr, u8 *EdidData, u16 Length)
     // The EDID data is larger than the DDC slave EDID buffer size
     else
     {
-        xdbg_printf(XDBG_DEBUG_GENERAL,"The EDID data structure is too large to be stored in the DDC peripheral (%0d).\n\r", Length);
+        xdbg_printf(XDBG_DEBUG_GENERAL,"The EDID data structure is too large to be stored in the DDC peripheral (%0d).\r\n", Length);
         return (XST_FAILURE);
     }
 }
