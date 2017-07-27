@@ -132,6 +132,7 @@
 * 1.5   YH     14/11/16 Added XV_HdmiTx_Bridge_yuv420 & XV_HdmiTx_Bridge_pixel
 *                       mode macros
 * 1.6   MG     28/03/17 Added XV_HdmiTx_Mask macros
+* 1.7   YH     19/07/17 Added XV_HdmiTx_IsMasked macro
 * </pre>
 *
 ******************************************************************************/
@@ -998,6 +999,25 @@ typedef struct {
 		                   (XV_HDMITX_MASK_BLUE_OFFSET), \
 						   (Value)); \
 }
+
+/*****************************************************************************/
+/**
+*
+* This macro provides the current video mask mode.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   Current mode.
+*       0 = Video masking is disabled
+*       1 = Video masking is enabled
+*
+* @note     C-style signature:
+*       u8 XV_HdmiTx_IsMasked(XV_HdmiTx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx_IsMasked(InstancePtr) \
+    XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_MASK_CTRL_CLR_OFFSET)) & (XV_HDMITX_MASK_CTRL_RUN_MASK)
 
 /************************** Function Prototypes ******************************/
 

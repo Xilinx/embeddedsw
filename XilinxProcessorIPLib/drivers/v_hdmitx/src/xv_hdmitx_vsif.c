@@ -43,6 +43,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  yh     15/01/15 Initial release for 3D video support
+* 1.01  YH  2017/07/19   Clean up Print Statement line ending to "\r\n"
 * </pre>
 *
 ******************************************************************************/
@@ -582,18 +583,18 @@ void XV_HdmiTx_VSIF_DisplayInfo(XV_HdmiTx_VSIF  *VSIFPtr)
         /* Extended resolution format present */
         case XV_HDMITX_VSIF_VF_EXTRES :
             /* HDMI_VIC */
-            xil_printf("HDMI_VIC : %d\n\r", VSIFPtr->HDMI_VIC);
+            xil_printf("HDMI_VIC : %d\r\n", VSIFPtr->HDMI_VIC);
             break;
 
         /* 3D format indication present */
         case XV_HDMITX_VSIF_VF_3D :
             /* 3D_Structure */
-            xil_printf("3D Format : %s\n\r", XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_VSIF_Conv3DInfoTo3DStruct(&VSIFPtr->Info_3D.Stream)));
+            xil_printf("3D Format : %s\r\n", XV_HdmiTx_VSIF_3DStructToString(XV_HdmiTx_VSIF_Conv3DInfoTo3DStruct(&VSIFPtr->Info_3D.Stream)));
 
             /* 3D_Ext_Data */
             if (XV_HdmiTx_VSIF_Conv3DInfoTo3DStruct(&VSIFPtr->Info_3D.Stream) >= XV_HDMITX_3D_STRUCT_SIDE_BY_SIDE_HALF) {
-                xil_printf("Sampling Method : %s\n\r", XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_VSIF_Conv3DInfoTo3DSampMethod(&VSIFPtr->Info_3D.Stream)));
-                xil_printf("Sampling Position : %s\n\r", XV_HdmiTx_VSIF_3DSampPosToString(XV_HdmiTx_VSIF_Conv3DInfoTo3DSampPos(&VSIFPtr->Info_3D.Stream)));
+                xil_printf("Sampling Method : %s\r\n", XV_HdmiTx_VSIF_3DSampMethodToString(XV_HdmiTx_VSIF_Conv3DInfoTo3DSampMethod(&VSIFPtr->Info_3D.Stream)));
+                xil_printf("Sampling Position : %s\r\n", XV_HdmiTx_VSIF_3DSampPosToString(XV_HdmiTx_VSIF_Conv3DInfoTo3DSampPos(&VSIFPtr->Info_3D.Stream)));
             }
 
             /* 3D Metadata */
