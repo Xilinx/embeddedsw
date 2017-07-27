@@ -1,3 +1,741 @@
+Changes for 2020.1
+===============================
+axipcie_v3_2:
+Added support for axi_pcie3
+
+nandpsu_v1_6:
+Added Clock support.
+Warning fix.
+
+canfd_v2_3:
+Used correct macro to access RX FIFO1 buffer.
+Fix for missing RX can packets on CAND2.0
+Fix for missing TX canfd packet on CANFD2.0.
+Added PEE support and updated BusOff handler.
+Removed psu_canfd from supported peripherals.
+Updated all files with Copyright year 2020.
+Fixed sending extra frames in XCanFd_Send_Queue API.
+Initialize IsPl of config structure.
+
+cpu_v2_11:
+Updated tcl as per new toolchain directory structure in Vitis 2020.1
+
+cpu_cortexa72_v1_1:
+Updated to support armclang compiler.
+
+csudma_v1_6:
+Added assert check XCsuDma_WaitForDoneTimeout().
+Modified usleep(100) to usleep(1) and XCSUDMA_DONE_TIMEOUT_VAL increased by 100 times.
+Correct interrupt ID definition for Versal in example.
+Added xpmcdma.h file as a wrapper for Versal, to avoid usage of the word "CSU"
+in Versal libraries and apps
+
+dmaps_v2_6:
+Fix boundary check on channel.
+
+emacps_v3_11:
+Add baremetal clock support.
+Add XCLOCKING flag support.
+Add fix for clock detection in hier designs.
+
+freertos10_xilinx_v1_6:
+Upgraded kernel version to 10.3.0.
+
+gpio_v4_6:
+Fixed compilation error of armcc compiler.
+
+gpiops_v3_7:
+Reverted versal support.
+
+i2stx_v2_1:
+This patch has 1 new variable Is32bitLR in XI2stx_Config structure that is
+used to calculate Sclk for 32bit mode
+
+i2srx_v2_1:
+This patch has 1 new variable Is32bitLR in XI2srx_Config structure that is
+used to calculate Sclk for 32bit mode
+
+intc_v3_11:
+Fix issues reported by coverity tool.
+Updated tcl to fix issues related to design with slice IP.
+
+iicps_v3_11:
+Added 10-bit address support for I2C Master/Slave, Slave monitor.
+Correct the stale interrupt triggering by clearing the ISR before enabling interrupts.
+Re-organize the driver and fix Misra-c violations.
+Update eeprom examples with dynamic page size detection.
+
+lwip211_v1_2:
+Add dependencies.props file for examples.
+Avoid using *.o in Makefile.
+
+mcdma_v1_4:
+Prefer using dmb in XMcdma_UpdateChanTDesc().
+
+mipicsiss_v1_3:
+Updated the SP701 example
+
+ospipsv_v1_2:
+Removed psu_ospi entry in supported peripherals in mdd file.
+Added APIs (XOspiPsv_StartDmaTransfer and XOspiPsv_CheckDmaDone) for non-blocking DMA transfer support.
+Reorganize the source code and enable the interrupts by default.
+Updated XOspiPsv_DeviceReset() API with masked data writes.
+Make XOspiPsv_SetDllDelay() API as user API for DLL delay configuration.
+Added support for DLL Master mode.
+
+prc_v2_0:
+Updated prc IP drivers to dfx_controller nomenclature.
+
+prd_v2_0:
+Update pr_decoupler IP drivers to dfx_decoupler nomenclature
+
+qspips_v3_7:
+Fixed unused value coverity warning.
+
+qspipsu_v1_11:
+Removed LQSPI register access in Versal.
+Added APIs to support non-blocking DMA transfer.
+Reorganize the source code.
+
+sdps_v3_9:
+Resolved coverity warnings
+Added SD/eMMC Raw Read/Write example
+Added support for UHS mode by default for ZynqMP
+Restructured SDPS driver for more modularity and readability.
+Fix eMMC issue where it fails due to no card ID
+
+standalone_v7_2:
+Removed the logic to delete source code directories from tcl CR#1038151.
+Added armclang compiler support for Cortex-A72.
+Updated Cortex-R5 BSP, to use TTC2 in sleep routines if TTC3 is not present in
+the design. If TTC2 is also not present, in that case PMU cycle counter would be
+used in sleep routines.
+Added clocking support.
+Add new APIs to provide improvised support for R5 PMU Handling, also added example
+to demonstrate the API usage.
+Added unaligned exception handling support to 64 bit variant of microblaze processor.
+
+sysmon_v7_6:
+Corrected macros according to documentaion
+
+sysmonpsu_v2_6:
+added PL support to examples
+updated alarm macro description
+added function to initialize sysmonpsu instance
+
+uartlite_v3_4:
+Updates driver tcl to not to generate defines when IP is not configured for uart.
+
+uartns550_v3_6:
+Changed the xuartns550_intr_example to get Success/Failure strings.
+Changed the macro names.
+
+uartps_v3_9:
+Changed the XUARTPS_MAX_RATE macro to enable configuration of higher baud rates.
+
+uartpsv_v1_2:
+Modify Interrupt sub routine, add Rx error Interrupt handler
+Add new function to support FIFO configuration
+Add selftest in examples
+
+v_frmbuf_wr_v4_2:
+Removed FrmbufWr start function from its interrupt handler as it should be
+restarted from application itself.
+Removed one API from driver, as it is programming register that doesn't exist.
+
+v_frmbuf_rd_v4_2:
+Removed FrmbufRd start function from its interrupt handler as it should be
+restarted from application itself.
+
+v_mix_v6_0:
+Add Colorimetry Support
+
+v_multi_scaler_v1_1:
+Updated API to use config structure parameters.
+
+v_gamma_lut_v1_1:
+Fix added to correct example application wrt IP GUI configuration.
+
+vtc_v8_2:
+Fix handling of spurious interrupt
+
+xilffs_v4_3:
+Modified disk_status API to remove dependency on canonical params
+Add support for Multi Partitions
+
+xilflash_v4_8:
+Updated the Status variable in success case.
+Updated license content to SPDX based licensing.
+
+xilfpga_v5_2:
+Fixed the issues with Aes-key.
+Cleared Aes-key from internal memory.
+Fix for function naming issues.
+Removed unwanted status check.
+Added support for Versal.
+Removed unused variables.
+Fixed security violation in the readback path.
+Replaced event poll logic with Xil_WaitForEvent() API.
+Adopted Bitstream Configuration and readback support using IPI mechanism.
+Removed unwanted header file inclusion.
+Updated SECURE_MODE handling logic.
+Updated the write path to handle the return values properly for veral.
+Added example for versal platform.
+Replaced hardcode values with macro's.
+Removed capturing the key in the global array.
+Added support to clear KUP and IV from the AES engine.
+updated license content to SPDX based licensing.
+Added eFuse checks in bitstream validation path.
+
+xilrsa_v1_6:
+Added support for ARMCC compiler
+
+xilsecure_v4_2:
+Updated RSA zeroize API for both ZynqMP and versal
+In Versal added an API to enable/disable DPA CM
+Optimized Sha3 data transfer for unaligned sizes and addresses
+Moved AES reset calls into library for Versal and ZynqMP
+ZynqMP single parition image IV calculation is corrected
+Cleared local copied AES keys
+Added APIs for Versal KAT
+RSA zeroization and verification are only done for private operations
+Cleaned up library
+
+xilskey_v6_9:
+Disabled BBRAM programming mode after key write
+Fixes coverity warnings
+Depecrated XilSKey_Puf_Fetch_Dbg_Mode2_result functionality
+Fixed ARMCC compilation errors
+Removed ZynqMP efuse temperature and voltage checks for efuse reads
+Deprecated support to read from efuse memory, if requested throws an error
+Placed temperature and voltage checks before enabling programming
+Cleaned up library
+
+xilnvm_v2_0:
+Added XilNvm utility functions to xnvm_utils
+Added Wrapper APIs to eFuse library
+Enhancements to xilnvm_efuse_versal_example to have user configurable
+parameters to program different eFuses
+Added eFuse programming rules
+Optimization done in XilNvm library
+Cleaned up library and eFuse example.
+
+xilpuf_v1_1:
+Added support for ID only regeneration
+Added support for regeneration of PUF key by using helper data programmed
+in eFuse
+Removed xilpuf_registration_example.c
+Updated xilpuf_regeneration_example.c to support ID only regeneration
+Added xilpuf_enc_dec_data_example.c for encryption and decryption of user data
+Added xilpuf_example.c to support black key programming
+
+usbps_v2_5:
+Added dependencies.props file to support automation testing.
+Update ch9 framework
+Added ISO endpoint support in driver
+Added audio example for ISO endpoint support
+
+usbpsu_v1_7:
+Update optimal number of TRB to improve performance.
+Fixed doxygen warnings.
+Add CCI support
+Restructured usbpsu driver for more modularity and readability.
+Add clock support.
+
+axicdma_v4_7:
+Support 26bit dma transfer length.
+Fix gcc warning in peripheral test and examples.
+Clean up old versions in axicdma.mdd.
+Fixed the driver examples pulling in the peripheral test when ddr is not mapped
+to the selected processor.
+
+wdttb_v5_0:
+-Updated example files with "Successfully ran" string.
+-Removed psu_wwdt from supported peripherals
+-Updated copyright
+-Removed compare value registers write.
+-Reorganized wdttb driver for safety compliance.
+-Fixed MISRAC violations
+-Added GWDT interrupt example.
+-Updated interrupt examples to support versal platform.
+
+axiethernet_v5_10:
+Remove assert condition in XAxiEthernet_SetOperatingSpeed.
+In driver tcl use hier "::hsi::utils::get_connected_intf" API.
+In debug mode fix return value of XAxiEthernet_ReadReg.
+Clean up old versions in axiethernet.mdd.
+
+zynqmp_fsbl:
+Added code changes to update the PMU GLOBAL register to indicate PL configuration
+Update the status of FSBL image encryption in PMU Global register 5 bit 3 for PMU
+
+xxvethernet_v1_4:
+Added dependencies.props for xxvethernet in data folder.
+Fix bsp generation error for multiple xxv instance design.
+Fix pmufw bsp compilation error.
+Fix gcc warnings in driver and mcdma interrupt example.
+
+rfdc_v8_0:
+Fixed issue where IMR datapath modes frequency was halved
+Driver Gets tile and path enables from the bitfile
+MTS now supported for Gen 3 modes
+Bug fixes for new Interpolation/decimation rates
+Bug fix for threshold over flag assertion directly after applying settings
+
+axidma_v9_11:
+Removed xaxidma_example_multichan_sg_intr.c example from axidma driver.
+Clean up old versions in axidma.mdd.
+Fix simple interrupt example failure with smaller packet size.
+
+axivdma_v6_7:
+Clean up old versions in axivdma.mdd.
+
+xilpm_v3_1:
+Add LPD off and FPD off use-case support
+Updates to PL house cleaning sequences for improving boot performance and address HW issues
+DRAM self-refresh support updates
+Fixes for MISRA violations
+XPPU bug fixes and support for aperture parity
+Add AIE Array and Shim reset support
+Add support for error event notifications
+Add support of SET_RATE/GET_RATE for Ref clock
+Add support for force power down and request wakeup using subsystem ID
+Remove hard-coded subsystem IDs
+Add support for dynamic subsystem
+Add support for PL devices
+Add support for new devices in versal family
+zynqmp: Add ADMA in pre-alloc section of RPU
+
+xilmailbox_v1_2:
+Updated the library example RemoteId variable to use IPIPSU driver canonical define.
+
+v_sditx_v3_0:
+Added new api to support 10/12 bpc
+
+v_sditxss_v4_0:
+Added 12-bit video depth support
+
+hdcp1x_v4_4:
+Added repeater support fixes for DP
+
+v_sdirx_v2_0:
+Added 10/12 bpc and HFR support.
+
+v_sdirxss_v3_0:
+Added 10/12 bpc support.
+
+dp12_v7_1:
+Added a new API call XDp_RxSetAuxClkFilterValue
+
+dp12rxss_v4_3:
+Updated Zcu102,KC705 example applications
+ 
+dp12txss_v5_2:
+Updated KC705 example applications
+
+dp14_v7_3:
+Added FAUX related changes 
+
+hdcp22_common_v2_1:
+Add volatile attributes to variable i.
+
+v_hdmi_common_v1_3:
+3D Audio, HDR support added. More VIC entries added.
+
+v_hdmiphy1_v2_0:
+Updates in header file to rename of enum fields and enum value changed.
+
+v_hdmirx_v2_5:
+3D Audio support added.
+
+v_hdmirxss_v5_5:
+3D Audio, HDR and Versal support added.
+
+dp14rxss_v6_0:
+Added PS I2C support
+Removed DP v1.2 Protocol support
+
+v_hdmitx_v2_5:
+3D Audio support added.
+
+v_hdmitxss_v5_5:
+3D Audio, HDR and Versal support added.
+
+video_common_v4_9:
+Some more video timing entries added.
+
+v_vscaler_v3_1:
+Improve quality with new coefficients
+
+v_hscaler_v3_3:
+Improve quality with new coefficients
+
+zynqmp_pmufw:
+Update PMU Firmware misc folder with canps and zdma drivers
+Update idle hook for node CAN to disable CAN instead of
+ putting it to sleep
+Update idle hook for node GEM to stop all ongoing Tx and Rx traffic
+ on ethernet before disabling
+Implement idle hook for node NAND to be called before applying
+ soft reset to NAND
+Enable AIB isolation for RPU before RPU reset and disable after reset
+Correct return value in PmRequirementRelease()
+Reset RPU AMBA during RPU power down
+Keep PL power ON during APU/RPU subsystem restart
+Add support for idling GPU and GPU_PP nodes
+Remove readback data offset calculation during FPGA read
+Consider function return values in PMU Firmware
+Implement HW exception handler for PMU
+Enable SLVERR for peripherals used by PMU
+Properly handle XFpga_InterfaceStatus failures by return XST_FAILURE
+Update PMU misc folder as per the recent updates to xilfpga
+Optimize PMU Firmware code
+Provide build option to disable FSBL copy to DDR feature
+Skip copying FSBL to DDR if FSBL image is encrypted
+Add new module to monitor RPU run mode
+
+dsitxss_v2_0:
+Introduced new API to enable sub cores
+
+pmonpsv_v2_0:
+Rename the APIs for pmonpsv.
+Rename the example name.
+
+aiengine_v1_1:
+updating license content to SPDX based licensing
+
+audio_formatter_v1_1:
+updating license content to SPDX based licensing
+
+avbuf_v2_3:
+updating license content to SPDX based licensing
+
+axipmon_v6_8:
+updating license content to SPDX based licensing
+
+axis_switch_v1_3:
+updating license content to SPDX based licensing
+
+board_common_v1_1:
+updating license content to SPDX based licensing
+
+bram_v4_4:
+updating license content to SPDX based licensing
+
+can_v3_4:
+updating license content to SPDX based licensing
+
+canps_v3_4:
+updating license content to SPDX based licensing
+
+cframe_v1_1:
+updating license content to SPDX based licensing
+
+cfupmc_v1_1:
+updating license content to SPDX based licensing
+
+clk_wiz_v1_3:
+updating license content to SPDX based licensing
+
+coresightps_dcc_v1_7:
+updating license content to SPDX based licensing
+
+cpu_cortexa53_v1_7:
+updating license content to SPDX based licensing
+
+cpu_cortexa9_v2_9:
+updating license content to SPDX based licensing
+
+cpu_cortexr5_v1_7:
+updating license content to SPDX based licensing
+
+ddrcpsu_v1_2:
+updating license content to SPDX based licensing
+
+ddrps_v1_1:
+updating license content to SPDX based licensing
+
+ddrpsv_v1_2:
+updating license content to SPDX based licensing
+
+devcfg_v3_6:
+updating license content to SPDX based licensing
+
+dpdma_v1_2:
+updating license content to SPDX based licensing
+
+dppsu_v1_2:
+updating license content to SPDX based licensing
+
+emaclite_v4_5:
+updating license content to SPDX based licensing
+
+emc_v4_1:
+updating license content to SPDX based licensing
+
+generic_v2_1:
+updating license content to SPDX based licensing
+
+hwicap_v11_3:
+updating license content to SPDX based licensing
+
+iic_v3_6:
+updating license content to SPDX based licensing
+
+iomodule_v2_8:
+updating license content to SPDX based licensing
+
+llfifo_v5_4:
+updating license content to SPDX based licensing
+
+mbox_v4_4:
+updating license content to SPDX based licensing
+
+mig_v1_1:
+updating license content to SPDX based licensing
+
+mig_7series_v2_2:
+updating license content to SPDX based licensing
+
+mutex_v4_5:
+updating license content to SPDX based licensing
+
+nandps_v2_5:
+updating license content to SPDX based licensing
+
+pciepsu_v1_1:
+updating license content to SPDX based licensing
+
+resetps_v1_3:
+updating license content to SPDX based licensing
+
+rfdc_v8_1:
+updating license content to SPDX based licensing
+
+rtcpsu_v1_9:
+updating license content to SPDX based licensing
+
+scugic_v4_2:
+updating license content to SPDX based licensing
+
+scutimer_v2_2:
+updating license content to SPDX based licensing
+
+scuwdt_v2_2:
+updating license content to SPDX based licensing
+
+sd_fec_v1_1:
+updating license content to SPDX based licensing
+
+spi_v4_6:
+updating license content to SPDX based licensing
+
+spips_v3_4:
+updating license content to SPDX based licensing
+
+srio_v1_3:
+updating license content to SPDX based licensing
+
+sysmonpsv_v1_2:
+updating license content to SPDX based licensing
+
+tft_v6_2:
+updating license content to SPDX based licensing
+
+tmr_inject_v1_2:
+updating license content to SPDX based licensing
+
+tmr_manager_v1_1:
+updating license content to SPDX based licensing
+
+trafgen_v4_3:
+updating license content to SPDX based licensing
+
+ttcps_v3_11:
+updating license content to SPDX based licensing
+
+usb_v5_4:
+updating license content to SPDX based licensing
+
+wdtps_v3_3:
+updating license content to SPDX based licensing
+
+xadcps_v2_4:
+updating license content to SPDX based licensing
+
+xdmapcie_v1_1:
+updating license content to SPDX based licensing
+
+zdma_v1_9:
+updating license content to SPDX based licensing
+
+xilisf_v5_15:
+updating license content to SPDX based licensing
+
+xilsem_v1_1:
+updating license content to SPDX based licensing
+
+libmetal_v2_1:
+updating license content to SPDX based licensing
+
+openamp_v1_6:
+updating license content to SPDX based licensing
+
+csi_v1_4:
+updating license content to SPDX based licensing
+
+csi2tx_v1_2:
+updating license content to SPDX based licensing
+
+csi2txss_v1_3:
+updating license content to SPDX based licensing
+
+dp14txss_v6_3:
+updating license content to SPDX based licensing
+
+dphy_v1_4:
+updating license content to SPDX based licensing
+
+dsi_v1_2:
+updating license content to SPDX based licensing
+
+hdcp22_cipher_v1_2:
+updating license content to SPDX based licensing
+
+hdcp22_mmult_v1_2:
+updating license content to SPDX based licensing
+
+hdcp22_rng_v1_3:
+updating license content to SPDX based licensing
+
+hdcp22_rx_v2_3:
+updating license content to SPDX based licensing
+
+hdcp22_tx_v2_5:
+updating license content to SPDX based licensing
+
+mpegtsmux_v1_1:
+updating license content to SPDX based licensing
+
+sdi_common_v1_2:
+updating license content to SPDX based licensing
+
+spdif_v1_1:
+updating license content to SPDX based licensing
+
+v_axi4s_remap_v1_2:
+updating license content to SPDX based licensing
+
+v_csc_v2_4:
+updating license content to SPDX based licensing
+
+v_deinterlacer_v7_1:
+updating license content to SPDX based licensing
+
+v_demosaic_v1_1:
+updating license content to SPDX based licensing
+
+v_hcresampler_v3_1:
+updating license content to SPDX based licensing
+
+v_letterbox_v2_2:
+updating license content to SPDX based licensing
+
+v_scenechange_v1_1:
+updating license content to SPDX based licensing
+
+v_tpg_v8_2:
+updating license content to SPDX based licensing
+
+v_vcresampler_v3_1:
+updating license content to SPDX based licensing
+
+vphy_v1_10:
+updating license content to SPDX based licensing
+
+vprocss_v2_7:
+updating license content to SPDX based licensing
+
+intc_v3_11:
+Fixed coverity warnings in the driver.
+Fixed race condition for designs where interrupt source pin is connected to
+cascade slices.
+
+uartlite_v3_4:
+Don't generate defines in _g.c and xparameters.h file when IP is not
+configured for uart functionality.
+
+deinterlacer_v3_3:
+updating license content to SPDX based licensing
+
+dual_splitter_v1_2:
+updating license content to SPDX based licensing
+
+hdcp22_cipher_dp_v1_1:
+updating license content to SPDX based licensing
+
+hdcp22_rx_dp_v1_1:
+updating license content to SPDX based licensing
+
+rgb2ycrcb_v7_2:
+updating license content to SPDX based licensing
+
+sdiaud_v2_1:
+updating license content to SPDX based licensing
+
+ycrcb2rgb_v7_2:
+updating license content to SPDX based licensing
+
+clockps_v1_2:
+Rename the ARRAY_SIZE.
+
+ipipsu_v2_6:
+Code refactoring for readability.
+
+xilpdi_v1_1:
+Added API to read PUF header parameter
+Added APIs to read DPA CM enable and boot header authentication enable parameters
+Added API to read delay handoff parameter
+
+xilplmi_v1_1:
+Added support for NOP, SET and GetDeviceID commands
+Added support for event logging mechanism
+Updated scheduler to add / remove tasks
+Added configurable priority for scheduler tasks
+Added support for error management CDO commands
+
+xilloader_v1_1:
+Added SD/eMMC raw boot mode support as primary and secondary boot modes
+Added USB, SMAP, EMMC0 and EMMC0_RAW as secondary boot modes
+Added multi partition support for SD/eMMC file system boot mode
+Added support for copy to memory and delay handoff
+Added support for Image Restore IPI command
+Added support for PUF KEK decrypt operations
+Added Obfuscated key decryption support
+Added DPA CM enable/disable
+Added KATs for crypto engines
+Added revocation checks for decryption
+Added DEC_ONLY checks
+Added support for loading partial secure PDI
+Enabled direct DMA from SBI, SMAP, DDR, QSPI and OSPI boot modes to CFI for
+performance improvement (non secure boot only)
+
+Changes for 2019.2.2
+===============================
+rfdc_v7_1:
+Increased ADC FIFO width
+Added calibration support for Gen3 devices
+Aligned datapath modes & added protectios(see documentation AR)
+Fixed higher rate interpolation/decimation mode fabric widths
+Now the mixer auto-updates the fabric width
+Fixed bug in clock distribution
+Fixed bug in GCB override for Gen 3 devices
+Fixed alternate bondout issue for Gen3 DACs
+Added hysterisis counters for signal detector
+Metal log now more descriptive
+Updated examples
+Added Gen 1/2 compatibility support for Gen 3 devices
+
 Changes for 2019.2
 ===============================
 canfd_v2_2:
@@ -161,22 +899,6 @@ Initial release to support eFuse read/write and bbram programming
 xilpuf_v1_0:
 Initial release to support Puf Registration and Regeneration
 
-axicdma_v4_6:
-In simple and sg example, fix data buffer cache maintenance ops.
-
-axidma_v9_10:
-In examples fix data buffer cache maintenance ops.
-
-rfdc_v7_0:
-Added support for VOP for GEN3 devices.
-Added support for DSA for GEN3 devices.
-Added a get enabled interrupts API.
-Fixed minor NCO offset issue.
-Fixed calibration mode issue for GEN1/2 devices.
-Added API for registering RFDC with libmetal.
-Added support for reporting DAC current on GEN3 devices.
-Refactor of Clock distribution.
-
 zynqmp_pmufw:
 Fixed warnings in PMU FW versionless compilation
 Change power state of power domain or island only if it is powered up
@@ -188,64 +910,23 @@ Change WDT timeout when performing secure operations which take more time
 Fixed PMU versionless build issues
 Return error incase of invalid pin ID when calling XPm_PinCtrlGetParameter()
 Corrected source address in restore_training_data()
-Added power down permission check for processor and PLL nodes in 
+Added power down permission check for processor and PLL nodes in
  PmForcePowerdown()
 Added support for RPU only subsystem restart case
+Handling PLL lock errors correctly when updating PLLs
 
-scugic_v4_1:
-Fix issues in interrupt mapping/un-mapping for AMP use case. Default mapping
-of all
-interrupts to relevant CPU during initialization has been removed. Now,
-interrupt would
-be mapped to the CPU, only if request is made to enable that specific
-interrupt ID.
-Add support to generate pl-ps interrupt IDs for Versal.
-Add APIs to mark processor as asleep/awake, these APIs are applicable only
-for
-GIC500.
+rfdc_v7_0:
+Added support for VOP for GEN3 devices.
+Added support for DSA for GEN3 devices.
+Added a get enabled interrupts API.
+Fixed minor NCO offset issue.
+Fixed calibration mode issue for GEN1/2 devices.
+Added API for registering RFDC with libmetal.
+Added support for reporting DAC current on GEN3 devices.
+Refactor of Clock distribution.
 
-freertos10_xilinx_v1_4:
-Added support for CortexA72.
-
-intc_v3_10:
-Updated intc_update_source_array  proc in tcl to calculate total_source_intrs
-based on width of interrupt port/pin.
-
-ttcps_v3_10:
-Added assert checks in XTtcPs_CalcIntervalFromFreq API.
-Modified xttcps_intr_example to make it generic, to
-use any intended TTC device.
-In XTtcPs_SetOptions() default condition will never reach. So replaced
-switch case as if-else.
-Added interrupt handler in driver. Updated examples to use ttc driver
-interrupt handler.
-Added the stack usage,memory foot-print and execution time for
-each API, compiler informations, assumptions of use in the header file
-and mentioned the parameters range in the source code.
-
-
-standalone_v7_1:
-Updated Cortexr5 BSP to skip access to secure address sapce,
-if processor is marked as non secure in trustzone setting.
-Fixed Cortexr5 events in arm/cortexr5/xpm_counter.c.
-Updated Cortexr5 BSP to fix infinite loop in Xil_MemMap API.
-Removed NULL pointer de-referencing from xil_printf function.
-Updated xil_smc.h to add SMC IDs related to Versal.
-Updated Init_MPU API in Cortexr5 BSP to print warning on console,
-if DDR size is not in power of 2.
-Updated transaltion table for versal
-ARMv8/64bit/platform/versal/translation_table.S
-to mark DDR_CH_1, DDR_CH_2 and DDR_CH_3 regions as memory, based on
-respective region
-sizes in hdf.
-Optimized Xil_DCacheInvalidateRange API in ARMv8 BSP, to fix performace drop
-obseved on Versal platform.
-Updated Xil_DCacheFlushRange to point to Xil_DCacheInvalidateRange API, since
-both
-APIs executes same functinality. It has been done to avoid code duplication.
-Added MPU mapping for AIE address space in Cortexr5 BSP
-arm/cortexr5/platform/versal/mpu.c.
-
+pmonpsv_v1_1:
+Update the mdd files with the latest naming
 
 Changes for 2019.1
 ===============================
@@ -664,11 +1345,11 @@ Added new API, This API is used to wait for IP to enter into idle state.
 Modified existing Stop API to support Flushing feature.
 
 i2stx_v2_0:
-This patch has 2 new APIs, one API is to enable the justification and 
+This patch has 2 new APIs, one API is to enable the justification and
 the other one is to set Left or Right justification.
 
 i2srx_v2_0:
-This patch has 2 new APIs, one API is to enable the justification and 
+This patch has 2 new APIs, one API is to enable the justification and
 the other one is to set Left or Right justification.
 
 
@@ -869,7 +1550,7 @@ Updated get_psu_interrupt_id to generate correct
 interrupt id's, when output of utility reduced logic
 is connected to pl-ps interrupt as well as ILA probe.
 Fix for CR#999732.
-Updated source files to fix warings reported by 
+Updated source files to fix warings reported by
 coverity, checkpatch and doxygen. It fixes
 CR#1006344.
 Resolves MISRA-C:2012 mandatory violations.
@@ -1233,19 +1914,19 @@ xilfpga_v4_1
 Added partial bitstream loading support.
 
 xilsecure_v3_1
-Added support for 512, 576, 704, 768, 992, 1024, 1152, 1408, 1536, 
-1984, 3072 key sizes, where previous version has support only 2048 and 
+Added support for 512, 576, 704, 768, 992, 1024, 1152, 1408, 1536,
+1984, 3072 key sizes, where previous version has support only 2048 and
 4096 key sizes.
 On GCM tag failure, wrongly decrypted data will be zeroized.
 Added support of user fuses revocation for single partition image.
-Modified xilsecure_aes_example,input data will be over written with 
+Modified xilsecure_aes_example,input data will be over written with
 decrypted data
-Added compilation flag for opting secure/non-secure environment, by 
-deault it is non -secure, mainly it is taken into account while 
+Added compilation flag for opting secure/non-secure environment, by
+deault it is non -secure, mainly it is taken into account while
 building PMUFW
 
 xilskey_v6_5
-Fixed hanging issue for BBRAM ZynqMP when program/zeroise is requested 
+Fixed hanging issue for BBRAM ZynqMP when program/zeroise is requested
 while programming mode is in enabled state.
 
 zynqmp_fsbl
