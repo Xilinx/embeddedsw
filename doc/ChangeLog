@@ -1,17 +1,389 @@
+Changes for 2019.1
+===============================
+v_hdmiphy1_v1_0:
+Initial Release.
+
+v_hdmirx_v_2_3:
+Updated the description of the API XV_HdmiRx_GetLinkStatus.
+
+v_hdmitx_v_2_3:
+No functional changes, upversioned to align with v_hdmirx_v2_3.
+
+v_hdmirxss_v_5_3:
+Fixed an issue in pass-through application where TX's stream color space is not set according to RX's decoded InfoFrame color space.
+Clears SCDC registers when HPD is toggled in applications.
+Fixed an issue where TX stream doesn't come up when RX hotplug is performed on HDMI 2.0 resolution when LOOPBACK_MODE_EN is set to 1 in the applications.
+Toggles HDP after loading the default EDID.
+Starts HDCP Authentication on the first TX VSYNC in PassThrough applications.
+
+v_hdmitxss_v_5_3:
+Fixed an issue in pass-through application where TX's stream color space is not set according to RX's decoded InfoFrame color space.
+Clears SCDC registers when HPD is toggled in applications.
+Fixed an issue where TX stream doesn't come up when RX hotplug is performed on HDMI 2.0 resolution when LOOPBACK_MODE_EN is set to 1 in the applications.
+Toggles HDP after loading the default EDID.
+Starts HDCP Authentication on the first TX VSYNC in the applications.
+
+vphy_v1_9:
+Moved the RXLPM setting from vphy_i.c/h to vphy.c/h.
+Added RXCDR_CFG3 configuration in GTYE4 DP.
+
+rfdc_v6_0:
+New interpolaton & decimation modes (IP dependent).
+New Image Reject Filter (IP dependent).
+New DAC modes (IP dependent).
+Second Nyquist zone inerse sinc filter (IP dependent).
+Support for alternative DAC bondout (IP dependent).
+New ADC signal detector (IP dependent).
+New calibration override APIs (IP dependent).
+Extended coarse delay (IP dependent).
+New clock distribution network with integer clock division(IP dependent).
+New Common mode over/under interrupts (IP dependent)
+Interrupt APIs now return standard error codes (exempt XRFdc_IntrHandeler
+and XRFdc_SetStatusHandler).
+XRFdc_DynamicPLLConfig now only restarts a tile if it was on previously.
+
+libmetal_v2_0:
+Updated shared memory APIs to decouple from shmem allocation implementation
+Sync up libmetal upstream 5774af1b8e28ea39cbf92ae131eee4f93af699b2
+CPP atomic bug fix;
+metal io region offset<->phy to support the OS which has function to do
+this conversion;
+interrupt API update to separate IRQ controller implementation and
+device driver interrupt handling.
+
+axiethernet_v5_9:
+In tcl use unique global variables to fix bsp generation for certain designs.
+
+bram_v4_3:
+Fix compiler warnings for bram if it is placed after 4GB.
+
+canfd_v2_1:
+Update fifo number to read data from RX FIFO 0 or RX FIFO 1
+Fix incorrect setting of data phase buad rate prescaler
+
+csudma_v1_4:
+Adds PSU_PMU processor check to skip the Flushing cache memory and Invalidating
+cache memory API's for PMU Microblaze platform.
+Add support for versal IP name.
+
+clockps_v1_1:
+Fix IAR compilation warnings.
+
+emaclite_v4_4:
+Fix poll example failure on microblaze platform.
+
+emacps_v3_9:
+Add support for RX watermark
+Update example for versal emulation
+Use selected speed in loopback mode
+Fix MDC divisor for versal emulation
+Fix BD memory allocation and its attributes
+Fix alignment pragmas for IAR compiler.
+
+freertos10_xilinx_v1_3:
+Declared attribute of vApplicationAssert() as weak in
+portZynqUltrascale.c for A53. It fixes CR#1014562
+Upgraded FreeRTOS to new version 10.1.1 (PR#10686)
+Provided feature for stream buffer and message buffer.(PR#10459)
+Add support for hard float in R5 freertos adapter.
+Add FPU support for A53 processor.
+
+hwicap_v11_2:
+Updated the Number of words per frame as mention in the ug570.
+Removed .o referenced function prototypes from the header file.
+
+iicps_v3_9:
+Added arbitration lost support in polled transfer
+
+ipipsu_v2_5:
+Make IPI driver common for both ZynqMP and Versal platforms.
+Add extern c macro.
+Fix the ipis without buffer.
+Add versal IP name support.
+
+llfifo_v5_3:
+Fix poll and interrupt examples receive programming sequence.
+
+lwip211_v1_0:
+Upgrade lwip to open source version 2.1.1
+Fix cache handling in RX path for GEM.
+Fix freertos echo server compilation on emaclite platform.
+Pick correct compiler for R5.
+Update lwip examples to be in sync with new xilffs.
+Add IEEE1588 byte padding for PL Ethernet.
+Add support for versal IP name.
+Fix GCC warnings in emaclite adapter source.
+Fix xemacliteif_input() for freertos multi-packet scenario.
+
+ospipsv_v1_0:
+First Release.
+Fixed data alignment issues on IAR compiler.
+
+qspips_v3_6:
+Fixed memory leak issue while reading from qspi.(CR#1016357)
+Modified APIs,to wait for the on going operation to complete
+before performing the next operation.
+Modified the mask in XQspiPs_GetReadData() API to retrieve
+configuration register values of both the Flashes in dual parellel mode.
+
+prc_v1_2:
+Updated the tcl logic to generated the XPrc_ConfigTable properly.
+
+qspipsu_v1_9:
+Resolved MISRA-C:2012 violations in safety mode(CR#1014359)
+Clear DMA_DST_ADDR_MSB register properly
+Added idling support.
+Set recommended clock and data tap delay values for 40MHZ,
+100MHZ and 150MHZ frequencies(CR#1023187)
+Fixed data alignment warnings on IAR compiler(CR#1025530)
+Fixed compilation error in lqspi example on IAR compiler.
+Fixed compilation error in LqspiRead function.
+
+scugic_v4_0:
+Update get_psu_interrupt_id proc to return multiple interrupt IDs
+CR#100266.
+Updated get_psu_interrupt_id proc, to fix interrupt id
+computation for vectored interrupts. It fixes CR#998583.
+Updated get_concat_number proc to avoid executing
+get_pins command twice. It fixes CR#1028356
+
+sdps_v3_7:
+Add SDPS idling support
+Added support for versal SD IP name
+Add support for Cache Invalidation after the DMA is complete
+Add UHS mode support for Microblaze platform
+Disable calls to dll_reset APIs for versal platforms
+Fix data alignment on IAR compiler
+Fix MISRA-C violations
+
+spips_v3_2:
+Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
+Added versal support
+
+standalone_v7_0:
+Includded stddef.h and stdint.h in xbasic_types.h
+xparameters_ps.h- Added interrupt id for usbpsu
+Added XST_NO_ACCESS status macros for generic access error.
+Updated Xil_MemCpy API to copy two bytes at a time from source to destination if byte count is <= 2.
+Added support for Versal.
+Added armclang complier support to the Cortexa53 64 bit BSP.
+Fix microblaze_disable_dcache for 64 bit microblaze
+Added frequently used functions in common area in xil_utils.c, so that other
+modules can make use of it.
+
+ttcps_v3_8:
+Modified in XTtcPs_ClearInterruptStatus function to clear
+interrupt status register by reading instead of writing it.
+
+wdttb_v4_4:
+Fixed compiler warning.
+Fixed MISRA-C violations.
+Added Versal support.
+
+xilffs_v4_1:
+Add additional LFN options in mld.
+Add support to enable use of CHMOD functionality.
+Change the argument type to int for length of string.
+Added support for versal SD IP name
+Fix data alignment on IAR compiler
+
+xilflash_v4_6:
+Fixed compilation errors for application with xilflash(CR#1018603)
+
+xilfpga_v5_0:
+Optimize the delays in the PS-PL resets path.
+Optimize the execution time for Image validation.
+Remove redundant API's from the interface agnostic layer and make the
+existing API's generic.
+Optimize the bitstream validation logic for Non-secure bitstream Images.
+Fixed PL power-up issue with pmufw.
+Updated the data handling logic to avoid the code duplication.
+Fixed PS-PL resets handling issues.
+Removed SecureIV shared variable dependency and updated the secure Iv
+handling logic.
+Added CSUDMA address alignment check.
+Fixed MISRA-C violations.
+Removed vesal platform related changes.As per the new design, the Bitstream
+loading for versal platform is done by PLM based on the CDO's data exists in
+the PDI images. So there is no need of xilfpga API's for versal platform to
+configure the PL
+Read the return status of the functions in xilfpga_pcap.c
+
+xilisf_v5_13:
+Declare XQspiPsu_Msg instance as global.
+Fixed multiple definition error in C++ project.
+Added support for OSPI flash interface.
+Added support for SST26WF016B flash.
+Used 3Byte Sector erase and write commands for QSPI Micron flashes.
+
+xilskey_v6_7:
+Updated makefile to support ARMCC and IAR compiler
+Fixed compilation warnings/errors for ARMCC and IAR
+Fixed MISRAC violations
+Added assert conditions for input parameters.
+Updated xilskey_efuseps_zynqmp_input.h
+ - Documentation of AES key
+ - Added macro XSK_EFUSEPS_CHECK_AES_KEY_CRC for AES CRC
+   check which is to be updated by user.
+ - Removed PPK0/1 SHA2 hash programming support
+Added example for PUF regeneration.
+Handled PUF underflow issue
+TCL file is updated to copy only required files to ZynqMP project.
+Updated functions return status variables to default XST_FAILURE
+For Microblaze devices added GPIO selection based on the design.
+Added support for SSIT devices on microblaze.
+
+xilsecure_v4_0:
+Code was made compatible with MISRAC rules
+RSA memory is zeroized after evey RSA operation.
+Updated AES error codes.
+AES engine in set under reset after use
+Data is zeroized after GCM tag mismatch
+SHA3 engine is held in reset after use
+DMA status registers are cleared after transfer is done
+Updated assert statements
+Secure image load errors out if bootgen image is not at the specified location
+Renamed global variables used in xsecure.c
+Deprecated SHA2 support
+Refactored code, now the library has three folders zynqmp, versal and common
+Added support versal
+Deprecated XSecure_RsaDecrypt call, updated with XSecure_RsaPublicEncrypt()
+Added state machines into the library for RSA, AES and SHA
+Added IAR support
+Added tmeouts for the loops
+Modified return status variables to XST_FAILURE by default
+XSecure_Sha3Finish is updated with error condtion if padding is wrongly selected
+Updated Xsecure.c and xsecure.h files to fix IV size, made csudma as
+static variable added an API to give csudma pointer to xilfpga.
+
+xxvethernet_v1_2:
+In tcl use unique global variables to fix bsp generation for certain designs.
+
+axidma_v9_9:
+examples- Fix use of #elif check in deriving DDR_BASE_ADDR.
+Fix XAxiDma_BdRingFromHw implementation for cyclic mode.
+In sgcyclic example wait for both tx and rx done counters.
+
+usbpsu_v1_5:
+Add usb controller idiling support to usbpsu driver
+Add new example for usb polling mode
+Modify xusbpsu_wrapper.c file for issuing XUsbPsu_Ep0StallRestart() for EP0
+Updated usbpsu.tcl to fix the logic for generating SUPER_SPEED paramter
+Add versal platform support to usbpsu driver
+Add support for versal usb IP name
+Update copyright year for usbpsu files
+Updated index.html and readme.txt files in the usbpsu examples
+Enable hibernation API's only when XUSBPSU_HIBERNATION_ENABLE is defined
+Fixed MISRA-C mandatory violations
+Fix incorrect dma_alignment pragma directive for IAR workbench
+
+mcdma_v1_3:
+In mcdma examples remove snoop enable and dependency on HPC_DESIGN macro.
+In driver tcl enable CCI only for EL1 non-secure state.
+Create channel submit variant to program additional BD fields.
+Add HasRxLength field in config and channel structure.
+
+xilmailbox_v1_0:
+Initial Release.
+Updated mld supported peripheral option with A72 and PMC.
+
+zdma_v1_7:
+Add support for versal IP name.
+Update writeonly mode example to support versal IP.
+Fix alignment pragmas for IAR compiler.
+Rename the dma buffers in the xzdma_simple_example.c file
+to avoid peripheral test compilation errors with armclang compiler.
+
+cpu_cortexr5_v1_5:
+Create a new version of cortex r5 CPU driver to add support for hard
+float.
+
+coresightps_dcc_v1_5:
+Fixed MISRA C Mandatory Violations CR#1025101.
+
+xilmfs_v2_3:
+Deprecate the XilMFS Library
+
+usbps_v2_4:
+Fix incorrect dma_alignment pragma directive for IAR workbench
+
+zynqmp_fsbl:
+Added dual parallel configuration support and QPI support for 24bit qspi boot
+mode for Macronix flash parts
+AES engine and SHA engine are reset during FSBL initialization
+Zeroize PL upon error in decryption
+Remove sha2 support from FSBL
+Always select EEPROM lower page for reading SPD data
+Dynamic DDR configuration is strictly based upon the design for all boards
+including ZCU102 and ZCU106
+Added support for armclang compiler
+Removed disabling of the WDT error before exiting FSBL to avoid overwriting of
+the PMU settings
+Updated PMU with FSBL running status using bits 1 and 2 from PMU global
+general purpose register 5
+DDR end address is not fixed at 2GB but derived from Vivado
+Using XilPM XPm_SetConfiguration API instead of using direct IPI calls for
+communicating with PMUFW.
+
+xilpm_v2_5:
+Add checksum support for IPI data
+Misra C fixes in XilPm
+Support for IAR compier
+Deprecated PM_SECURE_RSA_AES
+
+zynqmp_pmufw:
+Store and restore LPD SLCR_SECURE registers during POS.
+Idle nodes only once even if they are assigned to multiple masters.
+Add support to idle and reset all twelve TTCs.
+Misra C fixes in PMU Firmware.
+Set LPD WDT error action after FSBL completion as FSBL disables before
+exiting.
+Store FSBL to reserved DDR and restore before performing APU-only restart.
+Added missing cpp protection macros to the PMU header files.
+Update to XilFPGA APIs to support latest 5.0 version.
+Validate reason for abort suspend.
+Fix CRC checksum related issues in IPI messaging.
+Added permission check for modifying error actions over IPI.
+Creat custom FSM handler for GPU nodes to handle the states of PP0 and PP1.
+Bypass DDR related code if DDR is not present in the design.
+Check for parent node in PmSlaveGetWakeUpLatency to avoid access to invalid
+memory.
+Bypass DDR ECC poll if DDR ECC is not enabled.
+Register handler and trigger FW error when Assert occurs.
+Add hook for custom module in PMU Firmware.
+Check for NULL before calling get reset status operations to avoid access to
+invalid memory.
+Add handler for EMIO get reset status.
+Leave MIO34 tristated and connect to PMU GPO only when it need to be driven.
+low when user configures through macros.
+Handle PLL lock errors during PLL reset.
+Remove APU access to LPD WDT clock register over MMIO read/write.
+Added PMU RAM ECC error injection STL during startup.
+Disabled the error actions once before processing the ActionId.
+Fixed DDR_reinit incorrectly checks for PLL lock on unused PLLs.
+Add check for no of users for vpll.
+Add support for Ultra96 power button.
+
+gpiops_v3_5:
+Fixed MISRA-C suggested violations.
+Added support for Versal.
+
+gpio_v4_4:
+Updated Makefile for IAR compiler.
+
+Changes for 2018.3.1
+===============================
+rfdc_v5_1:
+Now get maximum FS from IP.
+Determinig ADC Type now on a per-tile basis.
+The wrong fabric rate was being used for a 2GSPS ADC at a
+decimation rate of 8.The wrong fabric rate was being used
+for a 2GSPS ADC at a decimation rate of 8.
+The paramater "DataType" is now "MixerInputDataType".
+Added APIs to set and get IM3 Dither.
+
 Changes for 2018.3
 ===============================
-dphy_v1_2:
-Handling 8 Lanes with timing params for dphy.
-
-csi_v1_2:
-Modified driver for supporting new extra 12 VCs.
-Added changes for CSIv2.0
-Added Changes for Handling VCx Errors in interrupt handler.
-
-mipicsiss_v1_2:
-Modified tcl for new formats (RAW16, RAW20 and YUV422 8bit/10bit) and 16 VCs.
-Modified config structure to support CSIv20 and VCx Errors.
-=======
 dp12_v7_0:
 Display port 2017.4 core drivers are renamed.
 
@@ -37,7 +409,6 @@ dp14txss_v6_1:
 Display port 2018.1 transmitter subsystem drivers are renamed.
 Removed the dp12 applications.
 Addeed support to new application examples
-dp14txss: Updated vcu118-tx and vcu118-rx only applications.
 
 v_scenechange_v1_0:
 Initial release for SceneChange IP.
@@ -111,15 +482,21 @@ Added Example for Vaux external channels
 
 axidma_v9_8:
 Fix cppcheck, gcc and doxygen warnings.
-Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
+Added 64 bit DMA addresses support for Microblaze-X
 
 can_v3_3:
 Fix cppcheck and GCC warnings.
 
-canfd_v2_0:
+canfd_v1_3:
 Fix cppcheck, gcc and doxygen warnings.
 Changed the Canfd ID with 11 bit value.
 Fixed Selftest Hang issue (CR#1009802)
+
+canfd_v1_3:
+Fix cppcheck, gcc and doxygen warnings.
+Changed the Canfd ID with 11 bit value.
+
+canfd_v2_0:
 Added support for canfd 2.0 spec regarding PL
 SoftIP.
 
@@ -128,7 +505,8 @@ Fix cppcheck, GCC and doxygen warnings.
 Remove duplicate code in xemacps_bd.h
 Fixed PTP interrupt masks and cleaned up comments.
 Fix warning in example for redefinition of interrupt number.
-Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
+Added 64 bit DMA addresses support for Microblaze-X
+Add support for Versal IP name.
 
 gpiops_v3_4:
 Resolved cppcheck warnings.(CR#1006331)
@@ -141,7 +519,7 @@ Add support for using 64Bit DMA in 32Bit Processor
 Add cache invalidation call before returning from ReadPolled API
 Resolve compilation warnings for ARMCC toolchain
 Change Expected Response for CMD3 to R1 for MMC
-Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
+Added 64 bit DMA addresses support for Microblaze-X
 
 xilffs_v4_0:
 Upgraded the FatFS version to 0.13b
@@ -179,15 +557,14 @@ Remove unused define for buffer length mask(XMCDMA_BD_LEN_MASK).
 Fix typos and rephrase comment description.
 Read buffer length register width from IP config.
 In driver tcl update get_cells API to support hierarchical designs.
-Added 64 bit DMA addresses support for 64 bit variant of microblaze processor
+Added 64 bit DMA addresses support for Microblaze-X
 
 nandpsu_v1_5:
-Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
+Added 64 bit DMA addresses support for Microblaze-X.
 Updated driver source code to fix compilation warnings.
 
 cpu_v2_8:
 Added Os and LTO settings in extra compiler flags for PMU BSP
-Add support for 64 bit variant of microblaze processor.
 
 iicps_v3_8:
 Fix for Cppcheck and Doxygen warnings.
@@ -196,7 +573,6 @@ Add timeout interrupt in master mode.
 intc_v3_8:
 Updated check_cascade proc, to add check
 for irq_in pin.It fixes CR#1005371
-Added support for 64 bit vector address.
 
 iomodule_v2_6:
 Updated driver tcl to replace get_cells -of_object with get_cells -of_objects.
@@ -219,7 +595,7 @@ Setup64BRxDma() should be called if the RxAddress is greater than 32 bit address
 Added support for low density ISSI flash parts
 Fixed the code in XQspiPsu_GenFifoEntryData() for data transfer length up to 255 for reducing the extra loop.
 Fixed compilation warnings.
-Added 64 bit DMA addresses support for 64 bit variant of microblaze processor.
+Added 64 bit DMA addresses support for Microblaze-X.
 
 rfdc_v5_0:
 Update DAC min sampling rate to 500MHz and also update VCO Range, PLL_DIVIDER and PLL_FPDIV ranges.
@@ -263,6 +639,13 @@ Fix GCC,cppcheck and doxygen warnings in driver
 and example. It fixes CR#1006344 and CR#1010947.
 Update scugic tcl to add -hier option while
 using get_cells command. It fixes CR#1011395.
+Updated get_psu_interrupt_id proc to return multiple
+interrupt ID's, in case if specific interrupt port of
+PL based IP is connected to the pl_ps_irq0 as well as
+pl_ps_irq1 directly or through same concat block pin.
+Fix for CR#100266.
+Updated get_psu_interrupt_id proc, to fix interrupt id
+computation for vectored interrupts. It fixes CR#998583
 
 tmrctr_v4_6:
 Updated driver examples to call TmrCtrDisableIntr
@@ -270,10 +653,6 @@ API with the correct arguments. It fixes
 CR#1006251.
 Fixed several checkpatch errors/warnings in
 interrupt examples.
-
-ttcps_v3_7:
-Fixed bug in XTtcPs_CalcIntervalFromFreq API to use 
-correct maximum interval count for ZynqMP.
 
 xilisf_v5_12:
 Added support for IS25LP064A and IS25WP064A.
@@ -297,12 +676,13 @@ Resetps_v1_2
 Fixed compilation warnings in resetps driver
 Fixed Doxygen reported warnings
 
-rtcpsu_v1_6
+rtcpsu_v1_7
 Modified logic to get the last day of month correctly.(CR#1004282)
 Removed Checkpatch warnings.
 Resolved cppcheck and doxygen warnings.
 Resolved MISRA-C mandatory violations.(CR#1007752)
 Fixed compilation warnings.
+Added Versal support & Fixed MISRA-C violations.
 
 usbpsu_v1_4
 Fixed the errors which occur when tested with IAR compiler
@@ -333,7 +713,6 @@ Optimized the code to use a single function and removed
 code redundancy in xil_printf.c . It Fixes CR#1009654.
 Updated cache APIs and inline assembly macros in microblaze BSP to support
 64 bit addresses.
-Updated CortexR5 bootcode to initialize CortexR5 core with LOVEC. It fixes CR#1010656.
 Fix issues in A53 32 bit cache APIs for Xil_DCacheFlush and Xil_DCacheInvalidate. This fixes CR:1016012.
 
 axivdma_v6_6:
@@ -898,12 +1277,13 @@ libmetal_demo:
 - Update to work with updated libmetal lib
 
 openamp_v1.5:
-- Sync openamp OSS project with upstream
+- Sync openamp OSS project with upstream 83f2b72
 
 openamp_rpc_demo:
 openamp_matrix_multiply_demo:
 openamp_echo_test:
 - Update to work with updated openamp and libmetal libs
+- Use different shared memory based on RPU id.
 
 v_hdmirxss_v5_0:
 Updated version from 4.0 to 5.0

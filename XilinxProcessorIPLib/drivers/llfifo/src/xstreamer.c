@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2005 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2005 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 /*****************************************************************************/
 /**
 * @file xstreamer.c
-* @addtogroup llfifo_v5_2
+* @addtogroup llfifo_v5_3
 * @{
 *
 * See xtreamer.h for a description on how to use this driver.
