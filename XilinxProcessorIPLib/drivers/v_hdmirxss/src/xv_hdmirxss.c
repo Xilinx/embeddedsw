@@ -93,6 +93,13 @@
 *                       Move HDCP related API's to hdmirxss_hdcp.c
 * 1.23  MMO    10/02/17 Added Sync Loss and HDMI/DVI Interrupt Support
 *
+* 1.4   YH     07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
+*                       Report HDMI/DVI mode in HDMI example design info log
+*
+* 1.41  MMO    21/07/17 CR-979900 (Fix)
+*                       Removed the HDCP Push Event API Call when the
+*                       Aux Callback event happen
+*
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -183,6 +190,14 @@ void XV_HdmiRxSs_ReportInfo(XV_HdmiRxSs *InstancePtr)
     XV_HdmiRxSs_ReportCoreInfo(InstancePtr);
     XV_HdmiRxSs_ReportSubcoreVersion(InstancePtr);
     xil_printf("\r\n");
+    xil_printf("HDMI RX Mode - ");
+    if (InstancePtr->HdmiRxPtr->Stream.IsHdmi == (TRUE)) {
+        xil_printf("HDMI\r\n");
+    }
+    else {
+        xil_printf("DVI\r\n");
+    }
+    xil_printf("------------\r\n");
     xil_printf("HDMI RX timing\r\n");
     xil_printf("------------\r\n");
     XV_HdmiRxSs_ReportTiming(InstancePtr);
@@ -339,52 +354,52 @@ static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr)
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_CONNECT,
                           (void *)XV_HdmiRxSs_ConnectCallback,
-						  (void *)InstancePtr);
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_AUX,
-						  (void *)XV_HdmiRxSs_AuxCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_AuxCallback,
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_AUD,
-						  (void *)XV_HdmiRxSs_AudCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_AudCallback,
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_LNKSTA,
-						  (void *)XV_HdmiRxSs_LnkStaCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_LnkStaCallback,
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_DDC,
-						  (void *)XV_HdmiRxSs_DdcCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_DdcCallback,
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_STREAM_DOWN,
-						  (void *)XV_HdmiRxSs_StreamDownCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_StreamDownCallback,
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_STREAM_INIT,
-						  (void *)XV_HdmiRxSs_StreamInitCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_StreamInitCallback,
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_STREAM_UP,
-						  (void *)XV_HdmiRxSs_StreamUpCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_StreamUpCallback,
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_SYNC_LOSS,
-						  (void *)XV_HdmiRxSs_SyncLossCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_SyncLossCallback,
+                          (void *)InstancePtr);
 
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_MODE,
-						  (void *)XV_HdmiRxSs_ModeCallback,
-						  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_ModeCallback,
+                          (void *)InstancePtr);
   }
 
   return(XST_SUCCESS);
@@ -697,13 +712,6 @@ static void XV_HdmiRxSs_AuxCallback(void *CallbackRef)
 
   // Retrieve Vendor Specific Info Frame
   XV_HdmiRxSs_RetrieveVSInfoframe(HdmiRxSsPtr->HdmiRxPtr);
-
-  // HDMI mode
-  if (XV_HdmiRxSs_GetVideoStreamType(HdmiRxSsPtr )) {
-#ifdef USE_HDCP_RX
-    XV_HdmiRxSs_HdcpPushEvent(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_HDMI_MODE_EVT);
-#endif
-  }
 
   // Check if user callback has been registered
   if (HdmiRxSsPtr->AuxCallback) {
@@ -1121,8 +1129,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp14Ptr) {
               XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
                                   XHDCP1X_HANDLER_AUTHENTICATED,
-								  (void *)(XHdcp1x_Callback)CallbackFunc,
-								  (void *)CallbackRef);
+                                  (void *)(XHdcp1x_Callback)CallbackFunc,
+                                  (void *)CallbackRef);
             }
 #endif
 
@@ -1131,8 +1139,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_RX_HANDLER_AUTHENTICATED,
-									(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
-									(void *)CallbackRef);
+                                    (void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+                                    (void *)CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);
@@ -1145,8 +1153,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp14Ptr) {
               XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
                                 XHDCP1X_HANDLER_UNAUTHENTICATED,
-								(void *)(XHdcp1x_Callback)CallbackFunc,
-								(void *)CallbackRef);
+                                (void *)(XHdcp1x_Callback)CallbackFunc,
+                                (void *)CallbackRef);
             }
 #endif
 
@@ -1155,8 +1163,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_RX_HANDLER_UNAUTHENTICATED,
-									(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
-									(void *)CallbackRef);
+                                    (void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+                                    (void *)CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);
@@ -1170,8 +1178,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
         //Register the hdcp trigger downstream authentication callback
                XHdcp1x_SetCallBack(InstancePtr->Hdcp14Ptr,
                                    (XHdcp1x_HandlerType) XHDCP1X_RPTR_HDLR_TRIG_DOWNSTREAM_AUTH,
-								   (void *) (XHdcp1x_Callback)CallbackFunc,
-								   (void *) CallbackRef);
+                                   (void *) (XHdcp1x_Callback)CallbackFunc,
+                                   (void *) CallbackRef);
             }
 #endif
 
@@ -1180,8 +1188,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_RX_HANDLER_AUTHENTICATION_REQUEST,
-									(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
-									(void *)CallbackRef);
+                                    (void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+                                    (void *)CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);
@@ -1194,8 +1202,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_RX_HANDLER_STREAM_MANAGE_REQUEST,
-									(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
-									(void *)CallbackRef);
+                                    (void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+                                    (void *)CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);
@@ -1208,8 +1216,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp14Ptr) {
               XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
                                   XHDCP1X_HANDLER_TOPOLOGY_UPDATE,
-								  (void *)(XHdcp1x_Callback)CallbackFunc,
-								  (void *)CallbackRef);
+                                  (void *)(XHdcp1x_Callback)CallbackFunc,
+                                  (void *)CallbackRef);
             }
 #endif
 
@@ -1218,8 +1226,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_RX_HANDLER_TOPOLOGY_UPDATE,
-									(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
-									(void *)CallbackRef);
+                                    (void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+                                    (void *)CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);
@@ -1232,8 +1240,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp14Ptr) {
         XHdcp1x_SetCallback(InstancePtr->Hdcp14Ptr,
                                  XHDCP1X_HANDLER_ENCRYPTION_UPDATE,
-								 (void *)(XHdcp1x_Callback)CallbackFunc,
-								 (void *)CallbackRef);
+                                 (void *)(XHdcp1x_Callback)CallbackFunc,
+                                 (void *)CallbackRef);
             }
 #endif
 
@@ -1242,8 +1250,8 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr, u32 HandlerType,
             if (InstancePtr->Hdcp22Ptr) {
               XHdcp22Rx_SetCallback(InstancePtr->Hdcp22Ptr,
                                     XHDCP22_RX_HANDLER_ENCRYPTION_UPDATE,
-									(void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
-									(void *)CallbackRef);
+                                    (void *)(XHdcp22_Rx_RunHandler)CallbackFunc,
+                                    (void *)CallbackRef);
             }
 #endif
             Status = (XST_SUCCESS);
@@ -1398,6 +1406,15 @@ u32 XV_HdmiRxSs_SetStream(XV_HdmiRxSs *InstancePtr,
 {
 
     LineRate = LineRate;
+
+    if (Clock == 0) {
+#ifdef XV_HDMIRXSS_LOG_ENABLE
+  /* Write log */
+  XV_HdmiRxSs_LogWrite(InstancePtr, XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR, 0);
+#endif
+
+        return (XST_FAILURE);
+    }
 
 #ifdef XV_HDMIRXSS_LOG_ENABLE
   /* Write log */
