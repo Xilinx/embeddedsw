@@ -81,6 +81,7 @@
 *                       generation.
 *       ms     04/10/17 Modified filename tag in examples to include them in
 *                        doxygen.
+* 1.4   YH     07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
 * </pre>
 *
 ******************************************************************************/
@@ -120,6 +121,10 @@ extern "C" {
 * @{
 */
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 #ifdef XV_HDMIRXSS_LOG_ENABLE
 typedef enum {
 	XV_HDMIRXSS_LOG_EVT_NONE = 1,		/**< Log event none. */
@@ -138,6 +143,7 @@ typedef enum {
 	XV_HDMIRXSS_LOG_EVT_STREAMDOWN,	    /**< Log event Stream Down. */
 	XV_HDMIRXSS_LOG_EVT_STREAMINIT,	    /**< Log event Stream Init. */
 	XV_HDMIRXSS_LOG_EVT_SETSTREAM,      /**< Log event HDMIRXSS Setstream. */
+	XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR,  /**< Log event HDMIRXSS Setstream Err. */
 	XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE, /**< Log event TMDS Ref clock change. */
 	XV_HDMIRXSS_LOG_EVT_HDCP14,             /**< Log event Enable HDCP 1.4. */
 	XV_HDMIRXSS_LOG_EVT_HDCP22,             /**< Log event Enable HDCP 2.2. */
