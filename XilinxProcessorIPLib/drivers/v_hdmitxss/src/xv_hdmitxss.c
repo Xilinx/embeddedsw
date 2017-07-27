@@ -110,6 +110,11 @@
 *                             multiple EDID.
 * 1.25  MH     21/04/17 Updated to set HDMI mode in functions
 *                             XV_HdmiTxSS_SetHdmiMode and XV_HdmiTxSS_SetDviMode.
+* 1.40  YH     07/07/17 Fixed issue with VTC register read when video clock is
+*                             not present
+*                       Report HDMI/DVI mode in HDMI example design info log
+*                       Added Video Masking APIs
+*
 * </pre>
 *
 ******************************************************************************/
@@ -767,6 +772,10 @@ static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
 #ifdef XV_HDMITXSS_LOG_ENABLE
     XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_CONNECT, 0);
 #endif
+
+    /* Reset DDC */
+    XV_HdmiTx_DdcDisable(HdmiTxSsPtr->HdmiTxPtr);
+
     /* Set stream connected flag */
     HdmiTxSsPtr->IsStreamConnected = (TRUE);
 
@@ -781,6 +790,10 @@ static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
 #ifdef XV_HDMITXSS_LOG_ENABLE
     XV_HdmiTxSs_LogWrite(HdmiTxSsPtr, XV_HDMITXSS_LOG_EVT_DISCONNECT, 0);
 #endif
+
+    /* Reset DDC */
+    XV_HdmiTx_DdcDisable(HdmiTxSsPtr->HdmiTxPtr);
+
     /* Set stream connected flag */
     HdmiTxSsPtr->IsStreamConnected = (FALSE);
 
@@ -811,6 +824,9 @@ static void XV_HdmiTxSs_ConnectCallback(void *CallbackRef)
 static void XV_HdmiTxSs_ToggleCallback(void *CallbackRef)
 {
   XV_HdmiTxSs *HdmiTxSsPtr = (XV_HdmiTxSs *)CallbackRef;
+
+  /* Reset DDC */
+  XV_HdmiTx_DdcDisable(HdmiTxSsPtr->HdmiTxPtr);
 
   /* Set toggle flag */
   HdmiTxSsPtr->IsStreamToggled = TRUE;
@@ -1199,6 +1215,9 @@ static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef)
   /* Assert HDMI TX reset */
   XV_HdmiTx_Reset(HdmiTxSsPtr->HdmiTxPtr, TRUE);
 
+  /* Reset DDC */
+  XV_HdmiTx_DdcDisable(HdmiTxSsPtr->HdmiTxPtr);
+
   /* Set stream up flag */
   HdmiTxSsPtr->IsStreamUp = (FALSE);
 #ifdef XV_HDMITXSS_LOG_ENABLE
@@ -1476,8 +1495,8 @@ int XV_HdmiTxSs_ReadEdidSegment(XV_HdmiTxSs *InstancePtr, u8 *Buffer, u8 segment
       }
     }
     else {
-      xil_printf("No sink is connected.\n\r");
-      xil_printf("Please connect a HDMI sink.\n\r");
+      xil_printf("No sink is connected.\r\n");
+      xil_printf("Please connect a HDMI sink.\r\n");
     }
   return Status;
 }
@@ -1519,7 +1538,7 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
 
 		ExtensionFlag = Buffer[126];
 		ExtensionFlag = ExtensionFlag >> 1;
-        xil_printf("Number of Segment : %d\n\r", ExtensionFlag+1);
+        xil_printf("Number of Segment : %d\r\n", ExtensionFlag+1);
         xil_printf("\r\nRaw data\r\n");
         xil_printf("----------------------------------------------------\r\n");
 	  }
@@ -1529,8 +1548,8 @@ void XV_HdmiTxSs_ShowEdid(XV_HdmiTxSs *InstancePtr)
 	  {
         // Check if read was successful
         if (Status == (XST_SUCCESS)) {
-          xil_printf("\n\r---- Segment %d ----\n\r", segment);
-          xil_printf("----------------------------------------------------\n\r");
+          xil_printf("\r\n---- Segment %d ----\r\n", segment);
+          xil_printf("----------------------------------------------------\r\n");
           for (Row = 0; Row < 16; Row++) {
             xil_printf("%02X : ", (Row*16));
             for (Column = 0; Column < 16; Column++) {
@@ -1982,6 +2001,13 @@ void XV_HdmiTxSs_RefClockChangeInit(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr)
 {
+      if (XV_HdmiTx_GetMode(InstancePtr->HdmiTxPtr) == 0) {
+        xil_printf("HDMI TX Mode - DVI \r\n\r\n");
+      }
+      else {
+        xil_printf("HDMI TX Mode - HDMI \r\n\r\n");
+      }
+
       XV_HdmiTx_DebugInfo(InstancePtr->HdmiTxPtr);
       xil_printf("Scrambled: %0d\r\n",
         (XV_HdmiTx_IsStreamScrambled(InstancePtr->HdmiTxPtr)));
@@ -2016,9 +2042,15 @@ static void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr)
   }
 
   if (InstancePtr->VtcPtr){
-     Data = XVtc_GetVersion(InstancePtr->VtcPtr);
-     xil_printf("  VTC version     : %02d.%02d (%04x)\r\n",
-        ((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
+	 if (InstancePtr->IsStreamUp == TRUE){
+       Data = XVtc_GetVersion(InstancePtr->VtcPtr);
+       xil_printf("  VTC version     : %02d.%02d (%04x)\r\n",
+          ((Data >> 24) & 0xFF), ((Data >> 16) & 0xFF), (Data & 0xFFFF));
+	 }
+	 else {
+       xil_printf("  VTC version is not available for reading as ");
+	   xil_printf("HDMI TX Video Clock is not ready.\r\n");
+	 }
   }
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
@@ -2214,4 +2246,206 @@ void XV_HdmiTxSs_SetDefaultPpc(XV_HdmiTxSs *InstancePtr, u8 Id) {
 void XV_HdmiTxSs_SetPpc(XV_HdmiTxSs *InstancePtr, u8 Id, u8 Ppc) {
     InstancePtr->Config.Ppc = (XVidC_PixelsPerClock) Ppc;
     Id = Id; //squash unused variable compiler warning
+}
+
+/*****************************************************************************/
+/**
+* This function will enable the video masking.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSS_MaskEnable(XV_HdmiTxSs *InstancePtr)
+{
+    XV_HdmiTx_MaskEnable(InstancePtr->HdmiTxPtr);
+}
+
+/*****************************************************************************/
+/**
+* This function will disable the video masking.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSS_MaskDisable(XV_HdmiTxSs *InstancePtr)
+{
+    XV_HdmiTx_MaskDisable(InstancePtr->HdmiTxPtr);
+}
+
+/*****************************************************************************/
+/**
+* This function will enable or disable the noise in the video mask.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param	Enable specifies TRUE/FALSE value to either enable or disable the
+*		Noise.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSS_MaskNoise(XV_HdmiTxSs *InstancePtr, u8 Enable)
+{
+    XV_HdmiTx_MaskNoise(InstancePtr->HdmiTxPtr, Enable);
+}
+
+/*****************************************************************************/
+/**
+* This function will set the red component in the video mask.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param	Value specifies the video mask value set to red component
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSS_MaskSetRed(XV_HdmiTxSs *InstancePtr, u16 Value)
+{
+    u32 Data;
+
+	switch (InstancePtr->HdmiTxPtr->Stream.Video.ColorDepth) {
+
+      // 10 bpc
+      case XVIDC_BPC_10:
+        // Color depth
+        Data = (Value << 6);
+        break;
+
+      // 12 bpc
+      case XVIDC_BPC_12:
+        // Color depth
+        Data = (Value << 4);
+        break;
+
+      // 16 bpc
+      case XVIDC_BPC_16:
+        // Color depth
+        Data = Value;
+        break;
+
+      default :
+        Data = (Value << 8);
+        break;
+	}
+
+	XV_HdmiTx_MaskSetRed(InstancePtr->HdmiTxPtr, (Data));
+}
+
+
+/*****************************************************************************/
+/**
+* This function will set the green component in the video mask.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param	Value specifies the video mask value set to green component
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSS_MaskSetGreen(XV_HdmiTxSs *InstancePtr, u16 Value)
+{
+    u32 Data;
+
+	switch (InstancePtr->HdmiTxPtr->Stream.Video.ColorDepth) {
+
+      // 10 bpc
+      case XVIDC_BPC_10:
+        // Color depth
+        Data = (Value << 6);
+        break;
+
+      // 12 bpc
+      case XVIDC_BPC_12:
+        // Color depth
+        Data = (Value << 4);
+        break;
+
+      // 16 bpc
+      case XVIDC_BPC_16:
+        // Color depth
+        Data = Value;
+        break;
+
+      default :
+        Data = (Value << 8);
+        break;
+	}
+
+	XV_HdmiTx_MaskSetGreen(InstancePtr->HdmiTxPtr, (Data));
+}
+
+/*****************************************************************************/
+/**
+* This function will set the blue component in the video mask.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+* @param	Value specifies the video mask value set to blue component
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+void XV_HdmiTxSS_MaskSetBlue(XV_HdmiTxSs *InstancePtr, u16 Value)
+{
+    u32 Data;
+
+	switch (InstancePtr->HdmiTxPtr->Stream.Video.ColorDepth) {
+
+      // 10 bpc
+      case XVIDC_BPC_10:
+        // Color depth
+        Data = (Value << 6);
+        break;
+
+      // 12 bpc
+      case XVIDC_BPC_12:
+        // Color depth
+        Data = (Value << 4);
+        break;
+
+      // 16 bpc
+      case XVIDC_BPC_16:
+        // Color depth
+        Data = Value;
+        break;
+
+      default :
+        Data = (Value << 8);
+        break;
+	}
+
+	XV_HdmiTx_MaskSetBlue(InstancePtr->HdmiTxPtr, (Data));
+}
+
+/*****************************************************************************/
+/**
+* This function will get the current video mask mode
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+*
+* @return   Current mode.
+*       0 = Video masking is disabled
+*       1 = Video masking is enabled
+*
+* @note     None.
+*
+*
+******************************************************************************/
+u8 XV_HdmiTxSS_IsMasked(XV_HdmiTxSs *InstancePtr)
+{
+    return XV_HdmiTx_IsMasked(InstancePtr->HdmiTxPtr);
 }
