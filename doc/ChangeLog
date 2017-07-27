@@ -1,3 +1,252 @@
+Changes for 2019.2
+===============================
+canfd_v2_2:
+Updated mailbox offsets for CANFD2.0
+
+canps_v3_3:
+Fixed coverity warnings.
+
+coresightps_dcc_v1_6:
+Add support for Versal Coresight
+
+dmaps_v2_5:
+Add barrier before DMASEV.
+
+sdps_v3_8:
+Modified Tap Delay code for supporting ZynqMP and Versal
+Disable DLL Reset code for Versal
+Enable SD UHS Mode support by default for Versal
+Update Input Tap Delays for Versal
+Add cache invalidation call at the end of XSdPs_Get_BusWidth
+Modified ADMA handling API for 32bit and 64bit addresses
+
+gpiops_v3_6
+udpated gpiops example with versal support.
+Fixed IAR compiler warnings.
+Added interrupt example support on versal.
+
+gpio_v4_5:
+Updated Makefile for IAR compiler.
+Fixed IAR warnings in example files
+
+csudma_v1_5:
+Updated xcsudma_intr_example.c to use volatile keyword for
+DstDone variable to disable compiler optimizations.
+
+emacps_v3_10:
+Clear status registers properly in reset.
+Use Versal platform version register.
+Remove peripheral test app support.
+Add support for clock setup on Versal.
+Fix common variable definition in example.
+Add EL1 NS clock config support for Versal.
+
+lwip211_v1_1:
+Add support for Versal
+Fix emacps hotplug support
+Enable A53 32 bit compiler for BM apps.
+Add support for clock setup on Versal.
+Add EL1 NS clock config support for Versal.
+
+lwip_echo_server:
+Add support for Versal
+
+lwip perf apps:
+Add support for Versal
+
+freertos_lwip_echo_server and
+freertos_lwip perf apps:
+Add support for Versal
+
+freertos_lwip_echo_server:
+Increase main thread timeout
+
+ospipsv_v1_1:
+Added RX tuning for SDR-PHY and DDR-PHY modes.
+Added support for EL1_NS.
+Added support for flash device reset.
+Set Read Delay field to 0x1 for NON-PHY mode.
+
+qspipsu_v1_10:
+Fixed issues in poll timeout feature.
+Set recommended tap delay values for Versal.
+Added Multi Die Erase and Muti Die Read support.
+
+rtcpsu_v1_8
+Updated driver source and example with right sequence
+
+spi_v4_5:
+Removed master inhibit dependency while writing to DTR.
+Fixed compilation error in spi interrupt example(CR-1035793).
+
+spips_v3_3:
+Initialized DeviceID in XSpiPs_CfgInitialize function.
+
+uartlite_v3_3:
+Updated driver tcl to export proper baseaddress for pmc_ppu1_mdm IP.
+Updated driver tcl file to support PS and PL ip's.
+Updated driver tcl file to support mdm and tmr_sem ip's.
+
+usbpsu_v1_6:
+Fix coverity warnings.
+
+zdma_v1_8:
+Fix coverity warnings.
+Remove unnecessary Versal clock and routing workarounds.
+
+uartpsv_v1_1:
+Updated the interrupt example to use the interrupt ids from xparameters_ps.h
+instead of hardcoded ones.
+
+wdtps_v3_2:
+Fixed coverity warnings.
+
+wdttb_v4_5:
+Added hierarchical design support.
+Updated the test app tcl to support polled mode
+Fixed coverity warnings.
+Updated driver to support AXI Timebase WDT and WWDT
+
+xxvethernet_v1_3:
+In tcl fix bsp generation error for axis_rx_0 external port design.
+
+xilisf_v5_14:
+Initialized Status variable to XST_FAILURE.
+Added message regarding deprecation of Xilisf.
+
+xilffs_v4_2:
+Initialize Status variables with failure values
+
+xilpm_v3_0:
+Add versal server library code to xilpm (earlier it was in xillibpm)
+Add versal client library code to xilpm (earlier it was in xillibpm)
+Change xilpm directory structure to add support for versal
+Initialize status variable with XST_FAILURE in all function
+Modifies watchdog timer to avoid trip during secure operation
+
+xilskey_v6_8:
+Fixed MISRAC violations and coverity warnings
+Updated doxygen comments.
+Added support for user to add IDCODES for microblaze
+Moved floating point calculation to compile time
+Added assert statements
+Corrected length of data to be read.
+Fixed CHASH reading from wrong location of syndrome
+data in Zynqmp
+Fixed controller locking back in ZU+
+Reporting puf_acc_error to user.
+Added Debug define for dummy programming for microblaze
+Initialized Status variables to XST_FAILURE
+Added support to access ZU+ PL efuse and BBRAM
+Aligned spaces in dependecies.props
+Removed Tbits programming code in ZU+
+Added sysmon override or not option under BSP settings
+for ZU+, added master SLR number in user device adding
+under BSP settings.
+Modified Microblaze SSIT devices based on CONFIG ORDER
+INDEX.
+
+xilsecure_v4.1:
+Added AES interface for Versal
+Fixed coverity warnings and MISRAC violations
+Updated return status om Sha3DataUpdate function
+Optimized code in xsecure.c file
+Added assert statements to function parameters
+Added support for A72 and R5 of versal.
+Initialized status variables to XST_FAILURE.
+
+xilnvm_v1_0:
+Initial release to support eFuse read/write and bbram programming
+
+xilpuf_v1_0:
+Initial release to support Puf Registration and Regeneration
+
+axicdma_v4_6:
+In simple and sg example, fix data buffer cache maintenance ops.
+
+axidma_v9_10:
+In examples fix data buffer cache maintenance ops.
+
+rfdc_v7_0:
+Added support for VOP for GEN3 devices.
+Added support for DSA for GEN3 devices.
+Added a get enabled interrupts API.
+Fixed minor NCO offset issue.
+Fixed calibration mode issue for GEN1/2 devices.
+Added API for registering RFDC with libmetal.
+Added support for reporting DAC current on GEN3 devices.
+Refactor of Clock distribution.
+
+zynqmp_pmufw:
+Fixed warnings in PMU FW versionless compilation
+Change power state of power domain or island only if it is powered up
+ by checking PWR_STATUS register
+Fixed IPI message buffer overflow issue which occurs when CRC is enabled
+Fixed PMU FW CPP check errors
+Fixed PMU FW coverity warnings
+Change WDT timeout when performing secure operations which take more time
+Fixed PMU versionless build issues
+Return error incase of invalid pin ID when calling XPm_PinCtrlGetParameter()
+Corrected source address in restore_training_data()
+Added power down permission check for processor and PLL nodes in 
+ PmForcePowerdown()
+Added support for RPU only subsystem restart case
+
+scugic_v4_1:
+Fix issues in interrupt mapping/un-mapping for AMP use case. Default mapping
+of all
+interrupts to relevant CPU during initialization has been removed. Now,
+interrupt would
+be mapped to the CPU, only if request is made to enable that specific
+interrupt ID.
+Add support to generate pl-ps interrupt IDs for Versal.
+Add APIs to mark processor as asleep/awake, these APIs are applicable only
+for
+GIC500.
+
+freertos10_xilinx_v1_4:
+Added support for CortexA72.
+
+intc_v3_10:
+Updated intc_update_source_array  proc in tcl to calculate total_source_intrs
+based on width of interrupt port/pin.
+
+ttcps_v3_10:
+Added assert checks in XTtcPs_CalcIntervalFromFreq API.
+Modified xttcps_intr_example to make it generic, to
+use any intended TTC device.
+In XTtcPs_SetOptions() default condition will never reach. So replaced
+switch case as if-else.
+Added interrupt handler in driver. Updated examples to use ttc driver
+interrupt handler.
+Added the stack usage,memory foot-print and execution time for
+each API, compiler informations, assumptions of use in the header file
+and mentioned the parameters range in the source code.
+
+
+standalone_v7_1:
+Updated Cortexr5 BSP to skip access to secure address sapce,
+if processor is marked as non secure in trustzone setting.
+Fixed Cortexr5 events in arm/cortexr5/xpm_counter.c.
+Updated Cortexr5 BSP to fix infinite loop in Xil_MemMap API.
+Removed NULL pointer de-referencing from xil_printf function.
+Updated xil_smc.h to add SMC IDs related to Versal.
+Updated Init_MPU API in Cortexr5 BSP to print warning on console,
+if DDR size is not in power of 2.
+Updated transaltion table for versal
+ARMv8/64bit/platform/versal/translation_table.S
+to mark DDR_CH_1, DDR_CH_2 and DDR_CH_3 regions as memory, based on
+respective region
+sizes in hdf.
+Optimized Xil_DCacheInvalidateRange API in ARMv8 BSP, to fix performace drop
+obseved on Versal platform.
+Updated Xil_DCacheFlushRange to point to Xil_DCacheInvalidateRange API, since
+both
+APIs executes same functinality. It has been done to avoid code duplication.
+Added MPU mapping for AIE address space in Cortexr5 BSP
+arm/cortexr5/platform/versal/mpu.c.
+
+
 Changes for 2019.1
 ===============================
 v_hdmiphy1_v1_0:
@@ -54,9 +303,6 @@ device driver interrupt handling.
 axiethernet_v5_9:
 In tcl use unique global variables to fix bsp generation for certain designs.
 
-bram_v4_3:
-Fix compiler warnings for bram if it is placed after 4GB.
-
 canfd_v2_1:
 Update fifo number to read data from RX FIFO 0 or RX FIFO 1
 Fix incorrect setting of data phase buad rate prescaler
@@ -65,9 +311,6 @@ csudma_v1_4:
 Adds PSU_PMU processor check to skip the Flushing cache memory and Invalidating
 cache memory API's for PMU Microblaze platform.
 Add support for versal IP name.
-
-clockps_v1_1:
-Fix IAR compilation warnings.
 
 emaclite_v4_4:
 Fix poll example failure on microblaze platform.
@@ -86,7 +329,6 @@ portZynqUltrascale.c for A53. It fixes CR#1014562
 Upgraded FreeRTOS to new version 10.1.1 (PR#10686)
 Provided feature for stream buffer and message buffer.(PR#10459)
 Add support for hard float in R5 freertos adapter.
-Add FPU support for A53 processor.
 
 hwicap_v11_2:
 Updated the Number of words per frame as mention in the ug570.
@@ -135,9 +377,9 @@ Clear DMA_DST_ADDR_MSB register properly
 Added idling support.
 Set recommended clock and data tap delay values for 40MHZ,
 100MHZ and 150MHZ frequencies(CR#1023187)
+Fixed warnings in the application.
 Fixed data alignment warnings on IAR compiler(CR#1025530)
 Fixed compilation error in lqspi example on IAR compiler.
-Fixed compilation error in LqspiRead function.
 
 scugic_v4_0:
 Update get_psu_interrupt_id proc to return multiple interrupt IDs
@@ -154,7 +396,6 @@ Add support for Cache Invalidation after the DMA is complete
 Add UHS mode support for Microblaze platform
 Disable calls to dll_reset APIs for versal platforms
 Fix data alignment on IAR compiler
-Fix MISRA-C violations
 
 spips_v3_2:
 Resolved MISRA-C:2012 violations in safety mode(CR#1016116)
@@ -325,7 +566,7 @@ DDR end address is not fixed at 2GB but derived from Vivado
 Using XilPM XPm_SetConfiguration API instead of using direct IPI calls for
 communicating with PMUFW.
 
-xilpm_v2_5:
+xilpm_v2_4:
 Add checksum support for IPI data
 Misra C fixes in XilPm
 Support for IAR compier
@@ -367,9 +608,7 @@ Add support for Ultra96 power button.
 gpiops_v3_5:
 Fixed MISRA-C suggested violations.
 Added support for Versal.
-
-gpio_v4_4:
-Updated Makefile for IAR compiler.
+Removed platform specific example and added that support in default file.
 
 Changes for 2018.3.1
 ===============================

@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -123,7 +121,7 @@
  *
  * during XStrm_Write():
  * first holding buffer write:    holding buffer
- *                                 writen  empty
+ *                                 written  empty
  *                                +--------------+
  *                                |//////|       |
  *                                +--------------+
@@ -181,7 +179,7 @@ xdbg_stmnt(u32 _xstrm_buffered;)
 *
 * @param    GetOccupancyFn specifies a routine to use to retrieve the occupancy
 *           in the actual FIFO. The true occupancy value needs to come through
-*           this streamer driver becuase it holds some of the bytes.
+*           this streamer driver because it holds some of the bytes.
 *
 * @return   N/A
 *
@@ -225,7 +223,7 @@ void XStrm_RxInitialize(XStrm_RxFifoStreamer *InstancePtr, unsigned FifoWidth,
 *
 * @param    GetVacancyFn specifies a routine to use to retrieve the vacancy in
 *           the actual FIFO. The true vacancy value needs to come through this
-*           streamer driver becuase it holds some of the bytes.
+*           streamer driver because it holds some of the bytes.
 *
 * @return   N/A
 *
