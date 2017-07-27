@@ -500,6 +500,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+#ifndef REMOVE_GPIO_FROM_NODE_RESET_INFO
 	{
 		.NodeId = NODE_GPIO,
 		.RstActionList= {
@@ -521,6 +522,7 @@ static const PmNodeResetInfo NodeRstData[] = {
 		.IdleHookArgs = 0U
 #endif
 	},
+#endif
 	{
 		.NodeId = NODE_PCIE,
 		.RstActionList= {
