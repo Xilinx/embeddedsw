@@ -11,6 +11,8 @@ SW workaround for TI DP83867 PHY Data integrity issues on KCU116/VCU118 Boards.
 
 llfifo_v5_2:
 CR#978769 Fix doxygen issues in the driver.
+Updated comments in the usage section as per example code.
+Fixed doxygen warnings in the driver.
 
 axidma_v9_4:
 CR#974218 Add support for cyclic DMA mode.
