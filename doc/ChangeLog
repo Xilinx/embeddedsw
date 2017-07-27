@@ -1,3 +1,1027 @@
+Changes for 2020.2
+===============================
+rfdc_v8_0::
+Added observation FIFO interrupts
+Interrupt setting functions only error out if both analogue and digital paths are disabled
+Added more DAC interrupts and fixed issue with GetEnabledInterrupts
+Multiband now reads its settings from the bitfile
+Now driver explicitly sets FIFO width when setting the mixer
+Now driver only gets calibration mode when setting/getting the mixer settings for Gen 1/2 devices
+Expand range of DSA for production Si
+Expand range of VOP for production Si
+Support for Dual Band IQ for new bondout
+Added observation FIFO and decimation functionality
+Added channel powerdown functionality
+Refactor to functionalize the FIFO width setting
+Fixed metal log print error in XRFdc_SetQMCSettings
+Fixed issues with the connected data initialization for multiband
+Allow non bypass datapath modes if digital path is enabled
+Added warning message if trying to incorrectly set QMC phase and QMC phase should only be allowed to be set in IQ pair
+Changed shutdown end state for Gen 3 Quad ADCs to reduce power consumption
+Refactor of clock distribution settings for improved power performance
+
+xilpm_v3_2:
+versal: Add bit inversion logic for CPM-PL interface
+versal: Add support to activate subsystem
+versal: Correct error message in XPm_ProcessCmd
+versal: Toggle NPI Reset after VCCINT power up
+versal: Disable debug macro by default
+versal: Add redundancy checks
+versal: Add blind write checks
+Update self suspend example for versal
+versal: Skip the sysmon functionality for QEMU platform
+versal: Remove use of global sysmon access
+versal: Update the feature check list
+versal: Skip CPM scan clear till CPM4 version
+versal: Update MACROs used in xilpm with Canonical defines
+versal: Add base support for pldevices
+versal: Add check while initializing GT Adrress array
+versal: Enable GIC proxy for RPU when LPD gets power down
+versal: Add support of XPm_FeatureCheck api in xilpm client
+versal: Remove unused function
+server: Remove dead code lines
+versal: Add support for power nodes in register notifier
+versal: Skip handling of PL clocks and resets
+versal: Add support for M60 device
+versal: Update cram trim value for all silicon platforms
+versal: Add IOCTL support for AIE ISR Clear
+versal: Add a wrapper to retrigger PlHouseClean.
+versal: Fix MISRA rule violations
+versal: Efficiently handle GT nodes for housecleaning
+versal: add pl alt clock nodes
+versal: Correct logic for NPD MemIc startup sequences
+versal: Add support for power rail control
+versal: Remove redundant checks
+versal: Update the AieMemInit sequence for ME PMEMinitialization
+versal: Fix in XPmBisr_RepairME() for 64 bit register write
+versal: Skip CPM scan clear for S80 devices
+versal: Add custom reset routines for PL POR reset
+versal: Remove topology hack to change ps por reset type
+versal: Remove subsystem CDO
+versal: Send PLM->PSM IPI for a CCIX design
+versal: Add support for Aie clk gating
+zynqmp: Remove L2 cache from RPU prealloc section
+versal: Request PMC_GPIO for ES2 version also
+versal: Notify all registered subsystem whenever any event is generated
+versal: Fix handling of FPD-PL and LPD-PL isolations
+Correct typos in function header
+versal: Fix in GetLatencyFromState()
+versal: Do not allow wakup of already running core
+versal: Add validation check for TargetNode inXPm_SetWakeUpSource()
+versal: Make internal function as static in xpm_api.c file
+versal: Fix in XPm_USBDxState()
+versal: Remove IPI_PMC post topology hook
+versal: Disable PUDC_B pin for ES1 PL workaround
+versal: Add support for SV60 device
+versal: Add support for H6H_2 SLR device
+versal: Remove custom PL domain state machine
+versal: Use IDCODE for Platform Version check in silicon
+versal: Use PMC RAM as GGS registers in IOCTL
+versal: Enhance debug prints
+versal: Move PL POR Status check before ES1 workaround
+versal: Sync xpm_nodeid.h with auto generated xpm_nodeid.h
+versal: Use 2 PMC and 2 PSM PGGS registers in IOCTL
+versal: Move Ioctl related APIs to xpm_ioctl.c
+versal: Use "+" operator instead of "|" in Pm_In32 or Pm_Out32
+versal: XPPU bug fixes and enhancements
+versal: Optimize memory size used by prints
+versal: Add IOCTL to get reset reason
+versal: Add support to check last reset reason
+
+csi2tx_v1_3:
+Makefile modification to support Parallel compilation.
+
+csi2txss_v1_4:
+Makefile modification to support Parallel compilation.
+
+deinterlacer_v3_4:
+Makefile modification to support Parallel compilation.
+
+dp12_v7_2:
+Makefile modification to support Parallel compilation.
+
+dp12rxss_v4_4:
+Makefile modification to support Parallel compilation.
+
+dp12txss_v5_3:
+Makefile modification to support Parallel compilation.
+
+dp14_v7_4:
+Makefile modification to support Parallel compilation.
+
+dp14rxss_v6_1:
+Makefile modification to support Parallel compilation.
+
+dphy_v1_5:
+Makefile modification to support Parallel compilation.
+
+dsi_v1_3:
+Makefile modification to support Parallel compilation.
+
+dsitxss_v2_1:
+Makefile modification to support Parallel compilation.
+
+hdcp1x_v4_5:
+Makefile modification to support Parallel compilation.
+
+hdcp22_cipher_v1_3:
+Makefile modification to support Parallel compilation.
+
+hdcp22_common_v2_2:
+Makefile modification to support Parallel compilation.
+
+hdcp22_mmult_v1_3:
+Makefile modification to support Parallel compilation.
+
+hdcp22_rng_v1_4:
+Makefile modification to support Parallel compilation.
+
+i2srx_v2_2:
+Makefile modification to support Parallel compilation.
+
+i2stx_v2_2:
+Makefile modification to support Parallel compilation.
+
+mpegtsmux_v1_2:
+Makefile modification to support Parallel compilation.
+
+sdi_common_v1_3:
+Makefile modification to support Parallel compilation.
+
+sdiaud_v2_2:
+Makefile modification to support Parallel compilation.
+
+sysmonpsv_v2_0:
+Added new APIS for Threshold config, Alarm config.
+Added new interrupt callback structure.
+Fixed MISRAC issues
+
+v_hdmi_common_v1_4:
+Makefile modification to support Parallel compilation.
+
+v_hdmitx_v2_6:
+Makefile modification to support Parallel compilation.
+
+v_sditx_v3_1:
+Makefile modification to support Parallel compilation.
+
+v_sditxss_v4_1:
+Makefile modification to support Parallel compilation.
+
+vphy_v1_11:
+Makefile modification to support Parallel compilation.
+
+vtc_v8_3:
+Makefile modification to support Parallel compilation.
+
+
+v_sdirxss_v3_1:
+Add versal VCK190 audio video passthrough app
+
+v_sdirx_v2_1:
+Update the framerate in the Videostream struct
+
+csi_v1_5:
+Add support for YUV 420 8bits
+
+v_hdmiphy1_v2_1:
+Removed redundant GTHE3 related code
+
+can_v3_5:
+Update the Makefile for parallel execution.
+
+canfd_v2_4:
+Update the Makefile for parallel execution.
+
+canps_v3_5:
+Fixed MISRA-C violations.
+Fixed multiple packets send issue in interrupt mode.
+Update the Makefile for parallel execution.
+
+gpiops_v3_8:
+Update the Makefile for parallel execution.
+
+gpio_v4_7:
+Update the Makefile for parallel execution.
+
+iicps_v3_12:
+Update the Makefile for parallel execution.
+
+lwip211_v1_3:
+Fix RX BD setup order.
+Fix check for base address in Zynq clock setup.
+Fix mkfs usage in lwip examples.
+Fix RX pbuf freeing in GEM error handling path.
+Add axiethernet support on versal silicon.
+Fix lwip application failure on VCU118 board.
+Use Xil_In32 and Xil_Out32 functions to read/write registers.
+Modify the sys_now function to return milliseconds instead of
+ticks to fix lwip timers issue.
+While using for loop to create a delay we are not seeing any delay
+with default O2 optimization. So, replace the for loop delay code
+with sleep for a 1-second delay to fix the issue.
+
+scuwdt_v2_3
+Update the Makefile for parallel execution.
+Fixed MISRA-C violations.
+
+sdps_v3_10
+Add support for SD/eMMC Non-Blocking Read
+
+uartlite_v3_5:
+Update the Makefile for parallel execution.
+
+zdma_v1_10:
+Expose ZDMA scatter gather and enable APIs for direct use.
+Update zdma driver makefile for parallel execution.
+
+rtcpsu_v1_10:
+Update the Makefile for parallel execution.
+Fixed MISRA-C violations.
+
+wdttb_v5_1:
+Fixed MISRAC violations.
+Corrected fabric watchdog interrupt id in example.
+Added window watchdog support in peripheral test app.
+Update the Makefile for parallel execution.
+
+wdtps_v3_4:
+Update the Makefile for parallel execution.
+
+v_axi4s_remap_v1_3:
+Added example to this driver.
+
+v_csc_v2_5:
+Driver version is updated as IP version is changed
+
+v_deinterlacer_v7_2:
+Driver version is updated as IP version is changed
+
+v_demosaic_v1_2:
+Driver version is updated as IP version is changed
+
+v_frmbuf_rd_v4_3:
+Driver version is updated as IP version is changed
+
+v_frmbuf_wr_v4_3:
+Driver version is updated as IP version is changed
+
+v_gamma_lut_v1_2:
+Driver version is updated as IP version is changed
+
+v_hcresampler_v3_2:
+Driver version is updated as IP version is changed
+
+v_hscaler_v3_4:
+Driver version is updated as IP version is changed
+
+v_mix_v6_1:
+Driver version is updated as IP version is changed
+
+v_letterbox_v2_3:
+Driver version is updated as IP version is changed
+
+v_multi_scaler_v1_2:
+mdd file is updated to call driver wrt to IP version used.
+
+v_scenechange_v1_2:
+Driver version is updated as IP version is changed
+
+v_tpg_v8_3:
+Driver version is updated as IP version is changed
+
+v_vcresampler_v3_2:
+Driver version is updated as IP version is changed
+
+v_vscaler_v3_2:
+Driver version is updated as IP version is changed
+
+vprocss_v2_8:
+Driver version is updated as IP version is changed
+
+clk_wiz_v1_4:
+Add updates for clocking wizard.
+Add set rate capability for zynqmp.
+Add setrate function for Hz.
+Modify Makefile for parallel execution.
+
+llfifo_v5_5:
+Add type casting to fix gcc warnings in xllfifo.c and xstreamer.c.
+Consolidate and add all the macros of llfifo src path xdebug.h to
+common xdebug.h and remove xdebug.h file from llfifo src path to
+fix the build failure which is caused by using the same file name
+in BSP and drivers.
+
+axicdma_v4_8:
+Fix the compilation error for xreg_cortexa9.h preprocessor in
+xaxicdma_example_hybrid_intr.c example.
+Fix the data check failure in xaxicdma_example_hybrid_poll example
+by adding Cache operations for receive and destination buffers.
+Update axicdma driver makefile for parallel execution.
+Fix the compilation error for xreg_cortexa9.h preprocessor in
+xaxicdma_example_sg_intr and xaxicdma_example_simple_intr examples.
+Modify the BUFFER_BYTESIZE to make the buffer length cache-line
+aligned in both the xaxicdma_example_hybrid_poll and
+xaxicdma_example_hybrid_intr examples and also add cache
+operations for destination and receive buffers. It fixes the
+xaxicdma_example_hybrid_intr data check failure.
+Consolidate and add all the macros of axicdma src path xdebug.h to
+common xdebug.h and remove xdebug.h file from axicdma src path to
+fix the build failure which is caused by using the same file name
+in BSP and drivers.
+
+axiethernet_v5_11:
+Fix bsp generation error for multiple axieth instance design.
+Add support for versal silicon.
+Consolidate and add all the macros of axiethernet src path xdebug.h
+to common xdebug.h and remove xdebug.h file from axiethernet src
+path to fix the build failure which is caused by using the same file
+name in BSP and drivers.
+
+axidma_v9_12:
+Fix the MaxTransferLen calculation for MM2S and S2MM in axidma micro
+mode.
+Update axidma driver makefile for parallel execution.
+Consolidate and add all the macros of axidma src path xdebug.h to
+common xdebug.h and remove xdebug.h file from axidma src path to
+fix the build failure which is caused by using the same file name
+in BSP and drivers.
+
+usbpsu_v1_8:
+Updated makefile for parallel make execution
+Add hibernation support in versal.
+
+xxvethernet_v1_5:
+Fix intr_mcdma example compilation on microblaze platform.
+Update the makefile for parallel execution.
+
+axivdma_v6_8:
+Add the frame data check in the interrupt example.
+Revert the frames stores canonical definition changes to
+fix the compilation failures and add a workaround to match the
+number of frame stores of model parameter and user-defined config
+parameter.
+Update axivdma driver makefile for parallel execution.
+Consolidate and add all the macros of axivdma src path xdebug.h to
+common xdebug.h and remove xdebug.h file from axivdma src path to
+fix the build failure which is caused by using the same file name
+in BSP and drivers.
+
+mcdma_v1_5:
+Add XMcDma_BdGetAppWord() function declaration to fix the gcc
+warning in mcdma integration test suite.
+Update mcdma driver makefile for parallel execution.
+
+dp14txss_v6_4:
+Updated for HDCP 2.3
+
+hdcp22_rx_v3_0:
+Updated for HDCP 2.3
+Allow user selection of hdcp 2.2 broadcasting
+
+hdcp22_rx_dp_v2_0:
+Updated for HDCP 2.3
+
+hdcp22_tx_v3_0:
+Updated for HDCP 2.3
+
+hdcp22_tx_dp_v2_0:
+Updated for HDCP 2.3
+
+mipicsiss_v1_4:
+Add support for YUV 420 8bits
+Updated for HDCP 2.3
+
+uartps_v3_10:
+Updated makefile to support parallel execution.
+
+v_hdmirx_v2_6:
+Add non-zero check for timing parameters
+
+v_hdmirx1_v1_1:
+Add protection for Max FRL rate
+Add support for 3D audio
+
+v_hdmirxss_v6_0:
+Updated for HDCP 2.3
+Allow user selection of hdcp protocol
+clean up AviInfoFrame upon stream down
+Implement pixel drop for DVI
+
+v_hdmirxss1_v2_0:
+Updated for HDCP 2.3
+Add protection for Max FRL rate
+Add support for 3D audio
+Allow user selection of hdcp protocol
+clean up AviInfoFrame upon stream down
+Implement pixel drop for DVI
+
+v_hdmitx1_v1_1:
+Add support for 3D audio
+
+v_hdmitxss_v6_0:
+Updated for HDCP 2.3
+
+v_hdmitxss1_v2_0:
+Updated for HDCP 2.3
+Update max_frl_rate in Edid based on device in PT examaple
+Add support for 3D audio
+
+video_common_v4_10:
+Fix field1 values of 1440x480i/576i modes
+
+cpu_v2_12:
+Updated tcl to get cpuid for the pmufw case
+
+mutex_v4_6:
+Fix the redefinition of cannonicals.
+
+emaclite_v4_6:
+Fix self test failure on zynqmp platform.
+Fix resource error in importing xemaclite_internal_loopback_example.
+Update the makefile for parallel execution.
+
+csudma_v1_7:
+Reorganize transfer function and cache operations.
+Fix MISRA-C violations in csudma driver.
+Remove XCsuDma_IsBusy() check in XCsuDma_SetConfig() API.
+Update csudma driver makefile for parallel execution.
+
+emacps_v3_12:
+Remove emacps 1588 examples.
+
+ipipsu_v2_7:
+Update the Makefile for parallel execution.
+
+ospipsv_v1_3:
+Added support for 64-bit address read from 32-bit proc.
+Added support for Stacked mode.
+Added support for reading C_OSPI_MODE param.
+Added flash_config header file in the examples and added dependency.props file as required.
+Added support for ISSI and Gigadevice parts.
+Update the Makefile for parallel execution.
+Clear the ISR register for polled transfers.
+
+resetps_v1_4:
+Updated the Makefile to support parallel make execution.
+
+xilsecure_v4_3:
+Added hash comparison and modified input data string "hell" to "XILINX"
+in xilsecure_sha_example.c.
+Initialized Status variable with XST_FAILURE in xilsecure library.
+Removed SHA2 related reference is xilsecure library.
+Added Validation of input parameters.
+Added startup acitivities initiated by PLM.
+Limited the accessing of file as interrupts to be registered only when
+psv_pmc is defined.
+Added tamper response process.
+Added support for ECDSA P521 curve.
+Added example for ECDSA.
+Added sha3 64bit support.
+Asserts are disabled by default.
+Added check for all DPACM efuse bits.
+Added Temporal redundancy check for XSecure_EcdsaVerifySign.
+Added input validations for SHA, AES, RSA, SSS and void functions.
+Masked asserts by default.
+Added additional errors for crypto state mismatch.
+Resolved MISRA-C vilations in XilSecure library.
+Added blindwrite checks for XSecure_AesCfgKupIv.
+Deprecated family key support.
+Replaced repetitive code with function for configuration of PMC DMA channels.
+Moved SecureClear API to xilloader.
+Changed const variables used in KAT functions to file static variables.
+Clear KUP register after use or in failure.
+Fixed hang in secure cases caused due to SSS configuration in case of Parallel
+DMA enabled.
+Validate SIGR and SIGS is within [1, n - 1].
+
+xilskey_v7_0:
+Fixed bug in XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc return Status.
+Rmoved SHA2 related references from xilskey library.
+Black key array size increased to accommodate GCM tag also.
+Added shutter value to xilskey puf registration example.
+Added successfully ran print to xilskey examples.
+Renamed xilskey puf registration and regeneration example files.
+Added platform specific macro to Xilskey_GetSlrNum to make sure it
+compiles only for Ultrascale designs.
+Resolved MISRA-C violations and Coverity Warnings.
+
+xilnvm_v2_1:
+Support added to write glitch configuration data.
+Support added to program eFUSE halt boot bits to stop at ROM stage.
+Minor enhancements and few bug fixes are done and modified the read pattern in
+efuse example.
+Resolved MISRA-C violations and Coverity warnings.
+
+xilpuf_v1_2:
+Corrected the length of PUF ID passed in XPuf_ShowData.
+Resolved MISRA-C violations and Coverity warnings.
+Enabled Global Variation Filter by default.
+Changes default shutter value of PUF.
+
+versal_plm:
+Increased stack size to 6KB
+Updated flags for PLM to -Os and LTO
+Added startup task for xilsecure
+MISRA-C fixes
+
+xilpdi_v1_2:
+Validated unauthenticated fields in Metaheader for ENC only cases
+Added eFuse IV support
+MISRA-C fixes
+
+xilplmi_v1_2:
+Added APIs in XilPlmi to handle SET BOARD and GET BOARD commands
+Added printing command details for errors
+Added APIs to for parallel DMA support
+Added MACRO to disable prints to UART
+Added support for external WDT in PLM
+Added support to configure NPLL for master SLR devices
+Added disabling and clearing of errors for custom actions
+Added redundancy checks to XPlmi_MemCmp
+Made XPlmi_Strcpy and XPlmi_Strcat safe functions
+Added basic PLM Runtime Configuration Registers
+Set the clock source to IRO before SRST for ES1
+Store and Verify DFx metadata
+Add FuncID to XLoader_RestartImage
+MISRA-C fixes
+
+xilloader_v1_2:
+Added support for OSPI dual stacked mode
+Unmount file system after loading PDIs in XilLoader
+Added 64 bit destination address support for qspi, ospi, SBI and DDR boot
+modes
+Added support for macronix part P/N:MX25U12835F
+Forced set Cdn bit to 1 for SD boot modes
+Added support for configuring preallocs before loading image
+MISRA-C fixes
+Parallel DMA support for secure partitions
+Implemented image restore feature
+Validated unauthenticated fields in Metaheader for ENC only
+Added eFuse IV support
+Added Load Readback Pdi Cmd
+Added SBI reset release in SbiInit
+Added PlHouseCleaning in case of PL loading error
+Added support for Authenticated JTAG
+Added redundancy in calling security critical APIs
+Added ImageInfo cmds
+Added support for GigaDevice OSPI flash parts
+Added code to clear Chunk Buffer after loading PDI
+Added code to store and verify DFx metadata
+Added SD raw boot support to subsystem restart
+
+axipmon_v6_9:
+Updated makefile for parallel make execution
+
+axis_switch_v1_4:
+Updated makefile for parallel make execution
+
+bram_v4_5:
+Updated makefile for parallel make execution
+
+clockps_v1_3:
+Modify Makefile to support parallel make execution
+
+coresightps_dcc_v1_8:
+Updated makefile for parallel make execution
+
+cpu_cortexa53_v1_8:
+Updated makefile for parallel make execution and incremental build support.
+
+cpu_cortexa72_v1_2:
+Updated makefile for parallel make execution and incremental build support.
+
+cpu_cortexa9_v2_10:
+Updated makefile for parallel make execution and incremental build support.
+
+cpu_cortexr5_v1_8:
+Updated makefile for parallel make execution and incremental build support.
+Updated tcl to support armclang compiler for Cortex-R5.
+
+ddrcpsu_v1_3:
+Updated makefile for parallel make execution
+
+ddrps_v1_2:
+Updated makefile for parallel make execution
+
+ddrpsv_v1_3:
+Updated makefile for parallel make execution
+Added detailed defines for all NOC IPs in design and derive canonicals
+Fixed xddrpsv_handle_address_details proc
+
+dmaps_v2_7:
+Updated makefile for parallel make execution
+
+hwicap_v11_4:
+Updated makefile for parallel make execution
+
+iic_v3_7:
+Updated makefile for parallel make execution
+Added conditional flushing of RxFIFO
+
+intc_v3_12:
+Added software interrupt support.
+Updated tcl to support interrupts traversed through OR gate.
+Updated makefile for parallel make execution and incremental build support.
+
+iomodule_v2_9:
+Updated makefile for parallel make execution and incremental build support.
+
+mbox_v4_5:
+Updated makefile for parallel make execution
+
+nandps_v2_6:
+Update Makefile for parallel make execution
+Remove realpath command
+
+nandpsu_v1_7:
+Update Makefile for parallel make execution
+Remove realpath command
+
+pmonpsv_v2_1:
+Updated makefile for parallel make execution
+
+prc_v2_1:
+Updated makefile for parallel make execution
+
+prd_v2_1:
+Updated makefile for parallel make execution
+
+qspips_v3_8:
+Updated Makefile to support parallel make execution
+
+qspipsu_v1_12:
+Update Makefile for parallel make execution
+Update driver example to remove redundant code
+Add support for Macronix and ISSI serial nor flash
+Remove realpath command
+
+scugic_v4_3:
+Updated makefile for parallel make execution and incremental build support.
+Updated tcl to support interrupt ID generation for broader range of HW designs
+having slice/conact/OR gate combinations
+
+scutimer_v2_3:
+Update Makefile for parallel make execution
+
+scuwdt_v2_3:
+Update Makefile for parallel make execution.
+Fixed MISRA-C violations.
+
+sdps_v3_10:
+Updated makefile for parallel make execution
+Added support to Check Transfer Completion Separately from Read and Write APIs
+Added support for SD/eMMC Non-Blocking Read
+Prevent removing pull up on D3 line
+Read 16Bit value for Block Size Register
+Fixed sector offset issue with Non-HCS cards in SDPS Raw example
+Modify power cycle API to poll for SD bus lines to go low
+
+spi_v4_7:
+Updated the Makefile to support parallel make execution
+Update tcl file to add XPAR_SPI_0_FIFO_DEPTH to the configuration structure
+Fill txfifo with data less than or equal to fifo depth
+Remove realpath command
+
+srio_v1_4:
+Updated makefile for parallel make execution and incremental build support.
+
+tft_v6_3:
+Updated makefile for parallel make execution
+
+tmr_inject_v1_3:
+Updated makefile for parallel make execution and incremental build support.
+
+tmr_manager_v1_2:
+Updated makefile for parallel make execution and incremental build support.
+
+tmrctr_v4_7:
+Updated makefile for parallel make execution and incremental build
+support.
+
+trafgen_v4_4:
+Updated makefile for parallel make execution
+
+ttcps_v3_12:
+Updated makefile for parallel make execution and incremental build support.
+
+uartns550_v3_7:
+Updated makefile for parallel make execution
+
+uartpsv_v1_3:
+Updated makefile for parallel make execution
+Fixed MISRA-C violations
+
+usb_v5_5:
+Updated makefile for parallel make execution
+
+usbps_v2_6:
+Updated makefile for parallel make execution
+
+xilffs_v4_4:
+Updated makefile for parallel make execution
+
+xilfpga_v5_3:
+Added user configurable Enable/Disable Options for the PL configuration
+registers readback and configuration Data readback functionality
+Replaced the asserts with input validations checks for non void API's
+Updated Makefile for parallel make execution
+Fixed ReqBuffer garbage data issue
+clearing the AES key from the KUP register if the Aes Decryption Result is
+GCM_TAG_MISMATCH
+fix to avoid the user memory-erasing
+fix for incorrect secure flags check
+Added support for versal platform
+
+standalone_v7_3:
+Corrected CPACR_EL1 settings in A53 64 bit boot code
+Added armclang compiler support for Cortex-R5 BSP
+Updated makefile for parallel make execution and incremental build support.
+Fix  Cortex-A72 BSP translation table entries for DDR regions
+Added selftest routine for Microblaze
+Modified Init_MPU function in Cortex-R5 BSP, to update Mpu_Config.
+Moved strcpy, strcat, memcpy, memcmp functions from XilPlmi to
+standalone/src/common/xil_util.c
+Fixed issues reported by MISRA C and coverity too
+
+freertos10_xilinx_v1_7:
+Updated porting layer, to support FreeRTOS based applications as EL1 domU guest over Xen.
+Updated makefile for parallel make execution and incremental build support.
+Updated pxPortInitialiseStack function in A53 porting layer to make it in sync
+with portRESTORE_CONTEXT. It fixes FreeRTOS crash issue, when configUSE_TASK_FPU_SUPPORT is set to 2.
+Added new example freertos_intr_example, to demonstrate interrupt
+handling from FreeRTOS based applications.
+
+dpdma_v1_3:
+Fixed MISRAC rule violations
+Moved variable declarations from header file to .c files
+Fixed C++ compilation issues.
+
+dppsu_v1_3:
+Fixed gcc warnings
+Used lane count number from MPSoC IP configuration
+Extern "C" added to header files
+
+tpg_v3_3:
+Updated makefile for parallel make execution
+
+audio_formatter_v1_2:
+Updated makefile for parallel make execution
+
+xilsem_v1_2 :
+Status: Pre-Production
+Added debug API
+Resolved CRAM SEU error correction bugs
+
+devcfg_v3_7:
+Updated makefile for parallel make execution
+
+avbuf_v2_4:
+Extern "C" added to header file for c++ compilatio
+
+axipcie_v3_3:
+Updated makefile for parallel make execution
+
+pciepsu_v1_2:
+Updated makefile for parallel make execution
+
+xdmapcie_v1_2:
+Updated makefile for parallel make execution
+Versal root port PL-PCIE4 bridge support
+
+cframe_v1_2:
+Updated makefile for parallel make execution
+
+cfupmc_v1_2:
+Updated makefile for parallel make execution
+
+sysmon_v7_7:
+Updated makefile for parallel make execution and incremental build support.
+Corrected Macros according to documentation
+
+sysmonpsu_v2_7:
+Updated makefile for parallel make execution and incremental build support.
+Fixed MISRAC mandatory and Advisory issues.
+
+xadcps_v2_5:
+Updated makefile for parallel make execution
+
+zynqmp_fsbl:
+Added armclang support for cortexr5 fsbl
+Added support for checksum in FSBL if secure code is excluded
+
+zynq_fsbl:
+Add support for 2Gb flash parts in Zynq FSBL
+
+New Files Added for 2020.2:
+MIT SPDX License:
+XilinxProcessorIPLib/drivers/aienginev2/data/aienginev2.mdd
+XilinxProcessorIPLib/drivers/aienginev2/data/aienginev2.tcl
+XilinxProcessorIPLib/drivers/aienginev2/src/Makefile
+XilinxProcessorIPLib/drivers/aienginev2/src/common/xaie_helper.c
+XilinxProcessorIPLib/drivers/aienginev2/src/common/xaie_helper.h
+XilinxProcessorIPLib/drivers/aienginev2/src/common/xaielib.c
+XilinxProcessorIPLib/drivers/aienginev2/src/common/xaielib.h
+XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_core.c
+XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_core.h
+XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_core_aie.c
+XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_core_aie.h
+XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_elfloader.c
+XilinxProcessorIPLib/drivers/aienginev2/src/core/xaie_elfloader.h
+XilinxProcessorIPLib/drivers/aienginev2/src/dma/xaie_dma.c
+XilinxProcessorIPLib/drivers/aienginev2/src/dma/xaie_dma.h
+XilinxProcessorIPLib/drivers/aienginev2/src/dma/xaie_dma_aie.c
+XilinxProcessorIPLib/drivers/aienginev2/src/dma/xaie_dma_aie.h
+XilinxProcessorIPLib/drivers/aienginev2/src/events/xaie_events.c
+XilinxProcessorIPLib/drivers/aienginev2/src/events/xaie_events.h
+XilinxProcessorIPLib/drivers/aienginev2/src/events/xaie_events_aie.h
+XilinxProcessorIPLib/drivers/aienginev2/src/global/xaiegbl.c
+XilinxProcessorIPLib/drivers/aienginev2/src/global/xaiegbl.h
+XilinxProcessorIPLib/drivers/aienginev2/src/global/xaiegbl_defs.h
+XilinxProcessorIPLib/drivers/aienginev2/src/global/xaiegbl_params.h
+XilinxProcessorIPLib/drivers/aienginev2/src/global/xaiegbl_regdef.h
+XilinxProcessorIPLib/drivers/aienginev2/src/global/xaiegbl_reginit.c
+XilinxProcessorIPLib/drivers/aienginev2/src/interrupt/xaie_interrupt.c
+XilinxProcessorIPLib/drivers/aienginev2/src/interrupt/xaie_interrupt.h
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_baremetal.c
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_baremetal.h
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_cdo.c
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_cdo.h
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_debug.c
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_debug.h
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_linux.c
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_linux.h
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_metal.c
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_metal.h
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_sim.c
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xaie_sim.h
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/xaie_io.c
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/xaie_io.h
+XilinxProcessorIPLib/drivers/aienginev2/src/locks/xaie_locks.c
+XilinxProcessorIPLib/drivers/aienginev2/src/locks/xaie_locks.h
+XilinxProcessorIPLib/drivers/aienginev2/src/locks/xaie_locks_aie.c
+XilinxProcessorIPLib/drivers/aienginev2/src/locks/xaie_locks_aie.h
+XilinxProcessorIPLib/drivers/aienginev2/src/memory/xaie_mem.c
+XilinxProcessorIPLib/drivers/aienginev2/src/memory/xaie_mem.h
+XilinxProcessorIPLib/drivers/aienginev2/src/npi/xaie_npi.c
+XilinxProcessorIPLib/drivers/aienginev2/src/npi/xaie_npi.h
+XilinxProcessorIPLib/drivers/aienginev2/src/npi/xaie_npi_aie.c
+XilinxProcessorIPLib/drivers/aienginev2/src/pl/xaie_plif.c
+XilinxProcessorIPLib/drivers/aienginev2/src/pl/xaie_plif.h
+XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_clock.c
+XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_clock.h
+XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_ecc.c
+XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_ecc.h
+XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_reset.c
+XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_reset.h
+XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_reset_aie.c
+XilinxProcessorIPLib/drivers/aienginev2/src/pm/xaie_reset_aie.h
+XilinxProcessorIPLib/drivers/aienginev2/src/sim/xaiesim.c
+XilinxProcessorIPLib/drivers/aienginev2/src/sim/xaiesim.h
+XilinxProcessorIPLib/drivers/aienginev2/src/stream_switch/xaie_ss.c
+XilinxProcessorIPLib/drivers/aienginev2/src/stream_switch/xaie_ss.h
+XilinxProcessorIPLib/drivers/aienginev2/src/timer/xaie_timer.c
+XilinxProcessorIPLib/drivers/aienginev2/src/timer/xaie_timer.h
+XilinxProcessorIPLib/drivers/aienginev2/src/trace/xaie_trace.c
+XilinxProcessorIPLib/drivers/aienginev2/src/trace/xaie_trace.h
+XilinxProcessorIPLib/drivers/aienginev2/src/xaiengine.h
+XilinxProcessorIPLib/drivers/axidma/src/xaxidma_linux.h
+XilinxProcessorIPLib/drivers/axidma/src/xaxidma_status.h
+XilinxProcessorIPLib/drivers/clk_wiz/examples/xclk_wiz_setrate_example.c
+XilinxProcessorIPLib/drivers/dfxasm/data/dfxasm.mdd
+XilinxProcessorIPLib/drivers/dfxasm/data/dfxasm.tcl
+XilinxProcessorIPLib/drivers/dfxasm/examples/xdfxasm_example.c
+XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.c
+XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm.h
+XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_g.c
+XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_hw.h
+XilinxProcessorIPLib/drivers/dfxasm/src/xdfxasm_sinit.c
+XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xvid_clk_gen.c
+XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_linux.h
+XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_status.h
+XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h
+XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h
+XilinxProcessorIPLib/drivers/rfdc/examples/xrfdc_gen2_or_below_clocked_example.c
+XilinxProcessorIPLib/drivers/rfdc/examples/xrfdc_gen3_clocked_example.c
+XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_xfer.h
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_ctlr.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_ctlr.h
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_gpio.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_gpio.h
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_iic.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_iic.h
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_init_table.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_init_table.h
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_spi.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/fzetta_fmc/fzetta_fmc_spi.h
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform.h
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/platform_config.h
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/xsdi_menu.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/xuhdsdi_example.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/idt_8t49n24x.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/idt_8t49n24x.h
+lib/bsp/standalone/src/arm/common/armclang/_sys_close.c
+lib/bsp/standalone/src/arm/common/armclang/_sys_exit.c
+lib/bsp/standalone/src/arm/common/armclang/_sys_iserror.c
+lib/bsp/standalone/src/arm/common/armclang/_sys_istty.c
+lib/bsp/standalone/src/arm/common/armclang/_sys_open.c
+lib/bsp/standalone/src/arm/common/armclang/_sys_read.c
+lib/bsp/standalone/src/arm/common/armclang/_sys_write.c
+lib/bsp/standalone/src/arm/cortexr5/armclang/ARM_argv_veneer.c
+lib/bsp/standalone/src/arm/cortexr5/armclang/Makefile
+lib/bsp/standalone/src/arm/cortexr5/armclang/asm_vectors.S
+lib/bsp/standalone/src/arm/cortexr5/armclang/boot.S
+lib/bsp/standalone/src/arm/cortexr5/armclang/cpu_init.S
+lib/bsp/standalone/src/arm/cortexr5/armclang/xil-crt0.S
+lib/bsp/standalone/src/arm/cortexr5/armclang/xpseudo_asm_armclang.h
+lib/bsp/standalone/src/common/xil_printf.c
+lib/bsp/standalone/src/common/xil_printf.h
+lib/bsp/standalone/src/microblaze/microblaze_selftest.S
+lib/sw_apps/img_rcvry/data/img_rcvry.mss
+lib/sw_apps/img_rcvry/data/img_rcvry.tcl
+lib/sw_apps/img_rcvry/src/xbir_config.h
+lib/sw_apps/img_rcvry/src/xbir_http.c
+lib/sw_apps/img_rcvry/src/xbir_http.h
+lib/sw_apps/img_rcvry/src/xbir_i2c.c
+lib/sw_apps/img_rcvry/src/xbir_i2c.h
+lib/sw_apps/img_rcvry/src/xbir_main.c
+lib/sw_apps/img_rcvry/src/xbir_nw.c
+lib/sw_apps/img_rcvry/src/xbir_nw.h
+lib/sw_apps/img_rcvry/src/xbir_platform.c
+lib/sw_apps/img_rcvry/src/xbir_platform.h
+lib/sw_apps/img_rcvry/src/xbir_qspi.c
+lib/sw_apps/img_rcvry/src/xbir_qspi.h
+lib/sw_apps/img_rcvry/src/xbir_qspi_hw.h
+lib/sw_apps/img_rcvry/src/xbir_qspimap.h
+lib/sw_apps/img_rcvry/src/xbir_ssi.c
+lib/sw_apps/img_rcvry/src/xbir_ssi.h
+lib/sw_apps/img_rcvry/src/xbir_sys.c
+lib/sw_apps/img_rcvry/src/xbir_sys.h
+lib/sw_apps/img_rcvry/src/xbir_util.c
+lib/sw_apps/img_rcvry/src/xbir_util.h
+lib/sw_apps/img_rcvry/src/xbir_ws.c
+lib/sw_apps/img_rcvry/src/xbir_ws.h
+lib/sw_apps/imgsel/data/imgsel.mss
+lib/sw_apps/imgsel/data/imgsel.tcl
+lib/sw_apps/imgsel/src/psu_init.c
+lib/sw_apps/imgsel/src/psu_init.h
+lib/sw_apps/imgsel/src/xis_common.c
+lib/sw_apps/imgsel/src/xis_config.h
+lib/sw_apps/imgsel/src/xis_debug.h
+lib/sw_apps/imgsel/src/xis_error.h
+lib/sw_apps/imgsel/src/xis_i2c.c
+lib/sw_apps/imgsel/src/xis_i2c.h
+lib/sw_apps/imgsel/src/xis_main.c
+lib/sw_apps/imgsel/src/xis_main.h
+lib/sw_apps/imgsel/src/xis_qspi.c
+lib/sw_apps/imgsel/src/xis_qspi.h
+lib/sw_apps/imgsel/src/xis_singleimage.c
+lib/sw_apps/imgsel/src/xis_translation_table_a53_64.S
+lib/sw_apps/imgsel/src/xis_uart.c
+lib/sw_apps/imgsel/src/xis_update_a_b.c
+lib/sw_apps/srec_spi_bootloader/data/srec_spi_bootloader.tcl
+lib/sw_apps/srec_spi_bootloader/src/blconfig.h
+lib/sw_apps/srec_spi_bootloader/src/bootloader.c
+lib/sw_apps/srec_spi_bootloader/src/errors.h
+lib/sw_apps/srec_spi_bootloader/src/platform.c
+lib/sw_apps/srec_spi_bootloader/src/portab.h
+lib/sw_apps/srec_spi_bootloader/src/srec.c
+lib/sw_apps/srec_spi_bootloader/src/srec.h
+lib/sw_apps/versal_plm/misc/xospipsv_g.c
+lib/sw_apps/versal_plm/src/xplm_stl.c
+lib/sw_apps/versal_plm/src/xplm_stl.h
+lib/sw_services/xilplmi/src/xplmi_wdt.c
+lib/sw_services/xilplmi/src/xplmi_wdt.h
+lib/sw_services/xilpm/src/versal/server/xpm_debug.h
+lib/sw_services/xilpm/src/versal/server/xpm_ioctl.c
+lib/sw_services/xilpm/src/versal/server/xpm_ioctl.h
+lib/sw_services/xilpm/src/versal/server/xpm_pldevice.c
+lib/sw_services/xilpm/src/versal/server/xpm_pldevice.h
+lib/sw_services/xilpm/src/versal/server/xpm_rail.c
+lib/sw_services/xilpm/src/versal/server/xpm_rail.h
+lib/sw_services/xilsecure/examples/xilsecure_ecdsa_example.c
+lib/sw_services/xilsecure/src/versal/xsecure_ecdsacrvs.c
+lib/sw_services/xilsecure/src/versal/xsecure_ecdsacrvs.h
+lib/sw_services/xilsecure/src/versal/xsecure_init.c
+lib/sw_services/xilsecure/src/versal/xsecure_init.h
+lib/sw_services/xilsecure/src/versal/xsecure_tamper.c
+lib/sw_services/xilsecure/src/versal/xsecure_tamper.h
+lib/sw_services/xilsecure/src/versal/xsecure_elliptic.c
+lib/sw_services/xilsecure/src/versal/xsecure_elliptic.h
+lib/sw_services/xilsecure/src/versal/xsecure_ellipticcrvs.c
+lib/sw_services/xilsecure/src/versal/xsecure_ellipticcrvs.h
+lib/sw_services/xilskey/examples/xilskey_puf_regeneration_example.c
+lib/sw_services/xilskey/examples/xilskey_puf_registration_example.c
+XilinxProcessorIPLib/drivers/aienginev2/src/perfcnt/xaie_perfcnt.c
+XilinxProcessorIPLib/drivers/aienginev2/src/perfcnt/xaie_perfcnt.h
+MIT Full license:
+ThirdParty/bsp/freertos10_xilinx/examples/freertos_intr_example.c
+XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/xsdi_menu.h
+SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/ion.h
+XilinxProcessorIPLib/drivers/aienginev2/src/io_backend/ext/xlnx-ai-engine.h
+
 Changes for 2020.1
 ===============================
 axipcie_v3_2:
@@ -96,6 +1120,8 @@ qspipsu_v1_11:
 Removed LQSPI register access in Versal.
 Added APIs to support non-blocking DMA transfer.
 Reorganize the source code.
+Add clocking support.
+XQspiPsu_CfgInitialize returns XST_DEVICE_IS_STARTED when InstancePtr is already initialized.
 
 sdps_v3_9:
 Resolved coverity warnings
@@ -268,6 +1294,15 @@ Clean up old versions in axiethernet.mdd.
 zynqmp_fsbl:
 Added code changes to update the PMU GLOBAL register to indicate PL configuration
 Update the status of FSBL image encryption in PMU Global register 5 bit 3 for PMU
+Added support for ZCU216 board in ZynqMP FSBL.
+Updated FSBL to consider high DDR addresses for R5.
+Fixed logical error in XFsbl_ResetValidation for WDT reset error.
+Added Macronix 2G flash support to FSBL.
+Added support for ZCU208 board in ZynqMP FSBL.
+
+zynq_fsbl:
+Added macronix 1.8V 512MB flash support to Zynq FSBL.
+Fixed typo error in FlashReadID.
 
 xxvethernet_v1_4:
 Added dependencies.props for xxvethernet in data folder.
@@ -285,10 +1320,9 @@ Bug fix for threshold over flag assertion directly after applying settings
 axidma_v9_11:
 Removed xaxidma_example_multichan_sg_intr.c example from axidma driver.
 Clean up old versions in axidma.mdd.
-Fix simple interrupt example failure with smaller packet size.
 
-axivdma_v6_7:
-Clean up old versions in axivdma.mdd.
+xilflash_v4_8:
+Assign Status variable to XST_SUCCESS in success cases.
 
 xilpm_v3_1:
 Add LPD off and FPD off use-case support
@@ -309,11 +1343,9 @@ zynqmp: Add ADMA in pre-alloc section of RPU
 xilmailbox_v1_2:
 Updated the library example RemoteId variable to use IPIPSU driver canonical define.
 
-v_sditx_v3_0:
-Added new api to support 10/12 bpc
-
-v_sditxss_v4_0:
-Added 12-bit video depth support
+axivdma_v6_7:
+Clean up old versions in axivdma.mdd.
+Fix xaxivdma_example_intr example failure in release mode.
 
 hdcp1x_v4_4:
 Added repeater support fixes for DP
@@ -324,7 +1356,7 @@ Added 10/12 bpc and HFR support.
 v_sdirxss_v3_0:
 Added 10/12 bpc support.
 
-dp12_v7_1:
+dp12_v7_1 :
 Added a new API call XDp_RxSetAuxClkFilterValue
 
 dp12rxss_v4_3:
@@ -521,7 +1553,7 @@ updating license content to SPDX based licensing
 scutimer_v2_2:
 updating license content to SPDX based licensing
 
-scuwdt_v2_2:
+scuwdt_v4_2:
 updating license content to SPDX based licensing
 
 sd_fec_v1_1:
@@ -656,14 +1688,6 @@ updating license content to SPDX based licensing
 vprocss_v2_7:
 updating license content to SPDX based licensing
 
-intc_v3_11:
-Fixed coverity warnings in the driver.
-Fixed race condition for designs where interrupt source pin is connected to
-cascade slices.
-
-uartlite_v3_4:
-Don't generate defines in _g.c and xparameters.h file when IP is not
-configured for uart functionality.
 
 deinterlacer_v3_3:
 updating license content to SPDX based licensing

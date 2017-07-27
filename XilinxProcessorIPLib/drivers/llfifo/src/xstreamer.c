@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 * @file xstreamer.c
-* @addtogroup llfifo_v5_4
+* @addtogroup llfifo_v5_5
 * @{
 *
 * See xtreamer.h for a description on how to use this driver.
@@ -22,6 +22,8 @@
 * 2.00a hbm  01/20/10  Hal phase 1 support, bump up major release
 * 2.02a asa  12/28/11  The function XStrm_Read is changed to reset HeadIndex
 *		       to zero when all the bytes are read.
+* 5.5   sk   06/15/20  In XStrm_Read and XStrm_Write add type casting to fix
+*		       gcc warnings.
 * </pre>
 ******************************************************************************/
 
@@ -311,7 +313,7 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 		 *      of the fifo into the target buffer.
 		 *   2) Loop back around to transfer the last few bytes.
 		 */
-		else if ((((unsigned)DestPtr & 3) == 0) &&
+		else if ((((UINTPTR)DestPtr & 3) == 0) &&
 			 (BytesRemaining >= InstancePtr->FifoWidth)) {
 			xdbg_printf(XDBG_DEBUG_FIFO_RX, "XStrm_Read: Case 2: DestPtr: %p, BytesRemaining: %d, InstancePtr->FifoWidth: %d\n",
 				    DestPtr, BytesRemaining, InstancePtr->FifoWidth);
@@ -443,7 +445,7 @@ void XStrm_Write(XStrm_TxFifoStreamer *InstancePtr, void *BufPtr,
 		 */
 		if ((InstancePtr->TailIndex == 0) &&
 		    (BytesRemaining >= InstancePtr->FifoWidth) &&
-		    (((unsigned)SrcPtr & 3) == 0)) {
+		    (((UINTPTR)SrcPtr & 3) == 0)) {
 			FifoWordsToXfer =
 				BytesRemaining / InstancePtr->FifoWidth;
 
