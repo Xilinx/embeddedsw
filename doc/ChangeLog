@@ -1,3 +1,151 @@
+Changes for 2018.2
+===============================
+freertos10_xilinx_v1_1:
+Updated licensing information as per Freertos 10.0
+
+standalone_v6_7:
+Fixed compilation warnings in xil_sleeptimer.c
+Added API Xil_GetExceptionRegisterHandler.
+
+v_hdmirxss_v5_1:
+Fixed a bug in XV_HdmiRxSs_BrdgOverflowCallback
+Cleaned up the flow during HPD during the transition from HDMI 2.0 to HDMI 1.4
+Updated application's EDID and udpated XV_ConfigTpg and EnableColorBar
+
+v_hdmitxss_v5_1:
+Updated application's EDID and udpated XV_ConfigTpg and EnableColorBar
+
+v_hdmirx_v2_1:
+Fixed a bug in PioIntrHandler
+
+video_common_v4_4
+Fixed EDID parsing hanging issue
+Fixed timing parameters for 720p24, 720p25 and 720p30
+Removed dependency of math.h library from video_common's EDID parser
+
+v_hdmi_common_v1_1:
+Fixed XV_HdmiC_ParseAudioInfoFrame on SampleFrequency and SampleSize parsing
+
+cpu_v2_7:
+Replaced post_generate with post_generate_final.
+This change has been made to make sure that "#endif"
+in xparameter.h is placed at the end of file.
+Updated generate proc to set HW based compiler flags,
+earlier it was being done by HSI.It fixes CR#999895.
+
+i2srx_v1_1:
+Changed log APIs so that they take the i2srx instance as argument.
+Changed the channel status clear API to cover all the registers.
+
+i2stx_v1_1:
+Changed log APIs so that they take the i2stx instance as argument.
+Changed the channel status clear API to cover all the registers.
+
+iicps_v3_7:
+Changed Eeprom scanning code with the dynamic Eeprom scanning code
+from other examples. (CR#997545)
+Changed the data packing code as per the other examples.
+
+rfdc_v4_0:
+Add XRFdc_MTS_Sysref_Config API to enable/disable sysref.
+Update max VCO value to 13108MHz to support max DAC sample rate of 6.554MHz.
+Add macro to configure Threshold OFF mode.
+Adjust calculated latency by sysref period, where doing so results in closer alignment to the target latency.
+Corrected Set/Get MixerSettings API description for FineMixerScale parameter.
+Enable VCO Auto selection while configuring the clock.
+Add XRFdc_GetPLLConfig() API to get PLL Configurations.
+Add XRFdc_GetLinkCoupling() API to get the Link Coupling mode.
+Add clock configuration files for ZCU111 in examples.
+Updated the lmk configuration to support different revisions of zcu111
+Added support for configuring lmx 5.12GHz
+Removed CalibrationMode check for DAC in XRFdc_GetMixerSettings() and XRFdc_GetNyquistZone() APIs.
+Updated lower limit of Ref clock to 102.40625MHz.
+
+sdiaud_v1_1:
+Changed selftest to cover all the GUI parameters like UHD SDI standard and maximum number of channels.
+Changed clk phase bit default value.
+Changed Set Clk Phase API's 2nd argument description.
+Removed get version API call from the self test.
+Added new line standards.
+Added new API to enable rate control.
+Removed inline function which reads the IP version.
+Removed version register offset.
+Added rate control enable shift and mask.
+Added new macros for UHD-SDI standard and channels.
+
+lwip202_v1_1:
+Avoid redundant axi ethernet config lookup and intialize.
+Add Hot plug autodetect support for EmacPS and AXI Ethernet.
+
+spips_v3_1
+InputClockHz parameter copied in instance for use in
+application(CR#998910)
+
+sdps_v3_5
+Resolve compilation warnings for sdps driver
+
+sysmonpsu_v2_4
+Remove looping check for PL accessible bit
+Remove usleeps from AMS CTRL example
+
+Resetps_v1_1
+Fixed compilation warnings in resetps driver
+
+xilffs_v3_9
+Resolve build warnings for xilffs library
+
+xilisf_v5_11
+Added support for ISSI 256Mb series flash parts.
+
+nandpsu_v1_4
+Added ICCARM compiler support in driver.
+
+xilfpga_v4_1
+Added partial bitstream loading support.
+
+xilsecure_v3_1
+Added support for 512, 576, 704, 768, 992, 1024, 1152, 1408, 1536, 
+1984, 3072 key sizes, where previous version has support only 2048 and 
+4096 key sizes.
+On GCM tag failure, wrongly decrypted data will be zeroized.
+Added support of user fuses revocation for single partition image.
+Modified xilsecure_aes_example,input data will be over written with 
+decrypted data
+Added compilation flag for opting secure/non-secure environment, by 
+deault it is non -secure, mainly it is taken into account while 
+building PMUFW
+
+xilskey_v6_5
+Fixed hanging issue for BBRAM ZynqMP when program/zeroise is requested 
+while programming mode is in enabled state.
+
+zynqmp_fsbl
+For secure boot added support for enhanced user fuses revocation.
+Added ability to control VADJ values by reading FMC EEPROM for ZCU104
+PS-PL isolation will be removed in case of jtag boot mode if bitstream 
+is loaded prior to running FSBL
+
+zynq_fsbl
+ps7_postconfig would be run in case of jtag boot mode if bitstream is 
+loaded prior to running FSBL
+
+axidma_v9_7
+Add support for 64MB data transfer.
+
+zynqmp_pmufw:
+- Provide read and write access to AFI configuration registers
+- Enable PLL lock errors only after FSBL completes psu_init to avoid initial
+  PLL lock errors that occur during psu_init
+- Increased polling period of DDR status register to 1ms which is used during
+  DDR re-initialization since 100us is not enough for some DDR memories
+- Fix proc assignment in PmProcGetByWakeMask by returning proc pointer instead
+  of node structure pointer
+- If POS is enabled, signal the FSBL with boot type in APU only restart to
+  avoid infinite wait loop in FSBL
+- Use proper function(PmSlaveChangeState) when resetting the slave state
+- Use GGS4 bit 0 instead of GGS0 bit 29 to indicate healthy boot status during
+  recovery
+
 Changes for 2018.1
 ===============================
 v_hdmi_common_v1_0
@@ -29,46 +177,12 @@ Added interlaced support
 Added new memory format BGR8
 Added interrupt handler for ap_ready
 
-dptxss_v6_0:
-Updated the code to optimize the code for size.
-Added support for DP1.4.
-Added DP1.4 example designs.
-
-i2stx_v1_0:
-Added initial version of Xilinx I2S Tx soft IP driver.
-
 mcdma_v1_1:
 Added failure checks in the tcl to avoid bsp compilation errors incase
 stream interface is unconnected.
 Updated tcl logic to export proper values for CACHE_COHERENT properties
 when h/w is configured for single axi4 data interface.
 Fix unused variable warning.
-
-v_sditxss_v2_0
-Added support for YUV420 color format.
-Added support for scalable options.
-Added new API for core settings.
-
-v_sditx_v1_2
-Fixed payload calculation API for 3GB mode.
-Added support for YUV420 color format.
-
-v_sdirxss_v2_0
-Added support for YUV420 color format.
-Added kcu116 example design application.
-Added support for scalable options.
-Updated zcu106 example design to add audio support, remove the wait for 
-payload register read, support for fractional frame rate.
-
-v_sdirx_v1_2
-Infer video mode based on ST352 registers.
-Added support for YUV420 color format.
-
-sdiaud_v1_0
-Added initial version of SDI Audio Embed and Extract driver.
-
-spdif_v1_0
-Added initial version of SPDIF TX and RX driver.
 
 axicdma_v4_4:
 Extend AXI CDMA examples to support data buffers above 4GB.
@@ -99,17 +213,17 @@ Set Transfer size before slave address in MasterRecvPolled.
 resetps_v1_0
 -Added Initial version of the resetps driver for Ultrascale+ ZynqMPSoC
 -Added xresetps_example.c: Contains a list of peripherals to reset. List has
-reset ID of the peripheral, a peripheral register, a value for that
-register to be modified before reset and a reset value to validate
-successful reset.
+ reset ID of the peripheral, a peripheral register, a value for that
+ register to be modified before reset and a reset value to validate
+ successful reset.
 -Change supported peripheral in mdd file from dummy ps7_resetps instance
-to a valid psu_crf_apb and psu_crl_apb instance to allow SDK to
-pull the drivers
+ to a valid psu_crf_apb and psu_crl_apb instance to allow SDK to
+ pull the drivers
 -Remove psu_crl_apb IP instance from mdd file.
-Resetps driver is using both psu_crl_ap, psu_crf_apb  IP instances.
-But one instance is enough to pull  the driver into the SDK.
+ Resetps driver is using both psu_crl_ap, psu_crf_apb  IP instances.
+ But one instance is enough to pull  the driver into the SDK.
 
-wdttb_v4_3
+wdttb_4_3
 Added a function to program the width of Watchdog timer
 Updated doxygen tags
 
@@ -237,12 +351,6 @@ Updated get_connected_if proc in standalone tcl to detect the HPC
 port configured with smart interconnect. It fixes CR#990318.
 Updated the csu_wdt interupt to the correct value. Fixes CR#992229.
 Fix for heap handling in ARM platforms. Fixes CR#993932.
-Updated Xil_DCacheInvalidateRange and
-Xil_ICacheInvalidateRange APIs in Cortexa53 64 bit BSP, to fix  bug in 
-handling upper DDR addresses.It fixes CR#995581.
-Updated makefile of Cortexa53 32bit BSP to add includes_ps directory in 
-the list of include paths. This change allows applications/BSP files to 
-include .h files in include_ps directory.
 Updated Cortex R5 BSP to add new mld parameter "lockstep_mode_debug",
 to enable/disable debug logic in non-JTAG boot mode, when processor
 is in lockstep configuration. By default, value of this parameter
@@ -382,28 +490,22 @@ Added support for NIST-SHA3 padding
 Added Boot header authentication
 Forcing encryption for all partitions when ENC_ONLY eFUSE bit is set
 Fixed AES KEY and IV re-use vulneribility issue
-Added support to exclude partition loading Added warning prints incase 
-PMU-FW is not running Added support for Macronix 1.8V flash Added 
-support to make FSBL wait for PMU to detect boot type Added support to 
-make FSBL indicate boot type detection to PMUFW Isolation fully enabled 
-in FSBL
-
 
 zynqmp_pmufw:
 - Using CSU WDT for PMU fail-safe mechanism instead of LPD WDT
 - Implemented idle hooks for nodes USB, DP and SATA
 - Added support for graceful forcepowerdown of PU to prevent any mid-flight
-axi transactions from locking up the interconnect and hanging the device.
+  axi transactions from locking up the interconnect and hanging the device.
 - Added wake on USB support to wakeup all masters for which USB is set as
-wakeup source
+  wakeup source
 - Corrected the timeout logic in node idling functions
 - Seperated FPD and PLD power supply check hooks to increase FPD power up
-delay to 40ms(this is the maximum rampup time for FPD power rails)
+  delay to 40ms(this is the maximum rampup time for FPD power rails)
 - Added GPO section to config object to get the initial state of PMU GPO's
-and configure them in PMU Firmware
+  and configure them in PMU Firmware
 - Using TTC instead of IPI interrupt from PMU to interrupt APU upon WDT event
 - Added all builds flags to xpfw_config.h file so that user can enable/disable
-any functionality from this config file
+  any functionality from this config file
 - Added misc folder to PMU Firmware
 - Added modularity of xilfpga and xilsecure features using compiler switches
 - Skip FPD power down when debugger is connected
