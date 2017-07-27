@@ -99,7 +99,7 @@
  *
  * Interrupts
  * Interrupts are handled in the OS/Application layer above this driver.
- */
+ ******************************************************************************/
 
 xdbg_stmnt(u32 _xllfifo_rr_value;)
 xdbg_stmnt(u32 _xllfifo_ipie_value;)
@@ -176,11 +176,6 @@ u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr)
 * @return   XLlFifo_iRead_Aligned always returns XST_SUCCESS. Error handling is
 *           otherwise handled through hardware exceptions and interrupts.
 *
-* @note
-*
-* C Signature: int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr,
-*                      void *BufPtr, unsigned WordCount);
-*
 ******************************************************************************/
 int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 			     unsigned WordCount)
@@ -210,7 +205,7 @@ int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iTxVacancy returns the number of unused 32 bit words available
 * (vacancy) in the send channel of the FIFO, specified by <i>InstancePtr</i>.
@@ -230,7 +225,7 @@ u32 XLlFifo_iTxVacancy(XLlFifo *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit
 * channel of the FIFO, specified by <i>InstancePtr</i>. <i>Bytes</i> specifies the number
@@ -324,9 +319,9 @@ int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 *
 * @param       InstancePtr is a pointer to the Axi Streaming FIFO instance
 *              to be worked on.
-* @param	CfgPtr references the structure holding the hardware
+* @param	Config references the structure holding the hardware
 *		configuration for the Axi Streaming FIFO core to initialize.
-* @param 	EffectiveAddr is the device base address in the virtual memory
+* @param 	EffectiveAddress is the device base address in the virtual memory
 *		address	space. The caller is responsible for keeping the
 *		address mapping from EffectiveAddr to the device physical base
 *		address unchanged once this function is invoked. Unexpected
@@ -425,6 +420,7 @@ u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
 * <i>InstancePtr</i>.
 *
 * @param    InstancePtr references the FIFO on which to operate.
+* @param    Word is the data word to be written to FIFO.
 *
 * @return   N/A
 *

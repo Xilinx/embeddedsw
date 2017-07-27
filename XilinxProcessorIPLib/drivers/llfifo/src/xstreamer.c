@@ -29,7 +29,8 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
-/*
+/*****************************************************************************/
+/**
 * @file xstreamer.c
 * @addtogroup llfifo_v5_0
 * @{
@@ -162,7 +163,7 @@ xdbg_stmnt(u32 _xstrm_ro_value;)
 xdbg_stmnt(u32 _xstrm_buffered;)
 
 /*****************************************************************************/
-/*
+/**
 *
 * XStrm_RxInitialize initializes the XStrm_RxFifoStreamer object referenced by
 * <i>InstancePtr</i>.
@@ -206,7 +207,7 @@ void XStrm_RxInitialize(XStrm_RxFifoStreamer *InstancePtr, unsigned FifoWidth,
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XStrm_TxInitialize initializes the XStrm_TxFifoStreamer object referenced by
 * <i>InstancePtr</i>.
@@ -250,7 +251,7 @@ void XStrm_TxInitialize(XStrm_TxFifoStreamer *InstancePtr, unsigned FifoWidth,
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XStrm_RxGetLen notifies the hardware that the program is ready to receive the
 * next frame from the receive channel of the FIFO, specified by
@@ -276,7 +277,7 @@ u32 XStrm_RxGetLen(XStrm_RxFifoStreamer *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XStrm_Read reads <i>Bytes</i> bytes from the FIFO specified by
 * <i>InstancePtr</i> to the block of memory, referenced by <i>BufPtr</i>.
@@ -377,7 +378,7 @@ void XStrm_Read(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr,
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XStrm_TxSetLen flushes to the FIFO, specified by <i>InstancePtr</i>, any
 * bytes remaining in internal buffers and begins a hardware transfer of data
@@ -410,7 +411,7 @@ void XStrm_TxSetLen(XStrm_TxFifoStreamer *InstancePtr, u32 Bytes)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XStrm_Write writes <i>Bytes</i> bytes of the block of memory, referenced by
 * <i>BufPtr</i>, to the transmit channel of the FIFO referenced by
