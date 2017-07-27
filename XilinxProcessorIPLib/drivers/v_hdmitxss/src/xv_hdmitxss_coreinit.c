@@ -355,7 +355,7 @@ int XV_HdmiTxSs_SubcoreInitHdcp22(XV_HdmiTxSs *HdmiTxSsPtr)
 							(void *)HdmiTxSsPtr->HdmiTxPtr);
 
       /* Set polling value */
-      XHdcp22Tx_SetMessagePollingValue(HdmiTxSsPtr->Hdcp22Ptr, 2);
+      XHdcp22Tx_SetMessagePollingValue(HdmiTxSsPtr->Hdcp22Ptr, 10);
 
       XHdcp22Tx_LogReset(HdmiTxSsPtr->Hdcp22Ptr, FALSE);
 
