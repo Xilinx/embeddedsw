@@ -152,6 +152,13 @@ static void WdtRestart(XWdtPs* WdtInstptr, u32 Timeout)
 	XWdtPs_EnableOutput(WdtInstptr, XWDTPS_RESET_SIGNAL);
 }
 
+static void WdtStop(XWdtPs* WdtInstPtr)
+{
+	/* Disable WDT restart output and stop WDT */
+	XWdtPs_DisableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
+	XWdtPs_Stop(WdtInstPtr);
+}
+
 #ifdef CHECK_HEALTHY_BOOT
 
 /**
@@ -320,6 +327,35 @@ void XPfw_RecoveryAck(PmMaster *Master)
 	}
 }
 
+/**
+ * XPfw_RecoveryStop() - Stop WDTs in order to disable recovery
+ * @Master is the PM master who wants to stop WDT recovery
+ */
+void XPfw_RecoveryStop(PmMaster *Master)
+{
+	u32 RstIdx;
+
+	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+		if (RstTrackerList[RstIdx].Master == Master) {
+			WdtStop(RstTrackerList[RstIdx].WdtPtr);
+		}
+	}
+}
+
+/**
+ * XPfw_RecoveryRestart() - Reinitialize WDTs in order to enable recovery
+ * @Master is the PM master who wants to enable WDT recovery
+ */
+void XPfw_RecoveryRestart(PmMaster *Master)
+{
+	u32 RstIdx;
+
+	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+		if (RstTrackerList[RstIdx].Master == Master) {
+			WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
+		}
+	}
+}
 
 
 #endif /* ENABLE_APU_RESTART */
@@ -339,5 +375,15 @@ int XPfw_RecoveryInit(void)
 {
 	/* Recovery is not enabled. So return a failure code */
 	return XST_FAILURE;
+}
+
+void XPfw_RecoveryStop(PmMaster *Master)
+{
+
+}
+
+void XPfw_RecoveryRestart(PmMaster *Master)
+{
+
 }
 #endif /* ENABLE_RECOVERY */
