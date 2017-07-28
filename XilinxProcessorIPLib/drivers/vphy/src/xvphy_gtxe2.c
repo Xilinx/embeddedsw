@@ -250,8 +250,8 @@ u32 XVphy_Gtxe2CheckPllOpRange(XVphy *InstancePtr, u8 QuadId,
 	else if ((ChId == XVPHY_CHANNEL_ID_CMN0) &&
 			((XVPHY_QPLL_UB_MIN <= PllClkOutFreqHz) &&
 				(PllClkOutFreqHz <= XVPHY_QPLL_UB_MAX) &&
-			(InstancePtr->Config.RxProtocol !=
-				XVPHY_PROTOCOL_HDMI))) {
+			((InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP) ||
+			 (InstancePtr->Config.TxProtocol ==	XVPHY_PROTOCOL_DP)))) {
 		InstancePtr->Quads[QuadId].Cmn0.PllParams.IsLowerBand = 0;
 			Status = XST_SUCCESS;
 	}

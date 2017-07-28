@@ -87,6 +87,7 @@
 /******************************* Include Files ********************************/
 
 #include "xil_assert.h"
+#include "xparameters.h"
 #include "xvphy_hw.h"
 #include "xvidc.h"
 #include "xvphy_dp.h"
@@ -330,6 +331,7 @@ typedef enum {
 	XVPHY_LOG_EVT_VD_NOT_SPRTD_ERR,/**< Log event Vid format not supported. */
 	XVPHY_LOG_EVT_MMCM_ERR,		/**< Log event MMCM Config not found. */
 	XVPHY_LOG_EVT_HDMI20_ERR,	/**< Log event HDMI2.0 not supported. */
+	XVPHY_LOG_EVT_NO_QPLL_ERR,	/**< Log event QPLL not present. */
 	XVPHY_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
 } XVphy_LogEvent;
 #endif
@@ -343,6 +345,7 @@ typedef enum {
 	XVPHY_ERR_MMCM_CFG    = 0x10,	/**< MMCM CFG not found. */
 	XVPHY_ERR_PLL_LAYOUT  = 0x20,	/**< PLL Error. */
 	XVPHY_ERR_BONDED_DRU  = 0x40,	/**< DRU and Bonded Mode Error. */
+	XVPHY_ERR_NO_QPLL     = 0x80,	/**< No QPLL Error. */
 } XVphy_ErrType;
 
 /******************************************************************************/
@@ -390,13 +393,11 @@ typedef void (*XVphy_Callback)(void *CallbackRef);
  * Error callback type.
  *
  * @param	CallbackRef is a pointer to the callback reference.
- * @param	ErrIrqType the error type value.
  *
  * @note	None.
  *
 *******************************************************************************/
-typedef void (*XVphy_ErrorCallback)(void *CallbackRef,
-					XVphy_ErrType ErrIrqType);
+typedef void (*XVphy_ErrorCallback)(void *CallbackRef);
 /**
  * This typedef contains configuration information for CPLL/QPLL programming.
  */
@@ -638,6 +639,7 @@ typedef struct {
 	u8 HdmiRxTmdsClockRatio;		/**< HDMI TMDS clock ratio. */
 	u8 HdmiTxSampleRate;			/**< HDMI TX sample rate. */
 	u8 HdmiRxDruIsEnabled;			/**< The DRU is enabled. */
+	u8 HdmiIsQpllPresent;           /**< QPLL is present in HW */
 	XVphy_IntrHandler IntrCpllLockHandler;	/**< Callback function for CPLL
 							lock interrupts. */
 	void *IntrCpllLockCallbackRef;		/**< A pointer to the user data
@@ -721,6 +723,10 @@ typedef struct {
         /* Error Condition callbacks. */
 	XVphy_ErrorCallback ErrorCallback;	/**< Callback for Error Condition. */
 	void *ErrorRef;			/**< To be passed to the Error condition
+							 callback. */
+	XVphy_ErrorCallback PllLayoutErrorCallback;	/**< Callback for Error
+							Condition. */
+	void *PllLayoutErrorRef;/**< To be passed to the Error condition
 							 callback. */
         /* HDMI callbacks. */
 	XVphy_Callback HdmiTxInitCallback;	/**< Callback for TX init. */
@@ -814,6 +820,10 @@ u32 XVphy_IsBonded(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 /* xvphy.c: Error Condition. */
 void XVphy_SetErrorCallback(XVphy *InstancePtr,
 		void *CallbackFunc, void *CallbackRef);
+#if (XPAR_VPHY_0_TRANSCEIVER == 1)
+void XVphy_SetPllLayoutErrorCallback(XVphy *InstancePtr,
+		void *CallbackFunc, void *CallbackRef);
+#endif
 
 /* xvphy_log.c: Logging functions. */
 void XVphy_LogDisplay(XVphy *InstancePtr);
@@ -863,6 +873,7 @@ void XVphy_DpDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 void XVphy_SetHdmiCallback(XVphy *InstancePtr,
 		XVphy_HdmiHandlerType HandlerType,
 		void *CallbackFunc, void *CallbackRef);
+void XVphy_RegisterDebug(XVphy *InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

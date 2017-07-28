@@ -2028,10 +2028,12 @@ Added DrpClkFreq in XVphy_Config
 vphy_v1_6:
 Marked XVphy_DrpRead & XVphy_DrpWrite as deprecated APIs
 Added XVphy_DrpRd & XVphy_DrpWr to replace the deprecated equivalent APIs
-Added XVphy_SetErrorCallback & XVphy_ErrorHandler APIs
+Added XVphy_SetErrorCallback, XVphy_ErrorHandler & XVphy_PllLayoutErrorHandler APIs
 Adjusted GTXE2 CPLL DRU linerate to 2.5 Gbps
 Improved stability and robustness during GTXE2 bonded mode
 Changed ClkOutxDiv declaration to u16 in vphy.h
+Added XVPHY_LOG_EVT_NO_QPLL_ERR log event
+Added XVphy_RegisterDebug API in vphy.c/h
 
 
 vprocss_v2_1:

@@ -47,7 +47,8 @@
  * 1.0   gm,  11/09/16 Initial release.
  * 1.4   gm   29/11/16 Fixed c++ compiler warnings
  *                     Added xcvr adaptor functions for C++ compilations
- * 1.6   gm   06/08/17 Added XVphy_MmcmLocked and XVphy_ErrorHandler APIs
+ * 1.6   gm   06/08/17 Added XVphy_MmcmLocked, XVphy_ErrorHandler and
+ *                              XVphy_PllLayoutErrorHandler APIs
  * </pre>
  *
 *******************************************************************************/
@@ -1036,6 +1037,13 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 											(XVphy_ChannelId)Id);
 		}
 		else if (XVPHY_ISCMN(ChId)) {
+			if (InstancePtr->HdmiIsQpllPresent == FALSE) {
+				XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_NO_QPLL_ERR, 1);
+				XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_NO_QPLL, 1);
+				XVphy_ErrorHandler(InstancePtr);
+				Status = XST_FAILURE;
+				return Status;
+			}
 			Status |= XVphy_ClkCmnReconfig(InstancePtr, QuadId,
 											(XVphy_ChannelId)Id);
 		}
@@ -1507,9 +1515,30 @@ u32 XVphy_TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 * @note		None.
 *
 ******************************************************************************/
-void XVphy_ErrorHandler(XVphy *InstancePtr, XVphy_ErrType ErrIrqType)
+void XVphy_ErrorHandler(XVphy *InstancePtr)
 {
 	if (InstancePtr->ErrorCallback != NULL) {
-		InstancePtr->ErrorCallback(InstancePtr->ErrorRef, ErrIrqType);
+		InstancePtr->ErrorCallback(InstancePtr->ErrorRef);
 	}
 }
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+/*****************************************************************************/
+/**
+* This function is the error condition handler
+*
+* @param	InstancePtr is a pointer to the VPHY instance.
+* @param    ErrIrqType is the error type
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_PllLayoutErrorHandler(XVphy *InstancePtr)
+{
+	if (InstancePtr->ErrorCallback != NULL) {
+		InstancePtr->ErrorCallback(InstancePtr->ErrorRef);
+	}
+}
+#endif
