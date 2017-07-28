@@ -56,9 +56,10 @@ static XWdtPs *WdtInstPtr = &WdtInst;
 
 static void XPfw_WdtRestart(void)
 {
-	XWdtPs_RestartWdt(WdtInstPtr);
+	if (WdtInstPtr != NULL) {
+		XWdtPs_RestartWdt(WdtInstPtr);
+	}
 }
-
 /****************************************************************************/
 /**
  * @brief  This function initializes the LPD IOU Watchdog timer.
