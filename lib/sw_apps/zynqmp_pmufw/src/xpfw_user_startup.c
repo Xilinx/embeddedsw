@@ -56,7 +56,7 @@
 ******************************************************************************/
 static void XPfw_Enable_Inner_Shareable_Broadcast(void)
 {
-	u32 val=0;
+	u32 val = 0U;
 
 	val = XPfw_Read32(LPD_SLCR_LPD_APU);
 	val |= (1 << LPD_SLCR_LPD_APU_BRDC_INNER_SHIFT);

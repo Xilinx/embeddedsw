@@ -43,7 +43,7 @@
 #define CSU_PCAP_STATUS_PL_DONE_MASK (1U<<3)
 
 #define LPD_XPPU_CTRL_ADDRESS	0xFF980000U
-#define LPD_XPPU_CTRL_EN_MASK	BIT(0)
+#define LPD_XPPU_CTRL_EN_MASK	BIT(0U)
 
 #define RestartDebug(DebugType, MSG, ...)	\
 	XPfw_Printf(DebugType, "%s" MSG, __func__, ##__VA_ARGS__)
@@ -119,7 +119,7 @@ static XWdtPs_Config* GetWdtCfgPtr(u32 BaseAddress)
 	XWdtPs_Config* WdtConfigPtr = NULL;
 
 	/* Search and return Config pointer with given base address */
-	for(WdtIdx=0; WdtIdx < WDT_INSTANCE_COUNT; WdtIdx++) {
+	for(WdtIdx = 0U; WdtIdx < WDT_INSTANCE_COUNT; WdtIdx++) {
 		WdtConfigPtr = XWdtPs_LookupConfig(WdtIdx);
 		if(WdtConfigPtr == NULL) {
 			goto Done;
@@ -266,7 +266,7 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 	}
 #endif
 
-	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+	for (RstIdx = 0U; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
 		/* Currently we support only APU restart for FPD WDT timeout */
 		if(ErrorId == EM_ERR_ID_FPD_SWDT &&
 				RstTrackerList[RstIdx].Master->nid == NODE_APU) {
@@ -304,7 +304,7 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 void XPfw_RecoveryAck(PmMaster *Master)
 {
 	u32 RstIdx;
-	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+	for (RstIdx = 0U; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
 		/* Currently we support only APU restart */
 		if(RstTrackerList[RstIdx].Master == Master) {
 			RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_DONE;

@@ -52,7 +52,7 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 	u32 isrVal;
 
 	switch (IpiNum) {
-	case 0:
+	case 0U:
 		ipiStatus = XPfw_PmCheckIpiRequest(SrcMask, &Payload[0]);
 
 		if (XPFW_PM_IPI_IS_PM_CALL == ipiStatus) {
@@ -64,17 +64,17 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 		}
 		break;
 
-	case 1:
+	case 1U:
 		isrVal = XPfw_Read32(IPI_PMU_1_ISR);
 		XPfw_Write32(IPI_PMU_1_ISR, isrVal);
 		break;
 
-	case 2:
+	case 2U:
 		isrVal = XPfw_Read32(IPI_PMU_2_ISR);
 		XPfw_Write32(IPI_PMU_2_ISR, isrVal);
 		break;
 
-	case 3:
+	case 3U:
 		isrVal = XPfw_Read32(IPI_PMU_3_ISR);
 		XPfw_Write32(IPI_PMU_3_ISR, isrVal);
 		break;
