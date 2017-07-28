@@ -73,7 +73,7 @@ struct XpuMasterID {
 };
 
 /* XPU master ID LUT to identify master which caused the violation */
-struct XpuMasterID XpuMasterIDLUT[] =
+static struct XpuMasterID XpuMasterIDLUT[] =
 {
 		{ 0x00U,  0x0FU,  "RPU0" },
 		{ 0x10U,  0x1FU,  "RPU1" },
@@ -115,7 +115,7 @@ struct XpuReg {
 	char CfgName[5];
 };
 
-struct XpuReg XpuRegList[] =
+static struct XpuReg XpuRegList[] =
 {
 	{
 		.BaseAddress = XMPU_DDR_0_BASE_ADDR,

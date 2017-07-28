@@ -102,7 +102,7 @@ typedef struct XPfwRestartTracker {
 	XWdtPs* WdtPtr; /* Pointer to WDT for this master */
 } XPfwRestartTracker;
 
-XPfwRestartTracker RstTrackerList[] ={
+static XPfwRestartTracker RstTrackerList[] ={
 		{
 			.Master = &pmMasterApu_g,
 			.RestartCount = 0U,
