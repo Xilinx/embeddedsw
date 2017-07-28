@@ -64,7 +64,9 @@
  *                     Added preprocessor directives for sw footprint reduction
  *                     Fixed c++ compiler warnings
  * 1.6   gm   12/06/17 Changed FAILURE return value of XVphy_DrpRead to 0xDEAD
- *                     Added XVphy_DrpRd and XVphy_SetErrorCallback APIs
+ *                     Added XVphy_DrpRd, XVphy_SetErrorCallback,
+ *                        XVphy_SetPllLayoutErrorCallback and
+ *                        XVphy_RegisterDebug APIs
  * </pre>
  *
 *******************************************************************************/
@@ -1457,4 +1459,124 @@ void XVphy_SetErrorCallback(XVphy *InstancePtr,
 
 	InstancePtr->ErrorCallback = (XVphy_ErrorCallback)CallbackFunc;
 	InstancePtr->ErrorRef = CallbackRef;
+}
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+/******************************************************************************/
+/**
+* This function installs a callback function for the VPHY PLL Layout error
+* conditions
+*
+* @param	InstancePtr is a pointer to the XVPhy instance.
+* @param	CallbackFunc is the address to the callback function.
+* @param	CallbackRef is the user data item that will be passed to the
+*		callback function when it is invoked.
+*
+* @return	None.
+*
+* @note		The XVphy_ErrorHandler API calls the registered function in
+* 			  ErrorCallback and passes two arguments: 1) CallbackRef
+* 			  2) Error Type as defined by XVphy_ErrType.
+*
+* 			Sample Function Call:
+* 				CallbackFunc(CallbackRef, XVphy_ErrType);
+*
+*******************************************************************************/
+void XVphy_SetPllLayoutErrorCallback(XVphy *InstancePtr,
+		void *CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->PllLayoutErrorCallback = (XVphy_ErrorCallback)CallbackFunc;
+	InstancePtr->PllLayoutErrorRef = CallbackRef;
+}
+#endif
+
+/*****************************************************************************/
+/**
+* This function prints out Video PHY register and GT Channel and Common
+* DRP register contents.
+*
+* @param	InstancePtr is a pointer to the Vphy core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_RegisterDebug(XVphy *InstancePtr)
+{
+	u32 RegOffset;
+	u16 DrpAddr, MaxDrpAddr;
+	u16 DrpVal, ChId;
+	u8  MaxChannels;
+
+	xil_printf("\r\nVPHY Registers\r\n");
+	xil_printf("-----------------\r\n");
+	xil_printf("Offset   |  Value\r\n");
+	xil_printf("-----------------\r\n");
+	for (RegOffset = 0; RegOffset <= 0x334; ) {
+		xil_printf("0x%04x      0x%08x\r\n",RegOffset,
+		XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset));
+		RegOffset += 4;
+	}
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	MaxDrpAddr = 0x0044;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE2)
+	MaxDrpAddr = 0x0047;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)
+	MaxDrpAddr = 0x002D;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
+	MaxDrpAddr = 0x00B0;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
+	MaxDrpAddr = 0x00B0;
+#endif
+
+	xil_printf("\r\nVPHY GT COMMON DRP Registers\r\n");
+	xil_printf("----------------------------\r\n");
+	if ((InstancePtr->HdmiIsQpllPresent == TRUE) ||
+			(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP) ||
+			(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP)) {
+		xil_printf("Offset   |  Value\r\n");
+		xil_printf("----------------------------\r\n");
+		for (DrpAddr = 0x0000; DrpAddr <= MaxDrpAddr; DrpAddr++) {
+			XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+					DrpAddr, &DrpVal);
+			xil_printf("0x%04x      0x%04x\r\n",DrpAddr, DrpVal);
+		}
+	} else {
+		xil_printf("No QPLL in this VPHY Instance\r\n");
+	}
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	MaxDrpAddr = 0x015C;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE2)
+	MaxDrpAddr = 0x015E;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)
+	MaxDrpAddr = 0x00AD;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
+	MaxDrpAddr = 0x015F;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
+	MaxDrpAddr = 0x025F;
+#endif
+	/* Get Max number of channels in VPHY */
+	MaxChannels = (InstancePtr->Config.RxChannels >
+					InstancePtr->Config.TxChannels) ?
+					InstancePtr->Config.RxChannels :
+					InstancePtr->Config.TxChannels;
+
+	for (ChId = 1; ChId <= MaxChannels; ChId++) {
+	xil_printf("\r\nVPHY GT CHANNEL %d DRP Registers\r\n", ChId);
+	xil_printf("-------------------------------\r\n");
+	xil_printf("Offset   |  Value\r\n");
+	xil_printf("-------------------------------\r\n");
+		for (DrpAddr = 0x0000; DrpAddr <= MaxDrpAddr; DrpAddr++) {
+			XVphy_DrpRd(InstancePtr, 0, ChId, DrpAddr, &DrpVal);
+			xil_printf("0x%04x      0x%04x\r\n",DrpAddr, DrpVal);
+		}
+	}
 }

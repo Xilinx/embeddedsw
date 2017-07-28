@@ -73,6 +73,8 @@
  *                     Removed printing QPLL0 in debug info for GTXE2
  *                     Set different target DRU line rates for QPLL and
  *                       CPLL for GTXE2
+ *                     Implemented TX and RX Only uses-cases in
+ *						 XVphy_HdmiDebugInfo API
  * </pre>
  *
 *******************************************************************************/
@@ -170,6 +172,7 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 				RxIntDataWidth = 4;
 		}
 	}
+
 	/* Interrupt Disable. */
 	XVphy_IntrDisable(InstancePtr,
 			XVPHY_INTR_HANDLER_TYPE_TXRESET_DONE);
@@ -209,6 +212,16 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_INIT, 0);
 
 	XVphy_HdmiSetSystemClockSelection(InstancePtr, QuadId);
+
+	/* Indicate of QPLL is present in design */
+	if ((XVphy_IsTxUsingQpll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CH1) &&
+			(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+		(XVphy_IsRxUsingQpll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CH1) &&
+			(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+		InstancePtr->HdmiIsQpllPresent = TRUE;
+	} else {
+		InstancePtr->HdmiIsQpllPresent = FALSE;
+	}
 
 	if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE3) ||
 	    (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTHE4)) {
@@ -1146,14 +1159,14 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 	if (((LineRate / 1000000) > 2970) && (Ppc == XVIDC_PPC_1)) {
 		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_1PPC_ERR, 1);
 		XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_MMCM_CFG, 1);
-		XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_MMCM_CFG);
+		XVphy_ErrorHandler(InstancePtr);
 		return (XST_FAILURE);
 	}
 	else if ((InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) &&
 			 ((LineRate / 1000000) > 2970)) {
 		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_HDMI20_ERR, 1);
 		XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_VD_NOT_SPRTD, 1);
-		XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_VD_NOT_SPRTD);
+		XVphy_ErrorHandler(InstancePtr);
 		return (XST_FAILURE);
 	}
 
@@ -1394,7 +1407,7 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 	else {
 		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_MMCM_ERR, 1);
 		XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_MMCM_CFG, 1);
-		XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_MMCM_CFG);
+		XVphy_ErrorHandler(InstancePtr);
 		return (XST_FAILURE);
 	}
 }
@@ -1572,7 +1585,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		else {
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_NO_DRU, 1);
 			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_NO_DRU, 1);
-			XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_NO_DRU);
+			XVphy_ErrorHandler(InstancePtr);
 			return (XST_FAILURE);
 		}
 	}
@@ -1659,11 +1672,11 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 					XVphy_LogWrite(InstancePtr,
 							XVPHY_LOG_EVT_GT_PLL_LAYOUT, 1);
 					XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_QPLL_CFG, 1);
-					XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_QPLL_CFG);
+					XVphy_ErrorHandler(InstancePtr);
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 					XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_PLL_LAYOUT, 1);
 					XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_PLL_LAYOUT, 1);
-					XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_PLL_LAYOUT);
+					XVphy_PllLayoutErrorHandler(InstancePtr);
 #endif
 					return (XST_FAILURE);
 				}
@@ -1678,11 +1691,11 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	}
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_QPLL_CFG_ERR, 1);
 	XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_QPLL_CFG, 1);
-	XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_QPLL_CFG);
+	XVphy_ErrorHandler(InstancePtr);
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_PLL_LAYOUT, 1);
 	XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_PLL_LAYOUT, 1);
-	XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_PLL_LAYOUT);
+	XVphy_PllLayoutErrorHandler(InstancePtr);
 #endif
 	return (XST_FAILURE);
 }
@@ -1805,7 +1818,7 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
                     XVphy_LogWrite(InstancePtr,
                         XVPHY_LOG_EVT_GT_CPLL_CFG_ERR, 1);
                     XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_CPLL_CFG, 1);
-                    XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_CPLL_CFG);
+                    XVphy_ErrorHandler(InstancePtr);
                     return (XST_FAILURE);
                 }
 
@@ -1846,7 +1859,7 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 					XVphy_LogWrite(InstancePtr,
 							XVPHY_LOG_EVT_VD_NOT_SPRTD_ERR, 1);
                     XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_CPLL_CFG, 1);
-                    XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_CPLL_CFG);
+                    XVphy_ErrorHandler(InstancePtr);
                     return (XST_FAILURE);
 				}
 			}
@@ -1856,12 +1869,12 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
                     XVphy_LogWrite(InstancePtr,
                         XVPHY_LOG_EVT_GT_CPLL_CFG_ERR, 1);
                     XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_CPLL_CFG, 1);
-                    XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_CPLL_CFG);
+                    XVphy_ErrorHandler(InstancePtr);
                 }
                 else {
 					XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_NO_DRU, 1);
 					XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_NO_DRU, 1);
-					XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_NO_DRU);
+					XVphy_ErrorHandler(InstancePtr);
                 }
                 return (XST_FAILURE);
 			}
@@ -1915,7 +1928,7 @@ u32 XVphy_HdmiCpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 	XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_CPLL_CFG_ERR, 1);
 	XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_CPLL_CFG, 1);
-	XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_CPLL_CFG);
+	XVphy_ErrorHandler(InstancePtr);
 	return (XST_FAILURE);
 }
 
@@ -2006,7 +2019,7 @@ u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	else {
 		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_PPC_MSMTCH_ERR, 1);
 		XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_VD_NOT_SPRTD, 1);
-		XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_VD_NOT_SPRTD);
+		XVphy_ErrorHandler(InstancePtr);
 		Status = (XST_FAILURE);
 	}
 	if (Status == (XST_SUCCESS)) {
@@ -2128,146 +2141,154 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[0];
 
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
-#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
-	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-		UsesQpll0 = (FALSE);
-#endif
-		if (ChPtr->TxDataRefClkSel ==
-				XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) {
-			TxUsesPll0 = 1;
-			xil_printf("TX => PLL0 / ");
-		}
-		else {
-			xil_printf("TX => PLL1 / ");
-		}
-	}
-	else if (XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId)) {
-		xil_printf("TX => CPLL / ");
-	}
-	else {
-		if ((ChPtr->TxDataRefClkSel ==
-				XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK) ||
-		    (ChPtr->TxDataRefClkSel ==
-				XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK)) {
-#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
-	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-			UsesQpll0 = (TRUE);
-#endif
-			CmnId = XVPHY_CHANNEL_ID_CMN0;
-		}
-		else {
+	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
 #if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
 	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
 			UsesQpll0 = (FALSE);
 #endif
-			CmnId = XVPHY_CHANNEL_ID_CMN1;
-		}
-#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
-	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-		xil_printf("TX => QPLL%d / ", (UsesQpll0 ? 0 : 1));
-#else
-		xil_printf("TX => QPLL / ");
-#endif
-	}
-
-	if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
-		xil_printf("RX => PLL%d\n\r", (TxUsesPll0 ? 1 : 0));
-	}
-	else if (XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId)) {
-		xil_printf("RX => CPLL\n\r");
-	}
-	else {
-		if ((ChPtr->RxDataRefClkSel ==
-				XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK) ||
-		    (ChPtr->RxDataRefClkSel ==
-				XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK)) {
-#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
-	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-			UsesQpll0 = (TRUE);
-#endif
-			CmnId = XVPHY_CHANNEL_ID_CMN0;
-		}
-		else {
-#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
-	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-			UsesQpll0 = (FALSE);
-#endif
-			CmnId = XVPHY_CHANNEL_ID_CMN1;
-		}
-#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
-	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-		xil_printf("RX => QPLL%d\n\r", (UsesQpll0 ? 0 : 1));
-#else
-		xil_printf("RX => QPLL\n\r");
-#endif
-	}
-
-	xil_printf("RX state: ");
-	switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].RxState) {
-	case (XVPHY_GT_STATE_IDLE):
-		xil_printf("idle\n\r");
-		break;
-	case (XVPHY_GT_STATE_LOCK):
-		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
-			xil_printf("PLL%d lock\n\r", (TxUsesPll0 ? 1 : 0));
-		}
-		else if (XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId)) {
-			xil_printf("CPLL lock\n\r");
-		}
-		else {
-#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
-	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-			xil_printf("QPLL%d lock\n\r", (UsesQpll0 ? 0 : 1));
-#else
-			xil_printf("QPLL lock\n\r");
-#endif
-		}
-		break;
-	case (XVPHY_GT_STATE_RESET):
-		xil_printf("GT reset\n\r");
-		break;
-	case (XVPHY_GT_STATE_READY):
-		xil_printf("ready\n\r");
-		break;
-	default:
-		xil_printf("unknown\n\r");
-		break;
-	}
-
-	xil_printf("TX state: ");
-	switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].TxState) {
-	case (XVPHY_GT_STATE_IDLE):
-		xil_printf("idle\n\r");
-		break;
-	case (XVPHY_GT_STATE_LOCK):
-		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
-			xil_printf("PLL%d lock\n\r", (TxUsesPll0 ? 0 : 1));
+			if (ChPtr->TxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) {
+				TxUsesPll0 = 1;
+				xil_printf("TX: PLL0\r\n");
+			}
+			else {
+				xil_printf("TX: PLL1\r\n");
+			}
 		}
 		else if (XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId)) {
-			xil_printf("CPLL lock\n\r");
+			xil_printf("TX: CPLL\r\n");
 		}
 		else {
+			if ((ChPtr->TxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK) ||
+				(ChPtr->TxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK)) {
 #if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
 	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-			xil_printf("QPLL%d lock\n\r", (UsesQpll0 ? 0 : 1));
+				UsesQpll0 = (TRUE);
+#endif
+				CmnId = XVPHY_CHANNEL_ID_CMN0;
+			}
+			else {
+#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
+	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
+				UsesQpll0 = (FALSE);
+#endif
+				CmnId = XVPHY_CHANNEL_ID_CMN1;
+			}
+#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
+	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
+			xil_printf("TX: QPLL%d\r\n", (UsesQpll0 ? 0 : 1));
 #else
-			xil_printf("QPLL lock\n\r");
+			xil_printf("TX: QPLL\r\n");
 #endif
 		}
-		break;
-	case (XVPHY_GT_STATE_RESET):
-		xil_printf("GT reset\n\r");
-		break;
-	case (XVPHY_GT_STATE_ALIGN):
-		xil_printf("align\n\r");
-		break;
-	case (XVPHY_GT_STATE_READY):
-		xil_printf("ready\n\r");
-		break;
-	default:
-		xil_printf("unknown\n\r");
-		break;
+	}
+
+	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
+			xil_printf("RX: PLL%d\r\n", (TxUsesPll0 ? 1 : 0));
+		}
+		else if (XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId)) {
+			xil_printf("RX: CPLL\r\n");
+		}
+		else {
+			if ((ChPtr->RxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK) ||
+				(ChPtr->RxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK)) {
+#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
+	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
+				UsesQpll0 = (TRUE);
+#endif
+				CmnId = XVPHY_CHANNEL_ID_CMN0;
+			}
+			else {
+#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
+	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
+				UsesQpll0 = (FALSE);
+#endif
+				CmnId = XVPHY_CHANNEL_ID_CMN1;
+			}
+#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
+	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
+			xil_printf("RX: QPLL%d\r\n", (UsesQpll0 ? 0 : 1));
+#else
+			xil_printf("RX: QPLL\r\n");
+#endif
+		}
+	}
+
+	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+		xil_printf("TX state: ");
+		switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].TxState) {
+		case (XVPHY_GT_STATE_IDLE):
+			xil_printf("idle\n\r");
+			break;
+		case (XVPHY_GT_STATE_LOCK):
+			if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
+				xil_printf("PLL%d lock\n\r", (TxUsesPll0 ? 0 : 1));
+			}
+			else if (XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId)) {
+				xil_printf("CPLL lock\n\r");
+			}
+			else {
+#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
+	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
+				xil_printf("QPLL%d lock\n\r", (UsesQpll0 ? 0 : 1));
+#else
+				xil_printf("QPLL lock\n\r");
+#endif
+			}
+			break;
+		case (XVPHY_GT_STATE_RESET):
+			xil_printf("GT reset\n\r");
+			break;
+		case (XVPHY_GT_STATE_ALIGN):
+			xil_printf("align\n\r");
+			break;
+		case (XVPHY_GT_STATE_READY):
+			xil_printf("ready\n\r");
+			break;
+		default:
+			xil_printf("unknown\n\r");
+			break;
+		}
+	}
+
+	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+		xil_printf("RX state: ");
+		switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].RxState) {
+		case (XVPHY_GT_STATE_IDLE):
+			xil_printf("idle\n\r");
+			break;
+		case (XVPHY_GT_STATE_LOCK):
+			if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
+				xil_printf("PLL%d lock\n\r", (TxUsesPll0 ? 1 : 0));
+			}
+			else if (XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId)) {
+				xil_printf("CPLL lock\n\r");
+			}
+			else {
+#if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
+	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
+				xil_printf("QPLL%d lock\n\r", (UsesQpll0 ? 0 : 1));
+#else
+				xil_printf("QPLL lock\n\r");
+#endif
+			}
+			break;
+		case (XVPHY_GT_STATE_RESET):
+			xil_printf("GT reset\r\n");
+			break;
+		case (XVPHY_GT_STATE_READY):
+			xil_printf("ready\r\n");
+			break;
+		default:
+			xil_printf("unknown\r\n");
+			break;
+		}
 	}
 
 	if (XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId)) {
@@ -2281,79 +2302,108 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 	xil_printf("\n\r");
 	if (InstancePtr->Config.XcvrType != XVPHY_GT_TYPE_GTPE2) {
+		if ((XVphy_IsTxUsingQpll(InstancePtr, QuadId, ChId) &&
+				(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+			(XVphy_IsRxUsingQpll(InstancePtr, QuadId, ChId) &&
+				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
 #if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
 	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
-		xil_printf("QPLL%d settings\n\r", (UsesQpll0 ? 0 : 1));
+			xil_printf("QPLL%d settings\n\r", (UsesQpll0 ? 0 : 1));
 #else
-		xil_printf("QPLL settings\n\r");
+			xil_printf("QPLL settings\n\r");
 #endif
-		xil_printf("-------------\n\r");
-		xil_printf("M : %d - N : %d - D : %d\n\r",
-			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.MRefClkDiv,
-			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.NFbDiv, QpllDVal);
-		xil_printf("\n\r");
+			xil_printf("-------------\n\r");
+			xil_printf("M : %d - N : %d - D : %d\n\r",
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+					PllParams.MRefClkDiv,
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+					PllParams.NFbDiv, QpllDVal);
+			xil_printf("\n\r");
+		}
 
-		xil_printf("CPLL settings\n\r");
-		xil_printf("-------------\n\r");
-		xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\n\r",
-			ChPtr->PllParams.MRefClkDiv,
-			ChPtr->PllParams.N1FbDiv, ChPtr->PllParams.N2FbDiv,
-			CpllDVal);
-		xil_printf("\n\r");
+		if ((XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId) &&
+				(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+			(XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId) &&
+				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+			xil_printf("CPLL settings\n\r");
+			xil_printf("-------------\n\r");
+			xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\n\r",
+				ChPtr->PllParams.MRefClkDiv,
+				ChPtr->PllParams.N1FbDiv, ChPtr->PllParams.N2FbDiv,
+				CpllDVal);
+			xil_printf("\n\r");
+		}
 	}
 	else {
-		CmnId = XVPHY_CHANNEL_ID_CMN0;
-		xil_printf("PLL0 settings\n\r");
-		xil_printf("-------------\n\r");
-		xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\n\r",
-			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.MRefClkDiv,
-			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.N1FbDiv,
-			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.N2FbDiv,
-			(TxUsesPll0 ? ChPtr->TxOutDiv : ChPtr->RxOutDiv));
-		xil_printf("\n\r");
+		if (((ChPtr->TxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) &&
+				(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+			((ChPtr->RxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) &&
+				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+			CmnId = XVPHY_CHANNEL_ID_CMN0;
+			xil_printf("PLL0 settings\n\r");
+			xil_printf("-------------\n\r");
+			xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\n\r",
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+					PllParams.MRefClkDiv,
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+					PllParams.N1FbDiv,
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+					PllParams.N2FbDiv,
+				(TxUsesPll0 ? ChPtr->TxOutDiv : ChPtr->RxOutDiv));
+			xil_printf("\n\r");
+		}
 
-		CmnId = XVPHY_CHANNEL_ID_CMN1;
-		xil_printf("PLL1 settings\n\r");
+		if (((ChPtr->TxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK) &&
+				(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI)) ||
+			((ChPtr->RxDataRefClkSel ==
+					XVPHY_SYSCLKSELDATA_TYPE_PLL1_OUTCLK) &&
+				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))) {
+			CmnId = XVPHY_CHANNEL_ID_CMN1;
+			xil_printf("PLL1 settings\n\r");
+			xil_printf("-------------\n\r");
+			xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\n\r",
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+					PllParams.MRefClkDiv,
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+					PllParams.N1FbDiv,
+				InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
+					PllParams.N2FbDiv,
+				(TxUsesPll0 ? ChPtr->RxOutDiv : ChPtr->TxOutDiv));
+			xil_printf("\n\r");
+		}
+	}
+
+	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+		xil_printf("RX MMCM settings\n\r");
 		xil_printf("-------------\n\r");
-		xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\n\r",
-			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.MRefClkDiv,
-			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.N1FbDiv,
-			InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
-				PllParams.N2FbDiv,
-			(TxUsesPll0 ? ChPtr->RxOutDiv : ChPtr->TxOutDiv));
+		xil_printf("Mult : %d - Div : %d - Clk0Div : %d - Clk1Div : %d - "
+			   "Clk2Div : %d\n\r",
+			InstancePtr->Quads[QuadId].RxMmcm.ClkFbOutMult,
+			InstancePtr->Quads[QuadId].RxMmcm.DivClkDivide,
+			InstancePtr->Quads[QuadId].RxMmcm.ClkOut0Div,
+			InstancePtr->Quads[QuadId].RxMmcm.ClkOut1Div,
+			InstancePtr->Quads[QuadId].RxMmcm.ClkOut2Div);
 		xil_printf("\n\r");
 	}
 
-	xil_printf("RX MMCM settings\n\r");
-	xil_printf("-------------\n\r");
-	xil_printf("Mult : %d - Div : %d - Clk0Div : %d - Clk1Div : %d - "
-		   "Clk2Div : %d\n\r",
-		InstancePtr->Quads[QuadId].RxMmcm.ClkFbOutMult,
-		InstancePtr->Quads[QuadId].RxMmcm.DivClkDivide,
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut0Div,
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut1Div,
-		InstancePtr->Quads[QuadId].RxMmcm.ClkOut2Div);
-	xil_printf("\n\r");
+	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+		xil_printf("TX MMCM settings\n\r");
+		xil_printf("-------------\n\r");
+		xil_printf("Mult : %d - Div : %d - Clk0Div : %d - Clk1Div : %d - "
+			   "Clk2Div : %d\n\r",
+			InstancePtr->Quads[QuadId].TxMmcm.ClkFbOutMult,
+			InstancePtr->Quads[QuadId].TxMmcm.DivClkDivide,
+			InstancePtr->Quads[QuadId].TxMmcm.ClkOut0Div,
+			InstancePtr->Quads[QuadId].TxMmcm.ClkOut1Div,
+			InstancePtr->Quads[QuadId].TxMmcm.ClkOut2Div);
+		xil_printf("\n\r");
+	}
 
-	xil_printf("TX MMCM settings\n\r");
-	xil_printf("-------------\n\r");
-	xil_printf("Mult : %d - Div : %d - Clk0Div : %d - Clk1Div : %d - "
-		   "Clk2Div : %d\n\r",
-		InstancePtr->Quads[QuadId].TxMmcm.ClkFbOutMult,
-		InstancePtr->Quads[QuadId].TxMmcm.DivClkDivide,
-		InstancePtr->Quads[QuadId].TxMmcm.ClkOut0Div,
-		InstancePtr->Quads[QuadId].TxMmcm.ClkOut1Div,
-		InstancePtr->Quads[QuadId].TxMmcm.ClkOut2Div);
-	xil_printf("\n\r");
-
-	if (InstancePtr->Config.DruIsPresent) {
+	if ((InstancePtr->Config.DruIsPresent) &&
+		(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI))	{
 		xil_printf("DRU Settings\n\r");
 		xil_printf("-------------\n\r");
 		RegValue = XVphy_DruGetVersion(InstancePtr);
