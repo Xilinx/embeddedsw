@@ -49,7 +49,8 @@
  * 1.0   gm   11/09/16 Initial release.
  * 1.4   gm   11/24/16 Made debug log optional (can be disabled via makefile)
  * 1.5   gm   02/05/17 Added XVphy_CfgCpllCalPeriodandTol API for US+ devices
- * 1.6   gm   06/08/17 Added XVphy_MmcmLocked and XVphy_ErrorHandler APIs
+ * 1.6   gm   06/08/17 Added XVphy_MmcmLocked, XVphy_ErrorHandler and
+ *                       XVphy_PllLayoutErrorHandler APIs
  * </pre>
  *
 *******************************************************************************/
@@ -143,7 +144,10 @@ void XVphy_CfgErrIntr(XVphy *InstancePtr, XVphy_ErrType ErrIrq, u8 Set);
 u64 XVphy_GetPllVcoFreqHz(XVphy *InstancePtr, u8 QuadId,
 		XVphy_ChannelId ChId, XVphy_DirectionType Dir);
 
-void XVphy_ErrorHandler(XVphy *InstancePtr, XVphy_ErrType ErrIrqType);
+void XVphy_ErrorHandler(XVphy *InstancePtr);
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+void XVphy_PllLayoutErrorHandler(XVphy *InstancePtr);
+#endif
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

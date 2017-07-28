@@ -52,6 +52,7 @@
  *                     Added XVPHY_LOG_EVT_TX_ALIGN_TMOUT log event
  * 1.6   gm   06/08/17 Added XVPHY_LOG_EVT_HDMI20_ERR log event
  *                     Added Red & Yellow printing for errors and warnings
+ *                     Added XVPHY_LOG_EVT_NO_QPLL_ERR log event
  * </pre>
  *
 *******************************************************************************/
@@ -487,6 +488,11 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 		case (XVPHY_LOG_EVT_HDMI20_ERR):
 				xil_printf(ANSI_COLOR_RED "Error!  The Video PHY doesn't "
 						"support HDMI 2.0 line rates"
+						ANSI_COLOR_RESET "\r\n");
+			break;
+		case (XVPHY_LOG_EVT_NO_QPLL_ERR):
+				xil_printf(ANSI_COLOR_RED "Error!  There's no QPLL instance "
+						"in the design"
 						ANSI_COLOR_RESET "\r\n");
 			break;
 		default:

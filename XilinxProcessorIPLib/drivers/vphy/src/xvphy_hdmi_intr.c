@@ -1072,9 +1072,11 @@ void XVphy_HdmiRxTimerTimeoutHandler(XVphy *InstancePtr)
 		if (InstancePtr->HdmiRxDruIsEnabled) {
 			XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_GT_UNBONDED, 1);
 			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_BONDED_DRU, 1);
-			XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_BONDED_DRU);
+			XVphy_ErrorHandler(InstancePtr);
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_PLL_LAYOUT, 1);
-			XVphy_ErrorHandler(InstancePtr, XVPHY_ERR_PLL_LAYOUT);
+			XVphy_PllLayoutErrorHandler(InstancePtr);
+#endif
 		}
 		else {
 			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_BONDED_DRU, 0);
