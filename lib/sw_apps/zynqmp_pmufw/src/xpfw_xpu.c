@@ -236,7 +236,8 @@ void XPfw_XpuIntrAck(void)
 				break;
 
 				default:
-				break;
+					/* Empty default case */
+					break;
 			}
 
 			XPfw_Printf(DEBUG_DETAILED,"EM: Address of poisoned operation: "
@@ -316,7 +317,8 @@ void XPfw_XpuIntrAck(void)
 				break;
 
 				default:
-				break;
+					/* Empty default case */
+					break;
 			}
 
 			Addr = (Addr << 12) | Offset;
