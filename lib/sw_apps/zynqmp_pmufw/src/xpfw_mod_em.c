@@ -52,7 +52,7 @@ static void RpuLsHandler(u8 ErrorId)
 	XPfw_Printf(DEBUG_ERROR,"EM: RPU Lock-Step Error Occurred "
 			"(Error ID: %d)\r\n", ErrorId);
 	XPfw_Printf(DEBUG_ERROR,"EM: Initiating RPU Reset \r\n");
-	XPfw_ResetRpu();
+	(void)XPfw_ResetRpu();
 }
 
 #ifndef ENABLE_WDT
@@ -98,21 +98,46 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	/* Init the Error Manager */
 	XPfw_EmInit();
 	/* Set handlers for error manager */
-	XPfw_EmSetAction(EM_ERR_ID_RPU_LS, EM_ACTION_CUSTOM, RpuLsHandler);
-#ifdef ENABLE_WDT
-	XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST, NULL);
-#else
-	XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_CUSTOM, LpdSwdtHandler);
-#endif
-	if(XPfw_RecoveryInit() == XST_SUCCESS) {
-		XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM, FpdSwdtHandler);
+	if (XPfw_EmSetAction(EM_ERR_ID_RPU_LS, EM_ACTION_CUSTOM,
+			RpuLsHandler) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED, "Warning: EmCfgInit: Failed to "
+				"set action \r\n");
 	}
-	XPfw_EmSetAction(EM_ERR_ID_XMPU, EM_ACTION_CUSTOM, XPfw_XpuIntrHandler);
+
+#ifdef ENABLE_WDT
+	if (XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
+			NULL) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: EmCfgInit: Failed to set action \r\n");
+	}
+#else
+	if (XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_CUSTOM,
+			LpdSwdtHandler) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: EmCfgInit: Failed to set action \r\n");
+	}
+#endif
+	if (XPfw_RecoveryInit() == XST_SUCCESS) {
+		if (XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM,
+				FpdSwdtHandler) != XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED,
+					"Warning: EmCfgInit: Failed to set action \r\n");
+		}
+	}
+	if (XPfw_EmSetAction(EM_ERR_ID_XMPU, EM_ACTION_CUSTOM,
+			XPfw_XpuIntrHandler) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: EmCfgInit: Failed to set action \r\n");
+	}
 
 #ifdef ENABLE_SAFETY
 	/* For uncorrectable ECC errors, Set error action as SRST */
-	XPfw_EmSetAction(EM_ERR_ID_OCM_ECC, EM_ACTION_SRST, NULL);
-	XPfw_EmSetAction(EM_ERR_ID_DDR_ECC, EM_ACTION_SRST, NULL);
+	if (XPfw_EmSetAction(EM_ERR_ID_OCM_ECC, EM_ACTION_SRST, NULL) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED, "EmCfgInit: Failed to set action \r\n");
+	}
+	if (XPfw_EmSetAction(EM_ERR_ID_DDR_ECC, EM_ACTION_SRST, NULL) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED, "EmCfgInit: Failed to set action \r\n");
+	}
 #endif
 	/* Enable the interrupts at XMPU/XPPU block level */
 	XPfw_XpuIntrInit();
@@ -129,10 +154,18 @@ static void EmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 {
 	switch (EventId) {
 	case XPFW_EV_ERROR_1:
-		XPfw_EmProcessError(EM_ERR_TYPE_1);
+		if (XPfw_EmProcessError(EM_ERR_TYPE_1) != XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED,
+					"Warning: EmEventHandler: Failed to process error type:"
+							" %d\r\n", EM_ERR_TYPE_1)
+		}
 		break;
 	case XPFW_EV_ERROR_2:
-		XPfw_EmProcessError(EM_ERR_TYPE_2);
+		if (XPfw_EmProcessError(EM_ERR_TYPE_2) != XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED,
+					"Warning: EmEventHandler: Failed to process error type:"
+							" %d\r\n", EM_ERR_TYPE_2)
+		}
 		break;
 	default:
 		XPfw_Printf(DEBUG_ERROR,"EM:Unhandled Event(ID:%lu)\r\n", EventId);

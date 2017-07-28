@@ -44,7 +44,12 @@ static void SchCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 void ModSchInit(void)
 {
 	const XPfw_Module_t *SchModPtr = XPfw_CoreCreateMod();
-	XPfw_CoreSetCfgHandler(SchModPtr, SchCfgInit);
+
+	if (XPfw_CoreSetCfgHandler(SchModPtr, SchCfgInit) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: ModSchInit: Failed to set CfgHandler \r\n")
+	}
+
 }
 #else /* ENABLE_SCHEDULER */
 void ModSchInit(void) { }

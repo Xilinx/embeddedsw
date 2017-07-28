@@ -240,7 +240,7 @@ int XPfw_RecoveryInit(void)
 			break;
 		}
 		/* Reset the WDT */
-		PmResetAssertInt(PM_RESET_SWDT_CRF, PM_RESET_ACTION_PULSE);
+		(void)PmResetAssertInt(PM_RESET_SWDT_CRF, PM_RESET_ACTION_PULSE);
 		WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
 	}
 	return Status;
