@@ -809,6 +809,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		break;
 	case PM_MASTER_EVENT_SLEEP:
 		if (PM_MASTER_STATE_SUSPENDING == master->state) {
+			XPfw_RecoveryStop(master);
 			status = PmRequirementUpdateScheduled(master, true);
 			master->state = PM_MASTER_STATE_SUSPENDED;
 			condition = PmIsRequestedToSuspend(master);
@@ -828,11 +829,15 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 	case PM_MASTER_EVENT_WAKE:
 		if (PM_MASTER_STATE_SUSPENDED == master->state) {
 			status = PmRequirementUpdateScheduled(master, false);
+			if (XST_SUCCESS == status) {
+				XPfw_RecoveryRestart(master);
+			}
 		} else if (PM_MASTER_STATE_KILLED == master->state) {
 			PmRequirementPreRequest(master);
 			status = PmRequirementUpdateScheduled(master, false);
 			if (XST_SUCCESS == status) {
 				PmRequirementClockRestore(master);
+				XPfw_RecoveryRestart(master);
 			}
 		} else {
 			/* Must have else branch due to MISRA */
@@ -845,12 +850,14 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 	case PM_MASTER_EVENT_FORCED_PROC:
 		condition = PmMasterAllProcsDown(master);
 		if (true == condition) {
+			XPfw_RecoveryStop(master);
 			status = PmMasterForceDownCleanup(master);
 			master->state = PM_MASTER_STATE_KILLED;
 		}
 		break;
 	case PM_MASTER_EVENT_FORCE_DOWN:
 		master->state = PM_MASTER_STATE_KILLED;
+		XPfw_RecoveryStop(master);
 		status = PmMasterForceDownProcs(master);
 		if (XST_SUCCESS == status) {
 			if (PM_MASTER_STATE_UNINITIALIZED == prevState) {
