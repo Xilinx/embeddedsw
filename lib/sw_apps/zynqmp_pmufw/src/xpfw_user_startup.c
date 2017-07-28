@@ -45,6 +45,7 @@
 #include "xpfw_mod_stl.h"
 #include "xpfw_mod_wdt.h"
 
+#if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT)
 /*****************************************************************************
 *
 * Enable the broadcasting of Inner Shareable transactions for APU.
@@ -62,6 +63,7 @@ static void XPfw_Enable_Inner_Shareable_Broadcast(void)
 	val |= (1 << LPD_SLCR_LPD_APU_BRDC_INNER_SHIFT);
 	XPfw_Write32(LPD_SLCR_LPD_APU , val);
 }
+#endif
 
 void XPfw_UserStartUp(void)
 {
