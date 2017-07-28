@@ -31,6 +31,7 @@ CR#979636 lwip stop's working as soon as something is plugged to it's
 AXI stream bus.
 CR#979023 Intr fifo example failed to compile.
 Add support for axiethernet with mcdma configuration.
+Fix pmufw bsp compilation error for axi-ethernet based designs.
 
 mcdma_v1_0:
 Initial version of mcdma driver
