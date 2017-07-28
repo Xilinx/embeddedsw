@@ -649,13 +649,20 @@ proc xdefine_dma_interrupts {file_handle target_periph deviceid canonical_tag dm
     set proc  [hsi::get_sw_processor];
     set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $proc]]
 
-    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"] && $proc_type != "psu_pmu"} {
-	set canonical_name [format "XPAR_%s_CONNECTED_DMARX_INTR" $canonical_tag]
-	puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_S2MM_INTROUT_INTR" $target_periph_name]
-	add_field_to_periph_config_struct $deviceid $canonical_name
-	set canonical_name [format "XPAR_%s_CONNECTED_DMATX_INTR" $canonical_tag]
-	puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_MM2S_INTROUT_INTR" $target_periph_name]
-	add_field_to_periph_config_struct $deviceid $canonical_name
+    if { $intc_periph_type == [format "ps7_scugic"] || $intc_periph_type == [format "psu_acpu_gic"]} {
+	if {$proc_type == "psu_pmu"} {
+		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMARX_INTR 0xFF$uSuffix" $canonical_tag]
+		add_field_to_periph_config_struct $deviceid 0xFF
+		puts $file_handle [format "#define XPAR_%s_CONNECTED_DMATX_INTR 0xFF$uSuffix" $canonical_tag]
+		add_field_to_periph_config_struct $deviceid 0xFF
+	} else {
+	    set canonical_name [format "XPAR_%s_CONNECTED_DMARX_INTR" $canonical_tag]
+	    puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_S2MM_INTROUT_INTR" $target_periph_name]
+	    add_field_to_periph_config_struct $deviceid $canonical_name
+	    set canonical_name [format "XPAR_%s_CONNECTED_DMATX_INTR" $canonical_tag]
+	    puts $file_handle [format "#define $canonical_name XPAR_FABRIC_%s_MM2S_INTROUT_INTR" $target_periph_name]
+	    add_field_to_periph_config_struct $deviceid $canonical_name
+	}
     }
 
     if { $addentry == 1} {
