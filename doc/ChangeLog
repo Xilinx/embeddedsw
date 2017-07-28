@@ -1,5 +1,8 @@
 Changes for 2017.3
 ===============================
+v_demosaic_v1_0
+added initial version
+
 mipicsiss_v1_1:
 Added application support for mipi csi subsystem example design
 
