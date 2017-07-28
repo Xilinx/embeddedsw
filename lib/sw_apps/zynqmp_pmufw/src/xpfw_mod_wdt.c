@@ -47,7 +47,7 @@ static XWdtPs *WdtInstPtr = &WdtInst;
  * Restart time is multiplied with 1000 to get time in milliseconds,
  * which is needed for scheduler during scheduling a task.
  */
-#define XPFW_WDT_RESTART_TIME (((XPFW_WDT_EXPIRE_TIME)-10U)*1000U)
+#define XPFW_WDT_RESTART_TIME ((u16)((XPFW_WDT_EXPIRE_TIME)-10U)*1000U)
 #define XPFW_WDT_CRV_SHIFT 12U
 #define XPFW_WDT_PRESCALER 4096U
 
