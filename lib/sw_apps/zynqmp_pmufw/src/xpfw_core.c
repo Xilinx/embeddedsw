@@ -276,8 +276,12 @@ XStatus XPfw_CoreLoop(void)
 	{
 
 		#ifdef ENABLE_SCHEDULER
-		XPfw_SchedulerStart(&CorePtr->Scheduler);
-		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_PIT1_MASK);
+		if(XPfw_SchedulerStart(&CorePtr->Scheduler) != XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED,"Warning: Scheduler has failed to"
+					"Start\r\n");
+		} else {
+			XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_PIT1_MASK);
+		}
 		#endif
 		do {
 

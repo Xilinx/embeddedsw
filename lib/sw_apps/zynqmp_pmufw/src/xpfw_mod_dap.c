@@ -43,8 +43,17 @@
 static void DapCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 	/* Used for DAP Wakes */
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_DAP_RPU_WAKE);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_DAP_FPD_WAKE);
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_DAP_RPU_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: DapCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_DAP_RPU_WAKE)
+	}
+
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_DAP_FPD_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: DapCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_DAP_FPD_WAKE)
+	}
 
 	XPfw_Printf(DEBUG_DETAILED,"DAP_WAKE (MOD-%d): Initialized.\r\n",
 			ModPtr->ModId);

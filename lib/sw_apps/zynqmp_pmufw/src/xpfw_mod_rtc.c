@@ -52,7 +52,12 @@ static void RtcEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 
 static void RtcCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_RTC_SECONDS);
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_RTC_SECONDS) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: RtcCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_RTC_SECONDS)
+	}
+
 	/* Enable Seconds Alarm */
 	Xil_Out32(RTC_RTC_INT_EN, 1U);
 	Xil_Out32(RTC_RTC_INT_STATUS, 1U);

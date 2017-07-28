@@ -57,7 +57,7 @@ static void PmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, c
 
 		if (XPFW_PM_IPI_IS_PM_CALL == ipiStatus) {
 			/* Power management API processing */
-			XPfw_PmIpiHandler(SrcMask, &Payload[0], Len);
+			(void)XPfw_PmIpiHandler(SrcMask, &Payload[0], Len);
 		} else {
 			XPfw_Printf(DEBUG_DETAILED,"MOD-%d: Non-PM IPI-%lu call received"
 					"\r\n", ModPtr->ModId, IpiNum);
@@ -93,11 +93,14 @@ static void PmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 	switch (EvType) {
 	case XPFW_EV_TYPE_GPI1:
 		RegValue = XPfw_EventGetRegMask(EventId);
-		XPfw_PmWakeHandler(RegValue);
+		if (XPfw_PmWakeHandler(RegValue) != XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED, "ERROR: Unknown processor %lu\r\n",
+					RegValue);
+		}
 		break;
 	case XPFW_EV_TYPE_GPI2:
 		RegValue = XPfw_EventGetRegMask(EventId);
-		XPfw_PmWfiHandler(RegValue);
+		(void)XPfw_PmWfiHandler(RegValue);
 		break;
 	default:
 		XPfw_Printf(DEBUG_ERROR,"Unhandled PM Event: %lu\r\n", EventId);
@@ -108,31 +111,118 @@ static void PmEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 static void PmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
 	/* Add Event Handlers for PM */
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_0_WAKE);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_1_WAKE);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_2_WAKE);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_3_WAKE);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_R5_0_WAKE);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_R5_1_WAKE);
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_0_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_ACPU_0_WAKE)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_1_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_ACPU_1_WAKE)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_2_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_ACPU_2_WAKE)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_3_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_ACPU_3_WAKE)
+	}
 
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_0);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_1);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_2);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_3);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_4);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_5);
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_R5_0_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_R5_0_WAKE)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_R5_1_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_R5_1_WAKE)
+	}
 
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_FPD_WAKE_GIC_PROXY);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_USB_0_WAKE);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_USB_1_WAKE);
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_0) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_MIO_WAKE_0)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_1) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_MIO_WAKE_1)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_2) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_MIO_WAKE_2)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_3) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_MIO_WAKE_3)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_4) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_MIO_WAKE_4)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_MIO_WAKE_5) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_MIO_WAKE_5)
+	}
 
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_0_SLEEP);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_1_SLEEP);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_2_SLEEP);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_3_SLEEP);
+	if (XPfw_CoreRegisterEvent(ModPtr,
+	XPFW_EV_FPD_WAKE_GIC_PROXY) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_FPD_WAKE_GIC_PROXY)
+	}
 
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_R5_0_SLEEP);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_R5_1_SLEEP);
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_USB_0_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_USB_0_WAKE)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_USB_1_WAKE) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_USB_1_WAKE)
+	}
+
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_0_SLEEP) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_ACPU_0_SLEEP)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_1_SLEEP) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_ACPU_1_SLEEP)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_2_SLEEP) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_ACPU_2_SLEEP)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ACPU_3_SLEEP) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_ACPU_3_SLEEP)
+	}
+
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_R5_0_SLEEP) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_R5_0_SLEEP)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_R5_1_SLEEP) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: PmCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_R5_1_SLEEP)
+	}
 
 /*
  * FIXME: PM Init Disables the wakes/sleep interrupts
