@@ -37,6 +37,7 @@
 #include "xpfw_core.h"
 #include "xpfw_events.h"
 #include "xpfw_module.h"
+#include "xpfw_mod_legacy.h"
 
 /* CfgInit Handler */
 static void LegacyCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,

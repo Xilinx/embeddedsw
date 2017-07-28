@@ -37,6 +37,7 @@
 #include "xpfw_rom_interface.h"
 #include "xpfw_xpu.h"
 #include "xpfw_restart.h"
+#include "xpfw_mod_em.h"
 
 #ifdef ENABLE_EM
 /**

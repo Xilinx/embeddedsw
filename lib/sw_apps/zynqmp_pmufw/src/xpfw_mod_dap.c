@@ -37,6 +37,7 @@
 #include "xpfw_events.h"
 #include "xpfw_module.h"
 #include "pm_binding.h"
+#include "xpfw_mod_dap.h"
 
 /* CfgInit Handler */
 static void DapCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
