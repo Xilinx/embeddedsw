@@ -44,9 +44,18 @@ static void LegacyCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 		u32 Len)
 {
 	/* Used for Power Up/Dn request handling */
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_PWRUP);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_PWRDN);
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_ISOLATION);
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_PWRUP) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,"LegacyCfgInit: Failed to register "
+				"event ID: %d\r\n",XPFW_EV_REQ_PWRUP)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_PWRDN) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,"LegacyCfgInit: Failed to register "
+				"event ID: %d\r\n",XPFW_EV_REQ_PWRDN)
+	}
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_REQ_ISOLATION) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,"LegacyCfgInit: Failed to register "
+				"event ID: %d\r\n",XPFW_EV_REQ_ISOLATION)
+	}
 
 	XPfw_Printf(DEBUG_DETAILED,"LEGACY PWR UP/DN/ISO (MOD-%d): "
 			"Initialized.\r\n", ModPtr->ModId);

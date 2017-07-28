@@ -188,7 +188,10 @@ void XPfw_EmInit(void)
 	u8 ErrorId;
 	/* Disable all the Error Actions */
 	for (ErrorId = 1U; ErrorId < EM_ERR_ID_MAX; ErrorId++) {
-		XPfw_EmDisable(ErrorId);
+		if(XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED,"Warning: XPfw_EmInit: Failed to "
+					"disable Error ID: %d\r\n",ErrorId)
+		}
 	}
 
 	/* Clear the error status registers */
@@ -215,20 +218,29 @@ s32 XPfw_EmSetAction(u8 ErrorId, u8 ActionId,
 	switch (ActionId) {
 
 	case EM_ACTION_POR:
-		XPfw_EmDisable(ErrorId);
+		if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto Done;
+		}
 		ErrorTable[ErrorId].Action = ActionId;
 		Status = XPfw_EmEnablePOR(ErrorId);
 		break;
 
 	case EM_ACTION_SRST:
-		XPfw_EmDisable(ErrorId);
+		if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto Done;
+		}
 		ErrorTable[ErrorId].Action = ActionId;
 		Status = XPfw_EmEnableSRST(ErrorId);
 		break;
 
 	case EM_ACTION_CUSTOM:
 		if (ErrorHandler != NULL) {
-			XPfw_EmDisable(ErrorId);
+			if (XPfw_EmDisable(ErrorId) != XST_SUCCESS) {
+				Status = XST_FAILURE;
+				goto Done;
+			}
 			ErrorTable[ErrorId].Action = ActionId;
 			ErrorTable[ErrorId].Handler = ErrorHandler;
 			Status = XPfw_EmEnableInt(ErrorId);
