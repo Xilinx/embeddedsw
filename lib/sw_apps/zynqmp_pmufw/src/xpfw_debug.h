@@ -83,7 +83,7 @@ extern "C" {
 #endif
 
 #define XPfw_Printf(DebugType,...)\
-	if(((DebugType) & XPfwDbgCurrentTypes)!=XST_SUCCESS){xil_printf(__VA_ARGS__);}
+	if(((DebugType) & XPfwDbgCurrentTypes) != (u8)XST_SUCCESS){xil_printf(__VA_ARGS__);}
 
 #ifdef __cplusplus
 }
