@@ -37,7 +37,7 @@
 #include "xil_types.h"
 #include "xstatus.h"
 
-#define BIT(n)		(1 << (n))
+#define BIT(n)		(1U << (n))
 
 
 /**
