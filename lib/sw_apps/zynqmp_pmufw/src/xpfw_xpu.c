@@ -69,7 +69,7 @@
 struct XpuMasterID {
 	u32 MasterID;
 	u32 MasterIDLimit;
-	char MasterName[10];
+	char MasterName[11];
 };
 
 /* XPU master ID LUT to identify master which caused the violation */
