@@ -46,7 +46,7 @@
 #define LPD_XPPU_CTRL_EN_MASK	BIT(0U)
 
 #define RestartDebug(DebugType, MSG, ...)	\
-	XPfw_Printf(DebugType, "%s" MSG, __func__, ##__VA_ARGS__)
+	XPfw_Printf((DebugType), "%s" MSG, __func__, ##__VA_ARGS__)
 
 #ifdef ENABLE_RECOVERY
 
