@@ -155,6 +155,8 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	Xil_AssertNonvoid(CfgPtr != NULL);
 	Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
+	/* Setup the InstancePtr. */
+	(void)memset((void *)InstancePtr, 0, sizeof(XHdcp1x));
 
 	/* Initialize InstancePtr. */
 	InstancePtr->Config = *CfgPtr;
