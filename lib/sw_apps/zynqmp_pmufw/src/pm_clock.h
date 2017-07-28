@@ -95,6 +95,7 @@ typedef struct PmClockHandle {
 	PmNode* node;
 	PmClockHandle* nextClock;
 	PmClockHandle* nextNode;
+	s32 (*IsActiveClk)(PmClockHandle* const ch);
 } PmClockHandle;
 
 /*********************************************************************
