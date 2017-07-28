@@ -185,7 +185,7 @@ XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 	return Status;
 }
 
-XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t Callback)
+XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t CallbackFn)
 {
 	u32 Idx;
 	XStatus Status;
@@ -206,21 +206,21 @@ XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliS
 	/* Add Interval as a factor of TICK_MILLISECONDS */
 	SchedPtr->TaskList[Idx].Interval = MilliSeconds/TICK_MILLISECONDS;
 	SchedPtr->TaskList[Idx].OwnerId = OwnerId;
-	SchedPtr->TaskList[Idx].Callback = Callback;
+	SchedPtr->TaskList[Idx].Callback = CallbackFn;
 	Status = XST_SUCCESS;
 
 done:
 	return Status;
 }
 
-XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t Callback)
+XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t CallbackFn)
 {
 	u32 Idx;
 	u32 TaskCount = 0;
 
 	/*Find the Task Index */
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
-		if ((Callback == SchedPtr->TaskList[Idx].Callback) &&
+		if ((CallbackFn == SchedPtr->TaskList[Idx].Callback) &&
 		    (SchedPtr->TaskList[Idx].OwnerId == OwnerId) &&
 		    ((SchedPtr->TaskList[Idx].Interval == (MilliSeconds/TICK_MILLISECONDS)) ||
 				(0U == MilliSeconds))) {

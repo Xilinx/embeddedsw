@@ -134,22 +134,22 @@ Done:
 }
 
 
-static void WdtRestart(XWdtPs* WdtInstPtr, u32 Timeout)
+static void WdtRestart(XWdtPs* WdtInstptr, u32 Timeout)
 {
 
-	XWdtPs_DisableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
-	XWdtPs_Stop(WdtInstPtr);
+	XWdtPs_DisableOutput(WdtInstptr, XWDTPS_RESET_SIGNAL);
+	XWdtPs_Stop(WdtInstptr);
 	/* Setting the divider value */
-	XWdtPs_SetControlValue(WdtInstPtr, XWDTPS_CLK_PRESCALE,
+	XWdtPs_SetControlValue(WdtInstptr, XWDTPS_CLK_PRESCALE,
 			XWDTPS_CCR_PSCALE_4096);
 	/* Set the Watchdog counter reset value */
-	XWdtPs_SetControlValue(WdtInstPtr, XWDTPS_COUNTER_RESET,
+	XWdtPs_SetControlValue(WdtInstptr, XWDTPS_COUNTER_RESET,
 			(Timeout*WDT_CLK_PER_SEC) >> WDT_CRV_SHIFT);
 	/* Start the Watchdog timer */
-	XWdtPs_Start(WdtInstPtr);
-	XWdtPs_RestartWdt(WdtInstPtr);
+	XWdtPs_Start(WdtInstptr);
+	XWdtPs_RestartWdt(WdtInstptr);
 	/* Enable reset output */
-	XWdtPs_EnableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
+	XWdtPs_EnableOutput(WdtInstptr, XWDTPS_RESET_SIGNAL);
 }
 
 #ifdef CHECK_HEALTHY_BOOT
