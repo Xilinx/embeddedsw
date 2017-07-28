@@ -119,47 +119,47 @@ struct XpuReg XpuRegList[] =
 {
 	{
 		.BaseAddress = XMPU_DDR_0_BASE_ADDR,
-		.MaskAll = 0xFU,
+		.MaskAll = (u32)0xFU,
 		.CfgName = "DDR0",
 	},
 	{
 		.BaseAddress = XMPU_DDR_1_BASE_ADDR,
-		.MaskAll = 0xFU,
+		.MaskAll = (u32)0xFU,
 		.CfgName = "DDR1",
 	},
 	{
 		.BaseAddress = XMPU_DDR_2_BASE_ADDR,
-		.MaskAll = 0xFU,
+		.MaskAll = (u32)0xFU,
 		.CfgName = "DDR2",
 	},
 	{
 		.BaseAddress = XMPU_DDR_3_BASE_ADDR,
-		.MaskAll = 0xFU,
+		.MaskAll = (u32)0xFU,
 		.CfgName = "DDR3",
 	},
 	{
 		.BaseAddress = XMPU_DDR_4_BASE_ADDR,
-		.MaskAll = 0xFU,
+		.MaskAll = (u32)0xFU,
 		.CfgName = "DDR4",
 	},
 	{
 		.BaseAddress = XMPU_DDR_5_BASE_ADDR,
-		.MaskAll = 0xFU,
+		.MaskAll = (u32)0xFU,
 		.CfgName = "DDR5",
 	},
 	{
 		.BaseAddress = XMPU_FPD_BASE_ADDR,
-		.MaskAll = 0xFU,
+		.MaskAll = (u32)0xFU,
 		.CfgName = "FPD",
 	},
 	{
 		.BaseAddress = XMPU_OCM_BASE_ADDR,
-		.MaskAll = 0xFU,
+		.MaskAll = (u32)0xFU,
 		.CfgName = "OCM",
 	},
 	{
 		.BaseAddress = XPPU_BASE_ADDR,
-		.MaskAll = 0xEFU,
+		.MaskAll = (u32)0xEFU,
 		.CfgName = "XPPU",
 	},
 };
