@@ -37,7 +37,7 @@
 #include "csu.h"
 #include "pm_reset.h"
 #include "xpfw_resets.h"
-
+#include "xpfw_restart.h"
 
 #define CSU_PCAP_STATUS	(CSU_BASE + 0x00003010U)
 #define CSU_PCAP_STATUS_PL_DONE_MASK (1U<<3)
@@ -182,7 +182,7 @@ static bool XPfw_RestartIsPlDone(void)
 							CSU_PCAP_STATUS_PL_DONE_MASK);
 }
 
-bool XPfw_RestartIsSubSysEnabled(void)
+static bool XPfw_RestartIsSubSysEnabled(void)
 {
 	return ((XPfw_Read32(LPD_XPPU_CTRL_ADDRESS) & LPD_XPPU_CTRL_EN_MASK) ==
 						LPD_XPPU_CTRL_EN_MASK);
@@ -194,7 +194,7 @@ static void MasterIdle(PmMaster* Master)
 	Xil_Out32((IPI_BASEADDR + ((u32)0X00031000U)), Master->ipiMask);
 }
 
-void XPfw_RestartSystemLevel(void)
+static void XPfw_RestartSystemLevel(void)
 {
 	bool IsPlUp = XPfw_RestartIsPlDone();
 	if(IsPlUp) {
