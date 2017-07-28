@@ -176,13 +176,13 @@ void XPfw_ClearBootHealthStatus(void)
  *
  * @return TRUE if its done else FALSE
  */
-static bool XPfw_RestartIsPlDone()
+static bool XPfw_RestartIsPlDone(void)
 {
 	return ((XPfw_Read32(CSU_PCAP_STATUS) & CSU_PCAP_STATUS_PL_DONE_MASK) ==
 							CSU_PCAP_STATUS_PL_DONE_MASK);
 }
 
-bool XPfw_RestartIsSubSysEnabled()
+bool XPfw_RestartIsSubSysEnabled(void)
 {
 	return ((XPfw_Read32(LPD_XPPU_CTRL_ADDRESS) & LPD_XPPU_CTRL_EN_MASK) ==
 						LPD_XPPU_CTRL_EN_MASK);
