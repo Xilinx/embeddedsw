@@ -75,37 +75,37 @@ struct XpuMasterID {
 /* XPU master ID LUT to identify master which caused the violation */
 struct XpuMasterID XpuMasterIDLUT[] =
 {
-		{ 0x00,  0x0F,  "RPU0" },
-		{ 0x10,  0x1F,  "RPU1" },
-		{ 0x40,  0x40,  "PMU MB" },
-		{ 0x50,  0x50,  "CSU MB" },
-		{ 0x51,  0x51,  "CSU DMA" },
-		{ 0x60,  0x60,  "USB0" },
-		{ 0x61,  0x61,  "USB1" },
-		{ 0x62,  0x62,  "DAP" },
-		{ 0x68,  0x6F,  "ADMA" },
-		{ 0x70,  0x70,  "SD0" },
-		{ 0x71,  0x71,  "SD1" },
-		{ 0x72,  0x72,  "NAND" },
-		{ 0x73,  0x73,  "QSPI" },
-		{ 0x74,  0x74,  "GEM0" },
-		{ 0x75,  0x75,  "GEM1" },
-		{ 0x76,  0x76,  "GEM2" },
-		{ 0x77,  0x77,  "GEM3" },
-		{ 0x80,  0xBF,  "APU" },
-		{ 0xC0,  0xC3,  "SATA" },
-		{ 0xC4,  0xC4,  "GPU" },
-		{ 0xC5,  0xC5,  "CoreSight" },
-		{ 0xD0,  0xD0,  "PCIe" },
-		{ 0xE0,  0xE7,  "DPDMA" },
-		{ 0xE8,  0xEF,  "GDMA" },
-		{ 0x200, 0x23F, "AFI FM0" },
-		{ 0x240, 0x27F, "AFI FM1" },
-		{ 0x280, 0x2BF, "AFI FM2" },
-		{ 0x2C0, 0x2FF, "AFI FM3" },
-		{ 0x300, 0x33F, "AFI FM4" },
-		{ 0x340, 0x37F, "AFI FM5" },
-		{ 0x380, 0x3BF, "AFI FM LPD" },
+		{ 0x00U,  0x0FU,  "RPU0" },
+		{ 0x10U,  0x1FU,  "RPU1" },
+		{ 0x40U,  0x40U,  "PMU MB" },
+		{ 0x50U,  0x50U,  "CSU MB" },
+		{ 0x51U,  0x51U,  "CSU DMA" },
+		{ 0x60U,  0x60U,  "USB0" },
+		{ 0x61U,  0x61U,  "USB1" },
+		{ 0x62U,  0x62U,  "DAP" },
+		{ 0x68U,  0x6FU,  "ADMA" },
+		{ 0x70U,  0x70U,  "SD0" },
+		{ 0x71U,  0x71U,  "SD1" },
+		{ 0x72U,  0x72U,  "NAND" },
+		{ 0x73U,  0x73U,  "QSPI" },
+		{ 0x74U,  0x74U,  "GEM0" },
+		{ 0x75U,  0x75U,  "GEM1" },
+		{ 0x76U,  0x76U,  "GEM2" },
+		{ 0x77U,  0x77U,  "GEM3" },
+		{ 0x80U,  0xBFU,  "APU" },
+		{ 0xC0U,  0xC3U,  "SATA" },
+		{ 0xC4U,  0xC4U,  "GPU" },
+		{ 0xC5U,  0xC5U,  "CoreSight" },
+		{ 0xD0U,  0xD0U,  "PCIe" },
+		{ 0xE0U,  0xE7U,  "DPDMA" },
+		{ 0xE8U,  0xEFU,  "GDMA" },
+		{ 0x200U, 0x23FU, "AFI FM0" },
+		{ 0x240U, 0x27FU, "AFI FM1" },
+		{ 0x280U, 0x2BFU, "AFI FM2" },
+		{ 0x2C0U, 0x2FFU, "AFI FM3" },
+		{ 0x300U, 0x33FU, "AFI FM4" },
+		{ 0x340U, 0x37FU, "AFI FM5" },
+		{ 0x380U, 0x3BFU, "AFI FM LPD" },
 };
 #endif
 
@@ -172,7 +172,7 @@ void XPfw_XpuIntrInit(void)
 {
 	u32 Idx;
 	XPfw_Printf(DEBUG_DETAILED,"EM: Enabling XMPU/XPPU interrupts\r\n");
-	for(Idx=0; Idx < ARRAYSIZE(XpuRegList);Idx++) {
+	for(Idx = 0U; Idx < ARRAYSIZE(XpuRegList);Idx++) {
 		/* Enable all the Interrupts for this XMPU/XPPU Instance */
 		XPfw_Write32(XpuRegList[Idx].BaseAddress + XPU_IER_OFFSET,
 						XpuRegList[Idx].MaskAll);
@@ -186,24 +186,24 @@ void XPfw_XpuIntrInit(void)
 void XPfw_XpuIntrAck(void)
 {
 	u32 Idx;
-	u32 XpuIntSts = 0;
+	u32 XpuIntSts = 0U;
 
 #ifdef XPU_INTR_DEBUG_PRINT_ENABLE
-	u32 Addr = 0;
-	u32 MasterID = 0;
-	u32 PoisonReg = 0;
-	u32 Offset = 0;
+	u32 Addr = 0U;
+	u32 MasterID = 0U;
+	u32 PoisonReg = 0U;
+	u32 Offset = 0U;
 	u32 MasterIdx;
 #endif
 
-	for (Idx = 0; (Idx < ARRAYSIZE(XpuRegList)) && (XpuIntSts == 0); Idx++) {
+	for (Idx = 0U; (Idx < ARRAYSIZE(XpuRegList)) && (XpuIntSts == 0U); Idx++) {
 		XpuIntSts = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_ISR_OFFSET);
 
 #ifdef XPU_INTR_DEBUG_PRINT_ENABLE
 		Addr = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_ERR_STATUS_1_OFFSET);
 		MasterID = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_ERR_STATUS_2_OFFSET);
 		PoisonReg = XPfw_Read32(XpuRegList[Idx].BaseAddress + XPU_POISON_OFFSET);
-		if ((Idx < (ARRAYSIZE(XpuRegList) - 1)) && (XpuIntSts != 0)) {
+		if ((Idx < (ARRAYSIZE(XpuRegList) - 1U)) && (XpuIntSts != 0U)) {
 
 			switch (XpuIntSts) {
 
@@ -242,7 +242,7 @@ void XPfw_XpuIntrAck(void)
 			XPfw_Printf(DEBUG_DETAILED,"EM: Address of poisoned operation: "
 					"0x%x%s\r\n",Addr,"XXX");
 
-			for(MasterIdx = 0; MasterIdx < ARRAYSIZE(XpuMasterIDLUT);
+			for(MasterIdx = 0U; MasterIdx < ARRAYSIZE(XpuMasterIDLUT);
 					++MasterIdx) {
 
 				if ((MasterID >= XpuMasterIDLUT[MasterIdx].MasterID) &&
@@ -257,7 +257,7 @@ void XPfw_XpuIntrAck(void)
 
 			XPfw_Printf(DEBUG_DETAILED,"EM: Poison register: 0x%x\r\n",
 					PoisonReg);
-		} else if ((Idx == (ARRAYSIZE(XpuRegList) - 1)) && (XpuIntSts != 0)) {
+		} else if ((Idx == (ARRAYSIZE(XpuRegList) - 1U)) && (XpuIntSts != 0U)) {
 
 			Offset = XPfw_Read32(XPPU_POISON_OFFSET_ADDR);
 
@@ -322,7 +322,7 @@ void XPfw_XpuIntrAck(void)
 			Addr = (Addr << 12) | Offset;
 			XPfw_Printf(DEBUG_DETAILED,"EM: Address of poisoned operation: "
 					"0x%x\r\n",Addr);
-			for(MasterIdx = 0; MasterIdx < ARRAYSIZE(XpuMasterIDLUT);
+			for(MasterIdx = 0U; MasterIdx < ARRAYSIZE(XpuMasterIDLUT);
 					++MasterIdx) {
 
 				if ((MasterID >= XpuMasterIDLUT[MasterIdx].MasterID) &&
