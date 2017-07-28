@@ -54,7 +54,7 @@ s32 XPfw_IpiManagerInit(void)
  {
 	s32 Status;
 	XIpiPsu_Config *IpiCfgPtr;
-	int i;
+	u32 i;
 
 	/* Load Config for PMU IPI-0 */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
@@ -64,7 +64,7 @@ s32 XPfw_IpiManagerInit(void)
 		goto Done;
 	}
 	/* Init Mask List */
-	for (i = 0; i < XPFW_IPI_MASK_COUNT; i++) {
+	for (i = 0U; i < XPFW_IPI_MASK_COUNT; i++) {
 		IpiMaskList[i] = IpiCfgPtr->TargetList[i].Mask;
 	}
 	/* Initialize the IPI driver */
@@ -72,7 +72,7 @@ s32 XPfw_IpiManagerInit(void)
 			IpiCfgPtr->BaseAddress);
 
 	/* Enable IPIs from all Masters */
-	for (i = 0; i < XPFW_IPI_MASK_COUNT; i++) {
+	for (i = 0U; i < XPFW_IPI_MASK_COUNT; i++) {
 		XIpiPsu_InterruptEnable(IpiInstPtr, IpiCfgPtr->TargetList[i].Mask);
 	}
 
