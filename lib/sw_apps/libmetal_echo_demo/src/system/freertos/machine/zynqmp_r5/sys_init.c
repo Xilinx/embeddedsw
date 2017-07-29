@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 #include <metal/irq.h>
 
 #include "platform_config.h"
+#include "common.h"
 
 #ifdef STDOUT_IS_16550
  #include <xuartns550_l.h>
@@ -54,24 +55,27 @@
 
 #define IPI_IRQ_VECT_ID         65
 
+#define SHM_BASE_ADDR   0x3ED80000
+#define TTC0_BASE_ADDR  0xFF110000
+#define IPI_BASE_ADDR   0xFF310000
+
 extern XScuGic xInterruptController;
 
 const metal_phys_addr_t metal_phys[] = {
-	0xFF310000, /**< base IPI address */
-	0x3ED00000, /**< shared memory0 description base address */
-	0x3ED10000, /**< shared memory0 description base address */
-	0x3ED20000, /**< shared memory base address */
+	IPI_BASE_ADDR, /**< base IPI address */
+	SHM_BASE_ADDR, /**< shared memory base address */
+	TTC0_BASE_ADDR, /**< base TTC0 address */
 };
 
-struct metal_device metal_dev_table[] = {
+static struct metal_device metal_dev_table[] = {
 	{
 		/* IPI device */
-		"ff310000.ipi",
+		IPI_DEV_NAME,
 		NULL,
 		1,
 		{
 			{
-				(void *)0xFF310000,
+				(void *)IPI_BASE_ADDR,
 				&metal_phys[0],
 				0x1000,
 				(sizeof(metal_phys_addr_t) << 3),
@@ -86,15 +90,15 @@ struct metal_device metal_dev_table[] = {
 
 	},
 	{
-		/* Shared memory0 management device */
-		"3ed00000.shm_desc",
+		/* Shared memory management device */
+		SHM_DEV_NAME,
 		NULL,
 		1,
 		{
 			{
-				(void *)0x3ED00000,
+				(void *)SHM_BASE_ADDR,
 				&metal_phys[1],
-				0x1000,
+				0x800000,
 				(sizeof(metal_phys_addr_t) << 3),
 				(unsigned long)(-1),
 				NORM_SHARED_NCACHE | PRIV_RW_USER_RW,
@@ -107,39 +111,18 @@ struct metal_device metal_dev_table[] = {
 
 	},
 	{
-		/* Shared memory1 management device */
-		"3ed10000.shm_desc",
+		/* ttc0 */
+		TTC_DEV_NAME,
 		NULL,
 		1,
 		{
 			{
-				(void *)0x3ED10000,
+				(void *)TTC0_BASE_ADDR ,
 				&metal_phys[2],
 				0x1000,
 				(sizeof(metal_phys_addr_t) << 3),
 				(unsigned long)(-1),
-				NORM_SHARED_NCACHE | PRIV_RW_USER_RW,
-				{NULL},
-			}
-		},
-		{NULL},
-		0,
-		NULL,
-
-	},
-	{
-		/* Shared memory management device */
-		"3ed20000.shm",
-		NULL,
-		1,
-		{
-			{
-				(void *)0x3ED20000,
-				&metal_phys[3],
-				0x40000,
-				(sizeof(metal_phys_addr_t) << 3),
-				(unsigned long)(-1),
-				NORM_SHARED_NCACHE | PRIV_RW_USER_RW,
+				DEVICE_NONSHARED | PRIV_RW_USER_RW,
 				{NULL},
 			}
 		},
@@ -149,6 +132,13 @@ struct metal_device metal_dev_table[] = {
 
 	},
 };
+
+/**
+ * Extern global variables
+ */
+struct metal_device *ipi_dev = NULL;
+struct metal_device *shm_dev = NULL;
+struct metal_device *ttc_dev = NULL;
 
 /**
  * @brief enable_caches() - Enable caches
@@ -196,6 +186,34 @@ void init_uart()
  */
 int init_irq()
 {
+	int ret = 0;
+	XScuGic_Config *IntcConfig;	/* The configuration parameters of
+					 * the interrupt controller */
+
+	Xil_ExceptionDisable();
+	/*
+	 * Initialize the interrupt controller driver
+	 */
+	IntcConfig = XScuGic_LookupConfig(INTC_DEVICE_ID);
+	if (NULL == IntcConfig) {
+		return (int)XST_FAILURE;
+	}
+
+	ret = XScuGic_CfgInitialize(&xInterruptController, IntcConfig,
+				       IntcConfig->CpuBaseAddress);
+	if (ret != XST_SUCCESS) {
+		return (int)XST_FAILURE;
+	}
+
+	/*
+	 * Register the interrupt handler to the hardware interrupt handling
+	 * logic in the ARM processor.
+	 */
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_IRQ_INT,
+			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
+			&xInterruptController);
+
+	Xil_ExceptionEnable();
 	/* Connect IPI Interrupt ID with libmetal ISR */
 	XScuGic_Connect(&xInterruptController, IPI_IRQ_VECT_ID,
 			   (Xil_ExceptionHandler)metal_irq_isr,
@@ -214,11 +232,12 @@ int init_irq()
  *
  * @return 0 - succeeded, non-zero for failures.
  */
-int platform_register_metal_device (void)
+int platform_register_metal_device(void)
 {
 	unsigned int i;
 	int ret;
 	struct metal_device *dev;
+
 	metal_bus_register(&metal_generic_bus);
 	for (i = 0; i < sizeof(metal_dev_table)/sizeof(struct metal_device);
 	     i++) {
@@ -229,6 +248,62 @@ int platform_register_metal_device (void)
 			return ret;
 	}
 	return 0;
+}
+
+/**
+ * @brief open_metal_devices() - Open registered libmetal devices.
+ *        This function opens all the registered libmetal devices.
+ *
+ * @return 0 - succeeded, non-zero for failures.
+ */
+int open_metal_devices(void)
+{
+	int ret;
+
+	/* Open shared memory device */
+	ret = metal_device_open(BUS_NAME, SHM_DEV_NAME, &shm_dev);
+	if (ret) {
+		LPERROR("Failed to open device %s.\n", SHM_DEV_NAME);
+		goto out;
+	}
+
+	/* Open IPI device */
+	ret = metal_device_open(BUS_NAME, IPI_DEV_NAME, &ipi_dev);
+	if (ret) {
+		LPERROR("Failed to open device %s.\n", IPI_DEV_NAME);
+		goto out;
+	}
+
+	/* Open TTC device */
+	ret = metal_device_open(BUS_NAME, TTC_DEV_NAME, &ttc_dev);
+	if (ret) {
+		LPERROR("Failed to open device %s.\n", TTC_DEV_NAME);
+		goto out;
+	}
+
+out:
+	return ret;
+}
+
+/**
+ * @brief close_metal_devices() - close libmetal devices
+ *        This function closes all the libmetal devices which have
+ *        been opened.
+ *
+ */
+void close_metal_devices(void)
+{
+	/* Close shared memory device */
+	if (shm_dev)
+		metal_device_close(shm_dev);
+
+	/* Close IPI device */
+	if (ipi_dev)
+		metal_device_close(ipi_dev);
+
+	/* Close TTC device */
+	if (ttc_dev)
+		metal_device_close(ttc_dev);
 }
 
 /**
@@ -243,20 +318,28 @@ int sys_init()
 {
 	struct metal_init_params metal_param = METAL_INIT_DEFAULTS;
 	int ret;
+
 	enable_caches();
 	init_uart();
 	if (init_irq()) {
-		xil_printf("Failed to initialize interrupt\n");
+		LPERROR("Failed to initialize interrupt\n");
 	}
-	/** Register the device */
+
+	/* Initialize libmetal environment */
 	metal_init(&metal_param);
+	/* Register libmetal devices */
 	ret = platform_register_metal_device();
 	if (ret) {
-		xil_printf(
-			"%s: failed to register device: %d\n", __func__, ret);
+		LPERROR("%s: failed to register devices: %d\n", __func__, ret);
 		return ret;
 	}
 
+	/* Open libmetal devices which have been registered */
+	ret = open_metal_devices();
+	if (ret) {
+		LPERROR("%s: failed to open devices: %d\n", __func__, ret);
+		return ret;
+	}
 	return 0;
 }
 
@@ -269,20 +352,10 @@ int sys_init()
  */
 void sys_cleanup()
 {
+	/* Close libmetal devices which have been opened */
+	close_metal_devices();
+	/* Finish libmetal environment */
 	metal_finish();
 	disable_caches();
 }
 
-typedef void *(*task_to_run)(void *arg);
-/**
- * @brief run_comm_task() - run the communication task
- */
-int run_comm_task(task_to_run task, void *arg)
-{
-	task(arg);
-	return 0;
-}
-
-void wait_for_interrupt(void) {
-	asm volatile("wfi");
-}
