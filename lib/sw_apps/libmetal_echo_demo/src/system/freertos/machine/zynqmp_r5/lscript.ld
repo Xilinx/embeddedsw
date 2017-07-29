@@ -45,7 +45,7 @@ MEMORY
 {
    psu_r5_atcm_MEM_0 : ORIGIN = 0x0, LENGTH = 0x10000
    psu_r5_btcm_MEM_0 : ORIGIN = 0x20000, LENGTH = 0x10000
-   psu_r5_ddr_0_MEM_0 : ORIGIN = 0x3ed60000, LENGTH = 0x80000
+   psu_r5_ddr_0_MEM_0 : ORIGIN = 0x3ed00000, LENGTH = 0x80000
 }
 
 /* Specify the default entry point to the program */
