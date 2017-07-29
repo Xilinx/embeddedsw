@@ -44,10 +44,10 @@
 #include "metal/atomic.h"
 #include "platform_info.h"
 
-#define IPI_BASE_ADDR                     0xFF310000 /* IPI base address */
-#define IPI_CHN_BITMASK                   0x01000000 /* IPI channel bit mask APU<->RPU0 */
+#define IPI_BASE_ADDR        XPAR_XIPIPSU_0_BASE_ADDRESS /* IPI base address*/
+#define IPI_CHN_BITMASK      0x01000000 /* IPI channel bit mask APU<->RPU0 */
 
-#define APU_CPU_ID                        0
+#define APU_CPU_ID           0
 
 /* -- FIX ME: ipi info is to be defined -- */
 struct ipi_info {
