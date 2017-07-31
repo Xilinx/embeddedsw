@@ -6,6 +6,9 @@ added initial version
 v_gamma_lut_v1_0
 added initial version
 
+mbox_v4_3:
+Added support for FIFO reset using hardware control register
+
 mipicsiss_v1_1:
 Added application support for mipi csi subsystem example design
 
