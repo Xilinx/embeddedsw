@@ -344,7 +344,6 @@ u8 Hdcp14KeyB[] = {
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_YELLOW  "\x1b[33m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
-#define VPHY_ERR_SIZE      31
 
 #if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
 /* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
@@ -355,11 +354,6 @@ u8 Hdcp14KeyB[] = {
 
 
 /**************************** Type Definitions *******************************/
-typedef struct XVphyErrEvent
-{
-	XVphy *VphyPtr;
-	XVphy_ErrType ErrType;
-}XVphyErrEvent;
 
 
 /************************** Function Prototypes ******************************/
@@ -405,13 +399,15 @@ void RxStreamDownCallback(void *CallbackRef);
 void VphyHdmiRxInitCallback(void *CallbackRef);
 void VphyHdmiRxReadyCallback(void *CallbackRef);
 #endif
-void VphyErrorCallback(void *CallbackRef, XVphy_ErrType ErrType);
+void VphyErrorCallback(void *CallbackRef);
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+void VphyPllLayoutErrorCallback(void *CallbackRef);
+#endif
 void VphyProcessError(void);
 
 /************************** Variable Definitions *****************************/
 
 XVphy Vphy;               	/* VPHY structure */
-XVphyErrEvent VphyErrEvent[VPHY_ERR_SIZE];
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 XV_HdmiTxSs HdmiTxSs;       /* HDMI TX SS structure */
 XV_HdmiTxSs_Config *XV_HdmiTxSs_ConfigPtr;
@@ -442,6 +438,8 @@ Video_CRC_Config VidFrameCRC;
 
 u8 IsPassThrough;         /**< Demo mode 0-colorbar 1-pass through */
 u8 StartTxAfterRxFlag;
+u8 VphyErrorFlag;
+u8 VphyPllLayoutErrorFlag;
 u8 MuteAudio;
 u8 TxBusy;                // TX busy flag. This flag is set while the TX is initialized
 u8 TxRestartColorbar;     // TX restart colorbar. This flag is set when the TX cable has been reconnected and the TX colorbar was showing.
@@ -813,14 +811,18 @@ void Info(void)
   xil_printf("\r\n");
   xil_printf("GT status\r\n");
   xil_printf("---------\r\n");
-  xil_printf("TX reference clock frequency %0d Hz\r\n",
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
+  xil_printf("TX reference clock frequency: %0d Hz\r\n",
 				  XVphy_ClkDetGetRefClkFreqHz(&Vphy, XVPHY_DIR_TX));
-  xil_printf("RX reference clock frequency %0d Hz\r\n",
+#endif
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+  xil_printf("RX reference clock frequency: %0d Hz\r\n",
 				  XVphy_ClkDetGetRefClkFreqHz(&Vphy, XVPHY_DIR_RX));
   if(Vphy.Config.DruIsPresent == (TRUE)) {
-    xil_printf("DRU reference clock frequency %0d Hz\r\n",
+    xil_printf("DRU reference clock frequency: %0d Hz\r\n",
 				XVphy_DruGetRefClkFreqHz(&Vphy));
   }
+#endif
   XVphy_HdmiDebugInfo(&Vphy, 0, XVPHY_CHANNEL_ID_CH1);
 }
 
@@ -1060,29 +1062,31 @@ void VphyHdmiRxReadyCallback(void *CallbackRef)
 * @note   None.
 *
 ******************************************************************************/
-void VphyErrorCallback(void *CallbackRef, XVphy_ErrType ErrType)
+void VphyErrorCallback(void *CallbackRef)
 {
-	u8 FifoLoc = VPHY_ERR_SIZE-1;
-
-	/* Find the last entry */
-	do {
-		if (FifoLoc==0) {
-			if (VphyErrEvent[FifoLoc].VphyPtr == NULL) {
-				VphyErrEvent[FifoLoc].VphyPtr = (XVphy *)CallbackRef;
-				VphyErrEvent[FifoLoc].ErrType = ErrType;
-			} else {
-				VphyErrEvent[FifoLoc+1].VphyPtr = (XVphy *)CallbackRef;
-				VphyErrEvent[FifoLoc+1].ErrType = ErrType;
-			}
-			return;
-		} else if (VphyErrEvent[FifoLoc].VphyPtr != NULL) {
-			VphyErrEvent[FifoLoc+1].VphyPtr = (XVphy *)CallbackRef;
-			VphyErrEvent[FifoLoc+1].ErrType = ErrType;
-			return;
-		}
-		FifoLoc--;
-	} while (FifoLoc != 255);
+	VphyErrorFlag = TRUE;
 }
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+/*****************************************************************************/
+/**
+*
+* This function is called whenever a GTXE2 PLL layout error condition in VPHY
+* occurs. This function can be used automatically switch the PLL layout.
+* This will set the VPHY PLL Layout error flag to TRUE.
+*
+* @param  CallbackRef is the VPHY instance pointer
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void VphyPllLayoutErrorCallback(void *CallbackRef)
+{
+	VphyPllLayoutErrorFlag = TRUE;
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -1101,42 +1105,22 @@ void VphyErrorCallback(void *CallbackRef, XVphy_ErrType ErrType)
 ******************************************************************************/
 void VphyProcessError(void)
 {
-	u8 FifoLoc = 0;
 
-	/* Process all pending VPHY Error Events  */
-	while (VphyErrEvent[FifoLoc].VphyPtr != NULL)
-	{
-		switch (VphyErrEvent[FifoLoc].ErrType) {
-			case (XVPHY_ERR_QPLL_CFG) :
-			case (XVPHY_ERR_CPLL_CFG) :
-			case (XVPHY_ERR_NO_DRU) :
-			case (XVPHY_ERR_VD_NOT_SPRTD) :
-			case (XVPHY_ERR_MMCM_CFG) :
-			case (XVPHY_ERR_BONDED_DRU) :
-				xil_printf(ANSI_COLOR_RED "VPHY Error: See log for details"
-						ANSI_COLOR_RESET "\r\n");
-			break;
+	if (VphyErrorFlag == TRUE) {
+		xil_printf(ANSI_COLOR_RED "VPHY Error: See log for details"
+				ANSI_COLOR_RESET "\r\n");
+	}
+	/* Clear Flag */
+	VphyErrorFlag = FALSE;
 
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
-			/*
-			 * XVPHY_ERR_PLL_LAYOUT can be expanded to automatically
-			 * switch the GT PLL Layout
-			 */
-			case (XVPHY_ERR_PLL_LAYOUT) :
-				xil_printf(ANSI_COLOR_RED "VPHY Error: Try changing to "
-						"another PLL Layout" ANSI_COLOR_RESET "\r\n");
-			break;
-#endif
-
-			default :
-			break;
-		}
-
-		/* Free up the processed event */
-		VphyErrEvent[FifoLoc].VphyPtr = NULL;
-
-		FifoLoc++;
+	if (VphyPllLayoutErrorFlag == TRUE) {
+		xil_printf(ANSI_COLOR_RED "VPHY Error: Try changing to "
+				"another PLL Layout" ANSI_COLOR_RESET "\r\n");
 	}
+	/* Clear Flag */
+	VphyPllLayoutErrorFlag = FALSE;
+#endif
 }
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -2025,6 +2009,8 @@ int main()
   StartTxAfterRxFlag = (FALSE);
   TxBusy = (FALSE);
   TxRestartColorbar = (FALSE);
+  VphyErrorFlag = FALSE;
+  VphyPllLayoutErrorFlag = FALSE;
 
   /* Start in color bar */
   IsPassThrough = 0;
@@ -2116,6 +2102,8 @@ int main()
       xil_printf("HDCP 1.4 TX Key Manager Initialization error\r\n");
       return XST_FAILURE;
     }
+
+	usleep (10000);
 #endif
 
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
@@ -2607,6 +2595,12 @@ int main()
     XVphy_SetErrorCallback(&Vphy,
 						(void *)VphyErrorCallback,
 						(void *)&Vphy);
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+    XVphy_SetPllLayoutErrorCallback(&Vphy,
+						(void *)VphyPllLayoutErrorCallback,
+						(void *)&Vphy);
+#endif
 
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
     /* Initialize GPIO for Tpg Reset */
