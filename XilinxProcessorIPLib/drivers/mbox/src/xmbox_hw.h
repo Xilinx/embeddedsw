@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2017 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,7 @@
 *			Removed _m from the function names.
 *			Renamed _mIsEmpty to _IsEmptyHw and _mIsFull
 *			to _IsFullHw.
+* 4.3   sa   04/20/17   Added CTRL register definitions.
 * </pre>
 *
 ******************************************************************************/
@@ -97,6 +98,7 @@ extern "C" {
 #define XMB_IS_REG_OFFSET	0x20	/**< Mbox interrupt status register */
 #define XMB_IE_REG_OFFSET	0x24	/**< Mbox interrupt enable register */
 #define XMB_IP_REG_OFFSET	0x28	/**< Mbox interrupt pending register */
+#define XMB_CTRL_REG_OFFSET	0x2C	/**< Mbox control register */
 
 /*@}*/
 
@@ -139,6 +141,16 @@ extern "C" {
 
 #define XMB_ERROR_FIFO_EMPTY	0x00000001 /**< Receive FIFO is Empty */
 #define XMB_ERROR_FIFO_FULL	0x00000002 /**< Send FIFO is Full */
+
+/* @} */
+
+/**
+ * @name Control register bits definition.
+ * @{
+ */
+
+#define XMB_CTRL_RESET_SEND_FIFO       	0x00000001 /**< Clear Send FIFO */
+#define XMB_CTRL_RESET_RECV_FIFO       	0x00000002 /**< Clear Receive FIFO */
 
 /* @} */
 
