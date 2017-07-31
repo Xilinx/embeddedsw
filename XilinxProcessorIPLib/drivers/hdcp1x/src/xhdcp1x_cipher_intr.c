@@ -245,8 +245,6 @@ void XHdcp1x_CipherHandleInterrupt(void *InstancePtr)
 	/* Determine Pending */
 	Pending = XHdcp1x_ReadReg(HdcpPtr->Config.BaseAddress,
 		XHDCP1X_CIPHER_REG_INTERRUPT_STATUS);
-	Pending &= ~XHdcp1x_ReadReg(HdcpPtr->Config.BaseAddress,
-		XHDCP1X_CIPHER_REG_INTERRUPT_MASK);
 
 	/* Check for pending */
 	if (Pending != 0) {
