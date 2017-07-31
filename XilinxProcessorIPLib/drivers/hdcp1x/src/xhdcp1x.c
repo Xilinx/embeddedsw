@@ -1002,6 +1002,8 @@ int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 Map)
 	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxEnableEncryption(InstancePtr, Map);
 	}
+#else
+	UNUSED(Map);
 #endif
 
 	return (Status);
@@ -1034,6 +1036,8 @@ int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 Map)
 	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxDisableEncryption(InstancePtr, Map);
 	}
+#else
+	UNUSED(Map);
 #endif
 
 	return (Status);
@@ -1295,12 +1299,15 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 ******************************************************************************/
 void XHdcp1x_ProcessAKsv(XHdcp1x *InstancePtr)
 {
-	#if defined(INCLUDE_RX)
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (InstancePtr->Config.IsRx) {
 		InstancePtr->Port.Adaptor->CallbackHandler(InstancePtr);
 	}
-	#endif
+#endif
 }
 
 /*****************************************************************************/
@@ -1646,6 +1653,8 @@ void XHdcp1x_SetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
 		XHdcp1x_RxSetTopologyKSVList(InstancePtr, ListPtr,	ListSize);
 	}
 	else
+#else
+	UNUSED(ListSize);
 #endif
 	{
 		ListPtr = NULL;
