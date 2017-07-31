@@ -1354,6 +1354,11 @@ void PmClockSnoop(const u32 addr, const u32 mask, const u32 val)
 			continue;
 		}
 
+		/* Floating clocks should not affect the PLL use count */
+		if (NULL == clk->users) {
+			continue;
+		}
+
 		clk->pll = PmClockGetParent(clk, sel);
 
 		/* If the PLL source has not changed go to done */
