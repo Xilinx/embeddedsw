@@ -52,6 +52,7 @@ definitions for pl to ps interrupts.Fix for CR#980534
 tmrctr_v4_4:
 Updated XTmrCtr_DisableIntr macro to not to clear T0INT flag.It fixes
 CR#980512.
+Resolve compilation warning
 
 tpg_v3_1:
 Updated NUM_INSTANCES parameter in xparameters.h and
