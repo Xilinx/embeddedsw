@@ -7,7 +7,7 @@
 /**
 *
 * @file xmbox_hw.h
-* @addtogroup mbox_v4_4
+* @addtogroup mbox_v4_5
 * @{
 *
 * This header file contains identifiers and driver macros that can be used to
