@@ -78,14 +78,14 @@ typedef u32 (*const PmTranHandler)(void);
  */
 #ifdef DEBUG_PM
 	#define PmDbg(DebugType, MSG, ...)	\
-		XPfw_Printf(DebugType, "PMUFW: %s" MSG, __func__, ##__VA_ARGS__)
+		XPfw_Printf(DebugType, "PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
 #else
 	#define PmDbg(DebugType, MSG, ...) {}
 #endif
 
 #ifdef DEBUG_SET_CONFIG
 	#define PmDbgCfg(DebugType, MSG, ...) \
-		XPfw_Printf(DebugType, "PMWFW: %s" MSG, __func__, ##__VA_ARGS__)
+		XPfw_Printf(DebugType, "PMWFW: %s: " MSG, __func__, ##__VA_ARGS__)
 #else
 	#define PmDbgCfg(DebugType, MSG, ...) {}
 #endif
