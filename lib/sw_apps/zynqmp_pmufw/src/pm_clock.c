@@ -808,6 +808,16 @@ static PmClockHandle pmClockHandles[] = {
 		.nextClock = NULL,
 		.nextNode = NULL,
 	}, {
+		.clock = &pmClockUsb3Dual,
+		.node = &pmSlaveUsb0_g.slv.node,
+		.nextClock = NULL,
+		.nextNode = NULL,
+	}, {
+		.clock = &pmClockUsb3Dual,
+		.node = &pmSlaveUsb1_g.slv.node,
+		.nextClock = NULL,
+		.nextNode = NULL,
+	}, {
 		.clock = &pmClockUsb0Bus,
 		.node = &pmSlaveUsb0_g.slv.node,
 		.nextClock = NULL,
