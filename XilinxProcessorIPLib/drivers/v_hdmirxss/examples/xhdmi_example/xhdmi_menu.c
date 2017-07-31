@@ -1231,10 +1231,15 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 {
 	// Variables
 	XHdmi_MenuType 	Menu;
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 	u8 IsPassThroughCopy;
+#endif
 	XVphy_SysClkDataSelType TxSysPllSelect;
 	XVphy_SysClkDataSelType RxSysPllSelect;
 	u8 IsValid = FALSE;
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && (!defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES))
+	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
+#endif
 
 	// Default
 	Menu = XHDMI_GTPLLLAYOUT_MENU;
@@ -1304,22 +1309,44 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	}
 
 	if (IsValid) {
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 		// The IsPassThrough variable will be cleared when the PLL layout is set.
 		// Therefore we copy the variable first, so we know what to do after the PLL layout has changed.
 		IsPassThroughCopy = IsPassThrough;
+#endif
 
 		/* Update VPHY Clocking */
 		XVphy_HdmiUpdateClockSelection(&Vphy, 0, TxSysPllSelect, RxSysPllSelect);
 
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 		// Is the reference design in pass-through
 		// Then re-start pass-through
 		if ((IsPassThroughCopy) || (Input == 3) || (Input == 4)) {
 			xil_printf("Restart pass-through\r\n");
-
 			// Reset RX frequency detector
 			XVphy_ClkDetFreqReset(&Vphy, 0,	XVPHY_DIR_RX);
-			//ToggleRxHpd();
 		}
+#elif defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+		// Is the reference design RX Only
+		if ((Input == 1) || (Input == 2)) {
+			xil_printf("Issue RX HPD\r\n");
+			// Reset RX frequency detector
+			XVphy_ClkDetFreqReset(&Vphy, 0,	XVPHY_DIR_RX);
+		}
+#elif defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
+		// Is the reference design TX Only
+		if ((Input == 1) || (Input == 2)) {
+			// Get current video stream
+			HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
+			EnableColorBar(&Vphy,
+				 &HdmiTxSs,
+				 HdmiTxSsVidStreamPtr->VmId,
+				 HdmiTxSsVidStreamPtr->ColorFormatId,
+				 HdmiTxSsVidStreamPtr->ColorDepth);
+			// Reset TX frequency detector
+			XVphy_ClkDetFreqReset(&Vphy, 0,	XVPHY_DIR_TX);
+		}
+#endif
 
 		// Re-start colorbar
 		else
