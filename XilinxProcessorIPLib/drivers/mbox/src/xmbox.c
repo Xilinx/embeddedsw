@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -62,6 +62,7 @@
 * 3.02a bss  08/18/12   Added XMbox_GetStatus API for CR 676187
 * 4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
 *                     Changed the prototypes of XMbox_CfgInitialize API.
+* 4.3   sa   04/20/17 Support for FIFO reset using hardware control register.
 *
 * </pre>
 *
@@ -464,7 +465,7 @@ u32 XMbox_IsFull(XMbox *InstancePtr)
 /*****************************************************************************/
 /**
 *
-* Resets the mailbox FIFOs by empting the READ FIFO and making sure the
+* Resets the mailbox FIFOs by emptying the READ FIFO and making sure the
 * Error Status is zero.
 *
 * @param	InstancePtr is a pointer to the XMbox instance to be worked on.
@@ -494,6 +495,36 @@ int XMbox_Flush(XMbox *InstancePtr)
 	}
 
 	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+*
+* Resets the mailbox FIFOs by clearing the READ and WRITE FIFOs using the
+* hardware control register for memory mapped IO.
+*
+* @param	InstancePtr is a pointer to the XMbox instance to be worked on.
+*
+* @return	None.
+*
+* @note		Use XMbox_Flush instead for FSL based access.
+*
+******************************************************************************/
+void XMbox_ResetFifos(XMbox *InstancePtr)
+{
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->Config.UseFSL == 0);
+
+	/* For memory mapped IO:
+	 *
+	 * Write to the control register to reset both send and
+	 * receive FIFOs, these bits are self-clearing such that
+	 * there's no need to clear them.
+	 */
+	XMbox_WriteReg(InstancePtr->Config.BaseAddress,
+		       XMB_CTRL_REG_OFFSET,
+		       XMB_CTRL_RESET_SEND_FIFO |
+		       XMB_CTRL_RESET_RECV_FIFO);
 }
 
 /*****************************************************************************/
