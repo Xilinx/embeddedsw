@@ -2061,6 +2061,9 @@ int main()
 
   I2cClk_Ps(0, 156250000);
 
+  // Delay 15ms to allow SI chip to lock
+  usleep (15000);
+
 #endif
 
   /* Initialize external clock generator */
@@ -2156,6 +2159,9 @@ int main()
 #if defined (__arm__) && (!defined(ARMR5))
   /* Initialize on-board clock generator */
   OnBoardSi5324Init();
+
+  // Delay 15ms to allow SI chip to lock
+  usleep (15000);
 #endif
 
  /* Initialize IRQ */
