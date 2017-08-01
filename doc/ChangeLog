@@ -3,6 +3,10 @@ Changes for 2017.3
 v_demosaic_v1_0
 added initial version
 
+v_frmbuf_wr_v2_0
+added second buffer for semi-planar formats
+added 64-bit address support for memory mapped interface
+
 v_gamma_lut_v1_0
 added initial version
 

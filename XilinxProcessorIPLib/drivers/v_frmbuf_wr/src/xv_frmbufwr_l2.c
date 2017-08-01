@@ -47,6 +47,7 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
+* 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
 * </pre>
 *
 ******************************************************************************/
@@ -492,6 +493,61 @@ UINTPTR XVFrmbufWr_GetBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
 
 /*****************************************************************************/
 /**
+* This function sets the buffer address for the UV plane for semi-planar formats
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+* @param  Addr is the absolute address of buffer in memory
+*
+* @return XST_SUCCESS or XST_FAILURE
+*
+******************************************************************************/
+int XVFrmbufWr_SetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
+                             UINTPTR Addr)
+{
+  UINTPTR Align;
+  u32 AddrValid = FALSE;
+  int Status = XST_FAILURE;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(Addr != 0);
+
+  /* Check if addr is aligned to aximm width (2*PPC*32-bits (4Bytes)) */
+  Align = 2 * InstancePtr->FrmbufWr.Config.PixPerClk * 4;
+  if((Addr % Align) != 0) {
+     AddrValid = FALSE;
+     Status   = XVFRMBUFWR_ERR_MEM_ADDR_MISALIGNED;
+  } else {
+     AddrValid = TRUE;
+  }
+
+  if(AddrValid) {
+    XV_frmbufwr_Set_HwReg_frm_buffer2_V(&InstancePtr->FrmbufWr, Addr);
+    Status = XST_SUCCESS;
+  }
+  return(Status);
+}
+
+/*****************************************************************************/
+/**
+* This function reads the buffer address for the UV plane for semi-planar formats
+*
+* @param  InstancePtr is a pointer to core instance to be worked upon
+*
+* @return Address of buffer in memory
+*
+******************************************************************************/
+UINTPTR XVFrmbufWr_GetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr)
+{
+  UINTPTR ReadVal = 0;
+
+  Xil_AssertNonvoid(InstancePtr != NULL);
+
+  ReadVal = XV_frmbufwr_Get_HwReg_frm_buffer2_V(&InstancePtr->FrmbufWr);
+  return(ReadVal);
+}
+
+/*****************************************************************************/
+/**
 * This function reports the frame buffer write status
 *
 * @param  InstancePtr is a pointer to core instance to be worked upon
@@ -512,29 +568,30 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   ctrl  = XV_frmbufwr_ReadReg(InstancePtr->FrmbufWr.Config.BaseAddress,
                               XV_FRMBUFWR_CTRL_ADDR_AP_CTRL);
 
-  xil_printf("Pixels Per Clock:     %d\r\n", InstancePtr->FrmbufWr.Config.PixPerClk);
-  xil_printf("Color Depth:          %d\r\n", InstancePtr->FrmbufWr.Config.MaxDataWidth);
-  xil_printf("AXI-MM Data Width:    %d\r\n", InstancePtr->FrmbufWr.Config.AXIMMDataWidth);
-  xil_printf("RGBX8 Enabled:        %d\r\n", InstancePtr->FrmbufWr.Config.RGBX8En);
-  xil_printf("YUVX8 Enabled:        %d\r\n", InstancePtr->FrmbufWr.Config.YUVX8En);
-  xil_printf("YUYV8 Enabled:        %d\r\n", InstancePtr->FrmbufWr.Config.YUYV8En);
-  xil_printf("RGBX10 Enabled:       %d\r\n", InstancePtr->FrmbufWr.Config.RGBX10En);
-  xil_printf("YUVX10 Enabled:       %d\r\n", InstancePtr->FrmbufWr.Config.YUVX10En);
-  xil_printf("Y_UV8 Enabled:        %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV8En);
-  xil_printf("Y_UV8_420 Enabled:    %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV8_420En);
-  xil_printf("RGB8 Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.RGB8En);
-  xil_printf("YUV8 Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.YUV8En);
-  xil_printf("Y_UV10 Enabled:       %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10En);
-  xil_printf("Y_UV10_420 Enabled:   %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10_420En);
-  xil_printf("Y8 Enabled:           %d\r\n", InstancePtr->FrmbufWr.Config.Y8En);
-  xil_printf("Y10 Enabled:          %d\r\n", InstancePtr->FrmbufWr.Config.Y10En);
+  xil_printf("Pixels Per Clock:           %d\r\n", InstancePtr->FrmbufWr.Config.PixPerClk);
+  xil_printf("Color Depth:                %d\r\n", InstancePtr->FrmbufWr.Config.MaxDataWidth);
+  xil_printf("AXI-MM Data Width:          %d\r\n", InstancePtr->FrmbufWr.Config.AXIMMDataWidth);
+  xil_printf("RGBX8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.RGBX8En);
+  xil_printf("YUVX8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.YUVX8En);
+  xil_printf("YUYV8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.YUYV8En);
+  xil_printf("RGBX10 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.RGBX10En);
+  xil_printf("YUVX10 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.YUVX10En);
+  xil_printf("Y_UV8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV8En);
+  xil_printf("Y_UV8_420 Enabled:          %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV8_420En);
+  xil_printf("RGB8 Enabled:               %d\r\n", InstancePtr->FrmbufWr.Config.RGB8En);
+  xil_printf("YUV8 Enabled:               %d\r\n", InstancePtr->FrmbufWr.Config.YUV8En);
+  xil_printf("Y_UV10 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10En);
+  xil_printf("Y_UV10_420 Enabled:         %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV10_420En);
+  xil_printf("Y8 Enabled:                 %d\r\n", InstancePtr->FrmbufWr.Config.Y8En);
+  xil_printf("Y10 Enabled:                %d\r\n", InstancePtr->FrmbufWr.Config.Y10En);
 
-  xil_printf("Control Reg:          0x%x\r\n", ctrl);
-  xil_printf("Width:                %d\r\n", XV_frmbufwr_Get_HwReg_width(&InstancePtr->FrmbufWr));
-  xil_printf("Height:               %d\r\n", XV_frmbufwr_Get_HwReg_height(&InstancePtr->FrmbufWr));
-  xil_printf("Stride (in bytes):    %d\r\n", XV_frmbufwr_Get_HwReg_stride(&InstancePtr->FrmbufWr));
-  xil_printf("Video Format:         %d\r\n", XV_frmbufwr_Get_HwReg_video_format(&InstancePtr->FrmbufWr));
-  xil_printf("Buffer Address:       0x%x\r\n", XV_frmbufwr_Get_HwReg_frm_buffer_V(&InstancePtr->FrmbufWr));
+  xil_printf("Control Reg:                0x%x\r\n", ctrl);
+  xil_printf("Width:                      %d\r\n", XV_frmbufwr_Get_HwReg_width(&InstancePtr->FrmbufWr));
+  xil_printf("Height:                     %d\r\n", XV_frmbufwr_Get_HwReg_height(&InstancePtr->FrmbufWr));
+  xil_printf("Stride (in bytes):          %d\r\n", XV_frmbufwr_Get_HwReg_stride(&InstancePtr->FrmbufWr));
+  xil_printf("Video Format:               %d\r\n", XV_frmbufwr_Get_HwReg_video_format(&InstancePtr->FrmbufWr));
+  xil_printf("Buffer Address:             0x%x\r\n", XV_frmbufwr_Get_HwReg_frm_buffer_V(&InstancePtr->FrmbufWr));
+  xil_printf("Chroma Buffer Address:      0x%x\r\n", XV_frmbufwr_Get_HwReg_frm_buffer2_V(&InstancePtr->FrmbufWr));
 }
 
 /** @} */
