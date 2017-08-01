@@ -371,13 +371,13 @@ void XHdcp_Poll(XHdcp_Repeater *InstancePtr)
     } else  {
       IntervalCounter--;
     }
+#endif
 
-#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
     /* HDCP 1.4 Only */
     if(XV_HdmiRxSs_HdcpIsInWaitforready(InstancePtr->UpstreamInstancePtr)) {
       XHdcp_AssembleTopology(InstancePtr);
     }
-#endif
 #endif
   }
 }
