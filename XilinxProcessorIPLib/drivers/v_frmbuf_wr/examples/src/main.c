@@ -45,6 +45,7 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
+* 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
 * </pre>
 *
 ******************************************************************************/
@@ -78,6 +79,8 @@
 
 #define NUM_TEST_MODES 4
 #define NUM_TEST_FORMATS 13
+
+#define CHROMA_ADDR_OFFSET   (0x01000000U)
 
 //mapping between memory and streaming video formats
 typedef struct {
@@ -410,6 +413,16 @@ static int ConfigFrmbuf(u32 StrideInBytes,
     return(XST_FAILURE);
   }
 
+  /* Set Chroma Buffer Address for semi-planar color formats */
+  if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+      (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+    Status = XVFrmbufRd_SetChromaBufferAddr(&frmbufrd, XVFRMBUFRD_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+    if(Status != XST_SUCCESS) {
+      xil_printf("ERROR:: Unable to configure Frame Buffer Read chroma buffer address\r\n");
+      return(XST_FAILURE);
+    }
+  }
+
   Status = XVFrmbufWr_SetMemFormat(&frmbufwr, StrideInBytes, Cfmt, StreamPtr);
   if(Status != XST_SUCCESS) {
     xil_printf("ERROR:: Unable to configure Frame Buffer Write\r\n");
@@ -421,6 +434,17 @@ static int ConfigFrmbuf(u32 StrideInBytes,
     xil_printf("ERROR:: Unable to configure Frame Buffer Write buffer address\r\n");
     return(XST_FAILURE);
   }
+
+  /* Set Chroma Buffer Address for semi-planar color formats */
+  if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+      (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+    Status = XVFrmbufWr_SetChromaBufferAddr(&frmbufwr, XVFRMBUFWR_BUFFER_BASEADDR+CHROMA_ADDR_OFFSET);
+    if(Status != XST_SUCCESS) {
+      xil_printf("ERROR:: Unable to configure Frame Buffer Write chroma buffer address\r\n");
+      return(XST_FAILURE);
+    }
+  }
+
 
   /* Enable Interrupt */
   XVFrmbufRd_InterruptEnable(&frmbufrd);
