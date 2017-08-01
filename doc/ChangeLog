@@ -10,6 +10,11 @@ added 64-bit address support for memory mapped interface
 v_gamma_lut_v1_0
 added initial version
 
+v_mix_v3_0
+added second buffer for semi-planar formats
+added 64-bit address support for memory mapped interface
+re-ordered register map to group layers together
+
 mbox_v4_3:
 Added support for FIFO reset using hardware control register
 
