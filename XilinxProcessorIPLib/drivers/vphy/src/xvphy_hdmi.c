@@ -75,6 +75,8 @@
  *                       CPLL for GTXE2
  *                     Implemented TX and RX Only uses-cases in
  *						 XVphy_HdmiDebugInfo API
+ *					   Fixed bug in HdmiCfgCalcMmcmParam when linerate exceeds
+ *					     3.4 Gbps when oversampling is enabled
  * </pre>
  *
 *******************************************************************************/
@@ -1214,7 +1216,13 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 			if (InstancePtr->Config.TransceiverWidth == 4) {
 				/* Link clock: TMDS clock ratio 1/40. */
 				if ((LineRate / 1000000) >= 3400) {
-					MmcmPtr->ClkOut0Div = MultDiv;
+					if ((Dir == XVPHY_DIR_TX) &&
+							(InstancePtr->HdmiTxSampleRate > 1)) {
+						MmcmPtr->ClkOut0Div = MultDiv * 4;
+					}
+					else {
+						MmcmPtr->ClkOut0Div = MultDiv;
+					}
 				}
 				/* Link clock: TMDS clock ratio 1/10. */
 				else {
@@ -1224,7 +1232,13 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 			else {//2 Byte Mode
 				/* Link clock: TMDS clock ratio 1/40. */
 				if ((LineRate / 1000000) >= 3400) {
-					MmcmPtr->ClkOut0Div = MultDiv / 2;
+					if ((Dir == XVPHY_DIR_TX) &&
+							(InstancePtr->HdmiTxSampleRate > 1)) {
+						MmcmPtr->ClkOut0Div = MultDiv * 2;
+					}
+					else {
+						MmcmPtr->ClkOut0Div = MultDiv / 2;
+					}
 				}
 				/* Link clock: TMDS clock ratio 1/10. */
 				else {
@@ -1347,8 +1361,7 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 					/* Correct divider value if TMDS clock ratio is 1/40. */
 					if (InstancePtr->HdmiRxTmdsClockRatio) {
 						if ((MmcmPtr->ClkOut2Div % 4) == 0) {
-							MmcmPtr->ClkOut2Div =
-								MmcmPtr->ClkOut2Div / 4;
+							MmcmPtr->ClkOut2Div = MmcmPtr->ClkOut2Div / 4;
 						}
 						/* Not divisible by 4: repeat loop with a lower
 						 * multiply value. */
@@ -1358,10 +1371,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 					}
 				}
 				/* TX. */
-				else if ((LineRate / 1000000) >= 3400) {
+				else if (((LineRate / 1000000) >= 3400) &&
+							(InstancePtr->HdmiTxSampleRate == 1)) {
 					if ((MmcmPtr->ClkOut2Div % 4) == 0) {
-						MmcmPtr->ClkOut2Div =
-							MmcmPtr->ClkOut2Div / 4;
+						MmcmPtr->ClkOut2Div = MmcmPtr->ClkOut2Div / 4;
 					}
 					/* Not divisible by 4: repeat loop with a lower
 					 * multiply value. */
@@ -1670,7 +1683,7 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 				}
 				else if (SRValue > 1) {
 					XVphy_LogWrite(InstancePtr,
-							XVPHY_LOG_EVT_GT_PLL_LAYOUT, 1);
+							XVPHY_LOG_EVT_GT_QPLL_CFG_ERR, 1);
 					XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_QPLL_CFG, 1);
 					XVphy_ErrorHandler(InstancePtr);
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
@@ -1685,7 +1698,9 @@ u32 XVphy_HdmiQpllParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
                 XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_NO_DRU, 0);
 			}
             XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_QPLL_CFG, 0);
-		XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_PLL_LAYOUT, 0);
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+			XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_PLL_LAYOUT, 0);
+#endif
 			return (XST_SUCCESS);
 		}
 	}
