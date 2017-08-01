@@ -280,6 +280,8 @@
 *                    and modified filename tag in
 *                    xqspips_dual_flash_stack_lqspi_example.c to include it in
 *                    doxygen examples.
+* 3.4   nsk 31/07/17 Added QSPI_BUS_WIDTH parameter in xparameters.h file
+*
 * </pre>
 *
 ******************************************************************************/
