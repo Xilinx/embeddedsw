@@ -49,6 +49,7 @@
 *             03/14/16   Fix bug startx not multiple of pixels/clk for window
 *                        move
 *             08/05/16   Add Logo Pixel Alpha test
+* 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
 * </pre>
 *
 ******************************************************************************/
@@ -67,6 +68,7 @@
 /* Memory Layers for Mixer */
 #define XVMIX_LAYER1_BASEADDR      (XPAR_MIG7SERIES_0_BASEADDR + (0x20000000))
 #define XVMIX_LAYER_ADDR_OFFSET    (0x01000000U)
+#define XVMIX_CHROMA_ADDR_OFFSET   (0x01000000U)
 
 #define VIDEO_MONITOR_LOCK_TIMEOUT (2000000)
 
@@ -130,7 +132,7 @@ static int SetupInterrupts(void)
   /* Initialize the Interrupt controller */
   Status = XIntc_Initialize(IntcPtr, XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_DEVICE_ID);
   if(Status != XST_SUCCESS) {
-    xil_printf("ERR:: Interrupt controller device not found\r\n");
+    xil_printf("ERROR:: Interrupt controller device not found\r\n");
     return(XST_FAILURE);
   }
 
@@ -139,7 +141,7 @@ static int SetupInterrupts(void)
 		                 XPAR_PROCESSOR_SS_PROCESSOR_AXI_INTC_V_MIX_0_INTERRUPT_INTR,
                          (XInterruptHandler)XVMix_InterruptHandler, &mix);
   if (Status != XST_SUCCESS) {
-    xil_printf("ERR:: Mixer interrupt connect failed!\r\n");
+    xil_printf("ERROR:: Mixer interrupt connect failed!\r\n");
     return XST_FAILURE;
   }
 
@@ -152,7 +154,7 @@ static int SetupInterrupts(void)
    */
   Status = XIntc_Start(IntcPtr, XIN_REAL_MODE);
   if (Status != XST_SUCCESS) {
-    xil_printf("ERR:: Failed to start interrupt controller\r\n");
+    xil_printf("ERROR:: Failed to start interrupt controller\r\n");
     return XST_FAILURE;
   }
 
@@ -174,32 +176,32 @@ static int DriverInit(void)
 
   vtc_Config = XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);
   if(vtc_Config == NULL) {
-    xil_printf("ERR:: VTC device not found\r\n");
+    xil_printf("ERROR:: VTC device not found\r\n");
     return(XST_FAILURE);
   }
 
   Status = XVtc_CfgInitialize(&vtc, vtc_Config, vtc_Config->BaseAddress);
   if(Status != XST_SUCCESS) {
-    xil_printf("ERR:: VTC Initialization failed %d\r\n", Status);
+    xil_printf("ERROR:: VTC Initialization failed %d\r\n", Status);
     return(XST_FAILURE);
   }
 
   Status = XV_tpg_Initialize(&tpg, XPAR_V_TPG_0_DEVICE_ID);
   if(Status != XST_SUCCESS) {
-    xil_printf("ERR:: TPG device not found\r\n");
+    xil_printf("ERROR:: TPG device not found\r\n");
     return(XST_FAILURE);
   }
 
   Status  = XVMix_Initialize(&mix, XPAR_V_MIX_0_DEVICE_ID);
   if(Status != XST_SUCCESS) {
-    xil_printf("ERR:: Mixer device not found\r\n");
+    xil_printf("ERROR:: Mixer device not found\r\n");
     return(XST_FAILURE);
   }
 
   //Video Lock Monitor
   GpioCfgPtr = XGpio_LookupConfig(XPAR_VIDEO_LOCK_MONITOR_DEVICE_ID);
   if(GpioCfgPtr == NULL) {
-    xil_printf("ERR:: Video Lock Monitor GPIO device not found\r\n");
+    xil_printf("ERROR:: Video Lock Monitor GPIO device not found\r\n");
     return(XST_FAILURE);
   }
 
@@ -207,7 +209,7 @@ static int DriverInit(void)
                                GpioCfgPtr,
                                GpioCfgPtr->BaseAddress);
   if(Status != XST_SUCCESS)  {
-    xil_printf("ERR:: Video Lock Monitor GPIO Initialization failed %d\r\n", Status);
+    xil_printf("ERROR:: Video Lock Monitor GPIO Initialization failed %d\r\n", Status);
     return(XST_FAILURE);
   }
 
@@ -279,6 +281,7 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
   XV_Mix_l2 *MixerPtr = &mix;
   int NumLayers, index, Status;
   u32 MemAddr;
+  XVidC_ColorFormat Cfmt;
 
   /* Setup default config after reset */
   XVMix_LayerDisable(MixerPtr, XVMIX_LAYER_MASTER);
@@ -288,11 +291,21 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
   NumLayers = XVMix_GetNumLayers(MixerPtr);
   MemAddr = XVMIX_LAYER1_BASEADDR;
   for(index = XVMIX_LAYER_1; index < NumLayers; ++index) {
+      XVMix_GetLayerColorFormat(MixerPtr, index, &Cfmt);
       Status = XVMix_SetLayerBufferAddr(MixerPtr, index, MemAddr);
-      if(Status != XST_SUCCESS) {
-          xil_printf("MIXER ERR:: Unable to set layer %d buffer addr to 0x%X\r\n",
+      if (Status != XST_SUCCESS) {
+          xil_printf("MIXER ERROR:: Unable to set layer %d buffer addr to 0x%X\r\n",
                       index, MemAddr);
       } else {
+          if ((Cfmt == XVIDC_CSF_MEM_Y_UV8) || (Cfmt == XVIDC_CSF_MEM_Y_UV8_420) ||
+              (Cfmt == XVIDC_CSF_MEM_Y_UV10) || (Cfmt == XVIDC_CSF_MEM_Y_UV10_420)) {
+              MemAddr += XVMIX_CHROMA_ADDR_OFFSET;
+              Status = XVMix_SetLayerChromaBufferAddr(MixerPtr, index, MemAddr);
+              if (Status != XST_SUCCESS) {
+                  xil_printf("MIXER ERROR:: Unable to set layer %d chroma buffer2 addr to 0x%X\r\n",
+                              index, MemAddr);
+              }
+          }
           MemAddr += XVMIX_LAYER_ADDR_OFFSET;
       }
   }
@@ -311,13 +324,13 @@ static void ConfigMixer(XVidC_VideoStream *StreamPtr)
                             Logo_G,
                             Logo_B);
     if(Status != XST_SUCCESS) {
-      xil_printf("MIXER ERR:: Unable to load Logo \r\n");
+      xil_printf("MIXER ERROR:: Unable to load Logo \r\n");
     }
 
     if(XVMix_IsLogoPixAlphaEnabled(MixerPtr)) {
       Status = XVMix_LoadLogoPixelAlpha(MixerPtr, &Win, Logo_A);
       if(Status != XST_SUCCESS) {
-        xil_printf("MIXER ERR:: Unable to load Logo pixel alpha \r\n");
+        xil_printf("MIXER ERROR:: Unable to load Logo pixel alpha \r\n");
       }
     }
   } else {
@@ -356,7 +369,7 @@ static int CheckVidoutLock(void)
   }
 
   if(!Timeout) {
-      xil_printf("<ERR:: Not Locked>\r\n\r\n");
+      xil_printf("<ERROR:: Not Locked>\r\n\r\n");
   }
   return(Status);
 }
@@ -389,7 +402,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   if(Status == XST_SUCCESS) {
       ErrorCount += (!CheckVidoutLock() ? 1 : 0);
   } else {
-      xil_printf("<ERR:: Command Failed>\r\n");
+      xil_printf("<ERROR:: Command Failed>\r\n");
       ++ErrorCount;
   }
 
@@ -398,7 +411,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   if(Status == XST_SUCCESS) {
       ErrorCount += (!CheckVidoutLock() ? 1 : 0);
   } else {
-      xil_printf("<ERR:: Command Failed>\r\n");
+      xil_printf("<ERROR:: Command Failed>\r\n");
       ++ErrorCount;
   }
 
@@ -431,7 +444,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
             Win.StartX, Win.StartY, Win.Width, Win.Height);
     Status = XVMix_SetLayerWindow(MixerPtr, layerIndex, &Win, Stride);
     if(Status != XST_SUCCESS) {
-        xil_printf("<ERR:: Command Failed>\r\n");
+        xil_printf("<ERROR:: Command Failed>\r\n");
         ++ErrorCount;
     } else {
         xil_printf("Done\r\n");
@@ -441,7 +454,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
     if(XVMix_IsAlphaEnabled(MixerPtr, layerIndex)) {
       Status = XVMix_SetLayerAlpha(MixerPtr, layerIndex, XVMIX_ALPHA_MAX);
       if(Status != XST_SUCCESS) {
-        xil_printf("<ERR:: Command Failed>\r\n");
+        xil_printf("<ERROR:: Command Failed>\r\n");
         ++ErrorCount;
       } else {
         xil_printf("Done\r\n");
@@ -456,7 +469,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
                                          layerIndex,
                                          XVMIX_SCALE_FACTOR_2X);
       if(Status != XST_SUCCESS) {
-        xil_printf("<ERR:: Command Failed>\r\n");
+        xil_printf("<ERROR:: Command Failed>\r\n");
         ++ErrorCount;
       } else {
         xil_printf("Done\r\n");
@@ -468,7 +481,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
     xil_printf("   Enable Layer: ");
     Status = XVMix_LayerEnable(MixerPtr, layerIndex);
     if(Status != XST_SUCCESS) {
-        xil_printf("<ERR:: Command Failed>\r\n");
+        xil_printf("<ERROR:: Command Failed>\r\n");
         ++ErrorCount;
     } else {
         xil_printf("Done\r\n");
@@ -484,7 +497,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
                                    (Win.StartX+12),
                                    (Win.StartY+12));
     if(Status != XST_SUCCESS) {
-      xil_printf("<ERR:: Command Failed>\r\n");
+      xil_printf("<ERROR:: Command Failed>\r\n");
       ++ErrorCount;
     } else {
       xil_printf("Done\r\n");
@@ -524,7 +537,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
     if(Status == XST_SUCCESS) {
       ErrorCount += (!CheckVidoutLock() ? 1 : 0);
     } else {
-      xil_printf("<ERR:: Command Failed>\r\n");
+      xil_printf("<ERROR:: Command Failed>\r\n");
       ++ErrorCount;
     }
   } else {
@@ -548,7 +561,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
 
         Status = XVMix_SetLogoColorKey(MixerPtr, Data);
         if(Status != XST_SUCCESS) {
-            xil_printf("<ERR:: Command Failed>\r\n");
+            xil_printf("<ERROR:: Command Failed>\r\n");
             ++ErrorCount;
         } else {
             xil_printf("Done\r\n");
@@ -563,7 +576,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
                                      100,
                                      100);
       if(Status != XST_SUCCESS) {
-          xil_printf("ERR:: Command Failed \r\n");
+          xil_printf("ERROR:: Command Failed \r\n");
           ++ErrorCount;
       } else {
           xil_printf("Done\r\n");
@@ -579,7 +592,7 @@ static int RunMixerFeatureTests(XVidC_VideoStream *StreamPtr)
   if(Status == XST_SUCCESS) {
      ErrorCount += (!CheckVidoutLock() ? 1 : 0);
   } else {
-     xil_printf("ERR:: Command Failed\r\n");
+     xil_printf("ERROR:: Command Failed\r\n");
      ++ErrorCount;
   }
 
@@ -631,15 +644,15 @@ int main(void)
   /* Initialize IRQ */
   Status = SetupInterrupts();
   if (Status == XST_FAILURE) {
-    xil_printf("ERR:: Interrupt Setup Failed\r\n");
-    xil_printf("ERR:: Test could not be completed\r\n");
+    xil_printf("ERROR:: Interrupt Setup Failed\r\n");
+    xil_printf("ERROR:: Test could not be completed\r\n");
     while(1);
   }
 
   Status = DriverInit();
   if(Status != XST_SUCCESS) {
-    xil_printf("ERR:: Driver Init. Failed\r\n");
-    xil_printf("ERR:: Test could not be completed\r\n");
+    xil_printf("ERROR:: Driver Init. Failed\r\n");
+    xil_printf("ERROR:: Test could not be completed\r\n");
     while(1);
   }
 
@@ -660,8 +673,8 @@ int main(void)
 
   /* sanity check */
   if(XVMonitor_IsVideoLocked(&vmon)) {
-    xil_printf("ERR:: Video should not be locked\r\n");
-    xil_printf("ERR:: Test could not be completed\r\n");
+    xil_printf("ERROR:: Video should not be locked\r\n");
+    xil_printf("ERROR:: Test could not be completed\r\n");
     while(1);
   }
 
