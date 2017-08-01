@@ -60,6 +60,7 @@
 * 1.9   mmo  26-04-2017 Change PLL Layout menu access to GTX only in
 *                              XHdmi_DisplayGtPllLayoutMenu API
 * 1.10  YH   08-06-2017 Set default 4K resolution for GTPE2 to 4KP30
+*                              for RGB and YUV444
 *                       Disabled deep color settings at max resolution
 *                       Changed printf usage to xil_printf
 *                       Changed "\n\r" in xil_printf calls to "\r\n"
@@ -910,13 +911,16 @@ void XHdmi_DisplayColorDepthMenu(void)
 	/* Check if TX is running at max resolution */
 	VidStrPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 #if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER != XVPHY_GTPE2)
-		if((VidStrPtr->VmId == XVIDC_VM_3840x2160_60_P) ||
-		   (VidStrPtr->VmId == XVIDC_VM_4096x2160_60_P)) {
+		if (((VidStrPtr->VmId == XVIDC_VM_3840x2160_60_P) ||
+		    (VidStrPtr->VmId == XVIDC_VM_4096x2160_60_P)) &&
 #else
-		if((VidStrPtr->VmId == XVIDC_VM_3840x2160_30_P) ||
-		   (VidStrPtr->VmId == XVIDC_VM_4096x2160_30_P)) {
+		if (((VidStrPtr->VmId == XVIDC_VM_3840x2160_30_P) ||
+		    (VidStrPtr->VmId == XVIDC_VM_4096x2160_30_P)) &&
 #endif
-		xil_printf("Only 8 BPC is supported for the current resolution.\r\n");
+		    ((VidStrPtr->ColorFormatId == XVIDC_CSF_RGB) ||
+			 (VidStrPtr->ColorFormatId == XVIDC_CSF_YCRCB_444))) {
+		xil_printf("Only 8 BPC is supported for the current resolution ");
+		xil_printf("and colorspace.\r\n");
 		return;
 	}
 
@@ -952,12 +956,14 @@ static XHdmi_MenuType XHdmi_ColorDepthMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	/* Check if TX is running at max resolution */
 	VidStrPtr = XV_HdmiTxSs_GetVideoStream(&HdmiTxSs);
 #if (XPAR_VID_PHY_CONTROLLER_TRANSCEIVER != XVPHY_GTPE2)
-		if((VidStrPtr->VmId == XVIDC_VM_3840x2160_60_P) ||
-		   (VidStrPtr->VmId == XVIDC_VM_4096x2160_60_P)) {
+		if(((VidStrPtr->VmId == XVIDC_VM_3840x2160_60_P) ||
+		    (VidStrPtr->VmId == XVIDC_VM_4096x2160_60_P)) &&
 #else
-		if((VidStrPtr->VmId == XVIDC_VM_3840x2160_30_P) ||
-		   (VidStrPtr->VmId == XVIDC_VM_4096x2160_30_P)) {
+		if(((VidStrPtr->VmId == XVIDC_VM_3840x2160_30_P) ||
+		    (VidStrPtr->VmId == XVIDC_VM_4096x2160_30_P)) &&
 #endif
+		   ((VidStrPtr->ColorFormatId == XVIDC_CSF_RGB) ||
+			(VidStrPtr->ColorFormatId == XVIDC_CSF_YCRCB_444))) {
 		xil_printf("Returning to main menu.\r\n");
 		return XHDMI_MAIN_MENU;
 	}
