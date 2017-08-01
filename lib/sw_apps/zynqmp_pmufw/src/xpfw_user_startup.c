@@ -65,7 +65,7 @@ static void XPfw_Enable_Inner_Shareable_Broadcast(void)
 
 void XPfw_UserStartUp(void)
 {
-#if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT)
+#if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT) || defined (XPAR_PL_IS_CACHE_COHERENT)
     /*
 	 * LPD/FPD peripheral is configured to use CCI,
      * enable the broadcasting of inner shareable transactions
