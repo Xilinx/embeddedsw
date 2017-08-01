@@ -2059,7 +2059,7 @@ Improved stability and robustness during GTXE2 bonded mode
 Changed ClkOutxDiv declaration to u16 in vphy.h
 Added XVPHY_LOG_EVT_NO_QPLL_ERR log event
 Added XVphy_RegisterDebug API in vphy.c/h
-
+Fixed bug in HdmiCfgCalcMmcmParam when linerate exceeds 3.4 Gbps when oversampling is enabled
 
 vprocss_v2_1:
 Added new version 2.1

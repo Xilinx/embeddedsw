@@ -1037,7 +1037,9 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 											(XVphy_ChannelId)Id);
 		}
 		else if (XVPHY_ISCMN(ChId)) {
-			if (InstancePtr->HdmiIsQpllPresent == FALSE) {
+			if (((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
+				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) &&
+			    (InstancePtr->HdmiIsQpllPresent == FALSE)) {
 				XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_NO_QPLL_ERR, 1);
 				XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_NO_QPLL, 1);
 				XVphy_ErrorHandler(InstancePtr);
@@ -1537,8 +1539,8 @@ void XVphy_ErrorHandler(XVphy *InstancePtr)
 ******************************************************************************/
 void XVphy_PllLayoutErrorHandler(XVphy *InstancePtr)
 {
-	if (InstancePtr->ErrorCallback != NULL) {
-		InstancePtr->ErrorCallback(InstancePtr->ErrorRef);
+	if (InstancePtr->PllLayoutErrorCallback != NULL) {
+		InstancePtr->PllLayoutErrorCallback(InstancePtr->PllLayoutErrorRef);
 	}
 }
 #endif
