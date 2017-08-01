@@ -116,6 +116,7 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
+* 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
 * </pre>
 *
 ******************************************************************************/
@@ -384,6 +385,9 @@ XVidC_VideoStream *XVFrmbufWr_GetVideoStream(XV_FrmbufWr_l2 *InstancePtr);
 int XVFrmbufWr_SetBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
                              UINTPTR Addr);
 UINTPTR XVFrmbufWr_GetBufferAddr(XV_FrmbufWr_l2 *InstancePtr);
+int XVFrmbufWr_SetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr,
+                              UINTPTR Addr);
+UINTPTR XVFrmbufWr_GetChromaBufferAddr(XV_FrmbufWr_l2 *InstancePtr);
 void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr);
 
 /* Interrupt related function */
