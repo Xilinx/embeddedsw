@@ -56,4 +56,12 @@ multiple packets in polling mode when the axidma core is
 configured in Scatter Gather Mode.
 
 For details, see xaxidma_poll_multi_pkts.c.
+
+@section ex8 xaxidma_example_sgcyclic_intr.c
+Contains an example on how to use the XAxidma driver directly.
+This example shows the usage of the driver to transfer
+packets in cyclic in interrupt mode when the axidma is
+configured in scatter gather mode.
+
+For details, see xaxidma_example_sgcyclic_intr.c.
 */
