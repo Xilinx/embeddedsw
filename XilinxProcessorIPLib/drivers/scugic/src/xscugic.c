@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic.c
-* @addtogroup scugic_v4_2
+* @addtogroup scugic_v4_3
 * @{
 *
 * Contains required functions for the XScuGic driver for the Interrupt
@@ -112,6 +112,12 @@
 * 4.1   mus  06/19/19 Added API's XScuGic_MarkCoreAsleep and
 *                     XScuGic_MarkCoreAwake to mark processor core as
 *                     asleep or awake. Fix for CR#1027220.
+* 4.3   mus  10/14/20 Updated XScuGic_Stop for scenarios where USE_AMP flag
+*                     is set to 1. Now, XScuGic_Stop would not disable
+*                     distributor for USE_AMP=1, even when SPI interrupts
+*                     are not being used by other CPU. This update is needed
+*                     to support scenarios, where master CPU is using only
+*                     SGI/PPI interrupts. It fixes CR#1079241.
 * </pre>
 *
 ******************************************************************************/
@@ -365,8 +371,8 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
 	/*
-     * Detect Zynq-7000 base silicon configuration,Dual or Single CPU.
-     * If it is single CPU cnfiguration then invoke assert for CPU ID=1
+	 * Check Zynq-7000 base silicon configuration.
+	 * If it is single CPU configuration then invoke assert for CPU ID 1.
 	 */
 #ifdef ARMA9
 	if (XPAR_CPU_ID == 0x01) {
@@ -1023,7 +1029,11 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	u32 Int_Id;
 	u32 RegValue;
 	u32 Target_Cpu;
+	#if USE_AMP==1
+	u32 DistDisable = 0; /* Do not disable distributor */
+	#else
 	u32 DistDisable = 1; /* Track distributor status*/
+	#endif
 	u32 LocalCpuID = ((u32)0x1 << CpuId);
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -1123,7 +1133,7 @@ u32 XScuGic_GetCpuID(void)
 * @note 	It should be called before suspending processor core. Once this
 * 			API is invoked, pending interrupts for processor core asserts
 * 			WakeRequest, to indicate that the PE is to have its power
-* 			restored  Incase of Versal SoC, WakeRequest will be consumed by
+* 			restored  In case of Versal SoC, WakeRequest will be consumed by
 * 			psv_psm processor and psmfw will wake up APU processor core.
 *
 *****************************************************************************/

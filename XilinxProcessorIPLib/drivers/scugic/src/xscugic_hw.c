@@ -7,7 +7,7 @@
 /**
 *
 * @file xscugic_hw.c
-* @addtogroup scugic_v4_2
+* @addtogroup scugic_v4_3
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
@@ -65,6 +65,8 @@
 *                     This set of changes was to fix CR-1024716.
 * 4.1   mus  06/12/19 Updated existing low level API's to support GIC500. It
 *                     fixes CR#1033401.
+* 4.3   mus  05/11/20 Added assert checks in XScuGic_EnableIntr and
+*                     XScuGic_DisableIntr API. It fixes CR#1063034.
 * </pre>
 *
 ******************************************************************************/
@@ -784,6 +786,7 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 #if defined (GICv3)
 	u32 Temp;
 #endif
+	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 
 #if defined (GICv3)
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
@@ -826,6 +829,8 @@ void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
 void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
 {
 	u8 Cpu_Id = (u8)XScuGic_GetCpuID();
+	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
+
 #if defined (GICv3)
 	u32 Temp;
 
