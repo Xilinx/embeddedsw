@@ -29,7 +29,7 @@
 /**
 *
 * @file xscugic_hw.h
-* @addtogroup scugic_v3_10
+* @addtogroup scugic_v4_0
 * @{
 *
 * This header file contains identifiers and HW access functions (or
@@ -91,6 +91,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xil_io.h"
 #include "xil_exception.h"
+#include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -99,10 +100,16 @@ extern "C" {
  */
 #ifdef PLATFORM_ZYNQ
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	95U /* Maximum number of interrupt defined by Zynq */
+#elif defined (versal) && !defined(ARMR5)
+#define XSCUGIC_MAX_NUM_INTR_INPUTS    	191U
 #else
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	195U /* Maximum number of interrupt defined by Zynq Ultrascale Mp */
 #endif
 
+/*
+ * First Interrupt Id for SPI interrupts.
+ */
+#define XSCUGIC_SPI_INT_ID_START	0x20
 /*
  * The maximum priority value that can be used in the GIC.
  */
@@ -145,14 +152,22 @@ extern "C" {
 #define XSCUGIC_SFI_TRIG_OFFSET		0x00000F00U /**< Software Triggered
 							Interrupt Register */
 #define XSCUGIC_PERPHID_OFFSET		0x00000FD0U /**< Peripheral ID Reg */
+#if defined (versal) && !defined(ARMR5)
+#define XSCUGIC_PCELLID_OFFSET		0x0000FFF0U /**< Pcell ID Register */
+#else
 #define XSCUGIC_PCELLID_OFFSET		0x00000FF0U /**< Pcell ID Register */
+#endif
 /* @} */
 
 /** @name  Distributor Enable Register
  * Controls if the distributor response to external interrupt inputs.
  * @{
  */
+#if defined (versal) && !defined(ARMR5)
+#define XSCUGIC_EN_INT_MASK		0x00000003U /**< Interrupt In Enable */
+#else
 #define XSCUGIC_EN_INT_MASK		0x00000001U /**< Interrupt In Enable */
+#endif
 /* @} */
 
 /** @name  Interrupt Controller Type Register
@@ -471,6 +486,9 @@ extern "C" {
 #define XSCUGIC_RUN_PRIORITY_MASK	0x000000FFU    /**< Interrupt Priority */
 /* @} */
 
+#if defined (versal) && !defined(ARMR5)
+#define XSCUGIC_IROUTER_BASE_OFFSET 0x6000U
+#endif
 /*
  * Highest Pending Interrupt register definitions
  * Identifies the interrupt priority of the highest priority pending interupt
@@ -478,7 +496,36 @@ extern "C" {
 #define XSCUGIC_PEND_INTID_MASK		0x000003FFU /**< Pending Interrupt ID */
 /*#define XSCUGIC_CPUID_MASK		0x00000C00U */	 /**< CPU ID */
 /* @} */
+#if defined (versal) && !defined(ARMR5)
+/** @name ReDistributor Interface Register Map
+ *
+ * @{
+ */
+#define XSCUGIC_RDIST_OFFSET              0x80000U
+#define XSCUGIC_RDIST_BASE_ADDRESS        (XPAR_SCUGIC_0_DIST_BASEADDR + XSCUGIC_RDIST_OFFSET)
+#define XSCUGIC_RDIST_SGI_PPI_OFFSET              0x90000U
+#define XSCUGIC_RDIST_SGI_PPI_BASE_ADDRESS    (XPAR_SCUGIC_0_DIST_BASEADDR + XSCUGIC_RDIST_SGI_PPI_OFFSET)
+#define XSCUGIC_RDIST_ISENABLE_OFFSET     0x100U
+#define XSCUGIC_RDIST_IPRIORITYR_OFFSET   0x400U
+#define XSCUGIC_RDIST_IGROUPR_OFFSET      0x80U
+#define XSCUGIC_RDIST_GRPMODR_OFFSET      0xD00U
+#define XSCUGIC_RDIST_INT_CONFIG_OFFSET   0xC00U
+#define XSCUGIC_RDIST_WAKER_OFFSET        0x14U
+#define XSCUGIC_SGIR_EL1_INITID_SHIFT    24U
 
+/*
+ * GICR_IGROUPR  register definitions
+ */
+#if EL3
+#define XSCUGIC_DEFAULT_SECURITY    0x0U
+#else
+#define XSCUGIC_DEFAULT_SECURITY    0xFFFFFFFFU
+#endif
+/*
+ * GICR_WAKER  register definitions
+ */
+#define XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK    0x7
+#endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /****************************************************************************/
@@ -514,6 +561,21 @@ extern "C" {
 /****************************************************************************/
 /**
 *
+* Read the Interrupt Routing Register offset for an interrupt id.
+*
+* @param	InterruptID is the interrupt number.
+*
+* @return	The 32-bit value of the offset
+*
+* @note
+*
+*****************************************************************************/
+#define XSCUGIC_IROUTER_OFFSET_CALC(InterruptID) \
+	((u32)XSCUGIC_IROUTER_BASE_OFFSET + (InterruptID * 8))
+
+/****************************************************************************/
+/**
+*
 * Read the SPI Target Register offset for an interrupt id.
 *
 * @param	InterruptID is the interrupt number.
@@ -525,7 +587,50 @@ extern "C" {
 *****************************************************************************/
 #define XSCUGIC_SPI_TARGET_OFFSET_CALC(InterruptID) \
 	((u32)XSCUGIC_SPI_TARGET_OFFSET + (((InterruptID)/4U) * 4U))
+/****************************************************************************/
+/**
+*
+* Read the SPI Target Register offset for an interrupt id.
+*
+* @param	InterruptID is the interrupt number.
+*
+* @return	The 32-bit value of the offset
+*
+* @note
+*
+*****************************************************************************/
+#define XSCUGIC_SECURITY_TARGET_OFFSET_CALC(InterruptID) \
+	((u32)XSCUGIC_SECURITY_OFFSET + (((InterruptID)/32U)*4U))
 
+/****************************************************************************/
+/**
+*
+* Read the Re-distributor Interrupt configuration register offset
+*
+* @param	InterruptID is the interrupt number.
+*
+* @return	The 32-bit value of the offset
+*
+* @note
+*
+*****************************************************************************/
+#define XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(InterruptID) \
+	((u32)XSCUGIC_RDIST_INT_CONFIG_OFFSET + ((InterruptID /16)*4))
+
+/****************************************************************************/
+/**
+*
+* Read the Re-distributor Interrupt Priority register offset
+*
+* @param	InterruptID is the interrupt number.
+*
+* @return	The 32-bit value of the offset
+*
+* @note
+*
+*****************************************************************************/
+#define XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(InterruptID) \
+	((u32)XSCUGIC_RDIST_IPRIORITYR_OFFSET + (InterruptID * 4))
 /****************************************************************************/
 /**
 *

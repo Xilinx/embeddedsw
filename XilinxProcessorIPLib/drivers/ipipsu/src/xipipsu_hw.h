@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@
 /**
 *
 * @file xipipsu_hw.h
-* @addtogroup ipipsu_v2_3
+* @addtogroup ipipsu_v2_5
 * @{
 *
 * This file contains macro definitions for low level HW related params
@@ -40,6 +40,7 @@
 * ----- --- -------- -----------------------------------------------.
 * 1.0   mjr  03/15/15 First release
 * 2.1   kvn  05/05/16 Modified code for MISRA-C:2012 Compliance
+ * 2.5  sdd 12/17/18  Add the cpp extern macro.
 *
 * </pre>
 *
@@ -47,9 +48,17 @@
 #ifndef XIPIPSU_HW_H_	/* prevent circular inclusions */
 #define XIPIPSU_HW_H_	/* by using protection macros */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /************************** Constant Definitions *****************************/
 /* Message RAM related params */
+#if defined (versal)
+#define XIPIPSU_MSG_RAM_BASE 0xFF3F0000U
+#else
 #define XIPIPSU_MSG_RAM_BASE 0xFF990000U
+#endif
 #define XIPIPSU_MSG_BUF_SIZE 8U	/* Size in Words */
 #define XIPIPSU_MAX_BUFF_INDEX	7U
 
@@ -70,7 +79,15 @@
 #define XIPIPSU_IDR_OFFSET 0x1CU
 
 /* MASK of all valid IPI bits in above registers */
+#if defined (versal)
+#define XIPIPSU_ALL_MASK	0x000003FFU
+#else
 #define XIPIPSU_ALL_MASK	0x0F0F0301U
+#endif
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XIPIPSU_HW_H_ */
 /** @} */

@@ -29,7 +29,7 @@
 /**
 *
 * @file xscugic_selftest.c
-* @addtogroup scugic_v3_10
+* @addtogroup scugic_v4_0
 * @{
 *
 * Contains diagnostic self-test functions for the XScuGic driver.
@@ -100,7 +100,7 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr)
 	 */
 	for (Index = 0U; Index <= 3U; Index++) {
 		RegValue1 |= XScuGic_DistReadReg(InstancePtr,
-			((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) << 
+			((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) <<
 			(Index * 8U);
 	}
 
