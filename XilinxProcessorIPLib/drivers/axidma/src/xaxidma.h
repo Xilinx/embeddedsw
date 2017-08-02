@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_0
+* @addtogroup axidma_v9_4
 * @{
 * @details
 *
