@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet_control.c
-* @addtogroup axiethernet_v5_6
+* @addtogroup axiethernet_v5_7
 * @{
 *
 * This file has driver APIs related to the controlling of the extended
@@ -51,6 +51,8 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a asa  6/30/10 First release based on the ll temac driver
+* 5.7   rsp 01/09/18 Instead of #define XAE_MULTI_MAT_ENTRIES derive multicast table
+*                    entries max count from ethernet config structure.
 * </pre>
 *****************************************************************************/
 
@@ -78,7 +80,7 @@
 * Axi Ethernet device's multicast filter list, at list index <i>Entry</i>. The
 * address referenced by <i>AddressPtr</i> may be of any unicast, multicast, or
 * broadcast address form. The hardware for the Axi Ethernet device can hold up
-* to XAE_MULTI_MAT_ENTRIES addresses in this filter list.<br><br>
+* to C_Number_of_Table_Entries addresses in this filter list.<br><br>
 *
 * The device must be stopped to use this function.<br><br>
 *
@@ -95,7 +97,7 @@
 *		The previous address at the location <i>Entry</i> (if any) is
 *		overwritten with the value at <i>AddressPtr</i>.
 * @param	Entry is the hardware storage location to program this address
-*		and must be between 0 to (XAE_MULTI_MAT_ENTRIES - 1).
+*		and must be between 0 to (C_Number_of_Table_Entries - 1).
 *
 * @return
 *		- XST_SUCCESS on successful completion.
@@ -125,7 +127,7 @@ int XAxiEthernet_MulticastAdd(XAxiEthernet *InstancePtr, void *AddressPtr,
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid(AddressPtr != NULL);
-	Xil_AssertNonvoid(Entry < XAE_MULTI_MAT_ENTRIES);
+	Xil_AssertNonvoid(Entry < InstancePtr->Config.NumTableEntries);
 
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_MulticastAdd\n");
@@ -180,7 +182,7 @@ int XAxiEthernet_MulticastAdd(XAxiEthernet *InstancePtr, void *AddressPtr,
 *		Ethernet address. This memory buffer must be at least 6 bytes
 *		in length.
 * @param	Entry is the hardware storage location from which to retrieve
-*		the address and must be between 0 to (XAE_MULTI_MAT_ENTRIES - 1)
+*		the address and must be between 0 to (C_Number_of_Table_Entries - 1)
 *
 * @return	None.
 *
@@ -207,7 +209,7 @@ void XAxiEthernet_MulticastGet(XAxiEthernet *InstancePtr, void *AddressPtr,
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(AddressPtr != NULL);
-	Xil_AssertVoid(Entry < XAE_MULTI_MAT_ENTRIES);
+	Xil_AssertVoid(Entry < InstancePtr->Config.NumTableEntries);
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_MulticastGet\n");
 
@@ -246,7 +248,7 @@ void XAxiEthernet_MulticastGet(XAxiEthernet *InstancePtr, void *AddressPtr,
 * @param	InstancePtr is a pointer to the Axi Ethernet instance to be
 *		worked on.
 * @param	Entry is the HW storage location used when this address was
-*		added. It must be between 0 to (XAE_MULTI_MAT_ENTRIES - 1).
+*		added. It must be between 0 to (C_Number_of_Table_Entries - 1).
 *
 * @return
 *		- XST_SUCCESS on successful completion.
@@ -271,7 +273,7 @@ int XAxiEthernet_MulticastClear(XAxiEthernet *InstancePtr, int Entry)
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Entry < XAE_MULTI_MAT_ENTRIES);
+	Xil_AssertNonvoid(Entry < InstancePtr->Config.NumTableEntries);
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_MulticastClear\n");
 
