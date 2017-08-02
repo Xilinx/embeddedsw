@@ -114,6 +114,9 @@
 *                             not present
 *                       Report HDMI/DVI mode in HDMI example design info log
 *                       Added Video Masking APIs
+* 1.41  mmo    02/08/17 Initialize the hdcp1.4 first before the hdcp1.4 timer
+*                              as the hdcp1.4 timer requires hdcp1.4 to be
+*                              initialize
 *
 * </pre>
 *
@@ -401,14 +404,14 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
 
   // HDCP 1.4
 #ifdef XPAR_XHDCP_NUM_INSTANCES
-  if (HdmiTxSsPtr->HdcpTimerPtr) {
-    if (XV_HdmiTxSs_SubcoreInitHdcpTimer(HdmiTxSsPtr) != XST_SUCCESS){
+  if (HdmiTxSsPtr->Hdcp14Ptr) {
+    if (XV_HdmiTxSs_SubcoreInitHdcp14(HdmiTxSsPtr) != XST_SUCCESS){
       return(XST_FAILURE);
     }
   }
 
-  if (HdmiTxSsPtr->Hdcp14Ptr) {
-    if (XV_HdmiTxSs_SubcoreInitHdcp14(HdmiTxSsPtr) != XST_SUCCESS){
+  if (HdmiTxSsPtr->HdcpTimerPtr) {
+    if (XV_HdmiTxSs_SubcoreInitHdcpTimer(HdmiTxSsPtr) != XST_SUCCESS){
       return(XST_FAILURE);
     }
   }
