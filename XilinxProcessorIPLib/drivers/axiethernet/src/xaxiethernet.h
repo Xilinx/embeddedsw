@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet.h
-* @addtogroup axiethernet_v5_0
+* @addtogroup axiethernet_v5_6
 * @{
 * @details
 *
