@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -122,8 +120,18 @@
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
 *                     It fixes CR#1007753.
 * 3.10  mus  09/19/18 Fix cppcheck warnings
-* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through 
-*                      XScuGic_SoftwareIntr API
+* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through
+*                     XScuGic_SoftwareIntr API
+* 4.1   asa  03/30/19 Made changes not to direct each interrupt to all
+*                     available CPUs by default. This was breaking AMP
+*                     behavior. Instead every time an interrupt enable
+*                     request is received, the interrupt was mapped to
+*                     the respective CPU. There were several other changes
+*                     made to implement this. This set of changes was to
+*                     fix CR-1024716.
+* 4.1   mus  06/19/19 Added API's XScuGic_MarkCoreAsleep and
+*                     XScuGic_MarkCoreAwake to mark processor core as
+*                     asleep or awake. Fix for CR#1027220.
 * </pre>
 *
 ******************************************************************************/
@@ -154,32 +162,28 @@ static void StubHandler(void *CallBackRef);
 * DoDistributorInit initializes the distributor of the GIC. The
 * initialization entails:
 *
-* - Write the trigger mode, priority and target CPU
+* - Write the trigger mode, priority
 * - All interrupt sources are disabled
 * - Enable the distributor
 *
 * @param	InstancePtr is a pointer to the XScuGic instance.
-* @param	CpuID is the Cpu ID to be initialized.
 *
 * @return	None
 *
 * @note		None.
 *
 ******************************************************************************/
-static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
+static void DoDistributorInit(XScuGic *InstancePtr)
 {
 	u32 Int_Id;
-#if !defined (versal) || defined (ARMR5)
-	u32 LocalCpuID = CpuID;
-#endif
 
-#if defined (versal) && !defined(ARMR5)
-		u32 temp;
+#if defined (GICv3)
+	u32 Temp;
 
-		temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
-		temp = (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
-		temp &= ~(XSCUGIC_EN_INT_MASK);
-		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, temp);
+	Temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
+	Temp = (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
+	Temp &= ~(XSCUGIC_EN_INT_MASK);
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, Temp);
 #else
 	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, 0U);
 #endif
@@ -225,32 +229,7 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 					DEFAULT_PRIORITY);
 	}
 
-#if defined (versal) && !defined(ARMR5)
-for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
-	/*
-	 * 3. The CPU interface in the spi_target register
-	 * Only write to the SPI interrupts, so start at 32
-	 */
-	temp = Int_Id -32;
-	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(temp),
-						  (CpuID-1));
-}
-#else
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
-		/*
-		 * 3. The CPU interface in the spi_target register
-		 * Only write to the SPI interrupts, so start at 32
-		 */
-		LocalCpuID |= LocalCpuID << 8U;
-		LocalCpuID |= LocalCpuID << 16U;
-
-		XScuGic_DistWriteReg(InstancePtr,
-					 XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
-					 LocalCpuID);
-
-	}
-#endif
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
 
 		XScuGic_DistWriteReg(InstancePtr,
@@ -274,10 +253,10 @@ for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
 			0xFFFFFFFFU);
 
 	}
-#if defined (versal) && !defined(ARMR5)
-	temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
-	temp |= XSCUGIC_EN_INT_MASK;
-	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, temp);
+#if defined (GICv3)
+	Temp = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
+	Temp |= XSCUGIC_EN_INT_MASK;
+	XScuGic_DistWriteReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET, Temp);
 	XScuGic_Enable_Group1_Interrupts();
 	XScuGic_Enable_Group0_Interrupts();
 #else
@@ -293,17 +272,14 @@ for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+1){
 * DoDistributorInit to finish the initialization.
 *
 * @param	InstancePtr is a pointer to the XScuGic instance.
-* @param	CpuID is the Cpu ID to be initialized.
 *
 * @return	None
 *
 * @note		None.
 *
 ******************************************************************************/
-static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
+static void DistributorInit(XScuGic *InstancePtr)
 {
-	u32 Int_Id;
-	u32 LocalCpuID = CpuID;
 	u32 RegValue;
 
 #if USE_AMP==1 && (defined (ARMA9) || defined(__aarch64__))
@@ -318,28 +294,12 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	Xil_AssertVoid(InstancePtr != NULL);
 	RegValue = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
 	if ((RegValue & XSCUGIC_EN_INT_MASK) == 0U) {
-		DoDistributorInit(InstancePtr, CpuID);
+		DoDistributorInit(InstancePtr);
 		return;
-	}
-
-	/*
-	 * The overall distributor should not be initialized in AMP case where
-	 * another CPU is taking care of it.
-	 */
-	LocalCpuID |= LocalCpuID << 8U;
-	LocalCpuID |= LocalCpuID << 16U;
-	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
-			Int_Id = Int_Id+4U) {
-		RegValue = XScuGic_DistReadReg(InstancePtr,
-					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
-		RegValue |= LocalCpuID;
-		XScuGic_DistWriteReg(InstancePtr,
-				     XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
-				     RegValue);
 	}
 }
 
-#if !defined (versal) || defined (ARMR5)
+#if !defined (GICv3)
 /*****************************************************************************/
 /**
 *
@@ -420,7 +380,6 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 				u32 EffectiveAddr)
 {
 	u32 Int_Id;
-	u32 Cpu_Id = CpuId + (u32)1;
 	(void) EffectiveAddr;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -445,7 +404,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 		for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 				Int_Id++) {
 			/*
-			* Initalize the handler to point to a stub to handle an
+			* Initialize the handler to point to a stub to handle an
 			* interrupt which has not been connected to a handler
 			* Only initialize it if the handler is 0 which means it
 			* was not initialized statically by the tools/user. Set
@@ -460,9 +419,8 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 			InstancePtr->Config->HandlerTable[Int_Id].CallBackRef =
 								InstancePtr;
 		}
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	u32 Waker_State;
-	xil_printf("Execuing on the a72\n");
 	Waker_State = XScuGic_ReDistReadReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET);
 	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
 							Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
@@ -474,13 +432,12 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 		isb();
 #endif
 		XScuGic_Stop(InstancePtr);
-		DistributorInit(InstancePtr, Cpu_Id);
-#if defined (versal) && !defined(ARMR5)
+		DistributorInit(InstancePtr);
+#if defined (GICv3)
 		XScuGic_set_priority_filter(0xff);
 #else
 		CPUInitialize(InstancePtr);
 #endif
-
 		InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	}
 
@@ -589,6 +546,7 @@ void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
 * Enables the interrupt source provided as the argument Int_Id. Any pending
 * interrupt condition for the specified Int_Id will occur after this function is
 * called.
+* This API also maps the interrupt to the requesting CPU.
 *
 * @param	InstancePtr is a pointer to the XScuGic instance.
 * @param	Int_Id contains the ID of the interrupt source and should be
@@ -602,8 +560,10 @@ void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
 void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 {
 	u32 Mask;
-#if defined (versal) && !defined(ARMR5)
-	u32 temp;
+	u8 Cpu_Id = (u8)CpuId;
+
+#if defined (GICv3)
+	u32 Temp;
 #endif
 	/*
 	 * Assert the arguments
@@ -612,31 +572,30 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-#if defined (versal) && !defined(ARMR5)
-	if (Int_Id < XSCUGIC_SPI_INT_ID_START)
-	{
+#if defined (GICv3)
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
+		XScuGic_InterruptMaptoCpu(InstancePtr, Cpu_Id, Int_Id);
 
 		Int_Id &= 0x1f;
 		Int_Id = 1 << Int_Id;
 
-		temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET);
-		temp |= Int_Id;
-		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET,temp);
-		return;
+		Temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET);
+		Temp |= Int_Id;
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
 	}
 #endif
+	XScuGic_InterruptMaptoCpu(InstancePtr, Cpu_Id, Int_Id);
 	/*
 	 * The Int_Id is used to create the appropriate mask for the
-	 * desired bit position. Int_Id currently limited to 0 - 31
+	 * desired bit position.
 	 */
 	Mask = 0x00000001U << (Int_Id % 32U);
-
 	/*
 	 * Enable the selected interrupt source by setting the
 	 * corresponding bit in the Enable Set register.
 	 */
 	XScuGic_DistWriteReg(InstancePtr, (u32)XSCUGIC_ENABLE_SET_OFFSET +
-						((Int_Id / 32U) * 4U), Mask);
+				((Int_Id / 32U) * 4U), Mask);
 }
 
 /*****************************************************************************/
@@ -646,6 +605,7 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 * interrupt controller will not cause interrupts for the specified Int_Id. The
 * interrupt controller will continue to hold an interrupt condition for the
 * Int_Id, but will not cause an interrupt.
+* This API also unmaps the interrupt for the requesting CPU.
 *
 * @param	InstancePtr is a pointer to the XScuGic instance.
 * @param	Int_Id contains the ID of the interrupt source and should be
@@ -659,6 +619,10 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 {
 	u32 Mask;
+	u8 Cpu_Id = (u8)CpuId;
+#if defined (GICv3)
+	u32 Temp;
+#endif
 
 	/*
 	 * Assert the arguments
@@ -667,6 +631,20 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if defined (GICv3)
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
+
+		XScuGic_InterruptUnmapFromCpu(InstancePtr, Cpu_Id, Int_Id);
+
+		Int_Id &= 0x1f;
+		Int_Id = 1 << Int_Id;
+
+		Temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET);
+		Temp &= ~Int_Id;
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
+	}
+#endif
+	XScuGic_InterruptUnmapFromCpu(InstancePtr, Cpu_Id, Int_Id);
 	/*
 	 * The Int_Id is used to create the appropriate mask for the
 	 * desired bit position. Int_Id currently limited to 0 - 31
@@ -678,7 +656,7 @@ void XScuGic_Disable(XScuGic *InstancePtr, u32 Int_Id)
 	 * corresponding bit in the IDR.
 	 */
 	XScuGic_DistWriteReg(InstancePtr, (u32)XSCUGIC_DISABLE_OFFSET +
-						((Int_Id / 32U) * 4U), Mask);
+					((Int_Id / 32U) * 4U), Mask);
 }
 
 /*****************************************************************************/
@@ -714,7 +692,7 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id)
 	Xil_AssertNonvoid(Int_Id <= 15U);
 	Xil_AssertNonvoid(Cpu_Id <= 255U);
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	Mask = (Cpu_Id | (Int_Id << XSCUGIC_SGIR_EL1_INITID_SHIFT));
 #if EL3
 	XScuGic_WriteICC_SGI0R_EL1(Mask);
@@ -797,8 +775,9 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 					u8 Priority, u8 Trigger)
 {
 	u32 RegValue;
-#if defined (versal) && !defined(ARMR5)
-	u32 temp,Index;
+#if defined (GICv3)
+	u32 Temp;
+	u32 Index;
 #endif
 	u8 LocalPriority;
 	LocalPriority = Priority;
@@ -808,14 +787,14 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(Trigger <= (u8)XSCUGIC_INT_CFG_MASK);
 	Xil_AssertVoid(LocalPriority <= (u8)XSCUGIC_MAX_INTR_PRIO_VAL);
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 	if (Int_Id < XSCUGIC_SPI_INT_ID_START )
 	{
 		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id),Priority);
-		temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
+		Temp = XScuGic_ReDistSGIPPIReadReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
 		Index = XScuGic_Get_Rdist_Int_Trigger_Index(Int_Id);
-		temp |= (Trigger << Index);
-		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id),temp);
+		Temp |= (Trigger << Index);
+		XScuGic_ReDistSGIPPIWriteReg(InstancePtr,XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id),Temp);
 		return;
 	}
 #endif
@@ -937,19 +916,32 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
+
+#if defined (GICv3)
+	u32 Temp;
+	Xil_AssertVoid(InstancePtr != NULL);
+	if (Int_Id >= 32) {
+		Temp = Int_Id - 32;
+		RegValue = XScuGic_DistReadReg(InstancePtr,
+				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+		RegValue |= Cpu_Id;
+		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
+						  (Cpu_Id-1));
+	}
+#else
 	u32 Offset;
+	Xil_AssertVoid(InstancePtr != NULL);
 	RegValue = XScuGic_DistReadReg(InstancePtr,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
 	Offset = (Int_Id & 0x3U);
 	Cpu_Id = (0x1U << Cpu_Id);
 
-	RegValue = (RegValue & (~(0xFFU << (Offset*8U))));
-	RegValue |= ((Cpu_Id) << (Offset*8U));
-
+	RegValue |= (Cpu_Id) << (Offset*8U);
 	XScuGic_DistWriteReg(InstancePtr,
 					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 					RegValue);
+#endif
 }
 /****************************************************************************/
 /**
@@ -968,22 +960,32 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
-	u8 BitPos;
 
+#if defined (GICv3)
+	u32 Temp;
 	Xil_AssertVoid(InstancePtr != NULL);
-
+	if (Int_Id >= 32) {
+		Temp = Int_Id - 32;
+		RegValue = XScuGic_DistReadReg(InstancePtr,
+				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+		RegValue &= ~Cpu_Id;
+		XScuGic_DistWriteReg(InstancePtr, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
+						  (Cpu_Id-1));
+	}
+#else
+	u32 Offset;
+	Xil_AssertVoid(InstancePtr != NULL);
 	RegValue = XScuGic_DistReadReg(InstancePtr,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
-	/*
-	 * Identify bit position corresponding to  Int_Id and Cpu_Id,
-	 * in interrupt target register and clear it
-	 */
-	BitPos = ((Int_Id % 4U) * 8U) + Cpu_Id;
-	RegValue &= (~(1U << BitPos));
+	Offset = (Int_Id & 0x3U);
+	Cpu_Id = (0x1U << Cpu_Id);
+
+	RegValue &= ~(Cpu_Id << (Offset*8U));
 	XScuGic_DistWriteReg(InstancePtr,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
-				RegValue);
+			RegValue);
+#endif
 }
 /****************************************************************************/
 /**
@@ -1130,4 +1132,49 @@ u32 XScuGic_GetCpuID(void)
 {
 	return CpuId;
 }
+
+#if defined (GICv3)
+/****************************************************************************/
+/**
+* It marks processor core which calls this API as asleep
+*
+* @return	None.
+*
+* @note 	It should be called before suspending processor core. Once this
+* 			API is invoked, pending interrupts for processor core asserts
+* 			WakeRequest, to indicate that the PE is to have its power
+* 			restored  Incase of Versal SoC, WakeRequest will be consumed by
+* 			psv_psm processor and psmfw will wake up APU processor core.
+*
+*****************************************************************************/
+void XScuGic_MarkCoreAsleep(XScuGic *InstancePtr)
+{
+	u32 Waker_State;
+
+	Waker_State = XScuGic_ReDistReadReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET);
+	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
+							Waker_State |
+							XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK);
+}
+
+/****************************************************************************/
+/**
+* It marks processor core which calls this API as awake
+*
+* @return	None.
+*
+* @note 	None
+*
+*****************************************************************************/
+void XScuGic_MarkCoreAwake(XScuGic *InstancePtr)
+{
+	u32 Waker_State;
+
+	Waker_State = XScuGic_ReDistReadReg(InstancePtr,
+			XSCUGIC_RDIST_WAKER_OFFSET);
+	XScuGic_ReDistWriteReg(InstancePtr,XSCUGIC_RDIST_WAKER_OFFSET,
+							Waker_State &
+							(~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
+}
+#endif
 /** @} */

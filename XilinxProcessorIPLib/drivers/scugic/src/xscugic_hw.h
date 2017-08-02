@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -73,6 +71,10 @@
 *					  API's can be used by applications to unmap specific/all
 *					  interrupts from target CPU. It fixes CR#992490.
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
+* 4.1   asa  03/30/19 Removed macros for XScuGic_EnableIntr, and
+*                     XScuGic_DisableIntr. These are now C functions. This
+*                     change was to fix CR-1024716.
+* 4.1   mus  06/12/19 Updated XSCUGIC_MAX_NUM_INTR_INPUTS for Versal.
 *
 * </pre>
 *
@@ -94,14 +96,17 @@ extern "C" {
 #include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
+#if defined (versal) && !defined(ARMR5)
+#define GICv3
+#endif
 
 /*
  * The maximum number of interrupts supported by the hardware.
  */
 #ifdef PLATFORM_ZYNQ
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	95U /* Maximum number of interrupt defined by Zynq */
-#elif defined (versal) && !defined(ARMR5)
-#define XSCUGIC_MAX_NUM_INTR_INPUTS    	191U
+#elif defined (versal)
+#define XSCUGIC_MAX_NUM_INTR_INPUTS    	192U
 #else
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	195U /* Maximum number of interrupt defined by Zynq Ultrascale Mp */
 #endif
@@ -152,7 +157,7 @@ extern "C" {
 #define XSCUGIC_SFI_TRIG_OFFSET		0x00000F00U /**< Software Triggered
 							Interrupt Register */
 #define XSCUGIC_PERPHID_OFFSET		0x00000FD0U /**< Peripheral ID Reg */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 #define XSCUGIC_PCELLID_OFFSET		0x0000FFF0U /**< Pcell ID Register */
 #else
 #define XSCUGIC_PCELLID_OFFSET		0x00000FF0U /**< Pcell ID Register */
@@ -163,7 +168,7 @@ extern "C" {
  * Controls if the distributor response to external interrupt inputs.
  * @{
  */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 #define XSCUGIC_EN_INT_MASK		0x00000003U /**< Interrupt In Enable */
 #else
 #define XSCUGIC_EN_INT_MASK		0x00000001U /**< Interrupt In Enable */
@@ -364,7 +369,7 @@ extern "C" {
 /* @} */
 
 /** @name  AHB Configuration Register
- * Provides the status of the CFGBIGEND input signal and allows the endianess
+ * Provides the status of the CFGBIGEND input signal and allows the endianness
  * of the GIC to be set.
  * @{
  */
@@ -377,7 +382,7 @@ extern "C" {
 /* @} */
 
 /** @name  Software Triggered Interrupt Register
- * Controls issueing of software interrupts.
+ * Controls issuing of software interrupts.
  * @{
  */
 #define XSCUGIC_SFI_SELFTRIG_MASK	0x02010000U
@@ -486,17 +491,17 @@ extern "C" {
 #define XSCUGIC_RUN_PRIORITY_MASK	0x000000FFU    /**< Interrupt Priority */
 /* @} */
 
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 #define XSCUGIC_IROUTER_BASE_OFFSET 0x6000U
 #endif
 /*
  * Highest Pending Interrupt register definitions
- * Identifies the interrupt priority of the highest priority pending interupt
+ * Identifies the interrupt priority of the highest priority pending interrupt
  */
 #define XSCUGIC_PEND_INTID_MASK		0x000003FFU /**< Pending Interrupt ID */
 /*#define XSCUGIC_CPUID_MASK		0x00000C00U */	 /**< CPU ID */
 /* @} */
-#if defined (versal) && !defined(ARMR5)
+#if defined (GICv3)
 /** @name ReDistributor Interface Register Map
  *
  * @{
@@ -686,50 +691,6 @@ extern "C" {
 	(Xil_Out32(((BaseAddress) + (RegOffset)), ((u32)(Data))))
 
 
-/****************************************************************************/
-/**
-*
-* Enable specific interrupt(s) in the interrupt controller.
-*
-* @param	DistBaseAddress is the Distributor Register base address of the
-*		device
-* @param	Int_Id is the ID of the interrupt source and should be in the
-*		range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XScuGic_EnableIntr(u32 DistBaseAddress, u32 Int_Id)
-*
-*****************************************************************************/
-#define XScuGic_EnableIntr(DistBaseAddress, Int_Id) \
-	XScuGic_WriteReg((DistBaseAddress), \
-			 XSCUGIC_ENABLE_SET_OFFSET + (((Int_Id) / 32U) * 4U), \
-			 (0x00000001U << ((Int_Id) % 32U)))
-
-/****************************************************************************/
-/**
-*
-* Disable specific interrupt(s) in the interrupt controller.
-*
-* @param	DistBaseAddress is the Distributor Register base address of the
-*		device
-* @param	Int_Id is the ID of the interrupt source and should be in the
-*		range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
-*
-*
-* @return	None.
-*
-* @note		C-style signature:
-*		void XScuGic_DisableIntr(u32 DistBaseAddress, u32 Int_Id)
-*
-*****************************************************************************/
-#define XScuGic_DisableIntr(DistBaseAddress, Int_Id) \
-	XScuGic_WriteReg((DistBaseAddress), \
-			 XSCUGIC_DISABLE_OFFSET + (((Int_Id) / 32U) * 4U), \
-			 (0x00000001U << ((Int_Id) % 32U)))
-
-
 /************************** Function Prototypes ******************************/
 
 void XScuGic_DeviceInterruptHandler(void *DeviceId);
@@ -740,10 +701,14 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
                                         u8 Priority, u8 Trigger);
 void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 					u8 *Priority, u8 *Trigger);
+void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
+							u8 Cpu_Id, u32 Int_Id);
 void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 											u8 Cpu_Id, u32 Int_Id);
 void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 												u8 Cpu_Id);
+void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id);
+void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id);
 /************************** Variable Definitions *****************************/
 #ifdef __cplusplus
 }

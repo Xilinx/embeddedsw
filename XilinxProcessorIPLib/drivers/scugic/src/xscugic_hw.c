@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -76,6 +74,17 @@
 *                     It fixes CR#1007753
 * 3.10  mus  09/19/18 Update documentation for XScuGic_RegisterHandler to
 *                     fix doxygen warnings.
+* 4.1   asa  03/30/19 Made changes not to direct each interrupt to all
+*                     available CPUs by default. This was breaking AMP
+*                     behavior. Instead every time an interrupt enable
+*                     request is received, the interrupt was mapped to
+*                     the respective CPU. There were several other changes
+*                     made to implement this including adding APIs:
+*                     XScuGic_InterruptMapFromCpuByDistAddr,
+*                     XScuGic_EnableIntr, and XScuGic_DisableIntr.
+*                     This set of changes was to fix CR-1024716.
+* 4.1   mus  06/12/19 Updated existing low level API's to support GIC500. It
+*                     fixes CR#1033401.
 * </pre>
 *
 ******************************************************************************/
@@ -96,14 +105,15 @@
 
 /************************** Function Prototypes ******************************/
 
-static void DistInit(XScuGic_Config *Config, u32 CpuID);
+static void DistInit(XScuGic_Config *Config);
+#if !defined (GICv3)
 static void CPUInit(XScuGic_Config *Config);
+#endif
 static XScuGic_Config *LookupConfigByBaseAddress(u32 CpuBaseAddress);
 
 /************************** Variable Definitions *****************************/
 
 extern XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES];
-extern u32 CpuId;
 
 /*****************************************************************************/
 /**
@@ -123,10 +133,9 @@ extern u32 CpuId;
 * @note		None.
 *
 ******************************************************************************/
-static void DistInit(XScuGic_Config *Config, u32 CpuID)
+static void DistInit(XScuGic_Config *Config)
 {
 	u32 Int_Id;
-	u32 LocalCpuID = CpuID;
 
 #if USE_AMP == 1
 	#warning "Building GIC for AMP"
@@ -139,7 +148,29 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 	return;
 #endif
 
+#if defined (GICv3)
+	u32 Temp;
+	u32 Waker_State;
+
+	Waker_State = XScuGic_ReadReg((Config->DistBaseAddress) +
+			XSCUGIC_RDIST_OFFSET,XSCUGIC_RDIST_WAKER_OFFSET);
+	XScuGic_WriteReg((Config->DistBaseAddress) +
+			XSCUGIC_RDIST_OFFSET,XSCUGIC_RDIST_WAKER_OFFSET,
+			Waker_State & (~ XSCUGIC_RDIST_WAKER_LOW_POWER_STATE_MASK));
+	/* Enable system reg interface through ICC_SRE_EL1 */
+#if EL3
+	XScuGic_Enable_SystemReg_CPU_Interface_EL3();
+#endif
+	XScuGic_Enable_SystemReg_CPU_Interface_EL1();
+	isb();
+
+	Temp = XScuGic_ReadReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET);
+	Temp |= (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
+	Temp &= ~(XSCUGIC_EN_INT_MASK);
+	XScuGic_WriteReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET, Temp);
+#else
 	XScuGic_WriteReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET, 0U);
+#endif
 
 	/*
 	 * Set the security domains in the int_security registers for non-secure
@@ -181,18 +212,19 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 				DEFAULT_PRIORITY);
 	}
 
-	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
-			Int_Id = Int_Id+4U) {
-		/*
-		 * 3. The CPU interface in the spi_target register
-		 * Only write to the SPI interrupts, so start at 32
-		 */
-		LocalCpuID |= LocalCpuID << 8U;
-		LocalCpuID |= LocalCpuID << 16U;
-
+#if defined (GICv3)
+	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
 		XScuGic_WriteReg(Config->DistBaseAddress,
-			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), LocalCpuID);
+				XSCUGIC_SECURITY_TARGET_OFFSET_CALC(Int_Id),
+				XSCUGIC_DEFAULT_SECURITY);
 	}
+	/*
+	 * Set security for SGI/PPI
+	 *
+	 */
+	XScuGic_WriteReg( Config->DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			XSCUGIC_RDIST_IGROUPR_OFFSET, XSCUGIC_DEFAULT_SECURITY);
+#endif
 
 	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
 			Int_Id = Int_Id+32U) {
@@ -207,11 +239,22 @@ static void DistInit(XScuGic_Config *Config, u32 CpuID)
 
 	}
 
+#if defined (GICv3)
+	Temp = XScuGic_ReadReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET);
+	Temp |= XSCUGIC_EN_INT_MASK;
+	XScuGic_WriteReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET, Temp);
+	XScuGic_Enable_Group1_Interrupts();
+	XScuGic_Enable_Group0_Interrupts();
+	XScuGic_set_priority_filter(0xff);
+#else
+
 	XScuGic_WriteReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET,
 						XSCUGIC_EN_INT_MASK);
+#endif
 
 }
 
+#if !defined (GICv3)
 /*****************************************************************************/
 /**
 *
@@ -258,6 +301,7 @@ static void CPUInit(XScuGic_Config *Config)
 	XScuGic_WriteReg(Config->CpuBaseAddress, XSCUGIC_CONTROL_OFFSET, 0x07U);
 
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -282,13 +326,12 @@ static void CPUInit(XScuGic_Config *Config)
 s32 XScuGic_DeviceInitialize(u32 DeviceId)
 {
 	XScuGic_Config *Config;
-	u32 Cpu_Id = XScuGic_GetCpuID() + (u32)1;
 
 	Config = &XScuGic_ConfigTable[(u32)DeviceId];
-
-	DistInit(Config, Cpu_Id);
-
+	DistInit(Config);
+#if !defined (GICv3)
 	CPUInit(Config);
+#endif
 
 	return XST_SUCCESS;
 }
@@ -317,12 +360,17 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 {
 
 	u32 InterruptID;
+#if !defined (GICv3)
 	u32 IntIDFull;
+#endif
 	XScuGic_VectorTableEntry *TablePtr;
 	XScuGic_Config *CfgPtr;
 
 	CfgPtr = &XScuGic_ConfigTable[(INTPTR)DeviceId];
 
+#if defined (GICv3)
+	InterruptID = XScuGic_get_IntID();
+#else
 	/*
 	 * Read the int_ack register to identify the highest priority
 	 * interrupt ID and make sure it is valid. Reading Int_Ack will
@@ -331,6 +379,8 @@ void XScuGic_DeviceInterruptHandler(void *DeviceId)
 	IntIDFull = XScuGic_ReadReg(CfgPtr->CpuBaseAddress,
 					XSCUGIC_INT_ACK_OFFSET);
 	InterruptID = IntIDFull & XSCUGIC_ACK_INTID_MASK;
+
+#endif
 	if (XSCUGIC_MAX_NUM_INTR_INPUTS <= InterruptID) {
 		goto IntrExit;
 	}
@@ -363,7 +413,11 @@ IntrExit:
 	 * Write to the EOI register, we are all done here.
 	 * Let this function return, the boot code will restore the stack.
 	 */
+#if defined (GICv3)
+	XScuGic_ack_Int(InterruptID);
+#else
 	XScuGic_WriteReg(CfgPtr->CpuBaseAddress, XSCUGIC_EOI_OFFSET, IntIDFull);
+#endif
 
 	/*
 	 * Return from the interrupt. Change security domains could happen
@@ -474,12 +528,29 @@ void XScuGic_SetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 					u8 Priority, u8 Trigger)
 {
 	u32 RegValue;
+#if defined (GICv3)
+	u32 Temp;
+	u32 Index;
+#endif
 	u8 LocalPriority = Priority;
 
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
 	Xil_AssertVoid(Trigger <= XSCUGIC_INT_CFG_MASK);
 	Xil_AssertVoid(LocalPriority <= XSCUGIC_MAX_INTR_PRIO_VAL);
-
+#if defined (GICv3)
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START )
+	{
+		XScuGic_WriteReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC(Int_Id),Priority);
+		Temp = XScuGic_ReadReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id));
+		Index = XScuGic_Get_Rdist_Int_Trigger_Index(Int_Id);
+		Temp |= (Trigger << Index);
+		XScuGic_WriteReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC(Int_Id),Temp);
+		return;
+	}
+#endif
 	/*
 	 * Determine the register to write to using the Int_Id.
 	 */
@@ -581,6 +652,54 @@ void XScuGic_GetPriTrigTypeByDistAddr(u32 DistBaseAddress, u32 Int_Id,
 
 /****************************************************************************/
 /**
+* Sets the target CPU for the interrupt of a peripheral
+*
+* @param	DistBaseAddress is the device base address
+* @param	Cpu_Id is a CPU number from which the interrupt has to be
+*			unmapped
+* @param	Int_Id is the IRQ source number to modify
+*
+* @return	None.
+*
+* @note		None
+*
+*****************************************************************************/
+void XScuGic_InterruptMapFromCpuByDistAddr(u32 DistBaseAddress,
+		u8 Cpu_Id, u32 Int_Id)
+{
+	u32 RegValue;
+#if !defined (GICv3)
+	u32 Offset;
+#endif
+
+	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
+#if defined (GICv3)
+	u32 Temp;
+	if (Int_Id >= 32) {
+		Temp = Int_Id - 32;
+		RegValue = XScuGic_ReadReg(DistBaseAddress,
+				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+		RegValue |= (Cpu_Id);
+		XScuGic_WriteReg(DistBaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
+			RegValue);
+	}
+#else
+	RegValue = XScuGic_ReadReg(DistBaseAddress,
+					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+
+	Offset = (Int_Id & 0x3U);
+	Cpu_Id = (0x1U << Cpu_Id);
+
+	RegValue |= (Cpu_Id) << (Offset*8U);
+
+	XScuGic_WriteReg(DistBaseAddress,
+					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
+					RegValue);
+#endif
+}
+
+/****************************************************************************/
+/**
 * Unmaps specific SPI interrupt from the target CPU
 *
 * @param	DistBaseAddress is the device base address
@@ -597,21 +716,34 @@ void XScuGic_InterruptUnmapFromCpuByDistAddr(u32 DistBaseAddress,
 			u8 Cpu_Id, u32 Int_Id)
 {
 	u32 RegValue;
-	u8 BitPos;
+#if !defined (GICv3)
+	u32 Offset;
+#endif
 
 	Xil_AssertVoid(Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS);
-
+#if defined (GICv3)
+	u32 Temp;
+	if (Int_Id >= 32 && Cpu_Id != 0) {
+		Temp = Int_Id - 32;
+		RegValue = XScuGic_ReadReg(DistBaseAddress,
+				XSCUGIC_IROUTER_OFFSET_CALC(Temp));
+		RegValue &= ~(Cpu_Id);
+		XScuGic_WriteReg(DistBaseAddress, XSCUGIC_IROUTER_OFFSET_CALC(Temp),
+			RegValue);
+	} else if (Cpu_Id == 0) {
+		xil_printf("Error: Unable to unmap interrupt id %d from core %d",Int_Id,Cpu_Id);
+	}
+#else
 	RegValue = XScuGic_ReadReg(DistBaseAddress,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
-	/*
-	 * Identify bit position corresponding to  Int_Id and Cpu_Id,
-	 * in interrupt target register and clear it
-	 */
-	BitPos = ((Int_Id % 4U) * 8U) + Cpu_Id;
-	RegValue &= (~(1U << BitPos));
+	Offset = (Int_Id & 0x3U);
+	Cpu_Id = (0x1U << Cpu_Id);
+
+	RegValue &= ~(Cpu_Id << (Offset*8U));
 	XScuGic_WriteReg(DistBaseAddress,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), RegValue);
+#endif
 }
 
 /****************************************************************************/
@@ -649,4 +781,92 @@ void XScuGic_UnmapAllInterruptsFromCpuByDistAddr(u32 DistBaseAddress,
 
 	}
 }
+
+/*****************************************************************************/
+/**
+*
+* Enables the interrupt source provided as the argument Int_Id. Any pending
+* interrupt condition for the specified Int_Id will occur after this function is
+* called.
+*
+* @param	InstancePtr is a pointer to the XScuGic instance.
+* @param	Int_Id contains the ID of the interrupt source and should be
+*		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void XScuGic_EnableIntr (u32 DistBaseAddress, u32 Int_Id)
+{
+	u8 Cpu_Id = (u8)XScuGic_GetCpuID();
+#if defined (GICv3)
+	u32 Temp;
+#endif
+
+#if defined (GICv3)
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
+		XScuGic_InterruptMapFromCpuByDistAddr(DistBaseAddress, Cpu_Id,
+			Int_Id);
+
+		Int_Id &= 0x1f;
+		Int_Id = 1 << Int_Id;
+
+		Temp = XScuGic_ReadReg(DistBaseAddress +
+			XSCUGIC_RDIST_SGI_PPI_OFFSET, XSCUGIC_RDIST_ISENABLE_OFFSET);
+		Temp |= Int_Id;
+		XScuGic_WriteReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
+	}
+#endif
+
+	XScuGic_InterruptMapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);
+	XScuGic_WriteReg((DistBaseAddress), XSCUGIC_ENABLE_SET_OFFSET +
+			(((Int_Id) / 32U) * 4U), (0x00000001U << ((Int_Id) % 32U)));
+}
+
+/*****************************************************************************/
+/**
+*
+* Disables the interrupt source provided as the argument Int_Id such that the
+* interrupt controller will not cause interrupts for the specified Int_Id. The
+* interrupt controller will continue to hold an interrupt condition for the
+* Int_Id, but will not cause an interrupt.
+*
+* @param	InstancePtr is a pointer to the XScuGic instance.
+* @param	Int_Id contains the ID of the interrupt source and should be
+*		in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1
+*
+* @return	None.
+*
+* @note		None.
+*
+****************************************************************************/
+void XScuGic_DisableIntr (u32 DistBaseAddress, u32 Int_Id)
+{
+	u8 Cpu_Id = (u8)XScuGic_GetCpuID();
+#if defined (GICv3)
+	u32 Temp;
+
+	if (Int_Id < XSCUGIC_SPI_INT_ID_START) {
+
+		XScuGic_InterruptUnmapFromCpuByDistAddr(DistBaseAddress +
+			XSCUGIC_RDIST_SGI_PPI_OFFSET, Cpu_Id, Int_Id);
+
+		Int_Id &= 0x1f;
+		Int_Id = 1 << Int_Id;
+
+		Temp = XScuGic_ReadReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			XSCUGIC_RDIST_ISENABLE_OFFSET);
+		Temp &= ~Int_Id;
+		XScuGic_WriteReg(DistBaseAddress + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			XSCUGIC_RDIST_ISENABLE_OFFSET,Temp);
+	}
+#endif
+	XScuGic_InterruptUnmapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);
+	XScuGic_WriteReg((DistBaseAddress), XSCUGIC_DISABLE_OFFSET +
+			(((Int_Id) / 32U) * 4U), (0x00000001U << ((Int_Id) % 32U)));
+}
+
 /** @} */

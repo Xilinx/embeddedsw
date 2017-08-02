@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -164,7 +162,7 @@
 *                     generation.
 * 3.7   ms   04/11/17 Modified tcl file to add suffix U for all macro
 *                     definitions of scugic in xparameters.h
-* 3.8   mus  07/05/17 Updated scugic.tcl to add support for intrrupts connected
+* 3.8   mus  07/05/17 Updated scugic.tcl to add support for interrupts connected
 *                     through util_reduced_vector IP(OR gate)
 *       mus  07/05/17 Updated xdefine_zynq_canonical_xpars proc to initialize
 *                     the HandlerTable in XScuGic_ConfigTable to 0, it removes
@@ -176,8 +174,18 @@
 *                     by applications to unmap specific/all interrupts from
 *                     target CPU.
 * 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
-* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through 
+* 4.0   mus  11/22/18 Fixed bugs in software interrupt generation through
 *                      XScuGic_SoftwareIntr API
+* 4.1   asa  03/30/19 Made changes not to direct each interrupt to all
+*                     available CPUs by default. This was breaking AMP
+*                     behavior. Instead every time an interrupt enable
+*                     request is received, the interrupt was mapped to
+*                     the respective CPU. There were several other changes
+*                     made to implement this. This set of changes was to
+*                     fix CR-1024716.
+* 4.1   mus  06/19/19 Added API's XScuGic_MarkCoreAsleep and
+*                     XScuGic_MarkCoreAwake to mark processor core as
+*                     asleep or awake. Fix for CR#1027220.
 *
 * </pre>
 *
@@ -590,6 +598,10 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr);
 
 void XScuGic_EnableSGI_PPI(XScuGic *InstancePtr,u32 ID);
 void XScuGic_SetPPI_SGI_Priority(XScuGic *InstancePtr,u32 ID, u32 priority);
+#if defined (GICv3)
+void XScuGic_MarkCoreAsleep(XScuGic *InstancePtr);
+void XScuGic_MarkCoreAwake(XScuGic *InstancePtr);
+#endif
 #ifdef __cplusplus
 }
 #endif
