@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 *
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -33,7 +29,7 @@
 /**
 *
 * @file xscugic_g.c
-* @addtogroup scugic_v3_8
+* @addtogroup scugic_v3_10
 * @{
 *
 * This file contains a configuration table that specifies the configuration of
@@ -46,6 +42,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a drg  01/19/10 First release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues       
+*                     reported by checkpatch. It fixes CR#1006344.
 *
 * </pre>
 *
@@ -85,12 +83,12 @@
  * Refer to the XScuGic_Config data structure in xscugic.h for details on how
  * this table should be initialized.
  */
-XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES] =
-{
-    {
-        (u16)XPAR_SCUGIC_0_DEVICE_ID,	/* Unique ID  of device */
-        (u32)XPAR_SCUGIC_0_CPU_BASEADDR,	/* CPU Interface base address */
-        (u32)XPAR_SCUGIC_0_DIST_BASEADDR	/* Distributor base address */
-    }
+XScuGic_Config XScuGic_ConfigTable[XPAR_XSCUGIC_NUM_INSTANCES] = {
+	{
+		(u16)XPAR_SCUGIC_0_DEVICE_ID,  /* Unique ID  of device */
+		(u32)XPAR_SCUGIC_0_CPU_BASEADDR,  /* CPU Interface base address */
+		(u32)XPAR_SCUGIC_0_DIST_BASEADDR,  /* Distributor base address */
+		{{0}}  /**< Initialize the HandlerTable to 0 */
+	}
 };
 /** @} */

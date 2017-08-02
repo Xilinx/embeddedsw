@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -33,7 +29,7 @@
 /**
 *
 * @file xscugic.c
-* @addtogroup scugic_v3_8
+* @addtogroup scugic_v3_10
 * @{
 *
 * Contains required functions for the XScuGic driver for the Interrupt
@@ -45,72 +41,75 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- --------------------------------------------------------
 * 1.00a drg  01/19/10 First release
-* 1.01a sdm  11/09/11 Changes are made in function XScuGic_CfgInitialize. Since
-*		      		  "Config" entry is now made as pointer in the XScuGic
-*		      		  structure, necessary changes are made.
-*		      		  The HandlerTable can now be populated through the low
-*		      		  level routine XScuGic_RegisterHandler added in this
-*		      		  release. Hence necessary checks are added not to
-*		      		  overwrite the HandlerTable entriesin function
-*		      		  XScuGic_CfgInitialize.
+* 1.01a sdm  11/09/11 Changes are made in function XScuGic_CfgInitialize
+*                     Since entry is now made as pointer in the XScuGic
+*                     structure, necessary changes are made.
+*                     The HandlerTable can now be populated through the low
+*                     level routine XScuGic_RegisterHandler added in this
+*                     release. Hence necessary checks are added not to
+*                     overwrite the HandlerTable entriesin function
+*                     XScuGic_CfgInitialize.
 * 1.03a srt  02/27/13 Added APIs
-*					  - XScuGic_SetPriTrigTypeByDistAddr()
-*					  - XScuGic_GetPriTrigTypeByDistAddr()
-* 		    		  Removed Offset calculation macros, defined in _hw.h
-*		      		  (CR 702687)
-*			  		  Added support to direct interrupts to the appropriate CPU. Earlier
-*			  		  interrupts were directed to CPU1 (hard coded). Now depending
-*			  		  upon the CPU selected by the user (xparameters.h), interrupts
-*			  		  will be directed to the relevant CPU. This fixes CR 699688.
+*                       -XScuGic_SetPriTrigTypeByDistAddr()
+*                       -XScuGic_GetPriTrigTypeByDistAddr()
+*                     Removed Offset calculation macros, defined in _hw.h 
+*                     (CR 702687)
+*                     added support to direct interrupts  to the appropriate
+*                     CPU Earlier interrupts were directed to CPU1
+*                     (hard coded).Now depending upon the CPU selected by the
+*                     user(xparameters.h), interrupts will be directed to
+*                     the  relevant CPU. This fixes CR 699688.
 *
 * 1.04a hk   05/04/13 Assigned EffectiveAddr to CpuBaseAddress in
-*			  		  XScuGic_CfgInitialize. Fix for CR#704400 to remove warnings.
-*			  		  Moved functions XScuGic_SetPriTrigTypeByDistAddr and
-*             		  XScuGic_GetPriTrigTypeByDistAddr to xscugic_hw.c.
-*			  		  This is fix for CR#705621.
+*                     XScuGic_CfgInitialize. Fix for CR#704400 to remove 
+*                     warnings.
+*                     Moved functions XScuGic_SetPriTrigTypeByDistAddr and
+*                    XScuGic_GetPriTrigTypeByDistAddr to xscugic_hw.c.
+*                    This is fix for CR#705621.
 * 1.06a asa  16/11/13 Fix for CR#749178. Assignment for EffectiveAddr
-*			  		  in function XScuGic_CfgInitialize is removed as it was
-*		      		  a bug.
+*                     in function XScuGic_CfgInitialize is removed as it was
+*                     a bug.
 * 3.00  kvn  02/13/14 Modified code for MISRA-C:2012 compliance.
-* 3.01	pkp	 06/19/15 Added XScuGic_InterruptMaptoCpu API for an interrupt
-*			  		  target CPU mapping
-* 3.02	pkp	 11/09/15 Modified DistributorInit function for AMP case to add
-*					  the current cpu to interrupt processor targets registers
+* 3.01  pkp  06/19/15 Added XScuGic_InterruptMaptoCpu API for an interrupt
+*                     target CPU mapping
+* 3.02  pkp  11/09/15 Modified DistributorInit function for AMP case to add
+*                     the current cpu to interrupt processor targets registers
 * 3.2   asa  02/29/16 Modified DistributorInit function for Zynq AMP case. The
-*			  		  distributor is left uninitialized for Zynq AMP. It is assumed
-*             		  that the distributor will be initialized by Linux master. However
-*             		  for CortexR5 case, the earlier code is left unchanged where the
-*             		  the interrupt processor target registers in the distributor is
-*             		  initialized with the corresponding CPU ID on which the application
-*             		  built over the scugic driver runs.
-*             		  These changes fix CR#937243.
-* 3.3	pkp  05/12/16 Modified XScuGic_InterruptMaptoCpu to write proper value
-*					  to interrupt target register to fix CR#951848
+*                     distributor is left uninitialized for Zynq AMP. It is
+*                     assumed that the distributor will be initialized by
+*                     Linux master. However for CortexR5 case, the earlier code
+*                     is left unchanged where the the interrupt processor target
+*                     registers in the distributor is initialized with the
+*                     corresponding CPU ID on which the application built over
+*                     the scugic driver runs. These changes fix CR#937243.
+* 3.3   pkp  05/12/16 Modified XScuGic_InterruptMaptoCpu to write proper value
+*                     to interrupt target register to fix CR#951848
 *
-* 3.4   asa  04/07/16 Created a new static function DoDistributorInit to simplify
-*                     the flow and avoid code duplication. Changes are made for
-*                     USE_AMP use case for R5. In a scenario (in R5 split mode) when
-*                     one R5 is operating with A53 in open amp config and other
-*                     R5 running baremetal app, the existing code
-*                     had the potential to stop the whole AMP solution to work (if
-*                     for some reason the R5 running the baremetal app tasked to
-*                     initialize the Distributor hangs or crashes before initializing).
-*                     Changes are made so that the R5 under AMP first checks if
-*                     the distributor is enabled or not and if not, it does the
-*                     standard Distributor initialization.
-*                     This fixes the CR#952962.
+* 3.4   asa  04/07/16 Created a new static function DoDistributorInit to
+*                     simplify the flow and avoid code duplication. Changes are
+*                     made for USE_AMP use case for R5. In a scenario 
+*                     (in R5 split mode) when one R5 is operating with A53 in
+*                     open amp config and other R5 running baremetal app, the
+*                     existing code had the potential to stop the whole AMP 
+*                     solution to work(if for some reason the R5 running the
+*                     baremetal app tasked to initialize the Distributor hangs 
+*                     or crashes before initializing).Changes are made so that 
+*                     the R5 under AMP first checks if the distributor is 
+*                     enabled or not and if not, it does the standard
+*                     Distributor initialization.This fixes the CR#952962.
 * 3.4   mus  09/08/16 Added assert to avoid invalid access of GIC from CPUID 1
 *                     for single core zynq-7000s
-* 3.5   mus  10/05/16 Modified DistributorInit function to avoid re-initialization of
-*                     distributor,If it is already initialized by other CPU.
-* 3.5	pkp	 10/17/16 Modified XScuGic_InterruptMaptoCpu to correct the CPU Id value
-*					  and properly mask interrupt target processor value to modify
-*					  interrupt target processor register for a given interrupt ID
-*					  and cpu ID
-* 3.6	pkp	 20/01/17 Added new API XScuGic_Stop to Disable distributor and
-*					  interrupts in case they are being used only by current cpu.
-*					  It also removes current cpu from interrupt target registers
-*					  for all interrupts.
+* 3.5   mus  10/05/16 Modified DistributorInit function to avoid
+*                     re-initialization of distributor, If it is already 
+*                     initialized by other CPU.
+* 3.5   pkp  10/17/16 Modified XScuGic_InterruptMaptoCpu to correct the CPU Id
+*                     value and properly mask interrupt target processor value
+*                     to modify interrupt target processor register for a given
+*                     interrupt ID and cpu ID
+* 3.6   pkp  20/01/17 Added new API XScuGic_Stop to Disable distributor and
+*                     interrupts in case they are being used only by current
+*                     cpu. It also removes current cpu from interrupt target
+*                     registers for all interrupts.
 *       kvn  02/17/17 Add support for changing GIC CPU master at run time.
 *       kvn  02/28/17 Make the CpuId as static variable and Added new
 *                     XScugiC_GetCpuId to access CpuId.
@@ -118,7 +117,11 @@
 *                     XScuGic_InterruptUnmapFromCpu, These API's can be used
 *                     by applications to unmap specific/all interrupts from
 *                     target CPU. It fixes CR#992490.
-*
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues
+*                     reported by checkpatch. It fixes CR#1006344. 
+* 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
+*                     It fixes CR#1007753.
+* 3.10  mus  09/19/18 Fix cppcheck warnings
 * </pre>
 *
 ******************************************************************************/
@@ -183,7 +186,8 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	 * 1. The trigger mode in the int_config register
 	 * Only write to the SPI interrupts, so start at 32
 	 */
-	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id=Int_Id+16U) {
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+16U) {
 		/*
 		 * Each INT_ID uses two bits, or 16 INT_ID per register
 		 * Set them all to be level sensitive, active HIGH.
@@ -195,7 +199,8 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 
 
 #define DEFAULT_PRIORITY    0xa0a0a0a0U
-	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS; Int_Id=Int_Id+4U) {
+	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+4U) {
 		/*
 		 * 2. The priority using int the priority_level register
 		 * The priority_level and spi_target registers use one byte per
@@ -207,7 +212,8 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 					DEFAULT_PRIORITY);
 	}
 
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+4U) {
 		/*
 		 * 3. The CPU interface in the spi_target register
 		 * Only write to the SPI interrupts, so start at 32
@@ -220,10 +226,11 @@ static void DoDistributorInit(XScuGic *InstancePtr, u32 CpuID)
 					 LocalCpuID);
 	}
 
-	for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
+	for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+32U) {
 		/*
-		 * 4. Enable the SPI using the enable_set register. Leave all
-		 * disabled for now.
+		 * 4. Enable the SPI using the enable_set register.
+		 * Leave all disabled for now.
 		 */
 		XScuGic_DistWriteReg(InstancePtr,
 		XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET, Int_Id),
@@ -255,7 +262,7 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	u32 LocalCpuID = CpuID;
 	u32 RegValue;
 
-#if USE_AMP==1 && (defined (ARMA9) || defined(__aarch64__))
+#if USE_AMP == 1 && (defined(ARMA9) || defined(__aarch64__))
 #warning "Building GIC for AMP"
 	/*
 	 * GIC initialization is taken care by master CPU in
@@ -264,9 +271,9 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	return;
 #endif
 
+	Xil_AssertVoid(InstancePtr != NULL);
 	RegValue = XScuGic_DistReadReg(InstancePtr, XSCUGIC_DIST_EN_OFFSET);
 	if ((RegValue & XSCUGIC_EN_INT_MASK) == 0U) {
-		Xil_AssertVoid(InstancePtr != NULL);
 		DoDistributorInit(InstancePtr, CpuID);
 		return;
 	}
@@ -277,9 +284,10 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 	 */
 	LocalCpuID |= LocalCpuID << 8U;
 	LocalCpuID |= LocalCpuID << 16U;
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+4U) {
 		RegValue = XScuGic_DistReadReg(InstancePtr,
-						XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 		RegValue |= LocalCpuID;
 		XScuGic_DistWriteReg(InstancePtr,
 				     XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
@@ -290,7 +298,8 @@ static void DistributorInit(XScuGic *InstancePtr, u32 CpuID)
 /*****************************************************************************/
 /**
 *
-* CPUInitialize initializes the CPU Interface of the GIC. The initialization entails:
+* CPUInitialize initializes the CPU Interface of the GIC. The initialization
+* entails:
 *
 *	- Set the priority of the CPU
 *	- Enable the CPU interface
@@ -324,8 +333,9 @@ static void CPUInitialize(XScuGic *InstancePtr)
 	 * If the CPU operates only in the secure domain, setup the
 	 * control_s register.
 	 * 1. Set FIQen=1,
-	 * 2. Set EnableS=1, to enable the CPU interface to signal secure interrupts.
-	 * Only enable the IRQ output unless secure interrupts are needed.
+	 * 2. Set EnableS=1, to enable the CPU interface to signal secure
+	 *  interrupts. Only enable the IRQ output unless secure interrupts
+	 * are needed.
 	 */
 	XScuGic_CPUWriteReg(InstancePtr, XSCUGIC_CONTROL_OFFSET, 0x07U);
 
@@ -374,31 +384,32 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
      * If it is single CPU cnfiguration then invoke assert for CPU ID=1
 	 */
 #ifdef ARMA9
-	if ( XPAR_CPU_ID == 0x01 )
-	{
-		Xil_AssertNonvoid((Xil_In32(XPS_EFUSE_BASEADDR + EFUSE_STATUS_OFFSET)
-		 & EFUSE_STATUS_CPU_MASK ) == 0);
+	if (XPAR_CPU_ID == 0x01) {
+		Xil_AssertNonvoid((Xil_In32(XPS_EFUSE_BASEADDR 
+			+ EFUSE_STATUS_OFFSET) & EFUSE_STATUS_CPU_MASK) == 0);
 	}
 #endif
 
-	if(InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
+	if (InstancePtr->IsReady != XIL_COMPONENT_IS_READY) {
 
 		InstancePtr->IsReady = 0U;
 		InstancePtr->Config = ConfigPtr;
 
 
-		for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id++) {
+		for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+				Int_Id++) {
 			/*
 			* Initalize the handler to point to a stub to handle an
-			* interrupt which has not been connected to a handler. Only
-			* initialize it if the handler is 0 which means it was not
-			* initialized statically by the tools/user. Set the callback
-			* reference to this instance so that unhandled interrupts
-			* can be tracked.
+			* interrupt which has not been connected to a handler
+			* Only initialize it if the handler is 0 which means it
+			* was not initialized statically by the tools/user. Set
+			* the callback reference to this instance so that
+			* unhandled interrupts can be tracked.
 			*/
-			if 	((InstancePtr->Config->HandlerTable[Int_Id].Handler == NULL)) {
-				InstancePtr->Config->HandlerTable[Int_Id].Handler =
-									StubHandler;
+			if ((InstancePtr->Config->HandlerTable[Int_Id].Handler
+					== (Xil_InterruptHandler)NULL)) {
+				InstancePtr->Config->HandlerTable[Int_Id].Handler 
+						= (Xil_InterruptHandler)StubHandler;
 			}
 			InstancePtr->Config->HandlerTable[Int_Id].CallBackRef =
 								InstancePtr;
@@ -439,7 +450,7 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 *
 ****************************************************************************/
 s32  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
-                      Xil_InterruptHandler Handler, void *CallBackRef)
+				Xil_InterruptHandler Handler, void *CallBackRef)
 {
 	/*
 	 * Assert the arguments
@@ -453,7 +464,7 @@ s32  XScuGic_Connect(XScuGic *InstancePtr, u32 Int_Id,
 	 * The Int_Id is used as an index into the table to select the proper
 	 * handler
 	 */
-	InstancePtr->Config->HandlerTable[Int_Id].Handler = Handler;
+	InstancePtr->Config->HandlerTable[Int_Id].Handler = (Xil_InterruptHandler)Handler;
 	InstancePtr->Config->HandlerTable[Int_Id].CallBackRef = CallBackRef;
 
 	return XST_SUCCESS;
@@ -494,8 +505,8 @@ void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
 
 	/*
 	 * Disable the interrupt such that it won't occur while disconnecting
-	 * the handler, only disable the specified interrupt id without modifying
-	 * the other interrupt ids
+	 * the handler, only disable the specified interrupt id without
+	 * modifying the other interrupt ids
 	 */
 	XScuGic_DistWriteReg(InstancePtr, (u32)XSCUGIC_DISABLE_OFFSET +
 						((Int_Id / 32U) * 4U), Mask);
@@ -505,7 +516,7 @@ void XScuGic_Disconnect(XScuGic *InstancePtr, u32 Int_Id)
 	 * must be set to this instance to allow unhandled interrupts to be
 	 * tracked
 	 */
-	InstancePtr->Config->HandlerTable[Int_Id].Handler = StubHandler;
+	InstancePtr->Config->HandlerTable[Int_Id].Handler = (Xil_InterruptHandler)StubHandler;
 	InstancePtr->Config->HandlerTable[Int_Id].CallBackRef = InstancePtr;
 }
 
@@ -622,8 +633,8 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id)
 	 */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
-	Xil_AssertNonvoid(Int_Id <= 15U) ;
-	Xil_AssertNonvoid(Cpu_Id <= 255U) ;
+	Xil_AssertNonvoid(Int_Id <= 15U);
+	Xil_AssertNonvoid(Cpu_Id <= 255U);
 
 
 	/*
@@ -658,7 +669,8 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Id)
 * @note		None.
 *
 ******************************************************************************/
-static void StubHandler(void *CallBackRef) {
+static void StubHandler(void *CallBackRef)
+{
 	/*
 	 * verify that the inputs are valid
 	 */
@@ -677,9 +689,9 @@ static void StubHandler(void *CallBackRef) {
 * @param	InstancePtr is a pointer to the instance to be worked on.
 * @param	Int_Id is the IRQ source number to modify
 * @param	Priority is the new priority for the IRQ source. 0 is highest
-* 			priority, 0xF8 (248) is lowest. There are 32 priority levels
-*			supported with a step of 8. Hence the supported priorities are
-*			0, 8, 16, 32, 40 ..., 248.
+*           priority, 0xF8(248) is lowest. There are 32 priority levels
+*           supported with a step of 8. Hence the supported priorities are
+*           0, 8, 16, 32, 40 ..., 248.
 * @param	Trigger is the new trigger type for the IRQ source.
 * Each bit pair describes the configuration for an INT_ID.
 * SFI    Read Only    b10 always
@@ -738,7 +750,7 @@ void XScuGic_SetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	 * Determine the register to write to using the Int_Id.
 	 */
 	RegValue = XScuGic_DistReadReg(InstancePtr,
-			XSCUGIC_INT_CFG_OFFSET_CALC (Int_Id));
+			XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id));
 
 	/*
 	 * Shift and Mask the correct bits for the priority and trigger in the
@@ -799,7 +811,7 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 	 * Determine the register to read to using the Int_Id.
 	 */
 	RegValue = XScuGic_DistReadReg(InstancePtr,
-	XSCUGIC_INT_CFG_OFFSET_CALC (Int_Id));
+	XSCUGIC_INT_CFG_OFFSET_CALC(Int_Id));
 
 	/*
 	 * Shift and Mask the correct bits for the priority and trigger in the
@@ -824,19 +836,20 @@ void XScuGic_GetPriorityTriggerType(XScuGic *InstancePtr, u32 Int_Id,
 *****************************************************************************/
 void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 {
-	u32 RegValue, Offset;
+	u32 RegValue;
+	u32 Offset;
 	RegValue = XScuGic_DistReadReg(InstancePtr,
 			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
 
 	Offset = (Int_Id & 0x3U);
 	Cpu_Id = (0x1U << Cpu_Id);
 
-	RegValue = (RegValue & (~(0xFFU << (Offset*8U))) );
+	RegValue = (RegValue & (~(0xFFU << (Offset*8U))));
 	RegValue |= ((Cpu_Id) << (Offset*8U));
 
 	XScuGic_DistWriteReg(InstancePtr,
-						 XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
-						 RegValue);
+					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
+					RegValue);
 }
 /****************************************************************************/
 /**
@@ -867,7 +880,7 @@ void XScuGic_InterruptUnmapFromCpu(XScuGic *InstancePtr, u8 Cpu_Id, u32 Int_Id)
 	 * in interrupt target register and clear it
 	 */
 	BitPos = ((Int_Id % 4U) * 8U) + Cpu_Id;
-	RegValue &= (~ ( 1U << BitPos ));
+	RegValue &= (~(1U << BitPos));
 	XScuGic_DistWriteReg(InstancePtr,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id),
 				RegValue);
@@ -896,8 +909,8 @@ void XScuGic_UnmapAllInterruptsFromCpu(XScuGic *InstancePtr, u8 Cpu_Id)
 	LocalCpuID |= LocalCpuID << 8U;
 	LocalCpuID |= LocalCpuID << 16U;
 
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U)
-	{
+	for (Int_Id = 32U; Int_Id  < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+4U) {
 
 		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
 				XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
@@ -928,7 +941,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	u32 Int_Id;
 	u32 RegValue;
 	u32 Target_Cpu;
-	u32 DistDisable = 1; /* To track if distributor need to be disabled or not */
+	u32 DistDisable = 1; /* Track distributor status*/
 	u32 LocalCpuID = ((u32)0x1 << CpuId);
 
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -947,14 +960,15 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	 * Also remove current cpu from interrupt target register for all
 	 * interrupts.
 	 */
-	for (Int_Id = 32U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+4U) {
+	for (Int_Id = 32U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+			Int_Id = Int_Id+4U) {
 
 		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
-									XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
-		if ((Target_Cpu != LocalCpuID) && (Target_Cpu!= 0)) {
+					XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id));
+		if ((Target_Cpu != LocalCpuID) && (Target_Cpu != 0)) {
 			/*
-			 * If any other CPU is also programmed to target register, GIC
-			 * distributor can not be disabled.
+			 * If any other CPU is also programmed to target
+			 * register, GIC distributor can not be disabled.
 			 */
 			DistDisable = 0;
 		}
@@ -962,7 +976,7 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 		/* Remove current CPU from interrupt target register */
 		Target_Cpu &= (~LocalCpuID);
 		XScuGic_DistWriteReg(InstancePtr,
-						XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), Target_Cpu);
+			XSCUGIC_SPI_TARGET_OFFSET_CALC(Int_Id), Target_Cpu);
 
 	}
 
@@ -970,13 +984,14 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 	 * If GIC distributor is safe to be disabled, disable all the interrupt
 	 * and then disable distributor.
 	 */
-	if ( DistDisable == 1) {
-		for (Int_Id = 0U; Int_Id<XSCUGIC_MAX_NUM_INTR_INPUTS;Int_Id=Int_Id+32U) {
+	if (DistDisable == 1) {
+		for (Int_Id = 0U; Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+				Int_Id = Int_Id+32U) {
 			/*
 			 * Disable all the interrupts
 			 */
 			XScuGic_DistWriteReg(InstancePtr,
-							XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
+			  XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
 							Int_Id),
 			0xFFFFFFFFU);
 		}
@@ -1005,8 +1020,6 @@ void XScuGic_SetCpuID(u32 CpuCoreId)
 /****************************************************************************/
 /**
 * This function returns the CpuId variable.
-*
-* @param	None.
 *
 * @return	The CPU core number.
 *

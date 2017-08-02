@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 *
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -33,7 +29,7 @@
 /**
 *
 * @file xscugic_hw.h
-* @addtogroup scugic_v3_8
+* @addtogroup scugic_v3_10
 * @{
 *
 * This header file contains identifiers and HW access functions (or
@@ -76,6 +72,8 @@
 *					  and XScuGic_UnmapAllInterruptsFromCpuByDistAddr, These
 *					  API's can be used by applications to unmap specific/all
 *					  interrupts from target CPU. It fixes CR#992490.
+* 3.10  aru  08/23/18 Resolved MISRA-C:2012 compliance mandatory violations
+*
 * </pre>
 *
 ******************************************************************************/
@@ -99,7 +97,7 @@ extern "C" {
 /*
  * The maximum number of interrupts supported by the hardware.
  */
-#ifdef __ARM_NEON__
+#ifdef PLATFORM_ZYNQ
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	95U /* Maximum number of interrupt defined by Zynq */
 #else
 #define XSCUGIC_MAX_NUM_INTR_INPUTS    	195U /* Maximum number of interrupt defined by Zynq Ultrascale Mp */

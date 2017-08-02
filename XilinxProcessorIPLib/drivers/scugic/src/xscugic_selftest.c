@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 *
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -33,7 +29,7 @@
 /**
 *
 * @file xscugic_selftest.c
-* @addtogroup scugic_v3_8
+* @addtogroup scugic_v3_10
 * @{
 *
 * Contains diagnostic self-test functions for the XScuGic driver.
@@ -44,6 +40,8 @@
 * ----- ---- -------- -----------------------------------------------
 * 1.00a drg  01/19/10 First release
 * 3.00  kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.10  mus  07/17/18 Updated file to fix the various coding style issues
+*                     reported by checkpatch. It fixes CR#1006344.
 *
 * </pre>
 *
@@ -79,8 +77,8 @@
 *
 * @return
 *
-* 		- XST_SUCCESS if self-test is successful.
-* 		- XST_FAILURE if the self-test is not successful.
+*		-XST_SUCCESS if self-test is successful.
+*		-XST_FAILURE if the self-test is not successful.
 *
 * @note		None.
 *
@@ -100,12 +98,13 @@ s32  XScuGic_SelfTest(XScuGic *InstancePtr)
 	/*
 	 * Read the ID registers.
 	 */
-	for(Index=0U; Index<=3U; Index++) {
+	for (Index = 0U; Index <= 3U; Index++) {
 		RegValue1 |= XScuGic_DistReadReg(InstancePtr,
-			((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) << (Index * 8U);
+			((u32)XSCUGIC_PCELLID_OFFSET + (Index * 4U))) << 
+			(Index * 8U);
 	}
 
-	if(XSCUGIC_PCELL_ID != RegValue1){
+	if (XSCUGIC_PCELL_ID != RegValue1) {
 		Status = XST_FAILURE;
 	} else {
 		Status = XST_SUCCESS;
