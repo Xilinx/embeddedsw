@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet_hw.h
-* @addtogroup axiethernet_v5_0
+* @addtogroup axiethernet_v5_6
 * @{
 *
 * This header file contains identifiers and macros that can be used to access
