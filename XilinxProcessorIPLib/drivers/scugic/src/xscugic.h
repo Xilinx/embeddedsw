@@ -33,7 +33,7 @@
 /**
 *
 * @file xscugic.h
-* @addtogroup scugic_v3_1
+* @addtogroup scugic_v3_8
 * @{
 * @details
 *
