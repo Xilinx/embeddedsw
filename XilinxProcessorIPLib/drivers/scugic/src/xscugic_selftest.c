@@ -33,7 +33,7 @@
 /**
 *
 * @file xscugic_selftest.c
-* @addtogroup scugic_v3_1
+* @addtogroup scugic_v3_8
 * @{
 *
 * Contains diagnostic self-test functions for the XScuGic driver.

@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  * @file xipipsu.h
-* @addtogroup ipipsu_v1_0
+* @addtogroup ipipsu_v2_3
 * @{
 * @details
  *
