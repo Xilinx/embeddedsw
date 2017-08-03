@@ -346,7 +346,7 @@ proc lwip_drc {libhandle} {
 			puts $fd "GCC_COMPILER=powerpc-eabi-gcc"
 		    }
 		    "ps7_cortexa9" {
-			puts $fd "GCC_COMPILER=arm-xilinx-eabi-gcc"
+			puts $fd "GCC_COMPILER=arm-none-eabi-gcc"
 			#puts "Little Endian system"
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
 		    }
