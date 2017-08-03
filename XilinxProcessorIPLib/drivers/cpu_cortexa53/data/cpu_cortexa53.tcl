@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,10 @@
 # 1.3   mus  02/20/17 Updated tcl to guard xparameters.h by protection macros
 # 1.4   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
 #                     parameter of cpu_cortexa53 in xparameters.h
+# 1.4   mus  07/26/17 Updated extra compiler flags for a53 32 bit processor
+#                     by appending "-mfpu=vfpv3 -mfloat-abi=hard". This change
+#                     has been done to support hard floating point operations
+#                     for a53 32 bit BSP.
 ##############################################################################
 #uses "xillib.tcl"
 
