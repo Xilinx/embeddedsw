@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 *
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -87,6 +83,10 @@
 *                     available in all examples. This is a fix for CR-965028.
 *       ms   04/05/17 Added tabspace for return statements in functions
 *                     for proper documentation while generating doxygen.
+* 5.8   rsp  07/23/18 Fix gcc '[-Wint-conversion]' warning.
+*       rsp  10/22/18 Set RX BD length to jumbo frame size. It fixes 'Error
+*                     committing RxBD to HW' error for designs having length
+*                     register width < 19 bits.
 * </pre>
 *
 ******************************************************************************/
@@ -492,8 +492,8 @@ int AxiEthernetSgDmaIntrExample(INTC *IntcInstancePtr,
 	}
 
 #if defined(__aarch64__)
-	Xil_SetTlbAttributes(TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR) TxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR) RxBdSpace, NORM_NONCACHE | INNER_SHAREABLE);
 #endif
 	/*
 	 * Setup RxBD space.
@@ -785,9 +785,9 @@ int AxiEthernetSgDmaIntrSingleFrameExample(XAxiEthernet
 	 */
 	XAxiDma_BdSetBufAddr(Bd1Ptr, (UINTPTR)&RxFrame);
 #ifndef XPAR_AXIDMA_0_ENABLE_MULTI_CHANNEL
-	XAxiDma_BdSetLength(Bd1Ptr, sizeof(RxFrame));
+	XAxiDma_BdSetLength(Bd1Ptr, XAE_MAX_JUMBO_FRAME_SIZE);
 #else
-	XAxiDma_BdSetLength(Bd1Ptr, sizeof(RxFrame),
+	XAxiDma_BdSetLength(Bd1Ptr, XAE_MAX_JUMBO_FRAME_SIZE,
 				RxRingPtr->MaxTransferLen);
 #endif
 	XAxiDma_BdSetCtrl(Bd1Ptr, 0);
