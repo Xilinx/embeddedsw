@@ -36,11 +36,6 @@
 #include "mb_interface.h"
 #endif
 
-#ifdef __PPC__
-#include "xpseudo_asm_gcc.h"
-#include "xexception_l.h"
-#endif
-
 #include "arch/cc.h"
 #include "lwip/sys.h"
 
@@ -63,9 +58,6 @@ sys_arch_protect()
 #ifdef __MICROBLAZE__
 	cur = mfmsr();
 	mtmsr(cur & ~0x2);
-#elif __PPC__
-	cur = mfmsr();
-	mtmsr(cur & ~XEXC_ALL);
 #elif __arm__
 	cur = mfcpsr();
 	mtcpsr(cur | 0xC0);
