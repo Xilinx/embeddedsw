@@ -43,6 +43,15 @@ CR#979023 Intr fifo example failed to compile.
 Add support for axiethernet with mcdma configuration.
 Fix pmufw bsp compilation error for axi-ethernet based designs.
 
+hdcp1x_v4_1
+Updating the XHdcp1x_TxIsInProgress function to keep track of a pending
+authentication request.
+Added flag IsAuthReqPending to the XHdcp1x_Tx data structure to track any
+pending authentication requests.
+Updated the XHdcp1x_CipherHandleInterrupt function to not mask the interrupts,
+as it is being done in hardware now.
+Updated the initialization to memset the XHdcp1x structure to 0.
+
 mcdma_v1_0:
 Initial version of mcdma driver
 
