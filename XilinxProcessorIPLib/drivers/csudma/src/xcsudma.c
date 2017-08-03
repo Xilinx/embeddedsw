@@ -138,7 +138,7 @@ s32 XCsuDma_CfgInitialize(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr,
 *
 ******************************************************************************/
 void XCsuDma_Transfer(XCsuDma *InstancePtr, XCsuDma_Channel Channel,
-					UINTPTR Addr, u32 Size, u8 EnDataLast)
+					u64 Addr, u32 Size, u8 EnDataLast)
 {
 	/* Verify arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
