@@ -39,7 +39,8 @@
  *
  */
 
-#include "lwip/opt.h"
+//#include "lwip/opt.h"
+#include "lwipopts.h"
 
 #include "lwip/timeouts.h"
 #include "lwip/priv/tcp_priv.h"

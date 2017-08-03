@@ -51,6 +51,14 @@
 #include "lwipopts.h"
 #include "lwip/debug.h"
 
+#ifdef __MICROBLAZE__
+#include "mb_interface.h"
+#endif
+
+#ifdef __PPC__
+#include "xpseudo_asm_gcc.h"
+#include "xexception_l.h"
+#endif
 /**
  * @defgroup lwip_opts Options (lwipopts.h)
  * @ingroup lwip
