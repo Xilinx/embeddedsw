@@ -68,6 +68,10 @@
 #define BYTE_ORDER BIG_ENDIAN
 #endif
 
+/* As per new design of lwip-2.0.2,
+ * LWIP_NO_STDINT_H should be defined as 1 in cc.h */
+#define LWIP_NO_STDINT_H 1
+
 typedef unsigned   char    u8_t;
 typedef signed     char    s8_t;
 typedef unsigned   short   u16_t;

@@ -84,7 +84,7 @@
 
 #if LWIP_IGMP
 static err_t xaxiemacif_mac_filter_update (struct netif *netif,
-								struct ip_addr *group, u8_t action);
+								ip_addr_t *group, u8_t action);
 
 static u8_t xaxiemac_mcast_entry_mask = 0;
 #endif
@@ -217,7 +217,7 @@ static struct pbuf *low_level_input(struct netif *netif)
  */
 
 static err_t xaxiemacif_output(struct netif *netif, struct pbuf *p,
-		struct ip_addr *ipaddr)
+		ip_addr_t *ipaddr)
 {
 	/* resolve hardware address, then send (or queue) packet */
 	return etharp_output(netif, p, ipaddr);
@@ -374,7 +374,7 @@ static err_t low_level_init(struct netif *netif)
 
 #if LWIP_IGMP
 static err_t
-xaxiemacif_mac_filter_update (struct netif *netif, struct ip_addr *group,
+xaxiemacif_mac_filter_update (struct netif *netif, ip_addr_t *group,
 								u8_t action)
 {
 	err_t return_val = ERR_OK;

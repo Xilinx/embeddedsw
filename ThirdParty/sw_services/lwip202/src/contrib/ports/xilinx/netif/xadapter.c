@@ -46,7 +46,7 @@
 #include "lwip/ip.h"
 #include "lwip/tcp.h"
 #include "lwip/udp.h"
-#include "lwip/tcp_impl.h"
+#include "lwip/priv/tcp_priv.h"
 
 #include "netif/etharp.h"
 #include "netif/xadapter.h"
@@ -119,7 +119,7 @@ xtopology_find_index(unsigned base)
  */
 struct netif *
 xemac_add(struct netif *netif,
-	struct ip_addr *ipaddr, struct ip_addr *netmask, struct ip_addr *gw,
+	ip_addr_t *ipaddr, ip_addr_t *netmask, ip_addr_t *gw,
 	unsigned char *mac_ethernet_address,
 	unsigned mac_baseaddr)
 {
