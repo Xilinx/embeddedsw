@@ -64,7 +64,7 @@ void 		lwip_raw_init();
 int 		xemacif_input(struct netif *netif);
 void 		xemacif_input_thread(struct netif *netif);
 struct netif *	xemac_add(struct netif *netif,
-	struct ip_addr *ipaddr, struct ip_addr *netmask, struct ip_addr *gw,
+	ip_addr_t *ipaddr, ip_addr_t *netmask, ip_addr_t *gw,
 	unsigned char *mac_ethernet_address,
 	unsigned mac_baseaddr);
 #if defined (__arm__) || defined (__aarch64__)
