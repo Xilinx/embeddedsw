@@ -719,6 +719,8 @@
 * 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XHdcp1x_CfgInitialize
 * 4.1   yas    11/10/16 Added function XHdcp1x_SetHdmiMode.
+* 4.1   yas    08/03/17 Added flag IsAuthReqPending to the XHdcp1x_Tx data
+*                       structure to track any pending authentication requests.
 * </pre>
 *
 ******************************************************************************/
@@ -1012,6 +1014,7 @@ typedef struct {
 				  * polled the BCaps every 100ms interval. */
 	XHdcp1x_TxStats Stats;	/**< The interface's statistics */
 	u8 TxIsHdmi;	/**< Flag determines if TX is HDMI or DVI */
+	u8 IsAuthReqPending; /**< Flag to track if a auth request is alive */
 	XHdcp1x_Callback AuthenticatedCallback;	/**< Authentication callback */
 	void *AuthenticatedCallbackRef;	/**< Authentication reference */
 	u32 IsAuthenticatedCallbackSet;	/**< Authentication config flag */
