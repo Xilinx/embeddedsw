@@ -777,7 +777,7 @@ unsigned Phy_Setup (XAxiEthernet *xaxiemacp)
 
 static void __attribute__ ((noinline)) AxiEthernetUtilPhyDelay(unsigned int Seconds)
 {
-#if defined (__MICROBLAZE__) || defined(__PPC__)
+#if defined (__MICROBLAZE__)
 	static int WarningFlag = 0;
 
 	/* If MB caches are disabled or do not exist, this delay loop could

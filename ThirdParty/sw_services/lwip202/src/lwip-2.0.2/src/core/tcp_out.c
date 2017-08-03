@@ -60,10 +60,6 @@
 #ifdef __MICROBLAZE__
 #include "mb_interface.h"
 #endif
-#ifdef __PPC__
-#include "xpseudo_asm_gcc.h"
-#include "xexception_l.h"
-#endif
 
 #include <string.h>
 

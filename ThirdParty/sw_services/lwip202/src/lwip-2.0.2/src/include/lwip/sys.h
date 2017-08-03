@@ -390,10 +390,6 @@ u32_t sys_now(void);
 #define SYS_ARCH_PROTECT(lev) lev = mfmsr(); \
 			      mtmsr(lev & ~0x2)
 #endif
-#ifdef __PPC__
-#define SYS_ARCH_PROTECT(lev) lev = mfmsr(); \
-			      mtmsr(lev & ~XEXC_ALL)
-#endif
 
 #if defined (__arm__) || defined (__aarch64__)
 #define SYS_ARCH_PROTECT(lev) lev = sys_arch_protect()
@@ -409,9 +405,6 @@ u32_t sys_now(void);
  * this macro may be defined in sys_arch.h
  */
 #ifdef __MICROBLAZE__
-#define SYS_ARCH_UNPROTECT(lev)	mtmsr(lev)
-#endif
-#ifdef __PPC__
 #define SYS_ARCH_UNPROTECT(lev)	mtmsr(lev)
 #endif
 
