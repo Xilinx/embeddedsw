@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2017-08-03
+	* Correct compiler used for A9.
 2017-07-18
 	* Add freertos support for axiethernet fifo configuration.
 	* SW workaround for TI DP83867 PHY Data integrity issues on KCU116/VCU118 Boards.
