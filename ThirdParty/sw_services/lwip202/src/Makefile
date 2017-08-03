@@ -21,13 +21,13 @@ CC_FLAGS += $(ENDIAN_FLAGS)
 
 RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
-INCLUDES=-I${INCLUDEDIR} -I$(LWIP_DIR)/src/include -I$(LWIP_DIR)/src/include/ipv4 -I$(PORT)/include
+INCLUDES=-I${INCLUDEDIR} -I$(LWIP_DIR)/src/include/ -I$(LWIP_DIR)/src/include/lwip -I$(PORT)/include
 OUTS = ./*.o
 OBJ_DIR = .
 LWIP_OBJ1 = $(LWIP_OBJS) $(ADAPTER_OBJS)
 VPATH = $(LWIP_DIR)/src/core/ $(LWIP_DIR)/src/core/ipv4/ $(LWIP_DIR)/src/core/ipv6 \
-	$(LWIP_DIR)/src/core/snmp $(LWIP_DIR)/src/netif $(LWIP_DIR)/src/api $(PORT) $(PORT)/netif
-INCLUDEFILES = $(ADAPTER_INCLUDES) $(LWIP_INCLUDES)
+	$(LWIP_DIR)/src/netif $(LWIP_DIR)/src/api $(PORT) $(PORT)/netif
+INCLUDEFILES = $(ADAPTER_INCLUDES)
 
 libs: liblwip4.a
 
@@ -41,7 +41,6 @@ print_msg_lwip:
 include: liblwip4_includes
 
 liblwip4_includes:
-	${CP} -r $(LWIP_DIR)/src/include/ipv4/lwip ${INCLUDEDIR}
 	${CP} -r $(LWIP_DIR)/src/include/lwip ${INCLUDEDIR}
 	${CP} -r $(LWIP_DIR)/src/include/netif ${INCLUDEDIR}
 	${CP} -r contrib/ports/xilinx/include/netif ${INCLUDEDIR}
