@@ -45,6 +45,9 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  fidus  07/16/15 Initial release.
+* 4.1   yas    08/03/17 Updated the XHdcp1x_CipherHandleInterrupt function to
+*                       not mask the interrupts, as it is being done in
+*                       hardware now.
 * </pre>
 *
 ******************************************************************************/

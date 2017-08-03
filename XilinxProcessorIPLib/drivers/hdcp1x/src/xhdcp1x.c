@@ -66,6 +66,8 @@
 * 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XHdcp1x_CfgInitialize
 * 4.1   yas    11/10/16 Added function XHdcp1x_SetHdmiMode.
+* 4.1   yas    08/03/17 Updated the initialization to memset the XHdcp1x
+*                       structure to 0.
 * </pre>
 *
 ******************************************************************************/
