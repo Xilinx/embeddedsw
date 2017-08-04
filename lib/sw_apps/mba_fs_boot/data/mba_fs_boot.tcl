@@ -52,8 +52,8 @@ proc get_stdout {} {
 	return $stdout;
 }
 
-proc get_stdout_ipname { stdout } {
-	set ipname [common::get_property IP_NAME [get_cells $stdout]];
+proc get_ipname { instance } {
+	set ipname [common::get_property IP_NAME [get_cells $instance]];
 	return $ipname;
 }
 
@@ -67,11 +67,6 @@ proc get_flash_mem {} {
 	set os [hsi::get_os];
 	set mem [common::get_property CONFIG.FLASH_MEMORY $os];
 	return $mem;
-}
-
-proc get_flash_ipname { mem } {
-	set ipname [common::get_property IP_NAME [get_cells $mem]];
-	return $ipname;
 }
 
 proc swapp_is_supported_hw {} {
@@ -130,7 +125,7 @@ proc get_flash_config { fp } {
 	set ipname "";
 	set flash [get_flash_mem];
 	if {$flash ne ""} {
-		set ipname [get_flash_ipname $flash];
+		set ipname [get_ipname $flash];
 	}
 	switch -exact $ipname {
 		"axi_quad_spi"  {
@@ -158,7 +153,7 @@ proc get_uart_config { fp } {
 	set ip_name ""
 	set stdout [get_stdout];
 	if {$stdout ne ""} {
-		set ip_name [get_stdout_ipname $stdout];
+		set ip_name [get_ipname $stdout];
 	}
 	if {$ip_name eq "mdm"} {
 		if {[common::get_property CONFIG.C_USE_UART \
