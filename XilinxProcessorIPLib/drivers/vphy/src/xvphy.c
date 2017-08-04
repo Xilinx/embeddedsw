@@ -67,6 +67,8 @@
  *                     Added XVphy_DrpRd, XVphy_SetErrorCallback,
  *                        XVphy_SetPllLayoutErrorCallback and
  *                        XVphy_RegisterDebug APIs
+ *                     Added filter in XVphy_MmcmStart to prevent MMCM from
+ *                        starting when divider values are invalid
  * </pre>
  *
 *******************************************************************************/
@@ -991,6 +993,22 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 	/* Toggle MMCM reset. */
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
 #else
+	XVphy_Mmcm *MmcmPtr;
+
+	if (Dir == XVPHY_DIR_RX) {
+		MmcmPtr= &InstancePtr->Quads[QuadId].RxMmcm;
+	}
+	else {
+		MmcmPtr= &InstancePtr->Quads[QuadId].TxMmcm;
+	}
+
+	/* Check values if valid */
+	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
+		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
+		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
+		return;
+	}
+
 	/* Toggle MMCM reset. */
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
 

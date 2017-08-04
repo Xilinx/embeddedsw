@@ -249,9 +249,12 @@ u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
 	}
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_TX, TRUE);
 	XVphy_MmcmReset(InstancePtr, QuadId, XVPHY_DIR_RX, TRUE);
-	XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_TX, (FALSE));
-	XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_RX, (FALSE));
-
+	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
+		XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_TX, (FALSE));
+	}
+	if (InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI) {
+		XVphy_IBufDsEnable(InstancePtr, QuadId, XVPHY_DIR_RX, (FALSE));
+	}
 
 	/* DRU Settings. */
 	if (InstancePtr->Config.DruIsPresent) {
@@ -1217,7 +1220,8 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 				/* Link clock: TMDS clock ratio 1/40. */
 				if ((LineRate / 1000000) >= 3400) {
 					if ((Dir == XVPHY_DIR_TX) &&
-							(InstancePtr->HdmiTxSampleRate > 1)) {
+							(((LineRate / 1000000) / InstancePtr->
+									HdmiTxSampleRate) < 3400)) {
 						MmcmPtr->ClkOut0Div = MultDiv * 4;
 					}
 					else {
@@ -1233,7 +1237,8 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 				/* Link clock: TMDS clock ratio 1/40. */
 				if ((LineRate / 1000000) >= 3400) {
 					if ((Dir == XVPHY_DIR_TX) &&
-							(InstancePtr->HdmiTxSampleRate > 1)) {
+							(((LineRate / 1000000) / InstancePtr->
+									HdmiTxSampleRate) < 3400)) {
 						MmcmPtr->ClkOut0Div = MultDiv * 2;
 					}
 					else {
@@ -1371,8 +1376,10 @@ u32 XVphy_HdmiCfgCalcMmcmParam(XVphy *InstancePtr, u8 QuadId,
 					}
 				}
 				/* TX. */
-				else if (((LineRate / 1000000) >= 3400) &&
-							(InstancePtr->HdmiTxSampleRate == 1)) {
+				else if ((((LineRate / 1000000) >= 3400) &&
+							(InstancePtr->HdmiTxSampleRate == 1)) ||
+						 (((LineRate / 1000000) / InstancePtr->
+								HdmiTxSampleRate) >= 3400)) {
 					if ((MmcmPtr->ClkOut2Div % 4) == 0) {
 						MmcmPtr->ClkOut2Div = MmcmPtr->ClkOut2Div / 4;
 					}
