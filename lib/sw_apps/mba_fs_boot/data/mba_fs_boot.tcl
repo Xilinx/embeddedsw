@@ -103,17 +103,31 @@ proc swapp_generate {} {
 
 proc get_eram_config { fp } {
 	set ip_name "";
-	if {[llength [hsi::get_cells -hier -filter {IP_NAME == "mig_7series"}]] > 0} {
-		set ip_name "mig_7series";
-	} elseif {[llength [hsi::get_cells -hier -filter {IP_NAME == "ddr4"}]] > 0} {
-		set ip_name "ddr4";
-	} else {
-		error "ddr not found";
+	set mem [get_main_mem]
+	if {$mem ne ""} {
+		set ip_name [get_ipname $mem];
 	}
-	set eram_start [common::get_property CONFIG.C_BASEADDR \
-	 [hsi::get_cells -hier -filter " IP_NAME == $ip_name "]];
-	set eram_end [format 0x%x [expr [common::get_property CONFIG.C_HIGHADDR \
-	[hsi::get_cells -hier -filter " IP_NAME == $ip_name " ]] + 1]];
+	switch -exact $ip_name {
+		"ddr4" -
+		"ddr3" -
+		"mig" -
+		"mig_7series" {
+			set eram_start [common::get_property CONFIG.C_BASEADDR \
+					[hsi::get_cells $mem]];
+			set eram_end [format 0x%x [expr [common::get_property CONFIG.C_HIGHADDR \
+					[hsi::get_cells $mem ]] + 1]];
+			}
+		"axi_7series_ddrx" -
+		"axi_v6_ddrx" {
+			set eram_start [common::get_property CONFIG.C_S_AXI_BASEADDR \
+					[hsi::get_cells $mem]]
+			set eram_end [format 0x%x [expr [common::get_property CONFIG.C_S_AXI_HIGHADDR \
+					[hsi::get_cells $mem ]] + 1]];
+			}
+		default {
+			return 1
+			}
+	}
 	set eram_size [ format 0x%x [expr $eram_end - $eram_start ] ];
 	puts $fp "#define CONFIG_XILINX_ERAM_START	$eram_start";
 	puts $fp "#define CONFIG_XILINX_ERAM_END	$eram_end";
