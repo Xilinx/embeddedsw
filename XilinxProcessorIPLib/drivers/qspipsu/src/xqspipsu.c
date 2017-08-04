@@ -60,7 +60,6 @@
 * 1.3	nsk 09/16/16 Update PollData and PollTimeout support for dual
 *	             parallel configurations, modified XQspiPsu_PollData()
 *	             and XQspiPsu_Create_PollConfigData()
-* 1.5	tjs 06/12/17 Removed the check of 64 bit architecture (CR 972531)
 *
 * </pre>
 *
@@ -1137,14 +1136,15 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 			XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET,
 			(u32)AddrTemp);
 
-	AddrTemp = (u64)(INTPTR) Msg->RxBfrPtr;
-	AddrTemp = AddrTemp >> 32;
+#ifdef __aarch64__
+	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
 	if ((AddrTemp & 0xFFFU) != FALSE) {
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
 				(u32)AddrTemp &
 				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
 	}
+#endif
 
 	Remainder = InstancePtr->RxBytes % 4;
 	DmaRxBytes = InstancePtr->RxBytes;
