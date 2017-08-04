@@ -36,7 +36,6 @@ BEGIN driver dptxss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
 	OPTION copyfiles = all;
-	OPTION APP_LINKER_FLAGS = "-lm";
 	OPTION VERSION = 4.2;
 	OPTION NAME = dptxss;
 END driver
