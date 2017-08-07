@@ -44,6 +44,8 @@
 *
 ******************************************************************************/
 
+
+
 /***************************** Include Files *********************************/
 
 #include "xdptxss.h"
@@ -52,13 +54,8 @@
 #include "xil_types.h"
 #include "xparameters.h"
 #include "xstatus.h"
-#ifdef XPAR_INTC_0_DEVICE_ID
-/* For MicroBlaze systems. */
-#include "xintc.h"
-#else
-/* For ARM/Zynq SoC systems. */
+	/* For ARM/Zynq SoC systems. */
 #include "xscugic.h"
-#endif /* XPAR_INTC_0_DEVICE_ID */
 #include "xiic.h"
 #include "xiic_l.h"
 #include "xtmrctr.h"
@@ -78,19 +75,6 @@
 * There is only one interrupt controlled to be selected from SCUGIC and GPIO
 * INTC. INTC selection is based on INTC parameters defined xparameters.h file.
 */
-#ifdef XPAR_INTC_0_DEVICE_ID
-#define XINTC_DPTXSS_DP_INTERRUPT_ID \
-	XPAR_INTC_0_DPTXSS_0_DPTXSS_DP_IRQ_VEC_ID
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
-#define XINTC_DPTXSS_HDCP_INTERRUPT_ID \
-	XPAR_INTC_0_DPTXSS_0_DPTXSS_HDCP_IRQ_VEC_ID
-#define XINTC_DPTXSS_TMR_INTERRUPT_ID \
-	XPAR_INTC_0_DPTXSS_0_DPTXSS_TIMER_IRQ_VEC_ID
-#endif
-#define XINTC_DEVICE_ID			XPAR_INTC_0_DEVICE_ID
-#define XINTC				XIntc
-#define XINTC_HANDLER			XIntc_InterruptHandler
-#else /* Else part */
 #define XINTC_DPTXSS_DP_INTERRUPT_ID \
 	XPAR_FABRIC_TX_SUBSYSTEM_DP_TX_SUBSYSTEM_0_DPTXSS_DP_IRQ_INTR
 #if (XPAR_XHDCP_NUM_INSTANCES > 0)
@@ -102,7 +86,6 @@
 #define XINTC_DEVICE_ID			XPAR_SCUGIC_SINGLE_DEVICE_ID
 #define XINTC				XScuGic
 #define XINTC_HANDLER			XScuGic_InterruptHandler
-#endif /* XPAR_INTC_0_DEVICE_ID */
 
 /* The unique device ID of the DisplayPort Transmitter Subsystem HIP instance
  * to be used
@@ -126,7 +109,7 @@
 /* The color depth (bits per color component) to use DisplayPort TX
  * Subsystem.
  */
-#define DPTXSS_BPC			8
+#define DPTXSS_BPC			XPAR_DPTXSS_0_BITS_PER_COLOR
 #define IIC_DEVICE_ID       XPAR_PROCESSOR_SYSTEM_AXI_IIC_1_DEVICE_ID
 #define XVPHY_DEVICE_ID		XPAR_VID_PHY_CONTROLLER_0_DEVICE_ID
 #define UART_BASEADDR		XPAR_PROCESSOR_SYSTEM_AXI_UARTLITE_1_BASEADDR
@@ -147,7 +130,26 @@
 #define CLK_WIZ_BASE      				XPAR_CLK_WIZ_0_BASEADDR
 
 
+
+
+#define XVPHY_DRP_CPLL_FBDIV		0x28
+#define XVPHY_DRP_CPLL_REFCLK_DIV	0x2A
+#define XVPHY_DRP_RXOUT_DIV			0x63
+#define XVPHY_DRP_RXCLK25			0x6D
+#define XVPHY_DRP_TXCLK25			0x7A
+#define XVPHY_DRP_TXOUT_DIV			0x7C
+
 /***************** Macros (Inline Functions) Definitions *********************/
+
+//#define DPDEBUG
+
+#ifdef DPDEBUG
+#define debug_DP_printf printf
+#else
+#define debug_DP_printf 1 ? (void) 0 : printf
+#endif
+
+int printf(const char *format, ...);
 
 
 /**************************** Type Definitions *******************************/
@@ -229,7 +231,7 @@ typedef struct
 {
 	 XVidC_VideoMode VideoMode_local;
 	unsigned char user_bpc;
-	unsigned char *user_pattern;
+	unsigned char user_pattern;
 	unsigned int user_numStreams;
 	unsigned int user_stream_number;
 	unsigned int mst_check_flag;
@@ -260,6 +262,37 @@ lane_link_rate_struct lane_link_table[]=
 	{XDP_RX_OVER_LANE_COUNT_SET_4,XDP_RX_OVER_LINK_BW_SET_540GBPS},
 
 };
+
+// adding new resolution definition example
+// XVIDC_VM_3840x2160_30_P_SB, XVIDC_B_TIMING3_60_P_RB
+// and XVIDC_VM_3840x2160_60_P_RB has added
+typedef enum {
+    XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
+	XVIDC_B_TIMING3_60_P_RB = (XVIDC_VM_1920x1080_60_P_RB + 1),
+	XVIDC_VM_3840x2160_60_P_RB = (XVIDC_B_TIMING3_60_P_RB + 1),
+    XVIDC_CM_NUM_SUPPORTED
+} XVIDC_CUSTOM_MODES;
+
+// Here is the detailed timing for each custom resolutions.
+const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
+					(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1))] =
+{
+    { XVIDC_VM_1920x1080_60_P_RB, "1920x1080@60Hz (RB)", XVIDC_FR_60HZ,
+        {1920, 48, 32, 80, 2080, 1,
+         1080, 3, 5, 23, 1111, 0, 0, 0, 0, 0}
+    },
+
+    { XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
+	{2560, 48, 32, 80, 2720, 1,
+	 1440, 3, 5, 33, 1481, 0, 0, 0, 0, 0}
+    },
+
+    { XVIDC_VM_3840x2160_60_P_RB, "3840x2160@60Hz (RB)", XVIDC_FR_60HZ,
+	{3840, 48, 32, 80, 4000, 1,
+	 2160, 3, 5, 54, 2222, 0, 0, 0, 0, 0}
+    },
+};
+
 XVidC_VideoMode resolution_table[] =
 {
                 XVIDC_VM_640x480_60_P,
@@ -278,7 +311,9 @@ XVidC_VideoMode resolution_table[] =
                 XVIDC_VM_848x480_60_P,
                 XVIDC_VM_1280x960_60_P,
                 XVIDC_VM_1920x1440_60_P,
-                XVIDC_VM_USE_EDID_PREFERRED
+                XVIDC_VM_USE_EDID_PREFERRED,
+				XVIDC_VM_1920x1080_60_P_RB,
+				XVIDC_VM_3840x2160_60_P_RB
 };
 
 typedef struct
@@ -332,8 +367,7 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 							XVphy_User_Config PHY_User_Config_Table);
 char GetInbyte(void);
-u32 start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
-															u8 bpc, u8 pat);
+u32 start_tx(u8 line_rate, u8 lane_count, user_config_struct user_config);
 void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update);
 u8 XUartLite_RecvByte_local(u32 BaseAddress);
 char inbyte_local(void);
@@ -349,7 +383,7 @@ void clk_wiz_locked();
 void DpTxSs_DisableAudio();
 void hpd_pulse_con();
 void app_help ();
-void bpc_help_menu(void);
+void bpc_help_menu(int);
 void select_link_lane(void);
 void resolution_help_menu(void);
 void test_pattern_gen_help();
@@ -359,23 +393,22 @@ void LMK04906_init(XSpi *SPI_LMK04906);
 
 static u8 CalculateChecksum(u8 *Data, u8 Size);
 XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane);
+void ReportVideoCRC();
 
 /************************** Variable Definitions *****************************/
 
 XDpTxSs DpTxSsInst;	/* The DPTX Subsystem instance.*/
 XIic IicInstance;	/* I2C bus for Si570 */
 XIic_Config *ConfigPtr_IIC;     /* Pointer to configuration data */
-#if defined (__arm__) || (__aarch64__)
-	static XScuGic IntcInst;
-#else
-	static XIntc IntcInst;        	/* INTC structure */
-#endif
+static XScuGic IntcInst;
 XVphy VPhyInst;	/* The DPRX Subsystem instance.*/
 XTmrCtr TmrCtr; /* Timer instance.*/
 XUartLite UartLite; /* Instance of the UartLite device */
 volatile Video_CRC_Config VidFrameCRC;
 
 int tx_is_reconnected; /*This variable to keep track of the status of Tx link*/
+u8 prev_line_rate; /*This previous line rate to keep previous info to compare
+						with new line rate request*/
 
 //volatile Video_CRC_Config VidFrameCRC;
 /************************** Function Definitions *****************************/
@@ -404,10 +437,10 @@ int main()
 {
 	u32 Status;
 
-	xil_printf("------------------------------------------\n\r");
-	xil_printf("DisplayPort TX Subsystem Example Design\n\r");
-	xil_printf("(c) 2017 by Xilinx\n\r");
-	xil_printf("-------------------------------------------\n\r\n\r");
+	xil_printf("------------------------------------------\r\n");
+	xil_printf("DisplayPort TX Subsystem Example Design\r\n");
+	xil_printf("(c) 2017 by Xilinx\r\n");
+	xil_printf("-------------------------------------------\r\n\r\n");
 
 	Status = DpTxSs_Main(XDPTXSS_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
@@ -416,7 +449,7 @@ int main()
 	}
 
 	xil_printf(
-			"Successfully ran DisplayPort TX Subsystem interrupt example\n\r");
+			"Successfully ran DisplayPort TX Subsystem interrupt example\r\n");
 
 	return XST_SUCCESS;
 }
@@ -456,9 +489,6 @@ u32 DpTxSs_Main(u16 DeviceId)
 	u8 LineRate_init_tx = XDP_TX_LINK_BW_SET_540GBPS;
 	u8 LaneCount_init = 0x4;
 	u8 LaneCount_init_tx = 0x4;
-	u8 pat_update = 1;
-	u8 bpc=8;
-	u16 resolution=15;
 	u8 Edid_org[128], Edid1_org[128];
 	u8 done=0;
 	u32 user_tx_LaneCount , user_tx_LineRate;
@@ -470,16 +500,34 @@ u32 DpTxSs_Main(u16 DeviceId)
 	u8 in_pwr_save = 0;
 	u8 connected = 0;
 	u8 pwr_dwn;
+	u16 DrpVal =0;
+
+	user_config_struct user_config;
+	user_config.user_bpc = 8;
+	user_config.VideoMode_local = XVIDC_VM_800x600_60_P;
+	user_config.user_pattern = 1;
+
+
+	// Adding custom resolutions at here.
+	xil_printf("INFO> Registering Custom Timing Table with %d entries \r\n",
+							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
+	Status = XVidC_RegisterCustomTimingModes(XVidC_MyVideoTimingMode,
+							(XVIDC_CM_NUM_SUPPORTED - (XVIDC_VM_CUSTOM + 1)));
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERR: Unable to register custom timing table\r\r\n\n");
+	}
+
+
 
 	/* Do platform initialization in this function. This is hardware
 	 * system specific. It is up to the user to implement this function.
 	 */
-	xil_printf("PlatformInit\n\r");
+	xil_printf("PlatformInit\r\n");
 	Status = DpTxSs_PlatformInit();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Platform init failed!\n\r");
+		xil_printf("Platform init failed!\r\n");
 	}
-	xil_printf("Platform initialization done.\n\r");
+	xil_printf("Platform initialization done.\r\n");
 
 
 	XSpi SPI_LMK04906;  /* SPI Device Point*/
@@ -508,23 +556,23 @@ u32 DpTxSs_Main(u16 DeviceId)
 	Status = XDpTxSs_CfgInitialize(&DpTxSsInst, ConfigPtr,
 					ConfigPtr->BaseAddress);
 	if (Status != XST_SUCCESS) {
-		xil_printf("DPTXSS config initialization failed.\n\r");
+		xil_printf("DPTXSS config initialization failed.\r\n");
 		return XST_FAILURE;
 	}
 
 	/* Check for SST/MST support */
 	if (DpTxSsInst.UsrOpt.MstSupport) {
-		xil_printf("\n\rINFO:DPTXSS is MST enabled. DPTXSS can be "
-			"switched to SST/MST\n\r\n\r");
+		xil_printf("\r\nINFO:DPTXSS is MST enabled. DPTXSS can be "
+			"switched to SST/MST\r\n\r\n");
 	}
 	else {
-		xil_printf("\n\rINFO:DPTXSS is  SST enabled. DPTXSS works "
-			"only in SST mode.\n\r\n\r");
+		xil_printf("\r\nINFO:DPTXSS is  SST enabled. DPTXSS works "
+			"only in SST mode.\r\n\r\n");
 	}
 
 	Status = DpTxSs_SetupIntrSystem();
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: Interrupt system setup failed.\n\r");
+		xil_printf("ERR: Interrupt system setup failed.\r\n");
 		return XST_FAILURE;
 	}
 
@@ -548,33 +596,31 @@ u32 DpTxSs_Main(u16 DeviceId)
 	//Waking up the monitor
 	pwr_dwn = 0x2;
 	XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x00600, 1, &pwr_dwn);
+	// give enough time for monitor to power down
 	usleep(400);
 	pwr_dwn = 0x1;
 	XDp_TxAuxWrite(DpTxSsInst.DpPtr, 0x00600, 1, &pwr_dwn);
+	// give enough time for monitor to wake up
 	usleep(400000);
 
 	/* Do not return in order to allow interrupt handling to run. HPD events
 	 * (connect, disconnect, and pulse) will be detected and handled.
 	 */
 	while (1){
-				#if defined(__arm__) || (__aarch64__)
-					  XScuGic_Enable(&IntcInst,XINTC_DPTXSS_DP_INTERRUPT_ID);
-				#else
-					  XIntc_Enable(&IntcInst, XINTC_DPTXSS_DP_INTERRUPT_ID);
-				#endif
+		XScuGic_Enable(&IntcInst,XINTC_DPTXSS_DP_INTERRUPT_ID);
 
+		exit = 0;
+		DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
+		DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
+		DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = 0x0;
 
-				exit = 0;
-				DpTxSsInst.DpPtr->TxInstance.TxSetMsaCallback = NULL;
-				DpTxSsInst.DpPtr->TxInstance.TxMsaCallbackRef = NULL;
-                DpTxSsInst.DpPtr->TxInstance.MsaConfig[0].ComponentFormat = 0x0;
-
-				LineRate = LineRate_init_tx;
-				LaneCount = LaneCount_init_tx;
-				XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
+		LineRate = LineRate_init_tx;
+		LaneCount = LaneCount_init_tx;
+		XVphy_BufgGtReset(&VPhyInst, XVPHY_DIR_TX,(FALSE));
 // This configures the vid_phy for line rate to start with
-                switch(LineRate_init_tx)
-                {
+		//Even though CPLL can be used in limited case,
+		//using QPLL is recommended for more coverage.
+		switch(LineRate_init_tx){
 			case XDP_TX_LINK_BW_SET_162GBPS:
 				Status = PHY_Configuration_Tx(&VPhyInst,
 							PHY_User_Config_Table[(is_TX_CPLL)?0:3]);
@@ -589,186 +635,168 @@ u32 DpTxSs_Main(u16 DeviceId)
 				Status = PHY_Configuration_Tx(&VPhyInst,
 							PHY_User_Config_Table[(is_TX_CPLL)?2:5]);
 				break;
-                }
-                if (Status != XST_SUCCESS) {
+		}
+
+		if (Status != XST_SUCCESS) {
 			xil_printf (
-               "+++++++ TX GT configuration encountered a failure +++++++\r\n");
-                }
+	   "+++++++ TX GT configuration encountered a failure +++++++\r\n");
+		}
 // The clk_wiz that generates half of lnk_clk has to be programmed
 //  as soon as lnk clk is valid
 
-		    LaneCount_init_tx = LaneCount_init_tx & 0x7;
-			start_tx (LineRate_init_tx, LaneCount_init_tx,
-					resolution_table[2], 8, 1); //800x600 8bpc as default
-			resolution = resolution_table[2];
-				LineRate = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
-				LaneCount = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
-				// Enabling TX interrupts
-				sub_help_menu ();
-				CmdKey[0] = 0;
-				CommandKey = 0;
+		LaneCount_init_tx = LaneCount_init_tx & 0x7;
+		//800x600 8bpc as default
+		start_tx (LineRate_init_tx, LaneCount_init_tx,user_config);
+		LineRate = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
+		LaneCount = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
+		// Enabling TX interrupts
+		sub_help_menu ();
+		CmdKey[0] = 0;
+		CommandKey = 0;
 
-			while (1) { // for menu loop
+		while (1) { // for menu loop
 
-				if (tx_is_reconnected == 1) {
-					hpd_con(Edid_org, Edid1_org, resolution);
-					tx_is_reconnected = 0;
-				}
+			if (tx_is_reconnected == 1) {
+				hpd_con(Edid_org, Edid1_org, user_config.VideoMode_local);
+				tx_is_reconnected = 0;
+			}
 
-				CmdKey[0] = 0;
-				CommandKey = 0;
-
-
-				CommandKey = xil_getc(0xff);
-				Command = atoi(&CommandKey);
-				if (Command != 0) {
-				xil_printf("You have selected command %d\r\n", Command);
-				}
-				switch (CommandKey)
-				{
+			CmdKey[0] = 0;
+			CommandKey = 0;
 
 
-                case 'e':
+			CommandKey = xil_getc(0xff);
+			Command = atoi(&CommandKey);
+			if (Command != 0) {
+			xil_printf("You have selected command %d\r\n", Command);
+			}
+			switch (CommandKey){
+				case 'e':
+					xil_printf ("EDID read is :\r\n");
 
+					XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
+					for (i=0;i<128;i++) {
+						if(i%16==0 && i != 0)
+							xil_printf("\r\n");
+						xil_printf ("%02x ", Edid_org[i]);
+					}
 
-                 xil_printf ("EDID read is :\r\n");
+					xil_printf ("\r\r\n\n");
+					//reading the second block of EDID
+					XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
 
-		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
-                for (i=0;i<32;i++) {
-                        xil_printf ("%x ", Edid_org[i]);
-                }
+					for (i=0;i<128;i++) {
+						if(i%16==0 && i != 0)
+							xil_printf("\r\n");
+						xil_printf ("%02x ", Edid1_org[i]);
+					}
+					xil_printf ("\r\nEDID read over =======\r\n");
 
-                xil_printf ("\r\n\r\n");
-		//reading the second block of EDID
-		XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid1_org, 1);
-
-                 for (i=0;i<32;i++) {
-                         xil_printf ("%x ", Edid1_org[i]);
-                 }
-                 xil_printf ("\r\nEDID read over =======\r\n");
-
-				break;
+					break;
 
 				case 'd' :
 
 					if (in_pwr_save == 0) {
 						Data[0] = 0x2;
 						XDp_TxAuxWrite(DpTxSsInst.DpPtr,
-								XDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1, Data);
+						XDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1, Data);
 						in_pwr_save = 1;
 						xil_printf (
 							"\r\n==========power down===========\r\n");
 					} else {
 						Data[0] = 0x1;
 						XDp_TxAuxWrite(DpTxSsInst.DpPtr,
-								XDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1, Data);
+						XDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1, Data);
 						in_pwr_save = 0;
 						xil_printf (
 							"\r\n==========out of power down===========\r\n");
-						hpd_con(Edid1_org, Edid1_org, resolution);
-
+						hpd_con(Edid1_org, Edid1_org,
+						user_config.VideoMode_local);
 					}
 					break;
 
-
-
 #if ENABLE_AUDIO
-			case 'a' :
-				audio_on = XDp_ReadReg(
-									DpTxSsInst.DpPtr->Config.BaseAddr,
-											XDP_TX_AUDIO_CONTROL);
-						if (audio_on == 0) {
-			        xilInfoFrame->audio_channel_count = 0;
-			        xilInfoFrame->audio_coding_type = 0;
-			        xilInfoFrame->channel_allocation = 0;
-			        xilInfoFrame->downmix_inhibit = 0;
-			        xilInfoFrame->info_length = 27;
-			        xilInfoFrame->level_shift = 0;
-			        xilInfoFrame->sample_size = 1;//16 bits
-			        xilInfoFrame->sampling_frequency = 3; //48 Hz
-			        xilInfoFrame->type = 4;
-			        xilInfoFrame->version = 1;
-			        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+				case 'a' :
+					audio_on = XDp_ReadReg(
+							DpTxSsInst.DpPtr->Config.BaseAddr,
+							XDP_TX_AUDIO_CONTROL);
+					if (audio_on == 0) {
+						xilInfoFrame->audio_channel_count = 0;
+						xilInfoFrame->audio_coding_type = 0;
+						xilInfoFrame->channel_allocation = 0;
+						xilInfoFrame->downmix_inhibit = 0;
+						xilInfoFrame->info_length = 27;
+						xilInfoFrame->level_shift = 0;
+						xilInfoFrame->sample_size = 1;//16 bits
+						xilInfoFrame->sampling_frequency = 3; //48 Hz
+						xilInfoFrame->type = 4;
+						xilInfoFrame->version = 1;
+						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								XDP_TX_AUDIO_CONTROL, 0x0);
-			        sendAudioInfoFrame(xilInfoFrame);
-			        XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+						sendAudioInfoFrame(xilInfoFrame);
+						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 								XDP_TX_AUDIO_CHANNELS, 0x1);
-							switch(LineRate)
-							{
-								  case  6:m_aud = 24576; n_aud = 162000; break;
-								  case 10:m_aud = 24576; n_aud = 270000; break;
-								  case 20:m_aud = 24576; n_aud = 540000; break;
-							}
-							XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-											XDP_TX_AUDIO_MAUD,  m_aud );
-							XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-											XDP_TX_AUDIO_NAUD,  n_aud );
-							Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x0, 0x1);
-							Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x0, 0x2);
-							Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x10, 0x2);
-							Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x20, 0x2);
-							Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0xA0,
-									0x10000244);//channel status    16.4 release
-							Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0xA4,
-									0x40000000);//channel statu    16.4 release
-
-							Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x4, 0x202);
-							XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-												XDP_TX_AUDIO_CONTROL, 0x1);
-							xil_printf ("Audio enabled\r\n");
-							audio_on = 1;
-						} else {
-							Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x0, 0x0);
-							XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-												XDP_TX_AUDIO_CONTROL, 0x0);
-							xil_printf ("Audio disabled\r\n");
-							audio_on = 0;
+						switch(LineRate)
+						{
+							case  6:m_aud = 24576; n_aud = 162000; break;
+							case 10:m_aud = 24576; n_aud = 270000; break;
+							case 20:m_aud = 24576; n_aud = 540000; break;
 						}
+						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+								XDP_TX_AUDIO_MAUD,  m_aud );
+						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+								XDP_TX_AUDIO_NAUD,  n_aud );
+						Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x0, 0x1);
+						Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x0, 0x2);
+						Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x10, 0x2);
+						Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x20, 0x2);
+						Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0xA0,
+								0x10000244);//channel status    16.4 release
+						Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0xA4,
+								0x40000000);//channel statu    16.4 release
+
+						Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x4, 0x202);
+						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+								XDP_TX_AUDIO_CONTROL, 0x1);
+						xil_printf ("Audio enabled\r\n");
+						audio_on = 1;
+					} else {
+						Xil_Out32 (AV_PAT_GEN_BASE + 0x400 + 0x0, 0x0);
+						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+								XDP_TX_AUDIO_CONTROL, 0x0);
+						xil_printf ("Audio disabled\r\n");
+						audio_on = 0;
+					}
 					break;
 #endif
-					case '1' :
-						//resolution menu
-						LineRate =
-							DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
-						LaneCount =
-							DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
-						resolution_help_menu();
-						exit = 0;
-						while (exit == 0) {
+				case '1' :
+					//resolution menu
+					LineRate =
+						DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
+					LaneCount =
+						DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
+					resolution_help_menu();
+					exit = 0;
+					while (exit == 0) {
 						CmdKey[0] = 0;
 						Command = 0;
 						CmdKey[0] = inbyte_local();
 						Command = (int)CmdKey[0];
 
-					    switch  (CmdKey[0])
-					    {
-					       case 'x' :
+						switch  (CmdKey[0])
+						{
+						   case 'x' :
 						   exit = 1;
 						   sub_help_menu ();
 						   break;
 
-					       default :
-						xil_printf("You have selected command '%c'\n\r",
+						   default :
+						xil_printf("You have selected command '%c'\r\n",
 																CmdKey[0]);
-                            if (CmdKey[0] == 'a') {
-                                    Command = 10;
-                                    done = 1;
-                            } else if (CmdKey[0] == 'b') {
-                                    Command = 11;
-                                    done = 1;
-                            } else if (CmdKey[0] == 'c') {
-                                    Command = 12;
-                                    done = 1;
-                            } else if (CmdKey[0] == 'd') {
-                                    Command = 13;
-                                    done = 1;
-                            } else if (CmdKey[0] == 'e') {
-                                    Command = 14;
-                                    done = 1;
-                            } else if (CmdKey[0] == 'f') {
-                                    Command = 15;
-                                    done = 1;
-                            }
+							if(CmdKey[0] >= 'a' && CmdKey[0] <= 'z'){
+								Command = CmdKey[0] -'a' + 10;
+								done = 1;
+							}
 
 							else if (Command > 47 && Command < 58) {
 								Command = Command - 48;
@@ -781,9 +809,11 @@ u32 DpTxSs_Main(u16 DeviceId)
 							}
 							xil_printf ("\r\nSetting resolution...\r\n");
 							audio_on = 0;
-							resolution = resolution_table[Command];
-							start_tx (LineRate, LaneCount, resolution,
-															bpc, pat_update);
+							user_config.VideoMode_local =
+												resolution_table[Command];
+
+
+							start_tx (LineRate,LaneCount,user_config);
 							LineRate =
 							  DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
 							LaneCount =
@@ -791,49 +821,49 @@ u32 DpTxSs_Main(u16 DeviceId)
 							exit = done;
 							break;
 						}
-						}
+					}
 
-						sub_help_menu ();
-						break;
+					sub_help_menu ();
+					break;
 
-					case '2' :
-						// BPC menu
-						LineRate =
-							DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
-						LaneCount =
-							DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
-						exit = 0;
-						bpc_help_menu();
-						while (exit == 0) {
+				case '2' :
+					// BPC menu
+					LineRate =
+						DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
+					LaneCount =
+						DpTxSsInst.DpPtr->TxInstance.LinkConfig.LaneCount;
+					exit = 0;
+					bpc_help_menu(DPTXSS_BPC);
+					while (exit == 0) {
 						CommandKey = 0;
 						Command = 0;
 						CommandKey = inbyte_local();
 						Command = (int)CommandKey;
-					    switch  (CommandKey)
-					    {
-					       case 'x' :
+						switch  (CommandKey)
+						{
+						   case 'x' :
 						   exit = 1;
 						   sub_help_menu ();
 						   break;
 
-					       default :
+						   default :
 								Command = Command - 48;
-								bpc = bpc_table[Command];
+								user_config.user_bpc = bpc_table[Command];
 								xil_printf("You have selected %c\r\n",
 																	CommandKey);
 								if((Command>4) || (Command < 0))
 								{
-									bpc_help_menu();
+									bpc_help_menu(DPTXSS_BPC);
 									done = 0;
 									break;
 								}
 								else
 								{
-									xil_printf("Setting BPC of %d\r\n", bpc);
+									xil_printf("Setting BPC of %d\r\n",
+														user_config.user_bpc);
 									done = 1;
 								}
-								start_tx (LineRate, LaneCount, resolution,
-															bpc, pat_update);
+								start_tx (LineRate, LaneCount,user_config);
 								LineRate =
 							DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
 								LaneCount =
@@ -841,31 +871,31 @@ u32 DpTxSs_Main(u16 DeviceId)
 								exit = done;
 							break;
 						}
-						}
-						sub_help_menu ();
-						break;
+					}
+					sub_help_menu ();
+					break;
 
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 
-					case '3' :
-						xil_printf("Select the Link and Lane count\r\n");
-						exit = 0;
-						select_link_lane();
-						while (exit == 0) {
-							CmdKey[0] = 0;
-							Command = 0;
-							CmdKey[0] = XUartLite_RecvByte(UART_BASEADDR);
-							Command = (int)CmdKey[0];
-							Command = Command - 48;
-					    switch  (CmdKey[0])
-					    {
-					       case 'x' :
+				case '3' :
+					xil_printf("Select the Link and Lane count\r\n");
+					exit = 0;
+					select_link_lane();
+					while (exit == 0) {
+						CmdKey[0] = 0;
+						Command = 0;
+						CmdKey[0] = XUartLite_RecvByte(UART_BASEADDR);
+						Command = (int)CmdKey[0];
+						Command = Command - 48;
+						switch  (CmdKey[0])
+						{
+						   case 'x' :
 						   exit = 1;
 						   sub_help_menu ();
 						   break;
 
-					       default :
-							xil_printf("You have selected command %c\n\r",
+						   default :
+							xil_printf("You have selected command %c\r\n",
 																	CmdKey[0]);
 							if((Command>=0)&&(Command<9))
 							{
@@ -877,9 +907,9 @@ u32 DpTxSs_Main(u16 DeviceId)
 											> DpTxSsInst.Config.MaxLaneCount)
 								{
 									xil_printf(
-							"This Lane Count is not supported by Sink \n\r");
+							"This Lane Count is not supported by Sink \r\n");
 									xil_printf(
-									"Max Supported Lane Count is 0x%x \n\r",
+									"Max Supported Lane Count is 0x%x \r\n",
 											DpTxSsInst.Config.MaxLaneCount);
 									xil_printf(
 									"Training at Supported Lane count  \r\n");
@@ -891,7 +921,7 @@ u32 DpTxSs_Main(u16 DeviceId)
 							{
 								xil_printf(
 									"!!!Warning: You have selected wrong option"
-										" for lane count and link rate\n\r");
+										" for lane count and link rate\r\n");
 								select_link_lane();
 								done = 0;
 								break;
@@ -932,8 +962,11 @@ u32 DpTxSs_Main(u16 DeviceId)
 							xil_printf(
 							  "Setting TX to 8 BPC and 800x600 resolution\r\n");
 							XDpTxSs_Reset(&DpTxSsInst);
+							user_config.user_bpc=8;
+							user_config.VideoMode_local=XVIDC_VM_800x600_60_P;
+							user_config.user_pattern=1;
 							start_tx (user_tx_LineRate, user_tx_LaneCount,
-													resolution_table[2], 8, 1);
+													user_config);
 							LineRate =
 							  DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
 							LaneCount =
@@ -941,23 +974,23 @@ u32 DpTxSs_Main(u16 DeviceId)
 							exit = done;
 							break;
 						}
-						}
-						sub_help_menu ();
-						break;
+					}
+					sub_help_menu ();
+					break;
 
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 
-					case '4' :
-						//pattern menu;
-						test_pattern_gen_help();
-						exit = 0;
-						while (exit == 0) {
-							CommandKey = 0;
-							CommandKey = inbyte_local();
-							Command = (int)CommandKey;
-							Command = Command - 48;
-					    switch  (CommandKey)
-					    {
+				case '4' :
+					//pattern menu;
+					test_pattern_gen_help();
+					exit = 0;
+					while (exit == 0) {
+						CommandKey = 0;
+						CommandKey = inbyte_local();
+						Command = (int)CommandKey;
+						Command = Command - 48;
+						switch  (CommandKey)
+						{
 							case 'x' :
 								exit = 1;
 								sub_help_menu ();
@@ -980,121 +1013,169 @@ u32 DpTxSs_Main(u16 DeviceId)
 									done = 0;
 									break;
 								}
-								pat_update = Command;
+								user_config.user_pattern = Command;
 								Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr,
-										C_VideoUserStreamPattern[pat_update]);
+										C_VideoUserStreamPattern[
+													user_config.user_pattern]);
 								exit = done;
 								break;
-					    }
 						}
-						sub_help_menu ();
-						break;
+					}
+					sub_help_menu ();
+					break;
 
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 
-					case '5' :
-						//MSA;
-						XDpTxSs_ReportMsaInfo(&DpTxSsInst);
-						break;
+				case '5' :
+					//MSA;
+					XDpTxSs_ReportMsaInfo(&DpTxSsInst);
+					break;
 
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 
 //					case '6' :
 //						//EDID;
 //						XDptx_DbgPrintEdid(DpTxSsInst.DpPtr);
 //						break;
 
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 
-					case '7' :
-						//Link config and status
-						XDpTxSs_ReportLinkInfo(&DpTxSsInst);
-						break;
+				case '7' :
+					//Link config and status
+					XDpTxSs_ReportLinkInfo(&DpTxSsInst);
+					break;
 
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 
-					case '8' :
-						//Display DPCD reg
-						XDpTxSs_ReportSinkCapInfo(&DpTxSsInst);
-						break;
+				case '8' :
+					//Display DPCD reg
+					XDpTxSs_ReportSinkCapInfo(&DpTxSsInst);
+					break;
 
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
 
-					case '9' :
-						//"9 - Read Aux registers\n\r"
-		                xil_printf(
-					"\r\n Give 4 bit Hex value of base register 0x");
-		                aux_reg_address = xil_gethex(4);
-		                xil_printf(
-		                  "\r\n Give msb 2 bit Hex value of base register 0x");
-		                aux_reg_address |= ((xil_gethex(2)<<16) & 0xFFFFFF);
-		                xil_printf("\r\n Give number of registers that you "
-											"want to read (1 to 9): ");
-		                num_of_aux_registers = xil_gethex(1);
-		                if((num_of_aux_registers<1)||(num_of_aux_registers>9))
-		                {
-		                        xil_printf("\r\n!!!Warning: Invalid number "
-		                       "selected, hence reading only one register\r\n");
-		                        num_of_aux_registers = 1;
-		                }
-		                xil_printf("\r\nGiven base address offset is 0x%x\r\n",
-													aux_reg_address);
-		                for(i=0;i<num_of_aux_registers;i++)
-		                {
-		                        Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
-									(aux_reg_address+i), 1, &Data);
-		                        if(Status == XST_SUCCESS)
-		                        {
-		                                xil_printf("Value at address offset "
-									"0x%x, is = 0x%x\r\n",
-													(aux_reg_address+i),
-													((Data[0]) & 0xFF));
-		                        } else {
-		                                xil_printf("Aux Read failure\r\n");
-		                                break;
-		                        }
-		                }
-						break;
+				case '9' :
+					//"9 - Read Aux registers\r\n"
+					xil_printf(
+				"\r\n Give 4 bit Hex value of base register 0x");
+					aux_reg_address = xil_gethex(4);
+					xil_printf(
+					  "\r\n Give msb 2 bit Hex value of base register 0x");
+					aux_reg_address |= ((xil_gethex(2)<<16) & 0xFFFFFF);
+					xil_printf("\r\n Give number of registers that you "
+										"want to read (1 to 9): ");
+					num_of_aux_registers = xil_gethex(1);
+					if((num_of_aux_registers<1)||(num_of_aux_registers>9))
+					{
+							xil_printf("\r\n!!!Warning: Invalid number "
+						   "selected, hence reading only one register\r\n");
+							num_of_aux_registers = 1;
+					}
+					xil_printf("\r\nGiven base address offset is 0x%x\r\n",
+												aux_reg_address);
+					for(i=0;i<num_of_aux_registers;i++)
+					{
+							Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
+								(aux_reg_address+i), 1, &Data);
+							if(Status == XST_SUCCESS)
+							{
+									xil_printf("Value at address offset "
+								"0x%x, is = 0x%x\r\n",
+												(aux_reg_address+i),
+												((Data[0]) & 0xFF));
+							} else {
+									xil_printf("Aux Read failure\r\n");
+									break;
+							}
+					}
+					break;
 
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+
+				// Display VideoPHY status
+				case 'b':
+					xil_printf("Video PHY Config/Status --->\r\n");
+					xil_printf(" RCS (0x10) = 0x%x\r\n",
+					  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+							  XVPHY_REF_CLK_SEL_REG));
+					xil_printf(" PR  (0x14) = 0x%x\r\n",
+					  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+							  XVPHY_PLL_RESET_REG));
+					xil_printf(" PLS (0x18) = 0x%x\r\n",
+					  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+							  XVPHY_PLL_LOCK_STATUS_REG));
+					xil_printf(" TXI (0x1C) = 0x%x\r\n",
+					  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+							  XVPHY_TX_INIT_REG));
+					xil_printf(" TXIS(0x20) = 0x%x\r\n",
+					  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+							  XVPHY_TX_INIT_STATUS_REG));
+					xil_printf(" RXI (0x24) = 0x%x\r\n",
+					  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+							  XVPHY_RX_INIT_REG));
+					xil_printf(" RXIS(0x28) = 0x%x\r\n",
+					  XVphy_ReadReg(VPhyInst.Config.BaseAddr,
+							  XVPHY_RX_INIT_STATUS_REG));
+
+					Status = XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+							XVPHY_DRP_CPLL_FBDIV, &DrpVal);
+					xil_printf(" GT DRP Addr (XVPHY_DRP_CPLL_FBDIV) "
+						"= 0x%x, Val = 0x%x\r\n",XVPHY_DRP_CPLL_FBDIV,
+						DrpVal
+					);
+
+					Status = XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+							XVPHY_DRP_CPLL_REFCLK_DIV, &DrpVal);
+					xil_printf(" GT DRP Addr (XVPHY_DRP_CPLL_REFCLK_DIV)"
+						" = 0x%x, Val = 0x%x\r\n",XVPHY_DRP_CPLL_REFCLK_DIV,
+						DrpVal
+					);
+
+					Status = XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+							XVPHY_DRP_RXOUT_DIV, &DrpVal);
+					xil_printf(" GT DRP Addr (XVPHY_DRP_RXOUT_DIV)"
+						" = 0x%x, Val = 0x%x\r\n",XVPHY_DRP_RXOUT_DIV,
+						DrpVal
+					);
+
+					Status = XVphy_DrpRd(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
+							XVPHY_DRP_TXOUT_DIV, &DrpVal);
+					xil_printf(" GT DRP Addr (XVPHY_DRP_TXOUT_DIV)"
+						" = 0x%x, Val = 0x%x\r\n",XVPHY_DRP_TXOUT_DIV,
+						DrpVal
+					);
+
+					break;
 
 
-						// CRC read
-					case 'm' :
-						ReportVideoCRC();
-						break;
+					// CRC read
+				case 'm' :
+					ReportVideoCRC();
+					break;
 
-					case 'x' :
-						XDpTxSs_Stop(&DpTxSsInst);
-						app_help ();
+//				case 'x' :
+//					XDpTxSs_Stop(&DpTxSsInst);
+//					app_help ();
+//
+//					XScuGic_Disable(&IntcInst,
+//									XINTC_DPTXSS_DP_INTERRUPT_ID);
+//
+//					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+//											XDP_TX_ENABLE, 0x0);
+//					XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+//											XDP_TX_INTERRUPT_STATUS);
+//					XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
+//											XDP_TX_INTERRUPT_MASK, 0xFFF);
+//					break;
 
-						#if defined(__arm__) || (__aarch64__)
-							XScuGic_Disable(&IntcInst,
-											XINTC_DPTXSS_DP_INTERRUPT_ID);
-						#else
-							XIntc_Disable(&IntcInst,
-											XINTC_DPTXSS_DP_INTERRUPT_ID);
-						#endif
+					/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
+				case 'z' :
+					sub_help_menu ();
+					break;
 
-						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-												XDP_TX_ENABLE, 0x0);
-						XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-												XDP_TX_INTERRUPT_STATUS);
-						XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-												XDP_TX_INTERRUPT_MASK, 0xFFF);
-						break;
-
-						/* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^* *^*  */
-					case 'z' :
-						sub_help_menu ();
-						break;
-
-					} //end of switch (CmdKey[0])
-			} //end of while
-
-
+				} //end of switch (CmdKey[0])
+		} //end of while
 	}
-
 	return XST_SUCCESS;
 }
 
@@ -1128,8 +1209,8 @@ u32 DpTxSs_PlatformInit(void)
 	// Initialize timer.
 	Status = XTmrCtr_Initialize(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID);
 	if (Status != XST_SUCCESS){
-	xil_printf("ERR:Timer failed to initialize. \r\n");
-	return XST_FAILURE;
+		xil_printf("ERR:Timer failed to initialize. \r\n");
+		return XST_FAILURE;
 	}
 	// Set up timer options.
 	XTmrCtr_SetResetValue(&TmrCtr, XPAR_TMRCTR_0_DEVICE_ID, TIMER_RESET_VALUE);
@@ -1214,7 +1295,7 @@ u32 DpTxSs_SetupIntrSystem(void)
 			(Xil_InterruptHandler)XDpTxSs_DpIntrHandler,
 				&DpTxSsInst);
 	if (Status != XST_SUCCESS) {
-		xil_printf("ERR: DP TX SS DP interrupt connect failed!\n\r");
+		xil_printf("ERR: DP TX SS DP interrupt connect failed!\r\n");
 		return XST_FAILURE;
 	}
 
@@ -1272,6 +1353,9 @@ u32 DpTxSs_VideoPhyInit(u16 DeviceId)
             PHY_User_Config_Table[5].TxPLL,
             PHY_User_Config_Table[5].RxPLL,
             PHY_User_Config_Table[5].LineRate);
+
+	// initial line Rate setting
+	prev_line_rate = PHY_User_Config_Table[5].LineRate;
 
 	PHY_Two_byte_set (&VPhyInst, SET_TX_TO_2BYTE);
 
@@ -1339,17 +1423,15 @@ void PHY_Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte)
 {
 
 	u16 DrpVal;
-	u32 WriteVal;
+	u16 WriteVal;
 	u32 Status;
 	u16 TX_DATA_WIDTH_REG = 0x7A;
 	u16 TX_INT_DATAWIDTH_REG = 0x85;
 
     if (Tx_to_two_byte == 1) {
 
-//		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-//											TX_DATA_WIDTH_REG, &DrpVal);
-		DrpVal = XVphy_DrpRead(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-															TX_DATA_WIDTH_REG);
+		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+											TX_DATA_WIDTH_REG, &DrpVal);
 
 		if(Status != XST_SUCCESS){
 			xil_printf("DRP access failed\r\n");
@@ -1358,31 +1440,21 @@ void PHY_Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte)
 		DrpVal &= ~0xF;
 		WriteVal = 0x0;
 		WriteVal = DrpVal | 0x3;
-		XVphy_DrpWrite(InstancePtr, 0,
-				XVPHY_CHANNEL_ID_CH1, TX_DATA_WIDTH_REG, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0,
-				XVPHY_CHANNEL_ID_CH2, TX_DATA_WIDTH_REG, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0,
-				XVPHY_CHANNEL_ID_CH3, TX_DATA_WIDTH_REG, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0,
-				XVPHY_CHANNEL_ID_CH4, TX_DATA_WIDTH_REG, WriteVal);
-//		Status  =XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-//												TX_DATA_WIDTH_REG, WriteVal);
-//		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
-//												TX_DATA_WIDTH_REG, WriteVal);
-//		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
-//												TX_DATA_WIDTH_REG, WriteVal);
-//		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
-//												TX_DATA_WIDTH_REG, WriteVal);
+		Status  =XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+												TX_DATA_WIDTH_REG, WriteVal);
+		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
+												TX_DATA_WIDTH_REG, WriteVal);
+		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
+												TX_DATA_WIDTH_REG, WriteVal);
+		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
+												TX_DATA_WIDTH_REG, WriteVal);
 		if(Status != XST_SUCCESS){
 			xil_printf("DRP access failed\r\n");
 			return;
 		}
 
-//		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-//											TX_INT_DATAWIDTH_REG, &DrpVal);
-		DrpVal = XVphy_DrpRead(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-													TX_INT_DATAWIDTH_REG);
+		Status = XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+											TX_INT_DATAWIDTH_REG, &DrpVal);
 		if(Status != XST_SUCCESS){
 			xil_printf("DRP access failed\r\n");
 			return;
@@ -1391,22 +1463,14 @@ void PHY_Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte)
 		DrpVal &= ~0xC00;
 		WriteVal = 0x0;
 		WriteVal = DrpVal | 0x0;
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-											TX_INT_DATAWIDTH_REG, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
-											TX_INT_DATAWIDTH_REG, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
-											TX_INT_DATAWIDTH_REG, WriteVal);
-		XVphy_DrpWrite(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
-											TX_INT_DATAWIDTH_REG, WriteVal);
-//		Status  =XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
-//										TX_INT_DATAWIDTH_REG, WriteVal);
-//		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
-//										TX_INT_DATAWIDTH_REG, WriteVal);
-//		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
-//										TX_INT_DATAWIDTH_REG, WriteVal);
-//		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
-//										TX_INT_DATAWIDTH_REG, WriteVal);
+		Status  =XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH1,
+										TX_INT_DATAWIDTH_REG, WriteVal);
+		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH2,
+										TX_INT_DATAWIDTH_REG, WriteVal);
+		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH3,
+										TX_INT_DATAWIDTH_REG, WriteVal);
+		Status +=XVphy_DrpWr(InstancePtr, 0, XVPHY_CHANNEL_ID_CH4,
+										TX_INT_DATAWIDTH_REG, WriteVal);
 		if(Status != XST_SUCCESS){
 			xil_printf("DRP access failed\r\n");
 			return;
@@ -1431,12 +1495,39 @@ void PHY_Two_byte_set (XVphy *InstancePtr, u8 Tx_to_two_byte)
 ******************************************************************************/
 void DpPt_LinkrateChgHandler(void *InstancePtr)
 {
-
 // If TX is unable to train at what it has been asked then
 // necessary down shift handling has to be done here
 // eg. reconfigure GT to new rate etc
 // This XAPP assumes that RX and TX would run at same rate
 
+	u8 rate;
+	u32 Status=XST_SUCCESS;
+
+	rate = DpTxSsInst.DpPtr->TxInstance.LinkConfig.LinkRate;
+	if (rate != prev_line_rate) {
+		switch(rate){
+			case 0x6:
+			Status = PHY_Configuration_Tx(&VPhyInst,
+					PHY_User_Config_Table[(is_TX_CPLL)?0:3]);
+			break;
+
+			case 0xA:
+			Status = PHY_Configuration_Tx(&VPhyInst,
+					PHY_User_Config_Table[(is_TX_CPLL)?1:4]);
+			break;
+
+			case 0x14:
+			Status = PHY_Configuration_Tx(&VPhyInst,
+					PHY_User_Config_Table[(is_TX_CPLL)?2:5]);
+			break;
+		}
+		//update the previous link rate info at here
+		prev_line_rate = rate;
+	}
+	if (Status != XST_SUCCESS) {
+		debug_DP_printf (
+		"+++++++ TX GT configuration encountered a failure +++++++\r\n");
+	}
 }
 
 /*****************************************************************************/
@@ -1467,7 +1558,7 @@ void DpPt_CustomWaitUs(void *InstancePtr, u32 MicroSeconds)
 		TimerVal_pre = TimerVal;
 		TimerVal = XTmrCtr_GetValue(&TmrCtr, 0);
 		if(TimerVal_pre == TimerVal){
-			xil_printf("Something went wrong with DpPt_CustomWaitUs\r\n");
+			debug_DP_printf("Something went wrong with DpPt_CustomWaitUs\r\n");
 			break;
 		}
 	} while (TimerVal < NumTicks);
@@ -1489,7 +1580,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 	u8 pwr_dwn;
 
 	if (XDpTxSs_IsConnected(&DpTxSsInst)) {
-		xdbg_printf("\r\n+===> HPD Connected.\n\r");
+		debug_DP_printf("\r\n+===> HPD Connected.\r\n");
 		pwr_dwn = 0x2;
 		XDp_TxAuxWrite(DpTxSsInst.DpPtr, XDP_DPCD_SET_POWER_DP_PWR_VOLTAGE, 1,
 																	&pwr_dwn);
@@ -1500,7 +1591,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 	}
 	else
 	{
-		xdbg_printf("\r\n+===> HPD Disconnected.\n\r");
+		debug_DP_printf("\r\n+===> HPD Disconnected.\r\n");
 
 		//DpTxSs_DisableAudio
 		XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -1526,7 +1617,7 @@ void DpPt_HpdEventHandler(void *InstancePtr)
 void DpPt_HpdPulseHandler(void *InstancePtr)
 {
 
-		xdbg_printf("\r\nHPD Pulse event detected\n\r");
+	debug_DP_printf("\r\nHPD Pulse event detected\r\n");
 // Some monitors give HPD pulse repeatedly which causes HPD pulse function to
 //		be executed huge number of time. Hence hpd_pulse interrupt is disabled
 //		and then enabled when hpd_pulse function is executed
@@ -1573,16 +1664,40 @@ void hpd_pulse_con()
 			 XDP_DPCD_LANE_COUNT_SET, 1, &lane_set);
      Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
 			 XDP_DPCD_LINK_BW_SET, 1, &bw_set);
-
+     // wait for response
+     DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400);
 
      XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_LINK_BW_SET, 1, &bw_set);
+     // wait for response
      DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400);
      XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_LANE_COUNT_SET, 1, &lane_set);
+     // wait for response
      DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400);
      XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid, 0);
+     // wait for response
+     DpPt_CustomWaitUs(DpTxSsInst.DpPtr, 400);
+
+     // EDID corruption handing
+	if (!XVidC_EdidIsHeaderValid(Edid)) {
+		debug_DP_printf("\r\n   Error : EDID header is corrupt...\r\n");
+		// if EDID data is corrupt, set 640x480 6bpc
+		//start_tx (0x6, 1,resolution_table[0], 6, 1);
+		//return;
+	}
+
+
      lane_set = lane_set & 0x1F;
      bw_set = bw_set & 0x1F;
      laneAlignStatus = laneAlignStatus & 0x1;
+
+     if(bw_set != 0x6 && bw_set != 0xA && bw_set != 0x14){
+	 debug_DP_printf ("Something is wrong bw_set:%x\r\n",bw_set);
+	 return;
+     }
+     if(lane_set != 1 && lane_set != 2 && lane_set != 4){
+	 debug_DP_printf ("Something is wrong lane_set:%x\r\n",lane_set);
+	 return;
+     }
 
      //end hdcp
      if (bw_set != 0) {
@@ -1592,35 +1707,35 @@ void hpd_pulse_con()
 			if ((lane0_sts != 0x55) || (lane2_sts != 0x55)
 												|| (laneAlignStatus != 1)) {
 				XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
-				xdbg_printf (".");
+				debug_DP_printf (".");
 				XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 				 Status = XDpTxSs_Start(&DpTxSsInst);
-				 xdbg_printf ("training 4\r\n");
+				 debug_DP_printf ("training 4\r\n");
 			}
 		 } else if (lane_set == 0x2) {
 			lane0_sts = lane0_sts & 0x55;
 			if ((lane0_sts != 0x55) || (laneAlignStatus != 1)) {
 				XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
-				xdbg_printf (".");
+				debug_DP_printf (".");
 				XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 
 				 Status = XDpTxSs_Start(&DpTxSsInst);
-				 xdbg_printf ("training 2\r\n");
+				 debug_DP_printf ("training 2\r\n");
 			}
 		 } else if (lane_set == 0x1) {
 			lane0_sts = lane0_sts & 0x5;
 			if ((lane0_sts != 0x5) || (laneAlignStatus != 1)) {
 				XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
-				xdbg_printf (".");
+				debug_DP_printf (".");
 				XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
 
 				 Status = XDpTxSs_Start(&DpTxSsInst);
-				 xdbg_printf ("training 1\r\n");
+				 debug_DP_printf ("training 1\r\n");
 			}
 		 }
      }
      XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
-     xdbg_printf ("HPD pulse over\r\n");
+     debug_DP_printf ("HPD pulse over\r\n");
 
 }
 
@@ -1696,9 +1811,9 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 		xil_printf("Reading EDID contents of the DP Monitor..\r\n");
 
 		Status  = XDp_TxAuxRead(DpTxSsInst.DpPtr,
-								XDP_DPCD_MAX_LINK_RATE,  1, &LineRate_init);
+								XDP_DPCD_MAX_LINK_RATE,  1, LineRate_init);
 		Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-								XDP_DPCD_MAX_LANE_COUNT, 1, &LaneCount_init);
+								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
 		if (Status != XST_SUCCESS) { // give another chance to monitor.
 			//Waking up the monitor
 			pwr_dwn = 0x2;
@@ -1718,9 +1833,9 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 			xil_printf("Reading EDID contents of the DP Monitor..\r\n");
 
 			Status = XDp_TxAuxRead(DpTxSsInst.DpPtr,
-								XDP_DPCD_MAX_LINK_RATE, 1, &LineRate_init);
+								XDP_DPCD_MAX_LINK_RATE, 1, LineRate_init);
 			Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-								XDP_DPCD_MAX_LANE_COUNT, 1, &LaneCount_init);
+								XDP_DPCD_MAX_LANE_COUNT, 1, LaneCount_init);
 			if (Status != XST_SUCCESS)
 				xil_printf ("Failed to read sink capabilities\r\n");
 		}
@@ -1729,9 +1844,10 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 		return;
 	}
 
-
+	*LineRate_init &= 0xFF;
+	*LaneCount_init &= 0xF;
      xil_printf("System capabilities set to: LineRate %x, LaneCount %x\r\n",
-											 LineRate_init,LaneCount_init);
+											 *LineRate_init,*LaneCount_init);
 
 
 #if ENABLE_AUDIO
@@ -1842,8 +1958,11 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 * @note		None.
 *
 ******************************************************************************/
-u32 start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
-														u8 bpc, u8 pat) {
+u32 start_tx(u8 line_rate, u8 lane_count,user_config_struct user_config){
+	XVidC_VideoMode res_table = user_config.VideoMode_local;
+	u8 bpc = user_config.user_bpc;
+	u8 pat = user_config.user_pattern;
+
 	u32 Status;
     u8 pwr_dwn;
 	//Disabling TX and TX interrupts
@@ -1877,7 +1996,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
     if (res_table !=0) {
 		Status = XDpTxSs_SetVidMode(&DpTxSsInst, res_table);
 		if (Status != XST_SUCCESS) {
-			xil_printf("ERR: Setting resolution failed\n\r");
+			xil_printf("ERR: Setting resolution failed\r\n");
 		}
 		xil_printf (".");
     }
@@ -1910,7 +2029,7 @@ u32 start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	if (Status != (XST_SUCCESS)) {
 		Status = DpTxSubsystem_Start(&DpTxSsInst, 0);
 		if (Status != XST_SUCCESS) {
-			xil_printf("ERR:DPTX SS start failed\n\r");
+			xil_printf("ERR:DPTX SS start failed\r\n");
 			return (XST_FAILURE);
 		}
 	}
@@ -1922,9 +2041,6 @@ u32 start_tx(u8 line_rate, u8 lane_count, XVidC_VideoMode res_table,
 	/* Reset CRC*/
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
 			0x10);
-	xil_printf("XDP_TX_USER_PIXEL_WIDTH=%d \r\n",
-			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-					XDP_TX_USER_PIXEL_WIDTH));
 	/* Set Pixel width in CRC engine*/
 	XDp_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR, VIDEO_FRAME_CRC_CONFIG,
 			XDp_ReadReg(DpTxSsInst.DpPtr->Config.BaseAddr,
@@ -2004,6 +2120,8 @@ void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
 	//Enabling TX interrupts
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK,0xFFF);
 
+
+	// From here is the requirement per DP spec
 	Status = XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
 															&max_cap_new);
 	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
@@ -2022,23 +2140,33 @@ void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
 	XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1, &max_cap_new);
 	XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
 															&max_cap_lanes_new);
+	// check if lane is 1/2/4 or something else
+	if(max_cap_lanes_new == 1||max_cap_lanes_new == 2||max_cap_lanes_new == 4)
+		;
+	else{
+		// soemthing wrong. Read again
+		XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
+														&max_cap_lanes_new);
+	}
 
 
 	if (XVidC_EdidIsHeaderValid(Edid_org)) {
 		good_edid_hpd = 1;
 	}
 	else {
-		xdbg_printf("\n\rError : EDID header is corrupt...\n\r");
 		good_edid_hpd = 0;
+		debug_DP_printf("\r\nError : EDID header is corrupt...\r\n");
 	}
 
 	if (!CalculateChecksum(Edid_org, 128)) {
 		good_edid_hpd = 1;
 	} else {
 		good_edid_hpd = 0;
-		xdbg_printf("\n\rError : EDID checksum is not 0\n\r");
+		debug_DP_printf("\r\nError : EDID checksum is not 0\r\n");
 	}
+	// Till here is the requirement per DP spec
 
+	// From here is optional per application
 	if (good_edid_hpd == 1) {
 		htotal_test_hpd = XVidC_EdidGetStdTimingsH(Edid_org, 1);
 		vtotal_test_hpd = XVidC_EdidGetStdTimingsV(Edid_org, 1);
@@ -2053,11 +2181,13 @@ void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
 			VmId_ptm_hpd = XVIDC_VM_640x480_60_P;
 			bpc_hpd = 6;
 		}
+
 	} else {
 		VmId_test_hpd = XVIDC_VM_NOT_SUPPORTED;
-		VmId_ptm_hpd = XVIDC_VM_NOT_SUPPORTED;
-		res_update = 0;
+		VmId_ptm_hpd = XVIDC_VM_640x480_60_P;
+		res_update = XVIDC_VM_640x480_60_P;
 		bpc_hpd = 6;
+		good_edid_hpd = 0;
 	}
 
 
@@ -2082,12 +2212,12 @@ void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
 		}
 
 		if (Status != XST_SUCCESS) {
-			xdbg_printf (
+			debug_DP_printf (
 			"+++++++ TX GT configuration encountered a failure +++++++\r\n");
 		}
 
 
-		xdbg_printf ("Training with %x %x\r\n",max_cap_new,
+		debug_DP_printf ("Training with %x %x\r\n",max_cap_new,
 													max_cap_lanes_new&0x1F);
         XDpTxSs_SetLinkRate(&DpTxSsInst, max_cap_new);
 		XDpTxSs_SetLaneCount(&DpTxSsInst, max_cap_lanes_new&0x1F);
@@ -2106,13 +2236,13 @@ void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
         }
 
         XDpTxSs_SetBpc(&DpTxSsInst, bpc_hpd);
-        xdbg_printf (".");
+        debug_DP_printf (".");
         XDpTxSs_Start(&DpTxSsInst);
         XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
 											XDP_TX_INTERRUPT_MASK, 0x0);
-        xdbg_printf (".");
+        debug_DP_printf (".");
         Vpg_StreamSrcConfigure(DpTxSsInst.DpPtr, 0, 1);
-        xdbg_printf (".");
+        debug_DP_printf (".");
         Vpg_VidgenSetUserPattern(DpTxSsInst.DpPtr, C_VideoUserStreamPattern[1]);
         Status = XDpTxSs_Start(&DpTxSsInst);
 
@@ -2133,12 +2263,12 @@ void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
 		if (hdcp_capable == 1) {
 
         } else {
-		xdbg_printf (
+		debug_DP_printf (
 			"Sink is either repeater enabled or not capable of HDCP\r\n");
         }
 	}
 
-	xdbg_printf ("HPD over\r\n");
+	debug_DP_printf ("HPD over\r\n");
 }
 
 
@@ -2173,7 +2303,7 @@ char xil_getc(u32 timeout_ms){
 
 	extern XTmrCtr TmrCtr;
 
-	//dbg_printf ("timeout_ms = %x\n\r",timeout_ms);
+	//dbg_printf ("timeout_ms = %x\r\n",timeout_ms);
 	// Reset and start timer
 	if ( timeout_ms > 0 && timeout_ms != 0xff ){
 	  XTmrCtr_Start(&TmrCtr, 0);
@@ -2423,9 +2553,9 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 										Timing.VActive + Timing.F0PVBackPorch);
 	FrameRate = PixelClockHz / (Timing.HTotal * Timing.F0PVTotal);
 
-	xdbg_printf(XDBG_DEBUG_GENERAL,"SS INFO:"
-								"HAct:%d, VAct:%d, FR:%d\n\r", Timing.HActive,
-												Timing.VActive, FrameRate);
+//	debug_DP_printf(XDBG_DEBUG_GENERAL,"SS INFO:"
+//								"HAct:%d, VAct:%d, FR:%d\r\n", Timing.HActive,
+//												Timing.VActive, FrameRate);
 
 	/* Few monitors returns 59 HZ. Hence, setting to 60. */
 	if (FrameRate == 59) {
@@ -2484,6 +2614,7 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 							FrameRate, XVidC_EdidIsDtdPtmInterlaced(EdidPtr));
 
 	}
+
 	return VmId;
 }
 
