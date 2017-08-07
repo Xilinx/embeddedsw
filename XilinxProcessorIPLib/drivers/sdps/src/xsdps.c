@@ -81,6 +81,7 @@
 * 3.3   mn     05/17/17 Add support for 64bit DMA addressing
 * 	mn     07/17/17 Add support for running SD at 200MHz
 * 	mn     07/26/17 Fixed compilation warnings
+* 	mn     08/07/17 Modify driver to support 64-bit DMA in arm64 only
 * </pre>
 *
 ******************************************************************************/
@@ -258,7 +259,7 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 			XSDPS_POWER_CTRL_OFFSET,
 			PowerLevel | XSDPS_PC_BUS_PWR_MASK);
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#ifdef __aarch64__
 	/* Enable ADMA2 in 64bit mode. */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL1_OFFSET,
@@ -1532,7 +1533,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	}
 
 	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#ifdef __aarch64__
 		InstancePtr->Adma2_DescrTbl[DescNum].Address =
 				(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
 #else
@@ -1546,7 +1547,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 				(u16)XSDPS_DESC_MAX_LENGTH;
 	}
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#ifdef __aarch64__
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
 			(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
 #else
@@ -1560,7 +1561,7 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
 			(u16)((BlkCnt*BlkSize) - (DescNum*XSDPS_DESC_MAX_LENGTH));
 
-#if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
+#ifdef __aarch64__
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
 			(u32)(((u64)&(InstancePtr->Adma2_DescrTbl[0]))>>32));
 #endif
