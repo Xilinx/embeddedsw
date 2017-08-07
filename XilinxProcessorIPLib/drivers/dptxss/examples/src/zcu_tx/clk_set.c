@@ -80,13 +80,13 @@ u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq){
 	/* Set serial clock rate. */
 	Status = XIicPs_SetSClk(&IicPtr, 400000);
 	if (Status != XST_SUCCESS)
-		xil_printf("XIicPs_SetSClk failed.\n\r");
+		xil_printf("XIicPs_SetSClk failed.\r\n");
 
-	xil_printf("Select I2C channel.\n\r");
+	xil_printf("Select I2C channel.\r\n");
 	WriteBuffer[0] = 1 << 2;
 	Status = XIicPs_MasterSendPolled(&IicPtr, WriteBuffer, 1, i2c_mux_addr);
 	if (Status != XST_SUCCESS)
-		xil_printf("I2C channel select failed.\n\r");
+		xil_printf("I2C channel select failed.\r\n");
 
 	u8 RFreq_Cal[5];
     u8 RFreq_Set[5];
@@ -117,34 +117,34 @@ void si570_read_cal(XIicPs *Iic, u8 Addr, u8 *RFreq_Cal)
 	do_iic_until_pass(">>> Fail (RST & RECALL) write",
 			   XIicPs_MasterSendPolled(Iic, (u8[]){135,0x01}, 2, Addr)
 	);  // RST & RECALL
-	do_iic_until_pass(">>> Fail 8 set\n\r",
+	do_iic_until_pass(">>> Fail 8 set\r\n",
 		XIicPs_MasterSendPolled(Iic, (u8[]){  8,0xff}, 1, Addr)
 	);  //
-	do_iic_until_pass(">>> Fail 8 receive\n\r",
+	do_iic_until_pass(">>> Fail 8 receive\r\n",
 		XIicPs_MasterRecvPolled(Iic, RFreq_Cal+0,      1, Addr)
 	);  // N1[1:0],RF[37:32]
-	do_iic_until_pass(">>> Fail 9 set\n\r",
+	do_iic_until_pass(">>> Fail 9 set\r\n",
 		XIicPs_MasterSendPolled(Iic, (u8[]){  9,0xff}, 1, Addr)
 	);  //
-	do_iic_until_pass(">>> Fail 9 receive\n\r",
+	do_iic_until_pass(">>> Fail 9 receive\r\n",
 		XIicPs_MasterRecvPolled(Iic, RFreq_Cal+1,      1, Addr)
 	);  // RF[31:24]
-	do_iic_until_pass(">>> Fail 10 set\n\r",
+	do_iic_until_pass(">>> Fail 10 set\r\n",
 		XIicPs_MasterSendPolled(Iic, (u8[]){ 10,0xff}, 1, Addr)
 	);  //
-	do_iic_until_pass(">>> Fail 10 receive\n\r",
+	do_iic_until_pass(">>> Fail 10 receive\r\n",
 		XIicPs_MasterRecvPolled(Iic, RFreq_Cal+2,      1, Addr)
 	);  // RF[23:16]
-	do_iic_until_pass(">>> Fail 11 set\n\r",
+	do_iic_until_pass(">>> Fail 11 set\r\n",
 		XIicPs_MasterSendPolled(Iic, (u8[]){ 11,0xff}, 1, Addr)
 	);  //
-	do_iic_until_pass(">>> Fail 11 receive\n\r",
+	do_iic_until_pass(">>> Fail 11 receive\r\n",
 		XIicPs_MasterRecvPolled(Iic, RFreq_Cal+3,      1, Addr)
 	);  // RF[15:8]
-	do_iic_until_pass(">>> Fail 12 set\n\r",
+	do_iic_until_pass(">>> Fail 12 set\r\n",
 		XIicPs_MasterSendPolled(Iic, (u8[]){ 12,0xff}, 1, Addr)
 	);  //
-	do_iic_until_pass(">>> Fail 12 receive\n\r",
+	do_iic_until_pass(">>> Fail 12 receive\r\n",
 		XIicPs_MasterRecvPolled(Iic, RFreq_Cal+4,      1, Addr)
 	);  // RF[7:0]
 
@@ -223,7 +223,7 @@ void si570_write_rfreq(XIicPs *Iic, u8 Addr, u8 *RFreq_Set,
 	 */
 	while (XIicPs_BusIsBusy(Iic));
 
-	do_iic_until_pass(">>> Fail freeze DCO\n\r",
+	do_iic_until_pass(">>> Fail freeze DCO\r\n",
 			XIicPs_MasterSendPolled(Iic, (u8[]){137,0x18}, 2, Addr)
 	);            // 137:Freeze DCO
 	do_iic_until_pass(">>> Fail 7 HSDIV N1\n\r",

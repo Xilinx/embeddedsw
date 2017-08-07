@@ -48,9 +48,6 @@
 #include <stdlib.h>
 #include "xspi.h"
 #include "xparameters.h"
-#if defined (__MICROBLAZE__)
-#include "microblaze_sleep.h"
-#endif
 
 #define  LMK04906_DEVICE_ID  XPAR_SPI_0_DEVICE_ID
 #define  LMK04906_DEVICE_BASEADDR  XPAR_SPI_0_BASEADDR
@@ -82,7 +79,7 @@ void LMK04906_init(XSpi *SPI_LMK04906){
 	SPI_LMK04906_Conf = (XSpi_LookupConfig(LMK04906_DEVICE_ID));
 
 	if (SPI_LMK04906_Conf == NULL) {
-		xil_printf("Error : SPI Device ConfSetting Not Found !\n\r");
+		xil_printf("Error : SPI Device ConfSetting Not Found !\r\n");
         exit(-1);
 	}
 
@@ -90,7 +87,7 @@ void LMK04906_init(XSpi *SPI_LMK04906){
     Status = XSpi_CfgInitialize(
 		SPI_LMK04906, SPI_LMK04906_Conf,SPI_LMK04906_Conf->BaseAddress);
     if(Status != XST_SUCCESS){
-	xil_printf("Error : SPI Device Not Found ( Status Num : %d )!\n\r",
+	xil_printf("Error : SPI Device Not Found ( Status Num : %d )!\r\n",
 																	Status);
 	exit(-1);
     }
@@ -115,11 +112,7 @@ int LMK04906_RegWrite(XSpi *SPI_LMK04906 , u32 RegData ,u32 RegAddr){
     Tx_Data_Write(WriteData);
 
 // set long enough timer value to wait for LMK to be ready
-#if defined (__arm__) || (__aarch64__)
     while(wait_cnt++ != 2000);  ////////// for Zynq
-#else
-	while(wait_cnt++ != 200);
-#endif
     XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x70, 0xFFFF);
 
 	return XST_SUCCESS;
@@ -132,10 +125,10 @@ int IF_LoopBack_Test(XSpi *SPI_LMK04906) {
 
     SPI_Option = Get_Option();
     SPI_Option  |= (u32)0x00000001;
-    xil_printf("SPI Set option %x\n\r",SPI_Option);
+    xil_printf("SPI Set option %x\r\n",SPI_Option);
     Set_Option(SPI_Option);
 
-    xil_printf("Internal Loop Back Mode Set \n\r");
+    xil_printf("Internal Loop Back Mode Set \r\n");
 	for (Count = 0; Count < 15; Count++) {
 		// TX DATA
 		Tx_Data_Write(Count);
@@ -145,13 +138,13 @@ int IF_LoopBack_Test(XSpi *SPI_LMK04906) {
 	    if(Rx_Data_Read() != Count){
 	        SPI_Option  &= (u32)0xFFFFFFFE;
 	        Set_Option( SPI_Option);
-		xil_printf("Internal LoopBack FAILD \n\r");
+		xil_printf("Internal LoopBack FAILD \r\n");
 		return 1;
 	    }
 	}
     SPI_Option  &= (u32)0xFFFFFFFE;
     Set_Option( SPI_Option);
-	xil_printf("Internal LoopBack Success \n\r");
+	xil_printf("Internal LoopBack Success \r\n");
     return XST_SUCCESS;
 }
 
