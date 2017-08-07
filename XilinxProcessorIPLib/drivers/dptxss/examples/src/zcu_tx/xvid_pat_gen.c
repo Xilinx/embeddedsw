@@ -570,18 +570,19 @@ static void VidgenComputeMVid(XDp *InstancePtr,
 
 int wait_for_lock()
 {
-                u32 count, error;
-                count = error = 0;
-                while(!(*(u32 *)(CLK_WIZ_BASE + 0x04)& 1 ))
-                {
-                                if(count == 10000)
-                                {
-                                                error++;
-                                                break;
-                                }
-                                count++;
-                }
-                return error;
+	u32 count, error;
+	count = error = 0;
+	volatile u32 rdata=0;
+	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & 1;
+	while(!rdata){
+		if(count == 10000){
+			error++;
+			break;
+		}
+		count++;
+		rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04);
+	}
+	return error;
 }
 
 
@@ -594,6 +595,7 @@ void ComputeMandD(u32 VidFreq){
 	u32 MVal = 0;
 	u32 DVal = 0;
 	u32 DivVal = 0;
+	u32 rdata=0;
 
 	RefFreq = 100000;
 
@@ -647,16 +649,19 @@ void ComputeMandD(u32 VidFreq){
 	{
 		error++;
 		xil_printf(
-			"\n ERROR: Clock is not locked for default frequency : 0x%x\n\r",
-				*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK);
+			"\n ERROR: Clock is not locked for default frequency : 0x%x\r\n",
+			XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
 
-	*(u32 *)(CLK_WIZ_BASE + 0x00) = 0xA; /* SW reset applied */
-	if(*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK)
-	{
+
+/* SW reset applied */
+	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x0, 0xA);
+
+	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK;
+	if(rdata) {
 		error++;
-		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\n\r",
-				*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK);
+		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\r\n",
+				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
 
 	for(count=0; count<2000; count++);      /* Wait cycles after SW reset */
@@ -665,34 +670,34 @@ void ComputeMandD(u32 VidFreq){
 	{
 		error++;
 		xil_printf(
-	"\n ERROR: Clock is not locked after SW reset : 0x%x \t Expected : 0x1\n\r",
-				*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK);
+	"\n ERROR: Clock is not locked after SW reset : 0x%x \t Expected : 0x1\r\n",
+			XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
 
 	/* Configuring Multiply and Divide values */
-	*(u32 *)(CLK_WIZ_BASE + 0x200) = (MVal<<8)|DVal;
-	*(u32 *)(CLK_WIZ_BASE + 0x204) = 0x00;
+	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x200, (MVal<<8)|DVal);
+	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x204, 0);
 
-	*(u32 *)(CLK_WIZ_BASE + 0x208) = DivVal;
+	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x208, DivVal);
 
 	/* Load Clock Configuration Register values */
-	*(u32 *)(CLK_WIZ_BASE + 0x25C) = 0x07;
+	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x07);
 
-	if(*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK)
-	{
+	rdata = XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK;
+	if(rdata){
 		error++;
-		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\n\r",
-				*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK);
+		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\r\n",
+				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
 	/* Clock Configuration Registers are used for dynamic reconfiguration */
-	*(u32 *)(CLK_WIZ_BASE + 0x25C) = 0x02;
+	XClk_Wiz_WriteReg(CLK_WIZ_BASE, 0x25C, 0x02);
 
 	fail = wait_for_lock();
 	if(fail)
 	{
 		error++;
-		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected : 0x1\n\r",
-				*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK);
+		xil_printf("\n ERROR: Clock is not locked : 0x%x \t Expected : 0x1\r\n",
+				XClk_Wiz_ReadReg(CLK_WIZ_BASE, 0x04) & CLK_LOCK);
 	}
 
 }
