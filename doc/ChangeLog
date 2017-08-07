@@ -101,6 +101,8 @@ Add support for 200MHz in SD driver
 Fixed compilation warnings
 Removed SD0_OTAPDLYENA and SD1_OTAPDLYENA bits
 Modify driver to support 64-bit DMA in arm64 only
+sdps: Prevent SD0_OTAPDLYENA and SD01_OTAPDLYENA bit to set
+Properly set OTAPDLY value by clearing previous bit settings
 
 xilisf_v5_9:
 Expanded the description of serial_flash_family and serial_flash_interface.
