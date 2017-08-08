@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xaxidma_poll_multi_pkts.c
+ * @file xaxidma_example_poll_multi_pkts.c
  *
  * This file demonstrates how to use the xaxidma driver on the Xilinx AXI
  * DMA core (AXIDMA) to transfer multiple packets in polling mode when the

@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xaximcdma_example_sg_intr.c
+ * @file xaxidma_example_multichan_sg_intr.c
  *
  * This file demonstrates how to use the xaxidma driver on the Xilinx AXI
  * DMA core v6_00_a (AXIDMA) to transfer packets in interrupt mode for
