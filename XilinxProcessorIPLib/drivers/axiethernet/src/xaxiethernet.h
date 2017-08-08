@@ -496,6 +496,8 @@
 *		    plugged to it`s AXI stream bus (CR#979634). Changes
 *		    are made in the driver tcl and test app tcl.
 * 5.6  adk 03/07/17 Fixed CR#979023 Intr fifo example failed to compile.
+*      adk 08/08/17 Fixed CR#981893 Fix bsp compilation error for axiethernet
+*		    mcdma chiscope based designs.
 * </pre>
 *
 ******************************************************************************/
