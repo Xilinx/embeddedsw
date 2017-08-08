@@ -187,7 +187,6 @@ proc xdefine_axi_target_params {periphs file_handle} {
         puts $file_handle ""
         puts $file_handle "/* Canonical Axi parameters for $periph_name */"
 		set target_periph [get_connected_ip $periph]
-		puts [format "target_periph is %s" $target_periph]
 		set target_periph_type [get_property IP_NAME $target_periph]
 		set tartget_per_name [get_property NAME $target_periph]
 		if {$target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_dma" || $target_periph_type == "axi_mcdma"} {
@@ -1038,7 +1037,7 @@ proc get_mactype {value} {
 }
 
 proc is_ethsupported_target {connected_ip} {
-   set connected_ipname [get_property IP_NAME $connected_ip]
+   set connected_ipname [get_property IP_NAME [get_cells -hier $connected_ip]]
    if {$connected_ipname == "axi_dma" || $connected_ipname == "axi_fifo_mm_s" || $connected_ipname == "axi_mcdma"} {
       return "true"
    } else {
@@ -1067,6 +1066,10 @@ proc get_connected_ip {periph} {
 
     if { [llength $intf] } {
         set connected_ip [get_connected_intf $intf]
+        set target_ip [is_ethsupported_target $connected_ip]
+        if { $target_ip == "true"} {
+	      return $connected_ip
+        }
     }
 }
 
@@ -1078,6 +1081,16 @@ proc get_connected_intf {intf} {
          if { [llength $target_intf] } {
             set connected_ip [get_cells -of_objects $target_intf]
          }
+         if { [llength $connected_ip] > 1 } {
+	     foreach ip $connected_ip {
+	         if { $ip != "" } {
+		     set isvalid_ip [is_ethsupported_target $ip]
+		     if { $isvalid_ip == "true"} {
+		         return $ip
+		     }
+		 }
+	     }
+	 }
          set target_ip [is_ethsupported_target $connected_ip]
          if { $target_ip == "true"} {
             return $connected_ip
@@ -1089,11 +1102,22 @@ proc get_connected_intf {intf} {
              # We need to traverse through stream data fifo's and axi interconnects
              # Inorder to find the target IP(AXI DMA or AXI FIFO)
              while {$i < $retries} {
-                set target_periph [get_targetip $connected_ip]
-                set target_ip [is_ethsupported_target $target_periph]
-                if { $target_ip == "true"} {
-                  return $target_periph
-                }
+		set target_periph [get_targetip $connected_ip]
+                if { [llength $target_periph] > 1 } {
+		      foreach target_peri $target_periph {
+		          if { $target_peri != "" } {
+			      set target_ip [is_ethsupported_target $target_peri]
+			      if { $target_ip == "true"} {
+			          return $target_peri
+			      }
+		          }
+		     }
+		} else {
+		    set target_ip [is_ethsupported_target $target_periph]
+                    if { $target_ip == "true"} {
+                        return $target_periph
+                    }
+		}
                 set connected_ip $target_periph
                 incr i
              }
