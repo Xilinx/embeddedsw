@@ -467,6 +467,7 @@
 *                     documentation while generating doxygen.
 *                     Modified readme file in examples folder.
 * 9.4  adk   25/07/17 Added example for cyclic dma mode CR#974218.
+*      adk   08/08/17 Fixed CR#980607 Can't select individual AXI DMA code examples.
 * </pre>
 *
 ******************************************************************************/
