@@ -661,8 +661,23 @@ static int FastReadData(XIsf *InstancePtr, u8 Command, u32 Address,
 	RealAddr = GetRealAddr(InstancePtr->SpiInstPtr, LocalAddress);
 
 #ifdef XPAR_XISF_INTERFACE_QSPIPSU
+	DieNo = InstancePtr->NumDie;
 
-	DieNo = RealAddr/DieSize;
+	switch(InstancePtr->DeviceIDMemSize){
+		case XISF_MICRON_ID_BYTE2_128:
+		default:
+			DieSize = FLASH_SIZE_128;
+			break;
+		case XISF_MICRON_ID_BYTE2_256:
+			DieSize = FLASH_SIZE_256;
+			break;
+		case XISF_MICRON_ID_BYTE2_512:
+			DieSize = FLASH_SIZE_512;
+			break;
+		case XISF_MICRON_ID_BYTE2_1G:
+			DieSize = FLASH_SIZE_1G;
+			break;
+	}
 
 	DieTempData = (DieSize * (DieNo+1)) - (RealAddr);
 
