@@ -57,6 +57,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sk     05/25/17 First release
+* 1.1   sk     08/09/17 Modified the example to support both Linux and
+*                       Baremetal.
 *
 * </pre>
 *
@@ -66,8 +68,6 @@
 
 #include "xparameters.h"
 #include "xrfdc.h"
-#include "xstatus.h"
-#include "xil_cache.h"
 #include <metal/irq.h>
 
 /************************** Constant Definitions ****************************/
@@ -77,20 +77,32 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#define __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
+#define RFDC_IRQ_VECT_ID                XPS_FPGA0_INT_ID
+#ifdef __BAREMETAL__
 #define INTC_DEVICE_ID		XPAR_SCUGIC_0_DEVICE_ID
-#define RFDC_IRQ_VECT_ID		XPS_FPGA0_INT_ID
+#else
+#define BUS_NAME        "platform"
+#define RFDC_DEV_NAME    "a0000000.usp_rf_data_converter"
+#define STIM_DEV_NAME    "a8000000.stimulus_gen_axi_s"
+#define CAP_DEV_NAME    "a4000000.data_capture_axi_s"
+#endif
 
 /**************************** Type Definitions ******************************/
 
 
 /***************** Macros (Inline Functions) Definitions ********************/
-
+#ifdef __BAREMETAL__
+#define printf xil_printf
+#endif
 /************************** Function Prototypes *****************************/
 
 static int RFdcFabricRateExample(u16 SysMonDeviceId);
 static int CompareFabricRate(u32 SetDecoderMode, u32 GetDecoderMode);
+#ifdef __BAREMETAL__
 int init_irq();
+#endif
 int sys_init();
 void RFdcHandler(void *CallBackRef, u32 Type, int Tile_Id,
 						u32 Block_Id, u32 StatusEvent);
@@ -98,7 +110,10 @@ void RFdcHandler(void *CallBackRef, u32 Type, int Tile_Id,
 /************************** Variable Definitions ****************************/
 
 static XRFdc RFdcInst;      /* RFdc driver instance */
+volatile int InterruptOccured;
+#ifdef __BAREMETAL__
 XScuGic InterruptController;
+#endif
 
 /****************************************************************************/
 /**
@@ -108,8 +123,8 @@ XScuGic InterruptController;
 * @param	None.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*		- XRFDC_SUCCESS if the example has completed successfully.
+*		- XRFDC_FAILURE if the example has failed.
 *
 * @note		None.
 *
@@ -119,19 +134,19 @@ int main(void)
 
 	int Status;
 
-	xil_printf("RFdc Fabric Interrupt Example Test\r\n");
+	printf("RFdc Fabric Interrupt Example Test\r\n");
 	/*
 	 * Run the RFdc Fabric Rate Settings example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
 	Status = RFdcFabricRateExample(RFDC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		xil_printf(" RFdc Fabric Interrupt Example Test failed\r\n");
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		printf(" RFdc Fabric Interrupt Example Test failed\r\n");
+		return XRFDC_FAILURE;
 	}
 
-	xil_printf("\n Successfully ran RFdc Fabric Interrupt Example Test\r\n");
-	return XST_SUCCESS;
+	printf("\n Successfully ran RFdc Fabric Interrupt Example Test\r\n");
+	return XRFDC_SUCCESS;
 }
 
 
@@ -150,8 +165,8 @@ int main(void)
 *		from xparameters.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*		- XRFDC_SUCCESS if the example has completed successfully.
+*		- XRFDC_FAILURE if the example has failed.
 *
 * @note   	None
 *
@@ -167,22 +182,57 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	XRFdc *RFdcInstPtr = &RFdcInst;
 	u32 SetFabricRate;
 	u32 GetFabricRate;
-	int ret;
+#ifndef __BAREMETAL__
+	struct metal_device *device;
+	struct metal_io_region *io;
+	struct metal_device *device_stim;
+	struct metal_io_region *io_stim;
+	struct metal_device *device_cap;
+	struct metal_io_region *io_cap;
+#endif
+	int irq = RFDC_IRQ_VECT_ID;
+	int ret = 0;
+
+	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
+
+	if (metal_init(&init_param)) {
+		printf("ERROR: Failed to run metal initialization\n");
+		return XRFDC_FAILURE;
+	}
+
+#ifdef __BAREMETAL__
+	if (init_irq()) {
+		xil_printf("Failed to initialize interrupt\n");
+	}
+#endif
 
 	/* Initialize the RFdc driver. */
 	ConfigPtr = XRFdc_LookupConfig(RFdcDeviceId);
 	if (ConfigPtr == NULL) {
-		return XST_FAILURE;
+		return XRFDC_FAILURE;
 	}
 	Status = XRFdc_CfgInitialize(RFdcInstPtr, ConfigPtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
+	}
+#ifndef __BAREMETAL__
+	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
+	if (ret) {
+		printf("ERROR: Failed to open device a0000000.usp_rf_data_converter.\n");
+		return XRFDC_FAILURE;
 	}
 
-	if (sys_init()) {
-		xil_printf("ERROR: Failed to initialize system\n");
-		return -1;
+	/* Map RFDC device IO region */
+	io = metal_device_io_region(device, 0);
+	if (!io) {
+		printf("ERROR: Failed to map RFDC regio for %s.\n",
+			  device->name);
+		return XRFDC_FAILURE;
 	}
+	RFdcInstPtr->device = device;
+	RFdcInstPtr->io = io;
+#endif
+
 	/*
 	 * Setup the handler for the RFdc that will be called from the
 	 * interrupt context when an RFdc interrupt occurs, specify a pointer to
@@ -198,31 +248,80 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 	SetFabricRate = 0x1;
 	Status = XRFdc_SetFabRdVldWords(RFdcInstPtr, Tile, Block,
 					SetFabricRate);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
 	}
 	Status = XRFdc_GetFabRdVldWords(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block,
 					&GetFabricRate);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
 	}
 	Status = CompareFabricRate(SetFabricRate, GetFabricRate);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
 	}
 
-	ret =  metal_irq_register(RFDC_IRQ_VECT_ID,
-				(metal_irq_handler)XRFdc_IntrHandler, NULL, RFdcInstPtr);
-	xil_printf("registered IPI interrupt.\n");
-	if (ret) {
-		xil_printf("\n failed to register interrupt handler \r\n");
+#ifndef __BAREMETAL__
+	/* Get interrupt ID from RFDC metal device */
+	irq = (intptr_t)RFdcInstPtr->device->irq_info;
+	if (irq < 0) {
+		printf("ERROR: Failed to request interrupt for %s.\n",
+			  device->name);
+		return XRFDC_FAILURE;
 	}
+#endif
+	ret =  metal_irq_register(irq,
+				(metal_irq_handler)XRFdc_IntrHandler, RFdcInstPtr->device,
+						RFdcInstPtr);
+	printf("registered IPI interrupt.\n");
+	if (ret) {
+		printf("\n failed to register interrupt handler \r\n");
+	}
+
+#ifndef __BAREMETAL__
+	ret = metal_device_open(BUS_NAME, STIM_DEV_NAME, &device_stim);
+	if (ret) {
+		printf("ERROR: Failed to open device a8000000.stimulus_gen_axi_s.\n");
+		return XRFDC_FAILURE;
+	}
+
+	/* Map Stimulus device IO region */
+	io_stim = metal_device_io_region(device_stim, 0);
+	if (!io) {
+		printf("ERROR: Failed to map Stimulus regio for %s.\n",
+			  device_stim->name);
+		return XRFDC_FAILURE;
+	}
+
+	ret = metal_device_open(BUS_NAME, CAP_DEV_NAME, &device_cap);
+	if (ret) {
+		printf("ERROR: Failed to open device a4000000.data_capture_axi_s.\n");
+		return XRFDC_FAILURE;
+	}
+
+	/* Map Data Capture device IO region */
+	io_cap = metal_device_io_region(device_cap, 0);
+	if (!io) {
+		printf("ERROR: Failed to map Capture regio for %s.\n",
+			  device_cap->name);
+		return XRFDC_FAILURE;
+	}
+#endif
+	InterruptOccured = 0;
 
 	/* Configurations to start FIFO on DAC/Stim gen and ADC/Capture */
-	Xil_Out32(0xA0400050, 0x8000);
-	Xil_Out32(0xA0000050, 0x8000);
+#ifdef __BAREMETAL__
+	Xil_Out32(0xA4000050, 0x8000);
+	Xil_Out32(0xA8000050, 0x8000);
+#else
+	XRFdc_Out32(io_stim, 0x50, 0x8000);
+	XRFdc_Out32(io_cap, 0x50, 0x8000);
+#endif
 
-	return XST_SUCCESS;
+	/* Wait till interrupt occurs */
+	while (InterruptOccured == 0);
+
+	return XRFDC_SUCCESS;
 }
 
 /****************************************************************************/
@@ -248,7 +347,7 @@ static int CompareFabricRate(u32 SetFabricRate, u32 GetFabricRate)
 	else
 		return 1;
 }
-
+#ifdef __BAREMETAL__
 /**
  * @brief init_irq() - Initialize GIC and connect IPI interrupt
  *        This function will initialize the GIC and connect the IPI
@@ -296,28 +395,7 @@ int init_irq()
 
 	return 0;
 }
-
-/**
- * @brief sys_init() - Register libmetal devices.
- *        This function register the libmetal generic bus, and then
- *        register the IPI, shared memory descriptor and shared memory
- *        devices to the libmetal generic bus.
- *
- * @return 0 - succeeded, non-zero for failures.
- */
-int sys_init()
-{
-	struct metal_init_params metal_param = METAL_INIT_DEFAULTS;
-
-	if (init_irq()) {
-		xil_printf("Failed to initialize interrupt\n");
-	}
-	/** Register the device */
-	metal_init(&metal_param);
-
-
-	return 0;
-}
+#endif
 
 /*****************************************************************************/
 /**
@@ -332,10 +410,15 @@ int sys_init()
 void RFdcHandler (void *CallBackRef, u32 Type, int Tile_Id,
 						u32 Block_Id, u32 StatusEvent) {
 	if (Type == XRFDC_ADC_TILE) {
-		xil_printf("\n %x Interrupt occurred for ADC%d%d \r\n",
+		printf("\n %x Interrupt occurred for ADC%d%d \r\n",
 						StatusEvent, Tile_Id, Block_Id);
+		InterruptOccured = 1;
 	} else {
-		xil_printf("\n %x Interrupt occurred for DAC%d%d \r\n",
+		printf("\n %x Interrupt occurred for DAC%d%d \r\n",
 								StatusEvent, Tile_Id, Block_Id);
+		InterruptOccured = 1;
 	}
+
+	/* Disable the interrupt */
+	XRFdc_IntrDisable(&RFdcInst, Type, Tile_Id, Block_Id, StatusEvent);
 }

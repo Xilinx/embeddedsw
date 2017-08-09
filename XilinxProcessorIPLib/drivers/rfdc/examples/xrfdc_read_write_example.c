@@ -57,6 +57,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sk     05/15/17 First release
+* 1.1   sk     08/09/17 Modified the example to support both Linux and
+*                       Baremetal.
 *
 * </pre>
 *
@@ -66,7 +68,6 @@
 
 #include "xparameters.h"
 #include "xrfdc.h"
-#include "xstatus.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -75,14 +76,20 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#define __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
-
+#ifndef __BAREMETAL__
+#define BUS_NAME        "platform"
+#define RFDC_DEV_NAME    "a0000000.usp_rf_data_converter"
+#endif
 
 /**************************** Type Definitions ******************************/
 
 
 /***************** Macros (Inline Functions) Definitions ********************/
-
+#ifdef __BAREMETAL__
+#define printf xil_printf
+#endif
 /************************** Function Prototypes *****************************/
 
 static int RFdcReadWriteExample(u16 SysMonDeviceId);
@@ -107,8 +114,8 @@ static XRFdc RFdcInst;      /* RFdc driver instance */
 * @param	None.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*		- XRFDC_SUCCESS if the example has completed successfully.
+*		- XRFDC_FAILURE if the example has failed.
 *
 * @note		None.
 *
@@ -118,19 +125,19 @@ int main(void)
 
 	int Status;
 
-	xil_printf("RFdc Read and Write Example Test\r\n");
+	printf("RFdc Read and Write Example Test\r\n");
 	/*
 	 * Run the RFdc Ericsson use case example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
 	Status = RFdcReadWriteExample(RFDC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		xil_printf("Read and Write Example Test failed\r\n");
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		printf("Read and Write Example Test failed\r\n");
+		return XRFDC_FAILURE;
 	}
 
-	xil_printf("Successfully ran Read and Write Example\r\n");
-	return XST_SUCCESS;
+	printf("Successfully ran Read and Write Example\r\n");
+	return XRFDC_SUCCESS;
 }
 
 
@@ -147,8 +154,8 @@ int main(void)
 *		from xparameters.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*		- XRFDC_SUCCESS if the example has completed successfully.
+*		- XRFDC_FAILURE if the example has failed.
 *
 * @note   	None
 *
@@ -174,18 +181,48 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	XRFdc_Threshold_Settings GetThresholdSettings;
 	u32 SetDecoderMode;
 	u32 GetDecoderMode;
+#ifndef __BAREMETAL__
+	struct metal_device *device;
+	struct metal_io_region *io;
+	int ret = 0;
+#endif
+
+	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
+
+	if (metal_init(&init_param)) {
+		printf("ERROR: Failed to run metal initialization\n");
+		return XRFDC_FAILURE;
+	}
 
 	/* Initialize the RFdc driver. */
 	ConfigPtr = XRFdc_LookupConfig(RFdcDeviceId);
 	if (ConfigPtr == NULL) {
-		return XST_FAILURE;
+		return XRFDC_FAILURE;
 	}
 
 	/* Initializes the controller */
 	Status = XRFdc_CfgInitialize(RFdcInstPtr, ConfigPtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
 	}
+
+#ifndef __BAREMETAL__
+	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
+	if (ret) {
+		printf("ERROR: Failed to open device a0000000.usp_rf_data_converter.\n");
+		return XRFDC_FAILURE;
+	}
+
+	/* Map RFDC device IO region */
+	io = metal_device_io_region(device, 0);
+	if (!io) {
+		printf("ERROR: Failed to map RFDC regio for %s.\n",
+			  device->name);
+		return XRFDC_FAILURE;
+	}
+	RFdcInstPtr->device = device;
+	RFdcInstPtr->io = io;
+#endif
 
 	for (Tile = 0; Tile <4; Tile++) {
 		for (Block = 0; Block <4; Block++) {
@@ -193,19 +230,19 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 			if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
 				/* Set DAC fabric rate */
 				Status = XRFdc_SetFabWrVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_GetFabWrVldWords(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &GetFabricRate);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				if (SetFabricRate != GetFabricRate) {
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetMixerSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				/* Set new mixer configurations */
@@ -215,24 +252,24 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				SetMixerSettings.PhaseOffset = 22.5;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetMixerSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &GetMixerSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				/* Compare the settings */
 				Status = CompareMixerSettings(&SetMixerSettings, &GetMixerSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				Status = XRFdc_GetQMCSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetQMCSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				SetQMCSettings.EnableGain = 0;
 				SetQMCSettings.EnablePhase = 0;
@@ -240,54 +277,54 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				SetQMCSettings.PhaseCorrectionFactor = 26.5;
 				/* Set QMC settings */
 				Status = XRFdc_SetQMCSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetQMCSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_GetQMCSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &GetQMCSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				/* Compare the settings */
 				Status = CompareQMCSettings(&SetQMCSettings, &GetQMCSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_GetCoarseDelaySettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetCoarseDelaySettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				/* Set Coarse delay settings */
 				SetCoarseDelaySettings.CoarseDelay = 2;
 				Status = XRFdc_SetCoarseDelaySettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetCoarseDelaySettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				Status = XRFdc_GetCoarseDelaySettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &GetCoarseDelaySettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = CompareCoarseDelaySettings(&SetCoarseDelaySettings, &GetCoarseDelaySettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_SetOutputCurrent(RFdcInstPtr, Tile, Block, OutputCurrent);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				SetDecoderMode = XRFDC_DECODER_MAX_SNR_MODE;
 				Status = XRFdc_SetDecoderMode(RFdcInstPtr, Tile, Block, SetDecoderMode);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_GetDecoderMode(RFdcInstPtr, Tile, Block, &GetDecoderMode);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				if (SetDecoderMode != GetDecoderMode) {
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				}
 			}
 
@@ -304,19 +341,19 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				/* Set ADC fabric rate */
 				SetFabricRate = 2;
 				Status = XRFdc_SetFabRdVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_GetFabRdVldWords(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &GetFabricRate);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				if (SetFabricRate != GetFabricRate) {
-					return XST_FAILURE;
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetMixerSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				SetMixerSettings.CoarseMixFreq = 0x0; 	//CoarseMix OFF
 				SetMixerSettings.Freq = 3500; 	//MHz
@@ -324,46 +361,46 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				SetMixerSettings.PhaseOffset = 14.06;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetMixerSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &GetMixerSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				/* Compare the settings */
 				Status = CompareMixerSettings(&SetMixerSettings, &GetMixerSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				Status = XRFdc_GetQMCSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetQMCSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				SetQMCSettings.EnableGain = 0;
 				SetQMCSettings.EnablePhase = 0;
 				Status = XRFdc_SetQMCSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetQMCSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				Status = XRFdc_GetQMCSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &GetQMCSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 
 				/* Compare the settings */
 				Status = CompareQMCSettings(&SetQMCSettings, &GetQMCSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				/* Get Threshold settings */
 				Status = XRFdc_GetThresholdSettings(RFdcInstPtr, Tile, Block, &SetThresholdSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				SetThresholdSettings.ThresholdOverVal[0] = 8191;
 				SetThresholdSettings.ThresholdOverVal[1] = 6000;
@@ -373,23 +410,23 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 
 				/* Set Threshold settings */
 				Status = XRFdc_SetThresholdSettings(RFdcInstPtr, Tile, Block, &SetThresholdSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = XRFdc_GetThresholdSettings(RFdcInstPtr, Tile, Block, &GetThresholdSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 				Status = CompareThresholdSettings(&SetThresholdSettings, &GetThresholdSettings);
-				if (Status != XST_SUCCESS) {
-					return XST_FAILURE;
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
 				}
 			}
 		}
 	}
 
 
-	return XST_SUCCESS;
+	return XRFDC_SUCCESS;
 }
 
 /****************************************************************************/
