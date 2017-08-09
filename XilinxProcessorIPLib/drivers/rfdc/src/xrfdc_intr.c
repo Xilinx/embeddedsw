@@ -164,10 +164,10 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 										XRFDC_ADC_DEC_IMR_OFFSET, ReadReg);
 				}
-				if ((IntrMask & XRFDC_ADC_IXR_INTP_STG_MASK) != 0U) {
+				if ((IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 										XRFDC_DATPATH_IMR_OFFSET);
-					ReadReg |= (IntrMask & XRFDC_ADC_IXR_INTP_STG_MASK) >> 4;
+					ReadReg |= (IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) >> 4;
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 										XRFDC_DATPATH_IMR_OFFSET, ReadReg);
 				}
@@ -191,10 +191,10 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 										XRFDC_DAC_FABRIC_IMR_OFFSET, ReadReg);
 				}
-				if ((IntrMask & XRFDC_DAC_IXR_INTP_STG_MASK) != 0U) {
+				if ((IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 											XRFDC_DATPATH_IMR_OFFSET);
-					ReadReg |= (IntrMask & XRFDC_DAC_IXR_INTP_STG_MASK) >> 4;
+					ReadReg |= (IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) >> 4;
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_DATPATH_IMR_OFFSET, ReadReg);
 				}
@@ -292,11 +292,11 @@ void XRFdc_IntrDisable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 										XRFDC_ADC_DEC_IMR_OFFSET, ReadReg);
 				}
-				if ((IntrMask & XRFDC_ADC_IXR_INTP_STG_MASK) != 0U) {
+				if ((IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 										XRFDC_DATPATH_IMR_OFFSET);
 					ReadReg &= ~((IntrMask &
-								XRFDC_ADC_IXR_INTP_STG_MASK) >> 4);
+								XRFDC_ADC_IXR_DATAPATH_MASK) >> 4);
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 										XRFDC_DATPATH_IMR_OFFSET, ReadReg);
 				}
@@ -308,11 +308,11 @@ void XRFdc_IntrDisable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 										XRFDC_DAC_FABRIC_IMR_OFFSET, ReadReg);
 				}
-				if ((IntrMask & XRFDC_DAC_IXR_INTP_STG_MASK) != 0U) {
+				if ((IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 										XRFDC_DATPATH_IMR_OFFSET);
 					ReadReg &= ~((IntrMask &
-								XRFDC_DAC_IXR_INTP_STG_MASK) >> 4);
+								XRFDC_DAC_IXR_DATAPATH_MASK) >> 4);
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 										XRFDC_DATPATH_IMR_OFFSET, ReadReg);
 				}
@@ -390,7 +390,7 @@ u32 XRFdc_GetIntrStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_DATPATH_ISR_OFFSET);
-			Intrsts |= ((ReadReg & XRFDC_DAT_PATH_ISR_MASK) << 4);
+			Intrsts |= ((ReadReg & XRFDC_ADC_DAT_PATH_ISR_MASK) << 4);
 		} else {
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_DAC_FABRIC_ISR_OFFSET);
@@ -398,7 +398,7 @@ u32 XRFdc_GetIntrStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_DATPATH_ISR_OFFSET);
-			Intrsts |= (ReadReg & XRFDC_DAT_PATH_ISR_MASK) << 4;
+			Intrsts |= (ReadReg & XRFDC_DAC_DAT_PATH_ISR_MASK) << 4;
 		}
 	}
 	(void)BaseAddr;
@@ -502,13 +502,13 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 					XRFDC_ADC_DEC_ISR_OFFSET,
 					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) >> 16);
 		}
-		if ((Intrsts & XRFDC_ADC_IXR_INTP_STG_MASK) != 0U) {
-			IntrMask |= Intrsts & XRFDC_ADC_IXR_INTP_STG_MASK;
+		if ((Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
+			IntrMask |= Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n ADC Data Path interface interrupt \r\n");
 			/* Clear the interrupt */
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_DATPATH_ISR_OFFSET,
-					(u16)(Intrsts & XRFDC_ADC_IXR_INTP_STG_MASK) >> 4);
+					(u16)(Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) >> 4);
 		}
 	} else {
 		/* DAC */
@@ -534,13 +534,13 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 					XRFDC_DAC_FABRIC_ISR_OFFSET,
 					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK));
 		}
-		if ((Intrsts & XRFDC_DAC_IXR_INTP_STG_MASK) != 0U) {
-			IntrMask |= Intrsts & XRFDC_DAC_IXR_INTP_STG_MASK;
+		if ((Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
+			IntrMask |= Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n DAC Data Path interface interrupt \r\n");
 			/* Clear the interrupt */
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_DATPATH_ISR_OFFSET,
-					(u16)(Intrsts & XRFDC_DAC_IXR_INTP_STG_MASK) >> 4);
+					(u16)(Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) >> 4);
 		}
 	}
 	(void)BaseAddr;
