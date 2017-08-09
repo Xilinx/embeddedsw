@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc_sinit.c
-* @addtogroup rfdc_v1_0
+* @addtogroup rfdc_v1_1
 * @{
 *
 * The implementation of the XRFdc component's static initialization
@@ -51,7 +51,6 @@
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
-#include "xstatus.h"
 #include "xrfdc.h"
 #include "xparameters.h"
 /************************** Constant Definitions *****************************/

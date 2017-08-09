@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc.h
-* @addtogroup rfdc_v1_0
+* @addtogroup rfdc_v1_1
 * @{
 * @details
 *
@@ -75,6 +75,8 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   sk     05/16/17 Initial release
+* 1.1   sk     08/09/17 Fixed coarse Mixer configuration settings
+*                       CR# 977266, 977872.
 *
 * </pre>
 *
@@ -94,9 +96,10 @@ extern "C" {
 #include <stdint.h>
 
 #define __BAREMETAL__
-
+#ifdef __BAREMETAL__
 #include "xil_assert.h"
 #include "xdebug.h"
+#endif
 #include <metal/sys.h>
 #include <metal/device.h>
 #include <metal/irq.h>
@@ -392,6 +395,10 @@ typedef struct {
 #define XRFDC_CRSE_MIX_Q_FSBYFOUR			0x688U
 #define XRFDC_CRSE_MIX_I_MINFSBYFOUR		0x688U
 #define XRFDC_CRSE_MIX_Q_MINFSBYFOUR		0x298U
+#define XRFDC_CRSE_MIX_R_I_FSBYFOUR			0x8A0U
+#define XRFDC_CRSE_MIX_R_Q_FSBYFOUR			0x70CU
+#define XRFDC_CRSE_MIX_R_I_MINFSBYFOUR		0x8A0U
+#define XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR		0x31CU
 
 #define XRFDC_MIXER_PHASE_OFFSET_UP_LIMIT	180
 #define XRFDC_MIXER_PHASE_OFFSET_LOW_LIMIT	(-180)
@@ -566,7 +573,7 @@ static inline u32 XRFdc_GetNoOfADCBlocks(XRFdc* InstancePtr, int Tile_Id)
 ******************************************************************************/
 static inline u32 XRFdc_IsADC4GSPS(XRFdc* InstancePtr)
 {
-	if (InstancePtr->RFdc_Config.ADCType == 4)
+	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS)
 		return 1;
 	else
 		return 0;
@@ -854,7 +861,7 @@ void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 void XRFdc_GetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				u32 AnalogDataPath, u32 * ConnectedIData,
 				u32 * ConnectedQData);
-void XRFdc_IntrHandler(int Vector, void * XRFdcPtr);
+int XRFdc_IntrHandler(int Vector, void * XRFdcPtr);
 u32 XRFdc_GetIntrStatus (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id);
 void XRFdc_IntrDisable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
