@@ -166,6 +166,8 @@
 *                          generation.
 *       ms     04/10/17    Modified Comment lines in nandpsu_example.c to
 *                          follow doxygen rules.
+* 1.2	nsk    08/08/17    Added support to import example in SDK
+*
 * </pre>
 *
 ******************************************************************************/
