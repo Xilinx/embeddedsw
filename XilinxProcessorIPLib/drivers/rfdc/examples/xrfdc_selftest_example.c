@@ -46,6 +46,8 @@
 * Ver   Who    Date     Changes
 * ----- -----  -------- -----------------------------------------------------
 * 1.0   sk     05/25/17 First release
+* 1.1   sk     08/09/17 Modified the example to support both Linux and
+*                       Baremetal.
 *
 * </pre>
 *
@@ -55,7 +57,6 @@
 
 #include "xparameters.h"
 #include "xrfdc.h"
-#include "xstatus.h"
 
 /************************** Constant Definitions ****************************/
 
@@ -64,14 +65,20 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
+#define __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
-
+#ifndef __BAREMETAL__
+#define BUS_NAME        "platform"
+#define RFDC_DEV_NAME    "a0000000.usp_rf_data_converter"
+#endif
 
 /**************************** Type Definitions ******************************/
 
 
 /***************** Macros (Inline Functions) Definitions ********************/
-
+#ifdef __BAREMETAL__
+#define printf xil_printf
+#endif
 /************************** Function Prototypes *****************************/
 
 static int SelfTestExample(u16 SysMonDeviceId);
@@ -89,8 +96,8 @@ static XRFdc RFdcInst;      /* RFdc driver instance */
 * @param	None.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*		- XRFDC_SUCCESS if the example has completed successfully.
+*		- XRFDC_FAILURE if the example has failed.
 *
 * @note		None.
 *
@@ -100,19 +107,19 @@ int main(void)
 
 	int Status;
 
-	xil_printf("RFdc Selftest Example Test\r\n");
+	printf("RFdc Selftest Example Test\r\n");
 	/*
 	 * Run the RFdc Decoder Mode example, specify the Device ID that is
 	 * generated in xparameters.h.
 	 */
 	Status = SelfTestExample(RFDC_DEVICE_ID);
-	if (Status != XST_SUCCESS) {
-		xil_printf(" Selftest Example Test failed\r\n");
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		printf(" Selftest Example Test failed\r\n");
+		return XRFDC_FAILURE;
 	}
 
-	xil_printf("Successfully ran Selftest Example Test\r\n");
-	return XST_SUCCESS;
+	printf("Successfully ran Selftest Example Test\r\n");
+	return XRFDC_SUCCESS;
 }
 
 
@@ -131,8 +138,8 @@ int main(void)
 *		from xparameters.h.
 *
 * @return
-*		- XST_SUCCESS if the example has completed successfully.
-*		- XST_FAILURE if the example has failed.
+*		- XRFDC_SUCCESS if the example has completed successfully.
+*		- XRFDC_FAILURE if the example has failed.
 *
 * @note   	None
 *
@@ -147,33 +154,64 @@ int SelfTestExample(u16 RFdcDeviceId)
 	XRFdc *RFdcInstPtr = &RFdcInst;
 	u32 SetFabricRate;
 	u32 GetFabricRate;
+#ifndef __BAREMETAL__
+	struct metal_device *device;
+	struct metal_io_region *io;
+	int ret = 0;
+#endif
+
+	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
+
+	if (metal_init(&init_param)) {
+		printf("ERROR: Failed to run metal initialization\n");
+		return XRFDC_FAILURE;
+	}
 
 	/* Initialize the RFdc driver. */
 	ConfigPtr = XRFdc_LookupConfig(RFdcDeviceId);
 	if (ConfigPtr == NULL) {
-		return XST_FAILURE;
+		return XRFDC_FAILURE;
 	}
+
 	Status = XRFdc_CfgInitialize(RFdcInstPtr, ConfigPtr);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
 	}
+
+#ifndef __BAREMETAL__
+	ret = metal_device_open(BUS_NAME, RFDC_DEV_NAME, &device);
+	if (ret) {
+		printf("ERROR: Failed to open device a0000000.usp_rf_data_converter.\n");
+		return XRFDC_FAILURE;
+	}
+
+	/* Map RFDC device IO region */
+	io = metal_device_io_region(device, 0);
+	if (!io) {
+		printf("ERROR: Failed to map RFDC regio for %s.\n",
+			  device->name);
+		return XRFDC_FAILURE;
+	}
+	RFdcInstPtr->device = device;
+	RFdcInstPtr->io = io;
+#endif
 
 	SetFabricRate = 0x8;
 	Tile = 0x0;
 	for (Block = 0; Block <4; Block++) {
 		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
 			Status = XRFdc_SetFabWrVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
 			}
 			Status = XRFdc_GetFabWrVldWords(RFdcInstPtr, XRFDC_DAC_TILE,
 							Tile, Block, &GetFabricRate);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
 			}
 			Status = CompareFabricRate(SetFabricRate, GetFabricRate);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
 			}
 		}
 		SetFabricRate = 0x4;
@@ -187,39 +225,39 @@ int SelfTestExample(u16 RFdcDeviceId)
 				}
 			}
 			Status = XRFdc_SetFabRdVldWords(RFdcInstPtr, Tile, Block, SetFabricRate);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
 			}
 			Status = XRFdc_GetFabRdVldWords(RFdcInstPtr, XRFDC_ADC_TILE,
 									Tile, Block, &GetFabricRate);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
 			}
 			Status = CompareFabricRate(SetFabricRate, GetFabricRate);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
 			}
 		}
 	}
 
 	Status = XRFdc_Reset(RFdcInstPtr, XRFDC_ADC_TILE, Tile);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
 	}
 	Status = XRFdc_Reset(RFdcInstPtr, XRFDC_DAC_TILE, Tile);
-	if (Status != XST_SUCCESS) {
-		return XST_FAILURE;
+	if (Status != XRFDC_SUCCESS) {
+		return XRFDC_FAILURE;
 	}
 
 	for (Block = 0; Block <4; Block++) {
 		if (XRFdc_IsDACBlockEnabled(RFdcInstPtr, Tile, Block)) {
 			Status = XRFdc_GetFabWrVldWords(RFdcInstPtr, XRFDC_DAC_TILE,
 							Tile, Block, &GetFabricRate);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
 			}
 			if (GetFabricRate == 0x8) {
-				return XST_FAILURE;
+				return XRFDC_FAILURE;
 			}
 		}
 		if (XRFdc_IsADCBlockEnabled(RFdcInstPtr, Tile, Block)) {
@@ -233,16 +271,16 @@ int SelfTestExample(u16 RFdcDeviceId)
 			}
 			Status = XRFdc_GetFabRdVldWords(RFdcInstPtr, XRFDC_ADC_TILE,
 									Tile, Block, &GetFabricRate);
-			if (Status != XST_SUCCESS) {
-				return XST_FAILURE;
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
 			}
 			if (GetFabricRate == 0x4) {
-				return XST_FAILURE;
+				return XRFDC_FAILURE;
 			}
 		}
 	}
 
-	return XST_SUCCESS;
+	return XRFDC_SUCCESS;
 }
 
 /****************************************************************************/
