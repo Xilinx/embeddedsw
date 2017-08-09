@@ -589,6 +589,7 @@ fix for the failure of reading nand first redundant paramter page
 CR#966603
 Fixed compilation warning in _g.c
 Fixed MISRAC mandatory violation - CR#970533
+Added support to import examples in SDK
 
 prd_v1_1:
 Modified num instances parameter as XPAR_XPRD_NUM_INSTANCES in xparameters.h,
