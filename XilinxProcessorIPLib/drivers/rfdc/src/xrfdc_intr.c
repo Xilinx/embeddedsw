@@ -431,6 +431,7 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 	u16 Type = 0U;
 	u32 BaseAddr;
 	u32 IntrMask = 0x0U;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -489,26 +490,14 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n ADC FIFO interface interrupt \r\n");
-			/* Clear the interrupt */
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_ADC_FABRIC_ISR_OFFSET,
-					(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK));
 		}
 		if ((Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n ADC Decoder interface interrupt \r\n");
-			/* Clear the interrupt */
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_ADC_DEC_ISR_OFFSET,
-					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) >> 16);
 		}
 		if ((Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n ADC Data Path interface interrupt \r\n");
-			/* Clear the interrupt */
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_DATPATH_ISR_OFFSET,
-					(u16)(Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) >> 4);
 		}
 	} else {
 		/* DAC */
@@ -529,27 +518,63 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
 			metal_log(METAL_LOG_DEBUG, "\n DAC FIFO interface interrupt \r\n");
-			/* Clear the interrupt */
+		}
+		if ((Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
+			IntrMask |= Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK;
+			metal_log(METAL_LOG_DEBUG, "\n DAC Data Path interface interrupt \r\n");
+		}
+	}
+	Block = Block_Id;
+	(void)BaseAddr;
+
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+			(Type == XRFDC_ADC_TILE)) {
+		if ((Block_Id == 0U) || (Block_Id == 1U)) {
+			Block = 0U;
+		} else if ((Block_Id == 2U) || (Block_Id == 3U)) {
+			Block = 1U;
+		}
+	}
+	InstancePtr->StatusHandler(InstancePtr->CallBackRef, Type, Tile_Id,
+								Block, IntrMask);
+
+	/* Clear the interrupt */
+	if (Type == XRFDC_ADC_TILE) {
+		/* ADC */
+		Intrsts = XRFdc_GetIntrStatus(XRFdcPtr, 0U, Tile_Id, Block_Id);
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id)
+							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_ADC_FABRIC_ISR_OFFSET,
+					(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK));
+		}
+		if ((Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_ADC_DEC_ISR_OFFSET,
+					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) >> 16);
+		}
+		if ((Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
+			XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_DATPATH_ISR_OFFSET,
+					(u16)(Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) >> 4);
+		}
+	} else {
+		/* DAC */
+		Intrsts = XRFdc_GetIntrStatus(XRFdcPtr, 1U, Tile_Id, Block_Id);
+		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id)
+							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_DAC_FABRIC_ISR_OFFSET,
 					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK));
 		}
 		if ((Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
-			IntrMask |= Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK;
-			metal_log(METAL_LOG_DEBUG, "\n DAC Data Path interface interrupt \r\n");
-			/* Clear the interrupt */
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 					XRFDC_DATPATH_ISR_OFFSET,
 					(u16)(Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) >> 4);
 		}
 	}
-	(void)BaseAddr;
-
-	/* Disable the interrupt */
-	XRFdc_IntrDisable(InstancePtr, Type, Tile_Id, Block_Id, IntrMask);
-
-	InstancePtr->StatusHandler(InstancePtr->CallBackRef, Type, Tile_Id,
-								Block_Id, IntrMask);
 
 	return METAL_IRQ_HANDLED;
 }
