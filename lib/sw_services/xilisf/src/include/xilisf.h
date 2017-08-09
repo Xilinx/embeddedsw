@@ -504,6 +504,8 @@
 * 5.7  rk   27/07/16 Added the SubSector erase option.
 * 5.8  nsk  03/02/17 Update WriteBuffer index to 10 in FastReadData, CR#968476
 * 5.9  nsk  07/11/17 Add 4Byte addressing support for Micron, CR#980169
+* 	   tjs	08/09/17 Updated the calculation of RealByteCount for reading data
+* 					 from flash with TESTADDRESS being 0x00000000, CR#981795
 *
 * </pre>
 *
@@ -576,6 +578,14 @@ extern "C" {
 /*Winbond*/
 #define XISF_WINBOND_ID_BYTE2_128	0x18
 
+/**
+ * The following definitions specify the size of the Serial Flash
+ * supported by this library.
+ */
+#define FLASH_SIZE_128				0x1000000
+#define FLASH_SIZE_256				0x2000000
+#define FLASH_SIZE_512				0x4000000
+#define FLASH_SIZE_1G				0x8000000
 
 
 #define READ_STATUS_CMD		0x05
