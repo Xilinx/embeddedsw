@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc_hw.h
-* @addtogroup rfdc_v1_0
+* @addtogroup rfdc_v1_1
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -59,7 +59,9 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 
+#ifdef __BAREMETAL__
 #include "xil_io.h"
+#endif
 #include "xparameters.h"
 #include "metal/io.h"
 /************************** Constant Definitions *****************************/
