@@ -77,6 +77,7 @@
 * 1.0   sk     05/16/17 Initial release
 * 1.1   sk     08/09/17 Fixed coarse Mixer configuration settings
 *                       CR# 977266, 977872.
+*                       Return error for Slice Event on 4G ADC Block.
 *
 * </pre>
 *

@@ -47,6 +47,7 @@
 * 1.0   sk     05/16/17 Initial release
 * 1.1   sk     08/09/17 Fixed coarse Mixer configuration settings
 *                       CR# 977266, 977872.
+*                       Return error for Slice Event on 4G ADC Block.
 * </pre>
 *
 ******************************************************************************/
@@ -729,6 +730,15 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			}
 
 			if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+					(Type == XRFDC_ADC_TILE) &&
+					(Mixer_Settings->EventSource == XRFDC_EVNT_SRC_SLICE)) {
+				Status = XRFDC_FAILURE;
+				metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, "
+						"SLICE event is not supported in 4GSPS ADC %s\r\n", __func__);
+				goto RETURN_PATH;
+			}
+
+			if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 						(Type == XRFDC_ADC_TILE)) {
 				if ((Index == 0U) || (Index == 2U)) {
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
@@ -1187,6 +1197,15 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				goto RETURN_PATH;
 			}
 
+			if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+					(Type == XRFDC_ADC_TILE) &&
+					(QMC_Settings->EventSource == XRFDC_EVNT_SRC_SLICE)) {
+				Status = XRFDC_FAILURE;
+				metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, "
+						"SLICE event is not supported in 4GSPS ADC %s\r\n", __func__);
+				goto RETURN_PATH;
+			}
+
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_QMC_CFG_OFFSET);
 			ReadReg &= ~XRFDC_QMC_CFG_EN_GAIN_MASK;
@@ -1513,6 +1532,14 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				Status = XRFDC_FAILURE;
 				metal_log(METAL_LOG_ERROR, "\n Requested block is not "
 									"valid in %s\r\n", __func__);
+				goto RETURN_PATH;
+			}
+			if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+					(Type == XRFDC_ADC_TILE) &&
+					(CoarseDelay_Settings->EventSource == XRFDC_EVNT_SRC_SLICE)) {
+				Status = XRFDC_FAILURE;
+				metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, "
+						"SLICE event is not supported in 4GSPS ADC %s\r\n", __func__);
 				goto RETURN_PATH;
 			}
 			if (Type == XRFDC_ADC_TILE) {
