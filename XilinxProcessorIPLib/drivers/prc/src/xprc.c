@@ -46,7 +46,7 @@
 * Ver   Who     Date         Changes
 * ---- ----- ------------  -----------------------------------------------
 * 1.0   ms    07/18/2016    First release
-* 1.2   ms    07/11/17      Added a new parameter "Cp_Compression" in
+* 1.1   ms    08/01/17      Added a new parameter "Cp_Compression" in
 *                           "XPrc_CfgInitialize" function.
 *                           Added new status error macros in function
 *                           "XPrc_PrintVsmStatus".

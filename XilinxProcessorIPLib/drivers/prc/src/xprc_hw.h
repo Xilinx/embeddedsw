@@ -46,7 +46,7 @@
 * Ver  Who    Date        Changes
 * --- ---- ------------  ------------------------------------------------
 * 1.0  ms   07/18/2016   First release
-* 1.2  ms   07/11/17     Defined "XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR" and
+* 1.1  ms   08/01/17     Defined "XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR" and
 *                        "XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR" status error
 *                        macros and modified the value of macro
 *                        "XPRC_SR_BS_COMPATIBLE_ERROR".
