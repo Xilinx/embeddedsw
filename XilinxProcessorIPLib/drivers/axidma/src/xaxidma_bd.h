@@ -299,7 +299,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
  *
  *****************************************************************************/
 #define XAxiDma_BdSetId(BdPtr, Id)                                      \
-	(XAxiDma_BdWrite((BdPtr), XAXIDMA_BD_ID_OFFSET, (u32)(Id)))
+	(XAxiDma_BdWrite((BdPtr), XAXIDMA_BD_ID_OFFSET, (UINTPTR)(Id)))
 
 
 /*****************************************************************************/
