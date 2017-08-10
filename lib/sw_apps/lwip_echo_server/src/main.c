@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -70,7 +70,7 @@ static struct netif server_netif;
 struct netif *echo_netif;
 
 void
-print_ip(char *msg, struct ip_addr *ip) 
+print_ip(char *msg, ip_addr_t *ip)
 {
 	print(msg);
 	xil_printf("%d.%d.%d.%d\n\r", ip4_addr1(ip), ip4_addr2(ip), 
@@ -78,7 +78,7 @@ print_ip(char *msg, struct ip_addr *ip)
 }
 
 void
-print_ip_settings(struct ip_addr *ip, struct ip_addr *mask, struct ip_addr *gw)
+print_ip_settings(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw)
 {
 
 	print_ip("Board IP: ", ip);
@@ -101,7 +101,7 @@ int IicPhyReset(void);
 
 int main()
 {
-	struct ip_addr ipaddr, netmask, gw;
+	ip_addr_t ipaddr, netmask, gw;
 
 	/* the mac address of the board. this should be unique per board */
 	unsigned char mac_ethernet_address[] =
