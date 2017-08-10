@@ -46,6 +46,10 @@
 * Ver   Who     Date         Changes
 * ---- ----- ------------  -----------------------------------------------
 * 1.0   ms    07/18/2016    First release
+* 1.1   ms    08/01/17      Added a new parameter "Cp_Compression" in
+*                           "XPrc_CfgInitialize" function.
+*                           Added new status error macros in function
+*                           "XPrc_PrintVsmStatus".
 *
 * </pre>
 *
@@ -118,6 +122,7 @@ s32 XPrc_CfgInitialize(XPrc *InstancePtr, XPrc_Config *ConfigPtr,
 	InstancePtr->Config.Cp_Fifo_Type = ConfigPtr->Cp_Fifo_Type;
 	InstancePtr->Config.Cp_Family = ConfigPtr->Cp_Family;
 	InstancePtr->Config.Cdc_Stages = ConfigPtr->Cdc_Stages;
+	InstancePtr->Config.Cp_Compression = ConfigPtr->Cp_Compression;
 
 	for(Index = 0; Index < InstancePtr->Config.NumberOfVsms; Index++) {
 		InstancePtr->Config.NumberOfRms[Index] =
@@ -1189,6 +1194,14 @@ void XPrc_PrintVsmStatus(XPrc *InstancePtr, u32 VsmIdOrStatus, char * Prefix)
 		case XPRC_SR_BS_COMPATIBLE_ERROR:
 			xprc_core_printf(XPRC_DEBUG_GENERAL,"%sERROR : BS"
 				"COMPATIBLE ERROR (%x)\n\r", Prefix, Error);
+			break;
+		case XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR:
+			xprc_core_printf(XPRC_DEBUG_GENERAL,"%sERROR : DECOMPRESS"
+				"BAD FORMAT ERROR (%x)\n\r", Prefix, Error);
+			break;
+		case XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR:
+			xprc_core_printf(XPRC_DEBUG_GENERAL,"%sERROR : DECOMPRESS"
+				"BAD SIZE ERROR (%x)\n\r", Prefix, Error);
 			break;
 		case XPRC_SR_FETCH_AND_CP_LOST_ERROR:
 			xprc_core_printf(XPRC_DEBUG_GENERAL,"%sERROR : FETCH AND"
