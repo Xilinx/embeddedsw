@@ -130,6 +130,12 @@
 *                           which was displayed while generating doxygen.
 * 1.1   ms     04/18/17     Modified tcl file to add suffix U for all macros
 *                           definitions of prc in xparameters.h
+*       ms     08/01/17     Added a new parameter "Cp_Compression" to
+*                           XPrc_Config structure and also inline function
+*                           related to this paramter.
+*                           Modified xprc.c, prc.tcl, xprc_hw.h to add a
+*                           new parameter "Cp_Compression" and status error
+*                           flags. Added the Updated api.tcl to data folder.
 * </pre>
 *
 ******************************************************************************/
@@ -259,6 +265,7 @@ typedef struct {
 	u16 Cp_Fifo_Type;		/**< Fifo Type */
 	u16 Cp_Family;			/**< Device Family being managed */
 	u16 Cdc_Stages;			/**< Cdc Stages */
+	u16 Cp_Compression;		/**< Cp Compression */
 
 	/* Per VSM information */
 	u16 NumberOfRms[XPRC_MAX_NUMBER_OF_VSMS];/**< Number of RMs
@@ -456,6 +463,21 @@ typedef struct {
 *
 ******************************************************************************/
 #define XPrc_GetCdcStages(InstancePtr)	(InstancePtr)->Config.Cdc_Stages
+
+/*****************************************************************************/
+/**
+*
+* This macro tells the PRC whether partial bitstreams are compressed or not.
+*
+* @param	InstancePtr is a pointer to the PRC instance.
+*
+* @return	Returns 0 if PRC is same as before.
+*               Returns 1 if decompression block is added to hardware.
+*
+* @note		None.
+*
+******************************************************************************/
+#define XPrc_GetCpCompression(InstancePtr) (InstancePtr)->Config.Cp_Compression
 
 /*****************************************************************************/
 /**
