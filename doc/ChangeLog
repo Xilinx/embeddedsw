@@ -178,6 +178,8 @@ Supports XGetPlatform_Info function for PMUFW. Fix for CR-978237
 Updated Xil_In32BE function in xil_io.h to fix bug.It fixes CR#979740.
 Updated standalone tcl to generate xparameter XPAR_PL_IS_CACHE_COHERENT, if
 h/w design got created with HPC port.
+Updated a53 64 bit translation table to mark  memory as a outer shareable for
+EL1 NS execution. This change has been done to support CCI enabled IP's.
 
 scugic_v3_8:
 Updated xdefine_gic_params proc in driver tcl to export correct canonical
