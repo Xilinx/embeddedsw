@@ -60,6 +60,7 @@
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
 *      aad 09/06/16 Updates to support 64-bit base address
 * 4.1  tu  07/20/17 Allowing Custom VTM in XDpTxSs_SetVidMode function.
+* 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
 * </pre>
 *
 ******************************************************************************/
@@ -199,6 +200,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		InstancePtr->UsrOpt.Bpc = InstancePtr->Config.MaxBpc;
 		InstancePtr->UsrOpt.MstSupport =
 				InstancePtr->Config.MstSupport;
+		InstancePtr->UsrOpt.VtcAdjustBs = 0;
 	}
 
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
@@ -320,7 +322,8 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
 		if (InstancePtr->VtcPtr[Index]) {
 			Status = XDpTxSs_VtcSetup(InstancePtr->VtcPtr[Index],
-			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index]);
+			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index],
+			InstancePtr->UsrOpt.VtcAdjustBs);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
 					"VTC%d setup failed!\n\r", Index);
@@ -640,6 +643,48 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 			XVtc_Disable(InstancePtr->VtcPtr[Index]);
 		}
 	}
+}
+/*****************************************************************************/
+/**
+*
+* This function enables special timing mode for BS equal timing.
+*
+* @param        InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*               - void.
+*
+* @note         None.
+*
+******************************************************************************/
+void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr)
+{
+	/* Verify arguments. */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+
+        /* Enable special timing mode for BS equal timing */
+        InstancePtr->UsrOpt.VtcAdjustBs = 1;
+}
+/*****************************************************************************/
+/**
+*
+* This function disables special timing mode for BS equal timing.
+*
+* @param        InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*               - void.
+*
+* @note         None.
+*
+******************************************************************************/
+void XDpTxSs_VtcAdjustBSTimingDisable(XDpTxSs *InstancePtr)
+{
+	/* Verify arguments. */
+        Xil_AssertNonvoid(InstancePtr != NULL);
+
+        /* Disable special timing mode for BS equal timing */
+        InstancePtr->UsrOpt.VtcAdjustBs = 0;
 }
 
 /*****************************************************************************/
@@ -2027,7 +2072,8 @@ static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr)
 	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
 		if (InstancePtr->VtcPtr[Index]) {
 			Status = XDpTxSs_VtcSetup(InstancePtr->VtcPtr[Index],
-			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index]);
+			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index],
+			InstancePtr->UsrOpt.VtcAdjustBs);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
 					"VTC%d setup failed!\n\r", Index);

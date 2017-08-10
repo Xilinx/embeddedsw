@@ -116,6 +116,7 @@
 *                   for CR-965028.
 *      ms  03/17/17 Modified readme.txt file in examples folder for doxygen
 *                   generation.
+* 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
 * </pre>
 *
 ******************************************************************************/
@@ -185,6 +186,7 @@ typedef struct {
 	u8 Bpc;			/**< Bits per color */
 	u8 MstSupport;		/**< Multi-stream transport (MST) support */
 	u8 NumOfStreams;	/**< The total number of MST streams */
+	u8 VtcAdjustBs;		/**< Adjustment in Blanking symbol timing */
 } XDpTxSs_UsrOpt;
 
 /**
@@ -329,6 +331,8 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 		XDpTxSs_MainStreamAttributes *MsaConfigCustom);
 void XDpTxSs_Stop(XDpTxSs *InstancePtr);
 void XDpTxSs_Reset(XDpTxSs *InstancePtr);
+void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr);
+void XDpTxSs_VtcAdjustBSTimingDisable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc);
 u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode);
 u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate);
