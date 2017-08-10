@@ -45,7 +45,7 @@
 #include "xpfw_mod_stl.h"
 #include "xpfw_mod_wdt.h"
 
-#if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT)
+#if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT) || defined (XPAR_PL_IS_CACHE_COHERENT)
 /*****************************************************************************
 *
 * Enable the broadcasting of Inner Shareable transactions for APU.
