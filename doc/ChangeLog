@@ -155,7 +155,7 @@ Updated the initialization to memset the XHdcp1x structure to 0.
 mcdma_v1_0:
 Initial version of mcdma driver
 
-prc_v1_2:
+prc_v1_1:
 Added a new parameter "Cp_Compression" and status error flags
 Updated api.tcl. Fix for CR-978747.
 
