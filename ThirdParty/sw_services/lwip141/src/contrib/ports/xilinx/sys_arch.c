@@ -476,7 +476,7 @@ void sys_sem_set_invalid(sys_sem_t *sem)
 /* Very crude mechanism used to determine if the critical section handling
 functions are being called from an interrupt context or not.  This relies on
 the interrupt handler setting this variable manually. */
-extern long xInsideISR;
+extern u32 xInsideISR;
 
 /*---------------------------------------------------------------------------*
  * Routine:  sys_mbox_new
