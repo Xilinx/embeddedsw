@@ -6,7 +6,7 @@
 
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -36,6 +36,8 @@
 *
 ******************************************************************************/
 #include "lwipopts.h"
+#include "xil_printf.h"
+
 #ifdef OS_IS_XILKERNEL
 #include "xmk.h"
 #include "sys/timer.h"
@@ -764,6 +766,7 @@ portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
  *---------------------------------------------------------------------------*/
 err_t sys_sem_new( sys_sem_t *pxSemaphore, u8_t ucCount )
 {
+	(void) ucCount;
 err_t xReturn = ERR_MEM;
 
 	*pxSemaphore = xSemaphoreCreateBinary();
@@ -1006,7 +1009,7 @@ xTaskHandle xCreatedTask;
 portBASE_TYPE xResult;
 sys_thread_t xReturn;
 
-	xResult = xTaskCreate( pxThread, ( signed char * ) pcName, iStackSize, pvArg, iPriority, &xCreatedTask );
+	xResult = xTaskCreate( pxThread, ( const char * const) pcName, iStackSize, pvArg, iPriority, &xCreatedTask );
 
 	if( xResult == pdPASS )
 	{

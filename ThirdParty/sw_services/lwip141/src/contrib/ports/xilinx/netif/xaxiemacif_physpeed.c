@@ -31,7 +31,7 @@
  */
 
 /*
- * Some portions copyright (c) 2010-2013 Xilinx, Inc.  All rights reserved.
+ * Some portions copyright (c) 2010-2017 Xilinx, Inc.  All rights reserved.
  *
  * Xilinx, Inc.
  * XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A
@@ -50,6 +50,7 @@
 
 #include "netif/xaxiemacif.h"
 #include "lwipopts.h"
+#include "sleep.h"
 
 /* Advertisement control register. */
 #define ADVERTISE_10HALF	0x0020  /* Try for 10mbps half-duplex  */
@@ -249,13 +250,11 @@ void XAxiEthernet_PhyWriteExtended(XAxiEthernet *InstancePtr, u32 PhyAddress,
 
 unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
-	u16 phy_val;
 	u16 control;
 	u16 status;
 	u16 partner_capabilities;
 	u16 partner_capabilities_1000;
 	u16 phylinkspeed;
-	int TimeOut;
 	u16 temp;
 
 #ifdef XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT
@@ -389,8 +388,6 @@ unsigned int get_phy_speed_TI_DP83867(XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
 	u16 phy_val;
 	u16 control;
-	u16 status;
-	u16 partner_capabilities;
 
 	xil_printf("Start PHY autonegotiation \r\n");
 
@@ -422,12 +419,9 @@ unsigned int get_phy_speed_TI_DP83867(XAxiEthernet *xaxiemacp, u32 phy_addr)
 
 unsigned int get_phy_speed_TI_DP83867_SGMII(XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
-	u16 phy_val;
 	u16 control;
 	u16 temp;
-	u16 temp1;
-	u16 partner_capabilities;
-	u16 RetStatus, phyregtemp;
+	u16 phyregtemp;
 
 	xil_printf("Start TI PHY autonegotiation \r\n");
 
@@ -578,7 +572,6 @@ unsigned int get_phy_speed_88E1116R(XAxiEthernet *xaxiemacp, u32 phy_addr)
 unsigned int get_phy_speed_88E1111 (XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
 	u16 control;
-	u16 status;
 	int TimeOut;
 	u16 phy_val;
 

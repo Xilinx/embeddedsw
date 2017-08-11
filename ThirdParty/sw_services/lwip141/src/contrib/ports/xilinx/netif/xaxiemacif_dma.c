@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -81,7 +81,7 @@
 
 #ifndef XCACHE_FLUSH_DCACHE_RANGE
 #define XCACHE_FLUSH_DCACHE_RANGE(data, length)	\
-		Xil_DCacheFlushRange((u32)data, length)
+		Xil_DCacheFlushRange((UINTPTR)data, length)
 #endif
 #ifndef XCACHE_INVALIDATE_DCACHE_RANGE
 #define XCACHE_INVALIDATE_DCACHE_RANGE(data, length)	\
@@ -117,35 +117,35 @@ u32 xInsideISR = 0;
 u8_t bd_space[0x200000] __attribute__ ((aligned (0x200000)));
 #endif
 
-static void bd_csum_enable(XAxiDma_Bd *bd)
+static inline void bd_csum_enable(XAxiDma_Bd *bd)
 {
 	XAxiDma_BdWrite((bd), XAXIDMA_BD_USR0_OFFSET,
 		(XAxiDma_BdRead((bd), XAXIDMA_BD_USR0_OFFSET)
 		 | 1));
 }
 
-static void bd_csum_disable(XAxiDma_Bd *bd)
+static inline void bd_csum_disable(XAxiDma_Bd *bd)
 {
 	XAxiDma_BdWrite((bd), XAXIDMA_BD_USR0_OFFSET,
 		(XAxiDma_BdRead((bd), XAXIDMA_BD_USR0_OFFSET)
 		 & ~1));
 }
 
-static void bd_fullcsum_disable(XAxiDma_Bd *bd)
+static inline void bd_fullcsum_disable(XAxiDma_Bd *bd)
 {
 	XAxiDma_BdWrite((bd), XAXIDMA_BD_USR0_OFFSET,
 		(XAxiDma_BdRead((bd), XAXIDMA_BD_USR0_OFFSET)
 		 & ~3));
 }
 
-static void bd_fullcsum_enable(XAxiDma_Bd *bd)
+static inline void bd_fullcsum_enable(XAxiDma_Bd *bd)
 {
 	XAxiDma_BdWrite((bd), XAXIDMA_BD_USR0_OFFSET,
 		(XAxiDma_BdRead((bd), XAXIDMA_BD_USR0_OFFSET)
 		 | 2));
 }
 
-static void bd_csum_set(XAxiDma_Bd *bd, u16_t tx_csbegin, u16_t tx_csinsert,
+static inline void bd_csum_set(XAxiDma_Bd *bd, u16_t tx_csbegin, u16_t tx_csinsert,
 															u16_t tx_csinit)
 {
 	u32_t app1;
@@ -160,17 +160,17 @@ static void bd_csum_set(XAxiDma_Bd *bd, u16_t tx_csbegin, u16_t tx_csinsert,
 	XAxiDma_BdWrite(bd, XAXIDMA_BD_USR2_OFFSET, tx_csinit);
 }
 
-static u16_t extract_packet_len(XAxiDma_Bd *rxbd) {
+static inline u16_t extract_packet_len(XAxiDma_Bd *rxbd) {
     u16_t packet_len = XAxiDma_BdRead(rxbd, XAXIDMA_BD_USR4_OFFSET) & 0x3fff;
     return packet_len;
 }
 
-static u16_t extract_csum(XAxiDma_Bd *rxbd) {
+static inline u16_t extract_csum(XAxiDma_Bd *rxbd) {
     u16_t csum = XAxiDma_BdRead(rxbd, XAXIDMA_BD_USR3_OFFSET) & 0xffff;
     return csum;
 }
 
-static u32_t csum_sub(u32_t csum, u16_t v)
+static inline u32_t csum_sub(u32_t csum, u16_t v)
 {
 	csum += (u32_t)v;
 	return csum + (csum < (u32_t)v);
@@ -244,13 +244,13 @@ s32_t is_checksum_valid(XAxiDma_Bd *rxbd, struct pbuf *p) {
 	}
 }
 
-static void *alloc_bdspace(int n_desc)
+static inline void *alloc_bdspace(int n_desc)
 {
 	int space = XAxiDma_BdRingMemCalc(BD_ALIGNMENT, n_desc);
 	int padding = BD_ALIGNMENT*2;
 	void *unaligned_mem = mem_malloc(space + padding*4);
 	void *aligned_mem =
-	(void *)(((unsigned)(unaligned_mem + BD_ALIGNMENT)) & ~(BD_ALIGNMENT - 1));
+	(void *)(((UINTPTR)(unaligned_mem + BD_ALIGNMENT)) & ~(BD_ALIGNMENT - 1));
 
 #if DEBUG
 	assert(aligned_mem > unaligned_mem);
@@ -265,16 +265,13 @@ static void axidma_send_handler(void *arg)
 	struct xemac_s *xemac;
 	xaxiemacif_s   *xaxiemacif;
 	XAxiDma_BdRing *txringptr;
-	struct xtopology_t *xtopologyp;
-	XAxiEthernet *xaxiemac;
+
 #ifdef OS_IS_FREERTOS
 	xInsideISR++;
 #endif
 	xemac = (struct xemac_s *)(arg);
 	xaxiemacif = (xaxiemacif_s *)(xemac->state);
 	txringptr = XAxiDma_GetTxRing(&xaxiemacif->axidma);
-	xtopologyp = &xtopology[xemac->topology_index];
-	xaxiemac = &xaxiemacif->axi_ethernet;
 
 	XAxiDma_BdRingIntDisable(txringptr, XAXIDMA_IRQ_ALL_MASK);
 
@@ -312,7 +309,7 @@ static void axidma_send_handler(void *arg)
 static void setup_rx_bds(XAxiDma_BdRing *rxring)
 {
 	XAxiDma_Bd *rxbd;
-	s32_t n_bds, i;
+	s32_t n_bds;
 	XStatus status;
 	struct pbuf *p;
 	u32 bdsts;
@@ -340,7 +337,7 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 			return;
 		}
 		 /* Setup the BD. */
-		XAxiDma_BdSetBufAddr(rxbd, (u32)p->payload);
+		XAxiDma_BdSetBufAddr(rxbd, (UINTPTR)p->payload);
 		/* Clear everything but the COMPLETE bit, which is cleared when
 		 * committed to hardware.
 		 */
@@ -364,10 +361,12 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 		status = XAxiDma_BdRingToHw(rxring, 1, rxbd);
 		if (status != XST_SUCCESS) {
 			LWIP_DEBUGF(NETIF_DEBUG, ("Error committing RxBD to hardware: "));
-			if (status == XST_DMA_SG_LIST_ERROR)
+			if (status == XST_DMA_SG_LIST_ERROR) {
 				LWIP_DEBUGF(NETIF_DEBUG, ("XST_DMA_SG_LIST_ERROR: this function was called out of sequence with XAxiDma_BdRingAlloc()\r\n"));
-			else
+			}
+			else {
 				LWIP_DEBUGF(NETIF_DEBUG, ("set of BDs was rejected because the first BD did not have its start-of-packet bit set, or the last BD did not have its end-of-packet bit set, or any one of the BD set has 0 as length value\r\n"));
+			}
 			pbuf_free(p);
 			XAxiDma_BdRingUnAlloc(rxring, 1, rxbd);
 			return;
@@ -383,8 +382,6 @@ static void axidma_recv_handler(void *arg)
 	struct xemac_s *xemac;
 	xaxiemacif_s *xaxiemacif;
 	XAxiDma_BdRing *rxring;
-	struct xtopology_t *xtopologyp;
-	XAxiEthernet *xaxiemac;
 
 #ifdef OS_IS_FREERTOS
 	xInsideISR++;
@@ -393,8 +390,6 @@ static void axidma_recv_handler(void *arg)
 	xemac = (struct xemac_s *)(arg);
 	xaxiemacif = (xaxiemacif_s *)(xemac->state);
 	rxring = XAxiDma_GetRxRing(&xaxiemacif->axidma);
-	xtopologyp = &xtopology[xemac->topology_index];
-	xaxiemac = &xaxiemacif->axi_ethernet;
 
 	XAxiDma_BdRingIntDisable(rxring, XAXIDMA_IRQ_ALL_MASK);
 
@@ -431,13 +426,13 @@ static void axidma_recv_handler(void *arg)
 	 * to handle the processed BDs and then raise the according flag.
 	 */
 	if (irq_status & (XAXIDMA_IRQ_DELAY_MASK | XAXIDMA_IRQ_IOC_MASK)) {
-		int bd_processed;
-		int rx_bytes;
+		u32 bd_processed;
+		u32 rx_bytes;
 
 		bd_processed = XAxiDma_BdRingFromHw(rxring, XAXIDMA_ALL_BDS, &rxbdset);
 
 		for (i = 0, rxbd = rxbdset; i < bd_processed; i++) {
-			p = (struct pbuf *)XAxiDma_BdGetId(rxbd);
+			p = (struct pbuf *)(UINTPTR)XAxiDma_BdGetId(rxbd);
 			/* Adjust the buffer size to the actual number of bytes received.*/
 			rx_bytes = extract_packet_len(rxbd);
 			pbuf_realloc(p, rx_bytes);
@@ -500,7 +495,6 @@ s32_t process_sent_bds(XAxiDma_BdRing *txring)
 {
 	XAxiDma_Bd *txbdset, *txbd;
 	int n_bds, i;
-	XStatus status;
 
 	/* obtain a list of processed BD's */
 	n_bds = XAxiDma_BdRingFromHw(txring, XAXIDMA_ALL_BDS, &txbdset);
@@ -509,7 +503,7 @@ s32_t process_sent_bds(XAxiDma_BdRing *txring)
 	}
 	/* free the pbuf associated with each BD */
 	for (i = 0, txbd = txbdset; i < n_bds; i++) {
-		struct pbuf *p = (struct pbuf *)XAxiDma_BdGetId(txbd);
+		struct pbuf *p = (struct pbuf *)(UINTPTR)XAxiDma_BdGetId(txbd);
 		pbuf_free(p);
 		txbd = (XAxiDma_Bd *)XAxiDma_BdRingNext(txring, txbd);
 	}
@@ -549,7 +543,7 @@ XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 		 * time. The size of the data in each pbuf is kept in the ->len
 		 * variable.
 		 */
-		XAxiDma_BdSetBufAddr(txbd, (u32)q->payload);
+		XAxiDma_BdSetBufAddr(txbd, (UINTPTR)q->payload);
 		if (q->len > max_frame_size) {
 			XAxiDma_BdSetLength(txbd, max_frame_size,
 											txring->MaxTransferLen);
@@ -658,8 +652,8 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 
 	/* For A53 case Mark the BD Region as uncaheable */
 #if defined(__aarch64__)
-	Xil_SetTlbAttributes(xaxiemacif->tx_bdspace, NORM_NONCACHE | INNER_SHAREABLE);
-	Xil_SetTlbAttributes(xaxiemacif->rx_bdspace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)xaxiemacif->tx_bdspace, NORM_NONCACHE | INNER_SHAREABLE);
+	Xil_SetTlbAttributes((UINTPTR)xaxiemacif->rx_bdspace, NORM_NONCACHE | INNER_SHAREABLE);
 #endif
 
 
@@ -688,8 +682,8 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	 */
 	XAxiDma_BdClear(&bdtemplate);
 	/* Create the RxBD ring */
-	status = XAxiDma_BdRingCreate(rxringptr, (u32) xaxiemacif->rx_bdspace,
-					(u32) xaxiemacif->rx_bdspace, BD_ALIGNMENT,
+	status = XAxiDma_BdRingCreate(rxringptr, (UINTPTR) xaxiemacif->rx_bdspace,
+					(UINTPTR) xaxiemacif->rx_bdspace, BD_ALIGNMENT,
 					XLWIP_CONFIG_N_RX_DESC);
 
 	if (status != XST_SUCCESS) {
@@ -703,8 +697,8 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 		return ERR_IF;
 	}
 	/* Create the TxBD ring */
-	status = XAxiDma_BdRingCreate(txringptr, (u32) xaxiemacif->tx_bdspace,
-				     (u32) xaxiemacif->tx_bdspace, BD_ALIGNMENT,
+	status = XAxiDma_BdRingCreate(txringptr, (UINTPTR) xaxiemacif->tx_bdspace,
+				     (UINTPTR) xaxiemacif->tx_bdspace, BD_ALIGNMENT,
 				     XLWIP_CONFIG_N_TX_DESC);
 	if (status != XST_SUCCESS) {
 		return ERR_IF;
@@ -739,7 +733,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 		 * Therefore we are not required to issue a XAxiDma_Bd_SetLast(rxbd)
 		 * here.
 		 */
-		XAxiDma_BdSetBufAddr(rxbd, (u32)p->payload);
+		XAxiDma_BdSetBufAddr(rxbd, (UINTPTR)p->payload);
 		XAxiDma_BdSetLength(rxbd, p->len, rxringptr->MaxTransferLen);
 		XAxiDma_BdSetCtrl(rxbd, 0);
 		XAxiDma_BdSetId(rxbd, p);
