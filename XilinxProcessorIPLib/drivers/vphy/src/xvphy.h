@@ -33,14 +33,32 @@
 /**
  *
  * @file xvphy.h
+ * @addtogroup xvphy
+ * @{
  *
- * The Xilinx Video PHY (VPHY) driver. This driver supports the Xilinx Video PHY
- * IP core.
- * Version 1.0 supports:
- * - GTXE2 and GTHE3 GT types.
- * - DisplayPort and HDMI protocols.
+ * This is main header file of the Xilinx Video PHY Controller driver
  *
- * @note	None.
+ * <b>Video PHY Controller Overview</b>
+ *
+ * The PHY is intended to simplify the use of serial transceivers and adds
+ * domain-specific configurability. The Video PHY Controller IP is not intended
+ * to be used as a stand alone IP and must be used with Xilinx Video MACs such
+ * as HDMI 1.4/2.0 Transmitter/Receiver Subsystems and DisplayPort TX/RX
+ * Subsystems. The core enables simpler connectivity between MAC layers for TX
+ * and RX paths. However, it is still important to understand the behavior,
+ * usage, and any limitations of the transceivers. See the device specific
+ * transceiver user guide for details.
+ *
+ * <b>Video PHY Controller Driver Features</b>
+ *
+ * Video PHY Controller driver supports following features
+ *   - Xilinx DisplayPort and HDMI MAC IPs
+ *   - GTXE2, GTPE2, GTHE2, GTHE3 and GTHE4 GT types
+ *   - HDMI:
+ *   -   2 or 4 pixel-wide video interface
+ *   -   8/10/12/16 bits per component
+ *   -   RGB & YCbCr color space
+ *   -   Up to 4k2k 60Hz resolution at both Input and Output interface
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -919,3 +937,4 @@ void XVphy_RegisterDebug(XVphy *InstancePtr);
 #define XVPHY_GTHE4 5
 
 #endif /* XVPHY_H_ */
+/** @} */

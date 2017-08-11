@@ -53,6 +53,8 @@
  *                       XVphy_PllLayoutErrorHandler APIs
  * </pre>
  *
+ * @addtogroup xvphy
+ * @{
 *******************************************************************************/
 
 #ifndef XVPHY_I_H_
@@ -152,3 +154,4 @@ void XVphy_PllLayoutErrorHandler(XVphy *InstancePtr);
 /******************* Macros (Inline Functions) Definitions ********************/
 
 #endif /* XVPHY_I_H_ */
+/** @} */

@@ -2163,20 +2163,20 @@ void XVphy_HdmiDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[0];
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)
+	if (ChPtr->TxDataRefClkSel ==
+			XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) {
+		TxUsesPll0 = 1;
+	}
+#endif
+
 	if (InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) {
 		if (InstancePtr->Config.XcvrType == XVPHY_GT_TYPE_GTPE2) {
 #if ((XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3) || \
 	 (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4))
 			UsesQpll0 = (FALSE);
 #endif
-			if (ChPtr->TxDataRefClkSel ==
-					XVPHY_SYSCLKSELDATA_TYPE_PLL0_OUTCLK) {
-				TxUsesPll0 = 1;
-				xil_printf("TX: PLL0\r\n");
-			}
-			else {
-				xil_printf("TX: PLL1\r\n");
-			}
+			xil_printf("TX: PLL%d\r\n", (TxUsesPll0 ? 0 : 1));
 		}
 		else if (XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId)) {
 			xil_printf("TX: CPLL\r\n");

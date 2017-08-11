@@ -53,6 +53,8 @@
  * 1.6   gm   03/07/17 Added XVPHY_HDMI_GTXE2_DRU_LRATE_Q/CPLL definitions
  * </pre>
  *
+ * @addtogroup xvphy
+ * @{
 *******************************************************************************/
 #include "xparameters.h"
 #if defined (XPAR_XV_HDMITX_0_DEVICE_ID) || defined (XPAR_XV_HDMIRX_0_DEVICE_ID)
@@ -167,3 +169,4 @@ void XVphy_HdmiIntrHandlerCallbackInit(XVphy *InstancePtr);
 
 #endif /* XVPHY_HDMI_H_ */
 #endif
+/** @} */
