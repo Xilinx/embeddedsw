@@ -741,9 +741,6 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((VidMode < XVIDC_VM_NUM_SUPPORTED) ||
-			(VidMode == XVIDC_VM_USE_EDID_PREFERRED) ||
-			(VidMode == XVIDC_VM_CUSTOM));
 
 	if ((VidMode == XVIDC_VM_UHD_60_P) &&
 				(InstancePtr->UsrOpt.MstSupport)) {

@@ -125,9 +125,6 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 	Xil_AssertNonvoid((Bpc == XVIDC_BPC_6) || (Bpc == XVIDC_BPC_8) ||
 			(Bpc == XVIDC_BPC_10) || (Bpc == XVIDC_BPC_12) ||
 			(Bpc == XVIDC_BPC_16));
-	Xil_AssertNonvoid((VidMode < XVIDC_VM_NUM_SUPPORTED) ||
-			(VidMode == XVIDC_VM_USE_EDID_PREFERRED) ||
-			(VidMode == XVIDC_VM_CUSTOM));
 
 	/* Check for MST / SST mode */
 	if (TransportMode) {

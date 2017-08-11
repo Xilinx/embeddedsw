@@ -304,8 +304,6 @@ void XDp_TxCfgMsaUseStandardVideoMode(XDp *InstancePtr, u8 Stream,
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid((VideoMode < XVIDC_VM_NUM_SUPPORTED) ||
-			(VideoMode == XVIDC_VM_CUSTOM));
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
 		(Stream == XDP_TX_STREAM_ID4));
