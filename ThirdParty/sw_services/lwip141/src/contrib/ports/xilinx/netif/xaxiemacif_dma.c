@@ -110,7 +110,7 @@ xaxiemacif_s *xaxiemacif_fast;
 #endif
 
 #ifdef OS_IS_FREERTOS
-unsigned int xInsideISR = 0;
+u32 xInsideISR = 0;
 #endif
 
 #if defined (__aarch64__) || defined (ARMR5)
