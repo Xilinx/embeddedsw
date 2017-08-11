@@ -77,8 +77,7 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 	Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
 
 	/* Send the result of matrix multiplication back to master. */
-	if (RPMSG_SUCCESS !=
-	    rpmsg_send(rp_chnl, &matrix_result, sizeof(matrix))) {
+	if (rpmsg_send(rp_chnl, &matrix_result, sizeof(matrix)) < 0) {
 		LPERROR("rpmsg_send failed\n");
 	}
 }

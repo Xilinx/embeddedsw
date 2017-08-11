@@ -177,9 +177,9 @@ int app(struct hil_proc *hproc)
 	/* Initialize framework */
 	LPRINTF("Try to init remoteproc resource\n");
 	status = remoteproc_resource_init(&rsc_info, hproc,
-				rpmsg_channel_created,
-				rpmsg_channel_deleted, rpmsg_read_cb,
-				&proc, 0);
+					  rpmsg_channel_created,
+					  rpmsg_channel_deleted, rpmsg_read_cb,
+					  &proc, 0);
 
 	if (RPROC_SUCCESS != status) {
 		LPERROR("Failed  to initialize remoteproc resource.\n");
@@ -215,7 +215,7 @@ int app(struct hil_proc *hproc)
 			Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
 
 			/* Send result back */
-			if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, &matrix_result, sizeof(matrix))) {
+			if (rpmsg_send(app_rp_chnl, &matrix_result, sizeof(matrix)) < 0) {
 				LPERROR("rpmsg_send failed\n");
 			}
 		}
