@@ -122,7 +122,7 @@ static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
 	}
 
 	/* Send data back to master */
-	if (RPMSG_SUCCESS != rpmsg_send(rp_chnl, data, len)) {
+	if (rpmsg_send(rp_chnl, data, len) < 0) {
 		LPERROR("rpmsg_send failed\n");
 	}
 }

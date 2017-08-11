@@ -193,7 +193,7 @@ int app(struct hil_proc *hproc)
 			}
 
 			/* Send data back to master*/
-			if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, data, len)) {
+			if (rpmsg_send(app_rp_chnl, data, len) < 0) {
 				LPERROR("rpmsg_send failed\n");
 			}
 		}
