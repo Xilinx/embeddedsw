@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ XAxiEthernet_Config *xaxiemac_lookup_config(unsigned mac_base)
 {
 	extern XAxiEthernet_Config XAxiEthernet_ConfigTable[];
 	XAxiEthernet_Config *CfgPtr = NULL;
-	int i;
+	unsigned int i;
 
 	for (i = 0; i < XPAR_XAXIETHERNET_NUM_INSTANCES; i++) {
 		if (XAxiEthernet_ConfigTable[i].BaseAddress == mac_base) {
@@ -51,7 +51,7 @@ XAxiEthernet_Config *xaxiemac_lookup_config(unsigned mac_base)
 
 void init_axiemac(xaxiemacif_s *xaxiemac, struct netif *netif)
 {
-	unsigned mac_address = (unsigned)(netif->state);
+	unsigned mac_address = (unsigned)(UINTPTR)(netif->state);
 	unsigned link_speed = 1000;
 	unsigned options;
 	XAxiEthernet *xaxiemacp;

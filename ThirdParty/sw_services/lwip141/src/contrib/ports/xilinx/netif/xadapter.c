@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -135,7 +135,7 @@ xemac_add(struct netif *netif,
 			case xemac_type_xps_emaclite:
 #ifdef XLWIP_CONFIG_INCLUDE_EMACLITE
 				return netif_add(netif, ipaddr, netmask, gw,
-					(void*)mac_baseaddr,
+					(void*)(UINTPTR)mac_baseaddr,
 					xemacliteif_init,
 #if NO_SYS
 					ethernet_input
@@ -149,7 +149,7 @@ xemac_add(struct netif *netif,
 			case xemac_type_axi_ethernet:
 #ifdef XLWIP_CONFIG_INCLUDE_AXI_ETHERNET
 				return netif_add(netif, ipaddr, netmask, gw,
-					(void*)mac_baseaddr,
+					(void*)(UINTPTR)mac_baseaddr,
 					xaxiemacif_init,
 #if NO_SYS
 					ethernet_input
