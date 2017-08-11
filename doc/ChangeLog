@@ -127,6 +127,7 @@ this is done to support the applications running over EL1 NS mode.
 Add freertos support for axiethernet fifo configuration.
 SW workaround for TI DP83867 PHY Data integrity issues on KCU116/VCU118 Boards.
 Change compiler used on A9.
+Fixed conflicting types of variable xInsideISR to fix CR-981909.
 
 llfifo_v5_2:
 CR#978769 Fix doxygen issues in the driver.
