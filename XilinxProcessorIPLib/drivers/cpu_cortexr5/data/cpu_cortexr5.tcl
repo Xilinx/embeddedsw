@@ -36,7 +36,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.00  pkp  07/21/14 Initial common::version
 # 1.2   mus  02/20/17 Updated tcl to guard xparameters.h by protection macros
-# 1.3   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
+# 1.4   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
 #                     parameter of cpu_cortexr5 in xparameters.h
 ##############################################################################
 #uses "xillib.tcl"
