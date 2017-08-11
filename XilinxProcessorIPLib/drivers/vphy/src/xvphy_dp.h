@@ -47,6 +47,8 @@
  * 1.0   vkd  10/19/15 Initial release.
  * </pre>
  *
+ * @addtogroup xvphy
+ * @{
 *******************************************************************************/
 
 #ifndef XVPHY_DP_H_
@@ -92,3 +94,4 @@
 #define XVPHY_DP_REF_CLK_FREQ_HZ_270	 270000000LL
 
 #endif /* XVPHY_HDMI_H_ */
+/** @} */

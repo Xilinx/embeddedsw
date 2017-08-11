@@ -52,6 +52,8 @@
  * 1.6   gm   06/08/17 Added TX and RX MMCM lock Masks
  * </pre>
  *
+ * @addtogroup xvphy
+ * @{
 *******************************************************************************/
 
 #ifndef XVPHY_HW_H_
@@ -596,3 +598,4 @@
 	XVphy_Out32((BaseAddress) + (RegOffset), (Data))
 
 #endif /* XVPHY_HW_H_ */
+/** @} */
