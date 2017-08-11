@@ -156,6 +156,9 @@ CR#979023 Intr fifo example failed to compile.
 Add support for axiethernet with mcdma configuration.
 Fix pmufw bsp compilation error for axi-ethernet based designs.
 
+cpu_cortexr5_v1_4:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
 hdcp1x_v4_1
 Updating the XHdcp1x_TxIsInProgress function to keep track of a pending
 authentication request.
