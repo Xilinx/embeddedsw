@@ -15,14 +15,12 @@
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-# OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-# Except as contained in this notice, the name of the Xilinx shall not be used
-# in advertising or otherwise to promote the sale, use or other dealings in
-# this Software without prior written authorization from Xilinx.
+#
 #
 ###############################################################################
 #
@@ -39,6 +37,7 @@
 #                     BSP.
 # 1.5   mus  03/19/19 Updated to add hard float support for IAR R5
 #                     BSP.
+# 1.6   aru  04/18/19 Updated tcl to add assembler for ARMCC and IAR
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -129,6 +128,9 @@ proc xdefine_cortexr5_params {drvhandle} {
 		set compiler_flags "-Om --cpu=Cortex-R5 $compiler_flags"
 		common::set_property -name VALUE -value $compiler_flags -objects  [hsi::get_comp_params -filter { NAME == compiler_flags } ]
 	}
+
+	set assembler_value "iasmarm"
+    common::set_property -name {ASSEMBLER} -value $assembler_value -objects  [hsi::get_sw_processor]
    } else {
 		#Append LTO flag in EXTRA_COMPILER_FLAGS for zynqmp_fsbl_bsp
 		set is_zynqmp_fsbl_bsp [common::get_property CONFIG.ZYNQMP_FSBL_BSP [hsi::get_os]]
