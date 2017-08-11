@@ -11,13 +11,14 @@ OPTION copyfiles = all;
 OPTION driver_state = ACTIVE;
 OPTION supported_peripherals = (psu_cortexr5 psv_cortexr5);
 OPTION default_os = "standalone_v7_0";
-OPTION VERSION = 1.7;
+OPTION VERSION = 1.8;
 OPTION NAME = cpu_cortexr5;
 
 
 PARAM name = compiler, desc = "Compiler used to compile both BSP/Libraries and Applications.", type = string, default = armr5-none-eabi-gcc;
 PARAM name = assembler, desc = "Assembler used to assemble both BSP/Libraries and Applications.", type = string, default = armr5-none-eabi-as;
 PARAM name = archiver, desc = "Archiver used to archive libraries for both BSP generation as well as for applications", type = string, default =  armr5-none-eabi-ar;
+PARAM name = dependency_flags, desc = "Flags used by compiler to generate dependency files", type = string, default = " -MMD -MP";
 PARAM name = compiler_flags, desc = "Compiler flags used in BSP and library generation. '-c' flag stands for 'compile and assemble, but do not link'. Without this flag, gcc tries to link the code, which will fail because there is no application involved during libgen. '-O2' can be overwritten by extra compiler flags", type = string, default = "-O2 -c -mcpu=cortex-r5", permit = none;
 PARAM name = extra_compiler_flags, desc = "Extra compiler flags used in BSP and library generation.", type = string, default = "-g -DARMR5 -Wall -Wextra -mfloat-abi=hard -mfpu=vfpv3-d16";
 
