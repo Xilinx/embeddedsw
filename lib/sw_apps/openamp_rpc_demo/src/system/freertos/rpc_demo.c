@@ -87,13 +87,13 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#define REDEF_O_CREAT 100
-#define REDEF_O_EXCL 200
-#define REDEF_O_RDONLY 0
-#define REDEF_O_WRONLY 1
-#define REDEF_O_RDWR 2
-#define REDEF_O_APPEND 2000
-#define REDEF_O_ACCMODE 3
+#define REDEF_O_CREAT   0000100
+#define REDEF_O_EXCL    0000200
+#define REDEF_O_RDONLY  0000000
+#define REDEF_O_WRONLY  0000001
+#define REDEF_O_RDWR    0000002
+#define REDEF_O_APPEND  0002000
+#define REDEF_O_ACCMODE 0000003
 
 #define RPC_CHANNEL_READY_TO_CLOSE "rpc_channel_ready_to_close"
 
