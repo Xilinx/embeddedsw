@@ -60,6 +60,10 @@
  *                     Added new API to get video mode id that matches exactly
  *                     with provided timing information
  *                     Fix c++ warnings
+ * 4.2	 jsr  07/22/17 Added new framerates and color formats to support SDI
+ *                     Reordered YCBCR422 colorforamt and removed other formats
+ *                     that are not needed for SDI which were added earlier.
+ *       vyc  10/04/17 Added new streaming alpha formats and new memory formats
  * </pre>
  *
 *******************************************************************************/
@@ -641,6 +645,8 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_YCRCB_422:      return ("YUV_422");
 		case XVIDC_CSF_YCRCB_420:      return ("YUV_420");
 		case XVIDC_CSF_YONLY:          return ("Y_ONLY");
+		case XVIDC_CSF_RGBA:           return ("RGBA");
+		case XVIDC_CSF_YCRCBA_444:     return ("YUVA_444");
 		case XVIDC_CSF_MEM_RGBX8:      return ("RGBX8");
 		case XVIDC_CSF_MEM_YUVX8:      return ("YUVX8");
 		case XVIDC_CSF_MEM_YUYV8:      return ("YUYV8");
@@ -658,17 +664,9 @@ const char *XVidC_GetColorFormatStr(XVidC_ColorFormat ColorFormatId)
 		case XVIDC_CSF_MEM_Y8:         return ("Y8");
 		case XVIDC_CSF_MEM_Y10:        return ("Y10");
 		case XVIDC_CSF_MEM_BGRA8:      return ("BGRA8");
+		case XVIDC_CSF_MEM_BGRX8:      return ("BGRX8");
+		case XVIDC_CSF_MEM_UYVY8:      return ("UYVY8");
 		case XVIDC_CSF_YCBCR_422:      return ("YCBCR_422");
-		case XVIDC_CSF_YCBCR_444:      return ("YCBCR_444");
-		case XVIDC_CSF_GBR_444:	       return ("GBR_444");
-		case XVIDC_CSF_420:	       return ("420");
-		case XVIDC_CSF_YCBCRA_4224:    return ("YCBCRA_4224");
-		case XVIDC_CSF_YCBCRA_4444:    return ("YCBCRA_4444");
-		case XVIDC_CSF_GBRA_4444:      return ("GBRA_4444");
-		case XVIDC_CSF_YCBCRD_4224:    return ("YCBCRD_4224");
-		case XVIDC_CSF_YCBCRD_4444:    return ("YCBCRD_4444");
-		case XVIDC_CSF_GBRD_4444:      return ("GBRD_4444");
-		case XVIDC_CSF_XYZ_444:	       return ("XYZ_444");
 		default:
 					       return ("Color space format not supported");
 	}
