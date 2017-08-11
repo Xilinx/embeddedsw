@@ -65,6 +65,12 @@
  *                     Added xil_printf include statement
  *                     Added new API XVidC_GetVideoModeIdWBlanking
  *                     Fix C++ warnings
+ * 4.2   jsr  07/22/17 Added new video modes, framerates, color formats for SDI
+ *                     New member AspectRatio is added to video stream structure
+ *                     Reordered XVidC_VideoMode enum variables and corrected the
+ *                     memory format enums
+ *       aad  07/10/17 Add XVIDC_VM_3840x2160_60_P_RB video format
+ *       vyc  10/04/17 Added new streaming alpha formats and new memory formats
  * </pre>
  *
 *******************************************************************************/
@@ -100,12 +106,12 @@ typedef enum {
 	XVIDC_VM_1920x1080_48_I,
 	XVIDC_VM_1920x1080_50_I,
 	XVIDC_VM_1920x1080_60_I,
-	XVIDC_VM_2048x1080_48_I,
-	XVIDC_VM_2048x1080_50_I,
-	XVIDC_VM_2048x1080_60_I,
 	XVIDC_VM_1920x1080_96_I,
 	XVIDC_VM_1920x1080_100_I,
 	XVIDC_VM_1920x1080_120_I,
+	XVIDC_VM_2048x1080_48_I,
+	XVIDC_VM_2048x1080_50_I,
+	XVIDC_VM_2048x1080_60_I,
 	XVIDC_VM_2048x1080_96_I,
 	XVIDC_VM_2048x1080_100_I,
 	XVIDC_VM_2048x1080_120_I,
@@ -231,6 +237,7 @@ typedef enum {
 	XVIDC_VM_3840x2160_48_P,
 	XVIDC_VM_3840x2160_50_P,
 	XVIDC_VM_3840x2160_60_P,
+	XVIDC_VM_3840x2160_60_P_RB,
 	XVIDC_VM_4096x2160_24_P,
 	XVIDC_VM_4096x2160_25_P,
 	XVIDC_VM_4096x2160_30_P,
@@ -350,6 +357,8 @@ typedef enum {
 	XVIDC_CSF_YCRCB_422,
 	XVIDC_CSF_YCRCB_420,
 	XVIDC_CSF_YONLY,
+	XVIDC_CSF_RGBA,
+	XVIDC_CSF_YCRCBA_444,
 
 	/* 6 empty slots reserved for video formats for future
 	 * extension
@@ -358,42 +367,35 @@ typedef enum {
 	/* Video in memory formats */
 	XVIDC_CSF_MEM_RGBX8 = 10,   // [31:0] x:B:G:R 8:8:8:8
 	XVIDC_CSF_MEM_YUVX8,        // [31:0] x:V:U:Y 8:8:8:8
-    XVIDC_CSF_MEM_YUYV8,        // [31:0] V:Y:U:Y 8:8:8:8
-    XVIDC_CSF_MEM_RGBA8,        // [31:0] A:B:G:R 8:8:8:8
-    XVIDC_CSF_MEM_YUVA8,        // [31:0] A:V:U:Y 8:8:8:8
-    XVIDC_CSF_MEM_RGBX10,       // [31:0] x:B:G:R 2:10:10:10
-    XVIDC_CSF_MEM_YUVX10,       // [31:0] x:V:U:Y 2:10:10:10
-    XVIDC_CSF_MEM_RGB565,       // [15:0] B:G:R 5:6:5
-    XVIDC_CSF_MEM_Y_UV8,        // [15:0] Y:Y 8:8, [15:0] V:U 8:8
-    XVIDC_CSF_MEM_Y_UV8_420,    // [15:0] Y:Y 8:8, [15:0] V:U 8:8
-    XVIDC_CSF_MEM_RGB8,         // [23:0] B:G:R 8:8:8
-    XVIDC_CSF_MEM_YUV8,         // [24:0] V:U:Y 8:8:8
+	XVIDC_CSF_MEM_YUYV8,        // [31:0] V:Y:U:Y 8:8:8:8
+	XVIDC_CSF_MEM_RGBA8,        // [31:0] A:B:G:R 8:8:8:8
+	XVIDC_CSF_MEM_YUVA8,        // [31:0] A:V:U:Y 8:8:8:8
+	XVIDC_CSF_MEM_RGBX10,       // [31:0] x:B:G:R 2:10:10:10
+	XVIDC_CSF_MEM_YUVX10,       // [31:0] x:V:U:Y 2:10:10:10
+	XVIDC_CSF_MEM_RGB565,       // [15:0] B:G:R 5:6:5
+	XVIDC_CSF_MEM_Y_UV8,        // [15:0] Y:Y 8:8, [15:0] V:U 8:8
+	XVIDC_CSF_MEM_Y_UV8_420,    // [15:0] Y:Y 8:8, [15:0] V:U 8:8
+	XVIDC_CSF_MEM_RGB8,         // [23:0] B:G:R 8:8:8
+	XVIDC_CSF_MEM_YUV8,         // [24:0] V:U:Y 8:8:8
 	XVIDC_CSF_MEM_Y_UV10,       // [31:0] x:Y:Y:Y 2:10:10:10 [31:0] x:U:V:U 2:10:10:10
 	XVIDC_CSF_MEM_Y_UV10_420,   // [31:0] x:Y:Y:Y 2:10:10:10 [31:0] x:U:V:U 2:10:10:10
 	XVIDC_CSF_MEM_Y8,           // [31:0] Y:Y:Y:Y 8:8:8:8
 	XVIDC_CSF_MEM_Y10,          // [31:0] x:Y:Y:Y 2:10:10:10
 	XVIDC_CSF_MEM_BGRA8,        // [31:0] A:R:G:B 8:8:8:8
+	XVIDC_CSF_MEM_BGRX8,        // [31:0] X:R:G:B 8:8:8:8
+	XVIDC_CSF_MEM_UYVY8,        // [31:0] Y:V:Y:U 8:8:8:8
+	XVIDC_CSF_MEM_END,          // End of memory formats
 
-	XVIDC_CSF_YCBCR_422 = 50,
-	XVIDC_CSF_YCBCR_444,
-	XVIDC_CSF_GBR_444,
-	XVIDC_CSF_420,
-	XVIDC_CSF_YCBCRA_4224,
-	XVIDC_CSF_YCBCRA_4444,
-	XVIDC_CSF_GBRA_4444,
-	XVIDC_CSF_YCBCRD_4224,
-	XVIDC_CSF_YCBCRD_4444,
-	XVIDC_CSF_GBRD_4444,
-	XVIDC_CSF_XYZ_444,
+	/* Streaming formats with components re-ordered */
+	XVIDC_CSF_YCBCR_422 = 64,
 
 	XVIDC_CSF_NUM_SUPPORTED,    // includes the reserved slots
 	XVIDC_CSF_UNKNOWN,
 	XVIDC_CSF_STRM_START = XVIDC_CSF_RGB,
 	XVIDC_CSF_STRM_END   = XVIDC_CSF_YONLY,
 	XVIDC_CSF_MEM_START  = XVIDC_CSF_MEM_RGBX8,
-	XVIDC_CSF_MEM_END    = (XVIDC_CSF_YCBCR_422 - 1),
 	XVIDC_CSF_NUM_STRM   = (XVIDC_CSF_STRM_END - XVIDC_CSF_STRM_START + 1),
-	XVIDC_CSF_NUM_MEM    = (XVIDC_CSF_MEM_END - XVIDC_CSF_MEM_START + 1)
+	XVIDC_CSF_NUM_MEM    = (XVIDC_CSF_MEM_END - XVIDC_CSF_MEM_START)
 } XVidC_ColorFormat;
 
 
@@ -496,24 +498,24 @@ typedef struct {
  * 3D info structure.
  */
 typedef struct {
-	XVidC_3DFormat		Format;
-	XVidC_3DSamplingInfo	Sampling;
+	XVidC_3DFormat		  Format;
+	XVidC_3DSamplingInfo  Sampling;
 } XVidC_3DInfo;
 
 /**
  * Video stream structure.
  */
 typedef struct {
-	XVidC_ColorFormat	ColorFormatId;
-	XVidC_ColorDepth	ColorDepth;
-	XVidC_PixelsPerClock	PixPerClk;
-	XVidC_FrameRate		FrameRate;
-	XVidC_AspectRatio	AspectRatio;
-	u8			IsInterlaced;
-	u8			Is3D;
-	XVidC_3DInfo		Info_3D;
-	XVidC_VideoMode		VmId;
-	XVidC_VideoTiming	Timing;
+	XVidC_ColorFormat	  ColorFormatId;
+	XVidC_ColorDepth	  ColorDepth;
+	XVidC_PixelsPerClock  PixPerClk;
+	XVidC_FrameRate		  FrameRate;
+	XVidC_AspectRatio	  AspectRatio;
+	u8			          IsInterlaced;
+	u8			          Is3D;
+	XVidC_3DInfo		  Info_3D;
+	XVidC_VideoMode		  VmId;
+	XVidC_VideoTiming	  Timing;
 } XVidC_VideoStream;
 
 /**

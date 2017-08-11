@@ -50,6 +50,8 @@
  * 2.0   als  08/14/15 Added new video timings.
  * 2.1   als  11/04/15 Fixed video timings for some resolutions.
  *       rco  02/09/17 Fix c++ compilation warnings
+ * 4.2   jsr  07/08/17 Added new video timings for SDI supported resolutions
+ *       aad  07/10/17 Add XVIDC_VM_3840x2160_60_P_RB video format
  * </pre>
  *
 *******************************************************************************/
@@ -111,15 +113,6 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_1920x1080_60_I, "1920x1080@60Hz (I)", XVIDC_FR_60HZ,
 		{1920, 88, 44, 148, 2200, 1,
 		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
-	{ XVIDC_VM_2048x1080_48_I, "2048x1080@48Hz (I)", XVIDC_FR_48HZ,
-		{2048, 329, 44, 329, 2750, 1,
-		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
-	{ XVIDC_VM_2048x1080_50_I, "2048x1080@50Hz (I)", XVIDC_FR_50HZ,
-		{2048, 274, 44, 274, 2640, 1,
-		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
-	{ XVIDC_VM_2048x1080_60_I, "2048x1080@60Hz (I)", XVIDC_FR_60HZ,
-		{2048, 66, 20, 66, 2200, 1,
-		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_1920x1080_96_I, "1920x1080@96Hz (I)", XVIDC_FR_96HZ,
 		{1920, 371, 88, 371, 2750, 1,
 		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
@@ -129,6 +122,15 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_1920x1080_120_I, "1920x1080@120Hz (I)", XVIDC_FR_120HZ,
 		{1920, 88, 44, 148, 2200, 1,
 		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
+	{ XVIDC_VM_2048x1080_48_I, "2048x1080@48Hz (I)", XVIDC_FR_48HZ,
+		{2048, 329, 44, 329, 2750, 1,
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
+	{ XVIDC_VM_2048x1080_50_I, "2048x1080@50Hz (I)", XVIDC_FR_50HZ,
+		{2048, 274, 44, 274, 2640, 1,
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
+	{ XVIDC_VM_2048x1080_60_I, "2048x1080@60Hz (I)", XVIDC_FR_60HZ,
+		{2048, 66, 20, 66, 2200, 1,
+		540, 2, 5, 15, 562, 3, 5, 15, 563, 1} },
 	{ XVIDC_VM_2048x1080_96_I, "2048x1080@96Hz (I)", XVIDC_FR_96HZ,
 		{2048, 329, 44, 329, 2750, 1,
 		1080, 4, 10, 30, 1124, 6, 10, 30, 1126, 1} },
@@ -498,6 +500,9 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_3840x2160_60_P, "3840x2160@60Hz", XVIDC_FR_60HZ,
 		{3840, 176, 88, 296, 4400, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
+    { XVIDC_VM_3840x2160_60_P_RB, "3840x2160@60Hz (RB)", XVIDC_FR_60HZ,
+        {3840, 48, 32, 80, 4000, 1,
+        2160, 3, 5, 54, 2222, 0, 0, 0, 0, 0} },
 	{ XVIDC_VM_4096x2160_24_P, "4096x2160@24Hz", XVIDC_FR_24HZ,
 		{4096, 1020, 88, 296, 5500, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
