@@ -130,7 +130,7 @@ void rpmsg_deinit(struct remote_device *rdev)
  * @param wait    - boolean, wait or not for buffer to become
  *                  available
  *
- * @return - status of function execution
+ * @return - size of data sent or negative value for failure.
  *
  */
 
@@ -215,7 +215,7 @@ int rpmsg_send_offchannel_raw(struct rpmsg_channel *rp_chnl, uint32_t src,
 
 	metal_mutex_release(&rdev->lock);
 
-	return RPMSG_SUCCESS;
+	return size;
 }
 
 /**
@@ -383,6 +383,8 @@ int rpmsg_send_offchannel_nocopy(struct rpmsg_channel *rpdev, uint32_t src,
 	if (status == RPMSG_SUCCESS) {
 		/* Let the other side know that there is a job to process. */
 		virtqueue_kick(rdev->tvq);
+		/* Return size of data sent */
+		status = len;
 	}
 
 	metal_mutex_release(&rdev->lock);
