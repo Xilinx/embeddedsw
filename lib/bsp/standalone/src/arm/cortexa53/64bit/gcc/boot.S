@@ -82,12 +82,15 @@
 *                    set state on reset. So, setting that bit through boot
 *                    code is redundant, hence removed the code which sets
 *                    CPU cache protection bit.
+* 6.4   mus      08/11/17 Implemented ARM erratum 855873.It fixes
+*                         CR#982209.
 *
 *
 ******************************************************************************/
 
 #include "xparameters.h"
 #include "bspconfig.h"
+#include "xil_errata.h"
 
 .globl MMUTableL0
 .globl MMUTableL1
@@ -228,6 +231,14 @@ InitEL3:
 
 	/*configure cpu auxiliary control register EL1 */
 	ldr	x0,=0x80CA000 		// L1 Data prefetch control - 5, Enable device split throttle, 2 independent data prefetch streams
+#if CONFIG_ARM_ERRATA_855873
+        /*
+	 *  Set ENDCCASCI bit in CPUACTLR_EL1 register, to execute data
+	 *  cache clean operations as data cache clean and invalidate
+	 *
+	 */
+        orr     x0, x0, #(1 << 44)      //; Set ENDCCASCI bit
+#endif
 	msr	S3_1_C15_C2_0, x0 	//CPUACTLR_EL1
 
 	/* program the counter frequency */

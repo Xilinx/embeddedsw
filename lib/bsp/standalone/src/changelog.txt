@@ -478,5 +478,7 @@
  * 		      if h/w design configured with HPC port.
  * 6.4 mus   08/10/17 Updated a53 64 bit translation table to mark  memory as a outer shareable for
  *                    EL1 NS execution. This change has been done to support CCI enabled IP's.
+ * 6.4 mus   08/11/17 Updated a53 64 bit boot code to implement ARM erratum 855873.This fixes
+ *                    CR#982209.
  *
  *****************************************************************************************/
