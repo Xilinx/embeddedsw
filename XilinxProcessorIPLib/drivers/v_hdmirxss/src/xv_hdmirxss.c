@@ -99,7 +99,7 @@
 * 1.41  MMO    21/07/17 CR-979900 (Fix)
 *                       Removed the HDCP Push Event API Call when the
 *                       Aux Callback event happen
-*
+*       MH     09/08/17 Added function XV_HdmiRxSs_HdcpSetCapability
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -515,6 +515,7 @@ int XV_HdmiRxSs_CfgInitialize(XV_HdmiRxSs *InstancePtr,
 #ifdef USE_HDCP_RX
   /* Default value */
   HdmiRxSsPtr->HdcpIsReady = (FALSE);
+  XV_HdmiRxSs_HdcpSetCapability(HdmiRxSsPtr, XV_HDMIRXSS_HDCP_BOTH);
 #endif
 
 #if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_RX_NUM_INSTANCES)
