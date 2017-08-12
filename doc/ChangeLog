@@ -212,9 +212,13 @@ xilisf_v5_9:
 Expanded the description of serial_flash_family and serial_flash_interface.
 Fix for CR-967359.
 Added 4Byte addressing support for Micron devices. CR-980169
+Added doxygen tags.
 
 xilffs_v3_7:
 Added configurable option for _FS_RPATH
+
+xilflash_v4_4:
+Added doxygen tags
 
 libmetal_v1_3:
 - Sync libmetal OSS project with upstream
