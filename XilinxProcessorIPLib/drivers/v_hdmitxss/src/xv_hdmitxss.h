@@ -83,6 +83,7 @@
 * 1.17  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
 *                             Segment Support and HDMI Compliance Test
 * 4.0   YH     19/07/17 Added Video Masking APIs
+*       MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
 * </pre>
 *
 ******************************************************************************/
@@ -174,7 +175,8 @@ typedef enum
 {
     XV_HDMITXSS_HDCP_NONE,   /**< No content protection */
     XV_HDMITXSS_HDCP_14,     /**< HDCP 1.4 */
-    XV_HDMITXSS_HDCP_22      /**< HDCP 2.2 */
+    XV_HDMITXSS_HDCP_22,     /**< HDCP 2.2 */
+    XV_HDMITXSS_HDCP_BOTH    /**< Both HDCP 1.4 and 2.2 */
 } XV_HdmiTxSs_HdcpProtocol;
 
 #ifdef USE_HDCP_TX
@@ -359,9 +361,10 @@ typedef struct
     u8 AudioMute;                 /**< HDMI TX Audio Mute */
     u8 AudioChannels;             /**< Number of Audio Channels */
 
-    XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protect scheme */
+    XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protocol selected */
 #ifdef USE_HDCP_TX
     /**< HDCP specific */
+    XV_HdmiTxSs_HdcpProtocol    HdcpCapability;  /**< HDCP protocol desired */
     u32                         HdcpIsReady;     /**< HDCP ready flag */
     XV_HdmiTxSs_HdcpEventQueue  HdcpEventQueue;  /**< HDCP event queue */
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
@@ -443,6 +446,7 @@ void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_HdcpSetKey(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpKeyType KeyType, u8 *KeyPtr);
 int XV_HdmiTxSs_HdcpPoll(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpSetProtocol(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpProtocol Protocol);
+int XV_HdmiTxSs_HdcpSetCapability(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpProtocol Protocol);
 XV_HdmiTxSs_HdcpProtocol XV_HdmiTxSs_HdcpGetProtocol(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpClearEvents(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpPushEvent(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpEvent Event);
