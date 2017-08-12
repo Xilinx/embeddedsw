@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -63,6 +63,7 @@
 *      sk   03/02/16 Used 3byte command with 4 byte addressing for Micron.
 * 5.7  rk	27/07/16 Added the subsector erase command.
 * 5.9  nsk  07/11/17 Add Micron 4Byte addressing support in SectorErase, CR#980169
+*      ms   08/03/17 Added tags and updated comment lines style for doxygen.
 *
 * </pre>
 *
@@ -103,22 +104,26 @@ extern unsigned int XIsf_ByteCountInfo;
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API erases the contents of the specified memory in the Serial Flash.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	Operation is the type of Erase operation to be performed on the
-*		Serial Flash.
-*		The different operations are
-*		- XISF_PAGE_ERASE: Page Erase
-*		- XISF_BLOCK_ERASE: Block Erase
-*		- XISF_SECTOR_ERASE: Sector Erase
-		- XISF_BULK_ERASE: Bulk Erase
-* @param	Address is the address of the Page/Block/Sector to be erased.
-*		The address can be either Page address, Block address or Sector
-*		address based on the Erase operation to be performed.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	Operation	Type of Erase operation to be performed on
+*				the Serial Flash.
+*				The different operations are
+*				- XISF_PAGE_ERASE: Page Erase
+*				- XISF_BLOCK_ERASE: Block Erase
+*				- XISF_SECTOR_ERASE: Sector Erase
+*				- XISF_BULK_ERASE: Bulk Erase
+* @param	Address		Address of the Page/Block/Sector to be
+*				erased. The address can be either Page
+*				address, Block address or Sector address
+*				based on the Erase operation to be
+*				performed.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note
 *		- The erased bytes will read as 0xFF.
@@ -127,7 +132,7 @@ extern unsigned int XIsf_ByteCountInfo;
 *		XISF_WRITE_ENABLE as an argument before calling XIsf_Erase()
 *		API.
 *		- Atmel Serial Flash support Page/Block/Sector Erase
-		- operations.
+*		  operations.
 *		- Intel, Winbond, Numonyx (N25QXX) and Spansion Serial Flash
 *		  support Sector/Block/Bulk Erase operations.
 *		- STM (M25PXX) Serial Flash support Sector/Bulk Erase
