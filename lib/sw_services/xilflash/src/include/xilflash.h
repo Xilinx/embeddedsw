@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,10 @@
 /**
 *
 * @file xilflash.h
+* @addtogroup xilflash_apis Library-APIs
+* @{
+* @cond xilflash_internal
+* @{
 *
 * This module implements the functionality for flash memory devices that
 * conform to the "Common Flash Interface" (CFI) standard. CFI allows a single
@@ -212,6 +216,8 @@
 *                     Updated xilflash_readwrite_example.c file.
 *                     Modified FLASH_BASE_ADDRESS in xilflash_readwrite
 *                     _example.c to canonical name (CR 808007)
+* 4.3   ms   01/17/17 Fixed compilation warnings.
+* 4.4   ms   08/03/17 Added doxygen tags.
 *
 * </pre>
 *
@@ -618,6 +624,10 @@ typedef struct XFlashTag {
 	((Block) < (GeometryPtr)->EraseRegion[Region].Number) &&	     \
 	((BlockOffset) < (GeometryPtr)->EraseRegion[Region].Size))
 
+/**
+@}
+@endcond */
+
 /************************** Function Prototypes ******************************/
 
 /*
@@ -640,3 +650,4 @@ int XFlash_IsReady(XFlash * InstancePtr);
 #endif
 
 #endif /* end of protection macro */
+/* @} */
