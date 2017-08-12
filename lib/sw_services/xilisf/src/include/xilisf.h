@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,10 @@
 /**
 *
 * @file xilisf.h
+* @addtogroup xilisf_apis Library-APIs
+* @{
+* @cond xilisf_internal
+* @{
 *
 * The Xilinx In-system and Serial Flash (XilIsf) Library supports the Xilinx
 * In-system Flash and, external Serial Flash Memories from Atmel (AT45XXXD),
@@ -506,6 +510,7 @@
 * 5.9  nsk  07/11/17 Add 4Byte addressing support for Micron, CR#980169
 * 	   tjs	08/09/17 Updated the calculation of RealByteCount for reading data
 * 					 from flash with TESTADDRESS being 0x00000000, CR#981795
+*      ms   08/03/17 Added doxygen tags.
 *
 * </pre>
 *
@@ -987,6 +992,9 @@ static inline u8 XIsf_GetTransferMode(XIsf *InstancePtr)
 {
 	return(InstancePtr->IntrMode);
 }
+/**
+@}
+@endcond */
 
 /************************** Function Prototypes ******************************/
 
@@ -1086,3 +1094,4 @@ void XIsf_IfaceHandler(void *CallBackRef, u32 StatusEvent,
 #endif
 
 #endif  /* end of protection macro */
+/* @} */

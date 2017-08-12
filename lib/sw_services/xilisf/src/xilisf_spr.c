@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -51,6 +51,8 @@
 *			  after XIsf_Transfer Calls.
 *			  Changed API:
 *			  - XIsf_SectorProtect()
+* 5.9   ms       08/03/17 Added tags and updated comment lines style for
+*                          doxygen.
 *
 * </pre>
 *
@@ -86,23 +88,28 @@ extern unsigned int XIsf_ByteCountInfo;
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API is used for performing Sector Protect related operations.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	Operation is the type of Sector Protect operation to be
-*		performed on the Serial Flash.
-*		The different operations are
-*		- XISF_SPR_READ: Read Sector Protection Register
-*		- XISF_SPR_WRITE: Write Sector Protection Register
-*		- XISF_SPR_ERASE: Erase Sector Protection Register
-*		- XISF_SP_ENABLE: Enable Sector Protection
-*		- XISF_SP_DISABLE: Disable Sector Protection
-* @param	BufferPtr is a pointer to the memory where the SPR content is
-*		read to/written from. This argument can be NULL if the
-*		Operation is SprErase, SpEnable and SpDisable.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	Operation	Type of Sector Protect operation to be performed
+*				on the Serial Flash.
+*				The different operations are
+*				- XISF_SPR_READ: Read Sector Protection Register
+*				- XISF_SPR_WRITE: Write Sector Protection
+*				  Register
+*				- XISF_SPR_ERASE: Erase Sector Protection
+*				  Register
+*				- XISF_SP_ENABLE: Enable Sector Protection
+*				- XISF_SP_DISABLE: Disable Sector Protection
+* @param	BufferPtr	Pointer to the memory where the SPR content is
+*				read to/written from. This argument can be NULL
+*				if the Operation is SprErase, SpEnable and
+*				SpDisable.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note
 *		- The SPR content is stored at the fourth location pointed
