@@ -45,7 +45,7 @@
 * 1.00   MMO 19/12/16 Move HDCP Code from xv_hdmirxss.c to xv_hdmirxss_hdcp.c
 * 3.2    MH  04/07/17 Fixed issue to prevent HDCP protocol switching when only
 *                     one protocol is in the design.
-*
+*        MH  09/08/17 Added function XV_HdmiRxSs_HdcpSetCapability
 * </pre>
 *
 ******************************************************************************/
@@ -686,6 +686,56 @@ int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtoc
 /*****************************************************************************/
 /**
 *
+* This function sets the desired HDCP capability and enables it.
+* The protocol can be set to either both or none. Selective
+* enablement of HDCP 1.4 and 2.2 is not yet supported.
+*
+* @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
+* @param Protocol is the requested content protection scheme of type
+*        XV_HdmiRxSs_HdcpProtocol. Only options currently supported
+*        is both and none.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
+int XV_HdmiRxSs_HdcpSetCapability(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtocol Protocol)
+{
+  /* Verify argument. */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(Protocol <= XV_HDMIRXSS_HDCP_BOTH);
+
+    // Enable HDCP capable for both protocols
+    // DDC slave is enabled
+    switch (Protocol) {
+
+    // Disable HDCP capable for both protocols
+    // DDC slave is disabled
+    case XV_HDMIRXSS_HDCP_NONE:
+      XV_HdmiRx_DdcIntrDisable(InstancePtr->HdmiRxPtr);
+      XV_HdmiRx_DdcHdcpDisable(InstancePtr->HdmiRxPtr);
+      XV_HdmiRxSs_HdcpDisable(InstancePtr);
+      break;
+
+    // Enable HDCP capable for both protocols
+    // DDC slave is enabled
+    default :
+      XV_HdmiRx_DdcIntrEnable(InstancePtr->HdmiRxPtr);
+      XV_HdmiRx_DdcHdcpEnable(InstancePtr->HdmiRxPtr);
+      break;
+  }
+
+  return XST_SUCCESS;
+}
+#endif
+
+#ifdef USE_HDCP_RX
+/*****************************************************************************/
+/**
+*
 * This function gets the active HDCP content protection scheme.
 *
 * @param InstancePtr is a pointer to the XV_HdmiRxSs instance.
@@ -842,24 +892,9 @@ int XV_HdmiRxSs_HdcpDisable(XV_HdmiRxSs *InstancePtr)
 
   int Status = XST_SUCCESS;
 
-  // HDCP 1.4
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-  if (InstancePtr->Hdcp14Ptr) {
-    Status = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
-    XHdcp1x_Poll(InstancePtr->Hdcp14Ptr); // This is needed to ensure that the previous command is executed.
-    if (Status != XST_SUCCESS)
-      return XST_FAILURE;
-  }
-#endif
-
-#ifdef XPAR_XHDCP22_RX_NUM_INSTANCES
-  // HDCP 2.2
-  if (InstancePtr->Hdcp22Ptr) {
-    Status = XHdcp22Rx_Disable(InstancePtr->Hdcp22Ptr);
-    if (Status != XST_SUCCESS)
-      return XST_FAILURE;
-  }
-#endif
+  /* Set protocol to NONE then reset/disable HDCP 1.4 and 2.2 */
+  InstancePtr->HdcpProtocol = XV_HDMIRXSS_HDCP_NONE;
+  Status = XV_HdmiRxSs_HdcpReset(InstancePtr);
 
   return Status;
 }

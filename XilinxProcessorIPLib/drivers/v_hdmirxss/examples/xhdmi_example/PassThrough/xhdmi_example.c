@@ -2653,6 +2653,8 @@ int main()
   Xil_AssertSetCallback((Xil_AssertCallback) Xil_AssertCallbackRoutine);
   Xil_ExceptionEnable();
 
+  // Initialize menu
+  XHdmi_MenuInitialize(&HdmiMenu, UART_BASEADDR);
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /* Start with 1080p colorbar */
@@ -2662,9 +2664,6 @@ int main()
                 XVIDC_CSF_RGB,
                 XVIDC_BPC_8);
 #endif
-
-  // Initialize menu
-  XHdmi_MenuInitialize(&HdmiMenu, UART_BASEADDR);
 
 #if defined (USE_HDCP) && defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
   if (XV_HdmiRxSs_HdcpIsReady(&HdmiRxSs) && XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
