@@ -419,7 +419,7 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x36);	// Automatic retimer for HDMI 2.0
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x9a);    // SLEW_CTL = Reg0Bh[7:6] = 10
 			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 11
-			  r = i2c_dp159_write(DP159_ES, 0x0C, 0xfd);    // VSWING_DATA & VSWING_CLK to -7% = Reg0Ch[7:2] = 111111
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x49);    // VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
 			                                                // PRE_SEL = Reg0Ch[1:0] = 01 (labeled HDMI_TWPST)
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
 		  }
@@ -432,7 +432,7 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 			  //r = i2c_dp159_write(DP159_ES, 0x0A, 0x34);	// The redriver mode must be selected to support low video rates
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x80);    // SLEW_CTL = Reg0Bh[7:6] = 10
 			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 00
-			  r = i2c_dp159_write(DP159_ES, 0x0C, 0xfc);	// VSWING_DATA & VSWING_CLK to -7% = Reg0Ch[7:2] = 111111
+			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
 			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
 		}

@@ -1239,13 +1239,12 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 	XHdmi_MenuType 	Menu;
 #if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
 	u8 IsPassThroughCopy;
+#elif defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
+	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
 #endif
 	XVphy_SysClkDataSelType TxSysPllSelect;
 	XVphy_SysClkDataSelType RxSysPllSelect;
 	u8 IsValid = FALSE;
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && (!defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES))
-	XVidC_VideoStream *HdmiTxSsVidStreamPtr;
-#endif
 
 	// Default
 	Menu = XHDMI_GTPLLLAYOUT_MENU;
@@ -1353,19 +1352,19 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 			XVphy_ClkDetFreqReset(&Vphy, 0,	XVPHY_DIR_TX);
 		}
 #endif
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 
 		// Re-start colorbar
 		else
 		{
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 		  EnableColorBar(&Vphy,
 						 &HdmiTxSs,
 						 XVIDC_VM_1920x1080_60_P,
 						 XVIDC_CSF_RGB,
 						 XVIDC_BPC_8);
 			InstancePtr->WaitForColorbar = (TRUE);
-#endif
 		}
+#endif
 
 		// Return to main menu
 		xil_printf("Return to main menu.\r\n");
