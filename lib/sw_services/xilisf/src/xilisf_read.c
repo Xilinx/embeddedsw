@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -61,6 +61,7 @@
 * 5.5  sk   01/14/16 Used 4byte Fast read command in 4 byte addressing mode.
 * 5.8  nsk  03/02/17 Update WriteBuffer index to 10 in FastReadData, CR#968476
 * 5.9  nsk  97/11/17 Add Micron 4Byte addressing support in Xisf_Read, CR#980169
+*      ms   08/03/17 Added tags and modified comment lines style for doxygen.
 *
 * </pre>
 *
@@ -110,73 +111,100 @@ extern unsigned int XIsf_ByteCountInfo;
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API reads the data from the Serial Flash.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	Operation is the type of the read operation to be performed on
-*		the Serial Flash.
-*		The different operations are
-		- XISF_READ: Normal Read
-*		- XISF_FAST_READ: Fast Read
-*		- XISF_PAGE_TO_BUF_TRANS: Page to Buffer Transfer
-*		- XISF_BUFFER_READ: Buffer Read
-*		- XISF_FAST_BUFFER_READ: Fast Buffer Read
-*		- XISF_OTP_READ: One Time Programmable Area (OTP) Read
-*		- XISF_DUAL_OP_FAST_READ: Dual Output Fast Read
-*		- XISF_DUAL_IO_FAST_READ: Dual Input/Output Fast Read
-*		- XISF_QUAD_OP_FAST_READ: Quad Output Fast Read
-*		- XISF_QUAD_IO_FAST_READ: Quad Input/Output Fast Read
-* @param	OpParamPtr is the pointer to structure variable which contains
-*		operational parameter of specified Operation. This parameter
-*		type is dependant on the type of Operation to be performed.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	Operation	Type of the read operation to be performed
+*				on the Serial Flash.
+*				The different operations are
+*				- XISF_READ: Normal Read
+*				- XISF_FAST_READ: Fast Read
+*				- XISF_PAGE_TO_BUF_TRANS: Page to Buffer
+*				  Transfer
+*				- XISF_BUFFER_READ: Buffer Read
+*				- XISF_FAST_BUFFER_READ: Fast Buffer Read
+*				- XISF_OTP_READ: One Time Programmable Area
+*				  (OTP) Read
+*				- XISF_DUAL_OP_FAST_READ: Dual Output Fast
+*				  Read
+*				- XISF_DUAL_IO_FAST_READ: Dual Input/Output
+*				  Fast Read
+*				- XISF_QUAD_OP_FAST_READ: Quad Output Fast
+*				  Read
+*				- XISF_QUAD_IO_FAST_READ: Quad Input/Output
+*				  Fast Read
+* @param	OpParamPtr	Pointer to structure variable which contains
+*				operational parameter of specified operation.
+*				This parameter type is dependant on the type
+*				of Operation to be performed.
 *
-*		- Normal Read (XISF_READ), Fast Read (XISF_FAST_READ),
-*		One Time Programmable Area Read(XISF_OTP_READ), Dual Output
-*		Fast Read (XISF_CMD_DUAL_OP_FAST_READ), Dual Input/Output
-*		Fast Read (XISF_CMD_DUAL_IO_FAST_READ), Quad Output Fast Read
-*		(XISF_CMD_QUAD_OP_FAST_READ) and Quad Input/Output Fast Read
-*		(XISF_CMD_QUAD_IO_FAST_READ):
-*		The OpParamPtr must be of type struct XIsf_ReadParam.
-*		OpParamPtr->Address is start address in the Serial Flash.
-*		OpParamPtr->ReadPtr is a pointer to the memory where the data
-*		read from the Serial Flash is stored.
-*		OpParamPtr->NumBytes is number of bytes to read.
-*		OpParamPtr->NumDummyBytes is the number of dummy bytes to be
-*		transmitted for the Read command. This parameter is only used
-*		in case of Dual and Quad reads.
-*		Normal Read and Fast Read operations are supported for Atmel,
-*		Intel, STM, Winbond and Spansion Serial Flash.
-*		Dual and quad reads are supported for Winbond (W25QXX), Numonyx
-*		(N25QXX) and Spansion (S25FL129) quad flash.
-*		OTP Read operation is only supported in Intel Serial Flash.
+*				- Normal Read (XISF_READ), Fast Read
+*				(XISF_FAST_READ), One Time Programmable Area
+*				Read (XISF_OTP_READ), Dual Output Fast Read
+*				(XISF_CMD_DUAL_OP_FAST_READ), Dual Input/
+*				Output Fast Read (XISF_CMD_DUAL_IO_FAST_READ),
+*				Quad Output Fast Read
+*				(XISF_CMD_QUAD_OP_FAST_READ) and Quad Input/
+*				Output Fast Read (XISF_CMD_QUAD_IO_FAST_READ):
+*				The OpParamPtr must be of type struct
+*				XIsf_ReadParam.
+*				OpParamPtr->Address is start address in the
+*				Serial Flash.
+*				OpParamPtr->ReadPtr is a pointer to the
+*				memory where the data read from the Serial
+*				Flash is stored.
+*				OpParamPtr->NumBytes is number of bytes to
+*				read.
+*				OpParamPtr->NumDummyBytes is the number of
+*				dummy bytes to be transmitted for the Read
+*				command. This parameter is only used in case
+*				of Dual and Quad reads.
+*				Normal Read and Fast Read operations are
+*				supported for Atmel, Intel, STM, Winbond and
+*				Spansion Serial Flash.
+*				Dual and quad reads are supported for Winbond
+*				(W25QXX), Numonyx(N25QXX) and Spansion
+*				(S25FL129) quad flash.
+*				OTP Read operation is only supported in Intel
+*				Serial Flash.
 *
-*		- Page To Buffer Transfer (XISF_PAGE_TO_BUF_TRANS):
-*		The OpParamPtr must be of type struct
-*		XIsf_FlashToBufTransferParam .
-*		OpParamPtr->BufferNum specifies the internal SRAM Buffer of
-*		the Serial Flash. The valid values are XISF_PAGE_BUFFER1
-*		or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case
-*		of AT45DB011D Flash as it contains a single buffer.
-*		OpParamPtr->Address is start address in the Serial Flash.
-*		This operation is only supported in Atmel Serial Flash.
+*				- Page To Buffer Transfer
+*				(XISF_PAGE_TO_BUF_TRANS):
+*				The OpParamPtr must be of type struct
+*				XIsf_FlashToBufTransferParam .
+*				OpParamPtr->BufferNum specifies the internal
+*				SRAM Buffer of the Serial Flash. The valid
+*				values are XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2
+*				XISF_PAGE_BUFFER2 is not valid in case of
+*				AT45DB011D Flash as it contains a single buffer.
+*				OpParamPtr->Address is start address in the
+*				Serial Flash.
+*				This operation is only supported in Atmel
+*				Serial Flash.
 *
-*		- Buffer Read (XISF_BUFFER_READ) and Fast Buffer Read
-*		(XISF_FAST_BUFFER_READ):
-*		The OpParamPtr must be of type struct XIsf_BufferReadParam.
-*		OpParamPtr->BufferNum specifies the internal SRAM Buffer of
-*		the Serial Flash. The valid values are XISF_PAGE_BUFFER1
-*		or XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case of
-*		AT45DB011D Flash as it contains a single buffer.
-*		OpParamPtr->ReadPtr is pointer to the memory where data read
-*		from the SRAM buffer is to be stored.
-*		OpParamPtr->ByteOffset is byte offset in the SRAM buffer from
-*		where the first byte is read.
-*		OpParamPtr->NumBytes is the number of bytes to be read from the
-*		Buffer.
-*		These operations are supported only in Atmel Serial Flash.
+*				- Buffer Read (XISF_BUFFER_READ) and Fast
+*				Buffer Read(XISF_FAST_BUFFER_READ):
+*				The OpParamPtr must be of type struct
+*				XIsf_BufferReadParam.
+*				OpParamPtr->BufferNum specifies the internal
+*				SRAM Buffer of the Serial Flash. The valid
+*				values are XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2
+*				XISF_PAGE_BUFFER2 is not valid in case of
+*				AT45DB011D Flash as it contains a single buffer.
+*				OpParamPtr->ReadPtr is pointer to the memory
+*				where data read from the SRAM buffer is to be
+*				stored.
+*				OpParamPtr->ByteOffset is byte offset in the
+*				SRAM buffer from where the first byte is read.
+*				OpParamPtr->NumBytes is the number of bytes to
+*				be read from the Buffer.
+*				These operations are supported only in Atmel
+*				Serial Flash.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note
 *		- Application must fill the structure elements of the third
