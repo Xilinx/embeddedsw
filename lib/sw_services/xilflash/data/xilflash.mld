@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 3.00a sdm  03/03/11 Removed static flash parameters in the library
 # 3.00a sdm  03/23/11 Added new parameters to enable support for flash families
+# 4.4   ms   08/03/17 Added tags and modified comment lines style for doxygen.
 #
 ##############################################################################
 
@@ -54,7 +55,7 @@ BEGIN LIBRARY xilflash
   OPTION supported_peripherals = (opb_emc_v2_00_a plb_emc mch_opb_emc xps_mch_emc axi_emc);
   OPTION APP_LINKER_FLAGS = "-lxilflash";
   OPTION desc = "Xilinx Flash library for Intel/AMD CFI compliant parallel flash";
-  OPTION VERSION = 4.3;
+  OPTION VERSION = 4.4;
   OPTION NAME = xilflash;
   PARAM name = enable_intel, desc = "Enables support for Intel family devices", type = bool, default = true;
   PARAM name = enable_amd, desc = "Enables support for AMD family devices", type = bool, default = false;
