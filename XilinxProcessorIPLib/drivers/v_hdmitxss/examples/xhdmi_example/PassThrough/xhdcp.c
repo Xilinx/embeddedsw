@@ -227,7 +227,7 @@ int XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
   /* Indicate upstream interface has been binded */
   InstancePtr->UpstreamInstanceBinded = (TRUE);
 
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
   /* Set ready when the upstream interface and at least one downstream interface is binded */
   if (InstancePtr->DownstreamInstanceBinded > 0) {
     InstancePtr->IsReady = (TRUE);
@@ -309,7 +309,7 @@ int XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
   /* Increment downstream interface count */
   (InstancePtr->DownstreamInstanceBinded)++;
 
-#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES) && defined (XPAR_XV_HDMIRXSS_NUM_INSTANCES)
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
   /* Set ready when the upstream interface and
      at least one downstream interface is binded */
   if ((InstancePtr->UpstreamInstanceBinded == TRUE) &&

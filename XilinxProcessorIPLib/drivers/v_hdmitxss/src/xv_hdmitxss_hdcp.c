@@ -45,6 +45,7 @@
 * 1.00   MMO 19/12/16 Move HDCP Code from xv_hdmitxss.c to xv_hdmitxss_hdcp.c
 * 3.20   MH  04/12/17 Updated function XV_HdmiTxSs_IsSinkHdcp14Capable and
 *                     XV_HdmiTxSs_IsSinkHdcp22Capable.
+*            08/09/17 Added function XV_HdmiTxSs_HdcpSetCapability
 * </pre>
 *
 ******************************************************************************/
@@ -645,6 +646,39 @@ int XV_HdmiTxSs_HdcpSetProtocol(XV_HdmiTxSs *InstancePtr,
 /*****************************************************************************/
 /**
 *
+* This function sets the HDCP protocol capability used during authentication.
+* The protocol capability can be set to either HDCP 1.4, 2.2, Both, or None.
+*
+* @param InstancePtr is a pointer to the XV_HdmiTxSs instance.
+* @param Protocol is the desired content protection scheme of type
+*        XV_HdmiTxSs_HdcpProtocol.
+*
+* @return
+*  - XST_SUCCESS if action was successful
+*  - XST_FAILURE if action was not successful
+*
+* @note   None.
+*
+******************************************************************************/
+int XV_HdmiTxSs_HdcpSetCapability(XV_HdmiTxSs *InstancePtr,
+                                XV_HdmiTxSs_HdcpProtocol Protocol)
+{
+  /* Verify argument. */
+  Xil_AssertNonvoid(InstancePtr != NULL);
+  Xil_AssertNonvoid(Protocol <= XV_HDMITXSS_HDCP_BOTH);
+
+  // Set protocol
+  InstancePtr->HdcpCapability = Protocol;
+
+  return XST_SUCCESS;
+}
+#endif
+
+
+#ifdef USE_HDCP_TX
+/*****************************************************************************/
+/**
+*
 * This function gets the active HDCP content protection scheme.
 *
 * @param InstancePtr is a pointer to the XV_HdmiTxSs instance.
@@ -782,25 +816,9 @@ int XV_HdmiTxSs_HdcpDisable(XV_HdmiTxSs *InstancePtr)
 
   int Status = XST_SUCCESS;
 
-#ifdef XPAR_XHDCP_NUM_INSTANCES
-  // HDCP 1.4
-  if (InstancePtr->Hdcp14Ptr) {
-    Status = XHdcp1x_Disable(InstancePtr->Hdcp14Ptr);
-    // This is needed to ensure that the previous command is executed.
-    XHdcp1x_Poll(InstancePtr->Hdcp14Ptr);
-    if (Status != XST_SUCCESS)
-      return XST_FAILURE;
-  }
-#endif
-
-#ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
-  // HDCP 2.2
-  if (InstancePtr->Hdcp22Ptr) {
-    Status = XHdcp22Tx_Disable(InstancePtr->Hdcp22Ptr);
-    if (Status != XST_SUCCESS)
-      return XST_FAILURE;
-  }
-#endif
+  /* Set protocol to NONE then reset/disable HDCP 1.4 and 2.2 */
+  InstancePtr->HdcpProtocol = XV_HDMITXSS_HDCP_NONE;
+  Status = XV_HdmiTxSs_HdcpReset(InstancePtr);
 
   return Status;
 }
@@ -862,7 +880,6 @@ static int XV_HdmiTxSs_HdcpReset(XV_HdmiTxSs *InstancePtr)
 #endif
 
   // Set defaults
-  XV_HdmiTxSs_HdcpDisableBlank(InstancePtr);
   XV_HdmiTxSs_HdcpDisableEncryption(InstancePtr);
 
   return Status;
@@ -909,7 +926,9 @@ int XV_HdmiTxSs_HdcpAuthRequest(XV_HdmiTxSs *InstancePtr)
 
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
   /* Authenticate HDCP 2.2, takes priority */
-  if (InstancePtr->Hdcp22Ptr) {
+  if ((InstancePtr->Hdcp22Ptr) &&
+      (InstancePtr->HdcpCapability == XV_HDMITXSS_HDCP_22 ||
+       InstancePtr->HdcpCapability == XV_HDMITXSS_HDCP_BOTH)) {
     if (XV_HdmiTxSs_IsSinkHdcp22Capable(InstancePtr)) {
       xdbg_printf(XDBG_DEBUG_GENERAL, "Starting HDCP 2.2 authentication\r\n");
 #ifdef XV_HDMITXSS_LOG_ENABLE
@@ -927,7 +946,9 @@ int XV_HdmiTxSs_HdcpAuthRequest(XV_HdmiTxSs *InstancePtr)
 
 #ifdef XPAR_XHDCP_NUM_INSTANCES
   /* Authenticate HDCP 1.4 */
-  if ((InstancePtr->Hdcp14Ptr) && (Status == XST_FAILURE)) {
+  if ((InstancePtr->Hdcp14Ptr) && (Status == XST_FAILURE) &&
+      (InstancePtr->HdcpCapability == XV_HDMITXSS_HDCP_14 ||
+       InstancePtr->HdcpCapability == XV_HDMITXSS_HDCP_BOTH)) {
     if (XV_HdmiTxSs_IsSinkHdcp14Capable(InstancePtr)) {
       xdbg_printf(XDBG_DEBUG_GENERAL, "Starting HDCP 1.4 authentication\r\n");
 #ifdef XV_HDMITXSS_LOG_ENABLE
