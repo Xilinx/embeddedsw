@@ -84,13 +84,16 @@ struct metal_io_ops {
 
 /** Libmetal I/O region structure. */
 struct metal_io_region {
-	void			*virt;
-	const metal_phys_addr_t	*physmap;
-	size_t			size;
-	unsigned long		page_shift;
-	metal_phys_addr_t	page_mask;
-	unsigned int		mem_flags;
-	struct metal_io_ops	ops;
+	void			*virt;      /**< base virtual address */
+	const metal_phys_addr_t	*physmap;   /**< table of base physical address
+                                                 of each of the pages in the I/O
+                                                 region */
+	size_t			size;       /**< size of the I/O region */
+	unsigned long		page_shift; /**< page shift of I/O region */
+	metal_phys_addr_t	page_mask;  /**< page mask of I/O region */
+	unsigned int		mem_flags;  /**< memory attribute of the
+						 I/O region */
+	struct metal_io_ops	ops;        /**< I/O region operations */
 };
 
 /**
