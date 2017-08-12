@@ -63,8 +63,6 @@
 #define DEMO_STATUS_IDLE         0x0
 #define DEMO_STATUS_START        0x1 /* Status value to indicate demo start */
 
-#define ITERATIONS 1000
-
 struct channel_s {
 	struct metal_io_region *ipi_io; /* IPI metal i/o region */
 	struct metal_io_region *shm_io; /* Shared memory metal i/o region */
