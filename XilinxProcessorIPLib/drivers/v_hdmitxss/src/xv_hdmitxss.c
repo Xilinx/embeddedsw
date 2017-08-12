@@ -117,7 +117,7 @@
 * 1.41  mmo    02/08/17 Initialize the hdcp1.4 first before the hdcp1.4 timer
 *                              as the hdcp1.4 timer requires hdcp1.4 to be
 *                              initialize
-*
+*       MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
 * </pre>
 *
 ******************************************************************************/
@@ -451,6 +451,7 @@ int XV_HdmiTxSs_CfgInitialize(XV_HdmiTxSs *InstancePtr,
 #ifdef USE_HDCP_TX
   /* Default value */
   HdmiTxSsPtr->HdcpIsReady = (FALSE);
+  XV_HdmiTxSs_HdcpSetCapability(HdmiTxSsPtr, XV_HDMITXSS_HDCP_BOTH);
 #endif
 
 #if defined(XPAR_XHDCP_NUM_INSTANCES) && defined(XPAR_XHDCP22_TX_NUM_INSTANCES)
