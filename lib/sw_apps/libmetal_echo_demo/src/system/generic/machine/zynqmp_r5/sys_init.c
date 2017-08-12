@@ -59,6 +59,15 @@
 #define TTC0_BASE_ADDR  0xFF110000
 #define IPI_BASE_ADDR   0xFF310000
 
+/* Default generic I/O region page shift */
+/* Each I/O region can contain multiple pages.
+ * In baremetal system, the memory mapping is flat, there is no
+ * virtual memory.
+ * We can assume there is only one page in the whole baremetal system.
+ */
+#define DEFAULT_PAGE_SHIFT (-1UL)
+#define DEFAULT_PAGE_MASK  (-1UL)
+
 static XScuGic xInterruptController;
 
 const metal_phys_addr_t metal_phys[] = {
@@ -67,69 +76,79 @@ const metal_phys_addr_t metal_phys[] = {
 	TTC0_BASE_ADDR, /**< base TTC0 address */
 };
 
+/* Define metal devices table for IPI, shared memory and TTC devices.
+ * Linux system uses device tree to describe devices. Unlike Linux,
+ * there is no standard device abstraction for baremetal system, we
+ * uses libmetal devices structure to describe the devices we used in
+ * the example.
+ * The IPI, shared memory and TTC devices are memory mapped
+ * devices. For this type of devices, it is required to provide
+ * accessible memory mapped regions, and interrupt information.
+ * In baremetal system, the memory mapping is flat. As you can see
+ * in the table before, we set the virtual address "virt" the same
+ * as the physical address.
+ */
 static struct metal_device metal_dev_table[] = {
 	{
 		/* IPI device */
-		IPI_DEV_NAME,
-		NULL,
-		1,
-		{
+		.name = IPI_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = {
 			{
-				(void *)IPI_BASE_ADDR,
-				&metal_phys[0],
-				0x1000,
-				(sizeof(metal_phys_addr_t) << 3),
-				(unsigned long)(-1),
-				DEVICE_NONSHARED | PRIV_RW_USER_RW,
-				{NULL},
+				.virt = (void *)IPI_BASE_ADDR,
+				.physmap = &metal_phys[0],
+				.size = 0x1000,
+				.page_shift = DEFAULT_PAGE_SHIFT,
+				.page_mask = DEFAULT_PAGE_MASK,
+				.mem_flags = DEVICE_NONSHARED | PRIV_RW_USER_RW,
+				.ops = {NULL},
 			}
 		},
-		{NULL},
-		1,
-		(void *)IPI_IRQ_VECT_ID,
-
+		.node = {NULL},
+		.irq_num = 1,
+		.irq_info = (void *)IPI_IRQ_VECT_ID,
 	},
 	{
 		/* Shared memory management device */
-		SHM_DEV_NAME,
-		NULL,
-		1,
-		{
+		.name = SHM_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = {
 			{
-				(void *)SHM_BASE_ADDR,
-				&metal_phys[1],
-				0x800000,
-				(sizeof(metal_phys_addr_t) << 3),
-				(unsigned long)(-1),
-				NORM_SHARED_NCACHE | PRIV_RW_USER_RW,
-				{NULL},
+				.virt = (void *)SHM_BASE_ADDR,
+				.physmap = &metal_phys[1],
+				.size = 0x1000000,
+				.page_shift = DEFAULT_PAGE_SHIFT,
+				.page_mask = DEFAULT_PAGE_MASK,
+				.mem_flags = NORM_SHARED_NCACHE |
+						PRIV_RW_USER_RW,
+				.ops = {NULL},
 			}
 		},
-		{NULL},
-		0,
-		NULL,
-
+		.node = {NULL},
+		.irq_num = 0,
+		.irq_info = NULL,
 	},
 	{
 		/* ttc0 */
-		TTC_DEV_NAME,
-		NULL,
-		1,
-		{
+		.name = TTC_DEV_NAME,
+		.bus = NULL,
+		.num_regions = 1,
+		.regions = {
 			{
-				(void *)TTC0_BASE_ADDR ,
-				&metal_phys[2],
-				0x1000,
-				(sizeof(metal_phys_addr_t) << 3),
-				(unsigned long)(-1),
-				DEVICE_NONSHARED | PRIV_RW_USER_RW,
-				{NULL},
+				.virt = (void *)TTC0_BASE_ADDR ,
+				.physmap = &metal_phys[2],
+				.size = 0x1000,
+				.page_shift = DEFAULT_PAGE_SHIFT,
+				.page_mask = DEFAULT_PAGE_MASK,
+				.mem_flags = DEVICE_NONSHARED | PRIV_RW_USER_RW,
+				.ops = {NULL},
 			}
 		},
-		{NULL},
-		0,
-		NULL,
-
+		.node = {NULL},
+		.irq_num = 0,
+		.irq_info = NULL,
 	},
 };
 
@@ -225,10 +244,15 @@ int init_irq()
 }
 
 /**
- * @brief platform_register_metal_device() - Register libmetal devices.
- *        This function register the libmetal generic bus, and then
- *        register the IPI, shared memory descriptor and shared memory
- *        devices to the libmetal generic bus.
+ * @brief platform_register_metal_device() - Statically Register libmetal
+ *        devices.
+ *        This function registers the IPI, shared memory and
+ *        TTC devices to the libmetal generic bus.
+ *        Libmetal uses bus structure to group the devices. Before you can
+ *        access the device with libmetal device operation, you will need to
+ *        register the device to a libmetal supported bus.
+ *        For non-Linux system, libmetal only supports "generic" bus, which is
+ *        used to manage the memory mapped devices.
  *
  * @return 0 - succeeded, non-zero for failures.
  */
@@ -238,7 +262,6 @@ int platform_register_metal_device(void)
 	int ret;
 	struct metal_device *dev;
 
-	metal_bus_register(&metal_generic_bus);
 	for (i = 0; i < sizeof(metal_dev_table)/sizeof(struct metal_device);
 	     i++) {
 		dev = &metal_dev_table[i];

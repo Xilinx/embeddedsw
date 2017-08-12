@@ -64,14 +64,14 @@
 				     We use PL0 IPI in this demo. */
 
 /* TTC counter offsets */
-#define XTTCPS_CLK_CNTRL_OFFSET 0x0 /* TTC counter clock control reg offset */
-#define XTTCPS_CNT_CNTRL_OFFSET 0xC /* TTC counter control reg offset */
-#define XTTCPS_CNT_VAL_OFFSET 0x18 /* TTC counter val reg offset */
-#define XTTCPS_CNT_OFFSET(ID)     (2 << (ID - 1)) /* TTC counter offset
-						     ID is from 1 to 3 */
+#define XTTCPS_CLK_CNTRL_OFFSET 0x0  /* TTC counter clock control reg offset */
+#define XTTCPS_CNT_CNTRL_OFFSET 0xC  /* TTC counter control reg offset */
+#define XTTCPS_CNT_VAL_OFFSET   0x18 /* TTC counter val reg offset */
+#define XTTCPS_CNT_OFFSET(ID) ((ID) == 1 ? 0 : 1 << (ID)) /* TTC counter offset
+							     ID is from 1 to 3 */
 
 /* TTC counter control masks */
-#define XTTCPS_CNT_CNTRL_RST_MASK  0x10U /* TTC counter constrol reset mask */
+#define XTTCPS_CNT_CNTRL_RST_MASK  0x10U /* TTC counter control reset mask */
 #define XTTCPS_CNT_CNTRL_DIS_MASK  0x01U /* TTC counter control disable mask */
 
 #define LPRINTF(format, ...) \
@@ -80,8 +80,8 @@
 #define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
 
 extern struct metal_device *ipi_dev; /* IPI metal device */
-extern struct metal_device *shm_dev; /* IPI metal device */
-extern struct metal_device *ttc_dev; /* IPI metal device */
+extern struct metal_device *shm_dev; /* SHM metal device */
+extern struct metal_device *ttc_dev; /* TTC metal device */
 
 /**
  * @brief   atomic_shmem_demod() - Shared memory atomic operation demo

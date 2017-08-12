@@ -67,8 +67,6 @@
 #define DEMO_STATUS_IDLE         0x0
 #define DEMO_STATUS_START        0x1 /* Status value to indicate demo start */
 
-#define ITERATIONS 1000
-
 #define BUF_SIZE_MAX 4096
 
 struct channel_s {
