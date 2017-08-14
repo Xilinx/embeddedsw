@@ -46,6 +46,7 @@
 *       ms      04/05/17 Modified comment lines notation in functions to
 *                        avoid unnecessary description to get displayed
 *                        while generating doxygen.
+* 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * </pre>
 *
 ******************************************************************************/
@@ -55,6 +56,7 @@
 #include "xzdma.h"
 #include "xparameters.h"
 #include "xscugic.h"
+#include "bspconfig.h"
 
 /************************** Function Prototypes ******************************/
 
@@ -88,8 +90,13 @@ XScuGic Intc;		/**< XIntc Instance */
 u32 SrcBuf[256] __attribute__ ((aligned (64)));
 u32 DstBuf[256] __attribute__ ((aligned (64)));
 
+#if EL3
 u32 *Src1Buf = (u32 *)0x500000;
 u32 *Dst1Buf = (u32 *)0x800000;
+#else
+u32 *Src1Buf = (u32 *)0x40500000;
+u32 *Dst1Buf = (u32 *)0x40800000;
+#endif
 
 u32 AlloMem[200] __attribute__ ((aligned (64)));
 u8 Done = 0;
@@ -206,6 +213,10 @@ int XZDma_LinkedListExample(u16 DeviceId)
 	/* Configuration settings */
 	XZDma_GetChDataConfig(&ZDma, &Configur);
 	Configur.OverFetch = 0;
+	if (Config->IsCacheCoherent) {
+		Configur.SrcCache = 0xF;
+		Configur.DstCache = 0xF;
+	}
 	XZDma_SetChDataConfig(&ZDma, &Configur);
 
 	/* Enable required interrupts */
@@ -229,10 +240,12 @@ int XZDma_LinkedListExample(u16 DeviceId)
 	 * Invalidating destination address and flushing
 	 * source address in cache before initiating the data transfer
 	 */
+	if (!Config->IsCacheCoherent) {
 	Xil_DCacheFlushRange((INTPTR)Data[0].SrcAddr, Data[0].Size);
 	Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
 	Xil_DCacheFlushRange((INTPTR)Data[1].SrcAddr, Data[1].Size);
 	Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
+	}
 
 	XZDma_Start(&ZDma, Data, 2); /* Initiates the data transfer */
 

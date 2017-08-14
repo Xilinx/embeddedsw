@@ -48,6 +48,7 @@
 *       ms      04/05/17 Modified comment lines notation in functions to
 *                        avoid unnecessary description to get displayed
 *                        while generating doxygen.
+* 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * </pre>
 *
 ******************************************************************************/
@@ -188,6 +189,10 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 	Configur.SrcBurstLen = 0xF;
 	Configur.DstBurstType = XZDMA_INCR_BURST;
 	Configur.DstBurstLen = 0xF;
+	if (Config->IsCacheCoherent) {
+		Configur.SrcCache = 0xF;
+		Configur.DstCache = 0xF;
+	}
 	XZDma_SetChDataConfig(&ZDma, &Configur);
 	/*
 	 * Transfer elements
@@ -198,6 +203,10 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 	Data.SrcAddr = (UINTPTR)NULL;
 	Data.SrcCoherent = 0;
 	Data.Size = SIZE; /* Size in bytes */
+	if (Config->IsCacheCoherent) {
+		Data.DstCoherent = 1;
+		Data.SrcCoherent = 1;
+	}
 
 	if (ZDma.Config.DmaType == 0) { /* For GDMA */
 		SrcBuf[0] = 0x1234;
@@ -212,7 +221,9 @@ int XZDma_WriteOnlyExample(u16 DeviceId)
 		XZDma_WOData(&ZDma, SrcBuf);
 	}
 
+	if (!Config->IsCacheCoherent) {
 	Xil_DCacheInvalidateRange((INTPTR)DstBuf, SIZE);
+	}
 
 	XZDma_Start(&ZDma, &Data, 1); /* Initiates the data transfer */
 
