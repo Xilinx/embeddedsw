@@ -122,6 +122,8 @@
 *                        displayed while generating doxygen and also changed
 *                        filename tag to include the readonly mode example file
 *                        in doxygen.
+* 1.3   mus     08/14/17 Update cache coherency information of the interface in
+*                        its config structure.
 * </pre>
 *
 ******************************************************************************/
@@ -138,6 +140,7 @@ extern "C" {
 #include "xil_assert.h"
 #include "xstatus.h"
 #include "xil_cache.h"
+#include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -302,6 +305,8 @@ typedef struct {
 	u16 DeviceId;		/**< Device Id of ZDMA */
 	u32 BaseAddress;	/**< BaseAddress of ZDMA */
 	u8 DmaType;		/**< Type of DMA */
+	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not;
+                              * Applicable only to A53 in EL1 NS mode */
 } XZDma_Config;
 
 /******************************************************************************/
@@ -320,6 +325,8 @@ typedef struct {
 	XZDma_Mode Mode;	/**< Mode of ZDMA core to be operated */
 	u8 IsSgDma;		/**< Is ZDMA core is in scatter gather or
 				  *  not will be specified */
+	u32 Slcr_adma;		/**< Used to hold SLCR ADMA register
+				  *  contents */
 	XZDma_Descriptor Descriptor;	/**< It contains information about
 					  * descriptors */
 
