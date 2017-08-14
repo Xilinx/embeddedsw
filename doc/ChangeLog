@@ -247,6 +247,9 @@ openamp_matrix_multiply_demo:
 openamp_echo_test:
 - Update to work with updated openamp and libmetal libs
 
+zdma_v1_3:
+Updated driver and examples to support CCI at EL1 NS.
+
 Changes for 2017.2
 ================================
 
