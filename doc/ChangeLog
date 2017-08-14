@@ -141,6 +141,8 @@ SW workaround for TI DP83867 PHY Data integrity issues on KCU116/VCU118 Boards.
 Change compiler used on A9.
 Fixed conflicting types of variable xInsideISR to fix CR-981909.
 Fix various warning messages in the lwip141 axiethernet adapter.
+Add support for CCI.
+
 llfifo_v5_2:
 CR#978769 Fix doxygen issues in the driver.
 Updated comments in the usage section as per example code.
@@ -249,6 +251,9 @@ openamp_echo_test:
 
 zdma_v1_3:
 Updated driver and examples to support CCI at EL1 NS.
+
+emacps_v3_5:
+Export CCI enablement information and add support in examples.
 
 Changes for 2017.2
 ================================
