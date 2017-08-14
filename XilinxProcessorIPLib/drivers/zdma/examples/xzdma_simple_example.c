@@ -47,6 +47,7 @@
 *       ms     04/05/17  Modified comment lines notation in functions to
 *                        avoid unnecessary description to get displayed
 *                        while generating doxygen.
+* 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * </pre>
 *
 ******************************************************************************/
@@ -176,8 +177,10 @@ int XZDma_SimpleExample(u16 DeviceId)
 	 * Invalidating destination address and flushing
 	 * source address in cache
 	 */
+	if (!Config->IsCacheCoherent) {
 	Xil_DCacheFlushRange((INTPTR)SrcBuf, SIZE);
 	Xil_DCacheInvalidateRange((INTPTR)DstBuf, SIZE);
+	}
 
 	/* ZDMA has set in simple transfer of Normal mode */
 	Status = XZDma_SetMode(&ZDma, FALSE, XZDMA_NORMAL_MODE);
@@ -208,6 +211,10 @@ int XZDma_SimpleExample(u16 DeviceId)
 	Configure.DstBurstLen = 0xF;
 	Configure.SrcCache = 0x2;
 	Configure.DstCache = 0x2;
+	if (Config->IsCacheCoherent) {
+		Configure.SrcCache = 0xF;
+		Configure.DstCache = 0xF;
+	}
 	Configure.SrcQos = 0;
 	Configure.DstQos = 0;
 
