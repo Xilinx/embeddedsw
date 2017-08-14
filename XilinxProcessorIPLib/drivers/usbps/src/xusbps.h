@@ -33,7 +33,7 @@
 /**
  *
  * @file xusbps.h
-* @addtogroup usbps_v2_2
+* @addtogroup usbps_v2_4
 * @{
 * @details
  *

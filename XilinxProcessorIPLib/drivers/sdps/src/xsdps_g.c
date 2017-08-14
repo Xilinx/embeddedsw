@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps_g.c
-* @addtogroup sdps_v2_5
+* @addtogroup sdps_v3_3
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

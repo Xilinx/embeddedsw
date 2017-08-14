@@ -33,7 +33,7 @@
 /**
 *
 * @file xdmaps.c
-* @addtogroup dmaps_v2_1
+* @addtogroup dmaps_v2_3
 * @{
 *
 * This file contains the implementation of the interface functions for XDmaPs

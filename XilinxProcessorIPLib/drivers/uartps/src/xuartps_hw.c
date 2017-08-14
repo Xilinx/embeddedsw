@@ -33,7 +33,7 @@
 /**
 *
 * @file xuartps_hw.c
-* @addtogroup uartps_v3_1
+* @addtogroup uartps_v3_4
 * @{
 *
 *

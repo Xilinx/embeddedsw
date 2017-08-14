@@ -33,7 +33,7 @@
 /**
 *
 * @file xqspips.c
-* @addtogroup qspips_v3_2
+* @addtogroup qspips_v3_4
 * @{
 *
 * Contains implements the interface functions of the XQspiPs driver.

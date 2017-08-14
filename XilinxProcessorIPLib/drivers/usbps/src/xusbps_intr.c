@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  * @file xusbps_intr.c
-* @addtogroup usbps_v2_2
+* @addtogroup usbps_v2_4
 * @{
  *
  * This file contains the functions that are related to interrupt processing
