@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2017-08-14
+	* Dont perform data cache related operations when CCI is
+	  enabled.
 2017-08-11
 	* Fix for conflicting types for xInsideISR. Fixes CR-981909.
 	* Fix for warnings in lwip141 axiethernet adapter.
