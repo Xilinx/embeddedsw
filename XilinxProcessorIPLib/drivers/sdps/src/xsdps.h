@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps.h
-* @addtogroup sdps_v2_5
+* @addtogroup sdps_v3_3
 * @{
 * @details
 *

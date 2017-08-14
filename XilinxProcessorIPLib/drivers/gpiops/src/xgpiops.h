@@ -33,7 +33,7 @@
 /**
 *
 * @file xgpiops.h
-* @addtogroup gpiops_v3_1
+* @addtogroup gpiops_v3_3
 * @{
 * @details
 *

@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps_options.c
-* @addtogroup sdps_v2_5
+* @addtogroup sdps_v3_3
 * @{
 *
 * Contains API's for changing the various options in host and card.
