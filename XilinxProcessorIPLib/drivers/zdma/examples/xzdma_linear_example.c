@@ -46,6 +46,7 @@
 *       ms      04/05/17 Modified comment lines notation in functions to
 *                        avoid unnecessary description to get displayed
 *                        while generating doxygen.
+* 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * </pre>
 *
 ******************************************************************************/
@@ -207,6 +208,10 @@ int XZDma_LinearExample(u16 DeviceId)
 	Configure.SrcBurstLen = 0xF;
 	Configure.DstBurstType = XZDMA_INCR_BURST;
 	Configure.DstBurstLen = 0xF;
+	if (Config->IsCacheCoherent) {
+		Configure.SrcCache = 0xF;
+		Configure.DstCache = 0xF;
+	}
 	XZDma_SetChDataConfig(&ZDma, &Configure);
 
 	/* Enable required interrupts */
@@ -217,24 +222,34 @@ int XZDma_LinearExample(u16 DeviceId)
 	Data[0].SrcAddr = (UINTPTR)SrcBuf;
 	Data[0].Size = 1000;
 	Data[0].DstAddr = (UINTPTR)DstBuf;
-	Data[0].SrcCoherent = 0;
-	Data[0].DstCoherent = 0;
-	Data[0].Pause = 1;
+	if (Config->IsCacheCoherent) {
+	    Data[0].SrcCoherent = 1;
+	    Data[0].DstCoherent = 1;
+	} else {
+	    Data[0].SrcCoherent = 0;
+	    Data[0].DstCoherent = 0;
+	}
+	    Data[0].Pause = 1;
 
 	Data[1].SrcAddr = (UINTPTR)Src1Buf;
 	Data[1].Size = 1200;
 	Data[1].DstAddr = (UINTPTR)Dst1Buf;
-	Data[1].SrcCoherent = 0;
-	Data[1].DstCoherent = 0;
-	Data[1].Pause = 0;
+	if (Config->IsCacheCoherent) {
+	    Data[1].SrcCoherent = 1;
+	    Data[1].DstCoherent = 1;
+	}
+	    Data[1].Pause = 0;
+
 	/*
 	 * Invalidating destination address and flushing
 	 * source address in cache before the start of DMA data transfer.
 	 */
-	Xil_DCacheFlushRange((INTPTR)Data[0].SrcAddr, Data[0].Size);
-	Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
+	if (!Config->IsCacheCoherent) {
+	    Xil_DCacheFlushRange((INTPTR)Data[0].SrcAddr, Data[0].Size);
+	    Xil_DCacheInvalidateRange((INTPTR)Data[0].DstAddr, Data[0].Size);
 	Xil_DCacheFlushRange((INTPTR)Data[1].SrcAddr, Data[1].Size);
 	Xil_DCacheInvalidateRange((INTPTR)Data[1].DstAddr, Data[1].Size);
+	}
 
 	XZDma_Start(&ZDma, Data, 2); /* Initiates the data transfer */
 

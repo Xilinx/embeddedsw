@@ -47,6 +47,7 @@
 *                        avoid unnecessary description to get displayed
 *                        while generating doxygen and also changed filename
 *                        tag to include the file in doxygen examples.
+* 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * </pre>
 *
 ******************************************************************************/
@@ -171,7 +172,9 @@ int XZDma_SimpleReadOnlyExample(u16 DeviceId)
 	/*
 	 * Flushing source address in cache
 	 */
+	if (!Config->IsCacheCoherent) {
 	Xil_DCacheFlushRange((INTPTR)SrcBuf, SIZE);
+	}
 
 	/* ZDMA has set in simple transfer of Read only mode */
 	Status = XZDma_SetMode(&ZDma, FALSE, XZDMA_RDONLY_MODE);
@@ -196,6 +199,10 @@ int XZDma_SimpleReadOnlyExample(u16 DeviceId)
 	Configur.SrcBurstLen = 0xF;
 	Configur.DstBurstType = XZDMA_INCR_BURST;
 	Configur.DstBurstLen = 0xF;
+	if (Config->IsCacheCoherent) {
+		Configur.SrcCache = 0xF;
+		Configur.DstCache = 0xF;
+	}
 	XZDma_SetChDataConfig(&ZDma, &Configur);
 
 	/* Enable required interrupts */
@@ -209,6 +216,10 @@ int XZDma_SimpleReadOnlyExample(u16 DeviceId)
 	Data.SrcAddr = (UINTPTR)SrcBuf;
 	Data.SrcCoherent = 0;
 	Data.Size = SIZE; /* Size in bytes */
+	if (Config->IsCacheCoherent) {
+		Data.DstCoherent = 1;
+		Data.SrcCoherent = 1;
+	}
 
 	XZDma_Start(&ZDma, &Data, 1); /* Initiates the data transfer */
 	/* Wait till DMA Source done interrupt generated */
