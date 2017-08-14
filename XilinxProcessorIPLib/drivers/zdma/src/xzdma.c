@@ -52,6 +52,7 @@
 *                        scatter gather mode data transfer and corrected
 *                        XZDma_SetChDataConfig API to set over fetch and
 *                        src issue parameters correctly.
+* 1.3   mus    08/14/17  Add CCI support for A53 in EL1 NS
 * </pre>
 *
 ******************************************************************************/
@@ -117,6 +118,7 @@ s32 XZDma_CfgInitialize(XZDma *InstancePtr, XZDma_Config *CfgPtr,
 	InstancePtr->Config.BaseAddress = CfgPtr->BaseAddress;
 	InstancePtr->Config.DeviceId = CfgPtr->DeviceId;
 	InstancePtr->Config.DmaType = CfgPtr->DmaType;
+	InstancePtr->Config.IsCacheCoherent = CfgPtr->IsCacheCoherent;
 
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 
@@ -281,6 +283,7 @@ u32 XZDma_CreateBDList(XZDma *InstancePtr, XZDma_DscrType TypeOfDscr,
 	InstancePtr->Descriptor.DstDscrPtr =
 			(void *)(Dscr_MemPtr + (Size * InstancePtr->Descriptor.DscrCount));
 
+	if (!InstancePtr->Config.IsCacheCoherent)
 	Xil_DCacheInvalidateRange((INTPTR)Dscr_MemPtr, NoOfBytes);
 
 	return (InstancePtr->Descriptor.DscrCount);
@@ -701,6 +704,17 @@ void XZDma_Reset(XZDma *InstancePtr)
 	(void)XZDma_GetSrcIntrCnt(InstancePtr);
 	(void)XZDma_GetDstIntrCnt(InstancePtr);
 
+	if (InstancePtr->Config.IsCacheCoherent) {
+		XZDma_WriteReg((InstancePtr->Config.BaseAddress),
+				XZDMA_CH_DSCR_ATTR_OFFSET,
+				InstancePtr->Config.IsCacheCoherent << XZDMA_DSCR_ATTR_AXCOHRNT_SHIFT);
+		XZDma_WriteReg((InstancePtr->Config.BaseAddress),
+				XZDMA_CH_SRC_DSCR_WORD3_OFFSET,
+				InstancePtr->Config.IsCacheCoherent & XZDMA_WORD3_COHRNT_MASK);
+		XZDma_WriteReg((InstancePtr->Config.BaseAddress),
+				XZDMA_CH_DST_DSCR_WORD3_OFFSET,
+				InstancePtr->Config.IsCacheCoherent & XZDMA_WORD3_COHRNT_MASK);
+	}
 	InstancePtr->ChannelState = XZDMA_IDLE;
 
 }
