@@ -48,6 +48,7 @@
 # 3.4   hk   11/22/16 Update how PCS definitions are exported for
 #                     newer version of Xilinx PCS PMA when PHY address is not
 #                     a parameter.
+# 3.5   hk   08/14/17 Export cache coherency information
 #
 ##############################################################################
 
@@ -55,8 +56,9 @@
 
 proc generate {drv_handle} {
     ::hsi::utils::define_zynq_include_file $drv_handle "xparameters.h" "XEmacPs" "NUM_INSTANCES" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_ENET_CLK_FREQ_HZ" "C_ENET_SLCR_1000Mbps_DIV0" "C_ENET_SLCR_1000Mbps_DIV1" "C_ENET_SLCR_100Mbps_DIV0" "C_ENET_SLCR_100Mbps_DIV1" "C_ENET_SLCR_10Mbps_DIV0" "C_ENET_SLCR_10Mbps_DIV1"
+    generate_cci_params $drv_handle "xparameters.h"
 
-    ::hsi::utils::define_zynq_config_file $drv_handle "xemacps_g.c" "XEmacPs"  "DEVICE_ID" "C_S_AXI_BASEADDR"
+    ::hsi::utils::define_zynq_config_file $drv_handle "xemacps_g.c" "XEmacPs"  "DEVICE_ID" "C_S_AXI_BASEADDR" "IS_CACHE_COHERENT"
 
     ::hsi::utils::define_zynq_canonical_xpars $drv_handle "xparameters.h" "XEmacPs" "DEVICE_ID" "C_S_AXI_BASEADDR" "C_S_AXI_HIGHADDR" "C_ENET_CLK_FREQ_HZ" "C_ENET_SLCR_1000Mbps_DIV0" "C_ENET_SLCR_1000Mbps_DIV1" "C_ENET_SLCR_100Mbps_DIV0" "C_ENET_SLCR_100Mbps_DIV1" "C_ENET_SLCR_10Mbps_DIV0" "C_ENET_SLCR_10Mbps_DIV1"
 
@@ -224,4 +226,26 @@ proc is_gige_pcs_pma_ip_present {slave} {
 		}
 	}
 	return $phy_addr
+}
+
+proc generate_cci_params {drv_handle file_name} {
+	set file_handle [::hsi::utils::open_include_file $file_name]
+	# Get all peripherals connected to this driver
+	set ips [::hsi::utils::get_common_driver_ips $drv_handle]
+
+	set sw_processor [hsi::get_sw_processor]
+	set processor [hsi::get_cells -hier [common::get_property HW_INSTANCE $sw_processor]]
+	set processor_type [common::get_property IP_NAME $processor]
+
+	foreach ip $ips {
+		set is_cc 0
+		if {$processor_type == "psu_cortexa53"} {
+			set is_xen [common::get_property CONFIG.hypervisor_guest [hsi::get_os]]
+			if {$is_xen == "true"} {
+				set is_cc [common::get_property CONFIG.IS_CACHE_COHERENT $ip]
+			}
+		}
+		puts $file_handle "\#define [::hsi::utils::get_driver_param_name $ip "IS_CACHE_COHERENT"] $is_cc"
+	}
+	close $file_handle
 }
