@@ -100,9 +100,8 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 		u32 HandoffType, u32 Vector);
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings);
 static u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId);
-#ifdef XFSBL_PROT_BYPASS
-static void XFsbl_ProtectionConfig(void);
-#endif
+static u32 XFsbl_ProtectionConfig(void);
+
 
 /**
  * Functions defined in xfsbl_handoff.S
@@ -760,7 +759,10 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	}
 
 
-	XFsbl_ProtectionConfig();
+	Status = XFsbl_ProtectionConfig();
+	if (Status != XFSBL_SUCCESS) {
+		goto END;
+	}
 
 	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
 
@@ -1143,7 +1145,6 @@ u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	return Status;
 }
 
-#ifdef XFSBL_PROT_BYPASS
 /****************************************************************************/
 /**
 *
@@ -1155,11 +1156,11 @@ u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 *
 *
 *****************************************************************************/
-static void XFsbl_ProtectionConfig(void)
+static u32 XFsbl_ProtectionConfig(void)
 {
 	u32 CfgRegVal1;
 	u32 CfgRegVal3;
-
+	u32 Status;
 	/* Disable Tamper responses*/
 	CfgRegVal1 = XFsbl_In32(XFSBL_PS_SYSMON_CONFIGREG1);
 	CfgRegVal3 = XFsbl_In32(XFSBL_PS_SYSMON_CONFIGREG3);
@@ -1196,5 +1197,9 @@ static void XFsbl_ProtectionConfig(void)
 
 	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG1, CfgRegVal1);
 	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG3, CfgRegVal3);
+	Status = XFSBL_SUCCESS;
+	goto END;
+
+END:
+	return Status;
 }
-#endif
