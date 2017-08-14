@@ -33,7 +33,7 @@
 /**
 *
 * @file xqspipsu.c
-* @addtogroup qspipsu_v1_0
+* @addtogroup qspipsu_v3_4
 * @{
 *
 * This file implements the functions required to use the QSPIPSU hardware to

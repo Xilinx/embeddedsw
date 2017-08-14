@@ -33,7 +33,7 @@
 /**
 *
 * @file xqspipsu_sinit.c
-* @addtogroup qspipsu_v1_0
+* @addtogroup qspipsu_v3_4
 * @{
 *
 * The implementation of the XQspiPsu component's static initialization
