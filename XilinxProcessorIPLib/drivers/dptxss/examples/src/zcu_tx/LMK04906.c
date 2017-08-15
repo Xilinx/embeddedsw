@@ -44,9 +44,9 @@
 *
 ******************************************************************************/
 
-//#include "LMK04906.h"
 #include <stdlib.h>
 #include "xspi.h"
+#include "sleep.h"
 #include "xparameters.h"
 
 #define  LMK04906_DEVICE_ID  XPAR_SPI_0_DEVICE_ID
@@ -63,11 +63,11 @@ int  IF_LoopBack_Test();
 int  LMK04906_RegWrite(XSpi *SPI_LMK04906 , u32 RegData ,u32 RegAddr);
 
 void Soft_Reset();
-void Set_Option(u32 Option);
-u32  Get_Option();
-u32  Get_Status();
-u32  Rx_Data_Read();
-void Tx_Data_Write(u32 WriteData);
+static void Set_Option(u32 Option);
+static u32  Get_Option();
+static u32  Get_Status();
+static u32  Rx_Data_Read();
+static void Tx_Data_Write(u32 WriteData);
 
 
 void LMK04906_init(XSpi *SPI_LMK04906){
@@ -86,10 +86,10 @@ void LMK04906_init(XSpi *SPI_LMK04906){
     // SPI Device init
     Status = XSpi_CfgInitialize(
 		SPI_LMK04906, SPI_LMK04906_Conf,SPI_LMK04906_Conf->BaseAddress);
-    if(Status != XST_SUCCESS){
-	xil_printf("Error : SPI Device Not Found ( Status Num : %d )!\r\n",
+	if(Status != XST_SUCCESS){
+		xil_printf("Error : SPI Device Not Found ( Status Num : %d )!\r\n",
 																	Status);
-	exit(-1);
+		exit(-1);
     }
 
     //Reset
@@ -112,7 +112,8 @@ int LMK04906_RegWrite(XSpi *SPI_LMK04906 , u32 RegData ,u32 RegAddr){
     Tx_Data_Write(WriteData);
 
 // set long enough timer value to wait for LMK to be ready
-    while(wait_cnt++ != 2000);  ////////// for Zynq
+    while(wait_cnt++ != 2000)
+       ;
     XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x70, 0xFFFF);
 
 	return XST_SUCCESS;
@@ -151,36 +152,34 @@ int IF_LoopBack_Test(XSpi *SPI_LMK04906) {
 void Soft_Reset(){
 	//Reset
 	XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x40, 0xa);
-#if defined (__MICROBLAZE__)
-	MB_Sleep(100);
-#else
 	// wait long enough for the LMK operations
 	usleep(100000);
-#endif
-//	XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x40, 0x0);
 }
-void Set_Option(u32 Option){
+static void Set_Option(u32 Option){
     XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x60, Option);
 }
-u32 Get_Option(){
+static u32 Get_Option(){
     return XSpi_ReadReg(LMK04906_DEVICE_BASEADDR,0x60);
 }
 
-u32 Get_Status(){
+static u32 Get_Status(){
 	return XSpi_ReadReg(LMK04906_DEVICE_BASEADDR,0x64);
 }
 
-u32 Rx_Data_Read(){
+static u32 Rx_Data_Read(){
 	volatile u32 retval=Get_Status();
-
-    while(retval&0x1){
-	retval=Get_Status();
+	volatile u32 wait_cnt = 0;
+	while(retval&0x1 && wait_cnt < 250000){
+		retval=Get_Status();
+		wait_cnt++;
     }
 	return XSpi_ReadReg(LMK04906_DEVICE_BASEADDR,0x6C);
 
 }
-void Tx_Data_Write(u32 WriteData){
-	while(Get_Status()&0x8);
+static void Tx_Data_Write(u32 WriteData){
+	volatile u32 wait_cnt = 0;
+	while(Get_Status()&0x8 && wait_cnt < 250000)
+		wait_cnt++;
     XSpi_WriteReg(LMK04906_DEVICE_BASEADDR,0x68, WriteData);
 
 }
