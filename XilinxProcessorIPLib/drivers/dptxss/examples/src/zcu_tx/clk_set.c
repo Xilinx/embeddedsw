@@ -43,6 +43,8 @@
 #include "xparameters.h"
 #include "xiicps.h"
 #include "xspi.h"
+#include "sleep.h"
+#include "clk_set.h"
 
 //XIicPs  IicInstance;
 XIicPs  IicPtr;
@@ -65,17 +67,23 @@ XIicPs  IicPtr;
 	} while ((Status != XST_SUCCESS) && (RetryCount < 15));		\
 }
 
-void si570_read_cal(XIicPs *Iic, u8 Addr, u8 *RFreq_Cal);
+static void si570_read_cal(XIicPs *Iic, u8 Addr, u8 *RFreq_Cal);
+static void si570_rfreq_calc(double Freq, u8 *RFreq_Cal, u8 *RFreq_Set,
+											u8 *HSDIV_Set, u8 *N1_Set);
+static void si570_write_rfreq(XIicPs *Iic, u8 Addr, u8 *RFreq_Set,
+										u8 HSDIV_Set,  u8 N1_Set);
+static void double2hex(double dnum, u8 *hnum);
+extern int LMK04906_RegWrite(XSpi *SPI_LMK04906 , u32 RegData ,u32 RegAddr);
+
 
 u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq){
 
-//	XIicPs	      *IicPtr = IicInstance;
 	XIicPs_Config *IicCfgPtr;
 	u32 Status;
 	u8 WriteBuffer[16];
 
 	/* Initialize I2C driver. */
-	IicCfgPtr = XIicPs_LookupConfig(XPAR_PSU_I2C_1_DEVICE_ID);
+	IicCfgPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
 	XIicPs_CfgInitialize(&IicPtr, IicCfgPtr, IicCfgPtr->BaseAddress);
 	/* Set serial clock rate. */
 	Status = XIicPs_SetSClk(&IicPtr, 400000);
@@ -105,17 +113,19 @@ u32 clk_set(u8 i2c_mux_addr, u8 i2c_dev_addr, double set_freq){
 
 }
 
-void si570_read_cal(XIicPs *Iic, u8 Addr, u8 *RFreq_Cal)
+static void si570_read_cal(XIicPs *Iic, u8 Addr, u8 *RFreq_Cal)
 {
 	int Status;
+	u16 i=0;
 
 	/*
 	 * Wait until bus is idle and then read calibration values
 	 */
-	while (XIicPs_BusIsBusy(Iic));
+	while (XIicPs_BusIsBusy(Iic) && i++ < 10000)
+		;
 
 	do_iic_until_pass(">>> Fail (RST & RECALL) write",
-			   XIicPs_MasterSendPolled(Iic, (u8[]){135,0x01}, 2, Addr)
+		XIicPs_MasterSendPolled(Iic, (u8[]){135,0x01}, 2, Addr)
 	);  // RST & RECALL
 	do_iic_until_pass(">>> Fail 8 set\r\n",
 		XIicPs_MasterSendPolled(Iic, (u8[]){  8,0xff}, 1, Addr)
@@ -155,16 +165,15 @@ void si570_read_cal(XIicPs *Iic, u8 Addr, u8 *RFreq_Cal)
 }
 
 
-void si570_rfreq_calc(double Freq, u8 *RFreq_Cal, u8 *RFreq_Set,
+static void si570_rfreq_calc(double Freq, u8 *RFreq_Cal, u8 *RFreq_Set,
 											u8 *HSDIV_Set, u8 *N1_Set){
-   int   HSDIV_Valid[6] = {4,5,6,7,9,11};
-   int   N1_Valid[65] = {1,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,
-						   38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,
-						   72,74,76,78,80,82,84,86,88,90,92,94,96,98,100,102,
-						   104,106,108,110,112,114,116,118,120,122,124,126,128};
+	int	HSDIV_Valid[6] = {4,5,6,7,9,11};
+	int	N1_Valid[65] = {1,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,
+						38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,
+						72,74,76,78,80,82,84,86,88,90,92,94,96,98,100,102,
+						104,106,108,110,112,114,116,118,120,122,124,126,128};
 
    int   i,j;
-   double Rval_Std, Rval_Cal;
    double DCO;
    double RFreq_Val;
 
@@ -178,32 +187,31 @@ void si570_rfreq_calc(double Freq, u8 *RFreq_Cal, u8 *RFreq_Set,
         DCO = Freq * HSDIV_Valid[i] * N1_Valid[j];
         if ( (DCO >= 4850.0 && DCO <= 5670.0)
 		&& ((HSDIV_Valid[i] * N1_Valid[j]) < ((*HSDIV_Set) * (*N1_Set)))) {
-			   *HSDIV_Set = HSDIV_Valid[i];
-			   *N1_Set    = N1_Valid[j];
+            *HSDIV_Set = HSDIV_Valid[i];
+            *N1_Set    = N1_Valid[j];
         }
       }
    }
    if (*HSDIV_Set==255) {
-	   return;
+       return;
    }
    DCO = Freq * (*HSDIV_Set) * (*N1_Set);
 
    /*
     * Calculate New RFreq Setting
     */
-   Rval_Std = 5400.0 / 114.285 * two_to_28;  // 0x2BC011EB8;
-   Rval_Cal = (RFreq_Cal[0] * two_to_32) + (RFreq_Cal[1] * two_to_24)
-	    + (RFreq_Cal[2] * two_to_16) + (RFreq_Cal[3] * two_to_8) + RFreq_Cal[4];
+
    RFreq_Val= ((DCO / 114.285) * two_to_28);
 
    double2hex(RFreq_Val, RFreq_Set);
 
 }
 
-void si570_write_rfreq(XIicPs *Iic, u8 Addr, u8 *RFreq_Set,
+static void si570_write_rfreq(XIicPs *Iic, u8 Addr, u8 *RFreq_Set,
 										u8 HSDIV_Set,  u8 N1_Set){
 	int Status;
 	u8 reg7,reg8;
+	u16 i=0;
 
 	/*
 	 * Change from human readable settings to Si570 programming values
@@ -221,7 +229,7 @@ void si570_write_rfreq(XIicPs *Iic, u8 Addr, u8 *RFreq_Set,
 	/*
 	 * Wait until bus is idle and then write all values
 	 */
-	while (XIicPs_BusIsBusy(Iic));
+	while (XIicPs_BusIsBusy(Iic) && i++ < 10000);
 
 	do_iic_until_pass(">>> Fail freeze DCO\r\n",
 			XIicPs_MasterSendPolled(Iic, (u8[]){137,0x18}, 2, Addr)
@@ -256,7 +264,7 @@ void si570_write_rfreq(XIicPs *Iic, u8 Addr, u8 *RFreq_Set,
 	if (Status == 0) return;
 }
 
-void double2hex(double dnum, u8 *hnum)
+static void double2hex(double dnum, u8 *hnum)
 {
    int    i;
    u8     bnum[38];
