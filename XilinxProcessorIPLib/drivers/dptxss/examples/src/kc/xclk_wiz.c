@@ -42,6 +42,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- --------------------------------------------------
 * 1.00  YB    07/01/15 Initial release.
+* 1.10  KI	  08/14/17 Updated for Release mode
 * </pre>
 *
 ******************************************************************************/
@@ -65,9 +66,7 @@ int wait_for_lock()
 {
                 u32 count, error;
                 count = error = 0;
-//                volatile u32 rData = XDp_ReadReg(CLK_WIZ_BASE, 0x04);
                 u32 rData = XDp_ReadReg(CLK_WIZ_BASE, 0x04);
-//                while(!(*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK))
                 while(!   (rData & CLK_LOCK) )
                 {
                                 if(count == 10000)
@@ -87,9 +86,7 @@ int wait_for_lock_tx()
 {
                 u32 count, error;
                 count = error = 0;
-//                volatile u32 rData = XDp_ReadReg(CLK_WIZ_BASE_TX, 0x04);
                 u32 rData = XDp_ReadReg(CLK_WIZ_BASE_TX, 0x04);
-//                while(!(*(u32 *)(CLK_WIZ_BASE_TX + 0x04)&CLK_LOCK))
                 while(!   (rData & CLK_LOCK) )
                 {
                                 if(count == 10000)
@@ -110,9 +107,7 @@ int wait_for_lock_rx()
 {
                 u32 count, error;
                 count = error = 0;
-//                volatile u32 rData = XDp_ReadReg(CLK_WIZ_BASE_RX, 0x04);
                 u32 rData = XDp_ReadReg(CLK_WIZ_BASE_RX, 0x04);
-//                while(!(*(u32 *)(CLK_WIZ_BASE_RX + 0x04)&CLK_LOCK))
                 while(!   (rData & CLK_LOCK) )
                 {
                                 if(count == 10000)
@@ -207,15 +202,12 @@ void ComputeMandD(XDp *InstancePtr, u32 VidFreq)
 	}
 
 	XDp_WriteReg(CLK_WIZ_BASE, 0x00, 0xA);
-//	*(u32 *)(CLK_WIZ_BASE + 0x00) = 0xA; /* SW reset applied */
 
 	rData = XDp_ReadReg(CLK_WIZ_BASE, 0x04);
-//	if(*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK)
 	if( rData & CLK_LOCK)
 	{
 		error++;
 		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\n\r",
-//				*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK);
 				rData & CLK_LOCK);
 	}
 
@@ -230,16 +222,12 @@ void ComputeMandD(XDp *InstancePtr, u32 VidFreq)
 	}
 
 	/* Configuring Multiply and Divide values */
-//	*(u32 *)(CLK_WIZ_BASE + 0x200) = (MVal<<8)|DVal;
 	XDp_WriteReg(CLK_WIZ_BASE, 0x200, (MVal<<8)|DVal);
 
-//	*(u32 *)(CLK_WIZ_BASE + 0x204) = 0x00;
 	XDp_WriteReg(CLK_WIZ_BASE, 0x204, 0x00);
 
-//	*(u32 *)(CLK_WIZ_BASE + 0x208) = DivVal;
 	XDp_WriteReg(CLK_WIZ_BASE, 0x208, DivVal);
 
-//	*(u32 *)(CLK_WIZ_BASE + 0x25C) = 0x07;
 	/* Load Clock Configuration Register values */
 	XDp_WriteReg(CLK_WIZ_BASE, 0x25C, 0x07);
 
@@ -249,10 +237,8 @@ void ComputeMandD(XDp *InstancePtr, u32 VidFreq)
 	{
 		error++;
 		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\n\r",
-//				*(u32 *)(CLK_WIZ_BASE + 0x04)&CLK_LOCK);
 				rData & CLK_LOCK);
 	}
-//	*(u32 *)(CLK_WIZ_BASE + 0x25C) = 0x02;
 	/* Clock Configuration Registers are used for dynamic reconfiguration */
 	XDp_WriteReg(CLK_WIZ_BASE, 0x25C, 0x02);
 
@@ -320,11 +306,9 @@ void ComputeMandD_txlnk(u32 VidFreq, u16 Link_rate)
 	else{
 	}
 
-//	*(u32 *)(CLK_WIZ_BASE_TX + 0x00) = 0xA; /* SW reset applied */
 	XDp_WriteReg(CLK_WIZ_BASE_TX, 0x00, 0xA);
 
 	rData = XDp_ReadReg(CLK_WIZ_BASE_TX, 0x04);
-//	if(*(u32 *)(CLK_WIZ_BASE_TX + 0x04)&CLK_LOCK)
 	if( rData & CLK_LOCK)
 	{
 		error++;
@@ -343,28 +327,22 @@ void ComputeMandD_txlnk(u32 VidFreq, u16 Link_rate)
 	}
 
 	/* Configuring Multiply and Divide values */
-//	*(u32 *)(CLK_WIZ_BASE_TX + 0x200) = (MVal<<8)|DVal;
 	XDp_WriteReg(CLK_WIZ_BASE_TX, 0x200, (MVal<<8)|DVal);
 
-//	*(u32 *)(CLK_WIZ_BASE_TX + 0x204) = 0x00;
 	XDp_WriteReg(CLK_WIZ_BASE_TX, 0x204, 0x00);
 
-//	*(u32 *)(CLK_WIZ_BASE_TX + 0x208) = DivVal;
 	XDp_WriteReg(CLK_WIZ_BASE_TX, 0x208, DivVal);
 
-//	*(u32 *)(CLK_WIZ_BASE_TX + 0x25C) = 0x07;
 	/* Load Clock Configuration Register values */
 	XDp_WriteReg(CLK_WIZ_BASE_TX, 0x25C, 0x07);
 
 	rData = XDp_ReadReg(CLK_WIZ_BASE_TX, 0x04);
-//	if(*(u32 *)(CLK_WIZ_BASE_TX + 0x04)&CLK_LOCK)
 	if(rData & CLK_LOCK)
 	{
 		error++;
 //		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\n\r",
 //				*(u32 *)(CLK_WIZ_BASE_TX + 0x04)&CLK_LOCK);
 	}
-//	*(u32 *)(CLK_WIZ_BASE_TX + 0x25C) = 0x02;
 	/* Clock Configuration Registers are used for dynamic reconfiguration */
 	XDp_WriteReg(CLK_WIZ_BASE_TX, 0x25C, 0x02);
 
@@ -483,10 +461,8 @@ void ComputeMandD_rxlnk(u32 VidFreq, u16 Link_rate)
 	else{
 	}
 
-//	*(u32 *)(CLK_WIZ_BASE_RX + 0x00) = 0xA; /* SW reset applied */
 	XDp_WriteReg(CLK_WIZ_BASE_RX, 0x00, 0x0A);
 	rData = XDp_ReadReg(CLK_WIZ_BASE_RX, 0x04);
-//	if(*(u32 *)(CLK_WIZ_BASE_RX + 0x04)&CLK_LOCK)
 	if( rData & CLK_LOCK)
 	{
 		error++;
@@ -502,28 +478,22 @@ void ComputeMandD_rxlnk(u32 VidFreq, u16 Link_rate)
 	}
 
 	/* Configuring Multiply and Divide values */
-//	*(u32 *)(CLK_WIZ_BASE_RX + 0x200) = (MVal<<8)|DVal;
 	XDp_WriteReg(CLK_WIZ_BASE_RX, 0x200, (MVal<<8)|DVal);
-//	*(u32 *)(CLK_WIZ_BASE_RX + 0x204) = 0x00;
 	XDp_WriteReg(CLK_WIZ_BASE_RX, 0x204, 0x00);
 
-//	*(u32 *)(CLK_WIZ_BASE_RX + 0x208) = DivVal;
 	XDp_WriteReg(CLK_WIZ_BASE_RX, 0x208, DivVal);
 
-//	*(u32 *)(CLK_WIZ_BASE_RX + 0x25C) = 0x07;
 	/* Load Clock Configuration Register values */
 	XDp_WriteReg(CLK_WIZ_BASE_RX, 0x25C, 0x07);
 //xil_printf ("%d %d %d\r\n", MVal, DVal, DivVal);
 
 	rData = XDp_ReadReg(CLK_WIZ_BASE_RX, 0x04);
-//	if(*(u32 *)(CLK_WIZ_BASE_RX + 0x04)&CLK_LOCK)
 	if( rData & CLK_LOCK)
 	{
 		error++;
 //		xil_printf("\n ERROR: Clock is locked : 0x%x \t expected 0x00\n\r",
 //				*(u32 *)(CLK_WIZ_BASE_RX + 0x04)&CLK_LOCK);
 	}
-//	*(u32 *)(CLK_WIZ_BASE_RX + 0x25C) = 0x02;
 	/* Clock Configuration Registers are used for dynamic reconfiguration */
 	XDp_WriteReg(CLK_WIZ_BASE_RX, 0x25C, 0x02);
 
