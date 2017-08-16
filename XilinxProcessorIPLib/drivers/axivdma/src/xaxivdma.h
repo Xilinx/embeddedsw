@@ -300,6 +300,7 @@
 *                     for doxygen generation of examples.
 * 6.4   ms   04/18/17 Modified tcl file to add suffix U for all macro
 *                     definitions of axivdma in xparameters.h
+*       ms   08/07/17 Fixed compilation warnings in xaxivdma_sinit.c
 * </pre>
 *
 ******************************************************************************/
