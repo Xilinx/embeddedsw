@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -33,7 +29,7 @@
 /**
 *
 * @file xiomodule_l.c
-* @addtogroup iomodule_v2_5
+* @addtogroup iomodule_v2_6
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
@@ -150,7 +146,6 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 	u32 IntrStatus;
 	u32 IntrMask = 1;
 	u32 IntrNumber;
-	volatile u32 Register;			/* used as bit bucket */
 	XIOModule_Config *CfgPtr;
 	XIOModule_VectorTableEntry *TablePtr;
 
@@ -193,7 +188,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 			 * Read the ISR again to handle architectures with
 			 * posted write bus access issues.
 			 */
-			Register = XIOModule_GetIntrStatus(CfgPtr->BaseAddress);
+			XIOModule_GetIntrStatus(CfgPtr->BaseAddress);
 
 			/*
 			 * If only the highest priority interrupt is to be

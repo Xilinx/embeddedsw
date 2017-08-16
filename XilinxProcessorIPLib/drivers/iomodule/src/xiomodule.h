@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -33,7 +29,7 @@
 /**
 *
 * @file xiomodule.h
-* @addtogroup iomodule_v2_5
+* @addtogroup iomodule_v2_6
 * @{
 * @details
 *
@@ -326,6 +322,7 @@ extern "C" {
 #define XTC_PRESCALER_EXTERNAL		9
 /*@}*/
 
+#define XIOMODULE_STANDARD_VECTOR_ADDRESS_WIDTH	32U
 
 /**************************** Type Definitions *******************************/
 
@@ -344,10 +341,11 @@ typedef void (*XIOModule_Handler)(void *CallBackRef,
  */
 typedef struct {
 	u16 DeviceId;			     /**< Unique ID  of device       */
-	u32 BaseAddress;		     /**< Unique identifier          */
+	UINTPTR BaseAddress;		     /**< Unique identifier          */
 	u32 IoBaseAddress;		     /**< IO Bus Base Address        */
 	u32 FastIntr;			     /**< Fast Interrupt enabled     */
 	u32 BaseVector;			     /**< Relocatable base vector    */
+	u8 VectorAddrWidth;		     /**< Width of vector address */
 	u32 AckBeforeService;		     /**< Ack location per interrupt */
 	u32 Options;			     /**< Device options             */
 	u32 InputClockHz;		     /**< Input clock frequency (Hz) */
