@@ -250,6 +250,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				SetMixerSettings.Freq = 3500;	//MHz
 				SetMixerSettings.FineMixerMode = 0x2;	//Complex to Real
 				SetMixerSettings.PhaseOffset = 22.5;
+				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetMixerSettings);
 				if (Status != XRFDC_SUCCESS) {
@@ -275,6 +276,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				SetQMCSettings.EnablePhase = 0;
 				SetQMCSettings.OffsetCorrectionFactor = -4;
 				SetQMCSettings.PhaseCorrectionFactor = 26.5;
+				SetQMCSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
 				/* Set QMC settings */
 				Status = XRFdc_SetQMCSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetQMCSettings);
 				if (Status != XRFDC_SUCCESS) {
@@ -296,6 +298,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				}
 				/* Set Coarse delay settings */
 				SetCoarseDelaySettings.CoarseDelay = 2;
+				SetCoarseDelaySettings.EventSource = XRFDC_EVNT_SRC_PL;
 				Status = XRFdc_SetCoarseDelaySettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetCoarseDelaySettings);
 				if (Status != XRFDC_SUCCESS) {
 					return XRFDC_FAILURE;
@@ -359,6 +362,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				SetMixerSettings.Freq = 3500; 	//MHz
 				SetMixerSettings.FineMixerMode = 0x2;	// Complex to real
 				SetMixerSettings.PhaseOffset = 14.06;
+				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetMixerSettings);
 				if (Status != XRFDC_SUCCESS) {
@@ -382,6 +386,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				}
 				SetQMCSettings.EnableGain = 0;
 				SetQMCSettings.EnablePhase = 0;
+				SetQMCSettings.EventSource = XRFDC_EVNT_SRC_PL;
 				Status = XRFdc_SetQMCSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetQMCSettings);
 				if (Status != XRFDC_SUCCESS) {
 					return XRFDC_FAILURE;
