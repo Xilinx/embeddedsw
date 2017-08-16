@@ -173,6 +173,10 @@ Updated the initialization to memset the XHdcp1x structure to 0.
 mcdma_v1_0:
 Initial version of mcdma driver
 
+nandpsu_v1_3
+Added support to import examples in SDK.
+Added CCI support.
+
 prc_v1_1:
 Added a new parameter "Cp_Compression" and status error flags
 Updated api.tcl. Fix for CR-978747.
@@ -182,6 +186,7 @@ Added index.html for importing example from the system.mss
 Added support for readind ID till 5th byte as MT25Q series flash supports FSRFlag
 but 128Mb and 256Mb parts are single die only. If the 6th bit of 5th ID byte
 is 1 then we can set the FSRFlag.
+Added CCI support.
 
 qspips_v3_4
 Added QSPI Buswidth parameter in canonical defines.
@@ -601,7 +606,6 @@ fix for the failure of reading nand first redundant paramter page
 CR#966603
 Fixed compilation warning in _g.c
 Fixed MISRAC mandatory violation - CR#970533
-Added support to import examples in SDK
 
 prd_v1_1:
 Modified num instances parameter as XPAR_XPRD_NUM_INSTANCES in xparameters.h,
