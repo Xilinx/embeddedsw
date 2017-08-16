@@ -160,8 +160,10 @@
 *                     include them in doxygen examples.
 * 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of mbox in xparameters.h
+*       ms   08/07/17 Fixed compilation warnings in xmbox_sinit.c
 * 4.3   sa   04/20/17 Support for FIFO reset using hardware control register.
 *       sd   07/26/17 Modified tcl file to prevent false unconnected flagging.
+*
 *</pre>
 *
 ******************************************************************************/
