@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -216,7 +214,7 @@
 * 2.1   bss  05/02/14 Added PitMask in XIOModule_Config.(CR #794167)
 * 2.2	nsk  07/21/15 Updated iomodule_define_vector_table by removing
 *		      absoluted hsi commands like xget_handle.CR#865544.
-*		      modified generate proc to get canonical defintions
+*		      modified generate proc to get canonical definitions
 *		      in xparameters.h
 * 2.2   nsk  08/06/15 Updated XIOModule_Uart_InterruptHandler function
 *		      in xiomodule_uart_intr.c file to read Status register
@@ -224,7 +222,7 @@
 *		      (CR #862715).
 * 2.2	nsk  08/07/15 Updated iomodule_define_vector_table in iomodule.tcl
 *		      to handle External vector interrupts.(CR #871572)
-* 2.2	nsk  08/19/15 Modifed iomodule_define_vector_table in iomodule.tcl
+* 2.2	nsk  08/19/15 Modified iomodule_define_vector_table in iomodule.tcl
 *		      to handle,if iomodule doesn't have interrupts enabled
 *		      (CR #876507).
 * 2.2	nsk  09/02/15 Modified iomodule_define_vector_table in iomodule.tcl
