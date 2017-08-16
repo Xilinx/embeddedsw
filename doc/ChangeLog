@@ -127,8 +127,10 @@ Reordered XVidC_VideoMode enum variables and corrected the memory format enums
 Add XVIDC_VM_3840x2160_60_P_RB video format
 Added new streaming alpha formats and new memory formats
 
-mbox_v4_3:
+mbox_v4_2:
 Added support for FIFO reset using hardware control register
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+Fixed compilation warnings.
 
 mipicsiss_v1_1:
 Added application support for mipi csi subsystem example design
@@ -157,6 +159,32 @@ AXI stream bus.
 CR#979023 Intr fifo example failed to compile.
 Add support for axiethernet with mcdma configuration.
 Fix pmufw bsp compilation error for axi-ethernet based designs.
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+Fixed compilation warnings.
+
+axipmon_v6_6:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+axivdma_v6_4:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+Fixed compilation warnings.
+
+bram_v4_2:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+Fixed compilation warnings.
+
+cpu_cortexa53_v1_4:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+cpu_cortexa9_v2_5:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+devcfg_v3_5:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+Fixed compilation warnings.
+
+dp_v5_3:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
 
 cpu_cortexr5_v1_4:
 Added U suffix for all macros in xparameters.h. Fix for CR#963131.
@@ -170,6 +198,13 @@ Updated the XHdcp1x_CipherHandleInterrupt function to not mask the interrupts,
 as it is being done in hardware now.
 Updated the initialization to memset the XHdcp1x structure to 0.
 
+intc_v3_7:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+iomodule_v2_5:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+Fixed compilation warnings.
+
 mcdma_v1_0:
 Initial version of mcdma driver
 
@@ -177,9 +212,20 @@ nandpsu_v1_3
 Added support to import examples in SDK.
 Added CCI support.
 
+mig_7series_v2_1:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+mutex_v4_3:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+Fixed compilation warnings.
+
+nandps_v2_3:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
 prc_v1_1:
 Added a new parameter "Cp_Compression" and status error flags
 Updated api.tcl. Fix for CR-978747.
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
 
 qspipsu_v1_5:
 Added index.html for importing example from the system.mss
@@ -209,14 +255,36 @@ scugic_v3_8:
 Updated xdefine_gic_params proc in driver tcl to export correct canonical
 definitions for pl to ps interrupts.Fix for CR#980534
 
+spi_v4_3:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+sysmon_v7_4:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+tft_v6_1:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
 tmrctr_v4_4:
 Updated XTmrCtr_DisableIntr macro to not to clear T0INT flag.It fixes
 CR#980512.
 Resolve compilation warning
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
 
 tpg_v3_1:
 Updated NUM_INSTANCES parameter in xparameters.h and
 xtpg_sinit.c to avoid errors. Fix for cr-976944.
+
+trafgen_v4_2:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+ttcps_v3_4:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+uartns550_v3_5:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
+
+wdttb_v4_2:
+Added U suffix for all macros in xparameters.h. Fix for CR#963131.
 
 xilfpga_v3_0:
 Added PL configuration registers readback support.
