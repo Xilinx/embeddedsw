@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xiomodule_l.c
-* @addtogroup iomodule_v2_6
+* @addtogroup iomodule_v2_7
 * @{
 *
 * This file contains low-level driver functions that can be used to access the
@@ -43,6 +43,8 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a sa   07/15/11 First release
 * 2.5   ms   08/07/17 Fixed compilation warnings
+* 2.7   sa   11/09/18 Updated low level APIs to deal with the 64 bit
+*                     addresses
 * </pre>
 *
 ******************************************************************************/
@@ -65,7 +67,7 @@
 
 /************************** Function Prototypes ******************************/
 
-static XIOModule_Config *LookupConfigByBaseAddress(u32 BaseAddress);
+static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
 
 /************************** Variable Definitions *****************************/
 
@@ -237,7 +239,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XIOModule_SetIntrSvcOption(u32 BaseAddress, int Option)
+void XIOModule_SetIntrSvcOption(UINTPTR BaseAddress, int Option)
 {
 	XIOModule_Config *CfgPtr;
 
@@ -277,7 +279,7 @@ void XIOModule_SetIntrSvcOption(u32 BaseAddress, int Option)
 * Note that this function has no effect if the input base address is invalid.
 *
 ******************************************************************************/
-void XIOModule_RegisterHandler(u32 BaseAddress, int InterruptId,
+void XIOModule_RegisterHandler(UINTPTR BaseAddress, int InterruptId,
 			   XInterruptHandler Handler, void *CallBackRef)
 {
 	XIOModule_Config *CfgPtr;
@@ -306,7 +308,7 @@ void XIOModule_RegisterHandler(u32 BaseAddress, int InterruptId,
 * @note		None.
 *
 ******************************************************************************/
-static XIOModule_Config *LookupConfigByBaseAddress(u32 BaseAddress)
+static XIOModule_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress)
 {
 	XIOModule_Config *CfgPtr = NULL;
 	u32 i;
@@ -337,7 +339,7 @@ static XIOModule_Config *LookupConfigByBaseAddress(u32 BaseAddress)
 * @note		None.
 *
 ******************************************************************************/
-void XIOModule_SendByte(u32 BaseAddress, u8 Data)
+void XIOModule_SendByte(UINTPTR BaseAddress, u8 Data)
 {
 	while (XIOModule_IsTransmitFull(BaseAddress));
 
@@ -359,7 +361,7 @@ void XIOModule_SendByte(u32 BaseAddress, u8 Data)
 * @note		None.
 *
 ******************************************************************************/
-u8 XIOModule_RecvByte(u32 BaseAddress)
+u8 XIOModule_RecvByte(UINTPTR BaseAddress)
 {
 	while (XIOModule_IsReceiveEmpty(BaseAddress));
 

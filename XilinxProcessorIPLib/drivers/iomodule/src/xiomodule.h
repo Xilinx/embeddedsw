@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
 /**
 *
 * @file xiomodule.h
-* @addtogroup iomodule_v2_6
+* @addtogroup iomodule_v2_7
 * @{
 * @details
 *
@@ -243,6 +243,8 @@
 *                     definitions of iomodule in xparameters.h
 *       ms   08/07/17 Fixed compilation warnings in xiomodule.c,
 *                     xiomodule_l.c, xiomodule_uart.c
+* 2.7   sa   11/09/18  Updated XIOModule_Config to support 64 bit base
+*                      addresses.
 * </pre>
 *
 ******************************************************************************/
@@ -342,9 +344,9 @@ typedef void (*XIOModule_Handler)(void *CallBackRef,
 typedef struct {
 	u16 DeviceId;			     /**< Unique ID  of device       */
 	UINTPTR BaseAddress;		     /**< Unique identifier          */
-	u32 IoBaseAddress;		     /**< IO Bus Base Address        */
+	UINTPTR IoBaseAddress;		     /**< IO Bus Base Address        */
 	u32 FastIntr;			     /**< Fast Interrupt enabled     */
-	u32 BaseVector;			     /**< Relocatable base vector    */
+	UINTPTR BaseVector;		     /**< Relocatable base vector    */
 	u8 VectorAddrWidth;		     /**< Width of vector address */
 	u32 AckBeforeService;		     /**< Ack location per interrupt */
 	u32 Options;			     /**< Device options             */
@@ -412,7 +414,7 @@ typedef struct {
  * to a variable of this type is then passed to the driver API functions.
  */
 typedef struct {
-	u32 BaseAddress;		 /**< Base address of registers      */
+	UINTPTR BaseAddress;		 /**< Base address of registers      */
 	u32 IsReady;			 /**< Device initialized and ready   */
 	u32 IsStarted;			 /**< Device has been started        */
 	XIOModule_Config *CfgPtr;	 /**< Pointer to inst config entry   */
@@ -441,7 +443,7 @@ typedef struct {
 
 	u32 GpoValue[XGPO_DEVICE_COUNT]; /**< GPO current value              */
 
-	u32 IoBaseAddress;		 /**< Base address of IO Bus         */
+	UINTPTR IoBaseAddress;		 /**< Base address of IO Bus         */
 } XIOModule;
 
 /***************** Macros (Inline Functions) Definitions *********************/
