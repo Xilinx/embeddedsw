@@ -1979,6 +1979,9 @@ Fix for CR#873974 (Zynq PS7 USB - Update Driver to Invalidate Caches After Buffe
 in Endpoint Buffer Handler Code).
 Fix for CR#873972 (Zynq PS7 USB - Update Driver to Handle Moving of dTD Head/Tail Pointers).
 
+usbpsu_v1_3:
+Added Cache Coherency(CCI) support.
+
 usbpsu_v1_2:
 Added Reset/disconnect and ch9 handler callback functions
 Added DFU example
