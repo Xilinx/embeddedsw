@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * Ver   Who Date     Changes
 * ----- --- -------- ---------------------------------------------
 * 1.00a hvm 02/07/11 First release
+* 3.5   ms  08/07/17 Fixed compilation warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -79,9 +80,9 @@ XDcfg_Config *XDcfg_LookupConfig(u16 DeviceId)
 {
 	extern XDcfg_Config XDcfg_ConfigTable[];
 	XDcfg_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XDCFG_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_XDCFG_NUM_INSTANCES; Index++) {
 		if (XDcfg_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XDcfg_ConfigTable[Index];
 			break;

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -156,6 +156,9 @@
 *                    generation.
 *       ms  04/10/17 Modified filename tag in interrupt and polled examples
 *                    to include them in doxygen examples.
+* 3.5   ms  04/18/17 Modified tcl file to add suffix U for all macros
+*                    definitions of devcfg in xparameters.h
+*       ms  08/07/17 Fixed compilation warnings in xdevcfg_sinit.c
 * </pre>
 *
 ******************************************************************************/
