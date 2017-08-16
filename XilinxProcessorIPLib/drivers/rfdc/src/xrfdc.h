@@ -175,7 +175,7 @@ typedef struct {
  * Mixer settings.
  */
 typedef struct {
-	float Freq;
+	double Freq;
 	float PhaseOffset;
 	u32 EventSource;
 	u32 FineMixerMode;
