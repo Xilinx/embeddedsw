@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00a sa   07/15/11 First release
+* 2.5   ms   08/07/17 Fixed compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -148,7 +149,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 {
 	u32 IntrStatus;
 	u32 IntrMask = 1;
-	int IntrNumber;
+	u32 IntrNumber;
 	volatile u32 Register;			/* used as bit bucket */
 	XIOModule_Config *CfgPtr;
 	XIOModule_VectorTableEntry *TablePtr;
@@ -164,7 +165,7 @@ void XIOModule_DeviceInterruptHandler(void *DeviceId)
 	 * bit in the register from LSB to MSB which corresponds to an interrupt
 	 * input signal. Skip fast interrupts, indicated by null handler.
 	 */
-	for (IntrNumber = 0; IntrNumber < XPAR_IOMODULE_INTC_MAX_INTR_SIZE;
+	for (IntrNumber = 0U; IntrNumber < XPAR_IOMODULE_INTC_MAX_INTR_SIZE;
 	     IntrNumber++) {
 		TablePtr = &(CfgPtr->HandlerTable[IntrNumber]);
 		if ((IntrStatus & 1) && (TablePtr->Handler != NULL)) {
@@ -313,9 +314,9 @@ void XIOModule_RegisterHandler(u32 BaseAddress, int InterruptId,
 static XIOModule_Config *LookupConfigByBaseAddress(u32 BaseAddress)
 {
 	XIOModule_Config *CfgPtr = NULL;
-	int i;
+	u32 i;
 
-	for (i = 0; i < XPAR_XIOMODULE_NUM_INSTANCES; i++) {
+	for (i = 0U; i < XPAR_XIOMODULE_NUM_INSTANCES; i++) {
 		if (XIOModule_ConfigTable[i].BaseAddress == BaseAddress) {
 			CfgPtr = &XIOModule_ConfigTable[i];
 			break;
