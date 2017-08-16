@@ -7,7 +7,7 @@
 /**
 *
 * @file xmutex.h
-* @addtogroup mutex_v4_5
+* @addtogroup mutex_v4_6
 * @{
 * @details
 *
@@ -90,6 +90,7 @@
 *       ms   08/07/17 Fixed compilation warnings in xmutex_sinit.c
 * 4.4   adk  19/09/19 Updated tcl to generate proper canonical definitions when
 *                     mutex is configured for more then one axi interface.
+* 4.6   sd   02/09/20 Updated makefile for parallel execution.
 * </pre>
 *
 ******************************************************************************/
