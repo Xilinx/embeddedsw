@@ -487,8 +487,6 @@
 *       ms 04/05/17 Added tabspace for return statements in functions
 *                   of axiethernet examples for proper documentation while
 *                   generating doxygen.
-* 5.5  ms  04/18/17 Modified tcl file to add suffix U for all macro
-*                   definitions of axiethernet in xparameters.h
 * 5.5	adk 19/05/17 Increase Timeout value in the driver as per new h/w update
 * 		     i.e. Increase of transceiver initialization times in
 * 		     ultrascale+ devices (CR#976244).
@@ -496,8 +494,11 @@
 *		    plugged to it`s AXI stream bus (CR#979634). Changes
 *		    are made in the driver tcl and test app tcl.
 * 5.6  adk 03/07/17 Fixed CR#979023 Intr fifo example failed to compile.
+*      ms  04/18/17 Modified tcl file to add suffix U for all macro
+*                   definitions of axiethernet in xparameters.h
 *      adk 08/08/17 Fixed CR#981893 Fix bsp compilation error for axiethernet
 *		    mcdma chiscope based designs.
+*      ms  08/16/17 Fixed compilation warnings in xaxiethernet_sinit.c
 * </pre>
 *
 ******************************************************************************/
