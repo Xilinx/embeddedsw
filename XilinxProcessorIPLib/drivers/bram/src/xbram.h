@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -121,6 +121,7 @@
 *                    generation.
 * 4.2   ms  04/18/17 Modified tcl file to add suffix U for all macro
 *                    definitions of bram in xparameters.h
+*       ms  08/07/17 Fixed compilation warnings in xbram_sinit.c
 * </pre>
 *****************************************************************************/
 #ifndef XBRAM_H		/* prevent circular inclusions */

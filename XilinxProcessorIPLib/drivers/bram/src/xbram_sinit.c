@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,7 @@
 * ----- ---- -------- -----------------------------------------------
 * 2.01a jvb  10/13/05 First release
 * 2.11a mta  03/21/07 Updated to new coding style
+* 4.2   ms   08/07/17 Fixed compilation warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -90,9 +91,9 @@ XBram_Config *XBram_LookupConfig(u16 DeviceId)
 {
 	XBram_Config *CfgPtr = NULL;
 
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XBRAM_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_XBRAM_NUM_INSTANCES; Index++) {
 		if (XBram_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XBram_ConfigTable[Index];
 			break;
