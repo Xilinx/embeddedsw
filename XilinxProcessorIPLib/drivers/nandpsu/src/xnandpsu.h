@@ -227,6 +227,7 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;		/**< Instance ID of NAND flash controller */
 	u32 BaseAddress;	/**< Base address of NAND flash controller */
+	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 } XNandPsu_Config;
 
 /**

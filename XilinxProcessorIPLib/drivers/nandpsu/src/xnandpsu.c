@@ -102,6 +102,7 @@
 *	                   data access.
 * 1.2	nsk    01/19/17    Fix for the failure of reading nand first redundant
 * 	                   parameter page. CR#966603
+* 1,3	nsk    08/14/17    Added CCI support
 *
 * </pre>
 *
@@ -242,6 +243,7 @@ s32 XNandPsu_CfgInitialize(XNandPsu *InstancePtr, XNandPsu_Config *ConfigPtr,
 	/* Initialize InstancePtr Config structure */
 	InstancePtr->Config.DeviceId = ConfigPtr->DeviceId;
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
+	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 	/* Operate in Polling Mode */
 	InstancePtr->Mode = XNANDPSU_POLLING;
 	/* Enable MDMA mode by default */
@@ -1674,7 +1676,9 @@ static s32 XNandPsu_ProgramPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		IsrValue = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
 			   XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK;
-		Xil_DCacheFlushRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheFlushRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		}
 		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
 		IsrValue = XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK;
@@ -1788,7 +1792,9 @@ s32 XNandPsu_WriteSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
-		Xil_DCacheFlushRange((INTPTR)(void *)BufPtr, (PktSize * PktCount));
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheFlushRange((INTPTR)(void *)BufPtr, (PktSize * PktCount));
+		}
 		XNandPsu_Update_DmaAddr(InstancePtr, (u8 *)BufPtr);
 	} else {
 		RegVal = XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK;
@@ -1889,7 +1895,9 @@ static s32 XNandPsu_ReadPage(XNandPsu *InstancePtr, u32 Target, u32 Page,
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK |
 			 XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK;
-		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		}
 		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
 		RegVal = XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
@@ -2011,7 +2019,9 @@ s32 XNandPsu_ReadSpareBytes(XNandPsu *InstancePtr, u32 Page, u8 *Buf)
 
 	if (InstancePtr->DmaMode == XNANDPSU_MDMA) {
 		RegVal = XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK;
-		Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheInvalidateRange((INTPTR)(void *)Buf, (PktSize * PktCount));
+		}
 		XNandPsu_Update_DmaAddr(InstancePtr, Buf);
 	} else {
 		RegVal = XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK;
