@@ -121,6 +121,8 @@
 * 1.4	tjs 05/26/17 Added support for accessing upper DDR (0x800000000)
 *		     while booting images from QSPI
 * 1.5	tjs	08/08/17 Added index.html file for importing examples from system.mss
+* 1.5	nsk 08/14/17 Added CCI support
+*
 * </pre>
 *
 ******************************************************************************/
@@ -183,6 +185,7 @@ typedef struct {
 	u32 InputClockHz;	/**< Input clock frequency */
 	u8  ConnectionMode; /**< Single, Stacked and Parallel mode */
 	u8  BusWidth; 	/**< Bus width available on board */
+	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not */
 } XQspiPsu_Config;
 
 /**
