@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 * 2.1   bss  05/02/14 Modified XIOModule_IsExpired to check for all 1's instead
 *		      of 0 in CounterReg.(CR#794167)
 * 2.4   mi   09/20/16 Fixed compilation warnings
+* 2.5   ms   08/07/17 Fixed compilation warnings
 * </pre>
 *
 ******************************************************************************/
@@ -580,9 +581,9 @@ static void StubHandler(void *CallBackRef)
 XIOModule_Config *XIOModule_LookupConfig(u16 DeviceId)
 {
 	XIOModule_Config *CfgPtr = NULL;
-	int i;
+	u32 i;
 
-	for (i = 0; i < XPAR_XIOMODULE_NUM_INSTANCES; i++) {
+	for (i = 0U; i < XPAR_XIOMODULE_NUM_INSTANCES; i++) {
 		if (XIOModule_ConfigTable[i].DeviceId == DeviceId) {
 			CfgPtr = &XIOModule_ConfigTable[i];
 			break;

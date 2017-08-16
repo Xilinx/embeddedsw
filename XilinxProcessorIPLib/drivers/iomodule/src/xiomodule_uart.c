@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2011 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,7 @@
 * 1.02a sa   07/25/12 First release
 * 1.03a sa   10/16/12 Moved interrupt mode functions to separate file
 * 2.4   mi   09/20/16 Fixed compilation warnings
+* 2.5   ms   08/07/17 Fixed compilation warnings.
 * </pre>
 *
 *****************************************************************************/
@@ -257,6 +258,8 @@ static void StubHandler(void *CallBackRef, unsigned int ByteCount)
 	/*
 	 * Assert occurs always since this is a stub and should never be called
 	 */
+	(void) CallBackRef;
+	(void) ByteCount;
 	Xil_AssertVoidAlways();
 }
 /** @} */
