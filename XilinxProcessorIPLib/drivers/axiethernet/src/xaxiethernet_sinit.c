@@ -42,7 +42,8 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a asa  6/30/10 First release
+* 1.00a asa  6/30/10  First release
+* 5.6   ms   08/07/17 Fixed compilation warning.
 * </pre>
 *
 ******************************************************************************/
@@ -84,9 +85,9 @@ XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId)
 {
 	extern XAxiEthernet_Config XAxiEthernet_ConfigTable[];
 	XAxiEthernet_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XAXIETHERNET_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_XAXIETHERNET_NUM_INSTANCES; Index++) {
 		if (XAxiEthernet_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XAxiEthernet_ConfigTable[Index];
 			break;
