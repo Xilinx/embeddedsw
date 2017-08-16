@@ -48,6 +48,7 @@
 * 1.1   sk     08/09/17 Fixed coarse Mixer configuration settings
 *                       CR# 977266, 977872.
 *                       Return error for Slice Event on 4G ADC Block.
+*              08/16/17 Add support for SYSREF and PL event sources.
 * </pre>
 *
 ******************************************************************************/
@@ -695,7 +696,10 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			if ((Mixer_Settings->EventSource != XRFDC_EVNT_SRC_SLICE) &&
 						(Mixer_Settings->EventSource != XRFDC_EVNT_SRC_TILE) &&
 						(Mixer_Settings->EventSource !=
-						XRFDC_EVNT_SRC_IMMEDIATE))
+						XRFDC_EVNT_SRC_IMMEDIATE) &&
+						(Mixer_Settings->EventSource !=
+						XRFDC_EVNT_SRC_SYSREF) &&
+						(Mixer_Settings->EventSource != XRFDC_EVNT_SRC_PL))
 			{
 				metal_log(METAL_LOG_ERROR, "\n Invalid event source selection "
 												"in %s\r\n", __func__);
@@ -731,10 +735,12 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 			if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 					(Type == XRFDC_ADC_TILE) &&
-					(Mixer_Settings->EventSource == XRFDC_EVNT_SRC_SLICE)) {
+					((Mixer_Settings->EventSource == XRFDC_EVNT_SRC_SLICE) ||
+					(Mixer_Settings->EventSource ==
+							XRFDC_EVNT_SRC_IMMEDIATE))) {
 				Status = XRFDC_FAILURE;
 				metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, "
-						"SLICE event is not supported in 4GSPS ADC %s\r\n", __func__);
+						"event source is not supported in 4GSPS ADC %s\r\n", __func__);
 				goto RETURN_PATH;
 			}
 
@@ -1181,7 +1187,9 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 			if ((QMC_Settings->EventSource != XRFDC_EVNT_SRC_SLICE) &&
 				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_TILE) &&
-				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_IMMEDIATE)) {
+				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_IMMEDIATE) &&
+				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_SYSREF) &&
+				(QMC_Settings->EventSource != XRFDC_EVNT_SRC_PL)) {
 				metal_log(METAL_LOG_ERROR, "\n Invalid event source selection "
 												"in %s\r\n", __func__);
 				Status = XRFDC_FAILURE;
@@ -1199,10 +1207,12 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 			if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 					(Type == XRFDC_ADC_TILE) &&
-					(QMC_Settings->EventSource == XRFDC_EVNT_SRC_SLICE)) {
+					((QMC_Settings->EventSource == XRFDC_EVNT_SRC_SLICE) ||
+					(QMC_Settings->EventSource ==
+							XRFDC_EVNT_SRC_IMMEDIATE))) {
 				Status = XRFDC_FAILURE;
 				metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, "
-						"SLICE event is not supported in 4GSPS ADC %s\r\n", __func__);
+						"event source is not supported in 4GSPS ADC %s\r\n", __func__);
 				goto RETURN_PATH;
 			}
 
@@ -1520,7 +1530,10 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			if ((CoarseDelay_Settings->EventSource != XRFDC_EVNT_SRC_SLICE) &&
 				(CoarseDelay_Settings->EventSource != XRFDC_EVNT_SRC_TILE) &&
 				(CoarseDelay_Settings->EventSource !=
-								XRFDC_EVNT_SRC_IMMEDIATE)) {
+						XRFDC_EVNT_SRC_IMMEDIATE) &&
+						(CoarseDelay_Settings->EventSource !=
+						XRFDC_EVNT_SRC_SYSREF) &&
+						(CoarseDelay_Settings->EventSource != XRFDC_EVNT_SRC_PL)) {
 				metal_log(METAL_LOG_ERROR, "\n Invalid event source selection "
 												"in %s\r\n", __func__);
 				Status = XRFDC_FAILURE;
@@ -1536,10 +1549,12 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			}
 			if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 					(Type == XRFDC_ADC_TILE) &&
-					(CoarseDelay_Settings->EventSource == XRFDC_EVNT_SRC_SLICE)) {
+					((CoarseDelay_Settings->EventSource == XRFDC_EVNT_SRC_SLICE) ||
+					(CoarseDelay_Settings->EventSource ==
+							XRFDC_EVNT_SRC_IMMEDIATE))) {
 				Status = XRFDC_FAILURE;
 				metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, "
-						"SLICE event is not supported in 4GSPS ADC %s\r\n", __func__);
+						"event source is not supported in 4GSPS ADC %s\r\n", __func__);
 				goto RETURN_PATH;
 			}
 			if (Type == XRFDC_ADC_TILE) {
@@ -1779,6 +1794,14 @@ int XRFdc_UpdateEvent(XRFdc* InstancePtr, u32 Type, int Tile_Id, u32 Block_Id,
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_QMC_UPDT_OFFSET);
 				EventSource = ReadReg & XRFDC_QMC_UPDT_MODE_MASK;
+			}
+			if ((EventSource == XRFDC_EVNT_SRC_SYSREF) ||
+					(EventSource == XRFDC_EVNT_SRC_PL)) {
+				Status = XRFDC_FAILURE;
+				metal_log(METAL_LOG_ERROR, "\n Invalid Event Source, this"
+						" should be issued external to the driver"
+						" %s\r\n", __func__);
+				goto RETURN_PATH;
 			}
 			if (Type == XRFDC_ADC_TILE) {
 				if (EventSource == XRFDC_EVNT_SRC_SLICE)

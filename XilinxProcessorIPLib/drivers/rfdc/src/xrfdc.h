@@ -79,6 +79,7 @@
 *                       CR# 977266, 977872.
 *                       Return error for Slice Event on 4G ADC Block.
 *                       Corrected Interrupt Macro names and values.
+*              08/16/17 Add support for SYSREF and PL event sources.
 *
 * </pre>
 *
@@ -356,6 +357,8 @@ typedef struct {
 #define XRFDC_DAC_TILE				1U
 #define XRFDC_EVNT_SRC_SLICE		0x00000001U
 #define XRFDC_EVNT_SRC_TILE			0x00000002U
+#define XRFDC_EVNT_SRC_SYSREF		0x00000003U
+#define XRFDC_EVNT_SRC_PL			0x00000005U
 #define XRFDC_EVNT_SRC_IMMEDIATE	0x00000008U
 #define XRFDC_EVENT_MIXER			0x00000001U
 #define XRFDC_EVENT_CRSE_DLY		0x00000002U
