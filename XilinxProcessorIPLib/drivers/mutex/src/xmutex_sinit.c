@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -45,6 +45,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
+* 4.3   ms   08/07/17 Fixed compilation warnings.
 *
 * </pre>
 *
@@ -83,9 +84,9 @@ extern XMutex_Config XMutex_ConfigTable[];
 XMutex_Config *XMutex_LookupConfig(u16 DeviceId)
 {
 	XMutex_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XMUTEX_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_XMUTEX_NUM_INSTANCES; Index++) {
 		if (XMutex_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XMutex_ConfigTable[Index];
 			break;
