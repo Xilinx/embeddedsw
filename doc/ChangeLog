@@ -254,6 +254,10 @@ Updated a53 64 bit boot code to implement ARM erratum 855873.This fixes CR#98220
 scugic_v3_8:
 Updated xdefine_gic_params proc in driver tcl to export correct canonical
 definitions for pl to ps interrupts.Fix for CR#980534
+Updated get_psu_interrupt_id proc in scugic tcl, to check if sink pin is
+connected to any peripheral.This check has been added to avoid the BSP
+creation failure, if interrupt pin is connected externally.Fix for
+CR#980414.
 
 spi_v4_3:
 Added U suffix for all macros in xparameters.h. Fix for CR#963131.
