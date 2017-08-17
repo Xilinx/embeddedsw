@@ -69,8 +69,10 @@
 *       vns    03/13/17 Fixed MISRAC mandatory violation
 *       sk     03/20/17 Add support for EL1 non-secure mode.
 * 3.3   mn     07/25/17 Removed SD0_OTAPDLYENA and SD1_OTAPDLYENA bits
-* 	mn     08/07/17	Properly set OTAPDLY value by clearing previous bit
+*       mn     08/07/17	Properly set OTAPDLY value by clearing previous bit
 * 			settings
+*       mn     08/17/17 Added CCI support for A53 and disabled data cache
+*                       operations when it is enabled.
 *
 * </pre>
 *
@@ -206,7 +208,9 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 			XSDPS_XFER_MODE_OFFSET,
 			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
 
-	Xil_DCacheInvalidateRange((INTPTR)SCR, 8);
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheInvalidateRange((INTPTR)SCR, 8);
+	}
 
 	Status = XSdPs_CmdTransfer(InstancePtr, ACMD51, 0U, BlkCnt);
 	if (Status != XST_SUCCESS) {
@@ -428,7 +432,9 @@ s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	Arg = XSDPS_SWITCH_CMD_HS_GET;
 
-	Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 64);
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 64);
+	}
 
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD6, Arg, 1U);
 	if (Status != XST_SUCCESS) {
@@ -504,7 +510,9 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 
 		XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-		Xil_DCacheFlushRange((INTPTR)ReadBuff, 64);
+		if (InstancePtr->Config.IsCacheCoherent == 0) {
+			Xil_DCacheFlushRange((INTPTR)ReadBuff, 64);
+		}
 
 		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 				XSDPS_XFER_MODE_OFFSET,
@@ -867,7 +875,9 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-	Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 512U);
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 512U);
+	}
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
 			XSDPS_XFER_MODE_OFFSET,
@@ -1057,7 +1067,9 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-	Xil_DCacheFlushRange((INTPTR)ReadBuff, 64);
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheFlushRange((INTPTR)ReadBuff, 64);
+	}
 
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
 			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);

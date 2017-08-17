@@ -146,6 +146,8 @@
 *       sk     03/20/17 Add support for EL1 non-secure mode.
 * 3.3   mn     05/17/17 Add support for 64bit DMA addressing
 * 	mn     08/07/17 Modify driver to support 64-bit DMA in arm64 only
+*       mn     08/17/17 Enabled CCI support for A53 by adding cache coherency
+*                       information.
 *
 * </pre>
 *
@@ -187,6 +189,7 @@ typedef struct {
 	u32 BusWidth;			/**< Bus Width */
 	u32 BankNumber;			/**< MIO Bank selection for SD */
 	u32 HasEMIO;			/**< If SD is connected to EMIO */
+	u8 IsCacheCoherent; 		/**< If SD is Cache Coherent or not */
 } XSdPs_Config;
 
 /* ADMA2 descriptor table */
