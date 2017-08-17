@@ -482,4 +482,8 @@
  *                    CR#982209.
  * 6.4 asa   08/16/17 Made several changes in the R5 MPU handling logic. Added new APIs to
  *                    make RPU MPU handling user-friendly. This also fixes the CR-981028.
+ * 6.4 mus   08/17/17 Updated XGet_Zynq_UltraMp_Platform_info and XGetPSVersion_Info APIs to read
+ *                    version register through SMC call, over EL1 NS mode. This change has been done to
+ *                    support these APIs over EL1 NS mode.
+ *
  *****************************************************************************************/
