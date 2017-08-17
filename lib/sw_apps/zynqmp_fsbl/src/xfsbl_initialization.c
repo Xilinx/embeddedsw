@@ -98,6 +98,7 @@ static u32 XFsbl_DdrEccInit(void);
 static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes);
 static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr);
 static void XFsbl_EnableProgToPL(void);
+static void XFsbl_ClearPendingInterrupts(void);
 
 /* Functions from xfsbl_misc.c */
 
@@ -247,6 +248,15 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		if (XFSBL_SUCCESS != Status) {
 			goto END;
 		}
+	}
+	else
+	{
+		/* XFSBL_APU_ONLY_RESET */
+		/* APU only restart with pending interrupts can cause the linux to
+		 * hang when it starts the second time. So FSBL clears all pending interrupts
+		 * in case of APU only restart.
+		 */
+		XFsbl_ClearPendingInterrupts();
 	}
 
 	/**
@@ -1684,4 +1694,48 @@ static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function clears pending interrupts. This is called only during APU ony
+ *  reset.
+ *
+ * @param
+ *
+ * @return
+ *
+ *
+ *****************************************************************************/
+static void XFsbl_ClearPendingInterrupts(void)
+{
+
+	/* Clear pending peripheral interrupts */
+
+	XFsbl_Out32 (ACPU_GIC_GICD_ISPENDR0, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ISPENDR1, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ISPENDR2, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ISPENDR3, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ISPENDR4, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ISPENDR5, 0xFFFFFFFFU);
+
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR0, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR1, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR2, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR3, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR4, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR5, 0xFFFFFFFFU);
+
+	/* Clear pending software generated interrupts */
+
+	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR0, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR1, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR2, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR3, 0xFFFFFFFFU);
+
+	XFsbl_Out32 (ACPU_GIC_GICD_SPENDSGIR0, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_SPENDSGIR1, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_SPENDSGIR2, 0xFFFFFFFFU);
+	XFsbl_Out32 (ACPU_GIC_GICD_SPENDSGIR3, 0xFFFFFFFFU);
+
 }
