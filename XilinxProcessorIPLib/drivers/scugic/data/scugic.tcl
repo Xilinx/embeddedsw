@@ -66,6 +66,8 @@
 #                     the compilation warning in xscugic_g.c. Fix for CR#978736.
 # 3.8   mus  07/25/17 Updated xdefine_gic_params proc to export correct canonical
 #                     definitions for pl to ps interrupts.Fix for CR#980534
+# 3.8   mus  08/17/17 Updated get_psu_interrupt_id proc to check if the sink
+#                     pin is connected to peripheral.Fix for CR#980414.
 #
 ##############################################################################
 
@@ -858,6 +860,9 @@ proc get_psu_interrupt_id { ip_name port_name } {
     set concat_block 0
     foreach sink_pin $sink_pins {
         set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+        if {[llength $sink_periph] == 0} {
+            continue
+        }
         set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
 	# check for direct connection or concat block connected
         if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
