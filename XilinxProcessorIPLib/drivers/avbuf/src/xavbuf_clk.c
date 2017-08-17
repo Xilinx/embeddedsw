@@ -516,9 +516,9 @@ int XAVBuf_SetAudioClock(u64 FreqHz)
 	XAVBuf_Pll XAVBuf_RPllInstancePtr;
 
 	/*Verify Input Arguments*/
-	Flag = (FreqHz != (XAVBUF_AUDIO_SAMPLE_RATE_44_1 *
+	Flag = (FreqHz == (XAVBUF_AUDIO_SAMPLE_RATE_44_1 *
 		XAVBUF_AUDIO_SAMPLES)) ||
-		(FreqHz != (XAVBUF_AUDIO_SAMPLE_RATE_48_0 *
+		(FreqHz == (XAVBUF_AUDIO_SAMPLE_RATE_48_0 *
 		XAVBUF_AUDIO_SAMPLES));
 	Xil_AssertNonvoid(Flag);
 
