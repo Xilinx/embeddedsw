@@ -812,7 +812,12 @@ extern "C" {
 
 #define XFSBL_PS_DDR_END_ADDRESS		(0x80000000U - 1U)  //2GB of DDR
 
-#define ZDMA_TRANSFER_MAX_LEN 0x3FFFFFFFU
+/* The number of bytes transferred per cycle of DMA should be
+ * 64 bit aligned to avoid any ECC errors. Hence, even though the maximum
+ * number of bytes that can be sent per cycle is 1GB -1, only 1GB -8 bytes
+ * are sent to preserve the 64 bit alignment.
+ */
+#define ZDMA_TRANSFER_MAX_LEN (0x3FFFFFFFU - 7U)
 
 #define EFUSE_IPDISABLE_CG_MASK ((EFUSE_IPDISABLE_GPU_DIS_MASK) | \
 		(EFUSE_IPDISABLE_APU2_DIS_MASK) | (EFUSE_IPDISABLE_APU3_DIS_MASK))
