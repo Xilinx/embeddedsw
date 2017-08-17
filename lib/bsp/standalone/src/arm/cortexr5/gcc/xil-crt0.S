@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,6 +42,9 @@
 * 5.04  pkp  12/18/15 Initialized global constructor for C++ applications
 * 5.04  pkp  02/19/16 Added timer configuration using XTime_StartTimer API when
 *		      TTC3 is present
+* 6.4   asa  08/16/17 Added call to Xil_InitializeExistingMPURegConfig to
+*                     initialize the MPU configuration table with the MPU
+*                     configurations already set in Init_Mpu function.
 * </pre>
 *
 * @note
@@ -127,7 +130,7 @@ test_boot_status:
 #ifdef SLEEP_TIMER_BASEADDR
 	bl XTime_StartTimer
 #endif
-
+	bl 	Xil_InitializeExistingMPURegConfig	/* Initialize MPU config */
 	/* run global constructors */
 	bl __libc_init_array
 
