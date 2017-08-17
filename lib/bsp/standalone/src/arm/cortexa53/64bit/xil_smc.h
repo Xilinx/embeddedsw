@@ -46,6 +46,11 @@
 * Ver   Who      Date     Changes
 * ----- -------- -------- -----------------------------------------------
 * 6.2 	pkp  	 02/16/17 First release
+* 6.4   mus      08/17/17 Added constant define for SMC ID , which is
+*                         intended to read the version/idcode of the
+*                         platform
+*
+*
 * </pre>
 *
 ******************************************************************************/
@@ -71,6 +76,7 @@ extern "C" {
 
 #define MMIO_WRITE_SMC_FID	0xC2000013
 #define MMIO_READ_SMC_FID	0xC2000014
+#define GET_CHIPID_SMC_FID      0xC2000018
 /**************************** Type Definitions ******************************/
 typedef struct {
 	u64 Arg0;
