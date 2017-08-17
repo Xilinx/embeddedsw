@@ -250,6 +250,7 @@ h/w design got created with HPC port.
 Updated a53 64 bit translation table to mark  memory as a outer shareable for
 EL1 NS execution. This change has been done to support CCI enabled IP's.
 Updated a53 64 bit boot code to implement ARM erratum 855873.This fixes CR#982209.
+Made changes to fix various issues in R5 MPU handling logic. Added new APIs. CR#981028.
 
 scugic_v3_8:
 Updated xdefine_gic_params proc in driver tcl to export correct canonical
