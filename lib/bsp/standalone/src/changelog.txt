@@ -480,5 +480,6 @@
  *                    EL1 NS execution. This change has been done to support CCI enabled IP's.
  * 6.4 mus   08/11/17 Updated a53 64 bit boot code to implement ARM erratum 855873.This fixes
  *                    CR#982209.
- *
+ * 6.4 asa   08/16/17 Made several changes in the R5 MPU handling logic. Added new APIs to
+ *                    make RPU MPU handling user-friendly. This also fixes the CR-981028.
  *****************************************************************************************/
