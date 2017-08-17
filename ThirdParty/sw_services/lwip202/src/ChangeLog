@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2017-08-17
+	* Upgrade to LWIP2.0.2 version.
+	* Removed PPC References
 2017-08-14
 	* Dont perform data cache related operations when CCI is
 	  enabled.
