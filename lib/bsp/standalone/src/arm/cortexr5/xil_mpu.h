@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -67,6 +67,14 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
+* 6.4   asa  08/16/17 Added many APIs for MPU access to make MPU usage
+* 					  user-friendly. The APIs added are: Xil_UpdateMPUConfig,
+* 					  Xil_GetMPUConfig, Xil_GetNumOfFreeRegions,
+* 					  Xil_GetNextMPURegion, Xil_DisableMPURegionByRegNum,
+* 					  Xil_GetMPUFreeRegMask, Xil_SetMPURegionByRegNum, and
+* 					  Xil_InitializeExistingMPURegConfig.
+* 					  Added a new array of structure of type XMpuConfig to
+* 					  represent the MPU configuration table.
 * </pre>
 *
 
@@ -84,9 +92,20 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#define MPU_REG_DISABLED		0U
+#define MPU_REG_ENABLED			1U
+#define MAX_POSSIBLE_MPU_REGS	16U
 /**************************** Type Definitions *******************************/
+struct XMpuConfig{
+	u32 RegionStatus; /* Enabled or disabled */
+	INTPTR BaseAddress;/* MPU region base address */
+	u64 Size; /* MPU region size address */
+	u32 Attribute; /* MPU region size attribute */
+};
 
+typedef struct XMpuConfig XMpu_Config[MAX_POSSIBLE_MPU_REGS];
+
+extern XMpu_Config Mpu_Config;
 /************************** Constant Definitions *****************************/
 
 /************************** Variable Definitions *****************************/
@@ -96,7 +115,14 @@ extern "C" {
 void Xil_SetTlbAttributes(INTPTR Addr, u32 attrib);
 void Xil_EnableMPU(void);
 void Xil_DisableMPU(void);
-void Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib);
+u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib);
+u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib);
+void Xil_GetMPUConfig (XMpu_Config mpuconfig);
+u32 Xil_GetNumOfFreeRegions (void);
+u32 Xil_GetNextMPURegion(void);
+u32 Xil_DisableMPURegionByRegNum (u32 reg_num);
+u16 Xil_GetMPUFreeRegMask (void);
+u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,14 @@
 * ----- ---- -------- ---------------------------------------------------
 * 5.00  pkp  02/10/14 Initial version
 * 6.2   mus  01/27/17 Updated to support IAR compiler
+* 6.4   asa  08/16/17 Added many APIs for MPU access to make MPU usage
+* 					  user-friendly. The APIs added are: Xil_UpdateMPUConfig,
+* 					  Xil_GetMPUConfig, Xil_GetNumOfFreeRegions,
+* 					  Xil_GetNextMPURegion, Xil_DisableMPURegionByRegNum,
+* 					  Xil_GetMPUFreeRegMask, Xil_SetMPURegionByRegNum, and
+* 					  Xil_InitializeExistingMPURegConfig.
+* 					  Added a new array of structure of type XMpuConfig to
+* 					  represent the MPU configuration table.
 * </pre>
 *
 *
@@ -55,6 +63,7 @@
 #include "xil_types.h"
 #include "xil_mpu.h"
 #include "xdebug.h"
+#include "xstatus.h"
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /**************************** Type Definitions *******************************/
@@ -97,8 +106,10 @@ static const struct {
 	{ 0x100000000, REGION_4G },
 };
 
-/************************** Function Prototypes ******************************/
+XMpu_Config Mpu_Config;
 
+/************************** Function Prototypes ******************************/
+void Xil_InitializeExistingMPURegConfig(void);
 /*****************************************************************************/
 /**
 * @brief    This function sets the memory attributes for a section covering
@@ -130,25 +141,22 @@ void Xil_SetTlbAttributes(INTPTR addr, u32 attrib)
 *
 *
 ******************************************************************************/
-void Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
+u32 Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 {
 	u32 Regionsize = 0;
 	INTPTR Localaddr = addr;
 	u32 NextAvailableMemRegion;
 	unsigned int i;
 
+	NextAvailableMemRegion = Xil_GetNextMPURegion();
+	if (NextAvailableMemRegion == 0xFF) {
+		xdbg_printf(DEBUG, "No regions available\r\n");
+		return XST_FAILURE;
+	}
+
 	Xil_DCacheFlush();
 	Xil_ICacheInvalidate();
-#if defined (__GNUC__)
-	NextAvailableMemRegion = mfcp(XREG_CP15_MPU_MEMORY_REG_NUMBER);
-#elif defined (__ICCARM__)
-	 mfcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,NextAvailableMemRegion);
-#endif
-	NextAvailableMemRegion++;
-	if (NextAvailableMemRegion > 16) {
-		xdbg_printf(DEBUG, "No regions available\r\n");
-		return;
-	}
+
 	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,NextAvailableMemRegion);
 	isb();
 
@@ -170,6 +178,8 @@ void Xil_SetMPURegion(INTPTR addr, u64 size, u32 attrib)
 	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Regionsize);	/* set the region size and enable it*/
 	dsb();
 	isb();
+	Xil_UpdateMPUConfig(NextAvailableMemRegion, Localaddr, Regionsize, attrib);
+	return XST_SUCCESS;
 }
 /*****************************************************************************/
 /**
@@ -274,4 +284,296 @@ void Xil_DisableMPU(void)
 	if(ICacheStatus != 0) {
 		Xil_ICacheEnable();
 	}
+}
+
+/*****************************************************************************/
+/**
+* @brief    Update the MPU configuration for the requested region number in
+* 			the global MPU configuration table.
+*
+* @param	reg_num: The requested region number to be updated information for.
+* @param	address: 32 bit address for start of the region.
+* @param	size: Requested size of the region.
+* @param	attrib: Attribute for the corresponding region.
+* @return	XST_FAILURE: When the requested region number if 16 or more.
+* 			XST_SUCCESS: When the MPU configuration table is updated.
+*
+*
+******************************************************************************/
+u32 Xil_UpdateMPUConfig(u32 reg_num, INTPTR address, u32 size, u32 attrib)
+{
+	u32 ReturnVal = XST_SUCCESS;
+	u32 Tempsize = size;
+	u32 Index;
+
+	if (reg_num >=  MAX_POSSIBLE_MPU_REGS) {
+		xdbg_printf(DEBUG, "Invalid region number\r\n");
+		ReturnVal = XST_FAILURE;
+		goto exit;
+	}
+
+	if (size & REGION_EN) {
+		Mpu_Config[reg_num].RegionStatus = MPU_REG_ENABLED;
+		Mpu_Config[reg_num].BaseAddress = address;
+		Tempsize &= (~REGION_EN);
+		Tempsize >>= 1;
+		/* Lookup the size.  */
+		for (Index = 0; Index <
+				sizeof region_size / sizeof region_size[0]; Index++) {
+			if (Tempsize <= region_size[Index].encoding) {
+				Mpu_Config[reg_num].Size = region_size[Index].size;
+				break;
+			}
+		}
+		Mpu_Config[reg_num].Attribute = attrib;
+	} else {
+		Mpu_Config[reg_num].RegionStatus = 0U;
+		Mpu_Config[reg_num].BaseAddress = 0U;
+		Mpu_Config[reg_num].Size = 0U;
+		Mpu_Config[reg_num].Attribute = 0U;
+	}
+
+exit:
+	return ReturnVal;
+}
+
+/*****************************************************************************/
+/**
+* @brief    The MPU configuration table is passed to the caller.
+*
+* @param	mpuconfig: This is of type XMpu_Config which is an array of
+* 			16 entries of type structure representing the MPU config table
+* @return	none
+*
+*
+******************************************************************************/
+void Xil_GetMPUConfig (XMpu_Config mpuconfig) {
+	u32 Index = 0U;
+
+	while (Index < MAX_POSSIBLE_MPU_REGS) {
+		mpuconfig[Index].RegionStatus = Mpu_Config[Index].RegionStatus;
+		mpuconfig[Index].BaseAddress = Mpu_Config[Index].BaseAddress;
+		mpuconfig[Index].Attribute = Mpu_Config[Index].Attribute;
+		mpuconfig[Index].Size = Mpu_Config[Index].Size;
+		Index++;
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief    Returns the total number of free MPU regions available.
+*
+* @param	none
+* @return	Number of free regions available to users
+*
+*
+******************************************************************************/
+u32 Xil_GetNumOfFreeRegions (void) {
+	u32 Index = 0U;
+	int NumofFreeRegs = 0U;
+
+	while (Index < MAX_POSSIBLE_MPU_REGS) {
+		if (MPU_REG_DISABLED == Mpu_Config[Index].RegionStatus) {
+			NumofFreeRegs++;
+		}
+		Index++;
+	}
+	return NumofFreeRegs;
+}
+
+/*****************************************************************************/
+/**
+* @brief    Returns the total number of free MPU regions available in the form
+*           of a mask. A bit of 1 in the returned 16 bit value represents the
+*           corresponding region number to be available.
+*           For example, if this function returns 0xC0000, this would mean, the
+*           regions 14 and 15 are available to users.
+*
+* @param	none
+* @return	The free region mask as a 16 bit value
+*
+*
+******************************************************************************/
+u16 Xil_GetMPUFreeRegMask (void) {
+	u32 Index = 0U;
+	u16 FreeRegMask = 0U;
+
+	while (Index < MAX_POSSIBLE_MPU_REGS) {
+		if (MPU_REG_DISABLED == Mpu_Config[Index].RegionStatus) {
+			FreeRegMask |= (1U << Index);
+		}
+		Index++;
+	}
+	return FreeRegMask;
+}
+
+/*****************************************************************************/
+/**
+* @brief    Disables the corresponding region number as passed by the user.
+*
+* @param	reg_num: The region number to be disabled
+* @return	XST_SUCCESS: If the region could be disabled successfully
+* 			XST_FAILURE: If the requested region number is 16 or more.
+*
+*
+******************************************************************************/
+u32 Xil_DisableMPURegionByRegNum (u32 reg_num) {
+	u32 Temp = 0U;
+	u32 ReturnVal = XST_FAILURE;
+
+	if (reg_num >= 16U) {
+		xdbg_printf(DEBUG, "Invalid region number\r\n");
+		goto exit1;
+	}
+	Xil_DCacheFlush();
+	Xil_ICacheInvalidate();
+
+	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,reg_num);
+#if defined (__GNUC__)
+	Temp = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
+#elif defined (__ICCARM__)
+	mfcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
+#endif
+	Temp &= (~REGION_EN);
+	dsb();
+	mtcp(XREG_CP15_MPU_REG_SIZE_EN,Temp);
+	dsb();
+	isb();
+	Xil_UpdateMPUConfig(reg_num, 0U, 0U, 0U);
+	ReturnVal = XST_SUCCESS;
+
+exit1:
+	return ReturnVal;
+}
+
+/*****************************************************************************/
+/**
+* @brief    Enables the corresponding region number as passed by the user.
+*
+* @param	reg_num: The region number to be enabled
+* @param	address: 32 bit address for start of the region.
+* @param	size: Requested size of the region.
+* @param	attrib: Attribute for the corresponding region.
+* @return	XST_SUCCESS: If the region could be created successfully
+* 			XST_FAILURE: If the requested region number is 16 or more.
+*
+*
+******************************************************************************/
+u32 Xil_SetMPURegionByRegNum (u32 reg_num, INTPTR addr, u64 size, u32 attrib)
+{
+	u32 ReturnVal = XST_SUCCESS;
+	INTPTR Localaddr = addr;
+	u32 Regionsize = 0;
+	u32 Index;
+
+	if (reg_num >= 16U) {
+		xdbg_printf(DEBUG, "Invalid region number\r\n");
+		ReturnVal = XST_FAILURE;
+		goto exit2;
+	}
+
+	if (Mpu_Config[reg_num].RegionStatus == MPU_REG_ENABLED) {
+		xdbg_printf(DEBUG, "Region already enabled\r\n");
+		ReturnVal = XST_FAILURE;
+		goto exit2;
+	}
+
+	Xil_DCacheFlush();
+	Xil_ICacheInvalidate();
+	mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,reg_num);
+	isb();
+
+	/* Lookup the size.  */
+	for (Index = 0; Index <
+			sizeof region_size / sizeof region_size[0]; Index++) {
+		if (size <= region_size[Index].size) {
+			Regionsize = region_size[Index].encoding;
+			break;
+		}
+	}
+
+	Localaddr &= ~(region_size[Index].size - 1);
+	Regionsize <<= 1;
+	Regionsize |= REGION_EN;
+	dsb();
+	mtcp(XREG_CP15_MPU_REG_BASEADDR, Localaddr);
+	mtcp(XREG_CP15_MPU_REG_ACCESS_CTRL, attrib);
+	mtcp(XREG_CP15_MPU_REG_SIZE_EN, Regionsize);
+	dsb();
+	isb();
+	Xil_UpdateMPUConfig(reg_num, Localaddr, Regionsize, attrib);
+exit2:
+	return ReturnVal;
+
+}
+
+/*****************************************************************************/
+/**
+* @brief    Initializes the MPU configuration table that are setup in the
+* 			R5 boot code in the Init_Mpu function called before C main.
+*
+* @param	none
+* @return	none
+*
+*
+******************************************************************************/
+void Xil_InitializeExistingMPURegConfig(void)
+{
+	u32 Index = 0U;
+	u32 Index1 = 0U;
+	u32 MPURegSize;
+	INTPTR MPURegBA;
+	u32 MPURegAttrib;
+	u32 Tempsize;
+
+	while (Index < MAX_POSSIBLE_MPU_REGS) {
+		mtcp(XREG_CP15_MPU_MEMORY_REG_NUMBER,Index);
+#if defined (__GNUC__)
+		MPURegSize = mfcp(XREG_CP15_MPU_REG_SIZE_EN);
+		MPURegBA = mfcp(XREG_CP15_MPU_REG_BASEADDR);
+		MPURegAttrib = mfcp(XREG_CP15_MPU_REG_ACCESS_CTRL);
+#elif defined (__ICCARM__)
+		mfcp(XREG_CP15_MPU_REG_SIZE_EN,MPURegSize);
+		mfcp(XREG_CP15_MPU_REG_BASEADDR, MPURegBA);
+		mfcp(XREG_CP15_MPU_REG_ACCESS_CTRL, MPURegAttrib);
+#endif
+		if (MPURegSize & REGION_EN) {
+			Mpu_Config[Index].RegionStatus = MPU_REG_ENABLED;
+			Mpu_Config[Index].BaseAddress = MPURegBA;
+			Mpu_Config[Index].Attribute = MPURegAttrib;
+			Tempsize = MPURegSize & (~REGION_EN);
+			Tempsize >>= 1;
+			for (Index1 = 0; Index1 <
+				(sizeof (region_size) / sizeof (region_size[0])); Index1++) {
+				if (Tempsize <= region_size[Index1].encoding) {
+					Mpu_Config[Index].Size = region_size[Index1].size;
+					break;
+				}
+			}
+		}
+		Index++;
+	}
+}
+
+/*****************************************************************************/
+/**
+* @brief    Returns the next available free MPU region
+*
+* @param	none
+* @return	The free MPU region available
+*
+*
+******************************************************************************/
+u32 Xil_GetNextMPURegion(void)
+{
+	u32 Index = 0U;
+	u32 NextAvailableReg = 0xFF;
+	while (Index < MAX_POSSIBLE_MPU_REGS) {
+		if (Mpu_Config[Index].RegionStatus != MPU_REG_ENABLED) {
+			NextAvailableReg = Index;
+			break;
+		}
+		Index++;
+	}
+	return NextAvailableReg;
 }
