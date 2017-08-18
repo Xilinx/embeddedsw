@@ -44,6 +44,10 @@
 
 #include "pm_node.h"
 
+/* PLL states: */
+#define PM_PLL_STATE_RESET	0U
+#define PM_PLL_STATE_LOCKED	1U
+
 /*********************************************************************
  * Structure definitions
  ********************************************************************/
