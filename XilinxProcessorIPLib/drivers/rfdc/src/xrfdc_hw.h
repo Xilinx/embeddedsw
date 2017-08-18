@@ -291,6 +291,18 @@ extern "C" {
 #define XRFDC_COMMON_INTR_ENABLE	0x104U	/**< Common Intr enable register */
 #define XRFDC_INTR_STS				0x200U	/**< Intr status register */
 #define XRFDC_INTR_ENABLE			0x204U	/**< Intr enable register */
+#define XRFDC_FIFO_ENABLE			0x230U	/**< FIFO Enable and Disable */
+
+/* @} */
+
+/** @name FIFO Enable - FIFO enable and disable register
+ *
+ * This register contains bits for FIFO enable and disable
+ * for ADC and DAC.
+ * @{
+ */
+
+#define XRFDC_FIFO_EN_MASK	0x00000001U /**< FIFO enable/disable */
 
 /* @} */
 
