@@ -2298,7 +2298,7 @@ Added XVphy_RegisterDebug API in vphy.c/h
 Fixed bug in HdmiCfgCalcMmcmParam when linerate exceeds 3.4 Gbps when oversampling is enabled
 Improved stability to avoid SW hang when HdmiCfgCalcMmcmParam is not able to find the applicable divider for ARM processors
 Fixed XVphy_HdmiDebugInfo printout for RX only configuration
-Fix doxygen issues in the header files
+Added doxygen tags
 
 vprocss_v2_1:
 Added new version 2.1
