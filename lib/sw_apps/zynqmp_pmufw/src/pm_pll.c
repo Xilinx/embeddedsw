@@ -42,10 +42,6 @@
 #include "crl_apb.h"
 #include "xpfw_util.h"
 
-/* PLL states: */
-#define PM_PLL_STATE_RESET	0U
-#define PM_PLL_STATE_LOCKED	1U
-
 /* Register offsets (in regard to PLL's base address of control registers) */
 #define PM_PLL_CTRL_OFFSET	0x0U
 #define PM_PLL_CFG_OFFSET	0x4U

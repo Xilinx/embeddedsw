@@ -60,6 +60,8 @@
 
 #define PM_POWER_SUPPLYCHECK_TIMEOUT	100000U
 
+#define AMS_PSSYSMON_CONFIG_REG2	0XFFA50908
+
 /**
  * PmPowerStack() - Used to construct stack for implementing non-recursive
  *		depth-first search in power graph
@@ -447,6 +449,32 @@ done:
 }
 
 /**
+ * PmPowerPowerDownSysOsc() - Wrapper to put SysOsc in sleep mode.
+ */
+static void PmPowerDownSysOsc(void)
+{
+        u32 val = 0;
+
+        /* Put Sysosc in sleep mode */
+        val = Xil_In32(AMS_PSSYSMON_CONFIG_REG2);
+        val |= 0x30;
+        Xil_Out32(AMS_PSSYSMON_CONFIG_REG2, val);
+}
+
+/**
+ * PmPowerPowerUpSysOsc() - Wrapper to put SysOsc in normal operation mode.
+ */
+static void PmPowerUpSysOsc(void)
+{
+        u32 val = 0;
+
+        /* Wake up SysOsc */
+        val = Xil_In32(AMS_PSSYSMON_CONFIG_REG2);
+        val &= 0xFF0F;
+        Xil_Out32(AMS_PSSYSMON_CONFIG_REG2, val);
+}
+
+/**
  * PmPowerDown() - Power down the power node
  * @power       Power node in question
  *
@@ -476,6 +504,15 @@ static int PmPowerDown(PmPower* const power)
 	}
 	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
 
+	/* Put SysOsc in sleep mode while going to deep sleep mode. */
+	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
+			(pmPowerDomainFpd_g.power.node.currState == PM_PWR_STATE_OFF) &&
+			(pmPowerDomainPld_g.power.node.currState == PM_PWR_STATE_OFF) &&
+			(pmIOpll_g.node.currState == PM_PLL_STATE_RESET) &&
+			(pmRpll_g.node.currState == PM_PLL_STATE_RESET)) {
+		PmPowerDownSysOsc();
+	}
+
 done:
 	return status;
 }
@@ -490,6 +527,11 @@ done:
 static int PmPowerUp(PmPower* const power)
 {
 	int status = XST_SUCCESS;
+
+	/* Enable SysOsc for normal operation if it is in sleep mode. */
+	if ((Xil_In32(AMS_PSSYSMON_CONFIG_REG2) & 0xF0) == 0x30) {
+		PmPowerUpSysOsc();
+	}
 
 	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
 
