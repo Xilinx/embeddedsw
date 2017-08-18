@@ -132,7 +132,7 @@ void XVidFrameCrc_Reset(void)
 void XVidFrameCrc_Report(void)
  {
 	xil_printf("------------\r\n");
-	xil_printf("Video Frame CRC\n\r");
+	xil_printf("Video Frame CRC\r\n");
 	xil_printf("------------\r\n\r\n");
 	xil_printf ("CRC PPC     =  %d\r\n",
 			XVidFrameCrc_ReadReg(XPAR_VIDEO_FRAME_CRC_BASEADDR,

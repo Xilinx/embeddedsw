@@ -73,6 +73,9 @@
 *                            TxStreamCallback API to avoid the race condition,
 *                            and replace to be call at the global while loop.
 *       MH     26/07/17 Set TMDS SCDC register after TX HPD toggle event
+*       GM     18/08/17 Added SI Initialization after the SI Reset in
+*                            StartTxAfterRx API
+*       YH     18/08/17 Add HDCP Ready checking before set down streams
 * </pre>
 *
 ******************************************************************************/
@@ -649,7 +652,7 @@ int I2cMux_Ps(void)
   u8 Buffer;
   int Status;
 
-  xil_printf("Set i2c mux... \n\r");
+  xil_printf("Set i2c mux... \r\n");
 
   /* Select SI5324 clock generator */
   Buffer = 0x10;
@@ -1026,10 +1029,6 @@ void VphyHdmiRxReadyCallback(void *CallbackRef)
 	XVphy *VphyPtr = (XVphy *)CallbackRef;
 	XVphy_PllType RxPllType;
 
-	// Enable pass-through
-#if(LOOPBACK_MODE_EN != 1)
-	IsPassThrough = (TRUE);
-#endif
 	/* Reset the menu to main */
 	XHdmi_MenuReset(&HdmiMenu);
 
@@ -1429,6 +1428,9 @@ void RxStreamUpCallback(void *CallbackRef)
 
 	// Start TX stream
 	StartTxAfterRxFlag = (TRUE);
+	// Enable pass-through
+    IsPassThrough = (TRUE);
+
 #else
 	XVidC_ReportStreamInfo(&HdmiRxSsPtr->HdmiRxPtr->Stream.Video);
 
@@ -1610,6 +1612,7 @@ void StartTxAfterRx(void)
   }
   else {
     Si5324_Reset(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
+    Si5324_Init(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR);
   }
 
   /* Video Pattern Generator */
@@ -2180,7 +2183,7 @@ int main()
   // Initialize HDMI TX Subsystem
   /////
   XV_HdmiTxSs_ConfigPtr =
-		  XV_HdmiTxSs_LookupConfig(XPAR_V_HDMI_TX_SS_V_HDMI_TX_DEVICE_ID);
+		  XV_HdmiTxSs_LookupConfig(XPAR_XV_HDMITX_0_DEVICE_ID);
 
   if(XV_HdmiTxSs_ConfigPtr == NULL)
   {
@@ -2344,12 +2347,13 @@ int main()
 							  (void *)&HdmiTxSs);
 
 #ifdef USE_HDCP
+  if (XV_HdmiTxSs_HdcpIsReady(&HdmiTxSs)) {
+    /* Initialize the HDCP instance */
+    XHdcp_Initialize(&HdcpRepeater);
 
-  /* Initialize the HDCP instance */
-  XHdcp_Initialize(&HdcpRepeater);
-
-  /* Set HDCP downstream interface(s) */
-  XHdcp_SetDownstream(&HdcpRepeater, &HdmiTxSs);
+    /* Set HDCP downstream interface(s) */
+    XHdcp_SetDownstream(&HdcpRepeater, &HdmiTxSs);
+  }
 #endif
 #endif
 
@@ -2360,7 +2364,7 @@ int main()
   /* Get User Edid Info */
   XV_HdmiRxSs_SetEdidParam(&HdmiRxSs, (u8*)&Edid, sizeof(Edid));
   XV_HdmiRxSs_ConfigPtr =
-		  XV_HdmiRxSs_LookupConfig(XPAR_V_HDMI_RX_SS_V_HDMI_RX_DEVICE_ID);
+		  XV_HdmiRxSs_LookupConfig(XPAR_XV_HDMIRX_0_DEVICE_ID);
 
   if(XV_HdmiRxSs_ConfigPtr == NULL)
   {
@@ -2534,7 +2538,7 @@ int main()
     // calls the RX stream down callback.
     /////
 
-    XVphyCfgPtr = XVphy_LookupConfig(XPAR_VID_PHY_CONTROLLER_DEVICE_ID);
+    XVphyCfgPtr = XVphy_LookupConfig(XPAR_VPHY_0_DEVICE_ID);
     if (XVphyCfgPtr == NULL) {
       xil_printf("Video PHY device not found\r\n\r");
       return XST_FAILURE;
