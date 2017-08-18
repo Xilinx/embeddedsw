@@ -44,6 +44,7 @@
 #include "pm_periph.h"
 #include "pm_pll.h"
 #include "pm_usb.h"
+#include "pm_requirement.h"
 #include "xpfw_rom_interface.h"
 #include "crf_apb.h"
 #include "pm_system.h"
@@ -503,6 +504,19 @@ static int PmPowerDown(PmPower* const power)
 		PmClockRelease(&power->node);
 	}
 	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
+#ifdef DEBUG_MODE
+	PmRequirement* req;
+	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
+                        (pmPowerDomainFpd_g.power.node.currState == PM_PWR_STATE_OFF)) {
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+		req = PmRequirementGetNoMaster(&pmSlaveUart0_g);
+#endif
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+		req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
+#endif
+		PmRequirementUpdate(req, 0);
+	}
+#endif
 
 	/* Put SysOsc in sleep mode while going to deep sleep mode. */
 	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
@@ -532,6 +546,17 @@ static int PmPowerUp(PmPower* const power)
 	if ((Xil_In32(AMS_PSSYSMON_CONFIG_REG2) & 0xF0) == 0x30) {
 		PmPowerUpSysOsc();
 	}
+
+#ifdef DEBUG_MODE
+	PmRequirement* req;
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+	req = PmRequirementGetNoMaster(&pmSlaveUart0_g);
+#endif
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+	req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
+#endif
+	PmRequirementUpdate(req, PM_CAP_ACCESS);
+#endif
 
 	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
 
