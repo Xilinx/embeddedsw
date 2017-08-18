@@ -70,6 +70,9 @@
 * 1.0   RHe  10-07-2015 Initial version
 * 1.1   MG   03-02-2016 Added HDCP support
 * 1.1   YH   27-07-2016 Remove Separate HDCP menu, keep only HDCP Main Menu
+* 1.2   MH   09-08-2017 Added HDCP Debug Menu
+*       mmo  18-08-2017 Added Support to Custom Resolution in the Resolution
+*                               menu
 * </pre>
 *
 ******************************************************************************/
@@ -100,18 +103,12 @@ extern "C" {
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #include "xv_hdmirxss.h"
 #endif
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-#include "xv_hdmitxss.h"
-#include "xv_tpg.h"
-#endif
-
 
 /************************** Constant Definitions *****************************/
 #if defined (XPAR_XHDCP_NUM_INSTANCES) || defined (XPAR_XHDCP22_RX_NUM_INSTANCES) || defined (XPAR_XHDCP22_TX_NUM_INSTANCES)
 /* If HDCP 1.4 or HDCP 2.2 is in the system then use the HDCP abstraction layer */
 #define USE_HDCP
 #endif
-
 
 /**************************** Type Definitions *******************************/
 /**
@@ -123,17 +120,9 @@ typedef enum
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
 	XHDMI_GTPLLLAYOUT_MENU,
 #endif
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-	XHDMI_EDID_MENU,
-	XHDMI_RESOLUTION_MENU,
-	XHDMI_FRAMERATE_MENU,
-	XHDMI_COLORDEPTH_MENU,
-	XHDMI_COLORSPACE_MENU,
-	XHDMI_AUDIO_MENU,
-	XHDMI_VIDEO_MENU,
-#endif
 #ifdef USE_HDCP
 	XHDMI_HDCP_MAIN_MENU,
+	XHDMI_HDCP_DEBUG_MENU,
 #endif
 	XHDMI_NUM_MENUS
 } XHdmi_MenuType;
