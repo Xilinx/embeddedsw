@@ -821,8 +821,8 @@ typedef struct {
 *
 ******************************************************************************/
 #define XV_HdmiTx_GetMode(InstancePtr) \
-    XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
-    (XV_HDMITX_PIO_OUT_OFFSET)) & (XV_HDMITX_PIO_OUT_MODE_MASK)
+    (XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_OUT_OFFSET)) & (XV_HDMITX_PIO_OUT_MODE_MASK))
 
 /*****************************************************************************/
 /**
@@ -1017,7 +1017,7 @@ typedef struct {
 ******************************************************************************/
 #define XV_HdmiTx_IsMasked(InstancePtr) \
     XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
-    (XV_HDMITX_MASK_CTRL_CLR_OFFSET)) & (XV_HDMITX_MASK_CTRL_RUN_MASK)
+    (XV_HDMITX_MASK_CTRL_OFFSET)) & (XV_HDMITX_MASK_CTRL_RUN_MASK)
 
 /************************** Function Prototypes ******************************/
 
