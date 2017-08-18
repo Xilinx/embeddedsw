@@ -41,6 +41,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -----------------------------------------------
 * 1.00  MH   05/24/16 First Release
+* 1.01  MH   06/16/17 Removed authentication request flag.
 *</pre>
 *
 *****************************************************************************/
@@ -58,9 +59,6 @@ extern "C" {
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "xparameters.h"
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-#include "xv_hdmitxss.h"
-#endif
 #ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #include "xv_hdmirxss.h"
 #endif
@@ -99,20 +97,6 @@ typedef struct
   /** Flag indicates upstream interface stream is up */
   u8 UpstreamInstanceStreamUp;
 #endif
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-  /** Array of pointers to each HDMI repeater downstream interface */
-  XV_HdmiTxSs *DownstreamInstancePtr[XHDCP_MAX_DOWNSTREAM_INTERFACES];
-  /** Count of HDMI repeater downstream interfaces binded */
-  u8 DownstreamInstanceBinded;
-  /** Flag indicates downstream interface is connected */
-  u32 DownstreamInstanceConnected;
-  /** Flag indicates downstream interface stream is up */
-  u32 DownstreamInstanceStreamUp;
-#endif
-  /** HDCP topology */
-  XHdcp_Topology Topology;
-  /** Content stream type */
-  u8 StreamType;
   /** Flag indicates that HDCP repeater is ready */
   u32 IsReady;
 } XHdcp_Repeater;
@@ -127,13 +111,6 @@ int  XHdcp_Initialize(XHdcp_Repeater *InstancePtr);
 int  XHdcp_SetUpstream(XHdcp_Repeater *InstancePtr,
        XV_HdmiRxSs *UpstreamInstancePtr);
 #endif
-#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
-int  XHdcp_SetDownstream(XHdcp_Repeater *InstancePtr,
-       XV_HdmiTxSs *DownstreamInstancePtr);
-#endif
-#if defined XPAR_XV_HDMITXSS_NUM_INSTANCES && defined XPAR_XV_HDMIRXSS_NUM_INSTANCES
-void XHdcp_SetRepeater(XHdcp_Repeater *InstancePtr, u8 Set);
-#endif //TODO
 
 // Functions used to process callback events
 void XHdcp_StreamUpCallback(void *HdcpInstancePtr);
@@ -143,10 +120,10 @@ void XHdcp_StreamDisconnectCallback(void *HdcpInstancePtr);
 
 // Other functions
 void XHdcp_Poll(XHdcp_Repeater *InstancePtr);
-void XHdcp_Authenticate(XHdcp_Repeater *InstancePtr);
-void XHdcp_EnableEncryption(XHdcp_Repeater *InstancePtr);
-void XHdcp_DisableEncryption(XHdcp_Repeater *InstancePtr);
 void XHdcp_DisplayInfo(XHdcp_Repeater *InstancePtr, u8 Verbose);
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
+void XHdcp_SetUpstreamCapability(XHdcp_Repeater *InstancePtr, int Protocol);
+#endif
 
 #ifdef __cplusplus
 }
