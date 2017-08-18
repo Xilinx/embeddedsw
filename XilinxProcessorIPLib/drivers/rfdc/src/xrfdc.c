@@ -49,6 +49,7 @@
 *                       CR# 977266, 977872.
 *                       Return error for Slice Event on 4G ADC Block.
 *              08/16/17 Add support for SYSREF and PL event sources.
+*              08/18/17 Add API to enable and disable FIFO.
 * </pre>
 *
 ******************************************************************************/
@@ -3125,6 +3126,86 @@ void XRFdc_GetSignalFlow (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	(void)AnalogDataPath;
 	(void)ConnectedIData;
 	(void)ConnectedQData;
+}
+
+/*****************************************************************************/
+/**
+*
+* Enable and Disable the ADC/DAC FIFO.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Enable valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Common API for ADC/DAC blocks
+*
+******************************************************************************/
+int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable)
+{
+	s32 Status;
+	u32 IsTileEnable;
+	u32 BaseAddr;
+	u16 NoOfTiles;
+	u16 Index;
+	u32 ReadReg;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+	/* An input tile if of -1 selects all tiles */
+	if (Tile_Id == XRFDC_SELECT_ALL_TILES) {
+		NoOfTiles = 4;
+	} else {
+		NoOfTiles = 1;
+	}
+
+	for (Index = 0U; Index < NoOfTiles; Index++) {
+
+		if (Tile_Id == XRFDC_SELECT_ALL_TILES) {
+			Tile_Id = Index;
+		}
+
+		if (Type == XRFDC_ADC_TILE) {
+			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+			IsTileEnable = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+										Enable;
+		}
+		else {
+			BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
+			IsTileEnable = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
+										Enable;
+		}
+
+		if ((IsTileEnable == 0U) && (NoOfTiles == 1)) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR, "\n Requested tile not "
+							"available in %s\r\n", __func__);
+			goto RETURN_PATH;
+		} else if (IsTileEnable == 0U) {
+			metal_log(METAL_LOG_DEBUG, "\n Tile%d not "
+							"available in %s\r\n", Tile_Id, __func__);
+			continue;
+		}
+
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, XRFDC_FIFO_ENABLE);
+		if (Enable == 1U) {
+			ReadReg = ReadReg & (~XRFDC_FIFO_EN_MASK);
+		} else {
+			ReadReg = ReadReg | XRFDC_FIFO_EN_MASK;
+		}
+		XRFdc_WriteReg16(InstancePtr, BaseAddr,
+						XRFDC_FIFO_ENABLE, ReadReg);
+	}
+	Status = XRFDC_SUCCESS;
+
+RETURN_PATH:
+	return Status;
 }
 
 /*****************************************************************************/

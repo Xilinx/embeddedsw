@@ -80,6 +80,7 @@
 *                       Return error for Slice Event on 4G ADC Block.
 *                       Corrected Interrupt Macro names and values.
 *              08/16/17 Add support for SYSREF and PL event sources.
+*              08/18/17 Add API to enable and disable FIFO.
 *
 * </pre>
 *
@@ -878,6 +879,7 @@ int XRFdc_SetOutputCurrent(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 								u32 OutputCurrent);
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
 				XRFdc_StatusHandler FunctionPtr);
+int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable);
 
 #ifdef __cplusplus
 }
