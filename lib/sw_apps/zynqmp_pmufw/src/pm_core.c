@@ -56,6 +56,8 @@
 #include "rpu.h"
 #include "xsecure.h"
 
+#define AMS_REF_CTRL_REG_OFFSET	0x108
+
 /**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
  * @ack     Ack argument as requested by the master
@@ -560,6 +562,11 @@ static void PmMmioWrite(const PmMaster *const master, const u32 address,
 #endif
 	/* no bits to be updated */
 	if (0U == mask) {
+		goto done;
+	}
+
+	/* Do not update AMS_REF_CLOCK register */
+	if ((CRL_APB_BASEADDR + AMS_REF_CTRL_REG_OFFSET) == address) {
 		goto done;
 	}
 
