@@ -46,7 +46,10 @@
 * 1.1   ba   12/11/15 Added support for NIST approved SHA-3 in 2.0 silicon
 * 2.0   vns  03/15/17 Fixed compilation warning, and corrected SHA2 padding
 *                     verfication for silicon version other than 1.0
-* 2.2   vns  07/06/16 Added doxygen tags
+* 2.2   vns  07/06/17 Added doxygen tags
+*       vns  17/08/17 Added APIs XSecure_RsaPublicEncrypt and
+*                     XSecure_RsaPrivateDecrypt.As per functionality
+*                     XSecure_RsaPublicEncrypt is same as XSecure_RsaDecrypt.
 *
 * </pre>
 *
@@ -79,6 +82,8 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
+static s32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
+					u8 *Result);
 
 /************************** Variable Definitions *****************************/
 
@@ -92,7 +97,7 @@ static const u8 XSecure_Silicon2_TPadSha3[] = {0x30U, 0x41U, 0x30U, 0x0DU,
  *
  * @param	InstancePtr 	Pointer to the XSecure_Rsa instance.
  * @param	Mod		A character Pointer which contains the key
- *		Modulus.
+ *		Modulus of key size.
  * @param	ModExt		A Pointer to the pre-calculated exponential
  *		(R^2 Mod N) value.
  *		- NULL - if user doesn't have pre-calculated R^2 Mod N value,
@@ -119,6 +124,7 @@ s32 XSecure_RsaInitialize(XSecure_Rsa *InstancePtr, u8 *Mod, u8 *ModExt,
 	InstancePtr->Mod = Mod;
 	InstancePtr->ModExt = ModExt;
 	InstancePtr->ModExpo = ModExpo;
+	InstancePtr->SizeInWords = XSECURE_RSA_4096_SIZE_WORDS;
 
 	return XST_SUCCESS;
 }
@@ -157,7 +163,8 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 			* Exponent size is only 4 bytes
 			* and rest of the data needs to be 0
 			*/
-			if(XSECURE_CSU_RSA_RAM_EXPO == RamOffset)
+			if((XSECURE_CSU_RSA_RAM_EXPO == RamOffset) &&
+				(InstancePtr->EncDec == XSECURE_RSA_SIGN_ENC))
 			{
 				if(0U == TmpIndex )
 				{
@@ -170,7 +177,7 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 			}
 			else
 			{
-				if(TmpIndex >=128U)
+				if(TmpIndex >= InstancePtr->SizeInWords)
 				{
 					Data = 0x0U;
 				}
@@ -182,7 +189,7 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 				* becasue RSA h/w expects it in Little endian.
 				*/
 
-				Data = Xil_Htonl(WrData[127U - TmpIndex]);
+				Data = Xil_Htonl(WrData[(InstancePtr->SizeInWords - 1) - TmpIndex]);
 				}
 			}
 			XSecure_WriteReg(InstancePtr->BaseAddress,
@@ -227,7 +234,7 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 		Index = (DataOffset == 0U) ? 2: 0;
 		for (; Index < 6; Index++)
 		{
-			TmpIndex = 129 - ((DataOffset*6) + Index);
+			TmpIndex = (InstancePtr->SizeInWords + 1) - ((DataOffset*6) + Index);
 			if(TmpIndex < 0)
 			{
 				break;
@@ -267,7 +274,7 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 	/* Calculate the MINV */
 	u8 Count = 0U;
 	u32 *ModPtr = (u32 *)(InstancePtr->Mod);
-	u32 ModVal = Xil_Htonl(ModPtr[127]);
+	u32 ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
 	u32 Inv = 2U - ModVal;
 
 	for (Count = 0U; Count < 4U; ++Count)
@@ -334,6 +341,9 @@ static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
   *
  * @return	XST_SUCCESS if decryption was successful.
  *
+ * @note	This API will be deprecated soon. Instead of this please use
+ *		XSecure_RsaPublicEncrypt() API. This API can only support 4096
+ *		key Size.
  *
  ******************************************************************************/
 s32 XSecure_RsaDecrypt(XSecure_Rsa *InstancePtr, u8 *EncText, u8 *Result)
@@ -344,6 +354,8 @@ s32 XSecure_RsaDecrypt(XSecure_Rsa *InstancePtr, u8 *EncText, u8 *Result)
 
 	volatile u32 Status = 0x0U;
 	s32 ErrorCode = XST_SUCCESS;
+
+	InstancePtr->EncDec = XSECURE_RSA_SIGN_ENC;
 
 	/* Put Modulus, exponent, Mod extension in RSA RAM */
 	XSecure_RsaPutData(InstancePtr);
@@ -505,4 +517,165 @@ u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen)
 
 ENDF:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+* This function handles the RSA signature encryption with public key components
+* provide at XSecure_RsaInitialize() API.
+*
+* @param	InstancePtr	Pointer to the XSecure_Rsa instance.
+* @param	Input		Pointer to the buffer which contains the input
+*		data to be decrypted.
+* @param	Size		Key size in bytes, Input size also should be
+* 		same as Key size mentioned.Inputs supported are
+* 		- XSECURE_RSA_4096_KEY_SIZE and
+* 		- XSECURE_RSA_2048_KEY_SIZE
+* @param	Result		Pointer to the buffer where resultant decrypted
+*		data to be stored		.
+*
+* @return	XST_SUCCESS if encryption was successful.
+*
+* @note		Modulus of API XSecure_RsaInitialize() should also
+* 		be same size of key size mentioned in this API and exponent
+* 		should be 32 bit size.
+*
+******************************************************************************/
+s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
+					u8 *Result)
+{
+	s32 ErrorCode = XST_SUCCESS;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Result != NULL);
+	Xil_AssertNonvoid(Input != NULL);
+	Xil_AssertNonvoid((Size != XSECURE_RSA_4096_KEY_SIZE) ||
+					(Size != XSECURE_RSA_2048_KEY_SIZE));
+
+	/* Setting for RSA signature encryption with public key */
+	InstancePtr->EncDec = XSECURE_RSA_SIGN_ENC;
+	InstancePtr->SizeInWords = Size/4;
+
+	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result);
+
+	return ErrorCode;
+
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+* This function handles the RSA signature decryption with private key components
+* provide at XSecure_RsaInitialize() API.
+*
+* @param	InstancePtr	Pointer to the XSecure_Rsa instance.
+* @param	Input		Pointer to the buffer which contains the input
+*		data to be decrypted.
+* @param	Size		Key size in bytes, Input size also should be same as
+* 		Key size mentioned.
+* 		Inputs supported are XSECURE_RSA_4096_KEY_SIZE and
+* 		XSECURE_RSA_2048_KEY_SIZE*
+* @param	Result		Pointer to the buffer where resultant decrypted
+*		data to be stored		.
+*
+* @return	XST_SUCCESS if decryption was successful.
+*
+* @note		Modulus and Exponent in XSecure_RsaInitialize() API should also
+* 			be same as key size mentioned in this API.
+*
+******************************************************************************/
+s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
+				u8 *Result)
+{
+	s32 ErrorCode;
+
+	/* Assert validates the input arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(Result != NULL);
+	Xil_AssertNonvoid(Input != NULL);
+	Xil_AssertNonvoid((Size != XSECURE_RSA_4096_KEY_SIZE) ||
+			(Size != XSECURE_RSA_2048_KEY_SIZE));
+
+	/* Setting to perform RSA signature decryption with private key */
+	InstancePtr->EncDec = XSECURE_RSA_SIGN_DEC;
+	InstancePtr->SizeInWords = Size/4;
+
+	ErrorCode = XSecure_RsaOperation(InstancePtr, Input, Result);
+
+	return ErrorCode;
+}
+
+/*****************************************************************************/
+/**
+ * @brief
+* This function handles the all RSA operations with provided inputs.
+*
+* @param	InstancePtr	Pointer to the XSecure_Rsa instance.
+* @param	Input		Pointer to the buffer which contains the input
+*		data to be decrypted.
+* @param	Result		Pointer to the buffer where resultant decrypted
+*		data to be stored		.
+*
+* @return	XST_SUCCESS on success.
+*
+******************************************************************************/
+static s32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
+							u8 *Result)
+{
+	volatile u32 Status = 0x0U;
+	s32 ErrorCode = XST_SUCCESS;
+	u32 RsaType = XSECURE_CSU_RSA_CONTROL_4096;
+
+	/* Put Modulus, exponent, Mod extension in RSA RAM */
+	XSecure_RsaPutData(InstancePtr);
+
+	/* Initialize Digest */
+	XSecure_RsaWriteMem(InstancePtr, (u32 *)Input,
+				XSECURE_CSU_RSA_RAM_DIGEST);
+
+	/* Initialize MINV values from Mod. */
+	XSecure_RsaMod32Inverse(InstancePtr);
+
+	if (InstancePtr->SizeInWords == XSECURE_RSA_4096_SIZE_WORDS) {
+		RsaType = XSECURE_CSU_RSA_CONTROL_4096;
+	}
+	else if (InstancePtr->SizeInWords == XSECURE_RSA_2048_SIZE_WORDS) {
+		RsaType = XSECURE_CSU_RSA_CONTROL_2048;
+	}
+	/* Start the RSA operation. */
+	if (InstancePtr->ModExt != NULL) {
+		XSecure_WriteReg(InstancePtr->BaseAddress,
+			XSECURE_CSU_RSA_CONTROL_OFFSET,
+			RsaType + XSECURE_CSU_RSA_CONTROL_EXP_PRE);
+	}
+	else {
+		XSecure_WriteReg(InstancePtr->BaseAddress,
+				XSECURE_CSU_RSA_CONTROL_OFFSET,
+				RsaType + XSECURE_CSU_RSA_CONTROL_EXP);
+	}
+
+	/* Check and wait for status */
+	do
+	{
+		Status = XSecure_ReadReg(InstancePtr->BaseAddress,
+					XSECURE_CSU_RSA_STATUS_OFFSET);
+
+		if(XSECURE_CSU_RSA_STATUS_ERROR ==
+				((u32)Status & XSECURE_CSU_RSA_STATUS_ERROR))
+		{
+			ErrorCode = XST_FAILURE;
+			goto END;
+		}
+	}while(XSECURE_CSU_RSA_STATUS_DONE !=
+				((u32)Status & XSECURE_CSU_RSA_STATUS_DONE));
+
+
+	/* Copy the result */
+	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
+
+END:
+	return ErrorCode;
+
 }
