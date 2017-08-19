@@ -334,6 +334,11 @@ Updated driver and examples to support CCI at EL1 NS.
 emacps_v3_5:
 Export CCI enablement information and add support in examples.
 
+xilsecure_v2_2:
+Added doxygen tags.
+Added RSA decrypt with private key and encrypt with public key support.
+Added RSA 2048 support.
+
 Changes for 2017.2
 ================================
 
