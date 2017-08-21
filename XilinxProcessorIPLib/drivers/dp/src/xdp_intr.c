@@ -52,6 +52,7 @@
  *                     Added unplug interrupt.
  * 4.0   als  02/18/16 Removed update of payload table in the driver's interrupt
  *                     handler.
+ * 5.3   tu   05/30/17 Removed unused variable in XDp_RxInterruptHandler
  * </pre>
  *
 *******************************************************************************/
@@ -1062,7 +1063,6 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 static void XDp_RxInterruptHandler(XDp *InstancePtr)
 {
 	u32 IntrStatus;
-	u32 RegVal;
 
 	/* Determine what kind of interrupts have occurred.
 	 * Note: XDP_RX_INTERRUPT_CAUSE is a RC (read-clear) register. */
