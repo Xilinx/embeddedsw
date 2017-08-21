@@ -55,7 +55,6 @@
 typedef enum {
     XVIDC_VM_1920x1080_60_P_RB = (XVIDC_VM_CUSTOM + 1),
 	XVIDC_B_TIMING3_60_P_RB ,
-	XVIDC_VM_3840x2160_60_P_RB,
     XVIDC_CM_NUM_SUPPORTED
 } XVIDC_CUSTOM_MODES;
 
@@ -71,11 +70,6 @@ const XVidC_VideoTimingMode XVidC_MyVideoTimingMode[
     { XVIDC_B_TIMING3_60_P_RB, "2560x1440@60Hz (RB)", XVIDC_FR_60HZ,
          {2560, 48, 32, 80, 2720, 1,
           1440, 3, 5, 33, 1481, 0, 0, 0, 0, 0}
-    },
-
-    { XVIDC_VM_3840x2160_60_P_RB, "3840x2160@60Hz (RB)", XVIDC_FR_60HZ,
-         {3840, 48, 32, 80, 4000, 1,
-         2160, 3, 5, 54, 2222, 0, 0, 0, 0, 0}
     },
 };
 
