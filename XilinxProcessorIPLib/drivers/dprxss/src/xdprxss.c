@@ -62,6 +62,8 @@
 * 4.0  aad 11/15/16 Modified to use DP159 from dprxss driver
 * 4.0  aad 01/20/17 Added HDCP FIFO reset for correct initialization of the
 *		    FIFO
+* 4.0  tu  05/30/17 Moved timer functions under XPAR_XHDCP_NUM_INSTANCES
+*		    to solve compiler warnings
 * </pre>
 *
 ******************************************************************************/
@@ -99,13 +101,12 @@ static void StubTp1Callback(void *InstancePtr);
 static void StubTp2Callback(void *InstancePtr);
 static void StubUnplugCallback(void *InstancePtr);
 
+#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 static int DpRxSs_HdcpStartTimer(void *InstancePtr, u16 TimeoutInMs);
 static int DpRxSs_HdcpStopTimer(void *InstancePtr);
 static int DpRxSs_HdcpBusyDelay(void *InstancePtr, u16 DelayInMs);
 static void DpRxSs_TimerCallback(void *InstancePtr, u8 TmrCtrNumber);
 static u32 DpRxSs_ConvertUsToTicks(u32 TimeoutInUs, u32 ClkFreq);
-
-#if (XPAR_XHDCP_NUM_INSTANCES > 0)
 static void DpRxSs_TimeOutCallback(void *InstancePtr, u8 TmrCtrNumber);
 #endif
 
