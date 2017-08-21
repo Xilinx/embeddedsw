@@ -76,7 +76,7 @@ static void StubHandler(void *CallBackRef, u32 Type, int Tile_Id,
 *
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	ConfigPtr is a reference to a structure containing information
+* @param	Config is a reference to a structure containing information
 *			about xrfdc. This function initializes an InstancePtr object
 *			for a specific device specified by the contents of Config.
 *
@@ -1971,7 +1971,7 @@ RETURN_PATH:
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
 *			are 0-3.
-* @param	FabricDataRate to be set for DAC block.
+* @param	FabricWrVldWords is write fabric rate to be set for DAC block.
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
@@ -2034,7 +2034,7 @@ RETURN_PATH:
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC block number inside the tile. Valid values
 *			are 0-3.
-* @param	FabricDataRate to be set for ADC block.
+* @param	FabricRdVldWords is Read fabric rate to be set for ADC block.
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
@@ -2119,7 +2119,7 @@ RETURN_PATH:
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
 *			are 0-3.
-* @param	FabricDataRate Pointer to return the fabric data rate for
+* @param	FabricWrVldWords Pointer to return the fabric data rate for
 *			DAC block
 *
 * @return
@@ -2197,7 +2197,7 @@ RETURN_PATH:
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
 *			are 0-3.
-* @param	FabricDataRate Pointer to return the fabric data rate for
+* @param	FabricRdVldWords Pointer to return the fabric data rate for
 *			ADC/DAC block
 *
 * @return
@@ -2271,6 +2271,8 @@ RETURN_PATH:
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
 *			are 0-3.
+* @param	ThresholdToUpdate Select which Threshold (Threshold0 or
+*           Threshold1 or both) to update.
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
@@ -2374,6 +2376,10 @@ RETURN_PATH:
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADCC block number inside the tile. Valid values
 *			are 0-3.
+* @param	ThresholdToUpdate Select which Threshold (Threshold0 or
+*           Threshold1 or both) to update.
+* @param	ClrMode can be DRP access (manual) or auto clear (QMC gain
+*           update event).
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
@@ -3070,11 +3076,11 @@ RETURN_PATH:
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
 * @param    AnalogDataPath to be connected to the requested I or Q data
-* @param    I data path to be connected to a requested analog data path
-* @param    Q data path to be connected to a requested analog data path
+* @param    ConnectIData is I data path to be connected to a requested
+*           analog data path
+* @param    ConnectQData is Q data path to be connected to a requested
+*           analog data path
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
@@ -3103,11 +3109,9 @@ void XRFdc_SetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
 * @param    AnalogDataPath for which the multi band configuration is targeted
-* @param    Connected I data path to be readback
-* @param    Connected Q data path to be readback
+* @param    ConnectedIData is Connected I data path to be readback
+* @param    ConnectedQData is Connected Q data path to be readback
 *
 * @return
 *		- XRFDC_SUCCESS if successful.
