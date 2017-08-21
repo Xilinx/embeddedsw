@@ -36,13 +36,40 @@
 * Description: Driver configuration
 *
 *******************************************************************/
+/*****************************************************************************/
+/**
+*
+* @file xrfdc_g.c
+* @addtogroup rfdc_v1_1
+* @{
+*
+* This file contains a configuration table that specifies the configuration of
+* RFdc devices in the system.
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who    Date     Changes
+* ----- ---    -------- -----------------------------------------------
+* 1.0   sk     05/16/17 Initial release
+*
+* </pre>
+*
+******************************************************************************/
 
+/***************************** Include Files ********************************/
 #include "xparameters.h"
 #include "xrfdc.h"
+/************************** Constant Definitions ****************************/
 
-/*
-* The configuration table for devices
-*/
+/**************************** Type Definitions ******************************/
+
+/***************** Macros (Inline Functions) Definitions ********************/
+
+/************************** Variable Definitions ****************************/
+/**
+ * The configuration table for devices
+ */
 
 XRFdc_Config XRFdc_ConfigTable[XPAR_XRFDC_NUM_INSTANCES] =
 {
@@ -516,3 +543,4 @@ XRFdc_Config XRFdc_ConfigTable[XPAR_XRFDC_NUM_INSTANCES] =
 		}
 	}
 };
+/** @} */

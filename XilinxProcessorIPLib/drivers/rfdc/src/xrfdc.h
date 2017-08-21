@@ -154,7 +154,9 @@ typedef struct {
 	u32 FractWidth;
 } XRFdc_PLL_Settings;
 
-/* QMC Settings */
+/**
+ * QMC settings.
+ */
 typedef struct {
 	u32 EnablePhase;
 	u32 EnableGain;
@@ -215,7 +217,7 @@ typedef struct {
 } XRFdc_IPStatus;
 
 /**
- * status of DAC or ADC blocks in the RFSoC Data converter..
+ * status of DAC or ADC blocks in the RFSoC Data converter.
  */
 typedef struct {
 	float SamplingFreq;
@@ -223,6 +225,9 @@ typedef struct {
 	u32 DigitalDataPathStatus;
 } XRFdc_BlockStatus;
 
+/**
+ * DAC block Analog DataPath Config settings.
+ */
 typedef struct {
 	u32 BlockAvailable;
 	u32 InvSyncEnable;
@@ -230,6 +235,9 @@ typedef struct {
 	u32 DecoderMode;
 } XRFdc_DACBlock_AnalogDataPath_Config;
 
+/**
+ * DAC block Digital DataPath Config settings.
+ */
 typedef struct {
 	u32 DataType;
 	u32 DataWidth;
@@ -238,11 +246,17 @@ typedef struct {
 	u32 AdderEnable;
 } XRFdc_DACBlock_DigitalDataPath_Config;
 
+/**
+ * ADC block Analog DataPath Config settings.
+ */
 typedef struct {
 	u32 BlockAvailable;
 	u32 MixMode;
 } XRFdc_ADCBlock_AnalogDataPath_Config;
 
+/**
+ * DAC block Digital DataPath Config settings.
+ */
 typedef struct {
 	u32 DataType;
 	u32 DataWidth;
@@ -250,6 +264,9 @@ typedef struct {
 	u32 FifoEnable;
 } XRFdc_ADCBlock_DigitalDataPath_Config;
 
+/**
+ * DAC Tile Config structure.
+ */
 typedef struct {
 	u32 Enable;
 	u32 PLLEnable;
@@ -260,6 +277,9 @@ typedef struct {
 	XRFdc_DACBlock_DigitalDataPath_Config DACBlock_Digital_Config[4];
 } XRFdc_DACTile_Config;
 
+/**
+ * ADC Tile Config Structure.
+ */
 typedef struct {
 	u32 Enable;	/* Tile Enable status */
 	u32 PLLEnable;	/* PLL enable Status */
@@ -270,6 +290,9 @@ typedef struct {
 	XRFdc_ADCBlock_DigitalDataPath_Config ADCBlock_Digital_Config[4];
 } XRFdc_ADCTile_Config;
 
+/**
+ * RFdc Config Structure.
+ */
 typedef struct {
 	u32 DeviceId;
 	metal_phys_addr_t BaseAddr;
@@ -282,6 +305,9 @@ typedef struct {
 	XRFdc_ADCTile_Config ADCTile_Config[4];
 } XRFdc_Config;
 
+/**
+ * DAC Block Analog DataPath Structure.
+ */
 typedef struct {
 	u32 Enabled;	/* DAC Analog Data Path Enable */
 	u32 MixedMode;
@@ -294,6 +320,9 @@ typedef struct {
 	XRFdc_CoarseDelay_Settings CoarseDelay_Settings;
 } XRFdc_DACBlock_AnalogDataPath;
 
+/**
+ * DAC Block Digital DataPath Structure.
+ */
 typedef struct {
 	u32 DataType;
 	u32 DataWidth;
@@ -303,6 +332,9 @@ typedef struct {
 	XRFdc_Mixer_Settings Mixer_Settings;
 } XRFdc_DACBlock_DigitalDataPath;
 
+/**
+ * ADC Block Analog DataPath Structure.
+ */
 typedef struct {
 	u32 Enabled;	/* ADC Analog Data Path Enable */
 	XRFdc_QMC_Settings QMC_Settings;
@@ -310,6 +342,9 @@ typedef struct {
 	XRFdc_Threshold_Settings Threshold_Settings;
 } XRFdc_ADCBlock_AnalogDataPath;
 
+/**
+ * ADC Block Digital DataPath Structure.
+ */
 typedef struct {
 	u32 DataType;
 	u32 DataWidth;
@@ -319,6 +354,9 @@ typedef struct {
 	XRFdc_Mixer_Settings Mixer_Settings;
 } XRFdc_ADCBlock_DigitalDataPath;
 
+/**
+ * DAC Tile Structure.
+ */
 typedef struct {
 	u32 TileBaseAddr;	/* Tile  BaseAddress*/
 	u32 NumOfDACBlocks;	/* Number of DAC block enabled */
@@ -327,6 +365,9 @@ typedef struct {
 	XRFdc_DACBlock_DigitalDataPath DACBlock_Digital_Datapath[4];
 } XRFdc_DAC_Tile;
 
+/**
+ * ADC Tile Structure.
+ */
 typedef struct {
 	u32 TileBaseAddr;
 	u32 NumOfADCBlocks;	/* Number of ADC block enabled */
@@ -335,6 +376,9 @@ typedef struct {
 	XRFdc_ADCBlock_DigitalDataPath ADCBlock_Digital_Datapath[4];
 } XRFdc_ADC_Tile;
 
+/**
+ * RFdc Structure.
+ */
 typedef struct {
 	XRFdc_Config RFdc_Config;	/* Config Structure */
 	u32 IsReady;
