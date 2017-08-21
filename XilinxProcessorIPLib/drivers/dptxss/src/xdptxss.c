@@ -61,6 +61,7 @@
 *      aad 09/06/16 Updates to support 64-bit base address
 * 4.1  tu  07/20/17 Allowing Custom VTM in XDpTxSs_SetVidMode function.
 * 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
+* 4.2  tu  08/11/17 Removing ceil() to remove dependency on math library.
 * </pre>
 *
 ******************************************************************************/
@@ -69,7 +70,6 @@
 
 #include "xdptxss.h"
 #include "string.h"
-#include "math.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -1854,9 +1854,10 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 {
 	XDpTxSs_MainStreamAttributes *MsaConfig;
 	XVidC_VideoMode VidMode;
-	double FrameClk;
 	u32 FrameRate;
 	u32 ClkFreq;
+	u32 Ival;
+	float Fval;
 	u8 LinkRate;
 
 	MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[Stream - 1];
@@ -1867,9 +1868,12 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 	MsaConfig->PixelClockHz = ((u32)ClkFreq) * 1000000;
 
 	/*Calculate frame rate */
-	FrameClk = ceil((ClkFreq * 1000000.0) / (MsaConfig->Vtm.Timing.HTotal *
-				MsaConfig->Vtm.Timing.F0PVTotal));
-	FrameRate = (u32)FrameClk;
+	Fval = (ClkFreq * 1000000.0) / (MsaConfig->Vtm.Timing.HTotal *
+                                MsaConfig->Vtm.Timing.F0PVTotal);
+
+	Ival = (u32) Fval;
+
+	FrameRate = (u32) (Fval == (float) Ival) ? Ival : Ival + 1;
 
 	/* Round of frame rate */
 	if ((FrameRate == 59) || (FrameRate == 61)) {
