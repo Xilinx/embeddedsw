@@ -49,6 +49,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 5.0   als  07/27/16 8B10B enable is now set by default in PHY_CONFIG reg.
+ * 5.3   tu   08/04/17 Changed Selftest regiter's default value.
  * </pre>
  *
 *******************************************************************************/
@@ -68,61 +69,10 @@ static u32 XDp_RxSelfTest(XDp *InstancePtr);
  * This table contains the default values for the DisplayPort TX core's general
  * usage registers.
  */
-u32 TxResetValues[53][2] =
+u32 TxResetValues[2][2] =
 {
-	{XDP_TX_LINK_BW_SET, 0},
-	{XDP_TX_LANE_COUNT_SET, 0},
-	{XDP_TX_ENHANCED_FRAME_EN, 0},
-	{XDP_TX_TRAINING_PATTERN_SET, 0},
-	{XDP_TX_LINK_QUAL_PATTERN_SET, 0},
-	{XDP_TX_SCRAMBLING_DISABLE, 0},
-	{XDP_TX_DOWNSPREAD_CTRL, 0},
-	{XDP_TX_SOFT_RESET, 0},
-	{XDP_TX_ENABLE, 0},
-	{XDP_TX_ENABLE_MAIN_STREAM, 0},
-	{XDP_TX_ENABLE_SEC_STREAM, 0},
-	{XDP_TX_FORCE_SCRAMBLER_RESET, 0},
-	{XDP_TX_MST_CONFIG, 0},
-	{XDP_TX_AUX_CMD, 0},
-	{XDP_TX_AUX_WRITE_FIFO, 0},
-	{XDP_TX_AUX_ADDRESS, 0},
-	{XDP_TX_AUX_CLK_DIVIDER, 0},
-	{XDP_TX_USER_FIFO_OVERFLOW, 0},
-	{XDP_TX_AUX_REPLY_DATA, 0},
-	{XDP_TX_AUX_REPLY_CODE, 0},
-	{XDP_TX_AUX_REPLY_COUNT, 0},
-	{XDP_TX_INTERRUPT_MASK, 0x3F},
-	{XDP_TX_REPLY_DATA_COUNT, 0},
-	{XDP_TX_REPLY_STATUS, 0x10},
-	{XDP_TX_STREAM1, 0},
-	{XDP_TX_STREAM2, 0},
-	{XDP_TX_STREAM3, 0},
-	{XDP_TX_STREAM4, 0},
-	{XDP_TX_PHY_CONFIG, 0x200003},
-	{XDP_TX_PHY_VOLTAGE_DIFF_LANE_0, 0},
-	{XDP_TX_PHY_VOLTAGE_DIFF_LANE_1, 0},
-	{XDP_TX_PHY_VOLTAGE_DIFF_LANE_2, 0},
-	{XDP_TX_PHY_VOLTAGE_DIFF_LANE_3, 0},
-	{XDP_TX_PHY_TRANSMIT_PRBS7, 0},
-	{XDP_TX_PHY_CLOCK_SELECT, 0},
-	{XDP_TX_PHY_POWER_DOWN, 0},
-	{XDP_TX_PHY_PRECURSOR_LANE_0, 0},
-	{XDP_TX_PHY_PRECURSOR_LANE_1, 0},
-	{XDP_TX_PHY_PRECURSOR_LANE_2, 0},
-	{XDP_TX_PHY_PRECURSOR_LANE_3, 0},
-	{XDP_TX_PHY_POSTCURSOR_LANE_0, 0},
-	{XDP_TX_PHY_POSTCURSOR_LANE_1, 0},
-	{XDP_TX_PHY_POSTCURSOR_LANE_2, 0},
-	{XDP_TX_PHY_POSTCURSOR_LANE_3, 0},
-	{XDP_TX_GT_DRP_COMMAND, 0},
-	{XDP_TX_GT_DRP_READ_DATA, 0},
-	{XDP_TX_GT_DRP_CHANNEL_STATUS, 0},
-	{XDP_TX_AUDIO_CONTROL, 0},
-	{XDP_TX_AUDIO_CHANNELS, 0},
-	{XDP_TX_AUDIO_INFO_DATA(1), 0},
-	{XDP_TX_AUDIO_MAUD, 0},
-	{XDP_TX_AUDIO_NAUD, 0},
-	{XDP_TX_AUDIO_EXT_DATA(1), 0}
+	{XDP_TX_VERSION, 0x07000000},
+	{XDP_TX_CORE_ID, 0x01020A00}
 };
 
 /**
@@ -157,54 +107,10 @@ u32 TxResetValuesMsa[20][2] =
  * This table contains the default values for the DisplayPort RX core's general
  * usage registers.
  */
-u32 RxResetValues[46][2] =
+u32 RxResetValues[2][2] =
 {
-	{XDP_RX_LINK_ENABLE, 0},
-	{XDP_RX_AUX_CLK_DIVIDER, 0},
-	{XDP_RX_DTG_ENABLE, 0},
-	{XDP_RX_USER_PIXEL_WIDTH, 0},
-	{XDP_RX_INTERRUPT_MASK, 0x7FFF},
-	{XDP_RX_MISC_CTRL, 0},
-	{XDP_RX_SOFT_RESET, 0},
-	{XDP_RX_AUX_REQ_IN_PROGRESS, 0},
-	{XDP_RX_REQ_ERROR_COUNT, 0},
-	{XDP_RX_REQ_COUNT, 0},
-	{XDP_RX_HPD_INTERRUPT, 0},
-	{XDP_RX_REQ_CLK_WIDTH, 0},
-	{XDP_RX_REQ_CMD, 0},
-	{XDP_RX_REQ_ADDRESS, 0},
-	{XDP_RX_REQ_LENGTH, 0},
-	{XDP_RX_INTERRUPT_CAUSE, 0},
-	{XDP_RX_INTERRUPT_MASK_1, 0},
-	{XDP_RX_INTERRUPT_CAUSE_1, 0},
-	{XDP_RX_HSYNC_WIDTH, 0xF0F},
-	{XDP_RX_FAST_I2C_DIVIDER, 0},
-	{XDP_RX_LOCAL_EDID_VIDEO, 0},
-	{XDP_RX_LOCAL_EDID_AUDIO, 0},
-	{XDP_RX_REMOTE_CMD, 0},
-	{XDP_RX_DEVICE_SERVICE_IRQ, 0},
-	{XDP_RX_VIDEO_UNSUPPORTED, 0},
-	{XDP_RX_AUDIO_UNSUPPORTED, 0},
-	{XDP_RX_OVER_LINK_BW_SET, 0},
-	{XDP_RX_OVER_LANE_COUNT_SET, 0},
-	{XDP_RX_OVER_TP_SET, 0},
-	{XDP_RX_OVER_TRAINING_LANE0_SET, 0},
-	{XDP_RX_OVER_TRAINING_LANE1_SET, 0},
-	{XDP_RX_OVER_TRAINING_LANE2_SET, 0},
-	{XDP_RX_OVER_TRAINING_LANE3_SET, 0},
-	{XDP_RX_OVER_CTRL_DPCD, 0},
-	{XDP_RX_OVER_DOWNSPREAD_CTRL, 0},
-	{XDP_RX_OVER_LINK_QUAL_LANE0_SET, 0},
-	{XDP_RX_OVER_LINK_QUAL_LANE1_SET, 0},
-	{XDP_RX_OVER_LINK_QUAL_LANE2_SET, 0},
-	{XDP_RX_OVER_LINK_QUAL_LANE3_SET, 0},
-	{XDP_RX_MST_CAP, 0},
-	{XDP_RX_SINK_COUNT, 0},
-	{XDP_RX_GUID0, 0},
-	{XDP_RX_GUID1, 0},
-	{XDP_RX_GUID2, 0},
-	{XDP_RX_GUID3, 0},
-	{XDP_RX_OVER_GUID, 0}
+	{XDP_RX_VERSION, 0x07000000},
+	{XDP_RX_CORE_ID, 0x01020A01}
 };
 
 /**************************** Function Definitions ****************************/
@@ -266,7 +172,7 @@ static u32 XDp_TxSelfTest(XDp *InstancePtr)
 	u32 Val;
 
 	/* Compare general usage registers with their default values. */
-	for (Index = 0; Index < 53; Index++) {
+	for (Index = 0; Index < 2; Index++) {
 		Val = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						TxResetValues[Index][0]);
 		/* Fail if register does not hold default value. */
@@ -328,7 +234,7 @@ static u32 XDp_RxSelfTest(XDp *InstancePtr)
 	u32 Val;
 
 	/* Compare general usage registers with their default values. */
-	for (Index = 0; Index < 46; Index++) {
+	for (Index = 0; Index < 2; Index++) {
 		Val = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 						RxResetValues[Index][0]);
 		/* Fail if register does not hold default value. */
