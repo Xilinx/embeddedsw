@@ -216,7 +216,7 @@ RETURN_PATH:
 * @param	Tile_Id Valid values are 0-3, and -1.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
 *			are 0-3.
-* @param	Mask contains the interrupts to be disabled.
+* @param	IntrMask contains the interrupts to be disabled.
 *			'1' disables an interrupt, and '0' remains no change.
 *
 * @return	None.
