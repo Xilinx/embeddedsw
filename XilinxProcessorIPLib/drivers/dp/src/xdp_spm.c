@@ -1064,7 +1064,6 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	UINTPTR BaseAddr;
 	u8  LaneCount;
 	u8  BitsPerPixel, BitsPerColor, ColorComponent;
-	u8  ColComp;
 	u32 RegVal;
 	u32 HBlank, HReducedBlank;
 	u32 HTotal, HActive, HStart, HSyncWidth, HBackPorch, HFrontPorch;
