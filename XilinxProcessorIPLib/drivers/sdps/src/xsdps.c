@@ -84,6 +84,7 @@
 *       mn     08/07/17 Modify driver to support 64-bit DMA in arm64 only
 *       mn     08/17/17 Added CCI support for A53 and disabled data cache
 *                       operations when it is enabled.
+*       mn     08/22/17 Updated for Word Access System support
 * </pre>
 *
 ******************************************************************************/
@@ -130,6 +131,7 @@ extern s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static s32 XSdPs_IdentifyCard(XSdPs *InstancePtr);
 static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr);
 
+u16 TransferMode;
 /*****************************************************************************/
 /**
 *
@@ -293,10 +295,8 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	 * Transfer mode register - default value
 	 * DMA enabled, block count enabled, data direction card to host(read)
 	 */
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_BLK_CNT_EN_MASK |
-			XSDPS_TM_DAT_DIR_SEL_MASK);
+	TransferMode = XSDPS_TM_DMA_EN_MASK | XSDPS_TM_BLK_CNT_EN_MASK |
+			XSDPS_TM_DAT_DIR_SEL_MASK;
 
 	/* Set block size to 512 by default */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
@@ -1139,8 +1139,8 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 		}
 	}
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CMD_OFFSET,
-			(u16)CommandReg);
+	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
+			(CommandReg << 16) | TransferMode);
 
 	/* Polling for response for now */
 	do {
@@ -1332,11 +1332,9 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_AUTO_CMD12_EN_MASK |
+	TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
 			XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DAT_DIR_SEL_MASK |
-			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK);
+			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK;
 
 	if (InstancePtr->Config.IsCacheCoherent == 0) {
 		Xil_DCacheInvalidateRange((INTPTR)Buff,
@@ -1430,11 +1428,9 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 	}
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_AUTO_CMD12_EN_MASK |
+	TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
 			XSDPS_TM_BLK_CNT_EN_MASK |
-			XSDPS_TM_MUL_SIN_BLK_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+			XSDPS_TM_MUL_SIN_BLK_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
 	/* Send block write command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
