@@ -758,6 +758,10 @@ static void PmGetChipid(const PmMaster *const master)
 	u32 idcode = XPfw_Read32(CSU_IDCODE);
 	u32 version = XPfw_Read32(CSU_VERSION);
 
+	u32 efuse_ipdisable = XPfw_Read32(EFUSE_IPDISABLE);
+	efuse_ipdisable &= EFUSE_IPDISABLE_VERSION;
+
+	version |= efuse_ipdisable << CSU_VERSION_EMPTY_SHIFT;
 	IPI_RESPONSE3(master->ipiMask, XST_SUCCESS, idcode, version);
 }
 

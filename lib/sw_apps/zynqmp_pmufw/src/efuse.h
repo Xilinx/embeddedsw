@@ -61,6 +61,8 @@ extern "C" {
 #define EFUSE_IPDISABLE_APU0_DIS_WIDTH   1U
 #define EFUSE_IPDISABLE_APU0_DIS_MASK    0X00000001U
 
+#define EFUSE_IPDISABLE_VERSION		0x1FFU
+
 #ifdef __cplusplus
 }
 #endif
