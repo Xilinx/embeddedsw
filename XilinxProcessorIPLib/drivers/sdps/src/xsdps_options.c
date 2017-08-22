@@ -73,6 +73,7 @@
 * 			settings
 *       mn     08/17/17 Added CCI support for A53 and disabled data cache
 *                       operations when it is enabled.
+*       mn     08/22/17 Updated for Word Access System support
 *
 * </pre>
 *
@@ -105,6 +106,7 @@ void XSdPs_SetTapDelay(XSdPs *InstancePtr);
 static void XSdPs_DllReset(XSdPs *InstancePtr);
 #endif
 
+extern u16 TransferMode;
 /*****************************************************************************/
 /**
 * Update Block size for read/write operations.
@@ -204,9 +206,7 @@ s32 XSdPs_Get_BusWidth(XSdPs *InstancePtr, u8 *SCR)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, SCR);
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+	TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
 	if (InstancePtr->Config.IsCacheCoherent == 0) {
 		Xil_DCacheInvalidateRange((INTPTR)SCR, 8);
@@ -426,9 +426,7 @@ s32 XSdPs_Get_BusSpeed(XSdPs *InstancePtr, u8 *ReadBuff)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, ReadBuff);
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+	TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
 	Arg = XSDPS_SWITCH_CMD_HS_GET;
 
@@ -514,9 +512,7 @@ s32 XSdPs_Change_BusSpeed(XSdPs *InstancePtr)
 			Xil_DCacheFlushRange((INTPTR)ReadBuff, 64);
 		}
 
-		XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-				XSDPS_XFER_MODE_OFFSET,
-				XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+		TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
 		Arg = XSDPS_SWITCH_CMD_HS_SET;
 
@@ -879,10 +875,7 @@ s32 XSdPs_Get_Mmc_ExtCsd(XSdPs *InstancePtr, u8 *ReadBuff)
 		Xil_DCacheInvalidateRange((INTPTR)ReadBuff, 512U);
 	}
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
-
+	TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
 	/* Send SEND_EXT_CSD command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD8, Arg, 1U);
@@ -1071,8 +1064,7 @@ s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode)
 		Xil_DCacheFlushRange((INTPTR)ReadBuff, 64);
 	}
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+	TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
 	switch (Mode) {
 	case 0U:
@@ -1181,8 +1173,7 @@ static s32 XSdPs_Execute_Tuning(XSdPs *InstancePtr)
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_BLK_SIZE_OFFSET,
 			BlkSize);
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DAT_DIR_SEL_MASK);
+	TransferMode = 	XSDPS_TM_DAT_DIR_SEL_MASK;
 
 	CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
 				XSDPS_HOST_CTRL2_OFFSET);

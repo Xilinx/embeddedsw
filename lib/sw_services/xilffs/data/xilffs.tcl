@@ -114,6 +114,7 @@ proc xgen_opts_file {libhandle} {
 	set num_logical_vol [common::get_property CONFIG.num_logical_vol $libhandle]
 	set use_strfunc [common::get_property CONFIG.use_strfunc $libhandle]
 	set set_fs_rpath [common::get_property CONFIG.set_fs_rpath $libhandle]
+	set word_access [common::get_property CONFIG.word_access $libhandle]
 
 	# Checking if SD with FATFS is enabled.
 	# This can be expanded to add more interfaces.
@@ -154,6 +155,10 @@ proc xgen_opts_file {libhandle} {
 					set set_fs_rpath 0
 				}
 				puts $file_handle "\#define FILE_SYSTEM_SET_FS_RPATH $set_fs_rpath"
+				if {$word_access == true} {
+                                        puts $file_handle "\#define FILE_SYSTEM_WORD_ACCESS"
+                                }
+
 			} else {
 				error  "ERROR: Invalid interface selected \n"
 			}
