@@ -248,8 +248,11 @@ extern "C" {
 /      function must be added to the project.
 */
 
-
-#define _WORD_ACCESS	1	/* 0 or 1 */
+#ifdef FILE_SYSTEM_WORD_ACCESS
+#define _WORD_ACCESS	1
+#else
+#define _WORD_ACCESS 	0
+#endif
 /* The _WORD_ACCESS option is an only platform dependent option. It defines
 /  which access method is used to the word data on the FAT volume.
 /
