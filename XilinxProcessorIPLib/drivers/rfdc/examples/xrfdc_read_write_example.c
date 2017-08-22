@@ -170,7 +170,6 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	XRFdc *RFdcInstPtr = &RFdcInst;
 	u32 SetFabricRate = 8;
 	u32 GetFabricRate;
-	u32 OutputCurrent = 32;
 	XRFdc_Mixer_Settings SetMixerSettings = {0};
 	XRFdc_Mixer_Settings GetMixerSettings = {0};
 	XRFdc_QMC_Settings SetQMCSettings;
@@ -309,10 +308,6 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					return XRFDC_FAILURE;
 				}
 				Status = CompareCoarseDelaySettings(&SetCoarseDelaySettings, &GetCoarseDelaySettings);
-				if (Status != XRFDC_SUCCESS) {
-					return XRFDC_FAILURE;
-				}
-				Status = XRFdc_SetOutputCurrent(RFdcInstPtr, Tile, Block, OutputCurrent);
 				if (Status != XRFDC_SUCCESS) {
 					return XRFDC_FAILURE;
 				}
