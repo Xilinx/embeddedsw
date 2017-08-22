@@ -499,6 +499,7 @@
 *      adk 08/08/17 Fixed CR#981893 Fix bsp compilation error for axiethernet
 *		    mcdma chiscope based designs.
 *      ms  08/16/17 Fixed compilation warnings in xaxiethernet_sinit.c
+*      adk 08/22/17 Fixed CR#983008 app generation errors for Specific IPI design.
 * </pre>
 *
 ******************************************************************************/

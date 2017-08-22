@@ -186,13 +186,16 @@ proc xdefine_axi_target_params {periphs file_handle} {
 		set periph_name [string toupper [get_property NAME $periph]]
         puts $file_handle ""
         puts $file_handle "/* Canonical Axi parameters for $periph_name */"
-		set target_periph [get_connected_ip $periph]
+	set target_periph [get_connected_ip $periph]
+
+	if {$target_periph != ""} {
 		set target_periph_type [get_property IP_NAME $target_periph]
 		set tartget_per_name [get_property NAME $target_periph]
 		if {$target_periph_type == "axi_fifo_mm_s" || $target_periph_type == "axi_dma" || $target_periph_type == "axi_mcdma"} {
 			set validentry 1
 			set canonical_tag [string toupper [format "AXIETHERNET_%d" $device_id ]]
 		}
+	}
 
 	if {$validentry == 1} {
 		if {$target_periph_type == "axi_fifo_mm_s"} {
@@ -302,7 +305,7 @@ proc xdefine_axi_target_params {periphs file_handle} {
 
        if {$validentry !=1} {
 		 puts "*******************************************************************************\r\n"
-		 puts "The target Peripheral(Axi DMA or AXI FIFO) is not connected properly to the AXI Ethernet core."
+		 puts "The target Peripheral(Axi DMA or AXI MCDMA or AXI FIFO) is not connected properly to the AXI Ethernet core."
 		 puts "*******************************************************************************\r\n"
       }
    }
