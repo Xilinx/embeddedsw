@@ -919,8 +919,6 @@ void XRFdc_IntrDisable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 void XRFdc_IntrEnable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 IntrMask);
 int XRFdc_StickyClear(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id);
-int XRFdc_SetOutputCurrent(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
-								u32 OutputCurrent);
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
 				XRFdc_StatusHandler FunctionPtr);
 int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable);
