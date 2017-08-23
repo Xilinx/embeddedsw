@@ -54,6 +54,7 @@
  * 5.1   aad  08/16/16 Updated MISC0 definitions.
  * 5.2   aad  01/21/17 Added timeout macro for training timeout
  * 5.2   tu   05/14/17 Added AUX defer shift mask
+ * 5.3   tu   08/03/17 Enabled video packing for bpc > 10
  * </pre>
  *
 *******************************************************************************/
@@ -306,6 +307,12 @@
 #define XDP_TX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
+/* @} */
+
+/** @name DPTX core registers: DisplayPort video.
+ * @{
+ */
+#define XDP_TX_VIDEO_PACKING_CLOCK_CONTROL 0x90
 /* @} */
 
 /** @name DPTX core registers: HDCP.

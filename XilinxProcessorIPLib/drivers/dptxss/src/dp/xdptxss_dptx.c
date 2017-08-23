@@ -49,6 +49,7 @@
 *                   Single Steam Transport and Multi-Stream Transport.
 * 2.00 sha 09/28/15 Removed cross checking user set resolution with RX EDID.
 * 4.0  aad 05/13/16 Use asynchronous clock mode by default.
+* 5.3  tu  08/03/17 Enabled video packing for bpc > 10
 * </pre>
 *
 ******************************************************************************/
@@ -60,6 +61,7 @@
 #include "xvidc_edid.h"
 #include "xdebug.h"
 #include "string.h"
+#include "xvphy_dp.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -76,6 +78,7 @@ static u32 Dp_GetTopology(XDp *InstancePtr);
 static u32 Dp_CheckBandwidth(XDp *InstancePtr, u8 Bpc,
 				XVidC_VideoMode VidMode);
 static XVidC_VideoMode Dp_GetPreferredVm(u8 *EdidPtr);
+static void Dp_ConfigVideoPackingClockControl(XDp *InstancePtr, u8 Bpc);
 
 /************************** Variable Definitions *****************************/
 
@@ -625,6 +628,8 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 				0x0);
 	}
 
+	Dp_ConfigVideoPackingClockControl(InstancePtr, Bpc);
+
 	/* Enable the main link. */
 	XDp_TxEnableMainLink(InstancePtr);
 
@@ -1098,4 +1103,50 @@ static XVidC_VideoMode Dp_GetPreferredVm(u8 *EdidPtr)
 			FrameRate, XVidC_EdidIsDtdPtmInterlaced(EdidPtr));
 
 	return VmId;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function configures DisplayPort video packaing clock control bit (
+ * VIDEO_PACKING_CLOCK_CONTROL) if bpc is 12/16.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	Bpc is the new number of bits per color to use.
+ *
+ * @note		None.
+ *
+ *****************************************************************************/
+static void Dp_ConfigVideoPackingClockControl(XDp *InstancePtr, u8 Bpc)
+{
+	if (InstancePtr->Config.PayloadDataWidth == 4 &&
+	    InstancePtr->TxInstance.MsaConfig[0].PixelClockHz != 0 &&
+	    InstancePtr->TxInstance.MsaConfig[0].UserPixelWidth != 0 &&
+	    Bpc > 10) {
+		u32 PackingClk =
+			(InstancePtr->TxInstance.MsaConfig[0].PixelClockHz /
+			 InstancePtr->TxInstance.MsaConfig[0].UserPixelWidth);
+		u32 LinkClk;
+		long long DpLinkRateHz;
+
+		switch (InstancePtr->TxInstance.LinkConfig.LinkRate) {
+		case XDP_TX_LINK_BW_SET_540GBPS:
+			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_540GBPS;
+			break;
+		case XDP_TX_LINK_BW_SET_270GBPS:
+			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_270GBPS;
+			break;
+		default:
+			DpLinkRateHz = XVPHY_DP_LINK_RATE_HZ_162GBPS;
+			break;
+		}
+		/* link clock */
+		LinkClk = DpLinkRateHz / InstancePtr->Config.PayloadDataWidth /
+			  10;
+
+		/* writing VIDEO_PACKING_CLOCK_CONTROL bit */
+		XDp_WriteReg(InstancePtr->Config.BaseAddr,
+			     XDP_TX_VIDEO_PACKING_CLOCK_CONTROL,
+			     PackingClk < LinkClk);
+	}
 }
