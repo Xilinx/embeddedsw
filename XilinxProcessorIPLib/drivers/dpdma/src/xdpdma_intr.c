@@ -132,7 +132,7 @@ void XDpDma_VSyncHandler(XDpDma *InstancePtr)
 	}
 
 	/* Audio Channel 0 Trigger Handler */
-	if(InstancePtr->Audio[0].TriggerStatus == XDPDMA_RETRIGGER_EN) {
+	if(InstancePtr->Audio[0].TriggerStatus == XDPDMA_TRIGGER_EN) {
 		XDpDma_SetupChannel(InstancePtr, AudioChan0);
 		XDpDma_SetChannelState(InstancePtr, AudioChan0,
 				       XDPDMA_ENABLE);
