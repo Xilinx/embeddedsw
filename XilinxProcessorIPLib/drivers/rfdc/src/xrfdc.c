@@ -50,6 +50,7 @@
 *                       Return error for Slice Event on 4G ADC Block.
 *              08/16/17 Add support for SYSREF and PL event sources.
 *              08/18/17 Add API to enable and disable FIFO.
+*              08/23/17 Add API to configure Nyquist zone.
 * </pre>
 *
 ******************************************************************************/
@@ -3128,6 +3129,196 @@ int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 	}
 	Status = XRFDC_SUCCESS;
 
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Set the Nyquist zone.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param    NyquistZone valid values are 1 (Odd),2 (Even).
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Common API for ADC/DAC blocks
+*
+******************************************************************************/
+int XRFdc_SetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+								u32 Block_Id, u32 NyquistZone)
+{
+	s32 Status;
+	u32 IsBlockAvail;
+	u16 ReadReg;
+	u32 BaseAddr;
+	u16 Index;
+	u16 NoOfBlocks;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+	Index = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+			(Type == XRFDC_ADC_TILE)) {
+		NoOfBlocks = 2U;
+		if (Block_Id == 1U) {
+			Index = 2U;
+			NoOfBlocks = 4U;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		if (Type == XRFDC_ADC_TILE) {
+			/* ADC */
+			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
+								Index);
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Index);
+		} else {
+			/* DAC */
+			IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id,
+								Index);
+			BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Index);
+		}
+		if (IsBlockAvail == 0U) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR, "\n Requested block not "
+							"available in %s\r\n", __func__);
+			goto RETURN_PATH;
+		} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+				(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
+				(Block_Id == 3U))) {
+			Status = XRFDC_FAILURE;
+			metal_log(METAL_LOG_ERROR, "\n Requested block is not "
+							"valid in %s\r\n", __func__);
+			goto RETURN_PATH;
+		} else {
+			if (Type == XRFDC_ADC_TILE) {
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_TI_TISK_CRL0_OFFSET);
+				if ((NyquistZone % 2) == 0U) {
+					ReadReg |= XRFDC_TI_TISK_ZONE_MASK;
+				} else {
+					ReadReg &= ~XRFDC_TI_TISK_ZONE_MASK;
+				}
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_TI_TISK_CRL0_OFFSET, ReadReg);
+				InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].
+								NyquistZone = NyquistZone;
+			} else {
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_DAC_MC_CFG0_OFFSET);
+				if ((NyquistZone % 2) == 0U) {
+					ReadReg |= XRFDC_MC_CFG0_MIX_MODE_MASK;
+				} else {
+					ReadReg &= ~XRFDC_MC_CFG0_MIX_MODE_MASK;
+				}
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+								XRFDC_DAC_MC_CFG0_OFFSET, ReadReg);
+				InstancePtr->DAC_Tile[Tile_Id].DACBlock_Analog_Datapath[Index].
+								NyquistZone = NyquistZone;
+			}
+		}
+	}
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Get the Nyquist zone.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param    NyquistZone Pointer to return the Nyquist zone.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Common API for ADC/DAC blocks
+*
+******************************************************************************/
+int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+								u32 Block_Id, u32 *NyquistZone)
+{
+	s32 Status;
+	u32 IsBlockAvail;
+	u16 ReadReg;
+	u32 BaseAddr;
+	u32 Block;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+				(Type == XRFDC_ADC_TILE)) {
+		Block_Id = 2U;
+	}
+
+	if (Type == XRFDC_ADC_TILE) {
+		/* ADC */
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+	} else {
+		/* DAC */
+		IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+	}
+	if (IsBlockAvail == 0U) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+		goto RETURN_PATH;
+	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
+		Status = XRFDC_FAILURE;
+		metal_log(METAL_LOG_ERROR, "\n Requested block is not "
+						"valid in %s\r\n", __func__);
+		goto RETURN_PATH;
+	} else {
+		if (Type == XRFDC_ADC_TILE) {
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_ADC_TI_TISK_CRL0_OFFSET);
+			*NyquistZone = (ReadReg & XRFDC_TI_TISK_ZONE_MASK) >> 2U;
+		} else {
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+							XRFDC_DAC_MC_CFG0_OFFSET);
+			*NyquistZone = (ReadReg & XRFDC_MC_CFG0_MIX_MODE_MASK) >> 1U;
+		}
+		if (*NyquistZone == 0U) {
+			*NyquistZone = XRFDC_ODD_NYQUIST_ZONE;
+		} else {
+			*NyquistZone = XRFDC_EVEN_NYQUIST_ZONE;
+		}
+	}
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
 }

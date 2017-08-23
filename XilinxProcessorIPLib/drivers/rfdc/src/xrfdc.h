@@ -81,6 +81,7 @@
 *                       Corrected Interrupt Macro names and values.
 *              08/16/17 Add support for SYSREF and PL event sources.
 *              08/18/17 Add API to enable and disable FIFO.
+*              08/23/17 Add API to configure Nyquist zone.
 *
 * </pre>
 *
@@ -316,6 +317,7 @@ typedef struct {
 	u32 InverseSincFilterEnable;
 	u32 DecoderMode;
 	void * FuncHandler;
+	u32 NyquistZone;
 	XRFdc_QMC_Settings QMC_Settings;
 	XRFdc_CoarseDelay_Settings CoarseDelay_Settings;
 } XRFdc_DACBlock_AnalogDataPath;
@@ -340,6 +342,7 @@ typedef struct {
 	XRFdc_QMC_Settings QMC_Settings;
 	XRFdc_CoarseDelay_Settings CoarseDelay_Settings;
 	XRFdc_Threshold_Settings Threshold_Settings;
+	u32 NyquistZone;
 } XRFdc_ADCBlock_AnalogDataPath;
 
 /**
@@ -462,6 +465,8 @@ typedef struct {
 #define XRFDC_OUTPUT_CURRENT_32MA			32
 #define XRFDC_OUTPUT_CURRENT_20MA			20
 
+#define XRFDC_ODD_NYQUIST_ZONE		0x1
+#define XRFDC_EVEN_NYQUIST_ZONE		0x2
 
 /*****************************************************************************/
 /**
