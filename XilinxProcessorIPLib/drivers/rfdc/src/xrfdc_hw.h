@@ -185,6 +185,8 @@ extern "C" {
 							digital correction block gain control3 Register */
 #define XRFDC_ADC_TI_TISK_CRL0_OFFSET	0x154U	/**< ADC Time skew correction
 							control bits0 Register */
+#define XRFDC_DAC_MC_CFG0_OFFSET		0x1C4U	/**< Static Configuration
+							 data for DAC Analog */
 #define XRFDC_ADC_TI_TISK_CRL1_OFFSET	0x158U	/**< ADC Time skew correction
 							control bits1 Register */
 #define XRFDC_ADC_TI_TISK_CRL2_OFFSET	0x15CU	/**< ADC Time skew correction
@@ -1098,6 +1100,19 @@ extern "C" {
 #define XRFDC_TI_TISK_DBG_UPDT_RT_MASK	0x00001000U	/**< Debug update rate */
 #define XRFDC_TI_TISK_DITH_DLY_MASK	0x0000E000U	/**< Programmable delay on
 							dither path to match data path */
+
+/* @} */
+
+/** @name DAC MC Config0
+ *
+ * This register contains bits for enable/disable shadow logic , Nyquist zone
+ * selction, enable full speed clock, Programmable delay.
+ * @{
+ */
+
+#define XRFDC_MC_CFG0_MIX_MODE_MASK		0x00000002U	/**< Enable
+								Mixing mode */
+
 
 /* @} */
 
