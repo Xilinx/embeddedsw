@@ -59,6 +59,7 @@
 * 1.0   sk     05/15/17 First release
 * 1.1   sk     08/09/17 Modified the example to support both Linux and
 *                       Baremetal.
+*       sk     08/23/17 Add Nyquist Zone test case.
 *
 * </pre>
 *
@@ -180,6 +181,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	XRFdc_Threshold_Settings GetThresholdSettings;
 	u32 SetDecoderMode;
 	u32 GetDecoderMode;
+	u8 SetNyquistZone;
+	u8 GetNyquistZone;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -324,6 +327,31 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (SetDecoderMode != GetDecoderMode) {
 					return XRFDC_FAILURE;
 				}
+				SetNyquistZone = XRFDC_EVEN_NYQUIST_ZONE;
+				Status = XRFdc_SetNyquistZone(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, SetNyquistZone);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				Status = XRFdc_GetNyquistZone(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &GetNyquistZone);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				if (SetNyquistZone != GetNyquistZone) {
+					return XRFDC_FAILURE;
+				}
+				SetNyquistZone = XRFDC_ODD_NYQUIST_ZONE;
+				Status = XRFdc_SetNyquistZone(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, SetNyquistZone);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				Status = XRFdc_GetNyquistZone(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &GetNyquistZone);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				if (SetNyquistZone != GetNyquistZone) {
+					return XRFDC_FAILURE;
+				}
+
 			}
 
 			/* Check if the ADC block is enabled */
@@ -419,6 +447,30 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				}
 				Status = CompareThresholdSettings(&SetThresholdSettings, &GetThresholdSettings);
 				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				SetNyquistZone = XRFDC_EVEN_NYQUIST_ZONE;
+				Status = XRFdc_SetNyquistZone(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, SetNyquistZone);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				Status = XRFdc_GetNyquistZone(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &GetNyquistZone);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				if (SetNyquistZone != GetNyquistZone) {
+					return XRFDC_FAILURE;
+				}
+				SetNyquistZone = XRFDC_ODD_NYQUIST_ZONE;
+				Status = XRFdc_SetNyquistZone(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, SetNyquistZone);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				Status = XRFdc_GetNyquistZone(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &GetNyquistZone);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				if (SetNyquistZone != GetNyquistZone) {
 					return XRFDC_FAILURE;
 				}
 			}
