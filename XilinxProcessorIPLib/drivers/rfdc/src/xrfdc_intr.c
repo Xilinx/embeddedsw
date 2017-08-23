@@ -426,7 +426,7 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 	XRFdc *InstancePtr = (XRFdc *)XRFdcPtr;
 	u32 Intrsts;
 	u32 Tile_Id = 0U;
-	u32 Block_Id;
+	u32 Block_Id = 0U;
 	u32 ReadReg;
 	u16 Type = 0U;
 	u32 BaseAddr;
@@ -434,7 +434,7 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 	u32 Block;
 
 #ifdef __BAREMETAL__
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 #endif
 
 	(void) Vector;
