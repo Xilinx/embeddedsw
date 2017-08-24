@@ -127,6 +127,28 @@
 #include "xv_hdmitxss_coreinit.h"
 
 /************************** Constant Definitions *****************************/
+/* Pixel definition in 8 bit resolution in YUV color space*/
+const u8 bkgndColorYUV[XV_BKGND_LAST][3] =
+{
+  {  0, 128, 128}, //Black
+  {255, 128, 128}, //White
+  { 76,  85, 255}, //Red
+  {149,  43,  21}, //Green
+  { 29, 255, 107}, //Blue
+  {  0,   0,   0}  //Place holder for Noise Video Mask
+};
+
+/* Pixel map in RGB color space*/
+/* {Green, Blue, Red} */
+const u8 bkgndColorRGB[XV_BKGND_LAST][3] =
+{
+  {0, 0, 0}, //Black
+  {1, 1, 1}, //White
+  {0, 0, 1}, //Red
+  {1, 0, 0}, //Green
+  {0, 1, 0}, //Blue
+  {0, 0, 0}  //Place holder for Noise Video Mask
+};
 
 /**************************** Type Definitions *******************************/
 /**
@@ -2005,11 +2027,18 @@ void XV_HdmiTxSs_RefClockChangeInit(XV_HdmiTxSs *InstancePtr)
 ******************************************************************************/
 void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr)
 {
-      if (XV_HdmiTx_GetMode(InstancePtr->HdmiTxPtr) == 0) {
-        xil_printf("HDMI TX Mode - DVI \r\n\r\n");
+      if (((u32) XV_HdmiTx_GetMode(InstancePtr->HdmiTxPtr)) == 0) {
+        xil_printf("HDMI TX Mode - DVI \r\n");
       }
       else {
-        xil_printf("HDMI TX Mode - HDMI \r\n\r\n");
+        xil_printf("HDMI TX Mode - HDMI \r\n");
+      }
+
+      if (XV_HdmiTxSS_IsMasked(InstancePtr) == 0) {
+	  xil_printf("HDMI Video Mask is Disabled\r\n\r\n");
+      }
+      else {
+	  xil_printf("HDMI Video Mask is Enabled\r\n\r\n");
       }
 
       XV_HdmiTx_DebugInfo(InstancePtr->HdmiTxPtr);
@@ -2437,6 +2466,65 @@ void XV_HdmiTxSS_MaskSetBlue(XV_HdmiTxSs *InstancePtr, u16 Value)
 
 /*****************************************************************************/
 /**
+* This function configures the background color for Video Masking Feature
+*
+* @param  InstancePtr is a pointer to the core instance to be worked on.
+* @param  ColorId is the background color requested
+*
+* @return None
+*
+******************************************************************************/
+void XV_HdmiTxSS_SetBackgroundColor(XV_HdmiTxSs *InstancePtr,
+                                    XVMaskColorId  ColorId)
+{
+    u16 Cr_R_val,y_G_val,Cb_B_val;
+    u16 scale;
+
+    XVidC_ColorFormat cfmt;
+	XVidC_ColorDepth bpc;
+
+    XVidC_VideoStream *HdmiTxSsVidStreamPtr;
+    HdmiTxSsVidStreamPtr = XV_HdmiTxSs_GetVideoStream(InstancePtr);
+
+    cfmt = HdmiTxSsVidStreamPtr->ColorFormatId;
+	bpc = InstancePtr->HdmiTxPtr->Stream.Video.ColorDepth;
+
+  /*
+   * Assert validates the input arguments
+   */
+  Xil_AssertVoid(InstancePtr != NULL);
+
+  if(cfmt == XVIDC_CSF_RGB)
+  {
+    scale = ((1<<bpc)-1);
+    y_G_val  = bkgndColorRGB[ColorId][0] * scale;
+    Cb_B_val = bkgndColorRGB[ColorId][1] * scale;
+    Cr_R_val = bkgndColorRGB[ColorId][2] * scale;
+  }
+  else //YUV
+  {
+    scale =  (1<<(bpc-XVIDC_BPC_8));
+    y_G_val  = bkgndColorYUV[ColorId][0] * scale;
+    Cb_B_val = bkgndColorYUV[ColorId][1] * scale;
+    Cr_R_val = bkgndColorYUV[ColorId][2] * scale;
+  }
+
+  if(ColorId == XV_BKGND_NOISE) {
+	XV_HdmiTxSS_MaskNoise(InstancePtr, (TRUE));
+  }
+  else {
+	XV_HdmiTxSS_MaskNoise(InstancePtr, (FALSE));
+    /* Set Background color (outside window) */
+	XV_HdmiTxSS_MaskSetRed(InstancePtr,  Cr_R_val);
+	XV_HdmiTxSS_MaskSetGreen(InstancePtr, y_G_val);
+	XV_HdmiTxSS_MaskSetBlue(InstancePtr, Cb_B_val);
+  }
+  XV_HdmiTxSS_MaskEnable(InstancePtr);
+}
+
+
+/*****************************************************************************/
+/**
 * This function will get the current video mask mode
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
@@ -2451,5 +2539,5 @@ void XV_HdmiTxSS_MaskSetBlue(XV_HdmiTxSs *InstancePtr, u16 Value)
 ******************************************************************************/
 u8 XV_HdmiTxSS_IsMasked(XV_HdmiTxSs *InstancePtr)
 {
-    return XV_HdmiTx_IsMasked(InstancePtr->HdmiTxPtr);
+    return ((u8)XV_HdmiTx_IsMasked(InstancePtr->HdmiTxPtr));
 }
