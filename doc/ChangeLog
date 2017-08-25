@@ -2299,12 +2299,13 @@ Added XVphy_SetErrorCallback, XVphy_ErrorHandler & XVphy_PllLayoutErrorHandler A
 Adjusted GTXE2 CPLL DRU linerate to 2.5 Gbps
 Improved stability and robustness during GTXE2 bonded mode
 Changed ClkOutxDiv declaration to u16 in vphy.h
-Added XVPHY_LOG_EVT_NO_QPLL_ERR log event
+Added XVPHY_LOG_EVT_NO_QPLL_ERR & XVPHY_LOG_EVT_DRU_CLK_ERR log events
 Added XVphy_RegisterDebug API in vphy.c/h
 Fixed bug in HdmiCfgCalcMmcmParam when linerate exceeds 3.4 Gbps when oversampling is enabled
 Improved stability to avoid SW hang when HdmiCfgCalcMmcmParam is not able to find the applicable divider for ARM processors
 Fixed XVphy_HdmiDebugInfo printout for RX only configuration
 Added doxygen tags
+Added XVphy_Hdmi_CfgInitialize to replace the deprecated XVphy_HdmiInitialize API
 
 vprocss_v2_1:
 Added new version 2.1
