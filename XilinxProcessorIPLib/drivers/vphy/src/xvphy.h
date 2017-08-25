@@ -85,11 +85,14 @@
  *                     Added transceiver width, AXIlite clk frequency and
  *                       err_irq in XVphy_Config
  * 1.5   gm   08/05/17 Added DrpClkFreq in XVphy_Config
- * 1.6   gm   06/08/17 Added XVPHY_LOG_EVT_HDMI20_ERR XVphy_LogEvent enum
+ * 1.6   gm   06/08/17 Added XVPHY_LOG_EVT_HDMI20_ERR &
+ *                       XVPHY_LOG_EVT_DRU_CLK_ERR XVphy_LogEvent enum
  *                     Added intr events for TX and RX MMCM lock
  *                     Marked XVphy_DrpWrite and XVphy_DrpRead as deprecated
  *                     Added XVphy_SetErrorCallback API
  *                     Changed ClkOutxDiv declaration to u16
+ *                     Marked XVphy_HdmiInitialize deprecated and replaced by
+ *                        XVphy_Hdmi_CfgInitialize
  * </pre>
  *
 *******************************************************************************/
@@ -350,6 +353,7 @@ typedef enum {
 	XVPHY_LOG_EVT_MMCM_ERR,		/**< Log event MMCM Config not found. */
 	XVPHY_LOG_EVT_HDMI20_ERR,	/**< Log event HDMI2.0 not supported. */
 	XVPHY_LOG_EVT_NO_QPLL_ERR,	/**< Log event QPLL not present. */
+	XVPHY_LOG_EVT_DRU_CLK_ERR,	/**< Log event DRU clk wrong freq. */
 	XVPHY_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
 } XVphy_LogEvent;
 #endif
@@ -364,6 +368,7 @@ typedef enum {
 	XVPHY_ERR_PLL_LAYOUT  = 0x20,	/**< PLL Error. */
 	XVPHY_ERR_BONDED_DRU  = 0x40,	/**< DRU and Bonded Mode Error. */
 	XVPHY_ERR_NO_QPLL     = 0x80,	/**< No QPLL Error. */
+	XVPHY_ERR_DRU_CLK     = 0x100,	/**< Wrong DRU clk freq Error. */
 } XVphy_ErrType;
 
 /******************************************************************************/
@@ -869,7 +874,9 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 		XVphy_PllType TxPllSelect, XVphy_PllType RxPllSelect,
 		u8 LinkRate);
 u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
-		u32 SystemFrequency);
+		u32 SystemFrequency) __attribute__ ((deprecated));
+u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
+        XVphy_Config *CfgPtr);
 u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVidC_PixelsPerClock Ppc, XVidC_ColorDepth Bpc,
 		XVidC_ColorFormat ColorFormat);

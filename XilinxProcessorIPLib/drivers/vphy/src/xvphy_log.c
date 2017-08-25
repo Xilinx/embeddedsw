@@ -53,6 +53,8 @@
  * 1.6   gm   06/08/17 Added XVPHY_LOG_EVT_HDMI20_ERR log event
  *                     Added Red & Yellow printing for errors and warnings
  *                     Added XVPHY_LOG_EVT_NO_QPLL_ERR log event
+ *                     Changed xil_printf new lines to \r\n
+ *                     Added XVPHY_LOG_EVT_DRU_CLK_ERR log event
  * </pre>
  *
 *******************************************************************************/
@@ -205,7 +207,7 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	xil_printf("\r\n\n\nVPHY log\r\n");
+	xil_printf("\r\n\r\n\r\nVPHY log\r\n");
 	xil_printf("------\r\n");
 
 	/* Read log data */
@@ -438,7 +440,7 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 						"Couldn't find the correct GT "
 						"parameters for this video resolution. "
 						"Try another GT PLL layout."
-						ANSI_COLOR_RESET "\n\r");
+						ANSI_COLOR_RESET "\r\n");
 			break;
 		case (XVPHY_LOG_EVT_GT_UNBONDED):
 				xil_printf(ANSI_COLOR_RED "Error! "
@@ -493,6 +495,11 @@ void XVphy_LogDisplay(XVphy *InstancePtr)
 		case (XVPHY_LOG_EVT_NO_QPLL_ERR):
 				xil_printf(ANSI_COLOR_RED "Error!  There's no QPLL instance "
 						"in the design"
+						ANSI_COLOR_RESET "\r\n");
+			break;
+		case (XVPHY_LOG_EVT_DRU_CLK_ERR):
+				xil_printf(ANSI_COLOR_RED "Error!  Wrong DRU REFCLK frequency "
+						"detected"
 						ANSI_COLOR_RESET "\r\n");
 			break;
 		default:
