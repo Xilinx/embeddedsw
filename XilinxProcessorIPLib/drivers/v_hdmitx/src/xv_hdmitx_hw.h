@@ -54,6 +54,7 @@
 * 1.04  MMO    03/05/17 Updated the comments for XV_HdmiTx_ReadReg and
 *                            XV_HdmiTx_WriteReg
 * 1.1   MG     03/05/17 Introduced video mask peripheral
+* 1.2   YH     22/08/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_MASK (Audio Format)
 * </pre>
 *
 ******************************************************************************/
@@ -268,6 +269,8 @@ extern "C" {
                                                 * Enable mask */
 #define XV_HDMITX_AUD_CTRL_CH_MASK      0x03 /**< AUD Control channels mask */
 #define XV_HDMITX_AUD_CTRL_CH_SHIFT     2   /**< AUD Control channels mask */
+#define XV_HDMITX_AUD_CTRL_AUDFMT_MASK  (1<<4) /**< AUD Control AUD Format
+                                                * mask */
 
 // Audio peripheral Status register masks
 #define XV_HDMITX_AUD_STA_IRQ_MASK      (1<<0) /**< AUD Status Interrupt mask */
