@@ -48,8 +48,8 @@
 * </pre>
 *
 ******************************************************************************/
-#ifndef XV_SDIRXSS_COREINIT_H__  /* prevent circular inclusions */
-#define XV_SDIRXSS_COREINIT_H__  /* by using protection macros */
+#ifndef XV_SDIRXSS_COREINIT_H__ /* prevent circular inclusions */
+#define XV_SDIRXSS_COREINIT_H__ /* by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {

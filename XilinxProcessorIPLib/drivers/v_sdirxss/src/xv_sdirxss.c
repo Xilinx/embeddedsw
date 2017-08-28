@@ -86,7 +86,7 @@ static void XV_SdiRxSs_ReportSubcoreVersion(XV_SdiRxSs *InstancePtr);
 /**
 * This function calls the interrupt handler for SDI RX
 *
-* @param  InstancePtr is a pointer to the SDI RX Subsystem
+* @param InstancePtr is a pointer to the SDI RX Subsystem
 *
 *****************************************************************************/
 void XV_SdiRxSS_SdiRxIntrHandler(XV_SdiRxSs *InstancePtr)
@@ -100,7 +100,7 @@ void XV_SdiRxSS_SdiRxIntrHandler(XV_SdiRxSs *InstancePtr)
 /**
 * This function reports list of cores included in Video Processing Subsystem
 *
-* @param  InstancePtr is a pointer to the Subsystem instance.
+* @param InstancePtr is a pointer to the Subsystem instance.
 *
 * @return None
 *
@@ -109,11 +109,11 @@ void XV_SdiRxSs_ReportCoreInfo(XV_SdiRxSs *InstancePtr)
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	xil_printf("\r\n  ->SDI RX Subsystem Cores\r\n");
+	xil_printf("\r\n ->SDI RX Subsystem Cores\r\n");
 
 	/* Report all the included cores in the subsystem instance */
 	if (InstancePtr->SdiRxPtr) {
-		xil_printf("    : SDI RX \r\n");
+		xil_printf(" : SDI RX \r\n");
 	}
 }
 
@@ -122,8 +122,7 @@ void XV_SdiRxSs_ReportCoreInfo(XV_SdiRxSs *InstancePtr)
 * This function register's all sub-core ISR's with interrupt controller and
 * any subsystem level call back function with requisite sub-core
 *
-* @param  InstancePtr is a pointer to the Subsystem instance to be
-*       worked on.
+* @param InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
 *****************************************************************************/
 static int XV_SdiRxSs_RegisterSubsysCallbacks(XV_SdiRxSs *InstancePtr)
@@ -158,7 +157,7 @@ static int XV_SdiRxSs_RegisterSubsysCallbacks(XV_SdiRxSs *InstancePtr)
 * the sub-core driver instance is binded with the subsystem sub-core driver
 * handle
 *
-* @param  SdiRxSsPtr is a pointer to the Subsystem instance to be worked on.
+* @param SdiRxSsPtr is a pointer to the Subsystem instance to be worked on.
 *
 * @return None
 *
@@ -176,15 +175,15 @@ static void XV_SdiRxSs_GetIncludedSubcores(XV_SdiRxSs *SdiRxSsPtr, u16 DevId)
 * includes setting up the instance data for top level as well as all included
 * sub-core therein, and ensuring the hardware is in a known stable state.
 *
-* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
-* @param  CfgPtr points to the configuration structure associated with the
-*         subsystem instance.
-* @param  EffectiveAddr is the base address of the device. If address
-*         translation is being used, then this parameter must reflect the
-*         virtual base address. Otherwise, the physical address should be
-*         used.
+* @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param	CfgPtr points to the configuration structure associated with the
+*       	subsystem instance.
+* @param	EffectiveAddr is the base address of the device. If address
+*        	translation is being used, then this parameter must reflect the
+*        	virtual base address. Otherwise, the physical address should be
+*        	used.
 *
-* @return XST_SUCCESS if initialization is successful else XST_FAILURE
+* @return	XST_SUCCESS if initialization is successful else XST_FAILURE
 *
 ******************************************************************************/
 int XV_SdiRxSs_CfgInitialize(XV_SdiRxSs *InstancePtr,
@@ -227,11 +226,11 @@ XV_SdiRxSs_Config *CfgPtr, UINTPTR EffectiveAddr)
 *
 * This function is called when the RX stream is down.
 *
-* @param  None.
+* @param	None.
 *
-* @return None.
+* @return	None.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 static void XV_SdiRxSs_StreamDownCallback(void *CallbackRef)
@@ -260,11 +259,11 @@ static void XV_SdiRxSs_StreamDownCallback(void *CallbackRef)
 *
 * This function is called when the RX stream is up.
 *
-* @param  None.
+* @param	None.
 *
-* @return None.
+* @return	None.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 static void XV_SdiRxSs_StreamUpCallback(void *CallbackRef)
@@ -287,11 +286,11 @@ static void XV_SdiRxSs_StreamUpCallback(void *CallbackRef)
 *
 * This function enables the AXIS and video bridges.
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
+* @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return None.
+* @return	None.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 void XV_SdiRxSs_StreamFlowEnable(XV_SdiRxSs *InstancePtr)
@@ -305,11 +304,11 @@ void XV_SdiRxSs_StreamFlowEnable(XV_SdiRxSs *InstancePtr)
 *
 * This function disables the AXIS and video bridges.
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
+* @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return None.
+* @return	None.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr)
@@ -323,8 +322,8 @@ void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr)
 *
 * This function starts the SDI RX stream detection.
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
-* @param  Mode specifies the mode of SDI modes searching operation.
+* @param	InstancePtr pointer to XV_SdiRxSs instance
+* @param	Mode specifies the mode of SDI modes searching operation.
 *		- 0 = XV_SDIRX_SINGLESEARCHMODE_HD
 *		- 1 = XV_SDIRX_SINGLESEARCHMODE_SD
 *		- 2 = XV_SDIRX_SINGLESEARCHMODE_3G
@@ -334,7 +333,7 @@ void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr)
 *		- 10 = XV_SDIRX_MULTISEARCHMODE where the supported modes will be
 *				enabled by XV_SdiRx_EnableMode function
 *
-* @return None.
+* @return	None.
 *
 * @note   None.
 *
@@ -354,9 +353,9 @@ void XV_SdiRxSs_Start(XV_SdiRxSs *InstancePtr, XV_SdiRx_SearchMode Mode)
 /**
 * This function stops the SDI RX stream detection.
 *
-* @param  InstancePtr is a pointer to the Subsystem instance to be worked on.
+* @param	InstancePtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return None
+* @return	None
 *
 ******************************************************************************/
 void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr)
@@ -457,12 +456,12 @@ u8 XV_SdiRxSs_GetTransportBitRate(XV_SdiRxSs *InstancePtr)
 *
 * This function returns the pointer to SDI RX SS video stream
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
-* @param  StreamId specifies which video stream's pointer to be returned
+* @param	InstancePtr pointer to XV_SdiRxSs instance
+* @param	StreamId specifies which video stream's pointer to be returned
 *
-* @return XVidC_VideoStream pointer
+* @return	XVidC_VideoStream pointer
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 XVidC_VideoStream *XV_SdiRxSs_GetVideoStream(XV_SdiRxSs *InstancePtr,
@@ -485,11 +484,11 @@ void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr)
 *
 * This function prints the SDI RX SS subcore versions
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
+* @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return None.
+* @return	None.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 static void XV_SdiRxSs_ReportSubcoreVersion(XV_SdiRxSs *InstancePtr)
@@ -508,11 +507,11 @@ static void XV_SdiRxSs_ReportSubcoreVersion(XV_SdiRxSs *InstancePtr)
 *
 * This function prints the SDI RX SS information.
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
+* @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return None.
+* @return	None.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 void XV_SdiRxSs_ReportInfo(XV_SdiRxSs *InstancePtr)
@@ -540,11 +539,11 @@ void XV_SdiRxSs_ReportInfo(XV_SdiRxSs *InstancePtr)
 *
 * This function prints the SDI RX SS debug information.
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
+* @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return None.
+* @return	None.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 void XV_SdiRxSs_ReportDebugInfo(XV_SdiRxSs *InstancePtr)
@@ -568,11 +567,11 @@ void XV_SdiRxSs_ReportDebugInfo(XV_SdiRxSs *InstancePtr)
 *
 * This function prints the SDI RX SS timing information
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
+* @param	InstancePtr pointer to XV_SdiRxSs instance
 *
-* @return None.
+* @return	None.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 static void XV_SdiRxSs_ReportTiming(XV_SdiRxSs *InstancePtr)
@@ -586,13 +585,13 @@ static void XV_SdiRxSs_ReportTiming(XV_SdiRxSs *InstancePtr)
 *
 * This function checks if the video stream is up.
 *
-* @param  InstancePtr pointer to XV_SdiRxSs instance
+* @param	InstancePtr pointer to XV_SdiRxSs instance
 *
 * @return
-*   - TRUE if stream is up.
-*   - FALSE if stream is down.
+*		- TRUE if stream is up.
+*		- FALSE if stream is down.
 *
-* @note   None.
+* @note		None.
 *
 ******************************************************************************/
 int XV_SdiRxSs_IsStreamUp(XV_SdiRxSs *InstancePtr)
