@@ -2129,7 +2129,7 @@ void XHdmi_MenuProcess(XHdmi_Menu *InstancePtr)
 #endif
 			// Alpha numeric data
 		    if (isalpha(Data)) {
-		      xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\r\n\n");
+		      xil_printf("\r\nInvalid input. Valid entry is only digits 0-9. Try again\r\n\r\n");
 		      xil_printf("Enter Selection -> ");
 		      InstancePtr->Value = 0;
 		    }
