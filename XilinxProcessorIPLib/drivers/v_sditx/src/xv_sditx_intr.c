@@ -71,6 +71,83 @@ static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr);
 
 /*****************************************************************************/
 /**
+* This function will get the interrupt mask set (enabled) in the SDI Tx core
+*
+* @param	InstancePtr is the XV_SdiTx instance to operate on
+*
+* @return	Interrupt Mask with bits set for corresponding interrupt in
+*		Interrupt enable register
+*
+* @note		None
+*
+****************************************************************************/
+u32 XV_SdiTx_GetIntrEnable(XV_SdiTx *InstancePtr)
+{
+	u32 Mask;
+
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Mask = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDITX_IER_OFFSET);
+
+	return Mask;
+}
+
+/*****************************************************************************/
+/**
+* This function will get the list of interrupts pending in the
+* Interrupt Status Register of the SDI Tx core
+*
+* @param	InstancePtr is the XV_SdiTx instance to operate on
+*
+* @return	Interrupt Mask with bits set for corresponding interrupt in
+*		Interrupt Status register
+*
+* @note		None
+*
+****************************************************************************/
+u32 XV_SdiTx_GetIntrStatus(XV_SdiTx *InstancePtr)
+{
+	u32 Mask;
+
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Mask = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDITX_ISR_OFFSET);
+
+	return Mask;
+}
+
+/*****************************************************************************/
+/**
+* This function will clear the interrupts set in the Interrupt Status
+* Register of the SDI Tx core
+*
+* @param	InstancePtr is the XV_SdiTx instance to operate on
+* @param	Mask is Interrupt Mask with bits set for corresponding interrupt
+*		to be cleared in the Interrupt Status register
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+void XV_SdiTx_InterruptClear(XV_SdiTx *InstancePtr, u32 Mask)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Checking for invalid mask bits being set */
+	Xil_AssertVoid((Mask & (~(XV_SDITX_ISR_ALLINTR_MASK))) == 0);
+
+	Mask &= XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDITX_ISR_OFFSET);
+
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress, XV_SDITX_ISR_OFFSET,
+				Mask & XV_SDITX_ISR_ALLINTR_MASK);
+}
+
+/*****************************************************************************/
+/**
 *
 * This function is the interrupt handler for the SDI TX driver.
 *
@@ -94,32 +171,33 @@ static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr);
 ******************************************************************************/
 void XV_SdiTx_IntrHandler(void *InstancePtr)
 {
-	u32 Data;
+	u32 ActiveIntr;
+	u32 Mask;
+
 	XV_SdiTx *SdiTxPtr = (XV_SdiTx *)InstancePtr;
 
 	/* Verify arguments */
 	Xil_AssertVoid(SdiTxPtr != NULL);
 	Xil_AssertVoid(SdiTxPtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Video Lock */
-	Data = XV_SdiTx_ReadReg(SdiTxPtr->Config.BaseAddress,
-				(XV_SDITX_INT_STS_OFFSET));
+	/* Get Active interrupts */
+	ActiveIntr = XV_SdiTx_GetIntrStatus(SdiTxPtr);
 
-	/* Check for IRQ flag set */
-	if (Data & XV_SDITX_INT_GT_RST_DONE_MASK) {
-		/* Clear event flag */
-		XV_SdiTx_WriteReg(SdiTxPtr->Config.BaseAddress,
-					(XV_SDITX_INT_CLR_OFFSET),
-					(XV_SDITX_INT_GT_RST_DONE_MASK));
-		XV_SdiTx_WriteReg(SdiTxPtr->Config.BaseAddress,
-					(XV_SDITX_INT_CLR_OFFSET), 0x0);
+	/* Read ISR register  for Gtresetdone*/
+	Mask = ActiveIntr & XV_SDITX_ISR_GTTX_RSTDONE_MASK;
+
+	/* Check for GTTX_RSTDONE IRQ flag set */
+	if (Mask) {
 
 		/* Jump to GT reset done interrupt handler */
 		if (XV_SdiTx_ReadReg(SdiTxPtr->Config.BaseAddress,
-					XV_SDITX_STS_SB_TX_TDATA_OFFSET) &
-					XV_SDITX_STS_SB_TX_TDATA_GT_TX_RESETDONE_MASK) {
+					XV_SDITX_SB_TX_STS_TDATA_OFFSET) &
+					XV_SDITX_SB_TX_STS_TDATA_GT_TX_RESETDONE_MASK) {
 			SdiTx_GtTxRstDoneIntrHandler(SdiTxPtr);
 		}
+
+		/* Clear handled interrupt(s) */
+		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
 	}
 }
 
@@ -184,23 +262,25 @@ void *CallbackFunc, void *CallbackRef)
 * This function enables the selected interrupt.
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
-* @param	Interrupt to be enabled.
+* @param	Mask to be enabled.
 *
 * @return	None.
 *
 * @note         None.
 *
 ******************************************************************************/
-void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Interrupt)
+void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Mask)
 {
-	u32 Data;
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
 
-	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDITX_INT_MSK_OFFSET));
-	Data &= ~Interrupt;
+	/* Checking for invalid mask bits being set */
+	Xil_AssertVoid((Mask & (~(XV_SDITX_IER_ALLINTR_MASK))) == 0);
 
-	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_INT_MSK_OFFSET), (Data));
+	Mask |= XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDITX_IER_OFFSET);
+
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,XV_SDITX_IER_OFFSET,
+			Mask & XV_SDITX_IER_ALLINTR_MASK);
 }
 
 /*****************************************************************************/
@@ -209,23 +289,23 @@ void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Interrupt)
 * This function disables the selected interrupt.
 *
 * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
-* @param	Interrupt to be disabled.
+* @param	Mask to be disabled.
 *
 * @return	None.
 *
 * @note         None.
 *
 ******************************************************************************/
-void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Interrupt)
+void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask)
 {
-	u32 Data;
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	/* Checking for invalid mask bits being set */
+	Xil_AssertVoid((Mask & (~(XV_SDITX_IER_ALLINTR_MASK))) == 0);
 
-	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDITX_INT_MSK_OFFSET));
-	Data |= Interrupt;
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress, XV_SDITX_IER_OFFSET,
+			~ Mask & XV_SDITX_IER_ALLINTR_MASK);
 
-	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_INT_MSK_OFFSET), (Data));
 }
 
 /*****************************************************************************/

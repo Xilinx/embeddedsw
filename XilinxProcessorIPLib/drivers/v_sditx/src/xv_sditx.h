@@ -75,16 +75,16 @@ extern "C" {
 */
 typedef enum {
 	XV_SDITX_HANDLER_GTRESET_DONE = 1
-//	XV_SDITX_HANDLER_STREAM_UP
+/*	XV_SDITX_HANDLER_STREAM_UP */
 } XV_SdiTx_HandlerType;
 /*@}*/
 
-/** @name SDI RX stream status
+/** @name SDI TX stream status
 * @{
 */
 typedef enum {
-    XV_SDITX_STATE_GTRESETDONE_WORKAROUND,	// GTResetDone workaround
-	XV_SDITX_STATE_GTRESETDONE_NORMAL		// Stream up
+	XV_SDITX_STATE_GTRESETDONE_WORKAROUND,	/* GTResetDone workaround */
+	XV_SDITX_STATE_GTRESETDONE_NORMAL	/* Stream up */
 } XV_SdiTx_State;
 
 /** @name SDI Stream Configurable Settings
@@ -225,12 +225,12 @@ typedef struct {
   XV_SdiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
   (XV_SDITX_VER_OFFSET))
 
-//Clear VideoLock Interrupt
+/* Clear VideoLock Interrupt */
 #define XV_SdiTx_VidLckIntrClr(InstancePtr) \
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_SDITX_INT_CLR_OFFSET), \
 		(XV_SDITX_INT_STS_VID_LOCK_MASK))
 
-//Clear VideoUnlock Interrupt
+/* Clear VideoUnlock Interrupt */
 #define XV_SdiTx_VidUnlckIntrClr(InstancePtr) \
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_SDITX_INT_CLR_OFFSET), \
 		(XV_SDITX_INT_STS_VID_UNLOCK_MASK))
@@ -277,11 +277,14 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId);
 u32 XV_SdiTx_SelfTest(XV_SdiTx *InstancePtr);
 
 /* Interrupt related function in xv_sditx_intr.c */
+u32 XV_SdiTx_GetIntrEnable(XV_SdiTx *InstancePtr);
+u32 XV_SdiTx_GetIntrStatus(XV_SdiTx *InstancePtr);
+void XV_SdiTx_InterruptClear(XV_SdiTx *InstancePtr, u32 Mask);
 void XV_SdiTx_IntrHandler(void *InstancePtr);
 int XV_SdiTx_SetCallback(XV_SdiTx *InstancePtr,	u32 HandlerType,
 				void *CallbackFunc, void *CallbackRef);
-void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Interrupt);
-void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Interrupt);
+void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask);
+void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Mask);
 
 /************************** Variable Declarations ****************************/
 
