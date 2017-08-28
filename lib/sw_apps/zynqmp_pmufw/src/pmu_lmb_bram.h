@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+*
+* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,30 +27,19 @@
 * Except as contained in this notice, the name of the Xilinx shall not be used
 * in advertising or otherwise to promote the sale, use or other dealings in
 * this Software without prior written authorization from Xilinx.
+*
 ******************************************************************************/
 
-#ifndef XPFW_MOD_EM_H_
-#define XPFW_MOD_EM_H_
+#ifndef _PMU_LMB_BRAM_H_
+#define _PMU_LMB_BRAM_H_
 
-#define EM_IPI_HANDLER_ID		0xEU
-#define EM_API_ID_MASK			0xFFFFU
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#define EM_MOD_API_ID_OFFSET	0x0U
-#define EM_ERROR_ID_OFFSET		0x1U
-#define EM_ERROR_ACTION_OFFSET	0x2U
-#define PMU_BRAM_CE_LOG_OFFSET	0x3U
-#define EM_ERROR_LOG_MAX		0x4U
+#define PMU_LMB_BRAM_ECC_STATUS_REG		0xFFD50000U
+#define PMU_LMB_BRAM_ECC_IRQ_EN_REG		0xFFD50004U
+#define PMU_LMB_BRAM_CE_CNT_REG			0xFFD5000CU
 
-/* EM API IDs */
-#define SET_EM_ACTION			0x01U
-#define REMOVE_EM_ACTION		0x02U
-#define SEND_ERRORS_OCCURRED	0x03U
-
-extern u32 ErrorLog[EM_ERROR_LOG_MAX];
-void ModEmInit(void);
-void RpuLsHandler(u8 ErrorId);
-void LpdSwdtHandler(u8 ErrorId);
-void FpdSwdtHandler(u8 ErrorId);
-void NullHandler(u8 ErrorId);
-
-#endif /* XPFW_MOD_EM_H_ */
+#define PMU_LMB_BRAM_CE_MASK			0x2U
+#endif /* _PMU_LMB_BRAM_H_ */

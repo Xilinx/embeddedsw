@@ -38,8 +38,54 @@
 #include "xpfw_xpu.h"
 #include "xpfw_restart.h"
 #include "xpfw_mod_em.h"
+#include "pmu_lmb_bram.h"
 
 #ifdef ENABLE_EM
+
+static void EmIpiHandler(const XPfw_Module_t *ModPtr, u32 IpiNum, u32 SrcMask, const u32* Payload, u8 Len)
+{
+	u32 RetVal = XST_FAILURE;
+	u8 ErrorId = 0U;
+
+	if (IpiNum > 0) {
+		XPfw_Printf(DEBUG_ERROR,"EM: EM handles only IPI on PMU-0\r\n");
+	} else {
+		switch (Payload[EM_MOD_API_ID_OFFSET] & EM_API_ID_MASK) {
+		case SET_EM_ACTION:
+			ErrorId = (u8)Payload[EM_ERROR_ID_OFFSET];
+			RetVal = XPfw_EmSetAction(ErrorId, (u8)Payload[EM_ERROR_ACTION_OFFSET],
+					ErrorTable[ErrorId].Handler);
+
+			if (RetVal != XST_SUCCESS) {
+				XPfw_Printf(DEBUG_DETAILED, "Warning: EmIpiHandler: Failed "
+						"to set action \r\n");
+			}
+			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+			break;
+
+		case REMOVE_EM_ACTION:
+			RetVal = XPfw_EmDisable((u8)Payload[EM_ERROR_ID_OFFSET]);
+
+			if (RetVal != XST_SUCCESS) {
+				XPfw_Printf(DEBUG_DETAILED,"Warning: EmIpiHandler: Failed"
+						" to remove action\r\n");
+			}
+			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+			break;
+
+		case SEND_ERRORS_OCCURRED:
+			ErrorLog[PMU_BRAM_CE_LOG_OFFSET] = XPfw_Read32(PMU_LMB_BRAM_CE_CNT_REG);
+
+			XPfw_IpiWriteResponse(ModPtr, SrcMask, ErrorLog, EM_ERROR_LOG_MAX);
+			break;
+
+		default:
+			XPfw_Printf(DEBUG_ERROR,"EM: Unsupported API ID received\r\n");
+			XPfw_IpiWriteResponse(ModPtr, SrcMask, &RetVal, 1);
+			break;
+		}
+	}
+}
 /**
  * Example Error handler for RPU lockstep error
  *
@@ -47,7 +93,7 @@
  * and it resets the RPU gracefully
  */
 
-static void RpuLsHandler(u8 ErrorId)
+void RpuLsHandler(u8 ErrorId)
 {
 	XPfw_Printf(DEBUG_ERROR,"EM: RPU Lock-Step Error Occurred "
 			"(Error ID: %d)\r\n", ErrorId);
@@ -55,7 +101,6 @@ static void RpuLsHandler(u8 ErrorId)
 	(void)XPfw_ResetRpu();
 }
 
-#ifndef ENABLE_WDT
 /**
  * LpdSwdtHandler() - Error handler for LPD system watchdog timer error
  * @ErrorId   ID of the error
@@ -63,15 +108,23 @@ static void RpuLsHandler(u8 ErrorId)
  * @note      Called when an error from watchdog timer in the LPD subsystem
  *            occurs and it resets the PS gracefully (by terminating
  *            all PS <-> PL transactions before initiating reset)
-*/
-static void LpdSwdtHandler(u8 ErrorId)
+ */
+void LpdSwdtHandler(u8 ErrorId)
 {
 	XPfw_Printf(DEBUG_ERROR,"EM: LPD Watchdog Timer Error (Error ID: %d)\r\n",
 			ErrorId);
 	XPfw_Printf(DEBUG_ERROR,"EM: Initiating PS Only Reset \r\n");
 	XPfw_ResetPsOnly();
 }
-#endif
+
+/**
+ * NullHandler() - Null handler for errors which doesn't have a handler defined
+ * @ErrorId   ID of the error
+ */
+void NullHandler(u8 ErrorId)
+{
+	XPfw_Printf(DEBUG_ERROR,"EM: Error %d occurred\r\n",ErrorId);
+}
 
 /**
  * FpdSwdtHandler() - Error handler for FPD system watchdog timer error
@@ -80,7 +133,7 @@ static void LpdSwdtHandler(u8 ErrorId)
  * @note      Called when an error from watchdog timer in the FPD subsystem
  *            occurs and it resets the FPD. APU resumes from HIVEC after reset
  */
-static void FpdSwdtHandler(u8 ErrorId)
+void FpdSwdtHandler(u8 ErrorId)
 {
 	XPfw_Printf(DEBUG_ERROR,"EM: FPD Watchdog Timer Error (Error ID: %d)\r\n",
 			ErrorId);
@@ -90,55 +143,37 @@ static void FpdSwdtHandler(u8 ErrorId)
 /* CfgInit Handler */
 static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 		u32 Len)
- {
+{
+	u32 ErrId = 0U;
+
 	/* Register for Error events from Core */
 	(void) XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_1);
 	(void) XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_ERROR_2);
 
 	/* Init the Error Manager */
 	XPfw_EmInit();
-	/* Set handlers for error manager */
-	if (XPfw_EmSetAction(EM_ERR_ID_RPU_LS, EM_ACTION_CUSTOM,
-			RpuLsHandler) != XST_SUCCESS) {
-		XPfw_Printf(DEBUG_DETAILED, "Warning: EmCfgInit: Failed to "
-				"set action \r\n");
-	}
 
-#ifdef ENABLE_WDT
-	if (XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_SRST,
-			NULL) != XST_SUCCESS) {
-		XPfw_Printf(DEBUG_DETAILED,
-				"Warning: EmCfgInit: Failed to set action \r\n");
-	}
+	/* Set handlers for error manager */
+	for (ErrId = 1U; ErrId < EM_ERR_ID_MAX; ErrId++)
+	{
+#if defined(SET_EM_ACTION_POR)
+		XPfw_EmSetAction(ErrId, EM_ACTION_POR, NULL);
+#elif defined(SET_EM_ACTION_SRST)
+		XPfw_EmSetAction(ErrId, EM_ACTION_SRST, NULL);
 #else
-	if (XPfw_EmSetAction(EM_ERR_ID_LPD_SWDT, EM_ACTION_CUSTOM,
-			LpdSwdtHandler) != XST_SUCCESS) {
-		XPfw_Printf(DEBUG_DETAILED,
-				"Warning: EmCfgInit: Failed to set action \r\n");
-	}
-#endif
-	if (XPfw_RecoveryInit() == XST_SUCCESS) {
-		if (XPfw_EmSetAction(EM_ERR_ID_FPD_SWDT, EM_ACTION_CUSTOM,
-				FpdSwdtHandler) != XST_SUCCESS) {
-			XPfw_Printf(DEBUG_DETAILED,
-					"Warning: EmCfgInit: Failed to set action \r\n");
+		if (ErrorTable[ErrId].Action != EM_ACTION_NONE) {
+			XPfw_EmSetAction(ErrId, ErrorTable[ErrId].Action,
+					ErrorTable[ErrId].Handler);
 		}
 	}
-	if (XPfw_EmSetAction(EM_ERR_ID_XMPU, EM_ACTION_CUSTOM,
-			XPfw_XpuIntrHandler) != XST_SUCCESS) {
-		XPfw_Printf(DEBUG_DETAILED,
-				"Warning: EmCfgInit: Failed to set action \r\n");
+#endif
+
+	if (XPfw_RecoveryInit() == XST_SUCCESS) {
+		/* This is to enable FPD WDT and enable recovery mechanism when
+		* ENABLE_RECOVERY flag is defined.
+		*/
 	}
 
-#ifdef ENABLE_SAFETY
-	/* For uncorrectable ECC errors, Set error action as SRST */
-	if (XPfw_EmSetAction(EM_ERR_ID_OCM_ECC, EM_ACTION_SRST, NULL) != XST_SUCCESS) {
-		XPfw_Printf(DEBUG_DETAILED, "EmCfgInit: Failed to set action \r\n");
-	}
-	if (XPfw_EmSetAction(EM_ERR_ID_DDR_ECC, EM_ACTION_SRST, NULL) != XST_SUCCESS) {
-		XPfw_Printf(DEBUG_DETAILED, "EmCfgInit: Failed to set action \r\n");
-	}
-#endif
 	/* Enable the interrupts at XMPU/XPPU block level */
 	XPfw_XpuIntrInit();
 
@@ -183,6 +218,7 @@ void ModEmInit(void)
 
 	(void) XPfw_CoreSetCfgHandler(EmModPtr, EmCfgInit);
 	(void) XPfw_CoreSetEventHandler(EmModPtr, EmEventHandler);
+	(void)XPfw_CoreSetIpiHandler(EmModPtr, EmIpiHandler, (u16)EM_IPI_HANDLER_ID);
 }
 
 #else /* ENABLE_EM */
