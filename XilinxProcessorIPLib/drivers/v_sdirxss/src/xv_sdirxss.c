@@ -296,7 +296,6 @@ static void XV_SdiRxSs_StreamUpCallback(void *CallbackRef)
 ******************************************************************************/
 void XV_SdiRxSs_StreamFlowEnable(XV_SdiRxSs *InstancePtr)
 {
-	XV_SdiRx_VidInAxi4sAxisEnable(InstancePtr->SdiRxPtr);
 	XV_SdiRx_Axi4sBridgeEnable(InstancePtr->SdiRxPtr);
 	XV_SdiRx_VidBridgeEnable(InstancePtr->SdiRxPtr);
 }
@@ -317,7 +316,6 @@ void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr)
 {
 	XV_SdiRx_Axi4sBridgeDisable(InstancePtr->SdiRxPtr);
 	XV_SdiRx_VidBridgeDisable(InstancePtr->SdiRxPtr);
-	XV_SdiRx_VidInAxi4sAxisDisable(InstancePtr->SdiRxPtr);
 }
 
 /*****************************************************************************/
