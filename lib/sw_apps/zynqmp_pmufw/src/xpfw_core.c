@@ -35,6 +35,7 @@
 #include "xpfw_events.h"
 #include "xpfw_interrupts.h"
 #include "xpfw_ipi_manager.h"
+#include "pmu_lmb_bram.h"
 
 #define CORE_IS_READY	((u32)0x5AFEC0DEU)
 #define CORE_IS_DEAD	((u32)0xDEADBEAFU)
@@ -102,6 +103,11 @@ XStatus XPfw_CoreConfigure(void)
 		/* FIXME: Clear IPI0 status and Enable IPI0 for PM-> Do it elsewhere */
 		XPfw_Write32(IPI_PMU_0_ISR, MASK32_ALL_HIGH);
 		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_IPI0_MASK);
+		/* Clear PMU LMB BRAM ECC status and Enable this interrupt */
+		XPfw_Write32(PMU_LMB_BRAM_ECC_STATUS_REG, PMU_LMB_BRAM_CE_MASK);
+		XPfw_Write32(PMU_LMB_BRAM_ECC_IRQ_EN_REG, PMU_LMB_BRAM_CE_MASK);
+		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_CORRECTABLE_ECC_MASK);
+
 		XPfw_InterruptStart();
 		/* Set the FW_IS_PRESENT bit to flag that PMUFW is up and ready */
 		XPfw_RMW32(PMU_GLOBAL_GLOBAL_CNTRL, PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
