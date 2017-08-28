@@ -118,6 +118,7 @@
 *                              as the hdcp1.4 timer requires hdcp1.4 to be
 *                              initialize
 *       MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
+*              22/08/17 Added function XV_HdmiTxSs_SetAudioFormat
 * </pre>
 *
 ******************************************************************************/
@@ -1796,6 +1797,29 @@ void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable)
 /*****************************************************************************/
 /**
 *
+* This function Sets the HDMI TX SS Audio Format
+*
+* @param  InstancePtr pointer to XV_HdmiTxSs instance
+* @param  format 1:HBR 0:L-PCM
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr, u8 format)
+{
+    if(format == 0) {
+		XV_HdmiTx_Audio_LPCM(InstancePtr->HdmiTxPtr);
+	}
+	else {
+		XV_HdmiTx_Audio_HBR(InstancePtr->HdmiTxPtr);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
 * This function set HDMI TX susbsystem stream parameters
 *
 * @param  None.
@@ -1822,7 +1846,7 @@ u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
     xdbg_printf(XDBG_DEBUG_GENERAL,
                 "         Connect to HDMI 2.0 Sink or \r\n");
     xdbg_printf(XDBG_DEBUG_GENERAL,
-                "         Change to HDMI 1.4 video format\r\n\n");
+                "         Change to HDMI 1.4 video format\r\n\r\n");
 }
 
   return TmdsClock;
