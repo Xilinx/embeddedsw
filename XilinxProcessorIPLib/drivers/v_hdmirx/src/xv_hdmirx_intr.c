@@ -54,6 +54,7 @@
 * 1.10  YH     18/08/16 squash unused variable compiler warning
 * 1.11  MG     03/03/17 Updated function HdmiRx_TmrIntrHandler with
 *                           GetVideoPropertiesTries
+* 1.12  YH     22/08/17 Update AudFormat when servicing Aud Interrupt
 * </pre>
 *
 ******************************************************************************/
@@ -878,6 +879,9 @@ static void HdmiRx_AudIntrHandler(XV_HdmiRx *InstancePtr)
                 InstancePtr->Stream.Audio.Channels = 2;
                 break;
         }
+
+        // Audio Format
+        InstancePtr->AudFormat = (u32)((Status >> XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT) & XV_HDMIRX_AUD_STA_AUD_FMT_MASK);
 
         /* Callback */
         if (InstancePtr->IsAudCallbackSet) {
