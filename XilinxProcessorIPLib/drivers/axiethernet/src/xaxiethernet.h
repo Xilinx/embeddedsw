@@ -500,6 +500,8 @@
 *		    mcdma chiscope based designs.
 *      ms  08/16/17 Fixed compilation warnings in xaxiethernet_sinit.c
 *      adk 08/22/17 Fixed CR#983008 app generation errors for Specific IPI design.
+*      adk 08/28/17 Fixed CR#982877 couple of dsv_ced tests are failing in peripheral
+*		    app generation.
 * </pre>
 *
 ******************************************************************************/
