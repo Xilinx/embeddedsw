@@ -45,12 +45,12 @@
 * <b>Subsystem Driver Features</b>
 *
 * Video Subsystem supports following features
-*   - AXI Stream Input/Output interface
-*   - 2 pixel-wide video interface
-*   - 10 bits per component
-*   - YCbCr 4:2:2 color space
-*   - Up to 4k2k 60Hz resolution (12G) at both Input and Output interface
-*   - Interlaced input support (1080i 50Hz/60Hz)
+*	- AXI Stream Input/Output interface
+*	- 2 pixel-wide video interface
+*	- 10 bits per component
+*	- YCbCr 4:2:2 color space
+*	- Up to 4k2k 60Hz resolution (12G) at both Input and Output interface
+*	- Interlaced input support (1080i 50Hz/60Hz)
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -63,7 +63,7 @@
 ******************************************************************************/
 #ifndef XV_SDIRXSS_H_
 #define XV_SDIRXSS_H_        /**< Prevent circular inclusions
-						   *  by using protection macros */
+			      * by using protection macros */
 
 #ifdef __cplusplus
 extern "C" {
@@ -80,11 +80,11 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 /**
-* This typedef contains the enum for various logging events.
-*/
+ * This typedef contains the enum for various logging events.
+ */
 
 typedef enum {
-	XV_SDIRXSS_LOG_EVT_NONE = 1,		/**< Log event none. */
+	XV_SDIRXSS_LOG_EVT_NONE = 1,	/**< Log event none. */
 	XV_SDIRXSS_LOG_EVT_SDIRX_INIT,	/**< Log event SDIRX Init. */
 	XV_SDIRXSS_LOG_EVT_START,	/**< Log event SDIRXSS Start. */
 	XV_SDIRXSS_LOG_EVT_STOP,	/**< Log event SDIRXSS Stop. */
@@ -92,8 +92,8 @@ typedef enum {
 	XV_SDIRXSS_LOG_EVT_STREAMUP,	/**< Log event Stream Up. */
 	XV_SDIRXSS_LOG_EVT_STREAMDOWN,	/**< Log event Stream Down. */
 	XV_SDIRXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
-	XV_SDIRXSS_LOG_EVT_SETSTREAM,   /**< Log event SDIRXSS Setstream. */
-	XV_SDIRXSS_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
+	XV_SDIRXSS_LOG_EVT_SETSTREAM,	/**< Log event SDIRXSS Setstream. */
+	XV_SDIRXSS_LOG_EVT_DUMMY,	/**< Dummy Event should be last */
 } XV_SdiRxSs_LogEvent;
 
 /**
@@ -102,19 +102,19 @@ typedef enum {
 typedef struct {
 	u16 DataBuffer[256];		/**< Log buffer with event data. */
 	u8 HeadIndex;			/**< Index of the head entry of the
-								 Event/DataBuffer. */
+					  Event/DataBuffer. */
 	u8 TailIndex;			/**< Index of the tail entry of the
-								 Event/DataBuffer. */
+					  Event/DataBuffer. */
 } XV_SdiRxSs_Log;
 
 
 /**
-* These constants specify different types of handler and used to differentiate
-* interrupt requests from peripheral.
-*/
+ * These constants specify different types of handler and used to differentiate
+ * interrupt requests from peripheral.
+ */
 typedef enum {
-    XV_SDIRXSS_HANDLER_STREAM_DOWN = 1,	/**< Handler for stream down event */
-    XV_SDIRXSS_HANDLER_STREAM_UP		/**< Handler for stream up event */
+	XV_SDIRXSS_HANDLER_STREAM_DOWN = 1,	/**< Handler for stream down event */
+	XV_SDIRXSS_HANDLER_STREAM_UP		/**< Handler for stream up event */
 } XV_SdiRxSs_HandlerType;
 /*@}*/
 
@@ -123,43 +123,43 @@ typedef enum {
  */
 typedef struct
 {
-  u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
-  u16 DeviceId;   /**< Device ID of the sub-core */
-  UINTPTR AbsAddr; /**< sub-core offset from subsystem base address */
+	u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
+	u16 DeviceId;   /**< Device ID of the sub-core */
+	UINTPTR AbsAddr; /**< sub-core offset from subsystem base address */
 }XV_SdiRxSs_SubCore;
 
 /**
-* This typedef contains configuration information for the SDI RX core.
-* Each SDI RX device should have a configuration structure associated.
-*/
+ * This typedef contains configuration information for the SDI RX core.
+ * Each SDI RX device should have a configuration structure associated.
+ */
 typedef struct {
-    u16 DeviceId;       /**< DeviceId is the unique ID of the SDI RX core */
-    UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
-                                   subsystem address range */
-    XVidC_PixelsPerClock Ppc;
-    u8 IsEdhIncluded;
-    u8 MaxRateSupported;
-    XV_SdiRxSs_SubCore SdiRx;       /**< Sub-core instance configuration */
+	u16 DeviceId;       /**< DeviceId is the unique ID of the SDI RX core */
+	UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
+				    subsystem address range */
+	XVidC_PixelsPerClock Ppc;
+	u8 IsEdhIncluded;
+	u8 MaxRateSupported;
+	XV_SdiRxSs_SubCore SdiRx;       /**< Sub-core instance configuration */
 } XV_SdiRxSs_Config;
 
 /**
-* Callback type for interrupt.
-*
-* @param  CallbackRef is a callback reference passed in by the upper
-*   layer when setting the callback functions, and passed back to
-*   the upper layer when the callback is invoked.
-*
-* @return None.
-*
-* @note   None.
-*
-*/
+ * Callback type for interrupt.
+ *
+ * @param	CallbackRef is a callback reference passed in by the upper
+ *		layer when setting the callback functions, and passed back to
+ *		the upper layer when the callback is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+ */
 typedef void (*XV_SdiRxSs_Callback)(void *CallbackRef);
 
 /**
-* The XV_SdiRxSs driver instance data. An instance must be allocated for each
-* SDI RX core in use.
-*/
+ * The XV_SdiRxSs driver instance data. An instance must be allocated for each
+ * SDI RX core in use.
+ */
 typedef struct {
 	XV_SdiRxSs_Config Config;	/**< Hardware Configuration */
 	u32 IsReady;			/**< Core and the driver instance are initialized */
@@ -179,18 +179,18 @@ typedef struct {
 
 /*****************************************************************************/
 /**
-*
-* This macro reads the RX version
-*
-* @param  InstancePtr is a pointer to the XV_SdiRX core instance.
-*
-* @return None.
-*
-*
-******************************************************************************/
+ *
+ * This macro reads the RX version
+ *
+ * @param	InstancePtr is a pointer to the XV_SdiRX core instance.
+ *
+ * @return	None.
+ *
+ *
+ ******************************************************************************/
 #define XV_SdiRxSs_GetVersion(InstancePtr) \
-  XV_SdiRxSs_ReadReg((InstancePtr)->Config.BaseAddress, \
-  (XV_SDIRXSS_VER_OFFSET))
+	XV_SdiRxSs_ReadReg((InstancePtr)->Config.BaseAddress, \
+			(XV_SDIRXSS_VER_OFFSET))
 
 /************************** Function Prototypes ******************************/
 
@@ -199,8 +199,8 @@ XV_SdiRxSs_Config *XV_SdiRxSs_LookupConfig(u32 DeviceId);
 
 /* Initialization and control functions in xv_sdirxss.c */
 int XV_SdiRxSs_CfgInitialize(XV_SdiRxSs *InstancePtr,
-				XV_SdiRxSs_Config *CfgPtr,
-				UINTPTR EffectiveAddr);
+		XV_SdiRxSs_Config *CfgPtr,
+		UINTPTR EffectiveAddr);
 void XV_SdiRxSS_SdiRxIntrHandler(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_StreamFlowEnable(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_StreamFlowDisable(XV_SdiRxSs *InstancePtr);
@@ -208,14 +208,14 @@ void XV_SdiRxSs_Start(XV_SdiRxSs *InstancePtr, XV_SdiRx_SearchMode Mode);
 void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_ReportDetectedError(XV_SdiRxSs *InstancePtr);
 int XV_SdiRxSs_SetCallback(XV_SdiRxSs *InstancePtr, u32 HandlerType,
-				void *CallbackFunc, void *CallbackRef);
+		void *CallbackFunc, void *CallbackRef);
 void XV_SdiRxSs_ReportCoreInfo(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_ReportInfo(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_ReportDebugInfo(XV_SdiRxSs *InstancePtr);
 u32 *XV_SdiRxSs_GetPayloadId(XV_SdiRxSs *InstancePtr, u8 StreamId);
 XSdiVid_Transport *XV_SdiRxSs_GetTransport(XV_SdiRxSs *InstancePtr);
 XVidC_VideoStream *XV_SdiRxSs_GetVideoStream(XV_SdiRxSs *InstancePtr,
-						u8 StreamId);
+		u8 StreamId);
 XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr);
 u8 XV_SdiRxSs_GetTransportBitRate(XV_SdiRxSs *InstancePtr);
 int XV_SdiRxSs_IsStreamUp(XV_SdiRxSs *InstancePtr);
@@ -226,7 +226,7 @@ u32 XV_SdiRxSs_SelfTest(XV_SdiRxSs *InstancePtr);
 /* XV_SdiRxSs_log.c: Logging functions. */
 void XV_SdiRxSs_LogReset(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_LogWrite(XV_SdiRxSs *InstancePtr, XV_SdiRxSs_LogEvent Evt,
-				u8 Data);
+		u8 Data);
 u16 XV_SdiRxSs_LogRead(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_LogDisplay(XV_SdiRxSs *InstancePtr);
 

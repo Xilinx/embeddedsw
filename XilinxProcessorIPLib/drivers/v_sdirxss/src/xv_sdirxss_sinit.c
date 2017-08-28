@@ -73,10 +73,10 @@ extern XV_SdiRxSs_Config XV_SdiRxSs_ConfigTable[];
 * ID. The table XV_SdiRxSs_ConfigTable[] contains the configuration information
 * for each instance of the device in the system.
 *
-* @param  DeviceId is the unique device ID of the device being looked up
+* @param	DeviceId is the unique device ID of the device being looked up
 *
-* @return A pointer to the configuration table entry corresponding to the
-*         given device ID, or NULL if no match is found
+* @return	A pointer to the configuration table entry corresponding to the
+*		given device ID, or NULL if no match is found
 *
 *******************************************************************************/
 XV_SdiRxSs_Config *XV_SdiRxSs_LookupConfig(u32 DeviceId)

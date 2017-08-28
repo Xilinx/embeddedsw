@@ -45,14 +45,14 @@
 * Sub-core device id will be set by its driver in xparameters.h
 */
 
-#define XPAR_V_SMPTE_UHDSDI_RX_SS_V_SMPTE_UHDSDI_RX_PRESENT	 1
-#define XPAR_V_SMPTE_UHDSDI_RX_SS_V_SMPTE_UHDSDI_RX_ABSOLUTE_BASEADDR	 (XPAR_V_SMPTE_UHDSDI_RX_SS_BASEADDR + XPAR_V_SMPTE_UHDSDI_RX_SS_V_SMPTE_UHDSDI_RX_S_AXI_CTRL_BASEADDR)
+#define XPAR_V_SMPTE_UHDSDI_RX_SS_V_SMPTE_UHDSDI_RX_PRESENT	1
+#define XPAR_V_SMPTE_UHDSDI_RX_SS_V_SMPTE_UHDSDI_RX_ABSOLUTE_BASEADDR	(XPAR_V_SMPTE_UHDSDI_RX_SS_BASEADDR + XPAR_V_SMPTE_UHDSDI_RX_SS_V_SMPTE_UHDSDI_RX_S_AXI_CTRL_BASEADDR)
 
 
 /*
 * List of Sub-cores excluded from the subsystem for Device ID 0
-*   - Excluded sub-core device id is set to 255
-*   - Excluded sub-core baseaddr is set to 0
+*	- Excluded sub-core device id is set to 255
+*	- Excluded sub-core baseaddr is set to 0
 */
 
 
