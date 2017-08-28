@@ -77,7 +77,11 @@
 					 * Maximum number of multicast ethernet
 					 * mac addresses.
 					 */
+#ifndef TESTAPP_GEN
 #define NUM_PACKETS  50
+#else
+#define NUM_PACKETS  1
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
