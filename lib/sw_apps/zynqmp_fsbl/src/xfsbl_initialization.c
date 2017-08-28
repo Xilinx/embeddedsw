@@ -1297,8 +1297,24 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		break;
 
 	case XIH_IHT_PPD_SD_0: {
+#ifdef XFSBL_SD_0
+		/**
+		 * Update the deviceops structure with necessary values
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
 		SecBootMode = XFSBL_SD0_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
 	}
+		break;
 	case XIH_IHT_PPD_MMC: {
 
 #ifdef XFSBL_SD_0
@@ -1321,8 +1337,28 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		break;
 
 	case XIH_IHT_PPD_SD_1: {
+
+#ifdef XFSBL_SD_1
+		/**
+		 * Update the deviceops structure with necessary values
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
 		SecBootMode = XFSBL_SD1_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
+
 	}
+		break;
+
 	case XIH_IHT_PPD_SD_LS: {
 
 #ifdef XFSBL_SD_1
