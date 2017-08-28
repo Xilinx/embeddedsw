@@ -1,6 +1,19 @@
 Changes for 2017.3
 ===============================
 
+v_sdi_rx_v1_0:
+Initial version for UHDSDI Rx soft IP
+
+v_sdi_rxss_v1_0:
+Initial version for UHDSDI Rx subsystem soft IP
+
+v_sdi_tx_v1_0:
+Initial version for UHDSDI Tx soft IP
+
+v_sdi_txss_v1_0:
+Initial version for UHDSDI Tx subsystem soft IP
+
+
 Removed the below obsolete drivers & libraries (CR:981161)
 axi_cdma_v4_1
 axi_cdma_v4_2
