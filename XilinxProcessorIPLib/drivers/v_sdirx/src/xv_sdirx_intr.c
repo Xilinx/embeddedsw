@@ -72,6 +72,83 @@ static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr);
 
 /*****************************************************************************/
 /**
+* This function will get the interrupt mask set (enabled) in the SDI Rx core
+*
+* @param	InstancePtr is the XV_SdiRx instance to operate on
+*
+* @return	Interrupt Mask with bits set for corresponding interrupt in
+*		Interrupt enable register
+*
+* @note		None
+*
+****************************************************************************/
+u32 XV_SdiRx_GetIntrEnable(XV_SdiRx *InstancePtr)
+{
+	u32 Mask;
+
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Mask = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDIRX_IER_OFFSET);
+
+	return Mask;
+}
+
+/*****************************************************************************/
+/**
+* This function will get the list of interrupts pending in the
+* Interrupt Status Register of the SDI Rx core
+*
+* @param	InstancePtr is the XV_SdiRx instance to operate on
+*
+* @return	Interrupt Mask with bits set for corresponding interrupt in
+*		Interrupt Status register
+*
+* @note		None
+*
+****************************************************************************/
+u32 XV_SdiRx_GetIntrStatus(XV_SdiRx *InstancePtr)
+{
+	u32 Mask;
+
+	/* Verify argument */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	Mask = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDIRX_ISR_OFFSET);
+
+	return Mask;
+}
+
+/*****************************************************************************/
+/**
+* This function will clear the interrupts set in the Interrupt Status
+* Register of the SDI Rx core
+*
+* @param	InstancePtr is the XV_SdiRx instance to operate on
+* @param	Mask is Interrupt Mask with bits set for corresponding interrupt
+*		to be cleared in the Interrupt Status register
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+void XV_SdiRx_InterruptClear(XV_SdiRx *InstancePtr, u32 Mask)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+	/* Checking for invalid mask bits being set */
+	Xil_AssertVoid((Mask & (~(XV_SDIRX_ISR_ALLINTR_MASK))) == 0);
+
+	Mask &= XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDIRX_ISR_OFFSET);
+
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress, XV_SDIRX_ISR_OFFSET,
+				Mask & XV_SDIRX_ISR_ALLINTR_MASK);
+}
+
+/*****************************************************************************/
+/**
 *
 * This function is the interrupt handler for the SDI RX driver.
 *
@@ -95,39 +172,38 @@ static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr);
 ******************************************************************************/
 void XV_SdiRx_IntrHandler(void *InstancePtr)
 {
-	u32 Data;
+	u32 ActiveIntr;
+	u32 Mask;
+
 	XV_SdiRx *SdiRxPtr = (XV_SdiRx *)InstancePtr;
 
 	/* Verify arguments */
 	Xil_AssertVoid(SdiRxPtr != NULL);
 	Xil_AssertVoid(SdiRxPtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	/* Video Lock */
-	Data = XV_SdiRx_ReadReg(SdiRxPtr->Config.BaseAddress,
-	(XV_SDIRX_INT_STS_OFFSET));
+	/* Get Active interrupts */
+	ActiveIntr = XV_SdiRx_GetIntrStatus(SdiRxPtr);
 
-	/* Check for IRQ flag set */
-	if (Data & XV_SDIRX_INT_STS_VID_LOCK_MASK) {
-		/* Clear event flag */
-		XV_SdiRx_WriteReg(SdiRxPtr->Config.BaseAddress,
-					(XV_SDIRX_INT_CLR_OFFSET),
-					(XV_SDIRX_INT_STS_VID_LOCK_MASK));
-		XV_SdiRx_WriteReg(SdiRxPtr->Config.BaseAddress,
-					(XV_SDIRX_INT_CLR_OFFSET), 0x0);
+	/* Video Lock */
+	Mask = ActiveIntr & XV_SDIRX_ISR_VIDEO_LOCK_MASK;
+	if (Mask) {
+
 		/* Jump to Video lock interrupt handler */
 		SdiRx_VidLckIntrHandler(SdiRxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
 	}
 
-	/* Check for IRQ flag set */
-	if (Data & XV_SDIRX_INT_STS_VID_UNLOCK_MASK) {
-		/* Clear event flag */
-		XV_SdiRx_WriteReg(SdiRxPtr->Config.BaseAddress,
-					(XV_SDIRX_INT_CLR_OFFSET),
-					(XV_SDIRX_INT_STS_VID_UNLOCK_MASK));
-		XV_SdiRx_WriteReg(SdiRxPtr->Config.BaseAddress,
-					(XV_SDIRX_INT_CLR_OFFSET), 0x0);
+	/* Video unlock */
+	Mask = ActiveIntr & XV_SDIRX_ISR_VIDEO_UNLOCK_MASK;
+	if (Mask) {
+
 		/* Jump to Video unlock interrupt handler */
 		SdiRx_VidUnLckIntrHandler(SdiRxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
 	}
 }
 
@@ -201,23 +277,23 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 * This function enables the selected interrupt.
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
-* @param	Interrupt to be enabled.
+* @param	Mask is the interrupt mask which need to be enabled in core.
 *
 * @return	None.
 *
 * @note         None.
 *
 ******************************************************************************/
-void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Interrupt)
+void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Mask)
 {
-	u32 Data;
+	/* Checking for invalid mask bits being set */
+	Xil_AssertVoid((Mask & (~(XV_SDIRX_IER_ALLINTR_MASK))) == 0);
 
-	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_INT_MSK_OFFSET));
-	Data &= ~Interrupt;
+	Mask |= XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDIRX_IER_OFFSET);
 
-	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_INT_MSK_OFFSET), (Data));
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,XV_SDIRX_IER_OFFSET,
+			Mask & XV_SDIRX_IER_ALLINTR_MASK);
+
 }
 
 /*****************************************************************************/
@@ -226,23 +302,23 @@ void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Interrupt)
 * This function disables the selected interrupt.
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
-* @param	Interrupt to be disabled.
+* @param	Mask is the interrupt mask which need to be disabled in core.
 *
 * @return	None.
 *
 * @note         None.
 *
 ******************************************************************************/
-void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Interrupt)
+void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Mask)
 {
-	u32 Data;
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	/* Checking for invalid mask bits being set */
+	Xil_AssertVoid((Mask & (~(XV_SDIRX_IER_ALLINTR_MASK))) == 0);
 
-	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_INT_MSK_OFFSET));
-	Data |= Interrupt;
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress, XV_SDIRX_IER_OFFSET,
+			~ Mask & XV_SDIRX_IER_ALLINTR_MASK);
 
-	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_INT_MSK_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -264,11 +340,12 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 	XVidC_FrameRate FrameRate;
 	u32 Data0 = 0;
 	u32 Data1 = 0;
+	u32 Data2 = 0;
 
 	Data0 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_MODE_DET_STS_OFFSET));
+					(XV_SDIRX_MODE_DET_STS_OFFSET));
 	Data1 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_TS_DET_STS_OFFSET));
+					(XV_SDIRX_TS_DET_STS_OFFSET));
 
 	if(((Data0 & XV_SDIRX_MODE_DET_STS_MODE_LOCKED_MASK)
 			== XV_SDIRX_MODE_DET_STS_MODE_LOCKED_MASK)
@@ -305,14 +382,16 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			= (Data0 & XV_SDIRX_STS_SB_RX_TDATA_SDICTRL_BIT_RATE_MASK)
 				>> XV_SDIRX_STS_SB_RX_TDATA_SDICTRL_BIT_RATE_SHIFT;
 
-		/* Toggle reset on Stat_reset register */
-		XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-					(XV_SDIRX_ST_RST_OFFSET),
-					(XV_SDIRX_ST_RST_CLR_ERR_MASK
-					| XV_SDIRX_ST_RST_CLR_EDH_MASK));
+		/* Toggle the CRC and EDH error count bits */
+		Data2 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+						(XV_SDIRX_RST_CTRL_OFFSET));
+
+		Data2 = Data2 & ~ (XV_SDIRX_RST_CTRL_RST_CLR_ERR_MASK |
+					XV_SDIRX_RST_CTRL_RST_CLR_EDH_MASK);
 
 		XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-					(XV_SDIRX_ST_RST_OFFSET), 0x0);
+					(XV_SDIRX_RST_CTRL_OFFSET), Data2);
+
 
 		for(int StreamId = 0; StreamId < XV_SDIRX_MAX_DATASTREAM; StreamId++) {
 			InstancePtr->Stream[StreamId].PayloadId
