@@ -55,6 +55,7 @@
  * 5.2   aad  01/21/17 Added timeout macro for training timeout
  * 5.2   tu   05/14/17 Added AUX defer shift mask
  * 5.3   tu   08/03/17 Enabled video packing for bpc > 10
+ * 5.3   tu   08/24/17 Modify #define for YCBCR422 and YCBCR444
  * </pre>
  *
 *******************************************************************************/
@@ -605,10 +606,10 @@
 				0x0		/**< Stream's component format
 							is RGB. */
 #define XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 \
-				0x1		/**< Stream's component format
+				0x5		/**< Stream's component format
 							is YcbCr 4:2:2. */
 #define XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 \
-				0x2		/**< Stream's component format
+				0x6		/**< Stream's component format
 							is YcbCr 4:4:4. */
 #define XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK \
 				0x00000008	/**< Dynamic range. */
