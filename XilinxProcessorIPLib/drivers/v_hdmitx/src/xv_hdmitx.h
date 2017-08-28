@@ -133,6 +133,8 @@
 *                       mode macros
 * 1.6   MG     28/03/17 Added XV_HdmiTx_Mask macros
 * 1.7   YH     19/07/17 Added XV_HdmiTx_IsMasked macro
+*              22/08/17 Added XV_HdmiTx_Audio_LPCM macro
+*                       Added XV_HdmiTx_Audio_HBR macro
 * </pre>
 *
 ******************************************************************************/
@@ -770,6 +772,40 @@ typedef struct {
 #define XV_HdmiTx_AudioMute(InstancePtr) \
     XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
     (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro selects L-PCM audio for the HDMI TX.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     C-style signature:
+*       void XV_HdmiTx_Audio_LPCM(XV_HdmiTx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx_Audio_LPCM(InstancePtr) \
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_AUDFMT_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro selects L-PCM audio for the HDMI TX.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     C-style signature:
+*       void XV_HdmiTx_Audio_HBR(XV_HdmiTx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx_Audio_HBR(InstancePtr) \
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_AUDFMT_MASK))
 
 /*****************************************************************************/
 /**
