@@ -172,6 +172,8 @@ typedef struct {
 	u16 DeviceId;		/**< DeviceId is the unique ID of the SDI RX core */
 	UINTPTR BaseAddress;	/**< BaseAddress is the physical base address
 							*    of the core's registers */
+	u8 IsEdhIncluded;
+	u8 MaxRateSupported;
 } XV_SdiRx_Config;
 
 /**
