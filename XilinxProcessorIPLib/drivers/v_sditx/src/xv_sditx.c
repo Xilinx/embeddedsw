@@ -70,6 +70,49 @@ static void StubCallback(void *CallbackRef);
 
 /************************** Function Definitions *****************************/
 
+/****************************************************************************/
+/**
+*
+* This function is used to enable the global interrupts. This is
+* used after setting the interrupts mask before enabling the core.
+*
+* @param	InstancePtr is a pointer to the SDI TX Instance to be
+*		worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XV_SdiTx_SetGlobalInterrupt(XV_SdiTx *InstancePtr)
+{
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_GIER_OFFSET,
+				XV_SDITX_GIER_GIE_MASK);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to disable the global interrupts. This is
+* done after disabling the core.
+*
+* @param	InstancePtr is a pointer to the SDI Tx Instance to be
+*		worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XV_SdiTx_ResetGlobalInterrupt(XV_SdiTx *InstancePtr)
+{
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,
+				XV_SDITX_GIER_OFFSET,
+				~XV_SDITX_GIER_GIE_MASK);
+}
+
+
 /*****************************************************************************/
 /**
 *
@@ -139,6 +182,12 @@ int XV_SdiTx_CfgInitialize(XV_SdiTx *InstancePtr, XV_SdiTx_Config *CfgPtr,
 	/* Clear SDI registers and variables */
 	XV_SdiTx_Reset(InstancePtr);
 
+	/* Set global interrupt enable bit */
+	XV_SdiTx_SetGlobalInterrupt(InstancePtr);
+
+	/* Enable all interrupt bits */
+	XV_SdiTx_IntrEnable(InstancePtr, XV_SDITX_IER_ALLINTR_MASK);
+
 	/* Reset the hardware and set the flag to indicate the driver is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
@@ -150,7 +199,7 @@ int XV_SdiTx_CfgInitialize(XV_SdiTx *InstancePtr, XV_SdiTx_Config *CfgPtr,
 *
 * This function clears the SDI TX core registers and sets them to the defaults.
 *
-* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+* @param	InstancePtr is a pointer to the XV_SdiTx core instance.
 *
 * @return   None
 *
@@ -544,10 +593,16 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 		((IsFractional & 0x1) << XV_SDITX_MDL_CTRL_M_SHIFT) |
 		((MuxPattern & 0x7) << XV_SDITX_MDL_CTRL_MUX_PATTERN_SHIFT));
 
-	Data |= XV_SDITX_MDL_CTRL_MDL_EN_MASK | XV_SDITX_MDL_CTRL_OUT_EN_MASK;
-
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDITX_MDL_CTRL_OFFSET), (Data));
+
+	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_SDITX_RST_CTRL_OFFSET));
+
+	Data |= XV_SDITX_RST_CTRL_SDITX_SS_EN_MASK;
+
+	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XV_SDITX_RST_CTRL_OFFSET), (Data));
 
 	/* Clear detected error */
 	XV_SdiTx_ClearDetectedError(InstancePtr);
@@ -574,11 +629,11 @@ int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr)
 	InstancePtr->IsStreamUp = FALSE;
 
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDITX_MDL_CTRL_OFFSET));
-	Data &= ~XV_SDITX_MDL_CTRL_MDL_EN_MASK;
+				(XV_SDITX_RST_CTRL_OFFSET));
+	Data &= ~XV_SDITX_RST_CTRL_SDITX_SS_EN_MASK;
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_MDL_CTRL_OFFSET),
+				(XV_SDITX_RST_CTRL_OFFSET),
 				(Data));
 
 	return XST_SUCCESS;
@@ -601,17 +656,12 @@ void XV_SdiTx_ClearDetectedError(XV_SdiTx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDITX_ST_RST_OFFSET));
+				(XV_SDITX_ISR_OFFSET));
 
-	Data |= XV_SDITX_ST_RST_CLR_ERR_MASK;
-
-	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_ST_RST_OFFSET), (Data));
-
-	Data &= ~XV_SDITX_ST_RST_CLR_ERR_MASK;
+	Data |= XV_SDITX_ISR_TX_CE_ALIGN_ERR_MASK;
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_ST_RST_OFFSET), (Data));
+				(XV_SDITX_ISR_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -634,9 +684,9 @@ void XV_SdiTx_ReportDetectedError(XV_SdiTx *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	RegValue = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-					(XV_SDITX_TX_ERR_OFFSET));
+					(XV_SDITX_ISR_OFFSET));
 
-	if (RegValue & XV_SDITX_TX_ERR_CE_ALIGN_ERR_MASK) {
+	if (RegValue & XV_SDITX_ISR_TX_CE_ALIGN_ERR_MASK) {
 		xil_printf("\tCE Align Error Detected\r\n");
 	} else {
 		xil_printf("\tNo Error Detected\r\n");
@@ -660,11 +710,11 @@ void XV_SdiTx_VidBridgeEnable(XV_SdiTx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDITX_BRIDGE_CTRL_OFFSET));
-	Data |= XV_SDITX_BRIDGE_CTRL_MDL_EN_MASK;
+				(XV_SDITX_RST_CTRL_OFFSET));
+	Data |= XV_SDITX_RST_CTRL_SDITX_BRIDGE_EN_MASK;
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_BRIDGE_CTRL_OFFSET), (Data));
+				(XV_SDITX_RST_CTRL_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -684,11 +734,11 @@ void XV_SdiTx_VidBridgeDisable(XV_SdiTx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-	(XV_SDITX_BRIDGE_CTRL_OFFSET));
-	Data &= ~XV_SDITX_BRIDGE_CTRL_MDL_EN_MASK;
+	(XV_SDITX_RST_CTRL_OFFSET));
+	Data &= ~XV_SDITX_RST_CTRL_SDITX_BRIDGE_EN_MASK;
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-	(XV_SDITX_BRIDGE_CTRL_OFFSET),
+	(XV_SDITX_RST_CTRL_OFFSET),
 	(Data));
 }
 
@@ -709,11 +759,11 @@ void XV_SdiTx_Axi4sBridgeVtcEnable(XV_SdiTx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDITX_AXI4S_VID_OUT_CTRL_OFFSET));
-	Data |= XV_SDITX_AXI4S_VID_OUT_CTRL_MDL_EN_MASK;
+				(XV_SDITX_RST_CTRL_OFFSET));
+	Data |= XV_SDITX_RST_CTRL_AXI4S_VID_OUT_EN_MASK;
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_AXI4S_VID_OUT_CTRL_OFFSET), (Data));
+				(XV_SDITX_RST_CTRL_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -733,12 +783,11 @@ void XV_SdiTx_Axi4sBridgeVtcDisable(XV_SdiTx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDITX_AXI4S_VID_OUT_CTRL_OFFSET));
-	Data &= ~XV_SDITX_AXI4S_VID_OUT_CTRL_MDL_EN_MASK;
+				(XV_SDITX_RST_CTRL_OFFSET));
+	Data &= ~XV_SDITX_RST_CTRL_AXI4S_VID_OUT_EN_MASK;
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_AXI4S_VID_OUT_CTRL_OFFSET),
-	(Data));
+				(XV_SDITX_RST_CTRL_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -769,12 +818,12 @@ void XV_SdiTx_SetVidBridgeMode(XV_SdiTx *InstancePtr, XSdiVid_TransMode Mode)
 	}
 
 	Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDITX_BRIDGE_CTRL_OFFSET));
-	Data &= ~XV_SDITX_BRIDGE_CTRL_MODE_MASK;
-	Data |= (ModeInt << XV_SDITX_BRIDGE_CTRL_MODE_SHIFT);
+				(XV_SDITX_MDL_CTRL_OFFSET));
+	Data &= ~XV_SDITX_MDL_CTRL_MODE_MASK;
+	Data |= (ModeInt << XV_SDITX_MDL_CTRL_MODE_SHIFT);
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDITX_BRIDGE_CTRL_OFFSET), (Data));
+				(XV_SDITX_MDL_CTRL_OFFSET), (Data));
 }
 
 /******************************************************************************/
@@ -888,18 +937,19 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 
 		xil_printf("TX AXIS Bridge:\r\n");
 		Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
-					XV_SDITX_AXI4S_VID_OUT_STS1_OFFSET);
+					XV_SDITX_ISR_OFFSET);
 
 		xil_printf("  Locked: %d\r\n",
-				Data & XV_SDITX_AXI4S_VID_OUT_STS1_LOCKED_MASK);
+				(Data & XV_SDITX_ISR_AXI4S_VID_LOCK_MASK)
+				>> XV_SDITX_ISR_AXI4S_VID_LOCK_SHIFT);
 
 		xil_printf("  Overflow: %d\r\n",
-				(Data & XV_SDITX_AXI4S_VID_OUT_STS1_OVRFLOW_MASK)
-				>> XV_SDITX_AXI4S_VID_OUT_STS1_OVRFLOW_SHIFT);
+				(Data & XV_SDITX_ISR_OVERFLOW_MASK)
+				>> XV_SDITX_ISR_OVERFLOW_SHIFT);
 
 		xil_printf("  Underflow: %d\r\n",
-				(Data & XV_SDITX_AXI4S_VID_OUT_STS1_UNDERFLOW_MASK)
-				>> XV_SDITX_AXI4S_VID_OUT_STS1_UNDERFLOW_SHIFT);
+				(Data & XV_SDITX_ISR_UNDERFLOW_MASK)
+				>> XV_SDITX_ISR_UNDERFLOW_SHIFT);
 		break;
 	case 4:
 		for(int i = 0; i <= XV_SDITX_REGISTER_SIZE; i++) {
