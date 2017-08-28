@@ -84,6 +84,7 @@
 *                             Segment Support and HDMI Compliance Test
 * 4.0   YH     19/07/17 Added Video Masking APIs
 *       MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
+*              22/08/17 Added function XV_HdmiTxSs_SetAudioFormat
 * </pre>
 *
 ******************************************************************************/
@@ -421,6 +422,7 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 void XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels);
 void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable);
+void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr, u8 format);
 u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
     XVidC_VideoMode VideoMode,
     XVidC_ColorFormat ColorFormat,
