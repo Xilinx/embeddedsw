@@ -242,12 +242,12 @@ typedef struct {
 #define XV_SdiRx_GetVersion(InstancePtr) \
 	XV_SdiRx_ReadReg((InstancePtr)->Config.BaseAddress, (XV_SDIRX_VER_OFFSET))
 
-//Clear VideoLock Interrupt
+/* Clear VideoLock Interrupt */
 #define XV_SdiRx_VidLckIntrClr(InstancePtr) \
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_SDIRX_INT_CLR_OFFSET), \
 		(XV_SDIRX_INT_STS_VID_LOCK_MASK))
 
-//Clear VideoUnlock Interrupt
+/* Clear VideoUnlock Interrupt */
 #define XV_SdiRx_VidUnlckIntrClr(InstancePtr) \
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress, (XV_SDIRX_INT_CLR_OFFSET), \
 		(XV_SDIRX_INT_STS_VID_UNLOCK_MASK))
@@ -281,8 +281,6 @@ void XV_SdiRx_VidBridgeEnable(XV_SdiRx *InstancePtr);
 void XV_SdiRx_VidBridgeDisable(XV_SdiRx *InstancePtr);
 void XV_SdiRx_Axi4sBridgeEnable(XV_SdiRx *InstancePtr);
 void XV_SdiRx_Axi4sBridgeDisable(XV_SdiRx *InstancePtr);
-void XV_SdiRx_VidInAxi4sAxisEnable(XV_SdiRx *InstancePtr);
-void XV_SdiRx_VidInAxi4sAxisDisable(XV_SdiRx *InstancePtr);
 
 /* Log specific functions */
 void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId);
@@ -292,13 +290,17 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId);
 u32 XV_SdiRx_SelfTest(XV_SdiRx *InstancePtr);
 
 /* Interrupt related function in xv_sdirx_intr.c */
+u32 XV_SdiRx_GetIntrEnable(XV_SdiRx *InstancePtr);
+u32 XV_SdiRx_GetIntrStatus(XV_SdiRx *InstancePtr);
+void XV_SdiRx_InterruptClear(XV_SdiRx *InstancePtr, u32 Mask);
 void XV_SdiRx_IntrHandler(void *InstancePtr);
+
 int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr,
 	u32 HandlerType,
 	void *CallbackFunc,
 	void *CallbackRef);
-void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Interrupt);
-void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Interrupt);
+void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Mask);
+void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Mask);
 
 /************************** Variable Declarations ****************************/
 /************************** Variable Declarations ****************************/

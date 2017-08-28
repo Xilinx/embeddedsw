@@ -36,21 +36,15 @@ proc generate {drv_handle} {
     "DEVICE_ID" \
     "C_S_AXI_CTRL_BASEADDR" \
     "C_S_AXI_CTRL_HIGHADDR"
-#	"C_INCLUDE_RX_EDH_PROCESSOR" \
-#	"C_LINE_RATE"
 
     xdefine_config_file $drv_handle "xv_sdirx_g.c" \
     "XV_SdiRx" \
     "DEVICE_ID" \
     "C_S_AXI_CTRL_BASEADDR"
-#	"C_INCLUDE_RX_EDH_PROCESSOR" \
-#	"C_LINE_RATE"
 
     xdefine_canonical_xpars $drv_handle "xparameters.h" "XV_SdiRx" \
     "NUM_INSTANCES" \
     "DEVICE_ID" \
     "C_S_AXI_CTRL_BASEADDR" \
     "C_S_AXI_CTRL_HIGHADDR"
-#	"C_INCLUDE_RX_EDH_PROCESSOR" \
-#	"C_LINE_RATE"
 }

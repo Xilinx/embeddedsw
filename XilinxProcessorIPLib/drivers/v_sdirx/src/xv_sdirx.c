@@ -68,6 +68,49 @@ static void StubCallback(void *CallbackRef);
 
 /************************** Function Definitions *****************************/
 
+/****************************************************************************/
+/**
+*
+* This function is used to enable the global interrupts. This is
+* used after setting the interrupts mask before enabling the core.
+*
+* @param	InstancePtr is a pointer to the SDI RX Instance to be
+*		worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XV_SdiRx_SetGlobalInterrupt(XV_SdiRx *InstancePtr)
+{
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
+				XV_SDIRX_GIER_OFFSET,
+				XV_SDIRX_GIER_GIE_MASK);
+}
+
+/****************************************************************************/
+/**
+*
+* This function is used to disable the global interrupts. This is
+* done after disabling the core.
+*
+* @param	InstancePtr is a pointer to the SDI Rx Instance to be
+*		worked on.
+*
+* @return	None
+*
+* @note		None
+*
+****************************************************************************/
+static inline void XV_SdiRx_ResetGlobalInterrupt(XV_SdiRx *InstancePtr)
+{
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
+				XV_SDIRX_GIER_OFFSET,
+				~XV_SDIRX_GIER_GIE_MASK);
+}
+
+
 /*****************************************************************************/
 /**
 *
@@ -134,23 +177,24 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	XV_SdiRx_SetVidLckWindow(InstancePtr, XV_SDIRX_VID_LCK_WINDOW);
 
 	/* Reset all peripherals */
-	XV_SdiRx_IntrDisable(InstancePtr, XV_SDIRX_INT_STS_VID_LOCK_MASK);
-	XV_SdiRx_IntrDisable(InstancePtr, XV_SDIRX_INT_STS_VID_UNLOCK_MASK);
+	XV_SdiRx_IntrDisable(InstancePtr, XV_SDIRX_IER_VIDEO_LOCK_MASK);
+	XV_SdiRx_IntrDisable(InstancePtr, XV_SDIRX_IER_VIDEO_UNLOCK_MASK);
 
 	/* Start SDI core */
 	XV_SdiRx_Start(InstancePtr, XV_SDIRX_MULTISEARCHMODE);
 
+	/* Set global interrupt enable bit */
+	XV_SdiRx_SetGlobalInterrupt(InstancePtr);
+
 	/* Enable interrupt */
-	XV_SdiRx_IntrEnable(InstancePtr, XV_SDIRX_INT_STS_VID_LOCK_MASK);
-	XV_SdiRx_IntrEnable(InstancePtr, XV_SDIRX_INT_STS_VID_UNLOCK_MASK);
+	XV_SdiRx_IntrEnable(InstancePtr, XV_SDIRX_IER_VIDEO_LOCK_MASK);
+	XV_SdiRx_IntrEnable(InstancePtr, XV_SDIRX_IER_VIDEO_UNLOCK_MASK);
 
 	/* Clear the interrupt status */
 	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_INT_CLR_OFFSET),
-				(XV_SDIRX_INT_STS_VID_LOCK_MASK
-				| XV_SDIRX_INT_STS_VID_UNLOCK_MASK));
-	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_INT_CLR_OFFSET), 0x0);
+				(XV_SDIRX_ISR_OFFSET),
+				(XV_SDIRX_ISR_VIDEO_LOCK_MASK
+				| XV_SDIRX_ISR_VIDEO_UNLOCK_MASK));
 
 	/* Reset the hardware and set the flag to indicate the driver is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
@@ -192,7 +236,7 @@ void XV_SdiRx_ResetStream(XV_SdiRx *InstancePtr)
 /******************************************************************************/
 /**
 *
-* This function prints debug information on STDIO/Uart console.
+* This function prints debug information of Stream 0 on STDIO/Uart console.
 *
 * @param	InstancePtr is a pointer to the XV_SdiRx core instance.
 * @param	SelId specifies which debug information to be printed out
@@ -289,12 +333,15 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId)
 		xil_printf("\r\n");
 		xil_printf("RX Video Bridge:\r\n");
 		Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-					XV_SDIRX_BRIDGE_STS_OFFSET);
+					XV_SDIRX_MODE_DET_STS_OFFSET);
 		xil_printf("  Bridge Select: ");
-		if(Data & XV_SDIRX_BRIDGE_STS_SELECT_MASK) {
+		if(((Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 5)
+			||(Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 6){
 			xil_printf("12G SDI Bridge");
-		} else {
+		} else if((Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 2){
 			xil_printf("3G SDI Bridge");
+		} else {
+			xil_printf("SDI Bridge is not 3G/12G");
 		}
 
 		xil_printf("\r\n");
@@ -338,9 +385,11 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId)
 
 		xil_printf("RX AXIS Bridge:\r\n");
 		Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-					XV_SDIRX_AXI4S_VID_IN_STS_OFFSET);
-		xil_printf("  Overflow: %d\r\n", Data & 0x1);
-		xil_printf("  Underflow: %d\r\n", (Data & 0x2) >> 1);
+					XV_SDIRX_ISR_OFFSET);
+		xil_printf("  Overflow: %d\r\n", (Data & XV_SDIRX_ISR_OVERFLOW_MASK)
+						>> XV_SDIRX_ISR_OVERFLOW_SHIFT);
+		xil_printf("  Underflow: %d\r\n", (Data & XV_SDIRX_ISR_OVERFLOW_MASK)
+						>> XV_SDIRX_ISR_UNDERFLOW_SHIFT);
 		break;
 	case 4:
 		for(int i = 0; i <= XV_SDIRX_REGISTER_SIZE; i++) {
@@ -372,14 +421,14 @@ int XV_SdiRx_Stop(XV_SdiRx *InstancePtr)
 	u32 Data;
 
 	/* Verify argument. */
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_MDL_CTRL_OFFSET));
-	Data &= ~XV_SDIRX_MDL_CTRL_MDL_EN_MASK;
+				(XV_SDIRX_RST_CTRL_OFFSET));
+	Data &= ~XV_SDIRX_RST_CTRL_SDIRX_SS_EN_MASK;
 
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_MDL_CTRL_OFFSET), (Data));
+				(XV_SDIRX_RST_CTRL_OFFSET), (Data));
 
 	return XST_SUCCESS;
 }
@@ -463,7 +512,7 @@ void XV_SdiRx_Start(XV_SdiRx *InstancePtr, XV_SdiRx_SearchMode Mode)
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-	(XV_SDIRX_MDL_CTRL_OFFSET));
+				(XV_SDIRX_MDL_CTRL_OFFSET));
 
 	if (Mode == XV_SDIRX_MULTISEARCHMODE) {
 		/* Operating in auto RX modes detection */
@@ -477,10 +526,16 @@ void XV_SdiRx_Start(XV_SdiRx *InstancePtr, XV_SdiRx_SearchMode Mode)
 		Data |= (Mode << XV_SDIRX_MDL_CTRL_FORCED_MODE_SHIFT);
 	}
 
-	Data |= XV_SDIRX_MDL_CTRL_MDL_EN_MASK;
-
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDIRX_MDL_CTRL_OFFSET), (Data));
+
+	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+				(XV_SDIRX_RST_CTRL_OFFSET));
+
+	Data |= XV_SDIRX_RST_CTRL_SDIRX_SS_EN_MASK;
+
+	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
+				(XV_SDIRX_RST_CTRL_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -536,11 +591,11 @@ void XV_SdiRx_VidBridgeEnable(XV_SdiRx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_BRIDGE_CTRL_OFFSET));
-	Data |= XV_SDIRX_BRIDGE_CTRL_MDL_EN_MASK;
+				(XV_SDIRX_RST_CTRL_OFFSET));
+	Data |= XV_SDIRX_RST_CTRL_SDIRX_BRIDGE_EN_MASK;
 
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_BRIDGE_CTRL_OFFSET), (Data));
+				(XV_SDIRX_RST_CTRL_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -560,11 +615,11 @@ void XV_SdiRx_VidBridgeDisable(XV_SdiRx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_BRIDGE_CTRL_OFFSET));
-	Data &= ~XV_SDIRX_BRIDGE_CTRL_MDL_EN_MASK;
+				(XV_SDIRX_RST_CTRL_OFFSET));
+	Data &= ~XV_SDIRX_RST_CTRL_SDIRX_BRIDGE_EN_MASK;
 
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_BRIDGE_CTRL_OFFSET), (Data));
+				(XV_SDIRX_RST_CTRL_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -584,12 +639,12 @@ void XV_SdiRx_Axi4sBridgeEnable(XV_SdiRx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_AXI4S_VID_IN_CTRL_OFFSET));
+				(XV_SDIRX_RST_CTRL_OFFSET));
 
-	Data |= XV_SDIRX_AXI4S_VID_IN_CTRL_MDL_EN_MASK;
+	Data |= XV_SDIRX_RST_CTRL_VID_IN_AXI4S_MDL_EN_MASK;
 
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_AXI4S_VID_IN_CTRL_OFFSET), (Data));
+				(XV_SDIRX_RST_CTRL_OFFSET), (Data));
 }
 
 /*****************************************************************************/
@@ -609,60 +664,11 @@ void XV_SdiRx_Axi4sBridgeDisable(XV_SdiRx *InstancePtr)
 	u32 Data;
 
 	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_AXI4S_VID_IN_CTRL_OFFSET));
-	Data &= ~XV_SDIRX_AXI4S_VID_IN_CTRL_MDL_EN_MASK;
+				(XV_SDIRX_RST_CTRL_OFFSET));
+	Data &= ~XV_SDIRX_RST_CTRL_VID_IN_AXI4S_MDL_EN_MASK;
 
 	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_AXI4S_VID_IN_CTRL_OFFSET), (Data));
-}
-
-/*****************************************************************************/
-/**
-*
-* This function enables the AXI4S Bridge's AXIS input port
-*
-* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XV_SdiRx_VidInAxi4sAxisEnable(XV_SdiRx *InstancePtr)
-{
-	u32 Data;
-
-	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_AXI4S_VID_IN_CTRL_OFFSET));
-	Data |= XV_SDIRX_AXI4S_VID_OUT_CTRL_AXIS_EN_MASK;
-
-	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_AXI4S_VID_IN_CTRL_OFFSET), (Data));
-}
-
-/*****************************************************************************/
-/**
-*
-* This function disables the AXI4S Bridge's AXIS input port
-*
-* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void XV_SdiRx_VidInAxi4sAxisDisable(XV_SdiRx *InstancePtr)
-{
-	u32 Data;
-
-	Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-				(XV_SDIRX_AXI4S_VID_IN_CTRL_OFFSET));
-
-	Data &= ~XV_SDIRX_AXI4S_VID_OUT_CTRL_AXIS_EN_MASK;
-
-	XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
-				(XV_SDIRX_AXI4S_VID_IN_CTRL_OFFSET), (Data));
+				(XV_SDIRX_RST_CTRL_OFFSET), (Data));
 }
 
 /*****************************************************************************/

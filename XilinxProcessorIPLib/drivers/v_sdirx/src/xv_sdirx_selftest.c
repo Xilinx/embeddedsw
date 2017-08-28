@@ -19,7 +19,7 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
 * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
@@ -60,11 +60,8 @@
 
 /*************************** Macros Definitions ******************************/
 
-#define SDIRX_MDL_CTRL_MASK	0xFFFF
 #define SDIRX_MDL_CTRL_DEFAULT	0x00
-#define SDIRX_ST_RST_MASK	0xFF
-#define SDIRX_ST_RST_DEFAULT	0x00
-#define ISR_MASK		0xFF
+#define SDIRX_RST_CTRL_DEFAULT	0x000
 #define ISR_DEFAULT		0x00
 
 /************************** Function Prototypes ******************************/
@@ -102,18 +99,18 @@ u32 XV_SdiRx_SelfTest(XV_SdiRx *InstancePtr)
 		return XST_FAILURE;
 
 	RegValue = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
+					XV_SDIRX_RST_CTRL_OFFSET);
+	if (RegValue != SDIRX_RST_CTRL_DEFAULT)
+		return XST_FAILURE;
+
+	RegValue = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 					XV_SDIRX_MDL_CTRL_OFFSET);
-	if ((RegValue & SDIRX_MDL_CTRL_MASK) != SDIRX_MDL_CTRL_DEFAULT)
+	if (RegValue != SDIRX_MDL_CTRL_DEFAULT)
 		return XST_FAILURE;
 
 	RegValue = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-					XV_SDIRX_ST_RST_OFFSET);
-	if ((RegValue & SDIRX_ST_RST_MASK) != SDIRX_ST_RST_DEFAULT)
-		return XST_FAILURE;
-
-	RegValue = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-					XV_SDIRX_INT_STS_OFFSET);
-	if ((RegValue & ISR_MASK) != ISR_DEFAULT)
+					XV_SDIRX_ISR_OFFSET);
+	if (RegValue != ISR_DEFAULT)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
