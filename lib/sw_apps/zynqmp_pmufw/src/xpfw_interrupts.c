@@ -33,6 +33,7 @@
 #include "xpfw_core.h"
 #include "xil_exception.h"
 #include "xpfw_error_manager.h"
+#include "pmu_lmb_bram.h"
 /**
  * InterruptRegister holds the state of the IRQ Enable Register
  *
@@ -135,6 +136,14 @@ static void XPfw_NullHandler(void)
 	 *  TODO: Set PMUFW Error register
 	 */
 	XPfw_Printf(DEBUG_ERROR,"Error: NullHandler Triggered!\r\n");
+}
+
+static void XPfw_PmuRamCEHandler(void)
+{
+	XPfw_Printf(DEBUG_DETAILED,"PMU RAM Correctable ECC occurred!\r\n");
+
+	/* Clear the interrupt */
+	XPfw_Write32(PMU_LMB_BRAM_ECC_STATUS_REG, PMU_LMB_BRAM_CE_MASK);
 }
 
 static void XPfw_InterruptPwrUpHandler(void)
@@ -322,7 +331,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PMU_IOMODULE_IRQ_PENDING_IPI0_MASK, XPfw_Ipi0Handler},
 	{PMU_IOMODULE_IRQ_PENDING_RTC_ALARM_MASK, XPfw_InterruptRtcAlaramHandler},
 	{PMU_IOMODULE_IRQ_PENDING_RTC_EVERY_SECOND_MASK, XPfw_InterruptRtcSecondsmHandler},
-	{PMU_IOMODULE_IRQ_PENDING_CORRECTABLE_ECC_MASK, XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_CORRECTABLE_ECC_MASK, XPfw_PmuRamCEHandler},
 	{PMU_IOMODULE_IRQ_PENDING_INV_ADDR_MASK, XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_IPI3_MASK, XPfw_Ipi3Handler},
 	{PMU_IOMODULE_IRQ_PENDING_IPI2_MASK, XPfw_Ipi2Handler},
