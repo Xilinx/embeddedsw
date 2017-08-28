@@ -7,10 +7,13 @@
 	History
 	-------
 	v1.0 - Initial release
-	v1.1 - Updated DP159 setting to automatic redriver to retimer for HDMI 1.4 data rates
+	v1.1 - Updated DP159 setting to automatic redriver to retimer
+	       for HDMI 1.4 data rates
 	v1.2 - Added Reset to I2C controller before issuing new transaction
 	v1.3 - Changed printf usage to xil_printf
 	v1.4 - Update vswing setting to recommened values to pass compliance
+	v1.5 - Update the register setting sequence to write 0x0A the last
+           to set APPLY_RXTX_CHANGES
 */
 
 #include "dp159.h"
@@ -416,25 +419,26 @@ u32 i2c_dp159(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)
 		  if ((TxLineRate / (1000000)) > 3400) {
 			  if (DP159_VERBOSE)
 				  xil_printf("DP159 HDMI 2.0\n");
-			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x36);	// Automatic retimer for HDMI 2.0
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x9a);    // SLEW_CTL = Reg0Bh[7:6] = 10
 			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 11
 			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x49);    // VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
 			                                                // PRE_SEL = Reg0Ch[1:0] = 01 (labeled HDMI_TWPST)
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
+			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x36);	// Automatic retimer for HDMI 2.0
 		  }
 
 		  // HDMI 1.4
 		  else {
 			  if (DP159_VERBOSE)
 				  xil_printf("DP159 HDMI 1.4\n");
-			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x35);	// Automatic redriver to retimer crossover at 1.0 Gbps
-			  //r = i2c_dp159_write(DP159_ES, 0x0A, 0x34);	// The redriver mode must be selected to support low video rates
 			  r = i2c_dp159_write(DP159_ES, 0x0B, 0x80);    // SLEW_CTL = Reg0Bh[7:6] = 10
 			                                                // TX_TERM_CTL = Reg0Bh[4:3] = 00
 			  r = i2c_dp159_write(DP159_ES, 0x0C, 0x48);	// VSWING_DATA & VSWING_CLK to +14% = Reg0Ch[7:2] = 100100
 			                                                // PRE_SEL = Reg0Ch[1:0] = 00 (labeled HDMI_TWPST)
 			  r = i2c_dp159_write(DP159_ES, 0x0D, 0x00);
+			  r = i2c_dp159_write(DP159_ES, 0x0A, 0x35);	// Automatic redriver to retimer crossover at 1.0 Gbps
+			  //r = i2c_dp159_write(DP159_ES, 0x0A, 0x34);	// The redriver mode must be selected to support low video rates
+
 		}
 		return XST_SUCCESS;
 	  }

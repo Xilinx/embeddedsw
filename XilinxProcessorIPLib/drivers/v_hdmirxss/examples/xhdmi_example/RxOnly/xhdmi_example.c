@@ -56,8 +56,6 @@
 *                            during enable colorbar API
 * 2.14  GM     23/01/17 Replace the Extraction Value of VPhy line rate with,
 *                            XVphy_GetLineRateHz Rate API return value.
-*                       Removed CPU Clock Frequence on XVphy_HdmiInitialize
-*                            Initialization.
 * 2.15  ms     04/10/17 Modified filename tag to include the file in doxygen
 *                            examples.
 * 2.16  mmo    05/05/17 Replace pre-processed interrupt vector ID with the
@@ -76,6 +74,9 @@
 *       GM     18/08/17 Added SI Initialization after the SI Reset in
 *                            StartTxAfterRx API
 *       YH     18/08/17 Add HDCP Ready checking before set down streams
+*       GM     28/08/17 Replace XVphy_HdmiInitialize API Call during
+*                            Initialization with XVphy_Hdmi_CfgInitialize API
+*                            Call
 * </pre>
 *
 ******************************************************************************/
@@ -1516,10 +1517,8 @@ int main()
     }
 
     /* Initialize HDMI VPHY */
-    Status = XVphy_HdmiInitialize(&Vphy,
-                                  0,
-                                  XVphyCfgPtr,
-                                  XPAR_CPU_CORE_CLOCK_FREQ_HZ);
+    Status = XVphy_Hdmi_CfgInitialize(&Vphy, 0, XVphyCfgPtr);
+
     if (Status != XST_SUCCESS) {
       xil_printf("HDMI VPHY initialization error\r\n");
       return XST_FAILURE;

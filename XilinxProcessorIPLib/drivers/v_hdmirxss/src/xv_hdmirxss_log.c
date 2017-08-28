@@ -187,7 +187,7 @@ void XV_HdmiRxSs_LogDisplay(XV_HdmiRxSs *InstancePtr)
     /* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
 
-    xil_printf("\r\n\n\nHDMI RX log\r\n");
+    xil_printf("\r\n\r\n\nHDMI RX log\r\n");
     xil_printf("------\r\n");
 
     /* Read log data */
