@@ -309,7 +309,15 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 #endif
 	InterruptOccured = 0;
 
-	/* Configurations to start FIFO on DAC/Stim gen and ADC/Capture */
+	/*
+	 * Below writes are not generic, they are design specific.
+	 * This may not be expected to work as it is with user specific design.
+	 * These register writes are related to Stimulus and Capture blocks
+	 * which will be used to generate some random data and Capture the
+	 * output data respectively.
+	 * Following register writes will be used for Configuring
+	 * to start FIFO on DAC/Stim gen and ADC/Capture
+	 */
 #ifdef __BAREMETAL__
 	Xil_Out32(0xA4000050, 0x8000);
 	Xil_Out32(0xA8000050, 0x8000);
