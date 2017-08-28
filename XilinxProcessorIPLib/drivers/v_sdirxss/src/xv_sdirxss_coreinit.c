@@ -68,9 +68,9 @@
 /**
 * This function initializes the included sub-core to it's static configuration
 *
-* @param  SdiRxSsPtr is a pointer to the Subsystem instance to be worked on.
+* @param	SdiRxSsPtr is a pointer to the Subsystem instance to be worked on.
 *
-* @return XST_SUCCESS/XST_FAILURE
+* @return	XST_SUCCESS/XST_FAILURE
 *
 ******************************************************************************/
 int XV_SdiRxSs_SubcoreInitSdiRx(XV_SdiRxSs *SdiRxSsPtr)
@@ -81,7 +81,7 @@ int XV_SdiRxSs_SubcoreInitSdiRx(XV_SdiRxSs *SdiRxSsPtr)
 	if (SdiRxSsPtr->SdiRxPtr) {
 		/* Get core configuration */
 		XV_SdiRxSs_LogWrite(SdiRxSsPtr, XV_SDIRXSS_LOG_EVT_SDIRX_INIT, 0);
-		ConfigPtr  = XV_SdiRx_LookupConfig(SdiRxSsPtr->Config.SdiRx.DeviceId);
+		ConfigPtr = XV_SdiRx_LookupConfig(SdiRxSsPtr->Config.SdiRx.DeviceId);
 		if (ConfigPtr == NULL) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,
 				"SDIRXSS ERR:: SDI RX device not found\r\n");
