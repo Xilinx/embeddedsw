@@ -299,16 +299,19 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 
 		case XFSBL_QSPI_BUSWIDTH_ONE:
 		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 1 bit bus\r\n");
 			ReadCommand = FAST_READ_CMD_24BIT;
 		} break;
 
 		case XFSBL_QSPI_BUSWIDTH_TWO:
 		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 2 bit bus\r\n");
 			ReadCommand = DUAL_READ_CMD_24BIT;
 		} break;
 
 		case XFSBL_QSPI_BUSWIDTH_FOUR:
 		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 4 bit bus\r\n");
 			ReadCommand = QUAD_READ_CMD_24BIT;
 		}break;
 
@@ -912,16 +915,19 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 
 		case XFSBL_QSPI_BUSWIDTH_ONE:
 		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 1 bit bus\r\n");
 			ReadCommand = FAST_READ_CMD_32BIT;
 		} break;
 
 		case XFSBL_QSPI_BUSWIDTH_TWO:
 		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 2 bit bus\r\n");
 			ReadCommand = DUAL_READ_CMD_32BIT;
 		} break;
 
 		case XFSBL_QSPI_BUSWIDTH_FOUR:
 		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 4 bit bus\r\n");
 			ReadCommand = QUAD_READ_CMD_32BIT;
 		}break;
 
