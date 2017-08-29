@@ -355,6 +355,10 @@ xilsecure_v2_2:
 Added doxygen tags.
 Added RSA decrypt with private key and encrypt with public key support.
 Added RSA 2048 support.
+Added APIs to support xilsecure functionalities in linux.
+
+xilskey_v6_3:
+Provided support for programming eFUSE and BBRAM of kintex Ultrascale plus.
 
 Changes for 2017.2
 ================================
