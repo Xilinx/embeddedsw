@@ -1393,6 +1393,7 @@ int PmClockRequest(PmNode* const node)
 
 		/* If parent is not a known pll it's the oscillator clock */
 		if (NULL == ch->clock->pll) {
+			ch = ch->nextClock;
 			continue;
 		}
 
