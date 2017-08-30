@@ -83,6 +83,7 @@
 *              08/18/17 Add API to enable and disable FIFO.
 *              08/23/17 Add API to configure Nyquist zone.
 *              08/30/17 Add additional info to BlockStatus.
+*              08/30/17 Add support for Coarse Mixer BYPASS mode.
 *
 * </pre>
 *
@@ -447,6 +448,7 @@ typedef struct {
 #define XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO			0x2U
 #define XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR		0x4U
 #define XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR	0x8U
+#define XRFDC_COARSE_MIX_BYPASS							0x10U
 
 #define XRFDC_CRSE_MIX_OFF					0x924U
 #define XRFDC_CRSE_MIX_BYPASS				0x0U
