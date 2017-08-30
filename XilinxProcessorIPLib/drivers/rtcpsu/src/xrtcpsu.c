@@ -53,6 +53,7 @@
 * 1.2          02/15/16 Corrected Calibration mask and Fractional
 *                       mask in CalculateCalibration API.
 * 1.3   vak    04/25/16 Corrected the RTC read and write time logic(cr#948833).
+* 1.5   ms     08/27/17 Fixed compilation warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -305,7 +306,8 @@ void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
 *****************************************************************************/
 void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 {
-	u32 CurrentTime, TempDays, Leap, DaysPerMonth;
+	u32 CurrentTime, TempDays, DaysPerMonth;
+	u32 Leap = 0U;
 
 	CurrentTime = Seconds;
 	dt->Sec = CurrentTime % 60U;
