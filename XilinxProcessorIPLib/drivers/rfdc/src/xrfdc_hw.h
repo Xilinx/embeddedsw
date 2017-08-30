@@ -739,6 +739,8 @@ extern "C" {
 
 #define XRFDC_NCO_PHASE_LOW_MASK		0x0000FFFFU	/**< NCO Phase
 							offset[15:0] */
+#define XRFDC_NCO_PHASE_MASK			0x0003FFFFU	/**< NCO Phase
+							offset[17:0] */
 
 /* @} */
 

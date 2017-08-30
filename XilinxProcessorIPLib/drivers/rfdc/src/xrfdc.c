@@ -663,7 +663,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u32 BaseAddr;
 	float SamplingRate;
 	u64 Freq;
-	u32 PhaseOffset;
+	s32 PhaseOffset;
 	u16 NoOfBlocks;
 	u16 Index;
 	XRFdc_Mixer_Settings *Mixer_Config;
@@ -1008,7 +1008,7 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u64 ReadReg_Mix1;
 	float SamplingRate;
 	u64 Freq;
-	u32 PhaseOffset;
+	s32 PhaseOffset;
 	u32 Block;
 
 #ifdef __BAREMETAL__
@@ -1100,8 +1100,12 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		PhaseOffset = ReadReg << 16;
 		PhaseOffset |= XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_NCO_PHASE_LOW_OFFSET);
-		Mixer_Settings->PhaseOffset = ((PhaseOffset * 180) /
+		PhaseOffset &= XRFDC_NCO_PHASE_MASK;
+		PhaseOffset = (PhaseOffset << 14) >> 14;
+		PhaseOffset = ((PhaseOffset * 180) /
 								XRFDC_NCO_PHASE_MULTIPLIER);
+		PhaseOffset = (PhaseOffset << 17) >> 17;
+		Mixer_Settings->PhaseOffset = PhaseOffset;
 		Freq = 0;
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_NCO_FQWD_UPP_OFFSET);
