@@ -183,6 +183,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u32 GetDecoderMode;
 	u8 SetNyquistZone;
 	u8 GetNyquistZone;
+	XRFdc_BlockStatus BlockStatus;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -252,6 +253,29 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				SetMixerSettings.Freq = 3500;	//MHz
 				SetMixerSettings.FineMixerMode = 0x2;	//Complex to Real
 				SetMixerSettings.PhaseOffset = 22.5;
+				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+
+				/* Compare the settings */
+				Status = CompareMixerSettings(&SetMixerSettings, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+
+				/* Set new mixer configurations */
+				SetMixerSettings.CoarseMixFreq = 0x10;	// Coarse mix BYPASS
+				SetMixerSettings.Freq = 3500;	//MHz
+				SetMixerSettings.FineMixerMode = 0x2;	//Complex to Real
+				SetMixerSettings.PhaseOffset = -30.0;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &SetMixerSettings);
@@ -352,6 +376,13 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					return XRFDC_FAILURE;
 				}
 
+				Status = XRFdc_GetBlockStatus(RFdcInstPtr, XRFDC_DAC_TILE, Tile, Block, &BlockStatus);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				xil_printf("\n DAC%d%d Status \n"
+				"DataPathClockStatus - %d \t IsFIFOFlagsEnabled - %d \t IsFIFOFlagsAsserted - %d \r\n", Tile, Block,
+						BlockStatus.DataPathClocksStatus, BlockStatus.IsFIFOFlagsEnabled, BlockStatus.IsFIFOFlagsAsserted);
 			}
 
 			/* Check if the ADC block is enabled */
@@ -385,6 +416,28 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				SetMixerSettings.Freq = 3500; 	//MHz
 				SetMixerSettings.FineMixerMode = 0x2;	// Complex to real
 				SetMixerSettings.PhaseOffset = 14.06;
+				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+
+				/* Compare the settings */
+				Status = CompareMixerSettings(&SetMixerSettings, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+
+				SetMixerSettings.CoarseMixFreq = 0x10; 	//CoarseMix BYPASS
+				SetMixerSettings.Freq = 3500; 	//MHz
+				SetMixerSettings.FineMixerMode = 0x2;	// Complex to real
+				SetMixerSettings.PhaseOffset = -9.0;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
 				/* Set Mixer settings */
 				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &SetMixerSettings);
@@ -473,6 +526,13 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (SetNyquistZone != GetNyquistZone) {
 					return XRFDC_FAILURE;
 				}
+				Status = XRFdc_GetBlockStatus(RFdcInstPtr, XRFDC_ADC_TILE, Tile, Block, &BlockStatus);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				xil_printf("\n ADC%d%d Status \n"
+				"DataPathClockStatus - %d \t IsFIFOFlagsEnabled - %d \t IsFIFOFlagsAsserted - %d \r\n", Tile, Block, BlockStatus.DataPathClocksStatus,
+				BlockStatus.IsFIFOFlagsEnabled, BlockStatus.IsFIFOFlagsAsserted);
 			}
 		}
 	}
