@@ -51,6 +51,7 @@
 *              08/16/17 Add support for SYSREF and PL event sources.
 *              08/18/17 Add API to enable and disable FIFO.
 *              08/23/17 Add API to configure Nyquist zone.
+*              08/30/17 Add additional info to BlockStatus.
 * </pre>
 *
 ******************************************************************************/
@@ -513,6 +514,8 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	s32 Status;
 	u32 IsBlockAvail;
 	u32 Block;
+	u16 ReadReg;
+	u32 BaseAddr;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -528,9 +531,13 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
 		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+										XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
 		/* DAC */
 		IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+									XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	}
 	if (IsBlockAvail == 0U) {
 		Status = XRFDC_FAILURE;
@@ -559,6 +566,20 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 					ADCBlock_Analog_Config[Block_Id].MixMode)
 				BlockStatus->AnalogDataPathStatus = 1;
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_ADC_FABRIC_IMR_OFFSET);
+			ReadReg &= XRFDC_FAB_IMR_USRDAT_MASK;
+			if (ReadReg == XRFDC_FAB_IMR_USRDAT_MASK)
+				BlockStatus->IsFIFOFlagsEnabled = 0x1;
+			else
+				BlockStatus->IsFIFOFlagsEnabled = 0x0;
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_ADC_FABRIC_ISR_OFFSET);
+			ReadReg &= XRFDC_FAB_ISR_USRDAT_MASK;
+			if (ReadReg == XRFDC_FAB_ISR_USRDAT_MASK)
+				BlockStatus->IsFIFOFlagsAsserted = 0x1;
+			else
+				BlockStatus->IsFIFOFlagsAsserted = 0x0;
 		} else {
 			BlockStatus->SamplingFreq = InstancePtr->RFdc_Config.
 								DACTile_Config[Tile_Id].SamplingRate;
@@ -582,7 +603,28 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
 					DACBlock_Analog_Config[Block_Id].DecoderMode)
 				BlockStatus->AnalogDataPathStatus |= 1 << 2;
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_DAC_FABRIC_IMR_OFFSET);
+			ReadReg &= XRFDC_FAB_IMR_USRDAT_MASK;
+			if (ReadReg == XRFDC_FAB_IMR_USRDAT_MASK)
+				BlockStatus->IsFIFOFlagsEnabled = 0x1;
+			else
+				BlockStatus->IsFIFOFlagsEnabled = 0x0;
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_DAC_FABRIC_ISR_OFFSET);
+			ReadReg &= XRFDC_FAB_ISR_USRDAT_MASK;
+			if (ReadReg == XRFDC_FAB_ISR_USRDAT_MASK)
+				BlockStatus->IsFIFOFlagsAsserted = 0x1;
+			else
+				BlockStatus->IsFIFOFlagsAsserted = 0x0;
 		}
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+										XRFDC_CLK_EN_OFFSET);
+		ReadReg &= XRFDC_DAT_CLK_EN_MASK;
+		if (ReadReg == XRFDC_DAT_CLK_EN_MASK)
+			BlockStatus->DataPathClocksStatus = 0x1;
+		else
+			BlockStatus->DataPathClocksStatus = 0x0;
 	}
 	Status = XRFDC_SUCCESS;
 

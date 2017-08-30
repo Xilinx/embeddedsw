@@ -82,6 +82,7 @@
 *              08/16/17 Add support for SYSREF and PL event sources.
 *              08/18/17 Add API to enable and disable FIFO.
 *              08/23/17 Add API to configure Nyquist zone.
+*              08/30/17 Add additional info to BlockStatus.
 *
 * </pre>
 *
@@ -224,6 +225,12 @@ typedef struct {
 	float SamplingFreq;
 	u32 AnalogDataPathStatus;
 	u32 DigitalDataPathStatus;
+	u8 DataPathClocksStatus;	/* Indicates all required datapath
+				clocks are enabled or not, 1 if all clocks enabled, 0 otherwise */
+	u8 IsFIFOFlagsEnabled;	/* Indicates FIFO flags enabled or not,
+				 1 if all flags enabled, 0 otherwise */
+	u8 IsFIFOFlagsAsserted;	/* Indicates FIFO flags asserted or not,
+				 1 if all flags asserted, 0 otherwise */
 } XRFdc_BlockStatus;
 
 /**
