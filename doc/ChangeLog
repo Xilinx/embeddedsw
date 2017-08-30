@@ -237,6 +237,9 @@ Added CCI support.
 qspips_v3_4
 Added QSPI Buswidth parameter in canonical defines.
 
+rtcpsu_v1_5:
+Fixed compilation warnings, source code cleanup. CR-983311
+
 standalone_v6_4:
 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
 of ARM 32 bit processors.
