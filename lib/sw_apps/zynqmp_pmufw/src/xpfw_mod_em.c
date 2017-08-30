@@ -156,17 +156,11 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 	/* Set handlers for error manager */
 	for (ErrId = 1U; ErrId < EM_ERR_ID_MAX; ErrId++)
 	{
-#if defined(SET_EM_ACTION_POR)
-		XPfw_EmSetAction(ErrId, EM_ACTION_POR, NULL);
-#elif defined(SET_EM_ACTION_SRST)
-		XPfw_EmSetAction(ErrId, EM_ACTION_SRST, NULL);
-#else
 		if (ErrorTable[ErrId].Action != EM_ACTION_NONE) {
 			XPfw_EmSetAction(ErrId, ErrorTable[ErrId].Action,
 					ErrorTable[ErrId].Handler);
 		}
 	}
-#endif
 
 	if (XPfw_RecoveryInit() == XST_SUCCESS) {
 		/* This is to enable FPD WDT and enable recovery mechanism when
@@ -223,4 +217,8 @@ void ModEmInit(void)
 
 #else /* ENABLE_EM */
 void ModEmInit(void) { }
+void RpuLsHandler(u8 ErrorId) { }
+void LpdSwdtHandler(u8 ErrorId) { }
+void FpdSwdtHandler(u8 ErrorId) { }
+void NullHandler(u8 ErrorId) { }
 #endif /* ENABLE_EM */
