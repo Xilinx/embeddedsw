@@ -72,7 +72,7 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_ADC_CLK_EN_OFFSET	0x000U	/**< ADC Clock Enable
+#define XRFDC_CLK_EN_OFFSET	0x000U	/**< ADC Clock Enable
 							Register */
 #define XRFDC_ADC_DEBUG_RST_OFFSET	0x004U	/**< ADC Debug Reset
 							Register */
@@ -321,6 +321,7 @@ extern "C" {
 #define XRFDC_CLK_EN_DIG_MASK	0x00000002U /**< Enable full-rate clock */
 #define XRFDC_CLK_EN_DP_MASK	0x00000004U /**< Enable Data Path clock */
 #define XRFDC_CLK_EN_FAB_MASK	0x00000008U /**< Enable fabric clock */
+#define XRFDC_DAT_CLK_EN_MASK	0x0000000FU /**< Data Path Clk enable */
 #define XRFDC_CLK_EN_LM_MASK	0x00000010U /**< Enable for FIFO
 							Latency measurement clock */
 
@@ -388,6 +389,7 @@ extern "C" {
 							data written faster than read (overflow) */
 #define XRFDC_FAB_ISR_USRDAT_UND_MASK	0x00000002U /**< User-data overlap-
 							data read faster than written (underflow) */
+#define XRFDC_FAB_ISR_USRDAT_MASK	0x00000003U /**< User-data overlap Mask */
 #define XRFDC_FAB_ISR_MARGIND_OVR_MASK	0x00000004U /**< Marginal-indicator
 							overlap (overflow) */
 #define XRFDC_FAB_ISR_MARGIND_UND_MASK	0x00000008U /**< Marginal-indicator
@@ -405,6 +407,7 @@ extern "C" {
 							data written faster than read (overflow) */
 #define XRFDC_FAB_IMR_USRDAT_UND_MASK	0x00000002U /**< User-data overlap-
 							data read faster than written (underflow) */
+#define XRFDC_FAB_IMR_USRDAT_MASK	0x00000003U /**< User-data overlap Mask */
 #define XRFDC_FAB_IMR_MARGIND_OVR_MASK	0x00000004U /**< Marginal-indicator
 							overlap (overflow) */
 #define XRFDC_FAB_IMR_MARGIND_UND_MASK	0x00000008U /**< Marginal-indicator
