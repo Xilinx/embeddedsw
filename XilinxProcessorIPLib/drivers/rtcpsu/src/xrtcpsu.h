@@ -107,6 +107,7 @@
 *                       generation.
 *       ms     04/10/17 Modified filename tag in examples to include them in
 *                       doxygen examples.
+* 1.5   ms     08/27/17 Fixed compilation warnings in xrtcpsu.c file.
 * </pre>
 *
 ******************************************************************************/
