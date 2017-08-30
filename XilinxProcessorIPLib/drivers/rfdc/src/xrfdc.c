@@ -52,6 +52,7 @@
 *              08/18/17 Add API to enable and disable FIFO.
 *              08/23/17 Add API to configure Nyquist zone.
 *              08/30/17 Add additional info to BlockStatus.
+*              08/30/17 Add support for Coarse Mixer BYPASS mode.
 * </pre>
 *
 ******************************************************************************/
@@ -762,7 +763,8 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				(Mixer_Settings->CoarseMixFreq !=
 					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR) &&
 				(Mixer_Settings->CoarseMixFreq !=
-					XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR)) {
+					XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR) &&
+				(Mixer_Settings->CoarseMixFreq != XRFDC_COARSE_MIX_BYPASS)) {
 				metal_log(METAL_LOG_ERROR, "\n Invalid coarse mix frequency value "
 												"in %s\r\n", __func__);
 				Status = XRFDC_FAILURE;
@@ -892,6 +894,20 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					ReadReg |= XRFDC_CRSE_MIX_Q_MINFSBYFOUR;
 				else
 					ReadReg |= XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR;
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
+			} else if (Mixer_Settings->CoarseMixFreq ==
+					XRFDC_COARSE_MIX_BYPASS) {
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
+				ReadReg |= XRFDC_CRSE_MIX_BYPASS;
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
+				ReadReg |= XRFDC_CRSE_MIX_BYPASS;
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
 			}
@@ -1080,6 +1096,13 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_CRSE_MIX_Q_MINFSBYFOUR))
 			Mixer_Settings->CoarseMixFreq =
 								XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+		else if ((ReadReg == XRFDC_CRSE_MIX_BYPASS) && (ReadReg_Mix1 ==
+				XRFDC_CRSE_MIX_BYPASS))
+			Mixer_Settings->CoarseMixFreq =
+								XRFDC_COARSE_MIX_BYPASS;
+		else
+			metal_log(METAL_LOG_ERROR, "\n Coarse mixer settings did not"
+					"match any of the expected modes %s\r\n", __func__);
 
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_MXR_MODE_OFFSET);
