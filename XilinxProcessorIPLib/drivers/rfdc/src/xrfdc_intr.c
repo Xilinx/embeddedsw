@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc_intr.c
-* @addtogroup rfdc_v1_1
+* @addtogroup rfdc_v2_0
 * @{
 *
 * This file contains functions related to RFdc interrupt handling.
