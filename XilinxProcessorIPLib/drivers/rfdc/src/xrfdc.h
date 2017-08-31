@@ -75,7 +75,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   sk     05/16/17 Initial release
-* 1.1   sk     08/09/17 Fixed coarse Mixer configuration settings
+* 2.0   sk     08/09/17 Fixed coarse Mixer configuration settings
 *                       CR# 977266, 977872.
 *                       Return error for Slice Event on 4G ADC Block.
 *                       Corrected Interrupt Macro names and values.
@@ -84,6 +84,7 @@
 *              08/23/17 Add API to configure Nyquist zone.
 *              08/30/17 Add additional info to BlockStatus.
 *              08/30/17 Add support for Coarse Mixer BYPASS mode.
+*              08/31/17 Removed Tile Reset Assert and Deassert.
 *
 * </pre>
 *
