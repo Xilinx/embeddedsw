@@ -33,7 +33,7 @@
 /**
 *
 * @file xrfdc.c
-* @addtogroup xrfdc_v1_1
+* @addtogroup xrfdc_v2_0
 * @{
 *
 * Contains the interface functions of the XRFdc driver.
