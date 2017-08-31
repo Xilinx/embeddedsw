@@ -45,7 +45,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   sk     05/16/17 Initial release
-* 1.1   sk     08/09/17 Fixed coarse Mixer configuration settings
+* 2.0   sk     08/09/17 Fixed coarse Mixer configuration settings
 *                       CR# 977266, 977872.
 *                       Return error for Slice Event on 4G ADC Block.
 *              08/16/17 Add support for SYSREF and PL event sources.
@@ -53,6 +53,7 @@
 *              08/23/17 Add API to configure Nyquist zone.
 *              08/30/17 Add additional info to BlockStatus.
 *              08/30/17 Add support for Coarse Mixer BYPASS mode.
+*              08/31/17 Removed Tile Reset Assert and Deassert.
 * </pre>
 *
 ******************************************************************************/
@@ -233,9 +234,6 @@ static void XRFdc_RestartIPSM(XRFdc* InstancePtr, u32 BaseAddress, u32 Start,
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 #endif
 
-	/* Assert SM reset */
-	XRFdc_WriteReg(InstancePtr, BaseAddress, XRFDC_RESET_OFFSET, 0x1);
-
 	/* Write Start and End states */
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddress,
 								XRFDC_RESTART_STATE_OFFSET);
@@ -245,12 +243,8 @@ static void XRFdc_RestartIPSM(XRFdc* InstancePtr, u32 BaseAddress, u32 Start,
 	XRFdc_WriteReg16(InstancePtr, BaseAddress,
 								XRFDC_RESTART_STATE_OFFSET, ReadReg);
 
-	/* Release SM reset */
-	XRFdc_WriteReg(InstancePtr, BaseAddress, XRFDC_RESET_OFFSET, 0x0);
-
 	/* Trigger restart */
 	XRFdc_WriteReg(InstancePtr, BaseAddress, XRFDC_RESTART_OFFSET, 0x1);
-	XRFdc_WriteReg(InstancePtr, BaseAddress, XRFDC_RESTART_OFFSET, 0x0);
 
 }
 
