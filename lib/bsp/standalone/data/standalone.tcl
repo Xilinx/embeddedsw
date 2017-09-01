@@ -353,6 +353,17 @@ proc generate {os_handle} {
                     puts $file_handle ""
                 }
             }
+	   set design_list [hsi::get_cells -hier]
+           if {[lsearch  -nocase $design_list "psu_ddr_1"] >= 0} {
+                set psu_ddr_1_baseaddr [common::get_property CONFIG.C_S_AXI_BASEADDR [hsi::get_cells -hier "psu_ddr_1"]]
+                set psu_ddr_1_highaddr [common::get_property CONFIG.C_S_AXI_HIGHADDR [hsi::get_cells -hier "psu_ddr_1"]]
+                puts $file_handle "/******************************************************************/"
+                puts $file_handle ""
+                puts $file_handle " /*Definitions for peripheral PSU_R5_DDR_1 */"
+                puts $file_handle [format %s0x%x "#define XPAR_PSU_R5_DDR_1_S_AXI_BASEADDR " [expr $psu_ddr_1_baseaddr]]
+                puts $file_handle [format %s0x%x "#define XPAR_PSU_R5_DDR_1_S_AXI_HIGHADDR " [expr $psu_ddr_1_highaddr]]
+                puts $file_handle ""
+            }
             set periphs [hsi::get_cells]
             foreach periph $periphs {
 		if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
