@@ -32,78 +32,81 @@
 # Ver Who Date     Changes
 # --- --- -------- ----------------------------------------------------
 # 1.0 vsa 07/21/15 Initial version of subsystem tcl
+# 1.1 vsa 08/31/17 Fix for IP with different name
 ###############################################################################
 
 proc generate {drv_handle} {
-	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsiSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE C_CSI_EN_CRC C_CSI_EN_ACTIVELANES"
-	hier_ip_define_config_file $drv_handle "xcsiss_g.c" "XCsiSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE C_CSI_EN_CRC C_CSI_EN_ACTIVELANES"
-	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CsiSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE C_CSI_EN_CRC C_CSI_EN_ACTIVELANES"
+	::hsi::utils::define_include_file $drv_handle "xparameters.h" "XCsiSs" "NUM_INSTANCES" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES"
+	hier_ip_define_config_file $drv_handle "xcsiss_g.c" "XCsiSs" "DEVICE_ID" "C_BASEADDR" "C_HIGHADDR" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES"
+	::hsi::utils::define_canonical_xpars $drv_handle "xparameters.h" "CsiSs" "C_BASEADDR" "C_HIGHADDR" "DEVICE_ID" "CMN_INC_IIC" "CMN_NUM_LANES" "CMN_NUM_PIXELS" "CMN_PXL_FORMAT" "CMN_VC" "CSI_BUF_DEPTH" "CSI_EMB_NON_IMG" "DPY_EN_REG_IF" "DPY_LINE_RATE" "C_CSI_EN_CRC" "C_CSI_EN_ACTIVELANES"
 
 	set orig_dir [pwd]
 	cd ../../include/
 
-	set timestamp [clock format [clock seconds] -format {%Y%m%d%H%M%S}]
+	set periphs [hsi::utils::get_common_driver_ips $drv_handle]
+	foreach periph $periphs {
+		set timestamp [clock format [clock seconds] -format {%Y%m%d%H%M%S}]
 
-	set filename "xparameters.h"
-	set temp $filename.new.$timestamp
-	set backup $filename.bak.$timestamp
+		set filename "xparameters.h"
+		set temp $filename.new.$timestamp
 
-	set in [open $filename r]
-	set out [open $temp w]
+		set in [open $filename r]
+		set out [open $temp w]
 
-	# line-by-line, read the original file
-	while {[gets $in line] != -1} {
-		# if XPAR_MIPI_CSI2_RX_SUBSYSTEM is present in the string
-		if {[regexp -nocase {XPAR_.*MIPI_CSI2_RX_SUBSYSTEM} $line] ||
-			[regexp -nocase {XPAR_CSISS} $line]} {
+		# line-by-line, read the original file
+		while {[gets $in line] != -1} {
+			# if the peripheral name or the canonical substring is present
+			if {[regexp -nocase XPAR_$periph $line] ||
+				[regexp -nocase {XPAR_CSISS} $line]} {
 
-			# if substring CMN_INC_IIC is present in the string
-			if {[regexp -nocase {CMN_INC_IIC} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
+				# if substring CMN_INC_IIC is present in the string
+				if {[regexp -nocase {CMN_INC_IIC} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
+
+				# if substring CSI_EMB_NON_IMG is present in the string
+				if {[regexp -nocase {CSI_EMB_NON_IMG} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
+
+				# if substring DPY_EN_REG_IF is present in the string
+				if {[regexp -nocase {DPY_EN_REG_IF} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
+
+				# if substring CMN_PXL_FORMAT is present in the string
+				if {[regexp -nocase {CMN_PXL_FORMAT} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E} $line]
+				}
+
+				# if substring C_CSI_EN_ACTIVELANES is present in the string
+				if {[regexp -nocase {CSI_EN_ACTIVELANES} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
+
+				# if substring C_CSI_EN_CRC is present in the string
+				if {[regexp -nocase {CSI_EN_CRC} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
 			}
 
-			# if substring CSI_EMB_NON_IMG is present in the string
-			if {[regexp -nocase {CSI_EMB_NON_IMG} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
-			}
-
-			# if substring DPY_EN_REG_IF is present in the string
-			if {[regexp -nocase {DPY_EN_REG_IF} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
-			}
-
-			# if substring CMN_PXL_FORMAT is present in the string
-			if {[regexp -nocase {CMN_PXL_FORMAT} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E} $line]
-			}
-
-			# if substring C_CSI_EN_ACTIVELANES is present in the string
-			if {[regexp -nocase {CSI_EN_ACTIVELANES} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
-			}
-
-			# if substring C_CSI_EN_CRC is present in the string
-			if {[regexp -nocase {CSI_EN_CRC} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
-			}
+			# then write the transformed line
+			puts $out $line
 		}
 
-		# then write the transformed line
-		puts $out $line
+		close $in
+		close $out
+
+		# move the new data to the proper filename
+		file delete $filename
+		file rename -force $temp $filename
 	}
-
-	close $in
-	close $out
-
-	# move the new data to the proper filename
-	file delete $filename
-	file rename -force $temp $filename
 	cd $orig_dir
 }
 
