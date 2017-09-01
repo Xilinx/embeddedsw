@@ -32,6 +32,7 @@
 # Ver Who Date     Changes
 # --- --- -------- -----------------------------------------------------------
 # 1.0 sss 07/21/16 Initial version of subsystem tcl
+# 1.1 vsa 08/31/17 Fix for IP with different name
 ###############################################################################
 
 proc generate {drv_handle} {
@@ -41,51 +42,54 @@ proc generate {drv_handle} {
 
 	set orig_dir [pwd]
 	cd ../../include/
-	set timestamp [clock format [clock seconds] -format {%Y%m%d%H%M%S}]
 
-	set filename "xparameters.h"
-	set temp $filename.new.$timestamp
-	set backup $filename.bak.$timestamp
+	set periphs [hsi::utils::get_common_driver_ips $drv_handle]
+	foreach periph $periphs {
+		set timestamp [clock format [clock seconds] -format {%Y%m%d%H%M%S}]
 
-	set in [open $filename r]
-	set out [open $temp w]
+		set filename "xparameters.h"
+		set temp $filename.new.$timestamp
 
-	# line-by-line, read the original file
-	while {[gets $in line] != -1} {
-		# if XPAR_.*MIPI_CSI2_TX_SUBSYSTEM is present in the string
-		if {[regexp -nocase {XPAR_.*MIPI_CSI2_TX_SUBSYSTEM} $line] ||
-			[regexp -nocase {XPAR_CSI2TXSS} $line]} {
+		set in [open $filename r]
+		set out [open $temp w]
 
-			# if substring DPY_EN_REG_IF is present in the string
-			if {[regexp -nocase {DPHY_EN_REG_IF} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
+		# line-by-line, read the original file
+		while {[gets $in line] != -1} {
+			# if the peripheral name or the canonical substring is present
+			if {[regexp -nocase XPAR_$periph $line] ||
+				[regexp -nocase {XPAR_CSI2TXSS} $line]} {
+
+				# if substring DPY_EN_REG_IF is present in the string
+				if {[regexp -nocase {DPHY_EN_REG_IF} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
+
+				# if substring CSI_DATATYPE is present in the string
+				if {[regexp -nocase {CSI_DATATYPE} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E} $line]
+				}
+
+				# if substring C_CSI_EN_ACTIVELANES is present in the string
+				if {[regexp -nocase {CSI_EN_ACTIVELANES} $line]} {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
+
 			}
 
-			# if substring CSI_DATATYPE is present in the string
-			if {[regexp -nocase {CSI_DATATYPE} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {RGB444 0x20 RGB555 0x21 RGB565 0x22 RGB666 0x23 RGB888 0x24 RAW6 0x28 RAW7 0x29 RAW8 0x2A RAW10 0x2B RAW12 0x2C RAW14 0x2D YUV422_8bit 0x1E} $line]
-			}
-
-			# if substring C_CSI_EN_ACTIVELANES is present in the string
-			if {[regexp -nocase {CSI_EN_ACTIVELANES} $line]} {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
-			}
-
+			# then write the transformed line
+			puts $out $line
 		}
 
-		# then write the transformed line
-		puts $out $line
+		close $in
+		close $out
+
+		# move the new data to the proper filename
+		file delete $filename
+		file rename -force $temp $filename
 	}
-
-	close $in
-	close $out
-
-	# move the new data to the proper filename
-	file delete $filename
-	file rename -force $temp $filename
 	cd $orig_dir
 }
 
