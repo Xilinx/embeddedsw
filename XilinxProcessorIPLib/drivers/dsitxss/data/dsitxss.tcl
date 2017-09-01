@@ -33,6 +33,7 @@
 # Ver Who Date     Changes
 # -------- ------ -------- --------------------------------------------------
 # 1.0 ram 02/15/16 Initial version for MIPI DSI TX subsystem
+# 1.1 vsa 08/31/17 Fix for IP with different name
 ##############################################################################
 
 proc generate {drv_handle} {
@@ -43,46 +44,49 @@ proc generate {drv_handle} {
 	set orig_dir [pwd]
 	cd ../../include/
 
-	set timestamp [clock format [clock seconds] -format {%Y%m%d%H%M%S}]
+	set periphs [hsi::utils::get_common_driver_ips $drv_handle]
+	foreach periph $periphs {
 
-	set filename "xparameters.h"
-	set temp $filename.new.$timestamp
-	set backup $filename.bak.$timestamp
+		set timestamp [clock format [clock seconds] -format {%Y%m%d%H%M%S}]
 
-	set in [open $filename r]
-	set out [open $temp w]
+		set filename "xparameters.h"
+		set temp $filename.new.$timestamp
 
-	# line-by-line, read the original file
-	while {[gets $in line] != -1} {
-		# if XPAR_MIPI_DSI_TX_SUBSYSTEM is present in the string
-		if { [regexp -nocase {XPAR_.*MIPI_DSI_TX_SUBSYSTEM} $line] ||
-			[regexp -nocase {XPAR_DSI} $line] } {
+		set in [open $filename r]
+		set out [open $temp w]
 
-			# if substring DSI_CRC_GEN is present in the string
-			if { [regexp -nocase {DSI_CRC_GEN} $line] } {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
+		# line-by-line, read the original file
+		while {[gets $in line] != -1} {
+			# if the peripheral name or the canonical substring is present
+			if { [regexp -nocase XPAR_$periph $line] ||
+				[regexp -nocase {XPAR_DSI} $line] } {
+
+				# if substring DSI_CRC_GEN is present in the string
+				if { [regexp -nocase {DSI_CRC_GEN} $line] } {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
+				# if substring DSI_DATATYPE is present in the string
+				if { [regexp -nocase {DSI_DATATYPE } $line] } {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {RGB888 0x3E RGB565 0x0E RGB666_L 0x2E RGB666_P 0x1E} $line]
+				}
+				# if substring DPHY_EN_REG_IF is present in the string
+				if { [regexp -nocase {DPHY_EN_REG_IF} $line] } {
+					# using string map to replace true with 1 and false with 0
+					set line [string map {true 1 false 0} $line]
+				}
 			}
-			# if substring DSI_DATATYPE is present in the string
-			if { [regexp -nocase {DSI_DATATYPE } $line] } {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {RGB888 0x3E RGB565 0x0E RGB666_L 0x2E RGB666_P 0x1E} $line]
-			}
-			# if substring DPHY_EN_REG_IF is present in the string
-			if { [regexp -nocase {DPHY_EN_REG_IF} $line] } {
-				# using string map to replace true with 1 and false with 0
-				set line [string map {true 1 false 0} $line]
-			}
-		}
 		# then write the transformed line
 		puts $out $line
-	}
-	close $in
-	close $out
+		}
+		close $in
+		close $out
 
-	# move the new data to the proper filename
-	file delete $filename
-	file rename -force $temp $filename
+		# move the new data to the proper filename
+		file delete $filename
+		file rename -force $temp $filename
+	}
 	cd $orig_dir
 }
 
