@@ -288,18 +288,21 @@ u32 InitQspi(void)
 
 				case QSPI_BUSWIDTH_ONE:
 				{
+					fsbl_printf(DEBUG_INFO,"QSPI is in 1-bit mode\r\n");
 					ConfigCmd = SINGLE_QSPI_CONFIG_FAST_READ;
 				}
 				break;
 
 				case QSPI_BUSWIDTH_TWO:
 				{
+					fsbl_printf(DEBUG_INFO,"QSPI is in 2-bit mode\r\n");
 					ConfigCmd = SINGLE_QSPI_CONFIG_FAST_DUAL_READ;
 				}
 				break;
 
 				case QSPI_BUSWIDTH_FOUR:
 				{
+					fsbl_printf(DEBUG_INFO,"QSPI is in 4-bit mode\r\n");
 					ConfigCmd = SINGLE_QSPI_CONFIG_FAST_QUAD_READ;
 				}
 				break;
@@ -321,18 +324,21 @@ u32 InitQspi(void)
 
 				case QSPI_BUSWIDTH_ONE:
 				{
+					fsbl_printf(DEBUG_INFO,"QSPI is in 1-bit mode\r\n");
 					ConfigCmd = SINGLE_QSPI_IO_CONFIG_FAST_READ;
 				}
 				break;
 
 				case QSPI_BUSWIDTH_TWO:
 				{
+					fsbl_printf(DEBUG_INFO,"QSPI is in 2-bit mode\r\n");
 					ConfigCmd = SINGLE_QSPI_IO_CONFIG_FAST_DUAL_READ;
 				}
 				break;
 
 				case QSPI_BUSWIDTH_FOUR:
 				{
+					fsbl_printf(DEBUG_INFO,"QSPI is in 4-bit mode\r\n");
 					ConfigCmd = SINGLE_QSPI_IO_CONFIG_FAST_QUAD_READ;
 				}
 				break;
@@ -412,18 +418,21 @@ u32 InitQspi(void)
 
 			case QSPI_BUSWIDTH_ONE:
 			{
+				fsbl_printf(DEBUG_INFO,"QSPI is in 1-bit mode\r\n");
 				ConfigCmd =  DUAL_STACK_CONFIG_FAST_READ;
 			}
 			break;
 
 			case QSPI_BUSWIDTH_TWO:
 			{
+				fsbl_printf(DEBUG_INFO,"QSPI is in 2-bit mode\r\n");
 				ConfigCmd =  DUAL_STACK_CONFIG_FAST_DUAL_READ;
 			}
 			break;
 
 			case QSPI_BUSWIDTH_FOUR:
 			{
+				fsbl_printf(DEBUG_INFO,"QSPI is in 4-bit mode\r\n");
 				ConfigCmd =  DUAL_STACK_CONFIG_FAST_QUAD_READ;
 			}
 			break;
