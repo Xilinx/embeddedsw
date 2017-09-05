@@ -305,12 +305,14 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 *****************************************************************************/
 int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 {
-	u32 Index; /* Array Index */
 #if XPAR_HWICAP_0_ICAP_DWIDTH == 8
 	u8 Fifo[NumWords*4];
 #elif XPAR_HWICAP_0_ICAP_DWIDTH == 16
 	u16 Fifo[NumWords*2];
-#else
+#endif
+
+#if (XPAR_HWICAP_0_ICAP_DWIDTH == 8) || (XPAR_HWICAP_0_ICAP_DWIDTH == 16)
+	u32 Index; /* Array Index */
 	u32 Fifo[4]; /** Icap Width of 32 does not use Fifo but declared
 			 to overcome compilation error. Size of 4 is used
 			 to overcome compiler warnings */
@@ -439,7 +441,7 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	/*
 	 * Check if there is more data to be written to the ICAP
 	 */
-	if (InstancePtr->RemainingWords != NULL){
+	if (InstancePtr->RemainingWords != 0U){
 
 		/*
 		 * Check whether it is polled or interrupt mode of operation.
