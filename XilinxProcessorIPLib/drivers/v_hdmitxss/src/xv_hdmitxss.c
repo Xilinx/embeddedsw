@@ -129,7 +129,7 @@
 
 /************************** Constant Definitions *****************************/
 /* Pixel definition in 8 bit resolution in YUV color space*/
-const u8 bkgndColorYUV[XV_BKGND_LAST][3] =
+static const u8 bkgndColorYUV[XV_BKGND_LAST][3] =
 {
   {  0, 128, 128}, //Black
   {255, 128, 128}, //White
@@ -141,7 +141,7 @@ const u8 bkgndColorYUV[XV_BKGND_LAST][3] =
 
 /* Pixel map in RGB color space*/
 /* {Green, Blue, Red} */
-const u8 bkgndColorRGB[XV_BKGND_LAST][3] =
+static const u8 bkgndColorRGB[XV_BKGND_LAST][3] =
 {
   {0, 0, 0}, //Black
   {1, 1, 1}, //White
