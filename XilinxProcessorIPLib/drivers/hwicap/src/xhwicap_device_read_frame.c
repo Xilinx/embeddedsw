@@ -188,7 +188,7 @@ int XHwIcap_DeviceReadFrame(XHwIcap *InstancePtr, long Top, long Block,
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
 	WriteBuffer[Index++] = XHI_NOOP_PACKET;
 
-	for(int i = 0; i < NumNoops; i++) {
+	for(unsigned int i = 0; i < NumNoops; i++) {
 		WriteBuffer[Index++] = XHI_NOOP_PACKET;
 	}
 
