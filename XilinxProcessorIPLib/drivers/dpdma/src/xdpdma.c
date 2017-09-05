@@ -122,10 +122,9 @@ static int XDpDma_WaitPendingTransaction(XDpDma *InstancePtr, u8 ChannelNum)
 	do {
 		Count = XDpDma_GetPendingTransaction(InstancePtr, ChannelNum);
 		Timeout++;
-		usleep(1000);
-	} while((Timeout <=XDPDMA_WAIT_TIMEOUT) | !(Count));
+	} while((Timeout != XDPDMA_WAIT_TIMEOUT) && Count);
 
-	if(!Timeout) {
+	if(Timeout ==  XDPDMA_WAIT_TIMEOUT) {
 		return XST_FAILURE;
 	}
 
@@ -183,7 +182,7 @@ static int XDpDma_ConfigChannelState(XDpDma *InstancePtr, u8 ChannelNum,
 				return XST_FAILURE;
 			}
 
-			RegVal = ~XDPDMA_PAUSE;
+			RegVal = 0;
 			break;
 		case XDPDMA_PAUSE:
 			RegVal = XDPDMA_PAUSE;
