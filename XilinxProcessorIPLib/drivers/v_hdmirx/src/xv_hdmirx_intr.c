@@ -55,6 +55,7 @@
 * 1.11  MG     03/03/17 Updated function HdmiRx_TmrIntrHandler with
 *                           GetVideoPropertiesTries
 * 1.12  YH     22/08/17 Update AudFormat when servicing Aud Interrupt
+* 1.13  MH     31/08/17 Update Reset sequence for Video_Bridge
 * </pre>
 *
 ******************************************************************************/
@@ -573,6 +574,8 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_INIT) {
 
                 // Enable video
+                // MH AI: Toggle bridge reset only after clock is stable
+                XV_HdmiRx_VideoEnable(InstancePtr, (FALSE));
                 XV_HdmiRx_VideoEnable(InstancePtr, (TRUE));
 
             // Set stream status to arm
@@ -604,7 +607,8 @@ static void HdmiRx_PioIntrHandler(XV_HdmiRx *InstancePtr)
             XV_HdmiRx_LinkEnable(InstancePtr, (FALSE));
 
             // Disable video
-            XV_HdmiRx_VideoEnable(InstancePtr, (FALSE));
+            // MH AI: Don't reset bridge when clock is not stable
+            XV_HdmiRx_VideoEnable(InstancePtr, (TRUE));
 
             XV_HdmiRx_AxisEnable(InstancePtr, (FALSE));
 
