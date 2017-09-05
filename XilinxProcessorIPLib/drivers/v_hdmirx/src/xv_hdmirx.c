@@ -56,6 +56,7 @@
 * 1.10  MG     02/03/17 Fixed YUV420 reading in function
 *                          XV_HdmiRx_GetVideoTiming
 * 1.40  YH     19/07/17 Clean up Print Statement line ending to "\r\n"
+*              05/09/17 Enhanced Video Timing checking
 * </pre>
 *
 ******************************************************************************/
@@ -1373,6 +1374,7 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
     u16 F1VTotal;
     u8 Match;
     u8 YUV420_Correction;
+    u8 IsInterlaced;
 
     // Lookup the videomode based on the vic
     InstancePtr->Stream.Video.VmId = XV_HdmiRx_LookupVmId(InstancePtr->Stream.Vic);
@@ -1454,16 +1456,34 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
         /* Read VBack Porch field 2 */
         F1VBackPorch =  ((XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_VBP_OFFSET))) >> 16);
 
+        /* Read Status register */
+        Data = XV_HdmiRx_ReadReg(InstancePtr->Config.BaseAddress, (XV_HDMIRX_VTD_STA_OFFSET));
+
+        /* Check video format */
+        if ((Data) & (XV_HDMIRX_VTD_STA_FMT_MASK)) {
+            /* Interlaced */
+            IsInterlaced = 1;
+        }
+        else {
+            /* Progressive */
+            IsInterlaced = 0;
+        }
+
         // Next, we compare these values with the previous stored values
         // By default the match is true
         Match = TRUE;
 
-        // Htotal
-        if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
+        if (!HActive | !HFrontPorch | !HSyncWidth | !HBackPorch | !HTotal | !VActive |
+            !F0PVFrontPorch | !F0PVSyncWidth | !F0PVBackPorch | !F0PVTotal) {
             Match = FALSE;
         }
 
-        if (!HTotal) {
+        if ((IsInterlaced == 1) & (!F1VFrontPorch | !F1VSyncWidth | !F1VBackPorch | !F1VTotal)) {
+            Match = FALSE;
+        }
+
+        // Htotal
+        if (HTotal != InstancePtr->Stream.Video.Timing.HTotal) {
             Match = FALSE;
         }
 
@@ -1529,6 +1549,18 @@ int XV_HdmiRx_GetVideoTiming(XV_HdmiRx *InstancePtr)
 
         // F1VBackPorch
         if (F1VBackPorch != InstancePtr->Stream.Video.Timing.F1VBackPorch) {
+            Match = FALSE;
+        }
+
+        if (HTotal != (HActive + HFrontPorch + HSyncWidth +HBackPorch)) {
+		Match = FALSE;
+        }
+
+        if (F0PVTotal != (VActive + F0PVFrontPorch + F0PVSyncWidth +F0PVBackPorch)) {
+            Match = FALSE;
+        }
+
+        if ((IsInterlaced == 1) && (F1VTotal != (VActive + F1VFrontPorch + F1VSyncWidth +F1VBackPorch))) {
             Match = FALSE;
         }
 
