@@ -255,5 +255,7 @@ void XAVBuf_AudioMixerVolumeControl(XAVBuf *InstancePtr, u8 Channel0Volume,
 /* DPDMA Interface functions */
 void XAVBuf_EnableGraphicsBuffers(XAVBuf *InstancePtr, u8 Enable);
 void XAVBuf_EnableVideoBuffers(XAVBuf *InstancePtr, u8 Enable);
+void XAVBuf_EnableAudio0Buffers(XAVBuf *InstancePtr, u8 Enable);
+void XAVBuf_EnableAudio1Buffers(XAVBuf *InstancePtr, u8 Enable);
 
 #endif //XAVBUF_H_
