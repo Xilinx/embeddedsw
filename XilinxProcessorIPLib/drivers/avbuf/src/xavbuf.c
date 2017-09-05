@@ -1035,3 +1035,57 @@ void XAVBuf_EnableGraphicsBuffers(XAVBuf *InstancePtr, u8 Enable)
 				RegVal);
 	}
 }
+
+/******************************************************************************/
+/**
+ * This function enables the audio interface between the DPDMA and the AVBuf
+ *
+ * @param	InstancePtr is a  pointer to the XAVBuf Instance.
+ * @param	Enable sets the corresponding buffers.
+ *
+ * @returns	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XAVBuf_EnableAudio0Buffers(XAVBuf *InstancePtr, u8 Enable)
+{
+	u32 RegVal = 0;
+
+	RegVal = (0x3 << XAVBUF_CHBUF4_BURST_LEN_SHIFT) |
+		XAVBUF_CHBUF4_FLUSH_MASK;
+	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF4, RegVal);
+	if(Enable) {
+		RegVal = (0x3 << XAVBUF_CHBUF4_BURST_LEN_SHIFT) |
+			XAVBUF_CHBUF4_EN_MASK;
+		XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF4,
+				RegVal);
+	}
+}
+
+/******************************************************************************/
+/**
+ * This function enables the audio interface between the DPDMA and the AVBuf
+ *
+ * @param	InstancePtr is a  pointer to the XAVBuf Instance.
+ * @param	Enable sets the corresponding buffers.
+ *
+ * @returns	None.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+void XAVBuf_EnableAudio1Buffers(XAVBuf *InstancePtr, u8 Enable)
+{
+	u32 RegVal = 0;
+
+	RegVal = (0x3 << XAVBUF_CHBUF5_BURST_LEN_SHIFT) |
+		XAVBUF_CHBUF5_FLUSH_MASK;
+	XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF5, RegVal);
+	if(Enable) {
+		RegVal = (0x3 << XAVBUF_CHBUF5_BURST_LEN_SHIFT) |
+			XAVBUF_CHBUF5_EN_MASK;
+		XAVBuf_WriteReg(InstancePtr->Config.BaseAddr, XAVBUF_CHBUF5,
+				RegVal);
+	}
+}
