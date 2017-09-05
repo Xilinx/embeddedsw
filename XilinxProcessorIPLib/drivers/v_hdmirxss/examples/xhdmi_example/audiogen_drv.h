@@ -32,6 +32,7 @@
  * 1.00  RHe 2014/12/00   First release
  * 1.1   RHe 2015/07/30   Updated ACR GetNVal to be dependent of the
  *                        TMDS character rate instead of the video mode.
+ * 1.2   MMO 2017/09/05   Replace U32 with UINTPTR for 64 Bit Addressing Support
  * </pre>
  *
  ******************************************************************************/
@@ -76,13 +77,14 @@ typedef struct {
 } XhdmiAudioGen_PLL_t;
 
 typedef struct {
-  u32 AudGenBase;
-  u32 ACRCtrlBase;
-  u32 AudClkGenBase;
+  UINTPTR AudGenBase;
+  UINTPTR ACRCtrlBase;
+  UINTPTR AudClkGenBase;
   XhdmiAudioGen_PLL_t AudClkPLL;
 } XhdmiAudioGen_t;
 
-int XhdmiAudGen_Init(XhdmiAudioGen_t *AudioGen, u32 AudGen_Base, u32 ACRCtrl_Base, u32 AudClk_Gen_Base);
+int XhdmiAudGen_Init(XhdmiAudioGen_t *AudioGen, UINTPTR AudGen_Base,
+                                 UINTPTR ACRCtrl_Base, UINTPTR AudClk_Gen_Base);
 int XhdmiAudGen_Reset(XhdmiAudioGen_t *AudioGen);
 int XhdmiAudGen_Start(XhdmiAudioGen_t *AudioGen, u8 setclr);
 int XhdmiAudGen_Drop(XhdmiAudioGen_t *AudioGen, u8 setclr);
