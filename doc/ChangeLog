@@ -211,6 +211,10 @@ Updated the XHdcp1x_CipherHandleInterrupt function to not mask the interrupts,
 as it is being done in hardware now.
 Updated the initialization to memset the XHdcp1x structure to 0.
 
+hwicap_v11_1
+Updated software reset api by adding delay
+Fixed compilation warnings
+
 intc_v3_7:
 Added U suffix for all macros in xparameters.h. Fix for CR#963131.
 
