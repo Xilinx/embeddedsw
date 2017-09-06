@@ -590,7 +590,7 @@ int XDpDma_Trigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
  * **************************************************************************/
 int XDpDma_ReTrigger(XDpDma *InstancePtr, XDpDma_ChannelType Channel)
 {
-	u32 Trigger;
+	u32 Trigger = 0;
 	u8 NumPlanes;
 	u8 Index;
 	switch(Channel) {
@@ -744,7 +744,6 @@ void  XDpDma_DisplayVideoFrameBuffer(XDpDma *InstancePtr,
 				     XDpDma_FrameBuffer *Plane2)
 {
 	u8 NumPlanes;
-	u8 Index;
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->Video.VideoInfo != NULL);
 
