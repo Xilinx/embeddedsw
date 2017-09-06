@@ -52,6 +52,8 @@
  *       rco  02/09/17 Fix c++ compilation warnings
  * 4.2   jsr  07/08/17 Added new video timings for SDI supported resolutions
  *       aad  07/10/17 Add XVIDC_VM_3840x2160_60_P_RB video format
+ *       aad  09/05/17 Fixed timings for 1366x768_60_P
+ *       aad  09/05/17 Added 1366x768_60_P_RB
  * </pre>
  *
 *******************************************************************************/
@@ -279,6 +281,9 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 		{1360, 48, 32, 80, 1520, 1,
 		768, 3, 5, 37, 813, 0, 0, 0, 0, 0} },
 	{ XVIDC_VM_1366x768_60_P, "1366x768@60Hz", XVIDC_FR_60HZ,
+		{1366, 70, 143, 213, 1792, 1,
+		768, 3, 3, 24, 798, 0, 0, 0, 0, 1} },
+	{ XVIDC_VM_1366x768_60_P_RB, "1366x768@60Hz (RB)", XVIDC_FR_60HZ,
 		{1366, 14, 56, 64, 1500, 1,
 		768, 1, 3, 28, 800, 0, 0, 0, 0, 1} },
 	{ XVIDC_VM_1400x1050_60_P, "1400x1050@60Hz", XVIDC_FR_60HZ,
@@ -500,9 +505,9 @@ const XVidC_VideoTimingMode XVidC_VideoTimingModes[XVIDC_VM_NUM_SUPPORTED] =
 	{ XVIDC_VM_3840x2160_60_P, "3840x2160@60Hz", XVIDC_FR_60HZ,
 		{3840, 176, 88, 296, 4400, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },
-    { XVIDC_VM_3840x2160_60_P_RB, "3840x2160@60Hz (RB)", XVIDC_FR_60HZ,
-        {3840, 48, 32, 80, 4000, 1,
-        2160, 3, 5, 54, 2222, 0, 0, 0, 0, 0} },
+	{ XVIDC_VM_3840x2160_60_P_RB, "3840x2160@60Hz (RB)", XVIDC_FR_60HZ,
+		{3840, 48, 32, 80, 4000, 1,
+		2160, 3, 5, 54, 2222, 0, 0, 0, 0, 0} },
 	{ XVIDC_VM_4096x2160_24_P, "4096x2160@24Hz", XVIDC_FR_24HZ,
 		{4096, 1020, 88, 296, 5500, 1,
 		2160, 8, 10, 72, 2250, 0, 0, 0, 0, 1} },

@@ -71,6 +71,7 @@
  *                     memory format enums
  *       aad  07/10/17 Add XVIDC_VM_3840x2160_60_P_RB video format
  *       vyc  10/04/17 Added new streaming alpha formats and new memory formats
+ *       aad  09/05/17 Add XVIDC_VM_1366x768_60_P_RB resolution
  * </pre>
  *
 *******************************************************************************/
@@ -164,6 +165,7 @@ typedef enum {
 	XVIDC_VM_1360x768_60_P,
 	XVIDC_VM_1360x768_120_P_RB,
 	XVIDC_VM_1366x768_60_P,
+	XVIDC_VM_1366x768_60_P_RB,
 	XVIDC_VM_1400x1050_60_P,
 	XVIDC_VM_1400x1050_60_P_RB,
 	XVIDC_VM_1400x1050_75_P,
