@@ -85,6 +85,7 @@
 *       mn     08/17/17 Added CCI support for A53 and disabled data cache
 *                       operations when it is enabled.
 *       mn     08/22/17 Updated for Word Access System support
+*       mn     09/06/17 Resolved compilation errors with IAR toolchain
 * </pre>
 *
 ******************************************************************************/
@@ -551,12 +552,13 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-static u8 ExtCsd[512];
+	static u8 ExtCsd[512];
+	u8 SCR[8] = { 0U };
 #pragma data_alignment = 4
 #else
-static u8 ExtCsd[512] __attribute__ ((aligned(32)));
-#endif
+	static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 	u8 SCR[8] __attribute__ ((aligned(32))) = { 0U };
+#endif
 	u8 ReadBuff[64] = { 0U };
 	s32 Status;
 	u32 Arg;

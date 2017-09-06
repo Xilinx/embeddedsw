@@ -325,6 +325,7 @@ sdps: Prevent SD0_OTAPDLYENA and SD01_OTAPDLYENA bit to set
 Properly set OTAPDLY value by clearing previous bit settings
 Added CCI support for SD
 Updated for Word Access System support
+Resolved compilation errors with IAR toolchain
 
 xilisf_v5_9:
 Expanded the description of serial_flash_family and serial_flash_interface.
