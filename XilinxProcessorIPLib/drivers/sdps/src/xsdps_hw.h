@@ -58,6 +58,7 @@
 * 3.1   sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 * 3.2   sk     03/20/17 Add support for EL1 non-secure mode.
 * 3.3   mn     08/22/17 Updated for Word Access System support
+*       mn     09/06/17 Added support for ARMCC toolchain
 * </pre>
 *
 ******************************************************************************/
@@ -1169,7 +1170,7 @@ extern "C" {
 *		u16 XSdPs_ReadReg(u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-static inline u16 XSdPs_ReadReg16(u32 BaseAddress, u8 RegOffset)
+static INLINE u16 XSdPs_ReadReg16(u32 BaseAddress, u8 RegOffset)
 {
 #if defined (__MICROBLAZE__)
 	u32 Reg;
@@ -1199,7 +1200,7 @@ static inline u16 XSdPs_ReadReg16(u32 BaseAddress, u8 RegOffset)
 *
 ******************************************************************************/
 
-static inline void XSdPs_WriteReg16(u32 BaseAddress, u8 RegOffset, u16 RegisterValue)
+static INLINE void XSdPs_WriteReg16(u32 BaseAddress, u8 RegOffset, u16 RegisterValue)
 {
 #if defined (__MICROBLAZE__)
 	u32 Reg;
@@ -1227,7 +1228,7 @@ static inline void XSdPs_WriteReg16(u32 BaseAddress, u8 RegOffset, u16 RegisterV
 *		u8 XSdPs_ReadReg(u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-static inline u8 XSdPs_ReadReg8(u32 BaseAddress, u8 RegOffset)
+static INLINE u8 XSdPs_ReadReg8(u32 BaseAddress, u8 RegOffset)
 {
 #if defined (__MICROBLAZE__)
 	u32 Reg;
@@ -1255,7 +1256,7 @@ static inline u8 XSdPs_ReadReg8(u32 BaseAddress, u8 RegOffset)
 *		u8 RegisterValue)
 *
 ******************************************************************************/
-static inline void XSdPs_WriteReg8(u32 BaseAddress, u8 RegOffset, u8 RegisterValue)
+static INLINE void XSdPs_WriteReg8(u32 BaseAddress, u8 RegOffset, u8 RegisterValue)
 {
 #if defined (__MICROBLAZE__)
 	u32 Reg;
