@@ -148,6 +148,7 @@
 * 	mn     08/07/17 Modify driver to support 64-bit DMA in arm64 only
 *       mn     08/17/17 Enabled CCI support for A53 by adding cache coherency
 *                       information.
+*       mn     09/06/17 Resolved compilation errors with IAR toolchain
 *
 * </pre>
 *
@@ -201,7 +202,13 @@ typedef struct {
 #else
 	u32 Address;		/**< Address of current dma transfer */
 #endif
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+} XSdPs_Adma2Descriptor;
+#pragma data_alignment = 4
+#else
 }  __attribute__((__packed__))XSdPs_Adma2Descriptor;
+#endif
 
 /**
  * The XSdPs driver instance data. The user is required to allocate a
