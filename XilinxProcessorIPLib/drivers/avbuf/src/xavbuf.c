@@ -296,7 +296,7 @@ static int XAVBuf_ConfigureVideo(XAVBuf *InstancePtr, u8 VideoSrc)
 	XAVBuf_VideoAttribute *Video = NULL;
 	u32 *ScalingFactors = NULL;
 
-	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
 	switch(VideoSrc) {
 		case XAVBUF_VIDSTREAM1_LIVE:
 			RegConfig = XAVBUF_BUF_LIVE_VID_CFG;
