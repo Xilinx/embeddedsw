@@ -1,18 +1,18 @@
 Changes for 2017.3
 ===============================
 
-v_sdi_rx_v1_0:
+v_sdirx_v1_0:
 Initial version for UHDSDI Rx soft IP
 
-v_sdi_rxss_v1_0:
+v_sdirxss_v1_0:
 Initial version for UHDSDI Rx subsystem soft IP
+Added application support for SDI rx subsystem example design
 
-v_sdi_tx_v1_0:
+v_sditx_v1_0:
 Initial version for UHDSDI Tx soft IP
 
-v_sdi_txss_v1_0:
+v_sditxss_v1_0:
 Initial version for UHDSDI Tx subsystem soft IP
-
 
 Removed the below obsolete drivers & libraries (CR:981161)
 axi_cdma_v4_1
@@ -763,7 +763,7 @@ Modified Cortex-A53 translation table for upper ps DDR. The 0x800000000 -
 and rest of the memory in that 32GB region is marked as reserved to avoid
 any speculative access
 Fixed Compilation warnings - CR#957004
-Updated makefiles of R5 and a53 64 bit/32 bit processors to fix error in clean 
+Updated makefiles of R5 and a53 64 bit/32 bit processors to fix error in clean
 target.It fixes the CR#966900.
 Added IAR compiler support for Cortex R5 BSP.
 Add safe Xil_Out32 implementation.
