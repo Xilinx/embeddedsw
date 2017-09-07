@@ -160,6 +160,11 @@ int XV_SdiTx_CfgInitialize(XV_SdiTx *InstancePtr, XV_SdiTx_Config *CfgPtr,
 	InstancePtr->GtRstDoneCallback = (XV_SdiTx_Callback)((void *)StubCallback);
 	InstancePtr->IsGtRstDoneCallbackSet = (FALSE);
 
+	InstancePtr->OverFlowCallback = (XV_SdiTx_Callback)((void *)StubCallback);
+	InstancePtr->IsOverFlowCallbackSet = (FALSE);
+
+	InstancePtr->UnderFlowCallback = (XV_SdiTx_Callback)((void *)StubCallback);
+	InstancePtr->IsUnderFlowCallbackSet = (FALSE);
 	/* Stop SDI TX Core */
 	XV_SdiTx_StopSdi(InstancePtr);
 
