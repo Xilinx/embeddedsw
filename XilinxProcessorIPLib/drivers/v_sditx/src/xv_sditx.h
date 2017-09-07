@@ -63,7 +63,8 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 #define XV_SDITX_MAX_DATASTREAM 8
-
+#define XV_SDITX_COLORFORMAT	(0x0 << 16)
+#define XV_SDITX_COLORDEPTH	(0x1 << 24)
 /**************************** Type Definitions *******************************/
 
 /** @name Handler Types
@@ -257,6 +258,7 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr,
 int XV_SdiTx_StopSdi(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ReportDetectedError(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearDetectedError(XV_SdiTx *InstancePtr);
+u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream);
 void XV_SdiTx_SetPayloadId(XV_SdiTx *InstancePtr, u8 DataStream, u32 Payload);
 void XV_SdiTx_SetPayloadLineNum(XV_SdiTx *InstancePtr,
 				XV_SdiTx_PayloadLineNum1 Field1LineNum,
@@ -264,6 +266,11 @@ void XV_SdiTx_SetPayloadLineNum(XV_SdiTx *InstancePtr,
 				u8 Field2En);
 void XV_SdiTx_SetCoreSettings(XV_SdiTx *InstancePtr,
 				XV_SdiTx_CoreSelId SelId, u8 Data);
+
+u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRate, XSdiVid_BitRate BitRate);
+u8 XV_SdiTx_GetPayloadIsInterlaced(XVidC_VideoFormat VideoFormat);
+u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio);
+u32 XV_SdiTx_GetPayloadByte1(XVidC_VideoMode VideoMode,XSdiVid_TransMode SdiMode, u8 *Data);
 
 /* Bridge and reset specific functions */
 void XV_SdiTx_VidBridgeEnable(XV_SdiTx *InstancePtr);
