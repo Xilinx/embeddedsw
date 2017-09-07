@@ -715,6 +715,8 @@ extern "C" {
 
 #define XRFDC_NCO_FQWD_LOW_MASK		0x0000FFFFU	/**< NCO Phase
 							increment[15:0] */
+#define XRFDC_NCO_FQWD_MASK			0x0000FFFFFFFFFFFFU	/**< NCO Freq
+							offset[48:0] */
 
 /* @} */
 

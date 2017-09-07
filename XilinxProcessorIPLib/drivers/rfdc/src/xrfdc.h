@@ -85,6 +85,7 @@
 *              08/30/17 Add additional info to BlockStatus.
 *              08/30/17 Add support for Coarse Mixer BYPASS mode.
 *              08/31/17 Removed Tile Reset Assert and Deassert.
+*              09/07/17 Add support for negative NCO freq.
 *
 * </pre>
 *
@@ -423,7 +424,8 @@ typedef struct {
 #define XRFDC_SELECT_ALL_TILES		-1
 #define XRFDC_ADC_4GSPS				1U
 
-#define XRFDC_NCO_FREQ_MULTIPLIER		(0x1LL << 48U) /* 2^48 */
+#define XRFDC_NCO_FREQ_MULTIPLIER		((0x1LL << 48U) - 2) /* 2^48 -2 */
+#define XRFDC_NCO_FREQ_MIN_MULTIPLIER	(0x1LL << 48U) /* 2^48 */
 #define XRFDC_NCO_PHASE_MULTIPLIER		(0x1U << 17U) /* 2^17 */
 #define XRFDC_QMC_PHASE_MULT			(0x1U << 11U) /* 2^11 */
 #define XRFDC_QMC_GAIN_MULT				(0x1U << 14U) /* 2^14 */
