@@ -36,6 +36,10 @@ BEGIN driver dptxss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
 	OPTION copyfiles = all;
+<<<<<<< HEAD
 	OPTION VERSION = 6.0;
+=======
+	OPTION VERSION = 4.3;
+>>>>>>> DPTXSS: Add userpixelwidth config support
 	OPTION NAME = dptxss;
 END driver

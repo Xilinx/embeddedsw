@@ -59,8 +59,13 @@
  * 5.2   aad  01/24/17 Disable end of line reset for reduced blanking
  * 6.0   tu   07/20/17 Allowing Custom VTM in XDp_TxCfgMsaUseStandardVideoMode
  *                     function.
+<<<<<<< HEAD
  * 6.0   aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
  * 6.0   tu   09/06/17 Added Set UserPixelWidth support on tx side
+=======
+ * 5.3	  aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
+ * 5.4   tu   06/09/17 Added Set UserPixelWidth support on tx side
+>>>>>>> DPTXSS: Add userpixelwidth config support
  * </pre>
  *
 *******************************************************************************/
@@ -966,9 +971,13 @@ void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x1);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x0);
 }
+<<<<<<< HEAD
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
+=======
+
+>>>>>>> DPTXSS: Add userpixelwidth config support
 /******************************************************************************/
 /**
  * This function configures the number of pixels output through the user data

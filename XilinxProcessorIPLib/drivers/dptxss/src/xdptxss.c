@@ -59,12 +59,20 @@
 *		    image stability
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
 *      aad 09/06/16 Updates to support 64-bit base address
+<<<<<<< HEAD
 * 5.0  tu  07/20/17 Allowing Custom VTM in XDpTxSs_SetVidMode function.
 * 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
 * 5.0  tu  08/11/17 Removing ceil() to remove dependency on math library.
 * 5.0  tu  09/06/17 Set timer callback after HDCP initialization
 * 5.0  tu  09/06/17 Added Set UserPixelWidth support on tx side
 * 5.0  tu  09/08/17 Set HPD callbacks for HPD event and HPD pulse
+=======
+* 4.1  tu  07/20/17 Allowing Custom VTM in XDpTxSs_SetVidMode function.
+* 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
+* 4.2  tu  08/11/17 Removing ceil() to remove dependency on math library.
+* 4.2  tu  09/06/17 Set timer callback after HDCP initialization
+* 4.3  tu  09/06/17 Added Set UserPixelWidth support on tx side
+>>>>>>> DPTXSS: Add userpixelwidth config support
 * </pre>
 *
 ******************************************************************************/
