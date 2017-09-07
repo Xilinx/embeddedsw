@@ -75,4 +75,11 @@
 /* Enable Power Management Module */
 #define ENABLE_PM
 
+/* FPD WDT recovery action */
+#ifdef ENABLE_RECOVERY
+#define FPD_WDT_EM_ACTION EM_ACTION_CUSTOM
+#else
+#define FPD_WDT_EM_ACTION EM_ACTION_SRST
+#endif
+
 #endif /* XPFW_CONFIG_H_ */
