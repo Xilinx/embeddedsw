@@ -186,9 +186,6 @@ int XV_SdiTx_CfgInitialize(XV_SdiTx *InstancePtr, XV_SdiTx_Config *CfgPtr,
 	/* Set global interrupt enable bit */
 	XV_SdiTx_SetGlobalInterrupt(InstancePtr);
 
-	/* Enable all interrupt bits */
-	XV_SdiTx_IntrEnable(InstancePtr, XV_SDITX_IER_ALLINTR_MASK);
-
 	/* Reset the hardware and set the flag to indicate the driver is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
