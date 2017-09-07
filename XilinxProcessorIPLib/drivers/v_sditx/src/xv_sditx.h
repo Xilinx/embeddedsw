@@ -75,7 +75,10 @@ extern "C" {
 * interrupt requests from peripheral.
 */
 typedef enum {
-	XV_SDITX_HANDLER_GTRESET_DONE = 1
+	XV_SDITX_HANDLER_GTRESET_DONE = 1,
+	XV_SDITX_HANDLER_OVERFLOW,
+	XV_SDITX_HANDLER_UNDERFLOW
+
 /*	XV_SDITX_HANDLER_STREAM_UP */
 } XV_SdiTx_HandlerType;
 /*@}*/
@@ -203,6 +206,16 @@ typedef struct {
   XV_SdiTx_Callback	GtRstDoneCallback;	/**< Callback for stream down callback */
   void			*GtRstDoneRef;		/**< To be passed to the stream down callback */
   u32			IsGtRstDoneCallbackSet;	/**< Set flag. This flag is set to true when the
+						 * callback has been registered */
+
+  XV_SdiTx_Callback	OverFlowCallback;	/**< Callback for over flow callback */
+  void			*OverFlowRef;		/**< To be passed to the over flow callback */
+  u32			IsOverFlowCallbackSet;	/**< Set flag. This flag is set to true when the
+						 * callback has been registered */
+
+  XV_SdiTx_Callback	UnderFlowCallback;	/**< Callback for under flow callback */
+  void			*UnderFlowRef;		/**< To be passed to the under flow callback */
+  u32			IsUnderFlowCallbackSet;	/**< Set flag. This flag is set to true when the
 						 * callback has been registered */
 
   XV_SdiTx_Stream	Stream[XV_SDITX_MAX_DATASTREAM];/**< SDI TX stream information */
