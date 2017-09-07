@@ -58,6 +58,7 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDI_CH_SHIFT 29
 
 
 /**************************** Type Definitions *******************************/
@@ -407,6 +408,258 @@ void XV_SdiTx_SetCoreSettings(XV_SdiTx *InstancePtr,XV_SdiTx_CoreSelId SelId,
 
 	XV_SdiTx_WriteReg((InstancePtr)->Config.BaseAddress,
 				(XV_SDITX_MDL_CTRL_OFFSET), (RegData));
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function calculates the equivalent payload nibble for Framerate
+ *
+ * @param	FrameRate is a variable of type XVidC_FrameRate.
+ * @param	BitRate is a variable of type XSdiVid_BitRate.
+ *
+ * @return
+ *		- returns 4-bit value
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRate, XSdiVid_BitRate BitRate)
+{
+	u32 Data;
+
+	/* Verify argument. */
+	if (BitRate == XSDIVID_BR_INTEGER) {
+		switch (FrameRate) {
+		case (XVIDC_FR_24HZ):
+			Data = 0x3;
+			break;
+
+		case (XVIDC_FR_25HZ):
+			Data = 0x5;
+			break;
+
+		case (XVIDC_FR_30HZ):
+			Data = 0x7;
+			break;
+
+		case (XVIDC_FR_48HZ):
+			Data = 0x8;
+			break;
+
+		case (XVIDC_FR_50HZ):
+			Data = 0x9;
+			break;
+
+		case (XVIDC_FR_60HZ):
+			Data = 0xB;
+			break;
+
+		default:
+			Data = 0;
+			break;
+		}
+	} else {
+		switch (FrameRate) {
+		case (XVIDC_FR_24HZ):
+			Data = 0x2;
+			break;
+
+		case (XVIDC_FR_30HZ):
+			Data = 0x6;
+			break;
+
+		case (XVIDC_FR_48HZ):
+			Data = 0x4;
+			break;
+
+		case (XVIDC_FR_60HZ):
+			Data = 0xA;
+			break;
+
+		default:
+			Data = 0;
+			break;
+		}
+	}
+
+	return Data & 0xF;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function calculates the equivalent payload bit for given VideoFormat.
+ *
+ * @param	VideoFormat is a variable of type XVidC_VideoFormat.
+ *
+ * @return
+ *		- returns 1-bit value
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u8 XV_SdiTx_GetPayloadIsInterlaced(XVidC_VideoFormat VideoFormat)
+{
+	u32 Data;
+	Xil_AssertNonvoid(VideoFormat != XVIDC_VF_UNKNOWN);
+
+	/* Verify argument. */
+	switch (VideoFormat) {
+	case (XVIDC_VF_PROGRESSIVE):
+		Data = 0x1;
+		break;
+
+	case (XVIDC_VF_INTERLACED):
+		Data = 0x0;
+		break;
+	}
+
+	return Data & 0x1;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function calculates the equivalent payload bit for given AspectRatio.
+ *
+ * @param	AspectRatio is a variable of type XVidC_AspectRatio.
+ *
+ * @return
+ *		- returns 0 for 4x3 aspect ratio
+ *		- returns 1 for 16x9 aspect ratio
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio)
+{
+	u32 Data;
+
+	/* Verify argument. */
+	switch (AspectRatio) {
+	case (XVIDC_AR_4_3):
+		Data = 0x0;
+		break;
+
+	case (XVIDC_AR_16_9):
+		Data = 0x1;
+		break;
+	}
+
+	return Data & 0x1;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function calculates the 2nd byte of the Payload packet for all SDI modes
+ *
+ * @param	VideoMode is a variable of type XVidC_VideoMode.
+ * @param	SdiMode is a variable to the XSdiVid_TransMode.
+ * @param	Data is a pointer to populate the Byte1 of ST352 payload.
+ *
+ * @return
+ *		- returns 8-bit value
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+u32 XV_SdiTx_GetPayloadByte1(XVidC_VideoMode VideoMode,XSdiVid_TransMode SdiMode, u8 *Data)
+{
+	const XVidC_VideoTiming *TimingPtr;
+
+	TimingPtr = XVidC_GetTimingInfo((u32)VideoMode);
+	if (!TimingPtr) {
+		return XST_FAILURE;
+	}
+
+
+	/* These values are taken from ST352, ST 2082-10, ST 2081-10 documents */
+	switch (TimingPtr->VActive) {
+	case 720:
+		if (SdiMode == XSDIVID_MODE_3GA)
+				*Data = 0x88;
+		else
+				*Data = 0x84;
+		break;
+	case 1080:
+		if (SdiMode == XSDIVID_MODE_3GA)
+				*Data = 0x89;
+		else if (SdiMode == XSDIVID_MODE_3GB)
+				*Data = 0x8A;
+		else if (SdiMode == XSDIVID_MODE_6G)
+				*Data = 0xC1;
+		else
+				*Data = 0x85;
+		break;
+	case 2160:
+		if (SdiMode == XSDIVID_MODE_12G)
+				*Data = 0xCE;
+		else if (SdiMode == XSDIVID_MODE_6G)
+				*Data = 0xC0;
+		else if (SdiMode == XSDIVID_MODE_3GA)
+				*Data = 0x89;
+		else
+				*Data = 0x8A;
+		break;
+	case 288:
+	case 240:
+			*Data = 0x81;
+		break;
+	default:
+			return XST_FAILURE;
+
+	}
+	return XST_SUCCESS;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function calculates the final st352 payload value for all SDI modes
+ * with given video mode and SDI data stream number
+ *
+ * @param	InstancePtr is a pointer to the XV_SdiTx core instance.
+ * @param	VideoMode is a variable of type XVidC_VideoMode.
+ * @param	SdiMode is a variable of type XSdiVid_TransMode.
+ * @param	DataStream is the stream number for which payload is calculated.
+ *
+ * @return
+*		XST_SUCCESS / XST_FAILURE.
+ *
+ * @note		None.
+ *
+ ******************************************************************************/
+/*TODO: test this API for all SDI modes */
+u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream)
+{
+	u32 Data = 0, Status;
+	u8 Byte1;
+
+	if (SdiMode == XSDIVID_MODE_3GB)
+		InstancePtr->Stream[DataStream].CAssignment = (DataStream << 1);
+
+	Status = XV_SdiTx_GetPayloadByte1(VideoMode, SdiMode, &Byte1);
+	if (Status == XST_FAILURE)
+		return Status;
+	Data = Byte1;
+	Data |=	XV_SDITX_COLORFORMAT;
+	Data |=	XV_SDITX_COLORDEPTH;
+	Data |=	(XV_SdiTx_GetPayloadFrameRate(InstancePtr->Stream[DataStream].Video.FrameRate,
+						InstancePtr->Transport.IsFractional) << 8);
+	Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << 14);
+
+	if ((InstancePtr->Stream[DataStream].Video.Timing.F0PVTotal >= 1125) && (SdiMode != XSDIVID_MODE_3GB))
+		Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << 15);
+
+	Data |=	 (XV_SdiTx_GetPayloadAspectRatio(InstancePtr->Stream[DataStream].Video.AspectRatio) << 23);
+	Data |=	 ((InstancePtr->Stream[DataStream].CAssignment & 0x7) << 29);
+
+	if (SdiMode == XSDIVID_MODE_3GB)
+		Data |= (DataStream << 1) << XSDI_CH_SHIFT;
+	InstancePtr->Stream[DataStream].PayloadId = Data;
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
