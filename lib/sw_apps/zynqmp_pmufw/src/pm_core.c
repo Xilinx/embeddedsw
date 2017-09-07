@@ -802,6 +802,12 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 #ifdef IDLE_PERIPHERALS
 		PmMasterIdleSystem();
 #endif
+		/*
+		 * Reset states of Slave devices before shutdown. This ensures
+		 * that devices are in on state after reboot.
+		 */
+		PmResetSlaveStates();
+
 		XPfw_ResetPsOnly();
 		break;
 	case PMF_SHUTDOWN_SUBTYPE_SYSTEM:
@@ -813,6 +819,12 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 #ifdef IDLE_PERIPHERALS
 		PmMasterIdleSystem();
 #endif
+		/*
+		 * Reset states of Slave devices before shutdown. This ensures
+		 * that devices are in on state after reboot.
+		 */
+		PmResetSlaveStates();
+
 		XPfw_RMW32(CRL_APB_RESET_CTRL,
 			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK,
 			   CRL_APB_RESET_CTRL_SOFT_RESET_MASK);
