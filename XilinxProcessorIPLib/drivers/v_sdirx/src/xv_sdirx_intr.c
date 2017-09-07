@@ -64,6 +64,8 @@
 
 static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr);
 static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr);
+static void SdiRx_OverFlowIntrHandler(XV_SdiRx *InstancePtr);
+static void SdiRx_UnderFlowIntrHandler(XV_SdiRx *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -205,6 +207,30 @@ void XV_SdiRx_IntrHandler(void *InstancePtr)
 		/* Clear handled interrupt(s) */
 		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
 	}
+
+	/* OverFlow Interrupt */
+	Mask = ActiveIntr & XV_SDIRX_ISR_OVERFLOW_MASK;
+	if (Mask) {
+
+		/* Jump to Video lock interrupt handler */
+		SdiRx_OverFlowIntrHandler(SdiRxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
+	}
+
+	/* UnderFlow Interrupt */
+	Mask = ActiveIntr & XV_SDIRX_ISR_UNDERFLOW_MASK;
+	if (Mask) {
+
+		/* Jump to Video unlock interrupt handler */
+		SdiRx_UnderFlowIntrHandler(SdiRxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiRx_InterruptClear(SdiRxPtr, Mask);
+	}
+
+
 }
 
 /*****************************************************************************/
@@ -218,6 +244,8 @@ void XV_SdiRx_IntrHandler(void *InstancePtr)
 * -------------------------		---------------------------------------
 * (XV_SDIRX_HANDLER_STREAM_DOWN)	StreamDownCallback
 * (XV_SDIRX_HANDLER_STREAM_UP)		StreamUpCallback
+* (XV_SDIRX_HANDLER_OVERFLOW)		OverFlowCallback
+* (XV_SDIRX_HANDLER_UNDERFLOW)		UnderFlowCallback
 * </pre>
 *
 * @param	InstancePtr is a pointer to the SDI RX core instance.
@@ -260,6 +288,22 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 		InstancePtr->StreamUpCallback = (XV_SdiRx_Callback)CallbackFunc;
 		InstancePtr->StreamUpRef = CallbackRef;
 		InstancePtr->IsStreamUpCallbackSet = (TRUE);
+		Status = (XST_SUCCESS);
+		break;
+
+	/* OverFlow */
+	case (XV_SDIRX_HANDLER_OVERFLOW):
+		InstancePtr->OverFlowCallback = (XV_SdiRx_Callback)CallbackFunc;
+		InstancePtr->OverFlowRef = CallbackRef;
+		InstancePtr->IsOverFlowCallbackSet = (TRUE);
+		Status = (XST_SUCCESS);
+		break;
+
+	/* UnderFlow */
+	case (XV_SDIRX_HANDLER_UNDERFLOW):
+		InstancePtr->UnderFlowCallback = (XV_SdiRx_Callback)CallbackFunc;
+		InstancePtr->UnderFlowRef = CallbackRef;
+		InstancePtr->IsUnderFlowCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -648,5 +692,45 @@ static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr)
 	/* Call stream up callback */
 	if (InstancePtr->IsStreamDownCallbackSet) {
 		InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the SDI Overflow Event.
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void SdiRx_OverFlowIntrHandler(XV_SdiRx *InstancePtr)
+{
+	/* Call OverFlow callback */
+	if (InstancePtr->IsOverFlowCallbackSet) {
+		InstancePtr->OverFlowCallback(InstancePtr->OverFlowRef);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the SDI Underflow Event.
+*
+* @param	InstancePtr is a pointer to the XV_SdiRx core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void SdiRx_UnderFlowIntrHandler(XV_SdiRx *InstancePtr)
+{
+	/* Call UnderFlow callback */
+	if (InstancePtr->IsUnderFlowCallbackSet) {
+		InstancePtr->UnderFlowCallback(InstancePtr->UnderFlowRef);
 	}
 }

@@ -85,8 +85,6 @@ extern "C" {
  */
 #define XV_SDIRXSS_IER_VIDEO_LOCK_MASK		XV_SDIRX_IER_VIDEO_LOCK_MASK
 #define XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK	XV_SDIRX_IER_VIDEO_UNLOCK_MASK
-#define XV_SDIRXSS_IER_OVERFLOW_MASK		XV_SDIRX_IER_OVERFLOW_MASK
-#define XV_SDIRXSS_IER_UNDERFLOW_MASK		XV_SDIRX_IER_UNDERFLOW_MASK
 #define XV_SDIRXSS_IER_ALLINTR_MASK		XV_SDIRX_IER_ALLINTR_MASK
 
 /**************************** Type Definitions *******************************/
@@ -125,7 +123,7 @@ typedef struct {
  */
 typedef enum {
 	XV_SDIRXSS_HANDLER_STREAM_DOWN = 1,	/**< Handler for stream down event */
-	XV_SDIRXSS_HANDLER_STREAM_UP		/**< Handler for stream up event */
+	XV_SDIRXSS_HANDLER_STREAM_UP,		/**< Handler for stream up event */
 } XV_SdiRxSs_HandlerType;
 /*@}*/
 
