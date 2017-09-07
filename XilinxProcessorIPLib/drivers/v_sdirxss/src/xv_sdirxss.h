@@ -76,7 +76,18 @@ extern "C" {
 #include "xv_sdirx.h"
 
 /************************** Constant Definitions *****************************/
-
+/** @name Bitmasks for interrupt callbacks
+ *
+ * Please refer to SDI Rx driver for details of the bitmasks.
+ * The application should use the XV_SDIRXSS_IER* masks in the call back functions
+ * to decode the exact cause of interrupt and handle it accordingly.
+ * @{
+ */
+#define XV_SDIRXSS_IER_VIDEO_LOCK_MASK		XV_SDIRX_IER_VIDEO_LOCK_MASK
+#define XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK	XV_SDIRX_IER_VIDEO_UNLOCK_MASK
+#define XV_SDIRXSS_IER_OVERFLOW_MASK		XV_SDIRX_IER_OVERFLOW_MASK
+#define XV_SDIRXSS_IER_UNDERFLOW_MASK		XV_SDIRX_IER_UNDERFLOW_MASK
+#define XV_SDIRXSS_IER_ALLINTR_MASK		XV_SDIRX_IER_ALLINTR_MASK
 
 /**************************** Type Definitions *******************************/
 /**
@@ -219,6 +230,8 @@ XVidC_VideoStream *XV_SdiRxSs_GetVideoStream(XV_SdiRxSs *InstancePtr,
 XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr);
 u8 XV_SdiRxSs_GetTransportBitRate(XV_SdiRxSs *InstancePtr);
 int XV_SdiRxSs_IsStreamUp(XV_SdiRxSs *InstancePtr);
+void XV_SdiRxSs_IntrEnable(XV_SdiRxSs *InstancePtr, u32 IntrMask);
+void XV_SdiRxSs_IntrDisable(XV_SdiRxSs *InstancePtr, u32 IntrMask);
 
 /* Self test function in xv_sdirxss_selftest.c */
 u32 XV_SdiRxSs_SelfTest(XV_SdiRxSs *InstancePtr);
