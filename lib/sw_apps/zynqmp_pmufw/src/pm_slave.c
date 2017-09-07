@@ -799,4 +799,18 @@ PmNodeClass pmNodeClassSlave_g = {
 	.isUsable = PmSlaveIsUsable,
 };
 
+void PmResetSlaveStates(void)
+{
+	PmSlave* slave;
+	int i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNodeSlaveBucket); i++) {
+		slave = (PmSlave*)pmNodeSlaveBucket[i]->derived;
+		if (NULL != slave->slvFsm->enterState) {
+			slave->slvFsm->enterState(slave,
+						  slave->slvFsm->statesCnt - 1);
+		}
+	}
+}
+
 #endif
