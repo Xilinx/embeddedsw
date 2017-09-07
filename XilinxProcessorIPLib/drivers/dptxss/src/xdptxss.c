@@ -62,6 +62,7 @@
 * 4.1  tu  07/20/17 Allowing Custom VTM in XDpTxSs_SetVidMode function.
 * 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
 * 4.2  tu  08/11/17 Removing ceil() to remove dependency on math library.
+* 4.2  tu  09/06/17 Set timer callback after HDCP initialization
 * </pre>
 *
 ******************************************************************************/
@@ -252,14 +253,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 					InstancePtr->Config.BaseAddress;
 		InstancePtr->TmrCtrPtr->BaseAddress +=
 					InstancePtr->Config.BaseAddress;
-
-		/* Initialize the HDCP timer functions */
-		XHdcp1x_SetTimerStart(InstancePtr->Hdcp1xPtr,
-						&DpTxSs_HdcpStartTimer);
-		XHdcp1x_SetTimerStop(InstancePtr->Hdcp1xPtr,
-						&DpTxSs_HdcpStopTimer);
-		XHdcp1x_SetTimerDelay(InstancePtr->Hdcp1xPtr,
-						&DpTxSs_HdcpBusyDelay);
 	}
 
 	/* Check for HDCP availability */
@@ -287,6 +280,22 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 
 		/* Set key selection value for TX */
 		XHdcp1x_SetKeySelect(InstancePtr->Hdcp1xPtr, 0x0);
+	}
+
+	/* Check for Timer Counter and Hdcp1x availability */
+	if (InstancePtr->TmrCtrPtr != NULL && InstancePtr->Hdcp1xPtr != NULL) {
+		/* Set Timer Counter instance in HDCP
+		 * that will be used in callbacks */
+		InstancePtr->Hdcp1xPtr->Hdcp1xRef =
+				(void *)InstancePtr->TmrCtrPtr;
+
+		/* Initialize the HDCP timer callback functions */
+		XHdcp1x_SetTimerStart(InstancePtr->Hdcp1xPtr,
+					&DpTxSs_HdcpStartTimer);
+		XHdcp1x_SetTimerStop(InstancePtr->Hdcp1xPtr,
+					&DpTxSs_HdcpStopTimer);
+		XHdcp1x_SetTimerDelay(InstancePtr->Hdcp1xPtr,
+					&DpTxSs_HdcpBusyDelay);
 	}
 #endif
 
