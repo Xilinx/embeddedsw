@@ -74,6 +74,8 @@ XV_SdiRxSs_SubCores XV_SdiRxSs_SubCoreRepo[XPAR_XV_SDIRXSS_NUM_INSTANCES];
 /************************** Function Prototypes ******************************/
 static void XV_SdiRxSs_StreamDownCallback(void *CallbackRef);
 static void XV_SdiRxSs_StreamUpCallback(void *CallbackRef);
+static void XV_SdiRxSs_OverFlowCallback(void *CallbackRef);
+static void XV_SdiRxSs_UnderFlowCallback(void *CallbackRef);
 static void XV_SdiRxSs_ReportTiming(XV_SdiRxSs *InstancePtr);
 static void XV_SdiRxSs_ReportSubcoreVersion(XV_SdiRxSs *InstancePtr);
 
@@ -145,6 +147,17 @@ static int XV_SdiRxSs_RegisterSubsysCallbacks(XV_SdiRxSs *InstancePtr)
 					XV_SDIRX_HANDLER_STREAM_UP,
 					XV_SdiRxSs_StreamUpCallback,
 					InstancePtr);
+
+		XV_SdiRx_SetCallback(SdiRxSsPtr->SdiRxPtr,
+					XV_SDIRX_HANDLER_OVERFLOW,
+					XV_SdiRxSs_OverFlowCallback,
+					InstancePtr);
+
+		XV_SdiRx_SetCallback(SdiRxSsPtr->SdiRxPtr,
+					XV_SDIRX_HANDLER_UNDERFLOW,
+					XV_SdiRxSs_UnderFlowCallback,
+					InstancePtr);
+
 	}
 
 	return XST_SUCCESS;
@@ -250,6 +263,52 @@ static void XV_SdiRxSs_StreamDownCallback(void *CallbackRef)
 	/* Check if user callback has been registered */
 	if (SdiRxSsPtr->StreamDownCallback) {
 		SdiRxSsPtr->StreamDownCallback(SdiRxSsPtr->StreamDownRef);
+	}
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the Rx Over Flow occurs.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void XV_SdiRxSs_OverFlowCallback(void *CallbackRef)
+{
+	XV_SdiRxSs *SdiRxSsPtr = (XV_SdiRxSs *)CallbackRef;
+
+	/* Check if user callback has been registered */
+	if (SdiRxSsPtr->OverFlowCallback) {
+		SdiRxSsPtr->OverFlowCallback(SdiRxSsPtr->OverFlowRef);
+	}
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the Rx Under Flow occurs.
+*
+* @param	None.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+static void XV_SdiRxSs_UnderFlowCallback(void *CallbackRef)
+{
+	XV_SdiRxSs *SdiRxSsPtr = (XV_SdiRxSs *)CallbackRef;
+
+	/* Check if user callback has been registered */
+	if (SdiRxSsPtr->UnderFlowCallback) {
+		SdiRxSsPtr->UnderFlowCallback(SdiRxSsPtr->UnderFlowRef);
 	}
 
 }
@@ -378,6 +437,8 @@ void XV_SdiRxSs_Stop(XV_SdiRxSs *InstancePtr)
 * -----------------------         ---------------------------------------------
 * (XV_SDIRXSS_HANDLER_STREAM_DOWN)         StreamDownCallback
 * (XV_SDIRXSS_HANDLER_STREAM_UP)           StreamUpCallback
+* (XV_SDIRXSS_HANDLER_OVERFLOW)		OverFlowCallback
+* (XV_SDIRXSS_HANDLER_UNDERFLOW)           UnderFlowCallback
 * </pre>
 *
 * @param    InstancePtr is a pointer to the SDI RX Subsystem instance.
@@ -420,6 +481,22 @@ void *CallbackFunc, void *CallbackRef)
 		InstancePtr->StreamUpCallback =
 		(XV_SdiRxSs_Callback)CallbackFunc;
 		InstancePtr->StreamUpRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+		/* Over Flow */
+	case (XV_SDIRXSS_HANDLER_OVERFLOW):
+		InstancePtr->OverFlowCallback =
+		(XV_SdiRxSs_Callback)CallbackFunc;
+		InstancePtr->OverFlowRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+		/* Under Flow */
+	case (XV_SDIRXSS_HANDLER_UNDERFLOW):
+		InstancePtr->UnderFlowCallback =
+		(XV_SdiRxSs_Callback)CallbackFunc;
+		InstancePtr->UnderFlowRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
 

@@ -85,6 +85,8 @@ extern "C" {
  */
 #define XV_SDIRXSS_IER_VIDEO_LOCK_MASK		XV_SDIRX_IER_VIDEO_LOCK_MASK
 #define XV_SDIRXSS_IER_VIDEO_UNLOCK_MASK	XV_SDIRX_IER_VIDEO_UNLOCK_MASK
+#define XV_SDIRXSS_IER_OVERFLOW_MASK		XV_SDIRX_IER_OVERFLOW_MASK
+#define XV_SDIRXSS_IER_UNDERFLOW_MASK		XV_SDIRX_IER_UNDERFLOW_MASK
 #define XV_SDIRXSS_IER_ALLINTR_MASK		XV_SDIRX_IER_ALLINTR_MASK
 
 /**************************** Type Definitions *******************************/
@@ -100,6 +102,8 @@ typedef enum {
 	XV_SDIRXSS_LOG_EVT_RESET,	/**< Log event SDIRXSS Reset. */
 	XV_SDIRXSS_LOG_EVT_STREAMUP,	/**< Log event Stream Up. */
 	XV_SDIRXSS_LOG_EVT_STREAMDOWN,	/**< Log event Stream Down. */
+	XV_SDIRXSS_LOG_EVT_OVERFLOW,	/**< Log event Over flow. */
+	XV_SDIRXSS_LOG_EVT_UNDERFLOW,	/**< Log event Under flow. */
 	XV_SDIRXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
 	XV_SDIRXSS_LOG_EVT_SETSTREAM,	/**< Log event SDIRXSS Setstream. */
 	XV_SDIRXSS_LOG_EVT_DUMMY,	/**< Dummy Event should be last */
@@ -124,6 +128,8 @@ typedef struct {
 typedef enum {
 	XV_SDIRXSS_HANDLER_STREAM_DOWN = 1,	/**< Handler for stream down event */
 	XV_SDIRXSS_HANDLER_STREAM_UP,		/**< Handler for stream up event */
+	XV_SDIRXSS_HANDLER_OVERFLOW,		/**< Handler for over flow event */
+	XV_SDIRXSS_HANDLER_UNDERFLOW		/**< Handler for under flow event */
 } XV_SdiRxSs_HandlerType;
 /*@}*/
 
@@ -180,6 +186,12 @@ typedef struct {
 
 	XV_SdiRxSs_Callback StreamUpCallback; /**< Callback for stream up event */
 	void *StreamUpRef;		/**< To be passed to the stream up callback */
+
+	XV_SdiRxSs_Callback OverFlowCallback; /**< Callback for Over flow event */
+	void *OverFlowRef;		/**< To be passed to the Over flow callback */
+
+	XV_SdiRxSs_Callback UnderFlowCallback; /**< Callback for Under Flow event */
+	void *UnderFlowRef;		/**< To be passed to the Under Flow callback */
 
 	u8 IsStreamUp;			/**< SDI RX Stream Up */
 } XV_SdiRxSs;

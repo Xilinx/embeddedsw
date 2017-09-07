@@ -215,6 +215,12 @@ void XV_SdiRxSs_LogDisplay(XV_SdiRxSs *InstancePtr)
 	    case (XV_SDIRXSS_LOG_EVT_STREAMDOWN):
 		    xil_printf("RX Stream is Down\r\n");
 			break;
+	    case (XV_SDIRXSS_LOG_EVT_OVERFLOW):
+		    xil_printf("RX Stream is Overflowed\r\n");
+			break;
+	    case (XV_SDIRXSS_LOG_EVT_UNDERFLOW):
+		    xil_printf("RX Stream is Underflowed\r\n");
+			break;
 	    case (XV_SDIRXSS_LOG_EVT_STREAMSTART):
 		    xil_printf("RX Stream Start\r\n");
 			break;
