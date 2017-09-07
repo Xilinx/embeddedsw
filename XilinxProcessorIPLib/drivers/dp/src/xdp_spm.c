@@ -60,6 +60,7 @@
  * 5.3   tu   07/20/17 Allowing Custom VTM in XDp_TxCfgMsaUseStandardVideoMode
  *                     function.
  * 5.3	  aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
+ * 5.4   tu   06/09/17 Added Set UserPixelWidth support on tx side
  * </pre>
  *
 *******************************************************************************/
@@ -918,6 +919,38 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 		(MsaConfig->AvgBytesPerTU % 1000) * 1024 / 1000);
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_INIT_WAIT +
 			StreamOffset[Stream - 1], MsaConfig->InitWait);
+}
+
+/******************************************************************************/
+/**
+ * This function configures the number of pixels output through the user data
+ * interface for DisplayPort TX core.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	UserPixelWidth is the user pixel width to be configured.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+******************************************************************************/
+void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
+		       (UserPixelWidth == 4));
+	/* Check the main link status. */
+	Xil_AssertVoid(XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				   XDP_TX_ENABLE_MAIN_STREAM) == 0);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_USER_PIXEL_WIDTH,
+		     UserPixelWidth);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x1);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x0);
 }
 
 /******************************************************************************/
