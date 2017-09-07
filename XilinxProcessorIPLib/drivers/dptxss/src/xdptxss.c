@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.c
-* @addtogroup dptxss_v4_1
+* @addtogroup dptxss_v4_3
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
