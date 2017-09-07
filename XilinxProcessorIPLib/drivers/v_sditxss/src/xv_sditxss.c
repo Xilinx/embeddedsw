@@ -902,3 +902,61 @@ int XV_SdiTxSs_IsStreamUp(XV_SdiTxSs *InstancePtr)
 
 	return InstancePtr->IsStreamUp;
 }
+
+/*****************************************************************************/
+/**
+* This function is used to configure the SDI TX interrupts that are to
+* be handled by the application. Refer to xv_sditxss_hw.h for interrupt masks.
+*
+* @param	InstancePtr pointer to XV_SdiTxSs instance
+* @param	IntrMask Indicates Mask for enable interrupts.
+*
+* @return
+*		None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_SdiTxSs_IntrEnable(XV_SdiTxSs *InstancePtr, u32 IntrMask)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
+
+	XV_SdiTx *SdiTxPtr;
+
+	SdiTxPtr = InstancePtr->SdiTxPtr;
+
+	IntrMask &= XV_SDITXSS_IER_ALLINTR_MASK;
+	Xil_AssertVoid(IntrMask != 0);
+	XV_SdiTx_IntrEnable(SdiTxPtr, IntrMask);
+}
+
+/*****************************************************************************/
+/**
+* This function is used to configure the SDI TX interrupts that are to
+* be handled by the application. Refer to xv_sditxss_hw.h for interrupt masks.
+*
+* @param	InstancePtr pointer to XV_SdiTxSs instance
+* @param	IntrMask Indicates Mask for disabling interrupts.
+*
+* @return
+*		None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XV_SdiTxSs_IntrDisable(XV_SdiTxSs *InstancePtr, u32 IntrMask)
+{
+	/* Verify arguments */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
+
+	XV_SdiTx *SdiTxPtr;
+
+	SdiTxPtr = InstancePtr->SdiTxPtr;
+
+	IntrMask &= XV_SDITXSS_IER_ALLINTR_MASK;
+	Xil_AssertVoid(IntrMask != 0);
+	XV_SdiTx_IntrDisable(SdiTxPtr, IntrMask);
+}
