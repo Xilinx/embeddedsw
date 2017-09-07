@@ -87,6 +87,8 @@ extern "C" {
 #define XV_SDITXSS_IER_GTTX_RSTDONE_MASK	XV_SDITX_IER_GTTX_RSTDONE_MASK
 #define XV_SDITXSS_IER_TX_CE_ALIGN_ERR_MASK	XV_SDITX_IER_TX_CE_ALIGN_ERR_MASK
 #define XV_SDITXSS_IER_AXI4S_VID_LOCK_MASK	XV_SDITX_IER_AXI4S_VID_LOCK_MASK
+#define XV_SDITXSS_IER_OVERFLOW_MASK		XV_SDITX_IER_OVERFLOW_MASK
+#define XV_SDITXSS_IER_UNDERFLOW_MASK		XV_SDITX_IER_UNDERFLOW_MASK
 #define XV_SDITXSS_IER_ALLINTR_MASK		XV_SDITX_IER_ALLINTR_MASK
 
 /**************************** Type Definitions *******************************/
@@ -103,6 +105,8 @@ typedef enum {
 	XV_SDITXSS_LOG_EVT_RESET,	/**< Log event SDITXSS Reset. */
 	XV_SDITXSS_LOG_EVT_STREAMUP,	/**< Log event Stream Up. */
 	XV_SDITXSS_LOG_EVT_STREAMDOWN,	/**< Log event Stream Down. */
+	XV_SDITXSS_LOG_EVT_OVERFLOW,	/**< Log event Over flow. */
+	XV_SDITXSS_LOG_EVT_UNDERFLOW,	/**< Log event Under Flow. */
 	XV_SDITXSS_LOG_EVT_STREAMSTART, /**< Log event Stream Start. */
 	XV_SDITXSS_LOG_EVT_STREAMCFG,
 	XV_SDITXSS_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
@@ -126,6 +130,8 @@ typedef struct {
 */
 typedef enum {
     XV_SDITXSS_HANDLER_GTREADY = 1,		/**< Handler for connect event */
+    XV_SDITXSS_HANDLER_OVERFLOW,		/**< Handler for overflow event */
+    XV_SDITXSS_HANDLER_UNDERFLOW		/**< Handler for underflow event */
 } XV_SdiTxSs_HandlerType;
 /*@}*/
 
@@ -181,6 +187,12 @@ typedef struct {
 
 	XV_SdiTxSs_Callback GtReadyCallback; /**< Callback for stream down event */
 	void *GtReadyRef;  /**< To be passed to the stream down callback */
+
+	XV_SdiTxSs_Callback OverFlowCallback; /**< Callback for Over flow event */
+	void *OverFlowRef;  /**< To be passed to the Over flow callback */
+
+	XV_SdiTxSs_Callback UnderFlowCallback; /**< Callback for Under flow event */
+	void *UnderFlowRef;  /**< To be passed to the Under flow callback */
 
 	u8 IsStreamUp;                /**< SDI TX Stream Up */
 } XV_SdiTxSs;

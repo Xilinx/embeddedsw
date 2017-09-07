@@ -82,6 +82,8 @@ static void XV_SdiTxSs_ReportCoreInfo(XV_SdiTxSs *InstancePtr);
 static void XV_SdiTxSs_ReportSubcoreVersion(XV_SdiTxSs *InstancePtr);
 static void XV_SdiTxSs_ReportTiming(XV_SdiTxSs *InstancePtr);
 static void XV_SdiTxSs_GtReadyCallback(void *CallbackRef);
+static void XV_SdiTxSs_OverFlowCallback(void *CallbackRef);
+static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef);
 static int XV_SdiTxSs_RegisterSubsysCallbacks(XV_SdiTxSs *InstancePtr);
 
 /************************** Variable Definitions *****************************/
@@ -147,6 +149,16 @@ static int XV_SdiTxSs_RegisterSubsysCallbacks(XV_SdiTxSs *InstancePtr)
 		XV_SdiTx_SetCallback(SdiTxSsPtr->SdiTxPtr,
 		XV_SDITX_HANDLER_GTRESET_DONE,
 		XV_SdiTxSs_GtReadyCallback,
+		InstancePtr);
+
+		XV_SdiTx_SetCallback(SdiTxSsPtr->SdiTxPtr,
+		XV_SDITX_HANDLER_OVERFLOW,
+		XV_SdiTxSs_OverFlowCallback,
+		InstancePtr);
+
+		XV_SdiTx_SetCallback(SdiTxSsPtr->SdiTxPtr,
+		XV_SDITX_HANDLER_UNDERFLOW,
+		XV_SdiTxSs_UnderFlowCallback,
 		InstancePtr);
 	}
 
@@ -261,6 +273,54 @@ static void XV_SdiTxSs_GtReadyCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when the Tx over flow happens.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_SdiTxSs_OverFlowCallback(void *CallbackRef)
+{
+	XV_SdiTxSs *SdiTxSsPtr = (XV_SdiTxSs *)CallbackRef;
+
+	XV_SdiTxSs_LogWrite(SdiTxSsPtr, XV_SDITXSS_LOG_EVT_OVERFLOW, 0);
+
+	/* Check if user callback has been registered */
+	if(SdiTxSsPtr->OverFlowCallback)
+		SdiTxSsPtr->OverFlowCallback(SdiTxSsPtr->OverFlowRef);
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is called when the Tx under flow happens.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef)
+{
+	XV_SdiTxSs *SdiTxSsPtr = (XV_SdiTxSs *)CallbackRef;
+
+	XV_SdiTxSs_LogWrite(SdiTxSsPtr, XV_SDITXSS_LOG_EVT_UNDERFLOW, 0);
+
+	/* Check if user callback has been registered */
+	if(SdiTxSsPtr->UnderFlowCallback)
+		SdiTxSsPtr->UnderFlowCallback(SdiTxSsPtr->UnderFlowRef);
+
+}
+
+/*****************************************************************************/
+/**
+*
 * This function installs an asynchronous callback function for the given
 * HandlerType:
 *
@@ -268,6 +328,8 @@ static void XV_SdiTxSs_GtReadyCallback(void *CallbackRef)
 * HandlerType                     Callback Function Type
 * -----------------------         ---------------------------------------------
 * (XV_SDITXSS_HANDLER_GTREADY)			GtReadyCallback
+* (XV_SDITXSS_HANDLER_OVERFLOW)			OverFlowCallback
+* (XV_SDITXSS_HANDLER_UNDERFLOW)		UnderFlowCallback
 * </pre>
 *
 * @param    InstancePtr is a pointer to the SDI TX Subsystem instance.
@@ -303,6 +365,21 @@ void *CallbackFunc, void *CallbackRef)
 		InstancePtr->GtReadyRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
+
+		/* Overflow */
+	case (XV_SDITXSS_HANDLER_OVERFLOW):
+		InstancePtr->OverFlowCallback = (XV_SdiTxSs_Callback)CallbackFunc;
+		InstancePtr->OverFlowRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
+		/* Underflow */
+	case (XV_SDITXSS_HANDLER_UNDERFLOW):
+		InstancePtr->UnderFlowCallback = (XV_SdiTxSs_Callback)CallbackFunc;
+		InstancePtr->UnderFlowRef = CallbackRef;
+		Status = (XST_SUCCESS);
+		break;
+
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;
