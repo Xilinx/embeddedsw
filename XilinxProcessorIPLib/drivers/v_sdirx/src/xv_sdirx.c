@@ -177,18 +177,13 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	XV_SdiRx_SetVidLckWindow(InstancePtr, XV_SDIRX_VID_LCK_WINDOW);
 
 	/* Reset all peripherals */
-	XV_SdiRx_IntrDisable(InstancePtr, XV_SDIRX_IER_VIDEO_LOCK_MASK);
-	XV_SdiRx_IntrDisable(InstancePtr, XV_SDIRX_IER_VIDEO_UNLOCK_MASK);
+	XV_SdiRx_IntrDisable(InstancePtr, XV_SDIRX_IER_ALLINTR_MASK);
 
 	/* Start SDI core */
 	XV_SdiRx_Start(InstancePtr, XV_SDIRX_MULTISEARCHMODE);
 
 	/* Set global interrupt enable bit */
 	XV_SdiRx_SetGlobalInterrupt(InstancePtr);
-
-	/* Enable interrupt */
-	XV_SdiRx_IntrEnable(InstancePtr, XV_SDIRX_IER_VIDEO_LOCK_MASK);
-	XV_SdiRx_IntrEnable(InstancePtr, XV_SDIRX_IER_VIDEO_UNLOCK_MASK);
 
 	/* Clear the interrupt status */
 	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
