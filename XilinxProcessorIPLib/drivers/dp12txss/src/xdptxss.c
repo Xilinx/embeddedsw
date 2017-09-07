@@ -1114,21 +1114,29 @@ u32 XDpTxSs_CheckLinkStatus(XDpTxSs *InstancePtr)
 *
 * @param	InstancePtr is a pointer to the XDpTxSs core instance.
 * @param	UserPixelWidth is the user pixel width to be configured.
+* @param	StreamId is the stream number.
 *
 * @return	None.
 *
 * @note		None.
 *
 *****************************************************************************/
-void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth)
+void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth,
+				u8 StreamId)
 {
+	XDp_TxMainStreamAttributes *MsaConfig;
+
 	/* Verify arguments.*/
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
 		       (UserPixelWidth == 4));
+	Xil_AssertVoid((StreamId == 1) || (StreamId == 2) ||
+                       (StreamId == 3) || (StreamId == 4));
 
-	/* Set user pixel width */
-	XDp_TxSetUserPixelWidth(InstancePtr->DpPtr, UserPixelWidth);
+	MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[StreamId - 1];
+
+	/* Update user pixel width */
+	MsaConfig->UserPixelWidth = UserPixelWidth;
 }
 
 /*****************************************************************************/
