@@ -77,6 +77,19 @@ extern "C" {
 #include "xvtc.h"
 
 /************************** Constant Definitions *****************************/
+/** @name Bitmasks for interrupt callbacks
+ *
+ * Please refer to SDI Tx driver for details of the bitmasks.
+ * The application should use the XV_SDITXSS_IER* masks in the call back functions
+ * to decode the exact cause of interrupt and handle it accordingly.
+ * @{
+ */
+#define XV_SDITXSS_IER_GTTX_RSTDONE_MASK	XV_SDITX_IER_GTTX_RSTDONE_MASK
+#define XV_SDITXSS_IER_TX_CE_ALIGN_ERR_MASK	XV_SDITX_IER_TX_CE_ALIGN_ERR_MASK
+#define XV_SDITXSS_IER_AXI4S_VID_LOCK_MASK	XV_SDITX_IER_AXI4S_VID_LOCK_MASK
+#define XV_SDITXSS_IER_OVERFLOW_MASK		XV_SDITX_IER_OVERFLOW_MASK
+#define XV_SDITXSS_IER_UNDERFLOW_MASK		XV_SDITX_IER_UNDERFLOW_MASK
+#define XV_SDITXSS_IER_ALLINTR_MASK		XV_SDITX_IER_ALLINTR_MASK
 
 /**************************** Type Definitions *******************************/
 /**
@@ -222,6 +235,8 @@ void XV_SdiTxSs_ReportDebugInfo(XV_SdiTxSs *InstancePtr, u32 VtcFlag);
 void XV_SdiTxSs_ReportStreamInfo(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_ReportDetectedError(XV_SdiTxSs *InstancePtr);
 int XV_SdiTxSs_IsStreamUp(XV_SdiTxSs *InstancePtr);
+void XV_SdiTxSs_IntrEnable(XV_SdiTxSs *InstancePtr, u32 IntrMask);
+void XV_SdiTxSs_IntrDisable(XV_SdiTxSs *InstancePtr, u32 IntrMask);
 
 /* Self test function in xv_sditxss_selftest.c */
 u32 XV_SdiTxSs_SelfTest(XV_SdiTxSs *InstancePtr);
