@@ -63,6 +63,8 @@
 /************************** Function Prototypes ******************************/
 
 static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr);
+static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr);
+static void SdiTx_UnderFlowIntrHandler(XV_SdiTx *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
@@ -199,6 +201,33 @@ void XV_SdiTx_IntrHandler(void *InstancePtr)
 		/* Clear handled interrupt(s) */
 		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
 	}
+
+	/* Read ISR register  for OVERRFLOW*/
+	Mask = ActiveIntr & XV_SDITX_ISR_OVERFLOW_MASK;
+
+	/* Check for OVERFLOW IRQ flag set */
+	if (Mask) {
+
+		/* Jump to OVERFLOW interrupt handler */
+		SdiTx_OverFlowIntrHandler(SdiTxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
+	}
+
+	/* Read ISR register  for OVERRFLOW*/
+	Mask = ActiveIntr & XV_SDITX_ISR_UNDERFLOW_MASK;
+
+	/* Check for UNDERFLOW IRQ flag set */
+	if (Mask) {
+
+		/* Jump to UNDERFLOW interrupt handler */
+		SdiTx_UnderFlowIntrHandler(SdiTxPtr);
+
+		/* Clear handled interrupt(s) */
+		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
+	}
+
 }
 
 /*****************************************************************************/
@@ -210,7 +239,9 @@ void XV_SdiTx_IntrHandler(void *InstancePtr)
 * <pre>
 * HandlerType                       Callback Function Type
 * -------------------------         -------------------------------------------
-* (XV_SDITX_HANDLER_GTRESET_DONE)    GtRstDoneCallback
+* (XV_SDITX_HANDLER_GTRESET_DONE)	GtRstDoneCallback
+* (XV_SDITX_HANDLER_OVERFLOW)		OverFlowCallback
+* (XV_SDITX_HANDLER_UNDERFLOW)		UnderFlowCallback
 * </pre>
 *
 * @param    InstancePtr is a pointer to the SDI TX core instance.
@@ -245,6 +276,22 @@ void *CallbackFunc, void *CallbackRef)
 		InstancePtr->GtRstDoneCallback = (XV_SdiTx_Callback)CallbackFunc;
 		InstancePtr->GtRstDoneRef = CallbackRef;
 		InstancePtr->IsGtRstDoneCallbackSet = (TRUE);
+		Status = (XST_SUCCESS);
+		break;
+
+	/* Overflow */
+	case (XV_SDITX_HANDLER_OVERFLOW):
+		InstancePtr->OverFlowCallback = (XV_SdiTx_Callback)CallbackFunc;
+		InstancePtr->OverFlowRef = CallbackRef;
+		InstancePtr->IsOverFlowCallbackSet = (TRUE);
+		Status = (XST_SUCCESS);
+		break;
+
+	/* UnderFlow */
+	case (XV_SDITX_HANDLER_UNDERFLOW):
+		InstancePtr->UnderFlowCallback = (XV_SdiTx_Callback)CallbackFunc;
+		InstancePtr->UnderFlowRef = CallbackRef;
+		InstancePtr->IsUnderFlowCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -325,5 +372,45 @@ static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr)
 	/* Call stream up callback */
 	if (InstancePtr->IsGtRstDoneCallbackSet) {
 		InstancePtr->GtRstDoneCallback(InstancePtr->GtRstDoneRef);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the SDI Tx over flow Event.
+*
+* @param    InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr)
+{
+	/* Call stream up callback */
+	if (InstancePtr->IsOverFlowCallbackSet) {
+		InstancePtr->OverFlowCallback(InstancePtr->OverFlowRef);
+	}
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is the interrupt handler for the SDI Tx under flow Event.
+*
+* @param    InstancePtr is a pointer to the XV_SdiTx core instance.
+*
+* @return   None.
+*
+* @note     None.
+*
+******************************************************************************/
+static void SdiTx_UnderFlowIntrHandler(XV_SdiTx *InstancePtr)
+{
+	/* Call stream up callback */
+	if (InstancePtr->IsUnderFlowCallbackSet) {
+		InstancePtr->UnderFlowCallback(InstancePtr->UnderFlowRef);
 	}
 }

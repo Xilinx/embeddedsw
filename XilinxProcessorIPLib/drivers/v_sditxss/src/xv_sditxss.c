@@ -303,7 +303,6 @@ void *CallbackFunc, void *CallbackRef)
 		InstancePtr->GtReadyRef = CallbackRef;
 		Status = (XST_SUCCESS);
 		break;
-
 	default:
 		Status = (XST_INVALID_PARAM);
 		break;
