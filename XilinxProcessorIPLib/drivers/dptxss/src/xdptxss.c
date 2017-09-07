@@ -63,6 +63,7 @@
 * 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
 * 4.2  tu  08/11/17 Removing ceil() to remove dependency on math library.
 * 4.2  tu  09/06/17 Set timer callback after HDCP initialization
+* 4.3  tu  09/06/17 Added Set UserPixelWidth support on tx side
 * </pre>
 *
 ******************************************************************************/
@@ -1101,6 +1102,31 @@ u32 XDpTxSs_CheckLinkStatus(XDpTxSs *InstancePtr)
 			InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount);
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures the number of pixels output through the user data
+* interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	UserPixelWidth is the user pixel width to be configured.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
+		       (UserPixelWidth == 4));
+
+	/* Set user pixel width */
+	XDp_TxSetUserPixelWidth(InstancePtr->DpPtr, UserPixelWidth);
 }
 
 /*****************************************************************************/
