@@ -76,7 +76,9 @@ extern "C" {
 */
 typedef enum {
 	XV_SDIRX_HANDLER_STREAM_DOWN = 1,
-	XV_SDIRX_HANDLER_STREAM_UP
+	XV_SDIRX_HANDLER_STREAM_UP,
+	XV_SDIRX_HANDLER_OVERFLOW,
+	XV_SDIRX_HANDLER_UNDERFLOW
 } XV_SdiRx_HandlerType;
 /*@}*/
 
@@ -217,6 +219,16 @@ typedef struct {
 	XV_SdiRx_Callback	StreamUpCallback;		/**< Callback for stream up callback */
 	void	*StreamUpRef;				/**< To be passed to the stream up callback */
 	u32		IsStreamUpCallbackSet;		/**< Set flag. This flag is set to true when
+										*    the callback has been registered */
+
+	XV_SdiRx_Callback	OverFlowCallback;		/**< Callback for Overflow callback */
+	void	*OverFlowRef;				/**< To be passed to the Overflow callback */
+	u32		IsOverFlowCallbackSet;		/**< Set flag. This flag is set to true when
+										*    the callback has been registered */
+
+	XV_SdiRx_Callback	UnderFlowCallback;		/**< Callback for Underflow callback */
+	void	*UnderFlowRef;				/**< To be passed to the Underflow callback */
+	u32		IsUnderFlowCallbackSet;		/**< Set flag. This flag is set to true when
 										*    the callback has been registered */
 
 	/* SDI RX stream */

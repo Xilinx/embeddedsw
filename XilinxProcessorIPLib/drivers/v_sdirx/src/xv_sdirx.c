@@ -160,6 +160,12 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	InstancePtr->StreamUpCallback = (XV_SdiRx_Callback)((void *)StubCallback);
 	InstancePtr->IsStreamUpCallbackSet = (FALSE);
 
+	InstancePtr->OverFlowCallback = (XV_SdiRx_Callback)((void *)StubCallback);
+	InstancePtr->IsOverFlowCallbackSet = (FALSE);
+
+	InstancePtr->UnderFlowCallback = (XV_SdiRx_Callback)((void *)StubCallback);
+	InstancePtr->IsUnderFlowCallbackSet = (FALSE);
+
 	/* Clear SDI variables */
 	XV_SdiRx_ResetStream(InstancePtr);
 
@@ -189,7 +195,9 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,
 				(XV_SDIRX_ISR_OFFSET),
 				(XV_SDIRX_ISR_VIDEO_LOCK_MASK
-				| XV_SDIRX_ISR_VIDEO_UNLOCK_MASK));
+				| XV_SDIRX_ISR_VIDEO_UNLOCK_MASK
+				| XV_SDIRX_ISR_OVERFLOW_MASK
+				| XV_SDIRX_ISR_UNDERFLOW_MASK));
 
 	/* Reset the hardware and set the flag to indicate the driver is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
