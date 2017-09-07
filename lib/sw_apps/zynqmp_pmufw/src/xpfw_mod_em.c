@@ -162,6 +162,7 @@ static void EmCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData,
 		}
 	}
 
+
 	if (XPfw_RecoveryInit() == XST_SUCCESS) {
 		/* This is to enable FPD WDT and enable recovery mechanism when
 		* ENABLE_RECOVERY flag is defined.
