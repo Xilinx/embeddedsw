@@ -54,6 +54,7 @@
 *              08/30/17 Add additional info to BlockStatus.
 *              08/30/17 Add support for Coarse Mixer BYPASS mode.
 *              08/31/17 Removed Tile Reset Assert and Deassert.
+*              09/07/17 Add support for negative NCO freq.
 * </pre>
 *
 ******************************************************************************/
@@ -657,7 +658,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u16 ReadReg;
 	u32 BaseAddr;
 	float SamplingRate;
-	u64 Freq;
+	s64 Freq;
 	s32 PhaseOffset;
 	u16 NoOfBlocks;
 	u16 Index;
@@ -797,8 +798,12 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				}
 			}
 
-			Freq = ((Mixer_Settings->Freq * XRFDC_NCO_FREQ_MULTIPLIER) /
-											(SamplingRate * 1000U));
+			if (Mixer_Settings->Freq < 0)
+				Freq = ((Mixer_Settings->Freq * XRFDC_NCO_FREQ_MIN_MULTIPLIER) /
+												(SamplingRate * 1000U));
+			else
+				Freq = ((Mixer_Settings->Freq * XRFDC_NCO_FREQ_MULTIPLIER) /
+												(SamplingRate * 1000U));
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_NCO_FQWD_LOW_OFFSET, (u16)Freq);
 			ReadReg = (Freq >> 16) & XRFDC_NCO_FQWD_MID_MASK;
@@ -1017,7 +1022,7 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u64 ReadReg;
 	u64 ReadReg_Mix1;
 	float SamplingRate;
-	u64 Freq;
+	s64 Freq;
 	s32 PhaseOffset;
 	u32 Block;
 
@@ -1133,8 +1138,15 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_NCO_FQWD_LOW_OFFSET);
 		Freq |= ReadReg;
-		Mixer_Settings->Freq = ((Freq * SamplingRate * 1000U) /
-				XRFDC_NCO_FREQ_MULTIPLIER);
+		Freq &= XRFDC_NCO_FQWD_MASK;
+		Freq = (Freq << 16) >> 16;
+		if (Freq < 0)
+			Freq = ((Freq * SamplingRate * 1000U) /
+						XRFDC_NCO_FREQ_MIN_MULTIPLIER);
+		else
+			Freq = ((Freq * SamplingRate * 1000U) /
+						XRFDC_NCO_FREQ_MULTIPLIER);
+		Mixer_Settings->Freq = Freq;
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 				XRFDC_NCO_UPDT_OFFSET);
 		Mixer_Settings->EventSource = ReadReg & XRFDC_NCO_UPDT_MODE_MASK;
