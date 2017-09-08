@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v5_5
+ * @addtogroup dp_v5_6
  * @{
  * @details
  *
