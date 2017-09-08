@@ -1,5 +1,3 @@
-#define TESTAPP_GEN
-
 /******************************************************************************
 *
 * Copyright (C) 2017 Xilinx, Inc. All rights reserved.
