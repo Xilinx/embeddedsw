@@ -1072,4 +1072,29 @@ static void XEmacPs_BdSetTxWrap(UINTPTR BdPtr)
 		*TempPtr = DataValueTx;
 	}
 }
+
+/*****************************************************************************/
+/**
+ * Reset BD ring head and tail pointers.
+ *
+ * @param RingPtr is the instance to be worked on.
+ * @param VirtAddr is the virtual base address of the user memory region.
+ *
+ * @note
+ * Should be called after XEmacPs_Stop()
+ *
+ * @note
+ * C-style signature:
+ *    void XEmacPs_BdRingPtrReset(XEmacPs_BdRing * RingPtr, void *virtaddrloc)
+ *
+ *****************************************************************************/
+void XEmacPs_BdRingPtrReset(XEmacPs_BdRing * RingPtr, void *virtaddrloc)
+{
+	RingPtr->FreeHead = virtaddrloc;
+	RingPtr->PreHead = virtaddrloc;
+	RingPtr->HwHead = virtaddrloc;
+	RingPtr->HwTail = virtaddrloc;
+	RingPtr->PostHead = virtaddrloc;
+}
+
 /** @} */
