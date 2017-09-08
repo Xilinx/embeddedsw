@@ -218,6 +218,7 @@ typedef enum {
 	XDPRXSS_DRV_HANDLER_DP_VID_EVENT,       /**< Drv Valid video event
 						  *  interrupt type for
 						  *  DisplayPort core */
+<<<<<<< HEAD
 	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT,     /**< Drv No video event
 						  *  interrupt type for
 						  *  DisplayPort core */
@@ -228,6 +229,9 @@ typedef enum {
 						  *  interrupt type for
 						  *  DisplayPort core */
 	XDPRXSS_HANDLER_ACCESS_ERROR_COUNTER_EVENT   /**< Drv Access error counter
+=======
+	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT     /**< Drv No video event
+>>>>>>> DPRXSS Added interrupt handler for video and power
 						  *  interrupt type for
 						  *  DisplayPort core */
 } XDpRxSs_HandlerType;
@@ -563,7 +567,10 @@ void XDpRxSs_DrvNoVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvVideoHandler(void *InstancePtr);
 void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
+<<<<<<< HEAD
 void XDpRxSs_McDp6000_init(void *InstancePtr, u32 I2CAddress);
+=======
+>>>>>>> DPRXSS Added interrupt handler for video and power
 /************************** Variable Declarations ****************************/
 
 

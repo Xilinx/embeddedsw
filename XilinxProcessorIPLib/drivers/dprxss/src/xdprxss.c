@@ -66,7 +66,10 @@
 *		    to solve compiler warnings
 * 4.1  tu  09/08/17 Set Driver side three interrupt handler callback in
 *                   XDpRxSs_CfgInitialize function
+<<<<<<< HEAD
 * 5.0  yas 01/28/18 Added support for DP 1.4.
+=======
+>>>>>>> DPRXSS Added interrupt handler for video and power
 * </pre>
 *
 ******************************************************************************/

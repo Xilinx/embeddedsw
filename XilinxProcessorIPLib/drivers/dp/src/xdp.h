@@ -385,7 +385,12 @@
  * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
+<<<<<<< HEAD
 >>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
+=======
+ * 5.6   tu   09/08/17 Added three interrupt handler that addresses callback
+ *                     function of driver
+>>>>>>> DPRXSS Added interrupt handler for video and power
  * </pre>
  *
 *******************************************************************************/
@@ -1174,6 +1179,7 @@ typedef struct {
 	void *IntrDrvVideoCallbackRef;		/**< A pointer to the user data
 						  passed to the video
 						  drv function */
+<<<<<<< HEAD
 	/* Interrupt callback(s) defined for DP 1.4 */
 	XDp_IntrHandler IntrAccessLaneSetHandler; /**< Callback function for
 						  access lane set
@@ -1196,6 +1202,8 @@ typedef struct {
 						    lane set callback
 						    function. */
 	/* End of definitions for DP 1.4 interrupt callback(s) */
+=======
+>>>>>>> DPRXSS Added interrupt handler for video and power
 } XDp_Rx;
 
 /**
@@ -1337,7 +1345,16 @@ void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask);
 void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask);
 int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+<<<<<<< HEAD
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+=======
+void XDp_RxSetDrvIntrVideoHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+>>>>>>> DPRXSS Added interrupt handler for video and power
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling

@@ -251,6 +251,7 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
        if (Rdata == PowerDownMode) {
                XDp_RxInterruptDisable(XDpRxSsPtr->DpPtr,
                                XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
+<<<<<<< HEAD
                if (XDpRxSsPtr->DpPtr->Config.DpProtocol != 
 						XDP_PROTOCOL_DP_1_4) {
                        XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr,
@@ -258,6 +259,11 @@ void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
 					   XDpRxSsPtr->UsrOpt.LinkRate,
 					   XDpRxSsPtr->UsrOpt.LaneCount);
                }
+=======
+               XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
+                               XDpRxSsPtr->UsrOpt.LinkRate,
+                               XDpRxSsPtr->UsrOpt.LaneCount);
+>>>>>>> DPRXSS Added interrupt handler for video and power
        }
 }
 
@@ -341,6 +347,12 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+		case XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT:
+			XDp_RxSetDrvIntrPowerStateHandler(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
 		case XDPRXSS_HANDLER_DP_NO_VID_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_NOVIDEO,
@@ -352,6 +364,12 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_DRV_NOVIDEO,
 					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT:
+			XDp_RxSetDrvIntrNoVideoHandler(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
@@ -380,6 +398,12 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_DRV_VIDEO,
 					CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_DRV_HANDLER_DP_VID_EVENT:
+			XDp_RxSetDrvIntrVideoHandler(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 

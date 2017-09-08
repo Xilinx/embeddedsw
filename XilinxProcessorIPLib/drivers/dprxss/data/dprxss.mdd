@@ -36,6 +36,10 @@ BEGIN driver dprxss
 	OPTION driver_state = ACTIVE;
 	OPTION depends = (video_common_v4_0);
 	OPTION copyfiles = all;
+<<<<<<< HEAD
 	OPTION VERSION = 5.0;
+=======
+	OPTION VERSION = 4.1;
+>>>>>>> DPRXSS Added interrupt handler for video and power
 	OPTION NAME = dprxss;
 END driver
