@@ -48,6 +48,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
 * 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+                         Add new memory formats BGRX8 and UYVY8
 * </pre>
 *
 ******************************************************************************/
@@ -117,6 +118,12 @@ XVidC_ColorFormat WrMemory2Live(XVidC_ColorFormat MemFmt)
             break;
         case XVIDC_CSF_MEM_Y10 :
             StrmFmt = XVIDC_CSF_YCRCB_444;
+            break;
+        case XVIDC_CSF_MEM_BGRX8 :
+            StrmFmt = XVIDC_CSF_RGB;
+            break;
+       case XVIDC_CSF_MEM_UYVY8 :
+            StrmFmt = XVIDC_CSF_YCRCB_422;
             break;
 
         default:
@@ -401,6 +408,16 @@ int XVFrmbufWr_SetMemFormat(XV_FrmbufWr_l2 *InstancePtr,
            FmtValid = TRUE;
          }
          break;
+      case XVIDC_CSF_MEM_BGRX8 :
+         if (XVFrmbufWr_IsBGRX8Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
+      case XVIDC_CSF_MEM_UYVY8 :
+         if (XVFrmbufWr_IsUYVY8Enabled(InstancePtr)) {
+           FmtValid = TRUE;
+         }
+         break;
 
       default :
          FmtValid = FALSE;
@@ -572,8 +589,10 @@ void XVFrmbufWr_DbgReportStatus(XV_FrmbufWr_l2 *InstancePtr)
   xil_printf("Color Depth:                %d\r\n", InstancePtr->FrmbufWr.Config.MaxDataWidth);
   xil_printf("AXI-MM Data Width:          %d\r\n", InstancePtr->FrmbufWr.Config.AXIMMDataWidth);
   xil_printf("RGBX8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.RGBX8En);
+  xil_printf("BGRX8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.BGRX8En);
   xil_printf("YUVX8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.YUVX8En);
   xil_printf("YUYV8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.YUYV8En);
+  xil_printf("UYVY8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.UYVY8En);
   xil_printf("RGBX10 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.RGBX10En);
   xil_printf("YUVX10 Enabled:             %d\r\n", InstancePtr->FrmbufWr.Config.YUVX10En);
   xil_printf("Y_UV8 Enabled:              %d\r\n", InstancePtr->FrmbufWr.Config.Y_UV8En);

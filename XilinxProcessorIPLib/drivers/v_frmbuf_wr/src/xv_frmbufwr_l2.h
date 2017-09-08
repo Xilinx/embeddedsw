@@ -117,6 +117,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
 * 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+                         Add new memory formats BGRX8 and UYVY8
 * </pre>
 *
 ******************************************************************************/
@@ -372,6 +373,36 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufWr_IsY10Enabled(InstancePtr) \
                                ((InstancePtr)->FrmbufWr.Config.Y10En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format BGRX8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsBGRX8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.BGRX8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format UYVY8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufWr_IsUYVY8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufWr.Config.UYVY8En)
 
 /**************************** Function Prototypes *****************************/
 int XVFrmbufWr_Initialize(XV_FrmbufWr_l2 *InstancePtr, u16 DeviceId);
