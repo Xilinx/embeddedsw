@@ -64,6 +64,8 @@
 *		    FIFO
 * 4.0  tu  05/30/17 Moved timer functions under XPAR_XHDCP_NUM_INSTANCES
 *		    to solve compiler warnings
+* 4.1  tu  09/08/17 Set Driver side three interrupt handler callback in
+*                   XDpRxSs_CfgInitialize function
 * </pre>
 *
 ******************************************************************************/
@@ -380,6 +382,13 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 
 	/* Set the flag to indicate the subsystem is ready */
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
+
+	XDpRxSs_SetCallBack(InstancePtr, XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT,
+				XDpRxSs_DrvNoVideoHandler, InstancePtr);
+	XDpRxSs_SetCallBack(InstancePtr, XDPRXSS_DRV_HANDLER_DP_VID_EVENT,
+				XDpRxSs_DrvVideoHandler, InstancePtr);
+	XDpRxSs_SetCallBack(InstancePtr, XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT,
+				XDpRxSs_DrvPowerChangeHandler, InstancePtr);
 
 	return XST_SUCCESS;
 }

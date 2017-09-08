@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v5_5
+ * @addtogroup dp_v6_0
  * @{
  * @details
  *
@@ -369,14 +369,13 @@
  *                     for CR-965028.
  *       ms   03/17/17 Modified readme.txt file in examples folder for doxygen
  *                     generation.
-<<<<<<< HEAD
-=======
  * 5.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
  *                     definitions of dp in xparameters.h
- * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
+ * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
->>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
+ * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
+ *                     function of driver
  * </pre>
  *
 *******************************************************************************/
@@ -1081,6 +1080,24 @@ typedef struct {
 	void *IntrUnplugCallbackRef;		/**< A pointer to the user data
 							passed to the unplug
 							callback function. */
+	XDp_IntrHandler IntrDrvPowerStateHandler; /**< Callback function for
+						    driver power state
+						    interrupt */
+	void *IntrDrvPowerStateCallbackRef;	/**< A pointer to the user data
+						  passed to the power
+						  state drv function */
+	XDp_IntrHandler IntrDrvNoVideoHandler;	/**< Callback function for
+						  driver no video
+						  interrupts. */
+	void *IntrDrvNoVideoCallbackRef;	/**< A pointer to the user data
+						  passed to the no video
+						  drv function */
+	XDp_IntrHandler IntrDrvVideoHandler;	/**< Callback function for
+						  driver video
+						  interrupts. */
+	void *IntrDrvVideoCallbackRef;		/**< A pointer to the user data
+						  passed to the video
+						  drv function */
 } XDp_Rx;
 
 /**
@@ -1253,6 +1270,12 @@ void XDp_RxSetIntrHdcpBinfoReadHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetIntrUnplugHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetDrvIntrVideoHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST mode. */
@@ -1355,6 +1378,7 @@ void XDp_TxCfgMsaEnSynchClkMode(XDp *InstancePtr, u8 Stream, u8 Enable);
 void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream);
 void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
+void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
