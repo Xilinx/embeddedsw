@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2017-08-29
+	* Add support of IGMP in emacps
 2017-08-17
 	* Upgrade to LWIP2.0.2 version.
 	* Removed PPC References
