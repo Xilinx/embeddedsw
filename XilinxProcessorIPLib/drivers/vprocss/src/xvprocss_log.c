@@ -48,6 +48,7 @@
  * 2.20  rco  11/01/16 Change setup ignore messages (for csc, hscaler, vscaler
  *                     etc.) severity from Info to Error
  * 2.30  rco  11/15/16 Make debug log optional (can be disabled via makefile)*
+ * 2.40  vyc  10/04/17 Add 420 support in CSC-only topology
  * </pre>
  *
 *******************************************************************************/
@@ -306,6 +307,9 @@ void XVprocSs_LogDisplay(XVprocSs *InstancePtr)
 				break;
 			case (XVPROCSS_EDAT_NO422):
 				xil_printf("Csc error: 422 color format not allowed\r\n");
+				break;
+			case (XVPROCSS_EDAT_NO420):
+				xil_printf("Csc error: 420 color format not allowed\r\n");
 				break;
 			case (XVPROCSS_EDAT_VMDIFF):
 				xil_printf("Csc error: Input & Output Video Mode different\r\n");
