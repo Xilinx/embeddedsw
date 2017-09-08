@@ -298,13 +298,13 @@ static void XDpDma_SetupAudioDescriptor(XDpDma_Descriptor *CurrDesc,
 
 	if(NextDesc == NULL) {
 		CurrDesc->Control = XDPDMA_DESC_PREAMBLE |
-			XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
+			XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE |
+			XDPDMA_DESC_COMP_INTR;
 
 	}
 	else {
 		CurrDesc->Control = XDPDMA_DESC_PREAMBLE |
-			XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE |
-			XDPDMA_DESC_COMP_INTR;
+			XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
 	}
 	CurrDesc->DSCR_ID = 0;
 	CurrDesc->XFER_SIZE = DataSize;
