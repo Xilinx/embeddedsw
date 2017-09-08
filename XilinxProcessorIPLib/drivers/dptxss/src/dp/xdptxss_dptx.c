@@ -49,7 +49,8 @@
 *                   Single Steam Transport and Multi-Stream Transport.
 * 2.00 sha 09/28/15 Removed cross checking user set resolution with RX EDID.
 * 4.0  aad 05/13/16 Use asynchronous clock mode by default.
-* 5.3  tu  08/03/17 Enabled video packing for bpc > 10
+* 4.2  tu  08/03/17 Enabled video packing for bpc > 10
+* 4.2  aad 09/08/17 Case to handle HTotal > 4095, PPC = 1 in AXIStream Mode.
 * </pre>
 *
 ******************************************************************************/
@@ -614,6 +615,15 @@ u32 XDpTxSs_DpTxStart(XDp *InstancePtr, u8 TransportMode, u8 Bpc,
 					0].UserPixelWidth = 4;
 			}
 		}
+
+		 if((InstancePtr->TxInstance.MsaConfig[0].PixelClockHz <=
+		     75000000) &&
+		    (InstancePtr->TxInstance.MsaConfig[0].Vtm.Timing.HTotal >
+		     4095) &&
+		    (InstancePtr->TxInstance.MsaConfig[0].UserPixelWidth==1)) {
+			 InstancePtr->TxInstance.MsaConfig[
+				 0].UserPixelWidth = 2;
+		 }
 
 		/* Set video mode */
 		XDp_TxSetVideoMode(InstancePtr, XDP_TX_STREAM_ID1);
