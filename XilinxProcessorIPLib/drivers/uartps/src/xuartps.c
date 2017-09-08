@@ -463,7 +463,7 @@ u32 XUartPs_ReceiveBuffer(XUartPs *InstancePtr)
 	 * Loop until there is no more data in RX FIFO or the specified
 	 * number of bytes has been received
 	 */
-	while((ReceivedCount <= InstancePtr->ReceiveBuffer.RemainingBytes)&&
+	while((ReceivedCount < InstancePtr->ReceiveBuffer.RemainingBytes)&&
 		(((CsrRegister & XUARTPS_SR_RXEMPTY) == (u32)0))){
 
 		if (InstancePtr->is_rxbs_error) {
