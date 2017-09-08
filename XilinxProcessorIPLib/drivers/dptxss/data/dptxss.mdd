@@ -37,9 +37,13 @@ BEGIN driver dptxss
 	OPTION depends = (dual_splitter_v1_0 vtc_v7_2);
 	OPTION copyfiles = all;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	OPTION VERSION = 6.0;
 =======
 	OPTION VERSION = 4.3;
 >>>>>>> DPTXSS: Add userpixelwidth config support
+=======
+	OPTION VERSION = 4.4;
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 	OPTION NAME = dptxss;
 END driver

@@ -33,7 +33,11 @@
 /**
  *
  * @file xdp.h
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
+=======
+ * @addtogroup dp_v5_5
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
  * @{
  * @details
  *
@@ -371,11 +375,17 @@
  *                     generation.
  * 5.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
  *                     definitions of dp in xparameters.h
+<<<<<<< HEAD
  * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of driver
+=======
+ * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
+ *                     internal callback function of application
+ *                     DrvHpdEventHandler and DrvHpdPulseHandler
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
  * </pre>
  *
 *******************************************************************************/
@@ -1304,8 +1314,20 @@ u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 
 /* xdp_intr.c: Interrupt handling functions. */
 void XDp_InterruptHandler(XDp *InstancePtr);
+<<<<<<< HEAD
 #if XPAR_XDPTXSS_NUM_INSTANCES
 int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
+=======
+void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetDrvHpdEventHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetDrvHpdPulseHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetMsaHandler(XDp *InstancePtr,
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 

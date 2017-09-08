@@ -33,7 +33,11 @@
 /**
 *
 * @file xdptxss.c
+<<<<<<< HEAD
 * @addtogroup dptxss_v5_1
+=======
+* @addtogroup dptxss_v4_4
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
@@ -72,7 +76,11 @@
 * 4.2  tu  08/11/17 Removing ceil() to remove dependency on math library.
 * 4.2  tu  09/06/17 Set timer callback after HDCP initialization
 * 4.3  tu  09/06/17 Added Set UserPixelWidth support on tx side
+<<<<<<< HEAD
 >>>>>>> DPTXSS: Add userpixelwidth config support
+=======
+* 4.4  tu  09/08/17 Set HPD callbacks for HPD event and HPD pulse
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 * </pre>
 *
 ******************************************************************************/

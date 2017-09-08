@@ -33,7 +33,11 @@
 /**
 *
 * @file xdptxss_intr.c
+<<<<<<< HEAD
 * @addtogroup dptxss_v5_1
+=======
+* @addtogroup dptxss_v4_4
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort TX
@@ -53,7 +57,11 @@
 *                   XDPTXSS_HANDLER_HDCP_RPTR_EXCHG to register callback
 *                   with HDCP.
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
+<<<<<<< HEAD
 * 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
+=======
+* 4.4  tu  09/08/17 Added two interrupt handler that addresses driver's
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 *                   internal callback function of application
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
 * </pre>
@@ -199,6 +207,7 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
 			&UsrHpdEventData->MaxCapLanesNew);
 
+<<<<<<< HEAD
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 12,
 				UsrHpdEventData->Tmp);
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 6,
@@ -211,6 +220,15 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 				     UsrHpdEventData->EdidOrg, 0);
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 1,
 				&UsrHpdEventData->Rd200);
+=======
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 12, UsrHpdEventData->Tmp);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 6, UsrHpdEventData->Tmp);
+
+
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 11, &UsrHpdEventData->Dpcd);
+	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdEventData->EdidOrg, 0);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 1, &UsrHpdEventData->Rd200);
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_STATUS_LANE_0_1, 1,
 			&UsrHpdEventData->Lane0Sts);
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_STATUS_LANE_2_3, 1,
@@ -221,7 +239,11 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 			&UsrHpdEventData->MaxCapLanesNew);
 
 	if(Status != XST_SUCCESS){
+<<<<<<< HEAD
 		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
+=======
+		xil_printf("AUX access had trouble!\r\n");
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 	}
 }
 
@@ -272,7 +294,11 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdPulseData->Edid,
 		  0);
 	if(Status != XST_SUCCESS){
+<<<<<<< HEAD
 		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
+=======
+		xil_printf("AUX access had trouble!\r\n");
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 	}
 }
 
@@ -336,6 +362,12 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+		case XDPTXSS_DRV_HANDLER_DP_HPD_EVENT:
+			XDp_TxSetDrvHpdEventHandler(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
 		case XDPTXSS_HANDLER_DP_HPD_PULSE:
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 				XDP_TX_HANDLER_HPDPULSE,
@@ -346,6 +378,12 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 		case XDPTXSS_DRV_HANDLER_DP_HPD_PULSE:
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 				XDP_TX_HANDLER_DRV_HPDPULSE,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_DRV_HANDLER_DP_HPD_PULSE:
+			XDp_TxSetDrvHpdPulseHandler(InstancePtr->DpPtr,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;

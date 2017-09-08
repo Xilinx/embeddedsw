@@ -33,7 +33,11 @@
 /**
  *
  * @file xdp_intr.c
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
+=======
+ * @addtogroup dp_v5_5
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
  * @{
  *
  * This file contains functions related to XDp interrupt handling.
@@ -52,12 +56,19 @@
  *                     Added unplug interrupt.
  * 4.0   als  02/18/16 Removed update of payload table in the driver's interrupt
  *                     handler.
+<<<<<<< HEAD
  * 6.0   tu   05/30/17 Removed unused variable in XDp_RxInterruptHandler
  * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of application
+=======
+ * 5.3   tu   05/30/17 Removed unused variable in XDp_RxInterruptHandler
+ * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
+ *                     internal callback function of application
+ *                     DrvHpdEventHandler and DrvHpdPulseHandler
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
  * </pre>
  *
 *******************************************************************************/
@@ -194,7 +205,152 @@ void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask)
 				XDP_RX_INTERRUPT_MASK);
 	MaskVal |= Mask;
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
+<<<<<<< HEAD
 						MaskVal);
+=======
+								MaskVal);
+}
+
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a hot-plug-detect event
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.HpdEventHandler = CallbackFunc;
+	InstancePtr->TxInstance.HpdEventCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a driver's internal callback function for when a
+ * hot-plug-detect event interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetDrvHpdEventHandler(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.DrvHpdEventHandler = CallbackFunc;
+	InstancePtr->TxInstance.DrvHpdEventCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when a hot-plug-detect pulse
+ * interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.HpdPulseHandler = CallbackFunc;
+	InstancePtr->TxInstance.HpdPulseCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a driver's internal callback function for when a
+ * hot-plug-detect pulse interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetDrvHpdPulseHandler(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.DrvHpdPulseHandler = CallbackFunc;
+	InstancePtr->TxInstance.DrvHpdPulseCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a callback function for when the main stream attribute
+ * (MSA) values are updated.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetMsaHandler(XDp *InstancePtr,
+                                XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+        /* Verify arguments. */
+        Xil_AssertVoid(InstancePtr != NULL);
+        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+        Xil_AssertVoid(CallbackFunc != NULL);
+        Xil_AssertVoid(CallbackRef != NULL);
+
+        InstancePtr->TxInstance.TxSetMsaCallback = CallbackFunc;
+        InstancePtr->TxInstance.TxMsaCallbackRef = CallbackRef;
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 }
 
 /******************************************************************************/

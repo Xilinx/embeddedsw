@@ -33,7 +33,11 @@
 /**
 *
 * @file xdptxss.h
+<<<<<<< HEAD
 * @addtogroup dptxss_v5_1
+=======
+* @addtogroup dptxss_v4_4
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 * @{
 * @details
 *
@@ -116,8 +120,13 @@
 *                   for CR-965028.
 *      ms  03/17/17 Modified readme.txt file in examples folder for doxygen
 *                   generation.
+<<<<<<< HEAD
 * 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
 * 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
+=======
+* 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
+* 4.4  tu  09/08/17 Added two interrupt handler that addresses driver's
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 *                   internal callback function of application
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
 *                   Added HPD user data stucture XDpTxSs_UsrHpdPulseData
@@ -339,8 +348,11 @@ typedef struct {
 	XDpTxSs_UsrOpt UsrOpt;		/**< User Options structure */
 	XDpTxSs_UsrHpdPulseData UsrHpdPulseData; /**< User HPD Pulse data*/
 	XDpTxSs_UsrHpdEventData UsrHpdEventData; /**< User HPD Event data*/
+<<<<<<< HEAD
 	u8 link_up_trigger;
 	u8 no_video_trigger;
+=======
+>>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 } XDpTxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
