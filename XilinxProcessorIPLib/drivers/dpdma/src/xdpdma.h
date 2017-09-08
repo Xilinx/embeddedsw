@@ -202,6 +202,7 @@ typedef struct {
 	XDpDma_Descriptor *Current;
 	u8 TriggerStatus;
 	XDpDma_AudioBuffer *Buffer;
+	u8 Used;
 } XDpDma_AudioChannel;
 /*************************************************************************/
 /**

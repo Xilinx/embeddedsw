@@ -812,12 +812,12 @@ void XDpDma_DisplayGfxFrameBuffer(XDpDma *InstancePtr,
  *	     to be played.
  * @param    ChannelNum selects between Audio Channel 0 and Audio Channel 1
  *
- * @return   None.
+ * @return   XST_SUCCESS when the play audio request is successful.
+ *	     XST_FAILURE when the play audio request fails, user has to
+ *	     retry to play the audio.
  *
  * @note     The user has to schedule new audio buffer before half the audio
  *	     information is consumed by DPDMA to have a seamless playback.
- *	     If this function returns XST_FAILURE, user has to restart the
- *	     audio transfer from the start.
  *
  **************************************************************************/
 int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
@@ -834,37 +834,60 @@ int XDpDma_PlayAudio(XDpDma *InstancePtr, XDpDma_AudioBuffer *Buffer,
 	Channel->Buffer = Buffer;
 
 	if(Channel->Current == NULL) {
-		Channel->TriggerStatus = 1;
+		Channel->TriggerStatus = XDPDMA_TRIGGER_EN;
 		Channel->Current = &Channel->Descriptor0;
+		Channel->Used = 0;
 	}
-	else if(Channel->Current == &Channel->Descriptor0) {
+
+else if(Channel->Current == &Channel->Descriptor0) {
+		/* Check if descriptor chain can be updated */
 		if(Channel->Descriptor1.MSB_Timestamp >>
 		   XDPDMA_DESC_DONE_SHIFT) {
 			Channel->Current = NULL;
 			return XST_FAILURE;
 		}
-		Channel->Descriptor3.NEXT_DESR = (INTPTR) &Channel->Descriptor4;
-		Channel->Descriptor3.ADDR_EXT &=
-			~XDPDMA_DESCRIPTOR_ADDR_EXT_DSC_NXT_MASK;
-		Channel->Descriptor3.ADDR_EXT |=
-			(INTPTR) &Channel->Descriptor4 >> 32;
-		Channel->Current = &Channel->Descriptor4;
-		XDpDma_InitAudioDescriptor(Channel, Buffer);
-
+		else if(Channel->Descriptor7.MSB_Timestamp >>
+			XDPDMA_DESC_DONE_SHIFT || !(Channel->Used)) {
+			Channel->Descriptor3.Control = XDPDMA_DESC_PREAMBLE |
+				XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
+			Channel->Descriptor3.NEXT_DESR =
+				(INTPTR) &Channel->Descriptor4;
+			Channel->Descriptor3.ADDR_EXT &=
+				~XDPDMA_DESCRIPTOR_ADDR_EXT_DSC_NXT_MASK;
+			Channel->Descriptor3.ADDR_EXT |=
+				(INTPTR) &Channel->Descriptor4 >> 32;
+			Channel->Current = &Channel->Descriptor4;
+			Channel->Used = 1;
+			XDpDma_InitAudioDescriptor(Channel, Buffer);
+		}
+		else {
+			return XST_FAILURE;
+		}
 	}
+
 	else if(Channel->Current == &Channel->Descriptor4)  {
+		/* Check if descriptor chain can be updated */
 		if(Channel->Descriptor5.MSB_Timestamp >>
 		   XDPDMA_DESC_DONE_SHIFT) {
 			Channel->Current = NULL;
 			return XST_FAILURE;
 		}
-		Channel->Descriptor7.NEXT_DESR = (INTPTR) &Channel->Descriptor0;
-		Channel->Descriptor7.ADDR_EXT &=
-			~XDPDMA_DESCRIPTOR_ADDR_EXT_DSC_NXT_MASK;
-		Channel->Descriptor7.ADDR_EXT |=
-			(INTPTR) &Channel->Descriptor0 >> 32;
-		Channel->Current = &Channel->Descriptor0;
-		XDpDma_InitAudioDescriptor(Channel, Buffer);
+		else if(Channel->Descriptor3.MSB_Timestamp >>
+			XDPDMA_DESC_DONE_SHIFT) {
+			Channel->Descriptor7.Control = XDPDMA_DESC_PREAMBLE |
+				XDPDMA_DESC_UPDATE | XDPDMA_DESC_IGNR_DONE;
+			Channel->Descriptor7.NEXT_DESR =
+				(INTPTR) &Channel->Descriptor0;
+			Channel->Descriptor7.ADDR_EXT &=
+				~XDPDMA_DESCRIPTOR_ADDR_EXT_DSC_NXT_MASK;
+			Channel->Descriptor7.ADDR_EXT |=
+				(INTPTR) &Channel->Descriptor0 >> 32;
+			Channel->Current = &Channel->Descriptor0;
+			XDpDma_InitAudioDescriptor(Channel, Buffer);
+		}
+		else {
+			return XST_FAILURE;
+		}
 	}
 
 	return XST_SUCCESS;
