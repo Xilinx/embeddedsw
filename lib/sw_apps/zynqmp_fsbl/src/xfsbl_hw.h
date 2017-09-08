@@ -45,6 +45,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
+* 3.0   vns  09/08/17 Added eFUSE secure control register masks for PPK revoke
 *
 * </pre>
 *
@@ -172,6 +173,8 @@ extern "C" {
  */
 #define EFUSE_SEC_CTRL    ( ( EFUSE_BASEADDR ) + 0X00001058U )
 #define EFUSE_SEC_CTRL_RSA_EN_MASK    0X03000000U
+#define EFUSE_SEC_CTRL_PPK0_RVK_MASK  0x18000000U
+#define EFUSE_SEC_CTRL_PPK1_RVK_MASK  0xC0000000U
 
 /* Register: EFUSE_IPDISABLE */
 #define EFUSE_IPDISABLE    ( ( EFUSE_BASEADDR ) + 0X00001018U )

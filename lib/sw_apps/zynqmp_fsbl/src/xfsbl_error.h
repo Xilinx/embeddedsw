@@ -45,6 +45,7 @@
 * 1.00  kc   10/21/13 Initial release
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines
 *            03/24/17 Added new error codes.
+* 3.0   vns  09/08/17 Added error code for PPK revoke failure
 *
 * </pre>
 *
@@ -195,6 +196,7 @@ extern "C" {
 #define XFSBL_ERROR_IMAGE_HEADER_ACOFFSET			(0x64U)
 #define XFSBL_ERROR_PPK_VERIFICATION				(0x65U)
 #define XFSBL_ERROR_SPKID_VERIFICATION				(0x66U)
+#define XSFBL_ERROR_PPK_SELECT_ISREVOKED			(0x67U)
 #define XFSBL_FAILURE					(0x3FFFFFFFU)
 
 /**************************** Type Definitions *******************************/

@@ -45,6 +45,7 @@
 * 2.0   bv   12/05/16 Made compliance to MISRAC 2012 guidelines.
 *       vns  02/17/17 Added PPK hash and SPK ID verification when eFUSE
 *                     RSA authentication is enabled
+* 3.0   vns  09/08/17 Added PPK revoke check.
 *
 * </pre>
 *
@@ -377,11 +378,23 @@ u32 XFsbl_Authentication(const XFsblPs * FsblInstancePtr, u64 PartitionOffset,
 	if ((PartitionNum == 0x00U) && (EfuseRsaEn != 0x00U)) {
 		if ((*(u32 *)(AcPtr)
 			& XIH_AC_ATTRB_PPK_SELECT_MASK) == 0x00U) {
+			/* PPK revoke check */
+			if ((Xil_In32(EFUSE_SEC_CTRL) &
+					EFUSE_SEC_CTRL_PPK0_RVK_MASK) != 0x00) {
+				Status = XSFBL_ERROR_PPK_SELECT_ISREVOKED;
+				goto END;
+			}
 			/* PPK 0 */
 			XFsbl_ReadPpkHashSpkID((u32 *)EfusePpkHash,
 					0U, (u32 *)EfuseSpkID);
 		}
 		else {
+			/* PPK revoke check */
+			if ((Xil_In32(EFUSE_SEC_CTRL) &
+					EFUSE_SEC_CTRL_PPK1_RVK_MASK) != 0x00) {
+				Status = XSFBL_ERROR_PPK_SELECT_ISREVOKED;
+				goto END;
+			}
 			/* PPK 1 */
 			XFsbl_ReadPpkHashSpkID((u32 *)EfusePpkHash,
 					1U, (u32 *)EfuseSpkID);
