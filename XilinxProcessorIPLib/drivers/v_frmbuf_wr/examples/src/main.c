@@ -46,6 +46,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
 * 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+                         Add new memory formats BGRX8 and UYVY8
 * </pre>
 *
 ******************************************************************************/
@@ -78,7 +79,7 @@
 #define FRMBUF_IDLE_TIMEOUT (1000000)
 
 #define NUM_TEST_MODES 4
-#define NUM_TEST_FORMATS 13
+#define NUM_TEST_FORMATS 15
 
 #define CHROMA_ADDR_OFFSET   (0x01000000U)
 
@@ -104,7 +105,9 @@ VideoFormats ColorFormats[NUM_TEST_FORMATS] =
   {XVIDC_CSF_MEM_Y_UV10,     XVIDC_CSF_YCRCB_422, 10},
   {XVIDC_CSF_MEM_Y_UV10_420, XVIDC_CSF_YCRCB_420, 10},
   {XVIDC_CSF_MEM_Y8,         XVIDC_CSF_YCRCB_444, 8},
-  {XVIDC_CSF_MEM_Y10,        XVIDC_CSF_YCRCB_444, 10}
+  {XVIDC_CSF_MEM_Y10,        XVIDC_CSF_YCRCB_444, 10},
+  {XVIDC_CSF_MEM_BGRX8,      XVIDC_CSF_RGB,       8},
+  {XVIDC_CSF_MEM_UYVY8,      XVIDC_CSF_YCRCB_422, 8}
 };
 
 XV_FrmbufRd_l2     frmbufrd;
