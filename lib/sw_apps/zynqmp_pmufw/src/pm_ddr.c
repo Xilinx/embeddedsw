@@ -320,10 +320,14 @@ static u32 training_data[NUM_TRAIN_WORDS];
 #define DDR4_SIZE	0x200U >> 2
 #define DDR4_SIZE_OLD	0x100U >> 2
 #define LPDDR3_SIZE	0x100U >> 2
-#define LPDDR4_SIZE	0x80U >> 2
+#define LPDDR4_SIZE	0x100U >> 2
 
 /* DDR4 old mapping ddr data training location offset */
 #define OLD_MAP_OFFSET	0x2000U
+#define LPDDR4_OLD_MAP_OFFSET	0x4000U
+
+/* If it is required to enable drift */
+static u8 drift_enable_req;
 
 /* DDR states */
 static const u32 pmDdrStates[PM_DDR_STATE_MAX] = {
@@ -843,6 +847,10 @@ static void ddr_enable_rd_drift(void)
 
 static void ddr_enable_drift(void)
 {
+	/* Enable drift only if it is previously enabled */
+	if (!drift_enable_req)
+		return;
+
 	u32 readVal = Xil_In32(DDRC_MSTR);
 	if (0U != (readVal & DDRC_MSTR_LPDDR3)) {
 		/* enable read drift only for LPDDR3 */
@@ -852,6 +860,7 @@ static void ddr_enable_drift(void)
 		ddr_enable_rd_drift();
 		ddr_enable_wr_drift();
 	}
+	drift_enable_req = 0;
 	/* do not enable drift for DDR3/4, and LPDDR2 is not supported */
 }
 
@@ -1365,12 +1374,14 @@ static void DDR_reinit(bool ddrss_is_reset)
 					      DDRPHY_PIR_WREYE |
 					      DDRPHY_PIR_RDEYE |
 					      DDRPHY_PIR_WRDSKW |
-					      DDRPHY_PIR_RDDSKW);
+					      DDRPHY_PIR_RDDSKW |
+					      DDRPHY_PIR_WLADJ);
 			Xil_Out32(DDRPHY_PIR, DDRPHY_PIR_CTLDINIT |
 					      DDRPHY_PIR_WREYE |
 					      DDRPHY_PIR_RDEYE |
 					      DDRPHY_PIR_WRDSKW |
 					      DDRPHY_PIR_RDDSKW |
+					      DDRPHY_PIR_WLADJ |
 					      DDRPHY_PIR_INIT);
 			status = XPfw_UtilPollForMask(DDRPHY_PGSR(0U),
 						      DDRPHY_PGSR0_IDONE,
@@ -1460,6 +1471,16 @@ static void DDR_reinit(bool ddrss_is_reset)
 	}
 }
 
+static inline u32 get_old_map_offset(void)
+{
+	if (DDRC_MSTR_LPDDR4 ==
+		(Xil_In32(DDRC_MSTR) & DDRC_MSTR_DDR_TYPE)) {
+		return LPDDR4_OLD_MAP_OFFSET;
+	} else {
+		return OLD_MAP_OFFSET;
+	}
+}
+
 static bool ddr4_is_old_mapping()
 {
 	u32 bg_b0, col_b4;
@@ -1467,8 +1488,10 @@ static bool ddr4_is_old_mapping()
 
 	bg_b0 = Xil_In32(DDRC_ADDRMAP(8U)) & DDRC_ADDRMAP8_ADDRMAP_BG_B0;
 	col_b4 = (Xil_In32(DDRC_ADDRMAP(2U)) & DDRC_ADDRMAP2_ADDRMAP_COL_B4) >>
-		  DDRC_ADDRMAP2_ADDRMAP_COL_B4_SHIFT;
-	if ((bg_b0 + 2U) > (col_b4 + 4U)) {
+		DDRC_ADDRMAP2_ADDRMAP_COL_B4_SHIFT;
+	if (((bg_b0 + 2U) > (col_b4 + 4U)) ||
+			(DDRC_MSTR_DDR4 != (Xil_In32(DDRC_MSTR) &
+					    DDRC_MSTR_DDR_TYPE))) {
 		old_mapping = true;
 	}
 
@@ -1525,12 +1548,13 @@ static u32 ddr_training_size()
 
 static void store_training_data()
 {
-	u32 axi_cs, size, i, j, step;
+	u32 axi_cs, size, i, j, step, old_map_offset;
 	bool old_mapping;
 
 	axi_cs = ddr_axi_cs();
 	size = ddr_training_size();
 	old_mapping = ddr4_is_old_mapping();
+	old_map_offset = get_old_map_offset();
 
 	if (axi_cs && old_mapping) {
 		step = 4;
@@ -1543,14 +1567,14 @@ static void store_training_data()
 	for (i = 0U, j = 0U; i < size; i++, j += step) {
 		training_data[j] = Xil_In32(i << 2U);
 		if ((0 != old_mapping) && (0 != axi_cs)) {
-			training_data[j + 1U] = Xil_In32(OLD_MAP_OFFSET +
+			training_data[j + 1U] = Xil_In32(old_map_offset +
 							(i << 2U));
 			training_data[j + 2U] = Xil_In32((1U << axi_cs) +
 							(i << 2U));
-			training_data[j + 3U] = Xil_In32(OLD_MAP_OFFSET +
+			training_data[j + 3U] = Xil_In32(old_map_offset +
 						(1U << axi_cs) + (i << 2U));
 		} else if (0 != old_mapping) {
-			training_data[j + 1U] = Xil_In32(OLD_MAP_OFFSET +
+			training_data[j + 1U] = Xil_In32(old_map_offset +
 							(i << 2U));
 		} else if (0 != axi_cs) {
 			training_data[j + 1U] = Xil_In32((1U << axi_cs) +
@@ -1562,12 +1586,13 @@ static void store_training_data()
 
 static void restore_training_data()
 {
-	u32 axi_cs, size, i, j, step;
+	u32 axi_cs, size, i, j, step, old_map_offset;
 	bool old_mapping;
 
 	axi_cs = ddr_axi_cs();
 	size = ddr_training_size();
 	old_mapping = ddr4_is_old_mapping();
+	old_map_offset = get_old_map_offset();
 
 	if (axi_cs && old_mapping) {
 		step = 4;
@@ -1580,14 +1605,14 @@ static void restore_training_data()
 	for (i = 0U, j = 0U; i < size; i++, j += step) {
 		Xil_Out32((i << 2U), training_data[j]);
 		if ((0 != old_mapping) && (0 != axi_cs)) {
-			Xil_Out32(OLD_MAP_OFFSET + (i << 2U),
+			Xil_Out32(old_map_offset + (i << 2U),
 				  training_data[j + 1U]);
 			Xil_Out32((1U << axi_cs) + (i << 2U),
 				  training_data[j + 2U]);
-			Xil_Out32(OLD_MAP_OFFSET + (1U << axi_cs) + (i << 2U),
+			Xil_Out32(old_map_offset + (1U << axi_cs) + (i << 2U),
 				  training_data[j + 3U]);
 		} else if (0 != old_mapping) {
-			Xil_Out32(OLD_MAP_OFFSET + (i << 2U),
+			Xil_Out32(old_map_offset + (i << 2U),
 				  training_data[j + 1U]);
 		} else if (0 != axi_cs) {
 			Xil_Out32((1U << axi_cs) + (i << 2U),
@@ -1602,6 +1627,10 @@ static int pm_ddr_sr_enter(void)
 	int ret;
 
 	store_training_data();
+
+	/* Identify if drift is enabled */
+	if (Xil_In32(DDRPHY_DQSDR(0U)) & DDRPHY_DQSDR0_DFTDTEN)
+		drift_enable_req = 1;
 
 	/* disable read and write drift */
 	ddr_disable_rd_drift();
