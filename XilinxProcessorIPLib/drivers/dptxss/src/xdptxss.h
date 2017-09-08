@@ -339,6 +339,8 @@ typedef struct {
 	XDpTxSs_UsrOpt UsrOpt;		/**< User Options structure */
 	XDpTxSs_UsrHpdPulseData UsrHpdPulseData; /**< User HPD Pulse data*/
 	XDpTxSs_UsrHpdEventData UsrHpdEventData; /**< User HPD Event data*/
+	u8 link_up_trigger;
+	u8 no_video_trigger;
 } XDpTxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
