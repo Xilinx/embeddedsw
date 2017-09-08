@@ -34,10 +34,14 @@
  *
  * @file xdp.h
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
 =======
  * @addtogroup dp_v5_5
 >>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
+=======
+ * @addtogroup dp_v5_6
+>>>>>>> Updated addtogroup to appropriate files
  * @{
  * @details
  *

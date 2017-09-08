@@ -33,7 +33,11 @@
 /**
 *
 * @file xdprxss_intr.c
+<<<<<<< HEAD
 * @addtogroup dprxss_v4_2
+=======
+* @addtogroup dprxss_v4_1
+>>>>>>> Updated addtogroup to appropriate files
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort RX
