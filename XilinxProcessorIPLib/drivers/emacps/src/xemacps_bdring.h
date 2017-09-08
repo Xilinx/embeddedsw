@@ -81,7 +81,7 @@ typedef struct {
 	XEmacPs_Bd *BdaRestart;
 			     /**< BDA to load when channel is started */
 
-	u32 HwCnt;	     /**< Number of BDs in work group */
+	volatile u32 HwCnt;    /**< Number of BDs in work group */
 	u32 PreCnt;     /**< Number of BDs in pre-work group */
 	u32 FreeCnt;    /**< Number of allocatable BDs in the free group */
 	u32 PostCnt;    /**< Number of BDs in post-work group */
