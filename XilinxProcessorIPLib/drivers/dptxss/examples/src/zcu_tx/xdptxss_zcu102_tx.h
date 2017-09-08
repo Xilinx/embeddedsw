@@ -135,15 +135,15 @@ static XVphy_User_Config PHY_User_Config_Table[] =
   {   0,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
 		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
 		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
-		  DP159_FORWARDED_CLK,    DP159_FORWARDED_CLK,     270000000,81000000},
+		  ONBOARD_REF_CLK, ONBOARD_REF_CLK,     270000000,270000000},
   {   1,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
 		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
 		  0x0A,    XVPHY_DP_LINK_RATE_HZ_270GBPS,
-		  DP159_FORWARDED_CLK,    DP159_FORWARDED_CLK,     270000000,135000000},
+		  ONBOARD_REF_CLK, ONBOARD_REF_CLK,     270000000,270000000},
   {   2,     XVPHY_PLL_TYPE_CPLL,   XVPHY_PLL_TYPE_CPLL,
 		  XVPHY_CHANNEL_ID_CHA,     XVPHY_CHANNEL_ID_CHA,
 		  0x14,    XVPHY_DP_LINK_RATE_HZ_540GBPS,
-		  DP159_FORWARDED_CLK,    DP159_FORWARDED_CLK,     270000000,270000000},
+		  ONBOARD_REF_CLK, ONBOARD_REF_CLK     270000000,270000000},
   {   3,     XVPHY_PLL_TYPE_QPLL1,  XVPHY_PLL_TYPE_CPLL,
 		  XVPHY_CHANNEL_ID_CMN1,    XVPHY_CHANNEL_ID_CHA,
 		  0x06,    XVPHY_DP_LINK_RATE_HZ_162GBPS,
@@ -208,8 +208,8 @@ typedef struct
 
 
 /************************** Function Prototypes ******************************/
-void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update);
-void hpd_pulse_con(void);
+void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128], u8 Edid1_org[128], u16 res_update);
+void hpd_pulse_con(XDpTxSs *InstancePtr);
 char xil_getc(u32 timeout_ms);
 void sendAudioInfoFrame(XilAudioInfoFrame *xilInfoFrame);
 void Vpg_Audio_start(void);
