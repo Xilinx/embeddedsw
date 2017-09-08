@@ -56,6 +56,7 @@
 *                       scaler only topology
 * 2.2   rco  11/01/16   Add log events to capture failure during router data
 *                       flow setup
+* 2.4   vyc  10/04/17   Write to Result for XV_CscSetColorSpace
 * </pre>
 *
 ******************************************************************************/
@@ -663,12 +664,12 @@ void XVprocSs_SetupRouterDataFlow(XVprocSs *XVprocSsPtr)
           XV_CscSetColorDepth(XVprocSsPtr->CscPtr, ColorDepth);
 
 	      // all other picture settings are filled in by XV_CscSetColorspace
-          XV_CscSetColorspace(XVprocSsPtr->CscPtr,
-                              CtxtPtr->CscIn,
-                              CtxtPtr->CscOut,
-                              XVprocSsPtr->CscPtr->StandardIn,
-                              XVprocSsPtr->CscPtr->StandardOut,
-                              XVprocSsPtr->CscPtr->OutputRange);
+          Result = XV_CscSetColorspace(XVprocSsPtr->CscPtr,
+                                       CtxtPtr->CscIn,
+                                       CtxtPtr->CscOut,
+                                       XVprocSsPtr->CscPtr->StandardIn,
+                                       XVprocSsPtr->CscPtr->StandardOut,
+                                       XVprocSsPtr->CscPtr->OutputRange);
 
           if(Result != XST_SUCCESS) {
 		 XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_IGNORE);

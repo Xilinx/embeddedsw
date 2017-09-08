@@ -60,6 +60,8 @@
 * 2.30  rco  12/15/16   Added HasMADI configuration option check
 *            02/08/17   Fix C++ compilation warnings
 *            02/15/17   Fix custom resolution support for 1 PPC configuration
+* 2.40  vyc  10/04/17   Added support for conversion from 420/422/444/RGB to
+                        420/422/444/RGB with CSC-only topology
 *
 * </pre>
 *
@@ -156,7 +158,8 @@ static void GetIncludedSubcores(XVprocSs *XVprocSsPtr);
 static int ValidateSubsystemConfig(XVprocSs *InstancePtr);
 static int ValidateScalerOnlyConfig(XVprocSs *XVprocSsPtr);
 static int ValidateCscOnlyConfig(XVprocSs *XVprocSsPtr,
-								 u16 Allow422);
+								 u16 Allow422,
+								 u16 Allow420);
 static int ValidateDeintOnlyConfig(XVprocSs *XVprocSsPtr);
 static int ValidateVCResampleOnlyConfig(XVprocSs *XVprocSsPtr);
 static int ValidateHCResampleOnlyConfig(XVprocSs *XVprocSsPtr);
@@ -1159,22 +1162,27 @@ static int ValidateScalerOnlyConfig(XVprocSs *XVprocSsPtr)
 *       subsystem. In this mode very limited functionality is available
 ******************************************************************************/
 static int ValidateCscOnlyConfig(XVprocSs *XVprocSsPtr,
-                                 u16 Allow422)
+                                 u16 Allow422,
+                                 u16 Allow420)
 {
   XVidC_VideoStream *pStrmIn  = &XVprocSsPtr->VidIn;
   XVidC_VideoStream *pStrmOut = &XVprocSsPtr->VidOut;
 
   // Valid color formats for the csc only case:
-  //   Note: 420 Vin or Vout is already forbidden in ValidateSubsystemConfig
-  //   1) if neither Vin nor Vout is 422, the case is allowed
-  //   2) if both Vin and Vout are 422, and 422 is enabled, the case is allowed
+  //   1) if Vin or Vout are 422, and 422 or 420 are enabled, the case is allowed
+  //   2) if Vin or Vout are 420, and 420 is enabled, the case is allowed
 
-  if(!(((pStrmIn->ColorFormatId != XVIDC_CSF_YCRCB_422) &&
-        (pStrmOut->ColorFormatId != XVIDC_CSF_YCRCB_422)) ||
-       ((pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_422) &&
-        (pStrmOut->ColorFormatId == XVIDC_CSF_YCRCB_422) &&
-        Allow422))) {
+  if (((pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_422) ||
+       (pStrmOut->ColorFormatId == XVIDC_CSF_YCRCB_422)) &&
+      (!Allow422)) {
     XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_NO422);
+    return(XST_FAILURE);
+  }
+
+  if (((pStrmIn->ColorFormatId == XVIDC_CSF_YCRCB_420) ||
+       (pStrmOut->ColorFormatId == XVIDC_CSF_YCRCB_420)) &&
+      (!Allow420)) {
+    XVprocSs_LogWrite(XVprocSsPtr, XVPROCSS_EVT_CFG_CSC, XVPROCSS_EDAT_NO420);
     return(XST_FAILURE);
   }
 
@@ -1432,6 +1440,7 @@ static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
   u32 HeightOut = 0;
   u32 WidthOut = 0;
   u16 Allow422;
+  u16 Allow420;
   int status = XST_SUCCESS;
 
   if(!XVprocSsPtr->CscPtr) {
@@ -1440,9 +1449,10 @@ static int SetupModeCscOnly(XVprocSs *XVprocSsPtr)
   }
 
   Allow422 = XV_CscIs422Enabled(XVprocSsPtr->CscPtr);
+  Allow420 = XV_CscIs420Enabled(XVprocSsPtr->CscPtr);
 
   /* check if input/output stream configuration is supported */
-  status = ValidateCscOnlyConfig(XVprocSsPtr, Allow422);
+  status = ValidateCscOnlyConfig(XVprocSsPtr, Allow422, Allow420);
 
   if(status ==  XST_SUCCESS) {
     /* In the single-IP cases the reset has been done outside this routine */
