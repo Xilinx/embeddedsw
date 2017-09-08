@@ -405,10 +405,119 @@ void HandleTxErrors(struct xemac_s *xemac)
 
 
 #if LWIP_IGMP
-static err_t xemacpsif_mac_filter_update (struct netif *netif, ip_addr_t *group,
-								u8_t action)
+static void xemacpsif_mac_hash_update (struct netif *netif, u8_t *ip_addr,
+		u8_t action)
 {
-	return 0;
+	u8_t multicast_mac_addr[6];
+	struct xemac_s *xemac = (struct xemac_s *) (netif->state);
+	xemacpsif_s *xemacpsif = (xemacpsif_s *) (xemac->state);
+	XEmacPs_BdRing *txring;
+	txring = &(XEmacPs_GetTxRing(&xemacpsif->emacps));
+
+	multicast_mac_addr[0] = 0x01;
+	multicast_mac_addr[1] = 0x00;
+	multicast_mac_addr[2] = 0x5E;
+	multicast_mac_addr[3] = ip_addr[1] & 0x7F;
+	multicast_mac_addr[4] = ip_addr[2];
+	multicast_mac_addr[5] = ip_addr[3];
+
+	/* Wait till all sent packets are acknowledged from HW */
+	while(txring->HwCnt);
+
+	SYS_ARCH_DECL_PROTECT(lev);
+
+	SYS_ARCH_PROTECT(lev);
+
+	/* Stop Ethernet */
+	XEmacPs_Stop(&xemacpsif->emacps);
+
+	if (action == IGMP_ADD_MAC_FILTER) {
+		/* Set Mulitcast mac address in hash table */
+		XEmacPs_SetHash(&xemacpsif->emacps, multicast_mac_addr);
+
+	} else if (action == IGMP_DEL_MAC_FILTER) {
+		/* Remove Mulitcast mac address in hash table */
+		XEmacPs_DeleteHash(&xemacpsif->emacps, multicast_mac_addr);
+	}
+
+	/* Reset DMA */
+	reset_dma(xemac);
+
+	/* Start Ethernet */
+	XEmacPs_Start(&xemacpsif->emacps);
+
+	SYS_ARCH_UNPROTECT(lev);
+}
+
+static err_t xemacpsif_mac_filter_update (struct netif *netif, ip_addr_t *group,
+		u8_t action)
+{
+	u8_t temp_mask;
+	unsigned int i;
+	u8_t * ip_addr = (u8_t *) group;
+
+	if ((ip_addr[0] < 224) && (ip_addr[0] > 239)) {
+		LWIP_DEBUGF(NETIF_DEBUG,
+				("%s: The requested MAC address is not a multicast address.\r\n", __func__));
+		LWIP_DEBUGF(NETIF_DEBUG,
+				("Multicast address add operation failure !!\r\n"));
+
+		return ERR_ARG;
+	}
+
+	if (action == IGMP_ADD_MAC_FILTER) {
+
+		for (i = 0; i < XEMACPS_MAX_MAC_ADDR; i++) {
+			temp_mask = (0x01) << i;
+			if ((xemacps_mcast_entry_mask & temp_mask) == temp_mask) {
+				continue;
+			}
+			xemacps_mcast_entry_mask |= temp_mask;
+
+			/* Update mac address in hash table */
+			xemacpsif_mac_hash_update(netif, ip_addr, action);
+
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("%s: Muticast MAC address successfully added.\r\n", __func__));
+
+			return ERR_OK;
+		}
+		if (i == XEMACPS_MAX_MAC_ADDR) {
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("%s: No multicast address registers left.\r\n", __func__));
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("Multicast MAC address add operation failure !!\r\n"));
+
+			return ERR_MEM;
+		}
+	} else if (action == IGMP_DEL_MAC_FILTER) {
+		for (i = 0; i < XEMACPS_MAX_MAC_ADDR; i++) {
+			temp_mask = (0x01) << i;
+			if ((xemacps_mcast_entry_mask & temp_mask) != temp_mask) {
+				continue;
+			}
+			xemacps_mcast_entry_mask &= (~temp_mask);
+
+			/* Update mac address in hash table */
+			xemacpsif_mac_hash_update(netif, ip_addr, action);
+
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("%s: Multicast MAC address successfully removed.\r\n", __func__));
+
+			return ERR_OK;
+		}
+		if (i == XEMACPS_MAX_MAC_ADDR) {
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("%s: No multicast address registers present with\r\n", __func__));
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("the requested Multicast MAC address.\r\n"));
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("Multicast MAC address removal failure!!.\r\n"));
+
+			return ERR_MEM;
+		}
+	}
+	return ERR_OK;
 }
 #endif
 

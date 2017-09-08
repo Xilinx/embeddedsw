@@ -834,6 +834,29 @@ void free_onlytx_pbufs(xemacpsif_s *xemacpsif)
 	}
 }
 
+/* reset Tx and Rx DMA pointers after XEmacPs_Stop */
+void reset_dma(struct xemac_s *xemac)
+{
+	u8 txqueuenum;
+	u32_t gigeversion;
+	xemacpsif_s *xemacpsif = (xemacpsif_s *)(xemac->state);
+	XEmacPs_BdRing *txringptr = &XEmacPs_GetTxRing(&xemacpsif->emacps);
+	XEmacPs_BdRing *rxringptr = &XEmacPs_GetRxRing(&xemacpsif->emacps);
+
+	XEmacPs_BdRingPtrReset(txringptr, xemacpsif->tx_bdspace);
+	XEmacPs_BdRingPtrReset(rxringptr, xemacpsif->rx_bdspace);
+
+	gigeversion = ((Xil_In32(xemacpsif->emacps.Config.BaseAddress + 0xFC)) >> 16) & 0xFFF;
+	if (gigeversion > 2) {
+		txqueuenum = 1;
+	} else {
+		txqueuenum = 0;
+	}
+
+	XEmacPs_SetQueuePtr(&(xemacpsif->emacps), xemacpsif->emacps.RxBdRing.BaseBdAddr, 0, XEMACPS_RECV);
+	XEmacPs_SetQueuePtr(&(xemacpsif->emacps), xemacpsif->emacps.TxBdRing.BaseBdAddr, txqueuenum, XEMACPS_SEND);
+}
+
 void emac_disable_intr(void)
 {
 	XScuGic_DisableIntr(INTC_DIST_BASE_ADDR, emac_intr_num);

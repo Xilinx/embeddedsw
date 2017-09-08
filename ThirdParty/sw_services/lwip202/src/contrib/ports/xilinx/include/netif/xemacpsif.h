@@ -137,6 +137,7 @@ void free_onlytx_pbufs(xemacpsif_s *xemacpsif);
 void init_emacps_on_error (xemacpsif_s *xemacps, struct netif *netif);
 void clean_dma_txdescs(struct xemac_s *xemac);
 void resetrx_on_no_rxdata(xemacpsif_s *xemacpsif);
+void reset_dma(struct xemac_s *xemac);
 
 #ifdef __cplusplus
 }
