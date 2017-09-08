@@ -53,6 +53,7 @@
 *                      Corrected typo in XV_CscSetColorspace setting K31 FW reg
 *                      Updated the XV_CscDbgReportStatus routine
 * 2.1   rco   02/09/17 Fix c++ warnings
+* 2.2   vyc   10/04/17 Added support for 4:2:0
 * </pre>
 *
 ******************************************************************************/
@@ -318,7 +319,7 @@ int XV_CscSetDemoWindow(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *DemoWindow)
  * @param  cRangeOut is the selected output range
  *
  * @return XST_SUCCESS if the requested color format is allowed
- *         XST_FAILURE if YUV422 color format is requested but not allowed
+ *         XST_FAILURE if YUV422/420 color format is requested but not allowed
  *
  *****************************************************************************/
 int XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
@@ -346,6 +347,12 @@ int XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
     return XST_FAILURE;
   }
 
+  // if 420 is requested but not allowed, return failure
+  if (((cfmtIn == XVIDC_CSF_YCRCB_420)||(cfmtOut == XVIDC_CSF_YCRCB_420)) &&
+      !XV_CscIs420Enabled(InstancePtr)) {
+    return XST_FAILURE;
+  }
+
   ClipMax  = ((1<<InstancePtr->ColorDepth)-1);
   scale_factor = (1<<XV_CSC_COEFF_FRACTIONAL_BITS);
 
@@ -365,20 +372,25 @@ int XV_CscSetColorspace(XV_Csc_l2 *InstancePtr,
 
   XV_csc_Set_HwReg_InVideoFormat(pCsc,  cfmtIn);
   XV_csc_Set_HwReg_OutVideoFormat(pCsc, cfmtOut);
-  if ((cfmtIn == XVIDC_CSF_RGB) && (cfmtOut == XVIDC_CSF_YCRCB_444) )
+  //RGB in and 444/422/420 out
+  if ((cfmtIn == XVIDC_CSF_RGB) && (cfmtOut != XVIDC_CSF_RGB) )
   {
     cscFwRGBtoYCbCr(K, cstdOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
   }
-  else if ((cfmtIn == XVIDC_CSF_YCRCB_444) && (cfmtOut == XVIDC_CSF_RGB))
+  //444/422/420 in and RGB out
+  else if ((cfmtIn != XVIDC_CSF_RGB) && (cfmtOut == XVIDC_CSF_RGB))
   {
     cscFwYCbCrtoRGB(K, cstdIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
   }
+  //RGB in and RGB out
   else if ((cfmtIn == XVIDC_CSF_RGB) && (cfmtOut == XVIDC_CSF_RGB) )
   {
     //nop
   }
-  else //422->422 or 444->444
+  //444/422/420 in and 444/422/420 out
+  else
   {
+    //color standard change from input to output
     if (cstdIn != cstdOut)
     {
       cscFwYCbCrtoRGB(K1, cstdIn,  InstancePtr->ColorDepth, &ClampMin, &ClipMax);
@@ -883,6 +895,7 @@ void XV_CscSetSaturation(XV_Csc_l2 *InstancePtr, s32 val)
   //write new active saturation value
   InstancePtr->Saturation_active = InstancePtr->Saturation;
 
+  //RGB in and RGB out
   if ((InstancePtr->ColorFormatIn == XVIDC_CSF_RGB) &&
       (InstancePtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
@@ -890,22 +903,25 @@ void XV_CscSetSaturation(XV_Csc_l2 *InstancePtr, s32 val)
       Kout[x][y] = K3[x][y];
   }
 
+  //RGB in and 444/422/420 out
   if ((InstancePtr->ColorFormatIn == XVIDC_CSF_RGB) &&
-      (InstancePtr->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
+      (InstancePtr->ColorFormatOut != XVIDC_CSF_RGB) )
   {
     cscFwRGBtoYCbCr(M2, InstancePtr->StandardOut, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(K3, M2, Kout);
   }
 
-  if ((InstancePtr->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
+  //444/422/420 in and RGB out
+  if ((InstancePtr->ColorFormatIn != XVIDC_CSF_RGB) &&
       (InstancePtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
     cscFwYCbCrtoRGB(M1, InstancePtr->StandardIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K3, Kout);
   }
 
-  if ((InstancePtr->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
-      (InstancePtr->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
+  //444/422/420 in and 444/422/420 out
+  if ((InstancePtr->ColorFormatIn != XVIDC_CSF_RGB) &&
+      (InstancePtr->ColorFormatOut != XVIDC_CSF_RGB) )
   {
     cscFwYCbCrtoRGB(M1, InstancePtr->StandardIn, InstancePtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K3, K4);
@@ -1084,31 +1100,29 @@ static void cscFwComputeCoeff(XV_Csc_l2 *CscPtr,
   s32 ClampMin = 0;
   s32 ClipMax  = ((1<<CscPtr->ColorDepth)-1);
 
+  //RGB in and RGB out
   if((CscPtr->ColorFormatIn == XVIDC_CSF_RGB) &&
      (CscPtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
     for (x=0; x<3; x++)  for (y=0; y<4; y++)
       Kout[x][y] = K2[x][y];
   }
-
-  if ((CscPtr->ColorFormatIn == XVIDC_CSF_RGB) &&
-      (CscPtr->ColorFormatOut == XVIDC_CSF_YCRCB_444) )
+  //RGB in and 444/422/420 out
+  else if ((CscPtr->ColorFormatIn == XVIDC_CSF_RGB) &&
+          (CscPtr->ColorFormatOut != XVIDC_CSF_RGB) )
   {
     cscFwRGBtoYCbCr(M2, CscPtr->StandardOut, CscPtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(K2, M2, Kout);
   }
-
-  if ((CscPtr->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
-      (CscPtr->ColorFormatOut == XVIDC_CSF_RGB) )
+  //444/422/420 in and RGB out
+  else if ((CscPtr->ColorFormatIn != XVIDC_CSF_RGB) &&
+          (CscPtr->ColorFormatOut == XVIDC_CSF_RGB) )
   {
     cscFwYCbCrtoRGB(M1, CscPtr->StandardIn, CscPtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K2, Kout);
   }
-
-  if (((CscPtr->ColorFormatIn == XVIDC_CSF_YCRCB_444) &&
-       (CscPtr->ColorFormatOut == XVIDC_CSF_YCRCB_444)) ||
-      ((CscPtr->ColorFormatIn == XVIDC_CSF_YCRCB_422) &&
-       (CscPtr->ColorFormatOut == XVIDC_CSF_YCRCB_422)))
+  //444/422/420 in and 444/422/420 out
+  else
   {
     cscFwYCbCrtoRGB(M1, CscPtr->StandardIn, CscPtr->ColorDepth, &ClampMin, &ClipMax);
     cscFwMatrixMult(M1, K2, K3);
@@ -1279,7 +1293,7 @@ void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr)
   u32 offset_r, offset_g, offset_b;
   u32 minclamp,maxclamp;
   u32 height, width, i, j;
-  u16 allow422, allowWindow;
+  u16 allow422, allow420, allowWindow;
   u32 CfmtIn,CfmtOut;
 
   done  = XV_csc_IsDone(pCsc);
@@ -1290,6 +1304,7 @@ void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr)
   height   = XV_csc_Get_HwReg_height(pCsc);
   width    = XV_csc_Get_HwReg_width(pCsc);
   allow422 = XV_CscIs422Enabled(InstancePtr);
+  allow420 = XV_CscIs420Enabled(InstancePtr);
   allowWindow = XV_CscIsDemoWindowEnabled(InstancePtr);
   CfmtIn   = XV_csc_Get_HwReg_InVideoFormat(pCsc);
   CfmtOut  = XV_csc_Get_HwReg_OutVideoFormat(pCsc);
@@ -1306,6 +1321,7 @@ void XV_CscDbgReportStatus(XV_Csc_l2 *InstancePtr)
   xil_printf("Ctrl:             0x%x\r\n\r\n", ctrl);
 
   xil_printf("4:2:2 processing: %s\r\n", allow422?"Enabled":"Disabled");
+  xil_printf("4:2:0 processing: %s\r\n", allow420?"Enabled":"Disabled");
   xil_printf("Color Format In:  %s\r\n",
 		  XVidC_GetColorFormatStr((XVidC_ColorFormat)CfmtIn));
   xil_printf("Color Format Out: %s\r\n",

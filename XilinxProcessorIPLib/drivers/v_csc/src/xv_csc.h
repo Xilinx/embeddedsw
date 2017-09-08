@@ -51,6 +51,7 @@ typedef struct {
     u16 MaxHeight;           /**< Maximum rows supported by core instance */
     u16 MaxDataWidth;        /**< Maximum Data width of each channel */
     u16 Is422Enabled;        /**< 4:2:2 color format supported by core instance */
+    u16 Is420Enabled;        /**< 4:2:0 color format supported by core instance */
     u16 IsDemoWindowEnabled; /**< CSC demo window supported by core instance */
 } XV_csc_Config;
 #endif
