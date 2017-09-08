@@ -56,6 +56,8 @@
  * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
+ * 5.6   tu   09/08/17 Added three interrupt handler that addresses callback
+ *                     function of application
  * </pre>
  *
 *******************************************************************************/
@@ -382,6 +384,34 @@ void XDp_RxSetIntrPowerStateHandler(XDp *InstancePtr,
 
 /******************************************************************************/
 /**
+ * This function installs a driver callback function for when the power
+ * state interrupt occurs.
+ *
+ * @param      InstancePtr is a pointer to the XDp instance.
+ * @param      CallbackFunc is the address to the callback function.
+ * @param      CallbackRef is the user data item that will be passed to the
+ *             callback function when it is invoked.
+ *
+ * @return     None.
+ *
+ * @note       None.
+ *
+ *******************************************************************************/
+void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrDrvPowerStateHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrDrvPowerStateCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
  * This function installs a callback function for when a no video interrupt
  * occurs.
  *
@@ -406,6 +436,34 @@ void XDp_RxSetIntrNoVideoHandler(XDp *InstancePtr,
 
 	InstancePtr->RxInstance.IntrNoVideoHandler = CallbackFunc;
 	InstancePtr->RxInstance.IntrNoVideoCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs driver callback function for when a no video
+ * interrupt occurs.
+ *
+ * @param       InstancePtr is a pointer to the XDp instance.
+ * @param       CallbackFunc is the address to the callback function.
+ * @param       CallbackRef is the user data item that will be passed to the
+ *              callback function when it is invoked.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ *******************************************************************************/
+void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrDrvNoVideoHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrDrvNoVideoCallbackRef = CallbackRef;
 }
 
 /******************************************************************************/
@@ -490,6 +548,34 @@ void XDp_RxSetIntrVideoHandler(XDp *InstancePtr,
 
 	InstancePtr->RxInstance.IntrVideoHandler = CallbackFunc;
 	InstancePtr->RxInstance.IntrVideoCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a driver callback function for when a valid video
+ * interrupt occurs.
+ *
+ * @param       InstancePtr is a pointer to the XDp instance.
+ * @param       CallbackFunc is the address to the callback function.
+ * @param       CallbackRef is the user data item that will be passed to the
+ *              callback function when it is invoked.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ *******************************************************************************/
+void XDp_RxSetDrvIntrVideoHandler(XDp *InstancePtr,
+		XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->RxInstance.IntrDrvVideoHandler = CallbackFunc;
+	InstancePtr->RxInstance.IntrDrvVideoCallbackRef = CallbackRef;
 }
 
 /******************************************************************************/
@@ -1187,24 +1273,38 @@ static void XDp_RxInterruptHandler(XDp *InstancePtr)
 	}
 	/* The receiver has detected the no-video flags in the VB-ID field after
 	 * active video has been received. */
-	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_NO_VIDEO_MASK) &&
-			InstancePtr->RxInstance.IntrNoVideoHandler) {
-		InstancePtr->RxInstance.IntrNoVideoHandler(
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_NO_VIDEO_MASK) {
+		if (InstancePtr->RxInstance.IntrDrvNoVideoHandler) {
+			InstancePtr->RxInstance.IntrDrvNoVideoHandler(
+			InstancePtr->RxInstance.IntrDrvNoVideoCallbackRef);
+		}
+		if (InstancePtr->RxInstance.IntrNoVideoHandler) {
+			InstancePtr->RxInstance.IntrNoVideoHandler(
 			InstancePtr->RxInstance.IntrNoVideoCallbackRef);
+		}
 	}
 	/* A valid video frame is detected on the main link. */
-	else if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_VIDEO_MASK) &&
-			InstancePtr->RxInstance.IntrVideoHandler) {
-		InstancePtr->RxInstance.IntrVideoHandler(
+	else if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_VIDEO_MASK) {
+		if (InstancePtr->RxInstance.IntrDrvVideoHandler) {
+			InstancePtr->RxInstance.IntrDrvVideoHandler(
+			InstancePtr->RxInstance.IntrDrvVideoCallbackRef);
+		}
+		if (InstancePtr->RxInstance.IntrVideoHandler) {
+			InstancePtr->RxInstance.IntrVideoHandler(
 			InstancePtr->RxInstance.IntrVideoCallbackRef);
+		}
 	}
-
 	/* The transmitter has requested a change in the current power state of
 	 * the receiver core. */
-	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_POWER_STATE_MASK) &&
-			InstancePtr->RxInstance.IntrPowerStateHandler) {
-		InstancePtr->RxInstance.IntrPowerStateHandler(
+	if (IntrStatus & XDP_RX_INTERRUPT_CAUSE_POWER_STATE_MASK) {
+		if (InstancePtr->RxInstance.IntrDrvPowerStateHandler) {
+			InstancePtr->RxInstance.IntrDrvPowerStateHandler(
+			InstancePtr->RxInstance.IntrDrvPowerStateCallbackRef);
+		}
+		if (InstancePtr->RxInstance.IntrPowerStateHandler) {
+			InstancePtr->RxInstance.IntrPowerStateHandler(
 			InstancePtr->RxInstance.IntrPowerStateCallbackRef);
+		}
 	}
 	/* A change in the bandwidth has been detected. */
 	if ((IntrStatus & XDP_RX_INTERRUPT_CAUSE_BW_CHANGE_MASK) &&

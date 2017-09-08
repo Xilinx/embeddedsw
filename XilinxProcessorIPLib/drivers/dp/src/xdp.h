@@ -374,6 +374,8 @@
  * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
+ * 5.6   tu   09/08/17 Added three interrupt handler that addresses callback
+ *                     function of driver
  * </pre>
  *
 *******************************************************************************/
@@ -1078,6 +1080,24 @@ typedef struct {
 	void *IntrUnplugCallbackRef;		/**< A pointer to the user data
 							passed to the unplug
 							callback function. */
+	XDp_IntrHandler IntrDrvPowerStateHandler; /**< Callback function for
+						    driver power state
+						    interrupt */
+	void *IntrDrvPowerStateCallbackRef;	/**< A pointer to the user data
+						  passed to the power
+						  state drv function */
+	XDp_IntrHandler IntrDrvNoVideoHandler;	/**< Callback function for
+						  driver no video
+						  interrupts. */
+	void *IntrDrvNoVideoCallbackRef;	/**< A pointer to the user data
+						  passed to the no video
+						  drv function */
+	XDp_IntrHandler IntrDrvVideoHandler;	/**< Callback function for
+						  driver video
+						  interrupts. */
+	void *IntrDrvVideoCallbackRef;		/**< A pointer to the user data
+						  passed to the video
+						  drv function */
 } XDp_Rx;
 
 /**
@@ -1249,6 +1269,12 @@ void XDp_RxSetIntrHdcpRoReadHandler(XDp *InstancePtr,
 void XDp_RxSetIntrHdcpBinfoReadHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetIntrUnplugHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetDrvIntrVideoHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
