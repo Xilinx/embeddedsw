@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v6_0
+ * @addtogroup dp_v7_0
  * @{
  * @details
  *
@@ -173,9 +173,9 @@
  * bit XDP_TX_INTERRUPT_STATUS_HPD_EVENT_MASK is set, and an HPD pulse is
  * identified from the XDP_TX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK bit.
  *
- * The HPD event handler may be set up by using the XDp_TxSetHpdEventHandler
- * function and, for the HPD pulse handler, the XDp_TxSetHpdPulseHandler
- * function.
+ * The HPD event and HPD pulse handler may be set up by using the
+ * XDp_TxSetCallback function and XDP_TX_HANDLER_HPDEVENT and
+ * XDP_TX_HANDLER_HPDPULSE enumerations of the XDp_Tx_HandlerType type.
  *
  * <b>Interrupt processing: RX mode of operation</b>
  *
@@ -412,6 +412,61 @@ typedef enum {
 } XDp_DynamicRange;
 
 /**
+ * This typedef enumerates the handlers for the the DisplayPort Receiver.
+ */
+typedef enum {
+	XDP_RX_HANDLER_VMCHANGE = 0,
+	XDP_RX_HANDLER_PWRSTATECHANGE,
+	XDP_RX_HANDLER_NOVIDEO,
+	XDP_RX_HANDLER_VBLANK,
+	XDP_RX_HANDLER_TRAININGLOST,
+	XDP_RX_HANDLER_VIDEO,
+	XDP_RX_HANDLER_AUD_INFOPKTRECV,
+	XDP_RX_HANDLER_AUD_EXTPKTRECV,
+	XDP_RX_HANDLER_TRAININGDONE,
+	XDP_RX_HANDLER_BWCHANGE,
+	XDP_RX_HANDLER_TP1,
+	XDP_RX_HANDLER_TP2,
+	XDP_RX_HANDLER_TP3,
+	XDP_RX_HANDLER_TP4,
+	XDP_RX_HANDLER_DOWNREQ,
+	XDP_RX_HANDLER_DOWNREPLY,
+	XDP_RX_HANDLER_AUD_PKTOVERFLOW,
+	XDP_RX_HANDLER_PAYLOADALLOC,
+	XDP_RX_HANDLER_ACT_SEQ,
+	XDP_RX_HANDLER_CRC_TEST,
+	XDP_RX_HANDLER_HDCP_DEBUG,
+	XDP_RX_HANDLER_HDCP_AKSV,
+	XDP_RX_HANDLER_HDCP_AN,
+	XDP_RX_HANDLER_HDCP_AINFO,
+	XDP_RX_HANDLER_HDCP_RO,
+	XDP_RX_HANDLER_HDCP_BINFO,
+	XDP_RX_HANDLER_UNPLUG,
+	XDP_RX_HANDLER_ACCESS_LANE_SET,
+	XDP_RX_HANDLER_ACCESS_LINK_QUAL,
+	XDP_RX_HANDLER_ACCESS_ERR_COUNTER,
+	XDP_RX_HANDLER_DRV_PWRSTATE,
+	XDP_RX_HANDLER_DRV_NOVIDEO,
+	XDP_RX_HANDLER_DRV_VIDEO,
+	XDP_RX_NUM_HANDLERS
+} Dp_Rx_HandlerType;
+
+/**
+ * This typedef enumerates the handlers for the the DisplayPort Transmitter.
+ */
+typedef enum {
+	XDP_TX_HANDLER_SETMSA = 0,
+	XDP_TX_HANDLER_HPDEVENT,
+	XDP_TX_HANDLER_DRV_HPDEVENT,
+	XDP_TX_HANDLER_HPDPULSE,
+	XDP_TX_HANDLER_DRV_HPDPULSE,
+	XDP_TX_HANDLER_LANECNTCHANGE,
+	XDP_TX_HANDLER_LINKRATECHANGE,
+	XDP_TX_HANDLER_PEVSADJUST,
+	XDP_TX_NUM_HANDLERS
+} XDp_Tx_HandlerType;
+
+/**
  * This typedef contains configuration information for the DisplayPort core.
  */
 typedef struct {
@@ -445,7 +500,7 @@ typedef struct {
 					by this core instance. */
 	u8 DpProtocol;		/**< The DisplayPort protocol version that this
 					core instance is configured for.
-					0 = v1.1a, 1 = v1.2. */
+					0 = v1.1a, 1 = v1.2, 2 = v1.4. */
 	u8 IsRx;		/**< The type of DisplayPort core.
 					0 = TX, 1 = RX. */
 } XDp_Config;
@@ -806,6 +861,8 @@ typedef struct {
 	u8 TrainAdaptive;			/**< Downshift lane count and
 							link rate if necessary
 							during training. */
+	u8 IsTps4Supported;		/**< Is TPS4 supported by the
+							downstream sink */
 	XDp_TxSinkConfig RxConfig;		/**< Configuration structure for
 							the RX device. */
 	XDp_TxLinkConfig LinkConfig;		/**< Configuration structure for
@@ -993,6 +1050,15 @@ typedef struct {
 							passed to the training
 							pattern 3 callback
 							function. */
+	/* Interrupt callback(s) defined for DP 1.4 */
+	XDp_IntrHandler IntrTp4Handler;		/**< Callback function for
+							training pattern 4
+							interrupts. */
+	void *IntrTp4CallbackRef;		/**< A pointer to the user data
+							passed to the training
+							pattern 4 callback
+							function. */
+	/* End of definitions for DP 1.4 interrupt callback(s) */
 	XDp_IntrHandler IntrDownReqHandler;	/**< Callback function for down
 							request interrupts. */
 	void *IntrDownReqCallbackRef;		/**< A pointer to the user data
@@ -1098,6 +1164,28 @@ typedef struct {
 	void *IntrDrvVideoCallbackRef;		/**< A pointer to the user data
 						  passed to the video
 						  drv function */
+	/* Interrupt callback(s) defined for DP 1.4 */
+	XDp_IntrHandler IntrAccessLaneSetHandler; /**< Callback function for
+						  access lane set
+						  interrupts. */
+	void *IntrAccessLaneSetCallbackRef; 	  /**< A pointer to the user
+						  data passed to the access
+						  lane set callback */
+	XDp_IntrHandler IntrAccessLinkQualHandler; /**< Callback function for
+						   access link qual
+						   interrupts. */
+	void *IntrAccessLinkQualCallbackRef; 	   /**< A pointer to the user
+						   data passed to the access
+						   lane set callback
+						   function. */
+	XDp_IntrHandler IntrAccessErrorCounterHandler;  /**< Callback function
+							for access error counter
+							interrupts. */
+	void *IntrAccessErrorCounterCallbackRef;    /**< A pointer to the user
+						    data passed to the access
+						    lane set callback
+						    function. */
+	/* End of definitions for DP 1.4 interrupt callback(s) */
 } XDp_Rx;
 
 /**
@@ -1132,7 +1220,10 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 							UINTPTR EffectiveAddr);
 u32 XDp_Initialize(XDp *InstancePtr);
 u32 XDp_TxGetRxCapabilities(XDp *InstancePtr);
+/* Defined for DP 1.4 */
+u32 XDp_TxTp4Capable(XDp *InstancePtr);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp.c: TX link policy maker functions. */
 u32 XDp_TxCfgMainLinkMax(XDp *InstancePtr);
 u32 XDp_TxEstablishLink(XDp *InstancePtr);
@@ -1142,12 +1233,6 @@ void XDp_TxSetHasRedriverInPath(XDp *InstancePtr, u8 Set);
 void XDp_TxCfgTxVsOffset(XDp *InstancePtr, u8 Offset);
 void XDp_TxCfgTxVsLevel(XDp *InstancePtr, u8 Level, u8 TxLevel);
 void XDp_TxCfgTxPeLevel(XDp *InstancePtr, u8 Level, u8 TxLevel);
-void XDp_TxSetLaneCountChangeCallback(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetLinkRateChangeCallback(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetPeVsAdjustCallback(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 
 /* xdp.c: TX AUX transaction functions. */
 u32 XDp_TxAuxRead(XDp *InstancePtr, u32 DpcdAddress, u32 BytesToRead,
@@ -1165,30 +1250,43 @@ u32 XDp_TxSetEnhancedFrameMode(XDp *InstancePtr, u8 Enable);
 u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
 u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 u32 XDp_TxSetScrambler(XDp *InstancePtr, u8 Enable);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /* xdp.c: General usage functions. */
 void XDp_SetUserTimerHandler(XDp *InstancePtr,
 			XDp_TimerHandler CallbackFunc, void *CallbackRef);
 void XDp_WaitUs(XDp *InstancePtr, u32 MicroSeconds);
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 u32 XDp_TxIsConnected(XDp *InstancePtr);
 void XDp_TxEnableMainLink(XDp *InstancePtr);
 void XDp_TxDisableMainLink(XDp *InstancePtr);
 void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset);
 void XDp_TxSetPhyPolarityAll(XDp *InstancePtr, u8 Polarity);
 void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 u32 XDp_RxCheckLinkStatus(XDp *InstancePtr);
 void XDp_RxDtgEn(XDp *InstancePtr);
 void XDp_RxDtgDis(XDp *InstancePtr);
 void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
 u8 XDp_IsLaneCountValid(XDp *InstancePtr, u8 LaneCount);
 u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /* xdp.c: Audio functions. */
 void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
 void XDp_RxAudioReset(XDp *InstancePtr);
+void XDp_RxVSCEn(XDp *InstancePtr);
+void XDp_RxVSCDis(XDp *InstancePtr);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_edid.c: EDID utility functions. */
 u32 XDp_TxGetEdid(XDp *InstancePtr, u8 *Edid);
 u32 XDp_TxGetRemoteEdid(XDp *InstancePtr, u8 LinkCountTotal,
@@ -1202,81 +1300,24 @@ u32 XDp_TxGetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag,
 							u8 **DataBlockPtr);
 u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 		u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /* xdp_intr.c: Interrupt handling functions. */
 void XDp_InterruptHandler(XDp *InstancePtr);
-void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
+#if XPAR_XDPTXSS_NUM_INSTANCES
+int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetDrvHpdEventHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetDrvHpdPulseHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_TxSetMsaHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 void XDp_RxGenerateHpdInterrupt(XDp *InstancePtr, u16 DurationUs);
 void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask);
 void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask);
-void XDp_RxSetIntrVmChangeHandler(XDp *InstancePtr,
+int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrPowerStateHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrNoVideoHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrVBlankHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrTrainingLostHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrVideoHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrInfoPktHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrExtPktHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrTrainingDoneHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrBwChangeHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrTp1Handler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrTp2Handler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrTp3Handler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrDownReqHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrDownReplyHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrAudioOverHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrPayloadAllocHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrActRxHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrCrcTestHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrHdcpDebugWriteHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrHdcpAksvWriteHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrHdcpAnWriteHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrHdcpAinfoWriteHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrHdcpRoReadHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrHdcpBinfoReadHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetIntrUnplugHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetDrvIntrVideoHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
-void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST mode. */
 void XDp_TxMstCfgModeEnable(XDp *InstancePtr);
@@ -1345,6 +1386,9 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u8 *Guid);
 void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u8 *Guid);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 u32 XDp_RxHandleDownReq(XDp *InstancePtr);
 XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 								u8 IicAddress);
@@ -1358,10 +1402,12 @@ void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 			XDp_SbMsgLinkAddressReplyPortDetail *PortOverride);
 void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /* xdp_selftest.c: Self test function. */
 u32 XDp_SelfTest(XDp *InstancePtr);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_spm.c: Stream policy maker functions. */
 void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream);
 void XDp_TxCfgMsaUseStandardVideoMode(XDp *InstancePtr, u8 Stream,
@@ -1379,11 +1425,15 @@ void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream);
 void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
