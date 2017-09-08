@@ -114,6 +114,9 @@ freertos823_xilinx_v1_0
 freertos823_xilinx_v1_1
 freertos823_xilinx_v1_2
 
+v_csc_v2_2
+Added support for conversion from 420/422/444/RGB to 420/422/444/RGB
+
 v_demosaic_v1_0
 added initial version
 
@@ -125,6 +128,7 @@ added new streaming and memory video formats
 v_frmbuf_wr_v2_0
 added second buffer for semi-planar formats
 added 64-bit address support for memory mapped interface
+added new memory video formats
 
 v_gamma_lut_v1_0
 added initial version
@@ -140,6 +144,10 @@ New member AspectRatio is added to video stream structure
 Reordered XVidC_VideoMode enum variables and corrected the memory format enums
 Add XVIDC_VM_3840x2160_60_P_RB video format
 Added new streaming alpha formats and new memory formats
+
+vprocss_v2_4
+Added support for conversion from 420/422/444/RGB to 420/422/444/RGB in
+CSC-only topology
 
 mbox_v4_2:
 Added support for FIFO reset using hardware control register
