@@ -51,6 +51,7 @@ typedef struct {
   u16 MaxHeight;            /**< Maximum rows supported by core instance */
   u16 MaxDataWidth;         /**< Maximum Data width of each channel */
   u16 AXIMMDataWidth;       /**< AXI-MM data width */
+  u16 AXIMMAddrWidth;       /**< AXI-MM address width */
   u16 RGBX8En;              /**< RGBX8      support */
   u16 YUVX8En;              /**< YUVX8      support */
   u16 YUYV8En;              /**< YUYV8      support */
@@ -64,6 +65,8 @@ typedef struct {
   u16 Y_UV10_420En;         /**< Y_UV10_420 support */
   u16 Y8En;                 /**< Y8         support */
   u16 Y10En;                /**< Y10        support */
+  u16 BGRX8En;              /**< BGRX8      support */
+  u16 UYVY8En;              /**< UYVY8      support */
 } XV_frmbufwr_Config;
 #endif
 
