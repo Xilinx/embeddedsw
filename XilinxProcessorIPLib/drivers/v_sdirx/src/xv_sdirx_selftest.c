@@ -60,9 +60,8 @@
 
 /*************************** Macros Definitions ******************************/
 
-#define SDIRX_MDL_CTRL_DEFAULT	0x00
-#define SDIRX_RST_CTRL_DEFAULT	0x000
-#define ISR_DEFAULT		0x00
+#define SDIRX_RST_CTRL_DEFAULT	0x0000
+#define SDIRX_MDL_CTRL_DEFAULT	0x3F30
 
 /************************** Function Prototypes ******************************/
 
@@ -106,11 +105,6 @@ u32 XV_SdiRx_SelfTest(XV_SdiRx *InstancePtr)
 	RegValue = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 					XV_SDIRX_MDL_CTRL_OFFSET);
 	if (RegValue != SDIRX_MDL_CTRL_DEFAULT)
-		return XST_FAILURE;
-
-	RegValue = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
-					XV_SDIRX_ISR_OFFSET);
-	if (RegValue != ISR_DEFAULT)
 		return XST_FAILURE;
 
 	return XST_SUCCESS;
