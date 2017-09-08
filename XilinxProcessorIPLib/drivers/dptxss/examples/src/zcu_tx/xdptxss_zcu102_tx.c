@@ -125,7 +125,7 @@ void DpTxSs_Setup(u8 *LineRate_init, u8 *LaneCount_init,
 void PLLRefClkSel (XVphy *InstancePtr, u8 link_rate);
 void PHY_Two_byte_set (XVphy *InstancePtr, u8 Rx_to_two_byte);
 void clk_wiz_locked(void);
-void hpd_pulse_con(void);
+void hpd_pulse_con(XDpTxSs *InstancePtr);
 int Vpg_StreamSrcConfigure(XDp *InstancePtr, u8 VSplitMode, u8 first_time);
 void Vpg_VidgenSetUserPattern(XDp *InstancePtr, u8 Pattern);
 void LMK04906_init(XSpi *SPI_LMK04906);
@@ -755,39 +755,15 @@ void DpPt_HpdPulseHandler(void *InstancePtr)
 * @note		None.
 *
 ******************************************************************************/
-void hpd_pulse_con(void)
+void hpd_pulse_con(XDpTxSs *InstancePtr)
 {
 
-	u32 Status=0;
-	u8 Edid[128];
-	u8 auxValues[9];
-	u8 lane0_sts;
-	u8 lane2_sts;
-	u8 laneAlignStatus;
-	u8 bw_set;
-	u8 lane_set;
 
-     //reading the first block of EDID
-     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-			 XDP_DPCD_SINK_COUNT, 6, auxValues);
-     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-			 XDP_DPCD_STATUS_LANE_0_1, 1, &lane0_sts);
-     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-			 XDP_DPCD_STATUS_LANE_2_3, 1, &lane2_sts);
-     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-			 XDP_DPCD_LANE_ALIGN_STATUS_UPDATED, 1, &laneAlignStatus);
-     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-			 XDP_DPCD_LANE_COUNT_SET, 1, &lane_set);
-     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-			 XDP_DPCD_LINK_BW_SET, 1, &bw_set);
-
-     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-             XDP_DPCD_LINK_BW_SET, 1, &bw_set);
-     Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr,
-             XDP_DPCD_LANE_COUNT_SET, 1, &lane_set);
-     Status |= XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid, 0);
-
-
+	u8 lane0_sts = InstancePtr->UsrHpdPulseData.lane0_sts;
+	u8 lane2_sts = InstancePtr->UsrHpdPulseData.lane2_sts;
+	u8 laneAlignStatus = InstancePtr->UsrHpdPulseData.laneAlignStatus;
+	u8 bw_set = InstancePtr->UsrHpdPulseData.bw_set;
+	u8 lane_set = InstancePtr->UsrHpdPulseData.lane_set;
 
      lane_set = lane_set & 0x1F;
      bw_set = bw_set & 0x1F;
@@ -849,7 +825,7 @@ void hpd_pulse_con(void)
 	if(retrain_link == 1){
 		XDpTxSs_SetLinkRate(&DpTxSsInst, bw_set);
 		XDpTxSs_SetLaneCount(&DpTxSsInst, lane_set);
-		Status = XDpTxSs_Start(&DpTxSsInst);
+		XDpTxSs_Start(&DpTxSsInst);
 	}
 
      XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK, 0x0);
@@ -861,13 +837,6 @@ void hpd_pulse_con(void)
 u32 DpTxSubsystem_Start(XDpTxSs *InstancePtr, int with_msa){
 	u32 Status;
 		Status = XDpTxSs_Start(&DpTxSsInst);
-
-	// Disable linereset all the time.
-	// Patched on 2016.4 release
-	// This code should move into Displayport driver side on later release
-	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,
-											XDP_TX_LINE_RESET_DISABLE, 0);
-
 
 	return Status;
 }
@@ -1019,12 +988,16 @@ u32 PHY_Configuration_Tx(XVphy *InstancePtr,
 
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr,
 			XVPHY_PLL_RESET_REG,
-			(XVPHY_PLL_RESET_QPLL0_MASK | XVPHY_PLL_RESET_QPLL1_MASK)); // 0x06
+			(XVPHY_PLL_RESET_QPLL0_MASK | XVPHY_PLL_RESET_QPLL1_MASK |
+					XVPHY_PLL_RESET_CPLL_MASK)); // 0x06
 	XVphy_WriteReg(InstancePtr->Config.BaseAddr, XVPHY_PLL_RESET_REG, 0x0);
-	XVphy_ResetGtPll(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,
-																	(FALSE));
 
-	Status = XVphy_WaitForPmaResetDone(InstancePtr, QuadId,
+
+	Status = XVphy_ResetGtPll(InstancePtr, QuadId,
+			XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX,(FALSE));
+
+
+	Status += XVphy_WaitForPmaResetDone(InstancePtr, QuadId,
 						XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_TX);
 	Status += XVphy_WaitForPllLock(InstancePtr, QuadId, TxChId);
 	Status += XVphy_WaitForResetDone(InstancePtr, QuadId,
@@ -1194,17 +1167,13 @@ void clk_wiz_locked(void) {
 // as soon as HPD is connected the application reads the EDID to find out
 // if the monitor was changed.
 
-void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
-{
+void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
+		u8 Edid1_org[128], u16 res_update){
 
 
 	u32 Status=XST_SUCCESS;
-	u8 max_cap_new;
-	u8 max_cap_lanes_new;
-	u8 lane0_sts;
-	u8 lane2_sts;
-	u8 rd_200;
-	u8 dpcd[88];
+	u8 max_cap_new = InstancePtr->UsrHpdEventData.max_cap_new;
+	u8 max_cap_lanes_new = InstancePtr->UsrHpdEventData.max_cap_lanes_new;
 	u32 htotal_test_hpd;
 	u32 vtotal_test_hpd;
 	u32 freq_test_hpd;
@@ -1212,7 +1181,6 @@ void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
 	XVidC_VideoMode VmId_test_hpd;
 	XVidC_VideoMode VmId_ptm_hpd;
 	u8 bpc_hpd;
-	u8 tmp[12];
 	u8 C_VideoUserStreamPattern[8] = {0x10, 0x11, 0x12, 0x13, 0x14,
 												0x15, 0x16, 0x17}; //Duplicate
 
@@ -1221,33 +1189,9 @@ void hpd_con(u8 Edid_org[128], u8 Edid1_org[128], u16 res_update)
 	//Enabling TX interrupts
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK,0xFFF);
 
-
-	// From here is the requirement per DP spec
-	Status = XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
-															&max_cap_new);
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
-															&max_cap_lanes_new);
-
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_REV, 12, tmp);
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_SINK_COUNT, 6, tmp);
-
+	strncpy((char*)Edid_org, (char*)InstancePtr->UsrHpdEventData.Edid_org, 128);
 
 	tx_is_reconnected--;
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_REV, 11, &dpcd);
-	Status |= XDp_TxGetEdidBlock(DpTxSsInst.DpPtr, Edid_org, 0);
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_SINK_COUNT, 1, &rd_200);
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_STATUS_LANE_0_1, 1,
-																&lane0_sts);
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_STATUS_LANE_2_3, 1,
-																&lane2_sts);
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LINK_RATE, 1,
-																&max_cap_new);
-	Status |= XDp_TxAuxRead(DpTxSsInst.DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
-															&max_cap_lanes_new);
-    if(Status != XST_SUCCESS){
-        xil_printf("AUX access had trouble!\r\n");
-    }
-
 
 	if (XVidC_EdidIsHeaderValid(Edid_org)) {
 		good_edid_hpd = 1;
@@ -1605,29 +1549,6 @@ XVidC_VideoMode GetPreferredVm(u8 *EdidPtr, u8 cap, u8 lane)
 /*****************************************************************************/
 /**
 *
-* This function Calculates CRC values of Video components
-*
-* @param	None.
-*
-* @return	None.
-*
-* @note		None.
-*
-******************************************************************************/
-void CalculateCRC(u8 line_rate, u8 lane_count)
-{
-
-	/*Set pixel mode as per lane count - it is default behavior
-	  User has to adjust this accordingly if there is change in
-	  pixel width programming
-	 */
-	XVidFrameCrc_WriteReg(XPAR_TX_SUBSYSTEM_CRC_BASEADDR,
-							VIDEO_FRAME_CRC_CONFIG, lane_count);
-}
-
-/*****************************************************************************/
-/**
-*
 * This function powers down sink
 *
 * @param	None.
@@ -1753,9 +1674,9 @@ void sink_power_cycle(void){
 	sink_power_down();
 	// give enough time for monitor to power down
 	usleep(400);
-//	sink_power_up();
+	sink_power_up();
 //	// give enough time for monitor to wake up    CR-962717
-//	usleep(300000);
+	usleep(30000);
 	sink_power_up();//monitor to wake up once again due to CR-962717
 	usleep(4000);
 }

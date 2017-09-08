@@ -257,12 +257,13 @@ void main_loop(){
 
 	while (1) { // for menu loop
 		if (tx_is_reconnected == 1) {
-			hpd_con(Edid_org, Edid1_org, user_config.VideoMode_local);
+			hpd_con(&DpTxSsInst, Edid_org, Edid1_org,
+					user_config.VideoMode_local);
 			tx_is_reconnected = 0;
 		}
 
 		if(hpd_pulse_con_event == 1){
-			hpd_pulse_con();
+			hpd_pulse_con(&DpTxSsInst);
 			hpd_pulse_con_event = 0;
 		}
 
@@ -314,7 +315,7 @@ void main_loop(){
 				xil_printf (
 					"\r\n==========power up===========\r\n");
 
-				hpd_con(Edid1_org, Edid1_org,
+				hpd_con(&DpTxSsInst, Edid1_org, Edid1_org,
 				user_config.VideoMode_local);
 			}
 			break;
