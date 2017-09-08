@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.c
-* @addtogroup dptxss_v4_3
+* @addtogroup dptxss_v4_4
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
@@ -64,6 +64,7 @@
 * 4.2  tu  08/11/17 Removing ceil() to remove dependency on math library.
 * 4.2  tu  09/06/17 Set timer callback after HDCP initialization
 * 4.3  tu  09/06/17 Added Set UserPixelWidth support on tx side
+* 4.4  tu  09/08/17 Set HPD callbacks for HPD event and HPD pulse
 * </pre>
 *
 ******************************************************************************/
@@ -352,6 +353,11 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 
 	/* Set the flag to indicate the subsystem is ready */
 	InstancePtr->IsReady = (u32)XIL_COMPONENT_IS_READY;
+
+	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_HPD_EVENT,
+			    XDpTxSs_HpdEventProcess, InstancePtr);
+	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_HPD_PULSE,
+			    XDpTxSs_HpdPulseProcess, InstancePtr);
 
 	return XST_SUCCESS;
 }
