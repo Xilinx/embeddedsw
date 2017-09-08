@@ -228,6 +228,7 @@ u32 XEmacPs_BdRingFromHwRx(XEmacPs_BdRing * RingPtr, u32 BdLimit,
 				 XEmacPs_Bd ** BdSetPtr);
 LONG XEmacPs_BdRingCheck(XEmacPs_BdRing * RingPtr, u8 Direction);
 
+void XEmacPs_BdRingPtrReset(XEmacPs_BdRing * RingPtr, void *virtaddrloc);
 
 #ifdef __cplusplus
 }
