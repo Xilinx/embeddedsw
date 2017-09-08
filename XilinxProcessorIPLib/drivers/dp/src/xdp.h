@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v5_5
  * @{
  * @details
  *
@@ -371,6 +371,9 @@
  *                     generation.
  * 5.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
  *                     definitions of dp in xparameters.h
+ * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
+ *                     internal callback function of application
+ *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * </pre>
  *
 *******************************************************************************/
@@ -843,10 +846,22 @@ typedef struct {
 	void *HpdEventCallbackRef;		/**< A pointer to the user data
 							passed to the HPD event
 							callback function. */
+	XDp_IntrHandler DrvHpdEventHandler;	/**< Callback function for Hot-
+							Plug-Detect (HPD) event
+							interrupts. */
+	void *DrvHpdEventCallbackRef;		/**< A pointer to the user data
+							passed to the HPD event
+							callback function. */
 	XDp_IntrHandler HpdPulseHandler;	/**< Callback function for Hot-
 							Plug-Detect (HPD) pulse
 							interrupts. */
 	void *HpdPulseCallbackRef;		/**< A pointer to the user data
+							passed to the HPD pulse
+							callback function. */
+	XDp_IntrHandler DrvHpdPulseHandler;	/**< Callback function for Hot-
+							Plug-Detect (HPD) pulse
+							interrupts. */
+	void *DrvHpdPulseCallbackRef;		/**< A pointer to the user data
 							passed to the HPD pulse
 							callback function. */
 	XDp_IntrHandler LaneCountChangeCallback; /** Callback function to be
@@ -1173,6 +1188,10 @@ void XDp_InterruptHandler(XDp *InstancePtr);
 void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetDrvHpdEventHandler(XDp *InstancePtr,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+void XDp_TxSetDrvHpdPulseHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_TxSetMsaHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);

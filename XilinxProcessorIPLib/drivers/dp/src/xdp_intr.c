@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_intr.c
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v5_5
  * @{
  *
  * This file contains functions related to XDp interrupt handling.
@@ -53,6 +53,9 @@
  * 4.0   als  02/18/16 Removed update of payload table in the driver's interrupt
  *                     handler.
  * 5.3   tu   05/30/17 Removed unused variable in XDp_RxInterruptHandler
+ * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
+ *                     internal callback function of application
+ *                     DrvHpdEventHandler and DrvHpdPulseHandler
  * </pre>
  *
 *******************************************************************************/
@@ -211,6 +214,34 @@ void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
 
 /******************************************************************************/
 /**
+ * This function installs a driver's internal callback function for when a
+ * hot-plug-detect event interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetDrvHpdEventHandler(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.DrvHpdEventHandler = CallbackFunc;
+	InstancePtr->TxInstance.DrvHpdEventCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
  * This function installs a callback function for when a hot-plug-detect pulse
  * interrupt occurs.
  *
@@ -235,6 +266,34 @@ void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
 
 	InstancePtr->TxInstance.HpdPulseHandler = CallbackFunc;
 	InstancePtr->TxInstance.HpdPulseCallbackRef = CallbackRef;
+}
+
+/******************************************************************************/
+/**
+ * This function installs a driver's internal callback function for when a
+ * hot-plug-detect pulse interrupt occurs.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	CallbackFunc is the address to the callback function.
+ * @param	CallbackRef is the user data item that will be passed to the
+ *		callback function when it is invoked.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+void XDp_TxSetDrvHpdPulseHandler(XDp *InstancePtr,
+				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->TxInstance.DrvHpdPulseHandler = CallbackFunc;
+	InstancePtr->TxInstance.DrvHpdPulseCallbackRef = CallbackRef;
 }
 
 /******************************************************************************/
@@ -1027,19 +1086,26 @@ static void XDp_TxInterruptHandler(XDp *InstancePtr)
 	HpdPulseDetected = IntrStatus &
 				XDP_TX_INTERRUPT_STATUS_HPD_PULSE_DETECTED_MASK;
 
-	if (HpdEventDetected && InstancePtr->TxInstance.HpdEventHandler) {
-		InstancePtr->TxInstance.HpdEventHandler(
+	if (HpdEventDetected) {
+		if (InstancePtr->TxInstance.DrvHpdEventHandler)
+			InstancePtr->TxInstance.DrvHpdEventHandler(
+				InstancePtr->TxInstance.DrvHpdEventCallbackRef);
+		if (InstancePtr->TxInstance.HpdEventHandler)
+			InstancePtr->TxInstance.HpdEventHandler(
 				InstancePtr->TxInstance.HpdEventCallbackRef);
 	}
-	else if (HpdPulseDetected && XDp_TxIsConnected(InstancePtr) &&
-			InstancePtr->TxInstance.HpdPulseHandler) {
+	else if (HpdPulseDetected && XDp_TxIsConnected(InstancePtr)) {
 		/* The source device must debounce the incoming HPD signal by
 		 * sampling the value at an interval greater than 0.500 ms. An
 		 * HPD pulse should be of width 0.5 ms - 1.0 ms. */
 		HpdDuration = XDp_ReadReg(InstancePtr->Config.BaseAddr,
 							XDP_TX_HPD_DURATION);
 		if (HpdDuration >= 500) {
-			InstancePtr->TxInstance.HpdPulseHandler(
+			if (InstancePtr->TxInstance.DrvHpdPulseHandler)
+				InstancePtr->TxInstance.DrvHpdPulseHandler(
+				InstancePtr->TxInstance.DrvHpdPulseCallbackRef);
+			if (InstancePtr->TxInstance.HpdPulseHandler)
+				InstancePtr->TxInstance.HpdPulseHandler(
 				InstancePtr->TxInstance.HpdPulseCallbackRef);
 		}
 	}
