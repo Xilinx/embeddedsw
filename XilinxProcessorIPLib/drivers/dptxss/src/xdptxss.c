@@ -676,7 +676,7 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr)
 {
 	/* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
         /* Enable special timing mode for BS equal timing */
         InstancePtr->UsrOpt.VtcAdjustBs = 1;
@@ -697,7 +697,7 @@ void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr)
 void XDpTxSs_VtcAdjustBSTimingDisable(XDpTxSs *InstancePtr)
 {
 	/* Verify arguments. */
-        Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr != NULL);
 
         /* Disable special timing mode for BS equal timing */
         InstancePtr->UsrOpt.VtcAdjustBs = 0;
