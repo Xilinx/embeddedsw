@@ -1468,9 +1468,12 @@ void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream);
 void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
+<<<<<<< HEAD
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
+=======
+>>>>>>> DP: Remove compile warning for XDp_TxSetUserPixelWidth function
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
