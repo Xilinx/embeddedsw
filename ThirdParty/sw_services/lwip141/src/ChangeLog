@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2017-09-09
+	* Add rx_reset_nodata workaround for Zynq GEM for freertos.
 2017-08-14
 	* Dont perform data cache related operations when CCI is
 	  enabled.
