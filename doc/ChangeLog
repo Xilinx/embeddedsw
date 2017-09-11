@@ -166,6 +166,7 @@ Change compiler used on A9.
 Fixed conflicting types of variable xInsideISR to fix CR-981909.
 Fix various warning messages in the lwip141 axiethernet adapter.
 Add support for CCI.
+Add rx_reset_nodata workaround for Zynq GEM in freertos case.
 
 llfifo_v5_2:
 CR#978769 Fix doxygen issues in the driver.
