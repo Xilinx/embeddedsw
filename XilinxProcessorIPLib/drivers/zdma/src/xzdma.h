@@ -38,7 +38,7 @@
 * @details
 *
 * ZDMA is a general purpose DMA designed to support memory to memory and memory
-* to IO buffer transfers. ALTO has two instance of general purpose ZDMA.
+* to IO buffer transfers. ZynqMP has two instance of general purpose ZDMA.
 * One is located in FPD (full power domain) which is GDMA and other is located
 * in LPD (low power domain) which is ADMA.
 *
