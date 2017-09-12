@@ -181,8 +181,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	XRFdc_Threshold_Settings GetThresholdSettings;
 	u32 SetDecoderMode;
 	u32 GetDecoderMode;
-	u8 SetNyquistZone;
-	u8 GetNyquistZone;
+	u32 SetNyquistZone;
+	u32 GetNyquistZone;
 	XRFdc_BlockStatus BlockStatus;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
@@ -562,7 +562,7 @@ static int CompareMixerSettings(XRFdc_Mixer_Settings *SetMixerSettings,
 {
 	/* Removed Coarse mix freq check */
 	if ((SetMixerSettings->EventSource == GetMixerSettings->EventSource) &&
-			(SetMixerSettings->Freq == GetMixerSettings->Freq) &&
+			((SetMixerSettings->Freq - GetMixerSettings->Freq) < 0.000000001) &&
 			(SetMixerSettings->FineMixerMode == GetMixerSettings->FineMixerMode) &&
 			(SetMixerSettings->CoarseMixFreq == GetMixerSettings->CoarseMixFreq))
 		return 0;
