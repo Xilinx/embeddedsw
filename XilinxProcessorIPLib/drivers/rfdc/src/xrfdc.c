@@ -1141,12 +1141,11 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		Freq &= XRFDC_NCO_FQWD_MASK;
 		Freq = (Freq << 16) >> 16;
 		if (Freq < 0)
-			Freq = ((Freq * SamplingRate * 1000U) /
+			Mixer_Settings->Freq = ((Freq * (SamplingRate * 1000.0)) /
 						XRFDC_NCO_FREQ_MIN_MULTIPLIER);
 		else
-			Freq = ((Freq * SamplingRate * 1000U) /
+			Mixer_Settings->Freq = ((Freq * (SamplingRate * 1000.0)) /
 						XRFDC_NCO_FREQ_MULTIPLIER);
-		Mixer_Settings->Freq = Freq;
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 				XRFDC_NCO_UPDT_OFFSET);
 		Mixer_Settings->EventSource = ReadReg & XRFDC_NCO_UPDT_MODE_MASK;
