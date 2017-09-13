@@ -489,6 +489,7 @@ proc generate_lwip_opts {libhandle} {
 		if { [string compare -nocase "xilkernel" $os_name] == 0} {
 			puts $lwipopts_fd "\#define OS_IS_XILKERNEL"
 			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO $thread_prio"
+			puts $lwipopts_fd "\#define THREAD_STACKSIZE 1024"
 			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
 			puts $lwipopts_fd "\#define TCPIP_THREAD_STACKSIZE 4096"
 			puts $lwipopts_fd "\#define LWIP_COMPAT_MUTEX 1"
@@ -498,6 +499,7 @@ proc generate_lwip_opts {libhandle} {
 		if { [string compare -nocase "freertos901_zynq" $os_name] == 0} {
 			puts $lwipopts_fd "\#define OS_IS_FREERTOS"
 			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
+			puts $lwipopts_fd "\#define THREAD_STACKSIZE 1024"
 			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio + 1)"
 			puts $lwipopts_fd "\#define TCPIP_THREAD_STACKSIZE 1024"
 			puts $lwipopts_fd "\#define DEFAULT_TCP_RECVMBOX_SIZE 	200"
