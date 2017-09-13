@@ -23,18 +23,18 @@ proc generate_freertos_cli_opts {libhandle} {
     puts $cliopts_fd "\#define _CLIOPTS_H"
     puts $cliopts_fd ""
 
+    set user_buffer [expr [common::get_property CONFIG.user_buffer $libhandle]]
+    if {$user_buffer == "true"} {
+        puts $cliopts_fd "\#define configAPPLICATION_PROVIDES_cOutputBuffer 1"
+    }
+    set buffer_size [common::get_property CONFIG.buffer_size $libhandle]
+    puts $cliopts_fd "\#define configCOMMAND_INT_MAX_OUTPUT_SIZE ($buffer_size)"
+    puts $cliopts_fd ""
+
     set cli_enable [expr [common::get_property CONFIG.cli_enable $libhandle] == true]
     set cli_close [expr [common::get_property CONFIG.cli_close $libhandle] == true]
     puts $cliopts_fd "\#define CLI_ENABLE $cli_enable"
     puts $cliopts_fd "\#define CLI_CLOSE $cli_close"
-    puts $cliopts_fd ""
-
-    set user_buffer [expr [common::get_property CONFIG.cli_user_buffer $libhandle]]
-    if {$user_buffer == "true"} {
-        puts $cliopts_fd "\#define configAPPLICATION_PROVIDES_cOutputBuffer 1"
-    }
-    set buffer_size [common::get_property CONFIG.cli_buffer_size $libhandle]
-    puts $cliopts_fd "\#define configCOMMAND_INT_MAX_OUTPUT_SIZE ($buffer_size)"
     puts $cliopts_fd ""
 
     puts $cliopts_fd "\#endif"
