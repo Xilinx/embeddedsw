@@ -47,6 +47,8 @@
 * 1.00a wsy  01/10/10 First release
 * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp architecture.
 * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.6   rb   09/08/17 HwCnt variable (in XEmacPs_BdRing structure) is
+*		      changed to volatile.
 *
 * </pre>
 *
