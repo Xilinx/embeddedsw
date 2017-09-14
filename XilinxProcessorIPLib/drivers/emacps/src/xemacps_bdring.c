@@ -57,6 +57,8 @@
 *		      from uncached area. Fix for CR #663885.
 * 2.1   srt  07/15/14 Add support for Zynq Ultrascale Mp architecture.
 * 3.0   kvn  02/13/15 Modified code for MISRA-C:2012 compliance.
+* 3.6   rb   09/08/17 Add XEmacPs_BdRingPtrReset() API to reset BD ring
+* 		      pointers
 *
 * </pre>
 ******************************************************************************/
