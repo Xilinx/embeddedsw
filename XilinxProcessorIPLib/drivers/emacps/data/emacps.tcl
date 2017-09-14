@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,7 @@
 #                     newer version of Xilinx PCS PMA when PHY address is not
 #                     a parameter.
 # 3.5   hk   08/14/17 Export cache coherency information
+# 3.6   hk   09/14/17 Export PL PCS PMA information for ETH1/2/3 as well.
 #
 ##############################################################################
 
@@ -153,7 +154,14 @@ proc generate_sgmii_params {drv_handle file_name} {
 				set sgmii_param [common::get_property CONFIG.c_is_sgmii $ip]
 		}
 		if { [string compare -nocase $ipname "ps7_ethernet_0"] == 0 ||
-		     [string compare -nocase $ipname "psu_ethernet_0"] == 0} {
+		     [string compare -nocase $ipname "ps7_ethernet_1"] == 0 ||
+		     [string compare -nocase $ipname "psu_ethernet_0"] == 0 ||
+		     [string compare -nocase $ipname "psu_ethernet_1"] == 0 ||
+		     [string compare -nocase $ipname "psu_ethernet_2"] == 0 ||
+		     [string compare -nocase $ipname "psu_ethernet_3"] == 0 } {
+			# The below function call to get phy address works only with PL PCS PMA IP versions
+			# before 2016.3. For all subsequent versions, the phy address is exported as 0 in
+			# xparameters but will be scanned and obtained in upper layers.
 			set phya [is_gige_pcs_pma_ip_present $ip]
 			if {$pcs_pma == false} {
 				close $file_handle
