@@ -793,7 +793,7 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
-* This macro selects L-PCM audio for the HDMI TX.
+* This macro selects HBR audio for the HDMI TX.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
 *
