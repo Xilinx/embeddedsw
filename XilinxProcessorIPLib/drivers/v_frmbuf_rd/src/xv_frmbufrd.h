@@ -51,6 +51,7 @@ typedef struct {
   u16 MaxHeight;            /**< Maximum rows supported by core instance */
   u16 MaxDataWidth;         /**< Maximum Data width of each channel */
   u16 AXIMMDataWidth;       /**< AXI-MM data width */
+  u16 AXIMMAddrWidth;       /**< AXI-MM address width */
   u16 RGBX8En;              /**< RGBX8      support */
   u16 YUVX8En;              /**< YUVX8      support */
   u16 YUYV8En;              /**< YUYV8      support */
