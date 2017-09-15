@@ -264,7 +264,7 @@ void XV_SdiTx_ClearPayloadId(XV_SdiTx *InstancePtr)
 * @note     None.
 *
 ******************************************************************************/
-int XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
+u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 			u32 Data, u8 StreamId)
 {
 	const XVidC_VideoTiming *TimingPtr;
@@ -633,7 +633,6 @@ u32 XV_SdiTx_GetPayloadByte1(XVidC_VideoMode VideoMode,XSdiVid_TransMode SdiMode
  * @note		None.
  *
  ******************************************************************************/
-/*TODO: test this API for all SDI modes */
 u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream)
 {
 	u32 Data = 0, Status;
