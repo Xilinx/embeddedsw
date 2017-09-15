@@ -65,8 +65,7 @@
 /**
 * This typedef declares the driver instances of all the cores in the subsystem
 */
-typedef struct
-{
+typedef struct {
 	XV_SdiTx SdiTx;
 	XVtc Vtc;
 } XV_SdiTxSs_SubCores;
@@ -289,7 +288,7 @@ static void XV_SdiTxSs_OverFlowCallback(void *CallbackRef)
 	XV_SdiTxSs_LogWrite(SdiTxSsPtr, XV_SDITXSS_LOG_EVT_OVERFLOW, 0);
 
 	/* Check if user callback has been registered */
-	if(SdiTxSsPtr->OverFlowCallback)
+	if (SdiTxSsPtr->OverFlowCallback)
 		SdiTxSsPtr->OverFlowCallback(SdiTxSsPtr->OverFlowRef);
 
 }
@@ -313,7 +312,7 @@ static void XV_SdiTxSs_UnderFlowCallback(void *CallbackRef)
 	XV_SdiTxSs_LogWrite(SdiTxSsPtr, XV_SDITXSS_LOG_EVT_UNDERFLOW, 0);
 
 	/* Check if user callback has been registered */
-	if(SdiTxSsPtr->UnderFlowCallback)
+	if (SdiTxSsPtr->UnderFlowCallback)
 		SdiTxSsPtr->UnderFlowCallback(SdiTxSsPtr->UnderFlowRef);
 
 }
