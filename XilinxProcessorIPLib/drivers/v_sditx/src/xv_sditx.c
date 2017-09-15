@@ -355,7 +355,7 @@ u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 * @note     None.
 *
 ******************************************************************************/
-void XV_SdiTx_SetCoreSettings(XV_SdiTx *InstancePtr,XV_SdiTx_CoreSelId SelId,
+void XV_SdiTx_SetCoreSettings(XV_SdiTx *InstancePtr, XV_SdiTx_CoreSelId SelId,
 				u8 Data)
 {
 	u32 RegData;
@@ -567,7 +567,7 @@ u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio)
  * @note		None.
  *
  ******************************************************************************/
-u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid,XSdiVid_TransMode SdiMode, u8 *Data)
+u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid, XSdiVid_TransMode SdiMode, u8 *Data)
 {
 	/* These values are taken from ST352, ST 2082-10, ST 2081-10 documents */
 	switch (VActiveValid) {
@@ -641,7 +641,7 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 		return XST_FAILURE;
 	}
 
-	if(InstancePtr->Stream[DataStream].Video.IsInterlaced) {
+	if (InstancePtr->Stream[DataStream].Video.IsInterlaced) {
 		VActiveValid = TimingPtr->VActive * 2;;
 		FrameRateValid = InstancePtr->Stream[DataStream].Video.FrameRate/2;
 	} else {
@@ -1123,7 +1123,7 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 		/* Print SDI specific information */
 		xil_printf("\tSDI Mode:         ");
 
-		switch(InstancePtr->Transport.TMode) {
+		switch (InstancePtr->Transport.TMode) {
 		case 0:
 			xil_printf("HD");
 			break;
@@ -1133,7 +1133,7 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 			break;
 
 		case 2:
-			if(InstancePtr->Transport.IsLevelB3G == 1) {
+			if (InstancePtr->Transport.IsLevelB3G == 1) {
 				xil_printf("3GB");
 			} else {
 				xil_printf("3GA");
@@ -1169,14 +1169,14 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 		Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress,
 					XV_SDITX_BRIDGE_STS_OFFSET);
 		xil_printf("  Bridge Select: ");
-		if(Data & XV_SDITX_BRIDGE_STS_SELECT_MASK) {
+		if (Data & XV_SDITX_BRIDGE_STS_SELECT_MASK) {
 			xil_printf("12G SDI Bridge\r\n");
 		} else {
 			xil_printf("3G SDI Bridge\r\n");
 		}
 
 		xil_printf("  3G Bridge SDI Mode: ");
-		switch((Data & XV_SDITX_BRIDGE_STS_MODE_MASK)
+		switch ((Data & XV_SDITX_BRIDGE_STS_MODE_MASK)
 			>> XV_SDITX_BRIDGE_STS_MODE_SHIFT) {
 		case 0:
 			xil_printf("HD");
@@ -1213,7 +1213,7 @@ void XV_SdiTx_DebugInfo(XV_SdiTx *InstancePtr, XV_SdiTx_DebugSelId SelId)
 				>> XV_SDITX_ISR_UNDERFLOW_SHIFT);
 		break;
 	case 4:
-		for(int i = 0; i <= XV_SDITX_REGISTER_SIZE; i++) {
+		for (int i = 0; i <= XV_SDITX_REGISTER_SIZE; i++) {
 			Data = XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress, (i*4));
 			xil_printf("Address: 0x%X Data: 0x%X\r\n",
 					(InstancePtr->Config.BaseAddress + (i*4)),

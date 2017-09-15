@@ -326,7 +326,7 @@ void XV_SdiTx_IntrEnable(XV_SdiTx *InstancePtr, u32 Mask)
 
 	Mask |= XV_SdiTx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDITX_IER_OFFSET);
 
-	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress,XV_SDITX_IER_OFFSET,
+	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress, XV_SDITX_IER_OFFSET,
 			Mask & XV_SDITX_IER_ALLINTR_MASK);
 }
 
@@ -351,7 +351,7 @@ void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask)
 	Xil_AssertVoid((Mask & (~(XV_SDITX_IER_ALLINTR_MASK))) == 0);
 
 	XV_SdiTx_WriteReg(InstancePtr->Config.BaseAddress, XV_SDITX_IER_OFFSET,
-			~ Mask & XV_SDITX_IER_ALLINTR_MASK);
+			~Mask & XV_SDITX_IER_ALLINTR_MASK);
 
 }
 
