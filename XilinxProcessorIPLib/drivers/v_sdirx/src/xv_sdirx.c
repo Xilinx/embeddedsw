@@ -270,7 +270,7 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId)
 		/* Print SDI specific information */
 		xil_printf("\tSDI Mode:         ");
 
-		switch(InstancePtr->Transport.TMode) {
+		switch (InstancePtr->Transport.TMode) {
 		case 0:
 			xil_printf("HD");
 			break;
@@ -338,10 +338,10 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId)
 		Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 					XV_SDIRX_MODE_DET_STS_OFFSET);
 		xil_printf("  Bridge Select: ");
-		if(((Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 5)
-			||(Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 6){
+		if (((Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 5)
+			|| (Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 6) {
 			xil_printf("12G SDI Bridge");
-		} else if((Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 2){
+		} else if ((Data & XV_SDIRX_MODE_DET_STS_MODE_MASK) == 2) {
 			xil_printf("3G SDI Bridge");
 		} else {
 			xil_printf("SDI Bridge is not 3G/12G");
@@ -353,7 +353,7 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId)
 				(Data & XV_SDIRX_BRIDGE_STS_MODE_LOCKED_MASK)
 				>> XV_SDIRX_BRIDGE_STS_MODE_LOCKED_SHIFT);
 		xil_printf("  SDI Mode: ");
-		switch((Data & XV_SDIRX_BRIDGE_STS_MODE_MASK)
+		switch ((Data & XV_SDIRX_BRIDGE_STS_MODE_MASK)
 			>> XV_SDIRX_BRIDGE_STS_MODE_SHIFT) {
 		case 0:
 			xil_printf("HD");
@@ -395,7 +395,7 @@ void XV_SdiRx_DebugInfo(XV_SdiRx *InstancePtr, XV_SdiRx_DebugSelId SelId)
 						>> XV_SDIRX_ISR_UNDERFLOW_SHIFT);
 		break;
 	case 4:
-		for(int i = 0; i <= XV_SDIRX_REGISTER_SIZE; i++) {
+		for (int i = 0; i <= XV_SDIRX_REGISTER_SIZE; i++) {
 			Data = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress, (i*4));
 			xil_printf("Address: 0x%X Data: 0x%X\r\n",
 				(InstancePtr->Config.BaseAddress + (i*4)), Data);
