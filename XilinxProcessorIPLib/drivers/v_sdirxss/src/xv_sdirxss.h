@@ -136,12 +136,11 @@ typedef enum {
 /**
  * Sub-Core Configuration Table
  */
-typedef struct
-{
+typedef struct {
 	u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
 	u16 DeviceId;   /**< Device ID of the sub-core */
 	UINTPTR AbsAddr; /**< sub-core offset from subsystem base address */
-}XV_SdiRxSs_SubCore;
+} XV_SdiRxSs_SubCore;
 
 /**
  * This typedef contains configuration information for the SDI RX core.
