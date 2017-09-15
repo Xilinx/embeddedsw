@@ -335,7 +335,7 @@ void XV_SdiRx_IntrEnable(XV_SdiRx *InstancePtr, u32 Mask)
 
 	Mask |= XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress, XV_SDIRX_IER_OFFSET);
 
-	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress,XV_SDIRX_IER_OFFSET,
+	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress, XV_SDIRX_IER_OFFSET,
 			Mask & XV_SDIRX_IER_ALLINTR_MASK);
 
 }
@@ -361,7 +361,7 @@ void XV_SdiRx_IntrDisable(XV_SdiRx *InstancePtr, u32 Mask)
 	Xil_AssertVoid((Mask & (~(XV_SDIRX_IER_ALLINTR_MASK))) == 0);
 
 	XV_SdiRx_WriteReg(InstancePtr->Config.BaseAddress, XV_SDIRX_IER_OFFSET,
-			~ Mask & XV_SDIRX_IER_ALLINTR_MASK);
+			~Mask & XV_SDIRX_IER_ALLINTR_MASK);
 
 }
 
@@ -391,7 +391,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 	Data1 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 					(XV_SDIRX_TS_DET_STS_OFFSET));
 
-	if(((Data0 & XV_SDIRX_MODE_DET_STS_MODE_LOCKED_MASK)
+	if (((Data0 & XV_SDIRX_MODE_DET_STS_MODE_LOCKED_MASK)
 			== XV_SDIRX_MODE_DET_STS_MODE_LOCKED_MASK)
 		&& ((Data1 & XV_SDIRX_TS_DET_STS_T_LOCKED_MASK)
 			== XV_SDIRX_TS_DET_STS_T_LOCKED_MASK)) {
@@ -400,7 +400,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			>> XV_SDIRX_MODE_DET_STS_LVL_B_3G_SHIFT;
 		InstancePtr->Transport.TMode = Data0 & XV_SDIRX_MODE_DET_STS_MODE_MASK;
 
-		if(InstancePtr->Transport.TMode > XSDIVID_MODE_12G) {
+		if (InstancePtr->Transport.TMode > XSDIVID_MODE_12G) {
 			InstancePtr->Transport.TMode = XSDIVID_MODE_12G;
 		}
 
@@ -430,14 +430,14 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		Data2 = XV_SdiRx_ReadReg(InstancePtr->Config.BaseAddress,
 						(XV_SDIRX_RST_CTRL_OFFSET));
 
-		Data2 = Data2 & ~ (XV_SDIRX_RST_CTRL_RST_CLR_ERR_MASK |
+		Data2 = Data2 & ~(XV_SDIRX_RST_CTRL_RST_CLR_ERR_MASK |
 					XV_SDIRX_RST_CTRL_RST_CLR_EDH_MASK);
 
 		XV_SdiRx_WriteReg((InstancePtr)->Config.BaseAddress,
 					(XV_SDIRX_RST_CTRL_OFFSET), Data2);
 
 
-		for(int StreamId = 0; StreamId < XV_SDIRX_MAX_DATASTREAM; StreamId++) {
+		for (int StreamId = 0; StreamId < XV_SDIRX_MAX_DATASTREAM; StreamId++) {
 			InstancePtr->Stream[StreamId].PayloadId
 				= XV_SdiRx_GetPayloadId(InstancePtr, StreamId);
 		}
@@ -448,29 +448,53 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		SdiStream->IsInterlaced = FALSE;
 		SdiStream->VmId = XVIDC_VM_NOT_SUPPORTED;
 
-		if(InstancePtr->Transport.IsFractional) {
-			switch(InstancePtr->Transport.TRate) {
-			case XV_SDIRX_FR_23_98HZ: FrameRate = XVIDC_FR_24HZ; break;
-			case XV_SDIRX_FR_47_95HZ: FrameRate = XVIDC_FR_48HZ; break;
-			case XV_SDIRX_FR_29_97HZ: FrameRate = XVIDC_FR_30HZ; break;
-			case XV_SDIRX_FR_59_94HZ: FrameRate = XVIDC_FR_60HZ; break;
-			default: FrameRate = XVIDC_FR_60HZ; break;
+		if (InstancePtr->Transport.IsFractional) {
+			switch (InstancePtr->Transport.TRate) {
+			case XV_SDIRX_FR_23_98HZ:
+				FrameRate = XVIDC_FR_24HZ;
+				break;
+			case XV_SDIRX_FR_47_95HZ:
+				FrameRate = XVIDC_FR_48HZ;
+				break;
+			case XV_SDIRX_FR_29_97HZ:
+				FrameRate = XVIDC_FR_30HZ;
+				break;
+			case XV_SDIRX_FR_59_94HZ:
+				FrameRate = XVIDC_FR_60HZ;
+				break;
+			default:
+				FrameRate = XVIDC_FR_60HZ;
+				break;
 			}
 		} else {
-			switch(InstancePtr->Transport.TRate) {
-			case XV_SDIRX_FR_24HZ: FrameRate = XVIDC_FR_24HZ; break;
-			case XV_SDIRX_FR_25HZ: FrameRate = XVIDC_FR_25HZ; break;
-			case XV_SDIRX_FR_30HZ: FrameRate = XVIDC_FR_30HZ; break;
-			case XV_SDIRX_FR_48HZ: FrameRate = XVIDC_FR_48HZ; break;
-			case XV_SDIRX_FR_50HZ: FrameRate = XVIDC_FR_50HZ; break;
-			case XV_SDIRX_FR_60HZ: FrameRate = XVIDC_FR_60HZ; break;
-			default: FrameRate = XVIDC_FR_60HZ; break;
+			switch (InstancePtr->Transport.TRate) {
+			case XV_SDIRX_FR_24HZ:
+				FrameRate = XVIDC_FR_24HZ;
+				break;
+			case XV_SDIRX_FR_25HZ:
+				FrameRate = XVIDC_FR_25HZ;
+				break;
+			case XV_SDIRX_FR_30HZ:
+				FrameRate = XVIDC_FR_30HZ;
+				break;
+			case XV_SDIRX_FR_48HZ:
+				FrameRate = XVIDC_FR_48HZ;
+				break;
+			case XV_SDIRX_FR_50HZ:
+				FrameRate = XVIDC_FR_50HZ;
+				break;
+			case XV_SDIRX_FR_60HZ:
+				FrameRate = XVIDC_FR_60HZ;
+				break;
+			default:
+				FrameRate = XVIDC_FR_60HZ;
+				break;
 			}
 		}
 
-		switch(InstancePtr->Transport.TMode) {
+		switch (InstancePtr->Transport.TMode) {
 		case XV_SDIRX_MODE_SD:
-			if(InstancePtr->Transport.TFamily == XV_SDIRX_NTSC) {
+			if (InstancePtr->Transport.TFamily == XV_SDIRX_NTSC) {
 				SdiStream->VmId =  XVIDC_VM_720x480_60_I;
 				FrameRate = XVIDC_FR_60HZ;
 
@@ -483,12 +507,12 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 
 
 		case XV_SDIRX_MODE_HD:
-			switch(FrameRate) {
+			switch (FrameRate) {
 			case XVIDC_FR_24HZ:
-				if(InstancePtr->Transport.TFamily
+				if (InstancePtr->Transport.TFamily
 						== XV_SDIRX_SMPTE_ST_296) {
 					SdiStream->VmId = XVIDC_VM_1280x720_24_P;
-				} else if(InstancePtr->Transport.TFamily
+				} else if (InstancePtr->Transport.TFamily
 						== XV_SDIRX_SMPTE_ST_2048_2) {
 					SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
 							XVIDC_VM_2048x1080_24_P :
@@ -504,10 +528,10 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				break;
 
 			case XVIDC_FR_25HZ:
-				if(InstancePtr->Transport.TFamily
+				if (InstancePtr->Transport.TFamily
 						== XV_SDIRX_SMPTE_ST_296) {
 					SdiStream->VmId = XVIDC_VM_1280x720_25_P;
-				} else if(InstancePtr->Transport.TFamily
+				} else if (InstancePtr->Transport.TFamily
 						== XV_SDIRX_SMPTE_ST_2048_2) {
 					SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
 							XVIDC_VM_2048x1080_25_P :
@@ -522,9 +546,9 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 				break;
 
 			case XVIDC_FR_30HZ:
-				if(InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296) {
+				if (InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_296) {
 					SdiStream->VmId = XVIDC_VM_1280x720_30_P;
-				} else if(InstancePtr->Transport.TFamily
+				} else if (InstancePtr->Transport.TFamily
 						== XV_SDIRX_SMPTE_ST_2048_2) {
 					SdiStream->VmId = ((InstancePtr->Transport.TScan) ?
 							XVIDC_VM_2048x1080_30_P :
@@ -561,7 +585,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 
 		case XV_SDIRX_MODE_3G:
 			if (InstancePtr->Transport.IsLevelB3G) {
-				switch(FrameRate) {
+				switch (FrameRate) {
 				case XVIDC_FR_24HZ:
 					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
 					XVIDC_VM_2048x1080_96_I : XVIDC_VM_1920x1080_96_I); break;
@@ -575,7 +599,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 					SdiStream->VmId = XVIDC_VM_1920x1080_120_I; break;
 				}
 			} else {
-				switch(FrameRate) {
+				switch (FrameRate) {
 				case XVIDC_FR_24HZ:
 					SdiStream->VmId = ((InstancePtr->Transport.TFamily == XV_SDIRX_SMPTE_ST_2048_2) ?
 					XVIDC_VM_2048x1080_24_P : XVIDC_VM_1920x1080_24_P); break;
@@ -603,7 +627,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			break;
 
 		case XV_SDIRX_MODE_6G:
-			switch(FrameRate) {
+			switch (FrameRate) {
 			case XVIDC_FR_24HZ:
 				SdiStream->VmId = ((InstancePtr->Transport.TFamily
 					== XV_SDIRX_SMPTE_ST_2048_2) ? XVIDC_VM_4096x2160_24_P
@@ -625,7 +649,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			break;
 
 		case XV_SDIRX_MODE_12G:
-			switch(FrameRate) {
+			switch (FrameRate) {
 			case XVIDC_FR_48HZ:
 				SdiStream->VmId = ((InstancePtr->Transport.TFamily
 					== XV_SDIRX_SMPTE_ST_2048_2) ? XVIDC_VM_4096x2160_48_P :
@@ -654,7 +678,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 			break;
 		}
 
-		if(SdiStream->VmId < XVIDC_VM_NUM_SUPPORTED) {
+		if (SdiStream->VmId < XVIDC_VM_NUM_SUPPORTED) {
 			Timing = XVidC_GetTimingInfo(SdiStream->VmId);
 			SdiStream->Timing = *Timing;
 		}

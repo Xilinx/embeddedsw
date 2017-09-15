@@ -93,7 +93,7 @@ typedef enum {
 	XV_SDIRX_MODE_6G,
 	XV_SDIRX_MODE_12G,
 	XV_SDIRX_MODE_NUM_SUPPORTED
-}XV_SdiRx_Modes;
+} XV_SdiRx_Modes;
 
 /** @name SDI Debug Settings
 * @{
@@ -116,7 +116,7 @@ typedef enum {
 	XV_SDIRX_SMPTE_ST_295    = 3,
 	XV_SDIRX_NTSC            = 8,
 	XV_SDIRX_PAL             = 9,
-}XV_SdiRx_Family_Encoding;
+} XV_SdiRx_Family_Encoding;
 
 /**
 * SDI Search Modes
@@ -162,7 +162,7 @@ typedef enum {
 	XV_SDIRX_FR_59_94HZ,
 	XV_SDIRX_FR_60HZ,
 	XV_SDIRX_FR_NUM_SUPPORTED
-}XV_SdiRx_FrameRate;
+} XV_SdiRx_FrameRate;
 
 /**************************** Type Definitions *******************************/
 
