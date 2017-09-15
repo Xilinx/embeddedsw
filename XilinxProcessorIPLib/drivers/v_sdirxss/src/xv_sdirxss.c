@@ -61,8 +61,7 @@
 /**
 * This typedef declares the driver instances of all the cores in the subsystem
 */
-typedef struct
-{
+typedef struct {
 	XV_SdiRx SdiRx;
 } XV_SdiRxSs_SubCores;
 

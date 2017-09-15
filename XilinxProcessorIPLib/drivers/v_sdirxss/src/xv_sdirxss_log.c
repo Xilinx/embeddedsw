@@ -143,8 +143,7 @@ u16 XV_SdiRxSs_LogRead(XV_SdiRxSs *InstancePtr)
 	/* Check if there is any data in the log */
 	if (InstancePtr->Log.TailIndex == InstancePtr->Log.HeadIndex) {
 		Log = 0;
-	}
-	else {
+	} else {
 		Log = InstancePtr->Log.DataBuffer[InstancePtr->Log.TailIndex];
 
 		/* Increment tail pointer */
@@ -197,35 +196,35 @@ void XV_SdiRxSs_LogDisplay(XV_SdiRxSs *InstancePtr)
 		case (XV_SDIRXSS_LOG_EVT_NONE):
 			xil_printf("SDI RXSS log end\r\n-------\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_SDIRX_INIT):
-		    xil_printf("Initializing SDI RX core....\r\n");
+		case (XV_SDIRXSS_LOG_EVT_SDIRX_INIT):
+			xil_printf("Initializing SDI RX core....\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_START):
-		    xil_printf("Start SDI RX Subsystem....\r\n");
+		case (XV_SDIRXSS_LOG_EVT_START):
+			xil_printf("Start SDI RX Subsystem....\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_STOP):
-		    xil_printf("Stop SDI RX Subsystem....\r\n");
+		case (XV_SDIRXSS_LOG_EVT_STOP):
+			xil_printf("Stop SDI RX Subsystem....\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_RESET):
-		    xil_printf("Reset SDI RX Subsystem....\r\n");
+		case (XV_SDIRXSS_LOG_EVT_RESET):
+			xil_printf("Reset SDI RX Subsystem....\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_STREAMUP):
-		    xil_printf("RX Stream is Up\r\n");
+		case (XV_SDIRXSS_LOG_EVT_STREAMUP):
+			xil_printf("RX Stream is Up\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_STREAMDOWN):
-		    xil_printf("RX Stream is Down\r\n");
+		case (XV_SDIRXSS_LOG_EVT_STREAMDOWN):
+			xil_printf("RX Stream is Down\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_OVERFLOW):
-		    xil_printf("RX Stream is Overflowed\r\n");
+		case (XV_SDIRXSS_LOG_EVT_OVERFLOW):
+			xil_printf("RX Stream is Overflowed\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_UNDERFLOW):
-		    xil_printf("RX Stream is Underflowed\r\n");
+		case (XV_SDIRXSS_LOG_EVT_UNDERFLOW):
+			xil_printf("RX Stream is Underflowed\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_STREAMSTART):
-		    xil_printf("RX Stream Start\r\n");
+		case (XV_SDIRXSS_LOG_EVT_STREAMSTART):
+			xil_printf("RX Stream Start\r\n");
 			break;
-	    case (XV_SDIRXSS_LOG_EVT_SETSTREAM):
-		    xil_printf("RX Set Stream, with TMDS (%0d)\r\n", Data);
+		case (XV_SDIRXSS_LOG_EVT_SETSTREAM):
+			xil_printf("RX Set Stream, with TMDS (%0d)\r\n", Data);
 			break;
 		default:
 			xil_printf("Unknown event\r\n");
