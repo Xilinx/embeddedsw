@@ -426,13 +426,13 @@ void XV_SdiTx_SetCoreSettings(XV_SdiTx *InstancePtr,XV_SdiTx_CoreSelId SelId,
  * @note		None.
  *
  ******************************************************************************/
-u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRate, XSdiVid_BitRate BitRate)
+u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate BitRate)
 {
 	u32 Data;
 
 	/* Verify argument. */
 	if (BitRate == XSDIVID_BR_INTEGER) {
-		switch (FrameRate) {
+		switch (FrameRateValid) {
 		case (XVIDC_FR_24HZ):
 			Data = 0x3;
 			break;
@@ -462,7 +462,7 @@ u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRate, XSdiVid_BitRate BitRa
 			break;
 		}
 	} else {
-		switch (FrameRate) {
+		switch (FrameRateValid) {
 		case (XVIDC_FR_24HZ):
 			Data = 0x2;
 			break;
@@ -567,18 +567,10 @@ u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio)
  * @note		None.
  *
  ******************************************************************************/
-u32 XV_SdiTx_GetPayloadByte1(XVidC_VideoMode VideoMode,XSdiVid_TransMode SdiMode, u8 *Data)
+u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid,XSdiVid_TransMode SdiMode, u8 *Data)
 {
-	const XVidC_VideoTiming *TimingPtr;
-
-	TimingPtr = XVidC_GetTimingInfo((u32)VideoMode);
-	if (!TimingPtr) {
-		return XST_FAILURE;
-	}
-
-
 	/* These values are taken from ST352, ST 2082-10, ST 2081-10 documents */
-	switch (TimingPtr->VActive) {
+	switch (VActiveValid) {
 	case 720:
 		if (SdiMode == XSDIVID_MODE_3GA)
 				*Data = 0x88;
@@ -605,8 +597,8 @@ u32 XV_SdiTx_GetPayloadByte1(XVidC_VideoMode VideoMode,XSdiVid_TransMode SdiMode
 		else
 				*Data = 0x8A;
 		break;
-	case 288:
-	case 240:
+	case 576:
+	case 480:
 			*Data = 0x81;
 		break;
 	default:
@@ -637,18 +629,33 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 {
 	u32 Data = 0, Status;
 	u8 Byte1;
+	u16 VActiveValid;
+	XVidC_VideoTiming *TimingPtr;
+	XVidC_FrameRate FrameRateValid;
 
 	if (SdiMode == XSDIVID_MODE_3GB)
 		InstancePtr->Stream[DataStream].CAssignment = (DataStream << 1);
 
-	Status = XV_SdiTx_GetPayloadByte1(VideoMode, SdiMode, &Byte1);
+	TimingPtr = XVidC_GetTimingInfo((u32)VideoMode);
+	if (!TimingPtr) {
+		return XST_FAILURE;
+	}
+
+	if(InstancePtr->Stream[DataStream].Video.IsInterlaced) {
+		VActiveValid = TimingPtr->VActive * 2;;
+		FrameRateValid = InstancePtr->Stream[DataStream].Video.FrameRate/2;
+	} else {
+		VActiveValid = TimingPtr->VActive;
+		FrameRateValid = InstancePtr->Stream[DataStream].Video.FrameRate;
+	}
+	Status = XV_SdiTx_GetPayloadByte1(VActiveValid, SdiMode, &Byte1);
 	if (Status == XST_FAILURE)
 		return Status;
+
 	Data = Byte1;
 	Data |=	XV_SDITX_COLORFORMAT;
 	Data |=	XV_SDITX_COLORDEPTH;
-	Data |=	(XV_SdiTx_GetPayloadFrameRate(InstancePtr->Stream[DataStream].Video.FrameRate,
-						InstancePtr->Transport.IsFractional) << 8);
+	Data |=	(XV_SdiTx_GetPayloadFrameRate(FrameRateValid, InstancePtr->Transport.IsFractional) << 8);
 	Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << 14);
 
 	if ((InstancePtr->Stream[DataStream].Video.Timing.F0PVTotal >= 1125) && (SdiMode != XSDIVID_MODE_3GB))
