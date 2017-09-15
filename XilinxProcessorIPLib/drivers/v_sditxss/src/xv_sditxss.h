@@ -247,7 +247,10 @@ void XV_SdiTxSs_ReportDetectedError(XV_SdiTxSs *InstancePtr);
 int XV_SdiTxSs_IsStreamUp(XV_SdiTxSs *InstancePtr);
 void XV_SdiTxSs_IntrEnable(XV_SdiTxSs *InstancePtr, u32 IntrMask);
 void XV_SdiTxSs_IntrDisable(XV_SdiTxSs *InstancePtr, u32 IntrMask);
-
+u32 XV_SdiTxSs_GetPayload(XV_SdiTxSs *InstancePtr, XVidC_VideoMode VideoMode,
+				XSdiVid_TransMode SdiMode, u8 DataStream);
+u32 XV_SdiTxSs_SetStream(XV_SdiTxSs *InstancePtr, XV_SdiTx_StreamSelId SelId,
+				u32 Data, u8 StreamId);
 /* Self test function in xv_sditxss_selftest.c */
 u32 XV_SdiTxSs_SelfTest(XV_SdiTxSs *InstancePtr);
 
