@@ -106,7 +106,7 @@ XV_SdiRx Sdi;
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
-int main()
+int main(void)
 {
 	int Status;
 
