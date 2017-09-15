@@ -261,7 +261,7 @@ int XV_SdiTx_CfgInitialize(XV_SdiTx *InstancePtr, XV_SdiTx_Config *CfgPtr,
 			    UINTPTR EffectiveAddr);
 void XV_SdiTx_Reset(XV_SdiTx *InstancePtr);
 void XV_SdiTx_ClearPayloadId(XV_SdiTx *InstancePtr);
-int XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
+u32 XV_SdiTx_SetStream(XV_SdiTx *InstancePtr, XV_SdiTx_StreamSelId SelId,
 			u32 Data, u8 StreamId);
 void XV_SdiTx_StreamStart(XV_SdiTx *InstancePtr);
 void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr,
