@@ -138,26 +138,24 @@ typedef enum {
 /**
  * Sub-Core Configuration Table
  */
-typedef struct
-{
+typedef struct {
   u16 IsPresent;  /**< Flag to indicate if sub-core is present in the design*/
   u16 DeviceId;   /**< Device ID of the sub-core */
   UINTPTR AbsAddr; /**< sub-core offset from subsystem base address */
-}XV_SdiTxSs_SubCore;
+} XV_SdiTxSs_SubCore;
 
 /**
 * This typedef contains configuration information for the SDI TX core.
 * Each SDI TX device should have a configuration structure associated.
 */
 typedef struct {
-    u16 DeviceId;       /**< DeviceId is the unique ID of the SDI TX core */
-    UINTPTR BaseAddress;          /**< BaseAddress is the physical base address of the
-                                   subsystem address range */
-    XVidC_PixelsPerClock Ppc;         /**< Supported Pixel per Clock */
+    u16 DeviceId;		/**< DeviceId is the unique ID of the SDI TX core */
+    UINTPTR BaseAddress;	/**< BaseAddress is the physical base address of the					subsystem address range */
+    XVidC_PixelsPerClock Ppc;	/**< Supported Pixel per Clock */
     u8 IsEdhIncluded;
     u8 MaxRateSupported;
-    XV_SdiTxSs_SubCore SdiTx;       /**< Sub-core instance configuration */
-	XV_SdiTxSs_SubCore Vtc;          /**< Sub-core instance configuration */
+    XV_SdiTxSs_SubCore SdiTx;	/**< Sub-core instance configuration */
+	XV_SdiTxSs_SubCore Vtc;	/**< Sub-core instance configuration */
 } XV_SdiTxSs_Config;
 
 /**

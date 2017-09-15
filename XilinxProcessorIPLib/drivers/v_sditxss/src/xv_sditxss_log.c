@@ -197,38 +197,38 @@ void XV_SdiTxSs_LogDisplay(XV_SdiTxSs *InstancePtr)
 		case (XV_SDITXSS_LOG_EVT_NONE):
 			xil_printf("SDI TXSS log end\r\n-------\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_SDITX_INIT):
-		    xil_printf("Initializing SDI TX core....\r\n");
+		case (XV_SDITXSS_LOG_EVT_SDITX_INIT):
+			xil_printf("Initializing SDI TX core....\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_VTC_INIT):
-		    xil_printf("Initializing VTC core....\r\n");
+		case (XV_SDITXSS_LOG_EVT_VTC_INIT):
+			xil_printf("Initializing VTC core....\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_START):
-		    xil_printf("Start SDI TX Subsystem....\r\n");
+		case (XV_SDITXSS_LOG_EVT_START):
+			xil_printf("Start SDI TX Subsystem....\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_STOP):
-		    xil_printf("Stop SDI TX Subsystem....\r\n");
+		case (XV_SDITXSS_LOG_EVT_STOP):
+			xil_printf("Stop SDI TX Subsystem....\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_RESET):
-		    xil_printf("Reset SDI TX Subsystem....\r\n");
+		case (XV_SDITXSS_LOG_EVT_RESET):
+			xil_printf("Reset SDI TX Subsystem....\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_STREAMCFG):
-		    xil_printf("Configure SDI TX Core....\r\n");
+		case (XV_SDITXSS_LOG_EVT_STREAMCFG):
+			xil_printf("Configure SDI TX Core....\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_STREAMUP):
-		    xil_printf("TX Stream is Up\r\n");
+		case (XV_SDITXSS_LOG_EVT_STREAMUP):
+			xil_printf("TX Stream is Up\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_STREAMDOWN):
-		    xil_printf("TX Stream is Down\r\n");
+		case (XV_SDITXSS_LOG_EVT_STREAMDOWN):
+			xil_printf("TX Stream is Down\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_OVERFLOW):
-		    xil_printf("TX Stream is Overflowed\r\n");
+		case (XV_SDITXSS_LOG_EVT_OVERFLOW):
+			xil_printf("TX Stream is Overflowed\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_UNDERFLOW):
-		    xil_printf("TX Stream is Underflowed\r\n");
+		case (XV_SDITXSS_LOG_EVT_UNDERFLOW):
+			xil_printf("TX Stream is Underflowed\r\n");
 			break;
-	    case (XV_SDITXSS_LOG_EVT_STREAMSTART):
-		    xil_printf("TX Stream Start\r\n");
+		case (XV_SDITXSS_LOG_EVT_STREAMSTART):
+			xil_printf("TX Stream Start\r\n");
 			break;
 		default:
 			xil_printf("Unknown event\r\n");

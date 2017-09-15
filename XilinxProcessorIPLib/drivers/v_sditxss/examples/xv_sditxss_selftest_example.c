@@ -95,7 +95,7 @@ XV_SdiTxSs SdiTxSsInst;	/* The SDI Tx Subsystem instance.*/
 *
 ******************************************************************************/
 #ifndef TESTAPP_GEN
-int main()
+int main(void)
 {
 	u32 Status;
 
