@@ -280,10 +280,10 @@ void XV_SdiTx_SetPayloadLineNum(XV_SdiTx *InstancePtr,
 void XV_SdiTx_SetCoreSettings(XV_SdiTx *InstancePtr,
 				XV_SdiTx_CoreSelId SelId, u8 Data);
 
-u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRate, XSdiVid_BitRate BitRate);
+u8 XV_SdiTx_GetPayloadFrameRate(XVidC_FrameRate FrameRateValid, XSdiVid_BitRate BitRate);
 u8 XV_SdiTx_GetPayloadIsInterlaced(XVidC_VideoFormat VideoFormat);
 u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio);
-u32 XV_SdiTx_GetPayloadByte1(XVidC_VideoMode VideoMode,XSdiVid_TransMode SdiMode, u8 *Data);
+u32 XV_SdiTx_GetPayloadByte1(u16 VActiveValid,XSdiVid_TransMode SdiMode, u8 *Data);
 
 /* Bridge and reset specific functions */
 void XV_SdiTx_VidBridgeEnable(XV_SdiTx *InstancePtr);
