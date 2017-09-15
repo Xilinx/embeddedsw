@@ -1036,3 +1036,78 @@ void XV_SdiTxSs_IntrDisable(XV_SdiTxSs *InstancePtr, u32 IntrMask)
 	Xil_AssertVoid(IntrMask != 0);
 	XV_SdiTx_IntrDisable(SdiTxPtr, IntrMask);
 }
+
+/*****************************************************************************/
+/**
+* This function calculates the final ST352 payload value for all SDI modes
+* with given video mode and SDI data stream number
+*
+* @param	InstancePtr is a pointer to the XV_SdiTxSs core instance.
+* @param	VideoMode is a variable of type XVidC_VideoMode.
+* @param	SdiMode is a variable of type XSdiVid_TransMode.
+* @param	DataStream is the stream number for which payload is calculated.
+*
+* @return
+*		XST_SUCCESS / XST_FAILURE.
+*
+* @note		None.
+*
+******************************************************************************/
+
+u32 XV_SdiTxSs_GetPayload(XV_SdiTxSs *InstancePtr, XVidC_VideoMode VideoMode, XSdiVid_TransMode SdiMode, u8 DataStream)
+{
+	u32 Status;
+	XV_SdiTx *SdiTxPtr;
+
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->SdiTxPtr != NULL);
+
+	SdiTxPtr = InstancePtr->SdiTxPtr;
+
+	Status = XV_SdiTx_GetPayload(SdiTxPtr, VideoMode, SdiMode, DataStream);
+
+	return Status;
+
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the SDI TXSs stream parameters.
+*
+* @param    InstancePtr is a pointer to the XV_SdiTxSs core instance.
+* @param    SelId specifies which parameter of the stream to be set.
+*       - 0 = XV_SDITX_STREAMSELID_VMID
+*       - 1 = XV_SDITX_STREAMSELID_COLORFORMAT
+*       - 2 = XV_SDITX_STREAMSELID_BPC
+*       - 3 = XV_SDITX_STREAMSELID_PPC
+*       - 4 = XV_SDITX_STREAMSELID_ASPECTRATIO
+*       - 5 = XV_SDITX_STREAMSELID_STANDARD
+*       - 6 = XV_SDITX_STREAMSELID_STREAMINTERLACE
+*       - 7 = XV_SDITX_STREAMSELID_CHANNEL
+* @param    Data specifies what data to be set for the selected parameter.
+* @param    StreamId specifies which of the streams to be set.
+*
+* @return
+*	- XST_SUCCESS on successful Set stream
+*	- XST_FAILURE if TimingPtr is not derived
+*
+*
+* @note     None.
+*
+******************************************************************************/
+u32 XV_SdiTxSs_SetStream(XV_SdiTxSs *InstancePtr, XV_SdiTx_StreamSelId SelId,
+				u32 Data, u8 StreamId)
+{
+	XV_SdiTx *SdiTxPtr;
+	int Status;
+
+	/* Verify arguments. */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(StreamId < 8);
+	SdiTxPtr = InstancePtr->SdiTxPtr;
+
+	Status = XV_SdiTx_SetStream(SdiTxPtr, SelId, Data, StreamId);
+
+	return Status;
+}
