@@ -759,11 +759,11 @@ void hpd_pulse_con(XDpTxSs *InstancePtr)
 {
 
 
-	u8 lane0_sts = InstancePtr->UsrHpdPulseData.lane0_sts;
-	u8 lane2_sts = InstancePtr->UsrHpdPulseData.lane2_sts;
-	u8 laneAlignStatus = InstancePtr->UsrHpdPulseData.laneAlignStatus;
-	u8 bw_set = InstancePtr->UsrHpdPulseData.bw_set;
-	u8 lane_set = InstancePtr->UsrHpdPulseData.lane_set;
+	u8 lane0_sts = InstancePtr->UsrHpdPulseData.Lane0Sts;
+	u8 lane2_sts = InstancePtr->UsrHpdPulseData.Lane2Sts;
+	u8 laneAlignStatus = InstancePtr->UsrHpdPulseData.LaneAlignStatus;
+	u8 bw_set = InstancePtr->UsrHpdPulseData.BwSet;
+	u8 lane_set = InstancePtr->UsrHpdPulseData.LaneSet;
 
      lane_set = lane_set & 0x1F;
      bw_set = bw_set & 0x1F;
@@ -1172,8 +1172,8 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 
 
 	u32 Status=XST_SUCCESS;
-	u8 max_cap_new = InstancePtr->UsrHpdEventData.max_cap_new;
-	u8 max_cap_lanes_new = InstancePtr->UsrHpdEventData.max_cap_lanes_new;
+	u8 max_cap_new = InstancePtr->UsrHpdEventData.MaxCapNew;
+	u8 max_cap_lanes_new = InstancePtr->UsrHpdEventData.MaxCapLanesNew;
 	u32 htotal_test_hpd;
 	u32 vtotal_test_hpd;
 	u32 freq_test_hpd;
@@ -1189,7 +1189,7 @@ void hpd_con(XDpTxSs *InstancePtr, u8 Edid_org[128],
 	//Enabling TX interrupts
 	XDp_WriteReg(DpTxSsInst.DpPtr->Config.BaseAddr,XDP_TX_INTERRUPT_MASK,0xFFF);
 
-	strncpy((char*)Edid_org, (char*)InstancePtr->UsrHpdEventData.Edid_org, 128);
+	memcpy(Edid_org, InstancePtr->UsrHpdEventData.EdidOrg, 128);
 
 	tx_is_reconnected--;
 
