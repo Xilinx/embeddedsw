@@ -55,6 +55,9 @@
 *              08/30/17 Add support for Coarse Mixer BYPASS mode.
 *              08/31/17 Removed Tile Reset Assert and Deassert.
 *              09/07/17 Add support for negative NCO freq.
+*              09/15/17 Fixed NCO freq precision issue.
+*              09/15/17 Fixed Immediate Event source issue and also
+*                       updated the Immediate Macro value to 0.
 * </pre>
 *
 ******************************************************************************/
@@ -952,6 +955,12 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 														ReadReg);
 			}
 
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_NCO_UPDT_OFFSET);
+			ReadReg &= ~XRFDC_NCO_UPDT_MODE_MASK;
+			ReadReg |= Mixer_Settings->EventSource;
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_NCO_UPDT_OFFSET,
+										ReadReg);
 			if (Mixer_Settings->EventSource == XRFDC_EVNT_SRC_IMMEDIATE) {
 				if (Type == XRFDC_ADC_TILE) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -968,13 +977,6 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_DAC_UPDATE_DYN_OFFSET, ReadReg);
 				}
-			} else {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_NCO_UPDT_OFFSET);
-				ReadReg &= ~XRFDC_NCO_UPDT_MODE_MASK;
-				ReadReg |= Mixer_Settings->EventSource;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_NCO_UPDT_OFFSET,
-											ReadReg);
 			}
 
 			/* Update the instance with new values */
@@ -1149,9 +1151,6 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 				XRFDC_NCO_UPDT_OFFSET);
 		Mixer_Settings->EventSource = ReadReg & XRFDC_NCO_UPDT_MODE_MASK;
-		if (Mixer_Settings->EventSource == 0U) {
-			Mixer_Settings->EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
-		}
 	}
 	(void)BaseAddr;
 
@@ -1340,6 +1339,12 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			ReadReg |= QMC_Settings->OffsetCorrectionFactor;
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_QMC_OFF_OFFSET,
 														ReadReg);
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+										XRFDC_QMC_UPDT_OFFSET);
+			ReadReg &= ~XRFDC_QMC_UPDT_MODE_MASK;
+			ReadReg |= QMC_Settings->EventSource;
+			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_QMC_UPDT_OFFSET,
+										ReadReg);
 			if (QMC_Settings->EventSource == XRFDC_EVNT_SRC_IMMEDIATE) {
 				if (Type == XRFDC_ADC_TILE) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -1356,13 +1361,6 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_DAC_UPDATE_DYN_OFFSET, ReadReg);
 				}
-			} else {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-											XRFDC_QMC_UPDT_OFFSET);
-				ReadReg &= ~XRFDC_QMC_UPDT_MODE_MASK;
-				ReadReg |= QMC_Settings->EventSource;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_QMC_UPDT_OFFSET,
-											ReadReg);
 			}
 			/* Update the instance with new values */
 			QMC_Config->EventSource = QMC_Settings->EventSource;
@@ -1513,9 +1511,6 @@ int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 										XRFDC_QMC_UPDT_OFFSET);
 		QMC_Settings->EventSource = ReadReg & XRFDC_QMC_UPDT_MODE_MASK;
-		if (QMC_Settings->EventSource == 0U) {
-			QMC_Settings->EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
-		}
 	}
 	(void)BaseAddr;
 
@@ -1640,6 +1635,12 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg |= CoarseDelay_Settings->CoarseDelay;
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 							XRFDC_ADC_CRSE_DLY_CFG_OFFSET, ReadReg);
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_ADC_CRSE_DLY_UPDT_OFFSET);
+				ReadReg &= ~XRFDC_QMC_UPDT_MODE_MASK;
+				ReadReg |= CoarseDelay_Settings->EventSource;
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+								XRFDC_ADC_CRSE_DLY_UPDT_OFFSET, ReadReg);
 				if (CoarseDelay_Settings->EventSource ==
 									XRFDC_EVNT_SRC_IMMEDIATE) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -1648,13 +1649,6 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					ReadReg |= (0x1 << 3U); /* XRFDC_ADC_UPDT_CRSE_DLY_MASK */
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_UPDATE_DYN_OFFSET, ReadReg);
-				} else {
-					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_CRSE_DLY_UPDT_OFFSET);
-					ReadReg &= ~XRFDC_QMC_UPDT_MODE_MASK;
-					ReadReg |= CoarseDelay_Settings->EventSource;
-					XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_CRSE_DLY_UPDT_OFFSET, ReadReg);
 				}
 			} else {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -1663,6 +1657,12 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg |= CoarseDelay_Settings->CoarseDelay;
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_DAC_CRSE_DLY_CFG_OFFSET, ReadReg);
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_DAC_CRSE_DLY_UPDT_OFFSET);
+				ReadReg &= ~XRFDC_QMC_UPDT_MODE_MASK;
+				ReadReg |= CoarseDelay_Settings->EventSource;
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+								XRFDC_DAC_CRSE_DLY_UPDT_OFFSET, ReadReg);
 				if (CoarseDelay_Settings->EventSource ==
 									XRFDC_EVNT_SRC_IMMEDIATE) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -1671,13 +1671,6 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					ReadReg |= (0x1 << 5U); /* XRFDC_DAC_UPDT_CRSE_DLY_MASK */
 					XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_DAC_UPDATE_DYN_OFFSET, ReadReg);
-				} else {
-					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_DAC_CRSE_DLY_UPDT_OFFSET);
-					ReadReg &= ~XRFDC_QMC_UPDT_MODE_MASK;
-					ReadReg |= CoarseDelay_Settings->EventSource;
-					XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_DAC_CRSE_DLY_UPDT_OFFSET, ReadReg);
 				}
 			}
 			/* Update the instance with new values */
@@ -1765,8 +1758,6 @@ int XRFdc_GetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_ADC_CRSE_DLY_UPDT_OFFSET);
 			CoarseDelay_Settings->EventSource = ReadReg &
 								XRFDC_QMC_UPDT_MODE_MASK;
-			if (CoarseDelay_Settings->EventSource == 0U)
-				CoarseDelay_Settings->EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
 		} else {
 			CoarseDelay_Settings->CoarseDelay =
 						XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -1775,8 +1766,6 @@ int XRFdc_GetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_DAC_CRSE_DLY_UPDT_OFFSET);
 			CoarseDelay_Settings->EventSource = ReadReg &
 								XRFDC_QMC_UPDT_MODE_MASK;
-			if (CoarseDelay_Settings->EventSource == 0U)
-				CoarseDelay_Settings->EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
 		}
 	}
 	(void)BaseAddr;
