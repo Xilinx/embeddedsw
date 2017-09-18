@@ -46,6 +46,7 @@
 * Ver   Who    Date     Changes
 * ----- ---    -------- -----------------------------------------------
 * 1.0   sk     05/16/17 Initial release
+* 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
 * </pre>
 *
 ******************************************************************************/
@@ -63,7 +64,9 @@ extern "C" {
 #include "xil_io.h"
 #endif
 #include "xparameters.h"
+#ifndef __MICROBLAZE__
 #include "metal/io.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /** @name Register Map
@@ -1812,6 +1815,19 @@ extern "C" {
 #define XRFDC_BLOCK_ADDR_OFFSET(X)	(X * 0x400)
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#ifdef __MICROBLAZE__
+#define XRFdc_In64 Xil_In64
+#define XRFdc_Out64 Xil_Out64
+
+#define XRFdc_In32 Xil_In32
+#define XRFdc_Out32 Xil_Out32
+
+#define XRFdc_In16 Xil_In16
+#define XRFdc_Out16 Xil_Out16
+
+#define XRFdc_In8 Xil_In8
+#define XRFdc_Out8 Xil_Out8
+#else
 #define XRFdc_In64 metal_io_read64
 #define XRFdc_Out64 metal_io_write64
 
@@ -1823,6 +1839,7 @@ extern "C" {
 
 #define XRFdc_In8 metal_io_read8
 #define XRFdc_Out8 metal_io_write8
+#endif
 
 /****************************************************************************/
 /**
@@ -1839,8 +1856,13 @@ extern "C" {
 *		u32 XRFdc_ReadReg(XRFdc *InstancePtr. u32 BaseAddress, s32 RegOffset)
 *
 ******************************************************************************/
+#ifdef __MICROBLAZE__
+#define XRFdc_ReadReg64(InstancePtr, BaseAddress, RegOffset) \
+	XRFdc_In64(InstancePtr->BaseAddr + BaseAddress + RegOffset)
+#else
 #define XRFdc_ReadReg64(InstancePtr, BaseAddress, RegOffset) \
 	XRFdc_In64(InstancePtr->io, (RegOffset + BaseAddress))
+#endif
 
 /***************************************************************************/
 /**
@@ -1859,9 +1881,15 @@ extern "C" {
 *		u64 RegisterValue)
 *
 ******************************************************************************/
+#ifdef __MICROBLAZE__
+#define XRFdc_WriteReg64(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
+	XRFdc_Out64((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), \
+		(RegisterValue))
+#else
 #define XRFdc_WriteReg64(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
 	XRFdc_Out64((InstancePtr->io), (RegOffset + BaseAddress), \
 		(RegisterValue))
+#endif
 
 /****************************************************************************/
 /**
@@ -1878,8 +1906,13 @@ extern "C" {
 *		u32 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
+#ifdef __MICROBLAZE__
+#define XRFdc_ReadReg(InstancePtr, BaseAddress, RegOffset) \
+	XRFdc_In32((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
+#else
 #define XRFdc_ReadReg(InstancePtr, BaseAddress, RegOffset) \
 	XRFdc_In32((InstancePtr->io), (BaseAddress + RegOffset))
+#endif
 
 /***************************************************************************/
 /**
@@ -1898,8 +1931,13 @@ extern "C" {
 *		u32 RegisterValue)
 *
 ******************************************************************************/
+#ifdef __MICROBLAZE__
+#define XRFdc_WriteReg(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
+	XRFdc_Out32((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
+#else
 #define XRFdc_WriteReg(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
 	XRFdc_Out32((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
+#endif
 
 /****************************************************************************/
 /**
@@ -1916,8 +1954,13 @@ extern "C" {
 *		u16 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
+#ifdef __MICROBLAZE__
+#define XRFdc_ReadReg16(InstancePtr, BaseAddress, RegOffset) \
+	XRFdc_In16((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
+#else
 #define XRFdc_ReadReg16(InstancePtr, BaseAddress, RegOffset) \
 	XRFdc_In16((InstancePtr->io), (RegOffset + BaseAddress))
+#endif
 
 /***************************************************************************/
 /**
@@ -1936,8 +1979,13 @@ extern "C" {
 *		u16 RegisterValue)
 *
 ******************************************************************************/
+#ifdef __MICROBLAZE__
+#define XRFdc_WriteReg16(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
+	XRFdc_Out16((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
+#else
 #define XRFdc_WriteReg16(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
 	XRFdc_Out16((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
+#endif
 
 /****************************************************************************/
 /**
@@ -1954,8 +2002,13 @@ extern "C" {
 *		u8 XRFdc_ReadReg(XRFdc *InstancePtr, u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
+#ifdef __MICROBLAZE__
+#define XRFdc_ReadReg8(InstancePtr, BaseAddress, RegOffset) \
+	XRFdc_In8((InstancePtr->BaseAddr + BaseAddress) + (RegOffset))
+#else
 #define XRFdc_ReadReg8(InstancePtr, BaseAddress, RegOffset) \
 	XRFdc_In8((InstancePtr->io), (RegOffset + BaseAddress))
+#endif
 
 /***************************************************************************/
 /**
@@ -1974,8 +2027,13 @@ extern "C" {
 *		u8 RegisterValue)
 *
 ******************************************************************************/
+#ifdef __MICROBLAZE__
+#define XRFdc_WriteReg8(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
+	XRFdc_Out8((InstancePtr->BaseAddr + BaseAddress) + (RegOffset), (RegisterValue))
+#else
 #define XRFdc_WriteReg8(InstancePtr, BaseAddress, RegOffset, RegisterValue) \
 	XRFdc_Out8((InstancePtr->io), (RegOffset + BaseAddress), (RegisterValue))
+#endif
 
 #ifdef __cplusplus
 }

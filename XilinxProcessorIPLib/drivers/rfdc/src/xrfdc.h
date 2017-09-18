@@ -89,6 +89,7 @@
 *              09/15/17 Fixed NCO freq precision issue.
 *              09/15/17 Fixed Immediate Event source issue and also
 *                       updated the Immediate Macro value to 0.
+* 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
 *
 * </pre>
 *
@@ -112,12 +113,14 @@ extern "C" {
 #include "xil_assert.h"
 #include "xdebug.h"
 #endif
+#ifndef __MICROBLAZE__
 #include <metal/sys.h>
 #include <metal/device.h>
 #include <metal/irq.h>
 #include <metal/atomic.h>
 #include <metal/io.h>
 #include "metal/alloc.h"
+#endif
 #include "xrfdc_hw.h"
 
 /**************************** Type Definitions *******************************/
@@ -309,7 +312,11 @@ typedef struct {
  */
 typedef struct {
 	u32 DeviceId;
+#ifndef __MICROBLAZE__
 	metal_phys_addr_t BaseAddr;
+#else
+	u32 BaseAddr;
+#endif
 	u32 ADCType;	/* ADC Type 4GSPS or 2GSPS*/
 	u32 MasterADCTile;	/* ADC master Tile */
 	u32 MasterDACTile;	/* DAC Master Tile */
@@ -399,9 +406,13 @@ typedef struct {
 	XRFdc_Config RFdc_Config;	/* Config Structure */
 	u32 IsReady;
 	u32 ADC4GSPS;
+#ifndef __MICROBLAZE__
 	metal_phys_addr_t BaseAddr;	/* BaseAddress */
 	struct metal_io_region *io;	/* Libmetal IO structure */
 	struct metal_device *device;	/* Libmetal device structure */
+#else
+	u32 BaseAddr;
+#endif
 	XRFdc_DAC_Tile DAC_Tile[4];
 	XRFdc_ADC_Tile ADC_Tile[4];
 	XRFdc_StatusHandler StatusHandler;	/* Event handler function */
