@@ -49,8 +49,8 @@
 *                   Single Steam Transport and Multi-Stream Transport.
 * 2.00 sha 09/28/15 Removed cross checking user set resolution with RX EDID.
 * 4.0  aad 05/13/16 Use asynchronous clock mode by default.
-* 4.2  tu  08/03/17 Enabled video packing for bpc > 10
-* 4.2  aad 09/08/17 Case to handle HTotal > 4095, PPC = 1 in AXIStream Mode.
+* 5.0  tu  08/03/17 Enabled video packing for bpc > 10
+* 5.0  aad 09/08/17 Case to handle HTotal > 4095, PPC = 1 in AXIStream Mode.
 * </pre>
 *
 ******************************************************************************/

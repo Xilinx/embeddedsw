@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss_intr.c
-* @addtogroup dptxss_v4_4
+* @addtogroup dptxss_v5_0
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort TX
@@ -53,7 +53,7 @@
 *                   XDPTXSS_HANDLER_HDCP_RPTR_EXCHG to register callback
 *                   with HDCP.
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
-* 4.4  tu  09/08/17 Added two interrupt handler that addresses driver's
+* 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
 *                   internal callback function of application
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
 * </pre>

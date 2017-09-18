@@ -45,7 +45,7 @@
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
 *                   name with prefix XDpTxSs_*
-* 4.2  tu  08/10/17 Modified XDpTxSs_VtcSetup for adjusting BS symbol for
+* 5.0  tu  08/10/17 Modified XDpTxSs_VtcSetup for adjusting BS symbol for
 *		    equal timing
 * </pre>
 *
