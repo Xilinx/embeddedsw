@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.c
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v6_0
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
@@ -56,7 +56,7 @@
  *            08/12/16 Updates to support 64-bit base addresses.
  * 5.2	 aad  01/21/17 Added training timeout disable for RX MST mode for
  *		       soft-disconnect to work.
- * 5.2	 tu   05/14/17 Added AUX defer to 6
+ * 6.0	 tu   05/14/17 Added AUX defer to 6
  * </pre>
  *
 *******************************************************************************/

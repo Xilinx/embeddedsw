@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_selftest.c
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v6_0
  * @{
  *
  * This file contains a diagnostic self-test function for the XDp driver. It
@@ -49,7 +49,7 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   als  01/20/15 Initial release. TX code merged from the dptx driver.
  * 5.0   als  07/27/16 8B10B enable is now set by default in PHY_CONFIG reg.
- * 5.3   tu   08/04/17 Changed Selftest regiter's default value.
+ * 6.0   tu   08/04/17 Changed Selftest regiter's default value.
  * </pre>
  *
 *******************************************************************************/
