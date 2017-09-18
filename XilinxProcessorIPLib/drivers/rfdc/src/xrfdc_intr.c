@@ -45,6 +45,7 @@
 * ----- -----  -------- -----------------------------------------------
 * 1.0   sk     05/16/17 First release
 * 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
+*              09/18/17 Add API to clear the interrupts.
 * </pre>
 *
 ******************************************************************************/
@@ -443,6 +444,104 @@ RETURN_PATH:
 /****************************************************************************/
 /**
 *
+* This function clear the interrupts.
+*
+* @param	InstancePtr is a pointer to the XSysMonPsu instance.
+* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param	Tile_Id Valid values are 0-3, and -1.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param	IntrMask contains the interrupts to be cleared.
+*
+* @return	A 32-bit value representing the contents of the Interrupt Status
+* 			Registers (FIFO interface, Decoder interface, Data Path Interface)
+*
+* @note		None.
+*
+*****************************************************************************/
+void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+								u32 Block_Id, u32 IntrMask)
+{
+	u32 BaseAddr;
+	u32 IsBlockAvail;
+
+#ifdef __BAREMETAL__
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	if (Type == XRFDC_ADC_TILE) {
+		/* ADC */
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+	} else {
+		/* DAC */
+		IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+	}
+	if (IsBlockAvail == 0U) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
+			(Block_Id == 3U))) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
+							"valid in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested block is not "
+							"valid in %s\r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else {
+		if (Type == XRFDC_ADC_TILE) {
+			/* ADC */
+			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_FABRIC_ISR_OFFSET,
+						(IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK));
+			}
+			if ((IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_DEC_ISR_OFFSET,
+						(u16)(IntrMask & XRFDC_SUBADC_IXR_DCDR_MASK) >> 16);
+			}
+			if ((IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+						XRFDC_DATPATH_ISR_OFFSET,
+						(u16)(IntrMask & XRFDC_ADC_IXR_DATAPATH_MASK) >> 4);
+			}
+		} else {
+			/* DAC */
+			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+						XRFDC_DAC_FABRIC_ISR_OFFSET,
+						(u16)(IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK));
+			}
+			if ((IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+						XRFDC_DATPATH_ISR_OFFSET,
+						(u16)(IntrMask & XRFDC_DAC_IXR_DATAPATH_MASK) >> 4);
+			}
+		}
+	}
+
+	(void)BaseAddr;
+RETURN_PATH:
+	return;
+}
+
+/****************************************************************************/
+/**
+*
 * This function is the interrupt handler for the driver.
 * It must be connected to an interrupt system by the application such that it
 * can be called when an interrupt occurs.
@@ -518,7 +617,7 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 			Block_Id = 3;
 		}
 
-		Intrsts = XRFdc_GetIntrStatus(XRFdcPtr, 0U, Tile_Id, Block_Id);
+		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 0U, Tile_Id, Block_Id);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id)
 							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
@@ -558,7 +657,7 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 		} else if ((ReadReg & XRFDC_EN_INTR_SLICE3_MASK) != 0U) {
 			Block_Id = 3;
 		}
-		Intrsts = XRFdc_GetIntrStatus(XRFdcPtr, 1U, Tile_Id, Block_Id);
+		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 1U, Tile_Id, Block_Id);
 		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id)
 							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
@@ -595,39 +694,13 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 	/* Clear the interrupt */
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		Intrsts = XRFdc_GetIntrStatus(XRFdcPtr, 0U, Tile_Id, Block_Id);
-		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id)
-							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
-		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_ADC_FABRIC_ISR_OFFSET,
-					(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK));
-		}
-		if ((Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_ADC_DEC_ISR_OFFSET,
-					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) >> 16);
-		}
-		if ((Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_DATPATH_ISR_OFFSET,
-					(u16)(Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) >> 4);
-		}
+		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 0U, Tile_Id, Block_Id);
+		XRFdc_IntrClr(InstancePtr, XRFDC_ADC_TILE, Tile_Id, Block_Id, Intrsts);
+
 	} else {
 		/* DAC */
-		Intrsts = XRFdc_GetIntrStatus(XRFdcPtr, 1U, Tile_Id, Block_Id);
-		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id)
-							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
-		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_DAC_FABRIC_ISR_OFFSET,
-					(u16)(Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK));
-		}
-		if ((Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
-			XRFdc_WriteReg16(InstancePtr, BaseAddr,
-					XRFDC_DATPATH_ISR_OFFSET,
-					(u16)(Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) >> 4);
-		}
+		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 1U, Tile_Id, Block_Id);
+		XRFdc_IntrClr(InstancePtr, XRFDC_DAC_TILE, Tile_Id, Block_Id, Intrsts);
 	}
 #ifdef __MICROBLAZE__
 	return IRQ_HANDLED;
