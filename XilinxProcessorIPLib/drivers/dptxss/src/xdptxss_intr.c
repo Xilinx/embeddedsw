@@ -199,13 +199,18 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_MAX_LANE_COUNT, 1,
 			&UsrHpdEventData->MaxCapLanesNew);
 
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 12, UsrHpdEventData->Tmp);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 6, UsrHpdEventData->Tmp);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 12,
+				UsrHpdEventData->Tmp);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 6,
+				UsrHpdEventData->Tmp);
 
 
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 11, &UsrHpdEventData->Dpcd);
-	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdEventData->EdidOrg, 0);
-	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 1, &UsrHpdEventData->Rd200);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_REV, 11,
+				&UsrHpdEventData->Dpcd);
+	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr,
+				     UsrHpdEventData->EdidOrg, 0);
+	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_SINK_COUNT, 1,
+				&UsrHpdEventData->Rd200);
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_STATUS_LANE_0_1, 1,
 			&UsrHpdEventData->Lane0Sts);
 	Status |= XDp_TxAuxRead(XDpTxSsPtr->DpPtr, XDP_DPCD_STATUS_LANE_2_3, 1,
@@ -216,7 +221,7 @@ void XDpTxSs_HpdEventProcess(void *InstancePtr)
 			&UsrHpdEventData->MaxCapLanesNew);
 
 	if(Status != XST_SUCCESS){
-		xil_printf("AUX access had trouble!\r\n");
+		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
 	}
 }
 
@@ -267,7 +272,7 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdPulseData->Edid,
 		  0);
 	if(Status != XST_SUCCESS){
-		xil_printf("AUX access had trouble!\r\n");
+		xdbg_printf(XDBG_DEBUG_GENERAL "AUX access had trouble!\r\n");
 	}
 }
 
