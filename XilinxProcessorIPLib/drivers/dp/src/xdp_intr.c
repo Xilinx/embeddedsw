@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_intr.c
- * @addtogroup dp_v5_6
+ * @addtogroup dp_v6_0
  * @{
  *
  * This file contains functions related to XDp interrupt handling.
@@ -52,11 +52,11 @@
  *                     Added unplug interrupt.
  * 4.0   als  02/18/16 Removed update of payload table in the driver's interrupt
  *                     handler.
- * 5.3   tu   05/30/17 Removed unused variable in XDp_RxInterruptHandler
- * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
+ * 6.0   tu   05/30/17 Removed unused variable in XDp_RxInterruptHandler
+ * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
- * 5.6   tu   09/08/17 Added three interrupt handler that addresses callback
+ * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of application
  * </pre>
  *
