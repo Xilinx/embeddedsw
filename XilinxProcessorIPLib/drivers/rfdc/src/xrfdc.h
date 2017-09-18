@@ -86,6 +86,9 @@
 *              08/30/17 Add support for Coarse Mixer BYPASS mode.
 *              08/31/17 Removed Tile Reset Assert and Deassert.
 *              09/07/17 Add support for negative NCO freq.
+*              09/15/17 Fixed NCO freq precision issue.
+*              09/15/17 Fixed Immediate Event source issue and also
+*                       updated the Immediate Macro value to 0.
 *
 * </pre>
 *
@@ -413,11 +416,11 @@ typedef struct {
 
 #define XRFDC_ADC_TILE				0U
 #define XRFDC_DAC_TILE				1U
+#define XRFDC_EVNT_SRC_IMMEDIATE	0x00000000U
 #define XRFDC_EVNT_SRC_SLICE		0x00000001U
 #define XRFDC_EVNT_SRC_TILE			0x00000002U
 #define XRFDC_EVNT_SRC_SYSREF		0x00000003U
 #define XRFDC_EVNT_SRC_PL			0x00000005U
-#define XRFDC_EVNT_SRC_IMMEDIATE	0x00000008U
 #define XRFDC_EVENT_MIXER			0x00000001U
 #define XRFDC_EVENT_CRSE_DLY		0x00000002U
 #define XRFDC_EVENT_QMC				0x00000004U
