@@ -33,7 +33,11 @@
 /**
  *
  * @file xdp_edid.c
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
+=======
+ * @addtogroup dp_v6_0
+>>>>>>> DP: Resolve multiple verion issue
  * @{
  *
  * This file contains functions related to accessing the Extended Display

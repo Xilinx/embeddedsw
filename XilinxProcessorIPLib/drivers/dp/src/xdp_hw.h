@@ -33,7 +33,11 @@
 /**
  *
  * @file xdp_hw.h
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
+=======
+ * @addtogroup dp_v6_0
+>>>>>>> DP: Resolve multiple verion issue
  * @{
  *
  * This header file contains the identifiers and low-level driver functions (or

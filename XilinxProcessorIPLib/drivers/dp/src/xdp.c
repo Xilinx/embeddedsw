@@ -33,7 +33,11 @@
 /**
  *
  * @file xdp.c
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
+=======
+ * @addtogroup dp_v6_0
+>>>>>>> DP: Resolve multiple verion issue
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to

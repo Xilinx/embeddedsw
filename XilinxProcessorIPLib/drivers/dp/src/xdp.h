@@ -35,6 +35,7 @@
  * @file xdp.h
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
 =======
  * @addtogroup dp_v5_5
@@ -42,6 +43,9 @@
 =======
  * @addtogroup dp_v5_6
 >>>>>>> Updated addtogroup to appropriate files
+=======
+ * @addtogroup dp_v6_0
+>>>>>>> DP: Resolve multiple verion issue
  * @{
  * @details
  *
@@ -380,6 +384,7 @@
  * 5.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
  *                     definitions of dp in xparameters.h
 <<<<<<< HEAD
+<<<<<<< HEAD
  * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
@@ -393,6 +398,12 @@
 >>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
 =======
  * 5.6   tu   09/08/17 Added three interrupt handler that addresses callback
+=======
+ * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
+ *                     internal callback function of application
+ *                     DrvHpdEventHandler and DrvHpdPulseHandler
+ * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
+>>>>>>> DP: Resolve multiple verion issue
  *                     function of driver
 >>>>>>> DPRXSS Added interrupt handler for video and power
  * </pre>

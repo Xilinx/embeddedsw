@@ -33,7 +33,11 @@
 /**
  *
  * @file xdp_selftest.c
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
+=======
+ * @addtogroup dp_v6_0
+>>>>>>> DP: Resolve multiple verion issue
  * @{
  *
  * This file contains a diagnostic self-test function for the XDp driver. It

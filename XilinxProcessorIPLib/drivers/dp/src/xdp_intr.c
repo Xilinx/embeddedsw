@@ -35,6 +35,7 @@
  * @file xdp_intr.c
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
 =======
  * @addtogroup dp_v5_5
@@ -42,6 +43,9 @@
 =======
  * @addtogroup dp_v5_6
 >>>>>>> Updated addtogroup to appropriate files
+=======
+ * @addtogroup dp_v6_0
+>>>>>>> DP: Resolve multiple verion issue
  * @{
  *
  * This file contains functions related to XDp interrupt handling.
@@ -62,6 +66,7 @@
  *                     handler.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * 6.0   tu   05/30/17 Removed unused variable in XDp_RxInterruptHandler
  * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
@@ -80,6 +85,13 @@
  * </pre>
 =======
  * 5.6   tu   09/08/17 Added three interrupt handler that addresses callback
+=======
+ * 6.0   tu   05/30/17 Removed unused variable in XDp_RxInterruptHandler
+ * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
+ *                     internal callback function of application
+ *                     DrvHpdEventHandler and DrvHpdPulseHandler
+ * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
+>>>>>>> DP: Resolve multiple verion issue
  *                     function of application
  * </pre>
  *

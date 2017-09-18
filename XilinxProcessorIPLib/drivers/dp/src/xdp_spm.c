@@ -33,7 +33,11 @@
 /**
  *
  * @file xdp_spm.c
+<<<<<<< HEAD
  * @addtogroup dp_v7_0
+=======
+ * @addtogroup dp_v6_0
+>>>>>>> DP: Resolve multiple verion issue
  * @{
  *
  * This file contains the stream policy maker functions for the XDp driver.
@@ -60,12 +64,17 @@
  * 6.0   tu   07/20/17 Allowing Custom VTM in XDp_TxCfgMsaUseStandardVideoMode
  *                     function.
 <<<<<<< HEAD
+<<<<<<< HEAD
  * 6.0   aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
  * 6.0   tu   09/06/17 Added Set UserPixelWidth support on tx side
 =======
  * 5.3	  aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
  * 5.4   tu   06/09/17 Added Set UserPixelWidth support on tx side
 >>>>>>> DPTXSS: Add userpixelwidth config support
+=======
+ * 6.0   aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
+ * 6.0   tu   09/06/17 Added Set UserPixelWidth support on tx side
+>>>>>>> DP: Resolve multiple verion issue
  * </pre>
  *
 *******************************************************************************/
