@@ -48,7 +48,7 @@
 * 2.00 sha 08/07/15 Set interlace to zero when video mode is XVIDC_VM_CUSTOM.
 * 4.1  als 08/03/16 Use video common API rather than internal structure when
 *                   checking for interlaced mode.
-* 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
+* 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
 * </pre>
 *
 ******************************************************************************/

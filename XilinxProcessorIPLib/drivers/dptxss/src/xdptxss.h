@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.h
-* @addtogroup dptxss_v4_4
+* @addtogroup dptxss_v5_0
 * @{
 * @details
 *
@@ -116,8 +116,8 @@
 *                   for CR-965028.
 *      ms  03/17/17 Modified readme.txt file in examples folder for doxygen
 *                   generation.
-* 4.2  tu  08/10/17 Adjusted BS symbol for equal timing
-* 4.4  tu  09/08/17 Added two interrupt handler that addresses driver's
+* 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
+* 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
 *                   internal callback function of application
 *                   DrvHpdEventHandler and DrvHpdPulseHandler
 *                   Added HPD user data stucture XDpTxSs_UsrHpdPulseData
