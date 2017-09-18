@@ -33,7 +33,7 @@
 /**
 *
 * @file xdualsplitter_sinit.c
-* @addtogroup dual_splitter_v1_0
+* @addtogroup dual_splitter_v1_1
 * @{
 *
 * This file contains static initialization function for Xilinx Dual Splitter
@@ -47,6 +47,8 @@
 * 1.00  sha 07/21/14 Initial release.
 * 1.00  sha 07/08/15 Defined macro XPAR_XDUALSPLITTER_NUM_INSTANCES if not
 *                    defined in xparameters.h.
+* 1.1   tu  09/18/17 Removed compilation warning in function
+*                    XDualSplitter_LookupConfig()
 * </pre>
 *
 ******************************************************************************/
@@ -99,11 +101,10 @@ XDualSplitter_Config *XDualSplitter_LookupConfig(u16 DeviceId)
 	extern XDualSplitter_Config
 		XDualSplitter_ConfigTable[XPAR_XDUALSPLITTER_NUM_INSTANCES];
 	XDualSplitter_Config *CfgPtr = NULL;
-	u32 Index;
+	int Index;
 
 	/* Checking for device id for which instance it is matching */
-	for (Index = 0x0; Index < (u32)XPAR_XDUALSPLITTER_NUM_INSTANCES;
-								Index++) {
+	for (Index = 0x0; Index < XPAR_XDUALSPLITTER_NUM_INSTANCES; Index++) {
 
 		/* Assigning address of config table if both device ids
 		 * are matched
