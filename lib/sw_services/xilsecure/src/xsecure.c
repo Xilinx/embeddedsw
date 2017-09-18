@@ -43,6 +43,8 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -------------------------------------------------------
 * 1.0   DP  02/15/17 Initial release
+* 2.2   vns 09/18/17 Added APIs to support generic functionality
+*                    for SHA3 and RSA hardware at linux level
 *
 * </pre>
 *
@@ -57,9 +59,11 @@
 #include "xsecure.h"
 #include "xsecure_rsa.h"
 #include "xsecure_sha2.h"
+#include "xsecure_sha.h"
 
 XSecure_Aes SecureAes;
 XSecure_Rsa Secure_Rsa;
+XSecure_Sha3 Sha3Instance;
 u32 Iv[XSECURE_IV_LEN];
 u32 Key[XSECURE_KEY_LEN];
 
@@ -352,5 +356,116 @@ u32 XSecure_RsaAes(u32 SrcAddrHigh, u32 SrcAddrLow, u32 WrSize, u32 Flags)
 	default:
 		Status = XSECURE_INVALID_FLAG;
 	}
+	return Status;
+}
+
+ /****************************************************************************/
+ /**
+ * This function access the xilsecure SHA3 hardware based on the flags provided
+ * to calculate the SHA3 hash.
+ *
+ * @param	SrcAddrHigh  Higher 32-bit of the input or output address.
+ * @param	SrcAddrLow   Lower 32-bit of the input or output address.
+ * @param	SrcSize      Size of the data on which hash should be
+ *		calculated.
+ * @param	Flags: inputs for the operation requested
+ *		BIT(0) - for initializing csudma driver and SHA3,
+ *		(Here address and size inputs can be NULL)
+ *		BIT(1) - To call Sha3_Update API which can be called multiple
+ *		times when data is not contiguous.
+ *		BIT(2) - to get final hash of the whole updated data.
+ *		Hash will be overwritten at provided address with 48 bytes.
+ *
+ * @return	Returns Status XST_SUCCESS on success and error code on failure.
+ *
+ *****************************************************************************/
+u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags)
+{
+	u32 Status = XST_SUCCESS;
+	u64 SrcAddr = ((u64)SrcAddrHigh << 32) | SrcAddrLow;
+
+	switch (Flags & XSECURE_SHA3_MASK) {
+	case XSECURE_SHA3_INIT:
+		Status = XSecure_CsuDmaInit();
+		if (Status != XST_SUCCESS) {
+			return XSECURE_ERROR_CSUDMA_INIT_FAIL;
+		}
+
+		Status = XSecure_Sha3Initialize(&Sha3Instance, &CsuDma);
+		if (Status != XST_SUCCESS) {
+			return XSECURE_SHA3_INIT_FAIL;
+		}
+		XSecure_Sha3Start(&Sha3Instance);
+		break;
+	case XSECURE_SHA3_UPDATE:
+		if (SrcSize % 4 != 0x00) {
+			return XSECURE_SIZE_ERR;
+		}
+		XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)SrcAddr,
+						SrcSize);
+		break;
+	case XSECURE_SHA3_FINAL:
+		XSecure_Sha3Finish(&Sha3Instance, (u8 *)(UINTPTR)SrcAddr);
+		break;
+	default:
+		Status = XSECURE_INVALID_FLAG;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This is the function to RSA decrypt or encrypt the provided data and load back
+ * to memory
+ *
+ * @param	SrcAddrHigh	Higher 32-bit Linear memory space from where
+ *		CSUDMA will read the data
+ * @param	SrcAddrLow	Lower 32-bit Linear memory space from where
+ *		CSUDMA will read the data
+ * @param	WrSize	Number of bytes to be encrypted or decrypted.
+ * @param	Flags:
+ *		BIT(0) - Encryption/Decryption
+ *			 0 - Rsa Private key Decryption
+ *			 1 - Rsa Public key Encryption
+ *
+ * @return	Returns Status XST_SUCCESS on success and error code on failure.
+ *
+ * @note	Data to be encrypted/Decrypted + Modulus + Exponent
+ *		Modulus and Data should always be key size
+ *		Exponent : private key's exponent is key size while decrypting
+ *		the signature and 32 bit for public key for encrypting the
+ *		signature
+ *		In this API we are not taking exponentiation value.
+ *
+ *****************************************************************************/
+u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize,
+				u32 Flags)
+{
+	u32 Status = XST_SUCCESS;
+	u64 WrAddr = ((u64)SrcAddrHigh << 32) | SrcAddrLow;
+	u8 *Modulus = (u8 *)(UINTPTR)(WrAddr + SrcSize);
+	u8 *Exponent = (u8 *)(UINTPTR)(WrAddr + SrcSize
+						+ SrcSize);
+
+	Status = XSecure_RsaInitialize(&Secure_Rsa, Modulus, NULL, Exponent);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	switch (Flags & XSECURE_RSA_OPERATION) {
+	case XSECURE_DEC:
+		Status = XSecure_RsaPrivateDecrypt(&Secure_Rsa,
+			(u8 *)(UINTPTR)WrAddr, SrcSize,(u8 *)(UINTPTR)WrAddr);
+		break;
+	case XSECURE_ENC:
+		Status = XSecure_RsaPublicEncrypt(&Secure_Rsa,
+			(u8 *)(UINTPTR)WrAddr, SrcSize,(u8 *)(UINTPTR)WrAddr);
+		break;
+	default:
+		Status = XSECURE_INVALID_FLAG;
+		break;
+	}
+
+END:
 	return Status;
 }
