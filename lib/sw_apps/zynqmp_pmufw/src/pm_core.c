@@ -683,6 +683,61 @@ static void PmSecureRsaAes(const PmMaster *const master,
 }
 
 /**
+ * PmSecureSha() - To calculate the SHA3 hash on the provided data.
+ *
+ * @SrcAddrHigh: Higher 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @SrcAddrLow: Lower 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @SrcSize: Number of bytes of data on which hash should be calculated
+ *
+ * @Flags: provides inputs for operation to be performed
+ *
+ * @return  error status based on implemented functionality(SUCCESS by default)
+ */
+static void PmSecureSha(const PmMaster *const master,
+			const u32 SrcAddrHigh, const u32 SrcAddrLow,
+			const u32 SrcSize, const u32 Flags)
+{
+	u32 Status;
+
+	Status = XSecure_Sha3Hash(SrcAddrHigh, SrcAddrLow,
+			SrcSize, Flags);
+
+	IPI_RESPONSE1(master->ipiMask, Status);
+}
+
+/**
+ * PmSecureRsa() - To encrypt or decrypt the data with provided public or
+ * private kley components by using RSA core.
+ *
+ * @SrcAddrHigh: Higher 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @SrcAddrLow: Lower 32-bit Linear memory space from where data
+ *         will be read.
+ *
+ * @SrcSize: Number of bytes of data.
+ *
+ * @Flags: provides inputs for operation to be performed
+ *
+ * @return  error status based on implemented functionality(SUCCESS by default)
+ */
+static void PmSecureRsa(const PmMaster *const master,
+			const u32 SrcAddrHigh, const u32 SrcAddrLow,
+			const u32 SrcSize, const u32 Flags)
+{
+	u32 Status;
+
+	Status = XSecure_RsaCore(SrcAddrHigh, SrcAddrLow,
+			SrcSize, Flags);
+
+	IPI_RESPONSE1(master->ipiMask, Status);
+}
+
+/**
  * PmFpgaGetStatus() - Get status of the PL-block
  * @master  Initiator of the request
  */
@@ -1240,6 +1295,12 @@ static void PmProcessApiCall(PmMaster *const master, const u32 *pload)
 		break;
 	case PM_SECURE_RSA_AES:
 		PmSecureRsaAes(master, pload[1], pload[2], pload[3], pload[4]);
+		break;
+	case PM_SECURE_SHA:
+		PmSecureSha(master, pload[1], pload[2], pload[3], pload[4]);
+		break;
+	case PM_SECURE_RSA:
+		PmSecureRsa(master, pload[1], pload[2], pload[3], pload[4]);
 		break;
 	default:
 		PmDbg(DEBUG_DETAILED,"ERROR unsupported PM API #%lu\r\n", pload[0]);
