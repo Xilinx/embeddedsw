@@ -44,6 +44,8 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  dp   02/15/17 Initial release
+* 2.2   vns  09/18/17 Added APIs to support generic functionality
+*                     for SHA3 and RSA hardware at linux level.
 *
 * </pre>
 *
@@ -61,6 +63,20 @@
 #define XSECURE_AES		1
 #define XSECURE_RSA		2
 #define XSECURE_RSA_AES		3
+
+#define XSECURE_SHA3_INIT	1
+#define XSECURE_SHA3_UPDATE	2
+#define XSECURE_SHA3_FINAL	4
+#define XSECURE_SHA3_MASK	(XSECURE_SHA3_INIT | \
+				XSECURE_SHA3_UPDATE | XSECURE_SHA3_FINAL)
+
+/* 0th bit of flag tells about encryption or decryption */
+#define XSECURE_ENC		1
+#define XSECURE_DEC		0
+
+#define XSECURE_RSA_OPERATION	1
+#define XSECURE_RSA_KEY_SELECT  2
+
 #define XSECURE_MASK		(XSECURE_AES | XSECURE_RSA)
 
 #define XSECURE_KEY_STR_LEN		64	/* String length */
@@ -77,6 +93,8 @@
 #define XSECURE_STRING_INVALID_ERROR	0x2
 #define XSECURE_INVALID_FLAG		0x3
 #define XSECURE_AUTH_FAIL		0x4
+#define XSECURE_SHA3_INIT_FAIL		0x5
+#define XSECURE_SIZE_ERR		0x6
 
 #define XSECURE_CSUDMA_DEVICEID		0
 
@@ -89,6 +107,8 @@
 /************************** Function Prototypes ******************************/
 
 u32 XSecure_RsaAes(u32 SrcAddrHigh, u32 SrcAddrLow, u32 WrSize, u32 flags);
+u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags);
+u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags);
 
 /************************** Variable Definitions *****************************/
 
