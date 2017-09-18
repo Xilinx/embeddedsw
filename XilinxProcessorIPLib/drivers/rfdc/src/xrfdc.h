@@ -90,6 +90,7 @@
 *              09/15/17 Fixed Immediate Event source issue and also
 *                       updated the Immediate Macro value to 0.
 * 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
+*              09/18/17 Add API to clear the interrupts.
 *
 * </pre>
 *
@@ -943,6 +944,8 @@ void XRFdc_GetSignalFlow(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				u32 AnalogDataPath, u32 * ConnectedIData,
 				u32 * ConnectedQData);
 int XRFdc_IntrHandler(int Vector, void * XRFdcPtr);
+void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
+								u32 Block_Id, u32 IntrMask);
 u32 XRFdc_GetIntrStatus (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id);
 void XRFdc_IntrDisable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
