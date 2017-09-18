@@ -44,6 +44,7 @@
 * Ver   Who    Date	Changes
 * ----- -----  -------- -----------------------------------------------
 * 1.0   sk     05/16/17 First release
+* 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
 * </pre>
 *
 ******************************************************************************/
@@ -53,6 +54,9 @@
 #include "xrfdc.h"
 
 /************************** Constant Definitions *****************************/
+#ifdef __MICROBLAZE__
+#define IRQ_HANDLED		1
+#endif
 
 /**************************** Type Definitions *******************************/
 
@@ -123,14 +127,24 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_BLOCK_ADDR_OFFSET(Index);
 		}
 		if (IsBlockAvail == 0U) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+							"available in %s\r\n", __func__);
+#else
 			metal_log(METAL_LOG_ERROR, "\n Requested block not "
 							"available in %s\r\n", __func__);
+#endif
 			goto RETURN_PATH;
 		} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 				(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
 				(Block_Id == 3U))) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
+							"valid in %s\r\n", __func__);
+#else
 			metal_log(METAL_LOG_ERROR, "\n Requested block is not "
 							"valid in %s\r\n", __func__);
+#endif
 			goto RETURN_PATH;
 		} else {
 
@@ -265,14 +279,24 @@ void XRFdc_IntrDisable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_BLOCK_ADDR_OFFSET(Index);
 		}
 		if (IsBlockAvail == 0U) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+							"available in %s\r\n", __func__);
+#else
 			metal_log(METAL_LOG_ERROR, "\n Requested block not "
 							"available in %s\r\n", __func__);
+#endif
 			goto RETURN_PATH;
 		} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 				(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
 				(Block_Id == 3U))) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
+							"valid in %s\r\n", __func__);
+#else
 			metal_log(METAL_LOG_ERROR, "\n Requested block is not "
 							"valid in %s\r\n", __func__);
+#endif
 			goto RETURN_PATH;
 		} else {
 			if (Type == XRFDC_ADC_TILE) {
@@ -368,14 +392,24 @@ u32 XRFdc_GetIntrStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	}
 	if (IsBlockAvail == 0U) {
 		Intrsts = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#else
 		metal_log(METAL_LOG_ERROR, "\n Requested block not "
 						"available in %s\r\n", __func__);
+#endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
 			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
 			(Block_Id == 3U))) {
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
+                            "valid in %s\r\n", __func__);
+#else
 			metal_log(METAL_LOG_ERROR, "\n Requested block is not "
                             "valid in %s\r\n", __func__);
+#endif
 		goto RETURN_PATH;
 	} else {
 		if (Type == XRFDC_ADC_TILE) {
@@ -489,15 +523,27 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC FIFO interface interrupt \r\n");
+#else
 			metal_log(METAL_LOG_DEBUG, "\n ADC FIFO interface interrupt \r\n");
+#endif
 		}
 		if ((Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_SUBADC_IXR_DCDR_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC Decoder interface interrupt \r\n");
+#else
 			metal_log(METAL_LOG_DEBUG, "\n ADC Decoder interface interrupt \r\n");
+#endif
 		}
 		if ((Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_ADC_IXR_DATAPATH_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC Data Path interface interrupt \r\n");
+#else
 			metal_log(METAL_LOG_DEBUG, "\n ADC Data Path interface interrupt \r\n");
+#endif
 		}
 	} else {
 		/* DAC */
@@ -517,11 +563,19 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n DAC FIFO interface interrupt \r\n");
+#else
 			metal_log(METAL_LOG_DEBUG, "\n DAC FIFO interface interrupt \r\n");
+#endif
 		}
 		if ((Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n DAC Data Path interface interrupt \r\n");
+#else
 			metal_log(METAL_LOG_DEBUG, "\n DAC Data Path interface interrupt \r\n");
+#endif
 		}
 	}
 	Block = Block_Id;
@@ -575,8 +629,11 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 					(u16)(Intrsts & XRFDC_DAC_IXR_DATAPATH_MASK) >> 4);
 		}
 	}
-
+#ifdef __MICROBLAZE__
+	return IRQ_HANDLED;
+#else
 	return METAL_IRQ_HANDLED;
+#endif
 }
 
 /*****************************************************************************/
