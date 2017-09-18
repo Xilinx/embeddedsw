@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_hw.h
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v6_0
  * @{
  *
  * This header file contains the identifiers and low-level driver functions (or
@@ -53,9 +53,9 @@
  * 5.0   als  05/16/16 Added MISC0 and MISC1 definitions.
  * 5.1   aad  08/16/16 Updated MISC0 definitions.
  * 5.2   aad  01/21/17 Added timeout macro for training timeout
- * 5.2   tu   05/14/17 Added AUX defer shift mask
- * 5.3   tu   08/03/17 Enabled video packing for bpc > 10
- * 5.3   tu   08/24/17 Modify #define for YCBCR422 and YCBCR444
+ * 6.0   tu   05/14/17 Added AUX defer shift mask
+ * 6.0   tu   08/03/17 Enabled video packing for bpc > 10
+ * 6.0   tu   08/24/17 Modify #define for YCBCR422 and YCBCR444
  * </pre>
  *
 *******************************************************************************/

@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_spm.c
- * @addtogroup dp_v5_4
+ * @addtogroup dp_v6_0
  * @{
  *
  * This file contains the stream policy maker functions for the XDp driver.
@@ -57,10 +57,10 @@
  *                     checking for interlaced mode.
  *       als  08/12/16 Updates to support 64-bit base addresses.
  * 5.2   aad  01/24/17 Disable end of line reset for reduced blanking
- * 5.3   tu   07/20/17 Allowing Custom VTM in XDp_TxCfgMsaUseStandardVideoMode
+ * 6.0   tu   07/20/17 Allowing Custom VTM in XDp_TxCfgMsaUseStandardVideoMode
  *                     function.
- * 5.3	  aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
- * 5.4   tu   06/09/17 Added Set UserPixelWidth support on tx side
+ * 6.0   aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
+ * 6.0   tu   09/06/17 Added Set UserPixelWidth support on tx side
  * </pre>
  *
 *******************************************************************************/
