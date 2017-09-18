@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_mst.c
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v6_0
  * @{
  *
  * <pre>
@@ -52,7 +52,7 @@
  *                         XDp_RxAllocatePayloadStream
  * 5.2  aad  01/24/16 XDp_RxAllocatePayloadStream now adjusts to timeslot
  *			   rearragement
- * 5.3	tu   05/30/17 Initialized variable in XDp_RxDeviceInfoToRawData
+ * 6.0	tu   05/30/17 Initialized variable in XDp_RxDeviceInfoToRawData
  * </pre>
  *
 *******************************************************************************/

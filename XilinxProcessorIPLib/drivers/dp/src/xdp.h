@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.h
- * @addtogroup dp_v5_6
+ * @addtogroup dp_v6_0
  * @{
  * @details
  *
@@ -371,10 +371,10 @@
  *                     generation.
  * 5.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
  *                     definitions of dp in xparameters.h
- * 5.5   tu   09/08/17 Added two interrupt handler that addresses driver's
+ * 6.0   tu   09/08/17 Added two interrupt handler that addresses driver's
  *                     internal callback function of application
  *                     DrvHpdEventHandler and DrvHpdPulseHandler
- * 5.6   tu   09/08/17 Added three interrupt handler that addresses callback
+ * 6.0   tu   09/08/17 Added three interrupt handler that addresses callback
  *                     function of driver
  * </pre>
  *
