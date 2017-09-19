@@ -79,6 +79,7 @@
 * 3.2   sk   11/24/15 Considered the slot type before checking the CD/WP pins.
 * 3.3   sk   04/01/15 Added one second delay for checking CD pin.
 * 3.4   sk   06/09/16 Added support for mkfs.
+* 3.8   mj   07/31/17 Added support for RAM based FATfs.
 *
 * </pre>
 *
@@ -87,7 +88,6 @@
 ******************************************************************************/
 #include "diskio.h"
 #include "ff.h"
-#include "xparameters.h"
 #include "xil_types.h"
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
@@ -106,6 +106,16 @@
 #define EXT_CSD_HIGH_SPEED_BYTE		185
 #define EXT_CSD_DEVICE_TYPE_HIGH_SPEED	0x3
 #define SD_CD_DELAY		10000U
+
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+#include "xparameters.h"
+
+static char *dataramfs = NULL;
+
+#define BLOCKSIZE       1U
+#define SECTORSIZE      512U
+#define SECTORCNT       (RAMFS_SIZE / SECTORSIZE)
+#endif
 
 /*--------------------------------------------------------------------------
 
@@ -220,6 +230,7 @@ DSTATUS disk_status (
 Label:
 		Stat[pdrv] = s;
 #endif
+
 		return s;
 }
 
@@ -252,13 +263,6 @@ DSTATUS disk_initialize (
 	DSTATUS s;
 	s32 Status;
 
-#ifdef FILE_SYSTEM_INTERFACE_SD
-
-	XSdPs_Config *SdConfig;
-
-	/*
-	 * Check if card is in the socket
-	 */
 	s = disk_status(pdrv);
 	if ((s & STA_NODISK) != 0U) {
 		return s;
@@ -268,6 +272,9 @@ DSTATUS disk_initialize (
 	if ((s & STA_NOINIT) == 0U) {
 		return s;
 	}
+
+#ifdef FILE_SYSTEM_INTERFACE_SD
+	XSdPs_Config *SdConfig;
 
 	if (CardDetect) {
 			/*
@@ -313,7 +320,15 @@ DSTATUS disk_initialize (
 	s &= (~STA_NOINIT);
 
 	Stat[pdrv] = s;
+#endif
 
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+	/* Assign RAMFS address value from xparameters.h */
+	dataramfs = (char *)RAMFS_START_ADDR;
+
+	/* Clearing No init Status for RAM */
+	s &= (~STA_NOINIT);
+	Stat[pdrv] = s;
 #endif
 
 	return s;
@@ -349,10 +364,7 @@ DRESULT disk_read (
 		UINT count	/* Sector count (1..128) */
 )
 {
-#ifdef FILE_SYSTEM_INTERFACE_SD
 	DSTATUS s;
-	s32 Status;
-	DWORD LocSector = sector;
 
 	s = disk_status(pdrv);
 
@@ -363,6 +375,10 @@ DRESULT disk_read (
 		return RES_PARERR;
 	}
 
+#ifdef FILE_SYSTEM_INTERFACE_SD
+	s32 Status;
+	DWORD LocSector = sector;
+
 	/* Convert LBA to byte address if needed */
 	if ((SdInstance[pdrv].HCS) == 0U) {
 		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
@@ -372,8 +388,12 @@ DRESULT disk_read (
 	if (Status != XST_SUCCESS) {
 		return RES_ERROR;
 	}
-
 #endif
+
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+	memcpy(buff, dataramfs + (sector * SECTORSIZE), count * SECTORSIZE);
+#endif
+
     return RES_OK;
 }
 
@@ -387,8 +407,9 @@ DRESULT disk_ioctl (
 	void *buff				/* Buffer to send/receive control data */
 )
 {
+	DRESULT res = RES_OK;
+
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	DRESULT res;
 	void *LocBuff = buff;
 	if ((disk_status(pdrv) & STA_NOINIT) != 0U) {	/* Check if card is in the socket */
 		return RES_NOTRDY;
@@ -414,11 +435,28 @@ DRESULT disk_ioctl (
 			res = RES_PARERR;
 			break;
 	}
-
-		return res;
-#else
-		return 0;
 #endif
+
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+	switch (cmd) {
+	case (BYTE)CTRL_SYNC:
+		break;
+	case (BYTE)GET_BLOCK_SIZE:
+		*(WORD *)buff = BLOCKSIZE;
+		break;
+	case (BYTE)GET_SECTOR_SIZE:
+		*(WORD *)buff = SECTORSIZE;
+		break;
+	case (BYTE)GET_SECTOR_COUNT:
+		*(DWORD *)buff = SECTORCNT;
+		break;
+	default:
+		res = RES_PARERR;
+		break;
+	}
+#endif
+
+	return res;
 }
 
 /******************************************************************************/
@@ -471,18 +509,18 @@ DRESULT disk_write (
 )
 {
 	DSTATUS s;
-	s32 Status;
-	DWORD LocSector = sector;
 
-#ifdef FILE_SYSTEM_INTERFACE_SD
 	s = disk_status(pdrv);
-
 	if ((s & STA_NOINIT) != 0U) {
 		return RES_NOTRDY;
 	}
 	if (count == 0U) {
 		return RES_PARERR;
 	}
+
+#ifdef FILE_SYSTEM_INTERFACE_SD
+	s32 Status;
+	DWORD LocSector = sector;
 
 	/* Convert LBA to byte address if needed */
 	if ((SdInstance[pdrv].HCS) == 0U) {
@@ -495,5 +533,10 @@ DRESULT disk_write (
 	}
 
 #endif
+
+#ifdef FILE_SYSTEM_INTERFACE_RAM
+	memcpy(dataramfs + (sector * SECTORSIZE), buff, count * SECTORSIZE);
+#endif
+
 	return RES_OK;
 }
