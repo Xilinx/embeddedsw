@@ -377,7 +377,49 @@ xilskey_v6_3:
 Provided support for programming eFUSE and BBRAM of kintex Ultrascale plus.
 
 zynqmp_fsbl:
-For secure boot added PPK invaliadity checks in FSBL.
+- For secure boot added PPK invaliadity checks in FSBL.
+- Implemented Secondary boot as specified in image header of the boot image.
+- Enable qspi boot in 1-bit and 2-bit qspi buswidths.
+- Clear all pending interrupts in case of APU only Restart.
+- Unconditionally remove PS-PL isolation in PS-only reset.
+- Disable all alarms before and re-enable them after applying
+  protection configuration.
+- Clear total byte counter after every cycle of ADMA to prevent byte count overflow
+  interrupt from being set.
+- Modify the max transfer length in DMA to make it 64 it aligned, this is to eliminate
+  ECC errors.
+- Added a macro indicating wait time for PL power up, customers can set their respective
+  values, default value is zero.
+- Enable propagation PROG signal to PL after ps-only reset which is gated during ps-only reset.
+- Rectify ID code of ZU6EG devices.
+
+zynqmp_pmufw:
+- Added three level debug prints for PMU Firmware application
+- Updated scheduler task removal logic to ensure that no task will be removed
+  before its execution
+- Enabling Isolation before powering down any power domain/power island to
+  avoid any bus hang when accessed and disabling the same when powering up
+- Added extra prints to give detailed information to the user when XMPU/XPPU
+  violation occurs
+- Added disabling and re-enabling of PMU interrupts before coming out of
+  interrupt handler to acknowledge any pending interrupts
+- Added boot pin control register access to MMIO access region
+- Updated HSI TCL to get compiler flags from command line
+- Updated PMU Firmware DDR driver
+- Enabling broadcasting of inner shareable transactions if PL is configured
+  for coherency in HW design
+- Ignoring the PLL use count for floating clocks to avoid PLL use accounting to
+  be disrupted. And assigning the usb3dual clock to both usb0 and usb1 slaves
+- Fixed MISRA-C violations in PMU Firmware base code
+- Disabling WDT recovery when PM master is entering suspended or killed state.
+  And enabling WDT recovery when PM master comes to active state
+- Changed LPD WDT timeout value to 90 milliseconds to meet safety requirement
+- Updated the PMU EM module to set/remove the error action for any error at
+  run time using IPI. And log the errors and send when the target requests
+- Added SRST support for FPD WDT
+- Put SysOsc in sleep mode and change UART requirements while going to deep
+  sleep mode to avoid more power consumption
+- Added xilsecure API calls to support xilsecure functionality from Linux
 
 Changes for 2017.2
 ================================
