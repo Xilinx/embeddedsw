@@ -190,9 +190,11 @@ proc xgen_opts_file {libhandle} {
 			set set_fs_rpath 0
 		}
 		puts $file_handle "\#define FILE_SYSTEM_SET_FS_RPATH $set_fs_rpath"
-		if {$word_access == true} {
-                        puts $file_handle "\#define FILE_SYSTEM_WORD_ACCESS"
-                }
+
+		# MB does not allow word access from RAM
+		if {$proc_type != "microblaze" && $word_access == true} {
+			puts $file_handle "\#define FILE_SYSTEM_WORD_ACCESS"
+		}
 	} else {
 		error  "ERROR: Invalid interface selected \n"
 	}
