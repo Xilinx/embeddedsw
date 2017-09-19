@@ -115,7 +115,7 @@
 /                   Fixed LFN entry is not deleted on delete/rename an object with lossy converted SFN.
 /---------------------------------------------------------------------------*/
 #include "xparameters.h"
-#ifdef XPAR_XSDPS_0_DEVICE_ID
+#if (defined FILE_SYSTEM_INTERFACE_SD) || (defined FILE_SYSTEM_INTERFACE_RAM)
 #include "ff.h"			/* FatFs configurations and declarations */
 #include "diskio.h"		/* Declarations of low level disk I/O functions */
 #include "xil_printf.h"
@@ -5234,4 +5234,4 @@ int f_printf (
 #endif /* !_FS_READONLY */
 #endif /* _USE_STRFUNC */
 
-#endif /* XPAR_PS7_SD_0_S_AXI_BASEADDR */
+#endif /* (defined FILE_SYSTEM_INTERFACE_SD) || (defined FILE_SYSTEM_INTERFACE_RAM) */
