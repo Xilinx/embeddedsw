@@ -122,6 +122,7 @@
 *		     while booting images from QSPI
 * 1.5	tjs	08/08/17 Added index.html file for importing examples from system.mss
 * 1.5	nsk 08/14/17 Added CCI support
+* 1.5	tjs 09/14/17 Modified the checks for 4 byte addressing and commands.
 *
 * </pre>
 *

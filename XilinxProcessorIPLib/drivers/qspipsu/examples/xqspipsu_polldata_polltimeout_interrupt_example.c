@@ -80,6 +80,7 @@
 *                    tag to include the file in doxygen examples.
 * 1.4	tjs	06/16/17 Added support for IS25LP256D flash part (PR-4650)
 * 1.5	tjs	07/20/17 Added extended read support for MT25Q series flash (CR-980491)
+* 1.5	tjs 09/15/17 Replaced #ifdef COMMENTS to #if USE_FOUR_BYTE (CR-984966)
 *</pre>
 *
 ******************************************************************************/
@@ -300,6 +301,11 @@
 
 
 #define UNIQUE_VALUE		0x07
+
+/*
+ * If user wishes to use 4 byte addressing make the define 1 below.
+ */
+#define USE_FOUR_BYTE		0
 
 /**************************** Type Definitions *******************************/
 
@@ -612,7 +618,7 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 		SectorEraseCmd = SEC_ERASE_CMD;
 
 		/* If supported by flash, use 4B address write and erase */
-#ifdef COMMENT
+#if USE_FOUR_BYTE
 		WriteCmd = WRITE_CMD_4B;
 		SectorEraseCmd = SEC_ERASE_CMD_4B;
 #endif
@@ -1038,7 +1044,7 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 	WriteCmd[COMMAND_OFFSET]   = Command;
 
 	/* To be used only if 4B address program cmd is supported by flash */
-#ifdef COMMENT
+#if USE_FOUR_BYTE
 	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 		WriteCmd[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000) >> 24);
 		WriteCmd[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000) >> 16);
@@ -1051,7 +1057,7 @@ int FlashWrite(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 Command,
 		WriteCmd[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF00) >> 8);
 		WriteCmd[ADDRESS_3_OFFSET] = (u8)(RealAddr & 0xFF);
 		CmdByteCount = 4;
-#ifdef COMMENT
+#if USE_FOUR_BYTE
 	}
 #endif
 
@@ -1230,7 +1236,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 		 * To be used only if 4B address sector erase cmd is
 		 * supported by flash
 		 */
-#ifdef COMMENT
+#if USE_FOUR_BYTE
 		if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
 			WriteBfrPtr[ADDRESS_1_OFFSET] = (u8)((RealAddr & 0xFF000000) >> 24);
 			WriteBfrPtr[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF0000) >> 16);
@@ -1243,7 +1249,7 @@ int FlashErase(XQspiPsu *QspiPsuPtr, u32 Address, u32 ByteCount, u8 *WriteBfrPtr
 			WriteBfrPtr[ADDRESS_2_OFFSET] = (u8)((RealAddr & 0xFF00) >> 8);
 			WriteBfrPtr[ADDRESS_3_OFFSET] = (u8)(RealAddr & 0xFF);
 			FlashMsg[0].ByteCount = 4;
-#ifdef COMMENT
+#if USE_FOUR_BYTE
 		}
 #endif
 		FlashMsg[0].TxBfrPtr = WriteBfrPtr;
