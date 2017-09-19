@@ -261,6 +261,7 @@ Added support for readind ID till 5th byte as MT25Q series flash supports FSRFla
 but 128Mb and 256Mb parts are single die only. If the 6th bit of 5th ID byte
 is 1 then we can set the FSRFlag.
 Added CCI support.
+Modified the checks for 4 byte addressing and commands in examples.
 
 qspips_v3_4
 Added QSPI Buswidth parameter in canonical defines.
