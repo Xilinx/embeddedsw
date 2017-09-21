@@ -701,10 +701,10 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
         # Make sure the interrupt signal was connected in this design. We assume
         # at least one is. (could be a bug if user just wants polled mode)
         if { $intc_port != "" } {
-            set found_intc ""
             foreach intr_sink $intc_port {
+		set found_intc ""
 		set pname_type [::hsi::utils::get_connected_intr_cntrl $target_periph $intr_sink]
-                if {$pname_type != "chipscope_ila" && $pname_type != ""} {
+                if {$pname_type != "chipscope_ila" && [string_is_empty $pname_type] != 1} {
 			set special [get_property IP_TYPE $pname_type]
 			#Handling for zynqmp
                         if { [llength $special] > 1 } {
@@ -714,11 +714,13 @@ proc xdefine_mcdma_rx_interrupts {file_handle target_periph deviceid canonical_t
 				set found_intc $intr_sink
 			}
                 }
+		if {$intr_sink == $dma_signal} {
+			break
+		}
             }
 
             if {$found_intc == ""} {
-                puts "Info: DMA interrupt not connected to intc\n"
-                puts "Info: There are no AXI MCDMA Interrupt ports"
+                puts "Info: MCDMA interrupt port $dma_signal not connected to intc\n"
 		puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMARX%s_INTR 0xFF" $canonical_tag $chan_id]
 		add_field_to_periph_config_struct $deviceid 0xFF
 		return
@@ -800,10 +802,10 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
         # Make sure the interrupt signal was connected in this design. We assume
         # at least one is. (could be a bug if user just wants polled mode)
         if { $intc_port != "" } {
-            set found_intc ""
             foreach intr_sink $intc_port {
+		set found_intc ""
 		set pname_type [::hsi::utils::get_connected_intr_cntrl $target_periph $intr_sink]
-                if {$pname_type != "chipscope_ila" && $pname_type != ""} {
+                if {$pname_type != "chipscope_ila" && [string_is_empty $pname_type] != 1} {
 			set special [get_property IP_TYPE $pname_type]
 			#Handling for zynqmp
                         if { [llength $special] > 1 } {
@@ -813,11 +815,13 @@ proc xdefine_mcdma_tx_interrupts {file_handle target_periph deviceid canonical_t
 				set found_intc $intr_sink
 			}
                 }
+		if {$intr_sink == $dma_signal} {
+			break
+		}
             }
 
             if {$found_intc == ""} {
-                puts "Info: DMA interrupt not connected to intc\n"
-                puts "Info: There are no AXI MCDMA Interrupt ports"
+                puts "Info: MCDMA interrupt port $dma_signal not connected to intc\n"
 		puts $file_handle [format "#define XPAR_%s_CONNECTED_MCDMATX%s_INTR 0xFF" $canonical_tag $chan_id]
 		add_field_to_periph_config_struct $deviceid 0xFF
 		return
