@@ -502,6 +502,8 @@
 *      adk 08/22/17 Fixed CR#983008 app generation errors for Specific IPI design.
 *      adk 08/28/17 Fixed CR#982877 couple of dsv_ced tests are failing in peripheral
 *		    app generation.
+*      adk 09/21/17 Fixed CR#985686 bsp generation error with specific design.
+*		    Changes are made in the driver tcl.
 * </pre>
 *
 ******************************************************************************/
