@@ -93,6 +93,8 @@
 *              09/18/17 Add API to clear the interrupts.
 *       sk     09/21/17 Add __BAREMETAL__ compiler flag option
 *                       for Baremetal.
+*       sk     09/21/17 Add support for Over voltage and Over
+*                       Range interrupts.
 *
 * </pre>
 *

@@ -46,6 +46,8 @@
 * 1.0   sk     05/16/17 First release
 * 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
 *              09/18/17 Add API to clear the interrupts.
+*       sk     09/21/17 Add support for Over voltage and Over
+*                       Range interrupts.
 * </pre>
 *
 ******************************************************************************/
@@ -161,6 +163,17 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg |= (1 << Index);
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 								XRFDC_INTR_ENABLE, ReadReg);
+				ReadReg = XRFdc_ReadReg(InstancePtr, BaseAddr,
+								XRFDC_CONV_INTR_EN(Index));
+				if ((IntrMask & XRFDC_ADC_OVR_VOLTAGE_MASK) != 0U) {
+					ReadReg |= (XRFDC_ADC_OVR_VOLTAGE_MASK >> 24);
+				}
+				if ((IntrMask & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
+					ReadReg |= (XRFDC_ADC_OVR_RANGE_MASK >> 24);
+				}
+				XRFdc_WriteReg(InstancePtr, BaseAddr,
+								XRFDC_CONV_INTR_EN(Index), ReadReg);
+
 				BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 						XRFDC_BLOCK_ADDR_OFFSET(Index);
 
@@ -301,6 +314,20 @@ void XRFdc_IntrDisable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			goto RETURN_PATH;
 		} else {
 			if (Type == XRFDC_ADC_TILE) {
+				BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+				/* Check for Over Voltage and Over Range */
+				ReadReg = XRFdc_ReadReg(InstancePtr, BaseAddr,
+								XRFDC_CONV_INTR_EN(Index));
+				if ((IntrMask & XRFDC_ADC_OVR_VOLTAGE_MASK) != 0U) {
+					ReadReg &= ~(XRFDC_ADC_OVR_VOLTAGE_MASK >> 24);
+				}
+				if ((IntrMask & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
+					ReadReg &= ~(XRFDC_ADC_OVR_RANGE_MASK >> 24);
+				}
+				XRFdc_WriteReg(InstancePtr, BaseAddr,
+								XRFDC_CONV_INTR_EN(Index), ReadReg);
+				BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+										XRFDC_BLOCK_ADDR_OFFSET(Index);
 				/* Check for FIFO interface interrupts */
 				if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -414,6 +441,15 @@ u32 XRFdc_GetIntrStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		goto RETURN_PATH;
 	} else {
 		if (Type == XRFDC_ADC_TILE) {
+			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+			/* Check for Over Voltage and Over Range */
+			ReadReg = XRFdc_ReadReg(InstancePtr, BaseAddr,
+							XRFDC_CONV_INTR_STS(Block_Id));
+			Intrsts |= ((ReadReg & XRFDC_INTR_OVR_VOLTAGE_MASK) << 24);
+			Intrsts |= ((ReadReg & XRFDC_INTR_OVR_RANGE_MASK) << 24);
+
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+									XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 			/* Check for FIFO interface interrupts */
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_FABRIC_ISR_OFFSET);
@@ -504,6 +540,20 @@ void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	} else {
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
+			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+			if ((IntrMask & XRFDC_ADC_OVR_VOLTAGE_MASK) != 0U) {
+				XRFdc_WriteReg(InstancePtr, BaseAddr,
+								XRFDC_CONV_INTR_STS(Block_Id),
+								(IntrMask & XRFDC_ADC_OVR_VOLTAGE_MASK) >> 24);
+			}
+			if ((IntrMask & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
+				XRFdc_WriteReg(InstancePtr, BaseAddr,
+								XRFDC_CONV_INTR_STS(Block_Id),
+								(IntrMask & XRFDC_ADC_OVR_RANGE_MASK) >> 24);
+			}
+
+			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+									XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 			if ((IntrMask & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 						XRFDC_ADC_FABRIC_ISR_OFFSET,
@@ -620,6 +670,22 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 		Intrsts = XRFdc_GetIntrStatus(InstancePtr, 0U, Tile_Id, Block_Id);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id)
 							+ XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+		if (Intrsts & XRFDC_ADC_OVR_VOLTAGE_MASK) {
+			IntrMask |= Intrsts & XRFDC_ADC_OVR_VOLTAGE_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC Over Voltage interrupt \r\n");
+#else
+			metal_log(METAL_LOG_DEBUG, "\n ADC Over Voltage interrupt \r\n");
+#endif
+		}
+		if (Intrsts & XRFDC_ADC_OVR_RANGE_MASK) {
+			IntrMask |= Intrsts & XRFDC_ADC_OVR_RANGE_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL, "\n ADC Over Range interrupt \r\n");
+#else
+			metal_log(METAL_LOG_DEBUG, "\n ADC Over Range interrupt \r\n");
+#endif
+		}
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
 #ifdef __MICROBLAZE__

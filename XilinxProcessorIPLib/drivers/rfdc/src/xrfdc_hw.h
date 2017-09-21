@@ -47,6 +47,8 @@
 * ----- ---    -------- -----------------------------------------------
 * 1.0   sk     05/16/17 Initial release
 * 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
+*       sk     09/21/17 Add support for Over voltage and Over
+*                       Range interrupts.
 * </pre>
 *
 ******************************************************************************/
@@ -296,6 +298,8 @@ extern "C" {
 #define XRFDC_COMMON_INTR_ENABLE	0x104U	/**< Common Intr enable register */
 #define XRFDC_INTR_STS				0x200U	/**< Intr status register */
 #define XRFDC_INTR_ENABLE			0x204U	/**< Intr enable register */
+#define XRFDC_CONV_INTR_STS(X)		(0x208U + (X * 0x08))
+#define XRFDC_CONV_INTR_EN(X)		(0x20CU + (X * 0x08))
 #define XRFDC_FIFO_ENABLE			0x230U	/**< FIFO Enable and Disable */
 
 /* @} */
@@ -1766,6 +1770,18 @@ extern "C" {
 								interrupt enable mask */
 /* @} */
 
+/** @name Converter(X) interrupt register
+ *
+ * This register contains bits to enable different interrupts for block X.
+ * @{
+ */
+
+#define XRFDC_INTR_OVR_RANGE_MASK		0x00000008U	/**< Over Range
+								interrupt mask */
+#define XRFDC_INTR_OVR_VOLTAGE_MASK		0x00000004U	/**< Over Voltage
+								interrupt mask */
+/* @} */
+
 #define XRFDC_IXR_FIFOUSRDAT_MASK			0x0000000FU
 #define XRFDC_IXR_FIFOUSRDAT_OF_MASK		0x00000001U
 #define XRFDC_IXR_FIFOUSRDAT_UF_MASK 		0x00000002U
@@ -1799,6 +1815,8 @@ extern "C" {
 #define XRFDC_SUBADC2_IXR_DCDR_UF_MASK 		0x00200000U
 #define XRFDC_SUBADC3_IXR_DCDR_OF_MASK 		0x00400000U
 #define XRFDC_SUBADC3_IXR_DCDR_UF_MASK 		0x00800000U
+#define XRFDC_ADC_OVR_VOLTAGE_MASK			0x04000000U
+#define XRFDC_ADC_OVR_RANGE_MASK			0x08000000U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_MASK		0x0000F8F8U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_MASK		0x0000FFC0U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_20MA		0x00004858U
