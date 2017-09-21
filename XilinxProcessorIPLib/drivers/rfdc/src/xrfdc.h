@@ -91,6 +91,8 @@
 *                       updated the Immediate Macro value to 0.
 * 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
 *              09/18/17 Add API to clear the interrupts.
+*       sk     09/21/17 Add __BAREMETAL__ compiler flag option
+*                       for Baremetal.
 *
 * </pre>
 *
@@ -109,7 +111,6 @@ extern "C" {
 #include <stdlib.h>
 #include <stdint.h>
 
-#define __BAREMETAL__
 #ifdef __BAREMETAL__
 #include "xil_assert.h"
 #include "xdebug.h"

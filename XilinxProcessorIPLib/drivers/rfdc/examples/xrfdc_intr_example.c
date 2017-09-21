@@ -77,7 +77,6 @@
  * xparameters.h file. They are defined here such that a user can easily
  * change all the needed parameters in one place.
  */
-#define __BAREMETAL__
 #define RFDC_DEVICE_ID 	XPAR_XRFDC_0_DEVICE_ID
 #define RFDC_IRQ_VECT_ID                XPS_FPGA0_INT_ID
 #ifdef __BAREMETAL__
