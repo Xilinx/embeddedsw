@@ -379,7 +379,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS) {
 					return XRFDC_FAILURE;
 				}
-				xil_printf("\n DAC%d%d Status \n"
+				printf("\n DAC%d%d Status \n"
 				"DataPathClockStatus - %d \t IsFIFOFlagsEnabled - %d \t IsFIFOFlagsAsserted - %d \r\n", Tile, Block,
 						BlockStatus.DataPathClocksStatus, BlockStatus.IsFIFOFlagsEnabled, BlockStatus.IsFIFOFlagsAsserted);
 			}
@@ -529,7 +529,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				if (Status != XRFDC_SUCCESS) {
 					return XRFDC_FAILURE;
 				}
-				xil_printf("\n ADC%d%d Status \n"
+				printf("\n ADC%d%d Status \n"
 				"DataPathClockStatus - %d \t IsFIFOFlagsEnabled - %d \t IsFIFOFlagsAsserted - %d \r\n", Tile, Block, BlockStatus.DataPathClocksStatus,
 				BlockStatus.IsFIFOFlagsEnabled, BlockStatus.IsFIFOFlagsAsserted);
 			}
