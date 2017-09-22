@@ -95,6 +95,7 @@
 *                       for Baremetal.
 *       sk     09/21/17 Add support for Over voltage and Over
 *                       Range interrupts.
+*       sk     09/22/17 Add s64 typedef for Linux.
 *
 * </pre>
 *
@@ -135,6 +136,7 @@ typedef __u16 u16;
 typedef __u8 u8;
 typedef __s32 s32;
 typedef __u64 u64;
+typedef __s64 s64;
 #endif
 
 /**
