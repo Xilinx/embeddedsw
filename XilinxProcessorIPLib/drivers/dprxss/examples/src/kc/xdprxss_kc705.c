@@ -3112,7 +3112,15 @@ void Dprx_InterruptHandlerUplug(void *InstancePtr)
 //	rx_ran_once = 0;
 //	switch_to_patgen = 0;
 	}
-		//only_tx_active = 1;
+
+//power up GT PLL
+    XVphy_PowerDownGtPll(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA,
+    (FALSE));
+
+// un-Reset GTs.  release-reset
+    XVphy_ResetGtPll(&VPhy_Instance, 0, XVPHY_CHANNEL_ID_CHA, XVPHY_DIR_RX,
+    (FALSE));
+
 	} else {
 	switch_to_tx = 0;
 	rx_link_change_requested = 0;
