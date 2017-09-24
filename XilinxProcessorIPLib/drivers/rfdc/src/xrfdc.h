@@ -96,6 +96,8 @@
 *       sk     09/21/17 Add support for Over voltage and Over
 *                       Range interrupts.
 *       sk     09/22/17 Add s64 typedef for Linux.
+*       sk     09/24/17 Fixed Get_Tile/BlockBaseAddr always
+*                       giving ADC related address.
 *
 * </pre>
 *
@@ -583,7 +585,7 @@ static inline u32 XRFdc_Get_TileBaseAddr(XRFdc* InstancePtr, u32 Type,
 	if(Type == XRFDC_ADC_TILE)
 		return InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
 	else
-		return InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id);
+		return InstancePtr->BaseAddr + XRFDC_DAC_TILE_DRP_ADDR(Tile_Id);
 }
 
 /*****************************************************************************/
@@ -608,7 +610,7 @@ static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc* InstancePtr, u32 Type,
 		return InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
-		return InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+		return InstancePtr->BaseAddr + XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	}
 }
