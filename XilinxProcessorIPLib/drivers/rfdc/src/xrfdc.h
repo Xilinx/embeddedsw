@@ -101,6 +101,8 @@
 *       sk     09/25/17 Modified XRFdc_GetBlockStatus API to give
 *                       correct information and also updates the
 *                       description for Vector Param in intr handler
+*                       Add API to get Output current and removed
+*                       GetTermVoltage and GetOutputCurr inline functions.
 *
 * </pre>
 *
@@ -749,48 +751,6 @@ static inline u32 XRFdc_GetInverseSincFilter(XRFdc* InstancePtr, int Tile_Id,
 /*****************************************************************************/
 /**
 *
-* Get Term Voltage for DAC block.
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-*
-* @return
-*		- Return Term Voltage for DAC block
-*
-******************************************************************************/
-static inline float XRFdc_GetTermVoltage(XRFdc* InstancePtr, int Tile_Id,
-								u32 Block_Id)
-{
-	return InstancePtr->DAC_Tile[Tile_Id].DACBlock_Analog_Datapath[Block_Id].
-				TerminationVoltage;
-}
-
-/*****************************************************************************/
-/**
-*
-* Get Output Current for DAC block.
-*
-* @param	InstancePtr is a pointer to the XRfdc instance.
-* @param	Tile_Id Valid values are 0-3.
-* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
-*
-* @return
-*		- Return Output Current for DAC block
-*
-******************************************************************************/
-static inline float XRFdc_GetOutputCurr(XRFdc* InstancePtr, int Tile_Id,
-								u32 Block_Id)
-{
-	return InstancePtr->DAC_Tile[Tile_Id].
-				DACBlock_Analog_Datapath[Block_Id].OutputCurrent;
-}
-
-/*****************************************************************************/
-/**
-*
 * Get Mixed mode for DAC block.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
@@ -970,6 +930,8 @@ int XRFdc_SetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 NyquistZone);
 int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 *NyquistZone);
+int XRFdc_GetOutputCurr(XRFdc* InstancePtr, int Tile_Id,
+								u32 Block_Id, int *OutputCurr);
 
 #ifdef __cplusplus
 }

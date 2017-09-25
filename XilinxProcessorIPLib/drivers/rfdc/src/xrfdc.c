@@ -62,7 +62,8 @@
 *       sk     09/25/17 Modified XRFdc_GetBlockStatus API to give
 *                       correct information and also updates the
 *                       description for Vector Param in intr handler
-
+*                       Add API to get Output current and removed
+*                       GetTermVoltage and GetOutputCurr inline functions.
 * </pre>
 *
 ******************************************************************************/
@@ -3509,6 +3510,84 @@ int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 	}
 	Status = XRFDC_SUCCESS;
 
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Get Output Current for DAC block.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param    OutputCurr pointer to return the output current.
+*
+* @return
+*		- Return Output Current for DAC block
+*
+******************************************************************************/
+int XRFdc_GetOutputCurr(XRFdc* InstancePtr, int Tile_Id,
+								u32 Block_Id, int *OutputCurr)
+{
+	s32 Status;
+	u32 IsBlockAvail;
+	u32 BaseAddr;
+	u16 ReadReg_Cfg2;
+	u16 ReadReg_Cfg3;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(OutputCurr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+	if (IsBlockAvail == 0U) {
+		Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+						"available in %s\r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else {
+		ReadReg_Cfg2 = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_ADC_DAC_MC_CFG2_OFFSET);
+		ReadReg_Cfg2 &= XRFDC_DAC_MC_CFG2_OPCSCAS_MASK;
+		ReadReg_Cfg3 = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+								XRFDC_DAC_MC_CFG3_OFFSET);
+		ReadReg_Cfg3 &= XRFDC_DAC_MC_CFG3_CSGAIN_MASK;
+		if ((ReadReg_Cfg2 == XRFDC_DAC_MC_CFG2_OPCSCAS_32MA) &&
+				(ReadReg_Cfg3 == XRFDC_DAC_MC_CFG3_CSGAIN_32MA))
+			*OutputCurr = XRFDC_OUTPUT_CURRENT_32MA;
+		else if ((ReadReg_Cfg2 == XRFDC_DAC_MC_CFG2_OPCSCAS_20MA) &&
+				(ReadReg_Cfg3 == XRFDC_DAC_MC_CFG3_CSGAIN_20MA))
+			*OutputCurr = XRFDC_OUTPUT_CURRENT_20MA;
+		else if ((ReadReg_Cfg2 == 0x0) && (ReadReg_Cfg3 == 0x0))
+			*OutputCurr = 0x0;
+		else {
+			Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid output "
+						"current value %s\r\n", __func__);
+#else
+			metal_log(METAL_LOG_ERROR, "\n Invalid output "
+						"current value %s\r\n", __func__);
+#endif
+			goto RETURN_PATH;
+		}
+
+	}
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
 RETURN_PATH:
 	return Status;
 }
