@@ -596,12 +596,16 @@ RETURN_PATH:
 * It must be connected to an interrupt system by the application such that it
 * can be called when an interrupt occurs.
 *
-* @param	Vector is interrupt vector number
+* @param	Vector is interrupt vector number. Libmetal status handler
+*           expects two parameters in the handler prototype, hence
+*           kept this parameter. This is not used inside
+*           the interrupt handler API.
 * @param	XRFdcPtr contains a pointer to the driver instance
 *
 * @return	None.
 *
-* @note		None.
+* @note		Vector param is not useful inside the interrupt handler, hence
+*           typecast with void to remove compilation warning.
 *
 ******************************************************************************/
 int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
