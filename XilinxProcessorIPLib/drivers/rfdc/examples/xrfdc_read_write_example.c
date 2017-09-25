@@ -60,6 +60,7 @@
 * 1.1   sk     08/09/17 Modified the example to support both Linux and
 *                       Baremetal.
 *       sk     08/23/17 Add Nyquist Zone test case.
+*       sk     09/25/17 Add GetOutput Current test case.
 *
 * </pre>
 *
@@ -183,6 +184,7 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u32 SetNyquistZone;
 	u32 GetNyquistZone;
 	XRFdc_BlockStatus BlockStatus;
+	int OutputCurr;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -382,6 +384,12 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				printf("\n DAC%d%d Status \n"
 				"DataPathClockStatus - %d \t IsFIFOFlagsEnabled - %d \t IsFIFOFlagsAsserted - %d \r\n", Tile, Block,
 						BlockStatus.DataPathClocksStatus, BlockStatus.IsFIFOFlagsEnabled, BlockStatus.IsFIFOFlagsAsserted);
+
+				Status = XRFdc_GetOutputCurr(RFdcInstPtr, Tile, Block, &OutputCurr);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				printf("\n DAC%d%d Output Current is %dmA \n", Tile, Block, OutputCurr);
 			}
 
 			/* Check if the ADC block is enabled */
