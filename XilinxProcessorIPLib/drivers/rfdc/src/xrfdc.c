@@ -59,6 +59,10 @@
 *              09/15/17 Fixed Immediate Event source issue and also
 *                       updated the Immediate Macro value to 0.
 * 2.1   sk     09/15/17 Remove Libmetal library dependency for MB.
+*       sk     09/25/17 Modified XRFdc_GetBlockStatus API to give
+*                       correct information and also updates the
+*                       description for Vector Param in intr handler
+
 * </pre>
 *
 ******************************************************************************/
@@ -586,27 +590,21 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			BlockStatus->DigitalDataPathStatus = InstancePtr->RFdc_Config.
 					ADCTile_Config[Tile_Id].ADCBlock_Digital_Config[Block_Id].
 					FifoEnable;
-			if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
-					ADCBlock_Digital_Config[Block_Id].DecimationMode)
-				BlockStatus->DigitalDataPathStatus |=  1 << 1;
+			BlockStatus->DigitalDataPathStatus |=  InstancePtr->RFdc_Config.
+					ADCTile_Config[Tile_Id].ADCBlock_Digital_Config[Block_Id].
+					DecimationMode << 4;
 			BlockStatus->AnalogDataPathStatus = 0;
-			if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
-					ADCBlock_Analog_Config[Block_Id].MixMode)
-				BlockStatus->AnalogDataPathStatus = 1;
+			BlockStatus->AnalogDataPathStatus = InstancePtr->RFdc_Config.
+				ADCTile_Config[Tile_Id].ADCBlock_Analog_Config[Block_Id].
+				MixMode;
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_FABRIC_IMR_OFFSET);
-			ReadReg &= XRFDC_FAB_IMR_USRDAT_MASK;
-			if (ReadReg == XRFDC_FAB_IMR_USRDAT_MASK)
-				BlockStatus->IsFIFOFlagsEnabled = 0x1;
-			else
-				BlockStatus->IsFIFOFlagsEnabled = 0x0;
+			BlockStatus->IsFIFOFlagsEnabled =
+						ReadReg & XRFDC_FAB_IMR_USRDAT_MASK;
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_FABRIC_ISR_OFFSET);
-			ReadReg &= XRFDC_FAB_ISR_USRDAT_MASK;
-			if (ReadReg == XRFDC_FAB_ISR_USRDAT_MASK)
-				BlockStatus->IsFIFOFlagsAsserted = 0x1;
-			else
-				BlockStatus->IsFIFOFlagsAsserted = 0x0;
+			BlockStatus->IsFIFOFlagsAsserted =
+					ReadReg & XRFDC_FAB_ISR_USRDAT_MASK;
 		} else {
 			BlockStatus->SamplingFreq = InstancePtr->RFdc_Config.
 								DACTile_Config[Tile_Id].SamplingRate;
@@ -614,36 +612,30 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			BlockStatus->DigitalDataPathStatus = InstancePtr->RFdc_Config.
 					DACTile_Config[Tile_Id].DACBlock_Digital_Config[Block_Id].
 					FifoEnable;
-			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
-					DACBlock_Digital_Config[Block_Id].InterploationMode)
-				BlockStatus->DigitalDataPathStatus |= 1 << 1;
 			BlockStatus->DigitalDataPathStatus |= InstancePtr->RFdc_Config.
 					DACTile_Config[Tile_Id].DACBlock_Digital_Config[Block_Id].
-					AdderEnable << 2;
+					InterploationMode << 4;
+			BlockStatus->DigitalDataPathStatus |= InstancePtr->RFdc_Config.
+					DACTile_Config[Tile_Id].DACBlock_Digital_Config[Block_Id].
+					AdderEnable << 8;
 			BlockStatus->AnalogDataPathStatus = 0;
-			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
-					DACBlock_Analog_Config[Block_Id].MixMode)
-				BlockStatus->AnalogDataPathStatus = 1;
+			BlockStatus->AnalogDataPathStatus = InstancePtr->RFdc_Config.
+				DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].
+				MixMode;
 			BlockStatus->AnalogDataPathStatus |= InstancePtr->RFdc_Config.
 					DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].
-					InvSyncEnable << 1;
-			if (InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
-					DACBlock_Analog_Config[Block_Id].DecoderMode)
-				BlockStatus->AnalogDataPathStatus |= 1 << 2;
+					InvSyncEnable << 4;
+			BlockStatus->AnalogDataPathStatus |= InstancePtr->RFdc_Config.
+				DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].
+				DecoderMode << 8;
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_DAC_FABRIC_IMR_OFFSET);
-			ReadReg &= XRFDC_FAB_IMR_USRDAT_MASK;
-			if (ReadReg == XRFDC_FAB_IMR_USRDAT_MASK)
-				BlockStatus->IsFIFOFlagsEnabled = 0x1;
-			else
-				BlockStatus->IsFIFOFlagsEnabled = 0x0;
+			BlockStatus->IsFIFOFlagsEnabled =
+						ReadReg & XRFDC_FAB_IMR_USRDAT_MASK;
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_DAC_FABRIC_ISR_OFFSET);
-			ReadReg &= XRFDC_FAB_ISR_USRDAT_MASK;
-			if (ReadReg == XRFDC_FAB_ISR_USRDAT_MASK)
-				BlockStatus->IsFIFOFlagsAsserted = 0x1;
-			else
-				BlockStatus->IsFIFOFlagsAsserted = 0x0;
+			BlockStatus->IsFIFOFlagsAsserted =
+					ReadReg &= XRFDC_FAB_ISR_USRDAT_MASK;
 		}
 		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 										XRFDC_CLK_EN_OFFSET);

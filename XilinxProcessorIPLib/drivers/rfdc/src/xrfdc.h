@@ -98,6 +98,9 @@
 *       sk     09/22/17 Add s64 typedef for Linux.
 *       sk     09/24/17 Fixed Get_Tile/BlockBaseAddr always
 *                       giving ADC related address.
+*       sk     09/25/17 Modified XRFdc_GetBlockStatus API to give
+*                       correct information and also updates the
+*                       description for Vector Param in intr handler
 *
 * </pre>
 *
