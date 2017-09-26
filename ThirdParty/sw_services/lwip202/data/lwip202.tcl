@@ -495,7 +495,11 @@ proc generate_lwip_opts {libhandle} {
 		if { [string compare -nocase "freertos901_xilinx" $os_name] == 0} {
 			puts $lwipopts_fd "\#define OS_IS_FREERTOS"
 			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
+			if {$processor_type == "psu_cortexa53"} {
+				puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio)"
+			} else {
 			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio + 1)"
+			}
 			puts $lwipopts_fd "\#define TCPIP_THREAD_STACKSIZE 1024"
 			puts $lwipopts_fd "\#define DEFAULT_TCP_RECVMBOX_SIZE 	200"
 			puts $lwipopts_fd "\#define DEFAULT_ACCEPTMBOX_SIZE 	5"
