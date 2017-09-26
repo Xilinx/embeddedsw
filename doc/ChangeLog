@@ -337,6 +337,7 @@ Properly set OTAPDLY value by clearing previous bit settings
 Added CCI support for SD
 Updated for Word Access System support
 Resolved compilation errors with IAR toolchain
+Added UHS_MODE_ENABLE macro to enable UHS mode
 
 xilisf_v5_9:
 Expanded the description of serial_flash_family and serial_flash_interface.

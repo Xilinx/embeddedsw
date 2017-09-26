@@ -86,6 +86,7 @@
 *                       operations when it is enabled.
 *       mn     08/22/17 Updated for Word Access System support
 *       mn     09/06/17 Resolved compilation errors with IAR toolchain
+*       mn     09/26/17 Added UHS_MODE_ENABLE macro to enable UHS mode
 * </pre>
 *
 ******************************************************************************/
@@ -182,7 +183,11 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->Config.CardDetect =  ConfigPtr->CardDetect;
 	InstancePtr->Config.WriteProtect =  ConfigPtr->WriteProtect;
+#ifdef UHS_MODE_ENABLE
 	InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
+#else
+	InstancePtr->Config.BusWidth = XSDPS_WIDTH_4;
+#endif
 	InstancePtr->Config.BankNumber = ConfigPtr->BankNumber;
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
 	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
