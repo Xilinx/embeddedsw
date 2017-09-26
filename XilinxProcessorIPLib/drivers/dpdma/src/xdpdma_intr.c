@@ -89,6 +89,20 @@ void XDpDma_InterruptHandler(XDpDma *InstancePtr)
 	if(RegVal & XDPDMA_ISR_VSYNC_INT_MASK) {
 		XDpDma_VSyncHandler(InstancePtr);
 	}
+
+	if(RegVal & XDPDMA_ISR_DSCR_DONE4_MASK) {
+		XDpDma_SetChannelState(InstancePtr, AudioChan0, XDPDMA_DISABLE);
+		InstancePtr->Audio[0].Current = NULL;
+		XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
+				XDPDMA_ISR_DSCR_DONE4_MASK);
+	}
+
+	if(RegVal & XDPDMA_ISR_DSCR_DONE5_MASK) {
+		XDpDma_SetChannelState(InstancePtr, AudioChan1, XDPDMA_DISABLE);
+		InstancePtr->Audio[1].Current = NULL;
+		XDpDma_WriteReg(InstancePtr->Config.BaseAddr, XDPDMA_ISR,
+				XDPDMA_ISR_DSCR_DONE5_MASK);
+	}
 }
 
 /*************************************************************************/
