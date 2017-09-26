@@ -199,12 +199,6 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 		return XRFDC_FAILURE;
 	}
 
-#ifdef __BAREMETAL__
-	if (init_irq()) {
-		xil_printf("Failed to initialize interrupt\n");
-	}
-#endif
-
 	/* Initialize the RFdc driver. */
 	ConfigPtr = XRFdc_LookupConfig(RFdcDeviceId);
 	if (ConfigPtr == NULL) {
@@ -323,6 +317,12 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 #else
 	XRFdc_Out32(io_stim, 0x50, 0x8000);
 	XRFdc_Out32(io_cap, 0x50, 0x8000);
+#endif
+
+#ifdef __BAREMETAL__
+	if (init_irq()) {
+		xil_printf("Failed to initialize interrupt\n");
+	}
 #endif
 
 	/* Wait till interrupt occurs */
