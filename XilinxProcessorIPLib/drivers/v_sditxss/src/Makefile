@@ -9,6 +9,7 @@ RELEASEDIR=../../../lib
 INCLUDEDIR=../../../include
 INCLUDES=-I./. -I${INCLUDEDIR}
 
+OBJECTS =	$(addsuffix .o, $(basename $(wildcard *.c)))
 INCLUDEFILES=*.h
 
 LIBSOURCES=*.c
@@ -25,4 +26,4 @@ include:
 	 ${CP} ${INCLUDEFILES} ${INCLUDEDIR}
 
 clean:
-	rm -rf ${OUTS}
+	rm -rf $(OBJECTS)
