@@ -1,5 +1,9 @@
 Change Log for lwip
 =================================
+2017-09-20
+	* Disable L1 prefetch for ARMv8 in init_axi_dma function in xaxiemacif_dma.c.
+2017-09-12
+	* Disable L1 prefetch for ARMv8 in init_dma function in xemacpsif_dma.c.
 2017-09-09
 	* Add rx_reset_nodata workaround for Zynq GEM for freertos.
 2017-08-29

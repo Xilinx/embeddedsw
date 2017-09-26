@@ -628,6 +628,24 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	XStatus status;
 	u32_t i;
 	xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
+	/*
+	 * Disable L1 prefetch if the processor type is Cortex A53. It is
+	 * observed that the L1 prefetching for ARMv8 can cause issues while
+	 * dealing with cache memory on Rx path. On Rx path, the lwIP adapter
+	 * does a clean and invalidation of buffers (pbuf payload) before
+	 * allocating them to Rx BDs. However, there are chances that the
+	 * the same cache line may get prefetched by the time Rx data is
+	 * DMAed to the same buffer. In such cases, CPU fetches stale data from
+	 * cache memory instead of getting them from memory. To avoid such
+	 * scenarios L1 prefetch is being disabled for ARMv8. That can cause
+	 * a performance degaradation in the range of 3-5%. In tests, it is
+	 * generally observed that this performance degaradation is quite
+	 * insignificant to be really visible.
+	 */
+#if defined __aarch64__
+	Xil_ConfigureL1Prefetch(0);
+#endif
+
 #if XPAR_INTC_0_HAS_FAST == 1
 	xaxiemacif_fast = xaxiemacif;
 	xemac_fast = xemac;
