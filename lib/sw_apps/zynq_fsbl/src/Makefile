@@ -46,7 +46,7 @@ OBJS += $(patsubst %.S, %.o, $(S_SOURCES))
 OBJS += $(patsubst %.s, %.o, $(s_SOURCES))
 LSCRIPT := -Tlscript.ld
 
-BSP_DIR	:= ../misc/
+BSP_DIR	:= ../misc
 
 LIBS := libxil.a 
 EXEC := fsbl.elf
