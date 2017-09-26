@@ -58,6 +58,9 @@ struct xemac_s {
 #if !NO_SYS
     sys_sem_t sem_rx_data_available;
 #endif
+#if defined(OS_IS_FREERTOS) && defined(__arm__) && !defined(ARMR5)
+	TimerHandle_t xTimer;
+#endif
 };
 
 void 		lwip_raw_init();

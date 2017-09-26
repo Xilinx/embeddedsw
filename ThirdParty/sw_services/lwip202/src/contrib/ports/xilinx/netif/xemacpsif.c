@@ -86,6 +86,11 @@ static u8_t xemacps_mcast_entry_mask = 0;
 XEmacPs_Config *mac_config;
 struct netif *NetIf;
 
+#if defined(OS_IS_FREERTOS) && defined(__arm__) && !defined(ARMR5)
+int32_t lExpireCounter = 0;
+#define RESETRXTIMEOUT 10
+#endif
+
 /*
  * this function is always called with interrupts off
  * this function also assumes that there are available BD's
@@ -266,6 +271,21 @@ s32_t xemacpsif_input(struct netif *netif)
 }
 
 
+#if defined(OS_IS_FREERTOS) && defined(__arm__) && !defined(ARMR5)
+void vTimerCallback( TimerHandle_t pxTimer )
+{
+	/* Do something if the pxTimer parameter is NULL */
+	configASSERT(pxTimer);
+
+	lExpireCounter++;
+	/* If the timer has expired 100 times then reset RX */
+	if(lExpireCounter >= RESETRXTIMEOUT) {
+		lExpireCounter = 0;
+		xemacpsif_resetrx_on_no_rxdata(NetIf);
+	}
+}
+ #endif
+
 static err_t low_level_init(struct netif *netif)
 {
 	UINTPTR mac_address = (UINTPTR)(netif->state);
@@ -337,6 +357,17 @@ static err_t low_level_init(struct netif *netif)
 	XEmacPs_WriteReg(xemacpsif->emacps.Config.BaseAddress,
 											XEMACPS_DMACR_OFFSET, dmacrreg);
 
+#if defined(OS_IS_FREERTOS) && defined(__arm__) && !defined(ARMR5)
+	/* Freertos tick is 10ms by default; set period to the same */
+	xemac->xTimer = xTimerCreate("Timer", 10, pdTRUE, ( void * ) 1, vTimerCallback);
+	if (xemac->xTimer == NULL) {
+		xil_printf("In %s:Timer creation failed....\r\n", __func__);
+	} else {
+		if(xTimerStart(xemac->xTimer, 0) != pdPASS) {
+			xil_printf("In %s:Timer start failed....\r\n", __func__);
+		}
+	}
+#endif
 	setup_isr(xemac);
 	init_dma(xemac);
 	start_emacps(xemacpsif);
