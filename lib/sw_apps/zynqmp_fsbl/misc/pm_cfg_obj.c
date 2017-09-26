@@ -68,7 +68,7 @@ const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK, /* Suspend permissions */
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK, /* Wake permissions */
 
-	NODE_RPU_0, /* Master Node ID */
+	NODE_RPU, /* Master Node ID */
 	PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK, /* IPI Mask of this master */
 	SUSPEND_TIMEOUT, /* Suspend timeout */
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK, /* Suspend permissions */
@@ -86,7 +86,7 @@ const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 
 
 	PM_CONFIG_SLAVE_SECTION_ID,	/* Section ID */
-	48,				/* Number of slaves */
+	49,				/* Number of slaves */
 
 	NODE_OCM_BANK_0,
 	PM_SLAVE_FLAG_IS_SHAREABLE,
@@ -275,6 +275,10 @@ const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 	NODE_RTC,
 	PM_SLAVE_FLAG_IS_SHAREABLE,
 	PM_CONFIG_IPI_PSU_CORTEXA53_0_MASK| PM_CONFIG_IPI_PSU_CORTEXR5_0_MASK| PM_CONFIG_IPI_PSU_CORTEXR5_1_MASK, /* IPI Mask */
+
+	NODE_VCU,
+	PM_SLAVE_FLAG_IS_SHAREABLE,
+	0U, /* IPI Mask */
 
 	NODE_PL,
 	PM_SLAVE_FLAG_IS_SHAREABLE,
