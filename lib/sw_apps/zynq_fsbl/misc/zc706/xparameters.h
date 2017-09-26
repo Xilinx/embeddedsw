@@ -2,7 +2,7 @@
 #define XPARAMETERS_H   /* by using protection macros */
 
 /* Definition for CPU ID */
-#define XPAR_CPU_ID 0
+#define XPAR_CPU_ID 0U
 
 /* Definitions for peripheral PS7_CORTEXA9_0 */
 #define XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ 666666687
@@ -32,20 +32,20 @@
 /******************************************************************/
 
 /* Definitions for driver DEVCFG */
-#define XPAR_XDCFG_NUM_INSTANCES 1
+#define XPAR_XDCFG_NUM_INSTANCES 1U
 
 /* Definitions for peripheral PS7_DEV_CFG_0 */
-#define XPAR_PS7_DEV_CFG_0_DEVICE_ID 0
-#define XPAR_PS7_DEV_CFG_0_BASEADDR 0xF8007000
-#define XPAR_PS7_DEV_CFG_0_HIGHADDR 0xF80070FF
+#define XPAR_PS7_DEV_CFG_0_DEVICE_ID 0U
+#define XPAR_PS7_DEV_CFG_0_BASEADDR 0xF8007000U
+#define XPAR_PS7_DEV_CFG_0_HIGHADDR 0xF80070FFU
 
 
 /******************************************************************/
 
 /* Canonical definitions for peripheral PS7_DEV_CFG_0 */
 #define XPAR_XDCFG_0_DEVICE_ID XPAR_PS7_DEV_CFG_0_DEVICE_ID
-#define XPAR_XDCFG_0_BASEADDR 0xF8007000
-#define XPAR_XDCFG_0_HIGHADDR 0xF80070FF
+#define XPAR_XDCFG_0_BASEADDR 0xF8007000U
+#define XPAR_XDCFG_0_HIGHADDR 0xF80070FFU
 
 
 /******************************************************************/
@@ -98,6 +98,7 @@
 
 /******************************************************************/
 
+#define XPAR_PS7_ETHERNET_0_IS_CACHE_COHERENT 0
 /* Canonical definitions for peripheral PS7_ETHERNET_0 */
 #define XPAR_XEMACPS_0_DEVICE_ID XPAR_PS7_ETHERNET_0_DEVICE_ID
 #define XPAR_XEMACPS_0_BASEADDR 0xE000B000
@@ -257,6 +258,7 @@
 #define XPAR_PS7_QSPI_0_HIGHADDR 0xE000DFFF
 #define XPAR_PS7_QSPI_0_QSPI_CLK_FREQ_HZ 200000000
 #define XPAR_PS7_QSPI_0_QSPI_MODE 2
+#define XPAR_PS7_QSPI_0_QSPI_BUS_WIDTH 3
 
 
 /******************************************************************/
@@ -267,27 +269,28 @@
 #define XPAR_XQSPIPS_0_HIGHADDR 0xE000DFFF
 #define XPAR_XQSPIPS_0_QSPI_CLK_FREQ_HZ 200000000
 #define XPAR_XQSPIPS_0_QSPI_MODE 2
+#define XPAR_XQSPIPS_0_QSPI_BUS_WIDTH 3
 
 
 /******************************************************************/
 
 /* Definitions for driver SCUGIC */
-#define XPAR_XSCUGIC_NUM_INSTANCES 1
+#define XPAR_XSCUGIC_NUM_INSTANCES 1U
 
 /* Definitions for peripheral PS7_SCUGIC_0 */
-#define XPAR_PS7_SCUGIC_0_DEVICE_ID 0
-#define XPAR_PS7_SCUGIC_0_BASEADDR 0xF8F00100
-#define XPAR_PS7_SCUGIC_0_HIGHADDR 0xF8F001FF
-#define XPAR_PS7_SCUGIC_0_DIST_BASEADDR 0xF8F01000
+#define XPAR_PS7_SCUGIC_0_DEVICE_ID 0U
+#define XPAR_PS7_SCUGIC_0_BASEADDR 0xF8F00100U
+#define XPAR_PS7_SCUGIC_0_HIGHADDR 0xF8F001FFU
+#define XPAR_PS7_SCUGIC_0_DIST_BASEADDR 0xF8F01000U
 
 
 /******************************************************************/
 
 /* Canonical definitions for peripheral PS7_SCUGIC_0 */
-#define XPAR_SCUGIC_0_DEVICE_ID 0
-#define XPAR_SCUGIC_0_CPU_BASEADDR 0xF8F00100
-#define XPAR_SCUGIC_0_CPU_HIGHADDR 0xF8F001FF
-#define XPAR_SCUGIC_0_DIST_BASEADDR 0xF8F01000
+#define XPAR_SCUGIC_0_DEVICE_ID 0U
+#define XPAR_SCUGIC_0_CPU_BASEADDR 0xF8F00100U
+#define XPAR_SCUGIC_0_CPU_HIGHADDR 0xF8F001FFU
+#define XPAR_SCUGIC_0_DIST_BASEADDR 0xF8F01000U
 
 
 /******************************************************************/
@@ -347,6 +350,7 @@
 
 /******************************************************************/
 
+#define XPAR_PS7_SD_0_IS_CACHE_COHERENT 0
 /* Canonical definitions for peripheral PS7_SD_0 */
 #define XPAR_XSDPS_0_DEVICE_ID XPAR_PS7_SD_0_DEVICE_ID
 #define XPAR_XSDPS_0_BASEADDR 0xE0100000
@@ -362,40 +366,40 @@
 /******************************************************************/
 
 /* Definitions for driver TTCPS */
-#define XPAR_XTTCPS_NUM_INSTANCES 3
+#define XPAR_XTTCPS_NUM_INSTANCES 3U
 
 /* Definitions for peripheral PS7_TTC_0 */
-#define XPAR_PS7_TTC_0_DEVICE_ID 0
-#define XPAR_PS7_TTC_0_BASEADDR 0XF8001000
-#define XPAR_PS7_TTC_0_TTC_CLK_FREQ_HZ 111111115
-#define XPAR_PS7_TTC_0_TTC_CLK_CLKSRC 0
-#define XPAR_PS7_TTC_1_DEVICE_ID 1
-#define XPAR_PS7_TTC_1_BASEADDR 0XF8001004
-#define XPAR_PS7_TTC_1_TTC_CLK_FREQ_HZ 111111115
-#define XPAR_PS7_TTC_1_TTC_CLK_CLKSRC 0
-#define XPAR_PS7_TTC_2_DEVICE_ID 2
-#define XPAR_PS7_TTC_2_BASEADDR 0XF8001008
-#define XPAR_PS7_TTC_2_TTC_CLK_FREQ_HZ 111111115
-#define XPAR_PS7_TTC_2_TTC_CLK_CLKSRC 0
+#define XPAR_PS7_TTC_0_DEVICE_ID 0U
+#define XPAR_PS7_TTC_0_BASEADDR 0XF8001000U
+#define XPAR_PS7_TTC_0_TTC_CLK_FREQ_HZ 111111115U
+#define XPAR_PS7_TTC_0_TTC_CLK_CLKSRC 0U
+#define XPAR_PS7_TTC_1_DEVICE_ID 1U
+#define XPAR_PS7_TTC_1_BASEADDR 0XF8001004U
+#define XPAR_PS7_TTC_1_TTC_CLK_FREQ_HZ 111111115U
+#define XPAR_PS7_TTC_1_TTC_CLK_CLKSRC 0U
+#define XPAR_PS7_TTC_2_DEVICE_ID 2U
+#define XPAR_PS7_TTC_2_BASEADDR 0XF8001008U
+#define XPAR_PS7_TTC_2_TTC_CLK_FREQ_HZ 111111115U
+#define XPAR_PS7_TTC_2_TTC_CLK_CLKSRC 0U
 
 
 /******************************************************************/
 
 /* Canonical definitions for peripheral PS7_TTC_0 */
 #define XPAR_XTTCPS_0_DEVICE_ID XPAR_PS7_TTC_0_DEVICE_ID
-#define XPAR_XTTCPS_0_BASEADDR 0xF8001000
-#define XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ 111111115
-#define XPAR_XTTCPS_0_TTC_CLK_CLKSRC 0
+#define XPAR_XTTCPS_0_BASEADDR 0xF8001000U
+#define XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ 111111115U
+#define XPAR_XTTCPS_0_TTC_CLK_CLKSRC 0U
 
 #define XPAR_XTTCPS_1_DEVICE_ID XPAR_PS7_TTC_1_DEVICE_ID
-#define XPAR_XTTCPS_1_BASEADDR 0xF8001004
-#define XPAR_XTTCPS_1_TTC_CLK_FREQ_HZ 111111115
-#define XPAR_XTTCPS_1_TTC_CLK_CLKSRC 0
+#define XPAR_XTTCPS_1_BASEADDR 0xF8001004U
+#define XPAR_XTTCPS_1_TTC_CLK_FREQ_HZ 111111115U
+#define XPAR_XTTCPS_1_TTC_CLK_CLKSRC 0U
 
 #define XPAR_XTTCPS_2_DEVICE_ID XPAR_PS7_TTC_2_DEVICE_ID
-#define XPAR_XTTCPS_2_BASEADDR 0xF8001008
-#define XPAR_XTTCPS_2_TTC_CLK_FREQ_HZ 111111115
-#define XPAR_XTTCPS_2_TTC_CLK_CLKSRC 0
+#define XPAR_XTTCPS_2_BASEADDR 0xF8001008U
+#define XPAR_XTTCPS_2_TTC_CLK_FREQ_HZ 111111115U
+#define XPAR_XTTCPS_2_TTC_CLK_CLKSRC 0U
 
 
 /******************************************************************/
@@ -466,4 +470,6 @@
 #define FILE_SYSTEM_USE_MKFS
 #define FILE_SYSTEM_NUM_LOGIC_VOL 2
 #define FILE_SYSTEM_USE_STRFUNC 0
+#define FILE_SYSTEM_SET_FS_RPATH 0
+#define FILE_SYSTEM_WORD_ACCESS
 #endif  /* end of protection macro */
