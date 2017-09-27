@@ -271,6 +271,8 @@ u32 XCsi2TxSs_GetPixelMode(XCsi2TxSs *InstancePtr);
 u32 XCsi2TxSs_GetMaxLaneCount(XCsi2TxSs *InstancePtr);
 void XCsi2TxSs_SetClkMode(XCsi2TxSs *InstancePtr, u8 Mode);
 u32 XCsi2TxSs_GetClkMode(XCsi2TxSs *InstancePtr);
+u32 XCsi2TxSs_IsUlps(XCsi2TxSs *InstancePtr);
+void XCsi2TxSs_SetUlps(XCsi2TxSs *InstancePtr, u32 Value);
 
 /* Self test function in xcsi2txss_selftest.c */
 u32 XCsi2TxSs_SelfTest(XCsi2TxSs *InstancePtr);
