@@ -1,0 +1,21 @@
+# OUTS and RFDC_OBJS variables will be passed as arguments
+# Usage:
+# For RFdc read-write example
+# make all OUTS=rfdc-read-write RFDC_OBJS=xrfdc_read_write_example.o
+# For RFdc selftest example
+# make all OUTS=rfdc-selftest RFDC_OBJS=xrfdc_selftest_example.o
+# For RFdc interrupt example
+# make all OUTS=rfdc-intr RFDC_OBJS=xrfdc_intr_example.o
+APP = rfdc-test
+LIBSOURCES=*.c
+OUTS =
+RFDC_OBJS =
+
+%.o: %.c
+	$(CC) ${LDFLAGS} ${CFLAGS} -c $(LIBSOURCES)
+
+all: $(RFDC_OBJS)
+	$(CC) ${LDFLAGS} $(RFDC_OBJS) -o $(OUTS) -lrfdc -lmetal
+
+clean:
+	rm -rf $(OUTS) *.o
