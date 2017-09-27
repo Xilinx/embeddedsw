@@ -56,6 +56,12 @@ zynqmp_fsbl:
 Updated cross compiler flags with hard floating point values
 Added functionality in FSBL to distinguish EV devices from EG devices
 
+Changes for 2017.4
+===============================
+
+v_csi2txss_v1_1:
+Exporting ulps API to subsystem
+
 Changes for 2017.3
 ===============================
 
