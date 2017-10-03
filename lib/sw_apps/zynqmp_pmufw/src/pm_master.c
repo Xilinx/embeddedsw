@@ -831,6 +831,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 			status = PmRequirementUpdateScheduled(master, false);
 			if (XST_SUCCESS == status) {
 				XPfw_RecoveryRestart(master);
+				PmWakeUpCancelScheduled(master);
 			}
 		} else if (PM_MASTER_STATE_KILLED == master->state) {
 			PmRequirementPreRequest(master);
@@ -843,7 +844,6 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 			/* Must have else branch due to MISRA */
 		}
 		if (PM_MASTER_STATE_UNINITIALIZED != master->state) {
-			PmMasterConfigWakeEvents(master, 0U);
 			master->state = PM_MASTER_STATE_ACTIVE;
 		}
 		break;
@@ -887,11 +887,6 @@ int PmMasterWake(const PmMaster* const mst)
 {
 	int status;
 	PmProc* proc = mst->wakeProc;
-
-	/* If master has a gic the wake-up sources need to be cleared */
-	if (NULL != mst->gic) {
-		mst->gic->clear();
-	}
 
 	if (NULL == proc) {
 		proc = mst->procs[0];
