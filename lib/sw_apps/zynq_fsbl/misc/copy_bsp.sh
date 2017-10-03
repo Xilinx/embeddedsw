@@ -50,7 +50,7 @@ cp -r $STANDALONE_DIR/common/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/arm/common/*  $BSP_DIR/libsrc/standalone/src/
 cp -r $STANDALONE_DIR/arm/cortexa9/*  $BSP_DIR/libsrc/standalone/src/
 
-if [ $COMPILER == "arm-xilinx-eabi-gcc" ]; then 
+if [ $COMPILER == "arm-none-eabi-gcc" ]; then
 	cp -r $STANDALONE_DIR/arm/cortexa9/gcc/*  $BSP_DIR/libsrc/standalone/src/
 	cp -r $STANDALONE_DIR/arm/common/gcc/*  $BSP_DIR/libsrc/standalone/src/
 elif [ $COMPILER == "armcc" ]; then 
