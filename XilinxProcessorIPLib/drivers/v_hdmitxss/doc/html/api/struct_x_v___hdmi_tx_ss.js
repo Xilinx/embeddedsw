@@ -1,0 +1,26 @@
+var struct_x_v___hdmi_tx_ss =
+[
+    [ "AudioChannels", "struct_x_v___hdmi_tx_ss.html#a0517d08057746ed07c1185f49be806a0", null ],
+    [ "AudioEnabled", "struct_x_v___hdmi_tx_ss.html#a15ca5fd9cf516e8df880da81139a3fbc", null ],
+    [ "AudioMute", "struct_x_v___hdmi_tx_ss.html#aa9f73db51971c9e4345196d4d1cf7e2b", null ],
+    [ "Config", "struct_x_v___hdmi_tx_ss.html#a85f740373921c8cd92ced34d1c84b08a", null ],
+    [ "ConnectCallback", "struct_x_v___hdmi_tx_ss.html#a39b5e05a75519d2a5ea95843a73d5b3d", null ],
+    [ "ConnectRef", "struct_x_v___hdmi_tx_ss.html#af2d693256a7ab9bd3b4bbee0a1f52a94", null ],
+    [ "HdcpProtocol", "struct_x_v___hdmi_tx_ss.html#ab003c64bbf63c1cc119c0a074f442967", null ],
+    [ "HdmiTxPtr", "struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89", null ],
+    [ "IsReady", "struct_x_v___hdmi_tx_ss.html#ad62ad2dbc295e57b36a4117b58c22ae3", null ],
+    [ "IsStreamConnected", "struct_x_v___hdmi_tx_ss.html#a7e4a08890f747e75647f2f0a03130b9a", null ],
+    [ "IsStreamToggled", "struct_x_v___hdmi_tx_ss.html#a06b1ebb9c9cbc77f6850427a5609df49", null ],
+    [ "IsStreamUp", "struct_x_v___hdmi_tx_ss.html#aa38c472a90141a54a3c95ebc710283fe", null ],
+    [ "Log", "struct_x_v___hdmi_tx_ss.html#a17215ebaf9a0c87b8fa10c72ae86eb6b", null ],
+    [ "SamplingRate", "struct_x_v___hdmi_tx_ss.html#ab9285618e6b09726f0db7f9549bbe56e", null ],
+    [ "StreamDownCallback", "struct_x_v___hdmi_tx_ss.html#a4ff347124bdb910394b00d725243be78", null ],
+    [ "StreamDownRef", "struct_x_v___hdmi_tx_ss.html#ab62bab6450fcc9831cd79663de159dd1", null ],
+    [ "StreamUpCallback", "struct_x_v___hdmi_tx_ss.html#aef99e4d9cd474bb2e4cc5357eef0f106", null ],
+    [ "StreamUpRef", "struct_x_v___hdmi_tx_ss.html#accd28d7f2aa53abb2acbd9230242781a", null ],
+    [ "ToggleCallback", "struct_x_v___hdmi_tx_ss.html#a82e0e82c8fc5f19bc91f6d70b8593223", null ],
+    [ "ToggleRef", "struct_x_v___hdmi_tx_ss.html#af8f91ad07477ab64bba29392617b48e4", null ],
+    [ "VsCallback", "struct_x_v___hdmi_tx_ss.html#ad06778e85cc7cb789875687ff8c0a50f", null ],
+    [ "VsRef", "struct_x_v___hdmi_tx_ss.html#a91d38a22ee614ca20bc20bd50a4a15cd", null ],
+    [ "VtcPtr", "struct_x_v___hdmi_tx_ss.html#a02f7acf90cb43cab31025ae6193dc046", null ]
+];

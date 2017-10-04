@@ -1,0 +1,57 @@
+var xnandpsu_8h =
+[
+    [ "IS_ONFI", "group__nandpsu__v1__0.html#gaf541edc53a66ed48f638b75789dce6d7", null ],
+    [ "XNANDPSU_BCH", "group__nandpsu__v1__0.html#gaab930920a8bf8a2366cf8e39778adf84", null ],
+    [ "XNandPsu_ClrBits", "group__nandpsu__v1__0.html#gac4a7a1715cbf95a1f16b34e6d0041d2d", null ],
+    [ "XNANDPSU_HAMMING", "group__nandpsu__v1__0.html#ga619f76f21351e27aa851479a26a6c489", null ],
+    [ "XNandPsu_IntrSigClear", "group__nandpsu__v1__0.html#ga27f6ec689766f40ed35cee8b48880dd8", null ],
+    [ "XNandPsu_IntrSigEnable", "group__nandpsu__v1__0.html#gaa8e0d12404004b3c5191177cdb122b3f", null ],
+    [ "XNandPsu_IntrStsEnable", "group__nandpsu__v1__0.html#ga66c46ed7cc6fd5fe94f1077d02138bd7", null ],
+    [ "XNANDPSU_MAX_BLOCKS", "group__nandpsu__v1__0.html#ga3cc1e2efdc26ce51713091aae6c196cb", null ],
+    [ "XNANDPSU_MAX_PAGE_SIZE", "group__nandpsu__v1__0.html#ga63813d961faa82776631b0c04e690a8a", null ],
+    [ "XNANDPSU_MAX_PKT_COUNT", "group__nandpsu__v1__0.html#gac0b07414cb64b71cc9d0b2aa22d8e550", null ],
+    [ "XNANDPSU_MAX_PKT_SIZE", "group__nandpsu__v1__0.html#ga030f35fc80496f2361cccd92b4362fc0", null ],
+    [ "XNANDPSU_MAX_SPARE_SIZE", "group__nandpsu__v1__0.html#ga59a66b690b59fd716924d174074bb13a", null ],
+    [ "XNANDPSU_MAX_TARGETS", "group__nandpsu__v1__0.html#ga1d00cce9eaed03608e36937d80b446ab", null ],
+    [ "XNANDPSU_PAGE_SIZE_16K", "group__nandpsu__v1__0.html#ga694bbcd77efd1f02f8c81892128b8326", null ],
+    [ "XNANDPSU_PAGE_SIZE_1K_16BIT", "group__nandpsu__v1__0.html#ga77f959e443ba8be91a9001d2c306d63b", null ],
+    [ "XNANDPSU_PAGE_SIZE_2K", "group__nandpsu__v1__0.html#gaf35000ed01e262b18a57410eeee1d7ad", null ],
+    [ "XNANDPSU_PAGE_SIZE_4K", "group__nandpsu__v1__0.html#ga371967b2be339f919b6f41de5fe32560", null ],
+    [ "XNANDPSU_PAGE_SIZE_512", "group__nandpsu__v1__0.html#ga4abe1ddcbfeb68ca07f9a8e43a735146", null ],
+    [ "XNANDPSU_PAGE_SIZE_8K", "group__nandpsu__v1__0.html#ga31915f9c8a6eebd7bf3c2a9f73ea0aa8", null ],
+    [ "XNandPsu_ReadModifyWrite", "group__nandpsu__v1__0.html#ga5e32b273f1cd2144727aa99c22c29185", null ],
+    [ "XNandPsu_SetBits", "group__nandpsu__v1__0.html#ga81badc5b18ca1a15e6842549eaeaaaec", null ],
+    [ "XNandPsu_DataInterface", "group__nandpsu__v1__0.html#gad3bf507eb42aeef24d208ad336af2354", [
+      [ "XNANDPSU_SDR", "group__nandpsu__v1__0.html#ggad3bf507eb42aeef24d208ad336af2354a93958477d9cccb30ca163194cd149129", null ],
+      [ "XNANDPSU_NVDDR", "group__nandpsu__v1__0.html#ggad3bf507eb42aeef24d208ad336af2354acc4e25c296abb500483efc1237b5a357", null ]
+    ] ],
+    [ "XNandPsu_DmaMode", "group__nandpsu__v1__0.html#ga39a6c72f07b7c94b4bc7efc53ac773b0", [
+      [ "XNANDPSU_PIO", "group__nandpsu__v1__0.html#gga39a6c72f07b7c94b4bc7efc53ac773b0a0946609c88db24ae434b1ca54b26104d", null ],
+      [ "XNANDPSU_SDMA", "group__nandpsu__v1__0.html#gga39a6c72f07b7c94b4bc7efc53ac773b0a775bc8e520ecc947a1cb2ebd70d147e8", null ],
+      [ "XNANDPSU_MDMA", "group__nandpsu__v1__0.html#gga39a6c72f07b7c94b4bc7efc53ac773b0a05d5497c8b2d7bb983128b08b637094c", null ]
+    ] ],
+    [ "XNandPsu_EccMode", "group__nandpsu__v1__0.html#ga9382565edcb944d473966aac464a58b9", null ],
+    [ "XNandPsu_SWMode", "group__nandpsu__v1__0.html#ga1cd5e9dd87632b8d7e505a3453e1b60d", [
+      [ "XNANDPSU_POLLING", "group__nandpsu__v1__0.html#gga1cd5e9dd87632b8d7e505a3453e1b60da5345cd378efad32554b36da87b3aba80", null ],
+      [ "XNANDPSU_INTERRUPT", "group__nandpsu__v1__0.html#gga1cd5e9dd87632b8d7e505a3453e1b60da9343a1cc4c75a2c071588349d8f40f19", null ]
+    ] ],
+    [ "XNandPsu_TimingMode", "group__nandpsu__v1__0.html#ga9703b0526518be68242c0ed0d6752e57", null ],
+    [ "XNandPsu_CfgInitialize", "group__nandpsu__v1__0.html#ga8268e05a9d1a0339dc2ec672d7dd8c79", null ],
+    [ "XNandPsu_ChangeTimingMode", "group__nandpsu__v1__0.html#ga22080a2813ff692c0b64e0bbd9715f91", null ],
+    [ "XNandPsu_DisableDmaMode", "group__nandpsu__v1__0.html#gaa5768fde1d2659e318fc72562300253c", null ],
+    [ "XNandPsu_DisableEccMode", "group__nandpsu__v1__0.html#ga02c8c1204e6c83f910cb4a2b1df423ed", null ],
+    [ "XNandPsu_EnableDmaMode", "group__nandpsu__v1__0.html#ga37ffc74066c48716b787438f19b70684", null ],
+    [ "XNandPsu_EnableEccMode", "group__nandpsu__v1__0.html#ga0f80ab5f2d18a988eb6f6672fdc99d7e", null ],
+    [ "XNandPsu_Erase", "group__nandpsu__v1__0.html#ga7fb413a5f75317e698fe97ba12fc7d44", null ],
+    [ "XNandPsu_EraseBlock", "group__nandpsu__v1__0.html#ga59942044a415eacf3399b77b70fe3a20", null ],
+    [ "XNandPsu_GetFeature", "group__nandpsu__v1__0.html#gaa6725c5aa761078a438094bad802045e", null ],
+    [ "XNandPsu_LookupConfig", "group__nandpsu__v1__0.html#ga4d6df6679bb2c84faa7bbec9f4e776ee", null ],
+    [ "XNandPsu_MarkBlockBad", "group__nandpsu__v1__0.html#ga8d3500cacdc26941b76db6a74f8e2b0f", null ],
+    [ "XNandPsu_Prepare_Cmd", "group__nandpsu__v1__0.html#gabfb036fc0238a5c54de831574c371450", null ],
+    [ "XNandPsu_Read", "group__nandpsu__v1__0.html#gad7e291db556ad9d33fbd06aa6ab79cb6", null ],
+    [ "XNandPsu_ReadSpareBytes", "group__nandpsu__v1__0.html#ga1a3f550f53d5c1d7ffead626cf0dd7c3", null ],
+    [ "XNandPsu_ScanBbt", "group__nandpsu__v1__0.html#ga834baaa423d26638d10ad7195ba097fa", null ],
+    [ "XNandPsu_SetFeature", "group__nandpsu__v1__0.html#ga785eaf418c8f7e7c3fb6098ba327b720", null ],
+    [ "XNandPsu_Write", "group__nandpsu__v1__0.html#gaf276d363e46822efd9ff8ee7b55b906c", null ],
+    [ "XNandPsu_WriteSpareBytes", "group__nandpsu__v1__0.html#ga7c4f4816209d1d66b9de152735046b0f", null ]
+];
