@@ -94,7 +94,23 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     Removed XVphy_HdmiMmcmStart API
                     Fixed c++ compiler warnings
 1.5   gm   27/04/17 Added Div in HdmiCfgCalcMmcmParam search algorithm
-</pre> </div></div><!-- contents -->
+1.6   gm   06/08/17 Added XVPHY_LOG_EVT_HDMI20_ERR error condition in
+                      HdmiCfgCalcMmcmParam for GTPE2
+                    Removed XVPHY_LOG_EVT_VDCLK_HIGH_ERR error from
+                      HdmiCfgCalcMmcmParam since it falls under HDMI20_ERR
+                    Added interrupt initialization for TX and RX MMCM lock
+                    Removed printing QPLL0 in debug info for GTXE2
+                    Set different target DRU line rates for QPLL and
+                      CPLL for GTXE2
+                    Implemented TX and RX Only uses-cases in
+                                         XVphy_HdmiDebugInfo API
+                                   Fixed bug in HdmiCfgCalcMmcmParam when linerate exceeds
+                                     3.4 Gbps when oversampling is enabled
+                    Changed xil_printf new lines to <br />
+                    Marked XVphy_HdmiInitialize deprecated and replaced by
+                       XVphy_Hdmi_CfgInitialize
+                    Added XVPHY_LOG_EVT_DRU_CLK_ERR error condition to
+                       report when DRU REFCLK is out-of-range</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

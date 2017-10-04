@@ -732,4 +732,3 @@ void XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word);
 #endif
 #endif				/* XLLFIFO_H  end of preprocessor protection symbols */
 /** @} */
-

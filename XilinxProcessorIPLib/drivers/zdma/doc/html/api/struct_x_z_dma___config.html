@@ -82,6 +82,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aaa2e5e405c0903647be81cb68f2f3542"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_z_dma___config.html#aaa2e5e405c0903647be81cb68f2f3542">DmaType</a></td></tr>
 <tr class="memdesc:aaa2e5e405c0903647be81cb68f2f3542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of DMA.  <a href="#aaa2e5e405c0903647be81cb68f2f3542">More...</a><br /></td></tr>
 <tr class="separator:aaa2e5e405c0903647be81cb68f2f3542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa863829cef07a315b0beec01251918e1"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_z_dma___config.html#aa863829cef07a315b0beec01251918e1">IsCacheCoherent</a></td></tr>
+<tr class="memdesc:aa863829cef07a315b0beec01251918e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes whether Cache Coherent or not; Applicable only to A53 in EL1 NS mode.  <a href="#aa863829cef07a315b0beec01251918e1">More...</a><br /></td></tr>
+<tr class="separator:aa863829cef07a315b0beec01251918e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This typedef contains configuration information for a ZDMA core Each ZDMA core should have a configuration structure associated. </p>
@@ -137,6 +140,24 @@ Data Fields</h2></td></tr>
 <p>Type of DMA. </p>
 
 <p class="reference">Referenced by <a class="el" href="group__zdma__v1__0.html#gad882e6d7430871e5b71643c8be2512d5">XZDma_CfgInitialize()</a>, and <a class="el" href="group__zdma__v1__0.html#ga15a0124d42f8ff48e54f32c1b643fe7b">XZDma_WOData()</a>.</p>
+
+</div>
+</div>
+<a id="aa863829cef07a315b0beec01251918e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa863829cef07a315b0beec01251918e1">&#9670;&nbsp;</a></span>IsCacheCoherent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XZDma_Config::IsCacheCoherent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Describes whether Cache Coherent or not; Applicable only to A53 in EL1 NS mode. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__zdma__v1__0.html#gad882e6d7430871e5b71643c8be2512d5">XZDma_CfgInitialize()</a>, <a class="el" href="group__zdma__v1__0.html#ga4f701b228ebc77f96faaba09cd9c63db">XZDma_CreateBDList()</a>, <a class="el" href="xzdma__simple__example_8c.html#a81ac49b25101cdef533d6843071950be">XZDma_SimpleExample()</a>, and <a class="el" href="xzdma__readonlymode__example_8c.html#a422668353271c6d61d0b749f6f7cd048">XZDma_SimpleReadOnlyExample()</a>.</p>
 
 </div>
 </div>

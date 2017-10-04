@@ -22,7 +22,10 @@ var NAVTREE =
       [ "xaxiethernet_example_intr_sgdma.c", "example.html#ex4", null ],
       [ "xaxiethernet_example_polled.c", "example.html#ex5", null ],
       [ "xaxiethernet_example_util.c", "example.html#ex6", null ],
-      [ "xaxiethernet_example.h", "example.html#ex7", [
+      [ "xaxiethernet_example_mcdma_poll.c", "example.html#ex7", null ],
+      [ "xaxiethernet_example_intr_mcdma.c", "example.html#ex8", null ],
+      [ "xaxiethernet_mcdma_ping_req_example.c", "example.html#ex9", null ],
+      [ "xaxiethernet_example.h", "example.html#ex10", [
         [ "EXAMPLES IN EDK:", "example.html#INCLUDING", null ],
         [ "NOTES:", "example.html#IMPORTANT", null ]
       ] ]
@@ -33,7 +36,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"group__axiethernet__v5__0.html#gaa2c76f215b1ed9e748b9c0b87ba83793"
+"group__axiethernet__v5__6.html#ga9f0511c2fde9093da3cc54765bac7512"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

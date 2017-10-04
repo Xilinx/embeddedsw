@@ -213,7 +213,8 @@
 *                     for CR-965028.
 *       ms   03/17/17 Added readme.txt file in examples folder for doxygen
 *                     generation.
-*
+* 3.7   ms   04/18/17 Modified tcl file to add suffix U for macro definitions
+*                     of intc in xparameters.h
 * </pre>
 *
 ******************************************************************************/

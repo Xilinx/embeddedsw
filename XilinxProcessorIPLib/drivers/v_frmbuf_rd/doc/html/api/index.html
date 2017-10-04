@@ -71,7 +71,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>AXI4-Stream Output</li>
 <li>1, 2, or 4 pixel-wide video interface</li>
 <li>8/10 bits per component</li>
-<li>Up to 13 different memory color formats (user configurable)</li>
+<li>Up to 18 different memory color formats (user configurable)</li>
 </ul>
 <p><b>Dependency</b></p>
 <p>This driver makes use of the video enumerations and data types defined in the Xilinx Video Common Driver (video_common_vX.x) and as such the common driver must be included as dependency to compile this driver</p>
@@ -102,6 +102,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.00  vyc   04/05/17   Initial Release
+2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+                       Add memory formats RGBA8, YUVA8, BGRA8, BGRX8, UYVY8
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

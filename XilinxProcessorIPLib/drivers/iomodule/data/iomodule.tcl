@@ -51,7 +51,8 @@
 #                          name is not the same as hardware instance name.
 #                          CR #876604.
 #          sk     11/09/15 Removed delete filename statement CR# 784758.
-#
+# 2.5      ms     04/18/17 Modified tcl file to add suffix U for all macros
+#                          definitions of iomodule in xparameters.h
 ##############################################################################
 
 
@@ -149,6 +150,7 @@ proc generate {drv_handle} {
     }
 
     # 7. INTC: Define XPAR_SINGLE_BASEADDR, XPAR_SINGLE_HIGHADDR, and XPAR_SINGLE_DEVICE_ID
+    set uSuffix "U"
     set periphs [hsi::utils::get_common_driver_ips $drv_handle]
     set count [llength $periphs]
     if {$count == 1} {
@@ -159,7 +161,7 @@ proc generate {drv_handle} {
 	 }
 
     set config_inc [hsi::utils::open_include_file "xparameters.h"]
-    puts $config_inc "#define XPAR_IOMODULE_INTC_MAX_INTR_SIZE $max_intr_size"
+    puts $config_inc "#define XPAR_IOMODULE_INTC_MAX_INTR_SIZE $max_intr_size$uSuffix"
     # 7. INTC: Generate config table, vector tables
     iomodule_define_config_file $drv_handle $periphs $config_inc
     close $config_inc
@@ -304,6 +306,7 @@ proc iomodule_define_config_file {drv_handle periphs config_inc} {
 ##########################################################################
 proc iomodule_define_vector_table {periph config_inc config_file} {
 
+    set uSuffix "U"
     variable interrupt_handlers
     variable default_interrupt_handler
     variable source_port_name
@@ -363,10 +366,10 @@ proc iomodule_define_vector_table {periph config_inc config_file} {
             set source_xparam_name [::hsi::utils::format_xparam_name $sname]
             set pname [string toupper $periph_name]
             set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
-            puts $config_inc [format "#define XPAR_%s_%s_%s_MASK %#08X" \
+            puts $config_inc [format "#define XPAR_%s_%s_%s_MASK %#08X$uSuffix" \
 		[string toupper $periph_name] $source_xparam_name [string \
 		toupper $source_port_name($i)] [expr 1 << $i]]
-            puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string \
+            puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string \
 		toupper $periph_name] [string toupper $source_name($i)] [string \
 		 toupper $source_port_name($i)] $i]
 
@@ -460,7 +463,8 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 				set rvalue 0
 			}
 			set rvalue [hsi::utils::format_addr_string $rvalue $arg]
-			puts $file_handle "#define $lvalue $rvalue"
+			set uSuffix [xdefine_getSuffix $lvalue $rvalue]
+			puts $file_handle "#define $lvalue $rvalue$uSuffix"
 		}
 	incr device_id
 	puts $file_handle ""
@@ -701,7 +705,9 @@ proc get_num_intr_internal {periph} {
 # xdefine_include_file in "$XILINX_EDK/data/datastructure/xillib_sw.tcl".
 ##########################################################################
 proc xdefine_include_file_hex {drv_handle file_name drv_string args} {
-     set args [hsi::utils::get_exact_arg_list $args]
+
+	set uSuffix "U"
+	set args [hsi::utils::get_exact_arg_list $args]
     # Open include file
     set file_handle [hsi::utils::open_include_file $file_name]
   
@@ -728,7 +734,7 @@ proc xdefine_include_file_hex {drv_handle file_name drv_string args} {
                 set value [format "0x%08x" $value_int]
             }
 
-            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
+            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value$uSuffix"
         }
         puts $file_handle ""
     }           
@@ -745,6 +751,8 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     set file_handle [hsi::utils::open_include_file $file_name]
     set flag 0
 
+    set uSuffix "U"
+
     # Get all peripherals connected to this driver
     set periphs [hsi::utils::get_common_driver_ips $drv_handle]
 
@@ -754,7 +762,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [common::get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]$uSuffix"
         set args [lreplace $args $posn $posn]
     }
 
@@ -765,7 +773,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]"
+            puts $file_handle "#define [hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]$uSuffix"
         }
     }
     set args $newargs
@@ -803,9 +811,9 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
                 if {$flag == 0} {
-			puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
+			puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value$uSuffix"
                 } else {
-                	puts $file_handle "#define $lvalue $rvalue"
+			puts $file_handle "#define $lvalue $rvalue$uSuffix"
                 	set flag 0
                 }
                 
@@ -899,4 +907,12 @@ proc intc_update_source_array {periph} {
         }
     }
     set total_source_intrs $intr_cnt
+}
+
+proc xdefine_getSuffix {arg_name value} {
+		set uSuffix ""
+		if { [string match "*DEVICE_ID" $value] == 0} {
+			set uSuffix "U"
+		}
+		return $uSuffix
 }

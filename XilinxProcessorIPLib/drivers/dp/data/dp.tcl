@@ -29,6 +29,15 @@
 ## this Software without prior written authorization from Xilinx.
 ##
 ##*****************************************************************************/
+##############################################################################
+#
+# Modification History
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- -----------------------------------------------
+# 5.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
+#                     definitions of dp in xparameters.h
+##############################################################################
 proc generate {drv_handle} {
         xdefine_include_file $drv_handle "xparameters.h" "XDp" "NUM_INSTANCES" "DEVICE_ID" "C_BASEADDR" "C_LANE_COUNT" "C_LINK_RATE" "C_MAX_BITS_PER_COLOR" "C_QUAD_PIXEL_ENABLE" "C_DUAL_PIXEL_ENABLE" "C_YCRCB_ENABLE" "C_YONLY_ENABLE" "C_GT_DATAWIDTH" "C_SECONDARY_SUPPORT" "C_AUDIO_CHANNELS" "C_MST_ENABLE" "C_NUMBER_OF_MST_STREAMS" "C_PROTOCOL_SELECTION" "C_FLOW_DIRECTION" "S_AXI_ACLK"
         ::hsi::utils::define_config_file $drv_handle "xdp_g.c" "XDp" "DEVICE_ID" "C_BASEADDR" "S_AXI_ACLK" "C_LANE_COUNT" "C_LINK_RATE" "C_MAX_BITS_PER_COLOR" "C_QUAD_PIXEL_ENABLE" "C_DUAL_PIXEL_ENABLE" "C_YCRCB_ENABLE" "C_YONLY_ENABLE" "C_GT_DATAWIDTH" "C_SECONDARY_SUPPORT" "C_AUDIO_CHANNELS" "C_MST_ENABLE" "C_NUMBER_OF_MST_STREAMS" "C_PROTOCOL_SELECTION" "C_FLOW_DIRECTION"
@@ -49,13 +58,14 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
     # Get all peripherals connected to this driver
     set periphs [xget_sw_iplist_for_driver $drv_handle]
 
+    set uSuffix "U"
     # Handle special cases
     set arg "NUM_INSTANCES"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [xget_dname $drv_string $arg] [llength $periphs]$uSuffix"
         set args [lreplace $args $posn $posn]
     }
 
@@ -66,7 +76,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [xget_dname $drv_string $arg] [get_property $arg $drv_handle]"
+            puts $file_handle "#define [xget_dname $drv_string $arg] [get_property $arg $drv_handle]$uSuffix"
         }
     }
     set args $newargs
@@ -99,7 +109,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
             if {[string compare -nocase "HW_VER" $arg] == 0} {
                 puts $file_handle "#define [xget_name $periph $arg] \"$value\""
             } else {
-                puts $file_handle "#define [xget_name $periph $arg] $value"
+                puts $file_handle "#define [xget_name $periph $arg] $value$uSuffix"
             }
         }
         puts $file_handle ""
@@ -174,7 +184,8 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                     }
                     set rvalue [xformat_addr_string $rvalue $arg]
                 }
-               puts $file_handle "#define $lvalue $rvalue"
+	       set uSuffix [xdefine_getSuffix $lvalue $rvalue]
+               puts $file_handle "#define $lvalue $rvalue$uSuffix"
            }
            puts $file_handle ""
            incr i
@@ -183,4 +194,12 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
 
    puts $file_handle "\n/******************************************************************/\n"
    close $file_handle
+}
+
+proc xdefine_getSuffix {arg_name value} {
+	set uSuffix ""
+	if { [string match "*DEVICE_ID" $value] == 0 } {
+		set uSuffix "U"
+	}
+	return $uSuffix
 }

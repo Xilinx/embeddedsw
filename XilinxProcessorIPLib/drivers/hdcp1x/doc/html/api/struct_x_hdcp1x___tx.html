@@ -100,6 +100,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a34ad3751d939a0be2b379e434535916e"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_hdcp1x___tx.html#a34ad3751d939a0be2b379e434535916e">TxIsHdmi</a></td></tr>
 <tr class="memdesc:a34ad3751d939a0be2b379e434535916e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag determines if TX is HDMI or DVI.  <a href="#a34ad3751d939a0be2b379e434535916e">More...</a><br /></td></tr>
 <tr class="separator:a34ad3751d939a0be2b379e434535916e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c725d9369457fe1de567140a87fce43"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_hdcp1x___tx.html#a3c725d9369457fe1de567140a87fce43">IsAuthReqPending</a></td></tr>
+<tr class="memdesc:a3c725d9369457fe1de567140a87fce43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag to track if a auth request is alive.  <a href="#a3c725d9369457fe1de567140a87fce43">More...</a><br /></td></tr>
+<tr class="separator:a3c725d9369457fe1de567140a87fce43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13e72aa53d494ecce37f3d8921e1003d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__hdcp1x__v4__0.html#ga22b9b36c134731fc3c2d450b29095e05">XHdcp1x_Callback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_hdcp1x___tx.html#a13e72aa53d494ecce37f3d8921e1003d">AuthenticatedCallback</a></td></tr>
 <tr class="memdesc:a13e72aa53d494ecce37f3d8921e1003d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Authentication callback.  <a href="#a13e72aa53d494ecce37f3d8921e1003d">More...</a><br /></td></tr>
 <tr class="separator:a13e72aa53d494ecce37f3d8921e1003d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,7 +203,7 @@ Data Fields</h2></td></tr>
 
 <p>The interface's current state. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga3c42675e40aba8024237fee77155fce4">XHdcp1x_TxIsAuthenticated()</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga74a97f4a831692ea2465eb39935ffdcf">XHdcp1x_TxIsEnabled()</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga3d0d1dc50d7b95639e72d74b1fa2d064">XHdcp1x_TxIsInComputations()</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga26586d8954b1ed09f365399f6f7fd6b8">XHdcp1x_TxIsInProgress()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gae4b47fe66cfc82912ada3df74ade247b">XHdcp1x_TxIsInWaitforready()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga3c42675e40aba8024237fee77155fce4">XHdcp1x_TxIsAuthenticated()</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga74a97f4a831692ea2465eb39935ffdcf">XHdcp1x_TxIsEnabled()</a>, <a class="el" href="group__hdcp1x__v4__0.html#ga3d0d1dc50d7b95639e72d74b1fa2d064">XHdcp1x_TxIsInComputations()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#gae4b47fe66cfc82912ada3df74ade247b">XHdcp1x_TxIsInWaitforready()</a>.</p>
 
 </div>
 </div>
@@ -337,6 +340,24 @@ Data Fields</h2></td></tr>
 <p>Authentication config flag. </p>
 
 <p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#ga931fc14801a82c9cc3aa870d887bbc07">XHdcp1x_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a id="a3c725d9369457fe1de567140a87fce43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c725d9369457fe1de567140a87fce43">&#9670;&nbsp;</a></span>IsAuthReqPending</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XHdcp1x_Tx::IsAuthReqPending</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flag to track if a auth request is alive. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__hdcp1x__v4__0.html#gaec7dcf7e211da3d42dc621cb7d062f6c">XHdcp1x_TxAuthenticate()</a>, and <a class="el" href="group__hdcp1x__v4__0.html#ga26586d8954b1ed09f365399f6f7fd6b8">XHdcp1x_TxIsInProgress()</a>.</p>
 
 </div>
 </div>

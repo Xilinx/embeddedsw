@@ -65,6 +65,7 @@ $(document).ready(function(){initNavTree('xv__hdmitxss_8h.html','');});
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">xv_hdmitxss.h File Reference</div>  </div>
@@ -88,16 +89,16 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 <hr/>
 
 1.00         10/07/15 Initial release.
-1.01  yh     15/01/16 Add 3D Support
-1.02  yh     20/01/16 Added remapper support
-1.03  yh     01/02/16 Added set_ppc api
-1.04  MG     03/02/16 Added HDCP support
-1.05  MG     09/03/16 Removed reduced blanking support and
+1.1   yh     15/01/16 Add 3D Support
+1.2   yh     20/01/16 Added remapper support
+1.3   yh     01/02/16 Added set_ppc api
+1.4   MG     03/02/16 Added HDCP support
+1.5   MG     09/03/16 Removed reduced blanking support and
                       added XV_HdmiTxSS_SetHdmiMode and XV_HdmiTxSS_SetDviMode
-1.06  MH     03/15/16 Added HDCP connect event
-1.07  YH     17/03/16 Remove xintc.h as it is processor dependent
-1.08  YH     18/03/16 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
-1.09  MH     23/06/16 Added HDCP repeater support.
+1.6   MH     03/15/16 Added HDCP connect event
+1.7   YH     17/03/16 Remove xintc.h as it is processor dependent
+1.8   YH     18/03/16 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
+1.9   MH     23/06/16 Added HDCP repeater support.
 1.10  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 1.11  MH     08/08/16 Updates to optimize out HDCP when excluded.
 1.12  YH     18/08/16 Combine Report function into one ReportInfo
@@ -112,10 +113,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                       Re-order the enumation and data structure
 1.17  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
                             Segment Support and HDMI Compliance Test
-      ms     03/17/17 Added readme.txt file in examples folder for doxygen
-                            generation.
-      ms     04/10/17 Modified filename tag in examples to include them in
-                             doxygen.
+4.0   YH     19/07/17 Added Video Masking APIs
+      MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
+             22/08/17 Added function XV_HdmiTxSs_SetAudioFormat
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -146,6 +146,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a5560783b48cec42ab0d279ecebd4d7cd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a5560783b48cec42ab0d279ecebd4d7cd">XVMaskColorId</a> <tr class="memdesc:a5560783b48cec42ab0d279ecebd4d7cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef contains the different background colors available.  <a href="xv__hdmitxss_8h.html#a5560783b48cec42ab0d279ecebd4d7cd">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a5560783b48cec42ab0d279ecebd4d7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Handler Types</div></td></tr>
 <tr class="memitem:aef570d7b5f53958b25121d5be8e6923f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923f">XV_HdmiTxSs_LogEvent</a> { <br />
 &#160;&#160;<a class="el" href="xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fac813131aeec985f9950e3e043aec6dfb">XV_HDMITXSS_LOG_EVT_NONE</a> = 1, 
@@ -182,7 +185,8 @@ Enumerations</h2></td></tr>
 <tr class="separator:aef570d7b5f53958b25121d5be8e6923f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5b01347d8bef95b2b6696a9df03715d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715d">XV_HdmiTxSs_HdcpProtocol</a> { <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715daac8020e5cbc2a02efd15877b22572965">XV_HDMITXSS_HDCP_NONE</a>, 
 <a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da0ac9cbdc7d8cb2851d920930a376b0a3">XV_HDMITXSS_HDCP_14</a>, 
-<a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da1a1b397d94a578680e4ea043d82b82f2">XV_HDMITXSS_HDCP_22</a>
+<a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da1a1b397d94a578680e4ea043d82b82f2">XV_HDMITXSS_HDCP_22</a>, 
+<a class="el" href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715da8edf884baa46bf92c9203338e291e27c">XV_HDMITXSS_HDCP_BOTH</a>
  }<tr class="memdesc:ae5b01347d8bef95b2b6696a9df03715d"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify the HDCP protection schemes.  <a href="xv__hdmitxss_8h.html#ae5b01347d8bef95b2b6696a9df03715d">More...</a><br /></td></tr>
 </td></tr>
 <tr class="separator:ae5b01347d8bef95b2b6696a9df03715d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -254,6 +258,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a7236081f867771f94ce80eb933e013be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a7236081f867771f94ce80eb933e013be">XV_HdmiTxSs_AudioMute</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u8 Enable)</td></tr>
 <tr class="memdesc:a7236081f867771f94ce80eb933e013be"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set HDMI TX audio parameters.  <a href="#a7236081f867771f94ce80eb933e013be">More...</a><br /></td></tr>
 <tr class="separator:a7236081f867771f94ce80eb933e013be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb9960e6b16abb754f7046c44cb45fa7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#acb9960e6b16abb754f7046c44cb45fa7">XV_HdmiTxSs_SetAudioFormat</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u8 format)</td></tr>
+<tr class="memdesc:acb9960e6b16abb754f7046c44cb45fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function Sets the HDMI TX SS Audio Format.  <a href="#acb9960e6b16abb754f7046c44cb45fa7">More...</a><br /></td></tr>
+<tr class="separator:acb9960e6b16abb754f7046c44cb45fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a893af41ef8123dbcc6c697e211656d6e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a893af41ef8123dbcc6c697e211656d6e">XV_HdmiTxSs_SetStream</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, XVidC_VideoMode VideoMode, XVidC_ColorFormat ColorFormat, XVidC_ColorDepth Bpc, XVidC_3DInfo *Info3D)</td></tr>
 <tr class="memdesc:a893af41ef8123dbcc6c697e211656d6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function set HDMI TX susbsystem stream parameters.  <a href="#a893af41ef8123dbcc6c697e211656d6e">More...</a><br /></td></tr>
 <tr class="separator:a893af41ef8123dbcc6c697e211656d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -323,6 +330,30 @@ Functions</h2></td></tr>
 <tr class="memitem:a4b6a0f4217d55b3b46138ff6e2f8b43c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a4b6a0f4217d55b3b46138ff6e2f8b43c">XV_HdmiTxSs_LogDisplay</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a4b6a0f4217d55b3b46138ff6e2f8b43c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will print the entire log.  <a href="#a4b6a0f4217d55b3b46138ff6e2f8b43c">More...</a><br /></td></tr>
 <tr class="separator:a4b6a0f4217d55b3b46138ff6e2f8b43c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8222704653be72e1babef7a4bce0f26f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a8222704653be72e1babef7a4bce0f26f">XV_HdmiTxSS_MaskEnable</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a8222704653be72e1babef7a4bce0f26f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will enable the video masking.  <a href="#a8222704653be72e1babef7a4bce0f26f">More...</a><br /></td></tr>
+<tr class="separator:a8222704653be72e1babef7a4bce0f26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a2655edd57c2f26437458caaaf0e850"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a6a2655edd57c2f26437458caaaf0e850">XV_HdmiTxSS_MaskDisable</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a6a2655edd57c2f26437458caaaf0e850"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will disable the video masking.  <a href="#a6a2655edd57c2f26437458caaaf0e850">More...</a><br /></td></tr>
+<tr class="separator:a6a2655edd57c2f26437458caaaf0e850"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98e7c828f9533ef0fba06f6a5d847042"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a98e7c828f9533ef0fba06f6a5d847042">XV_HdmiTxSS_MaskNoise</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u8 Enable)</td></tr>
+<tr class="memdesc:a98e7c828f9533ef0fba06f6a5d847042"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will enable or disable the noise in the video mask.  <a href="#a98e7c828f9533ef0fba06f6a5d847042">More...</a><br /></td></tr>
+<tr class="separator:a98e7c828f9533ef0fba06f6a5d847042"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae24535e3c48c0a873b3a31b47273e568"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#ae24535e3c48c0a873b3a31b47273e568">XV_HdmiTxSS_MaskSetRed</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u16 Value)</td></tr>
+<tr class="memdesc:ae24535e3c48c0a873b3a31b47273e568"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the red component in the video mask.  <a href="#ae24535e3c48c0a873b3a31b47273e568">More...</a><br /></td></tr>
+<tr class="separator:ae24535e3c48c0a873b3a31b47273e568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a307a169df642cd4875e2b58c772fa772"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a307a169df642cd4875e2b58c772fa772">XV_HdmiTxSS_MaskSetGreen</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u16 Value)</td></tr>
+<tr class="memdesc:a307a169df642cd4875e2b58c772fa772"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the green component in the video mask.  <a href="#a307a169df642cd4875e2b58c772fa772">More...</a><br /></td></tr>
+<tr class="separator:a307a169df642cd4875e2b58c772fa772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76bd74633342dbed32109b9a7b1586ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a76bd74633342dbed32109b9a7b1586ab">XV_HdmiTxSS_MaskSetBlue</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, u16 Value)</td></tr>
+<tr class="memdesc:a76bd74633342dbed32109b9a7b1586ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will set the blue component in the video mask.  <a href="#a76bd74633342dbed32109b9a7b1586ab">More...</a><br /></td></tr>
+<tr class="separator:a76bd74633342dbed32109b9a7b1586ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeed58274fea95f8dac4fa3b655c842b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#aeed58274fea95f8dac4fa3b655c842b4">XV_HdmiTxSS_SetBackgroundColor</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr, <a class="el" href="xv__hdmitxss_8h.html#a5560783b48cec42ab0d279ecebd4d7cd">XVMaskColorId</a> ColorId)</td></tr>
+<tr class="memdesc:aeed58274fea95f8dac4fa3b655c842b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function configures the background color for Video Masking Feature.  <a href="#aeed58274fea95f8dac4fa3b655c842b4">More...</a><br /></td></tr>
+<tr class="separator:aeed58274fea95f8dac4fa3b655c842b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90093f13e5fdcaaea46c47fe66a3b602"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitxss_8h.html#a90093f13e5fdcaaea46c47fe66a3b602">XV_HdmiTxSS_IsMasked</a> (<a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *InstancePtr)</td></tr>
+<tr class="memdesc:a90093f13e5fdcaaea46c47fe66a3b602"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will get the current video mask mode.  <a href="#a90093f13e5fdcaaea46c47fe66a3b602">More...</a><br /></td></tr>
+<tr class="separator:a90093f13e5fdcaaea46c47fe66a3b602"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a9e0a72bdbc1622a75e63754a916c3245"></a>
@@ -421,6 +452,8 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ae5b01347d8bef95b2b6696a9df03715da1a1b397d94a578680e4ea043d82b82f2"></a>XV_HDMITXSS_HDCP_22&#160;</td><td class="fielddoc"><p>HDCP 2.2. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="ae5b01347d8bef95b2b6696a9df03715da8edf884baa46bf92c9203338e291e27c"></a>XV_HDMITXSS_HDCP_BOTH&#160;</td><td class="fielddoc"><p>Both HDCP 1.4 and 2.2. </p>
+</td></tr>
 </table>
 
 </div>
@@ -486,6 +519,22 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="aef570d7b5f53958b25121d5be8e6923faf3507fec8d35951f98bb567d793b2186"></a>XV_HDMITXSS_LOG_EVT_DUMMY&#160;</td><td class="fielddoc"><p>Dummy Event should be last. </p>
 </td></tr>
 </table>
+
+</div>
+</div>
+<a id="a5560783b48cec42ab0d279ecebd4d7cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5560783b48cec42ab0d279ecebd4d7cd">&#9670;&nbsp;</a></span>XVMaskColorId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="xv__hdmitxss_8h.html#a5560783b48cec42ab0d279ecebd4d7cd">XVMaskColorId</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This typedef contains the different background colors available. </p>
 
 </div>
 </div>
@@ -669,7 +718,7 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="xhdmi__example_8c.html#a13f636ef2d93d7ee10e421e5f604a510">I2cClk()</a>, and <a class="el" href="xhdmi__example__zynq_8c.html#a53c0bcc2a14ea2b1df871350499e641f">OnBoardSi5324Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__hdmitxss_8h.html#aeed58274fea95f8dac4fa3b655c842b4">XV_HdmiTxSS_SetBackgroundColor()</a>.</p>
 
 </div>
 </div>
@@ -696,6 +745,36 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a90093f13e5fdcaaea46c47fe66a3b602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90093f13e5fdcaaea46c47fe66a3b602">&#9670;&nbsp;</a></span>XV_HdmiTxSS_IsMasked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u8 XV_HdmiTxSS_IsMasked </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will get the current video mask mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Current mode. 0 = Video masking is disabled 1 = Video masking is enabled</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
 
@@ -1009,6 +1088,230 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6a2655edd57c2f26437458caaaf0e850"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a2655edd57c2f26437458caaaf0e850">&#9670;&nbsp;</a></span>XV_HdmiTxSS_MaskDisable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTxSS_MaskDisable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will disable the video masking. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a8222704653be72e1babef7a4bce0f26f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8222704653be72e1babef7a4bce0f26f">&#9670;&nbsp;</a></span>XV_HdmiTxSS_MaskEnable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTxSS_MaskEnable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will enable the video masking. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a98e7c828f9533ef0fba06f6a5d847042"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98e7c828f9533ef0fba06f6a5d847042">&#9670;&nbsp;</a></span>XV_HdmiTxSS_MaskNoise()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTxSS_MaskNoise </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>Enable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will enable or disable the noise in the video mask. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">Enable</td><td>specifies TRUE/FALSE value to either enable or disable the Noise.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a76bd74633342dbed32109b9a7b1586ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76bd74633342dbed32109b9a7b1586ab">&#9670;&nbsp;</a></span>XV_HdmiTxSS_MaskSetBlue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTxSS_MaskSetBlue </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will set the blue component in the video mask. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">Value</td><td>specifies the video mask value set to blue component</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="a307a169df642cd4875e2b58c772fa772"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a307a169df642cd4875e2b58c772fa772">&#9670;&nbsp;</a></span>XV_HdmiTxSS_MaskSetGreen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTxSS_MaskSetGreen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will set the green component in the video mask. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">Value</td><td>specifies the video mask value set to green component</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="ae24535e3c48c0a873b3a31b47273e568"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae24535e3c48c0a873b3a31b47273e568">&#9670;&nbsp;</a></span>XV_HdmiTxSS_MaskSetRed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTxSS_MaskSetRed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>Value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function will set the red component in the video mask. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> core instance. </td></tr>
+    <tr><td class="paramname">Value</td><td>specifies the video mask value set to red component</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
 <a id="a0fba99b963ed0f3e1c54177d8813e75c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0fba99b963ed0f3e1c54177d8813e75c">&#9670;&nbsp;</a></span>XV_HdmiTxSs_ReadEdid()</h2>
 
@@ -1141,8 +1444,6 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="xhdmi__menu_8c.html#a14b96491d9e48ad8fadbbb391d097ab6">Info()</a>.</p>
-
 </div>
 </div>
 <a id="abae6c5dd6d24770d6bfcf76f1208f8d7"></a>
@@ -1214,6 +1515,8 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
 </div>
 </div>
 <a id="a3e2de1545aebea928dadc0499c9be308"></a>
@@ -1251,6 +1554,8 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
 
 </div>
 </div>
@@ -1292,6 +1597,87 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a0517d08057746ed07c1185f49be806a0">XV_HdmiTxSs::AudioChannels</a>, <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>, <a class="el" href="xv__hdmitxss_8h.html#aef570d7b5f53958b25121d5be8e6923fa087b48b31d7842de475f02f12d7fb94c">XV_HDMITXSS_LOG_EVT_SETAUDIOCHANNELS</a>, and <a class="el" href="xv__hdmitxss_8h.html#ad0c1b30d849344a197178cf8316fa9b3">XV_HdmiTxSs_LogWrite()</a>.</p>
+
+</div>
+</div>
+<a id="acb9960e6b16abb754f7046c44cb45fa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb9960e6b16abb754f7046c44cb45fa7">&#9670;&nbsp;</a></span>XV_HdmiTxSs_SetAudioFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTxSs_SetAudioFormat </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u8&#160;</td>
+          <td class="paramname"><em>format</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function Sets the HDMI TX SS Audio Format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>pointer to <a class="el" href="struct_x_v___hdmi_tx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiTxSs</a> instance </td></tr>
+    <tr><td class="paramname">format</td><td>1:HBR 0:L-PCM</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>.</p>
+
+</div>
+</div>
+<a id="aeed58274fea95f8dac4fa3b655c842b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeed58274fea95f8dac4fa3b655c842b4">&#9670;&nbsp;</a></span>XV_HdmiTxSS_SetBackgroundColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XV_HdmiTxSS_SetBackgroundColor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___hdmi_tx_ss.html">XV_HdmiTxSs</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xv__hdmitxss_8h.html#a5560783b48cec42ab0d279ecebd4d7cd">XVMaskColorId</a>&#160;</td>
+          <td class="paramname"><em>ColorId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function configures the background color for Video Masking Feature. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance to be worked on. </td></tr>
+    <tr><td class="paramname">ColorId</td><td>is the background color requested</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_tx_ss.html#a87042f029000cbb41f93ca4d5cc9df89">XV_HdmiTxSs::HdmiTxPtr</a>, and <a class="el" href="xv__hdmitxss_8c.html#ae0188b2e6efd4b22b2c0c8203a180f52">XV_HdmiTxSs_GetVideoStream()</a>.</p>
 
 </div>
 </div>

@@ -11,6 +11,7 @@ var xv__csc__l2_8h =
     [ "XV_CscGetOutputRange", "group__v__csc__v1__0.html#ga61bba94ca1f8272cd447ba620028273b", null ],
     [ "XV_CscGetRedGain", "group__v__csc__v1__0.html#gaa84271d02b17ffc948826a8f2b8f642d", null ],
     [ "XV_CscGetSaturation", "group__v__csc__v1__0.html#ga2c5f658989238bacea802495baacdcd5", null ],
+    [ "XV_CscIs420Enabled", "group__v__csc__v1__0.html#ga91c4bc0d3d5629de2513e11f5c8f597e", null ],
     [ "XV_CscIs422Enabled", "group__v__csc__v1__0.html#gaf7d53698d5230e388a1250a060785643", null ],
     [ "XV_CscIsDemoWindowEnabled", "group__v__csc__v1__0.html#ga15d61516819df5462ec57bdc5b647c15", null ],
     [ "XV_CscSetColorDepth", "group__v__csc__v1__0.html#ga64197c10301089d2df889c814d682276", null ],

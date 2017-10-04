@@ -83,40 +83,36 @@ $(document).ready(function(){initNavTree('index.html','');});
 <p>This sequence is described here. Check the routine functional descriptions for information on how to use a specific API routine.</p>
 <h3>Receive</h3>
 <p>A frame is received by using the following sequence:<br />
- 1) call <a class="el" href="group__llfifo__v5__0.html#ga12da547aa1c9a85e2b0b151f438ff9d5" title="XLlFifo_RxOccupancy returns the number of 32-bit words available (occupancy) to be read from the rece...">XLlFifo_RxOccupancy()</a> to check the occupancy count<br />
- 2) call <a class="el" href="group__llfifo__v5__0.html#ga53af32ae6901462cc8d6fb9adc04655e" title="XLlFifo_RxGetLen notifies the hardware that the program is ready to receive the next frame from the r...">XLlFifo_RxGetLen()</a> to get the length of the next incoming frame<br />
- 3) call <a class="el" href="group__llfifo__v5__0.html#gaadc3685592b060c0d864850e86be5c03" title="XLlFifo_Read reads Bytes bytes from the receive channel of the FIFO referenced by InstancePtr to the ...">XLlFifo_Read()</a> one or more times to read the number of bytes reported by <a class="el" href="group__llfifo__v5__0.html#ga53af32ae6901462cc8d6fb9adc04655e" title="XLlFifo_RxGetLen notifies the hardware that the program is ready to receive the next frame from the r...">XLlFifo_RxGetLen()</a>.<br />
+ 1) call <a class="el" href="group__llfifo__v5__0.html#gaad292ddf2a2c9dde261b93da802c8080" title="XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the next frame from the ...">XLlFifo_iRxGetLen()</a> to get the length of the incoming frame<br />
+ 2) call <a class="el" href="group__llfifo__v5__0.html#gaed3ae31c8c24f46139fbd709027329ec" title="XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by InstancePtr. ">XLlFifo_RxGetWord()</a> one or more times to read the number of bytes reported by the hardware<br />
+ 3) call XLlFifo_iRxOccupancy() to know the availability of the data in the FIFO.<br />
 </p>
 <p>For example: </p><pre>
-        while (<a class="el" href="group__llfifo__v5__0.html#ga12da547aa1c9a85e2b0b151f438ff9d5" title="XLlFifo_RxOccupancy returns the number of 32-bit words available (occupancy) to be read from the rece...">XLlFifo_RxOccupancy(&amp;RxInstance)</a>) {
-                frame_len = <a class="el" href="group__llfifo__v5__0.html#ga53af32ae6901462cc8d6fb9adc04655e" title="XLlFifo_RxGetLen notifies the hardware that the program is ready to receive the next frame from the r...">XLlFifo_RxGetLen(&amp;RxInstance)</a>;
-                while (frame_len) {
-                        unsigned bytes = min(sizeof(buffer), frame_len);
-                        <a class="el" href="group__llfifo__v5__0.html#gaadc3685592b060c0d864850e86be5c03" title="XLlFifo_Read reads Bytes bytes from the receive channel of the FIFO referenced by InstancePtr to the ...">XLlFifo_Read(&amp;RxInstance, buffer, bytes)</a>;
-                        // ********
-                        // do something with buffer here
-                        // ********
-                        frame_len -= bytes;
+        ReceiveLength = (XLlFifo_iRxGetLen(InstancePtr))/WORD_SIZE;
+        for ( i=0; i &lt; ReceiveLength; i++){
+                RxWord = XLlFifo_RxGetWord(InstancePtr);
+                // ********
+                // do something here with the data
+                // ********
+                if(XLlFifo_iRxOccupancy(InstancePtr)){
+                        RxWord = XLlFifo_RxGetWord(InstancePtr);
                 }
-        }
- </pre><p>This FIFO hardware core does <b>not</b> support a sequence where the calling code calls RxGetLen() twice in a row and then receive the data for two frames. Each frame must be read in by calling RxGetLen() just prior to reading the data.</p>
+        }</pre><pre> </pre><p>This FIFO hardware core does <b>not</b> support a sequence where the calling code calls iRxGetLen() twice in a row and then receive the data for two frames. Each frame must be read in by calling iRxGetLen() just prior to reading the data.</p>
 <h3>Transmit</h3>
 <p>A frame is transmittted by using the following sequence:<br />
- 1) call <a class="el" href="group__llfifo__v5__0.html#ga1fa93f486abaaf35c7d599a8cd91b295" title="XLlFifo_Write writes Bytes bytes of the block of memory, referenced by BufPtr, to the transmit channe...">XLlFifo_Write()</a> one or more times to write all the of bytes in the next frame.<br />
- 2) call <a class="el" href="group__llfifo__v5__0.html#gacd09ed5189e0b85994901102655964f7" title="XLlFifo_TxSetLen begins a hardware transfer of Bytes bytes out of the transmit channel of the FIFO sp...">XLlFifo_TxSetLen()</a> to begin the transmission of frame just written.<br />
+ 1) <a class="el" href="group__llfifo__v5__0.html#gac02405b23499d780e7bc1dfe371281a6" title="XLlFifo_iTxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel ...">XLlFifo_iTxVacancy()</a> one or more times to know the availability of unused 32-bit words in the FIFO channel.<br />
+ 2) call <a class="el" href="group__llfifo__v5__0.html#ga29654d755dce84b861022179c99ca7a3" title="XLlFifo_TxPutWord writes the 32 bit word, Word to the FIFO specified by InstancePtr. ">XLlFifo_TxPutWord()</a> one or more times to write all the of bytes in the next frame.<br />
+ 3) call <a class="el" href="group__llfifo__v5__0.html#gaa49ecc1529434fd932d8a65d63a1a04d" title="XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit channel of the FIFO...">XLlFifo_iTxSetLen()</a> to begin the transmission of frame just written.<br />
 </p>
 <p>For example: </p><pre>
-        frame_left = frame_len;
-        while (frame_left) {
-                unsigned bytes = min(sizeof(buffer), frame_left);
-                <a class="el" href="group__llfifo__v5__0.html#ga1fa93f486abaaf35c7d599a8cd91b295" title="XLlFifo_Write writes Bytes bytes of the block of memory, referenced by BufPtr, to the transmit channe...">XLlFifo_Write(&amp;TxInstance, buffer, bytes)</a>;
-                // ********
-                // do something here to refill buffer
-                // ********
-                frame_left -= bytes;
+        for (j=0 ; j &lt; MAX_PACKET_LEN ; j++){
+                if( XLlFifo_iTxVacancy(InstancePtr) ){
+                        XLlFifo_TxPutWord(InstancePtr,
+                                *(SourceAddr+(i*MAX_PACKET_LEN)+j));
+                }
         }
-        <a class="el" href="group__llfifo__v5__0.html#gacd09ed5189e0b85994901102655964f7" title="XLlFifo_TxSetLen begins a hardware transfer of Bytes bytes out of the transmit channel of the FIFO sp...">XLlFifo_TxSetLen(&amp;RxInstance, frame_len)</a>;
- </pre><p>This FIFO hardware core does <b>not</b> support a sequence where the calling code writes the data for two frames and then calls TxSetLen() twice in a row. Each frame must be written by writting the data for one frame and then calling TxSetLen().</p>
+        XLlFifo_iTxSetLen(InstancePtr, (MAX_DATA_BUFFER_SIZE * WORD_SIZE));
+ </pre><p>This FIFO hardware core does <b>not</b> support a sequence where the calling code writes the data for two frames and then calls iTxSetLen() twice in a row. Each frame must be written by writting the data for one frame and then calling iTxSetLen().</p>
 <h2>Interrupts</h2>
 <p>This driver does not handle interrupts from the FIFO hardware. The software layer above may make use of the interrupts by setting up its own handlers for the interrupts.</p>
 <pre>
@@ -170,6 +166,11 @@ $(document).ready(function(){initNavTree('index.html','');});
                       proper documentation and Modified Comment lines
                       to consider it as a documentation block while
                       generating doxygen for llfifo examples.
+ 5.2  ms    04/18/17 Modified tcl file to add suffix U for all macros
+                     definitions of llfifo in xparameters.h
+ 5.2 adk    03/07/17 CR#978769 Fix doxygen issues in the driver.
+                       Updated comments in the usage section as per example code.
+                       Fix doxygen warnings in the driver.
  </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

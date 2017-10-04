@@ -182,7 +182,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:gae66f6b31b5ad750f1fe042a706a4e3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> interrupt example.  <a href="#gae66f6b31b5ad750f1fe042a706a4e3d4">More...</a><br /></td></tr>
 <tr class="separator:gae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1e0a474f9469d041cee3f863c5a6de97"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__csi2txss__v1__0.html#ga1e0a474f9469d041cee3f863c5a6de97">Csi2TxSs_SelfTestExample</a> (u32 DeviceId)</td></tr>
-<tr class="memdesc:ga1e0a474f9469d041cee3f863c5a6de97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> self test example.  <a href="#ga1e0a474f9469d041cee3f863c5a6de97">More...</a><br /></td></tr>
+<tr class="memdesc:ga1e0a474f9469d041cee3f863c5a6de97"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is the main entry point for the self test example using the <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> driver.  <a href="#ga1e0a474f9469d041cee3f863c5a6de97">More...</a><br /></td></tr>
 <tr class="separator:ga1e0a474f9469d041cee3f863c5a6de97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
@@ -458,19 +458,8 @@ Interrupt Types for setting Callbacks</h2></td></tr>
 
 <p><code>#include &lt;<a class="el" href="xcsi2txss__selftest__example_8c.html">xcsi2txss_selftest_example.c</a>&gt;</code></p>
 
-<p>This is the main function for <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> self test example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">None.</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if the self test example passed.</li>
-<li>XST_FAILURE if the self test example was unsuccessful.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. This function is the main entry point for the self test example using the <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> driver. This function check whether or not its sub-core drivers self test functions are in working state.</dd></dl>
+<p>This function is the main entry point for the self test example using the <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> driver. </p>
+<p>This function check whether or not its sub-core drivers self test functions are in working state.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">DeviceId</td><td>is the unique device ID of the MIPI CSI2 TX Subsystem core.</td></tr>
@@ -705,6 +694,7 @@ Interrupt Types for setting Callbacks</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xcsi2txss__intr__example_8c.html">xcsi2txss_intr_example.c</a>&gt;</code></p>
 
 <p>This is the main function for <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> interrupt example. </p>
+<p>This is the main function for <a class="el" href="struct_x_csi2_tx_ss.html" title="The XCsi2TxSs driver instance data. ">XCsi2TxSs</a> self test example.</p>
 <p>If the Csi2TxSs_IntrExample function which sets up the system succeeds, this function will wait for the interrupts. Once a connection event or pulse is detected, Csi2TxSs will TX device capabilities and re-start the subsystem.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -714,9 +704,21 @@ Interrupt Types for setting Callbacks</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>XST_FAILURE if the interrupt example was unsuccessful.</li>
-<li>XST_SUCCESS if the interrupt example was successful. </li>
+<li>XST_SUCCESS if the interrupt example was successful.</li>
 </ul>
 </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">None.</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS if the self test example passed.</li>
+<li>XST_FAILURE if the self test example was unsuccessful.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="group__csi2txss__v1__0.html#ga4f003f0f154d0a6f6d7c06498ff3c655">Csi2TxSs_IntrExample()</a>.</p>
 

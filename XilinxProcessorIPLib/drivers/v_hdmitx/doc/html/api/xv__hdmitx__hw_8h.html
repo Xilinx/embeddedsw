@@ -83,6 +83,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
 1.04  MMO    03/05/17 Updated the comments for XV_HdmiTx_ReadReg and
                            XV_HdmiTx_WriteReg
 1.1   MG     03/05/17 Introduced video mask peripheral
+1.2   YH     22/08/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_MASK (Audio Format)
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -368,6 +369,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a224d3ce0b2fa5396ac35464ab51e18c0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0">XV_HDMITX_AUD_CTRL_CH_SHIFT</a>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:a224d3ce0b2fa5396ac35464ab51e18c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUD Control channels mask.  <a href="#a224d3ce0b2fa5396ac35464ab51e18c0">More...</a><br /></td></tr>
 <tr class="separator:a224d3ce0b2fa5396ac35464ab51e18c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78026a4105a831d8d1e2788c1d6ba913"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">XV_HDMITX_AUD_CTRL_AUDFMT_MASK</a>&#160;&#160;&#160;(1&lt;&lt;4)</td></tr>
+<tr class="memdesc:a78026a4105a831d8d1e2788c1d6ba913"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUD Control AUD Format mask.  <a href="#a78026a4105a831d8d1e2788c1d6ba913">More...</a><br /></td></tr>
+<tr class="separator:a78026a4105a831d8d1e2788c1d6ba913"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26011fe634f2296a975829bae26517fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmitx__hw_8h.html#a26011fe634f2296a975829bae26517fe">XV_HDMITX_AUD_STA_IRQ_MASK</a>&#160;&#160;&#160;(1&lt;&lt;0)</td></tr>
 <tr class="memdesc:a26011fe634f2296a975829bae26517fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">AUD Status Interrupt mask.  <a href="#a26011fe634f2296a975829bae26517fe">More...</a><br /></td></tr>
 <tr class="separator:a26011fe634f2296a975829bae26517fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -453,6 +457,22 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>AUD Clock Regeneration N * Register offset. </p>
+
+</div>
+</div>
+<a id="a78026a4105a831d8d1e2788c1d6ba913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78026a4105a831d8d1e2788c1d6ba913">&#9670;&nbsp;</a></span>XV_HDMITX_AUD_CTRL_AUDFMT_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XV_HDMITX_AUD_CTRL_AUDFMT_MASK&#160;&#160;&#160;(1&lt;&lt;4)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>AUD Control AUD Format mask. </p>
 
 </div>
 </div>

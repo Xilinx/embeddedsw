@@ -31,7 +31,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"group__emacps__v3__1.html#gaa42a956951bd1e28344544a6c8e54373",
+"group__emacps__v3__4.html#gaa42a956951bd1e28344544a6c8e54373",
 "xemacps__ieee1588__example_8c.html"
 ];
 

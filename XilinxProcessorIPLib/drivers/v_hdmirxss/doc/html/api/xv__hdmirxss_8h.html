@@ -111,6 +111,8 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                       generation.
       ms     04/10/17 Modified filename tag in examples to include them in
                        doxygen.
+1.4   YH     07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
+      MH     09/08/17 Add function XV_HdmiRxSs_HdcpSetCapability
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
@@ -138,71 +140,6 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a608276d85725c99b22d2a9e2a6e95fb7"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a608276d85725c99b22d2a9e2a6e95fb7">XV_HdmiRxSs_Callback</a>) (void *CallbackRef)</td></tr>
 <tr class="memdesc:a608276d85725c99b22d2a9e2a6e95fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for interrupt.  <a href="#a608276d85725c99b22d2a9e2a6e95fb7">More...</a><br /></td></tr>
 <tr class="separator:a608276d85725c99b22d2a9e2a6e95fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader">Handler Types</div></td></tr>
-<tr class="memitem:a801bb980bfbb34a0663bbe062e040a15"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15">XV_HdmiRxSs_LogEvent</a> { <br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad647860e438f48a9e17945b3643edba6">XV_HDMIRXSS_LOG_EVT_NONE</a> = 1, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a2f55e7055697853c5389443a0527c505">XV_HDMIRXSS_LOG_EVT_HDMIRX_INIT</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ae52c472c02bfa6ad4c2352d02140cecf">XV_HDMIRXSS_LOG_EVT_VTC_INIT</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a054760a76f796027f8cf025b46952509">XV_HDMIRXSS_LOG_EVT_HDCPTIMER_INIT</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15adb49363476013e89c20d3afc51aa775a">XV_HDMIRXSS_LOG_EVT_HDCP14_INIT</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a59fd857adf563c600f1a7ca79929711e">XV_HDMIRXSS_LOG_EVT_HDCP22_INIT</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a458e1c5899c17758201f66c0141ff8f7">XV_HDMIRXSS_LOG_EVT_START</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad7a14f627e46195aff377cac583106d7">XV_HDMIRXSS_LOG_EVT_STOP</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ab484e1c8a94a2b261abda95ff93179e9">XV_HDMIRXSS_LOG_EVT_RESET</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a9eb981306ed098ffff9be38ab01c1517">XV_HDMIRXSS_LOG_EVT_CONNECT</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a5f135a325a55a42537d1fe42a7305aad">XV_HDMIRXSS_LOG_EVT_DISCONNECT</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15aee12765ad4c6a164b7368fadf1123c3a">XV_HDMIRXSS_LOG_EVT_LINKSTATUS</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a88abfe8933839190302c4ef9f2c3b4b2">XV_HDMIRXSS_LOG_EVT_STREAMUP</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ac7a34ea100510d48389285150eac34ab">XV_HDMIRXSS_LOG_EVT_STREAMDOWN</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a72f5c5220a5d12997ce99ba12b319e48">XV_HDMIRXSS_LOG_EVT_STREAMINIT</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c">XV_HDMIRXSS_LOG_EVT_SETSTREAM</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a9703ad76bc27e43a049a13ee81dc235a">XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15af3d29a9e306ac35906881de97ea96b2d">XV_HDMIRXSS_LOG_EVT_HDCP14</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a84fe6a6bcd3807a6f5052b4d9a59010b">XV_HDMIRXSS_LOG_EVT_HDCP22</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a237bec8d4f235c7404d53dd488056b17">XV_HDMIRXSS_LOG_EVT_HDMIMODE</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a316618fc239a38ab4ba0b1700450e0f4">XV_HDMIRXSS_LOG_EVT_DVIMODE</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a0abb5026b485d00a8e47e2a654ce8fa0">XV_HDMIRXSS_LOG_EVT_SYNCLOSS</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a7358229960ff258552c62dce8a49b98f">XV_HDMIRXSS_LOG_EVT_DUMMY</a>
-<br />
- }</td></tr>
-<tr class="separator:a801bb980bfbb34a0663bbe062e040a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a700e347f920cf2a9e9e8c29ec87b828d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d">XV_HdmiRxSs_HdcpProtocol</a> { <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da60bae6631c611be7225e9993e5a9b754">XV_HDMIRXSS_HDCP_NONE</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dae1ff0bdf7f9aa784e7b74a7c9f977f3a">XV_HDMIRXSS_HDCP_14</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dabb5ec86bf03fe2048919736c0030bc16">XV_HDMIRXSS_HDCP_22</a>
- }<tr class="memdesc:a700e347f920cf2a9e9e8c29ec87b828d"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify the HDCP protection schemes.  <a href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a700e347f920cf2a9e9e8c29ec87b828d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a9c3372906c60e8125731f9753d4bdc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdc">XV_HdmiRxSs_HandlerType</a> { <br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca98676f6fea09b0a63356afddfa8b2dcc">XV_HDMIRXSS_HANDLER_CONNECT</a> = 1, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca57d7bf01bae73e5cd80d5d42607b671f">XV_HDMIRXSS_HANDLER_AUX</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca462cd409aedf103cce8372a50df39120">XV_HDMIRXSS_HANDLER_AUD</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcada3b93353e6b40e201cadfb1184e8292">XV_HDMIRXSS_HANDLER_LNKSTA</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca0191d938e161eedd9fe236363ac3751d">XV_HDMIRXSS_HANDLER_DDC</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcaf330db3728c1acc7140593b840658996">XV_HDMIRXSS_HANDLER_STREAM_DOWN</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcae778149cfc9504c6caeeb937f73f35f7">XV_HDMIRXSS_HANDLER_STREAM_INIT</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcae5f0ad7e9c732ce0dec6ab8d15e1dd83">XV_HDMIRXSS_HANDLER_STREAM_UP</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca6a3fdbe7918a47206068403cb548071d">XV_HDMIRXSS_HANDLER_HDCP</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca39942893f580f21e32a68ccbfd0a8be2">XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATED</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca7fe3b0e1271bc55d9569a073e2be5aad">XV_HDMIRXSS_HANDLER_HDCP_UNAUTHENTICATED</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca2d48f41d950509ae150f468a4e4f53de">XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATION_REQUEST</a>, 
-<br />
-&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca3d2a7adebe7dc6a7bfa77df401c66011">XV_HDMIRXSS_HANDLER_HDCP_STREAM_MANAGE_REQUEST</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca8e3b76e177cee74843e7fd0ba83eac11">XV_HDMIRXSS_HANDLER_HDCP_TOPOLOGY_UPDATE</a>, 
-<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca4296543c68b257e88bed08c9613c9db3">XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE</a>
-<br />
- }<tr class="memdesc:a0a9c3372906c60e8125731f9753d4bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdc">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a0a9c3372906c60e8125731f9753d4bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -272,6 +209,81 @@ Functions</h2></td></tr>
 <tr class="memitem:a3b9bb4c33be5af21747548422b4c617c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a3b9bb4c33be5af21747548422b4c617c">XV_HdmiRxSs_LogDisplay</a> (<a class="el" href="struct_x_v___hdmi_rx_ss.html">XV_HdmiRxSs</a> *InstancePtr)</td></tr>
 <tr class="memdesc:a3b9bb4c33be5af21747548422b4c617c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function will print the entire log.  <a href="#a3b9bb4c33be5af21747548422b4c617c">More...</a><br /></td></tr>
 <tr class="separator:a3b9bb4c33be5af21747548422b4c617c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Handler Types</h2></td></tr>
+<tr class="memitem:a34995b955465f6bbb37c359173d50477"><td class="memItemLeft" align="right" valign="top"><a id="a34995b955465f6bbb37c359173d50477"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_COLOR_RED</b>&#160;&#160;&#160;&quot;\x1b[31m&quot;</td></tr>
+<tr class="separator:a34995b955465f6bbb37c359173d50477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a123b382640b3aa65dd5db386002fbc"><td class="memItemLeft" align="right" valign="top"><a id="a5a123b382640b3aa65dd5db386002fbc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_COLOR_YELLOW</b>&#160;&#160;&#160;&quot;\x1b[33m&quot;</td></tr>
+<tr class="separator:a5a123b382640b3aa65dd5db386002fbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a364c2b863dde1a024a77eac2a5b3b"><td class="memItemLeft" align="right" valign="top"><a id="a92a364c2b863dde1a024a77eac2a5b3b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>ANSI_COLOR_RESET</b>&#160;&#160;&#160;&quot;\x1b[0m&quot;</td></tr>
+<tr class="separator:a92a364c2b863dde1a024a77eac2a5b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a801bb980bfbb34a0663bbe062e040a15"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15">XV_HdmiRxSs_LogEvent</a> { <br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad647860e438f48a9e17945b3643edba6">XV_HDMIRXSS_LOG_EVT_NONE</a> = 1, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a2f55e7055697853c5389443a0527c505">XV_HDMIRXSS_LOG_EVT_HDMIRX_INIT</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ae52c472c02bfa6ad4c2352d02140cecf">XV_HDMIRXSS_LOG_EVT_VTC_INIT</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a054760a76f796027f8cf025b46952509">XV_HDMIRXSS_LOG_EVT_HDCPTIMER_INIT</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15adb49363476013e89c20d3afc51aa775a">XV_HDMIRXSS_LOG_EVT_HDCP14_INIT</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a59fd857adf563c600f1a7ca79929711e">XV_HDMIRXSS_LOG_EVT_HDCP22_INIT</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a458e1c5899c17758201f66c0141ff8f7">XV_HDMIRXSS_LOG_EVT_START</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad7a14f627e46195aff377cac583106d7">XV_HDMIRXSS_LOG_EVT_STOP</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ab484e1c8a94a2b261abda95ff93179e9">XV_HDMIRXSS_LOG_EVT_RESET</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a9eb981306ed098ffff9be38ab01c1517">XV_HDMIRXSS_LOG_EVT_CONNECT</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a5f135a325a55a42537d1fe42a7305aad">XV_HDMIRXSS_LOG_EVT_DISCONNECT</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15aee12765ad4c6a164b7368fadf1123c3a">XV_HDMIRXSS_LOG_EVT_LINKSTATUS</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a88abfe8933839190302c4ef9f2c3b4b2">XV_HDMIRXSS_LOG_EVT_STREAMUP</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ac7a34ea100510d48389285150eac34ab">XV_HDMIRXSS_LOG_EVT_STREAMDOWN</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a72f5c5220a5d12997ce99ba12b319e48">XV_HDMIRXSS_LOG_EVT_STREAMINIT</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c">XV_HDMIRXSS_LOG_EVT_SETSTREAM</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a025e9ebc6c9fc794a24b81c71fbaf7ee">XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a9703ad76bc27e43a049a13ee81dc235a">XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15af3d29a9e306ac35906881de97ea96b2d">XV_HDMIRXSS_LOG_EVT_HDCP14</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a84fe6a6bcd3807a6f5052b4d9a59010b">XV_HDMIRXSS_LOG_EVT_HDCP22</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a237bec8d4f235c7404d53dd488056b17">XV_HDMIRXSS_LOG_EVT_HDMIMODE</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a316618fc239a38ab4ba0b1700450e0f4">XV_HDMIRXSS_LOG_EVT_DVIMODE</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a0abb5026b485d00a8e47e2a654ce8fa0">XV_HDMIRXSS_LOG_EVT_SYNCLOSS</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a7358229960ff258552c62dce8a49b98f">XV_HDMIRXSS_LOG_EVT_DUMMY</a>
+<br />
+ }</td></tr>
+<tr class="separator:a801bb980bfbb34a0663bbe062e040a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a700e347f920cf2a9e9e8c29ec87b828d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d">XV_HdmiRxSs_HdcpProtocol</a> { <a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da60bae6631c611be7225e9993e5a9b754">XV_HDMIRXSS_HDCP_NONE</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dae1ff0bdf7f9aa784e7b74a7c9f977f3a">XV_HDMIRXSS_HDCP_14</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dabb5ec86bf03fe2048919736c0030bc16">XV_HDMIRXSS_HDCP_22</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dacdab94762de7088e29c1c5accf7963d0">XV_HDMIRXSS_HDCP_BOTH</a>
+ }<tr class="memdesc:a700e347f920cf2a9e9e8c29ec87b828d"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify the HDCP protection schemes.  <a href="xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a700e347f920cf2a9e9e8c29ec87b828d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a9c3372906c60e8125731f9753d4bdc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdc">XV_HdmiRxSs_HandlerType</a> { <br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca98676f6fea09b0a63356afddfa8b2dcc">XV_HDMIRXSS_HANDLER_CONNECT</a> = 1, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca57d7bf01bae73e5cd80d5d42607b671f">XV_HDMIRXSS_HANDLER_AUX</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca462cd409aedf103cce8372a50df39120">XV_HDMIRXSS_HANDLER_AUD</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcada3b93353e6b40e201cadfb1184e8292">XV_HDMIRXSS_HANDLER_LNKSTA</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca0191d938e161eedd9fe236363ac3751d">XV_HDMIRXSS_HANDLER_DDC</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcaf330db3728c1acc7140593b840658996">XV_HDMIRXSS_HANDLER_STREAM_DOWN</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcae778149cfc9504c6caeeb937f73f35f7">XV_HDMIRXSS_HANDLER_STREAM_INIT</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdcae5f0ad7e9c732ce0dec6ab8d15e1dd83">XV_HDMIRXSS_HANDLER_STREAM_UP</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca6a3fdbe7918a47206068403cb548071d">XV_HDMIRXSS_HANDLER_HDCP</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca39942893f580f21e32a68ccbfd0a8be2">XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATED</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca7fe3b0e1271bc55d9569a073e2be5aad">XV_HDMIRXSS_HANDLER_HDCP_UNAUTHENTICATED</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca2d48f41d950509ae150f468a4e4f53de">XV_HDMIRXSS_HANDLER_HDCP_AUTHENTICATION_REQUEST</a>, 
+<br />
+&#160;&#160;<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca3d2a7adebe7dc6a7bfa77df401c66011">XV_HDMIRXSS_HANDLER_HDCP_STREAM_MANAGE_REQUEST</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca8e3b76e177cee74843e7fd0ba83eac11">XV_HDMIRXSS_HANDLER_HDCP_TOPOLOGY_UPDATE</a>, 
+<a class="el" href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdca4296543c68b257e88bed08c9613c9db3">XV_HDMIRXSS_HANDLER_HDCP_ENCRYPTION_UPDATE</a>
+<br />
+ }<tr class="memdesc:a0a9c3372906c60e8125731f9753d4bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">These constants specify different types of handler and used to differentiate interrupt requests from peripheral.  <a href="xv__hdmirxss_8h.html#a0a9c3372906c60e8125731f9753d4bdc">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:a0a9c3372906c60e8125731f9753d4bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a92b71d83ae5ccdceefffa7697a8be62b"></a>
@@ -384,6 +396,8 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a700e347f920cf2a9e9e8c29ec87b828dabb5ec86bf03fe2048919736c0030bc16"></a>XV_HDMIRXSS_HDCP_22&#160;</td><td class="fielddoc"><p>HDCP 2.2. </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a700e347f920cf2a9e9e8c29ec87b828dacdab94762de7088e29c1c5accf7963d0"></a>XV_HDMIRXSS_HDCP_BOTH&#160;</td><td class="fielddoc"><p>Both HDCP 1.4 and 2.2. </p>
+</td></tr>
 </table>
 
 </div>
@@ -431,6 +445,8 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a801bb980bfbb34a0663bbe062e040a15a72f5c5220a5d12997ce99ba12b319e48"></a>XV_HDMIRXSS_LOG_EVT_STREAMINIT&#160;</td><td class="fielddoc"><p>Log event Stream Init. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c"></a>XV_HDMIRXSS_LOG_EVT_SETSTREAM&#160;</td><td class="fielddoc"><p>Log event HDMIRXSS Setstream. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a801bb980bfbb34a0663bbe062e040a15a025e9ebc6c9fc794a24b81c71fbaf7ee"></a>XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR&#160;</td><td class="fielddoc"><p>Log event HDMIRXSS Setstream Err. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a801bb980bfbb34a0663bbe062e040a15a9703ad76bc27e43a049a13ee81dc235a"></a>XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE&#160;</td><td class="fielddoc"><p>Log event TMDS Ref clock change. </p>
 </td></tr>
@@ -789,7 +805,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a9eb981306ed098ffff9be38ab01c1517">XV_HDMIRXSS_LOG_EVT_CONNECT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a5f135a325a55a42537d1fe42a7305aad">XV_HDMIRXSS_LOG_EVT_DISCONNECT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a316618fc239a38ab4ba0b1700450e0f4">XV_HDMIRXSS_LOG_EVT_DVIMODE</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15af3d29a9e306ac35906881de97ea96b2d">XV_HDMIRXSS_LOG_EVT_HDCP14</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15adb49363476013e89c20d3afc51aa775a">XV_HDMIRXSS_LOG_EVT_HDCP14_INIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a84fe6a6bcd3807a6f5052b4d9a59010b">XV_HDMIRXSS_LOG_EVT_HDCP22</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a59fd857adf563c600f1a7ca79929711e">XV_HDMIRXSS_LOG_EVT_HDCP22_INIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a054760a76f796027f8cf025b46952509">XV_HDMIRXSS_LOG_EVT_HDCPTIMER_INIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a237bec8d4f235c7404d53dd488056b17">XV_HDMIRXSS_LOG_EVT_HDMIMODE</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a2f55e7055697853c5389443a0527c505">XV_HDMIRXSS_LOG_EVT_HDMIRX_INIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15aee12765ad4c6a164b7368fadf1123c3a">XV_HDMIRXSS_LOG_EVT_LINKSTATUS</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad647860e438f48a9e17945b3643edba6">XV_HDMIRXSS_LOG_EVT_NONE</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a9703ad76bc27e43a049a13ee81dc235a">XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ab484e1c8a94a2b261abda95ff93179e9">XV_HDMIRXSS_LOG_EVT_RESET</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c">XV_HDMIRXSS_LOG_EVT_SETSTREAM</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a458e1c5899c17758201f66c0141ff8f7">XV_HDMIRXSS_LOG_EVT_START</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad7a14f627e46195aff377cac583106d7">XV_HDMIRXSS_LOG_EVT_STOP</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ac7a34ea100510d48389285150eac34ab">XV_HDMIRXSS_LOG_EVT_STREAMDOWN</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a72f5c5220a5d12997ce99ba12b319e48">XV_HDMIRXSS_LOG_EVT_STREAMINIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a88abfe8933839190302c4ef9f2c3b4b2">XV_HDMIRXSS_LOG_EVT_STREAMUP</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a0abb5026b485d00a8e47e2a654ce8fa0">XV_HDMIRXSS_LOG_EVT_SYNCLOSS</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ae52c472c02bfa6ad4c2352d02140cecf">XV_HDMIRXSS_LOG_EVT_VTC_INIT</a>, and <a class="el" href="xv__hdmirxss__log_8c.html#a7a5bd0ad2a900d4d43eeab77ac3e43ac">XV_HdmiRxSs_LogRead()</a>.</p>
+<p class="reference">References <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a9eb981306ed098ffff9be38ab01c1517">XV_HDMIRXSS_LOG_EVT_CONNECT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a5f135a325a55a42537d1fe42a7305aad">XV_HDMIRXSS_LOG_EVT_DISCONNECT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15adb49363476013e89c20d3afc51aa775a">XV_HDMIRXSS_LOG_EVT_HDCP14_INIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a59fd857adf563c600f1a7ca79929711e">XV_HDMIRXSS_LOG_EVT_HDCP22_INIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a054760a76f796027f8cf025b46952509">XV_HDMIRXSS_LOG_EVT_HDCPTIMER_INIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a2f55e7055697853c5389443a0527c505">XV_HDMIRXSS_LOG_EVT_HDMIRX_INIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15aee12765ad4c6a164b7368fadf1123c3a">XV_HDMIRXSS_LOG_EVT_LINKSTATUS</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad647860e438f48a9e17945b3643edba6">XV_HDMIRXSS_LOG_EVT_NONE</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ab484e1c8a94a2b261abda95ff93179e9">XV_HDMIRXSS_LOG_EVT_RESET</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c">XV_HDMIRXSS_LOG_EVT_SETSTREAM</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a025e9ebc6c9fc794a24b81c71fbaf7ee">XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a458e1c5899c17758201f66c0141ff8f7">XV_HDMIRXSS_LOG_EVT_START</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad7a14f627e46195aff377cac583106d7">XV_HDMIRXSS_LOG_EVT_STOP</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ac7a34ea100510d48389285150eac34ab">XV_HDMIRXSS_LOG_EVT_STREAMDOWN</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a72f5c5220a5d12997ce99ba12b319e48">XV_HDMIRXSS_LOG_EVT_STREAMINIT</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a88abfe8933839190302c4ef9f2c3b4b2">XV_HDMIRXSS_LOG_EVT_STREAMUP</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ae52c472c02bfa6ad4c2352d02140cecf">XV_HDMIRXSS_LOG_EVT_VTC_INIT</a>, and <a class="el" href="xv__hdmirxss__log_8c.html#a7a5bd0ad2a900d4d43eeab77ac3e43ac">XV_HdmiRxSs_LogRead()</a>.</p>
 
 </div>
 </div>
@@ -1148,7 +1164,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Calculated TMDS Clock</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#af4a869965ee18d575d19b4319be08ff0">XV_HdmiRxSs::Config</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___config.html#ae3bc6c803098c13d8b8d6bce5920c10f">XV_HdmiRxSs_Config::Ppc</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c">XV_HDMIRXSS_LOG_EVT_SETSTREAM</a>, and <a class="el" href="xv__hdmirxss_8h.html#a56c28560c5de8682b22f96d40fa4e24d">XV_HdmiRxSs_LogWrite()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#af4a869965ee18d575d19b4319be08ff0">XV_HdmiRxSs::Config</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___config.html#ae3bc6c803098c13d8b8d6bce5920c10f">XV_HdmiRxSs_Config::Ppc</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c">XV_HDMIRXSS_LOG_EVT_SETSTREAM</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a025e9ebc6c9fc794a24b81c71fbaf7ee">XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR</a>, and <a class="el" href="xv__hdmirxss_8h.html#a56c28560c5de8682b22f96d40fa4e24d">XV_HdmiRxSs_LogWrite()</a>.</p>
 
 </div>
 </div>

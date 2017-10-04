@@ -76,6 +76,12 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of an <a class="el" href="struct_x_ll_fifo.html" title="This typedef defines a run-time instance of an XLlFifo device. ">XLlFifo</a> device.  <a href="struct_x_ll_fifo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of a receive byte-streamer.  <a href="struct_x_strm___rx_fifo_streamer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of a transmit byte-streamer.  <a href="struct_x_strm___tx_fifo_streamer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -106,10 +112,10 @@ Macros</h2></td></tr>
 <tr class="memitem:ga12da547aa1c9a85e2b0b151f438ff9d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga12da547aa1c9a85e2b0b151f438ff9d5">XLlFifo_RxOccupancy</a>(InstancePtr)&#160;&#160;&#160;XStrm_RxOccupancy(&amp;((InstancePtr)-&gt;RxStreamer))</td></tr>
 <tr class="memdesc:ga12da547aa1c9a85e2b0b151f438ff9d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_RxOccupancy returns the number of 32-bit words available (occupancy) to be read from the receive channel of the FIFO, specified by <em>InstancePtr</em>.  <a href="#ga12da547aa1c9a85e2b0b151f438ff9d5">More...</a><br /></td></tr>
 <tr class="separator:ga12da547aa1c9a85e2b0b151f438ff9d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga53af32ae6901462cc8d6fb9adc04655e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga53af32ae6901462cc8d6fb9adc04655e">XLlFifo_RxGetLen</a>(InstancePtr)&#160;&#160;&#160;XStrm_RxGetLen(&amp;((InstancePtr)-&gt;RxStreamer))</td></tr>
+<tr class="memitem:ga53af32ae6901462cc8d6fb9adc04655e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga53af32ae6901462cc8d6fb9adc04655e">XLlFifo_RxGetLen</a>(InstancePtr)&#160;&#160;&#160;<a class="el" href="group__llfifo__v5__0.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen</a>(&amp;((InstancePtr)-&gt;RxStreamer))</td></tr>
 <tr class="memdesc:ga53af32ae6901462cc8d6fb9adc04655e"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_RxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO, specified by <em>InstancePtr</em>.  <a href="#ga53af32ae6901462cc8d6fb9adc04655e">More...</a><br /></td></tr>
 <tr class="separator:ga53af32ae6901462cc8d6fb9adc04655e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaadc3685592b060c0d864850e86be5c03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gaadc3685592b060c0d864850e86be5c03">XLlFifo_Read</a>(InstancePtr,  BufPtr,  Bytes)&#160;&#160;&#160;XStrm_Read(&amp;((InstancePtr)-&gt;RxStreamer), (BufPtr), (Bytes))</td></tr>
+<tr class="memitem:gaadc3685592b060c0d864850e86be5c03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gaadc3685592b060c0d864850e86be5c03">XLlFifo_Read</a>(InstancePtr,  BufPtr,  Bytes)&#160;&#160;&#160;<a class="el" href="group__llfifo__v5__0.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read</a>(&amp;((InstancePtr)-&gt;RxStreamer), (BufPtr), (Bytes))</td></tr>
 <tr class="memdesc:gaadc3685592b060c0d864850e86be5c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_Read reads <em>Bytes</em> bytes from the receive channel of the FIFO referenced by <em>InstancePtr</em> to the block of memory, referenced by <em>BufPtr</em>.  <a href="#gaadc3685592b060c0d864850e86be5c03">More...</a><br /></td></tr>
 <tr class="separator:gaadc3685592b060c0d864850e86be5c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga922419fdcd342fa709fb07ec1a9e5577"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga922419fdcd342fa709fb07ec1a9e5577">XLlFifo_TxReset</a>(InstancePtr)</td></tr>
@@ -124,10 +130,10 @@ Macros</h2></td></tr>
 <tr class="memitem:gaf2884c49ae41dc5c5317c2ef6df45a28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gaf2884c49ae41dc5c5317c2ef6df45a28">XLlFifo_TxVacancy</a>(InstancePtr)&#160;&#160;&#160;XStrm_TxVacancy(&amp;((InstancePtr)-&gt;TxStreamer))</td></tr>
 <tr class="memdesc:gaf2884c49ae41dc5c5317c2ef6df45a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_TxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel of the FIFO specified by <em>InstancePtr</em>.  <a href="#gaf2884c49ae41dc5c5317c2ef6df45a28">More...</a><br /></td></tr>
 <tr class="separator:gaf2884c49ae41dc5c5317c2ef6df45a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacd09ed5189e0b85994901102655964f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gacd09ed5189e0b85994901102655964f7">XLlFifo_TxSetLen</a>(InstancePtr,  Bytes)&#160;&#160;&#160;XStrm_TxSetLen(&amp;((InstancePtr)-&gt;TxStreamer), (Bytes))</td></tr>
+<tr class="memitem:gacd09ed5189e0b85994901102655964f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gacd09ed5189e0b85994901102655964f7">XLlFifo_TxSetLen</a>(InstancePtr,  Bytes)&#160;&#160;&#160;<a class="el" href="group__llfifo__v5__0.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen</a>(&amp;((InstancePtr)-&gt;TxStreamer), (Bytes))</td></tr>
 <tr class="memdesc:gacd09ed5189e0b85994901102655964f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_TxSetLen begins a hardware transfer of <em>Bytes</em> bytes out of the transmit channel of the FIFO specified by <em>InstancePtr</em>.  <a href="#gacd09ed5189e0b85994901102655964f7">More...</a><br /></td></tr>
 <tr class="separator:gacd09ed5189e0b85994901102655964f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1fa93f486abaaf35c7d599a8cd91b295"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga1fa93f486abaaf35c7d599a8cd91b295">XLlFifo_Write</a>(InstancePtr,  BufPtr,  Bytes)&#160;&#160;&#160;XStrm_Write(&amp;((InstancePtr)-&gt;TxStreamer), (BufPtr), (Bytes))</td></tr>
+<tr class="memitem:ga1fa93f486abaaf35c7d599a8cd91b295"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga1fa93f486abaaf35c7d599a8cd91b295">XLlFifo_Write</a>(InstancePtr,  BufPtr,  Bytes)&#160;&#160;&#160;<a class="el" href="group__llfifo__v5__0.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write</a>(&amp;((InstancePtr)-&gt;TxStreamer), (BufPtr), (Bytes))</td></tr>
 <tr class="memdesc:ga1fa93f486abaaf35c7d599a8cd91b295"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_Write writes <em>Bytes</em> bytes of the block of memory, referenced by <em>BufPtr</em>, to the transmit channel of the FIFO referenced by <em>InstancePtr</em>.  <a href="#ga1fa93f486abaaf35c7d599a8cd91b295">More...</a><br /></td></tr>
 <tr class="separator:ga1fa93f486abaaf35c7d599a8cd91b295"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga105828f79f13c07d571db218c5837fae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga105828f79f13c07d571db218c5837fae">XLlFifo_WriteTdr</a>(InstancePtr,  Tdest)</td></tr>
@@ -148,18 +154,63 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga89057d90d6eacdbe8adc766f53f60ed7"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_x_ll_fifo.html">XLlFifo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga89057d90d6eacdbe8adc766f53f60ed7">XLlFifo</a></td></tr>
 <tr class="memdesc:ga89057d90d6eacdbe8adc766f53f60ed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of an <a class="el" href="struct_x_ll_fifo.html" title="This typedef defines a run-time instance of an XLlFifo device. ">XLlFifo</a> device.  <a href="#ga89057d90d6eacdbe8adc766f53f60ed7">More...</a><br /></td></tr>
 <tr class="separator:ga89057d90d6eacdbe8adc766f53f60ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4f27ac6f38ad77d7b92014a52eb5c16b"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga4f27ac6f38ad77d7b92014a52eb5c16b">XStrm_RxFifoStreamer</a></td></tr>
+<tr class="memdesc:ga4f27ac6f38ad77d7b92014a52eb5c16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of a receive byte-streamer.  <a href="#ga4f27ac6f38ad77d7b92014a52eb5c16b">More...</a><br /></td></tr>
+<tr class="separator:ga4f27ac6f38ad77d7b92014a52eb5c16b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3d1351f115d97cbce95da390d0ea4033"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga3d1351f115d97cbce95da390d0ea4033">XStrm_TxFifoStreamer</a></td></tr>
+<tr class="memdesc:ga3d1351f115d97cbce95da390d0ea4033"><td class="mdescLeft">&#160;</td><td class="mdescRight">This typedef defines a run-time instance of a transmit byte-streamer.  <a href="#ga3d1351f115d97cbce95da390d0ea4033">More...</a><br /></td></tr>
+<tr class="separator:ga3d1351f115d97cbce95da390d0ea4033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaacc66a5dc69ac5a882fa7f3d161efbcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gaacc66a5dc69ac5a882fa7f3d161efbcb">xdbg_stmnt</a> (u32 _xllfifo_rr_value;)</td></tr>
+<tr class="memdesc:gaacc66a5dc69ac5a882fa7f3d161efbcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_iRxOccupancy returns the number of 32-bit words available (occupancy) to be read from the receive channel of the FIFO, specified by <em>InstancePtr</em>.  <a href="#gaacc66a5dc69ac5a882fa7f3d161efbcb">More...</a><br /></td></tr>
+<tr class="separator:gaacc66a5dc69ac5a882fa7f3d161efbcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaad292ddf2a2c9dde261b93da802c8080"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gaad292ddf2a2c9dde261b93da802c8080">XLlFifo_iRxGetLen</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaad292ddf2a2c9dde261b93da802c8080"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO specified by <em>InstancePtr</em>.  <a href="#gaad292ddf2a2c9dde261b93da802c8080">More...</a><br /></td></tr>
+<tr class="separator:gaad292ddf2a2c9dde261b93da802c8080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18bc620d388cbca83d63cc1c6ef33225"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga18bc620d388cbca83d63cc1c6ef33225">XLlFifo_iRead_Aligned</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, void *BufPtr, unsigned WordCount)</td></tr>
+<tr class="memdesc:ga18bc620d388cbca83d63cc1c6ef33225"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_iRead_Aligned reads, <em>WordCount</em>, words from the FIFO referenced by <em>InstancePtr</em> to the block of memory, referenced by <em>BufPtr</em>.  <a href="#ga18bc620d388cbca83d63cc1c6ef33225">More...</a><br /></td></tr>
+<tr class="separator:ga18bc620d388cbca83d63cc1c6ef33225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac02405b23499d780e7bc1dfe371281a6"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gac02405b23499d780e7bc1dfe371281a6">XLlFifo_iTxVacancy</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gac02405b23499d780e7bc1dfe371281a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_iTxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel of the FIFO, specified by <em>InstancePtr</em>.  <a href="#gac02405b23499d780e7bc1dfe371281a6">More...</a><br /></td></tr>
+<tr class="separator:gac02405b23499d780e7bc1dfe371281a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa49ecc1529434fd932d8a65d63a1a04d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gaa49ecc1529434fd932d8a65d63a1a04d">XLlFifo_iTxSetLen</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, u32 Bytes)</td></tr>
+<tr class="memdesc:gaa49ecc1529434fd932d8a65d63a1a04d"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit channel of the FIFO, specified by <em>InstancePtr</em>.  <a href="#gaa49ecc1529434fd932d8a65d63a1a04d">More...</a><br /></td></tr>
+<tr class="separator:gaa49ecc1529434fd932d8a65d63a1a04d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9be5556d593980195e43a31ffb37e0fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga9be5556d593980195e43a31ffb37e0fe">XLlFifo_iWrite_Aligned</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, void *BufPtr, unsigned WordCount)</td></tr>
+<tr class="memdesc:ga9be5556d593980195e43a31ffb37e0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_iWrite_Aligned writes, <em>WordCount</em>, words to the FIFO referenced by <em>InstancePtr</em> from the block of memory, referenced by <em>BufPtr</em>.  <a href="#ga9be5556d593980195e43a31ffb37e0fe">More...</a><br /></td></tr>
+<tr class="separator:ga9be5556d593980195e43a31ffb37e0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga874c22807476dc0ffec670c38f452443"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga874c22807476dc0ffec670c38f452443">XLlFifo_CfgInitialize</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, XLlFifo_Config *Config, UINTPTR EffectiveAddress)</td></tr>
 <tr class="memdesc:ga874c22807476dc0ffec670c38f452443"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_CfgInitialize initializes an XPS_ll_Fifo device along with the <em>InstancePtr</em> that references it.  <a href="#ga874c22807476dc0ffec670c38f452443">More...</a><br /></td></tr>
 <tr class="separator:ga874c22807476dc0ffec670c38f452443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed3ae31c8c24f46139fbd709027329ec"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#gaed3ae31c8c24f46139fbd709027329ec">XLlFifo_RxGetWord</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaed3ae31c8c24f46139fbd709027329ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by <em>InstancePtr</em>.  <a href="#gaed3ae31c8c24f46139fbd709027329ec">More...</a><br /></td></tr>
+<tr class="separator:gaed3ae31c8c24f46139fbd709027329ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga29654d755dce84b861022179c99ca7a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga29654d755dce84b861022179c99ca7a3">XLlFifo_TxPutWord</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, u32 Word)</td></tr>
+<tr class="memdesc:ga29654d755dce84b861022179c99ca7a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_TxPutWord writes the 32 bit word, <em>Word</em> to the FIFO specified by <em>InstancePtr</em>.  <a href="#ga29654d755dce84b861022179c99ca7a3">More...</a><br /></td></tr>
+<tr class="separator:ga29654d755dce84b861022179c99ca7a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3debde0a34325b3f314d15fe6f43a7ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga3debde0a34325b3f314d15fe6f43a7ee">XLlFifo_Initialize</a> (<a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *InstancePtr, UINTPTR BaseAddress)</td></tr>
 <tr class="memdesc:ga3debde0a34325b3f314d15fe6f43a7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">XLlFifo_Initialize initializes an XPS_ll_Fifo device along with the <em>InstancePtr</em> that references it.  <a href="#ga3debde0a34325b3f314d15fe6f43a7ee">More...</a><br /></td></tr>
 <tr class="separator:ga3debde0a34325b3f314d15fe6f43a7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga549da0fb83b3bb11ea6401b8001f9c4e"><td class="memItemLeft" align="right" valign="top">XLlFifo_Config *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga549da0fb83b3bb11ea6401b8001f9c4e">XLlFfio_LookupConfig</a> (u32 DeviceId)</td></tr>
 <tr class="memdesc:ga549da0fb83b3bb11ea6401b8001f9c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the hardware configuration for a device instance.  <a href="#ga549da0fb83b3bb11ea6401b8001f9c4e">More...</a><br /></td></tr>
 <tr class="separator:ga549da0fb83b3bb11ea6401b8001f9c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a67c77f811a505b658e06642eb9c964"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga8a67c77f811a505b658e06642eb9c964">XStrm_TxInitialize</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, unsigned FifoWidth, void *FifoInstance, XStrm_XferFnType WriteFn, XStrm_SetLenFnType SetLenFn, XStrm_GetVacancyFnType GetVacancyFn)</td></tr>
+<tr class="memdesc:ga8a67c77f811a505b658e06642eb9c964"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_TxInitialize initializes the <a class="el" href="struct_x_strm___tx_fifo_streamer.html" title="This typedef defines a run-time instance of a transmit byte-streamer. ">XStrm_TxFifoStreamer</a> object referenced by <em>InstancePtr</em>.  <a href="#ga8a67c77f811a505b658e06642eb9c964">More...</a><br /></td></tr>
+<tr class="separator:ga8a67c77f811a505b658e06642eb9c964"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga479d2eb3193ad0a5efc3c3b432a78381"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen</a> (<a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga479d2eb3193ad0a5efc3c3b432a78381"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_RxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO, specified by <em>InstancePtr</em>.  <a href="#ga479d2eb3193ad0a5efc3c3b432a78381">More...</a><br /></td></tr>
+<tr class="separator:ga479d2eb3193ad0a5efc3c3b432a78381"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga915d68a9cce0f2464fc7644383cb887a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read</a> (<a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *InstancePtr, void *BufPtr, unsigned Bytes)</td></tr>
+<tr class="memdesc:ga915d68a9cce0f2464fc7644383cb887a"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_Read reads <em>Bytes</em> bytes from the FIFO specified by <em>InstancePtr</em> to the block of memory, referenced by <em>BufPtr</em>.  <a href="#ga915d68a9cce0f2464fc7644383cb887a">More...</a><br /></td></tr>
+<tr class="separator:ga915d68a9cce0f2464fc7644383cb887a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e99fb51e0cfab7d0e8de5e93c27fd9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, u32 Bytes)</td></tr>
+<tr class="memdesc:ga1e99fb51e0cfab7d0e8de5e93c27fd9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_TxSetLen flushes to the FIFO, specified by <em>InstancePtr</em>, any bytes remaining in internal buffers and begins a hardware transfer of data out of the transmit channel of the FIFO.  <a href="#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">More...</a><br /></td></tr>
+<tr class="separator:ga1e99fb51e0cfab7d0e8de5e93c27fd9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1f43ea833af99162745ceef66849b666"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__llfifo__v5__0.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write</a> (<a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *InstancePtr, void *BufPtr, unsigned Bytes)</td></tr>
+<tr class="memdesc:ga1f43ea833af99162745ceef66849b666"><td class="mdescLeft">&#160;</td><td class="mdescRight">XStrm_Write writes <em>Bytes</em> bytes of the block of memory, referenced by <em>BufPtr</em>, to the transmit channel of the FIFO referenced by <em>InstancePtr</em>.  <a href="#ga1f43ea833af99162745ceef66849b666">More...</a><br /></td></tr>
+<tr class="separator:ga1f43ea833af99162745ceef66849b666"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Registers</h2></td></tr>
@@ -296,6 +347,8 @@ Reset register values</h2></td></tr>
 
 <p>Axi4 Receive Data. </p>
 
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#gaed3ae31c8c24f46139fbd709027329ec">XLlFifo_RxGetWord()</a>.</p>
+
 </div>
 </div>
 <a id="ga7a72ef43b9e2ca7e28a9e939012f1044"></a>
@@ -313,6 +366,8 @@ Reset register values</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xllfifo__hw_8h.html">xllfifo_hw.h</a>&gt;</code></p>
 
 <p>Axi4 Transmit Data. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#ga29654d755dce84b861022179c99ca7a3">XLlFifo_TxPutWord()</a>.</p>
 
 </div>
 </div>
@@ -712,6 +767,8 @@ Reset register values</h2></td></tr>
 
 <p>Receive Data. </p>
 
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#gaed3ae31c8c24f46139fbd709027329ec">XLlFifo_RxGetWord()</a>.</p>
+
 </div>
 </div>
 <a id="ga9c4bbf51bc4b0410b61ef3933776a63c"></a>
@@ -804,6 +861,8 @@ Reset register values</h2></td></tr>
 
 <p>Receive Length. </p>
 
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#gaad292ddf2a2c9dde261b93da802c8080">XLlFifo_iRxGetLen()</a>.</p>
+
 </div>
 </div>
 <a id="gaeca8c86badc0df67426442f9bb6a5195"></a>
@@ -821,6 +880,8 @@ Reset register values</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xllfifo__hw_8h.html">xllfifo_hw.h</a>&gt;</code></p>
 
 <p>Transmit Data. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#ga29654d755dce84b861022179c99ca7a3">XLlFifo_TxPutWord()</a>.</p>
 
 </div>
 </div>
@@ -876,6 +937,8 @@ Reset register values</h2></td></tr>
 
 <p>Transmit Vacancy. </p>
 
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#gac02405b23499d780e7bc1dfe371281a6">XLlFifo_iTxVacancy()</a>.</p>
+
 </div>
 </div>
 <a id="ga5c691ac1237fb77b8e356a7d2b0b8b54"></a>
@@ -911,6 +974,8 @@ Reset register values</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xllfifo__hw_8h.html">xllfifo_hw.h</a>&gt;</code></p>
 
 <p>Transmit Length. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#gaa49ecc1529434fd932d8a65d63a1a04d">XLlFifo_iTxSetLen()</a>.</p>
 
 </div>
 </div>
@@ -1207,7 +1272,7 @@ Reset register values</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;XStrm_Read(&amp;((InstancePtr)-&gt;RxStreamer), (BufPtr), (Bytes))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__llfifo__v5__0.html#ga915d68a9cce0f2464fc7644383cb887a">XStrm_Read</a>(&amp;((InstancePtr)-&gt;RxStreamer), (BufPtr), (Bytes))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1300,6 +1365,8 @@ Reset register values</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XLlFifo_ReadReg returns the value of the specified register.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__llfifo__v5__0.html#ga7526eab563fa4e0fe8b60474e96afe55" title="XLlFifo_ReadReg returns the value of the register at the offet, RegOffset, from the memory mapped bas...">XLlFifo_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
 
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#gaad292ddf2a2c9dde261b93da802c8080">XLlFifo_iRxGetLen()</a>, <a class="el" href="group__llfifo__v5__0.html#gac02405b23499d780e7bc1dfe371281a6">XLlFifo_iTxVacancy()</a>, and <a class="el" href="group__llfifo__v5__0.html#gaed3ae31c8c24f46139fbd709027329ec">XLlFifo_RxGetWord()</a>.</p>
+
 </div>
 </div>
 <a id="gace8f47c03f1818797c152cb27296df7c"></a>
@@ -1347,7 +1414,7 @@ Reset register values</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">InstancePtr</td><td>)</td>
-          <td>&#160;&#160;&#160;XStrm_RxGetLen(&amp;((InstancePtr)-&gt;RxStreamer))</td>
+          <td>&#160;&#160;&#160;<a class="el" href="group__llfifo__v5__0.html#ga479d2eb3193ad0a5efc3c3b432a78381">XStrm_RxGetLen</a>(&amp;((InstancePtr)-&gt;RxStreamer))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1526,7 +1593,7 @@ Reset register values</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;XStrm_TxSetLen(&amp;((InstancePtr)-&gt;TxStreamer), (Bytes))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__llfifo__v5__0.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">XStrm_TxSetLen</a>(&amp;((InstancePtr)-&gt;TxStreamer), (Bytes))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1605,7 +1672,7 @@ Reset register values</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;XStrm_Write(&amp;((InstancePtr)-&gt;TxStreamer), (BufPtr), (Bytes))</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="group__llfifo__v5__0.html#ga1f43ea833af99162745ceef66849b666">XStrm_Write</a>(&amp;((InstancePtr)-&gt;TxStreamer), (BufPtr), (Bytes))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1674,7 +1741,7 @@ Reset register values</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>N/A</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__llfifo__v5__0.html#gacd283ce73981f7f9eab94f8bb421bc78" title="XLlFifo_WriteReg writes the value, Value, to the register at the offet, RegOffset, from the memory mapped base address, BaseAddress. ">XLlFifo_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Value)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#ga3debde0a34325b3f314d15fe6f43a7ee">XLlFifo_Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#ga3debde0a34325b3f314d15fe6f43a7ee">XLlFifo_Initialize()</a>, <a class="el" href="group__llfifo__v5__0.html#gaa49ecc1529434fd932d8a65d63a1a04d">XLlFifo_iTxSetLen()</a>, and <a class="el" href="group__llfifo__v5__0.html#ga29654d755dce84b861022179c99ca7a3">XLlFifo_TxPutWord()</a>.</p>
 
 </div>
 </div>
@@ -1745,7 +1812,72 @@ Reset register values</h2></td></tr>
 
 </div>
 </div>
+<a id="ga4f27ac6f38ad77d7b92014a52eb5c16b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4f27ac6f38ad77d7b92014a52eb5c16b">&#9670;&nbsp;</a></span>XStrm_RxFifoStreamer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a>  <a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xstreamer_8h.html">xstreamer.h</a>&gt;</code></p>
+
+<p>This typedef defines a run-time instance of a receive byte-streamer. </p>
+
+</div>
+</div>
+<a id="ga3d1351f115d97cbce95da390d0ea4033"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3d1351f115d97cbce95da390d0ea4033">&#9670;&nbsp;</a></span>XStrm_TxFifoStreamer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a>  <a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xstreamer_8h.html">xstreamer.h</a>&gt;</code></p>
+
+<p>This typedef defines a run-time instance of a transmit byte-streamer. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gaacc66a5dc69ac5a882fa7f3d161efbcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaacc66a5dc69ac5a882fa7f3d161efbcb">&#9670;&nbsp;</a></span>xdbg_stmnt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">xdbg_stmnt </td>
+          <td>(</td>
+          <td class="paramtype">u32 _xllfifo_rr_value;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xllfifo_8c.html">xllfifo.c</a>&gt;</code></p>
+
+<p>XLlFifo_iRxOccupancy returns the number of 32-bit words available (occupancy) to be read from the receive channel of the FIFO, specified by <em>InstancePtr</em>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLlFifo_iRxOccupancy returns the occupancy count in 32-bit words for the specified FIFO. </dd></dl>
+
+</div>
+</div>
 <a id="ga549da0fb83b3bb11ea6401b8001f9c4e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga549da0fb83b3bb11ea6401b8001f9c4e">&#9670;&nbsp;</a></span>XLlFfio_LookupConfig()</h2>
 
@@ -1814,8 +1946,8 @@ Reset register values</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the Axi Streaming FIFO instance to be worked on. </td></tr>
-    <tr><td class="paramname">CfgPtr</td><td>references the structure holding the hardware configuration for the Axi Streaming FIFO core to initialize. </td></tr>
-    <tr><td class="paramname">EffectiveAddr</td><td>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</td></tr>
+    <tr><td class="paramname">Config</td><td>references the structure holding the hardware configuration for the Axi Streaming FIFO core to initialize. </td></tr>
+    <tr><td class="paramname">EffectiveAddress</td><td>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</td></tr>
   </table>
   </dd>
 </dl>
@@ -1861,7 +1993,543 @@ Reset register values</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>N/A </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_ll_fifo.html#a455c634fb80553cecfcba0845eb99937">XLlFifo::Axi4BaseAddress</a>, <a class="el" href="struct_x_ll_fifo.html#a458030a162537427b617cbb204a701fd">XLlFifo::BaseAddress</a>, <a class="el" href="struct_x_ll_fifo.html#abe388bb422699248b26a9d76652474b1">XLlFifo::IsReady</a>, <a class="el" href="struct_x_ll_fifo.html#a456fbf87ce23b1334c67b386722b1434">XLlFifo::RxStreamer</a>, <a class="el" href="group__llfifo__v5__0.html#ga5331d2736e9b1b516b4262d8e3f11690">XLLF_LLR_OFFSET</a>, <a class="el" href="group__llfifo__v5__0.html#ga11c4da53ae9b166832186f9a817fba6d">XLLF_RDFR_RESET_MASK</a>, <a class="el" href="group__llfifo__v5__0.html#gaf3739a78b92f17cead0d831757b3a134">XLlFifo_RxReset</a>, <a class="el" href="group__llfifo__v5__0.html#ga922419fdcd342fa709fb07ec1a9e5577">XLlFifo_TxReset</a>, and <a class="el" href="group__llfifo__v5__0.html#gacd283ce73981f7f9eab94f8bb421bc78">XLlFifo_WriteReg</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_ll_fifo.html#a455c634fb80553cecfcba0845eb99937">XLlFifo::Axi4BaseAddress</a>, <a class="el" href="struct_x_ll_fifo.html#a458030a162537427b617cbb204a701fd">XLlFifo::BaseAddress</a>, <a class="el" href="struct_x_ll_fifo.html#abe388bb422699248b26a9d76652474b1">XLlFifo::IsReady</a>, <a class="el" href="group__llfifo__v5__0.html#ga5331d2736e9b1b516b4262d8e3f11690">XLLF_LLR_OFFSET</a>, <a class="el" href="group__llfifo__v5__0.html#ga11c4da53ae9b166832186f9a817fba6d">XLLF_RDFR_RESET_MASK</a>, <a class="el" href="group__llfifo__v5__0.html#gaf3739a78b92f17cead0d831757b3a134">XLlFifo_RxReset</a>, <a class="el" href="group__llfifo__v5__0.html#ga922419fdcd342fa709fb07ec1a9e5577">XLlFifo_TxReset</a>, and <a class="el" href="group__llfifo__v5__0.html#gacd283ce73981f7f9eab94f8bb421bc78">XLlFifo_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="ga18bc620d388cbca83d63cc1c6ef33225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga18bc620d388cbca83d63cc1c6ef33225">&#9670;&nbsp;</a></span>XLlFifo_iRead_Aligned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XLlFifo_iRead_Aligned </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>BufPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>WordCount</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xllfifo_8c.html">xllfifo.c</a>&gt;</code></p>
+
+<p>XLlFifo_iRead_Aligned reads, <em>WordCount</em>, words from the FIFO referenced by <em>InstancePtr</em> to the block of memory, referenced by <em>BufPtr</em>. </p>
+<p>XLlFifo_iRead_Aligned assumes that <em>BufPtr</em> is already aligned according to the following hardware limitations: ppc - aligned on 32 bit boundaries to avoid performance penalties from unaligned exception handling. microblaze - aligned on 32 bit boundaries as microblaze does not handle unaligned transfers.</p>
+<p>Care must be taken to ensure that the number of words read with one or more calls to <a class="el" href="group__llfifo__v5__0.html#gaadc3685592b060c0d864850e86be5c03" title="XLlFifo_Read reads Bytes bytes from the receive channel of the FIFO referenced by InstancePtr to the ...">XLlFifo_Read()</a> does not exceed the number of bytes (rounded up to the nearest whole 32 bit word) available given from the last call to <a class="el" href="group__llfifo__v5__0.html#ga53af32ae6901462cc8d6fb9adc04655e" title="XLlFifo_RxGetLen notifies the hardware that the program is ready to receive the next frame from the r...">XLlFifo_RxGetLen()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+    <tr><td class="paramname">BufPtr</td><td>specifies the memory address to place the data read.</td></tr>
+    <tr><td class="paramname">WordCount</td><td>specifies the number of 32 bit words to read.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLlFifo_iRead_Aligned always returns XST_SUCCESS. Error handling is otherwise handled through hardware exceptions and interrupts. </dd></dl>
+
+<p class="reference">References <a class="el" href="group__llfifo__v5__0.html#gaed3ae31c8c24f46139fbd709027329ec">XLlFifo_RxGetWord()</a>.</p>
+
+</div>
+</div>
+<a id="gaad292ddf2a2c9dde261b93da802c8080"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaad292ddf2a2c9dde261b93da802c8080">&#9670;&nbsp;</a></span>XLlFifo_iRxGetLen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XLlFifo_iRxGetLen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xllfifo_8c.html">xllfifo.c</a>&gt;</code></p>
+
+<p>XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO specified by <em>InstancePtr</em>. </p>
+<p>Note that the program must first call XLlFifo_iRxGetLen before pulling data out of the receive channel of the FIFO with XLlFifo_Read.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLlFifo_iRxGetLen returns the number of bytes available in the next frame. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_ll_fifo.html#a458030a162537427b617cbb204a701fd">XLlFifo::BaseAddress</a>, <a class="el" href="group__llfifo__v5__0.html#ga267285e6015808291ef6671038cba888">XLLF_RLF_OFFSET</a>, and <a class="el" href="group__llfifo__v5__0.html#ga7526eab563fa4e0fe8b60474e96afe55">XLlFifo_ReadReg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="xllfifo__polling__example_8c.html#adec078eff87ae9f74e6bbe52d29db16e">RxReceive()</a>.</p>
+
+</div>
+</div>
+<a id="gaa49ecc1529434fd932d8a65d63a1a04d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa49ecc1529434fd932d8a65d63a1a04d">&#9670;&nbsp;</a></span>XLlFifo_iTxSetLen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XLlFifo_iTxSetLen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Bytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xllfifo_8c.html">xllfifo.c</a>&gt;</code></p>
+
+<p>XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit channel of the FIFO, specified by <em>InstancePtr</em>. </p>
+<p><em>Bytes</em> specifies the number of bytes in the frame to transmit.</p>
+<p>Note that <em>Bytes</em> (rounded up to the nearest whole 32 bit word) must be same number of words just written using one or more calls to <a class="el" href="group__llfifo__v5__0.html#ga9be5556d593980195e43a31ffb37e0fe" title="XLlFifo_iWrite_Aligned writes, WordCount, words to the FIFO referenced by InstancePtr from the block ...">XLlFifo_iWrite_Aligned()</a></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+    <tr><td class="paramname">Bytes</td><td>specifies the number of bytes to transmit.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>N/A </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_ll_fifo.html#a458030a162537427b617cbb204a701fd">XLlFifo::BaseAddress</a>, <a class="el" href="group__llfifo__v5__0.html#gac14e6d7e1116f9a43c0adfbe93422fa7">XLLF_TLF_OFFSET</a>, and <a class="el" href="group__llfifo__v5__0.html#gacd283ce73981f7f9eab94f8bb421bc78">XLlFifo_WriteReg</a>.</p>
+
+</div>
+</div>
+<a id="gac02405b23499d780e7bc1dfe371281a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac02405b23499d780e7bc1dfe371281a6">&#9670;&nbsp;</a></span>XLlFifo_iTxVacancy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XLlFifo_iTxVacancy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xllfifo_8c.html">xllfifo.c</a>&gt;</code></p>
+
+<p>XLlFifo_iTxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel of the FIFO, specified by <em>InstancePtr</em>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLlFifo_iTxVacancy returns the vacancy count in 32-bit words for the specified FIFO. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_ll_fifo.html#a458030a162537427b617cbb204a701fd">XLlFifo::BaseAddress</a>, <a class="el" href="group__llfifo__v5__0.html#gab77ae26c2fe9b0ac15ebdbf0c6c30960">XLLF_TDFV_OFFSET</a>, and <a class="el" href="group__llfifo__v5__0.html#ga7526eab563fa4e0fe8b60474e96afe55">XLlFifo_ReadReg</a>.</p>
+
+</div>
+</div>
+<a id="ga9be5556d593980195e43a31ffb37e0fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9be5556d593980195e43a31ffb37e0fe">&#9670;&nbsp;</a></span>XLlFifo_iWrite_Aligned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XLlFifo_iWrite_Aligned </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>BufPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>WordCount</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xllfifo_8c.html">xllfifo.c</a>&gt;</code></p>
+
+<p>XLlFifo_iWrite_Aligned writes, <em>WordCount</em>, words to the FIFO referenced by <em>InstancePtr</em> from the block of memory, referenced by <em>BufPtr</em>. </p>
+<p>XLlFifo_iWrite_Aligned assumes that <em>BufPtr</em> is already aligned according to the following hardware limitations: ppc - aligned on 32 bit boundaries to avoid performance penalties from unaligned exception handling. microblaze - aligned on 32 bit boundaries as microblaze does not handle unaligned transfers.</p>
+<p>Care must be taken to ensure that the number of words written with one or more calls to <a class="el" href="group__llfifo__v5__0.html#ga9be5556d593980195e43a31ffb37e0fe" title="XLlFifo_iWrite_Aligned writes, WordCount, words to the FIFO referenced by InstancePtr from the block ...">XLlFifo_iWrite_Aligned()</a> matches the number of bytes (rounded up to the nearest whole 32 bit word) given in the next call to <a class="el" href="group__llfifo__v5__0.html#gaa49ecc1529434fd932d8a65d63a1a04d" title="XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit channel of the FIFO...">XLlFifo_iTxSetLen()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+    <tr><td class="paramname">BufPtr</td><td>specifies the memory address to place the data read.</td></tr>
+    <tr><td class="paramname">WordCount</td><td>specifies the number of 32 bit words to read.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLlFifo_iWrite_Aligned always returns XST_SUCCESS. Error handling is otherwise handled through hardware exceptions and interrupts.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd></dd></dl>
+<p>C Signature: int XLlFifo_iWrite_Aligned(<a class="el" href="struct_x_ll_fifo.html" title="This typedef defines a run-time instance of an XLlFifo device. ">XLlFifo</a> *InstancePtr, void *BufPtr, unsigned WordCount); </p>
+
+<p class="reference">References <a class="el" href="group__llfifo__v5__0.html#ga29654d755dce84b861022179c99ca7a3">XLlFifo_TxPutWord()</a>.</p>
+
+</div>
+</div>
+<a id="gaed3ae31c8c24f46139fbd709027329ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaed3ae31c8c24f46139fbd709027329ec">&#9670;&nbsp;</a></span>XLlFifo_RxGetWord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XLlFifo_RxGetWord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xllfifo_8c.html">xllfifo.c</a>&gt;</code></p>
+
+<p>XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by <em>InstancePtr</em>. </p>
+<p>XLlFifo_RxGetLen or XLlFifo_iRxGetLen must be called before calling XLlFifo_RxGetWord. Otherwise, the hardware will raise an <em>Over Read Exception</em>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XLlFifo_RxGetWord returns the 32 bit word read from the FIFO.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__llfifo__v5__0.html#gaed3ae31c8c24f46139fbd709027329ec" title="XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by InstancePtr. ">XLlFifo_RxGetWord(XLlFifo *InstancePtr)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_ll_fifo.html#a9e2342496ea8183c012567d7c89851b3">XLlFifo::Datainterface</a>, <a class="el" href="group__llfifo__v5__0.html#ga256c51f97ca57cc89c9b51449f3601e1">XLLF_AXI4_RDFD_OFFSET</a>, <a class="el" href="group__llfifo__v5__0.html#ga93e049a21e43548bf03161b4a4394440">XLLF_RDFD_OFFSET</a>, and <a class="el" href="group__llfifo__v5__0.html#ga7526eab563fa4e0fe8b60474e96afe55">XLlFifo_ReadReg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#ga18bc620d388cbca83d63cc1c6ef33225">XLlFifo_iRead_Aligned()</a>.</p>
+
+</div>
+</div>
+<a id="ga29654d755dce84b861022179c99ca7a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga29654d755dce84b861022179c99ca7a3">&#9670;&nbsp;</a></span>XLlFifo_TxPutWord()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XLlFifo_TxPutWord </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_ll_fifo.html">XLlFifo</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Word</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xllfifo_8c.html">xllfifo.c</a>&gt;</code></p>
+
+<p>XLlFifo_TxPutWord writes the 32 bit word, <em>Word</em> to the FIFO specified by <em>InstancePtr</em>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate. </td></tr>
+    <tr><td class="paramname">Word</td><td>is the data word to be written to FIFO.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>N/A</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__llfifo__v5__0.html#ga29654d755dce84b861022179c99ca7a3" title="XLlFifo_TxPutWord writes the 32 bit word, Word to the FIFO specified by InstancePtr. ">XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)</a> </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_ll_fifo.html#a9e2342496ea8183c012567d7c89851b3">XLlFifo::Datainterface</a>, <a class="el" href="group__llfifo__v5__0.html#ga7a72ef43b9e2ca7e28a9e939012f1044">XLLF_AXI4_TDFD_OFFSET</a>, <a class="el" href="group__llfifo__v5__0.html#gaeca8c86badc0df67426442f9bb6a5195">XLLF_TDFD_OFFSET</a>, and <a class="el" href="group__llfifo__v5__0.html#gacd283ce73981f7f9eab94f8bb421bc78">XLlFifo_WriteReg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="group__llfifo__v5__0.html#ga9be5556d593980195e43a31ffb37e0fe">XLlFifo_iWrite_Aligned()</a>.</p>
+
+</div>
+</div>
+<a id="ga915d68a9cce0f2464fc7644383cb887a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga915d68a9cce0f2464fc7644383cb887a">&#9670;&nbsp;</a></span>XStrm_Read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XStrm_Read </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>BufPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>Bytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xstreamer_8c.html">xstreamer.c</a>&gt;</code></p>
+
+<p>XStrm_Read reads <em>Bytes</em> bytes from the FIFO specified by <em>InstancePtr</em> to the block of memory, referenced by <em>BufPtr</em>. </p>
+<p>Care must be taken to ensure that the number of bytes read with one or more calls to <a class="el" href="group__llfifo__v5__0.html#ga915d68a9cce0f2464fc7644383cb887a" title="XStrm_Read reads Bytes bytes from the FIFO specified by InstancePtr to the block of memory...">XStrm_Read()</a> does not exceed the number of bytes available given from the last call to <a class="el" href="group__llfifo__v5__0.html#ga479d2eb3193ad0a5efc3c3b432a78381" title="XStrm_RxGetLen notifies the hardware that the program is ready to receive the next frame from the rec...">XStrm_RxGetLen()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+    <tr><td class="paramname">BufPtr</td><td>specifies the memory address to place the data read.</td></tr>
+    <tr><td class="paramname">Bytes</td><td>specifies the number of bytes to read.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>N/A </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_strm___rx_fifo_streamer.html#a3ad4cdd1ad14dcecfaf5f923850289fb">XStrm_RxFifoStreamer::FifoWidth</a>, and <a class="el" href="struct_x_strm___rx_fifo_streamer.html#a6321ab6bf1a1f3979c0771618a4aba7c">XStrm_RxFifoStreamer::HeadIndex</a>.</p>
+
+</div>
+</div>
+<a id="ga479d2eb3193ad0a5efc3c3b432a78381"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga479d2eb3193ad0a5efc3c3b432a78381">&#9670;&nbsp;</a></span>XStrm_RxGetLen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XStrm_RxGetLen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_strm___rx_fifo_streamer.html">XStrm_RxFifoStreamer</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xstreamer_8c.html">xstreamer.c</a>&gt;</code></p>
+
+<p>XStrm_RxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO, specified by <em>InstancePtr</em>. </p>
+<p>Note that the program must first call XStrm_RxGetLen before pulling data out of the receive channel of the FIFO with XStrm_Read.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XStrm_RxGetLen returns the number of bytes available in the next frame. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_strm___rx_fifo_streamer.html#ab278ceaef035943f8a3a8b85a8cab99d">XStrm_RxFifoStreamer::FifoInstance</a>, <a class="el" href="struct_x_strm___rx_fifo_streamer.html#a3ad4cdd1ad14dcecfaf5f923850289fb">XStrm_RxFifoStreamer::FifoWidth</a>, <a class="el" href="struct_x_strm___rx_fifo_streamer.html#a9fa74d02f4fa2607e78b11de059be837">XStrm_RxFifoStreamer::FrmByteCnt</a>, <a class="el" href="struct_x_strm___rx_fifo_streamer.html#a01fa1cc2098388ac9371beb090c0c212">XStrm_RxFifoStreamer::GetLenFn</a>, and <a class="el" href="struct_x_strm___rx_fifo_streamer.html#a6321ab6bf1a1f3979c0771618a4aba7c">XStrm_RxFifoStreamer::HeadIndex</a>.</p>
+
+</div>
+</div>
+<a id="ga8a67c77f811a505b658e06642eb9c964"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a67c77f811a505b658e06642eb9c964">&#9670;&nbsp;</a></span>XStrm_TxInitialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XStrm_TxInitialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>FifoWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>FifoInstance</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XStrm_XferFnType&#160;</td>
+          <td class="paramname"><em>WriteFn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XStrm_SetLenFnType&#160;</td>
+          <td class="paramname"><em>SetLenFn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XStrm_GetVacancyFnType&#160;</td>
+          <td class="paramname"><em>GetVacancyFn</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xstreamer_8c.html">xstreamer.c</a>&gt;</code></p>
+
+<p>XStrm_TxInitialize initializes the <a class="el" href="struct_x_strm___tx_fifo_streamer.html" title="This typedef defines a run-time instance of a transmit byte-streamer. ">XStrm_TxFifoStreamer</a> object referenced by <em>InstancePtr</em>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the tx streamer on which to operate.</td></tr>
+    <tr><td class="paramname">FifoWidth</td><td>specifies the FIFO keyhole size in bytes.</td></tr>
+    <tr><td class="paramname">FifoInstance</td><td>references the FIFO driver instance that this streamer object should use to transfer data into the the actual fifo.</td></tr>
+    <tr><td class="paramname">WriteFn</td><td>specifies a routine to use to write data into the actual FIFO. It is assumed that this write routine will handle only writes from an aligned buffer. (Otherwise, why are we using this streamer driver?)</td></tr>
+    <tr><td class="paramname">SetLenFn</td><td>specifies a routine to use to initiate a transmit on the actual FIFO.</td></tr>
+    <tr><td class="paramname">GetVacancyFn</td><td>specifies a routine to use to retrieve the vacancy in the actual FIFO. The true vacancy value needs to come through this streamer driver becuase it holds some of the bytes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>N/A </dd></dl>
+
+</div>
+</div>
+<a id="ga1e99fb51e0cfab7d0e8de5e93c27fd9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1e99fb51e0cfab7d0e8de5e93c27fd9c">&#9670;&nbsp;</a></span>XStrm_TxSetLen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XStrm_TxSetLen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Bytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xstreamer_8c.html">xstreamer.c</a>&gt;</code></p>
+
+<p>XStrm_TxSetLen flushes to the FIFO, specified by <em>InstancePtr</em>, any bytes remaining in internal buffers and begins a hardware transfer of data out of the transmit channel of the FIFO. </p>
+<p><em>Bytes</em> specifies the number of bytes in the frame to transmit.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO Streamer on which to operate.</td></tr>
+    <tr><td class="paramname">Bytes</td><td>specifies the frame length in bytes.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>N/A </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_strm___tx_fifo_streamer.html#ac20fde8a3090fddfc01f8b2900fd9051">XStrm_TxFifoStreamer::FifoInstance</a>, <a class="el" href="struct_x_strm___tx_fifo_streamer.html#a265500391a387c5354a14fea79a1b446">XStrm_TxFifoStreamer::TailIndex</a>, and <a class="el" href="struct_x_strm___tx_fifo_streamer.html#abaed83d1259485a6deadbf4644b0be1b">XStrm_TxFifoStreamer::WriteFn</a>.</p>
+
+</div>
+</div>
+<a id="ga1f43ea833af99162745ceef66849b666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1f43ea833af99162745ceef66849b666">&#9670;&nbsp;</a></span>XStrm_Write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XStrm_Write </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_strm___tx_fifo_streamer.html">XStrm_TxFifoStreamer</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>BufPtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>Bytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xstreamer_8c.html">xstreamer.c</a>&gt;</code></p>
+
+<p>XStrm_Write writes <em>Bytes</em> bytes of the block of memory, referenced by <em>BufPtr</em>, to the transmit channel of the FIFO referenced by <em>InstancePtr</em>. </p>
+<p>Care must be taken to ensure that the number of bytes written with one or more calls to <a class="el" href="group__llfifo__v5__0.html#ga1f43ea833af99162745ceef66849b666" title="XStrm_Write writes Bytes bytes of the block of memory, referenced by BufPtr, to the transmit channel ...">XStrm_Write()</a> matches the number of bytes given in the next call to <a class="el" href="group__llfifo__v5__0.html#ga1e99fb51e0cfab7d0e8de5e93c27fd9c" title="XStrm_TxSetLen flushes to the FIFO, specified by InstancePtr, any bytes remaining in internal buffers...">XStrm_TxSetLen()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>references the FIFO on which to operate.</td></tr>
+    <tr><td class="paramname">BufPtr</td><td>specifies the memory address of data to write.</td></tr>
+    <tr><td class="paramname">Bytes</td><td>specifies the number of bytes to write.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>N/A </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_strm___tx_fifo_streamer.html#ac20fde8a3090fddfc01f8b2900fd9051">XStrm_TxFifoStreamer::FifoInstance</a>, <a class="el" href="struct_x_strm___tx_fifo_streamer.html#a474cf91d66d43f716a34299d4ab9b9b2">XStrm_TxFifoStreamer::FifoWidth</a>, <a class="el" href="struct_x_strm___tx_fifo_streamer.html#a265500391a387c5354a14fea79a1b446">XStrm_TxFifoStreamer::TailIndex</a>, and <a class="el" href="struct_x_strm___tx_fifo_streamer.html#abaed83d1259485a6deadbf4644b0be1b">XStrm_TxFifoStreamer::WriteFn</a>.</p>
 
 </div>
 </div>

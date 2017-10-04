@@ -10,5 +10,5 @@ var xqspips__g128__flash__example_8c =
     [ "main", "xqspips__g128__flash__example_8c.html#a840291bc02cba5474a4cb46a9b9566fe", null ],
     [ "QspiG128FlashExample", "xqspips__g128__flash__example_8c.html#a124f20a4738c2c9c86d92590dab986e3", null ],
     [ "SendBankSelect", "xqspips__g128__flash__example_8c.html#a0f034b18fdbb5e1217e3aa862ec91cf0", null ],
-    [ "Flash_Config_Table", "xqspips__g128__flash__example_8c.html#a08cf94161206c9bc84acacef5e504e38", null ]
+    [ "Flash_Config_Table", "xqspips__g128__flash__example_8c.html#a3542e5a3c9c7b059411efb09e844f62e", null ]
 ];

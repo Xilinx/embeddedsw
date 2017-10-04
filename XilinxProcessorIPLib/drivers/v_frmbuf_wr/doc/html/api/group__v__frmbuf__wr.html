@@ -118,6 +118,12 @@ Macros</h2></td></tr>
 <tr class="memitem:gaf1770374c9e79b957c4c5da9985ddca1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gaf1770374c9e79b957c4c5da9985ddca1">XVFrmbufWr_IsY10Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.Y10En)</td></tr>
 <tr class="memdesc:gaf1770374c9e79b957c4c5da9985ddca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format Y10 is available.  <a href="#gaf1770374c9e79b957c4c5da9985ddca1">More...</a><br /></td></tr>
 <tr class="separator:gaf1770374c9e79b957c4c5da9985ddca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbb8fda38bfa532d79d357c930fbd710"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gacbb8fda38bfa532d79d357c930fbd710">XVFrmbufWr_IsBGRX8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.BGRX8En)</td></tr>
+<tr class="memdesc:gacbb8fda38bfa532d79d357c930fbd710"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format BGRX8 is available.  <a href="#gacbb8fda38bfa532d79d357c930fbd710">More...</a><br /></td></tr>
+<tr class="separator:gacbb8fda38bfa532d79d357c930fbd710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga914c6863bc6772d35dbb8e706f9135b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga914c6863bc6772d35dbb8e706f9135b7">XVFrmbufWr_IsUYVY8Enabled</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.UYVY8En)</td></tr>
+<tr class="memdesc:ga914c6863bc6772d35dbb8e706f9135b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns if Video Format UYVY8 is available.  <a href="#ga914c6863bc6772d35dbb8e706f9135b7">More...</a><br /></td></tr>
+<tr class="separator:ga914c6863bc6772d35dbb8e706f9135b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -157,6 +163,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gafd87229d20fa2601db7c527f10d4425f"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gafd87229d20fa2601db7c527f10d4425f">XVFrmbufWr_GetBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
 <tr class="memdesc:gafd87229d20fa2601db7c527f10d4425f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the buffer address.  <a href="#gafd87229d20fa2601db7c527f10d4425f">More...</a><br /></td></tr>
 <tr class="separator:gafd87229d20fa2601db7c527f10d4425f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae3ad3f1fa2f369041d8e9ab7683a05b0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gae3ad3f1fa2f369041d8e9ab7683a05b0">XVFrmbufWr_SetChromaBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr, UINTPTR Addr)</td></tr>
+<tr class="memdesc:gae3ad3f1fa2f369041d8e9ab7683a05b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function sets the buffer address for the UV plane for semi-planar formats.  <a href="#gae3ad3f1fa2f369041d8e9ab7683a05b0">More...</a><br /></td></tr>
+<tr class="separator:gae3ad3f1fa2f369041d8e9ab7683a05b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaeea208892ad56d1c83915b753f15d6f3"><td class="memItemLeft" align="right" valign="top">UINTPTR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#gaeea208892ad56d1c83915b753f15d6f3">XVFrmbufWr_GetChromaBufferAddr</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gaeea208892ad56d1c83915b753f15d6f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reads the buffer address for the UV plane for semi-planar formats.  <a href="#gaeea208892ad56d1c83915b753f15d6f3">More...</a><br /></td></tr>
+<tr class="separator:gaeea208892ad56d1c83915b753f15d6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7aa0fd061e4c759a245ec57b551d8d21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__v__frmbuf__wr.html#ga7aa0fd061e4c759a245ec57b551d8d21">XVFrmbufWr_DbgReportStatus</a> (<a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *InstancePtr)</td></tr>
 <tr class="memdesc:ga7aa0fd061e4c759a245ec57b551d8d21"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function reports the frame buffer write status.  <a href="#ga7aa0fd061e4c759a245ec57b551d8d21">More...</a><br /></td></tr>
 <tr class="separator:ga7aa0fd061e4c759a245ec57b551d8d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,6 +180,36 @@ Functions</h2></td></tr>
 <tr class="separator:ga2dda5edc0f537afe14160ec992c617b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="gacbb8fda38bfa532d79d357c930fbd710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacbb8fda38bfa532d79d357c930fbd710">&#9670;&nbsp;</a></span>XVFrmbufWr_IsBGRX8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsBGRX8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.BGRX8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xv__frmbufwr__l2_8h.html">xv_frmbufwr_l2.h</a>&gt;</code></p>
+
+<p>This macro returns if Video Format BGRX8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 <a id="gae801db647299b33a32690e944c71144c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gae801db647299b33a32690e944c71144c">&#9670;&nbsp;</a></span>XVFrmbufWr_IsRGB8Enabled</h2>
 
@@ -247,6 +289,36 @@ Functions</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xv__frmbufwr__l2_8h.html">xv_frmbufwr_l2.h</a>&gt;</code></p>
 
 <p>This macro returns if Video Format RGBX8 is available. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Enabled(1)/Disabled(0)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="ga914c6863bc6772d35dbb8e706f9135b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga914c6863bc6772d35dbb8e706f9135b7">&#9670;&nbsp;</a></span>XVFrmbufWr_IsUYVY8Enabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XVFrmbufWr_IsUYVY8Enabled</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;((InstancePtr)-&gt;FrmbufWr.Config.UYVY8En)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xv__frmbufwr__l2_8h.html">xv_frmbufwr_l2.h</a>&gt;</code></p>
+
+<p>This macro returns if Video Format UYVY8 is available. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the core instance.</td></tr>
@@ -645,7 +717,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>none</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>none </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v__frmbufwr___config.html#a2d873c1229a4efdfb3b132febf4e6054">XV_frmbufwr_Config::AXIMMDataWidth</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#aeb8502aaff6a176ce7e341aaee9d9e5b">XV_frmbufwr_Config::BaseAddress</a>, <a class="el" href="struct_x_v__frmbufwr.html#ac6a008e283f98889377df951199c4a5b">XV_frmbufwr::Config</a>, <a class="el" href="struct_x_v___frmbuf_wr__l2.html#a82fac99cfaebc558120fd4b5060fc146">XV_FrmbufWr_l2::FrmbufWr</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a55eb9329a50385463b2ffee562d7a412">XV_frmbufwr_Config::MaxDataWidth</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a067ead64f4f249d893081d4626bdb7a1">XV_frmbufwr_Config::PixPerClk</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a4a70d8a48b279f47454c31ace3d98537">XV_frmbufwr_Config::RGB8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#acc0d8d95810220131ae2fd05bfea510b">XV_frmbufwr_Config::RGBX10En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#ac548249d4fb2d38cbeb7ed827ea0406b">XV_frmbufwr_Config::RGBX8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a484d8c15d711cbdfb6e6300b30cd86ac">XV_frmbufwr_Config::Y10En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#abb9d8670bacdb461826280d4b4d0ca58">XV_frmbufwr_Config::Y8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a6343b4718c758a936f88260b75fdb9d8">XV_frmbufwr_Config::Y_UV10_420En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a5651ac036c199d567fbfc959b45ab851">XV_frmbufwr_Config::Y_UV10En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a572639ec51d3fa31d68db3b6858efb58">XV_frmbufwr_Config::Y_UV8_420En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a7097af5d0a0ccade82a0b46390a58e90">XV_frmbufwr_Config::Y_UV8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#af3f6c4be98b97d0eccc8e369ffc7a075">XV_frmbufwr_Config::YUV8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a11846c69aa1f47eb12feca413f52b4d4">XV_frmbufwr_Config::YUVX10En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#ac748ffbcfd0366d78166463be3da9d25">XV_frmbufwr_Config::YUVX8En</a>, and <a class="el" href="struct_x_v__frmbufwr___config.html#aa5956711c68040c3aefe3ad6bfda14f7">XV_frmbufwr_Config::YUYV8En</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v__frmbufwr___config.html#a2d873c1229a4efdfb3b132febf4e6054">XV_frmbufwr_Config::AXIMMDataWidth</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#aeb8502aaff6a176ce7e341aaee9d9e5b">XV_frmbufwr_Config::BaseAddress</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#affabcb9afaae10e168f41c86bb65a5e4">XV_frmbufwr_Config::BGRX8En</a>, <a class="el" href="struct_x_v__frmbufwr.html#ac6a008e283f98889377df951199c4a5b">XV_frmbufwr::Config</a>, <a class="el" href="struct_x_v___frmbuf_wr__l2.html#a82fac99cfaebc558120fd4b5060fc146">XV_FrmbufWr_l2::FrmbufWr</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a55eb9329a50385463b2ffee562d7a412">XV_frmbufwr_Config::MaxDataWidth</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a067ead64f4f249d893081d4626bdb7a1">XV_frmbufwr_Config::PixPerClk</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a4a70d8a48b279f47454c31ace3d98537">XV_frmbufwr_Config::RGB8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#acc0d8d95810220131ae2fd05bfea510b">XV_frmbufwr_Config::RGBX10En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#ac548249d4fb2d38cbeb7ed827ea0406b">XV_frmbufwr_Config::RGBX8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a5fb22c767589f7ac9907658e794410bd">XV_frmbufwr_Config::UYVY8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a484d8c15d711cbdfb6e6300b30cd86ac">XV_frmbufwr_Config::Y10En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#abb9d8670bacdb461826280d4b4d0ca58">XV_frmbufwr_Config::Y8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a6343b4718c758a936f88260b75fdb9d8">XV_frmbufwr_Config::Y_UV10_420En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a5651ac036c199d567fbfc959b45ab851">XV_frmbufwr_Config::Y_UV10En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a572639ec51d3fa31d68db3b6858efb58">XV_frmbufwr_Config::Y_UV8_420En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a7097af5d0a0ccade82a0b46390a58e90">XV_frmbufwr_Config::Y_UV8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#af3f6c4be98b97d0eccc8e369ffc7a075">XV_frmbufwr_Config::YUV8En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#a11846c69aa1f47eb12feca413f52b4d4">XV_frmbufwr_Config::YUVX10En</a>, <a class="el" href="struct_x_v__frmbufwr___config.html#ac748ffbcfd0366d78166463be3da9d25">XV_frmbufwr_Config::YUVX8En</a>, and <a class="el" href="struct_x_v__frmbufwr___config.html#aa5956711c68040c3aefe3ad6bfda14f7">XV_frmbufwr_Config::YUYV8En</a>.</p>
 
 </div>
 </div>
@@ -668,6 +740,37 @@ Functions</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xv__frmbufwr__l2_8c.html">xv_frmbufwr_l2.c</a>&gt;</code></p>
 
 <p>This function reads the buffer address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to core instance to be worked upon</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Address of buffer in memory </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___frmbuf_wr__l2.html#a82fac99cfaebc558120fd4b5060fc146">XV_FrmbufWr_l2::FrmbufWr</a>.</p>
+
+</div>
+</div>
+<a id="gaeea208892ad56d1c83915b753f15d6f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaeea208892ad56d1c83915b753f15d6f3">&#9670;&nbsp;</a></span>XVFrmbufWr_GetChromaBufferAddr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">UINTPTR XVFrmbufWr_GetChromaBufferAddr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xv__frmbufwr__l2_8c.html">xv_frmbufwr_l2.c</a>&gt;</code></p>
+
+<p>This function reads the buffer address for the UV plane for semi-planar formats. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to core instance to be worked upon</td></tr>
@@ -938,6 +1041,48 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>Invoking this function for a handler that already has been installed replaces it with the new handler. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___frmbuf_wr__l2.html#a27ceabff8f606a17691e1be5b7f567ed">XV_FrmbufWr_l2::CallbackRef</a>, and <a class="el" href="struct_x_v___frmbuf_wr__l2.html#a5ded8485566f62544d2a15261c691a8e">XV_FrmbufWr_l2::FrameDoneCallback</a>.</p>
+
+</div>
+</div>
+<a id="gae3ad3f1fa2f369041d8e9ab7683a05b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae3ad3f1fa2f369041d8e9ab7683a05b0">&#9670;&nbsp;</a></span>XVFrmbufWr_SetChromaBufferAddr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int XVFrmbufWr_SetChromaBufferAddr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___frmbuf_wr__l2.html">XV_FrmbufWr_l2</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UINTPTR&#160;</td>
+          <td class="paramname"><em>Addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xv__frmbufwr__l2_8c.html">xv_frmbufwr_l2.c</a>&gt;</code></p>
+
+<p>This function sets the buffer address for the UV plane for semi-planar formats. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to core instance to be worked upon </td></tr>
+    <tr><td class="paramname">Addr</td><td>is the absolute address of buffer in memory</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS or XST_FAILURE </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v__frmbufwr.html#ac6a008e283f98889377df951199c4a5b">XV_frmbufwr::Config</a>, <a class="el" href="struct_x_v___frmbuf_wr__l2.html#a82fac99cfaebc558120fd4b5060fc146">XV_FrmbufWr_l2::FrmbufWr</a>, and <a class="el" href="struct_x_v__frmbufwr___config.html#a067ead64f4f249d893081d4626bdb7a1">XV_frmbufwr_Config::PixPerClk</a>.</p>
 
 </div>
 </div>

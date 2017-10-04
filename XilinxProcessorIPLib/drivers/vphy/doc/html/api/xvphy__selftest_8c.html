@@ -79,46 +79,10 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a772c4c6e8f106de408926972cb2443f2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xvphy__selftest_8c.html#a772c4c6e8f106de408926972cb2443f2">XVphy_SelfTest</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr)</td></tr>
-<tr class="memdesc:a772c4c6e8f106de408926972cb2443f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> driver/device.  <a href="#a772c4c6e8f106de408926972cb2443f2">More...</a><br /></td></tr>
-<tr class="separator:a772c4c6e8f106de408926972cb2443f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga772c4c6e8f106de408926972cb2443f2"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__xvphy.html#ga772c4c6e8f106de408926972cb2443f2">XVphy_SelfTest</a> (<a class="el" href="struct_x_vphy.html">XVphy</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ga772c4c6e8f106de408926972cb2443f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function runs a self-test on the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> driver/device.  <a href="group__xvphy.html#ga772c4c6e8f106de408926972cb2443f2">More...</a><br /></td></tr>
+<tr class="separator:ga772c4c6e8f106de408926972cb2443f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a772c4c6e8f106de408926972cb2443f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a772c4c6e8f106de408926972cb2443f2">&#9670;&nbsp;</a></span>XVphy_SelfTest()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">u32 XVphy_SelfTest </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_x_vphy.html">XVphy</a> *&#160;</td>
-          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>This function runs a self-test on the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> driver/device. </p>
-<p>The sanity test checks whether or not all tested registers hold their default reset values.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS if the self-test passed - all tested registers hold their default reset values.</li>
-<li>XST_FAILURE otherwise.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-<p class="reference">References <a class="el" href="struct_x_vphy___config.html#a37ebb950e78d0d9bedc29b27ad6619d3">XVphy_Config::BaseAddr</a>, <a class="el" href="struct_x_vphy.html#a45ad21128fb62d2f120e92ae3488c32c">XVphy::Config</a>, and <a class="el" href="xvphy__hw_8h.html#a4efa6fb68e702bd91a3fb099d7ba0188">XVphy_ReadReg</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

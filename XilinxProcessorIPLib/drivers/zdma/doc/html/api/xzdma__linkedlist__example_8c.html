@@ -79,6 +79,7 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who     Date     Changes
       ms      04/05/17 Modified comment lines notation in functions to
                        avoid unnecessary description to get displayed
                        while generating doxygen.
+1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -112,10 +113,10 @@ Variables</h2></td></tr>
 <tr class="memitem:aac9b9dd3f01c78843949f1b0dd37b80c"><td class="memItemLeft" align="right" valign="top">XScuGic&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xzdma__linkedlist__example_8c.html#aac9b9dd3f01c78843949f1b0dd37b80c">Intc</a></td></tr>
 <tr class="memdesc:aac9b9dd3f01c78843949f1b0dd37b80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">XIntc Instance.  <a href="#aac9b9dd3f01c78843949f1b0dd37b80c">More...</a><br /></td></tr>
 <tr class="separator:aac9b9dd3f01c78843949f1b0dd37b80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59e16903c7e3357c0940580da9d6a134"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xzdma__linkedlist__example_8c.html#a59e16903c7e3357c0940580da9d6a134">Src1Buf</a> = (u32 *)0x500000</td></tr>
+<tr class="memitem:a59e16903c7e3357c0940580da9d6a134"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xzdma__linkedlist__example_8c.html#a59e16903c7e3357c0940580da9d6a134">Src1Buf</a> = (u32 *)0x40500000</td></tr>
 <tr class="memdesc:a59e16903c7e3357c0940580da9d6a134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source buffer.  <a href="#a59e16903c7e3357c0940580da9d6a134">More...</a><br /></td></tr>
 <tr class="separator:a59e16903c7e3357c0940580da9d6a134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accf4b73055cc1729903dce40f5a3ca8e"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xzdma__linkedlist__example_8c.html#accf4b73055cc1729903dce40f5a3ca8e">Dst1Buf</a> = (u32 *)0x800000</td></tr>
+<tr class="memitem:accf4b73055cc1729903dce40f5a3ca8e"><td class="memItemLeft" align="right" valign="top">u32 *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xzdma__linkedlist__example_8c.html#accf4b73055cc1729903dce40f5a3ca8e">Dst1Buf</a> = (u32 *)0x40800000</td></tr>
 <tr class="memdesc:accf4b73055cc1729903dce40f5a3ca8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destination buffer.  <a href="#accf4b73055cc1729903dce40f5a3ca8e">More...</a><br /></td></tr>
 <tr class="separator:accf4b73055cc1729903dce40f5a3ca8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -261,7 +262,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 Dst1Buf = (u32 *)0x800000</td>
+          <td class="memname">u32 Dst1Buf = (u32 *)0x40800000</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -293,7 +294,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u32 Src1Buf = (u32 *)0x500000</td>
+          <td class="memname">u32 Src1Buf = (u32 *)0x40500000</td>
         </tr>
       </table>
 </div><div class="memdoc">

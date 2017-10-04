@@ -21,8 +21,9 @@ var NAVTREE =
       [ "xaxidma_example_sg_poll.c", "example.html#ex3", null ],
       [ "xaxidma_example_simple_intr.c", "example.html#ex4", null ],
       [ "xaxidma_example_simple_poll.c", "example.html#ex5", null ],
-      [ "xaxidma_multichan_sg_intr.c", "example.html#ex6", null ],
-      [ "xaxidma_poll_multi_pkts.c", "example.html#ex7", null ]
+      [ "xaxidma_example_multichan_sg_intr.c", "example.html#ex6", null ],
+      [ "xaxidma_example_poll_multi_pkts.c", "example.html#ex7", null ],
+      [ "xaxidma_example_sgcyclic_intr.c", "example.html#ex8", null ]
     ] ]
   ] ]
 ];

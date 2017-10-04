@@ -89,6 +89,16 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                       6. Update to check return status of DDC read/write.
                       7. Fixed compiler warnings.
 2.20  MH     04/12/17 Added function XHdcp22Tx_IsDwnstrmCapable.
+2.30  MH     07/06/17 1. Updated for 64 bit ARM support.
+                      2. Added HDCP2Capable check for re-authentication
+                      3. Update cipher enablement
+                      4. Fix in XHdcp22Tx_WaitForReceiver to poll RxStatus
+                         based on fixed interval.
+                      5. Fix in XHdcp22Tx_WaitForReceiver to wait for READY
+                         and non-zero Message_Size before reading message
+                         buffer.
+                      6. Check return status of DDC write/read when polling
+                         RxStatus register.
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

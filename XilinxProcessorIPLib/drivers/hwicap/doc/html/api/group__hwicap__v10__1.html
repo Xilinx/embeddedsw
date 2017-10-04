@@ -1992,7 +1992,7 @@ Status Register (SR)</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhwicap_8c.html">xhwicap.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhwicap_8h.html">xhwicap.h</a>&gt;</code></p>
 
 <p>This function initiates the Abort Sequence by setting the Abort bit in the control register. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -2040,7 +2040,7 @@ Status Register (SR)</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhwicap_8c.html">xhwicap.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhwicap_8h.html">xhwicap.h</a>&gt;</code></p>
 
 <p>This function initializes a specific <a class="el" href="struct_x_hw_icap.html" title="The XHwIcap driver instance data. ">XHwIcap</a> instance. </p>
 <p>The IDCODE is read from the FPGA and based on the IDCODE the information about the resources in the FPGA is filled in the instance structure.</p>
@@ -2157,7 +2157,7 @@ Status Register (SR)</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhwicap_8c.html">xhwicap.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhwicap_8h.html">xhwicap.h</a>&gt;</code></p>
 
 <p>This function reads the specified number of words from the ICAP device in the polled mode. </p>
 <p>Interrupt mode is not supported in reading data from the ICAP device.</p>
@@ -2288,7 +2288,7 @@ Status Register (SR)</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhwicap_8c.html">xhwicap.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhwicap_8h.html">xhwicap.h</a>&gt;</code></p>
 
 <p>This function writes the given user data to the Write FIFO in both the polled mode and the interrupt mode and starts the transfer of the data to the ICAP device. </p>
 <p>In the polled mode, this function will write the specified number of words into the FIFO before returning.</p>
@@ -2303,7 +2303,6 @@ Status Register (SR)</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS or XST_FAILURE</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function is a blocking for the polled mode of operation and is non-blocking for the interrupt mode of operation. Use the function XHwIcap_DeviceWriteFrame for writing a frame of data to the ICAP device. </dd></dl>
-<p>Icap Width of 32 does not use Fifo but declared to overcome compilation error. Size of 4 is used to overcome compiler warnings </p>
 
 <p class="reference">References <a class="el" href="struct_x_hw_icap___config.html#a6be849d17f51b639414cae9620f2dcd5">XHwIcap_Config::BaseAddress</a>, <a class="el" href="struct_x_hw_icap.html#aab0ffe813aa173907a53fbdfe62de599">XHwIcap::HwIcapConfig</a>, <a class="el" href="struct_x_hw_icap___config.html#a65bee38ed10f278be07d83822af3439d">XHwIcap_Config::IcapWidth</a>, <a class="el" href="struct_x_hw_icap.html#a1034ea22a5d2bb5a3eab6e5abe6a6423">XHwIcap::IsPolled</a>, <a class="el" href="struct_x_hw_icap.html#a7e038eb9c938aaedaf156b772fc4de0c">XHwIcap::IsReady</a>, <a class="el" href="struct_x_hw_icap.html#a6f6de856eedef3b63c0df360781984d6">XHwIcap::IsTransferInProgress</a>, <a class="el" href="struct_x_hw_icap.html#a6d23e949e46c1a0d88dd6ea065dc70c0">XHwIcap::RemainingWords</a>, <a class="el" href="struct_x_hw_icap.html#a694bf48b4c008d20e058cb5f610f35f5">XHwIcap::RequestedWords</a>, <a class="el" href="group__hwicap__v10__1.html#gad7d94ec59e14347684d309b0b6406ab2">XHI_CR_OFFSET</a>, <a class="el" href="group__hwicap__v10__1.html#gaef1da3487a4b5b56304445dd5892855b">XHI_CR_WRITE_MASK</a>, <a class="el" href="group__hwicap__v10__1.html#ga578d555615b032cd9675c91f60dfb2bd">XHwIcap_FifoWrite</a>, <a class="el" href="group__hwicap__v10__1.html#gada2fee3cdacf928be46488879f32bf8a">XHwIcap_GetWrFifoVacancy</a>, <a class="el" href="group__hwicap__v10__1.html#ga161e6cb1deac088c298c11c6400da295">XHwIcap_IntrClear</a>, <a class="el" href="group__hwicap__v10__1.html#ga9ea29151eef34461b2a964bba048c22f">XHwIcap_IntrGetStatus</a>, <a class="el" href="group__hwicap__v10__1.html#gad2dd5620c4ac7d9dee393f4e38446685">XHwIcap_IntrGlobalDisable</a>, <a class="el" href="group__hwicap__v10__1.html#gaa952277368fc2024057861071922661f">XHwIcap_IntrGlobalEnable</a>, <a class="el" href="group__hwicap__v10__1.html#gac1d1213b70d3c503aa0ccd27c0a57857">XHwIcap_IsDeviceBusy</a>, <a class="el" href="group__hwicap__v10__1.html#ga6515e336f30e4f6b3285035a7f939567">XHwIcap_IsTransferDone</a>, <a class="el" href="group__hwicap__v10__1.html#ga7061e53605486f268a5e2205828d5921">XHwIcap_ReadReg</a>, and <a class="el" href="group__hwicap__v10__1.html#gac688a85edeec278c8b0c88d00268e19e">XHwIcap_StartConfig</a>.</p>
 
@@ -2401,7 +2400,7 @@ Status Register (SR)</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhwicap_8c.html">xhwicap.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhwicap_8h.html">xhwicap.h</a>&gt;</code></p>
 
 <p>This function flushes the FIFOs in the device. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -2623,7 +2622,7 @@ Status Register (SR)</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xhwicap_8c.html">xhwicap.c</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xhwicap_8h.html">xhwicap.h</a>&gt;</code></p>
 
 <p>This function forces the software reset of the complete HWICAP device. </p>
 <p>All the registers will return to the default value and the FIFO is also flushed as a part of this software reset.</p>

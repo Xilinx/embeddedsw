@@ -57,6 +57,8 @@
 # 2.4   mus  01/24/17 Updated tcl to add "-Wall -Wextra" flags to extra compiler
 #                     flags for gcc.
 # 2.4   mus  02/20/17 Updated tcl to guard xparameters.h by protection macros
+# 2.5   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
+#                     parameter of cpu_cortexa9 in xparameters.h
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -170,9 +172,10 @@ proc xdefine_cortexa9_params {drvhandle} {
 	# Set CPU ID
 	#-----------
 	set id 0
+	set uSuffix "U"
 	foreach processor $lprocs {
 	    if {[string compare -nocase $processor $iname] == 0} {
-		puts $config_inc "#define XPAR_CPU_ID $id"
+		puts $config_inc "#define XPAR_CPU_ID $id$uSuffix"
 	    }
 	    incr id
 	}

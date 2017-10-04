@@ -36,6 +36,8 @@
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
 # 4.2      nsk    15/09/16 Updated device id for canonical define,
 #                          when there is more than one timer perpheral
+# 4.4      ms     04/18/17 Modified tcl file to add suffix U for all macros
+#                          definitions of tmrctr in xparameters.h
 ##############################################################################
 
 
@@ -59,11 +61,12 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
 
     # Handle special cases
     set arg "NUM_INSTANCES"
+    set uSuffix "U"
     set posn [lsearch -exact $args $arg]
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [common::get_property NAME $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]$uSuffix"
         set args [lreplace $args $posn $posn]
     }
 
@@ -96,7 +99,7 @@ proc xdefine_include_file {drv_handle file_name drv_string args} {
                 set value 0
             }
             set value [::hsi::utils::format_addr_string $value $arg]
-            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
+            puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value$uSuffix"
         }
         puts $file_handle ""
     }
@@ -165,7 +168,8 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                     set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
                 }
 
-                puts $file_handle "#define $lvalue $rvalue"
+		set uSuffix [xdefine_getSuffix $lvalue $rvalue]
+                puts $file_handle "#define $lvalue $rvalue$uSuffix"
             }
 
             incr i
@@ -176,4 +180,11 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
     close $file_handle
 }
 
+proc xdefine_getSuffix {arg_name value} {
+		set uSuffix ""
+		if { [string match "*CLOCK_FREQ_HZ" $value] == 0 } {
+			set uSuffix "U"
+		}
+		return $uSuffix
+}
 
