@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -101,6 +101,8 @@
 *                     generation.
 * 3.4   ms   04/18/17 Modified tcl file to add suffix U for all macros
 *                     definitions of ttcps in xparameters.h
+* 3.5   srm  10/06/17 Added new typedef XMatchRegValue for match register width
+*
 * </pre>
 *
 ******************************************************************************/
@@ -118,12 +120,7 @@ extern "C" {
 #include "xstatus.h"
 
 /************************** Constant Definitions *****************************/
-/*
- * Flag for a9 processor
- */
- #if !defined (ARMR5) && !defined (__aarch64__) && !defined (ARMA53_32)
- #define ARMA9
- #endif
+
 
 /*
  * Maximum Value for interval counter
@@ -173,12 +170,14 @@ typedef struct {
 } XTtcPs;
 
 /**
- * This typedef contains interval count
+ * This typedef contains interval count and Match register value
  */
 #if defined(ARMA9)
 typedef u16 XInterval;
+typedef u16 XMatchRegValue;
 #else
 typedef u32 XInterval;
+typedef u32 XMatchRegValue;
 #endif
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -287,7 +286,7 @@ typedef u32 XInterval;
 * @return	None
 *
 * @note		C-style signature:
-*		void XTtcPs_SetInterval(XTtcPs *InstancePtr, u16 Value)
+*		void XTtcPs_SetInterval(XTtcPs *InstancePtr, XInterval Value)
 *
 ****************************************************************************/
 #define XTtcPs_SetInterval(InstancePtr, Value)	\
@@ -440,8 +439,8 @@ XTtcPs_Config *XTtcPs_LookupConfig(u16 DeviceId);
 s32 XTtcPs_CfgInitialize(XTtcPs *InstancePtr,
          XTtcPs_Config * ConfigPtr, u32 EffectiveAddr);
 
-void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, u16 Value);
-u16 XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex);
+void XTtcPs_SetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex, XMatchRegValue Value);
+XMatchRegValue XTtcPs_GetMatchValue(XTtcPs *InstancePtr, u8 MatchIndex);
 
 void XTtcPs_SetPrescaler(XTtcPs *InstancePtr, u8 PrescalerValue);
 u8 XTtcPs_GetPrescaler(XTtcPs *InstancePtr);
