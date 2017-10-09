@@ -2,6 +2,11 @@
 Changes for 2017.4
 ===============================
 
+ttcps_v3_5:
+Updates XTtcPs_GetMatchValue and XTtcPs_SetMatchValue APIs
+to use correct match register width for zynq  (i.e. 16 bit)
+and zynq ultrascale+mpsoc (i.e. 32 bit). It fixes CR#986617
+
 v_csi2txss_v1_1:
 Exporting ulps API to subsystem
 
