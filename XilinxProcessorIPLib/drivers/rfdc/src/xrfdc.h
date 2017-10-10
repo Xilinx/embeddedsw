@@ -106,6 +106,8 @@
 * 2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
 *                       Enable the decoder clock based on decoder mode.
 *                       Add API to get the current FIFO status.
+*                       Updated XRFdc_DumpRegs API for better readability
+*                       of output register dump.
 *
 * </pre>
 *
