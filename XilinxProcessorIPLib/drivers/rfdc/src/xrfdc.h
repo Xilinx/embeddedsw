@@ -103,6 +103,7 @@
 *                       description for Vector Param in intr handler
 *                       Add API to get Output current and removed
 *                       GetTermVoltage and GetOutputCurr inline functions.
+* 2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
 *
 * </pre>
 *
