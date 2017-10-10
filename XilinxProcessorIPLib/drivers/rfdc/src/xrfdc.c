@@ -66,6 +66,7 @@
 *                       GetTermVoltage and GetOutputCurr inline functions.
 * 2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
 *                       Enable the decoder clock based on decoder mode.
+*                       Add API to get the current FIFO status.
 * </pre>
 *
 ******************************************************************************/
@@ -3533,6 +3534,70 @@ int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable)
 		XRFdc_WriteReg16(InstancePtr, BaseAddr,
 						XRFDC_FIFO_ENABLE, ReadReg);
 	}
+	Status = XRFDC_SUCCESS;
+
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* Current status of ADC/DAC FIFO.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param    Tile_Id Valid values are 0-3.
+* @param    Enable valid values are 1 (FIFO enable) and 0 (FIFO Disable)
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Common API for ADC/DAC blocks
+*
+******************************************************************************/
+int XRFdc_GetFIFOStatus(XRFdc *InstancePtr, u32 Type, int Tile_Id, u8 *Enable)
+{
+	s32 Status;
+	u32 IsTileEnable;
+	u32 BaseAddr;
+	u32 ReadReg;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	if (Type == XRFDC_ADC_TILE) {
+		BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
+		IsTileEnable = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+									Enable;
+	} else {
+		BaseAddr = XRFDC_DAC_TILE_CTRL_STATS_ADDR(Tile_Id);
+		IsTileEnable = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
+									Enable;
+	}
+	if (IsTileEnable == 0U) {
+		Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Tile not available in %s\r\n",
+						__func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Tile not available in %s\r\n",
+						__func__);
+#endif
+		goto RETURN_PATH;
+	} else {
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_FIFO_ENABLE);
+		ReadReg = ReadReg & XRFDC_FIFO_EN_MASK;
+		if (ReadReg == 1U)
+			*Enable = 0;
+		else
+			*Enable = 1;
+	}
+
 	Status = XRFDC_SUCCESS;
 
 RETURN_PATH:
