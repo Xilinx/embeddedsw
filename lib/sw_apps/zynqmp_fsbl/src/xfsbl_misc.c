@@ -704,15 +704,31 @@ const char *XFsbl_GetSiliconIdName(void)
 ******************************************************************************/
 const char *XFsbl_GetProcEng(void)
 {
+	u32 DevSvdId = XFsbl_In32(CSU_IDCODE);
+	DevSvdId &= CSU_IDCODE_DEVICE_CODE_MASK | CSU_IDCODE_SVD_MASK;
+	DevSvdId >>= CSU_IDCODE_SVD_SHIFT;
 
 	if ((XFsbl_In32(EFUSE_IPDISABLE) & EFUSE_IPDISABLE_CG_MASK) ==
 			EFUSE_IPDISABLE_CG_MASK) {
 		return "CG";
 	}
-	else {
+	else if((DevSvdId == 0x20U) || (DevSvdId == 0x21U) || (DevSvdId == 0x30U))
+	{
+		if ((XFsbl_In32(EFUSE_IPDISABLE) & EFUSE_IPDISABLE_VCU_DIS_MASK) ==
+				EFUSE_IPDISABLE_VCU_DIS_MASK) {
+			return "EG";
+		}
+		else
+		{
+			return "EV";
+		}
+
+	}
+	else
+	{
 		return "EG";
 	}
-	/* Add more cases like "EV" */
+
 }
 
 /*****************************************************************************
