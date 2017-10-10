@@ -185,6 +185,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u32 GetNyquistZone;
 	XRFdc_BlockStatus BlockStatus;
 	int OutputCurr;
+	u8 SetFIFOEnable;
+	u8 GetFIFOEnable;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -390,6 +392,19 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					return XRFDC_FAILURE;
 				}
 				printf("\n DAC%d%d Output Current is %dmA \n", Tile, Block, OutputCurr);
+
+				SetFIFOEnable = 0x1;
+				Status = XRFdc_SetupFIFO(RFdcInstPtr,
+					XRFDC_DAC_TILE, Tile, SetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFIFOStatus(RFdcInstPtr,
+					XRFDC_DAC_TILE, Tile, &GetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFIFOEnable != GetFIFOEnable)
+					return XRFDC_FAILURE;
+
 			}
 
 			/* Check if the ADC block is enabled */
@@ -540,6 +555,28 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				printf("\n ADC%d%d Status \n"
 				"DataPathClockStatus - %d \t IsFIFOFlagsEnabled - %d \t IsFIFOFlagsAsserted - %d \r\n", Tile, Block, BlockStatus.DataPathClocksStatus,
 				BlockStatus.IsFIFOFlagsEnabled, BlockStatus.IsFIFOFlagsAsserted);
+				SetFIFOEnable = 0x0;
+				Status = XRFdc_SetupFIFO(RFdcInstPtr,
+					XRFDC_ADC_TILE, Tile, SetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFIFOStatus(RFdcInstPtr,
+					XRFDC_ADC_TILE, Tile, &GetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFIFOEnable != GetFIFOEnable)
+					return XRFDC_FAILURE;
+				SetFIFOEnable = 0x1;
+				Status = XRFdc_SetupFIFO(RFdcInstPtr,
+					XRFDC_ADC_TILE, Tile, SetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetFIFOStatus(RFdcInstPtr,
+					XRFDC_ADC_TILE, Tile, &GetFIFOEnable);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetFIFOEnable != GetFIFOEnable)
+					return XRFDC_FAILURE;
 			}
 		}
 	}
@@ -569,7 +606,8 @@ static int CompareMixerSettings(XRFdc_Mixer_Settings *SetMixerSettings,
 {
 	/* Removed Coarse mix freq check */
 	if ((SetMixerSettings->EventSource == GetMixerSettings->EventSource) &&
-			((SetMixerSettings->Freq - GetMixerSettings->Freq) < 0.000000001) &&
+			((SetMixerSettings->Freq -
+					GetMixerSettings->Freq) < 0.1) &&
 			(SetMixerSettings->FineMixerMode == GetMixerSettings->FineMixerMode) &&
 			(SetMixerSettings->CoarseMixFreq == GetMixerSettings->CoarseMixFreq))
 		return 0;
