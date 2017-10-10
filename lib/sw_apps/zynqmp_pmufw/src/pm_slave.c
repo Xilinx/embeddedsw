@@ -802,7 +802,7 @@ PmNodeClass pmNodeClassSlave_g = {
 void PmResetSlaveStates(void)
 {
 	PmSlave* slave;
-	int i;
+	u32 i;
 
 	for (i = 0U; i < ARRAY_SIZE(pmNodeSlaveBucket); i++) {
 		slave = (PmSlave*)pmNodeSlaveBucket[i]->derived;

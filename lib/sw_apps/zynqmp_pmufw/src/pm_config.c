@@ -453,7 +453,6 @@ static int PmConfigSetConfigSectionHandler(u32* const addr)
  */
 static void PmConfigHeaderHandler(u32* const addr)
 {
-	int status = XST_SUCCESS;
 	u32 remWords;
 
 	/* Read number of remaining words in header */
@@ -532,7 +531,7 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 {
 	int status = XST_SUCCESS;
 	u32 currAddr = address;
-	u32 i, remWords;
+	u32 i;
 
 	/* Check for permissions to load the configuration object */
 	if (0U == (callerIpi & pmConfig.configPerms)) {
