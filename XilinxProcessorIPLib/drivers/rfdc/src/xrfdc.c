@@ -67,6 +67,8 @@
 * 2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
 *                       Enable the decoder clock based on decoder mode.
 *                       Add API to get the current FIFO status.
+*                       Updated XRFdc_DumpRegs API for better readability
+*                       of output register dump.
 * </pre>
 *
 ******************************************************************************/
@@ -3960,10 +3962,13 @@ void XRFdc_DumpRegs(XRFdc* InstancePtr, u32 Type, int Tile_Id)
 						continue;
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, Offset);
 #ifdef __MICROBLAZE__
-					xdbg_printf(XDBG_DEBUG_GENERAL, "\n Aoffset = %x and Value = %x", __func__);
+					xdbg_printf(XDBG_DEBUG_GENERAL,
+					"\n offset = 0x%x and Value = 0x%x \t",
+						__func__);
 #else
-					metal_log(METAL_LOG_DEBUG, "\n offset = %x and Value = %x", Offset,
-							ReadReg);
+					metal_log(METAL_LOG_DEBUG,
+					"\n offset = 0x%x and Value = 0x%x \t",
+						Offset, ReadReg);
 #endif
 				}
 			} else {
@@ -3991,10 +3996,13 @@ void XRFdc_DumpRegs(XRFdc* InstancePtr, u32 Type, int Tile_Id)
 						continue;
 					ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr, Offset);
 #ifdef __MICROBLAZE__
-					xdbg_printf(XDBG_DEBUG_GENERAL, "\n offset = %x and Value = %x", __func__);
+					xdbg_printf(XDBG_DEBUG_GENERAL,
+					"\n offset = 0x%x and Value = 0x%x \t",
+						__func__);
 #else
-					metal_log(METAL_LOG_DEBUG, "\n offset = %x and Value = %x", Offset,
-							ReadReg);
+					metal_log(METAL_LOG_DEBUG,
+					"\n offset = 0x%x and Value = 0x%x \t",
+					Offset, ReadReg);
 #endif
 				}
 			}
