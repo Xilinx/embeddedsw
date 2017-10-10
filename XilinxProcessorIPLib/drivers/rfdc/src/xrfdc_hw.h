@@ -284,6 +284,7 @@ extern "C" {
 							measurement MSB Register */
 #define XRFDC_DAC_DECODER_CTRL_OFFSET	0x180U	/**< DAC Unary Decoder/
 							Randomizer settings */
+#define XRFDC_DAC_DECODER_CLK_OFFSET	0x184U	/**< Decoder Clock enable */
 #define XRFDC_HSCOM_PWR_OFFSET		0x094	/**< Control register during
 							power-up sequence */
 #define XRFDC_HSCOM_UPDT_DYN_OFFSET		0x0B8	/**< Trigger the update

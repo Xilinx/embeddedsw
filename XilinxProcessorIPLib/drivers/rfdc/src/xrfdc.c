@@ -65,6 +65,7 @@
 *                       Add API to get Output current and removed
 *                       GetTermVoltage and GetOutputCurr inline functions.
 * 2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
+*                       Enable the decoder clock based on decoder mode.
 * </pre>
 *
 ******************************************************************************/
@@ -3213,6 +3214,12 @@ int XRFdc_SetDecoderMode(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 		ReadReg |= DecoderMode;
 		XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_DAC_DECODER_CTRL_OFFSET,
 								ReadReg);
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_DAC_DECODER_CLK_OFFSET);
+		ReadReg &= ~XRFDC_DEC_CTRL_MODE_MASK;
+		ReadReg |= DecoderMode;
+		XRFdc_WriteReg16(InstancePtr, BaseAddr,
+				XRFDC_DAC_DECODER_CLK_OFFSET, ReadReg);
 		*DecoderModeConfig = DecoderMode;
 	}
 	(void)BaseAddr;
