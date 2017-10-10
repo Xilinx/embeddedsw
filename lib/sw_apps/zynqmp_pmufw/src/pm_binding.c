@@ -153,7 +153,7 @@ done:
  */
 int XPfw_PmWakeHandler(const u32 srcMask)
 {
-	int status;
+	int status = XST_INVALID_PARAM;
 
 	if (0U != (PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK & srcMask))  {
 		/* Processor GIC wake */
@@ -167,6 +167,7 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 		status = PmMasterWake(&pmMasterApu_g);
 	} else if (0U != (PMU_LOCAL_GPI1_ENABLE_MIO_WAKE_MASK & srcMask)) {
 		status = PmExternWakeMasters();
+	} else {
 	}
 
 	return status;
