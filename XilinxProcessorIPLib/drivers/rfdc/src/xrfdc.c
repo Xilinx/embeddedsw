@@ -64,6 +64,7 @@
 *                       description for Vector Param in intr handler
 *                       Add API to get Output current and removed
 *                       GetTermVoltage and GetOutputCurr inline functions.
+* 2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
 * </pre>
 *
 ******************************************************************************/
@@ -134,6 +135,8 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 			if (XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id) != 0U)
 				InstancePtr->DAC_Tile[Tile_Id].NumOfDACBlocks++;
 		}
+		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)
+			InstancePtr->ADC_Tile[Tile_Id].NumOfADCBlocks /= 2;
 	}
 
 	/*
@@ -471,6 +474,21 @@ int XRFdc_GetIPStatus(XRFdc* InstancePtr, XRFdc_IPStatus* IPStatus)
 				IPStatus->DACTileStatus[Tile_Id].BlockStatusMask |=
 								(1 << Block_Id);
 			}
+		}
+
+		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+			if (IPStatus->ADCTileStatus[Tile_Id].
+						BlockStatusMask == 0x3)
+				IPStatus->ADCTileStatus[Tile_Id].
+						BlockStatusMask = 0x1;
+			if (IPStatus->ADCTileStatus[Tile_Id].
+						BlockStatusMask == 0xC)
+				IPStatus->ADCTileStatus[Tile_Id].
+						BlockStatusMask = 0x2;
+			if (IPStatus->ADCTileStatus[Tile_Id].
+						BlockStatusMask == 0xF)
+				IPStatus->ADCTileStatus[Tile_Id].
+						BlockStatusMask = 0x3;
 		}
 
 		if (IPStatus->ADCTileStatus[Tile_Id].IsEnabled) {
