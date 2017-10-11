@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -117,7 +113,7 @@ typedef struct {
 
 /* SDK release version */
 #define SDK_RELEASE_YEAR	2018
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_QUARTER	3
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)
@@ -196,6 +192,7 @@ void XFsbl_MeasurePerfTime(XTime tCur);
 u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr);
 u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr);
 u32 XFsbl_TcmEccInit(XFsblPs * FsblInstancePtr, u32 CpuId);
+void XFsbl_MarkDdrAsReserved(u8 Cond);
 
 /**
  * Functions defined in xfsbl_partition_load.c
