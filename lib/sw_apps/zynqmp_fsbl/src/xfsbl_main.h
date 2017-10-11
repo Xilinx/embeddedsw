@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 - 17 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 19 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -112,8 +112,8 @@ typedef struct {
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /* SDK release version */
-#define SDK_RELEASE_YEAR	2018
-#define SDK_RELEASE_QUARTER	3
+#define SDK_RELEASE_YEAR	2019
+#define SDK_RELEASE_QUARTER	1
 
 #define XFSBL_RUNNING			(0xFFFFU)
 #define XFSBL_COMPLETED			(0x0U)
@@ -174,6 +174,11 @@ typedef struct {
 /* R5 vectors value*/
 #define XFSBL_R5_LOVEC_VALUE 	0xEAFEFFFEU
 #define XFSBL_R5_HIVEC_VALUE    0xEAFF3FFEU
+
+/* FSBL running status to update to PMU */
+#define XFSBL_RUNNING_STATUS			(0x1U << 0x1U)
+#define XFSBL_RUNNING_ON_A53			(0x1U << 0x2U)
+#define XFSBL_STATE_PROC_INFO_MASK		0x6U
 
 /************************** Function Prototypes ******************************/
 /**
