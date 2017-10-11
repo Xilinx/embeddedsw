@@ -69,6 +69,7 @@
 *                       Add API to get the current FIFO status.
 *                       Updated XRFdc_DumpRegs API for better readability
 *                       of output register dump.
+*                       Add support for 4GSPS CoarseMixer frequency.
 * </pre>
 *
 ******************************************************************************/
@@ -741,7 +742,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			SamplingRate = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 									SamplingRate;
 			DataType = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
-					ADCBlock_Digital_Config[Index].DataType;
+					ADCBlock_Analog_Config[Index].MixMode;
 		} else {
 			/* DAC */
 			IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id,
@@ -753,7 +754,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			SamplingRate = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
 									SamplingRate;
 			DataType = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
-								DACBlock_Digital_Config[Index].DataType;
+					DACBlock_Analog_Config[Index].MixMode;
 		}
 
 		if (SamplingRate <= 0) {
@@ -908,80 +909,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_NCO_PHASE_UPP_OFFSET,
 									ReadReg);
 
-			if (Mixer_Settings->CoarseMixFreq == XRFDC_COARSE_MIX_OFF) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG0_OFFSET);
-				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
-				ReadReg |= XRFDC_CRSE_MIX_BYPASS;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG1_OFFSET);
-				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
-				if (DataType == XRFDC_DATA_TYPE_IQ)
-					ReadReg |= XRFDC_CRSE_MIX_BYPASS;
-				else
-					ReadReg |= XRFDC_CRSE_MIX_OFF;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
-			} else if (Mixer_Settings->CoarseMixFreq ==
-					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG0_OFFSET);
-				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
-				ReadReg |= XRFDC_CRSE_MIX_I_Q_FSBYTWO;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG1_OFFSET);
-				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
-				if (DataType == XRFDC_DATA_TYPE_IQ)
-					ReadReg |= XRFDC_CRSE_MIX_I_Q_FSBYTWO;
-				else
-					ReadReg |= XRFDC_CRSE_MIX_OFF;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
-			} else if (Mixer_Settings->CoarseMixFreq ==
-					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG0_OFFSET);
-				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
-				if (DataType == XRFDC_DATA_TYPE_IQ)
-					ReadReg |= XRFDC_CRSE_MIX_I_FSBYFOUR;
-				else
-					ReadReg |= XRFDC_CRSE_MIX_R_I_FSBYFOUR;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG1_OFFSET);
-				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
-				if (DataType == XRFDC_DATA_TYPE_IQ)
-					ReadReg |= XRFDC_CRSE_MIX_Q_FSBYFOUR;
-				else
-					ReadReg |= XRFDC_CRSE_MIX_R_Q_FSBYFOUR;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
-			} else if (Mixer_Settings->CoarseMixFreq ==
-					XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR) {
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG0_OFFSET);
-				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
-				if (DataType == XRFDC_DATA_TYPE_IQ)
-					ReadReg |= XRFDC_CRSE_MIX_I_MINFSBYFOUR;
-				else
-					ReadReg |= XRFDC_CRSE_MIX_R_I_MINFSBYFOUR;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
-				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG1_OFFSET);
-				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
-				if (DataType == XRFDC_DATA_TYPE_IQ)
-					ReadReg |= XRFDC_CRSE_MIX_Q_MINFSBYFOUR;
-				else
-					ReadReg |= XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR;
-				XRFdc_WriteReg16(InstancePtr, BaseAddr,
-									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
-			} else if (Mixer_Settings->CoarseMixFreq ==
+			if (Mixer_Settings->CoarseMixFreq ==
 					XRFDC_COARSE_MIX_BYPASS) {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG0_OFFSET);
@@ -992,7 +920,211 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET);
 				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
-				ReadReg |= XRFDC_CRSE_MIX_BYPASS;
+				if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+						XRFDC_DAC_MIXER_MODE_REAL)))
+					ReadReg |= XRFDC_CRSE_MIX_BYPASS;
+				else
+					ReadReg |= XRFDC_CRSE_MIX_OFF;
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
+			} else if (Mixer_Settings->CoarseMixFreq ==
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO) {
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
+				if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+					ReadReg |= XRFDC_CRSE_MIX_I_Q_FSBYTWO;
+				else {
+					if (Index % 2 == 0U)
+						ReadReg |=
+							XRFDC_CRSE_MIX_BYPASS;
+					else
+						ReadReg |=
+						XRFDC_CRSE_4GSPS_ODD_FSBYTWO;
+				}
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
+				if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+						(Type == XRFDC_ADC_TILE)) ||
+						((Type == XRFDC_DAC_TILE)
+						&& (DataType !=
+						XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO;
+					else {
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_BYPASS :
+						XRFDC_CRSE_4GSPS_ODD_FSBYTWO;
+					}
+				}
+				else
+					ReadReg |= XRFDC_CRSE_MIX_OFF;
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
+			} else if (Mixer_Settings->CoarseMixFreq ==
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR) {
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
+				if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+						(Type == XRFDC_ADC_TILE)) ||
+						((Type == XRFDC_DAC_TILE)
+						&& (DataType !=
+						XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_I_FSBYFOUR;
+					else{
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO :
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR;
+					}
+				} else {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_R_I_FSBYFOUR;
+					else {
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO :
+						XRFDC_CRSE_MIX_OFF;
+					}
+				}
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
+				if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+						(Type == XRFDC_ADC_TILE)) ||
+						((Type == XRFDC_DAC_TILE)
+						&& (DataType !=
+						XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_Q_FSBYFOUR;
+					else {
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO :
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR;
+					}
+				} else {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_R_Q_FSBYFOUR;
+					else {
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_OFF :
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR;
+					}
+				}
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
+			} else if (Mixer_Settings->CoarseMixFreq ==
+					XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR) {
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
+				if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+						(Type == XRFDC_ADC_TILE)) ||
+						((Type == XRFDC_DAC_TILE)
+						&& (DataType !=
+						XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_I_MINFSBYFOUR;
+					else {
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO :
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR;
+					}
+				} else {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_R_I_MINFSBYFOUR;
+					else {
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO :
+						XRFDC_CRSE_MIX_OFF;
+					}
+				}
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
+				if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+						(Type == XRFDC_ADC_TILE)) ||
+						((Type == XRFDC_DAC_TILE)
+						&& (DataType !=
+						XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_Q_MINFSBYFOUR;
+					else {
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO :
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR;
+					}
+				} else {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE))
+						ReadReg |=
+						XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR;
+					else {
+						ReadReg =
+						(Index % 2 == 0U) ?
+						XRFDC_CRSE_MIX_OFF :
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR;
+					}
+				}
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
+			} else if (Mixer_Settings->CoarseMixFreq ==
+					XRFDC_COARSE_MIX_OFF) {
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG0_MASK;
+				ReadReg |= XRFDC_CRSE_MIX_OFF;
+				XRFdc_WriteReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG0_OFFSET, (u16)ReadReg);
+				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+									XRFDC_ADC_MXR_CFG1_OFFSET);
+				ReadReg &= ~XRFDC_MIX_CFG1_MASK;
+				ReadReg |= XRFDC_CRSE_MIX_OFF;
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
 			}
@@ -1110,6 +1242,7 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	s64 Freq;
 	s32 PhaseOffset;
 	u32 Block;
+	u32 DataType;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1118,9 +1251,12 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 
 	Block = Block_Id;
-	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) && (Block_Id == 1U) &&
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)  &&
 				(Type == XRFDC_ADC_TILE)) {
-		Block_Id = 2U;
+		if (Block_Id == 1U)
+			Block_Id = 3U;
+		if (Block_Id == 0U)
+			Block_Id = 1U;
 	}
 
 	if (Type == XRFDC_ADC_TILE) {
@@ -1130,6 +1266,8 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		SamplingRate = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 										SamplingRate;
+		DataType = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
+				ADCBlock_Analog_Config[Block_Id].MixMode;
 	} else {
 		/* DAC */
 		IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
@@ -1137,6 +1275,8 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		SamplingRate = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
 										SamplingRate;
+		DataType = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
+				DACBlock_Analog_Config[Block_Id].MixMode;
 	}
 
 	if (SamplingRate <= 0) {
@@ -1173,89 +1313,739 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 						"valid in %s\r\n", __func__);
 #endif
 		goto RETURN_PATH;
-	} else {
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-							XRFDC_ADC_MXR_CFG0_OFFSET);
-		ReadReg &= XRFDC_MIX_CFG0_MASK;
-		ReadReg_Mix1 = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-							XRFDC_ADC_MXR_CFG1_OFFSET);
-		ReadReg_Mix1 &= XRFDC_MIX_CFG1_MASK;
-		if ((ReadReg == XRFDC_CRSE_MIX_BYPASS) && (ReadReg_Mix1 ==
-								XRFDC_CRSE_MIX_OFF))
-			Mixer_Settings->CoarseMixFreq = XRFDC_COARSE_MIX_OFF;
-		else if ((ReadReg == XRFDC_CRSE_MIX_I_Q_FSBYTWO) && (ReadReg_Mix1 ==
-								XRFDC_CRSE_MIX_I_Q_FSBYTWO))
-			Mixer_Settings->CoarseMixFreq =
-					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
-		else if ((ReadReg == XRFDC_CRSE_MIX_I_FSBYFOUR) && (ReadReg_Mix1 ==
-								XRFDC_CRSE_MIX_Q_FSBYFOUR))
-			Mixer_Settings->CoarseMixFreq =
-								XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
-		else if ((ReadReg == XRFDC_CRSE_MIX_I_MINFSBYFOUR) && (ReadReg_Mix1 ==
-								XRFDC_CRSE_MIX_Q_MINFSBYFOUR))
-			Mixer_Settings->CoarseMixFreq =
-								XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
-		else if ((ReadReg == XRFDC_CRSE_MIX_BYPASS) && (ReadReg_Mix1 ==
-				XRFDC_CRSE_MIX_BYPASS))
-			Mixer_Settings->CoarseMixFreq =
-								XRFDC_COARSE_MIX_BYPASS;
-		else {
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_ERROR, "\n Coarse mixer settings did not "
-					"match any of the expected modes %s\r\n", __func__);
-#else
-			metal_log(METAL_LOG_ERROR, "\n Coarse mixer settings did not"
-					"match any of the expected modes %s\r\n", __func__);
-#endif
-		}
-
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-								XRFDC_MXR_MODE_OFFSET);
-		ReadReg &= (XRFDC_EN_I_IQ_MASK | XRFDC_EN_Q_IQ_MASK);
-		if (ReadReg == 0xF)
-			Mixer_Settings->FineMixerMode =
-					XRFDC_FINE_MIXER_MOD_COMPLX_TO_COMPLX;
-		else if (ReadReg == 0x3)
-			Mixer_Settings->FineMixerMode =
-					XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;
-		else if (ReadReg == 0x5)
-			Mixer_Settings->FineMixerMode =
-					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
-		else if (ReadReg == 0x0)
-			Mixer_Settings->FineMixerMode = XRFDC_FINE_MIXER_MOD_OFF;
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-								XRFDC_NCO_PHASE_UPP_OFFSET);
-		PhaseOffset = ReadReg << 16;
-		PhaseOffset |= XRFdc_ReadReg16(InstancePtr, BaseAddr,
-								XRFDC_NCO_PHASE_LOW_OFFSET);
-		PhaseOffset &= XRFDC_NCO_PHASE_MASK;
-		PhaseOffset = (PhaseOffset << 14) >> 14;
-		PhaseOffset = ((PhaseOffset * 180) /
-								XRFDC_NCO_PHASE_MULTIPLIER);
-		PhaseOffset = (PhaseOffset << 17) >> 17;
-		Mixer_Settings->PhaseOffset = PhaseOffset;
-		Freq = 0;
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-								XRFDC_ADC_NCO_FQWD_UPP_OFFSET);
-		Freq = ReadReg << 32;
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-								XRFDC_ADC_NCO_FQWD_MID_OFFSET);
-		Freq |= ReadReg << 16;
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-								XRFDC_ADC_NCO_FQWD_LOW_OFFSET);
-		Freq |= ReadReg;
-		Freq &= XRFDC_NCO_FQWD_MASK;
-		Freq = (Freq << 16) >> 16;
-		if (Freq < 0)
-			Mixer_Settings->Freq = ((Freq * (SamplingRate * 1000.0)) /
-						XRFDC_NCO_FREQ_MIN_MULTIPLIER);
-		else
-			Mixer_Settings->Freq = ((Freq * (SamplingRate * 1000.0)) /
-						XRFDC_NCO_FREQ_MULTIPLIER);
-		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-				XRFDC_NCO_UPDT_OFFSET);
-		Mixer_Settings->EventSource = ReadReg & XRFDC_NCO_UPDT_MODE_MASK;
 	}
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_MXR_CFG0_OFFSET);
+	ReadReg &= XRFDC_MIX_CFG0_MASK;
+	ReadReg_Mix1 = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_MXR_CFG1_OFFSET);
+	ReadReg_Mix1 &= XRFDC_MIX_CFG1_MASK;
+	Mixer_Settings->CoarseMixFreq = 0x20;
+	if (ReadReg == XRFDC_CRSE_MIX_BYPASS) {
+		if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+				(Type == XRFDC_ADC_TILE)) ||
+				((Type == XRFDC_DAC_TILE)
+				&& (DataType !=
+				XRFDC_DAC_MIXER_MODE_REAL))) {
+			if (ReadReg_Mix1 == XRFDC_CRSE_MIX_BYPASS)
+				Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_BYPASS;
+		} else if (ReadReg_Mix1 == XRFDC_CRSE_MIX_OFF)
+			Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_BYPASS;
+	}
+	if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+			(Type == XRFDC_DAC_TILE)) {
+		if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+				(Type == XRFDC_ADC_TILE)) ||
+				((Type == XRFDC_DAC_TILE)
+				&& (DataType !=
+				XRFDC_DAC_MIXER_MODE_REAL))) {
+			if ((InstancePtr->ADC4GSPS !=
+				XRFDC_ADC_4GSPS) ||
+				(Type == XRFDC_DAC_TILE)) {
+				if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+			} else if (Block_Id % 2 == 0U) {
+				if ((ReadReg_Mix1 ==
+				XRFDC_CRSE_MIX_BYPASS) && (ReadReg ==
+				XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+			} else if ((ReadReg_Mix1 ==
+				XRFDC_CRSE_4GSPS_ODD_FSBYTWO) &&
+				(ReadReg ==
+				XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+				Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+		} else if ((ReadReg_Mix1 == XRFDC_CRSE_MIX_OFF) &&
+				(ReadReg ==
+				XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+			Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+	} else {
+		if (Block_Id % 2 == 0U) {
+			if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+					XRFDC_DAC_MIXER_MODE_REAL))) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO) &&
+					(ReadReg ==
+						XRFDC_CRSE_MIX_BYPASS))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				} else if (Block_Id % 2 == 0U) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_BYPASS) &&
+					(ReadReg ==
+						XRFDC_CRSE_MIX_BYPASS))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				} else if ((ReadReg_Mix1 ==
+				XRFDC_CRSE_4GSPS_ODD_FSBYTWO) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_BYPASS))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+			} else if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_OFF) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_BYPASS))
+				Mixer_Settings->CoarseMixFreq =
+			XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+		} else if (ReadReg == XRFDC_CRSE_4GSPS_ODD_FSBYTWO) {
+			if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+				(Type == XRFDC_ADC_TILE)) ||
+				((Type == XRFDC_DAC_TILE) &&
+				(DataType !=
+				XRFDC_DAC_MIXER_MODE_REAL))) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_BYPASS)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				} else if (ReadReg_Mix1 ==
+					XRFDC_CRSE_4GSPS_ODD_FSBYTWO)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+			} else if (ReadReg_Mix1 == XRFDC_CRSE_MIX_OFF)
+				Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+		}
+	}
+	if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+			(Type == XRFDC_ADC_TILE)) ||
+			((Type == XRFDC_DAC_TILE)
+			&& (DataType !=
+			XRFDC_DAC_MIXER_MODE_REAL))) {
+		if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+				(Type == XRFDC_DAC_TILE)) {
+			if (((DataType ==
+				XRFDC_ADC_MIXER_MODE_IQ) &&
+				(Type == XRFDC_ADC_TILE)) ||
+				((Type == XRFDC_DAC_TILE)
+				&& (DataType !=
+				XRFDC_DAC_MIXER_MODE_REAL))) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_Q_FSBYFOUR) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_FSBYFOUR))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_FSBYFOUR))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if ((ReadReg_Mix1 ==
+				XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR) &&
+				(ReadReg ==
+					XRFDC_CRSE_MIX_I_FSBYFOUR))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			} else {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_R_Q_FSBYFOUR) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_FSBYFOUR))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_OFF) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_FSBYFOUR))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if ((ReadReg_Mix1 ==
+				XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR) &&
+				(ReadReg == XRFDC_CRSE_MIX_I_FSBYFOUR))
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			}
+		} else{
+			if (Block_Id % 2 == 0U) {
+				if (((DataType ==
+					XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+					XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_Q_FSBYFOUR) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					} else if (Block_Id % 2 == 0U) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					} else if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if ((ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_R_Q_FSBYFOUR) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if ((ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_OFF) &&
+						(ReadReg ==
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if ((ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+						&& (ReadReg ==
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO))
+					Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			} else if (ReadReg ==
+				XRFDC_CRSE_MIX_I_ODD_FSBYFOUR) {
+				if (((DataType ==
+					XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+					XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_Q_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_R_Q_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+							XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			}
+		}
+	} else {
+		if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+				(Type == XRFDC_DAC_TILE)) {
+			if ((((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+				(Type == XRFDC_ADC_TILE)) ||
+				((Type == XRFDC_DAC_TILE)
+				&& (DataType !=
+				XRFDC_DAC_MIXER_MODE_REAL))) &&
+				(ReadReg ==
+				XRFDC_CRSE_MIX_R_I_FSBYFOUR)) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			} else if (ReadReg ==
+					XRFDC_CRSE_MIX_R_I_FSBYFOUR) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_R_Q_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			}
+		} else {
+			if ((((DataType ==
+					XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+					XRFDC_DAC_MIXER_MODE_REAL))) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO) &&
+					(Block_Id % 2 == 0U)) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			} else if ((ReadReg ==
+				XRFDC_CRSE_MIX_I_Q_FSBYTWO) &&
+					(Block_Id % 2 == 0U)) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_R_Q_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			} else if ((Block_Id % 2 != 0U) &&
+					(ReadReg == XRFDC_CRSE_MIX_OFF)) {
+				if (((DataType ==
+					XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+					XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_Q_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					} else  if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				} else {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_R_Q_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				}
+			}
+		}
+	}
+	if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+		(Type == XRFDC_ADC_TILE)) || ((Type == XRFDC_DAC_TILE)
+			&& (DataType != XRFDC_DAC_MIXER_MODE_REAL))) {
+		if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+				(Type == XRFDC_DAC_TILE)) {
+			if ((((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+				(Type == XRFDC_ADC_TILE)) ||
+				((Type == XRFDC_DAC_TILE)
+				&& (DataType !=
+				XRFDC_DAC_MIXER_MODE_REAL))) &&
+				(ReadReg ==
+				XRFDC_CRSE_MIX_I_MINFSBYFOUR)) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+			} else if (ReadReg ==
+				XRFDC_CRSE_MIX_I_MINFSBYFOUR) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+			}
+		} else {
+			if ((((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+				(Type == XRFDC_ADC_TILE)) ||
+				((Type == XRFDC_DAC_TILE) &&
+				 (DataType !=
+				XRFDC_DAC_MIXER_MODE_REAL))) &&
+				(ReadReg == XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+				&& (Block_Id % 2 == 0U)) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+			} else if ((ReadReg == XRFDC_CRSE_MIX_I_Q_FSBYTWO) &&
+					(Block_Id % 2 == 0U)) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+			} else if ((Block_Id % 2 != 0U) && (ReadReg ==
+					XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR)) {
+				if (((DataType ==
+					XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+					XRFDC_DAC_MIXER_MODE_REAL))) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				}
+			}
+		}
+	} else {
+		if ((InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS) ||
+				(Type == XRFDC_DAC_TILE)) {
+			if ((((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+				(Type == XRFDC_ADC_TILE)) ||
+				((Type == XRFDC_DAC_TILE)
+				&& (DataType !=
+				XRFDC_DAC_MIXER_MODE_REAL))) &&
+				(ReadReg ==
+				XRFDC_CRSE_MIX_R_I_MINFSBYFOUR)){
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+			} else if (ReadReg == XRFDC_CRSE_MIX_R_I_MINFSBYFOUR) {
+				if ((InstancePtr->ADC4GSPS !=
+					XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+					Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+			}
+		} else {
+			if (Block_Id % 2 == 0U) {
+				if ((((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+					XRFDC_DAC_MIXER_MODE_REAL))) &&
+					(ReadReg ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO)) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				}
+			} else {
+				if ((((DataType ==
+					XRFDC_ADC_MIXER_MODE_IQ) &&
+					(Type == XRFDC_ADC_TILE)) ||
+					((Type == XRFDC_DAC_TILE)
+					&& (DataType !=
+					XRFDC_DAC_MIXER_MODE_REAL))) &&
+					(ReadReg ==
+						XRFDC_CRSE_MIX_OFF)) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+					(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_I_Q_FSBYTWO)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				} else if (ReadReg == XRFDC_CRSE_MIX_OFF) {
+					if ((InstancePtr->ADC4GSPS !=
+						XRFDC_ADC_4GSPS) ||
+						(Type == XRFDC_DAC_TILE)) {
+					if (ReadReg_Mix1 ==
+					XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else  if (Block_Id % 2 == 0U) {
+					if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_OFF)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					} else if (ReadReg_Mix1 ==
+						XRFDC_CRSE_MIX_I_ODD_FSBYFOUR)
+						Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+				}
+			}
+		}
+	}
+	if ((ReadReg == XRFDC_CRSE_MIX_OFF) && (ReadReg_Mix1 ==
+			XRFDC_CRSE_MIX_OFF))
+		Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_OFF;
+	if (Mixer_Settings->CoarseMixFreq == 0x20) {
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR,
+		"\n Coarse mixer settings not match any of the modes %s\r\n",
+			__func__);
+#else
+		metal_log(METAL_LOG_ERROR,
+		"\n Coarse mixer settings not match any of the modes %s\r\n",
+			__func__);
+#endif
+	}
+
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+							XRFDC_MXR_MODE_OFFSET);
+	ReadReg &= (XRFDC_EN_I_IQ_MASK | XRFDC_EN_Q_IQ_MASK);
+	if (ReadReg == 0xF)
+		Mixer_Settings->FineMixerMode =
+				XRFDC_FINE_MIXER_MOD_COMPLX_TO_COMPLX;
+	else if (ReadReg == 0x3)
+		Mixer_Settings->FineMixerMode =
+				XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;
+	else if (ReadReg == 0x5)
+		Mixer_Settings->FineMixerMode =
+				XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+	else if (ReadReg == 0x0)
+		Mixer_Settings->FineMixerMode = XRFDC_FINE_MIXER_MOD_OFF;
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_NCO_PHASE_UPP_OFFSET);
+	PhaseOffset = ReadReg << 16;
+	PhaseOffset |= XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_NCO_PHASE_LOW_OFFSET);
+	PhaseOffset &= XRFDC_NCO_PHASE_MASK;
+	PhaseOffset = (PhaseOffset << 14) >> 14;
+	PhaseOffset = ((PhaseOffset * 180) /
+						XRFDC_NCO_PHASE_MULTIPLIER);
+	PhaseOffset = (PhaseOffset << 17) >> 17;
+	Mixer_Settings->PhaseOffset = PhaseOffset;
+	Freq = 0;
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_NCO_FQWD_UPP_OFFSET);
+	Freq = ReadReg << 32;
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_NCO_FQWD_MID_OFFSET);
+	Freq |= ReadReg << 16;
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_NCO_FQWD_LOW_OFFSET);
+	Freq |= ReadReg;
+	Freq &= XRFDC_NCO_FQWD_MASK;
+	Freq = (Freq << 16) >> 16;
+	if (Freq < 0)
+		Mixer_Settings->Freq = ((Freq * (SamplingRate * 1000.0)) /
+					XRFDC_NCO_FREQ_MIN_MULTIPLIER);
+	else
+		Mixer_Settings->Freq = ((Freq * (SamplingRate * 1000.0)) /
+					XRFDC_NCO_FREQ_MULTIPLIER);
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+			XRFDC_NCO_UPDT_OFFSET);
+	Mixer_Settings->EventSource = ReadReg & XRFDC_NCO_UPDT_MODE_MASK;
+
 	(void)BaseAddr;
 
 	Status = XRFDC_SUCCESS;

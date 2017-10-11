@@ -108,6 +108,7 @@
 *                       Add API to get the current FIFO status.
 *                       Updated XRFdc_DumpRegs API for better readability
 *                       of output register dump.
+*                       Add support for 4GSPS CoarseMixer frequency.
 *
 * </pre>
 *
@@ -487,6 +488,9 @@ typedef struct {
 
 #define XRFDC_CRSE_MIX_OFF					0x924U
 #define XRFDC_CRSE_MIX_BYPASS				0x0U
+#define XRFDC_CRSE_4GSPS_ODD_FSBYTWO		0x492U
+#define XRFDC_CRSE_MIX_I_ODD_FSBYFOUR		0x2CBU
+#define XRFDC_CRSE_MIX_Q_ODD_FSBYFOUR		0x659U
 #define XRFDC_CRSE_MIX_I_Q_FSBYTWO			0x410U
 #define XRFDC_CRSE_MIX_I_FSBYFOUR			0x298U
 #define XRFDC_CRSE_MIX_Q_FSBYFOUR			0x688U
@@ -508,6 +512,9 @@ typedef struct {
 #define XRFDC_DECODER_MAX_LINEARITY_MODE	0x2
 #define XRFDC_OUTPUT_CURRENT_32MA			32
 #define XRFDC_OUTPUT_CURRENT_20MA			20
+
+#define XRFDC_ADC_MIXER_MODE_IQ		0x1U
+#define XRFDC_DAC_MIXER_MODE_REAL	0x2U
 
 #define XRFDC_ODD_NYQUIST_ZONE		0x1
 #define XRFDC_EVEN_NYQUIST_ZONE		0x2
