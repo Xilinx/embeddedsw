@@ -12,10 +12,6 @@
 * The above copyright notice and this permission notice shall be included in 
 * all copies or substantial portions of the Software.
 *
-* Use of the Software is limited solely to applications: 
-* (a) running on a Xilinx device, or 
-* (b) that interact with a Xilinx device through a bus or interconnect.  
-*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -240,6 +236,8 @@
 * 						for 3.0 and later versions of silicon.
 * 17.00a bsv 27/03/18	Fix for CR# 996973  Add code under JTAG_ENABLE_LEVEL_SHIFTERS macro
 * 						to enable level shifters in jtag boot mode.
+* 18.00a ka  10/29/18   Fix for CR# 1006294 Added macro for FORCE_USE_AES_EXCLUDE
+*
 * </pre>
 *
 * </pre>
@@ -302,6 +300,14 @@
 * FSBL will not enable the level shifters for jtag boot mode. This flag can be
 * set during compilation for jtag boot mode to enable level shifters.
 *
+* FORCE_USE_AES_EXCLUDE
+* Defining this flag will exclude the feature, forcing every partition to be
+* encrypted when EFUSE_SEC_EN bit is set.
+* This flag can be set/unset during compilation.
+* By deafult this flag is unset/undefined which enables the above feature
+* Note : Changing the default behaviour is not recommended from
+* Security perspective.
+*
 *******************************************************************************/
 #ifndef XIL_FSBL_H
 #define XIL_FSBL_H
@@ -329,7 +335,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2018
-#define SDK_RELEASE_QUARTER	2
+#define SDK_RELEASE_QUARTER	3
 
 #define WORD_LENGTH_SHIFT	2
 
@@ -375,6 +381,7 @@ extern "C" {
 #define PARTITION_CHECKSUM_FAIL		0xA010 /**< Partition checksum fail */
 #define RSA_SUPPORT_NOT_ENABLED_FAIL	0xA011 /**< RSA not enabled fail */
 #define PS7_INIT_FAIL			0xA012 /**< ps7 Init Fail */
+#define PARTITION_LOAD_FAIL            0xA013 /**< Partition load fail*/
 /*
  * FSBL Exception error codes
  */
