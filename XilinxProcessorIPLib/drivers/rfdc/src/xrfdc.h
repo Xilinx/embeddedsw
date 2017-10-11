@@ -109,6 +109,7 @@
 *                       Updated XRFdc_DumpRegs API for better readability
 *                       of output register dump.
 *                       Add support for 4GSPS CoarseMixer frequency.
+*              10/11/17 Modify float types to double to increase precision.
 *
 * </pre>
 *
@@ -174,8 +175,8 @@ typedef void (*XRFdc_StatusHandler) (void *CallBackRef, u32 Type, int Tile_Id,
  */
 typedef struct {
 	u32 Enabled;	/* PLL Enable */
-	float RefClkFreq;
-	float SampleRate;
+	double RefClkFreq;
+	double SampleRate;
 	u32 RefClkDivider;
 	u32 FeedbackDivider;
 	u32 OutputDivider;
@@ -190,8 +191,8 @@ typedef struct {
 typedef struct {
 	u32 EnablePhase;
 	u32 EnableGain;
-	float GainCorrectionFactor;
-	float PhaseCorrectionFactor;
+	double GainCorrectionFactor;
+	double PhaseCorrectionFactor;
 	s32 OffsetCorrectionFactor;
 	u32 EventSource;
 } XRFdc_QMC_Settings;
@@ -209,7 +210,7 @@ typedef struct {
  */
 typedef struct {
 	double Freq;
-	float PhaseOffset;
+	double PhaseOffset;
 	u32 EventSource;
 	u32 FineMixerMode;
 	u32 CoarseMixFreq;
@@ -250,7 +251,7 @@ typedef struct {
  * status of DAC or ADC blocks in the RFSoC Data converter.
  */
 typedef struct {
-	float SamplingFreq;
+	double SamplingFreq;
 	u32 AnalogDataPathStatus;
 	u32 DigitalDataPathStatus;
 	u8 DataPathClocksStatus;	/* Indicates all required datapath
@@ -306,9 +307,9 @@ typedef struct {
 typedef struct {
 	u32 Enable;
 	u32 PLLEnable;
-	float SamplingRate;
-	float RefClkFreq;
-	float FabClkFreq;
+	double SamplingRate;
+	double RefClkFreq;
+	double FabClkFreq;
 	XRFdc_DACBlock_AnalogDataPath_Config DACBlock_Analog_Config[4];
 	XRFdc_DACBlock_DigitalDataPath_Config DACBlock_Digital_Config[4];
 } XRFdc_DACTile_Config;
@@ -319,9 +320,9 @@ typedef struct {
 typedef struct {
 	u32 Enable;	/* Tile Enable status */
 	u32 PLLEnable;	/* PLL enable Status */
-	float SamplingRate;
-	float RefClkFreq;
-	float FabClkFreq;
+	double SamplingRate;
+	double RefClkFreq;
+	double FabClkFreq;
 	XRFdc_ADCBlock_AnalogDataPath_Config ADCBlock_Analog_Config[4];
 	XRFdc_ADCBlock_DigitalDataPath_Config ADCBlock_Digital_Config[4];
 } XRFdc_ADCTile_Config;
@@ -351,8 +352,8 @@ typedef struct {
 typedef struct {
 	u32 Enabled;	/* DAC Analog Data Path Enable */
 	u32 MixedMode;
-	float TerminationVoltage;
-	float OutputCurrent;
+	double TerminationVoltage;
+	double OutputCurrent;
 	u32 InverseSincFilterEnable;
 	u32 DecoderMode;
 	void * FuncHandler;
@@ -834,7 +835,7 @@ static inline u32 XRFdc_GetSysRefSource(XRFdc* InstancePtr, u32 Type)
 *		- Return Fabric Clock frequency for ADC/DAC tile
 *
 ******************************************************************************/
-static inline float XRFdc_GetFabClkFreq(XRFdc* InstancePtr, u32 Type,
+static inline double XRFdc_GetFabClkFreq(XRFdc *InstancePtr, u32 Type,
 								int Tile_Id)
 {
 	if (Type == XRFDC_ADC_TILE)
