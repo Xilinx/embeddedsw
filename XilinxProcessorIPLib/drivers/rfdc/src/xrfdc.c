@@ -70,6 +70,7 @@
 *                       Updated XRFdc_DumpRegs API for better readability
 *                       of output register dump.
 *                       Add support for 4GSPS CoarseMixer frequency.
+*              10/11/17 Modify float types to double to increase precision.
 * </pre>
 *
 ******************************************************************************/
@@ -704,7 +705,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u32 IsBlockAvail;
 	u16 ReadReg;
 	u32 BaseAddr;
-	float SamplingRate;
+	double SamplingRate;
 	s64 Freq;
 	s32 PhaseOffset;
 	u16 NoOfBlocks;
@@ -1238,7 +1239,7 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u32 BaseAddr;
 	u64 ReadReg;
 	u64 ReadReg_Mix1;
-	float SamplingRate;
+	double SamplingRate;
 	s64 Freq;
 	s32 PhaseOffset;
 	u32 Block;
