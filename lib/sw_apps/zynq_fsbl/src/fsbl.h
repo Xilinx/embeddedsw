@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in 
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -169,7 +167,7 @@
 * 						after PCAP transfer completion
 *						726178 In the 14.6 FSBL function FabricInit() PROG_B 
 *						is kept active for 5mS.
-*						Resolution: PROG_B is now kept active for 5mS only incase 
+*						Resolution: PROG_B is now kept active for 5ms only in case
 *						if efuse is the aes key source.
 *						755245 FSBL does not load partition if eMMC has only 
 *						one partition
@@ -304,7 +302,7 @@
 * Defining this flag will exclude the feature, forcing every partition to be
 * encrypted when EFUSE_SEC_EN bit is set.
 * This flag can be set/unset during compilation.
-* By deafult this flag is unset/undefined which enables the above feature
+* By default this flag is unset/undefined which enables the above feature
 * Note : Changing the default behaviour is not recommended from
 * Security perspective.
 *
@@ -335,7 +333,7 @@ extern "C" {
  * SDK release version
  */
 #define SDK_RELEASE_YEAR	2019
-#define SDK_RELEASE_QUARTER	1
+#define SDK_RELEASE_QUARTER	2
 
 #define WORD_LENGTH_SHIFT	2
 
