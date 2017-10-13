@@ -579,6 +579,13 @@ proc generate_lwip_opts {libhandle} {
 	puts $lwipopts_fd "\#define ICMP_TTL $icmp_ttl"
 	puts $lwipopts_fd ""
 
+	# IPv6 options
+	set ipv6_enable		[common::get_property CONFIG.ipv6_enable $libhandle]
+	if {$ipv6_enable == true} {
+	puts $lwipopts_fd "\#define LWIP_IPV6 1"
+	puts $lwipopts_fd ""
+	}
+
 	# IGMP options
 	set igmp_val 		[common::get_property CONFIG.igmp_options $libhandle]
 	if {$igmp_val == true} {
