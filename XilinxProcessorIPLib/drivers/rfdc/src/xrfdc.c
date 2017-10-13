@@ -72,6 +72,8 @@
 *                       Add support for 4GSPS CoarseMixer frequency.
 *              10/11/17 Modify float types to double to increase precision.
 *              10/12/17 Update BlockStatus API to give current status.
+*                       In BYPASS mode, input datatype can be Real or IQ,
+*                       hence checked both while reading the mixer mode.
 * </pre>
 *
 ******************************************************************************/
@@ -1353,15 +1355,10 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	ReadReg_Mix1 &= XRFDC_MIX_CFG1_MASK;
 	Mixer_Settings->CoarseMixFreq = 0x20;
 	if (ReadReg == XRFDC_CRSE_MIX_BYPASS) {
-		if (((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
-				(Type == XRFDC_ADC_TILE)) ||
-				((Type == XRFDC_DAC_TILE)
-				&& (DataType !=
-				XRFDC_DAC_MIXER_MODE_REAL))) {
-			if (ReadReg_Mix1 == XRFDC_CRSE_MIX_BYPASS)
-				Mixer_Settings->CoarseMixFreq =
+		if (ReadReg_Mix1 == XRFDC_CRSE_MIX_BYPASS)
+			Mixer_Settings->CoarseMixFreq =
 					XRFDC_COARSE_MIX_BYPASS;
-		} else if (ReadReg_Mix1 == XRFDC_CRSE_MIX_OFF)
+		else if (ReadReg_Mix1 == XRFDC_CRSE_MIX_OFF)
 			Mixer_Settings->CoarseMixFreq =
 				XRFDC_COARSE_MIX_BYPASS;
 	}
