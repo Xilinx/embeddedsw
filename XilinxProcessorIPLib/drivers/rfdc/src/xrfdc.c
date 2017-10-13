@@ -71,6 +71,7 @@
 *                       of output register dump.
 *                       Add support for 4GSPS CoarseMixer frequency.
 *              10/11/17 Modify float types to double to increase precision.
+*              10/12/17 Update BlockStatus API to give current status.
 * </pre>
 *
 ******************************************************************************/
@@ -562,6 +563,12 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u32 Block;
 	u16 ReadReg;
 	u32 BaseAddr;
+	u8 FIFOEnable;
+	u32 DecimationFactor;
+	u32 InterpolationFactor;
+	u8 AdderEnable;
+	u32 DecoderMode;
+	u8 MixerMode = 0x8;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -612,16 +619,36 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			BlockStatus->SamplingFreq = InstancePtr->RFdc_Config.
 								ADCTile_Config[Tile_Id].SamplingRate;
 			BlockStatus->DigitalDataPathStatus = 0;
-			BlockStatus->DigitalDataPathStatus = InstancePtr->RFdc_Config.
-					ADCTile_Config[Tile_Id].ADCBlock_Digital_Config[Block_Id].
-					FifoEnable;
-			BlockStatus->DigitalDataPathStatus |=  InstancePtr->RFdc_Config.
-					ADCTile_Config[Tile_Id].ADCBlock_Digital_Config[Block_Id].
-					DecimationMode << 4;
-			BlockStatus->AnalogDataPathStatus = 0;
-			BlockStatus->AnalogDataPathStatus = InstancePtr->RFdc_Config.
-				ADCTile_Config[Tile_Id].ADCBlock_Analog_Config[Block_Id].
-				MixMode;
+			XRFdc_GetFIFOStatus(InstancePtr, XRFDC_ADC_TILE,
+						Tile_Id, &FIFOEnable);
+			BlockStatus->DigitalDataPathStatus = FIFOEnable;
+			XRFdc_GetDecimationFactor(InstancePtr, Tile_Id,
+						Block_Id, &DecimationFactor);
+			BlockStatus->DigitalDataPathStatus |=
+				(DecimationFactor << 4);
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_MXR_MODE_OFFSET);
+			ReadReg &= (XRFDC_EN_I_IQ_MASK | XRFDC_EN_Q_IQ_MASK);
+			if (ReadReg == 0xF)
+				MixerMode =
+					XRFDC_FINE_MIXER_MOD_COMPLX_TO_COMPLX;
+			else if (ReadReg == 0x3)
+				MixerMode =
+					XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;
+			else if (ReadReg == 0x5)
+				MixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+			else if (ReadReg == 0x0)
+				MixerMode = XRFDC_FINE_MIXER_MOD_OFF;
+			BlockStatus->DigitalDataPathStatus |=  (MixerMode << 8);
+
+			/*
+			 * Checking ADC block enable for ADC AnalogPath.
+			 * This can be changed later,
+			 */
+			BlockStatus->AnalogDataPathStatus =
+			XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
+							Block_Id);
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_FABRIC_IMR_OFFSET);
 			BlockStatus->IsFIFOFlagsEnabled =
@@ -634,25 +661,43 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			BlockStatus->SamplingFreq = InstancePtr->RFdc_Config.
 								DACTile_Config[Tile_Id].SamplingRate;
 			BlockStatus->DigitalDataPathStatus = 0;
-			BlockStatus->DigitalDataPathStatus = InstancePtr->RFdc_Config.
-					DACTile_Config[Tile_Id].DACBlock_Digital_Config[Block_Id].
-					FifoEnable;
-			BlockStatus->DigitalDataPathStatus |= InstancePtr->RFdc_Config.
-					DACTile_Config[Tile_Id].DACBlock_Digital_Config[Block_Id].
-					InterploationMode << 4;
-			BlockStatus->DigitalDataPathStatus |= InstancePtr->RFdc_Config.
-					DACTile_Config[Tile_Id].DACBlock_Digital_Config[Block_Id].
-					AdderEnable << 8;
+			XRFdc_GetFIFOStatus(InstancePtr, XRFDC_DAC_TILE,
+					Tile_Id, &FIFOEnable);
+			BlockStatus->DigitalDataPathStatus = FIFOEnable;
+			XRFdc_GetInterpolationFactor(InstancePtr, Tile_Id,
+					Block_Id, &InterpolationFactor);
+			BlockStatus->DigitalDataPathStatus |=
+						(InterpolationFactor << 4);
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_DAC_MB_CFG_OFFSET);
+			ReadReg &= XRFDC_EN_MB_MASK;
+			AdderEnable = ReadReg >> 3;
+			BlockStatus->DigitalDataPathStatus |=
+						(AdderEnable << 8);
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+							XRFDC_MXR_MODE_OFFSET);
+			ReadReg &= (XRFDC_EN_I_IQ_MASK | XRFDC_EN_Q_IQ_MASK);
+			if (ReadReg == 0xF)
+				MixerMode =
+					XRFDC_FINE_MIXER_MOD_COMPLX_TO_COMPLX;
+			else if (ReadReg == 0x3)
+				MixerMode =
+					XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;
+			else if (ReadReg == 0x5)
+				MixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+			else if (ReadReg == 0x0)
+				MixerMode = XRFDC_FINE_MIXER_MOD_OFF;
+			BlockStatus->DigitalDataPathStatus |=
+						(MixerMode << 12);
 			BlockStatus->AnalogDataPathStatus = 0;
-			BlockStatus->AnalogDataPathStatus = InstancePtr->RFdc_Config.
-				DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].
-				MixMode;
-			BlockStatus->AnalogDataPathStatus |= InstancePtr->RFdc_Config.
-					DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].
-					InvSyncEnable << 4;
-			BlockStatus->AnalogDataPathStatus |= InstancePtr->RFdc_Config.
-				DACTile_Config[Tile_Id].DACBlock_Analog_Config[Block_Id].
-				DecoderMode << 8;
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_DAC_INVSINC_OFFSET);
+			ReadReg &= XRFDC_EN_INVSINC_MASK;
+			BlockStatus->AnalogDataPathStatus = ReadReg;
+			XRFdc_GetDecoderMode(InstancePtr, Tile_Id, Block_Id,
+						&DecoderMode);
+			BlockStatus->AnalogDataPathStatus |= (DecoderMode << 4);
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_DAC_FABRIC_IMR_OFFSET);
 			BlockStatus->IsFIFOFlagsEnabled =
