@@ -289,6 +289,8 @@ extern "C" {
 							power-up sequence */
 #define XRFDC_HSCOM_UPDT_DYN_OFFSET		0x0B8	/**< Trigger the update
 							dynamic event */
+#define XRFDC_DAC_INVSINC_OFFSET		0x0C0U	/**< Invsinc control */
+#define XRFDC_DAC_MB_CFG_OFFSET		0x0C4U	/**< Multiband config */
 
 #define XRFDC_RESET_OFFSET		0x00U	/**< Tile reset register */
 #define XRFDC_RESTART_OFFSET	0x04U	/**< Tile restart register */
@@ -1781,6 +1783,26 @@ extern "C" {
 								interrupt mask */
 #define XRFDC_INTR_OVR_VOLTAGE_MASK		0x00000004U	/**< Over Voltage
 								interrupt mask */
+/* @} */
+
+/** @name Multiband config register
+ *
+ * This register contains bits to configure multiband.
+ * @{
+ */
+
+#define XRFDC_EN_MB_MASK	0x00000008U	/**< multi-band adder mask */
+
+/* @} */
+
+/** @name Invsinc control register
+ *
+ * This register contains bits to configure Invsinc.
+ * @{
+ */
+
+#define XRFDC_EN_INVSINC_MASK	0x00000001U	/**< invsinc enable mask */
+
 /* @} */
 
 #define XRFDC_IXR_FIFOUSRDAT_MASK			0x0000000FU
