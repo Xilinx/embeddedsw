@@ -553,7 +553,7 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
 * @param	InstancePtr is a pointer to the XRfdc instance.
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+*			are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
 *		- Return 1 if ADC block is available, otherwise 0.
@@ -562,6 +562,12 @@ static inline u32 XRFdc_IsDACBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
 static inline u32 XRFdc_IsADCBlockEnabled(XRFdc* InstancePtr, int Tile_Id,
 												u32 Block_Id)
 {
+	if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS) {
+		if ((Block_Id == 2U) || (Block_Id == 3U))
+			return 0;
+		if (Block_Id == 1U)
+			Block_Id = 2U;
+	}
 	if (InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 			ADCBlock_Analog_Config[Block_Id].BlockAvailable == 0U)
 		return 0;
@@ -616,7 +622,7 @@ static inline u32 XRFdc_Get_TileBaseAddr(XRFdc* InstancePtr, u32 Type,
 * @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
 * @param	Tile_Id Valid values are 0-3.
 * @param	Block_Id is ADC/DAC block number inside the tile. Valid values
-*			are 0-3.
+*			are 0-3 in DAC/ADC-2GSPS and 0-1 in ADC-4GSPS.
 *
 * @return
 *		- Return Block BaseAddress.
@@ -626,6 +632,9 @@ static inline u32 XRFdc_Get_BlockBaseAddr(XRFdc* InstancePtr, u32 Type,
 								int Tile_Id, u32 Block_Id)
 {
 	if(Type == XRFDC_ADC_TILE) {
+		if (InstancePtr->RFdc_Config.ADCType == XRFDC_ADC_4GSPS)
+			if (Block_Id == 1U)
+				Block_Id = 2U;
 		return InstancePtr->BaseAddr + XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {

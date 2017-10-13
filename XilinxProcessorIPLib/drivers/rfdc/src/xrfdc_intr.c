@@ -119,7 +119,7 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
 			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-								Index);
+							Block_Id);
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Index);
 		} else {
@@ -282,7 +282,7 @@ void XRFdc_IntrDisable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
 			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-								Index);
+							Block_Id);
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Index);
 		} else {
