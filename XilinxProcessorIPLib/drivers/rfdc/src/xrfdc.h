@@ -111,6 +111,8 @@
 *                       Add support for 4GSPS CoarseMixer frequency.
 *              10/11/17 Modify float types to double to increase precision.
 *              10/12/17 Update BlockStatus API to give current status.
+*                       In BYPASS mode, input datatype can be Real or IQ
+*                       hence checked both while reading the mixer mode.
 *
 * </pre>
 *
