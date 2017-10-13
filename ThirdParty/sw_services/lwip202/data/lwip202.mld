@@ -81,6 +81,12 @@ BEGIN LIBRARY lwip202
 	PARAM name = icmp_ttl, desc = "ICMP TTL value", type = int, default = 255;
   END CATEGORY
 
+  BEGIN CATEGORY lwip_ipv6_options
+	PROPERTY desc = "IPv6 Options";
+	PARAM name = ipv6_options, desc = "IPv6 Options", type = bool, default = true, permit = none;
+	PARAM name = ipv6_enable, desc = "IPv6 enable value", type = bool, default = false;
+  END CATEGORY
+
   BEGIN CATEGORY igmp_options
 	PROPERTY desc = "IGMP Options";
         PARAM name = igmp_options, desc = "IGMP Options", type = bool, default = false;
