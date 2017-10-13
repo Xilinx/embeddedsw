@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2017-10-13
+	* Add multicast MAC update for IPv6 in xemacpsif.c and xaxiemacif.c
+	* Add IPv6 source in lwip.makefile
 2017-09-20
 	* Disable L1 prefetch for ARMv8 in init_axi_dma function in xaxiemacif_dma.c.
 2017-09-12
