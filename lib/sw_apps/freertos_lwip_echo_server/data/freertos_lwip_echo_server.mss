@@ -13,4 +13,5 @@ BEGIN LIBRARY
  PARAMETER API_MODE = SOCKET_API
  PARAMETER dhcp_does_arp_check = true
  PARAMETER lwip_dhcp = true
+ PARAMETER ipv6_enable = false
 END
