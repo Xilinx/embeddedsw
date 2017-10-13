@@ -71,6 +71,10 @@
 #include "xscugic.h"
 #include "xemacps.h"
 
+#if LWIP_IPV6
+#include "lwip/ethip6.h"
+#endif
+
 
 /* Define those to better describe your network interface. */
 #define IFNAME0 't'
@@ -81,6 +85,13 @@ static err_t xemacpsif_mac_filter_update (struct netif *netif,
 							ip_addr_t *group, u8_t action);
 
 static u8_t xemacps_mcast_entry_mask = 0;
+#endif
+
+#if LWIP_IPV6 && LWIP_IPV6_MLD
+static err_t xemacpsif_mld6_mac_filter_update (struct netif *netif,
+							ip_addr_t *group, u8_t action);
+
+static u8_t xemacps_mld6_mcast_entry_mask;
 #endif
 
 XEmacPs_Config *mac_config;
@@ -247,6 +258,10 @@ s32_t xemacpsif_input(struct netif *netif)
 			/* IP or ARP packet? */
 			case ETHTYPE_IP:
 			case ETHTYPE_ARP:
+	#if LWIP_IPV6
+			/*IPv6 Packet?*/
+			case ETHTYPE_IPV6:
+	#endif
 	#if PPPOE_SUPPORT
 				/* PPPoE packet? */
 			case ETHTYPE_PPPOEDISC:
@@ -329,8 +344,16 @@ static err_t low_level_init(struct netif *netif)
 	netif->igmp_mac_filter = xemacpsif_mac_filter_update;
 #endif
 
+#if LWIP_IPV6 && LWIP_IPV6_MLD
+ netif->mld_mac_filter = xemacpsif_mld6_mac_filter_update;
+#endif
+
 	netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP |
 											NETIF_FLAG_LINK_UP;
+
+#if LWIP_IPV6 && LWIP_IPV6_MLD
+	netif->flags |= NETIF_FLAG_MLD6;
+#endif
 
 #if LWIP_IGMP
 	netif->flags |= NETIF_FLAG_IGMP;
@@ -434,6 +457,127 @@ void HandleTxErrors(struct xemac_s *xemac)
 	SYS_ARCH_UNPROTECT(lev);
 }
 
+#if LWIP_IPV6 && LWIP_IPV6_MLD
+static u8_t xemacpsif_ip6_addr_ismulticast(ip6_addr_t* ip_addr)
+{
+	if(ip6_addr_ismulticast_linklocal(ip_addr)||
+           ip6_addr_ismulticast_iflocal(ip_addr)   ||
+           ip6_addr_ismulticast_adminlocal(ip_addr)||
+           ip6_addr_ismulticast_sitelocal(ip_addr) ||
+           ip6_addr_ismulticast_orglocal(ip_addr)  ||
+           ip6_addr_ismulticast_global(ip_addr)) {
+	/*Return TRUE if IPv6 is Multicast type*/
+	return TRUE;
+	} else {
+	return FALSE;
+	}
+}
+
+static void xemacpsif_mld6_mac_hash_update (struct netif *netif, u8_t *ip_addr,
+		u8_t action)
+{
+	u8_t multicast_mac_addr[6];
+	struct xemac_s *xemac = (struct xemac_s *) (netif->state);
+	xemacpsif_s *xemacpsif = (xemacpsif_s *) (xemac->state);
+	XEmacPs_BdRing *txring;
+	txring = &(XEmacPs_GetTxRing(&xemacpsif->emacps));
+
+	multicast_mac_addr[0] = LL_IP6_MULTICAST_ADDR_0;
+	multicast_mac_addr[1] = LL_IP6_MULTICAST_ADDR_1;
+	multicast_mac_addr[2] = ip_addr[12];
+	multicast_mac_addr[3] = ip_addr[13];
+	multicast_mac_addr[4] = ip_addr[14];
+	multicast_mac_addr[5] = ip_addr[15];
+
+	/* Wait till all sent packets are acknowledged from HW */
+	while(txring->HwCnt);
+
+	SYS_ARCH_DECL_PROTECT(lev);
+
+	SYS_ARCH_PROTECT(lev);
+
+	/* Stop Ethernet */
+	XEmacPs_Stop(&xemacpsif->emacps);
+
+	if (action == NETIF_ADD_MAC_FILTER) {
+		/* Set Mulitcast mac address in hash table */
+		XEmacPs_SetHash(&xemacpsif->emacps, multicast_mac_addr);
+
+	} else if (action == NETIF_DEL_MAC_FILTER) {
+		/* Remove Mulitcast mac address in hash table */
+		XEmacPs_DeleteHash(&xemacpsif->emacps, multicast_mac_addr);
+	}
+
+	/* Reset DMA */
+	reset_dma(xemac);
+
+	/* Start Ethernet */
+	XEmacPs_Start(&xemacpsif->emacps);
+
+	SYS_ARCH_UNPROTECT(lev);
+}
+
+static err_t xemacpsif_mld6_mac_filter_update (struct netif *netif, ip_addr_t *group,
+		u8_t action)
+{
+	u8_t temp_mask;
+	unsigned int i;
+	u8_t * ip_addr = (u8_t *) group;
+
+	if(!(xemacpsif_ip6_addr_ismulticast((ip6_addr_t*) ip_addr))) {
+		LWIP_DEBUGF(NETIF_DEBUG,
+                                ("%s: The requested MAC address is not a multicast address.\r\n", __func__));								 LWIP_DEBUGF(NETIF_DEBUG,
+		                ("Multicast address add operation failure !!\r\n"));
+                        return ERR_ARG;
+	}
+	if (action == NETIF_ADD_MAC_FILTER) {
+		for (i = 0; i < XEMACPS_MAX_MAC_ADDR; i++) {
+			temp_mask = (0x01) << i;
+			if ((xemacps_mld6_mcast_entry_mask & temp_mask) == temp_mask) {
+				continue;
+			}
+			xemacps_mld6_mcast_entry_mask |= temp_mask;
+
+			/* Update mac address in hash table */
+			xemacpsif_mld6_mac_hash_update(netif, ip_addr, action);
+
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("%s: Muticast MAC address successfully added.\r\n", __func__));
+
+			return ERR_OK;
+		}
+		LWIP_DEBUGF(NETIF_DEBUG,
+				("%s: No multicast address registers left.\r\n", __func__));
+		LWIP_DEBUGF(NETIF_DEBUG,
+				("Multicast MAC address add operation failure !!\r\n"));
+		return ERR_MEM;
+	} else if (action == NETIF_DEL_MAC_FILTER) {
+		for (i = 0; i < XEMACPS_MAX_MAC_ADDR; i++) {
+			temp_mask = (0x01) << i;
+			if ((xemacps_mld6_mcast_entry_mask & temp_mask) != temp_mask) {
+				continue;
+			}
+			xemacps_mld6_mcast_entry_mask &= (~temp_mask);
+
+			/* Update mac address in hash table */
+			xemacpsif_mld6_mac_hash_update(netif, ip_addr, action);
+
+			LWIP_DEBUGF(NETIF_DEBUG,
+					("%s: Multicast MAC address successfully removed.\r\n", __func__));
+
+			return ERR_OK;
+		}
+		LWIP_DEBUGF(NETIF_DEBUG,
+				("%s: No multicast address registers present with\r\n", __func__));
+		LWIP_DEBUGF(NETIF_DEBUG,
+				("the requested Multicast MAC address.\r\n"));
+		LWIP_DEBUGF(NETIF_DEBUG,
+				("Multicast MAC address removal failure!!.\r\n"));
+		return ERR_MEM;
+	}
+	return ERR_ARG;
+}
+#endif
 
 #if LWIP_IGMP
 static void xemacpsif_mac_hash_update (struct netif *netif, u8_t *ip_addr,
@@ -583,6 +727,9 @@ err_t xemacpsif_init(struct netif *netif)
 	netif->name[1] = IFNAME1;
 	netif->output = xemacpsif_output;
 	netif->linkoutput = low_level_output;
+#if LWIP_IPV6
+	netif->output_ip6 = ethip6_output;
+#endif
 
 	low_level_init(netif);
 	return ERR_OK;
