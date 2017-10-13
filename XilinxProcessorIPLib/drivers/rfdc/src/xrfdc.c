@@ -142,8 +142,6 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 			if (XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id) != 0U)
 				InstancePtr->DAC_Tile[Tile_Id].NumOfDACBlocks++;
 		}
-		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS)
-			InstancePtr->ADC_Tile[Tile_Id].NumOfADCBlocks /= 2;
 	}
 
 	/*
@@ -483,21 +481,6 @@ int XRFdc_GetIPStatus(XRFdc* InstancePtr, XRFdc_IPStatus* IPStatus)
 			}
 		}
 
-		if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
-			if (IPStatus->ADCTileStatus[Tile_Id].
-						BlockStatusMask == 0x3)
-				IPStatus->ADCTileStatus[Tile_Id].
-						BlockStatusMask = 0x1;
-			if (IPStatus->ADCTileStatus[Tile_Id].
-						BlockStatusMask == 0xC)
-				IPStatus->ADCTileStatus[Tile_Id].
-						BlockStatusMask = 0x2;
-			if (IPStatus->ADCTileStatus[Tile_Id].
-						BlockStatusMask == 0xF)
-				IPStatus->ADCTileStatus[Tile_Id].
-						BlockStatusMask = 0x3;
-		}
-
 		if (IPStatus->ADCTileStatus[Tile_Id].IsEnabled) {
 			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -583,7 +566,8 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 										XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -623,7 +607,7 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 						Tile_Id, &FIFOEnable);
 			BlockStatus->DigitalDataPathStatus = FIFOEnable;
 			XRFdc_GetDecimationFactor(InstancePtr, Tile_Id,
-						Block_Id, &DecimationFactor);
+						Block, &DecimationFactor);
 			BlockStatus->DigitalDataPathStatus |=
 				(DecimationFactor << 4);
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
@@ -648,7 +632,7 @@ int XRFdc_GetBlockStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			 */
 			BlockStatus->AnalogDataPathStatus =
 			XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-							Block_Id);
+							Block);
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_FABRIC_IMR_OFFSET);
 			BlockStatus->IsFIFOFlagsEnabled =
@@ -780,7 +764,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
 			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-								Index);
+							Block_Id);
 			Mixer_Config = &InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Digital_Datapath[Index].Mixer_Settings;
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
@@ -1307,7 +1291,8 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		SamplingRate = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
@@ -2165,8 +2150,8 @@ int XRFdc_SetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	for (; Index < NoOfBlocks;) {
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
-			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-								Index);
+			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+							Tile_Id, Block_Id);
 			QMC_Config = &InstancePtr->ADC_Tile[Tile_Id].
 							ADCBlock_Analog_Datapath[Index].QMC_Settings;
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
@@ -2409,7 +2394,8 @@ int XRFdc_GetQMCSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -2552,8 +2538,8 @@ int XRFdc_SetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	for (; Index < NoOfBlocks; Index++) {
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
-			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-								Index);
+			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+							Tile_Id, Block_Id);
 			CoarseDelay_Config = &InstancePtr->ADC_Tile[Tile_Id].
 					ADCBlock_Analog_Datapath[Index].CoarseDelay_Settings;
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
@@ -2733,7 +2719,8 @@ int XRFdc_GetCoarseDelaySettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -2841,7 +2828,8 @@ int XRFdc_UpdateEvent(XRFdc* InstancePtr, u32 Type, int Tile_Id, u32 Block_Id,
 	for (; Index < NoOfBlocks; Index++) {
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
-			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Index);
+			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+							Tile_Id, Block_Id);
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 									XRFDC_BLOCK_ADDR_OFFSET(Index);
 		} else {
@@ -3029,7 +3017,8 @@ int XRFdc_GetDecimationFactor(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 		Block_Id = 2U;
 	}
 
-	IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+					Tile_Id, Block);
 	BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	if (IsBlockAvail == 0U) {
@@ -3190,7 +3179,8 @@ int XRFdc_SetFabRdVldWords(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 	}
 
 	for (; Index < NoOfBlocks; Index++) {
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Index);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block_Id);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Index);
 
@@ -3285,7 +3275,8 @@ int XRFdc_GetFabWrVldWords(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	}
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -3374,7 +3365,8 @@ int XRFdc_GetFabRdVldWords(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -3472,7 +3464,8 @@ int XRFdc_ThresholdStickyClear(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 	}
 
 	for (; Index < NoOfBlocks;) {
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Index);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block_Id);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 									XRFDC_BLOCK_ADDR_OFFSET(Index);
 		if (IsBlockAvail == 0U) {
@@ -3589,7 +3582,8 @@ int XRFdc_SetThresholdClrMode(XRFdc* InstancePtr, int Tile_Id,
 	}
 
 	for (; Index < NoOfBlocks;) {
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Index);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block_Id);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 									XRFDC_BLOCK_ADDR_OFFSET(Index);
 		if (IsBlockAvail == 0U) {
@@ -3716,7 +3710,8 @@ int XRFdc_SetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 	}
 
 	for (; Index < NoOfBlocks;) {
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Index);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block_Id);
 		Threshold_Config = &InstancePtr->ADC_Tile[Tile_Id].
 						ADCBlock_Analog_Datapath[Index].Threshold_Settings;
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
@@ -3915,7 +3910,7 @@ int XRFdc_GetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 		Block_Id = 2U;
 	}
 
-	IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block);
 	BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	if (IsBlockAvail == 0U) {
@@ -4174,8 +4169,8 @@ int XRFdc_ResetNCOPhase(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	for (; Index < NoOfBlocks; Index++) {
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
-			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-								Index);
+			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+							Tile_Id, Block_Id);
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Index);
 		} else {
@@ -4568,8 +4563,8 @@ int XRFdc_SetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	for (; Index < NoOfBlocks; Index++) {
 		if (Type == XRFDC_ADC_TILE) {
 			/* ADC */
-			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-								Index);
+			IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+							Tile_Id, Block_Id);
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Index);
 		} else {
@@ -4676,7 +4671,8 @@ int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -4757,6 +4753,7 @@ void XRFdc_DumpRegs(XRFdc* InstancePtr, u32 Type, int Tile_Id)
 	u16 NoOfTiles;
 	u16 Index;
 	u16 IsBlockAvail;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -4774,8 +4771,15 @@ void XRFdc_DumpRegs(XRFdc* InstancePtr, u32 Type, int Tile_Id)
 		}
 		for (BlockId = 0; BlockId < 4; BlockId++) {
 			if (Type == XRFDC_ADC_TILE) {
+				Block = BlockId;
+				if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+					if (BlockId == 1U)
+						Block = 0U;
+					if ((BlockId == 3U) || (BlockId == 2U))
+						Block = 1U;
+				}
 				IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id,
-								BlockId);
+								Block);
 				if (IsBlockAvail == 0U) {
 					continue;
 				}
