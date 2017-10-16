@@ -122,4 +122,15 @@ s32 XPfw_IpiReadResponse(const XPfw_Module_t *ModPtr, u32 SrcCpuMask, u32 *MsgPt
  */
 s32 XPfw_IpiTrigger(u32 DestCpuMask);
 
+/**
+ * Poll for an acknowledgment from target processor
+ *
+ * @param DestCpuMask is the Mask of the destination CPU from which ACK is expected
+ * @param TimeOutCount is the Count after which the routines returns failure
+ *
+ * @return	XST_SUCCESS if successful
+ * 			XST_FAILURE if a timeout occurred
+ */
+s32 XPfw_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount);
+
 #endif /* XPFW_IPI_MANAGER_H_ */
