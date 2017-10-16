@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2017-10-04
+	* Include options to configure mbox in lwip202.mld and lwip202.tcl
 2017-10-13
 	* Add multicast MAC update for IPv6 in xemacpsif.c and xaxiemacif.c
 	* Add IPv6 source in lwip.makefile
