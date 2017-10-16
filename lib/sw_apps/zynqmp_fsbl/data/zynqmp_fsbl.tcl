@@ -339,7 +339,7 @@ proc swapp_generate {} {
             file delete -force $trans_tbl_a53_64
             file rename -force $trans_tbl_a53_32 $trans_tbl_a53
 
-            set new_flags "-Wall -fmessage-length=0 -march=armv7-a -DARMA53_32 -Os -flto -ffat-lto-objects $def_flags"
+            set new_flags "-Wall -fmessage-length=0 -march=armv7-a -mfpu=vfpv3 -mfloat-abi=hard -DARMA53_32 -Os -flto -ffat-lto-objects $def_flags"
         } else {
             #A53 64-bit
             set ld_file "lscript.ld"
