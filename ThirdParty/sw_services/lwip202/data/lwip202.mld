@@ -56,6 +56,15 @@ BEGIN LIBRARY lwip202
 	PARAM name = pbuf_link_hlen, desc = "Number of bytes that should be allocated for a link level header.", type = int, default = 16, permit = none;
   END CATEGORY
 
+  BEGIN CATEGORY mbox_options
+	PROPERTY desc = "Mbox Related Options";
+	PARAM name = mbox_options, desc = "Mbox Options", type = bool, default = true, permit = none;
+	PARAM name = lwip_tcpip_core_locking_input, desc = "TCPIP input core locking", type = bool, default = false;
+	PARAM name = tcpip_mbox_size, desc = "Size of TCPIP mbox queue.", type = int, default = 200;
+	PARAM name = default_tcp_recvmbox_size, desc = "Size of TCP receive mbox queue.", type = int, default = 200;
+	PARAM name = default_udp_recvmbox_size, desc = "Size of UDP receive mbox queue.", type = int, default = 100;
+  END CATEGORY
+
   BEGIN CATEGORY arp_options
 	PROPERTY desc = "ARP Options";
 	PARAM name = arp_options, desc = "ARP Options", type = bool, default = true, permit = none;
