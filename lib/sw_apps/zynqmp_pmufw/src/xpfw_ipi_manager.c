@@ -234,3 +234,8 @@ inline s32 XPfw_IpiTrigger(u32 DestCpuMask)
 {
 	return XIpiPsu_TriggerIpi(IpiInstPtr, DestCpuMask);
 }
+
+inline s32 XPfw_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
+{
+	return XIpiPsu_PollForAck(IpiInstPtr, DestCpuMask, TimeOutCount);
+}
