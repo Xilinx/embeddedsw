@@ -2,6 +2,10 @@
 Changes for 2017.4
 ===============================
 
+qspipsu_v1_6:
+Flow for accessing flash parts with size more then 16MB
+made similar to u-boot and linux.(CR#984966)
+
 ttcps_v3_5:
 Updates XTtcPs_GetMatchValue and XTtcPs_SetMatchValue APIs
 to use correct match register width for zynq  (i.e. 16 bit)
