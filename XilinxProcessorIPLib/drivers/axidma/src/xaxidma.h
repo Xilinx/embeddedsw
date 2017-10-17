@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_4
+* @addtogroup axidma_v9_5
 * @{
 * @details
 *
@@ -469,6 +469,7 @@
 * 9.4  adk   25/07/17 Added example for cyclic dma mode CR#974218.
 *      adk   08/08/17 Fixed CR#980607 Can't select individual AXI DMA code examples.
 *		      Fixed compilation warning in the driver
+* 9.5  adk   17/10/17 Fixed CR#987026 mulit packet example fails on A53.
 * </pre>
 *
 ******************************************************************************/
