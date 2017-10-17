@@ -87,6 +87,8 @@
 *       mn     08/22/17 Updated for Word Access System support
 *       mn     09/06/17 Resolved compilation errors with IAR toolchain
 *       mn     09/26/17 Added UHS_MODE_ENABLE macro to enable UHS mode
+* 3.4   mn     10/17/17 Use different commands for single and multi block
+*                       transfers
 * </pre>
 *
 ******************************************************************************/
@@ -1338,21 +1340,32 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 	}
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
-
-	TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
-			XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DAT_DIR_SEL_MASK |
-			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK;
-
 	if (InstancePtr->Config.IsCacheCoherent == 0) {
 		Xil_DCacheInvalidateRange((INTPTR)Buff,
 			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 	}
 
-	/* Send block read command */
-	Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+	if (BlkCnt == 1U) {
+		TransferMode = XSDPS_TM_BLK_CNT_EN_MASK |
+			XSDPS_TM_DAT_DIR_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
+
+		/* Send single block read command */
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD17, Arg, BlkCnt);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} else {
+		TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
+			XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DAT_DIR_SEL_MASK |
+			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK;
+
+		/* Send multiple blocks read command */
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	/* Check for transfer complete */
@@ -1435,15 +1448,26 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
 	}
 
-	TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
+	if (BlkCnt == 1U) {
+		TransferMode = XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DMA_EN_MASK;
+
+		/* Send single block write command */
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD24, Arg, BlkCnt);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
+	} else {
+		TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
 			XSDPS_TM_BLK_CNT_EN_MASK |
 			XSDPS_TM_MUL_SIN_BLK_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
-	/* Send block write command */
-	Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
-	if (Status != XST_SUCCESS) {
-		Status = XST_FAILURE;
-		goto RETURN_PATH;
+		/* Send multiple blocks write command */
+		Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
+		if (Status != XST_SUCCESS) {
+			Status = XST_FAILURE;
+			goto RETURN_PATH;
+		}
 	}
 
 	/*
