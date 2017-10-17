@@ -74,6 +74,7 @@
 *              10/12/17 Update BlockStatus API to give current status.
 *                       In BYPASS mode, input datatype can be Real or IQ,
 *                       hence checked both while reading the mixer mode.
+*              10/17/17 Fixed Set Threshold API Issue.
 * </pre>
 *
 ******************************************************************************/
@@ -3724,10 +3725,10 @@ int XRFdc_SetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 #endif
 			goto RETURN_PATH;
 		} else {
-			if ((Threshold_Settings->UpdateThreshold =
-						XRFDC_UPDATE_THRESHOLD_0) ||
-						(Threshold_Settings->UpdateThreshold =
-						XRFDC_UPDATE_THRESHOLD_BOTH)) {
+			if ((Threshold_Settings->UpdateThreshold ==
+					XRFDC_UPDATE_THRESHOLD_0) ||
+					(Threshold_Settings->UpdateThreshold ==
+					XRFDC_UPDATE_THRESHOLD_BOTH)) {
 				if (Threshold_Settings->ThresholdMode[0] > 3) {
 #ifdef __MICROBLAZE__
 					xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested threshold mode for "
@@ -3740,10 +3741,10 @@ int XRFdc_SetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 					goto RETURN_PATH;
 				}
 			}
-			if ((Threshold_Settings->UpdateThreshold =
-						XRFDC_UPDATE_THRESHOLD_1) ||
-						(Threshold_Settings->UpdateThreshold =
-						XRFDC_UPDATE_THRESHOLD_BOTH)) {
+			if ((Threshold_Settings->UpdateThreshold ==
+					XRFDC_UPDATE_THRESHOLD_1) ||
+					(Threshold_Settings->UpdateThreshold ==
+					XRFDC_UPDATE_THRESHOLD_BOTH)) {
 				if (Threshold_Settings->ThresholdMode[1] > 3) {
 #ifdef __MICROBLAZE__
 					xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested threshold mode for "
@@ -3769,10 +3770,10 @@ int XRFdc_SetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 				goto RETURN_PATH;
 			}
 
-			if ((Threshold_Settings->UpdateThreshold =
-						XRFDC_UPDATE_THRESHOLD_0) ||
-						(Threshold_Settings->UpdateThreshold =
-						XRFDC_UPDATE_THRESHOLD_BOTH)) {
+			if ((Threshold_Settings->UpdateThreshold ==
+					XRFDC_UPDATE_THRESHOLD_0) ||
+					(Threshold_Settings->UpdateThreshold ==
+					XRFDC_UPDATE_THRESHOLD_BOTH)) {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 										XRFDC_ADC_TRSHD0_CFG_OFFSET);
 				ReadReg &= ~XRFDC_TRSHD0_EN_MOD_MASK;
@@ -3807,10 +3808,10 @@ int XRFdc_SetThresholdSettings(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 								Threshold_Settings->ThresholdOverVal[0];
 			}
 
-			if ((Threshold_Settings->UpdateThreshold =
-						XRFDC_UPDATE_THRESHOLD_1) ||
-						(Threshold_Settings->UpdateThreshold =
-						XRFDC_UPDATE_THRESHOLD_BOTH)) {
+			if ((Threshold_Settings->UpdateThreshold ==
+					XRFDC_UPDATE_THRESHOLD_1) ||
+					(Threshold_Settings->UpdateThreshold ==
+					XRFDC_UPDATE_THRESHOLD_BOTH)) {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 										XRFDC_ADC_TRSHD1_CFG_OFFSET);
 				ReadReg &= ~XRFDC_TRSHD1_EN_MOD_MASK;
