@@ -123,6 +123,8 @@
 * 1.5	tjs	08/08/17 Added index.html file for importing examples from system.mss
 * 1.5	nsk 08/14/17 Added CCI support
 * 1.5	tjs 09/14/17 Modified the checks for 4 byte addressing and commands.
+* 1.6	tjs 10/16/17 Flow for accessing flash is made similar to u-boot and linux
+* 					 For CR-984966
 *
 * </pre>
 *
