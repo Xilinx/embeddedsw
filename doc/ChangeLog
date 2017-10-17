@@ -485,15 +485,6 @@ Added functionality in FSBL to distinguish EV devices from EG devices
 
 
 
-Changes for 2017.4
-===============================
-
-v_csi2txss_v1_1:
-Exporting ulps API to subsystem
-
-sdps_v3_3:
-Use different commands for single and multi block transfers
-
 Changes for 2017.3
 ===============================
 
