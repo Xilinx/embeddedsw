@@ -74,6 +74,8 @@
  *                     available in all examples. This is a fix for CR-965028.
  *       ms   04/05/17 Added tabspace for return statements in functions
  *                     for proper documentation while generating doxygen.
+ * 9.5   adk  17/10/17 Marked the BD region as Normal Non-Cacheable for A53
+ *		       (CR#987026).
  * </pre>
  *
  * ***************************************************************************
@@ -82,6 +84,10 @@
 #include "xaxidma.h"
 #include "xparameters.h"
 #include "xdebug.h"
+
+#ifdef __aarch64__
+#include "xil_mmu.h"
+#endif
 
 #if defined(XPAR_UARTNS550_0_BASEADDR)
 #include "xuartns550_l.h"       /* to use uartns550 */
@@ -191,6 +197,10 @@ int main(void)
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
+#ifdef __aarch64__
+	Xil_SetTlbAttributes(TX_BD_SPACE_BASE, NORM_NONCACHE);
+	Xil_SetTlbAttributes(RX_BD_SPACE_BASE, NORM_NONCACHE);
+#endif
 
 	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
 	if (!Config) {
@@ -351,7 +361,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 		Status = XAxiDma_BdSetBufAddr(BdCurPtr, RxBufferPtr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set buffer addr %x on BD %x failed %d\r\n",
-			(unsigned int)RxBufferPtr, (unsigned int)BdCurPtr,
+			(unsigned int)RxBufferPtr, (UINTPTR)BdCurPtr,
 								Status);
 
 			return XST_FAILURE;
@@ -361,7 +371,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 				RxRingPtr->MaxTransferLen);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Rx set length %d on BD %x failed %d\r\n",
-			    MAX_PKT_LEN, (unsigned int)BdCurPtr, Status);
+			    MAX_PKT_LEN, (UINTPTR)BdCurPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -377,7 +387,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 			LastRxBdPtr = BdCurPtr;
 		}
 
-		BdCurPtr = XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
+		BdCurPtr = (XAxiDma_Bd *)XAxiDma_BdRingNext(RxRingPtr, BdCurPtr);
 	}
 
 	Status = XAxiDma_BdRingToHw(RxRingPtr, FreeBdCount, BdPtr);
@@ -501,8 +511,12 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)TxPacket, MAX_PKT_LEN *
+	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
 							NUMBER_OF_PACKETS);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
+						 NUMBER_OF_PACKETS);
+#endif
 
 	TxRingPtr = XAxiDma_GetTxRing(AxiDmaInstPtr);
 
@@ -513,7 +527,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 	}
 
 	/* Set up the BDs using the information of the packet to transmit */
-	BufAddr = (u32)Packet;
+	BufAddr = (UINTPTR)Packet;
 	CurBdPtr = BdPtr;
 
 	for (i = 0; i < NUMBER_OF_PACKETS; i++) {
@@ -522,7 +536,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 		Status = XAxiDma_BdSetBufAddr(CurBdPtr, BufAddr);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Tx set buffer addr %x on BD %x failed %d\r\n",
-			(unsigned int)BufAddr, (unsigned int)CurBdPtr, Status);
+			(unsigned int)BufAddr, (UINTPTR)CurBdPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -531,7 +545,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 				TxRingPtr->MaxTransferLen);
 		if (Status != XST_SUCCESS) {
 			xil_printf("Tx set length %d on BD %x failed %d\r\n",
-			    MAX_PKT_LEN, (unsigned int)CurBdPtr, Status);
+			    MAX_PKT_LEN, (UINTPTR)CurBdPtr, Status);
 
 			return XST_FAILURE;
 		}
@@ -563,7 +577,7 @@ static int SendPackets(XAxiDma * AxiDmaInstPtr)
 		XAxiDma_BdSetId(CurBdPtr, BufAddr);
 
 		BufAddr += MAX_PKT_LEN;
-		CurBdPtr = XAxiDma_BdRingNext(TxRingPtr, CurBdPtr);
+		CurBdPtr = (XAxiDma_Bd *)XAxiDma_BdRingNext(TxRingPtr, CurBdPtr);
 	}
 
 	/* Give the BD to DMA to kick off the transmission. */
@@ -602,8 +616,10 @@ static int CheckData(void)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
+#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((u32)RxPacket, MAX_PKT_LEN *
 								NUMBER_OF_PACKETS);
+#endif
 
 	for(i = 0; i < MAX_PKT_LEN * NUMBER_OF_PACKETS; i++) {
 		if (RxPacket[i] != Value) {
