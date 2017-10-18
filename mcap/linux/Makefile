@@ -29,7 +29,7 @@ $(OBJ):
 	gcc $(LDFLAGS) $(CFLAGS) -c mcap_lib.c $< -o $@ $(LDLIBS)
 
 mcap: mcap.o
-	gcc $(CFLAGS) mcap.c $(MCAPLIB) $(PCILIB) -lz -o mcap
+	gcc $(CFLAGS) mcap.c $(MCAPLIB) $(PCILIB) -lz -ludev -o mcap
 
 clean:
 	rm -f *.o *.a mcap
