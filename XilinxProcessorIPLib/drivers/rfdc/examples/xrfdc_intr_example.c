@@ -59,6 +59,7 @@
 * 1.0   sk     05/25/17 First release
 * 1.1   sk     08/09/17 Modified the example to support both Linux and
 *                       Baremetal.
+* 2.2   sk     10/18/17 Check for FIFO intr to return success.
 *
 * </pre>
 *
@@ -191,6 +192,7 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 #endif
 	int irq = RFDC_IRQ_VECT_ID;
 	int ret = 0;
+	InterruptOccured = 0;
 
 	struct metal_init_params init_param = METAL_INIT_DEFAULTS;
 
@@ -300,7 +302,6 @@ int RFdcFabricRateExample(u16 RFdcDeviceId)
 		return XRFDC_FAILURE;
 	}
 #endif
-	InterruptOccured = 0;
 
 	/*
 	 * Below writes are not generic, they are design specific.
@@ -419,11 +420,13 @@ void RFdcHandler (void *CallBackRef, u32 Type, int Tile_Id,
 	if (Type == XRFDC_ADC_TILE) {
 		printf("\n %x Interrupt occurred for ADC%d%d \r\n",
 						StatusEvent, Tile_Id, Block_Id);
-		InterruptOccured = 1;
+		if ((StatusEvent & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U)
+			InterruptOccured = 1;
 	} else {
 		printf("\n %x Interrupt occurred for DAC%d%d \r\n",
 								StatusEvent, Tile_Id, Block_Id);
-		InterruptOccured = 1;
+		if ((StatusEvent & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U)
+			InterruptOccured = 1;
 	}
 
 	/* Disable the interrupt */
