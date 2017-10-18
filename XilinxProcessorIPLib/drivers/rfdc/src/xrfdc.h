@@ -114,6 +114,7 @@
 *                       In BYPASS mode, input datatype can be Real or IQ
 *                       hence checked both while reading the mixer mode.
 *              10/17/17 Fixed Set Threshold API Issue.
+* 2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
 *
 * </pre>
 *

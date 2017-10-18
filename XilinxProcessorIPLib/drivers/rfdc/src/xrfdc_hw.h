@@ -1783,6 +1783,8 @@ extern "C" {
 								interrupt mask */
 #define XRFDC_INTR_OVR_VOLTAGE_MASK		0x00000004U	/**< Over Voltage
 								interrupt mask */
+#define XRFDC_INTR_FIFO_OVR_MASK	0x00008000U	/**< FIFO OF mask */
+#define XRFDC_INTR_DAT_OVR_MASK		0x00004000U	/**< Data OF mask */
 /* @} */
 
 /** @name Multiband config register
@@ -1840,6 +1842,8 @@ extern "C" {
 #define XRFDC_SUBADC3_IXR_DCDR_UF_MASK 		0x00800000U
 #define XRFDC_ADC_OVR_VOLTAGE_MASK			0x04000000U
 #define XRFDC_ADC_OVR_RANGE_MASK			0x08000000U
+#define XRFDC_ADC_FIFO_OVR_MASK				0x40000000U
+#define XRFDC_ADC_DAT_OVR_MASK				0x80000000U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_MASK		0x0000F8F8U
 #define XRFDC_DAC_MC_CFG3_CSGAIN_MASK		0x0000FFC0U
 #define XRFDC_DAC_MC_CFG2_OPCSCAS_20MA		0x00004858U
