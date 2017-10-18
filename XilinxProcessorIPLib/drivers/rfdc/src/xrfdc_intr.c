@@ -48,6 +48,7 @@
 *              09/18/17 Add API to clear the interrupts.
 *       sk     09/21/17 Add support for Over voltage and Over
 *                       Range interrupts.
+* 2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
 * </pre>
 *
 ******************************************************************************/
@@ -171,6 +172,13 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				if ((IntrMask & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
 					ReadReg |= (XRFDC_ADC_OVR_RANGE_MASK >> 24);
 				}
+				if ((IntrMask & XRFDC_ADC_FIFO_OVR_MASK) != 0U)
+					ReadReg |=
+					(XRFDC_ADC_FIFO_OVR_MASK >> 16);
+				if ((IntrMask & XRFDC_ADC_DAT_OVR_MASK) != 0U)
+					ReadReg |=
+					(XRFDC_ADC_DAT_OVR_MASK >> 16);
+
 				XRFdc_WriteReg(InstancePtr, BaseAddr,
 								XRFDC_CONV_INTR_EN(Index), ReadReg);
 
@@ -324,6 +332,12 @@ void XRFdc_IntrDisable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				if ((IntrMask & XRFDC_ADC_OVR_RANGE_MASK) != 0U) {
 					ReadReg &= ~(XRFDC_ADC_OVR_RANGE_MASK >> 24);
 				}
+				if ((IntrMask & XRFDC_ADC_FIFO_OVR_MASK) != 0U)
+					ReadReg &=
+					~(XRFDC_ADC_FIFO_OVR_MASK >> 16);
+				if ((IntrMask & XRFDC_ADC_DAT_OVR_MASK) != 0U)
+					ReadReg &=
+					~(XRFDC_ADC_DAT_OVR_MASK >> 16);
 				XRFdc_WriteReg(InstancePtr, BaseAddr,
 								XRFDC_CONV_INTR_EN(Index), ReadReg);
 				BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
@@ -401,15 +415,25 @@ u32 XRFdc_GetIntrStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u32 ReadReg;
 	u32 Intrsts = 0;
 	u32 IsBlockAvail;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
 
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+					(Type == XRFDC_ADC_TILE)) {
+		if ((Block_Id == 2U) || (Block_Id == 3U))
+			Block = 1U;
+		if (Block_Id == 1U)
+			Block = 0U;
+	}
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+					Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -429,8 +453,8 @@ u32 XRFdc_GetIntrStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-			(Block_Id == 3U))) {
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
                             "valid in %s\r\n", __func__);
@@ -447,6 +471,8 @@ u32 XRFdc_GetIntrStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 							XRFDC_CONV_INTR_STS(Block_Id));
 			Intrsts |= ((ReadReg & XRFDC_INTR_OVR_VOLTAGE_MASK) << 24);
 			Intrsts |= ((ReadReg & XRFDC_INTR_OVR_RANGE_MASK) << 24);
+			Intrsts |= ((ReadReg & XRFDC_INTR_FIFO_OVR_MASK) << 16);
+			Intrsts |= ((ReadReg & XRFDC_INTR_DAT_OVR_MASK) << 16);
 
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 									XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
@@ -500,15 +526,25 @@ void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 {
 	u32 BaseAddr;
 	u32 IsBlockAvail;
+	u32 Block;
 
 #ifdef __BAREMETAL__
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
 #endif
 
+	Block = Block_Id;
+	if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
+					(Type == XRFDC_ADC_TILE)) {
+		if ((Block_Id == 2U) || (Block_Id == 3U))
+			Block = 1U;
+		if (Block_Id == 1U)
+			Block = 0U;
+	}
 	if (Type == XRFDC_ADC_TILE) {
 		/* ADC */
-		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+					Tile_Id, Block);
 		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 	} else {
@@ -527,8 +563,8 @@ void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #endif
 		goto RETURN_PATH;
 	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-			(Block_Id == 3U))) {
+			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
+			(Block == 3U))) {
 #ifdef __MICROBLAZE__
 		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
 							"valid in %s\r\n", __func__);
@@ -550,6 +586,16 @@ void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				XRFdc_WriteReg(InstancePtr, BaseAddr,
 								XRFDC_CONV_INTR_STS(Block_Id),
 								(IntrMask & XRFDC_ADC_OVR_RANGE_MASK) >> 24);
+			}
+			if ((IntrMask & XRFDC_ADC_FIFO_OVR_MASK) != 0U) {
+				XRFdc_WriteReg(InstancePtr, BaseAddr,
+					XRFDC_CONV_INTR_STS(Block_Id),
+				(IntrMask & XRFDC_ADC_FIFO_OVR_MASK) >> 16);
+			}
+			if ((IntrMask & XRFDC_ADC_DAT_OVR_MASK) != 0U) {
+				XRFdc_WriteReg(InstancePtr, BaseAddr,
+					XRFDC_CONV_INTR_STS(Block_Id),
+				(IntrMask & XRFDC_ADC_DAT_OVR_MASK) >> 16);
 			}
 
 			BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
@@ -690,6 +736,26 @@ int XRFdc_IntrHandler(int Vector, void * XRFdcPtr)
 			metal_log(METAL_LOG_DEBUG, "\n ADC Over Range interrupt \r\n");
 #endif
 		}
+		if (Intrsts & XRFDC_ADC_FIFO_OVR_MASK) {
+			IntrMask |= Intrsts & XRFDC_ADC_FIFO_OVR_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				"\n ADC FIFO OF interrupt \r\n");
+#else
+			metal_log(METAL_LOG_DEBUG,
+				"\n ADC FIFO OF interrupt \r\n");
+#endif
+		}
+		if (Intrsts & XRFDC_ADC_DAT_OVR_MASK) {
+			IntrMask |= Intrsts & XRFDC_ADC_DAT_OVR_MASK;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_GENERAL,
+				"\n ADC DATA OF interrupt \r\n");
+#else
+			metal_log(METAL_LOG_DEBUG,
+				"\n ADC DATA OF interrupt \r\n");
+#endif
+				}
 		if ((Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK) != 0U) {
 			IntrMask |= Intrsts & XRFDC_IXR_FIFOUSRDAT_MASK;
 #ifdef __MICROBLAZE__
