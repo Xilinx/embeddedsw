@@ -588,7 +588,7 @@ int XAVBuf_SetOutputVideoFormat(XAVBuf *InstancePtr, XAVBuf_VideoFormat Format)
 
 	InstancePtr->Blender.OutputVideo =
 		XAVBuf_GetLiveVideoAttribute(Format);
-	if(InstancePtr->AVMode.LiveGraphics == NULL)
+	if(InstancePtr->Blender.OutputVideo == NULL)
 		return XST_FAILURE;
 	else
 		return XST_SUCCESS;
