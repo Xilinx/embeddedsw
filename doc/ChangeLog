@@ -59,6 +59,11 @@ Added functionality in FSBL to distinguish EV devices from EG devices
 Changes for 2017.4
 ===============================
 
+standalone_v6_5:
+Updated standalone.tcl to fix bug in
+mb_can_handle_exceptions_in_delay_slots proc.It fixes
+CR#987464.
+
 ttcps_v3_5:
 Updates XTtcPs_GetMatchValue and XTtcPs_SetMatchValue APIs
 to use correct match register width for zynq  (i.e. 16 bit)
