@@ -841,7 +841,8 @@ proc mb_has_pvr { hw_proc_handle } {
 # --------------------------------------
 proc mb_can_handle_exceptions_in_delay_slots { procver } {
 
-    if { [string compare -nocase $procver "5.00.a"] >= 0 } {
+    set procmajorver [lindex [split $procver "."] 0]
+    if { [string compare -nocase $procver "5.00.a"] >= 0 || $procmajorver > 5 } {
         return true
     } else {
         return false
