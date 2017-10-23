@@ -256,7 +256,7 @@ void XAVBuf_CfgInitialize(XAVBuf *InstancePtr, u32 BaseAddr, u16 DeviceId);
 void XAVBuf_InputVideoSelect(XAVBuf *InstancePtr, XAVBuf_VideoStream VidStream,
 			      XAVBuf_GfxStream GfxStream);
 void XAVBuf_InputAudioSelect(XAVBuf *InstancePtr, XAVBuf_AudioStream1 AudStream,
-			      u32 AudioStream2);
+				XAVBuf_AudioStream2 AudioStream2);
 
 /* xavbuf.c: Functions to setup the Video Format attributes */
 int XAVBuf_SetInputNonLiveVideoFormat(XAVBuf *InstancePtr,
