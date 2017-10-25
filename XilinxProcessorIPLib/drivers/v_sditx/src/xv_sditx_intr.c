@@ -275,7 +275,6 @@ void *CallbackFunc, void *CallbackRef)
 	case (XV_SDITX_HANDLER_GTRESET_DONE):
 		InstancePtr->GtRstDoneCallback = (XV_SdiTx_Callback)CallbackFunc;
 		InstancePtr->GtRstDoneRef = CallbackRef;
-		InstancePtr->IsGtRstDoneCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -283,7 +282,6 @@ void *CallbackFunc, void *CallbackRef)
 	case (XV_SDITX_HANDLER_OVERFLOW):
 		InstancePtr->OverFlowCallback = (XV_SdiTx_Callback)CallbackFunc;
 		InstancePtr->OverFlowRef = CallbackRef;
-		InstancePtr->IsOverFlowCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -291,7 +289,6 @@ void *CallbackFunc, void *CallbackRef)
 	case (XV_SDITX_HANDLER_UNDERFLOW):
 		InstancePtr->UnderFlowCallback = (XV_SdiTx_Callback)CallbackFunc;
 		InstancePtr->UnderFlowRef = CallbackRef;
-		InstancePtr->IsUnderFlowCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -370,7 +367,7 @@ void XV_SdiTx_IntrDisable(XV_SdiTx *InstancePtr, u32 Mask)
 static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr)
 {
 	/* Call stream up callback */
-	if (InstancePtr->IsGtRstDoneCallbackSet) {
+	if (InstancePtr->GtRstDoneCallback) {
 		InstancePtr->GtRstDoneCallback(InstancePtr->GtRstDoneRef);
 	}
 }
@@ -390,7 +387,7 @@ static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr)
 static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr)
 {
 	/* Call stream up callback */
-	if (InstancePtr->IsOverFlowCallbackSet) {
+	if (InstancePtr->OverFlowCallback) {
 		InstancePtr->OverFlowCallback(InstancePtr->OverFlowRef);
 	}
 }
@@ -410,7 +407,7 @@ static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr)
 static void SdiTx_UnderFlowIntrHandler(XV_SdiTx *InstancePtr)
 {
 	/* Call stream up callback */
-	if (InstancePtr->IsUnderFlowCallbackSet) {
+	if (InstancePtr->UnderFlowCallback) {
 		InstancePtr->UnderFlowCallback(InstancePtr->UnderFlowRef);
 	}
 }
