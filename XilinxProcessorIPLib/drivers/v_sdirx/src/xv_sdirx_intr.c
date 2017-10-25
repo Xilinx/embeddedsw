@@ -279,7 +279,6 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 	case (XV_SDIRX_HANDLER_STREAM_DOWN):
 		InstancePtr->StreamDownCallback = (XV_SdiRx_Callback)CallbackFunc;
 		InstancePtr->StreamDownRef = CallbackRef;
-		InstancePtr->IsStreamDownCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -287,7 +286,6 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 	case (XV_SDIRX_HANDLER_STREAM_UP):
 		InstancePtr->StreamUpCallback = (XV_SdiRx_Callback)CallbackFunc;
 		InstancePtr->StreamUpRef = CallbackRef;
-		InstancePtr->IsStreamUpCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -295,7 +293,6 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 	case (XV_SDIRX_HANDLER_OVERFLOW):
 		InstancePtr->OverFlowCallback = (XV_SdiRx_Callback)CallbackFunc;
 		InstancePtr->OverFlowRef = CallbackRef;
-		InstancePtr->IsOverFlowCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -303,7 +300,6 @@ int XV_SdiRx_SetCallback(XV_SdiRx *InstancePtr, u32 HandlerType,
 	case (XV_SDIRX_HANDLER_UNDERFLOW):
 		InstancePtr->UnderFlowCallback = (XV_SdiRx_Callback)CallbackFunc;
 		InstancePtr->UnderFlowRef = CallbackRef;
-		InstancePtr->IsUnderFlowCallbackSet = (TRUE);
 		Status = (XST_SUCCESS);
 		break;
 
@@ -684,7 +680,7 @@ static void SdiRx_VidLckIntrHandler(XV_SdiRx *InstancePtr)
 		}
 
 		/* Call stream up callback */
-		if (InstancePtr->IsStreamUpCallbackSet) {
+		if (InstancePtr->StreamUpCallback) {
 			InstancePtr->StreamUpCallback(InstancePtr->StreamUpRef);
 		}
 	} else {
@@ -714,7 +710,7 @@ static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr)
 	XV_SdiRx_ResetStream(InstancePtr);
 
 	/* Call stream up callback */
-	if (InstancePtr->IsStreamDownCallbackSet) {
+	if (InstancePtr->StreamDownCallback) {
 		InstancePtr->StreamDownCallback(InstancePtr->StreamDownRef);
 	}
 }
@@ -734,7 +730,7 @@ static void SdiRx_VidUnLckIntrHandler(XV_SdiRx *InstancePtr)
 static void SdiRx_OverFlowIntrHandler(XV_SdiRx *InstancePtr)
 {
 	/* Call OverFlow callback */
-	if (InstancePtr->IsOverFlowCallbackSet) {
+	if (InstancePtr->OverFlowCallback) {
 		InstancePtr->OverFlowCallback(InstancePtr->OverFlowRef);
 	}
 }
@@ -754,7 +750,7 @@ static void SdiRx_OverFlowIntrHandler(XV_SdiRx *InstancePtr)
 static void SdiRx_UnderFlowIntrHandler(XV_SdiRx *InstancePtr)
 {
 	/* Call UnderFlow callback */
-	if (InstancePtr->IsUnderFlowCallbackSet) {
+	if (InstancePtr->UnderFlowCallback) {
 		InstancePtr->UnderFlowCallback(InstancePtr->UnderFlowRef);
 	}
 }
