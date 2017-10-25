@@ -155,16 +155,12 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr, XV_SdiRx_Config *CfgPtr,
 	 * callback pointers will be assigned by the SetCallback function.
 	 */
 	InstancePtr->StreamDownCallback = (XV_SdiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsStreamDownCallbackSet = (FALSE);
 
 	InstancePtr->StreamUpCallback = (XV_SdiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsStreamUpCallbackSet = (FALSE);
 
 	InstancePtr->OverFlowCallback = (XV_SdiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsOverFlowCallbackSet = (FALSE);
 
 	InstancePtr->UnderFlowCallback = (XV_SdiRx_Callback)((void *)StubCallback);
-	InstancePtr->IsUnderFlowCallbackSet = (FALSE);
 
 	/* Clear SDI variables */
 	XV_SdiRx_ResetStream(InstancePtr);
