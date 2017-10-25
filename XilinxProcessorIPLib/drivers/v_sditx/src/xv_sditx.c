@@ -59,6 +59,7 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSDI_CH_SHIFT 29
+#define XST352_BYTE3_ACT_LUMA_COUNT_SHIFT 22
 
 
 /**************************** Type Definitions *******************************/
@@ -661,6 +662,14 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 		Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << 15);
 
 	Data |=	 (XV_SdiTx_GetPayloadAspectRatio(InstancePtr->Stream[DataStream].Video.AspectRatio) << 23);
+
+	/*for 4096 or 2048 horizontal pixels, set BIT(6) of byte 3 to 1.
+	 * Refer Table 3 SMPTE ST 2081-10.
+	 */
+	if (InstancePtr->Stream[DataStream].Video.Timing.HActive == 2048 ||
+		InstancePtr->Stream[DataStream].Video.Timing.HActive == 4096)
+		Data |= 0x1 << XST352_BYTE3_ACT_LUMA_COUNT_SHIFT;
+
 	Data |=	 ((InstancePtr->Stream[DataStream].CAssignment & 0x7) << 29);
 
 	if (SdiMode == XSDIVID_MODE_3GB)
