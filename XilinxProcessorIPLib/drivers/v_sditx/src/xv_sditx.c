@@ -415,7 +415,8 @@ void XV_SdiTx_SetCoreSettings(XV_SdiTx *InstancePtr, XV_SdiTx_CoreSelId SelId,
  *
  * This function calculates the equivalent payload nibble for Framerate
  *
- * @param	FrameRate is a variable of type XVidC_FrameRate.
+ * @param	FrameRateValid is a calculated framerate based on interlaced
+ * 		or progressive video.
  * @param	BitRate is a variable of type XSdiVid_BitRate.
  *
  * @return
@@ -555,7 +556,7 @@ u8 XV_SdiTx_GetPayloadAspectRatio(XVidC_AspectRatio AspectRatio)
  *
  * This function calculates the 2nd byte of the Payload packet for all SDI modes
  *
- * @param	VideoMode is a variable of type XVidC_VideoMode.
+ * @param	VActiveValid is a variable for number of active vertical lines.
  * @param	SdiMode is a variable to the XSdiVid_TransMode.
  * @param	Data is a pointer to populate the Byte1 of ST352 payload.
  *
