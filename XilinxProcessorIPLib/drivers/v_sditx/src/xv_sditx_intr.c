@@ -217,7 +217,7 @@ void XV_SdiTx_IntrHandler(void *InstancePtr)
 		XV_SdiTx_InterruptClear(SdiTxPtr, Mask);
 	}
 
-	/* Read ISR register  for OVERRFLOW*/
+	/* Read ISR register  for UNDERFLOW*/
 	Mask = ActiveIntr & XV_SDITX_ISR_UNDERFLOW_MASK;
 
 	/* Check for UNDERFLOW IRQ flag set */
@@ -426,7 +426,7 @@ static void SdiTx_GtTxRstDoneIntrHandler(XV_SdiTx *InstancePtr)
 ******************************************************************************/
 static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr)
 {
-	/* Call stream up callback */
+	/* Call OverFlow callback */
 	if (InstancePtr->OverFlowCallback) {
 		InstancePtr->OverFlowCallback(InstancePtr->OverFlowRef);
 	}
@@ -446,7 +446,7 @@ static void SdiTx_OverFlowIntrHandler(XV_SdiTx *InstancePtr)
 ******************************************************************************/
 static void SdiTx_UnderFlowIntrHandler(XV_SdiTx *InstancePtr)
 {
-	/* Call stream up callback */
+	/* Call UnderFlow callback */
 	if (InstancePtr->UnderFlowCallback) {
 		InstancePtr->UnderFlowCallback(InstancePtr->UnderFlowRef);
 	}
