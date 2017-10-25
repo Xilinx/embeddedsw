@@ -158,10 +158,11 @@ int XV_SdiTx_CfgInitialize(XV_SdiTx *InstancePtr, XV_SdiTx_Config *CfgPtr,
 	 * function
 	 */
 	InstancePtr->GtRstDoneCallback = (XV_SdiTx_Callback)((void *)StubCallback);
-
 	InstancePtr->OverFlowCallback = (XV_SdiTx_Callback)((void *)StubCallback);
-
 	InstancePtr->UnderFlowCallback = (XV_SdiTx_Callback)((void *)StubCallback);
+	InstancePtr->CeAlignErrCallback = (XV_SdiTx_Callback)((void *)StubCallback);
+	InstancePtr->Axi4sVidLockCallback = (XV_SdiTx_Callback)((void *)StubCallback);
+
 	/* Stop SDI TX Core */
 	XV_SdiTx_StopSdi(InstancePtr);
 
