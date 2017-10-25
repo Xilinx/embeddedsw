@@ -60,6 +60,8 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 #define XSDI_CH_SHIFT 29
 #define XST352_BYTE3_ACT_LUMA_COUNT_SHIFT 22
+#define XST352_BYTE2_TS_TYPE_SHIFT 15
+#define XST352_BYTE2_PIC_TYPE_SHIFT 14
 
 
 /**************************** Type Definitions *******************************/
@@ -656,10 +658,20 @@ u32 XV_SdiTx_GetPayload(XV_SdiTx *InstancePtr, XVidC_VideoMode VideoMode, XSdiVi
 	Data |=	XV_SDITX_COLORFORMAT;
 	Data |=	XV_SDITX_COLORDEPTH;
 	Data |=	(XV_SdiTx_GetPayloadFrameRate(FrameRateValid, InstancePtr->Transport.IsFractional) << 8);
-	Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << 14);
 
-	if ((InstancePtr->Stream[DataStream].Video.Timing.F0PVTotal >= 1125) && (SdiMode != XSDIVID_MODE_3GB))
-		Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << 15);
+	/* Bit 6 and Bit 7 of st352 byte 2 tells about progressive or interlaced
+	 * transport and picture structures. Read Chapter 5.3 of
+	 * SMPTE ST 352:2013 document.
+	 */
+	if (InstancePtr->Stream[DataStream].IsPsF) {
+		Data |= (0x1 << XST352_BYTE2_PIC_TYPE_SHIFT);
+		Data &= ~(0x1 << XST352_BYTE2_TS_TYPE_SHIFT);
+	} else {
+		Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << XST352_BYTE2_PIC_TYPE_SHIFT);
+		if ((InstancePtr->Stream[DataStream].Video.Timing.F0PVTotal >= 1125) &&
+			(SdiMode != XSDIVID_MODE_3GB))
+			Data |=	(XV_SdiTx_GetPayloadIsInterlaced(InstancePtr->Stream[DataStream].Video.IsInterlaced) << XST352_BYTE2_TS_TYPE_SHIFT);
+	}
 
 	Data |=	 (XV_SdiTx_GetPayloadAspectRatio(InstancePtr->Stream[DataStream].Video.AspectRatio) << 23);
 

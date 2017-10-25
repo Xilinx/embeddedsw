@@ -182,6 +182,7 @@ typedef struct {
 	XVidC_VideoFormat	IsStreamInterlaced;
 	XSdiVid_ChannelAssignment	CAssignment;	/**< Channel assignment */
 	u32 PayloadId;
+	u8 IsPsF;
 } XV_SdiTx_Stream;
 
 /**
