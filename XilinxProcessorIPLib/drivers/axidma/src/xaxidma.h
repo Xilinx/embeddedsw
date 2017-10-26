@@ -15,21 +15,19 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_9
+* @addtogroup axidma_v9_10
 * @{
 * @details
 *
@@ -155,7 +153,7 @@
 * is allocated by the application, and it has to be contiguous. Physical
 * address is required to setup the BD ring.
 *
-* The applicaiton can use XAxiDma_BdRingMemCalc() to find out the amount of
+* The application can use XAxiDma_BdRingMemCalc() to find out the amount of
 * memory needed for a certain number of BDs. XAxiDma_BdRingCntCalc() can be
 * used to find out how many BDs can be allocated for certain amount of memory.
 *
@@ -291,7 +289,7 @@
 * All buffer addresses and BD addresses for the hardware are physical
 * addresses. The user application is responsible to provide physical buffer
 * address for the BD upon BD ring creation. The user application accesses BD
-* through its virtual addess. The driver maintains the address translation
+* through its virtual address. The driver maintains the address translation
 * between the physical and virtual address for BDs.
 *
 * <b> Cache Coherency </b>
