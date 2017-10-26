@@ -32,7 +32,10 @@
  * 1.00  RHe 2014/12/00   First release
  * 1.1   RHe 2015/07/30   Updated ACR GetNVal to be dependent of the
  *                        TMDS character rate instead of the video mode.
- * 1.2   MMO 2017/09/05   Replace U32 with UINTPTR for 64 Bit Addressing Support
+ * 1.2   NA  2017/04/28   Updated the XhdmiAudioGen_PLL_t struct to be able to
+ *                        set fractional multipliers and dividers.
+ * 1.3   RHe 2017/07/31   Updated ACR CTS generation for HDMI 2.0 formats.
+ * 1.4   MMO 2017/09/05   Replace U32 with UINTPTR for 64 Bit Addressing Support
  * </pre>
  *
  ******************************************************************************/
@@ -71,9 +74,12 @@ typedef enum {
 } AudioPattern_t;
 
 typedef struct {
-  u8 Mult;
   u8 Div;
+  u8 Mult;
+  u8 Mult_Eights;
   u8 Clk0Div;
+  u8 Clk0Div_Eights;
+
 } XhdmiAudioGen_PLL_t;
 
 typedef struct {
@@ -103,6 +109,7 @@ int XhdmiAudGen_GetAudClk(AudioRate_t SampleRate);
 int XhdmiACRCtrl_AudioReset(XhdmiAudioGen_t *AudioGen, u8 setclr);
 int XhdmiACRCtrl_Enab(XhdmiAudioGen_t *AudioGen, u8 setclr);
 int XhdmiACRCtrl_Sel(XhdmiAudioGen_t *AudioGen, u8 sel);
+int XhdmiACRCtrl_TMDSClkRatio (XhdmiAudioGen_t *AudioGen, u8 setclr);
 int XhdmiACRCtrl_SetNVal(XhdmiAudioGen_t *AudioGen, u32 NVal);
 
 #define XAudGen_In32   Xil_In32  /**< Input Operations */
@@ -170,12 +177,14 @@ int XhdmiACRCtrl_SetNVal(XhdmiAudioGen_t *AudioGen, u32 NVal);
 #define ACR_N    0x00C
 
 // ACR Control Register
-#define ACR_CTRL_ENAB_ACR_MASK  0x1
-#define ACR_CTRL_ENAB_ACR_SHIFT 0
-#define ACR_CTRL_SEL_ACR_MASK   0x1
-#define ACR_CTRL_SEL_ACR_SHIFT  1
-#define ACR_CTRL_AUD_RST_MASK   0x1
-#define ACR_CTRL_AUD_RST_SHIFT  2
+#define ACR_CTRL_ENAB_ACR_MASK      0x1
+#define ACR_CTRL_ENAB_ACR_SHIFT     0
+#define ACR_CTRL_SEL_ACR_MASK       0x1
+#define ACR_CTRL_SEL_ACR_SHIFT      1
+#define ACR_CTRL_AUD_RST_MASK       0x1
+#define ACR_CTRL_AUD_RST_SHIFT      2
+#define ACR_CTRL_TMDSCLKRATIO_MASK  0x1
+#define ACR_CTRL_TMDSCLKRATIO_SHIFT 3
 
 #define ACR_SEL_GEN 1  // Select generated ACR values#define ACR_SEL_IN  0  // Select input ACR values
 #endif /* AUDIOGEN_DRV_H_ */

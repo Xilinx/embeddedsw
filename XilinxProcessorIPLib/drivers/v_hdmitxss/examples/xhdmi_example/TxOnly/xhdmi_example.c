@@ -77,6 +77,8 @@
 *       GM     28/08/17 Replace XVphy_HdmiInitialize API Call during
 *                            Initialization with XVphy_Hdmi_CfgInitialize API
 *                            Call
+*       mmo    04/10/17 Updated function TxStreamUpCallback to include
+*                            XhdmiACRCtrl_TMDSClkRatio API Call
 * </pre>
 *
 ******************************************************************************/
@@ -112,8 +114,10 @@
 #include "xv_hdmitxss.h"
 #endif
 #include "xvphy.h"
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 #include "xv_tpg.h"
+#endif
 #endif
 #ifdef XPAR_XGPIO_NUM_INSTANCES
 #include "xgpio.h"
@@ -335,9 +339,11 @@ void UpdateColorDepth(XVphy *VphyPtr, XV_HdmiTxSs *HdmiTxSsPtr,
 void CloneTxEdid(void);
 #endif
 
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 void XV_ConfigTpg(XV_tpg *InstancePtr);
 void ResetTpg(void);
+#endif
 #endif
 
 #ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
@@ -370,10 +376,12 @@ static XIntc Intc;        	/* INTC structure */
 XGpio Gpio_Tpg_resetn;
 XGpio_Config *Gpio_Tpg_resetn_ConfigPtr;
 #endif
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #ifdef XPAR_XV_TPG_NUM_INSTANCES
 XV_tpg Tpg;
 XV_tpg_Config *Tpg_ConfigPtr;
 XTpg_PatternId      Pattern;      /**< Video pattern */
+#endif
 #endif
 XhdmiAudioGen_t AudioGen; /* Audio Generator structure */
 #ifdef VIDEO_FRAME_CRC_EN
@@ -1012,6 +1020,8 @@ void TxStreamUpCallback(void *CallbackRef)
   XV_ConfigTpg(&Tpg);
 
 #if defined(USE_HDMI_AUDGEN)
+  XhdmiACRCtrl_TMDSClkRatio(&AudioGen,
+                            HdmiTxSsPtr->HdmiTxPtr->Stream.TMDSClockRatio);
   /* Select the Audio source */
   if (IsPassThrough) {
 
