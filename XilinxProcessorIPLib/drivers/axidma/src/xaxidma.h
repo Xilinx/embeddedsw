@@ -470,6 +470,7 @@
 *      adk   08/08/17 Fixed CR#980607 Can't select individual AXI DMA code examples.
 *		      Fixed compilation warning in the driver
 * 9.5  adk   17/10/17 Fixed CR#987026 mulit packet example fails on A53.
+* 	     26/10/17 Fixed CR#987214 Fix race condition in the XAxiDma_Reset().
 * </pre>
 *
 ******************************************************************************/
