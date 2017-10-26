@@ -69,6 +69,8 @@
 *                               Passthrough)
 *       mmo  18-08-2017 Added Support to Custom Resolution in the Resolution
 *                               menu
+*       GM   05-09-2017 Changed PLL Layout routine to toggle HPD to improve
+*                               stability
 * </pre>
 *
 ******************************************************************************/
@@ -436,8 +438,11 @@ static XHdmi_MenuType XHdmi_GtPllLayoutMenu(XHdmi_Menu *InstancePtr, u8 Input)
 		// Is the reference design RX Only
 		if ((Input == 1) || (Input == 2)) {
 			xil_printf("Issue RX HPD\r\n");
-			// Reset RX frequency detector
-			XVphy_ClkDetFreqReset(&Vphy, 0,	XVPHY_DIR_RX);
+            XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, FALSE);
+            XVphy_Clkout1OBufTdsEnable(&Vphy, XVPHY_DIR_RX, (FALSE));
+            XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
+            XV_HdmiRxSs_ToggleHpd(&HdmiRxSs);
+            XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
 		}
 
 		// Return to main menu
