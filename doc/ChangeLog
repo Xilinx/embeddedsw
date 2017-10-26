@@ -84,6 +84,10 @@ v_sdirx_v1_1:
 v_sdirxss_v1_1:
 Removed the redundant interrupt flags.
 
+axidma_v9_5:
+CR#987026 Fixed issue poll_multi_pkt example fails on a53
+Fixed race condition in the XAxiDma_Reset() API.
+
 Changes for 2017.3
 ===============================
 
