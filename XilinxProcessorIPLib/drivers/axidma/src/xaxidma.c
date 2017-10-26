@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxidma.c
-* @addtogroup axidma_v9_11
+* @addtogroup axidma_v9_12
 * @{
 *
 * This file implements DMA engine-wise initialization and control functions.
@@ -58,6 +58,8 @@
 * 9.7   rsp  04/25/18 Add support for 64MB data transfer. Read max buffer length
 *                     width from config structure. CR #1000474
 * 9.8   rsp  07/11/18 Fix cppcheck style warnings. CR #1006164
+* 9.12  sk   06/17/20 Fix the MM2S and S2MM MaxTransferLen calculation in DMA
+*		      Micro Mode.
 *
 * </pre>
 ******************************************************************************/
@@ -164,10 +166,10 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 	}
 	else {
 		/* In MicroDMA mode, Maximum length that can be transferred
-		 * is '(Memory Data Width / 4) * Burst Size'
+		 * is '(Memory Data Width / 8) * Burst Size'
 		 */
 		InstancePtr->TxBdRing.MaxTransferLen =
-				((Config->Mm2SDataWidth / 4) *
+				((Config->Mm2SDataWidth / 8) *
 				 Config->Mm2SBurstSize);
 	}
 	InstancePtr->TxBdRing.RingIndex = 0;
@@ -212,10 +214,10 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 			}
 			else {
 			/* In MicroDMA mode, Maximum length that can be transferred
-			 * is '(Memory Data Width / 4) * Burst Size'
+			 * is '(Memory Data Width / 8) * Burst Size'
 			 */
 				InstancePtr->RxBdRing[Index].MaxTransferLen =
-						((Config->S2MmDataWidth / 4) *
+						((Config->S2MmDataWidth / 8) *
 						Config->S2MmBurstSize);
 			}
 			if (InstancePtr->AddrWidth > 32)

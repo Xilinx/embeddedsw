@@ -7,7 +7,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_11
+* @addtogroup axidma_v9_12
 * @{
 * @details
 *
