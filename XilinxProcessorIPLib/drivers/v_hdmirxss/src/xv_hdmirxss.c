@@ -100,6 +100,9 @@
 *                       Removed the HDCP Push Event API Call when the
 *                       Aux Callback event happen
 *       MH     09/08/17 Added function XV_HdmiRxSs_HdcpSetCapability
+* 1.42  YH     06/10/17 Added function XV_HdmiRxSs_GetAudioFormat
+*       EB     10/10/17 Updated function XV_HdmiRxSs_ReportAudio to report
+*                           audio format
 ******************************************************************************/
 
 /***************************** Include Files *********************************/
@@ -1522,6 +1525,23 @@ u8 XV_HdmiRxSs_GetAudioChannels(XV_HdmiRxSs *InstancePtr)
 /*****************************************************************************/
 /**
 *
+* This function returns the HDMI RX SS audio format
+*
+* @param  InstancePtr pointer to XV_HdmiRxSs instance
+*
+* @return Channels
+*
+* @note   None.
+*
+******************************************************************************/
+XV_HdmiRx_AudioFormatType XV_HdmiRxSs_GetAudioFormat(XV_HdmiRxSs *InstancePtr)
+{
+    return ((XV_HdmiRx_AudioFormatType)(InstancePtr->HdmiRxPtr->AudFormat));
+}
+
+/*****************************************************************************/
+/**
+*
 * This function is called when HDMI RX SS TMDS clock changes
 *
 * @param  None.
@@ -1561,8 +1581,6 @@ static void XV_HdmiRxSs_ReportTiming(XV_HdmiRxSs *InstancePtr)
         xil_printf("VIC: %0d\r\n", InstancePtr->HdmiRxPtr->Stream.Vic);
         xil_printf("Scrambled: %0d\r\n",
             (XV_HdmiRx_IsStreamScrambled(InstancePtr->HdmiRxPtr)));
-        xil_printf("Audio channels: %0d\r\n",
-            (XV_HdmiRx_GetAudioChannels(InstancePtr->HdmiRxPtr)));
     }
 
     // No stream
@@ -1631,10 +1649,23 @@ static void XV_HdmiRxSs_ReportLinkQuality(XV_HdmiRxSs *InstancePtr)
 ******************************************************************************/
 static void XV_HdmiRxSs_ReportAudio(XV_HdmiRxSs *InstancePtr)
 {
+  xil_printf("Format   : ");
+  switch (XV_HdmiRxSs_GetAudioFormat(InstancePtr)) {
+	  case 0:
+		  xil_printf("Unknown\r\n");
+		  break;
+	  case 1:
+		  xil_printf("L-PCM\r\n");
+		  break;
+	  case 2:
+		  xil_printf("HBR\r\n");
+	  default:
+		  break;
+  }
   xil_printf("Channels : %d\r\n",
   XV_HdmiRx_GetAudioChannels(InstancePtr->HdmiRxPtr));
-  xil_printf("ARC CTS : %d\r\n", XV_HdmiRx_GetAcrCts(InstancePtr->HdmiRxPtr));
-  xil_printf("ARC N   : %d\r\n", XV_HdmiRx_GetAcrN(InstancePtr->HdmiRxPtr));
+  xil_printf("ACR CTS  : %d\r\n", XV_HdmiRx_GetAcrCts(InstancePtr->HdmiRxPtr));
+  xil_printf("ACR N    : %d\r\n", XV_HdmiRx_GetAcrN(InstancePtr->HdmiRxPtr));
 }
 
 /*****************************************************************************/

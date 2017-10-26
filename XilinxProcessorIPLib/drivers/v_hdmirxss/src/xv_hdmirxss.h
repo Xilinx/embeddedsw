@@ -83,6 +83,7 @@
 *                        doxygen.
 * 1.4   YH     07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
 *       MH     09/08/17 Add function XV_HdmiRxSs_HdcpSetCapability
+*       YH     06/10/17 Add function XV_HdmiRxSs_GetAudioFormat
 * </pre>
 *
 ******************************************************************************/
@@ -442,6 +443,7 @@ u8 XV_HdmiRxSs_GetVideoIDCode(XV_HdmiRxSs *InstancePtr);
 u8 XV_HdmiRxSs_GetVideoStreamType(XV_HdmiRxSs *InstancePtr);
 u8 XV_HdmiRxSs_GetVideoStreamScramblingFlag(XV_HdmiRxSs *InstancePtr);
 u8 XV_HdmiRxSs_GetAudioChannels(XV_HdmiRxSs *InstancePtr);
+XV_HdmiRx_AudioFormatType XV_HdmiRxSs_GetAudioFormat(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_RefClockChangeInit(XV_HdmiRxSs *InstancePtr);
 void XV_HdmiRxSs_ReportInfo(XV_HdmiRxSs *InstancePtr);
 int  XV_HdmiRxSs_IsStreamUp(XV_HdmiRxSs *InstancePtr);
