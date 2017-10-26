@@ -55,6 +55,7 @@
 *                            XV_HdmiTx_WriteReg
 * 1.1   MG     03/05/17 Introduced video mask peripheral
 * 1.2   YH     22/08/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_MASK (Audio Format)
+* 1.3   YH     06/10/17 Added XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT (Audio Format)
 * </pre>
 *
 ******************************************************************************/
@@ -271,6 +272,8 @@ extern "C" {
 #define XV_HDMITX_AUD_CTRL_CH_SHIFT     2   /**< AUD Control channels mask */
 #define XV_HDMITX_AUD_CTRL_AUDFMT_MASK  (1<<4) /**< AUD Control AUD Format
                                                 * mask */
+#define XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT 4   /**< AUD Control AUD Format
+                                              * shift */
 
 // Audio peripheral Status register masks
 #define XV_HDMITX_AUD_STA_IRQ_MASK      (1<<0) /**< AUD Status Interrupt mask */
