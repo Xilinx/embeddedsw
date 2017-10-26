@@ -119,6 +119,10 @@
 *                              initialize
 *       MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
 *              22/08/17 Added function XV_HdmiTxSs_SetAudioFormat
+* 1.42  YH     06/10/17 Updated function XV_HdmiTxSs_SetAudioFormat
+*                       Added function XV_HdmiTxSs_GetAudioFormat
+*       EB     17/10/17 Added function XV_HdmiTxSs_ReportAudio
+*                       Updated function XV_HdmiTxSs_ReportInfo
 * </pre>
 *
 ******************************************************************************/
@@ -189,6 +193,7 @@ static void XV_HdmiTxSs_StreamDownCallback(void *CallbackRef);
 
 static void XV_HdmiTxSs_ReportCoreInfo(XV_HdmiTxSs *InstancePtr);
 static void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr);
+static void XV_HdmiTxSs_ReportAudio(XV_HdmiTxSs *InstancePtr);
 static void XV_HdmiTxSs_ReportSubcoreVersion(XV_HdmiTxSs *InstancePtr);
 
 static void XV_HdmiTxSs_ConfigBridgeMode(XV_HdmiTxSs *InstancePtr);
@@ -1807,14 +1812,31 @@ void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable)
 * @note   None.
 *
 ******************************************************************************/
-void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr, u8 format)
+void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr,
+		 XV_HdmiTx_AudioFormatType format)
+{	
+    XV_HdmiTx_SetAudioFormat(InstancePtr->HdmiTxPtr, format);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function gets the active audio format
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTxSs core instance.
+*
+* @return   Active audio format of HDMI Tx Subsystem
+*
+* @note     None.
+*
+******************************************************************************/
+XV_HdmiTx_AudioFormatType XV_HdmiTxSs_GetAudioFormat(XV_HdmiTxSs *InstancePtr)
 {
-    if(format == 0) {
-		XV_HdmiTx_Audio_LPCM(InstancePtr->HdmiTxPtr);
-	}
-	else {
-		XV_HdmiTx_Audio_HBR(InstancePtr->HdmiTxPtr);
-	}
+	XV_HdmiTx_AudioFormatType Format;
+
+	Format = XV_HdmiTx_GetAudioFormat(InstancePtr->HdmiTxPtr);
+
+    return Format;
 }
 
 /*****************************************************************************/
@@ -2070,10 +2092,33 @@ void XV_HdmiTxSs_ReportTiming(XV_HdmiTxSs *InstancePtr)
         (XV_HdmiTx_IsStreamScrambled(InstancePtr->HdmiTxPtr)));
       xil_printf("Sample rate: %0d\r\n",
         (XV_HdmiTx_GetSampleRate(InstancePtr->HdmiTxPtr)));
-      xil_printf("Audio channels: %0d\r\n",
-        (XV_HdmiTx_GetAudioChannels(InstancePtr->HdmiTxPtr)));
       xil_printf("\r\n");
 
+}
+
+/*****************************************************************************/
+/**
+*
+* This function prints the HDMI TX SS audio information
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiTxSs_ReportAudio(XV_HdmiTxSs *InstancePtr)
+{
+  xil_printf("Format   : ");
+  if (XV_HdmiTxSs_GetAudioFormat(InstancePtr) == 1) {
+	  xil_printf("HBR\r\n");
+  }
+  else {
+	  xil_printf("L-PCM\r\n");
+  }
+  xil_printf("Channels : %d\r\n",
+  XV_HdmiTx_GetAudioChannels(InstancePtr->HdmiTxPtr));
 }
 
 /*****************************************************************************/
@@ -2154,6 +2199,9 @@ void XV_HdmiTxSs_ReportInfo(XV_HdmiTxSs *InstancePtr)
     xil_printf("HDMI TX timing\r\n");
     xil_printf("------------\r\n");
     XV_HdmiTxSs_ReportTiming(InstancePtr);
+    xil_printf("Audio\r\n");
+    xil_printf("---------\r\n");
+    XV_HdmiTxSs_ReportAudio(InstancePtr);
 }
 /*****************************************************************************/
 /**
