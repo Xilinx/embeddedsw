@@ -885,7 +885,7 @@ static void HdmiRx_AudIntrHandler(XV_HdmiRx *InstancePtr)
         }
 
         // Audio Format
-        InstancePtr->AudFormat = (u32)((Status >> XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT) & XV_HDMIRX_AUD_STA_AUD_FMT_MASK);
+        InstancePtr->AudFormat = (XV_HdmiRx_AudioFormatType)((Status >> XV_HDMIRX_AUD_STA_AUD_FMT_SHIFT) & XV_HDMIRX_AUD_STA_AUD_FMT_MASK);
 
         /* Callback */
         if (InstancePtr->IsAudCallbackSet) {

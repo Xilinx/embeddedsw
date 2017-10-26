@@ -131,6 +131,7 @@
 *                          mode macros
 * 1.09  MMO    02/03/17 Added Sync Loss and IsMode Handler for HDCP
 *                          compliance test.
+* 1.10  EB     24/10/17 Added enum XV_HdmiRx_AudioFormatType for AudFormat
 * </pre>
 *
 ******************************************************************************/
@@ -188,6 +189,16 @@ typedef enum {
 	XV_HDMIRX_STATE_STREAM_RDY,				/**< Stream ready */
 	XV_HDMIRX_STATE_STREAM_UP				/**< Stream up */
 } XV_HdmiRx_State;
+
+/** @name HDMI RX audio format
+* @{
+*/
+typedef enum {
+	XV_HDMIRX_AUDFMT_UNKNOWN = 0,
+    XV_HDMIRX_AUDFMT_LPCM,     // L-PCM
+    XV_HDMIRX_AUDFMT_HBR       // HBR
+} XV_HdmiRx_AudioFormatType;
+
 
 /**************************** Type Definitions *******************************/
 
@@ -339,9 +350,9 @@ typedef struct {
 	XV_HdmiRx_Aux Aux;					/**< AUX peripheral information */
 
 	/* Audio peripheral specific */
-	u32 AudCts;							/**< Audio CTS */
-	u32 AudN;							/**< Audio N element */
-	u32 AudFormat;						/**< Audio Format */
+	u32 AudCts;								/**< Audio CTS */
+	u32 AudN;								/**< Audio N element */
+	XV_HdmiRx_AudioFormatType AudFormat;	/**< Audio Format */
 } XV_HdmiRx;
 
 /***************** Macros (Inline Functions) Definitions *********************/
