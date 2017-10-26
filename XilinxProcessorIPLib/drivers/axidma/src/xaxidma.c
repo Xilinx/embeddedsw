@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2018 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,6 @@
 *
 * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-*
-* Use of the Software is limited solely to applications:
-* (a) running on a Xilinx device, or
-* (b) that interact with a Xilinx device through a bus or interconnect.
 *
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -33,7 +29,7 @@
 /**
 *
 * @file xaxidma.c
-* @addtogroup axidma_v9_7
+* @addtogroup axidma_v9_8
 * @{
 *
 * This file implements DMA engine-wise initialization and control functions.
@@ -83,6 +79,7 @@
 * 9.6   rsp  01/11/18 In XAxiDma_Reset() use UINTPTR for storing RegBase CR#976392
 * 9.7   rsp  04/25/18 Add support for 64MB data transfer. Read max buffer length
 *                     width from config structure. CR #1000474
+* 9.8   rsp  07/11/18 Fix cppcheck style warnings. CR #1006164
 *
 * </pre>
 ******************************************************************************/
@@ -432,10 +429,7 @@ int XAxiDma_ResetIsDone(XAxiDma * InstancePtr)
 *****************************************************************************/
 static int XAxiDma_Start(XAxiDma * InstancePtr)
 {
-	XAxiDma_BdRing *TxRingPtr;
-	XAxiDma_BdRing *RxRingPtr;
 	int Status;
-	int RingIndex = 0;
 
 	if (!InstancePtr->Initialized) {
 
@@ -446,6 +440,7 @@ static int XAxiDma_Start(XAxiDma * InstancePtr)
 	}
 
 	if (InstancePtr->HasMm2S) {
+		XAxiDma_BdRing *TxRingPtr;
 		TxRingPtr = XAxiDma_GetTxRing(InstancePtr);
 
 		if (TxRingPtr->RunState == AXIDMA_CHANNEL_HALTED) {
@@ -474,9 +469,11 @@ static int XAxiDma_Start(XAxiDma * InstancePtr)
 	}
 
 	if (InstancePtr->HasS2Mm) {
+		int RingIndex = 0;
 
 		for (RingIndex = 0; RingIndex < InstancePtr->RxNumChannels;
 						RingIndex++) {
+			XAxiDma_BdRing *RxRingPtr;
 			RxRingPtr = XAxiDma_GetRxIndexRing(InstancePtr,
 							 RingIndex);
 
@@ -532,9 +529,6 @@ static int XAxiDma_Start(XAxiDma * InstancePtr)
 *****************************************************************************/
 int XAxiDma_Pause(XAxiDma * InstancePtr)
 {
-	XAxiDma_BdRing *TxRingPtr;
-	XAxiDma_BdRing *RxRingPtr;
-	int RingIndex = 0;
 
 	if (!InstancePtr->Initialized) {
 
@@ -545,6 +539,7 @@ int XAxiDma_Pause(XAxiDma * InstancePtr)
 	}
 
 	if (InstancePtr->HasMm2S) {
+		XAxiDma_BdRing *TxRingPtr;
 		TxRingPtr = XAxiDma_GetTxRing(InstancePtr);
 
 		/* If channel is halted, then we do not need to do anything
@@ -561,8 +556,10 @@ int XAxiDma_Pause(XAxiDma * InstancePtr)
 	}
 
 	if (InstancePtr->HasS2Mm) {
+		int RingIndex = 0;
 		for (RingIndex = 0; RingIndex < InstancePtr->RxNumChannels;
 				RingIndex++) {
+			XAxiDma_BdRing *RxRingPtr;
 			RxRingPtr = XAxiDma_GetRxIndexRing(InstancePtr, RingIndex);
 
 			/* If channel is halted, then we do not need to do anything
@@ -601,10 +598,7 @@ int XAxiDma_Pause(XAxiDma * InstancePtr)
 *****************************************************************************/
 int XAxiDma_Resume(XAxiDma * InstancePtr)
 {
-	XAxiDma_BdRing *TxRingPtr;
-	XAxiDma_BdRing *RxRingPtr;
 	int Status;
-	int RingIndex = 0;
 
 	if (!InstancePtr->Initialized) {
 
@@ -630,6 +624,7 @@ int XAxiDma_Resume(XAxiDma * InstancePtr)
 	/* Mark the state to be not halted
 	 */
 	if (InstancePtr->HasMm2S) {
+		XAxiDma_BdRing *TxRingPtr;
 		TxRingPtr = XAxiDma_GetTxRing(InstancePtr);
 
 		if(XAxiDma_HasSg(InstancePtr)) {
@@ -646,8 +641,10 @@ int XAxiDma_Resume(XAxiDma * InstancePtr)
 	}
 
 	if (InstancePtr->HasS2Mm) {
+		int RingIndex = 0;
 		for (RingIndex = 0 ; RingIndex < InstancePtr->RxNumChannels;
 					RingIndex++) {
+			XAxiDma_BdRing *RxRingPtr;
 			RxRingPtr = XAxiDma_GetRxIndexRing(InstancePtr, RingIndex);
 
 			if(XAxiDma_HasSg(InstancePtr)) {
@@ -683,8 +680,6 @@ int XAxiDma_Resume(XAxiDma * InstancePtr)
 *****************************************************************************/
 static int XAxiDma_Started(XAxiDma * InstancePtr)
 {
-	XAxiDma_BdRing *TxRingPtr;
-	XAxiDma_BdRing *RxRingPtr;
 
 	if (!InstancePtr->Initialized) {
 
@@ -695,6 +690,7 @@ static int XAxiDma_Started(XAxiDma * InstancePtr)
 	}
 
 	if (InstancePtr->HasMm2S) {
+		XAxiDma_BdRing *TxRingPtr;
 		TxRingPtr = XAxiDma_GetTxRing(InstancePtr);
 
 		if (!XAxiDma_BdRingHwIsStarted(TxRingPtr)) {
@@ -706,6 +702,7 @@ static int XAxiDma_Started(XAxiDma * InstancePtr)
 	}
 
 	if (InstancePtr->HasS2Mm) {
+		XAxiDma_BdRing *RxRingPtr;
 		RxRingPtr = XAxiDma_GetRxRing(InstancePtr);
 
 		if (!XAxiDma_BdRingHwIsStarted(RxRingPtr)) {
@@ -754,7 +751,7 @@ u32 XAxiDma_Busy(XAxiDma *InstancePtr, int Direction)
  * @param	Direction is DMA transfer direction, valid values are
  *			- XAXIDMA_DMA_TO_DEVICE.
  *			- XAXIDMA_DEVICE_TO_DMA.
- * @Select	Select is the option to enable (TRUE) or disable (FALSE).
+ * @param	Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
  *
@@ -791,7 +788,7 @@ int XAxiDma_SelectKeyHole(XAxiDma *InstancePtr, int Direction, int Select)
  * @param	Direction is DMA transfer direction, valid values are
  *			- XAXIDMA_DMA_TO_DEVICE.
  *			- XAXIDMA_DEVICE_TO_DMA.
- * @Select	Select is the option to enable (TRUE) or disable (FALSE).
+ * @param	Select is the option to enable (TRUE) or disable (FALSE).
  *
  * @return	- XST_SUCCESS for success
  *
