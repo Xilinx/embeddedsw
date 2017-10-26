@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_5
+* @addtogroup axidma_v9_7
 * @{
 * @details
 *
@@ -476,6 +476,7 @@
 *      adk   13/11/17 Fixed CR#989455 multi-channel interrupt example fails on A53.
 * 9.6  rsp   01/11/18 Fixed CR#976392 In XAxiDma struct use UINTPTR for RegBase.
 *                     In XAxiDma_LookupConfigBaseAddr() use UINTPTR for Baseaddr.
+* 9.7  rsp   04/25/18 Add SgLengthWidth member in dma config structure. CR #1000474
 * </pre>
 *
 ******************************************************************************/
@@ -544,6 +545,7 @@ typedef struct {
 	int S2MmBurstSize;
 	int MicroDmaMode;
 	int AddrWidth;		  /**< Address Width */
+	int SgLengthWidth;
 } XAxiDma_Config;
 
 
