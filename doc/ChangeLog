@@ -17,6 +17,10 @@ Exporting ulps API to subsystem
 sdps_v3_3:
 Use different commands for single and multi block transfers
 
+axidma_v9_5:
+CR#987026 Fixed issue poll_multi_pkt example fails on a53
+Fixed race condition in the XAxiDma_Reset() API.
+
 Changes for 2017.3
 ===============================
 
