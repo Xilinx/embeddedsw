@@ -53,6 +53,10 @@
 *                       squash unused variable compiler warning
 * 1.06  MG     07/03/17 Updated XV_HdmiTx_Auxsend with packet ready check
 * 1.07  YH     19/07/17 Added Video Masking Check API
+* 1.08  YH     06/10/17 Added function XV_HdmiTx_SetAudioFormat and function
+*                           XV_HdmiTx_GetAudioFormat
+*       EB     10/10/17 Updated XV_HdmiTx_Scrambler to always enable scrambler
+*                           for HDMI 2.0 resolutions
 * </pre>
 *
 ******************************************************************************/
@@ -404,21 +408,18 @@ int XV_HdmiTx_Scrambler(XV_HdmiTx *InstancePtr) {
     /* Verify argument. */
     Xil_AssertNonvoid(InstancePtr != NULL);
 
+    // Check if the sink is HDMI 2.0
+    // Check if the TMDS Clock is higher than 340MHz
     // Check scrambler flag
-    if (InstancePtr->Stream.IsScrambled) {
-
-        // Check if the sink is HDMI 2.0
-        if (InstancePtr->Stream.IsHdmi20) {
-            XV_HdmiTx_SetScrambler(InstancePtr, (TRUE));
-        }
-        else {
-            XV_HdmiTx_SetScrambler(InstancePtr, (FALSE));
-        }
-    }
-
-    // Clear
-    else
-        XV_HdmiTx_SetScrambler(InstancePtr, (FALSE));
+	if (InstancePtr->Stream.IsHdmi20 &&
+			(InstancePtr->Stream.TMDSClock > 340000000
+					|| InstancePtr->Stream.IsScrambled)) {
+		XV_HdmiTx_SetScrambler(InstancePtr, (TRUE));
+	}
+	// Clear
+	else {
+		XV_HdmiTx_SetScrambler(InstancePtr, (FALSE));
+	}
 
     // Update TMDS configuration
     // Only when it is a HDMI 2.0 sink device
@@ -1610,6 +1611,73 @@ int XV_HdmiTx_SetAudioChannels(XV_HdmiTx *InstancePtr, u8 Value)
     }
 
     return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function sets the active audio format
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return
+*       - XST_SUCCESS if active channels were set.
+*       - XST_FAILURE if no active channles were set.
+*
+* @note     None.
+*
+******************************************************************************/
+int XV_HdmiTx_SetAudioFormat(XV_HdmiTx *InstancePtr, XV_HdmiTx_AudioFormatType Value)
+{
+    u32 Status;
+
+    // Stop peripheral
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+        (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK));
+
+    // HBR audio
+    if (Value) {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+            (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_AUDFMT_MASK));
+    }
+
+    // L-PCM
+    else {
+        XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+            (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_AUDFMT_MASK));
+    }
+
+	// Start peripheral
+	XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress,
+		(XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_RUN_MASK));
+
+    Status = (XST_SUCCESS);
+
+    return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function gets the active audio format
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   Active audio format of HDMI Tx
+*
+* @note     None.
+*
+******************************************************************************/
+XV_HdmiTx_AudioFormatType XV_HdmiTx_GetAudioFormat(XV_HdmiTx *InstancePtr)
+{
+	XV_HdmiTx_AudioFormatType RegValue;
+
+    Xil_AssertNonvoid(InstancePtr != NULL);
+
+    RegValue = XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, (XV_HDMITX_AUD_CTRL_OFFSET));
+	RegValue = (RegValue & (XV_HDMITX_AUD_CTRL_AUDFMT_MASK)) >> XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT;
+
+    return RegValue;
 }
 
 /*****************************************************************************/
