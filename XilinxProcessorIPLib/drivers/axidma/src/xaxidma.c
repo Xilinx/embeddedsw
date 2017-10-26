@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.c
-* @addtogroup axidma_v9_4
+* @addtogroup axidma_v9_5
 * @{
 *
 * This file implements DMA engine-wise initialization and control functions.
@@ -80,6 +80,7 @@
 * 9.5   adk  26/10/17 Fix race condition in the XAxiDma_Reset() API. This API
 *		      assumes a tx channel is always present it may be configured
 *		      for rx only.
+* 9.6   rsp  01/11/18 In XAxiDma_Reset() use UINTPTR for storing RegBase CR#976392
 *
 * </pre>
 ******************************************************************************/
@@ -305,7 +306,7 @@ int XAxiDma_CfgInitialize(XAxiDma * InstancePtr, XAxiDma_Config *Config)
 ******************************************************************************/
 void XAxiDma_Reset(XAxiDma * InstancePtr)
 {
-	u32 RegBase;
+	UINTPTR RegBase;
 	XAxiDma_BdRing *TxRingPtr;
 	XAxiDma_BdRing *RxRingPtr;
 	int RingIndex;
