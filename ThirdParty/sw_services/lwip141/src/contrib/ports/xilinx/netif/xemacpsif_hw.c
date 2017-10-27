@@ -209,7 +209,7 @@ void emacps_error_handler(void *arg,u8 Direction, u32 ErrorWord)
 	xemac = (struct xemac_s *)(arg);
 	xemacpsif = (xemacpsif_s *)(xemac->state);
 	rxring = &XEmacPs_GetRxRing(&xemacpsif->emacps);
-	txring = &XEmacPs_GetRxRing(&xemacpsif->emacps);
+	txring = &XEmacPs_GetTxRing(&xemacpsif->emacps);
 
 	if (ErrorWord != 0) {
 		switch (Direction) {
