@@ -753,10 +753,10 @@ XStatus init_dma(struct xemac_s *xemac)
 		XEmacPs_Out32((xemacpsif->emacps.Config.BaseAddress + XEMACPS_RXQ1BASE_OFFSET),
 				   (UINTPTR)bdrxterminate);
 		XEmacPs_BdClear(bdtxterminate);
-		XEmacPs_BdSetStatus(bdrxterminate, (XEMACPS_TXBUF_USED_MASK |
+		XEmacPs_BdSetStatus(bdtxterminate, (XEMACPS_TXBUF_USED_MASK |
 						XEMACPS_TXBUF_WRAP_MASK));
 		XEmacPs_Out32((xemacpsif->emacps.Config.BaseAddress + XEMACPS_TXQBASE_OFFSET),
-				   (UINTPTR)bdrxterminate);
+				   (UINTPTR)bdtxterminate);
 	}
 
 
