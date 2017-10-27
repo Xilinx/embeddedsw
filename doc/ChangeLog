@@ -21,6 +21,10 @@ axidma_v9_5:
 CR#987026 Fixed issue poll_multi_pkt example fails on a53
 Fixed race condition in the XAxiDma_Reset() API.
 
+lwip141_2_0:
+Correct assigment of TX BD ring in init_dma() and
+emacps_error_handler().
+
 Changes for 2017.3
 ===============================
 
