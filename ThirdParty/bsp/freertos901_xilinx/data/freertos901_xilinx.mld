@@ -18,7 +18,7 @@
 #
 
 OPTION psf_version = 2.1.0 ;
-BEGIN OS freertos901_zynq
+BEGIN OS freertos901_xilinx
 
 OPTION DRC = FreeRTOS_drc ;
 OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psu_cortexa53);
