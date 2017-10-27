@@ -1,5 +1,8 @@
 Change Log for lwip
 =================================
+2017-10-27
+	* Correct proper references of TX BD ring in init_dma() and
+	  emacps_error_handler().
 2017-10-04
 	* Include options to configure mbox in lwip202.mld and lwip202.tcl
 2017-10-13
