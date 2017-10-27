@@ -52,6 +52,7 @@
 *                       Move XV_HdmiTx_DdcInit to XV_HdmiTx_SetAxiClkFreq
 *                       squash unused variable compiler warning
 * 1.06  MG     07/03/17 Updated XV_HdmiTx_Auxsend with packet ready check
+* 1.07  YH     19/07/17 Added Video Masking Check API
 * </pre>
 *
 ******************************************************************************/

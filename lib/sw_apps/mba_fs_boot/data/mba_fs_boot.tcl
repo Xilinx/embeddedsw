@@ -52,9 +52,20 @@ proc get_stdout {} {
 	return $stdout;
 }
 
+proc get_ipname { instance } {
+	set ipname [common::get_property IP_NAME [get_cells $instance]];
+	return $ipname;
+}
+
 proc get_main_mem {} {
 	set os [hsi::get_os];
 	set mem [common::get_property CONFIG.MAIN_MEMORY $os];
+	return $mem;
+}
+
+proc get_flash_mem {} {
+	set os [hsi::get_os];
+	set mem [common::get_property CONFIG.FLASH_MEMORY $os];
 	return $mem;
 }
 
@@ -92,17 +103,31 @@ proc swapp_generate {} {
 
 proc get_eram_config { fp } {
 	set ip_name "";
-	if {[llength [hsi::get_cells -hier -filter {IP_NAME == "mig_7series"}]] > 0} {
-		set ip_name "mig_7series";
-	} elseif {[llength [hsi::get_cells -hier -filter {IP_NAME == "ddr4"}]] > 0} {
-		set ip_name "ddr4";
-	} else {
-		error "ddr not found";
+	set mem [get_main_mem]
+	if {$mem ne ""} {
+		set ip_name [get_ipname $mem];
 	}
-	set eram_start [common::get_property CONFIG.C_BASEADDR \
-	 [hsi::get_cells -hier -filter " IP_NAME == $ip_name "]];
-	set eram_end [format 0x%x [expr [common::get_property CONFIG.C_HIGHADDR \
-	[hsi::get_cells -hier -filter " IP_NAME == $ip_name " ]] + 1]];
+	switch -exact $ip_name {
+		"ddr4" -
+		"ddr3" -
+		"mig" -
+		"mig_7series" {
+			set eram_start [common::get_property CONFIG.C_BASEADDR \
+					[hsi::get_cells $mem]];
+			set eram_end [format 0x%x [expr [common::get_property CONFIG.C_HIGHADDR \
+					[hsi::get_cells $mem ]] + 1]];
+			}
+		"axi_7series_ddrx" -
+		"axi_v6_ddrx" {
+			set eram_start [common::get_property CONFIG.C_S_AXI_BASEADDR \
+					[hsi::get_cells $mem]]
+			set eram_end [format 0x%x [expr [common::get_property CONFIG.C_S_AXI_HIGHADDR \
+					[hsi::get_cells $mem ]] + 1]];
+			}
+		default {
+			return 1
+			}
+	}
 	set eram_size [ format 0x%x [expr $eram_end - $eram_start ] ];
 	puts $fp "#define CONFIG_XILINX_ERAM_START	$eram_start";
 	puts $fp "#define CONFIG_XILINX_ERAM_END	$eram_end";
@@ -111,37 +136,62 @@ proc get_eram_config { fp } {
 
 
 proc get_flash_config { fp } {
-	if { [llength [hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]] > 0 } {
-		set flash_start [common::get_property CONFIG.C_BASEADDR \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
-                puts $fp "#define CONFIG_PRIMARY_FLASH_SPI_BASEADDR	 $flash_start";
-                puts $fp "#define CONFIG_PRIMARY_FLASH_SPI";
-		set spi_mode [common::get_property CONFIG.C_SPI_MODE \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
-		set spi_fifo_depth [common::get_property CONFIG.C_FIFO_DEPTH \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_quad_spi"}]];
-		puts $fp "#define CONFIG_FLASH_SPI_MODE		$spi_mode";
-		puts $fp "#define CONFIG_FLASH_SPI_FIFO_DEPTH	$spi_fifo_depth";
-	} elseif {[llength [hsi::get_cells -hier -filter {IP_NAME == "axi_emc"}]] > 0} {
-		set flash_start [common::get_property CONFIG.C_S_AXI_MEM0_BASEADDR \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_emc"}]];
-		set flash_end [format 0x%x [expr \
-		[common::get_property CONFIG.C_S_AXI_MEM0_HIGHADDR \
-		[hsi::get_cells -hier -filter {IP_NAME == "axi_emc"}]] + 1]];
-		set flash_size [ format 0x%x [expr $flash_end - $flash_start ] ];
-		puts $fp "#define CONFIG_XILINX_FLASH_START	$flash_start";
-		puts $fp "#define CONFIG_XILINX_FLASH_END	$flash_end";
-		puts $fp "#define CONFIG_XILINX_FLASH_SIZE	$flash_size";
+	set ipname "";
+	set flash [get_flash_mem];
+	if {$flash ne ""} {
+		set ipname [get_ipname $flash];
+	}
+	switch -exact $ipname {
+		"axi_quad_spi"  {
+			set flash_start [common::get_property CONFIG.C_BASEADDR [get_cells $flash]];
+			puts $fp "#define CONFIG_PRIMARY_FLASH_SPI_BASEADDR      $flash_start";
+			puts $fp "#define CONFIG_PRIMARY_FLASH_SPI";
+			set spi_mode [common::get_property CONFIG.C_SPI_MODE [get_cells $flash]];
+			set spi_fifo_depth [common::get_property CONFIG.C_FIFO_DEPTH [get_cells $flash]];
+			puts $fp "#define CONFIG_FLASH_SPI_MODE         $spi_mode";
+			puts $fp "#define CONFIG_FLASH_SPI_FIFO_DEPTH   $spi_fifo_depth";
+			}
+		"axi_emc" {
+			set flash_start [common::get_property CONFIG.C_S_AXI_MEM0_BASEADDR [get_cells $flash]];
+			set flash_end [format 0x%x [expr \
+			[common::get_property CONFIG.C_S_AXI_MEM0_HIGHADDR \
+			[hsi::get_cells $flash]] + 1]];
+			set flash_size [ format 0x%x [expr $flash_end - $flash_start ] ];
+			puts $fp "#define CONFIG_XILINX_FLASH_START     $flash_start";
+			puts $fp "#define CONFIG_XILINX_FLASH_END       $flash_end";
+			puts $fp "#define CONFIG_XILINX_FLASH_SIZE      $flash_size";
+		}
 	}
 }
 proc get_uart_config { fp } {
-	set uart_baseaddr [common::get_property CONFIG.C_BASEADDR \
-	[hsi::get_cells -hier -filter {IP_NAME =~ "axi_uart*"}]];
-        puts $fp "#define CONFIG_STDINOUT_BASEADDR      $uart_baseaddr";
-	set ip_name [common::get_property IP_NAME [hsi::get_cells -hier \
-	-filter {IP_NAME =~ "axi_uart*"}]];
-	set ip_name [string toupper [string replace $ip_name 0 3]];
-	puts $fp "#define CONFIG_$ip_name	1";
+	set ip_name ""
+	set stdout [get_stdout];
+	if {$stdout ne ""} {
+		set ip_name [get_ipname $stdout];
+	}
+	if {$ip_name eq "mdm"} {
+		if {[common::get_property CONFIG.C_USE_UART \
+			[hsi::get_cells $stdout ]] > 0 } {
+			#DO NOTHING
+		} else {
+			return;
+		}
+	}
+	if {$ip_name ne ""} {
+		set uart_baseaddr [common::get_property CONFIG.C_BASEADDR \
+			[hsi::get_cells $stdout ]];
+		switch -exact $ip_name {
+			"axi_uart16550" {
+					set uart_type "UART16550";
+				}
+			"axi_uartlite" -
+			"mdm" {
+				set uart_type "UARTLITE";
+			}
+		}
+		puts $fp "#define CONFIG_STDINOUT_BASEADDR      $uart_baseaddr";
+		puts $fp "#define CONFIG_$uart_type	1";
+	}
 }
 
 proc get_mem_name { memlist } {

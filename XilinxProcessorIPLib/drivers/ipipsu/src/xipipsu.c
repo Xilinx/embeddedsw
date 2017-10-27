@@ -33,7 +33,7 @@
 /**
 *
 * @file xipipsu.c
-* @addtogroup ipipsu_v1_0
+* @addtogroup ipipsu_v2_3
 * @{
 *
 * This file contains the implementation of the interface functions for XIpiPsu

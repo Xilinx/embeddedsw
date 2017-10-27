@@ -44,6 +44,8 @@
  * ----- ---- -------- -----------------------------------------------
  * 1.0   YH   17/08/16 Initial release.
  * 1.01  MMO  03/01/17 Add compiler option(XV_HDMIRXSS_LOG_ENABLE) to enable Log
+ *
+ * 1.4   YH   07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
  * </pre>
  *
 *******************************************************************************/
@@ -185,7 +187,7 @@ void XV_HdmiRxSs_LogDisplay(XV_HdmiRxSs *InstancePtr)
     /* Verify argument. */
     Xil_AssertVoid(InstancePtr != NULL);
 
-    xil_printf("\r\n\n\nHDMI RX log\r\n");
+    xil_printf("\r\n\r\n\nHDMI RX log\r\n");
     xil_printf("------\r\n");
 
     /* Read log data */
@@ -247,6 +249,10 @@ void XV_HdmiRxSs_LogDisplay(XV_HdmiRxSs *InstancePtr)
             break;
         case (XV_HDMIRXSS_LOG_EVT_SETSTREAM):
             xil_printf("RX Stream Init\r\n");
+            break;
+        case (XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR):
+            xil_printf(ANSI_COLOR_RED "Error: RX Stream Reference Clock = 0"
+			           ANSI_COLOR_RESET "\r\n");
             break;
         case (XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE):
             xil_printf("RX TMDS reference clock change\r\n");

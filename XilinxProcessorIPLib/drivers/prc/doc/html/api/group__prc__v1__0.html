@@ -105,6 +105,9 @@ Macros</h2></td></tr>
 <tr class="memitem:ga949e933319a77af6c12f0ace1b158786"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#ga949e933319a77af6c12f0ace1b158786">XPrc_GetCdcStages</a>(InstancePtr)&#160;&#160;&#160;(InstancePtr)-&gt;Config.Cdc_Stages</td></tr>
 <tr class="memdesc:ga949e933319a77af6c12f0ace1b158786"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro returns the number of synchronization stages used when crossing between clock domains.  <a href="#ga949e933319a77af6c12f0ace1b158786">More...</a><br /></td></tr>
 <tr class="separator:ga949e933319a77af6c12f0ace1b158786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f3f8c49b7a3b3c99bfb50c4efea8cb2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#ga5f3f8c49b7a3b3c99bfb50c4efea8cb2">XPrc_GetCpCompression</a>(InstancePtr)&#160;&#160;&#160;(InstancePtr)-&gt;Config.Cp_Compression</td></tr>
+<tr class="memdesc:ga5f3f8c49b7a3b3c99bfb50c4efea8cb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro tells the PRC whether partial bitstreams are compressed or not.  <a href="#ga5f3f8c49b7a3b3c99bfb50c4efea8cb2">More...</a><br /></td></tr>
+<tr class="separator:ga5f3f8c49b7a3b3c99bfb50c4efea8cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga50aa5032cdcaeca063861ce9721b7d63"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#ga50aa5032cdcaeca063861ce9721b7d63">XPrc_GetRegVsmMsb</a>(InstancePtr)&#160;&#160;&#160;(InstancePtr)-&gt;Config.RegVsmMsb</td></tr>
 <tr class="memdesc:ga50aa5032cdcaeca063861ce9721b7d63"><td class="mdescLeft">&#160;</td><td class="mdescRight">This macro is used to get the Virtual Socket Manager Select MSB.  <a href="#ga50aa5032cdcaeca063861ce9721b7d63">More...</a><br /></td></tr>
 <tr class="separator:ga50aa5032cdcaeca063861ce9721b7d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -559,9 +562,15 @@ Errors are stored in bits 6:3, Mask = 1111000 = 0x78</h2></td></tr>
 <tr class="memitem:gaccb9ea668198005e87064319bfe0e4b9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#gaccb9ea668198005e87064319bfe0e4b9">XPRC_SR_UNKNOWN_ERROR</a>&#160;&#160;&#160;(15)</td></tr>
 <tr class="memdesc:gaccb9ea668198005e87064319bfe0e4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unknown Error.  <a href="#gaccb9ea668198005e87064319bfe0e4b9">More...</a><br /></td></tr>
 <tr class="separator:gaccb9ea668198005e87064319bfe0e4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9731383b0981bfd7e782e85995575a9d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#ga9731383b0981bfd7e782e85995575a9d">XPRC_SR_BS_COMPATIBLE_ERROR</a>&#160;&#160;&#160;(7)</td></tr>
+<tr class="memitem:ga9731383b0981bfd7e782e85995575a9d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#ga9731383b0981bfd7e782e85995575a9d">XPRC_SR_BS_COMPATIBLE_ERROR</a>&#160;&#160;&#160;(14)</td></tr>
 <tr class="memdesc:ga9731383b0981bfd7e782e85995575a9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitstream Compatible Error.  <a href="#ga9731383b0981bfd7e782e85995575a9d">More...</a><br /></td></tr>
 <tr class="separator:ga9731383b0981bfd7e782e85995575a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8bb61959aa8058774d273c8a132ad44c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#ga8bb61959aa8058774d273c8a132ad44c">XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR</a>&#160;&#160;&#160;(8)</td></tr>
+<tr class="memdesc:ga8bb61959aa8058774d273c8a132ad44c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bad compression format error.  <a href="#ga8bb61959aa8058774d273c8a132ad44c">More...</a><br /></td></tr>
+<tr class="separator:ga8bb61959aa8058774d273c8a132ad44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf1a3e3c77b8f7a2032a7c8640930b7d6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#gaf1a3e3c77b8f7a2032a7c8640930b7d6">XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR</a>&#160;&#160;&#160;(7)</td></tr>
+<tr class="memdesc:gaf1a3e3c77b8f7a2032a7c8640930b7d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bad compression size error.  <a href="#gaf1a3e3c77b8f7a2032a7c8640930b7d6">More...</a><br /></td></tr>
+<tr class="separator:gaf1a3e3c77b8f7a2032a7c8640930b7d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga088a898b00f0aef5ea68640f18efc1f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__prc__v1__0.html#ga088a898b00f0aef5ea68640f18efc1f6">XPRC_SR_FETCH_AND_CP_LOST_ERROR</a>&#160;&#160;&#160;(6)</td></tr>
 <tr class="memdesc:ga088a898b00f0aef5ea68640f18efc1f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch and Lost Error.  <a href="#ga088a898b00f0aef5ea68640f18efc1f6">More...</a><br /></td></tr>
 <tr class="separator:ga088a898b00f0aef5ea68640f18efc1f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1417,6 +1426,36 @@ Reset Duration stored in bits 5:12, 1111111100000 = 0x1FE0</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the value of the CAP arbitration protocol.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="ga5f3f8c49b7a3b3c99bfb50c4efea8cb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f3f8c49b7a3b3c99bfb50c4efea8cb2">&#9670;&nbsp;</a></span>XPrc_GetCpCompression</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XPrc_GetCpCompression</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">InstancePtr</td><td>)</td>
+          <td>&#160;&#160;&#160;(InstancePtr)-&gt;Config.Cp_Compression</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xprc_8h.html">xprc.h</a>&gt;</code></p>
+
+<p>This macro tells the PRC whether partial bitstreams are compressed or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the PRC instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns 0 if PRC is same as before. Returns 1 if decompression block is added to hardware.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 </div>
@@ -2899,7 +2938,7 @@ Reset Duration stored in bits 5:12, 1111111100000 = 0x1FE0</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XPRC_SR_BS_COMPATIBLE_ERROR&#160;&#160;&#160;(7)</td>
+          <td class="memname">#define XPRC_SR_BS_COMPATIBLE_ERROR&#160;&#160;&#160;(14)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2983,6 +3022,42 @@ Reset Duration stored in bits 5:12, 1111111100000 = 0x1FE0</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xprc__hw_8h.html">xprc_hw.h</a>&gt;</code></p>
 
 <p>CP Lost Error. </p>
+
+</div>
+</div>
+<a id="ga8bb61959aa8058774d273c8a132ad44c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8bb61959aa8058774d273c8a132ad44c">&#9670;&nbsp;</a></span>XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR&#160;&#160;&#160;(8)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xprc__hw_8h.html">xprc_hw.h</a>&gt;</code></p>
+
+<p>Bad compression format error. </p>
+
+</div>
+</div>
+<a id="gaf1a3e3c77b8f7a2032a7c8640930b7d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf1a3e3c77b8f7a2032a7c8640930b7d6">&#9670;&nbsp;</a></span>XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR&#160;&#160;&#160;(7)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xprc__hw_8h.html">xprc_hw.h</a>&gt;</code></p>
+
+<p>Bad compression size error. </p>
 
 </div>
 </div>

@@ -71,6 +71,8 @@
 * 4.1   yas    22/04/17 Added function XHdcp1x_TxSetHdmiMode.
 * 4.1   MH     11/05/17 Update to enable encryption immediately after Ro' check.
 *                       Increase timeout for topology propagation.
+* 4.1   yas    08/03/17 Updated the XHdcp1x_TxIsInProgress to track any
+*                       pending authentication requests.
 * </pre>
 *
 *****************************************************************************/
@@ -536,6 +538,9 @@ int XHdcp1x_TxAuthenticate(XHdcp1x *InstancePtr)
 {
 	int Status = XST_SUCCESS;
 
+	/* Set auth request pending flag */
+	InstancePtr->Tx.IsAuthReqPending = (TRUE);
+
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -585,28 +590,10 @@ int XHdcp1x_TxReadDownstream(XHdcp1x *InstancePtr)
 ******************************************************************************/
 int XHdcp1x_TxIsInProgress(const XHdcp1x *InstancePtr)
 {
-	int IsInProgress = FALSE;
-
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Case-wise process the kind of state called */
-	switch (InstancePtr->Tx.CurrentState) {
-		/* For the "steady" states */
-		case XHDCP1X_STATE_DISABLED:
-		case XHDCP1X_STATE_UNAUTHENTICATED:
-		case XHDCP1X_STATE_AUTHENTICATED:
-		case XHDCP1X_STATE_LINKINTEGRITYCHECK:
-			IsInProgress = FALSE;
-			break;
-
-		/* Otherwise */
-		default:
-			IsInProgress = TRUE;
-			break;
-	}
-
-	return (IsInProgress);
+	return (InstancePtr->Tx.IsAuthReqPending);
 }
 
 /*****************************************************************************/
@@ -3228,6 +3215,9 @@ static void XHdcp1x_TxEnterState(XHdcp1x *InstancePtr, XHdcp1x_StateType State,
 				/* Authenticated callback */
 				if (InstancePtr->Tx.IsAuthenticatedCallbackSet)
 				{
+					/* Clear auth request pending flag */
+					InstancePtr->Tx.IsAuthReqPending = (FALSE);
+
 					InstancePtr->Tx.AuthenticatedCallback
 					(InstancePtr->Tx.AuthenticatedCallbackRef);
 				}
@@ -3450,6 +3440,9 @@ static void XHdcp1x_TxDoTheState(XHdcp1x *InstancePtr, XHdcp1x_EventType Event)
 		&& (InstancePtr->Tx.PreviousState != XHDCP1X_STATE_PHYDOWN))
 		&& (InstancePtr->Tx.CurrentState
 			== XHDCP1X_STATE_UNAUTHENTICATED) ){
+			/* Clear auth request pending flag */
+			InstancePtr->Tx.IsAuthReqPending = (FALSE);
+
 			if (InstancePtr->Tx.IsUnauthenticatedCallbackSet) {
 				InstancePtr->Tx.UnauthenticatedCallback(
 				InstancePtr->Tx.UnauthenticatedCallbackRef);

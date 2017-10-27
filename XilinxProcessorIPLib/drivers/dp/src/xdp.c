@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp.c
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v6_0
  * @{
  *
  * Contains a minimal set of functions for the XDp driver that allow access to
@@ -56,6 +56,7 @@
  *            08/12/16 Updates to support 64-bit base addresses.
  * 5.2	 aad  01/21/17 Added training timeout disable for RX MST mode for
  *		       soft-disconnect to work.
+ * 6.0	 tu   05/14/17 Added AUX defer to 6
  * </pre>
  *
 *******************************************************************************/
@@ -2037,6 +2038,10 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 
 	/* Set the AUX training interval. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_CTRL_DPCD, 0x1);
+	/* programming AUX defer to 6 */
+	Regval = XDp_ReadReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER);
+	Regval |= Regval | (6 << XDP_RX_AUX_DEFER_SHIFT);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_AUX_CLK_DIVIDER, Regval);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_OVER_TP_SET,
 			(XDP_DPCD_TRAIN_AUX_RD_INT_8MS <<
 			XDP_RX_OVER_TP_SET_TRAINING_AUX_RD_INTERVAL_SHIFT));

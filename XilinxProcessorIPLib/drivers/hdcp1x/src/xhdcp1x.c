@@ -66,6 +66,8 @@
 * 4.0   yas    08/16/16 Used UINTPTR instead of u32 for BaseAddress
 *                       XHdcp1x_CfgInitialize
 * 4.1   yas    11/10/16 Added function XHdcp1x_SetHdmiMode.
+* 4.1   yas    08/03/17 Updated the initialization to memset the XHdcp1x
+*                       structure to 0.
 * </pre>
 *
 ******************************************************************************/
@@ -155,6 +157,8 @@ int XHdcp1x_CfgInitialize(XHdcp1x *InstancePtr, const XHdcp1x_Config *CfgPtr,
 	Xil_AssertNonvoid(CfgPtr != NULL);
 	Xil_AssertNonvoid(EffectiveAddr != (UINTPTR)NULL);
 
+	/* Setup the InstancePtr. */
+	(void)memset((void *)InstancePtr, 0, sizeof(XHdcp1x));
 
 	/* Initialize InstancePtr. */
 	InstancePtr->Config = *CfgPtr;
@@ -1000,6 +1004,8 @@ int XHdcp1x_EnableEncryption(XHdcp1x *InstancePtr, u64 Map)
 	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxEnableEncryption(InstancePtr, Map);
 	}
+#else
+	UNUSED(Map);
 #endif
 
 	return (Status);
@@ -1032,6 +1038,8 @@ int XHdcp1x_DisableEncryption(XHdcp1x *InstancePtr, u64 Map)
 	if (!InstancePtr->Config.IsRx) {
 		Status = XHdcp1x_TxDisableEncryption(InstancePtr, Map);
 	}
+#else
+	UNUSED(Map);
 #endif
 
 	return (Status);
@@ -1293,12 +1301,15 @@ void XHdcp1x_Info(const XHdcp1x *InstancePtr)
 ******************************************************************************/
 void XHdcp1x_ProcessAKsv(XHdcp1x *InstancePtr)
 {
-	#if defined(INCLUDE_RX)
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+#if defined(INCLUDE_RX)
 	/* Check for RX */
 	if (InstancePtr->Config.IsRx) {
 		InstancePtr->Port.Adaptor->CallbackHandler(InstancePtr);
 	}
-	#endif
+#endif
 }
 
 /*****************************************************************************/
@@ -1644,6 +1655,8 @@ void XHdcp1x_SetTopologyKSVList(XHdcp1x *InstancePtr, u8 *ListPtr,
 		XHdcp1x_RxSetTopologyKSVList(InstancePtr, ListPtr,	ListSize);
 	}
 	else
+#else
+	UNUSED(ListSize);
 #endif
 	{
 		ListPtr = NULL;

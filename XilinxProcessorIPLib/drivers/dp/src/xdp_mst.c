@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_mst.c
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v6_0
  * @{
  *
  * <pre>
@@ -52,6 +52,7 @@
  *                         XDp_RxAllocatePayloadStream
  * 5.2  aad  01/24/16 XDp_RxAllocatePayloadStream now adjusts to timeslot
  *			   rearragement
+ * 6.0	tu   05/30/17 Initialized variable in XDp_RxDeviceInfoToRawData
  * </pre>
  *
 *******************************************************************************/
@@ -3097,7 +3098,7 @@ static void XDp_RxDeviceInfoToRawData(XDp *InstancePtr, XDp_SidebandMsg *Msg)
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr)
 {
 	u8 Index;
-        u8 IndexTsEnd;
+	u8 IndexTsEnd = 0;
         u8 *PayloadTable;
         u32 RegVal;
         u8 StreamId;

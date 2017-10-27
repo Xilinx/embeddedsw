@@ -11,6 +11,7 @@ var struct_x_hdcp1x___tx =
     [ "EncryptionMap", "struct_x_hdcp1x___tx.html#ad09bb07585db661f7cabd6e9919f0cbc", null ],
     [ "Flags", "struct_x_hdcp1x___tx.html#afaf115a5149798441d2e8559d2b58146", null ],
     [ "IsAuthenticatedCallbackSet", "struct_x_hdcp1x___tx.html#a70af322f00eac53a663529097cb26235", null ],
+    [ "IsAuthReqPending", "struct_x_hdcp1x___tx.html#a3c725d9369457fe1de567140a87fce43", null ],
     [ "IsDdcReadSet", "struct_x_hdcp1x___tx.html#a5c978bfee6f5eb921661efbed3bb58f5", null ],
     [ "IsDdcWriteSet", "struct_x_hdcp1x___tx.html#aff2f62fca46ff41d487edf0fe34dc2a6", null ],
     [ "IsRepeaterExchangeCallbackSet", "struct_x_hdcp1x___tx.html#a3e2bb59f4101bf76db71060e0e2f310e", null ],

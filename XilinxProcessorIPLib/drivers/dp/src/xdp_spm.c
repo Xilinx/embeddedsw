@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_spm.c
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v6_0
  * @{
  *
  * This file contains the stream policy maker functions for the XDp driver.
@@ -57,6 +57,10 @@
  *                     checking for interlaced mode.
  *       als  08/12/16 Updates to support 64-bit base addresses.
  * 5.2   aad  01/24/17 Disable end of line reset for reduced blanking
+ * 6.0   tu   07/20/17 Allowing Custom VTM in XDp_TxCfgMsaUseStandardVideoMode
+ *                     function.
+ * 6.0   aad  09/05/17 Reverted to enable end of line reset for RB resolutions.
+ * 6.0   tu   09/06/17 Added Set UserPixelWidth support on tx side
  * </pre>
  *
 *******************************************************************************/
@@ -302,7 +306,6 @@ void XDp_TxCfgMsaUseStandardVideoMode(XDp *InstancePtr, u8 Stream,
 	/* Verify arguments. */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(VideoMode < XVIDC_VM_NUM_SUPPORTED);
 	Xil_AssertVoid((Stream == XDP_TX_STREAM_ID1) ||
 		(Stream == XDP_TX_STREAM_ID2) || (Stream == XDP_TX_STREAM_ID3) ||
 		(Stream == XDP_TX_STREAM_ID4));
@@ -921,6 +924,38 @@ void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream)
 /******************************************************************************/
 /**
  * This function configures the number of pixels output through the user data
+ * interface for DisplayPort TX core.
+ *
+ * @param	InstancePtr is a pointer to the XDp instance.
+ * @param	UserPixelWidth is the user pixel width to be configured.
+ *
+ * @return	None.
+ *
+ * @note	None.
+ *
+******************************************************************************/
+void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
+		       (UserPixelWidth == 4));
+	/* Check the main link status. */
+	Xil_AssertVoid(XDp_ReadReg(InstancePtr->Config.BaseAddr,
+				   XDP_TX_ENABLE_MAIN_STREAM) == 0);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_USER_PIXEL_WIDTH,
+		     UserPixelWidth);
+
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x1);
+	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x0);
+}
+
+/******************************************************************************/
+/**
+ * This function configures the number of pixels output through the user data
  * interface.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
@@ -1063,7 +1098,6 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 	UINTPTR BaseAddr;
 	u8  LaneCount;
 	u8  BitsPerPixel, BitsPerColor, ColorComponent;
-	u8  ColComp;
 	u32 RegVal;
 	u32 HBlank, HReducedBlank;
 	u32 HTotal, HActive, HStart, HSyncWidth, HBackPorch, HFrontPorch;
@@ -1275,14 +1309,6 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 	else {
 		RegVal &= ~XDP_TX_LINE_RESET_DISABLE_MASK(Stream);
 	}
-
-	/* Toggle Reset */
-	if(RegVal) {
-		XDp_WaitUs(InstancePtr, 100);
-		XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE, 0);
-		XDp_WaitUs(InstancePtr, 100);
-		XDp_WriteReg(ConfigPtr->BaseAddr,
-			     XDP_TX_LINE_RESET_DISABLE, RegVal);
-	}
+	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE, RegVal);
 }
 /** @} */

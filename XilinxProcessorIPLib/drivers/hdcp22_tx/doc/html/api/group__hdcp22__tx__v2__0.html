@@ -156,14 +156,17 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:ga66363509e564ef13e87ea6bcfdbd57fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga66363509e564ef13e87ea6bcfdbd57fc">XHDCP22_TX_INVALID_RXSTATUS</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:ga66363509e564ef13e87ea6bcfdbd57fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">RxStatus value used to force re-authentication.  <a href="#ga66363509e564ef13e87ea6bcfdbd57fc">More...</a><br /></td></tr>
+<tr class="separator:ga66363509e564ef13e87ea6bcfdbd57fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9506ba5737f555d412253ef2d56c75ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga9506ba5737f555d412253ef2d56c75ed">XHDCP22_TX_CASE_TO_STR_PRE</a>(pre,  arg)&#160;&#160;&#160;case pre ## arg : strcpy(str, #arg); break;</td></tr>
 <tr class="memdesc:ga9506ba5737f555d412253ef2d56c75ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case replacement to copy a case Id to a string with a pre-lead.  <a href="#ga9506ba5737f555d412253ef2d56c75ed">More...</a><br /></td></tr>
 <tr class="separator:ga9506ba5737f555d412253ef2d56c75ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac5487b3d0dbc31d955a76d565b6b47b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#gac5487b3d0dbc31d955a76d565b6b47b1">XHDCP22_TX_H</a></td></tr>
 <tr class="memdesc:gac5487b3d0dbc31d955a76d565b6b47b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">prevent circular inclusions by using protection macros  <a href="#gac5487b3d0dbc31d955a76d565b6b47b1">More...</a><br /></td></tr>
 <tr class="separator:gac5487b3d0dbc31d955a76d565b6b47b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1e77d64752ebdc3c57a6bf5804271714"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga1e77d64752ebdc3c57a6bf5804271714">XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE</a>&#160;&#160;&#160;4</td></tr>
-<tr class="memdesc:ga1e77d64752ebdc3c57a6bf5804271714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start polling if the timer is at (timeout - (timeout/DEFAULT_RX_STATUS_POLLVALUE)):  <a href="#ga1e77d64752ebdc3c57a6bf5804271714">More...</a><br /></td></tr>
+<tr class="memitem:ga1e77d64752ebdc3c57a6bf5804271714"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga1e77d64752ebdc3c57a6bf5804271714">XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ga1e77d64752ebdc3c57a6bf5804271714"><td class="mdescLeft">&#160;</td><td class="mdescRight">This value is the default polling interval defined in millseconds.  <a href="#ga1e77d64752ebdc3c57a6bf5804271714">More...</a><br /></td></tr>
 <tr class="separator:ga1e77d64752ebdc3c57a6bf5804271714"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga37aedd4b636ee4a38e147611fbc3a515"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga37aedd4b636ee4a38e147611fbc3a515">XHDCP22_TX_MAX_MESSAGE_SIZE</a>&#160;&#160;&#160;1+534</td></tr>
 <tr class="memdesc:ga37aedd4b636ee4a38e147611fbc3a515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Needed storage to transmit/receive messages to the HDCP2.2 receiver This includes 1 extra byte for the DDC address used.  <a href="#ga37aedd4b636ee4a38e147611fbc3a515">More...</a><br /></td></tr>
@@ -177,8 +180,8 @@ Macros</h2></td></tr>
 <tr class="memitem:ga482e85a93cf4b80bfdf992bca4eed525"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga482e85a93cf4b80bfdf992bca4eed525">XHDCP22_TX_LOG_BUFFER_SIZE</a>&#160;&#160;&#160;256</td></tr>
 <tr class="memdesc:ga482e85a93cf4b80bfdf992bca4eed525"><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of the log buffer.  <a href="#ga482e85a93cf4b80bfdf992bca4eed525">More...</a><br /></td></tr>
 <tr class="separator:ga482e85a93cf4b80bfdf992bca4eed525"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a717834c039b332d4b7d67c5e3edd24"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga7a717834c039b332d4b7d67c5e3edd24">BD_MAX_MOD_SIZE</a>&#160;&#160;&#160;512</td></tr>
-<tr class="memdesc:ga7a717834c039b332d4b7d67c5e3edd24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bigdigits for RSA allow 512 octets, 4096 bits.  <a href="#ga7a717834c039b332d4b7d67c5e3edd24">More...</a><br /></td></tr>
+<tr class="memitem:ga7a717834c039b332d4b7d67c5e3edd24"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga7a717834c039b332d4b7d67c5e3edd24">BD_MAX_MOD_SIZE</a>&#160;&#160;&#160;(384/sizeof(u32))</td></tr>
+<tr class="memdesc:ga7a717834c039b332d4b7d67c5e3edd24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size RSA encryption parameters to support 384 byte maximum modulus size.  <a href="#ga7a717834c039b332d4b7d67c5e3edd24">More...</a><br /></td></tr>
 <tr class="separator:ga7a717834c039b332d4b7d67c5e3edd24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5fe5070c3da3e1597139857ba2c72f03"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__hdcp22__tx__v2__0.html#ga5fe5070c3da3e1597139857ba2c72f03">XHDCP22_TX_I_H</a></td></tr>
 <tr class="memdesc:ga5fe5070c3da3e1597139857ba2c72f03"><td class="mdescLeft">&#160;</td><td class="mdescRight">prevent circular inclusions by using protection macros.  <a href="#ga5fe5070c3da3e1597139857ba2c72f03">More...</a><br /></td></tr>
@@ -731,14 +734,14 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define BD_MAX_MOD_SIZE&#160;&#160;&#160;512</td>
+          <td class="memname">#define BD_MAX_MOD_SIZE&#160;&#160;&#160;(384/sizeof(u32))</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xhdcp22__tx__crypt_8c.html">xhdcp22_tx_crypt.c</a>&gt;</code></p>
 
-<p>Bigdigits for RSA allow 512 octets, 4096 bits. </p>
+<p>Size RSA encryption parameters to support 384 byte maximum modulus size. </p>
 
 </div>
 </div>
@@ -1153,21 +1156,15 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE&#160;&#160;&#160;4</td>
+          <td class="memname">#define XHDCP22_TX_DEFAULT_RX_STATUS_POLLVALUE&#160;&#160;&#160;10</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p><code>#include &lt;<a class="el" href="xhdcp22__tx_8h.html">xhdcp22_tx.h</a>&gt;</code></p>
 
-<p>Start polling if the timer is at (timeout - (timeout/DEFAULT_RX_STATUS_POLLVALUE)): </p>
-<ul>
-<li>0 : No polling</li>
-<li>1 : Always poll</li>
-<li>2 : 50% - start polling if 50% of timeout value has expired</li>
-<li>3 : 66%</li>
-<li>4 : 75% etc. </li>
-</ul>
+<p>This value is the default polling interval defined in millseconds. </p>
+<p>The polling interval defines the amount of time to wait between successive reads of the RxStatus register. </p>
 
 </div>
 </div>
@@ -1350,6 +1347,24 @@ Variables</h2></td></tr>
 <p><code>#include &lt;<a class="el" href="xhdcp22__tx__i_8h.html">xhdcp22_tx_i.h</a>&gt;</code></p>
 
 <p>prevent circular inclusions by using protection macros. </p>
+
+</div>
+</div>
+<a id="ga66363509e564ef13e87ea6bcfdbd57fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga66363509e564ef13e87ea6bcfdbd57fc">&#9670;&nbsp;</a></span>XHDCP22_TX_INVALID_RXSTATUS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XHDCP22_TX_INVALID_RXSTATUS&#160;&#160;&#160;0xFFFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xhdcp22__tx_8c.html">xhdcp22_tx.c</a>&gt;</code></p>
+
+<p>RxStatus value used to force re-authentication. </p>
 
 </div>
 </div>
@@ -3637,7 +3652,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>XST_SUCCESS</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_hdcp22___tx.html#a721076c56ea499e7a7fce25a39605664">XHdcp22_Tx::Info</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#a29a162354da90a888170c1fe36c55f29">XHdcp22_Tx_Info::IsEnabled</a>, <a class="el" href="struct_x_hdcp22___tx.html#a4011fa9ee0117de55340f4dd06b3b704">XHdcp22_Tx::Timer</a>, <a class="el" href="struct_x_hdcp22___tx___timer.html#a1306dd5a16faaf2eea612c0177a2d364">XHdcp22_Tx_Timer::TmrCtr</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga8a9070695dd856a5770646883095bc5fa3bce17339e8241828ba476f8a7233fd6">XHDCP22_TX_LOG_EVT_ENABLED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gac340a0b9ccd07bdbe61e5e38895f515b">XHDCP22_TX_TIMER_CNTR_0</a>, and <a class="el" href="group__hdcp22__tx__v2__0.html#ga13dade65f38f5ab12c831b69e28cb8d3">XHdcp22Tx_LogWr()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_hdcp22___tx.html#a88f23872a40fda6eaef7c792db5b08ff">XHdcp22_Tx::Cipher</a>, <a class="el" href="struct_x_hdcp22___tx.html#a721076c56ea499e7a7fce25a39605664">XHdcp22_Tx::Info</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#a29a162354da90a888170c1fe36c55f29">XHdcp22_Tx_Info::IsEnabled</a>, <a class="el" href="struct_x_hdcp22___tx.html#a4011fa9ee0117de55340f4dd06b3b704">XHdcp22_Tx::Timer</a>, <a class="el" href="struct_x_hdcp22___tx___timer.html#a1306dd5a16faaf2eea612c0177a2d364">XHdcp22_Tx_Timer::TmrCtr</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga8a9070695dd856a5770646883095bc5fa3bce17339e8241828ba476f8a7233fd6">XHDCP22_TX_LOG_EVT_ENABLED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gac340a0b9ccd07bdbe61e5e38895f515b">XHDCP22_TX_TIMER_CNTR_0</a>, and <a class="el" href="group__hdcp22__tx__v2__0.html#ga13dade65f38f5ab12c831b69e28cb8d3">XHdcp22Tx_LogWr()</a>.</p>
 
 </div>
 </div>
@@ -4050,7 +4065,7 @@ Variables</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_hdcp22___tx___info.html#a043791b0b8d3100c13b54d0ed9c525f9">XHdcp22_Tx_Info::AuthenticationStatus</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#ad95ce87f27bdc7eeec7e079fddab6081">XHdcp22_Tx_Info::AuthRequestCnt</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#a1f29fe55b9a42efc26878193ca72ad48">XHdcp22_Tx_Info::ContentStreamType</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#a2b72a9b98491a9e7e3fb8c92fa5a18ab">XHdcp22_Tx_Topology::Depth</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#a119c8d2b60a48aa8227efeb808869e56">XHdcp22_Tx_Topology::DeviceCnt</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#a2e05753b73d3c00a8d8990c2d0f73ed9">XHdcp22_Tx_Topology::Hdcp1DeviceDownstream</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#a097ba830fdaaaa2e9ddf371710d97e98">XHdcp22_Tx_Topology::Hdcp20RepeaterDownstream</a>, <a class="el" href="struct_x_hdcp22___tx.html#a721076c56ea499e7a7fce25a39605664">XHdcp22_Tx::Info</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#adbddf8bd34032d9635e708f5b0310ea5">XHdcp22_Tx_Topology::MaxCascadeExceeded</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#aed7cccb8c2181a58d3c5a6cb05d86bfd">XHdcp22_Tx_Topology::MaxDevsExceeded</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#a829c46e6ed22eb3c530710af6ae56f34">XHdcp22_Tx_Info::ReauthRequestCnt</a>, <a class="el" href="struct_x_hdcp22___tx.html#a19acd1a745e0f2f27e819379c4d33876">XHdcp22_Tx::Topology</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fca278bb4e7e30bf7ec1dff4c35177ab8e5">XHDCP22_TX_AUTHENTICATED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fcaec50793ac6bd6d087f34ef092342ae46">XHDCP22_TX_AUTHENTICATION_BUSY</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fca594761a11f0248a0df4782cf2fb844ff">XHDCP22_TX_DEVICE_IS_REVOKED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fcac8e8da5e0baee5d5d0500610eb320240">XHDCP22_TX_INCOMPATIBLE_RX</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fca3a9174fb16e31b624944f9fdc2b6d2a7">XHDCP22_TX_NO_SRM_LOADED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fca4f05672b5ce360d6c360ac65913c304f">XHDCP22_TX_REAUTHENTICATE_REQUESTED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fcabfbc81d1f414533a781e9579117f9f0c">XHDCP22_TX_UNAUTHENTICATED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#ga1581bf2eb6845e55ea14ee3a60eb30b0">XHdcp22Tx_IsEnabled()</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#ga7ca5567441ff4e74a0e386e22ecffb75">XHdcp22Tx_IsEncryptionEnabled()</a>, and <a class="el" href="group__hdcp22__tx__v2__0.html#ga7274984807782d5875e72806ebbca53d">XHdcp22Tx_IsRepeater()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_hdcp22___tx___info.html#a043791b0b8d3100c13b54d0ed9c525f9">XHdcp22_Tx_Info::AuthenticationStatus</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#ad95ce87f27bdc7eeec7e079fddab6081">XHdcp22_Tx_Info::AuthRequestCnt</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#a1f29fe55b9a42efc26878193ca72ad48">XHdcp22_Tx_Info::ContentStreamType</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#a2b72a9b98491a9e7e3fb8c92fa5a18ab">XHdcp22_Tx_Topology::Depth</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#a119c8d2b60a48aa8227efeb808869e56">XHdcp22_Tx_Topology::DeviceCnt</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#a2e05753b73d3c00a8d8990c2d0f73ed9">XHdcp22_Tx_Topology::Hdcp1DeviceDownstream</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#a097ba830fdaaaa2e9ddf371710d97e98">XHdcp22_Tx_Topology::Hdcp20RepeaterDownstream</a>, <a class="el" href="struct_x_hdcp22___tx.html#a721076c56ea499e7a7fce25a39605664">XHdcp22_Tx::Info</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#adbddf8bd34032d9635e708f5b0310ea5">XHdcp22_Tx_Topology::MaxCascadeExceeded</a>, <a class="el" href="struct_x_hdcp22___tx___topology.html#aed7cccb8c2181a58d3c5a6cb05d86bfd">XHdcp22_Tx_Topology::MaxDevsExceeded</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#a5587baffcaf085ae24b96132665ba24b">XHdcp22_Tx_Info::PollingValue</a>, <a class="el" href="struct_x_hdcp22___tx___info.html#a829c46e6ed22eb3c530710af6ae56f34">XHdcp22_Tx_Info::ReauthRequestCnt</a>, <a class="el" href="struct_x_hdcp22___tx.html#a19acd1a745e0f2f27e819379c4d33876">XHdcp22_Tx::Topology</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fca278bb4e7e30bf7ec1dff4c35177ab8e5">XHDCP22_TX_AUTHENTICATED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fcaec50793ac6bd6d087f34ef092342ae46">XHDCP22_TX_AUTHENTICATION_BUSY</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fca594761a11f0248a0df4782cf2fb844ff">XHDCP22_TX_DEVICE_IS_REVOKED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fcac8e8da5e0baee5d5d0500610eb320240">XHDCP22_TX_INCOMPATIBLE_RX</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fca3a9174fb16e31b624944f9fdc2b6d2a7">XHDCP22_TX_NO_SRM_LOADED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fca4f05672b5ce360d6c360ac65913c304f">XHDCP22_TX_REAUTHENTICATE_REQUESTED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#gga00d04cd4483910ed53b42b21d69759fcabfbc81d1f414533a781e9579117f9f0c">XHDCP22_TX_UNAUTHENTICATED</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#ga1581bf2eb6845e55ea14ee3a60eb30b0">XHdcp22Tx_IsEnabled()</a>, <a class="el" href="group__hdcp22__tx__v2__0.html#ga7ca5567441ff4e74a0e386e22ecffb75">XHdcp22Tx_IsEncryptionEnabled()</a>, and <a class="el" href="group__hdcp22__tx__v2__0.html#ga7274984807782d5875e72806ebbca53d">XHdcp22Tx_IsRepeater()</a>.</p>
 
 </div>
 </div>
@@ -4883,15 +4898,15 @@ HandlerType                                        Callback Function Type
 <p><code>#include &lt;<a class="el" href="xhdcp22__tx_8c.html">xhdcp22_tx.c</a>&gt;</code></p>
 
 <p>This function can be used to change the polling value. </p>
+<p>The polling value is the amount of time in milliseconds to wait between successive reads of the RxStatus register. The RxStatus register is polled to determine when a message is available for reading during authentication or during the link integrity check phase to determine when to issue re-authentication. The polling value needs to be at most 20ms to account for the locality check.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the XHdcp22Tx core instance. </td></tr>
-    <tr><td class="paramname">PollingValue</td><td>is the value used for the polling algorithm.<ul>
-<li>0 : No polling</li>
-<li>1 : Always poll</li>
-<li>2 : 50% - start polling if 50% of timeout value has expired</li>
-<li>3 : 66%</li>
-<li>4 : 75% etc. </li>
+    <tr><td class="paramname">PollingValue</td><td>is the polling interval defined in milliseconds<ul>
+<li>0 : Always Poll</li>
+<li>1 : Poll after 1ms</li>
+<li>2 : Poll after 2ms</li>
+<li>3 : Poll after 3ms etc...</li>
 </ul>
 </td></tr>
   </table>

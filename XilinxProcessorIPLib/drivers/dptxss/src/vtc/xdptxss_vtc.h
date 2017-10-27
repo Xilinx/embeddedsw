@@ -45,6 +45,8 @@
 * 1.00 sha 01/29/15 Initial release.
 * 1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
 *                   name with prefix XDpTxSs_*
+* 5.0  tu  08/10/17 Modified XDpTxSs_VtcSetup for adjusting BS symbol for
+*		    equal timing
 * </pre>
 *
 ******************************************************************************/
@@ -72,7 +74,8 @@ extern "C" {
 
 /************************** Function Prototypes ******************************/
 
-u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig);
+u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
+			u8 VtcAdjustBs);
 
 /************************** Variable Declarations ****************************/
 

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet.c
-* @addtogroup axiethernet_v5_0
+* @addtogroup axiethernet_v5_6
 * @{
 *
 * The APIs in this file takes care of the primary functionalities of the driver.
@@ -131,6 +131,56 @@ int XAxiEthernet_CfgInitialize(XAxiEthernet *InstancePtr,
 	return XST_SUCCESS;
 }
 
+
+/*****************************************************************************/
+/**
+*
+* XAxiEthernet_Initialize initializes an AXI Ethernet device along with the
+* <i>InstancePtr</i> that references it.
+*
+* The PHY is setup independently from the Ethernet core. Use the MII or
+* whatever other interface may be present for setup.
+*
+* @param	InstancePtr references the memory instance to be associated
+*		with the AXI Ethernet core instance upon initialization.
+* @param	CfgPtr references the structure holding the hardware
+*		configuration for the Axi Ethernet core to initialize.
+* @param	EffectiveAddress is the processor address used to access the
+*		base address of the AXI Ethernet instance. In systems with an
+*		MMU and virtual memory, <i>EffectiveAddress</i> is the
+*		virtual address mapped to the physical in
+*		<code>ConfigPtr->Config.BaseAddress</code>. In systems without
+*		an active MMU, <i>EffectiveAddress</i> should be set to the
+*		same value as <code>ConfigPtr->Config.BaseAddress</code>.
+*
+* @return	XST_SUCCESS.
+*
+* @note		When user calls this function he should ensure the hardware
+*		is in a quiescent state by reseting all the hardware
+*		Configurations.
+*
+******************************************************************************/
+int XAxiEthernet_Initialize(XAxiEthernet *InstancePtr,
+			    XAxiEthernet_Config *CfgPtr,
+			    UINTPTR EffectiveAddress)
+{
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+
+	/* Clear instance memory and make copy of configuration */
+	memset(InstancePtr, 0, sizeof(XAxiEthernet));
+	memcpy(&InstancePtr->Config, CfgPtr, sizeof(XAxiEthernet_Config));
+
+	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_CfgInitialize\n");
+
+	/* Set device base address */
+	InstancePtr->Config.BaseAddress = EffectiveAddress;
+
+	/* Set default options */
+	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
+
+	return XST_SUCCESS;
+}
 
 /*****************************************************************************/
 /**
@@ -1379,7 +1429,8 @@ int XAxiEthernet_SetOperatingSpeed(XAxiEthernet *InstancePtr, u16 Speed)
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertNonvoid((Speed == XAE_SPEED_10_MBPS) ||
 			(Speed == XAE_SPEED_100_MBPS) ||
-			(Speed == XAE_SPEED_1000_MBPS));
+			(Speed == XAE_SPEED_1000_MBPS) ||
+			(Speed == XAE_SPEED_2500_MBPS));
 
 
 	xdbg_printf(XDBG_DEBUG_GENERAL, "XAxiEthernet_SetOperatingSpeed\n");
@@ -1431,6 +1482,10 @@ int XAxiEthernet_SetOperatingSpeed(XAxiEthernet *InstancePtr, u16 Speed)
 			break;
 
 		case XAE_SPEED_1000_MBPS:
+			EmmcReg |= XAE_EMMC_LINKSPD_1000;
+			break;
+
+		case XAE_SPEED_2500_MBPS:
 			EmmcReg |= XAE_EMMC_LINKSPD_1000;
 			break;
 

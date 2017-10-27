@@ -33,7 +33,9 @@
 /**
 *
 * @file xsecure_sha.h
-*
+* @addtogroup xsecure_sha3_apis SHA-3
+* @{
+* @cond xsecure_internal
 * This file Contains the function prototypes, defines and macros for
 * the SHA-384 hardware module.
 *
@@ -61,10 +63,12 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  ba   11/05/14 Initial release
 * 2.0   vns  01/28/17 Added API to read SHA3 hash.
+* 2.2   vns  07/06/16 Added doxygen tags
 *
 * </pre>
 *
 * @note
+* @endcond
 *
 ******************************************************************************/
 #ifndef XSECURE_SHA_H
@@ -80,6 +84,10 @@ extern "C" {
 #include "xil_assert.h"
 
 /************************** Constant Definitions ****************************/
+/** @cond xsecure_internal
+@{
+*/
+
 /**
 * CSU SHA3 Memory Map
 */
@@ -105,7 +113,9 @@ typedef struct {
 	XCsuDma *CsuDmaPtr; /**< Pointer to CSU DMA Instance */
 	u32 Sha3Len; /**< SHA3 Input Length */
 } XSecure_Sha3;
-
+/**
+@}
+@endcond */
 /***************************** Function Prototypes ***************************/
 /* Initialization */
 s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma *CsuDmaPtr);
@@ -127,3 +137,4 @@ extern "C" }
 #endif
 
 #endif /** XSECURE_SHA_H */
+/* @} */

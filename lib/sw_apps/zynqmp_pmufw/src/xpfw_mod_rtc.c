@@ -39,22 +39,29 @@
 #ifdef ENABLE_RTC_TEST
 static void RtcEventHandler(const XPfw_Module_t *ModPtr, u32 EventId)
 {
-	fw_printf("MOD%d:EVENTID: %lu\r\n", ModPtr->ModId, EventId);
+	XPfw_Printf(DEBUG_DETAILED,"MOD%d:EVENTID: %lu\r\n",
+			ModPtr->ModId, EventId);
 
 	if (XPFW_EV_RTC_SECONDS == EventId) {
 			/* Ack the Int in RTC Module */
 			Xil_Out32(RTC_RTC_INT_STATUS, 1U);
-			fw_printf("RTC: %lu \r\n", Xil_In32(RTC_CURRENT_TIME));
+			XPfw_Printf(DEBUG_DETAILED,"RTC: %lu \r\n",
+					Xil_In32(RTC_CURRENT_TIME));
 	}
 }
 
 static void RtcCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 {
-	XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_RTC_SECONDS);
+	if (XPfw_CoreRegisterEvent(ModPtr, XPFW_EV_RTC_SECONDS) != XST_SUCCESS) {
+		XPfw_Printf(DEBUG_DETAILED,
+				"Warning: RtcCfgInit: Failed to register event ID:"
+						" %d\r\n", XPFW_EV_RTC_SECONDS)
+	}
+
 	/* Enable Seconds Alarm */
 	Xil_Out32(RTC_RTC_INT_EN, 1U);
 	Xil_Out32(RTC_RTC_INT_STATUS, 1U);
-	fw_printf("RTC (MOD-%d): Initialized.\r\n", ModPtr->ModId);
+	XPfw_Printf(DEBUG_DETAILED,"RTC (MOD-%d): Initialized.\r\n",ModPtr->ModId);
 }
 void ModRtcInit(void)
 {

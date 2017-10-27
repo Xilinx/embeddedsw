@@ -346,7 +346,7 @@ proc lwip_drc {libhandle} {
 			puts $fd "GCC_COMPILER=powerpc-eabi-gcc"
 		    }
 		    "ps7_cortexa9" {
-			puts $fd "GCC_COMPILER=arm-xilinx-eabi-gcc"
+			puts $fd "GCC_COMPILER=arm-none-eabi-gcc"
 			#puts "Little Endian system"
 			puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
 		    }
@@ -500,7 +500,11 @@ proc generate_lwip_opts {libhandle} {
 			puts $lwipopts_fd "\#define OS_IS_FREERTOS"
 			puts $lwipopts_fd "\#define DEFAULT_THREAD_PRIO $thread_prio"
 			puts $lwipopts_fd "\#define THREAD_STACKSIZE 1024"
+			if {$processor_type == "psu_cortexa53"} {
+				puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio)"
+			} else {
 			puts $lwipopts_fd "\#define TCPIP_THREAD_PRIO ($thread_prio + 1)"
+			}
 			puts $lwipopts_fd "\#define TCPIP_THREAD_STACKSIZE 1024"
 			puts $lwipopts_fd "\#define DEFAULT_TCP_RECVMBOX_SIZE 	200"
 			puts $lwipopts_fd "\#define DEFAULT_ACCEPTMBOX_SIZE 	5"
@@ -1208,7 +1212,7 @@ proc generate_adapterconfig_makefile {libhandle} {
                 puts $fd "GCC_COMPILER=powerpc-eabi-gcc"
             }
             "ps7_cortexa9" {
-		puts $fd "GCC_COMPILER=arm-xilinx-eabi-gcc"
+		puts $fd "GCC_COMPILER=arm-none-eabi-gcc"
 		#puts "Little Endian system"
                 puts $fd "CONFIG_PROCESSOR_LITTLE_ENDIAN=y"
             }

@@ -48,7 +48,7 @@
 *   - AXI4-Stream Output
 *   - 1, 2, or 4 pixel-wide video interface
 *   - 8/10 bits per component
-*   - Up to 13 different memory color formats (user configurable)
+*   - Up to 18 different memory color formats (user configurable)
 *
 * <b>Dependency</b>
 *
@@ -116,6 +116,8 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  vyc   04/05/17   Initial Release
+* 2.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
+*                        Add memory formats RGBA8, YUVA8, BGRA8, BGRX8, UYVY8
 * </pre>
 *
 ******************************************************************************/
@@ -221,6 +223,36 @@ typedef struct {
 ******************************************************************************/
 #define XVFrmbufRd_IsYUYV8Enabled(InstancePtr) \
                                  ((InstancePtr)->FrmbufRd.Config.YUYV8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format RGBA8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufRd_IsRGBA8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufRd.Config.RGBA8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format YUVA8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufRd_IsYUVA8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufRd.Config.YUVA8En)
 
 /*****************************************************************************/
 /**
@@ -372,6 +404,51 @@ typedef struct {
 #define XVFrmbufRd_IsY10Enabled(InstancePtr) \
                                ((InstancePtr)->FrmbufRd.Config.Y10En)
 
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format BGRA8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufRd_IsBGRA8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufRd.Config.BGRA8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format BGRX8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufRd_IsBGRX8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufRd.Config.BGRX8En)
+
+/*****************************************************************************/
+/**
+*
+* This macro returns if Video Format UYVY8 is available
+*
+* @param    InstancePtr is a pointer to the core instance.
+*
+* @return   Enabled(1)/Disabled(0)
+*
+* @note     None.
+*
+******************************************************************************/
+#define XVFrmbufRd_IsUYVY8Enabled(InstancePtr) \
+                                 ((InstancePtr)->FrmbufRd.Config.UYVY8En)
+
 /**************************** Function Prototypes *****************************/
 int XVFrmbufRd_Initialize(XV_FrmbufRd_l2 *InstancePtr, u16 DeviceId);
 void XVFrmbufRd_Start(XV_FrmbufRd_l2 *InstancePtr);
@@ -384,6 +461,9 @@ XVidC_VideoStream *XVFrmbufRd_GetVideoStream(XV_FrmbufRd_l2 *InstancePtr);
 int XVFrmbufRd_SetBufferAddr(XV_FrmbufRd_l2 *InstancePtr,
                              UINTPTR Addr);
 UINTPTR XVFrmbufRd_GetBufferAddr(XV_FrmbufRd_l2 *InstancePtr);
+int XVFrmbufRd_SetChromaBufferAddr(XV_FrmbufRd_l2 *InstancePtr,
+                              UINTPTR Addr);
+UINTPTR XVFrmbufRd_GetChromaBufferAddr(XV_FrmbufRd_l2 *InstancePtr);
 void XVFrmbufRd_DbgReportStatus(XV_FrmbufRd_l2 *InstancePtr);
 
 /* Interrupt related function */

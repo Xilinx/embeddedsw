@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -64,6 +64,7 @@
 *		      fixes the CR 662317.
 *		      CR 662317 Description - Xilinx Platform Flash on ML605
 *		      fails to work.
+* 4.4   ms   08/03/17 Added tags and modified comment lines style for doxygen.
 * </pre>
 *
 *
@@ -94,8 +95,8 @@ static int SetVTable(XFlash * InstancePtr);
 
 /*****************************************************************************/
 /**
-*
-* Initializes a specific XFlash instance.
+* @brief
+* This function initializes a specific XFlash instance.
 * The initialization entails:
 * 	- Check the Device family type.
 * 	- Issuing the CFI query command.
@@ -107,11 +108,11 @@ static int SetVTable(XFlash * InstancePtr);
 *	  selects to use the Platform Flash XL in the MLD. The Platform Flash XL
 *	  is an Intel CFI complaint device.
 *
-* @param	InstancePtr is a pointer to the XFlash instance.
-* @param	BaseAddress is the base address of the flash memory.
-* @param	BusWidth is the total width of the flash memory, in bytes.
-* @param	IsPlatformFlash is used to specify if the flash is a platform
-*		flash.
+* @param	InstancePtr	Pointer to the XFlash instance.
+* @param	BaseAddress	Base address of the flash memory.
+* @param	BusWidth	Total width of the flash memory, in bytes
+* @param	IsPlatformFlash	Used to specify if the flash is a
+*				platform flash.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -196,18 +197,18 @@ int XFlash_Initialize(XFlash * InstancePtr, u32 BaseAddress, u8 BusWidth,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function reads the data from the Flash device and copies it into the
 * specified user buffer. The source and destination addresses can be on any
 * alignment supported by the processor.
 *
 * The device is polled until an error or the operation completes successfully.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from
-*		which to read.
-* @param	Bytes is the number of bytes to copy.
-* @param	DestPtr is the destination address to copy data to.
+* @param	InstancePtr	Pointer to the XFlash instance.
+* @param	Offset		Offset into the device(s) address space from
+*				which to read.
+* @param	Bytes		Number of bytes to copy.
+* @param	DestPtr		Destination address to copy data to.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -234,24 +235,27 @@ int XFlash_Read(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *DestPtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function programs the flash device(s) with data specified in the user
-* buffer. The source and destination address must be aligned to the width of the
-* flash's data bus.
+* buffer. The source and destination address must be aligned to the width of
+* the flash's data bus.
 *
 * The device is polled until an error or the operation completes successfully.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from which
-*		to begin programming. Must be aligned to the width of the
-*		flash's data bus.
-* @param	Bytes is the number of bytes to program.
-* @param	SrcPtr is the source address containing data to be programmed.
-*		Must be aligned to the width of the flash's data bus.
-*		The SrcPtr doesn't have to be aligned to the flash width if the
-*		processor supports unaligned access. But, since this library is
-*		generic, and some processors (eg. Microblaze) do not support
-*		unaligned access; this API requires the SrcPtr to be aligned.
+* @param	InstancePtr	Pointer to the XFlash instance.
+* @param	Offset		Offset into the device(s) address space from
+*				which to begin programming. Must be aligned
+*				to the width of the flash's data bus.
+* @param	Bytes		Number of bytes to program.
+* @param	SrcPtr		Source address containing data to be
+*				programmed. Must be aligned to the width of
+*				the flash's data bus. The SrcPtr doesn't
+*				have to be aligned to the flash width if
+*				the processor supports unaligned access.
+*				But, since this library is generic, and
+*				some processors(eg. Microblaze) do not
+*				support unaligned access; this API requires
+*				the SrcPtr to be aligned.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -279,17 +283,17 @@ int XFlash_Write(XFlash * InstancePtr, u32 Offset, u32 Bytes, void *SrcPtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function erases the specified address range in the flash device. The
 * number of bytes to erase can be any number as long as it is within the bounds
 * of the device(s).
 *
 * The device is polled until an error or the operation completes successfully.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from which
-*		to begin erasure.
-* @param	Bytes is the number of bytes to erase.
+* @param	InstancePtr	Pointer to the XFlash instance.
+* @param	Offset		Offset into the device(s) address space from
+*				which to begin erasure.
+* @param	Bytes		Number of bytes to erase.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -317,18 +321,19 @@ int XFlash_Erase(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function Locks the blocks in the specified range of the flash device(s).
 *
 * The device is polled until an error or the operation completes successfully.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from which
-*		to begin block locking. The first three bytes of every block is
-*		reserved for special purpose. The offset should be atleast three
-*		bytes from start of the block.
-* @param	Bytes indicates the number of bytes to Lock in the Block
-*		starting from Offset.
+* @param	InstancePtr	Pointer to the XFlash instance.
+* @param	Offset		Offset into the device(s) address space from
+*				which to begin block locking. The first
+*				three bytes of every block is reserved for
+*				special purpose. The offset should be atleast
+*				three bytes from start of the block.
+* @param	Bytes		Number of bytes to Lock in the Block starting
+*				from Offset.
 *
 * @return
 * 		- XST_SUCCESS if successful.
@@ -356,19 +361,20 @@ int XFlash_Lock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function Unlocks the blocks in the specified range of the flash
 * device(s).
 *
 * The device is polled until an error or the operation completes successfully.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Offset is the offset into the device(s) address space from which
-*		to begin block UnLocking. The first three bytes of every block
-*		is reserved for special purpose. The offset should be atleast
-*		three bytes from start of the block.
-* @param	Bytes indicates the number of bytes to UnLock in the Block
-*		starting from Offset.
+* @param	InstancePtr	Pointer to the XFlash instance.
+* @param	Offset		Offset into the device(s) address space from
+*				which to begin block UnLocking. The first three
+*				bytes of every block is reserved for special
+*				purpose. The offset should be atleast three
+*				bytes from start of the block.
+* @param	Bytes		Number of bytes to UnLock in the Block
+*				starting from Offset.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -393,10 +399,10 @@ int XFlash_Unlock(XFlash * InstancePtr, u32 Offset, u32 Bytes)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function resets the flash device and places it in read mode.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
+* @param	InstancePtr	Pointer to the XFlash instance.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -425,14 +431,14 @@ int XFlash_Reset(XFlash * InstancePtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This function is used to execute device specific commands.
 * For a list of device specific commands, see the xilflash.h.
 *
-* @param	InstancePtr is the pointer to the XFlash instance.
-* @param	Command is the device specific command to issue.
-* @param	Parameters specifies the arguments passed to the device control
-*		function.
+* @param	InstancePtr	Pointer to the XFlash instance.
+* @param	Command		Device specific command to issue.
+* @param	Parameters	Specifies the arguments passed to the device
+*				control function.
 *
 * @return
 *		- XST_SUCCESS if successful.
@@ -459,11 +465,11 @@ int XFlash_DeviceControl(XFlash * InstancePtr, u32 Command,
 
 /*****************************************************************************/
 /**
+* @brief
+* This function checks the readiness of the device, which means it has been
+* successfully initialized.
 *
-* Checks the readiness of the device, which means it has been successfully
-* initialized.
-*
-* @param	InstancePtr is a pointer to the XFlash instance.
+* @param	InstancePtr	Pointer to the XFlash instance.
 *
 * @return	TRUE if the device has been initialized (but not necessarily
 *		started), and FALSE otherwise.

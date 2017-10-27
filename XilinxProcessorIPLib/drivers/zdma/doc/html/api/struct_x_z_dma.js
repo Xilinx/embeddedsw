@@ -12,5 +12,6 @@ var struct_x_z_dma =
     [ "IntrMask", "struct_x_z_dma.html#a418f988cd455196d6127689c8e665da4", null ],
     [ "IsReady", "struct_x_z_dma.html#a11e560b15511ce0c1bea957659236f4a", null ],
     [ "IsSgDma", "struct_x_z_dma.html#a1e4b5934b1b40ebc10ed5969bbc27c30", null ],
-    [ "Mode", "struct_x_z_dma.html#a6ce36be06f13ecb70ac666bb3819e394", null ]
+    [ "Mode", "struct_x_z_dma.html#a6ce36be06f13ecb70ac666bb3819e394", null ],
+    [ "Slcr_adma", "struct_x_z_dma.html#aea5c37a59737c90ea9387f350ca1acb0", null ]
 ];

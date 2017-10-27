@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -128,7 +128,7 @@
 * 1.00a va            First release
 * 1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
 * 			Converted to new XPS hardware.
-* 1.01a ecm  08/19/08 Fixed CR’s 466320, 466322, 476535, 476242, 476243
+* 1.01a ecm  08/19/08 Fixed CRs 466320, 466322, 476535, 476242, 476243
 *			new rev
 * 2.00a hm   04/09/09 Added support for mailbox v2.0, which has interrupts
 *		      Fixed CR 502464, which removed extra
@@ -158,6 +158,12 @@
 *                     mbox examples for proper documentation while
 *                     generating doxygen and modified filename tag to
 *                     include them in doxygen examples.
+* 4.2   ms   04/18/17 Modified tcl file to add suffix U for all macros
+*                     definitions of mbox in xparameters.h
+*       ms   08/07/17 Fixed compilation warnings in xmbox_sinit.c
+* 4.3   sa   04/20/17 Support for FIFO reset using hardware control register.
+*       sd   07/26/17 Modified tcl file to prevent false unconnected flagging.
+*
 *</pre>
 *
 ******************************************************************************/
@@ -222,6 +228,7 @@ void XMbox_WriteBlocking(XMbox *InstancePtr, u32 *BufferPtr,
 u32 XMbox_IsEmpty(XMbox *InstancePtr);
 u32 XMbox_IsFull(XMbox *InstancePtr);
 int XMbox_Flush(XMbox *InstancePtr);
+void XMbox_ResetFifos(XMbox *InstancePtr);
 void XMbox_SetInterruptEnable(XMbox *InstancePtr, u32 Mask);
 u32 XMbox_GetInterruptEnable(XMbox *InstancePtr);
 u32 XMbox_GetInterruptStatus(XMbox *InstancePtr);

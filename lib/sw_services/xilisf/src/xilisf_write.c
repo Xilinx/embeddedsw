@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -59,6 +59,9 @@
 * 5.3  sk   08/07/17 Added QSPIPSU flash interface support for ZynqMP.
 * 5.5  sk   01/14/16 Used 4byte program command in 4 byte addressing mode.
 *      sk   03/02/16 Used 3byte command with 4 byte addressing for Micron.
+* 5.9  nsk  07/11/17 Add Micron 4Byte addressing support in Xisf_Write, CR#980169
+*      ms   08/03/17 Added tags and modified comment lines style for doxygen.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -104,106 +107,128 @@ extern unsigned int XIsf_ByteCountInfo;
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API writes the data to the Serial Flash.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	Operation is the type of write operation to be performed on the
-*		Serial Flash.
-*		The different operations are
-*		- XISF_WRITE: Normal Write
-*		- XISF_DUAL_IP_PAGE_WRITE: Dual Input Fast Program
-*		- XISF_DUAL_IP_EXT_PAGE_WRITE: Dual Input Extended Fast Program
-*		- XISF_QUAD_IP_PAGE_WRITE: Quad Input Fast Program
-*		- XISF_QUAD_IP_EXT_PAGE_WRITE: Quad Input Extended Fast Program
-*		- XISF_AUTO_PAGE_WRITE: Auto Page Write
-*		- XISF_BUFFER_WRITE: Buffer Write
-*		- XISF_BUF_TO_PAGE_WRITE_WITH_ERASE: Buffer to Page Transfer
-*			with Erase
-*		- XISF_BUF_TO_PAGE_WRITE_WITHOUT_ERASE: Buffer to Page Transfer
-*			without Erase
-*		- XISF_WRITE_STATUS_REG: Status Register Write
-*		- XISF_WRITE_STATUS_REG2: 2 byte Status Register Write
-*		- XISF_OTP_WRITE: OTP Write.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	Operation	Type of write operation to be performed on the
+*				Serial Flash.
+*				The different operations are
+*				- XISF_WRITE: Normal Write
+*				- XISF_DUAL_IP_PAGE_WRITE: Dual Input Fast
+*				  Program
+*				- XISF_DUAL_IP_EXT_PAGE_WRITE: Dual Input
+*				  Extended Fast Program
+*				- XISF_QUAD_IP_PAGE_WRITE: Quad Input Fast
+*				  Program
+*				- XISF_QUAD_IP_EXT_PAGE_WRITE: Quad Input
+*				  Extended Fast Program
+*				- XISF_AUTO_PAGE_WRITE: Auto Page Write
+*				- XISF_BUFFER_WRITE: Buffer Write
+*				- XISF_BUF_TO_PAGE_WRITE_WITH_ERASE: Buffer to
+*				  Page Transfer with Erase
+*				- XISF_BUF_TO_PAGE_WRITE_WITHOUT_ERASE: Buffer
+*				  to Page Transfer without Erase
+*				- XISF_WRITE_STATUS_REG: Status Register Write
+*				- XISF_WRITE_STATUS_REG2: 2 byte Status Register
+*				  Write
+*				- XISF_OTP_WRITE: OTP Write.
 *
-* @param	OpParamPtr is pointer to a structure variable which contains
-*		operational parameters of the specified operation.
-*		This parameter type is dependant on value of first argument
-*		(Operation).
+* @param	OpParamPtr	Pointer to a structure variable which contains
+*				operational parameters of the specified
+*				operation. This parameter type is dependant on
+*				value of first argument(Operation).
 *
-*		- Normal Write (XISF_WRITE), Dual Input Fast Program
-*		(XISF_DUAL_IP_PAGE_WRITE), Dual Input Extended Fast Program
-*		(XISF_DUAL_IP_EXT_PAGE_WRITE), Quad Input Fast Program
-*		(XISF_QUAD_IP_PAGE_WRITE), Quad Input Extended Fast Program
-*		(XISF_QUAD_IP_EXT_PAGE_WRITE):
-*		The OpParamPtr must be of type struct XIsf_WriteParam.
-* 		OpParamPtr->Address is the start address in the Serial Flash.
-*		OpParamPtr->WritePtr is a pointer to the data to be written to
-*		the Serial Flash.
-*		OpParamPtr->NumBytes is the number of bytes to be written to
-*		Serial Flash.
-*		This operation is supported for Atmel, Intel, STM, Winbond and
-*		Spansion Serial Flash.
+*				- Normal Write(XISF_WRITE), Dual Input Fast
+*				Program (XISF_DUAL_IP_PAGE_WRITE), Dual Input
+*				Extended Fast Program(XISF_DUAL_IP_EXT_PAGE_WRITE),
+*				Quad Input Fast Program(XISF_QUAD_IP_PAGE_WRITE),
+*				Quad Input Extended Fast Program
+*				(XISF_QUAD_IP_EXT_PAGE_WRITE):
+*				The OpParamPtr must be of type struct
+*				XIsf_WriteParam.
+* 				OpParamPtr->Address is the start address in the
+*				Serial Flash.
+*				OpParamPtr->WritePtr is a pointer to the data to
+*				be written to the Serial Flash.
+*				OpParamPtr->NumBytes is the number of bytes to be
+*				written to Serial Flash.
+*				This operation is supported for Atmel, Intel, STM,
+*				Winbond and Spansion Serial Flash.
 *
-*		- Auto Page Write (XISF_AUTO_PAGE_WRITE):
-*		The OpParamPtr must be of 32 bit unsigned integer variable.
-*		This is the address of page number in the Serial Flash which is
-*		to be refreshed.
-*		This operation is only supported for Atmel Serial Flash.
+*				- Auto Page Write (XISF_AUTO_PAGE_WRITE):
+*				The OpParamPtr must be of 32 bit unsigned integer
+*				variable.
+*				This is the address of page number in the Serial
+*				Flash which is to be refreshed.
+*				This operation is only supported for Atmel Serial
+*				Flash.
 *
-*		- Buffer Write (XISF_BUFFER_WRITE):
-*		The OpParamPtr must be of type struct
-*		XIsf_BufferToFlashWriteParam.
-*		OpParamPtr->BufferNum specifies the internal SRAM Buffer of the
-*		Serial Flash. The valid values are XISF_PAGE_BUFFER1 or
-*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case of
-*		AT45DB011D Flash as it contains a single buffer.
-*		OpParamPtr->WritePtr is a pointer to the data to be written to
-*		the Serial Flash SRAM Buffer.
-*		OpParamPtr->ByteOffset is byte offset in the buffer from where
-*		the data is to be written.
-*		OpParamPtr->NumBytes is number of bytes to be written to the
-*		Buffer.
-*		This operation is supported only for Atmel Serial Flash.
+*				- Buffer Write (XISF_BUFFER_WRITE):
+*				The OpParamPtr must be of type struct
+*				XIsf_BufferToFlashWriteParam.
+*				OpParamPtr->BufferNum specifies the internal SRAM
+*				Buffer of the Serial Flash. The valid values are
+*				XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2.
+*				XISF_PAGE_BUFFER2 is not valid in case of
+*				AT45DB011D Flash as it contains a single buffer.
+*				OpParamPtr->WritePtr is a pointer to the data to
+*				be written to the Serial Flash SRAM Buffer.
+*				OpParamPtr->ByteOffset is byte offset in the buffer
+*				from where the data is to be written.
+*				OpParamPtr->NumBytes is number of bytes to be
+*				written to the Buffer.
+*				This operation is supported only for Atmel Serial
+*				Flash.
 *
-*		- Buffer To Memory Write With Erase
-*			(XISF_BUF_TO_PAGE_WRITE_WITH_ERASE)/
-*		  Buffer To Memory Write Without Erase
-*			(XISF_BUF_TO_PAGE_WRITE_WITHOUT_ERASE):
-*		The OpParamPtr must be  of type struct
-*		XIsf_BufferToFlashWriteParam.
-*		OpParamPtr->BufferNum specifies the internal SRAM Buffer of the
-*		Serial Flash. The valid values are XISF_PAGE_BUFFER1 or
-*		XISF_PAGE_BUFFER2. XISF_PAGE_BUFFER2 is not valid in case of
-*		AT45DB011D Flash as it contains a single buffer.
-*		OpParamPtr->Address is starting address in the Serial Flash
-*		memory from where the data is to be written.
-*		These operations are only supported for Atmel Serial Flash.
+*				- Buffer To Memory Write With Erase
+*				(XISF_BUF_TO_PAGE_WRITE_WITH_ERASE)/
+*				Buffer To Memory Write Without Erase
+*				(XISF_BUF_TO_PAGE_WRITE_WITHOUT_ERASE):
+*				The OpParamPtr must be  of type struct
+*				XIsf_BufferToFlashWriteParam.
+*				OpParamPtr->BufferNum specifies the internal SRAM
+*				Buffer of the Serial Flash. The valid values are
+*				XISF_PAGE_BUFFER1 or XISF_PAGE_BUFFER2.
+*				XISF_PAGE_BUFFER2 is not valid in case of
+*				AT45DB011D Flash as it contains a single buffer.
+*				OpParamPtr->Address is starting address in the
+*				Serial Flash memory from where the data is to be
+*				written.
+*				These operations are only supported for Atmel
+*				Serial Flash.
 *
-*		- Write Status Register (XISF_WRITE_STATUS_REG):
-*		The OpParamPtr must be  of type of 8 bit unsigned integer
-*		variable. This is the value to be written to the Status
-*		Register.
-*		This operation is only supported for Intel, STM Winbond and
-*		Spansion Serial Flash.
+*				- Write Status Register (XISF_WRITE_STATUS_REG):
+*				The OpParamPtr must be  of type of 8 bit unsigned
+*				integer variable. This is the value to be written
+*				to the Status Register.
+*				This operation is only supported for Intel, STM
+*				Winbond and Spansion Serial Flash.
 *
-*		- Write Status Register2 (XISF_WRITE_STATUS_REG2):
-*		The OpParamPtr must be  of type (u8 *) and should point to two
-*		8 bit unsigned integer values. This is the value to be written
-*		to the 16 bit Status Register.
-*		This operation is only supported in Winbond (W25Q) Serial Flash.
+*				- Write Status Register2 (XISF_WRITE_STATUS_REG2):
+*				The OpParamPtr must be  of type (u8 *) and should
+*				point to two 8 bit unsigned integer values. This
+*				is the value to be written to the 16 bit Status
+*				Register.
+*				This operation is only supported in Winbond (W25Q)
+*				Serial Flash.
 *
-*		- One Time Programmable Area Write (XISF_OTP_WRITE):
-*		The OpParamPtr must be of type struct XIsf_WriteParam.
-*		OpParamPtr->Address is the address in the SRAM Buffer of the
-*		Serial Flash to which the data is to be written.
-*		OpParamPtr->WritePtr is a pointer to the data to be written to
-*		the Serial Flash.
-*		OpParamPtr->NumBytes should be set to 1 when performing
-*		OTPWrite operation.
-*		This operation is only supported for Intel Serial Flash.
+*				- One Time Programmable Area Write(XISF_OTP_WRITE):
+*				The OpParamPtr must be of type struct
+*				XIsf_WriteParam.
+*				OpParamPtr->Address is the address in the SRAM
+*				Buffer of the Serial Flash to which the data is
+*				to be written.
+*				OpParamPtr->WritePtr is a pointer to the data to
+*				be written to the Serial Flash.
+*				OpParamPtr->NumBytes should be set to 1 when
+*				performing OTPWrite operation.
+*				This operation is only supported for Intel Serial
+*				Flash.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note
 *		- Application must fill the structure elements of the third
@@ -243,7 +268,8 @@ int XIsf_Write(XIsf *InstancePtr, XIsf_WriteOperation Operation,
 #if ((XPAR_XISF_FLASH_FAMILY == SPANSION) && \
 	(!defined(XPAR_XISF_INTERFACE_PSQSPI)))
 			if ((InstancePtr->FourByteAddrMode == TRUE) &&
-				(InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_SPANSION)){
+				(InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_SPANSION ||
+				 InstancePtr->ManufacturerID == XISF_MANUFACTURER_ID_MICRON)){
 				Status = WriteData(InstancePtr,
 					XISF_CMD_PAGEPROG_WRITE_4BYTE,
 					WriteParamPtr->Address,

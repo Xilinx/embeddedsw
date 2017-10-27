@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma_selftest.c
-* @addtogroup axidma_v9_0
+* @addtogroup axidma_v9_4
 * @{
 *
 * Contains diagnostic/self-test functions for the XAxiDma component.

@@ -49,7 +49,7 @@ static int atomic(void)
 	value = atomic_load(&counter);
 	value -= atomic_test_count;
 	if (value) {
-		metal_log(LOG_DEBUG, "counter mismatch, delta = %d\n", value);
+		metal_log(METAL_LOG_DEBUG, "counter mismatch, delta = %d\n", value);
 		error = -1;
 	}
 

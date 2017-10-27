@@ -30,12 +30,12 @@
 *
 ******************************************************************************/
 
-#ifndef __PLATFORM_H_
-#define __PLATFORM_H_
+#ifndef __SYS_INIT_H__
+#define __SYS_INIT_H__
 
 #include "platform_config.h"
 
 int sys_init();
 void sys_cleanup();
 
-#endif
+#endif /* __SYS_INIT_H__ */

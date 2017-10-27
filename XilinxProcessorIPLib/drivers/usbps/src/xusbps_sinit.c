@@ -33,7 +33,7 @@
 /**
  *
  * @file xusbps_sinit.c
-* @addtogroup usbps_v2_2
+* @addtogroup usbps_v2_4
 * @{
  *
  * The implementation of the XUsbPs driver's static initialzation

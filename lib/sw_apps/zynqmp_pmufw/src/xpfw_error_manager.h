@@ -78,7 +78,8 @@
 #define EM_ACTION_POR    1U
 #define EM_ACTION_SRST   2U
 #define EM_ACTION_CUSTOM 3U
-#define EM_ACTION_MAX    4U
+#define EM_ACTION_PSERR  4U
+#define EM_ACTION_MAX    5U
 
 
 /* Pointer to Error Handler Function */
@@ -103,6 +104,16 @@ void XPfw_EmInit(void);
 s32 XPfw_EmSetAction(u8 ErrorId, u8 ActionId, XPfw_ErrorHandler_t ErrorHandler);
 
 /**
+ * Disable action for the given error
+ *
+ * @param ErrorId is the ID for error as defined in this file
+ *
+ * @return XST_SUCCESS if the action was disabled
+ *         XST_FAILURE if the action disable fails
+ */
+s32 XPfw_EmDisable(u8 ErrorId);
+
+/**
  * Process the errors of specified type and call the handlers of triggered errors
  *
  * @param ErrorType is either TYPE_1 or TYPE_2 as defined in this file
@@ -120,4 +131,18 @@ s32 XPfw_EmProcessError(u8 ErrorType);
  */
 s32 XPfw_EmEnablePSError(u8 ErrorId);
 
+/**
+ * Disable and re-enable PMU interrupts in PMU Global register
+ */
+void XPfw_PulseErrorInt(void);
+
+/* Data Structure to hold Error Info */
+struct XPfw_Error_t {
+	const u32 RegMask;
+	XPfw_ErrorHandler_t Handler;
+	const u8 Type;
+	u8 Action;
+};
+
+extern struct XPfw_Error_t ErrorTable[EM_ERR_ID_MAX];
 #endif /* XPFW_ERROR_MANAGER_H_ */

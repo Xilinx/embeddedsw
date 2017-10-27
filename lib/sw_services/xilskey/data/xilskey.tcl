@@ -67,8 +67,8 @@ proc execs_generate {libhandle} {
 }
 
 proc xgen_opts_file {libhandle} {
-
 	set proc_instance [hsi::get_sw_processor];
+	set hw_proc_handle [hsi::get_cells -hier [common::get_property HW_INSTANCE $proc_instance] ]
 	set hw_processor [common::get_property HW_INSTANCE $proc_instance]
 
 	set proc_type [common::get_property IP_NAME [hsi::get_cells $hw_processor]];
@@ -81,6 +81,13 @@ proc xgen_opts_file {libhandle} {
 	}
 	if {$proc_type == "microblaze"} {
 		puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_PLATFORM 1"
+		set mb_type [common::get_property CONFIG.C_FAMILY $hw_proc_handle]
+		if {$mb_type == "kintexuplus"} {
+			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_KINTEX_ULTRA_PLUS 1"
+		}
+		if {$mb_type == "kintexu"} {
+			puts $file_handle "\n#define XPAR_XSK_MICROBLAZE_KINTEX_ULTRA 1"
+		}
 	}
 
 	puts $file_handle ""

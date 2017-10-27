@@ -166,6 +166,8 @@
 *                          generation.
 *       ms     04/10/17    Modified Comment lines in nandpsu_example.c to
 *                          follow doxygen rules.
+* 1.2	nsk    08/08/17    Added support to import example in SDK
+*
 * </pre>
 *
 ******************************************************************************/
@@ -225,6 +227,7 @@ extern "C" {
 typedef struct {
 	u16 DeviceId;		/**< Instance ID of NAND flash controller */
 	u32 BaseAddress;	/**< Base address of NAND flash controller */
+	u8 IsCacheCoherent;	/**< Describes whether Cache Coherent or not */
 } XNandPsu_Config;
 
 /**

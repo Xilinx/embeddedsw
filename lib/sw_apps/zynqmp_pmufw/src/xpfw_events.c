@@ -300,7 +300,7 @@ u32 XPfw_EventGetId(u32 EventType, u32 Mask)
 {
 	u32 Index;
 
-	for (Index=0; Index<XPFW_EV_MAX;Index++) {
+	for (Index = 0U; Index<XPFW_EV_MAX;Index++) {
 		if ((EventTable[Index].RegMask == Mask) &&
 		    (EventTable[Index].Type == EventType)) {
 			break;

@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2007 - 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2007 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xhwicap.c
-* @addtogroup hwicap_v10_1
+* @addtogroup hwicap_v11_1
 * @{
 *
 * This file contains the functions of the XHwIcap driver. See xhwicap.h for a
@@ -83,6 +83,8 @@
 *                      Changed the prototype of XHwIcap_CfgInitialize API.
 * 10.2   mi   09/22/16 Fixed compilation warnings.
 * 11.0   MNK  12/06/16 Added support for 8-series family devices.
+* 11.1   sg   08/29/17 Updated software reset and fifo flush api by adding
+*			delay as per IP specifications
 * </pre>
 *
 *****************************************************************************/
@@ -93,6 +95,7 @@
 #include <xil_assert.h>
 #include "xhwicap.h"
 #include "xparameters.h"
+#include <sleep.h>
 
 /************************** Constant Definitions ****************************/
 
@@ -302,12 +305,14 @@ int XHwIcap_CfgInitialize(XHwIcap *InstancePtr, XHwIcap_Config *ConfigPtr,
 *****************************************************************************/
 int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 {
-	u32 Index; /* Array Index */
 #if XPAR_HWICAP_0_ICAP_DWIDTH == 8
 	u8 Fifo[NumWords*4];
 #elif XPAR_HWICAP_0_ICAP_DWIDTH == 16
 	u16 Fifo[NumWords*2];
-#else
+#endif
+
+#if (XPAR_HWICAP_0_ICAP_DWIDTH == 8) || (XPAR_HWICAP_0_ICAP_DWIDTH == 16)
+	u32 Index; /* Array Index */
 	u32 Fifo[4]; /** Icap Width of 32 does not use Fifo but declared
 			 to overcome compilation error. Size of 4 is used
 			 to overcome compiler warnings */
@@ -436,7 +441,7 @@ int XHwIcap_DeviceWrite(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 	/*
 	 * Check if there is more data to be written to the ICAP
 	 */
-	if (InstancePtr->RemainingWords != NULL){
+	if (InstancePtr->RemainingWords != 0U){
 
 		/*
 		 * Check whether it is polled or interrupt mode of operation.
@@ -686,6 +691,7 @@ int XHwIcap_DeviceRead(XHwIcap *InstancePtr, u32 *FrameBuffer, u32 NumWords)
 void XHwIcap_Reset(XHwIcap *InstancePtr)
 {
 	u32 RegData;
+
 	/*
 	 * Assert the arguments.
 	 */
@@ -701,6 +707,11 @@ void XHwIcap_Reset(XHwIcap *InstancePtr)
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
 				RegData | XHI_CR_SW_RESET_MASK);
+
+	/*
+	 * Reset pulse of atleast 3 slower clock cycle
+	 */
+	usleep(10);
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
 				RegData & (~ XHI_CR_SW_RESET_MASK));
@@ -737,6 +748,11 @@ void XHwIcap_FlushFifo(XHwIcap *InstancePtr)
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
 				RegData | XHI_CR_FIFO_CLR_MASK);
+
+	/*
+         * Reset pulse of atleast 3 slower clock cycle
+         */
+        usleep(10);
 
 	XHwIcap_WriteReg(InstancePtr->HwIcapConfig.BaseAddress, XHI_CR_OFFSET,
 				RegData & (~ XHI_CR_FIFO_CLR_MASK));

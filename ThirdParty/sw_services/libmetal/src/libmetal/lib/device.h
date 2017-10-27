@@ -93,13 +93,15 @@ extern struct metal_bus metal_generic_bus;
 
 /** Libmetal device structure. */
 struct metal_device {
-	const char		*name;
-	struct metal_bus	*bus;
-	unsigned		num_regions;
-	struct metal_io_region	regions[METAL_MAX_DEVICE_REGIONS];
-	struct metal_list	node;
-	int                     irq_num;
-	void                    *irq_info;
+	const char             *name;       /**< Device name */
+	struct metal_bus       *bus;        /**< Bus that contains device */
+	unsigned               num_regions; /**< Number of I/O regions in
+					      device */
+	struct metal_io_region regions[METAL_MAX_DEVICE_REGIONS]; /**< Array of
+                                                        I/O regions in device*/
+	struct metal_list      node;       /**< Node on bus' list of devices */
+	int                    irq_num;    /**< Number of IRQs per device */
+	void                   *irq_info;  /**< IRQ ID */
 };
 
 /**
@@ -127,11 +129,14 @@ extern int metal_bus_find(const char *name, struct metal_bus **bus);
 /**
  * @brief	Statically register a generic libmetal device.
  *
- * Devices may be statically registered at application initialization, or may
- * be dynamically opened via sysfs or libfdt based enumeration at runtime.
- * This interface is used for static registration of devices.  Subsequent calls
+ * In non-Linux systems, devices are always required to be statically
+ * registered at application initialization.
+ * In Linux system, devices can be dynamically opened via sysfs or libfdt based
+ * enumeration at runtime.
+ * This interface is used for static registration of devices. Subsequent calls
  * to metal_device_open() look up in this list of pre-registered devices on the
  * "generic" bus.
+ * "generic" bus is used on non-Linux system to group the memory mapped devices.
  *
  * @param[in]	device	Generic device.
  * @return 0 on success, or -errno on failure.
@@ -170,6 +175,10 @@ metal_device_io_region(struct metal_device *device, unsigned index)
 }
 
 /** @} */
+
+#ifdef METAL_INTERNAL
+extern int metal_generic_dev_sys_open(struct metal_device *dev);
+#endif /* METAL_INTERNAL */
 
 #ifdef __cplusplus
 }

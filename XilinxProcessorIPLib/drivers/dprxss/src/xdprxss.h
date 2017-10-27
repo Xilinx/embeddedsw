@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss.h
-* @addtogroup dprxss_v4_0
+* @addtogroup dprxss_v4_1
 * @{
 * @details
 *
@@ -110,6 +110,8 @@
 *                   for CR-965028.
 *      ms  03/17/17 Modified readme.txt file in examples folder for doxygen
 *                   generation.
+* 4.1  tu  09/08/17 Added three driver side interrupt handler for Video,
+*                   NoVideo and PowerChange events
 * </pre>
 *
 ******************************************************************************/
@@ -206,9 +208,18 @@ typedef enum {
 	XDPRXSS_HANDLER_LINKBW_EVENT,		/**< Link BW event type for
 						  *  DisplayPort RX Subsystem
 						  */
-	XDPRXSS_HANDLER_PLL_RESET_EVENT		/**< PLL reset event type for
+	XDPRXSS_HANDLER_PLL_RESET_EVENT,	/**< PLL reset event type for
 						  *  DisplayPort RX Subsystem
 						  */
+	XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT,   /**< Drv power state change
+						  *  interrupt type for
+						  *  DisplayPort core */
+	XDPRXSS_DRV_HANDLER_DP_VID_EVENT,       /**< Drv Valid video event
+						  *  interrupt type for
+						  *  DisplayPort core */
+	XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT     /**< Drv No video event
+						  *  interrupt type for
+						  *  DisplayPort core */
 } XDpRxSs_HandlerType;
 
 /**
@@ -521,6 +532,11 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);
 void XDpRxSs_SetUserTimerHandler(XDpRxSs *InstancePtr,
 		XDpRxSs_TimerHandler CallbackFunc, void *CallbackRef);
+
+/* DpRxSs Interrupt Related Function */
+void XDpRxSs_DrvNoVideoHandler(void *InstancePtr);
+void XDpRxSs_DrvVideoHandler(void *InstancePtr);
+void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr);
 
 /************************** Variable Declarations ****************************/
 

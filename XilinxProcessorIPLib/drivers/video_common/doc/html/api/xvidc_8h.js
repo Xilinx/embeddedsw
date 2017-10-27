@@ -20,6 +20,7 @@ var xvidc_8h =
       [ "XVIDC_3D_SAMPPOS_ELOR", "group__video__common__v4__0.html#gga58c9217723db2f22f7d57c97b2cae8e1a5ea1a3ae7bf91b1d9eb9c7458bed5ab1", null ],
       [ "XVIDC_3D_SAMPPOS_ELER", "group__video__common__v4__0.html#gga58c9217723db2f22f7d57c97b2cae8e1a43e930979c515643180869ac40972e1e", null ]
     ] ],
+    [ "XVidC_AspectRatio", "group__video__common__v4__0.html#ga22adc237b6c47579463b366d25180172", null ],
     [ "XVidC_ColorDepth", "group__video__common__v4__0.html#ga8006bc80e39c26ee0081647990b9fedc", null ],
     [ "XVidC_ColorFormat", "group__video__common__v4__0.html#gaa562703f77eeee8ef4a222f1b99c8633", null ],
     [ "XVidC_ColorRange", "group__video__common__v4__0.html#ga5498ff9698bbb64fdf20a578ac1fc15f", null ],

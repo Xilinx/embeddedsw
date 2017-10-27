@@ -61,7 +61,7 @@ XStatus XPfw_SchedulerInit(XPfw_Scheduler_t *SchedPtr, u32 PitBaseAddr);
 XStatus XPfw_SchedulerStart(XPfw_Scheduler_t *SchedPtr);
 XStatus XPfw_SchedulerStop(XPfw_Scheduler_t *SchedPtr);
 XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr);
-XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t Callback);
-XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t Callback);
+XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t CallbackFn);
+XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t CallbackFn);
 
 #endif /* XPFW_SCHEDULER_H_ */

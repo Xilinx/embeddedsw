@@ -269,6 +269,7 @@ typedef enum {
 typedef struct {
         u16 DeviceId;           /**< Unique ID of controller */
         u32 BaseAddress;        /**< Core register base address */
+	u8 IsCacheCoherent; /**< Describes whether Cache Coherent or not */
 } XUsbPsu_Config;
 
 /**

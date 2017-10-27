@@ -48,6 +48,7 @@
 * 2.00 sha 08/07/15 Set interlace to zero when video mode is XVIDC_VM_CUSTOM.
 * 4.1  als 08/03/16 Use video common API rather than internal structure when
 *                   checking for interlaced mode.
+* 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
 * </pre>
 *
 ******************************************************************************/
@@ -90,12 +91,10 @@
 * @note		None.
 *
 ******************************************************************************/
-u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
+u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig,
+			u8 VtcAdjustBs)
 {
 	u32 UserPixelWidth;
-#ifdef VTC_ADJUST_FOR_BS_TIMING
-	u32 tmp;
-#endif
 
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -142,17 +141,38 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
 			MsaConfig->Vtm.Timing.HSyncWidth / UserPixelWidth;
 	VideoTiming.HBackPorch =
 			MsaConfig->Vtm.Timing.HBackPorch / UserPixelWidth;
-	/* adjust bs timing */
-#ifdef VTC_ADJUST_FOR_BS_TIMING
-	tmp = VideoTiming.HFrontPorch;
-	VideoTiming.HFrontPorch = 1;
-	VideoTiming.HBackPorch += (tmp - 1);
-	tmp = VideoTiming.HSyncWidth;
-	VideoTiming.HSyncWidth = 1;
-	VideoTiming.HBackPorch += (tmp - 1);
-#endif
+	if (VtcAdjustBs) {
+		u16 HBlank;
+		u16 HReducedBlank;
+
+		/* Adjust bs timing */
+		HBlank = MsaConfig->Vtm.Timing.HBackPorch +
+			MsaConfig->Vtm.Timing.HFrontPorch +
+			MsaConfig->Vtm.Timing.HSyncWidth;
+		/* Reduced blanking starts at ceil(0.2 * HTotal). */
+		HReducedBlank = 2 * MsaConfig->Vtm.Timing.HTotal;
+		if (HReducedBlank % 10)
+			HReducedBlank += 10;
+		HReducedBlank /= 10;
+		/* CVT spec. states HBlank is either 80 or 160 for reduced blanking. */
+		if ((HBlank < HReducedBlank) && ((HBlank == 80) || (HBlank == 160))) {
+			u32 tmp = VideoTiming.HFrontPorch;
+			VideoTiming.HFrontPorch = 4;
+			VideoTiming.HBackPorch += (tmp - 4);
+			tmp = VideoTiming.HSyncWidth;
+			VideoTiming.HSyncWidth = 4;
+			VideoTiming.HBackPorch += (tmp - 4);
+		} else {
+			u32 tmp = VideoTiming.HFrontPorch;
+			VideoTiming.HFrontPorch = 2;
+			VideoTiming.HBackPorch += (tmp - 2);
+			tmp = VideoTiming.HSyncWidth;
+			VideoTiming.HSyncWidth = 2;
+			VideoTiming.HBackPorch += (tmp - 2);
+		}
+	}
 	VideoTiming.HSyncPolarity =
-			MsaConfig->Vtm.Timing.HSyncPolarity;
+		MsaConfig->Vtm.Timing.HSyncPolarity;
 
 	/* Vertical timing */
 	VideoTiming.VActiveVideo = MsaConfig->Vtm.Timing.VActive;
@@ -167,7 +187,7 @@ u32 XDpTxSs_VtcSetup(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig)
 	/* Check for interlaced mode */
 	VideoTiming.Interlaced =
 		(MsaConfig->Vtm.VmId == XVIDC_VM_CUSTOM ||
-		!XVidC_GetVideoModeData(MsaConfig->Vtm.VmId)->Timing.F1VTotal) ?
+		 !XVidC_GetVideoModeData(MsaConfig->Vtm.VmId)->Timing.F1VTotal) ?
 		0 : 1;
 
 	/* Set timing */

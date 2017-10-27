@@ -76,13 +76,13 @@ Data Fields</h2></td></tr>
 <tr class="memitem:aeb059166762916b8b5776f4afba26315"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps___device_config.html#aeb059166762916b8b5776f4afba26315">NumEndpoints</a></td></tr>
 <tr class="memdesc:aeb059166762916b8b5776f4afba26315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of Endpoints for the controller.  <a href="#aeb059166762916b8b5776f4afba26315">More...</a><br /></td></tr>
 <tr class="separator:aeb059166762916b8b5776f4afba26315"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd60a9334300a134f4027be0bef9c6c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb_ps___ep_config.html">XUsbPs_EpConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps___device_config.html#afd60a9334300a134f4027be0bef9c6c4">EpCfg</a> [<a class="el" href="group__usbps__v2__2.html#gaa28f8c4ae7ed59f8408db86869b3fd45">XUSBPS_MAX_ENDPOINTS</a>]</td></tr>
+<tr class="memitem:afd60a9334300a134f4027be0bef9c6c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb_ps___ep_config.html">XUsbPs_EpConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps___device_config.html#afd60a9334300a134f4027be0bef9c6c4">EpCfg</a> [<a class="el" href="group__usbps__v2__4.html#gaa28f8c4ae7ed59f8408db86869b3fd45">XUSBPS_MAX_ENDPOINTS</a>]</td></tr>
 <tr class="memdesc:afd60a9334300a134f4027be0bef9c6c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of endpoint configurations.  <a href="#afd60a9334300a134f4027be0bef9c6c4">More...</a><br /></td></tr>
 <tr class="separator:afd60a9334300a134f4027be0bef9c6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps___device_config.html#a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e">DMAMemPhys</a></td></tr>
 <tr class="memdesc:a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Physical base address of DMAable memory allocated for the driver.  <a href="#a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e">More...</a><br /></td></tr>
 <tr class="separator:a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7776d48757f00ec0c53fb83457a7855d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb_ps___endpoint.html">XUsbPs_Endpoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps___device_config.html#a7776d48757f00ec0c53fb83457a7855d">Ep</a> [<a class="el" href="group__usbps__v2__2.html#gaa28f8c4ae7ed59f8408db86869b3fd45">XUSBPS_MAX_ENDPOINTS</a>]</td></tr>
+<tr class="memitem:a7776d48757f00ec0c53fb83457a7855d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_usb_ps___endpoint.html">XUsbPs_Endpoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps___device_config.html#a7776d48757f00ec0c53fb83457a7855d">Ep</a> [<a class="el" href="group__usbps__v2__4.html#gaa28f8c4ae7ed59f8408db86869b3fd45">XUSBPS_MAX_ENDPOINTS</a>]</td></tr>
 <tr class="memdesc:a7776d48757f00ec0c53fb83457a7855d"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of endpoint metadata structures.  <a href="#a7776d48757f00ec0c53fb83457a7855d">More...</a><br /></td></tr>
 <tr class="separator:a7776d48757f00ec0c53fb83457a7855d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6098d846df00c20ac64592a1794400dc"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_usb_ps___device_config.html#a6098d846df00c20ac64592a1794400dc">PhysAligned</a></td></tr>
@@ -91,7 +91,7 @@ Data Fields</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="struct_x_usb_ps___device_config.html" title="The XUsbPs_DeviceConfig structure contains the configuration information to configure the USB control...">XUsbPs_DeviceConfig</a> structure contains the configuration information to configure the USB controller for DEVICE mode. </p>
-<p>This data structure is used with the <a class="el" href="group__usbps__v2__2.html#ga6daace32113a806a6822a6d5943a93f4" title="This function configures the DEVICE side of the controller. ">XUsbPs_ConfigureDevice()</a> function call. </p>
+<p>This data structure is used with the <a class="el" href="group__usbps__v2__4.html#ga6daace32113a806a6822a6d5943a93f4" title="This function configures the DEVICE side of the controller. ">XUsbPs_ConfigureDevice()</a> function call. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
 <a id="a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e">&#9670;&nbsp;</a></span>DMAMemPhys</h2>
@@ -107,7 +107,7 @@ Data Fields</h2></td></tr>
 
 <p>Physical base address of DMAable memory allocated for the driver. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbps__v2__2.html#ga6daace32113a806a6822a6d5943a93f4">XUsbPs_ConfigureDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbps__v2__4.html#ga6daace32113a806a6822a6d5943a93f4">XUsbPs_ConfigureDevice()</a>.</p>
 
 </div>
 </div>
@@ -118,14 +118,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_x_usb_ps___endpoint.html">XUsbPs_Endpoint</a> XUsbPs_DeviceConfig::Ep[<a class="el" href="group__usbps__v2__2.html#gaa28f8c4ae7ed59f8408db86869b3fd45">XUSBPS_MAX_ENDPOINTS</a>]</td>
+          <td class="memname"><a class="el" href="struct_x_usb_ps___endpoint.html">XUsbPs_Endpoint</a> XUsbPs_DeviceConfig::Ep[<a class="el" href="group__usbps__v2__4.html#gaa28f8c4ae7ed59f8408db86869b3fd45">XUSBPS_MAX_ENDPOINTS</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>List of endpoint metadata structures. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbps__v2__2.html#gac27a9d64ddf33a2400d7493e301a7192">XUsbPs_EpBufferReceive()</a>, <a class="el" href="group__usbps__v2__2.html#ga91c44ff9dcae2e47ed8112c8a0779fa1">XUsbPs_EpGetSetupData()</a>, and <a class="el" href="group__usbps__v2__2.html#ga90aab040f015299b2064124bed882896">XUsbPs_ReconfigureEp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbps__v2__4.html#gac27a9d64ddf33a2400d7493e301a7192">XUsbPs_EpBufferReceive()</a>, <a class="el" href="group__usbps__v2__4.html#ga91c44ff9dcae2e47ed8112c8a0779fa1">XUsbPs_EpGetSetupData()</a>, and <a class="el" href="group__usbps__v2__4.html#ga90aab040f015299b2064124bed882896">XUsbPs_ReconfigureEp()</a>.</p>
 
 </div>
 </div>
@@ -136,14 +136,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_x_usb_ps___ep_config.html">XUsbPs_EpConfig</a> XUsbPs_DeviceConfig::EpCfg[<a class="el" href="group__usbps__v2__2.html#gaa28f8c4ae7ed59f8408db86869b3fd45">XUSBPS_MAX_ENDPOINTS</a>]</td>
+          <td class="memname"><a class="el" href="struct_x_usb_ps___ep_config.html">XUsbPs_EpConfig</a> XUsbPs_DeviceConfig::EpCfg[<a class="el" href="group__usbps__v2__4.html#gaa28f8c4ae7ed59f8408db86869b3fd45">XUSBPS_MAX_ENDPOINTS</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>List of endpoint configurations. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbps__v2__2.html#gac27a9d64ddf33a2400d7493e301a7192">XUsbPs_EpBufferReceive()</a>, <a class="el" href="group__usbps__v2__2.html#ga1e4c0735be24ea24b73404db8d18133e">XUsbPs_EpBufferSendWithZLT()</a>, and <a class="el" href="group__usbps__v2__2.html#ga90aab040f015299b2064124bed882896">XUsbPs_ReconfigureEp()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbps__v2__4.html#gac27a9d64ddf33a2400d7493e301a7192">XUsbPs_EpBufferReceive()</a>, <a class="el" href="group__usbps__v2__4.html#ga1e4c0735be24ea24b73404db8d18133e">XUsbPs_EpBufferSendWithZLT()</a>, and <a class="el" href="group__usbps__v2__4.html#ga90aab040f015299b2064124bed882896">XUsbPs_ReconfigureEp()</a>.</p>
 
 </div>
 </div>
@@ -179,7 +179,7 @@ Data Fields</h2></td></tr>
 <p>64 byte aligned base address of the DMA memory block. </p>
 <p>Will be computed and set by the L0/L1 driver. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__usbps__v2__2.html#ga6daace32113a806a6822a6d5943a93f4">XUsbPs_ConfigureDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__usbps__v2__4.html#ga6daace32113a806a6822a6d5943a93f4">XUsbPs_ConfigureDevice()</a>.</p>
 
 </div>
 </div>

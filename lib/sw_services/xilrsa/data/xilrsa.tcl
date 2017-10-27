@@ -55,14 +55,6 @@ proc rsa_drc {libhandle} {
                 return;
     }    
 
-    set procdrv [hsi::get_sw_processor]
-    set compiler [common::get_property CONFIG.compiler $procdrv]
-    if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
-		file delete -force ./src/librsa.a
-			file rename -force ./src/librsa_linaro.a ./src/librsa.a
-    } elseif {[string compare -nocase $compiler "arm-xilinx-eabi-gcc"] == 0} {
-		file delete -force ./src/librsa_linaro.a
-    }
 }
 
 proc generate {libhandle} {

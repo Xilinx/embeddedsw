@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -298,6 +298,9 @@
 *       ms   04/05/17 Modified Comment lines in functions of axivdma
 *                     examples to recognize it as documentation block
 *                     for doxygen generation of examples.
+* 6.4   ms   04/18/17 Modified tcl file to add suffix U for all macro
+*                     definitions of axivdma in xparameters.h
+*       ms   08/07/17 Fixed compilation warnings in xaxivdma_sinit.c
 * </pre>
 *
 ******************************************************************************/

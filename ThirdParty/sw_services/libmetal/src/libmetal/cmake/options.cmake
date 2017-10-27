@@ -4,8 +4,9 @@ set (PROJECT_VER_PATCH  0)
 set (PROJECT_VER        0.1.0)
 
 if (NOT CMAKE_BUILD_TYPE)
-  set (CMAKE_BUILD_TYPE Debug CACHE STRING "")
+  set (CMAKE_BUILD_TYPE Debug)
 endif (NOT CMAKE_BUILD_TYPE)
+message ("-- Build type:  ${CMAKE_BUILD_TYPE}")
 
 if (NOT CMAKE_INSTALL_LIBDIR)
   set (CMAKE_INSTALL_LIBDIR "lib")
@@ -27,8 +28,8 @@ endif (NOT DEFINED MACHINE)
 message ("-- Machine: ${MACHINE}")
 
 if (NOT DEFINED PROJECT_SYSTEM)
-string (TOLOWER ${CMAKE_SYSTEM_NAME}      PROJECT_SYSTEM)
-string (TOUPPER ${CMAKE_SYSTEM_NAME}      PROJECT_SYSTEM_UPPER)
+  string (TOLOWER ${CMAKE_SYSTEM_NAME}      PROJECT_SYSTEM)
+  string (TOUPPER ${CMAKE_SYSTEM_NAME}      PROJECT_SYSTEM_UPPER)
 endif (NOT DEFINED PROJECT_SYSTEM)
 
 string (TOLOWER ${CMAKE_SYSTEM_PROCESSOR} PROJECT_PROCESSOR)
@@ -52,5 +53,7 @@ option (WITH_DEFAULT_LOGGER "Build with default logger" ON)
 option (WITH_DOC "Build with documentation" ON)
 
 set (PROJECT_EC_FLAGS "-Wall -Werror -Wextra" CACHE STRING "")
+
+
 
 # vim: expandtab:ts=2:sw=2:smartindent

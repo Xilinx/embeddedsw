@@ -40,9 +40,13 @@
 #ifndef __METAL_FREERTOS_IRQ__H__
 #define __METAL_FREERTOS_IRQ__H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief      default interrupt handler
- * @param[in]  interrupt vector
+ * @param[in]  vector interrupt vector
  */
 void metal_irq_isr(unsigned int vector);
 

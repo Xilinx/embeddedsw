@@ -123,9 +123,14 @@ $(document).ready(function(){initNavTree('xv__hdmirxss_8c.html','');});
                         Move global variable XV_HdmiRx_VSIF VSIF to local
                             XV_HdmiRxSs_RetrieveVSInfoframe API
                         Move HDCP related API's to hdmirxss_hdcp.c
-  1.23  MMO    10/02/17 Added Sync Loss and HDMI/DVI Interrupt Support</pre><pre>******************************************************************************/</pre><pre>/***************************** Include Files *********************************/</pre><pre><h1>100 "/proj/xhdsswstaff/vdubakul/Doxygen_Github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
+  1.23  MMO    10/02/17 Added Sync Loss and HDMI/DVI Interrupt Support</pre><pre>  1.4   YH     07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
+                        Report HDMI/DVI mode in HDMI example design info log</pre><pre>  1.41  MMO    21/07/17 CR-979900 (Fix)
+                        Removed the HDCP Push Event API Call when the
+                        Aux Callback event happen
+        MH     09/08/17 Added function XV_HdmiRxSs_HdcpSetCapability
+******************************************************************************/</pre><pre>/***************************** Include Files *********************************/</pre><pre><h1>107 "/proj/xhdsswstaff/vdubakul/2017.3_Release/github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
 </pre><pre>
-<h1>101 "/proj/xhdsswstaff/vdubakul/Doxygen_Github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
+<h1>108 "/proj/xhdsswstaff/vdubakul/2017.3_Release/github/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" 2</h1>
 </pre><pre></pre><pre>/************************** Constant Definitions *****************************/</pre><pre>/**************************** Type Definitions *******************************/
 /**
    This typedef declares the driver instances of all the cores in the subsystem
@@ -181,6 +186,14 @@ static void <a class="el" href="xv__hdmirxss_8c.html#ab984feecc99028c5ab95d99e70
     XV_HdmiRxSs_ReportCoreInfo(InstancePtr);
     XV_HdmiRxSs_ReportSubcoreVersion(InstancePtr);
     xil_printf("\r\n");
+    xil_printf("HDMI RX Mode - ");
+    if (InstancePtr-&gt;HdmiRxPtr-&gt;Stream.IsHdmi == (TRUE)) {
+        xil_printf("HDMI\r\n");
+    }
+    else {
+        xil_printf("DVI\r\n");
+    }
+    xil_printf("------------\r\n");
     xil_printf("HDMI RX timing\r\n");
     xil_printf("------------\r\n");
     XV_HdmiRxSs_ReportTiming(InstancePtr);
@@ -303,34 +316,34 @@ static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr)
     XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_CONNECT,
                           (void *)XV_HdmiRxSs_ConnectCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_AUX,
-                                                  (void *)XV_HdmiRxSs_AuxCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)XV_HdmiRxSs_AuxCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_AUD,
-                                                  (void *)XV_HdmiRxSs_AudCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)XV_HdmiRxSs_AudCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_LNKSTA,
-                                                  (void *)XV_HdmiRxSs_LnkStaCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)XV_HdmiRxSs_LnkStaCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_DDC,
-                                                  (void *)XV_HdmiRxSs_DdcCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)XV_HdmiRxSs_DdcCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_STREAM_DOWN,
-                                                  (void *)XV_HdmiRxSs_StreamDownCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)XV_HdmiRxSs_StreamDownCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_STREAM_INIT,
-                                                  (void *)XV_HdmiRxSs_StreamInitCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)XV_HdmiRxSs_StreamInitCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_STREAM_UP,
-                                                  (void *)XV_HdmiRxSs_StreamUpCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)XV_HdmiRxSs_StreamUpCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_SYNC_LOSS,
-                                                  (void *)XV_HdmiRxSs_SyncLossCallback,
-                                                  (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
+                          (void *)XV_HdmiRxSs_SyncLossCallback,
+                          (void *)InstancePtr);</pre><pre>    XV_HdmiRx_SetCallback(HdmiRxSsPtr-&gt;HdmiRxPtr,
                           XV_HDMIRX_HANDLER_MODE,
-                                                  (void *)XV_HdmiRxSs_ModeCallback,
-                                                  (void *)InstancePtr);
+                          (void *)XV_HdmiRxSs_ModeCallback,
+                          (void *)InstancePtr);
   }</pre><pre>  return(XST_SUCCESS);
 }</pre><pre>/*****************************************************************************/
 /**
@@ -485,8 +498,7 @@ static void XV_HdmiRxSs_ConnectCallback(void *CallbackRef)
 static void XV_HdmiRxSs_AuxCallback(void *CallbackRef)
 {
   <a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *HdmiRxSsPtr = (<a class="el" href="struct_x_v___hdmi_rx_ss.html" title="The XVprocss driver instance data. ">XV_HdmiRxSs</a> *)CallbackRef;</pre><pre>  // Retrieve Vendor Specific Info Frame
-  XV_HdmiRxSs_RetrieveVSInfoframe(HdmiRxSsPtr-&gt;HdmiRxPtr);</pre><pre>  // HDMI mode
-  if (XV_HdmiRxSs_GetVideoStreamType(HdmiRxSsPtr )) {</pre><pre>  }</pre><pre>  // Check if user callback has been registered
+  XV_HdmiRxSs_RetrieveVSInfoframe(HdmiRxSsPtr-&gt;HdmiRxPtr);</pre><pre>  // Check if user callback has been registered
   if (HdmiRxSsPtr-&gt;AuxCallback) {
       HdmiRxSsPtr-&gt;AuxCallback(HdmiRxSsPtr-&gt;AuxRef);
   }
@@ -1333,7 +1345,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>Calculated TMDS Clock</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#af4a869965ee18d575d19b4319be08ff0">XV_HdmiRxSs::Config</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___config.html#ae3bc6c803098c13d8b8d6bce5920c10f">XV_HdmiRxSs_Config::Ppc</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c">XV_HDMIRXSS_LOG_EVT_SETSTREAM</a>, and <a class="el" href="xv__hdmirxss_8h.html#a56c28560c5de8682b22f96d40fa4e24d">XV_HdmiRxSs_LogWrite()</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___hdmi_rx_ss.html#af4a869965ee18d575d19b4319be08ff0">XV_HdmiRxSs::Config</a>, <a class="el" href="struct_x_v___hdmi_rx_ss.html#a3d76e27b48746aa888d284583ce9399a">XV_HdmiRxSs::HdmiRxPtr</a>, <a class="el" href="struct_x_v___hdmi_rx_ss___config.html#ae3bc6c803098c13d8b8d6bce5920c10f">XV_HdmiRxSs_Config::Ppc</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c">XV_HDMIRXSS_LOG_EVT_SETSTREAM</a>, <a class="el" href="xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a025e9ebc6c9fc794a24b81c71fbaf7ee">XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR</a>, and <a class="el" href="xv__hdmirxss_8h.html#a56c28560c5de8682b22f96d40fa4e24d">XV_HdmiRxSs_LogWrite()</a>.</p>
 
 </div>
 </div>

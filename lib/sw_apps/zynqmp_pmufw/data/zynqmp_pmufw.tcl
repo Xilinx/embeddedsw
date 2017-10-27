@@ -77,8 +77,11 @@ proc get_stdout {} {
 proc swapp_generate {} {
 	# PMU Firmware uses its own startup file. so set the -nostartfiles flag
 	set_property  -name APP_LINKER_FLAGS -value {-nostartfiles} -objects [hsi::current_sw_design]
+	# Get the compiler flags, if set already
+	set def_flags [common::get_property APP_COMPILER_FLAGS [hsi::current_sw_design]]
+	set new_flags "-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul $def_flags"
 	# Set PMU Microblaze HW related compiler flags
-	set_property  -name APP_COMPILER_FLAGS -value {-mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mcpu=v9.2 -mxl-soft-mul} -objects [current_sw_design]
+	set_property -name APP_COMPILER_FLAGS -value $new_flags -objects [current_sw_design]
 }
 
 proc swapp_get_linker_constraints {} {

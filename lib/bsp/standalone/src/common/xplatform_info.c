@@ -45,6 +45,13 @@
 * 5.04  pkp  01/12/16 Added platform information support for Cortex-A53 32bit
 *					  mode
 * 6.00  mus  17/08/16 Removed unused variable from XGetPlatform_Info
+* 6.4   ms   05/23/17 Added PSU_PMU macro to support XGetPSVersion_Info
+*                     function for PMUFW.
+*       ms   06/13/17 Added PSU_PMU macro to provide support of
+*                     XGetPlatform_Info function for PMUFW.
+*       mus  08/17/17 Add EL1 NS mode support for
+*                     XGet_Zynq_UltraMp_Platform_info and XGetPSVersion_Info
+*                     APIs.
 * </pre>
 *
 ******************************************************************************/
@@ -54,7 +61,10 @@
 #include "xil_types.h"
 #include "xil_io.h"
 #include "xplatform_info.h"
-
+#if defined (__aarch64__)
+#include "bspconfig.h"
+#include "xil_smc.h"
+#endif
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
@@ -79,7 +89,7 @@
 u32 XGetPlatform_Info()
 {
 
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 	return XPLAT_ZYNQ_ULTRA_MP;
 #elif (__microblaze__)
 	return XPLAT_MICROBLAZE;
@@ -102,9 +112,20 @@ u32 XGetPlatform_Info()
 #if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
 u32 XGet_Zynq_UltraMp_Platform_info()
 {
+#if EL1_NONSECURE
+	XSmc_OutVar reg;
+    /*
+	 * This SMC call will return,
+     *  idcode - upper 32 bits of reg.Arg0
+     *  version - lower 32 bits of reg.Arg1
+	 */
+	reg = Xil_Smc(GET_CHIPID_SMC_FID,0,0, 0, 0, 0, 0, 0);
+	return (u32)((reg.Arg1 >> XPLAT_INFO_SHIFT) & XPLAT_INFO_MASK);
+#else
 	u32 reg;
 	reg = ((Xil_In32(XPAR_CSU_BASEADDR + XPAR_CSU_VER_OFFSET) >> 12U )& XPLAT_INFO_MASK);
 	return reg;
+#endif
 }
 #endif
 
@@ -118,12 +139,23 @@ u32 XGet_Zynq_UltraMp_Platform_info()
 * @return   The information about PS Silicon version.
 *
 ******************************************************************************/
-#if defined (ARMR5) || (__aarch64__) || (ARMA53_32)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
 u32 XGetPSVersion_Info()
 {
+#if EL1_NONSECURE
+        /*
+         * This SMC call will return,
+         *  idcode - upper 32 bits of reg.Arg0
+         *  version - lower 32 bits of reg.Arg1
+         */
+        XSmc_OutVar reg;
+        reg = Xil_Smc(GET_CHIPID_SMC_FID,0,0, 0, 0, 0, 0, 0);
+        return (u32)(reg.Arg1 &  XPS_VERSION_INFO_MASK);
+#else
 	u32 reg;
 	reg = (Xil_In32(XPAR_CSU_BASEADDR + XPAR_CSU_VER_OFFSET)
 			& XPS_VERSION_INFO_MASK);
 	return reg;
+#endif
 }
 #endif

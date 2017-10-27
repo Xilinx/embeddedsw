@@ -37,6 +37,8 @@
 # 6.2	  bss	 02/03/15  Added support to handle
 #				- Zynq MP APM Baseaddress(C_S_AXI_BASEADDR)
 #				- SoftIP APM Baseaddress(C_BASEADDR)
+# 6.6     ms     04/18/17  Modified tcl file to add suffix U for all macros
+#                          definitions of axipmon in xparameters.h
 ###############################################################################
 
 #uses "xillib.tcl"
@@ -50,6 +52,7 @@ proc generate {drv_handle} {
 
 proc apm_define_include_file {drv_handle file_name drv_string args} {
     set args [::hsi::utils::get_exact_arg_list $args]
+    set uSuffix "U"
     # Open include file
     set file_handle [::hsi::utils::open_include_file $file_name]
 
@@ -62,7 +65,7 @@ proc apm_define_include_file {drv_handle file_name drv_string args} {
     if {$posn > -1} {
         puts $file_handle "/* Definitions for driver [string toupper [common::get_property name $drv_handle]] */"
         # Define NUM_INSTANCES
-        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]"
+        puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [llength $periphs]$uSuffix"
         set args [lreplace $args $posn $posn]
     }
 
@@ -73,7 +76,7 @@ proc apm_define_include_file {drv_handle file_name drv_string args} {
         if {[llength $value] == 0} {
             lappend newargs $arg
         } else {
-            puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]"
+            puts $file_handle "#define [::hsi::utils::get_driver_param_name $drv_string $arg] [common::get_property $arg $drv_handle]$uSuffix"
         }
     }
     set args $newargs
@@ -108,7 +111,7 @@ proc apm_define_include_file {drv_handle file_name drv_string args} {
             if {[string compare -nocase "HW_VER" $arg] == 0} {
                 puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] \"$value\""
             } else {
-                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value"
+                puts $file_handle "#define [::hsi::utils::get_ip_param_name $periph $arg] $value$uSuffix"
             }
         }
         puts $file_handle ""
@@ -182,8 +185,8 @@ proc apm_define_canonical_xpars {drv_handle file_name drv_string args} {
                    set rvalue 0
                }
                set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
-
-               puts $file_handle "#define $lvalue $rvalue"
+	       set uSuffix [xdefine_getSuffix $lvalue $rvalue]
+               puts $file_handle "#define $lvalue $rvalue$uSuffix"
 
            }
            puts $file_handle ""
@@ -193,4 +196,13 @@ proc apm_define_canonical_xpars {drv_handle file_name drv_string args} {
 
    puts $file_handle "\n/******************************************************************/\n"
    close $file_handle
+}
+
+
+proc xdefine_getSuffix {arg_name value} {
+		set uSuffix ""
+		if { [string match "*DEVICE_ID" $value] == 0} {
+			set uSuffix "U"
+		}
+		return $uSuffix
 }

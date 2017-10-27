@@ -32,7 +32,8 @@
 #include "xpfw_events.h"
 #include "xpfw_core.h"
 #include "xil_exception.h"
-
+#include "xpfw_error_manager.h"
+#include "pmu_lmb_bram.h"
 /**
  * InterruptRegister holds the state of the IRQ Enable Register
  *
@@ -134,7 +135,15 @@ static void XPfw_NullHandler(void)
 	 *  This should never be called.
 	 *  TODO: Set PMUFW Error register
 	 */
-	fw_printf("Error: NullHandler Triggered!\r\n");
+	XPfw_Printf(DEBUG_ERROR,"Error: NullHandler Triggered!\r\n");
+}
+
+static void XPfw_PmuRamCEHandler(void)
+{
+	XPfw_Printf(DEBUG_DETAILED,"PMU RAM Correctable ECC occurred!\r\n");
+
+	/* Clear the interrupt */
+	XPfw_Write32(PMU_LMB_BRAM_ECC_STATUS_REG, PMU_LMB_BRAM_CE_MASK);
 }
 
 static void XPfw_InterruptPwrUpHandler(void)
@@ -142,8 +151,8 @@ static void XPfw_InterruptPwrUpHandler(void)
 	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_REQ_PWRUP);
 
 	if (XST_SUCCESS != Status) {
-		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
-		XPFW_EV_REQ_PWRUP);
+		XPfw_Printf(DEBUG_DETAILED,"Warning: Failed to dispatch Event ID:"
+				" %d\r\n",XPFW_EV_REQ_PWRUP);
 	}
 }
 
@@ -152,8 +161,8 @@ static void XPfw_InterruptPwrDnHandler(void)
 	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_REQ_PWRDN);
 
 	if (XST_SUCCESS != Status) {
-		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
-		XPFW_EV_REQ_PWRDN);
+		XPfw_Printf(DEBUG_DETAILED,"Warning: Failed to dispatch Event ID:"
+				" %d\r\n",XPFW_EV_REQ_PWRDN);
 	}
 }
 
@@ -162,8 +171,8 @@ static void XPfw_InterruptIsolationHandler(void)
 	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_REQ_ISOLATION);
 
 	if (XST_SUCCESS != Status) {
-		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
-		XPFW_EV_REQ_ISOLATION);
+		XPfw_Printf(DEBUG_DETAILED,"Warning: Failed to dispatch Event ID:"
+				" %d\r\n",XPFW_EV_REQ_ISOLATION);
 	}
 }
 
@@ -172,8 +181,8 @@ static void XPfw_InterruptGpi0Handler(void)
 	XStatus Status = XPfw_CoreDispatchEvent(XPFW_EV_MB_FAULT);
 
 	if (XST_SUCCESS != Status) {
-		fw_printf("Warning: Failed to dispatch Event ID: %d\r\n",
-		XPFW_EV_MB_FAULT);
+		XPfw_Printf(DEBUG_DETAILED,"Warning: Failed to dispatch Event ID:"
+				" %d\r\n",XPFW_EV_MB_FAULT);
 	}
 }
 
@@ -190,7 +199,8 @@ static void XPfw_InterruptGpi1Handler(void)
 			XStatus Status = XPfw_CoreDispatchEvent(Gpi1EventIdList[Index]);
 
 			if (XST_SUCCESS != Status) {
-				fw_printf("Warning: Failed to dispatch Event ID: %lu\r\n",
+				XPfw_Printf(DEBUG_DETAILED,"Warning: "
+						"Failed to dispatch Event ID: %lu\r\n",
 						Gpi1EventIdList[Index]);
 			}
 		}
@@ -210,7 +220,8 @@ static void XPfw_InterruptGpi2Handler(void)
 			XStatus Status = XPfw_CoreDispatchEvent(Gpi2EventIdList[Index]);
 
 			if (XST_SUCCESS != Status) {
-				fw_printf("Warning: Failed to dispatch Event ID: %lu\r\n",
+				XPfw_Printf(DEBUG_DETAILED,"Warning: "
+						"Failed to dispatch Event ID: %lu\r\n",
 						Gpi2EventIdList[Index]);
 			}
 		}
@@ -230,7 +241,8 @@ static void XPfw_InterruptGpi3Handler(void)
 			XStatus Status = XPfw_CoreDispatchEvent(Gpi3EventIdList[Index]);
 
 			if (XST_SUCCESS != Status) {
-				fw_printf("Warning: Failed to dispatch Event ID: %lu\r\n",
+				XPfw_Printf(DEBUG_DETAILED,"Warning: "
+						"Failed to dispatch Event ID: %lu\r\n",
 						Gpi3EventIdList[Index]);
 			}
 		}
@@ -265,7 +277,7 @@ static void XPfw_Ipi0Handler(void)
 
 	/* If no Mod has registered for IPI, Ack it to prevent re-triggering */
 	if (XST_SUCCESS != Status) {
-		fw_printf("Error: Unhandled IPI received\r\n");
+		XPfw_Printf(DEBUG_ERROR,"Error: Unhandled IPI received\r\n");
 	}
 }
 
@@ -280,7 +292,7 @@ static void XPfw_Ipi1Handler(void)
 
 	/* If no Mod has registered for IPI, Ack it to prevent re-triggering */
 	if (XST_SUCCESS != Status) {
-		fw_printf("Error: Unhandled IPI received\r\n");
+		XPfw_Printf(DEBUG_ERROR,"Error: Unhandled IPI received\r\n");
 	}
 }
 
@@ -295,7 +307,7 @@ static void XPfw_Ipi2Handler(void)
 
 	/* If no Mod has registered for IPI, Ack it to prevent re-triggering */
 	if (XST_SUCCESS != Status) {
-		fw_printf("Error: Unhandled IPI received\r\n");
+		XPfw_Printf(DEBUG_ERROR,"Error: Unhandled IPI received\r\n");
 	}
 }
 
@@ -310,7 +322,7 @@ static void XPfw_Ipi3Handler(void)
 
 	/* If no Mod has registered for IPI, Ack it to prevent re-triggering */
 	if (XST_SUCCESS != Status) {
-		fw_printf("Error: Unhandled IPI received\r\n");
+		XPfw_Printf(DEBUG_ERROR,"Error: Unhandled IPI received\r\n");
 	}
 }
 
@@ -319,7 +331,7 @@ static struct HandlerTable g_TopLevelInterruptTable[] = {
 	{PMU_IOMODULE_IRQ_PENDING_IPI0_MASK, XPfw_Ipi0Handler},
 	{PMU_IOMODULE_IRQ_PENDING_RTC_ALARM_MASK, XPfw_InterruptRtcAlaramHandler},
 	{PMU_IOMODULE_IRQ_PENDING_RTC_EVERY_SECOND_MASK, XPfw_InterruptRtcSecondsmHandler},
-	{PMU_IOMODULE_IRQ_PENDING_CORRECTABLE_ECC_MASK, XPfw_NullHandler},
+	{PMU_IOMODULE_IRQ_PENDING_CORRECTABLE_ECC_MASK, XPfw_PmuRamCEHandler},
 	{PMU_IOMODULE_IRQ_PENDING_INV_ADDR_MASK, XPfw_NullHandler},
 	{PMU_IOMODULE_IRQ_PENDING_IPI3_MASK, XPfw_Ipi3Handler},
 	{PMU_IOMODULE_IRQ_PENDING_IPI2_MASK, XPfw_Ipi2Handler},
@@ -374,6 +386,12 @@ void XPfw_InterruptHandler(void)
 						g_TopLevelInterruptTable[l_index].Mask);
 			}
 		}
+
+		/* Disable and Enable PMU interrupts in PMU Global register.
+		 * This will re-generated any interrupt which is generated while
+		 * serving the other interrupt
+		 */
+		XPfw_PulseErrorInt();
 	} else {
 		/* We shouldnt be here before Init, but we are.. So disable the Interrupts */
 		/* Init will enable only the required interrupts */

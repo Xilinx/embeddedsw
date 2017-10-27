@@ -32,7 +32,7 @@
 /**
 *
 * @file xipipsu_hw.h
-* @addtogroup ipipsu_v1_0
+* @addtogroup ipipsu_v2_3
 * @{
 *
 * This file contains macro definitions for low level HW related params
@@ -62,8 +62,8 @@
 #define XIPIPSU_BUFFER_OFFSET_TARGET (32U * 2U)
 #define XIPIPSU_BUFFER_OFFSET_RESPONSE		(32U)
 
-/* Max Number of IPI slots on the device */
-#define XIPIPSU_MAX_TARGETS	11
+/* Number of IPI slots enabled on the device */
+#define XIPIPSU_MAX_TARGETS	XPAR_XIPIPSU_NUM_TARGETS
 
 /* Register Offsets for each member  of IPI Register Set */
 #define XIPIPSU_TRIG_OFFSET 0x00U

@@ -66,7 +66,9 @@ typedef u32 (*const PmTranHandler)(void);
  */
 #ifdef DEBUG_MODE
 	#define DEBUG_PM
-	#define DEBUG_CLK
+/*	#define DEBUG_CLK	*/
+/*	#define DEBUG_PWR	*/
+/*	#define DEBUG_MMIO	*/
 	#define DEBUG_SET_CONFIG
 #endif
 /*
@@ -75,16 +77,17 @@ typedef u32 (*const PmTranHandler)(void);
  * has enabled debug prints, power management prints should be configurable.
  */
 #ifdef DEBUG_PM
-	#define PmDbg(MSG, ...)	fw_printf("PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
+	#define PmDbg(DebugType, MSG, ...)	\
+		XPfw_Printf(DebugType, "PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
 #else
-	#define PmDbg(MSG, ...) {}
+	#define PmDbg(DebugType, MSG, ...) {}
 #endif
 
 #ifdef DEBUG_SET_CONFIG
-	#define PmDbgCfg(MSG, ...) \
-		fw_printf("PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
+	#define PmDbgCfg(DebugType, MSG, ...) \
+		XPfw_Printf(DebugType, "PMWFW: %s: " MSG, __func__, ##__VA_ARGS__)
 #else
-	#define PmDbgCfg(MSG, ...) {}
+	#define PmDbgCfg(DebugType, MSG, ...) {}
 #endif
 
 #define ARRAY_SIZE(x)   (sizeof(x) / sizeof((x)[0]))

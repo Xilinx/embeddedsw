@@ -1,6 +1,7 @@
 var xhdcp22__tx_8c =
 [
     [ "XHDCP22_TX_CASE_TO_STR_PRE", "group__hdcp22__tx__v2__0.html#ga9506ba5737f555d412253ef2d56c75ed", null ],
+    [ "XHDCP22_TX_INVALID_RXSTATUS", "group__hdcp22__tx__v2__0.html#ga66363509e564ef13e87ea6bcfdbd57fc", null ],
     [ "XHdcp22_Tx_TransitionFuncType", "group__hdcp22__tx__v2__0.html#ga546b225324d6d39bc3bd815ab6ccae5c", null ],
     [ "XHdcp22Tx_StateFuncType", "group__hdcp22__tx__v2__0.html#ga228c5850e6c71e0363a7f52232fb81ff", null ],
     [ "XHdcp22Tx_Authenticate", "group__hdcp22__tx__v2__0.html#ga8ea402fbb37578b457a1b3313bb877ef", null ],

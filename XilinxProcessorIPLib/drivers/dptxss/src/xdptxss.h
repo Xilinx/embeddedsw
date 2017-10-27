@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.h
-* @addtogroup dptxss_v4_1
+* @addtogroup dptxss_v5_0
 * @{
 * @details
 *
@@ -116,6 +116,12 @@
 *                   for CR-965028.
 *      ms  03/17/17 Modified readme.txt file in examples folder for doxygen
 *                   generation.
+* 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
+* 5.0  tu  09/08/17 Added two interrupt handler that addresses driver's
+*                   internal callback function of application
+*                   DrvHpdEventHandler and DrvHpdPulseHandler
+*                   Added HPD user data stucture XDpTxSs_UsrHpdPulseData
+*                   and XDpTxSs_UsrHpdEventData
 * </pre>
 *
 ******************************************************************************/
@@ -172,8 +178,14 @@ typedef enum {
 						  *  interrupt type for
 						  *  HDCP core */
 #endif
-	XDPTXSS_HANDLER_DP_SET_MSA		/**< Set MSA immediate change
+	XDPTXSS_HANDLER_DP_SET_MSA,		/**< Set MSA immediate change
 						  *  change interrupt type for
+						  *  DisplayPort core */
+	XDPTXSS_DRV_HANDLER_DP_HPD_EVENT,	/**< Driver's internal HPD
+						  *  event interrupt type for
+						  *  DisplayPort core */
+	XDPTXSS_DRV_HANDLER_DP_HPD_PULSE	/**< Driver's HPD pulse
+						  *  interrupt type for
 						  *  DisplayPort core */
 } XDpTxSs_HandlerType;
 
@@ -185,6 +197,7 @@ typedef struct {
 	u8 Bpc;			/**< Bits per color */
 	u8 MstSupport;		/**< Multi-stream transport (MST) support */
 	u8 NumOfStreams;	/**< The total number of MST streams */
+	u8 VtcAdjustBs;		/**< Adjustment in Blanking symbol timing */
 } XDpTxSs_UsrOpt;
 
 /**
@@ -277,6 +290,33 @@ typedef struct {
 } XDpTxSs_Config;
 
 /**
+* HPD Pulse User Data structure
+*/
+typedef struct {
+	u8 Edid[128];
+	u8 AuxValues[9];
+	u8 Lane0Sts;
+	u8 Lane2Sts;
+	u8 LaneAlignStatus;
+	u8 BwSet;
+	u8 LaneSet;
+} XDpTxSs_UsrHpdPulseData;
+
+/**
+* HPD Event User Data structure
+*/
+typedef struct {
+	u8 MaxCapNew;
+	u8 MaxCapLanesNew;
+	u8 Lane0Sts;
+	u8 Lane2Sts;
+	u8 Rd200;
+	u8 EdidOrg[128];
+	u8 Dpcd[88];
+	u8 Tmp[12];
+} XDpTxSs_UsrHpdEventData;
+
+/**
 * The DisplayPort TX Subsystem driver instance data. An instance must be
 * allocated for each core in use.
 */
@@ -297,6 +337,8 @@ typedef struct {
 					  *  instances */
 
 	XDpTxSs_UsrOpt UsrOpt;		/**< User Options structure */
+	XDpTxSs_UsrHpdPulseData UsrHpdPulseData; /**< User HPD Pulse data*/
+	XDpTxSs_UsrHpdEventData UsrHpdEventData; /**< User HPD Event data*/
 } XDpTxSs;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -329,6 +371,8 @@ u32 XDpTxSs_StartCustomMsa(XDpTxSs *InstancePtr,
 		XDpTxSs_MainStreamAttributes *MsaConfigCustom);
 void XDpTxSs_Stop(XDpTxSs *InstancePtr);
 void XDpTxSs_Reset(XDpTxSs *InstancePtr);
+void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr);
+void XDpTxSs_VtcAdjustBSTimingDisable(XDpTxSs *InstancePtr);
 u32 XDpTxSs_SetBpc(XDpTxSs *InstancePtr, u8 Bpc);
 u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode);
 u32 XDpTxSs_SetLinkRate(XDpTxSs *InstancePtr, u8 LinkRate);
@@ -382,6 +426,10 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);
 void XDpTxSs_SetUserTimerHandler(XDpTxSs *InstancePtr,
 		XDpTxSs_TimerHandler CallbackFunc, void *CallbackRef);
+
+/* DpTxSs Interrupt Related Internal Functions */
+void XDpTxSs_HpdEventProcess(void *InstancePtr);
+void XDpTxSs_HpdPulseProcess(void *InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions *******************/
 

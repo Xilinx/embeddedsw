@@ -462,5 +462,28 @@
  *                    the HW coherency enablement. It fixes the CR#973287
  * 6.3 mus   04/20/17 Updated Cortex-A53 64 bit BSP boot code, to remove redundant write to the
  *                    L2CTLR_EL1 register. It fixes the CR#974698
+ * 6.4 mus   06/08/17 Updated arm/common/xil_exception.c to fix warnings in C level exception handlers
+ *                    of ARM 32 bit processor's.
+ * 6.4 mus   06/14/17 Updated cortexa53/64bit/gcc/asm_vectors.S to fix bug in  IRQInterruptHandler code
+ *                    snippet, which checks for the FPEN bit of CPACR_EL1 register.
+ * 6.4 ms    05/23/17 Added PSU_PMU macro in xplatform_info.c, xparameters.h to support
+ *                    XGetPSVersion_Info function for PMUFW.
+ *     ms    06/13/17 Added PSU_PMU macro in xplatform_info.c to support XGetPlatform_Info
+ *                    function for PMUFW.
+ * 6.4 mus   07/05/17 Updated Xil_In32BE function in xil_io.h to fix bug.It fixes CR#979740.
+ * 6.4 mus   07/25/17 Updated a53 32 bit boot code and vectors to support hard floating point
+ *                    operations.Now,VFP is being enabled in FPEXC register, through boot code
+ *                    and FPU registers are being saved/restored when irq/fiq vector is invoked.
+ * 6.4 adk   08/01/17 Updated standalone tcl to generate xparameter XPAR_PL_IS_CACHE_COHERENT,
+ * 		      if h/w design configured with HPC port.
+ * 6.4 mus   08/10/17 Updated a53 64 bit translation table to mark  memory as a outer shareable for
+ *                    EL1 NS execution. This change has been done to support CCI enabled IP's.
+ * 6.4 mus   08/11/17 Updated a53 64 bit boot code to implement ARM erratum 855873.This fixes
+ *                    CR#982209.
+ * 6.4 asa   08/16/17 Made several changes in the R5 MPU handling logic. Added new APIs to
+ *                    make RPU MPU handling user-friendly. This also fixes the CR-981028.
+ * 6.4 mus   08/17/17 Updated XGet_Zynq_UltraMp_Platform_info and XGetPSVersion_Info APIs to read
+ *                    version register through SMC call, over EL1 NS mode. This change has been done to
+ *                    support these APIs over EL1 NS mode.
  *
  *****************************************************************************************/

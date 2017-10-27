@@ -88,6 +88,9 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a1e4b5934b1b40ebc10ed5969bbc27c30"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_z_dma.html#a1e4b5934b1b40ebc10ed5969bbc27c30">IsSgDma</a></td></tr>
 <tr class="memdesc:a1e4b5934b1b40ebc10ed5969bbc27c30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is ZDMA core is in scatter gather or not will be specified.  <a href="#a1e4b5934b1b40ebc10ed5969bbc27c30">More...</a><br /></td></tr>
 <tr class="separator:a1e4b5934b1b40ebc10ed5969bbc27c30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea5c37a59737c90ea9387f350ca1acb0"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_z_dma.html#aea5c37a59737c90ea9387f350ca1acb0">Slcr_adma</a></td></tr>
+<tr class="memdesc:aea5c37a59737c90ea9387f350ca1acb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to hold SLCR ADMA register contents.  <a href="#aea5c37a59737c90ea9387f350ca1acb0">More...</a><br /></td></tr>
+<tr class="separator:aea5c37a59737c90ea9387f350ca1acb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bd448e43cadd065021bfe03ec8bcd4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_z_dma___descriptor.html">XZDma_Descriptor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_z_dma.html#a5bd448e43cadd065021bfe03ec8bcd4b">Descriptor</a></td></tr>
 <tr class="memdesc:a5bd448e43cadd065021bfe03ec8bcd4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">It contains information about descriptors.  <a href="#a5bd448e43cadd065021bfe03ec8bcd4b">More...</a><br /></td></tr>
 <tr class="separator:a5bd448e43cadd065021bfe03ec8bcd4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,7 +152,7 @@ Data Fields</h2></td></tr>
 
 <p>Hardware configuration. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__zdma__v1__0.html#gad882e6d7430871e5b71643c8be2512d5">XZDma_CfgInitialize()</a>, <a class="el" href="group__zdma__v1__0.html#gabbb337d990f31dc8932356f5abeb78bf">XZDma_ChannelState()</a>, <a class="el" href="group__zdma__v1__0.html#gaf236c2323636d87ab0888b2d6f55a313">XZDma_Reset()</a>, <a class="el" href="group__zdma__v1__0.html#ga7cb39835692353e5c34d95938b8ce8d0">XZDma_Resume()</a>, <a class="el" href="group__zdma__v1__0.html#ga166edb355a4395294e7910c68f4840ca">XZDma_SelfTest()</a>, <a class="el" href="group__zdma__v1__0.html#ga9f83e94a6ecae10b6bff851d76ffef24">XZDma_SetChDataConfig()</a>, <a class="el" href="group__zdma__v1__0.html#ga860cde1482bc78429ea5c6f1d3da9014">XZDma_SetChDscrConfig()</a>, <a class="el" href="group__zdma__v1__0.html#gaf1772f190fe0a67a17c78f5f23fc8024">XZDma_SetMode()</a>, and <a class="el" href="group__zdma__v1__0.html#ga15a0124d42f8ff48e54f32c1b643fe7b">XZDma_WOData()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__zdma__v1__0.html#gad882e6d7430871e5b71643c8be2512d5">XZDma_CfgInitialize()</a>, <a class="el" href="group__zdma__v1__0.html#gabbb337d990f31dc8932356f5abeb78bf">XZDma_ChannelState()</a>, <a class="el" href="group__zdma__v1__0.html#ga4f701b228ebc77f96faaba09cd9c63db">XZDma_CreateBDList()</a>, <a class="el" href="group__zdma__v1__0.html#gaf236c2323636d87ab0888b2d6f55a313">XZDma_Reset()</a>, <a class="el" href="group__zdma__v1__0.html#ga7cb39835692353e5c34d95938b8ce8d0">XZDma_Resume()</a>, <a class="el" href="group__zdma__v1__0.html#ga166edb355a4395294e7910c68f4840ca">XZDma_SelfTest()</a>, <a class="el" href="group__zdma__v1__0.html#ga9f83e94a6ecae10b6bff851d76ffef24">XZDma_SetChDataConfig()</a>, <a class="el" href="group__zdma__v1__0.html#ga860cde1482bc78429ea5c6f1d3da9014">XZDma_SetChDscrConfig()</a>, <a class="el" href="group__zdma__v1__0.html#gaf1772f190fe0a67a17c78f5f23fc8024">XZDma_SetMode()</a>, and <a class="el" href="group__zdma__v1__0.html#ga15a0124d42f8ff48e54f32c1b643fe7b">XZDma_WOData()</a>.</p>
 
 </div>
 </div>
@@ -348,6 +351,22 @@ Data Fields</h2></td></tr>
 <p>Mode of ZDMA core to be operated. </p>
 
 <p class="reference">Referenced by <a class="el" href="group__zdma__v1__0.html#gad882e6d7430871e5b71643c8be2512d5">XZDma_CfgInitialize()</a>.</p>
+
+</div>
+</div>
+<a id="aea5c37a59737c90ea9387f350ca1acb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea5c37a59737c90ea9387f350ca1acb0">&#9670;&nbsp;</a></span>Slcr_adma</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XZDma::Slcr_adma</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Used to hold SLCR ADMA register contents. </p>
 
 </div>
 </div>

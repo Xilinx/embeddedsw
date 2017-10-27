@@ -132,6 +132,9 @@
 * 1.5   YH     14/11/16 Added XV_HdmiTx_Bridge_yuv420 & XV_HdmiTx_Bridge_pixel
 *                       mode macros
 * 1.6   MG     28/03/17 Added XV_HdmiTx_Mask macros
+* 1.7   YH     19/07/17 Added XV_HdmiTx_IsMasked macro
+*              22/08/17 Added XV_HdmiTx_Audio_LPCM macro
+*                       Added XV_HdmiTx_Audio_HBR macro
 * </pre>
 *
 ******************************************************************************/
@@ -773,6 +776,40 @@ typedef struct {
 /*****************************************************************************/
 /**
 *
+* This macro selects L-PCM audio for the HDMI TX.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     C-style signature:
+*       void XV_HdmiTx_Audio_LPCM(XV_HdmiTx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx_Audio_LPCM(InstancePtr) \
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUD_CTRL_CLR_OFFSET), (XV_HDMITX_AUD_CTRL_AUDFMT_MASK))
+
+/*****************************************************************************/
+/**
+*
+* This macro selects HBR audio for the HDMI TX.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   None.
+*
+* @note     C-style signature:
+*       void XV_HdmiTx_Audio_HBR(XV_HdmiTx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx_Audio_HBR(InstancePtr) \
+    XV_HdmiTx_WriteReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_AUD_CTRL_SET_OFFSET), (XV_HDMITX_AUD_CTRL_AUDFMT_MASK))
+
+/*****************************************************************************/
+/**
+*
 * This macro sets the mode bit.
 *
 * @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
@@ -820,8 +857,8 @@ typedef struct {
 *
 ******************************************************************************/
 #define XV_HdmiTx_GetMode(InstancePtr) \
-    XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
-    (XV_HDMITX_PIO_OUT_OFFSET)) & (XV_HDMITX_PIO_OUT_MODE_MASK)
+    (XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_PIO_OUT_OFFSET)) & (XV_HDMITX_PIO_OUT_MODE_MASK))
 
 /*****************************************************************************/
 /**
@@ -998,6 +1035,25 @@ typedef struct {
 		                   (XV_HDMITX_MASK_BLUE_OFFSET), \
 						   (Value)); \
 }
+
+/*****************************************************************************/
+/**
+*
+* This macro provides the current video mask mode.
+*
+* @param    InstancePtr is a pointer to the XV_HdmiTx core instance.
+*
+* @return   Current mode.
+*       0 = Video masking is disabled
+*       1 = Video masking is enabled
+*
+* @note     C-style signature:
+*       u8 XV_HdmiTx_IsMasked(XV_HdmiTx *InstancePtr)
+*
+******************************************************************************/
+#define XV_HdmiTx_IsMasked(InstancePtr) \
+    XV_HdmiTx_ReadReg((InstancePtr)->Config.BaseAddress, \
+    (XV_HDMITX_MASK_CTRL_OFFSET)) & (XV_HDMITX_MASK_CTRL_RUN_MASK)
 
 /************************** Function Prototypes ******************************/
 

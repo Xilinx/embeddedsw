@@ -35,6 +35,7 @@
 
 #include "metal/sys.h"
 #include "metal/utilities.h"
+#include "metal/device.h"
 
 extern int metal_irq_init(void);
 extern void metal_irq_deinit(void);
@@ -44,10 +45,12 @@ struct metal_state _metal;
 int metal_sys_init(const struct metal_init_params *params)
 {
 	metal_unused(params);
+	metal_bus_register(&metal_generic_bus);
 	return metal_irq_init();
 }
 
 void metal_sys_finish(void)
 {
 	metal_irq_deinit();
+	metal_bus_unregister(&metal_generic_bus);
 }

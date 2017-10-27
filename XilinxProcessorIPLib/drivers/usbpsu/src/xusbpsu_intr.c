@@ -43,6 +43,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
+* 1.3   vak 04/03/17 Added CCI support for USB
 *
 * </pre>
 *
@@ -375,8 +376,10 @@ void XUsbPsu_EventBufferHandler(struct XUsbPsu *InstancePtr)
 
 	Evt = &InstancePtr->Evt;
 
-	Xil_DCacheInvalidateRange((INTPTR)Evt->BuffAddr,
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+		Xil_DCacheInvalidateRange((INTPTR)Evt->BuffAddr,
                               (u32)XUSBPSU_EVENT_BUFFERS_SIZE);
+	}
 
 	while (Evt->Count > 0) {
 		Event.Raw = *(UINTPTR *)((UINTPTR)Evt->BuffAddr + Evt->Offset);

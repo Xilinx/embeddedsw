@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss.c
-* @addtogroup dptxss_v4_1
+* @addtogroup dptxss_v5_0
 * @{
 *
 * This is the main file for Xilinx DisplayPort Transmitter Subsystem driver.
@@ -59,6 +59,12 @@
 *		    image stability
 * 4.1  als 08/08/16 Synchronize with new HDCP APIs.
 *      aad 09/06/16 Updates to support 64-bit base address
+* 5.0  tu  07/20/17 Allowing Custom VTM in XDpTxSs_SetVidMode function.
+* 5.0  tu  08/10/17 Adjusted BS symbol for equal timing
+* 5.0  tu  08/11/17 Removing ceil() to remove dependency on math library.
+* 5.0  tu  09/06/17 Set timer callback after HDCP initialization
+* 5.0  tu  09/06/17 Added Set UserPixelWidth support on tx side
+* 5.0  tu  09/08/17 Set HPD callbacks for HPD event and HPD pulse
 * </pre>
 *
 ******************************************************************************/
@@ -67,7 +73,6 @@
 
 #include "xdptxss.h"
 #include "string.h"
-#include "math.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -198,6 +203,7 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 		InstancePtr->UsrOpt.Bpc = InstancePtr->Config.MaxBpc;
 		InstancePtr->UsrOpt.MstSupport =
 				InstancePtr->Config.MstSupport;
+		InstancePtr->UsrOpt.VtcAdjustBs = 0;
 	}
 
 #if (XPAR_XDUALSPLITTER_NUM_INSTANCES > 0)
@@ -249,14 +255,6 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 					InstancePtr->Config.BaseAddress;
 		InstancePtr->TmrCtrPtr->BaseAddress +=
 					InstancePtr->Config.BaseAddress;
-
-		/* Initialize the HDCP timer functions */
-		XHdcp1x_SetTimerStart(InstancePtr->Hdcp1xPtr,
-						&DpTxSs_HdcpStartTimer);
-		XHdcp1x_SetTimerStop(InstancePtr->Hdcp1xPtr,
-						&DpTxSs_HdcpStopTimer);
-		XHdcp1x_SetTimerDelay(InstancePtr->Hdcp1xPtr,
-						&DpTxSs_HdcpBusyDelay);
 	}
 
 	/* Check for HDCP availability */
@@ -284,6 +282,22 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 
 		/* Set key selection value for TX */
 		XHdcp1x_SetKeySelect(InstancePtr->Hdcp1xPtr, 0x0);
+	}
+
+	/* Check for Timer Counter and Hdcp1x availability */
+	if (InstancePtr->TmrCtrPtr != NULL && InstancePtr->Hdcp1xPtr != NULL) {
+		/* Set Timer Counter instance in HDCP
+		 * that will be used in callbacks */
+		InstancePtr->Hdcp1xPtr->Hdcp1xRef =
+				(void *)InstancePtr->TmrCtrPtr;
+
+		/* Initialize the HDCP timer callback functions */
+		XHdcp1x_SetTimerStart(InstancePtr->Hdcp1xPtr,
+					&DpTxSs_HdcpStartTimer);
+		XHdcp1x_SetTimerStop(InstancePtr->Hdcp1xPtr,
+					&DpTxSs_HdcpStopTimer);
+		XHdcp1x_SetTimerDelay(InstancePtr->Hdcp1xPtr,
+					&DpTxSs_HdcpBusyDelay);
 	}
 #endif
 
@@ -319,7 +333,8 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
 		if (InstancePtr->VtcPtr[Index]) {
 			Status = XDpTxSs_VtcSetup(InstancePtr->VtcPtr[Index],
-			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index]);
+			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index],
+			InstancePtr->UsrOpt.VtcAdjustBs);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
 					"VTC%d setup failed!\n\r", Index);
@@ -338,6 +353,11 @@ u32 XDpTxSs_CfgInitialize(XDpTxSs *InstancePtr, XDpTxSs_Config *CfgPtr,
 
 	/* Set the flag to indicate the subsystem is ready */
 	InstancePtr->IsReady = (u32)XIL_COMPONENT_IS_READY;
+
+	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_HPD_EVENT,
+			    XDpTxSs_HpdEventProcess, InstancePtr);
+	XDpTxSs_SetCallBack(InstancePtr, XDPTXSS_DRV_HANDLER_DP_HPD_PULSE,
+			    XDpTxSs_HpdPulseProcess, InstancePtr);
 
 	return XST_SUCCESS;
 }
@@ -640,6 +660,48 @@ void XDpTxSs_Stop(XDpTxSs *InstancePtr)
 		}
 	}
 }
+/*****************************************************************************/
+/**
+*
+* This function enables special timing mode for BS equal timing.
+*
+* @param        InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*               - void.
+*
+* @note         None.
+*
+******************************************************************************/
+void XDpTxSs_VtcAdjustBSTimingEnable(XDpTxSs *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Enable special timing mode for BS equal timing */
+        InstancePtr->UsrOpt.VtcAdjustBs = 1;
+}
+/*****************************************************************************/
+/**
+*
+* This function disables special timing mode for BS equal timing.
+*
+* @param        InstancePtr is a pointer to the XDpTxSs core instance.
+*
+* @return
+*               - void.
+*
+* @note         None.
+*
+******************************************************************************/
+void XDpTxSs_VtcAdjustBSTimingDisable(XDpTxSs *InstancePtr)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+
+        /* Disable special timing mode for BS equal timing */
+        InstancePtr->UsrOpt.VtcAdjustBs = 0;
+}
 
 /*****************************************************************************/
 /**
@@ -695,8 +757,6 @@ u32 XDpTxSs_SetVidMode(XDpTxSs *InstancePtr, XVidC_VideoMode VidMode)
 {
 	/* Verify arguments. */
 	Xil_AssertNonvoid(InstancePtr != NULL);
-	Xil_AssertNonvoid((VidMode < XVIDC_VM_NUM_SUPPORTED) ||
-			(VidMode == XVIDC_VM_USE_EDID_PREFERRED));
 
 	if ((VidMode == XVIDC_VM_UHD_60_P) &&
 				(InstancePtr->UsrOpt.MstSupport)) {
@@ -1048,6 +1108,31 @@ u32 XDpTxSs_CheckLinkStatus(XDpTxSs *InstancePtr)
 			InstancePtr->DpPtr->TxInstance.LinkConfig.LaneCount);
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This function configures the number of pixels output through the user data
+* interface.
+*
+* @param	InstancePtr is a pointer to the XDpTxSs core instance.
+* @param	UserPixelWidth is the user pixel width to be configured.
+*
+* @return	None.
+*
+* @note		None.
+*
+*****************************************************************************/
+void XDpTxSs_SetUserPixelWidth(XDpTxSs *InstancePtr, u8 UserPixelWidth)
+{
+	/* Verify arguments.*/
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid((UserPixelWidth == 1) || (UserPixelWidth == 2) ||
+		       (UserPixelWidth == 4));
+
+	/* Set user pixel width */
+	XDp_TxSetUserPixelWidth(InstancePtr->DpPtr, UserPixelWidth);
 }
 
 /*****************************************************************************/
@@ -1810,9 +1895,10 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 {
 	XDpTxSs_MainStreamAttributes *MsaConfig;
 	XVidC_VideoMode VidMode;
-	double FrameClk;
 	u32 FrameRate;
 	u32 ClkFreq;
+	u32 Ival;
+	float Fval;
 	u8 LinkRate;
 
 	MsaConfig = &InstancePtr->DpPtr->TxInstance.MsaConfig[Stream - 1];
@@ -1823,9 +1909,12 @@ static void DpTxSs_CalculateMsa(XDpTxSs *InstancePtr, u8 Stream)
 	MsaConfig->PixelClockHz = ((u32)ClkFreq) * 1000000;
 
 	/*Calculate frame rate */
-	FrameClk = ceil((ClkFreq * 1000000.0) / (MsaConfig->Vtm.Timing.HTotal *
-				MsaConfig->Vtm.Timing.F0PVTotal));
-	FrameRate = (u32)FrameClk;
+	Fval = (ClkFreq * 1000000.0) / (MsaConfig->Vtm.Timing.HTotal *
+                                MsaConfig->Vtm.Timing.F0PVTotal);
+
+	Ival = (u32) Fval;
+
+	FrameRate = (u32) (Fval == (float) Ival) ? Ival : Ival + 1;
 
 	/* Round of frame rate */
 	if ((FrameRate == 59) || (FrameRate == 61)) {
@@ -2025,7 +2114,8 @@ static u32 DpTxSs_SetupSubCores(XDpTxSs *InstancePtr)
 	for (Index = 0; Index < InstancePtr->UsrOpt.NumOfStreams; Index++) {
 		if (InstancePtr->VtcPtr[Index]) {
 			Status = XDpTxSs_VtcSetup(InstancePtr->VtcPtr[Index],
-			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index]);
+			&InstancePtr->DpPtr->TxInstance.MsaConfig[Index],
+			InstancePtr->UsrOpt.VtcAdjustBs);
 			if (Status != XST_SUCCESS) {
 				xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: "
 					"VTC%d setup failed!\n\r", Index);

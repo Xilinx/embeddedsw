@@ -51,7 +51,7 @@ extern "C" {
 
 /**
  * @brief	type of interrupt handler
- * @param[in]   interrupt id
+ * @param[in]   irq interrupt id
  * @param[in]	priv private data
  * @return      irq handled status
  */
@@ -60,18 +60,22 @@ typedef int (*metal_irq_handler) (int irq, void *priv);
 struct metal_device;
 
 /**
- * @brief      register interrupt
- *             register interrupt handling of a specific interrupt.
+ * @brief      Register interrupt or register interrupt handling of a
+ *             specific interrupt.
+ *
+ *             If the interrupt handler parameter (irq_handler) is NULL,
+ *	       deregister the interrupt handler.
+ *
+ *             If the interrupt handler, device (dev), and driver ID (drv_id)
+ *	       are NULL, deregister all handlers corresponding to the interrupt.
+ *
+ *             If the interrupt handler is NULL, but either the device or
+ *             the driver ID is not NULL, only deregister the interrupt
+ *             handler Which has been registered with the same device and
+ *             driver ID.
+ *
  * @param[in]  irq         interrupt id
  * @param[in]  irq_handler interrupt handler
- *                         If this parameter is NULL, it will deregister
- *                         the irq handler.
- *                         If irq_handler, dev, and drv_id are all NULL,
- *                         it will deregister all the handler of the irq.
- *                         If irq_handler is NULL, but not both dev and
- *                         drv_id are NULL, it will only deregister the handler
- *                         which has been registered with the same dev and
- *                         drv_id.
  * @param[in]  dev         metal device this irq belongs to
  * @param[in]  drv_id      driver id. It can be used for driver data.
  * @return     0 for success, non-zero on failure

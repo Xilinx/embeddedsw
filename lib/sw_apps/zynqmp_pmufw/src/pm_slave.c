@@ -242,10 +242,11 @@ done:
 	}
 #ifdef DEBUG_PM
 	if (XST_SUCCESS == status) {
-		PmDbg("%s %d->%d\r\n", PmStrNode(slave->node.nodeId), oldState,
-		      slave->node.currState);
+		PmDbg(DEBUG_DETAILED,"%s %d->%d\r\n", PmStrNode(slave->node.nodeId),
+				oldState, slave->node.currState);
 	} else {
-		PmDbg("%s ERROR #%d\r\n", PmStrNode(slave->node.nodeId), status);
+		PmDbg(DEBUG_DETAILED,"%s ERROR #%d\r\n", PmStrNode(slave->node.nodeId),
+				status);
 	}
 #endif
 	return status;
@@ -797,5 +798,19 @@ PmNodeClass pmNodeClassSlave_g = {
 	.init = PmSlaveInit,
 	.isUsable = PmSlaveIsUsable,
 };
+
+void PmResetSlaveStates(void)
+{
+	PmSlave* slave;
+	int i;
+
+	for (i = 0U; i < ARRAY_SIZE(pmNodeSlaveBucket); i++) {
+		slave = (PmSlave*)pmNodeSlaveBucket[i]->derived;
+		if (NULL != slave->slvFsm->enterState) {
+			slave->slvFsm->enterState(slave,
+						  slave->slvFsm->statesCnt - 1);
+		}
+	}
+}
 
 #endif

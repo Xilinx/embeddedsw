@@ -34,10 +34,10 @@ OPTION psf_version = 2.1;
 
 BEGIN driver v_hdmirxss
 
-  OPTION supported_peripherals = (v_hdmi_rx_ss_v2_0);
+  OPTION supported_peripherals = (v_hdmi_rx_ss);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.2;
+  OPTION VERSION = 4.0;
   OPTION DEPENDS = (v_hdmirx);
   OPTION NAME = v_hdmirxss;
 

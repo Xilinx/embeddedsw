@@ -33,7 +33,7 @@
 /**
 *
 * @file xdprxss_intr.c
-* @addtogroup dprxss_v4_0
+* @addtogroup dprxss_v4_1
 * @{
 *
 * This file contains interrupt related functions of Xilinx DisplayPort RX
@@ -50,6 +50,8 @@
 * 3.0  sha 02/19/16 Added switch case for XDPRXSS_HANDLER_HDCP_RPTR_TDSA_EVENT
 *                   to register callback with HDCP.
 * 4.0  aad 12/01/16 Added HDCP Authentication interrupt handler
+* 4.1  tu  09/06/17 Added three driver side interrupt handler for Video,
+*                   NoVideo and PowerChange event
 * </pre>
 *
 ******************************************************************************/
@@ -57,6 +59,7 @@
 /***************************** Include Files *********************************/
 
 #include "xdprxss.h"
+#include "xdprxss_dp159.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -166,6 +169,96 @@ void XDpRxSs_TmrCtrIntrHandler(void *InstancePtr)
 
 /*****************************************************************************/
 /**
+ *
+ * This function is the interrupt handler for No Video
+ *
+ * @param       InstancePtr is a pointer to the XDpRxSs core instance that
+ *              just interrupted.
+ *
+ * @return      None.
+ *
+ * @note        None.
+ *
+ ******************************************************************************/
+void XDpRxSs_DrvNoVideoHandler(void *InstancePtr)
+{
+	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(XDpRxSsPtr != NULL);
+	Xil_AssertVoid(XDpRxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	XDp_WriteReg(XDpRxSsPtr->DpPtr->Config.BaseAddr,
+			XDP_RX_VIDEO_UNSUPPORTED, 0x1);
+	XDp_WriteReg(XDpRxSsPtr->DpPtr->Config.BaseAddr,
+			XDP_RX_AUDIO_UNSUPPORTED, 0x1);
+
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function is for the video interrupt handler
+ *
+ * @param      InstancePtr is a pointer to the XDpRxSs core instance that
+ *             just interrupted.
+ *
+ * @return     None.
+ *
+ * @note       None.
+ *
+ ******************************************************************************/
+void XDpRxSs_DrvVideoHandler(void *InstancePtr)
+{
+	XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+
+	/* Verify arguments. */
+	Xil_AssertVoid(XDpRxSsPtr != NULL);
+	Xil_AssertVoid(XDpRxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
+
+	XDp_WriteReg(XDpRxSsPtr->DpPtr->Config.BaseAddr,
+			XDP_RX_VIDEO_UNSUPPORTED, 0x0);
+	XDp_WriteReg(XDpRxSsPtr->DpPtr->Config.BaseAddr,
+			XDP_RX_AUDIO_UNSUPPORTED, 0x0);
+}
+
+/*****************************************************************************/
+/**
+*
+* This function is for the power change interrupt handler
+*
+* @param       InstancePtr is a pointer to the XDpRxSs core instance that
+*              just interrupted.
+*
+* @return      None.
+*
+* @note        None.
+*
+******************************************************************************/
+void XDpRxSs_DrvPowerChangeHandler(void *InstancePtr)
+{
+       XDpRxSs *XDpRxSsPtr = (XDpRxSs *)InstancePtr;
+       u32 Rdata;
+       const u32 PowerDownMode = 0x2;
+
+       /* Verify arguments. */
+       Xil_AssertVoid(XDpRxSsPtr != NULL);
+       Xil_AssertVoid(XDpRxSsPtr->IsReady == XIL_COMPONENT_IS_READY);
+
+       Rdata = XDp_ReadReg(XDpRxSsPtr->DpPtr->Config.BaseAddr,
+                       XDP_RX_DPCD_SET_POWER_STATE);
+
+       if (Rdata == PowerDownMode) {
+               XDp_RxInterruptDisable(XDpRxSsPtr->DpPtr,
+                               XDP_RX_INTERRUPT_MASK_UNPLUG_MASK);
+               XDpRxSs_Dp159Config(XDpRxSsPtr->IicPtr, XDPRXSS_DP159_CT_UNPLUG,
+                               XDpRxSsPtr->UsrOpt.LinkRate,
+                               XDpRxSsPtr->UsrOpt.LaneCount);
+       }
+}
+
+/*****************************************************************************/
+/**
 *
 * This function installs an asynchronous callback function for the given
 * HandlerType:
@@ -235,8 +328,20 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
+		case XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT:
+			XDp_RxSetDrvIntrPowerStateHandler(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
 		case XDPRXSS_HANDLER_DP_NO_VID_EVENT:
 			XDp_RxSetIntrNoVideoHandler(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT:
+			XDp_RxSetDrvIntrNoVideoHandler(InstancePtr->DpPtr,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
@@ -255,6 +360,12 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 
 		case XDPRXSS_HANDLER_DP_VID_EVENT:
 			XDp_RxSetIntrVideoHandler(InstancePtr->DpPtr,
+				CallbackFunc, CallbackRef);
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_DRV_HANDLER_DP_VID_EVENT:
+			XDp_RxSetDrvIntrVideoHandler(InstancePtr->DpPtr,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;

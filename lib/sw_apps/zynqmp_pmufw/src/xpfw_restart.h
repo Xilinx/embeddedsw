@@ -36,6 +36,8 @@
 int XPfw_RecoveryInit(void);
 void XPfw_RecoveryHandler(u8 ErrorId);
 void XPfw_RecoveryAck(PmMaster *Master);
+void XPfw_RecoveryStop(PmMaster *Master);
+void XPfw_RecoveryRestart(PmMaster *Master);
 
 
 #endif /* XPFW_RESTART_H_ */

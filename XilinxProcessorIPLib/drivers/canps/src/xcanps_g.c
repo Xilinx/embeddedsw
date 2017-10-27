@@ -33,7 +33,7 @@
 /**
 *
 * @file xcanps_g.c
-* @addtogroup canps_v3_0
+* @addtogroup canps_v3_2
 * @{
 *
 * This file contains a configuration table that specifies the configuration

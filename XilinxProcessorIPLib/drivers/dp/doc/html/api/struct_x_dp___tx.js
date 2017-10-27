@@ -2,6 +2,10 @@ var struct_x_dp___tx =
 [
     [ "AuxDelayUs", "struct_x_dp___tx.html#a9058e0650c07f8bd7edeeb7b410b65cd", null ],
     [ "BoardChar", "struct_x_dp___tx.html#a69e7454dfe4a61f9f4239333723b3ab3", null ],
+    [ "DrvHpdEventCallbackRef", "struct_x_dp___tx.html#a72065824b8f17781bca0cf8e795db9a9", null ],
+    [ "DrvHpdEventHandler", "struct_x_dp___tx.html#ae45a90a87a306554c23c49e25d1cab8c", null ],
+    [ "DrvHpdPulseCallbackRef", "struct_x_dp___tx.html#a2c40ae42193e6ebca87420dd04052d24", null ],
+    [ "DrvHpdPulseHandler", "struct_x_dp___tx.html#a8ae147b0aaca037acf88df569a89c451", null ],
     [ "HpdEventCallbackRef", "struct_x_dp___tx.html#a81cdc1d79a2f0996ceff3f728668bece", null ],
     [ "HpdEventHandler", "struct_x_dp___tx.html#a125ec94156c49cb1dc044e659a9330c0", null ],
     [ "HpdPulseCallbackRef", "struct_x_dp___tx.html#a9086287beb7db669c163b82d01cdb81e", null ],

@@ -168,10 +168,10 @@ XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 			/* Disable the executed Task */
 			SchedPtr->TaskList[Idx].Status = XPFW_TASK_STATUS_DISABLED;
 			CallCount++;
-		}
-		/* Remove the Non-Periodic Task */
-		if (TRUE == is_task_non_periodic(SchedPtr, Idx)) {
-			SchedPtr->TaskList[Idx].Callback = NULL;
+	                /* Remove the Non-Periodic Task */
+		        if (TRUE == is_task_non_periodic(SchedPtr, Idx)) {
+			        SchedPtr->TaskList[Idx].Callback = NULL;
+			}
 		}
 	}
 
@@ -185,7 +185,7 @@ XStatus XPfw_SchedulerProcess(XPfw_Scheduler_t *SchedPtr)
 	return Status;
 }
 
-XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t Callback)
+XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliSeconds, XPfw_Callback_t CallbackFn)
 {
 	u32 Idx;
 	XStatus Status;
@@ -206,21 +206,21 @@ XStatus XPfw_SchedulerAddTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId,u32 MilliS
 	/* Add Interval as a factor of TICK_MILLISECONDS */
 	SchedPtr->TaskList[Idx].Interval = MilliSeconds/TICK_MILLISECONDS;
 	SchedPtr->TaskList[Idx].OwnerId = OwnerId;
-	SchedPtr->TaskList[Idx].Callback = Callback;
+	SchedPtr->TaskList[Idx].Callback = CallbackFn;
 	Status = XST_SUCCESS;
 
 done:
 	return Status;
 }
 
-XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t Callback)
+XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 MilliSeconds, XPfw_Callback_t CallbackFn)
 {
 	u32 Idx;
 	u32 TaskCount = 0;
 
 	/*Find the Task Index */
 	for (Idx = 0U; Idx < XPFW_SCHED_MAX_TASK; Idx++) {
-		if ((Callback == SchedPtr->TaskList[Idx].Callback) &&
+		if ((CallbackFn == SchedPtr->TaskList[Idx].Callback) &&
 		    (SchedPtr->TaskList[Idx].OwnerId == OwnerId) &&
 		    ((SchedPtr->TaskList[Idx].Interval == (MilliSeconds/TICK_MILLISECONDS)) ||
 				(0U == MilliSeconds))) {
@@ -231,7 +231,8 @@ XStatus XPfw_SchedulerRemoveTask(XPfw_Scheduler_t *SchedPtr, u32 OwnerId, u32 Mi
 		}
 	}
 
-	fw_printf("%s: Removed %lu tasks\r\n", __func__, TaskCount);
+	XPfw_Printf(DEBUG_DETAILED,"%s: Removed %lu tasks\r\n",
+			__func__, TaskCount);
 
 	return ((TaskCount > 0U) ? XST_SUCCESS : XST_FAILURE);
 }

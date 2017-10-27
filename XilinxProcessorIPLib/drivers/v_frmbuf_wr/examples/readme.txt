@@ -27,4 +27,4 @@ When executed on the board the example application will perform following operat
 	3. Check for Video Lock (and Overflow)
 	4. Repeat Steps 1-3 for defined video streams (720p, 1080p, 4Kp30, 4Kp60)
 
-Note: Serial terminal baud rate should be set to 9600
+Note: Serial terminal baud rate should be set to 115200

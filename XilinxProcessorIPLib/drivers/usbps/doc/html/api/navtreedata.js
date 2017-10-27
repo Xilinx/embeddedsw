@@ -30,7 +30,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"group__usbps__v2__2.html#gadda6870b9ef5c1d4e7b345433c44bac2"
+"group__usbps__v2__4.html#gadda6870b9ef5c1d4e7b345433c44bac2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

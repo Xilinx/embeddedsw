@@ -46,6 +46,7 @@
 * ---- --- -------- -----------------------------------------------------
 * 1.00 sha 05/18/15 Initial release.
 * 2.00 sha 10/05/15 Added HDCP and Timer Counter self test.
+* 4.00 tu  25/06/17 Added proper return value
 * </pre>
 *
 ******************************************************************************/
@@ -100,6 +101,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::DP Self test "
 				"failed\n\r");
+			return XST_FAILURE;
 		}
 	}
 
@@ -109,6 +111,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::HDCP Self test "
 				"failed\r\n");
+			return XST_FAILURE;
 		}
 	}
 
@@ -117,6 +120,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::Timer Counter "
 				"Self test failed\r\n");
+			return XST_FAILURE;
 		}
 	}
 #endif
@@ -127,6 +131,7 @@ u32 XDpRxSs_SelfTest(XDpRxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::IIC Self test "
 				"failed\n\r");
+			return XST_FAILURE;
 		}
 	}
 

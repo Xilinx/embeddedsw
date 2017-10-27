@@ -107,6 +107,7 @@ extern "C" {
 #define XZDMA_CH_CTRL2_OFFSET			(0x200U)
 /*@}*/
 
+#define XZDMA_SLCR_SECURE_OFFSET		(0xff4b0024)
 /** @name Interrupt Enable/Disable/Mask/Status registers bit masks and shifts
  * @{
  */
@@ -240,7 +241,7 @@ extern "C" {
 							*  mask */
 
 #define XZDMA_DSCR_ATTR_AXCOHRNT_SHIFT	(8U) /**< Descriptor coherent shift */
-#define XZDMA_DSCR_ATTR_AXCACHE_SHIFT	(7U) /**< Descriptor cache shift */
+#define XZDMA_DSCR_ATTR_AXCACHE_SHIFT	(4U) /**< Descriptor cache shift */
 #define XZDMA_DSCR_ATTR_RESET_VALUE	(0x00000000U) /**< Dscr Attributes
 							*  reset value */
 

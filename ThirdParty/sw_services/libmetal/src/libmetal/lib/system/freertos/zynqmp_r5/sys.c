@@ -45,11 +45,12 @@
 
 #define MPU_REGION_SIZE_MIN 0x20
 
-static unsigned int int_old_val = 0;
+/* application code would have enabled IRQ initially */
+static unsigned int int_old_val = XIL_EXCEPTION_ALL;
 
 void sys_irq_restore_enable(void)
 {
-	Xil_ExceptionEnableMask(int_old_val);
+	Xil_ExceptionEnableMask(~int_old_val);
 }
 
 void sys_irq_save_disable(void)
@@ -88,31 +89,14 @@ void __attribute__((weak)) metal_generic_default_poll(void)
 	asm volatile("wfi");
 }
 
-void metal_machine_io_mem_map(metal_phys_addr_t pa,
+void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 			       size_t size, unsigned int flags)
 {
-	unsigned int r5_flags;
 	size_t rsize = MPU_REGION_SIZE_MIN;
 	metal_phys_addr_t base_pa;
 
-	/* Assume DEVICE_SHARED if nothing indicates this is memory.  */
-	r5_flags = DEVICE_SHARED;
-	if ((flags & METAL_SHARED_MEM)) {
-		r5_flags = NORM_SHARED_NCACHE;
-		if ((flags & METAL_CACHE_WB)) {
-			r5_flags = NORM_SHARED_WB_WA;
-		} else if ((flags & METAL_CACHE_WT)) {
-			r5_flags = NORM_SHARED_WT_NWA;
-		}
-	} else {
-		r5_flags = NORM_NSHARED_NCACHE;
-		if ((flags & METAL_CACHE_WB)) {
-			r5_flags = NORM_NSHARED_WB_WA;
-		} else if ((flags & METAL_CACHE_WT)) {
-			r5_flags = NORM_NSHARED_WT_NWA;
-		}
-	}
-
+	if (!flags)
+		return va;
 	while(1) {
 		if (rsize < size) {
 			rsize <<= 1;
@@ -126,6 +110,6 @@ void metal_machine_io_mem_map(metal_phys_addr_t pa,
 			break;
 		}
 	}
-	Xil_SetMPURegion(base_pa, rsize, r5_flags | PRIV_RW_USER_RW);
-	return;
+	Xil_SetMPURegion(base_pa, rsize, flags);
+	return va;
 }

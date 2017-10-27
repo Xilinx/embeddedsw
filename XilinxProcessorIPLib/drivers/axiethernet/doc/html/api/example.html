@@ -97,6 +97,18 @@ xaxiethernet_example_util.c</h1>
 <p>Contains an example on how to use the XAxietherent driver directly. This example implements the utility functions for debugging, and ethernet frame construction.</p>
 <p>For details, see <a class="el" href="xaxiethernet__example__util_8c.html" title="This file implements the utility functions for the Axi Ethernet example code. ">xaxiethernet_example_util.c</a>.</p>
 <h1><a class="anchor" id="ex7"></a>
+xaxiethernet_example_mcdma_poll.c</h1>
+<p>Contains an example on how to use the XAxietherent driver directly. This example shows how to use Axi Ethernet with MCDMA in polled mode to send and receive frames.</p>
+<p>For details, see <a class="el" href="xaxiethernet__example__mcdma__poll_8c.html" title="Implements examples that utilize the Axi Ethernet&#39;s polled mode MCDMA packet transfer mode to send an...">xaxiethernet_example_mcdma_poll.c</a>.</p>
+<h1><a class="anchor" id="ex8"></a>
+xaxiethernet_example_intr_mcdma.c</h1>
+<p>Contains an example on how to use the XAxietherent driver directly. This example shows how to use Axi Ethernet with MCDMA in interrupt mode to send and receive frames.</p>
+<p>For details, see <a class="el" href="xaxiethernet__example__intr__mcdma_8c.html" title="Implements examples that utilize the Axi Ethernet&#39;s interrupt driven MCDMA packet transfer mode to se...">xaxiethernet_example_intr_mcdma.c</a>.</p>
+<h1><a class="anchor" id="ex9"></a>
+xaxiethernet_mcdma_ping_req_example.c</h1>
+<p>Contains an example on how to use the XAxietherent driver directly. This example shows how to use Axi Ethernet with MCDMA in polled mode to send ping request's.</p>
+<p>For details, see <a class="el" href="xaxiethernet__mcdma__ping__req__example_8c.html" title="This file contains a Axi Ethernet MCDMA Ping request example in polled mode. ">xaxiethernet_mcdma_ping_req_example.c</a>.</p>
+<h1><a class="anchor" id="ex10"></a>
 xaxiethernet_example.h</h1>
 <p>This headerfile defines common data types, prototypes, and includes the proper headers for use with the Axi Ethernet examples.</p>
 <p>For details, see <a class="el" href="xaxiethernet__example_8h.html" title="Defines common data types, prototypes, and includes the proper headers for use with the Axi Ethernet ...">xaxiethernet_example.h</a>.</p>
@@ -109,7 +121,7 @@ EXAMPLES IN EDK:</h2>
 NOTES:</h2>
 <ul>
 <li>Included HW features are critical as to which examples will run properly.</li>
-<li>The device connected to the AXI4-Stream interface (AXIFIFO or AXIDMA) of the AxiEthernet must be initialized before AxiEthernet initialization. Since the reset line of AXIFIFO or AXIDMA is connected to the reset line of AxiEthernet, AXIDMA/AXIFIFO initialization would reset AxiEthernet. AxiEthernet hardware initialization routines in the AxiEthernet driver do not reset the AxiEthernet hardware. </li>
+<li>The device connected to the AXI4-Stream interface (AXIFIFO or AXIDMA or AXI MCDMA) of the AxiEthernet must be initialized before AxiEthernet initialization. Since the reset line of AXIFIFO or AXIDMA or AXI MCDMA is connected to the reset line of AxiEthernet, AXIDMA/AXIFIFO/AXI MCDMA initialization would reset AxiEthernet. AxiEthernet hardware initialization routines in the AxiEthernet driver do not reset the AxiEthernet hardware. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

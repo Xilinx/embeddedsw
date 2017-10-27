@@ -1,7 +1,9 @@
 var struct_x_v__frmbufwr___config =
 [
+    [ "AXIMMAddrWidth", "struct_x_v__frmbufwr___config.html#a80011b03afdd5e91262c6e8a222fe8f9", null ],
     [ "AXIMMDataWidth", "struct_x_v__frmbufwr___config.html#a2d873c1229a4efdfb3b132febf4e6054", null ],
     [ "BaseAddress", "struct_x_v__frmbufwr___config.html#aeb8502aaff6a176ce7e341aaee9d9e5b", null ],
+    [ "BGRX8En", "struct_x_v__frmbufwr___config.html#affabcb9afaae10e168f41c86bb65a5e4", null ],
     [ "DeviceId", "struct_x_v__frmbufwr___config.html#a41893c6a3308a153399724384e5929a5", null ],
     [ "MaxDataWidth", "struct_x_v__frmbufwr___config.html#a55eb9329a50385463b2ffee562d7a412", null ],
     [ "MaxHeight", "struct_x_v__frmbufwr___config.html#a64e3e6e9c597e62ae8b5842ccb03d235", null ],
@@ -10,6 +12,7 @@ var struct_x_v__frmbufwr___config =
     [ "RGB8En", "struct_x_v__frmbufwr___config.html#a4a70d8a48b279f47454c31ace3d98537", null ],
     [ "RGBX10En", "struct_x_v__frmbufwr___config.html#acc0d8d95810220131ae2fd05bfea510b", null ],
     [ "RGBX8En", "struct_x_v__frmbufwr___config.html#ac548249d4fb2d38cbeb7ed827ea0406b", null ],
+    [ "UYVY8En", "struct_x_v__frmbufwr___config.html#a5fb22c767589f7ac9907658e794410bd", null ],
     [ "Y10En", "struct_x_v__frmbufwr___config.html#a484d8c15d711cbdfb6e6300b30cd86ac", null ],
     [ "Y8En", "struct_x_v__frmbufwr___config.html#abb9d8670bacdb461826280d4b4d0ca58", null ],
     [ "Y_UV10_420En", "struct_x_v__frmbufwr___config.html#a6343b4718c758a936f88260b75fdb9d8", null ],

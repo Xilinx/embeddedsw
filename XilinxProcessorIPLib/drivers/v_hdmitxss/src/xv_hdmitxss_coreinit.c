@@ -67,6 +67,7 @@
 *                            handles in the "_g" TCL generation
 *                       Re-align coding style to ensure, 80 characters per row
 * 3.2   MH     04/24/17 Set default HDMI mode in XV_HdmiTxSs_SubcoreInitHdmiTx
+* 3.3   MH     07/17/17 Set HDCP 2.2 polling value to 10 ms.
 * </pre>
 *
 ******************************************************************************/
@@ -355,7 +356,7 @@ int XV_HdmiTxSs_SubcoreInitHdcp22(XV_HdmiTxSs *HdmiTxSsPtr)
 							(void *)HdmiTxSsPtr->HdmiTxPtr);
 
       /* Set polling value */
-      XHdcp22Tx_SetMessagePollingValue(HdmiTxSsPtr->Hdcp22Ptr, 2);
+      XHdcp22Tx_SetMessagePollingValue(HdmiTxSsPtr->Hdcp22Ptr, 10);
 
       XHdcp22Tx_LogReset(HdmiTxSsPtr->Hdcp22Ptr, FALSE);
 

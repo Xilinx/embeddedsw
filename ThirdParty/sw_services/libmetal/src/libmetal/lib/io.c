@@ -28,53 +28,110 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <errno.h>
 #include "metal/io.h"
 
-void *metal_generic_memset_io(void *dst, int c, size_t size)
+int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
+	       void *restrict dst, int len)
 {
-	void *retdst = dst;
-	unsigned int cint = (unsigned char)c;
-	unsigned int i;
-	for (i = 1; i < sizeof(int); i++)
-		cint |= (c << (8 * i));
+	void *ptr = metal_io_virt(io, offset);
+	int retlen;
 
-	for (; size && ((uintptr_t)dst % sizeof(int)); dst++, size--)
-		*(unsigned char volatile *)dst = (unsigned char) c;
-	for(; size >= sizeof(int); dst += sizeof(int), size -= sizeof(int))
-		*(unsigned int volatile *)dst = cint;
-	for(; size != 0; dst++, size--)
-		*(unsigned char volatile*)dst = (unsigned char) c;
-	return retdst;
-}
-
-void *metal_generic_memcpy_io(void *dst, const void *src, size_t size)
-{
-	void *retdst = dst;
-	while (size && (
-		((uintptr_t)dst % sizeof(int)) ||
-		((uintptr_t)src % sizeof(int)))) {
-		*(unsigned char volatile *)dst =
-			*(const unsigned char volatile *)src;
-		dst++;
-		src++;
-		size--;
+	if (offset > io->size)
+		return -ERANGE;
+	if ((offset + len) > io->size)
+		len = io->size - offset;
+	retlen = len;
+	if (io->ops.block_read) {
+		retlen = (*io->ops.block_read)(
+			io, offset, dst, memory_order_seq_cst, len);
+	} else {
+		atomic_thread_fence(memory_order_seq_cst);
+		while ( len && (
+			((uintptr_t)dst % sizeof(int)) ||
+			((uintptr_t)ptr % sizeof(int)))) {
+			*(unsigned char *)dst =
+				*(const unsigned char *)ptr;
+			dst++;
+			ptr++;
+			len--;
+		}
+		for (; len >= (int)sizeof(int); dst += sizeof(int),
+					ptr += sizeof(int),
+					len -= sizeof(int))
+			*(unsigned int *)dst = *(const unsigned int *)ptr;
+		for (; len != 0; dst++, ptr++, len--)
+			*(unsigned char *)dst =
+				*(const unsigned char *)ptr;
 	}
-	for (; size >= sizeof(int);
-		dst += sizeof(int), src += sizeof(int), size -= sizeof(int))
-		*(unsigned int volatile *)dst =
-			*(const unsigned int volatile *)src;
-	for (; size != 0; dst++, src++, size--)
-		*(unsigned char volatile *)dst =
-			*(const unsigned char volatile *)src;
-	return retdst;
+	return retlen;
 }
 
-void *metal_memset_io(void *dst, int c, size_t size)
+int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
+	       const void *restrict src, int len)
 {
-	return metal_generic_memset_io(dst, c, size);
+	void *ptr = metal_io_virt(io, offset);
+	int retlen;
+
+	if (offset > io->size)
+		return -ERANGE;
+	if ((offset + len) > io->size)
+		len = io->size - offset;
+	retlen = len;
+	if (io->ops.block_write) {
+		retlen = (*io->ops.block_write)(
+			io, offset, src, memory_order_seq_cst, len);
+	} else {
+		while ( len && (
+			((uintptr_t)ptr % sizeof(int)) ||
+			((uintptr_t)src % sizeof(int)))) {
+			*(unsigned char *)ptr =
+				*(const unsigned char *)src;
+			ptr++;
+			src++;
+			len--;
+		}
+		for (; len >= (int)sizeof(int); ptr += sizeof(int),
+					src += sizeof(int),
+					len -= sizeof(int))
+			*(unsigned int *)ptr = *(const unsigned int *)src;
+		for (; len != 0; ptr++, src++, len--)
+			*(unsigned char *)ptr =
+				*(const unsigned char *)src;
+		atomic_thread_fence(memory_order_seq_cst);
+	}
+	return retlen;
 }
 
-void *metal_memcpy_io(void *dst, const void *src, size_t size)
+int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
+	       unsigned char value, int len)
 {
-	return metal_generic_memcpy_io(dst, src, size);
+	void *ptr = metal_io_virt(io, offset);
+	int retlen = len;
+
+	if (offset > io->size)
+		return -ERANGE;
+	if ((offset + len) > io->size)
+		len = io->size - offset;
+	retlen = len;
+	if (io->ops.block_set) {
+		(*io->ops.block_set)(
+			io, offset, value, memory_order_seq_cst, len);
+	} else {
+		unsigned int cint = value;
+		unsigned int i;
+
+		for (i = 1; i < sizeof(int); i++)
+			cint |= ((unsigned int)value << (8 * i));
+
+		for (; len && ((uintptr_t)ptr % sizeof(int)); ptr++, len--)
+			*(unsigned char *)ptr = (unsigned char) value;
+		for (; len >= (int)sizeof(int); ptr += sizeof(int),
+						len -= sizeof(int))
+			*(unsigned int *)ptr = cint;
+		for (; len != 0; ptr++, len--)
+			*(unsigned char *)ptr = (unsigned char) value;
+		atomic_thread_fence(memory_order_seq_cst);
+	}
+	return retlen;
 }

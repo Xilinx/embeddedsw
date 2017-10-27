@@ -379,15 +379,6 @@ int rpmsg_rdev_remote_ready(struct remote_device *rdev)
 	return false;
 }
 
-static void rpmsg_memset_io(struct metal_io_region *io, void *dst, int c, size_t count)
-{
-	if ((io->mem_flags & METAL_IO_MAPPED)) {
-		metal_memset_io(dst, c, count);
-	} else {
-		memset(dst, c, count);
-	}
-}
-
 /**
  *------------------------------------------------------------------------
  * The rest of the file implements the virtio device interface as defined
@@ -424,8 +415,12 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 		INIT_VRING_ALLOC_INFO(ring_info, vring_table[idx]);
 
 		if (rdev->role == RPMSG_REMOTE) {
-			rpmsg_memset_io(vring_table[idx].io, (void *)ring_info.vaddr, 0x00,
-			       vring_size(vring_table[idx].num_descs, vring_table[idx].align));
+			metal_io_block_set(vring_table[idx].io,
+				metal_io_virt_to_offset(vring_table[idx].io,
+							ring_info.vaddr),
+				0x00,
+				vring_size(vring_table[idx].num_descs,
+				vring_table[idx].align));
 		}
 
 		status =
@@ -464,7 +459,10 @@ int rpmsg_rdev_create_virtqueues(struct virtio_device *dev, int flags, int nvqs,
 
 			sg.virt = buffer;
 
-			rpmsg_memset_io(sg.io, buffer, 0x00, RPMSG_BUFFER_SIZE);
+			metal_io_block_set(sg.io,
+				metal_io_virt_to_offset(sg.io, buffer),
+				0x00,
+				RPMSG_BUFFER_SIZE);
 			status =
 			    virtqueue_add_buffer(rdev->rvq, &sg, 0, 1,
 						 buffer);
@@ -487,6 +485,7 @@ unsigned char rpmsg_rdev_get_status(struct virtio_device *dev)
 	if (!vdev_rsc)
 		return -1;
 
+	atomic_thread_fence(memory_order_seq_cst);
 	return vdev_rsc->status;
 }
 

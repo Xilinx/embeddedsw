@@ -32,7 +32,7 @@
 /******************************************************************************/
 /**
  * @file xusbps.c
-* @addtogroup usbps_v2_2
+* @addtogroup usbps_v2_4
 * @{
  *
  * The XUsbPs driver. Functions in this file are the minimum required

@@ -102,6 +102,8 @@
 * 2.00  rco   11/05/15   Integrate layer-1 with layer-2
 *       dmc   12/17/15   Macros query Is422Enabled, IsDemoWindowEnabled flags
 *                        that were added to the XV_csc_Config structure
+* 2.20  vyc   10/04/17   Macro queries Is420Enabled flag that was added to the
+*                        XV_csc_Config structure
 * </pre>
 *
 ******************************************************************************/
@@ -286,6 +288,7 @@ typedef struct
 *		- XVIDC_CSF_RGB
 *		- XVIDC_CSF_YCRCB_444
 *		- XVIDC_CSF_YCRCB_422
+*		- XVIDC_CSF_YCRCB_420
 *
 ******************************************************************************/
 #define XV_CscGetColorFormatIn(InstancePtr)     ((InstancePtr)->ColorFormatIn)
@@ -301,6 +304,7 @@ typedef struct
 *		- XVIDC_CSF_RGB
 *		- XVIDC_CSF_YCRCB_444
 *		- XVIDC_CSF_YCRCB_422
+*		- XVIDC_CSF_YCRCB_420
 *
 ******************************************************************************/
 #define XV_CscGetColorFormatOut(InstancePtr)   ((InstancePtr)->ColorFormatOut)
@@ -361,6 +365,18 @@ typedef struct
  *****************************************************************************/
 #define XV_CscIs422Enabled(InstancePtr) \
    ((InstancePtr)->Csc.Config.Is422Enabled)
+
+/*****************************************************************************/
+/**
+ * This macro checks if Csc instance is enabled for 4:2:0 processing
+ *
+ * @param  InstancePtr is pointer to csc core layer 2
+ *
+ * @return Returns 1 if condition is TRUE or 0 if FALSE
+ *
+ *****************************************************************************/
+#define XV_CscIs420Enabled(InstancePtr) \
+   ((InstancePtr)->Csc.Config.Is420Enabled)
 
 /*****************************************************************************/
 /**

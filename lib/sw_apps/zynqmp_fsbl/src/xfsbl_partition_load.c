@@ -1205,8 +1205,6 @@ static u32 XFsbl_PartitionValidation(XFsblPs * FsblInstancePtr,
 		{
 			XFsbl_Printf(DEBUG_INFO,
 			"PS Only Reset. Skipping PL configuration\r\n");
-			(void)psu_ps_pl_isolation_removal_data();
-			(void)psu_ps_pl_reset_config_data();
 			goto END;
 		}
 	}
@@ -1744,7 +1742,7 @@ static u32 XFsbl_CalcualteCheckSum(XFsblPs * FsblInstancePtr,
 			u32 HashOffset;
 			u32 Index;
 
-			HashOffset = PartitionHeader->ChecksumWordOffset * 4U;
+			HashOffset = FsblInstancePtr->ImageOffsetAddress + PartitionHeader->ChecksumWordOffset * 4U;
 			/**
 			 * In case of bitstream in DDR less system, pass the
 			 * partition source address from Flash device.
@@ -1841,7 +1839,7 @@ static u32 XFsbl_CalcualteSHA(const XFsblPs * FsblInstancePtr, PTRSIZE LoadAddre
 	PartitionHeader =
 	    &FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 	Length = PartitionHeader->TotalDataWordLength * 4U;
-	HashOffset = PartitionHeader->ChecksumWordOffset * 4U;
+	HashOffset = FsblInstancePtr->ImageOffsetAddress + PartitionHeader->ChecksumWordOffset * 4U;
 
 	/* Start the SHA engine */
 	XFsbl_ShaStart(ShaCtx, ShaType);

@@ -33,7 +33,7 @@
 /**
 *
 * @file xqspipsu_g.c
-* @addtogroup qspipsu_v1_0
+* @addtogroup qspipsu_v3_4
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

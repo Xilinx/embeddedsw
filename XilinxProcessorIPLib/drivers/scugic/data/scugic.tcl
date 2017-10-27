@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2011 - 2016 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2011 - 2017 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -56,6 +56,19 @@
 #		      application support for cortex-a53 64bit mode
 # 3.7   ms   04/11/17 Modified tcl file to add U suffix for all macros
 #                     in xparameters.h
+# 3.8   mus  05/25/17 Updated proc xdefine_gic_params to declare "valid_periph"
+#                     variable at start of the proc, to avoid the tcl errors
+#                     in case of unsupported processor.It fixes CR#976861
+# 3.8   mus  07/05/17 Added support for intrrupts connected through
+#                     util_reduced_vector IP(OR gate).
+# 3.8   mus  07/05/17 Updated xdefine_zynq_canonical_xpars proc to initialize
+#                     the HandlerTable in XScuGic_ConfigTable to 0, it removes
+#                     the compilation warning in xscugic_g.c. Fix for CR#978736.
+# 3.8   mus  07/25/17 Updated xdefine_gic_params proc to export correct canonical
+#                     definitions for pl to ps interrupts.Fix for CR#980534
+# 3.8   mus  08/17/17 Updated get_psu_interrupt_id proc to check if the sink
+#                     pin is connected to peripheral.Fix for CR#980414.
+#
 ##############################################################################
 
 #uses "xillib.tcl"
@@ -65,6 +78,10 @@
 ############################################################
 proc generate {drv_handle} {
     global pl_ps_irq1 pl_ps_irq0
+    global or_id
+    global or_cnt
+    set or_id 0
+    set or_cnt 0
     set pl_ps_irq1 0
     set pl_ps_irq0 0
 
@@ -413,6 +430,7 @@ proc xdefine_zynq_config_file {drv_handle file_name drv_string args} {
            }
            set comma ",\n"
        }
+       puts -nonewline $config_file [format "%s\t\t{{0}}\t\t/**< Initialize the HandlerTable to 0 */" $comma]
        puts -nonewline $config_file "\n\t\}"
        set start_comma ",\n"
    }
@@ -434,6 +452,7 @@ proc xdefine_gic_params {drvhandle} {
     # Next define interrupt IDs for each connected peripheral
 
     set periphs [::hsi::utils::get_common_driver_ips $drvhandle]
+    set valid_periph 0
     #Get proper gic instance for periphs in case of zynqmp
     foreach periph $periphs {
 	if {([string compare -nocase $proctype "ps7_cortexa9"] == 0)||
@@ -555,7 +574,7 @@ proc xdefine_gic_params {drvhandle} {
 
             # Skip global (external) ports
 			if {[string compare -nocase $source_periph($i) ""] != 0} {
-            set drv [::hsi::get_drivers -filter "HW_INSTANCE==$$source_name($i)"]
+            set drv [::hsi::get_drivers -filter "HW_INSTANCE==$source_name($i)"]
 
             if {[llength $source_name($i)] != 0 && [llength $drv] != 0} {
 
@@ -663,6 +682,28 @@ proc xget_port_type {port} {
         return "local"
     }
 }
+
+proc is_orgate { intc_src_port ip_name} {
+	set ret -1
+
+	set intr_sink_pins [::hsi::utils::get_sink_pins $intc_src_port]
+	set sink_periph [::hsi::get_cells -of_objects $intr_sink_pins]
+	set ipname [get_property IP_NAME $sink_periph]
+	if { $ipname == "xlconcat" } {
+		set intf "dout"
+		set intr1_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$intf"]
+		set intr_sink_pins [::hsi::utils::get_sink_pins $intr1_pin]
+		set sink_periph [::hsi::get_cells -of_objects $intr_sink_pins]
+		set ipname [get_property IP_NAME $sink_periph]
+	        if {$ipname == "util_reduced_logic"} {
+			set width [get_property CONFIG.C_SIZE $sink_periph]
+			return $width
+		}
+	}
+
+	return $ret
+}
+
 ###################################################################
 #
 # Get interrupt ID for zynqmpsoc
@@ -674,6 +715,9 @@ proc get_psu_interrupt_id { ip_name port_name } {
     set intr_pin ""
     global pl_ps_irq1
     global pl_ps_irq0
+    global or_id
+    global or_cnt
+
     if { [llength $port_name] == 0 } {
         return $ret
     }
@@ -777,14 +821,30 @@ proc get_psu_interrupt_id { ip_name port_name } {
                 continue
             }
         }
+        set width [is_orgate $intc_src_port $ip_name]
         if { [string compare -nocase "$port_name"  "$intc_src_port" ] == 0 } {
-            if { [string compare -nocase "$intr_periph" "$periph"] == 0 } {
+            if { [string compare -nocase "$intr_periph" "$periph"] == 0 && $width != -1} {
+                 set or_cnt [expr $or_cnt + 1]
+	         if { $or_cnt == $width} {
+	                set or_cnt 0
+			set or_id [expr $or_id + 1]
+		}
                 set ret $i
                 set found 1
                 break
-            }
+            } elseif { [string compare -nocase "$intr_periph" "$periph"] == 0 } {
+		set ret $i
+		set found 1
+		break
+	    }
+
         }
-        set i [expr $i + $intr_width]
+        if { $width != -1} {
+	    set i [expr $or_id]
+	} else {
+	    set i [expr $i + $intr_width]
+	}
+
     }
 
     set intr_list_irq0 [list 89 90 91 92 93 94 95 96]
@@ -800,6 +860,9 @@ proc get_psu_interrupt_id { ip_name port_name } {
     set concat_block 0
     foreach sink_pin $sink_pins {
         set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+        if {[llength $sink_periph] == 0} {
+            continue
+        }
         set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
 	# check for direct connection or concat block connected
         if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
@@ -812,6 +875,31 @@ proc get_psu_interrupt_id { ip_name port_name } {
                 set sink_pin $pin
             }
         }
+
+        # check for ORgate
+	if { [string compare -nocase "$sink_pin" "Op1"] == 0 } {
+	    set dout "Res"
+	    set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+	    set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+	    set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+	    foreach pin $sink_pins {
+	        set sink_pin $pin
+	    }
+	    set sink_periph [::hsi::get_cells -of_objects $sink_pin]
+	    set connected_ip [get_property IP_NAME [get_cells $sink_periph]]
+	    if { [string compare -nocase "$connected_ip" "xlconcat"] == 0 } {
+	        set number [regexp -all -inline -- {[0-9]+} $sink_pin]
+	        set dout "dout"
+	        set concat_block 1
+                set intr_pin [::hsi::get_pins -of_objects $sink_periph -filter "NAME==$dout"]
+	        set sink_pins [::hsi::utils::get_sink_pins "$intr_pin"]
+	        foreach pin $sink_pins {
+	            set sink_pin $pin
+	        }
+	    }
+	 }
+
+
 	# generate irq id for IRQ1_F2P
         if { [string compare -nocase "$sink_pin" "IRQ1_F2P"] == 0 } {
             if {$found == 1} {

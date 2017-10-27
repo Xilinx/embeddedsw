@@ -66,6 +66,10 @@ proc gen_include_files {swproj mhsinst} {
             append inc_file_lines " axiethernet_header.h"
             append inc_file_lines " axiethernet_fifo_intr_header.h"
          }
+         if {$dmaType == 2} {
+            append inc_file_lines " xmcdma.h"
+            append inc_file_lines " axiethernet_mcdma_intr_header.h"
+         }
          if {$dmaType == 3} {
             append inc_file_lines " xaxidma.h"
             append inc_file_lines " axiethernet_intr_header.h"
@@ -95,7 +99,9 @@ proc gen_src_files {swproj mhsinst} {
               set inc_file_lines {examples/xaxiethernet_example.h examples/xaxiethernet_example_polled.c examples/xaxiethernet_example_util.c examples/xaxiethernet_example_intr_fifo.c data/axiethernet_header.h data/axiethernet_fifo_intr_header.h}
           } elseif {$dmaType == 3} {
               set inc_file_lines {examples/xaxiethernet_example.h examples/xaxiethernet_example_util.c examples/xaxiethernet_example_intr_sgdma.c data/axiethernet_intr_header.h}
-          }
+          } elseif {$dmaType == 2} {
+              set inc_file_lines {examples/xaxiethernet_example.h examples/xaxiethernet_example_util.c examples/xaxiethernet_example_intr_mcdma.c data/axiethernet_mcdma_intr_header.h}
+	  }
       } else {
           if {$dmaType == 1} {
               set inc_file_lines {examples/xaxiethernet_example.h examples/xaxiethernet_example_polled.c examples/xaxiethernet_example_util.c data/axiethernet_header.h}
@@ -142,6 +148,13 @@ proc gen_init_code {swproj mhsinst} {
 "
          }
 
+	#MCDMA
+	if {$dmaType == 2} {
+            append decl "
+   static XMcdma  ${ipname}_Mcdma;
+"
+	}
+
          set inc_file_lines $decl
          return $inc_file_lines
       }
@@ -174,6 +187,9 @@ proc gen_testfunc_call {swproj mhsinst} {
   set dma_deviceid [get_dma_info $mhsinst "id"]
   set dma_ipname   [get_dma_info $mhsinst "name"]
 
+  set mcdma_deviceid [get_mcdma_info $mhsinst "id"]
+  set mcdma_ipname   [get_mcdma_info $mhsinst "name"]
+
   if {$ifintr == 1} {
 	set intr_pin_name [get_pins -of_objects [get_cells -hier $ipname] INTERRUPT]
 	set intcname [::hsi::utils::get_connected_intr_cntrl $ipname  $intr_pin_name]
@@ -185,7 +201,7 @@ proc gen_testfunc_call {swproj mhsinst} {
   if { $dma == 1 } {
       set type "Fifo"
   }
-  if { $dma == 3 } {
+  if { $dma == 3 || $dma == 2} {
       set type "SgDma"
   }
 
@@ -299,6 +315,43 @@ proc gen_testfunc_call {swproj mhsinst} {
       }
       # END: FIFO & INTERRUPT
 
+      # BEGIN: MCDMA & INTERRUPT
+      if { $dma == 2} {
+         set dmaDriverInst "${ipname}_Mcdma"
+         append testfunc_call "
+   {
+      int Status;
+"
+
+         if {${hasStdout} == 1} {
+            append testfunc_call "
+      print(\"\\r\\nRunning AxiEthernet${type}IntrExample() for ${ipname}...\\r\\n\");
+"
+         }
+
+         append testfunc_call "
+      Status = AxiEthernet${type}IntrExample(&${intcvar}, &${ipname}_AxiEthernet,
+                     &${dmaDriverInst},
+                     ${deviceid},
+                     ${mcdma_deviceid},
+                     ${intr_id});
+"
+
+         if {${hasStdout} == 1} {
+            append testfunc_call "
+      if (Status == 0) {
+         print(\"AxiEthernet Interrupt Test PASSED.\\r\\n\");
+      }
+      else {
+         print(\"AxiEthernet Interrupt Test FAILED.\\r\\n\");
+      }
+"
+         }
+
+         append testfunc_call "
+   }"
+      }
+      # END: MCDMA & INTERRUPT
       # BEGIN: DMA & INTERRUPT
       if {$dma == 3} {
          # DMA
@@ -390,7 +443,75 @@ proc get_dma_info {mhsinst type} {
 		}
 		set target_periph_name [string toupper [get_property NAME $target_periph]]
 		set instName [get_property NAME  $target_periph]
+		## If Chiscope is connected b/w DMA/FIFO and Ethernet
+                if {[llength $target_periph] > 1} {
+                        foreach peri_name $target_periph {
+                                set target_periph_type [get_property IP_NAME $peri_name]
+				set instName [get_property NAME  $peri_name]
+                                if {[string compare -nocase $target_periph_type "axi_dma"] == 0} {
+                                        if {[string compare -nocase $type "id"] == 0} {
+                                                set deviceid [::hsi::utils::get_ip_param_name $peri_name "DEVICE_ID"]
+                                                return $deviceid
+                                        }
+                                        if {[string compare -nocase $type "name"] == 0} {
+                                                return $instName
+                                        }
+                                }
+                        }
+
+                }
 		if {[string compare -nocase $target_periph_type "axi_dma"] == 0} {
+			if {[string compare -nocase $type "id"] == 0} {
+				set deviceid [::hsi::utils::get_ip_param_name $target_periph "DEVICE_ID"]
+				return $deviceid
+			}
+			if {[string compare -nocase $type "name"] == 0} {
+				return $instName
+			}
+		}
+	}
+    }
+}
+
+proc get_mcdma_info {mhsinst type} {
+    set ipinst_list [get_cells -hier  $mhsinst "*"]
+
+	set p2p_busifs_i [get_intf_pins -of_objects $mhsinst -filter "TYPE==INITIATOR"]
+	# Add p2p periphs
+        foreach p2p_busif $p2p_busifs_i {
+	    set busif_name [string toupper [get_property NAME  $p2p_busif]]
+            set conn_busif_handle [::hsi::utils::get_connected_intf $mhsinst $busif_name]
+	    if { [string compare -nocase $conn_busif_handle ""] == 0} {
+                continue
+            } else {
+		# if there is a single match, we know if it is FIFO or DMA
+		# no need for further iterations
+		set conn_busif_name [get_property NAME  $conn_busif_handle]
+		set target_periph [get_cells -of_objects $conn_busif_handle]
+		set target_periph_type [get_property IP_NAME $target_periph]
+                if { [string compare -nocase $target_periph_type "tri_mode_ethernet_mac"] == 0 } {
+			continue
+		}
+		set target_periph_name [string toupper [get_property NAME $target_periph]]
+		set instName [get_property NAME  $target_periph]
+		## If Chiscope is connected b/w DMA/FIFO and Ethernet
+                if {[llength $target_periph] > 1} {
+                        foreach peri_name $target_periph {
+                                set target_periph_type [get_property IP_NAME $peri_name]
+				set instName [get_property NAME  $peri_name]
+                                if {[string compare -nocase $target_periph_type "axi_mcdma"] == 0} {
+                                        if {[string compare -nocase $type "id"] == 0} {
+                                                set deviceid [::hsi::utils::get_ip_param_name $peri_name "DEVICE_ID"]
+                                                return $deviceid
+                                        }
+                                        if {[string compare -nocase $type "name"] == 0} {
+                                                return $instName
+                                        }
+                                }
+                        }
+
+                }
+		if {[string compare -nocase $target_periph_type "axi_mcdma"] == 0} {
 			if {[string compare -nocase $type "id"] == 0} {
 				set deviceid [::hsi::utils::get_ip_param_name $target_periph "DEVICE_ID"]
 				return $deviceid
@@ -406,11 +527,15 @@ proc get_dma_info {mhsinst type} {
 proc get_dma_type {mhsinst} {
 
    set dma_deviceid [get_dma_info $mhsinst "id"]
+   set mcdma_deviceid [get_mcdma_info $mhsinst "id"]
 
-  if { $dma_deviceid != "" } {
+  if { $mcdma_deviceid != "" } {
+	set dma 2
+  } elseif { $dma_deviceid != "" } {
         set dma 3
   } else {
         set dma 1
   }
+
   return $dma
 }

@@ -33,14 +33,32 @@
 /**
  *
  * @file xvphy.h
+ * @addtogroup xvphy
+ * @{
+ * @details
+ * This is main header file of the Xilinx Video PHY Controller driver
  *
- * The Xilinx Video PHY (VPHY) driver. This driver supports the Xilinx Video PHY
- * IP core.
- * Version 1.0 supports:
- * - GTXE2 and GTHE3 GT types.
- * - DisplayPort and HDMI protocols.
+ * <b>Video PHY Controller Overview</b>
  *
- * @note	None.
+ * The PHY is intended to simplify the use of serial transceivers and adds
+ * domain-specific configurability. The Video PHY Controller IP is not intended
+ * to be used as a stand alone IP and must be used with Xilinx Video MACs such
+ * as HDMI 1.4/2.0 Transmitter/Receiver Subsystems and DisplayPort TX/RX
+ * Subsystems. The core enables simpler connectivity between MAC layers for TX
+ * and RX paths. However, it is still important to understand the behavior,
+ * usage, and any limitations of the transceivers. See the device specific
+ * transceiver user guide for details.
+ *
+ * <b>Video PHY Controller Driver Features</b>
+ *
+ * Video PHY Controller driver supports following features
+ *   - Xilinx DisplayPort and HDMI MAC IPs
+ *   - GTXE2, GTPE2, GTHE2, GTHE3 and GTHE4 GT types
+ *   - HDMI:
+ *   -   2 or 4 pixel-wide video interface
+ *   -   8/10/12/16 bits per component
+ *   -   RGB & YCbCr color space
+ *   -   Up to 4k2k 60Hz resolution at both Input and Output interface
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -67,6 +85,14 @@
  *                     Added transceiver width, AXIlite clk frequency and
  *                       err_irq in XVphy_Config
  * 1.5   gm   08/05/17 Added DrpClkFreq in XVphy_Config
+ * 1.6   gm   06/08/17 Added XVPHY_LOG_EVT_HDMI20_ERR &
+ *                       XVPHY_LOG_EVT_DRU_CLK_ERR XVphy_LogEvent enum
+ *                     Added intr events for TX and RX MMCM lock
+ *                     Marked XVphy_DrpWrite and XVphy_DrpRead as deprecated
+ *                     Added XVphy_SetErrorCallback API
+ *                     Changed ClkOutxDiv declaration to u16
+ *                     Marked XVphy_HdmiInitialize deprecated and replaced by
+ *                        XVphy_Hdmi_CfgInitialize
  * </pre>
  *
 *******************************************************************************/
@@ -82,6 +108,7 @@
 /******************************* Include Files ********************************/
 
 #include "xil_assert.h"
+#include "xparameters.h"
 #include "xvphy_hw.h"
 #include "xvidc.h"
 #include "xvphy_dp.h"
@@ -129,6 +156,10 @@ typedef enum {
 		XVPHY_INTR_TXCLKDETFREQCHANGE_MASK,
 	XVPHY_INTR_HANDLER_TYPE_RX_CLKDET_FREQ_CHANGE =
 		XVPHY_INTR_RXCLKDETFREQCHANGE_MASK,
+	XVPHY_INTR_HANDLER_TYPE_TX_MMCM_LOCK_CHANGE =
+		XVPHY_INTR_TXMMCMUSRCLK_LOCK_MASK,
+	XVPHY_INTR_HANDLER_TYPE_RX_MMCM_LOCK_CHANGE =
+		XVPHY_INTR_RXMMCMUSRCLK_LOCK_MASK,
 	XVPHY_INTR_HANDLER_TYPE_TX_TMR_TIMEOUT = XVPHY_INTR_TXTMRTIMEOUT_MASK,
 	XVPHY_INTR_HANDLER_TYPE_RX_TMR_TIMEOUT = XVPHY_INTR_RXTMRTIMEOUT_MASK,
 } XVphy_IntrHandlerType;
@@ -320,19 +351,25 @@ typedef enum {
 	XVPHY_LOG_EVT_GT_CPLL_CFG_ERR,/**< Log event QPLL Config not found. */
 	XVPHY_LOG_EVT_VD_NOT_SPRTD_ERR,/**< Log event Vid format not supported. */
 	XVPHY_LOG_EVT_MMCM_ERR,		/**< Log event MMCM Config not found. */
+	XVPHY_LOG_EVT_HDMI20_ERR,	/**< Log event HDMI2.0 not supported. */
+	XVPHY_LOG_EVT_NO_QPLL_ERR,	/**< Log event QPLL not present. */
+	XVPHY_LOG_EVT_DRU_CLK_ERR,	/**< Log event DRU clk wrong freq. */
 	XVPHY_LOG_EVT_DUMMY,		/**< Dummy Event should be last */
 } XVphy_LogEvent;
 #endif
 
 /* This typedef enumerates the possible error conditions. */
 typedef enum {
-	XVPHY_ERRIRQ_QPLL_CFG    = 0x1,	/**< QPLL CFG not found. */
-	XVPHY_ERRIRQ_CPLL_CFG    = 0x2,	/**< CPLL CFG not found. */
-	XVPHY_ERRIRQ_NO_DRU      = 0x4,	/**< No DRU in design. */
-	XVPHY_ERRIRQ_VD_NOT_SPRTD= 0x8,	/**< Video Not Supported. */
-	XVPHY_ERRIRQ_MMCM_CFG    = 0x10,/**< MMCM CFG not found. */
-	XVPHY_ERRIRQ_PLL_LAYOUT  = 0x20,/**< PLL Error. */
-} XVphy_ErrIrqType;
+	XVPHY_ERR_QPLL_CFG    = 0x1,	/**< QPLL CFG not found. */
+	XVPHY_ERR_CPLL_CFG    = 0x2,	/**< CPLL CFG not found. */
+	XVPHY_ERR_NO_DRU      = 0x4,	/**< No DRU in design. */
+	XVPHY_ERR_VD_NOT_SPRTD= 0x8,	/**< Video Not Supported. */
+	XVPHY_ERR_MMCM_CFG    = 0x10,	/**< MMCM CFG not found. */
+	XVPHY_ERR_PLL_LAYOUT  = 0x20,	/**< PLL Error. */
+	XVPHY_ERR_BONDED_DRU  = 0x40,	/**< DRU and Bonded Mode Error. */
+	XVPHY_ERR_NO_QPLL     = 0x80,	/**< No QPLL Error. */
+	XVPHY_ERR_DRU_CLK     = 0x100,	/**< Wrong DRU clk freq Error. */
+} XVphy_ErrType;
 
 /******************************************************************************/
 /**
@@ -374,6 +411,16 @@ typedef void (*XVphy_TimerHandler)(void *InstancePtr, u32 MicroSeconds);
 *******************************************************************************/
 typedef void (*XVphy_Callback)(void *CallbackRef);
 
+/******************************************************************************/
+/**
+ * Error callback type.
+ *
+ * @param	CallbackRef is a pointer to the callback reference.
+ *
+ * @note	None.
+ *
+*******************************************************************************/
+typedef void (*XVphy_ErrorCallback)(void *CallbackRef);
 /**
  * This typedef contains configuration information for CPLL/QPLL programming.
  */
@@ -503,10 +550,10 @@ typedef struct {
 	u8 DivClkDivide;
 	u8 ClkFbOutMult;
 	u16 ClkFbOutFrac;
-	u8 ClkOut0Div;
+	u16 ClkOut0Div;
 	u16 ClkOut0Frac;
-	u8 ClkOut1Div;
-	u8 ClkOut2Div;
+	u16 ClkOut1Div;
+	u16 ClkOut2Div;
 } XVphy_Mmcm;
 
 /**
@@ -615,6 +662,7 @@ typedef struct {
 	u8 HdmiRxTmdsClockRatio;		/**< HDMI TMDS clock ratio. */
 	u8 HdmiTxSampleRate;			/**< HDMI TX sample rate. */
 	u8 HdmiRxDruIsEnabled;			/**< The DRU is enabled. */
+	u8 HdmiIsQpllPresent;           /**< QPLL is present in HW */
 	XVphy_IntrHandler IntrCpllLockHandler;	/**< Callback function for CPLL
 							lock interrupts. */
 	void *IntrCpllLockCallbackRef;		/**< A pointer to the user data
@@ -669,6 +717,18 @@ typedef struct {
 							detector frequency
 							change callback
 							function. */
+	XVphy_IntrHandler IntrTxMmcmLockHandler; /**< Callback function
+							for TX MMCM lock
+							interrupts. */
+	void *IntrTxMmcmLockCallbackRef; /**< A pointer to the user data
+							passed to the TX MMCM lock
+							callback function. */
+	XVphy_IntrHandler IntrRxMmcmLockHandler; /**< Callback function
+							for RX MMCM lock
+							interrupts. */
+	void *IntrRxMmcmLockCallbackRef; /**< A pointer to the user data
+							passed to the RX MMCM lock
+							callback function. */
 	XVphy_IntrHandler IntrTxTmrTimeoutHandler; /**< Callback function for TX
 							timer timeout
 							interrupts. */
@@ -683,6 +743,14 @@ typedef struct {
 							passed to the RX timer
 							timeout callback
 							function. */
+        /* Error Condition callbacks. */
+	XVphy_ErrorCallback ErrorCallback;	/**< Callback for Error Condition. */
+	void *ErrorRef;			/**< To be passed to the Error condition
+							 callback. */
+	XVphy_ErrorCallback PllLayoutErrorCallback;	/**< Callback for Error
+							Condition. */
+	void *PllLayoutErrorRef;/**< To be passed to the Error condition
+							 callback. */
         /* HDMI callbacks. */
 	XVphy_Callback HdmiTxInitCallback;	/**< Callback for TX init. */
 	void *HdmiTxInitRef;			/**< To be passed to the TX init
@@ -749,9 +817,13 @@ u32 XVphy_ResetGtTxRx(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 
 /* xvphy.c: GT/MMCM DRP access. */
 u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u16 Addr, u16 Val);
+		u16 Addr, u16 Val) __attribute__ ((deprecated));
 u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
-		u16 Addr);
+		u16 Addr) __attribute__ ((deprecated));
+u32 XVphy_DrpWr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		u16 Addr, u16 Val);
+u16 XVphy_DrpRd(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+        u16 Addr, u16 *RetVal);
 void XVphy_MmcmPowerDown(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir,
 		u8 Hold);
 void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir);
@@ -767,6 +839,14 @@ void XVphy_Set8b10b(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir, u8 Enable);
 #endif
 u32 XVphy_IsBonded(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
+
+/* xvphy.c: Error Condition. */
+void XVphy_SetErrorCallback(XVphy *InstancePtr,
+		void *CallbackFunc, void *CallbackRef);
+#if (XPAR_VPHY_0_TRANSCEIVER == 1)
+void XVphy_SetPllLayoutErrorCallback(XVphy *InstancePtr,
+		void *CallbackFunc, void *CallbackRef);
+#endif
 
 /* xvphy_log.c: Logging functions. */
 void XVphy_LogDisplay(XVphy *InstancePtr);
@@ -794,7 +874,9 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 		XVphy_PllType TxPllSelect, XVphy_PllType RxPllSelect,
 		u8 LinkRate);
 u32 XVphy_HdmiInitialize(XVphy *InstancePtr, u8 QuadId, XVphy_Config *CfgPtr,
-		u32 SystemFrequency);
+		u32 SystemFrequency) __attribute__ ((deprecated));
+u32 XVphy_Hdmi_CfgInitialize(XVphy *InstancePtr, u8 QuadId,
+        XVphy_Config *CfgPtr);
 u32 XVphy_SetHdmiTxParam(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVidC_PixelsPerClock Ppc, XVidC_ColorDepth Bpc,
 		XVidC_ColorFormat ColorFormat);
@@ -816,6 +898,7 @@ void XVphy_DpDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId);
 void XVphy_SetHdmiCallback(XVphy *InstancePtr,
 		XVphy_HdmiHandlerType HandlerType,
 		void *CallbackFunc, void *CallbackRef);
+void XVphy_RegisterDebug(XVphy *InstancePtr);
 
 /******************* Macros (Inline Functions) Definitions ********************/
 
@@ -861,3 +944,4 @@ void XVphy_SetHdmiCallback(XVphy *InstancePtr,
 #define XVPHY_GTHE4 5
 
 #endif /* XVPHY_H_ */
+/** @} */

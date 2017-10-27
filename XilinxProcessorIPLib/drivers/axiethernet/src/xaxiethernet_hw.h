@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet_hw.h
-* @addtogroup axiethernet_v5_0
+* @addtogroup axiethernet_v5_6
 * @{
 *
 * This header file contains identifiers and macros that can be used to access
@@ -710,6 +710,7 @@ extern "C" {
 #define XAE_SPEED_10_MBPS		10	/**< Speed of 10 Mbps */
 #define XAE_SPEED_100_MBPS		100	/**< Speed of 100 Mbps */
 #define XAE_SPEED_1000_MBPS		1000	/**< Speed of 1000 Mbps */
+#define XAE_SPEED_2500_MBPS		2500	/**< Speed of 2500 Mbps */
 
 #define XAE_SOFT_TEMAC_LOW_SPEED	0	/**< For soft cores with 10/100
 						 *   Mbps speed.

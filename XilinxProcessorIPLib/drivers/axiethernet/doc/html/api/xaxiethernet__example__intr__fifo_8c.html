@@ -78,7 +78,7 @@ $(document).ready(function(){initNavTree('xaxiethernet__example__intr__fifo_8c.h
 </ul>
 <p>Functional guide to example:</p>
 <ul>
-<li>AxiEthernetSingleFrameIntrExample() demonstrates the simplest way to send and receive frames in interrupt driven FIFO direct mode.</li>
+<li><a class="el" href="xaxiethernet__example__intr__fifo_8c.html#a91d22adccbd6db21ba46feb01f31c723" title="This function demonstrates the usage of the Axi Ethernet by sending and receiving a single frame in i...">AxiEthernetSingleFrameIntrExample()</a> demonstrates the simplest way to send and receive frames in interrupt driven FIFO direct mode.</li>
 <li>AxiEthernetSingleFrameNonContIntrExample demonstrates how to handle frames that are stored in more than one memory location.</li>
 <li>AxiEthernetMultipleFramesIntrExample demonstrates how to defer frame reception so that CPU intensive receive functions are not performed in interrupt context.</li>
 <li>AxiEthernetErrorHandler() demonstrates how to manage asynchronous errors.</li>
@@ -100,14 +100,239 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     available in all examples. This is a fix for CR-965028.
       ms   04/05/17 Added return tags in functions for proper documentation
                     while generating doxygen.
+5.6     adk  03/07/17 Fixed CR#979023 Example failed to compile.
 </pre> </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:af8ae7cf7dd0a643f3ec50d40f8378667"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__fifo_8c.html#af8ae7cf7dd0a643f3ec50d40f8378667">AxiEthernetFifoIntrExample</a> (INTC *IntcInstancePtr, <a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XLlFifo *FifoInstancePtr, u16 AxiEthernetDeviceId, u16 FifoDeviceId, u16 AxiEthernetIntrId, u16 FifoIntrId)</td></tr>
+<tr class="memdesc:af8ae7cf7dd0a643f3ec50d40f8378667"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage usage of the Axi Ethernet by sending and receiving frames in interrupt driven fifo mode.  <a href="#af8ae7cf7dd0a643f3ec50d40f8378667">More...</a><br /></td></tr>
+<tr class="separator:af8ae7cf7dd0a643f3ec50d40f8378667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91d22adccbd6db21ba46feb01f31c723"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__fifo_8c.html#a91d22adccbd6db21ba46feb01f31c723">AxiEthernetSingleFrameIntrExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XLlFifo *FifoInstancePtr)</td></tr>
+<tr class="memdesc:a91d22adccbd6db21ba46feb01f31c723"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function demonstrates the usage of the Axi Ethernet by sending and receiving a single frame in interrupt mode.  <a href="#a91d22adccbd6db21ba46feb01f31c723">More...</a><br /></td></tr>
+<tr class="separator:a91d22adccbd6db21ba46feb01f31c723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a034de95d97295ccf24089f22e85e94bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__fifo_8c.html#a034de95d97295ccf24089f22e85e94bb">AxiEthernetSingleFrameNonContIntrExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XLlFifo *FifoInstancePtr)</td></tr>
+<tr class="memdesc:a034de95d97295ccf24089f22e85e94bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This example sends a packet from non-contiguous memory locations.  <a href="#a034de95d97295ccf24089f22e85e94bb">More...</a><br /></td></tr>
+<tr class="separator:a034de95d97295ccf24089f22e85e94bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d1ee0d424789072776d5261d4babc09"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__fifo_8c.html#a7d1ee0d424789072776d5261d4babc09">AxiEthernetMultipleFramesIntrExample</a> (<a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *AxiEthernetInstancePtr, XLlFifo *FifoInstancePtr)</td></tr>
+<tr class="memdesc:a7d1ee0d424789072776d5261d4babc09"><td class="mdescLeft">&#160;</td><td class="mdescRight">This example sends and receives a batch of frames.  <a href="#a7d1ee0d424789072776d5261d4babc09">More...</a><br /></td></tr>
+<tr class="separator:a7d1ee0d424789072776d5261d4babc09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a840291bc02cba5474a4cb46a9b9566fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xaxiethernet__example__intr__fifo_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a> (void)</td></tr>
 <tr class="memdesc:a840291bc02cba5474a4cb46a9b9566fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the main function for the Axi Ethernet example.  <a href="#a840291bc02cba5474a4cb46a9b9566fe">More...</a><br /></td></tr>
 <tr class="separator:a840291bc02cba5474a4cb46a9b9566fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="af8ae7cf7dd0a643f3ec50d40f8378667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ae7cf7dd0a643f3ec50d40f8378667">&#9670;&nbsp;</a></span>AxiEthernetFifoIntrExample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AxiEthernetFifoIntrExample </td>
+          <td>(</td>
+          <td class="paramtype">INTC *&#160;</td>
+          <td class="paramname"><em>IntcInstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
+          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XLlFifo *&#160;</td>
+          <td class="paramname"><em>FifoInstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>AxiEthernetDeviceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>FifoDeviceId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>AxiEthernetIntrId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">u16&#160;</td>
+          <td class="paramname"><em>FifoIntrId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function demonstrates the usage usage of the Axi Ethernet by sending and receiving frames in interrupt driven fifo mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">IntcInstancePtr</td><td>is a pointer to the instance of the Intc component. </td></tr>
+    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the Axi Ethernet component. </td></tr>
+    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the AXIFIFO component. </td></tr>
+    <tr><td class="paramname">AxiEthernetDeviceId</td><td>is Device ID of the Axi Ethernet Device , typically XPAR_&lt;AXIETHERNET_instance&gt;_DEVICE_ID value from xparameters.h. </td></tr>
+    <tr><td class="paramname">FifoDeviceId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;AXIETHERNET_instance&gt;_VEC_ID value from xparameters.h. </td></tr>
+    <tr><td class="paramname">AxiEthernetIntrId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;AXIETHERNET_instance&gt;_VEC_ID value from xparameters.h. </td></tr>
+    <tr><td class="paramname">FifoIntrId</td><td>is the interrupt id for fifo.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS to indicate success.</li>
+<li>XST_FAILURE.to indicate failure.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>AxiFifo hardware must be initialized before initializing AxiEthernet. Since AxiFifo reset line is connected to the AxiEthernet reset line, a reset of AxiFifo hardware during its initialization would reset AxiEthernet. </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="xaxiethernet__example__intr__fifo_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main()</a>.</p>
+
+</div>
+</div>
+<a id="a7d1ee0d424789072776d5261d4babc09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d1ee0d424789072776d5261d4babc09">&#9670;&nbsp;</a></span>AxiEthernetMultipleFramesIntrExample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AxiEthernetMultipleFramesIntrExample </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
+          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XLlFifo *&#160;</td>
+          <td class="paramname"><em>FifoInstancePtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This example sends and receives a batch of frames. </p>
+<p>Frame reception is handled in this function and not in the callback function.</p>
+<p>Use this method of reception when interrupt latency is important.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
+    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the Fifo component.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS to indicate success.</li>
+<li>XST_FAILURE.to indicate failure.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a91d22adccbd6db21ba46feb01f31c723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91d22adccbd6db21ba46feb01f31c723">&#9670;&nbsp;</a></span>AxiEthernetSingleFrameIntrExample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AxiEthernetSingleFrameIntrExample </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
+          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XLlFifo *&#160;</td>
+          <td class="paramname"><em>FifoInstancePtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function demonstrates the usage of the Axi Ethernet by sending and receiving a single frame in interrupt mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
+    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the Fifo component.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS to indicate success.</li>
+<li>XST_FAILURE.to indicate failure.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a034de95d97295ccf24089f22e85e94bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a034de95d97295ccf24089f22e85e94bb">&#9670;&nbsp;</a></span>AxiEthernetSingleFrameNonContIntrExample()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int AxiEthernetSingleFrameNonContIntrExample </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_axi_ethernet.html">XAxiEthernet</a> *&#160;</td>
+          <td class="paramname"><em>AxiEthernetInstancePtr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">XLlFifo *&#160;</td>
+          <td class="paramname"><em>FifoInstancePtr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This example sends a packet from non-contiguous memory locations. </p>
+<p>The header is stored in one area. The payload data is calculated and written to the packet FIFO one byte at a time.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
+    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the Fifo component.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_SUCCESS to indicate success.</li>
+<li>XST_FAILURE.to indicate failure.</li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 <a id="a840291bc02cba5474a4cb46a9b9566fe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a840291bc02cba5474a4cb46a9b9566fe">&#9670;&nbsp;</a></span>main()</h2>
 
@@ -138,148 +363,8 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-<p>This function demonstrates the usage usage of the Axi Ethernet by sending and receiving frames in interrupt driven fifo mode.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">IntcInstancePtr</td><td>is a pointer to the instance of the Intc component. </td></tr>
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the Axi Ethernet component. </td></tr>
-    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the AXIFIFO component. </td></tr>
-    <tr><td class="paramname">AxiEthernetDeviceId</td><td>is Device ID of the Axi Ethernet Device , typically XPAR_&lt;AXIETHERNET_instance&gt;_DEVICE_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">FifoDeviceId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;AXIETHERNET_instance&gt;_VEC_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">AxiEthernetIntrId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;AXIETHERNET_instance&gt;_VEC_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">FifoIntrId</td><td>is the interrupt id for fifo.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS to indicate success.</li>
-<li>XST_FAILURE.to indicate failure.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>AxiFifo hardware must be initialized before initializing AxiEthernet. Since AxiFifo reset line is connected to the AxiEthernet reset line, a reset of AxiFifo hardware during its initialization would reset AxiEthernet.</dd></dl>
-<p>This function demonstrates the usage of the Axi Ethernet by sending and receiving a single frame in interrupt mode.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the Fifo component.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS to indicate success.</li>
-<li>XST_FAILURE.to indicate failure.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This example sends a packet from non-contiguous memory locations. The header is stored in one area. The payload data is calculated and written to the packet FIFO one byte at a time.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the Fifo component.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS to indicate success.</li>
-<li>XST_FAILURE.to indicate failure.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This example sends and receives a batch of frames. Frame reception is handled in this function and not in the callback function.</p>
-<p>Use this method of reception when interrupt latency is important.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the Fifo component.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>XST_SUCCESS to indicate success.</li>
-<li>XST_FAILURE.to indicate failure.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This is the Receive handler callback function for examples 1 and 2. It will increment a shared counter, receive and validate the frame.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Fifo</td><td>is a reference to the Fifo device instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This is the Error handler callback function and this function increments the the error counter so that the main thread knows the number of errors.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Fifo</td><td>is a reference to the AxiEthernet device instance.</td></tr>
-    <tr><td class="paramname">Pending</td><td>is a bitmask of the pending interrupts.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This is the Fifo handler function and will increment a shared counter that can be tested by the main thread of operation.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Fifo</td><td>is a reference to the Fifo instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This is the Error handler callback function and this function increments the the error counter so that the main thread knows the number of errors.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernet</td><td>is a reference to the AxiEthernet device instance.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This function resets the device but preserves the options set by the user.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the Fifo component.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS to indicate success.<ul>
-<li>XST_FAILURE.to indicate failure.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This function setups the interrupt system so interrupts can occur for the Axi Ethernet. This function is application-specific since the actual system may or may not have an interrupt controller. The Axi Ethernet could be directly connected to a processor without an interrupt controller. The user should modify this function to fit the application.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">IntcInstancePtr</td><td>is a pointer to the instance of the Intc component. </td></tr>
-    <tr><td class="paramname">AxiEthernetInstancePtr</td><td>is a pointer to the instance of the AxiEthernet component. </td></tr>
-    <tr><td class="paramname">FifoInstancePtr</td><td>is a pointer to the instance of the AXIFIFO component. </td></tr>
-    <tr><td class="paramname">AxiEthernetDeviceId</td><td>is Device ID of the Axi Ethernet Device , typically XPAR_&lt;AXIETHERNET_instance&gt;_DEVICE_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">AxiEthernetIntrId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;AXIETHERNET_instance&gt;_VEC_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">FifoIntrId</td><td>is the interrupt id fifo.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>- XST_SUCCESS to indicate success.<ul>
-<li>XST_FAILURE.to indicate failure.</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
-<p>This function disables the interrupts that occur for AxiEthernet.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">IntcInstancePtr</td><td>is a pointer to the instance of the Intc component. </td></tr>
-    <tr><td class="paramname">AxiEthernetIntrId</td><td>is the Interrupt ID and is typically XPAR_&lt;INTC_instance&gt;_&lt;AXIETHERNET_instance&gt;_VEC_ID value from xparameters.h. </td></tr>
-    <tr><td class="paramname">FifoIntrId</td><td>is the interrupt id for fifo.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 
-<p class="reference">References <a class="el" href="xaxiethernet__example_8h.html#ad700d3b9e292277d5437ecc4dc304dc3">AxiEthernetUtilErrorTrap()</a>.</p>
+<p class="reference">References <a class="el" href="xaxiethernet__example__intr__fifo_8c.html#af8ae7cf7dd0a643f3ec50d40f8378667">AxiEthernetFifoIntrExample()</a>, and <a class="el" href="xaxiethernet__example_8h.html#ad700d3b9e292277d5437ecc4dc304dc3">AxiEthernetUtilErrorTrap()</a>.</p>
 
 </div>
 </div>

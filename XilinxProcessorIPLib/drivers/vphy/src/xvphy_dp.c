@@ -49,6 +49,9 @@
  * 1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
  *                     Added XVphy_GtUserRdyEnable for TX and RX in
  *                        XVphy_DpInitialize API
+ * 1.6   gm   30/06/17 Disable intelligent refclk selection for GTHE3 in
+ *                        XVphy_DpInitialize
+ *                     Changed xil_printf new lines to \r\n
  * </pre>
  *
 *******************************************************************************/
@@ -101,6 +104,11 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 
 	/* Suppress Warning Messages */
 	LinkRate = LinkRate;
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
+	u16 DrpVal;
+#endif
+    u32 Status = XST_SUCCESS;
 
 	/* Setup the instance */
 	(void)memset((void *)InstancePtr, 0, sizeof(XVphy));
@@ -212,11 +220,19 @@ u32 XVphy_DpInitialize(XVphy *InstancePtr, XVphy_Config *CfgPtr, u8 QuadId,
 	XVphy_PllInitialize(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CHA,
 			QpllRefClkSel, CpllRefClkSel, TxPllSelect, RxPllSelect);
 
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
+	/* Disable Intelligent Reference Clock Selection */
+	Status = XVphy_DrpRd(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+				0x98, &DrpVal);
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, XVPHY_CHANNEL_ID_CMN,
+				0x98, (DrpVal | 1<<6));
+#endif
+
 	InstancePtr->IsReady = (u32)(XIL_COMPONENT_IS_READY);
 
 	XVphy_LogWrite(InstancePtr, (XVPHY_LOG_EVT_INIT), 1);
 
-	return (XST_SUCCESS);
+	return (Status);
 
 }
 
@@ -265,74 +281,74 @@ void XVphy_DpDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	}
 
 	if (XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId)) {
-		xil_printf("RX => CPLL\n\r");
+		xil_printf("RX => CPLL\r\n");
 	}
 	else if (ChPtr->RxDataRefClkSel ==
 			XVPHY_SYSCLKSELDATA_TYPE_QPLL0_OUTCLK) {
 		UsesQpll0 = (TRUE);
 		CmnId = XVPHY_CHANNEL_ID_CMN0;
-		xil_printf("RX => QPLL0, \n\r");
+		xil_printf("RX => QPLL0, \r\n");
 	}
 	else if (ChPtr->RxDataRefClkSel ==
 			XVPHY_SYSCLKSELDATA_TYPE_QPLL_OUTCLK){
 		UsesQpll0 = (FALSE);
 		CmnId = XVPHY_CHANNEL_ID_CMN;
-		xil_printf("RX => QPLL, \n\r");
+		xil_printf("RX => QPLL, \r\n");
 	}
 	else {
 		UsesQpll0 = (FALSE);
 		CmnId = XVPHY_CHANNEL_ID_CMN1;
-		xil_printf("RX => QPLL1, \n\r");
+		xil_printf("RX => QPLL1, \r\n");
 	}
 
 	xil_printf("RX state: ");
 	switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].RxState) {
 	case (XVPHY_GT_STATE_IDLE):
-		xil_printf("idle\n\r");
+		xil_printf("idle\r\n");
 		break;
 	case (XVPHY_GT_STATE_LOCK):
 		if (XVphy_IsRxUsingCpll(InstancePtr, QuadId, ChId)) {
-			xil_printf("CPLL lock\n\r");
+			xil_printf("CPLL lock\r\n");
 		}
 		else {
-			xil_printf("QPLL%d lock\n\r", (UsesQpll0 ? 0 : 1));
+			xil_printf("QPLL%d lock\r\n", (UsesQpll0 ? 0 : 1));
 		}
 		break;
 	case (XVPHY_GT_STATE_RESET):
-		xil_printf("GT reset\n\r");
+		xil_printf("GT reset\r\n");
 		break;
 	case (XVPHY_GT_STATE_READY):
-		xil_printf("ready\n\r");
+		xil_printf("ready\r\n");
 		break;
 	default:
-		xil_printf("unknown\n\r");
+		xil_printf("unknown\r\n");
 		break;
 	}
 
 	xil_printf("TX state: ");
 	switch (InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)].TxState) {
 	case (XVPHY_GT_STATE_IDLE):
-		xil_printf("idle\n\r");
+		xil_printf("idle\r\n");
 		break;
 	case (XVPHY_GT_STATE_LOCK):
 		if (XVphy_IsTxUsingCpll(InstancePtr, QuadId, ChId)) {
-			xil_printf("CPLL lock\n\r");
+			xil_printf("CPLL lock\r\n");
 		}
 		else {
-			xil_printf("QPLL%d lock\n\r", (UsesQpll0 ? 0 : 1));
+			xil_printf("QPLL%d lock\r\n", (UsesQpll0 ? 0 : 1));
 		}
 		break;
 	case (XVPHY_GT_STATE_RESET):
-		xil_printf("GT reset\n\r");
+		xil_printf("GT reset\r\n");
 		break;
 	case (XVPHY_GT_STATE_ALIGN):
-		xil_printf("align\n\r");
+		xil_printf("align\r\n");
 		break;
 	case (XVPHY_GT_STATE_READY):
-		xil_printf("ready\n\r");
+		xil_printf("ready\r\n");
 		break;
 	default:
-		xil_printf("unknown\n\r");
+		xil_printf("unknown\r\n");
 		break;
 	}
 
@@ -345,26 +361,26 @@ void XVphy_DpDebugInfo(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		QpllDVal = ChPtr->TxOutDiv;
 	}
 
-	xil_printf("\n\r");
-	xil_printf("QPLL settings\n\r");
-	xil_printf("-------------\n\r");
-	xil_printf("M : %d - N : %d - D : %d\n\r",
+	xil_printf("\r\n");
+	xil_printf("QPLL settings\r\n");
+	xil_printf("-------------\r\n");
+	xil_printf("M : %d - N : %d - D : %d\r\n",
 		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
 			PllParams.MRefClkDiv,
 		InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(CmnId)].
 			PllParams.NFbDiv,
 		QpllDVal);
-	xil_printf("\n\r");
+	xil_printf("\r\n");
 
-	xil_printf("CPLL settings\n\r");
-	xil_printf("-------------\n\r");
-	xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\n\r",
+	xil_printf("CPLL settings\r\n");
+	xil_printf("-------------\r\n");
+	xil_printf("M : %d - N1 : %d - N2 : %d - D : %d\r\n",
 			ChPtr->PllParams.MRefClkDiv,
 			ChPtr->PllParams.N1FbDiv,
 			ChPtr->PllParams.N2FbDiv,
 			CpllDVal);
-	xil_printf("\n\r");
+	xil_printf("\r\n");
 
-	print(" \n\r");
+	print(" \r\n");
 }
 #endif

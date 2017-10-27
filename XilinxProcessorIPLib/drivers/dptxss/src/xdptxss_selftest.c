@@ -33,7 +33,7 @@
 /**
 *
 * @file xdptxss_selftest.c
-* @addtogroup dptxss_v4_1
+* @addtogroup dptxss_v5_0
 * @{
 *
 * This file contains self test function for the DisplayPort Transmitter
@@ -46,6 +46,7 @@
 * ---- --- -------- --------------------------------------------------
 * 1.00 sha 01/29/15 Initial release.
 * 2.00 sha 09/28/15 Added HDCP and Timer Counter self test.
+* 4.1  tu  25/06/17 Added return values
 * </pre>
 *
 ******************************************************************************/
@@ -99,6 +100,7 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::DP Self test "
 				"failed\r\n");
+			return XST_FAILURE;
 		}
 	}
 
@@ -108,6 +110,7 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::Dual Splitter "
 				"Self test failed\r\n");
+			return XST_FAILURE;
 		}
 	}
 #endif
@@ -118,6 +121,7 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::HDCP Self test "
 				"failed\r\n");
+			return XST_FAILURE;
 		}
 	}
 	if (InstancePtr->TmrCtrPtr) {
@@ -125,6 +129,7 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 		if (Status != XST_SUCCESS) {
 			xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::Timer Counter "
 				"Self test failed\r\n");
+			return XST_FAILURE;
 		}
 	}
 #endif
@@ -136,6 +141,7 @@ u32 XDpTxSs_SelfTest(XDpTxSs *InstancePtr)
 				xdbg_printf(XDBG_DEBUG_GENERAL,"ERR::VTC%d "
 					"Self test failed\n\r",
 					Index);
+				return XST_FAILURE;
 			}
 		}
 	}

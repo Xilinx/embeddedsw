@@ -43,7 +43,11 @@
 * Ver   Who Date     Changes
 * ----- --- -------- -------------------------------------------------------
 * 1.0   DP  02/15/17 Initial release
-*
+* 2.2   vns 09/18/17 Added APIs to support generic functionality
+*                    for SHA3 and RSA hardware at linux level.
+*                    Removed RSA-SHA2 authentication support
+*                    for loading linux image and dtb from u-boot, as here it
+*                    is using SHA2 hash and single RSA key pair authentication
 * </pre>
 *
 * @note
@@ -56,10 +60,11 @@
 #include "xsecure_aes.h"
 #include "xsecure.h"
 #include "xsecure_rsa.h"
-#include "xsecure_sha2.h"
+#include "xsecure_sha.h"
 
 XSecure_Aes SecureAes;
 XSecure_Rsa Secure_Rsa;
+XSecure_Sha3 Sha3Instance;
 u32 Iv[XSECURE_IV_LEN];
 u32 Key[XSECURE_KEY_LEN];
 
@@ -224,93 +229,6 @@ static u32 XSecure_Decrypt(u32 WrSize, u32 SrcAddrHigh, u32 SrcAddrLow)
 	return Status;
 }
 
-/****************************************************************************/
-/**
-*
-* This function generates RSA hash on data provided by using XilSecure library
-*
-* @return
-*		- XST_FAILURE if the authentication failed.
-*
-* @note		None.
-*
-****************************************************************************/
-static u32 XSecure_RsaHashGn(u8 *Mod, u8 *Exp, u8 *Sig, u8 *RsaHash)
-{
-	u8 RsaSha3Array[XSECURE_FSBL_SIG_SIZE];
-	u32 Status = XST_SUCCESS;
-
-	/*
-	 * Initialize the Rsa driver so that it's ready to use
-	 * Look up the configuration in the config table and then initialize it.
-	 */
-
-	XSecure_RsaInitialize(&Secure_Rsa, Mod, NULL, Exp);
-
-	Status = XSecure_RsaDecrypt(&Secure_Rsa, (u8 *)Sig, RsaSha3Array);
-	if (Status != XST_SUCCESS)
-		goto END;
-
-	memcpy(RsaHash, RsaSha3Array +
-		   XSECURE_ARRAY_LENGTH(RsaSha3Array) - XSECURE_HASH_TYPE_SHA2,
-		   XSECURE_HASH_TYPE_SHA2);
-
-END:
-	return Status;
-}
-
-
-/*****************************************************************************/
-/** This is the function to authenticate an images.
- *
- * @param	WrSize: Number of bytes of the image to be authenticated
- *
- * @param       WrAddrHigh: Higher 32-bit Linear memory space where image
- *              exits
- *
- * @param       WrAddrLow: Lower 32-bit Linear memory space where authenticated
- *              image exists
- *
- * @return	error status based on implemented functionality
- *		(SUCCESS by default).
- *
- *****************************************************************************/
-static u32 XSecure_Auth(u32 WrSize, u32 WrAddrHigh, u32 WrAddrLow) {
-	u32 Status = XST_SUCCESS;
-	u8 Sha2Hash[32];
-	u64 WrAddr;
-	u8 RsaHash[32];
-	u8 *SigAddr;
-	u8 *PubKeyAddr;
-	u32 Offset;
-
-	if (WrSize % XSECURE_WORD_LEN)
-		Offset = (WrSize/XSECURE_WORD_LEN + 1) * XSECURE_WORD_LEN;
-	else
-		Offset = WrSize;
-
-	WrAddr = ((u64)WrAddrHigh << 32) | WrAddrLow;
-	SigAddr = (u8 *)(UINTPTR)(WrAddr +  Offset);
-	PubKeyAddr = (u8 *)(UINTPTR)(WrAddr + Offset + XSECURE_FSBL_SIG_SIZE);
-
-	/* Calculate Hash on the given signature */
-	Status = XSecure_RsaHashGn(PubKeyAddr,
-				   PubKeyAddr + XSECURE_MOD_LEN,
-				   SigAddr, RsaHash);
-
-	if(Status != XST_SUCCESS)
-		goto END;
-
-	sha_256((u8 *)(UINTPTR)WrAddr, WrSize, Sha2Hash);
-
-	/* Compare Sha2 Hash with RSA Hash */
-	if (memcmp(Sha2Hash, RsaHash, XSECURE_ARRAY_LENGTH(RsaHash)))
-		Status = XSECURE_AUTH_FAIL;
-
-END:
-	return Status;
-}
-
 /*****************************************************************************/
 /** This is the function to authenticate or decrypt or both for secure images
   * based on flags
@@ -345,12 +263,122 @@ u32 XSecure_RsaAes(u32 SrcAddrHigh, u32 SrcAddrLow, u32 WrSize, u32 Flags)
 		Status = XSecure_Decrypt(WrSize, SrcAddrHigh, SrcAddrLow);
 		break;
 	case XSECURE_RSA:
-		Status = XSecure_Auth(WrSize, SrcAddrHigh, SrcAddrLow);
-		break;
+
 	case XSECURE_RSA_AES:
+
+	default:
+		Status = XSECURE_INVALID_FLAG;
+	}
+	return Status;
+}
+
+ /****************************************************************************/
+ /**
+ * This function access the xilsecure SHA3 hardware based on the flags provided
+ * to calculate the SHA3 hash.
+ *
+ * @param	SrcAddrHigh  Higher 32-bit of the input or output address.
+ * @param	SrcAddrLow   Lower 32-bit of the input or output address.
+ * @param	SrcSize      Size of the data on which hash should be
+ *		calculated.
+ * @param	Flags: inputs for the operation requested
+ *		BIT(0) - for initializing csudma driver and SHA3,
+ *		(Here address and size inputs can be NULL)
+ *		BIT(1) - To call Sha3_Update API which can be called multiple
+ *		times when data is not contiguous.
+ *		BIT(2) - to get final hash of the whole updated data.
+ *		Hash will be overwritten at provided address with 48 bytes.
+ *
+ * @return	Returns Status XST_SUCCESS on success and error code on failure.
+ *
+ *****************************************************************************/
+u32 XSecure_Sha3Hash(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize, u32 Flags)
+{
+	u32 Status = XST_SUCCESS;
+	u64 SrcAddr = ((u64)SrcAddrHigh << 32) | SrcAddrLow;
+
+	switch (Flags & XSECURE_SHA3_MASK) {
+	case XSECURE_SHA3_INIT:
+		Status = XSecure_CsuDmaInit();
+		if (Status != XST_SUCCESS) {
+			return XSECURE_ERROR_CSUDMA_INIT_FAIL;
+		}
+
+		Status = XSecure_Sha3Initialize(&Sha3Instance, &CsuDma);
+		if (Status != XST_SUCCESS) {
+			return XSECURE_SHA3_INIT_FAIL;
+		}
+		XSecure_Sha3Start(&Sha3Instance);
+		break;
+	case XSECURE_SHA3_UPDATE:
+		if (SrcSize % 4 != 0x00) {
+			return XSECURE_SIZE_ERR;
+		}
+		XSecure_Sha3Update(&Sha3Instance, (u8 *)(UINTPTR)SrcAddr,
+						SrcSize);
+		break;
+	case XSECURE_SHA3_FINAL:
+		XSecure_Sha3Finish(&Sha3Instance, (u8 *)(UINTPTR)SrcAddr);
 		break;
 	default:
 		Status = XSECURE_INVALID_FLAG;
 	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This is the function to RSA decrypt or encrypt the provided data and load back
+ * to memory
+ *
+ * @param	SrcAddrHigh	Higher 32-bit Linear memory space from where
+ *		CSUDMA will read the data
+ * @param	SrcAddrLow	Lower 32-bit Linear memory space from where
+ *		CSUDMA will read the data
+ * @param	WrSize	Number of bytes to be encrypted or decrypted.
+ * @param	Flags:
+ *		BIT(0) - Encryption/Decryption
+ *			 0 - Rsa Private key Decryption
+ *			 1 - Rsa Public key Encryption
+ *
+ * @return	Returns Status XST_SUCCESS on success and error code on failure.
+ *
+ * @note	Data to be encrypted/Decrypted + Modulus + Exponent
+ *		Modulus and Data should always be key size
+ *		Exponent : private key's exponent is key size while decrypting
+ *		the signature and 32 bit for public key for encrypting the
+ *		signature
+ *		In this API we are not taking exponentiation value.
+ *
+ *****************************************************************************/
+u32 XSecure_RsaCore(u32 SrcAddrHigh, u32 SrcAddrLow, u32 SrcSize,
+				u32 Flags)
+{
+	u32 Status = XST_SUCCESS;
+	u64 WrAddr = ((u64)SrcAddrHigh << 32) | SrcAddrLow;
+	u8 *Modulus = (u8 *)(UINTPTR)(WrAddr + SrcSize);
+	u8 *Exponent = (u8 *)(UINTPTR)(WrAddr + SrcSize
+						+ SrcSize);
+
+	Status = XSecure_RsaInitialize(&Secure_Rsa, Modulus, NULL, Exponent);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+	switch (Flags & XSECURE_RSA_OPERATION) {
+	case XSECURE_DEC:
+		Status = XSecure_RsaPrivateDecrypt(&Secure_Rsa,
+			(u8 *)(UINTPTR)WrAddr, SrcSize,(u8 *)(UINTPTR)WrAddr);
+		break;
+	case XSECURE_ENC:
+		Status = XSecure_RsaPublicEncrypt(&Secure_Rsa,
+			(u8 *)(UINTPTR)WrAddr, SrcSize,(u8 *)(UINTPTR)WrAddr);
+		break;
+	default:
+		Status = XSECURE_INVALID_FLAG;
+		break;
+	}
+
+END:
 	return Status;
 }

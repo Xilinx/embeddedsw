@@ -42,6 +42,7 @@
 * ----- ------- -------- ---------------------------------------------------
 * 5.2	pkp  	28/05/15 First release
 * 6.0   mus     27/07/16 Added Undefined exception handler
+* 6.4   mus     25/07/17 Added support for hard floating point
 * </pre>
 *
 * @note
@@ -81,8 +82,20 @@ _vector_table:
 IRQHandler:					/* IRQ vector handler */
 
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code*/
+	vpush {d0-d7}
+	vpush {d16-d31}
+	vmrs r1, FPSCR
+	push {r1}
+	vmrs r1, FPEXC
+	push {r1}
 
 	bl	IRQInterrupt			/* IRQ vector */
+	pop 	{r1}
+	vmsr    FPEXC, r1
+	pop 	{r1}
+	vmsr    FPSCR, r1
+	vpop    {d16-d31}
+	vpop    {d0-d7}
 
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 
@@ -93,11 +106,21 @@ IRQHandler:					/* IRQ vector handler */
 FIQHandler:					/* FIQ vector handler */
 	stmdb	sp!,{r0-r3,r12,lr}		/* state save from compiled code */
 
-
+        vpush {d0-d7}
+	vpush {d16-d31}
+	vmrs r1, FPSCR
+	push {r1}
+	vmrs r1, FPEXC
+	push {r1}
 FIQLoop:
 	bl	FIQInterrupt			/* FIQ vector */
 
-
+        pop 	{r1}
+	vmsr    FPEXC, r1
+	pop 	{r1}
+	vmsr    FPSCR, r1
+	vpop    {d16-d31}
+	vpop    {d0-d7}
 	ldmia	sp!,{r0-r3,r12,lr}		/* state restore from compiled code */
 	subs	pc, lr, #4			/* adjust return */
 

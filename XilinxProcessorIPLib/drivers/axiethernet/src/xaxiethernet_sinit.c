@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@
 /**
 *
 * @file xaxiethernet_sinit.c
-* @addtogroup axiethernet_v5_0
+* @addtogroup axiethernet_v5_6
 * @{
 *
 * This file contains static initialzation functionality for Axi Ethernet driver.
@@ -42,7 +42,8 @@
 *
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
-* 1.00a asa  6/30/10 First release
+* 1.00a asa  6/30/10  First release
+* 5.6   ms   08/07/17 Fixed compilation warning.
 * </pre>
 *
 ******************************************************************************/
@@ -84,9 +85,9 @@ XAxiEthernet_Config *XAxiEthernet_LookupConfig(u16 DeviceId)
 {
 	extern XAxiEthernet_Config XAxiEthernet_ConfigTable[];
 	XAxiEthernet_Config *CfgPtr = NULL;
-	int Index;
+	u32 Index;
 
-	for (Index = 0; Index < XPAR_XAXIETHERNET_NUM_INSTANCES; Index++) {
+	for (Index = 0U; Index < XPAR_XAXIETHERNET_NUM_INSTANCES; Index++) {
 		if (XAxiEthernet_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XAxiEthernet_ConfigTable[Index];
 			break;

@@ -32,7 +32,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xtrafgen_sinit.c
+* @file xllfifo_sinit.c
 * @addtogroup llfifo_v5_0
 * @{
 *

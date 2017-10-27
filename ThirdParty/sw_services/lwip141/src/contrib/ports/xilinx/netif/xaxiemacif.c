@@ -31,7 +31,7 @@
  */
 
 /*
- * Copyright (c) 2013 Xilinx, Inc.  All rights reserved.
+ * Copyright (c) 2013-2017 Xilinx, Inc.  All rights reserved.
  *
  * Xilinx, Inc.
  * XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A
@@ -290,7 +290,7 @@ int xaxiemacif_input(struct netif *netif)
 
 static err_t low_level_init(struct netif *netif)
 {
-	unsigned mac_address = (unsigned)(netif->state);
+	unsigned mac_address = (unsigned)(UINTPTR)(netif->state);
 	struct xemac_s *xemac;
 	xaxiemacif_s *xaxiemacif;
 	XAxiEthernet_Config *mac_config;
@@ -339,7 +339,7 @@ static err_t low_level_init(struct netif *netif)
 #endif
 
 	/* obtain config of this emac */
-	mac_config = xaxiemac_lookup_config((unsigned)netif->state);
+	mac_config = xaxiemac_lookup_config((unsigned)(UINTPTR)netif->state);
 
 	XAxiEthernet_CfgInitialize(&xaxiemacif->axi_ethernet,
 		mac_config, mac_config->BaseAddress);

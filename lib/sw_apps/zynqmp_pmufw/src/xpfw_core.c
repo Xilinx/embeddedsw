@@ -35,6 +35,7 @@
 #include "xpfw_events.h"
 #include "xpfw_interrupts.h"
 #include "xpfw_ipi_manager.h"
+#include "pmu_lmb_bram.h"
 
 #define CORE_IS_READY	((u32)0x5AFEC0DEU)
 #define CORE_IS_DEAD	((u32)0xDEADBEAFU)
@@ -102,6 +103,11 @@ XStatus XPfw_CoreConfigure(void)
 		/* FIXME: Clear IPI0 status and Enable IPI0 for PM-> Do it elsewhere */
 		XPfw_Write32(IPI_PMU_0_ISR, MASK32_ALL_HIGH);
 		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_IPI0_MASK);
+		/* Clear PMU LMB BRAM ECC status and Enable this interrupt */
+		XPfw_Write32(PMU_LMB_BRAM_ECC_STATUS_REG, PMU_LMB_BRAM_CE_MASK);
+		XPfw_Write32(PMU_LMB_BRAM_ECC_IRQ_EN_REG, PMU_LMB_BRAM_CE_MASK);
+		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_CORRECTABLE_ECC_MASK);
+
 		XPfw_InterruptStart();
 		/* Set the FW_IS_PRESENT bit to flag that PMUFW is up and ready */
 		XPfw_RMW32(PMU_GLOBAL_GLOBAL_CNTRL, PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,
@@ -132,7 +138,8 @@ XStatus XPfw_CoreDispatchEvent(u32 EventId)
 			}
 		}
 	}
-	/* fw_printf("%s: Event(%d) dispatched to  %d Mods\r\n", __func__, EventId,CallCount); */
+	/* XPfw_Printf(DEBUG_INFO,"%s: Event(%d) dispatched to  %d Mods\r\n",
+	 * __func__, EventId,CallCount); */
 	if (CallCount > 0U) {
 		Status = XST_SUCCESS;
 	} else {
@@ -160,7 +167,7 @@ XStatus XPfw_CoreDispatchIpi(u32 IpiNum, u32 SrcMask)
 	}
 
 	/* For each of the IPI sources */
-	for (MaskIndex = 0; MaskIndex < XPFW_IPI_MASK_COUNT; MaskIndex++) {
+	for (MaskIndex = 0U; MaskIndex < XPFW_IPI_MASK_COUNT; MaskIndex++) {
 		/* Check if the Mask is set */
 		if ((SrcMask & IpiMaskList[MaskIndex]) != 0U) {
 			/* If set, read the message into buffer */
@@ -247,7 +254,7 @@ void XPfw_CoreTickHandler(void)
 		XPfw_SchedulerTickHandler(&CorePtr->Scheduler);
 	}
 	else {
-		fw_printf("ERROR: NULL pointer to Core\r\n");
+		XPfw_Printf(DEBUG_ERROR,"ERROR: NULL pointer to Core\r\n");
 	}
 }
 
@@ -275,8 +282,12 @@ XStatus XPfw_CoreLoop(void)
 	{
 
 		#ifdef ENABLE_SCHEDULER
-		XPfw_SchedulerStart(&CorePtr->Scheduler);
-		XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_PIT1_MASK);
+		if(XPfw_SchedulerStart(&CorePtr->Scheduler) != XST_SUCCESS) {
+			XPfw_Printf(DEBUG_DETAILED,"Warning: Scheduler has failed to"
+					"Start\r\n");
+		} else {
+			XPfw_InterruptEnable(PMU_IOMODULE_IRQ_ENABLE_PIT1_MASK);
+		}
 		#endif
 		do {
 
@@ -302,11 +313,16 @@ XStatus XPfw_CoreLoop(void)
 void XPfw_CorePrintStats(void)
 {
 	if(CorePtr != NULL) {
-	fw_printf("######################################################\r\n");
-	fw_printf("Module Count: %d (%d)\r\n", CorePtr->ModCount, XPFW_MAX_MOD_COUNT);
-	fw_printf("Scheduler State: %s\r\n",((CorePtr->Scheduler.Enabled == TRUE)?"ENABLED":"DISABLED"));
-	fw_printf("Scheduler Ticks: %lu\r\n",CorePtr->Scheduler.Tick);
-	fw_printf("######################################################\r\n");
+	XPfw_Printf(DEBUG_DETAILED,
+			"######################################################\r\n");
+	XPfw_Printf(DEBUG_DETAILED,"Module Count: %d (%d)\r\n", CorePtr->ModCount,
+			XPFW_MAX_MOD_COUNT);
+	XPfw_Printf(DEBUG_DETAILED,"Scheduler State: %s\r\n",
+			((CorePtr->Scheduler.Enabled == TRUE)?"ENABLED":"DISABLED"));
+	XPfw_Printf(DEBUG_DETAILED,"Scheduler Ticks: %lu\r\n",
+			CorePtr->Scheduler.Tick);
+	XPfw_Printf(DEBUG_DETAILED,
+			"######################################################\r\n");
 	}
 }
 

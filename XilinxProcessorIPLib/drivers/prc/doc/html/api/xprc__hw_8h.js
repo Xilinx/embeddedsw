@@ -61,6 +61,8 @@ var xprc__hw_8h =
     [ "XPRC_SR_BSID_MASK", "group__prc__v1__0.html#gaa9be77881baa159d3f66aca2898a5729", null ],
     [ "XPRC_SR_BSID_SHIFT", "group__prc__v1__0.html#gae45613698a185e54c64e1babeba04d67", null ],
     [ "XPRC_SR_CP_LOST_ERROR", "group__prc__v1__0.html#ga61ab77165481452fd3c22c67d10c3f9c", null ],
+    [ "XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR", "group__prc__v1__0.html#ga8bb61959aa8058774d273c8a132ad44c", null ],
+    [ "XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR", "group__prc__v1__0.html#gaf1a3e3c77b8f7a2032a7c8640930b7d6", null ],
     [ "XPRC_SR_ERROR_MASK", "group__prc__v1__0.html#gac0ac35cdf070fe4cd3d747c491b2aade", null ],
     [ "XPRC_SR_ERROR_SHIFT", "group__prc__v1__0.html#gacfe42de58c5a70adb12d6ccbc965faad", null ],
     [ "XPRC_SR_FETCH_AND_BS_ERROR", "group__prc__v1__0.html#ga22259372b76c1074f864c02d4a8e2e65", null ],

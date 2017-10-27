@@ -32,6 +32,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#define MAIN_THREAD_STACK_SZ 512
+
 static void run_tests(void *param)
 {
 	(void)param;
@@ -44,9 +46,10 @@ int main(void)
 {
 	BaseType_t stat;
 
-	stat = xTaskCreate(run_tests, "run_tests", 256, NULL, 2, NULL);
+	stat = xTaskCreate(run_tests, "run_tests", MAIN_THREAD_STACK_SZ,
+			   NULL, 2, NULL);
 	if (stat != pdPASS) {
-		metal_log(LOG_ERROR, "failed to create run_tests thread\n");
+		metal_log(METAL_LOG_ERROR, "failed to create run_tests thread\n");
 	} else {
 		/* Start running FreeRTOS tasks */
 		vTaskStartScheduler();

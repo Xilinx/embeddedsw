@@ -67,7 +67,7 @@ LSCRIPT := -Tlscript_a53.ld
 endif
 ifeq "${A53_STATE}" "32"
 CC := arm-none-eabi-gcc
-CC_FLAGS := -MMD -MP -Wall -fmessage-length=0 -march=armv7-a -DARMA53_32 -Wall -Wextra -Os -flto -ffat-lto-objects
+CC_FLAGS := -MMD -MP -Wall -fmessage-length=0 -march=armv7-a -DARMA53_32 -mfpu=vfpv3 -mfloat-abi=hard -g -Wall -Wextra -Os -flto -ffat-lto-objects
 #linker script for a53_32 and r5 is same.
 LSCRIPT := -Tlscript.ld
 endif

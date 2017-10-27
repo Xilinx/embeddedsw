@@ -81,6 +81,8 @@
 *                       generation.
 *       ms     04/10/17 Modified filename tag in examples to include them in
 *                        doxygen.
+* 1.4   YH     07/07/17 Add new log type XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR
+*       MH     09/08/17 Add function XV_HdmiRxSs_HdcpSetCapability
 * </pre>
 *
 ******************************************************************************/
@@ -120,6 +122,10 @@ extern "C" {
 * @{
 */
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 #ifdef XV_HDMIRXSS_LOG_ENABLE
 typedef enum {
 	XV_HDMIRXSS_LOG_EVT_NONE = 1,		/**< Log event none. */
@@ -138,6 +144,7 @@ typedef enum {
 	XV_HDMIRXSS_LOG_EVT_STREAMDOWN,	    /**< Log event Stream Down. */
 	XV_HDMIRXSS_LOG_EVT_STREAMINIT,	    /**< Log event Stream Init. */
 	XV_HDMIRXSS_LOG_EVT_SETSTREAM,      /**< Log event HDMIRXSS Setstream. */
+	XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR,  /**< Log event HDMIRXSS Setstream Err. */
 	XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE, /**< Log event TMDS Ref clock change. */
 	XV_HDMIRXSS_LOG_EVT_HDCP14,             /**< Log event Enable HDCP 1.4. */
 	XV_HDMIRXSS_LOG_EVT_HDCP22,             /**< Log event Enable HDCP 2.2. */
@@ -225,7 +232,8 @@ typedef enum
 {
   XV_HDMIRXSS_HDCP_NONE,       /**< No content protection */
   XV_HDMIRXSS_HDCP_14,         /**< HDCP 1.4 */
-  XV_HDMIRXSS_HDCP_22          /**< HDCP 2.2 */
+  XV_HDMIRXSS_HDCP_22,         /**< HDCP 2.2 */
+  XV_HDMIRXSS_HDCP_BOTH        /**< Both HDCP 1.4 and 2.2 */
 } XV_HdmiRxSs_HdcpProtocol;
 
 /**
@@ -381,7 +389,7 @@ typedef struct
                                            used by the custom user
                                            delay/sleep function. */
 
-  XV_HdmiRxSs_HdcpProtocol      HdcpProtocol;        /**< HDCP protect scheme */
+  XV_HdmiRxSs_HdcpProtocol      HdcpProtocol;   /**< HDCP protocol selected */
 #ifdef USE_HDCP_RX
   /**< HDCP specific */
   u32                           HdcpIsReady;    /**< HDCP ready flag */
@@ -457,6 +465,7 @@ int XV_HdmiRxSs_HdcpClearEvents(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_HdcpPushEvent(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpEvent Event);
 int XV_HdmiRxSs_HdcpPoll(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_HdcpSetProtocol(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtocol Protocol);
+int XV_HdmiRxSs_HdcpSetCapability(XV_HdmiRxSs *InstancePtr, XV_HdmiRxSs_HdcpProtocol Protocol);
 XV_HdmiRxSs_HdcpProtocol XV_HdmiRxSs_HdcpGetProtocol(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_HdcpIsEnabled(XV_HdmiRxSs *InstancePtr);
 int XV_HdmiRxSs_HdcpIsAuthenticated(XV_HdmiRxSs *InstancePtr);

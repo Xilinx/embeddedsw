@@ -46,7 +46,6 @@
 *	To be supported features:
 * 		Partial Bit-stream loading.
 *		Encrypted Bit-stream loading.
-*		Authenticated Bit stream loading.
 *
 * Xilfpga_PL library Interface modules:
 *	Xilfpga_PL library uses the below major components to configure the PL through PS.
@@ -90,6 +89,13 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   Nava   08/06/16 Initial release
+* 1.1   Nava  16/11/16 Added PL power-up sequence.
+* 2.0   Nava  10/1/17  Added Encrypted bitstream loading support.
+* 2.0   Nava  16/02/17 Added Authenticated bitstream loading support.
+* 2.1   Nava  06/05/17 Correct the check logic issues in
+*                      XFpga_PL_BitStream_Load()
+*                      to avoid the unwanted blocking conditions.
+* 3.0   Nava  12/05/17 Added PL configuration registers readback support.
 *
 * </pre>
 *
@@ -113,6 +119,7 @@
 /* Dummy address to indicate that destination is PCAP */
 #define XFPGA_DESTINATION_PCAP_ADDR    (0XFFFFFFFFU)
 #define XFPGA_CSU_SSS_SRC_SRC_DMA    0x5U
+#define XFPGA_CSU_SSS_SRC_DST_DMA	0x30U
 
 /**
  * CSU Base Address
@@ -172,72 +179,6 @@
 #define PCAP_CLK_CTRL		0xFF5E00A4
 #define PCAP_CLK_EN_MASK	0x01000000
 
-/* Register: ADMA_CLK_CTRL Address */
-#define ADMA_CLK_CTRL		0xFF5E00B8
-#define ADMA_CLK_EN_MASK	0X01000000
-
-/* Register: ADMA_CH0 Base Address */
-#define ADMA_CH0_BASEADDR      0XFFA80000U
-
-/* Register: ADMA_CH0_ZDMA_CH_STATUS */
-#define ADMA_CH0_ZDMA_CH_STATUS    ( ( ADMA_CH0_BASEADDR ) + 0X0000011CU )
-#define ADMA_CH0_ZDMA_CH_STATUS_STATE_MASK    0X00000003U
-#define ADMA_CH0_ZDMA_CH_STATUS_STATE_DONE    0X00000000U
-#define ADMA_CH0_ZDMA_CH_STATUS_STATE_ERR     0X00000003U
-
-/* Register: ADMA_CH0_ZDMA_CH_CTRL0 */
-#define ADMA_CH0_ZDMA_CH_CTRL0    ( ( ADMA_CH0_BASEADDR ) + 0X00000110U )
-#define ADMA_CH0_ZDMA_CH_CTRL0_POINT_TYPE_MASK    (u32)0X00000040U
-#define ADMA_CH0_ZDMA_CH_CTRL0_POINT_TYPE_NORMAL  (u32)0X00000000U
-#define ADMA_CH0_ZDMA_CH_CTRL0_MODE_MASK    (u32)0X00000030U
-#define ADMA_CH0_ZDMA_CH_CTRL0_MODE_WR_ONLY (u32)0X00000010U
-
-/* Register: ADMA_CH0_ZDMA_CH_WR_ONLY_WORD0 */
-#define ADMA_CH0_ZDMA_CH_WR_ONLY_WORD0    ( ( ADMA_CH0_BASEADDR ) + 0X00000148U )
-
-/* Register: ADMA_CH0_ZDMA_CH_WR_ONLY_WORD1 */
-#define ADMA_CH0_ZDMA_CH_WR_ONLY_WORD1    ( ( ADMA_CH0_BASEADDR ) + 0X0000014CU )
-
-/* Register: ADMA_CH0_ZDMA_CH_WR_ONLY_WORD2 */
-#define ADMA_CH0_ZDMA_CH_WR_ONLY_WORD2    ( ( ADMA_CH0_BASEADDR ) + 0X00000150U )
-
-/* Register: ADMA_CH0_ZDMA_CH_WR_ONLY_WORD3 */
-#define ADMA_CH0_ZDMA_CH_WR_ONLY_WORD3    ( ( ADMA_CH0_BASEADDR ) + 0X00000154U )
-
-/* Register: ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0 */
-#define ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0    ( ( ADMA_CH0_BASEADDR ) + 0X00000138U )
-#define ADMA_CH0_ZDMA_CH_DST_DSCR_WORD0_LSB_MASK    0XFFFFFFFFU
-
-/* Register: ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1 */
-#define ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1    ( ( ADMA_CH0_BASEADDR ) + 0X0000013CU )
-#define ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1_MSB_MASK    0X0001FFFFU
-
-/* Register: ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2 */
-#define ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2    ( ( ADMA_CH0_BASEADDR ) + 0X00000130U )
-
-/* Register: ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2 */
-#define ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2    ( ( ADMA_CH0_BASEADDR ) + 0X00000140U )
-
-/* Register: ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD1 */
-#define ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD1    ( ( ADMA_CH0_BASEADDR ) + 0X0000012CU )
-
-/* Register: ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD0 */
-#define ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD0    ( ( ADMA_CH0_BASEADDR ) + 0X00000128U )
-
-/* Register: ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD3 */
-#define ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD3    ( ( ADMA_CH0_BASEADDR ) + 0X00000134U )
-
-/* Register: ADMA_CH0_ZDMA_CH_DST_DSCR_WORD3 */
-#define ADMA_CH0_ZDMA_CH_DST_DSCR_WORD3    ( ( ADMA_CH0_BASEADDR ) + 0X00000144U )
-
-/* Register: ADMA_CH0_ZDMA_CH_CTRL2 */
-#define ADMA_CH0_ZDMA_CH_CTRL2    ( ( ADMA_CH0_BASEADDR ) + 0X00000200U )
-#define ADMA_CH0_ZDMA_CH_CTRL2_EN_MASK    0X00000001U
-
-/* Register: ADMA_CH0_ZDMA_CH_ISR */
-#define ADMA_CH0_ZDMA_CH_ISR    ( ( ADMA_CH0_BASEADDR ) + 0X00000100U )
-#define ADMA_CH0_ZDMA_CH_ISR_DMA_DONE_MASK    0X00000400U
-
 #define XFPGA_SUCCESS				(0x0U)
 #define XFPGA_ERROR_CSUDMA_INIT_FAIL		(0x1U)
 #define XFPGA_ERROR_BITSTREAM_LOAD_FAIL		(0x2U)
@@ -245,8 +186,6 @@
 #define XFPGA_ERROR_PL_ISOLATION		(0x4U)
 #define XFPGA_PARAMETER_NULL_ERROR		(0x5U)
 #define XFPGA_STRING_INVALID_ERROR		(0x6U)
-#define XFPGA_RSA_DECRYPTION_FAIL		(0x7U)
-#define XFPGA_SHA2_HASH_FAIL			(0x8U)
 #define XFPGA_FAILURE					(0x9U)
 
 /**************************** Type Definitions *******************************/
@@ -256,6 +195,7 @@
 u32 XFpga_PL_BitSream_Load (u32 WrAddrHigh, u32 WrAddrLow,
 				u32 WrSize, u32 flags);
 u32 XFpga_PcapStatus(void);
+u32 Xfpga_GetConfigReg(u32 ConfigReg, u32 *RegData);
 /************************** Variable Definitions *****************************/
 
 extern XCsuDma CsuDma;  /* CSU DMA instance */

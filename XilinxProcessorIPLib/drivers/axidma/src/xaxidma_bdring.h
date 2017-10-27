@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma_bdring.h
-* @addtogroup axidma_v9_0
+* @addtogroup axidma_v9_4
 * @{
 *
 * This file contains DMA channel related structure and constant definition
@@ -84,8 +84,7 @@ extern "C" {
 
 #include "xstatus.h"
 #include "xaxidma_bd.h"
-
-
+#include <stdlib.h>
 
 /************************** Constant Definitions *****************************/
 /* State of a DMA channel
@@ -127,12 +126,14 @@ typedef struct {
 	XAxiDma_Bd *HwTail;	/**< Last BD in the work group */
 	XAxiDma_Bd *PostHead;	/**< First BD in the post-work group */
 	XAxiDma_Bd *BdaRestart;	/**< BD to load when channel is started */
+	XAxiDma_Bd *CyclicBd;	/**< Useful for Cyclic DMA operations */
 	int FreeCnt;		/**< Number of allocatable BDs in free group */
 	int PreCnt;		/**< Number of BDs in pre-work group */
 	int HwCnt;		/**< Number of BDs in work group */
 	int PostCnt;		/**< Number of BDs in post-work group */
 	int AllCnt;		/**< Total Number of BDs for channel */
 	int RingIndex;		/**< Ring Index */
+	int Cyclic;		/**< Check for cyclic DMA Mode */
 } XAxiDma_BdRing;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -489,6 +490,23 @@ typedef struct {
 #define XAxiDma_BdRingAckIrq(RingPtr, Mask)				\
 		XAxiDma_WriteReg((RingPtr)->ChanBase, XAXIDMA_SR_OFFSET,\
 			(Mask) & XAXIDMA_IRQ_ALL_MASK)
+
+/****************************************************************************/
+/**
+* Enable Cyclic DMA Mode.
+*
+* @param	RingPtr is the channel instance to operate on.
+*
+* @note
+*		C-style signature:
+*		void XAxiDma_BdRingEnableCyclicDMA(XAxiDma_BdRing* RingPtr)
+*		This function is used only when system is configured as SG mode
+*
+*****************************************************************************/
+#define XAxiDma_BdRingEnableCyclicDMA(RingPtr)			\
+		(RingPtr->Cyclic = 1)
+
+/****************************************************************************/
 
 /************************* Function Prototypes ******************************/
 

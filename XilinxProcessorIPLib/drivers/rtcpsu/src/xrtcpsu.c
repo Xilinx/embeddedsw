@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2015 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,8 @@
 * 1.2          02/15/16 Corrected Calibration mask and Fractional
 *                       mask in CalculateCalibration API.
 * 1.3   vak    04/25/16 Corrected the RTC read and write time logic(cr#948833).
+* 1.5   ms     08/27/17 Fixed compilation warnings.
+*       ms     08/29/17 Updated code as per source code style.
 * </pre>
 *
 ******************************************************************************/
@@ -218,7 +220,9 @@ void XRtcPsu_SetTime(XRtcPsu *InstancePtr,u32 Time)
 *****************************************************************************/
 u32 XRtcPsu_GetCurrentTime(XRtcPsu *InstancePtr)
 {
-	u32 Status, IntMask, CurrTime;
+	u32 Status;
+	u32 IntMask;
+	u32 CurrTime;
 
 	IntMask = XRtcPsu_ReadReg(InstancePtr->RtcConfig.BaseAddr + XRTC_INT_MSK_OFFSET);
 
@@ -294,9 +298,9 @@ void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
 * format and saves it in the DT structure variable. It also reports the weekday.
 *
 * @param	Seconds is the time value that has to be shown in DateTime
-* 			format.
+* 		format.
 * @param	dt is the DateTime format variable that stores the translated
-* 			time.
+* 		time.
 *
 * @return	None.
 *
@@ -305,7 +309,10 @@ void XRtcPsu_SetAlarm(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)
 *****************************************************************************/
 void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 {
-	u32 CurrentTime, TempDays, Leap, DaysPerMonth;
+	u32 CurrentTime;
+	u32 TempDays;
+	u32 DaysPerMonth;
+	u32 Leap = 0U;
 
 	CurrentTime = Seconds;
 	dt->Sec = CurrentTime % 60U;
@@ -364,7 +371,8 @@ void XRtcPsu_SecToDateTime(u32 Seconds, XRtcPsu_DT *dt)
 *****************************************************************************/
 u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 {
-	u32 i, Days;
+	u32 i;
+	u32 Days;
 	u32 Seconds;
 	Xil_AssertNonvoid(dt != NULL);
 
@@ -414,8 +422,13 @@ u32 XRtcPsu_DateTimeToSec(XRtcPsu_DT *dt)
 void XRtcPsu_CalculateCalibration(XRtcPsu *InstancePtr,u32 TimeReal,
 		u32 CrystalOscFreq)
 {
-	u32 ReadTime, SetTime;
-	u32 Cprev,Fprev,Cnew,Fnew,Calibration;
+	u32 ReadTime;
+	u32 SetTime;
+	u32 Cprev;
+	u32 Fprev;
+	u32 Cnew;
+	u32 Fnew;
+	u32 Calibration;
 	float Xf;
 	Xil_AssertVoid(TimeReal != 0U);
 	Xil_AssertVoid(CrystalOscFreq != 0U);

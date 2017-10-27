@@ -38,6 +38,7 @@
 #include "xpfw_config.h"
 #include "xpfw_codes.h"
 #include "xpfw_util.h"
+#include "xpfw_debug.h"
 
 /* BSP Headers */
 #include "xil_io.h"
@@ -97,16 +98,5 @@ struct HandlerTable{
 	u32 Mask;
 	VoidFunction_t Handler;
 };
-
-
-
-#ifdef DEBUG_MODE
-#define fw_printf xil_printf
-#define fw_print print
-#else
-#define fw_printf(MSG, ...)  {}
-#define fw_print(MSG)  {}
-#endif
-
 
 #endif /* XPFW_DEFAULT_H_ */

@@ -46,12 +46,27 @@ proc is_rpu_lockstep {} {
 	return $ret_val
 }
 
+proc is_ipi_defined { master } {
+	#Get the slave list for this master
+	set slave_list [get_mem_ranges -of_objects [get_cells $master]];
+	#Find the first IPI slave in the list
+	set ipi [lsearch -inline $slave_list psu_ipi_*];
+	if { $ipi != "" } {
+		set ret_val 1
+	} else {
+		set ret_val 0
+	}
+	return $ret_val
+}
+
 global master_list
 
-if {[is_rpu_lockstep]} {
-	set master_list {psu_cortexa53_0 psu_cortexr5_0}
-} else {
-	set master_list {psu_cortexa53_0 psu_cortexr5_0  psu_cortexr5_1}
+set master_temp_list {psu_cortexa53_0 psu_cortexr5_0  psu_cortexr5_1}
+
+foreach master $pmufw::master_temp_list {
+	if {[is_ipi_defined $master]} {
+		append master_list "$master "
+	}
 }
 
 #=============================================================================#
@@ -342,6 +357,7 @@ dict set node_map NODE_GPU { label NODE_GPU periph psu_gpu type slave }
 dict set node_map NODE_PCIE { label NODE_PCIE periph psu_pcie type slave }
 dict set node_map NODE_PCAP { label NODE_PCAP periph NA type slave }
 dict set node_map NODE_RTC { label NODE_RTC periph psu_rtc type slave }
+dict set node_map NODE_VCU { label NODE_VCU periph vcu_0 type slave }
 dict set node_map NODE_PL { label NODE_PL periph NA type others }
 
 
@@ -423,7 +439,7 @@ proc get_slave_section { } {
 					set ipi_perm [get_ipi_mask_txt psu_cortexr5_0]
 				}
 				"NODE_IPI_RPU_1" {
-					if { [is_rpu_lockstep]} {
+					if { ![is_ipi_defined psu_cortexr5_1] } {
 						set ipi_perm ""
 					} else {
 						set ipi_perm [get_ipi_mask_txt psu_cortexr5_1]
@@ -477,11 +493,9 @@ proc get_master_section { } {
 	#We cover only APU and RPU masters
 
 	append master_text "\tPM_CONFIG_MASTER_SECTION_ID, /* Master SectionID */" "\n"
-	if { [is_rpu_lockstep] } {
-		append master_text "\t2U, /* No. of Masters*/" "\n"
-	} else {
-		append master_text "\t3U, /* No. of Masters*/" "\n"
-	}
+
+	set master_count [llength $pmufw::master_list]
+	append master_text "\t$master_count" "U, /* No. of Masters*/" "\n"
 	append master_text "\n"
 
 	# Define APU
@@ -491,7 +505,7 @@ proc get_master_section { } {
 	append master_text "\t[get_ipi_mask_txt psu_cortexr5_0], /* Suspend permissions */" "\n"
 	append master_text "\t[get_ipi_mask_txt psu_cortexr5_0], /* Wake permissions */" "\n"
 	append master_text "\n"
-	if { [is_rpu_lockstep] } {
+	if { [is_ipi_defined psu_cortexr5_0] } {
 		# Define R5_0
 		append master_text "\tNODE_RPU, /* Master Node ID */" "\n"
 		append master_text "\t[get_ipi_mask_txt psu_cortexr5_0], /* IPI Mask of this master */" "\n"
@@ -499,14 +513,8 @@ proc get_master_section { } {
 		append master_text "\t[get_ipi_mask_txt psu_cortexa53_0], /* Suspend permissions */" "\n"
 		append master_text "\t[get_ipi_mask_txt psu_cortexa53_0], /* Wake permissions */" "\n"
 		append master_text "\n"
-	} else {
-		# Define R5_0
-		append master_text "\tNODE_RPU_0, /* Master Node ID */" "\n"
-		append master_text "\t[get_ipi_mask_txt psu_cortexr5_0], /* IPI Mask of this master */" "\n"
-		append master_text "\tSUSPEND_TIMEOUT, /* Suspend timeout */" "\n"
-		append master_text "\t[get_ipi_mask_txt psu_cortexa53_0], /* Suspend permissions */" "\n"
-		append master_text "\t[get_ipi_mask_txt psu_cortexa53_0], /* Wake permissions */" "\n"
-		append master_text "\n"
+	}
+	if { [is_ipi_defined psu_cortexr5_1] } {
 		# Define R5_1
 		append master_text "\tNODE_RPU_1, /* Master Node ID */" "\n"
 		append master_text "\t[get_ipi_mask_txt psu_cortexr5_1], /* IPI Mask of this master */" "\n"
@@ -555,18 +563,17 @@ proc get_prealloc_section { } {
 	set r5_1_prealloc_list {NODE_IPI_RPU_1 NODE_TCM_1_A NODE_TCM_1_B}
 
 	append prealloc_text "\tPM_CONFIG_PREALLOC_SECTION_ID, /* Preallaoc SectionID */" "\n"
-	if ([is_rpu_lockstep]) {
-		append prealloc_text "\t2U, /* No. of Masters*/" "\n"
-	} else {
-		append prealloc_text "\t3U, /* No. of Masters*/" "\n"
-	}
+
+	set master_count [llength $pmufw::master_list]
+	append prealloc_text "\t$master_count" "U, /* No. of Masters*/" "\n"
 	append prealloc_text "\n"
 
 	append prealloc_text [get_prealloc_for_master_txt psu_cortexa53_0 $apu_prealloc_list]
-	if ([is_rpu_lockstep]) {
+
+	if ([is_ipi_defined psu_cortexr5_0]) {
 		append prealloc_text [get_prealloc_for_master_txt psu_cortexr5_0 $r5_0_prealloc_list]
-	} else {
-		append prealloc_text [get_prealloc_for_master_txt psu_cortexr5_0 $r5_0_prealloc_list]
+	}
+	if ([is_ipi_defined psu_cortexr5_1]) {
 		append prealloc_text [get_prealloc_for_master_txt psu_cortexr5_1 $r5_1_prealloc_list]
 	}
 

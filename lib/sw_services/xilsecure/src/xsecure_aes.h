@@ -34,13 +34,16 @@
 /**
 *
 * @file xsecure_aes.h
-*
+* @addtogroup xsecure_aes_apis XilSecure AES APIs
+* @{
+* @cond xsecure_internal
 * This file contains hardware interface related information for CSU AES device
 *
 * This driver supports the following features:
 *
 * - AES decryption with/without keyrolling
 * - Authentication using GCM tag
+* - AES encryption
 *
 * <b>Initialization & Configuration</b>
 *
@@ -77,9 +80,10 @@
 *                     Modified existing XSecure_AesEncrypt to
 *                     XSecure_AesEncryptData, and added XSecure_AesEncryptInit
 *                     and XSecure_AesEncryptUpdate APIs for generic usage.
+* 2.2   vns  07/06/16 Added doxygen tags
 *
 * </pre>
-*
+* @endcond
 *
 ******************************************************************************/
 
@@ -94,7 +98,9 @@
 #include "xil_io.h"
 
 /************************** Constant Definitions ****************************/
-
+/** @cond xsecure_internal
+@{
+*/
 #define XSECURE_CSU_AES_STS_AES_BUSY	(1U << 0) /**< AES busy */
 #define XSECURE_CSU_AES_STS_AES_READY	(1U << 1)
 					/**< Ready to Receive Data */
@@ -189,19 +195,14 @@ typedef struct {
 	u8  *Destination; /**< Destination for decrypted/encrypted data */
 } XSecure_Aes;
 
+/** @}
+@endcond */
 /************************** Function Prototypes ******************************/
 
 /* Initialization Functions */
 
 s32  XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 				u32 KeySel, u32* Iv,  u32* Key);
-
-/* Enable/Disable chunking */
-void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking);
-
-/* Configuring Data chunking settings */
-void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
-				u32 ChunkSize, u32(*DeviceCopy)(u32, UINTPTR, u32));
 
 /* Decryption of data */
 void XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
@@ -225,9 +226,22 @@ void XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 /* Reset */
 void XSecure_AesReset(XSecure_Aes  *InstancePtr);
 
-void XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr);
 void XSecure_AesWaitForDone(XSecure_Aes *InstancePtr);
+
+/** @cond xsecure_internal
+@{ */
+void XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr);
 s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			const u8 *Src, const u8 *Tag, u32 Len, u32 Flag);
+/* Enable/Disable chunking */
+void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking);
+
+/* Configuring Data chunking settings */
+void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
+		u32 ChunkSize, u32(*DeviceCopy)(u32, UINTPTR, u32));
+/** @}
+@endcond */
 
 #endif /* XSECURE_AES_H_ */
+
+/**@}*/

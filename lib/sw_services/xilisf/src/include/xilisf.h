@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,10 @@
 /**
 *
 * @file xilisf.h
+* @addtogroup xilisf_apis Library-APIs
+* @{
+* @cond xilisf_internal
+* @{
 *
 * The Xilinx In-system and Serial Flash (XilIsf) Library supports the Xilinx
 * In-system Flash and, external Serial Flash Memories from Atmel (AT45XXXD),
@@ -503,6 +507,10 @@
 *                    CR# 868893.
 * 5.7  rk   27/07/16 Added the SubSector erase option.
 * 5.8  nsk  03/02/17 Update WriteBuffer index to 10 in FastReadData, CR#968476
+* 5.9  nsk  07/11/17 Add 4Byte addressing support for Micron, CR#980169
+* 	   tjs	08/09/17 Updated the calculation of RealByteCount for reading data
+* 					 from flash with TESTADDRESS being 0x00000000, CR#981795
+*      ms   08/03/17 Added doxygen tags.
 *
 * </pre>
 *
@@ -575,6 +583,14 @@ extern "C" {
 /*Winbond*/
 #define XISF_WINBOND_ID_BYTE2_128	0x18
 
+/**
+ * The following definitions specify the size of the Serial Flash
+ * supported by this library.
+ */
+#define FLASH_SIZE_128				0x1000000
+#define FLASH_SIZE_256				0x2000000
+#define FLASH_SIZE_512				0x4000000
+#define FLASH_SIZE_1G				0x8000000
 
 
 #define READ_STATUS_CMD		0x05
@@ -976,6 +992,9 @@ static inline u8 XIsf_GetTransferMode(XIsf *InstancePtr)
 {
 	return(InstancePtr->IntrMode);
 }
+/**
+@}
+@endcond */
 
 /************************** Function Prototypes ******************************/
 
@@ -1075,3 +1094,4 @@ void XIsf_IfaceHandler(void *CallBackRef, u32 StatusEvent,
 #endif
 
 #endif  /* end of protection macro */
+/* @} */

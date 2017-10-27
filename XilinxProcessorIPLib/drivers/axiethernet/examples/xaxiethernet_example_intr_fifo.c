@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -77,6 +77,7 @@
 *                     available in all examples. This is a fix for CR-965028.
 *       ms   04/05/17 Added return tags in functions for proper documentation
 *                     while generating doxygen.
+* 5.6	adk  03/07/17 Fixed CR#979023 Example failed to compile.
 * </pre>
 *
 ******************************************************************************/
@@ -139,6 +140,8 @@ static volatile int DeviceErrors;	/* Num of errors detected in
 static volatile int FrameDataErrors;	/* Num of times frame data check
 					 * failed
 					 */
+volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp value */
+volatile int ExternalLoopback; /* Variable for External loopback */
 XAxiEthernet AxiEthernetInstance;
 XLlFifo FifoInstance;
 
@@ -265,6 +268,7 @@ int main(void)
 		AxiEthernetUtilErrorTrap("Axiethernet intr fifo Example Failed\r\n");
 	} else {
 		AxiEthernetUtilErrorTrap("Successfully ran Axiethernet intr fifo Example\r\n");
+	}
 
 	AxiEthernetUtilErrorTrap("--- Exiting main() ---");
 

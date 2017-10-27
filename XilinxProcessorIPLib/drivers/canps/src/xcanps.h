@@ -33,7 +33,7 @@
 /**
 *
 * @file xcanps.h
-* @addtogroup canps_v3_0
+* @addtogroup canps_v3_2
 * @{
 * @details
 *

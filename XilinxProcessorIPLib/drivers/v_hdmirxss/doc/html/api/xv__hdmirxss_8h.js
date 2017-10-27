@@ -26,7 +26,8 @@ var xv__hdmirxss_8h =
     [ "XV_HdmiRxSs_HdcpProtocol", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828d", [
       [ "XV_HDMIRXSS_HDCP_NONE", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828da60bae6631c611be7225e9993e5a9b754", null ],
       [ "XV_HDMIRXSS_HDCP_14", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dae1ff0bdf7f9aa784e7b74a7c9f977f3a", null ],
-      [ "XV_HDMIRXSS_HDCP_22", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dabb5ec86bf03fe2048919736c0030bc16", null ]
+      [ "XV_HDMIRXSS_HDCP_22", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dabb5ec86bf03fe2048919736c0030bc16", null ],
+      [ "XV_HDMIRXSS_HDCP_BOTH", "xv__hdmirxss_8h.html#a700e347f920cf2a9e9e8c29ec87b828dacdab94762de7088e29c1c5accf7963d0", null ]
     ] ],
     [ "XV_HdmiRxSs_LogEvent", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15", [
       [ "XV_HDMIRXSS_LOG_EVT_NONE", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ad647860e438f48a9e17945b3643edba6", null ],
@@ -45,6 +46,7 @@ var xv__hdmirxss_8h =
       [ "XV_HDMIRXSS_LOG_EVT_STREAMDOWN", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15ac7a34ea100510d48389285150eac34ab", null ],
       [ "XV_HDMIRXSS_LOG_EVT_STREAMINIT", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a72f5c5220a5d12997ce99ba12b319e48", null ],
       [ "XV_HDMIRXSS_LOG_EVT_SETSTREAM", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a86cd289bd97f705a1b5c7327047b928c", null ],
+      [ "XV_HDMIRXSS_LOG_EVT_SETSTREAM_ERR", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a025e9ebc6c9fc794a24b81c71fbaf7ee", null ],
       [ "XV_HDMIRXSS_LOG_EVT_REFCLOCKCHANGE", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a9703ad76bc27e43a049a13ee81dc235a", null ],
       [ "XV_HDMIRXSS_LOG_EVT_HDCP14", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15af3d29a9e306ac35906881de97ea96b2d", null ],
       [ "XV_HDMIRXSS_LOG_EVT_HDCP22", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a84fe6a6bcd3807a6f5052b4d9a59010b", null ],

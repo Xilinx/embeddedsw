@@ -124,8 +124,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaa9db05bc2935bcc2230ff023b5c9cbcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if there is room in the write FIFO.  <a href="#gaa9db05bc2935bcc2230ff023b5c9cbcc">More...</a><br /></td></tr>
 <tr class="separator:gaa9db05bc2935bcc2230ff023b5c9cbcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga10691489238a2a1b8515468b416d773e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__v4__0.html#ga10691489238a2a1b8515468b416d773e">XMbox_Flush</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
-<tr class="memdesc:ga10691489238a2a1b8515468b416d773e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the mailbox FIFOs by empting the READ FIFO and making sure the Error Status is zero.  <a href="#ga10691489238a2a1b8515468b416d773e">More...</a><br /></td></tr>
+<tr class="memdesc:ga10691489238a2a1b8515468b416d773e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the mailbox FIFOs by emptying the READ FIFO and making sure the Error Status is zero.  <a href="#ga10691489238a2a1b8515468b416d773e">More...</a><br /></td></tr>
 <tr class="separator:ga10691489238a2a1b8515468b416d773e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacf8d6e720149452270eac0493537a233"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__v4__0.html#gacf8d6e720149452270eac0493537a233">XMbox_ResetFifos</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gacf8d6e720149452270eac0493537a233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the mailbox FIFOs by clearing the READ and WRITE FIFOs using the hardware control register for memory mapped IO.  <a href="#gacf8d6e720149452270eac0493537a233">More...</a><br /></td></tr>
+<tr class="separator:gacf8d6e720149452270eac0493537a233"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8e56860ea2cf7f4f1df0f1862d8c4c61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__v4__0.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61">XMbox_SetInterruptEnable</a> (<a class="el" href="struct_x_mbox.html">XMbox</a> *InstancePtr, u32 Mask)</td></tr>
 <tr class="memdesc:ga8e56860ea2cf7f4f1df0f1862d8c4c61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interrupt enable register for this mailbox.  <a href="#ga8e56860ea2cf7f4f1df0f1862d8c4c61">More...</a><br /></td></tr>
 <tr class="separator:ga8e56860ea2cf7f4f1df0f1862d8c4c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +182,9 @@ Register Offset Definitions</h2></td></tr>
 <tr class="memitem:ga40250159d7755332fc0e4149b46985d7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__v4__0.html#ga40250159d7755332fc0e4149b46985d7">XMB_IP_REG_OFFSET</a>&#160;&#160;&#160;0x28</td></tr>
 <tr class="memdesc:ga40250159d7755332fc0e4149b46985d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mbox interrupt pending register.  <a href="#ga40250159d7755332fc0e4149b46985d7">More...</a><br /></td></tr>
 <tr class="separator:ga40250159d7755332fc0e4149b46985d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga12aab471e30140e408a6e9c396b44257"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__v4__0.html#ga12aab471e30140e408a6e9c396b44257">XMB_CTRL_REG_OFFSET</a>&#160;&#160;&#160;0x2C</td></tr>
+<tr class="memdesc:ga12aab471e30140e408a6e9c396b44257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mbox control register.  <a href="#ga12aab471e30140e408a6e9c396b44257">More...</a><br /></td></tr>
+<tr class="separator:ga12aab471e30140e408a6e9c396b44257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 Status register bit definitions</h2></td></tr>
@@ -219,8 +225,77 @@ Error bits definition.</h2></td></tr>
 <tr class="memitem:ga90d8c6add066bca7fc234e0908a2ab56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__v4__0.html#ga90d8c6add066bca7fc234e0908a2ab56">XMB_ERROR_FIFO_FULL</a>&#160;&#160;&#160;0x00000002</td></tr>
 <tr class="memdesc:ga90d8c6add066bca7fc234e0908a2ab56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send FIFO is Full.  <a href="#ga90d8c6add066bca7fc234e0908a2ab56">More...</a><br /></td></tr>
 <tr class="separator:ga90d8c6add066bca7fc234e0908a2ab56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
+Control register bits definition.</h2></td></tr>
+<tr class="memitem:ga9d015e11c5da1e44ab58be839cdf33d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__v4__0.html#ga9d015e11c5da1e44ab58be839cdf33d3">XMB_CTRL_RESET_SEND_FIFO</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="memdesc:ga9d015e11c5da1e44ab58be839cdf33d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear Send FIFO.  <a href="#ga9d015e11c5da1e44ab58be839cdf33d3">More...</a><br /></td></tr>
+<tr class="separator:ga9d015e11c5da1e44ab58be839cdf33d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf8e2e5c1013346efd30bf5ea7314ebd7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__mbox__v4__0.html#gaf8e2e5c1013346efd30bf5ea7314ebd7">XMB_CTRL_RESET_RECV_FIFO</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="memdesc:gaf8e2e5c1013346efd30bf5ea7314ebd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear Receive FIFO.  <a href="#gaf8e2e5c1013346efd30bf5ea7314ebd7">More...</a><br /></td></tr>
+<tr class="separator:gaf8e2e5c1013346efd30bf5ea7314ebd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga12aab471e30140e408a6e9c396b44257"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga12aab471e30140e408a6e9c396b44257">&#9670;&nbsp;</a></span>XMB_CTRL_REG_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMB_CTRL_REG_OFFSET&#160;&#160;&#160;0x2C</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xmbox__hw_8h.html">xmbox_hw.h</a>&gt;</code></p>
+
+<p>Mbox control register. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__mbox__v4__0.html#gacf8d6e720149452270eac0493537a233">XMbox_ResetFifos()</a>.</p>
+
+</div>
+</div>
+<a id="gaf8e2e5c1013346efd30bf5ea7314ebd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf8e2e5c1013346efd30bf5ea7314ebd7">&#9670;&nbsp;</a></span>XMB_CTRL_RESET_RECV_FIFO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMB_CTRL_RESET_RECV_FIFO&#160;&#160;&#160;0x00000002</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xmbox__hw_8h.html">xmbox_hw.h</a>&gt;</code></p>
+
+<p>Clear Receive FIFO. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__mbox__v4__0.html#gacf8d6e720149452270eac0493537a233">XMbox_ResetFifos()</a>.</p>
+
+</div>
+</div>
+<a id="ga9d015e11c5da1e44ab58be839cdf33d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9d015e11c5da1e44ab58be839cdf33d3">&#9670;&nbsp;</a></span>XMB_CTRL_RESET_SEND_FIFO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XMB_CTRL_RESET_SEND_FIFO&#160;&#160;&#160;0x00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xmbox__hw_8h.html">xmbox_hw.h</a>&gt;</code></p>
+
+<p>Clear Send FIFO. </p>
+
+<p class="reference">Referenced by <a class="el" href="group__mbox__v4__0.html#gacf8d6e720149452270eac0493537a233">XMbox_ResetFifos()</a>.</p>
+
+</div>
+</div>
 <a id="ga1fc712eb56bcc330c46c5bfe3f3c1583"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga1fc712eb56bcc330c46c5bfe3f3c1583">&#9670;&nbsp;</a></span>XMB_ERROR_FIFO_EMPTY</h2>
 
@@ -791,7 +866,7 @@ Error bits definition.</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__mbox__v4__0.html#ga299c2eb6c04531a5da2202b9968531c7" title="Write a specified value to a register of a mbox. ">XMbox_WriteReg(u32 BaseAddress, unsigned RegOffset, u32 ValueToWrite)</a>; </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__mbox__v4__0.html#gab93a50b0032e4b6202c23c4201e0591e">XMbox_ClearInterrupt()</a>, <a class="el" href="group__mbox__v4__0.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61">XMbox_SetInterruptEnable()</a>, <a class="el" href="group__mbox__v4__0.html#ga8c05b007d0f92ca32702db58573302a9">XMbox_SetReceiveThreshold()</a>, and <a class="el" href="group__mbox__v4__0.html#ga4fb918498d8adc676f4ea554585609d2">XMbox_SetSendThreshold()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__mbox__v4__0.html#gab93a50b0032e4b6202c23c4201e0591e">XMbox_ClearInterrupt()</a>, <a class="el" href="group__mbox__v4__0.html#gacf8d6e720149452270eac0493537a233">XMbox_ResetFifos()</a>, <a class="el" href="group__mbox__v4__0.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61">XMbox_SetInterruptEnable()</a>, <a class="el" href="group__mbox__v4__0.html#ga8c05b007d0f92ca32702db58573302a9">XMbox_SetReceiveThreshold()</a>, and <a class="el" href="group__mbox__v4__0.html#ga4fb918498d8adc676f4ea554585609d2">XMbox_SetSendThreshold()</a>.</p>
 
 </div>
 </div>
@@ -910,7 +985,7 @@ Error bits definition.</h2></td></tr>
 
 <p><code>#include &lt;<a class="el" href="xmbox_8c.html">xmbox.c</a>&gt;</code></p>
 
-<p>Resets the mailbox FIFOs by empting the READ FIFO and making sure the Error Status is zero. </p>
+<p>Resets the mailbox FIFOs by emptying the READ FIFO and making sure the Error Status is zero. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_mbox.html" title="The XMbox driver instance data. ">XMbox</a> instance to be worked on.</td></tr>
@@ -1209,6 +1284,38 @@ Error bits definition.</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>The call blocks until the number of bytes requested are available. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_mbox___config.html#a7a357a3188be88d9aaba7e8cc60960a8">XMbox_Config::BaseAddress</a>, <a class="el" href="struct_x_mbox.html#ada3e15b402bdd502048b69a87dfd70a8">XMbox::Config</a>, <a class="el" href="struct_x_mbox___config.html#ae59a7f14795bc768c36b105863e2efc8">XMbox_Config::UseFSL</a>, <a class="el" href="group__mbox__v4__0.html#gaa533a34a21931e86fe66cbd144659b87">XMbox_IsEmptyHw</a>, and <a class="el" href="group__mbox__v4__0.html#ga20e3d2cc2c9ecc47fc1ce4420a8b69f8">XMbox_ReadMBox</a>.</p>
+
+</div>
+</div>
+<a id="gacf8d6e720149452270eac0493537a233"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacf8d6e720149452270eac0493537a233">&#9670;&nbsp;</a></span>XMbox_ResetFifos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void XMbox_ResetFifos </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_mbox.html">XMbox</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xmbox_8c.html">xmbox.c</a>&gt;</code></p>
+
+<p>Resets the mailbox FIFOs by clearing the READ and WRITE FIFOs using the hardware control register for memory mapped IO. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_mbox.html" title="The XMbox driver instance data. ">XMbox</a> instance to be worked on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Use XMbox_Flush instead for FSL based access. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_mbox___config.html#a7a357a3188be88d9aaba7e8cc60960a8">XMbox_Config::BaseAddress</a>, <a class="el" href="struct_x_mbox.html#ada3e15b402bdd502048b69a87dfd70a8">XMbox::Config</a>, <a class="el" href="struct_x_mbox___config.html#ae59a7f14795bc768c36b105863e2efc8">XMbox_Config::UseFSL</a>, <a class="el" href="group__mbox__v4__0.html#ga12aab471e30140e408a6e9c396b44257">XMB_CTRL_REG_OFFSET</a>, <a class="el" href="group__mbox__v4__0.html#gaf8e2e5c1013346efd30bf5ea7314ebd7">XMB_CTRL_RESET_RECV_FIFO</a>, <a class="el" href="group__mbox__v4__0.html#ga9d015e11c5da1e44ab58be839cdf33d3">XMB_CTRL_RESET_SEND_FIFO</a>, and <a class="el" href="group__mbox__v4__0.html#ga299c2eb6c04531a5da2202b9968531c7">XMbox_WriteReg</a>.</p>
 
 </div>
 </div>

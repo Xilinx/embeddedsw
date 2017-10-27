@@ -33,6 +33,8 @@
 # -------- ------ -------- ------------------------------------
 # 3.0      adk    12/10/13 Updated as per the New Tcl API's
 # 3.5      sk     11/09/15 Removed delete filename statement CR# 784758.
+# 3.7      ms     04/18/17 Modified tcl file to add suffix U for macro
+#                          definitions of intc in xparameters.h
 ##############################################################################
 
 ## @BEGIN_CHANGELOG
@@ -207,10 +209,11 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
         set periph_name [string toupper [get_property NAME $periph ]]
 	set xpar_periph_name [::hsi::utils::format_xparam_name $periph_name]
 
+	set uSuffix "U"
 	if {$cascade == 1} {
-            puts $config_inc [format "#define XPAR_%s_%s %d" [string toupper [common::get_property NAME $periph ]] "TYPE" [get_intctype $periph]]
+            puts $config_inc [format "#define XPAR_%s_%s %d$uSuffix" [string toupper [common::get_property NAME $periph ]] "TYPE" [get_intctype $periph]]
         } else {
-            puts $config_inc [format "#define XPAR_%s_%s %d" [string toupper [common::get_property NAME $periph ]] "TYPE" $cascade]
+            puts $config_inc [format "#define XPAR_%s_%s %d$uSuffix" [string toupper [common::get_property NAME $periph ]] "TYPE" $cascade]
         }
         puts $tmp_config_file [format "%s\t\{" $start_comma]
             set comma ""
@@ -259,6 +262,7 @@ proc intc_define_config_file {drv_handle periphs config_inc} {
 
 proc intc_define_vector_table {periph config_inc config_file} {
 
+	set uSuffix "U"
 	variable interrupt_handlers
 	variable default_interrupt_handler
 	variable cascade
@@ -321,21 +325,21 @@ proc intc_define_vector_table {periph config_inc config_file} {
 	    set pname [string toupper $periph_name]
 	    set periph_xparam_name [::hsi::utils::format_xparam_name $pname]
 	    if {[lcount $instance_list $source_name_port_name] != 0} {
-	        puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
+	        puts $config_inc [format "#define XPAR_%s_%s_LOW_PRIORITY_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
 	    } else {
-	        puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
+	        puts $config_inc [format "#define XPAR_%s_%s_MASK %#08X$uSuffix" $source_xparam_name [string toupper $source_port_name($i)] [expr 1 << $i]]
 	    }
 	    if {$cascade ==1} {
 	       if {[lcount $instance_list $source_name_port_name] == 0} {
-                puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
+                puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
 	       } else {
-	           puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
+	           puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $source_interrupt_id($i)]
 	       }
             } else {
                  if {[lcount $instance_list $source_name_port_name] == 0} {
-                     puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
+                     puts $config_inc [format "#define XPAR_%s_%s_%s_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
                  } else {
-                     puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
+                     puts $config_inc [format "#define XPAR_%s_%s_%s_LOW_PRIORITY_INTR %d$uSuffix" [string toupper $periph_name] [string toupper $source_name($i)] [string toupper $source_port_name($i)] $i]
                  }
 
             }
@@ -424,13 +428,14 @@ proc xdefine_canonical_xpars {drv_handle file_name drv_string args} {
                 }
                 set rvalue [::hsi::utils::format_addr_string $rvalue $arg]
 
-                puts $file_handle "#define $lvalue $rvalue"
+		set uSuffix [xdefine_getSuffix $lvalue $rvalue]
+                puts $file_handle "#define $lvalue $rvalue$uSuffix"
 
             }
             if {$cascade == 1} {
-		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "INTC_TYPE"] [get_intctype $periph]"
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "INTC_TYPE"] [get_intctype $periph]$uSuffix"
             } else {
-		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "INTC_TYPE"] $cascade"
+		puts $file_handle "#define [::hsi::utils::get_driver_param_name $canonical_name "INTC_TYPE"] $cascade$uSuffix"
             }
             puts $file_handle ""
             incr i
@@ -747,4 +752,12 @@ proc intc_update_source_array {periph} {
         }
     }
     set total_source_intrs $intr_cnt
+}
+
+proc xdefine_getSuffix {arg_name value} {
+		set uSuffix ""
+		if { [string match "*DEVICE_ID" $value] == 0 } {
+			set uSuffix "U"
+		}
+		return $uSuffix
 }

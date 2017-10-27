@@ -33,7 +33,7 @@
 /**
  *
  * @file xemacps.h
-* @addtogroup emacps_v3_1
+* @addtogroup emacps_v3_4
 * @{
 * @details
  *
@@ -325,6 +325,9 @@
  *       ms   04/05/17 Added tabspace for return statements in functions of
  *                     xemacps_ieee1588_example.c for proper documentation
  *                     while generating doxygen.
+ * 3.5   hk   08/14/17 Update cache coherency information of the interface in
+ *                     its config structure.
+ *
  * </pre>
  *
  ****************************************************************************/
@@ -522,6 +525,8 @@ typedef void (*XEmacPs_ErrHandler) (void *CallBackRef, u8 Direction,
 typedef struct {
 	u16 DeviceId;	/**< Unique ID  of device */
 	UINTPTR BaseAddress;/**< Physical base address of IPIF registers */
+	u8 IsCacheCoherent; /**< Applicable only to A53 in EL1 mode;
+				* describes whether Cache Coherent or not */
 } XEmacPs_Config;
 
 

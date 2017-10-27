@@ -8,6 +8,7 @@ var xprc_8h =
     [ "XPRC_CR_VS_FULL", "group__prc__v1__0.html#gada47152f33eac349c3fc17734b31ded8", null ],
     [ "XPrc_GetCdcStages", "group__prc__v1__0.html#ga949e933319a77af6c12f0ace1b158786", null ],
     [ "XPrc_GetCpArbitrationProtocol", "group__prc__v1__0.html#ga036bab97ecd418d314282b3f05dc74cc", null ],
+    [ "XPrc_GetCpCompression", "group__prc__v1__0.html#ga5f3f8c49b7a3b3c99bfb50c4efea8cb2", null ],
     [ "XPrc_GetCpFamily", "group__prc__v1__0.html#ga97681331f2b86503116b57b4cebd2d7a", null ],
     [ "XPrc_GetCpFifoDepth", "group__prc__v1__0.html#gad4f7e9536727c3732b6318e430c5fa70", null ],
     [ "XPrc_GetCpFifoType", "group__prc__v1__0.html#gab57f7a5c77fc1e5ee8496336bfd399fc", null ],

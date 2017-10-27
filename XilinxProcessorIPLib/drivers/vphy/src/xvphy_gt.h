@@ -53,6 +53,8 @@
  *                     Added xcvr adaptor functions for C++ compilations
  * </pre>
  *
+ * @addtogroup xvphy
+ * @{
 *******************************************************************************/
 
 #ifndef XVPHY_GT_H_
@@ -131,3 +133,4 @@ extern const XVphy_GtConfig Gthe4Config;
 #endif
 
 #endif /* XVPHY_GT_H_ */
+/** @} */

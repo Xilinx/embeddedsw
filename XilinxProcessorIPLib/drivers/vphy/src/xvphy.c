@@ -63,13 +63,18 @@
  * 1.4   gm   29/11/16 Moved internally used APIs to xvphy_i.c/h
  *                     Added preprocessor directives for sw footprint reduction
  *                     Fixed c++ compiler warnings
+ * 1.6   gm   12/06/17 Changed FAILURE return value of XVphy_DrpRead to 0xDEAD
+ *                     Added XVphy_DrpRd, XVphy_SetErrorCallback,
+ *                        XVphy_SetPllLayoutErrorCallback and
+ *                        XVphy_RegisterDebug APIs
+ *                     Added filter in XVphy_MmcmStart to prevent MMCM from
+ *                        starting when divider values are invalid
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
-#include <string.h>
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_i.h"
@@ -790,6 +795,10 @@ u32 XVphy_ResetGtTxRx(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 *
 * @note		None.
 *
+* @deprecated   XVphy_DrpWrite will be deprecated in 2018.3 and replaced by
+*                XVphy_DrpWr to align with new naming of XVphy_DrpRd API.
+*                No functional change between XVphy_DrpWrite & XVphy_DrpWr.
+*
 ******************************************************************************/
 u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		u16 Addr, u16 Val)
@@ -817,6 +826,12 @@ u32 XVphy_DrpWrite(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 *
 * @note		None.
 *
+* @deprecated   XVphy_DrpRead will be deprecated in 2018.3 and replaced by
+*                XVphy_DrpRd to separate the return value of DRP register
+*                content and XST_SUCCESS/XST_FAILURE.
+*               A new argument (*RetVal) was added in XVphy_DrpRd to hold the
+*                DRP register content
+*
 ******************************************************************************/
 u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, u16 Addr)
 {
@@ -827,7 +842,68 @@ u16 XVphy_DrpRead(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, u16 Addr)
 			XVPHY_DIR_RX, /* Read. */
 			Addr, &Val);
 
-	return (Status == XST_SUCCESS) ? Val : 0;
+	return (Status == XST_SUCCESS) ? Val : 0xDEAD;
+}
+
+/*****************************************************************************/
+/**
+* This function will initiate a write DRP transaction. It is a wrapper around
+* XVphy_DrpAccess.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID on which to direct the DRP access.
+* @param	Addr is the DRP address to issue the DRP access to.
+* @param	Val is the value to write to the DRP address.
+*
+* @return
+*		- XST_SUCCESS if the DRP access was successful.
+*		- XST_FAILURE otherwise, if the busy bit did not go low, or if
+*		  the ready bit did not go high.
+*
+* @note		None.
+*
+******************************************************************************/
+u32 XVphy_DrpWr(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+		u16 Addr, u16 Val)
+{
+	return XVphy_DrpAccess(InstancePtr, QuadId, ChId,
+			XVPHY_DIR_TX, /* Write. */
+			Addr, &Val);
+}
+
+/*****************************************************************************/
+/**
+* This function will initiate a read DRP transaction. It is a wrapper around
+* XVphy_DrpAccess.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID on which to direct the DRP access.
+* @param	Addr is the DRP address to issue the DRP access to.
+* @param	RetVal is the DRP read_value returned implicitly.
+*
+* @return
+*		- XST_SUCCESS if the DRP access was successful.
+*		- XST_FAILURE otherwise, if the busy bit did not go low, or if
+*		  the ready bit did not go high.
+*
+* @note		None.
+*
+******************************************************************************/
+u16 XVphy_DrpRd(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
+        u16 Addr, u16 *RetVal)
+{
+	u32 Status;
+	u16 Val;
+
+	Status = XVphy_DrpAccess(InstancePtr, QuadId, ChId,
+			XVPHY_DIR_RX, /* Read. */
+			Addr, &Val);
+
+    *RetVal = Val;
+
+	return Status;
 }
 
 /*****************************************************************************/
@@ -917,6 +993,22 @@ void XVphy_MmcmStart(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
 	/* Toggle MMCM reset. */
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
 #else
+	XVphy_Mmcm *MmcmPtr;
+
+	if (Dir == XVPHY_DIR_RX) {
+		MmcmPtr= &InstancePtr->Quads[QuadId].RxMmcm;
+	}
+	else {
+		MmcmPtr= &InstancePtr->Quads[QuadId].TxMmcm;
+	}
+
+	/* Check values if valid */
+	if (!((MmcmPtr->ClkOut0Div > 0) && (MmcmPtr->ClkOut0Div <= 128) &&
+		  (MmcmPtr->ClkOut1Div > 0) && (MmcmPtr->ClkOut1Div <= 128) &&
+		  (MmcmPtr->ClkOut2Div > 0) && (MmcmPtr->ClkOut2Div <= 128))) {
+		return;
+	}
+
 	/* Toggle MMCM reset. */
 	XVphy_MmcmReset(InstancePtr, QuadId, Dir, FALSE);
 
@@ -1356,3 +1448,153 @@ static u32 XVphy_DrpAccess(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	return XST_SUCCESS;
 }
 
+/******************************************************************************/
+/**
+* This function installs a callback function for the VPHY error conditions
+*
+* @param	InstancePtr is a pointer to the XVPhy instance.
+* @param	CallbackFunc is the address to the callback function.
+* @param	CallbackRef is the user data item that will be passed to the
+*		callback function when it is invoked.
+*
+* @return	None.
+*
+* @note		The XVphy_ErrorHandler API calls the registered function in
+* 			  ErrorCallback and passes two arguments: 1) CallbackRef
+* 			  2) Error Type as defined by XVphy_ErrType.
+*
+* 			Sample Function Call:
+* 				CallbackFunc(CallbackRef, XVphy_ErrType);
+*
+*******************************************************************************/
+void XVphy_SetErrorCallback(XVphy *InstancePtr,
+		void *CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->ErrorCallback = (XVphy_ErrorCallback)CallbackFunc;
+	InstancePtr->ErrorRef = CallbackRef;
+}
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+/******************************************************************************/
+/**
+* This function installs a callback function for the VPHY PLL Layout error
+* conditions
+*
+* @param	InstancePtr is a pointer to the XVPhy instance.
+* @param	CallbackFunc is the address to the callback function.
+* @param	CallbackRef is the user data item that will be passed to the
+*		callback function when it is invoked.
+*
+* @return	None.
+*
+* @note		The XVphy_ErrorHandler API calls the registered function in
+* 			  ErrorCallback and passes two arguments: 1) CallbackRef
+* 			  2) Error Type as defined by XVphy_ErrType.
+*
+* 			Sample Function Call:
+* 				CallbackFunc(CallbackRef, XVphy_ErrType);
+*
+*******************************************************************************/
+void XVphy_SetPllLayoutErrorCallback(XVphy *InstancePtr,
+		void *CallbackFunc, void *CallbackRef)
+{
+	/* Verify arguments. */
+	Xil_AssertVoid(InstancePtr != NULL);
+	Xil_AssertVoid(CallbackFunc != NULL);
+	Xil_AssertVoid(CallbackRef != NULL);
+
+	InstancePtr->PllLayoutErrorCallback = (XVphy_ErrorCallback)CallbackFunc;
+	InstancePtr->PllLayoutErrorRef = CallbackRef;
+}
+#endif
+
+/*****************************************************************************/
+/**
+* This function prints out Video PHY register and GT Channel and Common
+* DRP register contents.
+*
+* @param	InstancePtr is a pointer to the Vphy core instance.
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_RegisterDebug(XVphy *InstancePtr)
+{
+	u32 RegOffset;
+	u16 DrpAddr, MaxDrpAddr;
+	u16 DrpVal, ChId;
+	u8  MaxChannels;
+
+	xil_printf("\r\nVPHY Registers\r\n");
+	xil_printf("-----------------\r\n");
+	xil_printf("Offset   |  Value\r\n");
+	xil_printf("-----------------\r\n");
+	for (RegOffset = 0; RegOffset <= 0x334; ) {
+		xil_printf("0x%04x      0x%08x\r\n",RegOffset,
+		XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffset));
+		RegOffset += 4;
+	}
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	MaxDrpAddr = 0x0044;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE2)
+	MaxDrpAddr = 0x0047;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)
+	MaxDrpAddr = 0x002D;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
+	MaxDrpAddr = 0x00B0;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
+	MaxDrpAddr = 0x00B0;
+#endif
+
+	xil_printf("\r\nVPHY GT COMMON DRP Registers\r\n");
+	xil_printf("----------------------------\r\n");
+	if ((InstancePtr->HdmiIsQpllPresent == TRUE) ||
+			(InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_DP) ||
+			(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_DP)) {
+		xil_printf("Offset   |  Value\r\n");
+		xil_printf("----------------------------\r\n");
+		for (DrpAddr = 0x0000; DrpAddr <= MaxDrpAddr; DrpAddr++) {
+			XVphy_DrpRd(InstancePtr, 0, XVPHY_CHANNEL_ID_CMN0,
+					DrpAddr, &DrpVal);
+			xil_printf("0x%04x      0x%04x\r\n",DrpAddr, DrpVal);
+		}
+	} else {
+		xil_printf("No QPLL in this VPHY Instance\r\n");
+	}
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+	MaxDrpAddr = 0x015C;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE2)
+	MaxDrpAddr = 0x015E;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTPE2)
+	MaxDrpAddr = 0x00AD;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE3)
+	MaxDrpAddr = 0x015F;
+#elif (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTHE4)
+	MaxDrpAddr = 0x025F;
+#endif
+	/* Get Max number of channels in VPHY */
+	MaxChannels = (InstancePtr->Config.RxChannels >
+					InstancePtr->Config.TxChannels) ?
+					InstancePtr->Config.RxChannels :
+					InstancePtr->Config.TxChannels;
+
+	for (ChId = 1; ChId <= MaxChannels; ChId++) {
+	xil_printf("\r\nVPHY GT CHANNEL %d DRP Registers\r\n", ChId);
+	xil_printf("-------------------------------\r\n");
+	xil_printf("Offset   |  Value\r\n");
+	xil_printf("-------------------------------\r\n");
+		for (DrpAddr = 0x0000; DrpAddr <= MaxDrpAddr; DrpAddr++) {
+			XVphy_DrpRd(InstancePtr, 0, ChId, DrpAddr, &DrpVal);
+			xil_printf("0x%04x      0x%04x\r\n",DrpAddr, DrpVal);
+		}
+	}
+}

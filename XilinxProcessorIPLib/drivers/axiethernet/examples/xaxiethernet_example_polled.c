@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -103,6 +103,8 @@
 
 /************************** Variable Definitions ****************************/
 
+volatile int Padding;	/* For 1588 Packets we need to pad 8 bytes time stamp value */
+volatile int ExternalLoopback; /* Variable for External loopback */
 EthernetFrame TxFrame;		/* Transmit frame buffer */
 EthernetFrame RxFrame;		/* Receive frame buffer */
 

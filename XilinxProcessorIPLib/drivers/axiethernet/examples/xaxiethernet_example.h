@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -67,6 +67,7 @@
 /************************** Constant Definitions ****************************/
 #define AXIETHERNET_LOOPBACK_SPEED	100	/* 100Mb/s for Mii */
 #define AXIETHERNET_LOOPBACK_SPEED_1G 	1000	/* 1000Mb/s for GMii */
+#define AXIETHERNET_LOOPBACK_SPEED_2p5G 2500	/* 2p5G for 2.5G MAC */
 #define AXIETHERNET_PHY_DELAY_SEC	4	/*
 						 * Amount of time to delay waiting on
 						 * PHY to reset.
@@ -76,6 +77,11 @@
 					 * Maximum number of multicast ethernet
 					 * mac addresses.
 					 */
+#ifndef TESTAPP_GEN
+#define NUM_PACKETS  50
+#else
+#define NUM_PACKETS  1
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
@@ -86,7 +92,7 @@
  * Define an aligned data type for an ethernet frame. This declaration is
  * specific to the GNU compiler
  */
-typedef unsigned char EthernetFrame[XAE_MAX_JUMBO_FRAME_SIZE] __attribute__ ((aligned(64)));
+typedef unsigned char EthernetFrame[NUM_PACKETS * XAE_MAX_JUMBO_FRAME_SIZE] __attribute__ ((aligned(64)));
 
 
 /************************** Function Prototypes *****************************/
@@ -122,5 +128,6 @@ int AxiEtherentConfigureTIPhy(XAxiEthernet *AxiEthernetInstancePtr,
 /************************** Variable Definitions ****************************/
 
 extern char AxiEthernetMAC[];		/* Local MAC address */
-
+extern volatile int Padding;
+extern volatile int ExternalLoopback;
 #endif /* XAXIETHERNET_EXAMPLE_H */

@@ -33,7 +33,7 @@
 /**
  *
  * @file xdp_hw.h
- * @addtogroup dp_v5_1
+ * @addtogroup dp_v6_0
  * @{
  *
  * This header file contains the identifiers and low-level driver functions (or
@@ -53,6 +53,9 @@
  * 5.0   als  05/16/16 Added MISC0 and MISC1 definitions.
  * 5.1   aad  08/16/16 Updated MISC0 definitions.
  * 5.2   aad  01/21/17 Added timeout macro for training timeout
+ * 6.0   tu   05/14/17 Added AUX defer shift mask
+ * 6.0   tu   08/03/17 Enabled video packing for bpc > 10
+ * 6.0   tu   08/24/17 Modify #define for YCBCR422 and YCBCR444
  * </pre>
  *
 *******************************************************************************/
@@ -305,6 +308,12 @@
 #define XDP_TX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
+/* @} */
+
+/** @name DPTX core registers: DisplayPort video.
+ * @{
+ */
+#define XDP_TX_VIDEO_PACKING_CLOCK_CONTROL 0x90
 /* @} */
 
 /** @name DPTX core registers: HDCP.
@@ -597,10 +606,10 @@
 				0x0		/**< Stream's component format
 							is RGB. */
 #define XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 \
-				0x1		/**< Stream's component format
+				0x5		/**< Stream's component format
 							is YcbCr 4:2:2. */
 #define XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 \
-				0x2		/**< Stream's component format
+				0x6		/**< Stream's component format
 							is YcbCr 4:4:4. */
 #define XDP_TX_MAIN_STREAMX_MISC0_DYNAMIC_RANGE_MASK \
 				0x00000008	/**< Dynamic range. */
@@ -824,6 +833,7 @@
 #define XDP_RX_AUX_CLK_DIVIDER		0x004	/**< Clock divider value for
 							generating the internal
 							1MHz clock. */
+#define XDP_RX_AUX_DEFER_SHIFT		24	/**< Aux defer. */
 #define XDP_RX_LINE_RESET_DISABLE	0x008	/**< RX line reset disable. */
 #define XDP_RX_DTG_ENABLE		0x00C	/**< Enables the display timing
 							generator (DTG). */

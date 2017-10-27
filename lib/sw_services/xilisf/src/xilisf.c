@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -98,6 +98,7 @@
 * 5.5   sk   01/14/16 Updated IntelStmDevices list to add support for S25FL512S
 *                     and S25FL256S.
 *       sk   03/02/16 Added support for MT25QU01G.
+* 5.9   ms   08/03/17 Added tags and modified comment lines style for doxygen.
 *
 * </pre>
 *
@@ -539,37 +540,42 @@ static u32 XIsf_FCTIndex;
 
 /*****************************************************************************/
 /**
-*
-* The geometry of the underlying Serial Flash is determined by reading the
-* Joint Electron Device Engineering Council (JEDEC) Device Information and
-* the Status Register of the Serial Flash.
+* @brief
 * This API when called initializes the SPI interface with default settings.
 * With custom settings, user should call XIsf_SetSpiConfiguration() and then
 * call this API.
+* The geometry of the underlying Serial Flash is determined by reading the
+* Joint Electron Device Engineering Council (JEDEC) Device Information and
+* the Status Register of the Serial Flash.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	SpiInstPtr is a pointer to XIsf_Iface instance to be worked on.
-* @param	SlaveSelect is a 32-bit mask with a 1 in the bit position of
-*		slave being selected. Only one slave can be selected at a time.
-* @param	WritePtr is a pointer to the buffer allocated by the user to be
-*		used by the In-system and Serial Flash Library to perform any
-*		read/write operations on the Serial Flash device.
-*		User applications must pass the address of this buffer for the
-*		Library to work.
-*		- Write operations :
-*			- The size of this buffer should be equal to the Number
-*			of bytes to be written to the Serial Flash +
-*			XISF_CMD_MAX_EXTRA_BYTES.
-*			- The size of this buffer should be large enough for
-*			usage across all the applications that use a common
-*			instance of the Serial Flash.
-*			- A minimum of one byte and a maximum of ISF_PAGE_SIZE
-*			bytes can be written to the Serial Flash, through a
-*			single Write operation.
-* 		- Read operations :
-* 			- The size of this buffer should be equal to
-*			XISF_CMD_MAX_EXTRA_BYTES, if the application only reads
-*			from the Serial Flash (no write operations).
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	SpiInstPtr	Pointer to XIsf_Iface instance to be worked on.
+* @param	SlaveSelect	It is a 32-bit mask with a 1 in the bit
+*				position of slave being selected. Only one
+*				slave can be selected at a time.
+* @param	WritePtr	Pointer to the buffer allocated by the user
+*				to be used by the In-system and Serial Flash
+*				Library to perform any read/write operations
+*				on the Serial Flash device.
+*				User applications must pass the address of this
+*				buffer for the Library to work.
+*				- Write operations :
+*				   - The size of this buffer should be equal
+*				   to the Number of bytes to be written to
+*				   the Serial Flash + XISF_CMD_MAX_EXTRA_BYTES.
+*				   - The size of this buffer should be large
+*				   enough for usage across all the applications
+*				   that use a common instance of the Serial
+*				   Flash.
+*				   - A minimum of one byte and a maximum of
+*				   ISF_PAGE_SIZE bytes can be written to the
+*				   Serial Flash, through a single Write
+*				   operation.
+* 				- Read operations :
+* 				   - The size of this buffer should be equal
+*				   to XISF_CMD_MAX_EXTRA_BYTES, if the
+*				   application only reads from the Serial Flash
+*			 	   (no write operations).
 *
 * @return	- XST_SUCCESS if successful.
 *		- XST_DEVICE_IS_STOPPED if the device must be started before
@@ -692,16 +698,18 @@ int XIsf_Initialize(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr, u8 SlaveSelect,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API sets the configuration of SPI.  This will set the options and
 * clock prescaler (if applicable).
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	SpiInstPtr is a pointer to XIsf_Iface instance to be worked on.
-* @param	Options contains specified options to be set.
-* @param	PreScaler is the value of the clock prescaler to set.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	SpiInstPtr	Pointer to XIsf_Iface instance to be worked on.
+* @param	Options		Specified options to be set.
+* @param	PreScaler	Value of the clock prescaler to set.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note		This API can be called before calling XIsf_Initialize()
 *		to initialize the SPI interface in other than default options
@@ -739,14 +747,16 @@ int XIsf_SetSpiConfiguration(XIsf *InstancePtr, XIsf_Iface *SpiInstPtr,
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API reads the Serial Flash Status Register.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	ReadPtr is a pointer to the memory where the Status Register
-*		content is copied.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	ReadPtr		Pointer to the memory where the Status Register
+*				content is copied.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note		The contents of the Status Register is stored at second byte
 *		pointed by the ReadPtr.
@@ -828,14 +838,16 @@ int XIsf_GetStatus(XIsf *InstancePtr, u8 *ReadPtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API reads the Serial Flash Status Register 2.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	ReadPtr is a pointer to the memory where the Status Register
-*		content is copied.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	ReadPtr		Pointer to the memory where the Status Register
+*				content is copied.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note		The contents of the Status Register 2 is stored at the second
 *		byte pointed by the ReadPtr.
@@ -919,15 +931,17 @@ int XIsf_GetStatusReg2(XIsf *InstancePtr, u8 *ReadPtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API reads the Joint Electron Device Engineering Council (JEDEC)
 * information of the Serial Flash.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	ReadPtr is a pointer to the buffer where the Device information
-*		is copied.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	ReadPtr		Pointer to the buffer where the Device
+*				information is copied.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note		The Device information is stored at the second byte pointed
 *		by the ReadPtr.
@@ -1008,16 +1022,19 @@ int XIsf_GetDeviceInfo(XIsf *InstancePtr, u8 *ReadPtr)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API Enables/Disables writes to the Intel, STM, Winbond and Spansion
 * Serial Flash.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	WriteEnable specifies whether to Enable (XISF_CMD_ENABLE_WRITE)
-*		or Disable (XISF_CMD_DISABLE_WRITE) the writes to the
-*		Serial Flash.
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	WriteEnable	Specifies whether to Enable
+*				(XISF_CMD_ENABLE_WRITE) or Disable
+*				(XISF_CMD_DISABLE_WRITE) the writes to the
+*				Serial Flash.
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note		This API works only for Intel, STM, Winbond and Spansion Serial
 *		Flash. If this API is called for Atmel Flash, XST_FAILURE is
@@ -1101,19 +1118,23 @@ int XIsf_WriteEnable(XIsf *InstancePtr, u8 WriteEnable)
 
 /*****************************************************************************/
 /**
-*
+* @brief
 * This API configures and controls the Intel, STM, Winbond and Spansion Serial
 * Flash.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-* @param	Operation is the type of Control operation to be performed
-*		on the Serial Flash.
-*		The different control operations are
-		- XISF_RELEASE_DPD: Release from Deep Power Down (DPD) Mode
-		- XISF_ENTER_DPD: Enter DPD Mode
-		- XISF_CLEAR_SR_FAIL_FLAGS: Clear Status Register Fail Flags
+* @param	InstancePtr	Pointer to the XIsf instance.
+* @param	Operation	Type of Control operation to be performed on
+*				the Serial Flash. The different control
+*				operations are
+*				- XISF_RELEASE_DPD: Release from Deep Power
+*				  Down (DPD) Mode
+*				- XISF_ENTER_DPD: Enter DPD Mode
+*				- XISF_CLEAR_SR_FAIL_FLAGS: Clear Status
+*				  Register Fail Flags
 *
-* @return	XST_SUCCESS if successful else XST_FAILURE.
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if i fails.
 *
 * @note
 *		- Atmel Serial Flash does not support any of these operations.
@@ -1326,11 +1347,11 @@ int XIsf_Transfer(XIsf *InstancePtr, u8 *WritePtr, u8* ReadPtr, u32 ByteCount)
 
 
 /*****************************************************************************/
-/*
+/**
+* @brief
+* This API registers the interface SPI/SPI PS/QSPI PS.
 *
-* This function registers the interface SPI/SPI PS/QSPI PS.
-*
-* @param	InstancePtr is a pointer to the XIsf instance.
+* @param	InstancePtr	Pointer to the XIsf instance.
 *
 * @return	None
 *
@@ -1517,15 +1538,16 @@ static int AtmelFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 	defined (XPAR_XISF_INTERFACE_QSPIPSU)))
 /*****************************************************************************/
 /**
-*
-* This function enters the Micron flash device into 4 bytes addressing mode.
+* @brief
+* This API enters the Micron flash device into 4 bytes addressing mode.
 * As per the Micron spec, before issuing the command to enter into 4 byte addr
 * mode, a write enable command is issued.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
+* @param	InstancePtr	Pointer to the XIsf instance.
 *
-* @return	- XST_SUCCESS
-*		    - XST_FAILURE
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note		Applicable only for Micron flash devices
 *
@@ -1653,15 +1675,16 @@ int XIsf_MicronFlashEnter4BAddMode(XIsf *InstancePtr)
 
 /*****************************************************************************/
 /**
+* @brief
+* This API exits the Micron flash device from 4 bytes addressing mode.
+* As per the Micron spec, before issuing this command a write enable command
+* is first issued.
 *
-* This function exits the Micron flash device from 4 bytes addressing mode.
-* As per the Micron spec, before issuing this command a write enable command is
-* first issued.
+* @param	InstancePtr	Pointer to the XIsf instance.
 *
-* @param	InstancePtr is a pointer to the XIsf instance.
-*
-* @return	- XST_SUCCESS
-*		    - XST_FAILURE
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
 *
 * @note		Applicable only for Micron flash devices
 *
@@ -2136,8 +2159,8 @@ static int SpaMicWinFlashInitialize(XIsf *InstancePtr, u8 *BufferPtr)
 * @param	Address which is to be accessed (for erase, write or read)
 *
 * @return	RealAddr is the translated address - for single it is unchanged
-* 			for stacked, the lower flash size is subtracted
-* 			for parallel the address is divided by 2.
+* 		for stacked, the lower flash size is subtracted
+* 		for parallel the address is divided by 2.
 *
 * @note		None.
 *
@@ -2312,14 +2335,15 @@ int SendBankSelect(XIsf *InstancePtr, u32 BankSel)
 }
 #endif
 
-/******************************************************************************
+/*****************************************************************************/
+/**
+* @brief
+* This API is to set the Status Handler when an interrupt is registered
 *
-* This function is to set the Status Handler when an interrupt is registered
-*
-* @param	InstancePtr is a pointer to the XIsf Instance.
-* @param	QspiInstancePtr is a pointer to the XIsf_Iface instance
-*		to be worked on.
-* @param	XilIsf_Handler is the status handler for the application.
+* @param	InstancePtr		Pointer to the XIsf Instance.
+* @param	XIfaceInstancePtr	Pointer to the XIsf_Iface instance to
+*					be worked on.
+* @param	XilIsf_Handler		Status handler for the application.
 *
 * @return	None
 *
@@ -2358,9 +2382,10 @@ void XIsf_SetStatusHandler(XIsf *InstancePtr, XIsf_Iface *XIfaceInstancePtr,
 
 
 
-/******************************************************************************
-*
-* This function is the handler which performs processing for the QSPI driver.
+/*****************************************************************************/
+/**
+* @brief
+* This API is the handler which performs processing for the QSPI driver.
 * It is called from an interrupt context such that the amount of processing
 * performed should be minimized.  It is called when a transfer of QSPI data
 * completes or an error occurs.
@@ -2368,9 +2393,9 @@ void XIsf_SetStatusHandler(XIsf *InstancePtr, XIsf_Iface *XIfaceInstancePtr,
 * This handler provides an example of how to handle QSPI interrupts but is
 * application specific.
 *
-* @param	CallBackRef is a reference passed to the handler.
-* @param	StatusEvent is the status of the QSPI .
-* @param	ByteCount is the number of bytes transferred.
+* @param	CallBackRef	Reference passed to the handler.
+* @param	StatusEvent	Status of the QSPI .
+* @param	ByteCount	Number of bytes transferred.
 *
 * @return	None
 *

@@ -35,6 +35,27 @@
 
 /************* User Configurable Options ***************/
 
+/* PMUFW print levels */
+#define XPFW_PRINT_VAL (1U)
+#define XPFW_DEBUG_ERROR_VAL (0U)
+#define XPFW_DEBUG_DETAILED_VAL (0U)
+
+/**
+ * PMUFW Debug options
+ */
+
+#if XPFW_PRINT_VAL
+#define XPFW_PRINT
+#endif
+
+#if XPFW_DEBUG_ERROR_VAL
+#define XPFW_DEBUG_ERROR
+#endif
+
+#if XPFW_DEBUG_DETAILED_VAL
+#define XPFW_DEBUG_DETAILED
+#endif
+
 /* PMU clock frequency in Hz */
 #ifndef XPFW_CFG_PMU_CLK_FREQ
 #define XPFW_CFG_PMU_CLK_FREQ XPAR_CPU_CORE_CLOCK_FREQ_HZ
@@ -53,5 +74,12 @@
 
 /* Enable Power Management Module */
 #define ENABLE_PM
+
+/* FPD WDT recovery action */
+#ifdef ENABLE_RECOVERY
+#define FPD_WDT_EM_ACTION EM_ACTION_CUSTOM
+#else
+#define FPD_WDT_EM_ACTION EM_ACTION_SRST
+#endif
 
 #endif /* XPFW_CONFIG_H_ */

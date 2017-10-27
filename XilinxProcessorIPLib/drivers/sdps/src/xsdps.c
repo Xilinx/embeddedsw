@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps.c
-* @addtogroup sdps_v2_5
+* @addtogroup sdps_v3_3
 * @{
 *
 * Contains the interface functions of the XSdPs driver.
@@ -78,6 +78,15 @@
 *       sk     02/01/17 Added HSD and DDR mode support for eMMC.
 *       vns    02/09/17 Added ARMA53_32 support for ZynqMP CR#968397
 *       sk     03/20/17 Add support for EL1 non-secure mode.
+* 3.3   mn     05/17/17 Add support for 64bit DMA addressing
+*       mn     07/17/17 Add support for running SD at 200MHz
+*       mn     07/26/17 Fixed compilation warnings
+*       mn     08/07/17 Modify driver to support 64-bit DMA in arm64 only
+*       mn     08/17/17 Added CCI support for A53 and disabled data cache
+*                       operations when it is enabled.
+*       mn     08/22/17 Updated for Word Access System support
+*       mn     09/06/17 Resolved compilation errors with IAR toolchain
+*       mn     09/26/17 Added UHS_MODE_ENABLE macro to enable UHS mode
 * </pre>
 *
 ******************************************************************************/
@@ -94,6 +103,7 @@
 #define XSDPS_CMD1_HIGH_VOL	0x00FF8000U
 #define XSDPS_CMD1_DUAL_VOL	0x00FF8010U
 #define HIGH_SPEED_SUPPORT	0x2U
+#define UHS_SDR50_SUPPORT	0x4U
 #define WIDTH_4_BIT_SUPPORT	0x4U
 #define SD_CLK_25_MHZ		25000000U
 #define SD_CLK_19_MHZ		19000000U
@@ -109,9 +119,7 @@
 #define EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200		0x10U
 #define EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200		0x20U
 #define CSD_SPEC_VER_3		0x3U
-
-/* Note: Remove this once fixed */
-#define UHS_BROKEN
+#define SCR_SPEC_VER_3		0x80U
 
 /**************************** Type Definitions *******************************/
 
@@ -123,10 +131,9 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt);
 void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff);
 extern s32 XSdPs_Uhs_ModeInit(XSdPs *InstancePtr, u8 Mode);
 static s32 XSdPs_IdentifyCard(XSdPs *InstancePtr);
-#ifndef UHS_BROKEN
 static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr);
-#endif
 
+u16 TransferMode;
 /*****************************************************************************/
 /**
 *
@@ -176,9 +183,14 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 	InstancePtr->Config.CardDetect =  ConfigPtr->CardDetect;
 	InstancePtr->Config.WriteProtect =  ConfigPtr->WriteProtect;
+#ifdef UHS_MODE_ENABLE
 	InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
+#else
+	InstancePtr->Config.BusWidth = XSDPS_WIDTH_4;
+#endif
 	InstancePtr->Config.BankNumber = ConfigPtr->BankNumber;
 	InstancePtr->Config.HasEMIO = ConfigPtr->HasEMIO;
+	InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 	InstancePtr->SectorCount = 0;
 	InstancePtr->Mode = XSDPS_DEFAULT_SPEED_MODE;
 	InstancePtr->Config_TapDelay = NULL;
@@ -257,10 +269,18 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_POWER_CTRL_OFFSET,
 			PowerLevel | XSDPS_PC_BUS_PWR_MASK);
+
+#ifdef __aarch64__
 	/* Enable ADMA2 in 64bit mode. */
 	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
 			XSDPS_HOST_CTRL1_OFFSET,
+			XSDPS_HC_DMA_ADMA2_64_MASK);
+#else
+	/* Enable ADMA2 in 32bit mode. */
+	XSdPs_WriteReg8(InstancePtr->Config.BaseAddress,
+			XSDPS_HOST_CTRL1_OFFSET,
 			XSDPS_HC_DMA_ADMA2_32_MASK);
+#endif
 
 	/* Enable all interrupt status except card interrupt initially */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
@@ -281,10 +301,8 @@ s32 XSdPs_CfgInitialize(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr,
 	 * Transfer mode register - default value
 	 * DMA enabled, block count enabled, data direction card to host(read)
 	 */
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_BLK_CNT_EN_MASK |
-			XSDPS_TM_DAT_DIR_SEL_MASK);
+	TransferMode = XSDPS_TM_DMA_EN_MASK | XSDPS_TM_BLK_CNT_EN_MASK |
+			XSDPS_TM_DAT_DIR_SEL_MASK;
 
 	/* Set block size to 512 by default */
 	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
@@ -402,9 +420,17 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 			goto RETURN_PATH;
 		}
 
-        Arg = XSDPS_ACMD41_HCS | XSDPS_ACMD41_3V3 | (0x1FFU << 15U);
-		if (InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) {
-		    Arg |= XSDPS_OCR_S18;
+		Arg = XSDPS_ACMD41_HCS | XSDPS_ACMD41_3V3 | (0x1FFU << 15U);
+		/*
+		 * There is no support to switch to 1.8V and use UHS mode on
+		 * 1.0 silicon
+		 */
+		if ((InstancePtr->HC_Version == XSDPS_HC_SPEC_V3) &&
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+			(XGetPSVersion_Info() > XPS_VERSION_1) &&
+#endif
+			(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
+			Arg |= XSDPS_OCR_S18;
 		}
 
 		/* 0x40300000 - Host High Capacity support & 3.3V window */
@@ -426,19 +452,14 @@ s32 XSdPs_SdCardInitialize(XSdPs *InstancePtr)
 		InstancePtr->HCS = 1U;
 	}
 
-	/* There is no support to switch to 1.8V and use UHS mode on 1.0 silicon */
-#ifndef UHS_BROKEN
-    if (((RespOCR & XSDPS_OCR_S18) != 0U) &&
-		(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8)) {
+	if ((RespOCR & XSDPS_OCR_S18) != 0U) {
 		InstancePtr->Switch1v8 = 1U;
 		Status = XSdPs_Switch_Voltage(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			Status = XST_FAILURE;
 			goto RETURN_PATH;
 		}
-
 	}
-#endif
 
 	/* CMD2 for Card ID */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD2, 0U, 0U);
@@ -536,12 +557,13 @@ s32 XSdPs_CardInitialize(XSdPs *InstancePtr)
 {
 #ifdef __ICCARM__
 #pragma data_alignment = 32
-static u8 ExtCsd[512];
+	static u8 ExtCsd[512];
+	u8 SCR[8] = { 0U };
 #pragma data_alignment = 4
 #else
-static u8 ExtCsd[512] __attribute__ ((aligned(32)));
+	static u8 ExtCsd[512] __attribute__ ((aligned(32)));
+	u8 SCR[8] __attribute__ ((aligned(32))) = { 0U };
 #endif
-	u8 SCR[8] = { 0U };
 	u8 ReadBuff[64] = { 0U };
 	s32 Status;
 	u32 Arg;
@@ -647,6 +669,66 @@ static u8 ExtCsd[512] __attribute__ ((aligned(32)));
 		Status = XSdPs_Get_BusSpeed(InstancePtr, ReadBuff);
 		if (Status != XST_SUCCESS) {
 			goto RETURN_PATH;
+		}
+
+		if (((SCR[2] & SCR_SPEC_VER_3) != 0U) &&
+			(ReadBuff[13] >= UHS_SDR50_SUPPORT) &&
+			(InstancePtr->Config.BusWidth == XSDPS_WIDTH_8) &&
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (PSU_PMU)
+			(XGetPSVersion_Info() > XPS_VERSION_1) &&
+#endif
+			(InstancePtr->Switch1v8 == 0U)) {
+			u16 CtrlReg, ClockReg;
+
+			/* Stop the clock */
+			CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_CLK_CTRL_OFFSET);
+			CtrlReg &= ~(XSDPS_CC_SD_CLK_EN_MASK | XSDPS_CC_INT_CLK_EN_MASK);
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CLK_CTRL_OFFSET,
+					CtrlReg);
+
+			/* Enabling 1.8V in controller */
+			CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_HOST_CTRL2_OFFSET);
+			CtrlReg |= XSDPS_HC2_1V8_EN_MASK;
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_HOST_CTRL2_OFFSET,
+					CtrlReg);
+
+			/* Wait minimum 5mSec */
+			(void)usleep(5000U);
+
+			/* Check for 1.8V signal enable bit is cleared by Host */
+			CtrlReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_HOST_CTRL2_OFFSET);
+			if ((CtrlReg & XSDPS_HC2_1V8_EN_MASK) == 0U) {
+				Status = XST_FAILURE;
+				goto RETURN_PATH;
+			}
+
+			/* Wait for internal clock to stabilize */
+			ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_CLK_CTRL_OFFSET);
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+						XSDPS_CLK_CTRL_OFFSET,
+						ClockReg | XSDPS_CC_INT_CLK_EN_MASK);
+			ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+								XSDPS_CLK_CTRL_OFFSET);
+			while((ClockReg & XSDPS_CC_INT_CLK_STABLE_MASK) == 0U) {
+				ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+							XSDPS_CLK_CTRL_OFFSET);
+			}
+
+			/* Enable SD clock */
+			ClockReg = XSdPs_ReadReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_CLK_CTRL_OFFSET);
+			XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
+					XSDPS_CLK_CTRL_OFFSET,
+					ClockReg | XSDPS_CC_SD_CLK_EN_MASK);
+
+			/* Wait for 1mSec */
+			(void)usleep(1000U);
+
+			InstancePtr->Switch1v8 = 1U;
 		}
 
 #if defined (ARMR5) || defined (__aarch64__) || defined (ARMA53_32)
@@ -895,7 +977,6 @@ RETURN_PATH:
 	return Status;
 }
 
-#ifndef UHS_BROKEN
 /*****************************************************************************/
 /**
 *
@@ -986,7 +1067,6 @@ static s32 XSdPs_Switch_Voltage(XSdPs *InstancePtr)
 RETURN_PATH:
 	return Status;
 }
-#endif
 
 /*****************************************************************************/
 /**
@@ -1066,8 +1146,8 @@ s32 XSdPs_CmdTransfer(XSdPs *InstancePtr, u32 Cmd, u32 Arg, u32 BlkCnt)
 		}
 	}
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress, XSDPS_CMD_OFFSET,
-			(u16)CommandReg);
+	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_XFER_MODE_OFFSET,
+			(CommandReg << 16) | TransferMode);
 
 	/* Polling for response for now */
 	do {
@@ -1259,13 +1339,14 @@ s32 XSdPs_ReadPolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_AUTO_CMD12_EN_MASK |
+	TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
 			XSDPS_TM_BLK_CNT_EN_MASK | XSDPS_TM_DAT_DIR_SEL_MASK |
-			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK);
+			XSDPS_TM_DMA_EN_MASK | XSDPS_TM_MUL_SIN_BLK_SEL_MASK;
 
-	Xil_DCacheInvalidateRange((INTPTR)Buff, BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheInvalidateRange((INTPTR)Buff,
+			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+	}
 
 	/* Send block read command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD18, Arg, BlkCnt);
@@ -1349,13 +1430,14 @@ s32 XSdPs_WritePolled(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)
 	}
 
 	XSdPs_SetupADMA2DescTbl(InstancePtr, BlkCnt, Buff);
-	Xil_DCacheFlushRange((INTPTR)Buff, BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheFlushRange((INTPTR)Buff,
+			BlkCnt * XSDPS_BLK_SIZE_512_MASK);
+	}
 
-	XSdPs_WriteReg16(InstancePtr->Config.BaseAddress,
-			XSDPS_XFER_MODE_OFFSET,
-			XSDPS_TM_AUTO_CMD12_EN_MASK |
+	TransferMode = XSDPS_TM_AUTO_CMD12_EN_MASK |
 			XSDPS_TM_BLK_CNT_EN_MASK |
-			XSDPS_TM_MUL_SIN_BLK_SEL_MASK | XSDPS_TM_DMA_EN_MASK);
+			XSDPS_TM_MUL_SIN_BLK_SEL_MASK | XSDPS_TM_DMA_EN_MASK;
 
 	/* Send block write command */
 	Status = XSdPs_CmdTransfer(InstancePtr, CMD25, Arg, BlkCnt);
@@ -1463,8 +1545,13 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	}
 
 	for (DescNum = 0U; DescNum < (TotalDescLines-1); DescNum++) {
+#ifdef __aarch64__
+		InstancePtr->Adma2_DescrTbl[DescNum].Address =
+				(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+#else
 		InstancePtr->Adma2_DescrTbl[DescNum].Address =
 				(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+#endif
 		InstancePtr->Adma2_DescrTbl[DescNum].Attribute =
 				XSDPS_DESC_TRAN | XSDPS_DESC_VALID;
 		/* This will write '0' to length field which indicates 65536 */
@@ -1472,8 +1559,13 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 				(u16)XSDPS_DESC_MAX_LENGTH;
 	}
 
+#ifdef __aarch64__
+	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
+			(u64)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+#else
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Address =
 			(u32)((UINTPTR)Buff + (DescNum*XSDPS_DESC_MAX_LENGTH));
+#endif
 
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Attribute =
 			XSDPS_DESC_TRAN | XSDPS_DESC_END | XSDPS_DESC_VALID;
@@ -1481,13 +1573,18 @@ void XSdPs_SetupADMA2DescTbl(XSdPs *InstancePtr, u32 BlkCnt, const u8 *Buff)
 	InstancePtr->Adma2_DescrTbl[TotalDescLines-1].Length =
 			(u16)((BlkCnt*BlkSize) - (DescNum*XSDPS_DESC_MAX_LENGTH));
 
+#ifdef __aarch64__
+	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_EXT_OFFSET,
+			(u32)(((u64)&(InstancePtr->Adma2_DescrTbl[0]))>>32));
+#endif
 
 	XSdPs_WriteReg(InstancePtr->Config.BaseAddress, XSDPS_ADMA_SAR_OFFSET,
 			(u32)(UINTPTR)&(InstancePtr->Adma2_DescrTbl[0]));
 
-	Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl[0]),
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheFlushRange((INTPTR)&(InstancePtr->Adma2_DescrTbl[0]),
 			sizeof(XSdPs_Adma2Descriptor) * 32U);
-
+	}
 }
 
 /*****************************************************************************/

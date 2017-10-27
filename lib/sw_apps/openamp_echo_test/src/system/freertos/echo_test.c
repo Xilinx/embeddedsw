@@ -86,7 +86,7 @@
 #define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
 #define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
 
-/* from helper.c */
+/* External functions */
 extern int init_system(void);
 extern void cleanup_system(void);
 
@@ -100,6 +100,7 @@ static struct rpmsg_channel *app_rp_chnl;
 static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
+static int evt_chnl_deleted = 0;
 static int evt_virtio_rst = 0;
 static int evt_have_data = 0;
 
@@ -121,7 +122,7 @@ static void virtio_rst_cb(struct hil_proc *hproc, int id)
  *  RPMSG callbacks setup by remoteproc_resource_init()
  *-----------------------------------------------------------------------------*/
 static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
-                void * priv, unsigned long src)
+			  void *priv, unsigned long src)
 {
 	(void)priv;
 	(void)src;
@@ -137,7 +138,7 @@ static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
 {
 	app_rp_chnl = rp_chnl;
 	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL,
-				RPMSG_ADDR_ANY);
+				  RPMSG_ADDR_ANY);
 }
 
 static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
@@ -146,6 +147,7 @@ static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
 
 	rpmsg_destroy_ept(rp_ept);
 	rp_ept = NULL;
+	evt_chnl_deleted = 1;
 }
 
 /*-----------------------------------------------------------------------------*
@@ -158,15 +160,14 @@ int app(struct hil_proc *hproc)
 	/* Initialize RPMSG framework */
 	LPRINTF("Try to init remoteproc resource\n");
 	status = remoteproc_resource_init(&rsc_info, hproc,
-						rpmsg_channel_created,
-						rpmsg_channel_deleted, rpmsg_read_cb,
-						&proc, 0);
+				     rpmsg_channel_created,
+				     rpmsg_channel_deleted, rpmsg_read_cb,
+				     &proc, 0);
 
 	if (RPROC_SUCCESS != status) {
 		LPERROR("Failed  to initialize remoteproc resource.\n");
 		return -1;
 	}
-
 	LPRINTF("Init remoteproc resource succeeded\n");
 
 	hil_set_vdev_rst_cb(hproc, 0, virtio_rst_cb);
@@ -186,12 +187,13 @@ int app(struct hil_proc *hproc)
 			buffer_pull(&data, &len);
 
 			/* If we get a shutdown request we will stop and end this task */
-			if (*(unsigned int *)data == SHUTDOWN_MSG) {
+			if ((*(unsigned int *)data == SHUTDOWN_MSG) ||
+			    (evt_chnl_deleted)) {
 				break;
 			}
 
 			/* Send data back to master*/
-			if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, data, len)) {
+			if (rpmsg_send(app_rp_chnl, data, len) < 0) {
 				LPERROR("rpmsg_send failed\n");
 			}
 		}
@@ -213,6 +215,7 @@ int app(struct hil_proc *hproc)
 				break;
 			}
 			LPRINTF("Reinit RPMsg succeeded\n");
+			evt_chnl_deleted=0;
 			evt_virtio_rst = 0;
 		}
 	}
@@ -229,8 +232,8 @@ int app(struct hil_proc *hproc)
  *-----------------------------------------------------------------------------*/
 static void processing(void *unused_arg)
 {
-	int proc_id = 0;
-	int rsc_id = 0;
+	unsigned long proc_id = 0;
+	unsigned long rsc_id = 0;
 	struct hil_proc *hproc;
 
 	(void)unused_arg;
@@ -240,10 +243,9 @@ static void processing(void *unused_arg)
 	/* Create buffer to send data between RPMSG callback and processing task */
 	buffer_create();
 
-	/* Initialize HW and SW components/objects */
+	/* Initialize HW system components */
 	init_system();
 
-	/* Get selected hproc and rsc_info */
 	hproc = platform_create_proc(proc_id);
 	if (!hproc) {
 		LPERROR("Failed to create proc platform data.\n");

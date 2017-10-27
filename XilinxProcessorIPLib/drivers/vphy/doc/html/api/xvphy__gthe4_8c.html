@@ -67,7 +67,7 @@ $(document).ready(function(){initNavTree('xvphy__gthe4_8c.html','');});
 <div class="contents">
 <a name="details" id="details"></a><h2 class="groupheader">Overview</h2>
 <div class="textblock"><p>Contains a minimal set of functions for the <a class="el" href="struct_x_vphy.html" title="The XVphy driver instance data. ">XVphy</a> driver that allow access to all of the Video PHY core's functionality. </p>
-<p>See <a class="el" href="xvphy_8h.html" title="The Xilinx Video PHY (VPHY) driver. ">xvphy.h</a> for a detailed description of the driver.</p>
+<p>See <a class="el" href="xvphy_8h.html">xvphy.h</a> for a detailed description of the driver.</p>
 <dl class="section note"><dt>Note</dt><dd>None.</dd></dl>
 <pre>
 MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
@@ -90,6 +90,9 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
 1.5   gm   27/04/17 Updated the RXPI_CFG0 according to new GTWiz rules
                     Corrected RXCDR_CFG values for DP
                     Added XVphy_CfgCpllCalPeriodandTol API
+1.6   gm   12/06/17 Changed XVphy_DrpRead with XVphy_DrpRd
+                    Changed XVphy_DrpWrite with XVphy_DrpWr
+                    Improved status return of APIs with DRP Rd and Wr
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -51,6 +51,7 @@ static int PmConfigPowerSectionHandler(u32* const addr);
 static int PmConfigResetSectionHandler(u32* const addr);
 static int PmConfigShutdownSectionHandler(u32* const addr);
 static int PmConfigSetConfigSectionHandler(u32* const addr);
+static int PmConfigGpoSectionHandler(u32* const addr);
 
 /*********************************************************************
  * Macros
@@ -64,11 +65,17 @@ static int PmConfigSetConfigSectionHandler(u32* const addr);
 #define PM_CONFIG_RESET_SECTION_ID	0x105U
 #define PM_CONFIG_SHUTDOWN_SECTION_ID	0x106U
 #define PM_CONFIG_SET_CONFIG_SECTION_ID	0x107U
+#define PM_CONFIG_GPO_SECTION_ID	0x108U
 
 /* Size in bytes of one data field in configuration object */
 #define PM_CONFIG_WORD_SIZE	4U
 
 #define PM_CONFIG_OBJECT_LOADED	0x1U
+
+#define PM_CONFIG_GPO_MASK	(BIT(5U) | BIT(4U) | BIT(3U) | BIT(2U))
+
+/* Default number of sections in configuration object */
+#define DEFAULT_SECTIONS_NUM	7U
 
 /*********************************************************************
  * Structure definitions
@@ -105,6 +112,9 @@ static PmConfigSection pmConfigSections[] = {
 	}, {
 		.id = PM_CONFIG_SET_CONFIG_SECTION_ID,
 		.handler = PmConfigSetConfigSectionHandler,
+	}, {
+		.id = PM_CONFIG_GPO_SECTION_ID,
+		.handler = PmConfigGpoSectionHandler,
 	},
 };
 
@@ -112,10 +122,12 @@ static PmConfigSection pmConfigSections[] = {
  * PmConfig - Configuration object data
  * @configPerms ORed masks of masters which are allowed to load the object
  * @flags       Flags: bit(0) - set if the configuration object is loaded
+ * @secNumber   Number of sections in configuration object
  */
 typedef struct {
 	u32 configPerms;
 	u8 flags;
+	u32 secNumber;
 } PmConfig;
 
 /*
@@ -127,6 +139,7 @@ typedef struct {
 static PmConfig pmConfig = {
 	.configPerms = IPI_PMU_0_IER_APU_MASK | IPI_PMU_0_IER_RPU_0_MASK,
 	.flags = 0U,
+	.secNumber = DEFAULT_SECTIONS_NUM,
 };
 
 /**
@@ -187,7 +200,7 @@ static int PmConfigMasterSectionHandler(u32* const addr)
 		nodeId = PmConfigReadNext(addr);
 		master = PmMasterGetPlaceholder(nodeId);
 		if (NULL == master) {
-			PmDbgCfg("ERROR: Unknown master (%s=%lu)\r\n",
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown master (%s=%lu)\r\n",
 				 PmStrNode(nodeId), nodeId);
 			status = XST_FAILURE;
 			goto done;
@@ -225,7 +238,7 @@ static int PmConfigSlaveSectionHandler(u32* const addr)
 		nodeId = PmConfigReadNext(addr);
 		slave = PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
-			PmDbgCfg("ERROR: Unknown slave (%s=%lu)\r\n",
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown slave (%s=%lu)\r\n",
 				 PmStrNode(nodeId), nodeId);
 			status = XST_FAILURE;
 			goto done;
@@ -235,7 +248,8 @@ static int PmConfigSlaveSectionHandler(u32* const addr)
 		usagePerms = PmConfigReadNext(addr);
 		status = PmSlaveSetConfig(slave, usagePolicy, usagePerms);
 		if (XST_SUCCESS != status) {
-			PmDbgCfg("ERROR configuring %s\r\n", PmStrNode(nodeId));
+			PmDbgCfg(DEBUG_DETAILED,"ERROR configuring %s\r\n",
+					PmStrNode(nodeId));
 			goto done;
 		}
 	}
@@ -268,7 +282,7 @@ static int PmConfigPreallocForMaster(const PmMaster* const master,
 		nodeId = PmConfigReadNext(addr);
 		slave = PmNodeGetSlave(nodeId);
 		if (NULL == slave) {
-			PmDbgCfg("ERROR: Unknown slave (%s=%lu)\r\n",
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown slave (%s=%lu)\r\n",
 				 PmStrNode(nodeId), nodeId);
 			status = XST_FAILURE;
 			goto done;
@@ -277,8 +291,8 @@ static int PmConfigPreallocForMaster(const PmMaster* const master,
 		/* Get the requirement structure for master/slave pair */
 		req = PmRequirementGet(master, slave);
 		if (NULL == req) {
-			PmDbgCfg("ERROR: Invalid master=%s slave=%s pair\r\n",
-				 PmStrNode(master->nid), PmStrNode(nodeId));
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Invalid master=%s slave=%s "
+					"pair\r\n", PmStrNode(master->nid), PmStrNode(nodeId));
 			status = XST_FAILURE;
 			goto done;
 		}
@@ -320,8 +334,8 @@ static int PmConfigPreallocSectionHandler(u32* const addr)
 		ipiMask = PmConfigReadNext(addr);
 		master = PmGetMasterByIpiMask(ipiMask);
 		if (NULL == master) {
-			PmDbgCfg("ERROR: Unknown master (IPI mask=0x%lx)\r\n",
-				 ipiMask);
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown master "
+					"(IPI mask=0x%lx)\r\n", ipiMask);
 			status = XST_FAILURE;
 			goto done;
 		}
@@ -358,7 +372,7 @@ static int PmConfigPowerSectionHandler(u32* const addr)
 
 		power = PmNodeGetPower(powerId);
 		if (NULL == power) {
-			PmDbgCfg("ERROR: Unknown power (%s=%lu)\r\n",
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown power (%s=%lu)\r\n",
 				 PmStrNode(powerId), powerId);
 			status = XST_FAILURE;
 			goto done;
@@ -392,7 +406,8 @@ static int PmConfigResetSectionHandler(u32* const addr)
 
 		status = PmResetSetConfig(resetId, permissions);
 		if (XST_SUCCESS != status) {
-			PmDbgCfg("ERROR: Unknown reset (ID=%lu)\r\n", resetId);
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown reset (ID=%lu)\r\n",
+					resetId);
 			goto done;
 		}
 	}
@@ -412,6 +427,9 @@ static int PmConfigShutdownSectionHandler(u32* const addr)
 {
 	int status = XST_SUCCESS;
 
+	/* Shutdown section doesn't have shutdown types information */
+	PmConfigSkipWords(addr, 1);
+
 	return status;
 }
 
@@ -430,6 +448,47 @@ static int PmConfigSetConfigSectionHandler(u32* const addr)
 }
 
 /**
+ * PmConfigHeaderHandler() - Read and process header of config object
+ * @addr        Start address of the header in configuration object
+ */
+static void PmConfigHeaderHandler(u32* const addr)
+{
+	int status = XST_SUCCESS;
+	u32 remWords;
+
+	/* Read number of remaining words in header */
+	remWords = PmConfigReadNext(addr);
+
+	/* If there is words in header, get number of sections in object */
+	if (remWords > 0) {
+		pmConfig.secNumber = PmConfigReadNext(addr);
+		remWords--;
+	}
+
+	/* Skip the remaining words in header */
+	PmConfigSkipWords(addr, remWords);
+}
+
+/**
+ * PmConfigGpoSectionHandler() - Read and process GPO section
+ * @addr        Start address of the section in configuration object
+ *
+ * @return      XST_SUCCESS always
+ */
+static int PmConfigGpoSectionHandler(u32* const addr)
+{
+	u32 gpoState, reg;
+
+	gpoState = PmConfigReadNext(addr);
+	reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+	reg &= ~PM_CONFIG_GPO_MASK;
+	reg |= (gpoState & PM_CONFIG_GPO_MASK);
+	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+
+	return XST_SUCCESS;
+}
+
+/**
  * PmConfigClear() - Clear previous PFW configuration
  */
 static void PmConfigClear(void)
@@ -438,6 +497,7 @@ static void PmConfigClear(void)
 	PmResetClearConfig();
 	PmNodeClearConfig();
 	pmConfig.configPerms = 0U;
+	pmConfig.secNumber = DEFAULT_SECTIONS_NUM;
 }
 
 /**
@@ -476,7 +536,7 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 
 	/* Check for permissions to load the configuration object */
 	if (0U == (callerIpi & pmConfig.configPerms)) {
-		PmDbgCfg("No permission to load the object\r\n");
+		PmDbgCfg(DEBUG_DETAILED,"No permission to load the object\r\n");
 		status = XST_PM_NO_ACCESS;
 		goto ret;
 	}
@@ -487,14 +547,11 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 		goto done;
 	}
 
-	/* Read number of remaining words in header */
-	remWords = PmConfigReadNext(&currAddr);
-
-	/* Skip the remaining words in header */
-	PmConfigSkipWords(&currAddr, remWords);
+	/* Read and process header from the object */
+	PmConfigHeaderHandler(&currAddr);
 
 	/* Read and process each section from the object */
-	for (i = 0U; i < ARRAY_SIZE(pmConfigSections); i++) {
+	for (i = 0U; i < pmConfig.secNumber; i++) {
 		PmConfigSection* section;
 		u32 sectionId;
 
@@ -502,7 +559,7 @@ int PmConfigLoadObject(const u32 address, const u32 callerIpi)
 		section = PmConfigGetSectionById(sectionId);
 
 		if ((NULL == section) || (NULL == section->handler)) {
-			PmDbgCfg("ERROR: Unknown section (ID=%lu)\r\n",
+			PmDbgCfg(DEBUG_DETAILED,"ERROR: Unknown section (ID=%lu)\r\n",
 				 sectionId);
 			status = XST_FAILURE;
 			goto done;

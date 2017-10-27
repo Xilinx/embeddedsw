@@ -52,6 +52,9 @@
  *                       TxChReconfig
  *                     Corrected the default return value of DRP encoding
  *                       APIs to prevent overwritting the reserved bits
+ * 1.6   gm   12/06/17 Changed XVphy_DrpRead with XVphy_DrpRd
+ *                     Changed XVphy_DrpWrite with XVphy_DrpWr
+ *                     Improved status return of APIs with DRP Rd and Wr
  * </pre>
  *
 *******************************************************************************/
@@ -265,9 +268,10 @@ u32 XVphy_Gthe2OutDivChReconfig(XVphy *InstancePtr, u8 QuadId,
 {
 	u16 DrpVal;
 	u16 WriteVal;
+    u32 Status = XST_SUCCESS;
 
 	/* Obtain current DRP register value for TX/RX dividers. */
-	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0x88);
+	Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x88, &DrpVal);
 
 	if (Dir == XVPHY_DIR_RX) {
 		/* Mask out RX_OUT_DIV. */
@@ -286,9 +290,9 @@ u32 XVphy_Gthe2OutDivChReconfig(XVphy *InstancePtr, u8 QuadId,
 		DrpVal |= (WriteVal << 4);
 	}
 	/* Write new DRP register value for TX/RX dividers. */
-	XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x88, DrpVal);
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x88, DrpVal);
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -311,9 +315,10 @@ u32 XVphy_Gthe2ClkChReconfig(XVphy *InstancePtr, u8 QuadId,
 {
 	u16 DrpVal;
 	u16 WriteVal;
+    u32 Status = XST_SUCCESS;
 
 	/* Obtain current DRP register value for PLL dividers. */
-	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, ChId, 0x5E);
+	Status |= XVphy_DrpRd(InstancePtr, QuadId, ChId, 0x5E, &DrpVal);
 	/* Mask out clock divider bits. */
 	DrpVal &= ~(0x1FFF);
 	/* Set CPLL_FBDIV. */
@@ -326,9 +331,9 @@ u32 XVphy_Gthe2ClkChReconfig(XVphy *InstancePtr, u8 QuadId,
 	WriteVal = (XVphy_MToDrpEncoding(InstancePtr, QuadId, ChId) & 0x1F);
 	DrpVal |= (WriteVal << 8);
 	/* Write new DRP register value for PLL dividers. */
-	XVphy_DrpWrite(InstancePtr, QuadId, ChId, 0x5E, DrpVal);
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId, 0x5E, DrpVal);
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -351,6 +356,7 @@ u32 XVphy_Gthe2ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 {
 	u16 DrpVal;
 	u16 WriteVal;
+    u32 Status = XST_SUCCESS;
 
 	/* Obtain current DRP register value for QPLL_CFG. */
 	DrpVal = 0x01C1;
@@ -361,10 +367,10 @@ u32 XVphy_Gthe2ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 		PllParams.IsLowerBand;
 	DrpVal |= (WriteVal << 6);
 	/* Write new DRP register value for QPLL_CFG. */
-	XVphy_DrpWrite(InstancePtr, QuadId, CmnId, 0x32, DrpVal);
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, CmnId, 0x32, DrpVal);
 
 	/* Obtain current DRP register value for QPLL_REFCLK_DIV. */
-	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, CmnId, 0x33);
+	Status |= XVphy_DrpRd(InstancePtr, QuadId, CmnId, 0x33, &DrpVal);
 	DrpVal |= 0x0068;
 	/* Mask out QPLL_REFCLK_DIV. */
 	DrpVal &= ~(0xF800);
@@ -372,20 +378,20 @@ u32 XVphy_Gthe2ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 	WriteVal = (XVphy_MToDrpEncoding(InstancePtr, QuadId, CmnId) & 0x1F);
 	DrpVal |= (WriteVal << 11);
 	/* Write new DRP register value for QPLL_REFCLK_DIV. */
-	XVphy_DrpWrite(InstancePtr, QuadId, CmnId, 0x33, DrpVal);
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, CmnId, 0x33, DrpVal);
 
 	/* Obtain current DRP register value for QPLL_FBDIV. */
-	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, CmnId, 0x36);
+	Status |= XVphy_DrpRd(InstancePtr, QuadId, CmnId, 0x36, &DrpVal);
 	/* Mask out QPLL_FBDIV. */
 	DrpVal &= ~(0x3FFF);
 	/* Set QPLL_FBDIV. */
 	WriteVal = (XVphy_NToDrpEncoding(InstancePtr, QuadId, CmnId, 0) & 0x3FF);
 	DrpVal |= WriteVal;
 	/* Write new DRP register value for QPLL_FBDIV. */
-	XVphy_DrpWrite(InstancePtr, QuadId, CmnId, 0x36, DrpVal);
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, CmnId, 0x36, DrpVal);
 
 	/* Obtain current DRP register value for QPLL_FBDIV_RATIO. */
-	DrpVal = XVphy_DrpRead(InstancePtr, QuadId, CmnId, 0x37);
+	Status |= XVphy_DrpRd(InstancePtr, QuadId, CmnId, 0x37, &DrpVal);
 	/* Mask out QPLL_FBDIV_RATIO. */
 	DrpVal &= ~(1 << 6);
 	/* Set QPLL_FBDIV_RATIO. */
@@ -394,9 +400,9 @@ u32 XVphy_Gthe2ClkCmnReconfig(XVphy *InstancePtr, u8 QuadId,
 		DrpVal |= (1 << 6);
 	}
 	/* Write new DRP register value for QPLL_FBDIV_RATIO. */
-	XVphy_DrpWrite(InstancePtr, QuadId, CmnId, 0x37, DrpVal);
+	Status |= XVphy_DrpWr(InstancePtr, QuadId, CmnId, 0x37, DrpVal);
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/
@@ -419,6 +425,7 @@ u32 XVphy_Gthe2RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 	XVphy_Channel *ChPtr;
 	u16 DrpVal;
 	u8 CfgIndex;
+    u32 Status = XST_SUCCESS;
 
 	ChPtr = &InstancePtr->Quads[QuadId].Plls[XVPHY_CH2IDX(ChId)];
 
@@ -429,11 +436,11 @@ u32 XVphy_Gthe2RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 			/* Don't modify RX_CDR configuration. */
 			continue;
 		}
-		XVphy_DrpWrite(InstancePtr, QuadId, ChId,
+		Status |= XVphy_DrpWr(InstancePtr, QuadId, ChId,
 			XVPHY_DRP_RXCDR_CFG(CfgIndex), DrpVal);
 	}
 
-	return XST_SUCCESS;
+	return Status;
 }
 
 /*****************************************************************************/

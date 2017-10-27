@@ -48,9 +48,12 @@
  * 1.0   als  10/19/15 Initial release.
  * 1.1   gm   02/01/16 Added GTPE2 and GTHE4 support
  * 1.4   gm   29/11/16 Added ERR_IRQ register offset
- * 1.5   gm   02/05/17 Added CPLL CAL reg and masks
+ * 1.5   gm   02/05/17 Added CPLL CAL reg and corresponding masks
+ * 1.6   gm   06/08/17 Added TX and RX MMCM lock Masks
  * </pre>
  *
+ * @addtogroup xvphy
+ * @{
 *******************************************************************************/
 
 #ifndef XVPHY_HW_H_
@@ -481,6 +484,8 @@
 #define XVPHY_INTR_QPLL1_LOCK_MASK		0x00000020
 #define XVPHY_INTR_TXCLKDETFREQCHANGE_MASK	0x00000040
 #define XVPHY_INTR_RXCLKDETFREQCHANGE_MASK	0x00000080
+#define XVPHY_INTR_TXMMCMUSRCLK_LOCK_MASK	0x00000200
+#define XVPHY_INTR_RXMMCMUSRCLK_LOCK_MASK	0x00000400
 #define XVPHY_INTR_TXTMRTIMEOUT_MASK		0x40000000
 #define XVPHY_INTR_RXTMRTIMEOUT_MASK		0x80000000
 #define XVPHY_INTR_QPLL_LOCK_MASK		XVPHY_INTR_QPLL0_LOCK_MASK
@@ -488,7 +493,7 @@
 #define XVPHY_MMCM_USRCLK_CTRL_CFG_NEW_MASK	0x01
 #define XVPHY_MMCM_USRCLK_CTRL_RST_MASK		0x02
 #define XVPHY_MMCM_USRCLK_CTRL_CFG_SUCCESS_MASK	0x10
-#define XVPHY_MMCM_USRCLK_CTRL_LOCKED_MASK	0x20
+#define XVPHY_MMCM_USRCLK_CTRL_LOCKED_MASK	0x200
 #define XVPHY_MMCM_USRCLK_CTRL_PWRDWN_MASK	0x400
 #define XVPHY_MMCM_USRCLK_CTRL_LOCKED_MASK_MASK	0x800
 /* 0x124, 0x144: MMCM_TXUSRCLK_REG1, MMCM_RXUSRCLK_REG1 */
@@ -593,3 +598,4 @@
 	XVphy_Out32((BaseAddress) + (RegOffset), (Data))
 
 #endif /* XVPHY_HW_H_ */
+/** @} */

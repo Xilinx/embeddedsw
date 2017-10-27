@@ -40,6 +40,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include "metal/compiler.h"
 #include "metal/atomic.h"
 #include "metal/sys.h"
 
@@ -49,23 +50,6 @@ extern "C" {
 
 /** \defgroup io IO Interfaces
  *  @{ */
-
-/** I/O memory flags macros for caching scheme */
-
-/** Cache bits */
-#define METAL_CACHE_UNKNOWN  0x0 /** Use cache, unknown cache type */
-#define METAL_UNCACHED       0x1 /** No cache */
-#define METAL_CACHE_WB       0x2 /** Write back */
-#define METAL_CACHE_WT       0x4 /** Write through */
-
-/** Memory types */
-#define METAL_MEM_MAPPED      0x10 /** Memory mapped */
-#define METAL_IO_MAPPED       0x20 /** I/O mapped */
-#define METAL_SHARED_MEM      0x40 /** Shared memory */
-
-/** DMA cache bits */
-#define METAL_DMA_NO_CACHE_OPS 0x0  /** No cache ops in DMA transaction */
-#define METAL_DMA_CACHE_OPS    0x1  /** Require cache ops in DMA transaction */
 
 struct metal_io_region;
 
@@ -80,18 +64,36 @@ struct metal_io_ops {
 				 uint64_t value,
 				 memory_order order,
 				 int width);
+	int		(*block_read)(struct metal_io_region *io,
+				unsigned long offset,
+				void *restrict dst,
+				memory_order order,
+				int len);
+	int		(*block_write)(struct metal_io_region *io,
+				 unsigned long offset,
+				 const void *restrict src,
+				 memory_order order,
+				 int len);
+	void		(*block_set)(struct metal_io_region *io,
+				 unsigned long offset,
+				 unsigned char value,
+				 memory_order order,
+				 int len);
 	void		(*close)(struct metal_io_region *io);
 };
 
 /** Libmetal I/O region structure. */
 struct metal_io_region {
-	void			*virt;
-	const metal_phys_addr_t	*physmap;
-	size_t			size;
-	unsigned long		page_shift;
-	metal_phys_addr_t	page_mask;
-	unsigned int		mem_flags;
-	struct metal_io_ops	ops;
+	void			*virt;      /**< base virtual address */
+	const metal_phys_addr_t	*physmap;   /**< table of base physical address
+                                                 of each of the pages in the I/O
+                                                 region */
+	size_t			size;       /**< size of the I/O region */
+	unsigned long		page_shift; /**< page shift of I/O region */
+	metal_phys_addr_t	page_mask;  /**< page mask of I/O region */
+	unsigned int		mem_flags;  /**< memory attribute of the
+						 I/O region */
+	struct metal_io_ops	ops;        /**< I/O region operations */
 };
 
 /**
@@ -111,7 +113,7 @@ metal_io_init(struct metal_io_region *io, void *virt,
 	      unsigned page_shift, unsigned int mem_flags,
 	      const struct metal_io_ops *ops)
 {
-	const struct metal_io_ops nops = {NULL, NULL, NULL};
+	const struct metal_io_ops nops = {NULL, NULL, NULL, NULL, NULL, NULL};
 	io->virt = virt;
 	io->physmap = physmap;
 	io->size = size;
@@ -152,11 +154,7 @@ static inline size_t metal_io_region_size(struct metal_io_region *io)
 static inline void *
 metal_io_virt(struct metal_io_region *io, unsigned long offset)
 {
-#ifdef METAL_INVALID_IO_VADDR
-	return (io->virt != METAL_INVALID_IO_VADDR && offset <= io->size
-#else
-	return (offset <= io->size
-#endif
+	return (io->virt != METAL_BAD_VA && offset <= io->size
 		? (uint8_t *)io->virt + offset
 		: NULL);
 }
@@ -263,8 +261,9 @@ metal_io_read(struct metal_io_region *io, unsigned long offset,
 		return atomic_load_explicit((atomic_ulong *)ptr, order);
 	else if (ptr && sizeof(atomic_ullong) == width)
 		return atomic_load_explicit((atomic_ullong *)ptr, order);
-	else
-		assert(0);
+
+	assert(0);
+	return 0; /* quiet compiler */
 }
 
 /**
@@ -335,43 +334,39 @@ metal_io_write(struct metal_io_region *io, unsigned long offset,
 	metal_io_write((_io), (_ofs), (_val), memory_order_seq_cst, 8)
 
 /**
- * @brief	libmetal memory map
- *
- * This function is to enable memory mapping to the specified I/O memory.
- *
- * @param[in]	pa     physical memory start address
- * @param[in]   io     memory region
- * @param[in]   size   size of the memory range
- * @return	logical address if suceeded, or 0 if failed.
+ * @brief	Read a block from an I/O region.
+ * @param[in]	io	I/O region handle.
+ * @param[in]	offset	Offset into I/O region.
+ * @param[in]	dst	destination to store the read data.
+ * @param[in]	len	length in bytes to read.
+ * @return      On success, number of bytes read. On failure, negative value
  */
-void *metal_io_mem_map(metal_phys_addr_t pa,
-		     struct metal_io_region *io,
-		     size_t size);
+int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
+	       void *restrict dst, int len);
 
 /**
- * @brief	libmetal set device memory
- *
- * This function is to fill the device memory with the specified value.
- *
- * @param[in]   dst  target memory
- * @param[in]   c    val to fill
- * @param[in]   size size of memory to fill.
- * @return	pointer to the target memory
+ * @brief	Write a block into an I/O region.
+ * @param[in]	io	I/O region handle.
+ * @param[in]	offset	Offset into I/O region.
+ * @param[in]	src	source to write.
+ * @param[in]	len	length in bytes to write.
+ * @return      On success, number of bytes written. On failure, negative value
  */
-void *metal_memset_io(void *dst, int c, size_t size);
+int metal_io_block_write(struct metal_io_region *io, unsigned long offset,
+	       const void *restrict src, int len);
 
 /**
- * @brief	libmetal copy to target memory
- *
- * This function is to copy specified memory area.
- * The source memory or the destination memory can be device memory.
- *
- * @param[in]   dst    target memory
- * @param[in]   src    source memory
- * @param[in]   size   size of memory to copy.
- * @return	pointer to the target memory
+ * @brief	fill a block of an I/O region.
+ * @param[in]	io	I/O region handle.
+ * @param[in]	offset	Offset into I/O region.
+ * @param[in]	value	value to fill into the block
+ * @param[in]	len	length in bytes to fill.
+ * @return      On success, number of bytes filled. On failure, negative value
  */
-void *metal_memcpy_io(void *dst, const void *src, size_t size);
+int metal_io_block_set(struct metal_io_region *io, unsigned long offset,
+	       unsigned char value, int len);
+
+/** @} */
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,8 @@
 var xmbox__hw_8h =
 [
+    [ "XMB_CTRL_REG_OFFSET", "group__mbox__v4__0.html#ga12aab471e30140e408a6e9c396b44257", null ],
+    [ "XMB_CTRL_RESET_RECV_FIFO", "group__mbox__v4__0.html#gaf8e2e5c1013346efd30bf5ea7314ebd7", null ],
+    [ "XMB_CTRL_RESET_SEND_FIFO", "group__mbox__v4__0.html#ga9d015e11c5da1e44ab58be839cdf33d3", null ],
     [ "XMB_ERROR_FIFO_EMPTY", "group__mbox__v4__0.html#ga1fc712eb56bcc330c46c5bfe3f3c1583", null ],
     [ "XMB_ERROR_FIFO_FULL", "group__mbox__v4__0.html#ga90d8c6add066bca7fc234e0908a2ab56", null ],
     [ "XMB_ERROR_REG_OFFSET", "group__mbox__v4__0.html#ga777c199c53e918c3cbb896187ce28914", null ],

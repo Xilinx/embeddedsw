@@ -45,6 +45,7 @@
 #include "xpfw_mod_stl.h"
 #include "xpfw_mod_wdt.h"
 
+#if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT) || defined (XPAR_PL_IS_CACHE_COHERENT)
 /*****************************************************************************
 *
 * Enable the broadcasting of Inner Shareable transactions for APU.
@@ -56,16 +57,17 @@
 ******************************************************************************/
 static void XPfw_Enable_Inner_Shareable_Broadcast(void)
 {
-	u32 val=0;
+	u32 val = 0U;
 
 	val = XPfw_Read32(LPD_SLCR_LPD_APU);
-	val |= (1 << LPD_SLCR_LPD_APU_BRDC_INNER_SHIFT);
+	val |= (1U << LPD_SLCR_LPD_APU_BRDC_INNER_SHIFT);
 	XPfw_Write32(LPD_SLCR_LPD_APU , val);
 }
+#endif
 
 void XPfw_UserStartUp(void)
 {
-#if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT)
+#if defined (XPAR_LPD_IS_CACHE_COHERENT) || defined (XPAR_FPD_IS_CACHE_COHERENT) || defined (XPAR_PL_IS_CACHE_COHERENT)
     /*
 	 * LPD/FPD peripheral is configured to use CCI,
      * enable the broadcasting of inner shareable transactions

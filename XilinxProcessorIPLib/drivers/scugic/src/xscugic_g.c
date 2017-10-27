@@ -33,7 +33,7 @@
 /**
 *
 * @file xscugic_g.c
-* @addtogroup scugic_v3_1
+* @addtogroup scugic_v3_8
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

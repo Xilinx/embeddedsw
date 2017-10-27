@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2012 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2012 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 * 2.01a jz   01/19/11 Added ability to re-assign BD addresses
 * 5.1   sha  07/15/15 Defined macro XPAR_XAXIVDMA_NUM_INSTANCES if not
 *		      defined in xparameters.h
+* 6.4   ms   08/07/17 Fixed compilation warnings.
 * </pre>
 *
 ******************************************************************************/
@@ -80,9 +81,9 @@ XAxiVdma_Config *XAxiVdma_LookupConfig(u16 DeviceId)
 {
 	extern XAxiVdma_Config XAxiVdma_ConfigTable[];
 	XAxiVdma_Config *CfgPtr = NULL;
-	int i;
+	u32 i;
 
-	for (i = 0; i < XPAR_XAXIVDMA_NUM_INSTANCES; i++) {
+	for (i = 0U; i < XPAR_XAXIVDMA_NUM_INSTANCES; i++) {
 		if (XAxiVdma_ConfigTable[i].DeviceId == DeviceId) {
 			CfgPtr = &XAxiVdma_ConfigTable[i];
 			break;

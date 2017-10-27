@@ -1123,6 +1123,8 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	u8 Key_8[8];
 	u8 Key_Hex[4];
 	u32 Index;
+	u8 MaxIndex = 8;
+
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		u32 Key_32;
@@ -1140,11 +1142,28 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 	else {
 		strcpy((char *)FullKey, (char *)Key);
 	}
+#ifdef XSK_MICROBLAZE_ULTRA_PLUS
+	u8 Row = 0;
+	MaxIndex = 16;
+	Row = 5;
+#endif
+#ifdef XSK_MICROBLAZE_ULTRA
+	u8 Row = 0;
+	MaxIndex = 8;
+	Row = 20;
+#endif
 
-	for (Index = 0; Index <8;Index++) {
+
+	for (Index = 0; Index < MaxIndex; Index++) {
 #ifdef XSK_MICROBLAZE_PLATFORM
+#ifdef XSK_MICROBLAZE_ULTRA
 		XilSKey_StrCpyRange(FullKey, Key_8, ((7 - Index)*8),
 					((((7 - Index) + 1)*8)-1));
+#endif
+#ifdef XSK_MICROBLAZE_ULTRA_PLUS
+		XilSKey_StrCpyRange(FullKey, Key_8, (64 - ((Index + 1)*4)),
+					(63 - (Index * 4)));
+#endif
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
@@ -1153,13 +1172,17 @@ u32 XilSKey_CrcCalculation(u8 *Key)
 #endif
 
 		XilSKey_Efuse_ConvertStringToHexBE((char *)Key_8, Key_Hex, 8);
-#if defined (XSK_MICROBLAZE_PLATFORM) || \
+#if defined (XSK_MICROBLAZE_ULTRA) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		Key_32 = (Key_Hex[0] << 24) | (Key_Hex[1] << 16) |
 				(Key_Hex[2] << 8) | (Key_Hex[3]);
 #endif
+#ifdef	XSK_MICROBLAZE_ULTRA_PLUS
+	Key_32 = 0x00;
+	Key_32 = (Key_Hex[0] << 8) | Key_Hex[1];
+#endif
 #ifdef XSK_MICROBLAZE_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 20 + Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, Row + Index);
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
@@ -1294,35 +1317,57 @@ u32 XilSkey_CrcCalculation_AesKey(u8 *Key)
 {
 	u32 Crc = 0;
 	u32 Index;
+	u32 MaxIndex = 8;
 #if defined (XSK_MICROBLAZE_PLATFORM) || \
 	defined (XSK_ZYNQ_ULTRA_MP_PLATFORM)
 		u32 Key_32;
 		u32 Index1;
 #endif
 
-	for (Index = 0; Index < 8;Index++) {
-#ifdef XSK_MICROBLAZE_PLATFORM
+#ifdef XSK_MICROBLAZE_ULTRA_PLUS
+	u32 Row;
+	MaxIndex = 16;
+	Row = 5;
+#endif
+#ifdef XSK_MICROBLAZE_ULTRA
+	u32 Row;
+	MaxIndex = 8;
+	Row = 20;
+#endif
+
+	for (Index = 0; Index < MaxIndex; Index++) {
+#ifdef XSK_MICROBLAZE_ULTRA
 		Index1 = (Index * 4);
+#endif
+#ifdef XSK_MICROBLAZE_ULTRA_PLUS
+		Index1 = (Index * 2);
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 		Index1 = ((7 - Index) * 4);
 #endif
 
-#if defined XSK_MICROBLAZE_PLATFORM || \
+#if defined XSK_MICROBLAZE_ULTRA || \
 	defined XSK_ZYNQ_ULTRA_MP_PLATFORM
 	Key_32 = (Key[Index1 + 3] << 24) | (Key[Index1 + 2] << 16) |
 			(Key[Index1 + 1] << 8) | (Key[Index1 + 0]);
-#else
-	(void) Key;
+#endif
+
+#ifdef XSK_MICROBLAZE_ULTRA_PLUS
+	Key_32 = 0x00;
+	Key_32 = (Key[Index1 + 1] << 8) | Key[Index1];
 #endif
 
 #ifdef XSK_MICROBLAZE_PLATFORM
-		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 20 + Index);
+		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, Row + Index);
 #endif
 
 #ifdef XSK_ZYNQ_ULTRA_MP_PLATFORM
 		Crc = XilSKey_RowCrcCalculation(Crc, Key_32, 8 - Index);
+#endif
+
+#ifdef XSK_ZYNQ_PLATFORM
+		(void) Key;
 #endif
 	}
 

@@ -83,7 +83,7 @@
 #include "task.h"
 
 #define	MAX_SIZE		6
-#define NUM_MATRIX      2
+#define NUM_MATRIX		2
 
 #define SHUTDOWN_MSG	0xEF56A55A
 
@@ -106,13 +106,8 @@ static struct rpmsg_endpoint *rp_ept;
 static struct remote_proc *proc = NULL;
 static struct rsc_table_info rsc_info;
 
+static int evt_chnl_deleted = 0;
 static int have_data_flag=0;
-
-/* Internal functions */
-static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl);
-static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl);
-static void rpmsg_read_cb(struct rpmsg_channel *, void *, int, void *,
-			  unsigned long);
 
 /* External functions */
 extern int init_system(void);
@@ -123,7 +118,7 @@ extern int buffer_push(void *data, int len);
 extern void buffer_pull(void **data, int *len);
 
 /*-----------------------------------------------------------------------------*
- *  Application specific
+ *  Calculate the Matrix
  *-----------------------------------------------------------------------------*/
 static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r)
 {
@@ -141,6 +136,40 @@ static void Matrix_Multiply(const matrix *m, const matrix *n, matrix *r)
 	}
 }
 
+/*-----------------------------------------------------------------------------*
+ *  RPMSG callbacks setup by remoteproc_resource_init()
+ *-----------------------------------------------------------------------------*/
+static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
+			  void *priv, unsigned long src)
+{
+	(void)rp_chnl;
+	(void)priv;
+	(void)src;
+
+	/* callback data are lost on return and need to be saved */
+	if (!buffer_push(data, len)) {
+		LPERROR("cannot save data\n");
+	} else {
+		have_data_flag = 1;
+	}
+}
+
+static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
+{
+	app_rp_chnl = rp_chnl;
+	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL, RPMSG_ADDR_ANY);
+}
+
+static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
+{
+	(void)rp_chnl;
+
+	rpmsg_destroy_ept(rp_ept);
+	rp_ept = NULL;
+	app_rp_chnl = NULL;
+	evt_chnl_deleted = 1;
+}
+
 int app(struct hil_proc *hproc)
 {
 	int status = 0;
@@ -148,9 +177,9 @@ int app(struct hil_proc *hproc)
 	/* Initialize framework */
 	LPRINTF("Try to init remoteproc resource\n");
 	status = remoteproc_resource_init(&rsc_info, hproc,
-				rpmsg_channel_created,
-				rpmsg_channel_deleted, rpmsg_read_cb,
-				&proc, 0);
+					  rpmsg_channel_created,
+					  rpmsg_channel_deleted, rpmsg_read_cb,
+					  &proc, 0);
 
 	if (RPROC_SUCCESS != status) {
 		LPERROR("Failed  to initialize remoteproc resource.\n");
@@ -164,6 +193,8 @@ int app(struct hil_proc *hproc)
 	/* Stay in data processing loop until we receive a 'shutdown' message */
 	while (1) {
 		hil_poll(proc->proc, 0);
+
+		if (evt_chnl_deleted) break;
 
 		if (have_data_flag) {
 			void *data;
@@ -184,7 +215,7 @@ int app(struct hil_proc *hproc)
 			Matrix_Multiply(&matrix_array[0], &matrix_array[1], &matrix_result);
 
 			/* Send result back */
-			if (RPMSG_SUCCESS != rpmsg_send(app_rp_chnl, &matrix_result, sizeof(matrix))) {
+			if (rpmsg_send(app_rp_chnl, &matrix_result, sizeof(matrix)) < 0) {
 				LPERROR("rpmsg_send failed\n");
 			}
 		}
@@ -198,45 +229,12 @@ int app(struct hil_proc *hproc)
 }
 
 /*-----------------------------------------------------------------------------*
- *  RPMSG callbacks setup by remoteproc_resource_init()
- *-----------------------------------------------------------------------------*/
-static void rpmsg_channel_created(struct rpmsg_channel *rp_chnl)
-{
-	app_rp_chnl = rp_chnl;
-	rp_ept = rpmsg_create_ept(rp_chnl, rpmsg_read_cb, RPMSG_NULL, RPMSG_ADDR_ANY);
-}
-
-static void rpmsg_channel_deleted(struct rpmsg_channel *rp_chnl)
-{
-	(void)rp_chnl;
-
-	rpmsg_destroy_ept(rp_ept);
-	rp_ept = NULL;
-	app_rp_chnl = NULL;
-}
-
-static void rpmsg_read_cb(struct rpmsg_channel *rp_chnl, void *data, int len,
-                void *priv, unsigned long src)
-{
-	(void)rp_chnl;
-	(void)priv;
-	(void)src;
-
-	/* callback data are lost on return and need to be saved */
-	if (!buffer_push(data, len)) {
-		LPERROR("cannot save data\n");
-	} else {
-		have_data_flag = 1;
-	}
-}
-
-/*-----------------------------------------------------------------------------*
  *  Processing Task
  *-----------------------------------------------------------------------------*/
 static void processing(void *unused_arg)
 {
-	int proc_id = 0;
-	int rsc_id = 0;
+	unsigned long proc_id = 0;
+	unsigned long rsc_id = 0;
 	struct hil_proc *hproc;
 
 	(void)unused_arg;
@@ -246,15 +244,16 @@ static void processing(void *unused_arg)
 	/* Create buffer to send data between RPMSG callback and processing task */
 	buffer_create();
 
-	/* Initialize HW and SW components/objects */
+	/* Initialize HW system components */
 	init_system();
 
-	/* Get selected hproc and rsc_info */
+	/* Create HIL proc */
 	hproc = platform_create_proc(proc_id);
 	if (!hproc) {
-		LPERROR("Failed to create proc platform data.\n");
+		LPERROR("Failed to create hil proc.\n");
 	} else {
-		rsc_info.rsc_tab = get_resource_table(rsc_id, &rsc_info.size);
+		rsc_info.rsc_tab =
+			get_resource_table((int)rsc_id, &rsc_info.size);
 		if (!rsc_info.rsc_tab) {
 			LPERROR("Failed to get resource table data.\n");
 		} else {

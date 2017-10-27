@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+# Copyright (C) 2014 - 2017 Xilinx, Inc.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,12 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0	pkp  07/21/14 Initial common::version
 # 1.3   mus  02/20/17 Updated tcl to guard xparameters.h by protection macros
-#
+# 1.4   ms   04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID
+#                     parameter of cpu_cortexa53 in xparameters.h
+# 1.4   mus  07/26/17 Updated extra compiler flags for a53 32 bit processor
+#                     by appending "-mfpu=vfpv3 -mfloat-abi=hard". This change
+#                     has been done to support hard floating point operations
+#                     for a53 32 bit BSP.
 ##############################################################################
 #uses "xillib.tcl"
 
@@ -59,7 +64,7 @@ proc xdefine_cortexa53_params {drvhandle} {
     set compiler [common::get_property CONFIG.compiler $procdrv]
     if {[string compare -nocase $compiler "arm-none-eabi-gcc"] == 0} {
 	set extra_flags [common::get_property CONFIG.extra_compiler_flags [hsi::get_sw_processor]]
-	set new_flags "-DARMA53_32 $extra_flags"
+	set new_flags "-DARMA53_32  -mfpu=vfpv3 -mfloat-abi=hard $extra_flags"
 	common::set_property -name {EXTRA_COMPILER_FLAGS} -value $new_flags -objects [hsi::get_sw_processor]
 
     }
@@ -104,9 +109,10 @@ proc xdefine_cortexa53_params {drvhandle} {
 	# Set CPU ID
 	#-----------
 	set id 0
+	set uSuffix "U"
 	foreach processor $lprocs {
 	    if {[string compare -nocase $processor $iname] == 0} {
-		puts $config_inc "#define XPAR_CPU_ID $id"
+		puts $config_inc "#define XPAR_CPU_ID $id$uSuffix"
 	    }
 	    incr id
 	}

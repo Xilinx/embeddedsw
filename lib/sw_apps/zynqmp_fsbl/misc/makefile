@@ -10,6 +10,7 @@ ifeq "${PROC}" "r5"
 PROCESSOR = zynqmp_fsbl_bsp/psu_cortexr5_0
 endif
 LTO_FLAGS = -Wall -Wextra -Os -flto -ffat-lto-objects
+OTHER_FLAGS = -mfpu=vfpv3 -mfloat-abi=hard
 
 LIBRARIES = ${PROCESSOR}/lib/libxil.a
 BSP_MAKEFILES := $(wildcard $(PROCESSOR)/libsrc/*/src/Makefile)
@@ -38,7 +39,7 @@ ifeq "${A53_STATE}" "64"
 endif
 ifeq "${A53_STATE}" "32"
 	$(MAKE) -C $(subst /make.include,,$@) -s include  "SHELL=$(SHELL)" "COMPILER=arm-none-eabi-gcc" \
-		"ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DARMA53_32 -g -march=armv7-a $(LTO_FLAGS)"
+		"ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DARMA53_32 -mfpu=vfpv3 -mfloat-abi=hard -g -march=armv7-a $(LTO_FLAGS)"
 endif
 endif
 ifeq "${PROC}" "r5"
@@ -55,7 +56,7 @@ ifeq "${A53_STATE}" "64"
 endif
 ifeq "${A53_STATE}" "32"
 	$(MAKE) -C $(subst /make.libs,,$@) -s libs  "SHELL=$(SHELL)" "COMPILER=arm-none-eabi-gcc" \
-		"ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DARMA53_32 -g -march=armv7-a $(LTO_FLAGS)"
+		"ARCHIVER=arm-none-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-DARMA53_32 -mfpu=vfpv3 -mfloat-abi=hard -g -march=armv7-a $(LTO_FLAGS)"
 endif
 endif
 ifeq "${PROC}" "r5"

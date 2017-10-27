@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -82,18 +82,24 @@
 * 6.2	pkp  12/14/16 DDR memory in 0x800000000 - 0xFFFFFFFFF range is marked
 *		      as normal writeback for the size defined in hdf and rest
 *		      of the memory in that 32GB range is marked as reserved.
-*
+* 6.4   mus  08/10/17 Marked memory as a outer shareable for EL1 NS execution,
+*                     to support CCI enabled IP's.
 *
 *
 ******************************************************************************/
 #include "xparameters.h"
+#include "bspconfig.h"
 
 	.globl  MMUTableL0
 	.globl  MMUTableL1
 	.globl  MMUTableL2
 
 	.set reserved,	0x0 					/* Fault*/
+	#if EL1_NONSECURE
+	.set Memory,	0x405 | (2 << 8) | (0x0)		/* normal writeback write allocate outer shared read write */
+	#else
 	.set Memory,	0x405 | (3 << 8) | (0x0)		/* normal writeback write allocate inner shared read write */
+	#endif
 	.set Device,	0x409 | (1 << 53)| (1 << 54) |(0x0)	/* strongly ordered read write non executable*/
 	.section .mmu_tbl0,"a"
 

@@ -43,6 +43,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   sg  06/06/16 First release
+* 1.3   vak 04/03/17 Added CCI support for USB
 *
 * </pre>
 *
@@ -632,8 +633,10 @@ s32 XUsbPsu_EpBufferSend(struct XUsbPsu *InstancePtr, u8 UsbEp,
 					| XUSBPSU_TRB_CTRL_IOC
 					| XUSBPSU_TRB_CTRL_ISP_IMI);
 
-	Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
-	Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheFlushRange((INTPTR)BufferPtr, BufferLen);
+	}
 
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
@@ -720,8 +723,10 @@ s32 XUsbPsu_EpBufferRecv(struct XUsbPsu *InstancePtr, u8 UsbEp,
 					| XUSBPSU_TRB_CTRL_ISP_IMI);
 
 
-	Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
-	Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0) {
+		Xil_DCacheFlushRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+		Xil_DCacheInvalidateRange((INTPTR)BufferPtr, Length);
+	}
 
 	Params = XUsbPsu_GetEpParams(InstancePtr);
 	Xil_AssertNonvoid(Params != NULL);
@@ -898,7 +903,8 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 	TrbPtr = &Ept->EpTrb;
 	Xil_AssertVoid(TrbPtr != NULL);
 
-	Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
+	if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+		Xil_DCacheInvalidateRange((INTPTR)TrbPtr, sizeof(struct XUsbPsu_Trb));
 
 	Length = TrbPtr->Size & XUSBPSU_TRB_SIZE_MASK;
 
@@ -917,7 +923,8 @@ void XUsbPsu_EpXferComplete(struct XUsbPsu *InstancePtr,
 
 	if (Dir == XUSBPSU_EP_DIR_OUT) {
 		/* Invalidate Cache */
-		Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->BytesTxed);
+		if (InstancePtr->ConfigPtr->IsCacheCoherent == 0)
+			Xil_DCacheInvalidateRange((INTPTR)Ept->BufferPtr, Ept->BytesTxed);
 	}
 
 	if (Ept->Handler != NULL) {

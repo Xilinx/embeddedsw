@@ -33,7 +33,7 @@
 /**
 *
 * @file xqspipsu.c
-* @addtogroup qspipsu_v1_0
+* @addtogroup qspipsu_v3_4
 * @{
 *
 * This file implements the functions required to use the QSPIPSU hardware to
@@ -60,6 +60,7 @@
 * 1.3	nsk 09/16/16 Update PollData and PollTimeout support for dual
 *	             parallel configurations, modified XQspiPsu_PollData()
 *	             and XQspiPsu_Create_PollConfigData()
+* 1,5	nsk 08/14/17 Added CCI support
 *
 * </pre>
 *
@@ -150,6 +151,7 @@ s32 XQspiPsu_CfgInitialize(XQspiPsu *InstancePtr, XQspiPsu_Config *ConfigPtr,
 		InstancePtr->StatusHandler = StubStatusHandler;
 		InstancePtr->Config.BusWidth = ConfigPtr->BusWidth;
 		InstancePtr->Config.InputClockHz = ConfigPtr->InputClockHz;
+		InstancePtr->Config.IsCacheCoherent = ConfigPtr->IsCacheCoherent;
 		/* Other instance variable initializations */
 		InstancePtr->SendBufferPtr = NULL;
 		InstancePtr->RecvBufferPtr = NULL;
@@ -1136,13 +1138,15 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 			XQSPIPSU_QSPIDMA_DST_ADDR_OFFSET,
 			(u32)AddrTemp);
 
-	AddrTemp = AddrTemp >> 32;
+#ifdef __aarch64__
+	AddrTemp = (u64)((INTPTR)(Msg->RxBfrPtr) >> 32);
 	if ((AddrTemp & 0xFFFU) != FALSE) {
 		XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,
 				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_OFFSET,
 				(u32)AddrTemp &
 				XQSPIPSU_QSPIDMA_DST_ADDR_MSB_MASK);
 	}
+#endif
 
 	Remainder = InstancePtr->RxBytes % 4;
 	DmaRxBytes = InstancePtr->RxBytes;
@@ -1151,8 +1155,10 @@ static inline void XQspiPsu_SetupRxDma(XQspiPsu *InstancePtr,
 		DmaRxBytes = InstancePtr->RxBytes - Remainder;
 		Msg->ByteCount = (u32)DmaRxBytes;
 	}
-
-	Xil_DCacheInvalidateRange((INTPTR)InstancePtr->RecvBufferPtr, Msg->ByteCount);
+	if (InstancePtr->Config.IsCacheCoherent == 0) {
+		Xil_DCacheInvalidateRange((INTPTR)InstancePtr->RecvBufferPtr,
+			Msg->ByteCount);
+	}
 
 	/* Write no. of words to DMA DST SIZE */
 	XQspiPsu_WriteReg(InstancePtr->Config.BaseAddress,

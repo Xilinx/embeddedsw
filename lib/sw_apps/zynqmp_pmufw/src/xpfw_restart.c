@@ -37,18 +37,25 @@
 #include "csu.h"
 #include "pm_reset.h"
 #include "xpfw_resets.h"
-
+#include "xpfw_restart.h"
 
 #define CSU_PCAP_STATUS	(CSU_BASE + 0x00003010U)
 #define CSU_PCAP_STATUS_PL_DONE_MASK (1U<<3)
 
 #define LPD_XPPU_CTRL_ADDRESS	0xFF980000U
-#define LPD_XPPU_CTRL_EN_MASK	BIT(0)
+#define LPD_XPPU_CTRL_EN_MASK	BIT(0U)
 
-#define RestartDebug(MSG, ...)	fw_printf("PMUFW: %s: " MSG, __func__, ##__VA_ARGS__)
+#define RestartDebug(DebugType, MSG, ...)	\
+	XPfw_Printf((DebugType), "%s" MSG, __func__, ##__VA_ARGS__)
 
 #ifdef ENABLE_RECOVERY
 
+#ifdef CHECK_HEALTHY_BOOT
+
+#define XPFW_BOOT_HEALTH_STS		PMU_GLOBAL_GLOBAL_GEN_STORAGE0
+#define XPFW_BOOT_HEALTH_GOOD		(0x1U << 29U)
+
+#endif
 /* Macros used to track the pahses in restart */
 #define XPFW_RESTART_STATE_BOOT 0U
 #define	XPFW_RESTART_STATE_INPROGRESS 1U
@@ -95,7 +102,7 @@ typedef struct XPfwRestartTracker {
 	XWdtPs* WdtPtr; /* Pointer to WDT for this master */
 } XPfwRestartTracker;
 
-XPfwRestartTracker RstTrackerList[] ={
+static XPfwRestartTracker RstTrackerList[] ={
 		{
 			.Master = &pmMasterApu_g,
 			.RestartCount = 0U,
@@ -112,7 +119,7 @@ static XWdtPs_Config* GetWdtCfgPtr(u32 BaseAddress)
 	XWdtPs_Config* WdtConfigPtr = NULL;
 
 	/* Search and return Config pointer with given base address */
-	for(WdtIdx=0; WdtIdx < WDT_INSTANCE_COUNT; WdtIdx++) {
+	for(WdtIdx = 0U; WdtIdx < WDT_INSTANCE_COUNT; WdtIdx++) {
 		WdtConfigPtr = XWdtPs_LookupConfig(WdtIdx);
 		if(WdtConfigPtr == NULL) {
 			goto Done;
@@ -127,36 +134,62 @@ Done:
 }
 
 
-static void WdtRestart(XWdtPs* WdtInstPtr, u32 Timeout)
+static void WdtRestart(XWdtPs* WdtInstptr, u32 Timeout)
 {
 
-	XWdtPs_DisableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
-	XWdtPs_Stop(WdtInstPtr);
+	XWdtPs_DisableOutput(WdtInstptr, XWDTPS_RESET_SIGNAL);
+	XWdtPs_Stop(WdtInstptr);
 	/* Setting the divider value */
-	XWdtPs_SetControlValue(WdtInstPtr, XWDTPS_CLK_PRESCALE,
+	XWdtPs_SetControlValue(WdtInstptr, XWDTPS_CLK_PRESCALE,
 			XWDTPS_CCR_PSCALE_4096);
 	/* Set the Watchdog counter reset value */
-	XWdtPs_SetControlValue(WdtInstPtr, XWDTPS_COUNTER_RESET,
+	XWdtPs_SetControlValue(WdtInstptr, XWDTPS_COUNTER_RESET,
 			(Timeout*WDT_CLK_PER_SEC) >> WDT_CRV_SHIFT);
 	/* Start the Watchdog timer */
-	XWdtPs_Start(WdtInstPtr);
-	XWdtPs_RestartWdt(WdtInstPtr);
+	XWdtPs_Start(WdtInstptr);
+	XWdtPs_RestartWdt(WdtInstptr);
 	/* Enable reset output */
-	XWdtPs_EnableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
+	XWdtPs_EnableOutput(WdtInstptr, XWDTPS_RESET_SIGNAL);
 }
 
+static void WdtStop(XWdtPs* WdtInstPtr)
+{
+	/* Disable WDT restart output and stop WDT */
+	XWdtPs_DisableOutput(WdtInstPtr, XWDTPS_RESET_SIGNAL);
+	XWdtPs_Stop(WdtInstPtr);
+}
+
+#ifdef CHECK_HEALTHY_BOOT
+
+/**
+ * Get the healthy bit state.
+ */
+u32 XPfw_GetBootHealthStatus(void)
+{
+	return !(!(XPfw_Read32(XPFW_BOOT_HEALTH_STS) & XPFW_BOOT_HEALTH_GOOD));
+}
+
+/**
+ * Clear APU healthy bit
+ */
+void XPfw_ClearBootHealthStatus(void)
+{
+	XPfw_RMW32(XPFW_BOOT_HEALTH_STS, XPFW_BOOT_HEALTH_GOOD, 0);
+}
+
+#endif
 /**
  * XPfw_RestartIsPlDone - check the status of PL DONE bit
  *
  * @return TRUE if its done else FALSE
  */
-static bool XPfw_RestartIsPlDone()
+static bool XPfw_RestartIsPlDone(void)
 {
 	return ((XPfw_Read32(CSU_PCAP_STATUS) & CSU_PCAP_STATUS_PL_DONE_MASK) ==
 							CSU_PCAP_STATUS_PL_DONE_MASK);
 }
 
-bool XPfw_RestartIsSubSysEnabled()
+static bool XPfw_RestartIsSubSysEnabled(void)
 {
 	return ((XPfw_Read32(LPD_XPPU_CTRL_ADDRESS) & LPD_XPPU_CTRL_EN_MASK) ==
 						LPD_XPPU_CTRL_EN_MASK);
@@ -168,16 +201,16 @@ static void MasterIdle(PmMaster* Master)
 	Xil_Out32((IPI_BASEADDR + ((u32)0X00031000U)), Master->ipiMask);
 }
 
-void XPfw_RestartSystemLevel(void)
+static void XPfw_RestartSystemLevel(void)
 {
 	bool IsPlUp = XPfw_RestartIsPlDone();
 	if(IsPlUp) {
-		RestartDebug("Ps Only Reset\r\n");
+		RestartDebug(DEBUG_DETAILED,"Ps Only Reset\r\n");
 		XPfw_ResetPsOnly();
 	}
 	else {
 		/* TODO: Req and wait for Ack from PL */
-		RestartDebug("SRST\r\n");
+		RestartDebug(DEBUG_DETAILED,"SRST\r\n");
 		/* Bypass RPLL before SRST : Workaround for a bug in 1.0 Silicon */
 		if (XPfw_PlatformGetPsVersion() == XPFW_PLATFORM_PS_V1) {
 			XPfw_UtilRMW(CRL_APB_RPLL_CTRL, CRL_APB_RPLL_CTRL_BYPASS_MASK,
@@ -214,7 +247,7 @@ int XPfw_RecoveryInit(void)
 			break;
 		}
 		/* Reset the WDT */
-		PmResetAssertInt(PM_RESET_SWDT_CRF, PM_RESET_ACTION_PULSE);
+		(void)PmResetAssertInt(PM_RESET_SWDT_CRF, PM_RESET_ACTION_PULSE);
 		WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
 	}
 	return Status;
@@ -228,20 +261,36 @@ int XPfw_RecoveryInit(void)
 void XPfw_RecoveryHandler(u8 ErrorId)
 {
 	u32 RstIdx;
+#ifdef CHECK_HEALTHY_BOOT
+	u32 DoSubSystemRestart = 0;
 
-	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+	if(XPfw_GetBootHealthStatus())
+	{
+		/*
+		 * Do subsystem restart only if last boot was healthy
+		 */
+		DoSubSystemRestart=1;
+	}
+#endif
+
+	for (RstIdx = 0U; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
 		/* Currently we support only APU restart for FPD WDT timeout */
 		if(ErrorId == EM_ERR_ID_FPD_SWDT &&
 				RstTrackerList[RstIdx].Master->nid == NODE_APU) {
+#ifdef CHECK_HEALTHY_BOOT
+			if (RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS &&
+					DoSubSystemRestart) {
+#else
 			if(RstTrackerList[RstIdx].RestartState != XPFW_RESTART_STATE_INPROGRESS ) {
-				RestartDebug("Initiating APU sub-system restart\r\n");
+#endif
+				RestartDebug(DEBUG_DETAILED,"Initiating APU sub-system restart\r\n");
 				RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_INPROGRESS;
 				RstTrackerList[RstIdx].RestartCount++;
 				WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
 				MasterIdle(RstTrackerList[RstIdx].Master);
 			}
 			else{
-				RestartDebug("Escalating to system level reset\r\n");
+				RestartDebug(DEBUG_DETAILED,"Escalating to system level reset\r\n");
 				#ifdef ENABLE_ESCALATION
 					XPfw_RestartSystemLevel();
 				#else
@@ -262,15 +311,51 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 void XPfw_RecoveryAck(PmMaster *Master)
 {
 	u32 RstIdx;
-	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+	for (RstIdx = 0U; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
 		/* Currently we support only APU restart */
 		if(RstTrackerList[RstIdx].Master == Master) {
 			RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_DONE;
 			WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
+#ifdef CHECK_HEALTHY_BOOT
+			/*
+			 * clear the healthy status of the boot.
+			 * This has to be set by the targeted application on boot.
+			 */
+			XPfw_ClearBootHealthStatus();
+#endif
 		}
 	}
 }
 
+/**
+ * XPfw_RecoveryStop() - Stop WDTs in order to disable recovery
+ * @Master is the PM master who wants to stop WDT recovery
+ */
+void XPfw_RecoveryStop(PmMaster *Master)
+{
+	u32 RstIdx;
+
+	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+		if (RstTrackerList[RstIdx].Master == Master) {
+			WdtStop(RstTrackerList[RstIdx].WdtPtr);
+		}
+	}
+}
+
+/**
+ * XPfw_RecoveryRestart() - Reinitialize WDTs in order to enable recovery
+ * @Master is the PM master who wants to enable WDT recovery
+ */
+void XPfw_RecoveryRestart(PmMaster *Master)
+{
+	u32 RstIdx;
+
+	for (RstIdx = 0; RstIdx < ARRAY_SIZE(RstTrackerList); RstIdx++) {
+		if (RstTrackerList[RstIdx].Master == Master) {
+			WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
+		}
+	}
+}
 
 
 #endif /* ENABLE_APU_RESTART */
@@ -290,5 +375,15 @@ int XPfw_RecoveryInit(void)
 {
 	/* Recovery is not enabled. So return a failure code */
 	return XST_FAILURE;
+}
+
+void XPfw_RecoveryStop(PmMaster *Master)
+{
+
+}
+
+void XPfw_RecoveryRestart(PmMaster *Master)
+{
+
 }
 #endif /* ENABLE_RECOVERY */

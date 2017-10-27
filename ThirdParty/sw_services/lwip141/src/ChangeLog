@@ -1,5 +1,24 @@
 Change Log for lwip
 =================================
+2017-09-20
+	* Disable L1 prefetch for ARMv8 in init_axi_dma function in xaxiemacif_dma.c.
+2017-09-12
+	* Disable L1 prefetch for ARMv8 in init_dma function in xemacpsif_dma.c.
+2017-09-09
+	* Add rx_reset_nodata workaround for Zynq GEM for freertos.
+2017-08-14
+	* Dont perform data cache related operations when CCI is
+	  enabled.
+2017-08-11
+	* Fix for conflicting types for xInsideISR. Fixes CR-981909.
+	* Fix for warnings in lwip141 axiethernet adapter.
+2017-08-03
+	* Correct compiler used for A9.
+2017-07-18
+	* Add freertos support for axiethernet fifo configuration.
+	* SW workaround for TI DP83867 PHY Data integrity issues on KCU116/VCU118 Boards.
+2017-06-14
+        * Add support for EL1 non secure mode.
 2017-03-07
 	* SW workaround for unstable link with TI DP83867 PHY
 	  when RX CTRL is not strapped to MODE 3 or 4.

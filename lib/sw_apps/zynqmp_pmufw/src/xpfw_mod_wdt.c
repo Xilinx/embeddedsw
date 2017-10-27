@@ -42,23 +42,27 @@
 static XWdtPs WdtInst;
 static XWdtPs *WdtInstPtr = &WdtInst;
 
-#define XPFW_WDT_EXPIRE_TIME 100U
 /*
- * Restart time is multiplied with 1000 to get time in milliseconds,
- * which is needed for scheduler during scheduling a task.
+ * WDT expire time in milliseconds.
  */
-#define XPFW_WDT_RESTART_TIME (((XPFW_WDT_EXPIRE_TIME)-10U)*1000U)
-#define XPFW_WDT_CRV_SHIFT 12U
-#define XPFW_WDT_PRESCALER 4096U
+#define XPFW_WDT_EXPIRE_TIME 90U
 
-#define XPFW_WDT_CLK_PER_SEC ((XPAR_XWDTPS_0_WDT_CLK_FREQ_HZ) / (XPFW_WDT_PRESCALER))
-#define XPFW_WDT_COUNTER_VAL ((XPFW_WDT_EXPIRE_TIME) * (XPFW_WDT_CLK_PER_SEC))
+/*
+ * WDT restart time in milliseconds.
+ */
+#define XPFW_WDT_RESTART_TIME 50U
+#define XPFW_WDT_CRV_SHIFT 12U
+#define XPFW_WDT_PRESCALER 8U
+
+#define XPFW_WDT_CLK_PER_MSEC ((XPAR_XWDTPS_0_WDT_CLK_FREQ_HZ) / (XPFW_WDT_PRESCALER * 1000))
+#define XPFW_WDT_COUNTER_VAL ((XPFW_WDT_EXPIRE_TIME) * (XPFW_WDT_CLK_PER_MSEC))
 
 static void XPfw_WdtRestart(void)
 {
-	XWdtPs_RestartWdt(WdtInstPtr);
+	if (WdtInstPtr != NULL) {
+		XWdtPs_RestartWdt(WdtInstPtr);
+	}
 }
-
 /****************************************************************************/
 /**
  * @brief  This function initializes the LPD IOU Watchdog timer.
@@ -81,7 +85,8 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 
 	if (NULL == WdtConfigPtr) {
 		Status = XST_FAILURE;
-		fw_printf("WDT (MOD-%d): WDT LookupConfig failed.\r\n", ModPtr->ModId);
+		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d): WDT LookupConfig failed.\r\n",
+				ModPtr->ModId);
 		goto Done;
 	}
 
@@ -90,13 +95,14 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 			WdtConfigPtr->BaseAddress);
 
 	if (XST_FAILURE == Status) {
-		fw_printf("WDT (MOD-%d): Initialization failed.\r\n", ModPtr->ModId);
+		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d): Initialization failed.\r\n",
+				ModPtr->ModId);
 		goto Done;
 	}
 
 	/* Setting the divider value */
 	XWdtPs_SetControlValue(WdtInstPtr, XWDTPS_CLK_PRESCALE,
-			XWDTPS_CCR_PSCALE_4096);
+			XWDTPS_CCR_PSCALE_0008);
 
 	/* Watchdog counter reset value for Expire time of 100Sec,
 	 * i.e., XPFW_WDT_EXPIRE_TIME
@@ -117,10 +123,11 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 
 	Status = XPfw_CoreScheduleTask(ModPtr, XPFW_WDT_RESTART_TIME, XPfw_WdtRestart);
 	if (XST_FAILURE == Status) {
-		fw_printf("WDT (MOD-%d):Scheduling WDT restart failed.",ModPtr->ModId);
+		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Scheduling WDT restart failed.",
+				ModPtr->ModId);
 	}
 
-	fw_printf("WDT (MOD-%d): Initialized.\r\n", ModPtr->ModId);
+	XPfw_Printf(DEBUG_DETAILED,"WDT (MOD-%d): Initialized.\r\n", ModPtr->ModId);
 Done:
 	return;
 }

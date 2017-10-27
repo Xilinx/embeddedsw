@@ -100,9 +100,8 @@ static void XFsbl_UpdateResetVector (u64 HandOffAddress, u32 CpuSettings,
 		u32 HandoffType, u32 Vector);
 static u32 XFsbl_Is32BitCpu(u32 CpuSettings);
 static u32 XFsbl_CheckEarlyHandoffCpu(u32 CpuId);
-#ifdef XFSBL_PROT_BYPASS
-static void XFsbl_ProtectionConfig(void);
-#endif
+static u32 XFsbl_ProtectionConfig(void);
+
 
 /**
  * Functions defined in xfsbl_handoff.S
@@ -744,6 +743,12 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 	PartitionHeader =
 			&FsblInstancePtr->ImageHeader.PartitionHeader[PartitionNum];
 
+	if (FsblInstancePtr->ResetReason == XFSBL_PS_ONLY_RESET)
+		{
+		/**Remove PS-PL isolation to allow u-boot and linux to access PL*/
+			(void)psu_ps_pl_isolation_removal_data();
+			(void)psu_ps_pl_reset_config_data();
+		}
 	if(FsblInstancePtr->ResetReason != XFSBL_APU_ONLY_RESET){
 
 	Status = XFsbl_PmInit();
@@ -753,29 +758,12 @@ u32 XFsbl_Handoff (const XFsblPs * FsblInstancePtr, u32 PartitionNum, u32 EarlyH
 		goto END;
 	}
 
-	/* FSBL shall bypass XPPU and FPD XMPU configuration BY DEFAULT.
-	*  This means though the Isolation configuration through hdf is used throughout the
-	*  software flow, for the hardware, isolation will only be limited to just OCM.
-	*/
-#ifdef XFSBL_PROT_BYPASS
-	XFsbl_ProtectionConfig();
-#else
-	/* Apply protection configuration */
-	Status = (u32)psu_protection();
+
+	Status = XFsbl_ProtectionConfig();
 	if (Status != XFSBL_SUCCESS) {
-		Status = XFSBL_ERROR_PROTECTION_CFG;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
 		goto END;
 	}
 
-	/* Lock XMPU/XPPU for further access */
-	Status = (u32)psu_protection_lock();
-	if (Status != XFSBL_SUCCESS) {
-		Status = XFSBL_ERROR_PROTECTION_CFG;
-		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
-		goto END;
-	}
-#endif
 	XFsbl_Printf(DEBUG_GENERAL, "Protection configuration applied\r\n");
 
 	}
@@ -1157,7 +1145,6 @@ u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 	return Status;
 }
 
-#ifdef XFSBL_PROT_BYPASS
 /****************************************************************************/
 /**
 *
@@ -1169,9 +1156,50 @@ u32 XFsbl_CheckEarlyHandoff(XFsblPs * FsblInstancePtr, u32 PartitionNum)
 *
 *
 *****************************************************************************/
-static void XFsbl_ProtectionConfig(void)
+static u32 XFsbl_ProtectionConfig(void)
 {
+	u32 CfgRegVal1;
+	u32 CfgRegVal3;
+	u32 Status;
+	/* Disable Tamper responses*/
+	CfgRegVal1 = XFsbl_In32(XFSBL_PS_SYSMON_CONFIGREG1);
+	CfgRegVal3 = XFsbl_In32(XFSBL_PS_SYSMON_CONFIGREG3);
+
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG1,CfgRegVal1 | XFSBL_PS_SYSMON_CFGREG1_ALRM_DISBL_MASK);
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG3, CfgRegVal3 | XFSBL_PS_SYSMON_CFGREG3_ALRM_DISBL_MASK);
+
+	/* FSBL shall bypass XPPU and FPD XMPU configuration BY DEFAULT.
+	*  This means though the Isolation configuration through hdf is used throughout the
+	*  software flow, for the hardware, isolation will only be limited to just OCM.
+	*/
+#ifdef XFSBL_PROT_BYPASS
 	psu_apply_master_tz();
 	psu_ocm_protection();
-}
+#else
+	/* Apply protection configuration */
+	Status = (u32)psu_protection();
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PROTECTION_CFG;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
+		goto END;
+	}
+
+	/* Lock XMPU/XPPU for further access */
+	Status = (u32)psu_protection_lock();
+	if (Status != XFSBL_SUCCESS) {
+		Status = XFSBL_ERROR_PROTECTION_CFG;
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_PROTECTION_CFG\r\n");
+		goto END;
+	}
 #endif
+
+	/*Enable Tamper responses*/
+
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG1, CfgRegVal1);
+	XFsbl_Out32(XFSBL_PS_SYSMON_CONFIGREG3, CfgRegVal3);
+	Status = XFSBL_SUCCESS;
+	goto END;
+
+END:
+	return Status;
+}

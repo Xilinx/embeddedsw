@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
 *
 * @file xaxidma.h
-* @addtogroup axidma_v9_0
+* @addtogroup axidma_v9_4
 * @{
 * @details
 *
@@ -466,6 +466,9 @@
 *                     statements in functions of axidma examples for proper
 *                     documentation while generating doxygen.
 *                     Modified readme file in examples folder.
+* 9.4  adk   25/07/17 Added example for cyclic dma mode CR#974218.
+*      adk   08/08/17 Fixed CR#980607 Can't select individual AXI DMA code examples.
+*		      Fixed compilation warning in the driver
 * </pre>
 *
 ******************************************************************************/

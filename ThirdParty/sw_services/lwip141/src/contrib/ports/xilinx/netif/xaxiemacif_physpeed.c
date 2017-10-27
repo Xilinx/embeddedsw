@@ -31,7 +31,7 @@
  */
 
 /*
- * Some portions copyright (c) 2010-2013 Xilinx, Inc.  All rights reserved.
+ * Some portions copyright (c) 2010-2017 Xilinx, Inc.  All rights reserved.
  *
  * Xilinx, Inc.
  * XILINX IS PROVIDING THIS DESIGN, CODE, OR INFORMATION "AS IS" AS A
@@ -50,6 +50,7 @@
 
 #include "netif/xaxiemacif.h"
 #include "lwipopts.h"
+#include "sleep.h"
 
 /* Advertisement control register. */
 #define ADVERTISE_10HALF	0x0020  /* Try for 10mbps half-duplex  */
@@ -150,6 +151,11 @@
 #define TI_PHY_REGCR_DEVAD_EN		0x001F
 #define TI_PHY_REGCR_DEVAD_DATAEN	0x4000
 #define TI_PHY_CFGR2_MASK		0x003F
+#define TI_PHY_REGCFG4			0x31
+#define TI_PHY_REGCR_DATA		0x401F
+#define TI_PHY_CFG4RESVDBIT7		0x80
+#define TI_PHY_CFG4RESVDBIT8		0x100
+#define TI_PHY_CFG4_AUTONEG_TIMER	0x60
 
 #define TI_PHY_CFG2_SPEEDOPT_10EN          0x0040
 #define TI_PHY_CFG2_SGMII_AUTONEGEN        0x0080
@@ -244,13 +250,11 @@ void XAxiEthernet_PhyWriteExtended(XAxiEthernet *InstancePtr, u32 PhyAddress,
 
 unsigned int get_phy_negotiated_speed (XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
-	u16 phy_val;
 	u16 control;
 	u16 status;
 	u16 partner_capabilities;
 	u16 partner_capabilities_1000;
 	u16 phylinkspeed;
-	int TimeOut;
 	u16 temp;
 
 #ifdef XPAR_GIGE_PCS_PMA_1000BASEX_CORE_PRESENT
@@ -384,8 +388,6 @@ unsigned int get_phy_speed_TI_DP83867(XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
 	u16 phy_val;
 	u16 control;
-	u16 status;
-	u16 partner_capabilities;
 
 	xil_printf("Start PHY autonegotiation \r\n");
 
@@ -417,11 +419,9 @@ unsigned int get_phy_speed_TI_DP83867(XAxiEthernet *xaxiemacp, u32 phy_addr)
 
 unsigned int get_phy_speed_TI_DP83867_SGMII(XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
-	u16 phy_val;
 	u16 control;
 	u16 temp;
-	u16 temp1;
-	u16 partner_capabilities;
+	u16 phyregtemp;
 
 	xil_printf("Start TI PHY autonegotiation \r\n");
 
@@ -471,6 +471,20 @@ unsigned int get_phy_speed_TI_DP83867_SGMII(XAxiEthernet *xaxiemacp, u32 phy_add
 				IEEE_PARTNER_ABILITIES_1_REG_OFFSET, &temp);
 	}
 	xil_printf("Auto negotiation completed for TI PHY\n\r");
+
+	/* SW workaround for unstable link when RX_CTRL is not STRAP MODE 3 or 4 */
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR, TI_PHY_REGCR_DEVAD_EN);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR, TI_PHY_REGCFG4);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR, TI_PHY_REGCR_DATA);
+	XAxiEthernet_PhyRead(xaxiemacp, phy_addr, TI_PHY_ADDDR, (u16_t *)&phyregtemp);
+	phyregtemp &= ~(TI_PHY_CFG4RESVDBIT7);
+	phyregtemp |= TI_PHY_CFG4RESVDBIT8;
+	phyregtemp &= ~(TI_PHY_CFG4_AUTONEG_TIMER);
+	phyregtemp |= TI_PHY_CFG4_AUTONEG_TIMER;
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR, TI_PHY_REGCR_DEVAD_EN);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR, TI_PHY_REGCFG4);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_REGCR, TI_PHY_REGCR_DATA);
+	XAxiEthernet_PhyWrite(xaxiemacp, phy_addr, TI_PHY_ADDDR, phyregtemp);
 
 	return get_phy_negotiated_speed(xaxiemacp, phy_addr);
 }
@@ -558,7 +572,6 @@ unsigned int get_phy_speed_88E1116R(XAxiEthernet *xaxiemacp, u32 phy_addr)
 unsigned int get_phy_speed_88E1111 (XAxiEthernet *xaxiemacp, u32 phy_addr)
 {
 	u16 control;
-	u16 status;
 	int TimeOut;
 	u16 phy_val;
 

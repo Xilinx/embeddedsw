@@ -99,14 +99,14 @@
  *
  * Interrupts
  * Interrupts are handled in the OS/Application layer above this driver.
- */
+ ******************************************************************************/
 
 xdbg_stmnt(u32 _xllfifo_rr_value;)
 xdbg_stmnt(u32 _xllfifo_ipie_value;)
 xdbg_stmnt(u32 _xllfifo_ipis_value;)
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iRxOccupancy returns the number of 32-bit words available (occupancy)
 * to be read from the receive channel of the FIFO, specified by
@@ -127,7 +127,7 @@ u32 XLlFifo_iRxOccupancy(XLlFifo *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the
 * next frame from the receive channel of the FIFO specified by <i>InstancePtr</i>.
@@ -150,7 +150,7 @@ u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iRead_Aligned reads, <i>WordCount</i>, words from the FIFO referenced by
 * <i>InstancePtr</i> to the block of memory, referenced by <i>BufPtr</i>.
@@ -176,13 +176,8 @@ u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr)
 * @return   XLlFifo_iRead_Aligned always returns XST_SUCCESS. Error handling is
 *           otherwise handled through hardware exceptions and interrupts.
 *
-* @note
-*
-* C Signature: int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr,
-*                      void *BufPtr, unsigned WordCount);
-*
 ******************************************************************************/
-/* static */ int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
+int XLlFifo_iRead_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 			     unsigned WordCount)
 {
 	unsigned WordsRemaining = WordCount;
@@ -210,7 +205,7 @@ u32 XLlFifo_iRxGetLen(XLlFifo *InstancePtr)
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iTxVacancy returns the number of unused 32 bit words available
 * (vacancy) in the send channel of the FIFO, specified by <i>InstancePtr</i>.
@@ -230,7 +225,7 @@ u32 XLlFifo_iTxVacancy(XLlFifo *InstancePtr)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit
 * channel of the FIFO, specified by <i>InstancePtr</i>. <i>Bytes</i> specifies the number
@@ -256,7 +251,7 @@ void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 }
 
 /*****************************************************************************/
-/*
+/**
 *
 * XLlFifo_iWrite_Aligned writes, <i>WordCount</i>, words to the FIFO referenced by
 * <i>InstancePtr</i> from the block of memory, referenced by <i>BufPtr</i>.
@@ -288,7 +283,7 @@ void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 *                      void *BufPtr, unsigned WordCount);
 *
 ******************************************************************************/
-/* static */ int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
+int XLlFifo_iWrite_Aligned(XLlFifo *InstancePtr, void *BufPtr,
 			      unsigned WordCount)
 {
 	unsigned WordsRemaining = WordCount;
@@ -324,9 +319,9 @@ void XLlFifo_iTxSetLen(XLlFifo *InstancePtr, u32 Bytes)
 *
 * @param       InstancePtr is a pointer to the Axi Streaming FIFO instance
 *              to be worked on.
-* @param	CfgPtr references the structure holding the hardware
+* @param	Config references the structure holding the hardware
 *		configuration for the Axi Streaming FIFO core to initialize.
-* @param 	EffectiveAddr is the device base address in the virtual memory
+* @param 	EffectiveAddress is the device base address in the virtual memory
 *		address	space. The caller is responsible for keeping the
 *		address mapping from EffectiveAddr to the device physical base
 *		address unchanged once this function is invoked. Unexpected
@@ -390,7 +385,7 @@ int XLlFifo_CfgInitialize(XLlFifo *InstancePtr,
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by
 * <i>InstancePtr</i>.
@@ -419,12 +414,13 @@ u32 XLlFifo_RxGetWord(XLlFifo *InstancePtr)
 }
 
 /****************************************************************************/
-/*
+/**
 *
 * XLlFifo_TxPutWord writes the 32 bit word, <i>Word</i> to the FIFO specified by
 * <i>InstancePtr</i>.
 *
 * @param    InstancePtr references the FIFO on which to operate.
+* @param    Word is the data word to be written to FIFO.
 *
 * @return   N/A
 *

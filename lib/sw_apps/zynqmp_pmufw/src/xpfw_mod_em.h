@@ -31,6 +31,25 @@
 #ifndef XPFW_MOD_EM_H_
 #define XPFW_MOD_EM_H_
 
+#define EM_IPI_HANDLER_ID		0xEU
+#define EM_API_ID_MASK			0xFFFFU
+
+#define EM_MOD_API_ID_OFFSET	0x0U
+#define EM_ERROR_ID_OFFSET		0x1U
+#define EM_ERROR_ACTION_OFFSET	0x2U
+#define PMU_BRAM_CE_LOG_OFFSET	0x3U
+#define EM_ERROR_LOG_MAX		0x4U
+
+/* EM API IDs */
+#define SET_EM_ACTION			0x01U
+#define REMOVE_EM_ACTION		0x02U
+#define SEND_ERRORS_OCCURRED	0x03U
+
+extern u32 ErrorLog[EM_ERROR_LOG_MAX];
 void ModEmInit(void);
+void RpuLsHandler(u8 ErrorId);
+void LpdSwdtHandler(u8 ErrorId);
+void FpdSwdtHandler(u8 ErrorId);
+void NullHandler(u8 ErrorId);
 
 #endif /* XPFW_MOD_EM_H_ */

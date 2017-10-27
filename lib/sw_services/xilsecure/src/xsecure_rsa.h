@@ -33,7 +33,9 @@
 /**
 *
 * @file xsecure_rsa.h
-*
+* @addtogroup xsecure_rsa_apis XilSecure RSA APIs
+* @{
+* @cond xsecure_internal
 * This file contains hardware interface related information for RSA device
 *
 * This driver supports the following features:
@@ -66,10 +68,14 @@
 * Ver   Who  Date        Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   ba   10/10/14 Initial release
+* 2.2   vns  07/06/17 Added doxygen tags
+*       vns  17/08/17 Added APIs XSecure_RsaPublicEncrypt and
+*                     XSecure_RsaPrivateDecrypt.As per functionality
+*                     XSecure_RsaPublicEncrypt is same as XSecure_RsaDecrypt.
 *
 * </pre>
 *
-*
+* @endcond
 ******************************************************************************/
 
 #ifndef XSECURE_RSA_H_
@@ -86,6 +92,15 @@ extern "C" {
 #include "xstatus.h"
 #include "xplatform_info.h"
 /************************** Constant Definitions ****************************/
+/** @cond xsecure_internal
+@{
+*/
+
+#define XSECURE_RSA_4096_KEY_SIZE		(4096/8)	/**< RSA 4096 key size */
+#define XSECURE_RSA_2048_KEY_SIZE		(2048/8)	/**< RSA 2048 key size */
+
+#define XSECURE_RSA_4096_SIZE_WORDS		(128)	/**< RSA 4096 Size in words */
+#define XSECURE_RSA_2048_SIZE_WORDS		(64)	/**< RSA 2048 Size in words */
 
 /** @name Control Register
  *
@@ -132,6 +147,9 @@ extern "C" {
 #define XSECURE_HASH_TYPE_SHA2		(32U)/**< SHA-2 hash size */
 #define XSECURE_FSBL_SIG_SIZE		(512U) /**< FSBL signature size */
 
+#define XSECURE_RSA_SIGN_ENC		0U
+#define XSECURE_RSA_SIGN_DEC		1U
+
 /***************************** Type Definitions ******************************/
 /**
  * The RSA driver instance data structure. A pointer to an instance data
@@ -143,8 +161,12 @@ typedef struct {
 	u8* Mod; /**< Modulus */
 	u8* ModExt; /**< Precalc. R sq. mod N */
 	u8* ModExpo; /**< Exponent */
+	u8 EncDec; /**< 0 for signature verification and 1 for generation */
+	u32 SizeInWords;/** RSA key size in words */
 } XSecure_Rsa;
-
+/**
+@}
+@endcond */
 /***************************** Function Prototypes ***************************/
 
 /* Initialization */
@@ -157,8 +179,16 @@ s32 XSecure_RsaDecrypt(XSecure_Rsa *InstancePtr, u8* EncText, u8* Result);
 /* RSA Signature Validation, assuming PKCS padding */
 u32 XSecure_RsaSignVerification(u8 *Signature, u8 *Hash, u32 HashLen);
 
+/* XSecure_RsaPublicEncrypt performs same as XSecure_RsaDecrypt API */
+s32 XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
+								u8 *Result);
+
+s32 XSecure_RsaPrivateDecrypt(XSecure_Rsa *InstancePtr, u8 *Input, u32 Size,
+								u8 *Result);
+
 #ifdef __cplusplus
 extern "C" }
 #endif
 
 #endif /* XSECURE_RSA_H_ */
+/* @} */

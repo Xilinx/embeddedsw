@@ -58,16 +58,16 @@
 * Ver   Who    Date     Changes
 * ----- ---- -------- -------------------------------------------------------
 * 1.00         10/07/15 Initial release.
-* 1.01  yh     15/01/16 Add 3D Support
-* 1.02  yh     20/01/16 Added remapper support
-* 1.03  yh     01/02/16 Added set_ppc api
-* 1.04  MG     03/02/16 Added HDCP support
-* 1.05  MG     09/03/16 Removed reduced blanking support and
+* 1.1   yh     15/01/16 Add 3D Support
+* 1.2   yh     20/01/16 Added remapper support
+* 1.3   yh     01/02/16 Added set_ppc api
+* 1.4   MG     03/02/16 Added HDCP support
+* 1.5   MG     09/03/16 Removed reduced blanking support and
 *                       added XV_HdmiTxSS_SetHdmiMode and XV_HdmiTxSS_SetDviMode
-* 1.06  MH     03/15/16 Added HDCP connect event
-* 1.07  YH     17/03/16 Remove xintc.h as it is processor dependent
-* 1.08  YH     18/03/16 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
-* 1.09  MH     23/06/16 Added HDCP repeater support.
+* 1.6   MH     03/15/16 Added HDCP connect event
+* 1.7   YH     17/03/16 Remove xintc.h as it is processor dependent
+* 1.8   YH     18/03/16 Add XV_HdmiTxSs_SendGenericAuxInfoframe function
+* 1.9   MH     23/06/16 Added HDCP repeater support.
 * 1.10  YH     25/07/16 Used UINTPTR instead of u32 for BaseAddress
 * 1.11  MH     08/08/16 Updates to optimize out HDCP when excluded.
 * 1.12  YH     18/08/16 Combine Report function into one ReportInfo
@@ -82,10 +82,9 @@
 *                       Re-order the enumation and data structure
 * 1.17  mmo    02/03/17 Added XV_HdmiTxSs_ReadEdidSegment API for Multiple
 *                             Segment Support and HDMI Compliance Test
-*       ms     03/17/17 Added readme.txt file in examples folder for doxygen
-*                             generation.
-*       ms     04/10/17 Modified filename tag in examples to include them in
-*                              doxygen.
+* 4.0   YH     19/07/17 Added Video Masking APIs
+*       MH     09/08/17 Added function XV_HdmiTxSs_HdcpSetCapability
+*              22/08/17 Added function XV_HdmiTxSs_SetAudioFormat
 * </pre>
 *
 ******************************************************************************/
@@ -127,6 +126,20 @@ extern "C" {
 
 
 /****************************** Type Definitions ******************************/
+/**
+ * This typedef contains the different background colors available
+ */
+typedef enum
+{
+  XV_BKGND_BLACK = 0,
+  XV_BKGND_WHITE,
+  XV_BKGND_RED,
+  XV_BKGND_GREEN,
+  XV_BKGND_BLUE,
+  XV_BKGND_NOISE,
+  XV_BKGND_LAST
+}XVMaskColorId;
+
 /** @name Handler Types
 * @{
 */
@@ -177,7 +190,8 @@ typedef enum
 {
     XV_HDMITXSS_HDCP_NONE,   /**< No content protection */
     XV_HDMITXSS_HDCP_14,     /**< HDCP 1.4 */
-    XV_HDMITXSS_HDCP_22      /**< HDCP 2.2 */
+    XV_HDMITXSS_HDCP_22,     /**< HDCP 2.2 */
+    XV_HDMITXSS_HDCP_BOTH    /**< Both HDCP 1.4 and 2.2 */
 } XV_HdmiTxSs_HdcpProtocol;
 
 #ifdef USE_HDCP_TX
@@ -362,9 +376,10 @@ typedef struct
     u8 AudioMute;                 /**< HDMI TX Audio Mute */
     u8 AudioChannels;             /**< Number of Audio Channels */
 
-    XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protect scheme */
+    XV_HdmiTxSs_HdcpProtocol    HdcpProtocol;    /**< HDCP protocol selected */
 #ifdef USE_HDCP_TX
     /**< HDCP specific */
+    XV_HdmiTxSs_HdcpProtocol    HdcpCapability;  /**< HDCP protocol desired */
     u32                         HdcpIsReady;     /**< HDCP ready flag */
     XV_HdmiTxSs_HdcpEventQueue  HdcpEventQueue;  /**< HDCP event queue */
 #ifdef XPAR_XHDCP22_TX_NUM_INSTANCES
@@ -407,6 +422,7 @@ void XV_HdmiTxSs_SendAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 void XV_HdmiTxSs_SendGenericAuxInfoframe(XV_HdmiTxSs *InstancePtr, void *AuxPtr);
 void XV_HdmiTxSs_SetAudioChannels(XV_HdmiTxSs *InstancePtr, u8 AudioChannels);
 void XV_HdmiTxSs_AudioMute(XV_HdmiTxSs *InstancePtr, u8 Enable);
+void XV_HdmiTxSs_SetAudioFormat(XV_HdmiTxSs *InstancePtr, u8 format);
 u32 XV_HdmiTxSs_SetStream(XV_HdmiTxSs *InstancePtr,
     XVidC_VideoMode VideoMode,
     XVidC_ColorFormat ColorFormat,
@@ -446,6 +462,7 @@ void XV_HdmiTxSs_LogDisplay(XV_HdmiTxSs *InstancePtr);
 void XV_HdmiTxSs_HdcpSetKey(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpKeyType KeyType, u8 *KeyPtr);
 int XV_HdmiTxSs_HdcpPoll(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpSetProtocol(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpProtocol Protocol);
+int XV_HdmiTxSs_HdcpSetCapability(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpProtocol Protocol);
 XV_HdmiTxSs_HdcpProtocol XV_HdmiTxSs_HdcpGetProtocol(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpClearEvents(XV_HdmiTxSs *InstancePtr);
 int XV_HdmiTxSs_HdcpPushEvent(XV_HdmiTxSs *InstancePtr, XV_HdmiTxSs_HdcpEvent Event);
@@ -491,6 +508,15 @@ void XV_HdmiTxSs_HdcpTimerCallback(void *CallBackRef, u8 TimerChannel);
 void XV_HdmiTxSS_Hdcp22TimerIntrHandler(XV_HdmiTxSs *InstancePtr);
 #endif
 
+void XV_HdmiTxSS_MaskEnable(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSS_MaskDisable(XV_HdmiTxSs *InstancePtr);
+void XV_HdmiTxSS_MaskNoise(XV_HdmiTxSs *InstancePtr, u8 Enable);
+void XV_HdmiTxSS_MaskSetRed(XV_HdmiTxSs *InstancePtr, u16 Value);
+void XV_HdmiTxSS_MaskSetGreen(XV_HdmiTxSs *InstancePtr, u16 Value);
+void XV_HdmiTxSS_MaskSetBlue(XV_HdmiTxSs *InstancePtr, u16 Value);
+void XV_HdmiTxSS_SetBackgroundColor(XV_HdmiTxSs *InstancePtr,
+                                    XVMaskColorId  ColorId);
+u8 XV_HdmiTxSS_IsMasked(XV_HdmiTxSs *InstancePtr);
 #ifdef __cplusplus
 }
 #endif

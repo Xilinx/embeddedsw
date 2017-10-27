@@ -6,3 +6,10 @@
 *.out
 *.log
 *.d
+
+/tags
+/TAGS
+
+# cscope files
+cscope.*
+ncscope.*

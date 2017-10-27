@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2010 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@
 /**
  *
  * @file xaxidma_bd.h
-* @addtogroup axidma_v9_0
+* @addtogroup axidma_v9_4
 * @{
  *
  * Buffer descriptor (BD) management API.
@@ -299,7 +299,7 @@ typedef u32 XAxiDma_Bd[XAXIDMA_BD_NUM_WORDS];
  *
  *****************************************************************************/
 #define XAxiDma_BdSetId(BdPtr, Id)                                      \
-	(XAxiDma_BdWrite((BdPtr), XAXIDMA_BD_ID_OFFSET, (u32)(Id)))
+	(XAxiDma_BdWrite((BdPtr), XAXIDMA_BD_ID_OFFSET, (UINTPTR)(Id)))
 
 
 /*****************************************************************************/

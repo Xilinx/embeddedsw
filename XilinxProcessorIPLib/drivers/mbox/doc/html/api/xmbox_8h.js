@@ -10,6 +10,7 @@ var xmbox_8h =
     [ "XMbox_IsFull", "group__mbox__v4__0.html#gaa9db05bc2935bcc2230ff023b5c9cbcc", null ],
     [ "XMbox_Read", "group__mbox__v4__0.html#gaa1f68405027d147c68aa53bcb49fbd5a", null ],
     [ "XMbox_ReadBlocking", "group__mbox__v4__0.html#gab14511b623c1d3c191cdc441b8909006", null ],
+    [ "XMbox_ResetFifos", "group__mbox__v4__0.html#gacf8d6e720149452270eac0493537a233", null ],
     [ "XMbox_SetInterruptEnable", "group__mbox__v4__0.html#ga8e56860ea2cf7f4f1df0f1862d8c4c61", null ],
     [ "XMbox_SetReceiveThreshold", "group__mbox__v4__0.html#ga8c05b007d0f92ca32702db58573302a9", null ],
     [ "XMbox_SetSendThreshold", "group__mbox__v4__0.html#ga4fb918498d8adc676f4ea554585609d2", null ],

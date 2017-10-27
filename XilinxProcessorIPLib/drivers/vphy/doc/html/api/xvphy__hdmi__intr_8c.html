@@ -86,6 +86,11 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who  Date     Changes
                     Added mechanism to re-trigger GT TX reset when TX align
                       get stuck
                     Fixed c++ compiler warnings
+1.6   gm   06/08/17 Prevented TX reset on bonded mode and when DRU is active
+                      in XVphy_HdmiGtRxResetDoneLockHandler API
+                    Added TX and RX MMCM Lock handling
+                    Improved TX initialization flow in bonded mode to
+                      reset GT TX only when PLL and MMCM are locked
 </pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

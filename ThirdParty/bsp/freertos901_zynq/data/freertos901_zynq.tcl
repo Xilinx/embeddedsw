@@ -1155,30 +1155,17 @@ proc mb_drc_checks { sw_proc_handle hw_proc_handle os_handle } {
 	set timer_has_intr 0
 
 	# check for a valid timer
-	foreach if $slave_ifs {
-		set ip_handle [hsi::get_cells -of_objects $if]
-
-                set intf_pins [hsi::get_intf_pins -of_objects $ip_handle]
-                foreach pin $intf_pins {
-                        set net [hsi::get_intf_net -of_objects $pin]
-                        set cell [hsi::get_cell -of_objects $net]
-                        foreach cell_block $cell {
-                                set ip [common::get_property IP_NAME $cell_block]
-                                if {[string compare -nocase $ip "axi_timer"] == 0} {
-					incr timer_count
-
-					# check if the timer interrupts are enabled
-					set intr_port [hsi::get_pins -of_objects $cell_block interrupt]
-					if { [llength $intr_port] != 0 } {
-						set intr_net [hsi::get_nets -of_objects $intr_port]
-						if { [llength $intr_net] !=  0 } {
-							set timer_has_intr 1
-						}
-					}
-				}
-			}
-		}
-	}
+        set axi_timer_ips [get_cell -hier -filter {IP_NAME== "axi_timer"}]
+        if { [llength $axi_timer_ips] != 0 } {
+             foreach axi_timer_ip $axi_timer_ips {
+                 incr timer_count
+		 # check if the axi_timer IP is interrupting current processor
+                 set isintr [::hsm::utils::is_ip_interrupting_current_proc $axi_timer_ip]
+                 if {$isintr == 1} {
+                     set timer_has_intr 1
+                 }
+              }
+         }
 
 	if { $timer_count == 0 } {
 		error "FreeRTOS for Microblaze requires an axi_timer or xps_timer. The HW platform doesn't have a valid timer." "" "mdt_error"

@@ -56,6 +56,7 @@
 *                     functions to update error flag.
 * 2.00  MH   04/14/16 Updated for repeater upstream support.
 * 2.01  MH   02/28/17 Fixed compiler warnings.
+* 2.20  MH   06/08/17 Updated for 64 bit support.
 *</pre>
 *
 *****************************************************************************/
@@ -83,7 +84,7 @@ static int  XHdcp22Rx_InitializeCipher(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_InitializeMmult(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr);
 static int  XHdcp22Rx_InitializeTimer(XHdcp22_Rx *InstancePtr);
-static int  XHdcp22Rx_ComputeBaseAddress(u32 BaseAddress, u32 SubcoreOffset, u32 *SubcoreAddressPtr);
+static int  XHdcp22Rx_ComputeBaseAddress(UINTPTR BaseAddress, UINTPTR SubcoreOffset, UINTPTR *SubcoreAddressPtr);
 
 /* Functions for generating authentication parameters */
 static int  XHdcp22Rx_GenerateRrx(XHdcp22_Rx *InstancePtr, u8 *RrxPtr);
@@ -1208,7 +1209,7 @@ static int XHdcp22Rx_InitializeCipher(XHdcp22_Rx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	int Status = XST_SUCCESS;
-	u32 SubcoreBaseAddr;
+	UINTPTR SubcoreBaseAddr;
 	XHdcp22_Cipher_Config *CipherConfigPtr = NULL;
 
 	CipherConfigPtr = XHdcp22Cipher_LookupConfig(InstancePtr->Config.CipherDeviceId);
@@ -1241,7 +1242,7 @@ static int XHdcp22Rx_InitializeMmult(XHdcp22_Rx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	int Status = XST_SUCCESS;
-	u32 SubcoreBaseAddr;
+	UINTPTR SubcoreBaseAddr;
 	XHdcp22_mmult_Config *MmultConfigPtr;
 
 	MmultConfigPtr = XHdcp22_mmult_LookupConfig(InstancePtr->Config.MontMultDeviceId);
@@ -1272,7 +1273,7 @@ static int XHdcp22Rx_InitializeRng(XHdcp22_Rx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	int Status = XST_SUCCESS;
-	u32 SubcoreBaseAddr;
+	UINTPTR SubcoreBaseAddr;
 	XHdcp22_Rng_Config *RngConfigPtr;
 
 	RngConfigPtr = XHdcp22Rng_LookupConfig(InstancePtr->Config.RngDeviceId);
@@ -1303,7 +1304,7 @@ static int XHdcp22Rx_InitializeTimer(XHdcp22_Rx *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	int Status = XST_SUCCESS;
-	u32 SubcoreBaseAddr;
+	UINTPTR SubcoreBaseAddr;
 	XTmrCtr_Config *TimerConfigPtr;
 
 	TimerConfigPtr = XTmrCtr_LookupConfig(InstancePtr->Config.TimerDeviceId);
@@ -1435,10 +1436,10 @@ static void XHdcp22Rx_StopTimer(XHdcp22_Rx *InstancePtr)
 * 			subsystem address range else XST_FAILURE
 *
 ******************************************************************************/
-static int XHdcp22Rx_ComputeBaseAddress(u32 BaseAddress, u32 SubcoreOffset, u32 *SubcoreAddressPtr)
+static int XHdcp22Rx_ComputeBaseAddress(UINTPTR BaseAddress, UINTPTR SubcoreOffset, UINTPTR *SubcoreAddressPtr)
 {
 	int Status;
-	u32 Address;
+	UINTPTR Address;
 
 	Address = BaseAddress | SubcoreOffset;
 	if((Address >= BaseAddress))
@@ -3931,7 +3932,7 @@ void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
 {
 	XHdcp22_Rx_LogItem* LogPtr;
 	char str[255];
-	u64 TimeStampPrev = 0;
+	u32 TimeStampPrev = 0;
 
 	/* Verify argument. */
 	Xil_AssertVoid(InstancePtr != NULL);
@@ -3947,8 +3948,8 @@ void XHdcp22Rx_LogDisplay(XHdcp22_Rx *InstancePtr)
 		if(LogPtr->LogEvent != XHDCP22_RX_LOG_EVT_NONE)
 		{
 			if(LogPtr->TimeStamp < TimeStampPrev) TimeStampPrev = 0;
-			xil_printf("[%8ld:", LogPtr->TimeStamp);
-			xil_printf("%8ld] ", (LogPtr->TimeStamp - TimeStampPrev));
+			xil_printf("[%8u:", LogPtr->TimeStamp);
+			xil_printf("%8u] ", (LogPtr->TimeStamp - TimeStampPrev));
 			TimeStampPrev = LogPtr->TimeStamp;
 		}
 
@@ -4287,6 +4288,8 @@ static u32 XHdcp22_Rx_StubGetHandler(void *HandlerRef)
 {
 	Xil_AssertNonvoid(HandlerRef != NULL);
 	Xil_AssertNonvoidAlways();
+
+	return 0;
 }
 
 /** @} */

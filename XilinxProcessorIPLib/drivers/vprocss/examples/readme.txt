@@ -70,7 +70,7 @@ the input stream. Video Lock Monitor IP will then monitor the output of
 the subsystem (to vidout) to determine if lock is achieved and present the
 status (Pass/Fail) on the terminal.
 
-@note Serial terminal baud rate should be set to 9600
+@note Serial terminal baud rate should be set to 115200
 
 For details, see vpss_example.tcl.
 */

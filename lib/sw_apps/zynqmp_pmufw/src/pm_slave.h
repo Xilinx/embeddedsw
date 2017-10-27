@@ -163,5 +163,6 @@ u32 PmSlaveGetUsageStatus(const PmSlave* const slave,
 			  const PmMaster* const master);
 u32 PmSlaveGetRequirements(const PmSlave* const slave,
 			   const PmMaster* const master);
+void PmResetSlaveStates(void);
 
 #endif

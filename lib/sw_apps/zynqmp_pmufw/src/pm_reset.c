@@ -1777,7 +1777,7 @@ static int ResetDoAssert(const PmReset *reset, u32 action)
 		reset->ops->pulse(reset);
 		break;
 	default:
-		PmDbg("ERROR invalid assert flag %lu\r\n", action);
+		PmDbg(DEBUG_DETAILED,"ERROR invalid assert flag %lu\r\n", action);
 		status = XST_INVALID_PARAM;
 		break;
 	};
@@ -1796,7 +1796,7 @@ int PmResetAssertInt(u32 reset, u32 action)
 	const PmReset *resetPtr = PmGetResetById(reset);
 
 	if (NULL == resetPtr) {
-		PmDbg("ERROR invalid reset %lu\r\n", reset);
+		PmDbg(DEBUG_DETAILED,"ERROR invalid reset %lu\r\n", reset);
 		status = XST_INVALID_PARAM;
 		goto err;
 	}
@@ -1819,17 +1819,17 @@ void PmResetAssert(const PmMaster *const master, const u32 reset,
 	int status;
 	const PmReset *resetPtr = PmGetResetById(reset);
 
-	PmDbg("(%lu, %lu)\r\n", reset, action);
+	PmDbg(DEBUG_DETAILED,"(%lu, %lu)\r\n", reset, action);
 
 	if (NULL == resetPtr) {
-		PmDbg("ERROR invalid reset %lu\r\n", reset);
+		PmDbg(DEBUG_DETAILED,"ERROR invalid reset %lu\r\n", reset);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}
 
 	/* Check whether the master has access to this reset line */
 	if (false == master_has_access(master, resetPtr)) {
-		PmDbg("ERROR no access\r\n");
+		PmDbg(DEBUG_DETAILED,"ERROR no access\r\n");
 		status = XST_PM_NO_ACCESS;
 		goto done;
 	}
@@ -1851,10 +1851,10 @@ void PmResetGetStatus(const PmMaster *const master, const u32 reset)
 	int status = XST_SUCCESS;
 	const PmReset *resetPtr = PmGetResetById(reset);
 
-	PmDbg("(%lu)\r\n", reset);
+	PmDbg(DEBUG_DETAILED,"(%lu)\r\n", reset);
 
 	if (NULL == resetPtr) {
-		PmDbg("ERROR invalid reset %lu\r\n", reset);
+		PmDbg(DEBUG_DETAILED,"ERROR invalid reset %lu\r\n", reset);
 		status = XST_INVALID_PARAM;
 		goto done;
 	}

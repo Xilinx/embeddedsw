@@ -33,7 +33,7 @@
 /**
 *
 * @file xsdps_hw.h
-* @addtogroup sdps_v2_5
+* @addtogroup sdps_v3_3
 * @{
 *
 * This header file contains the identifiers and basic HW access driver
@@ -57,6 +57,8 @@
 *                       operating modes.
 * 3.1   sk     11/07/16 Enable Rst_n bit in ext_csd reg if not enabled.
 * 3.2   sk     03/20/17 Add support for EL1 non-secure mode.
+* 3.3   mn     08/22/17 Updated for Word Access System support
+*       mn     09/06/17 Added support for ARMCC toolchain
 * </pre>
 *
 ******************************************************************************/
@@ -995,7 +997,12 @@ extern "C" {
 #define XSDPS_SD_SDR50_MAX_CLK	100000000U
 #define XSDPS_SD_DDR50_MAX_CLK	50000000U
 #define XSDPS_SD_SDR104_MAX_CLK	208000000U
-#define XSDPS_MMC_HS200_MAX_CLK	200000000U
+/*
+ * XSDPS_MMC_HS200_MAX_CLK is set to 150000000 in order to keep it smaller
+ * than the clock value coming from the core. This value is kept to safely
+ * switch to SDR104 mode if the SD card supports it.
+ */
+#define XSDPS_MMC_HS200_MAX_CLK	150000000U
 #define XSDPS_MMC_HSD_MAX_CLK	52000000U
 #define XSDPS_MMC_DDR_MAX_CLK	52000000U
 
@@ -1163,8 +1170,18 @@ extern "C" {
 *		u16 XSdPs_ReadReg(u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-#define XSdPs_ReadReg16(BaseAddress, RegOffset) \
-	XSdPs_In16((BaseAddress) + (RegOffset))
+static INLINE u16 XSdPs_ReadReg16(u32 BaseAddress, u8 RegOffset)
+{
+#if defined (__MICROBLAZE__)
+	u32 Reg;
+	BaseAddress += RegOffset & 0xFC;
+	Reg = XSdPs_In32(BaseAddress);
+	Reg >>= ((RegOffset & 0x3)*8);
+	return (u16)Reg;
+#else
+	return XSdPs_In16((BaseAddress) + (RegOffset));
+#endif
+}
 
 /***************************************************************************/
 /**
@@ -1182,8 +1199,20 @@ extern "C" {
 *		u16 RegisterValue)
 *
 ******************************************************************************/
-#define XSdPs_WriteReg16(BaseAddress, RegOffset, RegisterValue) \
-	XSdPs_Out16((BaseAddress) + (RegOffset), (RegisterValue))
+
+static INLINE void XSdPs_WriteReg16(u32 BaseAddress, u8 RegOffset, u16 RegisterValue)
+{
+#if defined (__MICROBLAZE__)
+	u32 Reg;
+	BaseAddress += RegOffset & 0xFC;
+	Reg = XSdPs_In32(BaseAddress);
+	Reg &= ~(0xFFFF<<((RegOffset & 0x3)*8));
+	Reg |= RegisterValue <<((RegOffset & 0x3)*8);
+	XSdPs_Out32(BaseAddress, Reg);
+#else
+	XSdPs_Out16((BaseAddress) + (RegOffset), (RegisterValue));
+#endif
+}
 
 /****************************************************************************/
 /**
@@ -1199,9 +1228,18 @@ extern "C" {
 *		u8 XSdPs_ReadReg(u32 BaseAddress. int RegOffset)
 *
 ******************************************************************************/
-#define XSdPs_ReadReg8(BaseAddress, RegOffset) \
-	XSdPs_In8((BaseAddress) + (RegOffset))
-
+static INLINE u8 XSdPs_ReadReg8(u32 BaseAddress, u8 RegOffset)
+{
+#if defined (__MICROBLAZE__)
+	u32 Reg;
+	BaseAddress += RegOffset & 0xFC;
+	Reg = XSdPs_In32(BaseAddress);
+	Reg >>= ((RegOffset & 0x3)*8);
+	return (u8)Reg;
+#else
+	return XSdPs_In8((BaseAddress) + (RegOffset));
+#endif
+}
 /***************************************************************************/
 /**
 * Write to a register.
@@ -1218,9 +1256,19 @@ extern "C" {
 *		u8 RegisterValue)
 *
 ******************************************************************************/
-#define XSdPs_WriteReg8(BaseAddress, RegOffset, RegisterValue) \
-	XSdPs_Out8((BaseAddress) + (RegOffset), (RegisterValue))
-
+static INLINE void XSdPs_WriteReg8(u32 BaseAddress, u8 RegOffset, u8 RegisterValue)
+{
+#if defined (__MICROBLAZE__)
+	u32 Reg;
+	BaseAddress += RegOffset & 0xFC;
+	Reg = XSdPs_In32(BaseAddress);
+	Reg &= ~(0xFF<<((RegOffset & 0x3)*8));
+	Reg |= RegisterValue <<((RegOffset & 0x3)*8);
+	XSdPs_Out32(BaseAddress, Reg);
+#else
+	XSdPs_Out8((BaseAddress) + (RegOffset), (RegisterValue));
+#endif
+}
 /***************************************************************************/
 /**
 * Macro to get present status register

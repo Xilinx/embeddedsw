@@ -2614,6 +2614,8 @@
 #define DDR_PHY_PLLCR0_OFFSET                                                      0XFD080068
 #undef DDR_PHY_DSGCR_OFFSET
 #define DDR_PHY_DSGCR_OFFSET                                                       0XFD080090
+#undef DDR_PHY_GPR0_OFFSET
+#define DDR_PHY_GPR0_OFFSET                                                        0XFD0800C0
 #undef DDR_PHY_DCR_OFFSET
 #define DDR_PHY_DCR_OFFSET                                                         0XFD080100
 #undef DDR_PHY_DTPR0_OFFSET
@@ -2850,8 +2852,6 @@
 #define DDR_PHY_DX8SLBPLLCR0_OFFSET                                                0XFD0817C4
 #undef DDR_PHY_DX8SLBDQSCTL_OFFSET
 #define DDR_PHY_DX8SLBDQSCTL_OFFSET                                                0XFD0817DC
-#undef DDR_PHY_PIR_OFFSET
-#define DDR_PHY_PIR_OFFSET                                                         0XFD080004
 
 /*
 * DDR block level reset inside of the DDR Sub System
@@ -8913,6 +8913,16 @@
 #define DDR_PHY_DSGCR_PUREN_DEFVAL                             0x02A04101
 #define DDR_PHY_DSGCR_PUREN_SHIFT                              0
 #define DDR_PHY_DSGCR_PUREN_MASK                               0x00000001U
+
+/*
+* General Purpose Register 0
+*/
+#undef DDR_PHY_GPR0_GPR0_DEFVAL
+#undef DDR_PHY_GPR0_GPR0_SHIFT
+#undef DDR_PHY_GPR0_GPR0_MASK
+#define DDR_PHY_GPR0_GPR0_DEFVAL
+#define DDR_PHY_GPR0_GPR0_SHIFT                                0
+#define DDR_PHY_GPR0_GPR0_MASK                                 0xFFFFFFFFU
 
 /*
 * DDR4 Gear Down Timing.
@@ -21394,256 +21404,6 @@
 #define DDR_PHY_DX8SLBDQSCTL_DQSRES_DEFVAL                     0x00000000
 #define DDR_PHY_DX8SLBDQSCTL_DQSRES_SHIFT                      0
 #define DDR_PHY_DX8SLBDQSCTL_DQSRES_MASK                       0x0000000FU
-
-/*
-* Reserved. Return zeroes on reads.
-*/
-#undef DDR_PHY_PIR_RESERVED_31_DEFVAL
-#undef DDR_PHY_PIR_RESERVED_31_SHIFT
-#undef DDR_PHY_PIR_RESERVED_31_MASK
-#define DDR_PHY_PIR_RESERVED_31_DEFVAL                         0x00000000
-#define DDR_PHY_PIR_RESERVED_31_SHIFT                          31
-#define DDR_PHY_PIR_RESERVED_31_MASK                           0x80000000U
-
-/*
-* Impedance Calibration Bypass
-*/
-#undef DDR_PHY_PIR_ZCALBYP_DEFVAL
-#undef DDR_PHY_PIR_ZCALBYP_SHIFT
-#undef DDR_PHY_PIR_ZCALBYP_MASK
-#define DDR_PHY_PIR_ZCALBYP_DEFVAL                             0x00000000
-#define DDR_PHY_PIR_ZCALBYP_SHIFT                              30
-#define DDR_PHY_PIR_ZCALBYP_MASK                               0x40000000U
-
-/*
-* Digital Delay Line (DDL) Calibration Pause
-*/
-#undef DDR_PHY_PIR_DCALPSE_DEFVAL
-#undef DDR_PHY_PIR_DCALPSE_SHIFT
-#undef DDR_PHY_PIR_DCALPSE_MASK
-#define DDR_PHY_PIR_DCALPSE_DEFVAL                             0x00000000
-#define DDR_PHY_PIR_DCALPSE_SHIFT                              29
-#define DDR_PHY_PIR_DCALPSE_MASK                               0x20000000U
-
-/*
-* Reserved. Return zeroes on reads.
-*/
-#undef DDR_PHY_PIR_RESERVED_28_21_DEFVAL
-#undef DDR_PHY_PIR_RESERVED_28_21_SHIFT
-#undef DDR_PHY_PIR_RESERVED_28_21_MASK
-#define DDR_PHY_PIR_RESERVED_28_21_DEFVAL                      0x00000000
-#define DDR_PHY_PIR_RESERVED_28_21_SHIFT                       21
-#define DDR_PHY_PIR_RESERVED_28_21_MASK                        0x1FE00000U
-
-/*
-* Write DQS2DQ Training
-*/
-#undef DDR_PHY_PIR_DQS2DQ_DEFVAL
-#undef DDR_PHY_PIR_DQS2DQ_SHIFT
-#undef DDR_PHY_PIR_DQS2DQ_MASK
-#define DDR_PHY_PIR_DQS2DQ_DEFVAL                              0x00000000
-#define DDR_PHY_PIR_DQS2DQ_SHIFT                               20
-#define DDR_PHY_PIR_DQS2DQ_MASK                                0x00100000U
-
-/*
-* RDIMM Initialization
-*/
-#undef DDR_PHY_PIR_RDIMMINIT_DEFVAL
-#undef DDR_PHY_PIR_RDIMMINIT_SHIFT
-#undef DDR_PHY_PIR_RDIMMINIT_MASK
-#define DDR_PHY_PIR_RDIMMINIT_DEFVAL                           0x00000000
-#define DDR_PHY_PIR_RDIMMINIT_SHIFT                            19
-#define DDR_PHY_PIR_RDIMMINIT_MASK                             0x00080000U
-
-/*
-* Controller DRAM Initialization
-*/
-#undef DDR_PHY_PIR_CTLDINIT_DEFVAL
-#undef DDR_PHY_PIR_CTLDINIT_SHIFT
-#undef DDR_PHY_PIR_CTLDINIT_MASK
-#define DDR_PHY_PIR_CTLDINIT_DEFVAL                            0x00000000
-#define DDR_PHY_PIR_CTLDINIT_SHIFT                             18
-#define DDR_PHY_PIR_CTLDINIT_MASK                              0x00040000U
-
-/*
-* VREF Training
-*/
-#undef DDR_PHY_PIR_VREF_DEFVAL
-#undef DDR_PHY_PIR_VREF_SHIFT
-#undef DDR_PHY_PIR_VREF_MASK
-#define DDR_PHY_PIR_VREF_DEFVAL                                0x00000000
-#define DDR_PHY_PIR_VREF_SHIFT                                 17
-#define DDR_PHY_PIR_VREF_MASK                                  0x00020000U
-
-/*
-* Static Read Training
-*/
-#undef DDR_PHY_PIR_SRD_DEFVAL
-#undef DDR_PHY_PIR_SRD_SHIFT
-#undef DDR_PHY_PIR_SRD_MASK
-#define DDR_PHY_PIR_SRD_DEFVAL                                 0x00000000
-#define DDR_PHY_PIR_SRD_SHIFT                                  16
-#define DDR_PHY_PIR_SRD_MASK                                   0x00010000U
-
-/*
-* Write Data Eye Training
-*/
-#undef DDR_PHY_PIR_WREYE_DEFVAL
-#undef DDR_PHY_PIR_WREYE_SHIFT
-#undef DDR_PHY_PIR_WREYE_MASK
-#define DDR_PHY_PIR_WREYE_DEFVAL                               0x00000000
-#define DDR_PHY_PIR_WREYE_SHIFT                                15
-#define DDR_PHY_PIR_WREYE_MASK                                 0x00008000U
-
-/*
-* Read Data Eye Training
-*/
-#undef DDR_PHY_PIR_RDEYE_DEFVAL
-#undef DDR_PHY_PIR_RDEYE_SHIFT
-#undef DDR_PHY_PIR_RDEYE_MASK
-#define DDR_PHY_PIR_RDEYE_DEFVAL                               0x00000000
-#define DDR_PHY_PIR_RDEYE_SHIFT                                14
-#define DDR_PHY_PIR_RDEYE_MASK                                 0x00004000U
-
-/*
-* Write Data Bit Deskew
-*/
-#undef DDR_PHY_PIR_WRDSKW_DEFVAL
-#undef DDR_PHY_PIR_WRDSKW_SHIFT
-#undef DDR_PHY_PIR_WRDSKW_MASK
-#define DDR_PHY_PIR_WRDSKW_DEFVAL                              0x00000000
-#define DDR_PHY_PIR_WRDSKW_SHIFT                               13
-#define DDR_PHY_PIR_WRDSKW_MASK                                0x00002000U
-
-/*
-* Read Data Bit Deskew
-*/
-#undef DDR_PHY_PIR_RDDSKW_DEFVAL
-#undef DDR_PHY_PIR_RDDSKW_SHIFT
-#undef DDR_PHY_PIR_RDDSKW_MASK
-#define DDR_PHY_PIR_RDDSKW_DEFVAL                              0x00000000
-#define DDR_PHY_PIR_RDDSKW_SHIFT                               12
-#define DDR_PHY_PIR_RDDSKW_MASK                                0x00001000U
-
-/*
-* Write Leveling Adjust
-*/
-#undef DDR_PHY_PIR_WLADJ_DEFVAL
-#undef DDR_PHY_PIR_WLADJ_SHIFT
-#undef DDR_PHY_PIR_WLADJ_MASK
-#define DDR_PHY_PIR_WLADJ_DEFVAL                               0x00000000
-#define DDR_PHY_PIR_WLADJ_SHIFT                                11
-#define DDR_PHY_PIR_WLADJ_MASK                                 0x00000800U
-
-/*
-* Read DQS Gate Training
-*/
-#undef DDR_PHY_PIR_QSGATE_DEFVAL
-#undef DDR_PHY_PIR_QSGATE_SHIFT
-#undef DDR_PHY_PIR_QSGATE_MASK
-#define DDR_PHY_PIR_QSGATE_DEFVAL                              0x00000000
-#define DDR_PHY_PIR_QSGATE_SHIFT                               10
-#define DDR_PHY_PIR_QSGATE_MASK                                0x00000400U
-
-/*
-* Write Leveling
-*/
-#undef DDR_PHY_PIR_WL_DEFVAL
-#undef DDR_PHY_PIR_WL_SHIFT
-#undef DDR_PHY_PIR_WL_MASK
-#define DDR_PHY_PIR_WL_DEFVAL                                  0x00000000
-#define DDR_PHY_PIR_WL_SHIFT                                   9
-#define DDR_PHY_PIR_WL_MASK                                    0x00000200U
-
-/*
-* DRAM Initialization
-*/
-#undef DDR_PHY_PIR_DRAMINIT_DEFVAL
-#undef DDR_PHY_PIR_DRAMINIT_SHIFT
-#undef DDR_PHY_PIR_DRAMINIT_MASK
-#define DDR_PHY_PIR_DRAMINIT_DEFVAL                            0x00000000
-#define DDR_PHY_PIR_DRAMINIT_SHIFT                             8
-#define DDR_PHY_PIR_DRAMINIT_MASK                              0x00000100U
-
-/*
-* DRAM Reset (DDR3/DDR4/LPDDR4 Only)
-*/
-#undef DDR_PHY_PIR_DRAMRST_DEFVAL
-#undef DDR_PHY_PIR_DRAMRST_SHIFT
-#undef DDR_PHY_PIR_DRAMRST_MASK
-#define DDR_PHY_PIR_DRAMRST_DEFVAL                             0x00000000
-#define DDR_PHY_PIR_DRAMRST_SHIFT                              7
-#define DDR_PHY_PIR_DRAMRST_MASK                               0x00000080U
-
-/*
-* PHY Reset
-*/
-#undef DDR_PHY_PIR_PHYRST_DEFVAL
-#undef DDR_PHY_PIR_PHYRST_SHIFT
-#undef DDR_PHY_PIR_PHYRST_MASK
-#define DDR_PHY_PIR_PHYRST_DEFVAL                              0x00000000
-#define DDR_PHY_PIR_PHYRST_SHIFT                               6
-#define DDR_PHY_PIR_PHYRST_MASK                                0x00000040U
-
-/*
-* Digital Delay Line (DDL) Calibration
-*/
-#undef DDR_PHY_PIR_DCAL_DEFVAL
-#undef DDR_PHY_PIR_DCAL_SHIFT
-#undef DDR_PHY_PIR_DCAL_MASK
-#define DDR_PHY_PIR_DCAL_DEFVAL                                0x00000000
-#define DDR_PHY_PIR_DCAL_SHIFT                                 5
-#define DDR_PHY_PIR_DCAL_MASK                                  0x00000020U
-
-/*
-* PLL Initialiazation
-*/
-#undef DDR_PHY_PIR_PLLINIT_DEFVAL
-#undef DDR_PHY_PIR_PLLINIT_SHIFT
-#undef DDR_PHY_PIR_PLLINIT_MASK
-#define DDR_PHY_PIR_PLLINIT_DEFVAL                             0x00000000
-#define DDR_PHY_PIR_PLLINIT_SHIFT                              4
-#define DDR_PHY_PIR_PLLINIT_MASK                               0x00000010U
-
-/*
-* Reserved. Return zeroes on reads.
-*/
-#undef DDR_PHY_PIR_RESERVED_3_DEFVAL
-#undef DDR_PHY_PIR_RESERVED_3_SHIFT
-#undef DDR_PHY_PIR_RESERVED_3_MASK
-#define DDR_PHY_PIR_RESERVED_3_DEFVAL                          0x00000000
-#define DDR_PHY_PIR_RESERVED_3_SHIFT                           3
-#define DDR_PHY_PIR_RESERVED_3_MASK                            0x00000008U
-
-/*
-* CA Training
-*/
-#undef DDR_PHY_PIR_CA_DEFVAL
-#undef DDR_PHY_PIR_CA_SHIFT
-#undef DDR_PHY_PIR_CA_MASK
-#define DDR_PHY_PIR_CA_DEFVAL                                  0x00000000
-#define DDR_PHY_PIR_CA_SHIFT                                   2
-#define DDR_PHY_PIR_CA_MASK                                    0x00000004U
-
-/*
-* Impedance Calibration
-*/
-#undef DDR_PHY_PIR_ZCAL_DEFVAL
-#undef DDR_PHY_PIR_ZCAL_SHIFT
-#undef DDR_PHY_PIR_ZCAL_MASK
-#define DDR_PHY_PIR_ZCAL_DEFVAL                                0x00000000
-#define DDR_PHY_PIR_ZCAL_SHIFT                                 1
-#define DDR_PHY_PIR_ZCAL_MASK                                  0x00000002U
-
-/*
-* Initialization Trigger
-*/
-#undef DDR_PHY_PIR_INIT_DEFVAL
-#undef DDR_PHY_PIR_INIT_SHIFT
-#undef DDR_PHY_PIR_INIT_MASK
-#define DDR_PHY_PIR_INIT_DEFVAL                                0x00000000
-#define DDR_PHY_PIR_INIT_SHIFT                                 0
-#define DDR_PHY_PIR_INIT_MASK                                  0x00000001U
 #undef IOU_SLCR_MIO_PIN_0_OFFSET
 #define IOU_SLCR_MIO_PIN_0_OFFSET                                                  0XFF180000
 #undef IOU_SLCR_MIO_PIN_1_OFFSET
@@ -31329,6 +31089,10 @@
 #define IOU_SLCR_IOU_TAPDLY_BYPASS_OFFSET                                          0XFF180390
 #undef CRL_APB_RST_LPD_TOP_OFFSET
 #define CRL_APB_RST_LPD_TOP_OFFSET                                                 0XFF5E023C
+#undef USB3_0_FPD_POWER_PRSNT_OFFSET
+#define USB3_0_FPD_POWER_PRSNT_OFFSET                                              0XFF9D0080
+#undef USB3_0_FPD_PIPE_CLK_OFFSET
+#define USB3_0_FPD_PIPE_CLK_OFFSET                                                 0XFF9D007C
 #undef CRL_APB_RST_LPD_IOU2_OFFSET
 #define CRL_APB_RST_LPD_IOU2_OFFSET                                                0XFF5E0238
 #undef IOU_SLCR_CTRL_REG_SD_OFFSET
@@ -31385,8 +31149,6 @@
 #define GPIO_DIRM_1_OFFSET                                                         0XFF0A0244
 #undef GPIO_OEN_1_OFFSET
 #define GPIO_OEN_1_OFFSET                                                          0XFF0A0248
-#undef GPIO_MASK_DATA_1_LSW_OFFSET
-#define GPIO_MASK_DATA_1_LSW_OFFSET                                                0XFF0A0008
 #undef GPIO_MASK_DATA_1_LSW_OFFSET
 #define GPIO_MASK_DATA_1_LSW_OFFSET                                                0XFF0A0008
 #undef GPIO_MASK_DATA_1_LSW_OFFSET
@@ -31672,6 +31434,27 @@
 #define CRL_APB_RST_LPD_TOP_USB0_CORERESET_DEFVAL              0x00188FDF
 #define CRL_APB_RST_LPD_TOP_USB0_CORERESET_SHIFT               6
 #define CRL_APB_RST_LPD_TOP_USB0_CORERESET_MASK                0x00000040U
+
+/*
+* This bit is used to choose between PIPE power present and 1'b1
+*/
+#undef USB3_0_FPD_POWER_PRSNT_OPTION_DEFVAL
+#undef USB3_0_FPD_POWER_PRSNT_OPTION_SHIFT
+#undef USB3_0_FPD_POWER_PRSNT_OPTION_MASK
+#define USB3_0_FPD_POWER_PRSNT_OPTION_DEFVAL
+#define USB3_0_FPD_POWER_PRSNT_OPTION_SHIFT                    0
+#define USB3_0_FPD_POWER_PRSNT_OPTION_MASK                     0x00000001U
+
+/*
+* This bit is used to choose between PIPE clock coming from SerDes and the
+    *  suspend clk
+*/
+#undef USB3_0_FPD_PIPE_CLK_OPTION_DEFVAL
+#undef USB3_0_FPD_PIPE_CLK_OPTION_SHIFT
+#undef USB3_0_FPD_PIPE_CLK_OPTION_MASK
+#define USB3_0_FPD_PIPE_CLK_OPTION_DEFVAL
+#define USB3_0_FPD_PIPE_CLK_OPTION_SHIFT                       0
+#define USB3_0_FPD_PIPE_CLK_OPTION_MASK                        0x00000001U
 
 /*
 * Block level reset
@@ -32468,26 +32251,6 @@
 #define GPIO_OEN_1_OP_ENABLE_1_DEFVAL                          0x00000000
 #define GPIO_OEN_1_OP_ENABLE_1_SHIFT                           0
 #define GPIO_OEN_1_OP_ENABLE_1_MASK                            0x03FFFFFFU
-
-/*
-* Operation is the same as MASK_DATA_0_LSW[MASK_0_LSW]
-*/
-#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_DEFVAL
-#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_SHIFT
-#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_MASK
-#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_DEFVAL                 0x00000000
-#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_SHIFT                  16
-#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_MASK                   0xFFFF0000U
-
-/*
-* Operation is the same as MASK_DATA_0_LSW[DATA_0_LSW]
-*/
-#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_DEFVAL
-#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_SHIFT
-#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_MASK
-#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_DEFVAL                 0x00000000
-#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_SHIFT                  0
-#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_MASK                   0x0000FFFFU
 
 /*
 * Operation is the same as MASK_DATA_0_LSW[MASK_0_LSW]
@@ -34776,10 +34539,6 @@
 #define SERDES_L3_TX_ANA_TM_18_PIPE_TX_DEEMPH_7_0_MASK         0x000000FFU
 #undef CRL_APB_RST_LPD_TOP_OFFSET
 #define CRL_APB_RST_LPD_TOP_OFFSET                                                 0XFF5E023C
-#undef USB3_0_FPD_POWER_PRSNT_OFFSET
-#define USB3_0_FPD_POWER_PRSNT_OFFSET                                              0XFF9D0080
-#undef USB3_0_FPD_PIPE_CLK_OFFSET
-#define USB3_0_FPD_PIPE_CLK_OFFSET                                                 0XFF9D007C
 #undef CRL_APB_RST_LPD_TOP_OFFSET
 #define CRL_APB_RST_LPD_TOP_OFFSET                                                 0XFF5E023C
 #undef CRL_APB_RST_LPD_IOU0_OFFSET
@@ -34894,6 +34653,8 @@
 #define PCIE_ATTRIB_ATTR_35_OFFSET                                                 0XFD48008C
 #undef CRF_APB_RST_FPD_TOP_OFFSET
 #define CRF_APB_RST_FPD_TOP_OFFSET                                                 0XFD1A0100
+#undef GPIO_MASK_DATA_1_LSW_OFFSET
+#define GPIO_MASK_DATA_1_LSW_OFFSET                                                0XFF0A0008
 #undef SATA_AHCI_VENDOR_PP2C_OFFSET
 #define SATA_AHCI_VENDOR_PP2C_OFFSET                                               0XFD0C00AC
 #undef SATA_AHCI_VENDOR_PP3C_OFFSET
@@ -34912,27 +34673,6 @@
 #define CRL_APB_RST_LPD_TOP_USB0_APB_RESET_DEFVAL              0x00188FDF
 #define CRL_APB_RST_LPD_TOP_USB0_APB_RESET_SHIFT               10
 #define CRL_APB_RST_LPD_TOP_USB0_APB_RESET_MASK                0x00000400U
-
-/*
-* This bit is used to choose between PIPE power present and 1'b1
-*/
-#undef USB3_0_FPD_POWER_PRSNT_OPTION_DEFVAL
-#undef USB3_0_FPD_POWER_PRSNT_OPTION_SHIFT
-#undef USB3_0_FPD_POWER_PRSNT_OPTION_MASK
-#define USB3_0_FPD_POWER_PRSNT_OPTION_DEFVAL
-#define USB3_0_FPD_POWER_PRSNT_OPTION_SHIFT                    0
-#define USB3_0_FPD_POWER_PRSNT_OPTION_MASK                     0x00000001U
-
-/*
-* This bit is used to choose between PIPE clock coming from SerDes and the
-    *  suspend clk
-*/
-#undef USB3_0_FPD_PIPE_CLK_OPTION_DEFVAL
-#undef USB3_0_FPD_PIPE_CLK_OPTION_SHIFT
-#undef USB3_0_FPD_PIPE_CLK_OPTION_MASK
-#define USB3_0_FPD_PIPE_CLK_OPTION_DEFVAL
-#define USB3_0_FPD_PIPE_CLK_OPTION_SHIFT                       0
-#define USB3_0_FPD_PIPE_CLK_OPTION_MASK                        0x00000001U
 
 /*
 * USB 0 sleep circuit reset
@@ -36167,6 +35907,26 @@
 #define CRF_APB_RST_FPD_TOP_PCIE_CTRL_RESET_MASK               0x00020000U
 
 /*
+* Operation is the same as MASK_DATA_0_LSW[MASK_0_LSW]
+*/
+#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_DEFVAL
+#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_SHIFT
+#undef GPIO_MASK_DATA_1_LSW_MASK_1_LSW_MASK
+#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_DEFVAL                 0x00000000
+#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_SHIFT                  16
+#define GPIO_MASK_DATA_1_LSW_MASK_1_LSW_MASK                   0xFFFF0000U
+
+/*
+* Operation is the same as MASK_DATA_0_LSW[DATA_0_LSW]
+*/
+#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_DEFVAL
+#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_SHIFT
+#undef GPIO_MASK_DATA_1_LSW_DATA_1_LSW_MASK
+#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_DEFVAL                 0x00000000
+#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_SHIFT                  0
+#define GPIO_MASK_DATA_1_LSW_DATA_1_LSW_MASK                   0x0000FFFFU
+
+/*
 * Status Read value of PLL Lock
 */
 #undef SERDES_L0_PLL_STATUS_READ_1_PLL_LOCK_STATUS_READ_DEFVAL
@@ -36705,6 +36465,7 @@ extern "C" {
  int psu_ddr_protection();
  int psu_lpd_protection();
  int psu_protection_lock();
+ unsigned long psu_ddr_qos_init_data(void);
  unsigned long psu_apply_master_tz();
 #ifdef __cplusplus
 }

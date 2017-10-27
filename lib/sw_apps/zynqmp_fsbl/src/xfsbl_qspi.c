@@ -294,6 +294,29 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 		UStatus = (u32)Status;
 		goto END;
 	}
+
+	switch (QspiPsuInstance.Config.BusWidth) {
+
+		case XFSBL_QSPI_BUSWIDTH_ONE:
+		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 1 bit bus\r\n");
+			ReadCommand = FAST_READ_CMD_24BIT;
+		} break;
+
+		case XFSBL_QSPI_BUSWIDTH_TWO:
+		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 2 bit bus\r\n");
+			ReadCommand = DUAL_READ_CMD_24BIT;
+		} break;
+
+		case XFSBL_QSPI_BUSWIDTH_FOUR:
+		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 4 bit bus\r\n");
+			ReadCommand = QUAD_READ_CMD_24BIT;
+		}break;
+
+	}
+
 	/**
 	 * Read Flash ID and extract Manufacture and Size information
 	 */
@@ -307,13 +330,11 @@ u32 XFsbl_Qspi24Init(u32 DeviceFlags)
 	 */
 	if(IssiIdFlag==1U) {
 		ReadCommand = DUAL_READ_CMD_24BIT;
-	} else {
-		ReadCommand = QUAD_READ_CMD_24BIT;
 	}
 	/**
 	 * add code: For a Stacked connection, read second Flash ID
 	 */
-	QspiMode=(XPAR_PSU_QSPI_0_QSPI_MODE);
+	QspiMode=QspiPsuInstance.Config.ConnectionMode;
 	if ((QspiMode ==(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
 			(QspiMode ==(XQSPIPSU_CONNECTION_MODE_STACKED) )) {
 		QspiFlashSize = 2 * QspiFlashSize;
@@ -890,11 +911,27 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 	}
 
 
-	/**
-	 *  add code for 1x, 2x and 4x
-	 *
-	 */
-	ReadCommand = QUAD_READ_CMD_32BIT;
+	switch (QspiPsuInstance.Config.BusWidth) {
+
+		case XFSBL_QSPI_BUSWIDTH_ONE:
+		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 1 bit bus\r\n");
+			ReadCommand = FAST_READ_CMD_32BIT;
+		} break;
+
+		case XFSBL_QSPI_BUSWIDTH_TWO:
+		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 2 bit bus\r\n");
+			ReadCommand = DUAL_READ_CMD_32BIT;
+		} break;
+
+		case XFSBL_QSPI_BUSWIDTH_FOUR:
+		{
+			XFsbl_Printf(DEBUG_INFO,"QSPI is using 4 bit bus\r\n");
+			ReadCommand = QUAD_READ_CMD_32BIT;
+		}break;
+
+	}
 
 	/**
 	 * Read Flash ID and extract Manufacture and Size information
@@ -907,7 +944,7 @@ u32 XFsbl_Qspi32Init(u32 DeviceFlags)
 	/**
 	 * add code: For a Stacked connection, read second Flash ID
 	 */
-	 QspiMode = XPAR_PSU_QSPI_0_QSPI_MODE;
+	 QspiMode = QspiPsuInstance.Config.ConnectionMode;
 	if ((QspiMode ==
 			(s32)(XQSPIPSU_CONNECTION_MODE_PARALLEL)) ||
 			(QspiMode ==

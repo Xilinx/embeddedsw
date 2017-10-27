@@ -57,6 +57,7 @@
 *       bv   03/17/17 Based on reset reason initializations of system, tcm etc
 *                     is done.
 *       vns  04/04/17 Corrected image header size.
+*       ma   05/10/17 Enable PROG to PL when reset reason is ps-only reset
 * </pre>
 *
 * @note
@@ -96,6 +97,8 @@ static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr);
 static u32 XFsbl_DdrEccInit(void);
 static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes);
 static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr);
+static void XFsbl_EnableProgToPL(void);
+static void XFsbl_ClearPendingInterrupts(void);
 
 /* Functions from xfsbl_misc.c */
 
@@ -229,6 +232,14 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 
 	FsblInstancePtr->ResetReason = XFsbl_GetResetReason();
 
+	/*
+	 * Enables the propagation of the PROG signal to PL
+	 */
+	if(FsblInstancePtr->ResetReason == XFSBL_PS_ONLY_RESET)
+	{
+		XFsbl_EnableProgToPL();
+	}
+
 	/**
 	 * Configure the system as in PSU
 	 */
@@ -237,6 +248,15 @@ u32 XFsbl_Initialize(XFsblPs * FsblInstancePtr)
 		if (XFSBL_SUCCESS != Status) {
 			goto END;
 		}
+	}
+	else
+	{
+		/* XFSBL_APU_ONLY_RESET */
+		/* APU only restart with pending interrupts can cause the linux to
+		 * hang when it starts the second time. So FSBL clears all pending interrupts
+		 * in case of APU only restart.
+		 */
+		XFsbl_ClearPendingInterrupts();
 	}
 
 	/**
@@ -343,6 +363,36 @@ u32 XFsbl_BootDeviceInitAndValidate(XFsblPs * FsblInstancePtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function enables the propagation of the PROG signal to PL after
+ * PS-only reset
+ *
+ * @param	None
+ *
+ * @return	None
+ *
+ ******************************************************************************/
+void XFsbl_EnableProgToPL(void)
+{
+	u32 RegVal = 0x0U;
+
+	/*
+	 * PROG control to PL.
+	 */
+	Xil_Out32(CSU_PCAP_PROG, CSU_PCAP_PROG_PCFG_PROG_B_MASK);
+
+	/*
+	 * Enable the propagation of the PROG signal to the PL after PS-only reset
+	 * */
+	RegVal = XFsbl_In32(PMU_GLOBAL_PS_CNTRL);
+
+	RegVal &= ~(PMU_GLOBAL_PS_CNTRL_PROG_GATE_MASK);
+	RegVal |= (PMU_GLOBAL_PS_CNTRL_PROG_ENABLE_MASK);
+
+	Xil_Out32 (PMU_GLOBAL_PS_CNTRL, RegVal);
 }
 
 /*****************************************************************************/
@@ -985,14 +1035,26 @@ static u32 XFsbl_ValidateHeader(XFsblPs * FsblInstancePtr)
 	 *  Calculate the Flash Offset Address
 	 *  For file system based devices, Flash Offset Address should be 0 always
 	 */
-	if (!((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD0_BOOT_MODE) ||
-			(FsblInstancePtr->PrimaryBootDevice == XFSBL_EMMC_BOOT_MODE) ||
-			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_BOOT_MODE) ||
-			(FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_LS_BOOT_MODE) ||
-			(FsblInstancePtr->PrimaryBootDevice ==  XFSBL_USB_BOOT_MODE)))
+	if (FsblInstancePtr->SecondaryBootDevice == 0U) {
+		if (!((FsblInstancePtr->PrimaryBootDevice == XFSBL_SD0_BOOT_MODE)
+				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_EMMC_BOOT_MODE)
+				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_BOOT_MODE)
+				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_SD1_LS_BOOT_MODE)
+				|| (FsblInstancePtr->PrimaryBootDevice == XFSBL_USB_BOOT_MODE))) {
+			FsblInstancePtr->ImageOffsetAddress = MultiBootOffset
+					* XFSBL_IMAGE_SEARCH_OFFSET;
+		}
+	}
+	else
 	{
-		FsblInstancePtr->ImageOffsetAddress =
-				MultiBootOffset * XFSBL_IMAGE_SEARCH_OFFSET;
+		if (!((FsblInstancePtr->SecondaryBootDevice == XFSBL_SD0_BOOT_MODE)
+				|| (FsblInstancePtr->SecondaryBootDevice == XFSBL_EMMC_BOOT_MODE)
+				|| (FsblInstancePtr->SecondaryBootDevice == XFSBL_SD1_BOOT_MODE)
+				|| (FsblInstancePtr->SecondaryBootDevice == XFSBL_SD1_LS_BOOT_MODE)
+				|| (FsblInstancePtr->SecondaryBootDevice == XFSBL_USB_BOOT_MODE))) {
+			FsblInstancePtr->ImageOffsetAddress = MultiBootOffset
+					* XFSBL_IMAGE_SEARCH_OFFSET;
+		}
 	}
 
 	FlashImageOffsetAddress = FsblInstancePtr->ImageOffsetAddress;
@@ -1133,16 +1195,215 @@ END:
 static u32 XFsbl_SecondaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 {
 	u32 Status = XFSBL_SUCCESS;
+	u32 SecBootMode;
 
 	/**
 	 * Update the deviceops structure
 	 */
 
+	switch (FsblInstancePtr->SecondaryBootDevice) {
+	case XIH_IHT_PPD_SAME: {
+		goto END;
+	}
+		break;
+	case XIH_IHT_PPD_USB: {
+#ifdef XFSBL_USB
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_UsbInit;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_UsbCopy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_UsbRelease;
+		SecBootMode = XFSBL_USB_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#elif !(defined(XFSBL_PS_DDR))
+		/**USB boot mode is not supported for DDR less systems*/
+		XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_USB_BOOT_WITH_NO_DDR\n\r");
+		Status = XFSBL_ERROR_USB_BOOT_WITH_NO_DDR;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+
+#endif
+	}
+		break;
+
+	case XIH_IHT_PPD_QSPI24: {
+		XFsbl_Printf(DEBUG_GENERAL, "QSPI 24bit Boot Mode \n\r");
+#ifdef XFSBL_QSPI
+		/**
+		 * Update the deviceops structure with necessary values
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_Qspi24Init;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_Qspi24Copy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_Qspi24Release;
+		SecBootMode = XFSBL_QSPI24_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
+	}
+		break;
+
+	case XIH_IHT_PPD_QSPI32: {
+		XFsbl_Printf(DEBUG_GENERAL, "QSPI 32bit Boot Mode \n\r");
+#ifdef XFSBL_QSPI
+		/**
+		 * Update the deviceops structure with necessary values
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_Qspi32Init;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_Qspi32Copy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_Qspi32Release;
+		SecBootMode = XFSBL_QSPI32_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
+	}
+		break;
+
+	case XIH_IHT_PPD_NAND: {
+		XFsbl_Printf(DEBUG_GENERAL, "NAND Boot Mode \n\r");
+#ifdef XFSBL_NAND
+		/**
+		 * Update the deviceops structure with necessary values
+		 *
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_NandInit;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_NandCopy;
+		FsblInstancePtr->DeviceOps.DeviceRelease =
+		XFsbl_NandRelease;
+		SecBootMode = XFSBL_NAND_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
+	}
+		break;
+
+	case XIH_IHT_PPD_SD_0: {
+#ifdef XFSBL_SD_0
+		/**
+		 * Update the deviceops structure with necessary values
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
+		SecBootMode = XFSBL_SD0_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
+	}
+		break;
+	case XIH_IHT_PPD_MMC: {
+
+#ifdef XFSBL_SD_0
+		/**
+		 * Update the deviceops structure with necessary values
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
+		SecBootMode = XFSBL_EMMC_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
+	}
+		break;
+
+	case XIH_IHT_PPD_SD_1: {
+
+#ifdef XFSBL_SD_1
+		/**
+		 * Update the deviceops structure with necessary values
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
+		SecBootMode = XFSBL_SD1_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
+
+	}
+		break;
+
+	case XIH_IHT_PPD_SD_LS: {
+
+#ifdef XFSBL_SD_1
+		/**
+		 * Update the deviceops structure with necessary values
+		 */
+		FsblInstancePtr->DeviceOps.DeviceInit = XFsbl_SdInit;
+		FsblInstancePtr->DeviceOps.DeviceCopy = XFsbl_SdCopy;
+		FsblInstancePtr->DeviceOps.DeviceRelease = XFsbl_SdRelease;
+		SecBootMode = XFSBL_SD1_LS_BOOT_MODE;
+		Status = XFSBL_SUCCESS;
+#else
+		/**
+		 * This bootmode is not supported in this release
+		 */
+		XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+#endif
+	}
+		break;
+
+	default: {
+		XFsbl_Printf(DEBUG_GENERAL, "XFSBL_ERROR_UNSUPPORTED_SEC_BOOT_MODE\n\r");
+		Status = XFSBL_ERROR_UNSUPPORTED_BOOT_MODE;
+	}
+		break;
+
+	}
 
 	/**
 	 * Initialize the Secondary Boot Device Driver
 	 */
+	if (Status == XFSBL_SUCCESS) {
+		Status = FsblInstancePtr->DeviceOps.DeviceInit(SecBootMode);
+		if(Status == XFSBL_SUCCESS) {
+			Status = XFsbl_ValidateHeader(FsblInstancePtr);
+			if(FsblInstancePtr->ImageHeader.ImageHeaderTable.PartitionPresentDevice != 0U)
+			{
+				Status = XFSBL_STATUS_SECONDARY_BOOT_MODE;
+			}
+		}
+	}
 
+END:
 	return Status;
 }
 
@@ -1247,6 +1508,7 @@ static u32 XFsbl_EccInit(u64 DestAddr, u64 LengthBytes)
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD1, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_SRC_DSCR_WORD2, 0x00000000U);
 	XFsbl_Out32(ADMA_CH0_ZDMA_CH_DST_DSCR_WORD2, 0x00000000U);
+	XFsbl_Out32(ADMA_CH0_ZDMA_CH_CTRL0_TOTAL_BYTE_COUNT,0x00000000U);
 
 	XFsbl_Printf(DEBUG_INFO,
 			"Address 0x%0lx, Length %0lx, ECC initialized \r\n",
@@ -1468,4 +1730,60 @@ static u32 XFsbl_TcmInit(XFsblPs * FsblInstancePtr)
 
 END:
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function clears pending interrupts. This is called only during APU ony
+ *  reset.
+ *
+ * @param
+ *
+ * @return
+ *
+ *
+ *****************************************************************************/
+static void XFsbl_ClearPendingInterrupts(void)
+{
+
+	u32 InterruptClearVal = 0xFFFFFFFFU;
+	/* Clear pending peripheral interrupts */
+
+
+	XFsbl_Out32 (ACPU_GIC_GICD_ICENBLR0, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR0, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICACTIVER0, InterruptClearVal);
+
+	XFsbl_Out32 (ACPU_GIC_GICD_ICENBLR1, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR1, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICACTIVER1, InterruptClearVal);
+
+	XFsbl_Out32 (ACPU_GIC_GICD_ICENBLR2, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR2, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICACTIVER2, InterruptClearVal);
+
+	XFsbl_Out32 (ACPU_GIC_GICD_ICENBLR3, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR3, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICACTIVER3, InterruptClearVal);
+
+	XFsbl_Out32 (ACPU_GIC_GICD_ICENBLR4, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR4, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICACTIVER4, InterruptClearVal);
+
+	XFsbl_Out32 (ACPU_GIC_GICD_ICENBLR5, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICPENDR5, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_ICACTIVER5, InterruptClearVal);
+
+
+	/* Clear active software generated interrupts, if any */
+	u32 RegVal = XFsbl_In32(ACPU_GIC_GICD_INTR_ACK_REG);
+	XFsbl_Out32(ACPU_GIC_GICD_END_INTR_REG, RegVal);
+
+	/* Clear pending software generated interrupts */
+
+	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR0, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR1, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR2, InterruptClearVal);
+	XFsbl_Out32 (ACPU_GIC_GICD_CPENDSGIR3, InterruptClearVal);
+
 }

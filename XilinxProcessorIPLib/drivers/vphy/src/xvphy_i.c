@@ -47,13 +47,14 @@
  * 1.0   gm,  11/09/16 Initial release.
  * 1.4   gm   29/11/16 Fixed c++ compiler warnings
  *                     Added xcvr adaptor functions for C++ compilations
+ * 1.6   gm   06/08/17 Added XVphy_MmcmLocked, XVphy_ErrorHandler and
+ *                              XVphy_PllLayoutErrorHandler APIs
  * </pre>
  *
 *******************************************************************************/
 
 /******************************* Include Files ********************************/
 
-#include <string.h>
 #include "xstatus.h"
 #include "xvphy.h"
 #include "xvphy_i.h"
@@ -719,6 +720,43 @@ void XVphy_MmcmLockedMaskEnable(XVphy *InstancePtr, u8 QuadId,
 
 /*****************************************************************************/
 /**
+* This function will get the lock status of the mixed-mode clock
+* manager (MMCM) core.
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+
+*
+* @return	TRUE if Locked else FALSE.
+*
+* @note		None.
+*
+******************************************************************************/
+u8 XVphy_MmcmLocked(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)
+{
+	u32 RegOffsetCtrl;
+	u32 RegVal;
+
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
+
+	if (Dir == XVPHY_DIR_TX) {
+		RegOffsetCtrl = XVPHY_MMCM_TXUSRCLK_CTRL_REG;
+	}
+	else {
+		RegOffsetCtrl = XVPHY_MMCM_RXUSRCLK_CTRL_REG;
+	}
+
+	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr, RegOffsetCtrl) &
+				XVPHY_MMCM_USRCLK_CTRL_LOCKED_MASK;
+
+	return (RegVal ? TRUE : FALSE);
+
+}
+
+/*****************************************************************************/
+/**
 * This function obtains the divider value of the BUFG_GT peripheral.
 *
 * @param	InstancePtr is a pointer to the XVphy core instance.
@@ -999,6 +1037,15 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 											(XVphy_ChannelId)Id);
 		}
 		else if (XVPHY_ISCMN(ChId)) {
+			if (((InstancePtr->Config.TxProtocol == XVPHY_PROTOCOL_HDMI) ||
+				(InstancePtr->Config.RxProtocol == XVPHY_PROTOCOL_HDMI)) &&
+			    (InstancePtr->HdmiIsQpllPresent == FALSE)) {
+				XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_NO_QPLL_ERR, 1);
+				XVphy_CfgErrIntr(InstancePtr, XVPHY_ERR_NO_QPLL, 1);
+				XVphy_ErrorHandler(InstancePtr);
+				Status = XST_FAILURE;
+				return Status;
+			}
 			Status |= XVphy_ClkCmnReconfig(InstancePtr, QuadId,
 											(XVphy_ChannelId)Id);
 		}
@@ -1008,7 +1055,7 @@ u32 XVphy_ClkReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 		}
 	}
 
-	if (XVPHY_ISCH(Id)) {
+	if (XVPHY_ISCH(ChId)) {
 		XVphy_LogWrite(InstancePtr, XVPHY_LOG_EVT_CPLL_RECONFIG, 1);
 	}
 	else if (XVPHY_ISCMN(ChId) &&
@@ -1455,5 +1502,45 @@ u32 XVphy_RxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 u32 XVphy_TxChReconfig(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)
 {
 	return InstancePtr->GtAdaptor->TxChReconfig(InstancePtr, QuadId, ChId);
+}
+#endif
+
+/*****************************************************************************/
+/**
+* This function is the error condition handler
+*
+* @param	InstancePtr is a pointer to the VPHY instance.
+* @param    ErrIrqType is the error type
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_ErrorHandler(XVphy *InstancePtr)
+{
+	if (InstancePtr->ErrorCallback != NULL) {
+		InstancePtr->ErrorCallback(InstancePtr->ErrorRef);
+	}
+}
+
+#if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
+/*****************************************************************************/
+/**
+* This function is the error condition handler
+*
+* @param	InstancePtr is a pointer to the VPHY instance.
+* @param    ErrIrqType is the error type
+*
+* @return	None.
+*
+* @note		None.
+*
+******************************************************************************/
+void XVphy_PllLayoutErrorHandler(XVphy *InstancePtr)
+{
+	if (InstancePtr->PllLayoutErrorCallback != NULL) {
+		InstancePtr->PllLayoutErrorCallback(InstancePtr->PllLayoutErrorRef);
+	}
 }
 #endif

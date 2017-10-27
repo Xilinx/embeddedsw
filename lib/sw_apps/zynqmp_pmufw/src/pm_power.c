@@ -44,6 +44,7 @@
 #include "pm_periph.h"
 #include "pm_pll.h"
 #include "pm_usb.h"
+#include "pm_requirement.h"
 #include "xpfw_rom_interface.h"
 #include "crf_apb.h"
 #include "pm_system.h"
@@ -59,6 +60,8 @@
 					.childCnt = ARRAY_SIZE(c)
 
 #define PM_POWER_SUPPLYCHECK_TIMEOUT	100000U
+
+#define AMS_PSSYSMON_CONFIG_REG2	0XFFA50908
 
 /**
  * PmPowerStack() - Used to construct stack for implementing non-recursive
@@ -100,7 +103,7 @@ void PmPowerStackPush(PmPower* const power, const u8 index)
 {
 	/* Stack overflow should never happen */
 	if (ARRAY_SIZE(pmPowerStack) == pmDfs.sp) {
-		PmDbg("ERROR: stack overflow!\r\n");
+		PmDbg(DEBUG_DETAILED,"ERROR: stack overflow!\r\n");
 		goto done;
 	}
 	pmPowerStack[pmDfs.sp].power = power;
@@ -119,7 +122,7 @@ void PmPowerStackPop(PmPower** const power, u8* const index)
 {
 	if (0U == pmDfs.sp) {
 		/* This should never happen */
-		PmDbg("ERROR: empty stack!\r\n");
+		PmDbg(DEBUG_DETAILED,"ERROR: empty stack!\r\n");
 		goto done;
 	}
 	pmDfs.sp--;
@@ -294,14 +297,15 @@ static int PmPowerDownFpd(void)
 
 /* Block FPD power down if any of the LPD peripherals uses CCI path which is in FPD */
 #ifdef XPAR_LPD_IS_CACHE_COHERENT
-	PmDbg("Blocking FPD power down since CCI is used by LPD\r\n");
+	PmDbg(DEBUG_DETAILED,"Blocking FPD power down since CCI is "
+			"used by LPD\r\n");
 	status = XST_FAILURE;
 	goto err;
 #endif /* XPAR_LPD_IS_CACHE_COHERENT */
 
 	PmFpdSaveContext();
 
-	ddr_io_retention_set(true);
+	ddr_io_prepare();
 
 	PmResetAssertInt(PM_RESET_FPD, PM_RESET_ACTION_ASSERT);
 
@@ -309,6 +313,9 @@ static int PmPowerDownFpd(void)
 	if (XST_SUCCESS != status) {
 		goto err;
 	}
+
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_FPD);
 
 	/*
 	 * When FPD is powered off, the APU-GIC will be affected too.
@@ -372,6 +379,9 @@ static int PmPowerUpFpd(void)
 		goto err;
 	}
 
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_DDR);
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_FPD);
+
 	PmFpdRestoreContext();
 
 err:
@@ -390,7 +400,7 @@ static int PmPowerDownRpu(void)
 	XPfw_AibEnable(XPFW_AIB_RPU1_TO_LPD);
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU0);
 	XPfw_AibEnable(XPFW_AIB_LPD_TO_RPU1);
-	PmDbg("Enabled AIB\r\n");
+	PmDbg(DEBUG_DETAILED,"Enabled AIB\r\n");
 
 	return XpbrPwrDnRpuHandler();
 }
@@ -413,6 +423,10 @@ static void PmPowerForceDownRpu(PmPower* const power)
  */
 static int PmPowerDownPld(void)
 {
+	XPfw_AibEnable(XPFW_AIB_LPD_TO_AFI_FS2);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibEnable(XPFW_AIB_FPD_TO_AFI_FS1);
+
 	return XpbrPwrDnPldHandler();
 }
 
@@ -422,7 +436,43 @@ static int PmPowerDownPld(void)
  */
 static int PmPowerUpPld(void)
 {
-	return XpbrPwrUpPldHandler();
+	u32 status;
+	status = XpbrPwrUpPldHandler();
+	if (XST_SUCCESS != status) {
+		goto done;
+	}
+
+	XPfw_AibDisable(XPFW_AIB_LPD_TO_AFI_FS2);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS0);
+	XPfw_AibDisable(XPFW_AIB_FPD_TO_AFI_FS1);
+done:
+	return status;
+}
+
+/**
+ * PmPowerPowerDownSysOsc() - Wrapper to put SysOsc in sleep mode.
+ */
+static void PmPowerDownSysOsc(void)
+{
+        u32 val = 0;
+
+        /* Put Sysosc in sleep mode */
+        val = Xil_In32(AMS_PSSYSMON_CONFIG_REG2);
+        val |= 0x30;
+        Xil_Out32(AMS_PSSYSMON_CONFIG_REG2, val);
+}
+
+/**
+ * PmPowerPowerUpSysOsc() - Wrapper to put SysOsc in normal operation mode.
+ */
+static void PmPowerUpSysOsc(void)
+{
+        u32 val = 0;
+
+        /* Wake up SysOsc */
+        val = Xil_In32(AMS_PSSYSMON_CONFIG_REG2);
+        val &= 0xFF0F;
+        Xil_Out32(AMS_PSSYSMON_CONFIG_REG2, val);
 }
 
 /**
@@ -453,7 +503,29 @@ static int PmPowerDown(PmPower* const power)
 	if (NULL != power->node.clocks) {
 		PmClockRelease(&power->node);
 	}
-	PmDbg("%s\r\n", PmStrNode(power->node.nodeId));
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
+#ifdef DEBUG_MODE
+	PmRequirement* req;
+	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
+                        (pmPowerDomainFpd_g.power.node.currState == PM_PWR_STATE_OFF)) {
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+		req = PmRequirementGetNoMaster(&pmSlaveUart0_g);
+#endif
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+		req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
+#endif
+		PmRequirementUpdate(req, 0);
+	}
+#endif
+
+	/* Put SysOsc in sleep mode while going to deep sleep mode. */
+	if ((pmPowerIslandRpu_g.power.node.currState == PM_PWR_STATE_OFF) &&
+			(pmPowerDomainFpd_g.power.node.currState == PM_PWR_STATE_OFF) &&
+			(pmPowerDomainPld_g.power.node.currState == PM_PWR_STATE_OFF) &&
+			(pmIOpll_g.node.currState == PM_PLL_STATE_RESET) &&
+			(pmRpll_g.node.currState == PM_PLL_STATE_RESET)) {
+		PmPowerDownSysOsc();
+	}
 
 done:
 	return status;
@@ -470,7 +542,23 @@ static int PmPowerUp(PmPower* const power)
 {
 	int status = XST_SUCCESS;
 
-	PmDbg("%s\r\n", PmStrNode(power->node.nodeId));
+	/* Enable SysOsc for normal operation if it is in sleep mode. */
+	if ((Xil_In32(AMS_PSSYSMON_CONFIG_REG2) & 0xF0) == 0x30) {
+		PmPowerUpSysOsc();
+	}
+
+#ifdef DEBUG_MODE
+	PmRequirement* req;
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_0_BASEADDR)
+	req = PmRequirementGetNoMaster(&pmSlaveUart0_g);
+#endif
+#if (STDOUT_BASEADDRESS == XPAR_PSU_UART_1_BASEADDR)
+	req = PmRequirementGetNoMaster(&pmSlaveUart1_g);
+#endif
+	PmRequirementUpdate(req, PM_CAP_ACCESS);
+#endif
+
+	PmDbg(DEBUG_DETAILED,"%s\r\n", PmStrNode(power->node.nodeId));
 
 	if (PM_PWR_STATE_ON == power->node.currState) {
 		goto done;
@@ -895,8 +983,10 @@ int PmPowerRequestParent(PmNode* const node)
 	int status = XST_SUCCESS;
 
 	if (0U == (NODE_LOCKED_POWER_FLAG & node->flags)) {
-		PmDbg("%s->%s\r\n", PmStrNode(node->nodeId),
+#ifdef DEBUG_PWR
+		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", PmStrNode(node->nodeId),
 			PmStrNode(node->parent->node.nodeId));
+#endif
 		status = PmPowerRequest(node->parent);
 		if (XST_SUCCESS == status) {
 			node->flags |= NODE_LOCKED_POWER_FLAG;
@@ -913,8 +1003,10 @@ int PmPowerRequestParent(PmNode* const node)
 void PmPowerReleaseParent(PmNode* const node)
 {
 	if (0U != (NODE_LOCKED_POWER_FLAG & node->flags)) {
-		PmDbg("%s->%s\r\n", PmStrNode(node->nodeId),
+#ifdef DEBUG_PWR
+		PmDbg(DEBUG_DETAILED,"%s->%s\r\n", PmStrNode(node->nodeId),
 			PmStrNode(node->parent->node.nodeId));
+#endif
 		node->flags &= ~NODE_LOCKED_POWER_FLAG;
 		PmPowerRelease(node->parent);
 	}

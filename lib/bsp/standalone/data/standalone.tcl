@@ -28,6 +28,16 @@
 # in advertising or otherwise to promote the sale, use or other dealings in
 # this Software without prior written authorization from Xilinx.
 #
+###############################################################################
+###############################################################################
+#
+# MODIFICATION HISTORY:
+#
+# Ver   Who  Date     Changes
+# ----- ---- -------- ---------------------------------------------------
+# 6.4   ms   05/23/17 Defined PSU_PMU macro in xparameters.h to support
+#                     XGetPSVersion_Info function for PMUFW.
+#
 ##############################################################################
 
 # ----------------------------------------------------------------------------
@@ -91,6 +101,50 @@ proc fpd_is_coherent {} {
     }
     # None of the masters were cache coherent, so return false
     return 0
+}
+
+#---------------------------------------------------------------------
+# Tcl procedure is_pl_coherent
+# Returns true(1) if HPC0 or HPC1 port is enabled in the design and got
+# connected to a DMA capable peripheral
+#----------------------------------------------------------------------
+proc is_pl_coherent {} {
+     set periphs [hsi::get_cells]
+     foreach periph $periphs {
+	set ipname [common::get_property IP_NAME $periph]
+	if {$ipname == "zynq_ultra_ps_e"} {
+		set is_hpcdesign [get_connected_if $periph "S_AXI_HPC0_FPD"]
+	        if {$is_hpcdesign} {
+			return $is_hpcdesign
+		}
+		set is_hpcdesign [get_connected_if $periph "S_AXI_HPC1_FPD"]
+	        if {$is_hpcdesign} {
+			return $is_hpcdesign
+		}
+	}
+     }
+
+     return 0
+}
+
+proc get_connected_if {drv_handle hpc_pin} {
+	set iphandle [::hsi::utils::get_connected_stream_ip $drv_handle $hpc_pin]
+        if { $iphandle == "" } {
+		return 0
+	} else {
+		set ipname [get_property IP_NAME $iphandle]
+		if {$ipname == "axi_interconnect"} {
+		     set iphandle [::hsi::utils::get_connected_stream_ip $iphandle S00_AXI]
+		     if { $iphandle == ""} {
+			 return 0
+		     }
+		     set iptype [get_property IP_TYPE $iphandle]
+		     if {$iptype == "PERIPHERAL"} {
+			return 1
+		     }
+		}
+	}
+	return 0
 }
 
 # --------------------------------------
@@ -172,6 +226,7 @@ proc generate {os_handle} {
             puts $file_handle ""
             puts $file_handle [format %s%.0f%s "#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ " [expr $pss_ref_clk_mhz*1e6]  "U"]
             puts $file_handle ""
+	    puts $file_handle "#define PSU_PMU 1U"
             # Define XPS_BOARD_* : For use in PMUFW to perform board specific configs
             if { [string length $boardname] != 0 } {
                 set fields [split $boardname ":"]
@@ -196,6 +251,11 @@ proc generate {os_handle} {
                 puts $file_handle ""
             }
 
+	    if {[is_pl_coherent]} {
+                set def "#define XPAR_PL_IS_CACHE_COHERENT"
+                puts $file_handle $def
+                puts $file_handle ""
+	    }
             xdefine_fabric_reset $file_handle
             close $file_handle
 

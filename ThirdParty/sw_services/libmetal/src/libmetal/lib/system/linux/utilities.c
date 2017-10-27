@@ -142,7 +142,7 @@ int metal_mktemp(char *template, int fifo)
 	len = strlen(template);
 	suffix = &template[len - 6];
 	if (len < 6 || strcmp(suffix, "XXXXXX")) {
-		metal_log(LOG_ERROR, "template %s has no trailing pattern\n",
+		metal_log(METAL_LOG_ERROR, "template %s has no trailing pattern\n",
 			  template);
 		return -EINVAL;
 	}
@@ -158,7 +158,7 @@ int metal_mktemp(char *template, int fifo)
 			if (result < 0) {
 			       if (errno == EEXIST)
 				       continue;
-			       metal_log(LOG_ERROR, "mkfifo(%s) failed (%s)\n",
+			       metal_log(METAL_LOG_ERROR, "mkfifo(%s) failed (%s)\n",
 					 template, strerror(errno));
 			       return -errno;
 			}
@@ -170,7 +170,7 @@ int metal_mktemp(char *template, int fifo)
 				unlink(template);
 			if (errno == EEXIST)
 				continue;
-			metal_log(LOG_ERROR, "open() failed (%s)\n",
+			metal_log(METAL_LOG_ERROR, "open() failed (%s)\n",
 				  strerror(errno));
 			return -errno;
 		}
@@ -295,14 +295,14 @@ int metal_virt2phys(void *addr, unsigned long *phys)
 	offset = ((uintptr_t)addr >> _metal.page_shift) * sizeof(entry);
 	error = pread(_metal.pagemap_fd, &entry, sizeof(entry), offset);
 	if (error < 0) {
-		metal_log(LOG_ERROR, "failed pagemap pread (offset %llx) - %s\n",
+		metal_log(METAL_LOG_ERROR, "failed pagemap pread (offset %llx) - %s\n",
 			  (unsigned long long)offset, strerror(errno));
 		return -errno;
 	}
 
 	/* Check page present and not swapped. */
 	if ((entry >> 62) != 2) {
-		metal_log(LOG_ERROR, "pagemap page not present, %llx -> %llx\n",
+		metal_log(METAL_LOG_ERROR, "pagemap page not present, %llx -> %llx\n",
 			  (unsigned long long)offset, (unsigned long long)entry);
 		return -ENOENT;
 	}

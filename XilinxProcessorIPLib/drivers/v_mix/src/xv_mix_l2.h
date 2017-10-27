@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -128,6 +128,7 @@
 *                        master layer video format
 * 2.00  rco   07/21/16   Used UINTPTR instead of u32 for Baseaddress
 *             08/03/16   Add Logo Pixel Alpha support
+* 3.00  vyc   10/04/17   Add second buffer pointer for semi-planar formats
 * </pre>
 *
 ******************************************************************************/
@@ -229,6 +230,7 @@ typedef struct {
             u8 *BBuffer;
         };
         UINTPTR BufAddr;
+        UINTPTR ChromaBufAddr;
     };
 }XVMix_Layer;
 
@@ -443,6 +445,12 @@ int XVMix_SetLayerBufferAddr(XV_Mix_l2 *InstancePtr,
                              XVMix_LayerId LayerId,
 							 UINTPTR Addr);
 UINTPTR XVMix_GetLayerBufferAddr(XV_Mix_l2 *InstancePtr, XVMix_LayerId LayerId);
+
+int XVMix_SetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
+                                   XVMix_LayerId LayerId,
+                                   UINTPTR Addr);
+UINTPTR XVMix_GetLayerChromaBufferAddr(XV_Mix_l2 *InstancePtr,
+                                       XVMix_LayerId LayerId);
 
 int XVMix_SetLogoColorKey(XV_Mix_l2 *InstancePtr,
                           XVMix_LogoColorKey ColorKeyData);
