@@ -55,6 +55,9 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDIRXSS_LINE_RATE_3G	0
+#define XSDIRXSS_LINE_RATE_6G	1
+#define XSDIRXSS_LINE_RATE_12G8DS	2
 
 
 /**************************** Type Definitions *******************************/
@@ -519,6 +522,19 @@ XSdiVid_Transport *XV_SdiRxSs_GetTransport(XV_SdiRxSs *InstancePtr)
 
 XSdiVid_TransMode XV_SdiRxSs_GetTransportMode(XV_SdiRxSs *InstancePtr)
 {
+	XSdiVid_TransMode TMode;
+	TMode =  InstancePtr->SdiRxPtr->Transport.TMode;
+
+	/* Following assertions make sure the IPSS is configured with in the
+	 * subsystem GUI paramter limit
+	 */
+	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_3G) &&
+			(TMode <= XSDIVID_MODE_3GB) ||
+			(InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_6G) &&
+			(TMode <= XSDIVID_MODE_6G) ||
+			(InstancePtr->Config.MaxRateSupported == XSDIRXSS_LINE_RATE_12G8DS) &&
+			(TMode <= XSDIVID_MODE_12G));
+
 	return InstancePtr->SdiRxPtr->Transport.TMode;
 }
 
