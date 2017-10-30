@@ -156,7 +156,6 @@ typedef struct {
     u16 DeviceId;		/**< DeviceId is the unique ID of the SDI TX core */
     UINTPTR BaseAddress;	/**< BaseAddress is the physical base address of the					subsystem address range */
     XVidC_PixelsPerClock Ppc;	/**< Supported Pixel per Clock */
-    u8 IsEdhIncluded;
     u8 MaxRateSupported;
     XV_SdiTxSs_SubCore SdiTx;	/**< Sub-core instance configuration */
 	XV_SdiTxSs_SubCore Vtc;	/**< Sub-core instance configuration */
