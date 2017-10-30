@@ -151,7 +151,6 @@ typedef struct {
 	UINTPTR BaseAddress;      /**< BaseAddress is the physical base address of the
 				    subsystem address range */
 	XVidC_PixelsPerClock Ppc;
-	u8 IsEdhIncluded;
 	u8 MaxRateSupported;
 	XV_SdiRxSs_SubCore SdiRx;       /**< Sub-core instance configuration */
 } XV_SdiRxSs_Config;
