@@ -62,7 +62,9 @@
 #define XST352_BYTE3_ACT_LUMA_COUNT_SHIFT 22
 #define XST352_BYTE2_TS_TYPE_SHIFT 15
 #define XST352_BYTE2_PIC_TYPE_SHIFT 14
-
+#define XSDITX_LINE_RATE_3G	0
+#define XSDITX_LINE_RATE_6G	1
+#define XSDITX_LINE_RATE_12G8DS	2
 
 /**************************** Type Definitions *******************************/
 
@@ -861,6 +863,16 @@ void XV_SdiTx_StartSdi(XV_SdiTx *InstancePtr, XSdiVid_TransMode SdiMode,
 			XV_SdiTx_MuxPattern MuxPattern)
 {
 	u32 Data;
+
+	/* Following assertions make sure the IP is configured with in the
+	 * subcore GUI paramter limit
+	 */
+	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_3G) &&
+			(SdiMode <= XSDIVID_MODE_3GB) ||
+			(InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_6G) &&
+			(SdiMode <= XSDIVID_MODE_6G) ||
+			(InstancePtr->Config.MaxRateSupported == XSDITX_LINE_RATE_12G8DS) &&
+			(SdiMode <= XSDIVID_MODE_12G));
 
 	InstancePtr->IsStreamUp = TRUE;
 
