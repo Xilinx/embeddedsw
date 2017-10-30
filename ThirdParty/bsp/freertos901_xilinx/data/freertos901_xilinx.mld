@@ -24,7 +24,7 @@ OPTION DRC = FreeRTOS_drc ;
 OPTION supported_peripherals =  (microblaze ps7_cortexa9 psu_cortexr5 psu_cortexa53);
 OPTION COPYFILES = all;
 OPTION NAME = freertos901_xilinx;
-OPTION VERSION = 1.1;
+OPTION VERSION = 1.2;
 OPTION DEPENDS = (standalone_v6_5);
 OPTION APP_LINKER_FLAGS = "-Wl,--start-group,-lxil,-lfreertos,-lgcc,-lc,--end-group";
 OPTION DESC = "FreeRTOS is a market leading open source RTOS";
@@ -51,6 +51,7 @@ BEGIN CATEGORY kernel_features
 	PARAM name = kernel_features, type = bool, default = true, desc = "Include or exclude kernel features", permit = none;
 	PARAM name = use_freertos_asserts, type = bool, default = true, desc = "Defines configASSERT() to assist development and debugging.  The application can override the default implementation of vApplicationAssert( char *pcFile, uint32_t ulLine )";
 	PARAM name = use_mutexes, type = bool, default = true, desc = "Set to true to include mutex functionality, or false to exclude mutex functionality.";
+        PARAM name = use_getmutex_holder, type = bool, default = true, desc = "Set to true to use mutex xSemaphoreGetMutexHolder API, or false to exclude it.";
 	PARAM name = use_recursive_mutexes, type = bool, default = true, desc = "Set to true to include recursive mutex functionality, or false to exclude recursive mutex functionality.";
 	PARAM name = use_counting_semaphores, type = bool, default = true, desc = "Set to true to include counting semaphore functionality, or false to exclude recursive mutex functionality.";
 	PARAM name = queue_registry_size, type = int, default = 10, desc = "The maximum number of queues that can be registered at any one time. Only registered queues can be viewed in the Eclipse/GDB kernel aware debugger plug-in.";
@@ -61,6 +62,7 @@ BEGIN CATEGORY kernel_features
 	PARAM name = check_for_stack_overflow, type = int, default = 2, desc = "Set to 0 for no overflow checking.  Set to 1 to include basic run time task stack checking.  Set to 2 to include more comprehensive run time task stack checking.";
 	PARAM name = use_stats_formatting_functions, type = bool, default = true, desc = "Set to 1 to include the vTaskList() and vTaskGetRunTimeStats() functions, which format run-time data into human readable text.";
 	PARAM name = num_thread_local_storage_pointers, type = int, default = 0, desc ="Sets the number of pointers each task has to store thread local values.";
+        PARAM name = use_task_fpu_support, type = int, default = 1, desc ="Set to 1 to create tasks without FPU context, set to 2 to have tasks with FPU context by default.";
 END CATEGORY
 
 BEGIN CATEGORY hook_functions
@@ -68,6 +70,7 @@ BEGIN CATEGORY hook_functions
 	PARAM name = use_idle_hook, type = bool, default = false, desc = "Set to true for the kernel to call vApplicationIdleHook() on each iteration of the idle task.  The application must provide an implementation of vApplicationIdleHook().";
 	PARAM name = use_tick_hook, type = bool, default = false, desc = "Set to true for the kernel to call vApplicationTickHook() during each tick interrupt.  The application must provide an implementation of vApplicationTickHook().";
 	PARAM name = use_malloc_failed_hook, type = bool, default = true, desc = "Only used if a FreeRTOS memory manager (heap_n.c) is included in the project.  Set to true for the kernel to call vApplicationMallocFailedHookHook() if there is insufficient FreeRTOS heap available for a task, queue or semaphore to be created.  The application can override the default implementation of vApplicationMallocFailedHook().";
+        PARAM name = use_daemon_task_startup_hook, type = bool, default = false, desc = "Set true for kernel to call vApplicationDaemonTaskStartupHook on first iteration of RTOS daemon task. The application must provide an implementation of vApplicationDaemonTaskStartupHook()."
 END CATEGORY
 
 BEGIN CATEGORY software_timers

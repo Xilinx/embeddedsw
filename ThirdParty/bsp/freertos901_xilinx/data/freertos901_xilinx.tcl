@@ -380,6 +380,13 @@ proc generate {os_handle} {
 		xput_define $config_file "configUSE_MUTEXES" "1"
 	}
 
+        set val [common::get_property CONFIG.use_getmutex_holder $os_handle]
+        if {$val == "false"} {
+                xput_define $config_file "INCLUDE_xSemaphoreGetMutexHolder" "0"
+        } else {
+                xput_define $config_file "INCLUDE_xSemaphoreGetMutexHolder" "1"
+        }
+
 	set val [common::get_property CONFIG.use_recursive_mutexes $os_handle]
 	if {$val == "false"} {
 		xput_define $config_file "configUSE_RECURSIVE_MUTEXES" "0"
@@ -414,6 +421,13 @@ proc generate {os_handle} {
 	} else {
 		xput_define $config_file "configUSE_TICK_HOOK"	"1"
 	}
+
+        set val [common::get_property CONFIG.use_daemon_task_startup_hook $os_handle]
+        if {$val == "false"} {
+                xput_define $config_file "configUSE_DAEMON_TASK_STARTUP_HOOK"  "0"
+        } else {
+                xput_define $config_file "configUSE_DAEMON_TASK_STARTUP_HOOK"  "1"
+        }
 
 	set val [common::get_property CONFIG.use_malloc_failed_hook $os_handle]
 	if {$val == "false"} {
@@ -501,6 +515,13 @@ proc generate {os_handle} {
 		}
 	}
 
+        set val [common::get_property CONFIG.use_task_fpu_support $os_handle]
+        if { $val < 1 || $val > 2 } {
+                error "ERROR: use_task_fpu_support must be 1 or 2"
+        } else {
+                xput_define $config_file "configUSE_TASK_FPU_SUPPORT"  $val
+
+        }
 
 	set val [common::get_property CONFIG.queue_registry_size $os_handle]
 	if {$val == "false"} {
