@@ -59,7 +59,7 @@
 /**************************** Variable Definitions ****************************/
 
 /**************************** Constant Definitions ****************************/
-#define XDPPSU_NUM_RESET_VALUES		34
+#define XDPPSU_NUM_RESET_VALUES		33
 #define XDPPSU_NUM_MSA_RESET_VALUES	19
 /**
  * This table contains the default values for the DisplayPort TX core's general
@@ -83,13 +83,12 @@ u32 ResetValues[XDPPSU_NUM_RESET_VALUES][2] =
 	{XDPPSU_AUX_ADDRESS, 0},
 	{XDPPSU_AUX_CLK_DIVIDER, 0},
 	{XDPPSU_TX_USER_FIFO_OVERFLOW, 0},
-	{XDPPSU_AUX_REPLY_DATA, 0},
 	{XDPPSU_AUX_REPLY_CODE, 0},
 	{XDPPSU_AUX_REPLY_COUNT, 0},
-	{XDPPSU_INTR_MASK, 0x3F},
+	{XDPPSU_INTR_MASK, 0xFFFFF03F},
 	{XDPPSU_REPLY_DATA_COUNT, 0},
 	{XDPPSU_REPLY_STATUS, 0x10},
-	{XDPPSU_PHY_CONFIG, 0x03},
+	{XDPPSU_PHY_CONFIG, 0x10001},
 	{XDPPSU_PHY_TRANSMIT_PRBS7, 0},
 	{XDPPSU_PHY_CLOCK_SELECT, 0},
 	{XDPPSU_TX_PHY_POWER_DOWN, 0},
@@ -121,13 +120,13 @@ u32 ResetValuesMsa[XDPPSU_NUM_MSA_RESET_VALUES][2] =
 	{XDPPSU_MAIN_STREAM_MISC0, 0},
 	{XDPPSU_MAIN_STREAM_MISC1, 0},
 	{XDPPSU_M_VID, 0},
-	{XDPPSU_TU_SIZE, 0},
+	{XDPPSU_TU_SIZE, 0x40},
 	{XDPPSU_N_VID, 0},
-	{XDPPSU_USER_PIXEL_WIDTH, 0},
+	{XDPPSU_USER_PIXEL_WIDTH, 1},
 	{XDPPSU_USER_DATA_COUNT_PER_LANE, 0},
 	{XDPPSU_MIN_BYTES_PER_TU, 0},
 	{XDPPSU_FRAC_BYTES_PER_TU, 0},
-	{XDPPSU_INIT_WAIT, 32}
+	{XDPPSU_INIT_WAIT, 0x20}
 };
 
 /**************************** Function Definitions ****************************/
