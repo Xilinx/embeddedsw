@@ -59,7 +59,9 @@
 
 
 /***************** Macros (Inline Functions) Definitions *********************/
-
+#define XSDITXSS_LINE_RATE_3G	0
+#define XSDITXSS_LINE_RATE_6G	1
+#define XSDITXSS_LINE_RATE_12G8DS	2
 
 /**************************** Type Definitions *******************************/
 /**
@@ -720,6 +722,19 @@ static int XV_SdiTxSs_VtcSetup(XVtc *XVtcPtr, XV_SdiTx *SdiTxPtr)
 ******************************************************************************/
 void XV_SdiTxSs_StreamStart(XV_SdiTxSs *InstancePtr)
 {
+	XSdiVid_TransMode SdiMode;
+	SdiMode = InstancePtr->SdiTxPtr->Transport.TMode;
+
+	/* Following assertions make sure the subssytem is configured with in the
+	 * subcore GUI paramter limit
+	 */
+	Xil_AssertVoid((InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_3G) &&
+			(SdiMode <= XSDIVID_MODE_3GB) ||
+			(InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_6G) &&
+			(SdiMode <= XSDIVID_MODE_6G) ||
+			(InstancePtr->Config.MaxRateSupported == XSDITXSS_LINE_RATE_12G8DS) &&
+			(SdiMode <= XSDIVID_MODE_12G));
+
 	XV_SdiTx_SetVidBridgeMode(InstancePtr->SdiTxPtr,
 	InstancePtr->SdiTxPtr->Transport.TMode);
 
