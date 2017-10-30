@@ -55,6 +55,9 @@
 /************************** Constant Definitions *****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+#define XSDIRX_LINE_RATE_3G	0
+#define XSDIRX_LINE_RATE_6G	1
+#define XSDIRX_LINE_RATE_12G8DS	2
 
 
 /**************************** Type Definitions *******************************/
@@ -819,6 +822,14 @@ void XV_SdiRx_EnableMode(XV_SdiRx *InstancePtr,
 {
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(SupportModes <= XV_SDIRX_SUPPORT_ALL);
+	/* Following assertions make sure the IP is configured with in the
+	 * subcore GUI paramter limit
+	 */
+	Xil_AssertVoid(!((InstancePtr->Config.MaxRateSupported == XSDIRX_LINE_RATE_3G) &&
+			(SupportModes & (XV_SDIRX_SUPPORT_6G |
+			XV_SDIRX_SUPPORT_12GI | XV_SDIRX_SUPPORT_12GF))));
+	Xil_AssertVoid(!((InstancePtr->Config.MaxRateSupported == XSDIRX_LINE_RATE_6G) &&
+			(SupportModes & (XV_SDIRX_SUPPORT_12GI | XV_SDIRX_SUPPORT_12GF))));
 
 	InstancePtr->SupportedModes |= SupportModes;
 }
