@@ -546,15 +546,15 @@ int main(void)
 {
 	u32 Status;
 
-	/* Rx Reset Sequence */
-	Xil_Out32((UINTPTR)(GPIO_1_RX_RST), (u32)(0x00000000));
-	Xil_Out32((UINTPTR)(GPIO_1_RX_RST), (u32)(0x00000001));
-
 	/* Setting path for Si570 chip */
 	I2cMux();
 
 	/* si570 configuration of 148.5MHz */
 	Si570_SetClock(XPAR_IIC_0_BASEADDR, I2C_CLK_ADDR_570);
+
+	/* Rx Reset Sequence */
+	Xil_Out32((UINTPTR)(GPIO_1_RX_RST), (u32)(0x00000000));
+	Xil_Out32((UINTPTR)(GPIO_1_RX_RST), (u32)(0x00000001));
 
 	StartTxAfterRxFlag = (FALSE);
 
