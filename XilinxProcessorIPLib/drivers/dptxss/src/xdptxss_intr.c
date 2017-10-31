@@ -272,7 +272,7 @@ void XDpTxSs_HpdPulseProcess(void *InstancePtr)
 	Status |= XDp_TxGetEdidBlock(XDpTxSsPtr->DpPtr, UsrHpdPulseData->Edid,
 		  0);
 	if(Status != XST_SUCCESS){
-		xdbg_printf(XDBG_DEBUG_GENERAL "AUX access had trouble!\r\n");
+		xdbg_printf(XDBG_DEBUG_GENERAL, "AUX access had trouble!\r\n");
 	}
 }
 
