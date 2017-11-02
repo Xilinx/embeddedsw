@@ -269,6 +269,7 @@ int XV_SdiRx_CfgInitialize(XV_SdiRx *InstancePtr,
 	UINTPTR EffectiveAddr);
 void XV_SdiRx_ResetStream(XV_SdiRx *InstancePtr);
 u32 XV_SdiRx_GetPayloadId(XV_SdiRx *InstancePtr, u8 DataStream);
+u32 XV_SdiRx_WaitforPayLoad(XV_SdiRx *InstancePtr);
 u32 XV_SdiRx_GetSdiMode(XV_SdiRx *InstancePtr);
 void XV_SdiRx_FramerEnable(XV_SdiRx *InstancePtr);
 void XV_SdiRx_FramerDisable(XV_SdiRx *InstancePtr);
