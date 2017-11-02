@@ -48,6 +48,8 @@
 *                        while generating doxygen and also changed filename
 *                        tag to include the file in doxygen examples.
 * 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
+* 1.4   adk    11/02/17  Updated example to fix compilation errors for IAR
+*			 compiler.
 * </pre>
 *
 ******************************************************************************/
@@ -181,8 +183,8 @@ int XZDma_SimpleReadOnlyExample(u16 DeviceId)
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
-	(void)XZDma_SetCallBack(&ZDma, XZDMA_HANDLER_DONE,
-					DoneHandler, &ZDma);
+	XZDma_SetCallBack(&ZDma, XZDMA_HANDLER_DONE,
+			 (void *)DoneHandler, &ZDma);
 	/*
 	 * Connect to the interrupt controller.
 	 */
