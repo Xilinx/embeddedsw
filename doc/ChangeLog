@@ -25,6 +25,9 @@ lwip141_2_0:
 Correct assigment of TX BD ring in init_dma() and
 emacps_error_handler().
 
+zdma_v1_4:
+Fixed compilation errors for IAR compiler.
+
 Changes for 2017.3
 ===============================
 
