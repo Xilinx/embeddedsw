@@ -232,6 +232,7 @@ void XV_SdiRxSs_ReportCoreInfo(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_ReportInfo(XV_SdiRxSs *InstancePtr);
 void XV_SdiRxSs_ReportDebugInfo(XV_SdiRxSs *InstancePtr);
 u32 *XV_SdiRxSs_GetPayloadId(XV_SdiRxSs *InstancePtr, u8 StreamId);
+u32 XV_SdiRxSs_WaitforPayLoad(XV_SdiRxSs *InstancePtr);
 XSdiVid_Transport *XV_SdiRxSs_GetTransport(XV_SdiRxSs *InstancePtr);
 XVidC_VideoStream *XV_SdiRxSs_GetVideoStream(XV_SdiRxSs *InstancePtr,
 		u8 StreamId);
