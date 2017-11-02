@@ -92,7 +92,8 @@ typedef enum {
 	XSDIVID_MODE_3GA = 2,
 	XSDIVID_MODE_3GB = 3,
 	XSDIVID_MODE_6G = 4,
-	XSDIVID_MODE_12G = 5
+	XSDIVID_MODE_12G = 5,
+	XSDIVID_MODE_12GF = 6
 } XSdiVid_TransMode;
 
 /**
