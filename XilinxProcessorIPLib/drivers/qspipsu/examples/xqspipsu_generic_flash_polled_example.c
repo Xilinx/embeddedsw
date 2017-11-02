@@ -436,7 +436,13 @@ int Test = 1;
  * for each bank separate read will be performed leading to that many
  * (overhead+dummy) bytes
  */
+#ifdef __ICCARM__
+#pragma data_alignment = 32
+u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8];
+#pragma data_alignment = 4
+#else
 u8 ReadBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + (DATA_OFFSET + DUMMY_SIZE)*8] __attribute__ ((aligned(64)));
+#endif
 u8 WriteBuffer[(PAGE_COUNT * MAX_PAGE_SIZE) + DATA_OFFSET];
 u8 CmdBfr[8];
 
