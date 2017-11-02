@@ -125,6 +125,7 @@
 * 1.5	tjs 09/14/17 Modified the checks for 4 byte addressing and commands.
 * 1.6	tjs 10/16/17 Flow for accessing flash is made similar to u-boot and linux
 * 					 For CR-984966
+* 1.6   tjs 11/02/17 Resolved the compilation errors for ICCARM. CR-988625
 *
 * </pre>
 *
