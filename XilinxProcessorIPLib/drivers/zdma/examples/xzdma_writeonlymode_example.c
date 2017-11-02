@@ -49,6 +49,8 @@
 *                        avoid unnecessary description to get displayed
 *                        while generating doxygen.
 * 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
+* 1.4   adk    11/02/17  Updated example to fix compilation errors for IAR
+*			 compiler.
 * </pre>
 *
 ******************************************************************************/
@@ -88,7 +90,13 @@ static void DoneHandler(void *CallBackRef);
 XZDma ZDma;		/**<Instance of the ZDMA Device */
 XScuGic Intc;		/**< XIntc Instance */
 u32 SrcBuf[4];		/**< Source buffer */
+#if defined(__ICCARM__)
+    #pragma data_alignment = 64
+	u32 DstBuf[300]; /**< Destination buffer */
+	#pragma data_alignment = 4
+#else
 u32 DstBuf[300] __attribute__ ((aligned (64))); /**< Destination buffer */
+#endif
 u8 Done = 0;		/**< Done Flag for interrupt generation */
 
 /*****************************************************************************/
