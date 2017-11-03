@@ -50,6 +50,7 @@
 *                     updated tcl file, added xaxidma_porting_guide.h
 * 3.00a jz   11/22/10 Support IP core parameters change
 * 5.00a srt  08/29/11 Removed a compiler warning
+* 9.5   rsp  11/01/17 Add interface to do config lookup based on base address.
 *
 * </pre>
 *
@@ -92,4 +93,37 @@ XAxiDma_Config *XAxiDma_LookupConfig(u32 DeviceId)
 
 	return CfgPtr;
 }
+
+/*****************************************************************************/
+/**
+ * Look up the hardware configuration for a device instance based on base address
+ *
+ * @param	Baseaddr is the base address of the device to lookup for
+ *
+ * @return
+ *		The configuration structure for the device. If the device base
+ *		address is not found,a NULL pointer is returned.
+ *
+ * @note	None
+ *
+ ******************************************************************************/
+XAxiDma_Config *XAxiDma_LookupConfigBaseAddr(u32 Baseaddr)
+{
+	extern XAxiDma_Config XAxiDma_ConfigTable[];
+	XAxiDma_Config *CfgPtr;
+	u32 Index;
+
+	CfgPtr = NULL;
+
+	for (Index = 0; Index < XPAR_XAXIDMA_NUM_INSTANCES; Index++) {
+		if (XAxiDma_ConfigTable[Index].BaseAddr == Baseaddr) {
+
+			CfgPtr = &XAxiDma_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return CfgPtr;
+}
+
 /** @} */

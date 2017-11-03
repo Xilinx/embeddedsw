@@ -30,6 +30,7 @@ Removed the redundant interrupt flags.
 axidma_v9_5:
 CR#987026 Fixed issue poll_multi_pkt example fails on a53
 Fixed race condition in the XAxiDma_Reset() API.
+CR#988210 Add interface to query config based on base addr.
 
 lwip141_2_0:
 Correct assigment of TX BD ring in init_dma() and
