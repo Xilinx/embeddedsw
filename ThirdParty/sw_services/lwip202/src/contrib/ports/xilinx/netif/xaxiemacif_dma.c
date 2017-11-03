@@ -626,7 +626,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 	XAxiDma_Bd *rxbd;
 	struct pbuf *p;
 	XStatus status;
-	u32_t i;
+	u32_t i, baseaddr;
 	xaxiemacif_s *xaxiemacif = (xaxiemacif_s *)(xemac->state);
 	/*
 	 * Disable L1 prefetch if the processor type is Cortex A53. It is
@@ -686,7 +686,8 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 		return ERR_IF;
 	}
 	/* initialize DMA */
-	dmaconfig = XAxiDma_LookupConfig(XPAR_AXIDMA_0_DEVICE_ID);
+	baseaddr = xaxiemacif->axi_ethernet.Config.AxiDevBaseAddress;
+	dmaconfig = XAxiDma_LookupConfigBaseAddr(baseaddr);
 	XAxiDma_CfgInitialize(&xaxiemacif->axidma, dmaconfig);
 
 	rxringptr = XAxiDma_GetRxRing(&xaxiemacif->axidma);
