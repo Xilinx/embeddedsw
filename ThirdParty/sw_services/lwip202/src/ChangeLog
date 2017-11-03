@@ -1,5 +1,7 @@
 Change Log for lwip
 =================================
+2017-11-01
+        * Perform AXI DMA lookup based on base address.
 2017-10-27
 	* Correct proper references of TX BD ring in init_dma() and
 	  emacps_error_handler().
