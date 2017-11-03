@@ -443,6 +443,13 @@ proc generate {os_handle} {
 		xput_define $config_file "configUSE_TRACE_FACILITY" "1"
 	}
 
+        set val [common::get_property CONFIG.use_newlib_reent $os_handle]
+        if {$val == "false"} {
+                xput_define $config_file "configUSE_NEWLIB_REENTRANT" "0"
+        } else {
+                xput_define $config_file "configUSE_NEWLIB_REENTRANT" "1"
+        }
+
 	xput_define $config_file "configUSE_16_BIT_TICKS"		   "0"
 	xput_define $config_file "configUSE_APPLICATION_TASK_TAG"   "0"
 	xput_define $config_file "configUSE_CO_ROUTINES"			"0"
@@ -470,6 +477,13 @@ proc generate {os_handle} {
 	} else {
 		xput_define $config_file "configIDLE_SHOULD_YIELD"  "1"
 	}
+
+        set val [common::get_property CONFIG.use_timeslicing $os_handle]
+        if {$val == "false"} {
+                xput_define $config_file "configUSE_TIME_SLICING"  "0"
+        } else {
+                xput_define $config_file "configUSE_TIME_SLICING"  "1"
+        }
 
 	set val [common::get_property CONFIG.timer_task_priority $os_handle]
 	if {$val == "false"} {
@@ -503,6 +517,13 @@ proc generate {os_handle} {
 	} else {
 		xput_define $config_file "configUSE_QUEUE_SETS"  "1"
 	}
+
+        set val [common::get_property CONFIG.use_task_notifications $os_handle]
+        if {$val == "false"} {
+                xput_define $config_file "configUSE_TASK_NOTIFICATIONS"  "0"
+        } else {
+                xput_define $config_file "configUSE_TASK_NOTIFICATIONS"  "1"
+        }
 
 	set val [common::get_property CONFIG.check_for_stack_overflow $os_handle]
 	if {$val == "false"} {
