@@ -604,25 +604,9 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 	 * Address size and read command selection
 	 * Micron flash on REMUS doesn't support these 4B write/erase commands
 	 */
-	if(Flash_Config_Table[FCTIndex].FlashDeviceSize > SIXTEENMB) {
-		/* Use 4 byte address and 4 byte read commands */
-		ReadCmd = QUAD_READ_CMD_4B;
-		WriteCmd = WRITE_CMD;
-		SectorEraseCmd = SEC_ERASE_CMD;
-
-		/*
-		 * As per Micron spec if we enter 4 byte addressing then
-		 * write and erase commands should also be 4 byte.
-		 */
-		if (FlashMake == MICRON_ID_BYTE0) {
-			WriteCmd = WRITE_CMD_4B;
-			SectorEraseCmd = SEC_ERASE_CMD_4B;
-		}
-	} else {
-		ReadCmd = QUAD_READ_CMD;
-		WriteCmd = WRITE_CMD;
-		SectorEraseCmd = SEC_ERASE_CMD;
-	}
+	ReadCmd = QUAD_READ_CMD;
+	WriteCmd = WRITE_CMD;
+	SectorEraseCmd = SEC_ERASE_CMD;
 
 	if((Flash_Config_Table[FCTIndex].NumDie > 1) &&
 			(FlashMake == MICRON_ID_BYTE0)) {
@@ -1870,6 +1854,8 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
 			 */
 			break;
 	}
+
+	GetRealAddr(QspiPsuPtr,TEST_ADDRESS);
 
 	FlashMsg[0].TxBfrPtr = &Cmd;
 	FlashMsg[0].RxBfrPtr = NULL;
