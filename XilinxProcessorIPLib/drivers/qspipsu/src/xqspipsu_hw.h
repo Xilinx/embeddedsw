@@ -147,6 +147,7 @@ extern "C" {
                                                          or quad I/O */
 #define XQSPIPS_LQSPI_CR_INST_MASK       0x000000FF /**< Read instr code */
 #define XQSPIPS_LQSPI_CR_RST_STATE       0x80000003 /**< Default LQSPI CR value */
+#define XQSPIPS_LQSPI_CR_4_BYTE_STATE       0x88000013 /**< Default 4 Byte LQSPI CR value */
 #define XQSPIPS_LQSPI_CFG_RST_STATE       0x800238C1 /**< Default LQSPI CFG value */
 /**
  * Register: XQSPIPSU_ISR
