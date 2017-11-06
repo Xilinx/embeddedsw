@@ -79,6 +79,8 @@
 *                            Call
 *       mmo    04/10/17 Updated function TxStreamUpCallback to include
 *                            XhdmiACRCtrl_TMDSClkRatio API Call
+*       EB     06/11/17 Updated function RxAudCallback to allow pass-through
+*                            of audio format setting
 * </pre>
 *
 ******************************************************************************/
@@ -1208,8 +1210,19 @@ void RxAudCallback(void *CallbackRef)
 
   if (IsPassThrough) {
     // Set TX Audio params
-	  XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs,
-			  XV_HdmiRxSs_GetAudioChannels(HdmiRxSsPtr));
+	// Audio Channels
+    XV_HdmiTxSs_SetAudioChannels(&HdmiTxSs,
+                  XV_HdmiRxSs_GetAudioChannels(HdmiRxSsPtr));
+
+    // HBR audio
+    if (XV_HdmiRxSs_GetAudioFormat(HdmiRxSsPtr) == XV_HDMIRX_AUDFMT_HBR) {
+        XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs, XV_HDMITX_AUDFMT_HBR);
+    }
+    // L-PCM
+    else {
+        XV_HdmiTxSs_SetAudioFormat(&HdmiTxSs, XV_HDMITX_AUDFMT_LPCM);
+    }
+
   }
 #endif
 }
@@ -2094,13 +2107,17 @@ int main()
 	                  Hdcp14KeyB, sizeof(Hdcp14KeyB)) == XST_SUCCESS) {
 
     /* Set pointers to HDCP 2.2 Keys */
+#ifdef XPAR_XV_HDMITXSS_NUM_INSTANCES
 #if XPAR_XHDCP22_TX_NUM_INSTANCES
     XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs, XV_HDMITXSS_KEY_HDCP22_LC128, Hdcp22Lc128);
     XV_HdmiTxSs_HdcpSetKey(&HdmiTxSs, XV_HDMITXSS_KEY_HDCP22_SRM, Hdcp22Srm);
 #endif
+#endif
+#ifdef XPAR_XV_HDMIRXSS_NUM_INSTANCES
 #if XPAR_XHDCP22_RX_NUM_INSTANCES
     XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_LC128, Hdcp22Lc128);
     XV_HdmiRxSs_HdcpSetKey(&HdmiRxSs, XV_HDMIRXSS_KEY_HDCP22_PRIVATE, Hdcp22RxPrivateKey);
+#endif
 #endif
 
     /* Set pointers to HDCP 1.4 keys */
