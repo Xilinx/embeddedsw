@@ -75,6 +75,7 @@
 *                       In BYPASS mode, input datatype can be Real or IQ,
 *                       hence checked both while reading the mixer mode.
 *              10/17/17 Fixed Set Threshold API Issue.
+* 2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
 * </pre>
 *
 ******************************************************************************/
@@ -2048,11 +2049,10 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	PhaseOffset |= XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_NCO_PHASE_LOW_OFFSET);
 	PhaseOffset &= XRFDC_NCO_PHASE_MASK;
-	PhaseOffset = (PhaseOffset << 14) >> 14;
-	PhaseOffset = ((PhaseOffset * 180) /
+	PhaseOffset = ((PhaseOffset << 14) >> 14);
+	Mixer_Settings->PhaseOffset = ((PhaseOffset * 180.0) /
 						XRFDC_NCO_PHASE_MULTIPLIER);
-	PhaseOffset = (PhaseOffset << 17) >> 17;
-	Mixer_Settings->PhaseOffset = PhaseOffset;
+
 	Freq = 0;
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_ADC_NCO_FQWD_UPP_OFFSET);
