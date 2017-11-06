@@ -76,6 +76,7 @@
 *                       hence checked both while reading the mixer mode.
 *              10/17/17 Fixed Set Threshold API Issue.
 * 2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
+*                       Provide user configurability for FineMixerScale.
 * </pre>
 *
 ******************************************************************************/
@@ -728,7 +729,12 @@ RETURN_PATH:
 *		- XRFDC_SUCCESS if successful.
 *       - XRFDC_FAILURE if Block not enabled.
 *
-* @note		None
+* @note		FineMixerScale in Mixer_Settings structure can have 3 values.
+*		XRFDC_MXR_SCALE_* represents the valid values.
+*		XRFDC_MXR_SCALE_NO_CHANGE - If mixer mode R2C, Mixer Scale is
+*		set to 1 and for other modes mixer scale is set to 0.7
+*		XRFDC_MXR_SCALE_ONE - To set fine mixer scale to 1.
+*		XRFDC_MXR_SCALE_ZERO_DOT_SEVEN - To set fine mixer scale to 0.7.
 *
 ******************************************************************************/
 int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
@@ -886,6 +892,22 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #else
 				metal_log(METAL_LOG_ERROR, "\n Requested block is not "
 									"valid in %s\r\n", __func__);
+#endif
+				goto RETURN_PATH;
+			}
+			if ((Mixer_Settings->FineMixerScale !=
+				XRFDC_MXR_SCALE_NO_CHANGE) &&
+				(Mixer_Settings->FineMixerScale !=
+						XRFDC_MXR_SCALE_ONE) &&
+				(Mixer_Settings->FineMixerScale !=
+					XRFDC_MXR_SCALE_ZERO_DOT_SEVEN)) {
+				Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR,
+				"\n Invalid Mixer Scale in %s\r\n", __func__);
+#else
+			metal_log(METAL_LOG_ERROR,
+				"\n Invalid Mixer Scale in %s\r\n", __func__);
 #endif
 				goto RETURN_PATH;
 			}
@@ -1205,6 +1227,21 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			}
 
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_MXR_MODE_OFFSET);
+			if (Mixer_Settings->FineMixerScale ==
+						XRFDC_MXR_SCALE_ONE) {
+				ReadReg |= XRFDC_FINE_MIX_SCALE_MASK;
+				InstancePtr->UpdateMixerScale = 0x1U;
+			} else if (Mixer_Settings->FineMixerScale ==
+					XRFDC_MXR_SCALE_ZERO_DOT_SEVEN) {
+				ReadReg &= ~XRFDC_FINE_MIX_SCALE_MASK;
+				InstancePtr->UpdateMixerScale = 0x1U;
+			} else
+				InstancePtr->UpdateMixerScale = 0x0U;
+			XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_MXR_MODE_OFFSET, ReadReg);
+
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_NCO_UPDT_OFFSET);
 			ReadReg &= ~XRFDC_NCO_UPDT_MODE_MASK;
 			ReadReg |= Mixer_Settings->EventSource;
@@ -1261,7 +1298,12 @@ RETURN_PATH:
 *		- XRFDC_SUCCESS if successful.
 *       - XRFDC_FAILURE if Block not enabled.
 *
-* @note		None
+* @note		FineMixerScale in Mixer_Settings structure can have 3 values.
+*		XRFDC_MXR_SCALE_* represents the valid return values.
+*		XRFDC_MXR_SCALE_NO_CHANGE - Default driver implementation.
+*		XRFDC_MXR_SCALE_ONE - If fine Mixer Scale is set to 1 by user.
+*		XRFDC_MXR_SCALE_ZERO_DOT_SEVEN - If fine mixer scale is set
+*		to 0.7 by user.
 *
 ******************************************************************************/
 int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
@@ -2043,6 +2085,21 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
 	else if (ReadReg == 0x0)
 		Mixer_Settings->FineMixerMode = XRFDC_FINE_MIXER_MOD_OFF;
+
+	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+				XRFDC_MXR_MODE_OFFSET);
+	ReadReg &= XRFDC_FINE_MIX_SCALE_MASK;
+	if (InstancePtr->UpdateMixerScale == 0x0U)
+		Mixer_Settings->FineMixerScale =
+				XRFDC_MXR_SCALE_NO_CHANGE;
+	else if ((ReadReg != 0U) &&
+			(InstancePtr->UpdateMixerScale == 0x1U))
+		Mixer_Settings->FineMixerScale =
+				XRFDC_MXR_SCALE_ONE;
+	else if (InstancePtr->UpdateMixerScale == 0x1U)
+		Mixer_Settings->FineMixerScale =
+				XRFDC_MXR_SCALE_ZERO_DOT_SEVEN;
+
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_NCO_PHASE_UPP_OFFSET);
 	PhaseOffset = ReadReg << 16;
