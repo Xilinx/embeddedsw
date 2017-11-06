@@ -116,6 +116,7 @@
 *              10/17/17 Fixed Set Threshold API Issue.
 * 2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
 * 2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
+*                       Provide user configurability for FineMixerScale.
 *
 * </pre>
 *
@@ -220,6 +221,7 @@ typedef struct {
 	u32 EventSource;
 	u32 FineMixerMode;
 	u32 CoarseMixFreq;
+	u8 FineMixerScale;	/* NCO output scale, valid values 0,1 and 2 */
 } XRFdc_Mixer_Settings;
 
 /**
@@ -443,6 +445,7 @@ typedef struct {
 	XRFdc_ADC_Tile ADC_Tile[4];
 	XRFdc_StatusHandler StatusHandler;	/* Event handler function */
 	void *CallBackRef;			/* Callback reference for event handler */
+	u8 UpdateMixerScale;	/* Set to 1, if user overwrite mixer scale */
 } XRFdc;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -507,6 +510,10 @@ typedef struct {
 #define XRFDC_CRSE_MIX_R_Q_FSBYFOUR			0x70CU
 #define XRFDC_CRSE_MIX_R_I_MINFSBYFOUR		0x8A0U
 #define XRFDC_CRSE_MIX_R_Q_MINFSBYFOUR		0x31CU
+
+#define XRFDC_MXR_SCALE_NO_CHANGE			0x0U
+#define XRFDC_MXR_SCALE_ONE					0x1U
+#define XRFDC_MXR_SCALE_ZERO_DOT_SEVEN		0x2U
 
 #define XRFDC_MIXER_PHASE_OFFSET_UP_LIMIT	180
 #define XRFDC_MIXER_PHASE_OFFSET_LOW_LIMIT	(-180)
