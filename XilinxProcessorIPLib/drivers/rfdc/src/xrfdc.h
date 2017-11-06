@@ -115,6 +115,7 @@
 *                       hence checked both while reading the mixer mode.
 *              10/17/17 Fixed Set Threshold API Issue.
 * 2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
+* 2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
 *
 * </pre>
 *
