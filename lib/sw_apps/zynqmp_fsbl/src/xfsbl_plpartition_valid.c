@@ -71,6 +71,9 @@
 
 /************************** Constant Definitions ****************************/
 
+#define XFSBL_AES_TAG_SIZE	(XSECURE_SECURE_HDR_SIZE + \
+		XSECURE_SECURE_GCM_TAG_SIZE) /**< AES block decryption tag size */
+
 /************************** Function Prototypes ******************************/
 #if defined (XFSBL_BS) && defined (XFSBL_SECURE)
 extern u32 XFsbl_PpkSpkIdVer(u64 AcOffset, u32 HashLen);
@@ -786,15 +789,6 @@ static u32 XFsbl_DecrptSetUpNextBlk(XFsblPs_PlPartition *PartitionParams,
 	XSecure_WriteReg(PartitionParams->PlEncrypt.SecureAes->BaseAddress,
 					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0);
 
-	/* the Address and size of the data to be decrypted */
-	if ((ChunkAdrs != 0x00U) &&
-		(PartitionParams->PlEncrypt.SecureAes->SizeofData != 0)) {
-		Status = XFsbl_DecrptPl(PartitionParams,
-				(UINTPTR)ChunkAdrs, ChunkSize);
-		if (Status != XFSBL_SUCCESS) {
-			return Status;
-		}
-	}
 
 	return Status;
 
@@ -824,98 +818,125 @@ static u32 XFsbl_DecrptPl(XFsblPs_PlPartition *PartitionParams,
 	u32 Status = XFSBL_SUCCESS;
 	u64 SrcAddr = (u64)ChunkAdrs;
 	XCsuDma_Configure ConfigurValues = {0};
-	u64 SecHrAddr = SrcAddr;
 	UINTPTR NextBlkAddr = 0;
 	u32 SssAes;
 	u32 SssCfg;
 
-	/* Enable byte swapping */
-	XCsuDma_GetConfig(PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
+	do {
+
+		/* Enable byte swapping */
+		XCsuDma_GetConfig(
+			PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
+					XCSUDMA_SRC_CHANNEL, &ConfigurValues);
+		ConfigurValues.EndianType = 1U;
+		XCsuDma_SetConfig(
+			PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
 				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
-	ConfigurValues.EndianType = 1U;
-	XCsuDma_SetConfig(PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
-				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
 
-	/* Configure AES engine */
-	SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
-	SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
-	XSecure_SssSetup(SssCfg);
+		/* Configure AES engine */
+		SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
+		SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
+		XSecure_SssSetup(SssCfg);
 
-
-	if ((Size <= (PartitionParams->PlEncrypt.SecureAes->SizeofData)) &&
-		(PartitionParams->PlEncrypt.SecureAes->SizeofData != 0)) {
-		XFsbl_DmaPlCopy(PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
-						(UINTPTR)SrcAddr, Size/4, 0);
-		PartitionParams->PlEncrypt.SecureAes->SizeofData =
+		/* Send whole chunk of data to AES */
+		if ((Size <=
+			(PartitionParams->PlEncrypt.SecureAes->SizeofData)) &&
+		   (PartitionParams->PlEncrypt.SecureAes->SizeofData != 0)) {
+			XFsbl_DmaPlCopy(
+				PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
+					(UINTPTR)SrcAddr, Size/4, 0);
+			PartitionParams->PlEncrypt.SecureAes->SizeofData =
 			PartitionParams->PlEncrypt.SecureAes->SizeofData - Size;
-	}
-	else {
-		/*
-		 * when data to be processed is greater than
-		 * remaining data of the encrypted block
-		 * then GCM tag and secure header of next block also
-		 * exists with chunk
-		 */
-		SecHrAddr = SrcAddr +
-			PartitionParams->PlEncrypt.SecureAes->SizeofData;
-		if (ChunkSize >
-			(PartitionParams->PlEncrypt.SecureAes->SizeofData +
-			XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_HDR_SIZE)) {
-			NextBlkAddr = SecHrAddr + XSECURE_SECURE_HDR_SIZE +
-					XSECURE_SECURE_GCM_TAG_SIZE;
-			Size = ChunkSize -
-			(PartitionParams->PlEncrypt.SecureAes->SizeofData +
-			XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE);
+			Size = 0;
 		}
-		XFsbl_DmaPlCopy(PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
-						(UINTPTR)SrcAddr,
+		/*
+		 * If data to be processed is not zero
+		 * and chunk of data is greater
+		 */
+		else if (PartitionParams->PlEncrypt.SecureAes->SizeofData != 0) {
+			/* First transfer whole data other than secure header */
+			XFsbl_DmaPlCopy(
+				PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
+				(UINTPTR)SrcAddr,
 			PartitionParams->PlEncrypt.SecureAes->SizeofData/4, 0);
-		PartitionParams->PlEncrypt.SecureAes->SizeofData = 0;
-	}
+			SrcAddr = SrcAddr +
+				PartitionParams->PlEncrypt.SecureAes->SizeofData;
+			Size = Size -
+				PartitionParams->PlEncrypt.SecureAes->SizeofData;
+			PartitionParams->PlEncrypt.SecureAes->SizeofData = 0;
+			/*
+			 * when data to be processed is greater than
+			 * remaining data of the encrypted block
+			 * and part of GCM tag and secure header of next block
+			 * also exists with chunk, copy that portion for
+			 * proceessing along with next chunk of data
+			 */
+			if (Size <
+			 (XSECURE_SECURE_HDR_SIZE +
+				XSECURE_SECURE_GCM_TAG_SIZE)) {
+				XFsbl_CopyData(PartitionParams,
+					PartitionParams->SecureHdr,
+					(u8 *)(UINTPTR)SrcAddr, Size);
+				PartitionParams->Hdr = Size;
+				Size = 0;
+			}
+		}
 
-	/* Wait PCAP done */
-	Status = XFsbl_PcapWaitForDone();
-	if (Status != XFSBL_SUCCESS) {
-		return Status;
-	}
-
-	XCsuDma_GetConfig(PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL, &ConfigurValues);
-	ConfigurValues.EndianType = 0U;
-	XCsuDma_SetConfig(PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
-			XCSUDMA_SRC_CHANNEL, &ConfigurValues);
-
-	/* Decrypting secure header and GCM tag address */
-	if (PartitionParams->PlEncrypt.SecureAes->SizeofData == 0) {
-		Status = XFsbl_DecrypSecureHdr(
-			PartitionParams->PlEncrypt.SecureAes, SecHrAddr, 0);
+		/* Wait PCAP done */
+		Status = XFsbl_PcapWaitForDone();
 		if (Status != XFSBL_SUCCESS) {
 			return Status;
 		}
-		/*
-		 * This means we are done with Secure header and Block 0
-		 * And now we can change the AES key source to KUP.
-		 */
-		PartitionParams->PlEncrypt.SecureAes->KeySel =
-				XSECURE_CSU_AES_KEY_SRC_KUP;
-		XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
 
-		if (NextBlkAddr != 0x0) {
+		XCsuDma_GetConfig(
+			PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
+		ConfigurValues.EndianType = 0U;
+		XCsuDma_SetConfig(
+			PartitionParams->PlEncrypt.SecureAes->CsuDmaPtr,
+				XCSUDMA_SRC_CHANNEL, &ConfigurValues);
+
+		/* Decrypting secure header and GCM tag address */
+		if ((PartitionParams->PlEncrypt.SecureAes->SizeofData == 0) &&
+						(Size != 0)) {
+			Status = XFsbl_DecrypSecureHdr(
+				PartitionParams->PlEncrypt.SecureAes,
+					SrcAddr, 0);
+			if (Status != XFSBL_SUCCESS) {
+				return Status;
+			}
+			Size = Size - (XSECURE_SECURE_HDR_SIZE +
+					XSECURE_SECURE_GCM_TAG_SIZE);
+			if (Size != 0x00) {
+				NextBlkAddr = SrcAddr +
+					XSECURE_SECURE_HDR_SIZE +
+					XSECURE_SECURE_GCM_TAG_SIZE;
+			}
+			/*
+			 * This means we are done with Secure header and Block 0
+			 * And now we can change the AES key source to KUP.
+			 */
+			PartitionParams->PlEncrypt.SecureAes->KeySel =
+					XSECURE_CSU_AES_KEY_SRC_KUP;
+			XSecure_AesKeySelNLoad(
+				PartitionParams->PlEncrypt.SecureAes);
 			Status = XFsbl_DecrptSetUpNextBlk(PartitionParams,
 					NextBlkAddr, Size);
 			if (Status != XFSBL_SUCCESS) {
 				return Status;
 			}
-		}
-		else {
-			Status = XFsbl_DecrptSetUpNextBlk(
-				PartitionParams, 0U, Size);
-			if (Status != XFSBL_SUCCESS) {
-				return Status;
+			if ((NextBlkAddr != 0x00U) &&
+			(PartitionParams->PlEncrypt.SecureAes->SizeofData != 0)) {
+				SrcAddr = NextBlkAddr;
 			}
+			else {
+				break;
+			}
+
+
 		}
 
-	}
+	} while (Size != 0x00);
 
 	return Status;
 
@@ -942,6 +963,9 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 	u32 Status = XFSBL_SUCCESS;
 	UINTPTR SrcAddr = (u64)ChunkAdrs;
 	u32 Size = ChunkSize;
+	u64 NextBlkAddr = 0;
+	u32 SssAes;
+	u32 SssCfg;
 
 	/* If this is the first block to be decrypted it is the secure header */
 	if (PartitionParams->PlEncrypt.NextBlkLen == 0x00) {
@@ -984,12 +1008,73 @@ static u32 XFsbl_DecrptPlChunks(XFsblPs_PlPartition *PartitionParams,
 		 */
 		Status = XFsbl_DecrptSetUpNextBlk(PartitionParams,
 						SrcAddr, Size);
+		if (Status != XFSBL_SUCCESS) {
+			goto END;
+		}
+
+		Status = XFsbl_DecrptPl(PartitionParams,
+					(UINTPTR)SrcAddr, Size);
+		if (Status != XFSBL_SUCCESS) {
+			goto END;
+		}
 		/*
 		 * If status is true or false also goto END
 		 * As remaining data also processed in above API
 		 */
 		goto END;
 
+	}
+	/*
+	 * If previous chunk has portion of left header,
+	 * which needs to be processed along with this chunk
+	 */
+	else  if (PartitionParams->Hdr != 0x00) {
+
+		/* Configure AES engine */
+		SssAes = XSecure_SssInputAes(XSECURE_CSU_SSS_SRC_SRC_DMA);
+		SssCfg = SssAes | XSecure_SssInputPcap(XSECURE_CSU_SSS_SRC_AES);
+		XSecure_SssSetup(SssCfg);
+
+		XFsbl_CopyData(PartitionParams,
+		(u8 *)(PartitionParams->SecureHdr + PartitionParams->Hdr),
+		(u8 *)(UINTPTR)SrcAddr, XFSBL_AES_TAG_SIZE - PartitionParams->Hdr);
+
+		Status = XFsbl_DecrypSecureHdr(
+			PartitionParams->PlEncrypt.SecureAes,
+			(u64)(UINTPTR)PartitionParams->SecureHdr, 0);
+		if (Status != XFSBL_SUCCESS) {
+			return Status;
+		}
+
+		Size = Size - (XFSBL_AES_TAG_SIZE - PartitionParams->Hdr);
+		if (Size != 0x00) {
+			NextBlkAddr = SrcAddr +
+				(XFSBL_AES_TAG_SIZE - PartitionParams->Hdr);
+		}
+		PartitionParams->Hdr = 0;
+		memset(PartitionParams->SecureHdr, 0, XFSBL_AES_TAG_SIZE);
+		/*
+		 * This means we are done with Secure header and Block 0
+		 * And now we can change the AES key source to KUP.
+		 */
+		PartitionParams->PlEncrypt.SecureAes->KeySel =
+				XSECURE_CSU_AES_KEY_SRC_KUP;
+
+		XSecure_AesKeySelNLoad(PartitionParams->PlEncrypt.SecureAes);
+		Status = XFsbl_DecrptSetUpNextBlk(PartitionParams,
+						NextBlkAddr, Size);
+		if (Status != XFSBL_SUCCESS) {
+			return Status;
+		}
+
+		if ((NextBlkAddr != 0x00U) &&
+			(PartitionParams->PlEncrypt.SecureAes->SizeofData != 0)) {
+			Status = XFsbl_DecrptPl(PartitionParams,
+					(UINTPTR)NextBlkAddr, Size);
+			if (Status != XFSBL_SUCCESS) {
+				return Status;
+			}
+		}
 	}
 	else {
 		Status = XFsbl_DecrptPl(PartitionParams, SrcAddr, Size);
