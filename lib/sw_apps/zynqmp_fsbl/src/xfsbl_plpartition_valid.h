@@ -108,6 +108,8 @@ typedef struct {
 				/**< Device copy for DDR less system */
 	XFsblPs_PlEncryption PlEncrypt;	/**< Encryption parameters */
 	XFsblPs_PlAuthentication PlAuth;/**< Authentication parameters */
+	u8 SecureHdr[XSECURE_SECURE_HDR_SIZE + XSECURE_SECURE_GCM_TAG_SIZE];
+	u8 Hdr;
 } XFsblPs_PlPartition;
 /*@}*/
 
