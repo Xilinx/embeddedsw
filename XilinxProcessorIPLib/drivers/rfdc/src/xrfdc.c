@@ -77,6 +77,7 @@
 *              10/17/17 Fixed Set Threshold API Issue.
 * 2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
 *                       Provide user configurability for FineMixerScale.
+*              11/08/17 Return error for DAC R2C mode and ADC C2R mode.
 * </pre>
 *
 ******************************************************************************/
@@ -908,6 +909,22 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #else
 			metal_log(METAL_LOG_ERROR,
 				"\n Invalid Mixer Scale in %s\r\n", __func__);
+#endif
+				goto RETURN_PATH;
+			}
+			if (((Mixer_Settings->FineMixerMode ==
+				XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX) &&
+				(Type == XRFDC_DAC_TILE)) ||
+				((Mixer_Settings->FineMixerMode ==
+				XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL) &&
+				(Type == XRFDC_ADC_TILE))) {
+				Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR,
+				"\n Invalid Mixer mode in %s\r\n", __func__);
+#else
+			metal_log(METAL_LOG_ERROR,
+				"\n Invalid Mixer mode in %s\r\n", __func__);
 #endif
 				goto RETURN_PATH;
 			}
