@@ -117,6 +117,7 @@
 * 2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
 * 2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
 *                       Provide user configurability for FineMixerScale.
+*              11/08/17 Return error for DAC R2C mode and ADC C2R mode.
 *
 * </pre>
 *
