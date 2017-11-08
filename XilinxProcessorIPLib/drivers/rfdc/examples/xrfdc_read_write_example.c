@@ -254,7 +254,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				/* Set new mixer configurations */
 				SetMixerSettings.CoarseMixFreq = 0x0;	// Coarse mix OFF
 				SetMixerSettings.Freq = -2000;	//MHz
-				SetMixerSettings.FineMixerMode = 0x3;	// R2C
+				SetMixerSettings.FineMixerMode =
+						XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;	// C2R
 				SetMixerSettings.PhaseOffset = 22.56789;
 				SetMixerSettings.FineMixerScale = 0x2;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
@@ -278,7 +279,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				/* Set new mixer configurations */
 				SetMixerSettings.CoarseMixFreq = 0x10;	// Coarse mix BYPASS
 				SetMixerSettings.Freq = 2000;	//MHz
-				SetMixerSettings.FineMixerMode = 0x2;	//Complex to Real
+				SetMixerSettings.FineMixerMode =
+						XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;	// C2R
 				SetMixerSettings.PhaseOffset = -30.925;
 				SetMixerSettings.FineMixerScale = 0x1;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_IMMEDIATE;
@@ -438,7 +440,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				}
 				SetMixerSettings.CoarseMixFreq = 0x0; 	//CoarseMix OFF
 				SetMixerSettings.Freq = -250; 	//MHz
-				SetMixerSettings.FineMixerMode = 0x2;	// Complex to real
+				SetMixerSettings.FineMixerMode =
+						XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;	// R2C
 				SetMixerSettings.PhaseOffset = 14.0612;
 				SetMixerSettings.FineMixerScale = 0x1;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
@@ -461,7 +464,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 
 				SetMixerSettings.CoarseMixFreq = 0x10; 	//CoarseMix BYPASS
 				SetMixerSettings.Freq = 350; 	//MHz
-				SetMixerSettings.FineMixerMode = 0x2;	// Complex to real
+				SetMixerSettings.FineMixerMode =
+						XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;	// R2C
 				SetMixerSettings.PhaseOffset = -9.0565;
 				SetMixerSettings.FineMixerScale = 0x0;
 				SetMixerSettings.EventSource = XRFDC_EVNT_SRC_SYSREF;
