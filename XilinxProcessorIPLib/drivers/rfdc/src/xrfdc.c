@@ -897,11 +897,11 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				goto RETURN_PATH;
 			}
 			if ((Mixer_Settings->FineMixerScale !=
-				XRFDC_MXR_SCALE_NO_CHANGE) &&
+				XRFDC_MIXER_SCALE_AUTO) &&
 				(Mixer_Settings->FineMixerScale !=
-						XRFDC_MXR_SCALE_ONE) &&
+						XRFDC_MIXER_SCALE_1P0) &&
 				(Mixer_Settings->FineMixerScale !=
-					XRFDC_MXR_SCALE_ZERO_DOT_SEVEN)) {
+					XRFDC_MIXER_SCALE_0P7)) {
 				Status = XRFDC_FAILURE;
 #ifdef __MICROBLAZE__
 			xdbg_printf(XDBG_DEBUG_ERROR,
@@ -1246,11 +1246,11 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_MXR_MODE_OFFSET);
 			if (Mixer_Settings->FineMixerScale ==
-						XRFDC_MXR_SCALE_ONE) {
+						XRFDC_MIXER_SCALE_1P0) {
 				ReadReg |= XRFDC_FINE_MIX_SCALE_MASK;
 				InstancePtr->UpdateMixerScale = 0x1U;
 			} else if (Mixer_Settings->FineMixerScale ==
-					XRFDC_MXR_SCALE_ZERO_DOT_SEVEN) {
+					XRFDC_MIXER_SCALE_0P7) {
 				ReadReg &= ~XRFDC_FINE_MIX_SCALE_MASK;
 				InstancePtr->UpdateMixerScale = 0x1U;
 			} else
@@ -2108,14 +2108,14 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	ReadReg &= XRFDC_FINE_MIX_SCALE_MASK;
 	if (InstancePtr->UpdateMixerScale == 0x0U)
 		Mixer_Settings->FineMixerScale =
-				XRFDC_MXR_SCALE_NO_CHANGE;
+				XRFDC_MIXER_SCALE_AUTO;
 	else if ((ReadReg != 0U) &&
 			(InstancePtr->UpdateMixerScale == 0x1U))
 		Mixer_Settings->FineMixerScale =
-				XRFDC_MXR_SCALE_ONE;
+				XRFDC_MIXER_SCALE_1P0;
 	else if (InstancePtr->UpdateMixerScale == 0x1U)
 		Mixer_Settings->FineMixerScale =
-				XRFDC_MXR_SCALE_ZERO_DOT_SEVEN;
+				XRFDC_MIXER_SCALE_0P7;
 
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 						XRFDC_NCO_PHASE_UPP_OFFSET);
