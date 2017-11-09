@@ -53,6 +53,13 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vns     01/28/17 First release
+* 2.0   vns     11/09/17 Modified recursive function call to while loop,
+*                        added code for handling the decryption of bitstream
+*                        when secure header of block is divided in two chunks,
+*                        by copying partial secure header to a buffer and then
+*                        processing it along with next chunk of data where it
+*                        holds remaining secure header.
+*
 * </pre>
 *
 ******************************************************************************/
