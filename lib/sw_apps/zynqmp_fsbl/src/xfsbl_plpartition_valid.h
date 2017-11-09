@@ -42,6 +42,10 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- -----------------------------------------------------
 * 1.0   vns     01/28/17 First release
+* 2.0   vns     11/09/17 In structure XFsblPs_PlPartition added member
+*                        (SecureHdr) to store partial secure header when
+*                        single secure header is in two chunks, also added
+*                        another member(Hdr) to store size of data stored.
 * </pre>
 *
 ******************************************************************************/
