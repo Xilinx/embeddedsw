@@ -118,6 +118,7 @@
 * 2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
 *                       Provide user configurability for FineMixerScale.
 *              11/08/17 Return error for DAC R2C mode and ADC C2R mode.
+*              11/10/17 Corrected FIFO and DATA Interrupt masks.
 *
 * </pre>
 *
