@@ -473,6 +473,7 @@
 * 	     26/10/17 Fixed CR#987214 Fix race condition in the XAxiDma_Reset().
 *      rsp   11/01/17 Fixed CR#988210 Add interface to do config lookup based
 *                     on base address.
+*      adk   13/11/17 Fixed CR#989455 multi-channel interrupt example fails on A53.
 * </pre>
 *
 ******************************************************************************/
