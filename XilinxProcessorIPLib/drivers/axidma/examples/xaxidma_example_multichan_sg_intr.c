@@ -87,6 +87,10 @@
 #include "xdebug.h"
 #include "xaxidma_bd.h"
 
+#ifdef __aarch64__
+#include "xil_mmu.h"
+#endif
+
 #ifdef XPAR_UARTNS550_0_BASEADDR
 #include "xuartns550_l.h"       /* to use uartns550 */
 #endif
@@ -168,6 +172,7 @@ extern void xil_printf(const char *format, ...);
 #define NUMBER_OF_BDS_TO_TRANSFER	(NUMBER_OF_PKTS_TO_TRANSFER * \
 						NUMBER_OF_BDS_PER_PKT)
 #define MAX_BD_COUNT		1024
+#define MARK_UNCACHEABLE        0x701
 
 /* The interrupt coalescing threshold and delay timer threshold
  * Valid range is 1
@@ -306,6 +311,10 @@ int main(void)
 #endif
 
 	xil_printf("\r\n--- Entering main() --- \r\n");
+#ifdef __aarch64__
+	Xil_SetTlbAttributes(TX_BD_SPACE_BASE, MARK_UNCACHEABLE);
+	Xil_SetTlbAttributes(RX_BD_SPACE_BASE, MARK_UNCACHEABLE);
+#endif
 
 	Config = XAxiDma_LookupConfig(DMA_DEV_ID);
 	if (!Config) {
@@ -489,7 +498,9 @@ static int CheckData(int Length, u8 *RxPacket, u8 StartValue)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-	Xil_DCacheInvalidateRange((u32)RxPacket, Length);
+#ifndef __aarch64__
+	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, Length);
+#endif
 
 	for(Index = 0; Index < Length; Index++) {
 		if (RxPacket[Index] != Value) {
@@ -1002,7 +1013,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 			if (Status != XST_SUCCESS) {
 				xil_printf("Rx set buffer addr %x on BD %x failed %d\r\n",
 				(unsigned int)RxBufferPtr,
-				(unsigned int)BdCurPtr, Status);
+				(UINTPTR)BdCurPtr, Status);
 
 				return XST_FAILURE;
 			}
@@ -1011,7 +1022,7 @@ static int RxSetup(XAxiDma * AxiDmaInstPtr)
 						RxRingPtr->MaxTransferLen);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Rx set length %d on BD %x failed %d\r\n",
-				MAX_PKT_LEN, (unsigned int)BdCurPtr, Status);
+				MAX_PKT_LEN, (UINTPTR)BdCurPtr, Status);
 
 				return XST_FAILURE;
 			}
@@ -1215,8 +1226,12 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr, u8 TDest, u8 TId, u8 Value)
 	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
-	Xil_DCacheFlushRange((u32)TxPacket, MAX_PKT_LEN *
+	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
 				NUMBER_OF_BDS_TO_TRANSFER);
+#ifdef __aarch64__
+	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
+			      NUMBER_OF_BDS_TO_TRANSFER);
+#endif
 
 	Status = XAxiDma_BdRingAlloc(TxRingPtr,
 				NUMBER_OF_BDS_TO_TRANSFER,
@@ -1227,7 +1242,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr, u8 TDest, u8 TId, u8 Value)
 		return XST_FAILURE;
 	}
 
-	BufferAddr = (u32) TxPacket;
+	BufferAddr = (UINTPTR) TxPacket;
 	BdCurPtr = BdPtr;
 
 	/*
@@ -1243,7 +1258,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr, u8 TDest, u8 TId, u8 Value)
 			if (Status != XST_SUCCESS) {
 				xil_printf("Tx set buffer addr %x on BD %x failed %d\r\n",
 				(unsigned int)BufferAddr,
-				(unsigned int)BdCurPtr, Status);
+				(UINTPTR)BdCurPtr, Status);
 
 				return XST_FAILURE;
 			}
@@ -1252,7 +1267,7 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr, u8 TDest, u8 TId, u8 Value)
 						TxRingPtr->MaxTransferLen);
 			if (Status != XST_SUCCESS) {
 				xil_printf("Tx set length %d on BD %x failed %d\r\n",
-				MAX_PKT_LEN, (unsigned int)BdCurPtr, Status);
+				MAX_PKT_LEN, (UINTPTR)BdCurPtr, Status);
 
 				return XST_FAILURE;
 			}
