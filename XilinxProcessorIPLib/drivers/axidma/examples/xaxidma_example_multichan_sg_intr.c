@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -55,6 +53,11 @@
  * throughput mode, it is 512MB.  These limits are need to ensured for
  * proper operation of this code.
  *
+ * NOTE: The AXI DMA multichannel support is deprecated in the IP and it is
+ * no longer actively supported. For multichannel support, refer to the AXI
+ * multichannel direct memory access IP product guide(PG228) and it's example.
+ * This example is planned to be removed in next release.
+ *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -75,6 +78,7 @@
  * 9.6   rsp  02/14/18 Support data buffers above 4GB. Use UINTPTR for storing
  *                     and typecasting buffer address(CR-992638).
  * 9.9   rsp  01/21/19 Fix use of #elif check in deriving DDR_BASE_ADDR.
+ * 9.10  rsp  09/17/19 Fix cache maintenance ops for source and dest buffer.
  * </pre>
  *
  * ***************************************************************************
@@ -497,9 +501,7 @@ static int CheckData(int Length, u8 *RxPacket, u8 StartValue)
 	/* Invalidate the DestBuffer before receiving the data, in case the
 	 * Data Cache is enabled
 	 */
-#ifndef __aarch64__
 	Xil_DCacheInvalidateRange((UINTPTR)RxPacket, Length);
-#endif
 
 	for(Index = 0; Index < Length; Index++) {
 		if (RxPacket[Index] != Value) {
@@ -790,7 +792,7 @@ static void RxIntrHandler(void *Callback)
 *
 * @return
 *		- XST_SUCCESS if successful,
-*		- XST_FAILURE.if not succesful
+*		- XST_FAILURE.if not successful
 *
 * @note		None.
 *
@@ -1222,15 +1224,13 @@ static int SendPacket(XAxiDma * AxiDmaInstPtr, u8 TDest, u8 TId, u8 Value)
 		Value = (Value + 1) & 0xFF;
 	}
 
-	/* Flush the SrcBuffer before the DMA transfer, in case the Data Cache
+	/* Flush the buffers before the DMA transfer, in case the Data Cache
 	 * is enabled
 	 */
 	Xil_DCacheFlushRange((UINTPTR)TxPacket, MAX_PKT_LEN *
 				NUMBER_OF_BDS_TO_TRANSFER);
-#ifdef __aarch64__
 	Xil_DCacheFlushRange((UINTPTR)RX_BUFFER_BASE, MAX_PKT_LEN *
 			      NUMBER_OF_BDS_TO_TRANSFER);
-#endif
 
 	Status = XAxiDma_BdRingAlloc(TxRingPtr,
 				NUMBER_OF_BDS_TO_TRANSFER,
