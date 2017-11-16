@@ -263,3 +263,96 @@ void NodeQspiIdle(u32 BaseAddress)
 }
 
 #endif
+
+#if defined(XPAR_XUSBPSU_0_DEVICE_ID) || defined(XPAR_XUSBPSU_1_DEVICE_ID)
+
+#define XUSBPSU_EP_PARAM_INDEX	3
+#define XUSBPSU_GSTS_OP_MODE	0x3
+
+/**
+ * NodeUsbIdle() - Code to idle the Usb
+ *
+ * @BaseAddress: USB base address
+ */
+
+void NodeUsbIdle(u32 BaseAddress)
+{
+	u32 regVal;
+	u32 LocalTimeout = MAX_TIMEOUT;
+	u8 PhyEpNum, EpNums;
+	u32 Cmd, RscIdx;
+
+	regVal = Xil_In32(BaseAddress + XUSBPSU_GSTS);
+
+	/* Check if USB is in device mode */
+	if ((regVal & XUSBPSU_GSTS_OP_MODE) == 0) {
+		/* Read number of endpoints */
+		regVal = Xil_In32(BaseAddress + ((u32)XUSBPSU_GHWPARAMS0_OFFSET
+				  + ((u32)XUSBPSU_EP_PARAM_INDEX * 4)));
+		EpNums = XUSBPSU_NUM_EPS(regVal);
+
+		/* Stop transfers */
+		for (PhyEpNum = 0; PhyEpNum <= EpNums; PhyEpNum++) {
+			LocalTimeout = MAX_TIMEOUT;
+
+			/* Issue EndTransfer command */
+			RscIdx = XUSBPSU_DEPCMD_GET_RSC_IDX(Xil_In32(BaseAddress
+						+ XUSBPSU_DEPCMD(PhyEpNum)));
+
+			Cmd = XUSBPSU_DEPCMD_ENDTRANSFER;
+			Cmd |= XUSBPSU_DEPCMD_CMDIOC;
+			Cmd |= XUSBPSU_DEPCMD_PARAM(RscIdx);
+
+			Xil_Out32(BaseAddress +  XUSBPSU_DEPCMDPAR0(PhyEpNum),
+					0x00);
+			Xil_Out32(BaseAddress +  XUSBPSU_DEPCMDPAR1(PhyEpNum),
+					0x00);
+			Xil_Out32(BaseAddress +  XUSBPSU_DEPCMDPAR2(PhyEpNum),
+					0x00);
+			Xil_Out32(BaseAddress +  XUSBPSU_DEPCMD(PhyEpNum),
+					Cmd | XUSBPSU_DEPCMD_CMDACT);
+
+			/* Check end of transfer */
+			do {
+				regVal = Xil_In32(BaseAddress +
+						  XUSBPSU_DEPCMD(PhyEpNum));
+			} while ((regVal & XUSBPSU_DEPCMD_CMDACT) &&
+				 --LocalTimeout);
+
+			if (LocalTimeout == 0U)
+				PmDbg(DEBUG_DETAILED,
+				      "Endpoint transfer not completed\n");
+		}
+
+		/* Disable endpoints */
+		for (PhyEpNum = 0; PhyEpNum <= EpNums; PhyEpNum++) {
+			regVal = Xil_In32(BaseAddress + XUSBPSU_DALEPENA);
+			regVal &= ~XUSBPSU_DALEPENA_EP(PhyEpNum);
+			Xil_Out32(BaseAddress + XUSBPSU_DALEPENA, regVal);
+		}
+
+		/* Stop USB device controller */
+		regVal = Xil_In32(BaseAddress + XUSBPSU_DCTL);
+		regVal &= ~XUSBPSU_DCTL_RUN_STOP;
+		Xil_Out32(BaseAddress + XUSBPSU_DCTL, regVal);
+
+		/* Check for USB */
+		LocalTimeout = MAX_TIMEOUT;
+
+		do {
+			regVal = Xil_In32(BaseAddress + XUSBPSU_DSTS);
+		} while (!(regVal & XUSBPSU_DSTS_DEVCTRLHLT) && --LocalTimeout);
+
+		if (LocalTimeout == 0U)
+			PmDbg(DEBUG_DETAILED,
+			      "USB device controller not stopped\n");
+	}
+
+	/* Clear event buffer */
+	Xil_Out32(BaseAddress +  XUSBPSU_GEVNTADRLO(0U), 0U);
+	Xil_Out32(BaseAddress +  XUSBPSU_GEVNTADRHI(0U), 0U);
+	Xil_Out32(BaseAddress +  XUSBPSU_GEVNTSIZ(0U),
+		  (u32)XUSBPSU_GEVNTSIZ_INTMASK | XUSBPSU_GEVNTSIZ_SIZE(0U));
+	Xil_Out32(BaseAddress +  XUSBPSU_GEVNTCOUNT(0U), 0U);
+}
+#endif

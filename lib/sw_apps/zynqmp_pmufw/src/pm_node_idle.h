@@ -85,4 +85,11 @@ void NodeQspiIdle(u32 BaseAddress);
 	#include <xgpiops_hw.h>
 #endif
 
+#if defined(XPAR_XUSBPSU_0_DEVICE_ID) || \
+	defined(XPAR_XUSBPSU_1_DEVICE_ID)
+#include "xusbpsu_hw.h"
+#include "xusbpsu_endpoint.h"
+void NodeUsbIdle(u32 BaseAddress);
+#endif
+
 #endif /* PM_NODE_IDLE_H_ */

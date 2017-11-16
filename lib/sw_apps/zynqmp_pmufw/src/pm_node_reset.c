@@ -96,10 +96,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_XUSBPSU_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeUsbIdle,
+		.IdleHookArgs = XPAR_PSU_USB_XHCI_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
 	},
 	{
 		.NodeId = NODE_USB_1,
@@ -119,10 +126,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
+#ifdef XPAR_XUSBPSU_1_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeUsbIdle,
+		.IdleHookArgs = XPAR_PSU_USB_XHCI_1_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
 	},
 	{
 		.NodeId = NODE_TTC_0,
