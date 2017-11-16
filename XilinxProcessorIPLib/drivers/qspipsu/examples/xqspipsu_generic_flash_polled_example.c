@@ -81,6 +81,8 @@
 * 1.6	tjs 10/16/17 #ifdef COMMENT replaced with the flow similar to
 *                    u-boot and linux for accessing flash parts with
 *                    size more then 16MB (CR-984966)
+* 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
+*                    commands.
 *</pre>
 *
 ******************************************************************************/
@@ -116,12 +118,10 @@
 #define EXIT_4B_ADDR_MODE	0xE9
 #define EXIT_4B_ADDR_MODE_ISSI	0x29
 
-#define WRITE_CMD_4B		0x12
 #define READ_CMD_4B		0x13
 #define FAST_READ_CMD_4B	0x0C
 #define DUAL_READ_CMD_4B		0x3C
 #define QUAD_READ_CMD_4B	0x6C
-#define	SEC_ERASE_CMD_4B	0xDC
 
 #define BANK_REG_RD			0x16
 #define BANK_REG_WR			0x17

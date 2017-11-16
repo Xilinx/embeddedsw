@@ -126,6 +126,8 @@
 * 1.6	tjs 10/16/17 Flow for accessing flash is made similar to u-boot and linux
 * 					 For CR-984966
 * 1.6   tjs 11/02/17 Resolved the compilation errors for ICCARM. CR-988625
+* 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
+*                    commands.
 *
 * </pre>
 *

@@ -36,7 +36,7 @@ BEGIN driver qspipsu
   OPTION supported_peripherals = (psu_qspi);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 1.6;
+  OPTION VERSION = 1.7;
   OPTION NAME = qspipsu;
 
 END driver

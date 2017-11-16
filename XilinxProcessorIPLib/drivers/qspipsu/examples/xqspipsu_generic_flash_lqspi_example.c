@@ -82,6 +82,8 @@
 * 1.4	tjs	06/16/17 Added support for IS25LP256D flash part (PR-4650)
 *
 * 1.5	tjs 09/15/17 Replaced #ifdef COMMENTS to #if USE_FOUR_BYTE (CR-984966)
+* 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
+*                    commands.
 *</pre>
 *
 ******************************************************************************/
@@ -119,12 +121,10 @@
 #define EXIT_4B_ADDR_MODE	0xE9
 #define EXIT_4B_ADDR_MODE_ISSI	0x29
 
-#define WRITE_CMD_4B		0x12
 #define READ_CMD_4B		0x13
 #define FAST_READ_CMD_4B	0x0C
 #define DUAL_READ_CMD_4B		0x3C
 #define QUAD_READ_CMD_4B	0x6C
-#define	SEC_ERASE_CMD_4B	0xDC
 
 #define BANK_REG_RD			0x16
 #define BANK_REG_WR			0x17
