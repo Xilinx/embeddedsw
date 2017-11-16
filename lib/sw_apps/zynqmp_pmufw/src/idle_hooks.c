@@ -429,3 +429,26 @@ void NodeDpIdle(u32 BaseAddress)
 	Xil_Out32(BaseAddress + XDPPSU_ENABLE, 0x0);
 }
 #endif
+
+#ifdef XPAR_PSU_SATA_S_AXI_BASEADDR
+
+#define SATA_HOST_CTL		0x04
+#define SATA_HOST_IRQ_EN	(1 << 1)
+
+/**
+ * NodeSataIdle() - Custom code to idle the SATA
+ *
+ * @BaseAddress: SATA base address
+ */
+
+void NodeSataIdle(u32 BaseAddress)
+{
+	u32 regVal;
+
+	/* Disable interrupts */
+	regVal = Xil_In32(BaseAddress + SATA_HOST_CTL);
+	regVal &= ~SATA_HOST_IRQ_EN;
+	Xil_Out32(BaseAddress + SATA_HOST_CTL, regVal);
+	Xil_In32(BaseAddress + SATA_HOST_CTL); /* flush */
+}
+#endif

@@ -100,4 +100,8 @@ void NodeUsbIdle(u32 BaseAddress);
 void NodeDpIdle(u32 BaseAddress);
 #endif
 
+#ifdef XPAR_PSU_SATA_S_AXI_BASEADDR
+void NodeSataIdle(u32 BaseAddress);
+#endif
+
 #endif /* PM_NODE_IDLE_H_ */

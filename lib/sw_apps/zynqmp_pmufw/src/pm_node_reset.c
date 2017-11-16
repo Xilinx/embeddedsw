@@ -232,10 +232,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			{0,0,0}
 		},
 
+#ifdef XPAR_PSU_SATA_S_AXI_BASEADDR
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeSataIdle,
+		.IdleHookArgs = XPAR_PSU_SATA_S_AXI_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
 	},
 	{
 		.NodeId = NODE_ETH_0,
