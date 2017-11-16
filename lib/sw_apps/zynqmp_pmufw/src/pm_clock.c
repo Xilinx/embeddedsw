@@ -834,11 +834,13 @@ static PmClockHandle pmClockHandles[] = {
 		.node = &pmSlaveUsb0_g.slv.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
+		.IsActiveClk = PmClockIsActiveUsb,
 	}, {
 		.clock = &pmClockUsb3Dual,
 		.node = &pmSlaveUsb1_g.slv.node,
 		.nextClock = NULL,
 		.nextNode = NULL,
+		.IsActiveClk = PmClockIsActiveUsb,
 	}, {
 		.clock = &pmClockUsb0Bus,
 		.node = &pmSlaveUsb0_g.slv.node,
