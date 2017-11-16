@@ -356,3 +356,76 @@ void NodeUsbIdle(u32 BaseAddress)
 	Xil_Out32(BaseAddress +  XUSBPSU_GEVNTCOUNT(0U), 0U);
 }
 #endif
+
+#ifdef XPAR_XDPPSU_0_DEVICE_ID
+
+#ifdef XPAR_XDPDMA_0_DEVICE_ID
+
+#define XDPDMA_CH_OFFSET	0X100
+#define XDPDMA_NUM_CHANNEL	6U	/* Number of channels */
+#define XDPDMA_CH_CNTL_ENABLE	BIT(0)
+#define XDPDMA_CH_CNTL_PAUSE	BIT(1)
+#define XDPDMA_EINTR_ALL	0xffffffff
+
+/**
+ * XDpDmaStopChannels - Stop DPDMA channels
+ *
+ * Stop the channel with the following sequence: 1. Pause, 2. Wait until the
+ * number of outstanding transactions to go to 0, 3. Disable the channel.
+ */
+
+static void XDpDmaStopChannels(void)
+{
+	u8 channel = 0;
+	u32 regVal = 0, LocalTimeout;
+
+	for (channel = 0; channel < XDPDMA_NUM_CHANNEL; channel++) {
+		/* Pause the channel */
+		XDpDma_ReadModifyWrite(XPAR_XDPDMA_0_BASEADDR, XDPDMA_CH0_CNTL
+				       + XDPDMA_CH_OFFSET * channel,
+				       XDPDMA_CH_CNTL_PAUSE,
+				       XDPDMA_CH_CNTL_PAUSE_MASK);
+
+		LocalTimeout = MAX_TIMEOUT;
+
+		/* Wait until the outstanding transactions number to go to 0 */
+		do {
+			regVal = XDpDma_ReadReg(XPAR_XDPDMA_0_BASEADDR,
+						XDPDMA_CH0_STATUS +
+						XDPDMA_CH_OFFSET * channel);
+		} while ((regVal & XDPDMA_CH_STATUS_OTRAN_CNT_MASK) &&
+			  --LocalTimeout);
+		if (!LocalTimeout) {
+			PmDbg(DEBUG_DETAILED, "DPDMA is not ready to stop.\n");
+			continue;
+		}
+
+		/* Disable channels */
+		XDpDma_ReadModifyWrite(XPAR_XDPDMA_0_BASEADDR, XDPDMA_CH0_CNTL
+				       + XDPDMA_CH_OFFSET * channel,
+				       ~XDPDMA_CH_CNTL_ENABLE,
+				       XDPDMA_CH_CNTL_EN_MASK);
+	}
+
+	/* Disable all DPDMA interrupts */
+	XDpDma_WriteReg(XPAR_XDPDMA_0_BASEADDR, XDPDMA_IDS, ~0);
+}
+#endif
+
+/**
+ * NodeDpIdle() - Custom code to idle the DP
+ *
+ * @BaseAddress: DP base address
+ */
+
+void NodeDpIdle(u32 BaseAddress)
+{
+#ifdef XPAR_XDPDMA_0_DEVICE_ID
+	/* Stop all dpdma channels */
+	XDpDmaStopChannels();
+#endif
+
+	/* Disable main stream attributes */
+	Xil_Out32(BaseAddress + XDPPSU_ENABLE, 0x0);
+}
+#endif

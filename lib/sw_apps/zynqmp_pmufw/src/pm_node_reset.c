@@ -560,11 +560,17 @@ static const PmNodeResetInfo NodeRstData[] = {
 			},
 			{0,0,0}
 		},
-
+#ifdef XPAR_XDPPSU_0_DEVICE_ID
+		.SoftRst = NULL,
+		.SoftRstArgs = 0U,
+		.IdleHook = NodeDpIdle,
+		.IdleHookArgs = XPAR_XDPPSU_0_BASEADDR
+#else
 		.SoftRst = NULL,
 		.SoftRstArgs = 0U,
 		.IdleHook = NULL,
 		.IdleHookArgs = 0U
+#endif
 	},
 };
 

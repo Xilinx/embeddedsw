@@ -92,4 +92,12 @@ void NodeQspiIdle(u32 BaseAddress);
 void NodeUsbIdle(u32 BaseAddress);
 #endif
 
+#ifdef XPAR_XDPPSU_0_DEVICE_ID
+#ifdef XPAR_PSU_DPDMA_DEVICE_ID
+#include "xdpdma_hw.h"
+#endif
+#include "xdppsu_hw.h"
+void NodeDpIdle(u32 BaseAddress);
+#endif
+
 #endif /* PM_NODE_IDLE_H_ */
