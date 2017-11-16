@@ -851,6 +851,7 @@ int PmMasterFsm(PmMaster* const master, const PmMasterEvent event)
 		condition = PmMasterAllProcsDown(master);
 		if (true == condition) {
 			XPfw_RecoveryStop(master);
+			PmMasterIdleSlaves(master);
 			status = PmMasterForceDownCleanup(master);
 			master->state = PM_MASTER_STATE_KILLED;
 		}
