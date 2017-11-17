@@ -139,6 +139,8 @@ XV_SdiRxSs_Config *XV_SdiRxSs_ConfigPtr;
 u8 StartTxAfterRxFlag;
 XSdi_Menu SdiMenu;			/**< Menu structure */
 u32 Index, MaxIndex;
+u8 RxVidlockFlag;
+u8 PayloadStatus;
 
 /************************** Function Definitions *****************************/
 
@@ -397,6 +399,7 @@ void RxStreamUpCallback(void *CallbackRef)
 
 	StartTxAfterRxFlag = (TRUE);
 	XV_SdiRxSs_StreamFlowEnable(&SdiRxSs);
+	RxVidlockFlag = 1;
 }
 
 /*****************************************************************************/
@@ -505,7 +508,7 @@ void StartTxAfterRx(void)
 {
 	/* clear flag */
 	StartTxAfterRxFlag = (FALSE);
-
+	RxVidlockFlag = 0;
 	XVidC_VideoStream *SdiRxSsVidStreamPtr;
 	XVidC_VideoStream *SdiTxSsVidStreamPtr;
 	XSdiVid_Transport *SdiRxSsTransportPtr;
@@ -724,7 +727,15 @@ int main(void)
 
 	while (1) {
 		if (StartTxAfterRxFlag) {
-			StartTxAfterRx();
+			if (RxVidlockFlag) {
+				PayloadStatus = XV_SdiRxSs_WaitforPayLoad(&SdiRxSs);
+				xil_printf("\n\n\r----------------------------\r\n");
+				xil_printf("--- GENERATED RESOLTUION ---\r\n");
+				xil_printf("----------------------------\r\n");
+
+			}
+			if (PayloadStatus == XST_SUCCESS)
+				StartTxAfterRx();
 		}
 
 		XSdi_MenuProcess(&SdiMenu);
