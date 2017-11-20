@@ -2321,6 +2321,8 @@ zynqmp_pmufw:
 - Updated xilfpga API calls in PMU Firmware with the latest version of
   xilfpga library
 
+
+
 Changes for 2017.4
 ===============================
 
