@@ -119,6 +119,8 @@
 *                       Provide user configurability for FineMixerScale.
 *              11/08/17 Return error for DAC R2C mode and ADC C2R mode.
 *              11/10/17 Corrected FIFO and DATA Interrupt masks.
+*              11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
+*              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
 *
 * </pre>
 *
