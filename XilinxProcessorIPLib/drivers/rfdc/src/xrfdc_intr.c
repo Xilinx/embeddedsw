@@ -139,17 +139,6 @@ void XRFdc_IntrEnable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 							"available in %s\r\n", __func__);
 #endif
 			goto RETURN_PATH;
-		} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-				(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-				(Block_Id == 3U))) {
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
-							"valid in %s\r\n", __func__);
-#else
-			metal_log(METAL_LOG_ERROR, "\n Requested block is not "
-							"valid in %s\r\n", __func__);
-#endif
-			goto RETURN_PATH;
 		} else {
 
 			ReadReg = XRFdc_ReadReg16(InstancePtr, 0x0,
@@ -309,17 +298,6 @@ void XRFdc_IntrDisable(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 							"available in %s\r\n", __func__);
 #endif
 			goto RETURN_PATH;
-		} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-				(Type == XRFDC_ADC_TILE) && ((Block_Id == 2U) ||
-				(Block_Id == 3U))) {
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
-							"valid in %s\r\n", __func__);
-#else
-			metal_log(METAL_LOG_ERROR, "\n Requested block is not "
-							"valid in %s\r\n", __func__);
-#endif
-			goto RETURN_PATH;
 		} else {
 			if (Type == XRFDC_ADC_TILE) {
 				BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
@@ -452,17 +430,6 @@ u32 XRFdc_GetIntrStatus(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 						"available in %s\r\n", __func__);
 #endif
 		goto RETURN_PATH;
-	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
-			(Block == 3U))) {
-#ifdef __MICROBLAZE__
-			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
-                            "valid in %s\r\n", __func__);
-#else
-			metal_log(METAL_LOG_ERROR, "\n Requested block is not "
-                            "valid in %s\r\n", __func__);
-#endif
-		goto RETURN_PATH;
 	} else {
 		if (Type == XRFDC_ADC_TILE) {
 			BaseAddr = XRFDC_ADC_TILE_CTRL_STATS_ADDR(Tile_Id);
@@ -560,17 +527,6 @@ void XRFdc_IntrClr(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 #else
 		metal_log(METAL_LOG_ERROR, "\n Requested block not "
 						"available in %s\r\n", __func__);
-#endif
-		goto RETURN_PATH;
-	} else if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) &&
-			(Type == XRFDC_ADC_TILE) && ((Block == 2U) ||
-			(Block == 3U))) {
-#ifdef __MICROBLAZE__
-		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block is not "
-							"valid in %s\r\n", __func__);
-#else
-		metal_log(METAL_LOG_ERROR, "\n Requested block is not "
-							"valid in %s\r\n", __func__);
 #endif
 		goto RETURN_PATH;
 	} else {
