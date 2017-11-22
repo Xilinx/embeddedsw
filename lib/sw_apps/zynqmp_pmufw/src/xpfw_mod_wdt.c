@@ -43,6 +43,12 @@ static XWdtPs WdtInst;
 static XWdtPs *WdtInstPtr = &WdtInst;
 
 /*
+ * time in ms for checking psu init completion by FSBL
+ */
+#define CHECK_PSU_INIT_CONFIG	100U
+
+#define PSU_INIT_STATUS	1U
+/*
  * WDT expire time in milliseconds.
  */
 #define XPFW_WDT_EXPIRE_TIME 90U
@@ -57,28 +63,44 @@ static XWdtPs *WdtInstPtr = &WdtInst;
 #define XPFW_WDT_CLK_PER_MSEC ((XPAR_XWDTPS_0_WDT_CLK_FREQ_HZ) / (XPFW_WDT_PRESCALER * 1000))
 #define XPFW_WDT_COUNTER_VAL ((XPFW_WDT_EXPIRE_TIME) * (XPFW_WDT_CLK_PER_MSEC))
 
+const XPfw_Module_t *WdtModPtr;
+
+/****************************************************************************/
+/**
+ * @brief  This scheduler task restarts CSU PMU WDT.
+ *
+ * @param  None.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
 static void XPfw_WdtRestart(void)
 {
 	if (WdtInstPtr != NULL) {
 		XWdtPs_RestartWdt(WdtInstPtr);
 	}
 }
+
 /****************************************************************************/
 /**
- * @brief  This function initializes the LPD IOU Watchdog timer.
+ * @brief  This function initializes the CSU PMU Watchdog timer.
  *
  * @param  None.
  *
- * @return Returns the status as XST_SUCCESS or XST_FAILURE.
+ * @return None.
  *
  * @note   None.
  *
  ****************************************************************************/
-static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+static void InitCsuPmuWdt(void)
 {
 	s32 Status;
 	XWdtPs_Config *WdtConfigPtr;
 	u32 CounterValue;
+
+	XPfw_Printf(DEBUG_DETAILED, "In InitCsuPmuWdt\r\n");
 
 	/* Load Config for WDT */
 	WdtConfigPtr = XWdtPs_LookupConfig(XPAR_XWDTPS_0_DEVICE_ID);
@@ -86,7 +108,7 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 	if (NULL == WdtConfigPtr) {
 		Status = XST_FAILURE;
 		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d): WDT LookupConfig failed.\r\n",
-				ModPtr->ModId);
+				WdtModPtr->ModId);
 		goto Done;
 	}
 
@@ -96,7 +118,7 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 
 	if (XST_FAILURE == Status) {
 		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d): Initialization failed.\r\n",
-				ModPtr->ModId);
+				WdtModPtr->ModId);
 		goto Done;
 	}
 
@@ -121,20 +143,72 @@ static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
 
 	XWdtPs_RestartWdt(WdtInstPtr);
 
-	Status = XPfw_CoreScheduleTask(ModPtr, XPFW_WDT_RESTART_TIME, XPfw_WdtRestart);
+	Status = XPfw_CoreScheduleTask(WdtModPtr, XPFW_WDT_RESTART_TIME, XPfw_WdtRestart);
 	if (XST_FAILURE == Status) {
 		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Scheduling WDT restart failed.",
-				ModPtr->ModId);
+				WdtModPtr->ModId);
 	}
 
-	XPfw_Printf(DEBUG_DETAILED,"WDT (MOD-%d): Initialized.\r\n", ModPtr->ModId);
+	XPfw_Printf(DEBUG_DETAILED,"WDT (MOD-%d): Initialized.\r\n", WdtModPtr->ModId);
 Done:
 	return;
 }
 
+/****************************************************************************/
+/**
+ * @brief  This scheduler task checks for psu init completion and initializes
+ * 			CSU PMU WDT.
+ *
+ * @param  None.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
+static void CheckPsuInitConfig(void)
+{
+	s32 Status;
+	u32 PsuInitStatus = XPfw_Read32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5);
+
+	if(PsuInitStatus == PSU_INIT_STATUS) {
+		InitCsuPmuWdt();
+		Status = XPfw_CoreRemoveTask(WdtModPtr, CHECK_PSU_INIT_CONFIG,
+				CheckPsuInitConfig);
+		if(XST_FAILURE == Status) {
+			XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Removing WDT Cfg task failed.",
+							WdtModPtr->ModId);
+		}
+		XPfw_Write32(PMU_GLOBAL_GLOBAL_GEN_STORAGE5, 0U);
+	}
+}
+
+/****************************************************************************/
+/**
+ * @brief  This function schedules PSU init completion checking task.
+ *
+ * @param  None.
+ *
+ * @return None.
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
+static void WdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
+{
+	s32 Status;
+
+	Status = XPfw_CoreScheduleTask(ModPtr, CHECK_PSU_INIT_CONFIG, CheckPsuInitConfig);
+	if (XST_FAILURE == Status) {
+		XPfw_Printf(DEBUG_ERROR,"WDT (MOD-%d):Scheduling WDT Cfg task failed.",
+				ModPtr->ModId);
+	}
+}
+
+
 void ModWdtInit(void)
 {
-	const XPfw_Module_t *WdtModPtr = XPfw_CoreCreateMod();
+	WdtModPtr = XPfw_CoreCreateMod();
 
 	(void)XPfw_CoreSetCfgHandler(WdtModPtr, WdtCfgInit);
 }
