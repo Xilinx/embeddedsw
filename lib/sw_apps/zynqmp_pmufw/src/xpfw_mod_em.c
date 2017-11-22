@@ -102,22 +102,6 @@ void RpuLsHandler(u8 ErrorId)
 }
 
 /**
- * LpdSwdtHandler() - Error handler for LPD system watchdog timer error
- * @ErrorId   ID of the error
- *
- * @note      Called when an error from watchdog timer in the LPD subsystem
- *            occurs and it resets the PS gracefully (by terminating
- *            all PS <-> PL transactions before initiating reset)
- */
-void LpdSwdtHandler(u8 ErrorId)
-{
-	XPfw_Printf(DEBUG_ERROR,"EM: LPD Watchdog Timer Error (Error ID: %d)\r\n",
-			ErrorId);
-	XPfw_Printf(DEBUG_ERROR,"EM: Initiating PS Only Reset \r\n");
-	XPfw_ResetPsOnly();
-}
-
-/**
  * NullHandler() - Null handler for errors which doesn't have a handler defined
  * @ErrorId   ID of the error
  */
@@ -219,7 +203,6 @@ void ModEmInit(void)
 #else /* ENABLE_EM */
 void ModEmInit(void) { }
 void RpuLsHandler(u8 ErrorId) { }
-void LpdSwdtHandler(u8 ErrorId) { }
 void FpdSwdtHandler(u8 ErrorId) { }
 void NullHandler(u8 ErrorId) { }
 #endif /* ENABLE_EM */
