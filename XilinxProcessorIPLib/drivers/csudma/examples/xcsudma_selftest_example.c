@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@
 * 1.0   vnsld  22/10/14 First release
 *       ms     04/10/17 Modified filename tag to include the file in doxygen
 *                       examples.
+* 1.2   adk    11/22/17 Added peripheral test app support.
 * </pre>
 *
 ******************************************************************************/
@@ -78,6 +79,7 @@ int XCsuDma_SelfTestExample(u16 DeviceId);
 
 
 XCsuDma CsuDma;		/**<Instance of the Csu_Dma Device */
+#ifndef TESTAPP_GEN
 /*****************************************************************************/
 /**
 *
@@ -104,6 +106,7 @@ int main(void)
 	xil_printf("Successfully ran CSU_DMA Selftest Example\r\n");
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
