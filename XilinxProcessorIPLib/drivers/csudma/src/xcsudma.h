@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -82,7 +82,7 @@
 * to build and link only those parts of the driver that are necessary.
 *
 * @file xcsudma.h
-* @addtogroup csudma_v1_0
+* @addtogroup csudma_v1_2
 * @{
 * @details
 *
@@ -103,6 +103,7 @@
 *                        generation.
 *       ms      04/10/17 Modified filename tag in xcsudma_selftest_example.c to
 *                        include the file in doxygen examples.
+* 1.2   adk     11/22/17 Added peripheral test app support for CSUDMA driver.
 * </pre>
 *
 ******************************************************************************/
