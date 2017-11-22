@@ -153,6 +153,12 @@ u32 XFsbl_HookPsuInit(void)
 			Status = XFSBL_PSU_INIT_FAILED + Status;
 	}
 
+	/*
+	 * Write 1U to PMU GLOBAL general storage register 5 to indicate
+	 * PMU Firmware that psu init is completed
+	 */
+	XFsbl_Out32(PMU_GLOBAL_GLOB_GEN_STORAGE5, XFSBL_PSU_INIT_COMPLETED);
+
 	/**
 	 * PS_SYSMON_ANALOG_BUS register determines mapping between SysMon supply
 	 * sense channel to SysMon supply registers inside the IP. This register
