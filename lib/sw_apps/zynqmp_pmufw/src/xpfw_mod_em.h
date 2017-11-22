@@ -48,7 +48,6 @@
 extern u32 ErrorLog[EM_ERROR_LOG_MAX];
 void ModEmInit(void);
 void RpuLsHandler(u8 ErrorId);
-void LpdSwdtHandler(u8 ErrorId);
 void FpdSwdtHandler(u8 ErrorId);
 void NullHandler(u8 ErrorId);
 
