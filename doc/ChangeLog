@@ -51,6 +51,10 @@ and signed compare
 - Changed PMU Firmware version to 2017.4
 - Added wrapper API for IPI poll for Ack in PMU Firmware
 
+zynqmp_fsbl:
+Updated cross compiler flags with hard floating point values
+Added functionality in FSBL to distinguish EV devices from EG devices
+
 Changes for 2017.3
 ===============================
 
