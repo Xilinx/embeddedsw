@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2014-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -50,6 +50,7 @@
 * 1.3   mus    08/14/17  Do not perform cache operations if CCI is enabled
 * 1.4   adk    11/02/17  Updated example to fix compilation errors for IAR
 *			 compiler.
+* 1.5   adk    11/22/17  Added peripheral test app support.
 * </pre>
 *
 ******************************************************************************/
@@ -58,15 +59,13 @@
 
 #include "xzdma.h"
 #include "xparameters.h"
-#include "xscugic.h"
 #include "xil_cache.h"
 
-/************************** Function Prototypes ******************************/
-
-int XZDma_SimpleExample(u16 DeviceId);
-static int SetupInterruptSystem(XScuGic *IntcInstancePtr,
-				XZDma *InstancePtr, u16 IntrId);
-static void DoneHandler(void *CallBackRef);
+#ifdef XPAR_INTC_0_DEVICE_ID
+#include "xintc.h"
+#else
+#include "xscugic.h"
+#endif
 
 /************************** Constant Definitions ******************************/
 
@@ -76,20 +75,37 @@ static void DoneHandler(void *CallBackRef);
  * change all the needed parameters in one place.
  */
 #define ZDMA_DEVICE_ID		XPAR_XZDMA_0_DEVICE_ID /* ZDMA device Id */
+#ifdef XPAR_INTC_0_DEVICE_ID
+#define INTC		XIntc
+#define ZDMA_INTC_DEVICE_ID	XPAR_INTC_0_DEVICE_ID
+#define ZDMA_INTR_DEVICE_ID	XPAR_INTC_0_ZDMA_0_VEC_ID /**< ZDMA Interrupt Id */
+#else
+#define INTC		XScuGic
 #define ZDMA_INTC_DEVICE_ID	XPAR_SCUGIC_SINGLE_DEVICE_ID
 					/**< SCUGIC Device ID */
-#define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR	/**< ZDMA Interrupt Id */
+#define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR /**< ZDMA Interrupt Id */
+#endif
 
 #define SIZE		1000000 /**< Size of the data to be transferred */
 #define TESTVALUE	0x1230 /**< For writing into source buffer */
 
 /**************************** Type Definitions *******************************/
 
+/************************** Function Prototypes ******************************/
+
+int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
+			u16 DeviceId, u16 IntrId);
+static int SetupInterruptSystem(INTC *IntcInstancePtr,
+				XZDma *InstancePtr, u16 IntrId);
+static void DoneHandler(void *CallBackRef);
+
 
 /************************** Variable Definitions *****************************/
 
+#ifndef TESTAPP_GEN
 XZDma ZDma;		/**<Instance of the ZDMA Device */
-XScuGic Intc;		/**< XIntc Instance */
+static INTC Intc;	/**< XIntc Instance */
+#endif
 
 #if defined(__ICCARM__)
     #pragma data_alignment = 64
@@ -101,8 +117,9 @@ u8 DstBuf[SIZE] __attribute__ ((aligned (64)));	/**< Destination buffer */
 u8 SrcBuf[SIZE] __attribute__ ((aligned (64)));	/**< Source buffer */
 #endif
 
-u8 Done = 0;				/**< Done flag */
+volatile static int Done = 0;				/**< Done flag */
 
+#ifndef TESTAPP_GEN
 /*****************************************************************************/
 /**
 *
@@ -120,7 +137,8 @@ int main(void)
 	int Status;
 
 	/* Run the simple example */
-	Status = XZDma_SimpleExample((u16)ZDMA_DEVICE_ID);
+	Status = XZDma_SimpleExample(&Intc, &ZDma, (u16)ZDMA_DEVICE_ID,
+				     ZDMA_INTR_DEVICE_ID);
 	if (Status != XST_SUCCESS) {
 		xil_printf("ZDMA Simple Example Failed\r\n");
 		return XST_FAILURE;
@@ -129,6 +147,7 @@ int main(void)
 	xil_printf("Successfully ran ZDMA Simple Example\r\n");
 	return XST_SUCCESS;
 }
+#endif
 
 /*****************************************************************************/
 /**
@@ -146,7 +165,8 @@ int main(void)
 * @note		None.
 *
 ******************************************************************************/
-int XZDma_SimpleExample(u16 DeviceId)
+int XZDma_SimpleExample(INTC *IntcInstPtr, XZDma *ZdmaInstPtr,
+			u16 DeviceId, u16 IntrId)
 {
 	int Status;
 	XZDma_Config *Config;
@@ -165,14 +185,14 @@ int XZDma_SimpleExample(u16 DeviceId)
 		return XST_FAILURE;
 	}
 
-	Status = XZDma_CfgInitialize(&ZDma, Config, Config->BaseAddress);
+	Status = XZDma_CfgInitialize(ZdmaInstPtr, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 	/*
 	 * Performs the self-test to check hardware build.
 	 */
-	Status = XZDma_SelfTest(&ZDma);
+	Status = XZDma_SelfTest(ZdmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
@@ -192,24 +212,24 @@ int XZDma_SimpleExample(u16 DeviceId)
 	}
 
 	/* ZDMA has set in simple transfer of Normal mode */
-	Status = XZDma_SetMode(&ZDma, FALSE, XZDMA_NORMAL_MODE);
+	Status = XZDma_SetMode(ZdmaInstPtr, FALSE, XZDMA_NORMAL_MODE);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 
 	/* Interrupt call back has been set */
-	XZDma_SetCallBack(&ZDma, XZDMA_HANDLER_DONE,
-				(void *)DoneHandler, &ZDma);
+	XZDma_SetCallBack(ZdmaInstPtr, XZDMA_HANDLER_DONE,
+				(void *)DoneHandler, ZdmaInstPtr);
 	/*
 	 * Connect to the interrupt controller.
 	 */
-	Status = SetupInterruptSystem(&Intc, &(ZDma),
-			ZDMA_INTR_DEVICE_ID);
+	Status = SetupInterruptSystem(IntcInstPtr, ZdmaInstPtr,
+				      IntrId);
 	if (Status != XST_SUCCESS) {
 		return XST_FAILURE;
 	}
 	/* Enable required interrupts */
-	XZDma_EnableIntr(&ZDma, (XZDMA_IXR_DMA_DONE_MASK));
+	XZDma_EnableIntr(ZdmaInstPtr, (XZDMA_IXR_DMA_DONE_MASK));
 
 	/* Configuration settings */
 	Configure.OverFetch = 1;
@@ -227,7 +247,7 @@ int XZDma_SimpleExample(u16 DeviceId)
 	Configure.SrcQos = 0;
 	Configure.DstQos = 0;
 
-	XZDma_SetChDataConfig(&ZDma, &Configure);
+	XZDma_SetChDataConfig(ZdmaInstPtr, &Configure);
 	/*
 	 * Transfer elements
 	 */
@@ -238,7 +258,7 @@ int XZDma_SimpleExample(u16 DeviceId)
 	Data.SrcCoherent = 1;
 	Data.Size = SIZE; /* Size in bytes */
 
-	XZDma_Start(&ZDma, &Data, 1); /* Initiates the data transfer */
+	XZDma_Start(ZdmaInstPtr, &Data, 1); /* Initiates the data transfer */
 
 	while (Done == 0); /* Wait till DMA done interrupt generated */
 
@@ -248,6 +268,8 @@ int XZDma_SimpleExample(u16 DeviceId)
 			return XST_FAILURE;
 		}
 	}
+
+	Done = 0;
 
 	return XST_SUCCESS;
 }
@@ -273,12 +295,57 @@ int XZDma_SimpleExample(u16 DeviceId)
 
 *
 ****************************************************************************/
-int SetupInterruptSystem(XScuGic *IntcInstancePtr,
+int SetupInterruptSystem(INTC *IntcInstancePtr,
 				XZDma *InstancePtr,
 				u16 IntrId)
 {
 	int Status;
 
+#ifdef XPAR_INTC_0_DEVICE_ID
+#ifndef TESTAPP_GEN
+	/* Initialize the interrupt controller and connect the ISRs */
+	Status = XIntc_Initialize(IntcInstancePtr, ZDMA_INTC_DEVICE_ID);
+	if (Status != XST_SUCCESS)
+	{
+
+		xil_printf("Failed init intc\r\n");
+		return XST_FAILURE;
+	}
+#endif
+	/*
+	 * Connect the driver interrupt handler
+	 */
+	Status = XIntc_Connect(IntcInstancePtr, IntrId,
+				(XInterruptHandler)XZDma_IntrHandler, InstancePtr,);
+	if (Status != XST_SUCCESS)
+	{
+
+		xil_printf("Failed connect intc\r\n");
+		return XST_FAILURE;
+	}
+#ifndef TESTAPP_GEN
+	/*
+	 * Start the interrupt controller such that interrupts are enabled for
+	 * all devices that cause interrupts.
+	 */
+	Status = XIntc_Start(IntcInstancePtr, XIN_REAL_MODE);
+	if (Status != XST_SUCCESS)
+	{
+		return XST_FAILURE;
+	}
+#endif
+
+	/*
+	 * Enable the interrupt for the ZDMA device.
+	 */
+	XIntc_Enable(IntcInstancePtr, IntrId);
+#ifndef TESTAPP_GEN
+	Xil_ExceptionInit();
+	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+				(Xil_ExceptionHandler)XIntc_InterruptHandler,
+				(void *)IntcInstancePtr);
+#endif
+#else
 #ifndef TESTAPP_GEN
 	XScuGic_Config *IntcConfig; /* Config for interrupt controller */
 
@@ -321,12 +388,14 @@ int SetupInterruptSystem(XScuGic *IntcInstancePtr,
 	 * Enable the interrupt for the device
 	 */
 	XScuGic_Enable(IntcInstancePtr, IntrId);
-
+#endif
+#ifndef TESTAPP_GEN
 
 	/*
 	 * Enable interrupts
 	 */
 	Xil_ExceptionEnableMask(XIL_EXCEPTION_IRQ);
+#endif
 
 
 	return XST_SUCCESS;
