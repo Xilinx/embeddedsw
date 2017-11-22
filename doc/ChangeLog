@@ -56,46 +56,6 @@ zynqmp_fsbl:
 Updated cross compiler flags with hard floating point values
 Added functionality in FSBL to distinguish EV devices from EG devices
 
-Changes for 2017.4
-===============================
-
-standalone_v6_5:
-Updated standalone.tcl to fix bug in
-mb_can_handle_exceptions_in_delay_slots proc.It fixes
-CR#987464.
-
-ttcps_v3_5:
-Updates XTtcPs_GetMatchValue and XTtcPs_SetMatchValue APIs
-to use correct match register width for zynq  (i.e. 16 bit)
-and zynq ultrascale+mpsoc (i.e. 32 bit). It fixes CR#986617
-
-v_csi2txss_v1_1:
-Exporting ulps API to subsystem
-
-v_sditx_v1_1:
-v_sditxss_v1_1:
-Removed the redundant interrupt flags.
-Enhanced st352 payload calculations for PsF format.
-Enhanced st352 payload calculations for modes with 2048/4096
-horizontal active pixel values.
-Support for CE align and axi4s interrupts.
-
-v_sdirx_v1_1:
-v_sdirxss_v1_1:
-Removed the redundant interrupt flags.
-
-axidma_v9_5:
-CR#987026 Fixed issue poll_multi_pkt example fails on a53
-Fixed race condition in the XAxiDma_Reset() API.
-CR#988210 Add interface to query config based on base addr.
-
-lwip141_2_0:
-Correct assigment of TX BD ring in init_dma() and
-emacps_error_handler().
-
-zdma_v1_4:
-Fixed compilation errors for IAR compiler.
-
 Changes for 2017.3
 ===============================
 
