@@ -786,6 +786,16 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		}
 	}
 
+/**
+ * If FSBL_PARTITION_LOAD_EXCLUDE macro is defined,then the partition loading
+ * will be skipped and irrespective of the actual boot device,FSBL will run the way
+ * it runs in JTAG boot mode
+ */
+#ifdef FSBL_PARTITION_LOAD_EXCLUDE
+	FsblInstancePtr->PrimaryBootDevice = XFSBL_JTAG_BOOT_MODE;
+	Status = XFSBL_STATUS_JTAG;
+#else
+
 	switch(BootMode)
 	{
 		/**
@@ -952,7 +962,7 @@ static u32 XFsbl_PrimaryBootDeviceInit(XFsblPs * FsblInstancePtr)
 		} break;
 
 	}
-
+#endif
 	/**
 	 * In case of error or Jtag boot, goto end
 	 */

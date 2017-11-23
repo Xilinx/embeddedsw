@@ -146,6 +146,7 @@ extern "C" {
 #define FSBL_PL_CLEAR_EXCLUDE_VAL		(1U)
 #define FSBL_USB_EXCLUDE_VAL			(1U)
 #define FSBL_PROT_BYPASS_EXCLUDE_VAL	(1U)
+#define FSBL_PARTITION_LOAD_EXCLUDE_VAL (0U)
 
 #if FSBL_NAND_EXCLUDE_VAL
 #define FSBL_NAND_EXCLUDE
@@ -199,6 +200,9 @@ extern "C" {
 #define FSBL_PROT_BYPASS_EXCLUDE
 #endif
 
+#if FSBL_PARTITION_LOAD_EXCLUDE_VAL
+#define FSBL_PARTITION_LOAD_EXCLUDE
+#endif
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
