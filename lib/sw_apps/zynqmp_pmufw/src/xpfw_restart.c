@@ -189,11 +189,6 @@ static bool XPfw_RestartIsPlDone(void)
 							CSU_PCAP_STATUS_PL_DONE_MASK);
 }
 
-static bool XPfw_RestartIsSubSysEnabled(void)
-{
-	return ((XPfw_Read32(LPD_XPPU_CTRL_ADDRESS) & LPD_XPPU_CTRL_EN_MASK) ==
-						LPD_XPPU_CTRL_EN_MASK);
-}
 /* Send an IPI from PMU_IPI_1 to the master */
 static void MasterIdle(PmMaster* Master)
 {
