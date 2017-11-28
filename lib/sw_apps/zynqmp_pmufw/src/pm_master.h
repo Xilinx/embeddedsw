@@ -209,6 +209,7 @@ int PmMasterSuspendAck(PmMaster* const mst, const int response);
 PmMaster* PmMasterGetPlaceholder(const PmNodeId nodeId);
 
 int PmMasterWake(const PmMaster* const mst);
+int PmWakeMasterBySlave(const PmSlave * const slave);
 
 /* Inline functions for checking the state of the master */
 

@@ -46,6 +46,7 @@
 #include "pm_gic_proxy.h"
 #include "pm_requirement.h"
 #include "pm_extern.h"
+#include "pm_usb.h"
 
 /* All GIC wakes in GPI1 */
 #define PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK \
@@ -167,6 +168,10 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 		status = PmMasterWake(&pmMasterApu_g);
 	} else if (0U != (PMU_LOCAL_GPI1_ENABLE_MIO_WAKE_MASK & srcMask)) {
 		status = PmExternWakeMasters();
+	} else if (0U != (PMU_IOMODULE_GPI1_USB_0_WAKE_MASK & srcMask)) {
+		status = PmWakeMasterBySlave(&pmSlaveUsb0_g.slv);
+	} else if (0U != (PMU_IOMODULE_GPI1_USB_1_WAKE_MASK & srcMask)) {
+		status = PmWakeMasterBySlave(&pmSlaveUsb1_g.slv);
 	} else {
 	}
 
