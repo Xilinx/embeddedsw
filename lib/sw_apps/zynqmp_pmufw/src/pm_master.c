@@ -686,6 +686,32 @@ static bool PmMasterAllProcsDown(const PmMaster* const master)
 }
 
 /**
+ * PmWakeMasterBySlave() - Wake the master for which slave is set as
+ *			   wakeup source
+ * @slave	Slave which set as wakeup source
+ *
+ * @return	Status of performing wake
+ */
+int PmWakeMasterBySlave(const PmSlave * const slave)
+{
+	PmMaster *mst = pmMasterHead;
+	int finalStatus = XST_SUCCESS;
+	int status;
+
+	while (mst) {
+		PmRequirement *masterReq = PmRequirementGet(mst, slave);
+
+		if (masterReq->info & PM_MASTER_WAKEUP_REQ_MASK) {
+			status = PmMasterWake(mst);
+			if (status != XST_SUCCESS)
+				finalStatus = XST_FAILURE;
+		}
+		mst = mst->nextMaster;
+	}
+	return finalStatus;
+}
+
+/**
  * PmMasterWakeProc() - Master prepares for wake and wakes the processor
  * @proc	Processor to wake up
  *
