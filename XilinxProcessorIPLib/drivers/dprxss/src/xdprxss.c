@@ -308,12 +308,15 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 				StubTp2Callback, (void *)InstancePtr);
 		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_UNPLUG,
 				StubUnplugCallback, (void *)InstancePtr);
+<<<<<<< HEAD
 		if (InstancePtr->DpPtr->Config.DpProtocol == XDP_PROTOCOL_DP_1_4) {
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP4,
 					StubTp2Callback, (void *)InstancePtr);
 			XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_ACCESS_LANE_SET,
 					StubAccessLaneSetCallback, (void *)InstancePtr);
 		}
+=======
+>>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 
 		/* Initialize configurable parameters */
 		InstancePtr->UsrOpt.Bpc = InstancePtr->Config.MaxBpc;

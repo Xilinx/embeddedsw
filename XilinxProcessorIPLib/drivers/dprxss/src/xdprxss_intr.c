@@ -341,6 +341,16 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_PWRSTATECHANGE,
 					CallbackFunc, CallbackRef);
+<<<<<<< HEAD
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT:
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_DRV_PWRSTATE,
+					CallbackFunc, CallbackRef);
+=======
+>>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			Status = XST_SUCCESS;
 			break;
 
@@ -351,16 +361,11 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
-		case XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT:
-			XDp_RxSetDrvIntrPowerStateHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
 		case XDPRXSS_HANDLER_DP_NO_VID_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_NOVIDEO,
 					CallbackFunc, CallbackRef);
+<<<<<<< HEAD
 			Status = XST_SUCCESS;
 			break;
 
@@ -368,12 +373,15 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_DRV_NOVIDEO,
 					CallbackFunc, CallbackRef);
+=======
+>>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT:
-			XDp_RxSetDrvIntrNoVideoHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_DRV_NOVIDEO,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
@@ -395,6 +403,7 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_VIDEO,
 					CallbackFunc, CallbackRef);
+<<<<<<< HEAD
 			Status = XST_SUCCESS;
 			break;
 
@@ -402,12 +411,15 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_DRV_VIDEO,
 					CallbackFunc, CallbackRef);
+=======
+>>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_DRV_HANDLER_DP_VID_EVENT:
-			XDp_RxSetDrvIntrVideoHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_DRV_VIDEO,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 

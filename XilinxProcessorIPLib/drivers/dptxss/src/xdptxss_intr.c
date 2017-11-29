@@ -352,6 +352,16 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 					XDP_TX_HANDLER_HPDEVENT,
 					CallbackFunc, CallbackRef);
+<<<<<<< HEAD
+			Status = XST_SUCCESS;
+			break;
+
+		case XDPTXSS_DRV_HANDLER_DP_HPD_EVENT:
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_DRV_HPDEVENT,
+				CallbackFunc, CallbackRef);
+=======
+>>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 			Status = XST_SUCCESS;
 			break;
 
@@ -362,15 +372,10 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
-		case XDPTXSS_DRV_HANDLER_DP_HPD_EVENT:
-			XDp_TxSetDrvHpdEventHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
 		case XDPTXSS_HANDLER_DP_HPD_PULSE:
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 				XDP_TX_HANDLER_HPDPULSE,
+<<<<<<< HEAD
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
@@ -378,12 +383,15 @@ u32 XDpTxSs_SetCallBack(XDpTxSs *InstancePtr, u32 HandlerType,
 		case XDPTXSS_DRV_HANDLER_DP_HPD_PULSE:
 			XDp_TxSetCallback(InstancePtr->DpPtr,
 				XDP_TX_HANDLER_DRV_HPDPULSE,
+=======
+>>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPTXSS_DRV_HANDLER_DP_HPD_PULSE:
-			XDp_TxSetDrvHpdPulseHandler(InstancePtr->DpPtr,
+			XDp_TxSetCallback(InstancePtr->DpPtr,
+				XDP_TX_HANDLER_DRV_HPDPULSE,
 				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;

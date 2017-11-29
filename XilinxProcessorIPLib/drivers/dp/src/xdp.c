@@ -1792,6 +1792,7 @@ void XDp_RxVSCEn(XDp *InstancePtr)
 
 /******************************************************************************/
 /**
+<<<<<<< HEAD
  * This function disables the Video Stream Configuration.
  *
  * @param	InstancePtr is a pointer to the XDp instance.
@@ -1886,6 +1887,8 @@ void XDp_WaitUs(XDp *InstancePtr, u32 MicroSeconds)
 
 /******************************************************************************/
 /**
+=======
+>>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
  * This function checks the validity of the link rate.
  *
  * @param	InstancePtr is a pointer to the XDp instance.

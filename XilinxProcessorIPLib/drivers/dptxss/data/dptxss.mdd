@@ -38,6 +38,7 @@ BEGIN driver dptxss
 	OPTION copyfiles = all;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	OPTION VERSION = 6.0;
 =======
 	OPTION VERSION = 4.3;
@@ -45,5 +46,8 @@ BEGIN driver dptxss
 =======
 	OPTION VERSION = 4.4;
 >>>>>>> DP/DPTXSS: Moved default HPD interrupt sequence to driver
+=======
+	OPTION VERSION = 5.1;
+>>>>>>> dp : Merged multiple functions to set the DP intr handlers into a single generic function.
 	OPTION NAME = dptxss;
 END driver
