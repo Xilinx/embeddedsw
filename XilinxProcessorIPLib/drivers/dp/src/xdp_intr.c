@@ -103,8 +103,12 @@
 
 /**************************** Function Prototypes *****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static void XDp_TxInterruptHandler(XDp *InstancePtr);
+#endif
+#if XPAR_XDPRXSS_NUM_INSTANCES
 static void XDp_RxInterruptHandler(XDp *InstancePtr);
+#endif
 
 /**************************** Function Definitions ****************************/
 
@@ -129,14 +133,22 @@ void XDp_InterruptHandler(XDp *InstancePtr)
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		XDp_TxInterruptHandler(InstancePtr);
-	}
-	else {
+	}  else
+#endif
+#if XPAR_XDPRXSS_NUM_INSTANCES
+	if (XDp_GetCoreType(InstancePtr) == XDP_RX) {
 		XDp_RxInterruptHandler(InstancePtr);
+	}
+#endif
+	{
+		/* Nothing to be done. */
 	}
 }
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function generates a pulse on the hot-plug-detect (HPD) line of the
@@ -219,9 +231,10 @@ void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_RX_INTERRUPT_MASK,
 								MaskVal);
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
-
-/******************************************************************************/
+#if XPAR_XDPTXSS_NUM_INSTANCES
+/*****************************************************************************/
 /**
  * This function installs a callback function for when a hot-plug-detect event
  * interrupt occurs.
@@ -360,8 +373,10 @@ void XDp_TxSetMsaHandler(XDp *InstancePtr,
         InstancePtr->TxInstance.TxSetMsaCallback = CallbackFunc;
         InstancePtr->TxInstance.TxMsaCallbackRef = CallbackRef;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
-/******************************************************************************/
+#if XPAR_XDPRXSS_NUM_INSTANCES
+/*****************************************************************************/
 /**
  * This function installs a callback function for when a video mode change
  * interrupt occurs.
@@ -1467,9 +1482,13 @@ int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 
 	return Status;
 }
-
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+<<<<<<< HEAD
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
+=======
+>>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**

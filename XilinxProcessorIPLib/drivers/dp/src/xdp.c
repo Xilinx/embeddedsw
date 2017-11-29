@@ -1763,6 +1763,7 @@ void XDp_RxAudioReset(XDp *InstancePtr)
 	XDp_WaitUs(InstancePtr, 1000);
 	XDp_RxAudioEn(InstancePtr);
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /******************************************************************************/
 /**
@@ -1903,9 +1904,14 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 	u8 Valid;
 
 	if ((LinkRate != XDP_LINK_BW_SET_162GBPS) &&
+<<<<<<< HEAD
 		(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_540GBPS) &&
 		(LinkRate != XDP_LINK_BW_SET_810GBPS)) {
+=======
+			(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
+			(LinkRate != XDP_LINK_BW_SET_540GBPS)) {
+>>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 		Valid = 0;
 	}
 	else if (LinkRate > InstancePtr->Config.MaxLinkRate) {

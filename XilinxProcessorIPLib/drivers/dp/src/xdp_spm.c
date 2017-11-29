@@ -981,12 +981,18 @@ void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x0);
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
 =======
 
 >>>>>>> DPTXSS: Add userpixelwidth config support
+=======
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
+>>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 /******************************************************************************/
 /**
  * This function configures the number of pixels output through the user data

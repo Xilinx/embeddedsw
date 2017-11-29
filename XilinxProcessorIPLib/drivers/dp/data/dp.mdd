@@ -41,6 +41,7 @@ BEGIN driver dp
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         OPTION VERSION = 7.0;
 =======
         OPTION VERSION = 5.4;
@@ -54,5 +55,8 @@ BEGIN driver dp
 =======
         OPTION VERSION = 6.0;
 >>>>>>> DP: Resolve multiple verion issue
+=======
+        OPTION VERSION = 7.0;
+>>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
         OPTION NAME = dp;
 END driver

@@ -1315,8 +1315,11 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
 void XDp_RxAudioReset(XDp *InstancePtr);
+<<<<<<< HEAD
 void XDp_RxVSCEn(XDp *InstancePtr);
 void XDp_RxVSCDis(XDp *InstancePtr);
+=======
+>>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
@@ -1338,9 +1341,13 @@ u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 /* xdp_intr.c: Interrupt handling functions. */
 void XDp_InterruptHandler(XDp *InstancePtr);
 <<<<<<< HEAD
+<<<<<<< HEAD
 #if XPAR_XDPTXSS_NUM_INSTANCES
 int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
 =======
+=======
+#if XPAR_XDPTXSS_NUM_INSTANCES
+>>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
@@ -1369,7 +1376,11 @@ void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+<<<<<<< HEAD
 >>>>>>> DPRXSS Added interrupt handler for video and power
+=======
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+>>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
@@ -1480,11 +1491,17 @@ void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 <<<<<<< HEAD
+<<<<<<< HEAD
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
 =======
 >>>>>>> DP: Remove compile warning for XDp_TxSetUserPixelWidth function
+=======
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
+>>>>>>> dp : Separation of TX and RX code and other updates for optimization for size.
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
