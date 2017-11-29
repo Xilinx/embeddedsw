@@ -201,958 +201,312 @@ void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask)
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /*****************************************************************************/
 /**
- * This function installs a callback function for when a hot-plug-detect event
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
-				XDp_IntrHandler CallbackFunc, void *CallbackRef)
+* This function installs callback functions for the given
+* HandlerType:
+*
+* @param	InstancePtr is a pointer to the DP core instance.
+* @param	HandlerType specifies the type of handler.
+* @param	CallbackFunc is the address of the callback function.
+* @param	CallbackRef is a user data item that will be passed to the
+*			callback function when it is invoked.
+*
+* @return
+*		- XST_SUCCESS if callback function installed successfully.
+*		- XST_INVALID_PARAM when HandlerType is invalid.
+*
+* @note		Invoking this function for a handler that already has been
+*			installed replaces it with the new handler.
+*
+******************************************************************************/
+int XDp_TxSetCallback(XDp *InstancePtr,	XDp_Tx_HandlerType HandlerType,
+			XDp_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
+	Xil_AssertNonvoid(HandlerType < XDP_TX_NUM_HANDLERS);
+	Xil_AssertNonvoid(CallbackFunc != NULL);
+	Xil_AssertNonvoid(CallbackRef != NULL);
 
-	InstancePtr->TxInstance.HpdEventHandler = CallbackFunc;
-	InstancePtr->TxInstance.HpdEventCallbackRef = CallbackRef;
-}
+	u32 Status;
 
-/******************************************************************************/
-/**
- * This function installs a driver's internal callback function for when a
- * hot-plug-detect event interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_TxSetDrvHpdEventHandler(XDp *InstancePtr,
-				XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->TxInstance.DrvHpdEventHandler = CallbackFunc;
-	InstancePtr->TxInstance.DrvHpdEventCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a hot-plug-detect pulse
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
-				XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->TxInstance.HpdPulseHandler = CallbackFunc;
-	InstancePtr->TxInstance.HpdPulseCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a driver's internal callback function for when a
- * hot-plug-detect pulse interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_TxSetDrvHpdPulseHandler(XDp *InstancePtr,
-				XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->TxInstance.DrvHpdPulseHandler = CallbackFunc;
-	InstancePtr->TxInstance.DrvHpdPulseCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when the main stream attribute
- * (MSA) values are updated.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_TxSetMsaHandler(XDp *InstancePtr,
-                                XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-        /* Verify arguments. */
-        Xil_AssertVoid(InstancePtr != NULL);
-        Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_TX);
-        Xil_AssertVoid(CallbackFunc != NULL);
-        Xil_AssertVoid(CallbackRef != NULL);
-
+	switch (HandlerType)
+	{
+	case XDP_TX_HANDLER_SETMSA:
         InstancePtr->TxInstance.TxSetMsaCallback = CallbackFunc;
         InstancePtr->TxInstance.TxMsaCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_HPDEVENT:
+		InstancePtr->TxInstance.HpdEventHandler = CallbackFunc;
+		InstancePtr->TxInstance.HpdEventCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_DRV_HPDEVENT:
+		InstancePtr->TxInstance.DrvHpdEventHandler = CallbackFunc;
+		InstancePtr->TxInstance.DrvHpdEventCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_HPDPULSE:
+		InstancePtr->TxInstance.HpdPulseHandler = CallbackFunc;
+		InstancePtr->TxInstance.HpdPulseCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_DRV_HPDPULSE:
+		InstancePtr->TxInstance.DrvHpdPulseHandler = CallbackFunc;
+		InstancePtr->TxInstance.DrvHpdPulseCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_LANECNTCHANGE:
+		InstancePtr->TxInstance.LaneCountChangeCallback = CallbackFunc;
+		InstancePtr->TxInstance.LaneCountChangeCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_LINKRATECHANGE:
+		InstancePtr->TxInstance.LinkRateChangeCallback = CallbackFunc;
+		InstancePtr->TxInstance.LinkRateChangeCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_TX_HANDLER_PEVSADJUST:
+		InstancePtr->TxInstance.PeVsAdjustCallback = CallbackFunc;
+		InstancePtr->TxInstance.PeVsAdjustCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+
+	}
+
+	return Status;
 }
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #if XPAR_XDPRXSS_NUM_INSTANCES
 /*****************************************************************************/
 /**
- * This function installs a callback function for when a video mode change
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrVmChangeHandler(XDp *InstancePtr,
+* This function installs callback functions for the given
+* HandlerType:
+*
+* @param	InstancePtr is a pointer to the DP core instance.
+* @param	HandlerType specifies the type of handler.
+* @param	CallbackFunc is the address of the callback function.
+* @param	CallbackRef is a user data item that will be passed to the
+*			callback function when it is invoked.
+*
+* @return
+*		- XST_SUCCESS if callback function installed successfully.
+*		- XST_INVALID_PARAM when HandlerType is invalid.
+*
+* @note		Invoking this function for a handler that already has been
+*			installed replaces it with the new handler.
+*
+******************************************************************************/
+int XDp_RxSetCallback(XDp *InstancePtr,	Dp_Rx_HandlerType HandlerType,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef)
 {
 	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
+	Xil_AssertNonvoid(HandlerType < XDP_RX_NUM_HANDLERS);
+	Xil_AssertNonvoid(CallbackFunc != NULL);
+	Xil_AssertNonvoid(CallbackRef != NULL);
 
-	InstancePtr->RxInstance.IntrVmChangeHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrVmChangeCallbackRef = CallbackRef;
+	u32 Status;
+
+	switch (HandlerType)
+	{
+	case XDP_RX_HANDLER_VMCHANGE:
+		InstancePtr->RxInstance.IntrVmChangeHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrVmChangeCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_PWRSTATECHANGE:
+		InstancePtr->RxInstance.IntrPowerStateHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrPowerStateCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_NOVIDEO:
+		InstancePtr->RxInstance.IntrNoVideoHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrNoVideoCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VBLANK:
+		InstancePtr->RxInstance.IntrVBlankHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrVBlankCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_TRAININGLOST:
+		InstancePtr->RxInstance.IntrTrainingLostHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrTrainingLostCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_VIDEO:
+		InstancePtr->RxInstance.IntrVideoHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrVideoCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_AUD_INFOPKTRECV:
+		InstancePtr->RxInstance.IntrInfoPktHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrInfoPktCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_AUD_EXTPKTRECV:
+		InstancePtr->RxInstance.IntrExtPktHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrExtPktCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_TRAININGDONE:
+		InstancePtr->RxInstance.IntrTrainingDoneHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrTrainingDoneCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_BWCHANGE:
+		InstancePtr->RxInstance.IntrBwChangeHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrBwChangeCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_TP1:
+		InstancePtr->RxInstance.IntrTp1Handler = CallbackFunc;
+		InstancePtr->RxInstance.IntrTp1CallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_TP2:
+		InstancePtr->RxInstance.IntrTp2Handler = CallbackFunc;
+		InstancePtr->RxInstance.IntrTp2CallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_TP3:
+		InstancePtr->RxInstance.IntrTp3Handler = CallbackFunc;
+		InstancePtr->RxInstance.IntrTp3CallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_DOWNREQ:
+		InstancePtr->RxInstance.IntrDownReqHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrDownReqCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_DOWNREPLY:
+		InstancePtr->RxInstance.IntrDownReplyHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrDownReplyCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_AUD_PKTOVERFLOW:
+		InstancePtr->RxInstance.IntrAudioOverHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrAudioOverCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_PAYLOADALLOC:
+		InstancePtr->RxInstance.IntrPayloadAllocHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrPayloadAllocCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_ACT_SEQ:
+		InstancePtr->RxInstance.IntrActRxHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrActRxCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_CRC_TEST:
+		InstancePtr->RxInstance.IntrCrcTestHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrCrcTestCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_HDCP_DEBUG:
+		InstancePtr->RxInstance.IntrHdcpDbgWrHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcpDbgWrCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_HDCP_AKSV:
+		InstancePtr->RxInstance.IntrHdcpAksvWrHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcpAksvWrCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_HDCP_AN:
+		InstancePtr->RxInstance.IntrHdcpAnWrHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcpAnWrCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_HDCP_AINFO:
+		InstancePtr->RxInstance.IntrHdcpAinfoWrHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcpAinfoWrCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_HDCP_RO:
+		InstancePtr->RxInstance.IntrHdcpRoRdHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcpRoRdCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_HDCP_BINFO:
+		InstancePtr->RxInstance.IntrHdcpBinfoRdHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_UNPLUG:
+		InstancePtr->RxInstance.IntrUnplugHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrUnplugCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_DRV_PWRSTATE:
+		InstancePtr->RxInstance.IntrDrvPowerStateHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrDrvPowerStateCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_DRV_NOVIDEO:
+		InstancePtr->RxInstance.IntrDrvNoVideoHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrDrvNoVideoCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	case XDP_RX_HANDLER_DRV_VIDEO:
+		InstancePtr->RxInstance.IntrDrvVideoHandler = CallbackFunc;
+		InstancePtr->RxInstance.IntrDrvVideoCallbackRef = CallbackRef;
+		Status = XST_SUCCESS;
+		break;
+
+	default:
+		Status = XST_INVALID_PARAM;
+		break;
+
+	}
+
+	return Status;
 }
 
-/******************************************************************************/
-/**
- * This function installs a callback function for when the power state interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrPowerStateHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrPowerStateHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrPowerStateCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a driver callback function for when the power
- * state interrupt occurs.
- *
- * @param      InstancePtr is a pointer to the XDp instance.
- * @param      CallbackFunc is the address to the callback function.
- * @param      CallbackRef is the user data item that will be passed to the
- *             callback function when it is invoked.
- *
- * @return     None.
- *
- * @note       None.
- *
- *******************************************************************************/
-void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrDrvPowerStateHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrDrvPowerStateCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a no video interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrNoVideoHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrNoVideoHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrNoVideoCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs driver callback function for when a no video
- * interrupt occurs.
- *
- * @param       InstancePtr is a pointer to the XDp instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
- *              callback function when it is invoked.
- *
- * @return      None.
- *
- * @note        None.
- *
- *******************************************************************************/
-void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrDrvNoVideoHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrDrvNoVideoCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a vertical blanking
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrVBlankHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrVBlankHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrVBlankCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a training lost interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrTrainingLostHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrTrainingLostHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrTrainingLostCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a valid video interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrVideoHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrVideoHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrVideoCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a driver callback function for when a valid video
- * interrupt occurs.
- *
- * @param       InstancePtr is a pointer to the XDp instance.
- * @param       CallbackFunc is the address to the callback function.
- * @param       CallbackRef is the user data item that will be passed to the
- *              callback function when it is invoked.
- *
- * @return      None.
- *
- * @note        None.
- *
- *******************************************************************************/
-void XDp_RxSetDrvIntrVideoHandler(XDp *InstancePtr,
-		XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrDrvVideoHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrDrvVideoCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when an audio info packet
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrInfoPktHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrInfoPktHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrInfoPktCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when an audio extension packet
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrExtPktHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrExtPktHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrExtPktCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a training done interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrTrainingDoneHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrTrainingDoneHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrTrainingDoneCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a bandwidth change
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrBwChangeHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrBwChangeHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrBwChangeCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a training pattern 1
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrTp1Handler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrTp1Handler = CallbackFunc;
-	InstancePtr->RxInstance.IntrTp1CallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a training pattern 2
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrTp2Handler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrTp2Handler = CallbackFunc;
-	InstancePtr->RxInstance.IntrTp2CallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a training pattern 3
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrTp3Handler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrTp3Handler = CallbackFunc;
-	InstancePtr->RxInstance.IntrTp3CallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a write to any hdcp
- * debug register occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrHdcpDebugWriteHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrHdcpDbgWrHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrHdcpDbgWrCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a write to the hdcp
- * Aksv MSB register occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrHdcpAksvWriteHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrHdcpAksvWrHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrHdcpAksvWrCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a write to the hdcp
- * An MSB register occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrHdcpAnWriteHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrHdcpAnWrHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrHdcpAnWrCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a write to the hdcp
- * Ainfo MSB register occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrHdcpAinfoWriteHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrHdcpAinfoWrHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrHdcpAinfoWrCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a read of the hdcp
- * Ro/Ri MSB register occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrHdcpRoReadHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrHdcpRoRdHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrHdcpRoRdCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a read of the hdcp
- * Binfo register occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrHdcpBinfoReadHandler(XDp *InstancePtr,
-		XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrHdcpBinfoRdHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrHdcpBinfoRdCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a down request interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrDownReqHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrDownReqHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrDownReqCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a down reply interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrDownReplyHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrDownReplyHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrDownReplyCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when an audio packet overflow
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrAudioOverHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrAudioOverHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrAudioOverCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when the RX's DPCD payload
- * allocation registers have been written for allocation, de-allocation, or
- * partial deletion.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrPayloadAllocHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrPayloadAllocHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrPayloadAllocCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when an ACT received interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrActRxHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrActRxHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrActRxCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when a CRC test start
- * interrupt occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrCrcTestHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrCrcTestHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrCrcTestCallbackRef = CallbackRef;
-}
-
-/******************************************************************************/
-/**
- * This function installs a callback function for when an unplug event interrupt
- * occurs.
- *
- * @param	InstancePtr is a pointer to the XDp instance.
- * @param	CallbackFunc is the address to the callback function.
- * @param	CallbackRef is the user data item that will be passed to the
- *		callback function when it is invoked.
- *
- * @return	None.
- *
- * @note	None.
- *
-*******************************************************************************/
-void XDp_RxSetIntrUnplugHandler(XDp *InstancePtr,
-			XDp_IntrHandler CallbackFunc, void *CallbackRef)
-{
-	/* Verify arguments. */
-	Xil_AssertVoid(InstancePtr != NULL);
-	Xil_AssertVoid(XDp_GetCoreType(InstancePtr) == XDP_RX);
-	Xil_AssertVoid(CallbackFunc != NULL);
-	Xil_AssertVoid(CallbackRef != NULL);
-
-	InstancePtr->RxInstance.IntrUnplugHandler = CallbackFunc;
-	InstancePtr->RxInstance.IntrUnplugCallbackRef = CallbackRef;
-}
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
