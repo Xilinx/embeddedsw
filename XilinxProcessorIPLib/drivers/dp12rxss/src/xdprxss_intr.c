@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-* XILINX BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /*****************************************************************************/
@@ -333,12 +331,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			Status = XST_SUCCESS;
 			break;
 
-		case XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT:
-			XDp_RxSetDrvIntrPowerStateHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
 		case XDPRXSS_HANDLER_DP_NO_VID_EVENT:
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_NOVIDEO,
@@ -350,12 +342,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_DRV_NOVIDEO,
 					CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT:
-			XDp_RxSetDrvIntrNoVideoHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
@@ -384,12 +370,6 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 			XDp_RxSetCallback(InstancePtr->DpPtr,
 					XDP_RX_HANDLER_DRV_VIDEO,
 					CallbackFunc, CallbackRef);
-			Status = XST_SUCCESS;
-			break;
-
-		case XDPRXSS_DRV_HANDLER_DP_VID_EVENT:
-			XDp_RxSetDrvIntrVideoHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
