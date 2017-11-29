@@ -317,116 +317,135 @@ u32 XDpRxSs_SetCallBack(XDpRxSs *InstancePtr, u32 HandlerType,
 	/* Assign callback based on handler type */
 	switch (HandlerType) {
 		case XDPRXSS_HANDLER_DP_VM_CHG_EVENT:
-			XDp_RxSetIntrVmChangeHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VMCHANGE,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_PWR_CHG_EVENT:
-			XDp_RxSetIntrPowerStateHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_PWRSTATECHANGE,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_DRV_HANDLER_DP_PWR_CHG_EVENT:
-			XDp_RxSetDrvIntrPowerStateHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_DRV_PWRSTATE,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_NO_VID_EVENT:
-			XDp_RxSetIntrNoVideoHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_NOVIDEO,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_DRV_HANDLER_DP_NO_VID_EVENT:
-			XDp_RxSetDrvIntrNoVideoHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_DRV_NOVIDEO,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_VBLANK_EVENT:
-			XDp_RxSetIntrVBlankHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VBLANK,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_TLOST_EVENT:
-			XDp_RxSetIntrTrainingLostHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_TRAININGLOST,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_VID_EVENT:
-			XDp_RxSetIntrVideoHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_VIDEO,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_DRV_HANDLER_DP_VID_EVENT:
-			XDp_RxSetDrvIntrVideoHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_DRV_VIDEO,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_INFO_PKT_EVENT:
-			XDp_RxSetIntrInfoPktHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_INFOPKTRECV,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_EXT_PKT_EVENT:
-			XDp_RxSetIntrExtPktHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_EXTPKTRECV,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_TDONE_EVENT:
-			XDp_RxSetIntrTrainingDoneHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_TRAININGDONE,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_BW_CHG_EVENT:
-			XDp_RxSetIntrBwChangeHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_BWCHANGE,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_DWN_REQ_EVENT:
-			XDp_RxSetIntrDownReqHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_DOWNREQ,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_DWN_REP_EVENT:
-			XDp_RxSetIntrDownReplyHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_DOWNREPLY,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_AUD_OVRFLW_EVENT:
-			XDp_RxSetIntrAudioOverHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_AUD_PKTOVERFLOW,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_PAYLOAD_ALLOC_EVENT:
-			XDp_RxSetIntrPayloadAllocHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_PAYLOADALLOC,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_ACT_RX_EVENT:
-			XDp_RxSetIntrActRxHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_ACT_SEQ,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 
 		case XDPRXSS_HANDLER_DP_CRC_TEST_EVENT:
-			XDp_RxSetIntrCrcTestHandler(InstancePtr->DpPtr,
-				CallbackFunc, CallbackRef);
+			XDp_RxSetCallback(InstancePtr->DpPtr,
+					XDP_RX_HANDLER_CRC_TEST,
+					CallbackFunc, CallbackRef);
 			Status = XST_SUCCESS;
 			break;
 

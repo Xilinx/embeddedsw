@@ -284,14 +284,14 @@ u32 XDpRxSs_CfgInitialize(XDpRxSs *InstancePtr, XDpRxSs_Config *CfgPtr,
 		/* Initialize default training pattern callbacks in DP RX
 		 * Subsystem
 		 */
-		XDp_RxSetIntrTp1Handler(InstancePtr->DpPtr, StubTp1Callback,
-			(void *)InstancePtr);
-		XDp_RxSetIntrTp2Handler(InstancePtr->DpPtr, StubTp2Callback,
-			(void *)InstancePtr);
-		XDp_RxSetIntrTp3Handler(InstancePtr->DpPtr, StubTp2Callback,
-			(void *)InstancePtr);
-		XDp_RxSetIntrUnplugHandler(InstancePtr->DpPtr,
-			StubUnplugCallback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP1,
+				StubTp1Callback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP2,
+				StubTp2Callback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_TP3,
+				StubTp2Callback, (void *)InstancePtr);
+		XDp_RxSetCallback(InstancePtr->DpPtr, XDP_RX_HANDLER_UNPLUG,
+				StubUnplugCallback, (void *)InstancePtr);
 
 		/* Initialize configurable parameters */
 		InstancePtr->UsrOpt.Bpc = InstancePtr->Config.MaxBpc;
