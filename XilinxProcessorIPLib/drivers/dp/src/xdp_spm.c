@@ -71,12 +71,15 @@
 
 /**************************** Function Prototypes *****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel);
 static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 		XDp_TxMainStreamAttributes *MsaConfig);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /**************************** Function Definitions ****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function calculates the following Main Stream Attributes (MSA):
@@ -952,7 +955,9 @@ void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth)
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x1);
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_SOFT_RESET, 0x0);
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function configures the number of pixels output through the user data
@@ -1015,18 +1020,18 @@ XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 
 	/* Determine number of bits per color component. */
-	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_BDC_MASK;
-	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_BDC_SHIFT;
+	RegVal  &= XDP_MAIN_STREAMX_MISC0_BDC_MASK;
+	RegVal >>= XDP_MAIN_STREAMX_MISC0_BDC_SHIFT;
 	switch (RegVal) {
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_6BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_6BPC:
 			return XVIDC_BPC_6;
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_8BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_8BPC:
 			return XVIDC_BPC_8;
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_10BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_10BPC:
 			return XVIDC_BPC_10;
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_12BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_12BPC:
 			return XVIDC_BPC_12;
-		case XDP_TX_MAIN_STREAMX_MISC0_BDC_16BPC:
+		case XDP_MAIN_STREAMX_MISC0_BDC_16BPC:
 			return XVIDC_BPC_16;
 		default:
 			return XVIDC_BPC_UNKNOWN;
@@ -1066,14 +1071,14 @@ XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream)
 			StreamOffset[Stream - XDP_TX_STREAM_ID1]);
 
 	/* Determine the color component format for the stream. */
-	RegVal  &= XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK;
-	RegVal >>= XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
+	RegVal  &= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK;
+	RegVal >>= XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT;
 	switch (RegVal) {
-		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB:
+		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB:
 			return XVIDC_CSF_RGB;
-		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422:
+		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422:
 			return XVIDC_CSF_YCRCB_422;
-		case XDP_TX_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444:
+		case XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444:
 			return XVIDC_CSF_YCRCB_444;
 		default:
 			return XVIDC_CSF_UNKNOWN;
@@ -1170,7 +1175,9 @@ void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream)
 		XDp_RxDtgEn(InstancePtr);
 	}
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * When the driver is in multi-stream transport (MST) mode, this function will
@@ -1311,4 +1318,5 @@ static void XDp_TxSetLineReset(XDp *InstancePtr, u8 Stream,
 	}
 	XDp_WriteReg(ConfigPtr->BaseAddr, XDP_TX_LINE_RESET_DISABLE, RegVal);
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 /** @} */

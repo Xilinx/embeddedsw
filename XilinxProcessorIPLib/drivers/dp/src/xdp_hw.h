@@ -70,6 +70,59 @@
 
 /************************** Constant Definitions ******************************/
 
+/** @name DP generic definitions: Link bandwith and lane count.
+  * @{
+  */
+/* 0x000: LINK_BW_SET */
+#define XDP_LINK_BW_SET_162GBPS	0x06	/**< 1.62 Gbps link rate. */
+#define XDP_LINK_BW_SET_270GBPS	0x0A	/**< 2.70 Gbps link rate. */
+#define XDP_LINK_BW_SET_540GBPS	0x14	/**< 5.40 Gbps link rate. */
+/* 0x001: LANE_COUNT_SET */
+#define XDP_LANE_COUNT_SET_1		0x01	/**< Lane count of 1. */
+#define XDP_LANE_COUNT_SET_2		0x02	/**< Lane count of 2. */
+#define XDP_LANE_COUNT_SET_4		0x04	/**< Lane count of 4. */
+/* @} */
+
+/** @name DP generic definitions: Bits per color components.
+  * @{
+  */
+#define XDP_MAIN_STREAMX_MISC0_BDC_MASK \
+				0x000000E0	/**< Bit depth per color
+							component (BDC). */
+#define XDP_MAIN_STREAMX_MISC0_BDC_SHIFT \
+				5		/**< Shift bits for BDC.*/
+#define XDP_MAIN_STREAMX_MISC0_BDC_6BPC \
+				0x0		/**< 6 bits per component.*/
+#define XDP_MAIN_STREAMX_MISC0_BDC_8BPC \
+				0x1		/**< 8 bits per component.*/
+#define XDP_MAIN_STREAMX_MISC0_BDC_10BPC \
+				0x2		/**< 10 bits per component.*/
+#define XDP_MAIN_STREAMX_MISC0_BDC_12BPC \
+				0x3		/**< 12 bits per component.*/
+#define XDP_MAIN_STREAMX_MISC0_BDC_16BPC \
+				0x4		/**< 16 bits per component.*/
+/* @} */
+
+/** @name DP generic definitions: Miscellaneous components; color format.
+  * @{
+  */
+#define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_MASK \
+				0x00000006	/**< Component format. */
+#define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_SHIFT \
+				1               /**< Shift bits for component
+							format. */
+#define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_RGB \
+				0x0		/**< Stream's component format
+							is RGB. */
+#define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR422 \
+				0x5		/**< Stream's component format
+							is YcbCr 4:2:2. */
+#define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 \
+				0x6		/**< Stream's component format
+							is YcbCr 4:4:4. */
+/* @} */
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * Address mapping for the DisplayPort core in TX mode.
@@ -817,8 +870,11 @@
 
 /* @} */
 
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
 /******************************************************************************/
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * Address mapping for the DisplayPort core in RX mode.
@@ -2051,6 +2107,8 @@
 				0X40000000	/**< Timeout for MST mode. */
 /* @} */
 
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
 /******************************************************************************/
 
 /******************************************************************************/
@@ -2491,6 +2549,8 @@
 #define XDP_EDID_DTD_SIGNAL_VPOLARITY_SHIFT			2
 /* @} */
 
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /** @name Extended Display Identification Data: Register offsets for the
   *       DisplayID extension block.
   * @{
@@ -2554,6 +2614,7 @@
 #define XDP_TX_DISPID_TDT_TOP2_HLOC_H_MASK	(0x3 << 2)
 #define XDP_TX_DISPID_TDT_TOP2_VLOC_H_MASK	0x3
 /* @} */
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
 /**
@@ -2656,6 +2717,7 @@
 				XDp_Out32((BaseAddress) + (RegOffset), (Data))
 
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * Check if an Extended Display Identification Data (EDID) extension block is of
@@ -2790,6 +2852,8 @@
 #define XDp_TxGetDispIdTdtTileOrder(Tdt) \
 	((XDp_TxGetDispIdTdtVLoc(Tdt) * XDp_TxGetDispIdTdtHTotal(Tdt)) + \
 	XDp_TxGetDispIdTdtHLoc(Tdt))
+
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 #endif /* XDP_HW_H_ */
 /** @} */

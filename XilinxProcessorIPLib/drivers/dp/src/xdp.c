@@ -70,10 +70,12 @@
 
 /**************************** Constant Definitions ****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* The maximum voltage swing level is 3. */
 #define XDP_TX_MAXIMUM_VS_LEVEL 3
 /* The maximum pre-emphasis level is 3. */
 #define XDP_TX_MAXIMUM_PE_LEVEL 3
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /* Error out if an AUX request yields a defer reply more than 50 times. */
 #define XDP_AUX_MAX_DEFER_COUNT 50
@@ -84,6 +86,7 @@
 
 /****************************** Type Definitions ******************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /**
  * This typedef enumerates the list of training states used in the state machine
  * during the link training process.
@@ -96,6 +99,7 @@ typedef enum {
 	XDP_TX_TS_FAILURE,
 	XDP_TX_TS_SUCCESS
 } XDp_TxTrainingState;
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /**
  * This typedef describes an AUX transaction.
@@ -117,9 +121,14 @@ typedef struct {
 /**************************** Function Prototypes *****************************/
 
 /* Initialization functions. */
+#if XPAR_XDPTXSS_NUM_INSTANCES
 static u32 XDp_TxInitialize(XDp *InstancePtr);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+#if XPAR_XDPRXSS_NUM_INSTANCES
 static u32 XDp_RxInitialize(XDp *InstancePtr);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* Training functions. */
 static u32 XDp_TxRunTraining(XDp *InstancePtr);
 static XDp_TxTrainingState XDp_TxTrainingStateClockRecovery(XDp *InstancePtr);
@@ -146,6 +155,8 @@ static u32 XDp_TxAuxWaitReply(XDp *InstancePtr);
 static u32 XDp_TxAuxWaitReady(XDp *InstancePtr);
 /* Miscellaneous functions. */
 static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
 static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask);
 
 /**************************** Function Definitions ****************************/
@@ -181,6 +192,7 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 	InstancePtr->Config = *ConfigPtr;
 	InstancePtr->Config.BaseAddr = EffectiveAddr;
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		/* Set the DisplayPort TX's voltage swing and pre-emphasis
 		 * levels to their defaults. */
@@ -194,6 +206,7 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 		XDp_TxCfgTxPeLevel(InstancePtr, 2, XDP_TX_PE_LEVEL_2);
 		XDp_TxCfgTxPeLevel(InstancePtr, 3, XDP_TX_PE_LEVEL_3);
 	}
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 	InstancePtr->IsReady = XIL_COMPONENT_IS_READY;
 }
@@ -221,16 +234,24 @@ u32 XDp_Initialize(XDp *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		Status = XDp_TxInitialize(InstancePtr);
-	}
-	else {
+	} else
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+#if XPAR_XDPRXSS_NUM_INSTANCES
+	if (XDp_GetCoreType(InstancePtr) == XDP_RX) {
 		Status = XDp_RxInitialize(InstancePtr);
+	}
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+	{
+		/* Nothing. */
 	}
 
 	return Status;
 }
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function retrieves the RX device's capabilities from the RX device's
@@ -1411,7 +1432,9 @@ void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity)
 	/* Write the new settings. */
 	XDp_WriteReg(InstancePtr->Config.BaseAddr, XDP_TX_PHY_CONFIG, RegVal);
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function checks if the receiver's internal registers indicate that link
@@ -1647,6 +1670,7 @@ void XDp_RxAudioReset(XDp *InstancePtr)
 	XDp_WaitUs(InstancePtr, 1000);
 	XDp_RxAudioEn(InstancePtr);
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /******************************************************************************/
 /**
@@ -1821,9 +1845,9 @@ u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate)
 {
 	u8 Valid;
 
-	if ((LinkRate != XDP_TX_LINK_BW_SET_162GBPS) &&
-			(LinkRate != XDP_TX_LINK_BW_SET_270GBPS) &&
-			(LinkRate != XDP_TX_LINK_BW_SET_540GBPS)) {
+	if ((LinkRate != XDP_LINK_BW_SET_162GBPS) &&
+			(LinkRate != XDP_LINK_BW_SET_270GBPS) &&
+			(LinkRate != XDP_LINK_BW_SET_540GBPS)) {
 		Valid = 0;
 	}
 	else if (LinkRate > InstancePtr->Config.MaxLinkRate) {
@@ -1855,9 +1879,9 @@ u8 XDp_IsLaneCountValid(XDp *InstancePtr, u8 LaneCount)
 {
 	u8 Valid;
 
-	if ((LaneCount != XDP_TX_LANE_COUNT_SET_1) &&
-			(LaneCount != XDP_TX_LANE_COUNT_SET_2) &&
-			(LaneCount != XDP_TX_LANE_COUNT_SET_4)) {
+	if ((LaneCount != XDP_LANE_COUNT_SET_1) &&
+			(LaneCount != XDP_LANE_COUNT_SET_2) &&
+			(LaneCount != XDP_LANE_COUNT_SET_4)) {
 		Valid = 0;
 	}
 	else if (LaneCount > InstancePtr->Config.MaxLaneCount) {
@@ -1870,6 +1894,7 @@ u8 XDp_IsLaneCountValid(XDp *InstancePtr, u8 LaneCount)
 	return Valid;
 }
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function prepares the DisplayPort TX core for use.
@@ -1944,7 +1969,9 @@ static u32 XDp_TxInitialize(XDp *InstancePtr)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function prepares the DisplayPort RX core for use.
@@ -2063,7 +2090,9 @@ static u32 XDp_RxInitialize(XDp *InstancePtr)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function runs the link training process. It is implemented as a state
@@ -3326,6 +3355,7 @@ static u32 XDp_TxSetClkSpeed(XDp *InstancePtr, u32 Speed)
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
 /**
@@ -3346,12 +3376,16 @@ static u32 XDp_WaitPhyReady(XDp *InstancePtr, u32 Mask)
 	u32 PhyStatus;
 	u32 RegPhyStatus;
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 	if (XDp_GetCoreType(InstancePtr) == XDP_TX) {
 		RegPhyStatus = XDP_TX_PHY_STATUS;
 	}
-	else {
+#endif
+#if XPAR_XDPRXSS_NUM_INSTANCES
+	if (XDp_GetCoreType(InstancePtr) == XDP_RX) {
 		RegPhyStatus = XDP_RX_PHY_STATUS;
 	}
+#endif
 
 	/* Wait until the PHY is ready. */
 	do {

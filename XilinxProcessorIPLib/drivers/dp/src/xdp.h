@@ -1133,6 +1133,7 @@ void XDp_CfgInitialize(XDp *InstancePtr, XDp_Config *ConfigPtr,
 u32 XDp_Initialize(XDp *InstancePtr);
 u32 XDp_TxGetRxCapabilities(XDp *InstancePtr);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp.c: TX link policy maker functions. */
 u32 XDp_TxCfgMainLinkMax(XDp *InstancePtr);
 u32 XDp_TxEstablishLink(XDp *InstancePtr);
@@ -1165,30 +1166,41 @@ u32 XDp_TxSetEnhancedFrameMode(XDp *InstancePtr, u8 Enable);
 u32 XDp_TxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
 u32 XDp_TxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 u32 XDp_TxSetScrambler(XDp *InstancePtr, u8 Enable);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /* xdp.c: General usage functions. */
 void XDp_SetUserTimerHandler(XDp *InstancePtr,
 			XDp_TimerHandler CallbackFunc, void *CallbackRef);
 void XDp_WaitUs(XDp *InstancePtr, u32 MicroSeconds);
+
+#if XPAR_XDPTXSS_NUM_INSTANCES
 u32 XDp_TxIsConnected(XDp *InstancePtr);
 void XDp_TxEnableMainLink(XDp *InstancePtr);
 void XDp_TxDisableMainLink(XDp *InstancePtr);
 void XDp_TxResetPhy(XDp *InstancePtr, u32 Reset);
 void XDp_TxSetPhyPolarityAll(XDp *InstancePtr, u8 Polarity);
 void XDp_TxSetPhyPolarityLane(XDp *InstancePtr, u8 Lane, u8 Polarity);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 u32 XDp_RxCheckLinkStatus(XDp *InstancePtr);
 void XDp_RxDtgEn(XDp *InstancePtr);
 void XDp_RxDtgDis(XDp *InstancePtr);
 void XDp_RxSetLinkRate(XDp *InstancePtr, u8 LinkRate);
 void XDp_RxSetLaneCount(XDp *InstancePtr, u8 LaneCount);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
+
 u8 XDp_IsLaneCountValid(XDp *InstancePtr, u8 LaneCount);
 u8 XDp_IsLinkRateValid(XDp *InstancePtr, u8 LinkRate);
 
+#if XPAR_XDPRXSS_NUM_INSTANCES
 /* xdp.c: Audio functions. */
 void XDp_RxAudioEn(XDp *InstancePtr);
 void XDp_RxAudioDis(XDp *InstancePtr);
 void XDp_RxAudioReset(XDp *InstancePtr);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_edid.c: EDID utility functions. */
 u32 XDp_TxGetEdid(XDp *InstancePtr, u8 *Edid);
 u32 XDp_TxGetRemoteEdid(XDp *InstancePtr, u8 LinkCountTotal,
@@ -1202,9 +1214,11 @@ u32 XDp_TxGetDispIdDataBlock(u8 *DisplayIdRaw, u8 SectionTag,
 							u8 **DataBlockPtr);
 u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 		u8 LinkCountTotal, u8 *RelativeAddress, u8 **DataBlockPtr);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /* xdp_intr.c: Interrupt handling functions. */
 void XDp_InterruptHandler(XDp *InstancePtr);
+#if XPAR_XDPTXSS_NUM_INSTANCES
 void XDp_TxSetHpdEventHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_TxSetHpdPulseHandler(XDp *InstancePtr,
@@ -1215,6 +1229,9 @@ void XDp_TxSetDrvHpdPulseHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_TxSetMsaHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 void XDp_RxGenerateHpdInterrupt(XDp *InstancePtr, u16 DurationUs);
 void XDp_RxInterruptEnable(XDp *InstancePtr, u32 Mask);
 void XDp_RxInterruptDisable(XDp *InstancePtr, u32 Mask);
@@ -1276,7 +1293,9 @@ void XDp_RxSetDrvIntrPowerStateHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
 void XDp_RxSetDrvIntrNoVideoHandler(XDp *InstancePtr,
 			XDp_IntrHandler CallbackFunc, void *CallbackRef);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_mst.c: Multi-stream transport (MST) functions for enabling or disabling
  * MST mode. */
 void XDp_TxMstCfgModeEnable(XDp *InstancePtr);
@@ -1345,6 +1364,9 @@ void XDp_TxWriteGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u8 *Guid);
 void XDp_TxGetGuid(XDp *InstancePtr, u8 LinkCountTotal, u8 *RelativeAddress,
 								u8 *Guid);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 u32 XDp_RxHandleDownReq(XDp *InstancePtr);
 XDp_RxIicMapEntry *XDp_RxGetIicMapEntry(XDp *InstancePtr, u8 PortNum,
 								u8 IicAddress);
@@ -1358,10 +1380,12 @@ void XDp_RxMstSetPort(XDp *InstancePtr, u8 PortNum,
 void XDp_RxMstSetInputPort(XDp *InstancePtr, u8 PortNum,
 			XDp_SbMsgLinkAddressReplyPortDetail *PortOverride);
 void XDp_RxMstSetPbn(XDp *InstancePtr, u8 PortNum, u16 PbnVal);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /* xdp_selftest.c: Self test function. */
 u32 XDp_SelfTest(XDp *InstancePtr);
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /* xdp_spm.c: Stream policy maker functions. */
 void XDp_TxCfgMsaRecalculate(XDp *InstancePtr, u8 Stream);
 void XDp_TxCfgMsaUseStandardVideoMode(XDp *InstancePtr, u8 Stream,
@@ -1379,11 +1403,15 @@ void XDp_TxSetVideoMode(XDp *InstancePtr, u8 Stream);
 void XDp_TxClearMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetMsaValues(XDp *InstancePtr, u8 Stream);
 void XDp_TxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
+
+#if XPAR_XDPRXSS_NUM_INSTANCES
 void XDp_RxSetUserPixelWidth(XDp *InstancePtr, u8 UserPixelWidth);
 XVidC_ColorDepth XDp_RxGetBpc(XDp *InstancePtr, u8 Stream);
 XVidC_ColorFormat XDp_RxGetColorComponent(XDp *InstancePtr, u8 Stream);
 void XDp_RxSetLineReset(XDp *InstancePtr, u8 Stream);
 void XDp_RxAllocatePayloadStream(XDp *InstancePtr);
+#endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

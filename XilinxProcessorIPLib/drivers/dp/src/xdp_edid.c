@@ -58,6 +58,7 @@
 
 /**************************** Function Definitions ****************************/
 
+#if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
 /**
  * This function retrieves an immediately connected RX device's Extended Display
@@ -416,4 +417,5 @@ u32 XDp_TxGetRemoteTiledDisplayDb(XDp *InstancePtr, u8 *EdidExt,
 
 	return XST_SUCCESS;
 }
+#endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 /** @} */
