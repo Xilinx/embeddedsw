@@ -339,7 +339,7 @@ int XhdmiAudGen_AudClkConfig(XhdmiAudioGen_t *AudioGen)
 
   // Wait for lock
   waitcount = 0;
-  while(waitcount < (XPAR_XV_HDMITXSS_0_AXI_LITE_FREQ_HZ / 500)) {
+  while(waitcount < (AUDGEN_WAIT_CNT)) {
 	usleep(100);
     dat = *(volatile u32*)(AudioGen->AudClkGenBase + 0x004);
     if(dat & 0x1) {
