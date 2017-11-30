@@ -49,6 +49,14 @@
 #include "xil_io.h"
 #include "sleep.h"
 
+/* AUDGEN_WAIT_CNT will be assigned a dummy value when there is no TX Instance
+ * as AUDGEN only exists for exdes which contains TX instance */
+#if defined (XPAR_XV_HDMITXSS_NUM_INSTANCES)
+#define AUDGEN_WAIT_CNT (XPAR_XV_HDMITXSS_0_AXI_LITE_FREQ_HZ / 500)
+#else
+#define AUDGEN_WAIT_CNT 1
+#endif
+
 typedef struct {
   u32 TMDSCharRate;
   u32 ACR_NVal[7];
