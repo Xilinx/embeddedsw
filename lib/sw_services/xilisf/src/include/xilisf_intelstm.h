@@ -60,6 +60,8 @@
 *                     and S25FL256S.
 *       sk   03/02/16 Added support for MT25QU01G.
 * 5.7   rk   27/07/16 Added Subsector erase command.
+* 5.10  tjs  11/30/17 Added JEDEC ID info for S25FL-L series flashes
+* 					  CR# 987566
 * </pre>
 *
 ******************************************************************************/
@@ -135,9 +137,12 @@ extern "C" {
 #define XISF_SPANSION_DEV_S25FL016	0x0214	/**< Device ID for S25FL016 */
 #define XISF_SPANSION_DEV_S25FL032	0x0215	/**< Device ID for S25FL032 */
 #define XISF_SPANSION_DEV_S25FL064	0x0216	/**< Device ID for S25FL064 */
+#define XISF_SPANSION_DEV_S25FL064L	0x6017	/**< Device ID for S25FL064L */
 #define XISF_SPANSION_DEV_S25FL128	0x2018	/**< Device ID for S25FL128
 						  *  and S25FL129 */
+#define XISF_SPANSION_DEV_S25FL128L	0x6018	/**< Device ID for S25FL128L */
 #define XISF_SPANSION_DEV_S25FL256	0x0219	/**< Device ID for S25FL256 */
+#define XISF_SPANSION_DEV_S25FL256L	0x6019	/**< Device ID for S25FL256L */
 #define XISF_SPANSION_DEV_S25FL512	0x0220	/**< Device ID for S25FL512 */
 
 /**
