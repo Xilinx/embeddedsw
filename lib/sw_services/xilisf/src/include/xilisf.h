@@ -511,6 +511,7 @@
 * 	   tjs	08/09/17 Updated the calculation of RealByteCount for reading data
 * 					 from flash with TESTADDRESS being 0x00000000, CR#981795
 *      ms   08/03/17 Added doxygen tags.
+* 5.10 tjs  11/30/17 Added S25FL-L series flash parts support. CR# 987566
 *
 * </pre>
 *
