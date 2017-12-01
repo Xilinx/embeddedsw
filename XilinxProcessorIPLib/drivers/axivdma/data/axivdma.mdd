@@ -37,7 +37,7 @@ BEGIN driver axivdma
   OPTION supported_peripherals = (axi_vdma_v[4-9]_[0-9][0-9]_[a-z] axi_vdma_v[4-9]_[0-9]);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 6.4;
+  OPTION VERSION = 6.5;
   OPTION NAME = axivdma;
 
 END driver
