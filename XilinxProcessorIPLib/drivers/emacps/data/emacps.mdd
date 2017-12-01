@@ -36,7 +36,7 @@ BEGIN driver emacps
   OPTION supported_peripherals = (ps7_ethernet psu_ethernet);
   OPTION driver_state = ACTIVE;
   OPTION copyfiles = all;
-  OPTION VERSION = 3.6;
+  OPTION VERSION = 3.7;
   OPTION NAME = emacps;
 
 END driver
