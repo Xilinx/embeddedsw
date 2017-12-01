@@ -69,6 +69,7 @@
  *                     ensure that "Successfully ran" and "Failed" strings
  *                     are available in all examples. This is a fix for
  *                     CR-965028.
+ * 6.5   rsp  12/01/17 Set TX/RX framebuffer count to IP default. CR-990409
  * </pre>
  *
  * ***************************************************************************
@@ -177,14 +178,6 @@
 #define SUBFRAME_HORIZONTAL_SIZE 0x100
 #define SUBFRAME_VERTICAL_SIZE   0x100
 
-/* Number of frames to work on, this is to set the frame count threshold
- *
- * We multiply 15 to the num stores is to increase the intervals between
- * interrupts. If you are using fsync, then it is not necessary.
- */
-#define NUMBER_OF_READ_FRAMES	8
-#define NUMBER_OF_WRITE_FRAMES	8
-
 /* Number of frames to transfer
  *
  * This is used to monitor the progress of the test, test purpose only
@@ -220,6 +213,11 @@ static UINTPTR WriteFrameAddr;
 static UINTPTR BlockStartOffset;
 static UINTPTR BlockHoriz;
 static UINTPTR BlockVert;
+
+/* Frame-buffer count i.e Number of frames to work on
+ */
+static u16 ReadCount;
+static u16 WriteCount;
 
 /* DMA channel setup
  */
@@ -327,6 +325,10 @@ int main(void)
 		return XST_FAILURE;
 	}
 
+	/* Set default read and write count based on HW config*/
+	ReadCount = Config->MaxFrameStoreNum;
+	WriteCount = Config->MaxFrameStoreNum;
+
 	/* Initialize DMA engine */
 	Status = XAxiVdma_CfgInitialize(&AxiVdma, Config, Config->BaseAddress);
 	if (Status != XST_SUCCESS) {
@@ -337,7 +339,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	Status = XAxiVdma_SetFrmStore(&AxiVdma, NUMBER_OF_READ_FRAMES,
+	Status = XAxiVdma_SetFrmStore(&AxiVdma, ReadCount,
 							XAXIVDMA_READ);
 	if (Status != XST_SUCCESS) {
 
@@ -348,7 +350,7 @@ int main(void)
 		return XST_FAILURE;
 	}
 
-	Status = XAxiVdma_SetFrmStore(&AxiVdma, NUMBER_OF_WRITE_FRAMES,
+	Status = XAxiVdma_SetFrmStore(&AxiVdma, WriteCount,
 							XAXIVDMA_WRITE);
 	if (Status != XST_SUCCESS) {
 
@@ -366,8 +368,8 @@ int main(void)
 	 * WARNING: In free-run mode, interrupts may overwhelm the system.
 	 * In that case, it is better to disable interrupts.
 	 */
-	FrameCfg.ReadFrameCount = NUMBER_OF_READ_FRAMES;
-	FrameCfg.WriteFrameCount = NUMBER_OF_WRITE_FRAMES;
+	FrameCfg.ReadFrameCount = ReadCount;
+	FrameCfg.WriteFrameCount = WriteCount;
 	FrameCfg.ReadDelayTimerCount = DELAY_TIMER_COUNTER;
 	FrameCfg.WriteDelayTimerCount = DELAY_TIMER_COUNTER;
 
@@ -534,7 +536,7 @@ static int ReadSetup(XAxiVdma *InstancePtr)
 	 * These addresses are physical addresses
 	 */
 	Addr = READ_ADDRESS_BASE + BlockStartOffset;
-	for(Index = 0; Index < NUMBER_OF_READ_FRAMES; Index++) {
+	for(Index = 0; Index < ReadCount; Index++) {
 		ReadCfg.FrameStoreStartAddr[Index] = Addr;
 
 		Addr += FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN;
@@ -600,7 +602,7 @@ static int WriteSetup(XAxiVdma * InstancePtr)
 	 * Use physical addresses
 	 */
 	Addr = WRITE_ADDRESS_BASE + BlockStartOffset;
-	for(Index = 0; Index < NUMBER_OF_WRITE_FRAMES; Index++) {
+	for(Index = 0; Index < WriteCount; Index++) {
 		WriteCfg.FrameStoreStartAddr[Index] = Addr;
 
 		Addr += FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN;
@@ -620,7 +622,7 @@ static int WriteSetup(XAxiVdma * InstancePtr)
 	/* Clear data buffer
 	 */
 	memset((void *)WriteFrameAddr, 0,
-	    FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN * NUMBER_OF_WRITE_FRAMES);
+	    FRAME_HORIZONTAL_LEN * FRAME_VERTICAL_LEN * WriteCount);
 
 	return XST_SUCCESS;
 }
