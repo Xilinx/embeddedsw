@@ -80,6 +80,7 @@
 * 3.3   sk   04/01/15 Added one second delay for checking CD pin.
 * 3.4   sk   06/09/16 Added support for mkfs.
 * 3.8   mj   07/31/17 Added support for RAM based FATfs.
+*       mn   12/04/17 Resolve errors in XilFFS for ARMCC compiler
 *
 * </pre>
 *
@@ -262,6 +263,9 @@ DSTATUS disk_initialize (
 {
 	DSTATUS s;
 	s32 Status;
+#ifdef FILE_SYSTEM_INTERFACE_SD
+	XSdPs_Config *SdConfig;
+#endif
 
 	s = disk_status(pdrv);
 	if ((s & STA_NODISK) != 0U) {
@@ -274,8 +278,6 @@ DSTATUS disk_initialize (
 	}
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	XSdPs_Config *SdConfig;
-
 	if (CardDetect) {
 			/*
 			 * Card detection check
@@ -365,6 +367,10 @@ DRESULT disk_read (
 )
 {
 	DSTATUS s;
+#ifdef FILE_SYSTEM_INTERFACE_SD
+	s32 Status;
+	DWORD LocSector = sector;
+#endif
 
 	s = disk_status(pdrv);
 
@@ -376,9 +382,6 @@ DRESULT disk_read (
 	}
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	s32 Status;
-	DWORD LocSector = sector;
-
 	/* Convert LBA to byte address if needed */
 	if ((SdInstance[pdrv].HCS) == 0U) {
 		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
@@ -509,6 +512,10 @@ DRESULT disk_write (
 )
 {
 	DSTATUS s;
+#ifdef FILE_SYSTEM_INTERFACE_SD
+	s32 Status;
+	DWORD LocSector = sector;
+#endif
 
 	s = disk_status(pdrv);
 	if ((s & STA_NOINIT) != 0U) {
@@ -519,9 +526,6 @@ DRESULT disk_write (
 	}
 
 #ifdef FILE_SYSTEM_INTERFACE_SD
-	s32 Status;
-	DWORD LocSector = sector;
-
 	/* Convert LBA to byte address if needed */
 	if ((SdInstance[pdrv].HCS) == 0U) {
 		LocSector *= (DWORD)XSDPS_BLK_SIZE_512_MASK;
