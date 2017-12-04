@@ -12,6 +12,17 @@ read. Otherwise we will hit execption. (CR# 989938)
 Changes for 2017.4
 ===============================
 
+v_sdirx_v1_1:
+v_sdirxss_v1_1:
+Created new version to remove the redundant interrupts flags. adding
+assertion checks, new API to resolve 0 payload issue, new interrupts
+support, checkpatch error fixes.
+
+v_sditx_v1_1:
+v_sditxss_v1_1:
+Created new version to enhance st352 calculations, adding assertion
+checks, new interrupts support, checkpatch error fixes.
+
 qspipsu_v1_6:
 Flow for accessing flash parts with size more then 16MB
 made similar to u-boot and linux.(CR#984966)
