@@ -59,7 +59,8 @@
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
 
-#define PM_POWER_SUPPLYCHECK_TIMEOUT	100000U
+#define PM_FPD_POWER_SUPPLYCHECK_TIMEOUT	100000U		/* Delay of 5ms */
+#define PM_PLD_POWER_SUPPLYCHECK_TIMEOUT	100000U		/* Delay of 5ms */
 
 #define AMS_PSSYSMON_CONFIG_REG2	0XFFA50908
 
@@ -221,8 +222,8 @@ static PmRegisterContext pmFpdContext[] = {
 };
 
 /**
- * PmPowerSupplyCheck() - Wrapper for PMU-ROM power supply check handler
- * @RomHandler  Default PMU-ROM handler for power supply check
+ * PmFpdPowerSupplyCheck() - Wrapper for PMU-ROM FPD power supply check handler
+ * @RomHandler  Default PMU-ROM handler for FPD power supply check
  *
  * @return      The PMU-ROM handler's return value
  *
@@ -230,13 +231,36 @@ static PmRegisterContext pmFpdContext[] = {
  *              This function should be replaced by either Sysmon-based check
  *              or custom/board specific implementation.
  */
-static u32 PmPowerSupplyCheck(XpbrServHndlr_t RomHandler)
+static u32 PmFpdPowerSupplyCheck(XpbrServHndlr_t RomHandler)
 {
 	int status;
 	u32 var = 0U;
 
 	/* Cheat compiler to not optimize timeout based on counting */
-	XPfw_UtilPollForMask((u32)&var, ~var, PM_POWER_SUPPLYCHECK_TIMEOUT);
+	XPfw_UtilPollForMask((u32)&var, ~var, PM_FPD_POWER_SUPPLYCHECK_TIMEOUT);
+
+	status = RomHandler();
+
+	return status;
+}
+
+/**
+ * PmPldPowerSupplyCheck() - Wrapper for PMU-ROM PLD power supply check handler
+ * @RomHandler  Default PMU-ROM handler for PLD power supply check
+ *
+ * @return      The PMU-ROM handler's return value
+ *
+ * @note        The wrapper just introduces a timeout based on counting.
+ *              This function should be replaced by either Sysmon-based check
+ *              or custom/board specific implementation.
+ */
+static u32 PmPldPowerSupplyCheck(XpbrServHndlr_t RomHandler)
+{
+	int status;
+	u32 var = 0U;
+
+	/* Cheat compiler to not optimize timeout based on counting */
+	XPfw_UtilPollForMask((u32)&var, ~var, PM_PLD_POWER_SUPPLYCHECK_TIMEOUT);
 
 	status = RomHandler();
 
@@ -760,7 +784,7 @@ PmPowerDomain pmPowerDomainFpd_g = {
 		.forcePerms = 0U,
 		.useCount = 0U,
 	},
-	.supplyCheckHook = PmPowerSupplyCheck,
+	.supplyCheckHook = PmFpdPowerSupplyCheck,
 	.supplyCheckHookId = XPBR_SERV_EXT_FPD_SUPPLYCHECK,
 };
 
@@ -812,7 +836,7 @@ PmPowerDomain pmPowerDomainPld_g = {
 		.forcePerms = 0U,
 		.useCount = 0U,
 	},
-	.supplyCheckHook = PmPowerSupplyCheck,
+	.supplyCheckHook = PmPldPowerSupplyCheck,
 	.supplyCheckHookId = XPBR_SERV_EXT_PLD_SUPPLYCHECK,
 };
 
