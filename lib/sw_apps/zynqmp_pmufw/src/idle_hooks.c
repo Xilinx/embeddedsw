@@ -117,7 +117,7 @@ void NodeSdioIdle(u32 BaseAddress)
 		/* Check for SD idle */
 		do {
 			StatusReg = XSdPs_ReadReg8(BaseAddress, XSDPS_PRES_STATE_OFFSET);
-		} while ((StatusReg & SdpsActive) && Timeout--);
+		} while ((StatusReg & SdpsActive) && --Timeout);
 	}
 	if (Timeout == 0) {
 		PmDbg(DEBUG_DETAILED,"SD was still not idle\n");
@@ -161,7 +161,7 @@ void NodeSdioIdle(u32 BaseAddress)
 	Timeout = MAX_TIMEOUT;
 	/* Proceed with initialization only after reset is complete */
 	Val = XSdPs_ReadReg8(BaseAddress, XSDPS_SW_RST_OFFSET);
-	while (((Val & XSDPS_SWRST_ALL_MASK) != 0U) && Timeout--) {
+	while (((Val & XSDPS_SWRST_ALL_MASK) != 0U) && --Timeout) {
 		Val = XSdPs_ReadReg8(BaseAddress, XSDPS_SW_RST_OFFSET);
 	}
 	if (Timeout == 0) {
@@ -190,7 +190,7 @@ void NodeI2cIdle(u32 BaseAddress)
 	do {
 		StatusReg = XIicPs_ReadReg(BaseAddress,
 					   XIICPS_SR_OFFSET);
-	} while (((StatusReg & XIICPS_SR_BA_MASK) != 0x0U) && Timeout--);
+	} while (((StatusReg & XIICPS_SR_BA_MASK) != 0x0U) && --Timeout);
 	if (Timeout == 0) {
 		PmDbg(DEBUG_DETAILED,"i2c was still not idle\n");
 	}
@@ -217,7 +217,7 @@ void NodeGemIdle(u32 BaseAddress)
 	/* Make sure MDIO is in IDLE state */
 	do {
 		Reg = XEmacPs_ReadReg(BaseAddress, XEMACPS_NWSR_OFFSET);
-	} while ((!(Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && Timeout--);
+	} while ((!(Reg & XEMACPS_NWSR_MDIOIDLE_MASK)) && --Timeout);
 
 	if (Timeout == 0) {
 		PmDbg(DEBUG_DETAILED,"gem was still not idle\n");
@@ -255,7 +255,7 @@ void NodeQspiIdle(u32 BaseAddress)
 	 */
 	do {
 		StatusReg = XQspiPsu_ReadReg(BaseAddress, XQSPIPSU_XFER_STS_OFFSET);
-	} while ((StatusReg != 0) && Timeout--);
+	} while ((StatusReg != 0) && --Timeout);
 
 	if (Timeout == 0) {
 		PmDbg(DEBUG_DETAILED,"QSPI was still not idle\n");
