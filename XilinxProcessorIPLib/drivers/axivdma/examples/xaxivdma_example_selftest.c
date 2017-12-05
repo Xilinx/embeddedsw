@@ -46,6 +46,8 @@
 *       ms   04/05/17 Modified Comment lines in functions to
 *                     recognize it as documentation block for doxygen
 *                     generation of examples.
+* 6.5   rsp  05/12/17 Fix compilation error.Rename macro for dma device id.
+*                     CR-990803
 * </pre>
 *
 *****************************************************************************/
@@ -62,7 +64,7 @@
  */
 
  #ifndef TESTAPP_GEN
-#define DMA_DEVICE_ID		XPAR_AXIVDMA_0_DEVICE_ID
+#define DMA_DEV_ID		XPAR_AXIVDMA_0_DEVICE_ID
 #endif
 
 
