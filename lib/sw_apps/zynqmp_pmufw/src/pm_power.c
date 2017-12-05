@@ -59,7 +59,7 @@
 #define DEFINE_PM_POWER_CHILDREN(c)	.children = (c), \
 					.childCnt = ARRAY_SIZE(c)
 
-#define PM_FPD_POWER_SUPPLYCHECK_TIMEOUT	100000U		/* Delay of 5ms */
+#define PM_FPD_POWER_SUPPLYCHECK_TIMEOUT	727273U		/* Delay of 40ms */
 #define PM_PLD_POWER_SUPPLYCHECK_TIMEOUT	100000U		/* Delay of 5ms */
 
 #define AMS_PSSYSMON_CONFIG_REG2	0XFFA50908
