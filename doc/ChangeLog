@@ -428,6 +428,17 @@ any functionality from this config file
 Changes for 2018.1
 ===============================
 
+lwip141_v2_1:
+Fix jumbo frame checks to work on R5
+
+lwip202_v1_0:
+Upgrade to LWIP2.0.2 version
+Remove PPC references
+Add support for IGMP for emacps
+Add multicast MAC update for IPv6 in xemacpsif.c and xaxiemacif.c
+Add IPv6 source
+Fix jumbo frame checks to work on R5
+
 spips_v4_4:
 When receive fifo exists, we need to check for status
 register rx fifo empty flag. If clear we can proceed for
