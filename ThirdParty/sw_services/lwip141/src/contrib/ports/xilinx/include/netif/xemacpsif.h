@@ -79,8 +79,10 @@ extern "C" {
 #define CRL_APB_GEM_DIV1_MASK	0x003F0000
 #define CRL_APB_GEM_DIV1_SHIFT	16
 
-#if !defined (__arm__) && defined (USE_JUMBO_FRAMES)
+#if defined (ARMR5) || (__aarch64__) || (ARMA53_32) || (__MICROBLAZE__)
+#if defined (USE_JUMBO_FRAMES)
 #define ZYNQMP_USE_JUMBO
+#endif
 #endif
 
 #define MAX_FRAME_SIZE_JUMBO (XEMACPS_MTU_JUMBO + XEMACPS_HDR_SIZE + XEMACPS_TRL_SIZE)
