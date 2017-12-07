@@ -819,6 +819,28 @@ proc get_reset_section { } {
 	return $reset_text
 }
 
+proc get_gpo_section {} {
+	set gpo_text ""
+
+	append gpo_text "\tPM_CONFIG_GPO_SECTION_ID,\t\t/* GPO Section ID */\n"
+
+	if { "1" == [get_property CONFIG.C_GPO2_POLARITY [get_cells psu_pmu_iomodule]] } {
+		append gpo_text "\tPM_CONFIG_GPO1_BIT_2_MASK |\n"
+	}
+	if { "1" == [get_property CONFIG.C_GPO3_POLARITY [get_cells psu_pmu_iomodule]] } {
+		append gpo_text "\tPM_CONFIG_GPO1_BIT_3_MASK |\n"
+	}
+	if { "1" == [get_property CONFIG.C_GPO4_POLARITY [get_cells psu_pmu_iomodule]] } {
+		append gpo_text "\tPM_CONFIG_GPO1_BIT_4_MASK |\n"
+	}
+	if { "1" == [get_property CONFIG.C_GPO5_POLARITY [get_cells psu_pmu_iomodule]] } {
+		append gpo_text "\tPM_CONFIG_GPO1_BIT_5_MASK |\n"
+	}
+	append gpo_text "\t0,\t\t\t\t\t/* State of GPO pins */"
+
+	return $gpo_text
+}
+
 proc gen_cfg_data { cfg_fname } {
 # Open file and dump the data
 set cfg_fid [open $cfg_fname w]
@@ -829,6 +851,7 @@ set pmufw::cfg_template [string map [list "<<SLAVE_SECTION_DATA>>" "[get_slave_s
 set pmufw::cfg_template [string map [list "<<PREALLOC_SECTION_DATA>>" "[get_prealloc_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<POWER_SECTION_DATA>>" "[get_power_section]"] $pmufw::cfg_template]
 set pmufw::cfg_template [string map [list "<<RESET_SECTION_DATA>>" "[get_reset_section]"] $pmufw::cfg_template]
+set pmufw::cfg_template [string map [list "<<GPO_SECTION_DATA>>" "[get_gpo_section]"] $pmufw::cfg_template]
 
 puts $cfg_fid "$pmufw::cfg_template"
 close $cfg_fid
