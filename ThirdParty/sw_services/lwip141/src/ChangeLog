@@ -1,7 +1,5 @@
 Change Log for lwip
 =================================
-2017-12-06
-	* Fix jumbo frame checks to work on R5
 2017-11-01
 	* Perform AXI DMA lookup based on base address.
 2017-10-27
