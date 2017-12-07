@@ -441,6 +441,10 @@ When receive fifo exists, we need to check for status
 register rx fifo empty flag. If clear we can proceed for
 read. Otherwise we will hit execption. (CR# 989938)
 
+standalone_v6_6:
+Updated cortexa9/xil_errata.h and cortexa9/xil_cache.c
+to remove errata 753970, It fixes CR#989132.
+
 Changes for 2017.4
 ===============================
 
