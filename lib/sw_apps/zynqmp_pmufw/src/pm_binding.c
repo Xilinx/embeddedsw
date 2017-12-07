@@ -156,6 +156,13 @@ int XPfw_PmWakeHandler(const u32 srcMask)
 {
 	int status = XST_INVALID_PARAM;
 
+#if defined(PMU_MIO_INPUT_PIN) && (PMU_MIO_INPUT_PIN >= 0) \
+				&& (PMU_MIO_INPUT_PIN <= 5)
+	if ((PMU_IOMODULE_GPI1_MIO_WAKE_0_MASK << PMU_MIO_INPUT_PIN) == srcMask) {
+		PmShutdownInterruptHandler();
+		return XST_SUCCESS;
+	}
+#endif
 	if (0U != (PMU_IOMODULE_GPI1_GIC_WAKES_ALL_MASK & srcMask))  {
 		/* Processor GIC wake */
 		PmProc* proc = PmProcGetByWakeMask(srcMask);

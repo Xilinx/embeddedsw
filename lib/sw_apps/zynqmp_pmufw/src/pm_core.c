@@ -59,6 +59,21 @@
 #define AMS_REF_CTRL_REG_OFFSET	0x108
 
 /**
+ * PmKillBoardPower() - Power-off board by sending KILL signal to power chip
+ */
+static void PmKillBoardPower(void)
+{
+#if defined(BOARD_SHUTDOWN_PIN) && defined(BOARD_SHUTDOWN_PIN_STATE)
+	u32 reg = XPfw_Read32(PMU_LOCAL_GPO1_READ);
+	u32 mask = PMU_IOMODULE_GPO1_MIO_0_MASK << BOARD_SHUTDOWN_PIN;
+	u32 value = BOARD_SHUTDOWN_PIN_STATE << BOARD_SHUTDOWN_PIN;
+
+	reg = (reg & (~mask)) | (mask & value);
+	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+#endif
+}
+
+/**
  * PmProcessAckRequest() -Returns appropriate acknowledge if required
  * @ack     Ack argument as requested by the master
  * @master  IPI channel to use
@@ -844,6 +859,12 @@ static void PmSystemShutdown(PmMaster* const master, const u32 type,
 	/* For shutdown type the subtype is irrelevant: shut the caller down */
 	if (PMF_SHUTDOWN_TYPE_SHUTDOWN == type) {
 		status = PmMasterFsm(master, PM_MASTER_EVENT_FORCE_DOWN);
+
+#if defined(BOARD_SHUTDOWN_PIN) && defined(BOARD_SHUTDOWN_PIN_STATE)
+		if (PMF_SHUTDOWN_SUBTYPE_SYSTEM == subtype) {
+			PmKillBoardPower();
+		}
+#endif
 		goto done;
 	}
 
@@ -1339,6 +1360,34 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 
 			PmProcessAckRequest(ack, master, NODE_UNKNOWN,
 					    XST_INVALID_PARAM, 0);
+		}
+	}
+}
+
+/**
+ * PmShutdownInterruptHandler() - Send suspend request to all active masters
+ */
+void PmShutdownInterruptHandler(void)
+{
+	u32 rpu_mode = XPfw_Read32(RPU_RPU_GLBL_CNTL);
+
+	if (PM_MASTER_STATE_ACTIVE == PmMasterIsActive(&pmMasterApu_g)) {
+		PmInitSuspendCb(&pmMasterApu_g,
+				SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
+	}
+	if (0U == (rpu_mode & RPU_RPU_GLBL_CNTL_SLSPLIT_MASK)) {
+		if (PM_MASTER_STATE_ACTIVE == PmMasterIsActive(&pmMasterRpu0_g)) {
+			PmInitSuspendCb(&pmMasterRpu0_g,
+					SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
+		}
+		if (PM_MASTER_STATE_ACTIVE == PmMasterIsActive(&pmMasterRpu1_g)) {
+			PmInitSuspendCb(&pmMasterRpu1_g,
+					SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
+		}
+	} else {
+		if (PM_MASTER_STATE_ACTIVE == PmMasterIsActive(&pmMasterRpu_g)) {
+			PmInitSuspendCb(&pmMasterRpu_g,
+					SUSPEND_REASON_SYS_SHUTDOWN, 1, 0, 0);
 		}
 	}
 }
