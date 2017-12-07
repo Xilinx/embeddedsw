@@ -487,5 +487,7 @@
  *                    support these APIs over EL1 NS mode.
  * 6.5 mus   10/20/17 Updated standalone.tcl to fix bug in mb_can_handle_exceptions_in_delay_slots proc,
  *                    it fixes CR#987464.
+ * 6.6 mus   12/07/17 Updated cortexa9/xil_errata.h and cortexa9/xil_cache.c to remove Errata 753970.
+ *                    It fixes CR#989132.
  *
  *****************************************************************************************/

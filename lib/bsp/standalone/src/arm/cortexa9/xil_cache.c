@@ -92,6 +92,9 @@
 * 5.03	 pkp 10/07/15 L2 Cache functionalities are avoided for the OpenAMP slave
 *					  application(when USE_AMP flag is defined for BSP) as master CPU
 *					  would be utilizing L2 cache for its operation
+* 6.6    mus 12/07/17 Errata 753970 is not applicable for the PL130 cache controller
+*                     version r0p2, which is present in zynq. So,removed the handling
+*                     related to same.It fixes CR#989132.
 *
 * </pre>
 *
@@ -162,11 +165,7 @@ static inline void Xil_L2CacheSync(void)
 static void Xil_L2CacheSync(void)
 #endif
 {
-#ifdef CONFIG_PL310_ERRATA_753970
-	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_DUMMY_CACHE_SYNC_OFFSET, 0x0U);
-#else
 	Xil_Out32(XPS_L2CC_BASEADDR + XPS_L2CC_CACHE_SYNC_OFFSET, 0x0U);
-#endif
 }
 #endif
 /****************************************************************************/
