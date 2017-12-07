@@ -270,18 +270,14 @@ static bool XPfw_RestartIsPlDone(void)
 
 /**
  * MasterIdle - Notify master to execute idle sequence
- * @Master: Master to be notified for WDT event
  * @TtcInstancePtr: Timer instance pointer
  * @Timeout: Timeout in seconds
  *
  * On receiving WDT event, PMU calls this function to start TTC timer
  * to notify master about WDT event.
  */
-static void MasterIdle(PmMaster* Master, XTtcPs *TtcInstancePtr, u32 Timeout)
+static void MasterIdle(XTtcPs *TtcInstancePtr, u32 Timeout)
 {
-	/* Send an IPI to support legacy ATF until ATF TTC handling is added */
-	Xil_Out32((IPI_BASEADDR + ((u32)0X00031000U)), Master->ipiMask);
-
 	/* This is the first restart, send a TTC event */
 	XPfw_TTCStart(TtcInstancePtr, Timeout);
 }
@@ -420,8 +416,7 @@ void XPfw_RecoveryHandler(u8 ErrorId)
 				RstTrackerList[RstIdx].RestartState = XPFW_RESTART_STATE_INPROGRESS;
 				RstTrackerList[RstIdx].RestartCount++;
 				WdtRestart(RstTrackerList[RstIdx].WdtPtr, RstTrackerList[RstIdx].WdtTimeout);
-				MasterIdle(RstTrackerList[RstIdx].Master,
-					RstTrackerList[RstIdx].TtcPtr,
+				MasterIdle(RstTrackerList[RstIdx].TtcPtr,
 					RstTrackerList[RstIdx].TtcTimeout);
 			}
 			else{
