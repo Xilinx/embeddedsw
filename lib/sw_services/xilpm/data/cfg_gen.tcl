@@ -836,6 +836,19 @@ proc get_gpo_section {} {
 	if { "1" == [get_property CONFIG.C_GPO5_POLARITY [get_cells psu_pmu_iomodule]] } {
 		append gpo_text "\tPM_CONFIG_GPO1_BIT_5_MASK |\n"
 	}
+
+	if { "1" == [get_property CONFIG.C_GPO2_ENABLE [get_cells psu_pmu_iomodule]] } {
+		append gpo_text "\tPM_CONFIG_GPO1_MIO_PIN_34_MAP |\n"
+	}
+	if { "1" == [get_property CONFIG.C_GPO3_ENABLE [get_cells psu_pmu_iomodule]] } {
+		append gpo_text "\tPM_CONFIG_GPO1_MIO_PIN_35_MAP |\n"
+	}
+	if { "1" == [get_property CONFIG.C_GPO4_ENABLE [get_cells psu_pmu_iomodule]] } {
+		append gpo_text "\tPM_CONFIG_GPO1_MIO_PIN_36_MAP |\n"
+	}
+	if { "1" == [get_property CONFIG.C_GPO5_ENABLE [get_cells psu_pmu_iomodule]] } {
+		append gpo_text "\tPM_CONFIG_GPO1_MIO_PIN_37_MAP |\n"
+	}
 	append gpo_text "\t0,\t\t\t\t\t/* State of GPO pins */"
 
 	return $gpo_text
