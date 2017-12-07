@@ -40,9 +40,15 @@
 #define PM_CONFIG_RESET_SECTION_ID	0x105U
 #define PM_CONFIG_SHUTDOWN_SECTION_ID	0x106U
 #define PM_CONFIG_SET_CONFIG_SECTION_ID	0x107U
+#define PM_CONFIG_GPO_SECTION_ID	0x108U
 
 #define PM_SLAVE_FLAG_IS_SHAREABLE	0x1U
 #define PM_MASTER_USING_SLAVE_MASK	0x2U
+
+#define PM_CONFIG_GPO1_BIT_2_MASK	(1U << 2U)
+#define PM_CONFIG_GPO1_BIT_3_MASK	(1U << 3U)
+#define PM_CONFIG_GPO1_BIT_4_MASK	(1U << 4U)
+#define PM_CONFIG_GPO1_BIT_5_MASK	(1U << 5U)
 
 #define SUSPEND_TIMEOUT	0xFFFFFFFFU
 
@@ -51,7 +57,8 @@
 const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 	/**********************************************************************/
 	/* HEADER */
-	0,	/* Number of remaining words in the header */
+	1,	/* Number of remaining words in the header */
+	8,	/* Number of sections included in config object */
 	/**********************************************************************/
 	/* MASTER SECTION */
 <<MASTER_SECTION_DATA>>
@@ -75,4 +82,7 @@ const u32 XPm_ConfigObject[] __attribute__((used, section(".sys_cfg_data"))) = {
 	/* SHUTDOWN SECTION */
 	PM_CONFIG_SHUTDOWN_SECTION_ID,		/* Section ID */
 	0,					/* Number of shutdown types */
+	/**********************************************************************/
+	/* GPO SECTION */
+<<GPO_SECTION_DATA>>
 };
