@@ -57,6 +57,17 @@ static int PmConfigGpoSectionHandler(u32* const addr);
  * Macros
  ********************************************************************/
 
+#define IOU_SLCR_BASE			0xFF180000
+#define IOU_SLCR_MIO_PIN_34_OFFSET	0x00000088
+#define IOU_SLCR_MIO_PIN_35_OFFSET	0x0000008C
+#define IOU_SLCR_MIO_PIN_36_OFFSET	0x00000090
+#define IOU_SLCR_MIO_PIN_37_OFFSET	0x00000094
+
+#define PM_CONFIG_GPO_2_ENABLE_MASK	BIT(10U)
+#define PM_CONFIG_GPO_3_ENABLE_MASK	BIT(11U)
+#define PM_CONFIG_GPO_4_ENABLE_MASK	BIT(12U)
+#define PM_CONFIG_GPO_5_ENABLE_MASK	BIT(13U)
+
 /* Section IDs (must match to what PCW generates) */
 #define PM_CONFIG_MASTER_SECTION_ID	0x101U
 #define PM_CONFIG_SLAVE_SECTION_ID	0x102U
@@ -483,6 +494,26 @@ static int PmConfigGpoSectionHandler(u32* const addr)
 	reg &= ~PM_CONFIG_GPO_MASK;
 	reg |= (gpoState & PM_CONFIG_GPO_MASK);
 	XPfw_Write32(PMU_IOMODULE_GPO1, reg);
+
+	if (gpoState & PM_CONFIG_GPO_2_ENABLE_MASK) {
+		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_34_OFFSET),
+				0x000000FEU, 0x00000008U);
+	}
+
+	if (gpoState & PM_CONFIG_GPO_3_ENABLE_MASK) {
+		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_35_OFFSET),
+				0x000000FEU, 0x00000008U);
+	}
+
+	if (gpoState & PM_CONFIG_GPO_4_ENABLE_MASK) {
+		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_36_OFFSET),
+				0x000000FEU, 0x00000008U);
+	}
+
+	if (gpoState & PM_CONFIG_GPO_5_ENABLE_MASK) {
+		XPfw_RMW32((IOU_SLCR_BASE + IOU_SLCR_MIO_PIN_37_OFFSET),
+				0x000000FEU, 0x00000008U);
+	}
 
 	return XST_SUCCESS;
 }
