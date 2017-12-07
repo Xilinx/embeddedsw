@@ -428,9 +428,6 @@ any functionality from this config file
 Changes for 2018.1
 ===============================
 
-lwip141_v2_1:
-Fix jumbo frame checks to work on R5
-
 lwip202_v1_0:
 Upgrade to LWIP2.0.2 version
 Remove PPC references
