@@ -170,6 +170,7 @@
 *                       examples to recognize it as documentation block
 *                       for doxygen generation.
 * 2.2   sk     04/14/17 Corrected temperature conversion formulas.
+* 2.3   mn     12/11/17 Added missing closing bracket error when C++ is used
 *
 * </pre>
 *
@@ -650,5 +651,9 @@ s32 XSysMonPsu_SelfTest(XSysMonPsu *InstancePtr);
 /* Functions in xsysmonpsu_sinit.c */
 XSysMonPsu_Config *XSysMonPsu_LookupConfig(u16 DeviceId);
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* XSYSMONPSU_H_ */
