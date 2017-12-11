@@ -12,6 +12,9 @@ Add multicast MAC update for IPv6 in xemacpsif.c and xaxiemacif.c
 Add IPv6 source
 Fix jumbo frame checks to work on R5
 
+rfdc_v2_4:
+Add support DDC and DUC configuration
+
 spips_v4_4:
 When receive fifo exists, we need to check for status
 register rx fifo empty flag. If clear we can proceed for
