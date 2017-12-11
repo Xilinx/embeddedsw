@@ -61,6 +61,7 @@
 *                       Baremetal.
 *       sk     08/23/17 Add Nyquist Zone test case.
 *       sk     09/25/17 Add GetOutput Current test case.
+* 2.4   sk     12/11/17 Add test case for DDC and DUC.
 *
 * </pre>
 *
@@ -187,6 +188,10 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	int OutputCurr;
 	u8 SetFIFOEnable;
 	u8 GetFIFOEnable;
+	u32 SetInterpolationFactor;
+	u32 GetInterpolationFactor;
+	u32 SetDecimationFactor;
+	u32 GetDecimationFactor;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -408,7 +413,50 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					return XRFDC_FAILURE;
 				if (SetFIFOEnable != GetFIFOEnable)
 					return XRFDC_FAILURE;
-
+				SetInterpolationFactor = XRFDC_INTERP_DECIM_OFF;
+				Status = XRFdc_SetInterpolationFactor(RFdcInstPtr, Tile, Block,
+									SetInterpolationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetInterpolationFactor(RFdcInstPtr, Tile, Block,
+									&GetInterpolationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetInterpolationFactor != GetInterpolationFactor)
+					return XST_FAILURE;
+				SetInterpolationFactor = XRFDC_INTERP_DECIM_2X;
+				Status = XRFdc_SetInterpolationFactor(RFdcInstPtr, Tile, Block,
+									SetInterpolationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetInterpolationFactor(RFdcInstPtr, Tile, Block,
+									&GetInterpolationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetInterpolationFactor != GetInterpolationFactor)
+					return XST_FAILURE;
+				SetInterpolationFactor = XRFDC_INTERP_DECIM_4X;
+				Status = XRFdc_SetInterpolationFactor(RFdcInstPtr, Tile, Block,
+									SetInterpolationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetInterpolationFactor(RFdcInstPtr, Tile, Block,
+									&GetInterpolationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetInterpolationFactor != GetInterpolationFactor)
+					return XST_FAILURE;
+				SetInterpolationFactor = XRFDC_INTERP_DECIM_8X;
+				Status = XRFdc_SetInterpolationFactor(RFdcInstPtr, Tile, Block,
+									SetInterpolationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetInterpolationFactor(RFdcInstPtr, Tile, Block,
+									&GetInterpolationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetInterpolationFactor != GetInterpolationFactor)
+					return XST_FAILURE;
 			}
 
 			/* Check if the ADC block is enabled */
@@ -585,6 +633,61 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					return XRFDC_FAILURE;
 				if (SetFIFOEnable != GetFIFOEnable)
 					return XRFDC_FAILURE;
+				SetDecimationFactor = XRFDC_INTERP_DECIM_OFF;
+				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
+									SetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetDecimationFactor(RFdcInstPtr, Tile, Block,
+									&GetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetDecimationFactor != GetDecimationFactor)
+					return XST_FAILURE;
+				SetDecimationFactor = XRFDC_INTERP_DECIM_1X;
+				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
+									SetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetDecimationFactor(RFdcInstPtr, Tile, Block,
+									&GetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetDecimationFactor != GetDecimationFactor)
+					return XST_FAILURE;
+				SetDecimationFactor = XRFDC_INTERP_DECIM_2X;
+				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
+									SetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetDecimationFactor(RFdcInstPtr, Tile, Block,
+									&GetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetDecimationFactor != GetDecimationFactor)
+					return XST_FAILURE;
+				SetDecimationFactor = XRFDC_INTERP_DECIM_4X;
+				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
+									SetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetDecimationFactor(RFdcInstPtr, Tile, Block,
+									&GetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetDecimationFactor != GetDecimationFactor)
+					return XST_FAILURE;
+				SetDecimationFactor = XRFDC_INTERP_DECIM_8X;
+				Status = XRFdc_SetDecimationFactor(RFdcInstPtr, Tile, Block,
+									SetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetDecimationFactor(RFdcInstPtr, Tile, Block,
+									&GetDecimationFactor);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetDecimationFactor != GetDecimationFactor)
+					return XST_FAILURE;
 			}
 		}
 	}
