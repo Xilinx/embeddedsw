@@ -50,6 +50,7 @@
 *       sk     09/21/17 Add support for Over voltage and Over
 *                       Range interrupts.
 * 2.3   sk     11/10/17 Corrected FIFO and DATA Interrupt masks.
+* 2.4   sk     12/11/17 Added DDC and DUC support.
 * </pre>
 *
 ******************************************************************************/
@@ -115,6 +116,7 @@ extern "C" {
 							Control Register */
 #define XRFDC_ADC_DECI_MODE_OFFSET	0x044U	/**< ADC Decimation mode
 							Register */
+#define XRFDC_DAC_ITERP_DATA_OFFSET	0x044U	/**< DAC interpolation data */
 #define XRFDC_ADC_MXR_CFG0_OFFSET	0x080U	/**< ADC I channel mixer
 							config Register */
 #define XRFDC_ADC_MXR_CFG1_OFFSET	0x084U	/**< ADC Q channel mixer
@@ -288,6 +290,7 @@ extern "C" {
 #define XRFDC_DAC_DECODER_CLK_OFFSET	0x184U	/**< Decoder Clock enable */
 #define XRFDC_HSCOM_PWR_OFFSET		0x094	/**< Control register during
 							power-up sequence */
+#define XRFDC_HSCOM_CLK_DIV_OFFSET	0xB0	/**< Fabric clk out divider */
 #define XRFDC_HSCOM_UPDT_DYN_OFFSET		0x0B8	/**< Trigger the update
 							dynamic event */
 #define XRFDC_DAC_INVSINC_OFFSET		0x0C0U	/**< Invsinc control */
@@ -1696,8 +1699,8 @@ extern "C" {
  * @{
  */
 
-#define XRFDC_INTERP_MODE_MASK		0x00000007U	/**< Interpolation filter
-								mode mask */
+#define XRFDC_INTERP_MODE_MASK	0x00000077U	/**< Interp filter mask */
+#define XRFDC_INTERP_MODE_I_MASK	0x00000007U	/**< Interp filter I */
 
 /* @} */
 
@@ -1805,6 +1808,17 @@ extern "C" {
  */
 
 #define XRFDC_EN_INVSINC_MASK	0x00000001U	/**< invsinc enable mask */
+
+/* @} */
+
+/** @name CLK_DIV register
+ *
+ * This register contains the bits to control the clock
+ * divider providing the clock fabric out.
+ * @{
+ */
+
+#define XRFDC_FAB_CLK_DIV_MASK		0x0000000FU	/**< clk div mask */
 
 /* @} */
 
