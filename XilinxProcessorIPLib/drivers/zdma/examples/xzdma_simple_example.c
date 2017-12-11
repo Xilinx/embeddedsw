@@ -51,6 +51,8 @@
 * 1.4   adk    11/02/17  Updated example to fix compilation errors for IAR
 *			 compiler.
 * 1.5   adk    11/22/17  Added peripheral test app support.
+*		12/11/17 Fixed peripheral test app generation issues when dma
+*			 buffers are configured on OCM memory(CR#990806).
 * </pre>
 *
 ******************************************************************************/
@@ -86,7 +88,12 @@
 #define ZDMA_INTR_DEVICE_ID	XPAR_XADMAPS_0_INTR /**< ZDMA Interrupt Id */
 #endif
 
+#ifndef TESTAPP_GEN
 #define SIZE		1000000 /**< Size of the data to be transferred */
+#else
+#define SIZE		1000 /**< Size of the data to be transferred */
+#endif
+
 #define TESTVALUE	0x1230 /**< For writing into source buffer */
 
 /**************************** Type Definitions *******************************/

@@ -127,6 +127,8 @@
 * 1.4   adk 	11/02/17 Updated examples to fix compilation errors for IAR
 *			 compiler.
 * 1.5   adk     11/22/17 Added peripheral test app support for ZDMA driver.
+*		12/11/17 Fixed peripheral test app generation issues when dma
+*			 buffers are configured on OCM memory(CR#990806).
 * </pre>
 *
 ******************************************************************************/
