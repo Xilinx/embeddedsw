@@ -21,6 +21,9 @@ standalone_v6_6:
 Updated cortexa9/xil_errata.h and cortexa9/xil_cache.c
 to remove errata 753970, It fixes CR#989132.
 
+sysmonpsu_v2_3:
+Added missing closing bracket error when C++ is used
+
 Changes for 2017.4
 ===============================
 
