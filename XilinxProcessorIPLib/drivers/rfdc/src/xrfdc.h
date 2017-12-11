@@ -121,6 +121,7 @@
 *              11/10/17 Corrected FIFO and DATA Interrupt masks.
 *              11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
 *              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
+* 2.4   sk     12/11/17 Added DDC and DUC support.
 *
 * </pre>
 *
@@ -537,6 +538,17 @@ typedef struct {
 #define XRFDC_ODD_NYQUIST_ZONE		0x1
 #define XRFDC_EVEN_NYQUIST_ZONE		0x2
 
+#define XRFDC_INTERP_DECIM_OFF		0x0U
+#define XRFDC_INTERP_DECIM_1X		0x1U
+#define XRFDC_INTERP_DECIM_2X		0x2U
+#define XRFDC_INTERP_DECIM_4X		0x3U
+#define XRFDC_INTERP_DECIM_8X		0x4U
+
+#define XRFDC_FAB_CLK_DIV1		0x1
+#define XRFDC_FAB_CLK_DIV2		0x2
+#define XRFDC_FAB_CLK_DIV4		0x3
+#define XRFDC_FAB_CLK_DIV8		0x4
+#define XRFDC_FAB_CLK_DIV16		0x5
 /*****************************************************************************/
 /**
 *
@@ -973,6 +985,12 @@ int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 *NyquistZone);
 int XRFdc_GetOutputCurr(XRFdc* InstancePtr, int Tile_Id,
 								u32 Block_Id, int *OutputCurr);
+u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+						u32 DecimationFactor);
+u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+						u32 InterpolationFactor);
+u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, int Tile_Id,
+								u16 FabClkDiv);
 
 #ifdef __cplusplus
 }

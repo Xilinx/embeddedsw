@@ -80,6 +80,7 @@
 *              11/08/17 Return error for DAC R2C mode and ADC C2R mode.
 *              11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
 *              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
+* 2.4   sk     12/11/17 Added DDC and DUC support.
 * </pre>
 *
 ******************************************************************************/
@@ -2894,6 +2895,345 @@ RETURN_PATH:
 /*****************************************************************************/
 /**
 *
+* This API is to set the decimation factor and also update the FIFO write
+* words w.r.t to decimation factor.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param	DecimationFactor to be set for DAC block.
+*           XRFDC_INTERP_DECIM_* defines the valid values.
+*
+* @return
+*		- XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Block not enabled.
+*
+* @note		Only ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetDecimationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+					u32 DecimationFactor)
+{
+	s32 Status;
+	u32 IsBlockAvail;
+	u16 ReadReg;
+	u32 BaseAddr;
+	u16 Index;
+	u16 NoOfBlocks;
+	u16 FabricRate;
+	u8 DataType;
+	u8 FIFOEnable;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	Index = Block_Id;
+	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+		NoOfBlocks = 2U;
+		if (Block_Id == 1U) {
+			Index = 2U;
+			NoOfBlocks = 4U;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	for (; Index < NoOfBlocks; Index++) {
+		IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+						Tile_Id, Block_Id);
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+					XRFDC_BLOCK_ADDR_OFFSET(Index);
+		if (IsBlockAvail == 0U) {
+			Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+			xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+					"available in %s\r\n", __func__);
+#else
+			metal_log(METAL_LOG_ERROR, "\n Requested block not "
+					"available in %s\r\n", __func__);
+#endif
+			goto RETURN_PATH;
+		} else {
+			Status = XRFdc_GetFIFOStatus(InstancePtr,
+					XRFDC_ADC_TILE, Tile_Id, &FIFOEnable);
+			if (Status != XRFDC_SUCCESS) {
+				return XRFDC_FAILURE;
+			}
+			if (FIFOEnable == 0U) {
+				DecimationFactor = XRFDC_INTERP_DECIM_OFF;
+#ifdef __MICROBLAZE__
+				xdbg_printf(XDBG_DEBUG_GENERAL, "\n FIFO disabled "
+					"hence interpolation block is OFF in %s\r\n",
+								__func__);
+#else
+				metal_log(METAL_LOG_DEBUG, "\n FIFO disabled hence "
+					"interpolation block is OFF in %s\r\n",
+							__func__);
+#endif
+			}
+			DataType = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_DECI_CONFIG_OFFSET) &
+						XRFDC_DEC_CFG_MASK;
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_DECI_MODE_OFFSET) &
+						~XRFDC_DEC_MOD_MASK;
+			ReadReg |= DecimationFactor;
+			XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_ADC_DECI_MODE_OFFSET, ReadReg);
+			FabricRate = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_FABRIC_RATE_OFFSET);
+			FabricRate = (FabricRate & XRFDC_ADC_FAB_RATE_WR_MASK);
+			if ((InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) ||
+					(DataType == 0x2) ||
+						(DataType == 0x3)) {
+				if (DecimationFactor == XRFDC_INTERP_DECIM_1X)
+					FabricRate = 8;
+				else if (DecimationFactor ==
+						XRFDC_INTERP_DECIM_2X)
+					FabricRate = 4;
+				else if (DecimationFactor ==
+						XRFDC_INTERP_DECIM_4X)
+					FabricRate = 2;
+				else if (DecimationFactor ==
+						XRFDC_INTERP_DECIM_8X)
+					FabricRate = 1;
+			} else {
+				if (DecimationFactor == XRFDC_INTERP_DECIM_1X)
+					FabricRate = 4;
+				else if (DecimationFactor ==
+						XRFDC_INTERP_DECIM_2X)
+					FabricRate = 2;
+				else if (DecimationFactor ==
+						XRFDC_INTERP_DECIM_4X)
+					FabricRate = 1;
+				else if (DecimationFactor ==
+						XRFDC_INTERP_DECIM_8X)
+					FabricRate = 1;
+			}
+			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_FABRIC_RATE_OFFSET);
+			ReadReg &= ~XRFDC_ADC_FAB_RATE_WR_MASK;
+			ReadReg |= FabricRate;
+			XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_ADC_FABRIC_RATE_OFFSET, ReadReg);
+		}
+	}
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is to set the divider for clock fabric out.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Type is ADC or DAC. 0 for ADC and 1 for DAC
+* @param	Tile_Id Valid values are 0-3.
+* @param	FabClkDiv to be set for a tile.
+*           XRFDC_FAB_CLK_* defines the valid divider values.
+*
+* @return
+*		- XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Block not enabled.
+*
+* @note		ADC and DAC Tiles
+*
+******************************************************************************/
+u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, int Tile_Id,
+								u16 FabClkDiv)
+{
+	s32 Status;
+	u32 IsTileEnable;
+	u16 ReadReg;
+	u32 BaseAddr;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	if (Type == XRFDC_ADC_TILE) {
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+							XRFDC_HSCOM_ADDR;
+		IsTileEnable = InstancePtr->RFdc_Config.
+				ADCTile_Config[Tile_Id].Enable;
+	} else {
+		BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+							XRFDC_HSCOM_ADDR;
+		IsTileEnable = InstancePtr->RFdc_Config.
+				DACTile_Config[Tile_Id].Enable;
+	}
+
+	if (IsTileEnable == 0U) {
+		Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested tile not "
+					"available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested tile not "
+					"available in %s\r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else if ((Type == XRFDC_ADC_TILE) &&
+			(FabClkDiv == XRFDC_FAB_CLK_DIV1)) {
+		Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid clock divider "
+						"in %s \r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Invalid clock divider "
+						"in %s \r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else {
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+				XRFDC_HSCOM_CLK_DIV_OFFSET) &
+				~XRFDC_FAB_CLK_DIV_MASK;
+		ReadReg |= FabClkDiv;
+		XRFdc_WriteReg16(InstancePtr, BaseAddr,
+				XRFDC_HSCOM_CLK_DIV_OFFSET, ReadReg);
+	}
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is to set the interpolation factor and also update the FIFO read
+* words w.r.t to interpolation factor.
+*
+* @param	InstancePtr is a pointer to the XRfdc instance.
+* @param	Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param	InterpolationFactor to be set for DAC block.
+*           XRFDC_INTERP_DECIM_* defines the valid values.
+*
+* @return
+*		- XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Block not enabled.
+*
+* @note		Only DAC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+						u32 InterpolationFactor)
+{
+	s32 Status;
+	u32 IsBlockAvail;
+	u16 ReadReg;
+	u32 BaseAddr;
+	u16 FabricRate;
+	u8 DataType;
+	u8 FIFOEnable;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+
+	IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
+	BaseAddr = XRFDC_DAC_TILE_DRP_ADDR(Tile_Id) +
+					XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+	if (IsBlockAvail == 0U) {
+		Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Requested block not "
+					"available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Requested block not "
+					"available in %s\r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else {
+		DataType = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_DAC_ITERP_DATA_OFFSET);
+		if ((DataType == XRFDC_ADC_MIXER_MODE_IQ) &&
+				(InterpolationFactor ==
+					XRFDC_INTERP_DECIM_1X)) {
+			Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR, "\n Invalid interpolation "
+				"factor in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR, "\n Invalid interpolation "
+				"factor in %s\r\n", __func__);
+#endif
+			goto RETURN_PATH;
+		}
+		Status = XRFdc_GetFIFOStatus(InstancePtr, XRFDC_DAC_TILE,
+					Tile_Id, &FIFOEnable);
+		if (Status != XRFDC_SUCCESS) {
+			return XRFDC_FAILURE;
+		}
+		if (FIFOEnable == 0U) {
+			InterpolationFactor = XRFDC_INTERP_DECIM_OFF;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_GENERAL, "\n FIFO disabled hence "
+				"interpolation block is OFF in %s\r\n",
+							__func__);
+#else
+		metal_log(METAL_LOG_DEBUG, "\n FIFO disabled hence "
+				"interpolation block is OFF in %s\r\n",
+						__func__);
+#endif
+		}
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+				XRFDC_DAC_INTERP_CTRL_OFFSET) &
+				~XRFDC_INTERP_MODE_MASK;
+		ReadReg |= InterpolationFactor;
+		if (DataType == XRFDC_ADC_MIXER_MODE_IQ)
+			ReadReg |= InterpolationFactor << 4;
+		XRFdc_WriteReg16(InstancePtr, BaseAddr,
+				XRFDC_DAC_INTERP_CTRL_OFFSET, ReadReg);
+		FabricRate = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+					XRFDC_ADC_FABRIC_RATE_OFFSET);
+		FabricRate = (FabricRate & XRFDC_FAB_RATE_RD_MASK) >> 8;
+		if (DataType == XRFDC_ADC_MIXER_MODE_IQ) {
+			if (InterpolationFactor == XRFDC_INTERP_DECIM_2X)
+				FabricRate = 8;
+			else if (InterpolationFactor == XRFDC_INTERP_DECIM_4X)
+				FabricRate = 4;
+			else if (InterpolationFactor == XRFDC_INTERP_DECIM_8X)
+				FabricRate = 2;
+		} else {
+			if (InterpolationFactor == XRFDC_INTERP_DECIM_1X)
+				FabricRate = 8;
+			else if (InterpolationFactor == XRFDC_INTERP_DECIM_2X)
+				FabricRate = 4;
+			else if (InterpolationFactor == XRFDC_INTERP_DECIM_4X)
+				FabricRate = 2;
+			else if (InterpolationFactor == XRFDC_INTERP_DECIM_8X)
+				FabricRate = 1;
+		}
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_FABRIC_RATE_OFFSET);
+		ReadReg &= ~XRFDC_FAB_RATE_RD_MASK;
+		ReadReg |= FabricRate << 8;
+		XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_ADC_FABRIC_RATE_OFFSET, ReadReg);
+	}
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
 * Interpolation factor are returned back to the caller.
 *
 * @param	InstancePtr is a pointer to the XRfdc instance.
@@ -2938,13 +3278,7 @@ int XRFdc_GetInterpolationFactor(XRFdc* InstancePtr, int Tile_Id,
 		goto RETURN_PATH;
 	} else {
 		*InterpolationFactor = XRFdc_ReadReg16(InstancePtr, BaseAddr,
-				XRFDC_DAC_INTERP_CTRL_OFFSET) & XRFDC_INTERP_MODE_MASK;
-		if ((*InterpolationFactor == 5) || (*InterpolationFactor == 6))
-			*InterpolationFactor = 2;
-		else if ((*InterpolationFactor == 3) || (*InterpolationFactor == 7))
-			*InterpolationFactor = 4;
-		else if (*InterpolationFactor == 4)
-			*InterpolationFactor = 8;
+				XRFDC_DAC_INTERP_CTRL_OFFSET) & XRFDC_INTERP_MODE_I_MASK;
 	}
 	(void)BaseAddr;
 
@@ -3008,12 +3342,6 @@ int XRFdc_GetDecimationFactor(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id,
 	} else {
 		*DecimationFactor = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 				XRFDC_ADC_DECI_MODE_OFFSET) & XRFDC_DEC_MOD_MASK;
-		if ((*DecimationFactor == 5) || (*DecimationFactor == 6))
-			*DecimationFactor = 2;
-		else if ((*DecimationFactor == 3) || (*DecimationFactor == 7))
-			*DecimationFactor = 4;
-		else if (*DecimationFactor == 4)
-			*DecimationFactor = 8;
 	}
 	(void)BaseAddr;
 
