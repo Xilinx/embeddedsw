@@ -56,6 +56,7 @@ var xv__hdmirxss_8h =
       [ "XV_HDMIRXSS_LOG_EVT_DUMMY", "xv__hdmirxss_8h.html#a801bb980bfbb34a0663bbe062e040a15a7358229960ff258552c62dce8a49b98f", null ]
     ] ],
     [ "XV_HdmiRxSs_GetAudioChannels", "xv__hdmirxss_8h.html#a9800e58c46167ce458da016451f88c8d", null ],
+    [ "XV_HdmiRxSs_GetAudioFormat", "xv__hdmirxss_8h.html#a64e45e8b7892c815eab9b50c39790f10", null ],
     [ "XV_HdmiRxSs_GetAuxiliary", "xv__hdmirxss_8h.html#abdc5756e7c68a5abc93dc6fcb562db03", null ],
     [ "XV_HdmiRxSs_GetVideoIDCode", "xv__hdmirxss_8h.html#a3dd6f120b55c78fc21385878b3b930fe", null ],
     [ "XV_HdmiRxSs_GetVideoStream", "xv__hdmirxss_8h.html#acf4f848d7fbcea5843ae8bab4d255e2e", null ],

@@ -46,5 +46,6 @@ var xv__sdirxss_8h =
     [ "XV_SdiRxSs_Start", "xv__sdirxss_8h.html#a691319ac2baf302e4f0b833c0aafc963", null ],
     [ "XV_SdiRxSs_Stop", "xv__sdirxss_8h.html#ac4e45bc8ac7c85d1ad5958be34844543", null ],
     [ "XV_SdiRxSs_StreamFlowDisable", "xv__sdirxss_8h.html#a3843cd72bcb3260ba7002756dcda7eeb", null ],
-    [ "XV_SdiRxSs_StreamFlowEnable", "xv__sdirxss_8h.html#ac1f60e4d77b72e3b6e7b24d9ead04947", null ]
+    [ "XV_SdiRxSs_StreamFlowEnable", "xv__sdirxss_8h.html#ac1f60e4d77b72e3b6e7b24d9ead04947", null ],
+    [ "XV_SdiRxSs_WaitforPayLoad", "xv__sdirxss_8h.html#aeef26d7216e3d1be32c040ad486d64aa", null ]
 ];

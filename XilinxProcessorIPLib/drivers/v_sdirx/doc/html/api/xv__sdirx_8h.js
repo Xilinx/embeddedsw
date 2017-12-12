@@ -49,5 +49,6 @@ var xv__sdirx_8h =
     [ "XV_SdiRx_Start", "xv__sdirx_8h.html#aea144b8a832fb5bfafbc9e1b54595b30", null ],
     [ "XV_SdiRx_Stop", "xv__sdirx_8h.html#ad8a5744b701842dd956d608cf4b8495f", null ],
     [ "XV_SdiRx_VidBridgeDisable", "xv__sdirx_8h.html#a45742ac36579e38676885ea0528f9421", null ],
-    [ "XV_SdiRx_VidBridgeEnable", "xv__sdirx_8h.html#a497f29418b88c6ff0c04e391049c25c2", null ]
+    [ "XV_SdiRx_VidBridgeEnable", "xv__sdirx_8h.html#a497f29418b88c6ff0c04e391049c25c2", null ],
+    [ "XV_SdiRx_WaitforPayLoad", "xv__sdirx_8h.html#ae4b6449c0758f5c3bd019a55dbf028bb", null ]
 ];

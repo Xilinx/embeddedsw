@@ -106,6 +106,18 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a97694a18fd2b734dc690a9a6f31d7a68"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___sdi_tx_ss.html#a97694a18fd2b734dc690a9a6f31d7a68">UnderFlowRef</a></td></tr>
 <tr class="memdesc:a97694a18fd2b734dc690a9a6f31d7a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">To be passed to the Under flow callback.  <a href="#a97694a18fd2b734dc690a9a6f31d7a68">More...</a><br /></td></tr>
 <tr class="separator:a97694a18fd2b734dc690a9a6f31d7a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02c3d66fe5b5df8770277aa1244e8ec5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xv__sditxss_8h.html#a4ee30ca6be555a1735e6c947765f7c07">XV_SdiTxSs_Callback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___sdi_tx_ss.html#a02c3d66fe5b5df8770277aa1244e8ec5">CeAlignErrCallback</a></td></tr>
+<tr class="memdesc:a02c3d66fe5b5df8770277aa1244e8ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for CE align errors event.  <a href="#a02c3d66fe5b5df8770277aa1244e8ec5">More...</a><br /></td></tr>
+<tr class="separator:a02c3d66fe5b5df8770277aa1244e8ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223e2f4f531726f3defd0a0b09fd66fe"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___sdi_tx_ss.html#a223e2f4f531726f3defd0a0b09fd66fe">CeAlignErrRef</a></td></tr>
+<tr class="memdesc:a223e2f4f531726f3defd0a0b09fd66fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">To be passed to the CE align errors callback.  <a href="#a223e2f4f531726f3defd0a0b09fd66fe">More...</a><br /></td></tr>
+<tr class="separator:a223e2f4f531726f3defd0a0b09fd66fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8c806b7fd57bb351482b360d713b54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xv__sditxss_8h.html#a4ee30ca6be555a1735e6c947765f7c07">XV_SdiTxSs_Callback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___sdi_tx_ss.html#afd8c806b7fd57bb351482b360d713b54">Axi4sVidLockCallback</a></td></tr>
+<tr class="memdesc:afd8c806b7fd57bb351482b360d713b54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for Axi4s video lock event.  <a href="#afd8c806b7fd57bb351482b360d713b54">More...</a><br /></td></tr>
+<tr class="separator:afd8c806b7fd57bb351482b360d713b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae12ceae79ba53231d284dfcb4ced5aa7"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___sdi_tx_ss.html#ae12ceae79ba53231d284dfcb4ced5aa7">Axi4sVidLockRef</a></td></tr>
+<tr class="memdesc:ae12ceae79ba53231d284dfcb4ced5aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">To be passed to the Axi4s video lock callback.  <a href="#ae12ceae79ba53231d284dfcb4ced5aa7">More...</a><br /></td></tr>
+<tr class="separator:ae12ceae79ba53231d284dfcb4ced5aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a937df31c09d932687e6cd1fae650b084"><td class="memItemLeft" align="right" valign="top">u8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_v___sdi_tx_ss.html#a937df31c09d932687e6cd1fae650b084">IsStreamUp</a></td></tr>
 <tr class="memdesc:a937df31c09d932687e6cd1fae650b084"><td class="mdescLeft">&#160;</td><td class="mdescRight">SDI TX Stream Up.  <a href="#a937df31c09d932687e6cd1fae650b084">More...</a><br /></td></tr>
 <tr class="separator:a937df31c09d932687e6cd1fae650b084"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,6 +126,78 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>The <a class="el" href="struct_x_v___sdi_tx_ss.html" title="The XV_SdiTxSs driver instance data. ">XV_SdiTxSs</a> driver instance data. </p>
 <p>An instance must be allocated for each SDI TX core in use. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
+<a id="afd8c806b7fd57bb351482b360d713b54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd8c806b7fd57bb351482b360d713b54">&#9670;&nbsp;</a></span>Axi4sVidLockCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="xv__sditxss_8h.html#a4ee30ca6be555a1735e6c947765f7c07">XV_SdiTxSs_Callback</a> XV_SdiTxSs::Axi4sVidLockCallback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for Axi4s video lock event. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#a0a8055ef29417b51170aace1338c9b25">XV_SdiTxSs_SetCallback()</a>.</p>
+
+</div>
+</div>
+<a id="ae12ceae79ba53231d284dfcb4ced5aa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae12ceae79ba53231d284dfcb4ced5aa7">&#9670;&nbsp;</a></span>Axi4sVidLockRef</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* XV_SdiTxSs::Axi4sVidLockRef</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>To be passed to the Axi4s video lock callback. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#a0a8055ef29417b51170aace1338c9b25">XV_SdiTxSs_SetCallback()</a>.</p>
+
+</div>
+</div>
+<a id="a02c3d66fe5b5df8770277aa1244e8ec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c3d66fe5b5df8770277aa1244e8ec5">&#9670;&nbsp;</a></span>CeAlignErrCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="xv__sditxss_8h.html#a4ee30ca6be555a1735e6c947765f7c07">XV_SdiTxSs_Callback</a> XV_SdiTxSs::CeAlignErrCallback</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for CE align errors event. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#a0a8055ef29417b51170aace1338c9b25">XV_SdiTxSs_SetCallback()</a>.</p>
+
+</div>
+</div>
+<a id="a223e2f4f531726f3defd0a0b09fd66fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223e2f4f531726f3defd0a0b09fd66fe">&#9670;&nbsp;</a></span>CeAlignErrRef</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* XV_SdiTxSs::CeAlignErrRef</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>To be passed to the CE align errors callback. </p>
+
+<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#a0a8055ef29417b51170aace1338c9b25">XV_SdiTxSs_SetCallback()</a>.</p>
+
+</div>
+</div>
 <a id="af7d89922bc62fa37fbd2bb092e4d313a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7d89922bc62fa37fbd2bb092e4d313a">&#9670;&nbsp;</a></span>Config</h2>
 
@@ -128,7 +212,7 @@ Data Fields</h2></td></tr>
 
 <p>Hardware Configuration. </p>
 
-<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#a4bdb55bb1af5300e000e420e35256eb8">XV_SdiTxSs_CfgInitialize()</a>, <a class="el" href="group__v__sditxss.html#ga947c864c39e22328573d30b2cd0f4ca3">XV_SdiTxSs_SubcoreInitSdiTx()</a>, and <a class="el" href="group__v__sditxss.html#ga014e94de29a924cc95a2282fe8abf748">XV_SdiTxSs_SubcoreInitVtc()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#a4bdb55bb1af5300e000e420e35256eb8">XV_SdiTxSs_CfgInitialize()</a>, <a class="el" href="xv__sditxss_8h.html#aaedc93d7d8d155ea9407b0627508e6b6">XV_SdiTxSs_StreamStart()</a>, <a class="el" href="group__v__sditxss.html#ga947c864c39e22328573d30b2cd0f4ca3">XV_SdiTxSs_SubcoreInitSdiTx()</a>, and <a class="el" href="group__v__sditxss.html#ga014e94de29a924cc95a2282fe8abf748">XV_SdiTxSs_SubcoreInitVtc()</a>.</p>
 
 </div>
 </div>
@@ -324,7 +408,7 @@ Data Fields</h2></td></tr>
 
 <p>handle to sub-core driver instance </p>
 
-<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#ac8f8c2f4422c2774dcbdb711ee85cbe6">XV_SdiTxSs_ReportDebugInfo()</a>, <a class="el" href="xv__sditxss_8h.html#aaedc93d7d8d155ea9407b0627508e6b6">XV_SdiTxSs_StreamStart()</a>, and <a class="el" href="group__v__sditxss.html#ga014e94de29a924cc95a2282fe8abf748">XV_SdiTxSs_SubcoreInitVtc()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xv__sditxss_8h.html#ac8f8c2f4422c2774dcbdb711ee85cbe6">XV_SdiTxSs_ReportDebugInfo()</a>, and <a class="el" href="group__v__sditxss.html#ga014e94de29a924cc95a2282fe8abf748">XV_SdiTxSs_SubcoreInitVtc()</a>.</p>
 
 </div>
 </div>

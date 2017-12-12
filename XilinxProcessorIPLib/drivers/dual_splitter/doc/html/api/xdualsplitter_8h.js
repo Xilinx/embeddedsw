@@ -19,7 +19,7 @@ var xdualsplitter_8h =
     [ "XDualSplitter_GetImageSize", "group__dual__splitter__v1__0.html#gaabda56798dc29e25c03eb5098ba60850", null ],
     [ "XDualSplitter_GetImgParam", "group__dual__splitter__v1__0.html#gaf9b807d631f1491dcd23add904e40049", null ],
     [ "XDualSplitter_IntrHandler", "group__dual__splitter__v1__0.html#ga040c43cf8292cad54fad4111a7af19c3", null ],
-    [ "XDualSplitter_LookupConfig", "group__dual__splitter__v1__0.html#ga28b5228f2ce36d82ba84c21da332b32e", null ],
+    [ "XDualSplitter_LookupConfig", "group__dual__splitter__v1__0.html#gaa04e12dc0757562b1d46b4956d6cc403", null ],
     [ "XDualSplitter_Reset", "group__dual__splitter__v1__0.html#ga9cb1484d45dfd8caeba7b82f3cb57d26", null ],
     [ "XDualSplitter_SelfTest", "group__dual__splitter__v1__0.html#gaa58ddb5fa4bc7b31d0b10f49ef9550eb", null ],
     [ "XDualSplitter_SetCallback", "group__dual__splitter__v1__0.html#ga6d470b5b39f29a4635707b69290898f4", null ],

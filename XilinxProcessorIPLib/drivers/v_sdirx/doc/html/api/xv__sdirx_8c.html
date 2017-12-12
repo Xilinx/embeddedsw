@@ -117,6 +117,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ac36464a3c528cb595b0ca975a5139df3"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#ac36464a3c528cb595b0ca975a5139df3">XV_SdiRx_GetPayloadId</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr, u8 DataStream)</td></tr>
 <tr class="memdesc:ac36464a3c528cb595b0ca975a5139df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns incoming stream's incoming SDI payload ID.  <a href="#ac36464a3c528cb595b0ca975a5139df3">More...</a><br /></td></tr>
 <tr class="separator:ac36464a3c528cb595b0ca975a5139df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4b6449c0758f5c3bd019a55dbf028bb"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#ae4b6449c0758f5c3bd019a55dbf028bb">XV_SdiRx_WaitforPayLoad</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr)</td></tr>
+<tr class="memdesc:ae4b6449c0758f5c3bd019a55dbf028bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used to wait for the payload valid bit to be set.  <a href="#ae4b6449c0758f5c3bd019a55dbf028bb">More...</a><br /></td></tr>
+<tr class="separator:ae4b6449c0758f5c3bd019a55dbf028bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee258ea49b5efc86d34ece895236a71a"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="xv__sdirx_8c.html#aee258ea49b5efc86d34ece895236a71a">XV_SdiRx_GetSdiMode</a> (<a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *InstancePtr)</td></tr>
 <tr class="memdesc:aee258ea49b5efc86d34ece895236a71a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns the current SDI transport mode detected.  <a href="#aee258ea49b5efc86d34ece895236a71a">More...</a><br /></td></tr>
 <tr class="separator:aee258ea49b5efc86d34ece895236a71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -796,6 +799,41 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
+
+<p class="reference">References <a class="el" href="struct_x_v___sdi_rx___config.html#aa1e4f581bc35c38849bb3d2550d247e5">XV_SdiRx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8eed60af4a10d195439f698b77e8af33">XV_SdiRx::Config</a>, and <a class="el" href="xv__sdirx__hw_8h.html#a11c28dcf104dea98ffe4e3eef0a600cb">XV_SdiRx_ReadReg</a>.</p>
+
+</div>
+</div>
+<a id="ae4b6449c0758f5c3bd019a55dbf028bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4b6449c0758f5c3bd019a55dbf028bb">&#9670;&nbsp;</a></span>XV_SdiRx_WaitforPayLoad()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u32 XV_SdiRx_WaitforPayLoad </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_x_v___sdi_rx.html">XV_SdiRx</a> *&#160;</td>
+          <td class="paramname"><em>InstancePtr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function is used to wait for the payload valid bit to be set. </p>
+<p>This has to be called from application based on the callback indication of the video lock interrupt handler. Without this function being called, it may be guaranteed that payload bits are valid after video lock interrupt occured.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the <a class="el" href="struct_x_v___sdi_rx.html" title="The XSdiRx driver instance data. ">XV_SdiRx</a> core instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>XST_FAILURE if the payload valid bits are not set.</li>
+<li>XST_SUCCESS if ST352 registers are read and loaded to Rx structures</li>
+</ul>
+</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
 <p class="reference">References <a class="el" href="struct_x_v___sdi_rx___config.html#aa1e4f581bc35c38849bb3d2550d247e5">XV_SdiRx_Config::BaseAddress</a>, <a class="el" href="struct_x_v___sdi_rx.html#a8eed60af4a10d195439f698b77e8af33">XV_SdiRx::Config</a>, and <a class="el" href="xv__sdirx__hw_8h.html#a11c28dcf104dea98ffe4e3eef0a600cb">XV_SdiRx_ReadReg</a>.</p>

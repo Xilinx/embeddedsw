@@ -393,6 +393,9 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 <li>XRFDC_DAC_DAT_PATH_ISR_MASK
 : <a class="el" href="group__rfdc__v2__0.html#gaa9a450174d1e4a8064167eb226826c84">xrfdc_hw.h</a>
 </li>
+<li>XRFDC_DAC_DECODER_CLK_OFFSET
+: <a class="el" href="group__rfdc__v2__0.html#ga0cc20a9ffe3f8b77fbc5ccf52fcdece0">xrfdc_hw.h</a>
+</li>
 <li>XRFDC_DAC_DECODER_CTRL_OFFSET
 : <a class="el" href="group__rfdc__v2__0.html#ga4e226a0a8cb536930a8755160afef0b3">xrfdc_hw.h</a>
 </li>
@@ -407,6 +410,12 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 </li>
 <li>XRFDC_DAC_INTERP_CTRL_OFFSET
 : <a class="el" href="group__rfdc__v2__0.html#ga500c30f98d7b3b461ea75a0d03a17e55">xrfdc_hw.h</a>
+</li>
+<li>XRFDC_DAC_INVSINC_OFFSET
+: <a class="el" href="group__rfdc__v2__0.html#gafe01e9fab71fc942e2e76c8384186000">xrfdc_hw.h</a>
+</li>
+<li>XRFDC_DAC_MB_CFG_OFFSET
+: <a class="el" href="group__rfdc__v2__0.html#ga738d73a6d313704be82dc2908c289056">xrfdc_hw.h</a>
 </li>
 <li>XRFDC_DAC_MC_CFG0_OFFSET
 : <a class="el" href="group__rfdc__v2__0.html#ga8ad46a818c4133624a1cdcc45400d932">xrfdc_hw.h</a>
@@ -607,6 +616,12 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 <li>XRFDC_EN_INTR_SLICE3_MASK
 : <a class="el" href="group__rfdc__v2__0.html#ga2043a5cd71b7082076699190fbbdea2c">xrfdc_hw.h</a>
 </li>
+<li>XRFDC_EN_INVSINC_MASK
+: <a class="el" href="group__rfdc__v2__0.html#gaad0e92bc8e42dfaca20bddc7dd1d53b8">xrfdc_hw.h</a>
+</li>
+<li>XRFDC_EN_MB_MASK
+: <a class="el" href="group__rfdc__v2__0.html#gad882c86da84fb558d95d22eb1ce70a2e">xrfdc_hw.h</a>
+</li>
 <li>XRFDC_EN_Q_IQ_MASK
 : <a class="el" href="group__rfdc__v2__0.html#ga51daa90a995744e8c846c0287f6689a3">xrfdc_hw.h</a>
 </li>
@@ -700,6 +715,10 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 : <a class="el" href="group__xrfdc__v2__0.html#gadc6b8430b7904260dd0a6a5d100b350b">xrfdc.c</a>
 , <a class="el" href="group__rfdc__v2__0.html#gaaef7fcdcc43f40584eb0f03253afb166">xrfdc.h</a>
 </li>
+<li>XRFdc_GetFIFOStatus()
+: <a class="el" href="group__xrfdc__v2__0.html#gae2a8ac4c4184eb047788d4fc7579a02c">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#gae2a8ac4c4184eb047788d4fc7579a02c">xrfdc.h</a>
+</li>
 <li>XRFdc_GetInterpolationFactor()
 : <a class="el" href="group__xrfdc__v2__0.html#gae567631f87c3f222aca40c47a29cb96a">xrfdc.c</a>
 , <a class="el" href="group__rfdc__v2__0.html#gae567631f87c3f222aca40c47a29cb96a">xrfdc.h</a>
@@ -724,8 +743,8 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 , <a class="el" href="group__rfdc__v2__0.html#gaca1e37bf1dc8acb393458f3964937762">xrfdc.h</a>
 </li>
 <li>XRFdc_GetQMCSettings()
-: <a class="el" href="group__xrfdc__v2__0.html#ga0c926fa865f44fb4aae4a4fd9d9d114e">xrfdc.c</a>
-, <a class="el" href="group__rfdc__v2__0.html#ga0c926fa865f44fb4aae4a4fd9d9d114e">xrfdc.h</a>
+: <a class="el" href="group__rfdc__v2__0.html#ga0c926fa865f44fb4aae4a4fd9d9d114e">xrfdc.h</a>
+, <a class="el" href="group__xrfdc__v2__0.html#ga0c926fa865f44fb4aae4a4fd9d9d114e">xrfdc.c</a>
 </li>
 <li>XRFdc_GetSignalFlow()
 : <a class="el" href="group__xrfdc__v2__0.html#gaa861c23cea439d20ed3f9e2ed579ccc8">xrfdc.c</a>
@@ -750,8 +769,14 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 <li>XRFDC_INTERP_MODE_MASK
 : <a class="el" href="group__rfdc__v2__0.html#ga2666ef5dd0f3aa8dc1fb8110030b1873">xrfdc_hw.h</a>
 </li>
+<li>XRFDC_INTR_DAT_OVR_MASK
+: <a class="el" href="group__rfdc__v2__0.html#gafc3ee848501150f1e57d69433a8539fe">xrfdc_hw.h</a>
+</li>
 <li>XRFDC_INTR_ENABLE
 : <a class="el" href="group__rfdc__v2__0.html#ga1b75af0597b8e14a9d731bbbe4b33377">xrfdc_hw.h</a>
+</li>
+<li>XRFDC_INTR_FIFO_OVR_MASK
+: <a class="el" href="group__rfdc__v2__0.html#ga11fc5e3d37ec8e5afe801381e5c8dc31">xrfdc_hw.h</a>
 </li>
 <li>XRFDC_INTR_OVR_RANGE_MASK
 : <a class="el" href="group__rfdc__v2__0.html#ga2d07d4776fa647b308501796e1b6ba80">xrfdc_hw.h</a>
@@ -1024,32 +1049,32 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 , <a class="el" href="group__rfdc__v2__0.html#ga69ed13660fb7bf492ae9917d6158260b">xrfdc.h</a>
 </li>
 <li>XRFdc_SetDecoderMode()
-: <a class="el" href="group__rfdc__v2__0.html#ga1b3d142b4c06bf8eed31c5e26e3ffb42">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#ga1b3d142b4c06bf8eed31c5e26e3ffb42">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#ga1b3d142b4c06bf8eed31c5e26e3ffb42">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#ga1b3d142b4c06bf8eed31c5e26e3ffb42">xrfdc.h</a>
 </li>
 <li>XRFdc_SetFabRdVldWords()
-: <a class="el" href="group__rfdc__v2__0.html#gac76aa34c4697461f941538eb0c15b384">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#ga977744a73d3d8eb8f8e28c6ded32c277">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#ga977744a73d3d8eb8f8e28c6ded32c277">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#gac76aa34c4697461f941538eb0c15b384">xrfdc.h</a>
 </li>
 <li>XRFdc_SetFabWrVldWords()
-: <a class="el" href="group__rfdc__v2__0.html#gacf4b20c482afb426dd41e3538b9592a1">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#ga68004d1e1de5b3a80f706f54d2ce1148">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#ga68004d1e1de5b3a80f706f54d2ce1148">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#gacf4b20c482afb426dd41e3538b9592a1">xrfdc.h</a>
 </li>
 <li>XRFdc_SetMixerSettings()
 : <a class="el" href="group__xrfdc__v2__0.html#ga675254e8954dad248703d2cfa9a919db">xrfdc.c</a>
 , <a class="el" href="group__rfdc__v2__0.html#ga675254e8954dad248703d2cfa9a919db">xrfdc.h</a>
 </li>
 <li>XRFdc_SetNyquistZone()
-: <a class="el" href="group__rfdc__v2__0.html#gaef68641092a0d79cdf1b344f2bef02c1">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#gaef68641092a0d79cdf1b344f2bef02c1">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#gaef68641092a0d79cdf1b344f2bef02c1">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#gaef68641092a0d79cdf1b344f2bef02c1">xrfdc.h</a>
 </li>
 <li>XRFdc_SetQMCSettings()
-: <a class="el" href="group__rfdc__v2__0.html#gaec58790f51564e2b59b95e01cb89fe22">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#gaec58790f51564e2b59b95e01cb89fe22">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#gaec58790f51564e2b59b95e01cb89fe22">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#gaec58790f51564e2b59b95e01cb89fe22">xrfdc.h</a>
 </li>
 <li>XRFdc_SetSignalFlow()
-: <a class="el" href="group__rfdc__v2__0.html#gac408db4f3e995007ee24c8bd56d05848">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#gac408db4f3e995007ee24c8bd56d05848">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#gac408db4f3e995007ee24c8bd56d05848">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#gac408db4f3e995007ee24c8bd56d05848">xrfdc.h</a>
 </li>
 <li>XRFdc_SetStatusHandler()
 : <a class="el" href="group__rfdc__v2__0.html#gaab67d654d8e0eaa66fbd65c5f1b66823">xrfdc.h</a>
@@ -1058,20 +1083,20 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 : <a class="el" href="group__xrfdc__v2__0.html#ga3ef6c89d449f9d08abf6b6e1802d128d">xrfdc.c</a>
 </li>
 <li>XRFdc_SetThresholdSettings()
-: <a class="el" href="group__rfdc__v2__0.html#gabacb3beabcc114b242e8639a752b60ac">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#gabacb3beabcc114b242e8639a752b60ac">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#gabacb3beabcc114b242e8639a752b60ac">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#gabacb3beabcc114b242e8639a752b60ac">xrfdc.h</a>
 </li>
 <li>XRFdc_SetupFIFO()
 : <a class="el" href="group__xrfdc__v2__0.html#gac25ed078d45d84a71eb368dcf4f82b46">xrfdc.c</a>
 , <a class="el" href="group__rfdc__v2__0.html#gac25ed078d45d84a71eb368dcf4f82b46">xrfdc.h</a>
 </li>
 <li>XRFdc_Shutdown()
-: <a class="el" href="group__rfdc__v2__0.html#gaca43e55d65feb6977e2e98dcb7eeffc2">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#gaca43e55d65feb6977e2e98dcb7eeffc2">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#gaca43e55d65feb6977e2e98dcb7eeffc2">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#gaca43e55d65feb6977e2e98dcb7eeffc2">xrfdc.h</a>
 </li>
 <li>XRFdc_StartUp()
-: <a class="el" href="group__rfdc__v2__0.html#ga9824cf7082cd418bb5bfe979643acc87">xrfdc.h</a>
-, <a class="el" href="group__xrfdc__v2__0.html#ga9824cf7082cd418bb5bfe979643acc87">xrfdc.c</a>
+: <a class="el" href="group__xrfdc__v2__0.html#ga9824cf7082cd418bb5bfe979643acc87">xrfdc.c</a>
+, <a class="el" href="group__rfdc__v2__0.html#ga9824cf7082cd418bb5bfe979643acc87">xrfdc.h</a>
 </li>
 <li>XRFDC_STATUS_OFFSET
 : <a class="el" href="group__rfdc__v2__0.html#gab8951c0ea0af304909c87b7b80b9023b">xrfdc_hw.h</a>
@@ -1332,8 +1357,8 @@ $(document).ready(function(){initNavTree('globals_x.html','');});
 : <a class="el" href="group__rfdc__v2__0.html#ga4874aa2b9526717f14e9d993c67444d4">xrfdc_hw.h</a>
 </li>
 <li>XRFdc_UpdateEvent()
-: <a class="el" href="group__xrfdc__v2__0.html#ga472671662332eeb179c74be92323b077">xrfdc.c</a>
-, <a class="el" href="group__rfdc__v2__0.html#ga472671662332eeb179c74be92323b077">xrfdc.h</a>
+: <a class="el" href="group__rfdc__v2__0.html#ga472671662332eeb179c74be92323b077">xrfdc.h</a>
+, <a class="el" href="group__xrfdc__v2__0.html#ga472671662332eeb179c74be92323b077">xrfdc.c</a>
 </li>
 <li>XRFDC_UPDT_EVNT_MASK
 : <a class="el" href="group__rfdc__v2__0.html#ga3280baae4fc36d8025ff9cb65661d2b3">xrfdc_hw.h</a>

@@ -99,7 +99,25 @@ MODIFICATION HISTORY:</pre><pre>Ver   Who    Date     Changes
                       correct information and also updates the
                       description for Vector Param in intr handler
                       Add API to get Output current and removed
-                      GetTermVoltage and GetOutputCurr inline functions.</pre><pre></pre> </div></div><!-- contents -->
+                      GetTermVoltage and GetOutputCurr inline functions.
+2.2   sk     10/05/17 Fixed XRFdc_GetNoOfADCBlocks API for 4GSPS.
+                      Enable the decoder clock based on decoder mode.
+                      Add API to get the current FIFO status.
+                      Updated XRFdc_DumpRegs API for better readability
+                      of output register dump.
+                      Add support for 4GSPS CoarseMixer frequency.
+             10/11/17 Modify float types to double to increase precision.
+             10/12/17 Update BlockStatus API to give current status.
+                      In BYPASS mode, input datatype can be Real or IQ
+                      hence checked both while reading the mixer mode.
+             10/17/17 Fixed Set Threshold API Issue.
+2.2   sk     10/18/17 Add support for FIFO and DATA overflow interrupt
+2.3   sk     11/06/17 Fixed PhaseOffset truncation issue.
+                      Provide user configurability for FineMixerScale.
+             11/08/17 Return error for DAC R2C mode and ADC C2R mode.
+             11/10/17 Corrected FIFO and DATA Interrupt masks.
+             11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
+             11/20/17 Remove unwanted ADC block checks in 4GSPS mode.</pre><pre></pre> </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

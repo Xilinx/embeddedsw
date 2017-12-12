@@ -73,45 +73,12 @@ $(document).ready(function(){initNavTree('group__axidma__v9__4.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma.html">XAxiDma</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_axi_dma.html" title="The XAxiDma driver instance data. ">XAxiDma</a> driver instance data.  <a href="struct_x_axi_dma.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma___config.html">XAxiDma_Config</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration structure for AXI DMA engine.  <a href="struct_x_axi_dma___config.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container structure for descriptor storage control.  <a href="struct_x_axi_dma___bd_ring.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ga9d91f29c6dc41f2106e097f1f9957a6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga9d91f29c6dc41f2106e097f1f9957a6e">XAxiDma_GetTxRing</a>(InstancePtr)&#160;&#160;&#160;(&amp;((InstancePtr)-&gt;TxBdRing))</td></tr>
-<tr class="memdesc:ga9d91f29c6dc41f2106e097f1f9957a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Transmit (Tx) Ring ptr.  <a href="#ga9d91f29c6dc41f2106e097f1f9957a6e">More...</a><br /></td></tr>
-<tr class="separator:ga9d91f29c6dc41f2106e097f1f9957a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6373ac3baa5365607f6727f4e2ece7a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga6373ac3baa5365607f6727f4e2ece7a5">XAxiDma_GetRxRing</a>(InstancePtr)&#160;&#160;&#160;(&amp;((InstancePtr)-&gt;RxBdRing[0]))</td></tr>
-<tr class="memdesc:ga6373ac3baa5365607f6727f4e2ece7a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Receive (Rx) Ring ptr.  <a href="#ga6373ac3baa5365607f6727f4e2ece7a5">More...</a><br /></td></tr>
-<tr class="separator:ga6373ac3baa5365607f6727f4e2ece7a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf03e87b58cf2f9800e6260fda3745631"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gaf03e87b58cf2f9800e6260fda3745631">XAxiDma_GetRxIndexRing</a>(InstancePtr,  RingIndex)&#160;&#160;&#160;(&amp;((InstancePtr)-&gt;RxBdRing[RingIndex]))</td></tr>
-<tr class="memdesc:gaf03e87b58cf2f9800e6260fda3745631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get Receive (Rx) Ring ptr of a Index.  <a href="#gaf03e87b58cf2f9800e6260fda3745631">More...</a><br /></td></tr>
-<tr class="separator:gaf03e87b58cf2f9800e6260fda3745631"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga18dd03026dd6c0ebd13526116c09ccae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga18dd03026dd6c0ebd13526116c09ccae">XAxiDma_HasSg</a>(InstancePtr)&#160;&#160;&#160;((InstancePtr)-&gt;HasSg) ? TRUE : FALSE</td></tr>
-<tr class="memdesc:ga18dd03026dd6c0ebd13526116c09ccae"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function checks whether system is configured as Simple or Scatter Gather mode.  <a href="#ga18dd03026dd6c0ebd13526116c09ccae">More...</a><br /></td></tr>
-<tr class="separator:ga18dd03026dd6c0ebd13526116c09ccae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadac28afa26e2cb55bdada1ee3c016c52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gadac28afa26e2cb55bdada1ee3c016c52">XAxiDma_IntrEnable</a>(InstancePtr,  Mask,  Direction)</td></tr>
-<tr class="memdesc:gadac28afa26e2cb55bdada1ee3c016c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function enables interrupts specified by the Mask in specified direction, Interrupts that are not in the mask are not affected.  <a href="#gadac28afa26e2cb55bdada1ee3c016c52">More...</a><br /></td></tr>
-<tr class="separator:gadac28afa26e2cb55bdada1ee3c016c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gadba63ad7c0a784d569736a8d1eb7c367"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gadba63ad7c0a784d569736a8d1eb7c367">XAxiDma_IntrGetEnabled</a>(InstancePtr,  Direction)</td></tr>
-<tr class="memdesc:gadba63ad7c0a784d569736a8d1eb7c367"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the mask for the interrupts that are currently enabled.  <a href="#gadba63ad7c0a784d569736a8d1eb7c367">More...</a><br /></td></tr>
-<tr class="separator:gadba63ad7c0a784d569736a8d1eb7c367"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1936b497c0fa61d326807e5ed8dd572b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga1936b497c0fa61d326807e5ed8dd572b">XAxiDma_IntrDisable</a>(InstancePtr,  Mask,  Direction)</td></tr>
-<tr class="memdesc:ga1936b497c0fa61d326807e5ed8dd572b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function disables interrupts specified by the Mask.  <a href="#ga1936b497c0fa61d326807e5ed8dd572b">More...</a><br /></td></tr>
-<tr class="separator:ga1936b497c0fa61d326807e5ed8dd572b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6a0eb17bcfcaf3331e01855d302f5f0e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga6a0eb17bcfcaf3331e01855d302f5f0e">XAxiDma_IntrGetIrq</a>(InstancePtr,  Direction)</td></tr>
-<tr class="memdesc:ga6a0eb17bcfcaf3331e01855d302f5f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function gets the interrupts that are asserted.  <a href="#ga6a0eb17bcfcaf3331e01855d302f5f0e">More...</a><br /></td></tr>
-<tr class="separator:ga6a0eb17bcfcaf3331e01855d302f5f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9ff0d2e5b50846e4b6a2d683283c10d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga9ff0d2e5b50846e4b6a2d683283c10d5">XAxiDma_IntrAckIrq</a>(InstancePtr,  Mask,  Direction)</td></tr>
-<tr class="memdesc:ga9ff0d2e5b50846e4b6a2d683283c10d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function acknowledges the interrupts that are specified in Mask.  <a href="#ga9ff0d2e5b50846e4b6a2d683283c10d5">More...</a><br /></td></tr>
-<tr class="separator:ga9ff0d2e5b50846e4b6a2d683283c10d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa738ffd392c7ae1e844fab340ba50fee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gaa738ffd392c7ae1e844fab340ba50fee">XAxiDma_BdRead</a>(BaseAddress,  Offset)&#160;&#160;&#160;(*(u32 *)(((void *)(UINTPTR)(BaseAddress)) + (u32)(Offset)))</td></tr>
 <tr class="memdesc:gaa738ffd392c7ae1e844fab340ba50fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the given Buffer Descriptor word.  <a href="#gaa738ffd392c7ae1e844fab340ba50fee">More...</a><br /></td></tr>
 <tr class="separator:gaa738ffd392c7ae1e844fab340ba50fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -250,9 +217,6 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:gac08fe7cb6508a133a7ef036bba7df5b5"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_x_axi_dma.html">XAxiDma</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gac08fe7cb6508a133a7ef036bba7df5b5">XAxiDma</a></td></tr>
-<tr class="memdesc:gac08fe7cb6508a133a7ef036bba7df5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_x_axi_dma.html" title="The XAxiDma driver instance data. ">XAxiDma</a> driver instance data.  <a href="#gac08fe7cb6508a133a7ef036bba7df5b5">More...</a><br /></td></tr>
-<tr class="separator:gac08fe7cb6508a133a7ef036bba7df5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5faf4d844b10fc577f3a75a170f11867"><td class="memItemLeft" align="right" valign="top">typedef u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a>[<a class="el" href="group__axidma__v9__4.html#ga751f6662ab9baed908685eef30d322b8">XAXIDMA_BD_NUM_WORDS</a>]</td></tr>
 <tr class="memdesc:ga5faf4d844b10fc577f3a75a170f11867"><td class="mdescLeft">&#160;</td><td class="mdescRight">The XAxiDma_Bd is the type for a buffer descriptor (BD).  <a href="#ga5faf4d844b10fc577f3a75a170f11867">More...</a><br /></td></tr>
 <tr class="separator:ga5faf4d844b10fc577f3a75a170f11867"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -286,12 +250,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ga32ca6099d7926297a4c17cdb4a19511b"><td class="memItemLeft" align="right" valign="top">u32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga32ca6099d7926297a4c17cdb4a19511b">XAxiDma_SimpleTransfer</a> (<a class="el" href="struct_x_axi_dma.html">XAxiDma</a> *InstancePtr, UINTPTR BuffAddr, u32 Length, int Direction)</td></tr>
 <tr class="memdesc:ga32ca6099d7926297a4c17cdb4a19511b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function does one simple transfer submission.  <a href="#ga32ca6099d7926297a4c17cdb4a19511b">More...</a><br /></td></tr>
 <tr class="separator:ga32ca6099d7926297a4c17cdb4a19511b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0cbcf5259635ea3c336fe5413c98f75c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_dma___config.html">XAxiDma_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga0cbcf5259635ea3c336fe5413c98f75c">XAxiDma_LookupConfig</a> (u32 DeviceId)</td></tr>
-<tr class="memdesc:ga0cbcf5259635ea3c336fe5413c98f75c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the hardware configuration for a device instance.  <a href="#ga0cbcf5259635ea3c336fe5413c98f75c">More...</a><br /></td></tr>
-<tr class="separator:ga0cbcf5259635ea3c336fe5413c98f75c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad4ea3039216916336ae1c7598ff26afc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gad4ea3039216916336ae1c7598ff26afc">XAxiDma_Selftest</a> (<a class="el" href="struct_x_axi_dma.html">XAxiDma</a> *InstancePtr)</td></tr>
-<tr class="memdesc:gad4ea3039216916336ae1c7598ff26afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver/device.  <a href="#gad4ea3039216916336ae1c7598ff26afc">More...</a><br /></td></tr>
-<tr class="separator:gad4ea3039216916336ae1c7598ff26afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4056035d8e7c90a68fa954c60d021e07"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga4056035d8e7c90a68fa954c60d021e07">XAxiDma_BdSetLength</a> (<a class="el" href="group__axidma__v9__4.html#ga5faf4d844b10fc577f3a75a170f11867">XAxiDma_Bd</a> *BdPtr, u32 LenBytes, u32 LengthMask)</td></tr>
 <tr class="memdesc:ga4056035d8e7c90a68fa954c60d021e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the length field for the given BD.  <a href="#ga4056035d8e7c90a68fa954c60d021e07">More...</a><br /></td></tr>
 <tr class="separator:ga4056035d8e7c90a68fa954c60d021e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -355,6 +313,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gaffa661a9a2467c1e274842c147531cea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gaffa661a9a2467c1e274842c147531cea">XAxiDma_BdRingDumpRegs</a> (<a class="el" href="struct_x_axi_dma___bd_ring.html">XAxiDma_BdRing</a> *RingPtr)</td></tr>
 <tr class="memdesc:gaffa661a9a2467c1e274842c147531cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dump the registers for a channel.  <a href="#gaffa661a9a2467c1e274842c147531cea">More...</a><br /></td></tr>
 <tr class="separator:gaffa661a9a2467c1e274842c147531cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4ea3039216916336ae1c7598ff26afc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gad4ea3039216916336ae1c7598ff26afc">XAxiDma_Selftest</a> (<a class="el" href="struct_x_axi_dma.html">XAxiDma</a> *InstancePtr)</td></tr>
+<tr class="memdesc:gad4ea3039216916336ae1c7598ff26afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs a self-test on the driver/device.  <a href="#gad4ea3039216916336ae1c7598ff26afc">More...</a><br /></td></tr>
+<tr class="separator:gad4ea3039216916336ae1c7598ff26afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacd79fe1f2642f5cf8423e483b6f54e6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_dma___config.html">XAxiDma_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#gacd79fe1f2642f5cf8423e483b6f54e6e">XAxiDma_LookupConfig</a> (u32 DeviceId)</td></tr>
+<tr class="memdesc:gacd79fe1f2642f5cf8423e483b6f54e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the hardware configuration for a device instance.  <a href="#gacd79fe1f2642f5cf8423e483b6f54e6e">More...</a><br /></td></tr>
+<tr class="separator:gacd79fe1f2642f5cf8423e483b6f54e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03027585029bd52471bfe31c6100c774"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_x_axi_dma___config.html">XAxiDma_Config</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__axidma__v9__4.html#ga03027585029bd52471bfe31c6100c774">XAxiDma_LookupConfigBaseAddr</a> (u32 Baseaddr)</td></tr>
+<tr class="memdesc:ga03027585029bd52471bfe31c6100c774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the hardware configuration for a device instance based on base address.  <a href="#ga03027585029bd52471bfe31c6100c774">More...</a><br /></td></tr>
+<tr class="separator:ga03027585029bd52471bfe31c6100c774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="member-group"></a>
 DMA Transfer Direction</h2></td></tr>
@@ -2606,7 +2573,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 <dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__axidma__v9__4.html#ga0d79253861939c76e6d440ecde2b6edd" title="Snap shot the latest BD a BD ring is processing. ">XAxiDma_BdRingSnapShotCurrBd(XAxiDma_BdRing* RingPtr)</a> This function is used only when system is configured as SG mode </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>.</p>
 
 </div>
 </div>
@@ -3148,7 +3115,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>Cyclic Mode. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>.</p>
 
 </div>
 </div>
@@ -3168,7 +3135,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>Keyhole feature. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>.</p>
 
 </div>
 </div>
@@ -3188,7 +3155,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>Channel control. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga0d3794bbccf028da8e94407d061dfc68">XAxiDma_BdRingGetCoalesce()</a>, <a class="el" href="group__axidma__v9__4.html#gaaebba5c661e04485582e887e74dbeb94">XAxiDma_BdRingSetCoalesce()</a>, <a class="el" href="group__axidma__v9__4.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group__axidma__v9__4.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>, <a class="el" href="group__axidma__v9__4.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, <a class="el" href="group__axidma__v9__4.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>, and <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga0d3794bbccf028da8e94407d061dfc68">XAxiDma_BdRingGetCoalesce()</a>, <a class="el" href="group__axidma__v9__4.html#gaaebba5c661e04485582e887e74dbeb94">XAxiDma_BdRingSetCoalesce()</a>, <a class="el" href="group__axidma__v9__5.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group__axidma__v9__5.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group__axidma__v9__5.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>, <a class="el" href="group__axidma__v9__5.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, <a class="el" href="group__axidma__v9__5.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>, and <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>.</p>
 
 </div>
 </div>
@@ -3208,7 +3175,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>Reset DMA engine. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, and <a class="el" href="group__axidma__v9__4.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, and <a class="el" href="group__axidma__v9__5.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>.</p>
 
 </div>
 </div>
@@ -3228,7 +3195,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>Start/stop DMA channel. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, and <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, and <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>.</p>
 
 </div>
 </div>
@@ -3432,116 +3399,6 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 </div>
 </div>
-<a id="gaf03e87b58cf2f9800e6260fda3745631"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf03e87b58cf2f9800e6260fda3745631">&#9670;&nbsp;</a></span>XAxiDma_GetRxIndexRing</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_GetRxIndexRing</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">RingIndex&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(&amp;((InstancePtr)-&gt;RxBdRing[RingIndex]))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-
-<p>Get Receive (Rx) Ring ptr of a Index. </p>
-<p>Warning: This has a different API than the LLDMA driver. It now returns the pointer to the BD ring.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the DMA engine instance to be worked on. </td></tr>
-    <tr><td class="paramname">RingIndex</td><td>is the channel Index.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the Rx Ring</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: <a class="el" href="struct_x_axi_dma___bd_ring.html" title="Container structure for descriptor storage control. ">XAxiDma_BdRing</a> * XAxiDma_GetRxIndexRing(<a class="el" href="struct_x_axi_dma.html" title="The XAxiDma driver instance data. ">XAxiDma</a> * InstancePtr, int RingIndex) This function is used only when system is configured as SG mode </dd></dl>
-
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>.</p>
-
-</div>
-</div>
-<a id="ga6373ac3baa5365607f6727f4e2ece7a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6373ac3baa5365607f6727f4e2ece7a5">&#9670;&nbsp;</a></span>XAxiDma_GetRxRing</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_GetRxRing</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr</td><td>)</td>
-          <td>&#160;&#160;&#160;(&amp;((InstancePtr)-&gt;RxBdRing[0]))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-
-<p>Get Receive (Rx) Ring ptr. </p>
-<p>Warning: This has a different API than the LLDMA driver. It now returns the pointer to the BD ring.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the DMA engine instance to be worked on.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the Rx Ring</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: <a class="el" href="struct_x_axi_dma___bd_ring.html" title="Container structure for descriptor storage control. ">XAxiDma_BdRing</a> * <a class="el" href="group__axidma__v9__4.html#ga6373ac3baa5365607f6727f4e2ece7a5" title="Get Receive (Rx) Ring ptr. ">XAxiDma_GetRxRing(XAxiDma * InstancePtr)</a> This function is used only when system is configured as SG mode </dd></dl>
-
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>.</p>
-
-</div>
-</div>
-<a id="ga9d91f29c6dc41f2106e097f1f9957a6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9d91f29c6dc41f2106e097f1f9957a6e">&#9670;&nbsp;</a></span>XAxiDma_GetTxRing</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_GetTxRing</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr</td><td>)</td>
-          <td>&#160;&#160;&#160;(&amp;((InstancePtr)-&gt;TxBdRing))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-
-<p>Get Transmit (Tx) Ring ptr. </p>
-<p>Warning: This has a different API than the LLDMA driver. It now returns the pointer to the BD ring.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the DMA engine instance to be worked on.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the Tx Ring</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>C-style signature: <a class="el" href="struct_x_axi_dma___bd_ring.html" title="Container structure for descriptor storage control. ">XAxiDma_BdRing</a> * <a class="el" href="group__axidma__v9__4.html#ga9d91f29c6dc41f2106e097f1f9957a6e" title="Get Transmit (Tx) Ring ptr. ">XAxiDma_GetTxRing(XAxiDma * InstancePtr)</a> This function is used only when system is configured as SG mode </dd></dl>
-
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, and <a class="el" href="group__axidma__v9__4.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>.</p>
-
-</div>
-</div>
 <a id="ga70671c3d8cd1e51c56723e298d268cce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga70671c3d8cd1e51c56723e298d268cce">&#9670;&nbsp;</a></span>XAXIDMA_HALTED_MASK</h2>
 
@@ -3557,42 +3414,6 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 <p><code>#include &lt;<a class="el" href="xaxidma__hw_8h.html">xaxidma_hw.h</a>&gt;</code></p>
 
 <p>DMA channel halted. </p>
-
-</div>
-</div>
-<a id="ga18dd03026dd6c0ebd13526116c09ccae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga18dd03026dd6c0ebd13526116c09ccae">&#9670;&nbsp;</a></span>XAxiDma_HasSg</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_HasSg</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr</td><td>)</td>
-          <td>&#160;&#160;&#160;((InstancePtr)-&gt;HasSg) ? TRUE : FALSE</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-
-<p>This function checks whether system is configured as Simple or Scatter Gather mode. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is a pointer to the DMA engine instance to be worked on.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><ul>
-<li>TRUE if configured as SG mode</li>
-<li>FALSE if configured as simple mode</li>
-</ul>
-</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, and <a class="el" href="group__axidma__v9__4.html#ga32ca6099d7926297a4c17cdb4a19511b">XAxiDma_SimpleTransfer()</a>.</p>
 
 </div>
 </div>
@@ -3612,274 +3433,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>DMA channel idle. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>.</p>
-
-</div>
-</div>
-<a id="ga9ff0d2e5b50846e4b6a2d683283c10d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9ff0d2e5b50846e4b6a2d683283c10d5">&#9670;&nbsp;</a></span>XAxiDma_IntrAckIrq</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_IntrAckIrq</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Mask, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Direction&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a>((InstancePtr)-&gt;RegBase + \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a> * Direction), <a class="code" href="group__axidma__v9__4.html#ga50d6957f8447d4eab9e444666730f692">XAXIDMA_SR_OFFSET</a>, \</div><div class="line">                        (Mask) &amp; <a class="code" href="group__axidma__v9__4.html#ga8347e41a5c01bdabefce9c8484a7ced1">XAXIDMA_IRQ_ALL_MASK</a>)</div><div class="ttc" id="group__axidma__v9__4_html_ga8347e41a5c01bdabefce9c8484a7ced1"><div class="ttname"><a href="group__axidma__v9__4.html#ga8347e41a5c01bdabefce9c8484a7ced1">XAXIDMA_IRQ_ALL_MASK</a></div><div class="ttdeci">#define XAXIDMA_IRQ_ALL_MASK</div><div class="ttdoc">All interrupts. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:194</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_ga73dabf09bac8a209e0cc367f6ccdf44b"><div class="ttname"><a href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a></div><div class="ttdeci">#define XAxiDma_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given register. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:349</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_ga50d6957f8447d4eab9e444666730f692"><div class="ttname"><a href="group__axidma__v9__4.html#ga50d6957f8447d4eab9e444666730f692">XAXIDMA_SR_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_SR_OFFSET</div><div class="ttdoc">Status. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:127</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadfdc083e0b249c04624a66e700d7a7c4"><div class="ttname"><a href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_RX_OFFSET</div><div class="ttdoc">RX channel registers base offset. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:118</div></div>
-</div><!-- fragment -->
-<p>This function acknowledges the interrupts that are specified in Mask. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is the driver instance we are working on </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the mask for the interrupts to be acknowledge </td></tr>
-    <tr><td class="paramname">Direction</td><td>is DMA transfer direction, valid values are<ul>
-<li>XAXIDMA_DMA_TO_DEVICE.</li>
-<li>XAXIDMA_DEVICE_TO_DMA.</li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a id="ga1936b497c0fa61d326807e5ed8dd572b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1936b497c0fa61d326807e5ed8dd572b">&#9670;&nbsp;</a></span>XAxiDma_IntrDisable</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_IntrDisable</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Mask, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Direction&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a>((InstancePtr)-&gt;RegBase + \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a> * Direction), <a class="code" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>, \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a>((InstancePtr)-&gt;RegBase + \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a> * Direction), <a class="code" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>)) \</div><div class="line">                        &amp; ~(Mask &amp; <a class="code" href="group__axidma__v9__4.html#ga8347e41a5c01bdabefce9c8484a7ced1">XAXIDMA_IRQ_ALL_MASK</a>))</div><div class="ttc" id="group__axidma__v9__4_html_ga8347e41a5c01bdabefce9c8484a7ced1"><div class="ttname"><a href="group__axidma__v9__4.html#ga8347e41a5c01bdabefce9c8484a7ced1">XAXIDMA_IRQ_ALL_MASK</a></div><div class="ttdeci">#define XAXIDMA_IRQ_ALL_MASK</div><div class="ttdoc">All interrupts. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:194</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_ga73dabf09bac8a209e0cc367f6ccdf44b"><div class="ttname"><a href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a></div><div class="ttdeci">#define XAxiDma_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given register. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:349</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_ga8534b07ed878f92d2062dc1680fb0391"><div class="ttname"><a href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_CR_OFFSET</div><div class="ttdoc">Channel control. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:126</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadea426ef26fc5473a78723cd2b92aba5"><div class="ttname"><a href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a></div><div class="ttdeci">#define XAxiDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Read the given register. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:330</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadfdc083e0b249c04624a66e700d7a7c4"><div class="ttname"><a href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_RX_OFFSET</div><div class="ttdoc">RX channel registers base offset. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:118</div></div>
-</div><!-- fragment -->
-<p>This function disables interrupts specified by the Mask. </p>
-<p>Interrupts that are not in the mask are not affected.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is the driver instance we are working on </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the mask for the interrupts to be disabled </td></tr>
-    <tr><td class="paramname">Direction</td><td>is DMA transfer direction, valid values are<ul>
-<li>XAXIDMA_DMA_TO_DEVICE.</li>
-<li>XAXIDMA_DEVICE_TO_DMA. </li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-</div>
-</div>
-<a id="gadac28afa26e2cb55bdada1ee3c016c52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadac28afa26e2cb55bdada1ee3c016c52">&#9670;&nbsp;</a></span>XAxiDma_IntrEnable</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_IntrEnable</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Mask, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Direction&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a>((InstancePtr)-&gt;RegBase + \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a> * Direction), <a class="code" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>, \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a>((InstancePtr)-&gt;RegBase + \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a> * Direction), <a class="code" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>)) \</div><div class="line">                        | (Mask &amp; <a class="code" href="group__axidma__v9__4.html#ga8347e41a5c01bdabefce9c8484a7ced1">XAXIDMA_IRQ_ALL_MASK</a>))</div><div class="ttc" id="group__axidma__v9__4_html_ga8347e41a5c01bdabefce9c8484a7ced1"><div class="ttname"><a href="group__axidma__v9__4.html#ga8347e41a5c01bdabefce9c8484a7ced1">XAXIDMA_IRQ_ALL_MASK</a></div><div class="ttdeci">#define XAXIDMA_IRQ_ALL_MASK</div><div class="ttdoc">All interrupts. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:194</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_ga73dabf09bac8a209e0cc367f6ccdf44b"><div class="ttname"><a href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a></div><div class="ttdeci">#define XAxiDma_WriteReg(BaseAddress, RegOffset, Data)</div><div class="ttdoc">Write the given register. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:349</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_ga8534b07ed878f92d2062dc1680fb0391"><div class="ttname"><a href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_CR_OFFSET</div><div class="ttdoc">Channel control. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:126</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadea426ef26fc5473a78723cd2b92aba5"><div class="ttname"><a href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a></div><div class="ttdeci">#define XAxiDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Read the given register. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:330</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadfdc083e0b249c04624a66e700d7a7c4"><div class="ttname"><a href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_RX_OFFSET</div><div class="ttdoc">RX channel registers base offset. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:118</div></div>
-</div><!-- fragment -->
-<p>This function enables interrupts specified by the Mask in specified direction, Interrupts that are not in the mask are not affected. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is the driver instance we are working on </td></tr>
-    <tr><td class="paramname">Mask</td><td>is the mask for the interrupts to be enabled </td></tr>
-    <tr><td class="paramname">Direction</td><td>is DMA transfer direction, valid values are<ul>
-<li>XAXIDMA_DMA_TO_DEVICE.</li>
-<li>XAXIDMA_DEVICE_TO_DMA. </li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-</div>
-</div>
-<a id="gadba63ad7c0a784d569736a8d1eb7c367"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gadba63ad7c0a784d569736a8d1eb7c367">&#9670;&nbsp;</a></span>XAxiDma_IntrGetEnabled</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_IntrGetEnabled</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Direction&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a>((InstancePtr)-&gt;RegBase + \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a> * Direction), <a class="code" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>) &amp;\</div><div class="line">                                                        XAXIDMA_IRQ_ALL_MASK)</div><div class="ttc" id="group__axidma__v9__4_html_ga8534b07ed878f92d2062dc1680fb0391"><div class="ttname"><a href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_CR_OFFSET</div><div class="ttdoc">Channel control. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:126</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadea426ef26fc5473a78723cd2b92aba5"><div class="ttname"><a href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a></div><div class="ttdeci">#define XAxiDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Read the given register. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:330</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadfdc083e0b249c04624a66e700d7a7c4"><div class="ttname"><a href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_RX_OFFSET</div><div class="ttdoc">RX channel registers base offset. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:118</div></div>
-</div><!-- fragment -->
-<p>This function gets the mask for the interrupts that are currently enabled. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is the driver instance we are working on </td></tr>
-    <tr><td class="paramname">Direction</td><td>is DMA transfer direction, valid values are<ul>
-<li>XAXIDMA_DMA_TO_DEVICE.</li>
-<li>XAXIDMA_DEVICE_TO_DMA.</li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The bit mask for the interrupts that are currently enabled</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
-
-</div>
-</div>
-<a id="ga6a0eb17bcfcaf3331e01855d302f5f0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga6a0eb17bcfcaf3331e01855d302f5f0e">&#9670;&nbsp;</a></span>XAxiDma_IntrGetIrq</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XAxiDma_IntrGetIrq</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">InstancePtr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">Direction&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a>((InstancePtr)-&gt;RegBase + \</div><div class="line">                        (<a class="code" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a> * Direction), <a class="code" href="group__axidma__v9__4.html#ga50d6957f8447d4eab9e444666730f692">XAXIDMA_SR_OFFSET</a>) &amp;\</div><div class="line">                                                        XAXIDMA_IRQ_ALL_MASK)</div><div class="ttc" id="group__axidma__v9__4_html_ga50d6957f8447d4eab9e444666730f692"><div class="ttname"><a href="group__axidma__v9__4.html#ga50d6957f8447d4eab9e444666730f692">XAXIDMA_SR_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_SR_OFFSET</div><div class="ttdoc">Status. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:127</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadea426ef26fc5473a78723cd2b92aba5"><div class="ttname"><a href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a></div><div class="ttdeci">#define XAxiDma_ReadReg(BaseAddress, RegOffset)</div><div class="ttdoc">Read the given register. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:330</div></div>
-<div class="ttc" id="group__axidma__v9__4_html_gadfdc083e0b249c04624a66e700d7a7c4"><div class="ttname"><a href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a></div><div class="ttdeci">#define XAXIDMA_RX_OFFSET</div><div class="ttdoc">RX channel registers base offset. </div><div class="ttdef"><b>Definition:</b> xaxidma_hw.h:118</div></div>
-</div><!-- fragment -->
-<p>This function gets the interrupts that are asserted. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">InstancePtr</td><td>is the driver instance we are working on </td></tr>
-    <tr><td class="paramname">Direction</td><td>is DMA transfer direction, valid values are<ul>
-<li>XAXIDMA_DMA_TO_DEVICE.</li>
-<li>XAXIDMA_DEVICE_TO_DMA.</li>
-</ul>
-</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The bit mask for the interrupts asserted.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>.</p>
 
 </div>
 </div>
@@ -4014,7 +3568,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 <dl class="section return"><dt>Returns</dt><dd>The 32-bit value of the register</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: u32 <a class="el" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5" title="Read the given register. ">XAxiDma_ReadReg(u32 BaseAddress, u32 RegOffset)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga0d3794bbccf028da8e94407d061dfc68">XAxiDma_BdRingGetCoalesce()</a>, <a class="el" href="group__axidma__v9__4.html#gaaebba5c661e04485582e887e74dbeb94">XAxiDma_BdRingSetCoalesce()</a>, <a class="el" href="group__axidma__v9__4.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>, <a class="el" href="group__axidma__v9__4.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group__axidma__v9__4.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>, <a class="el" href="group__axidma__v9__4.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, <a class="el" href="group__axidma__v9__4.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>, and <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga0d3794bbccf028da8e94407d061dfc68">XAxiDma_BdRingGetCoalesce()</a>, <a class="el" href="group__axidma__v9__4.html#gaaebba5c661e04485582e887e74dbeb94">XAxiDma_BdRingSetCoalesce()</a>, <a class="el" href="group__axidma__v9__5.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>, <a class="el" href="group__axidma__v9__5.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group__axidma__v9__5.html#gaf73e1329e40c8ac1ae47a7d9c104af75">XAxiDma_ResetIsDone()</a>, <a class="el" href="group__axidma__v9__5.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, <a class="el" href="group__axidma__v9__5.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>, and <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>.</p>
 
 </div>
 </div>
@@ -4089,7 +3643,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>RX channel registers base offset. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>, <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group__axidma__v9__4.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, and <a class="el" href="group__axidma__v9__4.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>, <a class="el" href="group__axidma__v9__5.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group__axidma__v9__5.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, and <a class="el" href="group__axidma__v9__5.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>.</p>
 
 </div>
 </div>
@@ -4163,7 +3717,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>Status. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#gaff68c0ba3e9e25dfe5e39153301862f8">XAxiDma_Busy()</a>.</p>
 
 </div>
 </div>
@@ -4255,7 +3809,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 <p>TX channel registers base offset. </p>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>.</p>
 
 </div>
 </div>
@@ -4305,30 +3859,11 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>C-style signature: void <a class="el" href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b" title="Write the given register. ">XAxiDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group__axidma__v9__4.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group__axidma__v9__4.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, <a class="el" href="group__axidma__v9__4.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>, and <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="group__axidma__v9__5.html#gadb572b623215a7df62b1e0468e3bd68c">XAxiDma_Pause()</a>, <a class="el" href="group__axidma__v9__5.html#ga5b7d1248ef065915fd8c9e8d5e00640f">XAxiDma_Reset()</a>, <a class="el" href="group__axidma__v9__5.html#ga2d93bfcf1c3e34cb9fc4a22da6148dc5">XAxiDma_SelectCyclicMode()</a>, <a class="el" href="group__axidma__v9__5.html#ga5becc8b0f9945af34e372ced2b37aebb">XAxiDma_SelectKeyHole()</a>, and <a class="el" href="group__axidma__v9__4.html#ga7b38bc9220c391823219937580bd816f">XAxiDma_StartBdRingHw()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="gac08fe7cb6508a133a7ef036bba7df5b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac08fe7cb6508a133a7ef036bba7df5b5">&#9670;&nbsp;</a></span>XAxiDma</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="struct_x_axi_dma.html">XAxiDma</a>  <a class="el" href="struct_x_axi_dma.html">XAxiDma</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
-
-<p>The <a class="el" href="struct_x_axi_dma.html" title="The XAxiDma driver instance data. ">XAxiDma</a> driver instance data. </p>
-<p>An instance must be allocated for each DMA engine in use. </p>
-
-</div>
-</div>
 <a id="ga5faf4d844b10fc577f3a75a170f11867"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga5faf4d844b10fc577f3a75a170f11867">&#9670;&nbsp;</a></span>XAxiDma_Bd</h2>
 
@@ -5489,14 +5024,14 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 
 </div>
 </div>
-<a id="ga0cbcf5259635ea3c336fe5413c98f75c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0cbcf5259635ea3c336fe5413c98f75c">&#9670;&nbsp;</a></span>XAxiDma_LookupConfig()</h2>
+<a id="gacd79fe1f2642f5cf8423e483b6f54e6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacd79fe1f2642f5cf8423e483b6f54e6e">&#9670;&nbsp;</a></span>XAxiDma_LookupConfig()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_x_axi_dma___config.html">XAxiDma_Config</a> * XAxiDma_LookupConfig </td>
+          <td class="memname"><a class="el" href="struct_x_axi_dma___config.html">XAxiDma_Config</a>* XAxiDma_LookupConfig </td>
           <td>(</td>
           <td class="paramtype">u32&#160;</td>
           <td class="paramname"><em>DeviceId</em></td><td>)</td>
@@ -5505,7 +5040,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xaxidma__sinit_8c.html">xaxidma_sinit.c</a>&gt;</code></p>
 
 <p>Look up the hardware configuration for a device instance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -5518,6 +5053,36 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 <p class="reference">Referenced by <a class="el" href="xaxidma__example__selftest_8c.html#a98d61cb300351e559f0ab7512bfb7898">AxiDMASelfTestExample()</a>.</p>
+
+</div>
+</div>
+<a id="ga03027585029bd52471bfe31c6100c774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga03027585029bd52471bfe31c6100c774">&#9670;&nbsp;</a></span>XAxiDma_LookupConfigBaseAddr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_x_axi_dma___config.html">XAxiDma_Config</a>* XAxiDma_LookupConfigBaseAddr </td>
+          <td>(</td>
+          <td class="paramtype">u32&#160;</td>
+          <td class="paramname"><em>Baseaddr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;<a class="el" href="xaxidma__sinit_8c.html">xaxidma_sinit.c</a>&gt;</code></p>
+
+<p>Look up the hardware configuration for a device instance based on base address. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Baseaddr</td><td>is the base address of the device to lookup for</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The configuration structure for the device. If the device base address is not found,a NULL pointer is returned.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
 </div>
 </div>
@@ -5554,7 +5119,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_axi_dma___bd_ring.html#a138fd282802e5f6ed3cb1d2505ede08a">XAxiDma_BdRing::ChanBase</a>, <a class="el" href="struct_x_axi_dma___bd_ring.html#a443e5c48e677e9a1a4e85a383eefc2be">XAxiDma_BdRing::RunState</a>, <a class="el" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>, <a class="el" href="group__axidma__v9__4.html#gab0ebdf6b7776e79941efe1325aac5aa9">XAXIDMA_CR_RUNSTOP_MASK</a>, <a class="el" href="group__axidma__v9__4.html#ga9d91f29c6dc41f2106e097f1f9957a6e">XAxiDma_GetTxRing</a>, <a class="el" href="group__axidma__v9__4.html#ga18dd03026dd6c0ebd13526116c09ccae">XAxiDma_HasSg</a>, <a class="el" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a>, and <a class="el" href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_axi_dma___bd_ring.html#a138fd282802e5f6ed3cb1d2505ede08a">XAxiDma_BdRing::ChanBase</a>, <a class="el" href="struct_x_axi_dma___bd_ring.html#a443e5c48e677e9a1a4e85a383eefc2be">XAxiDma_BdRing::RunState</a>, <a class="el" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>, <a class="el" href="group__axidma__v9__4.html#gab0ebdf6b7776e79941efe1325aac5aa9">XAXIDMA_CR_RUNSTOP_MASK</a>, <a class="el" href="group__axidma__v9__5.html#ga9d91f29c6dc41f2106e097f1f9957a6e">XAxiDma_GetTxRing</a>, <a class="el" href="group__axidma__v9__5.html#ga18dd03026dd6c0ebd13526116c09ccae">XAxiDma_HasSg</a>, <a class="el" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a>, and <a class="el" href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a>.</p>
 
 </div>
 </div>
@@ -5592,7 +5157,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 </ul>
 </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_axi_dma___bd_ring.html#a443e5c48e677e9a1a4e85a383eefc2be">XAxiDma_BdRing::RunState</a>, <a class="el" href="group__axidma__v9__4.html#ga0d79253861939c76e6d440ecde2b6edd">XAxiDma_BdRingSnapShotCurrBd</a>, <a class="el" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>, <a class="el" href="group__axidma__v9__4.html#ga33fda61f0837d37da36d3b72b90b0fba">XAXIDMA_CR_RESET_MASK</a>, <a class="el" href="group__axidma__v9__4.html#gaf03e87b58cf2f9800e6260fda3745631">XAxiDma_GetRxIndexRing</a>, <a class="el" href="group__axidma__v9__4.html#ga9d91f29c6dc41f2106e097f1f9957a6e">XAxiDma_GetTxRing</a>, <a class="el" href="group__axidma__v9__4.html#ga18dd03026dd6c0ebd13526116c09ccae">XAxiDma_HasSg</a>, <a class="el" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a>, <a class="el" href="group__axidma__v9__4.html#ga88232281611059fd669f0339888cd44e">XAXIDMA_TX_OFFSET</a>, and <a class="el" href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_axi_dma___bd_ring.html#a443e5c48e677e9a1a4e85a383eefc2be">XAxiDma_BdRing::RunState</a>, <a class="el" href="group__axidma__v9__4.html#ga0d79253861939c76e6d440ecde2b6edd">XAxiDma_BdRingSnapShotCurrBd</a>, <a class="el" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>, <a class="el" href="group__axidma__v9__4.html#ga33fda61f0837d37da36d3b72b90b0fba">XAXIDMA_CR_RESET_MASK</a>, <a class="el" href="group__axidma__v9__5.html#gaf03e87b58cf2f9800e6260fda3745631">XAxiDma_GetRxIndexRing</a>, <a class="el" href="group__axidma__v9__5.html#ga9d91f29c6dc41f2106e097f1f9957a6e">XAxiDma_GetTxRing</a>, <a class="el" href="group__axidma__v9__5.html#ga18dd03026dd6c0ebd13526116c09ccae">XAxiDma_HasSg</a>, <a class="el" href="group__axidma__v9__4.html#gadfdc083e0b249c04624a66e700d7a7c4">XAXIDMA_RX_OFFSET</a>, <a class="el" href="group__axidma__v9__4.html#ga88232281611059fd669f0339888cd44e">XAXIDMA_TX_OFFSET</a>, and <a class="el" href="group__axidma__v9__4.html#ga73dabf09bac8a209e0cc367f6ccdf44b">XAxiDma_WriteReg</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__axidma__v9__4.html#gad4ea3039216916336ae1c7598ff26afc">XAxiDma_Selftest()</a>.</p>
 
@@ -5632,7 +5197,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 </ul>
 <dl class="section note"><dt>Note</dt><dd>None </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_axi_dma___bd_ring.html#a138fd282802e5f6ed3cb1d2505ede08a">XAxiDma_BdRing::ChanBase</a>, <a class="el" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>, <a class="el" href="group__axidma__v9__4.html#ga33fda61f0837d37da36d3b72b90b0fba">XAXIDMA_CR_RESET_MASK</a>, <a class="el" href="group__axidma__v9__4.html#ga6373ac3baa5365607f6727f4e2ece7a5">XAxiDma_GetRxRing</a>, <a class="el" href="group__axidma__v9__4.html#ga9d91f29c6dc41f2106e097f1f9957a6e">XAxiDma_GetTxRing</a>, and <a class="el" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_axi_dma___bd_ring.html#a138fd282802e5f6ed3cb1d2505ede08a">XAxiDma_BdRing::ChanBase</a>, <a class="el" href="group__axidma__v9__4.html#ga8534b07ed878f92d2062dc1680fb0391">XAXIDMA_CR_OFFSET</a>, <a class="el" href="group__axidma__v9__4.html#ga33fda61f0837d37da36d3b72b90b0fba">XAXIDMA_CR_RESET_MASK</a>, <a class="el" href="group__axidma__v9__5.html#ga6373ac3baa5365607f6727f4e2ece7a5">XAxiDma_GetRxRing</a>, <a class="el" href="group__axidma__v9__5.html#ga9d91f29c6dc41f2106e097f1f9957a6e">XAxiDma_GetTxRing</a>, and <a class="el" href="group__axidma__v9__4.html#gadea426ef26fc5473a78723cd2b92aba5">XAxiDma_ReadReg</a>.</p>
 
 </div>
 </div>
@@ -5793,7 +5358,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;<a class="el" href="xaxidma_8h.html">xaxidma.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="xaxidma__selftest_8c.html">xaxidma_selftest.c</a>&gt;</code></p>
 
 <p>Runs a self-test on the driver/device. </p>
 <p>This test perform a reset of the DMA device and checks the device is coming out of reset or not</p>
@@ -5884,7 +5449,7 @@ Bitmasks and shift values for XAXIDMA_BD_STRIDE_VSIZE_OFFSET register</h2></td><
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This function is used only when system is configured as Simple mode. </dd></dl>
 
-<p class="reference">References <a class="el" href="group__axidma__v9__4.html#ga18dd03026dd6c0ebd13526116c09ccae">XAxiDma_HasSg</a>.</p>
+<p class="reference">References <a class="el" href="group__axidma__v9__5.html#ga18dd03026dd6c0ebd13526116c09ccae">XAxiDma_HasSg</a>.</p>
 
 </div>
 </div>

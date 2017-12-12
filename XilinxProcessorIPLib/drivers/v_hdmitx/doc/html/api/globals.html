@@ -133,6 +133,9 @@ $(document).ready(function(){initNavTree('globals.html','');});
 <li>XV_HDMITX_AUD_CTRL_AUDFMT_MASK
 : <a class="el" href="xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913">xv_hdmitx_hw.h</a>
 </li>
+<li>XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT
+: <a class="el" href="xv__hdmitx__hw_8h.html#a0507ddc2e25096e01a650cf41849e35f">xv_hdmitx_hw.h</a>
+</li>
 <li>XV_HDMITX_AUD_CTRL_CH_MASK
 : <a class="el" href="xv__hdmitx__hw_8h.html#a28f589dcdb02f0836911bc48271fca9b">xv_hdmitx_hw.h</a>
 </li>
@@ -162,12 +165,6 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>XV_HDMITX_AUD_STA_OFFSET
 : <a class="el" href="xv__hdmitx__hw_8h.html#a7caf30398bed7b2964861a29271c0bd6">xv_hdmitx_hw.h</a>
-</li>
-<li>XV_HdmiTx_Audio_HBR
-: <a class="el" href="xv__hdmitx_8h.html#a894e483250085833bfee095242b42979">xv_hdmitx.h</a>
-</li>
-<li>XV_HdmiTx_Audio_LPCM
-: <a class="el" href="xv__hdmitx_8h.html#a04fe95153aa1384fea2ef7d44bfe90e2">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_AudioDisable
 : <a class="el" href="xv__hdmitx_8h.html#ab0d38d78bc8117d38c039d743892eeab">xv_hdmitx.h</a>
@@ -249,8 +246,8 @@ $(document).ready(function(){initNavTree('globals.html','');});
 : <a class="el" href="xv__hdmitx_8h.html#a0d082ed3fc514b136f6064172a228da5">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_CfgInitialize()
-: <a class="el" href="xv__hdmitx_8h.html#acfeb8c295991a88031817404dd4135f3">xv_hdmitx.h</a>
-, <a class="el" href="xv__hdmitx_8c.html#acfeb8c295991a88031817404dd4135f3">xv_hdmitx.c</a>
+: <a class="el" href="xv__hdmitx_8c.html#acfeb8c295991a88031817404dd4135f3">xv_hdmitx.c</a>
+, <a class="el" href="xv__hdmitx_8h.html#acfeb8c295991a88031817404dd4135f3">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_Clear()
 : <a class="el" href="xv__hdmitx_8c.html#a30b8f33b34025333a39bcb12961402af">xv_hdmitx.c</a>
@@ -396,6 +393,10 @@ $(document).ready(function(){initNavTree('globals.html','');});
 </li>
 <li>XV_HdmiTx_GetAudioChannels
 : <a class="el" href="xv__hdmitx_8h.html#a383af6113762c6bfa7c7647e2b4d6a0b">xv_hdmitx.h</a>
+</li>
+<li>XV_HdmiTx_GetAudioFormat()
+: <a class="el" href="xv__hdmitx_8c.html#a1969dd5561dba784fdb82a4b8e634256">xv_hdmitx.c</a>
+, <a class="el" href="xv__hdmitx_8h.html#a1969dd5561dba784fdb82a4b8e634256">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_GetMode
 : <a class="el" href="xv__hdmitx_8h.html#afe23290e65a409e1f017fdcb2e3b9753">xv_hdmitx.h</a>
@@ -633,8 +634,8 @@ $(document).ready(function(){initNavTree('globals.html','');});
 : <a class="el" href="xv__hdmitx_8h.html#ac8a836b7f27942b9a1cfbbcda79eb0ef">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_Scrambler()
-: <a class="el" href="xv__hdmitx_8h.html#a588fe097262642349aa193a0665ff81f">xv_hdmitx.h</a>
-, <a class="el" href="xv__hdmitx_8c.html#a588fe097262642349aa193a0665ff81f">xv_hdmitx.c</a>
+: <a class="el" href="xv__hdmitx_8c.html#a588fe097262642349aa193a0665ff81f">xv_hdmitx.c</a>
+, <a class="el" href="xv__hdmitx_8h.html#a588fe097262642349aa193a0665ff81f">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_SelfTest()
 : <a class="el" href="xv__hdmitx__selftest_8c.html#a0934e75073446925a9698485b52e2c00">xv_hdmitx_selftest.c</a>
@@ -644,9 +645,13 @@ $(document).ready(function(){initNavTree('globals.html','');});
 : <a class="el" href="xv__hdmitx_8h.html#a32872739c2a5ea02cf92aadc79aa385f">xv_hdmitx.h</a>
 , <a class="el" href="xv__hdmitx_8c.html#a32872739c2a5ea02cf92aadc79aa385f">xv_hdmitx.c</a>
 </li>
+<li>XV_HdmiTx_SetAudioFormat()
+: <a class="el" href="xv__hdmitx_8c.html#ad2d696a57ba6d62205853f83b4fdc589">xv_hdmitx.c</a>
+, <a class="el" href="xv__hdmitx_8h.html#ad2d696a57ba6d62205853f83b4fdc589">xv_hdmitx.h</a>
+</li>
 <li>XV_HdmiTx_SetAxiClkFreq()
-: <a class="el" href="xv__hdmitx_8h.html#a0fed91323d21a830029d3cb79af7afeb">xv_hdmitx.h</a>
-, <a class="el" href="xv__hdmitx_8c.html#a0fed91323d21a830029d3cb79af7afeb">xv_hdmitx.c</a>
+: <a class="el" href="xv__hdmitx_8c.html#a0fed91323d21a830029d3cb79af7afeb">xv_hdmitx.c</a>
+, <a class="el" href="xv__hdmitx_8h.html#a0fed91323d21a830029d3cb79af7afeb">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_SetCallback()
 : <a class="el" href="xv__hdmitx__intr_8c.html#a4553a717d1de514d23a105d7544a591e">xv_hdmitx_intr.c</a>
@@ -661,8 +666,8 @@ $(document).ready(function(){initNavTree('globals.html','');});
 , <a class="el" href="xv__hdmitx_8h.html#aa8eb6378fdb4a48a22fdedb89cc3702a">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_SetDviMode()
-: <a class="el" href="xv__hdmitx_8c.html#a6dc5aa725b963236382283b2c4810dc1">xv_hdmitx.c</a>
-, <a class="el" href="xv__hdmitx_8h.html#a6dc5aa725b963236382283b2c4810dc1">xv_hdmitx.h</a>
+: <a class="el" href="xv__hdmitx_8h.html#a6dc5aa725b963236382283b2c4810dc1">xv_hdmitx.h</a>
+, <a class="el" href="xv__hdmitx_8c.html#a6dc5aa725b963236382283b2c4810dc1">xv_hdmitx.c</a>
 </li>
 <li>XV_HdmiTx_SetHdmiMode()
 : <a class="el" href="xv__hdmitx_8h.html#ab5d2bcd25ed4a775b87e716ad8d2a8d6">xv_hdmitx.h</a>
@@ -672,8 +677,8 @@ $(document).ready(function(){initNavTree('globals.html','');});
 : <a class="el" href="xv__hdmitx_8h.html#ab80fe1804de9125b96892b3fb9e41776">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_SetPixelRate()
-: <a class="el" href="xv__hdmitx_8c.html#abe6e4feed643a46f8c5a09494d2e2874">xv_hdmitx.c</a>
-, <a class="el" href="xv__hdmitx_8h.html#abe6e4feed643a46f8c5a09494d2e2874">xv_hdmitx.h</a>
+: <a class="el" href="xv__hdmitx_8h.html#abe6e4feed643a46f8c5a09494d2e2874">xv_hdmitx.h</a>
+, <a class="el" href="xv__hdmitx_8c.html#abe6e4feed643a46f8c5a09494d2e2874">xv_hdmitx.c</a>
 </li>
 <li>XV_HdmiTx_SetSampleRate()
 : <a class="el" href="xv__hdmitx_8h.html#abb0cde0fed5637779f430ca6eb2a9199">xv_hdmitx.h</a>
@@ -707,16 +712,16 @@ $(document).ready(function(){initNavTree('globals.html','');});
 , <a class="el" href="xv__hdmitx__vsif_8c.html#a915916e86e9d9b86499d5eff60c27491">xv_hdmitx_vsif.c</a>
 </li>
 <li>XV_HdmiTx_VSIF_3DSampPosToString()
-: <a class="el" href="xv__hdmitx__vsif_8c.html#a641421a3c853f296fda34f8083d2e709">xv_hdmitx_vsif.c</a>
-, <a class="el" href="xv__hdmitx_8h.html#a641421a3c853f296fda34f8083d2e709">xv_hdmitx.h</a>
+: <a class="el" href="xv__hdmitx_8h.html#a641421a3c853f296fda34f8083d2e709">xv_hdmitx.h</a>
+, <a class="el" href="xv__hdmitx__vsif_8c.html#a641421a3c853f296fda34f8083d2e709">xv_hdmitx_vsif.c</a>
 </li>
 <li>XV_HdmiTx_VSIF_3DStructToString()
 : <a class="el" href="xv__hdmitx__vsif_8c.html#a6d7ffa37a95b9be9389ea23d86dfb177">xv_hdmitx_vsif.c</a>
 , <a class="el" href="xv__hdmitx_8h.html#a6d7ffa37a95b9be9389ea23d86dfb177">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_VSIF_DisplayInfo()
-: <a class="el" href="xv__hdmitx_8h.html#a6f1f13016820477055fddefc1336af95">xv_hdmitx.h</a>
-, <a class="el" href="xv__hdmitx__vsif_8c.html#a6f1f13016820477055fddefc1336af95">xv_hdmitx_vsif.c</a>
+: <a class="el" href="xv__hdmitx__vsif_8c.html#a6f1f13016820477055fddefc1336af95">xv_hdmitx_vsif.c</a>
+, <a class="el" href="xv__hdmitx_8h.html#a6f1f13016820477055fddefc1336af95">xv_hdmitx.h</a>
 </li>
 <li>XV_HdmiTx_VSIF_GeneratePacket()
 : <a class="el" href="xv__hdmitx__vsif_8c.html#a1d0cd29f231420cc000c3f3391eb5091">xv_hdmitx_vsif.c</a>

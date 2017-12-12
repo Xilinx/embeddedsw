@@ -3,6 +3,7 @@ var xv__hdmitx__hw_8h =
     [ "XV_HDMITX_AUD_ACR_CTS_OFFSET", "xv__hdmitx__hw_8h.html#a30dbe14665ee4c6b2ef5188837430071", null ],
     [ "XV_HDMITX_AUD_ACR_N_OFFSET", "xv__hdmitx__hw_8h.html#a702529bf17d853efb695aef1898fba3b", null ],
     [ "XV_HDMITX_AUD_CTRL_AUDFMT_MASK", "xv__hdmitx__hw_8h.html#a78026a4105a831d8d1e2788c1d6ba913", null ],
+    [ "XV_HDMITX_AUD_CTRL_AUDFMT_SHIFT", "xv__hdmitx__hw_8h.html#a0507ddc2e25096e01a650cf41849e35f", null ],
     [ "XV_HDMITX_AUD_CTRL_CH_MASK", "xv__hdmitx__hw_8h.html#a28f589dcdb02f0836911bc48271fca9b", null ],
     [ "XV_HDMITX_AUD_CTRL_CH_SHIFT", "xv__hdmitx__hw_8h.html#a224d3ce0b2fa5396ac35464ab51e18c0", null ],
     [ "XV_HDMITX_AUD_CTRL_CLR_OFFSET", "xv__hdmitx__hw_8h.html#a487977b6c692a3cabd9708d199cc6fde", null ],

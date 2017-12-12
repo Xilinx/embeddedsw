@@ -681,6 +681,8 @@ HandlerType                     Callback Function Type
 (XV_SDITXSS_HANDLER_GTREADY)                    GtReadyCallback
 (XV_SDITXSS_HANDLER_OVERFLOW)                   OverFlowCallback
 (XV_SDITXSS_HANDLER_UNDERFLOW)          UnderFlowCallback
+(XV_SDITXSS_HANDLER_CEALIGN)                    CeAlignErrCallback
+(XV_SDITXSS_HANDLER_AXI4SVIDLOCK)               Axi4sVidLockCallback
 </pre><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">InstancePtr</td><td>is a pointer to the SDI TX Subsystem instance. </td></tr>
@@ -697,7 +699,7 @@ HandlerType                     Callback Function Type
 </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Invoking this function for a handler that already has been installed replaces it with the new handler. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#adadf4d2f39af6521c8a4e984180a3c9d">XV_SdiTxSs::GtReadyCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ab9db11eab4e545f63807da036b89a13e">XV_SdiTxSs::GtReadyRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#aa081253e62e662304ceb1327023b0737">XV_SdiTxSs::OverFlowCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a1487b5295185aaf55fa557244ab002b1">XV_SdiTxSs::OverFlowRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ae9d8bccecf3a53c81d6ad1697f344d38">XV_SdiTxSs::UnderFlowCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a97694a18fd2b734dc690a9a6f31d7a68">XV_SdiTxSs::UnderFlowRef</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3cacfc6799829a378ca48c19316db727">XV_SDITXSS_HANDLER_GTREADY</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7aa20193d62a6c7141931edbf932b4ef2f">XV_SDITXSS_HANDLER_OVERFLOW</a>, and <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a36f4db8f423d8d8d833ad7ecd386356a">XV_SDITXSS_HANDLER_UNDERFLOW</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#afd8c806b7fd57bb351482b360d713b54">XV_SdiTxSs::Axi4sVidLockCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ae12ceae79ba53231d284dfcb4ced5aa7">XV_SdiTxSs::Axi4sVidLockRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a02c3d66fe5b5df8770277aa1244e8ec5">XV_SdiTxSs::CeAlignErrCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a223e2f4f531726f3defd0a0b09fd66fe">XV_SdiTxSs::CeAlignErrRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#adadf4d2f39af6521c8a4e984180a3c9d">XV_SdiTxSs::GtReadyCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ab9db11eab4e545f63807da036b89a13e">XV_SdiTxSs::GtReadyRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#aa081253e62e662304ceb1327023b0737">XV_SdiTxSs::OverFlowCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a1487b5295185aaf55fa557244ab002b1">XV_SdiTxSs::OverFlowRef</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#ae9d8bccecf3a53c81d6ad1697f344d38">XV_SdiTxSs::UnderFlowCallback</a>, <a class="el" href="struct_x_v___sdi_tx_ss.html#a97694a18fd2b734dc690a9a6f31d7a68">XV_SdiTxSs::UnderFlowRef</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3e7b6fac9eb57a41171353ee31b25c51">XV_SDITXSS_HANDLER_AXI4SVIDLOCK</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7afac5a72cfeecb7d035f8f9781fa61fe9">XV_SDITXSS_HANDLER_CEALIGN</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a3cacfc6799829a378ca48c19316db727">XV_SDITXSS_HANDLER_GTREADY</a>, <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7aa20193d62a6c7141931edbf932b4ef2f">XV_SDITXSS_HANDLER_OVERFLOW</a>, and <a class="el" href="xv__sditxss_8h.html#a866da38a781ee861e5e3374ac376cbf7a36f4db8f423d8d8d833ad7ecd386356a">XV_SDITXSS_HANDLER_UNDERFLOW</a>.</p>
 
 </div>
 </div>
@@ -897,7 +899,7 @@ HandlerType                     Callback Function Type
 <dl class="section return"><dt>Returns</dt><dd>None.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>None. </dd></dl>
 
-<p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>, and <a class="el" href="struct_x_v___sdi_tx_ss.html#a8b4c009d37093d905ec9ddc0675e4d87">XV_SdiTxSs::VtcPtr</a>.</p>
+<p class="reference">References <a class="el" href="struct_x_v___sdi_tx_ss.html#af7d89922bc62fa37fbd2bb092e4d313a">XV_SdiTxSs::Config</a>, and <a class="el" href="struct_x_v___sdi_tx_ss.html#a2499b55a82ee0938a2d0fcdca1077d71">XV_SdiTxSs::SdiTxPtr</a>.</p>
 
 </div>
 </div>

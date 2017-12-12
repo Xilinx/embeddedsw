@@ -11,6 +11,7 @@ var xcsi2txss_8h =
     [ "XCsi2TxSs_GetShortPacket", "group__csi2txss__v1__0.html#ga066c927aebc1b2c199e33350662e4fd9", null ],
     [ "XCsi2TxSs_IntrDisable", "group__csi2txss__v1__0.html#ga05e607ece4b52c59fa349f5f2e42976f", null ],
     [ "XCsi2TxSs_IntrHandler", "group__csi2txss__v1__0.html#ga8d8dd9ec87494c3d3b90dcafd05a6028", null ],
+    [ "XCsi2TxSs_IsUlps", "group__csi2txss__v1__0.html#ga886d9a156806e822b1912fdfbdf66529", null ],
     [ "XCsi2TxSs_LineGen", "group__csi2txss__v1__0.html#ga7e993c82c56bef5ed7a768a71705630b", null ],
     [ "XCsi2TxSs_LookupConfig", "group__csi2txss__v1__0.html#ga011ccc31eea54a9b72e6ece5efed6853", null ],
     [ "XCsi2TxSs_ReportCoreInfo", "group__csi2txss__v1__0.html#gad5067597d1a3f39b5be158ce026e3f8c", null ],
@@ -18,5 +19,6 @@ var xcsi2txss_8h =
     [ "XCsi2TxSs_SelfTest", "group__csi2txss__v1__0.html#ga55777b4afc7abf235debe2d797969577", null ],
     [ "XCsi2TxSs_SetCallBack", "group__csi2txss__v1__0.html#ga445feeebfebea8ae0119be48a4a27ede", null ],
     [ "XCsi2TxSs_SetClkMode", "group__csi2txss__v1__0.html#ga2da520a569957fe9fde9177404ee574f", null ],
-    [ "XCsi2TxSs_SetGSPEntry", "group__csi2txss__v1__0.html#ga533565da7643edb6132a77e5443a2f2d", null ]
+    [ "XCsi2TxSs_SetGSPEntry", "group__csi2txss__v1__0.html#ga533565da7643edb6132a77e5443a2f2d", null ],
+    [ "XCsi2TxSs_SetUlps", "group__csi2txss__v1__0.html#ga292c264c19f272a7b985ca641535be5b", null ]
 ];
