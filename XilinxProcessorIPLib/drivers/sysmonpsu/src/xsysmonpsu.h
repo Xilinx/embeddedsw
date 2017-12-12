@@ -171,6 +171,8 @@
 *                       for doxygen generation.
 * 2.2   sk     04/14/17 Corrected temperature conversion formulas.
 * 2.3   mn     12/11/17 Added missing closing bracket error when C++ is used
+*       mn     12/12/17 Added Conversion Support for voltages having Range of
+*                       1 Volt
 *
 * </pre>
 *
@@ -451,6 +453,23 @@ typedef struct {
 *****************************************************************************/
 #define XSysMonPsu_RawToTemperature_ExternalRef(AdcData)			\
 	((((float)(AdcData)/65536.0f)/0.00197008621f ) - 279.4266f)
+
+/****************************************************************************/
+/**
+*
+* This macro converts System Monitor Raw Data to Voltage(volts) for VpVn
+* supply.
+*
+* @param	AdcData is the System Monitor ADC Raw Data.
+*
+* @return 	The Voltage in volts.
+*
+* @note		C-Style signature:
+*		float XSysMon_VpVnRawToVoltage(u32 AdcData)
+*
+*****************************************************************************/
+#define XSysMonPsu_VpVnRawToVoltage(AdcData) 					\
+	((((float)(AdcData))* (1.0f))/65536.0f)
 
 /****************************************************************************/
 /**
