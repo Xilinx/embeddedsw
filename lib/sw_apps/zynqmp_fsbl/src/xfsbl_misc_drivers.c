@@ -323,6 +323,7 @@ u32 XFsbl_PmInit(void)
 	if ((XFsbl_In32(PMU_GLOBAL_GLOBAL_CNTRL) &
 			PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) !=
 				PMU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK) {
+		XFsbl_Printf(DEBUG_PRINT_ALWAYS,"PMU-FW is not running, certain applications may not be supported.\n\r");
 		UStatus = XFSBL_SUCCESS;
 		goto END;
 	}
