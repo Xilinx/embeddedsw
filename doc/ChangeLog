@@ -447,6 +447,7 @@ to remove errata 753970, It fixes CR#989132.
 
 sysmonpsu_v2_3:
 Added missing closing bracket error when C++ is used
+Added Conversion Support for voltages having Range of 1 Volt
 
 Changes for 2017.4
 ===============================
