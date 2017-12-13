@@ -113,11 +113,11 @@ static u32 ReadFcrRegister(UINTPTR BaseAddress);
 *
 * Gets the options for the specified driver instance. The options are
 * implemented as bit masks such that multiple options may be enabled or
-* disabled simulataneously.
+* disabled simultaneously.
 *
 * @param	InstancePtr is a pointer to the XUartNs550 instance.
 *
-* @return 	The current options for the UART. The optionss are bit masks
+* @return 	The current options for the UART. The options are bit masks
 *		that are contained in the file xuartns550.h and
 *		named XUN_OPTION_*.
 *
@@ -216,7 +216,7 @@ int XUartNs550_SetOptions(XUartNs550 *InstancePtr, u16 Options)
 		} else {
 			/*
 			 * Read the register which contains option so that the
-			 * register can be changed without destoying any other
+			 * register can be changed without destroying any other
 			 * bits of the register
 			 */
 			Register = XUartNs550_ReadReg(InstancePtr->BaseAddress,
