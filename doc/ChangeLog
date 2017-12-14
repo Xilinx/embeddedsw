@@ -1401,14 +1401,6 @@ zynqmp_pmufw:
 - Updated xilfpga API calls in PMU Firmware with the latest version of
   xilfpga library
 
-Changes for 2018.1
-===============================
-
-spips_v4_4:
-When receive fifo exists, we need to check for status
-register rx fifo empty flag. If clear we can proceed for
-read. Otherwise we will hit execption. (CR# 989938)
-
 Changes for 2017.4
 ===============================
 
