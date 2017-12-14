@@ -62,6 +62,7 @@
 *                       and XSysMonPsu_GetSeqAcqTime to provide support for
 *                       set/get 64 bit value.
 * 2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
+* 2.3   mn     12/13/17 Correct the AMS block channel numbers
 *
 * </pre>
 *
@@ -583,7 +584,9 @@ s32 XSysMonPsu_SetSingleChParams(XSysMonPsu *InstancePtr, u8 Channel,
 			  ((Channel >= XSM_CH_SUPPLY_CALIB) &&
 			  (Channel <= XSM_CH_GAINERR_CALIB)) ||
 			  ((Channel >= XSM_CH_SUPPLY4) &&
-			  (Channel <= XSM_CH_TEMP_REMTE)));
+			  (Channel <= XSM_CH_TEMP_REMTE)) ||
+			  ((Channel >= XSM_CH_VCC_PSLL0) &&
+			  (Channel <= XSM_CH_RESERVE1)));
 	Xil_AssertNonvoid((IncreaseAcqCycles == TRUE) ||
 			  (IncreaseAcqCycles == FALSE));
 	Xil_AssertNonvoid((IsEventMode == TRUE) || (IsEventMode == FALSE));

@@ -173,6 +173,7 @@
 * 2.3   mn     12/11/17 Added missing closing bracket error when C++ is used
 *       mn     12/12/17 Added Conversion Support for voltages having Range of
 *                       1 Volt
+*       mn     12/13/17 Correct the AMS block channel numbers
 *
 * </pre>
 *
@@ -221,22 +222,14 @@ extern "C" {
 #define XSM_CH_SUPPLY10     35U   /**< SUPPLY10 PS_MGTRAVTT */
 #define XSM_CH_VCCAMS       36U   /**< VCCAMS */
 #define XSM_CH_TEMP_REMTE   37U   /**< Temperature Remote */
-#define XSM_CH_VCC_PSLL0    38U   /**< VCC_PSLL0 */
-#define XSM_CH_VCC_PSLL1    39U   /**< VCC_PSLL1 */
-#define XSM_CH_VCC_PSLL2    40U   /**< VCC_PSLL2 */
-#define XSM_CH_VCC_PSLL3    41U   /**< VCC_PSLL3 */
-#define XSM_CH_VCC_PSLL4    42U   /**< VCC_PSLL4 */
-#define XSM_CH_VCC_PSBATT   43U   /**< VCC_PSBATT */
-#define XSM_CH_VCCINT       44U   /**< VCCINT */
-#define XSM_CH_VCCBRAM      45U   /**< VCCBRAM */
-#define XSM_CH_VCCAUX       46U   /**< VCCAUX */
-#define XSM_CH_VCC_PSDDRPLL 47U   /**< VCC_PSDDRPLL */
-#define XSM_CH_DDRPHY_VREF  48U   /**< DDRPHY_VREF */
-#define XSM_CH_DDRPHY_AT0   49U   /**< DDRPHY_AT0 */
-#define XSM_CH_PSGT_AT0     50U   /**< PSGT_AT0 */
-#define XSM_CH_PSGT_AT1     51U   /**< PSGT_AT0 */
-#define XSM_CH_RESERVE0     52U   /**< PSGT_AT0 */
-#define XSM_CH_RESERVE1     53U   /**< PSGT_AT0 */
+#define XSM_CH_VCC_PSLL0    48U   /**< VCC_PSLL0 */
+#define XSM_CH_VCC_PSLL3    51U   /**< VCC_PSLL3 */
+#define XSM_CH_VCCINT       54U   /**< VCCINT */
+#define XSM_CH_VCCBRAM      55U   /**< VCCBRAM */
+#define XSM_CH_VCCAUX       56U   /**< VCCAUX */
+#define XSM_CH_VCC_PSDDRPLL 57U   /**< VCC_PSDDRPLL */
+#define XSM_CH_DDRPHY_VREF  58U   /**< DDRPHY_VREF */
+#define XSM_CH_RESERVE1     63U   /**< PSGT_AT0 */
 
 /*@}*/
 
