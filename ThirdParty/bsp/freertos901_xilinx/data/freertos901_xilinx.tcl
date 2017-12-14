@@ -18,8 +18,13 @@
 #
 
 
-# standalone bsp version. set this to the latest "ACTIVE" version.
-set standalone_version [hsi::get_sw_cores standalone_* -filter {CORE_STATE == "ACTIVE"}]
+# -----------------------------------------------
+# Return latest "ACTIVE" standalone BSP version
+# -----------------------------------------------
+proc get_standalone_version {} {
+	set standalone_version [hsi::get_sw_cores standalone_* -filter {CORE_STATE == "ACTIVE"}]
+	return [lindex $standalone_version end]
+}
 
 proc FreeRTOS_drc {os_handle} {
 
@@ -36,7 +41,7 @@ proc FreeRTOS_drc {os_handle} {
 
 proc generate {os_handle} {
 
-	variable standalone_version
+	set standalone_version [get_standalone_version]
 	set have_tick_timer 0
 	set sw_proc_handle [hsi::get_sw_processor]
 	set hw_proc_handle [hsi::get_cells [common::get_property HW_INSTANCE $sw_proc_handle] ]
@@ -1013,7 +1018,7 @@ proc xhandle_mb_interrupts {} {
 proc xcreate_mb_intr_config_file {handler arg} {
 
     set mb_table "MB_InterruptVectorTable"
-	variable standalone_version
+    set standalone_version [get_standalone_version]
 
 	set filename [file join ".." "${standalone_version}" "src" "microblaze_interrupts_g.c"]
     file delete $filename
