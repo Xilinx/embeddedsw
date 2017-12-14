@@ -1,6 +1,3 @@
-
-
-
 Changes for 2018.1
 ===============================
 
@@ -28,19 +25,19 @@ sysmonpsu_v2_3:
 Added missing closing bracket error when C++ is used
 Added Conversion Support for voltages having Range of 1 Volt
 
+sdps_v3_4:
+Use different commands for single and multi block transfers
+
+csudma_v1_2:
+Added support for peripheral test app support.
+
+zdma_v1_5:
+Added support for peripheral test app support.
+Fixed peripheral app generation issues when running on OCM(CR-990806).
+
+
 Changes for 2017.4
 ===============================
-
-v_sdirx_v1_1:
-v_sdirxss_v1_1:
-Created new version to remove the redundant interrupts flags. adding
-assertion checks, new API to resolve 0 payload issue, new interrupts
-support, checkpatch error fixes.
-
-v_sditx_v1_1:
-v_sditxss_v1_1:
-Created new version to enhance st352 calculations, adding assertion
-checks, new interrupts support, checkpatch error fixes.
 
 qspipsu_v1_6:
 Flow for accessing flash parts with size more then 16MB
@@ -59,6 +56,15 @@ Exporting ulps API to subsystem
 sdps_v3_3:
 Use different commands for single and multi block transfers
 
+emacps_v3_6:
+Export PL PCS PMA information for ETH1/2/3- CR-984847.
+
+qspipsu_v1_6:
+Flow for accessing flash parts with size more then 16MB made similar to 
+u-boot and linux.(CR#984966) ICCARM compiler does not support 
+__attribute__ syntax, instead #pragma is used for the similar 
+functionality.(CR#988625)
+
 axidma_v9_5:
 CR#987026 Fixed issue poll_multi_pkt example fails on a53
 Fixed race condition in the XAxiDma_Reset() API.
@@ -67,9 +73,28 @@ CR#988210 Add interface to query config based on base addr.
 lwip141_2_0:
 Correct assigment of TX BD ring in init_dma() and
 emacps_error_handler().
+CR#988210 Perform AXI DMA lookup based on base address.
 
 zdma_v1_4:
 Fixed compilation errors for IAR compiler.
+
+zynqmp_pmufw:
+- Exported efuse IP disable as part of version string in PmGetChipid to 
+recognize eg/cg/ev devices
+- Enabled Optimize for size compiler flag in HSI flow
+- Clearing master wakeup sources after master state is changed from 
+suspended to active
+- Fix pmufw warnings related to unused variable, uninitialized variable 
+and signed compare
+- Provided MMIO Read-only access to PMU LOCAL FPD lock status register
+- Changed PMU Firmware version to 2017.4
+- Added wrapper API for IPI poll for Ack in PMU Firmware
+
+zynqmp_fsbl:
+Updated cross compiler flags with hard floating point values
+Added functionality in FSBL to distinguish EV devices from EG devices
+
+
 
 Changes for 2017.3
 ===============================
