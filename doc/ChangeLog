@@ -425,46 +425,8 @@ any functionality from this config file
 - Updated xilfpga API calls in PMU Firmware with the latest version of
   xilfpga library
 
-Changes for 2018.1
-===============================
-
-lwip202_v1_0:
-Upgrade to LWIP2.0.2 version
-Remove PPC references
-Add support for IGMP for emacps
-Add multicast MAC update for IPv6 in xemacpsif.c and xaxiemacif.c
-Add IPv6 source
-Fix jumbo frame checks to work on R5
-
-rfdc_v2_4:
-Add support DDC and DUC configuration
-
-spips_v4_4:
-When receive fifo exists, we need to check for status
-register rx fifo empty flag. If clear we can proceed for
-read. Otherwise we will hit execption. (CR# 989938)
-
-standalone_v6_6:
-Updated cortexa9/xil_errata.h and cortexa9/xil_cache.c
-to remove errata 753970, It fixes CR#989132.
-
-sysmonpsu_v2_3:
-Added missing closing bracket error when C++ is used
-Added Conversion Support for voltages having Range of 1 Volt
-
 Changes for 2017.4
 ===============================
-
-v_sdirx_v1_1:
-v_sdirxss_v1_1:
-Created new version to remove the redundant interrupts flags. adding
-assertion checks, new API to resolve 0 payload issue, new interrupts
-support, checkpatch error fixes.
-
-v_sditx_v1_1:
-v_sditxss_v1_1:
-Created new version to enhance st352 calculations, adding assertion
-checks, new interrupts support, checkpatch error fixes.
 
 qspipsu_v1_6:
 Flow for accessing flash parts with size more then 16MB
@@ -697,9 +659,6 @@ llfifo_v5_2:
 CR#978769 Fix doxygen issues in the driver.
 Updated comments in the usage section as per example code.
 Fixed doxygen warnings in the driver.
-
-axidma_v9_4:
-CR#974218 Add support for cyclic DMA mode.
 
 axidma_v9_4:
 CR#974218 Add support for cyclic DMA mode.
