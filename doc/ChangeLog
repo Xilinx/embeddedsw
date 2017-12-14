@@ -361,6 +361,10 @@ XDp_RxSetIntrHdcpAksvWriteHandler, XDp_RxSetIntrHdcpBinfoReadHandler,
 and XDp_RxSetIntrHdcpRoReadHandler functions and replace them
 with the new XDp_TxSetCallback function.
 
+freertos901_xilinx_v1_3:
+Updated FreeRTOS tcl to fix bug in detecting latest standalone
+version.It fixes CR#990995.
+
 lwip202_v1_0:
 Upgrade to LWIP2.0.2 version
 Remove PPC references
