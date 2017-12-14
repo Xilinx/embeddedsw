@@ -1140,6 +1140,10 @@ freertos901_xilinx_v1_3:
 Updated FreeRTOS tcl to fix bug in detecting latest standalone
 version.It fixes CR#990995.
 
+freertos901_xilinx_v1_3:
+Updated FreeRTOS tcl to fix bug in detecting latest standalone
+version.It fixes CR#990995.
+
 lwip202_v1_0:
 Upgrade to LWIP2.0.2 version
 Remove PPC references
