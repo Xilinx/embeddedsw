@@ -31,6 +31,7 @@
 ******************************************************************************/
 
 #include <sleep.h>
+#include "xparameters.h"
 #include "netif/xadapter.h"
 #include "platform_config.h"
 #include "platform_fs.h"
@@ -105,7 +106,7 @@ void network_thread(void *p)
 	u8_t mac_ethernet_address[] = { 0x00, 0x0a, 0x35, 0x00, 0x01, 0x02 };
 
 	xil_printf("\r\n\r\n");
-	xil_printf("----- lwIP Socket Mode TFTP server Demo Application -----\r\n");
+	xil_printf("----- lwIP Socket Mode TFTP client Demo Application -----\r\n");
 
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(&server_netif, NULL, NULL, NULL, mac_ethernet_address,
