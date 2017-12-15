@@ -30,6 +30,7 @@
 *
 ******************************************************************************/
 
+#include "xparameters.h"
 #include "netif/xadapter.h"
 #include "platform_config.h"
 #include "xil_printf.h"
