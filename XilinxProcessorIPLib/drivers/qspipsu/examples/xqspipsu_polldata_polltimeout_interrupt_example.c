@@ -83,6 +83,7 @@
 * 1.5	tjs 09/15/17 Replaced #ifdef COMMENTS to #if USE_FOUR_BYTE (CR-984966)
 * 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
 *                    commands.
+* 1.7	tjs	12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
 *</pre>
 *
 ******************************************************************************/
@@ -215,6 +216,7 @@
 #define MICRON_ID_BYTE2_256	0x19
 #define MICRON_ID_BYTE2_512	0x20
 #define MICRON_ID_BYTE2_1G	0x21
+#define MICRON_ID_BYTE2_2G	0x22
 
 #define SPANSION_ID_BYTE0		0x01
 #define SPANSION_ID_BYTE2_128	0x18
@@ -259,9 +261,12 @@
 #define FLASH_CFG_TBL_SINGLE_1GB_MC		(MICRON_INDEX_START + 9)
 #define FLASH_CFG_TBL_STACKED_1GB_MC	(MICRON_INDEX_START + 10)
 #define FLASH_CFG_TBL_PARALLEL_1GB_MC	(MICRON_INDEX_START + 11)
+#define FLASH_CFG_TBL_SINGLE_2GB_MC		(MICRON_INDEX_START + 12)
+#define FLASH_CFG_TBL_STACKED_2GB_MC	(MICRON_INDEX_START + 13)
+#define FLASH_CFG_TBL_PARALLEL_2GB_MC	(MICRON_INDEX_START + 14)
 
 /* Winbond */
-#define WINBOND_INDEX_START				(FLASH_CFG_TBL_PARALLEL_1GB_MC + 1)
+#define WINBOND_INDEX_START				(FLASH_CFG_TBL_PARALLEL_2GB_MC + 1)
 #define FLASH_CFG_TBL_SINGLE_128_WB		WINBOND_INDEX_START
 #define FLASH_CFG_TBL_STACKED_128_WB	(WINBOND_INDEX_START + 1)
 #define FLASH_CFG_TBL_PARALLEL_128_WB	(WINBOND_INDEX_START + 2)
@@ -355,7 +360,7 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
-FlashInfo Flash_Config_Table[28] = {
+FlashInfo Flash_Config_Table[33] = {
 		/* Spansion */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
@@ -401,6 +406,12 @@ FlashInfo Flash_Config_Table[28] = {
 				MICRON_ID_BYTE0, MICRON_ID_BYTE2_1G, 0xFFFF0000, 4},
 		{0x20000, 0x800, 512, 0x80000, 0x8000000,
 				MICRON_ID_BYTE0, MICRON_ID_BYTE2_1G, 0xFFFE0000, 4},
+		{0x10000, 0x1000, 256, 0x100000, 0x10000000,
+				MICRON_ID_BYTE0, MICRON_ID_BYTE2_2G, 0xFFFF0000, 4},
+		{0x10000, 0x2000, 256, 0x200000, 0x10000000,
+				MICRON_ID_BYTE0, MICRON_ID_BYTE2_2G, 0xFFFF0000, 4},
+		{0x20000, 0x1000, 512, 0x100000, 0x10000000,
+				MICRON_ID_BYTE0, MICRON_ID_BYTE2_2G, 0xFFFE0000, 4},
 		/* Winbond */
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				WINBOND_ID_BYTE0, WINBOND_ID_BYTE2_128, 0xFFFF0000, 1},
@@ -417,6 +428,10 @@ FlashInfo Flash_Config_Table[28] = {
 				MACRONIX_ID_BYTE0, MACRONIX_ID_BYTE2_1G, 0xFFFE0000, 4},
 		/* ISSI */
 		{0x10000, 0x200, 256, 0x20000, 0x2000000,
+				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
+		{0x10000, 0x400, 256, 0x40000, 0x2000000,
+				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1},
+		{0x20000, 0x200, 512, 0x20000, 0x2000000,
 				ISSI_ID_BYTE0, ISSI_ID_BYTE2_256, 0xFFFF0000, 1}
 };
 
@@ -964,6 +979,25 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 				break;
 			case XQSPIPSU_CONNECTION_MODE_STACKED:
 				FCTIndex = FLASH_CFG_TBL_STACKED_1GB_MC;
+				break;
+			default:
+				FCTIndex = 0;
+				break;
+		}
+	}
+	/* 2Gbit single, parallel and stacked supported for Micron */
+	if(((FlashMake == MICRON_ID_BYTE0) &&
+			(ReadBfrPtr[2] == MICRON_ID_BYTE2_2G))) {
+
+		switch(QspiPsuPtr->Config.ConnectionMode) {
+			case XQSPIPSU_CONNECTION_MODE_SINGLE:
+				FCTIndex = FLASH_CFG_TBL_SINGLE_2GB_MC;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+				FCTIndex = FLASH_CFG_TBL_PARALLEL_2GB_MC;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_STACKED:
+				FCTIndex = FLASH_CFG_TBL_STACKED_2GB_MC;
 				break;
 			default:
 				FCTIndex = 0;
@@ -1897,49 +1931,22 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
 	}
 	while(TransferInProgress);
 
+	/*
+	 * Wait for the write command to the Flash to be completed, it takes
+	 * some time for the data to be written
+	 */
+	QspiPsuConfigurePoll(QspiPsuPtr);
+
+	PollTransferProgress = TRUE;
+	XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg,0);
+
 	while (1) {
-		ReadStatusCmd = StatusCmd;
-
-		FlashMsg[0].TxBfrPtr = &ReadStatusCmd;
-		FlashMsg[0].RxBfrPtr = NULL;
-		FlashMsg[0].ByteCount = 1;
-		FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
-
-		FlashMsg[1].TxBfrPtr = NULL;
-		FlashMsg[1].RxBfrPtr = FlashStatus;
-		FlashMsg[1].ByteCount = 2;
-		FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
-		FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
-
-		if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
-			FlashMsg[1].Flags |= XQSPIPSU_MSG_FLAG_STRIPE;
-		}
-
-		TransferInProgress = TRUE;
-		Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
-		if (Status != XST_SUCCESS) {
+		if (PollDataTimeout == TRUE) {
+			xil_printf("PollData Timed-out\n\r");
 			return XST_FAILURE;
 		}
-		while(TransferInProgress);
-
-		if(QspiPsuPtr->Config.ConnectionMode == XQSPIPSU_CONNECTION_MODE_PARALLEL){
-			if(FSRFlag) {
-				FlashStatus[1] &= FlashStatus[0];
-			} else {
-				FlashStatus[1] |= FlashStatus[0];
-			}
-		}
-
-		if(FSRFlag) {
-			if ((FlashStatus[1] & 0x80) != 0) {
-				break;
-			}
-		} else {
-			if ((FlashStatus[1] & 0x01) == 0) {
-				break;
-			}
-		}
+		if (PollTransferProgress == FALSE)
+			break;
 	}
 
 	switch (FlashMake) {
