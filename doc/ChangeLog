@@ -12,6 +12,8 @@ Add support for IGMP for emacps
 Add multicast MAC update for IPv6 in xemacpsif.c and xaxiemacif.c
 Add IPv6 source
 Fix jumbo frame checks to work on R5
+Add examples for raw and socker mode IGMP, webserver and
+tftp client and server apps.
 
 rfdc_v2_4:
 Add support DDC and DUC configuration
