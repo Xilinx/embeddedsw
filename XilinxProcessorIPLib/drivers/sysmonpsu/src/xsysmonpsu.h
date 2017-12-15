@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -174,6 +174,8 @@
 *       mn     12/12/17 Added Conversion Support for voltages having Range of
 *                       1 Volt
 *       mn     12/13/17 Correct the AMS block channel numbers
+*       ms     12/15/17 Added peripheral test support.
+
 *
 * </pre>
 *

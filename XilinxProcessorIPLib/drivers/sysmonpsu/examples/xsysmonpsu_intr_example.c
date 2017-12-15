@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -65,6 +65,7 @@
 *       ms     04/05/17 Modified Comment lines in functions to
 *                       recognize it as documentation block for doxygen
 *                       generation.
+* 2.3  ms      12/12/17 Added peripheral test support
 * </pre>
 *
 *****************************************************************************/
@@ -114,7 +115,7 @@
 
 /************************** Function Prototypes *****************************/
 
-static int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr,
+int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr,
 			XSysMonPsu* SysMonInstPtr,
 			u16 SysMonDeviceId,
 			u16 SysMonIntrId);
@@ -130,14 +131,17 @@ static int SysMonPsuFractionToInt(float FloatNum);
 
 /************************** Variable Definitions ****************************/
 
+#ifndef TESTAPP_GEN
 static XSysMonPsu SysMonInst; 		/* System Monitor driver instance */
 static XScuGic XScuGicInst; 			/* Instance of the XXScuGic driver */
+#endif
 
 /* Shared variables used to test the callbacks. */
 volatile static int TempIntrActive = FALSE;	/* Temperature alarm intr active */
 volatile static int VccIntIntr = FALSE;		/* VCCINT alarm interrupt */
 volatile static int VccAuxIntr = FALSE;		/* VCCAUX alarm interrupt */
 
+#ifndef TESTAPP_GEN
 /****************************************************************************/
 /**
 *
@@ -170,6 +174,7 @@ int main(void)
 	xil_printf("Successfully ran SysMonPsu Interrupt Example Test\r\n");
 	return XST_SUCCESS;
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -205,7 +210,7 @@ int main(void)
 * @note		This function may never return if no interrupt occurs.
 *
 ****************************************************************************/
-static int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
+int SysMonPsuIntrExample(XScuGic* XScuGicInstPtr, XSysMonPsu* SysMonInstPtr,
 			u16 SysMonDeviceId, u16 SysMonIntrId)
 {
 	int Status;
@@ -660,6 +665,7 @@ static int SysMonPsuSetupInterruptSystem(XScuGic* XScuGicInstPtr, XSysMonPsu *Sy
 {
 	int Status;
 
+#ifndef TESTAPP_GEN
 	XScuGic_Config *XScuGicConfig; /* Config for interrupt controller */
 
 	/* Initialize the interrupt controller driver */
@@ -681,6 +687,7 @@ static int SysMonPsuSetupInterruptSystem(XScuGic* XScuGicInstPtr, XSysMonPsu *Sy
 	Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
 				(Xil_ExceptionHandler) XScuGic_InterruptHandler,
 				XScuGicInstPtr);
+#endif
 
 	/*
 	 * Connect a device driver handler that will be called when an
@@ -697,9 +704,10 @@ static int SysMonPsuSetupInterruptSystem(XScuGic* XScuGicInstPtr, XSysMonPsu *Sy
 	/* Enable the interrupt for the device */
 	XScuGic_Enable(XScuGicInstPtr, IntrId);
 
+#ifndef TESTAPP_GEN
 	/* Enable interrupts */
 	 Xil_ExceptionEnable();
-
+#endif
 	return XST_SUCCESS;
 }
 
