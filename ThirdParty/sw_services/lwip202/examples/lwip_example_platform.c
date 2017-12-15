@@ -38,7 +38,9 @@
 #include "xintc.h"
 #include "xil_exception.h"
 #include "lwip/tcp.h"
+#ifdef TFTP_APP
 #include "platform_fs.h"
+#endif
 #ifdef STDOUT_IS_16550
 #include "xuartns550_l.h"
 #endif
@@ -64,6 +66,7 @@ timer_callback()
 #if LWIP_DHCP==1
 	static int dhcp_timer = 0;
 #endif
+
 	TcpFastTmrFlag = 1;
 	odd = !odd;
 	if (odd) {
@@ -167,7 +170,9 @@ void init_platform()
 
 	platform_setup_interrupts();
 
+#ifdef TFTP_APP
 	platform_init_fs();
+#endif
 }
 
 void cleanup_platform()
