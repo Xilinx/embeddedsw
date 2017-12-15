@@ -59,7 +59,9 @@
 #include "xil_printf.h"
 #include "platform_config.h"
 #include "netif/xadapter.h"
+#ifdef TFTP_APP
 #include "platform_fs.h"
+#endif
 #ifdef PLATFORM_ZYNQ
 #include "xscutimer.h"
 
@@ -217,7 +219,9 @@ void init_platform()
 	platform_setup_timer();
 	platform_setup_interrupts();
 
+#ifdef TFTP_APP
 	platform_init_fs();
+#endif
 
 	return;
 }
