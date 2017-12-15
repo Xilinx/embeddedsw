@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2016 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2016-2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -52,6 +52,7 @@
 *       ms     04/05/17 Modified Comment lines in functions to
 *                       recognize it as documentation block for doxygen
 *                       generation.
+* 2.3   ms    12/12/17 Added peripheral test support.
 * </pre>
 *
 *****************************************************************************/
@@ -83,13 +84,13 @@
 
 /************************** Function Prototypes *****************************/
 
-static int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId);
+int SysMonPsuPolledPrintfExample(u16 SysMonDeviceId);
 static int SysMonPsuFractionToInt(float FloatNum);
 
 /************************** Variable Definitions ****************************/
 
 static XSysMonPsu SysMonInst;      /* System Monitor driver instance */
-
+#ifndef TESTAPP_GEN
 /****************************************************************************/
 /**
 *
@@ -122,7 +123,7 @@ int main(void)
 	xil_printf("Successfully ran Sysmon Polled Example Test\r\n");
 	return XST_SUCCESS;
 }
-
+#endif
 
 /****************************************************************************/
 /**
