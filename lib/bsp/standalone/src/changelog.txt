@@ -489,5 +489,13 @@
  *                    it fixes CR#987464.
  * 6.6 mus   12/07/17 Updated cortexa9/xil_errata.h and cortexa9/xil_cache.c to remove Errata 753970.
  *                    It fixes CR#989132.
+ *     srm   10/18/17 Updated all the sleep routines in a9,a53,R5,microblaze. Now the sleep routines
+ *		      will use the timer specified by the user to provide delay. A9 and A53 can use
+ *                    Global timer or TTC. R5 can use TTC or the machine cycles. Microblaze can use
+ *                    machine cycles or Axi timer. Updated standalone.tcl and standalone.mld files
+ *		      to support the sleep configuration Added new API's for the Axi timer in
+ *		      microblaze and TTC in ARM. Added two new files, xil_sleeptimer.c and
+ *		      xil_sleeptimer.h in ARM for the common sleep routines and 1 new file,
+ *		      xil_sleepcommon.c in Standalone-common for sleep/usleep API's.
  *
  *****************************************************************************************/

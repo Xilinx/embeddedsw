@@ -37,6 +37,9 @@
 # ----- ---- -------- ---------------------------------------------------
 # 6.4   ms   05/23/17 Defined PSU_PMU macro in xparameters.h to support
 #                     XGetPSVersion_Info function for PMUFW.
+# 6.6   srm  10/18/17 Added xsleep_timer_config function to support the
+#                     sleep configuration using timers as specifed by the
+#					  user.
 #
 ##############################################################################
 
@@ -364,25 +367,6 @@ proc generate {os_handle} {
                 puts $file_handle [format %s0x%x "#define XPAR_PSU_R5_DDR_1_S_AXI_HIGHADDR " [expr $psu_ddr_1_highaddr]]
                 puts $file_handle ""
             }
-            set periphs [hsi::get_cells]
-            foreach periph $periphs {
-		if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
-			set timer_baseaddr [::hsi::utils::get_param_value $periph "C_S_AXI_BASEADDR"]
-			if {[string compare -nocase "0xff140000" $timer_baseaddr] == 0} {
-				set timer_base "#define SLEEP_TIMER_BASEADDR $timer_baseaddr"
-				puts $file_handle "/******************************************************************/\n"
-				puts $file_handle "/*"
-				puts $file_handle " * Definitions of PSU_TTC_3 counter 0 base address and frequency used"
-				puts $file_handle " * by sleep and usleep APIs"
-				puts $file_handle " */\n"
-				puts $file_handle $timer_base
-				set timer_frequency [::hsi::utils::get_param_value $periph "C_TTC_CLK0_FREQ_HZ"]
-				set timer_freq "#define SLEEP_TIMER_FREQUENCY $timer_frequency"
-				puts $file_handle $timer_freq
-				puts $file_handle "\n/******************************************************************/\n"
-			}
-		}
-            }
             xdefine_fabric_reset $file_handle
 	    close $file_handle
         }
@@ -495,6 +479,8 @@ proc generate {os_handle} {
     file delete $bspcfg_fn
     set bspcfg_fh [open $bspcfg_fn w]
     ::hsi::utils::write_c_header $bspcfg_fh "Configurations for Standalone BSP"
+	puts $bspcfg_fh "#ifndef BSPCONFIG_H /* prevent circular inclusions */"
+	puts $bspcfg_fh "#define BSPCONFIG_H /* by using protection macros */"
 
     if { $proctype == "microblaze" && [mb_has_pvr $hw_proc_handle] } {
 
@@ -532,8 +518,57 @@ proc generate {os_handle} {
 		}
 	}
     }
-    close $bspcfg_fh
+	xsleep_timer_config $proctype $os_handle $bspcfg_fh
+	puts $bspcfg_fh "#endif /* BSPCONFIG_H */ "
+	close $bspcfg_fh
 }
+
+# --------------------------------------------------------
+#  Tcl procedure xsleep_timer_config
+# --------------------------------------------------------
+proc xsleep_timer_config {proctype os_handle bspcfg_fh} {
+
+    set sleep_timer [common::get_property CONFIG.sleep_timer $os_handle ]
+	if { $sleep_timer == "ps7_globaltimer_0" || $sleep_timer == "psu_iou_scntr" || $sleep_timer == "psu_iou_scntrs" } {
+		if { $proctype == "psu_cortexr5" } {
+			error "ERROR: $proctype does not support $sleep_timer "
+		}
+    } elseif { $sleep_timer == "none" } {
+		if { $proctype == "psu_cortexr5" } {
+			set periphs [hsi::get_cells]
+			foreach periph $periphs {
+				if {[string compare -nocase "psu_ttc_3" $periph] == 0} {
+					puts $bspcfg_fh "#define SLEEP_TIMER_BASEADDR XPAR_PSU_TTC_9_BASEADDR"
+					puts $bspcfg_fh "#define SLEEP_TIMER_FREQUENCY XPAR_PSU_TTC_9_TTC_CLK_FREQ_HZ"
+					puts $bspcfg_fh "#define XSLEEP_TTC_INSTANCE 3"
+			    }
+			}
+		}
+		puts $bspcfg_fh "#define XSLEEP_TIMER_IS_DEFAULT_TIMER"
+    } elseif {[string match "axi_timer_*" $sleep_timer]} {
+		if { $proctype == "microblaze" } {
+			set instance [string index $sleep_timer end]
+			puts $bspcfg_fh "#define SLEEP_TIMER_BASEADDR [format "XPAR_AXI_TIMER_%d_BASEADDR" $instance ] "
+			puts $bspcfg_fh "#define SLEEP_TIMER_FREQUENCY [format "XPAR_AXI_TIMER_%d_CLOCK_FREQ_HZ" $instance ] "
+			puts $bspcfg_fh "#define XSLEEP_TIMER_IS_AXI_TIMER"
+		} else {
+			error "ERROR: $proctype does not support $sleep_timer "
+		}
+	} else {
+        set module [string index $sleep_timer end]
+		puts $bspcfg_fh "#define XSLEEP_TTC_INSTANCE $module"
+	    set timer [common::get_property CONFIG.TTC_Select_Cntr $os_handle ]
+		if { $proctype == "ps7_cortexa9" } {
+			puts $bspcfg_fh "#define SLEEP_TIMER_BASEADDR [format "XPAR_PS7_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $bspcfg_fh "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PS7_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+		} elseif { $proctype == "psu_cortexa53" || $proctype == "psu_cortexr5" } {
+			puts $bspcfg_fh "#define SLEEP_TIMER_BASEADDR [format "XPAR_PSU_TTC_%d_BASEADDR" [ expr 3 * $module + $timer ] ] "
+			puts $bspcfg_fh "#define SLEEP_TIMER_FREQUENCY [format "XPAR_PSU_TTC_%d_TTC_CLK_FREQ_HZ" [ expr 3 * $module + $timer ] ] "
+		}
+	}
+	return
+}
+
 # --------------------------------------
 # Tcl procedure get_psu_config
 # --------------------------------------
