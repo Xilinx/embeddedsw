@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2016 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,8 @@
 *
 * @file usleep.c
 *
-* This function provides a microsecond delay using the Global Timer register in
+* This function supports user configurable sleep implementation.
+* This provides a microsecond delay using the timer specified by the user in
 * the ARM Cortex R5 MP core.
 *
 * <pre>
@@ -51,6 +52,10 @@
 * 5.04	pkp		 03/11/16 Compare the counter value to previously read value
 *						  to detect the overflow for TTC3
 * 6.0   asa      08/15/16 Updated the usleep signature. Fix for CR#956899.
+* 6.6	srm      10/18/17 Updated sleep routines to support user configurable
+*			  implementation. Now sleep routines will use TTC
+*                         instance specified by user.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -63,6 +68,10 @@
 #include "xpseudo_asm.h"
 #include "xreg_cortexr5.h"
 
+#if defined (SLEEP_TIMER_BASEADDR)
+#include "xil_sleeptimer.h"
+#endif
+
 /*****************************************************************************/
 /**
 *
@@ -72,57 +81,45 @@
 *
 * @return	0 always
 *
-* @note		The usleep API is implemented using TTC3 counter 0 timer if present
-*			When TTC3 is absent, usleep is implemented using assembly
-*			instructions which is tested with instruction and data caches
-*			enabled and it gives proper delay. It may give more delay than
-*			exepcted when caches are disabled. If interrupt comes when usleep
-*			using assembly instruction is being executed, the delay may be
-*			greater than what is expected since once the interrupt is served
-*			count resumes from where it was interrupted unlike the case of TTC3
-*			where counter keeps running while interrupt is being served.
+* @note		By default, usleep is implemented using TTC3. Although user is
+*               given an option to select other instances of TTC. When the user
+*               selects other instances of TTC, usleep is implemented by that
+*		specific TTC instance. If the user didn't select any other instance
+*		of TTC specifically and when TTC3 is absent, usleep is implemented
+*      	        using assembly instructions which is tested with instruction and
+*		data caches enabled and it gives proper delay. It may give more
+*		delay than exepcted when caches are disabled. If interrupt comes
+*		when usleep using assembly instruction is being executed, the delay
+*		may be greater than what is expected since once the interrupt is
+*		served count resumes from where it was interrupted unlike the case
+*		of TTC3 where counter keeps running while interrupt is being served.
 *
 ****************************************************************************/
 
-int usleep(unsigned long useconds)
+int usleep_R5(unsigned long useconds)
 {
-
-#ifdef SLEEP_TIMER_BASEADDR
-	u64 tEnd;
-	u64 tCur;
-	u32 TimeHighVal;
-	XTime TimeLowVal1 = 0U;
-	XTime TimeLowVal2 = 0U;
-
-	TimeHighVal = 0;
-
-	XTime_GetTime(&TimeLowVal1);
-	tEnd  = (u64)TimeLowVal1 + (((u64) useconds) * COUNTS_PER_USECOND);
-
-	do
-	{
-		XTime_GetTime(&TimeLowVal2);
-	    if (TimeLowVal2 < TimeLowVal1) {
-				TimeHighVal++;
-		}
-		TimeLowVal1 = TimeLowVal2;
-		tCur = (((u64) TimeHighVal) << 32U) | (u64)TimeLowVal2;
-	} while (tCur < tEnd);
-
-	return 0;
+#if defined (SLEEP_TIMER_BASEADDR)
+	Xil_SleepTTCCommon(useconds, COUNTS_PER_USECOND);
 #else
+#if defined (__GNUC__)
 	__asm__ __volatile__ (
-			" push {r0,r1}		\n\t"
-			" mov r0, %[usec]	\n\t"
-			" 1: \n\t"
-			" mov r1, %[iter] 	\n\t"
-			" 2:				\n\t"
-			" subs r1, r1, #0x1 \n\t"
-			" bne   2b    		\n\t"
-			" subs r0,r0,#0x1 	\n\t"
-			"  bne 1b 			\n\t"
-			" pop {r0,r1} 		\n\t"
-			:: [iter] "r" (ITERS_PER_USEC), [usec] "r" (useconds)
-	);
+#elif defined (__ICCARM__)
+	__asm volatile (
 #endif
+		"push {r0,r1,r3} \n"
+		"mov r0, %[usec] \n"
+		"mov r1, %[iter] \n"
+		"1: \n"
+		"mov r3, r1 \n"
+		"2: \n"
+		"subs r3, r3, #0x1\n"
+		"bne 2b \n"
+		"subs r0, r0, #0x1 \n"
+		"bne 1b \n"
+		"pop {r0,r1,r3} \n"
+		::[iter] "r" (ITERS_PER_USEC), [usec] "r" (useconds)
+		);
+#endif
+
+return 0;
 }
