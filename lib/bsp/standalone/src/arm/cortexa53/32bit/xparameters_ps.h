@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2015 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2015 - 2017 Xilinx, Inc. All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,7 @@
 * ----- ------- -------- ---------------------------------------------------
 * 5.2	pkp  	28/05/15 First release
 * 6.0   mus     18/08/16 Defined ARMA53_32 flag
+* 6.6   srm		10/23/17 Included bspconfig.h
 * </pre>
 *
 * @note
@@ -61,6 +62,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/***************************** Include Files *********************************/
+#include "bspconfig.h"
 
 /************************** Constant Definitions *****************************/
 

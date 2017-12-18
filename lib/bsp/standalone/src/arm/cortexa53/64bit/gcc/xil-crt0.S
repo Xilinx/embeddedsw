@@ -43,6 +43,9 @@
 * 5.04	pkp  01/05/16 Set the reset vector register RVBAR equivalent to
 *		      vector table base address
 * 6.02  pkp  01/22/17 Added support for EL1 non-secure
+* 6.6   srm  10/18/17 Added timer configuration using XTime_StartTTCTimer API.
+*		      Now the TTC instance as specified by the user will be
+*	              started.
 * </pre>
 *
 * @note
@@ -110,6 +113,11 @@ _startup:
 .Lenclbss:
 	/* run global constructors */
 	bl __libc_init_array
+
+	/* Reset and start Triple Timer Counter */
+	#if defined (SLEEP_TIMER_BASEADDR)
+	bl XTime_StartTTCTimer
+	#endif
 
 	/* make sure argc and argv are valid */
 	mov	x0, #0
