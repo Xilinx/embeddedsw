@@ -1,6 +1,6 @@
 ;******************************************************************************
 ;
-; Copyright (C) 2009 - 2016 Xilinx, Inc.  All rights reserved.
+; Copyright (C) 2009 - 2017 Xilinx, Inc.  All rights reserved.
 ;
 ; Permission is hereby granted, free of charge, to any person obtaining a copy
 ; of this software and associated documentation files (the "Software"), to deal
@@ -53,6 +53,9 @@
 ; 6.0   mus     08/04/16 Added code to detect zynq-7000 base silicon configuration and
 ;                        attempt to enable dual core behavior on single cpu zynq-7000s devices
 ;                        is prevented from corrupting system behavior.
+; 6.6   srm	10/25/17 Added timer configuration using XTime_StartTTCTimer API.
+;		      	 Now the TTC instance as specified by the user will be
+;		         started.
 ; </pre>
 ;
 ; @note
@@ -82,6 +85,9 @@
 	IMPORT __cmain
 	IMPORT Xil_ExceptionInit
 	IMPORT XTime_SetTime
+#if defined SLEEP_TIMER_BASEADDR
+	IMPORT XTime_StartTTCTimer
+#endif
 
 PSS_L2CC_BASE_ADDR	EQU	0xF8F02000
 PSS_SLCR_BASE_ADDR	EQU	0xF8000000
@@ -398,6 +404,11 @@ Sync
     mov	r0, #0x0
     mov	r1, #0x0
     bl XTime_SetTime
+
+; Reset and start Triple Timer counter
+	#if defined SLEEP_TIMER_BASEADDR
+	bl XTime_StartTTCTimer
+	#endif
 
 ; make sure argc and argv are valid
 	mov r0, #0

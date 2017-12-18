@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2009 - 2015 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2009 - 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -48,6 +48,9 @@
 *		      initialization of uart smc nor and sram
 * 5.3	pkp  10/07/15 Added support for OpenAMP by not initializing global
 *		      timer when USE_AMP flag is defined
+* 6.6   srm  10/18/17 Added timer configuration using XTime_StartTTCTimer API.
+*		      Now the TTC instance as specified by the user will be
+*		      started.
 * </pre>
 *
 * @note
@@ -55,6 +58,7 @@
 * None.
 *
 ******************************************************************************/
+#include "bspconfig.h"
 
 	.file	"xil-crt0.S"
 	.section ".got2","aw"
@@ -112,6 +116,11 @@ _start:
     /* Reset and start Global Timer */
 	mov	r0, #0x0
 	mov	r1, #0x0
+
+	/* Reset and start Triple Timer Counter */
+	#if defined SLEEP_TIMER_BASEADDR
+	bl XTime_StartTTCTimer
+	#endif
 
 #if USE_AMP != 1
 	bl XTime_SetTime
