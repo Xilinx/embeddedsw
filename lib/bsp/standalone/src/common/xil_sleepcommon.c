@@ -1,6 +1,6 @@
 /******************************************************************************
 *
-* Copyright (C) 2014 - 2017 Xilinx, Inc. All rights reserved.
+* Copyright (C) 2017 Xilinx, Inc.  All rights reserved.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -29,49 +29,78 @@
 * this Software without prior written authorization from Xilinx.
 *
 ******************************************************************************/
+/*****************************************************************************/
+/**
+*
+*@file xil_sleepcommon.c
+*
+* This file contains the sleep API's
+*
+* <pre>
+* MODIFICATION HISTORY:
+*
+* Ver   Who      Date     Changes
+* ----- -------- -------- -----------------------------------------------
+* 6.6 	srm  	 11/02/17 First release
+* </pre>
+******************************************************************************/
+
+
+/***************************** Include Files *********************************/
+#include "xil_io.h"
+#include "sleep.h"
+
+/****************************  Constant Definitions  *************************/
+
 
 /*****************************************************************************/
 /**
-* @file sleep.h
 *
-*  This header file contains ARM Cortex A53,A9,R5,Microblaze specific sleep
-*  related APIs.
+* This API gives delay in sec
 *
-* <pre>
-* MODIFICATION HISTORY :
+* @param            seconds - delay time in seconds
 *
-* Ver   Who  Date	 Changes
-* ----- ---- -------- -------------------------------------------------------
-* 6.6   srm  11/02/17 Added processor specific sleep rountines
-*								 function prototypes.
+* @return           none
 *
-* </pre>
+* @note             none
 *
-******************************************************************************/
-
-#ifndef SLEEP_H
-#define SLEEP_H
-
-#include "xil_types.h"
-#include "xil_io.h"
-
-#ifdef __cplusplus
-extern "C" {
+*****************************************************************************/
+ void sleep(unsigned int seconds)
+ {
+#if defined (ARMR5)
+	sleep_R5(seconds);
+#elif defined (__aarch64__) || defined (ARMA53_32)
+	sleep_A53(seconds);
+#elif defined (__MICROBLAZE__)
+	sleep_MB(seconds);
+#else
+	sleep_A9(seconds);
 #endif
 
-void usleep(unsigned long useconds);
-void sleep(unsigned int seconds);
-int usleep_R5(unsigned long useconds);
-unsigned sleep_R5(unsigned int seconds);
-int usleep_MB(unsigned long useconds);
-unsigned sleep_MB(unsigned int seconds);
-int usleep_A53(unsigned long useconds);
-unsigned sleep_A53(unsigned int seconds);
-int usleep_A9(unsigned long useconds);
-unsigned sleep_A9(unsigned int seconds);
+ }
 
-#ifdef __cplusplus
-}
+/****************************************************************************/
+/**
+*
+* This API gives delay in usec
+*
+* @param            useconds - delay time in useconds
+*
+* @return           none
+*
+* @note             none
+*
+*****************************************************************************/
+ void usleep(unsigned long useconds)
+ {
+#if defined (ARMR5)
+	usleep_R5(useconds);
+#elif defined (__aarch64__) || defined (ARMA53_32)
+	usleep_A53(useconds);
+#elif defined (__MICROBLAZE__)
+	usleep_MB(useconds);
+#else
+	usleep_A9(useconds);
 #endif
 
-#endif
+ }
