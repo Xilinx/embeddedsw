@@ -122,6 +122,7 @@
 *              11/20/17 Fixed StartUp, Shutdown and Reset API for Tile_Id -1.
 *              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
 * 2.4   sk     12/11/17 Added DDC and DUC support.
+*              12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
 *
 * </pre>
 *
@@ -226,6 +227,7 @@ typedef struct {
 	u32 EventSource;
 	u32 FineMixerMode;
 	u32 CoarseMixFreq;
+	u32 CoarseMixMode;
 	u8 FineMixerScale;	/* NCO output scale, valid values 0,1 and 2 */
 } XRFdc_Mixer_Settings;
 
@@ -500,6 +502,9 @@ typedef struct {
 #define XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR		0x4U
 #define XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR	0x8U
 #define XRFDC_COARSE_MIX_BYPASS							0x10U
+
+#define XRFDC_COARSE_MIX_MODE_C2C_C2R	0x1
+#define XRFDC_COARSE_MIX_MODE_R2C	0x2
 
 #define XRFDC_CRSE_MIX_OFF					0x924U
 #define XRFDC_CRSE_MIX_BYPASS				0x0U
@@ -973,7 +978,10 @@ void XRFdc_IntrDisable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 IntrMask);
 void XRFdc_IntrEnable (XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								u32 Block_Id, u32 IntrMask);
-int XRFdc_StickyClear(XRFdc* InstancePtr, int Tile_Id, u32 Block_Id);
+int XRFdc_SetThresholdClrMode(XRFdc *InstancePtr, int Tile_Id,
+			u32 Block_Id, u32 ThresholdToUpdate, u32 ClrMode);
+int XRFdc_ThresholdStickyClear(XRFdc *InstancePtr, int Tile_Id,
+					u32 Block_Id, u32 ThresholdToUpdate);
 void XRFdc_SetStatusHandler(XRFdc *InstancePtr, void *CallBackRef,
 				XRFdc_StatusHandler FunctionPtr);
 int XRFdc_SetupFIFO(XRFdc* InstancePtr, u32 Type, int Tile_Id, u8 Enable);
