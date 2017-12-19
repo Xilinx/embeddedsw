@@ -187,7 +187,6 @@ static int _initialize(struct hil_proc *proc)
 	struct proc_intr *intr_info;
 	struct ipi_info *ipi;
 	unsigned int ipi_intr_status;
-	int i;
 
 	if (!proc)
 		return -1;
@@ -234,7 +233,6 @@ error:
 
 static void _release(struct hil_proc *proc)
 {
-	int i;
 	struct proc_intr *intr_info;
 	struct ipi_info *ipi;
 
