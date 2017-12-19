@@ -123,6 +123,8 @@
 *              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
 * 2.4   sk     12/11/17 Added DDC and DUC support.
 *              12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
+*              12/15/17 Add support to switch calibration modes.
+*              12/15/17 Add support for mixer frequencies > Fs/2 and < -Fs/2.
 *
 * </pre>
 *
@@ -398,6 +400,7 @@ typedef struct {
 	XRFdc_CoarseDelay_Settings CoarseDelay_Settings;
 	XRFdc_Threshold_Settings Threshold_Settings;
 	u32 NyquistZone;
+	u8 CalibrationMode;
 } XRFdc_ADCBlock_AnalogDataPath;
 
 /**
@@ -554,6 +557,13 @@ typedef struct {
 #define XRFDC_FAB_CLK_DIV4		0x3
 #define XRFDC_FAB_CLK_DIV8		0x4
 #define XRFDC_FAB_CLK_DIV16		0x5
+
+#define XRFDC_CALIB_MODE1		0x1
+#define XRFDC_CALIB_MODE2		0x2
+#define XRFDC_TI_DCB_MODE1_4GSPS		0x00007800U
+#define XRFDC_TI_DCB_MODE1_2GSPS		0x00005000U
+
+
 /*****************************************************************************/
 /**
 *
@@ -999,6 +1009,10 @@ u32 XRFdc_SetInterpolationFactor(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
 						u32 InterpolationFactor);
 u32 XRFdc_SetFabClkOutDiv(XRFdc *InstancePtr, u32 Type, int Tile_Id,
 								u16 FabClkDiv);
+u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+						u8 CalibrationMode);
+u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+						u8 *CalibrationMode);
 
 #ifdef __cplusplus
 }

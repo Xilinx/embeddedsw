@@ -1075,6 +1075,7 @@ extern "C" {
 
 #define XRFDC_TI_DCB_CTRL0_MASK		0x0000FFFFU	/**< TI  DCB gain and
 							offset correction */
+#define XRFDC_TI_DCB_MODE_MASK	0x00007800U /**< TI DCB Mode mask */
 
 /* @} */
 
