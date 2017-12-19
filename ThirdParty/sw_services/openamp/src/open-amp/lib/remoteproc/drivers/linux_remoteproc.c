@@ -358,7 +358,7 @@ static void _release(struct hil_proc *proc)
 			ipi = (struct vring_ipi_info *)vring->intr_info.data;
 			if (ipi) {
 				if (ipi->fd >= 0) {
-					metal_irq_register(ipi->fd, 0, NULL,
+					metal_irq_unregister(ipi->fd, 0, NULL,
 						vring);
 					close(ipi->fd);
 				}
