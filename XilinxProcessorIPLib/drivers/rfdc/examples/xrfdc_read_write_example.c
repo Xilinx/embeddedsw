@@ -192,6 +192,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 	u32 GetInterpolationFactor;
 	u32 SetDecimationFactor;
 	u32 GetDecimationFactor;
+	u8 SetCalibrationMode;
+	u8 GetCalibrationMode;
 #ifndef __BAREMETAL__
 	struct metal_device *device;
 	struct metal_io_region *io;
@@ -258,6 +260,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 
 				/* Set new mixer configurations */
 				SetMixerSettings.CoarseMixFreq = 0x0;	// Coarse mix OFF
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
 				SetMixerSettings.Freq = -2000;	//MHz
 				SetMixerSettings.FineMixerMode =
 						XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;	// C2R
@@ -283,6 +287,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 
 				/* Set new mixer configurations */
 				SetMixerSettings.CoarseMixFreq = 0x10;	// Coarse mix BYPASS
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
 				SetMixerSettings.Freq = 2000;	//MHz
 				SetMixerSettings.FineMixerMode =
 						XRFDC_FINE_MIXER_MOD_COMPLX_TO_REAL;	// C2R
@@ -487,6 +493,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					return XRFDC_FAILURE;
 				}
 				SetMixerSettings.CoarseMixFreq = 0x0; 	//CoarseMix OFF
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
 				SetMixerSettings.Freq = -250; 	//MHz
 				SetMixerSettings.FineMixerMode =
 						XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;	// R2C
@@ -511,6 +519,8 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 				}
 
 				SetMixerSettings.CoarseMixFreq = 0x10; 	//CoarseMix BYPASS
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
 				SetMixerSettings.Freq = 350; 	//MHz
 				SetMixerSettings.FineMixerMode =
 						XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;	// R2C
@@ -688,6 +698,92 @@ int RFdcReadWriteExample(u16 RFdcDeviceId)
 					return XRFDC_FAILURE;
 				if (SetDecimationFactor != GetDecimationFactor)
 					return XST_FAILURE;
+
+				/* Set Calibration Mode 1 */
+				SetCalibrationMode = XRFDC_CALIB_MODE1;
+				Status = XRFdc_SetCalibrationMode(RFdcInstPtr,
+					Tile, Block, SetCalibrationMode);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetCalibrationMode(RFdcInstPtr,
+					Tile, Block, &GetCalibrationMode);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetCalibrationMode != GetCalibrationMode)
+					return XRFDC_FAILURE;
+
+				SetMixerSettings.CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
+				SetMixerSettings.Freq = -2500;
+				SetMixerSettings.FineMixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
+				SetMixerSettings.EventSource =
+						XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = CompareMixerSettings(&SetMixerSettings,
+							&GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+
+				/* Set Calibration Mode 2 */
+				SetCalibrationMode = XRFDC_CALIB_MODE2;
+				Status = XRFdc_SetCalibrationMode(RFdcInstPtr,
+					Tile, Block, SetCalibrationMode);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetCalibrationMode(RFdcInstPtr,
+					Tile, Block, &GetCalibrationMode);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (SetCalibrationMode != GetCalibrationMode)
+					return XRFDC_FAILURE;
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				SetMixerSettings.CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+				SetMixerSettings.CoarseMixMode =
+						XRFDC_COARSE_MIX_MODE_C2C_C2R;
+				SetMixerSettings.Freq = 4500;
+				SetMixerSettings.FineMixerMode =
+					XRFDC_FINE_MIXER_MOD_REAL_TO_COMPLX;
+				SetMixerSettings.PhaseOffset = -9.0565;
+				SetMixerSettings.FineMixerScale = 0x0;
+				SetMixerSettings.EventSource =
+						XRFDC_EVNT_SRC_SYSREF;
+				/* Set Mixer settings */
+				Status = XRFdc_SetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &SetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+
+				Status = XRFdc_GetMixerSettings(RFdcInstPtr, XRFDC_ADC_TILE,
+					Tile, Block, &GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+
+				Status = CompareMixerSettings(&SetMixerSettings,
+						&GetMixerSettings);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
 			}
 		}
 	}
@@ -724,7 +820,10 @@ static int CompareMixerSettings(XRFdc_Mixer_Settings *SetMixerSettings,
 			(SetMixerSettings->FineMixerScale ==
 					GetMixerSettings->FineMixerScale) &&
 			(SetMixerSettings->FineMixerMode == GetMixerSettings->FineMixerMode) &&
-			(SetMixerSettings->CoarseMixFreq == GetMixerSettings->CoarseMixFreq))
+			(SetMixerSettings->CoarseMixFreq ==
+					GetMixerSettings->CoarseMixFreq) &&
+			(SetMixerSettings->CoarseMixMode ==
+				GetMixerSettings->CoarseMixMode))
 		return 0;
 	else
 		return 1;
