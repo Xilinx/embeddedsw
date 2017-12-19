@@ -131,7 +131,8 @@ int XRFdc_CfgInitialize(XRFdc* InstancePtr, XRFdc_Config *Config)
 	Xil_AssertNonvoid(Config != NULL);
 #endif
 #ifndef __MICROBLAZE__
-	InstancePtr->io = metal_allocate_memory(sizeof(struct metal_io_region));
+	InstancePtr->io = (struct metal_io_region *)
+			metal_allocate_memory(sizeof(struct metal_io_region));
 	metal_io_init(InstancePtr->io, (void *)(metal_phys_addr_t)Config->BaseAddr,
 			&Config->BaseAddr, 0x40000, (unsigned)(-1), 0, NULL);
 #endif
