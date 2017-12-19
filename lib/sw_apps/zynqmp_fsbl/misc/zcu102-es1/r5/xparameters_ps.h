@@ -319,3 +319,6 @@ extern "C" {
 #endif
 
 #endif /* protection macro */
+/**
+* @} End of "addtogroup r5_peripheral_definitions".
+*/
