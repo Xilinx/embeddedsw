@@ -33,7 +33,7 @@
  * @brief	Generic libmetal time handling.
  */
 
-#include "metal/time.h"
+#include <metal/time.h>
 
 unsigned long long metal_get_timestamp(void)
 {

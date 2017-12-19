@@ -36,7 +36,7 @@
 #ifndef __METAL_SHMEM__H__
 #define __METAL_SHMEM__H__
 
-#include "metal/io.h"
+#include <metal/io.h>
 
 #ifdef __cplusplus
 extern "C" {

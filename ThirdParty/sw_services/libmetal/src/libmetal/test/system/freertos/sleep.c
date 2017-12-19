@@ -34,10 +34,10 @@
 #include "task.h"
 
 #include "metal-test.h"
-#include "metal/time.h"
-#include "metal/sleep.h"
-#include "metal/log.h"
-#include "metal/sys.h"
+#include <metal/time.h>
+#include <metal/sleep.h>
+#include <metal/log.h>
+#include <metal/sys.h>
 
 static int sleep(void)
 {

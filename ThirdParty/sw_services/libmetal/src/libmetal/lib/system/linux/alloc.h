@@ -29,7 +29,7 @@
  */
 
 /*
- * @file	linux/alloc.c
+ * @file	linux/alloc.h
  * @brief	linux memory allocattion definitions.
  */
 

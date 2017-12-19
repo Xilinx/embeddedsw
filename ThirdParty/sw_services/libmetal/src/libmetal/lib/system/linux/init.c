@@ -35,8 +35,8 @@
 
 #include <sys/types.h>
 
-#include "metal/sys.h"
-#include "metal/utilities.h"
+#include <metal/sys.h>
+#include <metal/utilities.h>
 
 struct metal_state _metal;
 
@@ -83,7 +83,6 @@ static int metal_init_page_sizes(void)
 {
 	const int max_sizes = MAX_PAGE_SIZES - 1;
 	long sizes[max_sizes];
-	int i, count;
 
 	/* Determine system page size. */
 	sizes[0] = getpagesize();
@@ -95,6 +94,7 @@ static int metal_init_page_sizes(void)
 	_metal.page_shift = metal_log2(sizes[0]);
 	metal_add_page_size(_metal.tmp_path, _metal.page_shift, 0);
 
+#ifdef HAVE_HUGETLBFS_H
 #ifndef MAP_HUGE_SHIFT
 	/* System does not support multiple huge page sizes. */
 	sizes[0] = gethugepagesize();
@@ -105,6 +105,8 @@ static int metal_init_page_sizes(void)
 	}
 #else
 	if (gethugepagesize() >= 0) {
+		int i, count;
+
 		/* System supports multiple huge page sizes. */
 		count = gethugepagesizes(sizes, max_sizes);
 		for (i = 0; i < count; i++) {
@@ -117,6 +119,7 @@ static int metal_init_page_sizes(void)
 				(shift << MAP_HUGE_SHIFT)));
 		}
 	}
+#endif
 #endif
 
 	/* Finally sort the resulting array by size. */

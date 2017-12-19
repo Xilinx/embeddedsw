@@ -29,13 +29,13 @@
  */
 
 /*
- * @file	linux/bus.c
- * @brief	Linux libmetal bus definitions.
+ * @file	freertos/device.c
+ * @brief	FreeRTOS device operations.
  */
 
-#include "metal/device.h"
-#include "metal/sys.h"
-#include "metal/utilities.h"
+#include <metal/device.h>
+#include <metal/sys.h>
+#include <metal/utilities.h>
 
 int metal_generic_dev_sys_open(struct metal_device *dev)
 {

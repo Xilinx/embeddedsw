@@ -34,9 +34,9 @@
  */
 
 #include <errno.h>
-#include "metal/shmem.h"
-#include "metal/sys.h"
-#include "metal/utilities.h"
+#include <metal/shmem.h>
+#include <metal/sys.h>
+#include <metal/utilities.h>
 
 int metal_shmem_register_generic(struct metal_generic_shmem *shmem)
 {

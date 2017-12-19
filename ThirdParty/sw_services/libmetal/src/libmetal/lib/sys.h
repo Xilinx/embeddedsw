@@ -39,8 +39,8 @@
 
 #include <stdlib.h>
 
-#include "metal/log.h"
-#include "metal/list.h"
+#include <metal/log.h>
+#include <metal/list.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -108,7 +108,7 @@ struct metal_common_state {
 
 struct metal_state;
 
-#include "metal/system/@PROJECT_SYSTEM@/sys.h"
+#include <metal/system/@PROJECT_SYSTEM@/sys.h>
 
 /** System specific runtime data. */
 extern struct metal_state _metal;

@@ -44,7 +44,7 @@
 #include <sys/syscall.h>
 #include <linux/futex.h>
 
-#include "metal/atomic.h"
+#include <metal/atomic.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -31,9 +31,9 @@
 #include <pthread.h>
 
 #include "metal-test.h"
-#include "metal/log.h"
-#include "metal/sys.h"
-#include "metal/spinlock.h"
+#include <metal/log.h>
+#include <metal/sys.h>
+#include <metal/spinlock.h>
 
 static const int spinlock_test_count = 1000;
 static unsigned int total = 0;

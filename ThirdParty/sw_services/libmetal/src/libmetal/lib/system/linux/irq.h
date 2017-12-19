@@ -29,7 +29,7 @@
  */
 
 /*
- * @file	linux/irq.c
+ * @file	linux/irq.h
  * @brief	Linux libmetal irq definitions.
  */
 

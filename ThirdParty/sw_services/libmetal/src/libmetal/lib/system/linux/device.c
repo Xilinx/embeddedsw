@@ -29,14 +29,14 @@
  */
 
 /*
- * @file	linux/bus.c
- * @brief	Linux libmetal bus definitions.
+ * @file	linux/device.c
+ * @brief	Linux libmetal device operations.
  */
 
-#include "metal/device.h"
-#include "metal/sys.h"
-#include "metal/utilities.h"
-#include "metal/irq.h"
+#include <metal/device.h>
+#include <metal/sys.h>
+#include <metal/utilities.h>
+#include <metal/irq.h>
 
 #define MAX_DRIVERS	64
 
@@ -103,8 +103,11 @@ static int metal_uio_read_map_attr(struct linux_device *ldev, unsigned index,
 	const char *cls = ldev->cls_path;
 	struct sysfs_attribute *attr;
 	char path[SYSFS_PATH_MAX];
+	int result;
 
-	snprintf(path, sizeof(path), "%s/maps/map%u/%s", cls, index, name);
+	result = snprintf(path, sizeof(path), "%s/maps/map%u/%s", cls, index, name);
+	if (result >= (int)sizeof(path))
+		return -EOVERFLOW;
 	attr = sysfs_open_attribute(path);
 	if (!attr || sysfs_read_attribute(attr) != 0)
 		return -errno;
@@ -191,7 +194,9 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 	if (result)
 		return result;
 
-	snprintf(path, sizeof(path), "%s/uio", ldev->sdev->path);
+	result = snprintf(path, sizeof(path), "%s/uio", ldev->sdev->path);
+	if (result >= (int)sizeof(path))
+		return -EOVERFLOW;
 	dlist = sysfs_open_directory_list(path);
 	if (!dlist) {
 		metal_log(METAL_LOG_ERROR, "failed to scan class path %s\n",
@@ -200,10 +205,14 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 	}
 
 	dlist_for_each_data(dlist, instance, char) {
-		snprintf(ldev->cls_path, sizeof(ldev->cls_path),
-			 "%s/%s", path, instance);
-		snprintf(ldev->dev_path, sizeof(ldev->dev_path),
-			 "/dev/%s", instance);
+		result = snprintf(ldev->cls_path, sizeof(ldev->cls_path),
+				  "%s/%s", path, instance);
+		if (result >= (int)sizeof(ldev->cls_path))
+			return -EOVERFLOW;
+		result = snprintf(ldev->dev_path, sizeof(ldev->dev_path),
+				  "/dev/%s", instance);
+		if (result >= (int)sizeof(ldev->dev_path))
+			return -EOVERFLOW;
 		break;
 	}
 	sysfs_close_list(dlist);
@@ -275,7 +284,10 @@ static void metal_uio_dev_close(struct linux_bus *lbus,
 	(void)lbus;
 
 	if ((intptr_t)ldev->device.irq_info >= 0)
-		metal_irq_register(ldev->fd, NULL, NULL, NULL);
+		/* Normally this call would not be needed, and is added as precaution.
+		   Also for uio there is only 1 interrupt associated to the fd/device,
+		   we therefore do not need to specify a particular device */
+		metal_irq_unregister(ldev->fd, NULL, NULL, NULL);
 
 	if (ldev->override) {
 		sysfs_write_attribute(ldev->override, "", 1);
@@ -296,7 +308,7 @@ static void metal_uio_dev_irq_ack(struct linux_bus *lbus,
 {
 	(void)lbus;
 	(void)irq;
-	unsigned int irq_info = 1;
+	int irq_info = 1;
 	unsigned int val;
 	int ret;
 
@@ -554,8 +566,10 @@ static int metal_linux_probe_driver(struct linux_bus *lbus,
 
 	/* Try probing the module and then open the driver. */
 	if (!ldrv->sdrv) {
-		snprintf(command, sizeof(command),
-			 "modprobe %s > /dev/null 2>&1", ldrv->mod_name);
+		ret = snprintf(command, sizeof(command),
+			       "modprobe %s > /dev/null 2>&1", ldrv->mod_name);
+		if (ret >= (int)sizeof(command))
+			return -EOVERFLOW;
 		ret = system(command);
 		if (ret < 0) {
 			metal_log(METAL_LOG_WARNING,
@@ -567,8 +581,10 @@ static int metal_linux_probe_driver(struct linux_bus *lbus,
 
 	/* Try sudo probing the module and then open the driver. */
 	if (!ldrv->sdrv) {
-		snprintf(command, sizeof(command),
-			 "sudo modprobe %s > /dev/null 2>&1", ldrv->mod_name);
+		ret = snprintf(command, sizeof(command),
+			       "sudo modprobe %s > /dev/null 2>&1", ldrv->mod_name);
+		if (ret >= (int)sizeof(command))
+			return -EOVERFLOW;
 		ret = system(command);
 		if (ret < 0) {
 			metal_log(METAL_LOG_WARNING,

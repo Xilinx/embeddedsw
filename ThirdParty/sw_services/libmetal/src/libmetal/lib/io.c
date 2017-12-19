@@ -29,7 +29,7 @@
  */
 
 #include <errno.h>
-#include "metal/io.h"
+#include <metal/io.h>
 
 int metal_io_block_read(struct metal_io_region *io, unsigned long offset,
 	       void *restrict dst, int len)
