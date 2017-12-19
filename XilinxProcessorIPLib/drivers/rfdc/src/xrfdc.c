@@ -82,6 +82,8 @@
 *              11/20/17 Remove unwanted ADC block checks in 4GSPS mode.
 * 2.4   sk     12/11/17 Added DDC and DUC support.
 *              12/13/17 Add CoarseMixMode field in Mixer_Settings structure.
+*              12/15/17 Add support to switch calibration modes.
+*              12/15/17 Add support for mixer frequencies > Fs/2 and < -Fs/2.
 * </pre>
 *
 ******************************************************************************/
@@ -744,6 +746,10 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u16 NoOfBlocks;
 	u16 Index;
 	XRFdc_Mixer_Settings *Mixer_Config;
+	u8 CalibrationMode;
+	u32 CoarseMixFreq;
+	double NCOFreq;
+	u32 NyquistZone;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -946,11 +952,62 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				}
 			}
 
-			if (Mixer_Settings->Freq < 0)
-				Freq = ((Mixer_Settings->Freq * XRFDC_NCO_FREQ_MIN_MULTIPLIER) /
+			CoarseMixFreq = Mixer_Settings->CoarseMixFreq;
+			NCOFreq = Mixer_Settings->Freq;
+			if (Type == XRFDC_ADC_TILE) {
+				Status = XRFdc_GetCalibrationMode(InstancePtr,
+					Tile_Id, Block_Id, &CalibrationMode);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				if (CalibrationMode == XRFDC_CALIB_MODE1) {
+					if (CoarseMixFreq ==
+						XRFDC_COARSE_MIX_BYPASS)
+						CoarseMixFreq =
+							XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+					else if (CoarseMixFreq ==
+						XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR)
+						CoarseMixFreq =
+							XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+					else if (CoarseMixFreq ==
+						XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO)
+						CoarseMixFreq =
+							XRFDC_COARSE_MIX_BYPASS;
+					else if (CoarseMixFreq ==
+						XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR)
+						CoarseMixFreq =
+							XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+					NCOFreq -= (SamplingRate * 1000) / 2.0;
+				}
+			}
+
+			if ((NCOFreq < -((SamplingRate * 1000) / 2.0)) ||
+				(NCOFreq > ((SamplingRate * 1000) / 2.0))) {
+				if (Type == XRFDC_ADC_TILE)
+					Status = XRFdc_GetNyquistZone(InstancePtr, XRFDC_ADC_TILE,
+						Tile_Id, Block_Id, &NyquistZone);
+				else
+					Status = XRFdc_GetNyquistZone(InstancePtr, XRFDC_DAC_TILE,
+						Tile_Id, Block_Id, &NyquistZone);
+				if (Status != XRFDC_SUCCESS)
+					return XRFDC_FAILURE;
+				do {
+					if (NCOFreq < -((SamplingRate * 1000) / 2.0))
+						NCOFreq +=  (SamplingRate * 1000);
+					if (NCOFreq > ((SamplingRate * 1000) / 2.0))
+						NCOFreq -= (SamplingRate * 1000);
+				} while ((NCOFreq < -((SamplingRate * 1000) / 2.0)) ||
+					(NCOFreq > ((SamplingRate * 1000) / 2.0)));
+
+				if ((NyquistZone == XRFDC_EVEN_NYQUIST_ZONE) &&
+						(NCOFreq != 0))
+					NCOFreq *= -1;
+			}
+
+			if (NCOFreq < 0)
+				Freq = ((NCOFreq * XRFDC_NCO_FREQ_MIN_MULTIPLIER) /
 												(SamplingRate * 1000U));
 			else
-				Freq = ((Mixer_Settings->Freq * XRFDC_NCO_FREQ_MULTIPLIER) /
+				Freq = ((NCOFreq * XRFDC_NCO_FREQ_MULTIPLIER) /
 												(SamplingRate * 1000U));
 			XRFdc_WriteReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_NCO_FQWD_LOW_OFFSET, (u16)Freq);
@@ -970,7 +1027,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			XRFdc_WriteReg16(InstancePtr, BaseAddr, XRFDC_NCO_PHASE_UPP_OFFSET,
 									ReadReg);
 
-			if (Mixer_Settings->CoarseMixFreq ==
+			if (CoarseMixFreq ==
 					XRFDC_COARSE_MIX_BYPASS) {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG0_OFFSET);
@@ -988,7 +1045,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					ReadReg |= XRFDC_CRSE_MIX_OFF;
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
-			} else if (Mixer_Settings->CoarseMixFreq ==
+			} else if (CoarseMixFreq ==
 					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO) {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG0_OFFSET);
@@ -1028,7 +1085,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 					ReadReg |= XRFDC_CRSE_MIX_OFF;
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
-			} else if (Mixer_Settings->CoarseMixFreq ==
+			} else if (CoarseMixFreq ==
 					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR) {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG0_OFFSET);
@@ -1092,7 +1149,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				}
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
-			} else if (Mixer_Settings->CoarseMixFreq ==
+			} else if (CoarseMixFreq ==
 					XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR) {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG0_OFFSET);
@@ -1156,7 +1213,7 @@ int XRFdc_SetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 				}
 				XRFdc_WriteReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG1_OFFSET, (u16)ReadReg);
-			} else if (Mixer_Settings->CoarseMixFreq ==
+			} else if (CoarseMixFreq ==
 					XRFDC_COARSE_MIX_OFF) {
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_MXR_CFG0_OFFSET);
@@ -1307,6 +1364,10 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	s64 Freq;
 	s32 PhaseOffset;
 	u32 Block;
+	u8 CalibrationMode;
+	XRFdc_Mixer_Settings *Mixer_Config;
+	u32 NyquistZone;
+	double NCOFreq;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -1331,6 +1392,8 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		SamplingRate = InstancePtr->RFdc_Config.ADCTile_Config[Tile_Id].
 										SamplingRate;
+		Mixer_Config = &InstancePtr->ADC_Tile[Tile_Id].
+			ADCBlock_Digital_Datapath[Block_Id].Mixer_Settings;
 	} else {
 		/* DAC */
 		IsBlockAvail = XRFdc_IsDACBlockEnabled(InstancePtr, Tile_Id, Block_Id);
@@ -1338,6 +1401,8 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 								XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
 		SamplingRate = InstancePtr->RFdc_Config.DACTile_Config[Tile_Id].
 										SamplingRate;
+		Mixer_Config = &InstancePtr->DAC_Tile[Tile_Id].
+			DACBlock_Digital_Datapath[Block_Id].Mixer_Settings;
 	}
 
 	if (SamplingRate <= 0) {
@@ -1577,6 +1642,65 @@ int XRFdc_GetMixerSettings(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 			XRFDC_NCO_UPDT_OFFSET);
 	Mixer_Settings->EventSource = ReadReg & XRFDC_NCO_UPDT_MODE_MASK;
+
+	NCOFreq = Mixer_Config->Freq;
+	if (Type == XRFDC_ADC_TILE) {
+		Status = XRFdc_GetCalibrationMode(InstancePtr, Tile_Id,
+						Block, &CalibrationMode);
+		if (Status != XRFDC_SUCCESS)
+			return XRFDC_FAILURE;
+
+		if (CalibrationMode == XRFDC_CALIB_MODE1) {
+			if (Mixer_Settings->CoarseMixFreq ==
+					XRFDC_COARSE_MIX_BYPASS)
+				Mixer_Settings->CoarseMixFreq =
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO;
+			else if (Mixer_Settings->CoarseMixFreq ==
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR)
+				Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR;
+			else if (Mixer_Settings->CoarseMixFreq ==
+					XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_TWO)
+				Mixer_Settings->CoarseMixFreq =
+						XRFDC_COARSE_MIX_BYPASS;
+			else if (Mixer_Settings->CoarseMixFreq ==
+				XRFDC_COARSE_MIX_MIN_SAMPLE_FREQ_BY_FOUR)
+				Mixer_Settings->CoarseMixFreq =
+				XRFDC_COARSE_MIX_SAMPLE_FREQ_BY_FOUR;
+			NCOFreq = (Mixer_Config->Freq -
+					((SamplingRate * 1000) / 2.0));
+		}
+	}
+
+	if ((NCOFreq > ((SamplingRate * 1000) / 2.0)) ||
+				(NCOFreq < -((SamplingRate * 1000) / 2.0))) {
+		if (Type == XRFDC_ADC_TILE)
+			Status = XRFdc_GetNyquistZone(InstancePtr,
+				XRFDC_ADC_TILE, Tile_Id, Block, &NyquistZone);
+		else
+			Status = XRFdc_GetNyquistZone(InstancePtr,
+				XRFDC_DAC_TILE, Tile_Id, Block, &NyquistZone);
+		if (Status != XRFDC_SUCCESS)
+			return XRFDC_FAILURE;
+
+		if ((NyquistZone == XRFDC_EVEN_NYQUIST_ZONE) &&
+				(Mixer_Settings->Freq != 0))
+			Mixer_Settings->Freq *= -1;
+
+		do {
+			if (NCOFreq < -((SamplingRate * 1000) / 2.0)) {
+				NCOFreq +=  (SamplingRate * 1000);
+				Mixer_Settings->Freq -= (SamplingRate * 1000);
+			}
+			if (NCOFreq > ((SamplingRate * 1000) / 2.0)) {
+				NCOFreq -= (SamplingRate * 1000);
+				Mixer_Settings->Freq += (SamplingRate * 1000);
+			}
+		} while ((NCOFreq > ((SamplingRate * 1000) / 2.0)) ||
+				(NCOFreq < -((SamplingRate * 1000) / 2.0)));
+	}
+	if (CalibrationMode == XRFDC_CALIB_MODE1)
+		Mixer_Settings->Freq += (SamplingRate * 1000) / 2.0;
 
 	(void)BaseAddr;
 
@@ -4207,6 +4331,7 @@ int XRFdc_SetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u32 BaseAddr;
 	u16 Index;
 	u16 NoOfBlocks;
+	u8 CalibrationMode;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -4250,6 +4375,20 @@ int XRFdc_SetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 			goto RETURN_PATH;
 		} else {
 			if (Type == XRFDC_ADC_TILE) {
+				Status = XRFdc_GetCalibrationMode(InstancePtr,
+					Tile_Id, Block_Id, &CalibrationMode);
+				if (Status != XRFDC_SUCCESS) {
+					return XRFDC_FAILURE;
+				}
+				if (CalibrationMode == XRFDC_CALIB_MODE1) {
+					if (NyquistZone ==
+						XRFDC_ODD_NYQUIST_ZONE)
+						NyquistZone =
+							XRFDC_EVEN_NYQUIST_ZONE;
+					else
+						NyquistZone =
+							XRFDC_ODD_NYQUIST_ZONE;
+				}
 				ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 									XRFDC_ADC_TI_TISK_CRL0_OFFSET);
 				if ((NyquistZone % 2) == 0U) {
@@ -4310,6 +4449,7 @@ int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 	u16 ReadReg;
 	u32 BaseAddr;
 	u32 Block;
+	u8 CalibrationMode;
 
 #ifdef __BAREMETAL__
 	Xil_AssertNonvoid(InstancePtr != NULL);
@@ -4345,6 +4485,10 @@ int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		goto RETURN_PATH;
 	} else {
 		if (Type == XRFDC_ADC_TILE) {
+			Status = XRFdc_GetCalibrationMode(InstancePtr, Tile_Id,
+						Block, &CalibrationMode);
+			if (Status != XRFDC_SUCCESS)
+				return XRFDC_FAILURE;
 			ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
 								XRFDC_ADC_TI_TISK_CRL0_OFFSET);
 			*NyquistZone = (ReadReg & XRFDC_TI_TISK_ZONE_MASK) >> 2U;
@@ -4358,7 +4502,172 @@ int XRFdc_GetNyquistZone(XRFdc* InstancePtr, u32 Type, int Tile_Id,
 		} else {
 			*NyquistZone = XRFDC_EVEN_NYQUIST_ZONE;
 		}
+		if (CalibrationMode == XRFDC_CALIB_MODE1) {
+			if (*NyquistZone == XRFDC_EVEN_NYQUIST_ZONE)
+				*NyquistZone = XRFDC_ODD_NYQUIST_ZONE;
+			else
+				*NyquistZone = XRFDC_EVEN_NYQUIST_ZONE;
+		}
 	}
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+RETURN_PATH:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is to set the Calibration mode.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param    CalibrationMode valid values are 1 and 2.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_SetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+						u8 CalibrationMode)
+{
+	s32 Status;
+	u16 ReadReg;
+	u32 BaseAddr;
+	u16 Index;
+	u16 NoOfBlocks;
+	XRFdc_Mixer_Settings Mixer_Settings;
+	u32 NyquistZone;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+	Index = Block_Id;
+	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+		NoOfBlocks = 2U;
+		if (Block_Id == 1U) {
+			Index = 2U;
+			NoOfBlocks = 4U;
+		}
+	} else {
+		NoOfBlocks = Block_Id + 1U;
+	}
+
+	Status = XRFdc_GetMixerSettings(InstancePtr, XRFDC_ADC_TILE,
+					Tile_Id, Block_Id, &Mixer_Settings);
+	if (Status != XRFDC_SUCCESS)
+		return XRFDC_FAILURE;
+
+	Status = XRFdc_GetNyquistZone(InstancePtr, XRFDC_ADC_TILE,
+					Tile_Id, Block_Id, &NyquistZone);
+	if (Status != XRFDC_SUCCESS)
+		return XRFDC_FAILURE;
+
+	for (; Index < NoOfBlocks; Index++) {
+		BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+					XRFDC_BLOCK_ADDR_OFFSET(Index);
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+						XRFDC_ADC_TI_DCB_CRL0_OFFSET);
+		ReadReg &= ~XRFDC_TI_DCB_MODE_MASK;
+		if (CalibrationMode == XRFDC_CALIB_MODE1) {
+			if (((Index % 2) != 0U) &&
+				(InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS))
+				ReadReg |= XRFDC_TI_DCB_MODE1_4GSPS;
+			else if (InstancePtr->ADC4GSPS != XRFDC_ADC_4GSPS)
+				ReadReg |= XRFDC_TI_DCB_MODE1_2GSPS;
+		}
+		XRFdc_WriteReg16(InstancePtr, BaseAddr,
+					XRFDC_ADC_TI_DCB_CRL0_OFFSET, ReadReg);
+		InstancePtr->ADC_Tile[Tile_Id].ADCBlock_Analog_Datapath[Index].
+					CalibrationMode = CalibrationMode;
+	}
+
+	Status = XRFdc_SetNyquistZone(InstancePtr, XRFDC_ADC_TILE,
+					Tile_Id, Block_Id, NyquistZone);
+	if (Status != XRFDC_SUCCESS)
+		return XRFDC_FAILURE;
+	Status = XRFdc_SetMixerSettings(InstancePtr, XRFDC_ADC_TILE,
+					Tile_Id, Block_Id, &Mixer_Settings);
+	if (Status != XRFDC_SUCCESS)
+		return XRFDC_FAILURE;
+
+	(void)BaseAddr;
+
+	Status = XRFDC_SUCCESS;
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+*
+* This API is to get the Calibration mode.
+*
+* @param    InstancePtr is a pointer to the XRfdc instance.
+* @param    Tile_Id Valid values are 0-3.
+* @param	Block_Id is ADC/DAC block number inside the tile. Valid values
+*			are 0-3.
+* @param    CalibrationMode pointer to get the calibration mode.
+*
+* @return
+*       - XRFDC_SUCCESS if successful.
+*       - XRFDC_FAILURE if Tile not enabled.
+*
+* @note		Only for ADC blocks
+*
+******************************************************************************/
+u32 XRFdc_GetCalibrationMode(XRFdc *InstancePtr, int Tile_Id, u32 Block_Id,
+						u8 *CalibrationMode)
+{
+	s32 Status;
+	u32 IsBlockAvail;
+	u16 ReadReg;
+	u32 BaseAddr;
+	u32 Block;
+
+#ifdef __BAREMETAL__
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == XRFDC_COMPONENT_IS_READY);
+#endif
+	Block = Block_Id;
+	if (InstancePtr->ADC4GSPS == XRFDC_ADC_4GSPS) {
+		if (Block_Id == 1U)
+			Block_Id = 3U;
+		if (Block_Id == 0U)
+			Block_Id = 1U;
+	}
+
+	IsBlockAvail = XRFdc_IsADCBlockEnabled(InstancePtr,
+					Tile_Id, Block);
+	BaseAddr = XRFDC_ADC_TILE_DRP_ADDR(Tile_Id) +
+					XRFDC_BLOCK_ADDR_OFFSET(Block_Id);
+
+	if (IsBlockAvail == 0U) {
+		Status = XRFDC_FAILURE;
+#ifdef __MICROBLAZE__
+		xdbg_printf(XDBG_DEBUG_ERROR,
+		"\n Requested block not available in %s\r\n", __func__);
+#else
+		metal_log(METAL_LOG_ERROR,
+		"\n Requested block not available in %s\r\n", __func__);
+#endif
+		goto RETURN_PATH;
+	} else {
+		ReadReg = XRFdc_ReadReg16(InstancePtr, BaseAddr,
+					XRFDC_ADC_TI_DCB_CRL0_OFFSET);
+		if ((ReadReg & XRFDC_TI_DCB_MODE_MASK) != 0)
+			*CalibrationMode = XRFDC_CALIB_MODE1;
+		else
+			*CalibrationMode = XRFDC_CALIB_MODE2;
+	}
+
 	(void)BaseAddr;
 
 	Status = XRFDC_SUCCESS;
