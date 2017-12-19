@@ -43,7 +43,7 @@ extern "C" {
 /** \defgroup mutex Mutex Interfaces
  *  @{ */
 
-#include "metal/system/@PROJECT_SYSTEM@/mutex.h"
+#include <metal/system/@PROJECT_SYSTEM@/mutex.h>
 
 /**
  * @brief	Initialize a libmetal mutex.

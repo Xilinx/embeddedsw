@@ -30,13 +30,13 @@
 
 #include <string.h>
 #include <errno.h>
-#include "metal/device.h"
-#include "metal/list.h"
-#include "metal/log.h"
-#include "metal/sys.h"
-#include "metal/utilities.h"
-#include "metal/dma.h"
-#include "metal/cache.h"
+#include <metal/device.h>
+#include <metal/list.h>
+#include <metal/log.h>
+#include <metal/sys.h>
+#include <metal/utilities.h>
+#include <metal/dma.h>
+#include <metal/cache.h>
 
 int metal_bus_register(struct metal_bus *bus)
 {

@@ -30,15 +30,18 @@
 
 /**
  * @file	linux/irq.c
- * @brief	Linux libmetal irq definitions.
+ * @brief	Linux libmetal irq operations
  */
 
 #include <pthread.h>
 #include <sched.h>
-#include "metal/device.h"
-#include "metal/irq.h"
-#include "metal/sys.h"
-#include "metal/mutex.h"
+#include <metal/device.h>
+#include <metal/irq.h>
+#include <metal/sys.h>
+#include <metal/mutex.h>
+#include <metal/list.h>
+#include <metal/utilities.h>
+#include <metal/alloc.h>
 #include <sys/time.h>
 #include <sys/eventfd.h>
 #include <stdint.h>
@@ -48,28 +51,25 @@
 #include <poll.h>
 
 #define MAX_IRQS           FD_SETSIZE  /**< maximum number of irqs */
-#define MAX_HDS            20          /**< maximum number of
-				          handlers per IRQ */
 #define METAL_IRQ_STOP     0xFFFFFFFF  /**< stop interrupts handling thread */
 
 /** IRQ handler descriptor structure */
 struct metal_irq_hddesc {
-	metal_irq_handler hd; /**< irq handler */
+	metal_irq_handler hd;     /**< irq handler */
 	struct metal_device *dev; /**< metal device */
-	void *drv_id;         /**< id to identify the driver
-	                         of the irq handler*/
+	void *drv_id;             /**< id to identify the driver
+	                               of the irq handler*/
+	struct metal_list list;   /**< handler list container */
 };
 
 struct metal_irqs_state {
-	struct metal_irq_hddesc hds[MAX_IRQS][MAX_HDS]; /**< irqs
-	                                                   handlers
-	                                                   descriptors */
+	struct metal_irq_hddesc hds[MAX_IRQS]; /**< irqs handlers descriptor */
 	signed char irq_reg_stat[MAX_IRQS]; /**< irqs registration statistics.
-	                                It restore how many handlers have
-	                                been registered for each IRQ. */
+	                                      It restore how many handlers have
+	                                      been registered for each IRQ. */
 
 	int   irq_reg_fd; /**< irqs registration notification file
-	                    descriptor */
+	                       descriptor */
 
 	metal_mutex_t irq_lock; /**< irq handling lock */
 
@@ -87,20 +87,22 @@ int metal_irq_register(int irq,
 {
 	uint64_t val = 1;
 	struct metal_irq_hddesc *hd_desc;
-	int i, ret;
+	struct metal_list *h_node;
+	int ret;
 
-	if (irq < 0) {
+	if ((irq < 0) || (irq >= MAX_IRQS)) {
 		metal_log(METAL_LOG_ERROR,
-			  "%s: irq fd %d is less than 0.\n",
-			  __func__, irq);
+			  "%s: irq %d is larger than the max supported %d.\n",
+			  __func__, irq, MAX_IRQS - 1);
 		return -EINVAL;
 	}
-	if (irq >= MAX_IRQS) {
-		metal_log(METAL_LOG_ERROR,
-			  "%s: irq fd %d is larger than the max supported %d.\n",
-			  __func__, irq, MAX_IRQS);
+
+	if ((drv_id == NULL) || (hd == NULL)) {
+		metal_log(METAL_LOG_ERROR, "%s: irq %d need drv_id and hd.\n",
+			__func__, irq);
 		return -EINVAL;
 	}
+
 	metal_mutex_acquire(&_irqs.irq_lock);
 	if (_irqs.irq_state == METAL_IRQ_STOP) {
 		metal_log(METAL_LOG_ERROR,
@@ -110,62 +112,112 @@ int metal_irq_register(int irq,
 		return -EINVAL;
 	}
 
-	if (!hd && !drv_id && !dev) {
-		memset(&_irqs.hds[irq][0], 0,
-			sizeof(struct metal_irq_hddesc)*MAX_HDS);
-		_irqs.irq_reg_stat[irq] = 0;
-		goto out;
-	}
-	for(i = 0; i < MAX_HDS; i++) {
-		hd_desc = &_irqs.hds[irq][i];
+	metal_list_for_each(&_irqs.hds[irq].list, h_node) {
+		hd_desc = metal_container_of(h_node, struct metal_irq_hddesc, list);
+
+		/* if drv_id already exist reject */
 		if ((hd_desc->drv_id == drv_id) &&
-		    (hd_desc->dev == dev)) {
-			if (hd) {
-				metal_log(METAL_LOG_ERROR, "%s: irq %d has already registered."
-				         "Will not register again.\n",
-				         __func__, irq);
-				metal_mutex_release(&_irqs.irq_lock);
-				return -EINVAL;
-			} else {
-				if (_irqs.irq_reg_stat[irq] > 0)
-					_irqs.irq_reg_stat[irq]--;
-				i++;
-				for (; i < (MAX_HDS - 1); i++) {
-					hd_desc->hd = _irqs.hds[irq][i].hd;
-					hd_desc->dev =
-						_irqs.hds[irq][i].dev;
-					hd_desc->drv_id =
-						_irqs.hds[irq][i].drv_id;
-					hd_desc++;
-				}
-				break;
-			}
-		} else if (!hd_desc->drv_id && !hd_desc->dev) {
-			if (hd) {
-				hd_desc->dev = dev;
-				hd_desc->drv_id = drv_id;
-				hd_desc->hd = hd;
-				_irqs.irq_reg_stat[irq]++;
-				break;
-			}
+		    ((dev == NULL) || (hd_desc->dev == dev))) {
+			metal_log(METAL_LOG_ERROR, "%s: irq %d already registered."
+			          "Will not register again.\n",
+			           __func__, irq);
+			metal_mutex_release(&_irqs.irq_lock);
+			return -EINVAL;
 		}
+		/* drv_id not used, get out of metal_list_for_each */
+		break;
 	}
-	if (i == MAX_HDS) {
-		metal_log(METAL_LOG_ERROR, "%s: exceed maximum handlers per IRQ.\n",
-			  __func__);
+
+	/* Add to the end */
+	hd_desc = metal_allocate_memory(sizeof(struct metal_irq_hddesc));
+	if (hd_desc == NULL) {
+		metal_log(METAL_LOG_ERROR,
+		          "%s: irq %d cannot allocate mem for drv_id %d.\n",
+		          __func__, irq, drv_id);
+		metal_mutex_release(&_irqs.irq_lock);
+		return -ENOMEM;
+	}
+	hd_desc->hd = hd;
+	hd_desc->drv_id = drv_id;
+	hd_desc->dev = dev;
+	metal_list_add_tail(&_irqs.hds[irq].list, &hd_desc->list);
+
+	_irqs.irq_reg_stat[irq]++;
+	metal_mutex_release(&_irqs.irq_lock);
+
+	ret = write(_irqs.irq_reg_fd, &val, sizeof(val));
+	if (ret < 0) {
+		metal_log(METAL_LOG_DEBUG, "%s: write failed IRQ %d\n", __func__, irq);
+	}
+
+	metal_log(METAL_LOG_DEBUG, "%s: registered IRQ %d\n", __func__, irq);
+	return 0;
+}
+
+int metal_irq_unregister(int irq,
+			metal_irq_handler hd,
+			struct metal_device *dev,
+			void *drv_id)
+{
+	uint64_t val = 1;
+	struct metal_irq_hddesc *hd_desc;
+	struct metal_list *h_node;
+	int ret;
+	unsigned int delete_count = 0;
+
+	if ((irq < 0) || (irq >= MAX_IRQS)) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: irq %d is larger than the max supported %d.\n",
+			  __func__, irq, MAX_IRQS);
+		return -EINVAL;
+	}
+
+	metal_mutex_acquire(&_irqs.irq_lock);
+	if (_irqs.irq_state == METAL_IRQ_STOP) {
+		metal_log(METAL_LOG_ERROR,
+			  "%s: failed. metal IRQ handling has stopped.\n", __func__);
 		metal_mutex_release(&_irqs.irq_lock);
 		return -EINVAL;
 	}
+
+	if (!hd && !drv_id && !dev) {
+		if (0 == _irqs.irq_reg_stat[irq])
+			goto no_entry;
+
+		_irqs.irq_reg_stat[irq] = 0;
+		goto out;
+	}
+
+	/* Search through handlers */
+	metal_list_for_each(&_irqs.hds[irq].list, h_node) {
+		hd_desc = metal_container_of(h_node, struct metal_irq_hddesc, list);
+
+		if (((hd == NULL) || (hd_desc->hd == hd)) &&
+		    ((drv_id == NULL) || (hd_desc->drv_id == drv_id)) &&
+		    ((dev == NULL) || (hd_desc->dev == dev))) {
+			if (_irqs.irq_reg_stat[irq] > 0)
+				_irqs.irq_reg_stat[irq]--;
+			h_node = h_node->prev;
+			metal_list_del(h_node->next);
+			metal_free_memory(hd_desc);
+			delete_count++;
+		}
+	}
+
+	if (delete_count)
+		goto out;
+
+no_entry:
+	metal_log(METAL_LOG_DEBUG, "%s: No matching entry.\n", __func__);
+	metal_mutex_release(&_irqs.irq_lock);
+	return -ENOENT;
 out:
 	metal_mutex_release(&_irqs.irq_lock);
 	ret = write(_irqs.irq_reg_fd, &val, sizeof(val));
 	if (ret < 0) {
 		metal_log(METAL_LOG_DEBUG, "%s: write failed IRQ %d\n", __func__, irq);
 	}
-	if (hd)
-		metal_log(METAL_LOG_DEBUG, "%s: registered IRQ %d\n", __func__, irq);
-	else
-		metal_log(METAL_LOG_DEBUG, "%s: deregistered IRQ %d\n", __func__, irq);
+	metal_log(METAL_LOG_DEBUG, "%s: unregistered IRQ %d (%d)\n", __func__, irq, delete_count);
 	return 0;
 }
 
@@ -201,13 +253,9 @@ static void *metal_linux_irq_handling(void *args)
 	uint64_t val;
 	int ret;
 	int i, j, pfds_total;
-	(void) args;
-
-	struct metal_irq_hddesc *hddec; /**< irq handler descriptro */
-	metal_irq_handler  hd; /**< irq handler */
-	struct metal_device *dev; /**< metal device which a IRQ belongs to */
-	int irq_handled; /**< A flag to indicate if irq is handled */
 	struct pollfd *pfds;
+
+	(void) args;
 
 	pfds = (struct pollfd *)malloc(MAX_IRQS * sizeof(struct pollfd));
 	if (!pfds) {
@@ -249,48 +297,43 @@ static void *metal_linux_irq_handling(void *args)
 		if (ret < 0) {
 			metal_log(METAL_LOG_ERROR, "%s: poll() failed: %s.\n",
 				  __func__, strerror(errno));
-			free(pfds);
-			return NULL;
+			break;
 		}
 		/* Waken up from interrupt */
 		pfds_total = j;
 		for (i = 0; i < pfds_total; i++) {
 			if ( (pfds[i].fd == _irqs.irq_reg_fd) &&
-			     (pfds[i].revents & (POLLIN | POLLERR))) {
+			     (pfds[i].revents & (POLLIN | POLLRDNORM))) {
 				/* IRQ registration change notification */
-				if (read(pfds[i].fd, (void*)&val,
-					sizeof(uint64_t)) < 0)
+				if (read(pfds[i].fd, (void*)&val, sizeof(uint64_t)) < 0)
 					metal_log(METAL_LOG_ERROR,
 					"%s, read irq fd %d failed.\n",
 					__func__, pfds[i].fd);
-			} else if ((pfds[i].revents & (POLLIN | POLLERR))) {
-				irq_handled = 0;
-				dev = NULL;
-				for(j = 0, hddec = &_irqs.hds[pfds[i].fd][0];
-					j < MAX_HDS; j++, hddec++) {
+			} else if ((pfds[i].revents & (POLLIN | POLLRDNORM))) {
+				struct metal_irq_hddesc *hd_desc; /**< irq handler descriptor */
+				struct metal_device *dev = NULL; /**< metal device IRQ belongs to */
+				int irq_handled = 0; /**< flag to indicate if irq is handled */
+				struct metal_list *h_node;
+
+				metal_list_for_each(&_irqs.hds[pfds[i].fd].list, h_node) {
+					hd_desc = metal_container_of(h_node, struct metal_irq_hddesc, list);
+
 					metal_mutex_acquire(&_irqs.irq_lock);
-					if (!hddec->hd) {
-						metal_mutex_release(&_irqs.irq_lock);
-						break;
-					}
-					hd = hddec->hd;
 					if (!dev)
-						dev = hddec->dev;
+						dev = hd_desc->dev;
 					metal_mutex_release(&_irqs.irq_lock);
 
-					if (hd(pfds[i].fd, hddec->drv_id) ==
-						METAL_IRQ_HANDLED)
+					if ((hd_desc->hd)(pfds[i].fd, hd_desc->drv_id) == METAL_IRQ_HANDLED)
 						irq_handled = 1;
 				}
 				if (irq_handled) {
 					if (dev && dev->bus->ops.dev_irq_ack)
-						dev->bus->ops.dev_irq_ack(
-							dev->bus, dev, i);
+					    dev->bus->ops.dev_irq_ack(dev->bus, dev, i);
 				}
 			} else if (pfds[i].revents) {
 				metal_log(METAL_LOG_DEBUG,
-					  "%s: poll unexpected. fd %d: %d\n",
-					  __func__, pfds[i].fd,pfds[i].revents);
+				          "%s: poll unexpected. fd %d: %d\n",
+					  __func__, pfds[i].fd, pfds[i].revents);
 			}
 		}
 	}
@@ -304,8 +347,15 @@ static void *metal_linux_irq_handling(void *args)
   */
 int metal_linux_irq_init()
 {
-	int ret;
+	int ret, irq;
+
 	memset(&_irqs, 0, sizeof(_irqs));
+
+	/* init handlers list for each interrupt in table */
+	for (irq=0; irq < MAX_IRQS; irq++) {
+		metal_list_init(&_irqs.hds[irq].list);
+	}
+
 	_irqs.irq_reg_fd = eventfd(0,0);
 	if (_irqs.irq_reg_fd < 0) {
 		metal_log(METAL_LOG_ERROR, "Failed to create eventfd for IRQ handling.\n");
@@ -319,6 +369,7 @@ int metal_linux_irq_init()
 		metal_log(METAL_LOG_ERROR, "Failed to create IRQ thread: %d.\n", ret);
 		return -EAGAIN;
 	}
+
 	return 0;
 }
 

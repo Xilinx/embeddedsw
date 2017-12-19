@@ -44,7 +44,7 @@ extern "C" {
  *  @{ */
 
 #include <stdint.h>
-#include "metal/sys.h"
+#include <metal/sys.h>
 
 #define METAL_DMA_DEV_R  1 /**< DMA direction, device read */
 #define METAL_DMA_DEV_W  2 /**< DMA direction, device write */

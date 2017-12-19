@@ -35,7 +35,7 @@
 
 #include <FreeRTOS.h>
 #include <task.h>
-#include "metal/time.h"
+#include <metal/time.h>
 
 unsigned long long metal_get_timestamp(void)
 {

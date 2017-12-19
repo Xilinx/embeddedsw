@@ -33,7 +33,7 @@
  * @brief	freertos libmetal cache handling.
  */
 
-#include "metal/cache.h"
+#include <metal/cache.h>
 
 extern void metal_machine_cache_flush(void *addr, unsigned int len);
 extern void metal_machine_cache_invalidate(void *addr, unsigned int len);

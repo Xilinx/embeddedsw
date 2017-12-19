@@ -36,8 +36,8 @@
 #ifndef __METAL_SPINLOCK__H__
 #define __METAL_SPINLOCK__H__
 
-#include "metal/atomic.h"
-#include "metal/cpu.h"
+#include <metal/atomic.h>
+#include <metal/cpu.h>
 
 #ifdef __cplusplus
 extern "C" {

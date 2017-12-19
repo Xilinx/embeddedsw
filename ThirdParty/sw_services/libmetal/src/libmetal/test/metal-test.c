@@ -32,8 +32,8 @@
 #include <errno.h>
 #include <string.h>
 #include "metal-test.h"
-#include "metal/sys.h"
-#include "metal/utilities.h"
+#include <metal/sys.h>
+#include <metal/utilities.h>
 
 static METAL_DECLARE_LIST(test_cases);
 

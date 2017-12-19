@@ -40,8 +40,8 @@
 extern "C" {
 #endif
 
-#include "metal/sys.h"
-#include "metal/list.h"
+#include <metal/sys.h>
+#include <metal/list.h>
 
 typedef int (*test_func_t)(void);
 typedef void *(*metal_thread_t)(void *);
