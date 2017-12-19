@@ -50,6 +50,8 @@
 #define XSLEEP_TTC_INSTANCE 3
 #define XSLEEP_TIMER_IS_DEFAULT_TIMER
 
+/* Definitions for processor access to RPU/IOU slcr address space*/
+#define PROCESSOR_ACCESS_VALUE 255
 
 /******************************************************************/
 /* Definitions for driver AVBUF */

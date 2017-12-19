@@ -7,7 +7,7 @@
 BOARD=$1
 PROC=$2
 A53_STATE=$3
-
+CROSS_COMP=$4
 #processor dir name
 if [ $PROC == "a53" ]; then
 	PROC_DIRNAME="cpu_cortexa53"
@@ -27,7 +27,7 @@ fi
 
 BOARD_DIR=$WORKING_DIR/"$BOARD"
 
-# Embedded Sw dir relaive path from FSBL src
+# Embedded Sw dir relative path from FSBL src
 EMBEDDED_SW_DIR=$WORKING_DIR/../../../..
 
 # selection of drivers is based on the board selected
@@ -72,36 +72,43 @@ cp -r $SERVICES_DIR/xilsecure/src/common/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilsecure/src/zynqmp/*.h $BSP_DIR/include/
 
 cp -r $SERVICES_DIR/xilpm/ $BSP_DIR/libsrc/
-cp -r $SERVICES_DIR/xilpm/src/common/* $BSP_DIR/libsrc/xilpm/src/
-cp -r $SERVICES_DIR/xilpm/src/common/*.h $BSP_DIR/include/
+cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/* $BSP_DIR/libsrc/xilpm/src/
+cp -r $SERVICES_DIR/xilpm/src/zynqmp/client/common/*.h $BSP_DIR/include/
 cp $WORKING_DIR/pm_cfg_obj.c  $BSP_DIR/libsrc/xilpm/src/
 
-rm -rf $BSP_DIR/libsrc/xilpm/src/apu/
-rm -rf $BSP_DIR/libsrc/xilpm/src/common/
-rm -rf $BSP_DIR/libsrc/xilpm/src/rpu/
+rm -rf $BSP_DIR/libsrc/xilpm/src/zynqmp/
+rm -rf $BSP_DIR/libsrc/xilpm/src/versal/
 
 
 
 # copy bsp standalone code
 cp -f $STANDALONE_DIR/arm/common/*.h $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/arm/common/*.c $BSP_DIR/libsrc/standalone/src/
-cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/common/*.c $BSP_DIR/libsrc/standalone/src/
 cp -f $STANDALONE_DIR/common/*.h $BSP_DIR/libsrc/standalone/src/
+mkdir -p $BSP_DIR/libsrc/standalone/src/includes_ps
 
 if [ $PROC == "a53" ]; then
 	if [ $A53_STATE == "64" ]; then
 		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/*.c $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/*.h $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
-		cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/gcc/* $BSP_DIR/libsrc/standalone/src/
+		if [ "$CROSS_COMP" == "armclang" ]; then
+			cp -f $STANDALONE_DIR/arm/ARMv8/64bit/armclang/* $BSP_DIR/libsrc/standalone/src/
+			cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/armclang/* $BSP_DIR/libsrc/standalone/src/
+			cp -f $WORKING_DIR/Makefile_standalone_armclang $BSP_DIR/libsrc/standalone/src/Makefile
+		else
+			cp -f $STANDALONE_DIR/arm/ARMv8/64bit/gcc/* $BSP_DIR/libsrc/standalone/src/
+                        cp -f $STANDALONE_DIR/arm/ARMv8/64bit/platform/ZynqMP/gcc/* $BSP_DIR/libsrc/standalone/src/
+			cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
+		fi
 		cp $BOARD_DIR/bspconfig.h $BSP_DIR/include
 		cp $BOARD_DIR/bspconfig.h $BSP_DIR/libsrc/standalone/src/
 		#Copy xilpm src for apu
-		cp $SERVICES_DIR/xilpm/src/apu/* $BSP_DIR/libsrc/xilpm/src/
-		cp $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
+		cp $SERVICES_DIR/xilpm/src/zynqmp/client/apu/* $BSP_DIR/libsrc/xilpm/src/
+		cp $SERVICES_DIR/xilpm/src/zynqmp/client/apu/*.h $BSP_DIR/include/
 
 	elif [ $A53_STATE == "32" ]; then
+		cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/*.c $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/*.h $BSP_DIR/libsrc/standalone/src/
 		cp -f $STANDALONE_DIR/arm/ARMv8/32bit/gcc/* $BSP_DIR/libsrc/standalone/src/
@@ -110,12 +117,13 @@ if [ $PROC == "a53" ]; then
 		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/include/bspconfig.h
 		cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 		#Copy xilpm src for apu
-		cp -rf $SERVICES_DIR/xilpm/src/apu/* $BSP_DIR/libsrc/xilpm/src/
-		cp -rf $SERVICES_DIR/xilpm/src/apu/*.h $BSP_DIR/include/
+		cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/apu/* $BSP_DIR/libsrc/xilpm/src/
+		cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/apu/*.h $BSP_DIR/include/
 	fi
-		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps $BSP_DIR/libsrc/standalone/src/
-		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/* $BSP_DIR/include/
+		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/includes_ps/
+		cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/include/
 elif [ $PROC == "r5" ]; then
+	cp -f $STANDALONE_DIR/arm/common/gcc/* $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.c $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/*.h $BSP_DIR/libsrc/standalone/src/
 	cp -f $STANDALONE_DIR/arm/cortexr5/gcc/* $BSP_DIR/libsrc/standalone/src/
@@ -127,12 +135,12 @@ elif [ $PROC == "r5" ]; then
 	cp $BOARD_DIR/bspconfig32.h $BSP_DIR/libsrc/standalone/src/bspconfig.h
 
 	#copy xilpm src for rpu
-	cp -rf $SERVICES_DIR/xilpm/src/rpu/* $BSP_DIR/libsrc/xilpm/src/
-	cp -rf $SERVICES_DIR/xilpm/src/rpu/*.h $BSP_DIR/include/
+	cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/rpu/* $BSP_DIR/libsrc/xilpm/src/
+	cp -rf $SERVICES_DIR/xilpm/src/zynqmp/client/rpu/*.h $BSP_DIR/include/
 
 	#copy includes_ps from a53 directory
-	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps $BSP_DIR/libsrc/standalone/src/
-	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/* $BSP_DIR/include/
+	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/libsrc/standalone/src/includes_ps/
+	cp -rf $STANDALONE_DIR/arm/ARMv8/includes_ps/platform/ZynqMP/* $BSP_DIR/include/
 fi
 
 # copy the bsp drivers
@@ -171,4 +179,9 @@ cp -rf $STANDALONE_DIR/common/*.h $BSP_DIR/include/
 # no inbyte and outbyte present in standalone
 cp $BOARD_DIR/inbyte.c $BSP_DIR/libsrc/standalone/src/
 cp $BOARD_DIR/outbyte.c $BSP_DIR/libsrc/standalone/src/
-cp ../misc/xipipsu_g.c $BSP_DIR/libsrc/ipipsu/src/
+
+if [ $PROC == "a53" ]; then
+	cp ../misc/zcu102/a53/xipipsu_g.c $BSP_DIR/libsrc/ipipsu/src/
+elif [ $PROC == "r5" ]; then
+	cp ../misc/zcu102/r5/xipipsu_g.c $BSP_DIR/libsrc/ipipsu/src/
+fi

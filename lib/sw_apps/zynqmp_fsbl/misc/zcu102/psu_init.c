@@ -15,14 +15,12 @@
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* XILINX CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF
-* OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
+* THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
 *
-* Except as contained in this notice, the name of the Xilinx shall not be used
-* in advertising or otherwise to promote the sale, use or other dealings in
-* this Software without prior written authorization from Xilinx.
+*
 *
 ******************************************************************************/
 /****************************************************************************/
@@ -3575,7 +3573,7 @@ unsigned long psu_ddr_init_data(void)
     * : 5 The selected HIF address bit is determined by adding the internal ba
     * se to the value of this field. If set to 15, this column address bit is
     * set to 0.
-    *  PSU_DDRC_ADDRMAP2_ADDRMAP_COL_B5                            0x0
+    *  PSU_DDRC_ADDRMAP2_ADDRMAP_COL_B5                            0x1
 
     * - Full bus width mode: Selects the HIF address bit used as column addres
     * s bit 4. - Half bus width mode: Selects the HIF address bit used as colu
@@ -3584,7 +3582,7 @@ unsigned long psu_ddr_init_data(void)
     *  4 The selected HIF address bit is determined by adding the internal bas
     * e to the value of this field. If set to 15, this column address bit is s
     * et to 0.
-    *  PSU_DDRC_ADDRMAP2_ADDRMAP_COL_B4                            0x0
+    *  PSU_DDRC_ADDRMAP2_ADDRMAP_COL_B4                            0x1
 
     * - Full bus width mode: Selects the HIF address bit used as column addres
     * s bit 3. - Half bus width mode: Selects the HIF address bit used as colu
@@ -3594,7 +3592,7 @@ unsigned long psu_ddr_init_data(void)
     *  value of this field. Note, if UMCTL2_INCL_ARB=1 and MEMC_BURST_LENGTH=1
     * 6, it is required to program this to 0, hence register does not exist in
     *  this case.
-    *  PSU_DDRC_ADDRMAP2_ADDRMAP_COL_B3                            0x0
+    *  PSU_DDRC_ADDRMAP2_ADDRMAP_COL_B3                            0x1
 
     * - Full bus width mode: Selects the HIF address bit used as column addres
     * s bit 2. - Half bus width mode: Selects the HIF address bit used as colu
@@ -3606,9 +3604,9 @@ unsigned long psu_ddr_init_data(void)
     *  PSU_DDRC_ADDRMAP2_ADDRMAP_COL_B2                            0x0
 
     * Address Map Register 2
-    * (OFFSET, MASK, VALUE)      (0XFD070208, 0x0F0F0F0FU ,0x00000000U)
+    * (OFFSET, MASK, VALUE)      (0XFD070208, 0x0F0F0F0FU ,0x01010100U)
     */
-	PSU_Mask_Write(DDRC_ADDRMAP2_OFFSET, 0x0F0F0F0FU, 0x00000000U);
+	PSU_Mask_Write(DDRC_ADDRMAP2_OFFSET, 0x0F0F0F0FU, 0x01010100U);
 /*##################################################################### */
 
     /*
@@ -3625,7 +3623,7 @@ unsigned long psu_ddr_init_data(void)
     * r indicating auto-precharge, and hence no source address bit can be mapp
     * ed to column address bit 10. In LPDDR2/LPDDR3, there is a dedicated bit
     * for auto-precharge in the CA bus and hence column bit 10 is used.
-    *  PSU_DDRC_ADDRMAP3_ADDRMAP_COL_B9                            0x0
+    *  PSU_DDRC_ADDRMAP3_ADDRMAP_COL_B9                            0x1
 
     * - Full bus width mode: Selects the HIF address bit used as column addres
     * s bit 8. - Half bus width mode: Selects the HIF address bit used as colu
@@ -3638,7 +3636,7 @@ unsigned long psu_ddr_init_data(void)
     *  and hence no source address bit can be mapped to column address bit 10.
     *  In LPDDR2/LPDDR3, there is a dedicated bit for auto-precharge in the CA
     *  bus and hence column bit 10 is used.
-    *  PSU_DDRC_ADDRMAP3_ADDRMAP_COL_B8                            0x0
+    *  PSU_DDRC_ADDRMAP3_ADDRMAP_COL_B8                            0x1
 
     * - Full bus width mode: Selects the HIF address bit used as column addres
     * s bit 7. - Half bus width mode: Selects the HIF address bit used as colu
@@ -3647,7 +3645,7 @@ unsigned long psu_ddr_init_data(void)
     *  7 The selected HIF address bit is determined by adding the internal bas
     * e to the value of this field. If set to 15, this column address bit is s
     * et to 0.
-    *  PSU_DDRC_ADDRMAP3_ADDRMAP_COL_B7                            0x0
+    *  PSU_DDRC_ADDRMAP3_ADDRMAP_COL_B7                            0x1
 
     * - Full bus width mode: Selects the HIF address bit used as column addres
     * s bit 6. - Half bus width mode: Selects the HIF address bit used as colu
@@ -3656,12 +3654,12 @@ unsigned long psu_ddr_init_data(void)
     *  6 The selected HIF address bit is determined by adding the internal bas
     * e to the value of this field. If set to 15, this column address bit is s
     * et to 0.
-    *  PSU_DDRC_ADDRMAP3_ADDRMAP_COL_B6                            0x0
+    *  PSU_DDRC_ADDRMAP3_ADDRMAP_COL_B6                            0x1
 
     * Address Map Register 3
-    * (OFFSET, MASK, VALUE)      (0XFD07020C, 0x0F0F0F0FU ,0x00000000U)
+    * (OFFSET, MASK, VALUE)      (0XFD07020C, 0x0F0F0F0FU ,0x01010101U)
     */
-	PSU_Mask_Write(DDRC_ADDRMAP3_OFFSET, 0x0F0F0F0FU, 0x00000000U);
+	PSU_Mask_Write(DDRC_ADDRMAP3_OFFSET, 0x0F0F0F0FU, 0x01010101U);
 /*##################################################################### */
 
     /*
@@ -3810,12 +3808,12 @@ unsigned long psu_ddr_init_data(void)
     * ge: 0 to 30 Internal Base: 2 The selected HIF address bit for each of th
     * e bank group address bits is determined by adding the internal base to t
     * he value of this field.
-    *  PSU_DDRC_ADDRMAP8_ADDRMAP_BG_B0                             0x8
+    *  PSU_DDRC_ADDRMAP8_ADDRMAP_BG_B0                             0x1
 
     * Address Map Register 8
-    * (OFFSET, MASK, VALUE)      (0XFD070220, 0x00001F1FU ,0x00000808U)
+    * (OFFSET, MASK, VALUE)      (0XFD070220, 0x00001F1FU ,0x00000801U)
     */
-	PSU_Mask_Write(DDRC_ADDRMAP8_OFFSET, 0x00001F1FU, 0x00000808U);
+	PSU_Mask_Write(DDRC_ADDRMAP8_OFFSET, 0x00001F1FU, 0x00000801U);
 /*##################################################################### */
 
     /*
@@ -5862,12 +5860,12 @@ unsigned long psu_ddr_init_data(void)
     * Register : GPR1 @ 0XFD0800C4
 
     * General Purpose Register 1
-    *  PSU_DDR_PHY_GPR1_GPR1                                       0xdc
+    *  PSU_DDR_PHY_GPR1_GPR1                                       0xe0
 
     * General Purpose Register 1
-    * (OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000DCU)
+    * (OFFSET, MASK, VALUE)      (0XFD0800C4, 0xFFFFFFFFU ,0x000000E0U)
     */
-	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000DEU);
+	PSU_Mask_Write(DDR_PHY_GPR1_OFFSET, 0xFFFFFFFFU, 0x000000E0U);
 /*##################################################################### */
 
     /*
@@ -8296,15 +8294,15 @@ unsigned long psu_ddr_init_data(void)
     *  PSU_DDR_PHY_DX2GCR4_RESERVED_7_6                            0x0
 
     * VREF Enable control for DQ IO (Single Ended) buffers of a byte lane.
-    *  PSU_DDR_PHY_DX2GCR4_DXREFIEN                                0xf
+    *  PSU_DDR_PHY_DX2GCR4_DXREFIEN                                0x1
 
     * VRMON control for DQ IO (Single Ended) buffers of a byte lane.
     *  PSU_DDR_PHY_DX2GCR4_DXREFIMON                               0x0
 
     * DATX8 n General Configuration Register 4
-    * (OFFSET, MASK, VALUE)      (0XFD080910, 0xFFFFFFFFU ,0x0E00B03CU)
+    * (OFFSET, MASK, VALUE)      (0XFD080910, 0xFFFFFFFFU ,0x0E00B004U)
     */
-	PSU_Mask_Write(DDR_PHY_DX2GCR4_OFFSET, 0xFFFFFFFFU, 0x0E00B03CU);
+	PSU_Mask_Write(DDR_PHY_DX2GCR4_OFFSET, 0xFFFFFFFFU, 0x0E00B004U);
 /*##################################################################### */
 
     /*
@@ -8573,15 +8571,15 @@ unsigned long psu_ddr_init_data(void)
     *  PSU_DDR_PHY_DX3GCR4_RESERVED_7_6                            0x0
 
     * VREF Enable control for DQ IO (Single Ended) buffers of a byte lane.
-    *  PSU_DDR_PHY_DX3GCR4_DXREFIEN                                0xf
+    *  PSU_DDR_PHY_DX3GCR4_DXREFIEN                                0x1
 
     * VRMON control for DQ IO (Single Ended) buffers of a byte lane.
     *  PSU_DDR_PHY_DX3GCR4_DXREFIMON                               0x0
 
     * DATX8 n General Configuration Register 4
-    * (OFFSET, MASK, VALUE)      (0XFD080A10, 0xFFFFFFFFU ,0x0E00B03CU)
+    * (OFFSET, MASK, VALUE)      (0XFD080A10, 0xFFFFFFFFU ,0x0E00B004U)
     */
-	PSU_Mask_Write(DDR_PHY_DX3GCR4_OFFSET, 0xFFFFFFFFU, 0x0E00B03CU);
+	PSU_Mask_Write(DDR_PHY_DX3GCR4_OFFSET, 0xFFFFFFFFU, 0x0E00B004U);
 /*##################################################################### */
 
     /*
@@ -11486,6 +11484,191 @@ unsigned long psu_ddr_init_data(void)
 }
 unsigned long psu_ddr_qos_init_data(void)
 {
+    /*
+    * AFI INTERCONNECT QOS CONFIGURATION
+    */
+    /*
+    * Register : AFIFM_RDQoS @ 0XFD360008
+
+    * Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM0_AFIFM_RDQOS_VALUE                                0
+
+    * QoS Read Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD360008, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM0_AFIFM_RDQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_WRQoS @ 0XFD36001C
+
+    * Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM0_AFIFM_WRQOS_VALUE                                0
+
+    * QoS Write Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD36001C, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM0_AFIFM_WRQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_RDQoS @ 0XFD370008
+
+    * Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM1_AFIFM_RDQOS_VALUE                                0
+
+    * QoS Read Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD370008, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM1_AFIFM_RDQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_WRQoS @ 0XFD37001C
+
+    * Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM1_AFIFM_WRQOS_VALUE                                0
+
+    * QoS Write Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD37001C, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM1_AFIFM_WRQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_RDQoS @ 0XFD380008
+
+    * Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM2_AFIFM_RDQOS_VALUE                                0
+
+    * QoS Read Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD380008, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM2_AFIFM_RDQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_WRQoS @ 0XFD38001C
+
+    * Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM2_AFIFM_WRQOS_VALUE                                0
+
+    * QoS Write Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD38001C, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM2_AFIFM_WRQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_RDQoS @ 0XFD390008
+
+    * Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM3_AFIFM_RDQOS_VALUE                                0
+
+    * QoS Read Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD390008, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM3_AFIFM_RDQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_WRQoS @ 0XFD39001C
+
+    * Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM3_AFIFM_WRQOS_VALUE                                0
+
+    * QoS Write Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD39001C, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM3_AFIFM_WRQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_RDQoS @ 0XFD3A0008
+
+    * Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM4_AFIFM_RDQOS_VALUE                                0
+
+    * QoS Read Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD3A0008, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM4_AFIFM_RDQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_WRQoS @ 0XFD3A001C
+
+    * Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM4_AFIFM_WRQOS_VALUE                                0
+
+    * QoS Write Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD3A001C, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM4_AFIFM_WRQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_RDQoS @ 0XFD3B0008
+
+    * Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM5_AFIFM_RDQOS_VALUE                                0
+
+    * QoS Read Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD3B0008, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM5_AFIFM_RDQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_WRQoS @ 0XFD3B001C
+
+    * Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM5_AFIFM_WRQOS_VALUE                                0
+
+    * QoS Write Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFD3B001C, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM5_AFIFM_WRQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_RDQoS @ 0XFF9B0008
+
+    * Sets the level of the QoS field to be used for the read channel 4'b0000:
+    *  Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM6_AFIFM_RDQOS_VALUE                                0
+
+    * QoS Read Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFF9B0008, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM6_AFIFM_RDQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
+    /*
+    * Register : AFIFM_WRQoS @ 0XFF9B001C
+
+    * Sets the level of the QoS field to be used for the write channel 4'b0000
+    * : Lowest Priority' ' '4'b1111: Highest Priority
+    *  PSU_AFIFM6_AFIFM_WRQOS_VALUE                                0
+
+    * QoS Write Channel Register
+    * (OFFSET, MASK, VALUE)      (0XFF9B001C, 0x0000000FU ,0x00000000U)
+    */
+	PSU_Mask_Write(AFIFM6_AFIFM_WRQOS_OFFSET, 0x0000000FU, 0x00000000U);
+/*##################################################################### */
+
 
 	return 1;
 }
