@@ -175,7 +175,7 @@ proc swapp_generate {} {
         error "Invalid processor type: $proc_type"
     }
 
-    foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
+    foreach entry [glob -nocomplain -type f [file join machine *] [file join machine $procdir *] [file join system *] [file join system $osdir *] [file join system $osdir $procdir zynqmp_amp_demo *] [file join system $osdir machine *] [file join system $osdir machine $procdir *]] {
 	file copy -force $entry "."
     }
 
