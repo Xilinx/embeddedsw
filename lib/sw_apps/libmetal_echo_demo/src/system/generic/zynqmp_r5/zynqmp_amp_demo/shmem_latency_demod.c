@@ -29,18 +29,20 @@
  */
 
 /*****************************************************************************
- * ipi_latency_demod.c
+ * shmem_latency_demod.c
  * This is the remote side of the IPI latency measurement demo.
  * This demo does the follwing steps:
  *
- *  1. Open the shared memory device.
- *  1. Open the TTC timer device.
- *  2. Open the IPI device.
+ *  1. Get the shared memory device libmetal I/O region.
+ *  1. Get the TTC timer device libemtal I/O region.
+ *  2. Get IPI device libmetal I/O region and the IPI interrupt vector.
  *  3. Register IPI interrupt handler.
- *  6. When it receives IPI interrupt, the IPI interrupt handler to stop
- *     the RPU to APU TTC counter.
+ *  6. When it receives IPI interrupt, the IPI interrupt handler marked the
+ *     remote has kicked.
  *  7. Check the shared memory to see if demo is on. If the demo is on,
- *     reest the RPU to APU TTC counter and kick IPI to notify the remote.
+ *     copy data from the shared memory to local memory, stop the APU to RPU
+ *     timer. Reset the RPU to APU TTC counter, copy data from local memory
+ *     to shared memory, kick IPI to notify the remote.
  *  8. If the shared memory indicates the demo is off, cleanup resource:
  *     disable IPI interrupt and deregister the IPI interrupt handler.
  */
@@ -58,10 +60,14 @@
 #define TTC_CLK_FREQ_HZ	100000000
 
 /* Shared memory offset */
-#define SHM_DEMO_CNTRL_OFFSET    0x0
+#define SHM_DEMO_CNTRL_OFFSET 0x0 /* Shared memory for the demo status */
+#define SHM_BUFF_OFFSET_RX 0x1000 /* Shared memory RX buffer start offset */
+#define SHM_BUFF_OFFSET_TX 0x2000 /* Shared memory TX buffer start offset */
 
 #define DEMO_STATUS_IDLE         0x0
 #define DEMO_STATUS_START        0x1 /* Status value to indicate demo start */
+
+#define BUF_SIZE_MAX 4096
 
 struct channel_s {
 	struct metal_io_region *ipi_io; /* IPI metal i/o region */
@@ -69,6 +75,11 @@ struct channel_s {
 	struct metal_io_region *ttc_io; /* TTC metal i/o region */
 	uint32_t ipi_mask; /* RPU IPI mask */
 	atomic_int remote_nkicked; /* 0 - kicked from remote */
+};
+
+struct msg_hdr_s {
+	uint32_t index;
+	uint32_t len;
 };
 
 /**
@@ -131,8 +142,6 @@ static int ipi_irq_handler (int vect_id, void *priv)
 	if (ch) {
 		val = metal_io_read32(ch->ipi_io, IPI_ISR_OFFSET);
 		if (val & ch->ipi_mask) {
-			/* stop RPU -> APU timer */
-			stop_timer(ch->ttc_io, TTC_CNT_APU_TO_RPU);
 			metal_io_write32(ch->ipi_io, IPI_ISR_OFFSET,
 					ch->ipi_mask);
 			atomic_flag_clear(&ch->remote_nkicked);
@@ -144,7 +153,7 @@ static int ipi_irq_handler (int vect_id, void *priv)
 
 
 /**
- * @brief measure_ipi_latencyd() - measure IPI latency with libmetal
+ * @brief measure_shmem_latencyd() - measure shmem latency with libmetal
  *        Loop until APU tells RPU to stop via shared memory.
  *        In loop, wait for interrupt (interrupt handler stops APU to
  *        RPU TTC counter). Then reset count on RPU to APU TTC counter
@@ -153,15 +162,51 @@ static int ipi_irq_handler (int vect_id, void *priv)
  * @param[in] ch - channel information
  * @return - 0 on success, error code if failure.
  */
-static int measure_ipi_latencyd(struct channel_s *ch)
+static int measure_shmem_latencyd(struct channel_s *ch)
 {
+	void *lbuf = NULL;
+	struct msg_hdr_s *msg_hdr;
+	int ret = 0;
+
+	/* allocate memory for receiving data */
+	lbuf = metal_allocate_memory(BUF_SIZE_MAX);
+	if (!lbuf) {
+		LPERROR("Failed to allocate memory.\r\n");
+		return -1;
+	}
+
 	LPRINTF("Starting IPI latency demo\r\n");
 	while(1) {
 		wait_for_notified(&ch->remote_nkicked);
 		if (metal_io_read32(ch->shm_io, SHM_DEMO_CNTRL_OFFSET) ==
 			DEMO_STATUS_START) {
+			/* Read message header from shared memory */
+			metal_io_block_read(ch->shm_io, SHM_BUFF_OFFSET_RX,
+				lbuf, sizeof(struct msg_hdr_s));
+			msg_hdr = (struct msg_hdr_s *)lbuf;
+
+			/* Check if the message header is valid */
+			if (msg_hdr->len > (BUF_SIZE_MAX - sizeof(*msg_hdr))) {
+				LPERROR("wrong msg: length invalid: %u, %u.\n",
+					BUF_SIZE_MAX - sizeof(*msg_hdr),
+					msg_hdr->len);
+				ret = -EINVAL;
+				goto out;
+			}
+			/* Read message */
+			metal_io_block_read(ch->shm_io,
+					SHM_BUFF_OFFSET_RX + sizeof(*msg_hdr),
+					lbuf + sizeof(*msg_hdr), msg_hdr->len);
+			/* Stop APU to RPU TTC counter */
+			stop_timer(ch->ttc_io, TTC_CNT_APU_TO_RPU);
+
 			/* Reset RPU to APU TTC counter */
 			reset_timer(ch->ttc_io, TTC_CNT_RPU_TO_APU);
+			/* Copy the message back to the other end */
+			metal_io_block_write(ch->shm_io, SHM_BUFF_OFFSET_TX,
+					msg_hdr,
+					sizeof(*msg_hdr) + msg_hdr->len);
+
 			/* Kick IPI to notify the remote */
 			metal_io_write32(ch->ipi_io, IPI_TRIG_OFFSET,
 					ch->ipi_mask);
@@ -169,18 +214,20 @@ static int measure_ipi_latencyd(struct channel_s *ch)
 			break;
 		}
 	}
-	return 0;
+
+out:
+	metal_free_memory(lbuf);
+	return ret;
 }
 
-int ipi_latency_demod()
+int shmem_latency_demod()
 {
 	struct channel_s ch;
 	int ipi_irq;
 	int ret = 0;
 
-	print_demo("IPI latency");
+	print_demo("shared memory latency");
 	memset(&ch, 0, sizeof(ch));
-
 
 	/* Get shared memory device IO region */
 	if (!shm_dev) {
@@ -228,12 +275,12 @@ int ipi_latency_demod()
 	metal_io_write32(ch.ipi_io, IPI_IER_OFFSET, IPI_MASK);
 
 	/* Run atomic operation demo */
-	ret = measure_ipi_latencyd(&ch);
+	ret = measure_shmem_latencyd(&ch);
 
 	/* disable IPI interrupt */
 	metal_io_write32(ch.ipi_io, IPI_IDR_OFFSET, IPI_MASK);
-	/* deregister IPI irq handler by setting the handler to 0 */
-	metal_irq_register(ipi_irq, 0, ipi_dev, &ch);
+	/* unregister IPI irq handler */
+	metal_irq_unregister(ipi_irq, 0, ipi_dev, &ch);
 
 out:
 	return ret;
