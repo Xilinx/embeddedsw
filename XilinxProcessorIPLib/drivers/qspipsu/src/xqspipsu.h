@@ -129,7 +129,7 @@
 * 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
 *                    commands.
 * 1.7	tjs	12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
-*
+* 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
 * </pre>
 *
 ******************************************************************************/
