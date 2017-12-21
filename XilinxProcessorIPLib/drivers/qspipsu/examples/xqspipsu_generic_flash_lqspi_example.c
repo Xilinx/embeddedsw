@@ -85,6 +85,7 @@
 * 1.7   tjs 11/16/17 Removed the unsupported 4 Byte write and sector erase
 *                    commands.
 * 1.7	tjs	12/01/17 Added support for MT25QL02G Flash from Micron. CR-990642
+* 1.7	tjs 12/19/17 Added support for S25FL064L from Spansion. CR-990724
 *</pre>
 *
 ******************************************************************************/
@@ -110,6 +111,7 @@
 #define WRITE_DISABLE_CMD	0x04
 #define READ_STATUS_CMD		0x05
 #define WRITE_ENABLE_CMD	0x06
+#define VOLATILE_WRITE_ENABLE_CMD	0x50
 #define FAST_READ_CMD		0x0B
 #define DUAL_READ_CMD		0x3B
 #define QUAD_READ_CMD		0x6B
@@ -213,6 +215,7 @@
 #define MICRON_ID_BYTE2_2G	0x22
 
 #define SPANSION_ID_BYTE0		0x01
+#define SPANSION_ID_BYTE2_64	0x17
 #define SPANSION_ID_BYTE2_128	0x18
 #define SPANSION_ID_BYTE2_256	0x19
 #define SPANSION_ID_BYTE2_512	0x20
@@ -231,15 +234,18 @@
  */
 /* Spansion*/
 #define SPANSION_INDEX_START			0
-#define FLASH_CFG_TBL_SINGLE_128_SP		SPANSION_INDEX_START
-#define FLASH_CFG_TBL_STACKED_128_SP	(SPANSION_INDEX_START + 1)
-#define FLASH_CFG_TBL_PARALLEL_128_SP	(SPANSION_INDEX_START + 2)
-#define FLASH_CFG_TBL_SINGLE_256_SP		(SPANSION_INDEX_START + 3)
-#define FLASH_CFG_TBL_STACKED_256_SP	(SPANSION_INDEX_START + 4)
-#define FLASH_CFG_TBL_PARALLEL_256_SP	(SPANSION_INDEX_START + 5)
-#define FLASH_CFG_TBL_SINGLE_512_SP		(SPANSION_INDEX_START + 6)
-#define FLASH_CFG_TBL_STACKED_512_SP	(SPANSION_INDEX_START + 7)
-#define FLASH_CFG_TBL_PARALLEL_512_SP	(SPANSION_INDEX_START + 8)
+#define FLASH_CFG_TBL_SINGLE_64_SP		SPANSION_INDEX_START
+#define FLASH_CFG_TBL_STACKED_64_SP		(SPANSION_INDEX_START + 1)
+#define FLASH_CFG_TBL_PARALLEL_64_SP	(SPANSION_INDEX_START + 2)
+#define FLASH_CFG_TBL_SINGLE_128_SP		(SPANSION_INDEX_START + 3)
+#define FLASH_CFG_TBL_STACKED_128_SP	(SPANSION_INDEX_START + 4)
+#define FLASH_CFG_TBL_PARALLEL_128_SP	(SPANSION_INDEX_START + 5)
+#define FLASH_CFG_TBL_SINGLE_256_SP		(SPANSION_INDEX_START + 6)
+#define FLASH_CFG_TBL_STACKED_256_SP	(SPANSION_INDEX_START + 7)
+#define FLASH_CFG_TBL_PARALLEL_256_SP	(SPANSION_INDEX_START + 8)
+#define FLASH_CFG_TBL_SINGLE_512_SP		(SPANSION_INDEX_START + 9)
+#define FLASH_CFG_TBL_STACKED_512_SP	(SPANSION_INDEX_START + 10)
+#define FLASH_CFG_TBL_PARALLEL_512_SP	(SPANSION_INDEX_START + 11)
 
 /* Micron */
 #define MICRON_INDEX_START				(FLASH_CFG_TBL_PARALLEL_512_SP + 1)
@@ -350,11 +356,18 @@ static int QspiPsuSetupIntrSystem(XScuGic *IntcInstancePtr,
 static void QspiPsuDisableIntrSystem(XScuGic *IntcInstancePtr, u16 QspiPsuIntrId);
 void QspiPsuHandler(void *CallBackRef, u32 StatusEvent, unsigned int ByteCount);
 int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable);
+int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr);
 /************************** Variable Definitions *****************************/
 u8 TxBfrPtr;
 u8 ReadBfrPtr[3];
-FlashInfo Flash_Config_Table[33] = {
+FlashInfo Flash_Config_Table[36] = {
 		/* Spansion */
+		{0x10000, 0x80, 256, 0x8000, 0x800000,
+				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_64, 0xFFFF0000, 1},
+		{0x10000, 0x100, 256, 0x10000, 0x800000,
+				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_64, 0xFFFF0000, 1},
+		{0x20000, 0x80, 512, 0x8000, 0x800000,
+				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_64, 0xFFFE0000, 1},
 		{0x10000, 0x100, 256, 0x10000, 0x1000000,
 				SPANSION_ID_BYTE0, SPANSION_ID_BYTE2_128, 0xFFFF0000, 1},
 		{0x10000, 0x200, 256, 0x20000, 0x1000000,
@@ -666,6 +679,14 @@ int QspiPsuInterruptFlashExample(XScuGic *IntcInstancePtr, XQspiPsu *QspiPsuInst
 	MaxData = PAGE_COUNT * (Flash_Config_Table[FCTIndex].PageSize);
 
 	/*
+	 * Some flash needs to enable Quad mode before using
+	 * quad commands.
+	 */
+	Status = FlashEnableQuadMode(QspiPsuInstancePtr);
+	if(Status != XST_SUCCESS)
+		return XST_FAILURE;
+
+	/*
 	 * Address size and read command selection
 	 * Micron flash on REMUS doesn't support these 4B write/erase commands
 	 */
@@ -845,6 +866,25 @@ int FlashReadID(XQspiPsu *QspiPsuPtr)
 	 * If valid flash ID, then check connection mode & size and
 	 * assign corresponding index in the Flash configuration table
 	 */
+	if((FlashMake == SPANSION_ID_BYTE0) ||
+			(ReadBfrPtr[2] == SPANSION_ID_BYTE2_64)) {
+		switch(QspiPsuPtr->Config.ConnectionMode)
+		{
+			case XQSPIPSU_CONNECTION_MODE_SINGLE:
+				FCTIndex = FLASH_CFG_TBL_SINGLE_64_SP + StartIndex;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_PARALLEL:
+				FCTIndex = FLASH_CFG_TBL_PARALLEL_64_SP + StartIndex;
+				break;
+			case XQSPIPSU_CONNECTION_MODE_STACKED:
+				FCTIndex = FLASH_CFG_TBL_STACKED_64_SP + StartIndex;
+				break;
+			default:
+				FCTIndex = 0;
+				break;
+		}
+	}
+
 	if(((FlashMake == MICRON_ID_BYTE0) || (FlashMake == SPANSION_ID_BYTE0)||
 			(FlashMake == WINBOND_ID_BYTE0)) &&
 			(ReadBfrPtr[2] == MICRON_ID_BYTE2_128)) {
@@ -2033,5 +2073,128 @@ int FlashEnterExit4BAddMode(XQspiPsu *QspiPsuPtr,unsigned int Enable)
 			 */
 			break;
 	}
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief
+* This API enables Quad mode for the flash parts which require to enable quad
+* mode before using Quad commands.
+* For S25FL-L series flash parts this is required as the default configuration
+* is x1/x2 mode.
+*
+* @param	QspiPtr is a pointer to the QSPIPSU driver component to use.
+*
+* @return
+*		- XST_SUCCESS if successful.
+*		- XST_FAILURE if it fails.
+*
+*
+******************************************************************************/
+int FlashEnableQuadMode(XQspiPsu *QspiPsuPtr)
+{
+	int Status;
+	u8 WriteEnableCmd;
+	u8 WriteBuffer[2] = {0};
+	u8 FlashStatus[2] = {0};
+
+	switch (FlashMake) {
+		case SPANSION_ID_BYTE0:
+			if (FCTIndex <= 2) {
+				TxBfrPtr = READ_CONFIG_CMD;
+				FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				FlashMsg[1].TxBfrPtr = NULL;
+				FlashMsg[1].RxBfrPtr = &WriteBuffer[2];
+				FlashMsg[1].ByteCount = 1;
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+				TransferInProgress = TRUE;
+				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				while(TransferInProgress);
+
+				WriteEnableCmd = VOLATILE_WRITE_ENABLE_CMD;
+				/*
+				 * Send the write enable command to the Flash so that it can be
+				 * written to, this needs to be sent as a separate transfer before
+				 * the write
+				 */
+				FlashMsg[0].TxBfrPtr = &WriteEnableCmd;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				TransferInProgress = TRUE;
+				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				while(TransferInProgress);
+
+				GetRealAddr(QspiPsuPtr,TEST_ADDRESS);
+
+				WriteBuffer[0] = WRITE_CONFIG_CMD;
+				WriteBuffer[1] |= 0;
+				WriteBuffer[2] |= 1 << 1;
+
+				FlashMsg[0].TxBfrPtr = WriteBuffer;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+				FlashMsg[0].ByteCount = 3;
+
+				TransferInProgress = TRUE;
+				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 1);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				while(TransferInProgress);
+
+				TxBfrPtr = READ_CONFIG_CMD;
+				FlashMsg[0].TxBfrPtr = &TxBfrPtr;
+				FlashMsg[0].RxBfrPtr = NULL;
+				FlashMsg[0].ByteCount = 1;
+				FlashMsg[0].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[0].Flags = XQSPIPSU_MSG_FLAG_TX;
+
+				FlashMsg[1].TxBfrPtr = NULL;
+				FlashMsg[1].RxBfrPtr = ReadBfrPtr;
+				FlashMsg[1].ByteCount = 1;
+				FlashMsg[1].BusWidth = XQSPIPSU_SELECT_MODE_SPI;
+				FlashMsg[1].Flags = XQSPIPSU_MSG_FLAG_RX;
+
+				TransferInProgress = TRUE;
+				Status = XQspiPsu_InterruptTransfer(QspiPsuPtr, FlashMsg, 2);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				while(TransferInProgress);
+
+				if(ReadBfrPtr[0] & 0x02)
+					Status = XST_SUCCESS;
+				else
+					Status = XST_FAILURE;
+			}
+			break;
+
+		default:
+			/*
+			 * Currently only S25FL-L series requires the
+			 * Quad enable bit to be set to 1.
+			 */
+			Status = XST_SUCCESS;
+			break;
+	}
+
 	return Status;
 }
