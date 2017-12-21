@@ -92,7 +92,11 @@
 /******************************************************************/
 
 
+<<<<<<< HEAD
 #define XPAR_PSU_PSS_REF_CLK_FREQ_HZ 33330000U
+=======
+#define XPAR_PSU_PSS_REF_CLK_FREQ_HZ 33333000U
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 #define PSU_PMU 1U
 #define XPS_BOARD_ZCU102
@@ -320,7 +324,11 @@
 #define XPAR_PSU_CAN_1_DEVICE_ID 0
 #define XPAR_PSU_CAN_1_BASEADDR 0xFF070000
 #define XPAR_PSU_CAN_1_HIGHADDR 0xFF07FFFF
+<<<<<<< HEAD
 #define XPAR_PSU_CAN_1_CAN_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_PSU_CAN_1_CAN_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /******************************************************************/
@@ -329,7 +337,11 @@
 #define XPAR_XCANPS_0_DEVICE_ID XPAR_PSU_CAN_1_DEVICE_ID
 #define XPAR_XCANPS_0_BASEADDR 0xFF070000
 #define XPAR_XCANPS_0_HIGHADDR 0xFF07FFFF
+<<<<<<< HEAD
 #define XPAR_XCANPS_0_CAN_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_XCANPS_0_CAN_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /******************************************************************/
@@ -363,7 +375,11 @@
 #define XPAR_PSU_DDRC_0_BASEADDR 0xFD070000
 #define XPAR_PSU_DDRC_0_HIGHADDR 0xFD070FFF
 #define XPAR_PSU_DDRC_0_HAS_ECC 0
+<<<<<<< HEAD
 #define XPAR_PSU_DDRC_0_DDRC_CLK_FREQ_HZ 533280000
+=======
+#define XPAR_PSU_DDRC_0_DDRC_CLK_FREQ_HZ 533328000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /******************************************************************/
@@ -372,7 +388,11 @@
 #define XPAR_DDRCPSU_0_DEVICE_ID XPAR_PSU_DDRC_0_DEVICE_ID
 #define XPAR_DDRCPSU_0_BASEADDR 0xFD070000
 #define XPAR_DDRCPSU_0_HIGHADDR 0xFD070FFF
+<<<<<<< HEAD
 #define XPAR_DDRCPSU_0_DDRC_CLK_FREQ_HZ 533280000
+=======
+#define XPAR_DDRCPSU_0_DDRC_CLK_FREQ_HZ 533328000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /******************************************************************/
@@ -403,7 +423,11 @@
 #define XPAR_PSU_ETHERNET_3_DEVICE_ID 0
 #define XPAR_PSU_ETHERNET_3_BASEADDR 0xFF0E0000
 #define XPAR_PSU_ETHERNET_3_HIGHADDR 0xFF0EFFFF
+<<<<<<< HEAD
 #define XPAR_PSU_ETHERNET_3_ENET_CLK_FREQ_HZ 124987000
+=======
+#define XPAR_PSU_ETHERNET_3_ENET_CLK_FREQ_HZ 124999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV0 12
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_1000MBPS_DIV1 1
 #define XPAR_PSU_ETHERNET_3_ENET_SLCR_100MBPS_DIV0 60
@@ -419,7 +443,11 @@
 #define XPAR_XEMACPS_0_DEVICE_ID XPAR_PSU_ETHERNET_3_DEVICE_ID
 #define XPAR_XEMACPS_0_BASEADDR 0xFF0E0000
 #define XPAR_XEMACPS_0_HIGHADDR 0xFF0EFFFF
+<<<<<<< HEAD
 #define XPAR_XEMACPS_0_ENET_CLK_FREQ_HZ 124987000
+=======
+#define XPAR_XEMACPS_0_ENET_CLK_FREQ_HZ 124999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_XEMACPS_0_ENET_SLCR_1000Mbps_DIV0 12
 #define XPAR_XEMACPS_0_ENET_SLCR_1000Mbps_DIV1 1
 #define XPAR_XEMACPS_0_ENET_SLCR_100Mbps_DIV0 60
@@ -496,11 +524,14 @@
 #define XPAR_PSU_CRL_APB_S_AXI_HIGHADDR 0xFF85FFFF
 
 
+<<<<<<< HEAD
 /* Definitions for peripheral PSU_CSU_WDT */
 #define XPAR_PSU_CSU_WDT_S_AXI_BASEADDR 0xFFCB0000
 #define XPAR_PSU_CSU_WDT_S_AXI_HIGHADDR 0xFFCBFFFF
 
 
+=======
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 /* Definitions for peripheral PSU_CTRL_IPI */
 #define XPAR_PSU_CTRL_IPI_S_AXI_BASEADDR 0xFF380000
 #define XPAR_PSU_CTRL_IPI_S_AXI_HIGHADDR 0xFF3FFFFF
@@ -794,14 +825,22 @@
 #define XPAR_PSU_I2C_0_DEVICE_ID 0
 #define XPAR_PSU_I2C_0_BASEADDR 0xFF020000
 #define XPAR_PSU_I2C_0_HIGHADDR 0xFF02FFFF
+<<<<<<< HEAD
 #define XPAR_PSU_I2C_0_I2C_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_PSU_I2C_0_I2C_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /* Definitions for peripheral PSU_I2C_1 */
 #define XPAR_PSU_I2C_1_DEVICE_ID 1
 #define XPAR_PSU_I2C_1_BASEADDR 0xFF030000
 #define XPAR_PSU_I2C_1_HIGHADDR 0xFF03FFFF
+<<<<<<< HEAD
 #define XPAR_PSU_I2C_1_I2C_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_PSU_I2C_1_I2C_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /******************************************************************/
@@ -810,13 +849,21 @@
 #define XPAR_XIICPS_0_DEVICE_ID XPAR_PSU_I2C_0_DEVICE_ID
 #define XPAR_XIICPS_0_BASEADDR 0xFF020000
 #define XPAR_XIICPS_0_HIGHADDR 0xFF02FFFF
+<<<<<<< HEAD
 #define XPAR_XIICPS_0_I2C_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_XIICPS_0_I2C_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 /* Canonical definitions for peripheral PSU_I2C_1 */
 #define XPAR_XIICPS_1_DEVICE_ID XPAR_PSU_I2C_1_DEVICE_ID
 #define XPAR_XIICPS_1_BASEADDR 0xFF030000
 #define XPAR_XIICPS_1_HIGHADDR 0xFF03FFFF
+<<<<<<< HEAD
 #define XPAR_XIICPS_1_I2C_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_XIICPS_1_I2C_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /******************************************************************/
@@ -879,7 +926,11 @@
 #define  XPAR_XIPIPSU_3_BUFFER_INDEX	XPAR_PSU_IPI_6_BUFFER_INDEX
 #define  XPAR_XIPIPSU_3_INT_ID	XPAR_PSU_IPI_6_INT_ID
 
+<<<<<<< HEAD
 #define  XPAR_XIPIPSU_NUM_TARGETS  7U
+=======
+#define  XPAR_XIPIPSU_NUM_TARGETS  11U
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 #define  XPAR_PSU_IPI_0_BIT_MASK  0x00000001U
 #define  XPAR_PSU_IPI_0_BUFFER_INDEX  2U
@@ -939,7 +990,11 @@
 #define XPAR_PSU_QSPI_0_DEVICE_ID 0
 #define XPAR_PSU_QSPI_0_BASEADDR 0xFF0F0000
 #define XPAR_PSU_QSPI_0_HIGHADDR 0xFF0FFFFF
+<<<<<<< HEAD
 #define XPAR_PSU_QSPI_0_QSPI_CLK_FREQ_HZ 124987000
+=======
+#define XPAR_PSU_QSPI_0_QSPI_CLK_FREQ_HZ 124999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_PSU_QSPI_0_QSPI_MODE 2
 #define XPAR_PSU_QSPI_0_QSPI_BUS_WIDTH 2
 
@@ -951,7 +1006,11 @@
 #define XPAR_XQSPIPSU_0_DEVICE_ID XPAR_PSU_QSPI_0_DEVICE_ID
 #define XPAR_XQSPIPSU_0_BASEADDR 0xFF0F0000
 #define XPAR_XQSPIPSU_0_HIGHADDR 0xFF0FFFFF
+<<<<<<< HEAD
 #define XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ 124987000
+=======
+#define XPAR_XQSPIPSU_0_QSPI_CLK_FREQ_HZ 124999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_XQSPIPSU_0_QSPI_MODE 2
 #define XPAR_XQSPIPSU_0_QSPI_BUS_WIDTH 2
 
@@ -984,7 +1043,11 @@
 #define XPAR_PSU_SD_1_DEVICE_ID 0
 #define XPAR_PSU_SD_1_BASEADDR 0xFF170000
 #define XPAR_PSU_SD_1_HIGHADDR 0xFF17FFFF
+<<<<<<< HEAD
 #define XPAR_PSU_SD_1_SDIO_CLK_FREQ_HZ 187481000
+=======
+#define XPAR_PSU_SD_1_SDIO_CLK_FREQ_HZ 187498000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_PSU_SD_1_HAS_CD 1
 #define XPAR_PSU_SD_1_HAS_WP 1
 #define XPAR_PSU_SD_1_BUS_WIDTH 8
@@ -999,7 +1062,11 @@
 #define XPAR_XSDPS_0_DEVICE_ID XPAR_PSU_SD_1_DEVICE_ID
 #define XPAR_XSDPS_0_BASEADDR 0xFF170000
 #define XPAR_XSDPS_0_HIGHADDR 0xFF17FFFF
+<<<<<<< HEAD
 #define XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ 187481000
+=======
+#define XPAR_XSDPS_0_SDIO_CLK_FREQ_HZ 187498000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_XSDPS_0_HAS_CD 1
 #define XPAR_XSDPS_0_HAS_WP 1
 #define XPAR_XSDPS_0_BUS_WIDTH 8
@@ -1167,7 +1234,11 @@
 #define XPAR_PSU_UART_0_DEVICE_ID 0
 #define XPAR_PSU_UART_0_BASEADDR 0xFF000000
 #define XPAR_PSU_UART_0_HIGHADDR 0xFF00FFFF
+<<<<<<< HEAD
 #define XPAR_PSU_UART_0_UART_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_PSU_UART_0_UART_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_PSU_UART_0_HAS_MODEM 0
 
 
@@ -1175,7 +1246,11 @@
 #define XPAR_PSU_UART_1_DEVICE_ID 1
 #define XPAR_PSU_UART_1_BASEADDR 0xFF010000
 #define XPAR_PSU_UART_1_HIGHADDR 0xFF01FFFF
+<<<<<<< HEAD
 #define XPAR_PSU_UART_1_UART_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_PSU_UART_1_UART_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_PSU_UART_1_HAS_MODEM 0
 
 
@@ -1185,14 +1260,22 @@
 #define XPAR_XUARTPS_0_DEVICE_ID XPAR_PSU_UART_0_DEVICE_ID
 #define XPAR_XUARTPS_0_BASEADDR 0xFF000000
 #define XPAR_XUARTPS_0_HIGHADDR 0xFF00FFFF
+<<<<<<< HEAD
 #define XPAR_XUARTPS_0_UART_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_XUARTPS_0_UART_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_XUARTPS_0_HAS_MODEM 0
 
 /* Canonical definitions for peripheral PSU_UART_1 */
 #define XPAR_XUARTPS_1_DEVICE_ID XPAR_PSU_UART_1_DEVICE_ID
 #define XPAR_XUARTPS_1_BASEADDR 0xFF010000
 #define XPAR_XUARTPS_1_HIGHADDR 0xFF01FFFF
+<<<<<<< HEAD
 #define XPAR_XUARTPS_1_UART_CLK_FREQ_HZ 99990000
+=======
+#define XPAR_XUARTPS_1_UART_CLK_FREQ_HZ 99999000
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 #define XPAR_XUARTPS_1_HAS_MODEM 0
 
 
@@ -1219,6 +1302,7 @@
 /******************************************************************/
 
 /* Definitions for driver WDTPS */
+<<<<<<< HEAD
 #define XPAR_XWDTPS_NUM_INSTANCES 2
 
 /* Definitions for peripheral PSU_WDT_0 */
@@ -1233,10 +1317,34 @@
 #define XPAR_PSU_WDT_1_BASEADDR 0xFD4D0000
 #define XPAR_PSU_WDT_1_HIGHADDR 0xFD4DFFFF
 #define XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ 99989998
+=======
+#define XPAR_XWDTPS_NUM_INSTANCES 3
+
+/* Definitions for peripheral PSU_CSU_WDT */
+#define XPAR_PSU_CSU_WDT_DEVICE_ID 0
+#define XPAR_PSU_CSU_WDT_BASEADDR 0xFFCB0000
+#define XPAR_PSU_CSU_WDT_HIGHADDR 0xFFCBFFFF
+#define XPAR_PSU_CSU_WDT_WDT_CLK_FREQ_HZ 100000000
+
+
+/* Definitions for peripheral PSU_WDT_0 */
+#define XPAR_PSU_WDT_0_DEVICE_ID 1
+#define XPAR_PSU_WDT_0_BASEADDR 0xFF150000
+#define XPAR_PSU_WDT_0_HIGHADDR 0xFF15FFFF
+#define XPAR_PSU_WDT_0_WDT_CLK_FREQ_HZ 99999001
+
+
+/* Definitions for peripheral PSU_WDT_1 */
+#define XPAR_PSU_WDT_1_DEVICE_ID 2
+#define XPAR_PSU_WDT_1_BASEADDR 0xFD4D0000
+#define XPAR_PSU_WDT_1_HIGHADDR 0xFD4DFFFF
+#define XPAR_PSU_WDT_1_WDT_CLK_FREQ_HZ 99999001
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /******************************************************************/
 
+<<<<<<< HEAD
 /* Canonical definitions for peripheral PSU_WDT_0 */
 #define XPAR_XWDTPS_0_DEVICE_ID XPAR_PSU_WDT_0_DEVICE_ID
 #define XPAR_XWDTPS_0_BASEADDR 0xFF150000
@@ -1248,6 +1356,25 @@
 #define XPAR_XWDTPS_1_BASEADDR 0xFD4D0000
 #define XPAR_XWDTPS_1_HIGHADDR 0xFD4DFFFF
 #define XPAR_XWDTPS_1_WDT_CLK_FREQ_HZ 99989998
+=======
+/* Canonical definitions for peripheral PSU_CSU_WDT */
+#define XPAR_XWDTPS_0_DEVICE_ID XPAR_PSU_CSU_WDT_DEVICE_ID
+#define XPAR_XWDTPS_0_BASEADDR 0xFFCB0000
+#define XPAR_XWDTPS_0_HIGHADDR 0xFFCBFFFF
+#define XPAR_XWDTPS_0_WDT_CLK_FREQ_HZ 100000000
+
+/* Canonical definitions for peripheral PSU_WDT_0 */
+#define XPAR_XWDTPS_1_DEVICE_ID XPAR_PSU_WDT_0_DEVICE_ID
+#define XPAR_XWDTPS_1_BASEADDR 0xFF150000
+#define XPAR_XWDTPS_1_HIGHADDR 0xFF15FFFF
+#define XPAR_XWDTPS_1_WDT_CLK_FREQ_HZ 99999001
+
+/* Canonical definitions for peripheral PSU_WDT_1 */
+#define XPAR_XWDTPS_2_DEVICE_ID XPAR_PSU_WDT_1_DEVICE_ID
+#define XPAR_XWDTPS_2_BASEADDR 0xFD4D0000
+#define XPAR_XWDTPS_2_HIGHADDR 0xFD4DFFFF
+#define XPAR_XWDTPS_2_WDT_CLK_FREQ_HZ 99999001
+>>>>>>> PMUFW: Add misc folder to PMU Firmware
 
 
 /******************************************************************/
