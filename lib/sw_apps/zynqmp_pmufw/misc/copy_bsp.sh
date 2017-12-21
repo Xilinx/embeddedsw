@@ -46,7 +46,7 @@ fi
 # copy the libraries required
 mkdir -p $BSP_DIR/libsrc/xilfpga/src/
 cp -r $SERVICES_DIR/xilfpga/src/* $BSP_DIR/libsrc/xilfpga/src
-cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/* $BSP_DIR/libsrc/xilfpga/src
+cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/xilfpga_pcap.c $BSP_DIR/libsrc/xilfpga/src
 cp -r $SERVICES_DIR/xilfpga/src/*.h $BSP_DIR/include/
 cp -r $SERVICES_DIR/xilfpga/src/interface/zynqmp/*.h $BSP_DIR/include/
 rm -r $BSP_DIR/libsrc/xilfpga/src/interface/
