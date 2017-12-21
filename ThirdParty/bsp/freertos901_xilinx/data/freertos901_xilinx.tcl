@@ -20,7 +20,8 @@
 
 # standalone bsp version. set this to the latest "ACTIVE" version.
 # set standalone_version [hsi::get_sw_cores standalone_* -filter {CORE_STATE == "ACTIVE"}]
-# for co-existing 2007.1 versions, you must specify the exact version number of standalone
+# for co-existing with old 2007.1, which is possibly that you may have now
+# you must specify the exact version number of standalone
 set standalone_version standalone_v6_4
 
 proc FreeRTOS_drc {os_handle} {
