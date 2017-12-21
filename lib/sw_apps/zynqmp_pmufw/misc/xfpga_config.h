@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Copyright (C) 2010 - 2017 Xilinx, Inc.  All rights reserved.
+ * Copyright (C) 2010 - 2019 Xilinx, Inc.  All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,8 +28,18 @@
 
 #ifndef _XFPGA_CONFIG_H
 #define _XFPGA_CONFIG_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define XFPGA_OCM_ADDRESS 0xfffc0000
 #define XFPGA_NUMBYTES  100000
 #define XFPGA_BASE_ADDRESS 0x80000
 #define XFPGA_DEBUG 0
+
+#ifdef __cplusplus
+}
 #endif
+
+#endif /* _XFPGA_CONFIG_H */
