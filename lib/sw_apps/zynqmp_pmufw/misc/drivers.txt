@@ -1,0 +1,10 @@
+csudma
+uartps
+ipipsu
+ttcps
+emacps
+iicps
+sdps
+qspipsu
+gpiops
+usbpsu
